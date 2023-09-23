@@ -129,7 +129,11 @@ struct NameScores
 
   void UpdateIfBetter(NameScores const & rhs)
   {
-    auto const newNameScoreIsBetter = m_nameScore < rhs.m_nameScore;
+    auto newNameScoreIsBetter = m_nameScore < rhs.m_nameScore;
+    // FULL_PREFIX with 0 errors is better than FULL_MATCH with 2 errors.
+    if (newNameScoreIsBetter && m_nameScore == NameScore::FULL_PREFIX && m_errorsMade.IsBetterThan(rhs.m_errorsMade))
+      newNameScoreIsBetter = false;
+
     auto const nameScoresAreEqual = m_nameScore == rhs.m_nameScore;
     auto const newLanguageIsBetter = m_isAltOrOldName && !rhs.m_isAltOrOldName;
     auto const languagesAreEqual = m_isAltOrOldName == rhs.m_isAltOrOldName;

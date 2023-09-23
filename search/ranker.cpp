@@ -54,41 +54,44 @@ void UpdateNameScores(TokensVector & tokens, uint8_t lang, Slice const & slice, 
 }
 
 // This function supports only street names like "abcdstrasse"/"abcd strasse".
-vector<vector<strings::UniString>> ModifyStrasse(vector<strings::UniString> const & streetTokens)
+/// @see Also FeatureNameInserter::AddDACHNames
+vector<vector<strings::UniString>> ModifyDACHStreet(vector<strings::UniString> const & streetTokens)
 {
-  vector<vector<strings::UniString>> result;
-  auto static const kStrasse = strings::MakeUniString("strasse");
-  auto static const kStr = strings::MakeUniString("str");
   auto const size = streetTokens.size();
+  ASSERT_GREATER(size, 0, ());
 
-  if (size == 0 || !strings::EndsWith(streetTokens.back(), kStrasse))
-    return {};
-
-  if (streetTokens.back() == kStrasse)
+  vector<vector<strings::UniString>> result;
+  for (auto const & sx : GetDACHStreets())
   {
-    if (size == 1)
-      return {};
+    if (!strings::EndsWith(streetTokens.back(), sx.first))
+      continue;
 
-    // "Abcd strasse" -> "abcdstrasse".
-    result.emplace_back(streetTokens.begin(), streetTokens.end() - 1);
-    result.back().back() += kStrasse;
+    if (streetTokens.back() == sx.first)
+    {
+      if (size == 1)
+        return {};
 
-    // "Abcd strasse" -> "abcdstr".
-    result.emplace_back(streetTokens.begin(), streetTokens.end() - 1);
-    result.back().back() += kStr;
-    return result;
+      // "Abcd strasse" -> "abcdstrasse".
+      result.emplace_back(streetTokens.begin(), streetTokens.end() - 1);
+      result.back().back() += sx.first;
+
+      // "Abcd strasse" -> "abcdstr".
+      result.emplace_back(streetTokens.begin(), streetTokens.end() - 1);
+      result.back().back() += sx.second;
+      return result;
+    }
+
+    // "Abcdstrasse" -> "abcd strasse".
+    auto const name = strings::UniString(streetTokens.back().begin(), streetTokens.back().end() - sx.first.size());
+    result.push_back(streetTokens);
+    result.back().back() = name;
+    result.back().push_back(sx.first);
+
+    // "Abcdstrasse" -> "abcdstr".
+    result.push_back(streetTokens);
+    result.back().back() = name + sx.second;
   }
 
-  // "Abcdstrasse" -> "abcd strasse".
-  auto const name =
-      strings::UniString(streetTokens.back().begin(), streetTokens.back().end() - kStrasse.size());
-  result.push_back(streetTokens);
-  result.back().back() = name;
-  result.back().push_back(kStrasse);
-
-  // "Abcdstrasse" -> "abcdstr".
-  result.push_back(streetTokens);
-  result.back().back() = name + kStr;
   return result;
 }
 
@@ -129,19 +132,18 @@ NameScores GetNameScores(FeatureType & ft, Geocoder::Params const & params,
       /// 2. Make an optimization: If there are no synonyms or "strasse", skip this step.
       if (type == Model::TYPE_STREET)
       {
-        // Searching for "Santa Fe" should rank "Avenida Satna Fe" like FULL_MATCH or FULL_PREFIX, but not SUBSTRING.
+        // Searching for "Santa Fe" should rank "Avenida Santa Fe" like FULL_MATCH or FULL_PREFIX, but not SUBSTRING.
         {
           TokensVector cleaned(RemoveStreetSynonyms(vec.GetTokens()));
           UpdateNameScores(cleaned, lang, slice, bestScores);
           UpdateNameScores(cleaned, lang, sliceNoCategories, bestScores);
         }
 
-        /// @todo Should definitely add "platz"-"pl". And maybe "gasse"-"g", "allee"-"al"?
-        for (auto & variant : ModifyStrasse(vec.GetTokens()))
+        for (auto & variant : ModifyDACHStreet(vec.GetTokens()))
         {
-          TokensVector vec(std::move(variant));
-          UpdateNameScores(vec, lang, slice, bestScores);
-          UpdateNameScores(vec, lang, sliceNoCategories, bestScores);
+          TokensVector modified(std::move(variant));
+          UpdateNameScores(modified, lang, slice, bestScores);
+          UpdateNameScores(modified, lang, sliceNoCategories, bestScores);
         }
       }
     };

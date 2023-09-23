@@ -2108,18 +2108,20 @@ UNIT_CLASS_TEST(ProcessorTest, StreetSynonymPrefix)
 
 UNIT_CLASS_TEST(ProcessorTest, Strasse)
 {
-  TestStreet s1({{-1.0, -1.0},{1.0, 1.0}}, "abcdstraße", "en");
-  TestStreet s2({{1.0, -1.0}, {-1.0, 1.0}}, "xyz strasse", "en");
+  TestStreet s1({{-1.0, -1.0},{1.0, 1.0}}, "abcdstraße", "de");
+  TestStreet s2({{1.0, -1.0}, {-1.0, 1.0}}, "xyz strasse", "de");
+  TestStreet s3({{-2.0, -2.0},{2.0, 2.0}}, "bahnhofplatz", "de");
 
   auto countryId = BuildCountry("Wonderland", [&](TestMwmBuilder & builder)
   {
     builder.Add(s1);
     builder.Add(s2);
+    builder.Add(s3);
   });
 
   auto checkNoErrors = [&](string const & query, Rules const & rules)
   {
-    auto request = MakeRequest(query, "en");
+    auto request = MakeRequest(query, "de");
     auto const & results = request->Results();
 
     TEST(ResultsMatch(results, rules), (query));
@@ -2129,7 +2131,7 @@ UNIT_CLASS_TEST(ProcessorTest, Strasse)
     TEST(nameScore == NameScore::FULL_MATCH || nameScore == NameScore::FULL_PREFIX, (query));
   };
 
-  SetViewport(m2::RectD(0.0, 0.0, 1.0, 2.0));
+  SetViewport(m2::RectD(-1, -1, 1, 1));
   {
     Rules rules = {ExactMatch(countryId, s1)};
     checkNoErrors("abcdstrasse ", rules);
@@ -2159,6 +2161,15 @@ UNIT_CLASS_TEST(ProcessorTest, Strasse)
     checkNoErrors("xyz straße", rules);
     checkNoErrors("xyz ", rules);
     checkNoErrors("xyz", rules);
+  }
+  {
+    Rules rules = {ExactMatch(countryId, s3)};
+    checkNoErrors("bahnhofplatz", rules);
+    checkNoErrors("bahnhof platz", rules);
+    checkNoErrors("bahnhof", rules);
+    checkNoErrors("bahnhof ", rules);
+    checkNoErrors("bahnhofpl", rules);
+    checkNoErrors("bahnhofpl ", rules);
   }
 }
 
