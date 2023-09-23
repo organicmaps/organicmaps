@@ -25,7 +25,6 @@
 
 #include "platform/platform.hpp"
 
-#include "coding/map_uint32_to_val.hpp"
 #include "coding/reader_writer_ops.hpp"
 #include "coding/succinct_mapper.hpp"
 #include "coding/writer.hpp"
@@ -48,6 +47,11 @@
 #include <vector>
 
 #define SYNONYMS_FILE "synonyms.txt"
+
+namespace indexer
+{
+using namespace strings;
+using namespace search;
 
 namespace
 {
@@ -130,23 +134,22 @@ void GetCategoryTypes(CategoriesHolder const & categories, std::pair<int, int> s
 template <typename Key, typename Value>
 class FeatureNameInserter
 {
-  strings::UniString m_Str, m_Strasse;
+  String2StringMap const & m_suffixes;
 
 public:
   FeatureNameInserter(uint32_t index, SynonymsHolder * synonyms,
                       std::vector<std::pair<Key, Value>> & keyValuePairs, bool hasStreetType)
-    : m_val(index)
+    : m_suffixes(GetDACHStreets())
+    , m_val(index)
     , m_synonyms(synonyms)
     , m_keyValuePairs(keyValuePairs)
     , m_hasStreetType(hasStreetType)
   {
-    m_Strasse = strings::MakeUniString("strasse");
-    m_Str = strings::MakeUniString("str");
   }
 
-  void AddToken(uint8_t lang, strings::UniString const & s) const
+  void AddToken(uint8_t lang, UniString const & s) const
   {
-    strings::UniString key;
+    UniString key;
     key.reserve(s.size() + 1);
     key.push_back(lang);
     key.append(s.begin(), s.end());
@@ -157,28 +160,34 @@ public:
   // Adds search tokens for different ways of writing strasse:
   // Hauptstrasse -> Haupt strasse, Hauptstr.
   // Haupt strasse  -> Hauptstrasse, Hauptstr.
-  void AddStrasseNames(int8_t lang, std::vector<strings::UniString> const & tokens) const
+  void AddDACHNames(int8_t lang, std::vector<UniString> const & tokens) const
   {
     for (size_t i = 0; i < tokens.size(); ++i)
     {
       auto const & token = tokens[i];
 
-      if (!strings::EndsWith(token, m_Strasse))
-        continue;
+      for (auto const & sx : m_suffixes)
+      {
+        if (!EndsWith(token, sx.first))
+          continue;
 
-      if (token == m_Strasse)
-      {
-        if (i != 0)
+        // We expect that suffixes are street synonyms, so no need to add them separately into index.
+        ASSERT(IsStreetSynonym(sx.first) || IsStreetSynonym(sx.second), (sx.first));
+
+        if (token == sx.first)
         {
-          AddToken(lang, tokens[i - 1] + m_Strasse);
-          AddToken(lang, tokens[i - 1] + m_Str);
+          if (i != 0)
+          {
+            AddToken(lang, tokens[i - 1] + sx.first);
+            AddToken(lang, tokens[i - 1] + sx.second);
+          }
         }
-      }
-      else
-      {
-        auto const name = strings::UniString(token.begin(), token.end() - m_Strasse.size());
-        AddToken(lang, name);
-        AddToken(lang, name + m_Str);
+        else
+        {
+          auto const name = UniString(token.begin(), token.end() - sx.first.size());
+          AddToken(lang, name);
+          AddToken(lang, name + sx.second);
+        }
       }
     }
   }
@@ -186,7 +195,7 @@ public:
   void operator()(int8_t lang, std::string_view name) const
   {
     /// @todo No problem here if we will have duplicating tokens? (POI name like "Step by Step").
-    auto tokens = search::NormalizeAndTokenizeString(name);
+    auto tokens = NormalizeAndTokenizeString(name);
 
     // add synonyms for input native string
     if (m_synonyms)
@@ -194,7 +203,7 @@ public:
       /// @todo Avoid creating temporary std::string.
       m_synonyms->ForEach(std::string(name), [&](std::string const & utf8str)
       {
-        tokens.push_back(search::NormalizeAndSimplifyString(utf8str));
+        tokens.push_back(NormalizeAndSimplifyString(utf8str));
       });
     }
 
@@ -208,14 +217,14 @@ public:
 
     if (m_hasStreetType)
     {
-      search::StreetTokensFilter filter(
-          [&](strings::UniString const & token, size_t /* tag */) { AddToken(lang, token); },
+      StreetTokensFilter filter(
+          [&](UniString const & token, size_t /* tag */) { AddToken(lang, token); },
           false /* withMisprints */);
 
       for (auto const & token : tokens)
         filter.Put(token, false /* isPrefix */, 0 /* tag */);
 
-      AddStrasseNames(lang, tokens);
+      AddDACHNames(lang, tokens);
     }
     else
     {
@@ -507,8 +516,6 @@ void BuildAddressTable(FilesContainerR & container, std::string const & addressD
 }
 }  // namespace
 
-namespace indexer
-{
 void BuildSearchIndex(FilesContainerR & container, Writer & indexWriter);
 
 bool BuildSearchIndexFromDataFile(std::string const & country, feature::GenerateInfo const & info,

@@ -356,7 +356,7 @@ private:
       "ქუჩა",
 
       // German - Deutsch
-      "straße", "str",
+      "straße", "str", "platz", "pl",
 
       // Hungarian - Magyar
       "utca", "út",
@@ -498,4 +498,14 @@ void StreetTokensFilter::Put(UniString const & token, bool isPrefix, size_t tag)
 
   m_callback(token, tag);
 }
+
+String2StringMap const & GetDACHStreets()
+{
+  static String2StringMap res = {
+    { MakeUniString("strasse"), MakeUniString("str") },
+    { MakeUniString("platz"), MakeUniString("pl") },
+  };
+  return res;
+}
+
 }  // namespace search
