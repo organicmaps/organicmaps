@@ -303,6 +303,7 @@ historic-monument                                   # icon z13- (also has captio
 === 5900
 
 historic-city_gate                                  # icon z13- (also has caption(optional) z13-)
+tourism-alpine_hut                                  # icon z13- (also has caption(optional) z13-)
 === 5850
 
 railway-tram_stop                                   # icon z14- (also has caption(optional) z17-)
@@ -640,7 +641,6 @@ landuse-farmland                                    # caption z15- (also has are
 landuse-orchard                                     # caption z15- (also has area z12-)
 landuse-vineyard                                    # caption z15- (also has area z12-)
 shop-supermarket                                    # icon z16- (also has caption(optional) z16-)
-tourism-alpine_hut                                  # icon z16- (also has caption(optional) z16-)
 tourism-chalet                                      # icon z16- (also has caption(optional) z16-)
 tourism-wilderness_hut                              # icon z16- (also has caption(optional) z16-)
 === 3250
@@ -1477,6 +1477,7 @@ amenity-parking-private                             # icon z18- (also has captio
 # === -4100
 
 # historic-city_gate                                # caption(optional) z13- (also has icon z13-)
+# tourism-alpine_hut                                # caption(optional) z13- (also has icon z13-)
 # === -4150
 
 # railway-tram_stop                                 # caption(optional) z17- (also has icon z14-)
@@ -1730,7 +1731,6 @@ amenity-parking-private                             # icon z18- (also has captio
 # landuse-cemetery                                  # caption(optional) z15- (also has icon z15-, area z14-)
 # landuse-cemetery-christian                        # caption(optional) z15- (also has icon z15-, area z14-)
 # shop-supermarket                                  # caption(optional) z16- (also has icon z16-)
-# tourism-alpine_hut                                # caption(optional) z16- (also has icon z16-)
 # tourism-chalet                                    # caption(optional) z16- (also has icon z16-)
 # tourism-wilderness_hut                            # caption(optional) z16- (also has icon z16-)
 # === -6750
