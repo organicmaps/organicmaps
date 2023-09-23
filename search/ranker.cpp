@@ -7,9 +7,6 @@
 #include "search/pre_ranking_info.hpp"
 #include "search/ranking_utils.hpp"
 #include "search/token_slice.hpp"
-#include "search/utils.hpp"
-
-#include "editor/editable_data_source.hpp"
 
 #include "indexer/brands_holder.hpp"
 #include "indexer/data_source.hpp"
@@ -95,6 +92,17 @@ vector<vector<strings::UniString>> ModifyStrasse(vector<strings::UniString> cons
   return result;
 }
 
+vector<strings::UniString> RemoveStreetSynonyms(vector<strings::UniString> const & tokens)
+{
+  vector<strings::UniString> res;
+  for (auto const & e : tokens)
+  {
+    if (!IsStreetSynonym(e))
+      res.push_back(e);
+  }
+  return res;
+}
+
 NameScores GetNameScores(FeatureType & ft, Geocoder::Params const & params,
                          TokenRange const & range, Model::Type type)
 {
@@ -115,8 +123,20 @@ NameScores GetNameScores(FeatureType & ft, Geocoder::Params const & params,
       UpdateNameScores(vec, lang, slice, bestScores);
       UpdateNameScores(vec, lang, sliceNoCategories, bestScores);
 
+      /// @todo
+      /// 1. Make sure that this conversion also happens for Address and POI results,
+      /// where street is only one component.
+      /// 2. Make an optimization: If there are no synonyms or "strasse", skip this step.
       if (type == Model::TYPE_STREET)
       {
+        // Searching for "Santa Fe" should rank "Avenida Satna Fe" like FULL_MATCH or FULL_PREFIX, but not SUBSTRING.
+        {
+          TokensVector cleaned(RemoveStreetSynonyms(vec.GetTokens()));
+          UpdateNameScores(cleaned, lang, slice, bestScores);
+          UpdateNameScores(cleaned, lang, sliceNoCategories, bestScores);
+        }
+
+        /// @todo Should definitely add "platz"-"pl". And maybe "gasse"-"g", "allee"-"al"?
         for (auto & variant : ModifyStrasse(vec.GetTokens()))
         {
           TokensVector vec(std::move(variant));

@@ -922,4 +922,40 @@ UNIT_CLASS_TEST(MwmTestsFixture, BA_RelaxedStreets)
     TEST_GREATER(count, 5, ());
   }
 }
+
+UNIT_CLASS_TEST(MwmTestsFixture, Streets_Rank)
+{
+  // Buenos Aires (Palermo)
+  ms::LatLon const center(-34.5802699, -58.4124979);
+  SetViewportAndLoadMaps(center);
+
+  auto const & streetChecker = ftypes::IsStreetOrSquareChecker::Instance();
+
+  auto const processRequest = [&](std::string const & query, size_t idx)
+  {
+    auto request = MakeRequest(query);
+    auto const & results = request->Results();
+
+    TEST_GREATER(results.size(), idx, ());
+
+    bool found = false;
+    for (size_t i = 0; i < idx && !found; ++i)
+    {
+      auto const & r = results[i];
+      if (streetChecker(r.GetFeatureType()))
+      {
+        TEST_EQUAL(r.GetString(), "Avenida Santa Fe", ());
+        TEST_LESS(GetDistanceM(r, center), 1000, ());
+        found = true;
+      }
+    }
+    TEST(found, ());
+  };
+
+  /// @todo Street should be highwer than 11.
+  processRequest("Santa Fe ", 11);
+  /// @todo Prefix search" gives POIs (Starbucks) near "Avenida Santa Fe".
+  processRequest("Santa Fe st ", 2);
+}
+
 } // namespace real_mwm_tests
