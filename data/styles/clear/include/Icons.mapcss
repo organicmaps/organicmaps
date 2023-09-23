@@ -613,11 +613,11 @@ node|z17-[amenity=arts_centre],
 area|z17-[amenity=arts_centre]
 {icon-image: gallery-m.svg;text-offset: 1;icon-min-distance: 12;}
 
-node|z14-15[amenity=theatre],
-area|z14-15[amenity=theatre]
+node|z14[amenity=theatre],
+area|z14[amenity=theatre]
 {icon-image: theatre-s.svg;text-offset: 1;icon-min-distance: 8;}
-node|z16-[amenity=theatre],
-area|z16-[amenity=theatre]
+node|z15-[amenity=theatre],
+area|z15-[amenity=theatre]
 {icon-image: theatre-m.svg;icon-min-distance: 10;}
 
 node|z13-14[tourism=zoo],
