@@ -1,18 +1,11 @@
 package app.organicmaps.util;
 
-import static app.organicmaps.util.Counters.KEY_APP_FIRST_INSTALL_FLAVOR;
-import static app.organicmaps.util.Counters.KEY_APP_FIRST_INSTALL_VERSION;
-import static app.organicmaps.util.Counters.KEY_APP_LAST_SESSION_TIMESTAMP;
-import static app.organicmaps.util.Counters.KEY_APP_LAUNCH_NUMBER;
-import static app.organicmaps.util.Counters.KEY_APP_SESSION_NUMBER;
-import static app.organicmaps.util.Counters.KEY_LIKES_LAST_RATED_SESSION;
-import static app.organicmaps.util.Counters.KEY_MISC_FIRST_START_DIALOG_SEEN;
-import static app.organicmaps.util.Counters.KEY_MISC_NEWS_LAST_VERSION;
-
 import android.content.Context;
+import android.content.SharedPreferences;
 import android.os.Build;
 
 import androidx.annotation.NonNull;
+import androidx.preference.PreferenceManager;
 
 import app.organicmaps.BuildConfig;
 import app.organicmaps.MwmApplication;
@@ -38,27 +31,37 @@ public final class Config
   private static final String KEY_MISC_USE_MOBILE_DATA = "UseMobileData";
   private static final String KEY_MISC_USE_MOBILE_DATA_TIMESTAMP = "UseMobileDataTimestamp";
   private static final String KEY_MISC_USE_MOBILE_DATA_ROAMING = "UseMobileDataRoaming";
-  private static final String KEY_MISC_AD_FORBIDDEN = "AdForbidden";
   private static final String KEY_MISC_ENABLE_SCREEN_SLEEP = "EnableScreenSleep";
   private static final String KEY_MISC_SHOW_ON_LOCK_SCREEN = "ShowOnLockScreen";
   private static final String KEY_MISC_AGPS_TIMESTAMP = "AGPSTimestamp";
   private static final String KEY_DONATE_URL = "DonateUrl";
 
-  private Config() {}
+  /**
+   * The total number of app launches.
+   */
+  private static final String KEY_APP_LAUNCH_NUMBER = "LaunchNumber";
+  /**
+   * The timestamp for the most recent app launch.
+   */
+  private static final String KEY_APP_LAST_SESSION_TIMESTAMP = "LastSessionTimestamp";
+  /**
+   * The version code of the first installed version of the app.
+   */
+  private static final String KEY_APP_FIRST_INSTALL_VERSION_CODE = "FirstInstallVersion";
+  /**
+   * The version code of the last launched version of the app.
+   */
+  private static final String KEY_APP_LAST_INSTALL_VERSION_CODE = "LastInstallVersion";
+  /**
+   * True if the first start animation has been seen.
+   */
+  private static final String KEY_MISC_FIRST_START_DIALOG_SEEN = "FirstStartDialogSeen";
 
-  private static int getInt(String key)
-  {
-    return getInt(key, 0);
-  }
+  private Config() {}
 
   private static int getInt(String key, int def)
   {
     return nativeGetInt(key, def);
-  }
-
-  private static long getLong(String key)
-  {
-    return getLong(key, 0L);
   }
 
   private static long getLong(String key, long def)
@@ -111,25 +114,6 @@ public final class Config
   private static void setBool(String key, boolean value)
   {
     nativeSetBoolean(key, value);
-  }
-
-  public static void migrateCountersToSharedPrefs(@NonNull Context context)
-  {
-    int version = getInt(KEY_APP_FIRST_INSTALL_VERSION, BuildConfig.VERSION_CODE);
-    MwmApplication.prefs(context)
-                  .edit()
-                  .putInt(KEY_APP_LAUNCH_NUMBER, getInt(KEY_APP_LAUNCH_NUMBER))
-                  .putInt(KEY_APP_FIRST_INSTALL_VERSION, version)
-                  .putString(KEY_APP_FIRST_INSTALL_FLAVOR, getString(KEY_APP_FIRST_INSTALL_FLAVOR))
-                  .putLong(KEY_APP_LAST_SESSION_TIMESTAMP, getLong(KEY_APP_LAST_SESSION_TIMESTAMP))
-                  .putInt(KEY_APP_SESSION_NUMBER, getInt(KEY_APP_SESSION_NUMBER))
-                  .putBoolean(KEY_MISC_FIRST_START_DIALOG_SEEN,
-                              getBool(KEY_MISC_FIRST_START_DIALOG_SEEN))
-                  .putInt(KEY_MISC_NEWS_LAST_VERSION, getInt(KEY_MISC_NEWS_LAST_VERSION))
-                  .putInt(KEY_LIKES_LAST_RATED_SESSION, getInt(KEY_LIKES_LAST_RATED_SESSION))
-                  .putBoolean(KEY_MISC_ENABLE_SCREEN_SLEEP,
-                              getBool(KEY_MISC_ENABLE_SCREEN_SLEEP))
-                  .apply();
   }
 
   public static String getStoragePath()
@@ -348,6 +332,43 @@ public final class Config
   public static String getDonateUrl()
   {
     return getString(KEY_DONATE_URL);
+  }
+
+  public static void updateCounters(@NonNull Context context)
+  {
+    PreferenceManager.setDefaultValues(context, R.xml.prefs_main, false);
+
+    final SharedPreferences prefs = MwmApplication.prefs(context);
+    final SharedPreferences.Editor editor = prefs.edit();
+
+    final int launchNumber = prefs.getInt(KEY_APP_LAUNCH_NUMBER, 0);
+    editor.putInt(KEY_APP_LAUNCH_NUMBER, launchNumber + 1);
+    editor.putLong(KEY_APP_LAST_SESSION_TIMESTAMP, System.currentTimeMillis());
+    editor.putInt(KEY_APP_LAST_INSTALL_VERSION_CODE, BuildConfig.VERSION_CODE);
+    if (launchNumber == 0 || prefs.getInt(KEY_APP_FIRST_INSTALL_VERSION_CODE, 0) == 0)
+      editor.putInt(KEY_APP_FIRST_INSTALL_VERSION_CODE, BuildConfig.VERSION_CODE);
+
+    // Clean up legacy counters.
+    editor.remove("FirstInstallFlavor");
+    editor.remove("SessionNumber");
+    editor.remove("WhatsNewShownVersion");
+    editor.remove("LastRatedSession");
+    editor.remove("RatedDialog");
+
+    editor.apply();
+  }
+
+  public static boolean isFirstStartDialogSeen(@NonNull Context context)
+  {
+    return MwmApplication.prefs(context).getBoolean(KEY_MISC_FIRST_START_DIALOG_SEEN, false);
+  }
+
+  public static void setFirstStartDialogSeen(@NonNull Context context)
+  {
+    MwmApplication.prefs(context)
+        .edit()
+        .putBoolean(KEY_MISC_FIRST_START_DIALOG_SEEN, true)
+        .apply();
   }
 
   private static native boolean nativeGetBoolean(String name, boolean defaultValue);

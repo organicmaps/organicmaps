@@ -876,14 +876,6 @@
         android:permission="android.permission.ACCESS_FINE_LOCATION">
     </service>
 
-    <!-- Catches app upgraded intent -->
-    <receiver
-      android:name=".background.UpgradeReceiver"
-      android:exported="false">
-      <intent-filter>
-        <action android:name="android.intent.action.MY_PACKAGE_REPLACED"/>
-      </intent-filter>
-    </receiver>
     <provider
       android:name="androidx.core.content.FileProvider"
       android:authorities="${FILE_PROVIDER_PLACEHOLDER}"
