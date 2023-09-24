@@ -113,6 +113,46 @@
   </screenshots>
 
   <releases>
+   <release version="2023.09.22-27" date="2023-09-22">
+     <description>
+       <p>Highlights:</p>
+         <ul>
+           <li>New OSM maps data as of September 20</li>
+           <li>Add positioning support via GeoClue2</li>
+           <li>Use OpenGL ES 3.0 instead of desktop OpenGL</li>
+           <li>Added new route type "Ruler" (aka Helicopter Routing) to measure straight distances quickly</li>
+           <li>Set decimal and grouping separators depending on the system locale</li>
+           <li>Caves can be added in the Editor</li>
+         </ul>
+       <p>Search:</p>
+         <ul>
+           <li>Parking entrances are searchable</li>
+           <li>Improved street matching and results relevance</li>
+           <li>Search for grocery and houseware</li>
+         </ul>
+       <p>Translations:</p>
+         <ul>
+           <li>Improved Arabic, Polish, and Spanish translations</li>
+         </ul>
+       <p>Styles:</p>
+         <ul>
+           <li>New or updated icons for factory, winery, bookcase, library, brothel, bicycle repair station, bicycle rental, bicycle parking, sauna, lottery, bookmaker, massage, sewing, books, underground parking, disabled parking space, gate, excrement bags vending, wholesale shop, outdoor seating, handicraft, grinding mill, caterer, HVAC, key cutter and locksmith</li>
+           <li>Added vehicle inspection, public bath, strip club, gambling, cycle barrier, waterways (drain, ditch, moat, wastewater), aquarium, assembly point, adult gaming center, amusement arcade, Mormon churches, visitor center, industrial mine, historical objects (cannon, anchor, stone, aircraft, tank, mine, wreck, locomotive)</li>
+           <li>Added bridges and tunnels rendering for cycleways, footways, paths, tracks, bridleways, steps</li>
+           <li>Render barrier=ditch differently from waterway=ditch</li>
+           <li>Reduced priorities of river names (and of other lower-importance lines) in navigation mode</li>
+           <li>Tuned road names and road shield priorities</li>
+           <li>Fixed icons display for parking buildings</li>
+           <li>Reduced visibility of minor and private parking icons, removed area fill for underground parking</li>
+           <li>Reduced fire hydrant visibility</li>
+           <li>Display house numbers above icons and main POI captions, and don’t display house numbers for buildings that are too small for the current zoom level</li>
+           <li>Don't display star icons for squares</li>
+           <li>Fine-tune house numbers font and drawing priority</li>
+           <li>Added highway-pedestrian, bridleway, and cycleway lines for detailed zooms (z18-) in navigation mode</li>
+           <li>Pedestrian tunnels are not visible in navigation mode</li>
+         </ul>
+     </description>
+   </release>
    <release version="2023.08.18-8" date="2023-08-18">
      <description>
        <p>Highlights:</p>
