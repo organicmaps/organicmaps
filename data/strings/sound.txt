@@ -507,7 +507,7 @@
     fr = sur
     hi = पर
     hr = na
-    hu = a-re
+    hu = a
     id = ke
     it = sulla
     ja = に入ります
@@ -588,7 +588,7 @@
     fr = Sortie sur
     hi = बाहर जाएं पर
     hr = Izlaz na
-    hu = Kilépés a-re
+    hu = Kilépés a
     id = Keluar ke
     it = Uscita sulla
     ja = 出口ですに入ります

@@ -162,6 +162,7 @@ public class SettingsPrefsFragment extends BaseXmlSettingsFragment
   private void setLanguage(@NonNull LanguageData lang)
   {
     Config.setTtsEnabled(true);
+    Config.setAnnounceStreetNames(true); //TODO: change in release
     TtsPlayer.INSTANCE.setLanguage(lang);
     if (mTtsPrefLanguages != null)
       mTtsPrefLanguages.setSummary(lang.name);
