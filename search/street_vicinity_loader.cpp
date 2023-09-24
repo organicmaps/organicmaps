@@ -9,7 +9,7 @@
 #include "geometry/point2d.hpp"
 
 #include "base/math.hpp"
-#include "base/stl_helpers.hpp"
+
 
 namespace search
 {
@@ -47,11 +47,11 @@ void StreetVicinityLoader::LoadStreet(uint32_t featureId, Street & street)
   if (!feature)
     return;
 
-  bool const isStreet = feature->GetGeomType() == feature::GeomType::Line &&
-                        ftypes::IsWayChecker::Instance()(*feature);
-  bool const isSquareOrSuburb = ftypes::IsSquareChecker::Instance()(*feature) ||
-                                ftypes::IsSuburbChecker::Instance()(*feature);
-  if (!isStreet && !isSquareOrSuburb)
+  bool const isStreet =
+      (feature->GetGeomType() == feature::GeomType::Line &&
+       ftypes::IsWayChecker::Instance()(*feature)) ||
+      ftypes::IsSquareChecker::Instance()(*feature);
+  if (!isStreet)
     return;
 
   /// @todo Can be optimized here. Do not aggregate rect, but aggregate covering intervals for each segment, instead.
@@ -75,7 +75,11 @@ void StreetVicinityLoader::LoadStreet(uint32_t featureId, Street & street)
 
   covering::CoveringGetter coveringGetter(street.m_rect, covering::ViewportWithLowLevels);
   auto const & intervals = coveringGetter.Get<RectId::DEPTH_LEVELS>(m_scale);
-  m_context->ForEachIndex(intervals, m_scale, base::MakeBackInsertFunctor(street.m_features));
+  m_context->ForEachIndex(intervals, m_scale, [this, &street, featureId](uint32_t id)
+  {
+    if (m_context->GetStreet(id) == featureId)
+      street.m_features.push_back(id);
+  });
 
   //street.m_calculator = std::make_unique<ProjectionOnStreetCalculator>(points);
 }

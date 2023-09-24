@@ -1,6 +1,7 @@
 #include "search/reverse_geocoder.hpp"
 
 #include "search/city_finder.hpp"
+#include "search/house_to_street_table.hpp"
 #include "search/mwm_context.hpp"
 #include "search/region_info_getter.hpp"
 
