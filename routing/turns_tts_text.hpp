@@ -41,6 +41,12 @@ private:
   std::string GetTextById(std::string const & textId) const;
 
   std::unique_ptr<platform::GetTextById> m_getCurLang;
+
+  bool FindInStrArray(std::vector<std::string>& haystack, std::string needle) const;
+
+  uint8_t CategorizeHungarianAcronymsAndNumbers(std::string const & myString) const;
+
+  uint8_t CategorizeHungarianLastWordVowels(std::string const & myString) const;
 };
 
 /// Generates text message id about the distance of the notification. For example: In 300 meters.

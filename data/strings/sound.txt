@@ -543,7 +543,7 @@
     zh-Hant = 上
 
   [onto_exit_number]
-    comment = Used in dist_direction_onto_street instead of "onto" when there's an exit number after. Use "." for none
+    comment = TODO: currently unused, consider removing. Used in dist_direction_onto_street instead of "onto" when there's an exit number after. Use "." for none
     en = .
     ar = .
     be = .
@@ -608,7 +608,7 @@
     mr = बाहेर पडा वर
     nb = Ta avkjøringen inn på
     nl = Verlaat naar
-    pl = Wybierz zjazd na
+    pl = Wybierz zjazd
     pt = Saia para
     pt-BR = Pegue a saída para
     ro = Ieșire pe

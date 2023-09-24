@@ -167,6 +167,7 @@ UNIT_TEST(GetTtsStreetTextTest)
       \"onto\":\"onto\",\
       \"make_a_right_turn\":\"Make a right turn.\",\
       \"make_a_left_turn\":\"Make a left turn.\",\
+      \"take_exit_number\":\"Take exit\",\
       \"dist_direction_onto_street\":\"%1$s %2$s %3$s %4$s\",\
       \"you_have_reached_the_destination\":\"You have reached the destination.\"\
       }";
@@ -212,6 +213,37 @@ UNIT_TEST(GetTtsStreetTextTest)
       \"you_have_reached_the_destination\":\"ﻞﻗﺩ ﻮﺼﻠﺗ.\"\
       }";
 
+  string const huShortJson =
+      "\
+      {\
+      \"in_300_meters\":\"Háromszáz méter után\",\
+      \"in_500_meters\":\"Ötszáz méter után\",\
+      \"go_straight\":\"Hajtson előre.\",\
+      \"then\":\"Majd\",\
+      \"onto\":\"a\",\
+      \"make_a_right_turn\":\"Forduljon jobbra.\",\
+      \"make_a_left_turn\":\"Forduljon balra.\",\
+      \"dist_direction_onto_street\":\"%1$s %2$s %3$s %4$s-re\"\
+      }";
+
+  string const nlShortJson =
+      "\
+      {\
+      \"in_300_meters\":\"Over driehonderd meter\",\
+      \"in_500_meters\":\"Over vijfhonderd meter\",\
+      \"go_straight\":\"Rij rechtdoor.\",\
+      \"then\":\"Daarna\",\
+      \"onto\":\"naar\",\
+      \"make_a_right_turn\":\"Sla rechtsaf.\",\
+      \"make_a_right_turn_street\":\"naar rechts afslaan\",\
+      \"make_a_left_turn\":\"Sla linksaf.\",\
+      \"make_a_left_turn_street\":\"naar links afslaan\",\
+      \"dist_direction_onto_street\":\"%5$s %1$s %2$s %3$s %4$s\",\
+      \"onto_exit_number\":\".\",\
+      \"take_exit_number\":\"Verlaat naar\",\
+      \"take_exit_number_street_verb\":\"Neem\"\
+      }";
+
   GetTtsText getTtsText;
   // Notification(uint32_t distanceUnits, uint8_t exitNum, bool useThenInsteadOfDistance,
   //    CarDirection turnDir, Settings::Units lengthUnits, std::string nextStreet)
@@ -223,12 +255,19 @@ UNIT_TEST(GetTtsStreetTextTest)
                                    measurement_utils::Units::Metric);
   Notification const notification4(0, 0, true, CarDirection::TurnLeft,
                                    measurement_utils::Units::Metric);
+  Notification const notification5(300, 0, false, CarDirection::TurnLeft,
+                                   measurement_utils::Units::Metric, "Capital Parkway");
+  Notification const notification6(300, 0, false, CarDirection::TurnRight,
+                                   measurement_utils::Units::Metric, "Alderbrook Drive");
+  Notification const notification7(300, 195, false, CarDirection::ExitHighwayToRight,
+                                   measurement_utils::Units::Metric, "[NY 25]: Woodhaven Boulevard");
 
   getTtsText.ForTestingSetLocaleWithJson(engShortJson, "en");
   TEST_EQUAL(getTtsText.GetTurnNotification(notification1), "In 500 meters Make a right turn onto Main Street", ());
   TEST_EQUAL(getTtsText.GetTurnNotification(notification2), "In 300 meters Make a left turn onto Main Street", ());
   TEST_EQUAL(getTtsText.GetTurnNotification(notification3), "In 300 meters. Make a left turn.", ());
   TEST_EQUAL(getTtsText.GetTurnNotification(notification4), "Then.  Make a left turn.", ());
+  // TEST_EQUAL(getTtsText.GetTurnNotification(notification7), "In 300 meters Take exit 195 NY 25 Woodhaven Boulevard", ());
 
   getTtsText.ForTestingSetLocaleWithJson(jaShortJson, "ja");
   TEST_EQUAL(getTtsText.GetTurnNotification(notification1), "五百メートル先右折し Main Street に入ります", ());
@@ -248,7 +287,21 @@ UNIT_TEST(GetTtsStreetTextTest)
   TEST_EQUAL(getTtsText.GetTurnNotification(notification3), "ﺐﻋﺩ ﺙﻼﺜﻤﺋﺓ ﻢﺗﺭ ﺎﻨﻌﻄﻓ ﻲﺳﺍﺭﺍ.", ()); // note the extraneous space here due to + " " +
   TEST_EQUAL(getTtsText.GetTurnNotification(notification4), "ﺚﻣ  ﺎﻨﻌﻄﻓ ﻲﺳﺍﺭﺍ.", ()); // note the extraneous spaces here due to + " " +
 
-  // TODO: make tests for Dutch (nl) with verb prefixes, and for new "take exit 123" syntax
+  getTtsText.ForTestingSetLocaleWithJson(huShortJson, "hu");
+  TEST_EQUAL(getTtsText.GetTurnNotification(notification1), "Ötszáz méter után Forduljon jobbra a Main Street-re", ());
+  TEST_EQUAL(getTtsText.GetTurnNotification(notification2), "Háromszáz méter után Forduljon balra a Main Street-re", ());
+  TEST_EQUAL(getTtsText.GetTurnNotification(notification3), "Háromszáz méter után Forduljon balra.", ());
+  TEST_EQUAL(getTtsText.GetTurnNotification(notification4), "Majd  Forduljon balra.", ());
+  TEST_EQUAL(getTtsText.GetTurnNotification(notification5), "Háromszáz méter után Forduljon balra a Capital Parkway-ra", ()); // -ra suffix for "back" vowel endings
+  TEST_EQUAL(getTtsText.GetTurnNotification(notification6), "Háromszáz méter után Forduljon jobbra az Alderbrook Drive-re", ()); // az for prefixing a vowel
+  // TEST_EQUAL(getTtsText.GetTurnNotification(notification7), "Háromszáz méter után Kilépés az 195 NY 25 Woodhaven Boulevard-ra", ()); // az for prefixing "hundred ninety five"
+
+  getTtsText.ForTestingSetLocaleWithJson(nlShortJson, "nl");
+  TEST_EQUAL(getTtsText.GetTurnNotification(notification1), "Over vijfhonderd meter naar rechts afslaan naar Main Street", ());
+  TEST_EQUAL(getTtsText.GetTurnNotification(notification2), "Over driehonderd meter naar links afslaan naar Main Street", ());
+  TEST_EQUAL(getTtsText.GetTurnNotification(notification3), "Over driehonderd meter Sla linksaf.", ());
+  TEST_EQUAL(getTtsText.GetTurnNotification(notification4), "Daarna  Sla linksaf.", ());
+  // TEST_EQUAL(getTtsText.GetTurnNotification(notification7), "Neem Over driehonderd meter Verlaat naar 195 NY 25 Woodhaven Boulevard", ());
 }
 
 UNIT_TEST(GetAllSoundedDistMetersTest)
