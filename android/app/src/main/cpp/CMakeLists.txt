@@ -60,10 +60,7 @@ set(SRC
   app/organicmaps/platform/SocketImpl.cpp
   app/organicmaps/util/Config.cpp
   app/organicmaps/util/GeoUtils.cpp
-  app/organicmaps/util/HttpBackgroundUploader.cpp
   app/organicmaps/util/HttpClient.cpp
-  app/organicmaps/util/HttpUploader.cpp
-  app/organicmaps/util/HttpUploaderUtils.cpp
   app/organicmaps/util/Language.cpp
   app/organicmaps/util/LogsManager.cpp
   app/organicmaps/util/NetworkPolicy.cpp
