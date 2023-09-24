@@ -99,7 +99,6 @@ dependencies {
   implementation 'androidx.work:work-runtime:2.8.1'
   implementation 'androidx.lifecycle:lifecycle-process:2.6.2'
   implementation 'com.google.android.material:material:1.9.0'
-  implementation 'com.google.code.gson:gson:2.10.1'
   implementation 'com.github.devnullorthrow:MPAndroidChart:3.2.0-alpha'
   implementation 'net.jcip:jcip-annotations:1.0'
 
