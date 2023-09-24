@@ -18,7 +18,6 @@ import androidx.appcompat.app.AppCompatActivity;
 import app.organicmaps.display.DisplayManager;
 import app.organicmaps.location.LocationHelper;
 import app.organicmaps.util.Config;
-import app.organicmaps.util.Counters;
 import app.organicmaps.util.LocationUtils;
 import app.organicmaps.util.ThemeUtils;
 import app.organicmaps.util.concurrency.UiThread;
@@ -81,7 +80,7 @@ public class SplashActivity extends AppCompatActivity
       throw new IllegalArgumentException("Attempt to apply unsupported theme: " + theme);
 
     UiThread.cancelDelayedTasks(mInitCoreDelayedTask);
-    Counters.initCounters(this);
+    Config.updateCounters(this);
     setContentView(R.layout.activity_splash);
     mPermissionRequest = registerForActivityResult(new ActivityResultContracts.RequestMultiplePermissions(),
         result -> Config.setLocationRequested());
@@ -157,7 +156,7 @@ public class SplashActivity extends AppCompatActivity
       return;
     }
 
-    if (Counters.isFirstLaunch(this) && LocationUtils.checkLocationPermission(this))
+    if (Config.isFirstStartDialogSeen(this) && LocationUtils.checkLocationPermission(this))
     {
       final LocationHelper locationHelper = app.getLocationHelper();
       locationHelper.onEnteredIntoFirstRun();
@@ -194,7 +193,7 @@ public class SplashActivity extends AppCompatActivity
         return;
       }
     }
-    Counters.setFirstStartDialogSeen(this);
+    Config.setFirstStartDialogSeen(this);
     startActivity(result);
     finish();
   }

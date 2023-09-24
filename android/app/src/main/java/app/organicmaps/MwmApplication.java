@@ -36,7 +36,6 @@ import app.organicmaps.settings.StoragePathManager;
 import app.organicmaps.sound.TtsPlayer;
 import app.organicmaps.util.Config;
 import app.organicmaps.util.ConnectionState;
-import app.organicmaps.util.Counters;
 import app.organicmaps.util.SharedPropertiesUtils;
 import app.organicmaps.util.StorageUtils;
 import app.organicmaps.util.ThemeSwitcher;
@@ -120,11 +119,6 @@ public class MwmApplication extends Application implements Application.ActivityL
   public DisplayManager getDisplayManager()
   {
     return mDisplayManager;
-  }
-
-  public MwmApplication()
-  {
-    super();
   }
 
   @NonNull
@@ -269,11 +263,6 @@ public class MwmApplication extends Application implements Application.ActivityL
   static
   {
     System.loadLibrary("organicmaps");
-  }
-
-  public static void onUpgrade(@NonNull Context context)
-  {
-    Counters.resetAppSessionCounters(context);
   }
 
   // Called from jni

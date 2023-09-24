@@ -93,7 +93,6 @@ import app.organicmaps.settings.RoadType;
 import app.organicmaps.settings.SettingsActivity;
 import app.organicmaps.settings.UnitLocale;
 import app.organicmaps.util.Config;
-import app.organicmaps.util.Counters;
 import app.organicmaps.util.LocationUtils;
 import app.organicmaps.util.SharingUtils;
 import app.organicmaps.util.ThemeSwitcher;
@@ -456,7 +455,7 @@ public class MwmActivity extends BaseMwmFragmentActivity
         this::onPostNotificationPermissionResult);
 
     boolean isConsumed = savedInstanceState == null && processIntent(getIntent());
-    boolean isFirstLaunch = Counters.isFirstLaunch(this);
+    boolean isFirstLaunch = Config.isFirstStartDialogSeen(this);
     // If the map activity is launched by any incoming intent (deeplink, update maps event, etc)
     // or it's the first launch (onboarding) we haven't to try restoring the route,
     // showing the tips, etc.
