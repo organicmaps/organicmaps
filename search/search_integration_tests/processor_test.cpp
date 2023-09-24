@@ -153,7 +153,7 @@ UNIT_CLASS_TEST(ProcessorTest, AddressSmoke)
   TestBuilding withoutRef(p2, {}/* name */, "40", lang);
 
   TestAddrInterpol even({p1, p2}, feature::InterpolType::Even, "20", "40", streetName);
-  TestAddrInterpol odd({p1, p2}, feature::InterpolType::Odd, "21", "41");
+  TestAddrInterpol odd({p1, p2}, feature::InterpolType::Odd, "21", "41", streetName);
 
   auto const wonderlandId = BuildCountry(countryName, [&](TestMwmBuilder & builder)
   {
@@ -166,7 +166,8 @@ UNIT_CLASS_TEST(ProcessorTest, AddressSmoke)
 
   SetViewport(m2::RectD(-coord, -coord, coord, coord));
   TEST(ResultsMatch("20 1st", {ExactMatch(wonderlandId, withRef)}), ());
-  TEST(ResultsMatch("40 1st", {ExactMatch(wonderlandId, withoutRef)}), ());
+  // No street defined.
+  //TEST(ResultsMatch("40 1st", {ExactMatch(wonderlandId, withoutRef)}), ());
   TEST(ResultsMatch("36 1st", {ExactMatch(wonderlandId, even)}), ());
   TEST(ResultsMatch("35 1st", {ExactMatch(wonderlandId, odd)}), ());
 }
@@ -665,15 +666,16 @@ UNIT_CLASS_TEST(ProcessorTest, RankingInfo_ErrorsMade_2)
 
 UNIT_CLASS_TEST(ProcessorTest, TestHouseNumbers)
 {
+  std::string const streetName = "Генерала Генералова";
+
   TestCity greenCity({0, 0}, "Зеленоград", "ru", 100 /* rank */);
+  TestStreet street({{-5.0, -5.0}, {0, 0}, {5.0, 5.0}}, streetName, "ru");
 
-  TestStreet street({{-5.0, -5.0}, {0, 0}, {5.0, 5.0}}, "Генерала Генералова", "ru");
-
-  TestBuilding building100({2.0, 2.0}, "", "100", "en");
-  TestBuilding building200({3.0, 3.0}, "", "к200", "ru");
-  TestBuilding building300({4.0, 4.0}, "", "300 строение 400", "ru");
-  TestBuilding building115({1.0, 1.0}, "", "115", "en");
-  TestBuilding building115k1({-1.0, -1.0}, "", "115к1", "en");
+  TestBuilding building100({2.0, 2.0}, "", "100", streetName, "en");
+  TestBuilding building200({3.0, 3.0}, "", "к200", streetName, "ru");
+  TestBuilding building300({4.0, 4.0}, "", "300 строение 400", streetName, "ru");
+  TestBuilding building115({1.0, 1.0}, "", "115", streetName, "en");
+  TestBuilding building115k1({-1.0, -1.0}, "", "115к1", streetName, "en");
 
   BuildWorld([&](TestMwmBuilder & builder) { builder.Add(greenCity); });
   auto countryId = BuildCountry("Wonderland", [&](TestMwmBuilder & builder)
@@ -737,13 +739,14 @@ UNIT_CLASS_TEST(ProcessorTest, TestPostcodes)
   TestCity dolgoprudny({0, 0}, "Долгопрудный", "ru", 100 /* rank */);
   TestCity london({10, 10}, "London", "en", 100 /* rank */);
 
-  TestStreet street({{-0.5, 0.0}, {0, 0}, {0.5, 0.0}}, "Первомайская", "ru");
+  std::string const streetName = "Первомайская";
+  TestStreet street({{-0.5, 0.0}, {0, 0}, {0.5, 0.0}}, streetName, "ru");
   street.SetPostcode("141701");
 
-  TestBuilding building28({0.0, 0.00001}, "", "28а", street.GetName("ru"), "ru");
+  TestBuilding building28({0.0, 0.00001}, "", "28а", streetName, "ru");
   building28.SetPostcode("141701");
 
-  TestBuilding building29({0.0, -0.00001}, "", "29", street.GetName("ru"), "ru");
+  TestBuilding building29({0.0, -0.00001}, "", "29", streetName, "ru");
   building29.SetPostcode("141701");
 
   TestPOI building30({0.00002, 0.00002}, "", "en");
@@ -751,7 +754,7 @@ UNIT_CLASS_TEST(ProcessorTest, TestPostcodes)
   building30.SetPostcode("141701");
   building30.SetTypes({{"building", "address"}});
 
-  TestBuilding building31({0.00001, 0.00001}, "", "31", street.GetName("ru"), "ru");
+  TestBuilding building31({0.00001, 0.00001}, "", "31", streetName, "ru");
   building31.SetPostcode("141702");
 
   TestBuilding building1({10, 10}, "", "1", "en");
@@ -811,8 +814,10 @@ UNIT_CLASS_TEST(ProcessorTest, TestPostcodes)
     TEST(ResultsMatch("Долгопрудный первомайская 28а, 141701", rules, "ru"), ());
   }
   {
-    Rules rules{ExactMatch(countryId, building28), ExactMatch(countryId, building29),
-                ExactMatch(countryId, building30), ExactMatch(countryId, street)};
+    Rules rules{ExactMatch(countryId, building28),
+                ExactMatch(countryId, building29),
+                //ExactMatch(countryId, building30),  // No street defined.
+                ExactMatch(countryId, street)};
     TEST(ResultsMatch("Долгопрудный первомайская 141701", rules, "ru"), ());
   }
   {
