@@ -18,12 +18,12 @@ import androidx.lifecycle.LifecycleObserver;
 import androidx.lifecycle.LifecycleOwner;
 import androidx.lifecycle.ProcessLifecycleOwner;
 
-import app.organicmaps.background.OsmUploadWork;
 import app.organicmaps.downloader.DownloaderNotifier;
 import app.organicmaps.base.MediaPlayerWrapper;
 import app.organicmaps.bookmarks.data.BookmarkManager;
 import app.organicmaps.downloader.CountryItem;
 import app.organicmaps.downloader.MapManager;
+import app.organicmaps.editor.OsmUploadService;
 import app.organicmaps.location.LocationHelper;
 import app.organicmaps.location.SensorHelper;
 import app.organicmaps.maplayer.isolines.IsolinesManager;
@@ -150,6 +150,7 @@ public class MwmApplication extends Application implements Application.ActivityL
 
     DownloaderNotifier.createNotificationChannel(this);
     NavigationService.createNotificationChannel(this);
+    OsmUploadService.createNotificationChannel(this);
 
     registerActivityLifecycleCallbacks(this);
     mSubwayManager = new SubwayManager(this);
@@ -358,8 +359,6 @@ public class MwmApplication extends Application implements Application.ActivityL
     Logger.d(TAG);
 
     nativeOnTransit(false);
-
-    OsmUploadWork.startActionUploadOsmChanges(this);
 
     if (RoutingController.get().isNavigating())
     {

@@ -21622,6 +21622,16 @@
     zh-Hans = 加载地图
     zh-Hant = 載入地圖
 
+  [notification_channel_osm_uploader]
+    comment = this text will be shown in application notification preferences opposite checkbox which enable/disable OSM uploader notifications. Devices on Android 8+ are affected.
+    tags = android
+    en = OSM uploader
+
+  [notification_osm_uploading]
+    comment = Text in notifcation displayed during uploading OSM changes to the server
+    tags = android
+    en = Submitting changes to OSM
+
   [speedcams_notice_message]
     tags = ios
     en = Auto - Warn about speedcams if there is a risk of exceeding the speed limit\nAlways - Always warn about speedcams\nNever - Never warn about speedcams

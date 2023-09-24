@@ -860,6 +860,15 @@
         android:permission="android.permission.ACCESS_FINE_LOCATION">
     </service>
 
+    <service
+        android:name=".editor.OsmUploadService"
+        android:foregroundServiceType="dataSync"
+        android:exported="true"
+        android:enabled="true"
+        android:stopWithTask="false"
+        android:permission="android.permission.INTERNET">
+    </service>
+
     <!-- Catches app upgraded intent -->
     <receiver
       android:name=".background.UpgradeReceiver"

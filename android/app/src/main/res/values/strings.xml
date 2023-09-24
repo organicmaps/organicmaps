@@ -663,6 +663,10 @@
 	<string name="place_description_title">Place Description</string>
 	<!-- this text will be shown in application notification preferences opposite checkbox which enable/disable downloader notifications. Devices on Android 8+ are affected. -->
 	<string name="notification_channel_downloader">Map downloader</string>
+	<!-- this text will be shown in application notification preferences opposite checkbox which enable/disable OSM uploader notifications. Devices on Android 8+ are affected. -->
+	<string name="notification_channel_osm_uploader">OSM uploader</string>
+	<!-- Text in notifcation displayed during uploading OSM changes to the server -->
+	<string name="notification_osm_uploading">Submitting changes to OSM</string>
 	<string name="power_managment_title">Power saving mode</string>
 	<string name="power_managment_description">Try to reduce power usage at the expense of some functionality.</string>
 	<string name="power_managment_setting_never">Never</string>

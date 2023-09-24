@@ -56,6 +56,7 @@ import app.organicmaps.editor.Editor;
 import app.organicmaps.editor.EditorActivity;
 import app.organicmaps.editor.EditorHostFragment;
 import app.organicmaps.editor.FeatureCategoryActivity;
+import app.organicmaps.editor.OsmUploadService;
 import app.organicmaps.editor.ReportFragment;
 import app.organicmaps.help.HelpActivity;
 import app.organicmaps.intent.Factory;
@@ -1013,6 +1014,7 @@ public class MwmActivity extends BaseMwmFragmentActivity
 
     LocationState.nativeSetLocationPendingTimeoutListener(this::onLocationPendingTimeout);
     SensorHelper.from(this).addListener(this);
+    OsmUploadService.uploadOsmChanges(this);
   }
 
   @Override
