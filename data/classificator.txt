@@ -616,6 +616,7 @@ world  +
         farmland  -
         farmyard  -
         field  -
+        flowerbed  -
         forest  +
             coniferous  -
             deciduous  -
