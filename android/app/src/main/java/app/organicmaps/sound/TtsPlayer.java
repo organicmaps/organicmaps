@@ -195,18 +195,6 @@ public enum TtsPlayer
       }
   }
 
-  public void playTurnNotifications(@NonNull Context context)
-  {
-    if (MediaPlayerWrapper.from(context).isPlaying())
-      return;
-    // It's necessary to call Framework.nativeGenerateTurnNotifications() even if TtsPlayer is invalid.
-    final String[] turnNotifications = Framework.nativeGenerateNotifications(shouldAnnounceStreetNames());
-
-    if (turnNotifications != null && isReady())
-      for (String textToSpeak : turnNotifications)
-        speak(textToSpeak);
-  }
-
   public void playTurnNotifications(@NonNull Context context, @NonNull String[] turnNotifications)
   {
     if (isReady())

@@ -238,6 +238,12 @@
 /* Settings «Route» category: «Tts enabled» title */
 "pref_tts_enable_title" = "Ääniohjeistukset";
 
+/* Settings «Route» category: «Tts announce street names» title */
+"pref_tts_street_names_title" = "Ilmoita kadunnimet";
+
+/* Settings «Route» category: «Tts announce street names» description */
+"pref_tts_street_names_description" = "Kun tämä on käytössä, sen kadun tai liittymän nimi, jolle käännytään, puhutaan ääneen.";
+
 /* Settings «Route» category: «Tts language» title */
 "pref_tts_language_title" = "Äänen kieli";
 

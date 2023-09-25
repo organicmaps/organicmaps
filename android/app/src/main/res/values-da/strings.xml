@@ -209,6 +209,10 @@
 	<string name="pref_map_3d_buildings_disabled_summary">3D-bygninger er slukket i strømbesparende tilstand</string>
 	<!-- Settings «Route» category: «Tts enabled» title -->
 	<string name="pref_tts_enable_title">Stemmeinstruktioner</string>
+	<!-- Settings «Route» category: «Tts announce street names» title -->
+	<string name="pref_tts_street_names_title">Annoncer gadenavne</string>
+	<!-- Settings «Route» category: «Tts announce street names» description -->
+	<string name="pref_tts_street_names_description">Når det er aktiveret, vil navnet på den gade eller afkørsel, der skal drejes ind, blive talt højt.</string>
 	<!-- Settings «Route» category: «Tts language» title -->
 	<string name="pref_tts_language_title">Stemmesprog</string>
 	<!-- Settings «Route» category: «Test Voice Directions» title -->

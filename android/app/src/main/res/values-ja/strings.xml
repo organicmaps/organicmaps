@@ -207,6 +207,10 @@
 	<string name="pref_map_3d_buildings_disabled_summary">省電力モードで建物の 3D 表示がオフになっている</string>
 	<!-- Settings «Route» category: «Tts enabled» title -->
 	<string name="pref_tts_enable_title">音声指示</string>
+	<!-- Settings «Route» category: «Tts announce street names» title -->
+	<string name="pref_tts_street_names_title">通りの名前を発表</string>
+	<!-- Settings «Route» category: «Tts announce street names» description -->
+	<string name="pref_tts_street_names_description">有効にすると、右折する通りまたは出口の名前が読み上げられます。</string>
 	<!-- Settings «Route» category: «Tts language» title -->
 	<string name="pref_tts_language_title">音声言語</string>
 	<!-- Settings «Route» category: «Test Voice Directions» title -->

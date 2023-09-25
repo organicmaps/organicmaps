@@ -238,6 +238,12 @@
 /* Settings «Route» category: «Tts enabled» title */
 "pref_tts_enable_title" = "Komunikaty głosowe";
 
+/* Settings «Route» category: «Tts announce street names» title */
+"pref_tts_street_names_title" = "Wymawiaj nazwy ulic";
+
+/* Settings «Route» category: «Tts announce street names» description */
+"pref_tts_street_names_description" = "Po włączeniu nazwa ulicy lub zjazdu, w który należy skręcić, zostanie wymówiona na głos.";
+
 /* Settings «Route» category: «Tts language» title */
 "pref_tts_language_title" = "Język komunikatów";
 

@@ -238,6 +238,12 @@
 /* Settings «Route» category: «Tts enabled» title */
 "pref_tts_enable_title" = "Гласови инструкции";
 
+/* Settings «Route» category: «Tts announce street names» title */
+"pref_tts_street_names_title" = "Обявете имена на улици";
+
+/* Settings «Route» category: «Tts announce street names» description */
+"pref_tts_street_names_description" = "Когато е активирано, името на улицата или изхода, по който да завиете, ще бъде произнесено на глас.";
+
 /* Settings «Route» category: «Tts language» title */
 "pref_tts_language_title" = "Език на инструкциите";
 

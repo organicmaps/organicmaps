@@ -238,6 +238,12 @@
 /* Settings «Route» category: «Tts enabled» title */
 "pref_tts_enable_title" = "Hääljuhised";
 
+/* Settings «Route» category: «Tts announce street names» title */
+"pref_tts_street_names_title" = "Teatage tänavanimed";
+
+/* Settings «Route» category: «Tts announce street names» description */
+"pref_tts_street_names_description" = "Kui see on lubatud, öeldakse valjusti tänava või väljasõidu nimi, millele pöörata.";
+
 /* Settings «Route» category: «Tts language» title */
 "pref_tts_language_title" = "Hääle keel";
 

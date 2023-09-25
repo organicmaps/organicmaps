@@ -238,6 +238,12 @@
 /* Settings «Route» category: «Tts enabled» title */
 "pref_tts_enable_title" = "Voice Instructions";
 
+/* Settings «Route» category: «Tts announce street names» title */
+"pref_tts_street_names_title" = "הכריזו על שמות רחובות";
+
+/* Settings «Route» category: «Tts announce street names» description */
+"pref_tts_street_names_description" = "כאשר מופעל, שם הרחוב או היציאה שאליו יש לפנות יוקרא בקול.";
+
 /* Settings «Route» category: «Tts language» title */
 "pref_tts_language_title" = "Voice Language";
 

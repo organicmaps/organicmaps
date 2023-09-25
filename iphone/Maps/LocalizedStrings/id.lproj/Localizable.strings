@@ -238,6 +238,12 @@
 /* Settings «Route» category: «Tts enabled» title */
 "pref_tts_enable_title" = "Petunjuk Suara";
 
+/* Settings «Route» category: «Tts announce street names» title */
+"pref_tts_street_names_title" = "Umumkan Nama Jalan";
+
+/* Settings «Route» category: «Tts announce street names» description */
+"pref_tts_street_names_description" = "Saat diaktifkan, nama jalan atau jalan keluar untuk berbelok akan diucapkan dengan keras.";
+
 /* Settings «Route» category: «Tts language» title */
 "pref_tts_language_title" = "Bahasa Suara";
 

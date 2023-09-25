@@ -157,7 +157,7 @@
     hu = Hajtson be a körforgalomba.
     id = Masuk ke bundaran.
     it = Entra nella rotonda.
-    ja = ラウンドアバウト入口です。
+    ja = ラウンドアバウトに入り。
     ko = 로터리 진입입니다.
     mr = चौकात प्रवेश करा.
     nb = Kjør inn i rundkjøringen.
@@ -179,10 +179,12 @@
 
   [enter_the_roundabout_street]
     comment = Optionally used inside dist_direction_onto_street in position 3 when the normal enter_the_roundabout is insufficient.
+    ja = に入ります
     nl = de rotonde
 
   [enter_the_roundabout_street_verb]
     comment = Optionally used inside dist_direction_onto_street in position 5 when enter_the_roundabout_street needs to be split into two parts.
+    ja = ラウンドアバウトに入り、
     nl = Rijd
 
   [leave_the_roundabout]
@@ -205,7 +207,7 @@
     hu = Hagyja el a körforgalmat.
     id = Keluar dari bundaran.
     it = Esci dalla rotonda.
-    ja = ラウンドアバウトから抜けてください。
+    ja = ラウンドアバウトを出て。
     ko = 원형 교차로에서 나갑니다.
     mr = चौकातून बाहेर पडा.
     nb = Kjør ut av rundkjøringen.
@@ -227,10 +229,12 @@
 
   [leave_the_roundabout_street]
     comment = Optionally used inside dist_direction_onto_street in position 3 when the normal leave_the_roundabout is insufficient.
+    ja = に出ます
     nl = de rotonde
 
   [leave_the_roundabout_street_verb]
     comment = Optionally used inside dist_direction_onto_street in position 5 when leave_the_roundabout_street needs to be split into two parts.
+    ja = ラウンドアバウトを出て、
     nl = Verlaat
 
   [make_a_slight_left_turn]
@@ -372,7 +376,7 @@
 
   [make_a_u_turn]
     en = Make a u-turn.
-    ar = انعطف بدوران كامل.
+    ar = إستدر للعودة.
     be = Развярніцеся.
     ca = Feu un canvi de sentit.
     cs = Otočte se do protisměru.
@@ -390,7 +394,7 @@
     hu = Forduljon vissza.
     id = Putar balik.
     it = Effettua un'inversione a U.
-    ja = Uターンです。
+    ja = 後ろ方向です。
     ko = 유턴입니다.
     mr = यू-टर्न घ्या.
     nb = Ta en U-sving.
@@ -410,9 +414,17 @@
     zh-Hans = 掉头
     zh-Hant = 掉頭。
 
+  [make_a_u_turn_street]
+    comment = Optionally used inside dist_direction_onto_street in position 3 when the normal make_a_u_turn is insufficient.
+    ja = に入ります
+
+  [make_a_u_turn_street_verb]
+    comment = Optionally used inside dist_direction_onto_street in position 5 when make_a_u_turn_street needs to be split into two parts.
+    ja = 後ろ方向して
+
   [go_straight]
     en = Go straight.
-    ar = انطلق بشكل مستقيم.
+    ar = إستمر إلى الأمام.
     be = Рухайцеся прама.
     ca = Seguiu tot recte.
     cs = Jeďte rovně.
@@ -493,7 +505,7 @@
   [onto]
     comment = Used in dist_direction_onto_street in position 3 unless take_exit_number or onto_exit_number are specified.
     en = onto
-    ar = ﺈﻟﻯ
+    ar = إلى
     be = на
     cs = na
     da = ad
@@ -510,7 +522,7 @@
     hu = a
     id = ke
     it = sulla
-    ja = に入ります
+    ja = 
     ko =
     mr = वर
     nb = inn på
@@ -573,7 +585,7 @@
   [take_exit_number]
     comment = Used in dist_direction_onto_street instead of "Exit" when there's an exit number after. Replaces "onto" unless onto_exit_number is specified.
     en = Take exit
-    ar = خروجﺈﻟﻯ
+    ar = خروج إلى
     be = З'езд на
     ca = Agafa la sortida
     cs = výstup na
@@ -591,7 +603,7 @@
     hu = Kilépés a
     id = Keluar ke
     it = Uscita sulla
-    ja = 出口ですに入ります
+    ja = 出口を出る
     ko = 출구
     mr = बाहेर पडा वर
     nb = Ta avkjøringen inn på
@@ -613,6 +625,7 @@
 
   [take_exit_number_street_verb]
     comment = Optionally used inside dist_direction_onto_street in position 5 when take_exit_number needs to be split into two parts. (There is no take_exit_number_street)
+    ja = 
     nl = Neem
 
   [destination]
@@ -1435,7 +1448,7 @@
     hu = %1$s %2$s %3$s %4$s-re
     id = %1$s %2$s %3$s %4$s
     it = %1$s %2$s %3$s %4$s
-    ja = %1$s%2$s %4$s %3$s
+    ja = %1$s%5$s%4$s%3$s%2$s
     ko = %1$s %2$s %3$s %4$s
     mr = %1$s %4$s %3$s %2$s
     nb = %1$s %2$s %3$s %4$s
@@ -1475,7 +1488,7 @@
     hu = Hajtson ki az első kijáratnál.
     id = Ambil jalan keluar pertama.
     it = Prendi la prima uscita.
-    ja = 一番目の出口です。
+    ja = 一番目の出口を出て。
     ko = 첫 번째 출구입니다.
     mr = पहिला निर्गमन घ्या
     nb = Ta første avkjøring.
@@ -1497,10 +1510,12 @@
 
   [take_the_1_exit_street]
     comment = Optionally used inside dist_direction_onto_street in position 3 when the normal take_the_1_exit is insufficient.
+    ja = に出ます
     nl = de eerste afslag
 
   [take_the_1_exit_street_verb]
     comment = Optionally used inside dist_direction_onto_street in position 5 when take_the_1_exit_street needs to be split into two parts.
+    ja = 1番出口を出て
     nl = Neem
 
   [take_the_2_exit]
@@ -1523,7 +1538,7 @@
     hu = Hajtson ki a második kijáratnál.
     id = Ambil jalan keluar kedua.
     it = Prendi la seconda uscita.
-    ja = 二番目の出口です。
+    ja = 二番目の出口を出て。
     ko = 두 번째 출구입니다.
     mr = दुसरा निर्गमन घ्या
     nb = Ta andre avkjøring.
@@ -1545,10 +1560,12 @@
 
   [take_the_2_exit_street]
     comment = Optionally used inside dist_direction_onto_street in position 3 when the normal take_the_2_exit is insufficient.
+    ja = に出ます
     nl = de tweede afslag
 
   [take_the_2_exit_street_verb]
     comment = Optionally used inside dist_direction_onto_street in position 5 when take_the_2_exit_street needs to be split into two parts.
+    ja = 2番出口を出て
     nl = Neem
 
   [take_the_3_exit]
@@ -1571,7 +1588,7 @@
     hu = Hajtson ki a harmadik kijáratnál.
     id = Ambil jalan keluar ketiga.
     it = Prendi la terza uscita.
-    ja = 三番目の出口です。
+    ja = 三番目の出口を出て。
     ko = 세 번째 출구입니다.
     mr = तिसरा निर्गमन घ्या
     nb = Ta tredje avkjøring.
@@ -1593,10 +1610,12 @@
 
   [take_the_3_exit_street]
     comment = Optionally used inside dist_direction_onto_street in position 3 when the normal take_the_3_exit is insufficient.
+    ja = に出ます
     nl = de derde afslag
 
   [take_the_3_exit_street_verb]
     comment = Optionally used inside dist_direction_onto_street in position 5 when take_the_3_exit_street needs to be split into two parts.
+    ja = 3番出口を出て
     nl = Neem
 
   [take_the_4_exit]
@@ -1619,7 +1638,7 @@
     hu = Hajtson ki a negyedik kijáratnál.
     id = Ambil jalan keluar keempat
     it = Prendi la quarta uscita.
-    ja = 四番目の出口です。
+    ja = 四番目の出口を出て。
     ko = 네 번째 출구입니다.
     mr = चौथा निर्गमन घ्या
     nb = Ta fjerde avkjøring.
@@ -1641,10 +1660,12 @@
 
   [take_the_4_exit_street]
     comment = Optionally used inside dist_direction_onto_street in position 3 when the normal take_the_4_exit is insufficient.
+    ja = に出ます
     nl = de vierde afslag
 
   [take_the_4_exit_street_verb]
     comment = Optionally used inside dist_direction_onto_street in position 5 when take_the_4_exit_street needs to be split into two parts.
+    ja = 4番出口を出て
     nl = Neem
 
   [take_the_5_exit]
@@ -1667,7 +1688,7 @@
     hu = Hajtson ki a ötödik kijáratnál.
     id = Ambil jalan keluar kelima.
     it = Prendi la quinta uscita.
-    ja = 五番目の出口です。
+    ja = 五番目の出口を出て。
     ko = 다섯 번째 출구입니다.
     mr = पाचवा निर्गमन घ्या
     nb = Ta femte avkjøring.
@@ -1689,10 +1710,12 @@
 
   [take_the_5_exit_street]
     comment = Optionally used inside dist_direction_onto_street in position 3 when the normal take_the_5_exit is insufficient.
+    ja = に出ます
     nl = de vijfde afslag
 
   [take_the_5_exit_street_verb]
     comment = Optionally used inside dist_direction_onto_street in position 5 when take_the_5_exit_street needs to be split into two parts.
+    ja = 5番出口を出て
     nl = Neem
 
   [take_the_6_exit]
@@ -1715,7 +1738,7 @@
     hu = Hajtson ki a hatodik kijáratnál.
     id = Ambil jalan keluar keenam.
     it = Prendi la sesta uscita.
-    ja = 六番目の出口です。
+    ja = 六番目の出口を出て。
     ko = 여섯 번째 출구입니다.
     mr = सहावा निर्गमन घ्या
     nb = Ta sjette avkjøring.
@@ -1737,10 +1760,12 @@
 
   [take_the_6_exit_street]
     comment = Optionally used inside dist_direction_onto_street in position 3 when the normal take_the_6_exit is insufficient.
+    ja = に出ます
     nl = de zesde afslag
 
   [take_the_6_exit_street_verb]
     comment = Optionally used inside dist_direction_onto_street in position 5 when take_the_6_exit_street needs to be split into two parts.
+    ja = 6番出口を出て
     nl = Neem
 
   [take_the_7_exit]
@@ -1763,7 +1788,7 @@
     hu = Hajtson ki a hetedik kijáratnál.
     id = Ambil jalan keluar ketujuh.
     it = Prendi la settima uscita.
-    ja = 七番目の出口です。
+    ja = 七番目の出口を出て。
     ko = 일곱 번째 출구입니다.
     mr = सातवा निर्गमन घ्या
     nb = Ta sjuende avkjøring.
@@ -1785,10 +1810,12 @@
 
   [take_the_7_exit_street]
     comment = Optionally used inside dist_direction_onto_street in position 3 when the normal take_the_7_exit is insufficient.
+    ja = に出ます
     nl = de zevende afslag
 
   [take_the_7_exit_street_verb]
     comment = Optionally used inside dist_direction_onto_street in position 5 when take_the_7_exit_street needs to be split into two parts.
+    ja = 7番出口を出て
     nl = Neem
 
   [take_the_8_exit]
@@ -1811,7 +1838,7 @@
     hu = Hajtson ki a nyolcadik kijáratnál.
     id = Ambil jalan keluar kedelapan.
     it = Prendi l'ottava uscita.
-    ja = 八番目の出口です。
+    ja = 八番目の出口を出て。
     ko = 여덟 번째 출구입니다.
     mr = आठवा निर्गमन घ्या
     nb = Ta åttende avkjøring.
@@ -1833,10 +1860,12 @@
 
   [take_the_8_exit_street]
     comment = Optionally used inside dist_direction_onto_street in position 3 when the normal take_the_8_exit is insufficient.
+    ja = に出ます
     nl = de achtste afslag
 
   [take_the_8_exit_street_verb]
     comment = Optionally used inside dist_direction_onto_street in position 5 when take_the_8_exit_street needs to be split into two parts.
+    ja = 8番出口を出て
     nl = Neem
 
   [take_the_9_exit]
@@ -1859,7 +1888,7 @@
     hu = Hajtson ki a kilencedik kijáratnál.
     id = Ambil jalan keluar kesembilan.
     it = Prendi la nona uscita.
-    ja = 九番目の出口です。
+    ja = 九番目の出口を出て。
     ko = 아홉 번째 출구입니다.
     mr = नववा निर्गमन घ्या
     nb = Ta niende avkjøring.
@@ -1881,10 +1910,12 @@
 
   [take_the_9_exit_street]
     comment = Optionally used inside dist_direction_onto_street in position 3 when the normal take_the_9_exit is insufficient.
+    ja = に出ます
     nl = de negende afslag
 
   [take_the_9_exit_street_verb]
     comment = Optionally used inside dist_direction_onto_street in position 5 when take_the_9_exit_street needs to be split into two parts.
+    ja = 9番出口を出て
     nl = Neem
 
   [take_the_10_exit]
@@ -1907,7 +1938,7 @@
     hu = Hajtson ki a tízedik kijáratnál.
     id = Ambil jalan keluar kesepuluh.
     it = Prendi la decima uscita.
-    ja = 十番目の出口です。
+    ja = 十番目の出口を出て。
     ko = 열 번째 출구입니다.
     mr = दहावा निर्गमन घ्या
     nb = Ta tiende avkjøring.
@@ -1929,10 +1960,12 @@
 
   [take_the_10_exit_street]
     comment = Optionally used inside dist_direction_onto_street in position 3 when the normal take_the_10_exit is insufficient.
+    ja = に出ます
     nl = de tiende afslag
 
   [take_the_10_exit_street_verb]
     comment = Optionally used inside dist_direction_onto_street in position 5 when take_the_10_exit_street needs to be split into two parts.
+    ja = 10番出口を出て
     nl = Neem
 
   [take_the_11_exit]
@@ -1955,7 +1988,7 @@
     hu = Hajtson ki a tizenegyedik kijáratnál.
     id = Ambil jalan keluar kesebelas.
     it = Prendi l'undicesima uscita.
-    ja = 十一番目の出口です。
+    ja = 十一番目の出口を出て。
     ko = 열한 번째 출구입니다.
     mr = अकरावा निर्गमन घ्या
     nb = Ta ellevte avkjøring.
@@ -1977,10 +2010,12 @@
 
   [take_the_11_exit_street]
     comment = Optionally used inside dist_direction_onto_street in position 3 when the normal take_the_11_exit is insufficient.
+    ja = に出ます
     nl = de elfde afslag
 
   [take_the_11_exit_street_verb]
     comment = Optionally used inside dist_direction_onto_street in position 5 when take_the_11_exit_street needs to be split into two parts.
+    ja = 11番出口を出て
     nl = Neem
 
   [in_50_feet]

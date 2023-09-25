@@ -238,6 +238,12 @@
 /* Settings «Route» category: «Tts enabled» title */
 "pref_tts_enable_title" = "음성 지침";
 
+/* Settings «Route» category: «Tts announce street names» title */
+"pref_tts_street_names_title" = "\"거리 이름 발표\"";
+
+/* Settings «Route» category: «Tts announce street names» description */
+"pref_tts_street_names_description" = "\"사용하도록 설정하면 회전할 거리 또는 출구의 이름을 소리내어 말합니다.\"";
+
 /* Settings «Route» category: «Tts language» title */
 "pref_tts_language_title" = "음성 언어";
 

@@ -226,6 +226,10 @@
 	<string name="pref_map_3d_buildings_disabled_summary">3D-gebouwen worden uitgeschakeld in de energiebesparende modus</string>
 	<!-- Settings «Route» category: «Tts enabled» title -->
 	<string name="pref_tts_enable_title">Gesproken instructies</string>
+	<!-- Settings «Route» category: «Tts announce street names» title -->
+	<string name="pref_tts_street_names_title">Straatnamen bekendmaken</string>
+	<!-- Settings «Route» category: «Tts announce street names» description -->
+	<string name="pref_tts_street_names_description">Indien ingeschakeld, wordt de naam van de straat of afrit waar u afslaat hardop uitgesproken.</string>
 	<!-- Settings «Route» category: «Tts language» title -->
 	<string name="pref_tts_language_title">Gesproken taal</string>
 	<!-- Settings «Route» category: «Test Voice Directions» title -->

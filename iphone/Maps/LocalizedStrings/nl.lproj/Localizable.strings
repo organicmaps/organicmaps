@@ -238,6 +238,12 @@
 /* Settings «Route» category: «Tts enabled» title */
 "pref_tts_enable_title" = "Gesproken instructies";
 
+/* Settings «Route» category: «Tts announce street names» title */
+"pref_tts_street_names_title" = "Straatnamen bekendmaken";
+
+/* Settings «Route» category: «Tts announce street names» description */
+"pref_tts_street_names_description" = "Indien ingeschakeld, wordt de naam van de straat of afrit waar u afslaat hardop uitgesproken.";
+
 /* Settings «Route» category: «Tts language» title */
 "pref_tts_language_title" = "Gesproken taal";
 

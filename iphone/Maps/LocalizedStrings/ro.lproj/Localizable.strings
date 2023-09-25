@@ -238,6 +238,12 @@
 /* Settings «Route» category: «Tts enabled» title */
 "pref_tts_enable_title" = "Instrucțiuni vocale";
 
+/* Settings «Route» category: «Tts announce street names» title */
+"pref_tts_street_names_title" = "Anunțați numele străzilor";
+
+/* Settings «Route» category: «Tts announce street names» description */
+"pref_tts_street_names_description" = "Când este activată, numele străzii sau al ieșirii pe care să o pornim va fi rostit cu voce tare.";
+
 /* Settings «Route» category: «Tts language» title */
 "pref_tts_language_title" = "Limba ghidului vocal";
 

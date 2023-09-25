@@ -228,6 +228,10 @@
 	<string name="pref_map_3d_buildings_disabled_summary">Les bâtiments 3D sont désactivés en mode d\'économie d\'énergie</string>
 	<!-- Settings «Route» category: «Tts enabled» title -->
 	<string name="pref_tts_enable_title">Instructions vocales</string>
+	<!-- Settings «Route» category: «Tts announce street names» title -->
+	<string name="pref_tts_street_names_title">Annoncer les noms de rue</string>
+	<!-- Settings «Route» category: «Tts announce street names» description -->
+	<string name="pref_tts_street_names_description">Lorsqu\'il est activé, le nom de la rue ou de la sortie vers laquelle tourner sera prononcé à haute voix.</string>
 	<!-- Settings «Route» category: «Tts language» title -->
 	<string name="pref_tts_language_title">Langue vocale</string>
 	<!-- Settings «Route» category: «Test Voice Directions» title -->

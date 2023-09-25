@@ -211,6 +211,10 @@
 	<string name="pref_map_3d_buildings_disabled_summary">สิ่งปลูกสร้าง 3 มิติจะปิดในโหมดประหยัดพลังงาน</string>
 	<!-- Settings «Route» category: «Tts enabled» title -->
 	<string name="pref_tts_enable_title">คำแนะนำด้วยเสียง</string>
+	<!-- Settings «Route» category: «Tts announce street names» title -->
+	<string name="pref_tts_street_names_title">ประกาศชื่อถนน</string>
+	<!-- Settings «Route» category: «Tts announce street names» description -->
+	<string name="pref_tts_street_names_description">เมื่อเปิดใช้งาน ชื่อของถนนหรือทางออกที่จะเลี้ยวจะถูกพูดออกมาดัง ๆ</string>
 	<!-- Settings «Route» category: «Tts language» title -->
 	<string name="pref_tts_language_title">ภาษาสำหรับเสียง</string>
 	<!-- Settings «Route» category: «Test Voice Directions» title -->

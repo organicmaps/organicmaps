@@ -238,6 +238,12 @@
 /* Settings «Route» category: «Tts enabled» title */
 "pref_tts_enable_title" = "دستور العمل صوتی";
 
+/* Settings «Route» category: «Tts announce street names» title */
+"pref_tts_street_names_title" = "نام خیابان ها را اعلام کنید";
+
+/* Settings «Route» category: «Tts announce street names» description */
+"pref_tts_street_names_description" = "وقتی فعال باشد، نام خیابان یا خروجی که باید به آن بپیچید با صدای بلند گفته می شود.";
+
 /* Settings «Route» category: «Tts language» title */
 "pref_tts_language_title" = "زبان صوت";
 

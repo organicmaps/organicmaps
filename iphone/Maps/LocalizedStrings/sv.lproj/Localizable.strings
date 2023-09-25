@@ -238,6 +238,12 @@
 /* Settings «Route» category: «Tts enabled» title */
 "pref_tts_enable_title" = "Röstinstruktioner";
 
+/* Settings «Route» category: «Tts announce street names» title */
+"pref_tts_street_names_title" = "Tillkännage gatunamn";
+
+/* Settings «Route» category: «Tts announce street names» description */
+"pref_tts_street_names_description" = "När det är aktiverat kommer namnet på gatan eller avfarten att svänga in på att sägas upp.";
+
 /* Settings «Route» category: «Tts language» title */
 "pref_tts_language_title" = "Röstspråk";
 

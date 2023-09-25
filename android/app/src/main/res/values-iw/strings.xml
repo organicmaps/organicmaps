@@ -172,6 +172,10 @@
 	<string name="pref_zoom_summary">הצג על המסך</string>
 	<!-- A message in Settings/Preferences explaining why is it not possible to enable 3D buildings when max power saving mode is enabled -->
 	<string name="pref_map_3d_buildings_disabled_summary">מבנים תלת מימדיים כבויים במצב חיסכון בחשמל</string>
+	<!-- Settings «Route» category: «Tts announce street names» title -->
+	<string name="pref_tts_street_names_title">הכריזו על שמות רחובות</string>
+	<!-- Settings «Route» category: «Tts announce street names» description -->
+	<string name="pref_tts_street_names_description">כאשר מופעל, שם הרחוב או היציאה שאליו יש לפנות יוקרא בקול.</string>
 	<!-- Settings «Route» category: «Test Voice Directions» title -->
 	<string name="pref_tts_test_voice_title">בדיקת הנחיות קוליות (TTS, טקסט לדיבור)</string>
 	<!-- Settings «Route» category: Pop-up message when clicking «Test Voice Directions» -->

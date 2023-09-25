@@ -238,6 +238,12 @@
 /* Settings «Route» category: «Tts enabled» title */
 "pref_tts_enable_title" = "语音指导";
 
+/* Settings «Route» category: «Tts announce street names» title */
+"pref_tts_street_names_title" = "宣布街道名称";
+
+/* Settings «Route» category: «Tts announce street names» description */
+"pref_tts_street_names_description" = "启用后，将大声说出要转入的街道或出口的名称。";
+
 /* Settings «Route» category: «Tts language» title */
 "pref_tts_language_title" = "语音语言";
 

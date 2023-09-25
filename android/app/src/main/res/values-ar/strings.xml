@@ -229,6 +229,10 @@
 	<string name="pref_map_3d_buildings_disabled_summary">يتم إيقاف تشغيل المباني ثلاثية الأبعاد في وضع توفير الطاقة</string>
 	<!-- Settings «Route» category: «Tts enabled» title -->
 	<string name="pref_tts_enable_title">تعليمات صوتية</string>
+	<!-- Settings «Route» category: «Tts announce street names» title -->
+	<string name="pref_tts_street_names_title">أعلن أسماء الشوارع</string>
+	<!-- Settings «Route» category: «Tts announce street names» description -->
+	<string name="pref_tts_street_names_description">عند التمكين ، سيتم نطق اسم الشارع أو المخرج الذي سيتم تشغيله بصوت عالٍ.</string>
 	<!-- Settings «Route» category: «Tts language» title -->
 	<string name="pref_tts_language_title">لغة الصوت</string>
 	<!-- Settings «Route» category: «Test Voice Directions» title -->

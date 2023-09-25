@@ -214,6 +214,10 @@
 	<string name="pref_map_3d_buildings_disabled_summary">Clădirile 3D sunt oprite în modul de economisire a energiei</string>
 	<!-- Settings «Route» category: «Tts enabled» title -->
 	<string name="pref_tts_enable_title">Instrucțiuni vocale</string>
+	<!-- Settings «Route» category: «Tts announce street names» title -->
+	<string name="pref_tts_street_names_title">Anunțați numele străzilor</string>
+	<!-- Settings «Route» category: «Tts announce street names» description -->
+	<string name="pref_tts_street_names_description">Când este activată, numele străzii sau al ieșirii pe care să o pornim va fi rostit cu voce tare.</string>
 	<!-- Settings «Route» category: «Tts language» title -->
 	<string name="pref_tts_language_title">Limba ghidului vocal</string>
 	<!-- Settings «Route» category: «Test Voice Directions» title -->

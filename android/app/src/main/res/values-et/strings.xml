@@ -218,6 +218,10 @@
 	<string name="pref_map_3d_buildings_disabled_summary">3D-hooned lülitatakse energiasäästurežiimis välja</string>
 	<!-- Settings «Route» category: «Tts enabled» title -->
 	<string name="pref_tts_enable_title">Hääljuhised</string>
+	<!-- Settings «Route» category: «Tts announce street names» title -->
+	<string name="pref_tts_street_names_title">Teatage tänavanimed</string>
+	<!-- Settings «Route» category: «Tts announce street names» description -->
+	<string name="pref_tts_street_names_description">Kui see on lubatud, öeldakse valjusti tänava või väljasõidu nimi, millele pöörata.</string>
 	<!-- Settings «Route» category: «Tts language» title -->
 	<string name="pref_tts_language_title">Hääle keel</string>
 	<!-- Settings «Route» category: «Test Voice Directions» title -->

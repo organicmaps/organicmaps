@@ -238,6 +238,12 @@
 /* Settings «Route» category: «Tts enabled» title */
 "pref_tts_enable_title" = "Istruzioni vocali";
 
+/* Settings «Route» category: «Tts announce street names» title */
+"pref_tts_street_names_title" = "Annunciare i nomi delle strade";
+
+/* Settings «Route» category: «Tts announce street names» description */
+"pref_tts_street_names_description" = "Se abilitato, verrà pronunciato ad alta voce il nome della via o dell'uscita in cui svoltare.";
+
 /* Settings «Route» category: «Tts language» title */
 "pref_tts_language_title" = "Lingua per la voce";
 

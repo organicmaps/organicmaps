@@ -238,6 +238,12 @@
 /* Settings «Route» category: «Tts enabled» title */
 "pref_tts_enable_title" = "Instruccions de veu";
 
+/* Settings «Route» category: «Tts announce street names» title */
+"pref_tts_street_names_title" = "Announce Street Names";
+
+/* Settings «Route» category: «Tts announce street names» description */
+"pref_tts_street_names_description" = "When enabled, the name of the street or exit to turn onto will be spoken aloud.";
+
 /* Settings «Route» category: «Tts language» title */
 "pref_tts_language_title" = "Llengua de la veu";
 
