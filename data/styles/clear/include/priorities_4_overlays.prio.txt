@@ -362,7 +362,7 @@ amenity-university                                  # icon z14- (also has captio
 
 leisure-park                                        # icon z14- (also has caption(optional) z14-, area z10-)
 leisure-park-permissive                             # icon z14- (also has caption(optional) z14-, area z10-)
-natural-cave_entrance                               # icon z11- (also has caption(optional) z11-)
+natural-cave_entrance                               # icon z12- (also has caption(optional) z12-)
 === 5050
 
 historic-aircraft                                   # icon z16- (also has caption(optional) z16-)
@@ -1516,7 +1516,7 @@ amenity-parking-private                             # icon z18- (also has captio
 
 # leisure-park                                      # caption(optional) z14- (also has icon z14-, area z10-)
 # leisure-park-permissive                           # caption(optional) z14- (also has icon z14-, area z10-)
-# natural-cave_entrance                             # caption(optional) z11- (also has icon z11-)
+# natural-cave_entrance                             # caption(optional) z12- (also has icon z12-)
 # === -4950
 
 # historic-aircraft                                 # caption(optional) z16- (also has icon z16-)
