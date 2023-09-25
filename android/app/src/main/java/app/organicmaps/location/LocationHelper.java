@@ -3,6 +3,7 @@ package app.organicmaps.location;
 import static android.Manifest.permission.ACCESS_COARSE_LOCATION;
 import static android.Manifest.permission.ACCESS_FINE_LOCATION;
 
+import android.annotation.SuppressLint;
 import android.app.PendingIntent;
 import android.content.Context;
 import android.location.Location;
@@ -28,19 +29,15 @@ import java.util.Set;
 
 public class LocationHelper implements BaseLocationProvider.Listener
 {
-  private static final long INTERVAL_FOLLOW_AND_ROTATE_MS = 3000;
-  private static final long INTERVAL_FOLLOW_MS = 1000;
+  private static final long INTERVAL_FOLLOW_AND_ROTATE_MS = 0;
+  private static final long INTERVAL_FOLLOW_MS = 0;
   private static final long INTERVAL_NOT_FOLLOW_MS = 3000;
-  private static final long INTERVAL_NAVIGATION_VEHICLE_MS = 500;
-
-  // TODO (trashkalmar): Correct value
-  private static final long INTERVAL_NAVIGATION_BICYCLE_MS = 1000;
-  private static final long INTERVAL_NAVIGATION_PEDESTRIAN_MS = 1000;
+  private static final long INTERVAL_NAVIGATION_MS = 0;
 
   private static final long AGPS_EXPIRATION_TIME_MS = 16 * 60 * 60 * 1000; // 16 hours
 
   @NonNull
-  private Context mContext;
+  private final Context mContext;
 
   private static final String TAG = LocationState.LOCATION_TAG;
   @NonNull
@@ -188,8 +185,10 @@ public class LocationHelper implements BaseLocationProvider.Listener
     // Try to downgrade to the native provider first and restart the service before notifying the user.
     Logger.d(TAG, "provider = " + mLocationProvider.getClass().getSimpleName() + " is not supported," +
         " downgrading to use native provider");
+    mLocationProvider.stop();
     mLocationProvider = new AndroidNativeProvider(mContext, this);
-    restart();
+    mActive = true;
+    mLocationProvider.start(mInterval);
   }
 
   @Override
@@ -232,71 +231,44 @@ public class LocationHelper implements BaseLocationProvider.Listener
     mListeners.remove(listener);
   }
 
-  private void calcLocationUpdatesInterval()
+  private long calcLocationUpdatesInterval()
   {
     if (RoutingController.get().isNavigating())
-    {
-      final @Framework.RouterType int router = Framework.nativeGetRouter();
-      switch (router)
-      {
-      case Framework.ROUTER_TYPE_PEDESTRIAN:
-        mInterval = INTERVAL_NAVIGATION_PEDESTRIAN_MS;
-        break;
+      return INTERVAL_NAVIGATION_MS;
 
-      case Framework.ROUTER_TYPE_VEHICLE:
-        mInterval = INTERVAL_NAVIGATION_VEHICLE_MS;
-        break;
-
-      case Framework.ROUTER_TYPE_BICYCLE:
-        mInterval = INTERVAL_NAVIGATION_BICYCLE_MS;
-        break;
-
-      case Framework.ROUTER_TYPE_TRANSIT:
-        // TODO: what is the interval should be for transit type?
-        mInterval = INTERVAL_NAVIGATION_PEDESTRIAN_MS;
-        break;
-
-      default:
-        throw new IllegalArgumentException("Unsupported router type: " + router);
-      }
-
-      Logger.d(TAG, "navigation = " + router + " interval = " + mInterval);
-      return;
-    }
-
-    int mode = LocationState.nativeGetMode();
+    final int mode = LocationState.nativeGetMode();
     switch (mode)
     {
       case LocationState.FOLLOW:
-        mInterval = INTERVAL_FOLLOW_MS;
-        break;
+        return INTERVAL_FOLLOW_MS;
       case LocationState.FOLLOW_AND_ROTATE:
-        mInterval = INTERVAL_FOLLOW_AND_ROTATE_MS;
-        break;
+        return INTERVAL_FOLLOW_AND_ROTATE_MS;
       case LocationState.NOT_FOLLOW:
       case LocationState.NOT_FOLLOW_NO_POSITION:
       case LocationState.PENDING_POSITION:
-        mInterval = INTERVAL_NOT_FOLLOW_MS;
-        break;
+        return INTERVAL_NOT_FOLLOW_MS;
+      default:
+        throw new IllegalArgumentException("Unsupported location mode: " + mode);
     }
-    Logger.d(TAG, "mode = " + mode + " interval = " + mInterval);
   }
 
   /**
-   * Stops the current provider. Then initialize the location provider again,
-   * because location settings could be changed and a new location provider can be used,
-   * such as Google fused provider. And we think that Google fused provider is preferable
-   * for the most cases. And starts the initialized location provider.
-   *
-   * @see #start()
-   *
+   * Restart the location with a new refresh interval if changed.
    */
-  @RequiresPermission(anyOf = {ACCESS_COARSE_LOCATION, ACCESS_FINE_LOCATION})
-  public void restart()
+  @SuppressLint("MissingPermission") // Location permissions have already been granted if isActive() is true.
+  public void restartWithNewMode()
   {
-    Logger.d(TAG);
-    stop();
-    start();
+    if (!isActive())
+      return;
+
+    final long newInterval = calcLocationUpdatesInterval();
+    if (newInterval == mInterval)
+      return;
+
+    Logger.i(TAG, "update refresh interval: old = " + mInterval + " new = " + newInterval);
+    mLocationProvider.stop();
+    mInterval = newInterval;
+    mLocationProvider.start(newInterval);
   }
 
   /**
@@ -318,7 +290,7 @@ public class LocationHelper implements BaseLocationProvider.Listener
       SensorHelper.from(mContext).start();
 
     final long oldInterval = mInterval;
-    calcLocationUpdatesInterval();
+    mInterval = calcLocationUpdatesInterval();
     Logger.i(TAG, "provider = " + mLocationProvider.getClass().getSimpleName() +
         " mInFirstRun = " + mInFirstRun + " oldInterval = " + oldInterval + " interval = " + mInterval);
     mActive = true;
