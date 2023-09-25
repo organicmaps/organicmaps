@@ -29,10 +29,10 @@
 
 node|z10-[natural=volcano],
 area|z10-[natural=volcano],
-node|z11-[natural=cave_entrance],
-area|z11-[natural=cave_entrance],
 node|z11-[waterway=waterfall],
 area|z11-[waterway=waterfall],
+node|z12-[natural=cave_entrance],
+area|z12-[natural=cave_entrance],
 node|z13-[natural=peak][name],
 node|z14-[natural=saddle],
 area|z14-[natural=saddle],
@@ -61,9 +61,6 @@ node|z12-[leisure=nature_reserve],
 area|z12-[leisure=nature_reserve]
 {text: name;text-color: @park_label;text-halo-opacity: 0.8;text-halo-color: @label_halo_light;text-halo-radius:0.5;}
 
-node|z11[natural=cave_entrance],
-area|z11[natural=cave_entrance]
-{icon-image: cave-s.svg;icon-min-distance: 20;}
 node|z12-[natural=cave_entrance],
 area|z12-[natural=cave_entrance]
 {icon-image: cave-s.svg;text-offset: 1;font-size: 10;}
