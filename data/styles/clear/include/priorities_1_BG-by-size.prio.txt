@@ -99,9 +99,11 @@ natural-wetland-bog                                 # area z11- (also has captio
 natural-wetland-marsh                               # area z11- (also has caption z16-)
 === 90
 
+landuse-farmyard                                    # area z10- (also has caption z15-)
+=== 81
+
 landuse-allotments                                  # area z12- (also has caption z15-)
 landuse-farmland                                    # area z10- (also has caption z15-)
-landuse-farmyard                                    # area z10- (also has caption z15-)
 landuse-field                                       # area z12-
 landuse-meadow                                      # area z12-
 landuse-orchard                                     # area z12- (also has caption z15-)

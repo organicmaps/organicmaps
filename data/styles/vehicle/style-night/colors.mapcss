@@ -70,6 +70,7 @@
 @parking: #191509;
 @parking_l: #1F190A;
 @farmland: #151500;
+@farmyard: #212106;
 
 /*4.2 Aerodrome*/
 
