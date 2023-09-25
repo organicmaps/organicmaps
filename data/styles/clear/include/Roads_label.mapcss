@@ -211,7 +211,6 @@ line|z16-[railway=rail][usage=tourism],
 
 line|z13-[highway=residential],
 line|z12-[highway=tertiary],
-line|z18-[highway=residential_link],
 line|z18-[highway=tertiary_link]
 {text: name;text-color: @label_medium;text-halo-opacity: 0.8;text-halo-radius: 1;text-halo-color: @label_halo_medium;}
 
@@ -228,7 +227,6 @@ line|z16-17[highway=residential],
 line|z16-17[highway=tertiary],
 {font-size: 12;text-halo-color: @label_halo_light;}
 line|z18-[highway=residential],
-line|z18-[highway=residential_link],
 line|z18-[highway=tertiary],
 line|z18-[highway=tertiary_link]
 {font-size: 12;text-halo-opacity: 1;text-halo-color: @label_halo_light;}
@@ -278,20 +276,17 @@ line|z18-[highway=road],
 
 line|z15-[highway=cycleway],
 line|z15-[highway=construction],
-line|z15-[highway=proposed],
 line|z15-[highway=track],
 line|z15-[highway=path],
 line|z15-[highway=bridleway],
 line|z15-[highway=footway],
 line|z16-[leisure=track],
-line|z16-[route=hiking],
 line|z16-[highway=steps],
 line|z16-[highway=ford],
 line|z16-[highway=raceway],
 {text: name;text-color: @label_medium;text-halo-opacity: 0.8;text-halo-radius: 1;text-halo-color: @label_halo_light;}
 
 line|z15[highway=construction],
-line|z15[highway=proposed],
 line|z15[highway=bridleway],
 line|z15[highway=path],
 line|z15[highway=footway],
@@ -301,24 +296,20 @@ line|z15[highway=track]
 line|z16-17[highway=ford],
 line|z16-17[highway=cycleway],
 line|z16-17[highway=construction],
-line|z16-17[highway=proposed],
 line|z16-17[highway=track],
 line|z16-17[highway=raceway],
 line|z16-17[leisure=track],
 line|z16-17[highway=path],
-line|z16-17[route=hiking],
 line|z16-17[highway=bridleway],
 line|z16-17[highway=footway],
 {font-size: 9;}
 line|z18-[highway=ford],
 line|z18-[highway=cycleway],
 line|z18-[highway=construction],
-line|z18-[highway=proposed],
 line|z18-[highway=track],
 line|z18-[highway=raceway],
 line|z18-[leisure=track],
 line|z18-[highway=path],
-line|z18-[route=hiking],
 line|z18-[highway=bridleway],
 line|z18-[highway=footway],
 {font-size: 10;}
@@ -350,14 +341,11 @@ line|z14[leisure=skiing]
 /* 11. FERRY */
 
 line|z10-[route=ferry],
-line|z10-[route=ferry_motorcar]
 {text: name;text-color: @water_label;text-position: line;}
 
 line|z10-16[route=ferry],
-line|z10-16[route=ferry_motorcar]
 {font-size: 9;}
 line|z17-[route=ferry],
-line|z17-[route=ferry_motorcar]
 {font-size: 10;}
 
 /* 12. ONEWAY ARROWS  */

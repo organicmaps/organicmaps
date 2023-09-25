@@ -202,7 +202,7 @@ area|z0-[natural=desert],
 
 /* 6.WATER */
 
-area|z0-[natural=water][!tunnel],
+area|z0-[natural=water],
 area|z0-[waterway=dock],
 area|z0-[waterway=riverbank],
 area|z0-[landuse=salt_pond],
@@ -318,7 +318,7 @@ area|z14-[amenity=doctors],
 area|z14-[healthcare=laboratory],
 area|z14-[highway=pedestrian][area?],
 area|z14-[area:highway=pedestrian],
-area|z14-[highway=footway][area?][!sac_scale],
+area|z14-[highway=footway][area?],
 area|z14-[area:highway=footway],
 area|z14-[area:highway=living_street],
 area|z14-[amenity=grave_yard],
@@ -396,7 +396,7 @@ area|z16-[landuse=cemetery]
 
 area|z14-[highway=pedestrian][area?],
 area|z14-[area:highway=pedestrian],
-area|z14-[highway=footway][area?][!sac_scale],
+area|z14-[highway=footway][area?],
 area|z14-[area:highway=footway],
 area|z14-[area:highway=living_street],
 area|z16-[public_transport=platform],
@@ -406,7 +406,7 @@ area|z16-[amenity=place_of_worship]
 
 area|z16-[highway=pedestrian][area?],
 area|z16-[area:highway=pedestrian],
-area|z16-[highway=footway][area?][!sac_scale],
+area|z16-[highway=footway][area?],
 area|z16-[area:highway=footway],
 area|z16-[area:highway=living_street],
 {fill-color: @pedestrian_area_light;}

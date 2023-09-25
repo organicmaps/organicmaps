@@ -49,9 +49,6 @@
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 */
 
-line[highway]
-{casing-width: 0;}
-
 /* 2.WORLD LEVEL ROAD 4-9 ZOOM */
 
 line|z6-9[highway=world_towns_level],
@@ -393,13 +390,11 @@ line|z18-[highway=secondary_link][bridge?]::bridgeblack
 
 line|z12-[highway=residential],
 line|z11-[highway=tertiary],
-line|z15-[highway=residential_link],
 line|z14-[highway=tertiary_link],
 {color: @residential; opacity: 1;}
 line|z16-[highway=tertiary][tunnel?],
 line|z16-[highway=residential][tunnel?],
 line|z16-[highway=tertiary_link][tunnel?],
-line|z16-[highway=residential_link][tunnel?]
 {color: @tertiary_tunnel;casing-width: 1;casing-linecap: butt;casing-color: @tertiary_tunnel_casing;}
 line|z14-[highway=tertiary][bridge?]::bridgewhite,
 line|z14-[highway=residential][bridge?]::bridgewhite,
@@ -423,27 +418,22 @@ line|z15[highway=tertiary_link]
 {width: 1.8;}
 line|z15[highway=residential],
 line|z15[highway=tertiary],
-line|z15[highway=residential_link],
 line|z15[highway=tertiary_link]
 {width: 3.2;}
 line|z16[highway=residential],
 line|z16[highway=tertiary],
-line|z16[highway=residential_link],
 line|z16[highway=tertiary_link]
 {width: 4.4;}
 line|z17[highway=residential],
 line|z17[highway=tertiary],
-line|z17[highway=residential_link],
 line|z17[highway=tertiary_link]
 {width: 6;}
 line|z18[highway=residential],
 line|z18[highway=tertiary],
-line|z18[highway=residential_link],
 line|z18[highway=tertiary_link]
 {width: 9;}
 line|z19-[highway=residential],
 line|z19-[highway=tertiary],
-line|z19-[highway=residential_link],
 line|z19-[highway=tertiary_link]
 {width: 12;}
 
@@ -452,7 +442,6 @@ line|z19-[highway=tertiary_link]
 line|z16-[highway=tertiary][tunnel?],
 line|z16-[highway=residential][tunnel?],
 line|z16-[highway=tertiary_link][tunnel?],
-line|z16-[highway=residential_link][tunnel?]
 {casing-dashes: 5,5;}
 
 /* 6.3 Residential & Tertiary bridge 14-22 ZOOM */
@@ -593,7 +582,6 @@ line|z13-[highway=ford]
 line|z13-[highway=cycleway]
 {color: @cycleway;opacity: 1;}
 line|z13-[highway=construction],
-line|z13-[highway=proposed]
 {color: @construction;opacity: 1;}
 line|z13-[highway=pedestrian][bridge?]::bridgewhite,
 line|z15-[highway=footway][bridge?]::bridgewhite,
@@ -621,7 +609,6 @@ line|z14-[highway=raceway],
 line|z15-[leisure=track][!area],
 {color: @sport;opacity: 1;}
 line|z14-[highway=path],
-line|z14-[route=hiking],
 line|z14-[highway=footway][sac_scale],
 {color: @path;opacity: 1;}
 line|z14-[highway=bridleway]
@@ -744,25 +731,18 @@ line|z19-[highway=cycleway][bridge?]::bridgeblack
 /* 8.5 Construction & Proposed 13-22 ZOOM */
 
 line|z13[highway=construction],
-line|z13[highway=proposed]
 {width: 1.2;dashes: 3.6,1.8;}
 line|z14[highway=construction],
-line|z14[highway=proposed]
 {width: 1.4;dashes: 4.5,1.8;}
 line|z15[highway=construction],
-line|z15[highway=proposed]
 {width: 2;dashes: 7.2,2.7;}
 line|z16[highway=construction],
-line|z16[highway=proposed]
 {width: 2.6;dashes: 9,3.6;}
 line|z17[highway=construction],
-line|z17[highway=proposed]
 {width: 3;dashes: 10.8,4.5;}
 line|z18[highway=construction],
-line|z18[highway=proposed]
 {width: 4;dashes: 13.5,5.4;}
 line|z19-[highway=construction],
-line|z19-[highway=proposed]
 {width: 6;dashes: 18,6.2;}
 
 /* 8.6 Track & Path 14-22 ZOOM */
@@ -801,27 +781,21 @@ line|z19-[highway=track],
 {width: 4.5; dashes: 12,3.5;}
 
 line|z14[highway=path],
-line|z14[route=hiking],
 line|z14[highway=footway][sac_scale],
 {width: 0.9; dashes: 3.5,2;}
 line|z15[highway=path],
-line|z15[route=hiking],
 line|z15[highway=footway][sac_scale],
 {width: 1.1; dashes: 3.5,2;}
 line|z16[highway=path],
-line|z16[route=hiking],
 line|z16[highway=footway][sac_scale],
 {width: 1.5; dashes: 4,2.5;}
 line|z17[highway=path],
-line|z17[route=hiking],
 line|z17[highway=footway][sac_scale],
 {width: 2; dashes: 4,2.5;}
 line|z18[highway=path],
-line|z18[route=hiking],
 line|z18[highway=footway][sac_scale],
 {width: 3; dashes: 6,3.5;}
 line|z19-[highway=path],
-line|z19-[route=hiking],
 line|z19-[highway=footway][sac_scale],
 {width: 4; dashes: 8,4.5;}
 
@@ -1386,9 +1360,9 @@ line|z14-[piste:type=downhill][piste:difficulty=freeride]
 line|z14[piste:type=downhill],
 line|z14[piste:type=nordic],
 line|z14[piste:type=sled],
-{width: 0.8;}
-line|z14[route=ski],
+/*
 line|z14[leisure=skiing]
+*/
 {width: 0.8;}
 line|z14-[piste:type=downhill][piste:difficulty=novice],
 line|z14-[piste:type=downhill][piste:difficulty=easy],
@@ -1407,8 +1381,9 @@ line|z15-[piste:type=downhill][piste:difficulty=freeride],
 line|z15-[piste:type=downhill],
 line|z15-[piste:type=sled],
 line|z15-[piste:type=nordic],
-line|z15-[route=ski],
+/*
 line|z15-[leisure=skiing]
+*/
 {width: 1.1;}
 line|z17-[piste:type=downhill][piste:difficulty=novice],
 line|z17-[piste:type=downhill][piste:difficulty=easy],
@@ -1420,8 +1395,9 @@ line|z17-[piste:type=downhill][piste:difficulty=freeride],
 line|z17-[piste:type=downhill],
 line|z17-[piste:type=sled],
 line|z17-[piste:type=nordic],
-line|z17-[route=ski],
+/*
 line|z17-[leisure=skiing]
+*/
 {width: 1.5;}
 
 /* 11. FERRY */

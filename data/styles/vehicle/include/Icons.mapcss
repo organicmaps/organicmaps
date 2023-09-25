@@ -203,9 +203,11 @@ area|z14-[aeroway=aerodrome]::int_name,
 node|z14-[aeroway=aerodrome]::int_name,
 {font-size: 11;}
 
+/*
 area|z17-[aeroway=heliport],
 node|z17-[aeroway=heliport],
 {icon-image: helipad-m.svg;text-offset: 1;font-size: 11;text: name;text-color: @poi_label;}
+*/
 
 /* 3.7 Aerialway */
 
@@ -502,10 +504,6 @@ area|z13-[leisure=stadium],*/
 area|z15-[amenity=university],
 node|z15-[amenity=university],
 node|z15-[amenity=hospital],
-node|z15-[building=hospital],
-area|z15-[building=hospital],
-
-
 node|z14-[barrier=toll_booth],
 area|z14-[barrier=toll_booth],
 node|z15-[barrier=border_control],
@@ -530,20 +528,12 @@ area|z17-[amenity=post_office],
 /* 5.1 Hospital */
 
 node|z15[amenity=hospital],
-node|z15[building=hospital],
-area|z15[building=hospital]
 {icon-image: hospital-m.svg;icon-min-distance: 10;font-size: 12.5;}
 node|z16[amenity=hospital],
-node|z16[building=hospital],
-area|z16[building=hospital]
 {icon-image: hospital-m.svg;icon-min-distance: 8;font-size: 12.75;}
 node|z17[amenity=hospital],
-node|z17[building=hospital],
-area|z17[building=hospital]
 {icon-image: hospital-m.svg;icon-min-distance: 14;font-size: 13.75;}
 node|z18-[amenity=hospital],
-node|z18-[building=hospital],
-area|z18-[building=hospital],
 {icon-image: hospital-m.svg;font-size: 14.5;}
 
 
@@ -867,7 +857,7 @@ node|z17[amenity=car_wash],
 area|z17[amenity=car_wash]
 {icon-image: car-wash-m.svg;font-size: 13.75;icon-min-distance: 24;}
 node|z18-[amenity=car_wash],
-area|z18-[amenity=car_wash ]
+area|z18-[amenity=car_wash],
 {icon-image: car-wash-m.svg;text-offset: 1;font-size: 14.5;}
 
 node|z18-[amenity=car_rental],
