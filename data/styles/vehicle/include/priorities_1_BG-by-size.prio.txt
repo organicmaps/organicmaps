@@ -57,6 +57,9 @@ natural-grassland                                   # area z14-
 natural-heath                                       # area z14-
 === 80
 
+landuse-farmyard                                    # area z14-
+=== 71
+
 landuse-allotments                                  # area z14-
 landuse-farmland                                    # area z14-
 landuse-field                                       # area z14-

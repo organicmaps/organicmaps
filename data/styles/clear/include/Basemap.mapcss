@@ -324,6 +324,7 @@ area|z14-[area:highway=living_street],
 area|z14-[amenity=grave_yard],
 area|z14-[landuse=cemetery],
 area|z14-[amenity=university],
+area|z15-[landuse=garages],
 area|z15-[landuse=industrial],
 area|z15-[landuse=construction],
 area|z15-[landuse=churchyard],
@@ -352,7 +353,8 @@ area|z15-[landuse=industrial],
 area|z15-[landuse=construction],
 area|z15-[landuse=landfill],
 area|z15-[landuse=railway],
-area|z15-[landuse=quarry]
+area|z15-[landuse=quarry],
+area|z15-[landuse=garages],
 {fill-color: @industrial;}
 
 /* 7.2 Hospital */
@@ -440,9 +442,10 @@ area|z15-[landuse=churchyard]
 
 /* 7.8 Agricultural */
 area|z10-[landuse=farmland],
-area|z10-[landuse=farmyard],
 {fill-color: @farmland; fill-opacity: 1;}
 
+area|z10-[landuse=farmyard],
+{fill-color: @farmyard; fill-opacity: 1;}
 /* Parking */
 
 area|z15-[amenity=parking],
@@ -523,26 +526,22 @@ line|z19-[man_made=cutline],
 
 area|z14[building],
 area|z14[waterway=dam],
-area|z14[landuse=garages],
 {fill-color: @building;fill-opacity: 0.5;}
 
 area|z15[building],
 area|z15[waterway=dam],
-area|z15[landuse=garages],
 {fill-color: @building;fill-opacity: 0.6;}
 
 area|z14-15[aeroway=terminal],
 area|z16[building],
 area|z16[building:part],
 area|z16[waterway=dam],
-area|z16[landuse=garages],
 {fill-color: @building;fill-opacity: 0.8;casing-width: 1;casing-color: @building_border;}
 
 area|z16-[aeroway=terminal],
 area|z17-[building],
 area|z17-[building:part],
 area|z17-[waterway=dam],
-area|z17-[landuse=garages],
 {fill-color: @building_dark;casing-width: 1;casing-color: @building_dark_border;}
 
 

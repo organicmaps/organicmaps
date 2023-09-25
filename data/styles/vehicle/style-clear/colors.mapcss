@@ -133,6 +133,7 @@
 @parking_l: #FCFCC2;/*#F0EBC5;DCDCB9; #F2F2CE;*/
 @military: #E53935;
 @farmland: #ededc3;
+@farmyard: #e8dabb;
 
 /* BARRIERS */
 @fence: #888888;
