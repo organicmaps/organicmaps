@@ -1210,6 +1210,7 @@
 	<string name="type.landuse.farm">शेत</string>
 	<string name="type.landuse.farmland">शेतजमीन</string>
 	<string name="type.landuse.field">क्षेत्र</string>
+	<string name="type.landuse.flowerbed">फ्लॉवरबेड</string>
 	<string name="type.landuse.forest">वन</string>
 	<string name="type.landuse.forest.coniferous">शंकुमंत जंगल</string>
 	<string name="type.landuse.forest.deciduous">पानझडी जंगल</string>

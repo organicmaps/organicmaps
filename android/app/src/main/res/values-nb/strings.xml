@@ -1265,6 +1265,7 @@
 	<string name="type.landuse.cemetery.christian">Gravplass</string>
 	<string name="type.landuse.churchyard">Kirkegård</string>
 	<string name="type.landuse.farmland">Jordbruksområde</string>
+	<string name="type.landuse.flowerbed">Blomsterbed</string>
 	<string name="type.landuse.forest">Skog</string>
 	<string name="type.landuse.forest.coniferous">Barskog</string>
 	<string name="type.landuse.forest.deciduous">Løvskog</string>

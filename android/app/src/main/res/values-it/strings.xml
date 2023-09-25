@@ -1314,6 +1314,7 @@
 	<string name="type.landuse.education">Strutture didattiche</string>
 	<string name="type.landuse.farmland">Terreno agricolo</string>
 	<string name="type.landuse.farmyard">Fattoria</string>
+	<string name="type.landuse.flowerbed">Aiuola</string>
 	<string name="type.landuse.forest">Foresta</string>
 	<string name="type.landuse.forest.coniferous">Foresta di conifere</string>
 	<string name="type.landuse.forest.deciduous">Foresta de cidua</string>

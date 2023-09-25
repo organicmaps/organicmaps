@@ -1322,6 +1322,7 @@
 	<string name="type.landuse.farmland">Agrarland</string>
 	<string name="type.landuse.farmyard">Bauernhof</string>
 	<string name="type.landuse.field">Feld</string>
+	<string name="type.landuse.flowerbed">Blumenbeet</string>
 	<string name="type.landuse.forest">Wald</string>
 	<string name="type.landuse.forest.coniferous">Nadelwald</string>
 	<string name="type.landuse.forest.deciduous">Laubwald</string>

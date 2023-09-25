@@ -1213,6 +1213,7 @@
 	<string name="type.landuse.cemetery.christian">Νεκροταφείο</string>
 	<string name="type.landuse.churchyard">Αυλόγυρος εκκλησίας</string>
 	<string name="type.landuse.farmland">Αγροτική γη</string>
+	<string name="type.landuse.flowerbed">Παρτέρι</string>
 	<string name="type.landuse.forest">Δάσος</string>
 	<string name="type.landuse.forest.coniferous">Δάσος</string>
 	<string name="type.landuse.forest.deciduous">Δάσος</string>

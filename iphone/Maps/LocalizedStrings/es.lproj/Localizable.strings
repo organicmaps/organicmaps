@@ -2418,6 +2418,8 @@
 
 "type.landuse.field" = "Campo";
 
+"type.landuse.flowerbed" = "Cama de flores";
+
 "type.landuse.forest" = "Bosque";
 
 "type.landuse.forest.coniferous" = "Bosque de coníferas";

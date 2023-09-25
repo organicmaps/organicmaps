@@ -1208,6 +1208,7 @@
 	<string name="type.landuse.cemetery.christian">Cintorín</string>
 	<string name="type.landuse.churchyard">Cintorín</string>
 	<string name="type.landuse.farmland">Pole</string>
+	<string name="type.landuse.flowerbed">Záhon</string>
 	<string name="type.landuse.forest">Les</string>
 	<string name="type.landuse.forest.coniferous">Les</string>
 	<string name="type.landuse.forest.deciduous">Les</string>

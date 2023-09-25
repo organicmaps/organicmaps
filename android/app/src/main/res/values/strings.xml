@@ -1393,6 +1393,7 @@
 	<string name="type.landuse.farmland">Farmland</string>
 	<string name="type.landuse.farmyard">Farmyard</string>
 	<string name="type.landuse.field">Field</string>
+	<string name="type.landuse.flowerbed">Flowerbed</string>
 	<string name="type.landuse.forest">Forest</string>
 	<string name="type.landuse.forest.coniferous">Coniferous Forest</string>
 	<string name="type.landuse.forest.deciduous">Deciduous Forest</string>

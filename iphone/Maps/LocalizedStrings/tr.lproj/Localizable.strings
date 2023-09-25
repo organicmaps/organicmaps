@@ -2418,6 +2418,8 @@
 
 "type.landuse.field" = "Alan";
 
+"type.landuse.flowerbed" = "Çiçeklik";
+
 "type.landuse.forest" = "Orman";
 
 "type.landuse.forest.coniferous" = "Çam Ormanı";

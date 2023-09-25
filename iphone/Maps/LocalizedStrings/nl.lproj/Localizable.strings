@@ -2418,6 +2418,8 @@
 
 "type.landuse.field" = "Veld";
 
+"type.landuse.flowerbed" = "Bloemenbed";
+
 "type.landuse.forest" = "Bos";
 
 "type.landuse.forest.coniferous" = "Naaldbos";

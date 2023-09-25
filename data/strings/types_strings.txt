@@ -14605,7 +14605,7 @@
     tr = Alan
     uk = Поле
 
-	[type.landuse.flowerbed]
+  [type.landuse.flowerbed]
     en = Flowerbed
     ar = مشتل أزهار
     be = клумба

@@ -1246,6 +1246,7 @@
 	<string name="type.landuse.cemetery.christian">基督教墓地</string>
 	<string name="type.landuse.churchyard">教堂庭院</string>
 	<string name="type.landuse.farmland">農業用地</string>
+	<string name="type.landuse.flowerbed">花壇</string>
 	<string name="type.landuse.forest">樹林</string>
 	<string name="type.landuse.forest.coniferous">樹林</string>
 	<string name="type.landuse.forest.deciduous">樹林</string>

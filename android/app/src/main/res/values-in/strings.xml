@@ -1209,6 +1209,7 @@
 	<string name="type.landuse.cemetery.christian">Pemakaman</string>
 	<string name="type.landuse.churchyard">Halaman gereja</string>
 	<string name="type.landuse.farmland">Lahan pertanian</string>
+	<string name="type.landuse.flowerbed">Hamparan bunga</string>
 	<string name="type.landuse.forest">Hutan</string>
 	<string name="type.landuse.forest.coniferous">Hutan</string>
 	<string name="type.landuse.forest.deciduous">Hutan</string>

@@ -2418,6 +2418,8 @@
 
 "type.landuse.field" = "Field";
 
+"type.landuse.flowerbed" = "Blomsterseng";
+
 "type.landuse.forest" = "Skov";
 
 "type.landuse.forest.coniferous" = "Skov";
