@@ -1227,6 +1227,7 @@
 	<string name="type.landuse.cemetery.christian">Cimitir</string>
 	<string name="type.landuse.churchyard">Curtea Bisericii</string>
 	<string name="type.landuse.farmland">Teren arabil</string>
+	<string name="type.landuse.flowerbed">Pat de flori</string>
 	<string name="type.landuse.forest">Pădure</string>
 	<string name="type.landuse.forest.coniferous">Pădure</string>
 	<string name="type.landuse.forest.deciduous">Pădure</string>

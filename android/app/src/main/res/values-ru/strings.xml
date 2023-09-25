@@ -1356,6 +1356,7 @@
 	<string name="type.landuse.farmland">Сельскохозяйственная земля</string>
 	<string name="type.landuse.farmyard">Сельскохозяйственная земля</string>
 	<string name="type.landuse.field">Поле</string>
+	<string name="type.landuse.flowerbed">Клумба</string>
 	<string name="type.landuse.forest">Лес</string>
 	<string name="type.landuse.forest.coniferous">Хвойный лес</string>
 	<string name="type.landuse.forest.deciduous">Лиственный лес</string>

@@ -1321,6 +1321,7 @@
 	<string name="type.landuse.cemetery.christian">Hilerria</string>
 	<string name="type.landuse.churchyard">Hilerria</string>
 	<string name="type.landuse.farmland">Nekazaritza-lurra</string>
+	<string name="type.landuse.flowerbed">Lore-ohea</string>
 	<string name="type.landuse.forest">Basoa</string>
 	<string name="type.landuse.forest.coniferous">Basoa</string>
 	<string name="type.landuse.forest.deciduous">Basoa</string>

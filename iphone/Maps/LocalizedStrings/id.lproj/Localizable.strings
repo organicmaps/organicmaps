@@ -2418,6 +2418,8 @@
 
 "type.landuse.field" = "Field";
 
+"type.landuse.flowerbed" = "Hamparan bunga";
+
 "type.landuse.forest" = "Hutan";
 
 "type.landuse.forest.coniferous" = "Hutan";

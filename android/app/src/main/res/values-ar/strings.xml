@@ -1342,6 +1342,7 @@
 	<string name="type.landuse.farm">مزرعة</string>
 	<string name="type.landuse.farmland">حقل</string>
 	<string name="type.landuse.field">حقل</string>
+	<string name="type.landuse.flowerbed">مشتل أزهار</string>
 	<string name="type.landuse.forest">غابة</string>
 	<string name="type.landuse.forest.coniferous">غابة صنوبرية</string>
 	<string name="type.landuse.forest.deciduous">غابة نفضيّة</string>

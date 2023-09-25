@@ -1344,6 +1344,7 @@
 	<string name="type.landuse.farmland">Tierras agrícolas</string>
 	<string name="type.landuse.farmyard">Granja</string>
 	<string name="type.landuse.field">Campo</string>
+	<string name="type.landuse.flowerbed">Cama de flores</string>
 	<string name="type.landuse.forest">Bosque</string>
 	<string name="type.landuse.forest.coniferous">Bosque de coníferas</string>
 	<string name="type.landuse.forest.deciduous">Bosque caducifolio</string>

@@ -1210,6 +1210,7 @@
 	<string name="type.landuse.cemetery.christian">Bãi tha ma</string>
 	<string name="type.landuse.churchyard">Nhà thờ</string>
 	<string name="type.landuse.farmland">Đất nông nghiệp</string>
+	<string name="type.landuse.flowerbed">Giường hoa</string>
 	<string name="type.landuse.forest">Rừng</string>
 	<string name="type.landuse.forest.coniferous">Rừng</string>
 	<string name="type.landuse.forest.deciduous">Rừng</string>

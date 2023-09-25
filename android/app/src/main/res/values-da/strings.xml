@@ -1206,6 +1206,7 @@
 	<string name="type.landuse.cemetery.christian">Kirkegård</string>
 	<string name="type.landuse.churchyard">Kirkegård</string>
 	<string name="type.landuse.farmland">Landbrugsjord</string>
+	<string name="type.landuse.flowerbed">Blomsterseng</string>
 	<string name="type.landuse.forest">Skov</string>
 	<string name="type.landuse.forest.coniferous">Skov</string>
 	<string name="type.landuse.forest.deciduous">Skov</string>

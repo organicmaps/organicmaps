@@ -2418,6 +2418,8 @@
 
 "type.landuse.field" = "Champ";
 
+"type.landuse.flowerbed" = "Plate-bande";
+
 "type.landuse.forest" = "Forêt";
 
 "type.landuse.forest.coniferous" = "Forêt de conifères";

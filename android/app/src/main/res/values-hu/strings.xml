@@ -1232,6 +1232,7 @@
 	<string name="type.landuse.cemetery.christian">Temető</string>
 	<string name="type.landuse.churchyard">Templomtér</string>
 	<string name="type.landuse.farmland">Termőföld</string>
+	<string name="type.landuse.flowerbed">Virágágy</string>
 	<string name="type.landuse.forest">Erdő</string>
 	<string name="type.landuse.forest.coniferous">Erdő</string>
 	<string name="type.landuse.forest.deciduous">Erdő</string>

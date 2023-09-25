@@ -1340,6 +1340,7 @@
 	<string name="type.landuse.farmland">Tarım Arazileri</string>
 	<string name="type.landuse.farmyard">Çiftlik Bölgesi</string>
 	<string name="type.landuse.field">Alan</string>
+	<string name="type.landuse.flowerbed">Çiçeklik</string>
 	<string name="type.landuse.forest">Orman</string>
 	<string name="type.landuse.forest.coniferous">Çam Ormanı</string>
 	<string name="type.landuse.forest.deciduous">Orman</string>

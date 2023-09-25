@@ -1261,6 +1261,7 @@
 	<string name="type.landuse.farm">農地</string>
 	<string name="type.landuse.farmland">農地</string>
 	<string name="type.landuse.farmyard">農地</string>
+	<string name="type.landuse.flowerbed">花壇</string>
 	<string name="type.landuse.forest">森林</string>
 	<string name="type.landuse.forest.coniferous">森林</string>
 	<string name="type.landuse.forest.deciduous">森林</string>

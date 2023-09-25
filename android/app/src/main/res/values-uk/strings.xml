@@ -1326,6 +1326,7 @@
 	<string name="type.landuse.farmland">Сільськогосподарська земля</string>
 	<string name="type.landuse.farmyard">Сільськогосподарська земля</string>
 	<string name="type.landuse.field">Поле</string>
+	<string name="type.landuse.flowerbed">Квітник</string>
 	<string name="type.landuse.forest">Ліс</string>
 	<string name="type.landuse.forest.coniferous">Хвойний ліс</string>
 	<string name="type.landuse.forest.deciduous">Листяний ліс</string>

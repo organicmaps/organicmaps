@@ -898,6 +898,7 @@
 	<string name="type.historic.wayside_shrine">Крайпътно светилище</string>
 	<string name="type.historic.wreck">корабокрушение</string>
 	<string name="type.landuse.basin">Резервоар</string>
+	<string name="type.landuse.flowerbed">Цветна леха</string>
 	<string name="type.leisure.dance">Зала за танци</string>
 	<string name="type.leisure.outdoor_seating">Места за сядане на открито</string>
 	<string name="type.leisure.picnic_table">Маса за пикник</string>

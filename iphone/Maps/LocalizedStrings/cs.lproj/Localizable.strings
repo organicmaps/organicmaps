@@ -2418,6 +2418,8 @@
 
 "type.landuse.field" = "Field";
 
+"type.landuse.flowerbed" = "Záhon";
+
 "type.landuse.forest" = "Les";
 
 "type.landuse.forest.coniferous" = "Les";

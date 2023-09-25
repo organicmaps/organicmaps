@@ -1325,6 +1325,7 @@
 	<string name="type.landuse.farmland">Terrains agricoles</string>
 	<string name="type.landuse.farmyard">Ferme</string>
 	<string name="type.landuse.field">Champ</string>
+	<string name="type.landuse.flowerbed">Plate-bande</string>
 	<string name="type.landuse.forest">Forêt</string>
 	<string name="type.landuse.forest.coniferous">Forêt de conifères</string>
 	<string name="type.landuse.forest.deciduous">Forêt de feuillus</string>

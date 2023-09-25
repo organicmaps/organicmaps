@@ -494,6 +494,7 @@
 	<string name="type.landuse.basin">Bonde la Maji</string>
 	<string name="type.landuse.churchyard">Sehemu ya kanisa</string>
 	<string name="type.landuse.farmland">Shamba</string>
+	<string name="type.landuse.flowerbed">Kitanda cha maua</string>
 	<string name="type.landuse.grass">Bustani</string>
 	<string name="type.landuse.landfill">Shamba la Taka</string>
 	<string name="type.landuse.railway">Eneo la njia ya reli</string>
