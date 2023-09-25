@@ -234,7 +234,6 @@ line|z16-[railway=rail][usage=tourism],
 
 line|z12-[highway=residential],
 line|z12-[highway=tertiary],
-line|z18-[highway=residential_link],
 line|z18-[highway=tertiary_link]
 {text: name;text-color: @label_medium;text-halo-opacity: 0.8;text-halo-radius: 1;text-halo-color: @label_halo_medium;}
 
@@ -254,7 +253,6 @@ line|z17[highway=residential],
 line|z17[highway=tertiary],
 {font-size: 16.25;text-halo-color: @label_halo_light;}
 line|z18-[highway=residential],
-line|z18-[highway=residential_link],
 line|z18-[highway=tertiary],
 line|z18-[highway=tertiary_link]
 {font-size: 17;text-halo-opacity: 1;text-halo-color: @label_halo_light;}

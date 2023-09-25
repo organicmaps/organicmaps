@@ -1,5 +1,4 @@
 @import("colors.mapcss");
-@import("../include/common_colors.mapcss");
 @import("../include/defaults_new.mapcss");
 @import("../include/Basemap.mapcss");
 @import("../include/Basemap_label.mapcss");
@@ -8,14 +7,6 @@
 @import("../include/Icons.mapcss");
 @import("../include/Subways.mapcss");
 
-
-canvas
-{
-  background-color: @background;
-  fill-color: @water;
-  default-lines: false;
-  default-points: false;
-}
 
 colors
 {
@@ -31,7 +22,7 @@ colors
   RouteTrafficG1-color: #7F1311;
   RouteTrafficG2-color: #7F1311;
   RouteTrafficG3-color: #9E8216;
-  RouteTrafficG3-opacity: @traffic_arrow_dark;
+  RouteTrafficG3-opacity: 0.0;
   RoutePedestrian-color: #FFB94B;
   RoutePedestrian-opacity: 0.7;
   RouteBicycle-color: #FF4B8C;
@@ -70,7 +61,7 @@ colors
   TrafficG1-color: #731816;
   TrafficG2-color: #731816;
   TrafficG3-color: #8C7012;
-  TrafficG3-opacity: @traffic_arrow_dark;
+  TrafficG3-opacity: 0.0;
   TrafficG4-color: #376222;
   TrafficG5-color: #376222;
   TrafficTempBlock-color: #232323;

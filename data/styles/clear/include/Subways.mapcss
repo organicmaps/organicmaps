@@ -95,11 +95,13 @@ node|z17-[railway=station][transport=subway][city=berlin] {icon-image: subway-ub
 node|z16-[railway=subway_entrance][city=berlin] {icon-image: subway-ubahn-s.svg;}
 
 /* Boston Subway Station*/
+/* TODO: add a mapping and a city bbox if missing
 node|z12-13[railway=station][transport=subway][city=boston] {icon-image: subway-massachusetts-m.svg;icon-min-distance: 1;}
 node|z14[railway=station][transport=subway][city=boston] {icon-image: subway-massachusetts-m.svg;}
 node|z15-16[railway=station][transport=subway][city=boston] {icon-image: subway-massachusetts-m.svg;}
 node|z17-[railway=station][transport=subway][city=boston] {icon-image: subway-massachusetts-m.svg;}
 node|z16-[railway=subway_entrance][city=boston] {icon-image: subway-massachusetts-m.svg;}
+*/
 
 /* Bengaluru Subway Station*/
 node|z13[railway=station][transport=subway][city=bengalore] {icon-image: subway-bengaluru-s.svg;icon-min-distance: 1;}

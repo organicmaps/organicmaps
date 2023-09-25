@@ -37,8 +37,10 @@
 {text-position: center;}
 
 node|z1-2[place=continent],
+/* TODO: add to mapping
 node|z9-[place=archipelago],
 area|z9-[place=archipelago],
+*/
 node|z9-[place=island],
 area|z9-[place=island],
 node|z14-[natural=cape],
@@ -50,28 +52,36 @@ area|z14-[place=islet],
 node|z1-2[place=continent]
 {font-size: 12;text-color: @country_label;max-width: 5;}
 
+/*
 node|z9-[place=archipelago],
 area|z9-[place=archipelago],
+*/
 node|z9-[place=island],
 area|z9-[place=island],
 {font-size: 8;text-color: @district_label;}
 
+/*
 node|z12-[place=archipelago],
 area|z12-[place=archipelago],
+*/
 node|z12-[place=island],
 area|z12-[place=island]
 {font-size: 9;text-color: @district_label;}
 
+/*
 node|z14-[place=archipelago],
 area|z14-[place=archipelago],
+*/
 node|z14-[place=island],
 area|z14-[place=island],
 node|z14-[place=islet],
 area|z14-[place=islet],
 {font-size: 10;text-color: @district_label;}
 
+/*
 node|z16-[place=archipelago],
 area|z16-[place=archipelago],
+*/
 node|z16-[place=island],
 area|z16-[place=island],
 node|z16-[place=islet],
@@ -422,7 +432,7 @@ area|z18-[leisure=garden][garden:type!=residential][name],
 {font-size: 13;}
 area|z18-[leisure=park][name]::int_name,
 area|z18-[leisure=garden][name]::int_name,
-area|z18-[leisure=forest][name]::int_name,
+area|z18-[landuse=forest][name]::int_name,
 {font-size: 11;}
 
 area|z18-[landuse=forest][!name]
@@ -582,7 +592,7 @@ area|z17-[cemetery=grave],
 
 area|z15-[highway=pedestrian][area?],
 area|z15-[area:highway=pedestrian],
-area|z15-[highway=footway][area?][!sac_scale],
+area|z15-[highway=footway][area?],
 area|z15-[area:highway=footway],
 area|z16-[place=square],
 {text: name;font-size: 11;text-color: @city_label;text-position: center;}
@@ -639,7 +649,7 @@ node|z19-[entrance=exit]::flats,
 area|z15-[waterway=dam],
 line|z15-[waterway=dam],
 line|z15-[waterway=weir],
-node|z15-[waterway=weir]
+node|z15-[waterway=weir],
 area|z17-[man_made=pier],
 area|z17-[man_made=breakwater],
 line|z17-[man_made=pier],
