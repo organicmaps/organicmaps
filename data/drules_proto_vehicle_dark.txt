@@ -23187,7 +23187,8 @@ cont {
       }
       secondary {
         height: 11
-        stroke_color: 4473924
+        color: 2836760
+        stroke_color: 856756497
         offset_y: 1
         is_optional: true
       }
@@ -23228,7 +23229,8 @@ cont {
       }
       secondary {
         height: 11
-        stroke_color: 4473924
+        color: 2836760
+        stroke_color: 856756497
         offset_y: 1
         is_optional: true
       }
@@ -23472,7 +23474,8 @@ cont {
       }
       secondary {
         height: 11
-        stroke_color: 4473924
+        color: 2836760
+        stroke_color: 856756497
         offset_y: 1
         is_optional: true
       }
@@ -23513,7 +23516,8 @@ cont {
       }
       secondary {
         height: 11
-        stroke_color: 4473924
+        color: 2836760
+        stroke_color: 856756497
         offset_y: 1
         is_optional: true
       }
@@ -23757,7 +23761,8 @@ cont {
       }
       secondary {
         height: 11
-        stroke_color: 4473924
+        color: 2836760
+        stroke_color: 856756497
         offset_y: 1
         is_optional: true
       }
@@ -23798,7 +23803,8 @@ cont {
       }
       secondary {
         height: 11
-        stroke_color: 4473924
+        color: 2836760
+        stroke_color: 856756497
         offset_y: 1
         is_optional: true
       }
@@ -24042,7 +24048,8 @@ cont {
       }
       secondary {
         height: 11
-        stroke_color: 4473924
+        color: 2836760
+        stroke_color: 856756497
         offset_y: 1
         is_optional: true
       }
@@ -24083,7 +24090,8 @@ cont {
       }
       secondary {
         height: 11
-        stroke_color: 4473924
+        color: 2836760
+        stroke_color: 856756497
         offset_y: 1
         is_optional: true
       }
@@ -25705,7 +25713,8 @@ cont {
       }
       secondary {
         height: 11
-        stroke_color: 4473924
+        color: 2836760
+        stroke_color: 856756497
         offset_y: 1
         is_optional: true
       }
@@ -25746,7 +25755,8 @@ cont {
       }
       secondary {
         height: 11
-        stroke_color: 4473924
+        color: 2836760
+        stroke_color: 856756497
         offset_y: 1
         is_optional: true
       }
@@ -25942,7 +25952,8 @@ cont {
       }
       secondary {
         height: 11
-        stroke_color: 4473924
+        color: 2836760
+        stroke_color: 856756497
         offset_y: 1
         is_optional: true
       }
@@ -25983,7 +25994,8 @@ cont {
       }
       secondary {
         height: 11
-        stroke_color: 4473924
+        color: 2836760
+        stroke_color: 856756497
         offset_y: 1
         is_optional: true
       }
@@ -26179,7 +26191,8 @@ cont {
       }
       secondary {
         height: 11
-        stroke_color: 4473924
+        color: 2836760
+        stroke_color: 856756497
         offset_y: 1
         is_optional: true
       }
@@ -26220,7 +26233,8 @@ cont {
       }
       secondary {
         height: 11
-        stroke_color: 4473924
+        color: 2836760
+        stroke_color: 856756497
         offset_y: 1
         is_optional: true
       }
@@ -26416,7 +26430,8 @@ cont {
       }
       secondary {
         height: 11
-        stroke_color: 4473924
+        color: 2836760
+        stroke_color: 856756497
         offset_y: 1
         is_optional: true
       }
@@ -26457,7 +26472,8 @@ cont {
       }
       secondary {
         height: 11
-        stroke_color: 4473924
+        color: 2836760
+        stroke_color: 856756497
         offset_y: 1
         is_optional: true
       }
