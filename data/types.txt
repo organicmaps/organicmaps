@@ -749,7 +749,7 @@ boundary|administrative|4
 *barrier|kissing_gate
 *barrier|turnstile
 *landuse|industrial|mine
-mapswithme
+*landuse|flowerbed
 mapswithme
 mapswithme
 mapswithme

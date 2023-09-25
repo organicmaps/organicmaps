@@ -38543,6 +38543,37 @@ cont {
   }
 }
 cont {
+  name: "landuse-flowerbed"
+  element {
+    scale: 16
+    area {
+      color: 1317888
+      priority: -1870
+    }
+  }
+  element {
+    scale: 17
+    area {
+      color: 1317888
+      priority: -1870
+    }
+  }
+  element {
+    scale: 18
+    area {
+      color: 1317888
+      priority: -1870
+    }
+  }
+  element {
+    scale: 19
+    area {
+      color: 1317888
+      priority: -1870
+    }
+  }
+}
+cont {
   name: "landuse-forest"
   element {
     scale: 10
@@ -47722,6 +47753,20 @@ cont {
 }
 cont {
   name: "natural-scrub"
+  element {
+    scale: 12
+    area {
+      color: 988160
+      priority: -1870
+    }
+  }
+  element {
+    scale: 13
+    area {
+      color: 988160
+      priority: -1870
+    }
+  }
   element {
     scale: 14
     area {
