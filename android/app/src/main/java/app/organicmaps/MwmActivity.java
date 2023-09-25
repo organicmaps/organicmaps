@@ -1527,6 +1527,7 @@ public class MwmActivity extends BaseMwmFragmentActivity
 
     mRoutingPlanInplaceController.hideDrivingOptionsView();
     NavigationService.stopService(this);
+    LocationHelper.from(this).restartWithNewMode();
     mMapButtonsViewModel.setSearchOption(null);
     mMapButtonsViewModel.setLayoutMode(MapButtonsController.LayoutMode.regular);
     refreshLightStatusBar();
@@ -1699,6 +1700,7 @@ public class MwmActivity extends BaseMwmFragmentActivity
     RoutingController controller = RoutingController.get();
     if (controller.isPlanning())
       showAddStartOrFinishFrame(controller, true);
+    LocationHelper.from(this).restartWithNewMode();
   }
 
   /**

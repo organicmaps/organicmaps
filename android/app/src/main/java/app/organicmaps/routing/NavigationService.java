@@ -149,19 +149,14 @@ public class NavigationService extends Service implements LocationListener
     return mNotificationBuilder;
   }
 
-  @RequiresPermission(value = ACCESS_FINE_LOCATION)
   @Override
   public void onCreate()
   {
     Logger.i(TAG);
 
     mPlayer = new MediaPlayerWrapper(getApplicationContext());
-
-    // Subscribe to location updates.
-    LocationHelper.from(this).addListener(this);
   }
 
-  @RequiresPermission(value = ACCESS_FINE_LOCATION)
   @Override
   public void onDestroy()
   {
@@ -176,9 +171,6 @@ public class NavigationService extends Service implements LocationListener
     notificationManager.cancel(NOTIFICATION_ID);
 
     mPlayer.release();
-
-    // Restart the location to resubscribe with a less frequent refresh interval (see {@link onStartCommand() }).
-    LocationHelper.from(this).restart();
   }
 
   @Override
@@ -207,10 +199,11 @@ public class NavigationService extends Service implements LocationListener
       startForeground(NavigationService.NOTIFICATION_ID, getNotificationBuilder(this).build());
     }
 
-    // Tests on different devices demonstrated that background location works significantly longer when
-    // requested AFTER starting the foreground service. Restarting the location is also necessary to
-    // re-subscribe for more frequent GPS updates for navigation.
-    LocationHelper.from(this).restart();
+    // Subscribe to location updates. This call is idempotent.
+    LocationHelper.from(this).addListener(this);
+
+    // Restart the location with more frequent refresh interval for navigation.
+    LocationHelper.from(this).restartWithNewMode();
 
     return START_NOT_STICKY;
   }
@@ -242,6 +235,7 @@ public class NavigationService extends Service implements LocationListener
     if (Framework.nativeIsRouteFinished())
     {
       routingController.cancel();
+      LocationHelper.from(this).restartWithNewMode();
       stopSelf();
       return;
     }
