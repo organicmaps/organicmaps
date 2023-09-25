@@ -432,8 +432,8 @@ node|z12-13[railway=station][transport=subway][city=london] {icon-image: subway-
 node|z14[railway=station][transport=subway][city=london] {icon-image: subway-london-s.svg;}
 node|z15-16[railway=station][transport=subway][city=london] {icon-image: subway-london-m.svg;}
 node|z17-[railway=station][transport=subway][city=london] {icon-image: subway-london-m.svg;}
-node|z16-17[railway=subway_entrance][city=london] {icon-image: subway-london-s.svg;}
-node|z18-[railway=subway_entrance][city=london] {icon-image: subway-london-m.svg;}
+node|z16-17[railway=subway_entrance][city=london] {icon-image: subway_entrance-london-s.svg;}
+node|z18-[railway=subway_entrance][city=london] {icon-image: subway_entrance-london-m.svg;}
 
 /* Los Angeles Subway Station */
 node|z12-13[railway=station][transport=subway][city=la] {icon-image: subway-losangeles-s.svg;icon-min-distance: 1;}
@@ -920,3 +920,13 @@ node|z15-16[railway=station][transport=subway][city=yokohama] {icon-image: subwa
 node|z17-[railway=station][transport=subway][city=yokohama] {icon-image: subway-yokohama-m.svg;}
 node|z16-[railway=subway_entrance][city=yokohama] {icon-image: subway-yokohama-s.svg;}
 
+
+
+/* LIGHT RAIL */
+/* London Light Rail Station (DLR) */
+node|z12-14[railway=station][station=light_rail][city=london] {icon-image: light_rail-dlr-london-s.svg;icon-min-distance: 1;}
+node|z15-[railway=station][station=light_rail][city=london] {icon-image: light_rail-dlr-london-m.svg;}
+
+/* Porto Light Rail Station */
+node|z12-14[railway=station][station=light_rail][city=porto] {icon-image: light_rail-porto-s.svg;icon-min-distance: 1;}
+node|z15-[railway=station][station=light_rail][city=porto] {icon-image: light_rail-porto-m.svg;}

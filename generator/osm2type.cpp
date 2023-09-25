@@ -441,6 +441,7 @@ string MatchCity(OsmElement const * p)
       {"panama", {-79.633827, 8.880788, -79.367367, 9.149179}},
       {"paris", {2.09014892578, 48.6637569323, 2.70538330078, 49.0414689141}},
       {"philadelphia", {-75.276761, 39.865446, -74.964493, 40.137768}},
+      {"porto", {-8.707352, 41.134452, -8.541012, 41.193252}},
       {"pyongyang", {125.48888, 38.780932, 126.12748, 39.298738}},
       {"rennes", {-2.28897,47.934093,-1.283944,48.379636}},
       {"rio", {-43.4873199463, -23.0348745407, -43.1405639648, -22.7134898498}},
@@ -572,6 +573,7 @@ void PreprocessElement(OsmElement * p)
   char const * layer = nullptr;
 
   bool isSubway = false;
+  bool isLightRail = false;
   bool isBus = false;
   bool isTram = false;
 
@@ -585,16 +587,18 @@ void PreprocessElement(OsmElement * p)
       {"trolleybus", "yes", [&isBus] { isBus = true; }},
       {"tram", "yes", [&isTram] { isTram = true; }},
 
-      /// @todo Unfortunatelly, it's not working in many cases (route=subway, transport=subway).
+      /// @todo Unfortunately, it's not working in many cases (route=subway, transport=subway).
       /// Actually, it's better to process subways after feature types assignment.
       {"station", "subway", [&isSubway] { isSubway = true; }},
+      
+      {"station", "light_rail", [&isLightRail] { isLightRail = true; }},
   });
 
   if (!hasLayer && layer)
     p->AddTag("layer", layer);
 
   // Tag 'city' is needed for correct selection of metro icons.
-  if (isSubway && p->m_type == OsmElement::EntityType::Node)
+  if ((isSubway || isLightRail) && p->m_type == OsmElement::EntityType::Node)
   {
     string const city = MatchCity(p);
     if (!city.empty())

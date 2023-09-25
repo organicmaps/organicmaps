@@ -113,6 +113,8 @@ natural-water-lake                                  # caption z10- (also has are
 natural-water-reservoir                             # caption z10- (also has area z1-)
 railway-station-funicular                           # icon z12- (also has caption(optional) z12-)
 railway-station-light_rail                          # icon z12- (also has caption(optional) z12-)
+railway-station-light_rail-london                   # icon z12- (also has caption(optional) z12-)
+railway-station-light_rail-porto                    # icon z12- (also has caption(optional) z12-)
 railway-station-monorail                            # icon z12- (also has caption(optional) z12-)
 railway-station-subway-adana                        # icon z12- (also has caption(optional) z14-)
 railway-station-subway-algiers                      # icon z12- (also has caption(optional) z14-)
@@ -1316,6 +1318,8 @@ amenity-parking-private                             # icon z18- (also has captio
 
 # railway-station-funicular                         # caption(optional) z12- (also has icon z12-)
 # railway-station-light_rail                        # caption(optional) z12- (also has icon z12-)
+# railway-station-light_rail-london                 # caption(optional) z12- (also has icon z12-)
+# railway-station-light_rail-porto                  # caption(optional) z12- (also has icon z12-)
 # railway-station-monorail                          # caption(optional) z12- (also has icon z12-)
 # railway-station-subway-adana                      # caption(optional) z14- (also has icon z12-)
 # railway-station-subway-algiers                    # caption(optional) z14- (also has icon z12-)
