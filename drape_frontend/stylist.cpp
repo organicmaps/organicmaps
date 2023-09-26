@@ -1,6 +1,7 @@
 #include "drape_frontend/stylist.hpp"
 
 #include "indexer/classificator.hpp"
+#include "indexer/drules_include.hpp"
 #include "indexer/feature.hpp"
 #include "indexer/feature_visibility.hpp"
 #include "indexer/scales.hpp"
@@ -97,54 +98,50 @@ void Stylist::ProcessKey(FeatureType & f, drule::Key const & key)
   switch (key.m_type)
   {
   case drule::symbol:
-    ASSERT(dRule->GetSymbol() != nullptr && m_symbolRule == nullptr &&
+    ASSERT(dRule->GetSymbol() && !m_symbolRule &&
            (geomType == GeomType::Point || geomType == GeomType::Area),
-           (m_symbolRule == nullptr, geomType, f.DebugString(0, true)));
-    m_symbolRule = dRule;
+           (m_symbolRule == nullptr, geomType, f.DebugString(19, true)));
+    m_symbolRule = dRule->GetSymbol();
+    break;
+  case drule::caption:
+    ASSERT(dRule->GetCaption() && dRule->GetCaption()->has_primary() && !m_captionRule &&
+           (geomType == GeomType::Point || geomType == GeomType::Area),
+           (m_captionRule == nullptr, f.DebugString(19, true)));
+    m_captionRule = dRule->GetCaption();
     break;
   case drule::pathtext:
-  case drule::caption:
-    ASSERT(dRule->GetCaption(0) != nullptr, (f.DebugString(0, true)));
-    if (key.m_type == drule::caption)
-    {
-      ASSERT(m_captionRule == nullptr && (geomType == GeomType::Point || geomType == GeomType::Area),
-             (geomType, f.DebugString(0, true)));
-      m_captionRule = dRule;
-    }
-    else
-    {
-      ASSERT(m_pathtextRule == nullptr && geomType == GeomType::Line,
-             (geomType, f.DebugString(0, true)));
-      m_pathtextRule = dRule;
-    }
+    ASSERT(dRule->GetPathtext() && dRule->GetPathtext()->has_primary() && !m_pathtextRule &&
+           geomType == GeomType::Line,
+           (m_pathtextRule == nullptr, geomType, f.DebugString(19, true)));
+    m_pathtextRule = dRule->GetPathtext();
     break;
   case drule::shield:
-    ASSERT(dRule->GetShield() != nullptr && m_shieldRule == nullptr && geomType == GeomType::Line,
-           (m_shieldRule == nullptr, geomType, f.DebugString(0, true)));
-    m_shieldRule = dRule;
+    ASSERT(dRule->GetShield() && !m_shieldRule && geomType == GeomType::Line,
+           (m_shieldRule == nullptr, geomType, f.DebugString(19, true)));
+    m_shieldRule = dRule->GetShield();
     break;
   case drule::line:
-    ASSERT(dRule->GetLine() != nullptr && geomType == GeomType::Line, (geomType, f.DebugString(0, true)));
-    m_lineRules.push_back(dRule);
+    ASSERT(dRule->GetLine() && geomType == GeomType::Line, (geomType, f.DebugString(19, true)));
+    m_lineRules.push_back(dRule->GetLine());
     break;
   case drule::area:
-    ASSERT(dRule->GetArea() != nullptr && geomType == GeomType::Area, (geomType, f.DebugString(0, true)));
+    ASSERT(dRule->GetArea() && geomType == GeomType::Area, (geomType, f.DebugString(19, true)));
     if (key.m_hatching)
     {
-      ASSERT(m_hatchingRule == nullptr, (f.DebugString(0, true)));
-      m_hatchingRule = dRule;
+      ASSERT(!m_hatchingRule, (f.DebugString(19, true)));
+      m_hatchingRule = dRule->GetArea();
     }
     else
     {
-      ASSERT(m_areaRule == nullptr, (f.DebugString(0, true)));
-      m_areaRule = dRule;
+      ASSERT(!m_areaRule, (f.DebugString(19, true)));
+      m_areaRule = dRule->GetArea();
     }
     break;
   // TODO : check if circle/waymarker support exists still (not used in styles ATM).
   case drule::circle:
   case drule::waymarker:
   default:
-    ASSERT(false, (key.m_type, f.DebugString(0, true)));
+    ASSERT(false, (key.m_type, f.DebugString(19, true)));
     return;
   }
 }
@@ -208,10 +205,10 @@ Stylist::Stylist(FeatureType & f, uint8_t zoomLevel, int8_t deviceLang)
   for (auto const & key : keys)
     ProcessKey(f, key);
 
-  if (m_captionRule != nullptr || m_pathtextRule != nullptr)
+  if (m_captionRule || m_pathtextRule)
   {
-    bool const auxExists = (m_captionRule != nullptr && m_captionRule->GetCaption(1) != nullptr) ||
-                           (m_pathtextRule != nullptr && m_pathtextRule->GetCaption(1) != nullptr);
+    bool const auxExists = (m_captionRule && m_captionRule->has_secondary()) ||
+                           (m_pathtextRule && m_pathtextRule->has_secondary());
     m_captionDescriptor.Init(f, deviceLang, zoomLevel, geomType, auxExists);
 
     if (m_captionDescriptor.IsHouseNumberExists())
@@ -240,7 +237,7 @@ Stylist::Stylist(FeatureType & f, uint8_t zoomLevel, int8_t deviceLang)
         if (mainOverlayType == addressType)
         {
           // Optimization: just duplicate the drule if the main type is building-address.
-          ASSERT(m_captionRule != nullptr, ());
+          ASSERT(m_captionRule, ());
           m_houseNumberRule = m_captionRule;
         }
         else
@@ -252,7 +249,8 @@ Stylist::Stylist(FeatureType & f, uint8_t zoomLevel, int8_t deviceLang)
             // A caption drule exists for this zoom level.
             ASSERT(addressKeys.size() == 1 && addressKeys[0].m_type == drule::caption,
                    ("building-address should contain a caption drule only"));
-            m_houseNumberRule = drule::rules().Find(addressKeys[0]);
+            ASSERT(m_houseNumberRule == nullptr, ());
+            m_houseNumberRule = drule::rules().Find(addressKeys[0])->GetCaption();
           }
         }
       }
@@ -265,7 +263,12 @@ Stylist::Stylist(FeatureType & f, uint8_t zoomLevel, int8_t deviceLang)
     }
   }
 
-  m_isCoastline = types.Has(cl.GetCoastType());
+  if (m_shieldRule)
+  {
+    m_roadShields = ftypes::GetRoadShields(f);
+    if (m_roadShields.empty())
+      m_shieldRule = nullptr;
+  }
 }
 
 }  // namespace df

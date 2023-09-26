@@ -3,6 +3,7 @@
 #include "indexer/ftypes_matcher.hpp"
 #include "indexer/drawing_rule_def.hpp"
 #include "indexer/drawing_rules.hpp"
+#include "indexer/road_shields_parser.hpp"
 
 #include "base/buffer_vector.hpp"
 
@@ -47,16 +48,18 @@ private:
 class Stylist
 {
 public:
-  bool m_isCoastline = false;
+  SymbolRuleProto const * m_symbolRule = nullptr;
+  CaptionRuleProto const * m_captionRule = nullptr;
+  CaptionRuleProto const * m_houseNumberRule = nullptr;
+  PathTextRuleProto const * m_pathtextRule = nullptr;
+  ShieldRuleProto const * m_shieldRule = nullptr;
+  AreaRuleProto const * m_areaRule = nullptr;
+  AreaRuleProto const * m_hatchingRule = nullptr;
 
-  drule::BaseRule const * m_symbolRule = nullptr;
-  drule::BaseRule const * m_captionRule = nullptr;
-  drule::BaseRule const * m_houseNumberRule = nullptr;
-  drule::BaseRule const * m_pathtextRule = nullptr;
-  drule::BaseRule const * m_shieldRule = nullptr;
-  drule::BaseRule const * m_areaRule = nullptr;
-  drule::BaseRule const * m_hatchingRule = nullptr;
-  buffer_vector<drule::BaseRule const *, 4> m_lineRules;
+  using LineRulesT = buffer_vector<LineRuleProto const *, 4>;
+  LineRulesT m_lineRules;
+
+  ftypes::RoadShieldsSetT m_roadShields;
 
   Stylist(FeatureType & f, uint8_t zoomLevel, int8_t deviceLang);
 

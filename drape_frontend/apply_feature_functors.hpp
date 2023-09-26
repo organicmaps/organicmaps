@@ -8,6 +8,7 @@
 #include "drape/pointers.hpp"
 
 #include "indexer/drawing_rule_def.hpp"
+#include "indexer/drawing_rules.hpp"
 #include "indexer/road_shields_parser.hpp"
 
 #include "geometry/point2d.hpp"
@@ -17,8 +18,6 @@
 #include <vector>
 
 class CaptionDefProto;
-class ShieldRuleProto;
-class SymbolRuleProto;
 
 namespace dp
 {
@@ -43,9 +42,7 @@ public:
   virtual ~BaseApplyFeature() = default;
 
 protected:
-  void ExtractCaptionParams(CaptionDefProto const * primaryProto,
-                            CaptionDefProto const * secondaryProto,
-                            TextViewParams & params) const;
+  void FillCommonParams(CommonOverlayViewParams & p) const;
   double PriorityToDepth(int priority, drule::rule_type_t ruleType, double areaDepth) const;
 
   TInsertShapeFn m_insertShape;
@@ -62,24 +59,19 @@ class ApplyPointFeature : public BaseApplyFeature
 
 public:
   ApplyPointFeature(TileKey const & tileKey, TInsertShapeFn const & insertShape, FeatureType & f,
-                    CaptionDescription const & captions, float posZ);
+                    CaptionDescription const & captions);
 
-  void operator()(m2::PointD const & point, bool hasArea);
-  void ProcessPointRule(drule::BaseRule const * rule, bool isHouseNumber);
-  void Finish(ref_ptr<dp::TextureManager> texMng);
+  void ProcessPointRules(SymbolRuleProto const * symbolRule, CaptionRuleProto const * captionRule,
+                         CaptionRuleProto const * houseNumberRule, m2::PointD const & centerPoint,
+                         ref_ptr<dp::TextureManager> texMng);
 
 protected:
-  float const m_posZ;
-
+  void ExtractCaptionParams(CaptionDefProto const * primaryProto,
+                            CaptionDefProto const * secondaryProto,
+                            TextViewParams & params) const;
+  float m_posZ = 0.0f;
 private:
-  TextViewParams m_textParams;
-  TextViewParams m_hnParams;
-  m2::PointD m_centerPoint;
-  SymbolRuleProto const * m_symbolRule = nullptr;
-  float m_symbolDepth;
-  bool m_hasArea = false;
-  bool m_createdByEditor = false;
-  bool m_obsoleteInEditor = false;
+  virtual bool HasArea() const { return false; }
 };
 
 class ApplyAreaFeature : public ApplyPointFeature
@@ -92,10 +84,9 @@ public:
                    bool skipAreaGeometry, float minPosZ, float posZ,
                    CaptionDescription const & captions);
 
-  using TBase::operator ();
-
   void operator()(m2::PointD const & p1, m2::PointD const & p2, m2::PointD const & p3);
-  void ProcessAreaRule(drule::BaseRule const * rule, double areaDepth, bool isHatching);
+  bool HasGeometry() const { return !m_triangles.empty(); }
+  void ProcessAreaRules(AreaRuleProto const * areaRule, AreaRuleProto const * hatchingRule);
 
   struct Edge
   {
@@ -127,6 +118,9 @@ public:
   };
 
 private:
+  bool HasArea() const override { return true; }
+
+  void ProcessRule(AreaRuleProto const * areaRule, double areaDepth, bool isHatching);
   void ProcessBuildingPolygon(m2::PointD const & p1, m2::PointD const & p2, m2::PointD const & p3);
   void CalculateBuildingOutline(bool calculateNormals, BuildingOutline & outline);
   int GetIndex(m2::PointD const & pt);
@@ -150,27 +144,26 @@ class ApplyLineFeatureGeometry : public BaseApplyFeature
 
 public:
   ApplyLineFeatureGeometry(TileKey const & tileKey, TInsertShapeFn const & insertShape,
-                           FeatureType & f, double currentScaleGtoP, size_t pointsCount, bool smooth);
+                           FeatureType & f, double currentScaleGtoP);
 
   void operator() (m2::PointD const & point);
-  bool HasGeometry() const;
-  void ProcessLineRule(drule::BaseRule const *  rule);
-  void Finish();
+  bool HasGeometry() const { return m_spline->IsValid(); }
+  void ProcessLineRules(Stylist::LineRulesT const & lineRules);
 
   std::vector<m2::SharedSpline> const & GetClippedSplines() const { return m_clippedSplines; }
 
 private:
+  void ProcessRule(LineRuleProto const * lineRule);
+
   m2::SharedSpline m_spline;
   std::vector<m2::SharedSpline> m_clippedSplines;
-  float m_currentScaleGtoP;
-  double m_minSegmentSqrLength;
+  double const m_currentScaleGtoP;
+  double const m_minSegmentSqrLength;
   m2::PointD m_lastAddedPoint;
-  bool m_simplify;
-  bool m_smooth;
-  size_t m_initialPointsCount;
+  bool const m_simplify;
 
 #ifdef LINES_GENERATION_CALC_FILTERED_POINTS
-  int m_readCount;
+  int m_readCount = 0;
 #endif
 };
 
@@ -184,9 +177,9 @@ public:
                              FeatureType & f, double currentScaleGtoP, CaptionDescription const & captions,
                              std::vector<m2::SharedSpline> const & clippedSplines);
 
-  void ProcessLineRule(drule::BaseRule const * rule);
-  void Finish(ref_ptr<dp::TextureManager> texMng, ftypes::RoadShieldsSetT const & roadShields,
-              GeneratedRoadShields & generatedRoadShields);
+  void ProcessAdditionalLineRules(PathTextRuleProto const * pathtextRule, ShieldRuleProto const * shieldRule,
+                                  ref_ptr<dp::TextureManager> texMng, ftypes::RoadShieldsSetT const & roadShields,
+                                  GeneratedRoadShields & generatedRoadShields);
 
 private:
   void GetRoadShieldsViewParams(ref_ptr<dp::TextureManager> texMng,
@@ -202,10 +195,10 @@ private:
                           std::vector<m2::RectD> & shields);
 
   std::vector<m2::SharedSpline> m_clippedSplines;
-  float m_currentScaleGtoP;
-  float m_captionDepth, m_shieldDepth;
-  CaptionDefProto const * m_captionRule;
-  ShieldRuleProto const * m_shieldRule;
+  double const m_currentScaleGtoP;
+  float m_captionDepth = 0.0f, m_shieldDepth = 0.0f;
+  CaptionDefProto const * m_captionRule = nullptr;
+  ShieldRuleProto const * m_shieldRule = nullptr;
 };
 
 extern dp::Color ToDrapeColor(uint32_t src);

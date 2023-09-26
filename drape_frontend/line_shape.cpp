@@ -294,7 +294,6 @@ public:
   struct BuilderParams : BaseBuilderParams
   {
     dp::TextureManager::StippleRegion m_stipple;
-    float m_glbHalfWidth;
     float m_baseGtoP;
   };
 
@@ -538,8 +537,7 @@ void LineShape::Prepare(ref_ptr<dp::TextureManager> textures) const
     DashedLineBuilder::BuilderParams p;
     commonParamsBuilder(p);
     p.m_stipple = maskRegion;
-    p.m_baseGtoP = m_params.m_baseGtoPScale;
-    p.m_glbHalfWidth = p.m_pxHalfWidth / m_params.m_baseGtoPScale;
+    p.m_baseGtoP = static_cast<float>(m_params.m_baseGtoPScale);
 
     auto builder = std::make_unique<DashedLineBuilder>(p, m_spline->GetPath().size());
     Construct<DashedLineBuilder>(*builder);

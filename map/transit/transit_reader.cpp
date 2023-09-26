@@ -168,11 +168,7 @@ void ReadTransitTask::Do()
       //TODO: there should be a simpler way to just get a symbol name.
       df::Stylist stylist(ft, 19, 0);
       if (stylist.m_symbolRule != nullptr)
-      {
-        auto const * symRule = stylist.m_symbolRule->GetSymbol();
-        ASSERT(symRule != nullptr, ());
-        featureInfo.m_gateSymbolName = symRule->name();
-      }
+        featureInfo.m_gateSymbolName = stylist.m_symbolRule->name();
     }
     featureInfo.m_point = feature::GetCenter(ft);
   }, features);
