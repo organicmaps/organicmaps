@@ -1,20 +1,15 @@
 #include "drape_frontend/line_shape.hpp"
 
-#include "drape_frontend/line_shape_helper.hpp"
-
 #include "shaders/programs.hpp"
 
 #include "drape/attribute_provider.hpp"
 #include "drape/batcher.hpp"
 #include "drape/glsl_types.hpp"
-#include "drape/glsl_func.hpp"
 #include "drape/support_manager.hpp"
 #include "drape/texture_manager.hpp"
 #include "drape/utils/vertex_decl.hpp"
 
 #include "indexer/scales.hpp"
-
-#include "base/logging.hpp"
 
 #include <algorithm>
 #include <vector>
@@ -352,15 +347,47 @@ void LineShape::Construct(TBuilder & builder) const
   ASSERT(false, ("No implementation"));
 }
 
-// Specialization optimized for dashed lines.
-template <>
-void LineShape::Construct<DashedLineBuilder>(DashedLineBuilder & builder) const
+template <class FnT> void LineShape::ForEachSplineSection(FnT && fn) const
 {
   std::vector<m2::PointD> const & path = m_spline->GetPath();
   ASSERT(!path.empty(), ());
   size_t const sz = path.size() - 1;
 
-  float const toShapeFactor = kShapeCoordScalar;  // the same as in ToShapeVertex2
+  for (size_t i = 0, j = 1; j <= sz; ++j)
+  {
+    /// @todo Make this kind of fitration in Spline?
+    if (path[i].EqualDxDy(path[j], kMwmPointAccuracy) && j < sz)
+      continue;
+
+    std::pair<m2::PointD, double> tanlen;
+    if (j == i + 1)
+    {
+      // Fast path - take calculated tangent and length.
+      tanlen = m_spline->GetTangentAndLength(i);
+    }
+    else
+    {
+      tanlen.first = path[j] - path[i];
+      tanlen.second = tanlen.first.Length();
+      tanlen.first = tanlen.first / tanlen.second;
+    }
+
+    glsl::vec2 const tangent = glsl::ToVec2(tanlen.first);
+
+    fn(ToShapeVertex2(path[i]), ToShapeVertex2(path[j]),
+       tangent, tanlen.second,
+       {-tangent.y, tangent.x}, {tangent.y, -tangent.x},
+       (i == 0 ? 0x1 : 0) + (j == sz ? 0x2 : 0));
+
+    i = j;
+  }
+}
+
+// Specialization optimized for dashed lines.
+template <>
+void LineShape::Construct<DashedLineBuilder>(DashedLineBuilder & builder) const
+{
+  float constexpr toShapeFactor = kShapeCoordScalar;  // the same as in ToShapeVertex2
 
   // Each segment should lie in pattern mask according to the "longest" possible pixel length in current tile.
   // Since, we calculate vertices once, usually for the "smallest" tile scale, need to apply divide factor here.
@@ -370,20 +397,10 @@ void LineShape::Construct<DashedLineBuilder>(DashedLineBuilder & builder) const
   float const maskLengthG = builder.GetMaskLengthG() / 3;
 
   float offset = 0;
-  for (size_t i = 0; i < sz; ++i)
+  ForEachSplineSection([&](glsl::vec2 const & p1, glsl::vec2 const & p2,
+                           glsl::vec2 const & tangent, float toDraw,
+                           glsl::vec2 const & leftNormal, glsl::vec2 const & rightNormal, int)
   {
-    if (path[i].EqualDxDy(path[i + 1], kMwmPointAccuracy))
-      continue;
-
-    glsl::vec2 const p1 = ToShapeVertex2(path[i]);
-    glsl::vec2 const p2 = ToShapeVertex2(path[i + 1]);
-    auto const dl = m_spline->GetTangentAndLength(i);
-    glsl::vec2 const tangent = glsl::ToVec2(dl.first);
-    glsl::vec2 const leftNormal(-tangent.y, tangent.x);
-    glsl::vec2 const rightNormal = -leftNormal;
-
-    float toDraw = dl.second;
-
     glsl::vec2 currPivot = p1;
     do
     {
@@ -417,57 +434,34 @@ void LineShape::Construct<DashedLineBuilder>(DashedLineBuilder & builder) const
         offset = 0;
 
     } while (toDraw > 0);
-  }
+  });
 }
 
 // Specialization optimized for solid lines.
 template <>
 void LineShape::Construct<SolidLineBuilder>(SolidLineBuilder & builder) const
 {
-  std::vector<m2::PointD> const & path = m_spline->GetPath();
-  ASSERT(!path.empty(), ());
-  size_t const sz = path.size() - 1;
+  // Skip joins generation for thin lines.
+  bool const generateJoins = builder.GetHalfWidth() > 2.5f;
 
-  // skip joins generation
-  float const kJoinsGenerationThreshold = 2.5f;
-  bool generateJoins = true;
-  if (builder.GetHalfWidth() <= kJoinsGenerationThreshold)
-    generateJoins = false;
-
-  // build geometry
-  glsl::vec2 firstPoint = ToShapeVertex2(path.front());
-  glsl::vec2 lastPoint;
-  bool hasConstructedSegments = false;
-  for (size_t i = 0; i < sz; ++i)
+  ForEachSplineSection([&](glsl::vec2 const & p1, glsl::vec2 const & p2,
+                           glsl::vec2 const & tangent, double,
+                           glsl::vec2 const & leftNormal, glsl::vec2 const & rightNormal,
+                           int flag)
   {
-    if (path[i].EqualDxDy(path[i + 1], kMwmPointAccuracy))
-      continue;
-
-    glsl::vec2 const p1 = ToShapeVertex2(path[i]);
-    glsl::vec2 const p2 = ToShapeVertex2(path[i + 1]);
-    auto const dl = m_spline->GetTangentAndLength(i);
-    glsl::vec2 const tangent = glsl::ToVec2(dl.first);
-    glsl::vec2 const leftNormal(-tangent.y, tangent.x);
-    glsl::vec2 const rightNormal = -leftNormal;
-
     builder.SubmitVertex({p1, m_params.m_depth}, rightNormal, false /* isLeft */);
     builder.SubmitVertex({p1, m_params.m_depth}, leftNormal, true /* isLeft */);
     builder.SubmitVertex({p2, m_params.m_depth}, rightNormal, false /* isLeft */);
     builder.SubmitVertex({p2, m_params.m_depth}, leftNormal, true /* isLeft */);
 
-    // generate joins
-    if (generateJoins && i < sz - 1)
+    // Generate joins.
+    if (flag & 0x1)   // p1 - first point
+      builder.SubmitCap(p1);
+    if (flag & 0x2)   // p2 - last point
+      builder.SubmitCap(p2);
+    else if (generateJoins)   // p2 - middle point
       builder.SubmitJoin(p2);
-
-    lastPoint = p2;
-    hasConstructedSegments = true;
-  }
-
-  if (hasConstructedSegments)
-  {
-    builder.SubmitCap(firstPoint);
-    builder.SubmitCap(lastPoint);
-  }
+  });
 }
 
 // Specialization optimized for simple solid lines.

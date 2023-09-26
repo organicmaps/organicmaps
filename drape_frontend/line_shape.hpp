@@ -47,6 +47,8 @@ private:
     return glsl::ToVec2(ConvertToLocal(vertex, m_params.m_tileCenter, kShapeCoordScalar));
   }
 
+  template <class FnT> void ForEachSplineSection(FnT && fn) const;
+
   template <typename TBuilder>
   void Construct(TBuilder & builder) const;
 

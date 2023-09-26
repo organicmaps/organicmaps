@@ -18,7 +18,7 @@
 
 namespace df
 {
-double const kShapeCoordScalar = 1000;
+double constexpr kShapeCoordScalar = 1000;
 int constexpr kBuildingOutlineSize = 16;
 uint32_t constexpr kStartUserMarkOverlayIndex = 1000;
 
