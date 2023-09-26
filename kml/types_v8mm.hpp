@@ -171,7 +171,6 @@ struct TrackDataV8MM
 struct CategoryDataV8MM
 {
   DECLARE_VISITOR_AND_DEBUG_PRINT(CategoryDataV8MM, visitor(m_id, "id"),
-                                  visitor(m_type, "type"),
                                   visitor(m_name, "name"),
                                   visitor(m_imageUrl, "imageUrl"),
                                   visitor(m_annotation, "annotation"),
