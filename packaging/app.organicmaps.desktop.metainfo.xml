@@ -3,11 +3,10 @@
   <id>app.organicmaps.desktop</id>
 
   <name>Organic Maps</name>
-  <summary>A free offline maps app for travelers, tourists, hikers, and cyclists based on top of crowd-sourced OpenStreetMap data and curated with love by MapsWithMe (Maps.Me) founders</summary>
+  <summary>A free offline maps app for travelers, tourists, hikers, and cyclists</summary>
 
   <metadata_license>CC0-1.0</metadata_license>
   <project_license>Apache-2.0</project_license>
-
 
   <supports>
     <control>pointing</control>
@@ -33,57 +32,49 @@
       for mobile devices yet.
       Organic Maps is the ultimate companion app for travelers, tourists,
       hikers, and cyclists:
-      <ul>
-        <li>
-          Detailed offline maps with places that don&apos;t exist on other maps,
-          thanks to OpenStreetMap
-        </li>
-        <li>Cycling routes, hiking trails, and walking paths</li>
-        <li>Contour lines, elevation profiles, peaks, and slopes</li>
-        <li>Turn-by-turn walking, cycling, and car navigation with voice guidance</li>
-        <li>Fast offline search on the map</li>
-        <li>Bookmarks and tracks export and import in KML, KMZ, GPX formats</li>
-        <li>Dark Mode to protect your eyes</li>
-        <li>Countries and regions don&apos;t take a lot of space</li>
-        <li>Free and open-source</li>
-      </ul>
     </p>
+    <ul>
+      <li>
+        Detailed offline maps with places that don&apos;t exist on other maps,
+        thanks to OpenStreetMap
+      </li>
+      <li>Cycling routes, hiking trails, and walking paths</li>
+      <li>Contour lines, elevation profiles, peaks, and slopes</li>
+      <li>Turn-by-turn walking, cycling, and car navigation with voice guidance</li>
+      <li>Fast offline search on the map</li>
+      <li>Bookmarks and tracks export and import in KML, KMZ, GPX formats</li>
+      <li>Dark Mode to protect your eyes</li>
+      <li>Countries and regions don&apos;t take a lot of space</li>
+      <li>Free and open-source</li>
+    </ul>
     <p>## Why Organic?</p>
-    <p>
-      Organic Maps is pure and organic, made with love:
-      <ul>
-        <li>Respects your privacy</li>
-        <li>Saves your battery</li>
-        <li>No unexpected mobile data charges</li>
-      </ul>
-    </p>
-    <p>
-      Organic Maps app is free from trackers and other bad stuff:
-      <ul>
-        <li>No ads</li>
-        <li>No tracking</li>
-        <li>No data collection</li>
-        <li>No phoning home</li>
-        <li>No annoying registration</li>
-        <li>No mandatory tutorials</li>
-        <li>No noisy email spam</li>
-        <li>No push notifications</li>
-        <li>No crapware</li>
-        <li><del>No pesticides</del> Purely organic!</li>
-      </ul>
-    </p>
+    <p>Organic Maps is pure and organic, made with love:</p>
+    <ul>
+      <li>Respects your privacy</li>
+      <li>Saves your battery</li>
+      <li>No unexpected mobile data charges</li>
+    </ul>
+    <p>Organic Maps app is free from trackers and other bad stuff:</p>
+    <ul>
+      <li>No ads</li>
+      <li>No tracking</li>
+      <li>No data collection</li>
+      <li>No phoning home</li>
+      <li>No annoying registration</li>
+      <li>No mandatory tutorials</li>
+      <li>No noisy email spam</li>
+      <li>No push notifications</li>
+      <li>No crapware</li>
+      <li><del>No pesticides</del> Purely organic!</li>
+    </ul>
     <p>The application is verified by Exodus Privacy Project.</p>
-    <p>
-      Organic Maps doesn&apos;t request excessive permissions to spy on you.
-    </p>
-    <p>
-      At Organic Maps, we believe that privacy is a fundamental human right:
-      <ul>
-        <li>Organic Maps is an indie community-driven open-source project</li>
-        <li>We protect your privacy from Big Tech&apos;s prying eyes</li>
-        <li>Stay safe no matter wherever you are</li>
-      </ul>
-    </p>
+    <p>Organic Maps doesn&apos;t request excessive permissions to spy on you.</p>
+    <p>At Organic Maps, we believe that privacy is a fundamental human right:</p>
+    <ul>
+      <li>Organic Maps is an indie community-driven open-source project</li>
+      <li>We protect your privacy from Big Tech&apos;s prying eyes</li>
+      <li>Stay safe no matter wherever you are</li>
+    </ul>
     <p>
       Reject surveillance - embrace your freedom.
       <em>Give Organic Maps a try!</em>
