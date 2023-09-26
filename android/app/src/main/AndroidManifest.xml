@@ -854,7 +854,7 @@
     <service
         android:name=".routing.NavigationService"
         android:foregroundServiceType="location"
-        android:exported="true"
+        android:exported="false"
         android:enabled="true"
         android:stopWithTask="false"
         android:permission="android.permission.ACCESS_FINE_LOCATION">
