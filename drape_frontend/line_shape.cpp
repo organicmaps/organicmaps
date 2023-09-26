@@ -357,7 +357,8 @@ template <>
 void LineShape::Construct<DashedLineBuilder>(DashedLineBuilder & builder) const
 {
   std::vector<m2::PointD> const & path = m_spline->GetPath();
-  ASSERT_GREATER(path.size(), 1, ());
+  ASSERT(!path.empty(), ());
+  size_t const sz = path.size() - 1;
 
   float const toShapeFactor = kShapeCoordScalar;  // the same as in ToShapeVertex2
 
@@ -369,17 +370,19 @@ void LineShape::Construct<DashedLineBuilder>(DashedLineBuilder & builder) const
   float const maskLengthG = builder.GetMaskLengthG() / 3;
 
   float offset = 0;
-  for (size_t i = 1; i < path.size(); ++i)
+  for (size_t i = 0; i < sz; ++i)
   {
-    if (path[i].EqualDxDy(path[i - 1], kMwmPointAccuracy))
+    if (path[i].EqualDxDy(path[i + 1], kMwmPointAccuracy))
       continue;
 
-    glsl::vec2 const p1 = ToShapeVertex2(path[i - 1]);
-    glsl::vec2 const p2 = ToShapeVertex2(path[i]);
-    glsl::vec2 tangent, leftNormal, rightNormal;
-    CalculateTangentAndNormals(p1, p2, tangent, leftNormal, rightNormal);
+    glsl::vec2 const p1 = ToShapeVertex2(path[i]);
+    glsl::vec2 const p2 = ToShapeVertex2(path[i + 1]);
+    auto const dl = m_spline->GetTangentAndLength(i);
+    glsl::vec2 const tangent = glsl::ToVec2(dl.first);
+    glsl::vec2 const leftNormal(-tangent.y, tangent.x);
+    glsl::vec2 const rightNormal = -leftNormal;
 
-    float toDraw = path[i].Length(path[i - 1]);
+    float toDraw = dl.second;
 
     glsl::vec2 currPivot = p1;
     do
@@ -422,7 +425,8 @@ template <>
 void LineShape::Construct<SolidLineBuilder>(SolidLineBuilder & builder) const
 {
   std::vector<m2::PointD> const & path = m_spline->GetPath();
-  ASSERT_GREATER(path.size(), 1, ());
+  ASSERT(!path.empty(), ());
+  size_t const sz = path.size() - 1;
 
   // skip joins generation
   float const kJoinsGenerationThreshold = 2.5f;
@@ -434,26 +438,25 @@ void LineShape::Construct<SolidLineBuilder>(SolidLineBuilder & builder) const
   glsl::vec2 firstPoint = ToShapeVertex2(path.front());
   glsl::vec2 lastPoint;
   bool hasConstructedSegments = false;
-  for (size_t i = 1; i < path.size(); ++i)
+  for (size_t i = 0; i < sz; ++i)
   {
-    if (path[i].EqualDxDy(path[i - 1], 1.0E-5))
+    if (path[i].EqualDxDy(path[i + 1], kMwmPointAccuracy))
       continue;
 
-    glsl::vec2 const p1 = ToShapeVertex2(path[i - 1]);
-    glsl::vec2 const p2 = ToShapeVertex2(path[i]);
-    glsl::vec2 tangent, leftNormal, rightNormal;
-    CalculateTangentAndNormals(p1, p2, tangent, leftNormal, rightNormal);
+    glsl::vec2 const p1 = ToShapeVertex2(path[i]);
+    glsl::vec2 const p2 = ToShapeVertex2(path[i + 1]);
+    auto const dl = m_spline->GetTangentAndLength(i);
+    glsl::vec2 const tangent = glsl::ToVec2(dl.first);
+    glsl::vec2 const leftNormal(-tangent.y, tangent.x);
+    glsl::vec2 const rightNormal = -leftNormal;
 
-    glsl::vec3 const startPoint = glsl::vec3(p1, m_params.m_depth);
-    glsl::vec3 const endPoint = glsl::vec3(p2, m_params.m_depth);
-
-    builder.SubmitVertex(startPoint, rightNormal, false /* isLeft */);
-    builder.SubmitVertex(startPoint, leftNormal, true /* isLeft */);
-    builder.SubmitVertex(endPoint, rightNormal, false /* isLeft */);
-    builder.SubmitVertex(endPoint, leftNormal, true /* isLeft */);
+    builder.SubmitVertex({p1, m_params.m_depth}, rightNormal, false /* isLeft */);
+    builder.SubmitVertex({p1, m_params.m_depth}, leftNormal, true /* isLeft */);
+    builder.SubmitVertex({p2, m_params.m_depth}, rightNormal, false /* isLeft */);
+    builder.SubmitVertex({p2, m_params.m_depth}, leftNormal, true /* isLeft */);
 
     // generate joins
-    if (generateJoins && i < path.size() - 1)
+    if (generateJoins && i < sz - 1)
       builder.SubmitJoin(p2);
 
     lastPoint = p2;
@@ -485,7 +488,7 @@ bool LineShape::CanBeSimplified(int & lineWidth) const
   if (m_params.m_zoomLevel > 0 && m_params.m_zoomLevel <= scales::GetUpperCountryScale())
     return false;
 
-  static float width = std::min(2.5f, dp::SupportManager::Instance().GetMaxLineWidth());
+  float const width = std::min(2.5f, dp::SupportManager::Instance().GetMaxLineWidth());
   if (m_params.m_width <= width)
   {
     lineWidth = std::max(1, static_cast<int>(m_params.m_width));
