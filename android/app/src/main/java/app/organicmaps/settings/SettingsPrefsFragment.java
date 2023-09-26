@@ -3,6 +3,7 @@ package app.organicmaps.settings;
 import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.Intent;
+import android.content.res.Configuration;
 import android.net.Uri;
 import android.os.Bundle;
 import android.speech.tts.TextToSpeech;
@@ -163,6 +164,7 @@ public class SettingsPrefsFragment extends BaseXmlSettingsFragment
     List<LanguageData> languages = TtsPlayer.INSTANCE.refreshLanguages();
     mLanguages.clear();
     mCurrentLanguage = null;
+    mTtsTestStringArray = null;
 
     final Preference root = getPreference(getString(R.string.pref_tts_screen));
 
@@ -214,6 +216,16 @@ public class SettingsPrefsFragment extends BaseXmlSettingsFragment
     mTtsPrefLanguages.setValue(available ? mCurrentLanguage.internalCode : null);
     mTtsPrefEnabled.setChecked(available && TtsPlayer.isEnabled());
     mTtsVoiceTest.setEnabled(enabled && available && TtsPlayer.isEnabled());
+
+    if (available)
+    {
+      // Update array of TTS test strings. Strings are taken from resources using selected TTS language.
+      Configuration config = new Configuration(getResources().getConfiguration());
+      config.setLocale(mCurrentLanguage.locale);
+      mTtsTestStringArray = Arrays.asList(getContext().createConfigurationContext(config).getResources().getStringArray(R.array.app_tips));
+      Collections.shuffle(mTtsTestStringArray);
+      mTestStringIndex = 0;
+    }
 
     enableListeners(true);
   }
@@ -279,14 +291,12 @@ public class SettingsPrefsFragment extends BaseXmlSettingsFragment
       mTtsLangInfo = getPreference(getString(R.string.pref_tts_info));
       mTtsVoiceTest = getPreference(getString(R.string.pref_tts_test_voice));
 
-      // Initialize TTS test strings.
-      mTtsTestStringArray = Arrays.asList(getResources().getStringArray(R.array.app_tips));
-      Collections.shuffle(mTtsTestStringArray);
-      mTestStringIndex = 0;
-
       if (mTtsVoiceTest != null)
       {
         mTtsVoiceTest.setOnPreferenceClickListener(pref -> {
+          if (mTtsTestStringArray == null)
+            return false;
+
           Utils.showSnackbar(getView(), getString(R.string.pref_tts_playing_test_voice));
           TtsPlayer.INSTANCE.speak(mTtsTestStringArray.get(mTestStringIndex));
           mTestStringIndex++;
