@@ -534,7 +534,7 @@ void ProcessSplineSegmentRects(m2::SharedSpline const & spline, double maxSegmen
     auto itEnd = spline->GetPoint(length + maxSegmentLength);
     if (itEnd.BeginAgain())
     {
-      double const lastSegmentLength = spline->GetLengths().back();
+      double const lastSegmentLength = spline->GetLastLength();
       itEnd = spline->GetPoint(splineFullLength - lastSegmentLength / 2.0);
       splineRect.Add(spline->GetPath().back());
     }

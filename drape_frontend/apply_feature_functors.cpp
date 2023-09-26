@@ -777,7 +777,7 @@ void ApplyLineFeatureGeometry::operator() (m2::PointD const & point)
   {
     if (m_simplify &&
         ((m_spline->GetSize() > 1 && point.SquaredLength(m_lastAddedPoint) < m_minSegmentSqrLength) ||
-        m_spline->IsPrelonging(point)))
+          m_spline->IsProlonging(point)))
     {
       m_spline->ReplacePoint(point);
     }
