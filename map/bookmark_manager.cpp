@@ -1867,7 +1867,7 @@ void BookmarkManager::LoadBookmarkRoutine(std::string const & filePath, bool isT
     std::string fileSavePath = GetKMLPath(filePath);
     if (!fileSavePath.empty())
     {
-      auto const ext = GetLowercaseFileExt(filePath);
+      auto const ext = GetLowercaseFileExt(fileSavePath);
       std::unique_ptr<kml::FileData> kmlData;
       if (ext == ".kml" || ext == ".kmz")
         kmlData = LoadKmlFile(fileSavePath, KmlFileType::Text);
@@ -1893,6 +1893,8 @@ void BookmarkManager::LoadBookmarkRoutine(std::string const & filePath, bool isT
         else
           collection->emplace_back(std::move(fileSavePath), std::move(kmlData));
       }
+      else
+        base::DeleteFileX(fileSavePath);
     }
 
     if (m_needTeardown)
