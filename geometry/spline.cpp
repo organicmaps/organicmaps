@@ -117,6 +117,12 @@ double Spline::GetLastLength() const
   return m_length.back();
 }
 
+std::pair<PointD, double> Spline::GetTangentAndLength(size_t i) const
+{
+  ASSERT_LESS(i, m_length.size(), ());
+  return { m_direction[i], m_length[i] };
+}
+
 void Spline::InitDirections()
 {
   ASSERT_GREATER(m_position.size(), 1, ());

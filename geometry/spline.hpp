@@ -77,6 +77,8 @@ public:
 
   double GetLength() const;
   double GetLastLength() const;
+  /// @return for (i) -> (i + 1) section.
+  std::pair<PointD, double> GetTangentAndLength(size_t i) const;
 
 protected:
   void InitDirections();
