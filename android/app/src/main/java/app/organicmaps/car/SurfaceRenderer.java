@@ -64,6 +64,7 @@ public class SurfaceRenderer implements DefaultLifecycleObserver, SurfaceCallbac
         new Rect(0, 0, surfaceContainer.getWidth(), surfaceContainer.getHeight()),
         surfaceContainer.getDpi()
     );
+    mMap.updateBottomWidgetsOffset(mCarContext, -1, -1);
   }
 
   @Override
