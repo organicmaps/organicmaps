@@ -325,16 +325,22 @@ public final class Map
 
     nativeCleanWidgets();
     updateBottomWidgetsOffset(context, mBottomWidgetOffsetX, mBottomWidgetOffsetY);
-    nativeSetupWidget(WIDGET_SCALE_FPS_LABEL, UiUtils.dimen(context, R.dimen.margin_base), UiUtils.dimen(context, R.dimen.margin_base), ANCHOR_LEFT_TOP);
-    // Don't show compass on car display
     if (mDisplayType == DisplayType.Device)
+    {
+      nativeSetupWidget(WIDGET_SCALE_FPS_LABEL, UiUtils.dimen(context, R.dimen.margin_base), UiUtils.dimen(context, R.dimen.margin_base) * 2, ANCHOR_LEFT_TOP);
       updateCompassOffset(context, mCurrentCompassOffsetX, mCurrentCompassOffsetY, false);
+    }
+    else
+    {
+      nativeSetupWidget(WIDGET_SCALE_FPS_LABEL, UiUtils.dimen(context, R.dimen.margin_base), mHeight - UiUtils.dimen(context, R.dimen.margin_base) * 5, ANCHOR_LEFT_TOP);
+      updateCompassOffset(context, mWidth, mCurrentCompassOffsetY, true);
+    }
   }
 
   private void updateRulerOffset(final Context context, int offsetX, int offsetY)
   {
     nativeSetupWidget(WIDGET_RULER,
-        UiUtils.dimen(context, R.dimen.margin_ruler) + offsetX,
+        UiUtils.dimen(context, R.dimen.margin_base) + offsetX,
         mHeight - UiUtils.dimen(context, R.dimen.margin_ruler) - offsetY,
         ANCHOR_LEFT_BOTTOM);
     if (mSurfaceCreated)
@@ -344,7 +350,7 @@ public final class Map
   private void updateAttributionOffset(final Context context, int offsetX, int offsetY)
   {
     nativeSetupWidget(WIDGET_COPYRIGHT,
-        UiUtils.dimen(context, R.dimen.margin_ruler) + offsetX,
+        UiUtils.dimen(context, R.dimen.margin_base) + offsetX,
         mHeight - UiUtils.dimen(context, R.dimen.margin_ruler) - offsetY,
         ANCHOR_LEFT_BOTTOM);
     if (mSurfaceCreated)
@@ -361,31 +367,48 @@ public final class Map
                                                    boolean firstLaunch,
                                                    boolean isLaunchByDeepLink,
                                                    int appVersionCode);
+
   private static native boolean nativeIsEngineCreated();
+
   private static native void nativeUpdateEngineDpi(int dpi);
+
   private static native void nativeSetRenderingInitializationFinishedListener(
       @Nullable MapRenderingListener listener);
+
   private static native boolean nativeShowMapForUrl(String url);
 
   // Surface
   private static native boolean nativeAttachSurface(Surface surface);
+
   private static native void nativeDetachSurface(boolean destroySurface);
+
   private static native void nativeSurfaceChanged(Surface surface, int w, int h);
+
   private static native boolean nativeDestroySurfaceOnDetach();
+
   private static native void nativePauseSurfaceRendering();
+
   private static native void nativeResumeSurfaceRendering();
 
   // Widgets
   private static native void nativeApplyWidgets();
+
   private static native void nativeCleanWidgets();
+
   private static native void nativeUpdateMyPositionRoutingOffset(int offsetY);
+
   private static native void nativeSetupWidget(int widget, float x, float y, int anchor);
+
   private static native void nativeCompassUpdated(double north, boolean forceRedraw);
 
   // Events
   private static native void nativeScalePlus();
+
   private static native void nativeScaleMinus();
+
   private static native void nativeOnScroll(double distanceX, double distanceY);
+
   private static native void nativeOnScale(double factor, double focusX, double focusY, boolean isAnim);
+
   private static native void nativeOnTouch(int actionType, int id1, float x1, float y1, int id2, float x2, float y2, int maskedPointer);
 }

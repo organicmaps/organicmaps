@@ -40,7 +40,6 @@ public class SurfaceRenderer implements DefaultLifecycleObserver, SurfaceCallbac
     mIsRunning = true;
     lifecycle.addObserver(this);
     mMap.setMapRenderingListener(this);
-    mMap.updateMyPositionRoutingOffset(0);
   }
 
   @Override
@@ -53,6 +52,7 @@ public class SurfaceRenderer implements DefaultLifecycleObserver, SurfaceCallbac
         new Rect(0, 0, surfaceContainer.getWidth(), surfaceContainer.getHeight()),
         surfaceContainer.getDpi()
     );
+    mMap.updateBottomWidgetsOffset(mCarContext, -1, -1);
   }
 
   @Override
