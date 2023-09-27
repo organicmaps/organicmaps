@@ -790,6 +790,8 @@
 	<string name="aa_location_permissions_request">This application requires access to your location for navigation purposes.</string>
 	<!-- Displayed on the Android Auto screen. Grant Permissions button. Must be no more than 18 symbols! -->
 	<string name="aa_grant_permissions">Grant Permissions</string>
+	<!-- Text that will be displayed in the notification title when the app is connected to Android Auto. -->
+	<string name="aa_connected_to_car_notification_title">Connected to car</string>
 
 	<!-- SECTION: Types -->
 	<string name="type.addr_interpolation">Address/Block</string>
