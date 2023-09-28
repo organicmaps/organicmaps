@@ -23,8 +23,8 @@ enum PlacePageState {
 
 protocol IPlacePageLayout: AnyObject {
   var presenter: PlacePagePresenterProtocol? { get set }
-  var header: PlacePageHeaderViewController? { get }
-  var viewControllers: [UIViewController] { get }
+  var headerViewControllers: [UIViewController] { get }
+  var bodyViewControllers: [UIViewController] { get }
   var actionBar: ActionBarViewController? { get }
   var navigationBar: UIViewController? { get }
 
