@@ -202,7 +202,7 @@ std::string DebugPrint(StoredRankingInfo const & info)
   os << "StoredRankingInfo "
      << "{ m_distanceToPivot: " << info.m_distanceToPivot
      << ", m_type: " << DebugPrint(info.m_type)
-     << ", m_resultType: ";
+     << ", m_classifType: ";
 
   if (Model::IsPoi(info.m_type))
     os << DebugPrint(info.m_classifType.poi);
