@@ -4,7 +4,7 @@ class PlacePageElevationLayout: IPlacePageLayout {
   private let storyboard: UIStoryboard
   weak var presenter: PlacePagePresenterProtocol?
 
-  lazy var viewControllers: [UIViewController] = {
+  lazy var bodyViewControllers: [UIViewController] = {
     return configureViewControllers()
   }()
 
@@ -14,8 +14,8 @@ class PlacePageElevationLayout: IPlacePageLayout {
     return placePageNavigationViewController
   }
 
-  lazy var header: PlacePageHeaderViewController? = {
-    return PlacePageHeaderBuilder.build(data: placePageData.previewData, delegate: interactor, headerType: .flexible)
+  lazy var headerViewControllers: [UIViewController] = {
+    return [PlacePageHeaderBuilder.build(data: placePageData.previewData, delegate: interactor, headerType: .flexible)]
   } ()
 
   lazy var placePageNavigationViewController: PlacePageHeaderViewController = {

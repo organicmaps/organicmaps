@@ -15,9 +15,6 @@ class UITableViewHeaderFooterViewRenderer {
     if let backgroundColor = style.backgroundColor {
       control.backgroundView = UIImageView(image: backgroundColor.getImage())
     }
-    if let font = style.font {
-      control.textLabel?.font = font
-    }
     if let fontColor = style.fontColor {
       control.textLabel?.textColor = fontColor
     }
