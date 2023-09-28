@@ -69,17 +69,21 @@ class LinesStat
 public:
   ~LinesStat()
   {
-    map<int, TValue> zoomValues;
-    for (pair<TKey, TValue> const & f : m_features)
+    std::map<int, TValue> zoomValues;
+    for (std::pair<TKey, TValue> const & f : m_features)
     {
       TValue & v = zoomValues[f.first.second];
       v.m_neededPoints += f.second.m_neededPoints;
-      v.m_readedPoints += f.second.m_readedPoints;
+      v.m_readPoints += f.second.m_readPoints;
     }
 
-    LOG(LINFO, ("========================"));
-    for (pair<int, TValue> const & v : zoomValues)
-      LOG(LINFO, ("Zoom = ", v.first, " Percent = ", 1 - v.second.m_neededPoints / (double)v.second.m_readedPoints));
+    LOG(LINFO, ("===== Lines filtering stats ====="));
+    for (std::pair<int, TValue> const & v : zoomValues)
+    {
+      int const filtered = v.second.m_readPoints - v.second.m_neededPoints;
+      LOG(LINFO, ("Zoom =", v.first, "Filtered", 100 * filtered / (double)v.second.m_readPoints, "% (",
+                  filtered, "out of", v.second.m_readPoints, "points)"));
+    }
   }
 
   static LinesStat & Get()
@@ -88,43 +92,30 @@ public:
     return s_stat;
   }
 
-  void InsertLine(FeatureID const & id, double scale, int vertexCount, int renderVertexCount)
-  {
-    int s = 0;
-    double factor = 5.688;
-    while (factor < scale)
-    {
-      s++;
-      factor = factor * 2.0;
-    }
-
-    InsertLine(id, s, vertexCount, renderVertexCount);
-  }
-
   void InsertLine(FeatureID const & id, int scale, int vertexCount, int renderVertexCount)
   {
     TKey key(id, scale);
-    lock_guard<mutex> g(m_mutex);
+    std::lock_guard g(m_mutex);
     if (m_features.find(key) != m_features.end())
       return;
 
     TValue & v = m_features[key];
-    v.m_readedPoints = vertexCount;
+    v.m_readPoints = vertexCount;
     v.m_neededPoints = renderVertexCount;
   }
 
 private:
   LinesStat() = default;
 
-  using TKey = pair<FeatureID, int>;
+  using TKey = std::pair<FeatureID, int>;
   struct TValue
   {
-    int m_readedPoints = 0;
+    int m_readPoints = 0;
     int m_neededPoints = 0;
   };
 
-  map<TKey, TValue> m_features;
-  mutex m_mutex;
+  std::map<TKey, TValue> m_features;
+  std::mutex m_mutex;
 };
 #endif
 
@@ -864,7 +855,7 @@ void ApplyLineFeatureGeometry::ProcessLineRule(TRuleWrapper const & rule)
 void ApplyLineFeatureGeometry::Finish()
 {
 #ifdef LINES_GENERATION_CALC_FILTERED_POINTS
-  LinesStat::Get().InsertLine(m_id, m_currentScaleGtoP, m_readCount, static_cast<int>(m_spline->GetSize()));
+  LinesStat::Get().InsertLine(m_id, m_tileKey.m_zoomLevel, m_readCount, static_cast<int>(m_spline->GetSize()));
 #endif
 }
 
