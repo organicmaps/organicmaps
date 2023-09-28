@@ -6336,7 +6336,7 @@ ro:Adăpost
 es:Refugio
 et:4Varjend
 eu:Aterpea
-sv:Skyddsrum
+sv:Vindskydd
 th:ที่อยู่อาศัย
 tr:Barınak
 uk:4Укриття
