@@ -63,7 +63,10 @@ bool SearchTestBase::ResultsMatch(vector<search::Result> const & results, Rules 
 bool SearchTestBase::OrderedResultsMatch(std::vector<Result> const & results, Rules const & rules)
 {
   if (results.size() != rules.size())
+  {
+    LOG(LWARNING, ("Unexpected results number:", results));
     return false;
+  }
 
   for (size_t i = 0; i < results.size(); ++i)
   {

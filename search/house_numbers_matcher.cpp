@@ -596,6 +596,7 @@ bool HouseNumbersMatchConscription(UniString const & houseNumber, TokensT const 
   auto i = std::find(beg, end, '/');
   if (i != end)
   {
+    // Conscription number / street number.
     return HouseNumbersMatch(UniString(beg, i), queryParse) ||
            HouseNumbersMatch(UniString(i + 1, end), queryParse);
   }
