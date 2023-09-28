@@ -317,7 +317,7 @@ public:
   double CalcSegmentWeight(Segment const & segment, RoadGeometry const & road, Purpose purpose) const override
   {
     return CalcClimbSegment(purpose, segment, road,
-        [purpose](double speedMpS, double tangent, geometry::Altitude altitude)
+        [purpose, this](double speedMpS, double tangent, geometry::Altitude altitude)
         {
           auto const factor = GetBicycleClimbPenalty(purpose, tangent, altitude);
           ASSERT_GREATER(factor, 0.0, ());
@@ -347,7 +347,7 @@ public:
               speedMpS /= factor;
           }
 
-          return speedMpS;
+          return std::min(speedMpS, GetMaxWeightSpeedMpS());
         });
   }
 };
