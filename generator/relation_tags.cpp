@@ -77,7 +77,12 @@ void RelationTagsWay::Process(RelationElement const & e)
   {
     if (e.GetTagValue("route") == "road")
     {
-      // Append "network/ref" to the feature ref tag.
+      /* Road ref format is
+       *    8;e-road/E 67;ee:local/7841171
+       * where road refs/shields are separated by a ";"
+       * with an optionally prepended network code followed by a "/".
+       * Its parsed by indexer/road_shields_parser.cpp.
+       */
       std::string ref(e.GetTagValue("ref"));
       if (!ref.empty())
       {
