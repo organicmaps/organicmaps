@@ -72,9 +72,9 @@ highway-secondary-bridge                            # pathtext z10- (also has sh
 highway-secondary-tunnel                            # pathtext z10- (also has shield::shield z12-, line z10-, line(casing) z14-)
 === 4150
 
-highway-tertiary                                    # pathtext z12- (also has shield::shield z15-, line z11-, line(casing) z15-)
-highway-tertiary-bridge                             # pathtext z12- (also has shield::shield z15-, line z11-, line::bridgeblack z14-, line::bridgewhite z14-, line(casing) z15-)
-highway-tertiary-tunnel                             # pathtext z12- (also has shield::shield z15-, line z11-, line(casing) z15-)
+highway-tertiary                                    # pathtext z12- (also has shield::shield z13-, line z11-, line(casing) z15-)
+highway-tertiary-bridge                             # pathtext z12- (also has shield::shield z13-, line z11-, line::bridgeblack z14-, line::bridgewhite z14-, line(casing) z15-)
+highway-tertiary-tunnel                             # pathtext z12- (also has shield::shield z13-, line z11-, line(casing) z15-)
 === 4100
 
 highway-secondary_link                              # pathtext z16- (also has line(casing) z14-, line z14-)
@@ -88,10 +88,10 @@ highway-unclassified-bridge                         # pathtext z14- (also has li
 highway-unclassified-tunnel                         # pathtext z14- (also has line z11-, line(casing) z16-)
 === 4000
 
-highway-residential                                 # pathtext z12- (also has shield::shield z18-, line z12-, line(casing) z15-)
-highway-residential-area                            # pathtext z12- (also has shield::shield z18-, line z12-, line(casing) z15-)
-highway-residential-bridge                          # pathtext z12- (also has shield::shield z18-, line z12-, line::bridgeblack z14-, line::bridgewhite z14-, line(casing) z15-)
-highway-residential-tunnel                          # pathtext z12- (also has shield::shield z18-, line z12-, line(casing) z15-)
+highway-residential                                 # pathtext z12- (also has shield::shield z15-, line z12-, line(casing) z15-)
+highway-residential-area                            # pathtext z12- (also has shield::shield z15-, line z12-, line(casing) z15-)
+highway-residential-bridge                          # pathtext z12- (also has shield::shield z15-, line z12-, line::bridgeblack z14-, line::bridgewhite z14-, line(casing) z15-)
+highway-residential-tunnel                          # pathtext z12- (also has shield::shield z15-, line z12-, line(casing) z15-)
 === 3950
 
 highway-primary_link::shield                        # shield::shield z11- (also has pathtext z11-, line z11-, line(casing) z14-)
@@ -104,15 +104,15 @@ highway-secondary-bridge::shield                    # shield::shield z12- (also 
 highway-secondary-tunnel::shield                    # shield::shield z12- (also has pathtext z10-, line z10-, line(casing) z14-)
 === 3930
 
-highway-tertiary::shield                            # shield::shield z15- (also has pathtext z12-, line z11-, line(casing) z15-)
-highway-tertiary-bridge::shield                     # shield::shield z15- (also has pathtext z12-, line z11-, line::bridgeblack z14-, line::bridgewhite z14-, line(casing) z15-)
-highway-tertiary-tunnel::shield                     # shield::shield z15- (also has pathtext z12-, line z11-, line(casing) z15-)
+highway-tertiary::shield                            # shield::shield z13- (also has pathtext z12-, line z11-, line(casing) z15-)
+highway-tertiary-bridge::shield                     # shield::shield z13- (also has pathtext z12-, line z11-, line::bridgeblack z14-, line::bridgewhite z14-, line(casing) z15-)
+highway-tertiary-tunnel::shield                     # shield::shield z13- (also has pathtext z12-, line z11-, line(casing) z15-)
 === 3920
 
-highway-residential::shield                         # shield::shield z18- (also has pathtext z12-, line z12-, line(casing) z15-)
-highway-residential-area::shield                    # shield::shield z18- (also has pathtext z12-, line z12-, line(casing) z15-)
-highway-residential-bridge::shield                  # shield::shield z18- (also has pathtext z12-, line z12-, line::bridgeblack z14-, line::bridgewhite z14-, line(casing) z15-)
-highway-residential-tunnel::shield                  # shield::shield z18- (also has pathtext z12-, line z12-, line(casing) z15-)
+highway-residential::shield                         # shield::shield z15- (also has pathtext z12-, line z12-, line(casing) z15-)
+highway-residential-area::shield                    # shield::shield z15- (also has pathtext z12-, line z12-, line(casing) z15-)
+highway-residential-bridge::shield                  # shield::shield z15- (also has pathtext z12-, line z12-, line::bridgeblack z14-, line::bridgewhite z14-, line(casing) z15-)
+highway-residential-tunnel::shield                  # shield::shield z15- (also has pathtext z12-, line z12-, line(casing) z15-)
 === 3910
 
 highway-road                                        # pathtext z14- (also has line z12-)
