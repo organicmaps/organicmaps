@@ -164,10 +164,10 @@ public class MwmApplication extends Application implements Application.ActivityL
    * @throws IOException - if failed to create directories. Caller must handle
    * the exception and do nothing with native code if initialization is failed.
    */
-  public boolean init(SplashActivity listener) throws IOException
+  public boolean init(@NonNull Runnable onComplete) throws IOException
   {
     initNativePlatform();
-    return initNativeFramework(listener);
+    return initNativeFramework(onComplete);
   }
 
   private void initNativePlatform() throws IOException
@@ -214,12 +214,12 @@ public class MwmApplication extends Application implements Application.ActivityL
     StorageUtils.requireDirectory(tempPath);
   }
 
-  private boolean initNativeFramework(SplashActivity listener)
+  private boolean initNativeFramework(@NonNull Runnable onComplete)
   {
     if (mFrameworkInitialized)
       return false;
 
-    nativeInitFramework(listener);
+    nativeInitFramework(onComplete);
 
     MapManager.nativeSubscribe(mStorageCallbacks);
 
@@ -285,7 +285,7 @@ public class MwmApplication extends Application implements Application.ActivityL
   private native void nativeInitPlatform(String apkPath, String writablePath, String privatePath,
                                          String tmpPath, String flavorName, String buildType,
                                          boolean isTablet);
-  private static native void nativeInitFramework(SplashActivity listener);
+  private static native void nativeInitFramework(@NonNull Runnable onComplete);
   private static native void nativeProcessTask(long taskPointer);
   private static native void nativeAddLocalization(String name, String value);
   private static native void nativeOnTransit(boolean foreground);
