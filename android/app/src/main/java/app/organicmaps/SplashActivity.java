@@ -145,7 +145,7 @@ public class SplashActivity extends AppCompatActivity
     boolean asyncContinue = false;
     try
     {
-      asyncContinue = app.init(this);
+      asyncContinue = app.init(this::processNavigation);
     } catch (IOException e)
     {
       showFatalErrorDialog(R.string.dialog_error_storage_title, R.string.dialog_error_storage_message);

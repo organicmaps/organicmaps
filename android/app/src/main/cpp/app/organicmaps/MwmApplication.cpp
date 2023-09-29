@@ -27,17 +27,17 @@ extern "C"
                                              flavorName, buildType, isTablet);
   }
 
-  // static void nativeInitFramework();
+  // static void nativeInitFramework(@NonNull Runnable onComplete);
   JNIEXPORT void JNICALL
-  Java_app_organicmaps_MwmApplication_nativeInitFramework(JNIEnv * env, jclass clazz, jobject listener)
+  Java_app_organicmaps_MwmApplication_nativeInitFramework(JNIEnv * env, jclass clazz, jobject onComplete)
   {
     if (!g_framework)
     {
-      g_framework = std::make_unique<android::Framework>([listener = jni::make_global_ref(listener)]()
+      g_framework = std::make_unique<android::Framework>([onComplete = jni::make_global_ref(onComplete)]()
       {
         JNIEnv * env = jni::GetEnv();
-        jmethodID const methodId = jni::GetMethodID(env, *listener, "processNavigation", "()V");
-        env->CallVoidMethod(*listener, methodId);
+        jmethodID const methodId = jni::GetMethodID(env, *onComplete, "run", "()V");
+        env->CallVoidMethod(*onComplete, methodId);
       });
     }
   }
