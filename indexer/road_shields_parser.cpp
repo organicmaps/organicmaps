@@ -10,6 +10,15 @@
 #include <unordered_map>
 #include <utility>
 
+/*
+ * TODO : why all this parsing happens in the run-time? The most of it should be moved to the generator.
+ * E.g. now the ref contains
+ *    ee:national/8;e-road/E 67;ee:local/7841171
+ * where the latter part is not being used at all.
+ * The generator should produce just
+ *    x8;yE 67
+ * where x/y are one byte road shield type codes.
+ */
 
 namespace ftypes
 {
@@ -49,8 +58,9 @@ std::unordered_map<std::string, RoadShieldType> const kRoadNetworkShields = {
     {"co:national", RoadShieldType::Generic_White},
     {"cz:national", RoadShieldType::Generic_Red},
     {"cz:regional", RoadShieldType::Generic_Blue},
-    {"ee:national", RoadShieldType::Generic_Red},
-    {"ee:regional", RoadShieldType::Generic_White},
+    // Estonia parser produces more specific shield types, incl. Generic_Orange.
+    //{"ee:national", RoadShieldType::Generic_Red},
+    //{"ee:regional", RoadShieldType::Generic_White},
     {"fr:a-road", RoadShieldType::Generic_Red},
     {"jp:national", RoadShieldType::Generic_Blue},
     {"jp:regional", RoadShieldType::Generic_Blue},
@@ -126,7 +136,17 @@ public:
       else
       {
         shield = ParseRoadShield(rawText.substr(slashPos + 1));
-        shield.m_type = FindNetworkShield(std::string(rawText.substr(0, slashPos)));
+        // TODO: use a network-based shield type override only if a parser couldn't make it
+        // more specific than country's default shield type.
+        // E.g. "94" is set to Generic_Orange by Estonia parser, but then
+        // is overriden by "ee:national" => Generic_Red.
+        // (can't override just RoadShieldType::Default, as e.g. Russia parser uses Generic_Blue as country default).
+        if (shield.m_type != RoadShieldType::Hidden)
+        {
+          RoadShieldType const networkType = FindNetworkShield(std::string(rawText.substr(0, slashPos)));
+          if (networkType != RoadShieldType::Default)
+            shield.m_type = networkType;
+        }
       }
       if (!shield.m_name.empty() && shield.m_type != RoadShieldType::Hidden)
       {
@@ -232,6 +252,8 @@ private:
   RoadShieldType const m_type;
 };
 
+// Matches by a list of given substrings.
+// If several substrings are present, then the leftmost wins.
 class SimpleRoadShieldParser : public RoadShieldParser
 {
 public:
@@ -280,6 +302,11 @@ private:
   RoadShieldType const m_defaultType;
 };
 
+uint16_t constexpr kAnyHigherRoadNumber = std::numeric_limits<uint16_t>::max();
+
+// Matches by a list of numeric ranges (a first matching range is used).
+// Non-numbers and numbers out of any range are matched to RoadShieldType::Default.
+// Use kAnyHigherRoadNumber to match any number higher than a specified lower bound.
 class NumericRoadShieldParser : public RoadShieldParser
 {
 public:
@@ -313,7 +340,7 @@ public:
     {
       for (auto const & p : m_types)
       {
-        if (p.m_low <= ref && ref <= p.m_high)
+        if (p.m_low <= ref && (ref <= p.m_high || p.m_high == kAnyHigherRoadNumber))
           return RoadShield(p.m_type, rawText);
       }
     }
@@ -487,7 +514,7 @@ public:
                                                {40, 99, RoadShieldType::Generic_Orange},
                                                {100, 999, RoadShieldType::Generic_White},
                                                {1000, 9999, RoadShieldType::Generic_Blue},
-                                               {10000, 60000, RoadShieldType::Hidden}})
+                                               {10000, kAnyHigherRoadNumber, RoadShieldType::Hidden}})
   {
   }
 };
@@ -501,7 +528,7 @@ public:
                                                {92, 92, RoadShieldType::Generic_Red},
                                                {93, 95, RoadShieldType::Generic_Orange},
                                                {96, 999, RoadShieldType::Generic_White},
-                                               {1000, 60000, RoadShieldType::Hidden}})
+                                               {1000, kAnyHigherRoadNumber, RoadShieldType::Hidden}})
   {
   }
 };

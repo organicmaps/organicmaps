@@ -31,6 +31,14 @@ UNIT_TEST(RoadShields_Smoke)
   TEST_EQUAL(shields[0].m_type, RoadShieldType::Generic_Blue, ());
   TEST_EQUAL(shields[1].m_type, RoadShieldType::Generic_Blue, ());
 
+  shields = GetRoadShields("Germany", "blue/A 31;national/B 2R");
+  TEST_EQUAL(shields.size(), 2, ());
+  TEST_EQUAL(shields[0].m_type, RoadShieldType::Generic_Blue, ());
+  TEST_EQUAL(shields[1].m_type, RoadShieldType::Generic_Orange, ());
+
+  shields = GetRoadShields("Germany", "TMC 33388 (St 2047)");
+  TEST_EQUAL(shields.size(), 0, ());
+
   shields = GetRoadShields("US", "US:IN");
   TEST_EQUAL(shields.size(), 1, ());
   TEST_EQUAL(shields[0].m_type, RoadShieldType::Default, ());
@@ -39,4 +47,12 @@ UNIT_TEST(RoadShields_Smoke)
   TEST_EQUAL(shields.size(), 2, ());
   TEST_EQUAL(shields[0].m_type, RoadShieldType::Generic_White, ());
   TEST_EQUAL(shields[1].m_type, RoadShieldType::Default, ());
+
+  shields = GetRoadShields("Switzerland", "e-road/E 67");
+  TEST_EQUAL(shields.size(), 1, ());
+  TEST_EQUAL(shields[0].m_type, RoadShieldType::Generic_Green, ());
+
+  shields = GetRoadShields("Estonia", "ee:national/27;ee:local/7841171");
+  TEST_EQUAL(shields.size(), 1, ());
+  TEST_EQUAL(shields[0].m_type, RoadShieldType::Generic_Orange, ());
 }
