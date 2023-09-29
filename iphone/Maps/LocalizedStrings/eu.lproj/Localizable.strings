@@ -2913,6 +2913,10 @@
 
 "type.railway.station.light_rail" = "Tren geltokian";
 
+"type.railway.station.light_rail.london" = "Tren geltokian";
+
+"type.railway.station.light_rail.porto" = "Tren geltokian";
+
 "type.railway.station.monorail" = "Tren geltokian";
 
 "type.railway.station.subway" = "Metroa";

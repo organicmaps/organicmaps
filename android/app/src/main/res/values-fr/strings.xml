@@ -1539,6 +1539,8 @@
 	<string name="type.railway.station">Gare ferroviaire</string>
 	<string name="type.railway.station.funicular">Funiculaire</string>
 	<string name="type.railway.station.light_rail">Gare ferroviaire</string>
+	<string name="type.railway.station.light_rail.london">Gare ferroviaire</string>
+	<string name="type.railway.station.light_rail.porto">Gare ferroviaire</string>
 	<string name="type.railway.station.monorail">Gare ferroviaire</string>
 	<string name="type.railway.station.subway">Station de métro</string>
 	<string name="type.railway.station.subway.adana">Station de métro</string>

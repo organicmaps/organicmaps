@@ -1573,6 +1573,8 @@
 	<string name="type.railway.station">Raudtee jaam</string>
 	<string name="type.railway.station.funicular">Funicular</string>
 	<string name="type.railway.station.light_rail">Raudtee jaam</string>
+	<string name="type.railway.station.light_rail.london">Raudtee jaam</string>
+	<string name="type.railway.station.light_rail.porto">Raudtee jaam</string>
 	<string name="type.railway.station.monorail">Raudtee jaam</string>
 	<string name="type.railway.station.subway">Metroo</string>
 	<string name="type.railway.station.subway.adana">Metroo</string>

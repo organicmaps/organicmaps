@@ -225,7 +225,7 @@
 	<string name="type.railway.subway_entrance.lille">Metro Entrance</string>
 	<string name="type.railway.subway_entrance.lima">Metro Entrance</string>
 	<string name="type.railway.subway_entrance.lisboa">Metro Entrance</string>
-	<string name="type.railway.subway_entrance.london">Underground Station Entrance</string>
+	<string name="type.railway.subway_entrance.london">Metro Station Entrance</string>
 	<string name="type.railway.subway_entrance.lyon">Metro Entrance</string>
 	<string name="type.railway.subway_entrance.madrid">Metro Entrance</string>
 	<string name="type.railway.subway_entrance.malaga">Metro Entrance</string>

@@ -1494,6 +1494,8 @@
 	<string name="type.railway.station">Tren geltokian</string>
 	<string name="type.railway.station.funicular">Funikularra</string>
 	<string name="type.railway.station.light_rail">Tren geltokian</string>
+	<string name="type.railway.station.light_rail.london">Tren geltokian</string>
+	<string name="type.railway.station.light_rail.porto">Tren geltokian</string>
 	<string name="type.railway.station.monorail">Tren geltokian</string>
 	<string name="type.railway.station.subway">Metroa</string>
 	<string name="type.railway.station.subway.adana">Metroa</string>
