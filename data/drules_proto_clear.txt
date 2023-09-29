@@ -64111,6 +64111,402 @@ cont {
   }
 }
 cont {
+  name: "railway-station-light_rail-london"
+  element {
+    scale: 12
+    symbol {
+      name: "light_rail-dlr-london-s"
+      priority: 6650
+      min_distance: 1
+    }
+    caption {
+      primary {
+        height: 9
+        color: 2236962
+        stroke_color: 1728053247
+        offset_y: 1
+        is_optional: true
+      }
+      secondary {
+        height: 8
+        color: 2236962
+        stroke_color: 1728053247
+        offset_y: 1
+        is_optional: true
+      }
+      priority: -3350
+    }
+  }
+  element {
+    scale: 13
+    symbol {
+      name: "light_rail-dlr-london-s"
+      priority: 6650
+      min_distance: 1
+    }
+    caption {
+      primary {
+        height: 10
+        color: 2236962
+        stroke_color: 1728053247
+        offset_y: 1
+        is_optional: true
+      }
+      secondary {
+        height: 9
+        color: 2236962
+        stroke_color: 1728053247
+        offset_y: 1
+        is_optional: true
+      }
+      priority: -3350
+    }
+  }
+  element {
+    scale: 14
+    symbol {
+      name: "light_rail-dlr-london-s"
+      priority: 6650
+      min_distance: 1
+    }
+    caption {
+      primary {
+        height: 11
+        color: 2236962
+        stroke_color: 1308622847
+        offset_y: 1
+        is_optional: true
+      }
+      secondary {
+        height: 10
+        color: 2236962
+        stroke_color: 1308622847
+        offset_y: 1
+        is_optional: true
+      }
+      priority: -3350
+    }
+  }
+  element {
+    scale: 15
+    symbol {
+      name: "light_rail-dlr-london-m"
+      priority: 6650
+    }
+    caption {
+      primary {
+        height: 12
+        color: 2236962
+        stroke_color: 872415231
+        offset_y: 1
+        is_optional: true
+      }
+      secondary {
+        height: 10
+        color: 2236962
+        stroke_color: 872415231
+        offset_y: 1
+        is_optional: true
+      }
+      priority: -3350
+    }
+  }
+  element {
+    scale: 16
+    symbol {
+      name: "light_rail-dlr-london-m"
+      priority: 6650
+    }
+    caption {
+      primary {
+        height: 13
+        color: 2236962
+        stroke_color: 872415231
+        offset_y: 1
+        is_optional: true
+      }
+      secondary {
+        height: 11
+        color: 2236962
+        stroke_color: 872415231
+        offset_y: 1
+        is_optional: true
+      }
+      priority: -3350
+    }
+  }
+  element {
+    scale: 17
+    symbol {
+      name: "light_rail-dlr-london-m"
+      priority: 6650
+    }
+    caption {
+      primary {
+        height: 13
+        color: 2236962
+        stroke_color: 452984831
+        offset_y: 1
+        is_optional: true
+      }
+      secondary {
+        height: 12
+        color: 2236962
+        stroke_color: 452984831
+        offset_y: 1
+        is_optional: true
+      }
+      priority: -3350
+    }
+  }
+  element {
+    scale: 18
+    symbol {
+      name: "light_rail-dlr-london-m"
+      priority: 6650
+    }
+    caption {
+      primary {
+        height: 13
+        color: 2236962
+        stroke_color: 452984831
+        offset_y: 1
+        is_optional: true
+      }
+      secondary {
+        height: 12
+        color: 2236962
+        stroke_color: 452984831
+        offset_y: 1
+        is_optional: true
+      }
+      priority: -3350
+    }
+  }
+  element {
+    scale: 19
+    symbol {
+      name: "light_rail-dlr-london-m"
+      priority: 6650
+    }
+    caption {
+      primary {
+        height: 13
+        color: 2236962
+        stroke_color: 452984831
+        offset_y: 1
+        is_optional: true
+      }
+      secondary {
+        height: 12
+        color: 2236962
+        stroke_color: 452984831
+        offset_y: 1
+        is_optional: true
+      }
+      priority: -3350
+    }
+  }
+}
+cont {
+  name: "railway-station-light_rail-porto"
+  element {
+    scale: 12
+    symbol {
+      name: "light_rail-porto-s"
+      priority: 6650
+      min_distance: 1
+    }
+    caption {
+      primary {
+        height: 9
+        color: 2236962
+        stroke_color: 1728053247
+        offset_y: 1
+        is_optional: true
+      }
+      secondary {
+        height: 8
+        color: 2236962
+        stroke_color: 1728053247
+        offset_y: 1
+        is_optional: true
+      }
+      priority: -3350
+    }
+  }
+  element {
+    scale: 13
+    symbol {
+      name: "light_rail-porto-s"
+      priority: 6650
+      min_distance: 1
+    }
+    caption {
+      primary {
+        height: 10
+        color: 2236962
+        stroke_color: 1728053247
+        offset_y: 1
+        is_optional: true
+      }
+      secondary {
+        height: 9
+        color: 2236962
+        stroke_color: 1728053247
+        offset_y: 1
+        is_optional: true
+      }
+      priority: -3350
+    }
+  }
+  element {
+    scale: 14
+    symbol {
+      name: "light_rail-porto-s"
+      priority: 6650
+      min_distance: 1
+    }
+    caption {
+      primary {
+        height: 11
+        color: 2236962
+        stroke_color: 1308622847
+        offset_y: 1
+        is_optional: true
+      }
+      secondary {
+        height: 10
+        color: 2236962
+        stroke_color: 1308622847
+        offset_y: 1
+        is_optional: true
+      }
+      priority: -3350
+    }
+  }
+  element {
+    scale: 15
+    symbol {
+      name: "light_rail-porto-m"
+      priority: 6650
+    }
+    caption {
+      primary {
+        height: 12
+        color: 2236962
+        stroke_color: 872415231
+        offset_y: 1
+        is_optional: true
+      }
+      secondary {
+        height: 10
+        color: 2236962
+        stroke_color: 872415231
+        offset_y: 1
+        is_optional: true
+      }
+      priority: -3350
+    }
+  }
+  element {
+    scale: 16
+    symbol {
+      name: "light_rail-porto-m"
+      priority: 6650
+    }
+    caption {
+      primary {
+        height: 13
+        color: 2236962
+        stroke_color: 872415231
+        offset_y: 1
+        is_optional: true
+      }
+      secondary {
+        height: 11
+        color: 2236962
+        stroke_color: 872415231
+        offset_y: 1
+        is_optional: true
+      }
+      priority: -3350
+    }
+  }
+  element {
+    scale: 17
+    symbol {
+      name: "light_rail-porto-m"
+      priority: 6650
+    }
+    caption {
+      primary {
+        height: 13
+        color: 2236962
+        stroke_color: 452984831
+        offset_y: 1
+        is_optional: true
+      }
+      secondary {
+        height: 12
+        color: 2236962
+        stroke_color: 452984831
+        offset_y: 1
+        is_optional: true
+      }
+      priority: -3350
+    }
+  }
+  element {
+    scale: 18
+    symbol {
+      name: "light_rail-porto-m"
+      priority: 6650
+    }
+    caption {
+      primary {
+        height: 13
+        color: 2236962
+        stroke_color: 452984831
+        offset_y: 1
+        is_optional: true
+      }
+      secondary {
+        height: 12
+        color: 2236962
+        stroke_color: 452984831
+        offset_y: 1
+        is_optional: true
+      }
+      priority: -3350
+    }
+  }
+  element {
+    scale: 19
+    symbol {
+      name: "light_rail-porto-m"
+      priority: 6650
+    }
+    caption {
+      primary {
+        height: 13
+        color: 2236962
+        stroke_color: 452984831
+        offset_y: 1
+        is_optional: true
+      }
+      secondary {
+        height: 12
+        color: 2236962
+        stroke_color: 452984831
+        offset_y: 1
+        is_optional: true
+      }
+      priority: -3350
+    }
+  }
+}
+cont {
   name: "railway-station-monorail"
   element {
     scale: 12
@@ -86498,14 +86894,14 @@ cont {
   element {
     scale: 16
     symbol {
-      name: "subway-london-s"
+      name: "subway_entrance-london-s"
       priority: 3300
     }
   }
   element {
     scale: 17
     symbol {
-      name: "subway-london-s"
+      name: "subway_entrance-london-s"
       priority: 3300
     }
     caption {
@@ -86529,7 +86925,7 @@ cont {
   element {
     scale: 18
     symbol {
-      name: "subway-london-m"
+      name: "subway_entrance-london-m"
       priority: 3300
     }
     caption {
@@ -86553,7 +86949,7 @@ cont {
   element {
     scale: 19
     symbol {
-      name: "subway-london-m"
+      name: "subway_entrance-london-m"
       priority: 3300
     }
     caption {

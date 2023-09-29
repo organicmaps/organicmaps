@@ -1583,3 +1583,5 @@ amenity|recycling|container
 *craft|caterer
 *craft|grinding_mill
 *leisure|outdoor_seating
+*railway|station|light_rail|london
+*railway|station|light_rail|porto

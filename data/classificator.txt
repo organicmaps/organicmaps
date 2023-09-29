@@ -922,7 +922,10 @@ world  +
             {}
         station  +
             funicular  -
-            light_rail  -
+            light_rail  +
+                london  -
+                porto  -
+                {}
             monorail  -
             subway  +
                 adana  -
