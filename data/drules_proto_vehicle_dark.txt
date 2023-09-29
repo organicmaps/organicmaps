@@ -12069,6 +12069,14 @@ cont {
       }
       priority: 3950
     }
+    shield {
+      height: 9
+      color: 10066329
+      stroke_color: 3158064
+      priority: 3910
+      min_distance: 250
+      text_color: 3158064
+    }
   }
   element {
     scale: 16
@@ -12091,6 +12099,14 @@ cont {
       }
       priority: 3950
     }
+    shield {
+      height: 9
+      color: 10066329
+      stroke_color: 3158064
+      priority: 3910
+      min_distance: 300
+      text_color: 3158064
+    }
   }
   element {
     scale: 17
@@ -12112,6 +12128,14 @@ cont {
         stroke_color: 856756480
       }
       priority: 3950
+    }
+    shield {
+      height: 10
+      color: 10066329
+      stroke_color: 3158064
+      priority: 3910
+      min_distance: 350
+      text_color: 3158064
     }
   }
   element {
@@ -12251,6 +12275,14 @@ cont {
       }
       priority: 3950
     }
+    shield {
+      height: 9
+      color: 10066329
+      stroke_color: 3158064
+      priority: 3910
+      min_distance: 250
+      text_color: 3158064
+    }
   }
   element {
     scale: 16
@@ -12273,6 +12305,14 @@ cont {
       }
       priority: 3950
     }
+    shield {
+      height: 9
+      color: 10066329
+      stroke_color: 3158064
+      priority: 3910
+      min_distance: 300
+      text_color: 3158064
+    }
   }
   element {
     scale: 17
@@ -12294,6 +12334,14 @@ cont {
         stroke_color: 856756480
       }
       priority: 3950
+    }
+    shield {
+      height: 10
+      color: 10066329
+      stroke_color: 3158064
+      priority: 3910
+      min_distance: 350
+      text_color: 3158064
     }
   }
   element {
@@ -12457,6 +12505,14 @@ cont {
       }
       priority: 3950
     }
+    shield {
+      height: 9
+      color: 10066329
+      stroke_color: 3158064
+      priority: 3910
+      min_distance: 250
+      text_color: 3158064
+    }
   }
   element {
     scale: 16
@@ -12491,6 +12547,14 @@ cont {
       }
       priority: 3950
     }
+    shield {
+      height: 9
+      color: 10066329
+      stroke_color: 3158064
+      priority: 3910
+      min_distance: 300
+      text_color: 3158064
+    }
   }
   element {
     scale: 17
@@ -12524,6 +12588,14 @@ cont {
         stroke_color: 856756480
       }
       priority: 3950
+    }
+    shield {
+      height: 10
+      color: 10066329
+      stroke_color: 3158064
+      priority: 3910
+      min_distance: 350
+      text_color: 3158064
     }
   }
   element {
@@ -12687,6 +12759,14 @@ cont {
       }
       priority: 3950
     }
+    shield {
+      height: 9
+      color: 10066329
+      stroke_color: 3158064
+      priority: 3910
+      min_distance: 250
+      text_color: 3158064
+    }
   }
   element {
     scale: 16
@@ -12712,6 +12792,14 @@ cont {
       }
       priority: 3950
     }
+    shield {
+      height: 9
+      color: 10066329
+      stroke_color: 3158064
+      priority: 3910
+      min_distance: 300
+      text_color: 3158064
+    }
   }
   element {
     scale: 17
@@ -12736,6 +12824,14 @@ cont {
         stroke_color: 856756480
       }
       priority: 3950
+    }
+    shield {
+      height: 10
+      color: 10066329
+      stroke_color: 3158064
+      priority: 3910
+      min_distance: 350
+      text_color: 3158064
     }
   }
   element {
@@ -15477,6 +15573,14 @@ cont {
       }
       priority: 4100
     }
+    shield {
+      height: 9
+      color: 10066329
+      stroke_color: 3158064
+      priority: 3920
+      min_distance: 120
+      text_color: 3158064
+    }
   }
   element {
     scale: 14
@@ -15493,6 +15597,14 @@ cont {
         stroke_color: 856756480
       }
       priority: 4100
+    }
+    shield {
+      height: 9
+      color: 10066329
+      stroke_color: 3158064
+      priority: 3920
+      min_distance: 175
+      text_color: 3158064
     }
   }
   element {
@@ -15693,6 +15805,14 @@ cont {
       }
       priority: 4100
     }
+    shield {
+      height: 9
+      color: 10066329
+      stroke_color: 3158064
+      priority: 3920
+      min_distance: 120
+      text_color: 3158064
+    }
   }
   element {
     scale: 14
@@ -15721,6 +15841,14 @@ cont {
         stroke_color: 856756480
       }
       priority: 4100
+    }
+    shield {
+      height: 9
+      color: 10066329
+      stroke_color: 3158064
+      priority: 3920
+      min_distance: 175
+      text_color: 3158064
     }
   }
   element {
@@ -15981,6 +16109,14 @@ cont {
       }
       priority: 4100
     }
+    shield {
+      height: 9
+      color: 10066329
+      stroke_color: 3158064
+      priority: 3920
+      min_distance: 120
+      text_color: 3158064
+    }
   }
   element {
     scale: 14
@@ -15997,6 +16133,14 @@ cont {
         stroke_color: 856756480
       }
       priority: 4100
+    }
+    shield {
+      height: 9
+      color: 10066329
+      stroke_color: 3158064
+      priority: 3920
+      min_distance: 175
+      text_color: 3158064
     }
   }
   element {
