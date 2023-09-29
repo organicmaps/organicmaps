@@ -2913,6 +2913,10 @@
 
 "type.railway.station.light_rail" = "Light Rail Station";
 
+"type.railway.station.light_rail.london" = "DLR Station";
+
+"type.railway.station.light_rail.porto" = "Porto Metro";
+
 "type.railway.station.monorail" = "Monorail Station";
 
 "type.railway.station.subway" = "Subway Station";
@@ -3251,7 +3255,7 @@
 
 "type.railway.subway_entrance.lisboa" = "Subway Entrance";
 
-"type.railway.subway_entrance.london" = "Underground Station Entrance";
+"type.railway.subway_entrance.london" = "Metro Station Entrance";
 
 "type.railway.subway_entrance.lyon" = "Subway Entrance";
 

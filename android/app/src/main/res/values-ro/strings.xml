@@ -1396,6 +1396,8 @@
 	<string name="type.railway.station">Feroviar</string>
 	<string name="type.railway.station.funicular">Funicular</string>
 	<string name="type.railway.station.light_rail">Feroviar</string>
+	<string name="type.railway.station.light_rail.london">Feroviar</string>
+	<string name="type.railway.station.light_rail.porto">Feroviar</string>
 	<string name="type.railway.station.monorail">Feroviar</string>
 	<string name="type.railway.station.subway">Metrou</string>
 	<string name="type.railway.station.subway.adana">Metrou</string>

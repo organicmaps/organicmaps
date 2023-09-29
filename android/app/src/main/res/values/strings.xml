@@ -1642,6 +1642,8 @@
 	<string name="type.railway.station">Train Station</string>
 	<string name="type.railway.station.funicular">Funicular</string>
 	<string name="type.railway.station.light_rail">Light Rail Station</string>
+	<string name="type.railway.station.light_rail.london">DLR Station</string>
+	<string name="type.railway.station.light_rail.porto">Porto Metro</string>
 	<string name="type.railway.station.monorail">Monorail Station</string>
 	<string name="type.railway.station.subway">Subway Station</string>
 	<string name="type.railway.station.subway.adana">Subway Station</string>
@@ -1811,7 +1813,7 @@
 	<string name="type.railway.subway_entrance.lille">Subway Entrance</string>
 	<string name="type.railway.subway_entrance.lima">Subway Entrance</string>
 	<string name="type.railway.subway_entrance.lisboa">Subway Entrance</string>
-	<string name="type.railway.subway_entrance.london">Underground Station Entrance</string>
+	<string name="type.railway.subway_entrance.london">Metro Station Entrance</string>
 	<string name="type.railway.subway_entrance.lyon">Subway Entrance</string>
 	<string name="type.railway.subway_entrance.madrid">Subway Entrance</string>
 	<string name="type.railway.subway_entrance.malaga">Subway Entrance</string>

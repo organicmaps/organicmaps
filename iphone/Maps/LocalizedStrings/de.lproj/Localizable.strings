@@ -2913,6 +2913,10 @@
 
 "type.railway.station.light_rail" = "Stadtbahnbahnhof";
 
+"type.railway.station.light_rail.london" = "Stadtbahnbahnhof";
+
+"type.railway.station.light_rail.porto" = "Stadtbahnbahnhof";
+
 "type.railway.station.monorail" = "Bahnhof";
 
 "type.railway.station.subway" = "U-Bahn-Station";

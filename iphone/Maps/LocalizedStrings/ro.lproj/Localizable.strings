@@ -2913,6 +2913,10 @@
 
 "type.railway.station.light_rail" = "Feroviar";
 
+"type.railway.station.light_rail.london" = "Feroviar";
+
+"type.railway.station.light_rail.porto" = "Feroviar";
+
 "type.railway.station.monorail" = "Feroviar";
 
 "type.railway.station.subway" = "Metrou";

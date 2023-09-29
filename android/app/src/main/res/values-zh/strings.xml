@@ -1503,6 +1503,8 @@
 	<string name="type.railway.station">火车站</string>
 	<string name="type.railway.station.funicular">缆车</string>
 	<string name="type.railway.station.light_rail">轻轨车站</string>
+	<string name="type.railway.station.light_rail.london">轻轨车站</string>
+	<string name="type.railway.station.light_rail.porto">轻轨车站</string>
 	<string name="type.railway.station.monorail">单轨车站</string>
 	<string name="type.railway.station.subway">地铁车站</string>
 	<string name="type.railway.station.subway.adana">地铁车站</string>

@@ -2913,6 +2913,10 @@
 
 "type.railway.station.light_rail" = "輕軌車站";
 
+"type.railway.station.light_rail.london" = "輕軌車站";
+
+"type.railway.station.light_rail.porto" = "輕軌車站";
+
 "type.railway.station.monorail" = "單軌車站";
 
 "type.railway.station.subway" = "捷運站";

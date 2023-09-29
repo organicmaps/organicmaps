@@ -1401,6 +1401,8 @@
 	<string name="type.railway.station">Vonatmegálló</string>
 	<string name="type.railway.station.funicular">Funicular</string>
 	<string name="type.railway.station.light_rail">Vonatmegálló</string>
+	<string name="type.railway.station.light_rail.london">Vonatmegálló</string>
+	<string name="type.railway.station.light_rail.porto">Vonatmegálló</string>
 	<string name="type.railway.station.monorail">Vonatmegálló</string>
 	<string name="type.railway.station.subway">Földalatti</string>
 	<string name="type.railway.station.subway.adana">Földalatti</string>

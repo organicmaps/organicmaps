@@ -2913,6 +2913,10 @@
 
 "type.railway.station.light_rail" = "Đường tàu hỏa";
 
+"type.railway.station.light_rail.london" = "Đường tàu hỏa";
+
+"type.railway.station.light_rail.porto" = "Đường tàu hỏa";
+
 "type.railway.station.monorail" = "Đường tàu hỏa";
 
 "type.railway.station.subway" = "Ngầm";

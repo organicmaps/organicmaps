@@ -2913,6 +2913,10 @@
 
 "type.railway.station.light_rail" = "Σιδηροδρομικός σταθμός";
 
+"type.railway.station.light_rail.london" = "Σιδηροδρομικός σταθμός";
+
+"type.railway.station.light_rail.porto" = "Σιδηροδρομικός σταθμός";
+
 "type.railway.station.monorail" = "Σιδηροδρομικός σταθμός";
 
 "type.railway.station.subway" = "Μετρό";

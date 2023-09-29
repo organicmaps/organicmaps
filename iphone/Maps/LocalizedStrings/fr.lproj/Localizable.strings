@@ -2913,6 +2913,10 @@
 
 "type.railway.station.light_rail" = "Gare ferroviaire";
 
+"type.railway.station.light_rail.london" = "Gare ferroviaire";
+
+"type.railway.station.light_rail.porto" = "Gare ferroviaire";
+
 "type.railway.station.monorail" = "Gare ferroviaire";
 
 "type.railway.station.subway" = "Station de métro";

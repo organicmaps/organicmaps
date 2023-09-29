@@ -2913,6 +2913,10 @@
 
 "type.railway.station.light_rail" = "Raudtee jaam";
 
+"type.railway.station.light_rail.london" = "Raudtee jaam";
+
+"type.railway.station.light_rail.porto" = "Raudtee jaam";
+
 "type.railway.station.monorail" = "Raudtee jaam";
 
 "type.railway.station.subway" = "Metroo";
