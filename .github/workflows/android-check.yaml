@@ -52,7 +52,7 @@ jobs:
       - name: Lint
         shell: bash
         working-directory: android
-        run: ./gradlew lint
+        run: ./gradlew -Pandroidauto=true lint
 
   android-check:
     name: Build Android Debug
