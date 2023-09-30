@@ -4,7 +4,7 @@
 
 namespace kml
 {
-// BookmarkDataV8MM contains the same fields as BookmarkDataV8 but with no compilations
+// BookmarkDataV8MM contains the same fields as BookmarkDataV8 but without compilations.
 struct BookmarkDataV8MM
 {
   DECLARE_VISITOR_AND_DEBUG_PRINT(BookmarkDataV8MM, visitor(m_id, "id"),
@@ -194,7 +194,7 @@ struct CategoryDataV8MM
   bool operator==(CategoryDataV8MM const & data) const
   {
     double constexpr kEps = 1e-5;
-    return m_id == data.m_id && m_type == data.m_type && m_name == data.m_name &&
+    return m_id == data.m_id && m_name == data.m_name &&
            m_imageUrl == data.m_imageUrl && m_annotation == data.m_annotation &&
            m_description == data.m_description && m_visible == data.m_visible &&
            m_accessRules == data.m_accessRules && m_authorName == data.m_authorName &&
@@ -208,7 +208,7 @@ struct CategoryDataV8MM
   {
     CategoryData data;
     data.m_id = m_id;
-    data.m_type = m_type;
+    data.m_type = CompilationType::Category; // Format V8MM doesn't have m_type. Using default
     data.m_name = m_name;
     data.m_imageUrl = m_imageUrl;
     data.m_annotation = m_annotation;
@@ -231,8 +231,6 @@ struct CategoryDataV8MM
 
   // Unique id (it will not be serialized in text files).
   MarkGroupId m_id = kInvalidMarkGroupId;
-  // Compilation's type
-  CompilationType m_type = CompilationType::Category;
   // Category's name.
   LocalizableString m_name;
   // Image URL.

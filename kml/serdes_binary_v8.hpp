@@ -5,14 +5,10 @@
 #include "kml/types.hpp"
 #include "kml/visitors.hpp"
 
-
 #include <string>
 #include <vector>
 
-
-namespace kml
-{
-namespace binary
+namespace kml::binary
 {
 // This class generates KMB files in format V8.
 // The only difference between V8 and V9 (Latest) is bookmarks structure.
@@ -89,5 +85,4 @@ public:
     visitor(bookmarksDataV8);
   }
 };
-}  // namespace binary
-}  // namespace kml
+}  // namespace kml::binary
