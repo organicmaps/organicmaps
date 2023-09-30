@@ -3,14 +3,14 @@ package app.organicmaps.maplayer.traffic;
 import androidx.annotation.MainThread;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import app.organicmaps.base.Initializable;
+
 import app.organicmaps.util.log.Logger;
 
 import java.util.ArrayList;
 import java.util.List;
 
 @MainThread
-public enum TrafficManager implements Initializable<Void>
+public enum TrafficManager
 {
   INSTANCE;
 
@@ -27,18 +27,11 @@ public enum TrafficManager implements Initializable<Void>
 
   private boolean mInitialized = false;
 
-  @Override
-  public void initialize(@Nullable Void aVoid)
+  public void initialize()
   {
     Logger.d(TAG, "Initialization of traffic manager and setting the listener for traffic state changes");
     TrafficState.nativeSetListener(mStateChangeListener);
     mInitialized = true;
-  }
-
-  @Override
-  public void destroy()
-  {
-    // No op.
   }
 
   public void toggle()

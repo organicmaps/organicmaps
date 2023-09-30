@@ -13,11 +13,10 @@ import androidx.appcompat.widget.Toolbar;
 
 import androidx.core.view.ViewCompat;
 import app.organicmaps.R;
-import app.organicmaps.base.Detachable;
 import app.organicmaps.util.UiUtils;
 import app.organicmaps.util.Utils;
 
-public class ToolbarController implements Detachable<Activity>
+public class ToolbarController
 {
   @Nullable
   private  Activity mActivity;
@@ -105,13 +104,11 @@ public class ToolbarController implements Detachable<Activity>
     return mToolbar;
   }
 
-  @Override
   public void attach(@NonNull Activity activity)
   {
     mActivity = activity;
   }
 
-  @Override
   public void detach()
   {
     mActivity = null;

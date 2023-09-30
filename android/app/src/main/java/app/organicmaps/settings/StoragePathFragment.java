@@ -14,7 +14,6 @@ import androidx.annotation.NonNull;
 
 import app.organicmaps.Framework;
 import app.organicmaps.R;
-import app.organicmaps.base.OnBackPressListener;
 import app.organicmaps.util.Config;
 import app.organicmaps.util.StorageUtils;
 import app.organicmaps.util.Utils;
@@ -26,7 +25,6 @@ import java.io.File;
 import java.util.List;
 
 public class StoragePathFragment extends BaseSettingsFragment
-    implements OnBackPressListener
 {
   private TextView mHeader;
 

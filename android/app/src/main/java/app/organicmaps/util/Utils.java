@@ -41,9 +41,9 @@ import com.google.android.material.dialog.MaterialAlertDialogBuilder;
 import com.google.android.material.snackbar.Snackbar;
 
 import app.organicmaps.BuildConfig;
+import app.organicmaps.MwmActivity;
 import app.organicmaps.MwmApplication;
 import app.organicmaps.R;
-import app.organicmaps.base.CustomNavigateUpListener;
 import app.organicmaps.util.concurrency.UiThread;
 import app.organicmaps.util.log.Logger;
 import app.organicmaps.util.log.LogsManager;
@@ -347,13 +347,11 @@ public class Utils
                                                                  Constants.Email.SUPPORT));
   }
 
-  public static void navigateToParent(@Nullable Activity activity)
+  public static void navigateToParent(@NonNull Activity activity)
   {
-    if (activity == null)
-      return;
-
-    if (activity instanceof CustomNavigateUpListener)
-      ((CustomNavigateUpListener) activity).customOnNavigateUp();
+    // MwmActivity is a top-level activity that implements custom handling of Fragments.
+    if (activity instanceof MwmActivity)
+      ((MwmActivity) activity).customOnNavigateUp();
     else
       NavUtils.navigateUpFromSameTask(activity);
   }

@@ -1,4 +1,4 @@
-package app.organicmaps.base;
+package app.organicmaps.sound;
 
 import android.content.Context;
 import android.media.MediaPlayer;

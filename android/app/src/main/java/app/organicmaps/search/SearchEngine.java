@@ -7,7 +7,6 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import app.organicmaps.Framework;
 import app.organicmaps.api.ParsedMwmRequest;
-import app.organicmaps.base.Initializable;
 import app.organicmaps.util.Language;
 import app.organicmaps.util.Listeners;
 import app.organicmaps.util.concurrency.UiThread;
@@ -16,8 +15,7 @@ import java.nio.charset.StandardCharsets;
 
 public enum SearchEngine implements NativeSearchListener,
                                     NativeMapSearchListener,
-                                    NativeBookmarkSearchListener,
-                                    Initializable<Void>
+                                    NativeBookmarkSearchListener
 {
   INSTANCE;
 
@@ -210,16 +208,9 @@ public enum SearchEngine implements NativeSearchListener,
     nativeShowResult(index);
   }
 
-  @Override
-  public void initialize(@Nullable Void aVoid)
+  public void initialize()
   {
     nativeInit();
-  }
-
-  @Override
-  public void destroy()
-  {
-    // No op.
   }
 
   /**

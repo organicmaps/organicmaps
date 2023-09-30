@@ -12,8 +12,8 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.annotation.WorkerThread;
 import app.organicmaps.Framework;
-import app.organicmaps.base.DataChangedListener;
-import app.organicmaps.base.Observable;
+import app.organicmaps.bookmarks.DataChangedListener;
+import app.organicmaps.bookmarks.BookmarkCategoriesFragment;
 import app.organicmaps.util.KeyValue;
 import app.organicmaps.util.StorageUtils;
 import app.organicmaps.util.concurrency.UiThread;
@@ -1001,10 +1001,12 @@ public enum BookmarkManager
     UPLOAD_RESULT_INVALID_CALL
   }
 
-  static class BookmarkCategoriesCache extends Observable<DataChangedListener>
+  static class BookmarkCategoriesCache
   {
     @NonNull
     private final List<BookmarkCategory> mCategories = new ArrayList<>();
+    @NonNull
+    private final List<DataChangedListener> mListeners = new ArrayList<>();
 
     void update(@NonNull List<BookmarkCategory> categories)
     {
@@ -1017,6 +1019,29 @@ public enum BookmarkManager
     public List<BookmarkCategory> getCategories()
     {
       return Collections.unmodifiableList(mCategories);
+    }
+
+    public void registerListener(@NonNull DataChangedListener listener)
+    {
+      if (mListeners.contains(listener))
+        throw new IllegalStateException("Observer " + listener + " is already registered.");
+
+      mListeners.add(listener);
+    }
+
+    public void unregisterListener(@NonNull DataChangedListener listener)
+    {
+      int index = mListeners.indexOf(listener);
+      if (index == -1)
+        throw new IllegalStateException("Observer " + listener + " was not registered.");
+
+      mListeners.remove(index);
+    }
+
+    protected void notifyChanged()
+    {
+      for (DataChangedListener item : mListeners)
+        item.onChanged();
     }
   }
 }
