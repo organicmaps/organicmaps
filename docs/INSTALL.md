@@ -442,10 +442,10 @@ Or to compile a redistributable _Fdroid Beta_ apk for testing:
 ./gradlew assembleFdroidBeta
 ```
 
-Or to build _Release_ apks for all _Flavors_:
+Or to build _Beta_ apks for all _Flavors_:
 
 ```bash
-./gradlew assembleRelease
+./gradlew assembleBeta
 ```
 
 Run `./gradlew tasks` to see all possible build variants.
