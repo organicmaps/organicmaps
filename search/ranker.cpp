@@ -853,8 +853,6 @@ void Ranker::MakeRankerResults()
 {
   LOG(LDEBUG, ("PreRankerResults number =", m_preRankerResults.size()));
 
-  bool const isViewportMode = m_geocoderParams.m_mode == Mode::Viewport;
-
   RankerResultMaker maker(*this, m_dataSource, m_infoGetter, m_reverseGeocoder, m_geocoderParams);
   for (auto const & r : m_preRankerResults)
   {
@@ -862,7 +860,7 @@ void Ranker::MakeRankerResults()
     if (!p)
       continue;
 
-    ASSERT(!isViewportMode || m_geocoderParams.m_pivot.IsPointInside(p->GetCenter()), (r));
+    ASSERT(m_geocoderParams.m_mode != Mode::Viewport || m_geocoderParams.m_pivot.IsPointInside(p->GetCenter()), (r));
 
     // Do not filter any _duplicates_ here. Leave it for high level Results class.
     m_tentativeResults.push_back(std::move(*p));

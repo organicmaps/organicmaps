@@ -90,13 +90,15 @@ void CaptionDescription::Init(FeatureType & f, int8_t deviceLang, int zoomLevel,
 void Stylist::ProcessKey(FeatureType & f, drule::Key const & key)
 {
   drule::BaseRule const * const dRule = drule::rules().Find(key);
-
+#ifdef DEBUG
+  using feature::GeomType;
   auto const geomType = f.GetGeomType();
+#endif  // DEBUG
   switch (key.m_type)
   {
   case drule::symbol:
     ASSERT(dRule->GetSymbol() != nullptr && m_symbolRule == nullptr &&
-           (geomType == feature::GeomType::Point || geomType == feature::GeomType::Area),
+           (geomType == GeomType::Point || geomType == GeomType::Area),
            (m_symbolRule == nullptr, geomType, f.DebugString(0, true)));
     m_symbolRule = dRule;
     break;
@@ -105,28 +107,28 @@ void Stylist::ProcessKey(FeatureType & f, drule::Key const & key)
     ASSERT(dRule->GetCaption(0) != nullptr, (f.DebugString(0, true)));
     if (key.m_type == drule::caption)
     {
-      ASSERT(m_captionRule == nullptr && (geomType == feature::GeomType::Point || geomType == feature::GeomType::Area),
+      ASSERT(m_captionRule == nullptr && (geomType == GeomType::Point || geomType == GeomType::Area),
              (geomType, f.DebugString(0, true)));
       m_captionRule = dRule;
     }
     else
     {
-      ASSERT(m_pathtextRule == nullptr && geomType == feature::GeomType::Line,
+      ASSERT(m_pathtextRule == nullptr && geomType == GeomType::Line,
              (geomType, f.DebugString(0, true)));
       m_pathtextRule = dRule;
     }
     break;
   case drule::shield:
-    ASSERT(dRule->GetShield() != nullptr && m_shieldRule == nullptr && geomType == feature::GeomType::Line,
+    ASSERT(dRule->GetShield() != nullptr && m_shieldRule == nullptr && geomType == GeomType::Line,
            (m_shieldRule == nullptr, geomType, f.DebugString(0, true)));
     m_shieldRule = dRule;
     break;
   case drule::line:
-    ASSERT(dRule->GetLine() != nullptr && geomType == feature::GeomType::Line, (geomType, f.DebugString(0, true)));
+    ASSERT(dRule->GetLine() != nullptr && geomType == GeomType::Line, (geomType, f.DebugString(0, true)));
     m_lineRules.push_back(dRule);
     break;
   case drule::area:
-    ASSERT(dRule->GetArea() != nullptr && geomType == feature::GeomType::Area, (geomType, f.DebugString(0, true)));
+    ASSERT(dRule->GetArea() != nullptr && geomType == GeomType::Area, (geomType, f.DebugString(0, true)));
     if (key.m_hatching)
     {
       ASSERT(m_hatchingRule == nullptr, (f.DebugString(0, true)));
