@@ -192,7 +192,7 @@ public class CountrySuggestFragment extends BaseMwmFragment implements View.OnCl
 
   private void updateProgress()
   {
-    String text = StringUtils.formatUsingUsLocale("%1$s %2$.2f%%", getString(R.string.downloader_downloading),
+    String text = StringUtils.formatUsingSystemLocale("%1$s %2$.2f%%", getString(R.string.downloader_downloading),
       mDownloadingCountry.progress);
     mTvProgress.setText(text);
     mWpvDownloadProgress.setProgress(Math.round(mDownloadingCountry.progress));
