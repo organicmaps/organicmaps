@@ -11,10 +11,9 @@ import androidx.annotation.Nullable;
 import app.organicmaps.R;
 import app.organicmaps.WebContainerDelegate;
 import app.organicmaps.base.BaseMwmFragment;
-import app.organicmaps.base.OnBackPressListener;
 import app.organicmaps.util.Constants;
 
-public class CopyrightFragment extends BaseMwmFragment implements OnBackPressListener
+public class CopyrightFragment extends BaseMwmFragment
 {
   private WebContainerDelegate mDelegate;
 

@@ -12,7 +12,6 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import app.organicmaps.MwmApplication;
 import app.organicmaps.R;
-import app.organicmaps.base.Initializable;
 import app.organicmaps.util.Config;
 import app.organicmaps.util.log.Logger;
 
@@ -35,7 +34,7 @@ import java.util.Locale;
  * <p>
  * If no core supported languages can be used by the system, TTS is locked down and can not be enabled and used.
  */
-public enum TtsPlayer implements Initializable<Context>
+public enum TtsPlayer
 {
   INSTANCE;
 
@@ -135,8 +134,7 @@ public enum TtsPlayer implements Initializable<Context>
     setEnabled(false);
   }
 
-  @Override
-  public void initialize(@Nullable Context context)
+  public void initialize(@NonNull Context context)
   {
     mContext = context;
 
@@ -173,12 +171,6 @@ public enum TtsPlayer implements Initializable<Context>
       mAudioFocusManager = new AudioFocusManager(context);
       mInitializing = false;
     });
-  }
-
-  @Override
-  public void destroy()
-  {
-    // No op.
   }
 
   private static boolean isReady()

@@ -6,14 +6,6 @@
 # Also remove everything else what is not needed.
 -keep class !android.support.v7.internal.view.menu.**,** {*;}
 
-# Gson support
--keep class app.organicmaps.util.Gsonable
--keep class * implements app.organicmaps.util.Gsonable
-
--keepclassmembernames class * implements app.organicmaps.util.Gsonable {
-  !transient <fields>;
-}
-
 # Enabling shrinking causes
 # Execution failed for task ':minifyFdroidReleaseWithR8'.
 # > com.android.tools.r8.CompilationFailedException: Compilation failed to complete
@@ -21,14 +13,6 @@
 # No pending exception expected: java.lang.ClassNotFoundException: Didn't find class "app.organicmaps.util.HttpClient"
 # It requires to manually mark all methods and classes called from NDK.
 -dontoptimize
-
--keepnames class * implements app.organicmaps.util.Gsonable {
-  !transient <fields>;
-}
-
--keepclassmembers class * implements app.organicmaps.util.Gsonable {
-  <init>(...);
-}
 
 -dontwarn com.google.android.material.**
 -keep class com.google.android.material.** { *; }

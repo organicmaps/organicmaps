@@ -11,9 +11,8 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
 import app.organicmaps.MwmApplication;
-import app.organicmaps.base.Initializable;
 
-public enum ConnectionState implements Initializable<Context>
+public enum ConnectionState
 {
   INSTANCE;
 
@@ -51,16 +50,9 @@ public enum ConnectionState implements Initializable<Context>
     }
   }
 
-  @Override
-  public void initialize(@Nullable Context context)
+  public void initialize(@NonNull Context context)
   {
-    mContext = MwmApplication.from(context);
-  }
-
-  @Override
-  public void destroy()
-  {
-    // No op
+    mContext = context;
   }
 
   private boolean isNetworkConnected(int networkType)

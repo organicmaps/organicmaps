@@ -19,8 +19,8 @@ import app.organicmaps.util.UiUtils;
 
 import java.util.Objects;
 
-public class ElevationProfileViewRenderer implements PlacePageViewRenderer<PlacePageData>,
-                                                     PlacePageStateListener
+@SuppressWarnings("unused") // https://github.com/organicmaps/organicmaps/issues/2829
+public class ElevationProfileViewRenderer implements PlacePageStateListener
 {
   // Must be correspond to map/elevation_info.hpp constants.
   private static final int MAX_DIFFICULTY_LEVEL = 3;
@@ -61,7 +61,6 @@ public class ElevationProfileViewRenderer implements PlacePageViewRenderer<Place
   @NonNull
   private View mTimeContainer;
 
-  @Override
   public void render(@NonNull PlacePageData data)
   {
     final Context context = mAscent.getContext();
@@ -86,7 +85,6 @@ public class ElevationProfileViewRenderer implements PlacePageViewRenderer<Place
     return Framework.nativeFormatAltitude(distance).toString(context);
   }
 
-  @Override
   public void initialize(@Nullable View view)
   {
     Objects.requireNonNull(view);
@@ -104,12 +102,6 @@ public class ElevationProfileViewRenderer implements PlacePageViewRenderer<Place
     mDifficultyLevels[0] = mDifficultyContainer.findViewById(R.id.difficulty_level_1);
     mDifficultyLevels[1] = mDifficultyContainer.findViewById(R.id.difficulty_level_2);
     mDifficultyLevels[2] = mDifficultyContainer.findViewById(R.id.difficulty_level_3);
-  }
-
-  @Override
-  public void destroy()
-  {
-    // No op.
   }
 
   private void setDifficulty(int level)
@@ -134,13 +126,11 @@ public class ElevationProfileViewRenderer implements PlacePageViewRenderer<Place
       mDifficultyLevels[i].setEnabled(true);
   }
 
-  @Override
   public void onSave(@NonNull Bundle outState)
   {
 //    outState.putParcelable(PlacePageUtils.EXTRA_PLACE_PAGE_DATA, mElevationInfo);
   }
 
-  @Override
   public void onRestore(@NonNull Bundle inState)
   {
 //    mElevationInfo = Utils.getParcelable(inState, PlacePageUtils.EXTRA_PLACE_PAGE_DATA, ElevationInfo.class);
@@ -148,7 +138,6 @@ public class ElevationProfileViewRenderer implements PlacePageViewRenderer<Place
 //      render(mElevationInfo);
   }
 
-  @Override
   public void onHide()
   {
     mScrollView.scrollTo(0, 0);
@@ -168,11 +157,5 @@ public class ElevationProfileViewRenderer implements PlacePageViewRenderer<Place
   @Override
   public void onPlacePageClosed()
   {
-  }
-
-  @Override
-  public boolean support(@NonNull PlacePageData data)
-  {
-    return data instanceof ElevationInfo;
   }
 }

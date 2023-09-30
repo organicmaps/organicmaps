@@ -46,8 +46,7 @@ import java.util.Arrays;
 import java.util.List;
 
 public class SearchFragment extends BaseMwmFragment
-                         implements OnBackPressListener,
-                                    NativeSearchListener,
+                         implements NativeSearchListener,
                                     CategoriesAdapter.CategoriesUiListener
 {
   private long mLastQueryTimestamp;

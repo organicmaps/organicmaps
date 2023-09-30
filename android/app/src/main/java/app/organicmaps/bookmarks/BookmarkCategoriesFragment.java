@@ -21,7 +21,6 @@ import app.organicmaps.MwmApplication;
 import app.organicmaps.R;
 import app.organicmaps.adapter.OnItemClickListener;
 import app.organicmaps.base.BaseMwmRecyclerFragment;
-import app.organicmaps.base.DataChangedListener;
 import app.organicmaps.bookmarks.data.BookmarkCategory;
 import app.organicmaps.bookmarks.data.BookmarkManager;
 import app.organicmaps.bookmarks.data.BookmarkSharingResult;
@@ -102,7 +101,7 @@ public class BookmarkCategoriesFragment extends BaseMwmRecyclerFragment<Bookmark
     rw.setNestedScrollingEnabled(false);
     RecyclerView.ItemDecoration decor = new DividerItemDecorationWithPadding(requireContext());
     rw.addItemDecoration(decor);
-    mCategoriesAdapterObserver = new CategoriesAdapterObserver(this);
+    mCategoriesAdapterObserver = this::onCategoriesChanged;
     BookmarkManager.INSTANCE.addCategoriesUpdatesListener(mCategoriesAdapterObserver);
   }
 
@@ -369,35 +368,8 @@ public class BookmarkCategoriesFragment extends BaseMwmRecyclerFragment<Bookmark
     void commit(@NonNull String newName);
   }
 
-  private static class CategoriesAdapterObserver implements DataChangedListener<BookmarkCategoriesFragment>
+  private void onCategoriesChanged()
   {
-    @Nullable
-    private BookmarkCategoriesFragment mFragment;
-
-    CategoriesAdapterObserver(@NonNull BookmarkCategoriesFragment fragment)
-    {
-      mFragment = fragment;
-    }
-
-    @Override
-    public void attach(@NonNull BookmarkCategoriesFragment object)
-    {
-      mFragment = object;
-    }
-
-    @Override
-    public void detach()
-    {
-      mFragment = null;
-    }
-
-    @Override
-    public void onChanged()
-    {
-      if (mFragment == null)
-        return;
-
-      mFragment.getAdapter().setItems(BookmarkManager.INSTANCE.getCategories());
-    }
+    getAdapter().setItems(BookmarkManager.INSTANCE.getCategories());
   }
 }

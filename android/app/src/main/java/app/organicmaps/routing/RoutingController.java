@@ -13,7 +13,6 @@ import androidx.core.util.Pair;
 
 import app.organicmaps.Framework;
 import app.organicmaps.R;
-import app.organicmaps.base.Initializable;
 import app.organicmaps.bookmarks.data.FeatureId;
 import app.organicmaps.bookmarks.data.MapObject;
 import app.organicmaps.location.LocationHelper;
@@ -28,7 +27,7 @@ import java.util.concurrent.TimeUnit;
 
 
 @androidx.annotation.UiThread
-public class RoutingController implements Initializable<Context>
+public class RoutingController
 {
   private static final String TAG = RoutingController.class.getSimpleName();
 
@@ -253,7 +252,6 @@ public class RoutingController implements Initializable<Context>
     mContainer = container;
   }
 
-  @Override
   public void initialize(@NonNull Context context)
   {
     mLastRouterType = Framework.nativeGetLastUsedRouter();
@@ -267,12 +265,6 @@ public class RoutingController implements Initializable<Context>
         setStartPoint(LocationHelper.from(context).getMyPosition());
     }));
     Framework.nativeSetRoutingLoadPointsListener(mRoutingLoadPointsListener);
-  }
-
-  @Override
-  public void destroy()
-  {
-    // No op.
   }
 
   public void detach()

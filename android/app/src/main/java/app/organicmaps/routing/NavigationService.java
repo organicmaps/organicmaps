@@ -30,7 +30,7 @@ import androidx.core.content.ContextCompat;
 import app.organicmaps.Framework;
 import app.organicmaps.MwmActivity;
 import app.organicmaps.R;
-import app.organicmaps.base.MediaPlayerWrapper;
+import app.organicmaps.sound.MediaPlayerWrapper;
 import app.organicmaps.location.LocationHelper;
 import app.organicmaps.location.LocationListener;
 import app.organicmaps.sound.TtsPlayer;

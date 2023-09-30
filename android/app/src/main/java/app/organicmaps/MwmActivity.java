@@ -41,8 +41,6 @@ import androidx.lifecycle.ViewModelProvider;
 import app.organicmaps.Framework.PlacePageActivationListener;
 import app.organicmaps.api.Const;
 import app.organicmaps.base.BaseMwmFragmentActivity;
-import app.organicmaps.base.CustomNavigateUpListener;
-import app.organicmaps.base.NoConnectionListener;
 import app.organicmaps.base.OnBackPressListener;
 import app.organicmaps.bookmarks.BookmarkCategoriesActivity;
 import app.organicmaps.bookmarks.data.BookmarkInfo;
@@ -125,7 +123,6 @@ public class MwmActivity extends BaseMwmFragmentActivity
     implements PlacePageActivationListener,
                View.OnTouchListener,
                MapRenderingListener,
-               CustomNavigateUpListener,
                RoutingController.Container,
                LocationListener,
                SensorListener,
@@ -134,7 +131,6 @@ public class MwmActivity extends BaseMwmFragmentActivity
                RoutingBottomMenuListener,
                BookmarkManager.BookmarksLoadingListener,
                FloatingSearchToolbarController.SearchToolbarListener,
-               NoConnectionListener,
                MenuBottomSheetFragment.MenuBottomSheetInterfaceWithHeader,
                PlacePageController.PlacePageRouteSettingsListener,
                MapButtonsController.MapButtonClickListener,
@@ -513,18 +509,6 @@ public class MwmActivity extends BaseMwmFragmentActivity
   {
     UpdateInfo info = MapManager.nativeGetUpdateInfo(null);
     return info == null ? 0 : info.filesCount;
-  }
-
-  @Override
-  public void onNoConnectionError()
-  {
-    dismissAlertDialog();
-    mAlertDialog = new MaterialAlertDialogBuilder(this, R.style.MwmTheme_AlertDialog)
-        .setTitle(R.string.common_check_internet_connection_dialog_title)
-        .setMessage(R.string.common_check_internet_connection_dialog)
-        .setPositiveButton(R.string.ok, null)
-        .setOnDismissListener(dialog -> mAlertDialog = null)
-        .show();
   }
 
   private void initViews(boolean isLaunchByDeeplink)
@@ -1257,7 +1241,6 @@ public class MwmActivity extends BaseMwmFragmentActivity
     return mMapFragment != null && mMapFragment.onTouch(view, event);
   }
 
-  @Override
   public void customOnNavigateUp()
   {
     if (removeCurrentFragment(true))

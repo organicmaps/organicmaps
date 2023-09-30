@@ -19,7 +19,6 @@ import androidx.fragment.app.FragmentManager;
 import app.organicmaps.MwmApplication;
 import app.organicmaps.R;
 import app.organicmaps.base.BaseMwmToolbarFragment;
-import app.organicmaps.base.OnBackPressListener;
 import app.organicmaps.editor.data.Language;
 import app.organicmaps.editor.data.LocalizedName;
 import app.organicmaps.editor.data.LocalizedStreet;
@@ -35,8 +34,8 @@ import com.google.android.material.dialog.MaterialAlertDialogBuilder;
 import java.util.ArrayList;
 import java.util.List;
 
-public class EditorHostFragment extends BaseMwmToolbarFragment
-                             implements OnBackPressListener, View.OnClickListener, LanguagesFragment.Listener
+public class EditorHostFragment extends BaseMwmToolbarFragment implements View.OnClickListener,
+    LanguagesFragment.Listener
 {
   private boolean mIsNewObject;
   @Nullable

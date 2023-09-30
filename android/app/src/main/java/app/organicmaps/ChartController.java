@@ -21,8 +21,7 @@ import com.github.mikephil.charting.data.LineDataSet;
 import com.github.mikephil.charting.formatter.ValueFormatter;
 import com.github.mikephil.charting.highlight.Highlight;
 import com.github.mikephil.charting.listener.OnChartValueSelectedListener;
-import app.organicmaps.base.Hideable;
-import app.organicmaps.base.Initializable;
+
 import app.organicmaps.bookmarks.data.BookmarkManager;
 import app.organicmaps.bookmarks.data.ElevationInfo;
 import app.organicmaps.widget.placepage.AxisValueFormatter;
@@ -37,10 +36,9 @@ import java.util.Collections;
 import java.util.List;
 import java.util.Objects;
 
-public class ChartController implements OnChartValueSelectedListener, Initializable<View>,
+public class ChartController implements OnChartValueSelectedListener,
                                         BookmarkManager.OnElevationActivePointChangedListener,
-                                        BookmarkManager.OnElevationCurrentPositionChangedListener,
-                                        Hideable
+                                        BookmarkManager.OnElevationCurrentPositionChangedListener
 {
   private static final int CHART_Y_LABEL_COUNT = 3;
   private static final int CHART_X_LABEL_COUNT = 6;
@@ -75,10 +73,8 @@ public class ChartController implements OnChartValueSelectedListener, Initializa
     mContext = context;
   }
 
-  @Override
-  public void initialize(@Nullable View view)
+  public void initialize(@NonNull View view)
   {
-    Objects.requireNonNull(view);
     BookmarkManager.INSTANCE.setElevationActivePointChangedListener(this);
     BookmarkManager.INSTANCE.setElevationCurrentPositionChangedListener(this);
     final Resources resources = mContext.getResources();
@@ -110,7 +106,6 @@ public class ChartController implements OnChartValueSelectedListener, Initializa
     initAxises();
   }
 
-  @Override
   public void destroy()
   {
     BookmarkManager.INSTANCE.setElevationActivePointChangedListener(null);
@@ -253,7 +248,6 @@ public class ChartController implements OnChartValueSelectedListener, Initializa
     return new Highlight((float) activeX, 0f, 0);
   }
 
-  @Override
   public void onHide()
   {
     mChart.fitScreen();

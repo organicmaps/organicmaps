@@ -8,17 +8,15 @@ import androidx.annotation.Nullable;
 
 import app.organicmaps.Framework;
 import app.organicmaps.MwmApplication;
-import app.organicmaps.base.Detachable;
-import app.organicmaps.base.Initializable;
 
-public class IsolinesManager implements Initializable<Void>, Detachable<IsolinesErrorDialogListener>
+public class IsolinesManager
 {
   @NonNull
-  private final OnIsolinesChangedListenerImpl mListener;
+  private final OnIsolinesChangedListener mListener;
 
   public IsolinesManager(@NonNull Application application)
   {
-    mListener = new OnIsolinesChangedListenerImpl(application);
+    mListener = new OnIsolinesChangedListener(application);
   }
 
   public boolean isEnabled()
@@ -44,16 +42,9 @@ public class IsolinesManager implements Initializable<Void>, Detachable<Isolines
     setEnabled(!isEnabled());
   }
 
-  @Override
-  public void initialize(@Nullable Void aVoid)
+  public void initialize()
   {
     registerListener();
-  }
-
-  @Override
-  public void destroy()
-  {
-    // No op.
   }
 
   @NonNull
@@ -67,13 +58,11 @@ public class IsolinesManager implements Initializable<Void>, Detachable<Isolines
   private static native void nativeRemoveListener(@NonNull OnIsolinesChangedListener listener);
   private static native boolean nativeShouldShowNotification();
 
-  @Override
   public void attach(@NonNull IsolinesErrorDialogListener listener)
   {
     mListener.attach(listener);
   }
 
-  @Override
   public void detach()
   {
     mListener.detach();

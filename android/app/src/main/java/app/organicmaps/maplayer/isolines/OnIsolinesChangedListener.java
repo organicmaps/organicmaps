@@ -1,6 +1,39 @@
 package app.organicmaps.maplayer.isolines;
 
-public interface OnIsolinesChangedListener
+import android.app.Application;
+
+import androidx.annotation.NonNull;
+
+class OnIsolinesChangedListener
 {
-  void onStateChanged(int index);
+  @NonNull
+  private final Application mApp;
+  private IsolinesErrorDialogListener mListener;
+
+  OnIsolinesChangedListener(@NonNull Application app)
+  {
+    mApp = app;
+  }
+
+  public void onStateChanged(int type)
+  {
+    IsolinesState state = IsolinesState.values()[type];
+    if (mListener == null)
+    {
+      state.activate(mApp, null, null);
+      return;
+    }
+
+    mListener.onStateChanged(state);
+  }
+
+  public void attach(@NonNull IsolinesErrorDialogListener listener)
+  {
+    mListener = listener;
+  }
+
+  public void detach()
+  {
+    mListener = null;
+  }
 }
