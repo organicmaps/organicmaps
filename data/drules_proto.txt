@@ -9517,9 +9517,9 @@ cont {
   element {
     scale: 15
     symbol {
-      name: "theatre-s"
+      name: "theatre-m"
       priority: 5400
-      min_distance: 8
+      min_distance: 10
     }
     caption {
       primary {
