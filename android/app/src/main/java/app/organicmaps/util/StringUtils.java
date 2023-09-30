@@ -19,6 +19,11 @@ public class StringUtils
     return String.format(Locale.US, pattern, args);
   }
 
+  public static String formatUsingSystemLocale(String pattern, Object... args)
+  {
+    return String.format(Locale.getDefault(), pattern, args);
+  }
+
   public static native boolean nativeIsHtml(String text);
 
   public static native boolean nativeContainsNormalized(String str, String substr);
@@ -36,6 +41,7 @@ public class StringUtils
   /**
    * Formats size in bytes to "x MB" or "x.x GB" format.
    * Small values rounded to 1 MB without fractions.
+   * Decimal separator character depends on system locale.
    *
    * @param context context for getString()
    * @param size size in bytes
@@ -53,7 +59,7 @@ public class StringUtils
     }
 
     float value = ((float) size / Constants.GB);
-    return formatUsingUsLocale("%1$.1f %2$s", value, MwmApplication.from(context).getString(R.string.gb));
+    return formatUsingSystemLocale("%1$.1f %2$s", value, MwmApplication.from(context).getString(R.string.gb));
   }
 
   public static boolean isRtl()
