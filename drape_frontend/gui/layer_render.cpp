@@ -185,6 +185,10 @@ public:
 
     auto const vs = static_cast<float>(df::VisualParams::Instance().GetVisualScale());
     m2::PointF offset(10.0f * vs, 30.0f * vs);
+#ifdef OMIM_OS_IPHONE
+    // Move below dynamic island.
+    offset.y += 30.0f * vs;
+#endif
 
     SetPivot(glsl::ToVec2(m2::PointF(screen.PixelRect().LeftBottom()) + offset));
     return TBase::Update(screen);
