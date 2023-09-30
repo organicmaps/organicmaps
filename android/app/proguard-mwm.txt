@@ -38,3 +38,6 @@
 -keep interface androidx.** { *; }
 
 -dontwarn javax.lang.model.element.Modifier
+
+# For Guava used by Android Auto
+-dontwarn java.lang.reflect.AnnotatedType
