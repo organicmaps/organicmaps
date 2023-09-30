@@ -433,11 +433,7 @@ ApplyPointFeature::ApplyPointFeature(TileKey const & tileKey, TInsertShapeFn con
                                      CaptionDescription const & captions, float posZ)
   : TBase(tileKey, insertShape, f, captions)
   , m_posZ(posZ)
-  , m_hasArea(false)
-  , m_createdByEditor(false)
-  , m_obsoleteInEditor(false)
   , m_symbolDepth(dp::kMinDepth)
-  , m_symbolRule(nullptr)
 {}
 
 void ApplyPointFeature::operator()(m2::PointD const & point, bool hasArea)
@@ -528,7 +524,7 @@ void ApplyPointFeature::Finish(ref_ptr<dp::TextureManager> texMng)
     symbolSize = region.GetPixelSize();
 
     if (region.IsValid())
-      m_insertShape(make_unique_dp<PoiSymbolShape>(m2::PointD(m_centerPoint), params, m_tileKey, 0 /* textIndex */));
+      m_insertShape(make_unique_dp<PoiSymbolShape>(m_centerPoint, params, m_tileKey, 0 /* textIndex */));
     else
       LOG(LERROR, ("Style error. Symbol name must be valid for feature", m_f.GetID()));
   }
@@ -546,7 +542,7 @@ void ApplyPointFeature::Finish(ref_ptr<dp::TextureManager> texMng)
     }
 
     m_textParams.m_startOverlayRank = hasIcon ? dp::OverlayRank1 : dp::OverlayRank0;
-    auto shape = make_unique_dp<TextShape>(m2::PointD(m_centerPoint), m_textParams, m_tileKey, symbolSize,
+    auto shape = make_unique_dp<TextShape>(m_centerPoint, m_textParams, m_tileKey, symbolSize,
                                            m2::PointF(0.0f, 0.0f) /* symbolOffset */,
                                            dp::Center /* symbolAnchor */, 0 /* textIndex */);
     m_insertShape(std::move(shape));
@@ -564,7 +560,7 @@ void ApplyPointFeature::Finish(ref_ptr<dp::TextureManager> texMng)
         m_hnParams.m_startOverlayRank = dp::OverlayRank1;
       }
     }
-    m_insertShape(make_unique_dp<TextShape>(m2::PointD(m_centerPoint), m_hnParams, m_tileKey, symbolSize,
+    m_insertShape(make_unique_dp<TextShape>(m_centerPoint, m_hnParams, m_tileKey, symbolSize,
                                             m2::PointF(0.0f, 0.0f) /* symbolOffset */,
                                             dp::Center /* symbolAnchor */, 0 /* textIndex */));
   }

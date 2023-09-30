@@ -322,7 +322,7 @@ void RuleDrawer::ProcessAreaAndPointStyle(FeatureType & f, Stylist const & s, TI
     apply.ProcessAreaRule(s.m_areaRule, areaDepth, false);
 
   /// @todo Can we put this check in the beginning of this function?
-  if (!IsDiscardCustomFeature(f.GetID()))
+  if (applyPointStyle && !IsDiscardCustomFeature(f.GetID()))
   {
     // Process point style.
     if (s.m_symbolRule != nullptr)
