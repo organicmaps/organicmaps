@@ -72,14 +72,14 @@ protected:
   float const m_posZ;
 
 private:
-  bool m_hasArea;
-  bool m_createdByEditor;
-  bool m_obsoleteInEditor;
-  float m_symbolDepth;
-  SymbolRuleProto const * m_symbolRule;
-  m2::PointF m_centerPoint;
   TextViewParams m_textParams;
   TextViewParams m_hnParams;
+  m2::PointD m_centerPoint;
+  SymbolRuleProto const * m_symbolRule = nullptr;
+  float m_symbolDepth;
+  bool m_hasArea = false;
+  bool m_createdByEditor = false;
+  bool m_obsoleteInEditor = false;
 };
 
 class ApplyAreaFeature : public ApplyPointFeature
