@@ -13,6 +13,8 @@ buildscript {
   def taskName = getGradle().getStartParameter().getTaskRequests().toString().toLowerCase()
   def isFdroid = taskName.contains('fdroid')
   def isBeta = taskName.contains('beta')
+  def isDebug = taskName.contains('debug')
+  def isSyncWithFiles = taskName.contains('rundefaulttasksexecutionrequest') // used by Android Studio
 
   //
   // Please add symlinks to google/java/app/organicmaps/location for each new gms-enabled flavor below:
@@ -23,10 +25,18 @@ buildscript {
   // ```
   ext.googleMobileServicesEnabled = taskName.contains('google') || taskName.contains('huawei') || taskName.contains('web')
 
+  // Firebase Crashlytics compile-time feature flag: -Pfirebase=true|false
+  def googleFirebaseServicesFlag = findProperty('firebase')
   // Enable Firebase for all beta flavors except fdroid only if google-services.json exists.
   def googleFirebaseServicesDefault = isBeta && !isFdroid && file("$projectDir/google-services.json").exists()
-  // Add a parameter to force Firebase.
-  ext.googleFirebaseServicesEnabled = project.hasProperty('firebase') ?: googleFirebaseServicesDefault
+  ext.googleFirebaseServicesEnabled = googleFirebaseServicesFlag ? googleFirebaseServicesFlag.toBoolean() :
+      googleFirebaseServicesDefault
+
+  // Android Auto compile-time feature flag: -Pandroidauto=true|false
+  def androidAutoFlag = findProperty('androidauto')
+  // Enable Android Auto by default for all debug and beta flavors except fdroid.
+  def androidAutoDefault = isSyncWithFiles || ((isDebug || isBeta) && !isFdroid)
+  ext.androidAutoEnabled = androidAutoFlag ? androidAutoFlag.toBoolean() : androidAutoDefault
 
   dependencies {
     classpath 'com.android.tools.build:gradle:8.1.1'
@@ -85,9 +95,16 @@ dependencies {
     implementation 'com.google.firebase:firebase-crashlytics-ndk'
   }
 
-  implementation 'androidx.car.app:app:1.4.0-alpha01'
-  // Fix for app/organicmaps/util/FileUploadWorker.java:14: error: cannot access ListenableFuture
-  implementation 'com.google.guava:guava:29.0-android'
+  if (androidAutoEnabled) {
+    println('Building with Android Auto')
+    implementation 'androidx.car.app:app:1.4.0-beta02'
+    // Fix for app/organicmaps/util/FileUploadWorker.java:14: error: cannot access ListenableFuture
+    // https://github.com/organicmaps/organicmaps/issues/6106
+    implementation 'com.google.guava:guava:32.1.2-android'
+  } else {
+    println('Building without Android Auto')
+  }
+
   // This line is added as a workaround for duplicate classes error caused by some outdated dependency:
   // > A failure occurred while executing com.android.build.gradle.internal.tasks.CheckDuplicatesRunnable
   // We don't use Kotlin, but some dependencies are actively using it.
@@ -215,6 +232,10 @@ android {
     }
 
     setProperty("archivesBaseName", appName.replaceAll("\\s","") + "-" + defaultConfig.versionCode)
+
+    if (!androidAutoEnabled) {
+      sourceSets.main.java.excludes += '**/organicmaps/car'
+    }
   }
 
   flavorDimensions += 'default'
@@ -419,6 +440,7 @@ android.buildTypes.all { buildType ->
   def authority = "\"" + authorityValue + "\""
   buildConfigField 'String', 'FILE_PROVIDER_AUTHORITY', authority
   manifestPlaceholders += [FILE_PROVIDER_PLACEHOLDER : authorityValue]
+  manifestPlaceholders += [ANDROID_AUTO_ENABLED : androidAutoEnabled]
 }
 
 task prepareGoogleReleaseListing {
