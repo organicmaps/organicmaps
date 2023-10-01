@@ -63,62 +63,6 @@ df::ColorConstant const kRoadShieldOrangeBackgroundColor = "RoadShieldOrangeBack
 uint32_t const kPathTextBaseTextIndex = 128;
 uint32_t const kShieldBaseTextIndex = 0;
 
-#ifdef LINES_GENERATION_CALC_FILTERED_POINTS
-class LinesStat
-{
-public:
-  ~LinesStat()
-  {
-    std::map<int, TValue> zoomValues;
-    for (std::pair<TKey, TValue> const & f : m_features)
-    {
-      TValue & v = zoomValues[f.first.second];
-      v.m_neededPoints += f.second.m_neededPoints;
-      v.m_readPoints += f.second.m_readPoints;
-    }
-
-    LOG(LINFO, ("===== Lines filtering stats ====="));
-    for (std::pair<int, TValue> const & v : zoomValues)
-    {
-      int const filtered = v.second.m_readPoints - v.second.m_neededPoints;
-      LOG(LINFO, ("Zoom =", v.first, "Filtered", 100 * filtered / (double)v.second.m_readPoints, "% (",
-                  filtered, "out of", v.second.m_readPoints, "points)"));
-    }
-  }
-
-  static LinesStat & Get()
-  {
-    static LinesStat s_stat;
-    return s_stat;
-  }
-
-  void InsertLine(FeatureID const & id, int scale, int vertexCount, int renderVertexCount)
-  {
-    TKey key(id, scale);
-    std::lock_guard g(m_mutex);
-    if (m_features.find(key) != m_features.end())
-      return;
-
-    TValue & v = m_features[key];
-    v.m_readPoints = vertexCount;
-    v.m_neededPoints = renderVertexCount;
-  }
-
-private:
-  LinesStat() = default;
-
-  using TKey = std::pair<FeatureID, int>;
-  struct TValue
-  {
-    int m_readPoints = 0;
-    int m_neededPoints = 0;
-  };
-
-  std::map<TKey, TValue> m_features;
-  std::mutex m_mutex;
-};
-#endif
-
 void Extract(::LineDefProto const * lineRule, df::LineViewParams & params)
 {
   double const scale = df::VisualParams::Instance().GetVisualScale();
