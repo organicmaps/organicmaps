@@ -95,6 +95,7 @@ std::string GetBookmarksDirectory();
 std::string RemoveInvalidSymbols(std::string const & name);
 std::string GenerateUniqueFileName(const std::string & path, std::string name, std::string_view ext = kKmlExtension);
 std::string GenerateValidAndUniqueFilePathForKML(std::string const & fileName);
+std::string GenerateValidAndUniqueFilePathForGPX(std::string const & fileName);
 /// @}
 
 /// @name SerDes helpers.
@@ -102,7 +103,7 @@ std::string GenerateValidAndUniqueFilePathForKML(std::string const & fileName);
 std::unique_ptr<kml::FileData> LoadKmlFile(std::string const & file, KmlFileType fileType);
 std::unique_ptr<kml::FileData> LoadKmlData(Reader const & reader, KmlFileType fileType);
 
-std::string GetKMLPath(std::string const & filePath);
+std::string GetKMLorGPXPath(std::string const & filePath);
 std::string GetLowercaseFileExt(std::string const & filePath);
 
 bool SaveKmlFileSafe(kml::FileData & kmlData, std::string const & file, KmlFileType fileType);

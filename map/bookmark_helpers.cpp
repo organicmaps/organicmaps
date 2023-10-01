@@ -274,6 +274,15 @@ std::string GenerateValidAndUniqueFilePathForKML(std::string const & fileName)
   return GenerateUniqueFileName(GetBookmarksDirectory(), std::move(filePath), kKmlExtension);
 }
 
+std::string GenerateValidAndUniqueFilePathForGPX(std::string const & fileName)
+{
+  std::string filePath = RemoveInvalidSymbols(fileName);
+  if (filePath.empty())
+    filePath = kDefaultBookmarksFileName;
+
+  return GenerateUniqueFileName(GetBookmarksDirectory(), std::move(filePath), kGpxExtension);
+}
+
 std::string const kDefaultBookmarksFileName = "Bookmarks";
 
 // Populate empty category & track names based on file name: assign file name to category name,
@@ -336,18 +345,27 @@ std::unique_ptr<kml::FileData> LoadKmlFile(std::string const & file, KmlFileType
   return kmlData;
 }
 
-std::string GetKMLPath(std::string const & filePath)
+std::string GetKMLorGPXPath(std::string const & filePath)
 {
   std::string const fileExt = GetLowercaseFileExt(filePath);
   std::string fileSavePath;
-  if (fileExt == kKmlExtension || fileExt == kGpxExtension)
+  if (fileExt == kKmlExtension)
   {
+    // Copy input file to temp output KML with unique name.
     fileSavePath = GenerateValidAndUniqueFilePathForKML(base::FileNameFromFullPath(filePath));
+    if (!base::CopyFileX(filePath, fileSavePath))
+      return {};
+  }
+  else if (fileExt == kGpxExtension)
+  {
+    // Copy input file to temp GPX with unique name.
+    fileSavePath = GenerateValidAndUniqueFilePathForGPX(base::FileNameFromFullPath(filePath));
     if (!base::CopyFileX(filePath, fileSavePath))
       return {};
   }
   else if (fileExt == kKmbExtension)
   {
+    // Convert input file and save to temp KML with unique name.
     auto kmlData = LoadKmlFile(filePath, KmlFileType::Binary);
     if (kmlData == nullptr)
       return {};
@@ -358,6 +376,7 @@ std::string GetKMLPath(std::string const & filePath)
   }
   else if (fileExt == kKmzExtension)
   {
+    // Extract KML file from KMZ archive and save to temp KML with unique name.
     try
     {
       ZipFileReader::FileList files;
