@@ -101232,10 +101232,44 @@ cont {
 cont {
   name: "tourism-alpine_hut"
   element {
-    scale: 16
+    scale: 13
+    symbol {
+      name: "alpine_hut-s"
+      priority: 5850
+      min_distance: 8
+    }
+    caption {
+      primary {
+        height: 10
+        color: 5592405
+        offset_y: 1
+        is_optional: true
+      }
+      priority: -4150
+    }
+  }
+  element {
+    scale: 14
+    symbol {
+      name: "alpine_hut-s"
+      priority: 5850
+      min_distance: 8
+    }
+    caption {
+      primary {
+        height: 10
+        color: 5592405
+        offset_y: 1
+        is_optional: true
+      }
+      priority: -4150
+    }
+  }
+  element {
+    scale: 15
     symbol {
       name: "alpine_hut-m"
-      priority: 3250
+      priority: 5850
       min_distance: 24
     }
     caption {
@@ -101245,14 +101279,31 @@ cont {
         offset_y: 1
         is_optional: true
       }
-      priority: -6750
+      priority: -4150
+    }
+  }
+  element {
+    scale: 16
+    symbol {
+      name: "alpine_hut-m"
+      priority: 5850
+      min_distance: 24
+    }
+    caption {
+      primary {
+        height: 10
+        color: 5592405
+        offset_y: 1
+        is_optional: true
+      }
+      priority: -4150
     }
   }
   element {
     scale: 17
     symbol {
       name: "alpine_hut-m"
-      priority: 3250
+      priority: 5850
       min_distance: 16
     }
     caption {
@@ -101262,14 +101313,14 @@ cont {
         offset_y: 1
         is_optional: true
       }
-      priority: -6750
+      priority: -4150
     }
   }
   element {
     scale: 18
     symbol {
       name: "alpine_hut-m"
-      priority: 3250
+      priority: 5850
       min_distance: 16
     }
     caption {
@@ -101279,14 +101330,14 @@ cont {
         offset_y: 1
         is_optional: true
       }
-      priority: -6750
+      priority: -4150
     }
   }
   element {
     scale: 19
     symbol {
       name: "alpine_hut-m"
-      priority: 3250
+      priority: 5850
       min_distance: 16
     }
     caption {
@@ -101296,7 +101347,7 @@ cont {
         offset_y: 1
         is_optional: true
       }
-      priority: -6750
+      priority: -4150
     }
   }
 }
