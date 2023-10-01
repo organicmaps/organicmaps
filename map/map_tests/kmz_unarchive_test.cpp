@@ -10,7 +10,7 @@
 UNIT_TEST(KMZ_UnzipTest)
 {
   std::string const kmzFile = GetPlatform().TestsDataPathForFile("kml_test_data/test.kmz");
-  std::string const filePath = GetKMLPath(kmzFile);
+  std::string const filePath = GetKMLorGPXPath(kmzFile);
 
   TEST(!filePath.empty(), ());
   SCOPE_GUARD(fileGuard, std::bind(&base::DeleteFileX, filePath));

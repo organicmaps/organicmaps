@@ -1864,12 +1864,20 @@ void BookmarkManager::LoadBookmarkRoutine(std::string const & filePath, bool isT
 
     auto collection = std::make_shared<KMLDataCollection>();
 
-    // Convert KML/KMZ/KMB files to temp KML file.
-    std::string fileSavePath = GetKMLPath(filePath);
+    // Convert KML/KMZ/KMB files to temp KML file and GPX to temp GPX file.
+    std::string fileSavePath = GetKMLorGPXPath(filePath);
     if (!fileSavePath.empty())
     {
+      auto const ext = GetLowercaseFileExt(fileSavePath);
       std::unique_ptr<kml::FileData> kmlData;
-      kmlData = LoadKmlFile(fileSavePath, KmlFileType::Text);
+      if (ext == kKmlExtension)
+        kmlData = LoadKmlFile(fileSavePath, KmlFileType::Text);
+      else if (ext == kGpxExtension)
+        kmlData = LoadKmlFile(fileSavePath, KmlFileType::Gpx);
+      else
+      {
+        ASSERT(false, ("Unsupported bookmarks extension", ext));
+      }
 
       if (m_needTeardown)
         return;
