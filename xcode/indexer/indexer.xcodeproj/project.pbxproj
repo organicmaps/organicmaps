@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		30FE368C2AF994E600DAC107 /* kayak.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 30FE368A2AF994E600DAC107 /* kayak.cpp */; };
+		30FE368D2AF994E600DAC107 /* kayak.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 30FE368B2AF994E600DAC107 /* kayak.hpp */; };
 		34583BC71C88552100F94664 /* cuisines.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 34583BC11C88552100F94664 /* cuisines.cpp */; };
 		34583BC81C88552100F94664 /* cuisines.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 34583BC21C88552100F94664 /* cuisines.hpp */; };
 		34583BC91C88552100F94664 /* editable_map_object.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 34583BC31C88552100F94664 /* editable_map_object.cpp */; };
@@ -230,6 +232,8 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		30FE368A2AF994E600DAC107 /* kayak.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = kayak.cpp; sourceTree = "<group>"; };
+		30FE368B2AF994E600DAC107 /* kayak.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = kayak.hpp; sourceTree = "<group>"; };
 		34583BC11C88552100F94664 /* cuisines.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = cuisines.cpp; sourceTree = "<group>"; };
 		34583BC21C88552100F94664 /* cuisines.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = cuisines.hpp; sourceTree = "<group>"; };
 		34583BC31C88552100F94664 /* editable_map_object.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = editable_map_object.cpp; sourceTree = "<group>"; };
@@ -604,6 +608,8 @@
 		6753409C1A3F53CB00A0A8C3 /* indexer */ = {
 			isa = PBXGroup;
 			children = (
+				30FE368A2AF994E600DAC107 /* kayak.cpp */,
+				30FE368B2AF994E600DAC107 /* kayak.hpp */,
 				34664CEE1D49FEC1003D7096 /* altitude_loader.cpp */,
 				34664CEF1D49FEC1003D7096 /* altitude_loader.hpp */,
 				4088CE1F21AE993F00E2702A /* brands_holder.cpp */,
@@ -810,6 +816,7 @@
 				675B562420D25C9800A521D2 /* feature_source.hpp in Headers */,
 				4088CE2021AE993F00E2702A /* brands_holder.hpp in Headers */,
 				675341411A3F540F00A0A8C3 /* scales.hpp in Headers */,
+				30FE368D2AF994E600DAC107 /* kayak.hpp in Headers */,
 				675341321A3F540F00A0A8C3 /* interval_index_builder.hpp in Headers */,
 				40009062201F5CB000963E18 /* cell_value_pair.hpp in Headers */,
 				347F337C1C454242009758CC /* rank_table.hpp in Headers */,
@@ -1031,6 +1038,7 @@
 				675341011A3F540F00A0A8C3 /* classificator_loader.cpp in Sources */,
 				F6DF5F2D1CD0FC9D00A87154 /* categories_index.cpp in Sources */,
 				674125131B4C02F100A3E828 /* map_style_reader.cpp in Sources */,
+				30FE368C2AF994E600DAC107 /* kayak.cpp in Sources */,
 				675341141A3F540F00A0A8C3 /* feature_covering.cpp in Sources */,
 				4088CE2121AE993F00E2702A /* brands_holder.cpp in Sources */,
 				56C74C1D1C749E4700B71B9F /* categories_holder.cpp in Sources */,
