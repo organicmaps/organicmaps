@@ -5,6 +5,7 @@
 #import <CoreApi/StringUtils.h>
 
 #include "indexer/validate_and_format_contacts.hpp"
+#include "indexer/kayak.hpp"
 
 #include "map/place_page_info.hpp"
 
@@ -47,6 +48,16 @@ using namespace osm;
           break;
         }
         case MetadataID::FMD_WEBSITE: _website = ToNSString(value); break;
+        case MetadataID::FMD_EXTERNAL_URI:
+        {
+          NSString *countryIsoCode = [[NSLocale currentLocale] objectForKey:NSLocaleCountryCode] ?: @"US";
+          time_t firstDaySec = time_t([[NSDate date] timeIntervalSince1970]);
+          time_t lastDaySec = firstDaySec + 86400;
+          std::string kayakUrl = osm::GetKayakHotelURLFromURI([countryIsoCode UTF8String], value, firstDaySec, lastDaySec);
+          if (!kayakUrl.empty())
+            _kayak = ToNSString(kayakUrl);
+          break;
+        }
         case MetadataID::FMD_WIKIPEDIA: _wikipedia = ToNSString(value); break;
         case MetadataID::FMD_WIKIMEDIA_COMMONS: _wikimediaCommons = ToNSString(value); break;
         case MetadataID::FMD_EMAIL:

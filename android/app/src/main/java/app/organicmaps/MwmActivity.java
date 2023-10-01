@@ -7,6 +7,8 @@ import android.app.PendingIntent;
 import android.content.Context;
 import android.content.Intent;
 import android.content.res.Configuration;
+import android.graphics.Typeface;
+import android.graphics.drawable.Drawable;
 import android.location.Location;
 import android.net.Uri;
 import android.os.Build;
@@ -29,6 +31,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.annotation.StyleRes;
 import androidx.annotation.UiThread;
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.widget.Toolbar;
 import androidx.core.app.ActivityCompat;
 import androidx.core.view.ViewCompat;
@@ -94,6 +97,7 @@ import app.organicmaps.settings.RoadType;
 import app.organicmaps.settings.SettingsActivity;
 import app.organicmaps.settings.UnitLocale;
 import app.organicmaps.util.Config;
+import app.organicmaps.util.Graphics;
 import app.organicmaps.util.LocationUtils;
 import app.organicmaps.util.SharingUtils;
 import app.organicmaps.util.ThemeSwitcher;
@@ -1644,6 +1648,28 @@ public class MwmActivity extends BaseMwmFragmentActivity
         .show();
 
     return false;
+  }
+
+  public void openKayakLink(@NonNull String url)
+  {
+    if (Config.isKayakDisclaimerAccepted())
+    {
+      Utils.openUrl(this, url);
+      return;
+    }
+
+    dismissAlertDialog();
+    mAlertDialog = new MaterialAlertDialogBuilder(this, R.style.MwmTheme_AlertDialog)
+        .setTitle(R.string.how_to_support_us)
+        .setMessage(R.string.dialog_kayak_disclaimer)
+        .setCancelable(false)
+        .setPositiveButton(R.string.more_on_kayak, (dlg, which) -> {
+          Config.acceptKayakDisclaimer();
+          Utils.openUrl(this, url);
+        })
+        .setNegativeButton(R.string.cancel, null)
+        .setOnDismissListener(dialog -> mAlertDialog = null)
+        .show();
   }
 
   private boolean showStartPointNotice()

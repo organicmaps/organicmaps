@@ -33,6 +33,22 @@ extension PlacePageInteractor: PlacePageInfoViewControllerDelegate {
     MWMPlacePageManagerHelper.openWebsite(placePageData)
   }
   
+  func didPressKayak() {
+    let kUDDidShowKayakInformationDialog = "kUDDidShowKayakInformationDialog"
+    
+    if UserDefaults.standard.bool(forKey: kUDDidShowKayakInformationDialog) {
+      MWMPlacePageManagerHelper.openKayak(placePageData)
+    } else { 
+      let alert = UIAlertController(title: nil, message: L("dialog_kayak_disclaimer"), preferredStyle: .alert)
+      alert.addAction(UIAlertAction(title: L("cancel"), style: .cancel))
+      alert.addAction(UIAlertAction(title: L("more_on_kayak"), style: .default, handler: { _ in
+        UserDefaults.standard.set(true, forKey: kUDDidShowKayakInformationDialog)
+        MWMPlacePageManagerHelper.openKayak(self.placePageData)
+      }))
+      self.mapViewController?.present(alert, animated: true)
+    }
+  }
+
   func didPressWikipedia() {
     MWMPlacePageManagerHelper.openWikipedia(placePageData)
   }

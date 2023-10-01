@@ -4,6 +4,7 @@
   android:layout_width="match_parent"
   android:layout_height="match_parent"
   android:orientation="vertical">
+  <include layout="@layout/place_page_kayak" />
   <include layout="@layout/place_page_website" />
   <include layout="@layout/place_page_email" />
   <include layout="@layout/place_page_facebook" />

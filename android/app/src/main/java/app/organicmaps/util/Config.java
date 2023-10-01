@@ -24,6 +24,7 @@ public final class Config
   private static final String KEY_PREF_USE_GS = "UseGoogleServices";
 
   private static final String KEY_MISC_DISCLAIMER_ACCEPTED = "IsDisclaimerApproved";
+  private static final String KEY_MISC_KAYAK_ACCEPTED = "IsKayakApproved";
   private static final String KEY_MISC_LOCATION_REQUESTED = "LocationRequested";
   private static final String KEY_MISC_UI_THEME = "UiTheme";
   private static final String KEY_MISC_UI_THEME_SETTINGS = "UiThemeSettings";
@@ -214,6 +215,16 @@ public final class Config
   public static void acceptRoutingDisclaimer()
   {
     setBool(KEY_MISC_DISCLAIMER_ACCEPTED);
+  }
+
+  public static boolean isKayakDisclaimerAccepted()
+  {
+    return getBool(KEY_MISC_KAYAK_ACCEPTED);
+  }
+
+  public static void acceptKayakDisclaimer()
+  {
+    setBool(KEY_MISC_KAYAK_ACCEPTED);
   }
 
   public static boolean isLocationRequested()

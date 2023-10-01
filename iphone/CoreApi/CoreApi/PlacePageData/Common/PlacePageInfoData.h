@@ -11,6 +11,7 @@ NS_ASSUME_NONNULL_BEGIN
 @property(nonatomic, readonly, nullable) NSString *phone;
 @property(nonatomic, readonly, nullable) NSURL *phoneUrl;
 @property(nonatomic, readonly, nullable) NSString *website;
+@property(nonatomic, readonly, nullable) NSString *kayak;
 @property(nonatomic, readonly, nullable) NSString *wikipedia;
 @property(nonatomic, readonly, nullable) NSString *wikimediaCommons;
 @property(nonatomic, readonly, nullable) NSString *facebook;
