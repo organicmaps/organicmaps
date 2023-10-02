@@ -16,6 +16,22 @@ enum class TextureFormat : uint8_t
   Unspecified
 };
 
+inline std::string DebugPrint(TextureFormat tf)
+{
+  switch (tf)
+  {
+  case TextureFormat::RGBA8: return "RGBA8";
+  case TextureFormat::Alpha: return "Alpha";
+  case TextureFormat::RedGreen: return "RedGreen";
+  case TextureFormat::DepthStencil: return "DepthStencil";
+  case TextureFormat::Depth: return "Depth";
+  case TextureFormat::Unspecified: return "Unspecified";
+  }
+
+  UNREACHABLE();
+  return {};
+}
+
 enum class TextureFilter : uint8_t
 {
   Nearest,

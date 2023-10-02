@@ -11,7 +11,7 @@ drape_ptr<dp::HWTextureAllocator> CreateMetalAllocator()
 ref_ptr<dp::HWTextureAllocator> GetDefaultMetalAllocator()
 {
   static dp::metal::MetalTextureAllocator allocator;
-  return make_ref<dp::HWTextureAllocator>(&allocator);
+  return make_ref(&allocator);
 }
 
 namespace dp
@@ -39,12 +39,8 @@ MTLPixelFormat UnpackFormat(TextureFormat format)
 
 drape_ptr<HWTexture> MetalTextureAllocator::CreateTexture(ref_ptr<dp::GraphicsContext> context)
 {
-  return make_unique_dp<MetalTexture>(make_ref<MetalTextureAllocator>(this));
+  return make_unique_dp<MetalTexture>(make_ref(this));
 }
-
-MetalTexture::MetalTexture(ref_ptr<MetalTextureAllocator> allocator)
-  : m_allocator(allocator)
-{}
 
 void MetalTexture::Create(ref_ptr<dp::GraphicsContext> context, Params const & params, ref_ptr<void> data)
 {
