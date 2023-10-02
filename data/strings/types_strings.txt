@@ -1903,7 +1903,7 @@
     ko = 음악 학교
     nb = Musikkskole
     nl = Muziekschool
-    pl = Szkoła Muzyczna
+    pl = Szkoła muzyczna
     pt = Escola de música
     ro = Scoala de Muzica
     ru = Музыкальная школа
@@ -3524,7 +3524,7 @@
     mr = टपालघर
     nb = Postkontor
     nl = Postkantoor
-    pl = Urząd Pocztowy
+    pl = Urząd pocztowy
     pt = Posto de correios
     pt-BR = Correios
     ro = Oficiu poștal
@@ -10453,7 +10453,7 @@
     mr = बाहेर पडा
     nb = Utgang
     nl = Ga naar
-    pl = Wyjdź
+    pl = Wyjście
     pt = Sai
     pt-BR = Sair
     ro = Ieșire
@@ -10493,7 +10493,7 @@
     mr = वैद्यकीय प्रयोगशाळा
     nb = Medisinsk laboratorium
     nl = Medisch laboratorium
-    pl = Laboratorium Medyczne
+    pl = Laboratorium medyczne
     pt = Laboratório médico
     pt-BR = Laboratório médico
     ro = Laborator medical
@@ -11629,6 +11629,7 @@
     fi = Jalankulkualue
     it = Area pedonale
     mr = पादचारी झोन
+    pl = Obszar deptaka
     ru = Пешеходная зона
     tr = Yaya Alanı
     uk = Пішохідна зона
@@ -11643,7 +11644,7 @@
     fi = Jalankulkusilta
     mr = पादचारी पूल
     nl = Voetgangersbrug
-    pl = Most pieszy
+    pl = Most dla pieszych
     pt-BR = Ponte para pedestres
     ru = Пешеходный мост
 
@@ -11657,7 +11658,7 @@
     fi = Jalankulkutunneli
     mr = पादचारी बोगदा
     nl = Voetgangerstunnel
-    pl = Tunel pieszy
+    pl = Tunel dla pieszych
     pt-BR = Túnel para pedestres
     ru = Пешеходный тоннель
 
@@ -11783,7 +11784,7 @@
     mr = रस्ता
     nb = Gate
     nl = Straat
-    pl = Ulica
+    pl = Droga lokalna
     pt = Rua residencial
     pt-BR = Rua residencial
     ro = Stradă
@@ -12058,7 +12059,7 @@
     mr = सेवा मार्ग
     nb = Service-vei
     nl = Straat
-    pl = Ulica
+    pl = Droga dojazdowa
     pt = Estrada de acesso ou serviço
     pt-BR = Estrada de acesso ou serviço
     ro = Stradă
@@ -12088,6 +12089,7 @@
     et = Sissesõidutee
     fi = Ajotie
     mr = चालकमार्ग
+    pl = Droga podjazdowa
     pt-BR = Via de acesso
     ru = Подъезд
     uk = Під'їзд
@@ -12306,7 +12308,7 @@
     mr = ट्रॅक
     nb = Traktor/Skogsbilvei
     nl = Straat
-    pl = Droga polna/leśna
+    pl = Droga na pola lub do lasu
     pt = Carreiro florestal ou agrícola
     pt-BR = Estrada rústica
     ro = Stradă
@@ -12592,7 +12594,7 @@
     mr = ऐतिहासिक
     nb = Historisk gjenstand
     nl = Historisch object
-    pl = Historyczne
+    pl = Obiekt historyczny
     pt = Objeto histórico
     ro = Obiect istoric
     ru = Исторический объект
@@ -16533,7 +16535,7 @@
     mr = पाण्याचा नळ
     nb = Vannkran
     nl = Waterkraan
-    pl = Woda pitna
+    pl = Kran z wodą
     pt = Torneira de água
     pt-BR = Torneira de água
     ro = Robinet cu apă
@@ -25203,7 +25205,7 @@
     mr = वाईन विक्रेता
     nb = Alkoholutsalg
     nl = Wijnhandel
-    pl = Sklep monopolowy
+    pl = Sklep z winami
     pt = Loja de vinhos
     pt-BR = Loja de vinhos
     ro = Vinărie
