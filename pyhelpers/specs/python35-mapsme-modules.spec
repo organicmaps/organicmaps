@@ -82,7 +82,7 @@ cd ..
 %{__mkdir_p} build && cd build
 # TODO(mgergio, yershov): Why should we stills specify PYTHON_LIBRARY and
 # PYTHON_INCLUDE_DIR manually?
-%{__cmake3} -DPYTHON_LIBRARY=/usr/local/python35/lib/libpython3.so -DPYTHON_INCLUDE_DIR=/usr/local/python35/include/python3.5m/ -DBOOST_INCLUDEDIR=/usr/local/boost_1.54.0/include/ -DPYBINDINGS=ON -DSKIP_DESKTOP=ON ../omim
+%{__cmake3} -DPYTHON_LIBRARY=/usr/local/python35/lib/libpython3.so -DPYTHON_INCLUDE_DIR=/usr/local/python35/include/python3.5m/ -DBOOST_INCLUDEDIR=/usr/local/boost_1.54.0/include/ -DPYBINDINGS=ON -DSKIP_QT_GUI=ON ../omim
 %{__make} %{?_smp_mflags} %{project}
 
 %install

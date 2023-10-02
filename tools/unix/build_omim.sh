@@ -5,7 +5,7 @@ set -eu
 OPT_DEBUG=
 OPT_RELEASE=
 OPT_CLEAN=
-OPT_SKIP_DESKTOP=
+OPT_SKIP_QT_GUI=
 OPT_DESIGNER=
 OPT_GCC=
 OPT_TARGET=
@@ -30,8 +30,8 @@ while getopts ":cdrxstagjlpn:" opt; do
       ;;
     p) OPT_PATH="$OPTARG" ;;
     r) OPT_RELEASE=1 ;;
-    s) OPT_SKIP_DESKTOP=1
-       CMAKE_CONFIG="${CMAKE_CONFIG:-} -DSKIP_DESKTOP=ON"
+    s) OPT_SKIP_QT_GUI=1
+       CMAKE_CONFIG="${CMAKE_CONFIG:-} -DSKIP_QT_GUI=ON"
       ;;
     t) OPT_DESIGNER=1 ;;
     *)
@@ -57,11 +57,11 @@ while getopts ":cdrxstagjlpn:" opt; do
   esac
 done
 
-[ -n "$OPT_DESIGNER" -a -n "$OPT_SKIP_DESKTOP" ] &&
+[ -n "$OPT_DESIGNER" -a -n "$OPT_SKIP_QT_GUI" ] &&
 echo "Can't skip desktop and build designer tool simultaneously" &&
 exit 2
 
-[ -n "$OPT_STANDALONE" -a -n "$OPT_SKIP_DESKTOP" ] &&
+[ -n "$OPT_STANDALONE" -a -n "$OPT_SKIP_QT_GUI" ] &&
 echo "Can't skip desktop and build standalone desktop app simultaneously" &&
 exit 2
 
