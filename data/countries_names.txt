@@ -53914,34 +53914,34 @@
   el = Άνταμς Τάουν
 
 [Poland_Greater Poland Voivodeship Description]
-  en = Poznan, Kalisz, Jaraczewo
+  en = Poznan, Kalisz, Piła, Konin
   ru = Познань, Калишь
   cs = Poznaň
   de = Posen, Kalisch
   hu = Poznań
   ja = ポズナン, カリシュ
-  pl = Poznań
+  pl = Poznań, Kalisz, Piła, Konin
   uk = Познань, Каліш
   el = Πόζναν, Καλίσζ, Ζαρατσέβο
   he = פוזנן, קאַליש
   sk = Poznaň
 
 [Poland_Kuyavian-Pomeranian Voivodeship Description]
-  en = Bydgoszcz, Toruń, Włocławek
+  en = Bydgosz, Toruń, Włocławek, Grudziądz
   ru = Быдгощ, Торунь, Влоцлавек
   ar = بيدغوز
   cs = Bydhošť
   de = Bromberg, Thorn, Leslau
   ja = ブィドゴシュチュ, トルン, ヴウォツワヴェク
   ko = 비드고슈치
-  pl = Włocławek
+  pl = Bydgosz, Toruń, Włocławek, Grudziądz
   uk = Бидгощ, Торунь, Влоцлавек
   el = Μπιντγκός, Τορούν, Βλόκλαβεκ
   he = בידגושץ, טורון
   sk = Toruň
 
 [Poland_Lesser Poland Voivodeship Description]
-  en = Krakow, Tarnów, Nowy Sącz
+  en = Kraków, Tarnów, Nowy Sącz, Oświęcim
   ru = Краков, Тарнув, Новы-Сонч
   cs = Krakov, Nový Sadec
   nl = Krakau
@@ -53951,6 +53951,7 @@
   hu = Krakkó, Újszandec
   it = Cracovia
   ja = クラクフ, タルヌフ, ノヴィ・ソンチ
+  pl = Kraków, Tarnów, Nowy Sącz, Oświęcim
   pt = Cracóvia
   ro = Cracovia
   es = Cracovia
@@ -53959,19 +53960,20 @@
   sk = Krakov
 
 [Poland_Lodz Voivodeship Description]
-  en = Łódź, Piotrków Trybunalski, Pabianice
+  en = Łódź, Piotrków Trybunalski, Pabianice, Tomaszów Mazowiecki
   ru = Лодзь, Пётркув-Трыбунальски, Пабьянице
   cs = Lodž
   de = Lodz, Petrikau, Pabianitz
   ja = ウッチ, ピョートルクフ・トルィブナルスキ
   ko = 우치
-  pl = Piotrków Trybunalski, Pabianice
+  pl = Łódź, Piotrków Trybunalski, Pabianice, Tomaszów Mazowiecki
   uk = Лодзь, Паб’яніце
   el = Λοντζ, Πιοτρκόβ Τριμπουνάλσκι, Πανπιάνιτσε
 
 [Poland_Lower Silesian Voivodeship Description]
-  en = Wrocław, Wałbrzych, Legnica
+  en = Wrocław, Wałbrzych, Legnica, Jelenia Góra
   ru = Вроцлав, Валбжих
+  pl = Wrocław, Wałbrzych, Legnica, Jelenia Góra
   ar = فروتزواف
   cs = Vratislav, Valbřich
   fr = Wroclaw
@@ -53990,7 +53992,7 @@
   ru = Люблин, Хелм, Замосць
   de = Zamosch
   ja = ルブリン, ヘウム, ザモシチ
-  pl = Lublin
+  pl = Lublin, Puławy, Biała Podlaska, Zamość
   uk = Люблін, Холм, Замостя
   zh-Hant = 扎莫希奇
   el = Λούμπλιν, Χελμ, Ζάμοσκ
@@ -54000,6 +54002,7 @@
   en = Gorzów Wielkopolski, Zielona Góra, Lubniewice
   ru = Гожув-Велькопольски, Зелёна-Гура
   de = Landsberg an der Warthe, Grünberg in Schlesien, Königswalde
+  pl = Zielona Góra, Gorzów Wielkopolski, Nowa Sól, Żary
   hu = Zielona Góra
   ja = ゴジュフ・ヴィエルコポルスキ, ジェロナ・グラ
   uk = Ґожув-Велькопольський, Зелена Гура
@@ -54020,7 +54023,7 @@
   it = Varsavia
   ja = ワルシャワ, ラドム, プウォツク
   ko = 바르샤바
-  pl = Warszawa
+  pl = Warszawa, Radom, Płock, Siedlce
   pt = Varsóvia
   ro = Varșovia
   es = Varsovia
@@ -54035,7 +54038,8 @@
   sk = Varšava
 
 [Poland_Opole Voivodeship Description]
-  en = Opole, Biała, Baborów
+  en = Opole, Kędzierzyn-Kożle, Nysa, Brzeg
+  pl = Opole, Kędzierzyn-Kożle, Nysa, Brzeg
   ru = Ополе, Бяла, Баборув
   cs = Opolí, Bavorov
   de = Oppeln, Zülz, Bauerwitz
@@ -54045,6 +54049,7 @@
 
 [Poland_Podlaskie Voivodeship Description]
   en = Białystok, Czyżew, Suwałki
+  pl = Białystok, Suwałki, Łomża, Augustów
   ru = Белосток, Чижев, Сувалки
   de = Bialystok, Suwalken
   ja = ビャウィストク, スヴァウキ
@@ -54060,7 +54065,7 @@
   hu = Gdańsk, Gdynia
   it = Danzica
   ja = グダニスク, グディニャ, スウプスク
-  pl = Słupsk
+  pl = Gdańsk, Gdynia, Słupsk, Tczew
   uk = Гданськ, Гдиня, Слупськ
   el = Γκντανσκ, Γκντίνια, Στούπσκ
   he = גדנסק, גדיניה
@@ -54074,7 +54079,7 @@
   de = Kattowitz, Tschenstochau, Sosnowitz
   ja = カトヴィツェ, チェンストホヴァ, ソスノヴィエツ
   ko = 카토비체, 소스노비에츠
-  pl = Częstochowa
+  pl = Katowice, Częstochowa, Sosnowiec, Bielsko-Biała
   th = คาโตวีตเซ
   uk = Катовіце, Ченстохова, Сосновець
   zh-Hant = 索斯诺维茨
@@ -54084,6 +54089,7 @@
 
 [Poland_Subcarpathian Voivodeship Description]
   en = Rzeszów, Jedlicze, Dynów
+  pl = Rzeszów, Mielec, Przemyśl, Stalowa Wola
   ru = Жешув, Едличе, Дынув
   cs = Řešov
   de = Dünhof
@@ -54099,7 +54105,7 @@
   hu = Kielce
   ja = キェルツェ
   ko = 키엘체
-  pl = Ostrowiec Świętokrzyski
+  pl = Kielce, Ostrowiec Świętokrzyski, Starachowice, Sandomierz
   uk = Кельце, Островець-Свентокшиський, Стараховіце
   el = Κέλτσε, Όστροβιτς Σβιετοκρίσκι, Σταρατσόβιτσε
   he = קיילצה
@@ -54110,7 +54116,7 @@
   cs = Olštýn
   de = Allenstein, Elbing, Lyck
   ja = オルシュティン, エルブロンク, エウク
-  pl = Ełk
+  pl = Olsztyn Elbląg, Ełk, Iława
   th = เอลก์
   uk = Ольштин, Ельблонг, Елк
   zh-Hant = 埃烏克
@@ -54119,6 +54125,7 @@
 
 [Poland_West Pomeranian Voivodeship Description]
   en = Szczecin, Koszalin, Redło
+  pl = Szczecin, Koszalin, Stargard, Kołobrzeg
   ru = Щецин, Кошалин
   ar = شتتين
   cs = Štětín
