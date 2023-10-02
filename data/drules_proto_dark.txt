@@ -38506,43 +38506,43 @@ cont {
   element {
     scale: 10
     area {
-      color: 1381632
-      priority: -1920
+      color: 2171142
+      priority: -1919
     }
   }
   element {
     scale: 11
     area {
-      color: 1381632
-      priority: -1920
+      color: 2171142
+      priority: -1919
     }
   }
   element {
     scale: 12
     area {
-      color: 1381632
-      priority: -1920
+      color: 2171142
+      priority: -1919
     }
   }
   element {
     scale: 13
     area {
-      color: 1381632
-      priority: -1920
+      color: 2171142
+      priority: -1919
     }
   }
   element {
     scale: 14
     area {
-      color: 1381632
-      priority: -1920
+      color: 2171142
+      priority: -1919
     }
   }
   element {
     scale: 15
     area {
-      color: 1381632
-      priority: -1920
+      color: 2171142
+      priority: -1919
     }
     caption {
       primary {
@@ -38555,8 +38555,8 @@ cont {
   element {
     scale: 16
     area {
-      color: 1381632
-      priority: -1920
+      color: 2171142
+      priority: -1919
     }
     caption {
       primary {
@@ -38569,8 +38569,8 @@ cont {
   element {
     scale: 17
     area {
-      color: 1381632
-      priority: -1920
+      color: 2171142
+      priority: -1919
     }
     caption {
       primary {
@@ -38583,8 +38583,8 @@ cont {
   element {
     scale: 18
     area {
-      color: 1381632
-      priority: -1920
+      color: 2171142
+      priority: -1919
     }
     caption {
       primary {
@@ -38597,8 +38597,8 @@ cont {
   element {
     scale: 19
     area {
-      color: 1381632
-      priority: -1920
+      color: 2171142
+      priority: -1919
     }
     caption {
       primary {
@@ -39866,60 +39866,37 @@ cont {
 cont {
   name: "landuse-garages"
   element {
-    scale: 14
-    area {
-      color: 2150246954
-      priority: 110
-    }
-  }
-  element {
     scale: 15
     area {
-      color: 1714039338
+      color: 1643545
       priority: 110
     }
   }
   element {
     scale: 16
     area {
-      color: 858401322
-      border {
-        width: 1.0
-        color: 3158064
-      }
+      color: 1643545
       priority: 110
     }
   }
   element {
     scale: 17
     area {
-      color: 3881787
-      border {
-        width: 1.0
-        color: 4671303
-      }
+      color: 1643545
       priority: 110
     }
   }
   element {
     scale: 18
     area {
-      color: 3881787
-      border {
-        width: 1.0
-        color: 4671303
-      }
+      color: 1643545
       priority: 110
     }
   }
   element {
     scale: 19
     area {
-      color: 3881787
-      border {
-        width: 1.0
-        color: 4671303
-      }
+      color: 1643545
       priority: 110
     }
   }
