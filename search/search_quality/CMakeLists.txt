@@ -19,7 +19,7 @@ target_link_libraries(${PROJECT_NAME}
   indexer
 )
 
-if (NOT SKIP_DESKTOP)
+if (NOT SKIP_QT_GUI)
   omim_add_tool_subdirectory(assessment_tool)
 endif()
 

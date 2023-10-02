@@ -378,7 +378,7 @@ class BuildOmimBindingCommand(build_ext, object):
             spawn(
                 [
                     cmake,
-                    '-DSKIP_DESKTOP=1',
+                    '-DSKIP_QT_GUI=1',
                     '-DPYBINDINGS=ON',
                     '-DPYBINDINGS_VERSION={}'.format(get_version()),
                     '-DPYTHON_EXECUTABLE={}'.format(sys.executable),
