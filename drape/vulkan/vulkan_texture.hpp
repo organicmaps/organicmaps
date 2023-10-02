@@ -24,7 +24,7 @@ class VulkanTexture : public HWTexture
 {
   using Base = HWTexture;
 public:
-  explicit VulkanTexture(ref_ptr<VulkanTextureAllocator> allocator);
+  explicit VulkanTexture(ref_ptr<VulkanTextureAllocator>) {}
   ~VulkanTexture() override;
 
   void Create(ref_ptr<dp::GraphicsContext> context, Params const & params,
@@ -38,9 +38,8 @@ public:
   VkImageView GetTextureView() const { return m_textureObject.m_imageView; }
   VkImage GetImage() const { return m_textureObject.m_image; }
   SamplerKey GetSamplerKey() const;
-  
+
 private:
-  ref_ptr<VulkanTextureAllocator> m_allocator;
   ref_ptr<VulkanObjectManager> m_objectManager;
   VulkanObject m_textureObject;
   mutable drape_ptr<VulkanStagingBuffer> m_creationStagingBuffer;

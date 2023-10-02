@@ -106,7 +106,7 @@ void HWTextureAllocatorApple::RiseFlushFlag()
 drape_ptr<HWTexture> HWTextureAllocatorApple::CreateTexture(ref_ptr<dp::GraphicsContext> context)
 {
   UNUSED_VALUE(context);
-  return make_unique_dp<HWTextureApple>(make_ref<HWTextureAllocatorApple>(this));
+  return make_unique_dp<HWTextureApple>(make_ref(this));
 }
 
 void HWTextureAllocatorApple::Flush()

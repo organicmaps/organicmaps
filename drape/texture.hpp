@@ -45,7 +45,7 @@ public:
   };
 
   Texture() = default;
-  virtual ~Texture();
+  virtual ~Texture() = default;
 
   virtual ref_ptr<ResourceInfo> FindResource(Key const & key, bool & newResource) = 0;
   virtual void UpdateState(ref_ptr<dp::GraphicsContext> context) {}
@@ -69,7 +69,7 @@ public:
                       ref_ptr<void> data);
   void UploadData(ref_ptr<dp::GraphicsContext> context, uint32_t x, uint32_t y,
                   uint32_t width, uint32_t height, ref_ptr<void> data);
-  
+
   ref_ptr<HWTexture> GetHardwareTexture() const;
 
   static bool IsPowerOfTwo(uint32_t width, uint32_t height);
