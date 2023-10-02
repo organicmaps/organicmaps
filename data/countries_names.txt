@@ -53927,14 +53927,14 @@
   sk = Poznaň
 
 [Poland_Kuyavian-Pomeranian Voivodeship Description]
-  en = Bydgosz, Toruń, Włocławek, Grudziądz
+  en = Bydgoszcz, Toruń, Włocławek, Grudziądz
   ru = Быдгощ, Торунь, Влоцлавек
   ar = بيدغوز
   cs = Bydhošť
   de = Bromberg, Thorn, Leslau
   ja = ブィドゴシュチュ, トルン, ヴウォツワヴェク
   ko = 비드고슈치
-  pl = Bydgosz, Toruń, Włocławek, Grudziądz
+  pl = Bydgoszcz, Toruń, Włocławek, Grudziądz
   uk = Бидгощ, Торунь, Влоцлавек
   el = Μπιντγκός, Τορούν, Βλόκλαβεκ
   he = בידגושץ, טורון
