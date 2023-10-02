@@ -22652,6 +22652,51 @@ cont {
   }
 }
 cont {
+  name: "landuse-farmyard"
+  element {
+    scale: 14
+    area {
+      color: 15260347
+      priority: -1929
+    }
+  }
+  element {
+    scale: 15
+    area {
+      color: 15260347
+      priority: -1929
+    }
+  }
+  element {
+    scale: 16
+    area {
+      color: 15260347
+      priority: -1929
+    }
+  }
+  element {
+    scale: 17
+    area {
+      color: 15260347
+      priority: -1929
+    }
+  }
+  element {
+    scale: 18
+    area {
+      color: 15260347
+      priority: -1929
+    }
+  }
+  element {
+    scale: 19
+    area {
+      color: 15260347
+      priority: -1929
+    }
+  }
+}
+cont {
   name: "landuse-field"
   element {
     scale: 14
@@ -23849,55 +23894,35 @@ cont {
   element {
     scale: 15
     area {
-      color: 1523897290
-      border {
-        width: 1.0
-        color: 13947850
-      }
+      color: 14802147
       priority: 90
     }
   }
   element {
     scale: 16
     area {
-      color: 1943327690
-      border {
-        width: 1.0
-        color: 13947850
-      }
+      color: 14802147
       priority: 90
     }
   }
   element {
     scale: 17
     area {
-      color: 1943327690
-      border {
-        width: 1.0
-        color: 13947850
-      }
+      color: 14802147
       priority: 90
     }
   }
   element {
     scale: 18
     area {
-      color: 1943327690
-      border {
-        width: 1.0
-        color: 13947850
-      }
+      color: 14802147
       priority: 90
     }
   }
   element {
     scale: 19
     area {
-      color: 1943327690
-      border {
-        width: 1.0
-        color: 13947850
-      }
+      color: 14802147
       priority: 90
     }
   }
