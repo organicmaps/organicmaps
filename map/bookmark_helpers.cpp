@@ -197,7 +197,7 @@ std::map<std::string, BookmarkMatchInfo> const kFeatureTypeToBookmarkMatchInfo =
 
 void ValidateKmlData(kml::FileData & data)
 {
-  for (auto & t : data->m_tracksData)
+  for (auto & t : data.m_tracksData)
   {
     if (t.m_layers.empty())
       t.m_layers.emplace_back(kml::KmlParser::GetDefaultTrackLayer());
@@ -360,11 +360,11 @@ std::string GetKMLPath(std::string const & filePath)
   else if (fileExt == kKmbExtension)
   {
     auto kmlData = LoadKmlFile(filePath, KmlFileType::Binary);
-    if (kmlData == nullptr)
+    if (!kmlData)
       return {};
 
     fileSavePath = GenerateValidAndUniqueFilePathForKML(base::FileNameFromFullPath(filePath));
-    if (!SaveKmlFileByExt(*kmlData, fileSavePath))
+    if (!SaveKmlFileByExt(kmlData.value(), fileSavePath))
       return {};
   }
   else if (fileExt == kKmzExtension)

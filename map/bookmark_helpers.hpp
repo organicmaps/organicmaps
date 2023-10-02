@@ -69,7 +69,7 @@ std::string_view constexpr kKmzExtension = ".kmz";
 std::string_view constexpr kKmlExtension = ".kml";
 std::string_view constexpr kKmbExtension = ".kmb";
 std::string_view constexpr kGpxExtension = ".gpx";
-extern std::string const kDefaultBookmarksFileName;
+std::string_view constexpr kDefaultBookmarksFileName = "Bookmarks";
 
 enum class KmlFileType
 {
@@ -99,8 +99,8 @@ std::string GenerateValidAndUniqueFilePathForKML(std::string const & fileName);
 
 /// @name SerDes helpers.
 /// @{
-std::unique_ptr<kml::FileData> LoadKmlFile(std::string const & file, KmlFileType fileType);
-std::unique_ptr<kml::FileData> LoadKmlData(Reader const & reader, KmlFileType fileType);
+std::optional<kml::FileData> LoadKmlFile(std::string const & file, KmlFileType fileType);
+kml::FileData LoadKmlData(Reader const & reader, KmlFileType fileType);
 
 std::string GetKMLPath(std::string const & filePath);
 std::string GetLowercaseFileExt(std::string const & filePath);

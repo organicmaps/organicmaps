@@ -1806,13 +1806,13 @@ BookmarkManager::KMLDataCollectionPtr BookmarkManager::LoadBookmarks(
   {
     auto const filePath = base::JoinPath(dir, file);
     auto kmlData = LoadKmlFile(filePath, fileType);
-    if (kmlData == nullptr)
+    if (!kmlData)
       continue;
-    if (checker && !checker(*kmlData))
+    if (checker && !checker(kmlData.value()))
       continue;
     if (m_needTeardown)
       break;
-    collection->emplace_back(filePath, std::move(kmlData));
+    collection->emplace_back(filePath, std::make_unique<kml::FileData>(std::move(kmlData.value())));
   }
   return collection;
 }
@@ -1868,7 +1868,7 @@ void BookmarkManager::LoadBookmarkRoutine(std::string const & filePath, bool isT
     if (!fileSavePath.empty())
     {
       auto const ext = GetLowercaseFileExt(filePath);
-      std::unique_ptr<kml::FileData> kmlData;
+      std::optional<kml::FileData> kmlData;
       if (ext == ".kml" || ext == ".kmz")
         kmlData = LoadKmlFile(fileSavePath, KmlFileType::Text);
       else if (ext == ".gpx")
@@ -1888,10 +1888,10 @@ void BookmarkManager::LoadBookmarkRoutine(std::string const & filePath, bool isT
         base::DeleteFileX(fileSavePath);
         fileSavePath = GenerateValidAndUniqueFilePathForKML(base::GetNameFromFullPathWithoutExt(std::move(fileSavePath)));
 
-        if (!SaveKmlFileSafe(*kmlData, fileSavePath, KmlFileType::Text))
+        if (!SaveKmlFileSafe(kmlData.value(), fileSavePath, KmlFileType::Text))
           base::DeleteFileX(fileSavePath);
         else
-          collection->emplace_back(std::move(fileSavePath), std::move(kmlData));
+          collection->emplace_back(std::move(fileSavePath), std::unique_ptr<kml::FileData>(&kmlData.value()));
       }
     }
 

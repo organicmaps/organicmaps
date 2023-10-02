@@ -175,8 +175,8 @@ void Screenshoter::PrepareToProcessKml()
 void Screenshoter::ProcessNextKml()
 {
   std::string const postfix = "_" + languages::GetCurrentNorm();
-  std::unique_ptr<kml::FileData> kmlData;
-  while (kmlData == nullptr && !m_filesToProcess.empty())
+  std::optional<kml::FileData> kmlData;
+  while (!kmlData && !m_filesToProcess.empty())
   {
     auto const filePath = m_filesToProcess.front();
     m_filesToProcess.pop_front();
@@ -184,11 +184,11 @@ void Screenshoter::ProcessNextKml()
 
     ChangeState(State::LoadKml);
     kmlData = LoadKmlFile(filePath, KmlFileType::Text);
-    if (kmlData != nullptr && kmlData->m_bookmarksData.empty() && kmlData->m_tracksData.empty())
+    if (kmlData && kmlData->m_bookmarksData.empty() && kmlData->m_tracksData.empty())
       kmlData.reset();
   }
 
-  if (kmlData == nullptr)
+  if (!kmlData)
   {
     ChangeState(State::Done);
     return;
@@ -197,7 +197,7 @@ void Screenshoter::ProcessNextKml()
   kmlData->m_categoryData.m_visible = true;
 
   BookmarkManager::KMLDataCollection collection;
-  collection.emplace_back("", std::move(kmlData));
+  collection.emplace_back("", std::make_unique<kml::FileData>(std::move(kmlData.value())));
 
   auto & bookmarkManager = m_framework.GetBookmarkManager();
   auto es = bookmarkManager.GetEditSession();
