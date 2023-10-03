@@ -900,9 +900,9 @@ node|z18-[amenity=parking],
 area|z18-[amenity=parking],
 {font-size: 14.5;}
 
-node|z16-[amenity=parking][location=underground],
-area|z16-[amenity=parking][location=underground],
-{icon-image:parking_underground-m.svg;}
+node|z15-[amenity=parking][location=underground],
+area|z15-[amenity=parking][location=underground],
+{icon-image: parking_underground-m.svg;}
 
 /* no icon as these subtypes should display later */
 node|z15-[amenity=parking][access=private],
