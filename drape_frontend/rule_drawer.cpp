@@ -306,8 +306,8 @@ void RuleDrawer::ProcessAreaStyle(FeatureType & f, Stylist const & s, TInsertSha
                          areaMinHeight, areaHeight, f.GetRank(),
                          s.GetCaptionDescription());
   f.ForEachTriangle(apply, zoomLevel);
-  if (applyPointStyle)
-    apply(featureCenter, true /* hasArea */);
+  //if (applyPointStyle)
+  //  apply(featureCenter, true /* hasArea */);
 
   if (CheckCancelled())
     return;
@@ -335,8 +335,8 @@ void RuleDrawer::ProcessAreaStyle(FeatureType & f, Stylist const & s, TInsertSha
   s.ForEachRule(std::bind(&ApplyAreaFeature::ProcessAreaRule, &apply, _1));
 
   /// @todo Can we put this check in the beginning of this function?
-  if (!IsDiscardCustomFeature(f.GetID()))
-    apply.Finish(m_context->GetTextureManager());
+  //if (!IsDiscardCustomFeature(f.GetID()))
+  //  apply.Finish(m_context->GetTextureManager());
 }
 
 void RuleDrawer::ProcessLineStyle(FeatureType & f, Stylist const & s, TInsertShapeFn const & insertShape)
@@ -344,6 +344,8 @@ void RuleDrawer::ProcessLineStyle(FeatureType & f, Stylist const & s, TInsertSha
   int const zoomLevel = m_context->GetTileKey().m_zoomLevel;
   bool const smooth = ftypes::IsIsolineChecker::Instance()(f);
 
+  //if (f.GetID().m_index == 1044) //pastk
+  //  LOG(LINFO, ("POINTS z", zoomLevel, f.DebugString(10, false), "pts:", f.GetPointsCount()));
   ApplyLineFeatureGeometry applyGeom(m_context->GetTileKey(), insertShape, f.GetID(), m_currentScaleGtoP,
                                      f.GetRank(), f.GetPointsCount(), smooth);
   f.ForEachPoint(applyGeom, zoomLevel);
@@ -378,6 +380,7 @@ void RuleDrawer::ProcessLineStyle(FeatureType & f, Stylist const & s, TInsertSha
     m_usedMetalines.insert(metalineSpline.Get());
   }
 
+  needAdditional = false;
   if (needAdditional && !clippedSplines.empty())
   {
     ApplyLineFeatureAdditional applyAdditional(m_context->GetTileKey(), insertShape, f.GetID(), m_currentScaleGtoP,
@@ -499,7 +502,7 @@ void RuleDrawer::operator()(FeatureType & f)
   else
   {
     ASSERT(s.m_pointStyleExists, ());
-    ProcessPointStyle(f, s, insertShape);
+    //ProcessPointStyle(f, s, insertShape);
   }
 
   if (CheckCancelled())

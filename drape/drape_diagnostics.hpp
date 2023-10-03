@@ -1,6 +1,6 @@
 #pragma once
 
-//#define DRAW_TILE_NET
+#define DRAW_TILE_NET
 //#define DEBUG_OVERLAYS_OUTPUT
 
 //#define CHECK_VBO_BOUNDS

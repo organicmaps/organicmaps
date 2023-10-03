@@ -687,6 +687,7 @@ ApplyLineFeatureGeometry::ApplyLineFeatureGeometry(TileKey const & tileKey, TIns
   , m_currentScaleGtoP(static_cast<float>(currentScaleGtoP))
   , m_minSegmentSqrLength(base::Pow2(4.0 * df::VisualParams::Instance().GetVisualScale() / currentScaleGtoP))
   , m_simplify(tileKey.m_zoomLevel >= 10 && tileKey.m_zoomLevel <= 12)
+  //, m_simplify(false)
   , m_smooth(smooth)
   , m_initialPointsCount(pointsCount)
 #ifdef LINES_GENERATION_CALC_FILTERED_POINTS
@@ -995,8 +996,8 @@ void ApplyLineFeatureAdditional::Finish(ref_ptr<dp::TextureManager> texMng,
     params.m_featureId = m_id;
     params.m_depth = m_captionDepth;
     params.m_rank = m_rank;
-    params.m_mainText = m_captions.GetMainText();
-    params.m_auxText = m_captions.GetAuxText();
+    //params.m_mainText = m_captions.GetMainText(); //pastk
+    //params.m_auxText = m_captions.GetAuxText();
     params.m_textFont = fontDecl;
     params.m_baseGtoPScale = m_currentScaleGtoP;
 

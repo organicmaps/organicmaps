@@ -54,6 +54,8 @@ private:
 struct BaseBuilderParams
 {
   dp::TextureManager::ColorRegion m_color;
+  dp::TextureManager::ColorRegion m_capColor;
+  dp::TextureManager::ColorRegion m_joinColor;
   float m_pxHalfWidth;
   float m_depth;
   bool m_depthTestEnabled;
@@ -69,9 +71,12 @@ public:
   BaseLineBuilder(BaseBuilderParams const & params, size_t geomsSize, size_t joinsSize)
     : m_params(params)
     , m_colorCoord(glsl::ToVec2(params.m_color.GetTexRect().Center()))
+    , m_capColorCoord(glsl::ToVec2(params.m_capColor.GetTexRect().Center()))
+    , m_joinColorCoord(glsl::ToVec2(params.m_joinColor.GetTexRect().Center()))
   {
     m_geometry.reserve(geomsSize);
     m_joinGeom.reserve(joinsSize);
+    m_params.m_cap = dp::LineCap::RoundCap; //pastk
   }
 
   dp::BindingInfo const & GetBindingInfo() override
@@ -88,7 +93,7 @@ public:
   {
     return static_cast<uint32_t>(m_geometry.size());
   }
-
+  /*
   ref_ptr<void> GetJoinData() override
   {
     return make_ref(m_joinGeom.data());
@@ -98,6 +103,7 @@ public:
   {
     return static_cast<uint32_t>(m_joinGeom.size());
   }
+  */
 
   float GetHalfWidth()
   {
@@ -114,12 +120,27 @@ public:
     return GetState();
   }
 
+  dp::RenderState GetJoinState() override
+  {
+    return GetState();
+  }
+
   ref_ptr<void> GetCapData() override
   {
     return ref_ptr<void>();
   }
 
   uint32_t GetCapSize() override
+  {
+    return 0;
+  }
+
+  ref_ptr<void> GetJoinData() override
+  {
+    return ref_ptr<void>();
+  }
+
+  uint32_t GetJoinSize() override
   {
     return 0;
   }
@@ -134,10 +155,12 @@ protected:
   using TGeometryBuffer = gpu::VBReservedSizeT<V>;
 
   TGeometryBuffer m_geometry;
-  TGeometryBuffer m_joinGeom;
+  TGeometryBuffer m_joinGeom; //pastk not used??
 
   BaseBuilderParams m_params;
   glsl::vec2 const m_colorCoord;
+  glsl::vec2 const m_capColorCoord; //pastk
+  glsl::vec2 const m_joinColorCoord;
 };
 
 class SolidLineBuilder : public BaseLineBuilder<gpu::LineVertex>
@@ -175,7 +198,7 @@ public:
   dp::RenderState GetState() override
   {
     auto state = CreateRenderState(gpu::Program::Line, m_params.m_depthLayer);
-    state.SetColorTexture(m_params.m_color.GetTexture());
+    state.SetColorTexture(m_params.m_capColor.GetTexture()); //pastk
     state.SetDepthTestEnabled(m_params.m_depthTestEnabled);
     return state;
   }
@@ -206,7 +229,19 @@ public:
 
     auto state = CreateRenderState(gpu::Program::CapJoin, m_params.m_depthLayer);
     state.SetDepthTestEnabled(m_params.m_depthTestEnabled);
-    state.SetColorTexture(m_params.m_color.GetTexture());
+    state.SetColorTexture(m_params.m_capColor.GetTexture()); //pastk
+    state.SetDepthFunction(dp::TestFunction::Less);
+    return state;
+  }
+
+  dp::RenderState GetJoinState() override
+  {
+    if (m_params.m_cap == dp::ButtCap)
+      return TBase::GetCapState();
+
+    auto state = CreateRenderState(gpu::Program::CapJoin, m_params.m_depthLayer);
+    state.SetDepthTestEnabled(m_params.m_depthTestEnabled);
+    state.SetColorTexture(m_params.m_joinColor.GetTexture()); //pastk
     state.SetDepthFunction(dp::TestFunction::Less);
     return state;
   }
@@ -221,6 +256,16 @@ public:
     return static_cast<uint32_t>(m_capGeometry.size());
   }
 
+  ref_ptr<void> GetJoinData() override
+  {
+    return make_ref<void>(m_jGeometry.data());
+  }
+
+  uint32_t GetJoinSize() override
+  {
+    return static_cast<uint32_t>(m_jGeometry.size());
+  }
+
   void SubmitVertex(glsl::vec3 const & pivot, glsl::vec2 const & normal, bool isLeft)
   {
     float const halfWidth = GetHalfWidth();
@@ -229,36 +274,41 @@ public:
 
   void SubmitJoin(glsl::vec2 const & pos)
   {
-    if (m_params.m_join == dp::RoundJoin)
-      CreateRoundCap(pos);
+    //if (m_params.m_join == dp::RoundJoin)
+      CreateRoundCap(pos, false);
   }
 
   void SubmitCap(glsl::vec2 const & pos)
   {
-    if (m_params.m_cap != dp::ButtCap)
-      CreateRoundCap(pos);
+    //if (m_params.m_cap != dp::ButtCap) /pastk
+      CreateRoundCap(pos, true);
   }
 
 private:
-  void CreateRoundCap(glsl::vec2 const & pos)
+  void CreateRoundCap(glsl::vec2 const & pos, bool isCap)
   {
     // Here we use an equilateral triangle to render circle (incircle of a triangle).
     static float const kSqrt3 = sqrt(3.0f);
+    float const size = isCap ? 2.0f : 1.6f;
     float const radius = GetHalfWidth();
+    auto const color = isCap ? m_capColorCoord : m_joinColorCoord;
+    auto bucket = isCap ? &m_capGeometry : &m_jGeometry;
+    float const depth = isCap ? dp::kMaxDepth : dp::kMaxDepth - 1;
 
-    m_capGeometry.emplace_back(CapVertex::TPosition(pos, m_params.m_depth),
-                               CapVertex::TNormal(-radius * kSqrt3, -radius, radius),
-                               CapVertex::TTexCoord(m_colorCoord));
-    m_capGeometry.emplace_back(CapVertex::TPosition(pos, m_params.m_depth),
-                               CapVertex::TNormal(radius * kSqrt3, -radius, radius),
-                               CapVertex::TTexCoord(m_colorCoord));
-    m_capGeometry.emplace_back(CapVertex::TPosition(pos, m_params.m_depth),
-                               CapVertex::TNormal(0, 2.0f * radius, radius),
-                               CapVertex::TTexCoord(m_colorCoord));
+    bucket->emplace_back(CapVertex::TPosition(pos, depth),
+                               CapVertex::TNormal(-radius * kSqrt3 * size, -radius * size, radius * size),
+                               CapVertex::TTexCoord(color));
+    bucket->emplace_back(CapVertex::TPosition(pos, depth),
+                               CapVertex::TNormal(radius * kSqrt3 * size, -radius * size, radius * size),
+                               CapVertex::TTexCoord(color));
+    bucket->emplace_back(CapVertex::TPosition(pos, depth),
+                               CapVertex::TNormal(0, 2.0f * radius * size, radius * size),
+                               CapVertex::TTexCoord(color));
   }
 
 private:
   TCapBuffer m_capGeometry;
+  TCapBuffer m_jGeometry;
 };
 
 class SimpleSolidLineBuilder : public BaseLineBuilder<gpu::AreaVertex>
@@ -427,8 +477,8 @@ void LineShape::Construct<SolidLineBuilder>(SolidLineBuilder & builder) const
   // skip joins generation
   float const kJoinsGenerationThreshold = 2.5f;
   bool generateJoins = true;
-  if (builder.GetHalfWidth() <= kJoinsGenerationThreshold)
-    generateJoins = false;
+  //if (builder.GetHalfWidth() <= kJoinsGenerationThreshold) //pastk
+  //  generateJoins = false;
 
   // build geometry
   glsl::vec2 firstPoint = ToShapeVertex2(path.front());
@@ -508,16 +558,26 @@ void LineShape::Prepare(ref_ptr<dp::TextureManager> textures) const
     p.m_depthTestEnabled = m_params.m_depthTestEnabled;
     p.m_depth = m_params.m_depth;
     p.m_depthLayer = m_params.m_depthLayer;
-    p.m_join = m_params.m_join;
-    p.m_pxHalfWidth = m_params.m_width / 2;
+    p.m_join = dp::LineJoin::RoundJoin; //m_params.m_join; pastk
+    p.m_pxHalfWidth = 1; //m_params.m_width / 2; pastk
+
+    dp::TextureManager::ColorRegion capColorRegion;
+    textures->GetColorRegion(dp::Color::Red(), capColorRegion);
+    p.m_capColor = capColorRegion;
+
+    dp::TextureManager::ColorRegion joinColorRegion;
+    textures->GetColorRegion(dp::Color::Blue(), joinColorRegion);
+    p.m_joinColor = joinColorRegion;
   };
 
   if (m_params.m_pattern.empty())
   {
     int lineWidth = 1;
     m_isSimple = CanBeSimplified(lineWidth);
+    m_isSimple = false; //pastk
     if (m_isSimple)
     {
+      // Uses GL lines primitives for rendering.
       SimpleSolidLineBuilder::BuilderParams p;
       commonParamsBuilder(p);
 
@@ -527,6 +587,7 @@ void LineShape::Prepare(ref_ptr<dp::TextureManager> textures) const
     }
     else
     {
+      // Expands lines to quads on CPU side.
       SolidLineBuilder::BuilderParams p;
       commonParamsBuilder(p);
 
@@ -566,12 +627,22 @@ void LineShape::Draw(ref_ptr<dp::GraphicsContext> context, ref_ptr<dp::Batcher> 
   {
     batcher->InsertListOfStrip(context, state, make_ref(&provider), dp::Batcher::VertexPerQuad);
 
-    uint32_t const joinSize = m_lineShapeInfo->GetJoinSize();
+    /*
+    uint32_t const joinSize = m_lineShapeInfo->GetJoinSize(); //pastk not used
     if (joinSize > 0)
     {
       dp::AttributeProvider joinsProvider(1, joinSize);
       joinsProvider.InitStream(0, m_lineShapeInfo->GetBindingInfo(), m_lineShapeInfo->GetJoinData());
       batcher->InsertTriangleList(context, state, make_ref(&joinsProvider));
+    }
+    */
+
+    uint32_t const joinSize = m_lineShapeInfo->GetJoinSize();
+    if (joinSize > 0)
+    {
+      dp::AttributeProvider joinProvider(1, joinSize);
+      joinProvider.InitStream(0, m_lineShapeInfo->GetCapBindingInfo(), m_lineShapeInfo->GetJoinData());
+      batcher->InsertTriangleList(context, m_lineShapeInfo->GetJoinState(), make_ref(&joinProvider));
     }
 
     uint32_t const capSize = m_lineShapeInfo->GetCapSize();
