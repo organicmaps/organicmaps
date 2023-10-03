@@ -40,18 +40,18 @@ while getopts ":cdrxstagjlpn:" opt; do
       echo
       echo "By default both debug and release versions are built in ../omim-build-<buildtype> dir."
       echo
-      echo -e "-d  Build debug version"
-      echo -e "-r  Build release version"
-      echo -e "-x  Use precompiled headers"
+      echo -e "-d  Build a debug version"
+      echo -e "-r  Build a release version"
+      echo -e "-x  Use pre-compiled headers"
       echo -e "-c  Clean before building"
       echo -e "-s  Skip desktop app building"
-      echo -e "-t  Build designer tool (only for MacOS X platform)"
-      echo -e "-a  Build standalone desktop app (only for MacOS X platform)"
-      echo -e "-g  Force use GCC (only for MacOS X platform)"
+      echo -e "-t  Build designer tool (Linux/MacOS only)"
+      echo -e "-a  Build standalone desktop app (Linux/MacOS only)"
+      echo -e "-g  Force use GCC (Linux/MacOS only)"
       echo -e "-p  Directory for built binaries"
       echo -e "-n  Number of parallel processes"
       echo -e "-j  Generate compile_commands.json"
-      echo -e "-l  Launches built binary(ies), useful for tests"
+      echo -e "-l  Launches built binaries, useful for tests"
       exit 1
       ;;
   esac
@@ -98,16 +98,16 @@ if [ "$(uname -s)" == "Darwin" ]; then
     GCC="$(ls /usr/local/bin | grep '^gcc-[6-9][0-9]\?' -m 1)" || true
     GPP="$(ls /usr/local/bin | grep '^g++-[6-9][0-9]\?' -m 1)" || true
     [ -z "$GCC" -o -z "$GPP" ] \
-    && echo "Either gcc or g++ is not found. Note, minimal supported gcc version is 6." \
+    && echo "Either GCC or G++ is not found. (The minimum supported GCC version is 6)." \
     && exit 2
     CMAKE_CONFIG="${CMAKE_CONFIG:-} -DCMAKE_C_COMPILER=/usr/local/bin/$GCC \
                                     -DCMAKE_CXX_COMPILER=/usr/local/bin/$GPP"
   fi
 else
   [ -n "$OPT_DESIGNER" ] \
-  && echo "Designer tool supported only on MacOS X platform" && exit 2
+  && echo "Designer tool is only supported on Linux or MacOS" && exit 2
   [ -n "$OPT_STANDALONE" ] \
-  && echo "Standalone desktop app supported only on MacOS X platform" && exit 2
+  && echo "Standalone desktop app is only supported on Linux or MacOS" && exit 2
   PROCESSES=$(nproc)
 fi
 
@@ -120,7 +120,7 @@ build()
   local MAKE_COMMAND=$(which ninja)
   local CMAKE_GENERATOR=
   if [ -z "$MAKE_COMMAND" ]; then
-    echo "Ninja is not found, using make instead"
+    echo "Ninja is not found, using Make instead"
     MAKE_COMMAND="make -j $PROCESSES"
   else
     CMAKE_GENERATOR=-GNinja
