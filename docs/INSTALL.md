@@ -14,9 +14,9 @@ For _Windows_ you need to have [Git for Windows](https://git-scm.com/download/wi
 
 ## Getting sources
 
-First of all get the source code. The full Organic Maps sources repository is ~8.5Gb in size, there are various [clone options](#special-cases-options) to reduce download size to suit your needs.
+First of all get the source code. The full Organic Maps sources repository is ~8.5Gb in size, there are various [clone options](#special-cases-options) to reduce the download size to suit your needs.
 
-For _Windows_, it's necessary to enable symlinks support:
+For _Windows_, it's necessary to enable symlink support:
 1. Activate _Windows Development Mode_ to enable symlinks globally:
   - Windows 10: _Settings_ -> _Update and Security_ -> _For Developers_ -> _Activate Developer Mode_
   - Windows 11: _Settings_ -> _Privacy and Security_ -> _For Developers_ -> _Activate Developer Mode_
@@ -28,18 +28,18 @@ git config --global core.symlinks true
 
 Clone the repository including all submodules (see [Special cases options](#special-cases-options) below):
 
-(if you plan to contribute and propose pull requests then use a web interface at https://github.com/organicmaps/organicmaps to fork the repo first and use your fork's url in the command below)
+(if you plan to contribute and propose pull requests then use a web interface at https://github.com/organicmaps/organicmaps to fork the repository first and use your fork's URL in the command below)
 
 ```bash
 git clone --recurse-submodules https://github.com/organicmaps/organicmaps.git
 ```
 
-Go into the cloned repo:
+Go into the cloned repository:
 ```bash
 cd organicmaps
 ```
 
-Configure the repository for an opensource build:
+Configure the repository for an open source build:
 
 (if you plan to publish the app privately in stores check [special options](#special-cases-options))
 
@@ -47,7 +47,7 @@ Configure the repository for an opensource build:
 bash ./configure.sh
 ```
 
-For _Windows 10_:  You should be able to build the project by following either of these setups:
+For _Windows 10_:  You should be able to build the project by following either of these setup methods:
 
 **Setup 1: Using WSL**
 1. Install [WSL](https://learn.microsoft.com/en-us/windows/wsl/install) on your machine.
@@ -64,24 +64,24 @@ For _Windows 10_:  You should be able to build the project by following either o
 
 ### Special cases options
 
-If all you want is just a one-off build or your Internet bandwidth or disk space are limited then add following options to the `git clone` command:
+If you're only doing a one-off build or your internet bandwidth or disk space is limited, add following options to the `git clone` command:
 
-- a `--filter=blob:limit=128k` option to make a _partial clone_ (saves ~4Gb), i.e. blob files over 128k in size will be excluded from the history and downloaded on-demand - should be suitable for a generic development use;
+- a `--filter=blob:limit=128k` option to make a _partial clone_ (saves ~4Gb), i.e. blob files over 128k in size will be excluded from the history and downloaded on-demand - is suitable for generic development.
 
-- a `--depth=1` option to make a _shallow copy_ (and possibly a `--no-single-branch` to have all branches not just `master`), i.e. omit history while retaining current commits only (saves ~4.5Gb) - suitable for one-off builds;
+- a `--depth=1` option to make a _shallow copy_ (and possibly a `--no-single-branch` to have all branches not just `master`), i.e. omit history while retaining current commits only (saves ~4.5Gb) - suitable for one-off builds.
 
-- a `--shallow-submodules` option to _shallow clone_ the submodules (save ~1.3Gb) - should be suitable for a generic development if no work on submodules is planned.
+- a `--shallow-submodules` option to _shallow clone_ the submodules (save ~1.3Gb) - this is suitable for a generic development if no work on submodules is planned.
 
 To be able to publish the app in stores e.g. in Google Play its necessary to populate some configs with private keys, etc.
-Check `./configure.sh --help` to see how to copy the configs automatically from a private repo.
+Check `./configure.sh --help` to see how to copy the configs automatically from a private repository.
 
 ## Desktop app
 
 ### Preparing
 
-You need a Linux or a Mac machine to build a desktop version of Organic Maps. [Windows](#windows) users can use the [WSL](https://learn.microsoft.com/en-us/windows/wsl/) (Windows Subsystem for Linux) and follow ["Linux or Mac"](#linux-or-mac) steps described below.
+You need a Linux or a MacOS machine to build a desktop version of Organic Maps. [Windows](#windows) users can use the [WSL](https://learn.microsoft.com/en-us/windows/wsl/) (Windows Subsystem for Linux) and follow ["Linux or Mac"](#linux-or-mac) steps described below.
 
-### Linux or Mac
+### Linux or MacOS
 
 Ensure that you have at least 20GB of free space.
 
@@ -111,13 +111,13 @@ sudo apt update && sudo apt install -y \
     zlib1g-dev
 ```
 
-For Ubuntu 20.04 the version of `cmake` that ships with Ubuntu is too old; a more recent version can be installed using `snap`:
+For Ubuntu 20.04, the version of `cmake` that ships with Ubuntu is too old. A newer version can be installed using `snap`:
 
 ```bash
 sudo snap install --classic cmake
 ```
 
-For Ubuntu 22.04 `cmake` may be installed using `snap` as well, or alternatively by using `apt`:
+For Ubuntu 22.04, `cmake` may also be installed using `snap`, or alternatively by using `apt`:
 
 ```bash
 sudo apt install -y cmake
@@ -171,14 +171,14 @@ Once a GPU driver is installed and you have [built the app](#building-1) you sho
 For Windows 10 you should do these steps (taken from [here](https://techcommunity.microsoft.com/t5/windows-dev-appconsult/running-wsl-gui-apps-on-windows-10/ba-p/1493242), check this blog post if you have any problems):
 1. Download and install [VcXsrv Windows X Server](https://sourceforge.net/projects/vcxsrv/).
 2. Run _XLaunch_ app to launch X Server. During settings make sure "Disable access control" checkbox is selected.
-3. (optionally) Click "Save configuration" and save configuration to some file (for example to _config.xlaunch_). With this you will be able to quickly run desktop app in the future.
-4. When asked about firewall, allow access for public and private networks.
+3. (optionally) Click "Save configuration" and save configuration to some file (for example to _config.xlaunch_). With this you will be able to quickly run the desktop app in the future.
+4. When asked about firewall, allow access for both public and private networks.
 5. Add this line:
     ```bash
     export DISPLAY=$(ip route|awk '/^default/{print $3}'):0.0
     ```
     to _/etc/bash.bashrc_ file.
-6. Close WSL and open it again.
+6. Restart WSL.
 
 Now when you want to run the desktop app you just need to first launch the X Server on Windows (for example, by running previously saved _config.xlaunch_ file) and then you should be able to [build](#building-1) and [run](#running) the app from WSL.
 
@@ -205,9 +205,9 @@ tools/unix/build_omim.sh -d help
 #### Build issues
 
 - If you get "not enough memory" errors during builds, you may disable
-  [CMake Unity Builds](https://cmake.org/cmake/help/latest/prop_tgt/UNITY_BUILD.html) by `export UNITY_DISABLE=1`
+  [CMake Unity Builds](https://cmake.org/cmake/help/latest/prop_tgt/UNITY_BUILD.html) with `export UNITY_DISABLE=1`
   or by passing `-DUNITY_DISABLE=1` option to `cmake` invocation. Or you can reduce Unity build batch size from
-  the default `50` to a lower value (2-16) by `export UNITY_BUILD_BATCH_SIZE=8`.
+  the default `50` to a lower value (`2`-`16`) with `export UNITY_BUILD_BATCH_SIZE=8`.
   Note that these changes may significantly increase the build time.
 
 ### Running
@@ -264,7 +264,7 @@ Some tests [are known to be broken](https://github.com/organicmaps/organicmaps/i
 
 ### Debug commands
 
-Desktop app has some "hidden" debug commands that you can trigger by entering them in Offline Search input. 
+Organic Maps has some "hidden" debug commands that you can trigger by entering them into the search box. 
 
 For example you can switch theme which is very useful for checking [styles](STYLES.md) changes.
 To switch themes you can enter this commands:
@@ -273,22 +273,22 @@ To switch themes you can enter this commands:
 - `?vlight` - Day theme for vehicle navigation
 - `?vdark` - Night theme for vehicle navigation
 
-There are also other commands for turning on/off isolines, antialiasing, etc. Check [DEBUG_COMMANDS.md](DEBUG_COMMANDS.md) to learn about them.
+There are also other commands for turning on/off isolines, anti-aliasing, etc. Check [DEBUG_COMMANDS.md](DEBUG_COMMANDS.md) to learn about them.
 
 ### More options
 
-To make the desktop app display maps in a different language add a `-lang` option, e.g. for russian language:
+To make the desktop app display maps in a different language add a `-lang` option, e.g. for the Russian language:
 ```bash
 ../omim-build-release/OMaps -lang ru
 ```
 
-By default `OMaps` expects a repository's `data` folder to be present in the current working dir, add a `-data_path` option to override it.
+By default `OMaps` expects a repository's `data` folder to be present in the current working directory, add a `-data_path` option to override it.
 
 Check `OMaps -help` for a list of all run-time options.
 
-When running the desktop app with a lot of maps increase open files limit, which is only 256 on Mac OS X.
+When running the desktop app with lots of maps, increase the open files limit. in MacOS the default value is only 256.
 Use `ulimit -n 2000`, put it into `~/.bash_profile` to apply it to all new sessions.
-In OS X to increase this limit globally, add `limit maxfiles 2048 2048` to `/etc/launchd.conf`
+In MacOS to increase this limit globally, add `limit maxfiles 2048 2048` to `/etc/launchd.conf`
 and run
 ```bash
 echo 'ulimit -n 2048' | sudo tee -a /etc/profile
@@ -308,7 +308,7 @@ The `build_omim.sh` script basically runs these commands:
 
 ### Preparing
 
-Linux, Mac, or Windows should work to build Organic Maps for Android.
+Linux, MacOS, or Windows should work to build Organic Maps for Android.
 
 Ensure that you have at least 30GB of free space.
 
@@ -327,7 +327,7 @@ Install Android SDK and NDK:
 - In the left pane menu select "Appearance & Behavior > System Settings > Memory Settings".
 - Set "IDE max heap size" to 2048Mb or more (otherwise the Studio might get stuck on "Updating indexes" when opening the project).
 
-Configure the repo with Android SDK and NDK paths. You can do it either by setting a global environment variable pointing at your Android SDK:
+Configure the repository with Android SDK and NDK paths. You can do it either by setting a global environment variable pointing at your Android SDK:
 ```
 ANDROID_HOME=<here is the absolute path to the root folder of your Android SDK installation>
 ```
@@ -350,7 +350,7 @@ In Android Studio open the project in `android/` directory.
 
 Setup a virtual device to use [emulator](https://developer.android.com/studio/run/emulator) ("Tools > Device Manager") or [use a hardware device for debugging](https://developer.android.com/studio/run/device). If using an emulator, make sure to choose a system image with API Level 31 and ABI _x86_64_.
 
-Android Studio has issues in parsing C++ part of the project - one of these applications should be used: [Qt Creator](https://www.qt.io/product/development-tools), [XCode](https://developer.apple.com/xcode/), [CLion](https://www.jetbrains.com/clion/). For XCode it is required to run `cmake . -g Xcode` to generate project files, while CLion and QT Creator can import CMakeLists.txt.
+Android Studio has issues in parsing C++ part of the project - one of these applications should be used: [Qt Creator](https://www.qt.io/product/development-tools), [Xcode](https://developer.apple.com/xcode/), [CLion](https://www.jetbrains.com/clion/). For Xcode it is required to run `cmake . -g Xcode` to generate project files, while CLion and QT Creator can import CMakeLists.txt.
 
 
 ### Building
@@ -363,16 +363,16 @@ There is a matrix of different build variants:
   - `Release` is a fully optimized version for app stores.
 
 - _Flavor_:
-  - `Web` is a light apk without any bundled maps.
+  - `Web` is a light APK without any bundled maps.
   - `Google` is a full Google Play store version including a low-zoom overview world map.
-  - `Fdroid` is a version for publishing on [F-Droid](https://f-droid.org/) open source apps store (no bundled maps and no Google services).
+  - `Fdroid` is a version for publishing on the [F-Droid](https://f-droid.org/) open source apps store (no bundled maps and no Google services).
   - ...and other flavors like `Huawei`.
 
 You can choose a build variant in Android Studio's "Build > Select Build Variant..." menu. There you can also choose a target architecture (Active ABI) like _x86_64_ (for e.g. emulator) or _arm64-v8a_ (many modern devices).
 
 To build and run the app in the emulator or on a hardware device use a "Run > Run (android)" menu item.
 
-To build a redistributable apk use a "Build > Build Bundle(s) / APK(s) > Build APK(s)" menu item. Generated apks are stored in `build/outputs/apk/`.
+To build a redistributable APK use a "Build > Build Bundle(s) / APK(s) > Build APK(s)" menu item. Generated APKs are stored in `build/outputs/apk/`.
 
 See also https://developer.android.com/studio/run.
 
@@ -389,7 +389,7 @@ adb shell pm grant app.organicmaps.debug android.permission.READ_LOGS
 
 #### Building from the command line
 
-First configure `PATH` to prefer `cmake` from Android SDK/NDK instead of one installed in the system:
+First configure `PATH` to prefer `cmake` from the Android SDK/NDK instead of the default system install:
 
 _Linux:_
 
@@ -403,15 +403,15 @@ _macOS:_
 export PATH=$HOME/Library/Android/Sdk/cmake/3.22.1/bin:$PATH
 ```
 
-Check if you have a system-wide Java runtime environment (JRE) installed:
+Check if you have a system-wide Java Runtime Environment (JRE) installed:
 
 ```bash
 java -version
 ```
 
-If your system doesn't have a JRE installed or Java version is less than 11 (openjdk)
+If your system doesn't have a JRE installed or Java version is less than 11 (OpenJDK)
 or you want command line builds to use a JRE version bundled with the Studio
-then set `JAVA_HOME` environment variable:
+then set the `JAVA_HOME` environment variable:
 
 _Linux:_
 
@@ -425,7 +425,7 @@ _macOS:_
 export JAVA_HOME=<path-to-android-studio-installation>/Contents/jre/Contents/Home
 ```
 
-Run the builds from the android subdirectory of the repo:
+Run the builds from the android subdirectory of the repository:
 ```bash
 cd android
 ```
@@ -436,13 +436,13 @@ To build, install and run e.g. a _Web Debug_ version on your device/emulator:
 ./gradlew runWebDebug
 ```
 
-Or to compile a redistributable _Fdroid Beta_ apk for testing:
+Or to compile a redistributable _Fdroid Beta_ APK for testing:
 
 ```bash
 ./gradlew assembleFdroidBeta
 ```
 
-Or to build _Beta_ apks for all _Flavors_:
+Or to build _Beta_ APKs for all _Flavors_:
 
 ```bash
 ./gradlew assembleBeta
@@ -455,11 +455,11 @@ To remove all intermediate build files run `./gradlew clean`.
 
 By default the build will run for all 3 target architectures: _arm64-v8a_, _armeabi-v7a_ and _x86_64_. To speed up your build include only the arch you need by adding e.g. a `-Parm64` option to the gradle build command (other options are `-Parm32` for _armeabi-v7a_, `-Px64` for _x86_64_ and `-Px86` for _x86_).
 
-To create separate apks for all target arches add a `-PsplitApk` option (by default all arches are combined in one "fat" apk).
+To create separate APKs for all target arches add a `-PsplitAPK` option (by default all arches are combined in one "fat" APK).
 
 Adding a `-Ppch` (use precompiled headers) option makes builds ~15% faster.
 
-If a running build makes your computer slow and laggish then try lowering the priority of the build process by adding a `--priority=low` option and/or add a `-Pnjobs=<N>` option to limit number of parallel processes.
+If building makes your computer slow and laggy, then try lowering the priority of the build process by adding a `--priority=low` option and/or add a `-Pnjobs=<N>` option to limit the number of parallel processes.
 
 See also https://developer.android.com/studio/build/building-cmdline.
 
@@ -474,7 +474,7 @@ Android Studio. Please make sure that SDK for API Level 33,
 NDK version **26.0.10792818** and CMake version **3.22.1** are installed.
 
 If you are low on RAM, disk space or traffic there are ways to reduce system requirements:
-- exclude the `cpp` folder from indexing. If you do not make any work on the C++ code, this will greatly improve the startup performance and the ram usage of Android Studio. Click on the `Project` tab on the left, find the `cpp` folder (should be next to the `java` folder), right click on it and select `Mark Directory as` -> `Excluded` (red folder icon). Then restart Android Studio.
+- exclude the `cpp` folder from indexing. If you do not make any work on the C++ code, this will greatly improve the start-up performance and the ram usage of Android Studio. Click on the `Project` tab on the left, find the `cpp` folder (should be next to the `java` folder), right click on it and select `Mark Directory as` -> `Excluded` (red folder icon). Then restart Android Studio.
 - in Android Studio enable "File > Power Save Mode";
 - don't install Android Studio, run builds and emulator from command line;
 - build only for target arches you actually need, e.g. `arm64`;
@@ -497,7 +497,7 @@ After [getting all sources](#getting-sources), please make sure that Command Lin
 xcode-select --install
 ```
 
-Then, install [Xcode](https://apps.apple.com/app/xcode/id497799835?mt=12) from AppStore.
+Then, install [Xcode](https://apps.apple.com/app/xcode/id497799835?mt=12) from the App Store.
 
 Enroll in the [Apple Developer Program](https://developer.apple.com/programs/) (you can run Organic Maps in Simulator without this step).
 
@@ -522,11 +522,11 @@ Reconfigure the project to use your developer signing keys:
 
 ### Building and running
 
-Open `xcode/omim.xcworkspace` in XCode.
+Open `xcode/omim.xcworkspace` in Xcode.
 
 Select "OMaps" product scheme.
 
 - Choose "Your Mac (Designed for iPad)" to run on Mac without using Simulator.
-- Choose arbitrary "iPhone _" or "iPad _" to run on Simulator.
+- Choose either "iPhone _" or "iPad _" to run in the Simulator.
 
 Compile and run the project ("Product" → "Run").
