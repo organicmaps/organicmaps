@@ -99,9 +99,9 @@
       android:order="17"/>
      <Preference
       android:key="@string/pref_super_privacy"
-      android:title="@string/super_privacy"
+      android:title="@string/enable_super_privacy"
       app:singleLineTitle="false"
-      android:summary="@string/super_privacy_summary"
+      android:summary="@string/enable_super_privacy_summary"
       android:order="18"/>
   </androidx.preference.PreferenceCategory>
 
