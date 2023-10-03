@@ -686,8 +686,8 @@ ApplyLineFeatureGeometry::ApplyLineFeatureGeometry(TileKey const & tileKey, TIns
   : TBase(tileKey, insertShape, id, rank, CaptionDescription())
   , m_currentScaleGtoP(static_cast<float>(currentScaleGtoP))
   , m_minSegmentSqrLength(base::Pow2(4.0 * df::VisualParams::Instance().GetVisualScale() / currentScaleGtoP))
-  , m_simplify(tileKey.m_zoomLevel >= 10 && tileKey.m_zoomLevel <= 12)
-  //, m_simplify(false)
+  //, m_simplify(tileKey.m_zoomLevel >= 10 && tileKey.m_zoomLevel <= 12)
+  , m_simplify(false)
   , m_smooth(smooth)
   , m_initialPointsCount(pointsCount)
 #ifdef LINES_GENERATION_CALC_FILTERED_POINTS

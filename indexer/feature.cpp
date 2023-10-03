@@ -485,6 +485,9 @@ void FeatureType::ParseGeometry(int scale)
         }
         points.emplace_back(m_points.back());
 
+        if (m_id.m_index == 88) //pastk
+          LOG(LINFO, ("Load zoom", scale, "geom", ind, "mask:", m_ptsSimpMask, "points:", points.size()));
+
         m_points.swap(points);
       }
 

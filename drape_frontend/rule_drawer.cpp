@@ -344,8 +344,10 @@ void RuleDrawer::ProcessLineStyle(FeatureType & f, Stylist const & s, TInsertSha
   int const zoomLevel = m_context->GetTileKey().m_zoomLevel;
   bool const smooth = ftypes::IsIsolineChecker::Instance()(f);
 
-  //if (f.GetID().m_index == 1044) //pastk
-  //  LOG(LINFO, ("POINTS z", zoomLevel, f.DebugString(10, false), "pts:", f.GetPointsCount()));
+  if (f.GetID().m_index == 88) //pastk 1347
+    LOG(LINFO, ("POINTS z", zoomLevel, f.DebugString(10, false), "pts:", f.GetPointsCount()));
+  //f.ResetGeometry();
+  //f.ParseGeometry(12); //geom1
   ApplyLineFeatureGeometry applyGeom(m_context->GetTileKey(), insertShape, f.GetID(), m_currentScaleGtoP,
                                      f.GetRank(), f.GetPointsCount(), smooth);
   f.ForEachPoint(applyGeom, zoomLevel);
