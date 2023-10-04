@@ -22888,7 +22888,7 @@
     tr = Yok
 
   [trip_finished]
-    tags = ios
+    tags = android,ios
     en = You have arrived!
     af = U het aangekom!
     ar = لقد وصلت!

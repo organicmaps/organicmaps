@@ -25,21 +25,7 @@ import java.util.Objects;
 
 public final class RoutingUtils
 {
-  @NonNull
-  private static Trip mCachedTrip = new Trip.Builder().setLoading(true).build();
-
   private RoutingUtils() {}
-
-  @NonNull
-  public static Trip getLastTrip()
-  {
-    return mCachedTrip;
-  }
-
-  public static void resetTrip()
-  {
-    mCachedTrip = new Trip.Builder().setLoading(true).build();
-  }
 
   @NonNull
   public static Trip createTrip(@NonNull final CarContext context, @Nullable final RoutingInfo info, @Nullable MapObject endPoint)
@@ -70,8 +56,7 @@ public final class RoutingUtils
     builder.addStep(createCurrentStep(context, info), createTravelEstimate(info.distToTurn, 0));
     if (!TextUtils.isEmpty(info.nextStreet))
       builder.addStep(createNextStep(context, info), createTravelEstimate(app.organicmaps.util.Distance.EMPTY, 0));
-    mCachedTrip = builder.build();
-    return mCachedTrip;
+    return builder.build();
   }
 
   @NonNull
