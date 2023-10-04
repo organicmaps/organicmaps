@@ -907,7 +907,7 @@
 
     <meta-data
         android:name="androidx.car.app.minCarApiLevel"
-        android:value="1"
+        android:value="5"
         android:enabled="${ANDROID_AUTO_ENABLED}"/>
   </application>
 </manifest>
