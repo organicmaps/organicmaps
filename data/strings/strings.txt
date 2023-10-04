@@ -20165,49 +20165,6 @@
     zh-Hans = 还原这个版本？
     zh-Hant = 還原這個版本？
 
-  [common_check_internet_connection_dialog_title]
-    tags = android
-    en = No internet connection
-    af = Geen internetverbinding
-    ar = لا يوجد اتصال بالإنترنت
-    be = Няма падключэння да інтэрнэту
-    bg = Няма интернет връзка
-    ca = No hi ha connexió a Internet
-    cs = Žádné internetové připojení
-    da = Ingen internetforbindelse
-    de = Keine Internetverbindung
-    el = Δεν υπάρχει σύνδεση στο διαδίκτυο
-    es = Sin conexión a Internet
-    es-MX = Sin conexión a Internet
-    et = Interneti ühendus puudub
-    eu = Ez dago Interneteko konexiorik
-    fa = اتصال اینترنتی برقرار نیست
-    fi = Ei internet-yhteyttä
-    fr = Pas de connexion Internet
-    hu = Nincs internetkapcsolat
-    id = Tidak ada koneksi internet
-    it = Nessuna connessione internet
-    ja = インターネット接続なし
-    ko = 인터넷에 연결되지 않음
-    lt = Nėra interneto ryšio
-    mr = इंटरनेट जोडणी नाही
-    nb = Ingen internettforbindelse
-    nl = Geen internet verbinding
-    pl = Brak połączenia z internetem
-    pt = Sem ligação à Internet
-    pt-BR = Sem conexão com a internet
-    ro = Nicio conexiune la internet
-    ru = Нет интернет соединения
-    sk = Žiadne internetové pripojenie
-    sv = Ingen internetanslutning
-    sw = Hakuna uhusiano wa internet
-    th = ไม่มีการเชื่อมต่ออินเทอร์เน็ต
-    tr = İnternet bağlantısı yok
-    uk = Нема інтернет з'єднання
-    vi = Không có kết nối internet
-    zh-Hans = 没有互联网连接
-    zh-Hant = 沒有網路連線
-
   [error_system_message]
     tags = ios
     en = An unknown error occurred
