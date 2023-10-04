@@ -1,13 +1,16 @@
 package app.organicmaps.api;
 
 
+import androidx.annotation.Keep;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
 /**
  * Represents url_scheme::SearchRequest from core.
  */
-
+// Used by JNI.
+@Keep
+@SuppressWarnings("unused")
 public final class ParsedSearchRequest
 {
     @NonNull

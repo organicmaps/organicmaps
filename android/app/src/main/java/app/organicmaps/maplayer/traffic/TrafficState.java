@@ -1,10 +1,12 @@
 package app.organicmaps.maplayer.traffic;
 
+import androidx.annotation.Keep;
 import androidx.annotation.MainThread;
 import androidx.annotation.NonNull;
 
 import java.util.List;
 
+@SuppressWarnings("unused")
 enum TrafficState
 {
   DISABLED
@@ -89,7 +91,8 @@ enum TrafficState
 
   interface StateChangeListener
   {
-    // This method is called from JNI layer.
+    // Called from JNI.
+    @Keep
     @SuppressWarnings("unused")
     @MainThread
     void onTrafficStateChanged(int state);

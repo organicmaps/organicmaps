@@ -1,5 +1,6 @@
 package app.organicmaps.util;
 
+import androidx.annotation.Keep;
 import androidx.annotation.NonNull;
 import androidx.fragment.app.FragmentManager;
 
@@ -7,6 +8,7 @@ import app.organicmaps.widget.StackedButtonDialogFragment;
 
 import java.util.concurrent.TimeUnit;
 
+@Keep
 public final class NetworkPolicy
 {
   public enum Type
@@ -111,6 +113,9 @@ public final class NetworkPolicy
     checkNetworkPolicy(fragmentManager, listener, false);
   }
 
+  // Called from JNI.
+  @Keep
+  @SuppressWarnings("unused")
   public static boolean getCurrentNetworkUsageStatus()
   {
     if (ConnectionState.INSTANCE.isWifiConnected())
@@ -171,6 +176,9 @@ public final class NetworkPolicy
     mCanUseNetwork = canUse;
   }
 
+  // Called from JNI.
+  @Keep
+  @SuppressWarnings("unused")
   public boolean canUseNetwork()
   {
     return mCanUseNetwork;

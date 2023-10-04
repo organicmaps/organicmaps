@@ -1,5 +1,6 @@
 package app.organicmaps.routing;
 
+import androidx.annotation.Keep;
 import androidx.annotation.NonNull;
 
 import java.util.ArrayList;
@@ -9,6 +10,9 @@ import java.util.List;
 /**
  * Represents TransitRouteInfo from core.
  */
+// Used by JNI.
+@Keep
+@SuppressWarnings("unused")
 public class TransitRouteInfo
 {
   @NonNull

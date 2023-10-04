@@ -26,6 +26,7 @@ package app.organicmaps.util;
 
 import android.text.TextUtils;
 
+import androidx.annotation.Keep;
 import androidx.annotation.NonNull;
 import app.organicmaps.util.log.Logger;
 
@@ -47,11 +48,13 @@ import java.util.Map;
 import java.util.zip.GZIPInputStream;
 import java.util.zip.InflaterInputStream;
 
+// Used by JNI.
+@Keep
+@SuppressWarnings("unused")
 public final class HttpClient
 {
   private static final String TAG = HttpClient.class.getSimpleName();
 
-  public static final String HEADER_AUTHORIZATION = "Authorization";
   // TODO(AlexZ): tune for larger files
   private final static int STREAM_BUFFER_SIZE = 1024 * 64;
 
@@ -225,6 +228,9 @@ public final class HttpClient
     return in;
   }
 
+  // Used by JNI.
+  @Keep
+  @SuppressWarnings("unused")
   private static class Params
   {
     public void setHeaders(@NonNull KeyValue[] array)

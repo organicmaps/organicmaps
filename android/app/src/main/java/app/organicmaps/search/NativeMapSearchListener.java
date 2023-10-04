@@ -1,7 +1,12 @@
 package app.organicmaps.search;
 
+import androidx.annotation.Keep;
+
 public interface NativeMapSearchListener
 {
+  // Called from JNI.
+  @Keep
+  @SuppressWarnings("unused")
   class Result
   {
     public final String countryId;
@@ -14,5 +19,8 @@ public interface NativeMapSearchListener
     }
   }
 
+  // Called from JNI.
+  @Keep
+  @SuppressWarnings("unused")
   void onMapSearchResults(Result[] results, long timestamp, boolean isLast);
 }

@@ -1,29 +1,18 @@
 package app.organicmaps.bookmarks.data;
 
-import android.graphics.Point;
 import android.os.Parcel;
 import android.os.Parcelable;
 
+import androidx.annotation.Keep;
+
 // TODO consider removal and usage of platform PointF
+// Used by JNI.
+@Keep
+@SuppressWarnings("unused")
 public class ParcelablePointD implements Parcelable
 {
-  public double x;
-  public double y;
-
-  public int getRoundX()
-  {
-    return (int) Math.round(x);
-  }
-
-  public int getRoundY()
-  {
-    return (int) Math.round(y);
-  }
-
-  public Point getRoundedPoint()
-  {
-    return new Point(getRoundX(), getRoundY());
-  }
+  public final double x;
+  public final double y;
 
   @Override
   public int describeContents()

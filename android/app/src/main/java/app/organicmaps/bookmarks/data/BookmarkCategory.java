@@ -4,11 +4,15 @@ import android.os.Parcel;
 import android.os.Parcelable;
 
 import androidx.annotation.DrawableRes;
+import androidx.annotation.Keep;
 import androidx.annotation.NonNull;
 import androidx.annotation.StringRes;
 
 import app.organicmaps.R;
 
+// Used by JNI.
+@Keep
+@SuppressWarnings("unused")
 public class BookmarkCategory implements Parcelable
 {
   private final long mId;

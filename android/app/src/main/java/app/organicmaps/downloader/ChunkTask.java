@@ -3,6 +3,8 @@ package app.organicmaps.downloader;
 import android.os.AsyncTask;
 import android.util.Base64;
 
+import androidx.annotation.Keep;
+
 import app.organicmaps.util.Constants;
 import app.organicmaps.util.StringUtils;
 import app.organicmaps.util.Utils;
@@ -19,6 +21,8 @@ import java.util.Map;
 import java.util.concurrent.Executor;
 import java.util.concurrent.Executors;
 
+// Used from JNI.
+@Keep
 @SuppressWarnings({"unused", "deprecation"}) // https://github.com/organicmaps/organicmaps/issues/3632
 class ChunkTask extends AsyncTask<Void, byte[], Integer>
 {
@@ -58,16 +62,9 @@ class ChunkTask extends AsyncTask<Void, byte[], Integer>
   @Override
   protected void onPreExecute() {}
 
-  private long getChunkID()
-  {
-    return mBeg;
-  }
-
   @Override
   protected void onPostExecute(Integer httpOrErrorCode)
   {
-    //Log.i(TAG, "Writing chunk " + getChunkID());
-
     // It seems like onPostExecute can be called (from GUI thread queue)
     // after the task was cancelled in destructor of HttpThread.
     // Reproduced by Samsung testers: touch Try Again for many times from
@@ -121,8 +118,6 @@ class ChunkTask extends AsyncTask<Void, byte[], Integer>
   @Override
   protected Integer doInBackground(Void... p)
   {
-    //Log.i(TAG, "Start downloading chunk " + getChunkID());
-
     HttpURLConnection urlConnection = null;
     /*
      * TODO improve reliability of connections & handle EOF errors.

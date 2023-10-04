@@ -186,9 +186,6 @@ android {
     buildConfigField 'String', 'REVIEW_URL', '""'
     resourceConfigurations += [project.ext.supportedLocalizations]
 
-    multiDexEnabled true
-    multiDexKeepFile file('multidex-config.txt')
-
     externalNativeBuild {
       def pchFlag = 'OFF'
       if (project.hasProperty('pch')) pchFlag = 'ON'
@@ -355,7 +352,7 @@ android {
       shrinkResources true
       // Includes the default ProGuard rules files that are packaged with the Android Gradle plugin.
       // To learn more, go to the documentation section about R8 configuration files.
-      proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-mwm.txt'
+      proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
       resValue 'string', 'app_id', android.defaultConfig.applicationId
       resValue 'string', 'app_name', project.ext.appName
       // Full size symbols are too big for Google, 217mb aab vs 95mb.
@@ -376,7 +373,7 @@ android {
       shrinkResources true
       // Includes the default ProGuard rules files that are packaged with the Android Gradle plugin.
       // To learn more, go to the documentation section about R8 configuration files.
-      proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-mwm.txt'
+      proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
       matchingFallbacks = ['debug', 'release']
       resValue 'string', 'app_id', android.defaultConfig.applicationId + applicationIdSuffix
       resValue 'string', 'app_name', project.ext.appName + ' ' + '(Beta)'

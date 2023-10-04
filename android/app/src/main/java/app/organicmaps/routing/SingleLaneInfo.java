@@ -1,6 +1,8 @@
 package app.organicmaps.routing;
 
 import androidx.annotation.DrawableRes;
+import androidx.annotation.Keep;
+
 import app.organicmaps.R;
 
 public class SingleLaneInfo
@@ -36,6 +38,9 @@ public class SingleLaneInfo
     }
   }
 
+  // Called from JNI.
+  @Keep
+  @SuppressWarnings("unused")
   SingleLaneInfo(byte[] laneOrdinals, boolean isActive)
   {
     mLane = new LaneWay[laneOrdinals.length];

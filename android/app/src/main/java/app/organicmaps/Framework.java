@@ -3,6 +3,7 @@ package app.organicmaps;
 import android.graphics.Bitmap;
 
 import androidx.annotation.IntDef;
+import androidx.annotation.Keep;
 import androidx.annotation.MainThread;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -57,65 +58,70 @@ public class Framework
   public static final int ROUTER_TYPE_RULER = 4;
 
   @Retention(RetentionPolicy.SOURCE)
-  @IntDef({DO_AFTER_UPDATE_NOTHING, DO_AFTER_UPDATE_AUTO_UPDATE, DO_AFTER_UPDATE_ASK_FOR_UPDATE})
-  public @interface DoAfterUpdate {}
-
-  public static final int DO_AFTER_UPDATE_NOTHING = 0;
-  public static final int DO_AFTER_UPDATE_AUTO_UPDATE = 1;
-  public static final int DO_AFTER_UPDATE_ASK_FOR_UPDATE = 2;
-
-  @Retention(RetentionPolicy.SOURCE)
   @IntDef({ROUTE_REBUILD_AFTER_POINTS_LOADING})
   public @interface RouteRecommendationType {}
 
   public static final int ROUTE_REBUILD_AFTER_POINTS_LOADING = 0;
 
-  @SuppressWarnings("unused")
   public interface PlacePageActivationListener
   {
+    // Called from JNI.
+    @Keep
+    @SuppressWarnings("unused")
     void onPlacePageActivated(@NonNull PlacePageData data);
 
+    // Called from JNI
+    @Keep
+    @SuppressWarnings("unused")
     void onPlacePageDeactivated(boolean switchFullScreenMode);
   }
 
-  @SuppressWarnings("unused")
   public interface RoutingListener
   {
+    // Called from JNI
+    @Keep
+    @SuppressWarnings("unused")
     @MainThread
     void onRoutingEvent(int resultCode, String[] missingMaps);
   }
 
-  @SuppressWarnings("unused")
   public interface RoutingProgressListener
   {
+    // Called from JNI.
+    @Keep
+    @SuppressWarnings("unused")
     @MainThread
     void onRouteBuildingProgress(float progress);
   }
 
-  @SuppressWarnings("unused")
   public interface RoutingRecommendationListener
   {
+    // Called from JNI.
+    @Keep
+    @SuppressWarnings("unused")
     void onRecommend(@RouteRecommendationType int recommendation);
   }
 
-  @SuppressWarnings("unused")
   public interface RoutingLoadPointsListener
   {
+    // Called from JNI.
+    @Keep
+    @SuppressWarnings("unused")
     void onRoutePointsLoaded(boolean success);
   }
 
+  // Used by JNI.
+  @Keep
   @SuppressWarnings("unused")
-  public interface StartTransactionListener
-  {
-    void onStartTransaction(boolean success, @NonNull String serverId, @NonNull String vendorId);
-  }
-
   public static class Params3dMode
   {
     public boolean enabled;
     public boolean buildings;
   }
 
+  // Used by JNI.
+  @Keep
+  @SuppressWarnings("unused")
   public static class RouteAltitudeLimits
   {
     public int totalAscent;

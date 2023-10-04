@@ -59,6 +59,7 @@ public enum SearchEngine implements NativeSearchListener,
         });
   }
 
+  @Override
   public void onBookmarkSearchResultsUpdate(@Nullable long[] bookmarkIds, long timestamp)
   {
     for (NativeBookmarkSearchListener listener : mBookmarkListeners)
@@ -66,6 +67,7 @@ public enum SearchEngine implements NativeSearchListener,
     mBookmarkListeners.finishIterate();
   }
 
+  @Override
   public void onBookmarkSearchResultsEnd(@Nullable long[] bookmarkIds, long timestamp)
   {
     for (NativeBookmarkSearchListener listener : mBookmarkListeners)

@@ -4,6 +4,7 @@ import android.os.Parcel;
 import android.os.Parcelable;
 
 import androidx.annotation.IntRange;
+import androidx.annotation.Keep;
 
 import app.organicmaps.util.StringUtils;
 
@@ -12,6 +13,9 @@ import java.util.Calendar;
 import java.util.GregorianCalendar;
 import java.util.Locale;
 
+// Called from JNI.
+@Keep
+@SuppressWarnings("unused")
 public class HoursMinutes implements Parcelable
 {
   public final long hours;

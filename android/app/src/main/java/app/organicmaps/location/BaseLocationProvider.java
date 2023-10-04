@@ -17,15 +17,19 @@ abstract class BaseLocationProvider
     @UiThread
     void onLocationChanged(@NonNull Location location);
     @UiThread
-    void onLocationResolutionRequired(@NonNull PendingIntent pendingIntent);
-    @UiThread
     void onLocationDisabled();
+    // Used by GoogleFusedLocationProvider.
+    @SuppressWarnings("unused")
+    @UiThread
+    void onLocationResolutionRequired(@NonNull PendingIntent pendingIntent);
+    // Used by GoogleFusedLocationProvider.
+    @SuppressWarnings("unused")
     @UiThread
     void onFusedLocationUnsupported();
   }
 
   @NonNull
-  protected Listener mListener;
+  protected final Listener mListener;
 
   protected BaseLocationProvider(@NonNull Listener listener)
   {

@@ -3,6 +3,7 @@ package app.organicmaps.bookmarks.data;
 import android.os.Parcel;
 import android.os.Parcelable;
 
+import androidx.annotation.Keep;
 import androidx.annotation.NonNull;
 
 import app.organicmaps.widget.placepage.PlacePageData;
@@ -12,6 +13,9 @@ import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 
+// Used by JNI.
+@Keep
+@SuppressWarnings("unused")
 public class ElevationInfo implements PlacePageData
 {
   private final long mId;
@@ -131,6 +135,9 @@ public class ElevationInfo implements PlacePageData
     dest.writeTypedList(mPoints);
   }
 
+  // Called from JNI.
+  @Keep
+  @SuppressWarnings("unused")
   public static class Point implements Parcelable
   {
     private final double mDistance;

@@ -17,6 +17,7 @@ import app.organicmaps.util.UiUtils;
 
 import java.util.Objects;
 
+@SuppressWarnings("unused")
 public class TrafficButton
 {
   @NonNull

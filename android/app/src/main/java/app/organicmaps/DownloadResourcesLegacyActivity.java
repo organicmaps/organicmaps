@@ -15,6 +15,7 @@ import android.widget.TextView;
 import androidx.activity.result.ActivityResultLauncher;
 import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.annotation.CallSuper;
+import androidx.annotation.Keep;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.annotation.StringRes;
@@ -83,10 +84,16 @@ public class DownloadResourcesLegacyActivity extends BaseMwmFragmentActivity
 
   private int mCountryDownloadListenerSlot;
 
-  @SuppressWarnings("unused")
   private interface Listener
   {
+    // Called by JNI.
+    @Keep
+    @SuppressWarnings("unused")
     void onProgress(int percent);
+
+    // Called by JNI.
+    @Keep
+    @SuppressWarnings("unused")
     void onFinish(int errorCode);
   }
 

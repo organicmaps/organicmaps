@@ -2,6 +2,7 @@ package app.organicmaps.downloader;
 
 import android.text.TextUtils;
 
+import androidx.annotation.Keep;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
@@ -11,6 +12,9 @@ import app.organicmaps.util.StringUtils;
  * Class representing a single item in countries hierarchy.
  * Fields are filled by native code.
  */
+// Used by JNI.
+@Keep
+@SuppressWarnings("unused")
 public final class CountryItem implements Comparable<CountryItem>
 {
   private static String sRootId;

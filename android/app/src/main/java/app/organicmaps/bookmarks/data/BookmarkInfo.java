@@ -1,12 +1,16 @@
 package app.organicmaps.bookmarks.data;
 
 import androidx.annotation.IntRange;
+import androidx.annotation.Keep;
 import androidx.annotation.NonNull;
 
 import app.organicmaps.Framework;
 import app.organicmaps.util.Distance;
 import app.organicmaps.util.GeoUtils;
 
+// Called from JNI.
+@Keep
+@SuppressWarnings("unused")
 public class BookmarkInfo
 {
   private final long mCategoryId;

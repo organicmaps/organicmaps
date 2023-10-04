@@ -1,9 +1,13 @@
 package app.organicmaps.util;
 
+import androidx.annotation.Keep;
 import androidx.annotation.NonNull;
 
 import java.io.Serializable;
 
+// Used from JNI.
+@Keep
+@SuppressWarnings("unused")
 public final class KeyValue implements Serializable
 {
   private static final long serialVersionUID = -3079360274128509979L;

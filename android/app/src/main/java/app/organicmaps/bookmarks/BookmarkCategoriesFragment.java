@@ -195,11 +195,6 @@ public class BookmarkCategoriesFragment extends BaseMwmRecyclerFragment<Bookmark
   }
 
   @Override
-  public void onBookmarksLoadingStarted()
-  {
-  }
-
-  @Override
   public void onBookmarksLoadingFinished()
   {
     getAdapter().notifyDataSetChanged();

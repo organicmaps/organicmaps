@@ -7,6 +7,7 @@ import android.os.BatteryManager;
 
 import androidx.annotation.IntDef;
 import androidx.annotation.IntRange;
+import androidx.annotation.Keep;
 import androidx.annotation.NonNull;
 
 import app.organicmaps.MwmApplication;
@@ -40,6 +41,7 @@ public final class BatteryState
   }
 
   // Called from JNI.
+  @Keep
   @SuppressWarnings("unused")
   @IntRange(from=0, to=100)
   public static int getLevel(@NonNull Context context)
@@ -54,6 +56,7 @@ public final class BatteryState
   }
 
   // Called from JNI.
+  @Keep
   @SuppressWarnings("unused")
   @ChargingStatus
   public static int getChargingStatus(@NonNull Context context)

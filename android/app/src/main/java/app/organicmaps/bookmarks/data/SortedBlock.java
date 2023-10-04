@@ -1,11 +1,15 @@
 package app.organicmaps.bookmarks.data;
 
+import androidx.annotation.Keep;
 import androidx.annotation.NonNull;
 
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
+// Used by JNI.
+@Keep
+@SuppressWarnings("unused")
 public class SortedBlock
 {
   @NonNull
@@ -24,7 +28,6 @@ public class SortedBlock
   }
 
   public boolean isBookmarksBlock() { return !mBookmarkIds.isEmpty(); }
-  public boolean isTracksBlock() { return !mTrackIds.isEmpty(); }
   @NonNull
   public String getName() { return mName; }
 

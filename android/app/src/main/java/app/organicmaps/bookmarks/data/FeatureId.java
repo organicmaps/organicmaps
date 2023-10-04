@@ -4,8 +4,12 @@ import android.os.Parcel;
 import android.os.Parcelable;
 import android.text.TextUtils;
 
+import androidx.annotation.Keep;
 import androidx.annotation.NonNull;
 
+// Used by JNI.
+@Keep
+@SuppressWarnings("unused")
 public class FeatureId implements Parcelable
 {
   public static final Creator<FeatureId> CREATOR = new Creator<FeatureId>()

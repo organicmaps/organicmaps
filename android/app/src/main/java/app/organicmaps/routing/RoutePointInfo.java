@@ -4,10 +4,14 @@ import android.os.Parcel;
 import android.os.Parcelable;
 
 import androidx.annotation.IntDef;
+import androidx.annotation.Keep;
 
 import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
 
+// Called from JNI.
+@Keep
+@SuppressWarnings("unused")
 public class RoutePointInfo implements Parcelable
 {
   public static final Creator<RoutePointInfo> CREATOR = new Creator<RoutePointInfo>()

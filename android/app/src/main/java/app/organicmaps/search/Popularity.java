@@ -3,8 +3,12 @@ package app.organicmaps.search;
 import android.os.Parcel;
 import android.os.Parcelable;
 
+import androidx.annotation.Keep;
 import androidx.annotation.NonNull;
 
+// Called from JNI.
+@Keep
+@SuppressWarnings("unused")
 public class Popularity implements Parcelable
 {
   @NonNull

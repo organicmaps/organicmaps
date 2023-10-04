@@ -11,6 +11,7 @@ import app.organicmaps.maplayer.traffic.TrafficManager;
 import app.organicmaps.util.Utils;
 import com.google.android.material.dialog.MaterialAlertDialogBuilder;
 
+@SuppressWarnings("unused")
 public class TrafficButtonController implements TrafficManager.TrafficCallback
 {
   @NonNull

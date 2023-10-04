@@ -1,10 +1,14 @@
 package app.organicmaps.api;
 
 import androidx.annotation.IntDef;
+import androidx.annotation.Keep;
 
 import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
 
+// Used by JNI.
+@Keep
+@SuppressWarnings("unused")
 public class ParsingResult
 {
   @Retention(RetentionPolicy.SOURCE)
@@ -21,7 +25,6 @@ public class ParsingResult
   private final int mUrlType;
   private final boolean mSuccess;
 
-  @SuppressWarnings("unused")
   public ParsingResult(@UrlType int urlType, boolean isSuccess)
   {
     mUrlType = urlType;

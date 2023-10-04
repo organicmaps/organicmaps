@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.app.Application;
 import android.text.TextUtils;
 
+import androidx.annotation.Keep;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.annotation.StringRes;
@@ -21,6 +22,8 @@ import java.util.List;
 @UiThread
 public final class MapManager
 {
+  // Used by JNI.
+  @Keep
   @SuppressWarnings("unused")
   public static class StorageCallbackData
   {
@@ -38,16 +41,24 @@ public final class MapManager
     }
   }
 
-  @SuppressWarnings("unused")
   public interface StorageCallback
   {
+    // Called from JNI.
+    @Keep
+    @SuppressWarnings("unused")
     void onStatusChanged(List<StorageCallbackData> data);
+
+    // Called from JNI.
+    @Keep
+    @SuppressWarnings("unused")
     void onProgress(String countryId, long localSize, long remoteSize);
   }
 
-  @SuppressWarnings("unused")
   interface CurrentCountryChangedListener
   {
+    // Called from JNI.
+    @Keep
+    @SuppressWarnings("unused")
     void onCurrentCountryChanged(String countryId);
   }
 
