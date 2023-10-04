@@ -66,7 +66,7 @@ public:
     , m_colorCoord(glsl::ToVec2(params.m_color.GetTexRect().Center()))
   {
     m_geometry.reserve(geomsSize);
-    m_joinGeom.reserve(joinsSize);
+    //m_joinGeom.reserve(joinsSize);
   }
 
   dp::BindingInfo const & GetBindingInfo() override
@@ -84,15 +84,15 @@ public:
     return static_cast<uint32_t>(m_geometry.size());
   }
 
-  ref_ptr<void> GetJoinData() override
-  {
-    return make_ref(m_joinGeom.data());
-  }
+//  ref_ptr<void> GetJoinData() override
+//  {
+//    return make_ref(m_joinGeom.data());
+//  }
 
-  uint32_t GetJoinSize() override
-  {
-    return static_cast<uint32_t>(m_joinGeom.size());
-  }
+//  uint32_t GetJoinSize() override
+//  {
+//    return static_cast<uint32_t>(m_joinGeom.size());
+//  }
 
   float GetHalfWidth()
   {
@@ -129,7 +129,7 @@ protected:
   using TGeometryBuffer = gpu::VBReservedSizeT<V>;
 
   TGeometryBuffer m_geometry;
-  TGeometryBuffer m_joinGeom;
+  //TGeometryBuffer m_joinGeom;
 
   BaseBuilderParams m_params;
   glsl::vec2 const m_colorCoord;
@@ -177,8 +177,7 @@ public:
 
   dp::BindingInfo const & GetCapBindingInfo() override
   {
-    if (m_params.m_cap == dp::ButtCap)
-      return TBase::GetCapBindingInfo();
+    ASSERT(!m_capGeometry.empty(), ());
 
     static std::unique_ptr<dp::BindingInfo> s_capInfo;
     if (s_capInfo == nullptr)
@@ -196,8 +195,7 @@ public:
 
   dp::RenderState GetCapState() override
   {
-    if (m_params.m_cap == dp::ButtCap)
-      return TBase::GetCapState();
+    ASSERT(!m_capGeometry.empty(), ());
 
     auto state = CreateRenderState(gpu::Program::CapJoin, m_params.m_depthLayer);
     state.SetDepthTestEnabled(m_params.m_depthTestEnabled);
@@ -355,7 +353,7 @@ template <class FnT> void LineShape::ForEachSplineSection(FnT && fn) const
 
   for (size_t i = 0, j = 1; j <= sz; ++j)
   {
-    /// @todo Make this kind of fitration in Spline?
+    /// @todo Make this kind of filtration in Spline?
     if (path[i].EqualDxDy(path[j], kMwmPointAccuracy) && j < sz)
       continue;
 
@@ -563,13 +561,14 @@ void LineShape::Draw(ref_ptr<dp::GraphicsContext> context, ref_ptr<dp::Batcher> 
   {
     batcher->InsertListOfStrip(context, state, make_ref(&provider), dp::Batcher::VertexPerQuad);
 
-    uint32_t const joinSize = m_lineShapeInfo->GetJoinSize();
-    if (joinSize > 0)
-    {
-      dp::AttributeProvider joinsProvider(1, joinSize);
-      joinsProvider.InitStream(0, m_lineShapeInfo->GetBindingInfo(), m_lineShapeInfo->GetJoinData());
-      batcher->InsertTriangleList(context, state, make_ref(&joinsProvider));
-    }
+    // Not used, keep comment for possible usage. LineJoin::RoundJoin is processed as _Cap_.
+//    uint32_t const joinSize = m_lineShapeInfo->GetJoinSize();
+//    if (joinSize > 0)
+//    {
+//      dp::AttributeProvider joinsProvider(1, joinSize);
+//      joinsProvider.InitStream(0, m_lineShapeInfo->GetBindingInfo(), m_lineShapeInfo->GetJoinData());
+//      batcher->InsertTriangleList(context, state, make_ref(&joinsProvider));
+//    }
 
     uint32_t const capSize = m_lineShapeInfo->GetCapSize();
     if (capSize > 0)
