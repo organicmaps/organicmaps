@@ -191,6 +191,7 @@
 	<string name="yes_available">Ndio</string>
 	<!-- E.g. "WiFi:No" -->
 	<string name="no_available">Hapana</string>
+	<string name="trip_finished">Umefika!</string>
 	<string name="ok">Sawa</string>
 	<!-- max. 10 symbols, both iOS and Android -->
 	<string name="sort">Ainisha…</string>

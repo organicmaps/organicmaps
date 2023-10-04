@@ -649,6 +649,7 @@
 	<string name="yes_available">是</string>
 	<!-- E.g. "WiFi:No" -->
 	<string name="no_available">否</string>
+	<string name="trip_finished">您已經到達了!</string>
 	<string name="ok">好</string>
 	<!-- max. 10 symbols, both iOS and Android -->
 	<string name="sort">分類……</string>

@@ -634,6 +634,7 @@
 	<string name="yes_available">Ya</string>
 	<!-- E.g. "WiFi:No" -->
 	<string name="no_available">Tidak</string>
+	<string name="trip_finished">Anda telah tiba!</string>
 	<string name="ok">Oke</string>
 	<!-- max. 10 symbols, both iOS and Android -->
 	<string name="sort">Urutkan…</string>

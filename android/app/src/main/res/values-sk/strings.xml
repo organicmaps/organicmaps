@@ -631,6 +631,7 @@
 	<string name="yes_available">Áno</string>
 	<!-- E.g. "WiFi:No" -->
 	<string name="no_available">Nie</string>
+	<string name="trip_finished">Prišli ste do cieľa!</string>
 	<string name="ok">Ok</string>
 	<!-- max. 10 symbols, both iOS and Android -->
 	<string name="sort">Zoradiť…</string>

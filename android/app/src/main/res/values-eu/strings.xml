@@ -666,6 +666,7 @@
 	<string name="yes_available">bai</string>
 	<!-- E.g. "WiFi:No" -->
 	<string name="no_available">ez</string>
+	<string name="trip_finished">Iritsi zara!</string>
 	<string name="ok">Ados</string>
 	<!-- max. 10 symbols, both iOS and Android -->
 	<string name="sort">Ordenatu…</string>

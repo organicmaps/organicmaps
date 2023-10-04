@@ -631,6 +631,7 @@
 	<string name="yes_available">네</string>
 	<!-- E.g. "WiFi:No" -->
 	<string name="no_available">아니오</string>
+	<string name="trip_finished">도착했습니다!</string>
 	<string name="ok">OK</string>
 	<!-- max. 10 symbols, both iOS and Android -->
 	<string name="sort">분류…</string>

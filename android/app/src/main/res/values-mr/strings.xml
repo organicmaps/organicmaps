@@ -630,6 +630,7 @@
 	<string name="yes_available">होय</string>
 	<!-- E.g. "WiFi:No" -->
 	<string name="no_available">नाही</string>
+	<string name="trip_finished">तुम्ही पोचलात!</string>
 	<string name="ok">ठीक आहे</string>
 	<!-- max. 10 symbols, both iOS and Android -->
 	<string name="sort">क्रमाने लावा…</string>

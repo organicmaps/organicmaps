@@ -661,6 +661,7 @@
 	<string name="yes_available">Ёсць</string>
 	<!-- E.g. "WiFi:No" -->
 	<string name="no_available">Няма</string>
+	<string name="trip_finished">Вы прыбылі!</string>
 	<string name="ok">Ок</string>
 	<!-- max. 10 symbols, both iOS and Android -->
 	<string name="sort">Сартаваць…</string>

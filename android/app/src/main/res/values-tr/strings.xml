@@ -664,6 +664,7 @@
 	<string name="yes_available">Var</string>
 	<!-- E.g. "WiFi:No" -->
 	<string name="no_available">Yok</string>
+	<string name="trip_finished">Vardınız!</string>
 	<string name="ok">Tamam</string>
 	<!-- max. 10 symbols, both iOS and Android -->
 	<string name="sort">Sırala…</string>
