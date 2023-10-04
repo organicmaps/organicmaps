@@ -8,6 +8,7 @@ import android.text.Spanned;
 import android.text.TextUtils;
 import android.text.style.StyleSpan;
 
+import androidx.annotation.Keep;
 import androidx.annotation.NonNull;
 
 import app.organicmaps.bookmarks.data.FeatureId;
@@ -17,6 +18,8 @@ import app.organicmaps.util.Utils;
 /**
  * Class instances are created from native code.
  */
+// Used by JNI.
+@Keep
 @SuppressWarnings("unused")
 public class SearchResult implements PopularityProvider
 {
@@ -32,6 +35,9 @@ public class SearchResult implements PopularityProvider
   public static final SearchResult EMPTY = new SearchResult("", "", 0, 0,
                                                             new int[] {});
 
+  // Used by JNI.
+  @Keep
+  @SuppressWarnings("unused")
   public static class Description
   {
     public final FeatureId featureId;

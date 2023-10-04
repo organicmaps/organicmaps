@@ -1,10 +1,14 @@
 package app.organicmaps.routing;
 
+import androidx.annotation.Keep;
 import androidx.annotation.Nullable;
 
 /**
  * Represents RouteMarkData from core.
  */
+// Called from JNI.
+@Keep
+@SuppressWarnings("unused")
 public class RouteMarkData
 {
   @Nullable

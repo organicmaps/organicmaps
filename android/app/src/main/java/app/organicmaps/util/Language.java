@@ -5,6 +5,7 @@ import android.text.TextUtils;
 import android.view.inputmethod.InputMethodManager;
 import android.view.inputmethod.InputMethodSubtype;
 
+import androidx.annotation.Keep;
 import androidx.annotation.NonNull;
 
 import java.util.Locale;
@@ -13,6 +14,9 @@ public class Language
 {
   // Locale.getLanguage() returns even 3-letter codes, not that we need in the C++ core,
   // so we use locale itself, like zh_CN
+  // Called from JNI.
+  @Keep
+  @SuppressWarnings("unused")
   @NonNull
   public static String getDefaultLocale()
   {

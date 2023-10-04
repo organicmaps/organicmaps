@@ -1,8 +1,13 @@
 package app.organicmaps.api;
 
+import androidx.annotation.Keep;
+
 /**
  * Represents url_scheme::RoutePoint from core.
  */
+// Used by JNI.
+@Keep
+@SuppressWarnings("unused")
 public class RoutePoint
 {
   public final double mLat;

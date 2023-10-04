@@ -1,6 +1,7 @@
 package app.organicmaps.routing;
 
 import androidx.annotation.IntDef;
+import androidx.annotation.Keep;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
@@ -10,6 +11,9 @@ import java.lang.annotation.RetentionPolicy;
 /**
  * Represents TransitStepInfo from core.
  */
+// Used by JNI.
+@Keep
+@SuppressWarnings("unused")
 public class TransitStepInfo
 {
   private static final int TRANSIT_TYPE_INTERMEDIATE_POINT = 0;

@@ -1,8 +1,12 @@
 package app.organicmaps.editor.data;
 
+import androidx.annotation.Keep;
 import androidx.annotation.NonNull;
 
 // Corresponds to StringUtf8Multilang::Lang in core.
+// Called from JNI.
+@Keep
+@SuppressWarnings("unused")
 public class Language
 {
   // StringUtf8Multilang::GetLangByCode(StringUtf8Multilang::kDefaultCode).

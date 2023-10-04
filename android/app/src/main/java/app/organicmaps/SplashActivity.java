@@ -10,6 +10,7 @@ import android.os.Bundle;
 
 import androidx.activity.result.ActivityResultLauncher;
 import androidx.activity.result.contract.ActivityResultContracts;
+import androidx.annotation.Keep;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.annotation.StringRes;
@@ -169,6 +170,7 @@ public class SplashActivity extends AppCompatActivity
   }
 
   // Called from MwmApplication::nativeInitFramework like callback.
+  @Keep
   @SuppressWarnings({"unused", "unchecked"})
   public void processNavigation()
   {

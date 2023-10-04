@@ -1,7 +1,12 @@
 package app.organicmaps.bookmarks.data;
 
+import androidx.annotation.Keep;
+
 import app.organicmaps.util.Distance;
 
+// Called from JNI.
+@Keep
+@SuppressWarnings("unused")
 public class Track
 {
   private final long mTrackId;

@@ -1,5 +1,10 @@
 package app.organicmaps.editor.data;
 
+import androidx.annotation.Keep;
+
+// Called from JNI.
+@Keep
+@SuppressWarnings("unused")
 public class Timespan
 {
   public final HoursMinutes start;

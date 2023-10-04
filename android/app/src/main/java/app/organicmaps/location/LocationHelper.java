@@ -156,6 +156,8 @@ public class LocationHelper implements BaseLocationProvider.Listener
     notifyLocationUpdated();
   }
 
+  // Used by GoogleFusedLocationProvider.
+  @SuppressWarnings("unused")
   @Override
   @UiThread
   public void onLocationResolutionRequired(@NonNull PendingIntent pendingIntent)
@@ -176,6 +178,8 @@ public class LocationHelper implements BaseLocationProvider.Listener
       listener.onLocationResolutionRequired(pendingIntent);
   }
 
+  // Used by GoogleFusedLocationProvider.
+  @SuppressWarnings("unused")
   @RequiresPermission(anyOf = {ACCESS_COARSE_LOCATION, ACCESS_FINE_LOCATION})
   @Override
   @UiThread

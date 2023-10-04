@@ -4,6 +4,7 @@ import android.annotation.SuppressLint;
 import android.os.Parcel;
 
 import androidx.annotation.IntRange;
+import androidx.annotation.Keep;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
@@ -13,6 +14,9 @@ import app.organicmaps.search.Popularity;
 import app.organicmaps.util.Constants;
 
 // TODO consider refactoring to remove hack with MapObject unmarshalling itself and Bookmark at the same time.
+// Used by JNI.
+@Keep
+@SuppressWarnings("unused")
 @SuppressLint("ParcelCreator")
 public class Bookmark extends MapObject
 {

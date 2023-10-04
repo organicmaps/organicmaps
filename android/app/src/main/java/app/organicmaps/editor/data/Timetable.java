@@ -1,8 +1,12 @@
 package app.organicmaps.editor.data;
 
 import androidx.annotation.IntRange;
+import androidx.annotation.Keep;
 import androidx.annotation.NonNull;
 
+// Called from JNI.
+@Keep
+@SuppressWarnings("unused")
 public class Timetable
 {
   public final Timespan workingTimespan;

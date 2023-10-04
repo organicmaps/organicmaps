@@ -1,11 +1,15 @@
 package app.organicmaps.bookmarks.data;
 
 import androidx.annotation.IntDef;
+import androidx.annotation.Keep;
 import androidx.annotation.NonNull;
 
 import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
 
+// Called from JNI.
+@Keep
+@SuppressWarnings("unused")
 public class BookmarkSharingResult
 {
   @Retention(RetentionPolicy.SOURCE)
@@ -23,6 +27,7 @@ public class BookmarkSharingResult
   @NonNull
   private final String mSharingPath;
   @NonNull
+  @SuppressWarnings("unused")
   private final String mErrorString;
 
   private BookmarkSharingResult(long categoryId, @Code int code,

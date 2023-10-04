@@ -1,5 +1,7 @@
 package app.organicmaps.editor.data;
 
+import androidx.annotation.Keep;
+
 /**
  * Class which contains array of localized names with following priority:
  * 1. Names for Mwm languages;
@@ -7,6 +9,9 @@ package app.organicmaps.editor.data;
  * 3. Other names;
  * and mandatoryNamesCount - count of names which should be always shown.
  */
+// Called from JNI.
+@Keep
+@SuppressWarnings("unused")
 public class NamesDataSource
 {
   private final LocalizedName[] mNames;

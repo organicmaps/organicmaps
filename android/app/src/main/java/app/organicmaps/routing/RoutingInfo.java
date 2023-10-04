@@ -3,11 +3,15 @@ package app.organicmaps.routing;
 import android.widget.ImageView;
 
 import androidx.annotation.DrawableRes;
+import androidx.annotation.Keep;
 import androidx.annotation.NonNull;
 
 import app.organicmaps.R;
 import app.organicmaps.util.Distance;
 
+// Called from JNI.
+@Keep
+@SuppressWarnings("unused")
 public class RoutingInfo
 {
   // Target (end point of route).

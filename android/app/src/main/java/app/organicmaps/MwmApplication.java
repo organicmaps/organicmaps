@@ -10,6 +10,7 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
 
+import androidx.annotation.Keep;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.annotation.UiThread;
@@ -265,9 +266,10 @@ public class MwmApplication extends Application implements Application.ActivityL
     System.loadLibrary("organicmaps");
   }
 
-  // Called from jni
+  // Called from JNI.
+  @Keep
   @SuppressWarnings("unused")
-  void forwardToMainThread(final long taskPointer)
+  private void forwardToMainThread(final long taskPointer)
   {
     Message m = Message.obtain(mMainLoopHandler, () -> nativeProcessTask(taskPointer));
     m.obj = mMainQueueToken;

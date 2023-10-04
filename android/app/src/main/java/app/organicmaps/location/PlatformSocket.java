@@ -4,6 +4,7 @@ import android.annotation.SuppressLint;
 import android.net.SSLCertificateSocketFactory;
 import android.os.SystemClock;
 
+import androidx.annotation.Keep;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import app.organicmaps.BuildConfig;
@@ -28,6 +29,9 @@ import java.net.SocketTimeoutException;
  * <p>
  * <b>All public methods are blocking and shouldn't be called from the main thread.</b>
  */
+// Called from JNI.
+@Keep
+@SuppressWarnings("unused")
 class PlatformSocket
 {
   private static final String TAG = PlatformSocket.class.getSimpleName();

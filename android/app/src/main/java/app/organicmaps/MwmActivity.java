@@ -2042,19 +2042,6 @@ public class MwmActivity extends BaseMwmFragmentActivity
     RoutingController.get().start();
   }
 
-  @Override
-  public void onBookmarksLoadingStarted()
-  {
-    // Do nothing
-  }
-
-  @Override
-  public void onBookmarksLoadingFinished()
-  {
-    // Do nothing
-  }
-
-  @Override
   public void onBookmarksFileLoaded(boolean success)
   {
     Utils.showSnackbar(this, findViewById(R.id.coordinator),

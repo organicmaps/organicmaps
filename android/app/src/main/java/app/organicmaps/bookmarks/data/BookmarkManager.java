@@ -7,6 +7,7 @@ import android.provider.OpenableColumns;
 
 import androidx.annotation.IntDef;
 import androidx.annotation.IntRange;
+import androidx.annotation.Keep;
 import androidx.annotation.MainThread;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -29,6 +30,9 @@ import java.util.List;
 @MainThread
 public enum BookmarkManager
 {
+  // Used by JNI.
+  @Keep
+  @SuppressWarnings("unused")
   INSTANCE;
 
   @Retention(RetentionPolicy.SOURCE)
@@ -193,6 +197,7 @@ public enum BookmarkManager
   }
 
   // Called from JNI.
+  @Keep
   @SuppressWarnings("unused")
   @MainThread
   public void onBookmarksChanged()
@@ -200,6 +205,8 @@ public enum BookmarkManager
     updateCache();
   }
 
+  // Called from JNI.
+  @Keep
   @SuppressWarnings("unused")
   @MainThread
   public void onBookmarksLoadingStarted()
@@ -209,6 +216,7 @@ public enum BookmarkManager
   }
 
   // Called from JNI.
+  @Keep
   @SuppressWarnings("unused")
   @MainThread
   public void onBookmarksLoadingFinished()
@@ -220,6 +228,7 @@ public enum BookmarkManager
   }
 
   // Called from JNI.
+  @Keep
   @SuppressWarnings("unused")
   @MainThread
   public void onBookmarksSortingCompleted(@NonNull SortedBlock[] sortedBlocks, long timestamp)
@@ -229,6 +238,7 @@ public enum BookmarkManager
   }
 
   // Called from JNI.
+  @Keep
   @SuppressWarnings("unused")
   @MainThread
   public void onBookmarksSortingCancelled(long timestamp)
@@ -238,6 +248,7 @@ public enum BookmarkManager
   }
 
   // Called from JNI.
+  @Keep
   @SuppressWarnings("unused")
   @MainThread
   public void onBookmarksFileLoaded(boolean success, @NonNull String fileName,
@@ -256,6 +267,7 @@ public enum BookmarkManager
   }
 
   // Called from JNI.
+  @Keep
   @SuppressWarnings("unused")
   @MainThread
   public void onPreparedFileForSharing(BookmarkSharingResult result)
@@ -265,6 +277,7 @@ public enum BookmarkManager
   }
 
   // Called from JNI.
+  @Keep
   @SuppressWarnings("unused")
   @MainThread
   public void onSynchronizationStarted(@SynchronizationType int type)
@@ -274,6 +287,7 @@ public enum BookmarkManager
   }
 
   // Called from JNI.
+  @Keep
   @SuppressWarnings("unused")
   @MainThread
   public void onSynchronizationFinished(@SynchronizationType int type,
@@ -285,6 +299,7 @@ public enum BookmarkManager
   }
 
   // Called from JNI.
+  @Keep
   @SuppressWarnings("unused")
   @MainThread
   public void onRestoreRequested(@RestoringRequestResult int result, @NonNull String deviceName,
@@ -295,6 +310,7 @@ public enum BookmarkManager
   }
 
   // Called from JNI.
+  @Keep
   @SuppressWarnings("unused")
   @MainThread
   public void onRestoredFilesPrepared()
@@ -304,6 +320,7 @@ public enum BookmarkManager
   }
 
   // Called from JNI.
+  @Keep
   @SuppressWarnings("unused")
   @MainThread
   public void onElevationCurrentPositionChanged()
@@ -323,6 +340,7 @@ public enum BookmarkManager
   }
 
   // Called from JNI.
+  @Keep
   @SuppressWarnings("unused")
   @MainThread
   public void onElevationActivePointChanged()
@@ -909,9 +927,9 @@ public enum BookmarkManager
 
   public interface BookmarksLoadingListener
   {
-    void onBookmarksLoadingStarted();
-    void onBookmarksLoadingFinished();
-    void onBookmarksFileLoaded(boolean success);
+    default void onBookmarksLoadingStarted() {}
+    default void onBookmarksLoadingFinished() {}
+    default void onBookmarksFileLoaded(boolean success) {}
   }
 
   public interface BookmarksSortingListener

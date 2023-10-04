@@ -6,6 +6,7 @@ import android.view.View;
 import android.view.WindowManager;
 
 import androidx.annotation.CallSuper;
+import androidx.annotation.Keep;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.recyclerview.widget.RecyclerView;
@@ -48,6 +49,9 @@ public class DownloaderFragment extends BaseMwmRecyclerFragment<DownloaderAdapte
 
   private final NativeMapSearchListener mSearchListener = new NativeMapSearchListener()
   {
+    // Called from JNI.
+    @Keep
+    @SuppressWarnings("unused")
     @Override
     public void onMapSearchResults(Result[] results, long timestamp, boolean isLast)
     {

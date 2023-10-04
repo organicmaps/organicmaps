@@ -8,6 +8,7 @@ import app.organicmaps.util.log.Logger;
 import java.util.ArrayList;
 import java.util.List;
 
+@SuppressWarnings("unused")
 @MainThread
 public enum TrafficManager
 {
