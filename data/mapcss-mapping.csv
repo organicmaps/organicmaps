@@ -980,9 +980,9 @@ deprecated|deprecated;905;x
 railway|subway|lightgreen;[railway=subway][colour=lightgreen];x;name;int_name;906;railway|subway|tunnel
 deprecated|deprecated;907;x
 railway|subway|violet;[railway=subway][colour=violet];x;name;int_name;908;railway|subway|tunnel
-deprecated|deprecated;909;x
+shop|rental;909;
 railway|subway|grey;[railway=subway][colour=grey];x;name;int_name;910;railway|subway|tunnel
-deprecated|deprecated;911;x
+shop|rental|bike;[shop=rental][rental=bike];;name;int_name;911;
 historic|ship;912;
 shop|tobacco;913;
 shop|farm;914;

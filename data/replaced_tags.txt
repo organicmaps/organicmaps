@@ -184,3 +184,8 @@ service=crossover : service=service
 
 denomination=latter_day_saints : denomination=mormon
 
+rental=city_bike : rental=bike
+rental=ebike : rental=bike
+rental=cargo_bike : rental=bike
+rental=e-bike : rental=bike
+rental=city_bike;ebike : rental=bike
