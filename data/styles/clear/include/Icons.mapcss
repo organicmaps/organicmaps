@@ -1260,11 +1260,11 @@ node|z17-[leisure=pitch],
 node|z17-[leisure=ice_rink]
 {icon-image: pitch-m.svg;icon-min-distance: 10;}
 node|z17-[leisure=fitness_station]
-{icon-image: gym-m.svg;icon-min-distance: 10;}
+{icon-image: fitness_station-m.svg;icon-min-distance: 10;}
 node|z17-[leisure=sports_centre]
 {icon-image: pitch-m.svg;icon-min-distance: 10;}
 node|z17-[leisure=fitness_centre]
-{icon-image: gym-m.svg;icon-min-distance: 10;}
+{icon-image: fitness_centre-m.svg;icon-min-distance: 10;}
 node|z17-[leisure=sauna]
 {icon-image: public_bath-m.svg;icon-min-distance: 10;}
 node|z17-[leisure=playground],
@@ -1930,6 +1930,10 @@ node|z16-[shop=optician],
 area|z16-[shop=optician],
 node|z16-[shop=outdoor],
 area|z16-[shop=outdoor],
+node|z16-[shop=rental],
+area|z16-[shop=rental],
+node|z16-[shop=rental][rental=bike],
+area|z16-[shop=rental][rental=bike],
 node|z16-[shop=seafood],
 area|z16-[shop=seafood],
 node|z16-[shop=shoes],
@@ -2041,6 +2045,9 @@ area|z16[shop=car_parts]
 node|z16[shop=car_repair],
 area|z16[shop=car_repair]
 {icon-image: car-repair-m.svg;}
+node|z16[shop=motorcycle_repair],
+area|z16[shop=motorcycle_repair]
+{icon-image: motorcycle_repair-m.svg;}
 node|z16[shop=tyres],
 area|z16[shop=tyres]
 {icon-image: car-repair-m.svg;}
@@ -2193,6 +2200,12 @@ area|z16[shop=stationery]
 node|z16[shop=fabric],
 area|z16[shop=fabric]
 {icon-image: shop-m.svg;}
+node|z16[shop=rental],
+area|z16[shop=rental]
+{icon-image: rental-m.svg;}
+node|z16[shop=rental][rental=bike],
+area|z16[shop=rental][rental=bike],
+{icon-image: shop-rental-bicycle-m.svg;}
 
 node|z17-[shop=cheese],
 area|z17-[shop=cheese]
@@ -2259,6 +2272,9 @@ area|z17-[shop=car_parts]
 node|z17-[shop=car_repair],
 area|z17-[shop=car_repair]
 {icon-image: car-repair-m.svg;icon-min-distance: 24;}
+node|z17-[shop=motorcycle_repair],
+area|z17-[shop=motorcycle_repair]
+{icon-image: motorcycle_repair-m.svg;icon-min-distance: 24;}
 node|z17-[shop=tyres],
 area|z17-[shop=tyres]
 {icon-image: car-repair-m.svg;icon-min-distance: 24;}
@@ -2427,6 +2443,12 @@ node|z17-[shop=pawnbroker],
 {icon-image: bookmaker-m.svg;icon-min-distance: 24;}
 node|z17-[shop=wholesale],
 {icon-image: wholesale-m.svg;icon-min-distance: 24;}
+node|z17-[shop=rental],
+area|z17-[shop=rental]
+{icon-image: rental-m.svg;icon-min-distance: 24;}
+node|z17-[shop=rental][rental=bike],
+area|z17-[shop=rental][rental=bike],
+{icon-image: shop-rental-bicycle-m.svg;icon-min-distance: 24;}
 
 /* 6.1 Craft */
 
