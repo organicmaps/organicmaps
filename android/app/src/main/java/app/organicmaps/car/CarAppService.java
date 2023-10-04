@@ -4,6 +4,7 @@ import android.app.Notification;
 import android.content.ComponentName;
 import android.content.Intent;
 import android.net.Uri;
+import android.os.Build;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -59,7 +60,10 @@ public final class CarAppService extends androidx.car.app.CarAppService
       @Override
       public void onDestroy(@NonNull LifecycleOwner owner)
       {
-        stopForeground(true);
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N)
+          stopForeground(STOP_FOREGROUND_REMOVE);
+        else
+          stopForeground(true);
       }
     });
     return carAppSession;
