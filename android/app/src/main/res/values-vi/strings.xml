@@ -630,6 +630,7 @@
 	<string name="yes_available">Có</string>
 	<!-- E.g. "WiFi:No" -->
 	<string name="no_available">Không</string>
+	<string name="trip_finished">Bạn đã tới nơi!</string>
 	<string name="ok">Ok</string>
 	<!-- max. 10 symbols, both iOS and Android -->
 	<string name="sort">Sắp xếp…</string>

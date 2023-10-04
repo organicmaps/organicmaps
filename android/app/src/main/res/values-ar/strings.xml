@@ -667,6 +667,7 @@
 	<string name="yes_available">نعم</string>
 	<!-- E.g. "WiFi:No" -->
 	<string name="no_available">لا</string>
+	<string name="trip_finished">لقد وصلت!</string>
 	<string name="ok">موافق</string>
 	<!-- max. 10 symbols, both iOS and Android -->
 	<string name="sort">ترتيب…</string>

@@ -627,6 +627,7 @@
 	<string name="yes_available">はい</string>
 	<!-- E.g. "WiFi:No" -->
 	<string name="no_available">いいえ</string>
+	<string name="trip_finished">到着しました!</string>
 	<string name="ok">OK</string>
 	<!-- max. 10 symbols, both iOS and Android -->
 	<string name="sort">並び替え中…</string>

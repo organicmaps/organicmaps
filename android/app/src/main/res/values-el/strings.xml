@@ -623,6 +623,7 @@
 	<string name="yes_available">Ναι</string>
 	<!-- E.g. "WiFi:No" -->
 	<string name="no_available">Όχι</string>
+	<string name="trip_finished">Έχετε φτάσει!</string>
 	<string name="ok">Καλώς</string>
 	<!-- max. 10 symbols, both iOS and Android -->
 	<string name="sort">Ταξινόμηση</string>

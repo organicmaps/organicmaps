@@ -644,6 +644,7 @@
 	<string name="yes_available">Igen</string>
 	<!-- E.g. "WiFi:No" -->
 	<string name="no_available">Nem</string>
+	<string name="trip_finished">Megérkeztél!</string>
 	<string name="ok">Oké</string>
 	<!-- max. 10 symbols, both iOS and Android -->
 	<string name="sort">Rendezd…</string>
