@@ -53,6 +53,14 @@ public class NavigationScreen extends BaseMapScreen implements RoutingController
   @NonNull
   private final LocationListener mLocationListener = (unused) -> updateTrip();
 
+  @NonNull
+  private Trip mTrip = new Trip.Builder().setLoading(true).build();
+
+  // This value is used to decide whether to display the "trip finished" toast or not
+  // False: trip is finished -> show toast
+  // True: navigation is cancelled by the user or host -> don't show toast
+  private boolean mNavigationCancelled = false;
+
   private NavigationScreen(@NonNull Builder builder)
   {
     super(builder.mCarContext, builder.mSurfaceRenderer);
@@ -81,14 +89,15 @@ public class NavigationScreen extends BaseMapScreen implements RoutingController
   public void onStopNavigation()
   {
     LocationHelper.from(getCarContext()).removeListener(mLocationListener);
+    mNavigationCancelled = true;
     mRoutingController.cancel();
   }
 
   @Override
   public void onNavigationCancelled()
   {
-    // TODO (AndrewShkrob): Add localized string.
-    CarToast.makeText(getCarContext(), "Navigation finished", CarToast.LENGTH_LONG).show();
+    if (!mNavigationCancelled)
+      CarToast.makeText(getCarContext(), getCarContext().getString(R.string.trip_finished), CarToast.LENGTH_LONG).show();
     finish();
     getScreenManager().popToRoot();
   }
@@ -126,15 +135,17 @@ public class NavigationScreen extends BaseMapScreen implements RoutingController
     ThemeUtils.update(getCarContext());
     mNavigationManager.navigationEnded();
     mNavigationManager.clearNavigationManagerCallback();
-    RoutingUtils.resetTrip();
   }
 
   @NonNull
   private ActionStrip createActionStrip()
   {
     final Action.Builder stopActionBuilder = new Action.Builder();
-    stopActionBuilder.setTitle(getCarContext().getString(R.string.current_location_unknown_stop_button));
-    stopActionBuilder.setOnClickListener(mRoutingController::cancel);
+    stopActionBuilder.setIcon(new CarIcon.Builder(IconCompat.createWithResource(getCarContext(), R.drawable.ic_close)).build());
+    stopActionBuilder.setOnClickListener(() -> {
+      mNavigationCancelled = true;
+      mRoutingController.cancel();
+    });
 
     final ActionStrip.Builder builder = new ActionStrip.Builder();
     builder.addAction(createTtsAction());
@@ -146,12 +157,10 @@ public class NavigationScreen extends BaseMapScreen implements RoutingController
   @Nullable
   private TravelEstimate getDestinationTravelEstimate()
   {
-    final Trip trip = RoutingUtils.getLastTrip();
-
-    if (trip.isLoading())
+    if (mTrip.isLoading())
       return null;
 
-    List<TravelEstimate> travelEstimates = trip.getDestinationTravelEstimates();
+    List<TravelEstimate> travelEstimates = mTrip.getDestinationTravelEstimates();
     if (travelEstimates.size() != 1)
       throw new RuntimeException("TravelEstimates size must be 1");
 
@@ -162,16 +171,15 @@ public class NavigationScreen extends BaseMapScreen implements RoutingController
   private NavigationTemplate.NavigationInfo getNavigationInfo()
   {
     final androidx.car.app.navigation.model.RoutingInfo.Builder builder = new androidx.car.app.navigation.model.RoutingInfo.Builder();
-    final Trip trip = RoutingUtils.getLastTrip();
 
-    if (trip.isLoading())
+    if (mTrip.isLoading())
     {
       builder.setLoading(true);
       return builder.build();
     }
 
-    final List<Step> steps = trip.getSteps();
-    final List<TravelEstimate> stepsEstimates = trip.getStepTravelEstimates();
+    final List<Step> steps = mTrip.getSteps();
+    final List<TravelEstimate> stepsEstimates = mTrip.getStepTravelEstimates();
     if (steps.isEmpty())
       throw new RuntimeException("Steps size must be at least 1");
 
@@ -208,8 +216,8 @@ public class NavigationScreen extends BaseMapScreen implements RoutingController
   private void updateTrip()
   {
     final RoutingInfo info = Framework.nativeGetRouteFollowingInfo();
-    final Trip trip = RoutingUtils.createTrip(getCarContext(), info, RoutingController.get().getEndPoint());
-    mNavigationManager.updateTrip(trip);
+    mTrip = RoutingUtils.createTrip(getCarContext(), info, RoutingController.get().getEndPoint());
+    mNavigationManager.updateTrip(mTrip);
     invalidate();
   }
 
