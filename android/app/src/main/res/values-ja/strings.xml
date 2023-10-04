@@ -563,7 +563,6 @@
 	<plurals name="bookmarks_detect_message">
 	  <item quantity="other">%d ファイルが見つかりました。 あなたは変換後にそれらを見るでしょう。</item>
 	</plurals>
-	<string name="common_check_internet_connection_dialog_title">インターネット接続なし</string>
 	<plurals name="objects">
 	  <item quantity="other">%dの場所</item>
 	</plurals>

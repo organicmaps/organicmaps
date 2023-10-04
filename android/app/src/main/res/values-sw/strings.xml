@@ -125,7 +125,6 @@
 	  <item quantity="one">Faili %d ilipatikana. Utaiona baada ya uongofu.</item>
 	  <item quantity="other">Files %d zimepatikana. Utawaona baada ya uongofu.</item>
 	</plurals>
-	<string name="common_check_internet_connection_dialog_title">Hakuna uhusiano wa internet</string>
 	<plurals name="objects">
 	  <item quantity="other">Eneo %d</item>
 	</plurals>

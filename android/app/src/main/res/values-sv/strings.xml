@@ -564,7 +564,6 @@
 	  <item quantity="one">%d fil hittades. Du kommer att se den efter omvandlingen.</item>
 	  <item quantity="other">%d filer har hittats. Du kommer att se dem efter omvandlingen.</item>
 	</plurals>
-	<string name="common_check_internet_connection_dialog_title">Ingen internetanslutning</string>
 	<plurals name="objects">
 	  <item quantity="one">%d plats</item>
 	  <item quantity="other">%d platser</item>

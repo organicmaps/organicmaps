@@ -603,7 +603,6 @@
 	<plurals name="bookmarks_detect_message">
 	  <item quantity="other">تم العثور على %d ملفات. سوف تراهم بعد التحويل.</item>
 	</plurals>
-	<string name="common_check_internet_connection_dialog_title">لا يوجد اتصال بالإنترنت</string>
 	<plurals name="objects">
 	  <item quantity="other">غرض %d</item>
 	</plurals>

@@ -580,7 +580,6 @@
 	  <item quantity="one">%d fájlt találtunk. Látni fogja őket a megtérés után.</item>
 	  <item quantity="other">%d fájl található. Látni fogja őket a megtérés után.</item>
 	</plurals>
-	<string name="common_check_internet_connection_dialog_title">Nincs internetkapcsolat</string>
 	<plurals name="objects">
 	  <item quantity="other">%d hely</item>
 	</plurals>

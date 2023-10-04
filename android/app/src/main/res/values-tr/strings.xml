@@ -598,7 +598,6 @@
 	<plurals name="bookmarks_detect_message">
 	  <item quantity="other">%d dosya bulundu. Dönüşümden sonra onları göreceksiniz.</item>
 	</plurals>
-	<string name="common_check_internet_connection_dialog_title">İnternet bağlantısı yok</string>
 	<plurals name="objects">
 	  <item quantity="other">%d obje</item>
 	</plurals>

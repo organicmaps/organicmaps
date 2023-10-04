@@ -589,7 +589,6 @@
 	<string name="please_wait">Пачакайце…</string>
 	<string name="phone_number">Нумар тэлефона</string>
 	<string name="profile">Профіль OpenStreetMap</string>
-	<string name="common_check_internet_connection_dialog_title">Няма падключэння да інтэрнэту</string>
 	<plurals name="objects">
 	  <item quantity="few">%d аб\'екты</item>
 	  <item quantity="one">%d аб\'ект</item>

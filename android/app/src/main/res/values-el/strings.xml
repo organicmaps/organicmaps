@@ -559,7 +559,6 @@
 	  <item quantity="one">Βρέθηκε %d αρχείο. Θα το δείτε μετά τη μετατροπή.</item>
 	  <item quantity="other">έχουν βρεθεί %d αρχεία. Θα τα δείτε μετά τη μετατροπή.</item>
 	</plurals>
-	<string name="common_check_internet_connection_dialog_title">Δεν υπάρχει σύνδεση στο διαδίκτυο</string>
 	<plurals name="objects">
 	  <item quantity="other">%d μέρος</item>
 	</plurals>

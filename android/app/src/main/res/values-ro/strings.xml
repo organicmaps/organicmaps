@@ -580,7 +580,6 @@
 	  <item quantity="one">A fost găsit %d fișier. Îl vei vedea după conversiune.</item>
 	  <item quantity="other">Au fost găsite %d fișiere. Le vei vedea după conversiune.</item>
 	</plurals>
-	<string name="common_check_internet_connection_dialog_title">Nicio conexiune la internet</string>
 	<plurals name="objects">
 	  <item quantity="one">%d obiect</item>
 	  <item quantity="other">%d obiecte</item>

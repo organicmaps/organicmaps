@@ -600,7 +600,6 @@
 	  <item quantity="other">Znaleziono %d plików. Zobaczysz je po konwersji.</item>
 	  <item quantity="two">Znaleziono %d pliki. Zobaczysz je po konwersji.</item>
 	</plurals>
-	<string name="common_check_internet_connection_dialog_title">Brak połączenia z internetem</string>
 	<plurals name="objects">
 	  <item quantity="other">%d miejsce</item>
 	</plurals>

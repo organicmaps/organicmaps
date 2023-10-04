@@ -587,7 +587,6 @@
 	  <item quantity="one">%d fail leiti. Näed seda peale teisendamist.</item>
 	  <item quantity="other">%d faili leiti. Näed neid peale teisendamist.</item>
 	</plurals>
-	<string name="common_check_internet_connection_dialog_title">Interneti ühendus puudub</string>
 	<plurals name="objects">
 	  <item quantity="one">%d objekt</item>
 	  <item quantity="other">%d objekti</item>

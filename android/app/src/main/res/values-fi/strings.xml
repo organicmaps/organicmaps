@@ -599,7 +599,6 @@
 	  <item quantity="one">%d tiedosto löydettiin. Näet sen muunnoksen jälkeen.</item>
 	  <item quantity="other">%d tiedostoa löydettiin. Näet ne muunnoksen jälkeen.</item>
 	</plurals>
-	<string name="common_check_internet_connection_dialog_title">Ei internet-yhteyttä</string>
 	<plurals name="objects">
 	  <item quantity="one">%d kohde</item>
 	  <item quantity="other">%d kohdetta</item>

@@ -74,7 +74,6 @@
 	  <item quantity="one">Se encontró %d archivo. Lo verás después de la conversión.</item>
 	  <item quantity="other">Se han encontrado %d archivos. Los verás después de la conversión.</item>
 	</plurals>
-	<string name="common_check_internet_connection_dialog_title">Sin conexión a Internet</string>
 	<plurals name="objects">
 	  <item quantity="other">%d lugar</item>
 	</plurals>

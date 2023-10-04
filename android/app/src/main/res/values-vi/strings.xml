@@ -566,7 +566,6 @@
 	  <item quantity="one">%d dã tìm thấy một tệp. Bạn sẽ thấy nó sau khi chuyển đổi.</item>
 	  <item quantity="other">%d tập tin đã được tìm thấy. Bạn sẽ thấy chúng sau khi chuyển đổi.</item>
 	</plurals>
-	<string name="common_check_internet_connection_dialog_title">Không có kết nối internet</string>
 	<plurals name="objects">
 	  <item quantity="other">%d nơi</item>
 	</plurals>

@@ -597,7 +597,6 @@
 	  <item quantity="one">fitxategi %d aurkitu da. Elkarrizketaren ondoren ikusiko duzu.</item>
 	  <item quantity="other">%d fitxategi aurkitu dira. Elkarrizketaren ondoren ikusiko dituzu.</item>
 	</plurals>
-	<string name="common_check_internet_connection_dialog_title">Ez dago Interneteko konexiorik</string>
 	<plurals name="objects">
 	  <item quantity="one">objektu %d</item>
 	  <item quantity="other">%d objektu</item>

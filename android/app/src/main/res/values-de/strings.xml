@@ -595,7 +595,6 @@
 	  <item quantity="one">%d Datei wurde gefunden. Sie werden sie nach der Konvertierung sehen.</item>
 	  <item quantity="other">%d Dateien wurden gefunden. Sie werden sie nach der Konvertierung sehen.</item>
 	</plurals>
-	<string name="common_check_internet_connection_dialog_title">Keine Internetverbindung</string>
 	<plurals name="objects">
 	  <item quantity="one">%d Objekt</item>
 	  <item quantity="other">%d Objekte</item>

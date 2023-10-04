@@ -580,7 +580,6 @@
 	  <item quantity="one">%d file è stato trovato. Lo vedrai dopo la conversione.</item>
 	  <item quantity="other">%d file trovati. Li vedrai dopo la conversione.</item>
 	</plurals>
-	<string name="common_check_internet_connection_dialog_title">Nessuna connessione internet</string>
 	<plurals name="objects">
 	  <item quantity="one">%d oggetto</item>
 	  <item quantity="other">%d oggetti</item>

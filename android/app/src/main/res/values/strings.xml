@@ -624,7 +624,6 @@
 	  <item quantity="one">%d file was found. You can see it after conversion.</item>
 	  <item quantity="other">%d files were found. You can see them after conversion.</item>
 	</plurals>
-	<string name="common_check_internet_connection_dialog_title">No internet connection</string>
 	<plurals name="objects">
 	  <item quantity="one">%d object</item>
 	  <item quantity="other">%d objects</item>
