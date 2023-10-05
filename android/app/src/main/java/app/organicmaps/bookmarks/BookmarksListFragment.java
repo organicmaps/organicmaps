@@ -16,6 +16,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.os.BundleCompat;
 import androidx.recyclerview.widget.ConcatAdapter;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.recyclerview.widget.SimpleItemAnimator;
@@ -46,6 +47,7 @@ import app.organicmaps.util.bottomsheet.MenuBottomSheetItem;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 public class BookmarksListFragment extends BaseMwmRecyclerFragment<ConcatAdapter>
     implements BookmarkManager.BookmarksSharingListener,
@@ -107,13 +109,9 @@ public class BookmarksListFragment extends BaseMwmRecyclerFragment<ConcatAdapter
   @NonNull
   private BookmarkCategory getCategoryOrThrow()
   {
-    Bundle args = getArguments();
-    BookmarkCategory category;
-    if (args == null || (args.getBundle(EXTRA_BUNDLE) == null) ||
-        ((category = Utils.getParcelable(args.getBundle(EXTRA_BUNDLE), EXTRA_CATEGORY, BookmarkCategory.class))) == null)
-      throw new IllegalArgumentException("Category not exist in bundle");
-
-    return category;
+    final Bundle args = requireArguments();
+    final Bundle extra = Objects.requireNonNull(args.getBundle(EXTRA_BUNDLE));
+    return Objects.requireNonNull(BundleCompat.getParcelable(extra, EXTRA_CATEGORY, BookmarkCategory.class));
   }
 
   @NonNull

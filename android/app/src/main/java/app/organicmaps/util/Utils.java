@@ -831,23 +831,6 @@ public class Utils
 
   @SuppressWarnings({"deprecation", "unchecked"})
   @Nullable
-  private static <T> T getParcelableOld(Bundle args, String key)
-  {
-    return (T) args.getParcelable(key);
-  }
-
-
-  @Nullable
-  public static <T> T getParcelable(@NonNull Bundle args, String key, Class<T> clazz)
-  {
-    args.setClassLoader(clazz.getClassLoader());
-    if (Build.VERSION.SDK_INT < Build.VERSION_CODES.TIRAMISU)
-      return getParcelableOld(args, key);
-    return args.getParcelable(key, clazz);
-  }
-
-  @SuppressWarnings({"deprecation", "unchecked"})
-  @Nullable
   private static <T extends Serializable> T getSerializableOld(Bundle args, String key)
   {
     return (T) args.getSerializable(key);
@@ -861,7 +844,6 @@ public class Utils
       return getSerializableOld(args, key);
     return args.getSerializable(key, clazz);
   }
-
 
   @SuppressWarnings("deprecation")
   private static Spanned fromHtmlOld(@NonNull String htmlDescription)
