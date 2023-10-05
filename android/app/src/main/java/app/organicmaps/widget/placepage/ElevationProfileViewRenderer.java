@@ -133,7 +133,7 @@ public class ElevationProfileViewRenderer implements PlacePageStateListener
 
   public void onRestore(@NonNull Bundle inState)
   {
-//    mElevationInfo = Utils.getParcelable(inState, PlacePageUtils.EXTRA_PLACE_PAGE_DATA, ElevationInfo.class);
+//    mElevationInfo = BundleCompat.getParcelable(inState, PlacePageUtils.EXTRA_PLACE_PAGE_DATA, ElevationInfo.class);
 //    if (mElevationInfo != null)
 //      render(mElevationInfo);
   }

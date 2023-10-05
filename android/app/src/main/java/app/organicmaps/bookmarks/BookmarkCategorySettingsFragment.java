@@ -13,6 +13,7 @@ import android.widget.EditText;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.core.os.BundleCompat;
 
 import app.organicmaps.R;
 import app.organicmaps.base.BaseMwmToolbarFragment;
@@ -43,10 +44,9 @@ public class BookmarkCategorySettingsFragment extends BaseMwmToolbarFragment
   public void onCreate(@Nullable Bundle savedInstanceState)
   {
     super.onCreate(savedInstanceState);
-    final Bundle args = getArguments();
-    if (args == null)
-      throw new IllegalArgumentException("Args must not be null");
-    mCategory = Objects.requireNonNull(Utils.getParcelable(args, BookmarkCategorySettingsActivity.EXTRA_BOOKMARK_CATEGORY, BookmarkCategory.class));
+    final Bundle args = requireArguments();
+    mCategory = Objects.requireNonNull(BundleCompat.getParcelable(args,
+        BookmarkCategorySettingsActivity.EXTRA_BOOKMARK_CATEGORY, BookmarkCategory.class));
   }
 
   @Nullable
