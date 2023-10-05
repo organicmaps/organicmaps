@@ -39,7 +39,7 @@ buildscript {
   ext.androidAutoEnabled = androidAutoFlag ? androidAutoFlag.toBoolean() : androidAutoDefault
 
   dependencies {
-    classpath 'com.android.tools.build:gradle:8.1.1'
+    classpath 'com.android.tools.build:gradle:8.1.2'
 
     if (googleMobileServicesEnabled) {
       println('Building with Google Mobile Services')
