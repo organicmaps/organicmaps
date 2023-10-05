@@ -947,7 +947,7 @@
 
 "bookmarks_detect_title" = "Wykryto nowe pliki";
 
-"button_convert" = "konwertować";
+"button_convert" = "Konwertuj";
 
 "bookmarks_convert_error_title" = "błąd";
 
@@ -957,7 +957,7 @@
 
 "error_system_message" = "Wystąpił nieznany błąd";
 
-"restore" = "Przywracać";
+"restore" = "Przywróć";
 
 "privacy_policy" = "Polityka prywatności";
 
@@ -1025,7 +1025,7 @@
 
 "unable_to_calc_alert_title" = "Brak możliwości zbudowania trasy";
 
-"unable_to_calc_alert_subtitle" = "Niestety, nie udało nam się zbudować trasy, która posiada obrane opcje. Zmień ustawienia i spróbuj ponownie";
+"unable_to_calc_alert_subtitle" = "Wyznaczanie trasy nie powiodło się. Przyczyną mogą być ustawienia nawigacji lub niekompletne dane OpenStreetMap. Zmień ustawienia i spróbuj ponownie";
 
 "define_to_avoid_btn" = "Dostosuj ścieżkę objazdu";
 
@@ -1037,11 +1037,11 @@
 
 "ferry_crossing" = "Przeprawa promowa";
 
-"avoid_toll_roads_placepage" = "Unikać dróg płatnych";
+"avoid_toll_roads_placepage" = "Unikaj dróg płatnych";
 
-"avoid_unpaved_roads_placepage" = "Unikać dróg gruntowych";
+"avoid_unpaved_roads_placepage" = "Unikaj dróg gruntowych";
 
-"avoid_ferry_crossing_placepage" = "Unikać przepraw promowych";
+"avoid_ferry_crossing_placepage" = "Unikaj przepraw promowych";
 
 "trip_start" = "Jedźmy";
 
@@ -1053,7 +1053,7 @@
 
 "then_turn" = "Dalej";
 
-"redirect_route_alert" = "Czy chcesz przebudować trasę?";
+"redirect_route_alert" = "Czy chcesz wyznaczyć trasę ponownie?";
 
 /* A generic "Yes" button in dialogs */
 "yes" = "Tak";
