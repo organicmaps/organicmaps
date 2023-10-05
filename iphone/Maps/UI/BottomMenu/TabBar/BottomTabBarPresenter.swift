@@ -1,7 +1,6 @@
 protocol BottomTabBarPresenterProtocol: AnyObject {
   func configure()
   func onSearchButtonPressed()
-  func onPoint2PointButtonPressed()
   func onHelpButtonPressed()
   func onBookmarksButtonPressed()
   func onMenuButtonPressed()
@@ -21,10 +20,6 @@ extension BottomTabBarPresenter: BottomTabBarPresenterProtocol {
 
   func onSearchButtonPressed() {
     interactor.openSearch()
-  }
-  
-  func onPoint2PointButtonPressed() {
-    interactor.openPoint2Point()
   }
   
   func onHelpButtonPressed() {

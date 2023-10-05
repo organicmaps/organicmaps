@@ -2,7 +2,6 @@ class BottomTabBarViewController: UIViewController {
   var presenter: BottomTabBarPresenterProtocol!
   
   @IBOutlet var searchButton: MWMButton!
-  @IBOutlet var routeButton: MWMButton!
   @IBOutlet var helpButton: MWMButton!
   @IBOutlet var bookmarksButton: MWMButton!
   @IBOutlet var moreButton: MWMButton!
@@ -57,11 +56,7 @@ class BottomTabBarViewController: UIViewController {
   @IBAction func onSearchButtonPressed(_ sender: Any) {
     presenter.onSearchButtonPressed()
   }
-  
-  @IBAction func onPoint2PointButtonPressed(_ sender: Any) {
-    presenter.onPoint2PointButtonPressed()
-  }
-  
+
   @IBAction func onHelpButtonPressed(_ sender: Any) {
     presenter.onHelpButtonPressed()
   }
