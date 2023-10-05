@@ -1,6 +1,5 @@
 protocol BottomTabBarInteractorProtocol: AnyObject {
   func openSearch()
-  func openPoint2Point()
   func openHelp()
   func openBookmarks()
   func openMenu()
@@ -27,13 +26,6 @@ extension BottomTabBarInteractor: BottomTabBarInteractorProtocol {
     } else {
       searchManager?.state = .hidden
     }
-  }
-
-  func openPoint2Point() {
-    MWMRouter.enableAutoAddLastLocation(false)
-    // Is stopRouting really needed here?
-    MWMRouter.stopRouting()
-    controlsManager?.onRoutePrepare()
   }
   
   func openHelp() {

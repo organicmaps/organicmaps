@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="21507" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="21701" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
     <device id="retina6_1" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="21505"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="21679"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -14,7 +14,6 @@
                 <outlet property="downloadBadge" destination="uDI-ZC-4wx" id="fAf-cy-Ozn"/>
                 <outlet property="helpButton" destination="dzf-7Z-N6a" id="ORg-VO-5ar"/>
                 <outlet property="moreButton" destination="svD-yi-GrZ" id="kjk-ZW-nZN"/>
-                <outlet property="routeButton" destination="dzf-7Z-N6b" id="M5Q-pe-o4B"/>
                 <outlet property="searchButton" destination="No0-ld-JX3" id="m5F-UT-j94"/>
                 <outlet property="view" destination="zuH-WU-hiP" id="eoa-4I-wKs"/>
             </connections>
@@ -28,7 +27,7 @@
                     <rect key="frame" x="0.0" y="0.0" width="373" height="48"/>
                     <subviews>
                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="dzf-7Z-N6a" userLabel="Help" customClass="MWMButton">
-                            <rect key="frame" x="0.0" y="0.0" width="74.5" height="48"/>
+                            <rect key="frame" x="0.0" y="0.0" width="93.5" height="48"/>
                             <accessibility key="accessibilityConfiguration" identifier="helpButton"/>
                             <fontDescription key="fontDescription" type="system" pointSize="30"/>
                             <state key="normal" image="ic_menu_question"/>
@@ -39,19 +38,8 @@
                                 <action selector="onHelpButtonPressed:" destination="-1" eventType="touchUpInside" id="1gx-P2-sRJ"/>
                             </connections>
                         </button>
-                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="dzf-7Z-N6b" userLabel="P2P" customClass="MWMButton">
-                            <rect key="frame" x="74.5" y="0.0" width="74.5" height="48"/>
-                            <accessibility key="accessibilityConfiguration" identifier="p2pButton"/>
-                            <state key="normal" image="ic_menu_point_to_point"/>
-                            <userDefinedRuntimeAttributes>
-                                <userDefinedRuntimeAttribute type="string" keyPath="styleName" value="MWMBlack"/>
-                            </userDefinedRuntimeAttributes>
-                            <connections>
-                                <action selector="onPoint2PointButtonPressed:" destination="-1" eventType="touchUpInside" id="PPa-zZ-odU"/>
-                            </connections>
-                        </button>
                         <button opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="249" horizontalCompressionResistancePriority="751" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="No0-ld-JX3" userLabel="Search" customClass="MWMButton">
-                            <rect key="frame" x="149" y="0.0" width="75" height="48"/>
+                            <rect key="frame" x="93.5" y="0.0" width="93" height="48"/>
                             <accessibility key="accessibilityConfiguration" identifier="searchButton"/>
                             <state key="normal" image="ic_menu_search"/>
                             <userDefinedRuntimeAttributes>
@@ -62,7 +50,7 @@
                             </connections>
                         </button>
                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="dgG-ki-3tB" userLabel="Bookmarks" customClass="MWMButton">
-                            <rect key="frame" x="224" y="0.0" width="74.5" height="48"/>
+                            <rect key="frame" x="186.5" y="0.0" width="93.5" height="48"/>
                             <accessibility key="accessibilityConfiguration" identifier="bookmarksButton"/>
                             <state key="normal" image="ic_menu_bookmark_list"/>
                             <userDefinedRuntimeAttributes>
@@ -73,7 +61,7 @@
                             </connections>
                         </button>
                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="svD-yi-GrZ" userLabel="Menu" customClass="MWMButton">
-                            <rect key="frame" x="298.5" y="0.0" width="74.5" height="48"/>
+                            <rect key="frame" x="280" y="0.0" width="93" height="48"/>
                             <accessibility key="accessibilityConfiguration" identifier="menuButton"/>
                             <state key="normal" image="ic_menu"/>
                             <userDefinedRuntimeAttributes>
@@ -84,7 +72,7 @@
                             </connections>
                         </button>
                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="uDI-ZC-4wx" userLabel="DownloadBadge">
-                            <rect key="frame" x="338.5" y="11" width="10" height="10"/>
+                            <rect key="frame" x="329.5" y="11" width="10" height="10"/>
                             <color key="backgroundColor" red="1" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                             <constraints>
                                 <constraint firstAttribute="width" constant="10" id="tEP-Xi-qnU"/>
@@ -97,29 +85,25 @@
                     </subviews>
                     <accessibility key="accessibilityConfiguration" identifier="MainButtons"/>
                     <constraints>
-                        <constraint firstItem="dzf-7Z-N6b" firstAttribute="width" secondItem="vum-s3-PHx" secondAttribute="width" multiplier="0.2" id="5hK-LG-gSF"/>
                         <constraint firstAttribute="height" constant="48" id="69A-eu-uLp"/>
                         <constraint firstItem="No0-ld-JX3" firstAttribute="centerY" secondItem="vum-s3-PHx" secondAttribute="centerY" id="8nL-zT-Y7b"/>
                         <constraint firstItem="No0-ld-JX3" firstAttribute="height" secondItem="vum-s3-PHx" secondAttribute="height" id="9eR-I7-7at"/>
                         <constraint firstItem="svD-yi-GrZ" firstAttribute="leading" secondItem="dgG-ki-3tB" secondAttribute="trailing" id="Bsa-EZ-etN"/>
-                        <constraint firstItem="dzf-7Z-N6b" firstAttribute="centerY" secondItem="vum-s3-PHx" secondAttribute="centerY" id="EjU-qR-CfV"/>
                         <constraint firstItem="svD-yi-GrZ" firstAttribute="height" secondItem="vum-s3-PHx" secondAttribute="height" id="Fde-um-JL6"/>
-                        <constraint firstItem="dgG-ki-3tB" firstAttribute="width" secondItem="vum-s3-PHx" secondAttribute="width" multiplier="0.2" id="FvH-gW-qvX"/>
+                        <constraint firstItem="dgG-ki-3tB" firstAttribute="width" secondItem="vum-s3-PHx" secondAttribute="width" multiplier="0.25" id="FvH-gW-qvX"/>
                         <constraint firstItem="dgG-ki-3tB" firstAttribute="centerY" secondItem="vum-s3-PHx" secondAttribute="centerY" id="JjT-sc-hIY"/>
-                        <constraint firstItem="dzf-7Z-N6a" firstAttribute="width" secondItem="vum-s3-PHx" secondAttribute="width" multiplier="0.2" id="Kpo-Yp-UaG"/>
-                        <constraint firstItem="No0-ld-JX3" firstAttribute="leading" secondItem="dzf-7Z-N6b" secondAttribute="trailing" id="Q7C-0J-qf8"/>
+                        <constraint firstItem="dzf-7Z-N6a" firstAttribute="width" secondItem="vum-s3-PHx" secondAttribute="width" multiplier="0.25" id="Kpo-Yp-UaG"/>
                         <constraint firstItem="dzf-7Z-N6a" firstAttribute="leading" secondItem="vum-s3-PHx" secondAttribute="leading" id="RVj-Dx-wtX"/>
                         <constraint firstItem="dgG-ki-3tB" firstAttribute="height" secondItem="vum-s3-PHx" secondAttribute="height" id="Rs8-Hl-CAc"/>
                         <constraint firstItem="uDI-ZC-4wx" firstAttribute="centerX" secondItem="svD-yi-GrZ" secondAttribute="centerX" constant="8" id="XNb-Ba-Hn7"/>
                         <constraint firstItem="dzf-7Z-N6a" firstAttribute="centerY" secondItem="vum-s3-PHx" secondAttribute="centerY" id="Zug-zY-KIX"/>
-                        <constraint firstItem="No0-ld-JX3" firstAttribute="width" secondItem="vum-s3-PHx" secondAttribute="width" multiplier="0.2" id="qZh-XR-VeU"/>
+                        <constraint firstItem="No0-ld-JX3" firstAttribute="width" secondItem="vum-s3-PHx" secondAttribute="width" multiplier="0.25" id="qZh-XR-VeU"/>
+                        <constraint firstItem="No0-ld-JX3" firstAttribute="leading" secondItem="dzf-7Z-N6a" secondAttribute="trailing" id="sZ7-Yb-gag"/>
                         <constraint firstItem="svD-yi-GrZ" firstAttribute="centerY" secondItem="vum-s3-PHx" secondAttribute="centerY" id="sja-hO-YY3"/>
-                        <constraint firstItem="svD-yi-GrZ" firstAttribute="width" secondItem="vum-s3-PHx" secondAttribute="width" multiplier="0.2" id="u75-4c-Jlg"/>
-                        <constraint firstItem="dzf-7Z-N6b" firstAttribute="leading" secondItem="dzf-7Z-N6a" secondAttribute="trailing" id="uYs-0i-rZu"/>
+                        <constraint firstItem="svD-yi-GrZ" firstAttribute="width" secondItem="vum-s3-PHx" secondAttribute="width" multiplier="0.25" id="u75-4c-Jlg"/>
                         <constraint firstAttribute="trailing" secondItem="svD-yi-GrZ" secondAttribute="trailing" identifier="menuTrailing" id="w4O-sY-Sb2"/>
                         <constraint firstItem="dzf-7Z-N6a" firstAttribute="height" secondItem="vum-s3-PHx" secondAttribute="height" id="yTg-8g-H1p"/>
                         <constraint firstItem="uDI-ZC-4wx" firstAttribute="centerY" secondItem="svD-yi-GrZ" secondAttribute="centerY" constant="-8" id="yq3-ui-IaL"/>
-                        <constraint firstItem="dzf-7Z-N6b" firstAttribute="height" secondItem="vum-s3-PHx" secondAttribute="height" id="zam-Ve-V93"/>
                     </constraints>
                 </view>
             </subviews>
@@ -143,7 +127,6 @@
     <resources>
         <image name="ic_menu" width="48" height="48"/>
         <image name="ic_menu_bookmark_list" width="48" height="48"/>
-        <image name="ic_menu_point_to_point" width="48" height="48"/>
         <image name="ic_menu_question" width="29" height="29"/>
         <image name="ic_menu_search" width="48" height="48"/>
     </resources>
