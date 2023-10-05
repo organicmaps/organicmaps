@@ -22,3 +22,6 @@
 
 # For Guava used by Android Auto
 -dontwarn java.lang.reflect.AnnotatedType
+
+# Disable obfuscation since it is open-source app.
+-dontobfuscate
