@@ -20021,7 +20021,7 @@
     mr = रूपांतरित करा
     nb = Konvertere
     nl = Omzetten
-    pl = konwertować
+    pl = Konwertuj
     pt = Converter
     pt-BR = Converter
     ro = Convertește
@@ -20236,7 +20236,7 @@
     mr = पूर्ववत् करा
     nb = Restaurere
     nl = Herstellen
-    pl = Przywracać
+    pl = Przywróć
     pt = Restaurar
     pt-BR = Restaurar
     ro = Restabilește
@@ -22252,7 +22252,7 @@
     mr = दुर्दैवाने, आम्ही मार्ग शोधू शकलो नाही. ह्याचे कारण कदाचित तुम्ही निवडलेले पर्याय असावे. कृपया सेटिंग बदला आणि पुन्हा प्रयत्न करा.
     nb = Dessverre kunne vi ikke finne en rute sannsynligvis på grunn av dine definerte alternativer. Vennligst endre innstillingene og prøv igjen
     nl = Helaas konden we geen route opbouwen met de gekozen opties. Wijzig de instellingen en probeer het opnieuw
-    pl = Niestety, nie udało nam się zbudować trasy, która posiada obrane opcje. Zmień ustawienia i spróbuj ponownie
+    pl = Wyznaczanie trasy nie powiodło się. Przyczyną mogą być ustawienia nawigacji lub niekompletne dane OpenStreetMap. Zmień ustawienia i spróbuj ponownie
     pt = Infelizmente não foi possível criar o percurso com as opções selecionadas. Altere as opções e tente novamente
     pt-BR = Infelizmente, não conseguimos encontrar uma rota, provavelmente por causa das opções escolhidas. Por favor, altere as configurações e tente novamente
     ro = Din păcate, nu putem elabora un traseu cu opțiunile alese. Modifică-le și încearcă din nou.
@@ -22507,7 +22507,7 @@
     mr = टोल मार्ग टाळा
     nb = Unngå bompengeveier
     nl = Tolwegen vermijden
-    pl = Unikać dróg płatnych
+    pl = Unikaj dróg płatnych
     pt = Evitar estradas com portagem
     pt-BR = Evitar pedágios
     ro = Evită drumurile cu plată
@@ -22550,7 +22550,7 @@
     mr = कच्चे मार्ग टाळा
     nb = Unngå uasfalterte veier
     nl = Aardewegen vermijden
-    pl = Unikać dróg gruntowych
+    pl = Unikaj dróg gruntowych
     pt = Evitar estradas não pavimentadas
     pt-BR = Evitar pistas sem pavimentação
     ro = Evită drumurile neasfaltate
@@ -22593,7 +22593,7 @@
     mr = जल मार्ग टाळा
     nb = Unngå fergeoverganger
     nl = Ferries vermijden
-    pl = Unikać przepraw promowych
+    pl = Unikaj przepraw promowych
     pt = Evitar ferrys
     pt-BR = Evitar balsas
     ro = Evită trecerile cu bac
@@ -22846,7 +22846,7 @@
     mr = तुम्हाला मार्ग पुन्हा तयार करायचा आहे का?
     nb = Vil du planlegge en rute på nytt?
     nl = Wilt u de route wijzigen?
-    pl = Czy chcesz przebudować trasę?
+    pl = Czy chcesz wyznaczyć trasę ponownie?
     pt = Quer recalcular o percurso?
     pt-BR = Você deseja retraçar a rota?
     ro = Vrei să refaci traseul?
