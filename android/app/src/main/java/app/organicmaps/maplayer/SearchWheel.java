@@ -3,7 +3,6 @@ package app.organicmaps.maplayer;
 import android.animation.Animator;
 import android.animation.AnimatorInflater;
 import android.content.Context;
-import android.os.Bundle;
 import android.text.TextUtils;
 import android.util.DisplayMetrics;
 import android.view.View;
@@ -21,7 +20,6 @@ import app.organicmaps.search.SearchEngine;
 import app.organicmaps.util.Graphics;
 import app.organicmaps.util.StringUtils;
 import app.organicmaps.util.UiUtils;
-import app.organicmaps.util.Utils;
 import app.organicmaps.util.concurrency.UiThread;
 
 public class SearchWheel implements View.OnClickListener

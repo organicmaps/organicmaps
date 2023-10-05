@@ -17,7 +17,6 @@ import androidx.fragment.app.FragmentActivity;
 
 import app.organicmaps.R;
 import app.organicmaps.base.BaseMwmFragment;
-import app.organicmaps.base.OnBackPressListener;
 import app.organicmaps.util.UiUtils;
 import com.google.android.material.dialog.MaterialAlertDialogBuilder;
 

@@ -12,7 +12,6 @@ import androidx.fragment.app.FragmentActivity;
 import app.organicmaps.Framework;
 import app.organicmaps.R;
 import app.organicmaps.base.BaseMwmFragment;
-import app.organicmaps.base.OnBackPressListener;
 
 public class RoutingPlanFragment extends BaseMwmFragment
 {

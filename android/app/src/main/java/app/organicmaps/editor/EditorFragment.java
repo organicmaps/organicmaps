@@ -21,7 +21,6 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.annotation.StringRes;
 import androidx.appcompat.widget.SwitchCompat;
-import androidx.core.content.ContextCompat;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -36,12 +35,10 @@ import app.organicmaps.editor.data.LocalizedName;
 import app.organicmaps.editor.data.LocalizedStreet;
 import app.organicmaps.editor.data.TimeFormatUtils;
 import app.organicmaps.editor.data.Timetable;
-import app.organicmaps.util.Constants;
 import app.organicmaps.util.Graphics;
 import app.organicmaps.util.InputUtils;
 import app.organicmaps.util.Option;
 import app.organicmaps.util.StringUtils;
-import app.organicmaps.util.ThemeUtils;
 import app.organicmaps.util.UiUtils;
 import app.organicmaps.util.Utils;
 

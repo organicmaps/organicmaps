@@ -5,7 +5,6 @@ import android.os.Parcelable;
 
 import androidx.annotation.DrawableRes;
 import androidx.annotation.NonNull;
-import androidx.annotation.PluralsRes;
 import androidx.annotation.StringRes;
 
 import app.organicmaps.R;

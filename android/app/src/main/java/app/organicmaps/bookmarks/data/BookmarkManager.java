@@ -13,7 +13,6 @@ import androidx.annotation.Nullable;
 import androidx.annotation.WorkerThread;
 import app.organicmaps.Framework;
 import app.organicmaps.bookmarks.DataChangedListener;
-import app.organicmaps.bookmarks.BookmarkCategoriesFragment;
 import app.organicmaps.util.KeyValue;
 import app.organicmaps.util.StorageUtils;
 import app.organicmaps.util.concurrency.UiThread;

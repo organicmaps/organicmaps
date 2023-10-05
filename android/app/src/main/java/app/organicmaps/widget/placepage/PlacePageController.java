@@ -31,7 +31,6 @@ import app.organicmaps.bookmarks.data.MapObject;
 import app.organicmaps.bookmarks.data.RoadWarningMarkType;
 import app.organicmaps.routing.RoutingController;
 import app.organicmaps.settings.RoadType;
-import app.organicmaps.util.SharingUtils;
 import app.organicmaps.util.ThemeUtils;
 import app.organicmaps.util.UiUtils;
 import app.organicmaps.util.bottomsheet.MenuBottomSheetFragment;

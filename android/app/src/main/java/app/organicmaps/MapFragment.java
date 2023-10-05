@@ -16,7 +16,6 @@ import androidx.annotation.Nullable;
 import androidx.core.content.res.ConfigurationHelper;
 
 import app.organicmaps.base.BaseMwmFragment;
-import app.organicmaps.display.DisplayManager;
 import app.organicmaps.display.DisplayType;
 import app.organicmaps.util.log.Logger;
 

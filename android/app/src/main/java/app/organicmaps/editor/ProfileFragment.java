@@ -14,7 +14,6 @@ import androidx.annotation.Nullable;
 
 import app.organicmaps.R;
 import app.organicmaps.base.BaseMwmToolbarFragment;
-import app.organicmaps.util.Constants;
 import app.organicmaps.util.UiUtils;
 import app.organicmaps.util.concurrency.ThreadPool;
 import app.organicmaps.util.concurrency.UiThread;

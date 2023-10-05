@@ -10,8 +10,6 @@ import android.telephony.TelephonyManager;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
-import app.organicmaps.MwmApplication;
-
 public enum ConnectionState
 {
   INSTANCE;

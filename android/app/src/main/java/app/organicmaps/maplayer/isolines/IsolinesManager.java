@@ -4,7 +4,6 @@ import android.app.Application;
 import android.content.Context;
 
 import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
 
 import app.organicmaps.Framework;
 import app.organicmaps.MwmApplication;

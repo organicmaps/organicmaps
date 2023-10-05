@@ -12,7 +12,6 @@ import androidx.annotation.Nullable;
 import androidx.recyclerview.widget.RecyclerView;
 
 import app.organicmaps.R;
-import app.organicmaps.util.Config;
 
 import java.util.ArrayList;
 

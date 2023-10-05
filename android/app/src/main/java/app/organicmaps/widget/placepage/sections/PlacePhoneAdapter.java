@@ -13,8 +13,6 @@ import app.organicmaps.R;
 import app.organicmaps.util.Utils;
 
 import java.util.ArrayList;
-import java.util.Collections;
-import java.util.List;
 
 public class PlacePhoneAdapter extends RecyclerView.Adapter<PlacePhoneAdapter.ViewHolder>
 {

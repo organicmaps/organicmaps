@@ -17,8 +17,6 @@ import app.organicmaps.widget.PlaceholderView;
 import app.organicmaps.widget.SearchToolbarController;
 import app.organicmaps.util.UiUtils;
 
-import java.util.Objects;
-
 public class SearchHistoryFragment extends BaseMwmRecyclerFragment<SearchHistoryAdapter>
 {
   private PlaceholderView mPlaceHolder;

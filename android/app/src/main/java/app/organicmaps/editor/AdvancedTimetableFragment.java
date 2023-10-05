@@ -1,6 +1,5 @@
 package app.organicmaps.editor;
 
-import android.graphics.Color;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
