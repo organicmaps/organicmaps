@@ -29,7 +29,7 @@ namespace scales
   /// Default scale in adding-new-place mode.
   constexpr int GetAddNewPlaceScale() { return 18; }
   /// Lower scale when standalone point housenumbers (of building-address type) become visible.
-  constexpr int GetPointHousenumbersScale() { return 18; }
+  constexpr int GetPointHousenumbersScale() { return 17; }
 
   int GetMinAllowableIn3dScale();
 
