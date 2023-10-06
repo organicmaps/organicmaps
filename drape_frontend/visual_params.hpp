@@ -75,7 +75,7 @@ private:
   DISALLOW_COPY_AND_MOVE(VisualParams);
 };
 
-m2::RectD const & GetWorldRect();
+m2::RectD GetWorldRect();
 
 int GetTileScaleBase(ScreenBase const & s, uint32_t tileSize);
 int GetTileScaleBase(ScreenBase const & s);

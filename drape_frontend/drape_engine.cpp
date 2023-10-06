@@ -31,7 +31,7 @@ DrapeEngine::DrapeEngine(Params && params)
 
   VisualParams::Init(params.m_vs, df::CalculateTileSize(m_viewport.GetWidth(), m_viewport.GetHeight()));
 
-  df::VisualParams::Instance().SetFontScale(params.m_fontsScaleFactor);
+  SetFontScaleFactor(params.m_fontsScaleFactor);
 
   gui::DrapeGui::Instance().SetSurfaceSize(m2::PointF(m_viewport.GetWidth(), m_viewport.GetHeight()));
 
@@ -839,11 +839,6 @@ void DrapeEngine::EnableIsolines(bool enable)
 
 void DrapeEngine::SetFontScaleFactor(double scaleFactor)
 {
-  double const kMinScaleFactor = 0.5;
-  double const kMaxScaleFactor = 2.0;
-
-  scaleFactor = base::Clamp(scaleFactor, kMinScaleFactor, kMaxScaleFactor);
-
   VisualParams::Instance().SetFontScale(scaleFactor);
 }
 
