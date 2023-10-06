@@ -1869,6 +1869,8 @@
 	<string name="type.shop.pet">Зоотовари</string>
 	<string name="type.shop.pet_grooming">Грумінг</string>
 	<string name="type.shop.photo">Фототовари</string>
+	<string name="type.shop.rental">Прокат</string>
+	<string name="type.shop.rental.bicycle">Прокат велосипедів</string>
 	<string name="type.shop.seafood">Рибна лавка</string>
 	<string name="type.shop.second_hand">Магазин секонд-хенду</string>
 	<string name="type.shop.shoes">Магазин взуття</string>

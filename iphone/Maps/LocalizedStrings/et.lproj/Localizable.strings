@@ -3525,6 +3525,10 @@
 
 "type.shop.photo" = "Fotopood";
 
+"type.shop.rental" = "Laenutuspood";
+
+"type.shop.rental.bicycle" = "Jalgrattalaenutus";
+
 "type.shop.seafood" = "Mereandide pood";
 
 "type.shop.second_hand" = "Taaskasutus";

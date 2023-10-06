@@ -1829,6 +1829,8 @@
 	<string name="type.shop.pet">Loja de animais de estimação</string>
 	<string name="type.shop.pet_grooming">Salão de banhos e tosquia</string>
 	<string name="type.shop.photo">Loja de fotografia</string>
+	<string name="type.shop.rental">Locadora</string>
+	<string name="type.shop.rental.bicycle">Loja de aluguel de bicicletas</string>
 	<string name="type.shop.seafood">Peixaria</string>
 	<string name="type.shop.second_hand">Loja de segunda mão</string>
 	<string name="type.shop.shoes">Sapataria</string>

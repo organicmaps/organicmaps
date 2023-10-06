@@ -1591,6 +1591,8 @@
 	<string name="type.shop.pet">فروشگاه</string>
 	<string name="type.shop.pet_grooming">نظافت حیوانات خانگی</string>
 	<string name="type.shop.photo">فروشگاه</string>
+	<string name="type.shop.rental">مغازه اجاره ای</string>
+	<string name="type.shop.rental.bicycle">مغازه اجاره دوچرخه</string>
 	<string name="type.shop.seafood">فروشگاه</string>
 	<string name="type.shop.second_hand">ﻡﻭﺩ ﺖﺳﺩ ﻩﺎﮕﺷﻭﺮﻓ</string>
 	<string name="type.shop.shoes">فروشگاه</string>

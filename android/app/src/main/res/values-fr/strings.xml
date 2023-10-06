@@ -1857,6 +1857,8 @@
 	<string name="type.shop.pet">Animalerie</string>
 	<string name="type.shop.pet_grooming">Salon de toilettage</string>
 	<string name="type.shop.photo">Matériel de photographie</string>
+	<string name="type.shop.rental">Magasin de location</string>
+	<string name="type.shop.rental.bicycle">Magasin de location de vélos</string>
 	<string name="type.shop.seafood">Poissonnier</string>
 	<string name="type.shop.second_hand">Boutique d\'objets d\'occasion</string>
 	<string name="type.shop.shoes">Magasin de chaussures</string>

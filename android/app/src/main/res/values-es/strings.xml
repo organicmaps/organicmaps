@@ -1864,6 +1864,8 @@
 	<string name="type.shop.pet">Tienda de mascotas</string>
 	<string name="type.shop.pet_grooming">Aseo de mascotas</string>
 	<string name="type.shop.photo">Artículos de fotografía</string>
+	<string name="type.shop.rental">Tienda de alquiler</string>
+	<string name="type.shop.rental.bicycle">Tienda de alquiler de bicicletas</string>
 	<string name="type.shop.seafood">Pescadería</string>
 	<string name="type.shop.second_hand">Tienda de segunda mano</string>
 	<string name="type.shop.shoes">Zapatería</string>

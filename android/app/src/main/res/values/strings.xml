@@ -1963,6 +1963,8 @@
 	<string name="type.shop.pet">Pet Store</string>
 	<string name="type.shop.pet_grooming">Pet Grooming</string>
 	<string name="type.shop.photo">Photo Shop</string>
+	<string name="type.shop.rental">Rental Shop</string>
+	<string name="type.shop.rental.bicycle">Bicycle Rental Shop</string>
 	<string name="type.shop.seafood">Fishmonger</string>
 	<string name="type.shop.second_hand">Second Hand Shop</string>
 	<string name="type.shop.shoes">Shoe Shop</string>

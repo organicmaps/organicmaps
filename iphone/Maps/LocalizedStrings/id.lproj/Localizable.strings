@@ -3525,6 +3525,10 @@
 
 "type.shop.photo" = "Studio Foto";
 
+"type.shop.rental" = "Toko Sewa";
+
+"type.shop.rental.bicycle" = "Toko Penyewaan Sepeda";
+
 "type.shop.seafood" = "Penjual Ikan";
 
 "type.shop.second_hand" = "Toko Barang bekas";

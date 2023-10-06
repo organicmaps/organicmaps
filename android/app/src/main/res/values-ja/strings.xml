@@ -1794,6 +1794,8 @@
 	<string name="type.shop.pet">ペットショップ</string>
 	<string name="type.shop.pet_grooming">ペットグルーミング</string>
 	<string name="type.shop.photo">写真屋</string>
+	<string name="type.shop.rental">レンタルショップ</string>
+	<string name="type.shop.rental.bicycle">レンタサイクルショップ</string>
 	<string name="type.shop.seafood">魚屋</string>
 	<string name="type.shop.second_hand">古物商</string>
 	<string name="type.shop.shoes">靴屋</string>

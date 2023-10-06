@@ -1882,6 +1882,8 @@
 	<string name="type.shop.pet">Evcil Hayvan Mağazası</string>
 	<string name="type.shop.pet_grooming">Evcil Hayvan Bakıcısı</string>
 	<string name="type.shop.photo">Fotoğrafçı</string>
+	<string name="type.shop.rental">Kiralık Mağaza</string>
+	<string name="type.shop.rental.bicycle">Bisiklet Kiralama Mağazası</string>
 	<string name="type.shop.seafood">Deniz Ürünleri Mağazası</string>
 	<string name="type.shop.second_hand">İkinci El Mağazası</string>
 	<string name="type.shop.shoes">Ayakkabı Mağazası</string>

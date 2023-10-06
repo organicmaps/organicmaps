@@ -3525,6 +3525,10 @@
 
 "type.shop.photo" = "Fotografický obchod";
 
+"type.shop.rental" = "Půjčovna";
+
+"type.shop.rental.bicycle" = "Půjčovna kol";
+
 "type.shop.seafood" = "Prodej ryb";
 
 "type.shop.second_hand" = "Obchod z druhé ruky";

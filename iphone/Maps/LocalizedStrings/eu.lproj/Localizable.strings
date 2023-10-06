@@ -3525,6 +3525,10 @@
 
 "type.shop.photo" = "Argazkilaritza artikuluak";
 
+"type.shop.rental" = "Alokairu-denda";
+
+"type.shop.rental.bicycle" = "Bizikletak alokatzeko denda";
+
 "type.shop.seafood" = "Arrain-denda";
 
 "type.shop.second_hand" = "Bigarren eskuko denda";

@@ -3525,6 +3525,10 @@
 
 "type.shop.photo" = "Photo Shop";
 
+"type.shop.rental" = "Botiga de lloguer";
+
+"type.shop.rental.bicycle" = "Botiga de lloguer de bicicletes";
+
 "type.shop.seafood" = "Fishmonger";
 
 "type.shop.second_hand" = "Second Hand Shop";

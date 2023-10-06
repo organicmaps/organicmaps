@@ -3525,6 +3525,10 @@
 
 "type.shop.photo" = "Фототовари";
 
+"type.shop.rental" = "Прокат";
+
+"type.shop.rental.bicycle" = "Прокат велосипедів";
+
 "type.shop.seafood" = "Рибна лавка";
 
 "type.shop.second_hand" = "Магазин секонд-хенду";

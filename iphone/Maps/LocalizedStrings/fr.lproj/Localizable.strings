@@ -3525,6 +3525,10 @@
 
 "type.shop.photo" = "Matériel de photographie";
 
+"type.shop.rental" = "Magasin de location";
+
+"type.shop.rental.bicycle" = "Magasin de location de vélos";
+
 "type.shop.seafood" = "Poissonnier";
 
 "type.shop.second_hand" = "Boutique d'objets d'occasion";

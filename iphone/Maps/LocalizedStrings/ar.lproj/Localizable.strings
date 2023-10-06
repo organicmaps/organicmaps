@@ -3525,6 +3525,10 @@
 
 "type.shop.photo" = "محل تصوير";
 
+"type.shop.rental" = "محل تأجير";
+
+"type.shop.rental.bicycle" = "محل تأجير الدراجات";
+
 "type.shop.seafood" = "سمّاك";
 
 "type.shop.second_hand" = "متجر بضائع مستعملة";

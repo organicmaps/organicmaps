@@ -3525,6 +3525,10 @@
 
 "type.shop.photo" = "Hiệu Ảnh";
 
+"type.shop.rental" = "Cửa hàng cho thuê";
+
+"type.shop.rental.bicycle" = "Cửa hàng cho thuê xe đạp";
+
 "type.shop.seafood" = "Người bán cá";
 
 "type.shop.second_hand" = "Cửa hàng bán đồ đã qua sử dụng";

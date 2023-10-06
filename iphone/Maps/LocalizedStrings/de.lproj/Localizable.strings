@@ -3525,6 +3525,10 @@
 
 "type.shop.photo" = "Fotofachgeschäft";
 
+"type.shop.rental" = "Verleih";
+
+"type.shop.rental.bicycle" = "Fahrradverleih";
+
 "type.shop.seafood" = "Fischhändler";
 
 "type.shop.second_hand" = "Second-Hand-Laden";

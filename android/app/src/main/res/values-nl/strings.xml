@@ -1884,6 +1884,8 @@
 	<string name="type.shop.pet">Dierenwinkel</string>
 	<string name="type.shop.pet_grooming">Huisdierverzorging</string>
 	<string name="type.shop.photo">Fotowinkel</string>
+	<string name="type.shop.rental">Verhuur winkel</string>
+	<string name="type.shop.rental.bicycle">Fietsverhuurwinkel</string>
 	<string name="type.shop.seafood">Visboer</string>
 	<string name="type.shop.second_hand">Tweedehandswinkel</string>
 	<string name="type.shop.shoes">Schoenenwinkel</string>

@@ -1691,6 +1691,8 @@
 	<string name="type.shop.pet">Pet shop</string>
 	<string name="type.shop.pet_grooming">Îngrijirea animalelor de companie</string>
 	<string name="type.shop.photo">Centru fotografii</string>
+	<string name="type.shop.rental">Magazin de închiriere</string>
+	<string name="type.shop.rental.bicycle">Magazin de închiriere de biciclete</string>
 	<string name="type.shop.seafood">Pescărie</string>
 	<string name="type.shop.second_hand">Magazin second-hand</string>
 	<string name="type.shop.shoes">Magazin de încălțăminte</string>

@@ -1829,6 +1829,8 @@
 	<string name="type.shop.pet">Negozio di animali</string>
 	<string name="type.shop.pet_grooming">Toelettatura per animali domestici</string>
 	<string name="type.shop.photo">Negozio di fotografia</string>
+	<string name="type.shop.rental">Negozio di noleggio</string>
+	<string name="type.shop.rental.bicycle">Negozio di noleggio biciclette</string>
 	<string name="type.shop.seafood">Pescivendolo</string>
 	<string name="type.shop.second_hand">Negozio di articoli usati</string>
 	<string name="type.shop.shoes">Negozio di scarpe</string>

@@ -3525,6 +3525,10 @@
 
 "type.shop.photo" = "Centru fotografii";
 
+"type.shop.rental" = "Magazin de închiriere";
+
+"type.shop.rental.bicycle" = "Magazin de închiriere de biciclete";
+
 "type.shop.seafood" = "Pescărie";
 
 "type.shop.second_hand" = "Magazin second-hand";

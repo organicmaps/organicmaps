@@ -3525,6 +3525,10 @@
 
 "type.shop.photo" = "Fotoğrafçı";
 
+"type.shop.rental" = "Kiralık Mağaza";
+
+"type.shop.rental.bicycle" = "Bisiklet Kiralama Mağazası";
+
 "type.shop.seafood" = "Deniz Ürünleri Mağazası";
 
 "type.shop.second_hand" = "İkinci El Mağazası";

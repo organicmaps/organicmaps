@@ -1677,6 +1677,8 @@
 	<string name="type.shop.pet">펫샵</string>
 	<string name="type.shop.pet_grooming">애완동물 미용</string>
 	<string name="type.shop.photo">사진 가게</string>
+	<string name="type.shop.rental">렌탈샵</string>
+	<string name="type.shop.rental.bicycle">자전거 대여점</string>
 	<string name="type.shop.seafood">생선가게</string>
 	<string name="type.shop.second_hand">중고 판매점</string>
 	<string name="type.shop.shoes">신발 가게</string>

@@ -3525,6 +3525,10 @@
 
 "type.shop.photo" = "Fénykép üzlet";
 
+"type.shop.rental" = "Kölcsönző";
+
+"type.shop.rental.bicycle" = "Kerékpárkölcsönző";
+
 "type.shop.seafood" = "Halüzlet";
 
 "type.shop.second_hand" = "Second Hand Store";
