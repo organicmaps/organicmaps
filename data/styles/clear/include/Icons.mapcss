@@ -2680,6 +2680,9 @@ area|z18-[amenity=parking][access=private],
 node|z18-[amenity=parking][location=underground][access=private],
 area|z18-[amenity=parking][location=underground][access=private],
 {icon-image:parking_underground_private-m.svg;}
+node|z18-[amenity=parking][parking=street_side][access=private],
+area|z18-[amenity=parking][parking=street_side][access=private],
+{icon-image: parking_private-s.svg;}
 
 node|z17-[amenity=bicycle_parking],
 area|z17-[amenity=bicycle_parking],
