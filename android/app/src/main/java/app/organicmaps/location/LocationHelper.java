@@ -29,7 +29,6 @@ import java.util.Set;
 
 public class LocationHelper implements BaseLocationProvider.Listener
 {
-  private static final long INTERVAL_FOLLOW_AND_ROTATE_MS = 0;
   private static final long INTERVAL_FOLLOW_MS = 0;
   private static final long INTERVAL_NOT_FOLLOW_MS = 3000;
   private static final long INTERVAL_NAVIGATION_MS = 0;
@@ -239,13 +238,12 @@ public class LocationHelper implements BaseLocationProvider.Listener
     final int mode = LocationState.nativeGetMode();
     switch (mode)
     {
+      case LocationState.PENDING_POSITION:
       case LocationState.FOLLOW:
-        return INTERVAL_FOLLOW_MS;
       case LocationState.FOLLOW_AND_ROTATE:
-        return INTERVAL_FOLLOW_AND_ROTATE_MS;
+        return INTERVAL_FOLLOW_MS;
       case LocationState.NOT_FOLLOW:
       case LocationState.NOT_FOLLOW_NO_POSITION:
-      case LocationState.PENDING_POSITION:
         return INTERVAL_NOT_FOLLOW_MS;
       default:
         throw new IllegalArgumentException("Unsupported location mode: " + mode);
