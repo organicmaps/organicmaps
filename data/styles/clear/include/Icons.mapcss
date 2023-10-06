@@ -2683,6 +2683,12 @@ area|z18-[amenity=parking][location=underground][access=private],
 node|z18-[amenity=parking][parking=street_side][access=private],
 area|z18-[amenity=parking][parking=street_side][access=private],
 {icon-image: parking_private-s.svg;}
+node|z18-[amenity=parking][parking=lane][access=private],
+area|z18-[amenity=parking][parking=lane][access=private],
+{icon-image: none; text: none;}
+node|z19-[amenity=parking][parking=lane][access=private],
+area|z19-[amenity=parking][parking=lane][access=private],
+{icon-image: parking_private-s.svg; text: name;}
 
 node|z17-[amenity=bicycle_parking],
 area|z17-[amenity=bicycle_parking],

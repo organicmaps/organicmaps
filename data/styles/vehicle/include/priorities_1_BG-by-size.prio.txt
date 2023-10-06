@@ -18,6 +18,7 @@ amenity-parking                                     # area z15- (also has icon z
 amenity-parking-fee                                 # area z15- (also has icon z15-, caption(optional) z16-)
 amenity-parking-lane                                # area z15- (also has icon z17-)
 amenity-parking-lane-fee                            # area z15- (also has icon z15-)
+amenity-parking-lane-private                        # area z15- (also has icon z18-, caption(optional) z18-)
 amenity-parking-multi-storey                        # area z15- (also has icon z15-, caption(optional) z16-)
 amenity-parking-multi-storey-fee                    # area z15- (also has icon z15-, caption(optional) z16-)
 amenity-parking-no-access                           # area z15- (also has icon z15-, caption(optional) z16-)

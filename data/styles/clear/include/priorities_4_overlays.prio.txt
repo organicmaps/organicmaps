@@ -1282,6 +1282,7 @@ amenity-parking-street_side                         # icon z18- (also has captio
 amenity-parking-street_side-fee                     # icon z18- (also has caption(optional) z18-, area z17-)
 === 150
 
+amenity-parking-lane-private                        # icon z19- (also has caption(optional) z19-, area z17-)
 amenity-parking-no-access                           # icon z16- (also has caption(optional) z18-, area z15-)
 amenity-parking-private                             # icon z18- (also has caption(optional) z18-, area z17-)
 amenity-parking-street_side-private                 # icon z18- (also has caption(optional) z18-, area z17-)
@@ -2171,6 +2172,7 @@ amenity-parking_entrance-private                    # icon z19- (also has captio
 # amenity-parking-street_side-fee                   # caption(optional) z18- (also has icon z18-, area z17-)
 # === -9850
 
+# amenity-parking-lane-private                      # caption(optional) z19- (also has icon z19-, area z17-)
 # amenity-parking-no-access                         # caption(optional) z18- (also has icon z16-, area z15-)
 # amenity-parking-private                           # caption(optional) z18- (also has icon z18-, area z17-)
 # amenity-parking-street_side-private               # caption(optional) z18- (also has icon z18-, area z17-)
