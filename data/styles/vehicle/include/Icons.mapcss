@@ -938,11 +938,16 @@ area|z17-[amenity=parking][parking=street_side],
 node|z17-[amenity=parking][parking=lane],
 area|z17-[amenity=parking][parking=lane],
 {icon-image: parking-s.svg;}
+
 node|z17-[amenity=parking][parking=street_side][fee?],
 area|z17-[amenity=parking][parking=street_side][fee?],
 node|z17-[amenity=parking][parking=lane][fee?],
 area|z17-[amenity=parking][parking=lane][fee?],
 {icon-image: parking_pay-s.svg;}
+
+node|z17-[amenity=parking][parking=street_side][access=private],
+area|z17-[amenity=parking][parking=street_side][access=private],
+{icon-image: parking_private-s.svg;}
 
 node|z16-[amenity=parking_entrance],
 area|z16-[amenity=parking_entrance],

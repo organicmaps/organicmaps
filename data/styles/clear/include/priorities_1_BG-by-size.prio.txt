@@ -94,6 +94,7 @@ amenity-parking-permissive                          # area z15- (also has icon z
 amenity-parking-private                             # area z17- (also has icon z18-, caption(optional) z18-)
 amenity-parking-street_side                         # area z17- (also has icon z18-, caption(optional) z18-)
 amenity-parking-street_side-fee                     # area z17- (also has icon z18-, caption(optional) z18-)
+amenity-parking-street_side-private                 # area z17- (also has icon z18-, caption(optional) z18-)
 === 100
 
 natural-wetland                                     # area z11- (also has caption z16-)
