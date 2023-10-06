@@ -95,6 +95,8 @@ if [ "$(uname -s)" == "Darwin" ]; then
     CMAKE_CONFIG="${CMAKE_CONFIG:-} -DCMAKE_C_COMPILER=/usr/local/bin/$GCC \
                                     -DCMAKE_CXX_COMPILER=/usr/local/bin/$GPP"
   fi
+elif [ "$(uname -s)" == "Linux" ]; then
+  PROCESSES=$(nproc)
 else
   [ -n "$OPT_DESIGNER" ] \
   && echo "Designer tool is only supported on Linux or MacOS" && exit 2
