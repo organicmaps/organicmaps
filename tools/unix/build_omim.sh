@@ -52,12 +52,11 @@ while getopts ":cdrxtagjlpn:" opt; do
   esac
 done
 
-if [ -z "$OPT_DESIGNER" -a -z "$OPT_STANDALONE" ]; then
+OPT_TARGET=${@:$OPTIND}
+
+if [ "$OPT_TARGET" != "desktop" -a -z "$OPT_DESIGNER" -a -z "$OPT_STANDALONE" ]; then
   CMAKE_CONFIG="${CMAKE_CONFIG:-} -DSKIP_QT_GUI=ON"
 fi
-
-
-OPT_TARGET=${@:$OPTIND}
 
 # By default build everything
 if [ -z "$OPT_DEBUG$OPT_RELEASE" ]; then
