@@ -921,6 +921,10 @@ node|z15-[amenity=parking][fee?],
 area|z15-[amenity=parking][fee?],
 {icon-image: parking_pay-m.svg;}
 
+node|z15-[amenity=parking][location=underground][fee],
+area|z15-[amenity=parking][location=underground][fee],
+{icon-image: parking_underground_pay-m.svg;}
+
 node|z17-[amenity=parking][access=private],
 area|z17-[amenity=parking][access=private],
 {icon-image: parking_private-m.svg;text: name;}

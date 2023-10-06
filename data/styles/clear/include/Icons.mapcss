@@ -2630,6 +2630,9 @@ area|z16-[amenity=parking][fee?],
 node|z17-[amenity=parking][fee?],
 area|z17-[amenity=parking][fee?],
 {icon-image: parking_pay-m.svg;}
+node|z16-[amenity=parking][location=underground][fee?],
+area|z16-[amenity=parking][location=underground][fee?],
+{icon-image:parking_underground_pay-m.svg;}
 
 /* no icon as these subtypes should display later */
 node|z16-[amenity=parking][access=private],
