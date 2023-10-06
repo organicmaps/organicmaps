@@ -8,7 +8,7 @@
 
 #if defined(OMIM_OS_MAC)
 std::unique_ptr<location::LocationService> CreateAppleLocationService(location::LocationObserver &);
-#elif defined(OMIM_OS_LINUX)
+#elif defined(QT_LOCATION_SERVICE)
 std::unique_ptr<location::LocationService> CreateQtLocationService(location::LocationObserver &, std::string const & sourceName);
 #endif
 
@@ -73,11 +73,13 @@ public:
     explicit DesktopLocationService(LocationObserver & observer)
       : LocationService(observer), m_reportFirstEvent(true)
     {
-#if defined(OMIM_OS_MAC)
-      m_services.push_back(CreateAppleLocationService(*this));
-#elif defined(OMIM_OS_LINUX)
+#if defined(QT_LOCATION_SERVICE)
+#if defined(OMIM_OS_LINUX)
       m_services.push_back(CreateQtLocationService(*this, "geoclue2"));
-#endif
+#endif // OMIM_OS_LINUX
+#elif defined(OMIM_OS_MAC) // No QT_LOCATION_SERVICE
+      m_services.push_back(CreateAppleLocationService(*this));
+#endif // QT_LOCATION_SERVICE
     }
 
     virtual void Start()

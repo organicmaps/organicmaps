@@ -90,6 +90,10 @@ fi
 # Find cmake
 source "$OMIM_PATH/tools/autobuild/detect_cmake.sh"
 
+if [ "${OPT_TARGET}" == "generator_tool" ]; then
+  CMAKE_CONFIG="${CMAKE_CONFIG:-} -DSKIP_QT_GUI=ON"
+fi
+
 # OS-specific parameters
 if [ "$(uname -s)" == "Darwin" ]; then
   PROCESSES=$(sysctl -n hw.ncpu)
