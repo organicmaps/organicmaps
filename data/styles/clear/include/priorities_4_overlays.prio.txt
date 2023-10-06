@@ -486,9 +486,6 @@ tourism-camp_site                                   # icon z15- (also has captio
 tourism-caravan_site                                # icon z16- (also has caption(optional) z16-)
 === 3800
 
-amenity-sanitary_dump_station                       # icon z15- (also has caption(optional) z15-)
-=== 3750
-
 amenity-drinking_water                              # icon z15- (also has caption(optional) z19-)
 amenity-water_point                                 # icon z15- (also has caption(optional) z19-)
 man_made-water_tap                                  # icon z15-
@@ -939,6 +936,7 @@ landuse-military                                    # icon z16- (also has captio
 landuse-military-danger_area                        # icon z16- (also has caption(optional) z17-, area z10-)
 === 2000
 
+amenity-sanitary_dump_station                       # icon z15- (also has caption(optional) z15-)
 leisure-beach_resort                                # icon z16- (also has caption(optional) z16-, area z10-)
 === 1950
 
@@ -1610,9 +1608,6 @@ amenity-parking-private                             # icon z18- (also has captio
 # tourism-caravan_site                              # caption(optional) z16- (also has icon z16-)
 # === -6200
 
-# amenity-sanitary_dump_station                     # caption(optional) z15- (also has icon z15-)
-# === -6250
-
 # amenity-drinking_water                            # caption(optional) z19- (also has icon z15-)
 # amenity-water_point                               # caption(optional) z19- (also has icon z15-)
 # === -6300
@@ -1893,6 +1888,7 @@ amenity-parking-private                             # icon z18- (also has captio
 # landuse-military-danger_area                      # caption(optional) z17- (also has icon z16-, area z10-)
 # === -8000
 
+# amenity-sanitary_dump_station                     # caption(optional) z15- (also has icon z15-)
 # leisure-beach_resort                              # caption(optional) z16- (also has icon z16-, area z10-)
 # === -8050
 
