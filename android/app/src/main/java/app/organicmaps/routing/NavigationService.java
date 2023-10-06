@@ -29,12 +29,14 @@ import androidx.core.content.ContextCompat;
 
 import app.organicmaps.Framework;
 import app.organicmaps.MwmActivity;
+import app.organicmaps.MwmApplication;
 import app.organicmaps.R;
 import app.organicmaps.sound.MediaPlayerWrapper;
 import app.organicmaps.location.LocationHelper;
 import app.organicmaps.location.LocationListener;
 import app.organicmaps.sound.TtsPlayer;
 import app.organicmaps.util.Graphics;
+import app.organicmaps.util.LocationUtils;
 import app.organicmaps.util.log.Logger;
 
 public class NavigationService extends Service implements LocationListener
@@ -167,8 +169,7 @@ public class NavigationService extends Service implements LocationListener
     LocationHelper.from(this).removeListener(this);
     TtsPlayer.INSTANCE.stop();
 
-    final NotificationManagerCompat notificationManager = NotificationManagerCompat.from(this);
-    notificationManager.cancel(NOTIFICATION_ID);
+    // The notification is cancelled automatically by the system.
 
     mPlayer.release();
   }
@@ -179,10 +180,31 @@ public class NavigationService extends Service implements LocationListener
     Logger.d(TAG);
   }
 
-  @RequiresPermission(value = ACCESS_FINE_LOCATION)
   @Override
   public int onStartCommand(@NonNull Intent intent, int flags, int startId)
   {
+    if (!MwmApplication.from(this).arePlatformAndCoreInitialized())
+    {
+      // The system restarts the service if the app's process has crashed or been stopped. It would be nice to
+      // automatically restore the last route and resume navigation. Unfortunately, the current implementation of
+      // the routing state machine (RoutingController and underlying NDK part) requires a complete re-planning of
+      // the route. Such operation can fail for some reason. We have no UI (i.e. RoutePlanFragment) started to
+      // handle any route planning errors. Starting any new Activities from Services is not allowed also.
+      // https://github.com/organicmaps/organicmaps/issues/6233
+      Logger.w(TAG, "Application is not initialized");
+      stopSelf();
+      return START_NOT_STICKY; // The service will be stopped by stopSelf().
+    }
+
+    if (!LocationUtils.checkFineLocationPermission(this))
+    {
+      // In a hypothetical scenario, the user could revoke location permissions after the app's process crashed,
+      // but before the service with START_STICKY was restarted by the system.
+      Logger.w(TAG, "Permission ACCESS_FINE_LOCATION is not granted, skipping NavigationService");
+      stopSelf();
+      return START_NOT_STICKY; // The service will be stopped by stopSelf().
+    }
+
     Logger.i(TAG, "Starting foreground");
     if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.S)
     {
@@ -199,12 +221,15 @@ public class NavigationService extends Service implements LocationListener
       startForeground(NavigationService.NOTIFICATION_ID, getNotificationBuilder(this).build());
     }
 
+    final LocationHelper locationHelper = LocationHelper.from(this);
+
     // Subscribe to location updates. This call is idempotent.
-    LocationHelper.from(this).addListener(this);
+    locationHelper.addListener(this);
 
     // Restart the location with more frequent refresh interval for navigation.
-    LocationHelper.from(this).restartWithNewMode();
+    locationHelper.restartWithNewMode();
 
+    // Please make this service START_STICKY after fixing the issues at the beginning of the function.
     return START_NOT_STICKY;
   }
 
