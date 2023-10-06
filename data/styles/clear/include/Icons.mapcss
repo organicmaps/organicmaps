@@ -2668,6 +2668,9 @@ area|z17-[amenity=parking_entrance],
 node|z17-[amenity=parking_entrance][access=private],
 area|z17-[amenity=parking_entrance][access=private],
 {icon-image: none; text: none;}
+node|z19-[amenity=parking_entrance][access=private],
+area|z19-[amenity=parking_entrance][access=private],
+{icon-image: parking_entrance_private-m.svg; text: name;}
 
 node|z18-[amenity=parking][access=private],
 area|z18-[amenity=parking][access=private],

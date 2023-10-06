@@ -946,6 +946,9 @@ area|z16-[amenity=parking_entrance],
 node|z16-[amenity=parking_entrance][access=private],
 area|z16-[amenity=parking_entrance][access=private],
 {icon-image: none;}
+node|z19-[amenity=parking_entrance][access=private],
+area|z19-[amenity=parking_entrance][access=private],
+{icon-image: parking_entrance_private-m.svg; font-size: 12.5;}
 
 node|z17-[amenity=motorcycle_parking],
 area|z17-[amenity=motorcycle_parking],
