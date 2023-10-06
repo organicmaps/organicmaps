@@ -54,6 +54,8 @@ struct Touch
   m2::PointF m_location = m2::PointF::Zero();
   int64_t m_id = -1; // if id == -1 then touch is invalid
   float m_force = 0.0; // relative force of touch [0.0 - 1.0]
+
+  friend std::string DebugPrint(Touch const & t);
 };
 
 class TouchEvent : public UserEvent
@@ -73,7 +75,7 @@ public:
     TOUCH_CANCEL
   };
 
-  static uint8_t const INVALID_MASKED_POINTER;
+  static uint8_t constexpr INVALID_MASKED_POINTER = 0xFF;
 
   EventType GetType() const override { return UserEvent::EventType::Touch; }
 
@@ -105,6 +107,8 @@ public:
   void SetSecondMaskedPointer(uint8_t secondMask);
   uint8_t GetSecondMaskedPointer() const;
   size_t GetMaskedCount();
+
+  friend std::string DebugPrint(TouchEvent const & e);
 
 private:
   void Swap();
@@ -330,7 +334,7 @@ private:
 class RotateEvent : public UserEvent
 {
 public:
-  explicit RotateEvent(double targetAzimuth, bool isAnim, TAnimationCreator const & parallelAnimCreator)
+  RotateEvent(double targetAzimuth, bool isAnim, TAnimationCreator const & parallelAnimCreator)
     : m_targetAzimuth(targetAzimuth)
     , m_isAnim(isAnim)
     , m_parallelAnimCreator(parallelAnimCreator)
@@ -381,19 +385,18 @@ private:
 class ScrollEvent : public UserEvent
 {
 public:
-    ScrollEvent(double distanceX, double distanceY)
-              : m_distanceX(distanceX)
-              , m_distanceY(distanceY)
-    {}
+  ScrollEvent(double distanceX, double distanceY)
+    : m_distanceX(distanceX), m_distanceY(distanceY)
+  {}
 
-    EventType GetType() const override { return UserEvent::EventType::Scroll; }
+  EventType GetType() const override { return UserEvent::EventType::Scroll; }
 
-    double GetDistanceX() const { return m_distanceX; }
-    double GetDistanceY() const { return m_distanceY; }
+  double GetDistanceX() const { return m_distanceX; }
+  double GetDistanceY() const { return m_distanceY; }
 
 private:
-    double m_distanceX;
-    double m_distanceY;
+  double m_distanceX;
+  double m_distanceY;
 };
 
 class UserEventStream

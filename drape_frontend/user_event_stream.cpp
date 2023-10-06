@@ -66,7 +66,6 @@ char const * UserEventStream::DOUBLE_TAP_AND_HOLD = "DoubleTapAndHold";
 char const * UserEventStream::END_DOUBLE_TAP_AND_HOLD = "EndDoubleTapAndHold";
 #endif
 
-uint8_t constexpr TouchEvent::INVALID_MASKED_POINTER = 0xFF;
 
 void TouchEvent::SetFirstTouch(const Touch & touch)
 {
@@ -128,6 +127,17 @@ void TouchEvent::Swap()
   SetFirstMaskedPointer(swapIndex(GetFirstMaskedPointer()));
   SetSecondMaskedPointer(swapIndex(GetSecondMaskedPointer()));
 }
+
+std::string DebugPrint(Touch const & t)
+{
+  return DebugPrint(t.m_location) + "; " + std::to_string(t.m_id) + "; " + std::to_string(t.m_force);
+}
+
+std::string DebugPrint(TouchEvent const & e)
+{
+  return std::to_string(e.m_type) + "; { " + DebugPrint(e.m_touches[0]) + " }";
+}
+
 
 UserEventStream::UserEventStream()
   : m_state(STATE_EMPTY)
