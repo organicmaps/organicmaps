@@ -5,7 +5,6 @@ set -eu
 OPT_DEBUG=
 OPT_RELEASE=
 OPT_CLEAN=
-OPT_SKIP_QT_GUI=
 OPT_DESIGNER=
 OPT_GCC=
 OPT_TARGET=
@@ -14,7 +13,7 @@ OPT_STANDALONE=
 OPT_COMPILE_DATABASE=
 OPT_LAUNCH_BINARY=
 OPT_NJOBS=
-while getopts ":cdrxstagjlpn:" opt; do
+while getopts ":cdrxtagjlpn:" opt; do
   case $opt in
     a) OPT_STANDALONE=1 ;;
     c) OPT_CLEAN=1 ;;
@@ -30,9 +29,6 @@ while getopts ":cdrxstagjlpn:" opt; do
       ;;
     p) OPT_PATH="$OPTARG" ;;
     r) OPT_RELEASE=1 ;;
-    s) OPT_SKIP_QT_GUI=1
-       CMAKE_CONFIG="${CMAKE_CONFIG:-} -DSKIP_QT_GUI=ON"
-      ;;
     t) OPT_DESIGNER=1 ;;
     *)
       echo "This tool builds Organic Maps"
@@ -44,9 +40,8 @@ while getopts ":cdrxstagjlpn:" opt; do
       echo -e "-r  Build a release version"
       echo -e "-x  Use pre-compiled headers"
       echo -e "-c  Clean before building"
-      echo -e "-s  Skip desktop app building"
-      echo -e "-t  Build designer tool (Linux/MacOS only)"
-      echo -e "-a  Build standalone desktop app (Linux/MacOS only)"
+      echo -e "-t  Build Qt based designer tool (Linux/MacOS only)"
+      echo -e "-a  Build Qt based standalone desktop app (Linux/MacOS only)"
       echo -e "-g  Force use GCC (Linux/MacOS only)"
       echo -e "-p  Directory for built binaries"
       echo -e "-n  Number of parallel processes"
@@ -57,13 +52,10 @@ while getopts ":cdrxstagjlpn:" opt; do
   esac
 done
 
-[ -n "$OPT_DESIGNER" -a -n "$OPT_SKIP_QT_GUI" ] &&
-echo "Can't skip desktop and build designer tool simultaneously" &&
-exit 2
+if [ -z "$OPT_DESIGNER" -a -z "$OPT_STANDALONE" ]; then
+  CMAKE_CONFIG="${CMAKE_CONFIG:-} -DSKIP_QT_GUI=ON"
+fi
 
-[ -n "$OPT_STANDALONE" -a -n "$OPT_SKIP_QT_GUI" ] &&
-echo "Can't skip desktop and build standalone desktop app simultaneously" &&
-exit 2
 
 OPT_TARGET=${@:$OPTIND}
 
@@ -89,10 +81,6 @@ fi
 
 # Find cmake
 source "$OMIM_PATH/tools/autobuild/detect_cmake.sh"
-
-if [ "${OPT_TARGET}" == "generator_tool" ]; then
-  CMAKE_CONFIG="${CMAKE_CONFIG:-} -DSKIP_QT_GUI=ON"
-fi
 
 # OS-specific parameters
 if [ "$(uname -s)" == "Darwin" ]; then
