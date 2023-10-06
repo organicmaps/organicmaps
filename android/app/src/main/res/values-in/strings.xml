@@ -1671,6 +1671,8 @@
 	<string name="type.shop.pet">Toko hewan</string>
 	<string name="type.shop.pet_grooming">Perawatan Hewan Peliharaan</string>
 	<string name="type.shop.photo">Studio Foto</string>
+	<string name="type.shop.rental">Toko Sewa</string>
+	<string name="type.shop.rental.bicycle">Toko Penyewaan Sepeda</string>
 	<string name="type.shop.seafood">Penjual Ikan</string>
 	<string name="type.shop.second_hand">Toko Barang bekas</string>
 	<string name="type.shop.shoes">Toko sepatu</string>

@@ -3525,6 +3525,10 @@
 
 "type.shop.photo" = "Fotograf";
 
+"type.shop.rental" = "Wypożyczalnia";
+
+"type.shop.rental.bicycle" = "Wypożyczalnia rowerów";
+
 "type.shop.seafood" = "Sklep rybny";
 
 "type.shop.second_hand" = "Sklep z rzeczami używanymi";

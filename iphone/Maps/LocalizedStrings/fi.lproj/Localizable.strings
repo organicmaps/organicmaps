@@ -3525,6 +3525,10 @@
 
 "type.shop.photo" = "Valokuvakauppa";
 
+"type.shop.rental" = "Vuokrakauppa";
+
+"type.shop.rental.bicycle" = "Polkupyörävuokraamo";
+
 "type.shop.seafood" = "Kalakauppias";
 
 "type.shop.second_hand" = "Käytetyn tavaran liike";

@@ -1673,6 +1673,8 @@
 	<string name="type.shop.pet">Cửa Hàng Vật Nuôi</string>
 	<string name="type.shop.pet_grooming">Chải lông thú cưng</string>
 	<string name="type.shop.photo">Hiệu Ảnh</string>
+	<string name="type.shop.rental">Cửa hàng cho thuê</string>
+	<string name="type.shop.rental.bicycle">Cửa hàng cho thuê xe đạp</string>
 	<string name="type.shop.seafood">Người bán cá</string>
 	<string name="type.shop.second_hand">Cửa hàng bán đồ đã qua sử dụng</string>
 	<string name="type.shop.shoes">Cửa hàng giày</string>

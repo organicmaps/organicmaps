@@ -1802,6 +1802,8 @@
 	<string name="type.shop.pet">宠物店</string>
 	<string name="type.shop.pet_grooming">宠物美容</string>
 	<string name="type.shop.photo">照片店</string>
+	<string name="type.shop.rental">租赁店</string>
+	<string name="type.shop.rental.bicycle">自行车租赁店</string>
 	<string name="type.shop.seafood">鱼商</string>
 	<string name="type.shop.second_hand">二手店</string>
 	<string name="type.shop.shoes">鞋店</string>

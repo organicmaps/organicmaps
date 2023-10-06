@@ -1877,6 +1877,8 @@
 	<string name="type.shop.pet">Lemmikloomapood</string>
 	<string name="type.shop.pet_grooming">Lemmikloomade hooldamine</string>
 	<string name="type.shop.photo">Fotopood</string>
+	<string name="type.shop.rental">Laenutuspood</string>
+	<string name="type.shop.rental.bicycle">Jalgrattalaenutus</string>
 	<string name="type.shop.seafood">Mereandide pood</string>
 	<string name="type.shop.second_hand">Taaskasutus</string>
 	<string name="type.shop.shoes">Kingapood</string>

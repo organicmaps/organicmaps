@@ -3525,6 +3525,10 @@
 
 "type.shop.photo" = "ร้านถ่ายภาพ";
 
+"type.shop.rental" = "ร้านเช่า";
+
+"type.shop.rental.bicycle" = "ร้านเช่าจักรยาน";
+
 "type.shop.seafood" = "ร้านขายปลา";
 
 "type.shop.second_hand" = "ร้านขายของมือสอง";

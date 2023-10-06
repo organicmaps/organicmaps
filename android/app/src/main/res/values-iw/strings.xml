@@ -717,6 +717,8 @@
 	<string name="type.shop.outpost">נקודת איסוף</string>
 	<string name="type.shop.pastry">הפאמ</string>
 	<string name="type.shop.pet_grooming">טיפוח חיות מחמד</string>
+	<string name="type.shop.rental">חנות להשכרה</string>
+	<string name="type.shop.rental.bicycle">חנות להשכרת אופניים</string>
 	<string name="type.shop.second_hand">היינש די תונח</string>
 	<string name="type.shop.agrarian">חנות חקלאית</string>
 	<string name="type.shop.antiques">תוֹקיתִעַ</string>

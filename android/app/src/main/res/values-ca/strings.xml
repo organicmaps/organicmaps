@@ -838,6 +838,8 @@
 	<string name="type.shop.motorcycle_repair">Reparació de motos</string>
 	<string name="type.shop.outpost">Punt de recollida</string>
 	<string name="type.shop.pet_grooming">Peluca de mascotes</string>
+	<string name="type.shop.rental">Botiga de lloguer</string>
+	<string name="type.shop.rental.bicycle">Botiga de lloguer de bicicletes</string>
 	<string name="type.shop.agrarian">Botiga agrícola</string>
 	<string name="type.shop.appliance">Botiga d\'electrodomèstics</string>
 	<string name="type.shop.bed">Botiga de llits</string>

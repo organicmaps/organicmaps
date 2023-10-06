@@ -750,6 +750,8 @@
 	<string name="type.shop.outpost">Sehemu ya kuchukua</string>
 	<string name="type.shop.pastry">Keki</string>
 	<string name="type.shop.pet_grooming">Utunzaji wa Kipenzi</string>
+	<string name="type.shop.rental">Duka la Kukodisha</string>
+	<string name="type.shop.rental.bicycle">Duka la Kukodisha Baiskeli</string>
 	<string name="type.shop.second_hand">Duka la Mitumba</string>
 	<string name="type.shop.video">Duka la Video</string>
 	<string name="type.shop.video_games">Duka la Video za Michezo</string>

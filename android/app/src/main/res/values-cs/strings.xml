@@ -1684,6 +1684,8 @@
 	<string name="type.shop.pet">Zverimex</string>
 	<string name="type.shop.pet_grooming">Péče o domácí mazlíčky</string>
 	<string name="type.shop.photo">Fotografický obchod</string>
+	<string name="type.shop.rental">Půjčovna</string>
+	<string name="type.shop.rental.bicycle">Půjčovna kol</string>
 	<string name="type.shop.seafood">Prodej ryb</string>
 	<string name="type.shop.second_hand">Obchod z druhé ruky</string>
 	<string name="type.shop.shoes">Obuv</string>

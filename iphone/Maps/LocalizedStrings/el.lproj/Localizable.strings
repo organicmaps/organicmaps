@@ -3525,6 +3525,10 @@
 
 "type.shop.photo" = "Φωτογραφείο";
 
+"type.shop.rental" = "Κατάστημα ενοικίασης";
+
+"type.shop.rental.bicycle" = "Κατάστημα ενοικίασης ποδηλάτων";
+
 "type.shop.seafood" = "Κατάστημα με θαλασσινά";
 
 "type.shop.second_hand" = "Κατάστημα μεταχειρισμένων";

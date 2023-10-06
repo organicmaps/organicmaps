@@ -1732,6 +1732,8 @@
 	<string name="type.shop.pet">Dyrebutikk</string>
 	<string name="type.shop.pet_grooming">Kjæledyrpleie</string>
 	<string name="type.shop.photo">Fotobutikk</string>
+	<string name="type.shop.rental">Utleiebutikk</string>
+	<string name="type.shop.rental.bicycle">Sykkelutleiebutikk</string>
 	<string name="type.shop.seafood">Fiskehandler</string>
 	<string name="type.shop.second_hand">Bruktbutikk</string>
 	<string name="type.shop.shoes">Skobutikk</string>

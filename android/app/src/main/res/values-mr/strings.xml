@@ -1724,6 +1724,8 @@
 	<string name="type.shop.pet">पाळीव प्राण्यांचे दुकान</string>
 	<string name="type.shop.pet_grooming">पाळीव प्राणी ग्रूमिंग</string>
 	<string name="type.shop.photo">फोटोचे दुकान</string>
+	<string name="type.shop.rental">भाड्याचे दुकान</string>
+	<string name="type.shop.rental.bicycle">सायकल भाड्याचे दुकान</string>
 	<string name="type.shop.seafood">मासळी उपहारगृह</string>
 	<string name="type.shop.shoes">चपलाचे दूकान</string>
 	<string name="type.shop.sports">क्रीडा साहित्य</string>

@@ -3525,6 +3525,10 @@
 
 "type.shop.photo" = "فروشگاه";
 
+"type.shop.rental" = "مغازه اجاره ای";
+
+"type.shop.rental.bicycle" = "مغازه اجاره دوچرخه";
+
 "type.shop.seafood" = "فروشگاه";
 
 "type.shop.second_hand" = "ﻡﻭﺩ ﺖﺳﺩ ﻩﺎﮕﺷﻭﺮﻓ";

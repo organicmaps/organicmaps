@@ -1666,6 +1666,8 @@
 	<string name="type.shop.pet">Dyrehandel</string>
 	<string name="type.shop.pet_grooming">Kæledyrspleje</string>
 	<string name="type.shop.photo">Fotobutik</string>
+	<string name="type.shop.rental">Udlejningsbutik</string>
+	<string name="type.shop.rental.bicycle">Cykeludlejningsbutik</string>
 	<string name="type.shop.seafood">Fiskehandler</string>
 	<string name="type.shop.second_hand">Genbrugsbutik</string>
 	<string name="type.shop.shoes">Skobutik</string>

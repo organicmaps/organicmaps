@@ -1669,6 +1669,8 @@
 	<string name="type.shop.pet">Djuraffär</string>
 	<string name="type.shop.pet_grooming">Husdjursvård</string>
 	<string name="type.shop.photo">Fotoaffär</string>
+	<string name="type.shop.rental">Uthyrningsbutik</string>
+	<string name="type.shop.rental.bicycle">Cykeluthyrningsbutik</string>
 	<string name="type.shop.seafood">Fiskhandlare</string>
 	<string name="type.shop.second_hand">Andrahandsaffär</string>
 	<string name="type.shop.shoes">Skobutik</string>

@@ -3525,6 +3525,10 @@
 
 "type.shop.photo" = "Fotoaffär";
 
+"type.shop.rental" = "Uthyrningsbutik";
+
+"type.shop.rental.bicycle" = "Cykeluthyrningsbutik";
+
 "type.shop.seafood" = "Fiskhandlare";
 
 "type.shop.second_hand" = "Andrahandsaffär";

@@ -1808,6 +1808,8 @@
 	<string name="type.shop.pet">Eläinkauppa</string>
 	<string name="type.shop.pet_grooming">Lemmikkieläinten hoito</string>
 	<string name="type.shop.photo">Valokuvakauppa</string>
+	<string name="type.shop.rental">Vuokrakauppa</string>
+	<string name="type.shop.rental.bicycle">Polkupyörävuokraamo</string>
 	<string name="type.shop.seafood">Kalakauppias</string>
 	<string name="type.shop.second_hand">Käytetyn tavaran liike</string>
 	<string name="type.shop.shoes">Kenkäkauppa</string>

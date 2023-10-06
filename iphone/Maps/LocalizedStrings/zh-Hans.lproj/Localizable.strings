@@ -3525,6 +3525,10 @@
 
 "type.shop.photo" = "照片店";
 
+"type.shop.rental" = "租赁店";
+
+"type.shop.rental.bicycle" = "自行车租赁店";
+
 "type.shop.seafood" = "鱼商";
 
 "type.shop.second_hand" = "二手店";

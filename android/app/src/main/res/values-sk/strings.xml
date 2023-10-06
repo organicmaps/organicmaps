@@ -1669,6 +1669,8 @@
 	<string name="type.shop.pet">Obchod zo zvieratami</string>
 	<string name="type.shop.pet_grooming">Starostlivosť o domáce zvieratá</string>
 	<string name="type.shop.photo">Fotografické služby</string>
+	<string name="type.shop.rental">Požičovňa</string>
+	<string name="type.shop.rental.bicycle">Požičovňa bicyklov</string>
 	<string name="type.shop.seafood">Obchodník s rybami</string>
 	<string name="type.shop.second_hand">Obchod z druhej ruky</string>
 	<string name="type.shop.shoes">Obuvníctvo</string>

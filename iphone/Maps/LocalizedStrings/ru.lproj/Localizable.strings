@@ -3525,6 +3525,10 @@
 
 "type.shop.photo" = "Фототовары";
 
+"type.shop.rental" = "Прокат";
+
+"type.shop.rental.bicycle" = "Прокат велосипедов";
+
 "type.shop.seafood" = "Рыбный магазин";
 
 "type.shop.second_hand" = "Секонд-хенд магазин";

@@ -1696,6 +1696,8 @@
 	<string name="type.shop.pet">Házikedvenc-üzlet</string>
 	<string name="type.shop.pet_grooming">Kisállat ápolás</string>
 	<string name="type.shop.photo">Fénykép üzlet</string>
+	<string name="type.shop.rental">Kölcsönző</string>
+	<string name="type.shop.rental.bicycle">Kerékpárkölcsönző</string>
 	<string name="type.shop.seafood">Halüzlet</string>
 	<string name="type.shop.second_hand">Second Hand Store</string>
 	<string name="type.shop.shoes">Cipőbolt</string>

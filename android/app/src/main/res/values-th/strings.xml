@@ -1678,6 +1678,8 @@
 	<string name="type.shop.pet">เพ็ทชอป</string>
 	<string name="type.shop.pet_grooming">กรูมมิ่งสัตว์เลี้ยง</string>
 	<string name="type.shop.photo">ร้านถ่ายภาพ</string>
+	<string name="type.shop.rental">ร้านเช่า</string>
+	<string name="type.shop.rental.bicycle">ร้านเช่าจักรยาน</string>
 	<string name="type.shop.seafood">ร้านขายปลา</string>
 	<string name="type.shop.second_hand">ร้านขายของมือสอง</string>
 	<string name="type.shop.shoes">ร้านขายรองเท้า</string>

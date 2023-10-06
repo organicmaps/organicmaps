@@ -3525,6 +3525,10 @@
 
 "type.shop.photo" = "फोटोचे दुकान";
 
+"type.shop.rental" = "भाड्याचे दुकान";
+
+"type.shop.rental.bicycle" = "सायकल भाड्याचे दुकान";
+
 "type.shop.seafood" = "मासळी उपहारगृह";
 
 "type.shop.second_hand" = "Second Hand Shop";

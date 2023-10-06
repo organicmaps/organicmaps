@@ -3525,6 +3525,10 @@
 
 "type.shop.photo" = "Fotowinkel";
 
+"type.shop.rental" = "Verhuur winkel";
+
+"type.shop.rental.bicycle" = "Fietsverhuurwinkel";
+
 "type.shop.seafood" = "Visboer";
 
 "type.shop.second_hand" = "Tweedehandswinkel";

@@ -3525,6 +3525,10 @@
 
 "type.shop.photo" = "Photo Shop";
 
+"type.shop.rental" = "Пракат";
+
+"type.shop.rental.bicycle" = "Пракат ровараў";
+
 "type.shop.seafood" = "Fishmonger";
 
 "type.shop.second_hand" = "Крама сэканд-хэнд";
