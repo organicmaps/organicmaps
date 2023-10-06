@@ -41859,7 +41859,7 @@ cont {
   element {
     scale: 17
     symbol {
-      name: "gym-m"
+      name: "fitness_centre-m"
       priority: 850
       min_distance: 10
     }
@@ -41876,7 +41876,7 @@ cont {
   element {
     scale: 18
     symbol {
-      name: "gym-m"
+      name: "fitness_centre-m"
       priority: 850
       min_distance: 10
     }
@@ -41893,7 +41893,7 @@ cont {
   element {
     scale: 19
     symbol {
-      name: "gym-m"
+      name: "fitness_centre-m"
       priority: 850
       min_distance: 10
     }
@@ -41913,7 +41913,7 @@ cont {
   element {
     scale: 17
     symbol {
-      name: "gym-m"
+      name: "fitness_station-m"
       priority: 850
       min_distance: 10
     }
@@ -41930,7 +41930,7 @@ cont {
   element {
     scale: 18
     symbol {
-      name: "gym-m"
+      name: "fitness_station-m"
       priority: 850
       min_distance: 10
     }
@@ -41947,7 +41947,7 @@ cont {
   element {
     scale: 19
     symbol {
-      name: "gym-m"
+      name: "fitness_station-m"
       priority: 850
       min_distance: 10
     }
@@ -97197,11 +97197,27 @@ cont {
 cont {
   name: "shop-motorcycle_repair"
   element {
+    scale: 16
+    symbol {
+      name: "motorcycle_repair-m"
+      priority: 2400
+      min_distance: 10
+    }
+  }
+  element {
+    scale: 17
+    symbol {
+      name: "motorcycle_repair-m"
+      priority: 2400
+      min_distance: 24
+    }
+  }
+  element {
     scale: 18
     symbol {
-      name: "shop-m"
-      priority: 500
-      min_distance: 10
+      name: "motorcycle_repair-m"
+      priority: 2400
+      min_distance: 24
     }
     caption {
       primary {
@@ -97210,15 +97226,15 @@ cont {
         offset_y: 1
         is_optional: true
       }
-      priority: -9500
+      priority: -7600
     }
   }
   element {
     scale: 19
     symbol {
-      name: "shop-m"
-      priority: 500
-      min_distance: 10
+      name: "motorcycle_repair-m"
+      priority: 2400
+      min_distance: 24
     }
     caption {
       primary {
@@ -97227,7 +97243,7 @@ cont {
         offset_y: 1
         is_optional: true
       }
-      priority: -9500
+      priority: -7600
     }
   }
 }
@@ -97998,6 +98014,148 @@ cont {
     scale: 19
     symbol {
       name: "photo-shop-m"
+      priority: 2400
+      min_distance: 24
+    }
+    caption {
+      primary {
+        height: 10
+        color: 5592405
+        offset_y: 1
+        is_optional: true
+      }
+      priority: -7600
+    }
+  }
+}
+cont {
+  name: "shop-rental"
+  element {
+    scale: 16
+    symbol {
+      name: "rental-m"
+      priority: 2400
+      min_distance: 10
+    }
+    caption {
+      primary {
+        height: 10
+        color: 5592405
+        offset_y: 1
+        is_optional: true
+      }
+      priority: -7600
+    }
+  }
+  element {
+    scale: 17
+    symbol {
+      name: "rental-m"
+      priority: 2400
+      min_distance: 24
+    }
+    caption {
+      primary {
+        height: 10
+        color: 5592405
+        offset_y: 1
+        is_optional: true
+      }
+      priority: -7600
+    }
+  }
+  element {
+    scale: 18
+    symbol {
+      name: "rental-m"
+      priority: 2400
+      min_distance: 24
+    }
+    caption {
+      primary {
+        height: 10
+        color: 5592405
+        offset_y: 1
+        is_optional: true
+      }
+      priority: -7600
+    }
+  }
+  element {
+    scale: 19
+    symbol {
+      name: "rental-m"
+      priority: 2400
+      min_distance: 24
+    }
+    caption {
+      primary {
+        height: 10
+        color: 5592405
+        offset_y: 1
+        is_optional: true
+      }
+      priority: -7600
+    }
+  }
+}
+cont {
+  name: "shop-rental-bike"
+  element {
+    scale: 16
+    symbol {
+      name: "shop-rental-bicycle-m"
+      priority: 2400
+      min_distance: 10
+    }
+    caption {
+      primary {
+        height: 10
+        color: 5592405
+        offset_y: 1
+        is_optional: true
+      }
+      priority: -7600
+    }
+  }
+  element {
+    scale: 17
+    symbol {
+      name: "shop-rental-bicycle-m"
+      priority: 2400
+      min_distance: 24
+    }
+    caption {
+      primary {
+        height: 10
+        color: 5592405
+        offset_y: 1
+        is_optional: true
+      }
+      priority: -7600
+    }
+  }
+  element {
+    scale: 18
+    symbol {
+      name: "shop-rental-bicycle-m"
+      priority: 2400
+      min_distance: 24
+    }
+    caption {
+      primary {
+        height: 10
+        color: 5592405
+        offset_y: 1
+        is_optional: true
+      }
+      priority: -7600
+    }
+  }
+  element {
+    scale: 19
+    symbol {
+      name: "shop-rental-bicycle-m"
       priority: 2400
       min_distance: 24
     }

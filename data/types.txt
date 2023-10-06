@@ -906,9 +906,9 @@ mapswithme
 railway|subway|tunnel
 mapswithme
 railway|subway|tunnel
-mapswithme
+*shop|rental
 railway|subway|tunnel
-mapswithme
+*shop|rental|bike
 *historic|ship
 *shop|tobacco
 *shop|farm

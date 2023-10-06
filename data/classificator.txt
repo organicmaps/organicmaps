@@ -1276,6 +1276,9 @@ world  +
         pet  -
         pet_grooming  -
         photo  -
+        rental  +
+            bike  -
+            {}
         seafood  -
         second_hand  -
         sewing  -
