@@ -167,8 +167,11 @@
 	<string name="enable_logging_warning_message">Chaguo huwasha data kwa madhumuni ya uchunguzi. Itakuwa muhimu kwa wafanyakazi wetu ambao wanatatua matatizo ya programu. Washa chaguo hili kwa maombi ya mhudumu wa Organic Maps tu.</string>
 	<string name="access_rules_author_only">Uhariri mtandaoni</string>
 	<string name="driving_options_title">Machaguo ya njia</string>
+	<!-- Recommended length for CarPlay and Android Auto is around 25-27 characters -->
 	<string name="avoid_tolls">Epuka barabara za ushuru</string>
-	<string name="avoid_unpaved">Epuka barabara za uchafu</string>
+	<!-- Recommended length for CarPlay and Android Auto is around 25-27 characters -->
+	<string name="avoid_unpaved">Epuka barabara za vumbi</string>
+	<!-- Recommended length for CarPlay and Android Auto is around 25-27 characters -->
 	<string name="avoid_ferry">Epuka vivuko vya feri</string>
 	<string name="avoid_motorways">Epuka barabara</string>
 	<string name="unable_to_calc_alert_title">Haiwezi kukokotoa njia</string>
@@ -178,9 +181,6 @@
 	<string name="toll_road">Barabara ya kulipia</string>
 	<string name="unpaved_road">Barabara ya vumbi</string>
 	<string name="ferry_crossing">Kivuko cha feri</string>
-	<string name="avoid_toll_roads_placepage">Epuka barabara za kulipia</string>
-	<string name="avoid_unpaved_roads_placepage">Epuka barabara za vumbi</string>
-	<string name="avoid_ferry_crossing_placepage">Epuka vivuko vya feri</string>
 	<!-- A generic "Yes" button in dialogs -->
 	<string name="yes">Ndio</string>
 	<!-- A generic "No" button in dialogs -->

@@ -1011,10 +1011,13 @@
 
 "driving_options_title" = "Opciones de enrutamiento";
 
+/* Recommended length for CarPlay and Android Auto is around 25-27 characters */
 "avoid_tolls" = "Evitar peajes";
 
-"avoid_unpaved" = "Evitar caminos sin pavimentar";
+/* Recommended length for CarPlay and Android Auto is around 25-27 characters */
+"avoid_unpaved" = "Evitar vías sin pavimentar";
 
+/* Recommended length for CarPlay and Android Auto is around 25-27 characters */
 "avoid_ferry" = "Evitar ferris";
 
 "avoid_motorways" = "Evitar autopistas";
@@ -1032,12 +1035,6 @@
 "unpaved_road" = "Camino sin pavimento";
 
 "ferry_crossing" = "Cruce de ferri";
-
-"avoid_toll_roads_placepage" = "Evitar las carreteras con pago de peaje";
-
-"avoid_unpaved_roads_placepage" = "Evitar los caminos sin pavimento";
-
-"avoid_ferry_crossing_placepage" = "Evitar ferries";
 
 "trip_start" = "Vamos";
 
@@ -1084,18 +1081,6 @@
 "dialog_routing_rebuild_for_vehicle_carplay" = "La ruta se cambiará a coche";
 
 "ok" = "Ok";
-
-"avoid_unpaved_carplay_1" = "Sin carretera de tierra";
-
-"avoid_unpaved_carplay_2" = "Evitar sin pavimentar";
-
-"avoid_ferry_carplay_1" = "Sin ferri";
-
-"avoid_ferry_carplay_2" = "Evitar ferris";
-
-"avoid_tolls_carplay_1" = "Sin peaje";
-
-"avoid_tolls_carplay_2" = "Evitar peaje de pago";
 
 "speedcams_alert_title_carplay_1" = "Cám.velocidad";
 
@@ -2026,7 +2011,7 @@
 /* These translations are used for all type.highway.*.tunnel. */
 "type.highway.footway.tunnel" = "Túnel peatonal";
 
-"type.highway.ford" = "Vado (de lugar)";
+"type.highway.ford" = "Vado";
 
 "type.highway.living_street" = "Calle";
 

@@ -600,9 +600,12 @@
 	<string name="enable_logging_warning_message">Αυτή η λειτουργία είναι ενεργοποιημένη για την καταγραφή ενεργειών για διαγνωστικούς σκοπούς. Αυτό βοηθά την ομάδα να εντοπίζει προβλήματα με την εφαρμογή. Να ενεργοποιείτε τη λειτουργία μόνο κατόπιν αιτήματος της υποστήριξης του Organic Maps.</string>
 	<string name="access_rules_author_only">Επεξεργάζεται online</string>
 	<string name="driving_options_title">Ρυθμίσεις παράκαμψης</string>
-	<string name="avoid_tolls">Αποφύγετε τους δρόμους με διόδια</string>
-	<string name="avoid_unpaved">Αποφύγετε μη ασφαλτοστρωμένους δρόμους</string>
-	<string name="avoid_ferry">Αποφύγετε τις διασταυρώσεις πλοίων</string>
+	<!-- Recommended length for CarPlay and Android Auto is around 25-27 characters -->
+	<string name="avoid_tolls">Αποφυγή τα διόδια</string>
+	<!-- Recommended length for CarPlay and Android Auto is around 25-27 characters -->
+	<string name="avoid_unpaved">Αποφυγή των χωματόδρομων</string>
+	<!-- Recommended length for CarPlay and Android Auto is around 25-27 characters -->
+	<string name="avoid_ferry">Αποφυγή των πορθμείων</string>
 	<string name="avoid_motorways">Αποφύγετε τον αυτοκινητόδρομο</string>
 	<string name="unable_to_calc_alert_title">Δεν είναι δυνατή η δημιουργία διαδρομής</string>
 	<string name="unable_to_calc_alert_subtitle">Δυστυχώς, δεν μπορούσαμε να δημιουργήσουμε μια διαδρομή με τις καθορισμένες επιλογές. Αλλάξτε τις ρυθμίσεις και δοκιμάστε πάλι</string>
@@ -611,9 +614,6 @@
 	<string name="toll_road">Δρόμος με διόδια</string>
 	<string name="unpaved_road">Χωματόδρομος</string>
 	<string name="ferry_crossing">Πορθμείο</string>
-	<string name="avoid_toll_roads_placepage">Αποφυγή των δρόμων με διόδια</string>
-	<string name="avoid_unpaved_roads_placepage">Αποφυγή των χωματόδρομων</string>
-	<string name="avoid_ferry_crossing_placepage">Αποφυγή των πορθμείων</string>
 	<!-- A generic "Yes" button in dialogs -->
 	<string name="yes">Ναι</string>
 	<!-- A generic "No" button in dialogs -->

@@ -1011,10 +1011,13 @@
 
 "driving_options_title" = "Ustawienia nawigacji";
 
+/* Recommended length for CarPlay and Android Auto is around 25-27 characters */
 "avoid_tolls" = "Unikaj płatnych dróg";
 
-"avoid_unpaved" = "Unikaj nieutwardzonych dróg";
+/* Recommended length for CarPlay and Android Auto is around 25-27 characters */
+"avoid_unpaved" = "Unikaj dróg gruntowych";
 
+/* Recommended length for CarPlay and Android Auto is around 25-27 characters */
 "avoid_ferry" = "Unikaj przepraw promowych";
 
 "avoid_motorways" = "Unikaj autostrad";
@@ -1032,12 +1035,6 @@
 "unpaved_road" = "Droga gruntowa";
 
 "ferry_crossing" = "Przeprawa promowa";
-
-"avoid_toll_roads_placepage" = "Unikaj dróg płatnych";
-
-"avoid_unpaved_roads_placepage" = "Unikaj dróg gruntowych";
-
-"avoid_ferry_crossing_placepage" = "Unikaj przepraw promowych";
 
 "trip_start" = "Jedźmy";
 
@@ -1084,18 +1081,6 @@
 "dialog_routing_rebuild_for_vehicle_carplay" = "Trasa zostanie zmieniona na samochodową";
 
 "ok" = "Ok";
-
-"avoid_unpaved_carplay_1" = "Bez gruntow.";
-
-"avoid_unpaved_carplay_2" = "Bez gruntowych";
-
-"avoid_ferry_carplay_1" = "Bez promów";
-
-"avoid_ferry_carplay_2" = "Bez promów";
-
-"avoid_tolls_carplay_1" = "Wył. płatne";
-
-"avoid_tolls_carplay_2" = "Wyłącz płatne";
 
 "speedcams_alert_title_carplay_1" = "Kamery";
 

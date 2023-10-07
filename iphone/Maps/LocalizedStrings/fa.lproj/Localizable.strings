@@ -1011,11 +1011,14 @@
 
 "driving_options_title" = "گزینه‌های رانندگی";
 
+/* Recommended length for CarPlay and Android Auto is around 25-27 characters */
 "avoid_tolls" = "از جاده های عوارضی خودداری کنید";
 
-"avoid_unpaved" = "از جاده های خاکی خودداری کنید";
+/* Recommended length for CarPlay and Android Auto is around 25-27 characters */
+"avoid_unpaved" = "اجتناب از جاده‌های آسفالت نشده";
 
-"avoid_ferry" = "از عبور کشتی ها خودداری کنید";
+/* Recommended length for CarPlay and Android Auto is around 25-27 characters */
+"avoid_ferry" = "اجتناب از گذرگاه‌های کشتی";
 
 "avoid_motorways" = "از بزرگراه دوری کنید";
 
@@ -1032,12 +1035,6 @@
 "unpaved_road" = "جاده آسفالت نشده";
 
 "ferry_crossing" = "گذرگاه جاده‌ای";
-
-"avoid_toll_roads_placepage" = "اجتناب از جاده‌های دارای عوارض";
-
-"avoid_unpaved_roads_placepage" = "اجتناب از جاده‌های آسفالت نشده";
-
-"avoid_ferry_crossing_placepage" = "اجتناب از گذرگاه‌های کشتی";
 
 "trip_start" = "برویم";
 
@@ -1084,18 +1081,6 @@
 "dialog_routing_rebuild_for_vehicle_carplay" = "مسیر به مسیر خودرویی تغییر خواهد کرد";
 
 "ok" = "موافقت کردن";
-
-"avoid_unpaved_carplay_1" = "بی جاده خاکی";
-
-"avoid_unpaved_carplay_2" = "پرهیز از خاکی";
-
-"avoid_ferry_carplay_1" = "بدون بزرگراه";
-
-"avoid_ferry_carplay_2" = "پرهیز از اتوبان";
-
-"avoid_tolls_carplay_1" = "بدون عوارضی";
-
-"avoid_tolls_carplay_2" = "اجتناب از عوارض";
 
 "speedcams_alert_title_carplay_1" = "دوربین سرعت";
 

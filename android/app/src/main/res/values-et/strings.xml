@@ -630,9 +630,12 @@
 	<string name="enable_logging_warning_message">See valik lülitab sisse logimise diagnostilistel eesmärkidel. Meie meeskonnale võib olla abi rakendusega seotud probleemide tõrkeotsingul. Lubage see valik ajutiselt, et salvestada ja saata meile oma probleemi üksikasjalikud logid.</string>
 	<string name="access_rules_author_only">Online muutmine</string>
 	<string name="driving_options_title">Marsruutimise valikud</string>
+	<!-- Recommended length for CarPlay and Android Auto is around 25-27 characters -->
 	<string name="avoid_tolls">Vältige tasulisi teid</string>
-	<string name="avoid_unpaved">Vältige sillutamata teid</string>
-	<string name="avoid_ferry">Vältige parvlaevade ületamist</string>
+	<!-- Recommended length for CarPlay and Android Auto is around 25-27 characters -->
+	<string name="avoid_unpaved">Väldi katteta teid</string>
+	<!-- Recommended length for CarPlay and Android Auto is around 25-27 characters -->
+	<string name="avoid_ferry">Väldi praamiületusi</string>
 	<string name="avoid_motorways">Vältige kiirteed</string>
 	<string name="unable_to_calc_alert_title">Marsruudi arvutamine ei õnnestu</string>
 	<string name="unable_to_calc_alert_subtitle">Kahjuks ei leidnud me marsruuti tõenäoliselt teie valitud võimaluste tõttu. Muutke seadeid ja proovige uuesti.</string>
@@ -641,9 +644,6 @@
 	<string name="toll_road">Tasuline tee</string>
 	<string name="unpaved_road">Katteta tee</string>
 	<string name="ferry_crossing">Praamiületus</string>
-	<string name="avoid_toll_roads_placepage">Väldi tasulisi teid</string>
-	<string name="avoid_unpaved_roads_placepage">Väldi katteta teid</string>
-	<string name="avoid_ferry_crossing_placepage">Väldi praamiületusi</string>
 	<!-- A generic "Yes" button in dialogs -->
 	<string name="yes">Jah</string>
 	<!-- A generic "No" button in dialogs -->

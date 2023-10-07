@@ -1011,11 +1011,14 @@
 
 "driving_options_title" = "Yönlendirme seçenekleri";
 
+/* Recommended length for CarPlay and Android Auto is around 25-27 characters */
 "avoid_tolls" = "Ücretli yollardan kaçının";
 
-"avoid_unpaved" = "Asfaltsız yollardan kaçının";
+/* Recommended length for CarPlay and Android Auto is around 25-27 characters */
+"avoid_unpaved" = "Asfaltsız yollardan kaçın";
 
-"avoid_ferry" = "Feribot geçişlerinden kaçının";
+/* Recommended length for CarPlay and Android Auto is around 25-27 characters */
+"avoid_ferry" = "Feribot geçişlerinden kaçın";
 
 "avoid_motorways" = "Otoyoldan kaçının";
 
@@ -1032,12 +1035,6 @@
 "unpaved_road" = "Asfaltsız yol";
 
 "ferry_crossing" = "Feribot geçişi";
-
-"avoid_toll_roads_placepage" = "Paralı yollardan kaçın";
-
-"avoid_unpaved_roads_placepage" = "Asfaltsız yollardan kaçın";
-
-"avoid_ferry_crossing_placepage" = "Feribot geçişlerinden kaçın";
 
 "trip_start" = "Hadi gidelim";
 
@@ -1084,18 +1081,6 @@
 "dialog_routing_rebuild_for_vehicle_carplay" = "Rota, bir arabalı seyahat rotasına dönüştürülecek";
 
 "ok" = "Tamam";
-
-"avoid_unpaved_carplay_1" = "Toprak yol yok";
-
-"avoid_unpaved_carplay_2" = "Asfaltsız yoldan kaçın";
-
-"avoid_ferry_carplay_1" = "Feribot yok";
-
-"avoid_ferry_carplay_2" = "Feribottan kaçın";
-
-"avoid_tolls_carplay_1" = "Paralı yol yok";
-
-"avoid_tolls_carplay_2" = "Paralı yoldan kaçın";
 
 "speedcams_alert_title_carplay_1" = "Hız kameraları";
 

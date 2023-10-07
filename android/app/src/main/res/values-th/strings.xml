@@ -608,9 +608,12 @@
 	<string name="enable_logging_warning_message">ออปชันเพื่อเปิดการบันทึกประวัติการทำงานเพื่อการวินิจฉัย ประวัติดังกล่าวอาจเป็นประโยชน์กับทีมงานช่วยเหลือของเราที่คอยจัดการกับปัญหาที่เจอระหว่างแอปทำงาน โปรดเปิดออปชันดังกล่าวจากการร้องข้อการสนับสนุนจาก Organic Maps เท่านั้น</string>
 	<string name="access_rules_author_only">การแก้ไขทางออนไลน์</string>
 	<string name="driving_options_title">ทางเลือกเส้นทางขับขี่</string>
+	<!-- Recommended length for CarPlay and Android Auto is around 25-27 characters -->
 	<string name="avoid_tolls">หลีกเลี่ยงถนนที่เก็บค่าผ่านทาง</string>
-	<string name="avoid_unpaved">หลีกเลี่ยงถนนลูกรัง</string>
-	<string name="avoid_ferry">หลีกเลี่ยงการข้ามเรือข้ามฟาก</string>
+	<!-- Recommended length for CarPlay and Android Auto is around 25-27 characters -->
+	<string name="avoid_unpaved">เลี่ยงถนนดินทั้งหมด</string>
+	<!-- Recommended length for CarPlay and Android Auto is around 25-27 characters -->
+	<string name="avoid_ferry">เลี่ยงการข้ามฟากด้วยเรือ</string>
 	<string name="avoid_motorways">หลีกเลี่ยงมอเตอร์เวย์</string>
 	<string name="unable_to_calc_alert_title">ไม่สามารถคำนวณเส้นทาง</string>
 	<string name="unable_to_calc_alert_subtitle">ขออภัย เราไม่สามารถค้นหาเส้นทาง โดยสาเหตุอาจมาจากทางเลือกที่คุณกำหนดไว้ โปรดเปลี่ยนการตั้งค่าทางเลือกและลองใหม่อีกครั้ง</string>
@@ -619,9 +622,6 @@
 	<string name="toll_road">ถนนแบบเสียค่าผ่านทาง</string>
 	<string name="unpaved_road">ถนนดิน</string>
 	<string name="ferry_crossing">เรือข้ามฟาก</string>
-	<string name="avoid_toll_roads_placepage">เลี่ยงทางที่ต้องเสียเงินทั้งหมด</string>
-	<string name="avoid_unpaved_roads_placepage">เลี่ยงถนนดินทั้งหมด</string>
-	<string name="avoid_ferry_crossing_placepage">เลี่ยงการข้ามฟากด้วยเรือ</string>
 	<!-- A generic "Yes" button in dialogs -->
 	<string name="yes">ใช่</string>
 	<!-- A generic "No" button in dialogs -->

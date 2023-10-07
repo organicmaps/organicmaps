@@ -1011,10 +1011,13 @@
 
 "driving_options_title" = "Routenbeschränkungen";
 
+/* Recommended length for CarPlay and Android Auto is around 25-27 characters */
 "avoid_tolls" = "Mautstraßen vermeiden";
 
-"avoid_unpaved" = "Unbefestigte Straßen vermeiden";
+/* Recommended length for CarPlay and Android Auto is around 25-27 characters */
+"avoid_unpaved" = "Unbefest. Straßen vermeiden";
 
+/* Recommended length for CarPlay and Android Auto is around 25-27 characters */
 "avoid_ferry" = "Fähren vermeiden";
 
 "avoid_motorways" = "Autobahnen vermeiden";
@@ -1032,12 +1035,6 @@
 "unpaved_road" = "Unbefestigte Straße";
 
 "ferry_crossing" = "Fährstelle";
-
-"avoid_toll_roads_placepage" = "Mautstraßen vermeiden";
-
-"avoid_unpaved_roads_placepage" = "Unbefestigte Straßen vermeiden";
-
-"avoid_ferry_crossing_placepage" = "Fährstellen vermeiden";
 
 "trip_start" = "Losfahren";
 
@@ -1084,18 +1081,6 @@
 "dialog_routing_rebuild_for_vehicle_carplay" = "Die Route wird zu einer Route für Fahrzeuge geändert";
 
 "ok" = "Ok";
-
-"avoid_unpaved_carplay_1" = "Keine Feldwege";
-
-"avoid_unpaved_carplay_2" = "unbefest. Wege vermeiden";
-
-"avoid_ferry_carplay_1" = "Keine Fähren";
-
-"avoid_ferry_carplay_2" = "Fähren vermeiden";
-
-"avoid_tolls_carplay_1" = "Keine Mautstr.";
-
-"avoid_tolls_carplay_2" = "Mautstr. vermeiden";
 
 "speedcams_alert_title_carplay_1" = "Blitzer";
 

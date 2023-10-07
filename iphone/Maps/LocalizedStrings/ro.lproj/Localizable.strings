@@ -1011,11 +1011,14 @@
 
 "driving_options_title" = "Opțiuni de ocolire";
 
+/* Recommended length for CarPlay and Android Auto is around 25-27 characters */
 "avoid_tolls" = "Evitați drumurile cu taxă";
 
-"avoid_unpaved" = "Evitați drumurile neasfaltate";
+/* Recommended length for CarPlay and Android Auto is around 25-27 characters */
+"avoid_unpaved" = "Evită drumurile neasfaltate";
 
-"avoid_ferry" = "Evitați traversările cu feribotul";
+/* Recommended length for CarPlay and Android Auto is around 25-27 characters */
+"avoid_ferry" = "Evită trecerile cu bac";
 
 "avoid_motorways" = "Evitați autostrăzile";
 
@@ -1032,12 +1035,6 @@
 "unpaved_road" = "Drum neasfaltat";
 
 "ferry_crossing" = "Trecere cu bac";
-
-"avoid_toll_roads_placepage" = "Evită drumurile cu plată";
-
-"avoid_unpaved_roads_placepage" = "Evită drumurile neasfaltate";
-
-"avoid_ferry_crossing_placepage" = "Evită trecerile cu bac";
 
 "trip_start" = "Să mergem";
 
@@ -1084,18 +1081,6 @@
 "dialog_routing_rebuild_for_vehicle_carplay" = "Traseul va fi înlocuit cu unul pentru autovehicule";
 
 "ok" = "Bine";
-
-"avoid_unpaved_carplay_1" = "Fără neasfaltate";
-
-"avoid_unpaved_carplay_2" = "Fără neasfaltate";
-
-"avoid_ferry_carplay_1" = "Fără bacuri";
-
-"avoid_ferry_carplay_2" = "Fără bacuri";
-
-"avoid_tolls_carplay_1" = "Drum gratis";
-
-"avoid_tolls_carplay_2" = "Drum gratis";
 
 "speedcams_alert_title_carplay_1" = "Radare";
 

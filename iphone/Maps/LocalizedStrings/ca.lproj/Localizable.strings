@@ -1011,13 +1011,16 @@
 
 "driving_options_title" = "Opcions de la ruta";
 
-"avoid_tolls" = "Eviteu les autopistes de peatge";
+/* Recommended length for CarPlay and Android Auto is around 25-27 characters */
+"avoid_tolls" = "Evita peatges";
 
-"avoid_unpaved" = "Eviteu els camins de terra";
+/* Recommended length for CarPlay and Android Auto is around 25-27 characters */
+"avoid_unpaved" = "Evita vies sense pavimentar";
 
-"avoid_ferry" = "Eviteu les travessies en ferri";
+/* Recommended length for CarPlay and Android Auto is around 25-27 characters */
+"avoid_ferry" = "Evita ferris";
 
-"avoid_motorways" = "Eviteu l'autopista";
+"avoid_motorways" = "Evita autopistes";
 
 "unable_to_calc_alert_title" = "No s'ha pogut calcular la ruta";
 
@@ -1032,12 +1035,6 @@
 "unpaved_road" = "Via sense pavimentar";
 
 "ferry_crossing" = "Ferris";
-
-"avoid_toll_roads_placepage" = "Evita vies de peatges";
-
-"avoid_unpaved_roads_placepage" = "Evita vies sense pavimentar";
-
-"avoid_ferry_crossing_placepage" = "Evita transboradament en ferri";
 
 "trip_start" = "Som-hi";
 
@@ -1084,18 +1081,6 @@
 "dialog_routing_rebuild_for_vehicle_carplay" = "La ruta es convertira a una d'automòbil";
 
 "ok" = "D'acord";
-
-"avoid_unpaved_carplay_1" = "Sense vies no pavimentades";
-
-"avoid_unpaved_carplay_2" = "Evita vies sense pavimentar";
-
-"avoid_ferry_carplay_1" = "Sense ferris";
-
-"avoid_ferry_carplay_2" = "Evita els ferris";
-
-"avoid_tolls_carplay_1" = "Sense vies de peatge";
-
-"avoid_tolls_carplay_2" = "Evita les vies de peatge";
 
 "speedcams_alert_title_carplay_1" = "Radars";
 

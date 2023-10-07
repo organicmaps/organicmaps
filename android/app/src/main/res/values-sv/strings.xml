@@ -607,9 +607,12 @@
 	<string name="enable_logging_warning_message">Denna funktion aktiveras för loggning av åtgärder för diagnostiska ändamål. Detta hjälper laget att identifiera problem med applikationen. Slå på funktionen endast på begäran av Organic Maps supporttjänst.</string>
 	<string name="access_rules_author_only">Redigeras online</string>
 	<string name="driving_options_title">Omvägsinställningar</string>
+	<!-- Recommended length for CarPlay and Android Auto is around 25-27 characters -->
 	<string name="avoid_tolls">Undvik avgiftsbelagda vägar</string>
-	<string name="avoid_unpaved">Undvik oasfalterade vägar</string>
-	<string name="avoid_ferry">Undvik färjeöverfarter</string>
+	<!-- Recommended length for CarPlay and Android Auto is around 25-27 characters -->
+	<string name="avoid_unpaved">Undvik kärrvägar</string>
+	<!-- Recommended length for CarPlay and Android Auto is around 25-27 characters -->
+	<string name="avoid_ferry">Undvik färjetrafik</string>
 	<string name="avoid_motorways">Undvik motorvägen</string>
 	<string name="unable_to_calc_alert_title">Det går inte att bygga ruttenen</string>
 	<string name="unable_to_calc_alert_subtitle">Tyvärr kunde vi inte bygga en rutt med de valda alternativen. Ändra inställningar och försök igen</string>
@@ -618,9 +621,6 @@
 	<string name="toll_road">Betalvägen</string>
 	<string name="unpaved_road">Kärrvägen</string>
 	<string name="ferry_crossing">Färjetrafik</string>
-	<string name="avoid_toll_roads_placepage">Undvik betalvägar</string>
-	<string name="avoid_unpaved_roads_placepage">Undvik kärrvägar</string>
-	<string name="avoid_ferry_crossing_placepage">Undvik färjetrafik</string>
 	<!-- A generic "Yes" button in dialogs -->
 	<string name="yes">Ja</string>
 	<!-- A generic "No" button in dialogs -->

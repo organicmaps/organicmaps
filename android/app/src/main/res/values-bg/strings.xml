@@ -598,17 +598,17 @@
 	<string name="enable_logging_warning_message">Тази настройка е разрешена, за да се записват действия за диагностични цели, които помагат на нашия екип да идентифицира проблеми с приложението. Временно активирайте тази настройка само за изпращане на подробна информация за проблема, който сте открили с приложението.</string>
 	<string name="access_rules_author_only">Онлайн редактиране</string>
 	<string name="driving_options_title">Опции за маршрутизация</string>
+	<!-- Recommended length for CarPlay and Android Auto is around 25-27 characters -->
 	<string name="avoid_tolls">Избягвайте платените пътища</string>
+	<!-- Recommended length for CarPlay and Android Auto is around 25-27 characters -->
 	<string name="avoid_unpaved">Избягвайте неасфалтирани пътища</string>
-	<string name="avoid_ferry">Избягвайте преминаването с ферибот</string>
+	<!-- Recommended length for CarPlay and Android Auto is around 25-27 characters -->
+	<string name="avoid_ferry">Избягване на преходи с ферибот</string>
 	<string name="avoid_motorways">Избягвайте магистралата</string>
 	<string name="unable_to_calc_alert_title">Не е възможнос изчисляване на маршрут</string>
 	<string name="unable_to_calc_alert_subtitle">За съжаление не успяхме да намерим маршрут, вероятно поради избраните от вас параметри. Моля, променете настройките и опитайте отново.</string>
 	<string name="define_to_avoid_btn">Определяне пътищата, които да се избягват</string>
 	<string name="change_driving_options_btn">Разрешени опции за маршрутизиране</string>
-	<string name="avoid_toll_roads_placepage">Избягване на платени пътища</string>
-	<string name="avoid_unpaved_roads_placepage">Избягвайте неасфалтирани пътища</string>
-	<string name="avoid_ferry_crossing_placepage">Избягване на преходи с ферибот</string>
 	<!-- A generic "Yes" button in dialogs -->
 	<string name="yes">Да</string>
 	<!-- A generic "No" button in dialogs -->

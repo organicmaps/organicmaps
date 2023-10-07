@@ -643,9 +643,12 @@
 	<string name="enable_logging_warning_message">Valinta ottaa käyttöön lokikirjaukset diagnostiikkaa varten. Se voi auttaa tukihenkilöstöämme, kun he korjaavat sovelluksen ongelmia. Ota tämä ominaisuus käyttöön vain, jos Organic Maps:n tuki pyytää.</string>
 	<string name="access_rules_author_only">Nettimuokkaus</string>
 	<string name="driving_options_title">Reititysvalinnat</string>
+	<!-- Recommended length for CarPlay and Android Auto is around 25-27 characters -->
 	<string name="avoid_tolls">Vältä maksullisia teitä</string>
+	<!-- Recommended length for CarPlay and Android Auto is around 25-27 characters -->
 	<string name="avoid_unpaved">Vältä päällystämättömiä teitä</string>
-	<string name="avoid_ferry">Vältä lauttaristeyksiä</string>
+	<!-- Recommended length for CarPlay and Android Auto is around 25-27 characters -->
+	<string name="avoid_ferry">Vältä lautan käyttöä</string>
 	<string name="avoid_motorways">Vältä moottoritietä</string>
 	<string name="unable_to_calc_alert_title">Reittiä ei voi luoda</string>
 	<string name="unable_to_calc_alert_subtitle">Valitettavasti emme voineet luoda reittiä valituilla vaihtoehdoilla. Vaihda asetuksia ja yritä uudelleen</string>
@@ -654,9 +657,6 @@
 	<string name="toll_road">Maksullinen tie</string>
 	<string name="unpaved_road">Päällystämätön tie</string>
 	<string name="ferry_crossing">Lauttaliikenne</string>
-	<string name="avoid_toll_roads_placepage">Vältä maksullisia teitä</string>
-	<string name="avoid_unpaved_roads_placepage">Vältä päällystämättömiä teitä</string>
-	<string name="avoid_ferry_crossing_placepage">Vältä lautan käyttöä</string>
 	<!-- A generic "Yes" button in dialogs -->
 	<string name="yes">Kyllä</string>
 	<!-- A generic "No" button in dialogs -->

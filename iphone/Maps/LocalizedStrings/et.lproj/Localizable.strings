@@ -1011,11 +1011,14 @@
 
 "driving_options_title" = "Marsruutimise valikud";
 
+/* Recommended length for CarPlay and Android Auto is around 25-27 characters */
 "avoid_tolls" = "Vältige tasulisi teid";
 
-"avoid_unpaved" = "Vältige sillutamata teid";
+/* Recommended length for CarPlay and Android Auto is around 25-27 characters */
+"avoid_unpaved" = "Väldi katteta teid";
 
-"avoid_ferry" = "Vältige parvlaevade ületamist";
+/* Recommended length for CarPlay and Android Auto is around 25-27 characters */
+"avoid_ferry" = "Väldi praamiületusi";
 
 "avoid_motorways" = "Vältige kiirteed";
 
@@ -1032,12 +1035,6 @@
 "unpaved_road" = "Katteta tee";
 
 "ferry_crossing" = "Praamiületus";
-
-"avoid_toll_roads_placepage" = "Väldi tasulisi teid";
-
-"avoid_unpaved_roads_placepage" = "Väldi katteta teid";
-
-"avoid_ferry_crossing_placepage" = "Väldi praamiületusi";
 
 "trip_start" = "Liigume";
 
@@ -1084,18 +1081,6 @@
 "dialog_routing_rebuild_for_vehicle_carplay" = "See marsruut teisendatakse autoga läbitavaks";
 
 "ok" = "Ok";
-
-"avoid_unpaved_carplay_1" = "Väldi pinnasteid";
-
-"avoid_unpaved_carplay_2" = "Väldi katteta teid";
-
-"avoid_ferry_carplay_1" = "Väldi praame";
-
-"avoid_ferry_carplay_2" = "Väldi praame";
-
-"avoid_tolls_carplay_1" = "Väldi tasulisi teid";
-
-"avoid_tolls_carplay_2" = "Väldi tasulisi teid";
 
 "speedcams_alert_title_carplay_1" = "Kiiruskaamerad";
 

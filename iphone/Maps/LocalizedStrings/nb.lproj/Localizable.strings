@@ -1011,10 +1011,13 @@
 
 "driving_options_title" = "Kjørealternativer";
 
+/* Recommended length for CarPlay and Android Auto is around 25-27 characters */
 "avoid_tolls" = "Unngå bompenger";
 
-"avoid_unpaved" = "Unngå asfalterte veier";
+/* Recommended length for CarPlay and Android Auto is around 25-27 characters */
+"avoid_unpaved" = "Unngå uasfalterte veier";
 
+/* Recommended length for CarPlay and Android Auto is around 25-27 characters */
 "avoid_ferry" = "Unngå fergeoverganger";
 
 "avoid_motorways" = "Unngå motorveien";
@@ -1032,12 +1035,6 @@
 "unpaved_road" = "Uasfaltert vei";
 
 "ferry_crossing" = "Fergeovergang";
-
-"avoid_toll_roads_placepage" = "Unngå bompengeveier";
-
-"avoid_unpaved_roads_placepage" = "Unngå uasfalterte veier";
-
-"avoid_ferry_crossing_placepage" = "Unngå fergeoverganger";
 
 "trip_start" = "La oss begynne";
 
@@ -1084,18 +1081,6 @@
 "dialog_routing_rebuild_for_vehicle_carplay" = "Rute vil oppdateres til kjørerute";
 
 "ok" = "Ok";
-
-"avoid_unpaved_carplay_1" = "Ikke grusvei";
-
-"avoid_unpaved_carplay_2" = "Ikke uasfaltert";
-
-"avoid_ferry_carplay_1" = "Ingen ferger";
-
-"avoid_ferry_carplay_2" = "Unngå ferger";
-
-"avoid_tolls_carplay_1" = "Ingen bomvei";
-
-"avoid_tolls_carplay_2" = "Unngå bomvei";
 
 "speedcams_alert_title_carplay_1" = "Kamera-info";
 

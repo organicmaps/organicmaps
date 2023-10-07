@@ -636,9 +636,12 @@
 	<string name="enable_logging_warning_message">Опцыя ўключае запіс журнала падзей для мэтаў дыягностыкі. Гэта можа дапамагчы нашай камандзе вырашаць праблемы з праграмай. Уключайце гэтую опцыю часова, каб запісаць і паслаць нам дэталёвую інфармацыю, пра знойденую вамі праблему.</string>
 	<string name="access_rules_author_only">Рэдагаванне анлайн</string>
 	<string name="driving_options_title">Налады пракладкі маршрута</string>
+	<!-- Recommended length for CarPlay and Android Auto is around 25-27 characters -->
 	<string name="avoid_tolls">Пазбягаць платныя дарогі</string>
+	<!-- Recommended length for CarPlay and Android Auto is around 25-27 characters -->
 	<string name="avoid_unpaved">Пазбягаць грунтавыя дарогі</string>
-	<string name="avoid_ferry">Пазбягаць паромныя пераправы</string>
+	<!-- Recommended length for CarPlay and Android Auto is around 25-27 characters -->
+	<string name="avoid_ferry">Пазбягаць паромы</string>
 	<string name="avoid_motorways">Пазбягаць аўтамагістралі</string>
 	<string name="unable_to_calc_alert_title">Не атрымалася пракласці маршрут</string>
 	<string name="unable_to_calc_alert_subtitle">Нажаль, мы не змаглі пракласці маршрут, магчыма з-за абраных вамі налад. Змяніце налады і паспрабуйце зноў.</string>
@@ -647,9 +650,6 @@
 	<string name="toll_road">Платная дарога</string>
 	<string name="unpaved_road">Грунтовая дарога</string>
 	<string name="ferry_crossing">Паромная пераправа</string>
-	<string name="avoid_toll_roads_placepage">Пазбягаць платных дарог</string>
-	<string name="avoid_unpaved_roads_placepage">Пазбягаць грунтовых дарог</string>
-	<string name="avoid_ferry_crossing_placepage">Пазбягаць паромных перапраў</string>
 	<!-- A generic "Yes" button in dialogs -->
 	<string name="yes">Так</string>
 	<!-- A generic "No" button in dialogs -->

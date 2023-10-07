@@ -1011,11 +1011,14 @@
 
 "driving_options_title" = "Impostazioni di deviazione";
 
+/* Recommended length for CarPlay and Android Auto is around 25-27 characters */
 "avoid_tolls" = "Evita le strade a pedaggio";
 
-"avoid_unpaved" = "Evita le strade non asfaltate";
+/* Recommended length for CarPlay and Android Auto is around 25-27 characters */
+"avoid_unpaved" = "Evitare le strade non asfaltate";
 
-"avoid_ferry" = "Evita le traversate in traghetto";
+/* Recommended length for CarPlay and Android Auto is around 25-27 characters */
+"avoid_ferry" = "Evitare i traghetti";
 
 "avoid_motorways" = "Evita l'autostrada";
 
@@ -1032,12 +1035,6 @@
 "unpaved_road" = "Strada non asfaltata";
 
 "ferry_crossing" = "Traghetto";
-
-"avoid_toll_roads_placepage" = "Evitare strade a pedaggio";
-
-"avoid_unpaved_roads_placepage" = "Evitare le strade non asfaltate";
-
-"avoid_ferry_crossing_placepage" = "Evitare i traghetti";
 
 "trip_start" = "Si parte";
 
@@ -1084,18 +1081,6 @@
 "dialog_routing_rebuild_for_vehicle_carplay" = "Il percorso sarà convertito in un percorso automobilistico";
 
 "ok" = "Ok";
-
-"avoid_unpaved_carplay_1" = "No sterrate";
-
-"avoid_unpaved_carplay_2" = "No sterrate";
-
-"avoid_ferry_carplay_1" = "No traghetti";
-
-"avoid_ferry_carplay_2" = "No traghetti";
-
-"avoid_tolls_carplay_1" = "No pedaggi";
-
-"avoid_tolls_carplay_2" = "Senza pedaggi";
 
 "speedcams_alert_title_carplay_1" = "Autovelox";
 

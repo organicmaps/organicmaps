@@ -652,9 +652,12 @@
 	<string name="enable_logging_warning_message">هذا الخيار يقوم ببدأ تسجيل سجلات التطبيق لإغراض التشخيصة. يمكن أن يكون مفيدًا لفريق الدعم الخاص بنا لحل المشاكل التي تواجهكم داخل التطبيق. قم بتفعيل هذا الخيار بشكل مؤقت فقط في حالة طلب الدعم من Organic Maps.</string>
 	<string name="access_rules_author_only">التعديل باستخدام الإنترنت</string>
 	<string name="driving_options_title">خيارات رسم المسار</string>
+	<!-- Recommended length for CarPlay and Android Auto is around 25-27 characters -->
 	<string name="avoid_tolls">تجنب الطرق ذات الرسوم</string>
-	<string name="avoid_unpaved">تجنب الطرق الترابية</string>
-	<string name="avoid_ferry">تجنب معابر العبارات</string>
+	<!-- Recommended length for CarPlay and Android Auto is around 25-27 characters -->
+	<string name="avoid_unpaved">تجنب الطرق الغير معبدة</string>
+	<!-- Recommended length for CarPlay and Android Auto is around 25-27 characters -->
+	<string name="avoid_ferry">تجنب استخدام العبّارات</string>
 	<string name="avoid_motorways">تجنب الطريق السريع</string>
 	<string name="unable_to_calc_alert_title">لا يمكن حساب الطريق</string>
 	<string name="unable_to_calc_alert_subtitle">نأسف، لم نعثر على الطريق ربما بسبب الخيارات التي قمت بتحديدها. يرجى تغيير الإعدادات والمحاولة مجددًا</string>
@@ -663,9 +666,6 @@
 	<string name="toll_road">طريق برسوم مرور</string>
 	<string name="unpaved_road">طريق غير معبد</string>
 	<string name="ferry_crossing">استخدام عبّارة</string>
-	<string name="avoid_toll_roads_placepage">تجنب الطرق ذات الرسوم</string>
-	<string name="avoid_unpaved_roads_placepage">تجنب الطرق الغير معبدة</string>
-	<string name="avoid_ferry_crossing_placepage">تجنب استخدام العبّارات</string>
 	<!-- A generic "Yes" button in dialogs -->
 	<string name="yes">نعم</string>
 	<!-- A generic "No" button in dialogs -->

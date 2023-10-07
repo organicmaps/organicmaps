@@ -614,9 +614,12 @@
 	<string name="enable_logging_warning_message">Možnost zapne odesílání dat za diagnostickými účely. To nám pomáhá při řešení problémů s aplikací. Dočasně povolte pro nahrávání a odesílání logů našemu týmu o vašem problému.</string>
 	<string name="access_rules_author_only">Upravujte on-line</string>
 	<string name="driving_options_title">Možnosti trasy</string>
+	<!-- Recommended length for CarPlay and Android Auto is around 25-27 characters -->
 	<string name="avoid_tolls">Vyhněte se zpoplatněným silnicím</string>
-	<string name="avoid_unpaved">Vyhněte se nezpevněným cestám</string>
-	<string name="avoid_ferry">Vyhněte se přejezdům trajektů</string>
+	<!-- Recommended length for CarPlay and Android Auto is around 25-27 characters -->
+	<string name="avoid_unpaved">Vyhnout se nezpevněným silnicím</string>
+	<!-- Recommended length for CarPlay and Android Auto is around 25-27 characters -->
+	<string name="avoid_ferry">Vyhnout se přejezdům trajektů</string>
 	<string name="avoid_motorways">Vyhněte se dálnici</string>
 	<string name="unable_to_calc_alert_title">Nelze vypočítat trasu</string>
 	<string name="unable_to_calc_alert_subtitle">Bohužel jsme nemohli nalézt trasu pravděpodobně kvůli vámi definovaným možnostem. Změňte prosím nastavení a zkuste to znovu</string>
@@ -625,9 +628,6 @@
 	<string name="toll_road">Silnice s mýtným</string>
 	<string name="unpaved_road">Nezpevněná silnice</string>
 	<string name="ferry_crossing">Přejezd trajektů</string>
-	<string name="avoid_toll_roads_placepage">Vyhnout se silnicím s mýtným</string>
-	<string name="avoid_unpaved_roads_placepage">Vyhnout se nezpevněným silnicím</string>
-	<string name="avoid_ferry_crossing_placepage">Vyhnout se přejezdům trajektů</string>
 	<!-- A generic "Yes" button in dialogs -->
 	<string name="yes">Ano</string>
 	<!-- A generic "No" button in dialogs -->

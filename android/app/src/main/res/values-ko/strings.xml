@@ -606,9 +606,12 @@
 	<string name="enable_logging_warning_message">이 옵션은 진단을 목적으로 로그를 엽니다 이를 통해 앱에 대한 문제를 분석하는 우리의 스탭을 도울 수 있습니다 이 옵션은 오직 Organic Maps 지원 요청에서만 가능합니다.</string>
 	<string name="access_rules_author_only">온라인 수정</string>
 	<string name="driving_options_title">운전 옵션</string>
+	<!-- Recommended length for CarPlay and Android Auto is around 25-27 characters -->
 	<string name="avoid_tolls">유료 도로 피하기</string>
+	<!-- Recommended length for CarPlay and Android Auto is around 25-27 characters -->
 	<string name="avoid_unpaved">비포장 도로 피하기</string>
-	<string name="avoid_ferry">페리 횡단 피하기</string>
+	<!-- Recommended length for CarPlay and Android Auto is around 25-27 characters -->
+	<string name="avoid_ferry">여객선 횡단길 피하기</string>
 	<string name="avoid_motorways">고속도로를 피하세요</string>
 	<string name="unable_to_calc_alert_title">루트를 계산할 수 없습니다</string>
 	<string name="unable_to_calc_alert_subtitle">아쉽게도 귀하가 정의한 옵션으로는 루트를 찾을 수가 없습니다. 설정을 바꾸신다음 다시 시도해주세요</string>
@@ -617,9 +620,6 @@
 	<string name="toll_road">유료 도로</string>
 	<string name="unpaved_road">비포장 도로</string>
 	<string name="ferry_crossing">여객선 횡단길</string>
-	<string name="avoid_toll_roads_placepage">유료 도로 피하기</string>
-	<string name="avoid_unpaved_roads_placepage">비포장 도로 피하기</string>
-	<string name="avoid_ferry_crossing_placepage">여객선 횡단길 피하기</string>
 	<!-- A generic "Yes" button in dialogs -->
 	<string name="yes">네</string>
 	<!-- A generic "No" button in dialogs -->

@@ -1011,11 +1011,14 @@
 
 "driving_options_title" = "Configurações de direção";
 
+/* Recommended length for CarPlay and Android Auto is around 25-27 characters */
 "avoid_tolls" = "Evitar portagens";
 
-"avoid_unpaved" = "Evitar estradas não-pavimentadas";
+/* Recommended length for CarPlay and Android Auto is around 25-27 characters */
+"avoid_unpaved" = "Evitar não-pavimentadas";
 
-"avoid_ferry" = "Evitar balsas";
+/* Recommended length for CarPlay and Android Auto is around 25-27 characters */
+"avoid_ferry" = "Evitar ferribotes";
 
 "avoid_motorways" = "Evitar autoestradas";
 
@@ -1032,12 +1035,6 @@
 "unpaved_road" = "Estrada não pavimentada";
 
 "ferry_crossing" = "Ferry";
-
-"avoid_toll_roads_placepage" = "Evitar estradas com portagem";
-
-"avoid_unpaved_roads_placepage" = "Evitar estradas não pavimentadas";
-
-"avoid_ferry_crossing_placepage" = "Evitar ferrys";
 
 "trip_start" = "Começar";
 
@@ -1084,18 +1081,6 @@
 "dialog_routing_rebuild_for_vehicle_carplay" = "O percurso será convertido num percurso para automóvel";
 
 "ok" = "Ok";
-
-"avoid_unpaved_carplay_1" = "Só vias pavimentadas";
-
-"avoid_unpaved_carplay_2" = "Evitar vias não pavimentadas";
-
-"avoid_ferry_carplay_1" = "Sem ferrys";
-
-"avoid_ferry_carplay_2" = "Evitar ferrys";
-
-"avoid_tolls_carplay_1" = "Sem portagens";
-
-"avoid_tolls_carplay_2" = "Evitar portagens";
 
 "speedcams_alert_title_carplay_1" = "Radares";
 

@@ -1011,11 +1011,14 @@
 
 "driving_options_title" = "Útvonaltervezési lehetőségek";
 
+/* Recommended length for CarPlay and Android Auto is around 25-27 characters */
 "avoid_tolls" = "Kerülje a fizetős utakat";
 
-"avoid_unpaved" = "Kerülje a burkolatlan utakat";
+/* Recommended length for CarPlay and Android Auto is around 25-27 characters */
+"avoid_unpaved" = "Burkolatlan utak elkerülése";
 
-"avoid_ferry" = "Kerülje a kompátkelést";
+/* Recommended length for CarPlay and Android Auto is around 25-27 characters */
+"avoid_ferry" = "Kompátkelők elkerülése";
 
 "avoid_motorways" = "Kerülje az autópályát";
 
@@ -1032,12 +1035,6 @@
 "unpaved_road" = "Burkolatlan utak";
 
 "ferry_crossing" = "Kompátkelők";
-
-"avoid_toll_roads_placepage" = "Díjköteles utak elkerülése";
-
-"avoid_unpaved_roads_placepage" = "Burkolatlan utak elkerülése";
-
-"avoid_ferry_crossing_placepage" = "Kompátkelők elkerülése";
 
 "trip_start" = "Gyerünk";
 
@@ -1084,18 +1081,6 @@
 "dialog_routing_rebuild_for_vehicle_carplay" = "Az útvonal módosítva lesz egy autó számára";
 
 "ok" = "Oké";
-
-"avoid_unpaved_carplay_1" = "Nem földút";
-
-"avoid_unpaved_carplay_2" = "Földút kerülése";
-
-"avoid_ferry_carplay_1" = "Komp nélkül";
-
-"avoid_ferry_carplay_2" = "Kompok kerülése";
-
-"avoid_tolls_carplay_1" = "Nincs útdíj";
-
-"avoid_tolls_carplay_2" = "Útdíj kerülése";
 
 "speedcams_alert_title_carplay_1" = "Traffipaxok";
 

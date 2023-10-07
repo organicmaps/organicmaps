@@ -624,9 +624,12 @@
 	<string name="enable_logging_warning_message">L\'opzione attiva i registri per scopi diagnostici. Può essere utile al nostro team per risolvere i problemi dell\'app. Abilita temporaneamente questa opzione per registrare e inviarci registri dettagliati sul tuo problema.</string>
 	<string name="access_rules_author_only">Modifica online</string>
 	<string name="driving_options_title">Impostazioni di deviazione</string>
+	<!-- Recommended length for CarPlay and Android Auto is around 25-27 characters -->
 	<string name="avoid_tolls">Evita le strade a pedaggio</string>
-	<string name="avoid_unpaved">Evita le strade non asfaltate</string>
-	<string name="avoid_ferry">Evita le traversate in traghetto</string>
+	<!-- Recommended length for CarPlay and Android Auto is around 25-27 characters -->
+	<string name="avoid_unpaved">Evitare le strade non asfaltate</string>
+	<!-- Recommended length for CarPlay and Android Auto is around 25-27 characters -->
+	<string name="avoid_ferry">Evitare i traghetti</string>
 	<string name="avoid_motorways">Evita l\'autostrada</string>
 	<string name="unable_to_calc_alert_title">Impossibile elaborare il percorso</string>
 	<string name="unable_to_calc_alert_subtitle">Purtroppo non siamo riusciti a trovare un percorso, probabilmente a causa delle opzioni che hai scelto. Si prega di cambiare le impostazioni e riprovare.</string>
@@ -635,9 +638,6 @@
 	<string name="toll_road">Strada a pedaggio</string>
 	<string name="unpaved_road">Strada non asfaltata</string>
 	<string name="ferry_crossing">Traghetto</string>
-	<string name="avoid_toll_roads_placepage">Evitare strade a pedaggio</string>
-	<string name="avoid_unpaved_roads_placepage">Evitare le strade non asfaltate</string>
-	<string name="avoid_ferry_crossing_placepage">Evitare i traghetti</string>
 	<!-- A generic "Yes" button in dialogs -->
 	<string name="yes">Sì</string>
 	<!-- A generic "No" button in dialogs -->

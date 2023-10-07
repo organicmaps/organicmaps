@@ -1011,11 +1011,14 @@
 
 "driving_options_title" = "Pilihan berkendara";
 
+/* Recommended length for CarPlay and Android Auto is around 25-27 characters */
 "avoid_tolls" = "Hindari jalan tol";
 
-"avoid_unpaved" = "Hindari jalan yang tidak beraspal";
+/* Recommended length for CarPlay and Android Auto is around 25-27 characters */
+"avoid_unpaved" = "Hindari jalan tanah";
 
-"avoid_ferry" = "Hindari penyeberangan feri";
+/* Recommended length for CarPlay and Android Auto is around 25-27 characters */
+"avoid_ferry" = "Hindari feri";
 
 "avoid_motorways" = "Hindari jalan raya";
 
@@ -1032,12 +1035,6 @@
 "unpaved_road" = "Jalan tanah";
 
 "ferry_crossing" = "Penyeberangan kapal feri";
-
-"avoid_toll_roads_placepage" = "Hindari jalan tol";
-
-"avoid_unpaved_roads_placepage" = "Hindari jalan tanah";
-
-"avoid_ferry_crossing_placepage" = "Hindari penyeberangan kapal feri";
 
 "trip_start" = "Ayo";
 
@@ -1084,18 +1081,6 @@
 "dialog_routing_rebuild_for_vehicle_carplay" = "Rute akan diubah untuk mobil";
 
 "ok" = "Oke";
-
-"avoid_unpaved_carplay_1" = "Jalan aspal";
-
-"avoid_unpaved_carplay_2" = "Hindari tanah";
-
-"avoid_ferry_carplay_1" = "Tanpa feri";
-
-"avoid_ferry_carplay_2" = "Hindari feri";
-
-"avoid_tolls_carplay_1" = "Tanpa tol";
-
-"avoid_tolls_carplay_2" = "Hindari tol";
 
 "speedcams_alert_title_carplay_1" = "Speedcam";
 

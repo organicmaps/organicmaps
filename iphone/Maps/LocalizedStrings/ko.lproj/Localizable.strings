@@ -1011,11 +1011,14 @@
 
 "driving_options_title" = "운전 옵션";
 
+/* Recommended length for CarPlay and Android Auto is around 25-27 characters */
 "avoid_tolls" = "유료 도로 피하기";
 
+/* Recommended length for CarPlay and Android Auto is around 25-27 characters */
 "avoid_unpaved" = "비포장 도로 피하기";
 
-"avoid_ferry" = "페리 횡단 피하기";
+/* Recommended length for CarPlay and Android Auto is around 25-27 characters */
+"avoid_ferry" = "여객선 횡단길 피하기";
 
 "avoid_motorways" = "고속도로를 피하세요";
 
@@ -1032,12 +1035,6 @@
 "unpaved_road" = "비포장 도로";
 
 "ferry_crossing" = "여객선 횡단길";
-
-"avoid_toll_roads_placepage" = "유료 도로 피하기";
-
-"avoid_unpaved_roads_placepage" = "비포장 도로 피하기";
-
-"avoid_ferry_crossing_placepage" = "여객선 횡단길 피하기";
 
 "trip_start" = "가자";
 
@@ -1084,18 +1081,6 @@
 "dialog_routing_rebuild_for_vehicle_carplay" = "루트가 차량에 맞춰 수정됩니다";
 
 "ok" = "OK";
-
-"avoid_unpaved_carplay_1" = "비포장 도로 없음";
-
-"avoid_unpaved_carplay_2" = "비포장 도로 없음";
-
-"avoid_ferry_carplay_1" = "여객선 없음";
-
-"avoid_ferry_carplay_2" = "여객선 없음";
-
-"avoid_tolls_carplay_1" = "유료 도로 없음";
-
-"avoid_tolls_carplay_2" = "유료 도로 없음";
 
 "speedcams_alert_title_carplay_1" = "속도단속 카메라";
 

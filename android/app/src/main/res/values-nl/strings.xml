@@ -636,10 +636,13 @@
 	<string name="enable_logging_warning_message">Deze optie is ingeschakeld voor logboekregistraties voor diagnostische doeleinden. Het helpt bij het identificeren van problemen met de applicatie. Schakel de optie alleen in op verzoek van Organic Maps-ondersteuning.</string>
 	<string name="access_rules_author_only">Wordt online bewerkt</string>
 	<string name="driving_options_title">Route instellingen</string>
+	<!-- Recommended length for CarPlay and Android Auto is around 25-27 characters -->
 	<string name="avoid_tolls">Vermijd tolwegen</string>
+	<!-- Recommended length for CarPlay and Android Auto is around 25-27 characters -->
 	<string name="avoid_unpaved">Vermijd onverharde wegen</string>
-	<string name="avoid_ferry">Vermijd overtochten met de veerboot</string>
-	<string name="avoid_motorways">Vermijd de snelweg</string>
+	<!-- Recommended length for CarPlay and Android Auto is around 25-27 characters -->
+	<string name="avoid_ferry">Vermijd veerboten</string>
+	<string name="avoid_motorways">Vermijd snelwegen</string>
 	<string name="unable_to_calc_alert_title">Kan route niet opbouwen</string>
 	<string name="unable_to_calc_alert_subtitle">Helaas konden we geen route opbouwen met de gekozen opties. Wijzig de instellingen en probeer het opnieuw</string>
 	<string name="define_to_avoid_btn">Omwegen configureren</string>
@@ -647,9 +650,6 @@
 	<string name="toll_road">Tolweg</string>
 	<string name="unpaved_road">Aardeweg</string>
 	<string name="ferry_crossing">Ferry</string>
-	<string name="avoid_toll_roads_placepage">Tolwegen vermijden</string>
-	<string name="avoid_unpaved_roads_placepage">Aardewegen vermijden</string>
-	<string name="avoid_ferry_crossing_placepage">Ferries vermijden</string>
 	<!-- A generic "Yes" button in dialogs -->
 	<string name="yes">Ja</string>
 	<!-- A generic "No" button in dialogs -->

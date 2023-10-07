@@ -607,9 +607,12 @@
 	<string name="enable_logging_warning_message">این گزینه ثبت گزارش را برای اهداف تشخیصی فعال می‌کند. برای کارکنان بخش پشتیبانی که مشکلات برنامه را عیب یابی می‌کنند، مفید باشد. این گزینه را تنها در صورت درخواست پشتیبانی Organic Maps فعال کنید.</string>
 	<string name="access_rules_author_only">ویرایش آنلاین</string>
 	<string name="driving_options_title">گزینه‌های رانندگی</string>
+	<!-- Recommended length for CarPlay and Android Auto is around 25-27 characters -->
 	<string name="avoid_tolls">از جاده های عوارضی خودداری کنید</string>
-	<string name="avoid_unpaved">از جاده های خاکی خودداری کنید</string>
-	<string name="avoid_ferry">از عبور کشتی ها خودداری کنید</string>
+	<!-- Recommended length for CarPlay and Android Auto is around 25-27 characters -->
+	<string name="avoid_unpaved">اجتناب از جاده‌های آسفالت نشده</string>
+	<!-- Recommended length for CarPlay and Android Auto is around 25-27 characters -->
+	<string name="avoid_ferry">اجتناب از گذرگاه‌های کشتی</string>
 	<string name="avoid_motorways">از بزرگراه دوری کنید</string>
 	<string name="unable_to_calc_alert_title">امکان محاسبه مسیر نیست</string>
 	<string name="unable_to_calc_alert_subtitle">متأسفانه، احتمالاً به دلیل گزینه‌های تعریف شده شما، مسیری پیدا نشد. لطفاً تنظیمات را تغییر داده و مجدد تلاش کنید</string>
@@ -618,9 +621,6 @@
 	<string name="toll_road">جاده دارای عوارض</string>
 	<string name="unpaved_road">جاده آسفالت نشده</string>
 	<string name="ferry_crossing">گذرگاه جاده‌ای</string>
-	<string name="avoid_toll_roads_placepage">اجتناب از جاده‌های دارای عوارض</string>
-	<string name="avoid_unpaved_roads_placepage">اجتناب از جاده‌های آسفالت نشده</string>
-	<string name="avoid_ferry_crossing_placepage">اجتناب از گذرگاه‌های کشتی</string>
 	<!-- A generic "Yes" button in dialogs -->
 	<string name="yes">بله</string>
 	<!-- A generic "No" button in dialogs -->

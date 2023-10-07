@@ -1011,11 +1011,14 @@
 
 "driving_options_title" = "Možnosti jazdy";
 
+/* Recommended length for CarPlay and Android Auto is around 25-27 characters */
 "avoid_tolls" = "Vyhnite sa spoplatneným cestám";
 
-"avoid_unpaved" = "Vyhnite sa nespevneným cestám";
+/* Recommended length for CarPlay and Android Auto is around 25-27 characters */
+"avoid_unpaved" = "Vyhnúť sa nespevneným cestám";
 
-"avoid_ferry" = "Vyhnite sa prejazdom trajektom";
+/* Recommended length for CarPlay and Android Auto is around 25-27 characters */
+"avoid_ferry" = "Vyhnúť sa prechodom na trajekte";
 
 "avoid_motorways" = "Vyhnite sa diaľnici";
 
@@ -1032,12 +1035,6 @@
 "unpaved_road" = "Nespevnená cesta";
 
 "ferry_crossing" = "Prechod trajektom";
-
-"avoid_toll_roads_placepage" = "Vyhnúť sa spoplatneným cestám";
-
-"avoid_unpaved_roads_placepage" = "Vyhnúť sa nespevneným cestám";
-
-"avoid_ferry_crossing_placepage" = "Vyhnúť sa prechodom na trajekte";
 
 "trip_start" = "Poďme";
 
@@ -1084,18 +1081,6 @@
 "dialog_routing_rebuild_for_vehicle_carplay" = "Trasa bude upravená na jazdu autom";
 
 "ok" = "Ok";
-
-"avoid_unpaved_carplay_1" = "Nespevn. NIE";
-
-"avoid_unpaved_carplay_2" = "Nespevnené ÁNO";
-
-"avoid_ferry_carplay_1" = "Trajekty NIE";
-
-"avoid_ferry_carplay_2" = "Trajekty ÁNO";
-
-"avoid_tolls_carplay_1" = "Spoplat. NIE";
-
-"avoid_tolls_carplay_2" = "Spoplatnené ÁNO";
 
 "speedcams_alert_title_carplay_1" = "Radary";
 

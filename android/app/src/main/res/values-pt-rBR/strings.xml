@@ -620,8 +620,11 @@
 	<string name="enable_logging_warning_message">A opção ativa logging para realizar diagnósticos. Pode ser útil para nossa equipe de suporte que estão solucionando problemas com o aplicativo. Ative esta opção apenas ao ser solicitado pelo suporte do Organic Maps.</string>
 	<string name="access_rules_author_only">Edição online</string>
 	<string name="driving_options_title">Opções de direção</string>
+	<!-- Recommended length for CarPlay and Android Auto is around 25-27 characters -->
 	<string name="avoid_tolls">Evitar pedágios</string>
-	<string name="avoid_unpaved">Evitar estradas não-pavimentadas</string>
+	<!-- Recommended length for CarPlay and Android Auto is around 25-27 characters -->
+	<string name="avoid_unpaved">Evitar não-pavimentadas</string>
+	<!-- Recommended length for CarPlay and Android Auto is around 25-27 characters -->
 	<string name="avoid_ferry">Evitar balsas</string>
 	<string name="avoid_motorways">Evitar rodovias</string>
 	<string name="unable_to_calc_alert_title">Incapaz de calcular rota</string>
@@ -631,9 +634,6 @@
 	<string name="toll_road">Pedágio</string>
 	<string name="unpaved_road">Pista não pavimentada</string>
 	<string name="ferry_crossing">Balsa</string>
-	<string name="avoid_toll_roads_placepage">Evitar pedágios</string>
-	<string name="avoid_unpaved_roads_placepage">Evitar pistas sem pavimentação</string>
-	<string name="avoid_ferry_crossing_placepage">Evitar balsas</string>
 	<!-- A generic "Yes" button in dialogs -->
 	<string name="yes">Sim</string>
 	<!-- A generic "No" button in dialogs -->

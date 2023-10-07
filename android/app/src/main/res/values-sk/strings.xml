@@ -606,9 +606,12 @@
 	<string name="enable_logging_warning_message">Táto možnosť zapína zaznamenávanie na diagnostické účely. Môže to byť užitočné pre našu technickú podporu, ktorá rieši problémy s aplikáciou. Povoliť túto možnosť iba na požiadanie podpory Organic Maps.</string>
 	<string name="access_rules_author_only">Online úprava</string>
 	<string name="driving_options_title">Možnosti jazdy</string>
+	<!-- Recommended length for CarPlay and Android Auto is around 25-27 characters -->
 	<string name="avoid_tolls">Vyhnite sa spoplatneným cestám</string>
-	<string name="avoid_unpaved">Vyhnite sa nespevneným cestám</string>
-	<string name="avoid_ferry">Vyhnite sa prejazdom trajektom</string>
+	<!-- Recommended length for CarPlay and Android Auto is around 25-27 characters -->
+	<string name="avoid_unpaved">Vyhnúť sa nespevneným cestám</string>
+	<!-- Recommended length for CarPlay and Android Auto is around 25-27 characters -->
+	<string name="avoid_ferry">Vyhnúť sa prechodom na trajekte</string>
 	<string name="avoid_motorways">Vyhnite sa diaľnici</string>
 	<string name="unable_to_calc_alert_title">Nepodarilo sa vypočítať trasu</string>
 	<string name="unable_to_calc_alert_subtitle">Bohužiaľ sme nemohli nájsť trasu pravdepodobne z dôvodu definovaných možností. Zmeňte nastavenia a skúste to prosím znova</string>
@@ -617,9 +620,6 @@
 	<string name="toll_road">Spoplatnená cesta</string>
 	<string name="unpaved_road">Nespevnená cesta</string>
 	<string name="ferry_crossing">Prechod trajektom</string>
-	<string name="avoid_toll_roads_placepage">Vyhnúť sa spoplatneným cestám</string>
-	<string name="avoid_unpaved_roads_placepage">Vyhnúť sa nespevneným cestám</string>
-	<string name="avoid_ferry_crossing_placepage">Vyhnúť sa prechodom na trajekte</string>
 	<!-- A generic "Yes" button in dialogs -->
 	<string name="yes">Áno</string>
 	<!-- A generic "No" button in dialogs -->
