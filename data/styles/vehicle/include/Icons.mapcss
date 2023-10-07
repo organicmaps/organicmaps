@@ -483,14 +483,14 @@ node|z18[amenity=fast_food],
 area|z18[amenity=fast_food]
 {icon-image: fastfood-m.svg;icon-min-distance: 25;font-size: 14.5;}
 
-node|z19[amenity=cafe],
-area|z19[amenity=cafe]
+node|z19-[amenity=cafe],
+area|z19-[amenity=cafe]
 {icon-image: cafe-m.svg;icon-min-distance: 35;font-size: 14.5;}
-node|z19[amenity=restaurant],
-area|z19[amenity=restaurant]
+node|z19-[amenity=restaurant],
+area|z19-[amenity=restaurant]
 {icon-image: restaurant-m.svg;icon-min-distance: 40;font-size: 14.5;}
-node|z19[amenity=fast_food],
-area|z19[amenity=fast_food]
+node|z19-[amenity=fast_food],
+area|z19-[amenity=fast_food]
 {icon-image: fastfood-m.svg;icon-min-distance: 45;font-size: 14.5;}
 
 
@@ -552,8 +552,8 @@ area|z17[amenity=university][name]
 node|z18[amenity=university][name],
 area|z18[amenity=university][name]
 {icon-min-distance: 10;font-size: 14.5;}
-node|z19[amenity=university][name],
-area|z19[amenity=university][name]
+node|z19-[amenity=university][name],
+area|z19-[amenity=university][name]
 {icon-min-distance: 0; font-size: 14.5;}
 
 node|z15-[amenity=university][!name]
