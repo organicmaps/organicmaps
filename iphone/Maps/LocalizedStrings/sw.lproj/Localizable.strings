@@ -1013,15 +1013,13 @@
 
 "driving_options_title" = "Machaguo ya njia";
 
-"driving_options_subheader" = "Epuka kwenye kila njia";
+"avoid_tolls" = "Epuka barabara za ushuru";
 
-"avoid_tolls" = "Barabara za kulipia";
+"avoid_unpaved" = "Epuka barabara za uchafu";
 
-"avoid_unpaved" = "Barabara za vumbi";
+"avoid_ferry" = "Epuka vivuko vya feri";
 
-"avoid_ferry" = "Vivuko cha feri";
-
-"avoid_motorways" = "Barabara za mwendo kasi";
+"avoid_motorways" = "Epuka barabara";
 
 "unable_to_calc_alert_title" = "Haiwezi kukokotoa njia";
 

@@ -609,11 +609,10 @@
 	<string name="enable_logging_warning_message">Denna funktion aktiveras för loggning av åtgärder för diagnostiska ändamål. Detta hjälper laget att identifiera problem med applikationen. Slå på funktionen endast på begäran av Organic Maps supporttjänst.</string>
 	<string name="access_rules_author_only">Redigeras online</string>
 	<string name="driving_options_title">Omvägsinställningar</string>
-	<string name="driving_options_subheader">Undvik på varje rutten</string>
-	<string name="avoid_tolls">Betalväg</string>
-	<string name="avoid_unpaved">Kärrväg</string>
-	<string name="avoid_ferry">Färjetrafik</string>
-	<string name="avoid_motorways">Motorväg</string>
+	<string name="avoid_tolls">Undvik avgiftsbelagda vägar</string>
+	<string name="avoid_unpaved">Undvik oasfalterade vägar</string>
+	<string name="avoid_ferry">Undvik färjeöverfarter</string>
+	<string name="avoid_motorways">Undvik motorvägen</string>
 	<string name="unable_to_calc_alert_title">Det går inte att bygga ruttenen</string>
 	<string name="unable_to_calc_alert_subtitle">Tyvärr kunde vi inte bygga en rutt med de valda alternativen. Ändra inställningar och försök igen</string>
 	<string name="define_to_avoid_btn">Anpassa omvägsbana</string>

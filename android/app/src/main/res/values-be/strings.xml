@@ -638,11 +638,10 @@
 	<string name="enable_logging_warning_message">Опцыя ўключае запіс журнала падзей для мэтаў дыягностыкі. Гэта можа дапамагчы нашай камандзе вырашаць праблемы з праграмай. Уключайце гэтую опцыю часова, каб запісаць і паслаць нам дэталёвую інфармацыю, пра знойденую вамі праблему.</string>
 	<string name="access_rules_author_only">Рэдагаванне анлайн</string>
 	<string name="driving_options_title">Налады пракладкі маршрута</string>
-	<string name="driving_options_subheader">Пазбягаць на кожным маршруце</string>
-	<string name="avoid_tolls">Платныя дарогі</string>
-	<string name="avoid_unpaved">Грунтовыя дарогі</string>
-	<string name="avoid_ferry">Паромныя пераправы</string>
-	<string name="avoid_motorways">Аўтамагістралі</string>
+	<string name="avoid_tolls">Пазбягаць платныя дарогі</string>
+	<string name="avoid_unpaved">Пазбягаць грунтавыя дарогі</string>
+	<string name="avoid_ferry">Пазбягаць паромныя пераправы</string>
+	<string name="avoid_motorways">Пазбягаць аўтамагістралі</string>
 	<string name="unable_to_calc_alert_title">Не атрымалася пракласці маршрут</string>
 	<string name="unable_to_calc_alert_subtitle">Нажаль, мы не змаглі пракласці маршрут, магчыма з-за абраных вамі налад. Змяніце налады і паспрабуйце зноў.</string>
 	<string name="define_to_avoid_btn">Задаць дарогі, якіх пазбягаць</string>

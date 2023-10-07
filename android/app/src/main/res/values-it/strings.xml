@@ -626,11 +626,10 @@
 	<string name="enable_logging_warning_message">L\'opzione attiva i registri per scopi diagnostici. Può essere utile al nostro team per risolvere i problemi dell\'app. Abilita temporaneamente questa opzione per registrare e inviarci registri dettagliati sul tuo problema.</string>
 	<string name="access_rules_author_only">Modifica online</string>
 	<string name="driving_options_title">Impostazioni di deviazione</string>
-	<string name="driving_options_subheader">Evitare in tutti i percorsi</string>
-	<string name="avoid_tolls">Strade a pedaggio</string>
-	<string name="avoid_unpaved">Strade non asfaltate</string>
-	<string name="avoid_ferry">Traghetti</string>
-	<string name="avoid_motorways">Autostrade</string>
+	<string name="avoid_tolls">Evita le strade a pedaggio</string>
+	<string name="avoid_unpaved">Evita le strade non asfaltate</string>
+	<string name="avoid_ferry">Evita le traversate in traghetto</string>
+	<string name="avoid_motorways">Evita l\'autostrada</string>
 	<string name="unable_to_calc_alert_title">Impossibile elaborare il percorso</string>
 	<string name="unable_to_calc_alert_subtitle">Purtroppo non siamo riusciti a trovare un percorso, probabilmente a causa delle opzioni che hai scelto. Si prega di cambiare le impostazioni e riprovare.</string>
 	<string name="define_to_avoid_btn">Definire le strade da evitare</string>

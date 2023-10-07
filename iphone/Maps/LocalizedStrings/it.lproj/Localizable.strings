@@ -1013,15 +1013,13 @@
 
 "driving_options_title" = "Impostazioni di deviazione";
 
-"driving_options_subheader" = "Evitare in tutti i percorsi";
+"avoid_tolls" = "Evita le strade a pedaggio";
 
-"avoid_tolls" = "Strade a pedaggio";
+"avoid_unpaved" = "Evita le strade non asfaltate";
 
-"avoid_unpaved" = "Strade non asfaltate";
+"avoid_ferry" = "Evita le traversate in traghetto";
 
-"avoid_ferry" = "Traghetti";
-
-"avoid_motorways" = "Autostrade";
+"avoid_motorways" = "Evita l'autostrada";
 
 "unable_to_calc_alert_title" = "Impossibile elaborare il percorso";
 

@@ -634,11 +634,10 @@
 	<string name="enable_logging_warning_message">L\'opció activa el registre amb finalitats de diagnòstic. Pot ser útil per al nostre equip per a identificar problemes amb l\'aplicació. Activeu aquesta opció temporalment per a enregistgrar i enviar-nos informes detallats sobre el vostre problema.</string>
 	<string name="access_rules_author_only">Edició en línia</string>
 	<string name="driving_options_title">Opcions de la ruta</string>
-	<string name="driving_options_subheader">Evita-ho en totes les rutes</string>
-	<string name="avoid_tolls">Vies de peatge</string>
-	<string name="avoid_unpaved">Vies sense pavimentar</string>
-	<string name="avoid_ferry">Transbordaments en ferri</string>
-	<string name="avoid_motorways">Autopistes</string>
+	<string name="avoid_tolls">Eviteu les autopistes de peatge</string>
+	<string name="avoid_unpaved">Eviteu els camins de terra</string>
+	<string name="avoid_ferry">Eviteu les travessies en ferri</string>
+	<string name="avoid_motorways">Eviteu l\'autopista</string>
 	<string name="unable_to_calc_alert_title">No s\'ha pogut calcular la ruta</string>
 	<string name="unable_to_calc_alert_subtitle">Malauradament, no hem pogut trobar cap ruta. Probablement per les opcions que heu triat. Canvieu-les i torneu a intentar-ho.</string>
 	<string name="define_to_avoid_btn">Definiu les vies a evitar</string>

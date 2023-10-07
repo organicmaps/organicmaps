@@ -622,11 +622,10 @@
 	<string name="enable_logging_warning_message">A opção ativa logging para realizar diagnósticos. Pode ser útil para nossa equipe de suporte que estão solucionando problemas com o aplicativo. Ative esta opção apenas ao ser solicitado pelo suporte do Organic Maps.</string>
 	<string name="access_rules_author_only">Edição online</string>
 	<string name="driving_options_title">Opções de direção</string>
-	<string name="driving_options_subheader">Evitar em todas as rotas</string>
-	<string name="avoid_tolls">Pedágios</string>
-	<string name="avoid_unpaved">Pistas sem pavimentação</string>
-	<string name="avoid_ferry">Balsa</string>
-	<string name="avoid_motorways">Autoestradas</string>
+	<string name="avoid_tolls">Evitar pedágios</string>
+	<string name="avoid_unpaved">Evitar estradas não-pavimentadas</string>
+	<string name="avoid_ferry">Evitar balsas</string>
+	<string name="avoid_motorways">Evitar rodovias</string>
 	<string name="unable_to_calc_alert_title">Incapaz de calcular rota</string>
 	<string name="unable_to_calc_alert_subtitle">Infelizmente, não conseguimos encontrar uma rota, provavelmente por causa das opções escolhidas. Por favor, altere as configurações e tente novamente</string>
 	<string name="define_to_avoid_btn">Definir as estradas a serem evitadas</string>

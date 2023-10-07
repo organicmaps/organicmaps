@@ -646,11 +646,10 @@
 	<string name="enable_logging_warning_message">Cette option est activée pour l\'identification des actions à des fins de diagnostic. Cela aide l’équipe à identifier les problèmes liés à l’application. Activez cette option uniquement à la demande du support Organic Maps.</string>
 	<string name="access_rules_author_only">Édition en ligne</string>
 	<string name="driving_options_title">Paramètres des itinéraires</string>
-	<string name="driving_options_subheader">Éviter sur tous les itinéraires</string>
-	<string name="avoid_tolls">Routes à péage</string>
-	<string name="avoid_unpaved">Routes non revêtues</string>
-	<string name="avoid_ferry">Traversées en ferry</string>
-	<string name="avoid_motorways">Autoroutes</string>
+	<string name="avoid_tolls">Éviter les routes à péage</string>
+	<string name="avoid_unpaved">Éviter les routes non pavées</string>
+	<string name="avoid_ferry">Éviter les traversées en ferry</string>
+	<string name="avoid_motorways">Éviter les autoroutes</string>
 	<string name="unable_to_calc_alert_title">Impossible de calculer l\'itinéraire</string>
 	<string name="unable_to_calc_alert_subtitle">Malheureusement, nous n\'avons pas pu créer l\'itinéraire avec les options sélectionnées. Modifiez les paramètres et réessayez</string>
 	<string name="define_to_avoid_btn">Définissez les routes à éviter</string>

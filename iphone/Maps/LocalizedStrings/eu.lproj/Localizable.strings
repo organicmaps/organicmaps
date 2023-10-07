@@ -1013,15 +1013,13 @@
 
 "driving_options_title" = "Bideratzeko aukerak";
 
-"driving_options_subheader" = "Ibilbide guztietan saihestu";
+"avoid_tolls" = "Saihestu ordainpeko errepideak";
 
-"avoid_tolls" = "Ordainpeko errepideak";
+"avoid_unpaved" = "Saihestu lurrezko bideak";
 
-"avoid_unpaved" = "Asfaltatu gabeko errepideak";
+"avoid_ferry" = "Saihestu ferry-pasatzeak";
 
-"avoid_ferry" = "Ferry pasabideak";
-
-"avoid_motorways" = "Autobideak";
+"avoid_motorways" = "Saihestu autobidea";
 
 "unable_to_calc_alert_title" = "Ezin da ibilbidea proposatu";
 

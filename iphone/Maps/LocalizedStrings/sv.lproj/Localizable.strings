@@ -1013,15 +1013,13 @@
 
 "driving_options_title" = "Omvägsinställningar";
 
-"driving_options_subheader" = "Undvik på varje rutten";
+"avoid_tolls" = "Undvik avgiftsbelagda vägar";
 
-"avoid_tolls" = "Betalväg";
+"avoid_unpaved" = "Undvik oasfalterade vägar";
 
-"avoid_unpaved" = "Kärrväg";
+"avoid_ferry" = "Undvik färjeöverfarter";
 
-"avoid_ferry" = "Färjetrafik";
-
-"avoid_motorways" = "Motorväg";
+"avoid_motorways" = "Undvik motorvägen";
 
 "unable_to_calc_alert_title" = "Det går inte att bygga ruttenen";
 

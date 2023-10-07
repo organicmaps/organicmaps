@@ -643,11 +643,10 @@
 	<string name="enable_logging_warning_message">Aukera hau diagnostiko helburua duten erregistro ekintzetarako gaituta dago. Honek gure taldeari aplikazioarekin arazoak identifikatzen laguntzen dio. Gaitu aukera Organic Maps laguntzari eskatuta soilik.</string>
 	<string name="access_rules_author_only">Sarean editatzen</string>
 	<string name="driving_options_title">Bideratzeko aukerak</string>
-	<string name="driving_options_subheader">Ibilbide guztietan saihestu</string>
-	<string name="avoid_tolls">Ordainpeko errepideak</string>
-	<string name="avoid_unpaved">Asfaltatu gabeko errepideak</string>
-	<string name="avoid_ferry">Ferry pasabideak</string>
-	<string name="avoid_motorways">Autobideak</string>
+	<string name="avoid_tolls">Saihestu ordainpeko errepideak</string>
+	<string name="avoid_unpaved">Saihestu lurrezko bideak</string>
+	<string name="avoid_ferry">Saihestu ferry-pasatzeak</string>
+	<string name="avoid_motorways">Saihestu autobidea</string>
 	<string name="unable_to_calc_alert_title">Ezin da ibilbidea proposatu</string>
 	<string name="unable_to_calc_alert_subtitle">Zoritxarrez, ezin izan dugu aukeratutako aukerekin ibilbiderik proposatu. Aldatu ezarpenak eta saiatu berriro</string>
 	<string name="define_to_avoid_btn">Zehaztu saihestu beharreko bideak</string>

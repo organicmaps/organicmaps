@@ -1013,15 +1013,13 @@
 
 "driving_options_title" = "Ustawienia nawigacji";
 
-"driving_options_subheader" = "Unikaj na każdej trasie";
+"avoid_tolls" = "Unikaj płatnych dróg";
 
-"avoid_tolls" = "Drogi płatne";
+"avoid_unpaved" = "Unikaj nieutwardzonych dróg";
 
-"avoid_unpaved" = "Drogi gruntowe";
+"avoid_ferry" = "Unikaj przepraw promowych";
 
-"avoid_ferry" = "Przeprawy promowe";
-
-"avoid_motorways" = "Autostrady";
+"avoid_motorways" = "Unikaj autostrad";
 
 "unable_to_calc_alert_title" = "Brak możliwości zbudowania trasy";
 
