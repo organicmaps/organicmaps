@@ -953,8 +953,8 @@ line|z17[railway=light_rail][!tunnel],
 line|z18[railway=subway][!tunnel],
 line|z18[railway=light_rail][!tunnel],
 {width: 4.2;}
-line|z19[railway=subway][!tunnel],
-line|z19[railway=light_rail][!tunnel],
+line|z19-[railway=subway][!tunnel],
+line|z19-[railway=light_rail][!tunnel],
 {width: 5.8;}
 
 line|z16[railway=subway][!tunnel]::dash,
@@ -966,8 +966,8 @@ line|z17[railway=light_rail][!tunnel]::dash,
 line|z18[railway=subway][!tunnel]::dash,
 line|z18[railway=light_rail][!tunnel]::dash,
 {width: 3.3;dashes: 8.1,8.1;}
-line|z19[railway=subway][!tunnel]::dash,
-line|z19[railway=light_rail][!tunnel]::dash,
+line|z19-[railway=subway][!tunnel]::dash,
+line|z19-[railway=light_rail][!tunnel]::dash,
 {width: 5;dashes: 10.1,10.1;}
 
 

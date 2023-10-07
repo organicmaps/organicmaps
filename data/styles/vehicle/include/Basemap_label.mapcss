@@ -532,16 +532,16 @@ node|z18[building],
 area|z18[building]::int_name,
 node|z18[building]::int_name,
 {font-size: 12;}
-area|z19[building],
-node|z19[building],
+area|z19-[building],
+node|z19-[building],
 {font-size: 14;}
-area|z19[building]::int_name,
-node|z19[building]::int_name,
+area|z19-[building]::int_name,
+node|z19-[building]::int_name,
 {font-size: 13;}
 
 node|z18[addr:housenumber][addr:street],
 {font-size: 13;}
-node|z19[addr:housenumber][addr:street],
+node|z19-[addr:housenumber][addr:street],
 {font-size: 14;}
 node|z18-[addr:housenumber][addr:street]::int_name,
 {font-size: 12;}
