@@ -1585,3 +1585,4 @@ amenity|recycling|container
 *leisure|outdoor_seating
 *railway|station|light_rail|london
 *railway|station|light_rail|porto
+*amenity|place_of_worship|christian|jehovahs_witness

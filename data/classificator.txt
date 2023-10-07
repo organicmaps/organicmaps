@@ -117,6 +117,7 @@ world  +
         place_of_worship  +
             buddhist  -
             christian  +
+                jehovahs_witness  -
                 mormon  -
                 {}
             hindu  -
