@@ -36,6 +36,7 @@
     ru = Назад
     sk = Späť
     sv = Tillbaka
+    ta = பின்செல்
     th = กลับ
     tr = Geri
     uk = Назад
@@ -79,6 +80,7 @@
     ru = Отмена
     sk = Zrušiť
     sv = Avbryt
+    ta = ரத்து
     th = ยกเลิก
     tr = İptal
     uk = Скасувати
@@ -122,6 +124,7 @@
     ru = Отменить загрузку
     sk = Zrušiť sťahovanie
     sv = Avbryt nedladdning
+    ta = பதிவிறக்கத்தை ரத்து செய்
     th = ยกเลิกการดาวน์โหลด
     tr = İndirmeyi İptal Et
     uk = Вiдмiнити завантаження
@@ -165,6 +168,7 @@
     ru = Удалить
     sk = Zmazať
     sv = Ta bort
+    ta = அழி 
     th = ลบ
     tr = Sil
     uk = Видалити
@@ -207,6 +211,7 @@
     ru = Загрузить карты
     sk = Stiahnuť mapy
     sv = Ladda ner kartor
+    ta = வரைபடம் பதிவிறக்கம் 
     th = ดาวน์โหลดแผนที่
     tr = Harita indir
     uk = Завантажити мапи
@@ -250,6 +255,7 @@
     ru = Ошибка загрузки. Нажмите, чтобы повторить попытку
     sk = Sťahovanie zlyhalo, skúste to znova.
     sv = Nedladdningen misslyckades, tryck för att försöka igen
+    ta = பதிவிறக்கம் தோல்வியடைந்தது
     th = การดาวน์โหลดล้มเหลว แตะอีกครั้งเพื่อลองใหม่
     tr = İndirme başarısız oldu. Tekrar denemek için dokunun.
     uk = Помилка завантаження. Натисніть, щоб повторити спробу
@@ -293,6 +299,7 @@
     ru = Загружается…
     sk = Sťahovanie…
     sv = Laddar ner…
+    ta = பதிவிறக்கமாகிறது
     th = กำลังดาวน์โหลด…
     tr = İndiriliyor…
     uk = Завантажується…
@@ -337,6 +344,7 @@
     ru = Километры
     sk = Kilometre
     sv = Kilometer
+    ta = கிலோ மீட்டர்
     th = กิโลเมตร
     tr = Kilometre
     uk = Кілометри
@@ -380,6 +388,7 @@
     ru = Написать отзыв
     sk = Spätná väzba
     sv = Skriv en recension
+    ta = ஒரு மதிப்பாய்வை விடுங்கள்
     th = ให้คำวิจารณ์
     tr = Bir Yorum Bırak
     uk = Написати відгук
@@ -402,6 +411,7 @@
     lt = MB
     nb = MB
     ru = МБ
+    ta = எம்பி
     th = MB
     tr = MB
     uk = МБ
@@ -418,6 +428,7 @@
     fi = Gt
     lt = GB
     ru = ГБ
+    ta = ஜிபி
     uk = ГБ
 
   [miles]
@@ -456,6 +467,7 @@
     ru = Мили
     sk = Míle
     sv = Mil
+    ta = மைல்கள்
     th = ไมล์
     tr = Mil
     uk = Милі
@@ -499,6 +511,7 @@
     ru = Мое местоположение
     sk = Moja poloha
     sv = Min position
+    ta = முக்கிய என் நிலை
     th = ตำแหน่งของฉัน
     tr = Konumum
     uk = Моє місцезнаходження
@@ -542,6 +555,7 @@
     ru = Не сейчас
     sk = Neskôr
     sv = Senare
+    ta = பின்னர்
     th = ภายหลัง
     tr = Daha sonra
     uk = Не зараз
@@ -584,6 +598,7 @@
     ru = Поиск
     sk = Hľadať
     sv = Sök
+    ta = தேடு
     th = ค้นหา
     tr = Ara
     uk = Пошук
@@ -627,6 +642,7 @@
     ru = Поиск на карте
     sk = Prehľadať mapu
     sv = Sök karta
+    ta = வரைபடம் தேடு
     th = ค้นหาแผนที่
     tr = Haritada Ara
     uk = Пошук на мапі
@@ -670,6 +686,7 @@
     ru = Да
     sk = Áno
     sv = Ja
+    ta = செல்லுலார் தரவைப் பயன்படுத்த
     th = ใช่
     tr = Evet
     uk = Так
@@ -713,6 +730,7 @@
     ru = Геолокация выключена в настройках устройства. Пожалуйста, включите её для удобного использования программы.
     sk = Aktuálne máte všetky možnosti pre určovanie polohy vypnuté. Prosím, povoľte ich v Nastaveniach.
     sv = Du har inaktiverat alla platstjänster för denna enhet eller program. Vänligen aktivera dem i Inställningar.
+    ta = இடத்திக்கான நீண்ட உரை முடக்கப்பட்டுள்ளது
     th = ในปัจจุบันนี้มีการปิดการใช้งานการบริการตำแหน่งที่ตั้งสำหรับอุปกรณ์หรือแอปพลิเคชันนี้ โปรดเปิดใช้งานในการตั้งค่า
     tr = Şu anda bu cihaz veya uygulama için tüm Konum Hizmetleri devre dışı bırakılmış. Lütfen bunu ayarlardan etkinleştirin.
     uk = Геолокація вимкнена в налаштуваннях пристрою. Будь ласка, увімкніть її для зручного використання програми.
@@ -755,6 +773,7 @@
     ru = Показать на карте
     sk = Ukázať na mape
     sv = Visa på kartan
+    ta = இந்த நாட்டை பெரிதாக்கவும்
     th = แสดงบนแผนที่
     tr = Haritada göster
     uk = Показати на мапі
@@ -884,6 +903,7 @@
     ru = Попробуйте еще раз
     sk = Skúsiť znova
     sv = Försök igen
+    ta = மீண்டும் முயற்சி செய்
     th = ลองอีกครั้ง
     tr = Tekrar Dene
     uk = Спробуйте ще раз
@@ -926,6 +946,7 @@
     ru = Про Organic Maps
     sk = O aplikácii Organic Maps
     sv = Om Organic Maps
+    ta = பட்டியலின் தலைப்பு பற்றி
     th = เกี่ยวกับ Organic Maps
     tr = Organic Maps Hakkında
     uk = Про Organic Maps
@@ -1175,6 +1196,7 @@
     ru = Настройки подключения
     sk = Nastavenie pripojenia
     sv = Anslutningsinställningar
+    ta = இணைப்பு அமைப்புகள்
     th = การตั้งค่าการเชื่อมต่อ
     tr = Konum Ayarları
     uk = Налаштування підключення
@@ -1217,6 +1239,7 @@
     ru = Закрыть
     sk = Zavrieť
     sv = Stäng
+    ta = மூடு 
     th = ปิด
     tr = Kapat
     uk = Закрити
@@ -1259,6 +1282,7 @@
     ru = Для работы приложения необходим аппаратно ускоренный OpenGL. К сожалению, ваше устройство не поддерживается.
     sk = Je vyžadovaná hardwarová akcelerácia OpenGL. Bohužial, vaše zariadenie nie je podporované.
     sv = Hårdvaruaccelererad OpenGL krävs. Din enhet stöds tyvärr inte.
+    ta = ஆதரிக்கப்படாத தொலைபேசி
     th = จำเป็นต้องใช้ฮาร์ดแวร์ที่เพิ่มความเร็ว OpenGL โชคไม่ดีที่อุปกรณ์ของคุณไม่รองรับ
     tr = Hızlı donanıma sahip bir OpenGL gerekli. Ne yazık ki cihazınız desteklenmiyor.
     uk = Для роботи програми необхідний апаратно прискорений OpenGL. На жаль, ваш пристрій не підтримується.
@@ -1301,6 +1325,7 @@
     ru = Загрузить
     sk = Stiahnuť
     sv = Ladda ner
+    ta = பதிவிறக்கம்
     th = ดาวน์โหลด
     tr = İndir
     uk = Завантажити
@@ -1343,6 +1368,7 @@
     ru = Отключите USB кабель или вставьте SD-карту
     sk = Prosím, odpojte USB kábel alebo vložte pamäťovú kartu pre použitie s Organic Maps
     sv = Vänligen koppla ifrån USB-kabeln eller sätt in ett minneskort för att använda Organic Maps
+    ta = யூ.எஸ்.பி கேபிளைத் துண்டிக்கவும்
     th = โปรดยกเลิกการเชื่อมต่อสาย USB หรือใส่การ์ดหน่วยความจำเพื่อใช้ Organic Maps
     tr = Organic Maps’i kullanabilmek için lütfen USB kablosunun bağlantısını kesin veya hafıza kartı takın
     uk = Вимкніть USB кабель або вставте SD-карту
@@ -1386,6 +1412,7 @@
     ru = Недостаточно свободного места на SD карте/в памяти устройства для использования программы
     sk = Prosím, uvoľnite najprv miesto na SD karte/USB úložisku
     sv = Vänligen frigör utrymme på SD-kortet/USB-lagringen först för att använda denna app.
+    ta = எஸ்டி கார்டில் போதுமான இடம் இல்லை
     th = โปรดเพิ่มพื้นที่บางส่วนบนการ์ด SD /พื้นที่จัดเก็บ USB ก่อนเพื่อใช้แอป
     tr = Uygulamayı kullanabilmek için lütfen SD kart/USB depolama aygıtında biraz alan boşaltın
     uk = Недостатньо вільного місця на SD карті / в пам'яті пристрою для використання програми
@@ -1428,6 +1455,7 @@
     ru = Перед началом работы разрешите нам загрузить общую карту мира на ваше устройство.\nЭто потребует %@ данных.
     sk = Skôr ako začnete, bude treba stiahnuť základnú mapu sveta.\nZaberie to %@.
     sv = Innan du startar, låt oss ladda ner den generella världskartan på din enhet.\nDen behöver %@ data.
+    ta = ஆதாரங்கங்களை பதிவிறக்கம் செய்
     th = ก่อนที่คุณจะเริ่มต้น โปรดให้เราดาวน์โหลดแผนที่โลกลงในอุปกรณ์ของคุณ\nจำเป็นต้องใช้ %@ ของข้อมูล
     tr = Başlamadan önce cihazınıza genel dünya haritasını indirelim.\n%@ alan gerekli.
     uk = Перш ніж розпочати дозвольте нам завантажити мапу світу на ваш пристрій.\nВона потребує %@ даних.
@@ -1470,6 +1498,7 @@
     ru = Перейти на карту
     sk = Prejsť na mapu
     sv = Gå till karta
+    ta = தொடர்ந்து வளங்களை பதிவிறக்க
     th = ไปยังแผนที่
     tr = Haritaya Git
     uk = Перейти на мапу
@@ -1512,6 +1541,7 @@
     ru = Пока загружается %@,\nвы можете пользоваться картой.
     sk = Sťahovanie %@. Teraz môžete\nprejsť na mapu.
     sv = Laddar ner %@. Du kan nu\n fortsätta till kartan.
+    ta = பதிவிறக்கம் செய்த பிறகு இவ்நாட்டில் தொடரலாம்
     th = กำลังดาวน์โหลด %@ ตอนนี้คุณสามารถ\nดำเนินการต่อไปยังแผนที่
     tr = %@ indiriliyor. Şimdi haritaya\ngidebilirsiniz.
     uk = Поки завантажується %@\nви можете користуватися програмою.
@@ -1639,6 +1669,7 @@
     ru = Приостановить
     sk = Pauza
     sv = Pausa
+    ta = இடைநிறுத்தம்
     th = หยุดชั่วคราว
     tr = Duraklat
     uk = Призупинити
@@ -1682,6 +1713,7 @@
     ru = Продолжить
     sk = Pokračovať
     sv = Fortsätt
+    ta = பதிவிறக்கத்தை தொடர
     th = ดำเนินการต่อ
     tr = Devam
     uk = Продовжити
@@ -1725,6 +1757,7 @@
     ru = Не удалось загрузить %@
     sk = Sťahovanie zlyhalo: %@
     sv = %@ nedladdning misslyckades
+    ta = %@ பதிவிறக்கம் தோல்வியடைந்தது
     th = การดาวน์โหลด %@ ล้มเหลว
     tr = %@ indirme işlemi başarısız oldu
     uk = Не вдалося завантажити %@
@@ -1768,6 +1801,7 @@
     ru = Добавить список
     sk = Pridať novú skupinu záložiek
     sv = Lägg till ny samling
+    ta = புதிய பட்டியலைச் சேர்க்க
     th = เพิ่มชุดใหม่
     tr = Yeni Liste Ekle
     uk = Додати список
@@ -1812,6 +1846,7 @@
     ru = Цвет метки
     sk = Farba záložky
     sv = Bokmärkesfärg
+    ta = புத்தககுறின் நிறம்
     th = สีของบุ๊กมาร์ก
     tr = Yer İmi Rengi
     uk = Колір мiтки
@@ -1854,6 +1889,7 @@
     ru = Название списка меток
     sk = Meno záložky
     sv = Bokmärkessamlingens namn
+    ta = புத்தகக்குறி பட்டியல் பெயர் 
     th = ชื่อของชุดบุ๊กมาร์ก
     tr = Yer İmi Listesi Adı
     uk = Назва списка мiток
@@ -1895,6 +1931,7 @@
     ru = Списки меток
     sk = Skupiny záložiek
     sv = Bokmärkessamlingar
+    ta = புத்தகக்குறி பட்டியல் 
     th = ชุดของบุ๊กมาร์ก
     tr = Yer İmi Listeleri
     uk = Списки мiток
@@ -1938,6 +1975,7 @@
     ru = Метки
     sk = Záložky
     sv = Bokmärken
+    ta = புத்தகக்குறி
     th = บุ๊กมาร์ก
     tr = Yer İmleri
     uk = Мітки
@@ -2023,6 +2061,7 @@
     ru = Мои Метки
     sk = Moje miesta
     sv = Mina Platser
+    ta = என்னது இடங்கள்
     th = สถานที่ของฉัน
     tr = Yerlerim
     uk = Мої Мітки
@@ -2066,6 +2105,7 @@
     ru = Название
     sk = Názov
     sv = Namn
+    ta = பெயர்
     th = ชื่อ
     tr = Adı
     uk = Iм'я
@@ -2109,6 +2149,7 @@
     ru = Адрес
     sk = Adresa
     sv = Adress
+    ta = முகவரி
     th = ที่อยู่
     tr = Adres
     uk = Адреса
@@ -2152,6 +2193,7 @@
     ru = Список
     sk = Zoznam
     sv = Lista
+    ta = பட்டியல்
     th = รายการ
     tr = Liste
     uk = Список
@@ -2195,6 +2237,7 @@
     ru = Настройки
     sk = Nastavenia
     sv = Inställningar
+    ta = அமைப்புகள்
     th = การตั้งค่า
     tr = Ayarlar
     uk = Налаштування
@@ -2238,6 +2281,7 @@
     sk = Uložiť mapy do
     sv = Spara kartor i
     sw = Hifadhi ramani kwenye
+    ta = வரைபடங்களைச் சேமிக்க
     th = บันทึกแผนที่ไปยัง
     tr = Haritaları şuraya kaydet:
     uk = Зберігати мапи до
@@ -2280,6 +2324,7 @@
     ru = Выберите место, где будут храниться загруженные карты
     sk = Vyberte miesto, kam by mali byť mapy sťahované
     sv = Välj en plats dit kartor ska laddas ner
+    ta = வரைபடங்கள் பதிவிறக்கம் செய்யப்பட வேண்டிய இடத்தைத் தேர்ந்தெடுக்கவும்
     th = เลือกสถานที่ที่ต้องการดาวน์โหลดใช้แผนที่
     tr = Haritaların indirileceği yeri seçin
     uk = Виберіть місце, куди повинні бути завантажені мапи
@@ -2322,6 +2367,7 @@
     ru = Загруженные карты
     sk = Mapy
     sv = Kartor
+    ta = பதிவிறக்கம் செய்யப்பட்ட வரைபடங்கள்
     th = แผนที่
     tr = Haritalar
     uk = Завантаженнi мапи
@@ -2350,6 +2396,7 @@
     pl = Wewnętrzna pamięć prywatna
     pt-BR = Armazenamento interno privado
     ru = Внутренний скрытый накопитель
+    ta = உள் தனிப்பட்ட சேமிப்புகள்
     tr = Dahili özel depolama
     uk = Внутрішнє приватне сховище
 
@@ -2374,6 +2421,7 @@
     pl = Wewnętrzna pamięć współdzielona
     pt-BR = Armazenamento interno compartilhado
     ru = Внутренний общий накопитель
+    ta = உள் பகிரப்பட்ட சேமிப்புகள்
     tr = Dahili paylaşılan depolama
     uk = Внутрішнє спільне сховище
 
@@ -2398,6 +2446,7 @@
     pl = Karta SD
     pt-BR = Cartão SD
     ru = SD-карта
+    ta = எஸ்.டி கார்டு
     tr = SD kart
     uk = SD-карта
 
@@ -2422,6 +2471,7 @@
     pl = Zewnętrzna pamięć współdzielona
     pt-BR = Armazenamento externo compartilhado
     ru = Внешний общий накопитель
+    ta = வெளிப்புற பகிர்ந்த சேமிப்புகள் 
     tr = Harici paylaşılan depolama
     uk = Зовнiшне спільне сховище
 
@@ -2446,6 +2496,7 @@
     pl = %1$@ wolne z %2$@
     pt-BR = %1$@ livre de %2$@
     ru = %1$@ свободно из %2$@
+    ta = %1$@ மீதம்முள்ளது %2$@ ல்
     tr = %2$@'ın %1$@'ı boş
     uk = %1$@ вільно з %2$@
 
@@ -2485,6 +2536,7 @@
     ru = Переместить карты?
     sk = Presunúť mapy?
     sv = Flytta kartor?
+    ta = வரைபடங்களை நகர்த்த
     th = ลบแผนที่?
     tr = Haritalar taşınsın mı?
     uk = Перемістити мапи?
@@ -2512,6 +2564,7 @@
     pl = Błąd przenoszenia plików map
     pt-BR = Erro ao mover arquivos de mapas
     ru = Ошибка перемещения файлов карт
+    ta = வரைபடக் கோப்புகளை நகர்த்துவதில் பிழை
     tr = Harita dosyalarını taşıma hatası
 
   [wait_several_minutes]
@@ -2550,6 +2603,7 @@
     ru = Это может занять несколько минут.\nПожалуйста, подождите…
     sk = Táto akcia môže trvať niekoľko minút.\nProsím čakajte…
     sv = Detta kan ta flera minuter.\nVänligen vänta…
+    ta = இதற்கு பல நிமிடங்கள் ஆகலாம். \nதயவுசெய்து காத்திருக்கவும் 
     th = นี่อาจจะใช้เวลาสองสามนาที\nโปรดรอ…
     tr = Bu işlem birkaç dakika sürebilir.\nLütfen bekleyin…
     uk = Це може зайняти кілька хвилин.\nБудь ласка, зачекайте…
@@ -2593,6 +2647,7 @@
     ru = Единицы измерения
     sk = Meracie jednotky
     sv = Längdenheter
+    ta = அளவீட்டு அலகுகள் 
     th = หน่วยการวัด
     tr = Ölçü birimleri
     uk = Одиниці виміру
@@ -2637,6 +2692,7 @@
     ru = Использовать километры или мили
     sk = Vyberte si míle alebo kilometre
     sv = Välj mellan mil och kilometer
+    ta = மைல்கள் மற்றும் கிலோமீட்டர் இதில் ஒன்றை தேர்வு செய்யவும்
     th = เลือกระหว่างไมล์และกิโลเมตร
     tr = Mil veya kilometre seçimini yap
     uk = Використовувати милі чи кілометри
@@ -2682,6 +2738,7 @@
     sk = Kde sa najesť
     sv = Var att äta
     sw = Sehemu ya kula
+    ta = எங்கே சாப்பிடுவது
     th = กินร้านไหนดี
     tr = Nerede yenir
     uk = Де поїсти
@@ -2725,6 +2782,7 @@
     sk = Potraviny
     sv = Produkter
     sw = Migahawani
+    ta = மளிகை
     th = ซื้อของกินของใช้
     tr = Market
     uk = Продукти
@@ -2768,6 +2826,7 @@
     ru = Транспорт
     sk = Doprava
     sv = Transport
+    ta = போக்குவரத்து
     th = การขนส่ง
     tr = Ulaşım
     uk = Транспорт
@@ -2812,6 +2871,7 @@
     ru = Заправка
     sk = Čerpacia stanica
     sv = Bensin
+    ta = எரிபொருள்
     th = ก๊าซ
     tr = Benzinlik
     uk = Заправка
@@ -2855,6 +2915,7 @@
     ru = Парковка
     sk = Parkovisko
     sv = Parkering
+    ta = வாகன நிறுத்துமிடம்
     th = ที่จอดรถ
     tr = Otopark
     uk = Парковка
@@ -2898,6 +2959,7 @@
     sk = Nakupovanie
     sv = Shopping
     sw = Manunuzi
+    ta = ஷாப்பிங்
     th = ช็อปปิง
     tr = Alışveriş
     uk = Шопінг
@@ -2983,6 +3045,7 @@
     ru = Гостиница
     sk = Hotel
     sv = Hotell
+    ta = ஹோட்டல்
     th = โรงแรม
     tr = Otel
     uk = Готель
@@ -3026,6 +3089,7 @@
     ru = Достопримечательности
     sk = Pamätihodnosť
     sv = Sevärdheter
+    ta = சுற்றுலாத்தளங்கள்
     th = สถานที่ท่องเที่ยว
     tr = Görülecek yerler
     uk = Пам’ятні місця
@@ -3069,6 +3133,7 @@
     ru = Развлечения
     sk = Zábava
     sv = Underhållning
+    ta = பொழுதுபோக்கு
     th = แหล่งบันเทิง
     tr = Eğlence
     uk = Розваги
@@ -3112,6 +3177,7 @@
     ru = Банкомат
     sk = Bankomat
     sv = Bankomat
+    ta = எ.டி.எம்    
     th = เอทีเอ็ม
     tr = Bankamatik
     uk = Банкомат
@@ -3155,6 +3221,7 @@
     sk = Nočný život
     sv = Nattliv
     sw = Shughuli za usiku
+    ta = இரவு கேளிக்கை விடுதி  
     th = ไนท์ไลฟ์
     tr = Gece hayatı
     uk = Нічне життя
@@ -3198,6 +3265,7 @@
     sk = Rodinná dovolenka
     sv = Semester med barn
     sw = Mapumziko ya familia
+    ta = குடும்ப விடுமுறைக்கான இடங்கள்  
     th = วันหยุดสำหรับครอบครัว
     tr = Aile tatili
     uk = Відпочинок з дітьми
@@ -3241,6 +3309,7 @@
     ru = Банк
     sk = Banka
     sv = Bank
+    ta = வங்கி
     th = ธนาคาร
     tr = Banka
     uk = Банк
@@ -3284,6 +3353,7 @@
     ru = Аптека
     sk = Lekáreň
     sv = Apotek
+    ta = மருந்தகம்
     th = ร้านขายยา
     tr = Eczane
     uk = Аптека
@@ -3328,6 +3398,7 @@
     sk = Nemocnica
     sv = Sjukhus
     sw = Hospitali
+    ta = மருத்துவமனை
     th = คลินิก
     tr = Hastane
     uk = Лікарня
@@ -3371,6 +3442,7 @@
     ru = Туалет
     sk = Záchody
     sv = Toalett
+    ta = கழிப்பறை
     th = ห้องน้ำ
     tr = WC
     uk = Туалет
@@ -3414,6 +3486,7 @@
     ru = Почта
     sk = Pošta
     sv = Post
+    ta = அஞ்சல்
     th = ไปรษณีย์
     tr = Posta
     uk = Пошта
@@ -3457,6 +3530,7 @@
     ru = Полиция
     sk = Polícia
     sv = Polis
+    ta = காவல் 
     th = ตำรวจ
     tr = Polis
     uk = Поліція
@@ -3498,6 +3572,7 @@
     ro = Wi-Fi
     ru = WiFi
     sk = WiFi
+    ta = வைஃபை
     th = WiFi
     tr = WiFi
     uk = WiFi
@@ -3541,6 +3616,7 @@
     ru = Переработка
     sk = Recyklácia
     sv = Återvinning
+    ta = மருசுழற்சி
     th = การรีไซเคิล
     tr = Geri dönüşüm
     uk = Переробка відходів
@@ -3586,6 +3662,7 @@
     sk = Voda
     sv = Vatten
     sw = Maji
+    ta = தண்ணீர்
     th = น้ำ
     tr = Su
     uk = Вода
@@ -3629,6 +3706,7 @@
     sk = Pre RV
     sv = För husbil
     sw = Kwa RV
+    ta = rv வசதிகள்
     th = สำหรับ RV
     tr = Karavan tesisleri
     uk = Для автобудинків
@@ -3672,6 +3750,7 @@
     ru = Примечание
     sk = Poznámky
     sv = Anteckningar
+    
     th = บันทึก
     tr = Notlar
     uk = Примітка
