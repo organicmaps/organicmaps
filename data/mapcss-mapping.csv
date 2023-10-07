@@ -13,7 +13,12 @@
 # - optional: a replacement type for a deprecated one
 # A "mandatory" mapcss selector like [fee?] or [fee] matches all tag values except [fee=no],
 # a "forbidden" selector like [!oneway] matches [oneway=no] only or absence of this tag.
-# Longer (more detailed) types are preferred when matching, e.g. highway-primary-bridge wins over highway-primary.
+# If first 2 (1 for short types like "building") components of pre-matched types are the same,
+# then leave only the longest types (there could be a few of them). Equal arity types are kept.
+# - highway-primary-bridge is left while highway-primary is removed;
+# - building-garages is left while building is removed;
+# - amenity-parking-underground-fee is left while amenity-parking and amenity-parking-fee are removed;
+# - both amenity-charging_station-motorcar and amenity-charging_station-bicycle are left;
 #
 # A shorter format for the above example:
 #   highway|bus_stop;22;
@@ -188,7 +193,7 @@ highway|motorway_junction;121;
 amenity|telephone;122;
 waterway|stream|tunnel;[waterway=stream][tunnel?];;name;int_name;123;
 tourism|information|guidepost;[tourism=information][information=guidepost];;name;int_name;124;
-amenity|parking|fee;[amenity=parking][fee?];;name;int_name;125;
+amenity|parking|fee;[amenity=parking][fee];;name;int_name;125;
 amenity|kindergarten;126;
 leisure|swimming_pool|private;[leisure=swimming_pool][access=private],[amenity=swimming_pool][access=private];;name;int_name;127;
 place|suburb;128;
@@ -426,19 +431,19 @@ sport|scuba_diving;352;
 highway|cycleway|permissive;[highway=cycleway][access=permissive];;name;int_name;353;
 highway|unclassified|area;[highway=unclassified][area?];;name;int_name;354;
 natural|volcano;355;
-deprecated:amenity|parking|underground|fee:01.2020;[amenity=parking][location=underground][fee?],[amenity=parking][parking=underground][fee?];x;name;int_name;356;amenity|parking|underground
+amenity|parking|underground|fee;[amenity=parking][location=underground][fee],[amenity=parking][parking=underground][fee];;name;int_name;356;
 amenity|parking|underground;[amenity=parking][location=underground],[amenity=parking][parking=underground];;name;int_name;357;
-amenity|parking|street_side;[amenity=parking][parking=street_side][!fee];;name;int_name;358;
+amenity|parking|street_side;[amenity=parking][parking=street_side];;name;int_name;358;
 amenity|parking|multi-storey;[amenity=parking][parking=multi-storey];;name;int_name;359;
 leisure|recreation_ground;360;
 highway|footway|mountain_hiking;[highway=footway][sac_scale=mountain_hiking];;name;int_name;361;
 deprecated:highway|service|driveway|bridge:01.2020;[highway=service][service=driveway][bridge?];x;name;int_name;362;highway|service|driveway
-deprecated:amenity|parking|multi-storey|fee:01.2020;[amenity=parking][parking=multi-storey][fee?];x;name;int_name;363;amenity|parking|multi-storey
+amenity|parking|multi-storey|fee;[amenity=parking][parking=multi-storey][fee];;name;int_name;363;
 sport|9pin;364;
 sport|10pin;365;
 piste:type|downhill|novice;[piste:type=downhill][piste:difficulty=novice];;name;int_name;366;
 railway|narrow_gauge|bridge;[railway=narrow_gauge][bridge?];;name;int_name;367;
-amenity|parking|lane;[amenity=parking][parking=lane][!fee];;name;int_name;368;
+amenity|parking|lane;[amenity=parking][parking=lane];;name;int_name;368;
 railway|rail|main|tunnel;[railway=rail][usage=main][!highspeed][!service][tunnel?];;name;int_name;369;
 highway|bridleway|permissive;[highway=bridleway][access=permissive];;name;int_name;370;
 railway|construction;371;
@@ -513,8 +518,8 @@ healthcare|speech_therapist;438;
 deprecated|deprecated;439;x
 deprecated|deprecated;440;x
 aerialway|t-bar;441;
-amenity|parking|fee|lane;[amenity=parking][fee?][parking=lane];;name;int_name;442;
-amenity|parking|fee|street_side;[amenity=parking][fee?][parking=street_side];;name;int_name;443;
+amenity|parking|lane|fee;[amenity=parking][parking=lane][fee];;name;int_name;442;
+amenity|parking|street_side|fee;[amenity=parking][parking=street_side][fee];;name;int_name;443;
 highway|path|difficult_alpine_hiking;[highway=path][sac_scale=difficult_alpine_hiking];;name;int_name;444;
 earthquake:damage|spontaneous_camp;445;
 natural|water|drain;[natural=water][water=drain];;name;int_name;446;
