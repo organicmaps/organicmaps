@@ -3251,6 +3251,45 @@
     zh-Hans = 耶稣基督后期圣徒教会
     zh-Hant = 耶穌基督後期聖徒教會
 
+  [type.amenity.place_of_worship.christian.jehovahs_witness]
+    en = Jehovah's Witnesses Kingdom Hall
+    ar = قاعة مملكة شهود يهوه
+    be = Зала царства Сведкаў Іегавы
+    bg = Зала на царството на Свидетелите на Йехова
+    ca = Sala del Regne dels Testimonis de Jehovà
+    cs = Sál Království Jehovových svědků
+    da = Jehovas Vidner Rigssal
+    de = Königreichssaal der Zeugen Jehovas
+    el = Αίθουσα Βασιλείας των Μαρτύρων του Ιεχωβά
+    es = Salón del Reino de los Testigos de Jehová
+    et = Jehoova tunnistajate kuningriigi saal
+    eu = Jehovaren Testiguen Erresumaren aretoa
+    fa = سال مملکت شاهدان یهوه
+    fi = Jehovan todistajien valtakunnansali
+    fr = Salle du Royaume des Témoins de Jéhovah
+    he = בית הכנסת של עדי יהוה
+    hu = Jehova Tanúinak Királysága terem
+    id = Aula Kerajaan Saksi-Saksi Yehuwa
+    it = Sala del Regno dei Testimoni di Geova
+    ja = イエホバの証人の王国ホール
+    ko = 예수 그리스도의 후기 성도 국회당
+    mr = यहोवा साक्षींचे राज्य सभा
+    nb = Jehovas vitners Rikets sal
+    nl = Koninkrijkszaal van Jehovah's Getuigen
+    pl = Sala Królestwa Świadków Jehowy
+    pt = Salão do Reino das Testemunhas de Jeová
+    ro = Sala Împărăției Martorilor lui Iehova
+    ru = Зала Царства Свидетелей Иеговы
+    sk = Kráľovstvo Jehovových svedkov
+    sv = Jehovas vittnen Rikets sal
+    sw = Ukumbi wa Ufalme wa Mashahidi wa Yehova
+    th = ห้องราชอาณาจักรของพยานเยโฮวา
+    tr = Jehova'nın Şahitlerinin Krallık Salonu
+    uk = Зала Царства Свідків Єгови
+    vi = Nhà Đấng Sứ Quân của Nhân Chứng của Y-hô-va
+    zh-Hans = 耶和华见证人王国大厅
+    zh-Hant = 耶和華見證人王國大廳
+
   [type.amenity.place_of_worship.hindu]
     en = Hindu Temple
     af = Hindoe-tempel
