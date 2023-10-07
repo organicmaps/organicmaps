@@ -1011,11 +1011,14 @@
 
 "driving_options_title" = "Ρυθμίσεις παράκαμψης";
 
-"avoid_tolls" = "Αποφύγετε τους δρόμους με διόδια";
+/* Recommended length for CarPlay and Android Auto is around 25-27 characters */
+"avoid_tolls" = "Αποφυγή τα διόδια";
 
-"avoid_unpaved" = "Αποφύγετε μη ασφαλτοστρωμένους δρόμους";
+/* Recommended length for CarPlay and Android Auto is around 25-27 characters */
+"avoid_unpaved" = "Αποφυγή των χωματόδρομων";
 
-"avoid_ferry" = "Αποφύγετε τις διασταυρώσεις πλοίων";
+/* Recommended length for CarPlay and Android Auto is around 25-27 characters */
+"avoid_ferry" = "Αποφυγή των πορθμείων";
 
 "avoid_motorways" = "Αποφύγετε τον αυτοκινητόδρομο";
 
@@ -1032,12 +1035,6 @@
 "unpaved_road" = "Χωματόδρομος";
 
 "ferry_crossing" = "Πορθμείο";
-
-"avoid_toll_roads_placepage" = "Αποφυγή των δρόμων με διόδια";
-
-"avoid_unpaved_roads_placepage" = "Αποφυγή των χωματόδρομων";
-
-"avoid_ferry_crossing_placepage" = "Αποφυγή των πορθμείων";
 
 "trip_start" = "Πάμε";
 
@@ -1084,18 +1081,6 @@
 "dialog_routing_rebuild_for_vehicle_carplay" = "Η διαδρομή θα αντικατασταθεί με τη διαδρομή με αυτοκίνητο";
 
 "ok" = "Καλώς";
-
-"avoid_unpaved_carplay_1" = "Χ/χωματόδρ.";
-
-"avoid_unpaved_carplay_2" = "Χ/χωματόδρομους";
-
-"avoid_ferry_carplay_1" = "Χ/πορθμεία";
-
-"avoid_ferry_carplay_2" = "Χωρίς πορθμεία";
-
-"avoid_tolls_carplay_1" = "Χωρίς διόδια";
-
-"avoid_tolls_carplay_2" = "Χωρίς διόδια";
 
 "speedcams_alert_title_carplay_1" = "Κάμερες";
 

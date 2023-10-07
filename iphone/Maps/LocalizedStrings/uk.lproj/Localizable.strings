@@ -1011,11 +1011,14 @@
 
 "driving_options_title" = "Налаштування об’їзду";
 
+/* Recommended length for CarPlay and Android Auto is around 25-27 characters */
 "avoid_tolls" = "Уникати платних доріг";
 
+/* Recommended length for CarPlay and Android Auto is around 25-27 characters */
 "avoid_unpaved" = "Уникати ґрунтових доріг";
 
-"avoid_ferry" = "Уникати поромних переправ";
+/* Recommended length for CarPlay and Android Auto is around 25-27 characters */
+"avoid_ferry" = "Уникати поромів";
 
 "avoid_motorways" = "Уникати автострад";
 
@@ -1032,12 +1035,6 @@
 "unpaved_road" = "Ґрунтова дорога";
 
 "ferry_crossing" = "Поромна переправа";
-
-"avoid_toll_roads_placepage" = "Уникати платних доріг";
-
-"avoid_unpaved_roads_placepage" = "Уникати ґрунтових доріг";
-
-"avoid_ferry_crossing_placepage" = "Уникати поромних переправ";
 
 "trip_start" = "Поїхали";
 
@@ -1084,18 +1081,6 @@
 "dialog_routing_rebuild_for_vehicle_carplay" = "Маршрут буде змінено на автомобільний";
 
 "ok" = "Ок";
-
-"avoid_unpaved_carplay_1" = "Без ґрунт.";
-
-"avoid_unpaved_carplay_2" = "Без ґрунтових";
-
-"avoid_ferry_carplay_1" = "Без поромів";
-
-"avoid_ferry_carplay_2" = "Без поромів";
-
-"avoid_tolls_carplay_1" = "Без платних";
-
-"avoid_tolls_carplay_2" = "Без платних";
 
 "speedcams_alert_title_carplay_1" = "Камери";
 

@@ -621,9 +621,12 @@
 	<string name="enable_logging_warning_message">Az opció bekapcsolja a diagnosztikai célú naplózást. Hasznos lehet a support csapatunknak, akik elhárítják az alkalmazás hibáit. Csak a Organic Maps support kérésére kapcsold be ezt az opciót.</string>
 	<string name="access_rules_author_only">Online szerkesztés</string>
 	<string name="driving_options_title">Útvonaltervezési lehetőségek</string>
+	<!-- Recommended length for CarPlay and Android Auto is around 25-27 characters -->
 	<string name="avoid_tolls">Kerülje a fizetős utakat</string>
-	<string name="avoid_unpaved">Kerülje a burkolatlan utakat</string>
-	<string name="avoid_ferry">Kerülje a kompátkelést</string>
+	<!-- Recommended length for CarPlay and Android Auto is around 25-27 characters -->
+	<string name="avoid_unpaved">Burkolatlan utak elkerülése</string>
+	<!-- Recommended length for CarPlay and Android Auto is around 25-27 characters -->
+	<string name="avoid_ferry">Kompátkelők elkerülése</string>
 	<string name="avoid_motorways">Kerülje az autópályát</string>
 	<string name="unable_to_calc_alert_title">Nem lehet útvonalat számítani</string>
 	<string name="unable_to_calc_alert_subtitle">Sajnos nem találunk útvonalat, valószínűleg az általad meghatározott lehetőségek miatt. Kérjük változtass a beállításokon és próbáld újra</string>
@@ -632,9 +635,6 @@
 	<string name="toll_road">Díjköteles utak</string>
 	<string name="unpaved_road">Burkolatlan utak</string>
 	<string name="ferry_crossing">Kompátkelők</string>
-	<string name="avoid_toll_roads_placepage">Díjköteles utak elkerülése</string>
-	<string name="avoid_unpaved_roads_placepage">Burkolatlan utak elkerülése</string>
-	<string name="avoid_ferry_crossing_placepage">Kompátkelők elkerülése</string>
 	<!-- A generic "Yes" button in dialogs -->
 	<string name="yes">Igen</string>
 	<!-- A generic "No" button in dialogs -->

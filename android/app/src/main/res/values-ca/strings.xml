@@ -632,10 +632,13 @@
 	<string name="enable_logging_warning_message">L\'opció activa el registre amb finalitats de diagnòstic. Pot ser útil per al nostre equip per a identificar problemes amb l\'aplicació. Activeu aquesta opció temporalment per a enregistgrar i enviar-nos informes detallats sobre el vostre problema.</string>
 	<string name="access_rules_author_only">Edició en línia</string>
 	<string name="driving_options_title">Opcions de la ruta</string>
-	<string name="avoid_tolls">Eviteu les autopistes de peatge</string>
-	<string name="avoid_unpaved">Eviteu els camins de terra</string>
-	<string name="avoid_ferry">Eviteu les travessies en ferri</string>
-	<string name="avoid_motorways">Eviteu l\'autopista</string>
+	<!-- Recommended length for CarPlay and Android Auto is around 25-27 characters -->
+	<string name="avoid_tolls">Evita peatges</string>
+	<!-- Recommended length for CarPlay and Android Auto is around 25-27 characters -->
+	<string name="avoid_unpaved">Evita vies sense pavimentar</string>
+	<!-- Recommended length for CarPlay and Android Auto is around 25-27 characters -->
+	<string name="avoid_ferry">Evita ferris</string>
+	<string name="avoid_motorways">Evita autopistes</string>
 	<string name="unable_to_calc_alert_title">No s\'ha pogut calcular la ruta</string>
 	<string name="unable_to_calc_alert_subtitle">Malauradament, no hem pogut trobar cap ruta. Probablement per les opcions que heu triat. Canvieu-les i torneu a intentar-ho.</string>
 	<string name="define_to_avoid_btn">Definiu les vies a evitar</string>
@@ -643,9 +646,6 @@
 	<string name="toll_road">Via de peatge</string>
 	<string name="unpaved_road">Via sense pavimentar</string>
 	<string name="ferry_crossing">Ferris</string>
-	<string name="avoid_toll_roads_placepage">Evita vies de peatges</string>
-	<string name="avoid_unpaved_roads_placepage">Evita vies sense pavimentar</string>
-	<string name="avoid_ferry_crossing_placepage">Evita transboradament en ferri</string>
 	<!-- A generic "Yes" button in dialogs -->
 	<string name="yes">Sí</string>
 	<!-- A generic "No" button in dialogs -->

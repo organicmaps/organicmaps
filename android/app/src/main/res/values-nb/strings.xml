@@ -640,8 +640,11 @@
 	<string name="enable_logging_warning_message">Alternativet slår på logging for diagnostiske formål. Det kan være nyttig for våre supportpersonale som feilsøker problemer med appen. Aktiver dette alternativet bare på forespørsel fra Organic Maps-brukerstøtte.</string>
 	<string name="access_rules_author_only">Redigering på nett</string>
 	<string name="driving_options_title">Kjørealternativer</string>
+	<!-- Recommended length for CarPlay and Android Auto is around 25-27 characters -->
 	<string name="avoid_tolls">Unngå bompenger</string>
-	<string name="avoid_unpaved">Unngå asfalterte veier</string>
+	<!-- Recommended length for CarPlay and Android Auto is around 25-27 characters -->
+	<string name="avoid_unpaved">Unngå uasfalterte veier</string>
+	<!-- Recommended length for CarPlay and Android Auto is around 25-27 characters -->
 	<string name="avoid_ferry">Unngå fergeoverganger</string>
 	<string name="avoid_motorways">Unngå motorveien</string>
 	<string name="unable_to_calc_alert_title">Kan ikke beregne rute</string>
@@ -651,9 +654,6 @@
 	<string name="toll_road">Bompengevei</string>
 	<string name="unpaved_road">Uasfaltert vei</string>
 	<string name="ferry_crossing">Fergeovergang</string>
-	<string name="avoid_toll_roads_placepage">Unngå bompengeveier</string>
-	<string name="avoid_unpaved_roads_placepage">Unngå uasfalterte veier</string>
-	<string name="avoid_ferry_crossing_placepage">Unngå fergeoverganger</string>
 	<!-- A generic "Yes" button in dialogs -->
 	<string name="yes">Ja</string>
 	<!-- A generic "No" button in dialogs -->

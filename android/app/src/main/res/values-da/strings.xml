@@ -609,8 +609,11 @@
 	<string name="enable_logging_warning_message">Indstillingen aktiverer logning til diagnostiske formål. Det kan være nyttigt for vores supportere, der fejlfinder problemer med appen. Aktiver kun denne mulighed på anmodning fra Organic Maps support.</string>
 	<string name="access_rules_author_only">Online redigering</string>
 	<string name="driving_options_title">Køre muligheder</string>
+	<!-- Recommended length for CarPlay and Android Auto is around 25-27 characters -->
 	<string name="avoid_tolls">Undgå betalingsveje</string>
-	<string name="avoid_unpaved">Undgå uasfalterede veje</string>
+	<!-- Recommended length for CarPlay and Android Auto is around 25-27 characters -->
+	<string name="avoid_unpaved">Undgå grusveje</string>
+	<!-- Recommended length for CarPlay and Android Auto is around 25-27 characters -->
 	<string name="avoid_ferry">Undgå færgeoverfarter</string>
 	<string name="avoid_motorways">Undgå motorvejen</string>
 	<string name="unable_to_calc_alert_title">Det er ikke muligt at beregne rute</string>
@@ -620,9 +623,6 @@
 	<string name="toll_road">Betalingsvej</string>
 	<string name="unpaved_road">Grusvej</string>
 	<string name="ferry_crossing">Færgeoverfart</string>
-	<string name="avoid_toll_roads_placepage">Undgå betalingsveje</string>
-	<string name="avoid_unpaved_roads_placepage">Undgå grusveje</string>
-	<string name="avoid_ferry_crossing_placepage">Undgå færgeoverfarter</string>
 	<!-- A generic "Yes" button in dialogs -->
 	<string name="yes">Ja</string>
 	<!-- A generic "No" button in dialogs -->

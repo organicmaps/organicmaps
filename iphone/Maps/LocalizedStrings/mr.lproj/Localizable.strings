@@ -1011,11 +1011,14 @@
 
 "driving_options_title" = "मार्गशोधी पर्याय";
 
+/* Recommended length for CarPlay and Android Auto is around 25-27 characters */
 "avoid_tolls" = "टोल रस्ते टाळा";
 
-"avoid_unpaved" = "मातीचे रस्ते टाळा";
+/* Recommended length for CarPlay and Android Auto is around 25-27 characters */
+"avoid_unpaved" = "कच्चे मार्ग टाळा";
 
-"avoid_ferry" = "फेरी क्रॉसिंग टाळा";
+/* Recommended length for CarPlay and Android Auto is around 25-27 characters */
+"avoid_ferry" = "जल मार्ग टाळा";
 
 "avoid_motorways" = "मोटरवे टाळा";
 
@@ -1032,12 +1035,6 @@
 "unpaved_road" = "कच्चे मार्ग";
 
 "ferry_crossing" = "जल मार्ग";
-
-"avoid_toll_roads_placepage" = "टोल मार्ग टाळा";
-
-"avoid_unpaved_roads_placepage" = "कच्चे मार्ग टाळा";
-
-"avoid_ferry_crossing_placepage" = "जल मार्ग टाळा";
 
 "trip_start" = "चल जाऊया";
 
@@ -1084,18 +1081,6 @@
 "dialog_routing_rebuild_for_vehicle_carplay" = "मार्गाचे रुपांतर वाहनासाठी केले जाईल";
 
 "ok" = "ठीक आहे";
-
-"avoid_unpaved_carplay_1" = "कच्चा रस्ता नाही";
-
-"avoid_unpaved_carplay_2" = "कच्चा रस्ता टाळा";
-
-"avoid_ferry_carplay_1" = "नाव नाहीत";
-
-"avoid_ferry_carplay_2" = "नाव टाळा";
-
-"avoid_tolls_carplay_1" = "टोल रस्ता नाही";
-
-"avoid_tolls_carplay_2" = "टोल रस्ता टाळा";
 
 "speedcams_alert_title_carplay_1" = "वेगकॅमेरा";
 

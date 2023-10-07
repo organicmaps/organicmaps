@@ -1011,10 +1011,13 @@
 
 "driving_options_title" = "Machaguo ya njia";
 
+/* Recommended length for CarPlay and Android Auto is around 25-27 characters */
 "avoid_tolls" = "Epuka barabara za ushuru";
 
-"avoid_unpaved" = "Epuka barabara za uchafu";
+/* Recommended length for CarPlay and Android Auto is around 25-27 characters */
+"avoid_unpaved" = "Epuka barabara za vumbi";
 
+/* Recommended length for CarPlay and Android Auto is around 25-27 characters */
 "avoid_ferry" = "Epuka vivuko vya feri";
 
 "avoid_motorways" = "Epuka barabara";
@@ -1032,12 +1035,6 @@
 "unpaved_road" = "Barabara ya vumbi";
 
 "ferry_crossing" = "Kivuko cha feri";
-
-"avoid_toll_roads_placepage" = "Epuka barabara za kulipia";
-
-"avoid_unpaved_roads_placepage" = "Epuka barabara za vumbi";
-
-"avoid_ferry_crossing_placepage" = "Epuka vivuko vya feri";
 
 "trip_start" = "Twende zetu";
 
@@ -1084,18 +1081,6 @@
 "dialog_routing_rebuild_for_vehicle_carplay" = "Njia itaboreshwa kuwa ya gari";
 
 "ok" = "Sawa";
-
-"avoid_unpaved_carplay_1" = "Hamna za vum";
-
-"avoid_unpaved_carplay_2" = "Epuka za vumbi";
-
-"avoid_ferry_carplay_1" = "Hamna feri";
-
-"avoid_ferry_carplay_2" = "Epuka feri";
-
-"avoid_tolls_carplay_1" = "Hamna za ada";
-
-"avoid_tolls_carplay_2" = "Epuka njia-kodi";
 
 "speedcams_alert_title_carplay_1" = "Kam za kasi";
 

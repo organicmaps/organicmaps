@@ -1011,11 +1011,14 @@
 
 "driving_options_title" = "Thiết lập đi vòng";
 
+/* Recommended length for CarPlay and Android Auto is around 25-27 characters */
 "avoid_tolls" = "Tránh đường thu phí";
 
+/* Recommended length for CarPlay and Android Auto is around 25-27 characters */
 "avoid_unpaved" = "Tránh đường đất";
 
-"avoid_ferry" = "Tránh qua phà";
+/* Recommended length for CarPlay and Android Auto is around 25-27 characters */
+"avoid_ferry" = "Tránh bến phà";
 
 "avoid_motorways" = "Tránh xa lộ";
 
@@ -1032,12 +1035,6 @@
 "unpaved_road" = "Đường đất";
 
 "ferry_crossing" = "Bến phà";
-
-"avoid_toll_roads_placepage" = "Tránh đường trả phí";
-
-"avoid_unpaved_roads_placepage" = "Tránh đường đất";
-
-"avoid_ferry_crossing_placepage" = "Tránh bến phà";
 
 "trip_start" = "Đi nào";
 
@@ -1084,18 +1081,6 @@
 "dialog_routing_rebuild_for_vehicle_carplay" = "Tuyến đường sẽ được thay đổi thành tuyến dành cho xe ô tô";
 
 "ok" = "Ok";
-
-"avoid_unpaved_carplay_1" = "Trừ đườg đất";
-
-"avoid_unpaved_carplay_2" = "Trừ khôg trnhựa";
-
-"avoid_ferry_carplay_1" = "Không có phà";
-
-"avoid_ferry_carplay_2" = "Trừ phà";
-
-"avoid_tolls_carplay_1" = "Khôg đgcóphí";
-
-"avoid_tolls_carplay_2" = "Trừ đg có phí";
 
 "speedcams_alert_title_carplay_1" = "Сam tốc độ";
 

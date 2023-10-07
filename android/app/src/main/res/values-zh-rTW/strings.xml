@@ -624,9 +624,12 @@
 	<string name="enable_logging_warning_message">此選項啟用以記錄操作來進行診斷。這有助於團隊辨別 app 的問題。請僅在Organic Maps支援請求時開啟該選項。</string>
 	<string name="access_rules_author_only">線上編輯</string>
 	<string name="driving_options_title">繞行設定</string>
+	<!-- Recommended length for CarPlay and Android Auto is around 25-27 characters -->
 	<string name="avoid_tolls">避開收費公路</string>
-	<string name="avoid_unpaved">避開土路</string>
-	<string name="avoid_ferry">避免渡口</string>
+	<!-- Recommended length for CarPlay and Android Auto is around 25-27 characters -->
+	<string name="avoid_unpaved">規避土路</string>
+	<!-- Recommended length for CarPlay and Android Auto is around 25-27 characters -->
+	<string name="avoid_ferry">規避渡輪渡口</string>
 	<string name="avoid_motorways">避開高速公路</string>
 	<string name="unable_to_calc_alert_title">無法規劃路線</string>
 	<string name="unable_to_calc_alert_subtitle">很遺憾，我們無法使用所選選項規劃路線。請更改設定，然後重試</string>
@@ -635,9 +638,6 @@
 	<string name="toll_road">收費公路</string>
 	<string name="unpaved_road">土路</string>
 	<string name="ferry_crossing">渡輪</string>
-	<string name="avoid_toll_roads_placepage">規避收費公路</string>
-	<string name="avoid_unpaved_roads_placepage">規避土路</string>
-	<string name="avoid_ferry_crossing_placepage">規避渡輪渡口</string>
 	<!-- A generic "Yes" button in dialogs -->
 	<string name="yes">是</string>
 	<!-- A generic "No" button in dialogs -->

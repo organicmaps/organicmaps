@@ -1011,13 +1011,16 @@
 
 "driving_options_title" = "Bideratzeko aukerak";
 
-"avoid_tolls" = "Saihestu ordainpeko errepideak";
+/* Recommended length for CarPlay and Android Auto is around 25-27 characters */
+"avoid_tolls" = "Bidesariak saihestea";
 
-"avoid_unpaved" = "Saihestu lurrezko bideak";
+/* Recommended length for CarPlay and Android Auto is around 25-27 characters */
+"avoid_unpaved" = "Asfaltatu gabeko saihestea";
 
-"avoid_ferry" = "Saihestu ferry-pasatzeak";
+/* Recommended length for CarPlay and Android Auto is around 25-27 characters */
+"avoid_ferry" = "Ferriak saihestea";
 
-"avoid_motorways" = "Saihestu autobidea";
+"avoid_motorways" = "Autobideak saihestea";
 
 "unable_to_calc_alert_title" = "Ezin da ibilbidea proposatu";
 
@@ -1032,12 +1035,6 @@
 "unpaved_road" = "Asfaltatu gabeko errepidea";
 
 "ferry_crossing" = "Ferry zeharkaldia";
-
-"avoid_toll_roads_placepage" = "Saihestu ordainpeko errepideak";
-
-"avoid_unpaved_roads_placepage" = "Saihestu asfaltatu gabeko errepideak";
-
-"avoid_ferry_crossing_placepage" = "Ferryak saihestu";
 
 "trip_start" = "Goazen";
 
@@ -1084,18 +1081,6 @@
 "dialog_routing_rebuild_for_vehicle_carplay" = "Ibilbidea auto modura aldatuko da";
 
 "ok" = "Ados";
-
-"avoid_unpaved_carplay_1" = "Lurrezko biderik ez";
-
-"avoid_unpaved_carplay_2" = "Saihestu asfaltatu gabekoa";
-
-"avoid_ferry_carplay_1" = "Ferryrik ez";
-
-"avoid_ferry_carplay_2" = "Ferryrik ez";
-
-"avoid_tolls_carplay_1" = "Bidesaririk ez";
-
-"avoid_tolls_carplay_2" = "Bidesaririk ez";
 
 "speedcams_alert_title_carplay_1" = "Abiadura kamerak.";
 

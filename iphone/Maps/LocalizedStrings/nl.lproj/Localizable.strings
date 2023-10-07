@@ -1011,13 +1011,16 @@
 
 "driving_options_title" = "Route instellingen";
 
+/* Recommended length for CarPlay and Android Auto is around 25-27 characters */
 "avoid_tolls" = "Vermijd tolwegen";
 
+/* Recommended length for CarPlay and Android Auto is around 25-27 characters */
 "avoid_unpaved" = "Vermijd onverharde wegen";
 
-"avoid_ferry" = "Vermijd overtochten met de veerboot";
+/* Recommended length for CarPlay and Android Auto is around 25-27 characters */
+"avoid_ferry" = "Vermijd veerboten";
 
-"avoid_motorways" = "Vermijd de snelweg";
+"avoid_motorways" = "Vermijd snelwegen";
 
 "unable_to_calc_alert_title" = "Kan route niet opbouwen";
 
@@ -1032,12 +1035,6 @@
 "unpaved_road" = "Aardeweg";
 
 "ferry_crossing" = "Ferry";
-
-"avoid_toll_roads_placepage" = "Tolwegen vermijden";
-
-"avoid_unpaved_roads_placepage" = "Aardewegen vermijden";
-
-"avoid_ferry_crossing_placepage" = "Ferries vermijden";
 
 "trip_start" = "Kom op";
 
@@ -1084,18 +1081,6 @@
 "dialog_routing_rebuild_for_vehicle_carplay" = "De route wordt gewijzigd in de autoroute";
 
 "ok" = "Goed";
-
-"avoid_unpaved_carplay_1" = "Geen aardew.";
-
-"avoid_unpaved_carplay_2" = "Geen aardewegen";
-
-"avoid_ferry_carplay_1" = "Geen ferry's";
-
-"avoid_ferry_carplay_2" = "Geen ferry's";
-
-"avoid_tolls_carplay_1" = "Zonder tol";
-
-"avoid_tolls_carplay_2" = "Zonder tol";
 
 "speedcams_alert_title_carplay_1" = "Cameras";
 

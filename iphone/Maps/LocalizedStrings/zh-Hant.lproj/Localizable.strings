@@ -1011,11 +1011,14 @@
 
 "driving_options_title" = "繞行設定";
 
+/* Recommended length for CarPlay and Android Auto is around 25-27 characters */
 "avoid_tolls" = "避開收費公路";
 
-"avoid_unpaved" = "避開土路";
+/* Recommended length for CarPlay and Android Auto is around 25-27 characters */
+"avoid_unpaved" = "規避土路";
 
-"avoid_ferry" = "避免渡口";
+/* Recommended length for CarPlay and Android Auto is around 25-27 characters */
+"avoid_ferry" = "規避渡輪渡口";
 
 "avoid_motorways" = "避開高速公路";
 
@@ -1032,12 +1035,6 @@
 "unpaved_road" = "土路";
 
 "ferry_crossing" = "渡輪";
-
-"avoid_toll_roads_placepage" = "規避收費公路";
-
-"avoid_unpaved_roads_placepage" = "規避土路";
-
-"avoid_ferry_crossing_placepage" = "規避渡輪渡口";
 
 "trip_start" = "前往";
 
@@ -1084,18 +1081,6 @@
 "dialog_routing_rebuild_for_vehicle_carplay" = "該路線將改為汽車（路線）";
 
 "ok" = "好";
-
-"avoid_unpaved_carplay_1" = "無土路路段";
-
-"avoid_unpaved_carplay_2" = "無土路路段";
-
-"avoid_ferry_carplay_1" = "無渡船";
-
-"avoid_ferry_carplay_2" = "無渡船";
-
-"avoid_tolls_carplay_1" = "無付費路段";
-
-"avoid_tolls_carplay_2" = "無付費路段";
 
 "speedcams_alert_title_carplay_1" = "測速照相機";
 

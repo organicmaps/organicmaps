@@ -1011,11 +1011,14 @@
 
 "driving_options_title" = "運転オプション";
 
+/* Recommended length for CarPlay and Android Auto is around 25-27 characters */
 "avoid_tolls" = "有料道路を避ける";
 
-"avoid_unpaved" = "舗装されていない道路を避ける";
+/* Recommended length for CarPlay and Android Auto is around 25-27 characters */
+"avoid_unpaved" = "未舗装道路を回避";
 
-"avoid_ferry" = "フェリー乗船を避ける";
+/* Recommended length for CarPlay and Android Auto is around 25-27 characters */
+"avoid_ferry" = "フェリー航路を回避";
 
 "avoid_motorways" = "高速道路を避ける";
 
@@ -1032,12 +1035,6 @@
 "unpaved_road" = "未舗装道路";
 
 "ferry_crossing" = "フェリー航路";
-
-"avoid_toll_roads_placepage" = "有料道路を回避";
-
-"avoid_unpaved_roads_placepage" = "未舗装道路を回避";
-
-"avoid_ferry_crossing_placepage" = "フェリー航路を回避";
 
 "trip_start" = "レッツゴー";
 
@@ -1084,18 +1081,6 @@
 "dialog_routing_rebuild_for_vehicle_carplay" = "ルートは自動車用として修正されます";
 
 "ok" = "OK";
-
-"avoid_unpaved_carplay_1" = "未舗装道路無し";
-
-"avoid_unpaved_carplay_2" = "未舗装道路無し";
-
-"avoid_ferry_carplay_1" = "フェリー無し";
-
-"avoid_ferry_carplay_2" = "フェリーを回避";
-
-"avoid_tolls_carplay_1" = "有料道路無し";
-
-"avoid_tolls_carplay_2" = "有料道路を回避";
 
 "speedcams_alert_title_carplay_1" = "速度警告";
 

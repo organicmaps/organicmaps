@@ -641,10 +641,13 @@
 	<string name="enable_logging_warning_message">Aukera hau diagnostiko helburua duten erregistro ekintzetarako gaituta dago. Honek gure taldeari aplikazioarekin arazoak identifikatzen laguntzen dio. Gaitu aukera Organic Maps laguntzari eskatuta soilik.</string>
 	<string name="access_rules_author_only">Sarean editatzen</string>
 	<string name="driving_options_title">Bideratzeko aukerak</string>
-	<string name="avoid_tolls">Saihestu ordainpeko errepideak</string>
-	<string name="avoid_unpaved">Saihestu lurrezko bideak</string>
-	<string name="avoid_ferry">Saihestu ferry-pasatzeak</string>
-	<string name="avoid_motorways">Saihestu autobidea</string>
+	<!-- Recommended length for CarPlay and Android Auto is around 25-27 characters -->
+	<string name="avoid_tolls">Bidesariak saihestea</string>
+	<!-- Recommended length for CarPlay and Android Auto is around 25-27 characters -->
+	<string name="avoid_unpaved">Asfaltatu gabeko saihestea</string>
+	<!-- Recommended length for CarPlay and Android Auto is around 25-27 characters -->
+	<string name="avoid_ferry">Ferriak saihestea</string>
+	<string name="avoid_motorways">Autobideak saihestea</string>
 	<string name="unable_to_calc_alert_title">Ezin da ibilbidea proposatu</string>
 	<string name="unable_to_calc_alert_subtitle">Zoritxarrez, ezin izan dugu aukeratutako aukerekin ibilbiderik proposatu. Aldatu ezarpenak eta saiatu berriro</string>
 	<string name="define_to_avoid_btn">Zehaztu saihestu beharreko bideak</string>
@@ -652,9 +655,6 @@
 	<string name="toll_road">Ordainpeko errepidea</string>
 	<string name="unpaved_road">Asfaltatu gabeko errepidea</string>
 	<string name="ferry_crossing">Ferry zeharkaldia</string>
-	<string name="avoid_toll_roads_placepage">Saihestu ordainpeko errepideak</string>
-	<string name="avoid_unpaved_roads_placepage">Saihestu asfaltatu gabeko errepideak</string>
-	<string name="avoid_ferry_crossing_placepage">Ferryak saihestu</string>
 	<!-- A generic "Yes" button in dialogs -->
 	<string name="yes">Bai</string>
 	<!-- A generic "No" button in dialogs -->

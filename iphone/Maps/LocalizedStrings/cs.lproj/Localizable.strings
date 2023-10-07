@@ -1011,11 +1011,14 @@
 
 "driving_options_title" = "Možnosti trasy";
 
+/* Recommended length for CarPlay and Android Auto is around 25-27 characters */
 "avoid_tolls" = "Vyhněte se zpoplatněným silnicím";
 
-"avoid_unpaved" = "Vyhněte se nezpevněným cestám";
+/* Recommended length for CarPlay and Android Auto is around 25-27 characters */
+"avoid_unpaved" = "Vyhnout se nezpevněným silnicím";
 
-"avoid_ferry" = "Vyhněte se přejezdům trajektů";
+/* Recommended length for CarPlay and Android Auto is around 25-27 characters */
+"avoid_ferry" = "Vyhnout se přejezdům trajektů";
 
 "avoid_motorways" = "Vyhněte se dálnici";
 
@@ -1032,12 +1035,6 @@
 "unpaved_road" = "Nezpevněná silnice";
 
 "ferry_crossing" = "Přejezd trajektů";
-
-"avoid_toll_roads_placepage" = "Vyhnout se silnicím s mýtným";
-
-"avoid_unpaved_roads_placepage" = "Vyhnout se nezpevněným silnicím";
-
-"avoid_ferry_crossing_placepage" = "Vyhnout se přejezdům trajektů";
 
 "trip_start" = "Pojďme";
 
@@ -1084,18 +1081,6 @@
 "dialog_routing_rebuild_for_vehicle_carplay" = "Trasa bude upravena k autu jedna";
 
 "ok" = "Ok";
-
-"avoid_unpaved_carplay_1" = "Bez pr. cest";
-
-"avoid_unpaved_carplay_2" = "Vyhnout se nezp";
-
-"avoid_ferry_carplay_1" = "Bez trajektů";
-
-"avoid_ferry_carplay_2" = "Vyh. se traj.";
-
-"avoid_tolls_carplay_1" = "Bez pl.sil.";
-
-"avoid_tolls_carplay_2" = "Vyh. se pl. sil";
 
 "speedcams_alert_title_carplay_1" = "Rych. kam.";
 

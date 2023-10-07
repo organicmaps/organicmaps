@@ -639,9 +639,12 @@
 	<string name="enable_logging_warning_message">Bu seçenek tanılama amacıyla günlüğe kaydetmeyi açar. Ekibimizin uygulamayla ilgili sorunları gidermesine yardımcı olabilir. Sorununuzla ilgili ayrıntılı günlükleri kaydetmek ve bize göndermek için bu seçeneği geçici olarak etkinleştirin.</string>
 	<string name="access_rules_author_only">Çevrimiçi düzenleme</string>
 	<string name="driving_options_title">Yönlendirme seçenekleri</string>
+	<!-- Recommended length for CarPlay and Android Auto is around 25-27 characters -->
 	<string name="avoid_tolls">Ücretli yollardan kaçının</string>
-	<string name="avoid_unpaved">Asfaltsız yollardan kaçının</string>
-	<string name="avoid_ferry">Feribot geçişlerinden kaçının</string>
+	<!-- Recommended length for CarPlay and Android Auto is around 25-27 characters -->
+	<string name="avoid_unpaved">Asfaltsız yollardan kaçın</string>
+	<!-- Recommended length for CarPlay and Android Auto is around 25-27 characters -->
+	<string name="avoid_ferry">Feribot geçişlerinden kaçın</string>
 	<string name="avoid_motorways">Otoyoldan kaçının</string>
 	<string name="unable_to_calc_alert_title">Rota hesaplanamıyor</string>
 	<string name="unable_to_calc_alert_subtitle">Maalesef, muhtemelen belirlediğiniz seçeneklerden dolayı bir rota bulamadık. Lütfen seçenekleri değiştirin ve tekrar deneyin</string>
@@ -650,9 +653,6 @@
 	<string name="toll_road">Paralı yol</string>
 	<string name="unpaved_road">Asfaltsız yol</string>
 	<string name="ferry_crossing">Feribot geçişi</string>
-	<string name="avoid_toll_roads_placepage">Paralı yollardan kaçın</string>
-	<string name="avoid_unpaved_roads_placepage">Asfaltsız yollardan kaçın</string>
-	<string name="avoid_ferry_crossing_placepage">Feribot geçişlerinden kaçın</string>
 	<!-- A generic "Yes" button in dialogs -->
 	<string name="yes">Evet</string>
 	<!-- A generic "No" button in dialogs -->

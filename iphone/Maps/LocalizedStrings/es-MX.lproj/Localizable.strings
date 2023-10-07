@@ -1011,10 +1011,13 @@
 
 "driving_options_title" = "Ajustes de desvío";
 
+/* Recommended length for CarPlay and Android Auto is around 25-27 characters */
 "avoid_tolls" = "Evitar peajes";
 
-"avoid_unpaved" = "Evitar caminos sin pavimentar";
+/* Recommended length for CarPlay and Android Auto is around 25-27 characters */
+"avoid_unpaved" = "Evitar vías sin pavimentar";
 
+/* Recommended length for CarPlay and Android Auto is around 25-27 characters */
 "avoid_ferry" = "Evitar ferris";
 
 "avoid_motorways" = "Evitar autopistas";
@@ -1032,12 +1035,6 @@
 "unpaved_road" = "Camino de tierra";
 
 "ferry_crossing" = "Cruce de ferri";
-
-"avoid_toll_roads_placepage" = "Evitar las carreteras de peaje";
-
-"avoid_unpaved_roads_placepage" = "Evitar los caminos de tierra";
-
-"avoid_ferry_crossing_placepage" = "Evitar los trasbordadores de ferri";
 
 "trip_start" = "Vamos";
 
@@ -1084,18 +1081,6 @@
 "dialog_routing_rebuild_for_vehicle_carplay" = "La ruta se cambiará a en auto";
 
 "ok" = "Ok";
-
-"avoid_unpaved_carplay_1" = "Sin de grava";
-
-"avoid_unpaved_carplay_2" = "Sin de grava";
-
-"avoid_ferry_carplay_1" = "Sin ferri";
-
-"avoid_ferry_carplay_2" = "Sin ferri";
-
-"avoid_tolls_carplay_1" = "Sin peaje";
-
-"avoid_tolls_carplay_2" = "Sin peaje";
 
 "speedcams_alert_title_carplay_1" = "Cám.velocidad.";
 

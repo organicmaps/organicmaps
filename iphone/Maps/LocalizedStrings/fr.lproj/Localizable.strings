@@ -1011,11 +1011,14 @@
 
 "driving_options_title" = "Paramètres des itinéraires";
 
+/* Recommended length for CarPlay and Android Auto is around 25-27 characters */
 "avoid_tolls" = "Éviter les routes à péage";
 
+/* Recommended length for CarPlay and Android Auto is around 25-27 characters */
 "avoid_unpaved" = "Éviter les routes non pavées";
 
-"avoid_ferry" = "Éviter les traversées en ferry";
+/* Recommended length for CarPlay and Android Auto is around 25-27 characters */
+"avoid_ferry" = "Éviter les ferries";
 
 "avoid_motorways" = "Éviter les autoroutes";
 
@@ -1032,12 +1035,6 @@
 "unpaved_road" = "Routes non revêtues";
 
 "ferry_crossing" = "Traversées en ferry";
-
-"avoid_toll_roads_placepage" = "Éviter les routes à péage";
-
-"avoid_unpaved_roads_placepage" = "Éviter les routes non revêtues";
-
-"avoid_ferry_crossing_placepage" = "Éviter les traversées en ferry";
 
 "trip_start" = "On y va";
 
@@ -1084,18 +1081,6 @@
 "dialog_routing_rebuild_for_vehicle_carplay" = "L'itinéraire sera changé en mode Voiture";
 
 "ok" = "Ok";
-
-"avoid_unpaved_carplay_1" = "Pas de route en terre";
-
-"avoid_unpaved_carplay_2" = "Eviter les routes non revêtues";
-
-"avoid_ferry_carplay_1" = "Pas de traversée en ferry";
-
-"avoid_ferry_carplay_2" = "Éviter les traversées en ferry";
-
-"avoid_tolls_carplay_1" = "Sans péage";
-
-"avoid_tolls_carplay_2" = "Éviter les routes à péages";
 
 "speedcams_alert_title_carplay_1" = "Radars de vitesse";
 

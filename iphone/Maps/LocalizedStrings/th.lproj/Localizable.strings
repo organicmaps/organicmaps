@@ -1011,11 +1011,14 @@
 
 "driving_options_title" = "ทางเลือกเส้นทางขับขี่";
 
+/* Recommended length for CarPlay and Android Auto is around 25-27 characters */
 "avoid_tolls" = "หลีกเลี่ยงถนนที่เก็บค่าผ่านทาง";
 
-"avoid_unpaved" = "หลีกเลี่ยงถนนลูกรัง";
+/* Recommended length for CarPlay and Android Auto is around 25-27 characters */
+"avoid_unpaved" = "เลี่ยงถนนดินทั้งหมด";
 
-"avoid_ferry" = "หลีกเลี่ยงการข้ามเรือข้ามฟาก";
+/* Recommended length for CarPlay and Android Auto is around 25-27 characters */
+"avoid_ferry" = "เลี่ยงการข้ามฟากด้วยเรือ";
 
 "avoid_motorways" = "หลีกเลี่ยงมอเตอร์เวย์";
 
@@ -1032,12 +1035,6 @@
 "unpaved_road" = "ถนนดิน";
 
 "ferry_crossing" = "เรือข้ามฟาก";
-
-"avoid_toll_roads_placepage" = "เลี่ยงทางที่ต้องเสียเงินทั้งหมด";
-
-"avoid_unpaved_roads_placepage" = "เลี่ยงถนนดินทั้งหมด";
-
-"avoid_ferry_crossing_placepage" = "เลี่ยงการข้ามฟากด้วยเรือ";
 
 "trip_start" = "ไปกันเลย";
 
@@ -1084,18 +1081,6 @@
 "dialog_routing_rebuild_for_vehicle_carplay" = "เส้นทางของรถยนต์อาจถูกปรับเปลี่ยน";
 
 "ok" = "โอเค";
-
-"avoid_unpaved_carplay_1" = "ไม่มีลูกรัง";
-
-"avoid_unpaved_carplay_2" = "หลีกเลี่ยงทาง";
-
-"avoid_ferry_carplay_1" = "ไม่มีเรือ";
-
-"avoid_ferry_carplay_2" = "หลีกเลี่ยงเรือ";
-
-"avoid_tolls_carplay_1" = "ไม่มีค่าผ่าน";
-
-"avoid_tolls_carplay_2" = "เลี่ยงทางด่วน";
 
 "speedcams_alert_title_carplay_1" = "จับความเร็ว";
 

@@ -1011,11 +1011,14 @@
 
 "driving_options_title" = "Опции за маршрутизация";
 
+/* Recommended length for CarPlay and Android Auto is around 25-27 characters */
 "avoid_tolls" = "Избягвайте платените пътища";
 
+/* Recommended length for CarPlay and Android Auto is around 25-27 characters */
 "avoid_unpaved" = "Избягвайте неасфалтирани пътища";
 
-"avoid_ferry" = "Избягвайте преминаването с ферибот";
+/* Recommended length for CarPlay and Android Auto is around 25-27 characters */
+"avoid_ferry" = "Избягване на преходи с ферибот";
 
 "avoid_motorways" = "Избягвайте магистралата";
 
@@ -1032,12 +1035,6 @@
 "unpaved_road" = "Unpaved road";
 
 "ferry_crossing" = "Ferry crossing";
-
-"avoid_toll_roads_placepage" = "Избягване на платени пътища";
-
-"avoid_unpaved_roads_placepage" = "Избягвайте неасфалтирани пътища";
-
-"avoid_ferry_crossing_placepage" = "Избягване на преходи с ферибот";
 
 "trip_start" = "Let's go";
 
@@ -1084,18 +1081,6 @@
 "dialog_routing_rebuild_for_vehicle_carplay" = "The route will be converted into an automobile one";
 
 "ok" = "Ок";
-
-"avoid_unpaved_carplay_1" = "No dirt road";
-
-"avoid_unpaved_carplay_2" = "Avoid unpaved";
-
-"avoid_ferry_carplay_1" = "No ferries";
-
-"avoid_ferry_carplay_2" = "Avoid ferries";
-
-"avoid_tolls_carplay_1" = "No toll road";
-
-"avoid_tolls_carplay_2" = "Avoid toll road";
 
 "speedcams_alert_title_carplay_1" = "Speedсams";
 

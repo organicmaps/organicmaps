@@ -1011,11 +1011,14 @@
 
 "driving_options_title" = "Omvägsinställningar";
 
+/* Recommended length for CarPlay and Android Auto is around 25-27 characters */
 "avoid_tolls" = "Undvik avgiftsbelagda vägar";
 
-"avoid_unpaved" = "Undvik oasfalterade vägar";
+/* Recommended length for CarPlay and Android Auto is around 25-27 characters */
+"avoid_unpaved" = "Undvik kärrvägar";
 
-"avoid_ferry" = "Undvik färjeöverfarter";
+/* Recommended length for CarPlay and Android Auto is around 25-27 characters */
+"avoid_ferry" = "Undvik färjetrafik";
 
 "avoid_motorways" = "Undvik motorvägen";
 
@@ -1032,12 +1035,6 @@
 "unpaved_road" = "Kärrvägen";
 
 "ferry_crossing" = "Färjetrafik";
-
-"avoid_toll_roads_placepage" = "Undvik betalvägar";
-
-"avoid_unpaved_roads_placepage" = "Undvik kärrvägar";
-
-"avoid_ferry_crossing_placepage" = "Undvik färjetrafik";
 
 "trip_start" = "Kom igen";
 
@@ -1084,18 +1081,6 @@
 "dialog_routing_rebuild_for_vehicle_carplay" = "Ruten kommer att ändras till bil";
 
 "ok" = "Ok";
-
-"avoid_unpaved_carplay_1" = "Utan kärrväg";
-
-"avoid_unpaved_carplay_2" = "Utan kärrvägar";
-
-"avoid_ferry_carplay_1" = "Utan färjor";
-
-"avoid_ferry_carplay_2" = "Utan färjor";
-
-"avoid_tolls_carplay_1" = "Utan betalda";
-
-"avoid_tolls_carplay_2" = "Utan betalda";
 
 "speedcams_alert_title_carplay_1" = "Kameror";
 

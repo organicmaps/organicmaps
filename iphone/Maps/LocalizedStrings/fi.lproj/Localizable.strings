@@ -1011,11 +1011,14 @@
 
 "driving_options_title" = "Reititysvalinnat";
 
+/* Recommended length for CarPlay and Android Auto is around 25-27 characters */
 "avoid_tolls" = "Vältä maksullisia teitä";
 
+/* Recommended length for CarPlay and Android Auto is around 25-27 characters */
 "avoid_unpaved" = "Vältä päällystämättömiä teitä";
 
-"avoid_ferry" = "Vältä lauttaristeyksiä";
+/* Recommended length for CarPlay and Android Auto is around 25-27 characters */
+"avoid_ferry" = "Vältä lautan käyttöä";
 
 "avoid_motorways" = "Vältä moottoritietä";
 
@@ -1032,12 +1035,6 @@
 "unpaved_road" = "Päällystämätön tie";
 
 "ferry_crossing" = "Lauttaliikenne";
-
-"avoid_toll_roads_placepage" = "Vältä maksullisia teitä";
-
-"avoid_unpaved_roads_placepage" = "Vältä päällystämättömiä teitä";
-
-"avoid_ferry_crossing_placepage" = "Vältä lautan käyttöä";
 
 "trip_start" = "Mennään";
 
@@ -1084,18 +1081,6 @@
 "dialog_routing_rebuild_for_vehicle_carplay" = "Reitti muutetaan autoilijan reitiksi";
 
 "ok" = "Ok";
-
-"avoid_unpaved_carplay_1" = "Ei päällystämättömiä";
-
-"avoid_unpaved_carplay_2" = "Vältä päällystämättömiä";
-
-"avoid_ferry_carplay_1" = "Ei lauttoja";
-
-"avoid_ferry_carplay_2" = "Vältä lauttoja";
-
-"avoid_tolls_carplay_1" = "Ei maksullisia";
-
-"avoid_tolls_carplay_2" = "Vältä maksullisia";
 
 "speedcams_alert_title_carplay_1" = "Nopeuskamerat";
 

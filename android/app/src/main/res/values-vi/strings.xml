@@ -607,9 +607,12 @@
 	<string name="enable_logging_warning_message">Tùy chọn này được kích hoạt để ghi nhật ký đăng nhập cho mục đích chẩn đoán. Điều này sẽ giúp nhóm chúng tôi làm rõ các vấn đề liên quan đến ứng dụng. Hãy bật tùy chọn này chỉ khi nào có yêu cầu hỗ trợ từ Organic Maps.</string>
 	<string name="access_rules_author_only">Chỉnh sửa trực tuyến</string>
 	<string name="driving_options_title">Thiết lập đi vòng</string>
+	<!-- Recommended length for CarPlay and Android Auto is around 25-27 characters -->
 	<string name="avoid_tolls">Tránh đường thu phí</string>
+	<!-- Recommended length for CarPlay and Android Auto is around 25-27 characters -->
 	<string name="avoid_unpaved">Tránh đường đất</string>
-	<string name="avoid_ferry">Tránh qua phà</string>
+	<!-- Recommended length for CarPlay and Android Auto is around 25-27 characters -->
+	<string name="avoid_ferry">Tránh bến phà</string>
 	<string name="avoid_motorways">Tránh xa lộ</string>
 	<string name="unable_to_calc_alert_title">Không thể tạo tuyến đường</string>
 	<string name="unable_to_calc_alert_subtitle">Rất tiếc, chúng không thể tạo tuyến đường với những tùy chọn đã chọn. Hãy thay đổi thiết lập và thử lại</string>
@@ -618,9 +621,6 @@
 	<string name="toll_road">Đường trả phí</string>
 	<string name="unpaved_road">Đường đất</string>
 	<string name="ferry_crossing">Bến phà</string>
-	<string name="avoid_toll_roads_placepage">Tránh đường trả phí</string>
-	<string name="avoid_unpaved_roads_placepage">Tránh đường đất</string>
-	<string name="avoid_ferry_crossing_placepage">Tránh bến phà</string>
 	<!-- A generic "Yes" button in dialogs -->
 	<string name="yes">Có</string>
 	<!-- A generic "No" button in dialogs -->

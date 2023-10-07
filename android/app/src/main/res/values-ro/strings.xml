@@ -624,9 +624,12 @@
 	<string name="enable_logging_warning_message">Opțiunea activează jurnalizarea în scopuri de diagnosticare. Aceasta poate fi utilă echipei noastre pentru a rezolva problemele cu aplicația. Activează temporar această opțiune pentru a înregistra și a ne trimite jurnale detaliate despre problema ta.</string>
 	<string name="access_rules_author_only">Modifică online</string>
 	<string name="driving_options_title">Opțiuni de ocolire</string>
+	<!-- Recommended length for CarPlay and Android Auto is around 25-27 characters -->
 	<string name="avoid_tolls">Evitați drumurile cu taxă</string>
-	<string name="avoid_unpaved">Evitați drumurile neasfaltate</string>
-	<string name="avoid_ferry">Evitați traversările cu feribotul</string>
+	<!-- Recommended length for CarPlay and Android Auto is around 25-27 characters -->
+	<string name="avoid_unpaved">Evită drumurile neasfaltate</string>
+	<!-- Recommended length for CarPlay and Android Auto is around 25-27 characters -->
+	<string name="avoid_ferry">Evită trecerile cu bac</string>
 	<string name="avoid_motorways">Evitați autostrăzile</string>
 	<string name="unable_to_calc_alert_title">Nu poate fi creat un traseu</string>
 	<string name="unable_to_calc_alert_subtitle">Din păcate, nu putem elabora un traseu cu opțiunile alese. Modifică-le și încearcă din nou.</string>
@@ -635,9 +638,6 @@
 	<string name="toll_road">Drum cu plată</string>
 	<string name="unpaved_road">Drum neasfaltat</string>
 	<string name="ferry_crossing">Trecere cu bac</string>
-	<string name="avoid_toll_roads_placepage">Evită drumurile cu plată</string>
-	<string name="avoid_unpaved_roads_placepage">Evită drumurile neasfaltate</string>
-	<string name="avoid_ferry_crossing_placepage">Evită trecerile cu bac</string>
 	<!-- A generic "Yes" button in dialogs -->
 	<string name="yes">Da</string>
 	<!-- A generic "No" button in dialogs -->

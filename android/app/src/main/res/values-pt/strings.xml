@@ -617,9 +617,12 @@
 	<string name="enable_logging_warning_message">Esta opção ativa o registo das ações para diagnóstico. Pode ser útil para os programadores descobrirem o problema na aplicação. Ative esta opção apenas a pedido dos programadores do Organic Maps.</string>
 	<string name="access_rules_author_only">Edição online</string>
 	<string name="driving_options_title">Configurações de direção</string>
+	<!-- Recommended length for CarPlay and Android Auto is around 25-27 characters -->
 	<string name="avoid_tolls">Evitar portagens</string>
-	<string name="avoid_unpaved">Evitar estradas não-pavimentadas</string>
-	<string name="avoid_ferry">Evitar balsas</string>
+	<!-- Recommended length for CarPlay and Android Auto is around 25-27 characters -->
+	<string name="avoid_unpaved">Evitar não-pavimentadas</string>
+	<!-- Recommended length for CarPlay and Android Auto is around 25-27 characters -->
+	<string name="avoid_ferry">Evitar ferribotes</string>
 	<string name="avoid_motorways">Evitar autoestradas</string>
 	<string name="unable_to_calc_alert_title">Não foi possível calcular a rota</string>
 	<string name="unable_to_calc_alert_subtitle">Infelizmente não foi possível criar o percurso com as opções selecionadas. Altere as opções e tente novamente</string>
@@ -628,9 +631,6 @@
 	<string name="toll_road">Estrada com portagem</string>
 	<string name="unpaved_road">Estrada não pavimentada</string>
 	<string name="ferry_crossing">Ferry</string>
-	<string name="avoid_toll_roads_placepage">Evitar estradas com portagem</string>
-	<string name="avoid_unpaved_roads_placepage">Evitar estradas não pavimentadas</string>
-	<string name="avoid_ferry_crossing_placepage">Evitar ferrys</string>
 	<!-- A generic "Yes" button in dialogs -->
 	<string name="yes">Sim</string>
 	<!-- A generic "No" button in dialogs -->

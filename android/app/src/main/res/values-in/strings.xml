@@ -609,9 +609,12 @@
 	<string name="enable_logging_warning_message">Opsi ini mengaktifkan pencatatan untuk tujuan diagnostik. Bisa amat membantu bagi staf dukungan kami yang memecahkan masalah dalam aplikasi. Aktifkan opsi ini hanya saat diminta oleh dukungan Organic Maps.</string>
 	<string name="access_rules_author_only">Pengeditan online</string>
 	<string name="driving_options_title">Pilihan berkendara</string>
+	<!-- Recommended length for CarPlay and Android Auto is around 25-27 characters -->
 	<string name="avoid_tolls">Hindari jalan tol</string>
-	<string name="avoid_unpaved">Hindari jalan yang tidak beraspal</string>
-	<string name="avoid_ferry">Hindari penyeberangan feri</string>
+	<!-- Recommended length for CarPlay and Android Auto is around 25-27 characters -->
+	<string name="avoid_unpaved">Hindari jalan tanah</string>
+	<!-- Recommended length for CarPlay and Android Auto is around 25-27 characters -->
+	<string name="avoid_ferry">Hindari feri</string>
 	<string name="avoid_motorways">Hindari jalan raya</string>
 	<string name="unable_to_calc_alert_title">Tidak dapat menghitung rute</string>
 	<string name="unable_to_calc_alert_subtitle">Sayangnya kami tidak dapat menemukan rute karena opsi pilihan Anda. Harap ubah pengaturan lalu coba lagi</string>
@@ -620,9 +623,6 @@
 	<string name="toll_road">Jalan tol</string>
 	<string name="unpaved_road">Jalan tanah</string>
 	<string name="ferry_crossing">Penyeberangan kapal feri</string>
-	<string name="avoid_toll_roads_placepage">Hindari jalan tol</string>
-	<string name="avoid_unpaved_roads_placepage">Hindari jalan tanah</string>
-	<string name="avoid_ferry_crossing_placepage">Hindari penyeberangan kapal feri</string>
 	<!-- A generic "Yes" button in dialogs -->
 	<string name="yes">Ya</string>
 	<!-- A generic "No" button in dialogs -->

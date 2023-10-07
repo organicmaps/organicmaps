@@ -1011,11 +1011,14 @@
 
 "driving_options_title" = "خيارات رسم المسار";
 
+/* Recommended length for CarPlay and Android Auto is around 25-27 characters */
 "avoid_tolls" = "تجنب الطرق ذات الرسوم";
 
-"avoid_unpaved" = "تجنب الطرق الترابية";
+/* Recommended length for CarPlay and Android Auto is around 25-27 characters */
+"avoid_unpaved" = "تجنب الطرق الغير معبدة";
 
-"avoid_ferry" = "تجنب معابر العبارات";
+/* Recommended length for CarPlay and Android Auto is around 25-27 characters */
+"avoid_ferry" = "تجنب استخدام العبّارات";
 
 "avoid_motorways" = "تجنب الطريق السريع";
 
@@ -1032,12 +1035,6 @@
 "unpaved_road" = "طريق غير معبد";
 
 "ferry_crossing" = "استخدام عبّارة";
-
-"avoid_toll_roads_placepage" = "تجنب الطرق ذات الرسوم";
-
-"avoid_unpaved_roads_placepage" = "تجنب الطرق الغير معبدة";
-
-"avoid_ferry_crossing_placepage" = "تجنب استخدام العبّارات";
 
 "trip_start" = "هيا بنا";
 
@@ -1084,18 +1081,6 @@
 "dialog_routing_rebuild_for_vehicle_carplay" = "سيتم تعديل الطريق ليكون خاص بالسيارة";
 
 "ok" = "موافق";
-
-"avoid_unpaved_carplay_1" = "بدون طرق ترابية";
-
-"avoid_unpaved_carplay_2" = "تجنب الطرق غير المعبدة";
-
-"avoid_ferry_carplay_1" = "بدون عبََارة";
-
-"avoid_ferry_carplay_2" = "تجنب العبََارة";
-
-"avoid_tolls_carplay_1" = "بدون طرق ذات رسوم";
-
-"avoid_tolls_carplay_2" = "تجنب الطريق ذات الرسوم";
 
 "speedcams_alert_title_carplay_1" = "كاميرات السرعة";
 

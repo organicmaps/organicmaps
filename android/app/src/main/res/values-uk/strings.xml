@@ -643,9 +643,12 @@
 	<string name="enable_logging_warning_message">Дана опція вмикається для логування дій з метою діагностики. Це допомагає команді виявити проблеми з додатком. Тимчасово включайте цю настройку тільки для відправки детальної інформації про знайдену вами проблему в додатку.</string>
 	<string name="access_rules_author_only">Редагується онлайн</string>
 	<string name="driving_options_title">Налаштування об’їзду</string>
+	<!-- Recommended length for CarPlay and Android Auto is around 25-27 characters -->
 	<string name="avoid_tolls">Уникати платних доріг</string>
+	<!-- Recommended length for CarPlay and Android Auto is around 25-27 characters -->
 	<string name="avoid_unpaved">Уникати ґрунтових доріг</string>
-	<string name="avoid_ferry">Уникати поромних переправ</string>
+	<!-- Recommended length for CarPlay and Android Auto is around 25-27 characters -->
+	<string name="avoid_ferry">Уникати поромів</string>
 	<string name="avoid_motorways">Уникати автострад</string>
 	<string name="unable_to_calc_alert_title">Неможливо побудувати маршрут</string>
 	<string name="unable_to_calc_alert_subtitle">На жаль, ми не змогли побудувати маршрут з вибраними опціями. Змініть налаштування та спробуйте ще раз</string>
@@ -654,9 +657,6 @@
 	<string name="toll_road">Платна дорога</string>
 	<string name="unpaved_road">Ґрунтова дорога</string>
 	<string name="ferry_crossing">Поромна переправа</string>
-	<string name="avoid_toll_roads_placepage">Уникати платних доріг</string>
-	<string name="avoid_unpaved_roads_placepage">Уникати ґрунтових доріг</string>
-	<string name="avoid_ferry_crossing_placepage">Уникати поромних переправ</string>
 	<!-- A generic "Yes" button in dialogs -->
 	<string name="yes">Так</string>
 	<!-- A generic "No" button in dialogs -->

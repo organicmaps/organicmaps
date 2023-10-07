@@ -127,9 +127,6 @@
 	<string name="toll_road">Carretera de peaje</string>
 	<string name="unpaved_road">Camino de tierra</string>
 	<string name="ferry_crossing">Cruce de ferri</string>
-	<string name="avoid_toll_roads_placepage">Evitar las carreteras de peaje</string>
-	<string name="avoid_unpaved_roads_placepage">Evitar los caminos de tierra</string>
-	<string name="avoid_ferry_crossing_placepage">Evitar los trasbordadores de ferri</string>
 	<!-- A generic "Yes" button in dialogs -->
 	<string name="yes">Sí</string>
 	<!-- A generic "No" button in dialogs -->

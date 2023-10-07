@@ -1011,11 +1011,14 @@
 
 "driving_options_title" = "Routing options";
 
+/* Recommended length for CarPlay and Android Auto is around 25-27 characters */
 "avoid_tolls" = "Avoid tolls";
 
+/* Recommended length for CarPlay and Android Auto is around 25-27 characters */
 "avoid_unpaved" = "Avoid unpaved roads";
 
-"avoid_ferry" = "Avoid ferry crossings";
+/* Recommended length for CarPlay and Android Auto is around 25-27 characters */
+"avoid_ferry" = "Avoid ferries";
 
 "avoid_motorways" = "Avoid freeways";
 
@@ -1032,12 +1035,6 @@
 "unpaved_road" = "Unpaved road";
 
 "ferry_crossing" = "Ferry crossing";
-
-"avoid_toll_roads_placepage" = "Avoid toll roads";
-
-"avoid_unpaved_roads_placepage" = "Avoid unpaved roads";
-
-"avoid_ferry_crossing_placepage" = "Avoid ferry crossings";
 
 "trip_start" = "Let's go";
 
@@ -1084,18 +1081,6 @@
 "dialog_routing_rebuild_for_vehicle_carplay" = "The route will be converted into an automobile one";
 
 "ok" = "OK";
-
-"avoid_unpaved_carplay_1" = "No dirt road";
-
-"avoid_unpaved_carplay_2" = "Avoid unpaved";
-
-"avoid_ferry_carplay_1" = "No ferries";
-
-"avoid_ferry_carplay_2" = "Avoid ferries";
-
-"avoid_tolls_carplay_1" = "No toll road";
-
-"avoid_tolls_carplay_2" = "Avoid toll road";
 
 "speedcams_alert_title_carplay_1" = "Speedсams";
 
