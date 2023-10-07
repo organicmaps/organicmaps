@@ -1457,6 +1457,8 @@
 
 "type.amenity.place_of_worship.christian.mormon" = "Iglesia de Jesucristo de los Santos de los Últimos Días";
 
+"type.amenity.place_of_worship.christian.jehovahs_witness" = "Salón del Reino de los Testigos de Jehová";
+
 "type.amenity.place_of_worship.hindu" = "Templo";
 
 "type.amenity.place_of_worship.jewish" = "Sinagoga";

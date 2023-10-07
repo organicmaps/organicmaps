@@ -748,6 +748,7 @@
 	<string name="type.amenity.money_transfer">Transferència de diners</string>
 	<string name="type.amenity.loading_dock">Moll de càrrega</string>
 	<string name="type.amenity.place_of_worship.christian.mormon">Església de Jesucrist dels Sants dels Últims Dies</string>
+	<string name="type.amenity.place_of_worship.christian.jehovahs_witness">Sala del Regne dels Testimonis de Jehovà</string>
 
 	<!-- SECTION: Types: Recycling -->
 	<string name="type.amenity.public_bath">Bany Públic</string>

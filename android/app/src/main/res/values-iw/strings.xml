@@ -303,6 +303,7 @@
 	<string name="type.amenity.parking_entrance.permissive">הינחל הסינכ</string>
 	<string name="type.amenity.parking_space.disabled">םיכנל הינח</string>
 	<string name="type.amenity.place_of_worship.christian.mormon">כנסיית ישוע המשיח של קדושי אחרון הימים</string>
+	<string name="type.amenity.place_of_worship.christian.jehovahs_witness">בית הכנסת של עדי יהוה</string>
 
 	<!-- SECTION: Types: Recycling -->
 	<string name="type.recycling.batteries">תוללוס</string>
