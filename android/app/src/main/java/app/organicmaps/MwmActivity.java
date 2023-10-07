@@ -143,6 +143,7 @@ public class MwmActivity extends BaseMwmFragmentActivity
   public static final String EXTRA_CATEGORY_ID = "category_id";
   public static final String EXTRA_BOOKMARK_ID = "bookmark_id";
   public static final String EXTRA_TRACK_ID = "track_id";
+  public static final String EXTRA_UPDATE_THEME = "update_theme";
   private static final String EXTRA_CONSUMED = "mwm.extra.intent.processed";
 
   private static final String[] DOCKED_FRAGMENTS = { SearchFragment.class.getName(),
@@ -487,14 +488,6 @@ public class MwmActivity extends BaseMwmFragmentActivity
     mSearchController.getToolbar()
                      .getViewTreeObserver();
 
-    mDisplayManager = DisplayManager.from(this);
-    mDisplayManager.addListener(DisplayType.Device, this);
-
-    final Intent intent = getIntent();
-    boolean isLaunchByDeepLink = intent != null && !intent.hasCategory(Intent.CATEGORY_LAUNCHER);
-    initViews(isLaunchByDeepLink);
-    updateViewsInsets();
-
     // Note: You must call registerForActivityResult() before the fragment or activity is created.
     mLocationPermissionRequest = registerForActivityResult(new ActivityResultContracts.RequestMultiplePermissions(),
         this::onLocationPermissionsResult);
@@ -502,6 +495,24 @@ public class MwmActivity extends BaseMwmFragmentActivity
         this::onLocationResolutionResult);
     mPostNotificationPermissionRequest = registerForActivityResult(new ActivityResultContracts.RequestPermission(),
         this::onPostNotificationPermissionResult);
+
+    mDisplayManager = DisplayManager.from(this);
+    if (mDisplayManager.isCarDisplayUsed())
+    {
+      mRemoveDisplayListener = false;
+      startActivity(new Intent(this, MapPlaceholderActivity.class));
+      finish();
+      return;
+    }
+    mDisplayManager.addListener(DisplayType.Device, this);
+
+    final Intent intent = getIntent();
+    final boolean isLaunchByDeepLink = intent != null && !intent.hasCategory(Intent.CATEGORY_LAUNCHER);
+    initViews(isLaunchByDeepLink);
+    updateViewsInsets();
+
+    if (getIntent().getBooleanExtra(EXTRA_UPDATE_THEME, false))
+      ThemeSwitcher.INSTANCE.restart(isMapRendererActive());
   }
 
   private void refreshLightStatusBar()
