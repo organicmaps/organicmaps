@@ -315,19 +315,47 @@ private:
   buffer_vector<uint32_t, static_cast<size_t>(Type::Count)> m_types;
 };
 
-// Removes types that are prefixes of another longer type,
-// e.g. highway-primary-bridge is left while highway-primary is removed.
+// If first 2 (1 for short types like "building") components of pre-matched types are the same,
+// then leave only the longest types (there could be a few of them). Equal arity types are kept.
+// - highway-primary-bridge is left while highway-primary is removed;
+// - building-garages is left while building is removed;
+// - amenity-parking-underground-fee is left while amenity-parking and amenity-parking-fee is removed;
+// - both amenity-charging_station-motorcar and amenity-charging_station-bicycle are left;
 void LeaveLongestTypes(vector<generator::TypeStrings> & matchedTypes)
 {
-  auto const less = [](auto const & lhs, auto const & rhs) { return lhs > rhs; };
-
-  auto const equals = [](auto const & lhs, auto const & rhs) {
-    if (rhs.size() > lhs.size())
-      return equal(lhs.begin(), lhs.end(), rhs.begin());
-    return equal(rhs.begin(), rhs.end(), lhs.begin());
+  auto const equalPrefix = [](auto const & lhs, auto const & rhs)
+  {
+    size_t const prefixSz = std::min(lhs.size(), rhs.size());
+    return equal(lhs.begin(), lhs.begin() + std::min(size_t(2), prefixSz), rhs.begin());
   };
 
-  base::SortUnique(matchedTypes, less, equals);
+  auto const isBetter = [&equalPrefix](auto const & lhs, auto const & rhs)
+  {
+    if (equalPrefix(lhs, rhs))
+    {
+      // Longest type is better.
+      if (lhs.size() != rhs.size())
+        return lhs.size() > rhs.size();
+    }
+
+    // Default less order for sort, doesn't matter here.
+    return lhs < rhs;
+  };
+
+  auto const isEqual = [&equalPrefix](auto const & lhs, auto const & rhs)
+  {
+    if (equalPrefix(lhs, rhs))
+    {
+      // Keep longest type only, so return equal is true.
+      if (lhs.size() != rhs.size())
+        return true;
+
+      return lhs == rhs;
+    }
+    return false;
+  };
+
+  base::SortUnique(matchedTypes, isBetter, isEqual);
 }
 
 void MatchTypes(OsmElement * p, FeatureBuilderParams & params, function<bool(uint32_t)> const & filterType)
@@ -590,7 +618,7 @@ void PreprocessElement(OsmElement * p)
       /// @todo Unfortunately, it's not working in many cases (route=subway, transport=subway).
       /// Actually, it's better to process subways after feature types assignment.
       {"station", "subway", [&isSubway] { isSubway = true; }},
-      
+
       {"station", "light_rail", [&isLightRail] { isLightRail = true; }},
   });
 
