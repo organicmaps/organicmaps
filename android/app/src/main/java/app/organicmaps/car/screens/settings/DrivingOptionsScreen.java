@@ -94,7 +94,7 @@ public class DrivingOptionsScreen extends BaseMapScreen
   {
     final Header.Builder builder = new Header.Builder();
     builder.setStartHeaderAction(Action.BACK);
-    builder.setTitle(getCarContext().getString(R.string.driving_options_subheader));
+    builder.setTitle(getCarContext().getString(R.string.driving_options_title));
     return builder.build();
   }
 
