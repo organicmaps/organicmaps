@@ -3017,6 +3017,68 @@ cont {
   }
 }
 cont {
+  name: "amenity-place_of_worship-christian-jehovahs_witness"
+  element {
+    scale: 16
+    symbol {
+      name: "place-of-worship-m"
+      priority: 650
+      min_distance: 10
+    }
+  }
+  element {
+    scale: 17
+    symbol {
+      name: "place-of-worship-m"
+      priority: 650
+      min_distance: 10
+    }
+    caption {
+      primary {
+        height: 13
+        color: 4473924
+        offset_y: 1
+        is_optional: true
+      }
+      priority: -9350
+    }
+  }
+  element {
+    scale: 18
+    symbol {
+      name: "place-of-worship-m"
+      priority: 650
+      min_distance: 10
+    }
+    caption {
+      primary {
+        height: 14
+        color: 4473924
+        offset_y: 1
+        is_optional: true
+      }
+      priority: -9350
+    }
+  }
+  element {
+    scale: 19
+    symbol {
+      name: "place-of-worship-m"
+      priority: 650
+      min_distance: 10
+    }
+    caption {
+      primary {
+        height: 14
+        color: 4473924
+        offset_y: 1
+        is_optional: true
+      }
+      priority: -9350
+    }
+  }
+}
+cont {
   name: "amenity-place_of_worship-christian-mormon"
   element {
     scale: 16
