@@ -9075,7 +9075,7 @@ cont {
     scale: 15
     symbol {
       name: "dump-station-m"
-      priority: 3750
+      priority: 1950
       min_distance: 20
     }
     caption {
@@ -9085,14 +9085,14 @@ cont {
         offset_y: 1
         is_optional: true
       }
-      priority: -6250
+      priority: -8050
     }
   }
   element {
     scale: 16
     symbol {
       name: "dump-station-m"
-      priority: 3750
+      priority: 1950
       min_distance: 20
     }
     caption {
@@ -9102,14 +9102,14 @@ cont {
         offset_y: 1
         is_optional: true
       }
-      priority: -6250
+      priority: -8050
     }
   }
   element {
     scale: 17
     symbol {
       name: "dump-station-m"
-      priority: 3750
+      priority: 1950
       min_distance: 20
     }
     caption {
@@ -9119,14 +9119,14 @@ cont {
         offset_y: 1
         is_optional: true
       }
-      priority: -6250
+      priority: -8050
     }
   }
   element {
     scale: 18
     symbol {
       name: "dump-station-m"
-      priority: 3750
+      priority: 1950
       min_distance: 20
     }
     caption {
@@ -9136,14 +9136,14 @@ cont {
         offset_y: 1
         is_optional: true
       }
-      priority: -6250
+      priority: -8050
     }
   }
   element {
     scale: 19
     symbol {
       name: "dump-station-m"
-      priority: 3750
+      priority: 1950
       min_distance: 20
     }
     caption {
@@ -9153,7 +9153,7 @@ cont {
         offset_y: 1
         is_optional: true
       }
-      priority: -6250
+      priority: -8050
     }
   }
 }
