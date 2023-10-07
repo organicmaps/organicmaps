@@ -202,3 +202,8 @@ base::GeoObjectId GetGeoObjectId(OsmElement const & element)
   }
   UNREACHABLE();
 }
+
+std::string DebugPrintID(OsmElement const & e)
+{
+  return (e.m_type != OsmElement::EntityType::Unknown) ? DebugPrint(GetGeoObjectId(e)) : std::string("Unknown");
+}

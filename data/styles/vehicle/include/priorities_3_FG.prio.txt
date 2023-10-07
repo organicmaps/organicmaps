@@ -230,7 +230,6 @@ railway-subway-bridge                               # line z13- (also has line::
 highway-service                                     # line z14- (also has pathtext z16-)
 highway-service-area                                # line z14- (also has pathtext z16-)
 highway-service-bridge                              # line z14- (also has pathtext z16-)
-highway-service-busway                              # line z14- (also has pathtext z16-)
 highway-service-driveway                            # line z15- (also has pathtext z16-)
 highway-service-parking_aisle                       # line z14- (also has pathtext z16-)
 highway-service-tunnel                              # line z14- (also has pathtext z16-)

@@ -79,7 +79,7 @@ UNIT_TEST(IsBridgeOrTunnelChecker)
   base::StringIL arrNo[] =
   {
     {"highway", "motorway_junction"},
-    {"highway", "service", "busway"},
+    {"highway", "service", "driveway"},
   };
   for (auto const & e : arrNo)
     TEST(!ftypes::IsBridgeOrTunnelChecker::Instance()(c.GetTypeByPath(e)), ());
