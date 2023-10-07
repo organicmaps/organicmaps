@@ -170,6 +170,7 @@ struct OsmElement
 };
 
 base::GeoObjectId GetGeoObjectId(OsmElement const & element);
+std::string DebugPrintID(OsmElement const & element);
 
 std::string DebugPrint(OsmElement const & element);
 std::string DebugPrint(OsmElement::EntityType type);

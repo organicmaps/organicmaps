@@ -299,7 +299,6 @@ landuse-forest-deciduous                            # icon z12- (also has captio
 landuse-forest-mixed                                # icon z12- (also has caption(optional) z12-, area z10-)
 === 2200
 
-highway-service-busway                              # pathtext z16- (also has line z14-)
 highway-service-driveway                            # pathtext z16- (also has line z15-)
 highway-service-parking_aisle                       # pathtext z16- (also has line z14-)
 === 2150

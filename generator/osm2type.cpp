@@ -338,7 +338,6 @@ void LeaveLongestTypes(vector<generator::TypeStrings> & matchedTypes)
         return lhs.size() > rhs.size();
     }
 
-    // Default less order for sort, doesn't matter here.
     return lhs < rhs;
   };
 
@@ -371,12 +370,27 @@ void MatchTypes(OsmElement * p, FeatureBuilderParams & params, function<bool(uin
 
   LeaveLongestTypes(matchedTypes);
 
-  for (auto const & path : matchedTypes)
-  {
-    uint32_t const t = classif().GetTypeByPath(path);
+  auto const & cl = classif();
 
-    if (filterType(t))
-      params.AddType(t);
+  bool buswayAdded = false;
+  for (size_t i = 0; i < matchedTypes.size(); ++i)
+  {
+    auto const & path = matchedTypes[i];
+    uint32_t const type = cl.GetTypeByPath(path);
+    if (!filterType(type))
+      continue;
+
+    // "busway" and "service" can be matched together, keep busway only.
+    if (path[0] == "highway")
+    {
+      // busway goes before service, see LeaveLongestTypes.isBetter
+      if (path[1] == "busway")
+        buswayAdded = true;
+      else if (buswayAdded && path[1] == "service")
+        continue;
+    }
+
+    params.AddType(type);
   }
 }
 

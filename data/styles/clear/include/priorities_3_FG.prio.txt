@@ -255,7 +255,6 @@ highway-busway-tunnel                               # line z15- (also has pathte
 highway-service                                     # line z15- (also has pathtext z16-)
 highway-service-area                                # line z15- (also has pathtext z16-)
 highway-service-bridge                              # line z15- (also has line::bridgeblack z16-, line::bridgewhite z16-, pathtext z16-)
-highway-service-busway                              # line z15- (also has pathtext z16-)
 highway-service-driveway                            # line z16- (also has pathtext z16-)
 highway-service-parking_aisle                       # line z15- (also has pathtext z16-)
 highway-service-tunnel                              # line z15- (also has pathtext z16-)
