@@ -1013,15 +1013,13 @@
 
 "driving_options_title" = "Køre muligheder";
 
-"driving_options_subheader" = "Undgå på enhver rute";
+"avoid_tolls" = "Undgå betalingsveje";
 
-"avoid_tolls" = "Betalingsveje";
+"avoid_unpaved" = "Undgå uasfalterede veje";
 
-"avoid_unpaved" = "Grusveje";
+"avoid_ferry" = "Undgå færgeoverfarter";
 
-"avoid_ferry" = "Færgeoverfarter";
-
-"avoid_motorways" = "Motorveje";
+"avoid_motorways" = "Undgå motorvejen";
 
 "unable_to_calc_alert_title" = "Det er ikke muligt at beregne rute";
 

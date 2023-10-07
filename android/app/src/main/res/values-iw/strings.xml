@@ -255,6 +255,10 @@
 	<string name="transliteration_title">תעתיק ללטינית</string>
 	<!-- Bookmark categories screen, button that opens folder selection dialog to import KML/KMZ/GPX/KMB files -->
 	<string name="bookmarks_import">ייבוא סימניות ורצועות</string>
+	<string name="avoid_tolls">הימנעו מכבישי אגרה</string>
+	<string name="avoid_unpaved">הימנע מדרכי עפר</string>
+	<string name="avoid_ferry">הימנעו ממעברי מעבורת</string>
+	<string name="avoid_motorways">הימנע מהכביש המהיר</string>
 	<!-- E.g. "WiFi:Yes" -->
 	<string name="yes_available">כן</string>
 

@@ -643,11 +643,10 @@
 	<string name="enable_logging_warning_message">Ta opcja zostaje włączona do zbierania danych działań w celach diagnostycznych. Pomaga to zespołowi zidentyfikować problemy z aplikacją. Włączaj opcję tylko na żądanie wsparcia technicznego Organic Maps.</string>
 	<string name="access_rules_author_only">Edytowane online</string>
 	<string name="driving_options_title">Ustawienia nawigacji</string>
-	<string name="driving_options_subheader">Unikaj na każdej trasie</string>
-	<string name="avoid_tolls">Drogi płatne</string>
-	<string name="avoid_unpaved">Drogi gruntowe</string>
-	<string name="avoid_ferry">Przeprawy promowe</string>
-	<string name="avoid_motorways">Autostrady</string>
+	<string name="avoid_tolls">Unikaj płatnych dróg</string>
+	<string name="avoid_unpaved">Unikaj nieutwardzonych dróg</string>
+	<string name="avoid_ferry">Unikaj przepraw promowych</string>
+	<string name="avoid_motorways">Unikaj autostrad</string>
 	<string name="unable_to_calc_alert_title">Brak możliwości zbudowania trasy</string>
 	<string name="unable_to_calc_alert_subtitle">Wyznaczanie trasy nie powiodło się. Przyczyną mogą być ustawienia nawigacji lub niekompletne dane OpenStreetMap. Zmień ustawienia i spróbuj ponownie</string>
 	<string name="define_to_avoid_btn">Dostosuj ścieżkę objazdu</string>

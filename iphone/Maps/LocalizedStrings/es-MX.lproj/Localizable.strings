@@ -1013,15 +1013,13 @@
 
 "driving_options_title" = "Ajustes de desvío";
 
-"driving_options_subheader" = "Evitar en cada ruta";
+"avoid_tolls" = "Evitar peajes";
 
-"avoid_tolls" = "Carreteras de peaje";
+"avoid_unpaved" = "Evitar caminos sin pavimentar";
 
-"avoid_unpaved" = "Caminos de tierra";
+"avoid_ferry" = "Evitar ferris";
 
-"avoid_ferry" = "Cruces de ferri";
-
-"avoid_motorways" = "Autopistas";
+"avoid_motorways" = "Evitar autopistas";
 
 "unable_to_calc_alert_title" = "No se puede construir una ruta";
 

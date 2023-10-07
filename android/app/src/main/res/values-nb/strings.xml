@@ -642,11 +642,10 @@
 	<string name="enable_logging_warning_message">Alternativet slår på logging for diagnostiske formål. Det kan være nyttig for våre supportpersonale som feilsøker problemer med appen. Aktiver dette alternativet bare på forespørsel fra Organic Maps-brukerstøtte.</string>
 	<string name="access_rules_author_only">Redigering på nett</string>
 	<string name="driving_options_title">Kjørealternativer</string>
-	<string name="driving_options_subheader">Unngå ved hver rute</string>
-	<string name="avoid_tolls">Bompengeveier</string>
-	<string name="avoid_unpaved">Uasfaltert vei</string>
-	<string name="avoid_ferry">Fergeoverganger</string>
-	<string name="avoid_motorways">Motorvei</string>
+	<string name="avoid_tolls">Unngå bompenger</string>
+	<string name="avoid_unpaved">Unngå asfalterte veier</string>
+	<string name="avoid_ferry">Unngå fergeoverganger</string>
+	<string name="avoid_motorways">Unngå motorveien</string>
 	<string name="unable_to_calc_alert_title">Kan ikke beregne rute</string>
 	<string name="unable_to_calc_alert_subtitle">Dessverre kunne vi ikke finne en rute sannsynligvis på grunn av dine definerte alternativer. Vennligst endre innstillingene og prøv igjen</string>
 	<string name="define_to_avoid_btn">Definer veier som skal unngås</string>

@@ -623,11 +623,10 @@
 	<string name="enable_logging_warning_message">Az opció bekapcsolja a diagnosztikai célú naplózást. Hasznos lehet a support csapatunknak, akik elhárítják az alkalmazás hibáit. Csak a Organic Maps support kérésére kapcsold be ezt az opciót.</string>
 	<string name="access_rules_author_only">Online szerkesztés</string>
 	<string name="driving_options_title">Útvonaltervezési lehetőségek</string>
-	<string name="driving_options_subheader">Elkerülés minden útvonalon</string>
-	<string name="avoid_tolls">Díjköteles utak</string>
-	<string name="avoid_unpaved">Burkolatlan utak</string>
-	<string name="avoid_ferry">Kompátkelők</string>
-	<string name="avoid_motorways">Autópályák</string>
+	<string name="avoid_tolls">Kerülje a fizetős utakat</string>
+	<string name="avoid_unpaved">Kerülje a burkolatlan utakat</string>
+	<string name="avoid_ferry">Kerülje a kompátkelést</string>
+	<string name="avoid_motorways">Kerülje az autópályát</string>
 	<string name="unable_to_calc_alert_title">Nem lehet útvonalat számítani</string>
 	<string name="unable_to_calc_alert_subtitle">Sajnos nem találunk útvonalat, valószínűleg az általad meghatározott lehetőségek miatt. Kérjük változtass a beállításokon és próbáld újra</string>
 	<string name="define_to_avoid_btn">Elkerülendő utak meghatározása</string>

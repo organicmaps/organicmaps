@@ -1013,15 +1013,13 @@
 
 "driving_options_title" = "Ρυθμίσεις παράκαμψης";
 
-"driving_options_subheader" = "Αποφυγή σε κάθε διαδρομή";
+"avoid_tolls" = "Αποφύγετε τους δρόμους με διόδια";
 
-"avoid_tolls" = "Δρόμοι με διόδια";
+"avoid_unpaved" = "Αποφύγετε μη ασφαλτοστρωμένους δρόμους";
 
-"avoid_unpaved" = "Χωματόδρομοι";
+"avoid_ferry" = "Αποφύγετε τις διασταυρώσεις πλοίων";
 
-"avoid_ferry" = "Πορθμεία";
-
-"avoid_motorways" = "Αυτοκινητόδρομοι";
+"avoid_motorways" = "Αποφύγετε τον αυτοκινητόδρομο";
 
 "unable_to_calc_alert_title" = "Δεν είναι δυνατή η δημιουργία διαδρομής";
 

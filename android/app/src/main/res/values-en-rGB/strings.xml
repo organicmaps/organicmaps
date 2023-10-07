@@ -27,6 +27,7 @@
 	<string name="error_enter_correct_zip_code">Enter a valid postcode</string>
 	<string name="button_layer_subway">Metro</string>
 	<string name="subway_data_unavailable">Metro map is unavailable</string>
+	<string name="avoid_motorways">Avoid motorways</string>
 
 	<!-- SECTION: Bookmark types used for sorting -->
 	<string name="fuel_places">Petrol Stations</string>

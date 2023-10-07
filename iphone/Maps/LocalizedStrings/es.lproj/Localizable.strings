@@ -1013,15 +1013,13 @@
 
 "driving_options_title" = "Opciones de enrutamiento";
 
-"driving_options_subheader" = "Evitar en todas las rutas";
+"avoid_tolls" = "Evitar peajes";
 
-"avoid_tolls" = "Carreteras de pago";
+"avoid_unpaved" = "Evitar caminos sin pavimentar";
 
-"avoid_unpaved" = "Caminos sin pavimento";
+"avoid_ferry" = "Evitar ferris";
 
-"avoid_ferry" = "Cruces de ferri";
-
-"avoid_motorways" = "Autopistas";
+"avoid_motorways" = "Evitar autopistas";
 
 "unable_to_calc_alert_title" = "No se puede calcular la ruta";
 

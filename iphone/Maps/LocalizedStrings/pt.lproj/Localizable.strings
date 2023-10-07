@@ -1013,15 +1013,13 @@
 
 "driving_options_title" = "Configurações de direção";
 
-"driving_options_subheader" = "Evitar em todos os percursos";
+"avoid_tolls" = "Evitar portagens";
 
-"avoid_tolls" = "Estradas com portagem";
+"avoid_unpaved" = "Evitar estradas não-pavimentadas";
 
-"avoid_unpaved" = "Estradas não pavimentadas";
+"avoid_ferry" = "Evitar balsas";
 
-"avoid_ferry" = "Ferry";
-
-"avoid_motorways" = "Autoestradas";
+"avoid_motorways" = "Evitar autoestradas";
 
 "unable_to_calc_alert_title" = "Não foi possível calcular a rota";
 

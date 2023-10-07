@@ -1013,15 +1013,13 @@
 
 "driving_options_title" = "Thiết lập đi vòng";
 
-"driving_options_subheader" = "Tránh trên mỗi tuyến";
+"avoid_tolls" = "Tránh đường thu phí";
 
-"avoid_tolls" = "Đường trả phí";
+"avoid_unpaved" = "Tránh đường đất";
 
-"avoid_unpaved" = "Đường đất";
+"avoid_ferry" = "Tránh qua phà";
 
-"avoid_ferry" = "Bến phà";
-
-"avoid_motorways" = "Đường cao tốc";
+"avoid_motorways" = "Tránh xa lộ";
 
 "unable_to_calc_alert_title" = "Không thể tạo tuyến đường";
 
