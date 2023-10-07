@@ -90,9 +90,9 @@
       }
 
       // TODO: Update this list with a new translation.
-      var translations = ['en', 'ru', 'de', 'es', 'fr', 'pt', 'pl', 'tr'];
+      var translations = ['en', 'ru', 'de', 'es', 'fr', 'pt', 'pl', 'tr', 'uk'];
       // Show Russian for browsers with this language codes.
-      var canReadRussian = ['ab', 'be', 'kk', 'ky', 'tg', 'uk', 'uz'];
+      var canReadRussian = ['ab', 'be', 'kk', 'ky', 'tg', 'uz'];
 
       // TODO: Properly handle be-EN, he-RU or similar cases.
       function showLanguage() {
@@ -124,6 +124,7 @@
       <h2 lang="pt-BR">Perguntas frequentes</h2>
       <h2 lang="pl">FAQ</h2>
       <h2 lang="tr">SSS</h2>
+      <h2 lang="uk">ЧаПи</h2>
 
       <ul>
         <li>
@@ -155,6 +156,7 @@
           <a lang="tr" href="#osm"
             >Haritada bazı yerler eksik veya yanlış adlara sahip</a
           >
+          <a href="#osm" class="link" lang="uk">Деякі місця відсутні на карті або мають неправильні назви</a>
         </li>
         <li>
           <a href="#no_location" class="link" lang="en"
@@ -184,6 +186,7 @@
           <a lang="tr" href="#no_location"
             >Uygulama konumumu haritada bulamıyor</a
           >
+          <a href="#no_location" class="link" lang="uk">Додаток не може визначити моє місцезнаходження на карті</a>
         </li>
         <li>
           <a href="#cant_download_maps" class="link" lang="en"
@@ -213,6 +216,7 @@
           <a lang="tr" href="#cant_download_maps"
             >Haritaları indiremiyorum/güncelleyemiyorum</a
           >
+          <a href="#cant_download_maps" class="link" lang="uk">Я не можу завантажити (оновити) карти</a>
         </li>
         <li>
           <a href="#cant_find_a_place" class="link" lang="en"
@@ -242,6 +246,7 @@
           <a lang="tr" href="#cant_find_a_place"
             >Arama, haritada bir yer bulamıyor</a
           >
+          <a href="#cant_find_a_place" class="link" lang="uk">Пошук не може знайти місце на карті</a>
         </li>
         <li>
           <a href="#crash" class="link" lang="en"
@@ -271,11 +276,10 @@
           <a lang="tr" href="#crash"
             >Uygulama çalışmayı durdurduysa (çöktüyse) ne yapmalıyım</a
           >
+          <a href="#crash" class="link" lang="uk">Що робити, якщо додаток несподівано закрився або вийшов з ладу</a>
         </li>
         <li>
-          <a href="#create_route" class="link" lang="en"
-            >How to create a route</a
-          >
+          <a href="#create_route" class="link" lang="en">How to create a route</a>
           <a lang="ru" href="#create_route">Как проложить маршрут</a>
           <a lang="de" href="#create_route">Wie erstelle ich eine Route</a>
           <a lang="es" href="#create_route">Cómo crear una ruta</a>
@@ -284,6 +288,7 @@
           <a lang="pt-BR" href="#create_route">Como criar uma rota</a>
           <a lang="pl" href="#create_route">Jak utworzyć trasę</a>
           <a lang="tr" href="#create_route">Nasıl rota oluşturulur</a>
+          <a href="#create_route" class="link" lang="uk">Як побудувати маршрут</a>
         </li>
         <li>
           <a href="#no_voice" class="link" lang="en"
@@ -299,6 +304,7 @@
           <a lang="pt-BR" href="#no_voice">Não consigo ouvir instruções de voz</a>
           <a lang="pl" href="#no_voice">Nie słyszę instrukcji głosowych</a>
           <a lang="tr" href="#no_voice">Sesli yönergeleri duyamıyorum</a>
+          <a href="#no_voice" class="link" lang="uk">Я не чую голосових підказок</a>
         </li>
         <li>
           <a lang="en" href="#bookmarks_export" class="link"
@@ -314,6 +320,7 @@
           <a lang="pt-BR" href="#bookmarks_export">Como exportar favoritos</a>
           <a lang="pl" href="#bookmarks_export">Jak eksportować zakładki</a>
           <a lang="tr" href="#bookmarks_export">Yer imleri nasıl dışa aktarılır</a>
+          <a lang="uk" href="#bookmarks_export" class="link">Як поділитися (експортувати) мітками</a>
         </li>
         <li>
           <a lang="en" href="#bookmarks_import" class="link"
@@ -329,6 +336,7 @@
           <a lang="pt-BR" href="#bookmarks_import">Como importar favoritos</a>
           <a lang="pl" href="#bookmarks_import">Jak importować zakładki</a>
           <a lang="tr" href="#bookmarks_export">Yer imleri nasıl içe aktarılır</a>
+          <a lang="uk" href="#bookmarks_import" class="link">Як імпортувати мітки</a>
         </li>
       </ul>
 
@@ -369,6 +377,10 @@
         <a href="https://organicmaps.app/tr/">organicmaps.app/tr/</a>
         web sitemizi ziyaret edin.
       </h4>
+      <h4 lang="uk">
+        Для отримання додаткової інформації, будь ласка, відвідайте наш веб-сайт
+        <a href="https://organicmaps.app/">organicmaps.app</a>
+      </h4>
     </div>
 
     <dl id="osm">
@@ -399,6 +411,9 @@
         </h3>
         <h3 lang="tr">
           Haritada bazı yerler eksik veya yanlış adlara sahip
+        </h3>
+        <h3 lang="uk">
+          Деякі місця відсутні на карті або мають неправильні назви
         </h3>
       </dt>
 
@@ -826,6 +841,52 @@
           </li>
         </ul>
       </dd>
+    
+      <dd lang="uk">
+        <p>
+          Джерелом наших картографічних даних є
+          <a href="https://welcome.openstreetmap.org/">OpenStreetMap</a> (OSM).
+          Це картографічний проект, подібний до Вікіпедії, але для мап, де
+          будь-хто може створювати та редагувати мапи.
+        </p>
+
+        <p>
+          Якщо ви побачили невірну інформацію або виявили, що деякі об'єкти
+          відсутні на карті, ви можете
+          <a href="https://www.openstreetmap.org/note/new">залишити повідомлення</a> для
+          редакторів OSM або
+          <a href="https://www.openstreetmap.org/user/new">реєструватися</a> і редагувати
+          мапу.
+        </p>
+
+        <p>
+          Чим більше людей долучається, тим детальніші стають карти. Ми віримо,
+          що найдетальніша карта всього світу, створена відкритою
+          спільнотою - це лише питання часу.
+        </p>
+
+        <p><b>Примітки:</b></p>
+
+        <ul>
+          <li>
+            <p>
+              Ви також можете додавати нові місця, редагувати існуючі POI та інформацію про будівлі
+              (адреси, години роботи, назви) безпосередньо в Organic Maps. Після того, як
+              ви ввійдете за допомогою облікового запису OSM, ваші правки будуть автоматично
+              завантажені на OSM. Будь ласка, будьте обережні при редагуванні, оскільки ваші правки
+              будуть видимі всім іншим користувачам.
+            </p>
+          </li>
+          <li>
+            <p>
+              База даних OpenStreetMap змінюється щохвилини. Ми прагнемо
+              оновлювати карти в додатку 1-4 рази на місяць. Якщо ви змінили
+              щось в OSM, ваші правки з'являться в наступних оновленнях мап.
+            </p>
+          </li>
+        </ul>
+      </dd>
+    </dl>
 
 
     <dl id="no_location">
@@ -839,6 +900,7 @@
         <h3 lang="pt-BR">O aplicativo não pode determinar minha localização</h3>
         <h3 lang="pl">Aplikacja nie może określić mojej lokalizacji</h3>
         <h3 lang="tr">Uygulama konumumu haritada bulamıyor</h3>
+        <h3 lang="uk">Додаток не може визначити моє місцезнаходження на карті</h3>
       </dt>
 
       <dt></dt>
@@ -1412,6 +1474,65 @@
           </li>
         </ul>
       </dd>
+    
+      <dd lang="uk">
+        <p>
+          Будь ласка, переконайтеся, що на вашому пристрої ввімкнено GPS та активовані
+          налаштування місцезнаходження.
+        </p>
+        <p><b>Android</b></p>
+        <p>
+          На вашому пристрої відкрийте Налаштування → Місцезнаходження. Краще
+          увімкнути режим високої точності.
+        </p>
+        <p>
+          Якщо у вас виникають труднощі з визначенням вашого місцезнаходження за допомогою GPS, увімкніть
+          (вимкніть, якщо увімкнено) "Сервіси Google Play" в налаштуваннях програми.
+        </p>
+        <p>
+          Примітка: ви можете побачити його, лише якщо на вашому пристрої встановлені
+          та увімкнені служби Google Play Android. Ці служби використовуються для
+          більш точного визначення місцезнаходження. Якщо у вас виникли проблеми з
+          з точністю визначення місцезнаходження після вимкнення цієї опції,
+          увімкніть її назад.
+        </p>
+        <p><b>iOS</b></p>
+        Якщо ви користувач iPhone або iPad, перевірте налаштування iOS → Конфіденційність →
+        Служби визначення місцезнаходження. Обмін геолокаційними даними слід увімкнути для
+        Organic Maps.
+        <p><b>Примітки:</b></p>
+        <ul>
+          <li>
+            <p>
+              Щоб уникнути небажаних даних у роумінгу, ви можете вимкнути всі мобільні
+              дані, активувати режим польоту або вимкнути мобільні дані для Organic
+              Maps у налаштуваннях вашого пристрою. Пристрої на Android та iOS можуть використовувати GPS
+              в режимі польоту.
+          </li>
+          <li>
+            <p>
+              Деякі мобільні пристрої не мають вбудованих GPS-приймачів, наприклад
+              iPod Touch, iPad з підтримкою Wi-Fi, Amazon Kindle Fire/Kindle Fire HD
+              7 та деякі планшети Android. На цих пристроях наш додаток буде
+              показуватиме ваше приблизне місцезнаходження за умови підключення до
+              до Інтернету.
+            </p>
+          </li>
+          <li>
+            <p>
+              Насамкінець, будь ласка, пам'ятайте, що визначення місцезнаходження
+              за допомогою GPS (з використанням WiFi але без мобільної мережи) може
+              зайняти деякий час. Чим довше GPS не використовувався, тим більше часу це займе. Швидкість
+              визначення місцезнаходження залежить від пристрою, а не від програми.
+              На роботу GPS приймача також впливає погода - він працює
+              найкраще на відкритому повітрі, коли небо чисте. Проблеми можуть виникнути при
+              при спробі визначити своє місцезнаходження в приміщенні, на вузькій вулиці
+              або за кермом автомобіля.
+            </p>
+          </li>
+        </ul>
+      </dd>
+    </dl>
 
     <dl id="cant_download_maps">
       <dt>
@@ -1424,6 +1545,7 @@
         <h3 lang="pt-BR">Não consigo baixar (atualizar) mapas</h3>
         <h3 lang="pl">Nie mogę pobrać (zaktualizować) map</h3>
         <h3 lang="tr">Haritaları indiremiyorum/güncelleyemiyorum</h3>
+        <h3 lang="uk">Я не можу завантажити (оновити) карти</h3>
       </dt>
 
       <dd lang="en">
@@ -1609,6 +1731,26 @@
 	  eski haritaları silip yeniden indirmek yardımcı olabilir.
         </p>
       </dd>
+    
+      <dd lang="uk">
+        <p>
+          Завантаження може завершитися невдало через тимчасову помилку мережі
+          або певні проблеми провайдера/маршрутизатора. Будь ласка, повторіть
+          спробу пізніше або використовуйте іншу точку доступу Wi-Fi. Крім того,
+          переконайтеся, що у вас є достатньо вільного місця для завантаження карт.
+        </p>
+
+        <p>
+          На Android, будь ласка, переконайтеся, що ви надали доступ до мережі для
+          Organic Maps і системний менеджер завантажень (провайдер завантажень).
+        </p>
+
+        <p>
+          Крім того, якщо у вас дуже застарілі карти, і програма не може їх оновити,
+          вам може допомогти видалення всіх карт і повторне їх завантаження.
+        </p>
+      </dd>
+    </dl>
 
     <dl id="cant_find_a_place">
       <h3 lang="en">Search cannot find a place on the map</h3>
@@ -1620,6 +1762,7 @@
       <h3 lang="pt-BR">A pesquisa não pode encontrar um lugar no mapa</h3>
       <h3 lang="pl">Wyszukiwanie nie może znaleźć miejsca na mapie</h3>
       <h3 lang="tr">Arama, haritada bir yer bulamıyor</h3>
+      <h3 lang="uk">Пошук не може знайти місце на карті</h3>
 
       <dd lang="en">
         Remember that to search for a place in a specific area, you will need to
@@ -1848,6 +1991,31 @@
           <a href="mailto:support@organicmaps.app">bize bildirin</a>.
         </p>
       </dd>
+      <dd lang="uk">
+        <p>
+          Пам'ятайте, що для пошуку місця в певному районі вам потрібно
+          завантажити відповідну мапу і збільшити масштаб карти до цієї області.
+          Або ж ваше місцезнаходження має бути поблизу цієї області, перш ніж
+          ви почнете пошук. Наприклад, якщо ви хочете знайти місце у В'єтнамі,
+          а ваше місцезнаходження десь в іншому місці, вам слід спочатку
+          завантажити і відкрити мапу В'єтнаму.
+        </p>
+
+        <p>
+          Крім того, місце може бути ще не додано на мапу в базі
+          <a href="https://www.openstreetmap.org/">OpenStreetMap.org</a>, нашому
+          джерелі картографічних даних. Якщо ви хочете допомогти і покращити мапу, перевірте
+          <a href="https://wiki.openstreetmap.org/wiki/Contribute_map_data">цей путівник</a>.
+        </p>
+
+        <p>
+          Якщо місце відображається на мапі в Organic Maps, але наш пошук
+          не може його знайти,
+          <a href="mailto:support@organicmaps.app">повідомте нам</a> координати
+          місця та приклад вашого пошукового запиту.
+        </p> 
+      </dd>
+    </dl>
 
     <dl id="crash">
       <dt>
@@ -1862,10 +2030,9 @@
         <h3 lang="fr">Pourquoi l'application s'arrête ou crash</h3>
         <h3 lang="pt">O que fazer se a aplicação parar de funcionar (bloquear)</h3>
         <h3 lang="pt-BR">O que posso fazer se o aplicativo parar (travar)</h3>
-        <h3 lang="pl">
-          Co mogę zrobić, jeśli aplikacja nie odpowiada/uległa awarii
-        </h3>
-	<h3 lang="tr">Uygulama durdurulursa/çökerse ne yapabilirim</h3>
+        <h3 lang="pl">Co mogę zrobić, jeśli aplikacja nie odpowiada/uległa awarii</h3>
+        <h3 lang="tr">Uygulama durdurulursa/çökerse ne yapabilirim</h3>
+        <h3 lang="uk">Що робити, якщо додаток несподівано закрився або вийшов з ладу</h3>
       </dt>
 
       <dd lang="en">
@@ -2122,6 +2289,32 @@
           <li>cihaz modeli ve İşletim Sistemi sürümü (Android veya iOS).</li>
         </ul>
       </dd>
+    
+      <dd lang="uk">
+        <p>
+          Ймовірно, це наша помилка, і ми будемо раді виправити її в наступному
+          оновленні.
+        </p>
+
+        <p>
+          Для Android пристроїв, якщо ви зберігаєте карти на SD-карті, найімовірнішою
+          причиною є несправна SD-карта. Ви можете відформатувати SD-карту, а ще краще
+          замінити її на нову. Якщо ви перемістили саму програму на SD-карту,
+          будь ласка, поверніть його назад у внутрішню пам'ять пристрою.
+        </p>
+
+        <p>
+          Якщо проблема не зникне, будь ласка
+          <a href="mailto:support@organicmaps.app">зв'яжіться з нами</a> і повідомте:
+        </p>
+
+        <ul>
+          <li>короткий опис проблеми</li>
+          <li>версію Organic Maps</li>
+          <li>модель пристрою та версія ОС (Android або iOS).</li>
+        </ul>
+      </dd>
+    </dl>
 
     <dl id="create_route">
       <dt>
@@ -2134,6 +2327,7 @@
         <h3 lang="pt-BR">Como criar uma rota</h3>
         <h3 lang="pl">Jak utworzyć trasę</h3>
         <h3 lang="tr">Nasıl rota oluşturulur</h3>
+        <h3 lang="uk">Як побудувати маршрут</h3>
       </dt>
 
       <dd lang="en">
@@ -2554,7 +2748,50 @@
 	  ayarlarını açın → Sürüş seçenekleri → gerekli seçenekleri açın.
         </p>
       </dd>
+    
+   <dd lang="uk">
+        <p>
+          Після того, як ваше місцезнаходження визначено на карті, оберіть пункт призначення.
+          Ви можете скористатися одним із наступних способів:
+        </p>
 
+        <ul>
+          <li>торкніться кнопки пошуку</li>
+          <li>торкніться кнопки закладок</li>
+          <li>торкніться будь-якого місця на карті (торкніться і утримуйте для порожніх областей)</li>
+        </p>
+        
+        <p>
+          Після того, як ви обрали пункт призначення, натисніть кнопку "Прокласти маршрут" на
+          нижній панелі. Маршрут буде створено, і ви побачите відстань
+          та приблизний час у дорозі. Ви можете змінити тип маршруту, натиснувши
+          іконку Автомобіль, Пішохід, Метро, Велосипед або Лінійка у верхній частині
+          екрана. Щоб почати рух за маршрутом, натисніть кнопку "Почати". Під час навігацію
+          натисніть на значок у правому нижньому куті екрана і натисніть кнопку "Зупинити"
+          щоб завершити маршрут.
+        </p>
+       
+        <p>
+          На iOS пристроях щоб спланувати маршрут, ви можете натиснути іконку "Маршрут" на
+          нижній панелі меню. Такоже ви можете вибрати іншу початкову точку (кнопка
+          "Маршрут від") для попереднього перегляду маршруту, але навігація доступна лише
+          з вашого поточного місцезнаходження.
+        </p>
+
+        <p>
+          До маршруту можна додати до 100 проміжних пунктів. Щоб додати
+          проміжний пункт: створіть маршрут між пунктом відправлення та пунктом
+          призначення → потім торкніться точки на мапі і натисніть "Додати зупинку".
+        </p>
+
+        <p>
+          Ви можете змінити налаштування автомобільного маршруту і вибрати типи доріг
+          які ви хотіли б уникати (платні дороги, ґрунтові дороги, автомагістралі,
+          пороми). Відкрийте налаштування програми → Налаштування обʼїзду → увімкніть
+          потрібні опції.
+        </p>
+      </dd>
+    </dl>
 
     <dl id="no_voice">
       <dt>
@@ -2567,6 +2804,7 @@
         <h3 lang="pt-BR">Não consigo ouvir instruções de voz</h3>
         <h3 lang="pl">Nie słyszę instrukcji głosowych</h3>
         <h3 lang="tr">Sesli yönlendirmeyi duyamıyorum</h3>
+        <h3 lang="uk">Я не чую голосових підказок</h3>
       </dt>
 
       <dd lang="en">
@@ -2626,7 +2864,7 @@
           Arabic, Chinese (Traditional and Simplified), Czech, Danish, Dutch,
           Finnish, French, German, Greek, Hindi, Hungarian, Indonesian, Italian,
           Japanese, Korean, Polish, Portuguese, Romanian, Russian, Slovak,
-          Spanish, Swedish, Thai, Turkish.
+          Spanish, Swedish, Thai, Ukrainian, Turkish.
         </p>
       </dd>
 
@@ -2963,6 +3201,67 @@
 	  Slovakça, Tayca, Yunanca.
         </p>
       </dd>
+    
+      <dd lang="uk">
+        <p>
+          <b>Зауваження:</b> голосові підказки доступні для автомобільних та велосипедних
+          маршрутів. Наразі ви можете чути голосові підказки лише під час руху
+          і коли екран увімкнено.
+        </p>
+
+        <p>Якщо ви не чуєте голосові підказки:</p>
+
+        <ul>
+          <li>
+            <p>
+              Переконайтеся, що на вашому пристрої не вимкнено звук. Ви можете
+              змінити рівень гучності за допомогою кнопок гучності вашого пристрою.
+              Щоб це зробити вам, можливо, доведеться вимкнути опцію "Змінювати кнопками"
+              (якщо її увімкнено) у Налаштуваннях пристрою → Звуки.
+             </p>
+          </li>
+
+          <li>
+            <p>
+              Коли ви вмикаєте Bluetooth, він не повинен відображати голосові
+              інструкції. Однак ми не тестували голосові підказки з автомобільним
+              аудіо, це може спричинити проблеми. У такому разі ви можете вимкнути
+              Bluetooth.
+            </p>
+          </li>
+
+          <li>
+            <p>
+              Якщо ви користувач Android і ця опція вимкнена (або деякі з
+              з підтримуваних мов недоступні), перевірте системні налаштування TTS.
+            </p>
+          </li>
+        </ul>
+
+        <p>
+          На Android голосові інструкції доступні 27 мовами: Англійська,
+          арабська, китайська (традиційна та спрощена), чеська, данська, голландська, чеська, датська,
+          фінська, французька, німецька, грецька, хінді, угорська, індонезійська, італійська, німецька, італійська, угорська, хінді,
+          японська, корейська, перська, польська, португальська, румунська, російська, французька, чеська, японська,
+          іспанська, тайська, турецька, українська, французька, в'єтнамська.
+        </p>
+
+        <p>
+          Google TTS підтримує всі перелічені мови, окрім арабської та перської
+          (фарсі). Для цих мов вам може знадобитися встановити сторонній TTS
+          (наприклад, eSpeak TTS, Vocalizer TTS або SVOX Classic TTS) і
+          мовний пакет з магазину додатків (Google Play Store, Galaxy Store тощо).
+        </p>
+
+        <p>
+          На iOS голосові інструкції доступні 26 мовами: Англійська,
+          арабська, китайська (традиційна та спрощена), чеська, данська, голландська, чеська, датська,
+          фінська, французька, німецька, грецька, хінді, угорська, індонезійська, італійська, німецька, хорватська, чеська, шведська, японська,
+          японська, корейська, польська, португальська, румунська, російська, словацька, словацька,
+          іспанська, шведська, тайська, українсьска, турецька.
+        </p>
+      </dd>
+    </dl>
 
 
     <dl id="bookmarks_export">
@@ -2976,6 +3275,7 @@
         <h3 lang="pt-BR">Como compartilhar (exportar) favoritos</h3>
         <h3 lang="pl">Jak udostępniać (eksportować) zakładki</h3>
         <h3 lang="tr">Yer imleri nasıl paylaşılır/dışa aktarılır</h3>
+        <h3 lang="uk">Як поділитися (експортувати) мітками</h3>
       </dt>
 
       <dd lang="en">
@@ -3060,6 +3360,14 @@
 	önündeki üç noktaya dokunun ve açılır pencereden Dosyayı Dışa Aktar'a dokunun.
       </dd>
 
+      <dd lang="uk">
+        Виберіть мітку на карті, торкніться її, а потім натисніть кнопку "Поділитися"
+        в нижній панели. Щоб поділитися відразу всіма мітками зі списку, торкніться
+        символу зірки на головному екрані, потім торкніться значка з трьома крапками після
+        назви списку з мітками і натисніть "Експортувати файл" у спливаючому вікні.
+      </dd>
+    </dl>
+
     <dl id="bookmarks_import">
       <dt>
         <h3 lang="en">How to import bookmarks</h3>
@@ -3071,6 +3379,7 @@
         <h3 lang="pt-BR">Como importar favoritos</h3>
         <h3 lang="pl">Jak importować zakładki</h3>
         <h3 lang="tr">Yer imleri nasıl içe aktarılır</h3>
+        <h3 lang="uk">Як імпортувати мітки</h3>
       </dt>
 
       <dd lang="en">
@@ -3464,6 +3773,43 @@
           </li>
         </ol>
       </dd>
+    
+      <dd lang="uk">
+        Ви можете імпортувати мітки, надіслані з Organic Maps або зі сторонніх додатків,
+        які підтримують експорт у формати KML, KMZ або GPX:
+
+        <ol>
+          <li>
+            <p>
+              На Android ви можете імпортувати мітки з папок і програм (включно з Maps.Me).
+              Натисніть кнопку із зірочкою, щоб відкрити мітки, натисніть
+              "Імпортувати мітки" і виберіть диск або папку з файлами KML, KMZ, GPX.
+            </p>
+          </li>
+
+          <li>
+            <p>
+              Відкрийте файл KML, KMZ, GPX із мітками, який ви отримали електронною поштою,
+              в месенджері або через хмарним сховище, наприклад, iCloud або Google Drive.
+            </p>
+          </li>
+          <li>
+            <p>
+              Натисніть один раз або натисніть і утримуйте файл KML, KMZ, GPX із мітками та
+              виберіть "Відкрити за допомогою Organic Maps" (Android) або "Імпортувати за допомогою Organic
+              Maps" (iOS) у спливаючому вікні.
+            </p>
+          </li>
+
+          <li>
+            <p>
+              Її буде відкрито у програмі Organic Maps, і ви побачите повідомлення "Закладки завантажено
+              успішно!". Ви можете побачити їх на мапі або в меню Мітки на головному екрані.
+            </p>
+          </li>
+        </ol>
+      </dd>
+    </dl>
 
     <a href="#" lang="en">Go to Top</a>
     <a href="#" lang="ru">Наверх</a>
@@ -3474,5 +3820,5 @@
     <a href="#" lang="pt-BR">Ir para o início</a>
     <a href="#" lang="pl">Idź na górę</a>
     <a href="#" lang="tr">Başa Git</a>
+    <a href="#" lang="uk">До початку</a>
   </body>
-</html>
