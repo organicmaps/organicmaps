@@ -696,6 +696,7 @@
 	<string name="type.amenity.parking_entrance.permissive">Вход за паркинг</string>
 	<string name="type.amenity.parking_space.disabled">Паркомясто за инвалиди</string>
 	<string name="type.amenity.place_of_worship.christian.mormon">Църквата на Исус Христос на светиите от последните дни</string>
+	<string name="type.amenity.place_of_worship.christian.jehovahs_witness">Зала на царството на Свидетелите на Йехова</string>
 
 	<!-- SECTION: Types: Recycling -->
 	<string name="type.recycling.batteries">Батерии</string>
