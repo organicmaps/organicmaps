@@ -14,10 +14,6 @@ class DrivingOptionsViewController: MWMTableViewController {
     ferryCrossingsCell.isOn = options.avoidFerry
     motorwaysCell.isOn = options.avoidMotorway
   }
-
-  override func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
-    return L("driving_options_subheader")
-  }
 }
 
 extension DrivingOptionsViewController: SettingsTableViewSwitchCellDelegate {
