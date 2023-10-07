@@ -15524,6 +15524,7 @@
   [type.leisure.marina]
     en = Marina
     af = Jaghawe
+    ar = مرسى
     be = Прычал
     de = Jachthafen
     es = Marina
@@ -22573,6 +22574,7 @@
     en = RV Dealership
     en-GB = Caravan Dealership
     af = Karavaanhandelaar
+    ar = معرض سيارات التخييم
     be = Продаж аўтадамоў
     de = Wohnmobilhändler
     es = Concesionario de caravanas
@@ -23594,6 +23596,7 @@
     en = Grocery Store
     en-GB = Grocery Shop
     af = Kruidenier
+    ar = محل بقالة
     be = Бакалея
     bg = Хранителни стоки
     cs = Potraviny
