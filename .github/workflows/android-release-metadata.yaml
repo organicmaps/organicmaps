@@ -19,7 +19,7 @@ jobs:
         run: git submodule update --depth 1 --init --recursive --jobs=$(($(nproc) * 20))
 
       - name: Checkout screenshots
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
         with:
           repository: ${{ secrets.SCREENSHOTS_REPO }}
           ssh-key: ${{ secrets.SCREENSHOTS_SSH_KEY }}
@@ -27,7 +27,7 @@ jobs:
           path: screenshots
 
       - name: Checkout private keys
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
         with:
           repository: ${{ secrets.PRIVATE_REPO }}
           ssh-key: ${{ secrets.PRIVATE_SSH_KEY }}
