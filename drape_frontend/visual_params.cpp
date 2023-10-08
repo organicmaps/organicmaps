@@ -217,6 +217,7 @@ int GetTileScaleBase(ScreenBase const & s)
 int GetTileScaleBase(m2::RectD const & r)
 {
   double const sz = std::max(r.SizeX(), r.SizeY());
+  ASSERT_GREATER(sz, 0., ("Rect should not be a point:", r));
   return std::max(1, base::SignedRound(std::log2(mercator::Bounds::kRangeX / sz)));
 }
 
