@@ -31,11 +31,11 @@ NSString *titleForButton(MWMActionBarButtonType type, BOOL isSelected) {
     case MWMActionBarButtonTypeRouteRemoveStop:
       return L(@"placepage_remove_stop");
     case MWMActionBarButtonTypeAvoidToll:
-      return L(@"avoid_toll_roads_placepage");
+      return L(@"avoid_tolls");
     case MWMActionBarButtonTypeAvoidDirty:
-      return L(@"avoid_unpaved_roads_placepage");
+      return L(@"avoid_unpaved");
     case MWMActionBarButtonTypeAvoidFerry:
-      return L(@"avoid_ferry_crossing_placepage");
+      return L(@"avoid_ferry");
   }
 }
 
