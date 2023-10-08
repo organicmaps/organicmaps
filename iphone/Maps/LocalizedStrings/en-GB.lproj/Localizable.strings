@@ -1419,17 +1419,25 @@
 
 "type.amenity.parking.underground" = "Underground Parking";
 
-"type.amenity.parking.street_side" = "Parking";
+"type.amenity.parking.underground.fee" = "Paid Underground Parking";
 
-"type.amenity.parking.fee.street_side" = "Parking";
+"type.amenity.parking.underground.private" = "Private Underground Parking";
+
+"type.amenity.parking.street_side" = "Street-Side Parking";
+
+"type.amenity.parking.street_side.fee" = "Paid Street-Side Parking";
+
+"type.amenity.parking.street_side.private" = "Private Street-Side Parking";
 
 "type.amenity.parking.lane" = "Parking";
 
-"type.amenity.parking.fee.lane" = "Parking";
+"type.amenity.parking.lane.fee" = "Parking";
+
+"type.amenity.parking.lane.private" = "Parking";
 
 "type.amenity.parking_entrance" = "Parking Entrance";
 
-"type.amenity.parking_entrance.private" = "Parking Entrance";
+"type.amenity.parking_entrance.private" = "Private Parking Entrance";
 
 "type.amenity.parking_entrance.permissive" = "Parking Entrance";
 

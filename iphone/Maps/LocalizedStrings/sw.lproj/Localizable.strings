@@ -1419,17 +1419,25 @@
 
 "type.amenity.parking.underground" = "Maegesho ya chini ya ardhi";
 
-"type.amenity.parking.street_side" = "Maegesho";
+"type.amenity.parking.underground.fee" = "Maegesho ya chini ya ardhi yanayolipwa";
 
-"type.amenity.parking.fee.street_side" = "Maegesho";
+"type.amenity.parking.underground.private" = "Maegesho ya kibinafsi ya chini ya ardhi";
 
-"type.amenity.parking.lane" = "Maegesho";
+"type.amenity.parking.street_side" = "Maegesho ya upande wa mtaa";
 
-"type.amenity.parking.fee.lane" = "Maegesho";
+"type.amenity.parking.street_side.fee" = "Maegesho yanayolipishwa ya barabarani";
+
+"type.amenity.parking.street_side.private" = "Maegesho ya upande wa mtaa wa kibinafsi";
+
+"type.amenity.parking.lane" = "Maegesho ya njia";
+
+"type.amenity.parking.lane.fee" = "Maegesho ya njia ya kulipwa";
+
+"type.amenity.parking.lane.private" = "Maegesho ya njia ya kibinafsi";
 
 "type.amenity.parking_entrance" = "Mlango wa maegesho";
 
-"type.amenity.parking_entrance.private" = "Mlango wa maegesho";
+"type.amenity.parking_entrance.private" = "Mlango wa maegesho ya kibinafsi";
 
 "type.amenity.parking_entrance.permissive" = "Mlango wa maegesho";
 

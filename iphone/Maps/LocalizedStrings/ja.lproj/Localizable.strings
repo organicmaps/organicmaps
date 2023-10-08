@@ -1419,17 +1419,25 @@
 
 "type.amenity.parking.underground" = "地下駐車場";
 
-"type.amenity.parking.street_side" = "駐車場";
+"type.amenity.parking.underground.fee" = "有料地下駐車場";
 
-"type.amenity.parking.fee.street_side" = "駐車場";
+"type.amenity.parking.underground.private" = "専用地下駐車場";
 
-"type.amenity.parking.lane" = "駐車場";
+"type.amenity.parking.street_side" = "路上駐車";
 
-"type.amenity.parking.fee.lane" = "駐車場";
+"type.amenity.parking.street_side.fee" = "有料路上駐車場";
+
+"type.amenity.parking.street_side.private" = "プライベート・ストリート・サイド・パーキング";
+
+"type.amenity.parking.lane" = "レーンパーキング";
+
+"type.amenity.parking.lane.fee" = "有料レーン駐車場";
+
+"type.amenity.parking.lane.private" = "専用レーン駐車場";
 
 "type.amenity.parking_entrance" = "駐車場入口";
 
-"type.amenity.parking_entrance.private" = "駐車場入口";
+"type.amenity.parking_entrance.private" = "専用駐車場入り口";
 
 "type.amenity.parking_entrance.permissive" = "駐車場入口";
 

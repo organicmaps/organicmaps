@@ -1419,17 +1419,25 @@
 
 "type.amenity.parking.underground" = "Υπόγειος χώρος στάθμευσης";
 
-"type.amenity.parking.street_side" = "Χώρος στάθμευσης";
+"type.amenity.parking.underground.fee" = "Υπόγειος χώρος στάθμευσης επί πληρωμή";
 
-"type.amenity.parking.fee.street_side" = "Χώρος στάθμευσης";
+"type.amenity.parking.underground.private" = "Ιδιωτικός υπόγειος χώρος στάθμευσης";
 
-"type.amenity.parking.lane" = "Χώρος στάθμευσης";
+"type.amenity.parking.street_side" = "Στάθμευση στην πλευρά του δρόμου";
 
-"type.amenity.parking.fee.lane" = "Χώρος στάθμευσης";
+"type.amenity.parking.street_side.fee" = "Πληρωμένη στάθμευση στο δρόμο";
+
+"type.amenity.parking.street_side.private" = "Ιδιωτικός δρόμος πλευρικός χώρος στάθμευσης";
+
+"type.amenity.parking.lane" = "Λωρίδα στάθμευσης";
+
+"type.amenity.parking.lane.fee" = "Χώρος στάθμευσης επί πληρωμή";
+
+"type.amenity.parking.lane.private" = "Ιδιωτική λωρίδα στάθμευσης";
 
 "type.amenity.parking_entrance" = "Είσοδος στάθμευσης";
 
-"type.amenity.parking_entrance.private" = "Είσοδος στάθμευσης";
+"type.amenity.parking_entrance.private" = "Ιδιωτική είσοδος στάθμευσης";
 
 "type.amenity.parking_entrance.permissive" = "Είσοδος στάθμευσης";
 

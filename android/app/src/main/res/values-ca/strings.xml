@@ -746,6 +746,15 @@
 	<string name="type.amenity.exhibition_centre">Centre d\'exposicions</string>
 	<string name="type.amenity.money_transfer">Transferència de diners</string>
 	<string name="type.amenity.loading_dock">Moll de càrrega</string>
+	<string name="type.amenity.parking.underground.fee">Aparcament subterrani de pagament</string>
+	<string name="type.amenity.parking.underground.private">Aparcament subterrani privat</string>
+	<string name="type.amenity.parking.street_side">Aparcament al carrer</string>
+	<string name="type.amenity.parking.street_side.fee">Aparcament al carrer de pagament</string>
+	<string name="type.amenity.parking.street_side.private">Aparcament privat al carrer</string>
+	<string name="type.amenity.parking.lane">Aparcament del carril</string>
+	<string name="type.amenity.parking.lane.fee">Aparcament de carril de pagament</string>
+	<string name="type.amenity.parking.lane.private">Aparcament de carril privat</string>
+	<string name="type.amenity.parking_entrance.private">Entrada d\'aparcament privat</string>
 	<string name="type.amenity.place_of_worship.christian.mormon">Església de Jesucrist dels Sants dels Últims Dies</string>
 	<string name="type.amenity.place_of_worship.christian.jehovahs_witness">Sala del Regne dels Testimonis de Jehovà</string>
 

@@ -1419,17 +1419,25 @@
 
 "type.amenity.parking.underground" = "Underjordisk parkering";
 
-"type.amenity.parking.street_side" = "Parkering";
+"type.amenity.parking.underground.fee" = "Betald underjordisk parkering";
 
-"type.amenity.parking.fee.street_side" = "Parkering";
+"type.amenity.parking.underground.private" = "Privat underjordisk parkering";
 
-"type.amenity.parking.lane" = "Parkering";
+"type.amenity.parking.street_side" = "Gata sida parkering";
 
-"type.amenity.parking.fee.lane" = "Parkering";
+"type.amenity.parking.street_side.fee" = "Betald gata sidoparkering";
+
+"type.amenity.parking.street_side.private" = "Privat gata sidoparkering";
+
+"type.amenity.parking.lane" = "Körfält parkering";
+
+"type.amenity.parking.lane.fee" = "Avgiftsbelagd körfältsparkering";
+
+"type.amenity.parking.lane.private" = "Privat körfält parkering";
 
 "type.amenity.parking_entrance" = "Parkering entré";
 
-"type.amenity.parking_entrance.private" = "Parkering entré";
+"type.amenity.parking_entrance.private" = "Privat parkeringsingång";
 
 "type.amenity.parking_entrance.permissive" = "Parkering entré";
 

@@ -1419,17 +1419,25 @@
 
 "type.amenity.parking.underground" = "Mélygarázs";
 
-"type.amenity.parking.street_side" = "Parkoló";
+"type.amenity.parking.underground.fee" = "Fizetős mélygarázs";
 
-"type.amenity.parking.fee.street_side" = "Parkoló";
+"type.amenity.parking.underground.private" = "Privát földalatti parkoló";
 
-"type.amenity.parking.lane" = "Parkoló";
+"type.amenity.parking.street_side" = "Utca oldali parkolás";
 
-"type.amenity.parking.fee.lane" = "Parkoló";
+"type.amenity.parking.street_side.fee" = "Fizetős utcai parkolás";
+
+"type.amenity.parking.street_side.private" = "Privát utca oldali parkolás";
+
+"type.amenity.parking.lane" = "Sávos parkolás";
+
+"type.amenity.parking.lane.fee" = "Fizetős sávos parkolás";
+
+"type.amenity.parking.lane.private" = "Privát sávos parkolás";
 
 "type.amenity.parking_entrance" = "Parkoló bejárata";
 
-"type.amenity.parking_entrance.private" = "Parkoló bejárata";
+"type.amenity.parking_entrance.private" = "Privát parkoló bejárat";
 
 "type.amenity.parking_entrance.permissive" = "Parkoló bejárata";
 

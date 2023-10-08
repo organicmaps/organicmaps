@@ -1419,17 +1419,25 @@
 
 "type.amenity.parking.underground" = "Underjordisk parkering";
 
-"type.amenity.parking.street_side" = "Parkering";
+"type.amenity.parking.underground.fee" = "Betalt underjordisk parkering";
 
-"type.amenity.parking.fee.street_side" = "Parkering";
+"type.amenity.parking.underground.private" = "Privat underjordisk parkering";
 
-"type.amenity.parking.lane" = "Parkering";
+"type.amenity.parking.street_side" = "Parkering på gadesiden";
 
-"type.amenity.parking.fee.lane" = "Parkering";
+"type.amenity.parking.street_side.fee" = "Betalt parkering på gadesiden";
+
+"type.amenity.parking.street_side.private" = "Privat gade sideparkering";
+
+"type.amenity.parking.lane" = "Parkering på kørebane";
+
+"type.amenity.parking.lane.fee" = "Betalt baneparkering";
+
+"type.amenity.parking.lane.private" = "Privat vej parkering";
 
 "type.amenity.parking_entrance" = "Parkeringsindgang";
 
-"type.amenity.parking_entrance.private" = "Parkeringsindgang";
+"type.amenity.parking_entrance.private" = "Privat indgang til parkering";
 
 "type.amenity.parking_entrance.permissive" = "Parkeringsindgang";
 

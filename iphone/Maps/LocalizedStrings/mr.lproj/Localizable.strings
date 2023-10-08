@@ -1419,17 +1419,25 @@
 
 "type.amenity.parking.underground" = "Underground Parking";
 
-"type.amenity.parking.street_side" = "वाहनतळ";
+"type.amenity.parking.underground.fee" = "सशुल्क भूमिगत पार्किंग";
 
-"type.amenity.parking.fee.street_side" = "वाहनतळ";
+"type.amenity.parking.underground.private" = "खाजगी भूमिगत पार्किंग";
 
-"type.amenity.parking.lane" = "वाहनतळ";
+"type.amenity.parking.street_side" = "स्ट्रीट साइड पार्किंग";
 
-"type.amenity.parking.fee.lane" = "वाहनतळ";
+"type.amenity.parking.street_side.fee" = "पेड स्ट्रीट साइड पार्किंग";
+
+"type.amenity.parking.street_side.private" = "खाजगी रस्त्यावरील बाजूचे पार्किंग";
+
+"type.amenity.parking.lane" = "लेन पार्किंग";
+
+"type.amenity.parking.lane.fee" = "सशुल्क लेन पार्किंग";
+
+"type.amenity.parking.lane.private" = "खाजगी लेन पार्किंग";
 
 "type.amenity.parking_entrance" = "Parking Entrance";
 
-"type.amenity.parking_entrance.private" = "Parking Entrance";
+"type.amenity.parking_entrance.private" = "खाजगी पार्किंग प्रवेशद्वार";
 
 "type.amenity.parking_entrance.permissive" = "Parking Entrance";
 

@@ -1419,17 +1419,25 @@
 
 "type.amenity.parking.underground" = "موقف سيارات تحت الأرض";
 
-"type.amenity.parking.street_side" = "موقف سيارات";
+"type.amenity.parking.underground.fee" = "موقف سيارات مدفوع الأجر تحت الأرض";
 
-"type.amenity.parking.fee.street_side" = "موقف سيارات";
+"type.amenity.parking.underground.private" = "موقف سيارات خاص تحت الأرض";
 
-"type.amenity.parking.lane" = "موقف سيارات";
+"type.amenity.parking.street_side" = "موقف سيارات على جانب الشارع";
 
-"type.amenity.parking.fee.lane" = "موقف سيارات";
+"type.amenity.parking.street_side.fee" = "موقف سيارات مدفوع الأجر على جانب الشارع";
+
+"type.amenity.parking.street_side.private" = "موقف سيارات خاص على جانب الشارع";
+
+"type.amenity.parking.lane" = "وقوف السيارات لين";
+
+"type.amenity.parking.lane.fee" = "موقف سيارات مدفوع الأجر";
+
+"type.amenity.parking.lane.private" = "موقف سيارات خاص بالممر";
 
 "type.amenity.parking_entrance" = "مدخل موقف سيارات";
 
-"type.amenity.parking_entrance.private" = "مدخل موقف سيارات";
+"type.amenity.parking_entrance.private" = "مدخل خاص لوقوف السيارات";
 
 "type.amenity.parking_entrance.permissive" = "مدخل موقف سيارات";
 

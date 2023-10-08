@@ -1419,17 +1419,25 @@
 
 "type.amenity.parking.underground" = "Подземен паркинг";
 
-"type.amenity.parking.street_side" = "Паркинг";
+"type.amenity.parking.underground.fee" = "Платен подземен паркинг";
 
-"type.amenity.parking.fee.street_side" = "Паркинг";
+"type.amenity.parking.underground.private" = "Частен подземен паркинг";
 
-"type.amenity.parking.lane" = "Паркинг";
+"type.amenity.parking.street_side" = "Паркинг от страната на улицата";
 
-"type.amenity.parking.fee.lane" = "Паркинг";
+"type.amenity.parking.street_side.fee" = "Платен паркинг от страната на улицата";
+
+"type.amenity.parking.street_side.private" = "Частна улица страничен паркинг";
+
+"type.amenity.parking.lane" = "Паркинг на платното";
+
+"type.amenity.parking.lane.fee" = "Платен паркинг";
+
+"type.amenity.parking.lane.private" = "Частна лента за паркиране";
 
 "type.amenity.parking_entrance" = "Вход за паркинг";
 
-"type.amenity.parking_entrance.private" = "Вход за паркинг";
+"type.amenity.parking_entrance.private" = "Частен вход за паркинг";
 
 "type.amenity.parking_entrance.permissive" = "Вход за паркинг";
 

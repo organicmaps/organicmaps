@@ -1419,17 +1419,25 @@
 
 "type.amenity.parking.underground" = "Maa-alune parkimine";
 
-"type.amenity.parking.street_side" = "Parkimine";
+"type.amenity.parking.underground.fee" = "Tasuline maa-alune parkimine";
 
-"type.amenity.parking.fee.street_side" = "Parkimine";
+"type.amenity.parking.underground.private" = "Privaatne maa-alune parkimine";
 
-"type.amenity.parking.lane" = "Parkimine";
+"type.amenity.parking.street_side" = "Tänavaäärne parkimine";
 
-"type.amenity.parking.fee.lane" = "Parkimine";
+"type.amenity.parking.street_side.fee" = "Tasuline tänavaäärne parkimine";
+
+"type.amenity.parking.street_side.private" = "Privaatne tänavaäärne parkimine";
+
+"type.amenity.parking.lane" = "Parkimine sõidurajal";
+
+"type.amenity.parking.lane.fee" = "Tasuline parkimine";
+
+"type.amenity.parking.lane.private" = "Privaatne tee parkimine";
 
 "type.amenity.parking_entrance" = "Parkla sissepääs";
 
-"type.amenity.parking_entrance.private" = "Parkla sissepääs";
+"type.amenity.parking_entrance.private" = "Eraldi parkla sissepääs";
 
 "type.amenity.parking_entrance.permissive" = "Parkla sissepääs";
 

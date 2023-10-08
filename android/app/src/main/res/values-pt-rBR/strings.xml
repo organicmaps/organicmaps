@@ -799,6 +799,12 @@
 	<string name="type.amenity.parking.permissive">Estacionamento privado</string>
 	<string name="type.amenity.parking.private">Estacionamento privado</string>
 	<string name="type.amenity.parking.park_and_ride">Estacionamento Park &amp; Ride</string>
+	<string name="type.amenity.parking.underground.private">Estacionamento subterrâneo privativo</string>
+	<string name="type.amenity.parking.street_side.private">Estacionamento ao lado da rua privativo</string>
+	<string name="type.amenity.parking.lane">Estacionamento na rua</string>
+	<string name="type.amenity.parking.lane.fee">Estacionamento na rua pago</string>
+	<string name="type.amenity.parking.lane.private">Estacionamento na rua privativo</string>
+	<string name="type.amenity.parking_entrance.private">Entrada para estacionamento privativo</string>
 	<string name="type.amenity.payment_terminal">Terminal de pagamento</string>
 	<string name="type.amenity.pharmacy">Farmácia</string>
 	<string name="type.amenity.place_of_worship">Local de culto</string>

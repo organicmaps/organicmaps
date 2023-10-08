@@ -1419,17 +1419,25 @@
 
 "type.amenity.parking.underground" = "Tiefgarage";
 
-"type.amenity.parking.street_side" = "Parkplatz";
+"type.amenity.parking.underground.fee" = "Kostenpflichtige Tiefgarage";
 
-"type.amenity.parking.fee.street_side" = "Parkplatz";
+"type.amenity.parking.underground.private" = "Private Tiefgarage";
 
-"type.amenity.parking.lane" = "Parkplatz";
+"type.amenity.parking.street_side" = "Parkbucht";
 
-"type.amenity.parking.fee.lane" = "Parkplatz";
+"type.amenity.parking.street_side.fee" = "Kostenpflichtige Parkbucht";
+
+"type.amenity.parking.street_side.private" = "Private Parkbucht";
+
+"type.amenity.parking.lane" = "Fahrspur parken";
+
+"type.amenity.parking.lane.fee" = "Bezahltes parken auf der straße";
+
+"type.amenity.parking.lane.private" = "Privatspur parken";
 
 "type.amenity.parking_entrance" = "Parkplatzeinfahrt";
 
-"type.amenity.parking_entrance.private" = "Parkplatzeinfahrt";
+"type.amenity.parking_entrance.private" = "Private Parkplatzeinfahrt";
 
 "type.amenity.parking_entrance.permissive" = "Parkplatzeinfahrt";
 
