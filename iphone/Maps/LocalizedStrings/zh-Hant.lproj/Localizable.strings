@@ -1419,17 +1419,25 @@
 
 "type.amenity.parking.underground" = "地下停車場";
 
-"type.amenity.parking.street_side" = "停車場";
+"type.amenity.parking.underground.fee" = "收費地下停車場";
 
-"type.amenity.parking.fee.street_side" = "停車場";
+"type.amenity.parking.underground.private" = "私人地下停車場";
 
-"type.amenity.parking.lane" = "停車場";
+"type.amenity.parking.street_side" = "街邊停車";
 
-"type.amenity.parking.fee.lane" = "停車場";
+"type.amenity.parking.street_side.fee" = "付費街邊停車場";
+
+"type.amenity.parking.street_side.private" = "私人街邊停車場";
+
+"type.amenity.parking.lane" = "車道停車";
+
+"type.amenity.parking.lane.fee" = "收費車道停車";
+
+"type.amenity.parking.lane.private" = "私人車道停車";
 
 "type.amenity.parking_entrance" = "停車場入口";
 
-"type.amenity.parking_entrance.private" = "停車場入口";
+"type.amenity.parking_entrance.private" = "私人停車場入口";
 
 "type.amenity.parking_entrance.permissive" = "停車場入口";
 

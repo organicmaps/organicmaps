@@ -190,13 +190,32 @@
 	<!-- SECTION: Types -->
 	<string name="type.amenity">Infraestructura</string>
 	<string name="type.amenity.arts_centre">Centro de artes</string>
-	<string name="type.amenity.parking.no.access">Aparcamiento privado</string>
-	<string name="type.amenity.parking.permissive">Aparcamiento privado</string>
-	<string name="type.amenity.parking.private">Aparcamiento privado</string>
-	<string name="type.amenity.parking_space">Plaza de aparcamiento</string>
-	<string name="type.amenity.parking_space.permissive">Plaza de aparcamiento</string>
-	<string name="type.amenity.parking_space.private">Plaza de aparcamiento</string>
-	<string name="type.amenity.parking_space.underground">Plaza de aparcamiento</string>
+	<string name="type.amenity.bicycle_parking">Estacionamiento de bicicletas</string>
+	<string name="type.amenity.motorcycle_parking">Estacionamiento de motocicletas</string>
+	<string name="type.amenity.parking">Estacionamiento</string>
+	<string name="type.amenity.parking.fee">Estacionamiento de pago</string>
+	<string name="type.amenity.parking.multi.storey">Estacionamiento de varios pisos</string>
+	<string name="type.amenity.parking.no.access">Estacionamiento privado</string>
+	<string name="type.amenity.parking.permissive">Estacionamiento privado</string>
+	<string name="type.amenity.parking.private">Estacionamiento privado</string>
+	<string name="type.amenity.parking.park_and_ride">Estacionamiento</string>
+	<string name="type.amenity.parking.underground">Estacionamiento subterráneo</string>
+	<string name="type.amenity.parking.underground.fee">Estacionamiento subterráneo de pago</string>
+	<string name="type.amenity.parking.underground.private">Estacionamiento subterráneo privado</string>
+	<string name="type.amenity.parking.street_side">Estacionamiento en la calle</string>
+	<string name="type.amenity.parking.street_side.fee">Estacionamiento en la calle de pago</string>
+	<string name="type.amenity.parking.street_side.private">Estacionamiento en la calle privado</string>
+	<string name="type.amenity.parking.lane">Estacionamiento en carril</string>
+	<string name="type.amenity.parking.lane.fee">Estacionamiento en carril de pago</string>
+	<string name="type.amenity.parking.lane.private">Estacionamiento en carril privado</string>
+	<string name="type.amenity.parking_entrance">Entrada al estacionamiento</string>
+	<string name="type.amenity.parking_entrance.private">Entrada al estacionamiento privado</string>
+	<string name="type.amenity.parking_entrance.permissive">Entrada al estacionamiento</string>
+	<string name="type.amenity.parking_space">Plaza de estacionamiento</string>
+	<string name="type.amenity.parking_space.permissive">Plaza de estacionamiento</string>
+	<string name="type.amenity.parking_space.private">Plaza de estacionamiento</string>
+	<string name="type.amenity.parking_space.underground">Plaza de estacionamiento</string>
+	<string name="type.amenity.parking_space.disabled">Plaza de estacionamiento para discapacitados</string>
 	<string name="type.amenity.post_office">Oficina de correos</string>
 
 	<!-- SECTION: Types: Recycling -->

@@ -1419,17 +1419,25 @@
 
 "type.amenity.parking.underground" = "Bãi đậu xe ngầm";
 
-"type.amenity.parking.street_side" = "đỗ xe";
+"type.amenity.parking.underground.fee" = "Bãi đậu xe ngầm trả phí";
 
-"type.amenity.parking.fee.street_side" = "đỗ xe";
+"type.amenity.parking.underground.private" = "Bãi đậu xe ngầm riêng";
 
-"type.amenity.parking.lane" = "đỗ xe";
+"type.amenity.parking.street_side" = "Bãi đậu xe bên đường";
 
-"type.amenity.parking.fee.lane" = "đỗ xe";
+"type.amenity.parking.street_side.fee" = "Bãi đậu xe trả phí bên đường";
+
+"type.amenity.parking.street_side.private" = "Bãi đậu xe riêng bên đường";
+
+"type.amenity.parking.lane" = "Làn đường đỗ xe";
+
+"type.amenity.parking.lane.fee" = "Đỗ xe trên làn đường phải trả tiền";
+
+"type.amenity.parking.lane.private" = "Bãi đậu xe làn đường riêng";
 
 "type.amenity.parking_entrance" = "Lối vào bãi đậu xe";
 
-"type.amenity.parking_entrance.private" = "Lối vào bãi đậu xe";
+"type.amenity.parking_entrance.private" = "Lối vào bãi đậu xe riêng";
 
 "type.amenity.parking_entrance.permissive" = "Lối vào bãi đậu xe";
 

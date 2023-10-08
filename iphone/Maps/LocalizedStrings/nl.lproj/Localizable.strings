@@ -1419,17 +1419,25 @@
 
 "type.amenity.parking.underground" = "Ondergrondse parking";
 
-"type.amenity.parking.street_side" = "Parkeerplaats";
+"type.amenity.parking.underground.fee" = "Betaald ondergronds parkeren";
 
-"type.amenity.parking.fee.street_side" = "Parkeerplaats";
+"type.amenity.parking.underground.private" = "Ondergronds privéparkeren";
 
-"type.amenity.parking.lane" = "Parkeerplaats";
+"type.amenity.parking.street_side" = "Parkeren aan de straatkant";
 
-"type.amenity.parking.fee.lane" = "Parkeerplaats";
+"type.amenity.parking.street_side.fee" = "Betaald parkeren aan de straatkant";
+
+"type.amenity.parking.street_side.private" = "Prive straat parkeren aan de zijkant";
+
+"type.amenity.parking.lane" = "Rijbaan parkeren";
+
+"type.amenity.parking.lane.fee" = "Betaald parkeren op rijstroken";
+
+"type.amenity.parking.lane.private" = "Privé parkeerplaats";
 
 "type.amenity.parking_entrance" = "Parkeeringang";
 
-"type.amenity.parking_entrance.private" = "Parkeeringang";
+"type.amenity.parking_entrance.private" = "Eigen parkeerplaats ingang";
 
 "type.amenity.parking_entrance.permissive" = "Parkeeringang";
 

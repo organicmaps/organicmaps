@@ -1419,17 +1419,25 @@
 
 "type.amenity.parking.underground" = "Maanalainen pysäköinti";
 
-"type.amenity.parking.street_side" = "Parkkipaikka";
+"type.amenity.parking.underground.fee" = "Maksullinen maanalainen pysäköinti";
 
-"type.amenity.parking.fee.street_side" = "Parkkipaikka";
+"type.amenity.parking.underground.private" = "Yksityinen maanalainen pysäköintialue";
 
-"type.amenity.parking.lane" = "Parkkipaikka";
+"type.amenity.parking.street_side" = "Kadun puolella pysäköinti";
 
-"type.amenity.parking.fee.lane" = "Parkkipaikka";
+"type.amenity.parking.street_side.fee" = "Maksullinen kadunvarsipysäköinti";
+
+"type.amenity.parking.street_side.private" = "Yksityinen katu puolella pysäköinti";
+
+"type.amenity.parking.lane" = "Kaistapysäköinti";
+
+"type.amenity.parking.lane.fee" = "Maksullinen pysäköintikaista";
+
+"type.amenity.parking.lane.private" = "Yksityinen kaista pysäköinti";
 
 "type.amenity.parking_entrance" = "Pysäköinnin sisäänkäynti";
 
-"type.amenity.parking_entrance.private" = "Pysäköinnin sisäänkäynti";
+"type.amenity.parking_entrance.private" = "Yksityinen pysäköintialue sisäänkäynti";
 
 "type.amenity.parking_entrance.permissive" = "Pysäköinnin sisäänkäynti";
 

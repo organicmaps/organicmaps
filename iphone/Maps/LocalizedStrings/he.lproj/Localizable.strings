@@ -1419,17 +1419,25 @@
 
 "type.amenity.parking.underground" = "תיעקרק - תת הינח";
 
-"type.amenity.parking.street_side" = "היָנָחֲ";
+"type.amenity.parking.underground.fee" = "חניה תת קרקעית בתשלום";
 
-"type.amenity.parking.fee.street_side" = "היָנָחֲ";
+"type.amenity.parking.underground.private" = "חניה תת קרקעית פרטית";
 
-"type.amenity.parking.lane" = "היָנָחֲ";
+"type.amenity.parking.street_side" = "חניה בצד הרחוב";
 
-"type.amenity.parking.fee.lane" = "היָנָחֲ";
+"type.amenity.parking.street_side.fee" = "חניה ברחוב בתשלום";
+
+"type.amenity.parking.street_side.private" = "חניה פרטית בצד הרחוב";
+
+"type.amenity.parking.lane" = "חנייה בנתיב";
+
+"type.amenity.parking.lane.fee" = "חנייה בנתיב בתשלום";
+
+"type.amenity.parking.lane.private" = "חניה פרטית בנתיב";
 
 "type.amenity.parking_entrance" = "הינחל הסינכ";
 
-"type.amenity.parking_entrance.private" = "הינחל הסינכ";
+"type.amenity.parking_entrance.private" = "כניסה פרטית לחניה";
 
 "type.amenity.parking_entrance.permissive" = "הינחל הסינכ";
 

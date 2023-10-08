@@ -1419,17 +1419,25 @@
 
 "type.amenity.parking.underground" = "Parcare subterană";
 
-"type.amenity.parking.street_side" = "Parcare";
+"type.amenity.parking.underground.fee" = "Parcare subterană plătită";
 
-"type.amenity.parking.fee.street_side" = "Parcare";
+"type.amenity.parking.underground.private" = "Parcare subterană privată";
 
-"type.amenity.parking.lane" = "Parcare";
+"type.amenity.parking.street_side" = "Parcare pe partea stradală";
 
-"type.amenity.parking.fee.lane" = "Parcare";
+"type.amenity.parking.street_side.fee" = "Plătită parcare laterală la stradă";
+
+"type.amenity.parking.street_side.private" = "Privat parcare laterală pe stradă";
+
+"type.amenity.parking.lane" = "Parcare pe bandă";
+
+"type.amenity.parking.lane.fee" = "Parcare pe bandă cu plată";
+
+"type.amenity.parking.lane.private" = "Parcare pe alee privată";
 
 "type.amenity.parking_entrance" = "Intrare parcare";
 
-"type.amenity.parking_entrance.private" = "Intrare parcare";
+"type.amenity.parking_entrance.private" = "Intrare privată pentru parcare";
 
 "type.amenity.parking_entrance.permissive" = "Intrare parcare";
 

@@ -1419,17 +1419,25 @@
 
 "type.amenity.parking.underground" = "Podzemné parkovisko";
 
-"type.amenity.parking.street_side" = "Parkovisko";
+"type.amenity.parking.underground.fee" = "Platené podzemné parkovisko";
 
-"type.amenity.parking.fee.street_side" = "Parkovisko";
+"type.amenity.parking.underground.private" = "Súkromné podzemné parkovisko";
 
-"type.amenity.parking.lane" = "Parkovisko";
+"type.amenity.parking.street_side" = "Parkovanie na strane ulice";
 
-"type.amenity.parking.fee.lane" = "Parkovisko";
+"type.amenity.parking.street_side.fee" = "Platené parkovanie na strane ulice";
+
+"type.amenity.parking.street_side.private" = "Súkromné bočné parkovisko na ulici";
+
+"type.amenity.parking.lane" = "Parkovací pruh";
+
+"type.amenity.parking.lane.fee" = "Platené parkovanie v jazdných pruhoch";
+
+"type.amenity.parking.lane.private" = "Súkromný parkovací pruh";
 
 "type.amenity.parking_entrance" = "Vstup na parkovisko";
 
-"type.amenity.parking_entrance.private" = "Vstup na parkovisko";
+"type.amenity.parking_entrance.private" = "Súkromné parkovisko vstup";
 
 "type.amenity.parking_entrance.permissive" = "Vstup na parkovisko";
 

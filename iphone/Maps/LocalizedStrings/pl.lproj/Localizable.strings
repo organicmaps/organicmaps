@@ -1419,17 +1419,25 @@
 
 "type.amenity.parking.underground" = "Parking podziemny";
 
-"type.amenity.parking.street_side" = "Parking";
+"type.amenity.parking.underground.fee" = "Płatny parking podziemny";
 
-"type.amenity.parking.fee.street_side" = "Parking";
+"type.amenity.parking.underground.private" = "Prywatny parking podziemny";
 
-"type.amenity.parking.lane" = "Parking";
+"type.amenity.parking.street_side" = "Parking od strony ulicy";
 
-"type.amenity.parking.fee.lane" = "Parking";
+"type.amenity.parking.street_side.fee" = "Płatny parking przy ulicy";
+
+"type.amenity.parking.street_side.private" = "Prywatna ulica parking boczny";
+
+"type.amenity.parking.lane" = "Parking na pasie ruchu";
+
+"type.amenity.parking.lane.fee" = "Płatny parking na pasie ruchu";
+
+"type.amenity.parking.lane.private" = "Parking na prywatnym pasie ruchu";
 
 "type.amenity.parking_entrance" = "Wjazd na parking";
 
-"type.amenity.parking_entrance.private" = "Wjazd na parking";
+"type.amenity.parking_entrance.private" = "Prywatne wejście na parking";
 
 "type.amenity.parking_entrance.permissive" = "Wjazd na parking";
 

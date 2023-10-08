@@ -1419,17 +1419,25 @@
 
 "type.amenity.parking.underground" = "Lurpeko Aparkalekua";
 
-"type.amenity.parking.street_side" = "Aparkalekua";
+"type.amenity.parking.underground.fee" = "Ordaindutako lurpeko aparkalekua";
 
-"type.amenity.parking.fee.street_side" = "Aparkalekua";
+"type.amenity.parking.underground.private" = "Lurpeko aparkaleku pribatua";
 
-"type.amenity.parking.lane" = "Aparkalekua";
+"type.amenity.parking.street_side" = "Kale alboko aparkalekua";
 
-"type.amenity.parking.fee.lane" = "Aparkalekua";
+"type.amenity.parking.street_side.fee" = "Ordaindutako kale alboko aparkalekua";
+
+"type.amenity.parking.street_side.private" = "Kale alboko aparkaleku pribatua";
+
+"type.amenity.parking.lane" = "Erreiaren aparkalekua";
+
+"type.amenity.parking.lane.fee" = "Ordaindutako erreiaren aparkalekua";
+
+"type.amenity.parking.lane.private" = "Errei pribatuko aparkalekua";
 
 "type.amenity.parking_entrance" = "Aparkalekuaren sarrera";
 
-"type.amenity.parking_entrance.private" = "Aparkalekuaren sarrera";
+"type.amenity.parking_entrance.private" = "Aparkaleku pribatuaren sarrera";
 
 "type.amenity.parking_entrance.permissive" = "Aparkalekuaren sarrera";
 

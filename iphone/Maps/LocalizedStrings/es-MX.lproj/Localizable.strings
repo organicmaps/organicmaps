@@ -1293,7 +1293,7 @@
 
 "type.amenity.bench" = "Banco";
 
-"type.amenity.bicycle_parking" = "Aparcamiento de bicicletas";
+"type.amenity.bicycle_parking" = "Estacionamiento de bicicletas";
 
 "type.amenity.bicycle_rental" = "Alquiler de bicicletas";
 
@@ -1397,51 +1397,59 @@
 
 "type.amenity.marketplace" = "Mercado";
 
-"type.amenity.motorcycle_parking" = "Aparcamiento de motocicletas";
+"type.amenity.motorcycle_parking" = "Estacionamiento de motocicletas";
 
 "type.amenity.nightclub" = "Discoteca";
 
 "type.amenity.nursing_home" = "Residencia de ancianos";
 
-"type.amenity.parking" = "Aparcamiento";
+"type.amenity.parking" = "Estacionamiento";
 
-"type.amenity.parking.fee" = "Aparcamiento de pago";
+"type.amenity.parking.fee" = "Estacionamiento de pago";
 
-"type.amenity.parking.multi.storey" = "Aparcamiento de varios pisos";
+"type.amenity.parking.multi.storey" = "Estacionamiento de varios pisos";
 
-"type.amenity.parking.no.access" = "Aparcamiento privado";
+"type.amenity.parking.no.access" = "Estacionamiento privado";
 
-"type.amenity.parking.permissive" = "Aparcamiento privado";
+"type.amenity.parking.permissive" = "Estacionamiento privado";
 
-"type.amenity.parking.private" = "Aparcamiento privado";
+"type.amenity.parking.private" = "Estacionamiento privado";
 
-"type.amenity.parking.park_and_ride" = "Aparcamiento";
+"type.amenity.parking.park_and_ride" = "Estacionamiento";
 
-"type.amenity.parking.underground" = "Aparcamiento subterráneo";
+"type.amenity.parking.underground" = "Estacionamiento subterráneo";
 
-"type.amenity.parking.street_side" = "Aparcamiento";
+"type.amenity.parking.underground.fee" = "Estacionamiento subterráneo de pago";
 
-"type.amenity.parking.fee.street_side" = "Aparcamiento";
+"type.amenity.parking.underground.private" = "Estacionamiento subterráneo privado";
 
-"type.amenity.parking.lane" = "Aparcamiento";
+"type.amenity.parking.street_side" = "Estacionamiento en la calle";
 
-"type.amenity.parking.fee.lane" = "Aparcamiento";
+"type.amenity.parking.street_side.fee" = "Estacionamiento en la calle de pago";
 
-"type.amenity.parking_entrance" = "Entrada al aparcamiento";
+"type.amenity.parking.street_side.private" = "Estacionamiento en la calle privado";
 
-"type.amenity.parking_entrance.private" = "Entrada al aparcamiento";
+"type.amenity.parking.lane" = "Estacionamiento en carril";
 
-"type.amenity.parking_entrance.permissive" = "Entrada al aparcamiento";
+"type.amenity.parking.lane.fee" = "Estacionamiento en carril de pago";
 
-"type.amenity.parking_space" = "Plaza de aparcamiento";
+"type.amenity.parking.lane.private" = "Estacionamiento en carril privado";
 
-"type.amenity.parking_space.permissive" = "Plaza de aparcamiento";
+"type.amenity.parking_entrance" = "Entrada al estacionamiento";
 
-"type.amenity.parking_space.private" = "Plaza de aparcamiento";
+"type.amenity.parking_entrance.private" = "Entrada al estacionamiento privado";
 
-"type.amenity.parking_space.underground" = "Plaza de aparcamiento";
+"type.amenity.parking_entrance.permissive" = "Entrada al estacionamiento";
 
-"type.amenity.parking_space.disabled" = "Plaza de aparcamiento para discapacitados";
+"type.amenity.parking_space" = "Plaza de estacionamiento";
+
+"type.amenity.parking_space.permissive" = "Plaza de estacionamiento";
+
+"type.amenity.parking_space.private" = "Plaza de estacionamiento";
+
+"type.amenity.parking_space.underground" = "Plaza de estacionamiento";
+
+"type.amenity.parking_space.disabled" = "Plaza de estacionamiento para discapacitados";
 
 "type.amenity.payment_terminal" = "Terminal de pago";
 

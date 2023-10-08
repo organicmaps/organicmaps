@@ -1419,17 +1419,25 @@
 
 "type.amenity.parking.underground" = "Падземны паркінг";
 
-"type.amenity.parking.street_side" = "Паркоўка";
+"type.amenity.parking.underground.fee" = "Платная падземная паркоўка";
 
-"type.amenity.parking.fee.street_side" = "Паркоўка";
+"type.amenity.parking.underground.private" = "Прыватны падземны паркінг";
 
-"type.amenity.parking.lane" = "Паркоўка";
+"type.amenity.parking.street_side" = "Паркоўка з боку вуліцы";
 
-"type.amenity.parking.fee.lane" = "Паркоўка";
+"type.amenity.parking.street_side.fee" = "Платная паркоўка з боку вуліцы";
+
+"type.amenity.parking.street_side.private" = "Прыватная паркоўка з боку вуліцы";
+
+"type.amenity.parking.lane" = "Завулак паркоўкі";
+
+"type.amenity.parking.lane.fee" = "Платная паркоўка";
+
+"type.amenity.parking.lane.private" = "Прыватная паркоўка";
 
 "type.amenity.parking_entrance" = "Уваход на паркоўку";
 
-"type.amenity.parking_entrance.private" = "Уваход на паркоўку";
+"type.amenity.parking_entrance.private" = "Уваход на прыватную паркоўку";
 
 "type.amenity.parking_entrance.permissive" = "Уваход на паркоўку";
 
