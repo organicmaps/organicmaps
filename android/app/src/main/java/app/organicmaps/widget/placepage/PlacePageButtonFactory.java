@@ -46,15 +46,15 @@ public class PlacePageButtonFactory
         iconId = R.drawable.ic_route_remove;
         break;
       case ROUTE_AVOID_TOLL:
-        titleId = R.string.avoid_toll_roads_placepage;
+        titleId = R.string.avoid_tolls;
         iconId = R.drawable.ic_avoid_tolls;
         break;
       case ROUTE_AVOID_UNPAVED:
-        titleId = R.string.avoid_unpaved_roads_placepage;
+        titleId = R.string.avoid_unpaved;
         iconId = R.drawable.ic_avoid_unpaved;
         break;
       case ROUTE_AVOID_FERRY:
-        titleId = R.string.avoid_ferry_crossing_placepage;
+        titleId = R.string.avoid_ferry;
         iconId = R.drawable.ic_avoid_ferry;
         break;
       case MORE:
