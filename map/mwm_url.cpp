@@ -376,9 +376,12 @@ void ParsedMapApi::Reset()
 bool ParsedMapApi::GetViewportParams(m2::PointD & center, double & scale) const
 {
   auto const & markIds = m_bmManager->GetUserMarkIds(UserMark::Type::API);
-  if (markIds.size() == 1 && m_zoomLevel >= 1)
+  if (markIds.size() == 1)
   {
-    scale = min(static_cast<double>(scales::GetUpperComfortScale()), m_zoomLevel);
+    if (m_zoomLevel >= 1)  // 0 means uninitialized/not passed to the API.
+      scale = min(static_cast<double>(scales::GetUpperComfortScale()), m_zoomLevel);
+    else
+      scale = static_cast<double>(scales::GetUpperComfortScale());
     center = m_bmManager->GetUserMark(*markIds.begin())->GetPivot();
     return true;
   }

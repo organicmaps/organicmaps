@@ -54,8 +54,27 @@
     return false
   }
 
+  // Hacky check if it's ge0 style link.
+  private func isGe0Link(url: URL) -> Bool {
+    if url.query != nil {
+      return false;
+    }
+    switch (url.path) {
+    case "map": fallthrough
+    case "search": fallthrough
+    case "route": fallthrough
+    case "crosshair": return false
+
+    default: return true
+    }
+  }
+  
   private func handleDeepLink(url: URL) -> Bool {
     LOG(.info, "handleDeepLink: \(url)")
+
+    // TODO(AB): Rewrite API so iOS and Android will call only one C++ method to clear/set API state.
+    // This call is also required for DeepLinkParser.showMap, and it also clears old API points...
+    let dlData = DeepLinkParser.parseAndSetApiURL(url)
 
     switch url.scheme {
       // Process old Maps.Me url schemes.
@@ -69,16 +88,20 @@
         DeepLinkParser.addBookmarksFile(url)
         return true  // We don't really know if async parsing was successful.
       case  "om":
+        // TODO(AB): DeepLinkParser.showMap uses points that are reset in DeepLinkParser.parseAndSetApiURL.
+        // Need a complete rewrite if API parsing and processing logic, now use a crude check for omaps.app style urls.
         // It could be either a renamed ge0 link...
-        if DeepLinkParser.showMap(for: url) {
-          MapsAppDelegate.theApp().showMap()
-          return true
+        if isGe0Link(url: url) {
+          if DeepLinkParser.showMap(for: url) {
+            MapsAppDelegate.theApp().showMap()
+            return true
+          }
+          return false
         }
         // ...or an API scheme.
         fallthrough
       // API scheme.
       case "mapswithme", "mapsme", "mwm":
-        let dlData = DeepLinkParser.parseAndSetApiURL(url)
         guard dlData.success else { return false }
 
         switch dlData.urlType {
