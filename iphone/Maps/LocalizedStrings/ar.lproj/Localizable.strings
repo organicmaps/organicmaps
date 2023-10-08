@@ -2484,7 +2484,7 @@
 
 "type.leisure.landscape_reserve" = "Landscape Reserve";
 
-"type.leisure.marina" = "Marina";
+"type.leisure.marina" = "مرسى";
 
 "type.leisure.nature_reserve" = "محمية طبيعية";
 
@@ -3411,7 +3411,7 @@
 
 "type.shop.car_repair.tyres" = "إصلاح إطارات";
 
-"type.shop.caravan" = "RV Dealership";
+"type.shop.caravan" = "معرض سيارات التخييم";
 
 "type.shop.carpet" = "متجر سجادات";
 
@@ -3467,7 +3467,7 @@
 
 "type.shop.greengrocer" = "محل خضار";
 
-"type.shop.grocery" = "Grocery Store";
+"type.shop.grocery" = "محل بقالة";
 
 "type.shop.hairdresser" = "حلاق";
 

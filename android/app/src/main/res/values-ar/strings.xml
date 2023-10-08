@@ -1368,6 +1368,7 @@
 	<string name="type.leisure.garden">حديقة</string>
 	<string name="type.leisure.garden.residential">حديقة</string>
 	<string name="type.leisure.golf_course">ملعب غولف</string>
+	<string name="type.leisure.marina">مرسى</string>
 	<string name="type.leisure.nature_reserve">محمية طبيعية</string>
 	<string name="type.leisure.outdoor_seating">جلوس في الهواء الطلق</string>
 	<string name="type.leisure.park">متنزه</string>
@@ -1771,6 +1772,7 @@
 	<string name="type.shop.car_parts">محل أجزاء سيارات</string>
 	<string name="type.shop.car_repair">محل صيانة السيارات</string>
 	<string name="type.shop.car_repair.tyres">إصلاح إطارات</string>
+	<string name="type.shop.caravan">معرض سيارات التخييم</string>
 	<string name="type.shop.carpet">متجر سجادات</string>
 	<string name="type.shop.chemist">متجر كيماويات</string>
 	<string name="type.shop.chocolate">متجر شوكولاتة</string>
@@ -1798,6 +1800,7 @@
 	<string name="type.shop.gas">متجر غاز</string>
 	<string name="type.shop.gift">متجر هدايا</string>
 	<string name="type.shop.greengrocer">محل خضار</string>
+	<string name="type.shop.grocery">محل بقالة</string>
 	<string name="type.shop.hairdresser">حلاق</string>
 	<string name="type.shop.hardware">محل معدات</string>
 	<string name="type.shop.health_food">متجر أغذية صحية</string>
