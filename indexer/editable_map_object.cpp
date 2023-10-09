@@ -229,7 +229,7 @@ NamesDataSource EditableMapObject::GetNamesDataSource(StringUtf8Multilang const 
   auto & names = result.names;
   auto & mandatoryCount = result.mandatoryNamesCount;
   // Push Mwm languages.
-  mandatoryCount = 1;
+  mandatoryCount = 0;
 
   // Push default/native for country language.
   if (ExtractName(source, StringUtf8Multilang::kDefaultCode, names))
