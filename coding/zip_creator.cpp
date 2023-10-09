@@ -67,61 +67,11 @@ int GetCompressionLevel(CompressionLevel compression)
 }
 }  // namespace
 
-bool CreateZipFromPathDeflatedAndDefaultCompression(std::string const & filePath,
-                                                    std::string const & zipFilePath)
+bool CreateZipFromFiles(std::vector<std::string> const & filePaths, std::string const & zipFilePath,
+                        CompressionLevel compression /* = CompressionLevel::DefaultCompression */,
+                        std::vector<std::string> const * fileNames /* = nullptr */)
 {
-  // Open zip file for writing.
-  SCOPE_GUARD(outFileGuard, [&zipFilePath]() { base::DeleteFileX(zipFilePath); });
-
-  ZipHandle zip(zipFilePath);
-  if (!zip.Handle())
-    return false;
-
-  zip::FileInfo zipInfo = {};
-  CreateTMZip(zipInfo.tmz_date);
-
-  std::string fileName = base::FileNameFromFullPath(filePath);
-  if (!strings::IsASCIIString(fileName))
-    fileName = "OrganicMaps.kml";
-
-  if (zip::Code::Ok != zip::OpenNewFileInZip(zip.Handle(), fileName, zipInfo, "ZIP from OMaps",
-                                             Z_DEFLATED, Z_DEFAULT_COMPRESSION))
-  {
-    return false;
-  }
-
-  // Write source file into zip file.
-  try
-  {
-    base::FileData file(filePath, base::FileData::OP_READ);
-    uint64_t const fileSize = file.Size();
-
-    uint64_t currSize = 0;
-    std::array<char, zip::kFileBufferSize> buffer;
-    while (currSize < fileSize)
-    {
-      auto const toRead = std::min(buffer.size(), static_cast<size_t>(fileSize - currSize));
-      file.Read(currSize, buffer.data(), toRead);
-
-      if (zip::Code::Ok != zip::WriteInFileInZip(zip.Handle(), buffer, toRead))
-        return false;
-
-      currSize += toRead;
-    }
-  }
-  catch (Reader::Exception const & ex)
-  {
-    LOG(LERROR, ("Error reading file:", filePath, ex.Msg()));
-    return false;
-  }
-
-  outFileGuard.release();
-  return true;
-}
-
-bool CreateZipFromFiles(std::vector<std::string> const & files, std::string const & zipFilePath,
-                        CompressionLevel compression)
-{
+  ASSERT(!fileNames || filePaths.size() == fileNames->size(), ());
   SCOPE_GUARD(outFileGuard, [&zipFilePath]() { base::DeleteFileX(zipFilePath); });
 
   ZipHandle zip(zipFilePath);
@@ -129,19 +79,21 @@ bool CreateZipFromFiles(std::vector<std::string> const & files, std::string cons
     return false;
 
   auto const compressionLevel = GetCompressionLevel(compression);
-  zip::FileInfo const fileInfo = {};
+
+  zip::FileInfo zipInfo = {};
+  CreateTMZip(zipInfo.tmz_date);
 
   try
   {
-    for (auto const & filePath : files)
+    for (size_t i = 0; i < filePaths.size(); ++i)
     {
-      if (zip::Code::Ok != zip::OpenNewFileInZip(zip.Handle(), filePath, fileInfo, "",
-                              Z_DEFLATED, compressionLevel))
+      if (zip::Code::Ok != zip::OpenNewFileInZip(zip.Handle(), fileNames ? fileNames->at(i) : filePaths[i],
+                                                 zipInfo, "ZIP from Organic Maps", Z_DEFLATED, compressionLevel))
       {
         return false;
       }
 
-      base::FileData file(filePath, base::FileData::OP_READ);
+      base::FileData file(filePaths[i], base::FileData::OP_READ);
       uint64_t const fileSize = file.Size();
       uint64_t writtenSize = 0;
       zip::Buffer buffer;

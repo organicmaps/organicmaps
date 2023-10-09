@@ -15,7 +15,7 @@ namespace
 {
 void CreateAndTestZip(std::string const & filePath, std::string const & zipPath)
 {
-  TEST(CreateZipFromPathDeflatedAndDefaultCompression(filePath, zipPath), ());
+  TEST(CreateZipFromFiles({filePath}, zipPath, CompressionLevel::DefaultCompression), ());
 
   ZipFileReader::FileList files;
   ZipFileReader::FilesList(zipPath, files);
