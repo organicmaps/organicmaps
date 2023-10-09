@@ -142,7 +142,8 @@ public class EditorHostFragment extends BaseMwmToolbarFragment implements View.O
       mIsNewObject = getArguments().getBoolean(EditorActivity.EXTRA_NEW_OBJECT, false);
     getToolbarController().setTitle(getTitle());
 
-    fillNames(true /* addFakes */);
+    fillNames(false /* addFakes */);
+    Editor.nativeEnableNamesAdvancedMode();
   }
 
   @StringRes
