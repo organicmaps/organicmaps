@@ -446,7 +446,7 @@ void RuleDrawer::operator()(FeatureType & f)
     size_t const index = shape->GetType();
     ASSERT_LESS(index, m_mapShapes.size(), ());
 
-    // TODO: MinZoom was used for optimization in RenderGroup::UpdateCanBeDeletedStatus(), but is long time broken.
+    // TODO(pastk) : MinZoom was used for optimization in RenderGroup::UpdateCanBeDeletedStatus(), but is long time broken.
     // See https://github.com/organicmaps/organicmaps/pull/5903 for details.
     shape->SetFeatureMinZoom(0);
     m_mapShapes[index].push_back(std::move(shape));

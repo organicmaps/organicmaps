@@ -73,9 +73,9 @@ private:
   GlyphVisualParams m_glyphVisualParams;
 
   uint32_t m_tileSize = 0;
-  double m_visualScale = 0.0f;
-  double m_poiExtendScale = 0.1f; // Found empirically.
-  std::atomic<double> m_fontScale = 1.0f;
+  double m_visualScale = 0.0;
+  double m_poiExtendScale = 0.1; // Found empirically.
+  std::atomic<double> m_fontScale = 1.0;
 
   DISALLOW_COPY_AND_MOVE(VisualParams);
 };

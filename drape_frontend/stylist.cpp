@@ -45,7 +45,7 @@ void CaptionDescription::Init(FeatureType & f, int8_t deviceLang, int zoomLevel,
                               feature::GeomType geomType, bool auxCaptionExists)
 {
   feature::NameParamsOut out;
-  // TODO: remove forced secondary text for all lines and set it via styles for major roads and rivers only.
+  // TODO(pastk) : remove forced secondary text for all lines and set it via styles for major roads and rivers only.
   // ATM even minor paths/streams/etc use secondary which makes their pathtexts take much more space.
   if (zoomLevel > scales::GetUpperWorldScale() && (auxCaptionExists || geomType == feature::GeomType::Line))
   {
@@ -75,13 +75,13 @@ void CaptionDescription::Init(FeatureType & f, int8_t deviceLang, int zoomLevel,
   if (m_mainText.size() > kMaxTextSize)
     m_mainText = m_mainText.substr(0, kMaxTextSize) + "...";
 
-  // TODO : its better to determine housenumbers minZoom once upon drules load and cache it,
+  // TODO(pastk) : its better to determine housenumbers minZoom once upon drules load and cache it,
   // but it'd mean a lot of housenumbers-specific logic in otherwise generic RulesHolder..
   uint8_t constexpr kHousenumbersMinZoom = 16;
   if (geomType != feature::GeomType::Line && zoomLevel >= kHousenumbersMinZoom &&
       (auxCaptionExists || m_mainText.empty()))
   {
-    // TODO: its not obvious that a housenumber display is dependent on a secondary caption drule existance in styles.
+    // TODO(pastk) : its not obvious that a housenumber display is dependent on a secondary caption drule existance in styles.
     m_houseNumberText = f.GetHouseNumber();
     if (!m_houseNumberText.empty() && !m_mainText.empty() && m_houseNumberText.find(m_mainText) != std::string::npos)
       m_mainText.clear();
@@ -137,7 +137,7 @@ void Stylist::ProcessKey(FeatureType & f, drule::Key const & key)
       m_areaRule = dRule->GetArea();
     }
     break;
-  // TODO : check if circle/waymarker support exists still (not used in styles ATM).
+  // TODO(pastk) : check if circle/waymarker support exists still (not used in styles ATM).
   case drule::circle:
   case drule::waymarker:
   default:

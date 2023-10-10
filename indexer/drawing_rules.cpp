@@ -147,7 +147,7 @@ namespace
       explicit Line(LineRuleProto const & r)
         : m_line(r)
       {
-        CHECK(r.has_pathsym() || r.width() > 0, ("Zero width line w/o path symbol)")); //pastk
+        ASSERT(r.has_pathsym() || r.width() > 0, ("Zero width line w/o path symbol)"));
       }
 
       virtual LineRuleProto const * GetLine() const { return &m_line; }
@@ -178,7 +178,7 @@ namespace
       explicit Caption(CaptionRuleProto const & r)
         : m_caption(r)
       {
-        CHECK(r.has_primary(),()); //pastk
+        ASSERT(r.has_primary(),());
       }
 
       virtual CaptionRuleProto const * GetCaption() const { return &m_caption; }

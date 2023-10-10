@@ -222,7 +222,7 @@ std::string GetRoadShieldSymbolName(ftypes::RoadShield const & shield, double fo
     result = shield.m_name.size() <= 2 ? "shield-us-hw-thin" : "shield-us-hw-wide";
   else
   {
-    ASSERT(false, ());
+    ASSERT(false, ("This shield type doesn't support symbols:", shield.m_type));
   }
 
   if (fontScale > 1.0)
@@ -366,8 +366,8 @@ void BaseApplyFeature::FillCommonParams(CommonOverlayViewParams & p) const
 }
 
 void ApplyPointFeature::ExtractCaptionParams(CaptionDefProto const * primaryProto,
-                                            CaptionDefProto const * secondaryProto,
-                                            TextViewParams & params) const
+                                             CaptionDefProto const * secondaryProto,
+                                             TextViewParams & params) const
 {
   FillCommonParams(params);
   params.m_depthLayer = DepthLayer::OverlayLayer;
@@ -380,7 +380,7 @@ void ApplyPointFeature::ExtractCaptionParams(CaptionDefProto const * primaryProt
   CaptionDefProtoToFontDecl(primaryProto, decl);
   titleDecl.m_primaryTextFont = decl;
   titleDecl.m_anchor = GetAnchor(primaryProto->offset_x(), primaryProto->offset_y());
-  // TODO: remove offsets processing as de-facto "text-offset: *" is used to define anchors only.
+  // TODO(pastk) : remove offsets processing as de-facto "text-offset: *" is used to define anchors only.
   titleDecl.m_primaryOffset = GetOffset(primaryProto->offset_x(), primaryProto->offset_y());
   titleDecl.m_primaryOptional = primaryProto->is_optional();
 
@@ -424,7 +424,7 @@ double BaseApplyFeature::PriorityToDepth(int priority, drule::rule_type_t ruleTy
   {
     // Note we don't adjust priorities of "point-styles" according to layer=*,
     // because their priorities are used for displacement logic only.
-    /// @todo we might want to hide e.g. a trash bin under man_made=bridge or a bench on underground railway station?
+    /// @todo(pastk) we might want to hide e.g. a trash bin under man_made=bridge or a bench on underground railway station?
 
     // Check overlays priorities range.
     ASSERT(-drule::kOverlaysMaxPriority <= depth && depth < drule::kOverlaysMaxPriority, (depth, m_f.GetID()));
@@ -564,7 +564,7 @@ void ApplyAreaFeature::operator()(m2::PointD const & p1, m2::PointD const & p2, 
 
   m2::PointD const v1 = p2 - p1;
   m2::PointD const v2 = p3 - p1;
-  //TODO : degenerate triangles filtering should be done in the generator.
+  //TODO(pastk) : degenerate triangles filtering should be done in the generator.
   // ASSERT(!v1.IsAlmostZero() && !v2.IsAlmostZero(), ());
   if (v1.IsAlmostZero() || v2.IsAlmostZero())
     return;
@@ -572,7 +572,7 @@ void ApplyAreaFeature::operator()(m2::PointD const & p1, m2::PointD const & p2, 
   double const crossProduct = m2::CrossProduct(v1.Normalize(), v2.Normalize());
   double constexpr kEps = 1e-7;
   // ASSERT_GREATER_OR_EQUAL(fabs(crossProduct), kEps, (fabs(crossProduct), p1, p2, p3, m_f.DebugString(19, true)));
-  // TODO : e.g. a landuse-meadow has a following triangle with two identical points:
+  // TODO(pastk) : e.g. a landuse-meadow has a following triangle with two identical points:
   // m2::Point<d>(8.5829683287662987823, 53.929641499591184584)
   // m2::Point<d>(8.5830675705005887721, 53.930025055483156393)
   // m2::Point<d>(8.5830675705005887721, 53.930025055483156393)
@@ -597,7 +597,7 @@ void ApplyAreaFeature::ProcessBuildingPolygon(m2::PointD const & p1, m2::PointD 
 {
   // For building we must filter degenerate polygons because now we have to reconstruct
   // building outline by bunch of polygons.
-  // TODO : filter degenerates in the generator.(see a TODO above).
+  // TODO(pastk) : filter degenerates in the generator.(see a TODO above).
   m2::PointD const v1 = p2 - p1;
   m2::PointD const v2 = p3 - p1;
   if (v1.IsAlmostZero() || v2.IsAlmostZero())
@@ -636,7 +636,7 @@ int ApplyAreaFeature::GetIndex(m2::PointD const & pt)
 {
   for (size_t i = 0; i < m_points.size(); i++)
   {
-    // TODO : should be possible to use exact match.
+    // TODO(pastk) : should be possible to use exact match.
     if (pt.EqualDxDy(m_points[i], mercator::kPointEqualityEps))
       return static_cast<int>(i);
   }
@@ -672,7 +672,7 @@ m2::PointD ApplyAreaFeature::CalculateNormal(m2::PointD const & p1, m2::PointD c
 void ApplyAreaFeature::BuildEdges(int vertexIndex1, int vertexIndex2, int vertexIndex3, bool twoSide)
 {
   // Check if triangle is degenerate.
-  // TODO : filter degenerates in the generator.
+  // TODO(pastk) : filter degenerates in the generator.
   if (vertexIndex1 == vertexIndex2 || vertexIndex2 == vertexIndex3 || vertexIndex1 == vertexIndex3)
     return;
 
@@ -779,7 +779,7 @@ ApplyLineFeatureGeometry::ApplyLineFeatureGeometry(TileKey const & tileKey, TIns
                                                    FeatureType & f, double currentScaleGtoP)
   : TBase(tileKey, insertShape, f, CaptionDescription())
   , m_currentScaleGtoP(currentScaleGtoP)
-  // TODO: calculate just once in the RuleDrawer.
+  // TODO(pastk) : calculate just once in the RuleDrawer.
   , m_minSegmentSqrLength(base::Pow2(4.0 * df::VisualParams::Instance().GetVisualScale() / currentScaleGtoP))
   , m_simplify(tileKey.m_zoomLevel >= 10 && tileKey.m_zoomLevel <= 12)
 {
@@ -821,7 +821,7 @@ void ApplyLineFeatureGeometry::ProcessLineRules(Stylist::LineRulesT const & line
   if (!ftypes::IsIsolineChecker::Instance()(m_f))
   {
     // A line crossing the tile several times will be split in several parts.
-    // TODO : use feature's pre-calculated limitRect when possible.
+    // TODO(pastk) : use feature's pre-calculated limitRect when possible.
     m_clippedSplines = m2::ClipSplineByRect(m_tileRect, m_spline);
   }
   else
