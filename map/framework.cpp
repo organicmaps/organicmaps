@@ -313,7 +313,7 @@ Framework::Framework(FrameworkParams const & params, bool loadMaps)
   // It's better to use strings from strings.txt instead of hardcoding them here.
   m_stringsBundle.SetDefaultString("core_entrance", "Entrance");
   m_stringsBundle.SetDefaultString("core_exit", "Exit");
-  m_stringsBundle.SetDefaultString("core_placepage_unknown_place", "Unknown Place");
+  m_stringsBundle.SetDefaultString("core_placepage_unknown_place", "Map Point");
   m_stringsBundle.SetDefaultString("core_my_places", "My Places");
   m_stringsBundle.SetDefaultString("core_my_position", "My Position");
   m_stringsBundle.SetDefaultString("postal_code", "Postal Code");
