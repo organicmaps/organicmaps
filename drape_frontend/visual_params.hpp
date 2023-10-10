@@ -19,12 +19,16 @@ double constexpr kMaxVisualScale = 4.0;
 class VisualParams
 {
 public:
-  static double const kMdpiScale;
-  static double const kHdpiScale;
-  static double const kXhdpiScale;
-  static double const k6plusScale;
-  static double const kXxhdpiScale;
-  static double const kXxxhdpiScale;
+  static double constexpr kMdpiScale = 1.0;
+  static double constexpr kHdpiScale = 1.5;
+  static double constexpr kXhdpiScale = 2.0;
+  static double constexpr k6plusScale = 2.4;
+  static double constexpr kXxhdpiScale = 3.0;
+  static double constexpr kXxxhdpiScale = 3.5;
+
+  static_assert(kMdpiScale < kHdpiScale && kHdpiScale < kXhdpiScale &&
+                kXhdpiScale < k6plusScale && k6plusScale < kXxhdpiScale &&
+                kXxhdpiScale < kXxxhdpiScale && kXxxhdpiScale <= kMaxVisualScale);
 
   static void Init(double vs, uint32_t tileSize);
   static VisualParams & Instance();
@@ -64,13 +68,14 @@ public:
   void SetVisualScale(double visualScale);
 
 private:
-  VisualParams();
+  VisualParams() = default;
 
-  uint32_t m_tileSize;
-  double m_visualScale;
-  double m_poiExtendScale;
   GlyphVisualParams m_glyphVisualParams;
-  std::atomic<double> m_fontScale;
+
+  uint32_t m_tileSize = 0;
+  double m_visualScale = 0.0;
+  double m_poiExtendScale = 0.1; // Found empirically.
+  std::atomic<double> m_fontScale = 1.0;
 
   DISALLOW_COPY_AND_MOVE(VisualParams);
 };

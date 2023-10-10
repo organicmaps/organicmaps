@@ -72,15 +72,16 @@ private:
   std::unordered_set<m2::Spline const *> m_usedMetalines;
 
   m2::RectD m_globalRect;
-  uint8_t m_zoomLevel;
   double m_currentScaleGtoP;
   double m_trafficScalePtoG;
 
   TrafficSegmentsGeometry m_trafficGeometry;
 
   std::array<TMapShapes, df::MapShapeTypeCount> m_mapShapes;
-  bool m_wasCancelled;
 
   GeneratedRoadShields m_generatedRoadShields;
+
+  uint8_t m_zoomLevel = 0;
+  bool m_wasCancelled = false;
 };
 }  // namespace df

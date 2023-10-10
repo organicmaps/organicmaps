@@ -27,20 +27,6 @@ static bool g_isInited = false;
 #define ASSERT_INITED
 #endif
 
-double const VisualParams::kMdpiScale = 1.0;
-double const VisualParams::kHdpiScale = 1.5;
-double const VisualParams::kXhdpiScale = 2.0;
-double const VisualParams::k6plusScale = 2.4;
-double const VisualParams::kXxhdpiScale = 3.0;
-double const VisualParams::kXxxhdpiScale = 3.5;
-
-VisualParams::VisualParams()
-  : m_tileSize(0)
-  , m_visualScale(0.0)
-  , m_poiExtendScale(0.1) // found empirically
-  , m_fontScale(1.0)
-{}
-
 VisualParams & VisualParams::Instance()
 {
   static VisualParams vizParams;

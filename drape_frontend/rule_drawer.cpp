@@ -13,7 +13,6 @@
 #include "indexer/feature_visibility.hpp"
 #include "indexer/ftypes_matcher.hpp"
 #include "indexer/map_style_reader.hpp"
-#include "indexer/road_shields_parser.hpp"
 #include "indexer/scales.hpp"
 
 #include "geometry/clipping.hpp"
@@ -168,7 +167,6 @@ RuleDrawer::RuleDrawer(TCheckCancelledCallback const & checkCancelled,
   , m_context(engineContext)
   , m_customFeaturesContext(engineContext->GetCustomFeaturesContext().lock())
   , m_deviceLang(deviceLang)
-  , m_wasCancelled(false)
 {
   ASSERT(m_checkCancelled != nullptr, ());
 
@@ -286,8 +284,7 @@ void RuleDrawer::ProcessAreaAndPointStyle(FeatureType & f, Stylist const & s, TI
     areaMinHeight = static_cast<float>((rectMercator.SizeX() + rectMercator.SizeY()) * 0.5);
   }
 
-  bool applyPointStyle = s.m_symbolRule != nullptr || s.m_captionRule != nullptr ||
-                         s.m_houseNumberRule != nullptr;
+  bool applyPointStyle = s.m_symbolRule || s.m_captionRule || s.m_houseNumberRule;
   if (applyPointStyle)
   {
     if (!is3dBuilding)
@@ -298,63 +295,35 @@ void RuleDrawer::ProcessAreaAndPointStyle(FeatureType & f, Stylist const & s, TI
     applyPointStyle = m_globalRect.IsPointInside(featureCenter);
   }
 
-  double areaDepth = drule::kBaseDepthBgBySize - 1;
   ApplyAreaFeature apply(m_context->GetTileKey(), insertShape, f,
                          m_currentScaleGtoP, isBuilding,
                          m_context->Is3dBuildingsEnabled() && isBuildingOutline /* skipAreaGeometry */,
                          areaMinHeight /* minPosZ */, areaHeight /* posZ */,
                          s.GetCaptionDescription());
-  if (s.m_areaRule != nullptr || s.m_hatchingRule != nullptr)
-  {
+  if (s.m_areaRule || s.m_hatchingRule)
     f.ForEachTriangle(apply, m_zoomLevel);
-    /// @todo areaDepth is not needed for FG and BG-top areas.
-    areaDepth = drule::CalcAreaBySizeDepth(f);
-  }
-  if (applyPointStyle)
-    apply(featureCenter, true /* hasArea */); // ApplyPointFeature::operator()()
 
-  if (CheckCancelled())
-    return;
-
-  if (s.m_hatchingRule != nullptr)
-    apply.ProcessAreaRule(s.m_hatchingRule, areaDepth, true);
-  if (s.m_areaRule != nullptr)
-    apply.ProcessAreaRule(s.m_areaRule, areaDepth, false);
+  if (apply.HasGeometry())
+    apply.ProcessAreaRules(s.m_areaRule, s.m_hatchingRule);
 
   /// @todo Can we put this check in the beginning of this function?
   if (applyPointStyle && !IsDiscardCustomFeature(f.GetID()))
   {
-    // Process point style.
-    if (s.m_symbolRule != nullptr)
-      apply.ProcessPointRule(s.m_symbolRule, false);
-    if (s.m_captionRule != nullptr)
-      apply.ProcessPointRule(s.m_captionRule, false);
-    if (s.m_houseNumberRule != nullptr)
-      apply.ProcessPointRule(s.m_houseNumberRule, true);
-    apply.Finish(m_context->GetTextureManager()); // ApplyPointFeature::Finish()
+    apply.ProcessPointRules(s.m_symbolRule, s.m_captionRule, s.m_houseNumberRule,
+                            featureCenter, m_context->GetTextureManager());
   }
 }
 
 void RuleDrawer::ProcessLineStyle(FeatureType & f, Stylist const & s, TInsertShapeFn const & insertShape)
 {
-  bool const smooth = ftypes::IsIsolineChecker::Instance()(f);
-
-  ApplyLineFeatureGeometry applyGeom(m_context->GetTileKey(), insertShape, f, m_currentScaleGtoP,
-                                     f.GetPointsCount(), smooth);
+  ApplyLineFeatureGeometry applyGeom(m_context->GetTileKey(), insertShape, f, m_currentScaleGtoP);
   f.ForEachPoint(applyGeom, m_zoomLevel);
 
-  if (CheckCancelled())
-    return;
-
   if (applyGeom.HasGeometry())
-  {
-    for (auto const & r : s.m_lineRules)
-      applyGeom.ProcessLineRule(r);
-  }
-  applyGeom.Finish();
+    applyGeom.ProcessLineRules(s.m_lineRules);
 
   std::vector<m2::SharedSpline> clippedSplines;
-  bool needAdditional = s.m_pathtextRule != nullptr || s.m_shieldRule != nullptr;
+  bool needAdditional = s.m_pathtextRule || s.m_shieldRule;
   if (needAdditional)
   {
     auto const metalineSpline = m_context->GetMetalineManager()->GetMetaline(f.GetID());
@@ -380,12 +349,9 @@ void RuleDrawer::ProcessLineStyle(FeatureType & f, Stylist const & s, TInsertSha
   {
     ApplyLineFeatureAdditional applyAdditional(m_context->GetTileKey(), insertShape, f, m_currentScaleGtoP,
                                                s.GetCaptionDescription(), clippedSplines);
-    if (s.m_pathtextRule != nullptr)
-      applyAdditional.ProcessLineRule(s.m_pathtextRule);
-    if (s.m_shieldRule != nullptr)
-      applyAdditional.ProcessLineRule(s.m_shieldRule);
-    applyAdditional.Finish(m_context->GetTextureManager(), ftypes::GetRoadShields(f),
-                           m_generatedRoadShields);
+    applyAdditional.ProcessAdditionalLineRules(s.m_pathtextRule, s.m_shieldRule,
+                                               m_context->GetTextureManager(), s.m_roadShields,
+                                               m_generatedRoadShields);
   }
 
   if (m_context->IsTrafficEnabled() && m_zoomLevel >= kRoadClass0ZoomLevel)
@@ -431,19 +397,9 @@ void RuleDrawer::ProcessPointStyle(FeatureType & f, Stylist const & s, TInsertSh
   if (IsDiscardCustomFeature(f.GetID()))
     return;
 
-  ApplyPointFeature apply(m_context->GetTileKey(), insertShape, f, s.GetCaptionDescription(), 0.0f /* posZ */);
-  apply(f.GetCenter(), false /* hasArea */);
-
-  if (CheckCancelled())
-    return;
-
-  if (s.m_symbolRule != nullptr)
-    apply.ProcessPointRule(s.m_symbolRule, false);
-  if (s.m_captionRule != nullptr)
-    apply.ProcessPointRule(s.m_captionRule, false);
-  if (s.m_houseNumberRule != nullptr)
-    apply.ProcessPointRule(s.m_houseNumberRule, true);
-  apply.Finish(m_context->GetTextureManager());
+  ApplyPointFeature apply(m_context->GetTileKey(), insertShape, f, s.GetCaptionDescription());
+  apply.ProcessPointRules(s.m_symbolRule, s.m_captionRule, s.m_houseNumberRule,
+                          f.GetCenter(), m_context->GetTextureManager());
 }
 
 void RuleDrawer::operator()(FeatureType & f)
@@ -457,27 +413,25 @@ void RuleDrawer::operator()(FeatureType & f)
        !ftypes::IsBuildingChecker::Instance()(types)))
     return;
 
+  if (ftypes::IsCoastlineChecker::Instance()(types) && !CheckCoastlines(f))
+    return;
+
   Stylist const s(f, m_zoomLevel, m_deviceLang);
 
   // No drawing rules.
-  if (s.m_symbolRule == nullptr && s.m_captionRule == nullptr && s.m_houseNumberRule == nullptr &&
-      s.m_lineRules.empty() && s.m_areaRule == nullptr && s.m_hatchingRule == nullptr)
-    return;
-
-  if (s.m_isCoastline && !CheckCoastlines(f))
+  if (!s.m_symbolRule && !s.m_captionRule && !s.m_houseNumberRule &&
+      s.m_lineRules.empty() && !s.m_areaRule && !s.m_hatchingRule)
     return;
 
 #ifdef DEBUG
   // Validate mixing of feature styles.
   bool const hasLine = !s.m_lineRules.empty();
-  bool const hasLineAdd = s.m_shieldRule != nullptr || s.m_pathtextRule != nullptr;
-  bool const hasPoint = s.m_symbolRule != nullptr || s.m_captionRule != nullptr || s.m_houseNumberRule != nullptr;
-  bool const hasArea = s.m_areaRule != nullptr || s.m_hatchingRule != nullptr;
+  bool const hasLineAdd = s.m_shieldRule || s.m_pathtextRule;
+  bool const hasPoint = s.m_symbolRule || s.m_captionRule || s.m_houseNumberRule;
+  bool const hasArea = s.m_areaRule || s.m_hatchingRule;
 
   ASSERT(!((hasLine || hasLineAdd) && (hasPoint || hasArea)),
          ("Line drules mixed with point/area ones", f.DebugString(m_zoomLevel, true)));
-
-  // TODO : validate in the styles generator.
   ASSERT(!hasLineAdd || hasLine, ("Pathtext/shield without a line drule", f.DebugString(m_zoomLevel, true)));
 #endif
 
@@ -492,7 +446,7 @@ void RuleDrawer::operator()(FeatureType & f)
     size_t const index = shape->GetType();
     ASSERT_LESS(index, m_mapShapes.size(), ());
 
-    // TODO: MinZoom was used for optimization in RenderGroup::UpdateCanBeDeletedStatus(), but is long time broken.
+    // TODO(pastk) : MinZoom was used for optimization in RenderGroup::UpdateCanBeDeletedStatus(), but is long time broken.
     // See https://github.com/organicmaps/organicmaps/pull/5903 for details.
     shape->SetFeatureMinZoom(0);
     m_mapShapes[index].push_back(std::move(shape));
@@ -510,7 +464,7 @@ void RuleDrawer::operator()(FeatureType & f)
   }
   else
   {
-    ASSERT(s.m_symbolRule != nullptr || s.m_captionRule != nullptr || s.m_houseNumberRule != nullptr, ());
+    ASSERT(s.m_symbolRule || s.m_captionRule || s.m_houseNumberRule, ());
     ASSERT(geomType == feature::GeomType::Point, ());
     ProcessPointStyle(f, s, insertShape);
   }

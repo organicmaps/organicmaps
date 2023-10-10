@@ -42,8 +42,7 @@ public:
 
   Rect(T minX, T minY, T maxX, T maxY) : m_minX(minX), m_minY(minY), m_maxX(maxX), m_maxY(maxY)
   {
-    ASSERT(minX <= maxX, ());
-    ASSERT(minY <= maxY, ());
+    ASSERT(minX <= maxX && minY <= maxY, (minX, maxX, minY, maxY));
   }
 
   Rect(Point<T> const & p1, Point<T> const & p2)
