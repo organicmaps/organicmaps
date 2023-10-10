@@ -120,7 +120,7 @@ public:
 private:
   bool HasArea() const override { return true; }
 
-  void ProcessRule(AreaRuleProto const * areaRule, double areaDepth, bool isHatching);
+  void ProcessRule(AreaRuleProto const & areaRule, double areaDepth, bool isHatching);
   void ProcessBuildingPolygon(m2::PointD const & p1, m2::PointD const & p2, m2::PointD const & p3);
   void CalculateBuildingOutline(bool calculateNormals, BuildingOutline & outline);
   int GetIndex(m2::PointD const & pt);
@@ -153,7 +153,7 @@ public:
   std::vector<m2::SharedSpline> const & GetClippedSplines() const { return m_clippedSplines; }
 
 private:
-  void ProcessRule(LineRuleProto const * lineRule);
+  void ProcessRule(LineRuleProto const & lineRule);
 
   m2::SharedSpline m_spline;
   std::vector<m2::SharedSpline> m_clippedSplines;

@@ -117,15 +117,15 @@ private:
 };
 #endif
 
-void ExtractLineParams(LineRuleProto const * lineRule, LineViewParams & params)
+void ExtractLineParams(LineRuleProto const & lineRule, LineViewParams & params)
 {
   double const scale = df::VisualParams::Instance().GetVisualScale();
-  params.m_color = ToDrapeColor(lineRule->color());
-  params.m_width = static_cast<float>(std::max(lineRule->width() * scale, 1.0));
+  params.m_color = ToDrapeColor(lineRule.color());
+  params.m_width = static_cast<float>(std::max(lineRule.width() * scale, 1.0));
 
-  if (lineRule->has_dashdot())
+  if (lineRule.has_dashdot())
   {
-    DashDotProto const & dd = lineRule->dashdot();
+    DashDotProto const & dd = lineRule.dashdot();
 
     int const count = dd.dd_size();
     params.m_pattern.reserve(count);
@@ -133,7 +133,7 @@ void ExtractLineParams(LineRuleProto const * lineRule, LineViewParams & params)
       params.m_pattern.push_back(dp::PatternFloat2Pixel(dd.dd(i) * scale));
   }
 
-  switch (lineRule->cap())
+  switch (lineRule.cap())
   {
   case ::ROUNDCAP : params.m_cap = dp::RoundCap;
     break;
@@ -145,7 +145,7 @@ void ExtractLineParams(LineRuleProto const * lineRule, LineViewParams & params)
     CHECK(false, ());
   }
 
-  switch (lineRule->join())
+  switch (lineRule.join())
   {
   case ::NOJOIN    : params.m_join = dp::MiterJoin;
     break;
@@ -731,7 +731,7 @@ void ApplyAreaFeature::ProcessAreaRules(AreaRuleProto const * areaRule, AreaRule
   if (hatchingRule)
   {
     ASSERT_GREATER_OR_EQUAL(hatchingRule->priority(), drule::kBasePriorityFg, ());
-    ProcessRule(hatchingRule, areaDepth, true);
+    ProcessRule(*hatchingRule, areaDepth, true);
   }
 
   if (areaRule)
@@ -739,16 +739,16 @@ void ApplyAreaFeature::ProcessAreaRules(AreaRuleProto const * areaRule, AreaRule
     // Calculate areaDepth for BG-by-size areas only.
     if (areaRule->priority() < drule::kBasePriorityBgTop)
       areaDepth = drule::CalcAreaBySizeDepth(m_f);
-    ProcessRule(areaRule, areaDepth, false);
+    ProcessRule(*areaRule, areaDepth, false);
   }
 }
 
-void ApplyAreaFeature::ProcessRule(AreaRuleProto const * areaRule, double areaDepth, bool isHatching)
+void ApplyAreaFeature::ProcessRule(AreaRuleProto const & areaRule, double areaDepth, bool isHatching)
 {
   AreaViewParams params;
   params.m_tileCenter = m_tileRect.Center();
-  params.m_depth = PriorityToDepth(areaRule->priority(), drule::area, areaDepth);
-  params.m_color = ToDrapeColor(areaRule->color());
+  params.m_depth = PriorityToDepth(areaRule.priority(), drule::area, areaDepth);
+  params.m_color = ToDrapeColor(areaRule.color());
   params.m_rank = m_f.GetRank();
   params.m_minPosZ = m_minPosZ;
   params.m_posZ = m_posZ;
@@ -759,11 +759,11 @@ void ApplyAreaFeature::ProcessRule(AreaRuleProto const * areaRule, double areaDe
   if (m_isBuilding && !isHatching)
   {
     /// @todo Make borders work for non-building areas too.
-    outline.m_generateOutline = areaRule->has_border() &&
-                                areaRule->color() != areaRule->border().color() &&
-                                areaRule->border().width() > 0.0;
+    outline.m_generateOutline = areaRule.has_border() &&
+                                areaRule.color() != areaRule.border().color() &&
+                                areaRule.border().width() > 0.0;
     if (outline.m_generateOutline)
-      params.m_outlineColor = ToDrapeColor(areaRule->border().color());
+      params.m_outlineColor = ToDrapeColor(areaRule.border().color());
 
     bool const calculateNormals = m_posZ > 0.0;
     if (calculateNormals || outline.m_generateOutline)
@@ -848,21 +848,21 @@ void ApplyLineFeatureGeometry::ProcessLineRules(Stylist::LineRulesT const & line
   if (m_clippedSplines.empty())
     return;
 
-  for (auto const & r : lineRules)
-    ProcessRule(r);
+  for (LineRuleProto const * r : lineRules)
+    ProcessRule(*r);
 
 #ifdef LINES_GENERATION_CALC_FILTERED_POINTS
   LinesStat::Get().InsertLine(m_f.GetID(), m_tileKey.m_zoomLevel, m_readCount, static_cast<int>(m_spline->GetSize()));
 #endif
 }
 
-void ApplyLineFeatureGeometry::ProcessRule(LineRuleProto const * lineRule)
+void ApplyLineFeatureGeometry::ProcessRule(LineRuleProto const & lineRule)
 {
-  double const depth = PriorityToDepth(lineRule->priority(), drule::line, 0);
+  double const depth = PriorityToDepth(lineRule.priority(), drule::line, 0);
 
-  if (lineRule->has_pathsym())
+  if (lineRule.has_pathsym())
   {
-    PathSymProto const & symRule = lineRule->pathsym();
+    PathSymProto const & symRule = lineRule.pathsym();
     PathSymbolViewParams params;
     params.m_tileCenter = m_tileRect.Center();
     params.m_depth = depth;
