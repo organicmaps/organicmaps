@@ -27,8 +27,9 @@ UNIT_TEST(LowerUniChar)
 {
   // Load unicode case folding table.
 
-  std::ifstream file("./data/CaseFolding.test");
-  TEST(file.is_open(), ());
+  static char constexpr kFile[] = "./data/CaseFolding.test";
+  std::ifstream file(kFile);
+  TEST(file.is_open(), (kFile));
 
   size_t fCount = 0, cCount = 0;
   std::unordered_map<strings::UniChar, strings::UniString> m;

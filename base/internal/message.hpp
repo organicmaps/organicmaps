@@ -53,9 +53,10 @@ template <typename T> inline std::string DebugPrint(T const & t)
 inline std::string DebugPrint(char const * t)
 {
   if (t)
-    return DebugPrint(std::string(t));
-  else
-    return std::string("NULL string pointer");
+    return {t};
+  return {"NULL string pointer"};
+}
+
 namespace internal
 {
 std::string ToUtf8(std::u16string_view utf16);
@@ -73,17 +74,17 @@ inline std::string DebugPrint(std::u16string_view utf16)
 
 inline std::string DebugPrint(char t)
 {
-  return DebugPrint(std::string(1, t));
+  return {1, t};
 }
 
 inline std::string DebugPrint(signed char t)
 {
-  return DebugPrint(static_cast<int>(t));
+  return std::to_string(static_cast<int>(t));
 }
 
 inline std::string DebugPrint(unsigned char t)
 {
-  return DebugPrint(static_cast<unsigned int>(t));
+  return std::to_string(static_cast<unsigned int>(t));
 }
 
 inline std::string DebugPrint(std::chrono::time_point<std::chrono::system_clock> const & ts)
@@ -200,7 +201,7 @@ template <typename T> inline std::string DebugPrint(std::unique_ptr<T> const & v
 
 namespace base
 {
-inline std::string Message() { return std::string(); }
+inline std::string Message() { return {}; }
 
 template <typename T>
 std::string Message(T const & t)
