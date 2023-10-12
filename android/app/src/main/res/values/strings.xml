@@ -791,9 +791,9 @@
 	<string name="aa_connected_to_car_notification_title">Connected to car</string>
 
 	<!-- Super Privacy -->
-        <string name="enable_super_privacy">I Want Super Privacy</string>
+        <string name="super_privacy">Keep Search History On</string>
         <!-- Summary of Super Privacy -->
-	<string name="enable_super_privacy_summary">This is enabled by default to hide your search history and disable it whenever you want to show the history</string>
+	<string name="pref_super_privacy_summary">When disabled search history will be hidden</string>
 
 
 	
