@@ -97,12 +97,13 @@
       android:summary="@string/enable_show_on_lock_screen_description"
       android:defaultValue="true"
       android:order="17"/>
-     <Preference
+     <SwitchPreferenceCompat
       android:key="@string/pref_super_privacy"
-      android:title="@string/enable_super_privacy"
-      app:singleLineTitle="false"
-      android:summary="@string/enable_super_privacy_summary"
-      android:order="18"/>
+      android:title="@string/super_privacy"
+      android:summary="@string/pref_super_privacy_summary"
+      android:defaultValue="true"
+      android:order="18"
+      android:singleLineTitle="false"/>
   </androidx.preference.PreferenceCategory>
 
   <androidx.preference.PreferenceCategory
