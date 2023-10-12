@@ -89,6 +89,14 @@ Install Cmake (**3.22.1** minimum), Boost, Qt 6 and other dependencies.
 
 Installing *ccache* can speed up active development.
 
+_Ubuntu 20.04:_
+
+Because Ubuntu 20.04 only offers Qt 5, you need to add a PPA to get Qt 6. This will install Qt 6.2 but any other minor version should work as well.
+
+```bash
+sudo add-apt-repository -y ppa:savoury1/qt-6-2
+```
+
 _Ubuntu 20.04, 22.04:_
 
 ```bash
@@ -155,7 +163,7 @@ Some files should be updated. There is a work in progress on [windows](https://g
 Please contribute if you have time.
 You'll need to have python3, cmake, ninja, and QT6 in the PATH, and Visual Studio 2022 or Visual Studio 2022 Build Tools installed. Use [Visual Studio Developer Command Prompt](https://learn.microsoft.com/en-us/visualstudio/ide/reference/command-prompt-powershell?view=vs-2022) or generate Visual Studio project files with CMake to build the project.
 
-However, it is possible to use the WSL (Windows Subsystem for Linux) to run GUI applications. 
+However, it is possible to use the WSL (Windows Subsystem for Linux) to run GUI applications.
 
 #### Windows 11 (WSL)
 
@@ -264,7 +272,7 @@ Some tests [are known to be broken](https://github.com/organicmaps/organicmaps/i
 
 ### Debug commands
 
-Organic Maps has some "hidden" debug commands that you can trigger by entering them into the search box. 
+Organic Maps has some "hidden" debug commands that you can trigger by entering them into the search box.
 
 For example you can switch theme which is very useful for checking [styles](STYLES.md) changes.
 To switch themes you can enter this commands:
@@ -278,6 +286,7 @@ There are also other commands for turning on/off isolines, anti-aliasing, etc. C
 ### More options
 
 To make the desktop app display maps in a different language add a `-lang` option, e.g. for the Russian language:
+
 ```bash
 ../omim-build-release/OMaps -lang ru
 ```
@@ -286,10 +295,11 @@ By default `OMaps` expects a repository's `data` folder to be present in the cur
 
 Check `OMaps -help` for a list of all run-time options.
 
-When running the desktop app with lots of maps, increase the open files limit. in MacOS the default value is only 256.
+When running the desktop app with lots of maps, increase the open files limit. In MacOS the default value is only 256.
 Use `ulimit -n 2000`, put it into `~/.bash_profile` to apply it to all new sessions.
 In MacOS to increase this limit globally, add `limit maxfiles 2048 2048` to `/etc/launchd.conf`
 and run
+
 ```bash
 echo 'ulimit -n 2048' | sudo tee -a /etc/profile
 ```
@@ -314,43 +324,53 @@ Ensure that you have at least 30GB of free space.
 
 Install [Android Studio](https://developer.android.com/studio).
 
+Run Android Studio and open the project in `android/` directory!
+This is important, otherwise the following menus won't be visible.
+
 Install Android SDK and NDK:
 
-- Run the Android Studio.
 - Open "SDK Manager" (under "More Actions" in a welcome screen or a three-dot menu in a list of recent projects screen or "Tools" top menu item in an open project).
-- Select "Android 13.0 (T) / API Level 33" SDK.
+- Select "Android 13.0 ("Tiramisu") / API Level 33" SDK.
 - Switch to "SDK Tools" tab.
 - Check "Show Package Details" checkbox.
 - Select "NDK (Side by side)" version **26.0.10792818**.
 - Select "CMake" version **3.22.1**.
 - Click "Apply" and wait for downloads and installation to finish.
 - In the left pane menu select "Appearance & Behavior > System Settings > Memory Settings".
-- Set "IDE max heap size" to 2048Mb or more (otherwise the Studio might get stuck on "Updating indexes" when opening the project).
+- Set "IDE max heap size" to 2048MB or more (otherwise the Studio might get stuck on "Updating indexes" when opening the project).
 
 Configure the repository with Android SDK and NDK paths. You can do it either by setting a global environment variable pointing at your Android SDK:
+
 ```
 ANDROID_HOME=<here is the absolute path to the root folder of your Android SDK installation>
 ```
 
-or by running the following script, that creates `android/local.properties` file with the line `sdk.dir=<path to your Android SDK>` in it: 
+or by running the following script, that creates `android/local.properties` file with the line `sdk.dir=<path to your Android SDK>` in it:
 
 _Linux:_
+
 ```bash
 ./tools/android/set_up_android.py --sdk $HOME/Android/Sdk
 ```
 
 _macOS:_
+
 ```bash
 ./tools/android/set_up_android.py --sdk $HOME/Library/Android/Sdk
 ```
 
 _Windows 10:_ no action needed, should work out of the box.
 
-In Android Studio open the project in `android/` directory.
+### Create a device
 
-Setup a virtual device to use [emulator](https://developer.android.com/studio/run/emulator) ("Tools > Device Manager") or [use a hardware device for debugging](https://developer.android.com/studio/run/device). If using an emulator, make sure to choose a system image with API Level 31 and ABI _x86_64_.
+Setup a virtual device to use [emulator](https://developer.android.com/studio/run/emulator) ("Tools > Device Manager") or [use a hardware device for debugging](https://developer.android.com/studio/run/device).
+If using an emulator, make sure to choose a system image with API Level 31. Use ABI _x86_64_ for Intel-based processors and _arm64-v8a_ for ARM-based processors (e.g. M1/M2 Macs).
 
-Android Studio has issues in parsing C++ part of the project - one of these applications should be used: [Qt Creator](https://www.qt.io/product/development-tools), [Xcode](https://developer.apple.com/xcode/), [CLion](https://www.jetbrains.com/clion/). For Xcode it is required to run `cmake . -g Xcode` to generate project files, while CLion and QT Creator can import CMakeLists.txt.
+Android Studio has issues in parsing the C++ part of the project, please let us know if you know how to resolve it. As a workaround, for working C++ suggestions, you may use:
+- [Qt Creator](https://www.qt.io/product/development-tools)
+- [Xcode](https://developer.apple.com/xcode/)
+- [CLion](https://www.jetbrains.com/clion/)
+For Xcode it is required to run `cmake . -g Xcode` to generate project files, while CLion and QT Creator can import CMakeLists.txt.
 
 
 ### Building
@@ -369,8 +389,10 @@ There is a matrix of different build variants:
   - ...and other flavors like `Huawei`.
 
 You can choose a build variant in Android Studio's "Build > Select Build Variant..." menu. There you can also choose a target architecture (Active ABI) like _x86_64_ (for e.g. emulator) or _arm64-v8a_ (many modern devices).
+In order to build the Google variant, you need a special key which only the core developers have. For community members who want to contribute, the best selection is "fdroidBeta" or "fdroidDebug" depending on the use case.
+The Active ABI can be set to "arm64-v8a".
 
-To build and run the app in the emulator or on a hardware device use a "Run > Run (android)" menu item.
+To build and run the app in the emulator or on a hardware device use a "Run > Run (android)" menu item or press the Play / Debug button on the top right of the IDE.
 
 To build a redistributable APK use a "Build > Build Bundle(s) / APK(s) > Build APK(s)" menu item. Generated APKs are stored in `build/outputs/apk/`.
 
@@ -426,6 +448,7 @@ export JAVA_HOME=<path-to-android-studio-installation>/Contents/jre/Contents/Hom
 ```
 
 Run the builds from the android subdirectory of the repository:
+
 ```bash
 cd android
 ```
