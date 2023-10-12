@@ -1586,3 +1586,6 @@ amenity|recycling|container
 *railway|station|light_rail|london
 *railway|station|light_rail|porto
 *amenity|place_of_worship|christian|jehovahs_witness
+*amenity|parking|underground|private
+*amenity|parking|street_side|private
+*amenity|parking|lane|private

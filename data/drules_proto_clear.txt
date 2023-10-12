@@ -6538,6 +6538,43 @@ cont {
   }
 }
 cont {
+  name: "amenity-parking-lane-private"
+  element {
+    scale: 17
+    area {
+      color: 15921852
+      priority: -1900
+    }
+  }
+  element {
+    scale: 18
+    area {
+      color: 15921852
+      priority: -1900
+    }
+  }
+  element {
+    scale: 19
+    area {
+      color: 15921852
+      priority: -1900
+    }
+    symbol {
+      name: "parking_private-s"
+      priority: 100
+    }
+    caption {
+      primary {
+        height: 11
+        color: 4473924
+        offset_y: 1
+        is_optional: true
+      }
+      priority: -9900
+    }
+  }
+}
+cont {
   name: "amenity-parking-multi-storey"
   element {
     scale: 15
@@ -7068,6 +7105,56 @@ cont {
   }
 }
 cont {
+  name: "amenity-parking-street_side-private"
+  element {
+    scale: 17
+    area {
+      color: 15921852
+      priority: -1900
+    }
+  }
+  element {
+    scale: 18
+    area {
+      color: 15921852
+      priority: -1900
+    }
+    symbol {
+      name: "parking_private-s"
+      priority: 100
+    }
+    caption {
+      primary {
+        height: 11
+        color: 4473924
+        offset_y: 1
+        is_optional: true
+      }
+      priority: -9900
+    }
+  }
+  element {
+    scale: 19
+    area {
+      color: 15921852
+      priority: -1900
+    }
+    symbol {
+      name: "parking_private-s"
+      priority: 100
+    }
+    caption {
+      primary {
+        height: 11
+        color: 4473924
+        offset_y: 1
+        is_optional: true
+      }
+      priority: -9900
+    }
+  }
+}
+cont {
   name: "amenity-parking-underground"
   element {
     scale: 16
@@ -7125,7 +7212,7 @@ cont {
   element {
     scale: 16
     symbol {
-      name: "parking_pay-s"
+      name: "parking_underground_pay-m"
       priority: 300
       min_distance: 5
     }
@@ -7133,7 +7220,7 @@ cont {
   element {
     scale: 17
     symbol {
-      name: "parking_pay-m"
+      name: "parking_underground_pay-m"
       priority: 300
       min_distance: 10
     }
@@ -7141,7 +7228,7 @@ cont {
   element {
     scale: 18
     symbol {
-      name: "parking_pay-m"
+      name: "parking_underground_pay-m"
       priority: 300
       min_distance: 10
     }
@@ -7158,7 +7245,7 @@ cont {
   element {
     scale: 19
     symbol {
-      name: "parking_pay-m"
+      name: "parking_underground_pay-m"
       priority: 300
       min_distance: 10
     }
@@ -7170,6 +7257,41 @@ cont {
         is_optional: true
       }
       priority: -9700
+    }
+  }
+}
+cont {
+  name: "amenity-parking-underground-private"
+  element {
+    scale: 18
+    symbol {
+      name: "parking_underground_private-m"
+      priority: 100
+    }
+    caption {
+      primary {
+        height: 11
+        color: 4473924
+        offset_y: 1
+        is_optional: true
+      }
+      priority: -9900
+    }
+  }
+  element {
+    scale: 19
+    symbol {
+      name: "parking_underground_private-m"
+      priority: 100
+    }
+    caption {
+      primary {
+        height: 11
+        color: 4473924
+        offset_y: 1
+        is_optional: true
+      }
+      priority: -9900
     }
   }
 }
@@ -7236,6 +7358,25 @@ cont {
         is_optional: true
       }
       priority: -9750
+    }
+  }
+}
+cont {
+  name: "amenity-parking_entrance-private"
+  element {
+    scale: 19
+    symbol {
+      name: "parking_entrance_private-m"
+      priority: 100
+    }
+    caption {
+      primary {
+        height: 10
+        color: 4473924
+        offset_y: 1
+        is_optional: true
+      }
+      priority: -9900
     }
   }
 }

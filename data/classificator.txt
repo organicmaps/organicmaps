@@ -92,6 +92,7 @@ world  +
             fee  -
             lane  +
                 fee  -
+                private  -
                 {}
             multi-storey  +
                 fee  -
@@ -102,9 +103,11 @@ world  +
             private  -
             street_side  +
                 fee  -
+                private  -
                 {}
             underground  +
                 fee  -
+                private  -
                 {}
             {}
         parking_entrance  +
