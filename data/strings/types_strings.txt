@@ -180,6 +180,7 @@
     et = Segatõstuk
     eu = Telekondola/teleaulkia
     fi = Köysirata
+    fr = Téléporté mixte
     it = Impianto misto
     ja = 混合リフト
     mr = हवाई मार्ग
@@ -237,6 +238,7 @@
     es = Infraestructura aérea
     et = Õhuruumi infrastruktuur
     eu = Aire azpiegitura
+    fr Equipement aérien
     it = Infrastruttura aeroportuale
     ja = 空路
     mr = हवाई आधार संरचना
@@ -480,7 +482,7 @@
     eu = Azpiegiturak
     fa = زیر ساخت
     fi = Infrastruktuurikohteet
-    fr = Objets d'infrastructure
+    fr = Infrastructures
     hu = Infrastruktúra
     id = Ruang berfasilitas
     it = Struttura
@@ -1213,7 +1215,7 @@
     eu = Arcade
     fa = گذرگاه طاقدار
     fi = Arcade
-    fr = Arcade
+    fr = Salle de jeux d'arcade
     he = מִקמֶרֶת
     hu = Árkád
     id = Arkade
@@ -1552,7 +1554,7 @@
     eu = Komunitate Zentroa
     fa = مرکزاجتماعی
     fi = Monitoimitalo
-    fr = Centre communautaire
+    fr = Salle polyvalente
     hu = Közösségi központ
     id = Pusat komunitas
     it = Centro ricreativo
@@ -2339,7 +2341,7 @@
     eu = Izozki-denda
     fa = غذا
     fi = Jäätelökioski
-    fr = Stand de crème glacée
+    fr = Stand de crèmes glacées
     hu = Fagylaltárus
     id = Kios Es Krim
     it = Gelateria
@@ -2409,7 +2411,7 @@
     eu = Haurtzaindegia
     fa = مهدکودک
     fi = Päiväkoti
-    fr = Maternelle
+    fr = Crèche
     hu = Óvoda
     id = Taman kanak-kanak
     it = Scuola materna
@@ -3805,6 +3807,7 @@
     eu = Tenplua
     fa = گردشگری
     fi = Taolainen temppeli
+    fr = Temmple Taoïste
     hu = Templom
     id = Kuil
     it = Tempio taoista
@@ -5270,7 +5273,7 @@
     eu = Ibilgailuen Ikuskapena
     fa = بازرسی وسایل نقلیه
     fi = Ajoneuvon tarkastus
-    fr = Inspection de véhicule
+    fr = Centre de contrôle technique
     he = לבדיקה טכנית
     hu = Gépjármű átvizsgálás
     id = Pemeriksaan kendaraan
@@ -5743,7 +5746,7 @@
     eu = Hondakin-urak
     fa = فاضلاب
     fi = Jätevesi
-    fr = Eaux usées
+    fr = Bassin d'eaux usées
     he = שפכים
     hu = Szennyvíz
     id = Air limbah
@@ -5890,6 +5893,7 @@
     en = Kissing Gate
     af = Voetgangershek
     et = Suudlemisvärav
+    fr = Portillon à chicane mobile
     nl = Voetgangershek
     pt = Quebra-corpo
     pt-BR = Quebra-corpo
@@ -7147,7 +7151,7 @@
     eu = Giltza-mozketa
     fa = برش کلید
     fi = Avaimen leikkaaminen
-    fr = Reproduction de clé
+    fr = Reproduction de clés
     he = חיתוך מפתח
     hu = Kulcsvágás
     id = Pemotongan Kunci
@@ -9213,7 +9217,7 @@
     et = Itaalia, pizza
     eu = Italiako sukaldaritza, pizza
     fi = Italialainen, pizza
-    fr = Italien, pizza
+    fr = Pizza italienne
     he = מטבח איטלקי;פיצה
     hu = Olasz konyha, pizza
     id = Italia, pizza
@@ -14715,6 +14719,7 @@
     es = Uso del suelo
     et = Maakasutus
     fi = Maankäyttö
+    fr = Utilisation du sol
     ja = 土地利用
     mr = भूमी उपयोग
     nl = Landgebruik
@@ -15571,7 +15576,7 @@
     es = Estanque
     et = Tiik
     fi = Suolalampi
-    fr = Marais salant
+    fr = Marais salants
     it = Salina
     ja = 塩田
     mr = तलाव
@@ -16231,7 +16236,7 @@
     af = Sleephelling
     de = Bootsrampe
     et = Elling
-    fr = Cale de lancement
+    fr = Cale de mise à l'eau
     it = Scivolo per navi
     ja = スリップウェイ
     nl = Scheepshelling
@@ -18478,7 +18483,7 @@
     eu = Zuhaitz ilara
     fa = ردیف درخت
     fi = Puurivi
-    fr = Rangée d'arbre
+    fr = Rangée d'arbres
     he = שורת עצים
     hu = Fa sor
     id = Baris pohon
@@ -19967,7 +19972,7 @@
     eu = Eguzki-sorgailua
     fa = ژنراتور خورشیدی
     fi = Aurinkogeneraattori
-    fr = Générateur solaire
+    fr = Panneaux solaires
     he = גנרטור סולארי
     hu = Napelemes generátor
     id = Pembangkit surya
@@ -20275,7 +20280,7 @@
     eu = Eguzki-zentrala
     fa = نیروگاه خورشیدی
     fi = Aurinkovoimala
-    fr = Centrale solaire
+    fr = Centrale photovoltaïque
     he = תחנת כוח סולארית
     hu = Naperőmű
     id = Pembangkit listrik tenaga surya
@@ -20316,7 +20321,7 @@
     eu = Zentral eolikoa
     fa = نیروگاه بادی
     fi = Tuulivoimala
-    fr = Centrale éolienne
+    fr = Ferme d'éoliennes
     he = תחנת כוח רוח
     hu = Szélerőmű
     id = Pembangkit listrik tenaga angin
@@ -20521,6 +20526,7 @@
     af = Platform
     es = Plataforma
     et = Platvorm
+    fr = Quai de transport en commun
     ja = 公共交通機関のプラットホーム
     mr = फलाट
     nl = Platform
@@ -20623,7 +20629,7 @@
     de = Bahnübergang
     es = Paso a nivel
     et = Raudtee ülesõit
-    fr = Traversée de voie ferrée
+    fr = Passage à niveau pour piéton
     it = Passaggio ferroviario
     ja = 歩行者用踏切
     mr = रेल्वे ओलांडणी
