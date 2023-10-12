@@ -35,6 +35,7 @@ public final class Config
   private static final String KEY_MISC_SHOW_ON_LOCK_SCREEN = "ShowOnLockScreen";
   private static final String KEY_MISC_AGPS_TIMESTAMP = "AGPSTimestamp";
   private static final String KEY_DONATE_URL = "DonateUrl";
+   private static final String KEY_PREF_SUPER_PRIVACY = "EnableSuperPrivacy";
 
   /**
    * The total number of app launches.
@@ -334,6 +335,7 @@ public final class Config
     return getString(KEY_DONATE_URL);
   }
 
+
   public static void init(@NonNull Context context)
   {
     PreferenceManager.setDefaultValues(context, R.xml.prefs_main, false);
@@ -382,6 +384,27 @@ public final class Config
 
   private static native boolean nativeHasConfigValue(String name);
   private static native boolean nativeDeleteConfigValue(String name);
+
+  public static boolean isSuperPrivacyEnabled() {
+          return getBool(KEY_PREF_SUPER_PRIVACY, false);
+     }
+
+     public static void setSuperPrivacyEnabled(boolean enabled) {
+          setBool(KEY_PREF_SUPER_PRIVACY, enabled);
+     }
+
+
+     // This is to ensure that the default value of the switch is set to true and 
+     //is stored in the Shared preferences of the app
+     public static void setSuperPrivacyToSharedPrefs(@NonNull SettingsPrefsFragment context) {
+          SharedPreferences prefs = MwmApplication.prefs(context);
+          SharedPreferences.Editor editor = prefs.edit();
+          editor.putBoolean(KEY_PREF_SUPER_PRIVACY, true);
+          editor.apply();
+     }
+
+  
+
   private static native boolean nativeGetBoolean(String name, boolean defaultValue);
   private static native void nativeSetBoolean(String name, boolean value);
   private static native int nativeGetInt(String name, int defaultValue);
