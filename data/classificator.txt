@@ -89,18 +89,23 @@ world  +
         nursing_home  -
         parcel_locker  -
         parking  +
-            fee  +
-                lane  -
-                street_side  -
+            fee  -
+            lane  +
+                fee  -
                 {}
-            lane  -
-            multi-storey  -
+            multi-storey  +
+                fee  -
+                {}
             no-access  -
             park_and_ride  -
             permissive  -
             private  -
-            street_side  -
-            underground  -
+            street_side  +
+                fee  -
+                {}
+            underground  +
+                fee  -
+                {}
             {}
         parking_entrance  +
             permissive  -
@@ -479,7 +484,6 @@ world  +
         service  +
             area  -
             bridge  -
-            busway  -
             driveway  -
             parking_aisle  -
             tunnel  -

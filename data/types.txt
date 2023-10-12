@@ -353,14 +353,14 @@ mapswithme
 *highway|cycleway|permissive
 *highway|unclassified|area
 *natural|volcano
-amenity|parking|underground
+*amenity|parking|underground|fee
 *amenity|parking|underground
 *amenity|parking|street_side
 *amenity|parking|multi-storey
 *leisure|recreation_ground
 *highway|footway|mountain_hiking
 highway|service|driveway
-amenity|parking|multi-storey
+*amenity|parking|multi-storey|fee
 *sport|9pin
 *sport|10pin
 *piste:type|downhill|novice
@@ -439,8 +439,8 @@ mapswithme
 mapswithme
 mapswithme
 *aerialway|t-bar
-*amenity|parking|fee|lane
-*amenity|parking|fee|street_side
+*amenity|parking|lane|fee
+*amenity|parking|street_side|fee
 *highway|path|difficult_alpine_hiking
 *earthquake:damage|spontaneous_camp
 *natural|water|drain
@@ -854,7 +854,7 @@ mapswithme
 *railway|rail|highspeed|tunnel
 *railway|rail|tourism|tunnel
 *mapswithme|grid
-*highway|service|busway
+highway|busway
 *highway|busway
 *highway|busway|bridge
 *highway|busway|tunnel
