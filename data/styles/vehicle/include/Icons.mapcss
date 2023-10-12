@@ -929,6 +929,10 @@ node|z17-[amenity=parking][access=private],
 area|z17-[amenity=parking][access=private],
 {icon-image: parking_private-m.svg;text: name;}
 
+node|z17-[amenity=parking][location=underground][access=private],
+area|z17-[amenity=parking][location=underground][access=private],
+{icon-image: parking_underground_private-m.svg;}
+
 node|z17-[amenity=parking][parking=street_side],
 area|z17-[amenity=parking][parking=street_side],
 node|z17-[amenity=parking][parking=lane],
