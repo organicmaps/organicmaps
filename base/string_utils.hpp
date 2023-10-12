@@ -34,7 +34,7 @@ class UniString : public buffer_vector<UniChar, 32>
 public:
   using value_type = UniChar;
 
-  UniString() {}
+  UniString() = default;
   explicit UniString(size_t n) : BaseT(n) {}
   UniString(size_t n, UniChar c) { resize(n, c); }
 
@@ -176,7 +176,7 @@ public:
     return UniString(m_start, m_end);
   }
 
-  operator bool() const { return m_start != m_finish; }
+  explicit operator bool() const { return m_start != m_finish; }
 
   TokenizeIterator & operator++()
   {
@@ -245,7 +245,7 @@ public:
     return std::string_view(baseI, std::distance(baseI, this->ToCharPtr(m_end)));
   }
 
-  operator bool() const { return !m_finished; }
+  explicit operator bool() const { return !m_finished; }
 
   TokenizeIterator & operator++()
   {
