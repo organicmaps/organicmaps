@@ -217,26 +217,27 @@ void RoadGeometry::Load(VehicleModelInterface const & vehicleModel, FeatureType 
   }
   m_distances.resize(count - 1, -1);
 
-  /// @todo Take out this logic into VehicleModel::GetSpeed to include
-  /// RouteShuttleTrain for bicycle and pedestrian.
-  if (m_routingOptions.Has(RoutingOptions::Road::Ferry))
+  bool const isFerry = m_routingOptions.Has(RoutingOptions::Road::Ferry);
+  /// @todo Add RouteShuttleTrain into RoutingOptions?
+  if (isFerry || (m_highwayType && *m_highwayType == HighwayType::RouteShuttleTrain))
   {
-    /// @todo Also process "interval" OSM tag (without additional boarding penalties).
-    // https://github.com/organicmaps/organicmaps/issues/3695
-
-    auto const roadLenKm = GetRoadLengthM() / 1000.0;
-    double const durationH = CalcFerryDurationHours(feature.GetMetadata(feature::Metadata::FMD_DURATION), roadLenKm);
-    CHECK(!base::AlmostEqualAbs(durationH, 0.0, 1e-5), (durationH));
-
-    if (roadLenKm != 0.0)
+    // Skip shuttle train calculation without duration.
+    auto const durationMeta = feature.GetMetadata(feature::Metadata::FMD_DURATION);
+    if (isFerry || !durationMeta.empty())
     {
-      double const speed = roadLenKm / durationH;
-      /// @todo Can fire now if you transit through some fast ferry. Can do one of the following:
-      /// - Remove assert, but update A* algo heuristic somehow;
-      /// - Reconsider ferry defaults;
-      /// - Make _very big_ bicycle/pedestrian maxspeed;
-      ASSERT_LESS_OR_EQUAL(speed, vehicleModel.GetMaxWeightSpeed(), (roadLenKm, durationH, fID));
-      m_forwardSpeed = m_backwardSpeed = SpeedKMpH(speed);
+      /// @todo Also process "interval" OSM tag (without additional boarding penalties).
+      // https://github.com/organicmaps/organicmaps/issues/3695
+
+      auto const roadLenKm = GetRoadLengthM() / 1000.0;
+      double const durationH = CalcFerryDurationHours(durationMeta, roadLenKm);
+      CHECK(!base::AlmostEqualAbs(durationH, 0.0, 1e-5), (durationH));
+
+      if (roadLenKm != 0.0)
+      {
+        double const speed = roadLenKm / durationH;
+        ASSERT_LESS_OR_EQUAL(speed, vehicleModel.GetMaxWeightSpeed(), (roadLenKm, durationH, fID));
+        m_forwardSpeed = m_backwardSpeed = SpeedKMpH(speed);
+      }
     }
   }
 

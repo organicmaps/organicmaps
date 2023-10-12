@@ -194,7 +194,7 @@ UNIT_TEST(London_GreenwichTunnel)
   // Has bicycle=yes, because it belongs to https://www.openstreetmap.org/relation/9063263
   CalculateRouteAndTestRouteLength(GetVehicleComponents(VehicleType::Bicycle),
       mercator::FromLatLon(51.4817397, -0.0100070258), {0.0, 0.0},
-      mercator::FromLatLon(51.4883739, -0.00809729298), 1010.14 /* expectedRouteMeters */);
+      mercator::FromLatLon(51.4883739, -0.00809729298), 1305.81 /* expectedRouteMeters */);
 }
 
 UNIT_TEST(Batumi_AvoidServiceDetour)

@@ -503,6 +503,8 @@ UNIT_TEST(SwitzerlandSaintBlaisePedestrianPastFerry)
 {
   // New value has bigger ditance (+100 meters), but better ETA (-1 minute).
   // Check with intermediate point {47.0098, 6.9770}
+
+  /// @todo After reducing GetFerryLandingPenalty, the app takes ferry here (1184 meters, 708 seconds).
   integration::CalculateRouteAndTestRouteLength(
       integration::GetVehicleComponents(VehicleType::Pedestrian),
       mercator::FromLatLon(47.010336, 6.982954), {0.0, 0.0},
