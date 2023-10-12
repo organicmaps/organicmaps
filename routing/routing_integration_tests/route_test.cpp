@@ -174,8 +174,13 @@ UNIT_TEST(RussiaMoscowFranceParisCenterRouteTest)
 
 UNIT_TEST(EnglandToFranceRouteLeMansTest)
 {
-  CalculateRouteAndTestRouteLength(GetVehicleComponents(VehicleType::Car),
-      FromLatLon(51.09276, 1.11369), {0., 0.}, FromLatLon(50.93227, 1.82725), 64755.6);
+  TRouteResult const res = CalculateRoute(GetVehicleComponents(VehicleType::Car),
+                                          FromLatLon(51.09276, 1.11369), {0., 0.},
+                                          FromLatLon(50.93227, 1.82725));
+
+  TestRouteLength(*res.first, 64089.4);
+  // LeMans shuttle duration is 35 min.
+  TEST_LESS(res.first->GetTotalTimeSec(), 3200, ());
 }
 
 UNIT_TEST(RussiaMoscowStartAtTwowayFeatureTest)
