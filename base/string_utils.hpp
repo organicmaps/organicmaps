@@ -127,6 +127,7 @@ bool EqualNoCase(std::string const & s1, std::string const & s2);
 
 UniString MakeUniString(std::string_view utf8s);
 std::string ToUtf8(UniString const & s);
+std::u16string ToUtf16(std::string_view utf8);
 bool IsASCIIString(std::string_view sv);
 bool IsASCIIDigit(UniChar c);
 template <class StringT> bool IsASCIINumeric(StringT const & str)
