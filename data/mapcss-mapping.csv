@@ -1667,3 +1667,4 @@ leisure|outdoor_seating;1585;
 railway|station|light_rail|london;[railway=station][station=light_rail][city=london];;name;int_name;1586;
 railway|station|light_rail|porto;[railway=station][station=light_rail][city=porto];;name;int_name;1587;
 amenity|place_of_worship|christian|jehovahs_witness;[amenity=place_of_worship][religion=christian][denomination=jehovahs_witness];;name;int_name;1588;
+amenity|parking|underground|private;[amenity=parking][location=underground][access=private],[amenity=parking][parking=underground][access=private];;name;int_name;1589;
