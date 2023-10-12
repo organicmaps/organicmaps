@@ -245,6 +245,8 @@ public class SearchFragment extends BaseMwmFragment
     return inflater.inflate(R.layout.fragment_search, container, false);
   }
 
+  public boolean isSwitchEnabled;
+  
   @CallSuper
   @Override
   public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState)
@@ -259,7 +261,12 @@ public class SearchFragment extends BaseMwmFragment
 
     mToolbarController = new ToolbarController(view);
     TabLayout tabLayout = root.findViewById(R.id.tabs);
-    final TabAdapter tabAdapter = new TabAdapter(getChildFragmentManager(), pager, tabLayout);
+    final TabAdapter tabAdapter;
+      if(isSwitchEnabled){
+             tabAdapter =  new TabAdapter(getChildFragmentManager(),pager,tabLayout);
+        }else{
+             tabAdapter = new PrivacyTabAdapter(getChildFragmentManager(), pager, tabLayout);
+        }
 
     mResultsFrame = root.findViewById(R.id.results_frame);
     RecyclerView mResults = mResultsFrame.findViewById(R.id.recycler);
@@ -383,7 +390,9 @@ public class SearchFragment extends BaseMwmFragment
   void showSingleResultOnMap(@NonNull SearchResult result, int resultIndex)
   {
     final String query = getQuery();
+    if(isSwitchEnabled){
     SearchRecents.add(query, requireContext());
+    }
     SearchEngine.INSTANCE.cancel();
     SearchEngine.INSTANCE.setQuery(query);
 
@@ -417,7 +426,9 @@ public class SearchFragment extends BaseMwmFragment
     SearchEngine.INSTANCE.cancel();
 
     final String query = getQuery();
+    if(isSwitchEnabled){
     SearchRecents.add(query, requireContext());
+    }
     mLastQueryTimestamp = System.nanoTime();
 
     SearchEngine.INSTANCE.searchInteractive(
