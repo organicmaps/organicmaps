@@ -39,6 +39,8 @@ import app.organicmaps.util.UiUtils;
 import app.organicmaps.util.Utils;
 import app.organicmaps.util.log.LogsManager;
 import com.google.android.material.dialog.MaterialAlertDialogBuilder;
+import app.organicmaps.widget.SearchToolbarController;
+import app.organicmaps.routing.RoutingController;
 
 import java.util.Arrays;
 import java.util.Collections;
@@ -270,6 +272,7 @@ public class SettingsPrefsFragment extends BaseXmlSettingsFragment
       }
       initScreenSleepEnabledPrefsCallbacks();
       initShowOnLockScreenPrefsCallbacks();
+      initSuperPrivacyPrefsCallbacks();
     }
     else if (isOnTtsScreen())
     {
@@ -805,4 +808,37 @@ public class SettingsPrefsFragment extends BaseXmlSettingsFragment
     ALWAYS,
     NEVER
   }
+  
+   final SearchToolbarController controller = ((SearchFragment) requireParentFragment()).requireController();
+    final boolean showMyPosition = (RoutingController.get().isWaitingPoiPick() && LocationHelper.fron(requireContext()).getMyPosition()!=null);
+
+    private SearchHistoryAdapter searchHistoryAdapter = new SearchHistoryAdapter(controller,showMyPosition);
+
+    private SearchFragment searchFragment = new SearchFragment();
+
+
+    private void initSuperPrivacyPrefsCallbacks(){
+        Config.setSuperPrivacyToSharedPrefs(this);
+        final Preference pref = findPreference(getString(R.string.pref_super_privacy));
+
+        final boolean isSuperPrivacyEnabled = Config.isSuperPrivacyEnabled();
+        ((TwoStatePreference) pref).setChecked(isSuperPrivacyEnabled);
+        pref.setOnPreferenceChangeListener(
+                (preference,newValue) ->
+                {
+                    boolean newVal = (Boolean) newValue;
+                    if(isSuperPrivacyEnabled != newVal){
+                        Config.setSuperPrivacyEnabled(newVal);
+                        searchFragment.isSwitchEnabled = newVal;
+                        if (newVal) {
+                            SearchRecents.refresh();
+                        } else {
+                            SearchRecents.clear();
+                        }
+                        searchHistoryAdapter.notifyDataSetChanged();
+                    }
+                    return true;
+                });
+    }
+  
 }
