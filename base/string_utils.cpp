@@ -276,6 +276,13 @@ std::string ToUtf8(UniString const & s)
   return result;
 }
 
+std::u16string ToUtf16(std::string_view utf8)
+{
+  std::u16string utf16;
+  utf8::unchecked::utf8to16(utf8.begin(), utf8.end(), back_inserter(utf16));
+  return utf16;
+}
+
 bool IsASCIIString(std::string_view sv)
 {
   for (auto c : sv)

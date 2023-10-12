@@ -56,6 +56,19 @@ inline std::string DebugPrint(char const * t)
     return DebugPrint(std::string(t));
   else
     return std::string("NULL string pointer");
+namespace internal
+{
+std::string ToUtf8(std::u16string_view utf16);
+}  // namespace internal
+
+inline std::string DebugPrint(std::u16string const & utf16)
+{
+  return internal::ToUtf8(utf16);
+}
+
+inline std::string DebugPrint(std::u16string_view utf16)
+{
+  return internal::ToUtf8(utf16);
 }
 
 inline std::string DebugPrint(char t)

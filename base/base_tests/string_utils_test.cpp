@@ -867,9 +867,16 @@ UNIT_TEST(Normalize_Special)
 
 UNIT_TEST(UniStringToUtf8)
 {
-  char const utf8Text[] = "У нас исходники хранятся в Utf8!";
-  strings::UniString uniS = strings::MakeUniString(utf8Text);
+  char constexpr utf8Text[] = "У нас исходники хранятся в Utf8!";
+  auto const uniS = strings::MakeUniString(utf8Text);
   TEST_EQUAL(std::string(utf8Text), strings::ToUtf8(uniS), ());
+}
+
+UNIT_TEST(UniStringToUtf16)
+{
+  std::string_view constexpr utf8sv = "Текст";
+  static char16_t constexpr utf16[] = u"Текст";
+  TEST_EQUAL(utf16, strings::ToUtf16(utf8sv), ());
 }
 
 UNIT_TEST(StartsWith)
