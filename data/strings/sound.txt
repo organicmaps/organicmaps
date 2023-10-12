@@ -169,7 +169,7 @@
     eu = Irten biribilgunetik.
     fa = از میدان خارج شوید.
     fi = Poistu liikenneympyrästä.
-    fr = Sortir du rond-point.
+    fr = Sortez du rond-point.
     hi = परिपथ से बाहर निकलें।
     hr = Napustite zaobilaznicu.
     hu = Hagyja el a körforgalmat.

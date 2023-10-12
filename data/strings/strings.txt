@@ -232,7 +232,7 @@
     eu = Errore bat gertatu da deskargatzean, hasi berriro
     fa = دانلود ناموفق بود. برای تلاش مجدد لمس کنید
     fi = Lataus epäonnistui, yritä uudelleen koskettamalla
-    fr = Échec lors du téléchargement. Toucher de nouveau pour un essai de plus.
+    fr = Échec lors du téléchargement. Appuyer pour réessayer.
     he = הורדת הקובץ נכשלה. לחץ שוב לניסיון נוסף
     hu = Letöltés sikertelen. Kérjük próbálja újra!
     id = Pengunduhan gagal, sentuh untuk mencoba sekali lagi
@@ -319,7 +319,7 @@
     eu = Kilometro
     fa = کیلومتر
     fi = Kilometrit
-    fr = kilomètres
+    fr = Kilomètres
     he = ק"מ
     hu = Kilométer
     id = Kilometer
@@ -1033,7 +1033,7 @@
     eu = • Bateria aurrezten du, ez du atzeko planoko daturik erabiltzen
     fa = • باتری را ذخیره می کند، از داده های پس زمینه استفاده نمی کند
     fi = • Säästää akkua, ei käytä taustatietoja
-    fr = • Ne draine pas la batterie, ni les données mobile
+    fr = • Ne draine pas la batterie, ni les données mobiles
     he = • חוסך בסוללה, אינו משתמש בנתוני רקע
     hu = • Kíméli az akkumulátort, nem használ háttéradatokat
     id = • Menghemat baterai, tidak menggunakan data latar belakang
@@ -1750,7 +1750,7 @@
     eu = Gehitu zerrenda berri bat
     fa = اضافه کردن مجموعه جدید
     fi = Lisää uusi valikoima
-    fr = Ajouter un nouveau groupe
+    fr = Créer une nouvelle liste
     he = הוסף קבוצה חדשה
     hu = Új csoport létrehozása
     id = Tambahkan Set baru
@@ -2263,7 +2263,7 @@
     eu = Hautatu mapak non deskargatu behar diren
     fa = مسیری را که نقشه‌ها باید در آن دانلود شود را انتخاب کنید
     fi = Valitse karttojen latauskohde.
-    fr = Sélectionner l'emplacement où les cartes devraient être téléchargées
+    fr = Sélectionner l'emplacement où les cartes seront téléchargées
     he = בחר הכתובת במחשבך לשמירת המפות שתוריד
     hu = Válassza ki, hogy hova töltsük le a térképeket
     id = Pilih tempat untuk menyimpan unduhan peta
@@ -6402,7 +6402,7 @@
     eu = Posta elektronikoko bezeroa ez da konfiguratu. Mesedez, konfigura ezazu edo erabili beste moduren bat gurekin harremanetan jartzeko %@ helbidean
     fa = کلاینت ایمیل شما پیکربندی نشده است.لطفا آن را پیکربندی کنید یا از طریق دیگر با ما تماس بگیرید %@
     fi = Sähköpostisovellusta ei ole asetettu. Ole hyvä ja määritä sähköpostiasetukset tai ota meihin yhteyttä toista kautta osoitteessa %@
-    fr = Le client de courriel n'a pas été configuré. Veuillez le faire ou employer tout autre moyen pour nous contacter à %@
+    fr = Le client de courriel n'a pas été configuré. Veuillez le configurer ou nous contacter à %@
     he = יישום הדוא"ל לא הוגדר. אנא קבעו את תצורתו או השתמשו בכל דרך אחרת על מנת ליצור עמנו קשר בכתובת %@
     hu = Az email kliens nincs beállítva. Kérjük, konfiguráld vagy próbálj meg valamilyen más módon kapcsolatba lépni velünk a %@ email címen keresztül.
     id = Surel pelanggan belum diatur. Mohon konfigurasikan atau gunakan cara lain untuk menghubungi kami di %@
@@ -7119,7 +7119,7 @@
     eu = Mapa ezabatzeko, gelditu nabigazioa.
     fa = برای حذف نقشه لطفا مسیر‌یابی را متوقف کنید
     fi = Pysäytä navigointi poistaaksesi kartan.
-    fr = Veuillez interrompre la navigation pour supprimer la carte.
+    fr = Veuillez arrêter la navigation pour supprimer la carte.
     hu = Kérjük, állítsa le a navigációt a térkép törléséhez.
     id = Untuk menghapus peta, silakan hentikan navigasi.
     it = Per eliminare una mappa interrompi la navigazione.
@@ -7417,7 +7417,7 @@
     eu = Erabili Google Play zerbitzuak zure uneko kokapena zehazteko
     fa = استفاده از Google Play Services برای تعیین موقعیت کنونی شما
     fi = Käytä Google Play -palveluita sijaintisi selvittämiseksi
-    fr = Utilisez l'application Google Play Services pour obtenir votre emplacement actuel
+    fr = Utilisez les Services Google Play pour obtenir votre emplacement actuel
     hu = Használja a Google Play szolgáltatást, hogy szert tegyen aktuális helyszínéről
     id = Gunakan Layanan Google Play untuk mendapatkan lokasi Anda saat ini
     it = Usa i servizi Google Play per ottenere la tua posizione attuale
@@ -12175,7 +12175,7 @@
     eu = Ez al duzu OpenStreetMap konturik?
     fa = آیا حساب OpenStreetMap ندارید؟
     fi = Eikö sinulla ole OpenStreetMap-tiliä?
-    fr = Vous n'avez pas de compte sur OpenStreetMap?
+    fr = Vous n'avez pas de compte sur OpenStreetMap ?
     hu = Nem rendelkezel még OpenStreetMap-felhasználói fiókkal?
     id = Tidak ada akun di OpenStreetMap?
     it = Non hai un account OpenStreetMap?
@@ -14905,7 +14905,7 @@
     eu = Bidali oharra OSM editoreei
     fa = ارسال یادداشت به ویرایش‌کنندگان OSM
     fi = Lähetä muistilappu OSM-toimittajille
-    fr = Informer les éditeurs OSM
+    fr = Informer les contributeurs OSM
     hu = Küldjön jegyzetet az OSM editornak
     id = Kirim catatan ke editor OSM
     it = Invia un messaggio a OSM
@@ -15236,7 +15236,7 @@
     eu = Uneko kokapena ezezaguna da. Agian eraikin batean edo tunel batean zaudelako.
     fa = مکان شما ناشناس مانده است.ممکن است شما داخل یک ساختمان یا تونل باشید.
     fi = Nykyistä sijaintiasi ei voitu määrittää. Kenties olet rakennuksessa tai tunnelissa.
-    fr = L'emplacement actuel est inconnu. Vous êtes peut-être dans un bâtiment ou sous un tunnel.
+    fr = L'emplacement actuel est inconnu. Vous êtes peut-être dans un bâtiment ou dans un tunnel.
     hu = Tartózkodási helye ismeretlen. Lehet, hogy épületben vagy alagútban tartózkodik.
     id = Lokasi saat ini tidak diketahui. Anda mungkin berada dalam bangunan atau terowongan.
     it = La posizione attuale è sconosciuta. È possibile che ci si trovi all'interno di un edificio o un tunnel.
@@ -16530,7 +16530,7 @@
     et = Palun märgi põhjus koha kustutamiseks
     eu = Zehaztu tokia ezabatzeko arrazoia
     fi = Anna syy paikan poistamiselle
-    fr = Veuillez indiquer la raison pour laquelle vous effacez cet endroit
+    fr = Veuillez indiquer la raison pour laquelle vous supprimer cet endroit
     it = Indicare il motivo dell' eliminazione del luogo
     lt = Nurodykite vietos panaikinimo priežastį
     mr = कृपया ठिकाण हटवण्याचे कारण सूचित करा
@@ -17009,7 +17009,7 @@
     eu = OpenStreetMap editoreek aldaketak egiaztatuko dituzte eta zurekin harremanetan jarriko dira zalantzaren bat izanez gero.
     fa = ویرایشگران OpenStreetMap ﺗﻐﯿﯿﺮﺍﺕ ﺭﺍ ﺑﺮﺭﺳﯽ ﮐﺮﺩﻩ ﻭ ﺩﺭ ﺻﻮﺭﺕ ﺩﺍﺷﺘﻦ ﻫﺮﮔﻮﻧﻪ ﺳﻮﺍﻝ ﺑﺎ ﺷﻤﺎ ﺗﻤﺎﺱ ﺧﻮﺍﻫﻨﺪ ﮔﺮﻓﺖ.
     fi = OpenStreetMap-editorit tarkistavat muutokset ja ottavat sinuun yhteyttä, jos heillä on kysyttävää.
-    fr = Les éditeurs d'OpenStreetMap vérifieront vos modifications et vous contacteront s'ils ont des questions.
+    fr = Les contributeurs d'OpenStreetMap vérifieront vos modifications et vous contacteront s'ils ont des questions.
     he = .ןהשלכ תולאש םהל שי םא רשק ךתיא ורציו םייונישה תא וקדבי OpenStreetMap יכרוע
     hu = Az OpenStreetMap szerkesztői ellenőrzik a változásokat, és felveszik Önnel a kapcsolatot, ha kérdéseik vannak.
     id = Editor OpenStreetMap akan memeriksa perubahan dan menghubungi Anda jika ada pertanyaan.
