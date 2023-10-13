@@ -496,13 +496,10 @@ void ApplyPointFeature::ProcessPointRules(SymbolRuleProto const * symbolRule, Ca
     params.m_hasArea = HasArea();
     params.m_createdByEditor = createdByEditor;
 
-    /// @todo Hardcoded styles-bug patch. The patch is ok, but probably should enhance (or fire assert) styles?
-    /// @see https://github.com/organicmaps/organicmaps/issues/2573
-    if ((symbolRule || houseNumberRule) && params.m_titleDecl.m_anchor == dp::Anchor::Center)
-    {
-      ASSERT(!symbolRule, ("A `text-offset: *` is not set in styles.", m_f.GetID(), params.m_titleDecl.m_primaryText));
+    ASSERT(!(symbolRule && params.m_titleDecl.m_anchor == dp::Anchor::Center),
+           ("A `text-offset: *` is not set in styles.", m_f.GetID(), m_f.DebugString(m_tileKey.m_zoomLevel, true)));
+    if (houseNumberRule && params.m_titleDecl.m_anchor == dp::Anchor::Center)
       params.m_titleDecl.m_anchor = GetAnchor(0, 1);
-    }
 
     params.m_startOverlayRank = symbolRule ? dp::OverlayRank1 : dp::OverlayRank0;
     auto shape = make_unique_dp<TextShape>(centerPoint, params, m_tileKey, symbolSize,
