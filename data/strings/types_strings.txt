@@ -238,7 +238,7 @@
     es = Infraestructura aérea
     et = Õhuruumi infrastruktuur
     eu = Aire azpiegitura
-    fr Equipement aérien
+    fr = Equipement aérien
     it = Infrastruttura aeroportuale
     ja = 空路
     mr = हवाई आधार संरचना
@@ -20280,7 +20280,7 @@
     eu = Eguzki-zentrala
     fa = نیروگاه خورشیدی
     fi = Aurinkovoimala
-    fr = Centrale photovoltaïque
+    fr = Centrale solaire
     he = תחנת כוח סולארית
     hu = Naperőmű
     id = Pembangkit listrik tenaga surya

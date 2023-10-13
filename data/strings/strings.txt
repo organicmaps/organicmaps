@@ -16530,7 +16530,7 @@
     et = Palun märgi põhjus koha kustutamiseks
     eu = Zehaztu tokia ezabatzeko arrazoia
     fi = Anna syy paikan poistamiselle
-    fr = Veuillez indiquer la raison pour laquelle vous supprimer cet endroit
+    fr = Veuillez indiquer la raison pour laquelle vous supprimez cet endroit
     it = Indicare il motivo dell' eliminazione del luogo
     lt = Nurodykite vietos panaikinimo priežastį
     mr = कृपया ठिकाण हटवण्याचे कारण सूचित करा
