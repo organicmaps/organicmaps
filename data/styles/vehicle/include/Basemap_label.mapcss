@@ -519,7 +519,7 @@ node|z19-[amenity=loading_dock],
 node|z18-[entrance=main]::flats,
 node|z19-[entrance]::flats,
 node|z19-[entrance=exit]::flats,
-{text: int_name; text-color: @building_label; font-size: 8;}
+{text: int_name; text-color: @building_label; font-size: 8; text-offset: 1;}
 
 /* 8.1 Pier */
 
