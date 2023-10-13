@@ -20,14 +20,23 @@ QString ExecProcess(QString const & program, std::initializer_list<QString> args
   // Quote all arguments.
   QStringList qargs(args);
   for (auto i = qargs.begin(); i != qargs.end(); ++i)
-    *i = "\"" + *i + "\"";
+  {
+    if (i->contains(' '))
+      *i = "\"" + *i + "\"";
+  }
 
   QProcess p;
-  if (nullptr != env)
+  if (nullptr != env) {
     p.setProcessEnvironment(*env);
+    foreach (QString varName, env->keys()) {
+      LOG(LINFO, ("ENV: ", varName.toStdString(), " = ", env->value(varName).toStdString()));
+    }
+  }
 
   p.start(program, qargs, QIODevice::ReadOnly);
   p.waitForFinished(-1);
+  QString cmd = program + " " + qargs.join(" ");
+  LOG(LINFO, ("Running: ", cmd.toStdString()));
 
   int const exitCode = p.exitCode();
   QString output = p.readAllStandardOutput();
@@ -39,6 +48,7 @@ QString ExecProcess(QString const & program, std::initializer_list<QString> args
       msg += "\n" + output;
     if (!error.isEmpty())
       msg += "\nSTDERR:\n" + error;
+    LOG(LWARNING, ("STDERR: ", error.toStdString()));
     throw std::runtime_error(msg.toStdString());
   }
   if (!error.isEmpty())

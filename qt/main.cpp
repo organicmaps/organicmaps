@@ -143,9 +143,10 @@ int main(int argc, char * argv[])
 
 
 #ifdef BUILD_DESIGNER
-    QApplication::setApplicationName("Organic Maps Designer");
+  QApplication::setApplicationName("Organic Maps Designer");
+  QString mapcssFilePath;
 #else
-    QApplication::setApplicationName("Organic Maps");
+  QApplication::setApplicationName("Organic Maps");
 #endif
 
   // Display EULA if needed.
@@ -204,7 +205,6 @@ int main(int argc, char * argv[])
     FrameworkParams frameworkParams;
 
 #ifdef BUILD_DESIGNER
-    QString mapcssFilePath;
     if (argc >= 2 && platform.IsFileExistsByFullPath(argv[1]))
         mapcssFilePath = argv[1];
     if (0 == mapcssFilePath.length())

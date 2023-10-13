@@ -107,7 +107,7 @@ void RunRecalculationGeometryScript(QString const & mapcssFile)
   CopyFromResources("classificator.txt", geometryToolResourceDir);
   CopyFromResources("types.txt", geometryToolResourceDir);
 
-  (void)ExecProcess("python", {
+  (void)ExecProcess("python3", {
       GetRecalculateGeometryScriptPath(),
       resourceDir,
       writableDir,

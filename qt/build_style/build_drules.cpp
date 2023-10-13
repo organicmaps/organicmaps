@@ -27,9 +27,11 @@ void BuildDrawingRulesImpl(QString const & mapcssFile, QString const & outputDir
   // Add path to the protobuf EGG in the PROTOBUF_EGG_PATH environment variable
   QProcessEnvironment env{QProcessEnvironment::systemEnvironment()};
   env.insert("PROTOBUF_EGG_PATH", GetProtobufEggPath());
+  env.insert("PYTHONPATH", GetProtobufEggPath());
+  //env.insert("SHELL", "/bin/bash");
 
   // Run the script
-  (void)ExecProcess("python", {
+  (void)ExecProcess("python3", {
     GetExternalPath("libkomwm.py", "kothic/src", "../tools/kothic/src"),
     "-s", mapcssFile,
     "-o", outputTemplate,

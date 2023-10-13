@@ -21,7 +21,7 @@ QString RunBuildingPhonePack(QString const & stylesDir, QString const & targetDi
   if (!QDir(targetDir).exists())
     throw runtime_error("target directory does not exist" + targetDir.toStdString());
   
-  return ExecProcess("python", {
+  return ExecProcess("python3", {
     GetExternalPath("generate_styles_override.py", "", "../tools/python"),
     stylesDir,
     targetDir
