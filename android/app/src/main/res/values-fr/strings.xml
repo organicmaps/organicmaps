@@ -12,11 +12,11 @@
 	<string name="delete">Supprimer</string>
 	<string name="download_maps">Télécharger des cartes</string>
 	<!-- Settings/Downloader - info for country when download fails -->
-	<string name="download_has_failed">Échec lors du téléchargement. Toucher de nouveau pour un essai de plus.</string>
+	<string name="download_has_failed">Échec lors du téléchargement. Appuyer pour réessayer.</string>
 	<!-- Settings/Downloader - info for country which started downloading -->
 	<string name="downloading">Téléchargement…</string>
 	<!-- Choose measurement on first launch alert - choose metric system button -->
-	<string name="kilometres">kilomètres</string>
+	<string name="kilometres">Kilomètres</string>
 	<!-- Settings/Downloader - size string, only strings different from English should be translated -->
 	<string name="mb">Mo</string>
 	<!-- Choose measurement on first launch alert - choose imperial system button -->
@@ -43,7 +43,7 @@
 	<!-- Text in About screen -->
 	<string name="about_proposition_1">• Pas d\'annonces, pas de suivi, pas de collecte de données</string>
 	<!-- Text in About screen -->
-	<string name="about_proposition_2">• Ne draine pas la batterie, ni les données mobile</string>
+	<string name="about_proposition_2">• Ne draine pas la batterie, ni les données mobiles</string>
 	<!-- Text in About screen -->
 	<string name="about_proposition_3">• Rapide, minimaliste, pas de superflu</string>
 	<!-- Text in About screen -->
@@ -68,7 +68,7 @@
 	<!-- Show popup notification on top of the map when country download has failed. -->
 	<string name="download_country_failed">%s, échec lors du téléchargement</string>
 	<!-- "Add new bookmark list" dialog title -->
-	<string name="add_new_set">Ajouter un nouveau groupe</string>
+	<string name="add_new_set">Créer une nouvelle liste</string>
 	<!-- Bookmark Color dialog title -->
 	<string name="bookmark_color">Couleur du signet</string>
 	<!-- Add Bookmark list dialog - hint when the list name is empty -->
@@ -90,7 +90,7 @@
 	<!-- Header of settings activity where user defines storage path -->
 	<string name="maps_storage">Enregistrer les cartes dans</string>
 	<!-- Detailed description of Maps Storage settings button -->
-	<string name="maps_storage_summary">Sélectionner l\'emplacement où les cartes devraient être téléchargées</string>
+	<string name="maps_storage_summary">Sélectionner l\'emplacement où les cartes seront téléchargées</string>
 	<!-- E.g. "Downloaded maps: 500Mb" in Maps Storage settings -->
 	<string name="maps_storage_downloaded">Cartes téléchargées</string>
 	<!-- Internal storage type in Maps Storage settings (not accessible by the user) -->
@@ -285,7 +285,7 @@
 	<string name="downloader_download_all_button">Tout télécharger</string>
 	<string name="downloader_downloading">Téléchargement en cours :</string>
 	<!-- Displayed in a dialog that appears when a user tries to delete a map while the app is in the follow route mode -->
-	<string name="downloader_delete_map_while_routing_dialog">Veuillez interrompre la navigation pour supprimer la carte.</string>
+	<string name="downloader_delete_map_while_routing_dialog">Veuillez arrêter la navigation pour supprimer la carte.</string>
 	<!-- PointsInDifferentMWM -->
 	<string name="routing_failed_cross_mwm_building">Les itinéraires ne peuvent être créés que s\'ils sont entièrement contenus dans la carte d\'une seule région.</string>
 	<!-- Context menu item for downloader. -->
@@ -299,7 +299,7 @@
 	<!-- Preference title -->
 	<string name="google_play_services">Services Google Play</string>
 	<!-- Preference text -->
-	<string name="pref_use_google_play">Utilisez l\'application Google Play Services pour obtenir votre emplacement actuel</string>
+	<string name="pref_use_google_play">Utilisez les Services Google Play pour obtenir votre emplacement actuel</string>
 	<!-- Text for routing error dialog -->
 	<string name="routing_download_maps_along">Téléchargez toutes les cartes le long de votre itinéraire</string>
 	<!-- Text for routing error dialog -->
@@ -433,7 +433,7 @@
 	<string name="closes_in">Fermé dans %s</string>
 	<string name="closed">Fermé</string>
 	<string name="edit_opening_hours">Modifier les heures d\'ouverture</string>
-	<string name="no_osm_account">Vous n\'avez pas de compte sur OpenStreetMap?</string>
+	<string name="no_osm_account">Vous n\'avez pas de compte sur OpenStreetMap ?</string>
 	<string name="register_at_openstreetmap">S\'inscrire sur OpenStreetMap</string>
 	<string name="login">Connexion</string>
 	<string name="login_osm">Se connecter à OpenStreetMap</string>
@@ -492,7 +492,7 @@
 	<string name="error_enter_correct_zip_code">Entrer un code postal correct</string>
 	<!-- Place Page title for long tap -->
 	<string name="core_placepage_unknown_place">Lieu inconnu</string>
-	<string name="editor_other_info">Informer les éditeurs OSM</string>
+	<string name="editor_other_info">Informer les contributeurs OSM</string>
 	<string name="editor_detailed_description_hint">Commentaire détaillé</string>
 	<string name="editor_detailed_description">Vos modifications suggérées seront envoyées à la communauté OpenStreetMap. Décrivez les détails qui ne peuvent pas être modifiés dans Organic Maps.</string>
 	<string name="editor_more_about_osm">En savoir plus sur OpenStreetMap</string>
@@ -502,7 +502,7 @@
 	<!-- Error title that appears after certain time without location. -->
 	<string name="current_location_unknown_title">Continuer la détection de votre emplacement actuel ?</string>
 	<!-- Error that appears after certain time without location. -->
-	<string name="current_location_unknown_message">L\'emplacement actuel est inconnu. Vous êtes peut-être dans un bâtiment ou sous un tunnel.</string>
+	<string name="current_location_unknown_message">L\'emplacement actuel est inconnu. Vous êtes peut-être dans un bâtiment ou dans un tunnel.</string>
 	<string name="current_location_unknown_continue_button">Continuer</string>
 	<string name="current_location_unknown_stop_button">Arrêter</string>
 	<string name="m">m</string>
@@ -523,7 +523,7 @@
 	<string name="editor_remove_place_button">Supprimer</string>
 	<string name="editor_place_doesnt_exist">Ce lieu n\'existe pas</string>
 	<!-- Error message for "Place doesn't exist" dialog when comment is empty -->
-	<string name="delete_place_empty_comment_error">Veuillez indiquer la raison pour laquelle vous effacez cet endroit</string>
+	<string name="delete_place_empty_comment_error">Veuillez indiquer la raison pour laquelle vous supprimez cet endroit</string>
 	<!-- Phone number error message -->
 	<string name="error_enter_correct_phone">Saisissez un numéro de téléphone valide</string>
 	<string name="error_enter_correct_web">Saisissez une adresse Internet valide</string>
@@ -538,7 +538,7 @@
 	<string name="editor_share_to_all_dialog_title">Souhaitez-vous l’envoyer à tous les utilisateurs ?</string>
 	<!-- Dialog before publishing the modifications to the public map. -->
 	<string name="editor_share_to_all_dialog_message_1">Assurez-vous de n’avoir pas saisi de données personnelles.</string>
-	<string name="editor_share_to_all_dialog_message_2">Les éditeurs d\'OpenStreetMap vérifieront vos modifications et vous contacteront s\'ils ont des questions.</string>
+	<string name="editor_share_to_all_dialog_message_2">Les contributeurs d\'OpenStreetMap vérifieront vos modifications et vous contacteront s\'ils ont des questions.</string>
 	<string name="navigation_stop_button">stop</string>
 	<!-- Text under the version number in the Help dialog. TODO: Synchronize other translations with English. -->
 	<string name="about_description">Organic Maps est une application de cartographie hors ligne gratuite et open source. Pas de pubs. Pas de localisation. Si vous voyez une erreur sur la carte, veuillez la corriger dans OpenStreetMap. Le projet est créé par des passionnés pendant notre temps libre, nous avons donc besoin de vos commentaires et de votre soutien.</string>
@@ -769,7 +769,9 @@
 	<string name="type.aerialway.chair_lift">Télésiège</string>
 	<string name="type.aerialway.drag_lift">Téléski</string>
 	<string name="type.aerialway.gondola">Télécabine</string>
+	<string name="type.aerialway.mixed_lift">Téléporté mixte</string>
 	<string name="type.aerialway.station">Remontées mécaniques</string>
+	<string name="type.aeroway">Equipement aérien</string>
 	<string name="type.aeroway.aerodrome">Aéroport</string>
 	<string name="type.aeroway.aerodrome.international">Aéroport</string>
 	<string name="type.aeroway.apron">Aire de stationnement pour aéronefs</string>
@@ -777,7 +779,7 @@
 	<string name="type.aeroway.helipad">Hélisurface</string>
 	<string name="type.aeroway.runway">Piste d\'aviation</string>
 	<string name="type.aeroway.taxiway">Taxiway</string>
-	<string name="type.amenity">Objets d\'infrastructure</string>
+	<string name="type.amenity">Infrastructures</string>
 	<string name="type.amenity.arts_centre">Centre artistique</string>
 	<string name="type.amenity.atm">GAB</string>
 	<string name="type.amenity.bank">Banque</string>
@@ -796,7 +798,7 @@
 	<string name="type.amenity.casino">Casino</string>
 	<string name="type.amenity.gambling">Jeu d\'argent</string>
 	<string name="type.leisure.adult_gaming_centre">Centre de jeux pour adultes</string>
-	<string name="type.leisure.amusement_arcade">Arcade</string>
+	<string name="type.leisure.amusement_arcade">Salle de jeux d\'arcade</string>
 	<string name="type.amenity.charging_station">Borne de recharge</string>
 	<string name="type.amenity.charging_station.bicycle">Borne de recharge pour vélo</string>
 	<string name="type.amenity.charging_station.motorcar">Borne de recharge pour voiture</string>
@@ -805,7 +807,7 @@
 	<string name="type.leisure.bowling_alley">Salle de bowling</string>
 	<string name="type.amenity.clinic">Clinique</string>
 	<string name="type.amenity.college">Enseignement post-secondaire</string>
-	<string name="type.amenity.community_centre">Centre communautaire</string>
+	<string name="type.amenity.community_centre">Salle polyvalente</string>
 	<string name="type.amenity.conference_centre">Centre de conférence</string>
 	<string name="type.amenity.courthouse">Palais de justice</string>
 	<string name="type.amenity.dentist">Dentiste</string>
@@ -829,9 +831,9 @@
 	<string name="type.amenity.grave_yard.christian">Cimetière chrétien</string>
 	<string name="type.amenity.hospital">Hôpital</string>
 	<string name="type.amenity.hunting_stand">Mirador</string>
-	<string name="type.amenity.ice_cream">Stand de crème glacée</string>
+	<string name="type.amenity.ice_cream">Stand de crèmes glacées</string>
 	<string name="type.amenity.internet_cafe">Cybercafé</string>
-	<string name="type.amenity.kindergarten">Maternelle</string>
+	<string name="type.amenity.kindergarten">Crèche</string>
 	<string name="type.amenity.library">Bibliothèque</string>
 	<string name="type.amenity.loading_dock">Quai de chargement</string>
 	<string name="type.amenity.marketplace">Marché</string>
@@ -870,6 +872,7 @@
 	<string name="type.amenity.place_of_worship.christian.jehovahs_witness">Salle du Royaume des Témoins de Jéhovah</string>
 	<string name="type.amenity.place_of_worship.muslim">Mosquée</string>
 	<string name="type.amenity.place_of_worship.shinto">Sanctuaire</string>
+	<string name="type.amenity.place_of_worship.taoist">Temmple Taoïste</string>
 	<string name="type.amenity.post_box">Boîte aux lettres</string>
 	<string name="type.amenity.post_office">Bureau de poste</string>
 	<string name="type.amenity.pub">Pub</string>
@@ -915,7 +918,7 @@
 	<string name="type.amenity.vending_machine.sweets">Distributeur de bonbons</string>
 	<string name="type.amenity.vending_machine.excrement_bags">Distributeur de sacs à excréments</string>
 	<string name="type.amenity.parcel_locker">Consigne automatique pour colis</string>
-	<string name="type.amenity.vehicle_inspection">Inspection de véhicule</string>
+	<string name="type.amenity.vehicle_inspection">Centre de contrôle technique</string>
 	<string name="type.amenity.vending_machine.fuel">Pompe à carburants</string>
 	<string name="type.amenity.veterinary">Docteur vétérinaire</string>
 	<string name="type.amenity.waste_basket">Poubelle</string>
@@ -931,12 +934,12 @@
 	<string name="type.barrier.cycle_barrier">Barrière à vélos</string>
 	<string name="type.waterway.ditch">Fossé de drainage</string>
 	<string name="type.natural.water.moat">Fossé</string>
-	<string name="type.natural.water.wastewater">Eaux usées</string>
+	<string name="type.natural.water.wastewater">Bassin d\'eaux usées</string>
 	<string name="type.barrier.entrance">Entrée</string>
 	<string name="type.barrier.fence">Clôture</string>
 	<string name="type.barrier.gate">Porte</string>
 	<string name="type.barrier.hedge">Haie</string>
-	<string name="type.barrier.kissing_gate">Porte</string>
+	<string name="type.barrier.kissing_gate">Portillon à chicane mobile</string>
 	<string name="type.barrier.lift_gate">Barrière levante</string>
 	<string name="type.barrier.retaining_wall">Mur de soutènement</string>
 	<string name="type.barrier.stile">Échalier</string>
@@ -992,7 +995,7 @@
 	<string name="type.craft.handicraft">Artisanat</string>
 	<!-- Heating, Ventilation, and Air Conditioning -->
 	<string name="type.craft.hvac">Chauffage, ventilation et climatisation</string>
-	<string name="type.craft.key_cutter">Reproduction de clé</string>
+	<string name="type.craft.key_cutter">Reproduction de clés</string>
 	<string name="type.craft.locksmith">Serrurier</string>
 	<string name="type.craft.metal_construction">Constructions métalliques</string>
 	<string name="type.craft.painter">Peintre</string>
@@ -1048,7 +1051,7 @@
 	<string name="type.cuisine.international">Cuisine internationale</string>
 	<string name="type.cuisine.irish">Cuisine irlandaise</string>
 	<string name="type.cuisine.italian">Cuisine italienne</string>
-	<string name="type.cuisine.italian_pizza">Italien, pizza</string>
+	<string name="type.cuisine.italian_pizza">Pizza italienne</string>
 	<string name="type.cuisine.japanese">Cuisine japonaise</string>
 	<string name="type.cuisine.kebab">Kebab</string>
 	<string name="type.cuisine.korean">Cuisine coréenne</string>
@@ -1329,6 +1332,7 @@
 	<string name="type.historic.wreck">Naufrage</string>
 	<string name="type.junction.circular">Rond-point</string>
 	<string name="type.junction.roundabout">Rond-point</string>
+	<string name="type.landuse">Utilisation du sol</string>
 	<string name="type.landuse.allotments">Jardins familiaux</string>
 	<string name="type.landuse.basin">Réservoir</string>
 	<string name="type.landuse.brownfield">Friche industrielle</string>
@@ -1362,7 +1366,7 @@
 	<string name="type.landuse.reservoir">Bassin de retenue</string>
 	<string name="type.landuse.residential">Zone résidentielle</string>
 	<string name="type.landuse.retail">Zone commerciale</string>
-	<string name="type.landuse.salt_pond">Marais salant</string>
+	<string name="type.landuse.salt_pond">Marais salants</string>
 	<string name="type.landuse.vineyard">Vignes</string>
 	<string name="type.leisure.dog_park">Parc canin</string>
 	<string name="type.leisure.fitness_centre">Centre fitness</string>
@@ -1382,7 +1386,7 @@
 	<string name="type.leisure.pitch">Terrain de sport</string>
 	<string name="type.leisure.playground">Aire de jeu</string>
 	<string name="type.leisure.sauna">Sauna</string>
-	<string name="type.leisure.slipway">Cale de lancement</string>
+	<string name="type.leisure.slipway">Cale de mise à l\'eau</string>
 	<string name="type.leisure.sports_centre">Centre sportif</string>
 	<string name="type.sport.climbing">Centre d\'escalade</string>
 	<string name="type.sport.yoga">Yoga</string>
@@ -1444,7 +1448,7 @@
 	<string name="type.natural.spring">Source</string>
 	<string name="type.natural.strait">Détroit</string>
 	<string name="type.natural.tree">Arbre</string>
-	<string name="type.natural.tree_row">Rangée d\'arbre</string>
+	<string name="type.natural.tree_row">Rangée d\'arbres</string>
 	<string name="type.natural.vineyard">Vignoble</string>
 	<string name="type.natural.volcano">Volcan</string>
 	<string name="type.natural.water">Étendue d\'eau</string>
@@ -1494,7 +1498,7 @@
 	<string name="type.place.town">Ville</string>
 	<string name="type.place.village">Village</string>
 	<string name="type.power.generator">Générateur</string>
-	<string name="type.power.generator.solar">Générateur solaire</string>
+	<string name="type.power.generator.solar">Panneaux solaires</string>
 	<string name="type.power.generator.wind">Éolienne génératrice</string>
 	<string name="type.power.generator.gas">Centrale à turbine à gaz</string>
 	<string name="type.power.generator.hydro">Centrale hydroélectrique</string>
@@ -1506,16 +1510,17 @@
 	<string name="type.power.plant.gas">Centrale à turbine à gaz</string>
 	<string name="type.power.plant.hydro">Centrale hydroélectrique</string>
 	<string name="type.power.plant.solar">Centrale solaire</string>
-	<string name="type.power.plant.wind">Centrale éolienne</string>
+	<string name="type.power.plant.wind">Ferme d\'éoliennes</string>
 	<string name="type.power.pole">Poteau électrique</string>
 	<string name="type.power.substation">Poste électrique</string>
 	<string name="type.power.tower">Pylône électrique</string>
+	<string name="type.public_transport.platform">Quai de transport en commun</string>
 	<string name="type.railway">Chemin de fer</string>
 	<string name="type.railway.abandoned">Chemin de fer abandonné</string>
 	<string name="type.railway.abandoned.bridge">Chemin de fer abandonné</string>
 	<string name="type.railway.abandoned.tunnel">Chemin de fer abandonné</string>
 	<string name="type.railway.construction">Chemin de fer en construction</string>
-	<string name="type.railway.crossing">Traversée de voie ferrée</string>
+	<string name="type.railway.crossing">Passage à niveau pour piéton</string>
 	<string name="type.railway.disused">Chemin de fer désaffecté</string>
 	<string name="type.railway.funicular">Funiculaire</string>
 	<string name="type.railway.funicular.bridge">Funiculaire</string>

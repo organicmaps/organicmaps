@@ -21,7 +21,7 @@
 "downloading" = "Téléchargement…";
 
 /* Choose measurement on first launch alert - choose metric system button */
-"kilometres" = "kilomètres";
+"kilometres" = "Kilomètres";
 
 /* Leave Review dialog - Review button */
 "leave_a_review" = "Laisser un commentaire";
@@ -60,7 +60,7 @@
 "continue_download" = "Continuer";
 
 /* "Add new bookmark list" dialog title */
-"add_new_set" = "Ajouter un nouveau groupe";
+"add_new_set" = "Créer une nouvelle liste";
 
 /* Bookmark Color dialog title */
 "bookmark_color" = "Couleur du signet";
@@ -322,7 +322,7 @@
 "report_a_bug" = "Signaler un bug";
 
 /* Alert text */
-"email_error_body" = "Le client de courriel n'a pas été configuré. Veuillez le faire ou employer tout autre moyen pour nous contacter à %@";
+"email_error_body" = "Le client de courriel n'a pas été configuré. Veuillez le configurer ou nous contacter à %@";
 
 /* Alert title */
 "email_error_title" = "Erreur d'envoi de courriel";
@@ -360,7 +360,7 @@
 "downloader_status_failed" = "Echec";
 
 /* Displayed in a dialog that appears when a user tries to delete a map while the app is in the follow route mode */
-"downloader_delete_map_while_routing_dialog" = "Veuillez interrompre la navigation pour supprimer la carte.";
+"downloader_delete_map_while_routing_dialog" = "Veuillez arrêter la navigation pour supprimer la carte.";
 
 /* PointsInDifferentMWM */
 "routing_failed_cross_mwm_building" = "Les itinéraires ne peuvent être créés que s'ils sont entièrement contenus dans la carte d'une seule région.";
@@ -609,7 +609,7 @@
 
 "add_opening_hours" = "Ajouter les heures d'ouverture";
 
-"no_osm_account" = "Vous n'avez pas de compte sur OpenStreetMap?";
+"no_osm_account" = "Vous n'avez pas de compte sur OpenStreetMap ?";
 
 "register_at_openstreetmap" = "S'inscrire sur OpenStreetMap";
 
@@ -729,7 +729,7 @@
 /* Place Page title for long tap */
 "core_placepage_unknown_place" = "Lieu inconnu";
 
-"editor_other_info" = "Informer les éditeurs OSM";
+"editor_other_info" = "Informer les contributeurs OSM";
 
 "editor_detailed_description_hint" = "Commentaire détaillé";
 
@@ -747,7 +747,7 @@
 "current_location_unknown_title" = "Continuer la détection de votre emplacement actuel ?";
 
 /* Error that appears after certain time without location. */
-"current_location_unknown_message" = "L'emplacement actuel est inconnu. Vous êtes peut-être dans un bâtiment ou sous un tunnel.";
+"current_location_unknown_message" = "L'emplacement actuel est inconnu. Vous êtes peut-être dans un bâtiment ou dans un tunnel.";
 
 "current_location_unknown_continue_button" = "Continuer";
 
@@ -832,7 +832,7 @@
 /* Dialog before publishing the modifications to the public map. */
 "editor_share_to_all_dialog_message_1" = "Assurez-vous de n’avoir pas saisi de données personnelles.";
 
-"editor_share_to_all_dialog_message_2" = "Les éditeurs d'OpenStreetMap vérifieront vos modifications et vous contacteront s'ils ont des questions.";
+"editor_share_to_all_dialog_message_2" = "Les contributeurs d'OpenStreetMap vérifieront vos modifications et vous contacteront s'ils ont des questions.";
 
 "navigation_stop_button" = "stop";
 
@@ -1257,11 +1257,11 @@
 
 "type.aerialway.gondola" = "Télécabine";
 
-"type.aerialway.mixed_lift" = "Mixed Lift";
+"type.aerialway.mixed_lift" = "Téléporté mixte";
 
 "type.aerialway.station" = "Remontées mécaniques";
 
-"type.aeroway" = "Airspace Infrastructure";
+"type.aeroway" = "Equipement aérien";
 
 "type.aeroway.aerodrome" = "Aéroport";
 
@@ -1279,7 +1279,7 @@
 
 "type.aeroway.terminal" = "Terminal";
 
-"type.amenity" = "Objets d'infrastructure";
+"type.amenity" = "Infrastructures";
 
 "type.amenity.arts_centre" = "Centre artistique";
 
@@ -1321,7 +1321,7 @@
 
 "type.leisure.adult_gaming_centre" = "Centre de jeux pour adultes";
 
-"type.leisure.amusement_arcade" = "Arcade";
+"type.leisure.amusement_arcade" = "Salle de jeux d'arcade";
 
 "type.amenity.charging_station" = "Borne de recharge";
 
@@ -1339,7 +1339,7 @@
 
 "type.amenity.college" = "Enseignement post-secondaire";
 
-"type.amenity.community_centre" = "Centre communautaire";
+"type.amenity.community_centre" = "Salle polyvalente";
 
 "type.amenity.conference_centre" = "Centre de conférence";
 
@@ -1385,11 +1385,11 @@
 
 "type.amenity.hunting_stand" = "Mirador";
 
-"type.amenity.ice_cream" = "Stand de crème glacée";
+"type.amenity.ice_cream" = "Stand de crèmes glacées";
 
 "type.amenity.internet_cafe" = "Cybercafé";
 
-"type.amenity.kindergarten" = "Maternelle";
+"type.amenity.kindergarten" = "Crèche";
 
 "type.amenity.library" = "Bibliothèque";
 
@@ -1473,7 +1473,7 @@
 
 "type.amenity.place_of_worship.shinto" = "Sanctuaire";
 
-"type.amenity.place_of_worship.taoist" = "Taoist Temple";
+"type.amenity.place_of_worship.taoist" = "Temmple Taoïste";
 
 "type.amenity.police" = "Police";
 
@@ -1572,7 +1572,7 @@
 
 "type.amenity.parcel_locker" = "Consigne automatique pour colis";
 
-"type.amenity.vehicle_inspection" = "Inspection de véhicule";
+"type.amenity.vehicle_inspection" = "Centre de contrôle technique";
 
 "type.amenity.vending_machine.fuel" = "Pompe à carburants";
 
@@ -1604,7 +1604,7 @@
 
 "type.natural.water.moat" = "Fossé";
 
-"type.natural.water.wastewater" = "Eaux usées";
+"type.natural.water.wastewater" = "Bassin d'eaux usées";
 
 "type.barrier.entrance" = "Entrée";
 
@@ -1614,7 +1614,7 @@
 
 "type.barrier.hedge" = "Haie";
 
-"type.barrier.kissing_gate" = "Porte";
+"type.barrier.kissing_gate" = "Portillon à chicane mobile";
 
 "type.barrier.lift_gate" = "Barrière levante";
 
@@ -1729,7 +1729,7 @@
 /* Heating, Ventilation, and Air Conditioning */
 "type.craft.hvac" = "Chauffage, ventilation et climatisation";
 
-"type.craft.key_cutter" = "Reproduction de clé";
+"type.craft.key_cutter" = "Reproduction de clés";
 
 "type.craft.locksmith" = "Serrurier";
 
@@ -1845,7 +1845,7 @@
 
 "type.cuisine.italian" = "Cuisine italienne";
 
-"type.cuisine.italian_pizza" = "Italien, pizza";
+"type.cuisine.italian_pizza" = "Pizza italienne";
 
 "type.cuisine.japanese" = "Cuisine japonaise";
 
@@ -2394,7 +2394,7 @@
 
 "type.junction.roundabout" = "Rond-point";
 
-"type.landuse" = "Landuse";
+"type.landuse" = "Utilisation du sol";
 
 "type.landuse.allotments" = "Jardins familiaux";
 
@@ -2464,7 +2464,7 @@
 
 "type.landuse.retail" = "Zone commerciale";
 
-"type.landuse.salt_pond" = "Marais salant";
+"type.landuse.salt_pond" = "Marais salants";
 
 "type.landuse.village_green" = "Land";
 
@@ -2516,7 +2516,7 @@
 
 "type.leisure.sauna" = "Sauna";
 
-"type.leisure.slipway" = "Cale de lancement";
+"type.leisure.slipway" = "Cale de mise à l'eau";
 
 "type.leisure.sports_centre" = "Centre sportif";
 
@@ -2662,7 +2662,7 @@
 
 "type.natural.tree" = "Arbre";
 
-"type.natural.tree_row" = "Rangée d'arbre";
+"type.natural.tree_row" = "Rangée d'arbres";
 
 "type.natural.vineyard" = "Vignoble";
 
@@ -2764,7 +2764,7 @@
 
 "type.power.generator" = "Générateur";
 
-"type.power.generator.solar" = "Générateur solaire";
+"type.power.generator.solar" = "Panneaux solaires";
 
 "type.power.generator.wind" = "Éolienne génératrice";
 
@@ -2788,7 +2788,7 @@
 
 "type.power.plant.solar" = "Centrale solaire";
 
-"type.power.plant.wind" = "Centrale éolienne";
+"type.power.plant.wind" = "Ferme d'éoliennes";
 
 "type.power.pole" = "Poteau électrique";
 
@@ -2810,7 +2810,7 @@
 
 "type.public_transport" = "Public Transport";
 
-"type.public_transport.platform" = "Platform";
+"type.public_transport.platform" = "Quai de transport en commun";
 
 "type.railway" = "Chemin de fer";
 
@@ -2822,7 +2822,7 @@
 
 "type.railway.construction" = "Chemin de fer en construction";
 
-"type.railway.crossing" = "Traversée de voie ferrée";
+"type.railway.crossing" = "Passage à niveau pour piéton";
 
 "type.railway.disused" = "Chemin de fer désaffecté";
 
