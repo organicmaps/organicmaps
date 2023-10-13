@@ -6856,6 +6856,7 @@ cont {
       secondary {
         height: 8
         color: 7566195
+        offset_y: 1
         is_optional: true
       }
       priority: -10000
@@ -6880,6 +6881,7 @@ cont {
       secondary {
         height: 8
         color: 7566195
+        offset_y: 1
         is_optional: true
       }
       priority: -10000
@@ -6904,6 +6906,7 @@ cont {
       secondary {
         height: 8
         color: 7566195
+        offset_y: 1
         is_optional: true
       }
       priority: -9980
@@ -6925,6 +6928,7 @@ cont {
       secondary {
         height: 8
         color: 7566195
+        offset_y: 1
         is_optional: true
       }
       priority: -9980

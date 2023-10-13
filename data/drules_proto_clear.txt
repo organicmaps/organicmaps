@@ -15642,6 +15642,7 @@ cont {
       secondary {
         height: 8
         color: 6381914
+        offset_y: 1
         is_optional: true
       }
       priority: -10000
@@ -15666,6 +15667,7 @@ cont {
       secondary {
         height: 8
         color: 6381914
+        offset_y: 1
         is_optional: true
       }
       priority: -10000
@@ -15690,6 +15692,7 @@ cont {
       secondary {
         height: 8
         color: 6381914
+        offset_y: 1
         is_optional: true
       }
       priority: -9780
@@ -15711,6 +15714,7 @@ cont {
       secondary {
         height: 8
         color: 6381914
+        offset_y: 1
         is_optional: true
       }
       priority: -9780
@@ -41748,6 +41752,7 @@ cont {
       primary {
         height: 10
         color: 4473924
+        offset_y: 1
         is_optional: true
       }
       priority: -8050
