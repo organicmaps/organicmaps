@@ -307,40 +307,40 @@ zh-Hant:1購物|店鋪|商店|雜貨店|便利商店
 
 # First keyword should match [shopping] definition in strings.txt!
 @shopping
-en:5Shopping
-ru:4Шоппинг|Покупки
+en:4Shopping
+ru:3Шоппинг|4Покупки
 ar:تسوق
-be:4Закупы
-bg:4Шопинг
+be:3Шопінг|4Закупы
+bg:3Шопинг
 cs:Nákupy
 da:Indkøb
-de:5Shopping
+de:4Shopping
 el:Ψώνια
-es:5Compras
+es:4Compras
 et:Ostud
-eu:5Erosketak
+eu:4Erosketak
 fa:فروشگاه|خرید کردن
 fi:Ostokset
-fr:5Shopping
+fr:4Shopping
 he:חנות
 hu:Bevásárlás
 id:Berbelanja
-it:5Shopping
+it:4Shopping
 ja:ショッピング
 ko:쇼핑
 mr:खरेदी|शॉपिंग
-nb:5Shopping
+nb:4Shopping
 nl:Winkelen
 pl:Zakupy
-pt:5Compras
-pt-BR:5Compras
-ro:5Shopping|Cumpărături
+pt:4Compras
+pt-BR:4Compras
+ro:4Shopping|Cumpărături
 sk:Nakupovanie
 sw:Manunuzi
-sv:5Shopping
+sv:4Shopping
 th:ช็อปปิง
-tr:5Alışveriş
-uk:4Шопінг
+tr:4Alışveriş
+uk:3Шопінг
 vi:Đi mua sắm
 zh-Hans:购物
 zh-Hant:購物
@@ -348,8 +348,8 @@ zh-Hant:購物
 # First keyword should match [hotel] definition in strings.txt!
 @hotel
 en:Hotel|hotels
-ru:5Гостиница|гостиницы|отель|отели
-be:Гатель|гателі
+ru:4Гостиница|отель|отели
+be:4Гатэль|гатэлі
 bg:Хотел|хотели
 ar:فندق|الفنادق
 cs:Hotel|Hotely
@@ -357,7 +357,7 @@ da:Hotel|Hoteller
 nl:Hotel|Hotels
 fi:Hotelli|Hotellit
 fr:Hôtel|Hôtels|4Hébergement
-de:5Hotel|Hotels
+de:Hotel|Hotels
 hu:Szálloda|Szállodák|Hotel|Hotelek
 id:Hotel|Hotel
 it:Hôtel|Alberghi
@@ -375,11 +375,11 @@ eu:Hotela
 sv:Hotell|Hotellen
 th:โรงแรม
 tr:Otel|Oteller
-uk:Готель|готелі
+uk:4Готель|готелі
 vi:Khách sạn
 zh-Hans:旅店|酒店|賓館
 zh-Hant:飯店|酒店|宾馆
-el:Ξενοδοχείο|Διαμονή|Ξενοδοχεία
+el:4Ξενοδοχείο|Διαμονή|Ξενοδοχεία
 he:מלון|בתי
 sk:Hotel|Hotely
 fa:هتل|هتل ها
