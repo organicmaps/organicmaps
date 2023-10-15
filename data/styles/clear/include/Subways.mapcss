@@ -865,7 +865,7 @@ node|z17-[railway=station][transport=subway][city=tianjin] {icon-image: subway-t
 node|z16-[railway=subway_entrance][city=tianjin] {icon-image: subway-tianjin-s.svg;}
 
 /* Tokyo Subway Station */
-node|z12-13[railway=station][transport=subway][city=tokyo] {icon-image: subway-tokyo-s.svg;icon-min-distance: 1;}
+node|z13[railway=station][transport=subway][city=tokyo] { icon-image: none; }
 node|z14[railway=station][transport=subway][city=tokyo] {icon-image: subway-tokyo-s.svg;}
 node|z15-16[railway=station][transport=subway][city=tokyo] {icon-image: subway-tokyo-m.svg;}
 node|z17-[railway=station][transport=subway][city=tokyo] {icon-image: subway-tokyo-m.svg;}
