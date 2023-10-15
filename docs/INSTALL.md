@@ -367,9 +367,11 @@ Setup a virtual device to use [emulator](https://developer.android.com/studio/ru
 If using an emulator, make sure to choose a system image with API Level 31. Use ABI _x86_64_ for Intel-based processors and _arm64-v8a_ for ARM-based processors (e.g. M1/M2 Macs).
 
 Android Studio has issues in parsing the C++ part of the project, please let us know if you know how to resolve it. As a workaround, for working C++ suggestions, you may use:
+
 - [Qt Creator](https://www.qt.io/product/development-tools)
 - [Xcode](https://developer.apple.com/xcode/)
 - [CLion](https://www.jetbrains.com/clion/)
+
 For Xcode it is required to run `cmake . -g Xcode` to generate project files, while CLion and QT Creator can import CMakeLists.txt.
 
 
