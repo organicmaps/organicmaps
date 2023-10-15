@@ -710,7 +710,7 @@ NSString *const kPP2BookmarkEditingSegue = @"PP2BookmarkEditing";
 
 - (NSArray *)keyCommands {
   NSArray *commands = @[
-    [UIKeyCommand keyCommandWithInput:UIKeyInputDownArrow modifierFlags:0 action:@selector(zoomOut)], // Alternative, not shown when holding
+    [UIKeyCommand keyCommandWithInput:UIKeyInputDownArrow modifierFlags:0 action:@selector(zoomOut)], // Alternative, not shown when holding CMD
     [UIKeyCommand keyCommandWithInput:@"-" modifierFlags:UIKeyModifierCommand action:@selector(zoomOut) discoverabilityTitle:@"Zoom Out"],
     [UIKeyCommand keyCommandWithInput:UIKeyInputUpArrow modifierFlags:0 action:@selector(zoomIn)], // Alternative, not shown when holding CMD
     [UIKeyCommand keyCommandWithInput:@"=" modifierFlags:UIKeyModifierCommand action:@selector(zoomIn)], // Alternative, not shown when holding CMD
