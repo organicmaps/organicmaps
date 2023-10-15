@@ -102062,7 +102062,7 @@ cont {
   element {
     scale: 15
     symbol {
-      name: "tourism-m"
+      name: "artwork-m"
       priority: 5025
       min_distance: 8
     }
@@ -102079,7 +102079,7 @@ cont {
   element {
     scale: 16
     symbol {
-      name: "tourism-m"
+      name: "artwork-m"
       priority: 5025
       min_distance: 24
     }
@@ -102096,7 +102096,7 @@ cont {
   element {
     scale: 17
     symbol {
-      name: "tourism-m"
+      name: "artwork-m"
       priority: 5025
       min_distance: 24
     }
@@ -102113,7 +102113,7 @@ cont {
   element {
     scale: 18
     symbol {
-      name: "tourism-m"
+      name: "artwork-m"
       priority: 5025
       min_distance: 24
     }
@@ -102130,7 +102130,7 @@ cont {
   element {
     scale: 19
     symbol {
-      name: "tourism-m"
+      name: "artwork-m"
       priority: 5025
       min_distance: 24
     }
@@ -102150,7 +102150,7 @@ cont {
   element {
     scale: 15
     symbol {
-      name: "tourism-m"
+      name: "artwork-m"
       priority: 5025
       min_distance: 8
     }
@@ -102167,7 +102167,7 @@ cont {
   element {
     scale: 16
     symbol {
-      name: "tourism-m"
+      name: "artwork-m"
       priority: 5025
       min_distance: 24
     }
@@ -102184,7 +102184,7 @@ cont {
   element {
     scale: 17
     symbol {
-      name: "tourism-m"
+      name: "artwork-m"
       priority: 5025
       min_distance: 24
     }
@@ -102201,7 +102201,7 @@ cont {
   element {
     scale: 18
     symbol {
-      name: "tourism-m"
+      name: "artwork-m"
       priority: 5025
       min_distance: 24
     }
@@ -102218,7 +102218,7 @@ cont {
   element {
     scale: 19
     symbol {
-      name: "tourism-m"
+      name: "artwork-m"
       priority: 5025
       min_distance: 24
     }
@@ -102238,7 +102238,7 @@ cont {
   element {
     scale: 15
     symbol {
-      name: "tourism-m"
+      name: "artwork-m"
       priority: 5025
       min_distance: 8
     }
@@ -102255,7 +102255,7 @@ cont {
   element {
     scale: 16
     symbol {
-      name: "tourism-m"
+      name: "artwork-m"
       priority: 5025
       min_distance: 24
     }
@@ -102272,7 +102272,7 @@ cont {
   element {
     scale: 17
     symbol {
-      name: "tourism-m"
+      name: "artwork-m"
       priority: 5025
       min_distance: 24
     }
@@ -102289,7 +102289,7 @@ cont {
   element {
     scale: 18
     symbol {
-      name: "tourism-m"
+      name: "artwork-m"
       priority: 5025
       min_distance: 24
     }
@@ -102306,7 +102306,7 @@ cont {
   element {
     scale: 19
     symbol {
-      name: "tourism-m"
+      name: "artwork-m"
       priority: 5025
       min_distance: 24
     }
@@ -102326,7 +102326,7 @@ cont {
   element {
     scale: 15
     symbol {
-      name: "tourism-m"
+      name: "artwork-m"
       priority: 5025
       min_distance: 8
     }
@@ -102343,7 +102343,7 @@ cont {
   element {
     scale: 16
     symbol {
-      name: "tourism-m"
+      name: "artwork-m"
       priority: 5025
       min_distance: 24
     }
@@ -102360,7 +102360,7 @@ cont {
   element {
     scale: 17
     symbol {
-      name: "tourism-m"
+      name: "artwork-m"
       priority: 5025
       min_distance: 24
     }
@@ -102377,7 +102377,7 @@ cont {
   element {
     scale: 18
     symbol {
-      name: "tourism-m"
+      name: "artwork-m"
       priority: 5025
       min_distance: 24
     }
@@ -102394,7 +102394,7 @@ cont {
   element {
     scale: 19
     symbol {
-      name: "tourism-m"
+      name: "artwork-m"
       priority: 5025
       min_distance: 24
     }
@@ -102414,7 +102414,7 @@ cont {
   element {
     scale: 15
     symbol {
-      name: "tourism-m"
+      name: "statue-m"
       priority: 5025
       min_distance: 8
     }
@@ -102431,7 +102431,7 @@ cont {
   element {
     scale: 16
     symbol {
-      name: "tourism-m"
+      name: "statue-m"
       priority: 5025
       min_distance: 24
     }
@@ -102448,7 +102448,7 @@ cont {
   element {
     scale: 17
     symbol {
-      name: "tourism-m"
+      name: "statue-m"
       priority: 5025
       min_distance: 24
     }
@@ -102465,7 +102465,7 @@ cont {
   element {
     scale: 18
     symbol {
-      name: "tourism-m"
+      name: "statue-m"
       priority: 5025
       min_distance: 24
     }
@@ -102482,7 +102482,7 @@ cont {
   element {
     scale: 19
     symbol {
-      name: "tourism-m"
+      name: "statue-m"
       priority: 5025
       min_distance: 24
     }
