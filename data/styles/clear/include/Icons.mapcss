@@ -671,10 +671,10 @@ area|z16-[historic=wayside_shrine],
 
 node|z15[tourism=artwork],
 area|z15[tourism=artwork],
-{icon-image: tourism-m.svg;icon-min-distance: 8;}
+{icon-image: artwork-m.svg;icon-min-distance: 8;}
 node|z16-[tourism=artwork],
 area|z16-[tourism=artwork],
-{icon-image: tourism-m.svg;icon-min-distance: 24;}
+{icon-image: artwork-m.svg;icon-min-distance: 24;}
 
 node|z14[tourism=attraction],
 area|z14[tourism=attraction],
