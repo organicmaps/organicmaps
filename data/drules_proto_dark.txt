@@ -81447,22 +81447,6 @@ cont {
 cont {
   name: "railway-station-subway-tokyo"
   element {
-    scale: 12
-    symbol {
-      name: "subway-tokyo-s"
-      priority: 6650
-      min_distance: 1
-    }
-  }
-  element {
-    scale: 13
-    symbol {
-      name: "subway-tokyo-s"
-      priority: 6650
-      min_distance: 1
-    }
-  }
-  element {
     scale: 14
     symbol {
       name: "subway-tokyo-s"

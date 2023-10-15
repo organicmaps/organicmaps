@@ -61070,31 +61070,6 @@ cont {
 cont {
   name: "railway-station-subway-tokyo"
   element {
-    scale: 13
-    symbol {
-      name: "subway-tokyo-s"
-      priority: 2000
-      min_distance: 1
-    }
-    caption {
-      primary {
-        height: 11
-        color: 8947848
-        stroke_color: 1712394496
-        offset_y: 1
-        is_optional: true
-      }
-      secondary {
-        height: 9
-        color: 8947848
-        stroke_color: 1712394496
-        offset_y: 1
-        is_optional: true
-      }
-      priority: -8000
-    }
-  }
-  element {
     scale: 14
     symbol {
       name: "subway-tokyo-s"
