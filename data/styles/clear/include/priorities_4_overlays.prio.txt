@@ -137,7 +137,7 @@ railway-station-subway-roma                         # icon z12- (also has captio
 railway-station-subway-sf                           # icon z12- (also has caption(optional) z14-)
 railway-station-subway-shanghai                     # icon z12- (also has caption(optional) z14-)
 railway-station-subway-stockholm                    # icon z12- (also has caption(optional) z14-)
-railway-station-subway-tokyo                        # icon z12- (also has caption(optional) z14-)
+railway-station-subway-tokyo                        # icon z14- (also has caption(optional) z14-)
 railway-station-subway-vienna                       # icon z12- (also has caption(optional) z14-)
 === 6650
 
@@ -1348,7 +1348,7 @@ amenity-parking_entrance-private                    # icon z19- (also has captio
 # railway-station-subway-sf                         # caption(optional) z14- (also has icon z12-)
 # railway-station-subway-shanghai                   # caption(optional) z14- (also has icon z12-)
 # railway-station-subway-stockholm                  # caption(optional) z14- (also has icon z12-)
-# railway-station-subway-tokyo                      # caption(optional) z14- (also has icon z12-)
+# railway-station-subway-tokyo                      # caption(optional) z14- (also has icon z14-)
 # railway-station-subway-vienna                     # caption(optional) z14- (also has icon z12-)
 # === -3350
 
