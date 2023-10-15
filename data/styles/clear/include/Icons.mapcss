@@ -676,6 +676,13 @@ node|z16-[tourism=artwork],
 area|z16-[tourism=artwork],
 {icon-image: artwork-m.svg;icon-min-distance: 24;}
 
+node|z15[tourism=artwork][artwork_type=statue],
+area|z15[tourism=artwork][artwork_type=statue],
+{icon-image: statue-m.svg;icon-min-distance: 8;}
+node|z16-[tourism=artwork][artwork_type=statue],
+area|z16-[tourism=artwork][artwork_type=statue],
+{icon-image: statue-m.svg;icon-min-distance: 24;}
+
 node|z14[tourism=attraction],
 area|z14[tourism=attraction],
 {icon-image: tourism-s.svg;icon-min-distance: 12;}
