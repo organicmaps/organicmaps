@@ -19,4 +19,6 @@ UNIT_TEST(Stylist_IsHatching)
   TEST(checker(cl.GetTypeByPath({"boundary", "national_park"})), ());
 
   TEST(checker(cl.GetTypeByPath({"landuse", "military", "danger_area"})), ());
+  
+  TEST(checker(cl.GetTypeByPath({"amenity", "prison"})), ());
 }
