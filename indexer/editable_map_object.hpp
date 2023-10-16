@@ -101,7 +101,7 @@ public:
   std::vector<MetadataID> GetEditableProperties() const;
 
   /// See comment for NamesDataSource class.
-  NamesDataSource GetNamesDataSource(bool addFakes = true);
+  NamesDataSource GetNamesDataSource(bool addFakes = false);
   LocalizedStreet const & GetStreet() const;
   std::vector<LocalizedStreet> const & GetNearbyStreets() const;
 
@@ -176,6 +176,6 @@ private:
   std::vector<LocalizedStreet> m_nearbyStreets;
   EditableProperties m_editableProperties;
   FakeNames m_fakeNames;
-  bool m_namesAdvancedMode = false;
+  bool m_namesAdvancedMode = true;
 };
 }  // namespace osm

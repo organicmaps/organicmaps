@@ -235,9 +235,9 @@ Java_app_organicmaps_editor_Editor_nativeIsBuilding(JNIEnv * env, jclass clazz)
 }
 
 JNIEXPORT jobject JNICALL
-Java_app_organicmaps_editor_Editor_nativeGetNamesDataSource(JNIEnv * env, jclass, jboolean needFakes)
+Java_app_organicmaps_editor_Editor_nativeGetNamesDataSource(JNIEnv * env, jclass)
 {
-  auto const namesDataSource = g_editableMapObject.GetNamesDataSource(needFakes);
+  auto const namesDataSource = g_editableMapObject.GetNamesDataSource();
 
   jobjectArray names = jni::ToJavaArray(env, g_localNameClazz, namesDataSource.names, ToJavaName);
   jsize const mandatoryNamesCount = static_cast<jsize>(namesDataSource.mandatoryNamesCount);

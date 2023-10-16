@@ -110,9 +110,9 @@ public class EditorHostFragment extends BaseMwmToolbarFragment implements View.O
     mMandatoryNamesCount = mandatoryNamesCount;
   }
 
-  private void fillNames(boolean needFakes)
+  private void fillNames()
   {
-    NamesDataSource namesDataSource = Editor.nativeGetNamesDataSource(needFakes);
+    NamesDataSource namesDataSource = Editor.nativeGetNamesDataSource();
     setNames(namesDataSource.getNames());
     setMandatoryNamesCount(namesDataSource.getMandatoryNamesCount());
     editMapObject();
@@ -142,8 +142,8 @@ public class EditorHostFragment extends BaseMwmToolbarFragment implements View.O
       mIsNewObject = getArguments().getBoolean(EditorActivity.EXTRA_NEW_OBJECT, false);
     getToolbarController().setTitle(getTitle());
 
-    fillNames(false /* addFakes */);
-    Editor.nativeEnableNamesAdvancedMode();
+    fillNames();
+    //Editor.nativeEnableNamesAdvancedMode();
   }
 
   @StringRes
@@ -425,12 +425,12 @@ public class EditorHostFragment extends BaseMwmToolbarFragment implements View.O
   public void onLanguageSelected(Language lang)
   {
     String name = "";
-    if (lang.code.equals(Language.DEFAULT_LANG_CODE))
+    /*if (lang.code.equals(Language.DEFAULT_LANG_CODE))1
     {
-      fillNames(false /* addFakes */);
+      fillNames();
       name = Editor.nativeGetDefaultName();
       Editor.nativeEnableNamesAdvancedMode();
-    }
+    }*/
 
     addName(Editor.nativeMakeLocalizedName(lang.code, name));
     editMapObject(true /* focusToLastName */);

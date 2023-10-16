@@ -45,7 +45,7 @@ bool ExtractName(StringUtf8Multilang const & names, int8_t const langCode,
   return true;
 }
 
-size_t PushMwmLanguages(StringUtf8Multilang const & names, vector<int8_t> const & mwmLanguages,
+/*size_t PushMwmLanguages(StringUtf8Multilang const & names, vector<int8_t> const & mwmLanguages,
                         vector<osm::LocalizedName> & result)
 {
   size_t count = 0;
@@ -58,7 +58,7 @@ size_t PushMwmLanguages(StringUtf8Multilang const & names, vector<int8_t> const 
   }
 
   return count;
-}
+}*/
 
 osm::FakeNames MakeFakeSource(StringUtf8Multilang const & source,
                               vector<int8_t> const & mwmLanguages, StringUtf8Multilang & fakeSource)
@@ -192,7 +192,7 @@ vector<MapObject::MetadataID> EditableMapObject::GetEditableProperties() const
   return props;
 }
 
-NamesDataSource EditableMapObject::GetNamesDataSource(bool needFakes /* = true */)
+NamesDataSource EditableMapObject::GetNamesDataSource(bool needFakes /* = false */)
 {
   auto const mwmInfo = GetID().m_mwmId.GetInfo();
 
@@ -204,7 +204,7 @@ NamesDataSource EditableMapObject::GetNamesDataSource(bool needFakes /* = true *
 
   auto const userLangCode = StringUtf8Multilang::GetLangIndex(languages::GetCurrentNorm());
 
-  if (needFakes)
+  if (false)
   {
     StringUtf8Multilang fakeSource;
     m_fakeNames = MakeFakeSource(m_name, mwmLanguages, fakeSource);
