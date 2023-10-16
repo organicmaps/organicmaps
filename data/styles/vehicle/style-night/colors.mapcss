@@ -67,6 +67,7 @@
 @industrial: #0D0A0D;
 @sport: #070F0A;
 @military: #B71C1C;
+@prison: #7f7f7f;
 @parking: #191509;
 @parking_l: #1F190A;
 @farmland: #151500;

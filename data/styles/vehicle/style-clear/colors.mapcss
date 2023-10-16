@@ -132,6 +132,7 @@
 @parking: #F2F2CE;
 @parking_l: #FCFCC2;/*#F0EBC5;DCDCB9; #F2F2CE;*/
 @military: #E53935;
+@prison: #727272;
 @farmland: #ededc3;
 @farmyard: #e8dabb;
 
