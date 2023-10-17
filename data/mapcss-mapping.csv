@@ -426,7 +426,7 @@ piste:type|downhill|advanced;[piste:type=downhill][piste:difficulty=advanced];;n
 sport|shooting;348;
 place|country;349;
 highway|path|alpine_hiking;[highway=path][sac_scale=alpine_hiking];;name;int_name;350;
-deprecated|deprecated;351;x
+tourism|zoo|petting;[tourism=zoo][zoo=petting_zoo];;name;int_name;351;
 sport|scuba_diving;352;
 highway|cycleway|permissive;[highway=cycleway][access=permissive];;name;int_name;353;
 highway|unclassified|area;[highway=unclassified][area?];;name;int_name;354;
