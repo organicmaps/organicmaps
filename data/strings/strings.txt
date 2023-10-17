@@ -2513,6 +2513,7 @@
     pt-BR = Erro ao mover arquivos de mapas
     ru = Ошибка перемещения файлов карт
     tr = Harita dosyalarını taşıma hatası
+    uk = Помилка переміщення файлів карти
 
   [wait_several_minutes]
     comment = Ask to wait user several minutes (some long process in modal dialog).
@@ -3744,6 +3745,7 @@
     ro = Bună!\n\nȚi-am atașat locurile mele preferate din aplicația Organic Maps. Deschide-le dacă ai instalată Organic Maps. Dacă nu, o poți descărca pentru iOS sau Android de aici: https://organicmaps.app/
     ru = Здравствуйте!\n\nВ прикрепленном файле мои метки из офлайновых карт Organic Maps. Для того чтобы открыть этот файл, вам потребуется приложение Organic Maps, которое можно установить по ссылке: https://omaps.app/get?kmz\n\nСпасибо!
     tr = Merhaba!\n\nEktekiler benim Organic Maps yer imlerim. Eğer Organic Maps'i yüklediyseniz lütfen ektekileri açın. Eğer yüklemediyseniz, bu bağlantıyı takip ederek iOS ve Android cihazınız için uygulamayı yükleyebilirsiniz: https://omaps.app/get?kmz\n\nOrganic Maps ile seyahat etmenin keyfini çıkarın!
+    uk = Привіт!\n\nДодаю мої закладки; відкрийте їх у Organic Maps. Якщо у вас його не встановлено, ви можете завантажити його тут: https://omaps.app/get?kmz\n\nНасолоджуйтесь подорожами з Органічні карти!
     zh-Hant = 你好！\n\n附件為 Organic Maps app 的書籤，如果你有安裝 Organic Maps 則直接開啟，如果沒有的話，請先在 iOS 或是 Android 裝置，從下面連結下載：https://omaps.app/get?kmz\n\n旅行時用上 Organic Maps!
 
   [load_kmz_title]
@@ -4715,6 +4717,7 @@
     ro = Opțiuni generale
     ru = Общие настройки
     tr = Genel ayarlar
+    uk = Загальні налаштування
     zh-Hans = 常规设置
     zh-Hant = 一般設定
 
@@ -4747,6 +4750,7 @@
     ro = Informații
     ru = Информация
     tr = Bilgi
+    uk = Інформація
     zh-Hans = 信息
     zh-Hant = 資訊
 
@@ -26057,6 +26061,7 @@
     ro = Descarcă harta lumii
     ru = Скачать карту мира
     tr = Dünya haritasını indir
+    uk = Завантажте карту світу
 
   [disk_error]
     tags = android
@@ -26079,6 +26084,7 @@
     pt-BR = Não foi possível criar a pasta e mover os arquivos à memória interna ou sdcard do dispositivo
     ru = Не могу создать папку и переместить файлы на устройстве
     tr = Dahili aygıtın belleğinde veya SD kartta klasör oluşturulamıyor ve dosyalar taşınamıyor
+    uk = Використовується на екрані запуску DownloadResources
 
   [disk_error_title]
     tags = android
@@ -26101,6 +26107,7 @@
     pt-BR = Erro do armazenamento
     ru = Ошибка диска
     tr = Disk hatası
+    uk = Помилка диска
 
   [connection_failure]
     comment = Used in DownloadResources startup screen
@@ -26128,6 +26135,7 @@
     ro = Eroare de conectare
     ru = Ошибка подключения
     tr = Bağlantı hatası
+    uk = Помилка підключення
 
   [disconnect_usb_cable_title]
     comment = Used in DownloadResources startup screen
@@ -26154,6 +26162,7 @@
     ro = Deconectează cablul USB
     ru = Отсоедините USB кабель
     tr = USB kablosunu çıkarın
+    uk = Від'єднайте кабель USB
     zh-Hant = 拔除 USB 線
 
   [enable_screen_sleep]
@@ -26509,6 +26518,7 @@
     ro = Elimină traseul
     ru = Удалить трек
     tr = Kaydı Sil
+    uk = Видалити трек
     zh-Hant = 刪除路徑
 
   [placepage_track_name_hint]
@@ -26535,6 +26545,7 @@
     ro = Numele traseului
     ru = Название трека
     tr = Yol Kaydı Adı
+    uk = Назва доріжки
     zh-Hant = 路徑名稱
 
   [move]
@@ -26561,6 +26572,7 @@
     ro = Mută
     ru = Переместить
     tr = Taşı
+    uk = рухатися
     zh-Hant = 移動
 
   [track_title]
