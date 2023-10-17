@@ -465,6 +465,7 @@ place-square                                        # caption z16-
 === 1400
 
 tourism-zoo                                         # icon z15- (also has caption(optional) z15-)
+tourism-zoo-petting                                 # icon z15- (also has caption(optional) z15-)
 === 1350
 
 tourism-museum                                      # icon z15- (also has caption(optional) z15-)
@@ -955,6 +956,7 @@ entrance-main                                       # icon z18- (also has captio
 # === -8500
 
 # tourism-zoo                                       # caption(optional) z15- (also has icon z15-)
+# tourism-zoo-petting                               # caption(optional) z15- (also has icon z15-)
 # === -8650
 
 # tourism-museum                                    # caption(optional) z15- (also has icon z15-)
