@@ -455,11 +455,10 @@ public class MwmActivity extends BaseMwmFragmentActivity
         this::onPostNotificationPermissionResult);
 
     boolean isConsumed = savedInstanceState == null && processIntent(getIntent());
-    boolean isFirstLaunch = Config.isFirstStartDialogSeen(this);
     // If the map activity is launched by any incoming intent (deeplink, update maps event, etc)
     // or it's the first launch (onboarding) we haven't to try restoring the route,
     // showing the tips, etc.
-    if (isConsumed || isFirstLaunch)
+    if (isConsumed || Config.isFirstLaunch(this))
       return;
 
     if (RoutingController.get().isPlanning())
