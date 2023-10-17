@@ -156,7 +156,7 @@ public class SplashActivity extends AppCompatActivity
       return;
     }
 
-    if (Config.isFirstStartDialogSeen(this) && LocationUtils.checkLocationPermission(this))
+    if (Config.isFirstLaunch(this) && LocationUtils.checkLocationPermission(this))
     {
       final LocationHelper locationHelper = app.getLocationHelper();
       locationHelper.onEnteredIntoFirstRun();
@@ -188,11 +188,13 @@ public class SplashActivity extends AppCompatActivity
       result.putExtra(EXTRA_INITIAL_INTENT, initialIntent);
       if (!initialIntent.hasCategory(Intent.CATEGORY_LAUNCHER))
       {
+        /// @todo Is it ok that we don't call setFirstStartDialogSeen here?
         // Wait for the result from MwmActivity for API callers.
         mApiRequest.launch(result);
         return;
       }
     }
+
     Config.setFirstStartDialogSeen(this);
     startActivity(result);
     finish();

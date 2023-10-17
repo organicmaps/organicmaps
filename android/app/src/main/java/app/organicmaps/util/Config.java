@@ -358,9 +358,9 @@ public final class Config
     editor.apply();
   }
 
-  public static boolean isFirstStartDialogSeen(@NonNull Context context)
+  public static boolean isFirstLaunch(@NonNull Context context)
   {
-    return MwmApplication.prefs(context).getBoolean(KEY_MISC_FIRST_START_DIALOG_SEEN, false);
+    return !MwmApplication.prefs(context).getBoolean(KEY_MISC_FIRST_START_DIALOG_SEEN, false);
   }
 
   public static void setFirstStartDialogSeen(@NonNull Context context)
