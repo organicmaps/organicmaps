@@ -142,7 +142,8 @@ public:
   }
   //@}
 
-  std::string DebugString(int scale, bool includeKeyPoint = true);
+  // No DebugPrint(f) as it requires its parameter to be const, but a feature is lazy loaded.
+  std::string DebugString(int scale = FeatureType::BEST_GEOMETRY);
 
   std::string const & GetHouseNumber();
 

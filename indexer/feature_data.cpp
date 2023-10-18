@@ -263,6 +263,7 @@ string FeatureParamsBase::DebugString() const
 {
   string const utf8name = DebugPrint(name);
   return ((!utf8name.empty() ? "Name:" + utf8name : "") +
+          (layer != LAYER_EMPTY ? " Layer:" + DebugPrint(layer) : "") +
           (rank != 0 ? " Rank:" + DebugPrint(rank) : "") +
           (!house.IsEmpty() ? " House:" + house.Get() : "") +
           (!ref.empty() ? " Ref:" + ref : ""));

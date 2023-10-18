@@ -403,10 +403,10 @@ double BaseApplyFeature::PriorityToDepth(int priority, drule::rule_type_t ruleTy
   {
     if (depth < drule::kBasePriorityBgTop)
     {
-      ASSERT(ruleType == drule::area, (m_f.GetID()));
-      ASSERT_GREATER_OR_EQUAL(depth, drule::kBasePriorityBgBySize, (m_f.GetID()));
+      ASSERT(ruleType == drule::area, (m_f.DebugString()));
+      ASSERT_GREATER_OR_EQUAL(depth, drule::kBasePriorityBgBySize, (m_f.DebugString()));
       // Prioritize BG-by-size areas by their bbox sizes instead of style-set priorities.
-      ASSERT_GREATER_OR_EQUAL(areaDepth, drule::kBaseDepthBgBySize, (m_f.GetID()));
+      ASSERT_GREATER_OR_EQUAL(areaDepth, drule::kBaseDepthBgBySize, (m_f.DebugString()));
       depth = areaDepth;
     }
     else if (depth < drule::kBasePriorityFg)
@@ -427,11 +427,11 @@ double BaseApplyFeature::PriorityToDepth(int priority, drule::rule_type_t ruleTy
     /// @todo(pastk) we might want to hide e.g. a trash bin under man_made=bridge or a bench on underground railway station?
 
     // Check overlays priorities range.
-    ASSERT(-drule::kOverlaysMaxPriority <= depth && depth < drule::kOverlaysMaxPriority, (depth, m_f.GetID()));
+    ASSERT(-drule::kOverlaysMaxPriority <= depth && depth < drule::kOverlaysMaxPriority, (depth, m_f.DebugString()));
   }
 
   // Check no features are clipped by the depth range constraints.
-  ASSERT(dp::kMinDepth <= depth && depth <= dp::kMaxDepth, (depth, m_f.GetID(), m_f.GetLayer()));
+  ASSERT(dp::kMinDepth <= depth && depth <= dp::kMaxDepth, (depth, m_f.DebugString()));
   return depth;
 }
 
@@ -497,7 +497,7 @@ void ApplyPointFeature::ProcessPointRules(SymbolRuleProto const * symbolRule, Ca
     params.m_createdByEditor = createdByEditor;
 
     ASSERT(!(symbolRule && params.m_titleDecl.m_anchor == dp::Anchor::Center),
-           ("A `text-offset: *` is not set in styles.", m_f.GetID(), m_f.DebugString(m_tileKey.m_zoomLevel, true)));
+           ("A `text-offset: *` is not set in styles.", m_f.GetID(), m_f.DebugString()));
     if (houseNumberRule && params.m_titleDecl.m_anchor == dp::Anchor::Center)
       params.m_titleDecl.m_anchor = GetAnchor(0, 1);
 
@@ -568,7 +568,7 @@ void ApplyAreaFeature::operator()(m2::PointD const & p1, m2::PointD const & p2, 
 
   double const crossProduct = m2::CrossProduct(v1.Normalize(), v2.Normalize());
   double constexpr kEps = 1e-7;
-  // ASSERT_GREATER_OR_EQUAL(fabs(crossProduct), kEps, (fabs(crossProduct), p1, p2, p3, m_f.DebugString(19, true)));
+  // ASSERT_GREATER_OR_EQUAL(fabs(crossProduct), kEps, (fabs(crossProduct), p1, p2, p3, m_f.DebugString()));
   // TODO(pastk) : e.g. a landuse-meadow has a following triangle with two identical points:
   // m2::Point<d>(8.5829683287662987823, 53.929641499591184584)
   // m2::Point<d>(8.5830675705005887721, 53.930025055483156393)
@@ -727,7 +727,7 @@ void ApplyAreaFeature::ProcessAreaRules(AreaRuleProto const * areaRule, AreaRule
 
   if (hatchingRule)
   {
-    ASSERT_GREATER_OR_EQUAL(hatchingRule->priority(), drule::kBasePriorityFg, ());
+    ASSERT_GREATER_OR_EQUAL(hatchingRule->priority(), drule::kBasePriorityFg, (m_f.DebugString()));
     ProcessRule(*hatchingRule, areaDepth, true);
   }
 
