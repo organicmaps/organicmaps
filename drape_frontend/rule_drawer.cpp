@@ -431,8 +431,8 @@ void RuleDrawer::operator()(FeatureType & f)
   bool const hasArea = s.m_areaRule || s.m_hatchingRule;
 
   ASSERT(!((hasLine || hasLineAdd) && (hasPoint || hasArea)),
-         ("Line drules mixed with point/area ones", f.DebugString(m_zoomLevel, true)));
-  ASSERT(!hasLineAdd || hasLine, ("Pathtext/shield without a line drule", f.DebugString(m_zoomLevel, true)));
+         ("Line drules mixed with point/area ones", f.DebugString()));
+  ASSERT(!hasLineAdd || hasLine, ("Pathtext/shield without a line drule", f.DebugString()));
 #endif
 
   // FeatureType::GetLimitRect call invokes full geometry reading and decoding.

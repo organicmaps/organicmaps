@@ -650,29 +650,12 @@ StringUtf8Multilang const & FeatureType::GetNames()
   return m_params.name;
 }
 
-string FeatureType::DebugString(int scale, bool includeKeyPoint)
+std::string FeatureType::DebugString(int scale)
 {
-  ParseCommon();
-
-  Classificator const & c = classif();
-
-  string res = "Types";
-  uint32_t const count = GetTypesCount();
-  for (size_t i = 0; i < count; ++i)
-    res += (" : " + c.GetReadableObjectName(m_types[i]));
-  res += "\n";
-
-  auto const paramsStr = m_params.DebugString();
-  if (!paramsStr.empty())
-  {
-    res += paramsStr;
-    res += "\n";
-  }
-
-  if (!includeKeyPoint)
-    return res;
-
   ParseGeometryAndTriangles(scale);
+
+  string res = DebugPrint(m_id) + " " + DebugPrint(GetGeomType());
+
   m2::PointD keyPoint;
   switch (GetGeomType())
   {
@@ -682,14 +665,13 @@ string FeatureType::DebugString(int scale, bool includeKeyPoint)
 
   case GeomType::Line:
     if (m_points.empty())
-      return res;
+      break;
     keyPoint = m_points.front();
     break;
 
   case GeomType::Area:
     if (m_triangles.empty())
-      return res;
-
+      break;
     ASSERT_GREATER(m_triangles.size(), 2, ());
     keyPoint = (m_triangles[0] + m_triangles[1] + m_triangles[2]) / 3.0;
     break;
@@ -698,9 +680,21 @@ string FeatureType::DebugString(int scale, bool includeKeyPoint)
     ASSERT(false, ());
     break;
   }
-
   // Print coordinates in (lat,lon) for better investigation capabilities.
-  res += "Key point: " + DebugPrint(keyPoint) + "; " + DebugPrint(mercator::ToLatLon(keyPoint));
+  res += ": " + DebugPrint(keyPoint) + "; " + DebugPrint(mercator::ToLatLon(keyPoint)) + "\n";
+
+  Classificator const & c = classif();
+
+  res += "Types";
+  uint32_t const count = GetTypesCount();
+  for (size_t i = 0; i < count; ++i)
+    res += (" : " + c.GetReadableObjectName(m_types[i]));
+  res += "\n";
+
+  auto const paramsStr = m_params.DebugString();
+  if (!paramsStr.empty())
+    res += paramsStr + "\n";
+
   return res;
 }
 
