@@ -5305,7 +5305,25 @@ cont {
 cont {
   name: "boundary-national_park"
   element {
+    scale: 10
+    area {
+      color: 3425648640
+      priority: 15
+    }
+  }
+  element {
+    scale: 11
+    area {
+      color: 3425648640
+      priority: 15
+    }
+  }
+  element {
     scale: 12
+    area {
+      color: 3425648640
+      priority: 15
+    }
     symbol {
       name: "nparkf-outline-s"
       priority: 2500
@@ -5324,6 +5342,10 @@ cont {
   }
   element {
     scale: 13
+    area {
+      color: 3425648640
+      priority: 15
+    }
     symbol {
       name: "nparkf-outline-s"
       priority: 2500
@@ -5342,6 +5364,10 @@ cont {
   }
   element {
     scale: 14
+    area {
+      color: 3425648640
+      priority: 15
+    }
     symbol {
       name: "nparkf-outline-m"
       priority: 2500
@@ -5359,6 +5385,10 @@ cont {
   }
   element {
     scale: 15
+    area {
+      color: 3425648640
+      priority: 15
+    }
     symbol {
       name: "nparkf-outline-m"
       priority: 2500
@@ -5376,6 +5406,10 @@ cont {
   }
   element {
     scale: 16
+    area {
+      color: 3425648640
+      priority: 15
+    }
     symbol {
       name: "nparkf-outline-m"
       priority: 2500
@@ -5393,6 +5427,10 @@ cont {
   }
   element {
     scale: 17
+    area {
+      color: 3425648640
+      priority: 15
+    }
     symbol {
       name: "nparkf-outline-m"
       priority: 2500
@@ -5410,6 +5448,10 @@ cont {
   }
   element {
     scale: 18
+    area {
+      color: 3425648640
+      priority: 15
+    }
     symbol {
       name: "nparkf-outline-m"
       priority: 2500
@@ -5427,6 +5469,10 @@ cont {
   }
   element {
     scale: 19
+    area {
+      color: 3425648640
+      priority: 15
+    }
     symbol {
       name: "nparkf-outline-m"
       priority: 2500
@@ -5587,7 +5633,25 @@ cont {
 cont {
   name: "boundary-protected_area-1"
   element {
+    scale: 10
+    area {
+      color: 3425648640
+      priority: 15
+    }
+  }
+  element {
+    scale: 11
+    area {
+      color: 3425648640
+      priority: 15
+    }
+  }
+  element {
     scale: 12
+    area {
+      color: 3425648640
+      priority: 15
+    }
     symbol {
       name: "nparkf-outline-s"
       priority: 2500
@@ -5606,6 +5670,10 @@ cont {
   }
   element {
     scale: 13
+    area {
+      color: 3425648640
+      priority: 15
+    }
     symbol {
       name: "nparkf-outline-s"
       priority: 2500
@@ -5624,6 +5692,10 @@ cont {
   }
   element {
     scale: 14
+    area {
+      color: 3425648640
+      priority: 15
+    }
     symbol {
       name: "nparkf-outline-m"
       priority: 2500
@@ -5641,6 +5713,10 @@ cont {
   }
   element {
     scale: 15
+    area {
+      color: 3425648640
+      priority: 15
+    }
     symbol {
       name: "nparkf-outline-m"
       priority: 2500
@@ -5658,6 +5734,10 @@ cont {
   }
   element {
     scale: 16
+    area {
+      color: 3425648640
+      priority: 15
+    }
     symbol {
       name: "nparkf-outline-m"
       priority: 2500
@@ -5675,6 +5755,10 @@ cont {
   }
   element {
     scale: 17
+    area {
+      color: 3425648640
+      priority: 15
+    }
     symbol {
       name: "nparkf-outline-m"
       priority: 2500
@@ -5692,6 +5776,10 @@ cont {
   }
   element {
     scale: 18
+    area {
+      color: 3425648640
+      priority: 15
+    }
     symbol {
       name: "nparkf-outline-m"
       priority: 2500
@@ -5709,6 +5797,10 @@ cont {
   }
   element {
     scale: 19
+    area {
+      color: 3425648640
+      priority: 15
+    }
     symbol {
       name: "nparkf-outline-m"
       priority: 2500
@@ -24948,6 +25040,224 @@ cont {
   }
 }
 cont {
+  name: "landuse-military"
+  element {
+    scale: 12
+    area {
+      color: 2159483932
+      priority: 15
+    }
+  }
+  element {
+    scale: 13
+    area {
+      color: 2159483932
+      priority: 15
+    }
+  }
+  element {
+    scale: 14
+    area {
+      color: 2159483932
+      priority: 15
+    }
+  }
+  element {
+    scale: 15
+    area {
+      color: 2159483932
+      priority: 15
+    }
+  }
+  element {
+    scale: 16
+    area {
+      color: 2159483932
+      priority: 15
+    }
+    symbol {
+      name: "military-m"
+      priority: 520
+    }
+  }
+  element {
+    scale: 17
+    area {
+      color: 2159483932
+      priority: 15
+    }
+    symbol {
+      name: "military-m"
+      priority: 520
+    }
+    caption {
+      primary {
+        height: 10
+        color: 6710886
+        offset_y: 1
+        is_optional: true
+      }
+      priority: -9480
+    }
+  }
+  element {
+    scale: 18
+    area {
+      color: 2159483932
+      priority: 15
+    }
+    symbol {
+      name: "military-m"
+      priority: 520
+    }
+    caption {
+      primary {
+        height: 10
+        color: 6710886
+        offset_y: 1
+        is_optional: true
+      }
+      priority: -9480
+    }
+  }
+  element {
+    scale: 19
+    area {
+      color: 2159483932
+      priority: 15
+    }
+    symbol {
+      name: "military-m"
+      priority: 520
+    }
+    caption {
+      primary {
+        height: 10
+        color: 6710886
+        offset_y: 1
+        is_optional: true
+      }
+      priority: -9480
+    }
+  }
+}
+cont {
+  name: "landuse-military-danger_area"
+  element {
+    scale: 10
+    area {
+      color: 12000284
+      priority: 15
+    }
+  }
+  element {
+    scale: 11
+    area {
+      color: 12000284
+      priority: 15
+    }
+  }
+  element {
+    scale: 12
+    area {
+      color: 2159483932
+      priority: 15
+    }
+  }
+  element {
+    scale: 13
+    area {
+      color: 2159483932
+      priority: 15
+    }
+  }
+  element {
+    scale: 14
+    area {
+      color: 2159483932
+      priority: 15
+    }
+  }
+  element {
+    scale: 15
+    area {
+      color: 2159483932
+      priority: 15
+    }
+  }
+  element {
+    scale: 16
+    area {
+      color: 2159483932
+      priority: 15
+    }
+    symbol {
+      name: "military-m"
+      priority: 520
+    }
+  }
+  element {
+    scale: 17
+    area {
+      color: 2159483932
+      priority: 15
+    }
+    symbol {
+      name: "military-m"
+      priority: 520
+    }
+    caption {
+      primary {
+        height: 10
+        color: 6710886
+        offset_y: 1
+        is_optional: true
+      }
+      priority: -9480
+    }
+  }
+  element {
+    scale: 18
+    area {
+      color: 2159483932
+      priority: 15
+    }
+    symbol {
+      name: "military-m"
+      priority: 520
+    }
+    caption {
+      primary {
+        height: 10
+        color: 6710886
+        offset_y: 1
+        is_optional: true
+      }
+      priority: -9480
+    }
+  }
+  element {
+    scale: 19
+    area {
+      color: 2159483932
+      priority: 15
+    }
+    symbol {
+      name: "military-m"
+      priority: 520
+    }
+    caption {
+      primary {
+        height: 10
+        color: 6710886
+        offset_y: 1
+        is_optional: true
+      }
+      priority: -9480
+    }
+  }
+}
+cont {
   name: "landuse-orchard"
   element {
     scale: 14
@@ -25894,22 +26204,22 @@ cont {
   element {
     scale: 10
     area {
-      color: 593674
-      priority: -1860
+      color: 3425648640
+      priority: 15
     }
   }
   element {
     scale: 11
     area {
-      color: 593674
-      priority: -1860
+      color: 3425648640
+      priority: 15
     }
   }
   element {
     scale: 12
     area {
-      color: 593674
-      priority: -1860
+      color: 3425648640
+      priority: 15
     }
     symbol {
       name: "nparkf-outline-s"
@@ -25930,8 +26240,8 @@ cont {
   element {
     scale: 13
     area {
-      color: 593674
-      priority: -1860
+      color: 3425648640
+      priority: 15
     }
     symbol {
       name: "nparkf-outline-s"
@@ -25952,8 +26262,8 @@ cont {
   element {
     scale: 14
     area {
-      color: 593674
-      priority: -1860
+      color: 3425648640
+      priority: 15
     }
     symbol {
       name: "nparkf-outline-m"
@@ -25973,8 +26283,8 @@ cont {
   element {
     scale: 15
     area {
-      color: 593674
-      priority: -1860
+      color: 3425648640
+      priority: 15
     }
     symbol {
       name: "nparkf-outline-m"
@@ -25994,8 +26304,8 @@ cont {
   element {
     scale: 16
     area {
-      color: 593674
-      priority: -1860
+      color: 3425648640
+      priority: 15
     }
     symbol {
       name: "nparkf-outline-m"
@@ -26015,8 +26325,8 @@ cont {
   element {
     scale: 17
     area {
-      color: 593674
-      priority: -1860
+      color: 3425648640
+      priority: 15
     }
     symbol {
       name: "nparkf-outline-m"
@@ -26036,8 +26346,8 @@ cont {
   element {
     scale: 18
     area {
-      color: 593674
-      priority: -1860
+      color: 3425648640
+      priority: 15
     }
     symbol {
       name: "nparkf-outline-m"
@@ -26057,8 +26367,8 @@ cont {
   element {
     scale: 19
     area {
-      color: 593674
-      priority: -1860
+      color: 3425648640
+      priority: 15
     }
     symbol {
       name: "nparkf-outline-m"
