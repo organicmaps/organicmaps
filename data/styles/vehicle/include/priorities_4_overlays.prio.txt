@@ -248,9 +248,9 @@ amenity-parking-street_side                         # icon z17- (also has area z
 amenity-parking-street_side-fee                     # icon z15- (also has area z15-)
 === 2520
 
-boundary-national_park                              # icon z12- (also has caption(optional) z12-)
+boundary-national_park                              # icon z12- (also has caption(optional) z12-, area z10-)
 boundary-protected_area                             # icon z12- (also has caption(optional) z12-)
-boundary-protected_area-1                           # icon z12- (also has caption(optional) z12-)
+boundary-protected_area-1                           # icon z12- (also has caption(optional) z12-, area z10-)
 boundary-protected_area-2                           # icon z12- (also has caption(optional) z12-)
 boundary-protected_area-3                           # icon z12- (also has caption(optional) z12-)
 boundary-protected_area-4                           # icon z12- (also has caption(optional) z12-)
@@ -663,6 +663,10 @@ railway-subway_entrance-yerevan                     # icon z16- (also has captio
 railway-subway_entrance-yokohama                    # icon z16- (also has caption(optional) z17-)
 === 550
 
+landuse-military                                    # icon z16- (also has caption(optional) z17-, area z12-)
+landuse-military-danger_area                        # icon z16- (also has caption(optional) z17-, area z10-)
+=== 520
+
 amenity-parking-lane-private                        # icon z18- (also has caption(optional) z18-, area z15-)
 amenity-parking-no-access                           # icon z15- (also has caption(optional) z16-, area z15-)
 amenity-parking-private                             # icon z17- (also has caption(optional) z17-, area z15-)
@@ -780,9 +784,9 @@ entrance-main                                       # icon z18- (also has captio
 # amenity-parking-underground-fee                   # caption(optional) z16- (also has icon z15-)
 # === -7450
 
-# boundary-national_park                            # caption(optional) z12- (also has icon z12-)
+# boundary-national_park                            # caption(optional) z12- (also has icon z12-, area z10-)
 # boundary-protected_area                           # caption(optional) z12- (also has icon z12-)
-# boundary-protected_area-1                         # caption(optional) z12- (also has icon z12-)
+# boundary-protected_area-1                         # caption(optional) z12- (also has icon z12-, area z10-)
 # boundary-protected_area-2                         # caption(optional) z12- (also has icon z12-)
 # boundary-protected_area-3                         # caption(optional) z12- (also has icon z12-)
 # boundary-protected_area-4                         # caption(optional) z12- (also has icon z12-)
@@ -1126,6 +1130,10 @@ entrance-main                                       # icon z18- (also has captio
 # railway-subway_entrance-yerevan                   # caption(optional) z17- (also has icon z16-)
 # railway-subway_entrance-yokohama                  # caption(optional) z17- (also has icon z16-)
 # === -9450
+
+# landuse-military                                  # caption(optional) z17- (also has icon z16-, area z12-)
+# landuse-military-danger_area                      # caption(optional) z17- (also has icon z16-, area z10-)
+# === -9480
 
 # amenity-parking-lane-private                      # caption(optional) z18- (also has icon z18-, area z15-)
 # amenity-parking-no-access                         # caption(optional) z16- (also has icon z15-, area z15-)

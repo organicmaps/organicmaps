@@ -33,9 +33,6 @@ amenity-parking-street_side-private                 # area z15- (also has icon z
 leisure-stadium                                     # area z15-
 === 150
 
-leisure-nature_reserve                              # area z10- (also has icon z12-, caption(optional) z12-)
-=== 140
-
 amenity-grave_yard                                  # area z14-
 amenity-grave_yard-christian                        # area z14-
 landuse-cemetery                                    # area z14-
