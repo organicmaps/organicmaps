@@ -482,6 +482,11 @@ area|z16-[place=square],
 
 /* 	7.6 Military */
 
+area|z16-[landuse=military],
+{icon-image: military-m.svg;}
+
+area|z17-[landuse=military],
+{text-offset: 1; text: name; font-size: 10; text-color: @poi_label;}
 
 
 /* 	7.7 Commercial */

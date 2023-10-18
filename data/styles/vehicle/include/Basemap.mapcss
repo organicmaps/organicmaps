@@ -89,7 +89,6 @@ line|z10-[boundary=administrative][admin_level=4]
 
 area|z10-[landuse=forest],
 area|z10-[leisure=park],
-area|z10-[leisure=nature_reserve],
 area|z12-[leisure=garden],
 area|z14-[landuse=grass],
 area|z14-[natural=grassland],
@@ -106,7 +105,6 @@ area|z14-[landuse=field],
 {fill-opacity: 1;}
 
 area|z10[landuse=forest],
-area|z10[leisure=nature_reserve],
 {fill-color: @green1;}
 
 area|z14-[landuse=grass],
@@ -156,6 +154,19 @@ area|z16-[leisure=garden]
 
 area|z12-[natural=bare_rock],
 {fill-color: @barerock;}
+
+/* Next types are hardcoded to have a hatching-style fill, see drape_frontend/stylist.cpp */
+area|z10-[leisure=nature_reserve],
+area|z10-[boundary=national_park],
+area|z10-[boundary=protected_area][protect_class=1],
+{fill-opacity: 0.2; fill-color: @green6;}
+
+area|z10-[landuse=military][military=danger_area],
+{fill-opacity: 1.0; fill-color: @military;}
+
+area|z12-[landuse=military]
+{fill-opacity: 0.5; fill-color: @military;}
+/* End of hardcoded */
 
 /* 5.BEACH, GLACIER, DESERT, etc. */
 
