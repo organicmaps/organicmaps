@@ -109,14 +109,14 @@ size_t MergedFeatureBuilder::GetKeyPointsCount() const
   return m_roundBounds[0].size() + m_roundBounds[1].size() + 2;
 }
 
-double MergedFeatureBuilder::GetPriority() const
+double MergedFeatureBuilder::GetSquaredLength() const
 {
   PointSeq const & poly = GetOuterGeometry();
 
-  double pr = 0.0;
+  double sqLen = 0.0;
   for (size_t i = 1; i < poly.size(); ++i)
-    pr += poly[i-1].SquaredLength(poly[i]);
-  return pr;
+    sqLen += poly[i-1].SquaredLength(poly[i]);
+  return sqLen;
 }
 
 
@@ -216,17 +216,19 @@ void FeatureMergeProcessor::DoMerge(FeatureEmitterIFace & emitter)
       MergedFeatureBuilder * pp = 0;
       if (it != m_map.end())
       {
-        // Find best feature to continue.
-        double bestPr = -1.0;
+        // Find the shortest connected line feature to continue,
+        // it helps to spread points more evenly between the features and to avoid producing too long lines.
+        double bestPr = std::numeric_limits<double>::max();
         for (size_t i = 0; i < it->second.size(); ++i)
         {
           MergedFeatureBuilder * pTest = it->second[i];
           if (pTest->HasType(type))
           {
-            double const pr = pTest->GetPriority();
+            double const pr = pTest->GetSquaredLength();
             // It's not necessery assert, because it's possible in source data
-//            ASSERT_GREATER ( pr, 0.0, () );
-            if (pr > bestPr)
+            // TODO(pastk) : likely caused by degenerate closed lines.
+            // ASSERT_GREATER(pr, 0.0, ());
+            if (pr < bestPr)
             {
               pp = pTest;
               bestPr = pr;
@@ -234,7 +236,7 @@ void FeatureMergeProcessor::DoMerge(FeatureEmitterIFace & emitter)
           }
         }
 
-        // Merge current feature with best feature.
+        // Merge the current feature with the best connected feature.
         if (pp)
         {
           bool const toBack = pt.second;
