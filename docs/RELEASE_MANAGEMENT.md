@@ -1,12 +1,12 @@
 # Release Management
 
-## Apple AppStore
+## Apple App Store
 
-### Upload metadata and screenshots to AppStore
+### Upload metadata and screenshots to the App Store
 
 Use [GitHub Actions](../.github/workflows/ios-release.yaml).
 
-### Checking metadata
+### Check metadata
 
 Use [GitHub Actions](../.github/workflows/ios-check.yaml).
 
@@ -16,9 +16,9 @@ Local check:
 ./tools/python/check_store_metadata.py ios
 ```
 
-### Downloading screenshots from AppStore
+### Downloading screenshots from the App Store
 
-Get xcode/keys/appstore.json - AppStore API Key.
+Get xcode/keys/appstore.json - App Store API Key.
 
 Get screenshots/ - a repository with screenshots.
 

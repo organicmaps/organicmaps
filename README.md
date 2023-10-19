@@ -2,8 +2,8 @@
 
 <a name="install"/>
 
-[Organic Maps](https://organicmaps.app) is a free Android & iOS offline maps app for travelers, tourists, drivers, hikers, and cyclists.
-It uses crowd-sourced [OpenStreetMap](https://www.openstreetmap.org) data and is developed with love by creators of **MapsWithMe** app (later renamed to **Maps.Me**) and by our community.
+[Organic Maps](https://organicmaps.app) is a free Android & iOS offline maps app for travellers, tourists, drivers, hikers, and cyclists.
+It uses crowd-sourced [OpenStreetMap](https://www.openstreetmap.org) data and is developed with love by the creators of **MapsWithMe** (later renamed to **Maps.Me**) and by our community.
 No ads, no tracking, no data collection, no crapware. Your [donations](https://organicmaps.app/donate/) and positive reviews motivate and inspire us, thanks ❤️!
 
 <p float="left">
@@ -36,14 +36,14 @@ No ads, no tracking, no data collection, no crapware. Your [donations](https://o
 
 ## Features
 
-Organic Maps is the ultimate companion app for travelers, tourists, hikers, and cyclists:
+Organic Maps is the ultimate companion app for travellers, tourists, hikers, and cyclists:
 
-- Detailed offline maps with places that don't exist on other maps, thanks to [OpenStreetMap](https://osm.org)
+- Detailed offline maps with places that don't exist on other maps, thanks to [OpenStreetMap](https://openstreetmap.org)
 - Cycling routes, hiking trails, and walking paths
 - Contour lines, elevation profiles, peaks, and slopes
 - Turn-by-turn walking, cycling, and car navigation with voice guidance
 - Fast offline search on the map
-- Bookmarks and tracks export and import in KML, KMZ, GPX formats
+- Bookmarks and tracks import and export in KML, KMZ & GPX formats
 - Dark Mode to protect your eyes
 - Countries and regions don't take a lot of space
 - Free and open-source
@@ -56,7 +56,7 @@ Organic Maps is pure and organic, made with love:
 - Saves your battery
 - No unexpected mobile data charges
 
-Organic Maps app is free from trackers and other bad stuff:
+Organic Maps is free from trackers and other bad stuff:
 
 - No ads
 - No tracking
@@ -69,7 +69,7 @@ Organic Maps app is free from trackers and other bad stuff:
 - No crapware
 - ~~No pesticides~~ Purely organic!
 
-The Android application is verified by <a href="https://reports.exodus-privacy.eu.org/en/reports/app.organicmaps/latest/">Exodus Privacy Project:
+The Android application is verified by the <a href="https://reports.exodus-privacy.eu.org/en/reports/app.organicmaps/latest/">Exodus Privacy Project:
 
 <img src="docs/privacy/exodus.png" width="400">
 </a>
@@ -92,20 +92,20 @@ At Organic Maps, we believe that privacy is a fundamental human right:
 
 - Organic Maps is an indie community-driven open-source project
 - We protect your privacy from Big Tech's prying eyes
-- Stay safe no matter wherever you are
+- Stay safe no matter where you are
 
 Reject surveillance - embrace your freedom.
 
 [**Give Organic Maps a try!**](#install)
 
-## Who is paying for the free app?
+## Who is paying for the development?
 
-The app is free for everyone. Please [donate](https://organicmaps.app/donate) to support us!
+The app is free for everyone, so we rely on donations. Please donate at [organicmaps.app/donate](https://organicmaps.app/donate) to support us!
 
 ### Our sponsors
 
 [Mythic Beasts](https://www.mythic-beasts.com/) ISP [provides us](https://www.mythic-beasts.com/blog/2021/10/06/improving-the-world-bit-by-expensive-bit/)
-two virtual servers with 400 TB/month of free bandwidth to help our users with
+two virtual servers with 400 TB/month of free bandwidth to host and serve
 maps downloads and updates.
 
 ## Copyrights
@@ -114,11 +114,11 @@ Licensed under the Apache License, Version 2.0. See
 [LICENSE](https://github.com/organicmaps/organicmaps/blob/master/LICENSE),
 [NOTICE](https://github.com/organicmaps/organicmaps/blob/master/NOTICE)
 and [data/copyright.html](http://htmlpreview.github.io/?https://github.com/organicmaps/organicmaps/blob/master/data/copyright.html)
-files for more information.
+for more information.
 
 ## Governance
 
-See [GOVERNANCE](docs/GOVERNANCE.md).
+See [docs/GOVERNANCE.md)](docs/GOVERNANCE.md).
 
 ## Contributing
 
@@ -134,7 +134,7 @@ Please join our beta program, suggest your features, and report bugs:
 
 ## Feedback
 
-- **Rate us on [App Store](https://apps.apple.com/app/organic-maps/id1567437057)
+- **Rate us on the [App Store](https://apps.apple.com/app/organic-maps/id1567437057)
 and [Google Play](https://play.google.com/store/apps/details?id=app.organicmaps)**.
 - **Star us on GitHub**.
 - Report bugs or issues to [the issue tracker](https://github.com/organicmaps/organicmaps/issues).
