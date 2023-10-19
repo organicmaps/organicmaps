@@ -307,12 +307,7 @@ bool StartsWith(UniString const & s, UniString const & p)
   return StartsWith(s.begin(), s.end(), p.begin(), p.end());
 }
 
-bool StartsWith(std::string const & s1, char const * s2)
-{
-  return (s1.compare(0, strlen(s2), s2) == 0);
-}
-
-bool StartsWith(std::string const & s1, std::string_view s2)
+bool StartsWith(std::string_view s1, std::string_view s2)
 {
   return (s1.compare(0, s2.length(), s2) == 0);
 }
@@ -320,11 +315,6 @@ bool StartsWith(std::string const & s1, std::string_view s2)
 bool StartsWith(std::string const & s, std::string::value_type c)
 {
   return s.empty() ? false : s.front() == c;
-}
-
-bool StartsWith(std::string const & s1, std::string const & s2)
-{
-  return (s1.compare(0, s2.length(), s2) == 0);
 }
 
 bool EndsWith(UniString const & s1, UniString const & s2)
@@ -335,12 +325,7 @@ bool EndsWith(UniString const & s1, UniString const & s2)
   return std::equal(s1.end() - s2.size(), s1.end(), s2.begin());
 }
 
-bool EndsWith(std::string const & s1, char const * s2)
-{
-  return EndsWith(s1, std::string_view(s2));
-}
-
-bool EndsWith(std::string const & s1, std::string_view s2)
+bool EndsWith(std::string_view s1, std::string_view s2)
 {
   size_t const n = s1.size();
   size_t const m = s2.size();
@@ -352,11 +337,6 @@ bool EndsWith(std::string const & s1, std::string_view s2)
 bool EndsWith(std::string const & s, std::string::value_type c)
 {
   return s.empty() ? false : s.back() == c;
-}
-
-bool EndsWith(std::string const & s1, std::string const & s2)
-{
-  return s1.size() >= s2.size() && s1.compare(s1.size() - s2.size(), s2.size(), s2) == 0;
 }
 
 bool EatPrefix(std::string & s, std::string const & prefix)
@@ -417,7 +397,7 @@ std::string to_string_dac(double d, int dac)
 
 bool IsHTML(std::string const & utf8)
 {
-  std::string::const_iterator it = utf8.begin();
+  auto it = utf8.begin();
   size_t ltCount = 0;
   size_t gtCount = 0;
   while (it != utf8.end())
@@ -433,8 +413,7 @@ bool IsHTML(std::string const & utf8)
 
 bool AlmostEqual(std::string const & str1, std::string const & str2, size_t mismatchedCount)
 {
-  std::pair<std::string::const_iterator, std::string::const_iterator> mis(str1.begin(),
-                                                                          str2.begin());
+  std::pair mis(str1.begin(), str2.begin());
   auto const str1End = str1.end();
   auto const str2End = str2.end();
 

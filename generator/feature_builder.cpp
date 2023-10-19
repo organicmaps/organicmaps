@@ -270,6 +270,24 @@ bool FeatureBuilder::PreSerialize()
     return false;
   }
 
+  // Stats shows that 1706197 POIs out of 2258011 have name == brand.
+  // Can remove duplicates, since we use "brand" only in search.
+  /// @todo Remove, when we will make valid localized brands and store brand-id instead raw name.
+  auto & meta = GetMetadata();
+  auto const brand = meta.Get(Metadata::FMD_BRAND);
+  if (!brand.empty())
+  {
+    m_params.name.ForEach([brand, &meta](int8_t, std::string_view name)
+    {
+      if (brand == name)
+      {
+        meta.Drop(Metadata::FMD_BRAND);
+        return base::ControlFlow::Break;
+      }
+      return base::ControlFlow::Continue;
+    });
+  }
+
   return true;
 }
 

@@ -67,7 +67,8 @@ BrandsHolder const & GetDefaultBrands();
 template <class FnT> void ForEachLocalizedBrands(std::string_view brand, FnT && fn)
 {
   bool processed = false;
-  /// @todo Wait for the new cpp standard.
+  /// @todo Remove temporary string with the new cpp standard.
+  /// Localized brands are not working as expected now because we store raw names from OSM, not brand IDs.
   GetDefaultBrands().ForEachNameByKey(std::string(brand), [&fn, &processed](auto const & name)
   {
     fn(name);

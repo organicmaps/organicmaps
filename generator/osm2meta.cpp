@@ -321,6 +321,11 @@ std::string MetadataTagProcessorImpl::ValidateAndFormat_airport_iata(std::string
   return str;
 }
 
+std::string MetadataTagProcessorImpl::ValidateAndFormat_brand(std::string const & v)
+{
+  return v;
+}
+
 std::string MetadataTagProcessorImpl::ValidateAndFormat_duration(std::string const & v) const
 {
   if (!ftypes::IsWayWithDurationChecker::Instance()(m_params.m_types))
@@ -442,19 +447,27 @@ void MetadataTagProcessor::operator()(std::string const & k, std::string const &
   using feature::Metadata;
   Metadata & md = m_params.GetMetadata();
 
+  auto const getLang = [view = std::string_view(k)]()
+  {
+    size_t const i = view.find(':');
+    if (i != std::string_view::npos)
+      return view.substr(i + 1);
+    return std::string_view();
+  };
+
   if (strings::StartsWith(k, "description"))
   {
-    // Process description tags.
-    int8_t lang = StringUtf8Multilang::kDefaultCode;
-    size_t const i = k.find(':');
-    if (i != std::string::npos)
+    // Separate description tags processing.
+    int8_t langIdx = StringUtf8Multilang::kDefaultCode;
+    auto const lang = getLang();
+    if (!lang.empty())
     {
-      int8_t const l = StringUtf8Multilang::GetLangIndex(k.substr(i+1));
-      if (l != StringUtf8Multilang::kUnsupportedLanguageCode)
-        lang = l;
+      langIdx = StringUtf8Multilang::GetLangIndex(lang);
+      if (langIdx == StringUtf8Multilang::kUnsupportedLanguageCode)
+        return;
     }
 
-    m_description.AddString(lang, v);
+    m_description.AddString(langIdx, v);
     return;
   }
 
@@ -469,7 +482,11 @@ void MetadataTagProcessor::operator()(std::string const & k, std::string const &
   case Metadata::FMD_FAX_NUMBER:  // The same validator as for phone.
   case Metadata::FMD_PHONE_NUMBER: valid = ValidateAndFormat_phone(v); break;
   case Metadata::FMD_STARS: valid = ValidateAndFormat_stars(v); break;
-  case Metadata::FMD_OPERATOR: valid = ValidateAndFormat_operator(v); break;
+  case Metadata::FMD_OPERATOR:
+    if (!m_operatorF.Add(getLang()))
+      return;
+    valid = ValidateAndFormat_operator(v);
+    break;
   case Metadata::FMD_WEBSITE: valid = ValidateAndFormat_url(v); break;
   case Metadata::FMD_CONTACT_FACEBOOK: valid = osm::ValidateAndFormat_facebook(v); break;
   case Metadata::FMD_CONTACT_INSTAGRAM: valid = osm::ValidateAndFormat_instagram(v); break;
@@ -496,10 +513,14 @@ void MetadataTagProcessor::operator()(std::string const & k, std::string const &
   case Metadata::FMD_BUILDING_LEVELS: valid = ValidateAndFormat_building_levels(v); break;
   case Metadata::FMD_LEVEL: valid = ValidateAndFormat_level(v); break;
   case Metadata::FMD_AIRPORT_IATA: valid = ValidateAndFormat_airport_iata(v); break;
+  case Metadata::FMD_BRAND:
+    if (!m_brandF.Add(getLang()))
+      return;
+    valid = ValidateAndFormat_brand(v);
+    break;
   case Metadata::FMD_DURATION: valid = ValidateAndFormat_duration(v); break;
   // Metadata types we do not get from OSM.
   case Metadata::FMD_CUISINE:
-  case Metadata::FMD_BRAND:
   case Metadata::FMD_DESCRIPTION:   // processed separately
   case Metadata::FMD_TEST_ID:
   case Metadata::FMD_CUSTOM_IDS:
