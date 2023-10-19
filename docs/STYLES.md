@@ -90,7 +90,7 @@ a `styles/` subfolder of maps directory on the device
 Changing display zoom level for features (e.g. from z16- to z14-) might
 not take effect until map's visibility/scale index is rebuilt:
 1. [Build](INSTALL.md#desktop-app) the `generator_tool` binary
-2. Put a map file, e.g. `Georgia.mwm` into the `data/` folder in the repo
+2. Put a map file, e.g. `Georgia.mwm` into the `data/` folder in the repository
 3. Run
 ```
 ../omim-build-release/generator_tool --generate_index=true --output="Georgia"

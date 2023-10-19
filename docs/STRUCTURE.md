@@ -19,7 +19,7 @@
 
 - `countries.txt` - map files hierarchy and checksums.
 - `countries_meta.txt` - country/region languages and driving sides.
-- `hierarchy.txt` - countries / map regions hierarchy, languages used and Wikidata IDs.
+- `hierarchy.txt` - countries/map regions hierarchy, languages used and Wikidata IDs.
 
 - `faq.html` - FAQ text displayed in the "?"/Help screen.
 - `copyright.html` - attributions to 3rd-party libraries, map data, icons, fonts.
@@ -32,11 +32,11 @@ There are some other files not mentioned here.
 ### Map features / classificator
 
 - `mapcss-mapping.csv` - mapping between OSM tags and OM types.
-- `replaced_tags.txt` - similar OSM tags merged.
+- `replaced_tags.txt` - merging similar OSM tags.
 - `mixed_tags.txt` - pedestrian streets of high popularity.
 
 - `editor.config` - built-in OSM data editor configuration (editable POIs, their attributes, etc.).
-- `config.xsd` - xml schema for `editor.config`.
+- `config.xsd` - XML schema for `editor.config`.
 
 Automatically generated:
 - `classificator.txt` - hierarchical list of all OM types.
@@ -46,7 +46,7 @@ Automatically generated:
 
 - `resources-default/` -
 - `resources-svg/` - social networks icons
-- `search-icons/svg/` - source svg files for search categories icons
+- `search-icons/svg/` - source SVG files for search categories icons
 - `styles/` - map [style files](STYLES.md#files)
 
 Automatically [generated](STYLES.md#technical-details):
@@ -61,7 +61,7 @@ Automatically [generated](STYLES.md#technical-details):
 - `categories.txt`,`categories_cuisines.txt`,`categories_brands.txt`,`countries_names.txt`
 
 Misc strings:
-- `mwm_names_en.txt` - english names for map regions.
+- `mwm_names_en.txt` - English names for map regions.
 - `countries_synonyms.csv` - alternative country names.
 - `synonyms.txt` - country and region names abbreviations and short names.
 - `languages.txt` - native language names.
@@ -76,8 +76,8 @@ Automatically [generated](TRANSLATIONS.md#technical-details):
 - `generator/` - map building tool.
 - `poly_borders/` - borders post-processing tool.
 - `skin_generator/` - a console app for building skin files with icons and symbols.
-- `topography_generator/` - isolines from SRTM data.
-- `track_generator/` - generate smooth tracks based on waypoints from KML.
+- `topography_generator/` - generates isolines from SRTM data.
+- `track_generator/` - generates smooth tracks based on waypoints from KML.
 
 ## C++ Core
 
@@ -116,4 +116,4 @@ Automatically [generated](TRANSLATIONS.md#technical-details):
 
 ## Documentation
 
-The main docs are in the `docs/` directory, however some tools have their own readmes, etc.
+The main docs are in the `docs/` directory, however some tools have their own READMEs, etc.
