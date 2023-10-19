@@ -51,7 +51,8 @@ public:
   std::pair<m2::PointD, bool> GetKeyPoint(size_t i) const;
   size_t GetKeyPointsCount() const;
 
-  double GetPriority() const;
+  // Used to determine which connected line to merge.
+  double GetSquaredLength() const;
 };
 
 /// Feature merger.
