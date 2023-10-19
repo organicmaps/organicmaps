@@ -109,7 +109,7 @@ StringUtf8Multilang::Languages const & StringUtf8Multilang::GetSupportedLanguage
 }
 
 // static
-int8_t StringUtf8Multilang::GetLangIndex(std::string_view const lang)
+int8_t StringUtf8Multilang::GetLangIndex(std::string_view lang)
 {
   if (lang == kReservedLang)
     return kUnsupportedLanguageCode;

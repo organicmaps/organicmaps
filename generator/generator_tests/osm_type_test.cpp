@@ -1801,6 +1801,17 @@ UNIT_CLASS_TEST(TestWithClassificator, OsmType_Recycling)
 
 UNIT_CLASS_TEST(TestWithClassificator, OsmType_Metadata)
 {
+  auto const getDescr = [](FeatureBuilderParams const & params, std::string_view lang)
+  {
+    std::string buffer(params.GetMetadata().Get(feature::Metadata::FMD_DESCRIPTION));
+    TEST(!buffer.empty(), ());
+    auto const mlStr = StringUtf8Multilang::FromBuffer(std::move(buffer));
+
+    std::string_view desc;
+    mlStr.GetString(StringUtf8Multilang::GetLangIndex(lang), desc);
+    return std::string(desc);
+  };
+
   {
     Tags const tags = {
       {"amenity", "restaurant" },
@@ -1811,14 +1822,26 @@ UNIT_CLASS_TEST(TestWithClassificator, OsmType_Metadata)
 
     TEST_EQUAL(params.m_types.size(), 1, (params));
     TEST(params.IsTypeExist(GetType({"amenity", "restaurant"})), (params));
+    TEST_EQUAL(getDescr(params, "ru"), "Хорошие настойки", ());
+  }
 
-    std::string buffer(params.GetMetadata().Get(feature::Metadata::FMD_DESCRIPTION));
-    TEST(!buffer.empty(), ());
-    auto const mlStr = StringUtf8Multilang::FromBuffer(std::move(buffer));
+  {
+    Tags const tags = {
+      {"amenity", "atm" },
+      {"operator", "Default"},
+      {"operator:en", "English"},
+      {"brand::kk", "KK language"},
+      {"brand:en", "English"},
+      {"description", "Default"},
+      {"description::kk", "KK language"},
+    };
 
-    std::string_view desc;
-    mlStr.GetString(StringUtf8Multilang::GetLangIndex("ru"), desc);
-    TEST_EQUAL(desc, "Хорошие настойки", ());
+    auto const params = GetFeatureBuilderParams(tags);
+    TEST_EQUAL(params.m_types.size(), 1, (params));
+    TEST(params.IsTypeExist(GetType({"amenity", "atm"})), (params));
+    TEST_EQUAL(params.GetMetadata().Get(feature::Metadata::FMD_OPERATOR), "Default", ());
+    TEST_EQUAL(params.GetMetadata().Get(feature::Metadata::FMD_BRAND), "English", ());
+    TEST_EQUAL(getDescr(params, "default"), "Default", ());
   }
 }
 

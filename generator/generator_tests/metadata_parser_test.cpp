@@ -89,20 +89,17 @@ UNIT_CLASS_TEST(TestWithClassificator, Metadata_ValidateAndFormat_operator)
   TEST(md.Empty(), ());
 
   params.SetType(typeAtm);
-  p("operator", "Some");
-  TEST_EQUAL(md.Get(Metadata::FMD_OPERATOR), "Some", ());
-  md.Drop(Metadata::FMD_OPERATOR);
+  p("operator", "Some1");
+  TEST_EQUAL(md.Get(Metadata::FMD_OPERATOR), "Some1", ());
 
   params.SetType(typeFuel);
-  p("operator", "Some");
-  TEST_EQUAL(md.Get(Metadata::FMD_OPERATOR), "Some", ());
-  md.Drop(Metadata::FMD_OPERATOR);
+  p("operator", "Some2");
+  TEST_EQUAL(md.Get(Metadata::FMD_OPERATOR), "Some2", ());
 
   params.SetType(typeCarSharing);
   params.AddType(typeCarRental);
-  p("operator", "Some");
-  TEST_EQUAL(md.Get(Metadata::FMD_OPERATOR), "Some", ());
-  md.Drop(Metadata::FMD_OPERATOR);
+  p("operator", "Some3");
+  TEST_EQUAL(md.Get(Metadata::FMD_OPERATOR), "Some3", ());
 }
 
 UNIT_TEST(Metadata_ValidateAndFormat_height)

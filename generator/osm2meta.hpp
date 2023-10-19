@@ -33,6 +33,7 @@ struct MetadataTagProcessorImpl
   static std::string ValidateAndFormat_wikipedia(std::string v) ;
   static std::string ValidateAndFormat_wikimedia_commons(std::string v) ;
   std::string ValidateAndFormat_airport_iata(std::string const & v) const;
+  static std::string ValidateAndFormat_brand(std::string const & v);
   std::string ValidateAndFormat_duration(std::string const & v) const;
 
 protected:
@@ -42,6 +43,37 @@ protected:
 class MetadataTagProcessor : private MetadataTagProcessorImpl
 {
   StringUtf8Multilang m_description;
+
+  struct LangFlags
+  {
+    // Select one value with priority:
+    // - Default
+    // - English
+    // - Others
+    bool Add(std::string_view lang)
+    {
+      if (lang.empty())
+      {
+        m_defAdded = true;
+        return true;
+      }
+      else if (lang == "en")
+      {
+        if (m_defAdded)
+          return false;
+        m_enAdded = true;
+        return true;
+      }
+
+      return !m_defAdded && !m_enAdded;
+    }
+
+    bool m_defAdded = false;
+    bool m_enAdded = false;
+  };
+
+  /// @todo Make operator and brand multilangual like description.
+  LangFlags m_operatorF, m_brandF;
 
 public:
   /// Make base class constructor public.
