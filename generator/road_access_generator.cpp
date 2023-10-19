@@ -1,13 +1,10 @@
 #include "generator/road_access_generator.hpp"
 
 #include "generator/feature_builder.hpp"
-#include "generator/final_processor_utils.hpp"
-#include "generator/intermediate_data.hpp"
 #include "generator/routing_helpers.hpp"
 
 #include "routing/road_access.hpp"
 #include "routing/road_access_serialization.hpp"
-#include "routing/routing_helpers.hpp"
 
 #include "coding/file_writer.hpp"
 #include "coding/files_container.hpp"
@@ -42,7 +39,7 @@ vector<string> const kCarAccessConditionalTags = {
 };
 
 vector<string> const kDefaultAccessConditionalTags = {
-    "access:conditional"
+    "access:conditional", "locked:conditional"
 };
 
 vector<string> const kPedestrianAccessConditionalTags = {
@@ -146,6 +143,7 @@ TagMapping const kDefaultTagMapping = {
     {OsmElement::Tag("access", "military"), RoadAccess::Type::No},
     {OsmElement::Tag("access", "agricultural"), RoadAccess::Type::Private},
     {OsmElement::Tag("access", "forestry"), RoadAccess::Type::Private},
+    {OsmElement::Tag("locked", "yes"), RoadAccess::Type::Locked},
 };
 
 // Removed secondary, tertiary from car list. Example https://www.openstreetmap.org/node/8169922700
@@ -170,6 +168,7 @@ std::set<OsmElement::Tag> const kHighwaysWhereIgnoreBarriersWithoutAccessBicycle
     {"highway", "secondary_link"},
     {"highway", "tertiary"},
     {"highway", "tertiary_link"},
+    {"highway", "cycleway"},  // Bicycle barriers without access on cycleway are ignored :)
 };
 
 // motorway_junction blocks not only highway link, but main road also.
@@ -190,19 +189,23 @@ std::set<OsmElement::Tag> const kHighwaysWhereIgnoreAccessDestination = {
 
 auto const kEmptyAccess = RoadAccess::Type::Count;
 
-// If |elem| has access tag from |mapping|, returns corresponding RoadAccess::Type.
-// Tags in |mapping| should be mutually exclusive. Caller is responsible for that. If there are
-// multiple access tags from |mapping| in |elem|, returns RoadAccess::Type for any of them.
-// Returns RoadAccess::Type::Count if |elem| has no access tags from |mapping|.
+// Access can be together with locked (not exclusive).
 RoadAccess::Type GetAccessTypeFromMapping(OsmElement const & elem, TagMapping const * mapping)
 {
+  bool isLocked = false;
   for (auto const & tag : elem.m_tags)
   {
     auto const it = mapping->find(tag);
     if (it != mapping->cend())
-      return it->second;
+    {
+      if (it->second == RoadAccess::Type::Locked)
+        isLocked = true;
+      else
+        return it->second;
+    }
   }
-  return kEmptyAccess;
+
+  return (isLocked ? RoadAccess::Type::Locked : kEmptyAccess);
 }
 
 std::optional<std::pair<string, string>> GetTagValueConditionalAccess(
@@ -223,11 +226,7 @@ std::optional<std::pair<string, string>> GetTagValueConditionalAccess(
   for (auto const & [tag, access] : kTagToAccessConditional)
   {
     if (elem.HasTag(tag.m_key, tag.m_value))
-    {
-      CHECK(!tagsList.back().empty(), ());
-      auto const anyAccessConditionalTag = tagsList.back().back();
-      return std::make_pair(anyAccessConditionalTag, access);
-    }
+      return std::make_pair(kDefaultAccessConditionalTags.front(), access);
   }
 
   return {};
@@ -301,10 +300,14 @@ void RoadAccessTagProcessor::Process(OsmElement const & elem)
       auto const accessType = GetAccessTypeFromMapping(elem, tagMapping);
       if (accessType != kEmptyAccess)
       {
-        if (accessType == RoadAccess::Type::Permit)
-          isPermit = true;
-        else
+        switch (accessType)
         {
+        case RoadAccess::Type::Permit:
+          isPermit = true;
+          break;
+        case RoadAccess::Type::Locked:
+          return RoadAccess::Type::Private;
+        default:
           // Patch: (permit + access=no) -> private.
           if (accessType == RoadAccess::Type::No && isPermit)
             return RoadAccess::Type::Private;
@@ -355,7 +358,6 @@ void RoadAccessTagProcessor::Process(OsmElement const & elem)
     return;
 
   // Apply barrier tags if we have no {vehicle = ...}, {access = ...} etc.
-  /// @todo Should we treat for example cycle_barrier as access=no always?
   op = getAccessType(m_barrierMappings);
   if (op != kEmptyAccess)
     m_barriersWithoutAccessTag.Add(elem.m_id, {elem.m_lat, elem.m_lon}, op);
@@ -616,6 +618,7 @@ AccessConditionalTagParser const & AccessConditionalTagParser::Instance()
 
 AccessConditionalTagParser::AccessConditionalTagParser()
 {
+  // Order is important here starting from most specific (motorcar) to generic (access).
   m_vehiclesToRoadAccess.push_back(kMotorCarTagMapping);
   m_vehiclesToRoadAccess.push_back(kMotorVehicleTagMapping);
   m_vehiclesToRoadAccess.push_back(kVehicleTagMapping);
@@ -711,10 +714,14 @@ RoadAccess::Type AccessConditionalTagParser::GetAccessByVehicleAndStringValue(
     auto const it = vehicleToAccess.find({vehicleFromTag, stringAccessValue});
     if (it != vehicleToAccess.end())
     {
-      if (it->second == RoadAccess::Type::Permit)
-        isPermit = true;
-      else
+      switch (it->second)
       {
+      case RoadAccess::Type::Permit:
+        isPermit = true;
+        break;
+      case RoadAccess::Type::Locked:
+        return RoadAccess::Type::Private;
+      default:
         // Patch: (permit + access=no) -> private.
         if (it->second == RoadAccess::Type::No && isPermit)
           return RoadAccess::Type::Private;
@@ -722,6 +729,7 @@ RoadAccess::Type AccessConditionalTagParser::GetAccessByVehicleAndStringValue(
       }
     }
   }
+
   return kEmptyAccess;
 }
 

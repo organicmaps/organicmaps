@@ -1,8 +1,6 @@
 #include "testing/testing.hpp"
 
 #include "generator/generator_tests/common.hpp"
-#include "generator/generator_tests_support/routing_helpers.hpp"
-#include "generator/generator_tests_support/test_mwm_builder.hpp"
 #include "generator/intermediate_data.hpp"
 #include "generator/osm2type.hpp"
 #include "generator/road_access_generator.hpp"
@@ -14,10 +12,7 @@
 
 #include "geometry/point2d.hpp"
 
-#include "coding/files_container.hpp"
-
 #include <fstream>
-#include <iterator>
 #include <string>
 #include <vector>
 
@@ -299,6 +294,30 @@ UNIT_CLASS_TEST(TestAccessFixture, CarPermit)
              make_pair(RoadAccess::Type::Private, RoadAccess::Confidence::Sure), ());
 }
 
+// https://www.openstreetmap.org/way/797145238#map=19/-34.61801/-58.36501
+UNIT_CLASS_TEST(TestAccessFixture, HgvDesignated)
+{
+  CreateCollectors();
+  AddWay(MakeOsmElementWithNodes(1 /* id */,
+                                 {{"highway", "motorway"}, {"access", "no"}, {"emergency", "yes"},
+                                  {"bus", "yes"}, {"hgv", "designated"}, {"motor_vehicle", "yes"}},
+                                 OsmElement::EntityType::Way, {1, 2}));
+  AddWay(MakeOsmElementWithNodes(2 /* id */,
+                                 {{"highway", "motorway"}, {"access", "no"}, {"emergency", "yes"},
+                                  {"bus", "yes"}, {"hgv", "designated"}},
+                                 OsmElement::EntityType::Way, {2, 3}));
+  Finish();
+
+  auto const noSure = make_pair(RoadAccess::Type::No, RoadAccess::Confidence::Sure);
+  TEST_EQUAL(Get(VehicleType::Pedestrian).GetAccessWithoutConditional(1), noSure, ());
+  TEST_EQUAL(Get(VehicleType::Bicycle).GetAccessWithoutConditional(1), noSure, ());
+
+  TEST_EQUAL(Get(VehicleType::Car).GetAccessWithoutConditional(1),
+             make_pair(RoadAccess::Type::Yes, RoadAccess::Confidence::Sure), ());
+  TEST_EQUAL(Get(VehicleType::Car).GetAccessWithoutConditional(2),
+             make_pair(RoadAccess::Type::No, RoadAccess::Confidence::Sure), ());
+}
+
 UNIT_CLASS_TEST(TestAccessFixture, Merge)
 {
   CreateCollectors(3);
@@ -479,10 +498,43 @@ UNIT_CLASS_TEST(TestAccessFixture, WinterRoads)
   {
     auto const & ra = Get(vehicle);
     for (uint64_t id = 1; id <= 2; ++id)
-      TEST_GREATER(ra.GetWayToAccessConditional().at(id).Size(), 0, ());
+    {
+      auto const & wac = ra.GetWayToAccessConditional();
+      auto const it = wac.find(id);
+      TEST(it != wac.end(), (id, vehicle));
+      TEST_GREATER(it->second.Size(), 0, ());
+    }
   }
 
   /// @todo Add more timing tests using
   /// GetUnixtimeByDate(2020, Month::Apr, Weekday::Monday, 11 /* hh */, 50 /* mm */)
 }
+
+UNIT_CLASS_TEST(TestAccessFixture, Locked)
+{
+  CreateCollectors();
+
+  AddWay(MakeOsmElementWithNodes(1 /* id */, {{"highway", "service"}} /* tags */,
+                                 OsmElement::EntityType::Way, {10, 11, 12, 13}));
+  AddWay(MakeOsmElementWithNodes(2 /* id */, {{"highway", "secondary"}} /* tags */,
+                                 OsmElement::EntityType::Way, {20, 21, 22, 23}));
+
+  AddNode(MakeOsmElement(11 /* id */, {{"barrier", "gate"}, {"locked", "yes"}},
+                         OsmElement::EntityType::Node));
+  AddNode(MakeOsmElement(21 /* id */, {{"barrier", "gate"}, {"locked", "yes"}, {"access", "permissive"}},
+                         OsmElement::EntityType::Node));
+
+  Finish();
+
+  auto const privateSure = make_pair(RoadAccess::Type::Private, RoadAccess::Confidence::Sure);
+  auto const yesSure = make_pair(RoadAccess::Type::Yes, RoadAccess::Confidence::Sure);
+
+  for (VehicleType t : {VehicleType::Car, VehicleType::Bicycle, VehicleType::Pedestrian})
+  {
+    auto const & vehicle = Get(t);
+    TEST_EQUAL(vehicle.GetAccessWithoutConditional({1, 1}), privateSure, ());
+    TEST_EQUAL(vehicle.GetAccessWithoutConditional({2, 1}), yesSure, (t));
+  }
+}
+
 }  // namespace road_access_test
