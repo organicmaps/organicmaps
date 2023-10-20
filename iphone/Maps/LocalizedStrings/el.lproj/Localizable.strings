@@ -3755,6 +3755,8 @@
 
 "type.tourism.zoo" = "Ζωολογικός κήπος";
 
+"type.tourism.zoo.petting" = "Ζωολογικό κήπο";
+
 "type.traffic_calming" = "Traffic Calming";
 
 "type.traffic_calming.bump" = "Traffic Bump";

@@ -1918,6 +1918,7 @@
 	<string name="type.tourism.viewpoint">观点</string>
 	<string name="type.tourism.wilderness_hut">野外住宿小屋</string>
 	<string name="type.tourism.zoo">动物园</string>
+	<string name="type.tourism.zoo.petting">宠物动物园</string>
 	<string name="type.waterway">航道要素</string>
 	<string name="type.waterway.canal">运河</string>
 	<string name="type.waterway.canal.tunnel">运河</string>

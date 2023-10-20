@@ -1779,6 +1779,7 @@
 	<string name="type.tourism.theme_park">Attraktion</string>
 	<string name="type.tourism.viewpoint">Utsiktsplats</string>
 	<string name="type.tourism.wilderness_hut">Vildmarksstuga</string>
+	<string name="type.tourism.zoo.petting">Petting Zoo</string>
 	<string name="type.waterway.canal">Kanal</string>
 	<string name="type.waterway.canal.tunnel">Kanal</string>
 	<string name="type.waterway.fish_pass">Fiskstege</string>

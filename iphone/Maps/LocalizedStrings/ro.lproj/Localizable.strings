@@ -3755,6 +3755,8 @@
 
 "type.tourism.zoo" = "Grădină zoologică";
 
+"type.tourism.zoo.petting" = "Grădina Zoologică";
+
 "type.traffic_calming" = "Traffic Calming";
 
 "type.traffic_calming.bump" = "Traffic Bump";

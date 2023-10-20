@@ -3755,6 +3755,8 @@
 
 "type.tourism.zoo" = "प्राणीसंग्रहालय";
 
+"type.tourism.zoo.petting" = "पेटिंग प्राणीसंग्रहालय";
+
 "type.traffic_calming" = "Traffic Calming";
 
 "type.traffic_calming.bump" = "वाहतूक गतिरोधक";

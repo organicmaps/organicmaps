@@ -3755,6 +3755,8 @@
 
 "type.tourism.zoo" = "حديقة حيوان";
 
+"type.tourism.zoo.petting" = "حديقة الحيوان الملاعبة";
+
 "type.traffic_calming" = "تهدئة سير السيارات";
 
 "type.traffic_calming.bump" = "مطبة";

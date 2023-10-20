@@ -1792,6 +1792,7 @@
 	<string name="type.tourism.viewpoint">관점</string>
 	<string name="type.tourism.wilderness_hut">황야 오두막</string>
 	<string name="type.tourism.zoo">동물원</string>
+	<string name="type.tourism.zoo.petting">페팅 동물원</string>
 	<string name="type.waterway.canal">운하</string>
 	<string name="type.waterway.canal.tunnel">운하</string>
 	<string name="type.waterway.fish_pass">물고기 사다리</string>

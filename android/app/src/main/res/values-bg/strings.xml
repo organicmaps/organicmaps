@@ -1097,6 +1097,7 @@
 	<string name="type.tourism.information.map">Карта</string>
 	<string name="type.tourism.information.office">Туристически офис</string>
 	<string name="type.tourism.information.visitor_centre">Център за посетители</string>
+	<string name="type.tourism.zoo.petting">Зоопарк за домашни любимци</string>
 	<string name="type.waterway.fish_pass">Стълба за риба</string>
 	<string name="type.natural.water.ditch">Отводнителна канавка</string>
 	<string name="type.waterway.ditch.tunnel">водосток</string>

@@ -1945,6 +1945,7 @@
 	<string name="type.tourism.viewpoint">Miradouro</string>
 	<string name="type.tourism.wilderness_hut">Cabana</string>
 	<string name="type.tourism.zoo">Jardim zoológico</string>
+	<string name="type.tourism.zoo.petting">Jardim Zoológico</string>
 	<string name="type.traffic_calming">Redutor de velocidade</string>
 	<string name="type.traffic_calming.bump">Lomba</string>
 	<string name="type.traffic_calming.hump">Lomba longa</string>

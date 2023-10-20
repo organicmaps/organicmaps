@@ -1999,6 +1999,7 @@
 	<string name="type.tourism.viewpoint">Uitkijkpunt</string>
 	<string name="type.tourism.wilderness_hut">Wildernishut</string>
 	<string name="type.tourism.zoo">Dierentuin</string>
+	<string name="type.tourism.zoo.petting">Kinderboerderij</string>
 	<string name="type.traffic_calming">Snelheidsmatigende maatregel</string>
 	<string name="type.traffic_calming.bump">Verkeersdrempel</string>
 	<string name="type.traffic_calming.hump">Verkeersheuvel</string>

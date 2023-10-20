@@ -3755,6 +3755,8 @@
 
 "type.tourism.zoo" = "Hayvanat Bahçesi";
 
+"type.tourism.zoo.petting" = "Sevişme Hayvanat Bahçesi";
+
 "type.traffic_calming" = "Hız Kesici (Kasis)";
 
 "type.traffic_calming.bump" = "Hız Kesici (Kasis)";

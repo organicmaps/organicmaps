@@ -3755,6 +3755,8 @@
 
 "type.tourism.zoo" = "Dierentuin";
 
+"type.tourism.zoo.petting" = "Kinderboerderij";
+
 "type.traffic_calming" = "Snelheidsmatigende maatregel";
 
 "type.traffic_calming.bump" = "Verkeersdrempel";

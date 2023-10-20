@@ -1786,6 +1786,7 @@
 	<string name="type.tourism.viewpoint">Mirante</string>
 	<string name="type.tourism.wilderness_hut">Cabana</string>
 	<string name="type.tourism.zoo">Zoológico</string>
+	<string name="type.tourism.zoo.petting">Jardim Zoológico</string>
 	<string name="type.traffic_calming">Redutor de velocidade</string>
 	<string name="type.traffic_calming.bump">Quebra-molas</string>
 	<string name="type.traffic_calming.hump">Quebra-molas longa</string>

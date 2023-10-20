@@ -1945,6 +1945,7 @@
 	<string name="type.tourism.viewpoint">Punto panoramico</string>
 	<string name="type.tourism.wilderness_hut">Rifugio</string>
 	<string name="type.tourism.zoo">Giardino zoologico</string>
+	<string name="type.tourism.zoo.petting">Zoo di coccole</string>
 	<string name="type.traffic_calming">Rallentatore della velocità</string>
 	<string name="type.traffic_calming.bump">Dosso</string>
 	<string name="type.traffic_calming.hump">Dosso</string>

@@ -1998,6 +1998,7 @@
 	<string name="type.tourism.viewpoint">Manzara</string>
 	<string name="type.tourism.wilderness_hut">Vahşi Doğa Kulübesi</string>
 	<string name="type.tourism.zoo">Hayvanat Bahçesi</string>
+	<string name="type.tourism.zoo.petting">Sevişme Hayvanat Bahçesi</string>
 	<string name="type.traffic_calming">Hız Kesici (Kasis)</string>
 	<string name="type.traffic_calming.bump">Hız Kesici (Kasis)</string>
 	<string name="type.traffic_calming.hump">Hız Kesici (Kasis)</string>

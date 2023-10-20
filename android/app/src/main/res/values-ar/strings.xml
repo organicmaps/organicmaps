@@ -1944,6 +1944,7 @@
 	<string name="type.tourism.viewpoint">نقطة منظر</string>
 	<string name="type.tourism.wilderness_hut">كوخ برية</string>
 	<string name="type.tourism.zoo">حديقة حيوان</string>
+	<string name="type.tourism.zoo.petting">حديقة الحيوان الملاعبة</string>
 	<string name="type.traffic_calming">تهدئة سير السيارات</string>
 	<string name="type.traffic_calming.bump">مطبة</string>
 	<string name="type.waterway.canal">قناة</string>

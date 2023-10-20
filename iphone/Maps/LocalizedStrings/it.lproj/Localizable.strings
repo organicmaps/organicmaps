@@ -3755,6 +3755,8 @@
 
 "type.tourism.zoo" = "Giardino zoologico";
 
+"type.tourism.zoo.petting" = "Zoo di coccole";
+
 "type.traffic_calming" = "Rallentatore della velocità";
 
 "type.traffic_calming.bump" = "Dosso";

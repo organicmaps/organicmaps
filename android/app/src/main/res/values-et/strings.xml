@@ -1993,6 +1993,7 @@
 	<string name="type.tourism.viewpoint">Vaatluskoht</string>
 	<string name="type.tourism.wilderness_hut">Loodusonn</string>
 	<string name="type.tourism.zoo">Loomaaed</string>
+	<string name="type.tourism.zoo.petting">Lemmikloomaaed</string>
 	<string name="type.traffic_calming">Liikluse rahustamine</string>
 	<string name="type.traffic_calming.bump">Liiklusee aeglustusmühk</string>
 	<string name="type.traffic_calming.hump">Liikluse aeglustussaar</string>
