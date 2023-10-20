@@ -55,8 +55,11 @@ protected:
 
   bool is_drawable(FeatureType & f) const
   {
-    // Looks strange, but it checks consistency.
-    TEST_EQUAL(f.DebugString(m_scale), f.DebugString(m_scale), ());
+    f.ParseGeometry(m_scale);
+    f.ParseTriangles(m_scale);
+    // TODO(pastk): need a better / more comprehensive lazy-loading consistency check,
+    // e.g. ATM geometry is checked by its first point only, metadata is not checked at all..
+    TEST_EQUAL(f.DebugString(), f.DebugString(), ());
 
     return IsDrawable(f, m_scale);
   }
@@ -80,7 +83,7 @@ public:
 
   void operator()(FeatureType & f) const
   {
-    TEST(is_drawable(f), (m_scale, f.DebugString(FeatureType::BEST_GEOMETRY)));
+    TEST(is_drawable(f), (m_scale, f.DebugString()));
     add(f);
   }
 };
@@ -257,7 +260,7 @@ public:
       TEST(IsDrawable(ft, m_level), ());
 
       LOG(LINFO, ("Feature index:", index));
-      LOG(LINFO, ("Feature:", ft.DebugString(FeatureType::BEST_GEOMETRY)));
+      LOG(LINFO, ("Feature:", ft.DebugString()));
     }
   }
 };

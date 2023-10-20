@@ -650,11 +650,11 @@ StringUtf8Multilang const & FeatureType::GetNames()
   return m_params.name;
 }
 
-std::string FeatureType::DebugString(int scale)
+std::string FeatureType::DebugString()
 {
-  ParseGeometryAndTriangles(scale);
+  ParseGeometryAndTriangles(FeatureType::BEST_GEOMETRY);
 
-  string res = DebugPrint(m_id) + " " + DebugPrint(GetGeomType());
+  std::string res = DebugPrint(m_id) + " " + DebugPrint(GetGeomType());
 
   m2::PointD keyPoint;
   switch (GetGeomType())

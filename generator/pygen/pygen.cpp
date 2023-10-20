@@ -157,7 +157,7 @@ public:
     GetLimitRect();
   }
 
-  std::string DebugString() { return m_feature->DebugString(FeatureType::BEST_GEOMETRY); }
+  std::string DebugString() { return m_feature->DebugString(); }
 
 private:
   boost::shared_ptr<Mwm> m_mwm;
