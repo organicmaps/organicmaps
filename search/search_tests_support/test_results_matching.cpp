@@ -82,8 +82,7 @@ bool MatchResults(DataSource const & dataSource, vector<shared_ptr<MatchingRule>
         return;
       }
     }
-    unexpected.push_back(feature.DebugString(FeatureType::BEST_GEOMETRY) + " from " +
-                         DebugPrint(feature.GetID().m_mwmId));
+    unexpected.push_back(feature.DebugString());
   };
   dataSource.ReadFeatures(removeMatched, resultIds);
 
