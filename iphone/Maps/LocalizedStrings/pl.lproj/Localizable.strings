@@ -3755,6 +3755,8 @@
 
 "type.tourism.zoo" = "Ogród zoologiczny";
 
+"type.tourism.zoo.petting" = "Małe Zoo";
+
 "type.traffic_calming" = "Uspokojenie ruchu drogowego";
 
 "type.traffic_calming.bump" = "Krótki próg zwalniający";

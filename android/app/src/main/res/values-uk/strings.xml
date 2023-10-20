@@ -1985,6 +1985,7 @@
 	<string name="type.tourism.viewpoint">Оглядний майданчик</string>
 	<string name="type.tourism.wilderness_hut">Хибара</string>
 	<string name="type.tourism.zoo">Зоопарк</string>
+	<string name="type.tourism.zoo.petting">Контактний зоопарк</string>
 	<string name="type.traffic_calming">Лежачий полiцейський</string>
 	<string name="type.traffic_calming.bump">Лежачий полiцейський</string>
 	<string name="type.traffic_calming.hump">Лежачий полiцейський</string>

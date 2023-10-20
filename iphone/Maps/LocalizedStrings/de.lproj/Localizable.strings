@@ -3755,6 +3755,8 @@
 
 "type.tourism.zoo" = "Zoo";
 
+"type.tourism.zoo.petting" = "Streichelzoo";
+
 "type.traffic_calming" = "Verkehrsberuhigung";
 
 "type.traffic_calming.bump" = "kurze Bodenwelle";

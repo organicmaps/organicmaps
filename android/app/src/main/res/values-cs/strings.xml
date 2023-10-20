@@ -1793,6 +1793,7 @@
 	<string name="type.tourism.viewpoint">Vyhlídka</string>
 	<string name="type.tourism.wilderness_hut">Chata v divočině</string>
 	<string name="type.tourism.zoo">zoologická zahrada</string>
+	<string name="type.tourism.zoo.petting">ZOO pro domácí mazlíčky</string>
 	<string name="type.waterway.canal">Kanál</string>
 	<string name="type.waterway.canal.tunnel">Kanál</string>
 	<string name="type.waterway.fish_pass">Žebřík pro ryby</string>

@@ -1792,6 +1792,7 @@
 	<string name="type.tourism.viewpoint">Θέα</string>
 	<string name="type.tourism.wilderness_hut">Καλύβα</string>
 	<string name="type.tourism.zoo">Ζωολογικός κήπος</string>
+	<string name="type.tourism.zoo.petting">Ζωολογικό κήπο</string>
 	<string name="type.waterway.canal">Κανάλι</string>
 	<string name="type.waterway.canal.tunnel">Κανάλι</string>
 	<string name="type.waterway.fish_pass">Σκάλα ψαριών</string>

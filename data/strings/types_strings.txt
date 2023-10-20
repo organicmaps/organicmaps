@@ -29150,7 +29150,6 @@
     zh-Hans = 宠物动物园
     zh-Hant = 寵物動物園
 
-
   [type.traffic_calming]
     en = Traffic Calming
     af = Verkeerskalmering

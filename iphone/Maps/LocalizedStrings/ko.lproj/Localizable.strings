@@ -3755,6 +3755,8 @@
 
 "type.tourism.zoo" = "동물원";
 
+"type.tourism.zoo.petting" = "페팅 동물원";
+
 "type.traffic_calming" = "Traffic Calming";
 
 "type.traffic_calming.bump" = "Traffic Bump";

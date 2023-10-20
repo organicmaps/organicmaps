@@ -1704,6 +1704,7 @@
 	<string name="type.tourism.viewpoint">گردشگری</string>
 	<string name="type.tourism.wilderness_hut">کلبه‌ی صحرایی</string>
 	<string name="type.tourism.zoo">گردشگری</string>
+	<string name="type.tourism.zoo.petting">باغ وحش پتینگ</string>
 	<string name="type.waterway.canal">کانال اب</string>
 	<string name="type.waterway.canal.tunnel">کانال اب</string>
 	<string name="type.waterway.fish_pass">نردبان ماهی</string>

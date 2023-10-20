@@ -1973,6 +1973,7 @@
 	<string name="type.tourism.theme_park">Parc d\'attractions</string>
 	<string name="type.tourism.viewpoint">Belvédère</string>
 	<string name="type.tourism.wilderness_hut">Refuge non gardé</string>
+	<string name="type.tourism.zoo.petting">Zoo pour enfants</string>
 	<string name="type.traffic_calming.bump">Ralentisseur</string>
 	<string name="type.traffic_calming.hump">Ralentisseur</string>
 	<string name="type.waterway.fish_pass">Échelle à poissons</string>

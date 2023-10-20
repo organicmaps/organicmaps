@@ -3755,6 +3755,8 @@
 
 "type.tourism.zoo" = "Dyrehage";
 
+"type.tourism.zoo.petting" = "Dyrehage";
+
 "type.traffic_calming" = "Traffic Calming";
 
 "type.traffic_calming.bump" = "Traffic Bump";

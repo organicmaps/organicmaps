@@ -3755,6 +3755,8 @@
 
 "type.tourism.zoo" = "گردشگری";
 
+"type.tourism.zoo.petting" = "باغ وحش پتینگ";
+
 "type.traffic_calming" = "Traffic Calming";
 
 "type.traffic_calming.bump" = "Traffic Bump";

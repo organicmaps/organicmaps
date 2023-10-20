@@ -1973,6 +1973,7 @@
 	<string name="type.tourism.viewpoint">Punkt widokowy</string>
 	<string name="type.tourism.wilderness_hut">Gajówka</string>
 	<string name="type.tourism.zoo">Ogród zoologiczny</string>
+	<string name="type.tourism.zoo.petting">Małe Zoo</string>
 	<string name="type.traffic_calming">Uspokojenie ruchu drogowego</string>
 	<string name="type.traffic_calming.bump">Krótki próg zwalniający</string>
 	<string name="type.traffic_calming.hump">Długi próg zwalniający</string>

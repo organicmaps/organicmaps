@@ -1980,6 +1980,7 @@
 	<string name="type.tourism.viewpoint">Vista panorámica</string>
 	<string name="type.tourism.wilderness_hut">Cabaña</string>
 	<string name="type.tourism.zoo">Zoo</string>
+	<string name="type.tourism.zoo.petting">Zoológico de animales acariciables</string>
 	<string name="type.traffic_calming">Reducción de velocidad</string>
 	<string name="type.traffic_calming.bump">Banda reductora</string>
 	<string name="type.traffic_calming.hump">Resalte</string>

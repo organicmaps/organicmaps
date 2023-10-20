@@ -1910,6 +1910,7 @@
 	<string name="type.tourism.viewpoint">観光スポット</string>
 	<string name="type.tourism.wilderness_hut">無人小屋</string>
 	<string name="type.tourism.zoo">動物園</string>
+	<string name="type.tourism.zoo.petting">ふれあい動物園</string>
 	<string name="type.traffic_calming">交通静穏化</string>
 	<string name="type.traffic_calming.bump">スピードバンプ</string>
 	<string name="type.traffic_calming.hump">スピードハンプ</string>
