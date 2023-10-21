@@ -1444,7 +1444,7 @@ fr:Magasin de vins et spiritueux|vins et spiritueux|4alcool
 de:5Spirituosengeschäft|Spirituosen
 hu:Italbolt|ital
 id:Toko alkohol|minuman keras
-it:Enoteca
+it:Negozio di liquori|Negozio di alcolici|Negozio di vini|3Enoteca
 ja:酒屋|お買い物|ショップ|商店|雑貨
 ko:리큐어 스토어|주류 샵
 mr:दारू|वाईन|विस्की|देशी दारू|ताडी|फेणी
@@ -12489,7 +12489,7 @@ fr:Cave à vins|Caviste|Magasin de vins
 de:4Weinhandlung|Weinladen|Weingeschäft
 hu:Borkereskedés
 id:Toko anggur
-it:Negozio di alcolici
+it:3Enoteca|Negozio di vini|Negozio di alcolici|Negozio di liquori
 ja:ワイン|酒屋|ワインショップ
 ko:와인 샵|와인 가게
 nb:Alkoholutsalg
