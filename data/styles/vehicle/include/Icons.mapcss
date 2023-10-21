@@ -888,6 +888,10 @@ node|z18-[amenity=sanitary_dump_station],
 area|z18-[amenity=sanitary_dump_station]
 {font-size: 14.5; icon-min-distance: 10;}
 
+node|z18-[amenity=compressed_air],
+area|z18-[amenity=compressed_air],
+{icon-image: compressed_air-m.svg;}
+
 node|z16-[amenity=water_point],
 area|z16-[amenity=water_point],
 {icon-image: drinking-water-m.svg; icon-min-distance: 20;}
