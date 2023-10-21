@@ -2629,6 +2629,10 @@ node|z15-[amenity=sanitary_dump_station],
 area|z15-[amenity=sanitary_dump_station]
 {icon-image: dump-station-m.svg; icon-min-distance: 20;}
 
+node|z18-[amenity=compressed_air],
+area|z18-[amenity=compressed_air],
+{icon-image: compressed_air-m.svg;}
+
 /* 7.1 Parking */
 
 node|z16-[amenity=parking],

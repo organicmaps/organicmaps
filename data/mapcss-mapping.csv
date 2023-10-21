@@ -1670,3 +1670,4 @@ amenity|place_of_worship|christian|jehovahs_witness;[amenity=place_of_worship][r
 amenity|parking|underground|private;[amenity=parking][location=underground][access=private],[amenity=parking][parking=underground][access=private];;name;int_name;1589;
 amenity|parking|street_side|private;[amenity=parking][parking=street_side][access=private];;name;int_name;1590;
 amenity|parking|lane|private;[amenity=parking][parking=lane][access=private];;name;int_name;1591;
+amenity|compressed_air;1592;

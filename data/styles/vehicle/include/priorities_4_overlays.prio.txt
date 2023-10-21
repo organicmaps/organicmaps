@@ -223,6 +223,7 @@ shop-car_repair                                     # icon z17-
 shop-car_repair-tyres                               # icon z15- (also has caption(optional) z15-)
 === 2650
 
+amenity-compressed_air                              # icon z18-
 amenity-sanitary_dump_station                       # icon z15- (also has caption(optional) z15-)
 shop-caravan                                        # icon z17-
 === 2600

@@ -65,7 +65,11 @@ sanitary_dump_station=yes : amenity=sanitary_dump_station
 sanitary_dump_station=customers : amenity=sanitary_dump_station
 sanitary_dump_station=public : amenity=sanitary_dump_station
 waterway=sanitary_dump_station : amenity=sanitary_dump_station
+
+compressed_air=yes : amenity=compressed_air
+
 amenity=monastery : amenity=place_of_worship
+
 vending=parcel_pickup;parcel_mail_in : amenity=parcel_locker | u
 vending=parcel_pickup : amenity=parcel_locker | u
 vending=water : vending=drinks

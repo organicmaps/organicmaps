@@ -11844,6 +11844,45 @@ sk:3Dom kultúry
 fa:مرکزاجتماعی
 mr:समुदाय केंद्र
 
+amenity-compressed_air
+en:Compressed Air
+ar:هواء مضغوط
+be:Сціснутае паветра
+bg:Сгъстен въздух
+ca:Aire comprimit
+cs:Stlačený vzduch
+da:Trykluft
+de:Pressluft
+el:Πεπιεσμένος αέρας
+es:Aire comprimido|Compresor|Hinchador
+et:Suruõhk
+eu:Aire konprimitua
+fa:هوای فشرده
+fi:Paineilma
+fr:Air comprimé
+he:אוויר דחוס
+hu:Sűrített levegő
+id:Udara terkompresi
+it:Aria compressa
+ja:圧縮空気
+ko:압축 공기
+mr:संकुचित हवा
+nb:Komprimert luft
+nl:Samengeperste lucht
+pl:Sprężone powietrze
+pt:Ar comprimido
+ro:Aer comprimat
+ru:Сжатый воздух
+sk:Stlačený vzduch
+sv:Tryckluft
+sw:Air compressed
+th:อากาศอัด
+tr:Basınçlı hava
+uk:Стиснене повітря
+vi:Khí nén
+zh-Hans:压缩空气
+zh-Hant:壓縮的空氣
+
 amenity-courthouse
 en:4Courthouse
 ru:Суд
