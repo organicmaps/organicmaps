@@ -15,7 +15,7 @@ inline uint32_t PatchMinDrawableScale(uint32_t s)
 
 inline uint32_t PatchMaxDrawableScale(uint32_t s)
 {
-  std::min(s + kPatchScaleShift, static_cast<uint32_t>(GetUpperStyleScale()));
+  return std::min(s + kPatchScaleShift, static_cast<uint32_t>(GetUpperStyleScale()));
 }
 
 #else // BUILD_DESIGNER
