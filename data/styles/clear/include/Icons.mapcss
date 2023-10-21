@@ -451,6 +451,8 @@ area|z14-[tourism=attraction],
 node|z14-[tourism=theme_park],
 area|z14-[tourism=theme_park],
 node|z14-[tourism=viewpoint],
+node|z15-[tourism=zoo][zoo=petting_zoo],
+area|z15-[tourism=zoo][zoo=petting_zoo],
 node|z15-[amenity=community_centre],
 area|z15-[amenity=community_centre],
 node|z15-[historic=memorial],
@@ -632,6 +634,15 @@ area|z16-[tourism=zoo]
 node|z16-[tourism=aquarium],
 area|z16-[tourism=aquarium]
 {icon-image: aquarium-m.svg;text-offset: 1;icon-min-distance: 8;}
+
+
+node|z13-[tourism=zoo][zoo=petting_zoo],
+area|z13-[tourism=zoo][zoo=petting_zoo],
+{icon-image: none;text: none;} /*needed to override base type styles*/
+
+node|z15-[tourism=zoo][zoo=petting_zoo],
+area|z15-[tourism=zoo][zoo=petting_zoo],
+{icon-image: petting_zoo-m.svg;text: name;text-offset: 1;icon-min-distance: 8;}
 
 node|z14[tourism=viewpoint]
 {icon-image: viewpoint-s.svg;text-offset: 1;icon-min-distance: 8;}

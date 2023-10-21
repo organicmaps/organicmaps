@@ -19,7 +19,7 @@ list of actions leading to a bug, a log file produced by the app.
 
 When using Organic Maps app on a device, use the built-in "Report a bug" option:
 on Android it creates a new e-mail with a log file attached. Your issue will be processed much
-faster if you send it to bugs@organicmaps.app. Enabling logs in Organic Maps settings on Android
+faster if you send it to <bugs@organicmaps.app>. Enabling logs in Organic Maps settings on Android
 before sending the bug report also helps us a lot with debugging.
 
 ### Feature Requests
@@ -34,7 +34,7 @@ See [translations instructions](TRANSLATIONS.md) for details.
 ### Map styling and icons
 
 We strive to have a functional, cohesive and pleasant to the eye map rendering style.
-There is always something to improve, add new map features, fine tune colors palette etc.
+There is always something to improve, adding new map features, fine tuning the colour palette etc.
 And every time we add a new map feature/POI we need a good and free-to-use icon.
 
 See [styles and icons instructions](STYLES.md) for details.

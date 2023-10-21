@@ -3755,6 +3755,8 @@
 
 "type.tourism.zoo" = "Зоопарк";
 
+"type.tourism.zoo.petting" = "Контактний зоопарк";
+
 "type.traffic_calming" = "Лежачий полiцейський";
 
 "type.traffic_calming.bump" = "Лежачий полiцейський";

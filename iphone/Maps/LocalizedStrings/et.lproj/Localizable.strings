@@ -3755,6 +3755,8 @@
 
 "type.tourism.zoo" = "Loomaaed";
 
+"type.tourism.zoo.petting" = "Lemmikloomaaed";
+
 "type.traffic_calming" = "Liikluse rahustamine";
 
 "type.traffic_calming.bump" = "Liiklusee aeglustusmühk";

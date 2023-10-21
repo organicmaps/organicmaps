@@ -376,5 +376,12 @@ man_made-pier                                       # line z15- and area z13-
 waterway-dam                                        # line z15- and area z15-
 === 20
 
+boundary-national_park                              # area z10- (also has icon z12-, caption(optional) z12-)
+boundary-protected_area-1                           # area z10- (also has icon z12-, caption(optional) z12-)
+landuse-military                                    # area z12- (also has icon z16-, caption(optional) z17-)
+landuse-military-danger_area                        # area z10- (also has icon z16-, caption(optional) z17-)
+leisure-nature_reserve                              # area z10- (also has icon z12-, caption(optional) z12-)
+=== 15
+
 man_made-bridge                                     # area z16-
 === 10

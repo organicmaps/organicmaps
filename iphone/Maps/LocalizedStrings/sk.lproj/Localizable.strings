@@ -3755,6 +3755,8 @@
 
 "type.tourism.zoo" = "Zoologická záhrada";
 
+"type.tourism.zoo.petting" = "Zoologická záhrada s domácimi zvieratami";
+
 "type.traffic_calming" = "Traffic Calming";
 
 "type.traffic_calming.bump" = "Traffic Bump";

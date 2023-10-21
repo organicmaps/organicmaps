@@ -119,7 +119,7 @@ void GetIntersection(FeatureType & f, FeatureIntersector<DEPTH_LEVELS> & fIsect)
   f.ForEachTriangle(fIsect, scale);
 
   CHECK(!(fIsect.m_trg.empty() && fIsect.m_polyline.empty()) &&
-        f.GetLimitRect(scale).IsValid(), (f.DebugString(scale)));
+        f.GetLimitRect(scale).IsValid(), (f.DebugString()));
 }
 
 template <int DEPTH_LEVELS>

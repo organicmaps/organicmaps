@@ -3755,6 +3755,8 @@
 
 "type.tourism.zoo" = "Zoo";
 
+"type.tourism.zoo.petting" = "Zoológico de animales acariciables";
+
 "type.traffic_calming" = "Reducción de velocidad";
 
 "type.traffic_calming.bump" = "Banda reductora";

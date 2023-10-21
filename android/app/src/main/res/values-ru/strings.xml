@@ -2039,6 +2039,7 @@
 	<string name="type.tourism.viewpoint">Обзорная площадка</string>
 	<string name="type.tourism.wilderness_hut">Хижина в лесу</string>
 	<string name="type.tourism.zoo">Зоопарк</string>
+	<string name="type.tourism.zoo.petting">Контактный зоопарк</string>
 	<string name="type.traffic_calming">Лежачий полицейский</string>
 	<string name="type.traffic_calming.bump">Лежачий полицейский</string>
 	<string name="type.traffic_calming.hump">Лежачий полицейский</string>

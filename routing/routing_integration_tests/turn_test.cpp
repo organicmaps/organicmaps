@@ -177,14 +177,17 @@ UNIT_TEST(Russia_Moscow_NoTurnsOnMKAD_TurnTest)
   RouterResultCode const result = routeResult.second;
 
   TEST_EQUAL(result, RouterResultCode::NoError, ());
-  integration::TestTurnCount(route, 2 /* expectedTurnCount */);
+  integration::TestTurnCount(route, 3 /* expectedTurnCount */);
+  /// @todo 0-turn is dummy, https://www.openstreetmap.org/note/3937098
   integration::GetNthTurn(route, 1)
       .TestValid()
-      /// @todo Update with actual point later. Looks like there is a construction on that junction now.
-      //.TestPoint({37.68276, 67.14062})
+      .TestPoint(mercator::FromLatLon(55.5730008, 37.6792393))
       .TestDirection(CarDirection::ExitHighwayToRight);
+  integration::GetNthTurn(route, 2)
+      .TestValid()
+      .TestDirection(CarDirection::TurnSlightRight);
 
-  integration::TestRouteLength(route, 43233.7);
+  integration::TestRouteLength(route, 43228);
 }
 
 UNIT_TEST(Russia_Moscow_TTKVarshavskoeShosseOut_TurnTest)

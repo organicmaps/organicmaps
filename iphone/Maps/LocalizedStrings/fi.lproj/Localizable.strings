@@ -3755,6 +3755,8 @@
 
 "type.tourism.zoo" = "Eläintarha";
 
+"type.tourism.zoo.petting" = "Lemmikkieläintarha";
+
 "type.traffic_calming" = "Traffic Calming";
 
 "type.traffic_calming.bump" = "Hidastetöyssy";

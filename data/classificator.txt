@@ -1383,7 +1383,9 @@ world  +
         theme_park  -
         viewpoint  -
         wilderness_hut  -
-        zoo  -
+        zoo  +
+            petting  -
+            {}
         {}
     traffic_calming  +
         bump  -

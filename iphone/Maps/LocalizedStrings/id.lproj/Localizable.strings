@@ -3755,6 +3755,8 @@
 
 "type.tourism.zoo" = "Kebun binatang";
 
+"type.tourism.zoo.petting" = "Kebun Binatang";
+
 "type.traffic_calming" = "Traffic Calming";
 
 "type.traffic_calming.bump" = "Traffic Bump";

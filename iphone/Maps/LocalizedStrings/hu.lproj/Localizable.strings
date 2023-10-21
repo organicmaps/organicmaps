@@ -3755,6 +3755,8 @@
 
 "type.tourism.zoo" = "Állatkert";
 
+"type.tourism.zoo.petting" = "Állatsimogató";
+
 "type.traffic_calming" = "Traffic Calming";
 
 "type.traffic_calming.bump" = "Traffic Bump";

@@ -1,11 +1,11 @@
 # Pull Request Guide
 
-## Writing good PR:
+## Writing a good Pull Request (PR):
 
-- PR should be small and reflect only one idea, a feature, a bugfix, or a refactoring. In most cases, a PR of 100 lines or less is considered as a PR of normal size and a PR of 1000 lines as big one
+- A PR should be small and reflect only one idea, a feature, a bugfix, or a refactoring. In most cases, a PR of 100 lines or less is considered as a PR of normal size and a PR of 1000 lines as big one
 - If a PR implements two different features, refactoring, or bugfixes, it should be split into several PRs
 - The description field of every PR should contain a description, links to a ticket or/and links to the confluence
-- If a PR implements a complex math task, the description should contain a link to the proof of the solution or a link to a trusted source
+- If a PR implements a complex algorithm, the description should contain a link to the proof of the solution or a link to a trusted source
 - All PRs should contain links to the corresponding tickets. The exception is refactoring if there's nothing to test after it. The reason for that is that every feature or bugfix should be tested by testers after it's implemented
 - Every commit of all PRs should be compilable under all platforms. All tests should pass. So if changing of code breaks unit or integration tests these tests should be fixed in the same commit
 - Every commit should reflect a completed idea and have an understandable comment. Review fixes should be merged into one commit
@@ -32,7 +32,7 @@
 - A reviewer should pay attention not only to the code base but also to the description of the PR and commits
 - A PR may be merged by a reviewer if all the following items are fulfilled: (1) the PR isn't marked as a draft; (2) all reviewers which have started to review the PR, approved it; (3) all reviewers which are added as reviewers of the PR, have approved it
 - If a reviewer doesn't have time to review all the PR they should write about it explicitly. For example, LGTM for android part
-- If a reviewer and a developer cannot find a compromise, the third opinion about it should be asked
+- If a reviewer and a developer cannot find a compromise, a third opinion should be sought
 - All comments about blank lines should be considered as optional
 
 ## Recommendations:
@@ -42,5 +42,5 @@
 - If you are solving a big task it's worth splitting it into subtasks and develop one or several PRs for every subtask.
 - If it's necessary to make a big change list which should be merged to master at once, it's worth creating a branch and make PRs on it. Then to make PR with all commits of the branch to the master
 - In most cases refactoring should be done in a separate PR
-- If you want to make a refactoring which touches a significant part of the code base, it's worth discussing it with all developers before starting changing code
-- It's worth using Resolve conversation button to minimize the list of comments of a PR
+- If you want to refactor a significant part of the code base, it's worth discussing it with all developers before starting work
+- It's worth using the 'Resolve' conversation button to minimize the list of comments in a PR

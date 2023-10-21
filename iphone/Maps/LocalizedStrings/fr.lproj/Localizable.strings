@@ -3755,6 +3755,8 @@
 
 "type.tourism.zoo" = "Zoo";
 
+"type.tourism.zoo.petting" = "Zoo pour enfants";
+
 "type.traffic_calming" = "Traffic Calming";
 
 "type.traffic_calming.bump" = "Ralentisseur";

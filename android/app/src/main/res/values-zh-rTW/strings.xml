@@ -1830,6 +1830,7 @@
 	<string name="type.tourism.viewpoint">視野</string>
 	<string name="type.tourism.wilderness_hut">山屋</string>
 	<string name="type.tourism.zoo">動物園</string>
+	<string name="type.tourism.zoo.petting">寵物動物園</string>
 	<string name="type.waterway.canal">運河</string>
 	<string name="type.waterway.canal.tunnel">運河</string>
 	<string name="type.waterway.fish_pass">魚梯</string>

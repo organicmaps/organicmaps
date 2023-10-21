@@ -1805,6 +1805,7 @@
 	<string name="type.tourism.theme_park">थीम पार्क</string>
 	<string name="type.tourism.viewpoint">दृष्टिस्थान</string>
 	<string name="type.tourism.zoo">प्राणीसंग्रहालय</string>
+	<string name="type.tourism.zoo.petting">पेटिंग प्राणीसंग्रहालय</string>
 	<string name="type.traffic_calming.bump">वाहतूक गतिरोधक</string>
 	<string name="type.waterway">जलमार्ग</string>
 	<string name="type.waterway.canal">कालवा</string>

@@ -2079,6 +2079,7 @@
 	<string name="type.tourism.viewpoint">Viewpoint</string>
 	<string name="type.tourism.wilderness_hut">Wilderness Hut</string>
 	<string name="type.tourism.zoo">Zoo</string>
+	<string name="type.tourism.zoo.petting">Petting Zoo</string>
 	<string name="type.traffic_calming">Traffic Calming</string>
 	<string name="type.traffic_calming.bump">Traffic Bump</string>
 	<string name="type.traffic_calming.hump">Traffic Hump</string>

@@ -1846,6 +1846,7 @@
 	<string name="type.tourism.viewpoint">Utsiktspunkt</string>
 	<string name="type.tourism.wilderness_hut">Villmarkshytte</string>
 	<string name="type.tourism.zoo">Dyrehage</string>
+	<string name="type.tourism.zoo.petting">Dyrehage</string>
 	<string name="type.waterway.canal">Kanal</string>
 	<string name="type.waterway.canal.tunnel">Kanal</string>
 	<string name="type.waterway.fish_pass">Fiskestige</string>

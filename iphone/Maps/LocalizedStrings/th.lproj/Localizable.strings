@@ -3755,6 +3755,8 @@
 
 "type.tourism.zoo" = "สวนสัตว์";
 
+"type.tourism.zoo.petting" = "สวนสัตว์ลูบคลำ";
+
 "type.traffic_calming" = "Traffic Calming";
 
 "type.traffic_calming.bump" = "Traffic Bump";

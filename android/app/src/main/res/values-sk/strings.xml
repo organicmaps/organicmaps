@@ -1776,6 +1776,7 @@
 	<string name="type.tourism.viewpoint">Vyhliadka</string>
 	<string name="type.tourism.wilderness_hut">Chata</string>
 	<string name="type.tourism.zoo">Zoologická záhrada</string>
+	<string name="type.tourism.zoo.petting">Zoologická záhrada s domácimi zvieratami</string>
 	<string name="type.waterway.canal">Kanál</string>
 	<string name="type.waterway.canal.tunnel">Kanál</string>
 	<string name="type.waterway.fish_pass">Rebrík pre ryby</string>

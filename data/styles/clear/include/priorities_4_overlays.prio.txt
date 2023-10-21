@@ -663,6 +663,7 @@ highway-unclassified                                # pathtext z13- (also has li
 highway-unclassified-area                           # pathtext z13- (also has line z11-)
 highway-unclassified-bridge                         # pathtext z13- (also has line z11-, line::bridgeblack z14-, line::bridgewhite z14-)
 highway-unclassified-tunnel                         # pathtext z13- (also has line z11-, line(casing) z16-)
+tourism-zoo-petting                                 # icon z15- (also has caption(optional) z15-)
 === 3100
 
 amenity-fountain                                    # icon z16- (also has caption(optional) z16-, area z16-)
@@ -1744,6 +1745,9 @@ amenity-parking_entrance-private                    # icon z19- (also has captio
 
 # amenity-pharmacy                                  # caption(optional) z17- (also has icon z16-)
 # === -6850
+
+# tourism-zoo-petting                               # caption(optional) z15- (also has icon z15-)
+# === -6900
 
 # amenity-fountain                                  # caption(optional) z16- (also has icon z16-, area z16-)
 # === -6950

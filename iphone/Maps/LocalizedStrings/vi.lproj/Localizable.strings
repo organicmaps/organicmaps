@@ -3755,6 +3755,8 @@
 
 "type.tourism.zoo" = "Vườn bách thú";
 
+"type.tourism.zoo.petting" = "Vườn thú cưng";
+
 "type.traffic_calming" = "Traffic Calming";
 
 "type.traffic_calming.bump" = "Traffic Bump";

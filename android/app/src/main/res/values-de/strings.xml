@@ -1974,6 +1974,7 @@
 	<string name="type.tourism.viewpoint">Aussichtspunkt</string>
 	<string name="type.tourism.wilderness_hut">Waldhütte</string>
 	<string name="type.tourism.zoo">Zoo</string>
+	<string name="type.tourism.zoo.petting">Streichelzoo</string>
 	<string name="type.traffic_calming">Verkehrsberuhigung</string>
 	<string name="type.traffic_calming.bump">kurze Bodenwelle</string>
 	<string name="type.traffic_calming.hump">lange Bodenwelle</string>

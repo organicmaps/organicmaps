@@ -29109,6 +29109,47 @@
     zh-Hans = 动物园
     zh-Hant = 動物園
 
+  [type.tourism.zoo.petting]
+    en = Petting Zoo
+    ar = حديقة الحيوان الملاعبة
+    be = Хатні заапарк
+    bg = Зоопарк за домашни любимци
+    ca = Zoo d'animals de companyia
+    cs = ZOO pro domácí mazlíčky
+    da = Petting Zoo
+    de = Streichelzoo
+    el = Ζωολογικό κήπο
+    es = Zoológico de animales acariciables
+    et = Lemmikloomaaed
+    eu = Petting Zoo
+    fa = باغ وحش پتینگ
+    fi = Lemmikkieläintarha
+    fr = Zoo pour enfants
+    he = פינת חי
+    hu = Állatsimogató
+    id = Kebun Binatang
+    it = Zoo di coccole
+    ja = ふれあい動物園
+    ko = 페팅 동물원
+    lt = Petting Zoo
+    mr = पेटिंग प्राणीसंग्रहालय
+    nb = Dyrehage
+    nl = Kinderboerderij
+    pl = Małe Zoo
+    pt = Jardim Zoológico
+    pt-BR = Jardim Zoológico
+    ro = Grădina Zoologică
+    ru = Контактный зоопарк
+    sk = Zoologická záhrada s domácimi zvieratami
+    sv = Petting Zoo
+    sw = Kufuga Zoo
+    th = สวนสัตว์ลูบคลำ
+    tr = Sevişme Hayvanat Bahçesi
+    uk = Контактний зоопарк
+    vi = Vườn thú cưng
+    zh-Hans = 宠物动物园
+    zh-Hant = 寵物動物園
+
   [type.traffic_calming]
     en = Traffic Calming
     af = Verkeerskalmering

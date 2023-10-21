@@ -3755,6 +3755,8 @@
 
 "type.tourism.zoo" = "Zoo";
 
+"type.tourism.zoo.petting" = "Зоопарк за домашни любимци";
+
 "type.traffic_calming" = "Traffic Calming";
 
 "type.traffic_calming.bump" = "Traffic Bump";

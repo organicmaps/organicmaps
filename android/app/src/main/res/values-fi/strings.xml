@@ -1924,6 +1924,7 @@
 	<string name="type.tourism.viewpoint">Näköalatasanne</string>
 	<string name="type.tourism.wilderness_hut">Autiotupa</string>
 	<string name="type.tourism.zoo">Eläintarha</string>
+	<string name="type.tourism.zoo.petting">Lemmikkieläintarha</string>
 	<string name="type.traffic_calming.bump">Hidastetöyssy</string>
 	<string name="type.waterway">Vesiväylä</string>
 	<string name="type.waterway.canal">Kanaali</string>

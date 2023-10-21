@@ -100,40 +100,40 @@ void Stylist::ProcessKey(FeatureType & f, drule::Key const & key)
   case drule::symbol:
     ASSERT(dRule->GetSymbol() && !m_symbolRule &&
            (geomType == GeomType::Point || geomType == GeomType::Area),
-           (m_symbolRule == nullptr, geomType, f.DebugString(19, true)));
+           (m_symbolRule == nullptr, geomType, f.DebugString()));
     m_symbolRule = dRule->GetSymbol();
     break;
   case drule::caption:
     ASSERT(dRule->GetCaption() && dRule->GetCaption()->has_primary() && !m_captionRule &&
            (geomType == GeomType::Point || geomType == GeomType::Area),
-           (m_captionRule == nullptr, f.DebugString(19, true)));
+           (m_captionRule == nullptr, f.DebugString()));
     m_captionRule = dRule->GetCaption();
     break;
   case drule::pathtext:
     ASSERT(dRule->GetPathtext() && dRule->GetPathtext()->has_primary() && !m_pathtextRule &&
            geomType == GeomType::Line,
-           (m_pathtextRule == nullptr, geomType, f.DebugString(19, true)));
+           (m_pathtextRule == nullptr, geomType, f.DebugString()));
     m_pathtextRule = dRule->GetPathtext();
     break;
   case drule::shield:
     ASSERT(dRule->GetShield() && !m_shieldRule && geomType == GeomType::Line,
-           (m_shieldRule == nullptr, geomType, f.DebugString(19, true)));
+           (m_shieldRule == nullptr, geomType, f.DebugString()));
     m_shieldRule = dRule->GetShield();
     break;
   case drule::line:
-    ASSERT(dRule->GetLine() && geomType == GeomType::Line, (geomType, f.DebugString(19, true)));
+    ASSERT(dRule->GetLine() && geomType == GeomType::Line, (geomType, f.DebugString()));
     m_lineRules.push_back(dRule->GetLine());
     break;
   case drule::area:
-    ASSERT(dRule->GetArea() && geomType == GeomType::Area, (geomType, f.DebugString(19, true)));
+    ASSERT(dRule->GetArea() && geomType == GeomType::Area, (geomType, f.DebugString()));
     if (key.m_hatching)
     {
-      ASSERT(!m_hatchingRule, (f.DebugString(19, true)));
+      ASSERT(!m_hatchingRule, (f.DebugString()));
       m_hatchingRule = dRule->GetArea();
     }
     else
     {
-      ASSERT(!m_areaRule, (f.DebugString(19, true)));
+      ASSERT(!m_areaRule, (f.DebugString()));
       m_areaRule = dRule->GetArea();
     }
     break;
@@ -141,7 +141,7 @@ void Stylist::ProcessKey(FeatureType & f, drule::Key const & key)
   case drule::circle:
   case drule::waymarker:
   default:
-    ASSERT(false, (key.m_type, f.DebugString(19, true)));
+    ASSERT(false, (key.m_type, f.DebugString()));
     return;
   }
 }
