@@ -4805,6 +4805,137 @@ cont {
   }
 }
 cont {
+  name: "amenity-prison"
+  element {
+    scale: 12
+    area {
+      color: 2155839359
+      priority: 15
+    }
+  }
+  element {
+    scale: 13
+    area {
+      color: 2155839359
+      priority: 15
+    }
+  }
+  element {
+    scale: 14
+    area {
+      color: 2155839359
+      priority: 15
+    }
+  }
+  element {
+    scale: 15
+    area {
+      color: 2155839359
+      priority: 15
+    }
+  }
+  element {
+    scale: 16
+    area {
+      color: 2155839359
+      priority: 15
+    }
+    symbol {
+      name: "prison-m"
+      priority: 520
+    }
+    caption {
+      primary {
+        height: 11
+        color: 6710886
+        offset_y: 1
+        is_optional: true
+      }
+      priority: -9480
+    }
+  }
+  element {
+    scale: 17
+    area {
+      color: 2155839359
+      priority: 15
+    }
+    symbol {
+      name: "prison-m"
+      priority: 520
+    }
+    caption {
+      primary {
+        height: 11
+        color: 6710886
+        offset_y: 1
+        is_optional: true
+      }
+      priority: -9480
+    }
+  }
+  element {
+    scale: 18
+    area {
+      color: 2155839359
+      priority: 15
+    }
+    symbol {
+      name: "prison-m"
+      priority: 520
+    }
+    caption {
+      primary {
+        height: 11
+        color: 6710886
+        offset_y: 1
+        is_optional: true
+      }
+      priority: -9480
+    }
+  }
+  element {
+    scale: 19
+    area {
+      color: 2155839359
+      priority: 15
+    }
+    symbol {
+      name: "prison-m"
+      priority: 520
+    }
+    caption {
+      primary {
+        height: 11
+        color: 6710886
+        offset_y: 1
+        is_optional: true
+      }
+      priority: -9480
+    }
+  }
+  element {
+    scale: 20
+    area {
+      color: 2155839359
+      priority: 15
+    }
+    symbol {
+      name: "prison-m"
+      priority: 520
+    }
+    caption {
+      primary {
+        height: 11
+        color: 6710886
+        offset_y: 1
+        is_optional: true
+      }
+      priority: -9480
+    }
+  }
+}
+cont {
   name: "amenity-restaurant"
   element {
     scale: 16

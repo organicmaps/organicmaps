@@ -11222,10 +11222,49 @@ cont {
 cont {
   name: "amenity-prison"
   element {
+    scale: 12
+    area {
+      color: 2154984050
+      priority: 20
+    }
+  }
+  element {
+    scale: 13
+    area {
+      color: 2154984050
+      priority: 20
+    }
+  }
+  element {
+    scale: 14
+    area {
+      color: 2154984050
+      priority: 20
+    }
+  }
+  element {
+    scale: 15
+    area {
+      color: 2154984050
+      priority: 20
+    }
+  }
+  element {
+    scale: 16
+    area {
+      color: 2154984050
+      priority: 20
+    }
+  }
+  element {
     scale: 17
+    area {
+      color: 2154984050
+      priority: 20
+    }
     symbol {
       name: "prison-m"
-      priority: 1500
+      priority: 2000
     }
     caption {
       primary {
@@ -11234,14 +11273,18 @@ cont {
         offset_y: 1
         is_optional: true
       }
-      priority: -8500
+      priority: -8000
     }
   }
   element {
     scale: 18
+    area {
+      color: 2154984050
+      priority: 20
+    }
     symbol {
       name: "prison-m"
-      priority: 1500
+      priority: 2000
     }
     caption {
       primary {
@@ -11250,14 +11293,18 @@ cont {
         offset_y: 1
         is_optional: true
       }
-      priority: -8500
+      priority: -8000
     }
   }
   element {
     scale: 19
+    area {
+      color: 2154984050
+      priority: 20
+    }
     symbol {
       name: "prison-m"
-      priority: 1500
+      priority: 2000
     }
     caption {
       primary {
@@ -11266,14 +11313,18 @@ cont {
         offset_y: 1
         is_optional: true
       }
-      priority: -8500
+      priority: -8000
     }
   }
   element {
     scale: 20
+    area {
+      color: 2154984050
+      priority: 20
+    }
     symbol {
       name: "prison-m"
-      priority: 1500
+      priority: 2000
     }
     caption {
       primary {
@@ -11282,7 +11333,7 @@ cont {
         offset_y: 1
         is_optional: true
       }
-      priority: -8500
+      priority: -8000
     }
   }
 }
