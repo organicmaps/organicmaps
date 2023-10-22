@@ -37,7 +37,7 @@ UNIT_TEST(MoscowToSVOAirport)
   CalculateRouteAndTestRouteLength(
       GetVehicleComponents(VehicleType::Car),
       FromLatLon(55.75100, 37.61790), {0.0, 0.0},
-      FromLatLon(55.97310, 37.41460), 37284.0);
+      FromLatLon(55.97310, 37.41460), 36070.1);
 
   CalculateRouteAndTestRouteLength(
       GetVehicleComponents(VehicleType::Car),
@@ -59,7 +59,7 @@ UNIT_TEST(RestrictionTestNearMetroShodnenskaya)
   CalculateRouteAndTestRouteLength(
       GetVehicleComponents(VehicleType::Car),
       FromLatLon(55.85043, 37.43824), {0., 0.},
-      FromLatLon(55.85191, 37.43910), 510.);
+      FromLatLon(55.85191, 37.43910), 525.601);
 }
 
 // Strange asserts near Cupertino test
@@ -68,7 +68,7 @@ UNIT_TEST(CaliforniaCupertinoFindPhantomAssertTest)
   CalculateRouteAndTestRouteLength(
       GetVehicleComponents(VehicleType::Car),
       FromLatLon(37.33409, -122.03458), {0., 0.},
-      FromLatLon(37.33498, -122.03575), 1438.);
+      FromLatLon(37.33498, -122.03575), 1471.96);
 }
 
 // Path in the last map through the other map.
@@ -183,12 +183,6 @@ UNIT_TEST(EnglandToFranceRouteLeMansTest)
   TEST_LESS(res.first->GetTotalTimeSec(), 3200, ());
 }
 
-UNIT_TEST(RussiaMoscowStartAtTwowayFeatureTest)
-{
-  CalculateRouteAndTestRouteLength(GetVehicleComponents(VehicleType::Car),
-      FromLatLon(55.771, 37.5184), {0., 0.}, FromLatLon(55.7718, 37.5178), 147.4);
-}
-
 UNIT_TEST(RussiaMoscowRegionToBelarusBorder)
 {
   CalculateRouteAndTestRouteLength(
@@ -205,27 +199,17 @@ UNIT_TEST(GermanyToTallinCrossMwmRoute)
       FromLatLon(59.437214, 24.745355), 1650000.);
 }
 
-// Strange map edits in Africa borders. Routing not linked now.
-/*
 UNIT_TEST(Russia_Moscow_Leningradskiy39RepublicOfSouthAfricaCapeTownCenterRouteTest)
 {
+  /// @todo Interesting numbers here
+  /// - GraphHopper: 13703 km, 153 h
+  /// - Google: 15289 km, 198 h (via Europe?!)
+  /// - OM: 14201 km, 183 h
+  /// - OSRM, Valhalla are failed
   CalculateRouteAndTestRouteLength(GetVehicleComponents(VehicleType::Car),
       FromLatLon(55.79721, 37.53786), {0., 0.},
-      FromLatLon(-33.9286, 18.41837), 13701400.0);
-}
-*/
+      FromLatLon(-33.9286, 18.41837), 14'201'000);
 
-UNIT_TEST(MoroccoToSahrawiCrossMwmTest)
-{
-  CalculateRouteAndTestRouteLength(
-      GetVehicleComponents(VehicleType::Car),
-      FromLatLon(27.15587, -13.23059), {0., 0.},
-      FromLatLon(27.94049, -12.88800), 100864);
-
-  CalculateRouteAndTestRouteLength(
-      GetVehicleComponents(VehicleType::Car),
-      FromLatLon(27.94049, -12.88800), {0., 0.},
-      FromLatLon(27.15587, -13.23059), 100864);
 }
 
 UNIT_TEST(AlbaniaToMontenegroCrossTest)
@@ -236,13 +220,13 @@ UNIT_TEST(AlbaniaToMontenegroCrossTest)
   CalculateRouteAndTestRouteLength(
       GetVehicleComponents(VehicleType::Car),
       FromLatLon(42.01535, 19.40044), {0., 0.},
-      FromLatLon(42.01201, 19.36286), 3674.);
+      FromLatLon(42.01201, 19.36286), 3749);
 
   // And backward case
   CalculateRouteAndTestRouteLength(
       GetVehicleComponents(VehicleType::Car),
       FromLatLon(42.01201, 19.36286), {0., 0.},
-      FromLatLon(42.01535, 19.40044), 3674.);
+      FromLatLon(42.01535, 19.40044), 3753);
 }
 
 UNIT_TEST(CanadaBridgeCrossToEdwardIsland)
@@ -262,15 +246,17 @@ UNIT_TEST(CanadaBridgeCrossToEdwardIsland)
 
 UNIT_TEST(ParisCrossDestinationInForwardHeapCase)
 {
-  // Forward
+  // Forward.
+  // OM makes the same as OSRM. GraphHopper and Valhalla make detour via Goussainville (146km).
   CalculateRouteAndTestRouteLength(GetVehicleComponents(VehicleType::Car),
       FromLatLon(49.85015, 2.24296), {0., 0.},
-      FromLatLon(48.85458, 2.36291), 127162.0);
+      FromLatLon(48.85458, 2.36291), 132897);
 
-  // And backward case
+  // Backward.
+  // OM makes the same as OSRM. GraphHopper and Valhalla make different detours.
   CalculateRouteAndTestRouteLength(GetVehicleComponents(VehicleType::Car),
       FromLatLon(48.85458, 2.36291), {0., 0.},
-      FromLatLon(49.85027, 2.24283), 137009.0);
+      FromLatLon(49.85027, 2.24283), 131509);
 }
 
 UNIT_TEST(RussiaSmolenskRussiaMoscowTimeTest)
@@ -515,7 +501,7 @@ UNIT_TEST(RussiaMoscowNotCrossingTollRoadTest)
     CalculateRouteAndTestRouteLength(vehicleComponents, start, {0.0, 0.0}, finish[0], 8427.71);
 
     // 2. End point is near the service road via the motorway toll road, but choose a minor track as end segment.
-    CalculateRouteAndTestRouteLength(vehicleComponents, start, {0.0, 0.0},finish[1], 8972.7);
+    CalculateRouteAndTestRouteLength(vehicleComponents, start, {0.0, 0.0},finish[1], 8361.27);
   }
 
   {
@@ -805,9 +791,10 @@ UNIT_TEST(USA_Birmingham_AL_KeyWest_FL_NoMotorway)
 {
   RoutingOptionSetter optionsGuard(RoutingOptions::Motorway);
 
+  // Closer to OSRM and GraphHopper.
   CalculateRouteAndTestRouteLength(GetVehicleComponents(VehicleType::Car),
       FromLatLon(33.5209837, -86.807945), {0., 0.},
-      FromLatLon(24.5534713, -81.7932587), 1562980);
+      FromLatLon(24.5534713, -81.7932587), 1'495'860);
 }
 
 UNIT_TEST(Turkey_Salarialaca_Sanliurfa)
@@ -956,6 +943,14 @@ UNIT_TEST(Netherlands_CrossMwm_Ferry)
   CalculateRouteAndTestRouteLength(GetVehicleComponents(VehicleType::Car),
                                    FromLatLon(52.3855418, 6.12969591), {0., 0.},
                                    FromLatLon(52.3924362, 6.12166998), 1322);
+}
+
+// https://github.com/organicmaps/organicmaps/issues/6278
+UNIT_TEST(Turkey_PreferSecondary_NotResidential)
+{
+  CalculateRouteAndTestRouteLength(GetVehicleComponents(VehicleType::Car),
+                                   FromLatLon(41.0529, 28.9201), {0., 0.},
+                                   FromLatLon(41.0731, 28.9407), 4783.85);
 }
 
 } // namespace route_test

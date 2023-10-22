@@ -232,7 +232,7 @@ void CalculateRouteAndTestRouteLength(IRouterComponents const & routerComponents
                                       m2::PointD const & startPoint,
                                       m2::PointD const & startDirection,
                                       m2::PointD const & finalPoint, double expectedRouteMeters,
-                                      double relativeError /* = 0.07 */)
+                                      double relativeError /* = 0.02 */)
 {
   TRouteResult routeResult =
       CalculateRoute(routerComponents, startPoint, startDirection, finalPoint);
