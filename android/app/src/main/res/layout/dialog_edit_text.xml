@@ -18,7 +18,7 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     app:hintEnabled="false">
-    <EditText
+    <com.google.android.material.textfield.TextInputEditText
       android:id="@+id/et__input"
       style="@style/MwmWidget.PlacePage.EditText"
       android:layout_width="match_parent"

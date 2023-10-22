@@ -10,7 +10,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.ViewTreeObserver;
-import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -26,6 +25,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.google.android.material.dialog.MaterialAlertDialogBuilder;
 import com.google.android.material.textfield.TextInputLayout;
+import com.google.android.material.textfield.TextInputEditText;
 import app.organicmaps.Framework;
 import app.organicmaps.R;
 import app.organicmaps.base.BaseMwmFragment;
@@ -95,9 +95,9 @@ public class EditorFragment extends BaseMwmFragment implements View.OnClickListe
   private TextView mMoreLanguages;
 
   private TextView mStreet;
-  private EditText mHouseNumber;
+  private TextInputEditText mHouseNumber;
   private View mBlockLevels;
-  private EditText mBuildingLevels;
+  private TextInputEditText mBuildingLevels;
 
   // Define Metadata entries, that have more tricky logic, separately.
   private TextView mPhone;
@@ -108,7 +108,7 @@ public class EditorFragment extends BaseMwmFragment implements View.OnClickListe
   // Default Metadata entries.
   private final class MetadataEntry
   {
-    EditText mEdit;
+    TextInputEditText mEdit;
     TextInputLayout mInput;
   }
   Map<Metadata.MetadataType, MetadataEntry> mMetadata = new HashMap<>();
@@ -134,7 +134,7 @@ public class EditorFragment extends BaseMwmFragment implements View.OnClickListe
   private View mEmptyOpeningHours;
   private TextView mOpeningHours;
   private View mEditOpeningHours;
-  private EditText mDescription;
+  private TextInputEditText mDescription;
   private final Map<Metadata.MetadataType, View> mDetailsBlocks = new HashMap<>();
   private TextView mReset;
 
@@ -251,7 +251,7 @@ public class EditorFragment extends BaseMwmFragment implements View.OnClickListe
 
     for (var e : mMetadata.entrySet())
     {
-      final EditText edit = e.getValue().mEdit;
+      final TextInputEditText edit = e.getValue().mEdit;
       if (!Editor.nativeIsMetadataValid(e.getKey().toInt(), edit.getText().toString()))
       {
         edit.requestFocus();
@@ -476,22 +476,22 @@ public class EditorFragment extends BaseMwmFragment implements View.OnClickListe
     mDetailsBlocks.put(Metadata.MetadataType.FMD_INTERNET, blockWifi);
   }
 
-  private static EditText findInput(View blockWithInput)
+  private static TextInputEditText findInput(View blockWithInput)
   {
-    return (EditText) blockWithInput.findViewById(R.id.input);
+    return (TextInputEditText) blockWithInput.findViewById(R.id.input);
   }
 
-  private EditText findInputAndInitBlock(View blockWithInput, @DrawableRes int icon, @StringRes int hint)
+  private TextInputEditText findInputAndInitBlock(View blockWithInput, @DrawableRes int icon, @StringRes int hint)
   {
     return findInputAndInitBlock(blockWithInput, icon, getString(hint));
   }
 
-  private static EditText findInputAndInitBlock(View blockWithInput, @DrawableRes int icon, String hint)
+  private static TextInputEditText findInputAndInitBlock(View blockWithInput, @DrawableRes int icon, String hint)
   {
     ((ImageView) blockWithInput.findViewById(R.id.icon)).setImageResource(icon);
     final TextInputLayout input = blockWithInput.findViewById(R.id.custom_input);
     input.setHint(hint);
-    return (EditText) input.findViewById(R.id.input);
+    return (TextInputEditText) input.findViewById(R.id.input);
   }
 
   @Override

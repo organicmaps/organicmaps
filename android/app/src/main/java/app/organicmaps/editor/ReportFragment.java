@@ -5,7 +5,6 @@ import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.EditText;
 
 import androidx.annotation.IntRange;
 import androidx.annotation.NonNull;
@@ -14,13 +13,14 @@ import androidx.annotation.Nullable;
 import app.organicmaps.R;
 import app.organicmaps.base.BaseMwmToolbarFragment;
 import app.organicmaps.util.UiUtils;
+import com.google.android.material.textfield.TextInputEditText;
 
 public class ReportFragment extends BaseMwmToolbarFragment implements View.OnClickListener
 {
   private View mSimpleProblems;
   private View mAdvancedProblem;
   private View mSave;
-  private EditText mProblemInput;
+  private TextInputEditText mProblemInput;
 
   private boolean mAdvancedMode;
   @IntRange(from = 0, to = 3)

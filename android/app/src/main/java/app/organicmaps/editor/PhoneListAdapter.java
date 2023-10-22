@@ -4,13 +4,13 @@ import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.EditText;
 import android.widget.ImageView;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.google.android.material.textfield.TextInputLayout;
+import com.google.android.material.textfield.TextInputEditText;
 import app.organicmaps.R;
 import app.organicmaps.util.StringUtils;
 import app.organicmaps.util.UiUtils;
@@ -98,7 +98,7 @@ public class PhoneListAdapter extends RecyclerView.Adapter<PhoneListAdapter.View
   protected class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener
   {
     private int mPosition = -1;
-    private final EditText mInput;
+    private final TextInputEditText mInput;
     private final ImageView deleteButton;
 
     public ViewHolder(@NonNull View itemView)

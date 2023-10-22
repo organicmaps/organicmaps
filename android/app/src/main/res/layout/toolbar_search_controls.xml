@@ -18,7 +18,7 @@
     android:scaleType="center"
     tools:src="@drawable/ic_down" />
 
-  <EditText
+  <com.google.android.material.textfield.TextInputEditText
     android:id="@+id/query"
     style="@style/MwmTextAppearance.Toolbar.Search"
     android:layout_width="0dp"

@@ -9,7 +9,6 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.EditText;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -20,6 +19,7 @@ import app.organicmaps.bookmarks.data.BookmarkCategory;
 import app.organicmaps.bookmarks.data.BookmarkManager;
 import app.organicmaps.util.Utils;
 import com.google.android.material.dialog.MaterialAlertDialogBuilder;
+import com.google.android.material.textfield.TextInputEditText;
 
 import java.util.Objects;
 
@@ -33,11 +33,11 @@ public class BookmarkCategorySettingsFragment extends BaseMwmToolbarFragment
 
   @SuppressWarnings("NullableProblems")
   @NonNull
-  private EditText mEditDescView;
+  private TextInputEditText mEditDescView;
 
   @SuppressWarnings("NullableProblems")
   @NonNull
-  private EditText mEditCategoryNameView;
+  private TextInputEditText mEditCategoryNameView;
 
   @Override
   public void onCreate(@Nullable Bundle savedInstanceState)

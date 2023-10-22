@@ -7,7 +7,6 @@ import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -28,6 +27,7 @@ import app.organicmaps.bookmarks.data.BookmarkManager;
 import app.organicmaps.bookmarks.data.Icon;
 import app.organicmaps.util.Graphics;
 import app.organicmaps.util.UiUtils;
+import com.google.android.material.textfield.TextInputEditText;
 
 import java.util.List;
 
@@ -36,8 +36,8 @@ public class EditBookmarkFragment extends BaseMwmDialogFragment implements View.
   public static final String EXTRA_CATEGORY_ID = "CategoryId";
   public static final String EXTRA_BOOKMARK_ID = "BookmarkId";
 
-  private EditText mEtDescription;
-  private EditText mEtName;
+  private TextInputEditText mEtDescription;
+  private TextInputEditText mEtName;
   private TextView mTvBookmarkGroup;
   private ImageView mIvColor;
   private BookmarkCategory mBookmarkCategory;
