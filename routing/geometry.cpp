@@ -241,16 +241,9 @@ void RoadGeometry::Load(VehicleModelInterface const & vehicleModel, FeatureType 
     }
   }
 
-  if (m_valid && (!m_forwardSpeed.IsValid() || !m_backwardSpeed.IsValid()))
+  if (m_valid)
   {
-    auto const & id = feature.GetID();
-    CHECK(!m_junctions.empty(), ("mwm:", id.GetMwmName(), ", featureId:", id.m_index));
-    auto const & begin = m_junctions.front().GetLatLon();
-    auto const & end = m_junctions.back().GetLatLon();
-    LOG(LERROR,
-        ("Invalid speed m_forwardSpeed:", m_forwardSpeed, "m_backwardSpeed:", m_backwardSpeed,
-         "mwm:", id.GetMwmName(), ", featureId:", id.m_index, ", begin:", begin, "end:", end));
-    m_valid = false;
+    ASSERT(m_forwardSpeed.IsValid() && m_backwardSpeed.IsValid(), (feature.DebugString()));
   }
 }
 
