@@ -7,7 +7,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.webkit.WebView;
-import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -21,12 +20,13 @@ import app.organicmaps.util.Constants;
 import app.organicmaps.util.Graphics;
 import app.organicmaps.util.InputUtils;
 import app.organicmaps.util.UiUtils;
+import com.google.android.material.textfield.TextInputEditText;
 
 public class AdvancedTimetableFragment extends BaseMwmFragment
                                        implements View.OnClickListener, TimetableProvider
 {
   private boolean mIsExampleShown;
-  private EditText mInput;
+  private TextInputEditText mInput;
   private WebView mExample;
   private TextView mExamplesTitle;
   private static ImageView mSaveButton;
@@ -128,7 +128,7 @@ public class AdvancedTimetableFragment extends BaseMwmFragment
     setTextChangedListener(mInput, mListener);
   }
 
-  private static void setTextChangedListener(@Nullable EditText input,
+  private static void setTextChangedListener(@Nullable TextInputEditText input,
                                              @Nullable TimetableChangedListener listener)
   {
     if (input == null || listener == null)

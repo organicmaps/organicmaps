@@ -33,7 +33,7 @@
         android:id="@+id/edit_name_container"
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
-        <EditText
+        <com.google.android.material.textfield.TextInputEditText
           android:id="@+id/edit_list_name_view"
           android:hint="@string/list"
           android:layout_weight="1"
@@ -51,7 +51,7 @@
           android:layout_height="@dimen/margin_base_plus"/>
       </LinearLayout>
     </LinearLayout>
-    <EditText
+    <com.google.android.material.textfield.TextInputEditText
       android:id="@+id/edit_description"
       android:background="@null"
       android:hint="@string/bookmark_list_description_hint"

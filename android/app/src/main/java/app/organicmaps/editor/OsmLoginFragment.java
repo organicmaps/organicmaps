@@ -7,7 +7,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
-import android.widget.EditText;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
@@ -25,14 +24,15 @@ import app.organicmaps.util.UiUtils;
 import app.organicmaps.util.concurrency.ThreadPool;
 import app.organicmaps.util.concurrency.UiThread;
 import com.google.android.material.dialog.MaterialAlertDialogBuilder;
+import com.google.android.material.textfield.TextInputEditText;
 
 public class OsmLoginFragment extends BaseMwmToolbarFragment
 {
   private ProgressBar mProgress;
   private Button mLoginButton;
   private Button mLostPasswordButton;
-  private EditText mLoginInput;
-  private EditText mPasswordInput;
+  private TextInputEditText mLoginInput;
+  private TextInputEditText mPasswordInput;
 
   @Nullable
   @Override

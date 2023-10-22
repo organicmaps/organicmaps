@@ -25,7 +25,7 @@
         android:layout_toEndOf="@id/phone_icon"
         android:layout_toStartOf="@id/delete_icon"
         android:textColorHint="?android:textColorSecondary">
-        <EditText
+        <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/input"
             style="@style/MwmWidget.Editor.FieldLayout.EditText"
             tools:hint="Hint"

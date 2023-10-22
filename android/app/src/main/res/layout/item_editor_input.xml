@@ -14,7 +14,7 @@
     android:layout_centerVertical="true"
     android:layout_marginStart="54dp"
     android:textColorHint="?android:textColorSecondary">
-    <EditText
+    <com.google.android.material.textfield.TextInputEditText
       android:id="@+id/input"
       style="@style/MwmWidget.Editor.FieldLayout.EditText"
       tools:hint="Hint"

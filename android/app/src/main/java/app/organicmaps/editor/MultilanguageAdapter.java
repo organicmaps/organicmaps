@@ -3,12 +3,12 @@ package app.organicmaps.editor;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.EditText;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.google.android.material.textfield.TextInputLayout;
+import com.google.android.material.textfield.TextInputEditText;
 import app.organicmaps.R;
 import app.organicmaps.editor.data.LocalizedName;
 import app.organicmaps.util.StringUtils;
@@ -92,7 +92,7 @@ public class MultilanguageAdapter extends RecyclerView.Adapter<MultilanguageAdap
 
   public class Holder extends RecyclerView.ViewHolder
   {
-    EditText input;
+    TextInputEditText input;
     TextInputLayout inputLayout;
 
     public Holder(View itemView)

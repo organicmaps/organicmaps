@@ -28,7 +28,7 @@
     android:layout_below="@id/toolbar"
     android:paddingStart="@dimen/margin_base"
     android:paddingEnd="@dimen/margin_base">
-    <EditText
+    <com.google.android.material.textfield.TextInputEditText
       android:id="@+id/et__description"
       style="@style/MwmWidget.PlacePage.EditText"
       android:layout_width="match_parent"

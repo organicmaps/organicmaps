@@ -64,7 +64,7 @@
         style="@style/MwmWidget.Editor.CustomTextInput"
         android:layout_marginTop="@dimen/margin_half"
         android:textColorHint="?android:textColorSecondary">
-        <EditText
+        <com.google.android.material.textfield.TextInputEditText
           android:id="@+id/osm_username"
           style="@style/MwmWidget.Editor.FieldLayout.EditText"
           android:autofillHints="emailAddress"
@@ -74,7 +74,7 @@
         style="@style/MwmWidget.Editor.CustomTextInput"
         android:layout_marginTop="@dimen/margin_base"
         android:textColorHint="?android:textColorSecondary">
-        <EditText
+        <com.google.android.material.textfield.TextInputEditText
           android:id="@+id/osm_password"
           style="@style/MwmWidget.Editor.FieldLayout.EditText"
           android:autofillHints="password"
