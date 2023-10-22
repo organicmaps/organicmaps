@@ -67932,6 +67932,7 @@ cont {
       primary {
         height: 11
         color: 10066329
+        stroke_color: 856756497
       }
       priority: 5500
     }
@@ -67942,6 +67943,7 @@ cont {
       primary {
         height: 11
         color: 10066329
+        stroke_color: 856756497
       }
       priority: 5500
     }
@@ -67952,6 +67954,7 @@ cont {
       primary {
         height: 11
         color: 10066329
+        stroke_color: 856756497
       }
       priority: 5500
     }
@@ -67962,6 +67965,7 @@ cont {
       primary {
         height: 11
         color: 10066329
+        stroke_color: 856756497
       }
       priority: 5500
     }
@@ -67972,6 +67976,7 @@ cont {
       primary {
         height: 11
         color: 10066329
+        stroke_color: 856756497
       }
       priority: 5500
     }
