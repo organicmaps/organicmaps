@@ -953,4 +953,18 @@ UNIT_TEST(Turkey_PreferSecondary_NotResidential)
                                    FromLatLon(41.0731, 28.9407), 4783.85);
 }
 
+UNIT_TEST(Ireland_NorthernIreland_NoBorderPenalty)
+{
+  CalculateRouteAndTestRouteLength(GetVehicleComponents(VehicleType::Car),
+                                   FromLatLon(53.9909441, -7.36035861), {0., 0.},
+                                   FromLatLon(54.9517424, -7.73625795), 138655);
+}
+
+UNIT_TEST(Israel_Jerusalem_Palestine_NoBorderPenalty)
+{
+  CalculateRouteAndTestRouteLength(GetVehicleComponents(VehicleType::Car),
+                                   FromLatLon(31.4694833, 35.394899), {0., 0.},
+                                   FromLatLon(31.7776832, 35.2236876), 76133);
+}
+
 } // namespace route_test
