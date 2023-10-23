@@ -301,7 +301,7 @@
 "openstreetmap" = "OpenStreetMap";
 
 /* Text in menu */
-"rate_the_app" = "Valora la aplicación";
+"rate_the_app" = "Valore la aplicación";
 
 /* Text in menu */
 "help" = "Ayuda";
@@ -313,7 +313,7 @@
 "donate" = "Donar";
 
 /* Button in the main Help dialog */
-"how_to_support_us" = "Apoya el proyecto";
+"how_to_support_us" = "Apoye el proyecto";
 
 /* Button in the main Help dialog */
 "copyright" = "Derechos de autor";
@@ -834,7 +834,7 @@
 
 "editor_share_to_all_dialog_message_2" = "Los editores de OpenStreetMap comprobarán los cambios y se pondrán en contacto contigo si tienen alguna pregunta.";
 
-"navigation_stop_button" = "parada";
+"navigation_stop_button" = "detener";
 
 /* iOS dialog for the case when recent track recording is on and the app comes back from background */
 "recent_track_background_dialog_title" = "¿Desactivar la grabación de su ruta recientemente recorrida?";
@@ -844,10 +844,10 @@
 /* For sharing via SMS and so on */
 "sharing_call_action_look" = "Comprueba";
 
-"recent_track_background_dialog_message" = "Organic Maps usa tu geolocalización en segundo plano para registrar tu ruta recorrida recientemente.";
+"recent_track_background_dialog_message" = "Organic Maps usa su geolocalización en segundo plano para registrar su ruta recorrida recientemente.";
 
 /* Text under the version number in the Help dialog. TODO: Synchronize other translations with English. */
-"about_description" = "Organic Maps es una aplicación de mapas sin conexión gratuita y de código abierto. Sin anuncios. Sin seguimiento. Si ve un error en el mapa, corríjalo en OpenStreetMap. El proyecto está creado por entusiastas en nuestro tiempo libre, por lo que necesitamos tus comentarios y tu apoyo.";
+"about_description" = "Organic Maps es una aplicación de mapas sin conexión gratuita y de código abierto. Sin anuncios. Sin seguimiento. Si ve un error en el mapa, corríjalo en OpenStreetMap. El proyecto está creado por entusiastas en nuestro tiempo libre, por lo que necesitamos sus comentarios y su apoyo.";
 
 "general_settings" = "Ajustes generales";
 
