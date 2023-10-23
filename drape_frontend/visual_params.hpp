@@ -139,7 +139,7 @@ template <class ArrayT> typename ArrayT::value_type
 InterpolateByZoomLevels(int index, float lerpCoef, ArrayT const & values)
 {
   ASSERT_GREATER_OR_EQUAL(index, 0, ());
-  if (index + 1 < values.size())
+  if (index + 1 < static_cast<int>(values.size()))
     return values[index] + (values[index + 1] - values[index]) * lerpCoef;
   return values.back();
 }
