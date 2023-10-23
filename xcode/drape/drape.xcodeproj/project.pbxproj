@@ -88,7 +88,6 @@
 		6729A56C1A69213A007D5872 /* binding_info.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 6729A5081A69213A007D5872 /* binding_info.hpp */; };
 		6729A56D1A69213A007D5872 /* buffer_base.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 6729A5091A69213A007D5872 /* buffer_base.cpp */; };
 		6729A56E1A69213A007D5872 /* buffer_base.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 6729A50A1A69213A007D5872 /* buffer_base.hpp */; };
-		6729A56F1A69213A007D5872 /* color.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 6729A50B1A69213A007D5872 /* color.cpp */; };
 		6729A5701A69213A007D5872 /* color.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 6729A50C1A69213A007D5872 /* color.hpp */; };
 		6729A5711A69213A007D5872 /* cpu_buffer.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 6729A50D1A69213A007D5872 /* cpu_buffer.cpp */; };
 		6729A5721A69213A007D5872 /* cpu_buffer.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 6729A50E1A69213A007D5872 /* cpu_buffer.hpp */; };
@@ -698,7 +697,6 @@
 				6729A5A61A69213A007D5872 /* texture_manager.cpp in Sources */,
 				4577B26121F2035D00864FAC /* vulkan_base_context.cpp in Sources */,
 				670947271BDF9A4F005014C0 /* glyph_manager.cpp in Sources */,
-				6729A56F1A69213A007D5872 /* color.cpp in Sources */,
 				452D373921FF081C00CD3A94 /* vulkan_staging_buffer.cpp in Sources */,
 				4577B25421F2035D00864FAC /* vulkan_gpu_buffer_impl.cpp in Sources */,
 				6729A5671A69213A007D5872 /* batcher_helpers.cpp in Sources */,

@@ -41,7 +41,7 @@ namespace df
 {
 dp::Color ToDrapeColor(uint32_t src)
 {
-  return dp::Extract(src, static_cast<uint8_t>(255 - (src >> 24)));
+  return dp::Color(src, static_cast<uint8_t>(255 - (src >> 24)));
 }
 
 namespace
