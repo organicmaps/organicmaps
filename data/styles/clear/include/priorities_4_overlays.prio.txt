@@ -933,6 +933,7 @@ leisure-garden                                      # icon z16- (also has captio
 === 2050
 
 amenity-college                                     # icon z16- (also has caption(optional) z16-, area z15-)
+amenity-prison                                      # icon z17- (also has caption(optional) z17-, area z12-)
 landuse-military                                    # icon z16- (also has caption(optional) z17-, area z12-)
 landuse-military-danger_area                        # icon z16- (also has caption(optional) z17-, area z10-)
 === 2000
@@ -996,7 +997,6 @@ amenity-dentist                                     # icon z17- (also has captio
 amenity-doctors                                     # icon z17- (also has caption(optional) z17-, area z14-)
 amenity-police                                      # icon z17- (also has caption(optional) z17-)
 amenity-post_office                                 # icon z17- (also has caption(optional) z17-)
-amenity-prison                                      # icon z17- (also has caption(optional) z17-)
 amenity-public_bath                                 # icon z17- (also has caption(optional) z17-)
 healthcare-alternative                              # icon z17- (also has caption(optional) z17-)
 healthcare-audiologist                              # icon z17- (also has caption(optional) z17-)
@@ -1895,6 +1895,7 @@ amenity-parking_entrance-private                    # icon z19- (also has captio
 # === -7950
 
 # amenity-college                                   # caption(optional) z16- (also has icon z16-, area z15-)
+# amenity-prison                                    # caption(optional) z17- (also has icon z17-, area z12-)
 # landuse-military                                  # caption(optional) z17- (also has icon z16-, area z12-)
 # landuse-military-danger_area                      # caption(optional) z17- (also has icon z16-, area z10-)
 # === -8000
@@ -1937,7 +1938,6 @@ amenity-parking_entrance-private                    # icon z19- (also has captio
 # amenity-doctors                                   # caption(optional) z17- (also has icon z17-, area z14-)
 # amenity-police                                    # caption(optional) z17- (also has icon z17-)
 # amenity-post_office                               # caption(optional) z17- (also has icon z17-)
-# amenity-prison                                    # caption(optional) z17- (also has icon z17-)
 # amenity-public_bath                               # caption(optional) z17- (also has icon z17-)
 # healthcare-alternative                            # caption(optional) z17- (also has icon z17-)
 # healthcare-audiologist                            # caption(optional) z17- (also has icon z17-)

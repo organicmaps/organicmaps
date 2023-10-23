@@ -54,7 +54,7 @@
 	<string name="disconnect_usb_cable">Por favor, desconecte el cable USB o inserte una memoria SD para usar Organic Maps</string>
 	<!-- Used in DownloadResources startup screen -->
 	<string name="not_enough_free_space_on_sdcard">Por favor, libere primero espacio en la memoria SD/almacenamiento USB para usar la aplicación</string>
-	<string name="download_resources">Antes de comenzar, permita que descarguemos en tu dispositivo un mapamundi general.\nSe requieren %s de almacenamiento.</string>
+	<string name="download_resources">Antes de comenzar, permita que descarguemos en su dispositivo un mapamundi general.\nSe requieren %s de almacenamiento.</string>
 	<string name="download_resources_continue">Ir al mapa</string>
 	<string name="downloading_country_can_proceed">Descargando %s. Puede ahora\nproceder al mapa</string>
 	<string name="download_country_ask">¿Descargar %s?</string>
@@ -252,7 +252,7 @@
 	<!-- Settings: Send feedback button and dialog title -->
 	<string name="feedback">Comentarios</string>
 	<!-- Text in menu -->
-	<string name="rate_the_app">Valora la aplicación</string>
+	<string name="rate_the_app">Valore la aplicación</string>
 	<!-- Text in menu -->
 	<string name="help">Ayuda</string>
 	<!-- Button in the main Help dialog -->
@@ -260,15 +260,15 @@
 	<!-- Button in the main menu -->
 	<string name="donate">Donar</string>
 	<!-- Button in the main Help dialog -->
-	<string name="how_to_support_us">Apoya el proyecto</string>
+	<string name="how_to_support_us">Apoye el proyecto</string>
 	<!-- Button in the main Help dialog -->
 	<string name="copyright">Derechos de autor</string>
 	<!-- Text in menu + Button in the main Help dialog -->
 	<string name="report_a_bug">Informar de un fallo</string>
 	<!-- Toast text when compass calibration may improve the correctness of the current position arrow -->
-	<string name="compass_calibration_recommended">Mejora la dirección de la flecha moviendo el teléfono en forma de ocho para calibrar la brújula.</string>
+	<string name="compass_calibration_recommended">Mejore la dirección de la flecha moviendo el teléfono en forma de ocho para calibrar la brújula.</string>
 	<!-- Toast text when compass calibration may improve the correctness of the current position arrow -->
-	<string name="compass_calibration_required">Mueve el teléfono en forma de ocho para calibrar la brújula y fijar la dirección de la flecha en el mapa.</string>
+	<string name="compass_calibration_required">Mueva el teléfono en forma de ocho para calibrar la brújula y fijar la dirección de la flecha en el mapa.</string>
 	<!-- Update all button text -->
 	<string name="downloader_update_all_button">Actualizar todos</string>
 	<!-- Cancel all button text -->
@@ -537,9 +537,9 @@
 	<!-- Dialog before publishing the modifications to the public map. -->
 	<string name="editor_share_to_all_dialog_message_1">Asegúrate de que no has introducido ningún dato personal.</string>
 	<string name="editor_share_to_all_dialog_message_2">Los editores de OpenStreetMap comprobarán los cambios y se pondrán en contacto contigo si tienen alguna pregunta.</string>
-	<string name="navigation_stop_button">parada</string>
+	<string name="navigation_stop_button">detener</string>
 	<!-- Text under the version number in the Help dialog. TODO: Synchronize other translations with English. -->
-	<string name="about_description">Organic Maps es una aplicación de mapas sin conexión gratuita y de código abierto. Sin anuncios. Sin seguimiento. Si ve un error en el mapa, corríjalo en OpenStreetMap. El proyecto está creado por entusiastas en nuestro tiempo libre, por lo que necesitamos tus comentarios y tu apoyo.</string>
+	<string name="about_description">Organic Maps es una aplicación de mapas sin conexión gratuita y de código abierto. Sin anuncios. Sin seguimiento. Si ve un error en el mapa, corríjalo en OpenStreetMap. El proyecto está creado por entusiastas en nuestro tiempo libre, por lo que necesitamos sus comentarios y su apoyo.</string>
 	<!-- For the first routing -->
 	<string name="accept">Aceptar</string>
 	<!-- For the first routing -->

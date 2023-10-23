@@ -166,6 +166,9 @@ area|z10-[landuse=military][military=danger_area],
 
 area|z12-[landuse=military]
 {fill-opacity: 0.5; fill-color: @military;}
+
+area|z12-[amenity=prison]
+{fill-opacity: 0.5; fill-color: @prison;}
 /* End of hardcoded */
 
 /* 5.BEACH, GLACIER, DESERT, etc. */
