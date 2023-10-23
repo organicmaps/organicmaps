@@ -8,7 +8,7 @@ maps built by a generator_tool newer than the app.**
 ## What are maps?
 
 Maps are `.mwm` binary files with special meta-information for rendering, searching, routing, and other use cases.
-Files from [data/borders](https://github.com/organicmaps/organicmaps/tree/master/data/borders) define map boundaries for each individual file. The world is segmented into separate files by these boundaries, with the intent of having managebly small files to download. These files are referred to as *maps* or *countries*. A country is referring to one of these files, not necesarily a geographic country. Also note that there are two special countries called *World* and *WorldCoasts*. These are small simplified maps of the world and coastlines (sea and ocean watercover) used when other maps have not yet been downloaded.
+Files from [data/borders](https://github.com/organicmaps/organicmaps/tree/master/data/borders) define map boundaries for each individual file. The world is segmented into separate files by these boundaries, with the intent of having manageably small files to download. These files are referred to as *maps* or *countries*. A country is referring to one of these files, not necessarily a geographic country. Also note that there are two special countries called *World* and *WorldCoasts*. These are small simplified maps of the world and coastlines (sea and ocean watercover) used when other maps have not yet been downloaded.
 
 ## Setup
 
