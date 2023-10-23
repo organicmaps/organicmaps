@@ -10,59 +10,68 @@ namespace dp
 {
 struct Color
 {
-  Color();
-  explicit Color(uint32_t rgba);
-  Color(uint8_t red, uint8_t green, uint8_t blue, uint8_t alpha);
-
-  uint8_t GetRed() const;
-  uint8_t GetGreen() const;
-  uint8_t GetBlue() const;
-  uint8_t GetAlpha() const;
-
-  float GetRedF() const;
-  float GetGreenF() const;
-  float GetBlueF() const;
-  float GetAlphaF() const;
-
-  bool operator==(Color const & other) const { return m_rgba == other.m_rgba; }
-  bool operator!=(Color const & other) const { return m_rgba != other.m_rgba; }
-  bool operator<(Color const & other) const { return m_rgba < other.m_rgba; }
-
-  Color operator*(float s) const
+  constexpr Color() : Color(0, 0, 0, kMaxChannelValue) {}
+  constexpr explicit Color(uint32_t rgba) : m_rgba(rgba) {}
+  constexpr Color(uint8_t red, uint8_t green, uint8_t blue, uint8_t alpha)
+    : Color(red << 24 | green << 16 | blue << 8 | alpha)
   {
-    return Color(static_cast<uint8_t>(base::Clamp(GetRedF() * s, 0.0f, 1.0f) * 255.0f),
-                 static_cast<uint8_t>(base::Clamp(GetGreenF() * s, 0.0f, 1.0f) * 255.0f),
-                 static_cast<uint8_t>(base::Clamp(GetBlueF() * s, 0.0f, 1.0f) * 255.0f), GetAlpha());
+  }
+  constexpr Color(uint32_t rgb, uint8_t alpha)
+    : Color(ExtractByte(rgb, 2), ExtractByte(rgb, 1), ExtractByte(rgb, 0), alpha)
+  {
   }
 
-  void PremultiplyAlpha(float opacity);
+  constexpr uint8_t GetRed() const { return ExtractByte(m_rgba, 3); }
+  constexpr uint8_t GetGreen() const { return ExtractByte(m_rgba, 2); }
+  constexpr uint8_t GetBlue() const { return ExtractByte(m_rgba, 1); }
+  constexpr uint8_t GetAlpha() const { return ExtractByte(m_rgba, 0); }
 
-  static Color Black() { return Color(0, 0, 0, 255); }
-  static Color White() { return Color(255, 255, 255, 255); }
-  static Color Red() { return Color(255, 0, 0, 255); }
-  static Color Blue() { return Color(0, 0, 255, 255); }
-  static Color Green() { return Color(0, 255, 0, 255); }
-  static Color Yellow() { return Color(255, 255, 0, 255); }
-  static Color Transparent() { return Color(0, 0, 0, 0); }
+  constexpr float GetRedF() const { return ChannelToFloat(GetRed()); }
+  constexpr float GetGreenF() const { return ChannelToFloat(GetGreen()); }
+  constexpr float GetBlueF() const { return ChannelToFloat(GetBlue()); }
+  constexpr float GetAlphaF() const { return ChannelToFloat(GetAlpha()); }
+
+  constexpr bool operator==(Color const & other) const { return m_rgba == other.m_rgba; }
+  constexpr bool operator!=(Color const & other) const { return m_rgba != other.m_rgba; }
+  constexpr bool operator<(Color const & other) const { return m_rgba < other.m_rgba; }
+
+  constexpr Color operator*(float s) const
+  {
+    return {static_cast<uint8_t>(base::Clamp(GetRedF() * s, 0.0f, 1.0f) * 255.0f),
+            static_cast<uint8_t>(base::Clamp(GetGreenF() * s, 0.0f, 1.0f) * 255.0f),
+            static_cast<uint8_t>(base::Clamp(GetBlueF() * s, 0.0f, 1.0f) * 255.0f), GetAlpha()};
+  }
+
+  constexpr static Color Black() { return {0, 0, 0, 255}; }
+  constexpr static Color White() { return {255, 255, 255, 255}; }
+  constexpr static Color Red() { return {255, 0, 0, 255}; }
+  constexpr static Color Blue() { return {0, 0, 255, 255}; }
+  constexpr static Color Green() { return {0, 255, 0, 255}; }
+  constexpr static Color Yellow() { return {255, 255, 0, 255}; }
+  constexpr static Color Transparent() { return {0, 0, 0, 0}; }
+
+  constexpr static Color FromARGB(uint32_t argb)
+  {
+    return {ExtractByte(argb, 2), ExtractByte(argb, 1), ExtractByte(argb, 0), ExtractByte(argb, 3)};
+  }
 
 private:
+  constexpr static uint8_t ExtractByte(uint32_t number, uint8_t byteIdx) { return (number >> (8 * byteIdx)) & 0xFF; }
+
+  constexpr static float ChannelToFloat(uint8_t channelValue)
+  {
+    return static_cast<float>(channelValue) / kMaxChannelValue;
+  }
+
+  constexpr static uint8_t kMaxChannelValue = 255;
   uint32_t m_rgba;
 };
-
-inline uint8_t ExtractRed(uint32_t argb);
-inline uint8_t ExtractGreen(uint32_t argb);
-inline uint8_t ExtractBlue(uint32_t argb);
-inline uint8_t ExtractAlpha(uint32_t argb);
-Color Extract(uint32_t argb);
-Color Extract(uint32_t xrgb, uint8_t a);
 
 inline std::string DebugPrint(Color const & c)
 {
   std::ostringstream out;
-  out << "[R = " << static_cast<uint32_t>(c.GetRed())
-      << ", G = " << static_cast<uint32_t>(c.GetGreen())
-      << ", B = " << static_cast<uint32_t>(c.GetBlue())
-      << ", A = " << static_cast<uint32_t>(c.GetAlpha()) << "]";
+  out << "[R = " << static_cast<uint32_t>(c.GetRed()) << ", G = " << static_cast<uint32_t>(c.GetGreen())
+      << ", B = " << static_cast<uint32_t>(c.GetBlue()) << ", A = " << static_cast<uint32_t>(c.GetAlpha()) << "]";
   return out.str();
 }
 }  // namespace dp

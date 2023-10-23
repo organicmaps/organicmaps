@@ -1705,7 +1705,7 @@ void FrontendRenderer::RenderEmptyFrame()
     return;
 
   m_context->SetFramebuffer(nullptr /* default */);
-  auto const c = dp::Extract(drule::rules().GetBgColor(1 /* scale */), 255);
+  auto const c = dp::Color(drule::rules().GetBgColor(1 /* scale */), 255);
   m_context->SetClearColor(c);
   m_context->Clear(dp::ClearBits::ColorBit, dp::ClearBits::ColorBit /* storeBits */);
   m_context->ApplyFramebuffer("Empty frame");
@@ -1931,8 +1931,7 @@ void FrontendRenderer::RefreshBgColor()
 {
   auto const scale = std::min(df::GetDrawTileScale(m_userEventStream.GetCurrentScreen()),
                               scales::GetUpperStyleScale());
-  auto const color = drule::rules().GetBgColor(scale);
-  auto const c = dp::Extract(color, 255);
+  auto const c = dp::Color(drule::rules().GetBgColor(scale), 255);
 
   CHECK(m_context != nullptr, ());
   m_context->SetClearColor(c);

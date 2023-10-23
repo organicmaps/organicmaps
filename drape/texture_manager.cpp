@@ -63,7 +63,7 @@ void ParseColorsList(std::string const & colorsFile, ToDo toDo)
   {
     uint32_t color;
     is >> color;
-    toDo(dp::Extract(color));
+    toDo(dp::Color::FromARGB(color));
   }
 }
 
