@@ -27,6 +27,7 @@ public:
 
 private:
   /// @return Parent country name for \a mwmId.
+  std::string GetMwmName(NumMwmId mwmId) const;
   std::string GetParentCountry(NumMwmId mwmId) const;
   std::string const & GetParentCountryCached(NumMwmId mwmId);
 
