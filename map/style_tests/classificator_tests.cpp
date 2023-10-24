@@ -262,6 +262,22 @@ UNIT_TEST(Classificator_PoiPriority)
   {
     CheckPriority({
       // 1
+      {"amenity", "drinking_water"},
+      // 2
+      {"tourism", "camp_site"},
+      // 3
+      {"tourism", "wilderness_hut"},
+      // 4
+      {"tourism", "alpine_hut"},
+    }, {1, 1, 1, 1}, drule::symbol);
+  }
+}
+
+UNIT_TEST(Classificator_MultipleTypesPoiPriority)
+{
+  {
+    CheckPriority({
+      // 1
       {"amenity", "atm"},
       // 2
       {"amenity", "bank"}
@@ -278,7 +294,7 @@ UNIT_TEST(Classificator_PoiPriority)
     }, {2, 5}, drule::symbol);
   }
 
-  /// @todo Check that all of sport=* icons priority is bigger than all of pitch, sport_center, playground.
+  /// @todo Check that all of sport=* icons priority is bigger than all of pitch, sports_center, recreation_ground.
 
   {
     CheckPriority({
@@ -301,9 +317,9 @@ UNIT_TEST(Classificator_PoiPriority)
   {
     CheckPriority({
       // 1
-      {"leisure", "playground"},
+      {"landuse", "recreation_ground"},
       // 2
-      {"sport", "cricket"}
+      {"sport", "multi"}
     }, {1, 1}, drule::symbol);
   }
 }
