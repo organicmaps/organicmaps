@@ -1,39 +1,11 @@
-• Mapas sin conexión detallados con lugares que no existen en otros mapas
-• Rutas ciclistas, rutas de senderismo y senderos para caminar
-• Curvas de nivel, perfiles de elevación, picos y pendientes
-• Navegación paso a paso a pie, en bicicleta y en automóvil con guía de voz
-• Búsqueda rápida sin conexión
-• Marca todo lo que necesitas, te importa y comparte con KML, KMZ, GPX
-• Modo oscuro para proteger tus ojos
-• … ¡y muchas otras funciones!
+Organic Maps es una aplicación con privacidad, para conductores, senderistas y ciclistas. No tiene rastreo de ubicación, no recoge datos, y no tiene publicidad, así que tienes el control sobre tus datos. La búsqueda, planificación y navegación funciona sin una señal de móvil, ideal para rutas de senderismo o ubicaciones con baja conectividad. Organic Maps usa los datos procedentes de los usuarios de OpenStreetMap de todo el mundo. El proyecto está impulsado por la comunidad, el código es abierto, y prioriza la colaboración y desarrollo de la comunidad.
 
-Organic Maps es puro y orgánico, hecho con amor:
+• No necesitas señal móvil - Busca y planea sin cobertura
+• Uso eficiente de la batería - Reducción del consumo de batería
+• Búsqueda rápida - Encuentra ubicaciones rápidamente
 
-• Respeta tu privacidad
-• Ahorra batería
-• Sin cargos de datos móviles inesperados
-
-Organic Maps está libre de rastreadores y otras cosas malas:
-
+En Organic Maps, valoramos la privacidad:
+• Sin rastreo
+• Sin colección de datos
 • Sin anuncios
-• Sin seguimiento
-• Sin recopilación de datos
-• Sin telemetria
-• Sin registros molestos
-• Sin tutoriales obligatorios
-• No hay spam molesto en el correo electrónico
-• Sin notificaciones automáticas
-• Sin basura
-• Nada de pesticidas
 
-En Organic Maps, creemos que la privacidad es un derecho humano fundamental:
-
-• Organic Maps es un proyecto independiente impulsado por la comunidad
-• Es de código abierto
-• Los datos de los mapas se toman de OpenStreetMap, también es un proyecto impulsado por la comunidad
-• Protegemos tu privacidad de las miradas indiscretas de las grandes empresas
-• Mantente seguro sin importar dónde te encuentres
-
-Rechaza la vigilancia, abraza tu libertad y apoya a la comunidad.
-
-¡Prueba los Organic Maps!
