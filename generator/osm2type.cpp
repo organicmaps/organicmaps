@@ -978,7 +978,7 @@ void GetNameAndType(OsmElement * p, FeatureBuilderParams & params,
   TagProcessor(p).ApplyRules<void(string &, string &)>({
       {"addr:housenumber", "*",
        [&params](string & k, string & v) {
-         params.AddHouseNumber(v);
+         params.AddHouseName(v);
          k.clear();
          v.clear();
        }},
