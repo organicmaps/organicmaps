@@ -438,6 +438,7 @@ amenity|parking|underground|fee;[amenity=parking][location=underground][fee],[am
 amenity|parking|underground;[amenity=parking][location=underground],[amenity=parking][parking=underground];;name;int_name;357;
 amenity|parking|street_side;[amenity=parking][parking=street_side];;name;int_name;358;
 amenity|parking|multi-storey;[amenity=parking][parking=multi-storey];;name;int_name;359;
+# TODO: its being replaced by landuse-recreation_ground, merge in there.
 leisure|recreation_ground;360;
 highway|footway|mountain_hiking;[highway=footway][sac_scale=mountain_hiking];;name;int_name;361;
 deprecated:highway|service|driveway|bridge:01.2020;[highway=service][service=driveway][bridge?];x;name;int_name;362;highway|service|driveway
@@ -612,6 +613,7 @@ highway|footway|alpine_hiking;[highway=footway][sac_scale=alpine_hiking];;name;i
 deprecated|deprecated;530;x
 deprecated|deprecated;531;x
 deprecated|deprecated;532;x
+# TODO: deprecated, replaced by leisure=nature_reserve
 leisure|landscape_reserve;533;
 deprecated|deprecated;534;x
 deprecated|deprecated;535;x
