@@ -26523,7 +26523,6 @@
 
   [placepage_track_name_hint]
     comment = Placeholder for track name input on track edit screen
-    tags = ios
     en = Track Name
     af = Trajeknaam
     ar = اسم المسار
