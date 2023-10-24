@@ -1,39 +1,10 @@
-• Podrobné offline mapy s místy, která na jiných mapách nejsou
-• Cyklistické trasy, turistické stezky a pěší trasy
-• Vrstevnice, výškové profily, vrcholy a svahy
-• Pěší, cyklistická a automobilová navigace turn-by-turn s hlasovými pokyny
-• Rychlé offline vyhledávání na mapě a záložky
-• Uložte si do záložek vše, co potřebujete, importujte a sdílejte KML, KMZ a GPX
-• Tmavý režim pro ochranu vašich očí
-• … a mnoho dalších funkcí!
+Organic Maps je navigační aplikace s ochranou soukromí pro řidiče, turisty a cyklisty. Nemá žádné sledování polohy, neshromažďuje data ani reklamy, takže můžete mít svá data pod kontrolou. Vyhledávání, směrování a navigace fungují bez mobilního signálu, což je ideální pro vzdálené turistické trasy nebo místa se špatným připojením. Aplikace Organic Maps využívá data OpenStreetMap, na jejichž tvorbě se podílejí davy přispěvatelů z celého světa. Projekt je řízen komunitou, kód je open-source a upřednostňuje komunitní rozvoj a spolupráci.
 
-Organic Maps jsou čisté a organické, vyrobené s láskou:
+• Není nutný mobilní signál - vyhledávání a trasování bez signálu
+• Efektivní využití baterie - menší vybíjení baterie
+• Rychlé vyhledávání - rychlé vyhledávání míst
 
-• Respektuje vaše soukromí
-• Šetří baterii
-• Žádné nečekané poplatky za mobilní data
-
-Organic Maps neobsahují sledovací zařízení a další špatné věci:
-
-• Žádné reklamy
+V Organic Maps si ceníme soukromí:
 • Žádné sledování
 • Žádné shromažďování dat
-• Žádné telefonování domů
-• Žádná obtěžující registrace
-• Žádné povinné výukové programy
-• Žádný hlučný e-mailový spam
-• Žádná push oznámení
-• Žádný crapware
-• Žádné pesticidy
-
-V Organic Maps věříme, že soukromí je základním lidským právem:
-
-• Organic Maps jsou nezávislý projekt řízený komunitou
-• Kód je otevřený
-• Mapová data jsou převzata z OpenStreetMap, rovněž komunitně řízeného projektu
-• Chráníme vaše soukromí před zvědavýma očima velkých technologických firem
-• Zůstaňte v bezpečí, ať jste kdekoli
-
-Odmítněte dohled, přijměte svou svobodu a podpořte komunitu.
-
-Vyzkoušejte Organic Maps!
+• Žádné reklamy

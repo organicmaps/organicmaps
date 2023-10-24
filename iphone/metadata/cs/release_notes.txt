@@ -1,30 +1,30 @@
-• New OSM maps data as of September 20
-• Added new route type "Ruler" (aka Helicopter Routing) to quickly measure straight distances
-• Set decimal and grouping separators depending on the system locale
-• Removed annoying zoom in route planning mode
-• Fixed Open/Closed shown sometimes in gray color
-• Caves can be added in the Editor
-• Improved Arabic, Polish, Spanish translations
+• Nová data map OSM k 20. září
+• Přidán nový typ trasy "pravítko" (alias vrtulník) pro rychlé měření přímých vzdáleností
+• Nastavení oddělovačů desetinných míst a skupin v závislosti na lokalizaci systému
+• Odstraněno otravné zvětšení v režimu plánování trasy
+• Opraveno Otevřeno/Zavřeno zobrazované někdy šedou barvou
+• V editoru lze přidávat jeskyně
+• Vylepšeny překlady do arabštiny, polštiny a španělštiny
 
-Search
-• Parking entrances are searchable
-• Improved street matching and results relevance
-• Search for grocery and houseware
+Vyhledávání
+• Vjezdy na parkoviště lze vyhledávat
+• Vylepšeno porovnávání ulic a relevance výsledků
+• Vyhledávání potravin a domácích potřeb
 
-Map styling:
-• New or updated icons for factory, winery, bookcase, library, bicycle repair station, bicycle rental, bicycle parking, sauna, lottery, bookmaker, massage, sewing, books, underground parking, disabled parking space, gate, excrement bags vending, wholesale shop, outdoor seating, handicraft, grinding mill, caterer, hvac, key cutter and locksmith
-• Added vehicle inspection, public bath, cycle barrier, waterways (drain, ditch, moat, wastewater), aquarium, assembly point, amusement arcade, Mormon churches, visitor center, industrial mine, historic objects (cannon, anchor, stone, aircraft, tank, mine, wreck, locomotive)
-• Added bridges and tunnels rendering for cycleways, footways, paths, tracks, bridleways, steps
-• Render barrier=ditch differently from waterway=ditch
-• Reduced priorities of river names (and of other lower-importance lines) in navigation mode
-• Tuned road names and road shield priorities
-• Fixed icons display for parking buildings
-• Reduced visibility of minor and private parking icons, removed area fill for underground parking
-• Reduced fire hydrants visibility
-• Don’t display house numbers for buildings that are too small for the current zoom level
-• Don't display star icon for squares
-• Fine-tune house numbers font and drawing priority
-• Added highway-pedestrian, bridleway, and cycleway lines for detailed zooms (z18-) in navigation mode
-• Removed highway-path/track/footway/steps tunnels rendering in navigation mode
+Stylování mapy:
+• Nové nebo aktualizované ikony pro továrnu, vinárnu, knihovnu, opravnu kol, půjčovnu kol, parkoviště kol, saunu, loterii, knihkupectví, masáže, šití, knihy, podzemní parkoviště, parkoviště pro invalidy, bránu, prodej pytlíků na exkrementy, velkoobchod, venkovní posezení, řemeslné výrobky, brusírnu, stravovací zařízení, vzduchotechniku, řezačku klíčů a zámečníka.
+• Přidáno prohlídka vozidel, veřejné lázně, cyklistická závora, vodní toky (kanalizace, příkop, odpadní vody), akvárium, shromaždiště, zábavní pasáž, mormonské kostely, návštěvnické centrum, průmyslový důl, historické objekty (dělo, kotva, kámen, letadlo, tank, důl, vrak, lokomotiva)
+• Přidáno vykreslování mostů a tunelů pro cyklostezky, pěší cesty, stezky, koleje, přemostění, schody
+• Vykreslení značky barrier=ditch odlišně od značky waterway=ditch
+• Sníženy priority názvů řek (a dalších méně důležitých tratí) v režimu navigace
+• Vyladěné priority názvů silnic a silničních štítů
+• Opraveno zobrazování ikon u parkovacích domů
+• Snížena viditelnost ikon menších a soukromých parkovišť, odstraněna výplň plochy pro podzemní parkoviště
+• Snížena viditelnost požárních hydrantů
+• Nezobrazují se čísla domů u budov, které jsou příliš malé pro aktuální úroveň přiblížení
+• Nezobrazuje se ikona hvězdy pro čtverce
+• Doladění písma čísel domů a priority kreslení
+• Přidány čáry dálnic a pěších cest, mostních komunikací a cyklostezek pro detailní přiblížení (z18-) v režimu navigace
+• Odstraněno vykreslování tunelů dálnice-stezka/cesta/pěší cesta/schody v režimu navigace
 
-…and more smaller fixes and improvements, check https://omaps.org/news for details!
+…a další menší opravy a vylepšení, podrobnosti najdete na https://omaps.org/news!

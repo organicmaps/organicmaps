@@ -1,1 +1,1 @@
-Opravte prosím všechny problémy s mapami na OpenStreetMap.org a dejte nám vědět o případných chybách. Vaše zpětná vazba motivuje náš tým nadšenců ke zlepšování aplikace.
+Problémy s mapovými daty jsou řešeny na stránkách OpenStreetMaps.org. Ohledně chyb v aplikaci Organic Maps nás kontaktujte.
