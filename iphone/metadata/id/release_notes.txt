@@ -1,30 +1,29 @@
-• New OSM maps data as of September 20
-• Added new route type "Ruler" (aka Helicopter Routing) to quickly measure straight distances
-• Set decimal and grouping separators depending on the system locale
-• Removed annoying zoom in route planning mode
-• Fixed Open/Closed shown sometimes in gray color
-• Caves can be added in the Editor
-• Improved Arabic, Polish, Spanish translations
+- Data peta OSM yang baru pada tanggal 20 September
+- Menambahkan tipe rute baru "Ruler" (alias Helicopter Routing) untuk mengukur jarak lurus dengan cepat
+- Mengatur pemisah desimal dan pengelompokan tergantung pada sistem lokal
+- Menghapus zoom yang mengganggu dalam mode perencanaan rute
+- Memperbaiki Buka/Tutup yang terkadang ditampilkan dalam warna abu-abu
+- Gua dapat ditambahkan di Editor
+- Terjemahan bahasa Arab, Polandia, Spanyol yang lebih baik
 
-Search
-• Parking entrances are searchable
-• Improved street matching and results relevance
-• Search for grocery and houseware
+Pencarian
+- Pintu masuk parkir dapat dicari
+- Peningkatan pencocokan jalan dan relevansi hasil
+- Mencari bahan makanan dan peralatan rumah tangga
 
-Map styling:
-• New or updated icons for factory, winery, bookcase, library, bicycle repair station, bicycle rental, bicycle parking, sauna, lottery, bookmaker, massage, sewing, books, underground parking, disabled parking space, gate, excrement bags vending, wholesale shop, outdoor seating, handicraft, grinding mill, caterer, hvac, key cutter and locksmith
-• Added vehicle inspection, public bath, cycle barrier, waterways (drain, ditch, moat, wastewater), aquarium, assembly point, amusement arcade, Mormon churches, visitor center, industrial mine, historic objects (cannon, anchor, stone, aircraft, tank, mine, wreck, locomotive)
-• Added bridges and tunnels rendering for cycleways, footways, paths, tracks, bridleways, steps
-• Render barrier=ditch differently from waterway=ditch
-• Reduced priorities of river names (and of other lower-importance lines) in navigation mode
-• Tuned road names and road shield priorities
-• Fixed icons display for parking buildings
-• Reduced visibility of minor and private parking icons, removed area fill for underground parking
-• Reduced fire hydrants visibility
-• Don’t display house numbers for buildings that are too small for the current zoom level
-• Don't display star icon for squares
-• Fine-tune house numbers font and drawing priority
-• Added highway-pedestrian, bridleway, and cycleway lines for detailed zooms (z18-) in navigation mode
-• Removed highway-path/track/footway/steps tunnels rendering in navigation mode
+Penataan peta:
+- Ikon baru atau yang diperbarui untuk pabrik, kilang anggur, rak buku, perpustakaan, stasiun reparasi sepeda, penyewaan sepeda, parkir sepeda, sauna, lotere, bandar taruhan, pijat, menjahit, buku, parkir bawah tanah, tempat parkir penyandang disabilitas, gerbang, penjual kantong kotoran, toko grosir, tempat duduk luar ruangan, kerajinan tangan, pabrik penggilingan, katering, AC, pemotong kunci, dan tukang kunci
+- Menambahkan inspeksi kendaraan, pemandian umum, penghalang sepeda, saluran air (saluran pembuangan, parit, parit, air limbah), akuarium, titik kumpul, arena hiburan, gereja Mormon, pusat pengunjung, tambang industri, benda bersejarah (meriam, jangkar, batu, pesawat terbang, tank, tambang, bangkai kapal, lokomotif)
+- Menambahkan jembatan dan terowongan yang dirender untuk jalur sepeda, jalur pejalan kaki, jalan setapak, trek, jalur kekang, tangga
+- Merender penghalang = parit berbeda dari jalur air = parit
+- Mengurangi prioritas nama sungai (dan jalur lain yang kurang penting) pada mode navigasi
+- Menyesuaikan nama jalan dan prioritas pelindung jalan
+- Memperbaiki tampilan ikon untuk gedung parkir
+- Mengurangi visibilitas hidran kebakaran
+- Tidak menampilkan nomor rumah untuk bangunan yang terlalu kecil untuk tingkat zoom saat ini
+- Tidak menampilkan ikon bintang untuk kotak
+- Menyempurnakan font nomor rumah dan prioritas gambar
+- Menambahkan jalur jalan raya-pejalan kaki, jalur penyeberangan, dan jalur sepeda untuk zoom yang lebih detail (z18-) pada mode navigasi
+- Menghapus rendering terowongan jalan raya/jalur/jalur pejalan kaki/jalan setapak dalam mode navigasi
 
-…and more smaller fixes and improvements, check https://omaps.org/news for details!
+...dan masih banyak lagi perbaikan dan peningkatan yang lebih kecil, kunjungi https://omaps.org/news untuk detailnya!
