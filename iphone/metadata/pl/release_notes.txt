@@ -1,30 +1,30 @@
-• New OSM maps data as of September 20
-• Added new route type "Ruler" (aka Helicopter Routing) to quickly measure straight distances
-• Set decimal and grouping separators depending on the system locale
-• Removed annoying zoom in route planning mode
-• Fixed Open/Closed shown sometimes in gray color
-• Caves can be added in the Editor
-• Improved Arabic, Polish, Spanish translations
+• Nowe dane map OSM z 20 września
+• Dodano nowy typ trasy „Linijka” (znany również jako Trasa helikoptera), aby szybko mierzyć proste odległości
+• Ustawiono separatory dziesiętne i grupujące w zależności od ustawień regionalnych systemu
+• Usunięto irytujące powiększenie w trybie planowania trasy
+• Poprawiono Otwarte/Zamknięte, czasami wyświetlane w kolorze szarym
+• W Edytorze można dodawać jaskinie
+• Poprawione tłumaczenia na język arabski, polski i hiszpański
 
-Search
-• Parking entrances are searchable
-• Improved street matching and results relevance
-• Search for grocery and houseware
+Wyszukiwanie
+• Możliwość wyszukiwania wjazdów na parkingi
+• Lepsze dopasowanie ulic i trafność wyników
+• Wyszukiwanie sklepów z artykułami spożywczymi i artykułami gospodarstwa domowego
 
-Map styling:
-• New or updated icons for factory, winery, bookcase, library, bicycle repair station, bicycle rental, bicycle parking, sauna, lottery, bookmaker, massage, sewing, books, underground parking, disabled parking space, gate, excrement bags vending, wholesale shop, outdoor seating, handicraft, grinding mill, caterer, hvac, key cutter and locksmith
-• Added vehicle inspection, public bath, cycle barrier, waterways (drain, ditch, moat, wastewater), aquarium, assembly point, amusement arcade, Mormon churches, visitor center, industrial mine, historic objects (cannon, anchor, stone, aircraft, tank, mine, wreck, locomotive)
-• Added bridges and tunnels rendering for cycleways, footways, paths, tracks, bridleways, steps
-• Render barrier=ditch differently from waterway=ditch
-• Reduced priorities of river names (and of other lower-importance lines) in navigation mode
-• Tuned road names and road shield priorities
-• Fixed icons display for parking buildings
-• Reduced visibility of minor and private parking icons, removed area fill for underground parking
-• Reduced fire hydrants visibility
-• Don’t display house numbers for buildings that are too small for the current zoom level
-• Don't display star icon for squares
-• Fine-tune house numbers font and drawing priority
-• Added highway-pedestrian, bridleway, and cycleway lines for detailed zooms (z18-) in navigation mode
-• Removed highway-path/track/footway/steps tunnels rendering in navigation mode
+Stylowanie mapy:
+• Nowe lub zaktualizowane ikony dla fabryki, winiarni, regału na książki, biblioteki, stacji naprawy rowerów, wypożyczalni rowerów, parkingu dla rowerów, sauny, loterii, bukmachera, masażu, szwalni, książek, parkingu podziemnego, miejsca parkingowego dla niepełnosprawnych, bramy, sprzedaży torebek na odchody, sklepu sprzedaży hurtowej, miejsca do siedzenia na zewnątrz, rękodzieła, młynu, firmy cateringowej, HVAC, punktu dorabiania kluczy i ślusarza
+• Dodano stację kontroli pojazdów, łaźnię publiczną, szlaban rowerowy, drogi wodne (ścieki, rów, fosa, ścieki), akwarium, miejsce zbiórki, salon gier, kościoły mormonów, centrum dla zwiedzających, kopalnię przemysłową, obiekty historyczne (armata, kotwica, kamień, samolot, czołg, kopalnia, wrak, lokomotywa)
+• Dodano renderowanie mostów i tuneli dla ścieżek rowerowych, chodników, ścieżek, torów, dróg konnych i schodów
+• Inne renderowanie barrier=ditch niż waterway=ditch
+• Zmniejszono priorytety nazw rzek (i innych linii o mniejszym znaczeniu) w trybie nawigacji
+• Dostosowano nazwy dróg i priorytety tarcz drogowych
+• Naprawiono wyświetlanie ikon budynków parkingowych
+• Zmniejszona widoczność ikon mniejszych i prywatnych parkingów, usunięto wypełnienie obszaru dla parkingu podziemnego
+• Zmniejszono widoczność hydrantów przeciwpożarowych
+• Zaprzestano wyświetlania numerów domów w przypadku budynków, które są zbyt małe w stosunku do bieżącego poziomu powiększenia
+• Zaprzestano wyświetlanie ikony gwiazdki dla kwadratów
+• Dostosowano czcionkę numerów domów i priorytet rysunku
+• Dodano linie deptaków, dróg konnych i ścieżek rowerowych dla szczegółowych powiększeń (z18-) w trybie nawigacji
+• Usunięto renderowanie tuneli ze ścieżkami/torami/chodnikami/schodami w trybie nawigacji
 
-…and more smaller fixes and improvements, check https://omaps.org/news for details!
+…i więcej mniejszych poprawek i ulepszeń, sprawdź https://omaps.org/news, aby uzyskać szczegółowe informacje!
