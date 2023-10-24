@@ -89,13 +89,18 @@ Install Cmake (**3.22.1** minimum), Boost, Qt 6 and other dependencies.
 
 Installing *ccache* can speed up active development.
 
-_Ubuntu 20.04:_
+_Ubuntu 20.04 or older:_
 
-Because Ubuntu 20.04 only offers Qt 5, you need to add a PPA to get Qt 6. This will install Qt 6.2 but any other minor version should work as well.
+Because Ubuntu 20.04 and older versions only offer Qt 5, you need to add a PPA to get Qt 6. This will install Qt 6.2 but any other minor version should work as well.
 
 ```bash
 sudo add-apt-repository -y ppa:savoury1/qt-6-2
 ```
+
+Furthermore the minimum required `geoclue` version is `2.5.7` which is newer than,
+what the official Ubuntu repositories contain for these two releases.
+Newer `geoclue` packages [can also be found for example in the savoury1 PPA](
+https://launchpad.net/~savoury1/+archive/ubuntu/backports/+files/geoclue-2.0_2.5.7-3ubuntu1~20.04.sav0_amd64.deb)
 
 _Ubuntu 20.04, 22.04:_
 
