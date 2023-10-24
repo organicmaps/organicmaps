@@ -1,39 +1,10 @@
-• Detaillierte Offline-Karten mit Orten, die es auf anderen Karten nicht gibt
-• Rad-, Wander- und Spazierwege
-• Höhenlinien, Höhenprofile, Bergspitzen und Steigungen
-• Schritt-für-Schritt-Navigation für Fußgänger, Radfahrer und Autos mit Sprachführung
-• Schnelle Offlinesuche
-• Export und Import von Lesezeichen als KML, KMZ, GPX
-• Dunkler Modus zum Schutz deiner Augen
-• … und viele weitere Funktionen!
+Organic Maps ist eine Navigations-App mit Datenschutz für Autofahrer, Wanderer und Radfahrer. Es gibt keine Standortverfolgung, keine Datenerfassung und keine Werbung, so dass du die Kontrolle über deine Daten hast. Suche, Routing und Navigation funktionieren auch ohne Mobilfunksignal, ideal für weit entfernte Wanderwege oder Orte mit schlechten Verbindungen. Organic Maps nutzt die OpenStreetMap-Daten, die von Menschen aus der ganzen Welt zusammengetragen wurden. Das Projekt ist Community-gesteuert, der Code ist Open-Source und legt Wert auf die Entwicklung und Zusammenarbeit der Community.
 
-Organic Maps ist rein, organisch und mit Liebe gemacht:
+• Kein Mobilfunksignal erforderlich - Suche und Route ohne Signal
+• Effiziente Akkunutzung - Geringerer Akkuverbrauch
+• Schnelle Suche - Schnelles Auffinden von Orten
 
-• Respektiert deine Privatsphäre
-• Schont deinen Akku
-• Keine unerwarteten Gebühren für mobile Daten
-
-Frei von Trackern und schlechten Dingen:
-
-• Keine Werbung
+Bei Organic Maps legen wir Wert auf Datenschutz:
 • Kein Tracking
 • Keine Datensammlung
-• Kein Telefonieren nach Hause
-• Keine lästige Registrierung
-• Keine obligatorischen Tutorials
-• Kein lästiger E-Mail-Spam
-• Keine Push-Benachrichtigungen
-• Keine Crapware
-• Keine Pestizide
-
-Wir bei Organic Maps glauben, dass Privatsphäre ein grundlegendes Menschenrecht ist:
-
-• Organic Maps ist ein von einer unabhängigen Gemeinschaft betriebenes Open-Source-Projekt
-• Der Code ist Open Source
-• Die Kartendaten stammen von OpenStreetMap, einem ebenfalls von der Community betriebenen Projekt
-• Wir schützen deine Privatsphäre vor den neugierigen Augen der großen Technologiekonzerne
-• Bleib sicher, egal wo du bist
-
-Lehne Überwachung ab, lebe deine Freiheit und unterstütze die Community.
-
-Teste Organic Maps!
+• Keine Werbung
