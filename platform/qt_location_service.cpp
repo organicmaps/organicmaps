@@ -128,11 +128,7 @@ void QtLocationService::OnSupportedPositioningMethodsChanged()
 
 void QtLocationService::Start()
 {
-  if (!m_positionSource)
-  {
-    LOG(LWARNING, ("No supported source is available for starting the positioning with:", m_positionSource->sourceName().toStdString()));
-  }
-  else
+  if (m_positionSource)
   {
     LOG(LDEBUG, ("Starting Updates from:", m_positionSource->sourceName().toStdString()));
     m_positionSource->startUpdates();
@@ -143,11 +139,7 @@ void QtLocationService::Start()
 
 void QtLocationService::Stop()
 {
-  if (!m_positionSource)
-  {
-    LOG(LWARNING, ("No supported source is available for stopping the positioning with:", m_positionSource->sourceName().toStdString()));
-  }
-  else
+  if (m_positionSource)
   {
     LOG(LDEBUG, ("Stopping Updates from:", m_positionSource->sourceName().toStdString()));
     m_positionSource->stopUpdates();
