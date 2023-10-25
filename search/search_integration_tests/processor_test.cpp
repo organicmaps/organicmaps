@@ -1785,8 +1785,8 @@ UNIT_CLASS_TEST(ProcessorTest, OperatorTest)
 
 UNIT_CLASS_TEST(ProcessorTest, BrandTest)
 {
-  TestBrandFeature mac({1.0, 1.0}, "mcdonalds", "en");
-  TestBrandFeature sw({1.0, 1.0}, "subway", "en");
+  TestBrandFeature mac({0, 0}, "mcdonalds", "en");
+  TestBrandFeature sw({1.0, 1.0}, "MVG Rad", "de");
 
   auto countryId = BuildCountry("Wonderland", [&](TestMwmBuilder & builder)
   {
@@ -1807,9 +1807,8 @@ UNIT_CLASS_TEST(ProcessorTest, BrandTest)
 
   {
     Rules rules{ExactMatch(countryId, sw)};
-    TEST(ResultsMatch("Subway cafe", rules, "en"), ());
-    TEST(ResultsMatch("Сабвэй", rules, "ru"), ());
-    TEST(ResultsMatch("サブウェイ", rules, "ja"), ());
+    TEST(ResultsMatch("MVG Rad", rules, "en"), ());
+    TEST(ResultsMatch("MVG", rules, "de"), ());
   }
 }
 

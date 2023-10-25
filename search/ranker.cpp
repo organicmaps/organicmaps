@@ -193,9 +193,7 @@ NameScores GetNameScores(FeatureType & ft, Geocoder::Params const & params,
   auto const brand = ft.GetMetadata(feature::Metadata::FMD_BRAND);
   if (!brand.empty())
   {
-    auto const & brands = indexer::GetDefaultBrands();
-    /// @todo Avoid temporary string when unordered_map will allow search by string_view.
-    brands.ForEachNameByKey(std::string(brand), [&](indexer::BrandsHolder::Brand::Name const & name)
+    indexer::ForEachLocalizedBrands(brand, [&](indexer::BrandsHolder::Brand::Name const & name)
     {
       UpdateNameScores(name.m_name, name.m_locale, sliceNoCategories, bestScores);
     });
