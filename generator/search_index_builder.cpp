@@ -344,9 +344,7 @@ public:
     auto const brand = f.GetMetadata(feature::Metadata::FMD_BRAND);
     if (!brand.empty())
     {
-      auto const & brands = indexer::GetDefaultBrands();
-      /// @todo Avoid temporary string when unordered_map will allow search by string_view.
-      brands.ForEachNameByKey(std::string(brand), [&inserter](indexer::BrandsHolder::Brand::Name const & name)
+      ForEachLocalizedBrands(brand, [&inserter](BrandsHolder::Brand::Name const & name)
       {
         inserter(name.m_locale, name.m_name);
       });
