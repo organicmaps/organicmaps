@@ -1589,3 +1589,4 @@ amenity|recycling|container
 *amenity|parking|underground|private
 *amenity|parking|street_side|private
 *amenity|parking|lane|private
+*amenity|compressed_air
