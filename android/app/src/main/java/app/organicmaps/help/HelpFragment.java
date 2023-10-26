@@ -50,9 +50,6 @@ public class HelpFragment extends BaseMwmFragment implements View.OnClickListene
     final boolean isLandscape = getResources().getConfiguration().orientation == Configuration.ORIENTATION_LANDSCAPE;
 
     final String dataVersion = DateUtils.getShortDateFormatter().format(Framework.getDataVersion());
-    final TextView dataVersionView = (TextView) root.findViewById(R.id.data_version);
-    if (dataVersionView != null)
-      dataVersionView.setText(getString(R.string.data_version, dataVersion));
     final TextView osmPresentationView = (TextView) root.findViewById(R.id.osm_presentation);
     if (osmPresentationView != null)
       osmPresentationView.setText(getString(R.string.osm_presentation, dataVersion));

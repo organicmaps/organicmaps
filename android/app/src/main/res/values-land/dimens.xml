@@ -12,4 +12,8 @@
   <dimen name="altitude_chart_image_width">334dp</dimen>
 
   <dimen name="start_button_width">128dp</dimen>
+
+  <!--About Fragment -->
+  <dimen name="about_max_textview_width">270dp</dimen>
+  <dimen name="about_max_button_width">350dp</dimen>
 </resources>

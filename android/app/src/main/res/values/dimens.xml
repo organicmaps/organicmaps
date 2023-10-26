@@ -174,4 +174,8 @@
   <dimen name="bookmark_purchase_img_width">280dp</dimen>
   <dimen name="square_block_size">168dp</dimen>
   <dimen name="about_logo">96dp</dimen>
+
+  <!--About Fragment -->
+  <dimen name="about_max_textview_width">270dp</dimen>
+  <dimen name="about_max_button_width">340dp</dimen>
 </resources>
