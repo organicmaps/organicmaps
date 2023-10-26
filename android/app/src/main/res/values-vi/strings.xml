@@ -728,6 +728,7 @@
 	<string name="type.amenity.clinic">Phòng khám</string>
 	<string name="type.amenity.college">Trường đại học</string>
 	<string name="type.amenity.community_centre">Trung Tâm Cộng Đồng</string>
+	<string name="type.amenity.compressed_air">Khí nén</string>
 	<string name="type.amenity.conference_centre">Trung tâm Hội nghị</string>
 	<string name="type.amenity.courthouse">Tòa án</string>
 	<string name="type.amenity.dentist">Nha sĩ</string>

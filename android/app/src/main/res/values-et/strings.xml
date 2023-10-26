@@ -777,6 +777,7 @@
 	<string name="type.amenity.clinic">Kliinik</string>
 	<string name="type.amenity.college">Kolledž</string>
 	<string name="type.amenity.community_centre">Kogukonnakeskus</string>
+	<string name="type.amenity.compressed_air">Suruõhk</string>
 	<string name="type.amenity.conference_centre">Konverentsikeskus</string>
 	<string name="type.amenity.courthouse">Kohtumaja</string>
 	<string name="type.amenity.dentist">Hambaarst</string>

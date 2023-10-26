@@ -794,6 +794,7 @@
 	<string name="type.amenity.clinic">Clínica</string>
 	<string name="type.amenity.college">Colegio</string>
 	<string name="type.amenity.community_centre">Centro comunitario</string>
+	<string name="type.amenity.compressed_air">Aire comprimido</string>
 	<string name="type.amenity.conference_centre">Centro de conferencias</string>
 	<string name="type.amenity.courthouse">Juzgado</string>
 	<string name="type.amenity.dentist">Dentista</string>

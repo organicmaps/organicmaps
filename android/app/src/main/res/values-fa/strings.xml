@@ -731,6 +731,7 @@
 	<string name="type.amenity.clinic">کلینیک</string>
 	<string name="type.amenity.college">دانشگاه</string>
 	<string name="type.amenity.community_centre">مرکزاجتماعی</string>
+	<string name="type.amenity.compressed_air">هوای فشرده</string>
 	<string name="type.amenity.conference_centre">مرکز کنفرانس</string>
 	<string name="type.amenity.courthouse">دادگاه</string>
 	<string name="type.amenity.dentist">دندان پزشکی</string>

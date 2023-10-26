@@ -1341,6 +1341,8 @@
 
 "type.amenity.community_centre" = "Medborgerhus";
 
+"type.amenity.compressed_air" = "Trykluft";
+
 "type.amenity.conference_centre" = "Konferencecenter";
 
 "type.amenity.courthouse" = "Domhus";

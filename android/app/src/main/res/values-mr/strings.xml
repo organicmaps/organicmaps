@@ -747,6 +747,7 @@
 	<string name="type.amenity.clinic">चिकित्सालय</string>
 	<string name="type.amenity.college">महाविद्यालय</string>
 	<string name="type.amenity.community_centre">समुदाय केंद्र</string>
+	<string name="type.amenity.compressed_air">संकुचित हवा</string>
 	<string name="type.amenity.conference_centre">परिषद केंद्र</string>
 	<string name="type.amenity.courthouse">न्यायालय</string>
 	<string name="type.amenity.dentist">दंतवैद्य</string>

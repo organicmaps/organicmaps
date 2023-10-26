@@ -750,6 +750,7 @@
 	<string name="type.amenity.clinic">Klinika</string>
 	<string name="type.amenity.college">Kollégium</string>
 	<string name="type.amenity.community_centre">Közösségi központ</string>
+	<string name="type.amenity.compressed_air">Sűrített levegő</string>
 	<string name="type.amenity.conference_centre">Konferencia Központ</string>
 	<string name="type.amenity.courthouse">Bíróság</string>
 	<string name="type.amenity.dentist">Fogorvos</string>

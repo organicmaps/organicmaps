@@ -281,6 +281,7 @@
 	<string name="type.amenity.charging_station.bicycle">תחנת טעינה לאופניים</string>
 	<string name="type.amenity.charging_station.motorcar">תחנת טעינה למכוניות</string>
 	<string name="type.leisure.bowling_alley">גנילואב םלוא</string>
+	<string name="type.amenity.compressed_air">אוויר דחוס</string>
 	<string name="type.amenity.conference_centre">מרכז כנסים</string>
 	<string name="type.amenity.exhibition_centre">מרכז תערוכה</string>
 	<string name="type.amenity.money_transfer">העברת כספים</string>

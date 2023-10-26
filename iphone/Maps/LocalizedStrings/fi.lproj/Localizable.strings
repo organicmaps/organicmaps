@@ -1341,6 +1341,8 @@
 
 "type.amenity.community_centre" = "Monitoimitalo";
 
+"type.amenity.compressed_air" = "Paineilma";
+
 "type.amenity.conference_centre" = "Konferenssikeskus";
 
 "type.amenity.courthouse" = "Oikeustalo";

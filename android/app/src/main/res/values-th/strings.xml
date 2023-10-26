@@ -730,6 +730,7 @@
 	<string name="type.amenity.clinic">คลินิก</string>
 	<string name="type.amenity.college">วิทยาลัย</string>
 	<string name="type.amenity.community_centre">ศูนย์ชุมชน</string>
+	<string name="type.amenity.compressed_air">อากาศอัด</string>
 	<string name="type.amenity.conference_centre">ศูนย์ประชุม</string>
 	<string name="type.amenity.courthouse">ศาล</string>
 	<string name="type.amenity.dentist">ทันตแพทย์</string>

@@ -729,6 +729,7 @@
 	<string name="type.amenity.clinic">클리닉</string>
 	<string name="type.amenity.college">칼리지</string>
 	<string name="type.amenity.community_centre">커뮤니티센터</string>
+	<string name="type.amenity.compressed_air">압축 공기</string>
 	<string name="type.amenity.conference_centre">컨퍼런스 센터</string>
 	<string name="type.amenity.courthouse">법원</string>
 	<string name="type.amenity.dentist">치과</string>

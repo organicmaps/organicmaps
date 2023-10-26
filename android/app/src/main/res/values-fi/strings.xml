@@ -787,6 +787,7 @@
 	<string name="type.amenity.clinic">Klinikka</string>
 	<string name="type.amenity.college">Korkeakoulu</string>
 	<string name="type.amenity.community_centre">Monitoimitalo</string>
+	<string name="type.amenity.compressed_air">Paineilma</string>
 	<string name="type.amenity.conference_centre">Konferenssikeskus</string>
 	<string name="type.amenity.courthouse">Oikeustalo</string>
 	<string name="type.amenity.dentist">Hammaslääkäri</string>

@@ -728,6 +728,7 @@
 	<string name="type.amenity.clinic">Klinik</string>
 	<string name="type.amenity.college">Kampus</string>
 	<string name="type.amenity.community_centre">Pusat komunitas</string>
+	<string name="type.amenity.compressed_air">Udara terkompresi</string>
 	<string name="type.amenity.conference_centre">Pusat konferensi</string>
 	<string name="type.amenity.courthouse">Gedung pengadilan</string>
 	<string name="type.amenity.dentist">Dokter gigi</string>
