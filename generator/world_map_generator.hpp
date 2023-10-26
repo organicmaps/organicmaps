@@ -53,8 +53,27 @@ class WorldMapGenerator
     // This functor is called by m_merger after merging linear features.
     void operator()(feature::FeatureBuilder const & fb) override
     {
-      // Skip small ways. This check is enough, because classifier types check was made in m_typesCorrector.
-      if (scales::IsGoodForLevel(scales::GetUpperWorldScale(), fb.GetLimitRect()))
+      static const uint32_t ferryType = classif().GetTypeByPath({"route", "ferry"});
+      static const uint32_t boundaryType = classif().GetTypeByPath({"boundary", "administrative"});
+      static const uint32_t highwayType = classif().GetTypeByPath({"highway"});
+
+      int thresholdLevel = scales::GetUpperWorldScale();
+      if (fb.HasType(ferryType) || fb.HasType(boundaryType, 2))
+      {
+        // Discard too short ferry and boundary lines
+        // (boundaries along the coast are being "torn" into small pieces
+        // by the coastline in WaterBoundaryChecker::ProcessBoundary()).
+        thresholdLevel = scales::GetUpperWorldScale() - 2;
+      }
+      else if (fb.HasType(highwayType, 1))
+      {
+        // Discard too short roads incl. V-like approaches to roundabouts / other roads
+        // and small roundabouts that were not merged into longer roads for some reason.
+        thresholdLevel = scales::GetUpperWorldScale() + 2;
+      }
+
+      // TODO(pastk): there seems to be two area size checks: here and in PushFeature().
+      if (scales::IsGoodForLevel(thresholdLevel, fb.GetLimitRect()))
         PushSure(fb);
     }
 

@@ -2,6 +2,8 @@
 #include "generator/feature_builder.hpp"
 #include "generator/final_processor_utils.hpp"
 
+#include "base/logging.hpp"
+
 #include "defines.hpp"
 
 namespace generator
@@ -23,9 +25,11 @@ void WorldFinalProcessor::Process()
   auto fbs = ReadAllDatRawFormat<serialization_policy::MaxAccuracy>(m_worldTmpFilename);
   Order(fbs);
   WorldGenerator generator(m_worldTmpFilename, m_coastlineGeomFilename, m_popularPlacesFilename);
+  LOG(LINFO, ("Process World features"));
   for (auto & fb : fbs)
     generator.Process(fb);
 
+  LOG(LINFO, ("Merge World lines"));
   generator.DoMerge();
 }
 

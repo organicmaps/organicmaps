@@ -145,6 +145,8 @@ void FeatureMergeProcessor::operator() (MergedFeatureBuilder * p)
     m_map[k2].push_back(p);
   else
   {
+    // All of roundabout's points are considered for possible continuation of the line.
+    // Effectively a roundabout itself is discarded and is used only for merging adjoining lines together.
     ///@ todo Do it only for small round features!
     p->SetRound();
 
@@ -207,6 +209,7 @@ void FeatureMergeProcessor::DoMerge(FeatureEmitterIFace & emitter)
     curr.SetType(type);
 
     // Iterate through key points while merging.
+    // Key points are either ends of the line or any point on the "roundabout" if the line ends with it.
     size_t ind = 0;
     while (ind < curr.GetKeyPointsCount())  // GetKeyPointsCount() can be different on each iteration
     {
