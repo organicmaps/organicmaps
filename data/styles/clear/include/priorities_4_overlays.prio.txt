@@ -469,16 +469,6 @@ amenity-pub                                         # icon z15- (also has captio
 barrier-border_control                              # icon z15- (also has caption(optional) z15-)
 === 3900
 
-aerialway-cable_car                                 # pathtext z15- (also has line z12-, line::dash z12-)
-aerialway-chair_lift                                # pathtext z15- (also has line z13-, line::dash z13-)
-aerialway-drag_lift                                 # pathtext z15- (also has line z13-, line::dash z13-)
-aerialway-gondola                                   # pathtext z15- (also has line z12-, line::dash z12-)
-aerialway-j-bar                                     # pathtext z15- (also has line z13-, line::dash z13-)
-aerialway-magic_carpet                              # pathtext z15- (also has line z13-, line::dash z13-)
-aerialway-mixed_lift                                # pathtext z15- (also has line z12-, line::dash z12-)
-aerialway-platter                                   # pathtext z15- (also has line z13-, line::dash z13-)
-aerialway-rope_tow                                  # pathtext z15- (also has line z13-, line::dash z13-)
-aerialway-t-bar                                     # pathtext z15- (also has line z13-, line::dash z13-)
 shop-car_repair-tyres                               # icon z15- (also has caption(optional) z15-)
 === 3850
 
@@ -670,6 +660,16 @@ amenity-fountain                                    # icon z16- (also has captio
 highway-raceway                                     # pathtext z16- (also has line z14-)
 === 3050
 
+aerialway-cable_car                                 # pathtext z15- (also has line z12-, line::dash z12-)
+aerialway-chair_lift                                # pathtext z15- (also has line z13-, line::dash z13-)
+aerialway-drag_lift                                 # pathtext z15- (also has line z13-, line::dash z13-)
+aerialway-gondola                                   # pathtext z15- (also has line z12-, line::dash z12-)
+aerialway-j-bar                                     # pathtext z15- (also has line z13-, line::dash z13-)
+aerialway-magic_carpet                              # pathtext z15- (also has line z13-, line::dash z13-)
+aerialway-mixed_lift                                # pathtext z15- (also has line z12-, line::dash z12-)
+aerialway-platter                                   # pathtext z15- (also has line z13-, line::dash z13-)
+aerialway-rope_tow                                  # pathtext z15- (also has line z13-, line::dash z13-)
+aerialway-t-bar                                     # pathtext z15- (also has line z13-, line::dash z13-)
 highway-residential                                 # pathtext z13- (also has shield::shield z15-, line z12-)
 highway-residential-area                            # pathtext z13- (also has shield::shield z15-, line z12-)
 highway-residential-bridge                          # pathtext z13- (also has shield::shield z15-, line z12-, line::bridgeblack z14-, line::bridgewhite z14-)
@@ -719,6 +719,15 @@ highway-footway-tunnel                              # pathtext z15- (also has li
 highway-tertiary_link                               # pathtext z18- (also has line z15-)
 highway-tertiary_link-bridge                        # pathtext z18- (also has line z15-, line::bridgeblack z15-, line::bridgewhite z15-)
 highway-tertiary_link-tunnel                        # pathtext z18- (also has line z15-, line(casing) z16-)
+piste:type-downhill                                 # pathtext z15- (also has line z14-)
+piste:type-downhill-advanced                        # pathtext z15- (also has line z14-)
+piste:type-downhill-easy                            # pathtext z15- (also has line z14-)
+piste:type-downhill-expert                          # pathtext z15- (also has line z14-)
+piste:type-downhill-freeride                        # pathtext z15- (also has line z14-)
+piste:type-downhill-intermediate                    # pathtext z15- (also has line z14-)
+piste:type-downhill-novice                          # pathtext z15- (also has line z14-)
+piste:type-nordic                                   # pathtext z15- (also has line z14-)
+piste:type-sled                                     # pathtext z15- (also has line z14-)
 === 2950
 
 historic-mine                                       # icon z15- (also has caption(optional) z15-)

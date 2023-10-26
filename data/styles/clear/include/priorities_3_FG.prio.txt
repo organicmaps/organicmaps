@@ -389,15 +389,15 @@ building-has_parts                                  # area z14- (also has captio
 building-train_station                              # area z14- (also has caption z16-)
 === 130
 
-piste:type-downhill                                 # line z14-
-piste:type-downhill-advanced                        # line z14-
-piste:type-downhill-easy                            # line z14-
-piste:type-downhill-expert                          # line z14-
-piste:type-downhill-freeride                        # line z14-
-piste:type-downhill-intermediate                    # line z14-
-piste:type-downhill-novice                          # line z14-
-piste:type-nordic                                   # line z14-
-piste:type-sled                                     # line z14-
+piste:type-downhill                                 # line z14- (also has pathtext z15-)
+piste:type-downhill-advanced                        # line z14- (also has pathtext z15-)
+piste:type-downhill-easy                            # line z14- (also has pathtext z15-)
+piste:type-downhill-expert                          # line z14- (also has pathtext z15-)
+piste:type-downhill-freeride                        # line z14- (also has pathtext z15-)
+piste:type-downhill-intermediate                    # line z14- (also has pathtext z15-)
+piste:type-downhill-novice                          # line z14- (also has pathtext z15-)
+piste:type-nordic                                   # line z14- (also has pathtext z15-)
+piste:type-sled                                     # line z14- (also has pathtext z15-)
 === 120
 
 building:part                                       # area z16-
