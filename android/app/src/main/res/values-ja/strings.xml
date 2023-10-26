@@ -739,6 +739,7 @@
 	<string name="type.amenity.clinic">クリニック</string>
 	<string name="type.amenity.college">カレッジ</string>
 	<string name="type.amenity.community_centre">コミュニティセンター</string>
+	<string name="type.amenity.compressed_air">圧縮空気</string>
 	<string name="type.amenity.conference_centre">カンファレンスセンター</string>
 	<string name="type.amenity.courthouse">裁判所</string>
 	<string name="type.amenity.dentist">歯医者</string>

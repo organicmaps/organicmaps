@@ -778,6 +778,7 @@
 	<string name="type.amenity.clinic">Klinikk</string>
 	<string name="type.amenity.college">Høyskole</string>
 	<string name="type.amenity.community_centre">Samfunnshus</string>
+	<string name="type.amenity.compressed_air">Komprimert luft</string>
 	<string name="type.amenity.conference_centre">Konferansesenter</string>
 	<string name="type.amenity.courthouse">Domstol</string>
 	<string name="type.amenity.dentist">Tannlege</string>

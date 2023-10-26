@@ -728,6 +728,7 @@
 	<string name="type.amenity.clinic">Κλινική</string>
 	<string name="type.amenity.college">Κολέγιο</string>
 	<string name="type.amenity.community_centre">Κέντρο κοινότητας</string>
+	<string name="type.amenity.compressed_air">Πεπιεσμένος αέρας</string>
 	<string name="type.amenity.conference_centre">Συνεδριακό Κέντρο</string>
 	<string name="type.amenity.courthouse">Δικαστικό μέγαρο</string>
 	<string name="type.amenity.dentist">Οδοντίατρος</string>

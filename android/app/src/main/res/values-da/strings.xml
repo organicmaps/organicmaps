@@ -730,6 +730,7 @@
 	<string name="type.amenity.clinic">Klinik</string>
 	<string name="type.amenity.college">Universitet</string>
 	<string name="type.amenity.community_centre">Medborgerhus</string>
+	<string name="type.amenity.compressed_air">Trykluft</string>
 	<string name="type.amenity.conference_centre">Konferencecenter</string>
 	<string name="type.amenity.courthouse">Domhus</string>
 	<string name="type.amenity.dentist">Tandlæge</string>

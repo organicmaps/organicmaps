@@ -819,6 +819,7 @@
 	<string name="type.amenity.clinic">Поликлиника</string>
 	<string name="type.amenity.college">Колледж</string>
 	<string name="type.amenity.community_centre">Культурно-досуговый центр</string>
+	<string name="type.amenity.compressed_air">Сжатый воздух</string>
 	<string name="type.amenity.conference_centre">Конференц-центр</string>
 	<string name="type.amenity.courthouse">Суд</string>
 	<string name="type.amenity.dentist">Стоматология</string>

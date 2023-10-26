@@ -1341,6 +1341,8 @@
 
 "type.amenity.community_centre" = "Kulturní centrum";
 
+"type.amenity.compressed_air" = "Stlačený vzduch";
+
 "type.amenity.conference_centre" = "Konferenční centrum";
 
 "type.amenity.courthouse" = "Soud";

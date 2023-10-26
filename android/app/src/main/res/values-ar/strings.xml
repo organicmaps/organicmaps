@@ -792,6 +792,7 @@
 	<string name="type.amenity.clinic">عيادة</string>
 	<string name="type.amenity.college">كلية</string>
 	<string name="type.amenity.community_centre">مركز اجتماعي</string>
+	<string name="type.amenity.compressed_air">هواء مضغوط</string>
 	<string name="type.amenity.conference_centre">مركز المؤتمرات</string>
 	<string name="type.amenity.courthouse">محكمة</string>
 	<string name="type.amenity.dentist">طبيب أسنان</string>

@@ -1341,6 +1341,8 @@
 
 "type.amenity.community_centre" = "Centru comunitar";
 
+"type.amenity.compressed_air" = "Aer comprimat";
+
 "type.amenity.conference_centre" = "Centru de conferinte";
 
 "type.amenity.courthouse" = "Judecătorie";

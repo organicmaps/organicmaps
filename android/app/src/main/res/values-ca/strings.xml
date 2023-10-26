@@ -742,6 +742,7 @@
 	<string name="type.amenity.charging_station.bicycle">Estació de recàrrega de bicicletes</string>
 	<string name="type.amenity.charging_station.motorcar">Estació de recàrrega de cotxes</string>
 	<string name="type.leisure.bowling_alley">Bolera</string>
+	<string name="type.amenity.compressed_air">Aire comprimit</string>
 	<string name="type.amenity.conference_centre">Centre de Conferències</string>
 	<string name="type.amenity.exhibition_centre">Centre d\'exposicions</string>
 	<string name="type.amenity.money_transfer">Transferència de diners</string>

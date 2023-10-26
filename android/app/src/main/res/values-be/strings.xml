@@ -743,6 +743,7 @@
 	<string name="type.amenity.charging_station.bicycle">Станцыя для зарадкі ровараў</string>
 	<string name="type.amenity.charging_station.motorcar">Аўтамабільная зарадная станцыя</string>
 	<string name="type.leisure.bowling_alley">Боўлінг</string>
+	<string name="type.amenity.compressed_air">Сціснутае паветра</string>
 	<string name="type.amenity.conference_centre">Канферэнц-цэнтр</string>
 	<string name="type.amenity.driving_school">Аўташкола</string>
 	<string name="type.amenity.exhibition_centre">Выставачны цэнтр</string>

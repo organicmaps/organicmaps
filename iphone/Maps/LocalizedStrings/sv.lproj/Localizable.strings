@@ -1341,6 +1341,8 @@
 
 "type.amenity.community_centre" = "Stadshus";
 
+"type.amenity.compressed_air" = "Tryckluft";
+
 "type.amenity.conference_centre" = "Konferens Center";
 
 "type.amenity.courthouse" = "Domstol";

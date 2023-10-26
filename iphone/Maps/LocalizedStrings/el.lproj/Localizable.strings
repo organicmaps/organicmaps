@@ -1341,6 +1341,8 @@
 
 "type.amenity.community_centre" = "Κέντρο κοινότητας";
 
+"type.amenity.compressed_air" = "Πεπιεσμένος αέρας";
+
 "type.amenity.conference_centre" = "Συνεδριακό Κέντρο";
 
 "type.amenity.courthouse" = "Δικαστικό μέγαρο";

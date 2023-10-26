@@ -794,6 +794,7 @@
 	<string name="type.amenity.clinic">Klinik</string>
 	<string name="type.amenity.college">Kolej</string>
 	<string name="type.amenity.community_centre">Toplum Merkezi</string>
+	<string name="type.amenity.compressed_air">Basınçlı hava</string>
 	<string name="type.amenity.conference_centre">Konferans merkezi</string>
 	<string name="type.amenity.courthouse">Adliye</string>
 	<string name="type.amenity.dentist">Dişçi</string>

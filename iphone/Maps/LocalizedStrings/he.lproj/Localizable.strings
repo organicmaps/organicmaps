@@ -1341,6 +1341,8 @@
 
 "type.amenity.community_centre" = "Community Centre";
 
+"type.amenity.compressed_air" = "אוויר דחוס";
+
 "type.amenity.conference_centre" = "מרכז כנסים";
 
 "type.amenity.courthouse" = "Courthouse";
