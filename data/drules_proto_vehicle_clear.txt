@@ -1457,6 +1457,30 @@ cont {
   }
 }
 cont {
+  name: "amenity-compressed_air"
+  element {
+    scale: 18
+    symbol {
+      name: "compressed_air-m"
+      priority: 2600
+    }
+  }
+  element {
+    scale: 19
+    symbol {
+      name: "compressed_air-m"
+      priority: 2600
+    }
+  }
+  element {
+    scale: 20
+    symbol {
+      name: "compressed_air-m"
+      priority: 2600
+    }
+  }
+}
+cont {
   name: "amenity-conference_centre"
   element {
     scale: 16

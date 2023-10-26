@@ -55,6 +55,7 @@ world  +
         clinic  -
         college  -
         community_centre  -
+        compressed_air  -
         conference_centre  -
         courthouse  -
         dentist  -

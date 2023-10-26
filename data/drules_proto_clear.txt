@@ -5152,6 +5152,48 @@ cont {
   }
 }
 cont {
+  name: "amenity-compressed_air"
+  element {
+    scale: 18
+    symbol {
+      name: "compressed_air-m"
+      priority: 1400
+    }
+  }
+  element {
+    scale: 19
+    symbol {
+      name: "compressed_air-m"
+      priority: 1400
+    }
+    caption {
+      primary {
+        height: 10
+        color: 4473924
+        offset_y: 1
+        is_optional: true
+      }
+      priority: -8600
+    }
+  }
+  element {
+    scale: 20
+    symbol {
+      name: "compressed_air-m"
+      priority: 1400
+    }
+    caption {
+      primary {
+        height: 10
+        color: 4473924
+        offset_y: 1
+        is_optional: true
+      }
+      priority: -8600
+    }
+  }
+}
+cont {
   name: "amenity-conference_centre"
   element {
     scale: 16
@@ -112582,7 +112624,7 @@ cont {
   element {
     scale: 16
     symbol {
-      name: "grocery-m"
+      name: "convenience-m"
       priority: 2400
       min_distance: 10
     }
@@ -112599,7 +112641,7 @@ cont {
   element {
     scale: 17
     symbol {
-      name: "grocery-m"
+      name: "convenience-m"
       priority: 2400
       min_distance: 24
     }
@@ -112616,7 +112658,7 @@ cont {
   element {
     scale: 18
     symbol {
-      name: "grocery-m"
+      name: "convenience-m"
       priority: 2400
       min_distance: 24
     }
@@ -112633,7 +112675,7 @@ cont {
   element {
     scale: 19
     symbol {
-      name: "grocery-m"
+      name: "convenience-m"
       priority: 2400
       min_distance: 24
     }
@@ -112650,7 +112692,7 @@ cont {
   element {
     scale: 20
     symbol {
-      name: "grocery-m"
+      name: "convenience-m"
       priority: 2400
       min_distance: 24
     }
@@ -113008,7 +113050,7 @@ cont {
   element {
     scale: 16
     symbol {
-      name: "grocery-m"
+      name: "convenience-m"
       priority: 2400
       min_distance: 10
     }
@@ -113025,7 +113067,7 @@ cont {
   element {
     scale: 17
     symbol {
-      name: "grocery-m"
+      name: "convenience-m"
       priority: 2400
       min_distance: 24
     }
@@ -113042,7 +113084,7 @@ cont {
   element {
     scale: 18
     symbol {
-      name: "grocery-m"
+      name: "convenience-m"
       priority: 2400
       min_distance: 24
     }
@@ -113059,7 +113101,7 @@ cont {
   element {
     scale: 19
     symbol {
-      name: "grocery-m"
+      name: "convenience-m"
       priority: 2400
       min_distance: 24
     }
@@ -113076,7 +113118,7 @@ cont {
   element {
     scale: 20
     symbol {
-      name: "grocery-m"
+      name: "convenience-m"
       priority: 2400
       min_distance: 24
     }
@@ -113678,7 +113720,7 @@ cont {
   element {
     scale: 16
     symbol {
-      name: "grocery-m"
+      name: "convenience-m"
       priority: 2400
       min_distance: 10
     }
@@ -113695,7 +113737,7 @@ cont {
   element {
     scale: 17
     symbol {
-      name: "grocery-m"
+      name: "convenience-m"
       priority: 2400
       min_distance: 24
     }
@@ -113712,7 +113754,7 @@ cont {
   element {
     scale: 18
     symbol {
-      name: "grocery-m"
+      name: "convenience-m"
       priority: 2400
       min_distance: 24
     }
@@ -113729,7 +113771,7 @@ cont {
   element {
     scale: 19
     symbol {
-      name: "grocery-m"
+      name: "convenience-m"
       priority: 2400
       min_distance: 24
     }
@@ -113746,7 +113788,7 @@ cont {
   element {
     scale: 20
     symbol {
-      name: "grocery-m"
+      name: "convenience-m"
       priority: 2400
       min_distance: 24
     }
@@ -114456,7 +114498,7 @@ cont {
   element {
     scale: 16
     symbol {
-      name: "grocery-m"
+      name: "convenience-m"
       priority: 2400
       min_distance: 10
     }
@@ -114473,7 +114515,7 @@ cont {
   element {
     scale: 17
     symbol {
-      name: "grocery-m"
+      name: "convenience-m"
       priority: 2400
       min_distance: 24
     }
@@ -114490,7 +114532,7 @@ cont {
   element {
     scale: 18
     symbol {
-      name: "grocery-m"
+      name: "convenience-m"
       priority: 2400
       min_distance: 24
     }
@@ -114507,7 +114549,7 @@ cont {
   element {
     scale: 19
     symbol {
-      name: "grocery-m"
+      name: "convenience-m"
       priority: 2400
       min_distance: 24
     }
@@ -114524,7 +114566,7 @@ cont {
   element {
     scale: 20
     symbol {
-      name: "grocery-m"
+      name: "convenience-m"
       priority: 2400
       min_distance: 24
     }
@@ -114720,7 +114762,7 @@ cont {
   element {
     scale: 16
     symbol {
-      name: "grocery-m"
+      name: "convenience-m"
       priority: 2400
       min_distance: 10
     }
@@ -114737,7 +114779,7 @@ cont {
   element {
     scale: 17
     symbol {
-      name: "grocery-m"
+      name: "convenience-m"
       priority: 2400
       min_distance: 24
     }
@@ -114754,7 +114796,7 @@ cont {
   element {
     scale: 18
     symbol {
-      name: "grocery-m"
+      name: "convenience-m"
       priority: 2400
       min_distance: 24
     }
@@ -114771,7 +114813,7 @@ cont {
   element {
     scale: 19
     symbol {
-      name: "grocery-m"
+      name: "convenience-m"
       priority: 2400
       min_distance: 24
     }
@@ -114788,7 +114830,7 @@ cont {
   element {
     scale: 20
     symbol {
-      name: "grocery-m"
+      name: "convenience-m"
       priority: 2400
       min_distance: 24
     }
@@ -118148,9 +118190,9 @@ cont {
   element {
     scale: 18
     symbol {
-      name: "shop-m"
+      name: "tobacco-m"
       priority: 500
-      min_distance: 10
+      min_distance: 24
     }
     caption {
       primary {
@@ -118165,9 +118207,9 @@ cont {
   element {
     scale: 19
     symbol {
-      name: "shop-m"
+      name: "tobacco-m"
       priority: 500
-      min_distance: 10
+      min_distance: 24
     }
     caption {
       primary {
@@ -118182,9 +118224,9 @@ cont {
   element {
     scale: 20
     symbol {
-      name: "shop-m"
+      name: "tobacco-m"
       priority: 500
-      min_distance: 10
+      min_distance: 24
     }
     caption {
       primary {
