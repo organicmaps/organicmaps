@@ -2119,7 +2119,7 @@ node|z16[shop=grocery],
 area|z16[shop=grocery],
 node|z16[shop=health_food],
 area|z16[shop=health_food],
-{icon-image: grocery-m.svg;}
+{icon-image: convenience-m.svg;}
 node|z16[shop=collector],
 area|z16[shop=collector]
 {icon-image: shop-m.svg;}
@@ -2346,7 +2346,7 @@ node|z17-[shop=grocery],
 area|z17-[shop=grocery],
 node|z17-[shop=health_food],
 area|z17-[shop=health_food],
-{icon-image: grocery-m.svg;icon-min-distance: 24;}
+{icon-image: convenience-m.svg;icon-min-distance: 24;}
 node|z17-[shop=collector],
 area|z17-[shop=collector]
 {icon-image: shop-m.svg;icon-min-distance: 24;}
