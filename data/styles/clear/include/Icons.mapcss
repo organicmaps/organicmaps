@@ -1979,6 +1979,8 @@ area|z17-[shop=money_lender],
 node|z17-[shop=pawnbroker],
 area|z17-[shop=pawnbroker],
 node|z17-[shop=wholesale],
+node|z18-[shop=tobacco],
+area|z18-[shop=tobacco],
 {text: name; text-color: @poi_label; text-offset: 1; font-size: 10;}
 
 node|z14[shop=mall],
@@ -2473,6 +2475,9 @@ area|z17-[shop=rental]
 node|z17-[shop=rental][rental=bike],
 area|z17-[shop=rental][rental=bike],
 {icon-image: shop-rental-bicycle-m.svg;icon-min-distance: 24;}
+node|z18-[shop=tobacco],
+area|z18-[shop=tobacco],
+{icon-image: tobacco-m.svg;icon-min-distance: 24;}
 
 /* 6.1 Craft */
 
