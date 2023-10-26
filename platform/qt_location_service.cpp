@@ -128,22 +128,28 @@ void QtLocationService::OnSupportedPositioningMethodsChanged()
 
 void QtLocationService::Start()
 {
-  if (m_positionSource)
+  if (!m_positionSource)
   {
-    LOG(LDEBUG, ("Starting Updates from:", m_positionSource->sourceName().toStdString()));
-    m_positionSource->startUpdates();
-    QGeoPositionInfo info = m_positionSource->lastKnownPosition();
-    m_positionSource->requestUpdate();
+    LOG(LWARNING, ("No supported source is available for starting the positioning"));
+    return;
   }
+
+  LOG(LDEBUG, ("Starting Updates from:", m_positionSource->sourceName().toStdString()));
+  m_positionSource->startUpdates();
+  QGeoPositionInfo info = m_positionSource->lastKnownPosition();
+  m_positionSource->requestUpdate();
 }
 
 void QtLocationService::Stop()
 {
-  if (m_positionSource)
+  if (!m_positionSource)
   {
-    LOG(LDEBUG, ("Stopping Updates from:", m_positionSource->sourceName().toStdString()));
-    m_positionSource->stopUpdates();
+    LOG(LWARNING, ("No supported source is available for stopping the positioning"));
+    return;
   }
+
+  LOG(LDEBUG, ("Stopping Updates from:", m_positionSource->sourceName().toStdString()));
+  m_positionSource->stopUpdates();
 }
 
 std::unique_ptr<location::LocationService> CreateQtLocationService(location::LocationObserver & observer, std::string const & sourceName)
