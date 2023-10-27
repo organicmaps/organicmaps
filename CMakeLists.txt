@@ -22,6 +22,8 @@ endif()
 
 message(STATUS "Using compiler ${CMAKE_CXX_COMPILER_ID} ${CMAKE_CXX_COMPILER_VERSION}")
 
+option(COVERAGE_REPORT "Configure for coverage report" OFF)
+
 option(UNITY_DISABLE "Disable unity build" OFF)
 if (NOT UNITY_DISABLE AND NOT DEFINED ENV{UNITY_DISABLE})
   set(CMAKE_UNITY_BUILD ON)
@@ -212,6 +214,9 @@ if (NOT SKIP_TESTS)
   enable_testing()
   # Enables ctest -T memcheck with valgrind
   include(CTest)
+  if (COVERAGE_REPORT)
+    include(OmimCoverage)
+  endif ()
 endif()
 
 if (NOT PYTHON_VERSION)

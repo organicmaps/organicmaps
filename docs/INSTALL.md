@@ -254,7 +254,7 @@ Run all unit tests:
 
 ```bash
 cd build
-ctest -LE "fixture" --output-on-failure
+ctest -L "omim_test" --output-on-failure
 ```
 
 To run a limited set of tests, use `-R <regex>` flag. To exclude some tests, use `-E <regex>` flag:
@@ -262,7 +262,7 @@ To run a limited set of tests, use `-R <regex>` flag. To exclude some tests, use
 ```bash
 cd build
 ctest -R "base_tests|coding_tests" --output-on-failure
-ctest -LE "fixture" -E "base_tests|coding_tests" --output-on-failure
+ctest -L "omim_test" -E "base_tests|coding_tests" --output-on-failure
 ```
 
 When developing, it is more convenient to use a symlink:
@@ -274,6 +274,53 @@ ln -s ../data/ data
 ```
 
 Some tests [are known to be broken](https://github.com/organicmaps/organicmaps/issues?q=is%3Aissue+is%3Aopen+label%3ATests) and disabled on CI.
+
+### Test Coverage
+
+To generate a test coverage report you'll need [gcovr](https://gcovr.com) and gcov tools installed.
+
+Installing gcovr on Linux:
+```bash
+pip3 install gcovr
+```
+
+Installing gcovr on MacOS:
+```bash
+brew install gcovr
+```
+
+Installing gcov on Linux:
+```bash
+# If you're using GCC compiler
+sudo apt-get install cpp
+
+# If you're using Clang compiler
+sudo apt-get install llvm
+```
+
+Installing gcov on MacOS:
+```bash
+# If you're using AppleClang compiler it should already be installed
+
+# If you're using Clang compiler
+brew install llvm
+```
+
+Steps to generate coverage report:
+
+1. Configure cmake with `-DCOVERAGE_REPORT=ON` flag:
+   ```bash
+   cmake . -B build -G Ninja -DCMAKE_BUILD_TYPE=Debug \
+           -DCMAKE_CXX_FLAGS=-g1 -DCOVERAGE_REPORT=ON
+   ```
+2. Compile unit tests.
+3. Run unit tests.
+4. Run coverage report generation:
+   ```bash
+   cd build
+   cmake --build . --target omim_coverage
+   ```
+5. Report can be found in the `build/coverage_report` folder.
 
 ### Debug commands
 

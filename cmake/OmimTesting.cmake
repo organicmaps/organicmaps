@@ -13,7 +13,7 @@ add_test(
 )
 set_tests_properties(OmimStartTestServer PROPERTIES FIXTURES_SETUP TestServer)
 set_tests_properties(OmimStopTestServer PROPERTIES FIXTURES_CLEANUP TestServer)
-set_tests_properties(OmimStartTestServer OmimStopTestServer PROPERTIES LABELS "fixture")
+set_tests_properties(OmimStartTestServer OmimStopTestServer PROPERTIES LABELS "omim-fixture")
 
 # Options:
 # * REQUIRE_QT - requires QT event loop
@@ -80,6 +80,7 @@ function(omim_add_ctest name require_server boost_test)
     WORKING_DIRECTORY ${CMAKE_BINARY_DIR}
   )
   if (require_server)
-    set_tests_properties(${TEST_NAME} PROPERTIES FIXTURES_REQUIRED TestServer)
+    set_tests_properties(${name} PROPERTIES FIXTURES_REQUIRED TestServer)
   endif()
+  set_tests_properties(${name} PROPERTIES LABELS "omim-test")
 endfunction()
