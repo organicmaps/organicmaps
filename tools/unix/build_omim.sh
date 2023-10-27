@@ -54,6 +54,7 @@ done
 
 OPT_TARGET=${@:$OPTIND}
 
+CMAKE_CONFIG="${CMAKE_CONFIG:-} -U SKIP_QT_GUI"
 if [ "$OPT_TARGET" != "desktop" -a -z "$OPT_DESIGNER" -a -z "$OPT_STANDALONE" ]; then
   CMAKE_CONFIG="${CMAKE_CONFIG:-} -DSKIP_QT_GUI=ON"
 fi
