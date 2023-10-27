@@ -61,7 +61,7 @@ static location::TLocationSource qStringToTLocationSource(QString const & source
 QtLocationService::QtLocationService(location::LocationObserver & observer, std::string const & sourceName) : LocationService(observer)
 {
   QVariantMap params;
-  params["desktopId"] = "OrganicMaps";
+  params["desktopId"] = "app.organicmaps.desktop";
   m_positionSource = QGeoPositionInfoSource::createSource(QString::fromStdString(sourceName), params, this);
 
   if (!m_positionSource)
