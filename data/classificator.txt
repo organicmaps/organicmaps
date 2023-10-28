@@ -384,6 +384,10 @@ world  +
         exit  -
         main  -
         {}
+    fee  +
+        no  -
+        yes  -
+        {}
     healthcare  +
         alternative  -
         audiologist  -

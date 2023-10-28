@@ -1590,3 +1590,5 @@ amenity|recycling|container
 *amenity|parking|street_side|private
 *amenity|parking|lane|private
 *amenity|compressed_air
+*fee|yes
+*fee|no
