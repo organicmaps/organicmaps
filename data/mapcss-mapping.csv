@@ -47,6 +47,9 @@
 # A python parser implementation used to compile *.mapcss style files is in tools/kothic/src/libkomwm.py::komap_mapswithme().
 # The app doesn't use this file directly, it loads a data/types.txt
 # which is derived from this file during style files compilation.
+#
+# Types that don't have any style defined are discarded by the generator.
+# To prevent discarding, add them to the exceptions in indexer/feature_visibility.cpp::IsUsefulNondrawableType()
 
 building;[building];;addr:housenumber;name;1;
 highway|residential;2;
