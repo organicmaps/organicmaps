@@ -97,6 +97,18 @@ final class CarPlayService: NSObject {
     }
     return .unspecified
   }
+  
+  private var rootTemplateStyle: CPTripEstimateStyle {
+    get {
+      if #available(iOS 13.0, *) {
+        return sessionConfiguration?.contentStyle == .light ? .light : .dark
+      }
+      return .dark
+    }
+    set {
+      (interfaceController?.rootTemplate as? CPMapTemplate)?.tripEstimateStyle = newValue
+    }
+  }
 
   private func applyRootViewController() {
     guard let window = window else { return }
@@ -114,6 +126,7 @@ final class CarPlayService: NSObject {
   private func applyBaseRootTemplate() {
     let mapTemplate = MapTemplateBuilder.buildBaseTemplate(positionMode: currentPositionMode)
     mapTemplate.mapDelegate = self
+    mapTemplate.tripEstimateStyle = rootTemplateStyle
     interfaceController?.setRootTemplate(mapTemplate, animated: true)
     FrameworkHelper.rotateMap(0.0, animated: false)
   }
@@ -124,6 +137,7 @@ final class CarPlayService: NSObject {
     interfaceController?.setRootTemplate(mapTemplate, animated: true)
     router?.startNavigationSession(forTrip: trip, template: mapTemplate)
     if let estimates = createEstimates(routeInfo: routeInfo) {
+      mapTemplate.tripEstimateStyle = rootTemplateStyle
       mapTemplate.updateEstimates(estimates, for: trip)
     }
 
@@ -314,7 +328,9 @@ extension CarPlayService: CPSessionConfigurationDelegate {
   @available(iOS 13.0, *)
   func sessionConfiguration(_ sessionConfiguration: CPSessionConfiguration,
                             contentStyleChanged contentStyle: CPContentStyle) {
-    window?.overrideUserInterfaceStyle = contentStyle == .light ? .light : .dark
+    let isLight = contentStyle == .light
+    window?.overrideUserInterfaceStyle = isLight ? .light : .dark
+    rootTemplateStyle = isLight ? .light : .dark
   }
 }
 
