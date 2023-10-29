@@ -1,11 +1,9 @@
 #include "generator/translator_coastline.hpp"
 
-#include "generator/collector_interface.hpp"
 #include "generator/feature_maker.hpp"
 #include "generator/filter_collection.hpp"
 #include "generator/filter_elements.hpp"
 #include "generator/filter_planet.hpp"
-#include "generator/generate_info.hpp"
 #include "generator/intermediate_data.hpp"
 
 #include "indexer/ftypes_matcher.hpp"

@@ -5,7 +5,6 @@
 #include "base/clustering_map.hpp"
 #include "base/geo_object_id.hpp"
 
-#include <cstdint>
 #include <string>
 
 namespace generator

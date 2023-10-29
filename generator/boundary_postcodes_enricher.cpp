@@ -4,6 +4,8 @@
 
 #include "platform/platform.hpp"
 
+#include "coding/read_write_utils.hpp"
+
 #include "geometry/point2d.hpp"
 
 namespace generator

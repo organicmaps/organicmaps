@@ -768,35 +768,64 @@ UNIT_CLASS_TEST(TestRawGenerator, Place_NoCityBoundaries)
   std::string const mwmName = "Cities";
   std::string const worldMwmName = WORLD_FILE_NAME;
 
-  BuildFB("./data/osm_test_data/no_boundary_towns.osm", mwmName, true /* makeWorld */);
-
-  auto const & checker = ftypes::IsCityTownOrVillageChecker::Instance();
-
-  // Check that we have only 2 cities without duplicates (Pargas, Қордай).
-  size_t count = 0;
-  ForEachFB(worldMwmName, [&](feature::FeatureBuilder const & fb)
+  struct TestDataSample
   {
-    if (fb.GetGeomType() == feature::GeomType::Point)
+    std::string m_osmInput;
+    size_t m_inWorld = 0;
+    size_t m_inCountry = 0;
+  };
+
+  TestDataSample const arrInput[] = {
+      // Check that we have only 2 cities without duplicates (Pargas, Қордай).
+      // Boundaries are removed because of "very big".
+      { "./data/osm_test_data/no_boundary_towns.osm", 2, 2 },
+      // 3 villages in country and 0 in World.
+      { "./data/osm_test_data/us_villages_like_towns.osm", 0, 3 },
+  };
+
+  for (size_t i = 0; i < std::size(arrInput); ++i)
+  {
+    TestRawGenerator generator;
+    generator.BuildFB(arrInput[i].m_osmInput, mwmName, true /* makeWorld */);
+
+    auto const & checker = ftypes::IsCityTownOrVillageChecker::Instance();
+
+    size_t count = 0;
+    generator.ForEachFB(worldMwmName, [&](feature::FeatureBuilder const & fb)
     {
-      ++count;
-      TEST(checker(fb.GetTypes()), ());
-    }
-  });
+      if (fb.GetGeomType() == feature::GeomType::Point)
+      {
+        ++count;
+        TEST_GREATER(fb.GetRank(), 10, (i));
+        TEST(checker(fb.GetTypes()), (i));
+      }
+    });
+    TEST_EQUAL(count, arrInput[i].m_inWorld, (i));
 
-  TEST_EQUAL(count, 2, ());
+    count = 0;
+    generator.ForEachFB(mwmName, [&](feature::FeatureBuilder const & fb)
+    {
+      if (fb.GetGeomType() == feature::GeomType::Point && checker(fb.GetTypes()))
+      {
+        ++count;
+        TEST_GREATER(fb.GetRank(), 10, (i));
+      }
+    });
+    TEST_EQUAL(count, arrInput[i].m_inCountry, (i));
 
-  // Build boundaries table.
-  BuildFeatures(worldMwmName);
-  BuildSearch(worldMwmName);
+    // Build boundaries table.
+    generator.BuildFeatures(worldMwmName);
+    generator.BuildSearch(worldMwmName);
 
-  // Check that we have NO boundaries in World. They are removed because of "very big".
-  FrozenDataSource dataSource;
-  auto const res = dataSource.RegisterMap(platform::LocalCountryFile::MakeTemporary(GetMwmPath(worldMwmName)));
-  TEST_EQUAL(res.second, MwmSet::RegResult::Success, ());
+    // Check that we have NO boundaries in World.
+    FrozenDataSource dataSource;
+    auto const res = dataSource.RegisterMap(platform::LocalCountryFile::MakeTemporary(generator.GetMwmPath(worldMwmName)));
+    TEST_EQUAL(res.second, MwmSet::RegResult::Success, ());
 
-  search::CitiesBoundariesTable table(dataSource);
-  TEST(table.Load(), ());
-  TEST_EQUAL(table.GetSize(), 0, ());
+    search::CitiesBoundariesTable table(dataSource);
+    TEST(table.Load(), ());
+    TEST_EQUAL(table.GetSize(), 0, (i));
+  }
 }
 
 UNIT_CLASS_TEST(TestRawGenerator, Place_2Villages)

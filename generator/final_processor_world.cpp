@@ -1,6 +1,4 @@
 #include "generator/final_processor_world.hpp"
-
-#include "generator/affiliation.hpp"
 #include "generator/feature_builder.hpp"
 #include "generator/final_processor_utils.hpp"
 
@@ -20,15 +18,8 @@ WorldFinalProcessor::WorldFinalProcessor(std::string const & temporaryMwmPath,
 {
 }
 
-void WorldFinalProcessor::SetPopularPlaces(std::string const & filename)
-{
-  m_popularPlacesFilename = filename;
-}
-
 void WorldFinalProcessor::Process()
 {
-  ProcessCities();
-
   auto fbs = ReadAllDatRawFormat<serialization_policy::MaxAccuracy>(m_worldTmpFilename);
   Order(fbs);
   WorldGenerator generator(m_worldTmpFilename, m_coastlineGeomFilename, m_popularPlacesFilename);
@@ -38,17 +29,4 @@ void WorldFinalProcessor::Process()
   generator.DoMerge();
 }
 
-void WorldFinalProcessor::ProcessCities()
-{
-  auto const affiliation = SingleAffiliation(WORLD_FILE_NAME);
-  ProcessorCities processor(m_boundariesCollectorFile, affiliation);
-  processor.Process(m_temporaryMwmPath);
-
-
-  if (!m_boundariesOutFile.empty())
-  {
-    LOG(LINFO, ("Dumping cities boundaries to", m_boundariesOutFile));
-    SerializeBoundariesTable(m_boundariesOutFile, processor.GetTable());
-  }
-}
 }  // namespace generator

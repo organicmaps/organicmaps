@@ -67,8 +67,6 @@ void CountryFinalProcessor::Process()
 {
   //Order();
 
-  ProcessCities();
-
   if (!m_coastlineGeomFilename.empty())
     ProcessCoastline();
 
@@ -279,12 +277,6 @@ void CountryFinalProcessor::AddIsolines()
     FeatureBuilderWriter<serialization_policy::MaxAccuracy> writer(path, FileWriter::Op::OP_APPEND);
     isolineFeaturesGenerator.GenerateIsolines(name, [&](auto const & fb) { writer.Write(fb); });
   }, m_threadsCount);
-}
-
-void CountryFinalProcessor::ProcessCities()
-{
-  ProcessorCities processor(m_boundariesCollectorFile, *m_affiliations, m_threadsCount);
-  processor.Process(m_temporaryMwmPath);
 }
 
 void CountryFinalProcessor::ProcessCoastline()

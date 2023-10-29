@@ -33,7 +33,6 @@ public:
 
 private:
   //void Order();
-  void ProcessCities();
   void ProcessCoastline();
   void ProcessRoundabouts();
   void AddFakeNodes();

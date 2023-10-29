@@ -289,21 +289,31 @@ FeaturePlace PlaceProcessor::CreatePlace(feature::FeatureBuilder && fb) const
 void PlaceProcessor::Add(FeatureBuilder && fb)
 {
   // Get name as key to find place clusters.
-  auto nameKey = fb.GetName(StringUtf8Multilang::kDefaultCode);
+  auto name = fb.GetName(StringUtf8Multilang::kDefaultCode);
   auto const id = fb.GetMostGenericOsmId();
 
-  if (nameKey.empty())
+  if (name.empty())
   {
-    nameKey = fb.GetName(StringUtf8Multilang::kEnglishCode);
-    if (nameKey.empty())
+    name = fb.GetName(StringUtf8Multilang::kEnglishCode);
+    if (name.empty())
     {
       LOG(LWARNING, (m_logTag, "Place with empty name", id));
       return;
     }
   }
 
+  // Naive name->key implementation. Probably should also make simplification, lower-case, etc ...
+  std::string key(name);
+  while (true)
+  {
+    size_t i = key.find("St. ");
+    if (i == std::string::npos)
+      break;
+    key.replace(i, 4, "Saint ");
+  }
+
   // Places are "equal candidates" if they have equal boundary index or equal name.
-  m_nameToPlaces[{m_boundariesHolder.GetIndex(id), std::string(nameKey)}].push_back(CreatePlace(std::move(fb)));
+  m_nameToPlaces[{m_boundariesHolder.GetIndex(id), std::move(key)}].push_back(CreatePlace(std::move(fb)));
 }
 
 }  // namespace generator

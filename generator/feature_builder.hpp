@@ -2,20 +2,18 @@
 
 #include "indexer/feature_data.hpp"
 
+#include "platform/platform.hpp"
+
 #include "coding/file_reader.hpp"
 #include "coding/file_writer.hpp"
 #include "coding/internal/file_data.hpp"
-#include "coding/read_write_utils.hpp"
 
 #include "base/geo_object_id.hpp"
 #include "base/stl_helpers.hpp"
-#include "base/thread_pool_delayed.hpp"
 
 #include <functional>
 #include <list>
-#include <mutex>
 #include <string>
-#include <thread>
 #include <vector>
 
 namespace serial
@@ -320,10 +318,14 @@ template <class SerializationPolicy = serialization_policy::MaxAccuracy>
 std::vector<FeatureBuilder> ReadAllDatRawFormat(std::string const & fileName)
 {
   std::vector<FeatureBuilder> fbs;
-  ForEachFeatureRawFormat<SerializationPolicy>(fileName, [&](FeatureBuilder && fb, uint64_t)
+  // Happens in tests when World or Country file is empty (no valid Features to emit).
+  if (Platform::IsFileExistsByFullPath(fileName))
   {
-    fbs.emplace_back(std::move(fb));
-  });
+    ForEachFeatureRawFormat<SerializationPolicy>(fileName, [&](FeatureBuilder && fb, uint64_t)
+    {
+      fbs.emplace_back(std::move(fb));
+    });
+  }
   return fbs;
 }
 

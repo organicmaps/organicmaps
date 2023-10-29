@@ -3,55 +3,11 @@
 #include <algorithm>
 #include <fstream>
 #include <iterator>
-#include <mutex>
 #include <tuple>
 
 namespace generator
 {
 using namespace feature;
-
-ProcessorCities::ProcessorCities(std::string const & collectorFilename,
-                                 AffiliationInterface const & affiliation,
-                                 size_t threadsCount)
-  : m_processor(collectorFilename)
-  , m_affiliation(affiliation)
-  , m_threadsCount(threadsCount)
-{
-}
-
-void ProcessorCities::Process(std::string const & mwmPath)
-{
-  std::mutex mutex;
-  std::vector<FeatureBuilder> allCities;
-  auto const & localityChecker = ftypes::IsLocalityChecker::Instance();
-
-  ForEachMwmTmp(mwmPath, [&](auto const & country, auto const & path)
-  {
-    if (!m_affiliation.HasCountryByName(country))
-      return;
-
-    std::vector<FeatureBuilder> cities;
-    FeatureBuilderWriter<serialization_policy::MaxAccuracy> writer(path, true /* mangleName */);
-    ForEachFeatureRawFormat<serialization_policy::MaxAccuracy>(path, [&](FeatureBuilder && fb, uint64_t)
-    {
-      if (localityChecker.GetType(fb.GetTypes()) < ftypes::LocalityType::City)
-        writer.Write(std::move(fb));
-      else
-        cities.emplace_back(std::move(fb));
-    });
-
-    std::lock_guard<std::mutex> lock(mutex);
-    std::move(std::begin(cities), std::end(cities), std::back_inserter(allCities));
-  }, m_threadsCount);
-
-  /// @todo Do we need tmp vector and additional ordering here?
-  Order(allCities);
-  for (auto & city : allCities)
-    m_processor.Add(std::move(city));
-
-  AppendToMwmTmp(m_processor.ProcessPlaces(), m_affiliation, mwmPath, m_threadsCount);
-}
-
 
 bool Less(FeatureBuilder const & lhs, FeatureBuilder const & rhs)
 {

@@ -1,5 +1,7 @@
 #include "generator/filter_world.hpp"
 
+#include "generator/popular_places_section_builder.hpp"
+
 #include "indexer/classificator.hpp"
 #include "indexer/feature_visibility.hpp"
 #include "indexer/ftypes_matcher.hpp"
@@ -11,6 +13,7 @@ namespace generator
 {
 FilterWorld::FilterWorld(std::string const & popularityFilename)
   : m_popularityFilename(popularityFilename)
+  , m_isCityTownVillage(ftypes::IsCityTownOrVillageChecker::Instance())
 {
   if (popularityFilename.empty())
     LOG(LWARNING, ("popular_places_data option not set. Popular attractions will not be added to World.mwm"));
@@ -23,9 +26,14 @@ std::shared_ptr<FilterInterface> FilterWorld::Clone() const
 
 bool FilterWorld::IsAccepted(feature::FeatureBuilder const & fb) const
 {
-  return IsGoodScale(fb) ||
-      IsPopularAttraction(fb, m_popularityFilename) ||
-      IsInternationalAirport(fb);
+  // We collect and process localities in ProcessorCities.
+  /// @todo What if some fancy FBs like town and airport simultaneously? :)
+  if (m_isCityTownVillage(fb.GetTypes()))
+    return false;
+
+  return (IsGoodScale(fb) ||
+          IsPopularAttraction(fb, m_popularityFilename) ||
+          IsInternationalAirport(fb));
 }
 
 // static
