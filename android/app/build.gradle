@@ -29,14 +29,15 @@ buildscript {
   def googleFirebaseServicesFlag = findProperty('firebase')
   // Enable Firebase for all beta flavors except fdroid only if google-services.json exists.
   def googleFirebaseServicesDefault = isBeta && !isFdroid && file("$projectDir/google-services.json").exists()
-  ext.googleFirebaseServicesEnabled = googleFirebaseServicesFlag ? googleFirebaseServicesFlag.toBoolean() :
+  ext.googleFirebaseServicesEnabled = googleFirebaseServicesFlag != null ?
+      googleFirebaseServicesFlag == '' || googleFirebaseServicesFlag.toBoolean() :
       googleFirebaseServicesDefault
 
   // Android Auto compile-time feature flag: -Pandroidauto=true|false
   def androidAutoFlag = findProperty('androidauto')
   // Enable Android Auto by default for all debug and beta flavors except fdroid.
   def androidAutoDefault = isSyncWithFiles || ((isDebug || isBeta) && !isFdroid)
-  ext.androidAutoEnabled = androidAutoFlag ? androidAutoFlag.toBoolean() : androidAutoDefault
+  ext.androidAutoEnabled = androidAutoFlag != null ? androidAutoFlag.toBoolean() : androidAutoDefault
 
   dependencies {
     classpath 'com.android.tools.build:gradle:8.1.2'
