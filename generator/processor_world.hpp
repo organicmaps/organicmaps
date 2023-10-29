@@ -1,6 +1,5 @@
 #pragma once
 
-#include "generator/affiliation.hpp"
 #include "generator/feature_builder.hpp"
 #include "generator/feature_processing_layers.hpp"
 #include "generator/processor_interface.hpp"

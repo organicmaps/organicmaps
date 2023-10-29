@@ -7,6 +7,7 @@
 
 #include "indexer/ftypes_matcher.hpp"
 
+#include "coding/read_write_utils.hpp"
 
 namespace generator
 {

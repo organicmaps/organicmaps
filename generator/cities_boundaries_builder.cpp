@@ -6,7 +6,6 @@
 
 #include "indexer/cities_boundaries_serdes.hpp"
 #include "indexer/city_boundary.hpp"
-#include "indexer/mwm_set.hpp"
 
 #include "coding/file_reader.hpp"
 #include "coding/file_writer.hpp"

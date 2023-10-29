@@ -16,23 +16,18 @@ public:
   /// @param[in]  coastGeomFilename   Can be empty if you don't care about cutting borders by water.
   WorldFinalProcessor(std::string const & temporaryMwmPath, std::string const & coastGeomFilename);
 
-  void SetPopularPlaces(std::string const & filename);
-  void SetCityBoundariesFiles(std::string const & collectorFile, std::string const & boundariesOutFile)
+  void SetPopularPlaces(std::string const & filename)
   {
-    m_boundariesCollectorFile = collectorFile;
-    m_boundariesOutFile = boundariesOutFile;
+    m_popularPlacesFilename = filename;
   }
 
   // FinalProcessorIntermediateMwmInterface overrides:
   void Process() override;
 
 private:
-  void ProcessCities();
-
   std::string m_temporaryMwmPath;
   std::string m_worldTmpFilename;
   std::string m_coastlineGeomFilename;
   std::string m_popularPlacesFilename;
-  std::string m_boundariesCollectorFile, m_boundariesOutFile;
 };
 }  // namespace generator

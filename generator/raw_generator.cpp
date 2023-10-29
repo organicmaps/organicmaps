@@ -2,6 +2,7 @@
 
 //#include "generator/complex_loader.hpp"
 #include "generator/features_processing_helpers.hpp"
+#include "generator/final_processor_cities.hpp"
 #include "generator/final_processor_coastline.hpp"
 #include "generator/final_processor_country.hpp"
 #include "generator/final_processor_world.hpp"
@@ -11,7 +12,6 @@
 #include "generator/translator_factory.hpp"
 #include "generator/translators_pool.hpp"
 
-#include "base/thread_pool_computational.hpp"
 #include "base/timer.hpp"
 
 #include "defines.hpp"
@@ -114,10 +114,15 @@ void RawGenerator::GenerateCountries(bool isTests/* = false*/)
 
   auto processor = CreateProcessor(ProcessorType::Country, affiliation, m_queue);
 
+  /// @todo Better design is to have one Translator that creates FeatureBuilder from OsmElement
+  /// and dispatches FB into Coastline, World, Country, City processors.
+  /// Now we have at least 2x similar work in OsmElement->GetNameAndType->FeatureBuilder (for Country and World).
+
   m_translators->Append(CreateTranslator(TranslatorType::Country, processor, m_cache, m_genInfo,
                                          isTests ? nullptr : affiliation));
 
   m_finalProcessors.emplace(CreateCountryFinalProcessor(affiliation, false));
+  m_finalProcessors.emplace(CreatePlacesFinalProcessor(affiliation));
 }
 
 void RawGenerator::GenerateWorld(bool cutBordersByWater/* = true */)
@@ -210,6 +215,12 @@ RawGenerator::FinalProcessorPtr RawGenerator::CreateWorldFinalProcessor(bool cut
   auto finalProcessor = std::make_shared<WorldFinalProcessor>(m_genInfo.m_tmpDir, coastlineGeom);
 
   finalProcessor->SetPopularPlaces(m_genInfo.m_popularPlacesFilename);
+  return finalProcessor;
+}
+
+RawGenerator::FinalProcessorPtr RawGenerator::CreatePlacesFinalProcessor(AffiliationInterfacePtr const & affiliations)
+{
+  auto finalProcessor = std::make_shared<FinalProcessorCities>(affiliations, m_genInfo.m_tmpDir, m_threadsCount);
   finalProcessor->SetCityBoundariesFiles(m_genInfo.GetIntermediateFileName(CITY_BOUNDARIES_COLLECTOR_FILENAME),
                                          m_genInfo.m_citiesBoundariesFilename);
   return finalProcessor;

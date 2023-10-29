@@ -5,11 +5,9 @@
 #include "generator/osm_element.hpp"
 
 #include "coding/reader.hpp"
+#include "coding/read_write_utils.hpp"
 #include "coding/write_to_sink.hpp"
-#include "coding/writer.hpp"
 
-#include <cstdlib>
-#include <cstdint>
 #include <map>
 #include <memory>
 #include <string>

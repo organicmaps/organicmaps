@@ -45,6 +45,8 @@ private:
   FinalProcessorPtr CreateCoslineFinalProcessor();
   FinalProcessorPtr CreateCountryFinalProcessor(AffiliationInterfacePtr const & affiliations, bool needMixNodes);
   FinalProcessorPtr CreateWorldFinalProcessor(bool cutBordersByWater);
+  FinalProcessorPtr CreatePlacesFinalProcessor(AffiliationInterfacePtr const & affiliations);
+
   bool GenerateFilteredFeatures();
 
   feature::GenerateInfo & m_genInfo;

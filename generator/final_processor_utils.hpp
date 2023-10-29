@@ -1,9 +1,7 @@
 #pragma once
 
 #include "generator/affiliation.hpp"
-#include "generator/cities_boundaries_builder.hpp"
 #include "generator/feature_builder.hpp"
-#include "generator/place_processor.hpp"
 
 #include "platform/platform.hpp"
 
@@ -20,24 +18,6 @@
 
 namespace generator
 {
-
-class ProcessorCities
-{
-public:
-  ProcessorCities(std::string const & collectorFilename,
-                  feature::AffiliationInterface const & affiliation,
-                  size_t threadsCount = 1);
-
-  void Process(std::string const & mwmPath);
-
-  OsmIdToBoundariesTable & GetTable() { return m_processor.GetTable(); }
-
-private:
-  PlaceProcessor m_processor;
-
-  feature::AffiliationInterface const & m_affiliation;
-  size_t m_threadsCount;
-};
 
 template <typename ToDo>
 void ForEachMwmTmp(std::string const & temporaryMwmPath, ToDo && toDo, size_t threadsCount = 1)

@@ -1,8 +1,6 @@
 #include "generator/processor_world.hpp"
 
-#include "generator/cities_boundaries_builder.hpp"
 #include "generator/feature_builder.hpp"
-#include "generator/generate_info.hpp"
 
 #include "defines.hpp"
 

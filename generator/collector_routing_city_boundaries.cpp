@@ -1,6 +1,5 @@
 #include "generator/collector_routing_city_boundaries.hpp"
 
-#include "generator/final_processor_utils.hpp"
 #include "generator/intermediate_data.hpp"
 #include "generator/osm_element.hpp"
 #include "generator/osm_element_helpers.hpp"
@@ -9,6 +8,8 @@
 #include "indexer/ftypes_matcher.hpp"
 
 #include "geometry/mercator.hpp"
+
+#include "coding/read_write_utils.hpp"
 
 #include "base/assert.hpp"
 

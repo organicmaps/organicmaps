@@ -5,12 +5,13 @@
 
 #include "routing_common/maxspeed_conversion.hpp"
 
+#include "indexer/ftypes_matcher.hpp"
+
 #include "platform/platform.hpp"
 
 #include "coding/internal/file_data.hpp"
 
 #include "base/assert.hpp"
-#include "base/geo_object_id.hpp"
 #include "base/logging.hpp"
 #include "base/string_utils.hpp"
 

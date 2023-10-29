@@ -90,13 +90,14 @@ set(SRC
   filter_roads.hpp
   filter_world.cpp
   filter_world.hpp
+  final_processor_cities.cpp
+  final_processor_cities.hpp
   final_processor_coastline.cpp
   final_processor_coastline.hpp
 #  final_processor_complex.cpp
 #  final_processor_complex.hpp
   final_processor_country.cpp
   final_processor_country.hpp
-  final_processor_interface.cpp
   final_processor_interface.hpp
   final_processor_utils.cpp
   final_processor_utils.hpp

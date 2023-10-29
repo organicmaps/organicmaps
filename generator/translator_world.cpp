@@ -1,15 +1,13 @@
 #include "generator/translator_world.hpp"
 
-#include "generator/collector_interface.hpp"
 #include "generator/feature_maker.hpp"
 #include "generator/filter_collection.hpp"
 #include "generator/filter_elements.hpp"
 #include "generator/filter_planet.hpp"
 #include "generator/filter_roads.hpp"
-#include "generator/filter_world.hpp"
 #include "generator/generate_info.hpp"
 #include "generator/intermediate_data.hpp"
-#include "generator/node_mixer.hpp"
+//#include "generator/node_mixer.hpp"
 
 #include "platform/platform.hpp"
 

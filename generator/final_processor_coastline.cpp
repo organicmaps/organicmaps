@@ -2,14 +2,12 @@
 
 #include "generator/feature_builder.hpp"
 #include "generator/feature_generator.hpp"
-#include "generator/final_processor_utils.hpp"
 
-#include <vector>
-
-using namespace feature;
 
 namespace generator
 {
+using namespace feature;
+
 CoastlineFinalProcessor::CoastlineFinalProcessor(std::string const & filename, size_t threadsCount)
   : FinalProcessorIntermediateMwmInterface(FinalProcessorPriority::WorldCoasts)
   , m_filename(filename), m_threadsCount(threadsCount)
