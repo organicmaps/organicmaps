@@ -413,6 +413,8 @@ bool PreprocessForWorldMap(FeatureBuilder & fb)
   if (!checker.m_isRegion)
     fb.RemoveNameIfInvisible(checker.m_lowScale, checker.m_upScale);
 
+  /// @todo Do we need all Metadata for point/area World features? We delete meta for linear in ZeroParams.
+
   return true;
 }
 

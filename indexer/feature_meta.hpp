@@ -66,6 +66,8 @@ public:
     return m_metadata == other.m_metadata;
   }
 
+  void Clear() { m_metadata.clear(); }
+
 protected:
   friend bool indexer::MetadataDeserializer::Get(uint32_t id, MetadataBase & meta);
 

@@ -327,10 +327,6 @@ public:
       f.ForEachName(m_inserter);
       m_inserter.m_statsEnabled = false;
     }
-    if (!f.HasName())
-      m_skipIndex.SkipEmptyNameTypes(types);
-    if (types.Empty())
-      return;
 
     // Road number.
     if (hasStreetType)
@@ -359,6 +355,12 @@ public:
         m_inserter(name.m_locale, name.m_name);
       });
     }
+
+    // Check for empty name just before categories indexing. After postcodes, and other meta ..
+    if (!f.HasName())
+      m_skipIndex.SkipEmptyNameTypes(types);
+    if (types.Empty())
+      return;
 
     Classificator const & c = classif();
     GetCategoryTypes(m_categories, m_scales, types, [this, &c](uint32_t t)

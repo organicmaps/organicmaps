@@ -323,6 +323,13 @@ public:
     m_reversedGeometry = rhs.m_reversedGeometry;
   }
 
+  void MakeZero()
+  {
+    m_metadata.Clear();
+    m_addrTags.Clear();
+    FeatureParams::MakeZero();
+  }
+
   /// @name Used to store address to temporary TEMP_ADDR_EXTENSION file.
   /// @{
   void SetAddress(feature::AddressData && addr) { m_addrTags = std::move(addr); }
