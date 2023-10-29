@@ -91,4 +91,5 @@ jobs:
           CTEST_EXCLUDE_REGEX: "drape_tests|generator_integration_tests|opening_hours_integration_tests|opening_hours_supported_features_tests|routing_benchmarks|routing_integration_tests|routing_quality_tests|search_quality_tests|storage_integration_tests|shaders_tests|world_feed_integration_tests"
         run: |
           ln -s ../data data
-          ctest -LE "fixture" -E "$CTEST_EXCLUDE_REGEX" --output-on-failure
+          ctest -LE "fixture" -E "$CTEST_EXCLUDE_REGEX" --output-on-failure --force-new-ctest-process
+          cat ../tools/python/test_server/server.log
