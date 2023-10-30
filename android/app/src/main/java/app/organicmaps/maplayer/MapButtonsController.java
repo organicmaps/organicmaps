@@ -16,6 +16,8 @@ import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentActivity;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
+
+import app.organicmaps.Framework;
 import app.organicmaps.MwmActivity;
 import app.organicmaps.R;
 import app.organicmaps.downloader.MapManager;
@@ -93,9 +95,29 @@ public class MapButtonsController extends Fragment
 
     final View zoomFrame = mFrame.findViewById(R.id.zoom_buttons_container);
     mFrame.findViewById(R.id.nav_zoom_in)
-          .setOnClickListener((v) -> mMapButtonClickListener.onMapButtonClick(MapButtons.zoomIn));
+          .setOnClickListener((v) -> {
+            mMapButtonClickListener.onMapButtonClick(MapButtons.zoomIn);
+            mFrame.findViewById(R.id.nav_zoom_out).setEnabled(true);
+            mFrame.findViewById(R.id.nav_zoom_out).setAlpha(1);
+            if(Framework.nativeGetDrawScale() == 20) {
+              mFrame.findViewById(R.id.nav_zoom_in).setEnabled(false);
+              mFrame.findViewById(R.id.nav_zoom_in).setAlpha(0.5f);
+            } else {
+              mFrame.findViewById(R.id.nav_zoom_in).setEnabled(true);
+            }
+          });
     mFrame.findViewById(R.id.nav_zoom_out)
-          .setOnClickListener((v) -> mMapButtonClickListener.onMapButtonClick(MapButtons.zoomOut));
+          .setOnClickListener((v) -> {
+            mMapButtonClickListener.onMapButtonClick(MapButtons.zoomOut);
+            mFrame.findViewById(R.id.nav_zoom_in).setEnabled(true);
+            mFrame.findViewById(R.id.nav_zoom_in).setAlpha(1);
+            if(Framework.nativeGetDrawScale() == 2) {
+              mFrame.findViewById(R.id.nav_zoom_out).setEnabled(false);
+              mFrame.findViewById(R.id.nav_zoom_out).setAlpha(0.5f);
+            } else {
+              mFrame.findViewById(R.id.nav_zoom_out).setEnabled(true);
+            }
+          });
     final View bookmarksButton = mFrame.findViewById(R.id.btn_bookmarks);
     bookmarksButton.setOnClickListener((v) -> mMapButtonClickListener.onMapButtonClick(MapButtons.bookmarks));
     final View myPosition = mFrame.findViewById(R.id.my_position);
