@@ -2,7 +2,7 @@
 
 #include "std/target_os.hpp"
 
-#include "3party/utfcpp/source/utf8/unchecked.h"
+#include <utf8cpp/utf8/unchecked.h>
 
 std::string DebugPrint(std::string const & t)
 {
