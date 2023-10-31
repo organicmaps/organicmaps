@@ -55,8 +55,10 @@ public class RoutingErrorDialogFragment extends BaseRoutingErrorDialogFragment
   @Override
   public void onDismiss(DialogInterface dialog)
   {
-    if (mNeedMoreMaps && mCancelled)
+    if (mNeedMoreMaps && mCancelled) {
       mCancelled = false;
+      RoutingController.get().cancel();
+    }
 
     super.onDismiss(dialog);
   }
