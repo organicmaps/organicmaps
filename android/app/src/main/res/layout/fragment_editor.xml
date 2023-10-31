@@ -13,6 +13,22 @@
     android:layout_height="wrap_content"
     android:layout_margin="@dimen/margin_half"
     android:orientation="vertical">
+    <TextView
+      android:layout_width="match_parent"
+      android:layout_height="wrap_content"
+      android:layout_marginTop="@dimen/margin_half"
+      android:text="@string/editor_detailed_description"
+      android:textAppearance="@style/MwmTextAppearance.Body4"/>
+    <TextView
+      android:id="@+id/about_osm"
+      android:layout_width="match_parent"
+      android:layout_height="wrap_content"
+      android:background="?clickableBackground"
+      android:layout_marginBottom="@dimen/margin_base"
+      android:text="@string/editor_more_about_osm"
+      android:textAppearance="@style/MwmTextAppearance.Body4"
+      android:textColor="?colorAccent"
+      android:textSize="@dimen/text_size_body_4"/>
     <androidx.cardview.widget.CardView
       android:id="@+id/cv__category"
       style="@style/MwmWidget.Editor.CardView">
@@ -267,39 +283,25 @@
         android:orientation="vertical"
         android:padding="@dimen/margin_base">
         <TextView
-          android:layout_width="match_parent"
-          android:layout_height="32dp"
+          android:layout_width="wrap_content"
+          android:layout_height="wrap_content"
+          android:fontFamily="@string/robotoMedium"
           android:text="@string/editor_other_info"
-          android:textAppearance="@style/MwmTextAppearance.Body2"/>
+          android:textAppearance="@style/MwmTextAppearance.Body3"
+          tools:ignore="UnusedAttribute"/>
         <app.organicmaps.widget.CustomTextInputLayout
           android:id="@+id/custom_input"
           style="@style/MwmWidget.Editor.CustomTextInput"
           android:gravity="center_vertical"
           android:minHeight="74dp"
-          android:textColorHint="?android:textColorSecondary">
+          android:textColorHint="?android:textColorSecondary"
+          app:hintEnabled="false">
           <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/input"
             style="@style/MwmWidget.Editor.FieldLayout.EditText"
             android:inputType="textMultiLine"
             android:hint="@string/editor_detailed_description_hint"/>
         </app.organicmaps.widget.CustomTextInputLayout>
-        <TextView
-          android:layout_width="match_parent"
-          android:layout_height="wrap_content"
-          android:layout_marginTop="@dimen/margin_half"
-          android:text="@string/editor_detailed_description"
-          android:textAppearance="@style/MwmTextAppearance.Body4"/>
-        <TextView
-          android:id="@+id/about_osm"
-          android:layout_width="match_parent"
-          android:layout_height="wrap_content"
-          android:background="?clickableBackground"
-          android:paddingBottom="@dimen/margin_half"
-          android:paddingTop="@dimen/margin_half"
-          android:text="@string/editor_more_about_osm"
-          android:textAppearance="@style/MwmTextAppearance.Body4"
-          android:textColor="?colorAccent"
-          android:textSize="@dimen/text_size_body_4"/>
       </LinearLayout>
     </androidx.cardview.widget.CardView>
     <androidx.cardview.widget.CardView
