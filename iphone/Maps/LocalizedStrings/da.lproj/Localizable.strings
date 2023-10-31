@@ -729,11 +729,11 @@
 /* Place Page title for long tap */
 "core_placepage_unknown_place" = "Ukendt sted";
 
-"editor_other_info" = "Send en besked til OSM-redaktører";
+"editor_other_info" = "Åbn en diskussionsnote på OpenStreetMap.org";
 
-"editor_detailed_description_hint" = "Detaljerede bemærkninger";
+"editor_detailed_description_hint" = "Spørg andre OpenStreetMap-frivillige om hjælp, hvis du ikke kan redigere noget med Organic Maps (valgfrit)";
 
-"editor_detailed_description" = "Dine foreslåede ændringer vil blive sendt til OpenStreetMap fællesskabet. Beskrive detaljer, som ikke kan redigeres i Organic Maps.";
+"editor_detailed_description" = "Dine redigeringer uploades til den offentlige OpenStreetMap.org (OSM) database. Tilføj venligst ikke personlige eller ophavsretligt beskyttede oplysninger.";
 
 "editor_more_about_osm" = "Mere om OpenStreetMap";
 

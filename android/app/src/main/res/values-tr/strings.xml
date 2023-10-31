@@ -490,9 +490,9 @@
 	<string name="error_enter_correct_zip_code">Geçerli bir posta kodu girin</string>
 	<!-- Place Page title for long tap -->
 	<string name="core_placepage_unknown_place">Bilinmeyen Yer</string>
-	<string name="editor_other_info">OSM editörlerine bir not gönderin</string>
-	<string name="editor_detailed_description_hint">Ayrıntılı yorum</string>
-	<string name="editor_detailed_description">Önerdiğiniz değişiklikler OpenStreetMap topluluğuna gönderilecek. Organic Maps’te düzenlenemeyen ayrıntıları açıklayın.</string>
+	<string name="editor_other_info">OpenStreetMap.org\'da bir tartışma notu açın</string>
+	<string name="editor_detailed_description_hint">Organic Maps ile bir şeyi düzenleyemiyorsanız diğer OpenStreetMap gönüllülerinden yardım isteyin (isteğe bağlı)</string>
+	<string name="editor_detailed_description">Düzenlemeleriniz halka açık OpenStreetMap.org (OSM) veritabanına yüklenir. Lütfen kişisel veya telif hakkıyla korunan bilgiler eklemeyin.</string>
 	<string name="editor_more_about_osm">OpenStreetMap hakkında ek bilgi</string>
 	<string name="editor_operator">İşletmeci</string>
 	<string name="downloader_no_downloaded_maps_title">Hiç harita indirmediniz</string>

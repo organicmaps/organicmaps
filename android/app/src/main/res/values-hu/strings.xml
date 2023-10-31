@@ -478,9 +478,9 @@
 	<string name="error_enter_correct_zip_code">Írja be a helyes irányítószámot</string>
 	<!-- Place Page title for long tap -->
 	<string name="core_placepage_unknown_place">Ismeretlen hely</string>
-	<string name="editor_other_info">Küldjön jegyzetet az OSM editornak</string>
-	<string name="editor_detailed_description_hint">Részletes megjegyzés</string>
-	<string name="editor_detailed_description">Javasolt változtatásait elküldjük az OpenStreetMap közösségnek. Írja le a további információkat, amelyek nem szerkeszthetők a Organic Maps-ben.</string>
+	<string name="editor_other_info">Nyissa meg a vita jegyzetet az OpenStreetMap.org-on</string>
+	<string name="editor_detailed_description_hint">Kérjen segítséget más OpenStreetMap önkéntesektől, ha nem tud valamit szerkeszteni az Organic Maps segítségével (opcionális)</string>
+	<string name="editor_detailed_description">Az Ön szerkesztései feltöltődnek a nyilvános OpenStreetMap.org (OSM) adatbázisba. Kérjük, ne adjon hozzá személyes vagy szerzői jogvédelem alatt álló információkat.</string>
 	<string name="editor_more_about_osm">További részletek az OpenStreetMap-ról</string>
 	<string name="editor_operator">Üzemeltető</string>
 	<string name="downloader_no_downloaded_maps_title">Még nem töltött le térképet</string>

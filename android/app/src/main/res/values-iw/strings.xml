@@ -249,6 +249,9 @@
 	<string name="level">קוֹמָה</string>
 	<!-- Text in About and OSM Login screens. %@ is replaced by a local, human readable date. -->
 	<string name="osm_presentation">נתונים קרטוגרפיים מ- OpenStreetMap נכון לשנת %s. זה כמו Wikipedia בו תוכלו להוסיף או לערוך מקומות לכל המשתמשים ברחבי העולם.</string>
+	<string name="editor_other_info">פתח הערת דיון ב-OpenStreetMap.org</string>
+	<string name="editor_detailed_description_hint">בקש עזרה ממתנדבי OpenStreetMap אחרים אם אינך יכול לערוך משהו עם Organic Maps (אופציונלי)</string>
+	<string name="editor_detailed_description">העריכות שלך מועלות למסד הנתונים הציבורי של OpenStreetMap.org (OSM). נא לא להוסיף מידע אישי או מוגן בזכויות יוצרים.</string>
 	<string name="editor_share_to_all_dialog_message_2">.ןהשלכ תולאש םהל שי םא רשק ךתיא ורציו םייונישה תא וקדבי OpenStreetMap יכרוע</string>
 	<!-- Text under the version number in the Help dialog. TODO: Synchronize other translations with English. -->
 	<string name="about_description">Organic Maps היא אפליקציית מפות לא מקוונות בחינם ובקוד פתוח. ללא פרסומות. אין מעקב. אם אתה רואה שגיאה במפה, אנא תקן אותה ב-OpenStreetMap. הפרויקט נוצר על ידי חובבים בזמננו הפנוי, אז אנו זקוקים למשוב ולתמיכה שלכם.</string>

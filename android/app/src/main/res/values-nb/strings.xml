@@ -490,9 +490,9 @@
 	<string name="error_enter_correct_zip_code">Angi riktig postnummer</string>
 	<!-- Place Page title for long tap -->
 	<string name="core_placepage_unknown_place">Ukjent sted</string>
-	<string name="editor_other_info">Send et notat til OSM-redaktørene</string>
-	<string name="editor_detailed_description_hint">Detaljert kommentar</string>
-	<string name="editor_detailed_description">De foreslåtte endringene vil sendes til OpenStreetMap-gruppen. Beskriv detaljene som ikke kan redigeres i Organic Maps.</string>
+	<string name="editor_other_info">Åpne et diskusjonsnotat på OpenStreetMap.org</string>
+	<string name="editor_detailed_description_hint">Be andre OpenStreetMap-frivillige om hjelp hvis du ikke kan redigere noe med Organic Maps (valgfritt)</string>
+	<string name="editor_detailed_description">Dine endringer lastes opp til den offentlige OpenStreetMap.org-databasen (OSM). Vennligst ikke legg til personlig eller opphavsrettslig beskyttet informasjon.</string>
 	<string name="editor_more_about_osm">Mer om OpenStreetMap</string>
 	<string name="editor_operator">Eier</string>
 	<string name="downloader_no_downloaded_maps_title">Du har ikke lastet ned noen kart</string>

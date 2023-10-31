@@ -495,9 +495,9 @@
 	<string name="error_enter_correct_zip_code">أدخل الرمز البريدي صالح</string>
 	<!-- Place Page title for long tap -->
 	<string name="core_placepage_unknown_place">مكان غير معروف</string>
-	<string name="editor_other_info">ارسل ملاحظة إلى محرري خريطة الشارع المفتوحة</string>
-	<string name="editor_detailed_description_hint">تعليق مفصّل</string>
-	<string name="editor_detailed_description">سيتم إرسال التغييرات التي اقترحتها إلى مجتمع خريطة الشارع المفتوحة. اذكر التفاصيل التي لا يمكن تحريرها في Organic Maps</string>
+	<string name="editor_other_info">افتح مذكرة مناقشة على OpenStreetMap.org</string>
+	<string name="editor_detailed_description_hint">اطلب المساعدة من متطوعي OpenStreetMap الآخرين إذا لم تتمكن من تعديل شيء ما باستخدام Organic Maps (اختياري)</string>
+	<string name="editor_detailed_description">يتم تحميل تعديلاتك إلى قاعدة بيانات OpenStreetMap.org (OSM) العامة. من فضلك لا تضيف معلومات شخصية أو حقوق الطبع والنشر.</string>
 	<string name="editor_more_about_osm">المزيد عن خريطة الشارع المفتوحة</string>
 	<string name="editor_operator">المالك</string>
 	<string name="downloader_no_downloaded_maps_title">لم تقم بتنزيل أية خرائط</string>

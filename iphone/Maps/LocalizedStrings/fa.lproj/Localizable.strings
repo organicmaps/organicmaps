@@ -729,11 +729,11 @@
 /* Place Page title for long tap */
 "core_placepage_unknown_place" = "مکان ناشناس";
 
-"editor_other_info" = "ارسال یادداشت به ویرایش‌کنندگان OSM";
+"editor_other_info" = "یک یادداشت بحث را در OpenStreetMap.org باز کنید";
 
-"editor_detailed_description_hint" = "اظهار نظر بیشتر";
+"editor_detailed_description_hint" = "اگر نمی توانید چیزی را با Organic Maps ویرایش کنید، از سایر داوطلبان OpenStreetMap کمک بخواهید (اختیاری)";
 
-"editor_detailed_description" = "شما یک سری تغییرات در نقشه را برای انجمن OpenStreetMap ارسال کردید.جزئیات اضافی را که نتوانستید در Organic Maps ویرایش کنید را برایشان بنویسید.";
+"editor_detailed_description" = "ویرایش های شما در پایگاه داده عمومی OpenStreetMap.org (OSM) آپلود می شود. لطفا اطلاعات شخصی یا دارای حق چاپ را اضافه نکنید.";
 
 "editor_more_about_osm" = "در مورد OpenStreetMap بیشتر بدانید";
 

@@ -488,9 +488,9 @@
 	<string name="error_enter_correct_zip_code">Sartu baliozko posta-kodea</string>
 	<!-- Place Page title for long tap -->
 	<string name="core_placepage_unknown_place">Toki ezezaguna</string>
-	<string name="editor_other_info">Bidali oharra OSM editoreei</string>
-	<string name="editor_detailed_description_hint">Iruzkin zehatza</string>
-	<string name="editor_detailed_description">Iradoki dituzun aldaketak OpenStreetMap komunitatean argitaratuko dira. Deskribatu mapa organikoetan editatu ezin diren xehetasunak.</string>
+	<string name="editor_other_info">Ireki eztabaida-ohar bat OpenStreetMap.org helbidean</string>
+	<string name="editor_detailed_description_hint">Eskatu laguntza beste OpenStreetMap boluntarioei Organic Maps-ekin zerbait editatu ezin baduzu (aukerakoa)</string>
+	<string name="editor_detailed_description">Zure aldaketak OpenStreetMap.org (OSM) datu-base publikora kargatzen dira. Mesedez, ez gehitu informazio pertsonalik edo copyrightdun informaziorik.</string>
 	<string name="editor_more_about_osm">OpenStreetMap-i buruzko informazio gehiago</string>
 	<string name="editor_operator">Eragilea</string>
 	<string name="downloader_no_downloaded_maps_title">Ez duzu maparik deskargatu</string>

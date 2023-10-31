@@ -82,7 +82,9 @@
 	<string name="level">Ghorofa</string>
 	<!-- Text in About and OSM Login screens. %@ is replaced by a local, human readable date. -->
 	<string name="osm_presentation">Takwimu za katuni kutoka kwa OpenStreetMap kama ya %s. Ni kama Wikipedia ambapo unaweza kuongeza au kuhariri maeneo kwa watumiaji wote ulimwenguni.</string>
-	<string name="editor_other_info">Tuma ujumbe kwenye vihariri vya OSM</string>
+	<string name="editor_other_info">Fungua dokezo la majadiliano katika OpenStreetMap.org</string>
+	<string name="editor_detailed_description_hint">Waulize wajitolea wengine wa OpenStreetMap kwa usaidizi ikiwa huwezi kuhariri kitu ukitumia Organic Maps (si lazima)</string>
+	<string name="editor_detailed_description">Mabadiliko yako yanapakiwa kwenye hifadhidata ya umma ya OpenStreetMap.org (OSM). Tafadhali usiongeze maelezo ya kibinafsi au yenye hakimiliki.</string>
 	<string name="editor_share_to_all_dialog_message_2">Wahariri wa OpenStreetMap watakagua mabadiliko na kuwasiliana nawe ikiwa wana maswali yoyote.</string>
 	<!-- Text under the version number in the Help dialog. TODO: Synchronize other translations with English. -->
 	<string name="about_description">Organic Maps ni programu huria na ya chanzo huria ya ramani za nje ya mtandao. Hakuna matangazo. Hakuna ufuatiliaji. Ukiona hitilafu kwenye ramani, tafadhali irekebishe katika OpenStreetMap. Mradi huu umeundwa na wapendaji katika wakati wetu wa bure, kwa hivyo tunahitaji maoni na usaidizi wako.</string>

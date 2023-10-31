@@ -470,9 +470,9 @@
 	<string name="error_enter_correct_zip_code">Zadejte správné PSČ</string>
 	<!-- Place Page title for long tap -->
 	<string name="core_placepage_unknown_place">Neznámé místo</string>
-	<string name="editor_other_info">Odeslat poznámku editorům OSM</string>
-	<string name="editor_detailed_description_hint">Podrobný komentář</string>
-	<string name="editor_detailed_description">Vámi navržené změny odešleme do komunity OpenStreetMap. Popište podrobnosti, které nelze upravit v Organic Maps.</string>
+	<string name="editor_other_info">Otevřít diskusní poznámku na OpenStreetMap.org</string>
+	<string name="editor_detailed_description_hint">Požádejte ostatní dobrovolníky OpenStreetMap o pomoc, pokud si nevíte rady s úpravami v Organic Maps (nepovinné)</string>
+	<string name="editor_detailed_description">Vaše úpravy jsou nahrány do veřejné databáze OpenStreetMap.org (OSM). Nepřidávejte prosím osobní informace nebo informace chráněné autorskými právy.</string>
 	<string name="editor_more_about_osm">Více o projektu OpenStreetMap</string>
 	<string name="editor_operator">Operátor</string>
 	<string name="downloader_no_downloaded_maps_title">Nemáte stažené žádné mapy</string>

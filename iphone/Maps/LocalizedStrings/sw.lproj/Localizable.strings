@@ -729,11 +729,11 @@
 /* Place Page title for long tap */
 "core_placepage_unknown_place" = "Unknown Place";
 
-"editor_other_info" = "Tuma ujumbe kwenye vihariri vya OSM";
+"editor_other_info" = "Fungua dokezo la majadiliano katika OpenStreetMap.org";
 
-"editor_detailed_description_hint" = "Detailed comment";
+"editor_detailed_description_hint" = "Waulize wajitolea wengine wa OpenStreetMap kwa usaidizi ikiwa huwezi kuhariri kitu ukitumia Organic Maps (si lazima)";
 
-"editor_detailed_description" = "Your suggested map changes will be sent to the OpenStreetMap community. Please describe any additional details that cannot be edited in Organic Maps.";
+"editor_detailed_description" = "Mabadiliko yako yanapakiwa kwenye hifadhidata ya umma ya OpenStreetMap.org (OSM). Tafadhali usiongeze maelezo ya kibinafsi au yenye hakimiliki.";
 
 "editor_more_about_osm" = "More about OpenStreetMap";
 

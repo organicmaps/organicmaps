@@ -729,11 +729,11 @@
 /* Place Page title for long tap */
 "core_placepage_unknown_place" = "Địa Điểm Chưa Biết";
 
-"editor_other_info" = "Gửi ghi chú cho ban biên tập OSM";
+"editor_other_info" = "Mở ghi chú thảo luận tại OpenStreetMap.org";
 
-"editor_detailed_description_hint" = "Nhận xét chi tiết";
+"editor_detailed_description_hint" = "Yêu cầu các tình nguyện viên OpenStreetMap khác giúp đỡ nếu bạn không thể chỉnh sửa nội dung nào đó bằng Organic Maps (tùy chọn)";
 
-"editor_detailed_description" = "Những thay đổi đề nghị của bạn sẽ được gửi đến cộng đồng OpenStreetMap. Mô tả các chi tiết không thể sửa trong Organic Maps.";
+"editor_detailed_description" = "Các chỉnh sửa của bạn sẽ được tải lên cơ sở dữ liệu OpenStreetMap.org (OSM) công khai. Vui lòng không thêm thông tin cá nhân hoặc có bản quyền.";
 
 "editor_more_about_osm" = "Thông tin bổ sung về OpenStreetMap";
 
