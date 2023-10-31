@@ -115,7 +115,7 @@ landuse-recreation_ground                           # area z12- (also has captio
 landuse-village_green                               # area z12-
 landuse-vineyard                                    # area z12- (also has caption z15-)
 leisure-pitch                                       # area z15- (also has icon z17-, caption(optional) z17-)
-natural-bare_rock                                   # area z12- (also has caption z14-)
+natural-bare_rock                                   # area z12- (also has caption z13-)
 === 80
 
 leisure-garden                                      # area z12- (also has icon z16-, caption(optional) z16-)
@@ -151,9 +151,9 @@ aeroway-aerodrome                                   # area z10- (also has icon z
 aeroway-aerodrome-international                     # area z10- (also has icon z7-, caption(optional) z10-)
 landuse-education                                   # area z15-
 leisure-beach_resort                                # area z10- (also has icon z16-, caption(optional) z16-)
-natural-beach                                       # area z10- (also has caption z15-)
-natural-beach-gravel                                # area z10- (also has caption z15-)
-natural-beach-sand                                  # area z10- (also has caption z15-)
+natural-beach                                       # area z10- (also has caption z14-)
+natural-beach-gravel                                # area z10- (also has caption z14-)
+natural-beach-sand                                  # area z10- (also has caption z14-)
 natural-desert                                      # area z1- (also has caption z14-)
 natural-glacier                                     # area z1-
 === 30
