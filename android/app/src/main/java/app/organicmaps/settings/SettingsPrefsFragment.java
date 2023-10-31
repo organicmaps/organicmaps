@@ -731,18 +731,18 @@ public class SettingsPrefsFragment extends BaseXmlSettingsFragment
 
   private void initScreenSleepEnabledPrefsCallbacks()
   {
-    final Preference pref = getPreference(getString(R.string.pref_screen_sleep));
+    final Preference pref = getPreference(getString(R.string.pref_keep_screen_on));
 
-    final boolean isScreenSleepEnabled = Config.isScreenSleepEnabled();
-    ((TwoStatePreference) pref).setChecked(isScreenSleepEnabled);
+    final boolean isKeepScreenOnEnabled = Config.isKeepScreenOnEnabled();
+    ((TwoStatePreference) pref).setChecked(isKeepScreenOnEnabled);
     pref.setOnPreferenceChangeListener(
         (preference, newValue) ->
         {
           boolean newVal = (Boolean) newValue;
-          if (isScreenSleepEnabled != newVal)
+          if (isKeepScreenOnEnabled != newVal)
           {
-            Config.setScreenSleepEnabled(newVal);
-            Utils.keepScreenOn(!newVal, requireActivity().getWindow());
+            Config.setKeepScreenOnEnabled(newVal);
+            Utils.keepScreenOn(newVal, requireActivity().getWindow());
           }
           return true;
         });

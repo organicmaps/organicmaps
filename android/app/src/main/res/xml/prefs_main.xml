@@ -84,10 +84,10 @@
       android:entryValues="@array/power_management_scheme_values"
       android:order="15"/>
     <SwitchPreferenceCompat
-      android:key="@string/pref_screen_sleep"
-      android:title="@string/enable_screen_sleep"
+      android:key="@string/pref_keep_screen_on"
+      android:title="@string/enable_keep_screen_on"
       app:singleLineTitle="false"
-      android:summary="@string/enable_screen_sleep_description"
+      android:summary="@string/enable_keep_screen_on_description"
       android:defaultValue="false"
       android:order="16"/>
     <SwitchPreferenceCompat

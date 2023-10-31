@@ -30,6 +30,7 @@ import app.organicmaps.intent.IntentProcessor;
 import app.organicmaps.intent.MapTask;
 import app.organicmaps.location.LocationHelper;
 import app.organicmaps.location.LocationListener;
+import app.organicmaps.util.Config;
 import app.organicmaps.util.ConnectionState;
 import app.organicmaps.util.StringUtils;
 import app.organicmaps.util.UiUtils;
@@ -231,7 +232,7 @@ public class DownloadResourcesLegacyActivity extends BaseMwmFragmentActivity
     super.onSafeDestroy();
     mApiRequest.unregister();
     mApiRequest = null;
-    Utils.keepScreenOn(false, getWindow());
+    Utils.keepScreenOn(Config.isKeepScreenOnEnabled(), getWindow());
     if (mCountryDownloadListenerSlot != 0)
     {
       MapManager.nativeUnsubscribe(mCountryDownloadListenerSlot);
