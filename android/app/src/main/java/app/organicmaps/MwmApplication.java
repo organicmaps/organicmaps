@@ -149,6 +149,8 @@ public class MwmApplication extends Application implements Application.ActivityL
     Logger.d(TAG, "Settings path = " + settingsPath);
     nativeSetSettingsDir(settingsPath);
 
+    Config.init(this);
+
     mMainLoopHandler = new Handler(getMainLooper());
     ConnectionState.INSTANCE.initialize(this);
 

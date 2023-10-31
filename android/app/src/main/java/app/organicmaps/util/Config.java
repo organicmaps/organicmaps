@@ -30,7 +30,8 @@ public final class Config
   private static final String KEY_MISC_USE_MOBILE_DATA = "UseMobileData";
   private static final String KEY_MISC_USE_MOBILE_DATA_TIMESTAMP = "UseMobileDataTimestamp";
   private static final String KEY_MISC_USE_MOBILE_DATA_ROAMING = "UseMobileDataRoaming";
-  private static final String KEY_MISC_ENABLE_SCREEN_SLEEP = "EnableScreenSleep";
+  private static final String KEY_MISC_KEEP_SCREEN_ON = "KeepScreenOn";
+
   private static final String KEY_MISC_SHOW_ON_LOCK_SCREEN = "ShowOnLockScreen";
   private static final String KEY_MISC_AGPS_TIMESTAMP = "AGPSTimestamp";
   private static final String KEY_DONATE_URL = "DonateUrl";
@@ -170,14 +171,14 @@ public final class Config
     setBool(KEY_PREF_STATISTICS, enabled);
   }
 
-  public static boolean isScreenSleepEnabled()
+  public static boolean isKeepScreenOnEnabled()
   {
-    return getBool(KEY_MISC_ENABLE_SCREEN_SLEEP, false);
+    return getBool(KEY_MISC_KEEP_SCREEN_ON, false);
   }
 
-  public static void setScreenSleepEnabled(boolean enabled)
+  public static void setKeepScreenOnEnabled(boolean enabled)
   {
-    setBool(KEY_MISC_ENABLE_SCREEN_SLEEP, enabled);
+    setBool(KEY_MISC_KEEP_SCREEN_ON, enabled);
   }
 
   public static boolean isShowOnLockScreenEnabled()
@@ -333,13 +334,14 @@ public final class Config
     return getString(KEY_DONATE_URL);
   }
 
-  public static void updateCounters(@NonNull Context context)
+  public static void init(@NonNull Context context)
   {
     PreferenceManager.setDefaultValues(context, R.xml.prefs_main, false);
 
     final SharedPreferences prefs = MwmApplication.prefs(context);
     final SharedPreferences.Editor editor = prefs.edit();
 
+    // Update counters.
     final int launchNumber = prefs.getInt(KEY_APP_LAUNCH_NUMBER, 0);
     editor.putInt(KEY_APP_LAUNCH_NUMBER, launchNumber + 1);
     editor.putLong(KEY_APP_LAST_SESSION_TIMESTAMP, System.currentTimeMillis());
@@ -353,6 +355,14 @@ public final class Config
     editor.remove("WhatsNewShownVersion");
     editor.remove("LastRatedSession");
     editor.remove("RatedDialog");
+
+    // Migrate ENABLE_SCREEN_SLEEP to KEEP_SCREEN_ON.
+    final String KEY_MISC_ENABLE_SCREEN_SLEEP = "EnableScreenSleep";
+    if (nativeHasConfigValue(KEY_MISC_ENABLE_SCREEN_SLEEP))
+    {
+      nativeSetBoolean(KEY_MISC_KEEP_SCREEN_ON, !getBool(KEY_MISC_ENABLE_SCREEN_SLEEP, false));
+      nativeDeleteConfigValue(KEY_MISC_ENABLE_SCREEN_SLEEP);
+    }
 
     editor.apply();
   }
@@ -370,6 +380,8 @@ public final class Config
         .apply();
   }
 
+  private static native boolean nativeHasConfigValue(String name);
+  private static native boolean nativeDeleteConfigValue(String name);
   private static native boolean nativeGetBoolean(String name, boolean defaultValue);
   private static native void nativeSetBoolean(String name, boolean value);
   private static native int nativeGetInt(String name, int defaultValue);

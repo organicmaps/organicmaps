@@ -5,6 +5,19 @@
 extern "C"
 {
   JNIEXPORT jboolean JNICALL
+  Java_app_organicmaps_util_Config_nativeHasConfigValue(JNIEnv * env, jclass thiz, jstring name)
+  {
+    std::string value;
+    return settings::Get(jni::ToNativeString(env, name), value);
+  }
+
+  JNIEXPORT void JNICALL
+  Java_app_organicmaps_util_Config_nativeDeleteConfigValue(JNIEnv * env, jclass thiz, jstring name)
+  {
+    settings::Delete(jni::ToNativeString(env, name));
+  }
+
+  JNIEXPORT jboolean JNICALL
   Java_app_organicmaps_util_Config_nativeGetBoolean(JNIEnv * env, jclass thiz, jstring name, jboolean defaultVal)
   {
     bool val;

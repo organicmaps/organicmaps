@@ -81,7 +81,6 @@ public class SplashActivity extends AppCompatActivity
       throw new IllegalArgumentException("Attempt to apply unsupported theme: " + theme);
 
     UiThread.cancelDelayedTasks(mInitCoreDelayedTask);
-    Config.updateCounters(this);
     setContentView(R.layout.activity_splash);
     mPermissionRequest = registerForActivityResult(new ActivityResultContracts.RequestMultiplePermissions(),
         result -> Config.setLocationRequested());

@@ -753,9 +753,9 @@
 	<string name="connection_failure">Connection failure</string>
 	<!-- Used in DownloadResources startup screen -->
 	<string name="disconnect_usb_cable_title">Disconnect USB cable</string>
-	<string name="enable_screen_sleep">Allow the screen to sleep</string>
+	<string name="enable_keep_screen_on">Keep the screen on</string>
 	<!-- Description in preferences -->
-	<string name="enable_screen_sleep_description">When enabled, the screen will be allowed to sleep after a period of inactivity.</string>
+	<string name="enable_keep_screen_on_description">When enabled, the screen will always be on when displaying the map.</string>
 	<!-- A preference title; keep short! -->
 	<string name="enable_show_on_lock_screen">Show on the lock screen</string>
 	<!-- Description in preferences -->
