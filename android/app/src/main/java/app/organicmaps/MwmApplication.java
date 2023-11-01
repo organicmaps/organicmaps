@@ -26,6 +26,7 @@ import app.organicmaps.display.DisplayManager;
 import app.organicmaps.downloader.CountryItem;
 import app.organicmaps.downloader.MapManager;
 import app.organicmaps.location.LocationHelper;
+import app.organicmaps.location.LocationState;
 import app.organicmaps.location.SensorHelper;
 import app.organicmaps.maplayer.isolines.IsolinesManager;
 import app.organicmaps.maplayer.subway.SubwayManager;
@@ -358,13 +359,17 @@ public class MwmApplication extends Application implements Application.ActivityL
 
     OsmUploadWork.startActionUploadOsmChanges(this);
 
-    if (RoutingController.get().isNavigating())
-    {
+    if (!mDisplayManager.isDeviceDisplayUsed())
+      Logger.i(LOCATION_TAG, "Android Auto is active, keeping location in the background");
+    else if (RoutingController.get().isNavigating())
       Logger.i(LOCATION_TAG, "Navigation is in progress, keeping location in the background");
-      return;
-    }
-    if (mDisplayManager.isDeviceDisplayUsed())
+    else if (!Map.isEngineCreated() || LocationState.nativeGetMode() == LocationState.PENDING_POSITION)
+      Logger.i(LOCATION_TAG, "PENDING_POSITION mode, keeping location in the background");
+    else
+    {
+      Logger.i(LOCATION_TAG, "Stopping location in the background");
       mLocationHelper.stop();
+    }
   }
 
   private class StorageCallbackImpl implements MapManager.StorageCallback
