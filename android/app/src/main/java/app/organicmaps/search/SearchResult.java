@@ -21,7 +21,7 @@ import app.organicmaps.util.Utils;
 // Used by JNI.
 @Keep
 @SuppressWarnings("unused")
-public class SearchResult implements PopularityProvider
+public class SearchResult
 {
   public static final int TYPE_PURE_SUGGEST = 0;
   public static final int TYPE_SUGGEST = 1;
@@ -120,13 +120,6 @@ public class SearchResult implements PopularityProvider
     this.lon = lon;
     this.description = description;
     this.highlightRanges = highlightRanges;
-  }
-
-  @NonNull
-  @Override
-  public Popularity getPopularity()
-  {
-    return mPopularity;
   }
 
   @NonNull

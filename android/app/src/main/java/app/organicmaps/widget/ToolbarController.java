@@ -83,12 +83,6 @@ public class ToolbarController
     return appCompatActivity.getSupportActionBar();
   }
 
-  @Nullable
-  public Activity getActivity()
-  {
-    return mActivity;
-  }
-
   @NonNull
   public Activity requireActivity()
   {

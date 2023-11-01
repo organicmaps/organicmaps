@@ -3,14 +3,11 @@ package app.organicmaps.intent;
 import android.content.ContentResolver;
 import android.content.Intent;
 import android.net.Uri;
-import android.os.Bundle;
 import android.text.TextUtils;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import androidx.fragment.app.DialogFragment;
-import androidx.fragment.app.Fragment;
-import androidx.fragment.app.FragmentManager;
+
 import app.organicmaps.DownloadResourcesLegacyActivity;
 import app.organicmaps.Framework;
 import app.organicmaps.Map;
@@ -27,14 +24,12 @@ import app.organicmaps.bookmarks.data.MapObject;
 import app.organicmaps.routing.RoutingController;
 import app.organicmaps.search.SearchActivity;
 import app.organicmaps.search.SearchEngine;
-import app.organicmaps.util.KeyValue;
 import app.organicmaps.util.StorageUtils;
 import app.organicmaps.util.StringUtils;
 import app.organicmaps.util.Utils;
 import app.organicmaps.util.concurrency.ThreadPool;
 
 import java.io.File;
-import java.util.List;
 
 public class Factory
 {
@@ -372,41 +367,6 @@ public class Factory
     {
       RoutingController.get().restoreRoute();
       return true;
-    }
-  }
-
-  public static class ShowDialogTask implements MapTask
-  {
-    private static final long serialVersionUID = 1548931513812565018L;
-    @NonNull
-    private final String mDialogName;
-
-    public ShowDialogTask(@NonNull String dialogName)
-    {
-      mDialogName = dialogName;
-    }
-
-    @Override
-    public boolean run(@NonNull MwmActivity target)
-    {
-      final FragmentManager fragmentManager = target.getSupportFragmentManager();
-      Fragment f = fragmentManager.findFragmentByTag(mDialogName);
-      if (f != null)
-        return true;
-
-      final DialogFragment fragment = (DialogFragment) fragmentManager.getFragmentFactory()
-        .instantiate(target.getClassLoader(), mDialogName);
-      fragment.show(fragmentManager, mDialogName);
-      return true;
-    }
-
-    @NonNull
-    private static Bundle toDialogArgs(@NonNull List<KeyValue> pairs)
-    {
-      Bundle bundle = new Bundle();
-      for (KeyValue each : pairs)
-        bundle.putString(each.getKey(), each.getValue());
-      return bundle;
     }
   }
 }

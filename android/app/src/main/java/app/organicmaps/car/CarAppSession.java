@@ -235,6 +235,7 @@ public final class CarAppSession extends Session implements DefaultLifecycleObse
   }
 
   @Override
+  @SuppressWarnings("unused")
   public void onPlacePageActivated(@NonNull PlacePageData data)
   {
     final MapObject mapObject = (MapObject) data;
@@ -251,6 +252,7 @@ public final class CarAppSession extends Session implements DefaultLifecycleObse
   }
 
   @Override
+  @SuppressWarnings("unused")
   public void onPlacePageDeactivated(boolean switchFullScreenMode)
   {
     // The function is called when we close the PlaceScreen or when we enter the navigation mode.

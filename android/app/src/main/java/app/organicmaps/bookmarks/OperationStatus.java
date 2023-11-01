@@ -42,23 +42,6 @@ public class OperationStatus implements Parcelable
     }
   };
 
-  public boolean isOk()
-  {
-    return mError == null;
-  }
-
-  @Nullable
-  public Result getResult()
-  {
-    return mResult;
-  }
-
-  @Nullable
-  public Error getError()
-  {
-    return mError;
-  }
-
   @Override
   public int describeContents()
   {

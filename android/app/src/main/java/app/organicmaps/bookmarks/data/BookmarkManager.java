@@ -100,12 +100,6 @@ public enum BookmarkManager
   @NonNull
   private final List<BookmarksCloudListener> mCloudListeners = new ArrayList<>();
 
-  @NonNull
-  private final List<BookmarksCatalogPingListener> mCatalogPingListeners = new ArrayList<>();
-
-  @NonNull
-  private final List<BookmarksExpiredCategoriesListener> mExpiredCategoriesListeners = new ArrayList<>();
-
   @Nullable
   private OnElevationCurrentPositionChangedListener mOnElevationCurrentPositionChangedListener;
 
@@ -173,16 +167,6 @@ public enum BookmarkManager
   public void removeSharingListener(@NonNull BookmarksSharingListener listener)
   {
     mSharingListeners.remove(listener);
-  }
-
-  public void addCloudListener(@NonNull BookmarksCloudListener listener)
-  {
-    mCloudListeners.add(listener);
-  }
-
-  public void removeCloudListener(@NonNull BookmarksCloudListener listener)
-  {
-    mCloudListeners.remove(listener);
   }
 
   public void setElevationActivePointChangedListener(
@@ -417,8 +401,6 @@ public enum BookmarkManager
 
   public void showBookmarkCategoryOnMap(long catId) { nativeShowBookmarkCategoryOnMap(catId); }
 
-  public long getLastEditedCategory() { return nativeGetLastEditedCategory(); }
-
   @Icon.PredefinedColor
   public int getLastEditedColor() { return nativeGetLastEditedColor(); }
 
@@ -585,16 +567,6 @@ public enum BookmarkManager
   public void setNotificationsEnabled(boolean enabled)
   {
     nativeSetNotificationsEnabled(enabled);
-  }
-
-  public boolean areNotificationsEnabled()
-  {
-    return nativeAreNotificationsEnabled();
-  }
-
-  public void requestRouteTags()
-  {
-    nativeRequestCatalogTags();
   }
 
   public boolean hasLastSortingType(long catId) { return nativeHasLastSortingType(catId); }
@@ -808,8 +780,6 @@ public enum BookmarkManager
   @Nullable
   private native Bookmark nativeAddBookmarkToLastEditedCategory(double lat, double lon);
 
-  private native long nativeGetLastEditedCategory();
-
   @Icon.PredefinedColor
   private native int nativeGetLastEditedColor();
 
@@ -835,8 +805,6 @@ public enum BookmarkManager
 
   private static native void nativeSetNotificationsEnabled(boolean enabled);
 
-  private static native boolean nativeAreNotificationsEnabled();
-
   @NonNull
   private static native String nativeGetCatalogDeeplink(long catId);
 
@@ -848,8 +816,6 @@ public enum BookmarkManager
 
   @NonNull
   private static native KeyValue[] nativeGetCatalogHeaders();
-
-  private static native void nativeRequestCatalogTags();
 
   private static native void nativeRequestCatalogCustomProperties();
 
@@ -981,16 +947,6 @@ public enum BookmarkManager
     void onRestoredFilesPrepared();
   }
 
-  public interface BookmarksCatalogPingListener
-  {
-    void onPingFinished(boolean isServiceAvailable);
-  }
-
-  public interface BookmarksExpiredCategoriesListener
-  {
-    void onCheckExpiredCategories(boolean hasExpiredCategories);
-  }
-
   public interface OnElevationActivePointChangedListener
   {
     void onElevationActivePointChanged();
@@ -999,19 +955,6 @@ public enum BookmarkManager
   public interface OnElevationCurrentPositionChangedListener
   {
     void onCurrentPositionChanged();
-  }
-
-  public enum UploadResult
-  {
-    UPLOAD_RESULT_SUCCESS,
-    UPLOAD_RESULT_NETWORK_ERROR,
-    UPLOAD_RESULT_SERVER_ERROR,
-    UPLOAD_RESULT_AUTH_ERROR,
-    /* Broken file */
-    UPLOAD_RESULT_MALFORMED_DATA_ERROR,
-    /* Edit on web */
-    UPLOAD_RESULT_ACCESS_ERROR,
-    UPLOAD_RESULT_INVALID_CALL
   }
 
   static class BookmarkCategoriesCache

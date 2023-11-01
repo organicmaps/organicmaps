@@ -23,7 +23,6 @@ import app.organicmaps.location.SensorHelper;
 import app.organicmaps.location.SensorListener;
 import app.organicmaps.widget.ArrowView;
 import app.organicmaps.util.UiUtils;
-import app.organicmaps.util.Utils;
 
 public class DirectionFragment extends BaseMwmDialogFragment
                             implements LocationListener, SensorListener

@@ -13,7 +13,6 @@ import android.content.pm.ResolveInfo;
 import android.content.res.Resources;
 import android.net.Uri;
 import android.os.Build;
-import android.os.Bundle;
 import android.text.Html;
 import android.text.Spannable;
 import android.text.SpannableStringBuilder;
@@ -67,11 +66,6 @@ public class Utils
 
   private Utils()
   {
-  }
-
-  private static boolean isTargetOrLater(int target)
-  {
-    return Build.VERSION.SDK_INT >= target;
   }
 
   /**

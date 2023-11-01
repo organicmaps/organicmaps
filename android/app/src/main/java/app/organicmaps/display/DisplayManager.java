@@ -23,13 +23,11 @@ public class DisplayManager
 
   private static class DisplayHolder
   {
-    boolean isConnected = false;
     boolean notify = false;
     DisplayChangedListener listener;
 
     public void destroy()
     {
-      isConnected = false;
       notify = false;
       listener = null;
     }
@@ -78,14 +76,12 @@ public class DisplayManager
     if (displayType == DisplayType.Device)
     {
       mDevice = new DisplayHolder();
-      mDevice.isConnected = true;
       mDevice.notify = true;
       mDevice.listener = listener;
     }
     else if (displayType == DisplayType.Car && mCar == null)
     {
       mCar = new DisplayHolder();
-      mCar.isConnected = true;
       mCar.notify = true;
       mCar.listener = listener;
     }

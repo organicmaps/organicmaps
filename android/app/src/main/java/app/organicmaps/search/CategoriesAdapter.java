@@ -183,7 +183,6 @@ class CategoriesAdapter extends RecyclerView.Adapter<CategoriesAdapter.ViewHolde
 
     void onItemClicked(int position)
     {
-      String categoryEntryName = mResources.getResourceEntryName(mCategoryResIds[position]);
       if (mListener != null)
       {
         @StringRes
@@ -198,16 +197,5 @@ class CategoriesAdapter extends RecyclerView.Adapter<CategoriesAdapter.ViewHolde
       mTitle.setCompoundDrawablesRelativeWithIntrinsicBounds(iconResId, 0, 0, 0);
     }
 
-    @NonNull
-    TextView getTitle()
-    {
-      return mTitle;
-    }
-
-    @NonNull
-    View getView()
-    {
-      return mView;
-    }
   }
 }

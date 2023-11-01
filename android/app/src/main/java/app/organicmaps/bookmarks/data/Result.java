@@ -24,18 +24,6 @@ public class Result implements Parcelable
     mArchiveId = in.readString();
   }
 
-  @Nullable
-  public String getFilePath()
-  {
-    return mFilePath;
-  }
-
-  @Nullable
-  public String getArchiveId()
-  {
-    return mArchiveId;
-  }
-
   @Override
   public int describeContents()
   {

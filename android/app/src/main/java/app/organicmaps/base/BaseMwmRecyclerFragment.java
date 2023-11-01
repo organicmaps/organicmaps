@@ -91,11 +91,6 @@ public abstract class BaseMwmRecyclerFragment<T extends RecyclerView.Adapter> ex
     setupPlaceholder(mPlaceholder);
   }
 
-  public Toolbar getToolbar()
-  {
-    return mToolbar;
-  }
-
   public RecyclerView getRecyclerView()
   {
     return mRecycler;

@@ -15,13 +15,11 @@ import app.organicmaps.BuildConfig;
 import app.organicmaps.util.log.Logger;
 
 import java.io.File;
-import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.FilenameFilter;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
-import java.nio.channels.FileChannel;
 import java.util.ArrayList;
 import java.util.Queue;
 import java.util.concurrent.LinkedBlockingQueue;
@@ -150,12 +148,6 @@ public class StorageUtils
       throw new IOException("Can't create directory " + path);
   }
 
-  static long getFileSize(@NonNull String path)
-  {
-    File file = new File(path);
-    return file.length();
-  }
-
   @NonNull
   public static Uri getUriForFilePath(@NonNull Context context, @NonNull String path)
   {
@@ -187,34 +179,6 @@ public class StorageUtils
 
         return true;
       }
-    }
-  }
-
-  /**
-   * Copy the contents of the source file to the target file.
-   * @param from a source file
-   * @param to a destination file
-   * @throws IOException - if I/O error occurs.
-   */
-  static void copyFile(File from, File to) throws IOException
-  {
-    int maxChunkSize = 10 * Constants.MB; // move file by smaller chunks to avoid OOM.
-    FileChannel inputChannel = null, outputChannel = null;
-    try
-    {
-      inputChannel = new FileInputStream(from).getChannel();
-      outputChannel = new FileOutputStream(to).getChannel();
-      long totalSize = inputChannel.size();
-
-      for (long currentPosition = 0; currentPosition < totalSize; currentPosition += maxChunkSize)
-      {
-        outputChannel.position(currentPosition);
-        outputChannel.transferFrom(inputChannel, currentPosition, maxChunkSize);
-      }
-    } finally
-    {
-      Utils.closeSafely(inputChannel);
-      Utils.closeSafely(outputChannel);
     }
   }
 

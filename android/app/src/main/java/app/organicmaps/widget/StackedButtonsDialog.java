@@ -185,13 +185,6 @@ public class StackedButtonsDialog extends AppCompatDialog implements View.OnClic
     }
 
     @NonNull
-    public Builder setCancelListener(@Nullable DialogInterface.OnCancelListener listener)
-    {
-      mCancelListener = listener;
-      return this;
-    }
-
-    @NonNull
     public StackedButtonsDialog build()
     {
       return new StackedButtonsDialog(mContext, mTitle, mMessage, mPositive, mPositiveListener,

@@ -104,6 +104,7 @@ public class ChartController implements OnChartValueSelectedListener,
     initAxises();
   }
 
+  @SuppressWarnings("unused")
   public void destroy()
   {
     BookmarkManager.INSTANCE.setElevationActivePointChangedListener(null);

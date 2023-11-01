@@ -64,8 +64,4 @@ public class RoutingPlanFragment extends BaseMwmFragment
     mPlanController.showAddFinishFrame();
   }
 
-  public void hideActionFrame()
-  {
-    mPlanController.hideActionFrame();
-  }
 }
