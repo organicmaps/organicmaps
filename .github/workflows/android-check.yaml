@@ -21,6 +21,12 @@ on:
       - docs/**
       - generator/**
       - packaging/**
+      - platform/*apple*
+      - platform/*_ios*
+      - platform/*_linux* 
+      - platform/*_mac* 
+      - platform/*qt* 
+      - platform/*_win* 
       - pyhelpers/**
       - qt*/**
       - skin_generator/**
