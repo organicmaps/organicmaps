@@ -250,7 +250,7 @@ public class NavigationService extends Service implements LocationListener
 
     final String[] turnNotifications = Framework.nativeGenerateNotifications();
     if (turnNotifications != null)
-      TtsPlayer.INSTANCE.playTurnNotifications(getApplicationContext(), turnNotifications);
+      TtsPlayer.INSTANCE.playTurnNotifications(turnNotifications);
 
     // TODO: consider to create callback mechanism to transfer 'ROUTE_IS_FINISHED' event from
     // the core to the platform code (https://github.com/organicmaps/organicmaps/issues/3589),

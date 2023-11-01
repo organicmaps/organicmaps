@@ -24,6 +24,7 @@ import androidx.activity.result.ActivityResultLauncher;
 import androidx.activity.result.IntentSenderRequest;
 import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.annotation.CallSuper;
+import androidx.annotation.Keep;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.annotation.StyleRes;
@@ -253,7 +254,10 @@ public class MwmActivity extends BaseMwmFragmentActivity
     runTasks();
   }
 
+  // Called from JNI.
   @Override
+  @Keep
+  @SuppressWarnings("unused")
   public void onRenderingInitializationFinished()
   {
     runTasks();
@@ -1191,6 +1195,7 @@ public class MwmActivity extends BaseMwmFragmentActivity
 
   // Called from JNI.
   @Override
+  @SuppressWarnings("unused")
   public void onPlacePageActivated(@NonNull PlacePageData data)
   {
     setFullscreen(false);
@@ -1200,6 +1205,7 @@ public class MwmActivity extends BaseMwmFragmentActivity
 
   // Called from JNI.
   @Override
+  @SuppressWarnings("unused")
   public void onPlacePageDeactivated(boolean switchFullScreenMode)
   {
     if (switchFullScreenMode)
@@ -1392,19 +1398,6 @@ public class MwmActivity extends BaseMwmFragmentActivity
     RoutingPlanFragment fragment = (RoutingPlanFragment) getFragment(RoutingPlanFragment.class);
     if (fragment != null)
       fragment.showAddFinishFrame();
-  }
-
-  private void hideRoutingActionFrame()
-  {
-    if (!mIsTabletLayout)
-    {
-      mRoutingPlanInplaceController.hideActionFrame();
-      return;
-    }
-
-    RoutingPlanFragment fragment = (RoutingPlanFragment) getFragment(RoutingPlanFragment.class);
-    if (fragment != null)
-      fragment.hideActionFrame();
   }
 
   private void showMainMenu(boolean show)

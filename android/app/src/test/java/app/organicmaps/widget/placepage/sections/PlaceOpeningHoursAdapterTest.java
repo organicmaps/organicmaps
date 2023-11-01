@@ -3,7 +3,6 @@ package app.organicmaps.widget.placepage.sections;
 import app.organicmaps.editor.data.HoursMinutes;
 import app.organicmaps.editor.data.Timespan;
 import app.organicmaps.editor.data.Timetable;
-import app.organicmaps.widget.placepage.sections.PlaceOpeningHoursAdapter;
 import app.organicmaps.widget.placepage.sections.PlaceOpeningHoursAdapter.WeekScheduleData;
 import org.junit.Before;
 import org.junit.Test;

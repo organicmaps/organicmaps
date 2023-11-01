@@ -3,7 +3,6 @@ package app.organicmaps.base;
 import android.app.Application;
 import android.content.Context;
 import android.os.Bundle;
-import android.view.View;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -64,21 +63,4 @@ public class BaseMwmDialogFragment extends DialogFragment
     return (Application) context.getApplicationContext();
   }
 
-  @NonNull
-  protected View getViewOrThrow()
-  {
-    View view = getView();
-    if (view == null)
-      throw new IllegalStateException("Before call this method make sure that the view exists");
-    return view;
-  }
-
-  @NonNull
-  protected Bundle getArgumentsOrThrow()
-  {
-    Bundle args = getArguments();
-    if (args == null)
-      throw new AssertionError("Arguments must be non-null!");
-    return args;
-  }
 }

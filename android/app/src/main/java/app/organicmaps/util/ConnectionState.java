@@ -5,7 +5,6 @@ import static app.organicmaps.util.ConnectionState.Type.NONE;
 import android.content.Context;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
-import android.telephony.TelephonyManager;
 
 import androidx.annotation.Keep;
 import androidx.annotation.NonNull;
@@ -84,46 +83,6 @@ public enum ConnectionState
   public boolean isConnected()
   {
     return isNetworkConnected(ConnectivityManager.TYPE_WIFI) || isNetworkConnected(ConnectivityManager.TYPE_MOBILE);
-  }
-
-  public boolean isConnectionFast(NetworkInfo info)
-  {
-    if (info == null || !info.isConnected())
-      return false;
-
-    final int type = info.getType();
-    final int subtype = info.getSubtype();
-
-    if (type == ConnectivityManager.TYPE_WIFI)
-      return true;
-
-    if (type == ConnectivityManager.TYPE_MOBILE)
-    {
-      switch (subtype)
-      {
-      case TelephonyManager.NETWORK_TYPE_IDEN: // ~25 kbps
-      case TelephonyManager.NETWORK_TYPE_CDMA: // ~ 14-64 kbps
-      case TelephonyManager.NETWORK_TYPE_1xRTT: // ~ 50-100 kbps
-      case TelephonyManager.NETWORK_TYPE_EDGE: // ~ 50-100 kbps
-      case TelephonyManager.NETWORK_TYPE_GPRS: // ~ 100 kbps
-      case TelephonyManager.NETWORK_TYPE_UNKNOWN:
-        return false;
-      case TelephonyManager.NETWORK_TYPE_EVDO_0: // ~ 400-1000 kbps
-      case TelephonyManager.NETWORK_TYPE_EVDO_A: // ~ 600-1400 kbps
-      case TelephonyManager.NETWORK_TYPE_HSDPA: // ~ 2-14 Mbps
-      case TelephonyManager.NETWORK_TYPE_HSPA: // ~ 700-1700 kbps
-      case TelephonyManager.NETWORK_TYPE_HSUPA: // ~ 1-23 Mbps
-      case TelephonyManager.NETWORK_TYPE_UMTS: // ~ 400-7000 kbps
-      case TelephonyManager.NETWORK_TYPE_EHRPD: // ~ 1-2 Mbps
-      case TelephonyManager.NETWORK_TYPE_EVDO_B: // ~ 5 Mbps
-      case TelephonyManager.NETWORK_TYPE_HSPAP: // ~ 10-20 Mbps
-      case TelephonyManager.NETWORK_TYPE_LTE: // ~ 10+ Mbps
-      default:
-        return true;
-      }
-    }
-
-    return false;
   }
 
   public boolean isInRoaming()

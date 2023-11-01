@@ -22,11 +22,6 @@ public class PhoneListAdapter extends RecyclerView.Adapter<PhoneListAdapter.View
 {
   private List<String> phonesData = new ArrayList<>();
 
-  public PhoneListAdapter()
-  {
-    phonesData.add("");
-  }
-
   public PhoneListAdapter(String phoneList)
   {
     if (TextUtils.isEmpty(phoneList))

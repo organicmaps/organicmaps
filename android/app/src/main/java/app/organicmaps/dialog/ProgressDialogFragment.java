@@ -1,7 +1,6 @@
 package app.organicmaps.dialog;
 
 import android.app.Activity;
-import android.app.Dialog;
 import android.content.DialogInterface;
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -9,7 +8,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
-import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.DialogFragment;
 import androidx.fragment.app.Fragment;
@@ -25,30 +23,6 @@ public class ProgressDialogFragment extends DialogFragment
   public ProgressDialogFragment()
   {
     // Do nothing by default.
-  }
-
-  @NonNull
-  public static ProgressDialogFragment newInstance(@NonNull String message)
-  {
-    return newInstance(message, false, true);
-  }
-
-  @NonNull
-  public static ProgressDialogFragment newInstance(@NonNull String message, boolean cancelable,
-                                                   boolean retainInstance)
-  {
-    ProgressDialogFragment fr = new ProgressDialogFragment();
-    fr.setArguments(getArgs(message, cancelable, retainInstance));
-    return fr;
-  }
-
-  private static Bundle getArgs(@NonNull String title, boolean cancelable, boolean retainInstance)
-  {
-    Bundle args = new Bundle();
-    args.putString(ARG_MESSAGE, title);
-    args.putBoolean(ARG_CANCELABLE, cancelable);
-    args.putBoolean(ARG_RETAIN_INSTANCE, retainInstance);
-    return args;
   }
 
   protected void setCancelResult()
@@ -83,12 +57,6 @@ public class ProgressDialogFragment extends DialogFragment
   public void onCancel(DialogInterface dialog)
   {
     setCancelResult();
-  }
-
-  public boolean isShowing()
-  {
-    Dialog dialog = getDialog();
-    return dialog != null && dialog.isShowing();
   }
 
   @Override

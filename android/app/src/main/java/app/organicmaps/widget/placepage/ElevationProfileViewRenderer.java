@@ -144,18 +144,4 @@ public class ElevationProfileViewRenderer implements PlacePageStateListener
     mChartController.onHide();
   }
 
-  @Override
-  public void onPlacePageDetails()
-  {
-  }
-
-  @Override
-  public void onPlacePagePreview()
-  {
-  }
-
-  @Override
-  public void onPlacePageClosed()
-  {
-  }
 }

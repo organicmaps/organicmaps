@@ -37,24 +37,11 @@ public class MainMenu
     return UiUtils.isVisible(mFrame) ? mMenuHeight : 0;
   }
 
-  public View getFrame()
-  {
-    return mFrame;
-  }
-
   public enum State
   {
     MENU,
     NAVIGATION,
     ROUTE_PREPARE
-  }
-
-  public enum Item
-  {
-    MENU,
-    SEARCH,
-    HELP,
-    BOOKMARKS
   }
 
   public interface OnMenuSizeChangedListener

@@ -195,7 +195,7 @@ public enum TtsPlayer
       }
   }
 
-  public void playTurnNotifications(@NonNull Context context, @NonNull String[] turnNotifications)
+  public void playTurnNotifications(@NonNull String[] turnNotifications)
   {
     if (isReady())
       for (String textToSpeak : turnNotifications)

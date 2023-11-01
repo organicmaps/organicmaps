@@ -421,12 +421,4 @@ public class Framework
 
   public static native void nativeMemoryWarning();
 
-  public enum LocalAdsEventType
-  {
-    LOCAL_ADS_EVENT_SHOW_POINT,
-    LOCAL_ADS_EVENT_OPEN_INFO,
-    LOCAL_ADS_EVENT_CLICKED_PHONE,
-    LOCAL_ADS_EVENT_CLICKED_WEBSITE,
-    LOCAL_ADS_EVENT_VISIT
-  }
 }

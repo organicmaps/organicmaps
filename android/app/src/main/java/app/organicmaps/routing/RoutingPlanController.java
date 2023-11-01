@@ -298,11 +298,6 @@ public class RoutingPlanController extends ToolbarController
     mRoutingBottomMenuController.showAddFinishFrame();
   }
 
-  public void hideActionFrame()
-  {
-    mRoutingBottomMenuController.hideActionFrame();
-  }
-
   public void showDrivingOptionView()
   {
     mDrivingOptionsBtnContainer.addOnLayoutChangeListener(mDriverOptionsLayoutListener);

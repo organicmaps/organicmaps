@@ -320,13 +320,11 @@ public class SettingsPrefsFragment extends BaseXmlSettingsFragment
     if (speedCamModeList.getValue().equals(newValue))
       return true;
 
-    SpeedCameraMode oldCamMode = SpeedCameraMode.valueOf(speedCamModeList.getValue());
-    onSpeedCamerasPrefChanged(oldCamMode, newCamMode);
+    onSpeedCamerasPrefChanged(newCamMode);
     return true;
   }
 
-  private void onSpeedCamerasPrefChanged(@NonNull SpeedCameraMode oldCamMode,
-                                         @NonNull SpeedCameraMode newCamMode)
+  private void onSpeedCamerasPrefChanged(@NonNull SpeedCameraMode newCamMode)
   {
     Framework.setSpeedCamerasMode(newCamMode);
   }

@@ -34,19 +34,6 @@ public class StringUtils
   public static native String nativeGetLocalizedSpeedUnits();
 
   /**
-   * Removes html tags, generated from edittext content after it's transformed to html.
-   * In version 4.3.1 we converted descriptions, entered by users, to html automatically. Later html conversion was cancelled, but those converted descriptions should be converted back to
-   * plain text, that's why that ugly util is introduced.
-   *
-   * @param text source text
-   * @return result text
-   */
-  public static String removeEditTextHtmlTags(String text)
-  {
-    return text.replaceAll("</p>", "").replaceAll("<br>", "").replaceAll("<p dir=\"ltr\">", "");
-  }
-
-  /**
    * Formats size in bytes to "x MB" or "x.x GB" format.
    * Small values rounded to 1 MB without fractions.
    *
@@ -73,13 +60,6 @@ public class StringUtils
   {
     Locale defLocale = Locale.getDefault();
     return Character.getDirectionality(defLocale.getDisplayName(defLocale).charAt(0)) == Character.DIRECTIONALITY_RIGHT_TO_LEFT;
-  }
-
-  @NonNull
-  public static String fixCaseInString(@NonNull String string)
-  {
-    char firstChar = string.charAt(0);
-    return firstChar + toLowerCase(string.substring(1));
   }
 
   @NonNull

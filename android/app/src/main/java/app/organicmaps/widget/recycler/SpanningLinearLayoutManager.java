@@ -10,21 +10,10 @@ import androidx.recyclerview.widget.RecyclerView;
 
 public class SpanningLinearLayoutManager extends LinearLayoutManager
 {
-  public SpanningLinearLayoutManager(@NonNull Context context)
-  {
-    super(context);
-  }
 
   public SpanningLinearLayoutManager(@NonNull Context context, int orientation, boolean reverseLayout)
   {
     super(context, orientation, reverseLayout);
-  }
-
-  public SpanningLinearLayoutManager(@NonNull Context context,
-                                     @NonNull AttributeSet attrs,
-                                     int defStyleAttr, int defStyleRes)
-  {
-    super(context, attrs, defStyleAttr, defStyleRes);
   }
 
   @Override

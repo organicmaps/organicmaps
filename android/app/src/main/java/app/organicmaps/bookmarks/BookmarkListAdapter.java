@@ -44,8 +44,6 @@ public class BookmarkListAdapter extends RecyclerView.Adapter<Holders.BaseBookma
   private SectionsDataSource mSectionsDataSource;
 
   @Nullable
-  private RecyclerClickListener mMoreListener;
-  @Nullable
   private RecyclerClickListener mClickListener;
   @Nullable
   private RecyclerLongClickListener mLongClickListener;
@@ -397,7 +395,6 @@ public class BookmarkListAdapter extends RecyclerView.Adapter<Holders.BaseBookma
 
   void setMoreListener(@Nullable RecyclerClickListener listener)
   {
-    mMoreListener = listener;
   }
 
   @Override

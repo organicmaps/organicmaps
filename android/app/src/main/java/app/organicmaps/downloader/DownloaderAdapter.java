@@ -132,7 +132,7 @@ class DownloaderAdapter extends RecyclerView.Adapter<DownloaderAdapter.ViewHolde
         .show();
   }
 
-  private void onCancelActionSelected(CountryItem item, DownloaderAdapter adapter)
+  private void onCancelActionSelected(CountryItem item)
   {
     MapManager.nativeCancel(item.id);
   }
@@ -373,7 +373,7 @@ class DownloaderAdapter extends RecyclerView.Adapter<DownloaderAdapter.ViewHolde
   private MenuBottomSheetItem getCancelMenuItem()
   {
     return new MenuBottomSheetItem(R.string.cancel, R.drawable.ic_cancel,
-                                   () -> onCancelActionSelected(mSelectedItem, DownloaderAdapter.this));
+                                   () -> onCancelActionSelected(mSelectedItem));
   }
 
   private class ItemViewHolder extends BaseInnerViewHolder<CountryItem>

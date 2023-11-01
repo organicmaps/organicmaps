@@ -74,10 +74,5 @@ public abstract class WebContainerDelegate implements OnBackPressListener
     return true;
   }
 
-  public WebView getWebView()
-  {
-    return mWebView;
-  }
-
   protected abstract void doStartActivity(Intent intent);
 }

@@ -31,11 +31,6 @@ public class SubwayManager
     return Framework.nativeIsTransitSchemeEnabled();
   }
 
-  public void toggle()
-  {
-    setEnabled(!isEnabled());
-  }
-
   public void initialize()
   {
     registerListener();

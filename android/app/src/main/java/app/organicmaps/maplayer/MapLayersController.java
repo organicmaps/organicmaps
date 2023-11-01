@@ -1,7 +1,6 @@
 package app.organicmaps.maplayer;
 
 import android.app.Activity;
-import android.view.ViewGroup;
 import android.widget.ImageButton;
 
 import androidx.annotation.NonNull;
@@ -94,13 +93,6 @@ public class MapLayersController
   public void showButton(boolean show)
   {
     UiUtils.showIf(show, mLayersButton);
-  }
-
-  public void adjust(int offsetX, int offsetY)
-  {
-    ViewGroup.MarginLayoutParams params = (ViewGroup.MarginLayoutParams) mLayersButton.getLayoutParams();
-    params.setMargins(offsetX, offsetY, 0, 0);
-    mLayersButton.setLayoutParams(params);
   }
 
   public interface OnShowMenuListener

@@ -27,7 +27,6 @@ import app.organicmaps.base.BaseMwmDialogFragment;
 import app.organicmaps.editor.data.HoursMinutes;
 import app.organicmaps.util.DateUtils;
 import app.organicmaps.util.ThemeUtils;
-import app.organicmaps.util.Utils;
 
 public class HoursMinutesPickerFragment extends BaseMwmDialogFragment
 {

@@ -87,14 +87,6 @@ public class EditorHostFragment extends BaseMwmToolbarFragment implements View.O
     }
   }
 
-  /**
-   * Sets .name of an index item to name.
-   */
-  void setName(String name, int index)
-  {
-    sNames.get(index).name = name;
-  }
-
   void addName(LocalizedName name)
   {
     sNames.add(name);
@@ -382,14 +374,6 @@ public class EditorHostFragment extends BaseMwmToolbarFragment implements View.O
     String note = fragment.getDescription();
     if (!TextUtils.isEmpty(note))
       Editor.nativeCreateNote(note);
-  }
-
-  private void showMistakeDialog(@StringRes int resId)
-  {
-    new MaterialAlertDialogBuilder(requireActivity(), R.style.MwmTheme_AlertDialog)
-        .setMessage(resId)
-        .setPositiveButton(R.string.ok, null)
-        .show();
   }
 
   private void showNoobDialog()

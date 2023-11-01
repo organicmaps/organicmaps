@@ -30,27 +30,6 @@ public class Error implements Parcelable
     mMessage = in.readString();
   }
 
-  public int getHttpCode()
-  {
-    return mHttpCode;
-  }
-
-  @Nullable
-  public String getMessage()
-  {
-    return mMessage;
-  }
-
-  public boolean isForbidden()
-  {
-    return mHttpCode == HttpURLConnection.HTTP_FORBIDDEN;
-  }
-
-  public boolean isPaymentRequired()
-  {
-    return mHttpCode == HttpURLConnection.HTTP_PAYMENT_REQUIRED;
-  }
-
   @Override
   public int describeContents()
   {

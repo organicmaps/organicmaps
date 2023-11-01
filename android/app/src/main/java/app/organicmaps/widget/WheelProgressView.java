@@ -103,11 +103,6 @@ public class WheelProgressView extends AppCompatImageView
     invalidate();
   }
 
-  public int getProgress()
-  {
-    return mProgress;
-  }
-
   @Override
   protected void onSizeChanged(int w, int h, int oldw, int oldh)
   {
@@ -169,8 +164,4 @@ public class WheelProgressView extends AppCompatImageView
     invalidate();
   }
 
-  public boolean isPending()
-  {
-    return mIsPending;
-  }
 }

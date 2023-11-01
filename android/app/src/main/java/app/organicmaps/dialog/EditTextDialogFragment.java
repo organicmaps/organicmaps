@@ -66,13 +66,6 @@ public class EditTextDialogFragment extends BaseMwmDialogFragment
     return show(title, initialText, "", positiveBtn, negativeBtn, NO_LIMITED_TEXT_LENGTH, parent, inputValidator);
   }
 
-  public static EditTextDialogFragment show(@Nullable String title, @Nullable String initialText,
-                          @Nullable String positiveBtn, @Nullable String negativeBtn,
-                          int textLimit, @NonNull Fragment parent, @Nullable Validator inputValidator)
-  {
-    return show(title, initialText, "", positiveBtn, negativeBtn, textLimit, parent, inputValidator);
-  }
-
   public static EditTextDialogFragment show(@Nullable String title, @Nullable String initialText, @Nullable String hint,
                           @Nullable String positiveBtn, @Nullable String negativeBtn,
                           @NonNull Fragment parent, @Nullable Validator inputValidator)

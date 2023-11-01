@@ -1,7 +1,6 @@
 package app.organicmaps.bookmarks;
 
 import android.app.Activity;
-import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 
@@ -58,11 +57,6 @@ public class BookmarkCategoriesActivity extends BaseToolbarActivity
   protected int getContentLayoutResId()
   {
     return R.layout.bookmarks_activity;
-  }
-
-  public static void start(@NonNull Context context)
-  {
-    context.startActivity(new Intent(context, BookmarkCategoriesActivity.class));
   }
 
   public static void start(@NonNull Activity context, @Nullable BookmarkCategory category)

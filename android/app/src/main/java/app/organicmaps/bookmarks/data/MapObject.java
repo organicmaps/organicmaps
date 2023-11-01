@@ -10,7 +10,6 @@ import androidx.annotation.Nullable;
 
 import app.organicmaps.routing.RoutePointInfo;
 import app.organicmaps.search.Popularity;
-import app.organicmaps.search.PopularityProvider;
 import app.organicmaps.widget.placepage.PlacePageData;
 
 import java.lang.annotation.Retention;
@@ -23,7 +22,7 @@ import java.util.List;
 // separate them. Simple getters from jni place_page::Info and osm::EditableFeature should be enough.
 // Used from JNI.
 @Keep
-public class MapObject implements PopularityProvider, PlacePageData
+public class MapObject implements PlacePageData
 {
   @Retention(RetentionPolicy.SOURCE)
   @IntDef({ POI, API_POINT, BOOKMARK, MY_POSITION, SEARCH })
@@ -247,13 +246,6 @@ public class MapObject implements PopularityProvider, PlacePageData
   }
 
   @NonNull
-  @Override
-  public Popularity getPopularity()
-  {
-    return mPopularity;
-  }
-
-  @NonNull
   public RoadWarningMarkType getRoadWarningMarkType()
   {
     return mRoadWarningMarkType;
@@ -276,17 +268,6 @@ public class MapObject implements PopularityProvider, PlacePageData
     return mApiId;
   }
 
-  @NonNull
-  public  String[] getRawTypes()
-  {
-    if (mRawTypes == null)
-      return new String[0];
-
-    String[] types = new String[mRawTypes.size()];
-    mRawTypes.toArray(types);
-    return types;
-  }
-
   public void setLat(double lat)
   {
     mLat = lat;
@@ -295,16 +276,6 @@ public class MapObject implements PopularityProvider, PlacePageData
   public void setLon(double lon)
   {
     mLon = lon;
-  }
-
-  public void setSubtitle(String typeName)
-  {
-    mSubtitle = typeName;
-  }
-
-  private void addMetadata(int type, String value)
-  {
-    mMetadata.addMetadata(type, value);
   }
 
   public boolean hasPhoneNumber()
