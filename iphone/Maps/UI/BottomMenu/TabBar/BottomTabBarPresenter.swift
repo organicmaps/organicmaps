@@ -1,7 +1,7 @@
 protocol BottomTabBarPresenterProtocol: AnyObject {
   func configure()
   func onSearchButtonPressed()
-  func onHelpButtonPressed()
+  func onHelpButtonPressed(withBadge: Bool)
   func onBookmarksButtonPressed()
   func onMenuButtonPressed()
 }
@@ -21,15 +21,15 @@ extension BottomTabBarPresenter: BottomTabBarPresenterProtocol {
   func onSearchButtonPressed() {
     interactor.openSearch()
   }
-  
-  func onHelpButtonPressed() {
-    interactor.openHelp()
+
+  func onHelpButtonPressed(withBadge: Bool) {
+    withBadge ? interactor.openFaq() : interactor.openHelp()
   }
-  
+
   func onBookmarksButtonPressed() {
     interactor.openBookmarks()
   }
-  
+
   func onMenuButtonPressed() {
     interactor.openMenu()
   }
