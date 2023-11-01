@@ -18,6 +18,10 @@ on:
       - data/strings/**
       - docs/**
       - packaging/**
+      - platform/*_android*
+      - platform/*_ios*
+      - platform/*_linux* 
+      - platform/*_win* 
       - pyhelpers/**
       - tools/**
       - '!tools/python/test_server/**'
