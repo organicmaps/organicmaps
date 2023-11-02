@@ -5711,7 +5711,7 @@ fr:3Boîte aux lettres|courrier
 de:3Briefkasten|3Postfach|post
 hu:3Postaláda|Levelesláda
 id:Kotak pos
-it:3Casella
+it:3Buca delle lettere|Buche delle lettere|5Casella della posta|Casella postale|Cassetta della posta|4Cassetta postale|Cassette delle lettere
 ja:1郵便ポスト|ポスト|郵便局
 ko:우편함|우체통
 mr:टपालपेटी|पोस्ट बॉक्स
