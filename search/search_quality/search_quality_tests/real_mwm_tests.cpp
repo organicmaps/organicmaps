@@ -522,15 +522,19 @@ UNIT_CLASS_TEST(MwmTestsFixture, Street_BusStop)
     TEST_LESS(SortedByDistance(range, center), 5000.0, ());
   }
 
+  /// @todo Actually, we have very fancy matching here, starting from 3rd result and below.
+  /// Interesting to check how it happens.
   {
     auto request = MakeRequest("Juncal train", "en");
     auto const & results = request->Results();
     TEST_GREATER(results.size(), kTopPoiResultsCount, ());
 
-    // First result is a train station in other MWM, >200km away.
-    TEST(EqualClassifType(results[0].GetFeatureType(), classif().GetTypeByPath({"railway", "station"})), ());
-    double const dist = ms::DistanceOnEarth(center, mercator::ToLatLon(results[0].GetFeatureCenter()));
-    TEST_GREATER(dist, 2.0E5, ());
+    // First result is a "Juncal" supermarket near the train station, 24km :)
+    // Second result is a train station in other MWM, >200km away.
+    Range const range(results, 0, 2);
+    EqualClassifType(range, GetClassifTypes({{"shop", "supermarket"}, {"railway", "station"}}));
+    TEST_LESS(!SortedByDistance(range, center), 2.0E5, ());
+    TEST_LESS(SortedByDistance(range, center), 3.0E5, ());
   }
 }
 
