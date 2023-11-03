@@ -1040,7 +1040,7 @@ fr:3Boulangerie|3Pâtisserie|pain
 de:3Bäckerei|Bäckerladen|Bäcker|4Konditorei
 hu:3Pékség
 id:Toko roti|Roti
-it:3Panetteria|Panificio|Forno
+it:3Panetteria|Panettiere|Panificio|Forno
 ja:1パン屋|ベーカリー|パン|軽食|持ち帰り
 ko:1베이커리|빵집
 mr:बेकरी|पाव
@@ -1409,7 +1409,7 @@ fr:Magasin de cuisine|cuisiniste
 he:םיחבטמ תונח
 hu:Konyhabolt
 id:Toko Dapur
-it:Negozio di cucina
+it:Negozio di cucina|Negozio di cucine
 ja:キッチンストア
 ko:주방용품점
 nb:Kjøkkenbutikk
