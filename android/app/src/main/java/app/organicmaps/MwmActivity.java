@@ -1968,7 +1968,7 @@ public class MwmActivity extends BaseMwmFragmentActivity
       intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
       intent.addFlags(Intent.FLAG_ACTIVITY_NO_HISTORY);
       intent.addFlags(Intent.FLAG_ACTIVITY_EXCLUDE_FROM_RECENTS);
-      builder.setPositiveButton(R.string.connection_settings, (dialog, which) -> startActivity(intent));
+      builder.setPositiveButton(R.string.location_settings, (dialog, which) -> startActivity(intent));
     }
     mLocationErrorDialog = builder.show();
   }
