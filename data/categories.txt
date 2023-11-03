@@ -6448,9 +6448,9 @@ ko:화장실
 nb:3Toalett
 pl:3Toaleta
 pt:Casa de banho|WC
-pt-BR:4Banheiro
+pt-BR:4Banheiro|WC
 ro:3Toaletă
-es:WC
+es:Baño|WC
 et:WC
 eu:Komuna
 sv:3Toalett

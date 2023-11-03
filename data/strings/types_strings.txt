@@ -4693,7 +4693,7 @@
     nb = Offentlig bad
     nl = Publiek bad
     pl = Łaźnia publiczna
-    pt = Banheiro público
+    pt = Banho público
     ro = Baie publică
     ru = Общественная баня
     sk = Verejné kúpele

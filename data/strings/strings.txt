@@ -3348,7 +3348,7 @@
     da = Toilet
     de = Toilette
     el = Τουαλέτα
-    es = Baños
+    es = Baño
     et = Tualett
     eu = Komuna
     fa = توالت
@@ -3365,8 +3365,8 @@
     nb = Toalett
     nl = Toilet
     pl = Toaleta
-    pt = Casas de banho
-    pt-BR = Banheiros
+    pt = Casa de banho
+    pt-BR = Banheiro
     ro = Toaletă
     ru = Туалет
     sk = Záchody
