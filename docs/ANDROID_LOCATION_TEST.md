@@ -103,3 +103,12 @@ This test-case should work with the same behavior regardless of
   dialog should appear immediately, depending in Google Play Service
   availability;
 - Further taps on location button will lead to (4) or (5).
+
+7. Pending location mode
+
+- Disable Wi-Fi, disable cellular data, and enable location.
+- Move your phone away from the open sky and any windows to make sure that GPS can't be acquired.
+- If the location search hasn't already begun, press the location button to start it.
+- The location icon MUST be "locating" while searching for a GPS signal.
+- Press the location button multiple time - the icon MUST NOT change from the "locating" mode.
+- Touch, drag or try to zoom in and zoom out the map - the icon MUST NOT change from "locating" mode.
