@@ -1979,6 +1979,12 @@ public class MwmActivity extends BaseMwmFragmentActivity
       return;
     }
 
+    if (LocationState.nativeGetMode() == LocationState.NOT_FOLLOW_NO_POSITION)
+    {
+      Logger.d(LOCATION_TAG, "Don't show 'location timeout' error dialog in NOT_FOLLOW_NO_POSITION mode");
+      return;
+    }
+
     Logger.d(LOCATION_TAG, "services = " + LocationUtils.areLocationServicesTurnedOn(this));
 
     //

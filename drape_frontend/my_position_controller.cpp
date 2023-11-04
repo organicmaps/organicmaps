@@ -659,7 +659,7 @@ void MyPositionController::ChangeMode(location::EMyPositionMode newMode)
     m_pendingTimer.Reset();
     m_pendingStarted = true;
   }
-  else if (newMode != location::NotFollowNoPosition)
+  else
   {
     m_pendingStarted = false;
   }
@@ -922,7 +922,7 @@ void MyPositionController::DeactivateRouting()
 
 void MyPositionController::CheckIsWaitingForLocation()
 {
-  if (IsWaitingForLocation() || m_mode == location::NotFollowNoPosition)
+  if (IsWaitingForLocation())
   {
     CHECK_ON_TIMEOUT(m_locationWaitingNotifyId, kMaxPendingLocationTimeSec, CheckIsWaitingForLocation);
     if (m_pendingStarted && m_pendingTimer.ElapsedSeconds() >= kMaxPendingLocationTimeSec)
