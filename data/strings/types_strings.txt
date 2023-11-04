@@ -2737,43 +2737,7 @@
     zh-Hant = 停車場
 
   [type.amenity.parking.fee]
-    en = Paid Parking
-    af = Betaalde parkering
-    ar = موقف سيارات مدفوع
-    be = Платная паркоўка
-    bg = Платен паркинг
-    cs = Placené parkoviště
-    da = Betalt parkering
-    de = Kostenpflichtiger Parkplatz
-    el = Χώρος στάθμευσης επί πληρωμή
-    es = Aparcamiento de pago
-    es-MX = Estacionamiento de pago
-    et = Tasuline parkimine
-    eu = Ordaindutako aparkalekua
-    fa = ﯽﻟﻮﭘ ﮓﻨﯿﮐﺭﺎﭘ
-    fi = Maksullinen pysäköinti
-    fr = Stationnement payant
-    he = םולשתב הינח
-    hu = Fizetős parkolás
-    id = Parkir Berbayar
-    it = Parcheggio a pagamento
-    ja = 有料駐車場
-    ko = 유료 주차장
-    nb = Betalt parkering
-    nl = Betaald parkeren
-    pl = Płatny parking
-    pt = Estacionamento pago
-    ro = Parcare cu plată
-    ru = Платная парковка
-    sk = Platené parkovisko
-    sv = Betald parkering
-    sw = Maegesho ya Kulipwa
-    th = ที่จอดรถแบบเสียค่าบริการ
-    tr = Ücretli Otopark
-    uk = Платна парковка
-    vi = Đậu xe trả phí
-    zh-Hans = 付费停车
-    zh-Hant = 付費停車
+    ref = type.amenity.parking
 
   [type.amenity.parking.multi.storey]
     en = Multi Storey Parking
@@ -2938,44 +2902,7 @@
     zh-Hant = 地下停車場
 
   [type.amenity.parking.underground.fee]
-    en = Paid Underground Parking
-    ar = موقف سيارات مدفوع الأجر تحت الأرض
-    be = Платная падземная паркоўка
-    bg = Платен подземен паркинг
-    ca = Aparcament subterrani de pagament
-    cs = Placené podzemní parkoviště
-    da = Betalt underjordisk parkering
-    de = Kostenpflichtige Tiefgarage
-    el = Υπόγειος χώρος στάθμευσης επί πληρωμή
-    es = Aparcamiento subterráneo de pago
-    es-MX = Estacionamiento subterráneo de pago
-    et = Tasuline maa-alune parkimine
-    eu = Ordaindutako lurpeko aparkalekua
-    fa = پارکینگ زیرزمینی پولی
-    fi = Maksullinen maanalainen pysäköinti
-    fr = Parking souterrain payant
-    he = חניה תת קרקעית בתשלום
-    hu = Fizetős mélygarázs
-    id = Parkir bawah tanah berbayar
-    it = Parcheggio sotterraneo a pagamento
-    ja = 有料地下駐車場
-    ko = 유료 지하 주차장
-    mr = सशुल्क भूमिगत पार्किंग
-    nb = Betalt underjordisk parkering
-    nl = Betaald ondergronds parkeren
-    pl = Płatny parking podziemny
-    pt = Estacionamento subterrâneo pago
-    ro = Parcare subterană plătită
-    ru = Платная подземная парковка
-    sk = Platené podzemné parkovisko
-    sv = Betald underjordisk parkering
-    sw = Maegesho ya chini ya ardhi yanayolipwa
-    th = ที่จอดรถใต้ดินแบบชำระเงิน
-    tr = Ücretli yeraltı otoparkı
-    uk = Платний підземний паркінг
-    vi = Bãi đậu xe ngầm trả phí
-    zh-Hans = 付费地下停车场
-    zh-Hant = 收費地下停車場
+    ref = type.amenity.parking.underground
 
   [type.amenity.parking.underground.private]
     en = Private Underground Parking
@@ -3060,44 +2987,7 @@
     zh-Hant = 街邊停車
 
   [type.amenity.parking.street_side.fee]
-    en = Paid Street-Side Parking
-    ar = موقف سيارات مدفوع الأجر على جانب الشارع
-    be = Платная паркоўка з боку вуліцы
-    bg = Платен паркинг от страната на улицата
-    ca = Aparcament al carrer de pagament
-    cs = Placené parkování na ulici
-    da = Betalt parkering på gadesiden
-    de = Kostenpflichtige Parkbucht
-    el = Πληρωμένη στάθμευση στο δρόμο
-    es = Aparcamiento en la calle de pago
-    es-MX = Estacionamiento en la calle de pago
-    et = Tasuline tänavaäärne parkimine
-    eu = Ordaindutako kale alboko aparkalekua
-    fa = پارکینگ کنار خیابان پولی
-    fi = Maksullinen kadunvarsipysäköinti
-    fr = Stationnement latéral sur voie payant
-    he = חניה ברחוב בתשלום
-    hu = Fizetős utcai parkolás
-    id = Parkir di tepi jalan berbayar
-    it = Parcheggio lato strada a pagamento
-    ja = 有料路上駐車場
-    ko = 유료 노상 주차장
-    mr = पेड स्ट्रीट साइड पार्किंग
-    nb = Betalt parkering på gatesiden
-    nl = Betaald parkeren aan de straatkant
-    pl = Płatny parking przy ulicy
-    pt = Estacionamento ao lado da rua pago
-    ro = Plătită parcare laterală la stradă
-    ru = Платная придорожная парковка
-    sk = Platené parkovanie na strane ulice
-    sv = Betald gata sidoparkering
-    sw = Maegesho yanayolipishwa ya barabarani
-    th = ที่จอดรถริมถนนแบบชำระเงิน
-    tr = Ücretli cadde tarafı otopark
-    uk = Платне паркування з боку вулиці
-    vi = Bãi đậu xe trả phí bên đường
-    zh-Hans = 路边付费停车场
-    zh-Hant = 付費街邊停車場
+    ref = type.amenity.parking.street_side
 
   [type.amenity.parking.street_side.private]
     en = Private Street-Side Parking
@@ -3183,46 +3073,7 @@
     zh-Hant = 車道停車
 
   [type.amenity.parking.lane.fee]
-    ref = type.amenity.parking
-    en = Paid Lane Parking
-    ar = موقف سيارات مدفوع الأجر
-    be = Платная паркоўка
-    bg = Платен паркинг
-    ca = Aparcament de carril de pagament
-    cs = Placené parkování v pruzích
-    da = Betalt baneparkering
-    de = Bezahltes parken auf der straße
-    el = Χώρος στάθμευσης επί πληρωμή
-    es = Aparcamiento en carril de pago
-    es-MX = Estacionamiento en carril de pago
-    et = Tasuline parkimine
-    eu = Ordaindutako erreiaren aparkalekua
-    fa = پارکینگ لاین پولی
-    fi = Maksullinen pysäköintikaista
-    fr = Stationnement payant le long de la voie
-    he = חנייה בנתיב בתשלום
-    hu = Fizetős sávos parkolás
-    id = Parkir jalur berbayar
-    it = Parcheggio a pagamento in corsia
-    ja = 有料レーン駐車場
-    ko = 유료 차선 주차
-    mr = सशुल्क लेन पार्किंग
-    nb = Betalt parkering i kjørefelt
-    nl = Betaald parkeren op rijstroken
-    pl = Płatny parking na pasie ruchu
-    pt = Estacionamento paralelo à estrada pago
-    pt-BR = Estacionamento na rua pago
-    ro = Parcare pe bandă cu plată
-    ru = Платная парковочная полоса
-    sk = Platené parkovanie v jazdných pruhoch
-    sv = Avgiftsbelagd körfältsparkering
-    sw = Maegesho ya njia ya kulipwa
-    th = ที่จอดรถเลนแบบชำระเงิน
-    tr = Ücretli şerit park
-    uk = Платна смуга для паркування
-    vi = Đỗ xe trên làn đường phải trả tiền
-    zh-Hans = 收费车道停车场
-    zh-Hant = 收費車道停車
+    ref = type.amenity.parking.lane
 
   [type.amenity.parking.lane.private]
     ref = type.amenity.parking.lane
