@@ -163,6 +163,11 @@ vector<string> MapObject::GetLocalizedRecyclingTypes() const
   return feature::GetLocalizedRecyclingTypes(m_types);
 }
 
+string MapObject::GetLocalizedFeeType() const
+{
+  return feature::GetLocalizedFeeType(m_types);
+}
+
 string MapObject::FormatCuisines() const
 {
   return strings::JoinStrings(GetLocalizedCuisines(), kFieldsSeparator);

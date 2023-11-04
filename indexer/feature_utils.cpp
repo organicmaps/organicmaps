@@ -427,4 +427,15 @@ vector<string> GetLocalizedRecyclingTypes(TypesHolder const & types)
   auto const & isRecyclingType = ftypes::IsRecyclingTypeChecker::Instance();
   return GetLocalizedTypes(isRecyclingType, types);
 }
+
+string GetLocalizedFeeType(TypesHolder const & types)
+{
+  auto const & isFeeType = ftypes::IsFeeTypeChecker::Instance();
+  auto localized_types = GetLocalizedTypes(isFeeType, types);
+  ASSERT_LESS_OR_EQUAL ( localized_types.size(), 1, () );
+  if (localized_types.empty())
+      return "";
+  return localized_types[0];
+}
+
 } // namespace feature
