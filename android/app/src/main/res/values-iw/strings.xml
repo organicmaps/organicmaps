@@ -250,8 +250,6 @@
 	<!-- Text in About and OSM Login screens. %@ is replaced by a local, human readable date. -->
 	<string name="osm_presentation">נתונים קרטוגרפיים מ- OpenStreetMap נכון לשנת %s. זה כמו Wikipedia בו תוכלו להוסיף או לערוך מקומות לכל המשתמשים ברחבי העולם.</string>
 	<string name="editor_share_to_all_dialog_message_2">.ןהשלכ תולאש םהל שי םא רשק ךתיא ורציו םייונישה תא וקדבי OpenStreetMap יכרוע</string>
-	<!-- Text under the version number in the Help dialog. TODO: Synchronize other translations with English. -->
-	<string name="about_description">Organic Maps היא אפליקציית מפות לא מקוונות בחינם ובקוד פתוח. ללא פרסומות. אין מעקב. אם אתה רואה שגיאה במפה, אנא תקן אותה ב-OpenStreetMap. הפרויקט נוצר על ידי חובבים בזמננו הפנוי, אז אנו זקוקים למשוב ולתמיכה שלכם.</string>
 	<string name="transliteration_title">תעתיק ללטינית</string>
 	<!-- Bookmark categories screen, button that opens folder selection dialog to import KML/KMZ/GPX/KMB files -->
 	<string name="bookmarks_import">ייבוא סימניות ורצועות</string>
@@ -263,9 +261,9 @@
 	<string name="yes_available">כן</string>
 
 	<!-- SECTION: Bookmark types used for sorting -->
-	<string name="enable_screen_sleep">אפשר למסך לישון</string>
+	<string name="enable_keep_screen_on">השאר מסך דלוק</string>
 	<!-- Description in preferences -->
-	<string name="enable_screen_sleep_description">כאשר מופעל המסך יורשה לישון לאחר תקופה של חוסר פעילות.</string>
+	<string name="enable_keep_screen_on_description">כאשר מופעל, המסך תמיד יהיה דולק בעת הצגת המפה.</string>
 	<!-- OpenStreetMap text on splash screen -->
 	<string name="splash_subtitle">OpenStreetMap-מ הפמ ינותנ</string>
 	<!-- Tip #00 -->

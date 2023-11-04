@@ -540,8 +540,6 @@
 	<string name="editor_share_to_all_dialog_message_1">Assurez-vous de n’avoir pas saisi de données personnelles.</string>
 	<string name="editor_share_to_all_dialog_message_2">Les contributeurs d\'OpenStreetMap vérifieront vos modifications et vous contacteront s\'ils ont des questions.</string>
 	<string name="navigation_stop_button">stop</string>
-	<!-- Text under the version number in the Help dialog. TODO: Synchronize other translations with English. -->
-	<string name="about_description">Organic Maps est une application de cartographie hors ligne gratuite et open source. Pas de pubs. Pas de localisation. Si vous voyez une erreur sur la carte, veuillez la corriger dans OpenStreetMap. Le projet est créé par des passionnés pendant notre temps libre, nous avons donc besoin de vos commentaires et de votre soutien.</string>
 	<!-- For the first routing -->
 	<string name="accept">Accepter</string>
 	<!-- For the first routing -->
@@ -729,9 +727,9 @@
 	<string name="connection_failure">Erreur de connexion</string>
 	<!-- Used in DownloadResources startup screen -->
 	<string name="disconnect_usb_cable_title">Déconnectez le câble USB</string>
-	<string name="enable_screen_sleep">Autoriser l\'écran à se mettre en veille</string>
+	<string name="enable_keep_screen_on">Laisse l\'écran allumé</string>
 	<!-- Description in preferences -->
-	<string name="enable_screen_sleep_description">Lorsque ce paramètre est activé, l\'écran se mettra en veille après une période d\'inactivité.</string>
+	<string name="enable_keep_screen_on_description">Lorsque cette option est activée, l\'écran sera toujours allumé lors de l\'affichage de la carte.</string>
 	<!-- A preference title; keep short! -->
 	<string name="enable_show_on_lock_screen">Afficher sur l\'écran de verrouillage</string>
 	<!-- Description in preferences -->

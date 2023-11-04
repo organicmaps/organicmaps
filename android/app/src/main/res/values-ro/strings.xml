@@ -519,8 +519,6 @@
 	<string name="editor_share_to_all_dialog_message_1">Asigură-te că nu ai introdus niciun fel de date personale.</string>
 	<string name="editor_share_to_all_dialog_message_2">Editorii OpenStreetMap vor verifica modificările și vor lua legătura cu dvs. dacă au întrebări.</string>
 	<string name="navigation_stop_button">oprește</string>
-	<!-- Text under the version number in the Help dialog. TODO: Synchronize other translations with English. -->
-	<string name="about_description">Organic Maps este o aplicație rapidă și gratuită fără reclame și urmărire. Hărțile sunt bazate pe datele OpenStreetMap.org oferite de utilizatori, de aceea chiar și tu poți corecta erorile și adăuga obiecte noi pe hartă. Organic Maps este un proiect creat de entuziaști în timpul lor liber. Părerea și sprijinul tău sunt foarte importante pentru noi</string>
 	<!-- For the first routing -->
 	<string name="accept">Acceptă</string>
 	<!-- For the first routing -->
@@ -705,9 +703,9 @@
 	<string name="connection_failure">Eroare de conectare</string>
 	<!-- Used in DownloadResources startup screen -->
 	<string name="disconnect_usb_cable_title">Deconectează cablul USB</string>
-	<string name="enable_screen_sleep">Permite ecranului să se stingă</string>
+	<string name="enable_keep_screen_on">Păstrați ecranul pornit</string>
 	<!-- Description in preferences -->
-	<string name="enable_screen_sleep_description">Când este activat, ecranul se va stinge după o perioadă de inactivitate.</string>
+	<string name="enable_keep_screen_on_description">Atunci când este activat, ecranul va fi întotdeauna aprins la afișarea hărții.</string>
 	<!-- A preference title; keep short! -->
 	<string name="enable_show_on_lock_screen">Arată pe ecranul de blocare</string>
 	<!-- Description in preferences -->

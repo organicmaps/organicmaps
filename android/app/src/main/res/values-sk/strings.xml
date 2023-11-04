@@ -503,8 +503,6 @@
 	<string name="editor_share_to_all_dialog_message_1">Nezadávajte žiadne osobné udaje.</string>
 	<string name="editor_share_to_all_dialog_message_2">Redaktori OpenStreetMap skontrolujú zmeny a budú vás kontaktovať, ak budú mať nejaké otázky.</string>
 	<string name="navigation_stop_button">stop</string>
-	<!-- Text under the version number in the Help dialog. TODO: Synchronize other translations with English. -->
-	<string name="about_description">Organic Maps je bezplatná offline aplikácia máp s otvoreným zdrojom. Žiadne reklamy. Žiadne sledovanie. Ak na mape vidíte chybu, opravte ju v OpenStreetMap. Projekt vytvárajú nadšenci v našom voľnom čase, preto potrebujeme vašu spätnú väzbu a podporu.</string>
 	<!-- For the first routing -->
 	<string name="accept">Prijať</string>
 	<!-- For the first routing -->
@@ -682,9 +680,9 @@
 	<string name="elevation_profile_distance">Vzdial.:</string>
 	<string name="elevation_profile_time">Čas:</string>
 	<string name="isolines_toast_zooms_1_10">Priblížením preskúmajte izočiary</string>
-	<string name="enable_screen_sleep">Nechajte obrazovku spať</string>
+	<string name="enable_keep_screen_on">Ponechajte obrazovku zapnutú</string>
 	<!-- Description in preferences -->
-	<string name="enable_screen_sleep_description">Ak je táto možnosť povolená, obrazovka bude môcť po určitej dobe nečinnosti spať.</string>
+	<string name="enable_keep_screen_on_description">Ak je táto funkcia zapnutá, obrazovka bude pri zobrazovaní mapy vždy zapnutá.</string>
 	<!-- OpenStreetMap text on splash screen -->
 	<string name="splash_subtitle">Mapové údaje z OpenStreetMap</string>
 	<!-- Tip #00 -->

@@ -503,8 +503,6 @@
 	<string name="editor_share_to_all_dialog_message_1">個人情報を入力していないことを確認してください。</string>
 	<string name="editor_share_to_all_dialog_message_2">OpenStreetMap の編集者が変更を確認し、質問があれば連絡します。</string>
 	<string name="navigation_stop_button">停止</string>
-	<!-- Text under the version number in the Help dialog. TODO: Synchronize other translations with English. -->
-	<string name="about_description">Organic Mapsは、無料のオープンソースのオフラインマップアプリケーションです。広告なし。全く追跡しません。地図上にエラーが表示された場合は、OpenStreetMapで修正してください。プロジェクトは私たちの自由な時間に愛好家によって作成されているため、フィードバックとサポートが必要です。</string>
 	<!-- For the first routing -->
 	<string name="accept">了解</string>
 	<!-- For the first routing -->
@@ -680,9 +678,9 @@
 	<string name="elevation_profile_distance">距離：</string>
 	<string name="elevation_profile_time">時間：</string>
 	<string name="isolines_toast_zooms_1_10">等高線を調べるためにズームインしましょう</string>
-	<string name="enable_screen_sleep">画面をスリープ状態にする</string>
+	<string name="enable_keep_screen_on">画面を表示したままにする</string>
 	<!-- Description in preferences -->
-	<string name="enable_screen_sleep_description">有効にすると、画面は一定時間非アクティブになった後もスリープ状態になります。</string>
+	<string name="enable_keep_screen_on_description">有効にすると、地図を表示するときにスクリーンが常にオンになる。</string>
 	<!-- OpenStreetMap text on splash screen -->
 	<string name="splash_subtitle">OpenStreetMapからの地図データ</string>
 	<!-- Link to OSM wiki for Editor, Profile and About pages -->

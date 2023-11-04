@@ -533,8 +533,6 @@
 	<string name="editor_share_to_all_dialog_message_1">Переконайтеся, що ви не ввели особисті дані.</string>
 	<string name="editor_share_to_all_dialog_message_2">Редактори OpenStreetMap перевірять зміни та зв’яжуться з вами, якщо у них виникнуть запитання.</string>
 	<string name="navigation_stop_button">стоп</string>
-	<!-- Text under the version number in the Help dialog. TODO: Synchronize other translations with English. -->
-	<string name="about_description">Organic Maps – це швидкі та безкоштовні карти, які не потребують доступу до Інтернету. Карти засновані на даних проекта OpenStreetMap.org, саме там Ви можете виправити помилки та додати відсутні дані. Реклама та збір особистої інформації відсутні. Organic Maps це проект з відкритим вихідним кодом, створюється ентузіастами у вільний час, тому нам потрібні Ваші відгуки та підтримка!</string>
 	<!-- For the first routing -->
 	<string name="accept">Прийняти</string>
 	<!-- For the first routing -->
@@ -712,9 +710,9 @@
 	<string name="elevation_profile_distance">Відст.:</string>
 	<string name="elevation_profile_time">Шлях:</string>
 	<string name="isolines_toast_zooms_1_10">Збільште мапу, щоб побачити ізолінії</string>
-	<string name="enable_screen_sleep">Дозволити екрану вимкнутись</string>
+	<string name="enable_keep_screen_on">Тримайте екран увімкненим</string>
 	<!-- Description in preferences -->
-	<string name="enable_screen_sleep_description">При включенні екран може переходити в сплячий режим після певного періоду бездіяльності</string>
+	<string name="enable_keep_screen_on_description">Якщо увімкнено, екран завжди буде увімкнений під час відображення мапи.</string>
 	<!-- A preference title; keep short! -->
 	<string name="enable_show_on_lock_screen">Показувати на заблокованому екрані</string>
 	<!-- Description in preferences -->

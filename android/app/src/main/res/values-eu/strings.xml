@@ -536,8 +536,6 @@
 	<string name="editor_share_to_all_dialog_message_1">Ziurtatu ez duzula datu pertsonalik sartu.</string>
 	<string name="editor_share_to_all_dialog_message_2">OpenStreetMap editoreek aldaketak egiaztatuko dituzte eta zurekin harremanetan jarriko dira zalantzaren bat izanez gero.</string>
 	<string name="navigation_stop_button">gelditu</string>
-	<!-- Text under the version number in the Help dialog. TODO: Synchronize other translations with English. -->
-	<string name="about_description">Organic Maps lineaz kanpoko mapa aplikazio doako eta irekia da. Iragarkirik ez. Ez dago jarraipenik. Mapan errore bat ikusten baduzu, konpondu OpenStreetMap-en. Proiektua zaleek sortu dute haien aisialdian, beraz, zure iritzia eta laguntza behar dugu.</string>
 	<!-- For the first routing -->
 	<string name="accept">Onartu</string>
 	<!-- For the first routing -->
@@ -726,9 +724,9 @@
 	<string name="connection_failure">Konexio arazoa</string>
 	<!-- Used in DownloadResources startup screen -->
 	<string name="disconnect_usb_cable_title">Deskonektatu USB kablea</string>
-	<string name="enable_screen_sleep">Utzi pantailari lo egiten</string>
+	<string name="enable_keep_screen_on">Mantendu pantaila piztuta</string>
 	<!-- Description in preferences -->
-	<string name="enable_screen_sleep_description">Gaituta dagoenean, pantailak lo egin ahal izango du jarduerarik gabe egon ondoren.</string>
+	<string name="enable_keep_screen_on_description">Gaituta dagoenean, pantaila beti egongo da piztuta mapa bistaratzen denean.</string>
 	<!-- A preference title; keep short! -->
 	<string name="enable_show_on_lock_screen">Erakutsi pantaila blokeatuan</string>
 	<!-- Description in preferences -->

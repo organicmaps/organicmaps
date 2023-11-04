@@ -519,8 +519,6 @@
 	<string name="editor_share_to_all_dialog_message_1">Győződj meg arról, hogy nem adsz meg semmilyen személyes információt.</string>
 	<string name="editor_share_to_all_dialog_message_2">Az OpenStreetMap szerkesztői ellenőrzik a változásokat, és felveszik Önnel a kapcsolatot, ha kérdéseik vannak.</string>
 	<string name="navigation_stop_button">megállítás</string>
-	<!-- Text under the version number in the Help dialog. TODO: Synchronize other translations with English. -->
-	<string name="about_description">Az Organic Maps egy gyors és ingyenes offline térképalkalmazás hirdetések és nyomkövetés nélkül. A térképek az OpenStreetMap.org közösség által fenntartott adatain alapulnak, így a térképen megtalálható hibákat te is javíthatod, és adhatsz hozzá új helyeket. Az Organic Maps egy nyílt forráskódú projekt, amelyet lelkes fejlesztők hoztak létre szabadidejükben. Visszajelzéseidet és támogatásodat nagyra értékeljük!</string>
 	<!-- For the first routing -->
 	<string name="accept">Elfogad</string>
 	<!-- For the first routing -->
@@ -697,9 +695,9 @@
 	<string name="elevation_profile_distance">Táv.:</string>
 	<string name="elevation_profile_time">Idő</string>
 	<string name="isolines_toast_zooms_1_10">Nagyítás az isovonalak felfedezéséhez</string>
-	<string name="enable_screen_sleep">Hagyja aludni a képernyőt</string>
+	<string name="enable_keep_screen_on">Tartsa a képernyőt bekapcsolva</string>
 	<!-- Description in preferences -->
-	<string name="enable_screen_sleep_description">Ha engedélyezve van, akkor a képernyő inaktivitás után alszik.</string>
+	<string name="enable_keep_screen_on_description">Ha engedélyezve van, a képernyő mindig be lesz kapcsolva a térkép megjelenítésekor.</string>
 	<!-- A preference title; keep short! -->
 	<string name="enable_show_on_lock_screen">Megjelenítés a zárolt képernyőn</string>
 	<!-- Description in preferences -->

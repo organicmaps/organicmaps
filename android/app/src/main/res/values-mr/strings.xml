@@ -502,8 +502,6 @@
 	<!-- Dialog before publishing the modifications to the public map. -->
 	<string name="editor_share_to_all_dialog_message_1">आपण कोणतीही वैयक्तिक माहिती प्रविष्ट केला नाही याची खात्री करा.</string>
 	<string name="navigation_stop_button">थांबा</string>
-	<!-- Text under the version number in the Help dialog. TODO: Synchronize other translations with English. -->
-	<string name="about_description">Organic Maps हे एक विनामूल्य, जलद व ऑफलाईन नकाशांचे ऍप आहे जिथे जाहिरातीही नसतात व तुम्ही माहिती देखील गोळा केला जात नाही. हे नकाशे OpenStreetMap ह्या जनयोगदान प्रकल्पावर आधारित असल्याने नकाशातील त्रुट्या सुधारणे, नवीन ठिकाण जोडणे हे आपण स्वतः करू शकता. Organic Maps हा काही उत्साही लोकांनी त्यांच्या ऐत्यावेळात निर्माण केलेला मुक्त स्त्रोत स्वरूपाचा प्रकल्प आहे. तुमचा पाठिंबा व अभिप्राय बहुमोल आहे.</string>
 	<!-- For the first routing -->
 	<string name="accept">स्वीकारा</string>
 	<!-- For the first routing -->
@@ -690,9 +688,9 @@
 	<string name="connection_failure">जोडणी अयशस्वी</string>
 	<!-- Used in DownloadResources startup screen -->
 	<string name="disconnect_usb_cable_title">USB केबल काढा</string>
-	<string name="enable_screen_sleep">स्क्रीनचे निद्रा कार्य चालू करा</string>
+	<string name="enable_keep_screen_on">स्क्रीन चालू ठेवा</string>
 	<!-- Description in preferences -->
-	<string name="enable_screen_sleep_description">चालू केल्यास निष्क्रियतेच्या कालावधीनंतर स्क्रीनला झोपण्याची परवानगी दिली जाईल.</string>
+	<string name="enable_keep_screen_on_description">सक्षम असतानानकाशाशप्रदर्शितिकरतानानस्क्रीनीनेहमीमचालूाअसेलसेल.</string>
 	<!-- A preference title; keep short! -->
 	<string name="enable_show_on_lock_screen">लॉक पटलावर (स्क्रीनवर) दाखवा</string>
 	<!-- Description in preferences -->

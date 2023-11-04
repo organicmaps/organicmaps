@@ -523,8 +523,6 @@
 	<string name="editor_share_to_all_dialog_message_1">確保您沒有輸入任何個人資料。</string>
 	<string name="editor_share_to_all_dialog_message_2">OpenStreetMap 編輯人員將檢查更改並在有任何問題時與您聯繫。</string>
 	<string name="navigation_stop_button">停止</string>
-	<!-- Text under the version number in the Help dialog. TODO: Synchronize other translations with English. -->
-	<string name="about_description">Organic Maps 是一款免費的開源離線地圖 app。沒有廣告，不會追蹤。如果您在地圖上看到錯誤，請在 OpenStreetMap 中修復吧。這個專案由愛好者在我們的空閒時間創建，因此我們需要您的回饋和支援。</string>
 	<!-- For the first routing -->
 	<string name="accept">接受</string>
 	<!-- For the first routing -->
@@ -702,9 +700,9 @@
 	<string name="isolines_toast_zooms_1_10">放大地圖以查看等高線</string>
 	<!-- Used in DownloadResources startup screen -->
 	<string name="disconnect_usb_cable_title">拔除 USB 線</string>
-	<string name="enable_screen_sleep">允许螢幕進入休眠狀態</string>
+	<string name="enable_keep_screen_on">保持螢幕開啟</string>
 	<!-- Description in preferences -->
-	<string name="enable_screen_sleep_description">啟用後，螢幕將在一段時間不活動後進入休眠狀態。</string>
+	<string name="enable_keep_screen_on_description">啟用後，顯示地圖時畫面將始終開啟。</string>
 	<!-- OpenStreetMap text on splash screen -->
 	<string name="splash_subtitle">來自 OpenStreetMap 的地圖數據</string>
 	<!-- Tip #00 -->
