@@ -48,6 +48,8 @@ public class SearchResult
     public final String brand;
     public final String airportIata;
     public final String roadShields;
+
+    public final String fee;
     public final int openNow;
     public final int minutesUntilOpen;
     public final int minutesUntilClosed;
@@ -55,7 +57,7 @@ public class SearchResult
 
     public Description(FeatureId featureId, String featureType, String region, Distance distance,
                        String cuisine, String brand, String airportIata, String roadShields,
-                       int openNow, int minutesUntilOpen, int minutesUntilClosed,
+                       String fee, int openNow, int minutesUntilOpen, int minutesUntilClosed,
                        boolean hasPopularityHigherPriority)
     {
       this.featureId = featureId;
@@ -66,6 +68,7 @@ public class SearchResult
       this.brand = brand;
       this.airportIata = airportIata;
       this.roadShields = roadShields;
+      this.fee = fee;
       this.openNow = openNow;
       this.minutesUntilOpen = minutesUntilOpen;
       this.minutesUntilClosed = minutesUntilClosed;
@@ -178,6 +181,9 @@ public class SearchResult
       if (!TextUtils.isEmpty(description.cuisine))
         tail.append(" • ").append(description.cuisine);
     }
+
+    if (!TextUtils.isEmpty(description.fee))
+      tail.append(" • ").append(description.fee);
 
     if (isHotel && stars != 0)
       tail.append(" • ").append("★★★★★★★".substring(0, Math.min(7, stars)));
