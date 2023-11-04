@@ -1209,9 +1209,10 @@ UNIT_CLASS_TEST(TestWithClassificator, OsmType_ReuseTags)
 
     auto const params = GetFeatureBuilderParams(tags);
 
-    TEST_EQUAL(params.m_types.size(), 2, (params));
+    TEST_EQUAL(params.m_types.size(), 3, (params));
     TEST(params.IsTypeExist(GetType({"amenity", "parking", "private"})), (params));
     TEST(params.IsTypeExist(GetType({"amenity", "parking", "fee"})), (params));
+    TEST(params.IsTypeExist(GetType({"fee", "yes"})), (params));
   }
 }
 
@@ -1953,6 +1954,8 @@ UNIT_CLASS_TEST(TestWithClassificator, OsmType_SimpleTypesSmoke)
     {"emergency", "defibrillator"},
     {"emergency", "fire_hydrant"},
     {"emergency", "phone"},
+    {"fee", "no"},
+    {"fee", "yes"},
     {"highway", "bridleway"},
     {"highway", "busway"},
     {"highway", "bus_stop"},
@@ -2344,20 +2347,14 @@ UNIT_CLASS_TEST(TestWithClassificator, OsmType_ComplexTypesSmoke)
     {{"addr:interpolation"}, {{"addr:interpolation", "all"}}},
     {{"aeroway", "aerodrome", "international"}, {{"aeroway", "aerodrome"}, {"aerodrome", "international"}}},
     {{"amenity", "grave_yard", "christian"}, {{"amenity", "grave_yard"}, {"religion", "christian"}}},
-    {{"amenity", "parking"}, {{"amenity", "parking"}, {"fee", "no"}}},
-    {{"amenity", "parking", "fee"}, {{"amenity", "parking"}, {"fee", "any_value"}}},
     {{"amenity", "parking", "lane"}, {{"amenity", "parking"}, {"parking", "lane"}}},
-    {{"amenity", "parking", "lane", "fee"}, {{"amenity", "parking"}, {"parking", "lane"}, {"fee", "any_value"}}},
     {{"amenity", "parking", "multi-storey"}, {{"amenity", "parking"}, {"parking", "multi-storey"}}},
-    {{"amenity", "parking", "multi-storey", "fee"}, {{"amenity", "parking"}, {"parking", "multi-storey"}, {"fee", "any_value"}}},
     {{"amenity", "parking", "no-access"}, {{"amenity", "parking"}, {"access", "no"}}},
     {{"amenity", "parking", "park_and_ride"}, {{"amenity", "parking"}, {"parking", "park_and_ride"}}},
     {{"amenity", "parking", "permissive"}, {{"amenity", "parking"}, {"access", "permissive"}}},
     {{"amenity", "parking", "private"}, {{"amenity", "parking"}, {"access", "private"}}},
     {{"amenity", "parking", "street_side"}, {{"amenity", "parking"}, {"parking", "street_side"}}},
-    {{"amenity", "parking", "street_side", "fee"}, {{"amenity", "parking"}, {"parking", "street_side"}, {"fee", "any_value"}}},
     {{"amenity", "parking", "underground"}, {{"amenity", "parking"}, {"location", "underground"}}},
-    {{"amenity", "parking", "underground", "fee"}, {{"amenity", "parking"}, {"parking", "underground"}, {"fee", "any_value"}}},
     {{"amenity", "parking_space", "permissive"}, {{"amenity", "parking_space"}, {"access", "permissive"}}},
     {{"amenity", "parking_space", "private"}, {{"amenity", "parking_space"}, {"access", "private"}}},
     {{"amenity", "parking_space", "underground"}, {{"amenity", "parking_space"}, {"parking", "underground"}}},
@@ -2644,4 +2641,29 @@ UNIT_CLASS_TEST(TestWithClassificator, OsmType_ComplexTypesSmoke)
     TEST(params.IsTypeExist(GetType(type.first)), (type, params));
   }
 }
+
+UNIT_CLASS_TEST(TestWithClassificator, OsmType_MultipleComplexTypesSmoke)
+{
+  using Type = std::vector<std::string>;
+  std::vector<std::pair<std::vector<Type>, Tags>> const complexTypes = {
+    {{{"amenity", "parking"}, {"fee", "no"}}, {{"amenity", "parking"}, {"fee", "no"}}},
+    {{{"amenity", "parking", "fee"}, {"fee", "yes"}}, {{"amenity", "parking"}, {"fee", "any_value"}}},
+    {{{"amenity", "parking", "lane", "fee"}, {"fee", "yes"}}, {{"amenity", "parking"}, {"parking", "lane"}, {"fee", "any_value"}}},
+    {{{"amenity", "parking", "multi-storey", "fee"}, {"fee", "yes"}}, {{"amenity", "parking"}, {"parking", "multi-storey"}, {"fee", "any_value"}}},
+    {{{"amenity", "parking", "street_side", "fee"}, {"fee", "yes"}}, {{"amenity", "parking"}, {"parking", "street_side"}, {"fee", "any_value"}}},
+    {{{"amenity", "parking", "underground", "fee"}, {"fee", "yes"}}, {{"amenity", "parking"}, {"parking", "underground"}, {"fee", "any_value"}}},
+  };
+
+  for (auto const & type : complexTypes)
+  {
+    auto const & results = type.first;
+    auto const params = GetFeatureBuilderParams(type.second);
+    TEST_EQUAL(params.m_types.size(), results.size(), (type, params));
+    for (auto const & result : results)
+    {
+      TEST(params.IsTypeExist(GetType(result)), (type, params));
+    }
+  }
+}
+
 }  // namespace osm_type_test
