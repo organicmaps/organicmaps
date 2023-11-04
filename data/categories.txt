@@ -6578,7 +6578,7 @@ fr:Pays
 de:Land
 hu:Ország
 id:Benua
-it:Paese|Nazione
+it:Paese
 ja:国|国家
 ko:나라
 nb:Land
