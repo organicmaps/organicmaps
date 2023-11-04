@@ -137,6 +137,7 @@ private:
         {"cuisine"},
         {"recycling"},
         {"area:highway"},
+        {"fee"},
     };
 
     Classificator const & c = classif();
