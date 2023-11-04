@@ -511,8 +511,6 @@
 	<string name="editor_share_to_all_dialog_message_1">Ujistěte se, že jste nezadali žádná osobní data.</string>
 	<string name="editor_share_to_all_dialog_message_2">Redaktoři OpenStreetMap zkontrolují změny a budou vás kontaktovat, pokud budou mít nějaké dotazy.</string>
 	<string name="navigation_stop_button">stop</string>
-	<!-- Text under the version number in the Help dialog. TODO: Synchronize other translations with English. -->
-	<string name="about_description">Organic Maps je bezplatná offline mapová aplikace s otevřeným zdrojovým kódem. Žádné reklamy. Žádné sledování. Pokud na mapě uvidíte chybu, opravte ji v OpenStreetMap. Projekt vytvářejí nadšenci v našem volném čase, takže potřebujeme vaši zpětnou vazbu a podporu.</string>
 	<!-- For the first routing -->
 	<string name="accept">Přijmout</string>
 	<!-- For the first routing -->
@@ -690,9 +688,9 @@
 	<string name="elevation_profile_distance">Vzdál.:</string>
 	<string name="elevation_profile_time">Čas:</string>
 	<string name="isolines_toast_zooms_1_10">Přiblížit pro prozkoumání izolinií</string>
-	<string name="enable_screen_sleep">Nechte obrazovku spát</string>
+	<string name="enable_keep_screen_on">Nechat obrazovku zapnutou</string>
 	<!-- Description in preferences -->
-	<string name="enable_screen_sleep_description">Je-li tato možnost povolena, bude obrazovce po určité době nečinnosti umožněno usnout.</string>
+	<string name="enable_keep_screen_on_description">Je-li tato funkce povolena, bude obrazovka při zobrazení mapy vždy zapnutá.</string>
 	<!-- A preference title; keep short! -->
 	<string name="enable_show_on_lock_screen">Zobrazit na uzamčené obrazovce</string>
 	<!-- Description in preferences -->

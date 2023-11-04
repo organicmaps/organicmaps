@@ -538,8 +538,6 @@
 	<string name="editor_share_to_all_dialog_message_1">Varmista, ettet syöttänyt henkilökohtaisia tietojasi.</string>
 	<string name="editor_share_to_all_dialog_message_2">OpenStreetMap-editorit tarkistavat muutokset ja ottavat sinuun yhteyttä, jos heillä on kysyttävää.</string>
 	<string name="navigation_stop_button">lopeta</string>
-	<!-- Text under the version number in the Help dialog. TODO: Synchronize other translations with English. -->
-	<string name="about_description">Organic Maps on ilmainen ja avoimen lähdekoodin offline-karttasovellus. Ei mainoksia. Ei seurantaa. Jos näet virheen kartalla, korjaa se OpenStreetMapissa. Hankkeen ovat luoneet harrastajat vapaa-ajallaan, joten palautettasi ja tukeasi tarvitaan.</string>
 	<!-- For the first routing -->
 	<string name="accept">Hyväksy</string>
 	<!-- For the first routing -->
@@ -728,9 +726,9 @@
 	<string name="connection_failure">Yhteysvirhe</string>
 	<!-- Used in DownloadResources startup screen -->
 	<string name="disconnect_usb_cable_title">Irrota USB-kaapeli</string>
-	<string name="enable_screen_sleep">Salli näytön lepotila</string>
+	<string name="enable_keep_screen_on">Pidä näyttö päällä</string>
 	<!-- Description in preferences -->
-	<string name="enable_screen_sleep_description">Kun tämä asetus on käytössä, näyttö menee lepotilaan käyttämättömyyden jälkeen.</string>
+	<string name="enable_keep_screen_on_description">Kun tämä on käytössä, näyttö on aina päällä, kun kartta näytetään.</string>
 	<!-- A preference title; keep short! -->
 	<string name="enable_show_on_lock_screen">Näytä lukitusnäytöllä</string>
 	<!-- Description in preferences -->

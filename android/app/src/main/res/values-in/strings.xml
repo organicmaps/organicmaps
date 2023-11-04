@@ -507,8 +507,6 @@
 	<string name="editor_share_to_all_dialog_message_1">Pastikan Anda tidak memasukkan data pribadi apa pun.</string>
 	<string name="editor_share_to_all_dialog_message_2">Editor OpenStreetMap akan memeriksa perubahan dan menghubungi Anda jika ada pertanyaan.</string>
 	<string name="navigation_stop_button">berhenti</string>
-	<!-- Text under the version number in the Help dialog. TODO: Synchronize other translations with English. -->
-	<string name="about_description">Organic Maps adalah aplikasi peta offline sumber terbuka dan gratis. Tanpa iklan. Tidak ada pelacakan. Jika Anda melihat kesalahan pada peta, harap perbaiki di OpenStreetMap. Proyek ini dibuat oleh para penggemar di waktu luang kami, jadi kami membutuhkan masukan dan dukungan Anda.</string>
 	<!-- For the first routing -->
 	<string name="accept">Terima</string>
 	<!-- For the first routing -->
@@ -685,9 +683,9 @@
 	<string name="elevation_profile_distance">Jarak:</string>
 	<string name="elevation_profile_time">Waktu:</string>
 	<string name="isolines_toast_zooms_1_10">Perbesar untuk menjelajahi garis kontur</string>
-	<string name="enable_screen_sleep">Izinkan layar untuk tidur</string>
+	<string name="enable_keep_screen_on">Biarkan layar tetap menyala</string>
 	<!-- Description in preferences -->
-	<string name="enable_screen_sleep_description">Jika diaktifkan, layar akan diizinkan untuk tidur setelah beberapa saat tidak aktif.</string>
+	<string name="enable_keep_screen_on_description">Apabila diaktifkan, layar akan selalu menyala ketika menampilkan peta.</string>
 	<!-- OpenStreetMap text on splash screen -->
 	<string name="splash_subtitle">Data peta dari OpenStreetMap</string>
 	<!-- Translated Organic Maps site, add new translations here: https://github.com/organicmaps/organicmaps.github.io/tree/master/content -->

@@ -512,8 +512,6 @@
 	<string name="editor_share_to_all_dialog_message_1">Certifique-se que não incluiu nenhuns dados pessoais.</string>
 	<string name="editor_share_to_all_dialog_message_2">Os editores do OpenStreetMap verificarão as alterações e entrarão em contacto consigo se tiverem alguma dúvida.</string>
 	<string name="navigation_stop_button">parar</string>
-	<!-- Text under the version number in the Help dialog. TODO: Synchronize other translations with English. -->
-	<string name="about_description">Organic Maps é uma aplicação gratuita e de código aberto de mapas offline. Sem anúncios. Sem seguimento. Se vir um erro no mapa, por favor repare-o em OpenStreetMap. O projecto é criado por entusiastas no nosso tempo livre, por isso precisamos do seu feedback e apoio.</string>
 	<!-- For the first routing -->
 	<string name="accept">Aceitar</string>
 	<!-- For the first routing -->
@@ -696,9 +694,9 @@
 	<string name="download_map_title">Descarregar o mapa mundial</string>
 	<!-- Used in DownloadResources startup screen -->
 	<string name="connection_failure">Falha na coneção</string>
-	<string name="enable_screen_sleep">Permitir que o ecrã desligue</string>
+	<string name="enable_keep_screen_on">Mantém o ecrã ligado</string>
 	<!-- Description in preferences -->
-	<string name="enable_screen_sleep_description">Quando ativado, o ecrá poderá desligar-se após um período de inatividade.</string>
+	<string name="enable_keep_screen_on_description">Quando ativado, o ecrã estará sempre ligado quando apresentares o mapa.</string>
 	<!-- OpenStreetMap text on splash screen -->
 	<string name="splash_subtitle">Dados cartográficos do OpenStreetMap</string>
 	<!-- Link to OSM wiki for Editor, Profile and About pages -->

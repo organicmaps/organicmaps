@@ -538,8 +538,6 @@
 	<string name="editor_share_to_all_dialog_message_1">Upewnij się, że nie podałeś osobistych danych.</string>
 	<string name="editor_share_to_all_dialog_message_2">Redaktorzy OpenStreetMap sprawdzą zmiany i skontaktują się z Tobą, jeśli będą mieli jakiekolwiek pytania.</string>
 	<string name="navigation_stop_button">stop</string>
-	<!-- Text under the version number in the Help dialog. TODO: Synchronize other translations with English. -->
-	<string name="about_description">Organic Maps to bezpłatna aplikacja do map offline typu open source. Bez reklam. Bez śledzenia. Jeśli zobaczysz błąd na mapie, popraw go w OpenStreetMap. Projekt jest tworzony przez entuzjastów w czasie wolnym, dlatego potrzebujemy Twojej opinii i wsparcia.</string>
 	<!-- For the first routing -->
 	<string name="accept">Zaakceptuj</string>
 	<!-- For the first routing -->
@@ -726,9 +724,9 @@
 	<string name="connection_failure">Błąd połączenia</string>
 	<!-- Used in DownloadResources startup screen -->
 	<string name="disconnect_usb_cable_title">Odłącz kabel USB</string>
-	<string name="enable_screen_sleep">Pozwól na wygaszanie ekranu</string>
+	<string name="enable_keep_screen_on">Pozostaw ekran włączony</string>
 	<!-- Description in preferences -->
-	<string name="enable_screen_sleep_description">Po włączeniu tej funkcji ekran będzie mógł się wygasić po okresie bezczynności.</string>
+	<string name="enable_keep_screen_on_description">Po włączeniu ekran będzie zawsze włączony podczas wyświetlania mapy.</string>
 	<!-- A preference title; keep short! -->
 	<string name="enable_show_on_lock_screen">Pokazuj na ekranie blokady</string>
 	<!-- Description in preferences -->

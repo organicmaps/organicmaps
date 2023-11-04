@@ -538,8 +538,6 @@
 	<string name="editor_share_to_all_dialog_message_1">Herhangi bir kişisel bilgi girmediğinizden emin olun.</string>
 	<string name="editor_share_to_all_dialog_message_2">OpenStreetMap editörleri değişikliklerinizi kontrol edecek ve bir soruları olursa sizinle iletişime geçecekler.</string>
 	<string name="navigation_stop_button">dur</string>
-	<!-- Text under the version number in the Help dialog. TODO: Synchronize other translations with English. -->
-	<string name="about_description">Organic Maps, reklam ve izleyici içermeyen hızlı ve ücretsiz bir çevrimdışı harita uygulamasıdır. Haritalar kitle kaynaklı OpenStreetMap.org verilerine dayanmaktadır, böylece kendiniz harita hatalarını düzeltebilir ve haritaya yeni nesneler ekleyebilirsiniz. Organic Maps, teknoloji tutkunlarının boş zamanlarında oluşturduğu açık kaynaklı bir projedir. Geri bildirim ve desteğinize çok değer veriyoruz!</string>
 	<!-- For the first routing -->
 	<string name="accept">Kabul et</string>
 	<!-- For the first routing -->
@@ -724,9 +722,9 @@
 	<string name="connection_failure">Bağlantı hatası</string>
 	<!-- Used in DownloadResources startup screen -->
 	<string name="disconnect_usb_cable_title">USB kablosunu çıkarın</string>
-	<string name="enable_screen_sleep">Ekranın kapanmasına izin ver</string>
+	<string name="enable_keep_screen_on">Ekranı açık tut</string>
 	<!-- Description in preferences -->
-	<string name="enable_screen_sleep_description">Etkinleştirildiğinde ekranın bir süre hareketsiz kaldıktan sonra kapanmasına izin verilir.</string>
+	<string name="enable_keep_screen_on_description">Etkinleştirildiğinde, harita görüntülenirken ekran her zaman açık olacaktır.</string>
 	<!-- A preference title; keep short! -->
 	<string name="enable_show_on_lock_screen">Kilit ekranında göster</string>
 	<!-- Description in preferences -->
