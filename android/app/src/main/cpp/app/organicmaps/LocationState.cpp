@@ -35,7 +35,9 @@ Java_app_organicmaps_location_LocationState_nativeSwitchToNextMode(JNIEnv * env,
 JNIEXPORT jint JNICALL
 Java_app_organicmaps_location_LocationState_nativeGetMode(JNIEnv * env, jclass clazz)
 {
-  ASSERT(g_framework, ());
+  // GetMyPositionMode() is initialized only after drape creation.
+  // https://github.com/organicmaps/organicmaps/issues/1128#issuecomment-1784435190
+  ASSERT(g_framework && g_framework->IsDrapeEngineCreated(), ());
   return g_framework->GetMyPositionMode();
 }
 

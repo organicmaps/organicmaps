@@ -4,6 +4,8 @@ import androidx.annotation.IntDef;
 import androidx.annotation.Keep;
 import androidx.annotation.NonNull;
 
+import app.organicmaps.Map;
+
 import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
 
@@ -48,7 +50,7 @@ public final class LocationState
 
   public static native void nativeSwitchToNextMode();
   @Value
-  public static native int nativeGetMode();
+  private static native int nativeGetMode();
 
   public static native void nativeSetListener(@NonNull ModeChangeListener listener);
   public static native void nativeRemoveListener();
@@ -63,21 +65,15 @@ public final class LocationState
 
   private LocationState() {}
 
-  /**
-   * Checks if location state on the map is active (so its not turned off or pending).
-   */
-  static boolean isTurnedOn()
+  @Value
+  public static int getMode()
   {
-    return hasLocation(nativeGetMode());
+    if (!Map.isEngineCreated())
+      throw new IllegalStateException("Location mode is undefined until engine is created");
+    return nativeGetMode();
   }
 
-  static boolean hasLocation(int mode)
-  {
-    return (mode > NOT_FOLLOW_NO_POSITION);
-  }
-
-  @SuppressWarnings("unused")
-  static String nameOf(@Value int mode)
+  public static String nameOf(@Value int mode)
   {
     switch (mode)
     {

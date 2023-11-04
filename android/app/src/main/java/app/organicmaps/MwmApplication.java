@@ -363,7 +363,7 @@ public class MwmApplication extends Application implements Application.ActivityL
       Logger.i(LOCATION_TAG, "Android Auto is active, keeping location in the background");
     else if (RoutingController.get().isNavigating())
       Logger.i(LOCATION_TAG, "Navigation is in progress, keeping location in the background");
-    else if (!Map.isEngineCreated() || LocationState.nativeGetMode() == LocationState.PENDING_POSITION)
+    else if (!Map.isEngineCreated() || LocationState.getMode() == LocationState.PENDING_POSITION)
       Logger.i(LOCATION_TAG, "PENDING_POSITION mode, keeping location in the background");
     else
     {

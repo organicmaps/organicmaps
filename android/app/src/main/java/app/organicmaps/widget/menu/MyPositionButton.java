@@ -15,6 +15,8 @@ import androidx.annotation.NonNull;
 import androidx.core.content.res.ResourcesCompat;
 import androidx.core.widget.ImageViewCompat;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
+
+import app.organicmaps.Map;
 import app.organicmaps.R;
 import app.organicmaps.location.LocationState;
 import app.organicmaps.util.ThemeUtils;
@@ -36,7 +38,8 @@ public class MyPositionButton
     mButton.setOnClickListener(listener);
     mIcons.clear();
     mFollowPaddingShift = (int) (FOLLOW_SHIFT * button.getResources().getDisplayMetrics().density);
-    update(LocationState.nativeGetMode());
+    final int locationMode = Map.isEngineCreated() ? LocationState.getMode() : LocationState.NOT_FOLLOW_NO_POSITION;
+    update(locationMode);
   }
 
   public void update(int mode)
