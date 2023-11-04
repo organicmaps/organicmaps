@@ -5747,7 +5747,6 @@ nl:3Postkantoor
 fr:3comptoir postal|bureau de poste
 de:3Postamt
 id:Kantor pos
-it:Ufficio postale
 pl:Poczta|listy
 pt:Estação de correios|Posto de correios|Correios
 pt-BR:3Correios
