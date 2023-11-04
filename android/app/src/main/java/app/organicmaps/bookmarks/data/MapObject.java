@@ -278,6 +278,14 @@ public class MapObject implements PlacePageData
     mLon = lon;
   }
 
+  // Called from JNI.
+  @Keep
+  @SuppressWarnings("unused")
+  public void addMetadata(int type, String value)
+  {
+    mMetadata.addMetadata(type, value);
+  }
+
   public boolean hasPhoneNumber()
   {
     return !TextUtils.isEmpty(getMetadata(Metadata.MetadataType.FMD_PHONE_NUMBER));
