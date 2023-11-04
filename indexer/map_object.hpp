@@ -88,6 +88,8 @@ public:
   std::vector<std::string> GetRecyclingTypes() const;
   /// @returns translated recycling type(s).
   std::vector<std::string> GetLocalizedRecyclingTypes() const;
+  /// @returns translated fee type.
+  std::string GetLocalizedFeeType() const;
   /// @returns translated and formatted cuisines.
   std::string FormatCuisines() const;
 

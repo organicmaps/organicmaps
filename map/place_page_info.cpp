@@ -171,6 +171,11 @@ std::string Info::FormatSubtitle(bool withType) const
   if (GetWheelchairType() == ftraits::WheelchairAvailability::Yes)
     append(kWheelchairSymbol);
 
+  // Fee.
+  auto const fee = GetLocalizedFeeType();
+  if (!fee.empty())
+    append(fee);
+    
   return result;
 }
 

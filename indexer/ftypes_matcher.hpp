@@ -467,6 +467,14 @@ public:
   DECLARE_CHECKER_INSTANCE(IsRecyclingTypeChecker);
 };
 
+class IsFeeTypeChecker : public BaseChecker
+{
+  IsFeeTypeChecker();
+
+public:
+  DECLARE_CHECKER_INSTANCE(IsFeeTypeChecker);
+};
+
 class IsCityChecker : public BaseChecker
 {
   IsCityChecker();
