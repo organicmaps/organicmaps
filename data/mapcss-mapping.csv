@@ -576,8 +576,8 @@ waterway|fish_pass;496;
 waterway|fish_pass|tunnel;[waterway=fish_pass][tunnel?];;name;int_name;497;
 natural|water|lock;[natural=water][water=lock];;name;int_name;498;
 deprecated:waterway|lock:06.2022;499;waterway|canal
-deprecated|deprecated;500;x
-deprecated|deprecated;501;x
+fee|yes;[fee?];;name;int_name;500;
+fee|no;[fee=no];;name;int_name;501;
 deprecated|deprecated;502;x
 highway|trunk_link|tunnel;[highway=trunk_link][tunnel?];;name;int_name;503;
 deprecated|deprecated;504;x

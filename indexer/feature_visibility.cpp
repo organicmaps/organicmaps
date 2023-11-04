@@ -194,7 +194,8 @@ namespace
 
     static uint32_t const arrTypes[] = {
       cl.GetTypeByPath({"wheelchair"}),
-      cl.GetTypeByPath({"cuisine"})
+      cl.GetTypeByPath({"cuisine"}),
+      cl.GetTypeByPath({"fee"}),
     };
     return base::IsExist(arrTypes, type);
   }
