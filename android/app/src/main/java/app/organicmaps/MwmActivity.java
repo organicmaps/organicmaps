@@ -257,8 +257,6 @@ public class MwmActivity extends BaseMwmFragmentActivity
   {
     ThemeSwitcher.INSTANCE.restart(true);
 
-    autostartLocation();
-
     if (RoutingController.get().isPlanning())
       onPlanningStarted();
     else if (RoutingController.get().isNavigating())
@@ -734,8 +732,9 @@ public class MwmActivity extends BaseMwmFragmentActivity
         Map.zoomOut();
         break;
       case myPosition:
+        Logger.i(LOCATION_TAG, "The location button pressed");
+        // Calls onMyPositionModeChanged(mode + 1).
         LocationState.nativeSwitchToNextMode();
-        startLocation();
         break;
       case toggleMapLayer:
         toggleMapLayerBottomSheet();
@@ -883,7 +882,11 @@ public class MwmActivity extends BaseMwmFragmentActivity
   public void startLocationToPoint(final @Nullable MapObject endPoint)
   {
     closeFloatingPanels();
-    startLocation();
+    if (LocationState.getMode() == LocationState.NOT_FOLLOW_NO_POSITION)
+    {
+      // Calls onMyPositionModeChanged(PENDING_POSITION).
+      LocationState.nativeSwitchToNextMode();
+    }
 
     MapObject startPoint = LocationHelper.from(this).getMyPosition();
     RoutingController.get().prepare(startPoint, endPoint);
@@ -1086,7 +1089,6 @@ public class MwmActivity extends BaseMwmFragmentActivity
     IsolinesManager.from(getApplicationContext()).attach(this::onIsolinesStateChanged);
     LocationState.nativeSetListener(this);
     LocationHelper.from(this).addListener(this);
-    onMyPositionModeChanged(LocationState.nativeGetMode());
     mSearchController.attach(this);
   }
 
@@ -1506,7 +1508,6 @@ public class MwmActivity extends BaseMwmFragmentActivity
 
     mRoutingPlanInplaceController.hideDrivingOptionsView();
     NavigationService.stopService(this);
-    LocationHelper.from(this).restartWithNewMode();
     mMapButtonsViewModel.setSearchOption(null);
     mMapButtonsViewModel.setLayoutMode(MapButtonsController.LayoutMode.regular);
     refreshLightStatusBar();
@@ -1698,16 +1699,56 @@ public class MwmActivity extends BaseMwmFragmentActivity
   @Override
   public void onMyPositionModeChanged(int newMode)
   {
-    Logger.d(LOCATION_TAG, "newMode = " + newMode);
+    Logger.d(LOCATION_TAG, "newMode = " + LocationState.nameOf(newMode));
     mMapButtonsViewModel.setMyPositionMode(newMode);
     RoutingController controller = RoutingController.get();
     if (controller.isPlanning())
       showAddStartOrFinishFrame(controller, true);
-    LocationHelper.from(this).restartWithNewMode();
+
     if (newMode == FOLLOW || newMode == FOLLOW_AND_ROTATE)
       Utils.keepScreenOn(Config.isKeepScreenOnEnabled() || RoutingController.get().isNavigating(), getWindow());
     else
       Utils.keepScreenOn(RoutingController.get().isNavigating(), getWindow());
+
+    final LocationHelper locationHelper = LocationHelper.from(this);
+
+    // Check if location was disabled by the user.
+    if (LocationState.getMode() == LocationState.NOT_FOLLOW_NO_POSITION)
+    {
+      Logger.i(LOCATION_TAG, "Location updates are stopped by the user manually.");
+      if (locationHelper.isActive())
+        locationHelper.stop();
+      return;
+    }
+
+    // Check for any location permissions.
+    if (!LocationUtils.checkCoarseLocationPermission(this))
+    {
+      Logger.w(LOCATION_TAG, "Permissions ACCESS_COARSE_LOCATION and ACCESS_FINE_LOCATION are not granted");
+      // Calls onMyPositionModeChanged(NOT_FOLLOW_NO_POSITION).
+      LocationState.nativeOnLocationError(LocationState.ERROR_DENIED);
+
+      Logger.i(LOCATION_TAG, "Requesting ACCESS_FINE_LOCATION + ACCESS_FINE_LOCATION permissions");
+      dismissLocationErrorDialog();
+      mLocationPermissionRequest.launch(new String[]{
+          ACCESS_COARSE_LOCATION,
+          ACCESS_FINE_LOCATION
+      });
+      return;
+    }
+
+    locationHelper.restartWithNewMode();
+
+    if ((newMode == FOLLOW || newMode == FOLLOW_AND_ROTATE) && !LocationUtils.checkFineLocationPermission(this))
+    {
+      // Try to optimistically request FINE permission for FOLLOW and FOLLOW_AND_ROTATE modes.
+      Logger.i(LOCATION_TAG, "Requesting ACCESS_FINE_LOCATION permission for " + LocationState.nameOf(newMode));
+      dismissLocationErrorDialog();
+      mLocationPermissionRequest.launch(new String[]{
+          ACCESS_COARSE_LOCATION,
+          ACCESS_FINE_LOCATION
+      });
+    }
   }
 
   /**
@@ -1776,30 +1817,6 @@ public class MwmActivity extends BaseMwmFragmentActivity
   }
 
   /**
-   * Start location services when the user presses a button or starts routing.
-   */
-  private void startLocation()
-  {
-    Logger.d(LOCATION_TAG);
-
-    if (LocationUtils.checkFineLocationPermission(this))
-    {
-      Logger.i(LOCATION_TAG, "Permission ACCESS_FINE_LOCATION is granted");
-      LocationHelper.from(this).start();
-      return;
-    }
-
-    // Always try to optimistically request FINE permission when the user presses a button or starts routing.
-    // Android will suppress annoying dialogs and skip directly to onLocationPermissionsResult().
-    Logger.i(LOCATION_TAG, "Requesting ACCESS_FINE_LOCATION permission");
-    dismissLocationErrorDialog();
-    mLocationPermissionRequest.launch(new String[]{
-        ACCESS_COARSE_LOCATION,
-        ACCESS_FINE_LOCATION
-    });
-  }
-
-  /**
    * Request POST_NOTIFICATIONS permission.
    */
   public void requestPostNotificationsPermission()
@@ -1813,45 +1830,6 @@ public class MwmActivity extends BaseMwmFragmentActivity
 
     Logger.i(TAG, "Requesting POST_NOTIFICATIONS permission");
     mPostNotificationPermissionRequest.launch(POST_NOTIFICATIONS);
-  }
-
-  /**
-   * Start location services explicitly on the start of activity.
-   */
-  private void autostartLocation()
-  {
-    if (!isMapRendererActive())
-      throw new AssertionError("Must be called when rendering is active");
-
-    if (LocationState.nativeGetMode() == LocationState.NOT_FOLLOW_NO_POSITION)
-    {
-      Logger.i(LOCATION_TAG, "Location updates are stopped by the user manually.");
-      LocationState.nativeOnLocationError(LocationState.ERROR_GPS_OFF);
-      LocationHelper.from(this).stop();
-    }
-    else if (LocationUtils.checkFineLocationPermission(this))
-    {
-      Logger.i(LOCATION_TAG, "Permission ACCESS_FINE_LOCATION is granted");
-      LocationHelper.from(this).start();
-    }
-    else if (LocationUtils.checkCoarseLocationPermission(this))
-    {
-      Logger.i(LOCATION_TAG, "Permission ACCESS_COARSE_LOCATION is granted");
-      LocationHelper.from(this).start();
-    }
-    else
-    {
-      Logger.w(LOCATION_TAG, "Permissions ACCESS_COARSE_LOCATION and ACCESS_FINE_LOCATION are not granted");
-      LocationState.nativeOnLocationError(LocationState.ERROR_DENIED);
-      LocationHelper.from(this).stop();
-
-      Logger.i(LOCATION_TAG, "Requesting ACCESS_FINE_LOCATION + ACCESS_FINE_LOCATION permissions");
-      dismissLocationErrorDialog();
-      mLocationPermissionRequest.launch(new String[]{
-          ACCESS_COARSE_LOCATION,
-          ACCESS_FINE_LOCATION
-      });
-    }
   }
 
   /**
@@ -1873,13 +1851,14 @@ public class MwmActivity extends BaseMwmFragmentActivity
 
     if (LocationUtils.checkLocationPermission(this))
     {
-      LocationHelper.from(this).start();
+      if (LocationState.getMode() == LocationState.NOT_FOLLOW_NO_POSITION)
+        LocationState.nativeSwitchToNextMode();
       return;
     }
 
     Logger.w(LOCATION_TAG, "Permissions ACCESS_COARSE_LOCATION and ACCESS_FINE_LOCATION have been refused");
+    // Calls onMyPositionModeChanged(NOT_FOLLOW_NO_POSITION).
     LocationState.nativeOnLocationError(LocationState.ERROR_DENIED);
-    LocationHelper.from(this).stop();
 
     if (mLocationErrorDialog != null && mLocationErrorDialog.isShowing())
     {
@@ -1940,14 +1919,17 @@ public class MwmActivity extends BaseMwmFragmentActivity
     if (resultCode != Activity.RESULT_OK)
     {
       Logger.w(LOCATION_TAG, "Location resolution has been refused");
+      // Calls onMyPositionModeChanged(NOT_FOLLOW_NO_POSITION).
       LocationState.nativeOnLocationError(LocationState.ERROR_GPS_OFF);
-      LocationHelper.from(this).stop();
       return;
     }
 
     Logger.i(LOCATION_TAG, "Location resolution has been granted, restarting location");
-    LocationHelper.from(this).stop();
-    startLocation();
+    if (LocationState.getMode() == LocationState.NOT_FOLLOW_NO_POSITION)
+    {
+      // Calls onMyPositionModeChanged(PENDING_POSITION).
+      LocationState.nativeSwitchToNextMode();
+    }
   }
 
   /**
@@ -1959,8 +1941,8 @@ public class MwmActivity extends BaseMwmFragmentActivity
   {
     Logger.d(LOCATION_TAG, "settings = " + LocationUtils.areLocationServicesTurnedOn(this));
 
+    // Calls onMyPositionModeChanged(NOT_FOLLOW_NO_POSITION).
     LocationState.nativeOnLocationError(LocationState.ERROR_GPS_OFF);
-    LocationHelper.from(this).stop();
 
     if (mLocationErrorDialog != null && mLocationErrorDialog.isShowing())
     {
@@ -1997,7 +1979,7 @@ public class MwmActivity extends BaseMwmFragmentActivity
       return;
     }
 
-    if (LocationState.nativeGetMode() == LocationState.NOT_FOLLOW_NO_POSITION)
+    if (LocationState.getMode() == LocationState.NOT_FOLLOW_NO_POSITION)
     {
       Logger.d(LOCATION_TAG, "Don't show 'location timeout' error dialog in NOT_FOLLOW_NO_POSITION mode");
       return;
@@ -2022,8 +2004,8 @@ public class MwmActivity extends BaseMwmFragmentActivity
         .setNegativeButton(R.string.current_location_unknown_stop_button, (dialog, which) ->
         {
           Logger.w(LOCATION_TAG, "Disabled by user");
+          // Calls onMyPositionModeChanged(NOT_FOLLOW_NO_POSITION).
           LocationState.nativeOnLocationError(LocationState.ERROR_GPS_OFF);
-          LocationHelper.from(this).stop();
         })
         .setPositiveButton(R.string.current_location_unknown_continue_button, (dialog, which) ->
         {

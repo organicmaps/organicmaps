@@ -1,5 +1,6 @@
 package app.organicmaps.routing;
 
+import static android.Manifest.permission.ACCESS_COARSE_LOCATION;
 import static android.Manifest.permission.ACCESS_FINE_LOCATION;
 import static android.Manifest.permission.POST_NOTIFICATIONS;
 import static android.content.pm.PackageManager.PERMISSION_GRANTED;
@@ -241,6 +242,7 @@ public class NavigationService extends Service implements LocationListener
   }
 
   @Override
+  @RequiresPermission(anyOf = {ACCESS_COARSE_LOCATION, ACCESS_FINE_LOCATION})
   public void onLocationUpdated(@NonNull Location location)
   {
     // Ignore any pending notifications when service is being stopping.
