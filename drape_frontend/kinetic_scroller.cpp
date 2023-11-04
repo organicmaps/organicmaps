@@ -9,6 +9,10 @@ double constexpr kKineticDuration = 1.5;
 double constexpr kKineticFadeoff = 4.0;
 double constexpr kKineticAcceleration = 0.4;
 
+// Time window to store move points for better (smooth) _instant_ velocity calculation.
+double constexpr kTimeWindowSec = 0.05;
+double constexpr kMinDragTimeSec = 0.01;
+
 /// @name Generic pixels per second. Should multiply on visual scale.
 /// @{
 double constexpr kKineticMaxSpeedStart = 1000.0;
@@ -132,8 +136,6 @@ void KineticScroller::Update(ScreenBase const & modelView)
   auto const nowTime = ClockT::now();
   if (m_points.size() > 1)
   {
-    // Time window to store move points for better (smooth) _instant_ velocity calculation.
-    double constexpr kTimeWindowSec = 0.03;
     auto it = std::find_if(m_points.begin(), m_points.end(), [&nowTime](auto const & e)
     {
       return GetDurationSeconds(nowTime, e.second) <= kTimeWindowSec;
@@ -164,10 +166,7 @@ std::pair<m2::PointD, double> KineticScroller::GetDirectionAndVelocity(ScreenBas
   m2::PointD const currentCenter = modelView.GlobalRect().GlobalCenter();
 
   double const lengthPixel = (modelView.GtoP(currentCenter) - modelView.GtoP(m_points.front().first)).Length();
-  double const elapsedSec = GetDurationSeconds(ClockT::now(), m_points.front().second);
-  if (elapsedSec < 1E-6)
-    return {{}, 0};
-
+  double const elapsedSec = std::max(kMinDragTimeSec, GetDurationSeconds(ClockT::now(), m_points.front().second));
   double const vs = VisualParams::Instance().GetVisualScale();
 
   // Most touch filtrations happen here.
