@@ -48,7 +48,8 @@
 	<string name="about_proposition_3">• Rapide, minimaliste, pas de superflu</string>
 	<!-- Text in About screen -->
 	<string name="about_developed_by_enthusiasts">Application open source créée par des amateurs et des bénévoles.</string>
-	<string name="connection_settings">Paramètres de connexion</string>
+	<!-- The button that opens system location settings -->
+	<string name="location_settings">Paramètres de localisation</string>
 	<string name="close">Fermer</string>
 	<string name="unsupported_phone">L\'accélération OpenGL matérielle est exigée. Malheureusement, votre appareil n\'est pas pris en charge.</string>
 	<string name="download">Télécharger</string>

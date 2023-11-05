@@ -46,7 +46,8 @@
 	<string name="about_proposition_3">• Nhanh chóng, tối giản, không có rác</string>
 	<!-- Text in About screen -->
 	<string name="about_developed_by_enthusiasts">Ứng dụng nguồn mở được tạo bởi những người đam mê và tình nguyện viên.</string>
-	<string name="connection_settings">Thiết lập Kết nối</string>
+	<!-- The button that opens system location settings -->
+	<string name="location_settings">Cài đặt vị trí</string>
 	<string name="close">Đóng</string>
 	<string name="unsupported_phone">Cần có OpenGL được tăng tốc phần cứng. Thật không may, thiết bị của bạn không được hỗ trợ.</string>
 	<string name="download">Tải xuống</string>

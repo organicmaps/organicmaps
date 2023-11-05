@@ -38,7 +38,8 @@
 	<string name="about_menu_title">Quant a l\'Organic Maps</string>
 	<!-- Text in About screen -->
 	<string name="about_proposition_2">• Estalvia la bateria, no utilitza dades de fons</string>
-	<string name="connection_settings">Paràmetres de connexió</string>
+	<!-- The button that opens system location settings -->
+	<string name="location_settings">Paràmetres d\'ubicació</string>
 	<string name="close">Tanca</string>
 	<string name="unsupported_phone">L\'aplicació requereix acceleració per maquinari OpenGL. Malauradament, el vostre aparell no ho suporta.</string>
 	<string name="download">Baixa</string>

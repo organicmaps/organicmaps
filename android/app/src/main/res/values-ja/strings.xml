@@ -46,7 +46,8 @@
 	<string name="about_proposition_3">•速く、ミニマルな、ジャンクなし</string>
 	<!-- Text in About screen -->
 	<string name="about_developed_by_enthusiasts">愛好家とボランティアによって作成されたオープンソースアプリケーション。</string>
-	<string name="connection_settings">接続設定</string>
+	<!-- The button that opens system location settings -->
+	<string name="location_settings">ロケーション設定</string>
 	<string name="close">閉じる</string>
 	<string name="unsupported_phone">ハードウェアアクセラレーションされたOpenGLが必要です。残念ながらご利用中のデバイスではサポートされていません。</string>
 	<string name="download">ダウンロード</string>

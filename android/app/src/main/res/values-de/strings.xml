@@ -46,7 +46,8 @@
 	<string name="about_proposition_3">• Schnell, minimalistisch, keine Bloatware</string>
 	<!-- Text in About screen -->
 	<string name="about_developed_by_enthusiasts">Open-Source-Anwendung von Enthusiasten und Freiwilligen.</string>
-	<string name="connection_settings">Verbindungseinstellungen</string>
+	<!-- The button that opens system location settings -->
+	<string name="location_settings">Standorteinstellungen</string>
 	<string name="close">Schließen</string>
 	<string name="unsupported_phone">Das Programm benötigt OpenGL, um zu funktionieren. Leider wird Ihr Gerät nicht unterstützt.</string>
 	<string name="download">Herunterladen</string>

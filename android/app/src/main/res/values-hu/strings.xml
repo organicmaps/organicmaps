@@ -46,7 +46,8 @@
 	<string name="about_proposition_3">• Gyors, minimalista, nincs szemét</string>
 	<!-- Text in About screen -->
 	<string name="about_developed_by_enthusiasts">A rajongók és az önkéntesek által létrehozott nyílt forráskódú alkalmazás.</string>
-	<string name="connection_settings">Helymeghatározási beállítások</string>
+	<!-- The button that opens system location settings -->
+	<string name="location_settings">Helymeghatározási beállítások</string>
 	<string name="close">Bezár</string>
 	<string name="unsupported_phone">Hardware-s gyorsítású OpenGL szükséges. Sajnos az Ön eszköze nem támogatott.</string>
 	<string name="download">Letöltés</string>

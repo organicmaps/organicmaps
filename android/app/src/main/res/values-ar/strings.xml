@@ -49,7 +49,8 @@
 	<string name="about_proposition_3">• سريع ، الحد الأدنى ، لا خردة</string>
 	<!-- Text in About screen -->
 	<string name="about_developed_by_enthusiasts">تطبيق مفتوح المصدر الذي أنشأه المتحمسون والمتطوعون.</string>
-	<string name="connection_settings">إعدادات الاتصال</string>
+	<!-- The button that opens system location settings -->
+	<string name="location_settings">إعدادات الموقع</string>
 	<string name="close">إغلاق</string>
 	<string name="unsupported_phone">أنت بحاجة الى OpenGL بأجهزة تسريع. لسوء الحظ جهازك لا يدعم هذه الخاصية.</string>
 	<string name="download">تنزيل</string>

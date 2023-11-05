@@ -48,7 +48,8 @@
 	<string name="about_proposition_3">• Hızlı, minimalist ve hafif</string>
 	<!-- Text in About screen -->
 	<string name="about_developed_by_enthusiasts">Teknoloji tutkunları ve gönüllüler tarafından oluşturulan açık kaynaklı bir uygulama.</string>
-	<string name="connection_settings">Konum Ayarları</string>
+	<!-- The button that opens system location settings -->
+	<string name="location_settings">Konum ayarları</string>
 	<string name="close">Kapat</string>
 	<string name="unsupported_phone">Hızlı donanıma sahip bir OpenGL gerekli. Ne yazık ki cihazınız desteklenmiyor.</string>
 	<string name="download">İndir</string>

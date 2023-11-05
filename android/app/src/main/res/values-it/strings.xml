@@ -46,7 +46,8 @@
 	<string name="about_proposition_3">• Veloce, minimalista, nessuna spazzatura</string>
 	<!-- Text in About screen -->
 	<string name="about_developed_by_enthusiasts">Applicazione open source creata da appassionati e volontari.</string>
-	<string name="connection_settings">Impostazioni di connessione</string>
+	<!-- The button that opens system location settings -->
+	<string name="location_settings">Impostazioni della posizione</string>
 	<string name="close">Chiudi</string>
 	<string name="unsupported_phone">È necessaria una accelerazione hardware OpenGL. Purtroppo, il tuo dispositivo non è supportato.</string>
 	<string name="download">Scarica</string>

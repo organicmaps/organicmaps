@@ -49,7 +49,8 @@
 	<string name="about_proposition_3">• سریع ، مینیمالیستی ، بدون آشغال</string>
 	<!-- Text in About screen -->
 	<string name="about_developed_by_enthusiasts">برنامه منبع باز ایجاد شده توسط علاقه مندان و داوطلبان.</string>
-	<string name="connection_settings">تنظیمات اتصال</string>
+	<!-- The button that opens system location settings -->
+	<string name="location_settings">تنظیمات مکان</string>
 	<string name="close">بستن</string>
 	<string name="unsupported_phone">نیازمند است. متاسفانه دستگاه شما از آن پشتیبانی نمی‌کندOpenGLبرنامه برای اجرا به</string>
 	<string name="download">دانلود</string>

@@ -49,7 +49,8 @@
 	<string name="about_proposition_3">• Швидкий, мінімалістичний, без зайвого сміття</string>
 	<!-- Text in About screen -->
 	<string name="about_developed_by_enthusiasts">Програма з відкритим кодом, створена ентузіастами та волонтерами.</string>
-	<string name="connection_settings">Налаштування підключення</string>
+	<!-- The button that opens system location settings -->
+	<string name="location_settings">Налаштування місцеположення</string>
 	<string name="close">Закрити</string>
 	<string name="unsupported_phone">Для роботи програми необхідний апаратно прискорений OpenGL. На жаль, ваш пристрій не підтримується.</string>
 	<string name="download">Завантажити</string>

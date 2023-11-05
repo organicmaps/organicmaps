@@ -44,7 +44,8 @@
 	<string name="about_proposition_2">• Baixo consumo de bateria, sem atualização em segundo plano</string>
 	<!-- Text in About screen -->
 	<string name="about_proposition_3">• Rápido, minimalista e sem recursos desnecessários</string>
-	<string name="connection_settings">Configurações de conexão</string>
+	<!-- The button that opens system location settings -->
+	<string name="location_settings">Configurações de localização</string>
 	<string name="close">Fechar</string>
 	<string name="unsupported_phone">É necessário OpenGL acelerado por hardware. Infelizmente o seu dispositivo não é compatível.</string>
 	<string name="download">Baixar</string>

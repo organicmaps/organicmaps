@@ -12,7 +12,7 @@
 	<string name="delete">Șterge</string>
 	<string name="download_maps">Descarcă hărți</string>
 	<!-- Settings/Downloader - info for country when download fails -->
-	<string name="download_has_failed">Descărcarea a eșuat. Atinge pentru a încearca din nou.</string>
+	<string name="download_has_failed">Descărcarea a eșuat. Atinge pentru a încerca din nou.</string>
 	<!-- Settings/Downloader - info for country which started downloading -->
 	<string name="downloading">Se descarcă…</string>
 	<!-- Choose measurement on first launch alert - choose metric system button -->
@@ -46,7 +46,8 @@
 	<string name="about_proposition_3">• Rapid, minimalist, fără gunoi</string>
 	<!-- Text in About screen -->
 	<string name="about_developed_by_enthusiasts">Aplicație open-source creată de entuziaști și voluntari.</string>
-	<string name="connection_settings">Opțiuni de conectare</string>
+	<!-- The button that opens system location settings -->
+	<string name="location_settings">Setări de locație</string>
 	<string name="close">Închide</string>
 	<string name="unsupported_phone">Această aplicație necesită accelerarea hardware OpenGL. Din păcate, dispozitivul tău nu este compatibil.</string>
 	<string name="download">Descarcă</string>
@@ -80,7 +81,7 @@
 	<!-- Add bookmark dialog - bookmark name -->
 	<string name="name">Denumire</string>
 	<!-- Editor title above street and house number -->
-	<string name="address">Adresa</string>
+	<string name="address">Adresă</string>
 	<!-- Add Bookmark dialog/Bookmark list; Bookmarks dialog/Bookmark list cell. -->
 	<string name="list">Listă</string>
 	<!-- Settings button in system menu -->
@@ -88,9 +89,9 @@
 	<!-- Header of settings activity where user defines storage path -->
 	<string name="maps_storage">Salvează hărțile în</string>
 	<!-- Detailed description of Maps Storage settings button -->
-	<string name="maps_storage_summary">Alege locul în care vrei să fie descărcate hărțile</string>
+	<string name="maps_storage_summary">Alege locul în care vrei să fie descărcate hărțile.</string>
 	<!-- E.g. "Downloaded maps: 500Mb" in Maps Storage settings -->
-	<string name="maps_storage_downloaded">Hărţi</string>
+	<string name="maps_storage_downloaded">Hărți</string>
 	<!-- Question dialog for transferring maps from one storage to another -->
 	<string name="move_maps">Muți hărțile?</string>
 	<!-- Ask to wait user several minutes (some long process in modal dialog). -->
@@ -136,7 +137,7 @@
 	<!-- Search category for toilets; any changes should be duplicated in categories.txt @toilet! -->
 	<string name="toilet">Toaletă</string>
 	<!-- Search category for post offices; any changes should be duplicated in categories.txt @post! -->
-	<string name="post">Poştă</string>
+	<string name="post">Poștă</string>
 	<!-- Search category for police; any changes should be duplicated in categories.txt @police! -->
 	<string name="police">Poliția</string>
 	<!-- Search category for WiFi access; any changes should be duplicated in categories.txt @wifi! -->
@@ -287,7 +288,7 @@
 	<!-- Text for routing error dialog -->
 	<string name="routing_download_maps_along">Descarcă hărțile de pe traseu</string>
 	<!-- Text for routing error dialog -->
-	<string name="routing_requires_all_map">Pentru a crea un traseu, este necesar ca toate hărțile, de la poziția ta până la destinație să fie descărcate și actualizate</string>
+	<string name="routing_requires_all_map">Pentru a crea un traseu, este necesar ca toate hărțile de la poziția ta până la destinație să fie descărcate și actualizate.</string>
 	<!-- Text for routing error dialog -->
 	<string name="routing_not_enough_space">Spațiu insuficient</string>
 	<!-- location service disabled -->
@@ -330,31 +331,31 @@
 
 	<!-- SECTION: Routing dialogs strings -->
 	<string name="dialog_routing_disclaimer_title">Când parcurgi traseul, ai în vedere următoarele:</string>
-	<string name="dialog_routing_disclaimer_priority">— Condiţiile de drum, legile şi semnele rutiere sunt mai importante decât indicațiile navigatorului;</string>
-	<string name="dialog_routing_disclaimer_precision">— Harta poate conţine greşeli, iar traseul sugerat pentru a ajunge la destinaţie nu e întotdeauna cel mai bun;</string>
+	<string name="dialog_routing_disclaimer_priority">— Condițiile de drum, legile și semnele rutiere sunt mai importante decât indicațiile navigatorului;</string>
+	<string name="dialog_routing_disclaimer_precision">— Harta poate conține greșeli, iar traseul sugerat pentru a ajunge la destinație nu e întotdeauna cel mai bun;</string>
 	<string name="dialog_routing_disclaimer_recommendations">— Traseele sugerate sunt doar niște recomandări;</string>
 	<string name="dialog_routing_disclaimer_borders">— Ai grijă în zonele de graniță: traseele create de aplicația noastră pot trece granița prin locuri nepermise;</string>
-	<string name="dialog_routing_disclaimer_beware">Fii vigilent şi condu în siguranţă!</string>
+	<string name="dialog_routing_disclaimer_beware">Fii vigilent și condu în siguranță!</string>
 	<string name="dialog_routing_check_gps">Verifică semnalul GPS</string>
-	<string name="dialog_routing_error_location_not_found">Crearea traseului a eşuat. Coordonatele GPS actuale nu au putut fi identificate.</string>
-	<string name="dialog_routing_location_turn_wifi">Verifică semnalul GPS. Pentru a îmbunătăţi precizia localizării, activează Wi-Fi.</string>
+	<string name="dialog_routing_error_location_not_found">Crearea traseului a eșuat. Coordonatele GPS actuale nu au putut fi identificate.</string>
+	<string name="dialog_routing_location_turn_wifi">Verifică semnalul GPS. Pentru a îmbunătăți precizia localizării, activează Wi-Fi.</string>
 	<string name="dialog_routing_location_turn_on">Activează serviciile de localizare</string>
-	<string name="dialog_routing_location_unknown_turn_on">Localizarea coordonatelor GPS curente a eşuat. Pentru a calcula traseul, activează serviciile de localizare.</string>
-	<string name="dialog_routing_unable_locate_route">Localizarea traseului a eşuat</string>
-	<string name="dialog_routing_cant_build_route">Crearea traseului a eşuat.</string>
-	<string name="dialog_routing_change_start_or_end">Modifică punctul de pornire sau destinaţia.</string>
+	<string name="dialog_routing_location_unknown_turn_on">Localizarea coordonatelor GPS curente a eșuat. Pentru a calcula traseul, activează serviciile de localizare.</string>
+	<string name="dialog_routing_unable_locate_route">Localizarea traseului a eșuat</string>
+	<string name="dialog_routing_cant_build_route">Crearea traseului a eșuat.</string>
+	<string name="dialog_routing_change_start_or_end">Modifică punctul de pornire sau destinația.</string>
 	<string name="dialog_routing_change_start">Modifică punctul de pornire</string>
-	<string name="dialog_routing_start_not_determined">Traseul nu a fost creat. Localizarea punctului de pornire a eşuat.</string>
+	<string name="dialog_routing_start_not_determined">Traseul nu a fost creat. Localizarea punctului de pornire a eșuat.</string>
 	<string name="dialog_routing_select_closer_start">Alege un punct de pornire mai aproape de un drum.</string>
-	<string name="dialog_routing_change_end">Schimbă destinaţia</string>
-	<string name="dialog_routing_end_not_determined">Traseul nu a fost creat. Localizarea destinaţiei a eşuat.</string>
-	<string name="dialog_routing_select_closer_end">Alege un punct de destinaţie mai aproape de un drum.</string>
+	<string name="dialog_routing_change_end">Schimbă destinația</string>
+	<string name="dialog_routing_end_not_determined">Traseul nu a fost creat. Localizarea destinației a eșuat.</string>
+	<string name="dialog_routing_select_closer_end">Alege un punct de destinație mai aproape de un drum.</string>
 	<string name="dialog_routing_change_intermediate">Punctul intermediar nu poate fi localizat.</string>
 	<string name="dialog_routing_intermediate_not_determined">Schimbă punctul intermediar.</string>
 	<string name="dialog_routing_system_error">Eroare de sistem</string>
-	<string name="dialog_routing_application_error">Crearea traseului a eşuat din cauza unei erori a aplicaţiei.</string>
+	<string name="dialog_routing_application_error">Crearea traseului a eșuat din cauza unei erori a aplicației.</string>
 	<string name="dialog_routing_try_again">Încearcă din nou</string>
-	<string name="dialog_routing_download_and_build_cross_route">Vrei să descarci harta şi să creezi un traseu mai bun care include mai multe hărți?</string>
+	<string name="dialog_routing_download_and_build_cross_route">Vrei să descarci harta și să creezi un traseu mai bun care include mai multe hărți?</string>
 	<string name="dialog_routing_download_cross_route">Descarcă hărți suplimentare pentru a crea un traseu mai bun care să traverseze limitele acestei hărți.</string>
 
 	<!-- SECTION: Strings for downloading map from search -->
@@ -365,7 +366,7 @@
 	<!-- «Hide» context menu -->
 	<string name="hide">Ascunde</string>
 	<string name="categories">Categorii</string>
-	<string name="history">Cronologia</string>
+	<string name="history">Cronologie</string>
 	<string name="search_not_found">Nu s-a găsit nimic.</string>
 	<string name="search_not_found_query">Încearcă să modifici condițiile căutării.</string>
 	<string name="search_history_title">Istoricul căutărilor</string>
@@ -394,7 +395,7 @@
 	<string name="editor_time_add_closed">Adaugă ore de închidere</string>
 	<string name="editor_time_title">Ore de deschidere</string>
 	<string name="editor_time_advanced">Mod Avansat</string>
-	<string name="editor_time_simple">Mod Simplu</string>
+	<string name="editor_time_simple">Mod simplu</string>
 	<string name="editor_hours_closed">Ore de închidere</string>
 	<string name="editor_example_values">Exemple</string>
 	<string name="editor_correct_mistake">Corectare greșeală</string>
@@ -523,16 +524,16 @@
 	<string name="accept">Acceptă</string>
 	<!-- For the first routing -->
 	<string name="decline">Refuză</string>
-	<string name="mobile_data_dialog">Folosești internetul mobil pentru a vedea informaţii detaliate?</string>
+	<string name="mobile_data_dialog">Folosești internetul mobil pentru a vedea informații detaliate?</string>
 	<string name="mobile_data_option_always">Folosește mereu</string>
 	<string name="mobile_data_option_today">Doar astăzi</string>
 	<string name="mobile_data_option_not_today">Nu folosi astăzi</string>
 	<string name="mobile_data">Internet mobil</string>
 	<!-- NOTE to translators: please synchronize your translation with the English one. -->
-	<string name="mobile_data_description">Internetul mobil este necesar pentru a afișa informaţii detaliate despre locuri generale și cele preferate.</string>
+	<string name="mobile_data_description">Internetul mobil este necesar pentru a afișa informații detaliate despre locuri generale și cele preferate.</string>
 	<string name="mobile_data_option_never">Nu utiliza niciodată</string>
 	<string name="mobile_data_option_ask">Întreabă întotdeauna</string>
-	<string name="traffic_update_maps_text">Pentru a afişa datele privind traficul, hărțile trebuie actualizate.</string>
+	<string name="traffic_update_maps_text">Pentru a afișa datele privind traficul, hărțile trebuie actualizate.</string>
 	<string name="big_font">Mărește dimensiunea literelor pe hartă</string>
 	<string name="traffic_update_app">Actualizează Organic Maps</string>
 	<!-- "traffic" as in "road congestion" -->
@@ -616,7 +617,7 @@
 	<!-- this text will be shown in application notification preferences opposite checkbox which enable/disable downloader notifications. Devices on Android 8+ are affected. -->
 	<string name="notification_channel_downloader">Descărcarea hărților</string>
 	<string name="power_managment_title">Economisire a energiei</string>
-	<string name="power_managment_description">Dacă este pornit modul de economisire a energiei, aplicația va deconecta funcțiile care consumă multă energie în dependență de nivelul de încărcare a bateriei</string>
+	<string name="power_managment_description">Dacă este pornit modul de economisire a energiei, aplicația va deconecta funcțiile care consumă multă energie în dependență de nivelul de încărcare a bateriei.</string>
 	<string name="power_managment_setting_never">Niciodată</string>
 	<string name="power_managment_setting_auto">Automat</string>
 	<string name="power_managment_setting_manual_max">Economisire maximă a energiei</string>
@@ -626,7 +627,7 @@
 	<string name="avoid_tolls">Evitați drumurile cu taxă</string>
 	<string name="avoid_unpaved">Evitați drumurile neasfaltate</string>
 	<string name="avoid_ferry">Evitați traversările cu feribotul</string>
-	<string name="avoid_motorways">Evitați autostrada</string>
+	<string name="avoid_motorways">Evitați autostrăzile</string>
 	<string name="unable_to_calc_alert_title">Nu poate fi creat un traseu</string>
 	<string name="unable_to_calc_alert_subtitle">Din păcate, nu putem elabora un traseu cu opțiunile alese. Modifică-le și încearcă din nou.</string>
 	<string name="define_to_avoid_btn">Stabilește drumurile de evitat</string>

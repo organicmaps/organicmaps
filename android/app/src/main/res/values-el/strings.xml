@@ -47,7 +47,8 @@
 	<string name="about_proposition_3">• Γρήγορη, μινιμαλιστική, χωρίς σκουπίδια</string>
 	<!-- Text in About screen -->
 	<string name="about_developed_by_enthusiasts">Εφαρμογή ανοιχτού κώδικα που δημιουργήθηκε από ενθουσιώδες και εθελοντές.</string>
-	<string name="connection_settings">Ρυθμίσεις σύνδεσης</string>
+	<!-- The button that opens system location settings -->
+	<string name="location_settings">Ρυθμίσεις τοποθεσίας</string>
 	<string name="close">Κλείσιμο</string>
 	<string name="unsupported_phone">Η εφαρμογή απαιτεί OpenGL με επιτάχυνση υλικού. Δυστυχώς, η συσκευή σας δεν το υποστηρίζει.</string>
 	<string name="download">Λήψη</string>

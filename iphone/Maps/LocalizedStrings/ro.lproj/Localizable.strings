@@ -81,7 +81,7 @@
 "core_my_places" = "Locurile mele";
 
 /* Editor title above street and house number */
-"address" = "Adresa";
+"address" = "Adresă";
 
 /* Settings button in system menu */
 "settings" = "Setări";
@@ -144,7 +144,7 @@
 "toilet" = "Toaletă";
 
 /* Search category for post offices; any changes should be duplicated in categories.txt @post! */
-"post" = "Poştă";
+"post" = "Poștă";
 
 /* Search category for police; any changes should be duplicated in categories.txt @police! */
 "police" = "Poliția";
@@ -337,7 +337,7 @@
 "downloader_downloaded_subtitle" = "Descărcate";
 
 /* Downloaded maps category */
-"downloader_available_maps" = "Disponibilă";
+"downloader_available_maps" = "Disponibile";
 
 /* Country queued for download */
 "downloader_queued" = "În așteptare";
@@ -378,7 +378,7 @@
 "routing_download_maps_along" = "Descarcă hărțile de pe traseu";
 
 /* Text for routing error dialog */
-"routing_requires_all_map" = "Pentru a crea un traseu, este necesar ca toate hărțile, de la poziția ta până la destinație să fie descărcate și actualizate";
+"routing_requires_all_map" = "Pentru a crea un traseu, este necesar ca toate hărțile de la poziția ta până la destinație să fie descărcate și actualizate.";
 
 /* bookmark button text */
 "bookmark" = "preferat";
@@ -440,45 +440,45 @@
 
 "dialog_routing_disclaimer_title" = "Când parcurgi traseul, ai în vedere următoarele:";
 
-"dialog_routing_disclaimer_priority" = "— Condiţiile de drum, legile şi semnele rutiere sunt mai importante decât indicațiile navigatorului;";
+"dialog_routing_disclaimer_priority" = "— Condițiile de drum, legile și semnele rutiere sunt mai importante decât indicațiile navigatorului;";
 
-"dialog_routing_disclaimer_precision" = "— Harta poate conţine greşeli, iar traseul sugerat pentru a ajunge la destinaţie nu e întotdeauna cel mai bun;";
+"dialog_routing_disclaimer_precision" = "— Harta poate conține greșeli, iar traseul sugerat pentru a ajunge la destinație nu e întotdeauna cel mai bun;";
 
 "dialog_routing_disclaimer_recommendations" = "— Traseele sugerate sunt doar niște recomandări;";
 
 "dialog_routing_disclaimer_borders" = "— Ai grijă în zonele de graniță: traseele create de aplicația noastră pot trece granița prin locuri nepermise;";
 
-"dialog_routing_disclaimer_beware" = "Fii vigilent şi condu în siguranţă!";
+"dialog_routing_disclaimer_beware" = "Fii vigilent și condu în siguranță!";
 
 "dialog_routing_check_gps" = "Verifică semnalul GPS";
 
-"dialog_routing_error_location_not_found" = "Crearea traseului a eşuat. Coordonatele GPS actuale nu au putut fi identificate.";
+"dialog_routing_error_location_not_found" = "Crearea traseului a eșuat. Coordonatele GPS actuale nu au putut fi identificate.";
 
-"dialog_routing_location_turn_wifi" = "Verifică semnalul GPS. Pentru a îmbunătăţi precizia localizării, activează Wi-Fi.";
+"dialog_routing_location_turn_wifi" = "Verifică semnalul GPS. Pentru a îmbunătăți precizia localizării, activează Wi-Fi.";
 
 "dialog_routing_location_turn_on" = "Activează serviciile de localizare";
 
-"dialog_routing_location_unknown_turn_on" = "Localizarea coordonatelor GPS curente a eşuat. Pentru a calcula traseul, activează serviciile de localizare.";
+"dialog_routing_location_unknown_turn_on" = "Localizarea coordonatelor GPS curente a eșuat. Pentru a calcula traseul, activează serviciile de localizare.";
 
-"dialog_routing_download_files" = "Descarcă fişierele necesare";
+"dialog_routing_download_files" = "Descarcă fișierele necesare";
 
-"dialog_routing_download_and_update_all" = "Pentru calcularea traseului, descarcă şi actualizează toate hărţile şi informaţiile traseului pentru calea estimată.";
+"dialog_routing_download_and_update_all" = "Pentru calcularea traseului, descarcă și actualizează toate hărțile și informațiile traseului pentru calea estimată.";
 
-"dialog_routing_unable_locate_route" = "Localizarea traseului a eşuat";
+"dialog_routing_unable_locate_route" = "Localizarea traseului a eșuat";
 
-"dialog_routing_change_start_or_end" = "Modifică punctul de pornire sau destinaţia.";
+"dialog_routing_change_start_or_end" = "Modifică punctul de pornire sau destinația.";
 
 "dialog_routing_change_start" = "Modifică punctul de pornire";
 
-"dialog_routing_start_not_determined" = "Traseul nu a fost creat. Localizarea punctului de pornire a eşuat.";
+"dialog_routing_start_not_determined" = "Traseul nu a fost creat. Localizarea punctului de pornire a eșuat.";
 
 "dialog_routing_select_closer_start" = "Alege un punct de pornire mai aproape de un drum.";
 
-"dialog_routing_change_end" = "Schimbă destinaţia";
+"dialog_routing_change_end" = "Schimbă destinația";
 
-"dialog_routing_end_not_determined" = "Traseul nu a fost creat. Localizarea destinaţiei a eşuat.";
+"dialog_routing_end_not_determined" = "Traseul nu a fost creat. Localizarea destinației a eșuat.";
 
-"dialog_routing_select_closer_end" = "Alege un punct de destinaţie mai aproape de un drum.";
+"dialog_routing_select_closer_end" = "Alege un punct de destinație mai aproape de un drum.";
 
 "dialog_routing_change_intermediate" = "Punctul intermediar nu poate fi localizat.";
 
@@ -486,13 +486,13 @@
 
 "dialog_routing_system_error" = "Eroare de sistem";
 
-"dialog_routing_application_error" = "Crearea traseului a eşuat din cauza unei erori a aplicaţiei.";
+"dialog_routing_application_error" = "Crearea traseului a eșuat din cauza unei erori a aplicației.";
 
 "dialog_routing_try_again" = "Încearcă din nou";
 
 "not_now" = "Nu acum";
 
-"dialog_routing_download_and_build_cross_route" = "Vrei să descarci harta şi să creezi un traseu mai bun care include mai multe hărți?";
+"dialog_routing_download_and_build_cross_route" = "Vrei să descarci harta și să creezi un traseu mai bun care include mai multe hărți?";
 
 "dialog_routing_download_cross_route" = "Descarcă hărți suplimentare pentru a crea un traseu mai bun care să traverseze limitele acestei hărți.";
 
@@ -516,7 +516,7 @@
 
 "categories" = "Categorii";
 
-"history" = "Cronologia";
+"history" = "Cronologie";
 
 "search_not_found" = "Nu s-a găsit nimic.";
 
@@ -563,7 +563,7 @@
 
 "editor_time_advanced" = "Mod Avansat";
 
-"editor_time_simple" = "Mod Simplu";
+"editor_time_simple" = "Mod simplu";
 
 "editor_hours_closed" = "Ore de închidere";
 
@@ -847,7 +847,7 @@
 "recent_track_background_dialog_message" = "Organic Maps folosește poziția ta geografică pentru a înregistra cel mai recent traseu urmat.";
 
 /* Text under the version number in the Help dialog. TODO: Synchronize other translations with English. */
-"about_description" = "Organic Maps este o aplicație rapidă și gratuită fără reclame și urmărire. Hărțile sunt bazate pe datele OpenStreetMap.org oferite de utilizatori, de aceea chiar și tu poți corecta erorile și adăuga obiecte noi pe hartă. Organic Maps este un proiect creat de entuziaști în timpul lor liber. Părerea și sprijinul tău sunt foarte importante pentru noi";
+"about_description" = "Organic Maps este o aplicație rapidă și gratuită fără reclame și urmărire. Hărțile sunt bazate pe datele OpenStreetMap.org oferite de utilizatori, de aceea chiar și tu poți corecta erorile și adăuga obiecte noi pe hartă. Organic Maps este un proiect creat de entuziaști în timpul lor liber. Părerea și sprijinul tău sunt foarte importante pentru noi.";
 
 "general_settings" = "Opțiuni generale";
 
@@ -860,7 +860,7 @@
 /* A noun - a button name used to show search results in list form */
 "search_in_table" = "Listă";
 
-"mobile_data_dialog" = "Folosești internetul mobil pentru a vedea informaţii detaliate?";
+"mobile_data_dialog" = "Folosești internetul mobil pentru a vedea informații detaliate?";
 
 "mobile_data_option_always" = "Folosește mereu";
 
@@ -871,18 +871,18 @@
 "mobile_data" = "Internet mobil";
 
 /* NOTE to translators: please synchronize your translation with the English one. */
-"mobile_data_description" = "Internetul mobil este necesar pentru a afișa informaţii detaliate despre locuri generale și cele preferate.";
+"mobile_data_description" = "Internetul mobil este necesar pentru a afișa informații detaliate despre locuri generale și cele preferate.";
 
 "mobile_data_option_never" = "Nu utiliza niciodată";
 
 "mobile_data_option_ask" = "Întreabă întotdeauna";
 
-"traffic_update_maps_text" = "Pentru a afişa datele privind traficul, hărțile trebuie actualizate.";
+"traffic_update_maps_text" = "Pentru a afișa datele privind traficul, hărțile trebuie actualizate.";
 
 "big_font" = "Mărește dimensiunea literelor pe hartă";
 
 /* "traffic" as in road congestion */
-"traffic_update_app_message" = "Pentru a afişa datele privind traficul, aplicația trebuie actualizată.";
+"traffic_update_app_message" = "Pentru a afișa datele privind traficul, aplicația trebuie actualizată.";
 
 /* "traffic" as in "road congestion" */
 "traffic_data_unavailable" = "Datele privind traficul nu sunt disponibile";
@@ -1001,7 +1001,7 @@
 
 "power_managment_title" = "Economisire a energiei";
 
-"power_managment_description" = "Dacă este pornit modul de economisire a energiei, aplicația va deconecta funcțiile care consumă multă energie în dependență de nivelul de încărcare a bateriei";
+"power_managment_description" = "Dacă este pornit modul de economisire a energiei, aplicația va deconecta funcțiile care consumă multă energie în dependență de nivelul de încărcare a bateriei.";
 
 "power_managment_setting_never" = "Niciodată";
 
@@ -1017,7 +1017,7 @@
 
 "avoid_ferry" = "Evitați traversările cu feribotul";
 
-"avoid_motorways" = "Evitați autostrada";
+"avoid_motorways" = "Evitați autostrăzile";
 
 "unable_to_calc_alert_title" = "Nu poate fi creat un traseu";
 
@@ -1065,7 +1065,7 @@
 
 "trip_finished" = "Ai ajuns!";
 
-"keyboard_availability_alert" = "Tastatura nu poate fi folosită cât timp conduceți";
+"keyboard_availability_alert" = "Tastatura nu poate fi folosită cât timp conduci";
 
 "dialog_routing_change_start_carplay" = "Traseul de la locul în care te afli nu poate fi alcătuit";
 

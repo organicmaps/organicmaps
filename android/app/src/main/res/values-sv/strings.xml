@@ -46,7 +46,8 @@
 	<string name="about_proposition_3">• Snabb, minimalistisk, inget skräp</string>
 	<!-- Text in About screen -->
 	<string name="about_developed_by_enthusiasts">Open-källansökan skapad av entusiaster och frivilliga.</string>
-	<string name="connection_settings">Anslutningsinställningar</string>
+	<!-- The button that opens system location settings -->
+	<string name="location_settings">Inställningar för plats</string>
 	<string name="close">Stäng</string>
 	<string name="unsupported_phone">Hårdvaruaccelererad OpenGL krävs. Din enhet stöds tyvärr inte.</string>
 	<string name="download">Ladda ner</string>

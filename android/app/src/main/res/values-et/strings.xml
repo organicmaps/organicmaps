@@ -38,7 +38,8 @@
 	<string name="about_menu_title">Organic Maps kohta</string>
 	<!-- Text in About screen -->
 	<string name="about_proposition_2">• Säästab akut, ei kasuta taustaandmeid</string>
-	<string name="connection_settings">Ühenduse seaded</string>
+	<!-- The button that opens system location settings -->
+	<string name="location_settings">Asukoha seaded</string>
 	<string name="close">Sulge</string>
 	<string name="unsupported_phone">Rakendus vajab riistvaralist OpenGL tuge. Kahjuks Sinu seade ei ole toetatud.</string>
 	<string name="download">Lae alla</string>
