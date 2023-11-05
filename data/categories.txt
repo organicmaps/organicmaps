@@ -4212,7 +4212,7 @@ pl:Ławka
 pt:2Assento|3Banco
 pt-BR:Assento|Banco de praça
 ro:Banchetă|Bancă|Bancă parc
-es:Banco
+es:Asiento|Banco
 et:Pink
 eu:Bankua
 sv:Bänk
