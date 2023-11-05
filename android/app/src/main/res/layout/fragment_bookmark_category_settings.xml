@@ -35,6 +35,7 @@
         android:layout_height="wrap_content">
         <com.google.android.material.textfield.TextInputEditText
           android:id="@+id/edit_list_name_view"
+          style="@style/MwmWidget.PlacePage.EditText"
           android:hint="@string/list"
           android:layout_weight="1"
           android:layout_width="0dp"
@@ -53,6 +54,7 @@
     </LinearLayout>
     <com.google.android.material.textfield.TextInputEditText
       android:id="@+id/edit_description"
+      style="@style/MwmWidget.PlacePage.EditText"
       android:background="@null"
       android:hint="@string/bookmark_list_description_hint"
       android:minHeight="@dimen/height_item_multiline"
