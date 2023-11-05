@@ -676,7 +676,7 @@
     da = Bænk
     de = Parkbank
     el = Παγκάκι
-    es = Banco
+    es = Asiento
     et = Pink
     eu = Bankua
     fa = سَکو
