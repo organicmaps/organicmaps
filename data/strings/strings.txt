@@ -246,7 +246,7 @@
     pl = Nie udało się pobrać. Proszę nacisnąć, aby spróbować ponownie.
     pt = O descarregamento falhou, toque novamente para tentar de novo.
     pt-BR = O download falhou, toque para tentar de novo.
-    ro = Descărcarea a eșuat. Atinge pentru a încearca din nou.
+    ro = Descărcarea a eșuat. Atinge pentru a încerca din nou.
     ru = Ошибка загрузки. Нажмите, чтобы повторить попытку
     sk = Sťahovanie zlyhalo, skúste to znova.
     sv = Nedladdningen misslyckades, tryck för att försöka igen
@@ -2105,7 +2105,7 @@
     pl = Adres
     pt = Endereço
     pt-BR = Endereço
-    ro = Adresa
+    ro = Adresă
     ru = Адрес
     sk = Adresa
     sv = Adress
@@ -2276,7 +2276,7 @@
     pl = Określa położenie przechowywania pobranych map
     pt = Selecione o local onde os mapas devem ser descarregados
     pt-BR = Selecione o local para onde os mapas devem ser baixados
-    ro = Alege locul în care vrei să fie descărcate hărțile
+    ro = Alege locul în care vrei să fie descărcate hărțile.
     ru = Выберите место, где будут храниться загруженные карты
     sk = Vyberte miesto, kam by mali byť mapy sťahované
     sv = Välj en plats dit kartor ska laddas ner
@@ -2318,7 +2318,7 @@
     pl = Mapy
     pt = Mapas
     pt-BR = Mapas
-    ro = Hărţi
+    ro = Hărți
     ru = Загруженные карты
     sk = Mapy
     sv = Kartor
@@ -3410,7 +3410,7 @@
     pl = Poczta
     pt = Correios
     pt-BR = Correios
-    ro = Poştă
+    ro = Poștă
     ru = Почта
     sk = Pošta
     sv = Post
@@ -6756,7 +6756,7 @@
     pl = Dostępne
     pt = Disponível
     pt-BR = Disponível
-    ro = Disponibilă
+    ro = Disponibile
     ru = Доступные
     sk = Dostupné
     sv = Tillgänglig
@@ -7514,7 +7514,7 @@
     pl = Tworzenie tras wymaga pobrania i zaktualizowania wszystkich map od Twojej lokalizacji do celu podróży.
     pt = É necessário descarregar e atualizar todos os mapas entre a sua localização e o destino para criar uma rota.
     pt-BR = Para criar uma rota é necessário baixar e atualizar todos os mapas desde sua localização atual até o destino.
-    ro = Pentru a crea un traseu, este necesar ca toate hărțile, de la poziția ta până la destinație să fie descărcate și actualizate
+    ro = Pentru a crea un traseu, este necesar ca toate hărțile de la poziția ta până la destinație să fie descărcate și actualizate.
     ru = Для создания маршрута необходимо загрузить и обновить все карты на пути следования.
     sv = Att kunna skapa en navigeringsväg kräver att alla kartorna från din plats till din destination är nerladdade och uppdaterade.
     th = การสร้างเส้นทางจำเป็นต้องใช้แผนที่จากสถานที่ตั้งของคุณไปยังปลายทางที่มีการดาวน์โหลดและอัปเดต
@@ -8539,7 +8539,7 @@
     pl = — Warunki na drodze, przepisy ruchu drogowego i znaki drogowe zawsze są ważniejsze niż wskazówki nawigacji;
     pt = — As condições da estrada, as leis de trânsito e os sinais de trânsito têm sempre prioridade sobre as indicações de navegação;
     pt-BR = — As condições da estrada, as leis de trânsito e as sinalizações da pista sempre terão prioridade acima das sugestões de navegação;
-    ro = — Condiţiile de drum, legile şi semnele rutiere sunt mai importante decât indicațiile navigatorului;
+    ro = — Condițiile de drum, legile și semnele rutiere sunt mai importante decât indicațiile navigatorului;
     ru = — Дорожная обстановка, ПДД и знаки приоритетнее советов приложения;
     sk = — Podmienky na ceste, dopravné predpisy a značenie majú vždy prednosť pred pokynmi z navigácie;
     sv = — Vägförhållanden, trafiklagar och vägskyltar alltid ska prioriteras över navigeringsråd;
@@ -8581,7 +8581,7 @@
     pl = — Mapa może być niedokładna, a sugerowana trasa może nie być optymalnym sposobem dotarcia do celu;
     pt = — O mapa pode estar desatualizado e a rota indicada pode não ser a melhor para chegar ao destino;
     pt-BR = — O mapa pode estar desatualizado, e a rota indicada pode não ser a melhor maneira de chegar ao destino;
-    ro = — Harta poate conţine greşeli, iar traseul sugerat pentru a ajunge la destinaţie nu e întotdeauna cel mai bun;
+    ro = — Harta poate conține greșeli, iar traseul sugerat pentru a ajunge la destinație nu e întotdeauna cel mai bun;
     ru = — Карта может быть неточной, а предложенный маршрут не всегда оптимален;
     sk = — Mapa nemusí byť presná a navrhovaná trasa nemusí byť vždy optimálna na dosiahnutie cieľa;
     sv = — Kartan kan vara felaktig och den föreslagna vägen inte alltid är det optimala sättet att ta sig till destinationen;
@@ -8707,7 +8707,7 @@
     pl = Podczas podróży zachowaj czujność i prowadź ostrożnie!
     pt = Fique sempre atento nas estradas!
     pt-BR = Fique sempre alerta nas estradas!
-    ro = Fii vigilent şi condu în siguranţă!
+    ro = Fii vigilent și condu în siguranță!
     ru = Будьте внимательны на дорогах и берегите себя!
     sk = Na cestách buďte vždy ostražitý a dbajte na bezpečnosť!
     sv = Var uppmärksam och kör säkert på vägarna!
@@ -8791,7 +8791,7 @@
     pl = Nie można wyznaczyć trasy. Nie można ustalić współrzędnych GPS.
     pt = A rota não foi criada, porque não foi possível identificar as coordenadas do GPS.
     pt-BR = A rota não foi traçada, pois não foi possível identificar as coordenadas do GPS.
-    ro = Crearea traseului a eşuat. Coordonatele GPS actuale nu au putut fi identificate.
+    ro = Crearea traseului a eșuat. Coordonatele GPS actuale nu au putut fi identificate.
     ru = Маршрут не построен. Текущая геопозиция не определена.
     sk = Nedá sa vytvoriť trasa. Aktuálne súradnice GPS sa nedajú identifikovať.
     sv = Kan inte skapa väg. Nuvarande GPS-koordinater kan inte identifieras.
@@ -8833,7 +8833,7 @@
     pl = Sprawdź sygnał GPS. Aktywacja Wi-Fi pomoże w precyzyjnym określeniu położenia.
     pt = Verifique o sinal do GPS. Ative o Wi-Fi para melhorar a precisão da localização.
     pt-BR = Verifique o sinal do GPS. Ative o Wi-Fi para melhorar a precisão da localização.
-    ro = Verifică semnalul GPS. Pentru a îmbunătăţi precizia localizării, activează Wi-Fi.
+    ro = Verifică semnalul GPS. Pentru a îmbunătăți precizia localizării, activează Wi-Fi.
     ru = Пожалуйста, проверьте сигнал GPS. Для улучшения точности геопозиции включите Wi-Fi.
     sk = Skontrolujte signál GPS. Zapnutie Wi-Fi zlepší presnosť vašej lokalizácie.
     sv = Kontrollera din GPS-signal. Aktivera Wi-Fi-anslutning för att förbättra platsprecisionen.
@@ -8917,7 +8917,7 @@
     pl = Nie można ustalić współrzędnych GPS. Włącz usługi określania lokalizacji, aby wyznaczyć trasę.
     pt = Não foi possível localizar as coordenadas do GPS. Ative os serviços de localização para que a rota seja criada.
     pt-BR = Não foi possível localizar as coordenadas do GPS. Ative os serviços de localização para que a rota seja traçada.
-    ro = Localizarea coordonatelor GPS curente a eşuat. Pentru a calcula traseul, activează serviciile de localizare.
+    ro = Localizarea coordonatelor GPS curente a eșuat. Pentru a calcula traseul, activează serviciile de localizare.
     ru = Текущая геопозиция не определена. Для построения маршрута включите режим определения геопозиции.
     sk = Aktuálne súradnice GPS sa nedajú lokalizovať. Aktivujte lokalizačné služby na výpočet trasy.
     sv = Kan inte lokalisera nuvarande GPS-koordinater. Aktivera platstjänster för att beräkna väg.
@@ -8959,7 +8959,7 @@
     pl = Pobierz wymagane pliki
     pt = Descarregar os ficheiros necessários
     pt-BR = Baixar os arquivos necessários
-    ro = Descarcă fişierele necesare
+    ro = Descarcă fișierele necesare
     ru = Загрузите необходимые файлы
     sk = Prevezmite si požadované súbory
     sv = Ladda ned nödvändiga filer
@@ -9000,7 +9000,7 @@
     pl = Pobierz i zaktualizuj dane mapy i wyznaczania trasy wzdłuż planowanej drogi, aby wyznaczyć trasę.
     pt = Descarregue e atualize todos os dados do mapa e roteamento ao longo do trajeto desejado para que a rota seja criada.
     pt-BR = Baixe e atualize todos os dados de mapa e roteamento referentes ao trajeto desejado para que a rota seja traçada.
-    ro = Pentru calcularea traseului, descarcă şi actualizează toate hărţile şi informaţiile traseului pentru calea estimată.
+    ro = Pentru calcularea traseului, descarcă și actualizează toate hărțile și informațiile traseului pentru calea estimată.
     ru = Для построения маршрута загрузите и обновите все карты и файлы маршрутов по пути следования.
     sk = Prevezmite si a aktualizujte všetky mapy a informácie o trase pozdĺž naplánovanej trasy na výpočet trasy.
     sv = Ladda ned och uppdatera all kart- och väginformation längs den beräknade vägbanan för att beräkna vägen.
@@ -9042,7 +9042,7 @@
     pl = Nie można zlokalizować trasy
     pt = Não foi possível encontrar uma rota
     pt-BR = Não foi possível encontrar uma rota
-    ro = Localizarea traseului a eşuat
+    ro = Localizarea traseului a eșuat
     ru = Маршрут не найден
     sk = Trasa sa nedá lokalizovať
     sv = Kan inte lokalisera väg
@@ -9084,7 +9084,7 @@
     pl = Nie można wyznaczyć trasy.
     pt = Não foi possível criar uma rota.
     pt-BR = Não foi possível gerar uma rota.
-    ro = Crearea traseului a eşuat.
+    ro = Crearea traseului a eșuat.
     ru = Не получилось построить маршрут.
     sk = Trasa sa nedá vytvoriť.
     sv = Kan inte skapa väg.
@@ -9126,7 +9126,7 @@
     pl = Zmień punkt początkowy lub docelowy.
     pt = Ajuste o ponto de partida ou o ponto de chegada.
     pt-BR = Ajuste o ponto de partida ou o ponto de chegada.
-    ro = Modifică punctul de pornire sau destinaţia.
+    ro = Modifică punctul de pornire sau destinația.
     ru = Пожалуйста, измените начальную или конечную точку маршрута.
     sk = Prosím, upravte váš východiskový bod alebo cieľové miesto.
     sv = Justera din startpunkt eller din destination.
@@ -9210,7 +9210,7 @@
     pl = Nie wyznaczono trasy. Nie można zlokalizować punktu początkowego.
     pt = A rota não foi criada, porque não foi possível localizar o ponto de partida.
     pt-BR = A rota não foi traçada, pois não foi possível localizar o ponto de partida.
-    ro = Traseul nu a fost creat. Localizarea punctului de pornire a eşuat.
+    ro = Traseul nu a fost creat. Localizarea punctului de pornire a eșuat.
     ru = Маршрут не построен. Не определена начальная точка маршрута.
     sk = Trasa nebola vytvorená. Nedá sa lokalizovať východiskový bod.
     sv = Ingen väg skapades. Kan inte lokalisera startpunkt.
@@ -9294,7 +9294,7 @@
     pl = Zmień punkt docelowy
     pt = Ajuste o ponto de chegada
     pt-BR = Ajuste o ponto de chegada
-    ro = Schimbă destinaţia
+    ro = Schimbă destinația
     ru = Измените конечную точку маршрута
     sk = Nastavte cieľové miesto
     sv = Justera destination
@@ -9336,7 +9336,7 @@
     pl = Nie wyznaczono trasy. Nie można zlokalizować punktu docelowego.
     pt = A rota não foi criada, porque não foi possível localizar o ponto de chegada.
     pt-BR = A rota não foi traçada, pois não foi possível localizar o ponto de chegada.
-    ro = Traseul nu a fost creat. Localizarea destinaţiei a eşuat.
+    ro = Traseul nu a fost creat. Localizarea destinației a eșuat.
     ru = Маршрут не построен. Не определена конечная точка маршрута.
     sk = Trasa nebola vytvorená. Nedá sa lokalizovať cieľové miesto.
     sv = Ingen väg skapades. Kan inte lokalisera destination.
@@ -9378,7 +9378,7 @@
     pl = Wybierz punkt docelowy położony bliżej drogi.
     pt = Selecione um ponto de chegada mais perto de uma estrada.
     pt-BR = Selecione um ponto de chegada mais perto de uma estrada.
-    ro = Alege un punct de destinaţie mai aproape de un drum.
+    ro = Alege un punct de destinație mai aproape de un drum.
     ru = Пожалуйста, выберите конечную точку маршрута ближе к дороге.
     sk = Vyberte cieľové miesto nachádzajúce sa bližšie k ceste.
     sv = Välj en destinationspunkt närmare en väg.
@@ -9545,7 +9545,7 @@
     pl = Nie można wyznaczyć trasy z powodu błędu aplikacji.
     pt = Não foi possível criar uma rota devido a um erro na aplicação.
     pt-BR = Não foi possível traçar uma rota devido a um erro no aplicativo.
-    ro = Crearea traseului a eşuat din cauza unei erori a aplicaţiei.
+    ro = Crearea traseului a eșuat din cauza unei erori a aplicației.
     ru = Не удалось проложить маршрут из-за ошибки приложения.
     sk = Nedá sa vytvoriť trasa z dôvodu aplikačnej chyby.
     sv = Kan inte skapa väg på grund av ett programfel.
@@ -9671,7 +9671,7 @@
     pl = Chcesz pobrać mapę i wyznaczyć lepszą trasę, obejmującą więcej map?
     pt = Quer descarregar o mapa e traçar uma rota melhor, mas que se estenda por mais de um mapa?
     pt-BR = Deseja baixar o mapa e traçar uma rota melhor, mas que se estenda por mais de um mapa?
-    ro = Vrei să descarci harta şi să creezi un traseu mai bun care include mai multe hărți?
+    ro = Vrei să descarci harta și să creezi un traseu mai bun care include mai multe hărți?
     ru = Загрузить карту и построить более оптимальный маршрут с пересечением границы карты?
     sk = Chcete si prevziať mapu a vytvoriť optimálnejšiu trasu, ktorá si vyžaduje viac ako jednu mapu?
     sv = Vill du ladda ned kartan och skapa en optimalare väg som sträcker sig över fler än en karta?
@@ -10088,7 +10088,7 @@
     pl = Historia
     pt = Histórico
     pt-BR = Histórico
-    ro = Cronologia
+    ro = Cronologie
     ru = История
     sk = Archív
     sv = Historik
@@ -11067,7 +11067,7 @@
     pl = Tryb prosty
     pt = Modo simples
     pt-BR = Modo simples
-    ro = Mod Simplu
+    ro = Mod simplu
     ru = Простой режим
     sk = Jednoduchý režim
     sv = Enkelt läge
@@ -17271,7 +17271,7 @@
     pl = Organic Maps to bezpłatna aplikacja do map offline typu open source. Bez reklam. Bez śledzenia. Jeśli zobaczysz błąd na mapie, popraw go w OpenStreetMap. Projekt jest tworzony przez entuzjastów w czasie wolnym, dlatego potrzebujemy Twojej opinii i wsparcia.
     pt = Organic Maps é uma aplicação gratuita e de código aberto de mapas offline. Sem anúncios. Sem seguimento. Se vir um erro no mapa, por favor repare-o em OpenStreetMap. O projecto é criado por entusiastas no nosso tempo livre, por isso precisamos do seu feedback e apoio.
     pt-BR = Organic Maps é um aplicativo gratuito e de código aberto de mapas offline. Sem anúncios. Sem rastreamento. Se você vir um erro no mapa, por favor, corrija em OpenStreetMap. O projeto é criado por entusiastas em seu tempo livre, então precisamos de seu feedback e suporte.
-    ro = Organic Maps este o aplicație rapidă și gratuită fără reclame și urmărire. Hărțile sunt bazate pe datele OpenStreetMap.org oferite de utilizatori, de aceea chiar și tu poți corecta erorile și adăuga obiecte noi pe hartă. Organic Maps este un proiect creat de entuziaști în timpul lor liber. Părerea și sprijinul tău sunt foarte importante pentru noi
+    ro = Organic Maps este o aplicație rapidă și gratuită fără reclame și urmărire. Hărțile sunt bazate pe datele OpenStreetMap.org oferite de utilizatori, de aceea chiar și tu poți corecta erorile și adăuga obiecte noi pe hartă. Organic Maps este un proiect creat de entuziaști în timpul lor liber. Părerea și sprijinul tău sunt foarte importante pentru noi.
     ru = Organic Maps — быстрые и бесплатные карты, которые работают без Интернета. Все картографические данные берутся из OpenStreetMap.org, там можно самостоятельно исправлять ошибки и добавлять новые объекты. В Organic Maps нет рекламы и сбора персональных данных. Это проект с открытым исходным кодом, создаваемый энтузиастами в свободное время. Будем рады вашей поддержке и обратной связи!
     sk = Organic Maps je bezplatná offline aplikácia máp s otvoreným zdrojom. Žiadne reklamy. Žiadne sledovanie. Ak na mape vidíte chybu, opravte ju v OpenStreetMap. Projekt vytvárajú nadšenci v našom voľnom čase, preto potrebujeme vašu spätnú väzbu a podporu.
     sv = Organic Maps är en gratis offlinekartapplikation med öppen källkod. Inga annonser. Ingen spårning. Om du ser ett fel på kartan, åtgärda det i OpenStreetMap. Projektet skapas av entusiaster på vår fritid, så vi behöver din feedback och support.
@@ -17480,7 +17480,7 @@
     pl = Wykorzystać dane mobilne, aby wyświetlić dane szczegółowe?
     pt = Utilizar os dados móveis para mostrar informações detalhadas?
     pt-BR = Utilizar a internet móvel para mostrar informações detalhadas?
-    ro = Folosești internetul mobil pentru a vedea informaţii detaliate?
+    ro = Folosești internetul mobil pentru a vedea informații detaliate?
     ru = Загружать дополнительную информацию через мобильный интернет?
     sk = Použiť mobilný internet na zobrazenie podrobnejších informácií?
     sv = Använd mobilt nätverk för att visa detaljerad information?
@@ -17686,7 +17686,7 @@
     pl = Dane mobilne są wymagane do powiadomień o aktualizacji map i wyświetlania dokładniejszych informacji o miejscach i zakładkach.
     pt = Para visualizar informações detalhadas sobre os locais, tais como fotografias, preços e avaliações, é necessário acesso à internet móvel.
     pt-BR = Para visualizar informações detalhadas sobre os locais, tais como fotos, preços e análises, é necessário acesso à internet móvel.
-    ro = Internetul mobil este necesar pentru a afișa informaţii detaliate despre locuri generale și cele preferate.
+    ro = Internetul mobil este necesar pentru a afișa informații detaliate despre locuri generale și cele preferate.
     ru = Мобильный интернет требуется для уведомлений об обновлении карты и для отображения более подробной информации о местах и метках.
     sk = Na zobrazenie podrobnejších informácií o miestach, napríklad fotografií, cien a recenzií, sa vyžaduje mobilný internet.
     sv = Mobil internet krävs för att visa detaljerad information om platser, som t. ex. fotografier, priser och omdömen.
@@ -17809,7 +17809,7 @@
     pl = Aby wyświetlić dane o ruchu, muszą zostać zaktualizowane mapy.
     pt = Para ver os dados de tráfego, os mapas têm de ser atualizados.
     pt-BR = Para ver os dados de tráfego, os mapas devem ser atualizados.
-    ro = Pentru a afişa datele privind traficul, hărțile trebuie actualizate.
+    ro = Pentru a afișa datele privind traficul, hărțile trebuie actualizate.
     ru = Для отображения пробок необходимо обновить карты.
     sk = Na zobrazenie dopravných informácií je potrebné aktualizovať mapy.
     sv = Kartor måste uppdateras för att visa trafikdata.
@@ -17933,7 +17933,7 @@
     pl = Aby wyświetlić dane o ruchu, należy zaktualizować aplikację.
     pt = Para mostrar os dados de tráfego, a aplicação tem de ser atualizada.
     pt-BR = Para mostrar os dados de tráfego, o aplicativo deve ser atualizado.
-    ro = Pentru a afişa datele privind traficul, aplicația trebuie actualizată.
+    ro = Pentru a afișa datele privind traficul, aplicația trebuie actualizată.
     ru = Для отображения пробок необходимо обновить приложение.
     sk = Ak chcete zobraziť dopravné informácie, musíte si aktualizovať aplikáciu.
     sv = Applikationen måste uppdateras för att trafikdata ska kunna visas.
@@ -21653,7 +21653,7 @@
     pl = Jeśli jest włączony tryb oszczędzania energii, wtedy aplikacja wyłączy funkcje energochłonne, zależnie od bieżącego poziomu załadowania telefonu
     pt = Se o modo automático estiver ativado, a aplicação vai desativar as funções que consomem energia, dependendo da carga atual do telemóvel
     pt-BR = Quando o modo automático é selecionado, o aplicativo começa a desativar as características que drenam a bateria dependendo do nível de energia atual
-    ro = Dacă este pornit modul de economisire a energiei, aplicația va deconecta funcțiile care consumă multă energie în dependență de nivelul de încărcare a bateriei
+    ro = Dacă este pornit modul de economisire a energiei, aplicația va deconecta funcțiile care consumă multă energie în dependență de nivelul de încărcare a bateriei.
     ru = Если режим энергосбережения включен, приложение будет отключать энергозатратные функции в зависимости от текущего заряда телефона
     sk = Keď je zvolený automatický režim, aplikácia začne vypínať funkcie, ktoré vybíjajú batériu v závislosti od aktuálnej úrovne nabitia batérie
     sv = Om energisparläget är på, ska appen stänga av energikrävande funktioner beroende på telefonens nuvarande laddning
@@ -22076,7 +22076,7 @@
     pl = Unikaj autostrad
     pt = Evitar autoestradas
     pt-BR = Evitar rodovias
-    ro = Evitați autostrada
+    ro = Evitați autostrăzile
     ru = Избегать автомагистралей
     sk = Vyhnite sa diaľnici
     sv = Undvik motorvägen
@@ -22959,7 +22959,7 @@
     pl = Klawiatura nie jest dostępna podczas ruchu
     pt = O teclado não está disponível ao coduzir
     pt-BR = O teclado não está disponível enquanto dirige
-    ro = Tastatura nu poate fi folosită cât timp conduceți
+    ro = Tastatura nu poate fi folosită cât timp conduci
     ru = Клавиатура недоступна во время движения
     sk = Počas jazdy nie je klávesnica k dispozícii
     sv = Tangentbordet är inte tillgängligt vid rörelsen
