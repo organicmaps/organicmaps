@@ -13,6 +13,9 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.annotation.RequiresPermission;
 import androidx.annotation.UiThread;
+import androidx.core.content.ContextCompat;
+import androidx.core.location.GnssStatusCompat;
+import androidx.core.location.LocationManagerCompat;
 
 import app.organicmaps.Framework;
 import app.organicmaps.MwmApplication;
@@ -49,6 +52,44 @@ public class LocationHelper implements BaseLocationProvider.Listener
   private long mInterval;
   private boolean mInFirstRun;
   private boolean mActive;
+
+  @NonNull
+  private GnssStatusCompat.Callback mGnssStatusCallback = new GnssStatusCompat.Callback()
+  {
+    @Override
+    public void onStarted()
+    {
+      Logger.d(TAG);
+    }
+
+    @Override
+    public void onStopped()
+    {
+      Logger.d(TAG);
+    }
+
+    @Override
+    public void onFirstFix(int ttffMillis)
+    {
+      Logger.d(TAG, "ttffMillis = " + ttffMillis);
+    }
+
+    @Override
+    public void onSatelliteStatusChanged(@NonNull GnssStatusCompat status)
+    {
+      int used = 0;
+      boolean fixed = false;
+      for (int i = 0; i < status.getSatelliteCount(); i++)
+      {
+        if (status.usedInFix(i))
+        {
+          used++;
+          fixed = true;
+        }
+      }
+      Logger.d(TAG, "total = " + status.getSatelliteCount() + " used = " + used + " fixed = " + fixed);
+    }
+  };
 
   @NonNull
   public static LocationHelper from(@NonNull Context context)
@@ -297,6 +338,7 @@ public class LocationHelper implements BaseLocationProvider.Listener
         " mInFirstRun = " + mInFirstRun + " oldInterval = " + oldInterval + " interval = " + mInterval);
     mActive = true;
     mLocationProvider.start(mInterval);
+    subscribeToGnssStatusUpdates();
   }
 
   /**
@@ -312,6 +354,7 @@ public class LocationHelper implements BaseLocationProvider.Listener
 
     Logger.i(TAG);
     mLocationProvider.stop();
+    unsubscribeFromGnssStatusUpdates();
     SensorHelper.from(mContext).stop();
     mActive = false;
   }
@@ -355,6 +398,23 @@ public class LocationHelper implements BaseLocationProvider.Listener
     final LocationManager manager = (LocationManager) mContext.getSystemService(Context.LOCATION_SERVICE);
     manager.sendExtraCommand(LocationManager.GPS_PROVIDER, "force_xtra_injection", null);
     manager.sendExtraCommand(LocationManager.GPS_PROVIDER, "force_time_injection", null);
+  }
+
+  private void subscribeToGnssStatusUpdates()
+  {
+    // Subscribe to the low-level GNSS status to keep the green dot location indicator always firing.
+    // https://github.com/organicmaps/organicmaps/issues/5999#issuecomment-1793713369
+    if (!LocationUtils.checkFineLocationPermission(mContext))
+      return;
+    final LocationManager locationManager = (LocationManager) mContext.getSystemService(Context.LOCATION_SERVICE);
+    LocationManagerCompat.registerGnssStatusCallback(locationManager, ContextCompat.getMainExecutor(mContext),
+        mGnssStatusCallback);
+  }
+
+  private void unsubscribeFromGnssStatusUpdates()
+  {
+    final LocationManager locationManager = (LocationManager) mContext.getSystemService(Context.LOCATION_SERVICE);
+    LocationManagerCompat.unregisterGnssStatusCallback(locationManager, mGnssStatusCallback);
   }
 
   @UiThread
