@@ -16996,7 +16996,7 @@
     tags = android,ios
     en = OpenStreetMap editors will check the changes and contact you if they have any questions.
     af = OpenStraatMap-redigeerders sal die verandeirnge nagaan en u kontak indien hulle vrae het.
-    ar = .ﺔﻠﺌﺳﺃ ﻱﺃ ﻢﻬﻳﺪﻟ ﻥﺎﻛ ﺍﺫﺇ ﻚﻌﻣ ﻥﻮﻠﺻﺍﻮﺘﻳﻭ ﺕﺍﺮﻴﻴﻐﺘﻟﺍ ﻦﻣ OpenStreetMap ﻭﺭﺮﺤﻣ ﻖﻘﺤﺘﻴﺳ
+    ar = سيتحقق محررو خرائط الشارع المفتوح من التغييرات ويتواصلون معك إذا كان لديهم أي أسئلة.
     be = Рэдактары OpenStreetMap правераць змены і звяжуцца з вамі, калі ў іх узнікнуць пытанні.
     bg = Редакторите на OpenStreetMap ще проверят промените и ще се свържат с вас, ако имат въпроси.
     ca = Revisarem els canvis. Si tenim cap pregunta contactem amb vós via correu electrònic.
