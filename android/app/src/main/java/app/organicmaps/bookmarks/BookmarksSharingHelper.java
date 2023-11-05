@@ -25,7 +25,7 @@ public enum BookmarksSharingHelper
 
   public void prepareBookmarkCategoryForSharing(@NonNull Activity context, long catId)
   {
-    mProgressDialog = new ProgressDialog(context, R.style.MwmTheme_AlertDialog);
+    mProgressDialog = new ProgressDialog(context, R.style.MwmTheme_ProgressDialog);
     mProgressDialog.setMessage(context.getString(R.string.please_wait));
     mProgressDialog.setProgressStyle(ProgressDialog.STYLE_SPINNER);
     mProgressDialog.setIndeterminate(true);

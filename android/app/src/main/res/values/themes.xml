@@ -151,6 +151,10 @@
     <item name="android:background">@color/bg_cards_night</item>
   </style>
 
+  <style name="MwmTheme.ProgressDialog" parent="MwmTheme.AlertDialog">
+    <item name="android:textColor">?textDialogTheme</item>
+  </style>
+
   <style name="MwmTheme.Downloader">
     <item name="status_done">@drawable/ic_downloader_done</item>
     <item name="status_downloadable">@drawable/ic_downloader_download</item>

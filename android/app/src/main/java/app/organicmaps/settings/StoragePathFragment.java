@@ -104,7 +104,7 @@ public class StoragePathFragment extends BaseSettingsFragment
   @SuppressWarnings("deprecation") // https://github.com/organicmaps/organicmaps/issues/3629
   private Dialog showProgressDialog()
   {
-    final ProgressDialog dialog = new ProgressDialog(requireActivity(), R.style.MwmTheme_AlertDialog);
+    final ProgressDialog dialog = new ProgressDialog(requireActivity(), R.style.MwmTheme_ProgressDialog);
     dialog.setMessage(getString(R.string.wait_several_minutes));
     dialog.setProgressStyle(ProgressDialog.STYLE_SPINNER);
     dialog.setIndeterminate(true);
