@@ -133,16 +133,16 @@
         android:textColor="@color/text_dark" />
 
     <TextView
+      android:id="@+id/faq"
+      style="@style/MwmWidget.TextView.Item"
+      android:text="@string/faq"
+      app:drawableStartCompat="@drawable/ic_question_mark" />
+
+    <TextView
         android:id="@+id/support_us"
         style="@style/MwmWidget.TextView.Item"
         android:text="@string/how_to_support_us"
         app:drawableStartCompat="@drawable/ic_donate" />
-
-    <TextView
-        android:id="@+id/faq"
-        style="@style/MwmWidget.TextView.Item"
-        android:text="@string/faq"
-        app:drawableStartCompat="@drawable/ic_question_mark" />
 
     <TextView
         android:id="@+id/news"
