@@ -11449,7 +11449,7 @@ fr:Poubelle
 de:6Abfalleimer|4Mülleimer|Papierkorb
 hu:Szemétkosár
 id:Kotak sampah
-it:Contenitore per rifiuti
+it:Cestino|Contenitore per rifiuti
 ja:くずかご
 ko:쓰레기통
 nb:4Søppelbøtte|4Søppelkasse
