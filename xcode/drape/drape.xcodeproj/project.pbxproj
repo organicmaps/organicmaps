@@ -235,7 +235,6 @@
 		6729A5081A69213A007D5872 /* binding_info.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = binding_info.hpp; sourceTree = "<group>"; };
 		6729A5091A69213A007D5872 /* buffer_base.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = buffer_base.cpp; sourceTree = "<group>"; };
 		6729A50A1A69213A007D5872 /* buffer_base.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = buffer_base.hpp; sourceTree = "<group>"; };
-		6729A50B1A69213A007D5872 /* color.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = color.cpp; sourceTree = "<group>"; };
 		6729A50C1A69213A007D5872 /* color.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = color.hpp; sourceTree = "<group>"; };
 		6729A50D1A69213A007D5872 /* cpu_buffer.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = cpu_buffer.cpp; sourceTree = "<group>"; };
 		6729A50E1A69213A007D5872 /* cpu_buffer.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = cpu_buffer.hpp; sourceTree = "<group>"; };
@@ -395,7 +394,6 @@
 				6729A5081A69213A007D5872 /* binding_info.hpp */,
 				6729A5091A69213A007D5872 /* buffer_base.cpp */,
 				6729A50A1A69213A007D5872 /* buffer_base.hpp */,
-				6729A50B1A69213A007D5872 /* color.cpp */,
 				6729A50C1A69213A007D5872 /* color.hpp */,
 				45201E941CE605B1008A4842 /* constants.hpp */,
 				6729A50D1A69213A007D5872 /* cpu_buffer.cpp */,
