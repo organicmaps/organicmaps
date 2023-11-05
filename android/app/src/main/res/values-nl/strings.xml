@@ -46,7 +46,8 @@
 	<string name="about_proposition_3">• Snel, minimalistisch, geen junk</string>
 	<!-- Text in About screen -->
 	<string name="about_developed_by_enthusiasts">Open-source applicatie gemaakt door enthousiastelingen en vrijwilligers.</string>
-	<string name="connection_settings">Verbindingsinstellingen</string>
+	<!-- The button that opens system location settings -->
+	<string name="location_settings">Locatie-instellingen</string>
 	<string name="close">Sluiten</string>
 	<string name="unsupported_phone">Een hardware geaccellereerde OpenGL is nodig. Jammer genoeg wordt uw apparaat niet ondersteund.</string>
 	<string name="download">Downloaden</string>

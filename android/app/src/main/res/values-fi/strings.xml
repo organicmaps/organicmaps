@@ -49,7 +49,8 @@
 	<string name="about_proposition_3">• Nopea, minimalistinen, ei roskaa</string>
 	<!-- Text in About screen -->
 	<string name="about_developed_by_enthusiasts">Harrastajien ja vapaaehtoisten luoma avoimen lähdekoodin sovellus.</string>
-	<string name="connection_settings">Yhteysasetukset</string>
+	<!-- The button that opens system location settings -->
+	<string name="location_settings">Sijaintiasetukset</string>
 	<string name="close">Sulje</string>
 	<string name="unsupported_phone">Laitteistokiihdytetty OpenGL vaaditaan. Valitettavasti laitteesi ei ole tuettu.</string>
 	<string name="download">Lataa</string>

@@ -42,7 +42,8 @@
 	<string name="about_proposition_3">• מהיר, מינימליסטי, ללא זבל</string>
 	<!-- Text in About screen -->
 	<string name="about_developed_by_enthusiasts">יישום קוד פתוח שנוצר על ידי חובבים ומתנדבים.</string>
-	<string name="connection_settings">הגדרות תקשורת</string>
+	<!-- The button that opens system location settings -->
+	<string name="location_settings">הגדרות מיקום</string>
 	<string name="close">סגור</string>
 	<string name="unsupported_phone">נדרש מאיץ חומרה OpenGL. לצערינו מכשיר זה אינו נתמך.</string>
 	<string name="download">הורד</string>

@@ -46,7 +46,8 @@
 	<string name="about_proposition_3">• Rýchle, minimalistické, žiadne nevyžiadané</string>
 	<!-- Text in About screen -->
 	<string name="about_developed_by_enthusiasts">Aplikácia s otvoreným zdrojovým kódom vytvorené nadšencami a dobrovoľníkmi.</string>
-	<string name="connection_settings">Nastavenie pripojenia</string>
+	<!-- The button that opens system location settings -->
+	<string name="location_settings">Nastavenia polohy</string>
 	<string name="close">Zavrieť</string>
 	<string name="unsupported_phone">Je vyžadovaná hardwarová akcelerácia OpenGL. Bohužial, vaše zariadenie nie je podporované.</string>
 	<string name="download">Stiahnuť</string>

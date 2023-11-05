@@ -46,7 +46,8 @@
 	<string name="about_proposition_3">• Hurtig, minimalistisk, intet skrammel</string>
 	<!-- Text in About screen -->
 	<string name="about_developed_by_enthusiasts">Open source-applikation oprettet af entusiaster og frivillige.</string>
-	<string name="connection_settings">Forbindelsesindstillinger</string>
+	<!-- The button that opens system location settings -->
+	<string name="location_settings">Indstillinger for placering</string>
 	<string name="close">Luk</string>
 	<string name="unsupported_phone">En hardware accelereret OpenGL er påkrævet. Din enhed er desværre ikke understøttet.</string>
 	<string name="download">Download</string>

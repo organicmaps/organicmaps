@@ -46,7 +46,8 @@
 	<string name="about_proposition_3">• Azkarra, minimalista, zaborrik gabe</string>
 	<!-- Text in About screen -->
 	<string name="about_developed_by_enthusiasts">Kode irekiko aplikazioa zaleek eta boluntarioek sortutakoa.</string>
-	<string name="connection_settings">Konexio ezarpenak</string>
+	<!-- The button that opens system location settings -->
+	<string name="location_settings">Kokapen ezarpenak</string>
 	<string name="close">Itxi</string>
 	<string name="unsupported_phone">Aplikazioak hardwarez azeleratutako OpenGL behar du. Zoritxarrez, zure gailua ez da onartzen.</string>
 	<string name="download">Deskargatu</string>

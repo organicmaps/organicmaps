@@ -38,7 +38,8 @@
 	<string name="about_menu_title">Organic Maps बद्दल</string>
 	<!-- Text in About screen -->
 	<string name="about_proposition_2">• बॅटरी वाचवते, पार्श्वभूमी डेटा वापरत नाही</string>
-	<string name="connection_settings">जोडणी सेटिंग</string>
+	<!-- The button that opens system location settings -->
+	<string name="location_settings">स्थान सेटिंग्ज</string>
 	<string name="close">बंद</string>
 	<string name="unsupported_phone">ह्या ऍपला हार्डवेअर प्रवेगक OpenGL आवश्यक आहे. दुर्दैवाने, तुमच्या उपकरणाला ह्याचा आधार नाही.</string>
 	<string name="download">डाउनलोड करा</string>

@@ -46,7 +46,8 @@
 	<string name="about_proposition_3">• 빠르고 최소한의 정크가 없습니다</string>
 	<!-- Text in About screen -->
 	<string name="about_developed_by_enthusiasts">애호가와 자원 봉사자가 만든 오픈 소스 응용 프로그램.</string>
-	<string name="connection_settings">연결 설정</string>
+	<!-- The button that opens system location settings -->
+	<string name="location_settings">위치 설정</string>
 	<string name="close">닫기</string>
 	<string name="unsupported_phone">하드웨어 촉진 OpenGL이 요구됩니다. 애석하게도 귀하의 장치는 지원되지 않습니다.</string>
 	<string name="download">다운로드</string>

@@ -14,6 +14,8 @@
 	<string name="about_proposition_3">• Haraka, minimalistic, hakuna taka</string>
 	<!-- Text in About screen -->
 	<string name="about_developed_by_enthusiasts">Maombi ya chanzo-wazi iliyoundwa na wanaovutia na wanaojitolea.</string>
+	<!-- The button that opens system location settings -->
+	<string name="location_settings">Mipangilio ya mahali</string>
 	<!-- Header of settings activity where user defines storage path -->
 	<string name="maps_storage">Hifadhi ramani kwenye</string>
 

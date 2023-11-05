@@ -48,7 +48,8 @@
 	<string name="about_proposition_3">•เร็วเรียบง่ายไม่มีขยะ</string>
 	<!-- Text in About screen -->
 	<string name="about_developed_by_enthusiasts">แอปพลิเคชันโอเพนซอร์ซที่สร้างขึ้นโดยผู้ที่ชื่นชอบและอาสาสมัคร</string>
-	<string name="connection_settings">การตั้งค่าการเชื่อมต่อ</string>
+	<!-- The button that opens system location settings -->
+	<string name="location_settings">การตั้งค่าตำแหน่ง</string>
 	<string name="close">ปิด</string>
 	<string name="unsupported_phone">จำเป็นต้องใช้ฮาร์ดแวร์ที่เพิ่มความเร็ว OpenGL โชคไม่ดีที่อุปกรณ์ของคุณไม่รองรับ</string>
 	<string name="download">ดาวน์โหลด</string>

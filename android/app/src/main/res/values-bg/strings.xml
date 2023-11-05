@@ -49,7 +49,8 @@
 	<string name="about_proposition_3">• Бързи, минималистични, без боклуци</string>
 	<!-- Text in About screen -->
 	<string name="about_developed_by_enthusiasts">Приложение с отворен код, създадено от ентусиасти и доброволци.</string>
-	<string name="connection_settings">Настройки за свързване</string>
+	<!-- The button that opens system location settings -->
+	<string name="location_settings">Настройки на местоположението</string>
 	<string name="close">Затваряне</string>
 	<string name="unsupported_phone">Приложението изисква хардуерно ускорение на OpenGL. За съжаление вашето устройство не се поддържа.</string>
 	<string name="download">Изтегляне</string>

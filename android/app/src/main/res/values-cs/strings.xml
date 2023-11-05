@@ -46,7 +46,8 @@
 	<string name="about_proposition_3">• Rychlé, minimalistické, žádný bloatware</string>
 	<!-- Text in About screen -->
 	<string name="about_developed_by_enthusiasts">Otevřená aplikace vytvořená nadšenci a dobrovolníky.</string>
-	<string name="connection_settings">Nastavení připojení</string>
+	<!-- The button that opens system location settings -->
+	<string name="location_settings">Nastavení polohy</string>
 	<string name="close">Zavřít</string>
 	<string name="unsupported_phone">Je vyžadována hardwarová akcelerace OpenGL. Bohužel, vaše zařízení není podporováno.</string>
 	<string name="download">Stáhnout</string>

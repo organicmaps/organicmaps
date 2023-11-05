@@ -46,7 +46,8 @@
 	<string name="about_proposition_3">•快速，簡約，沒有垃圾</string>
 	<!-- Text in About screen -->
 	<string name="about_developed_by_enthusiasts">由愛好者和志願者創建的開源應用程序。</string>
-	<string name="connection_settings">連線設定</string>
+	<!-- The button that opens system location settings -->
+	<string name="location_settings">位置設定</string>
 	<string name="close">關閉</string>
 	<string name="unsupported_phone">需要 OpenGL 硬體加速功能的支援。但很不幸的，您的裝置並不支援此功能！</string>
 	<string name="download">下載</string>

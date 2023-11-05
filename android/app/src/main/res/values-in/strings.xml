@@ -48,7 +48,8 @@
 	<string name="about_proposition_3">• Cepat, minimalis, tidak ada sampah</string>
 	<!-- Text in About screen -->
 	<string name="about_developed_by_enthusiasts">Aplikasi open-source yang dibuat oleh penggemar dan sukarelawan.</string>
-	<string name="connection_settings">Pengaturan Koneksi</string>
+	<!-- The button that opens system location settings -->
+	<string name="location_settings">Pengaturan lokasi</string>
 	<string name="close">Tutup</string>
 	<string name="unsupported_phone">OpenGL yang dipercepat oleh OpenGL diperlukan. Sayangnya, perangkat Anda tidak mendukung.</string>
 	<string name="download">Unduh</string>
