@@ -298,7 +298,7 @@ public class BookmarkCategoriesFragment extends BaseMwmRecyclerFragment<Bookmark
 
       final Context context = requireActivity();
       final Uri rootUri = data.getData();
-      final ProgressDialog dialog = new ProgressDialog(context, R.style.MwmTheme_AlertDialog);
+      final ProgressDialog dialog = new ProgressDialog(context, R.style.MwmTheme_ProgressDialog);
       dialog.setMessage(getString(R.string.wait_several_minutes));
       dialog.setProgressStyle(ProgressDialog.STYLE_SPINNER);
       dialog.setIndeterminate(true);
