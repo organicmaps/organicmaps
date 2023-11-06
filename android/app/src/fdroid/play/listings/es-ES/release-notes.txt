@@ -1,12 +1,12 @@
-• New OpenStreetMap maps data as of September 20
-• New Ruler (aka Helicopter) routing for straight distance measurement
-• Background voice and directions
-• Fixed "Wait…" dialog on Android 13 with SD card
-• Do not pause music when the screen is rotated
-• Added and improved many icons and styles
-• Improved search results relevance
-• Parking entrances are searchable
-• Test TTS voice in the settings
-• Fixed arrow position button on Android 5&6
+• Nuevos datos de OSM desde 20 de septiembre
+• Nueva medición de distancia de líneas rectas
+• Voz de fondo e indicaciones
+• Se corrigió el error de diálogo "Esperando..." en Android 13 con tarjeta SD
+• La música ya no se pausa cuando la pantalla gira
+• Iconos actualizados
+• Mejorada los resultados de la búsqueda.
+• Se pueden buscar las entradas de los aparcamientos
+• Probar la voz TTS en los ajustes
+• Botón de posición de flecha fijo en Android 5&6
 
-…más: omaps.org/es/news
+Más detalles: omaps.org/news
