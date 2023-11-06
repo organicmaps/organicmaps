@@ -8,4 +8,5 @@
 • Entradas do estacionamento podem ser buscadas
 • Teste de TTS nas configurações
 • Botão de posição da seta corrigido no Android 5-6
+
 …mais: omaps.org/pt-BR/news
