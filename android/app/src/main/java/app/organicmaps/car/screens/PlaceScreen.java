@@ -38,6 +38,7 @@ import app.organicmaps.car.util.UiHelpers;
 import app.organicmaps.location.LocationHelper;
 import app.organicmaps.routing.RoutingController;
 import app.organicmaps.routing.RoutingInfo;
+import app.organicmaps.util.Config;
 import app.organicmaps.util.log.Logger;
 
 import java.util.Objects;
@@ -215,7 +216,10 @@ public class PlaceScreen extends BaseMapScreen implements OnBackPressedCallback.
     startRouteBuilder.setFlags(Action.FLAG_PRIMARY);
     startRouteBuilder.setTitle(getCarContext().getString(R.string.p2p_start));
     startRouteBuilder.setIcon(new CarIcon.Builder(IconCompat.createWithResource(getCarContext(), R.drawable.ic_follow_and_rotate)).build());
-    startRouteBuilder.setOnClickListener(mRoutingController::start);
+    startRouteBuilder.setOnClickListener(() -> {
+      Config.acceptRoutingDisclaimer();
+      mRoutingController.start();
+    });
 
     builder.addAction(startRouteBuilder.build());
   }
