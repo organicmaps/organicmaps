@@ -135,7 +135,7 @@
 	<!-- Search category for hospitals; any changes should be duplicated in categories.txt @hospital! -->
 	<string name="hospital">Hospital</string>
 	<!-- Search category for toilets; any changes should be duplicated in categories.txt @toilet! -->
-	<string name="toilet">Casas de banho</string>
+	<string name="toilet">Casa de banho</string>
 	<!-- Search category for post offices; any changes should be duplicated in categories.txt @post! -->
 	<string name="post">Correios</string>
 	<!-- Search category for police; any changes should be duplicated in categories.txt @police! -->
@@ -863,7 +863,7 @@
 	<string name="type.amenity.restaurant">Restaurante</string>
 	<string name="type.amenity.school">Escola</string>
 	<string name="type.amenity.shelter">Abrigo</string>
-	<string name="type.amenity.public_bath">Banheiro público</string>
+	<string name="type.amenity.public_bath">Banho público</string>
 	<string name="type.amenity.shower">Chuveiro</string>
 	<string name="type.amenity.stripclub">Clube de striptease</string>
 	<string name="type.amenity.taxi">Táxi</string>

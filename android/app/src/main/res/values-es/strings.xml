@@ -147,7 +147,7 @@
 	<!-- Search category for hospitals; any changes should be duplicated in categories.txt @hospital! -->
 	<string name="hospital">Hospital</string>
 	<!-- Search category for toilets; any changes should be duplicated in categories.txt @toilet! -->
-	<string name="toilet">Baños</string>
+	<string name="toilet">Baño</string>
 	<!-- Search category for post offices; any changes should be duplicated in categories.txt @post! -->
 	<string name="post">Oficina de correos</string>
 	<!-- Search category for police; any changes should be duplicated in categories.txt @police! -->
@@ -785,7 +785,7 @@
 	<string name="type.amenity.bank">Banco</string>
 	<string name="type.amenity.bar">Bar</string>
 	<string name="type.amenity.bbq">Picnic</string>
-	<string name="type.amenity.bench">Banco</string>
+	<string name="type.amenity.bench">Asiento</string>
 	<string name="type.amenity.bicycle_parking">Aparcamiento de bicicletas</string>
 	<string name="type.amenity.bicycle_rental">Alquiler de bicicletas</string>
 	<string name="type.amenity.bicycle_repair_station">Estación de reparación de bicicletas</string>

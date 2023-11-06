@@ -141,7 +141,7 @@
 "hospital" = "Hospital";
 
 /* Search category for toilets; any changes should be duplicated in categories.txt @toilet! */
-"toilet" = "Banheiros";
+"toilet" = "Banheiro";
 
 /* Search category for post offices; any changes should be duplicated in categories.txt @post! */
 "post" = "Correios";
@@ -1532,7 +1532,7 @@
 
 "type.amenity.shelter" = "Abrigo";
 
-"type.amenity.public_bath" = "Banheiro público";
+"type.amenity.public_bath" = "Banho público";
 
 "type.amenity.shower" = "Chuveiro";
 

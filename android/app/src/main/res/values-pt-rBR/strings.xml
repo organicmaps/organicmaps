@@ -145,7 +145,7 @@
 	<!-- Search category for hospitals; any changes should be duplicated in categories.txt @hospital! -->
 	<string name="hospital">Hospital</string>
 	<!-- Search category for toilets; any changes should be duplicated in categories.txt @toilet! -->
-	<string name="toilet">Banheiros</string>
+	<string name="toilet">Banheiro</string>
 	<!-- Search category for post offices; any changes should be duplicated in categories.txt @post! -->
 	<string name="post">Correios</string>
 	<!-- Search category for police; any changes should be duplicated in categories.txt @police! -->

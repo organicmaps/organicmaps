@@ -107,6 +107,8 @@
 	<string name="maps_storage_free_size">%1$s вільно з %2$s</string>
 	<!-- Question dialog for transferring maps from one storage to another -->
 	<string name="move_maps">Перемістити мапи?</string>
+	<!-- Error moving map files from one storage to another -->
+	<string name="move_maps_error">Помилка переміщення файлів карти</string>
 	<!-- Ask to wait user several minutes (some long process in modal dialog). -->
 	<string name="wait_several_minutes">Це може зайняти кілька хвилин.\nБудь ласка, зачекайте…</string>
 	<!-- Measurement units title in settings activity -->
@@ -165,6 +167,7 @@
 	<string name="description">Примітка</string>
 	<!-- Email Subject when sharing bookmark list -->
 	<string name="share_bookmarks_email_subject">З вами поділилися мiтками Organic Maps</string>
+	<string name="share_bookmarks_email_body">Привіт!\n\nДодаю мої закладки; відкрийте їх у Organic Maps. Якщо застосунок не встановлено, ви можете завантажити його тут: https://omaps.app/get?kmz\n\nНасолоджуйтесь подорожами з Organic Maps!</string>
 	<!-- message title of loading file -->
 	<string name="load_kmz_title">Завантаження мiток</string>
 	<!-- Kmz file successful loading -->
@@ -204,6 +207,10 @@
 	<!-- Length of track in cell that describes route -->
 	<string name="length">Довжина</string>
 	<string name="share_my_location">Поділитися моїм місцезнаходженням</string>
+	<!-- Settings general group in settings screen -->
+	<string name="prefs_group_general">Загальні налаштування</string>
+	<!-- Settings information group in settings screen -->
+	<string name="prefs_group_information">Інформація</string>
 	<string name="prefs_group_route">Навігація</string>
 	<string name="pref_zoom_title">Кнопки трансфокації</string>
 	<string name="pref_zoom_summary">Відображення на екрані</string>
@@ -711,6 +718,15 @@
 	<string name="elevation_profile_distance">Відст.:</string>
 	<string name="elevation_profile_time">Шлях:</string>
 	<string name="isolines_toast_zooms_1_10">Збільште мапу, щоб побачити ізолінії</string>
+	<string name="download_map_title">Завантажити карту світу</string>
+	<!-- Used in DownloadResources startup screen -->
+	<string name="disk_error">Неможливо створити папку та перемістити файли до внутрішньої памʼяті або SD карти</string>
+	<!-- Used in DownloadResources startup screen -->
+	<string name="disk_error_title">Помилка диска</string>
+	<!-- Used in DownloadResources startup screen -->
+	<string name="connection_failure">Помилка підключення</string>
+	<!-- Used in DownloadResources startup screen -->
+	<string name="disconnect_usb_cable_title">Від\'єднайте кабель USB</string>
 	<string name="enable_keep_screen_on">Тримайте екран увімкненим</string>
 	<!-- Description in preferences -->
 	<string name="enable_keep_screen_on_description">Якщо увімкнено, екран завжди буде увімкнений під час відображення мапи.</string>

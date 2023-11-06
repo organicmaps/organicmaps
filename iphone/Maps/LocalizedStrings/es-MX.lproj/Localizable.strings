@@ -141,7 +141,7 @@
 "hospital" = "Hospital";
 
 /* Search category for toilets; any changes should be duplicated in categories.txt @toilet! */
-"toilet" = "Baños";
+"toilet" = "Baño";
 
 /* Search category for post offices; any changes should be duplicated in categories.txt @post! */
 "post" = "Oficina de correos";
@@ -1291,7 +1291,7 @@
 
 "type.amenity.bbq" = "Picnic";
 
-"type.amenity.bench" = "Banco";
+"type.amenity.bench" = "Asiento";
 
 "type.amenity.bicycle_parking" = "Estacionamiento de bicicletas";
 

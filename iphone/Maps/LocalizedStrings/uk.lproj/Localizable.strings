@@ -161,7 +161,7 @@
 /* Search category for RV facilities; any changes should be duplicated in categories.txt @rv! */
 "rv" = "Для автобудинків";
 
-"share_bookmarks_email_body" = "Hello!\n\nAttached are my bookmarks; please open them in Organic Maps. If you don't have it installed you can download it here: https://omaps.app/get?kmz\n\nEnjoy travelling with Organic Maps!";
+"share_bookmarks_email_body" = "Привіт!\n\nДодаю мої закладки; відкрийте їх у Organic Maps. Якщо застосунок не встановлено, ви можете завантажити його тут: https://omaps.app/get?kmz\n\nНасолоджуйтесь подорожами з Organic Maps!";
 
 /* message title of loading file */
 "load_kmz_title" = "Завантаження мiток";
@@ -1215,13 +1215,13 @@
 "whats_new_auto_update_button_later" = "Оновити вручну пізніше";
 
 /* Delete track button on track edit screen */
-"placepage_delete_track_button" = "Delete Track";
+"placepage_delete_track_button" = "Видалити трек";
 
 /* Placeholder for track name input on track edit screen */
-"placepage_track_name_hint" = "Track Name";
+"placepage_track_name_hint" = "Назва треку";
 
 /* move track or bookmark from the list button text */
-"move" = "Move";
+"move" = "Перемістити";
 
 /* edit track screen title */
 "track_title" = "Маршрут";
