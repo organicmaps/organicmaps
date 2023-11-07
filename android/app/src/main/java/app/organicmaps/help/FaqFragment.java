@@ -10,13 +10,13 @@ import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import androidx.appcompat.app.AlertDialog;
 
 import app.organicmaps.R;
 import app.organicmaps.WebContainerDelegate;
 import app.organicmaps.base.BaseMwmFragment;
 import app.organicmaps.util.Constants;
 import app.organicmaps.util.Utils;
+import com.google.android.material.dialog.MaterialAlertDialogBuilder;
 
 public class FaqFragment extends BaseMwmFragment
 {
@@ -64,7 +64,7 @@ public class FaqFragment extends BaseMwmFragment
     };
 
     TextView feedback = root.findViewById(R.id.feedback);
-    feedback.setOnClickListener(v -> new AlertDialog.Builder(requireActivity(), R.style.MwmTheme_AlertDialog)
+    feedback.setOnClickListener(v -> new MaterialAlertDialogBuilder(requireActivity(), R.style.MwmTheme_AlertDialog)
         .setTitle(R.string.feedback)
         .setNegativeButton(R.string.cancel, null)
         .setItems(new CharSequence[]{getString(R.string.feedback_general), getString(R.string.report_a_bug)},
