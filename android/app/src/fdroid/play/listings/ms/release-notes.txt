@@ -4,7 +4,6 @@
 • Dialog "Tunggu…" pada Android 13 dengan kad SD telah diperbaiki.
 • Jangan jeda muzik apabila skrin diputarkan.
 • Ditambah/dipertingkatkan banyak ikon dan gaya.
-• Perkaitan hasil carian dipertingkat.
 • Pintu masuk tempat letak kereta boleh dicari.
 • Uji suara TTS dalam tetapan.
 • Butang kedudukan anak panah tetap pada Android 5&6.
