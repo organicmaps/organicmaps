@@ -5997,8 +5997,8 @@
   [telegram]
     comment = Text in menu
     tags = android,ios
-    ar = تيليجرام
     en = Telegram
+    ar = تيليجرام
 
   [matrix]
     comment = Text in menu
@@ -6013,24 +6013,24 @@
   [facebook]
     comment = Text in menu
     tags = android,ios
-    ar = فيسبوك
     en = Facebook
+    ar = فيسبوك
     zh-Hans = 脸书
     zh-Hant = 臉書
 
   [twitter]
     comment = Text in menu
     tags = android,ios
-    ar = X (تويتر)
     en = X (Twitter)
+    ar = X (تويتر)
     zh-Hans = X (推特)
     zh-Hant = X (推特)
 
   [instagram]
     comment = Text in menu
     tags = android,ios
-    ar = إنستغرام
     en = Instagram
+    ar = إنستغرام
 
   [vk]
     comment = Text in the editor
