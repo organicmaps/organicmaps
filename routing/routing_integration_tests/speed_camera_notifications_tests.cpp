@@ -76,7 +76,7 @@ void InitRoutingSession(ms::LatLon const & from, ms::LatLon const & to, RoutingS
 bool CheckVoiceNotification(RoutingSession & routingSession)
 {
   vector<string> notifications;
-  routingSession.GenerateNotifications(notifications);
+  routingSession.GenerateNotifications(notifications, false);
   return any_of(notifications.begin(), notifications.end(), [](auto const & item) {
     return item == kCameraOnTheWay;
   });

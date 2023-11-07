@@ -106,6 +106,10 @@ using Observers = NSHashTable<Observer>;
       LOG(LWARNING, ("[ setCategory]] error.", [err localizedDescription]));
     }
 
+    // Set initial StreetNamesTTS setting
+    NSDictionary *dictionary = @{ kIsStreetNamesTTSEnabled : @NO };
+    [NSUserDefaults.standardUserDefaults registerDefaults:dictionary];
+    
     self.active = YES;
   }
   return self;
