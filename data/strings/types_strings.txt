@@ -11710,8 +11710,8 @@
     da = Vadested
     de = Furt
     el = Πέρασμα
-    es = Vado (de lugar)
-    es-MX = Vado (de lugar)
+    es = Vado
+    es-MX = Vado
     et = Koolmekoht
     eu = Ford (lekukoa)
     fa = گدار
