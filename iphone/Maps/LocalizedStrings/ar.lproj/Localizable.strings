@@ -277,7 +277,7 @@
 "github" = "GitHub";
 
 /* Text in menu */
-"telegram" = "Telegram";
+"telegram" = "تيليجرام";
 
 /* Text in menu */
 "matrix" = "[Matrix]";
@@ -286,13 +286,13 @@
 "mastodon" = "Mastodon";
 
 /* Text in menu */
-"facebook" = "Facebook";
+"facebook" = "فيسبوك";
 
 /* Text in menu */
-"twitter" = "X (Twitter)";
+"twitter" = "X (تويتر)";
 
 /* Text in menu */
-"instagram" = "Instagram";
+"instagram" = "إنستغرام";
 
 /* Text in the editor */
 "vk" = "VK";
@@ -313,7 +313,7 @@
 "donate" = "تبرع";
 
 /* Button in the main Help dialog */
-"how_to_support_us" = "ﻉﻭﺮﺸﻤﻟﺍ ﻢﻋﺩ";
+"how_to_support_us" = "دعم المشروع";
 
 /* Button in the main Help dialog */
 "copyright" = "حقوق النشر";
@@ -325,7 +325,7 @@
 "email_error_body" = "لم يتم تنصيب البريد الإلكتروني. يرجى تفعيله أو استخدام أي وسيلة أخرى للاتصال بنا على %@";
 
 /* Alert title */
-"email_error_title" = "حذث خطأ في إرسال البريد الإلكتروني";
+"email_error_title" = "حدث خطأ في إرسال البريد الإلكتروني";
 
 /* Settings item title */
 "pref_calibration_title" = "معايرة البوصلة";
@@ -611,7 +611,7 @@
 
 "no_osm_account" = "ليس لديك حساب في خريطة الشارع المفتوحة؟";
 
-"register_at_openstreetmap" = "التسجيل في حريطة الشارع المفتوحة";
+"register_at_openstreetmap" = "التسجيل في خريطة الشارع المفتوحة";
 
 "password_8_chars_min" = "كلمة المرور (٨ أحرف بحد أدنى)";
 
@@ -832,7 +832,7 @@
 /* Dialog before publishing the modifications to the public map. */
 "editor_share_to_all_dialog_message_1" = "تأكد من أنك لم تقم بإدخال أية بيانات شخصية.";
 
-"editor_share_to_all_dialog_message_2" = "سيتحقق محررو خرائط الشارع المفتوح من التغييرات ويتواصلون معك إذا كان لديهم أي أسئلة.";
+"editor_share_to_all_dialog_message_2" = "سيتحقق محررو خرائط الشارع المفتوحة من التغييرات ويتواصلون معك إذا كان لديهم أي أسئلة.";
 
 "navigation_stop_button" = "توقف";
 

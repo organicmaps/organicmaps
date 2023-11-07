@@ -254,6 +254,14 @@
 	<!-- Text in About menu, opens Organic Maps news website -->
 	<string name="news">أخبار</string>
 	<!-- Text in menu -->
+	<string name="telegram">تيليجرام</string>
+	<!-- Text in menu -->
+	<string name="facebook">فيسبوك</string>
+	<!-- Text in menu -->
+	<string name="twitter">X (تويتر)</string>
+	<!-- Text in menu -->
+	<string name="instagram">إنستغرام</string>
+	<!-- Text in menu -->
 	<string name="openstreetmap">خريطة الشارع المفتوحة</string>
 	<!-- Settings: Send feedback button and dialog title -->
 	<string name="feedback">إرسال التعليقات</string>
@@ -266,7 +274,7 @@
 	<!-- Button in the main menu -->
 	<string name="donate">تبرع</string>
 	<!-- Button in the main Help dialog -->
-	<string name="how_to_support_us">ﻉﻭﺮﺸﻤﻟﺍ ﻢﻋﺩ</string>
+	<string name="how_to_support_us">دعم المشروع</string>
 	<!-- Button in the main Help dialog -->
 	<string name="copyright">حقوق النشر</string>
 	<!-- Text in menu + Button in the main Help dialog -->
@@ -419,7 +427,7 @@
 	<string name="editor_example_values">أمثلة على القيم</string>
 	<string name="editor_correct_mistake">تصحيح الخطأ</string>
 	<string name="editor_add_select_location">الموقع</string>
-	<string name="editor_report_problem_desription_1">يرجى وصف المشكلة بالتفاصيل حتى يتسنى لفريق خريطة الشارع المفتوح إصلاح الخطأ.</string>
+	<string name="editor_report_problem_desription_1">يرجى وصف المشكلة بالتفاصيل حتى يتسنى لفريق خريطة الشارع المفتوحة إصلاح الخطأ.</string>
 	<string name="editor_report_problem_desription_2">أو افعل ذلك بنفسك من خلال الموقع https://www.openstreetmap.org/</string>
 	<string name="editor_report_problem_send_button">إرسال</string>
 	<string name="editor_report_problem_title">مشكلة</string>
@@ -438,9 +446,9 @@
 	<string name="closed">مغلق</string>
 	<string name="edit_opening_hours">حرر ساعات العمل</string>
 	<string name="no_osm_account">ليس لديك حساب في خريطة الشارع المفتوحة؟</string>
-	<string name="register_at_openstreetmap">التسجيل في حريطة الشارع المفتوحة</string>
+	<string name="register_at_openstreetmap">التسجيل في خريطة الشارع المفتوحة</string>
 	<string name="login">تسجيل الدخول</string>
-	<string name="login_osm">OpenStreetMap ﻰﻟﺇ ﻝﻮﺧﺪﻟﺍ ﻞﻴﺠﺴﺗ</string>
+	<string name="login_osm">تسجيل الدخول الى OpenStreetMap</string>
 	<string name="password">كلمة المرور</string>
 	<string name="forgot_password">هل نسيت كلمة المرور؟</string>
 	<string name="logout">تسجيل الخروج</string>
@@ -542,7 +550,7 @@
 	<string name="editor_share_to_all_dialog_title">هل ترغب في إرساله لجميع المستخدمين؟</string>
 	<!-- Dialog before publishing the modifications to the public map. -->
 	<string name="editor_share_to_all_dialog_message_1">تأكد من أنك لم تقم بإدخال أية بيانات شخصية.</string>
-	<string name="editor_share_to_all_dialog_message_2">سيتحقق محررو خرائط الشارع المفتوح من التغييرات ويتواصلون معك إذا كان لديهم أي أسئلة.</string>
+	<string name="editor_share_to_all_dialog_message_2">سيتحقق محررو خرائط الشارع المفتوحة من التغييرات ويتواصلون معك إذا كان لديهم أي أسئلة.</string>
 	<string name="navigation_stop_button">توقف</string>
 	<!-- For the first routing -->
 	<string name="accept">قبول</string>
