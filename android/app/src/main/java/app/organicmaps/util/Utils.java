@@ -646,8 +646,18 @@ public class Utils
     if (TextUtils.isEmpty(brand))
       return "";
 
-    String key = "brand." + brand;
-    return getLocalizedFeatureByKey(context, key);
+    try
+    {
+      @StringRes
+      int nameId = context.getResources().getIdentifier("brand." + brand, "string", context.getPackageName());
+      if (nameId == INVALID_ID || nameId == View.NO_ID)
+        return brand;
+      return context.getString(nameId);
+    }
+    catch (Resources.NotFoundException e)
+    {
+    }
+    return brand;
   }
 
   private static class SupportInfoWithLogsCallback implements LogsManager.OnZipCompletedListener
