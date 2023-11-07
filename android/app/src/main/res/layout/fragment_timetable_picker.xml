@@ -22,5 +22,6 @@
     android:id="@+id/picker"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:background="?android:windowBackground"/>
+    android:background="?android:windowBackground"
+    android:numbersBackgroundColor="?cardBackground"/>
 </LinearLayout>
