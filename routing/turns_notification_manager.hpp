@@ -59,6 +59,19 @@ public:
   /// \param turns contains information about the next turns starting from the closest one.
   /// \param distanceToTurnMeters is distance to the next turn in meters.
   /// \param turnNotifications is a parameter to fill it if it's necessary.
+  /// \param nextStreetInfo is the RoadNameInfo for the next street to turn on (optional)
+  /// \note The client implies turnNotifications does not contain empty strings.
+  void GenerateTurnNotifications(std::vector<TurnItemDist> const & turns,
+                                 std::vector<std::string> & turnNotifications,
+                                 RouteSegment::RoadNameInfo const & nextStreetInfo);
+
+  /// \brief GenerateTurnNotifications updates information about the next turn notification.
+  /// It also fills turnNotifications when it's necessary.
+  /// If this TurnsSound wants to play a sound message once it should push one item to
+  /// the vector turnNotifications once when GenerateTurnNotifications is called.
+  /// \param turns contains information about the next turns starting from the closest one.
+  /// \param distanceToTurnMeters is distance to the next turn in meters.
+  /// \param turnNotifications is a parameter to fill it if it's necessary.
   /// \note The client implies turnNotifications does not contain empty strings.
   void GenerateTurnNotifications(std::vector<TurnItemDist> const & turns,
                                  std::vector<std::string> & turnNotifications);
@@ -89,10 +102,12 @@ public:
 
 private:
   std::string GenerateTurnText(uint32_t distanceUnits, uint8_t exitNum,
-                               bool useThenInsteadOfDistance, TurnItem const & turn) const;
+                               bool useThenInsteadOfDistance, TurnItem const & turn,
+                               RouteSegment::RoadNameInfo const & nextStreetInfo) const;
 
   /// Generates turn sound notification for the nearest to the current position turn.
-  std::string GenerateFirstTurnSound(TurnItem const & turn, double distanceToTurnMeters);
+  std::string GenerateFirstTurnSound(TurnItem const & turn, double distanceToTurnMeters,
+                                     RouteSegment::RoadNameInfo const & nextStreetInfo);
 
   /// Changes the state of the class to emulate that first turn notification is pronounced
   /// without pronunciation.

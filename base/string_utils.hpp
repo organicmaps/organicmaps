@@ -128,6 +128,7 @@ bool EqualNoCase(std::string const & s1, std::string const & s2);
 UniString MakeUniString(std::string_view utf8s);
 std::string ToUtf8(UniString const & s);
 std::u16string ToUtf16(std::string_view utf8);
+UniString Substring(const UniString& str, size_t start, size_t length);
 bool IsASCIIString(std::string_view sv);
 bool IsASCIIDigit(UniChar c);
 template <class StringT> bool IsASCIINumeric(StringT const & str)
@@ -590,12 +591,27 @@ bool StartsWith(IterT1 beg, IterT1 end, IterT2 begPrefix, IterT2 endPrefix)
   return begPrefix == endPrefix;
 }
 
+/// \brief See if string s starts with a smaller string p
+/// \param s the larger string (haystack) to check
+/// \param p the smaller string (needle) to look for
 bool StartsWith(UniString const & s, UniString const & p);
+/// \brief See if string s1 starts with a smaller string s2
+/// \param s1 the larger string (haystack) to check
+/// \param s2 the smaller string (needle) to look for
 bool StartsWith(std::string_view s1, std::string_view s2);
+/// \brief See if string s starts with a smaller string c
+/// \param s the larger string (haystack) to check
+/// \param c the smaller string (needle) to look for
 bool StartsWith(std::string const & s, std::string::value_type c);
 
+/// \brief See if string s1 ends with a smaller string s2
+/// \param s1 the larger string (haystack) to check
+/// \param s2 the smaller string (needle) to look for
 bool EndsWith(UniString const & s1, UniString const & s2);
 bool EndsWith(std::string_view s1, std::string_view s2);
+/// \brief See if string s ends with a smaller string c
+/// \param s the larger string (haystack) to check
+/// \param c the smaller string (needle) to look for
 bool EndsWith(std::string const & s, std::string::value_type c);
 
 // If |s| starts with |prefix|, deletes it from |s| and returns true.
