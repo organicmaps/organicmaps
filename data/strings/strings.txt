@@ -5997,6 +5997,7 @@
   [telegram]
     comment = Text in menu
     tags = android,ios
+    ar = تيليجرام
     en = Telegram
 
   [matrix]
@@ -6012,6 +6013,7 @@
   [facebook]
     comment = Text in menu
     tags = android,ios
+    ar = فيسبوك
     en = Facebook
     zh-Hans = 脸书
     zh-Hant = 臉書
@@ -6019,6 +6021,7 @@
   [twitter]
     comment = Text in menu
     tags = android,ios
+    ar = X (تويتر)
     en = X (Twitter)
     zh-Hans = X (推特)
     zh-Hant = X (推特)
@@ -6026,6 +6029,7 @@
   [instagram]
     comment = Text in menu
     tags = android,ios
+    ar = إنستغرام
     en = Instagram
 
   [vk]
@@ -6265,7 +6269,7 @@
     tags = android,ios
     en = Support the project
     af = Ondersteun die projek
-    ar = ﻉﻭﺮﺸﻤﻟﺍ ﻢﻋﺩ
+    ar = دعم المشروع
     be = Падтрымаць праект
     bg = Подкрепете проекта
     ca = Donar suport al projecte
@@ -6438,7 +6442,7 @@
     tags = ios
     en = Error sending email
     af = E-posstuurfout
-    ar = حذث خطأ في إرسال البريد الإلكتروني
+    ar = حدث خطأ في إرسال البريد الإلكتروني
     be = Памылка пры адпраўцы пошты
     bg = Грешка при изпращане на поща
     ca = S'ha produït un error en enviar el correu
@@ -11334,7 +11338,7 @@
     tags = android
     en = Please describe the problem in detail so that the OpenStreetMap community can fix it.
     af = Beskryf asb. die probleem in detail sodat die OpenStreetMap-gemeenskap dit kan regstel.
-    ar = يرجى وصف المشكلة بالتفاصيل حتى يتسنى لفريق خريطة الشارع المفتوح إصلاح الخطأ.
+    ar = يرجى وصف المشكلة بالتفاصيل حتى يتسنى لفريق خريطة الشارع المفتوحة إصلاح الخطأ.
     be = Калі ласка, падрабязна апішыце праблему, каб супольнасць OpenStreetMap магла выправіць памылку.
     bg = Моля, опишете подробно проблема, за да може общността на OpenStreetMap да отстрани грешката.
     ca = Descriviu el problema detalladament perquè la comunitat d'OpenStreetMap pugui corregir l'error.
@@ -12209,7 +12213,7 @@
     tags = android,ios
     en = Register at OpenStreetMap
     af = Registreer by OpenStreetMap
-    ar = التسجيل في حريطة الشارع المفتوحة
+    ar = التسجيل في خريطة الشارع المفتوحة
     be = Зарэгістравацца на OpenStreetMap
     bg = Регистриране в OpenStreetMap
     ca = Registre a OpenStreetMap
@@ -12373,7 +12377,7 @@
     tags = android
     en = Login to OpenStreetMap
     af = Teken aan op OpenStreetMap
-    ar = OpenStreetMap ﻰﻟﺇ ﻝﻮﺧﺪﻟﺍ ﻞﻴﺠﺴﺗ
+    ar = تسجيل الدخول الى OpenStreetMap
     be = Увайсці ў OpenStreetMap
     bg = Влезте в OpenStreetMap
     cs = Přihlaste se do OpenStreetMap
@@ -17002,7 +17006,7 @@
     tags = android,ios
     en = OpenStreetMap editors will check the changes and contact you if they have any questions.
     af = OpenStraatMap-redigeerders sal die verandeirnge nagaan en u kontak indien hulle vrae het.
-    ar = سيتحقق محررو خرائط الشارع المفتوح من التغييرات ويتواصلون معك إذا كان لديهم أي أسئلة.
+    ar = سيتحقق محررو خرائط الشارع المفتوحة من التغييرات ويتواصلون معك إذا كان لديهم أي أسئلة.
     be = Рэдактары OpenStreetMap правераць змены і звяжуцца з вамі, калі ў іх узнікнуць пытанні.
     bg = Редакторите на OpenStreetMap ще проверят промените и ще се свържат с вас, ако имат въпроси.
     ca = Revisarem els canvis. Si tenim cap pregunta contactem amb vós via correu electrònic.
