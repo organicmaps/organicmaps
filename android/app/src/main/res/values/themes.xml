@@ -51,8 +51,9 @@
     <item name="android:windowBackground">@color/bg_window_night</item>
   </style>
 
-  <style name="MwmTheme.AlertDialog" parent="Theme.AppCompat.Light.Dialog.Alert">
+  <style name="MwmTheme.AlertDialog" parent="Theme.MaterialComponents.Light.Dialog.Alert">
     <item name="colorAccent">?buttonDialogTextColor</item>
+    <item name="colorPrimary">?buttonDialogTextColor</item>
     <item name="android:background">?cardBackground</item>
     <item name="android:textColorPrimary">?textDialogTheme</item>
     <item name="android:textSize">@dimen/text_size_body_1</item>
@@ -68,8 +69,9 @@
     <item name="android:textColor">?titleDialogTheme</item>
   </style>
 
-  <style name="MwmTheme.Night.AlertDialog" parent="Theme.AppCompat.Dialog.Alert">
+  <style name="MwmTheme.Night.AlertDialog" parent="Theme.MaterialComponents.Dialog.Alert">
     <item name="colorAccent">?buttonDialogTextColor</item>
+    <item name="colorPrimary">?buttonDialogTextColor</item>
     <item name="android:background">?cardBackground</item>
     <!-- Used for the message in the dialog -->
     <item name="android:textColorPrimary">?textDialogTheme</item>
@@ -133,15 +135,17 @@
     <item name="android:windowIsTranslucent">true</item>
   </style>
 
-  <style name="MwmMain.DialogFragment.TimePicker" parent="Theme.AppCompat.Light.Dialog.Alert">
+  <style name="MwmMain.DialogFragment.TimePicker" parent="Theme.MaterialComponents.Light.Dialog.Alert">
     <item name="colorAccent">@color/base_accent</item>
+    <item name="colorPrimary">?buttonDialogTextColor</item>
     <item name="android:fontFamily">@string/robotoMedium</item>
     <item name="android:windowBackground">@color/bg_cards</item>
     <item name="android:background">@color/bg_cards</item>
   </style>
 
-  <style name="MwmMain.DialogFragment.TimePicker.Night" parent="Theme.AppCompat.Dialog.Alert">
+  <style name="MwmMain.DialogFragment.TimePicker.Night" parent="Theme.MaterialComponents.Dialog.Alert">
     <item name="colorAccent">@color/base_accent_night</item>
+    <item name="colorPrimary">?buttonDialogTextColor</item>
     <item name="android:fontFamily">@string/robotoMedium</item>
     <item name="android:windowBackground">@color/bg_cards_night</item>
     <item name="android:background">@color/bg_cards_night</item>
