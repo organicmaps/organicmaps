@@ -448,7 +448,6 @@ void MyPositionController::OnLocationUpdate(location::GpsInfo const & info, bool
 
   if (!m_isPositionAssigned)
   {
-    ASSERT(m_mode != location::NotFollowNoPosition, ());
     location::EMyPositionMode newMode = m_desiredInitMode;
     ChangeMode(newMode);
 
