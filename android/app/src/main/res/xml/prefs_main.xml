@@ -184,6 +184,12 @@
       android:summary="@string/pref_use_google_play"
       android:defaultValue="true"
       android:order="1"/>
+    <SwitchPreferenceCompat
+      android:key="@string/pref_search_history"
+      android:title="@string/search_history_title"
+      app:singleLineTitle="false"
+      android:defaultValue="true"
+      android:order="2"/>
   </androidx.preference.PreferenceCategory>
   <androidx.preference.PreferenceCategory
     android:key="@string/pref_information"

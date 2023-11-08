@@ -3,7 +3,6 @@ package app.organicmaps.util;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.os.Build;
-import android.text.TextUtils;
 
 import androidx.annotation.NonNull;
 import androidx.preference.PreferenceManager;
@@ -37,6 +36,7 @@ public final class Config
   private static final String KEY_MISC_SHOW_ON_LOCK_SCREEN = "ShowOnLockScreen";
   private static final String KEY_MISC_AGPS_TIMESTAMP = "AGPSTimestamp";
   private static final String KEY_DONATE_URL = "DonateUrl";
+  private static final String KEY_PREF_SEARCH_HISTORY = "SearchHistoryEnabled";
 
   /**
    * The total number of app launches.
@@ -401,6 +401,16 @@ public final class Config
         .edit()
         .putBoolean(KEY_MISC_FIRST_START_DIALOG_SEEN, true)
         .apply();
+  }
+
+  public static boolean isSearchHistoryEnabled()
+  {
+    return getBool(KEY_PREF_SEARCH_HISTORY, true);
+  }
+
+  public static void setSearchHistoryEnabled(boolean enabled)
+  {
+    setBool(KEY_PREF_SEARCH_HISTORY, enabled);
   }
 
   private static native boolean nativeHasConfigValue(String name);

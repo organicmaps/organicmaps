@@ -2,6 +2,7 @@ package app.organicmaps.search;
 
 import android.content.Context;
 import android.util.SparseArray;
+import android.view.View;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
@@ -12,6 +13,7 @@ import androidx.viewpager.widget.ViewPager;
 import com.google.android.material.tabs.TabLayout;
 import app.organicmaps.R;
 import app.organicmaps.util.Graphics;
+import app.organicmaps.util.Config;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -105,14 +107,17 @@ class TabAdapter extends FragmentPagerAdapter
   private final List<Class<? extends Fragment>> mClasses = new ArrayList<>();
   private final SparseArray<Fragment> mFragments = new SparseArray<>();
   private OnTabSelectedListener mTabSelectedListener;
-
+  private TabLayout mTabs;
   TabAdapter(FragmentManager fragmentManager, ViewPager pager, TabLayout tabs)
   {
     super(fragmentManager);
-
+    this.mTabs = tabs;
     for (Tab tab : Tab.values())
+    {
+      if (tab==tab.HISTORY && !Config.isSearchHistoryEnabled())
+        continue;
       mClasses.add(tab.getFragmentClass());
-
+    }
     final List<Fragment> fragments = fragmentManager.getFragments();
     if (fragments != null)
     {
@@ -130,8 +135,8 @@ class TabAdapter extends FragmentPagerAdapter
 
     mPager = pager;
     mPager.setAdapter(this);
-
-    attachTo(tabs);
+    if (mTabs.getVisibility() != View.GONE)
+      attachTo(tabs);
   }
 
   private void attachTo(TabLayout tabs)
