@@ -97,6 +97,12 @@
       android:summary="@string/enable_show_on_lock_screen_description"
       android:defaultValue="true"
       android:order="17"/>
+    <SwitchPreferenceCompat
+      android:key="@string/pref_keep_history"
+      android:order="18"
+      android:singleLineTitle="false"
+      android:summary="@string/pref_search_history_summary"
+      android:title="@string/search_history"/>
   </androidx.preference.PreferenceCategory>
 
   <androidx.preference.PreferenceCategory

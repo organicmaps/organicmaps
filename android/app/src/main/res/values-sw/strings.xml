@@ -249,6 +249,10 @@
 	<string name="enable_keep_screen_on">Washa skrini</string>
 	<!-- Description in preferences -->
 	<string name="enable_keep_screen_on_description">Ikiwashwa, skrini itakuwa imewashwa wakati wa kuonyesha ramani.</string>
+	<!-- Setting that disables the Search History tab in the Search dialog -->
+	<string name="search_history">Endelea Historia ya Utafutaji</string>
+	<!-- Summary of Search History Privacy -->
+	<string name="pref_search_history_summary">Wakati inawezeshwa, historia ya utafutaji itaonyeshwa</string>
 	<!-- OpenStreetMap text on splash screen -->
 	<string name="splash_subtitle">Data ya ramani kutoka OpenStreetMap</string>
 	<!-- Tip #00 -->

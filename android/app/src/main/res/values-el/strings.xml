@@ -682,6 +682,10 @@
 	<string name="enable_keep_screen_on">Κρατήστε την οθόνη ανοιχτή</string>
 	<!-- Description in preferences -->
 	<string name="enable_keep_screen_on_description">Όταν είναι ενεργοποιημένη, η οθόνη θα είναι πάντα αναμμένη όταν εμφανίζεται ο χάρτης.</string>
+	<!-- Setting that disables the Search History tab in the Search dialog -->
+	<string name="search_history">Διατήρηση Ιστορικού Αναζήτησης Ενεργοποιημένο</string>
+	<!-- Summary of Search History Privacy -->
+	<string name="pref_search_history_summary">Όταν είναι ενεργοποιημένο, το ιστορικό αναζήτησης θα εμφανιστεί</string>
 	<!-- OpenStreetMap text on splash screen -->
 	<string name="splash_subtitle">Δεδομένα χάρτη από το OpenStreetMap</string>
 	<!-- Link to OSM wiki for Editor, Profile and About pages -->

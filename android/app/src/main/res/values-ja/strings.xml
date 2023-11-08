@@ -686,6 +686,10 @@
 	<string name="enable_keep_screen_on">画面を表示したままにする</string>
 	<!-- Description in preferences -->
 	<string name="enable_keep_screen_on_description">有効にすると、地図を表示するときにスクリーンが常にオンになる。</string>
+	<!-- Setting that disables the Search History tab in the Search dialog -->
+	<string name="search_history">検索履歴を保持する</string>
+	<!-- Summary of Search History Privacy -->
+	<string name="pref_search_history_summary">有効にすると、検索履歴が表示されます</string>
 	<!-- OpenStreetMap text on splash screen -->
 	<string name="splash_subtitle">OpenStreetMapからの地図データ</string>
 	<!-- Link to OSM wiki for Editor, Profile and About pages -->

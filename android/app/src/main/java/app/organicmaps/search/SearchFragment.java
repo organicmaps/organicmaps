@@ -39,6 +39,7 @@ import app.organicmaps.widget.SearchToolbarController;
 import app.organicmaps.util.SharedPropertiesUtils;
 import app.organicmaps.util.UiUtils;
 import app.organicmaps.util.Utils;
+import app.organicmaps.util.Config;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -254,11 +255,17 @@ public class SearchFragment extends BaseMwmFragment
     readArguments();
 
     ViewGroup root = (ViewGroup) view;
-    View mTabFrame = root.findViewById(R.id.tab_frame);
-    ViewPager pager = mTabFrame.findViewById(R.id.pages);
+    View mTabFrame = root.findViewById(R.id.tab_frame);;
+    ViewPager pager = mTabFrame.findViewById(R.id.pages);;
 
     mToolbarController = new ToolbarController(view);
-    TabLayout tabLayout = root.findViewById(R.id.tabs);
+    TabLayout tabLayout = root.findViewById(R.id.tabs);;
+
+    if (Config.isHistoryEnabled())
+      tabLayout.setVisibility(View.VISIBLE);
+    else
+      tabLayout.setVisibility(View.GONE);
+
     final TabAdapter tabAdapter = new TabAdapter(getChildFragmentManager(), pager, tabLayout);
 
     mResultsFrame = root.findViewById(R.id.results_frame);
@@ -288,7 +295,7 @@ public class SearchFragment extends BaseMwmFragment
 
     SearchEngine.INSTANCE.addListener(this);
 
-    if (SearchRecents.getSize() == 0)
+    if (SearchRecents.getSize() == 0 && Config.isHistoryEnabled())
       pager.setCurrentItem(TabAdapter.Tab.CATEGORIES.ordinal());
 
     tabAdapter.setTabSelectedListener(tab -> mToolbarController.deactivate());
@@ -383,7 +390,8 @@ public class SearchFragment extends BaseMwmFragment
   void showSingleResultOnMap(@NonNull SearchResult result, int resultIndex)
   {
     final String query = getQuery();
-    SearchRecents.add(query, requireContext());
+    if (Config.isHistoryEnabled())
+      SearchRecents.add(query, requireContext());
     SearchEngine.INSTANCE.cancel();
     SearchEngine.INSTANCE.setQuery(query);
 
@@ -417,7 +425,8 @@ public class SearchFragment extends BaseMwmFragment
     SearchEngine.INSTANCE.cancel();
 
     final String query = getQuery();
-    SearchRecents.add(query, requireContext());
+    if (Config.isHistoryEnabled())
+      SearchRecents.add(query, requireContext());
     mLastQueryTimestamp = System.nanoTime();
 
     SearchEngine.INSTANCE.searchInteractive(

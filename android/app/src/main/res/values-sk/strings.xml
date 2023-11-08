@@ -688,6 +688,10 @@
 	<string name="enable_keep_screen_on">Ponechajte obrazovku zapnutú</string>
 	<!-- Description in preferences -->
 	<string name="enable_keep_screen_on_description">Ak je táto funkcia zapnutá, obrazovka bude pri zobrazovaní mapy vždy zapnutá.</string>
+	<!-- Setting that disables the Search History tab in the Search dialog -->
+	<string name="search_history">Uchovávať históriu vyhľadávania</string>
+	<!-- Summary of Search History Privacy -->
+	<string name="pref_search_history_summary">Pri zapnutí sa zobrazí história vyhľadávania</string>
 	<!-- OpenStreetMap text on splash screen -->
 	<string name="splash_subtitle">Mapové údaje z OpenStreetMap</string>
 	<!-- Tip #00 -->

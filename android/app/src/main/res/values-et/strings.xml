@@ -725,6 +725,10 @@
 	<string name="enable_show_on_lock_screen">Kuva lukustusekraanil</string>
 	<!-- Description in preferences -->
 	<string name="enable_show_on_lock_screen_description">Kui lubatud, ei pea te seadet iga kord avama, kui rakendus töötab.</string>
+	<!-- Setting that disables the Search History tab in the Search dialog -->
+	<string name="search_history">Säilita otsingu ajalugu</string>
+	<!-- Summary of Search History Privacy -->
+	<string name="pref_search_history_summary">Kui lubatud, kuvatakse otsingu ajalugu</string>
 	<!-- OpenStreetMap text on splash screen -->
 	<string name="splash_subtitle">OpenStreetMap kaardiandmed</string>
 	<!-- Tip #00 -->

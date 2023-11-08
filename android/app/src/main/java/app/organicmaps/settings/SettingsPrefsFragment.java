@@ -38,6 +38,7 @@ import app.organicmaps.util.ThemeSwitcher;
 import app.organicmaps.util.UiUtils;
 import app.organicmaps.util.Utils;
 import app.organicmaps.util.log.LogsManager;
+import app.organicmaps.search.SearchRecents;
 import com.google.android.material.dialog.MaterialAlertDialogBuilder;
 
 import java.util.Arrays;
@@ -270,6 +271,7 @@ public class SettingsPrefsFragment extends BaseXmlSettingsFragment
       }
       initScreenSleepEnabledPrefsCallbacks();
       initShowOnLockScreenPrefsCallbacks();
+      initSearchPrivacyPrefsCallbacks();
     }
     else if (isOnTtsScreen())
     {
@@ -804,5 +806,25 @@ public class SettingsPrefsFragment extends BaseXmlSettingsFragment
     AUTO,
     ALWAYS,
     NEVER
+  }
+  
+  private void initSearchPrivacyPrefsCallbacks()
+  {
+    final Preference pref = findPreference(getString(R.string.pref_keep_history));
+
+    final boolean isHistoryEnabled = Config.isHistoryEnabled();
+    ((TwoStatePreference) pref).setChecked(isHistoryEnabled);
+    pref.setOnPreferenceChangeListener((preference, newValue) -> {
+      boolean newVal = (Boolean) newValue;
+      if (newVal != isHistoryEnabled)
+      {
+        Config.setHistoryEnabled(newVal);
+        if (newVal)
+          SearchRecents.refresh();
+        else
+          SearchRecents.clear();
+      }
+      return true;
+    });
   }
 }

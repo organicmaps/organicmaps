@@ -727,6 +727,10 @@
 	<string name="enable_show_on_lock_screen">Mostra en la pantalla de bloqueig</string>
 	<!-- Description in preferences -->
 	<string name="enable_show_on_lock_screen_description">Si està activa, no cal desblocar l\'aparell cada vegada mentre l\'aplicació està funcionant.</string>
+	<!-- Setting that disables the Search History tab in the Search dialog -->
+	<string name="search_history">Mantén l\'historial de cerca</string>
+	<!-- Summary of Search History Privacy -->
+	<string name="pref_search_history_summary">Quan estigui activat, es mostrarà l\'historial de cerca</string>
 	<!-- OpenStreetMap text on splash screen -->
 	<string name="splash_subtitle">Dades del mapa de l\'OpenStreetMap</string>
 	<!-- Translated Organic Maps site, add new translations here: https://github.com/organicmaps/organicmaps.github.io/tree/master/content -->

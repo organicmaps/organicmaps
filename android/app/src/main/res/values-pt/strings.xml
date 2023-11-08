@@ -702,6 +702,10 @@
 	<string name="enable_keep_screen_on">Mantém o ecrã ligado</string>
 	<!-- Description in preferences -->
 	<string name="enable_keep_screen_on_description">Quando ativado, o ecrã estará sempre ligado quando apresentares o mapa.</string>
+	<!-- Setting that disables the Search History tab in the Search dialog -->
+	<string name="search_history">Manter Histórico de Pesquisa Ativado</string>
+	<!-- Summary of Search History Privacy -->
+	<string name="pref_search_history_summary">Quando ativado, o histórico de pesquisa será exibido</string>
 	<!-- OpenStreetMap text on splash screen -->
 	<string name="splash_subtitle">Dados cartográficos do OpenStreetMap</string>
 	<!-- Link to OSM wiki for Editor, Profile and About pages -->

@@ -690,6 +690,10 @@
 	<string name="enable_keep_screen_on">เปิดหน้าจอไว้</string>
 	<!-- Description in preferences -->
 	<string name="enable_keep_screen_on_description">เมื่อเปิดใช้งาน หน้าจอจะเปิดอยู่เสมอเมื่อแสดงแผนที่</string>
+	<!-- Setting that disables the Search History tab in the Search dialog -->
+	<string name="search_history">การเก็บประวัติการค้นหาถูกเปิดใช้งาน</string>
+	<!-- Summary of Search History Privacy -->
+	<string name="pref_search_history_summary">เมื่อเปิดใช้งาน ประวัติการค้นหาจะถูกแสดง</string>
 	<!-- OpenStreetMap text on splash screen -->
 	<string name="splash_subtitle">ข้อมูลแผนที่จาก OpenStreetMap</string>
 	<!-- Tip #00 -->

@@ -270,6 +270,10 @@
 	<string name="enable_keep_screen_on">השאר מסך דלוק</string>
 	<!-- Description in preferences -->
 	<string name="enable_keep_screen_on_description">כאשר מופעל, המסך תמיד יהיה דולק בעת הצגת המפה.</string>
+	<!-- Setting that disables the Search History tab in the Search dialog -->
+	<string name="search_history">שמירת היסטוריית החיפוש מופעלת</string>
+	<!-- Summary of Search History Privacy -->
+	<string name="pref_search_history_summary">כאשר מופעל, היסטוריית החיפוש תוצג</string>
 	<!-- OpenStreetMap text on splash screen -->
 	<string name="splash_subtitle">OpenStreetMap-מ הפמ ינותנ</string>
 	<!-- Tip #00 -->

@@ -739,6 +739,10 @@
 	<string name="enable_show_on_lock_screen">Afficher sur l\'écran de verrouillage</string>
 	<!-- Description in preferences -->
 	<string name="enable_show_on_lock_screen_description">Lorsqu\'il est activé, vous n\'avez pas besoin de déverrouiller votre appareil à chaque fois que l\'application est en fonctionnement.</string>
+	<!-- Setting that disables the Search History tab in the Search dialog -->
+	<string name="search_history">Conserver l\'historique de recherche</string>
+	<!-- Summary of Search History Privacy -->
+	<string name="pref_search_history_summary">Lorsqu\'il est activé, l\'historique de recherche est affiché</string>
 	<!-- OpenStreetMap text on splash screen -->
 	<string name="splash_subtitle">Données cartographiques d\'OpenStreetMap</string>
 	<!-- Translated Organic Maps site, add new translations here: https://github.com/organicmaps/organicmaps.github.io/tree/master/content -->
