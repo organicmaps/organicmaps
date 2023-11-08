@@ -56,6 +56,7 @@
   <string name="tag_height_limited" translatable="false">height limited</string>
 
   <string name="pref_privacy" translatable="false">pref_privacy</string>
+  <string name="pref_search_history" translatable="false">pref_search_history</string>
   <string name="never_enum_value" translatable="false">NEVER</string>
   <string name="always_enum_value" translatable="false">ALWAYS</string>
   <string name="auto_enum_value" translatable="false">AUTO</string>
