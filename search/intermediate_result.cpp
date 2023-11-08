@@ -280,19 +280,21 @@ void FillDetails(FeatureType & ft, Result::Details & details)
     }
   }
 
-  details.m_isHotel = ftypes::IsHotelChecker::Instance()(ft);
+  feature::TypesHolder const typesHolder(ft);
+
+  details.m_isHotel = ftypes::IsHotelChecker::Instance()(typesHolder);
   if (details.m_isHotel && strings::to_uint(ft.GetMetadata(feature::Metadata::FMD_STARS), details.m_stars))
     details.m_stars = std::min(details.m_stars, osm::MapObject::kMaxStarsCount);
   else
     details.m_stars = 0;
 
-  auto const cuisines = feature::GetLocalizedCuisines(feature::TypesHolder(ft));
+  auto const cuisines = feature::GetLocalizedCuisines(typesHolder);
   details.m_cuisine = strings::JoinStrings(cuisines, osm::MapObject::kFieldsSeparator);
 
   auto const roadShields = ftypes::GetRoadShieldsNames(ft);
   details.m_roadShields = strings::JoinStrings(roadShields, osm::MapObject::kFieldsSeparator);
 
-  details.m_fee = feature::GetLocalizedFeeType(feature::TypesHolder(ft));
+  details.m_fee = feature::GetLocalizedFeeType(typesHolder);
 
   details.m_isInitialized = true;
 }
