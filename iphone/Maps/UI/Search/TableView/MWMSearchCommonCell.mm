@@ -36,6 +36,7 @@
   NSString * cuisine = @(result.GetCuisine().c_str()).capitalizedString;
   NSString * airportIata = @(result.GetAirportIata().c_str());
   NSString * roadShields = @(result.GetRoadShields().c_str());
+  NSString * fee = @(result.GetFee().c_str());
   NSString * brand  = @"";
   if (!result.GetBrand().empty())
     brand = @(platform::GetLocalizedBrandName(result.GetBrand()).c_str());
@@ -57,6 +58,8 @@
     description = brand;
   else if (cuisine.length > 0)
     description = cuisine;
+  else if (fee.length > 0)
+    description = fee;
   
   if ([description length] == 0)
     self.infoLabel.text = localizedTypeName;
