@@ -2,18 +2,14 @@
 
 #include "map/bookmark_helpers.hpp"
 
-#include "descriptions/loader.hpp"
-
-
-#include "editor/osm_editor.hpp"
-
-#include "indexer/feature_source.hpp"
 #include "indexer/feature_utils.hpp"
 #include "indexer/road_shields_parser.hpp"
 
 #include "platform/localization.hpp"
 #include "platform/measurement_utils.hpp"
 #include "platform/preferred_languages.hpp"
+
+#include "geometry/mercator.hpp"
 
 #include "base/assert.hpp"
 
@@ -148,6 +144,19 @@ std::string Info::FormatSubtitle(bool withType) const
   auto const op = GetMetadata(feature::Metadata::FMD_OPERATOR);
   if (!op.empty())
     append(op);
+
+  // Brand.
+  auto const brand = GetMetadata(feature::Metadata::FMD_BRAND);
+  if (!brand.empty() && brand != op)
+  {
+    /// @todo May not work as expected because we store raw value from OSM,
+    /// while current localizations assume to have some string ids (like "mcdonalds").
+    auto const locBrand = platform::GetLocalizedBrandName(std::string(brand));
+
+    // Do not duplicate for commonly used titles like McDonald's, Starbucks, etc.
+    if (locBrand != m_uiTitle && locBrand != m_uiSecondaryTitle)
+      append(locBrand);
+  }
 
   // Elevation.
   auto const eleStr = GetElevationFormatted();
