@@ -5,14 +5,12 @@
 #include "search/token_range.hpp"
 
 #include "indexer/feature_decl.hpp"
-#include "indexer/mwm_set.hpp"
 
 #include "storage/country_info_getter.hpp"
 
 #include "geometry/point2d.hpp"
 #include "geometry/rect2d.hpp"
 
-#include <cstdint>
 #include <string>
 
 namespace search
@@ -21,20 +19,17 @@ class IdfMap;
 
 struct Locality
 {
-  Locality(MwmSet::MwmId const & countryId, uint32_t featureId, TokenRange const & tokenRange,
-           QueryVec const & queryVec, bool exactMatch)
-    : m_countryId(countryId)
-    , m_featureId(featureId)
+  Locality(FeatureID const & fID, TokenRange const & tokenRange, QueryVec const & queryVec, bool exactMatch)
+    : m_featureId(fID)
     , m_tokenRange(tokenRange)
     , m_queryVec(queryVec)
     , m_exactMatch(exactMatch)
   {
   }
 
-  double QueryNorm() { return m_queryVec.Norm(); }
+  uint32_t GetFeatureIndex() const { return m_featureId.m_index; }
 
-  MwmSet::MwmId m_countryId;
-  uint32_t m_featureId = 0;
+  FeatureID m_featureId;
   TokenRange m_tokenRange;
   QueryVec m_queryVec;
   bool m_exactMatch;

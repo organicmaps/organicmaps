@@ -5,13 +5,11 @@
 #include "search/idf_map.hpp"
 #include "search/ranking_utils.hpp"
 #include "search/retrieval.hpp"
-#include "search/utils.hpp"
 
 #include "indexer/search_string_utils.hpp"
 
 #include "base/dfa_helpers.hpp"
 #include "base/levenshtein_dfa.hpp"
-#include "base/stl_helpers.hpp"
 
 #include <algorithm>
 #include <sstream>
@@ -149,9 +147,9 @@ void LocalityScorer::GetTopLocalities(MwmSet::MwmId const & countryId, BaseConte
       // Skip locality candidates that match only numbers.
       if (!m_params.IsNumberTokens(tokenRange))
       {
-        intersection.ForEach([&](uint32_t featureId, bool exactMatch) {
-          localities.emplace_back(countryId, featureId, tokenRange, QueryVec(idfs, builder),
-                                  exactMatch);
+        intersection.ForEach([&](uint32_t featureId, bool exactMatch)
+        {
+          localities.emplace_back(FeatureID(countryId, featureId), tokenRange, QueryVec(idfs, builder), exactMatch);
         });
       }
 
@@ -170,7 +168,7 @@ void LocalityScorer::LeaveTopLocalities(IdfMap & idfs, size_t limit, vector<Loca
   for (auto & locality : localities)
   {
     auto const queryNorm = locality.m_queryVec.Norm();
-    auto const rank = m_delegate.GetRank(locality.m_featureId);
+    auto const rank = m_delegate.GetRank(locality.GetFeatureIndex());
     els.emplace_back(std::move(locality), queryNorm, rank);
   }
 

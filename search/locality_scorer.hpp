@@ -43,7 +43,7 @@ private:
   {
     ExLocality(Locality && locality, double queryNorm, uint8_t rank);
 
-    uint32_t GetId() const { return m_locality.m_featureId; }
+    uint32_t GetId() const { return m_locality.GetFeatureIndex(); }
 
     Locality m_locality;
     double m_queryNorm = 0.0;
