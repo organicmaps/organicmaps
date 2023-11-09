@@ -84,7 +84,9 @@
 	<string name="level">Ghorofa</string>
 	<!-- Text in About and OSM Login screens. %@ is replaced by a local, human readable date. -->
 	<string name="osm_presentation">Takwimu za katuni kutoka kwa OpenStreetMap kama ya %s. Ni kama Wikipedia ambapo unaweza kuongeza au kuhariri maeneo kwa watumiaji wote ulimwenguni.</string>
-	<string name="editor_other_info">Tuma ujumbe kwenye vihariri vya OSM</string>
+	<string name="editor_other_info">Fungua dokezo la majadiliano katika OpenStreetMap.org</string>
+	<string name="editor_detailed_description_hint">Waulize wajitolea wengine wa OpenStreetMap kwa usaidizi ikiwa huwezi kuhariri kitu ukitumia Organic Maps (si lazima)</string>
+	<string name="editor_detailed_description">Mabadiliko yako yanapakiwa kwenye hifadhidata ya umma ya OpenStreetMap.org (OSM). Tafadhali usiongeze maelezo ya kibinafsi au yenye hakimiliki.</string>
 	<string name="editor_share_to_all_dialog_message_2">Wahariri wa OpenStreetMap watakagua mabadiliko na kuwasiliana nawe ikiwa wana maswali yoyote.</string>
 	<!-- Settings: "Send general feedback" button -->
 	<string name="feedback_general">Maoni Jumla</string>

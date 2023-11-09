@@ -729,11 +729,11 @@
 /* Place Page title for long tap */
 "core_placepage_unknown_place" = "Nieznane miejsce";
 
-"editor_other_info" = "Poinformuj redaktorów OSM";
+"editor_other_info" = "Otwórz dyskusję na OpenStreetMap.org";
 
-"editor_detailed_description_hint" = "Szczegółowy komentarz";
+"editor_detailed_description_hint" = "Poproś innych wolontariuszy OpenStreetMap o pomoc, jeśli nie możesz edytować czegoś za pomocą Organic Maps (opcjonalnie)";
 
-"editor_detailed_description" = "Twoje sugestie zmian zostaną wysłane do społeczności OpenStreetMap. Opisz szczegóły, których nie można edytować w Organic Maps.";
+"editor_detailed_description" = "Twoje zmiany są przesyłane do publicznej bazy danych OpenStreetMap.org (OSM). Nie dodawaj informacji osobistych ani chronionych prawem autorskim.";
 
 "editor_more_about_osm" = "Więcej o OpenStreetMap";
 

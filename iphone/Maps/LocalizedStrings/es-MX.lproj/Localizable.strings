@@ -729,11 +729,11 @@
 /* Place Page title for long tap */
 "core_placepage_unknown_place" = "Lugar desconocido";
 
-"editor_other_info" = "Enviar nota a los editores de OSM";
+"editor_other_info" = "Abra una nota de discusión en OpenStreetMap.org";
 
-"editor_detailed_description_hint" = "Comentario detallado";
+"editor_detailed_description_hint" = "Pide ayuda a otros voluntarios de OpenStreetMap si no puedes editar algo con Organic Maps (opcional)";
 
-"editor_detailed_description" = "Los cambios que ha sugerido se enviarán a la comunidad de OpenStreetMap. Describa los detalles que no pueden editarse en Organic Maps.";
+"editor_detailed_description" = "Sus ediciones se cargan en la base de datos pública OpenStreetMap.org (OSM). No agregue información personal o protegida por derechos de autor.";
 
 "editor_more_about_osm" = "Más acerca de OpenStreetMap";
 
@@ -1598,7 +1598,7 @@
 
 "type.barrier.chain" = "Cadena";
 
-"type.barrier.city_wall" = "Muro de la ciudad";
+"type.barrier.city_wall" = "City Wall";
 
 "type.barrier.cycle_barrier" = "Barrera para bicicletas";
 
@@ -2011,15 +2011,15 @@
 /* These translations are used for all type.highway.*.bridge. */
 "type.highway.footway.bridge" = "Puente";
 
-"type.highway.footway.demanding_alpine_hiking" = "Camino";
+"type.highway.footway.demanding_alpine_hiking" = "Path";
 
-"type.highway.footway.demanding_mountain_hiking" = "Camino";
+"type.highway.footway.demanding_mountain_hiking" = "Path";
 
-"type.highway.footway.difficult_alpine_hiking" = "Camino";
+"type.highway.footway.difficult_alpine_hiking" = "Path";
 
 "type.highway.footway.hiking" = "Sendero";
 
-"type.highway.footway.mountain_hiking" = "Camino";
+"type.highway.footway.mountain_hiking" = "Path";
 
 "type.highway.footway.permissive" = "Camino";
 

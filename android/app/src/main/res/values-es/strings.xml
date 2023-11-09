@@ -491,9 +491,9 @@
 	<string name="error_enter_correct_zip_code">Introduzca el código postal correcto</string>
 	<!-- Place Page title for long tap -->
 	<string name="core_placepage_unknown_place">Lugar desconocido</string>
-	<string name="editor_other_info">Enviar nota a los editores de OSM</string>
-	<string name="editor_detailed_description_hint">Comentario detallado</string>
-	<string name="editor_detailed_description">Los cambios que ha sugerido se enviarán a la comunidad de OpenStreetMap. Describa los detalles que no pueden editarse en Organic Maps.</string>
+	<string name="editor_other_info">Abrir una nota de debate en OpenStreetMap.org</string>
+	<string name="editor_detailed_description_hint">Pide ayuda a otros voluntarios de OpenStreetMap si no puedes editar algo con Organic Maps (opcional)</string>
+	<string name="editor_detailed_description">Tus ediciones se cargan en la base de datos pública OpenStreetMap.org (OSM). Por favor, no añadas información personal o protegida por derechos de autor.</string>
 	<string name="editor_more_about_osm">Más acerca de OpenStreetMap</string>
 	<string name="editor_operator">Operador</string>
 	<string name="downloader_no_downloaded_maps_title">No ha descargado ningún mapa</string>

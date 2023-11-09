@@ -466,7 +466,7 @@ public class EditorFragment extends BaseMwmFragment implements View.OnClickListe
     mOpeningHours.setOnClickListener(this);
     final View cardMore = view.findViewById(R.id.cv__more);
     mDescription = findInput(cardMore);
-    cardMore.findViewById(R.id.about_osm).setOnClickListener(this);
+    view.findViewById(R.id.about_osm).setOnClickListener(this);
     mReset = view.findViewById(R.id.reset);
     mReset.setOnClickListener(this);
 

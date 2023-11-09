@@ -729,11 +729,11 @@
 /* Place Page title for long tap */
 "core_placepage_unknown_place" = "Neznámé místo";
 
-"editor_other_info" = "Odeslat poznámku editorům OSM";
+"editor_other_info" = "Otevřít diskusní poznámku na OpenStreetMap.org";
 
-"editor_detailed_description_hint" = "Podrobný komentář";
+"editor_detailed_description_hint" = "Požádejte ostatní dobrovolníky OpenStreetMap o pomoc, pokud si nevíte rady s úpravami v Organic Maps (nepovinné)";
 
-"editor_detailed_description" = "Vámi navržené změny odešleme do komunity OpenStreetMap. Popište podrobnosti, které nelze upravit v Organic Maps.";
+"editor_detailed_description" = "Vaše úpravy jsou nahrány do veřejné databáze OpenStreetMap.org (OSM). Nepřidávejte prosím osobní informace nebo informace chráněné autorskými právy.";
 
 "editor_more_about_osm" = "Více o projektu OpenStreetMap";
 

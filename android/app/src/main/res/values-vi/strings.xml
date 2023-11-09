@@ -465,9 +465,9 @@
 	<string name="error_enter_correct_zip_code">Nhập Mã ZIP chính xác</string>
 	<!-- Place Page title for long tap -->
 	<string name="core_placepage_unknown_place">Địa Điểm Chưa Biết</string>
-	<string name="editor_other_info">Gửi ghi chú cho ban biên tập OSM</string>
-	<string name="editor_detailed_description_hint">Nhận xét chi tiết</string>
-	<string name="editor_detailed_description">Những thay đổi đề nghị của bạn sẽ được gửi đến cộng đồng OpenStreetMap. Mô tả các chi tiết không thể sửa trong Organic Maps.</string>
+	<string name="editor_other_info">Mở ghi chú thảo luận tại OpenStreetMap.org</string>
+	<string name="editor_detailed_description_hint">Yêu cầu các tình nguyện viên OpenStreetMap khác giúp đỡ nếu bạn không thể chỉnh sửa nội dung nào đó bằng Organic Maps (tùy chọn)</string>
+	<string name="editor_detailed_description">Các chỉnh sửa của bạn sẽ được tải lên cơ sở dữ liệu OpenStreetMap.org (OSM) công khai. Vui lòng không thêm thông tin cá nhân hoặc có bản quyền.</string>
 	<string name="editor_more_about_osm">Thông tin bổ sung về OpenStreetMap</string>
 	<string name="editor_operator">Đơn vị điều hành</string>
 	<string name="downloader_no_downloaded_maps_title">Bạn chưa tải về bất kỳ bản đồ nào</string>

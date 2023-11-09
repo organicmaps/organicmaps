@@ -729,11 +729,11 @@
 /* Place Page title for long tap */
 "core_placepage_unknown_place" = "Невядомае месца";
 
-"editor_other_info" = "Адправіць нататку рэдактарам OSM";
+"editor_other_info" = "Адкрыйце нататку для абмеркавання на OpenStreetMap.org";
 
-"editor_detailed_description_hint" = "Падрабязны каментарый";
+"editor_detailed_description_hint" = "Звярніцеся па дапамогу да іншых валанцёраў OpenStreetMap, калі вы не можаце нешта рэдагаваць з дапамогай Organic Maps (неабавязкова)";
 
-"editor_detailed_description" = "Прапанаваныя вамі змены будуць дасланы суполцы OpenStreetMap. Апішыце любыя дадатковыя дэталі, якія нельга рэдагаваць у Organic Maps.";
+"editor_detailed_description" = "Вашы праўкі загружаюцца ў публічную базу дадзеных OpenStreetMap.org (OSM). Калі ласка, не дадавайце асабістую інфармацыю або інфармацыю, абароненую аўтарскім правам.";
 
 "editor_more_about_osm" = "Падрабязней пра OpenStreetMap";
 

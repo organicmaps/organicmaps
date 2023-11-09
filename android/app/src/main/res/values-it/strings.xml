@@ -475,9 +475,9 @@
 	<string name="error_enter_correct_zip_code">Inserire il codice postale corretto</string>
 	<!-- Place Page title for long tap -->
 	<string name="core_placepage_unknown_place">Luogo sconosciuto</string>
-	<string name="editor_other_info">Invia un messaggio a OSM</string>
-	<string name="editor_detailed_description_hint">Commento dettagliato</string>
-	<string name="editor_detailed_description">Le modifiche alla mappa da te suggerite saranno inviate alla comunità di OpenStreetMap. Descrivi qualsiasi dettaglio aggiuntivo che non può essere modificato in Organic Maps.</string>
+	<string name="editor_other_info">Apri una nota di discussione su OpenStreetMap.org</string>
+	<string name="editor_detailed_description_hint">Chiedi aiuto ad altri volontari di OpenStreetMap se non riesci a modificare qualcosa con Organic Maps (opzionale)</string>
+	<string name="editor_detailed_description">Le tue modifiche vengono caricate nel database pubblico di OpenStreetMap.org (OSM). Ti preghiamo di non aggiungere informazioni personali o protette da copyright.</string>
 	<string name="editor_more_about_osm">Informazioni su OpenStreetMap</string>
 	<string name="editor_operator">Proprietario</string>
 	<string name="downloader_no_downloaded_maps_title">Non hai scaricato mappe</string>

@@ -479,9 +479,9 @@
 	<string name="error_enter_correct_zip_code">Sisesta korrektne postiindeks</string>
 	<!-- Place Page title for long tap -->
 	<string name="core_placepage_unknown_place">Tundmatu koht</string>
-	<string name="editor_other_info">Saada märkus OSM muutjatele</string>
-	<string name="editor_detailed_description_hint">Üksikasjalik kommentaar</string>
-	<string name="editor_detailed_description">Teie soovitatud kaardimuudatused saadetakse OpenStreetMapi kogukonnale. Kirjeldage kõiki täiendavaid üksikasju, mida ei saa Organic Maps-is muuta.</string>
+	<string name="editor_other_info">Avage arutelumärkus OpenStreetMap.org\'is</string>
+	<string name="editor_detailed_description_hint">Küsi abi teistelt OpenStreetMapi vabatahtlikelt, kui sa ei oska midagi Organic Mapsi abil muuta (vabatahtlik)</string>
+	<string name="editor_detailed_description">Teie muudatused laaditakse üles avalikku OpenStreetMap.org (OSM) andmebaasi. Palun ärge lisage isiklikku või autoriõigusega kaitstud teavet.</string>
 	<string name="editor_more_about_osm">Rohkem OpenStreetMap kohta</string>
 	<string name="editor_operator">Omanik</string>
 	<string name="downloader_no_downloaded_maps_title">Sa ei ole kaarte alla laadinud</string>

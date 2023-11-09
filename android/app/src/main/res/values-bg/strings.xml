@@ -457,9 +457,9 @@
 	<string name="error_enter_correct_zip_code">Въведете валиден пощенски код</string>
 	<!-- Place Page title for long tap -->
 	<string name="core_placepage_unknown_place">Неизвестно място</string>
-	<string name="editor_other_info">Изпращане на бележка до редакторите на OSM</string>
-	<string name="editor_detailed_description_hint">Подробен коментар</string>
-	<string name="editor_detailed_description">Предложените от вас промени по картата ще бъдат изпратени до общността на OpenStreetMap. Опишете всички допълнителни подробности, които не могат да бъдат въведени в Organic Maps.</string>
+	<string name="editor_other_info">Отворете бележка за обсъждане в OpenStreetMap.org</string>
+	<string name="editor_detailed_description_hint">Помолете други доброволци на OpenStreetMap за помощ, ако не можете да редактирате нещо с Organic Maps (по избор)</string>
+	<string name="editor_detailed_description">Вашите редакции се качват в публичната база данни на OpenStreetMap.org (OSM). Моля, не добавяйте лична информация или информация, защитена с авторски права.</string>
 	<string name="editor_more_about_osm">Повече за OpenStreetMap</string>
 	<string name="editor_operator">Собственик</string>
 	<string name="downloader_no_downloaded_maps_title">Не сте изтеглили никакви карти</string>

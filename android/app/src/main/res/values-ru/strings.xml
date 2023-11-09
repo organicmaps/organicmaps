@@ -494,9 +494,9 @@
 	<string name="error_enter_correct_zip_code">Введите корректный почтовый индекс</string>
 	<!-- Place Page title for long tap -->
 	<string name="core_placepage_unknown_place">Неизвестное место</string>
-	<string name="editor_other_info">Отправить заметку редакторам OSM</string>
-	<string name="editor_detailed_description_hint">Подробный комментарий</string>
-	<string name="editor_detailed_description">Предложенные вами изменения на карте будут отправлены в OpenStreetMap. Опишите дополнительные сведения об объекте, которые Organic Maps не позволяет отредактировать.</string>
+	<string name="editor_other_info">Открой заметку для обсуждения на сайте OpenStreetMap.org</string>
+	<string name="editor_detailed_description_hint">Попроси помощи у других добровольцев OpenStreetMap, если ты не можешь отредактировать что-то с помощью Organic Maps (необязательно)</string>
+	<string name="editor_detailed_description">Твои правки загружаются в общедоступную базу данных OpenStreetMap.org (OSM). Пожалуйста, не добавляй личную информацию или информацию, защищенную авторским правом.</string>
 	<string name="editor_more_about_osm">Подробнее об OpenStreetMap</string>
 	<string name="editor_operator">Владелец</string>
 	<string name="downloader_no_downloaded_maps_title">У вас нет загруженных карт</string>

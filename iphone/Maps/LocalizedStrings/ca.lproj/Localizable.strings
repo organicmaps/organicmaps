@@ -729,11 +729,11 @@
 /* Place Page title for long tap */
 "core_placepage_unknown_place" = "Lloc desconegut";
 
-"editor_other_info" = "Envia una ota als editors d'OSM";
+"editor_other_info" = "Obriu una nota de discussió a OpenStreetMap.org";
 
-"editor_detailed_description_hint" = "Comentari detallat";
+"editor_detailed_description_hint" = "Demaneu ajuda a altres voluntaris d'OpenStreetMap si no podeu editar alguna cosa amb Organic Maps (opcional)";
 
-"editor_detailed_description" = "Heu suggerit canvis en el mapa que s'enviaran a la comunitat d'OpenStreetMap. Descriviu qualsevol detall addicional que no es pot editar en l'Organic Maps.";
+"editor_detailed_description" = "Les vostres edicions es pengen a la base de dades pública OpenStreetMap.org (OSM). Si us plau, no afegiu informació personal o amb drets d'autor.";
 
 "editor_more_about_osm" = "Més sobre l'OpenStreetMap";
 

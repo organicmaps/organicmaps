@@ -487,9 +487,9 @@
 	<string name="error_enter_correct_zip_code">Geben Sie die korrekte Postleitzahl ein</string>
 	<!-- Place Page title for long tap -->
 	<string name="core_placepage_unknown_place">Unbekannter Ort</string>
-	<string name="editor_other_info">Notiz an OSM-Redakteure senden</string>
-	<string name="editor_detailed_description_hint">Ausführlicher Kommentar</string>
-	<string name="editor_detailed_description">Ihre Änderungsvorschläge für die Karte werden an OpenStreetMap gesendet: Beschreiben Sie die Details der Objekte, die Sie in Organic Maps nicht bearbeiten können.</string>
+	<string name="editor_other_info">Diskussions-Hinweis auf OpenStreetMap.org erstellen</string>
+	<string name="editor_detailed_description_hint">Bitte andere OpenStreetMap-Freiwillige um Hilfe, wenn du etwas nicht mit Organic Maps bearbeiten kannst (optional)</string>
+	<string name="editor_detailed_description">Deine Bearbeitungen werden in die öffentliche OpenStreetMap.org Datenbank (OSM) hochgeladen. Trage bitte keine persönlichen oder urheberrechtlich geschützten Informationen ein.</string>
 	<string name="editor_more_about_osm">Mehr Informationen über OpenStreetMap</string>
 	<string name="editor_operator">Betreiber oder Eigentümer</string>
 	<string name="downloader_no_downloaded_maps_title">Keine Karten geladen</string>

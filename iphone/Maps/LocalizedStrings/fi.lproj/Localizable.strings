@@ -729,11 +729,11 @@
 /* Place Page title for long tap */
 "core_placepage_unknown_place" = "Tuntematon paikka";
 
-"editor_other_info" = "Lähetä muistilappu OSM-toimittajille";
+"editor_other_info" = "Avaa keskustelumuistio OpenStreetMap.org-sivustolla";
 
-"editor_detailed_description_hint" = "Yksityiskohtainen kommentti";
+"editor_detailed_description_hint" = "Pyydä apua muilta OpenStreetMapin vapaaehtoisilta, jos et pysty muokkaamaan jotain Organic Mapsilla (vapaaehtoinen)";
 
-"editor_detailed_description" = "Ehdottamasi muutokset lähetetään OpenStreetMap-yhteisöön. Kuvaa tiedot, joita ei voi muokata Organic Maps:ssä.";
+"editor_detailed_description" = "Muokkauksesi ladataan julkiseen OpenStreetMap.org (OSM) -tietokantaan. Älä lisää henkilökohtaisia tai tekijänoikeudella suojattuja tietoja.";
 
 "editor_more_about_osm" = "Lisätietoja OpenStreetMap:sta";
 

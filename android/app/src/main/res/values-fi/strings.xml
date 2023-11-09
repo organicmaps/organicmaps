@@ -491,9 +491,9 @@
 	<string name="error_enter_correct_zip_code">Anna kelvollinen postinumero</string>
 	<!-- Place Page title for long tap -->
 	<string name="core_placepage_unknown_place">Tuntematon paikka</string>
-	<string name="editor_other_info">Lähetä muistilappu OSM-toimittajille</string>
-	<string name="editor_detailed_description_hint">Yksityiskohtainen kommentti</string>
-	<string name="editor_detailed_description">Ehdottamasi muutokset lähetetään OpenStreetMap-yhteisöön. Kuvaa tiedot, joita ei voi muokata Organic Maps:ssä.</string>
+	<string name="editor_other_info">Avaa keskustelumuistio OpenStreetMap.org-sivustolla</string>
+	<string name="editor_detailed_description_hint">Pyydä apua muilta OpenStreetMapin vapaaehtoisilta, jos et pysty muokkaamaan jotain Organic Mapsilla (vapaaehtoinen)</string>
+	<string name="editor_detailed_description">Muokkauksesi ladataan julkiseen OpenStreetMap.org (OSM) -tietokantaan. Älä lisää henkilökohtaisia tai tekijänoikeudella suojattuja tietoja.</string>
 	<string name="editor_more_about_osm">Lisätietoja OpenStreetMap:sta</string>
 	<string name="editor_operator">Operaattori</string>
 	<string name="downloader_no_downloaded_maps_title">Et ole ladannut yhtään karttaa</string>

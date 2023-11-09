@@ -480,9 +480,9 @@
 	<string name="error_enter_correct_zip_code">Introduïu un codi postal vàlid</string>
 	<!-- Place Page title for long tap -->
 	<string name="core_placepage_unknown_place">Lloc desconegut</string>
-	<string name="editor_other_info">Envia una ota als editors d\'OSM</string>
-	<string name="editor_detailed_description_hint">Comentari detallat</string>
-	<string name="editor_detailed_description">Heu suggerit canvis en el mapa que s\'enviaran a la comunitat d\'OpenStreetMap. Descriviu qualsevol detall addicional que no es pot editar en l\'Organic Maps.</string>
+	<string name="editor_other_info">Obriu una nota de discussió a OpenStreetMap.org</string>
+	<string name="editor_detailed_description_hint">Demaneu ajuda a altres voluntaris d\'OpenStreetMap si no podeu editar alguna cosa amb Organic Maps (opcional)</string>
+	<string name="editor_detailed_description">Les vostres edicions es pengen a la base de dades pública OpenStreetMap.org (OSM). Si us plau, no afegiu informació personal o amb drets d\'autor.</string>
 	<string name="editor_more_about_osm">Més sobre l\'OpenStreetMap</string>
 	<string name="editor_operator">Propietari</string>
 	<string name="downloader_no_downloaded_maps_title">No heu baixat cap mapa</string>

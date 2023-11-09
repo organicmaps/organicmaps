@@ -462,9 +462,9 @@
 	<string name="error_enter_correct_zip_code">یک کد‌ پستی معتبر وارد کنید</string>
 	<!-- Place Page title for long tap -->
 	<string name="core_placepage_unknown_place">مکان ناشناس</string>
-	<string name="editor_other_info">ارسال یادداشت به ویرایش‌کنندگان OSM</string>
-	<string name="editor_detailed_description_hint">اظهار نظر بیشتر</string>
-	<string name="editor_detailed_description">شما یک سری تغییرات در نقشه را برای انجمن OpenStreetMap ارسال کردید.جزئیات اضافی را که نتوانستید در Organic Maps ویرایش کنید را برایشان بنویسید.</string>
+	<string name="editor_other_info">یک یادداشت بحث را در OpenStreetMap.org باز کنید</string>
+	<string name="editor_detailed_description_hint">اگر نمی توانید چیزی را با Organic Maps ویرایش کنید، از سایر داوطلبان OpenStreetMap کمک بخواهید (اختیاری)</string>
+	<string name="editor_detailed_description">ویرایش های شما در پایگاه داده عمومی OpenStreetMap.org (OSM) آپلود می شود. لطفا اطلاعات شخصی یا دارای حق چاپ را اضافه نکنید.</string>
 	<string name="editor_more_about_osm">در مورد OpenStreetMap بیشتر بدانید</string>
 	<string name="editor_operator">مالک</string>
 	<string name="downloader_no_downloaded_maps_title">شما هیچ نقشه دانلود شده ای ندارید</string>

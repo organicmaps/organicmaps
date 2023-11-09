@@ -729,11 +729,11 @@
 /* Place Page title for long tap */
 "core_placepage_unknown_place" = "Loc necunoscut";
 
-"editor_other_info" = "Trimite un mesaj către editorii OSM";
+"editor_other_info" = "Deschideți o notă de discuție la OpenStreetMap.org";
 
-"editor_detailed_description_hint" = "Comentariu detaliat";
+"editor_detailed_description_hint" = "Cereți ajutorul altor voluntari OpenStreetMap dacă nu puteți edita ceva cu Organic Maps (opțional)";
 
-"editor_detailed_description" = "Modificările aduse hărții, sugerate de tine, vor fi trimise comunității OpenStreetMap. Descrie orice detalii suplimentare care nu pot fi modificate în Organic Maps.";
+"editor_detailed_description" = "Modificările dvs. sunt încărcate în baza de date publică OpenStreetMap.org (OSM). Vă rugăm să nu adăugați informații personale sau protejate de drepturi de autor.";
 
 "editor_more_about_osm" = "Mai multe despre OpenStreetMap";
 

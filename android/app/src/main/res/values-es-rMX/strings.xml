@@ -52,7 +52,9 @@
 	<string name="blue_gray">Gris azulado</string>
 
 	<!-- SECTION: Strings for downloading map from search -->
-	<string name="editor_other_info">Enviar nota a los editores de OSM</string>
+	<string name="editor_other_info">Abra una nota de discusión en OpenStreetMap.org</string>
+	<string name="editor_detailed_description_hint">Pide ayuda a otros voluntarios de OpenStreetMap si no puedes editar algo con Organic Maps (opcional)</string>
+	<string name="editor_detailed_description">Sus ediciones se cargan en la base de datos pública OpenStreetMap.org (OSM). No agregue información personal o protegida por derechos de autor.</string>
 	<string name="transliteration_title">Transliteración al alfabeto latino</string>
 	<string name="dialog_error_storage_title">Problema de acceso al almacenamiento</string>
 	<string name="dialog_error_storage_message">El almacenamiento externo no está disponible. Es posible que se haya quitado o dañado la tarjeta SD, o que el sistema de archivos solo permita la lectura. Revíselo y escríbanos a support\@organicmaps.app</string>

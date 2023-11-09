@@ -458,9 +458,9 @@
 	<string name="error_enter_correct_zip_code">वैध पिनकोड प्रविष्ट करा</string>
 	<!-- Place Page title for long tap -->
 	<string name="core_placepage_unknown_place">अज्ञात ठिकाण</string>
-	<string name="editor_other_info">OpenStreetMap संपादकांना एक चिठ्ठी पाठवा</string>
-	<string name="editor_detailed_description_hint">तपशीलवार टिप्पणी</string>
-	<string name="editor_detailed_description">तुम्ही सुचवलेले नकाशातील बदल OpenStreetMap समुदायाला पाठवले जातील. Organic Maps मध्ये संपादित न करता येणाऱ्या अधिक तपशीलांचे वर्णन करा.</string>
+	<string name="editor_other_info">OpenStreetMap.org वर चर्चा नोट उघडा</string>
+	<string name="editor_detailed_description_hint">तुम्ही Organic Maps (पर्यायी) सह काही संपादित करू शकत नसल्यास इतर OpenStreetMap स्वयंसेवकांना मदतीसाठी विचारा</string>
+	<string name="editor_detailed_description">तुमची संपादने सार्वजनिक OpenStreetMap.org (OSM) डेटाबेसवर अपलोड केली जातात. कृपया वैयक्तिक किंवा कॉपीराइट केलेली माहिती जोडू नका.</string>
 	<string name="editor_more_about_osm">OpenStreetMap बद्दल अधिक</string>
 	<string name="editor_operator">मालक</string>
 	<string name="downloader_no_downloaded_maps_title">तुम्ही कोणतेही नकाशे डाउनलोड केलेले नाहीत</string>

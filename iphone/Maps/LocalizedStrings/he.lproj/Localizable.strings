@@ -729,11 +729,11 @@
 /* Place Page title for long tap */
 "core_placepage_unknown_place" = "Unknown Place";
 
-"editor_other_info" = "Send a note to OSM editors";
+"editor_other_info" = "פתח הערת דיון ב-OpenStreetMap.org";
 
-"editor_detailed_description_hint" = "Detailed comment";
+"editor_detailed_description_hint" = "בקש עזרה ממתנדבי OpenStreetMap אחרים אם אינך יכול לערוך משהו עם Organic Maps (אופציונלי)";
 
-"editor_detailed_description" = "Your suggested map changes will be sent to the OpenStreetMap community. Please describe any additional details that cannot be edited in Organic Maps.";
+"editor_detailed_description" = "העריכות שלך מועלות למסד הנתונים הציבורי של OpenStreetMap.org (OSM). נא לא להוסיף מידע אישי או מוגן בזכויות יוצרים.";
 
 "editor_more_about_osm" = "More about OpenStreetMap";
 
