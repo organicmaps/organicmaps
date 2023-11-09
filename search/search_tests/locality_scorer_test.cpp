@@ -114,7 +114,7 @@ public:
 
     Ids ids;
     for (auto const & locality : localities)
-      ids.push_back(locality.m_featureId);
+      ids.push_back(locality.GetFeatureIndex());
     return ids;
   }
 

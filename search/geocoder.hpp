@@ -279,7 +279,7 @@ private:
                    uint32_t ftId, Model::Type type, TokenRange const & tokenRange);
 
   // Forms result and feeds it to |m_preRanker|.
-  void EmitResult(BaseContext & ctx, MwmSet::MwmId const & mwmId, uint32_t ftId, Model::Type type,
+  void EmitResult(BaseContext & ctx, FeatureID const & id, Model::Type type,
                   TokenRange const & tokenRange, IntersectionResult const * geoParts,
                   bool allTokensUsed, bool exactMatch);
   void EmitResult(BaseContext & ctx, Region const & region, TokenRange const & tokenRange,
