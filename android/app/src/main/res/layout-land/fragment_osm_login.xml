@@ -73,7 +73,7 @@
           app:layout_constraintLeft_toLeftOf="parent"
           app:layout_constraintRight_toLeftOf="@id/osm_password_container"
           app:layout_constraintTop_toTopOf="parent">
-          <EditText
+          <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/osm_username"
             style="@style/MwmWidget.Editor.FieldLayout.EditText"
             android:autofillHints="emailAddress"
@@ -87,7 +87,7 @@
           app:layout_constraintLeft_toRightOf="@id/osm_username_container"
           app:layout_constraintRight_toRightOf="parent"
           app:layout_constraintTop_toTopOf="parent">
-          <EditText
+          <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/osm_password"
             style="@style/MwmWidget.Editor.FieldLayout.EditText"
             android:autofillHints="password"
