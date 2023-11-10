@@ -1160,7 +1160,7 @@
 	<string name="type.highway.footway.permissive">Camino</string>
 	<!-- These translations are used for all type.highway.*.tunnel. -->
 	<string name="type.highway.footway.tunnel">Túnel peatonal</string>
-	<string name="type.highway.ford">Vado (de lugar)</string>
+	<string name="type.highway.ford">Vado</string>
 	<string name="type.highway.living_street">Calle</string>
 	<!-- These translations are used for all type.highway.*.bridge. -->
 	<string name="type.highway.living_street.bridge">Puente</string>

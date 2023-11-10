@@ -2026,7 +2026,7 @@
 /* These translations are used for all type.highway.*.tunnel. */
 "type.highway.footway.tunnel" = "Túnel";
 
-"type.highway.ford" = "Vado (de lugar)";
+"type.highway.ford" = "Vado";
 
 "type.highway.living_street" = "Calle";
 
