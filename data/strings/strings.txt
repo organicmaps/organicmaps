@@ -26285,6 +26285,8 @@
     ru = Показывать на экране блокировки
     tr = Kilit ekranında göster
     uk = Показувати на заблокованому екрані
+    zh-Hans = 在锁屏上显示
+    zh-Hant = 在鎖定螢幕上顯示
 
   [enable_show_on_lock_screen_description]
     tags = android
@@ -26313,6 +26315,8 @@
     ru = Если эта функция включена, вам не нужно каждый раз разблокировать устройство во время работы приложения.
     tr = Etkinleştirildiğinde, uygulama çalışırken her seferinde cihazınızın kilidini açmanıza gerek kalmaz.
     uk = Якщо ввімкнено, вам не потрібно щоразу розблоковувати пристрій під час роботи програми.
+    zh-Hans = 启用后，即使设备已锁定，应用程序仍将在锁屏上运行。
+    zh-Hant = 啟用後，即使設備已鎖定，應用程式仍會在鎖定螢幕上運作。
 
   [whats_new_auto_update_title]
     comment = Autoupdate dialog on start
