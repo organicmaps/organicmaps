@@ -126,7 +126,7 @@
     <item name="android:fontFamily">@string/robotoRegular</item>
   </style>
 
-  <style name="MwmWidget.ToolbarStyle" parent="ThemeOverlay.AppCompat.Dark.ActionBar">
+  <style name="MwmWidget.ToolbarStyle" parent="ThemeOverlay.MaterialComponents.Dark.ActionBar">
     <item name="android:background">?colorPrimary</item>
     <item name="android:elevation">@dimen/appbar_elevation</item>
     <item name="android:displayOptions">homeAsUp|showTitle</item>
@@ -145,7 +145,7 @@
     <item name="android:elevation">0dp</item>
   </style>
 
-  <style name="MwmWidget.ToolbarTheme" parent="ThemeOverlay.AppCompat.Dark.ActionBar">
+  <style name="MwmWidget.ToolbarTheme" parent="ThemeOverlay.MaterialComponents.Dark.ActionBar">
     <item name="android:gravity">center_vertical</item>
     <item name="colorAccent">@android:color/white</item>
     <item name="iconTint">@color/white_primary</item>
@@ -156,7 +156,7 @@
     <item name="colorAccent">@color/bg_window_night</item>
   </style>
 
-  <style name="MwmWidget.ToolbarTheme.Transparent" parent="ThemeOverlay.AppCompat.Dark.ActionBar">
+  <style name="MwmWidget.ToolbarTheme.Transparent" parent="ThemeOverlay.MaterialComponents.Dark.ActionBar">
     <item name="android:gravity">center_vertical</item>
     <item name="colorAccent">@android:color/white</item>
     <item name="android:windowActionBarOverlay">true</item>
@@ -165,7 +165,7 @@
 
   <style
     name="MwmWidget.ToolbarTheme.DownButton"
-    parent="ThemeOverlay.AppCompat.Dark.ActionBar">
+    parent="ThemeOverlay.MaterialComponents.Dark.ActionBar">
     <item name="android:gravity">center_vertical</item>
     <item name="colorAccent">@android:color/white</item>
     <item name="android:homeAsUpIndicator">@drawable/ic_down</item>
