@@ -77,7 +77,7 @@ SUPPORTED_LOCALIZATIONS=${SUPPORTED_LOCALIZATIONS/he/iw}
 SUPPORTED_LOCALIZATIONS=${SUPPORTED_LOCALIZATIONS/id/in}
 GRADLE_PROPERTIES="$OMIM_PATH/android/gradle.properties"
 if [ "$SUPPORTED_LOCALIZATIONS" != "$(grep supportedLocalizations "$GRADLE_PROPERTIES")" ]; then
-  sed -i .bak 's/supportedLocalizations.*/'"$SUPPORTED_LOCALIZATIONS"'/' "$GRADLE_PROPERTIES"
+  sed -i.bak 's/supportedLocalizations.*/'"$SUPPORTED_LOCALIZATIONS"'/' "$GRADLE_PROPERTIES"
   rm "$GRADLE_PROPERTIES.bak"
 fi
 
