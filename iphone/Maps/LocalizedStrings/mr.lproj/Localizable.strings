@@ -3427,11 +3427,11 @@
 
 "type.shop.chemist" = "औषधालय";
 
-"type.shop.chocolate" = "दुकान";
+"type.shop.chocolate" = "चॉकलेट शॉप";
 
 "type.shop.clothes" = "कपड्याचे दुकान";
 
-"type.shop.coffee" = "दुकान";
+"type.shop.coffee" = "कॉफीचे दुकान";
 
 "type.shop.computer" = "संगणकाचे दुकान";
 
@@ -3457,7 +3457,7 @@
 
 "type.shop.erotic" = "Erotic Shop";
 
-"type.shop.fabric" = "दुकान";
+"type.shop.fabric" = "फॅब्रिकचे दुकान";
 
 "type.shop.farm" = "Farm Food Shop";
 
@@ -3505,15 +3505,15 @@
 
 "type.shop.mobile_phone" = "मोबाईल";
 
-"type.shop.money_lender" = "दुकान";
+"type.shop.money_lender" = "सावकार";
 
 "type.shop.motorcycle" = "दुचाकी विक्रेता";
 
 "type.shop.motorcycle_repair" = "मोटरसायकल दुरुस्ती";
 
-"type.shop.music" = "दुकान";
+"type.shop.music" = "संगीताच दुकान";
 
-"type.shop.musical_instrument" = "दुकान";
+"type.shop.musical_instrument" = "वाद्याचे दुकान";
 
 "type.shop.newsagent" = "वृत्तपत्र विक्री";
 
@@ -3551,7 +3551,7 @@
 
 "type.shop.tattoo" = "गोंदणाचे(टॅटू) दुकान";
 
-"type.shop.tea" = "दुकान";
+"type.shop.tea" = "चहा दुकान";
 
 "type.shop.ticket" = "तिकीटघर";
 

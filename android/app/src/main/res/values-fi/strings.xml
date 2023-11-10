@@ -1776,9 +1776,9 @@
 	<string name="type.shop.car_repair.tyres">Rengashuolto</string>
 	<string name="type.shop.carpet">Matot</string>
 	<string name="type.shop.chemist">Kosmetiikkamyymälä</string>
-	<string name="type.shop.chocolate">Kauppa</string>
+	<string name="type.shop.chocolate">Suklaakauppa</string>
 	<string name="type.shop.clothes">Vaatekauppa</string>
-	<string name="type.shop.coffee">Kauppa</string>
+	<string name="type.shop.coffee">Kahvikauppa</string>
 	<string name="type.shop.computer">Tietokonekauppa</string>
 	<string name="type.shop.confectionery">Makeiskauppa</string>
 	<string name="type.shop.convenience">Lähikauppa</string>
@@ -1791,7 +1791,7 @@
 	<string name="type.shop.dry_cleaning">Kuivapesula</string>
 	<string name="type.shop.electronics">Elektroniikka</string>
 	<string name="type.shop.erotic">Erotiikkaliike</string>
-	<string name="type.shop.fabric">Kauppa</string>
+	<string name="type.shop.fabric">Kangaskauppa</string>
 	<string name="type.shop.farm">Maatilaruokakauppa</string>
 	<string name="type.shop.fashion_accessories">Muoti tarvikkeet</string>
 	<string name="type.shop.florist">Floristi</string>
@@ -1814,11 +1814,11 @@
 	<string name="type.shop.mall">Ostoskeskus</string>
 	<string name="type.shop.massage">Hierontahuone</string>
 	<string name="type.shop.mobile_phone">Elektroniikkakauppa</string>
-	<string name="type.shop.money_lender">Kauppa</string>
+	<string name="type.shop.money_lender">Rahan lainaaja</string>
 	<string name="type.shop.motorcycle">Moottoripyöräliike</string>
 	<string name="type.shop.motorcycle_repair">Moottoripyörän korjaus</string>
-	<string name="type.shop.music">Kauppa</string>
-	<string name="type.shop.musical_instrument">Kauppa</string>
+	<string name="type.shop.music">Levykauppa</string>
+	<string name="type.shop.musical_instrument">Soittimien kauppa</string>
 	<string name="type.shop.newsagent">Lehtikioski</string>
 	<string name="type.shop.optician">Optikko</string>
 	<string name="type.shop.outdoor">Ulkoiluvarusteet</string>
@@ -1837,7 +1837,7 @@
 	<string name="type.shop.stationery">Kirjoitustarvikekauppa</string>
 	<string name="type.shop.supermarket">Supermarketti</string>
 	<string name="type.shop.tattoo">Tatuointiliike</string>
-	<string name="type.shop.tea">Kauppa</string>
+	<string name="type.shop.tea">Teekauppa</string>
 	<string name="type.shop.ticket">Lippumyymälä</string>
 	<string name="type.shop.toys">Lelukauppa</string>
 	<string name="type.shop.travel_agency">Matkatoimisto</string>

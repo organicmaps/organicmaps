@@ -3427,11 +3427,11 @@
 
 "type.shop.chemist" = "Mercerie";
 
-"type.shop.chocolate" = "Magazin";
+"type.shop.chocolate" = "Magazin de ciocolată";
 
 "type.shop.clothes" = "Magazin de haine";
 
-"type.shop.coffee" = "Magazin";
+"type.shop.coffee" = "Magazin de cafea";
 
 "type.shop.computer" = "Magazin de calculatoare";
 
@@ -3457,7 +3457,7 @@
 
 "type.shop.erotic" = "Magazin erotic";
 
-"type.shop.fabric" = "Magazin";
+"type.shop.fabric" = "Magazin de țesături";
 
 "type.shop.farm" = "Magazin alimentar la fermă";
 
@@ -3493,7 +3493,7 @@
 
 "type.shop.jewelry" = "Bijutier";
 
-"type.shop.kiosk" = "Magazin";
+"type.shop.kiosk" = "Chioșc";
 
 "type.shop.kitchen" = "Magazin de bucatarie";
 
@@ -3505,15 +3505,15 @@
 
 "type.shop.mobile_phone" = "Magazin de telefoane mobile";
 
-"type.shop.money_lender" = "Magazin";
+"type.shop.money_lender" = "Credite";
 
 "type.shop.motorcycle" = "Magazin moto";
 
 "type.shop.motorcycle_repair" = "Reparatie motociclete";
 
-"type.shop.music" = "Magazin";
+"type.shop.music" = "Magazin de muzică";
 
-"type.shop.musical_instrument" = "Magazin";
+"type.shop.musical_instrument" = "Magazin de instrumente muzicale";
 
 "type.shop.newsagent" = "Chioșc cu ziare";
 
@@ -3551,7 +3551,7 @@
 
 "type.shop.tattoo" = "Salon de tatuaje";
 
-"type.shop.tea" = "Magazin";
+"type.shop.tea" = "Magazin de ceai";
 
 "type.shop.ticket" = "Casă de bilete";
 

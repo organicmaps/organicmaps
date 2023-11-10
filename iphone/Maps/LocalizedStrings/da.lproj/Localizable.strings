@@ -3427,11 +3427,11 @@
 
 "type.shop.chemist" = "Materialist";
 
-"type.shop.chocolate" = "Butik";
+"type.shop.chocolate" = "Chokolade butik";
 
 "type.shop.clothes" = "Tøjbutik";
 
-"type.shop.coffee" = "Butik";
+"type.shop.coffee" = "Butik med kaffe";
 
 "type.shop.computer" = "Computerforretning";
 
@@ -3457,7 +3457,7 @@
 
 "type.shop.erotic" = "Erotisk butik";
 
-"type.shop.fabric" = "Butik";
+"type.shop.fabric" = "Stofbutik";
 
 "type.shop.farm" = "Farm Food Shop";
 
@@ -3505,15 +3505,15 @@
 
 "type.shop.mobile_phone" = "Mobiltelefonbutik";
 
-"type.shop.money_lender" = "Butik";
+"type.shop.money_lender" = "Pengeudlåner";
 
 "type.shop.motorcycle" = "Motorcykelforhandler";
 
 "type.shop.motorcycle_repair" = "Motorcykel reparation";
 
-"type.shop.music" = "Butik";
+"type.shop.music" = "Pladebutik";
 
-"type.shop.musical_instrument" = "Butik";
+"type.shop.musical_instrument" = "Butik med musikinstrumenter";
 
 "type.shop.newsagent" = "Avis-kiosk";
 
@@ -3551,7 +3551,7 @@
 
 "type.shop.tattoo" = "Tatovør";
 
-"type.shop.tea" = "Butik";
+"type.shop.tea" = "Tebutik";
 
 "type.shop.ticket" = "Billetkontor";
 

@@ -982,7 +982,7 @@
 	<string name="type.building_part">Eraikin</string>
 	<string name="type.building.garage">Garajea</string>
 	<string name="type.building.train_station">Tren geltokian</string>
-	<string name="type.building.warehouse">Denda</string>
+	<string name="type.building.warehouse">Biltegia</string>
 	<string name="type.cemetery.grave">Hilobia</string>
 	<string name="type.craft">Artisautza</string>
 	<string name="type.craft.beekeeper">Erlezaina</string>
@@ -1756,9 +1756,9 @@
 	<string name="type.shop.car_repair.tyres">Pneumatikoen konponketa</string>
 	<string name="type.shop.carpet">Alfonbrak</string>
 	<string name="type.shop.chemist">Botika</string>
-	<string name="type.shop.chocolate">Denda</string>
+	<string name="type.shop.chocolate">Txokolate Denda</string>
 	<string name="type.shop.clothes">Arropa denda</string>
-	<string name="type.shop.coffee">Denda</string>
+	<string name="type.shop.coffee">Kafe Denda</string>
 	<string name="type.shop.computer">Denda informatikoa</string>
 	<string name="type.shop.confectionery">Gozogintza</string>
 	<string name="type.shop.convenience">Auzoko denda</string>
@@ -1771,7 +1771,7 @@
 	<string name="type.shop.dry_cleaning">Garbigailua</string>
 	<string name="type.shop.electronics">Elektronika</string>
 	<string name="type.shop.erotic">Sexu denda</string>
-	<string name="type.shop.fabric">Denda</string>
+	<string name="type.shop.fabric">Oihal-denda</string>
 	<string name="type.shop.farm">Baserriko Janari Denda</string>
 	<string name="type.shop.fashion_accessories">Moda Osagarriak</string>
 	<string name="type.shop.florist">Loradenda</string>
@@ -1779,7 +1779,7 @@
 	<string name="type.shop.furniture">Altzari denda</string>
 	<string name="type.shop.garden_centre">Haurtzaindegia</string>
 	<string name="type.shop.gas">Gas biltegia</string>
-	<string name="type.shop.gift">Denda</string>
+	<string name="type.shop.gift">Opari denda</string>
 	<string name="type.shop.greengrocer">Fruta denda</string>
 	<string name="type.shop.grocery">Janariak</string>
 	<string name="type.shop.hairdresser">Barber-denda</string>
@@ -1795,11 +1795,11 @@
 	<string name="type.shop.mall">Merkataritza-gune</string>
 	<string name="type.shop.massage">Masaje gela</string>
 	<string name="type.shop.mobile_phone">Mugikorra</string>
-	<string name="type.shop.money_lender">Denda</string>
+	<string name="type.shop.money_lender">Diru emailea</string>
 	<string name="type.shop.motorcycle">Moto denda</string>
 	<string name="type.shop.motorcycle_repair">Motoen Konponketa</string>
-	<string name="type.shop.music">Denda</string>
-	<string name="type.shop.musical_instrument">Denda</string>
+	<string name="type.shop.music">Disko-denda</string>
+	<string name="type.shop.musical_instrument">Musika Tresnen Denda</string>
 	<string name="type.shop.newsagent">Kioskoa</string>
 	<string name="type.shop.optician">Optika</string>
 	<string name="type.shop.outdoor">Ekipamendua</string>
@@ -1818,7 +1818,7 @@
 	<string name="type.shop.stationery">Papergintza</string>
 	<string name="type.shop.supermarket">Supermerkatua</string>
 	<string name="type.shop.tattoo">Tatuajeak</string>
-	<string name="type.shop.tea">Denda</string>
+	<string name="type.shop.tea">Te-denda</string>
 	<string name="type.shop.ticket">Sarreren salmenta</string>
 	<string name="type.shop.toys">Jostailu denda</string>
 	<string name="type.shop.travel_agency">Bidai agentzia</string>

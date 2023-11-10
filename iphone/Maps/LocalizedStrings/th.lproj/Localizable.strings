@@ -3427,11 +3427,11 @@
 
 "type.shop.chemist" = "ร้านเคมีภัณฑ์";
 
-"type.shop.chocolate" = "ร้านค้า";
+"type.shop.chocolate" = "ร้านช็อกโกแลต";
 
 "type.shop.clothes" = "ร้านขายเสื้อผ้า";
 
-"type.shop.coffee" = "ร้านค้า";
+"type.shop.coffee" = "ร้านขายกาแฟ";
 
 "type.shop.computer" = "ร้านขายคอมพิวเตอร์";
 
@@ -3457,7 +3457,7 @@
 
 "type.shop.erotic" = "ร้านเฉพาะผู้ใหญ่";
 
-"type.shop.fabric" = "ร้านค้า";
+"type.shop.fabric" = "ร้านผ้า";
 
 "type.shop.farm" = "ฟาร์มฟู้ดช็อป";
 
@@ -3505,15 +3505,15 @@
 
 "type.shop.mobile_phone" = "ร้านขายโทรศัพท์มือถือ";
 
-"type.shop.money_lender" = "ร้านค้า";
+"type.shop.money_lender" = "ผู้ให้ยืมเงิน";
 
 "type.shop.motorcycle" = "ร้านรถมอเตอร์ไซค์";
 
 "type.shop.motorcycle_repair" = "ซ่อมรถจักรยานยนต์";
 
-"type.shop.music" = "ร้านค้า";
+"type.shop.music" = "ร้านเพลง";
 
-"type.shop.musical_instrument" = "ร้านค้า";
+"type.shop.musical_instrument" = "ร้านขายเครื่องดนตรี";
 
 "type.shop.newsagent" = "แผงขายหนังสือพิมพ์";
 
@@ -3551,7 +3551,7 @@
 
 "type.shop.tattoo" = "ร้านสัก";
 
-"type.shop.tea" = "ร้านค้า";
+"type.shop.tea" = "ร้านน้ำชา";
 
 "type.shop.ticket" = "จุดจำหน่ายตั๋ว";
 

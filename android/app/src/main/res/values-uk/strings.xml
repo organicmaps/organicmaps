@@ -1852,9 +1852,9 @@
 	<string name="type.shop.caravan">Продаж автобудинків</string>
 	<string name="type.shop.carpet">Килими</string>
 	<string name="type.shop.chemist">Магазин побутової хімії</string>
-	<string name="type.shop.chocolate">Крамниця</string>
+	<string name="type.shop.chocolate">Шоколадна крамниця</string>
 	<string name="type.shop.clothes">Магазин одягу</string>
-	<string name="type.shop.coffee">Крамниця</string>
+	<string name="type.shop.coffee">Кавова крамниця</string>
 	<string name="type.shop.computer">Комп\'ютерний магазин</string>
 	<string name="type.shop.confectionery">Кондитерська</string>
 	<string name="type.shop.convenience">Міні-маркет</string>
@@ -1867,7 +1867,7 @@
 	<string name="type.shop.dry_cleaning">Хімчистка</string>
 	<string name="type.shop.electronics">Електротехнiка</string>
 	<string name="type.shop.erotic">Секс-шоп</string>
-	<string name="type.shop.fabric">Крамниця</string>
+	<string name="type.shop.fabric">Магазин тканин</string>
 	<string name="type.shop.farm">Магазин фермерських продуктів</string>
 	<string name="type.shop.fashion_accessories">Модні аксесуари</string>
 	<string name="type.shop.florist">Магазин квітів</string>
@@ -1891,11 +1891,11 @@
 	<string name="type.shop.mall">Торговий центр</string>
 	<string name="type.shop.massage">Масажний кабінет</string>
 	<string name="type.shop.mobile_phone">Мобільні телефони</string>
-	<string name="type.shop.money_lender">Крамниця</string>
+	<string name="type.shop.money_lender">Кредити</string>
 	<string name="type.shop.motorcycle">Магазин мотоциклів</string>
 	<string name="type.shop.motorcycle_repair">Ремонт мотоциклів</string>
-	<string name="type.shop.music">Крамниця</string>
-	<string name="type.shop.musical_instrument">Крамниця</string>
+	<string name="type.shop.music">Музична крамниця</string>
+	<string name="type.shop.musical_instrument">Музичні інструменти</string>
 	<string name="type.shop.newsagent">Газетний кіоск</string>
 	<string name="type.shop.optician">Оптика</string>
 	<string name="type.shop.outdoor">Спорядження</string>
@@ -1914,7 +1914,7 @@
 	<string name="type.shop.stationery">Канцелярськi товари</string>
 	<string name="type.shop.supermarket">Супермаркет</string>
 	<string name="type.shop.tattoo">Тату-салон</string>
-	<string name="type.shop.tea">Крамниця</string>
+	<string name="type.shop.tea">Чайна крамниця</string>
 	<string name="type.shop.ticket">Квитковий кiоск</string>
 	<string name="type.shop.toys">Магазин іграшок</string>
 	<string name="type.shop.travel_agency">Турагентство</string>

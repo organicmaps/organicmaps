@@ -1653,9 +1653,9 @@
 	<string name="type.shop.car_repair.tyres">Pneuservis</string>
 	<string name="type.shop.carpet">Koberce</string>
 	<string name="type.shop.chemist">Drogerie</string>
-	<string name="type.shop.chocolate">Obchod</string>
+	<string name="type.shop.chocolate">Obchod s čokoládou</string>
 	<string name="type.shop.clothes">Oblečení</string>
-	<string name="type.shop.coffee">Obchod</string>
+	<string name="type.shop.coffee">Obchod s kávou</string>
 	<string name="type.shop.computer">Obchod s počítači</string>
 	<string name="type.shop.confectionery">Cukrárna</string>
 	<string name="type.shop.convenience">Smíšené zboží</string>
@@ -1668,7 +1668,7 @@
 	<string name="type.shop.dry_cleaning">Chemické čištění</string>
 	<string name="type.shop.electronics">Elektronika</string>
 	<string name="type.shop.erotic">Obchod s erotickými pomůckami</string>
-	<string name="type.shop.fabric">Obchod</string>
+	<string name="type.shop.fabric">Obchod s látkami</string>
 	<string name="type.shop.farm">Prodejna farmářských potravin</string>
 	<string name="type.shop.fashion_accessories">Módní doplňky</string>
 	<string name="type.shop.florist">Květinářství</string>
@@ -1690,11 +1690,11 @@
 	<string name="type.shop.mall">Obchoďák</string>
 	<string name="type.shop.massage">Masážní salon</string>
 	<string name="type.shop.mobile_phone">Mobily</string>
-	<string name="type.shop.money_lender">Obchod</string>
+	<string name="type.shop.money_lender">Půjčovatel peněz</string>
 	<string name="type.shop.motorcycle">Prodejna motocyklů</string>
 	<string name="type.shop.motorcycle_repair">Opravy motocyklů</string>
-	<string name="type.shop.music">Obchod</string>
-	<string name="type.shop.musical_instrument">Obchod</string>
+	<string name="type.shop.music">Obchod s hudebninami</string>
+	<string name="type.shop.musical_instrument">Obchod s hudebními nástroji</string>
 	<string name="type.shop.newsagent">Novinový stánek</string>
 	<string name="type.shop.optician">Optika</string>
 	<string name="type.shop.outdoor">Venkovní vybavení</string>
@@ -1712,7 +1712,7 @@
 	<string name="type.shop.sports">Sportovní zboží</string>
 	<string name="type.shop.stationery">Papírnictví</string>
 	<string name="type.shop.tattoo">Tetovací salon</string>
-	<string name="type.shop.tea">Obchod</string>
+	<string name="type.shop.tea">Obchod s čajem</string>
 	<string name="type.shop.ticket">Prodej vstupenek</string>
 	<string name="type.shop.toys">Hračkářství</string>
 	<string name="type.shop.travel_agency">Cestovní kancelář</string>

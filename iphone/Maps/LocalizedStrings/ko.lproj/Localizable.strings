@@ -3427,11 +3427,11 @@
 
 "type.shop.chemist" = "화학물질 가게";
 
-"type.shop.chocolate" = "가게";
+"type.shop.chocolate" = "초콜릿 가게";
 
 "type.shop.clothes" = "옷 가게";
 
-"type.shop.coffee" = "가게";
+"type.shop.coffee" = "커피숍";
 
 "type.shop.computer" = "컴퓨터 판매점";
 
@@ -3457,7 +3457,7 @@
 
 "type.shop.erotic" = "성인용품 가게";
 
-"type.shop.fabric" = "가게";
+"type.shop.fabric" = "원단 가게";
 
 "type.shop.farm" = "\"농장 식품 가게\"";
 
@@ -3505,15 +3505,15 @@
 
 "type.shop.mobile_phone" = "휴대폰 대리점";
 
-"type.shop.money_lender" = "가게";
+"type.shop.money_lender" = "자금 대출 기관";
 
 "type.shop.motorcycle" = "오토바이 가게";
 
 "type.shop.motorcycle_repair" = "오토바이 수리";
 
-"type.shop.music" = "가게";
+"type.shop.music" = "음악 가게";
 
-"type.shop.musical_instrument" = "가게";
+"type.shop.musical_instrument" = "악기 판매점";
 
 "type.shop.newsagent" = "신문 가판대";
 
@@ -3551,7 +3551,7 @@
 
 "type.shop.tattoo" = "타투 가게";
 
-"type.shop.tea" = "가게";
+"type.shop.tea" = "차 가게";
 
 "type.shop.ticket" = "매표소";
 
