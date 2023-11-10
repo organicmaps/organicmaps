@@ -3431,7 +3431,7 @@
 
 "type.shop.clothes" = "Ruhabolt";
 
-"type.shop.coffee" = "Bolt";
+"type.shop.coffee" = "Kávébolt";
 
 "type.shop.computer" = "Számítógép üzlet";
 
@@ -3457,7 +3457,7 @@
 
 "type.shop.erotic" = "Erotikus bolt";
 
-"type.shop.fabric" = "Bolt";
+"type.shop.fabric" = "Szövetbolt";
 
 "type.shop.farm" = "Farm Food Shop";
 
@@ -3505,15 +3505,15 @@
 
 "type.shop.mobile_phone" = "Mobiltelefon üzlet";
 
-"type.shop.money_lender" = "Bolt";
+"type.shop.money_lender" = "Pénzkölcsönző";
 
 "type.shop.motorcycle" = "Motorkerékpár üzlet";
 
 "type.shop.motorcycle_repair" = "Motorkerékpár javítás";
 
-"type.shop.music" = "Bolt";
+"type.shop.music" = "Lemezbolt";
 
-"type.shop.musical_instrument" = "Bolt";
+"type.shop.musical_instrument" = "Hangszerbolt";
 
 "type.shop.newsagent" = "Újságárus";
 
@@ -3551,7 +3551,7 @@
 
 "type.shop.tattoo" = "Tetováló szalon";
 
-"type.shop.tea" = "Bolt";
+"type.shop.tea" = "Tea bolt";
 
 "type.shop.ticket" = "Jegyiroda";
 

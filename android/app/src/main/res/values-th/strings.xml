@@ -1645,9 +1645,9 @@
 	<string name="type.shop.car_repair.tyres">ร้านปะยาง</string>
 	<string name="type.shop.carpet">พรม</string>
 	<string name="type.shop.chemist">ร้านเคมีภัณฑ์</string>
-	<string name="type.shop.chocolate">ร้านค้า</string>
+	<string name="type.shop.chocolate">ร้านช็อกโกแลต</string>
 	<string name="type.shop.clothes">ร้านขายเสื้อผ้า</string>
-	<string name="type.shop.coffee">ร้านค้า</string>
+	<string name="type.shop.coffee">ร้านขายกาแฟ</string>
 	<string name="type.shop.computer">ร้านขายคอมพิวเตอร์</string>
 	<string name="type.shop.confectionery">ร้านขายขนมหวาน</string>
 	<string name="type.shop.convenience">ร้านสะดวกซื้อ</string>
@@ -1660,7 +1660,7 @@
 	<string name="type.shop.dry_cleaning">ซักแห้ง</string>
 	<string name="type.shop.electronics">ร้านขายอุปกรณ์อิเล็กทรอนิกส์</string>
 	<string name="type.shop.erotic">ร้านเฉพาะผู้ใหญ่</string>
-	<string name="type.shop.fabric">ร้านค้า</string>
+	<string name="type.shop.fabric">ร้านผ้า</string>
 	<string name="type.shop.farm">ฟาร์มฟู้ดช็อป</string>
 	<string name="type.shop.fashion_accessories">เครื่องประดับแฟชั่น</string>
 	<string name="type.shop.florist">ร้านดอกไม้</string>
@@ -1684,11 +1684,11 @@
 	<string name="type.shop.mall">เดอะมอลล์</string>
 	<string name="type.shop.massage">สถานอาบอบนวด</string>
 	<string name="type.shop.mobile_phone">ร้านขายโทรศัพท์มือถือ</string>
-	<string name="type.shop.money_lender">ร้านค้า</string>
+	<string name="type.shop.money_lender">ผู้ให้ยืมเงิน</string>
 	<string name="type.shop.motorcycle">ร้านรถมอเตอร์ไซค์</string>
 	<string name="type.shop.motorcycle_repair">ซ่อมรถจักรยานยนต์</string>
-	<string name="type.shop.music">ร้านค้า</string>
-	<string name="type.shop.musical_instrument">ร้านค้า</string>
+	<string name="type.shop.music">ร้านเพลง</string>
+	<string name="type.shop.musical_instrument">ร้านขายเครื่องดนตรี</string>
 	<string name="type.shop.newsagent">แผงขายหนังสือพิมพ์</string>
 	<string name="type.shop.optician">ร้านแว่น</string>
 	<string name="type.shop.outdoor">อุปกรณ์กลางแจ้ง</string>
@@ -1707,7 +1707,7 @@
 	<string name="type.shop.stationery">ร้านขายเครื่องเขียน</string>
 	<string name="type.shop.supermarket">ซูเปอร์มาร์เก็ต</string>
 	<string name="type.shop.tattoo">ร้านสัก</string>
-	<string name="type.shop.tea">ร้านค้า</string>
+	<string name="type.shop.tea">ร้านน้ำชา</string>
 	<string name="type.shop.ticket">จุดจำหน่ายตั๋ว</string>
 	<string name="type.shop.toys">ร้านขายของเล่น</string>
 	<string name="type.shop.travel_agency">สำนักงานการท่องเที่ยว</string>

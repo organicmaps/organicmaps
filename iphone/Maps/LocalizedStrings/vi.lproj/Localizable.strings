@@ -1397,7 +1397,7 @@
 
 "type.amenity.loading_dock" = "Bến tàu";
 
-"type.amenity.marketplace" = "Cửa hàng";
+"type.amenity.marketplace" = "Thương trường";
 
 "type.amenity.motorcycle_parking" = "Bãi đỗ xe máy";
 
@@ -3427,11 +3427,11 @@
 
 "type.shop.chemist" = "Cửa hàng Hóa chất";
 
-"type.shop.chocolate" = "Cửa hàng";
+"type.shop.chocolate" = "Cửa hàng socola";
 
 "type.shop.clothes" = "Cửa hàng quần áo";
 
-"type.shop.coffee" = "Cửa hàng";
+"type.shop.coffee" = "Quán cà phê";
 
 "type.shop.computer" = "Cửa hàng máy tính";
 
@@ -3457,7 +3457,7 @@
 
 "type.shop.erotic" = "Cửa hàng người lớn";
 
-"type.shop.fabric" = "Cửa hàng";
+"type.shop.fabric" = "Cửa hàng vải";
 
 "type.shop.farm" = "Cửa hàng thực phẩm nông trại";
 
@@ -3505,15 +3505,15 @@
 
 "type.shop.mobile_phone" = "Cửa hàng điện thoại di động";
 
-"type.shop.money_lender" = "Cửa hàng";
+"type.shop.money_lender" = "Người cho vay tiền";
 
 "type.shop.motorcycle" = "Cửa hàng xe máy";
 
 "type.shop.motorcycle_repair" = "Sửa chữa xe máy";
 
-"type.shop.music" = "Cửa hàng";
+"type.shop.music" = "Cửa hàng âm nhạc";
 
-"type.shop.musical_instrument" = "Cửa hàng";
+"type.shop.musical_instrument" = "Cửa hàng nhạc cụ";
 
 "type.shop.newsagent" = "Quầy báo";
 
@@ -3551,7 +3551,7 @@
 
 "type.shop.tattoo" = "Tiệm xăm";
 
-"type.shop.tea" = "Cửa hàng";
+"type.shop.tea" = "Quán trà";
 
 "type.shop.ticket" = "Phòng vé";
 

@@ -1397,7 +1397,7 @@
 
 "type.amenity.loading_dock" = "Dok pemuatan";
 
-"type.amenity.marketplace" = "Toko";
+"type.amenity.marketplace" = "Pasar";
 
 "type.amenity.motorcycle_parking" = "Tempat Parkir Sepeda Motor";
 
@@ -3427,11 +3427,11 @@
 
 "type.shop.chemist" = "Toko Bahan Kimia";
 
-"type.shop.chocolate" = "Toko";
+"type.shop.chocolate" = "Toko Cokelat";
 
 "type.shop.clothes" = "Toko baju";
 
-"type.shop.coffee" = "Toko";
+"type.shop.coffee" = "Toko kopi";
 
 "type.shop.computer" = "Toko komputer";
 
@@ -3457,7 +3457,7 @@
 
 "type.shop.erotic" = "Toko Erotik";
 
-"type.shop.fabric" = "Toko";
+"type.shop.fabric" = "Toko Kain";
 
 "type.shop.farm" = "Toko Makanan Pertanian";
 
@@ -3493,7 +3493,7 @@
 
 "type.shop.jewelry" = "Perhiasan";
 
-"type.shop.kiosk" = "Toko";
+"type.shop.kiosk" = "Kios";
 
 "type.shop.kitchen" = "Toko Dapur";
 
@@ -3505,15 +3505,15 @@
 
 "type.shop.mobile_phone" = "Toko telepon";
 
-"type.shop.money_lender" = "Toko";
+"type.shop.money_lender" = "Pemberi Pinjaman Uang";
 
 "type.shop.motorcycle" = "Toko Sepeda Motor";
 
 "type.shop.motorcycle_repair" = "Bengkel Sepeda Motor";
 
-"type.shop.music" = "Toko";
+"type.shop.music" = "Toko musik";
 
-"type.shop.musical_instrument" = "Toko";
+"type.shop.musical_instrument" = "Toko Alat Musik";
 
 "type.shop.newsagent" = "Kios Surat Kabar";
 
@@ -3551,7 +3551,7 @@
 
 "type.shop.tattoo" = "Tempat Tato";
 
-"type.shop.tea" = "Toko";
+"type.shop.tea" = "Toko teh";
 
 "type.shop.ticket" = "Tempat penjualan karcis";
 

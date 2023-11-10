@@ -3427,11 +3427,11 @@
 
 "type.shop.chemist" = "Kosmetiikkamyymälä";
 
-"type.shop.chocolate" = "Kauppa";
+"type.shop.chocolate" = "Suklaakauppa";
 
 "type.shop.clothes" = "Vaatekauppa";
 
-"type.shop.coffee" = "Kauppa";
+"type.shop.coffee" = "Kahvikauppa";
 
 "type.shop.computer" = "Tietokonekauppa";
 
@@ -3457,7 +3457,7 @@
 
 "type.shop.erotic" = "Erotiikkaliike";
 
-"type.shop.fabric" = "Kauppa";
+"type.shop.fabric" = "Kangaskauppa";
 
 "type.shop.farm" = "Maatilaruokakauppa";
 
@@ -3505,15 +3505,15 @@
 
 "type.shop.mobile_phone" = "Elektroniikkakauppa";
 
-"type.shop.money_lender" = "Kauppa";
+"type.shop.money_lender" = "Rahan lainaaja";
 
 "type.shop.motorcycle" = "Moottoripyöräliike";
 
 "type.shop.motorcycle_repair" = "Moottoripyörän korjaus";
 
-"type.shop.music" = "Kauppa";
+"type.shop.music" = "Levykauppa";
 
-"type.shop.musical_instrument" = "Kauppa";
+"type.shop.musical_instrument" = "Soittimien kauppa";
 
 "type.shop.newsagent" = "Lehtikioski";
 
@@ -3551,7 +3551,7 @@
 
 "type.shop.tattoo" = "Tatuointiliike";
 
-"type.shop.tea" = "Kauppa";
+"type.shop.tea" = "Teekauppa";
 
 "type.shop.ticket" = "Lippumyymälä";
 

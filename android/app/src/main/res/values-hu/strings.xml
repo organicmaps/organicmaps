@@ -1665,7 +1665,7 @@
 	<string name="type.shop.chemist">Drogéria</string>
 	<string name="type.shop.chocolate">Csokoládébolt</string>
 	<string name="type.shop.clothes">Ruhabolt</string>
-	<string name="type.shop.coffee">Bolt</string>
+	<string name="type.shop.coffee">Kávébolt</string>
 	<string name="type.shop.computer">Számítógép üzlet</string>
 	<string name="type.shop.confectionery">Cukrászüzlet</string>
 	<string name="type.shop.convenience">Csemegebolt</string>
@@ -1678,7 +1678,7 @@
 	<string name="type.shop.dry_cleaning">Ruhatisztító</string>
 	<string name="type.shop.electronics">Elektronika</string>
 	<string name="type.shop.erotic">Erotikus bolt</string>
-	<string name="type.shop.fabric">Bolt</string>
+	<string name="type.shop.fabric">Szövetbolt</string>
 	<string name="type.shop.farm">Farm Food Shop</string>
 	<string name="type.shop.fashion_accessories">Divat kiegészítők</string>
 	<string name="type.shop.florist">Virágos</string>
@@ -1702,11 +1702,11 @@
 	<string name="type.shop.mall">A pláza</string>
 	<string name="type.shop.massage">Masszázs szalon</string>
 	<string name="type.shop.mobile_phone">Mobiltelefon üzlet</string>
-	<string name="type.shop.money_lender">Bolt</string>
+	<string name="type.shop.money_lender">Pénzkölcsönző</string>
 	<string name="type.shop.motorcycle">Motorkerékpár üzlet</string>
 	<string name="type.shop.motorcycle_repair">Motorkerékpár javítás</string>
-	<string name="type.shop.music">Bolt</string>
-	<string name="type.shop.musical_instrument">Bolt</string>
+	<string name="type.shop.music">Lemezbolt</string>
+	<string name="type.shop.musical_instrument">Hangszerbolt</string>
 	<string name="type.shop.newsagent">Újságárus</string>
 	<string name="type.shop.optician">Optika</string>
 	<string name="type.shop.outdoor">Túrafelszerelés</string>
@@ -1725,7 +1725,7 @@
 	<string name="type.shop.stationery">Írószer bolt</string>
 	<string name="type.shop.supermarket">Bevásárlóközpont</string>
 	<string name="type.shop.tattoo">Tetováló szalon</string>
-	<string name="type.shop.tea">Bolt</string>
+	<string name="type.shop.tea">Tea bolt</string>
 	<string name="type.shop.ticket">Jegyiroda</string>
 	<string name="type.shop.toys">Játékbolt</string>
 	<string name="type.shop.travel_agency">Utazási iroda</string>

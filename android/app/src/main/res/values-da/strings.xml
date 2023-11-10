@@ -1635,9 +1635,9 @@
 	<string name="type.shop.car_repair.tyres">Dækreparation</string>
 	<string name="type.shop.carpet">Tæpper</string>
 	<string name="type.shop.chemist">Materialist</string>
-	<string name="type.shop.chocolate">Butik</string>
+	<string name="type.shop.chocolate">Chokolade butik</string>
 	<string name="type.shop.clothes">Tøjbutik</string>
-	<string name="type.shop.coffee">Butik</string>
+	<string name="type.shop.coffee">Butik med kaffe</string>
 	<string name="type.shop.computer">Computerforretning</string>
 	<string name="type.shop.confectionery">Slikbutik</string>
 	<string name="type.shop.convenience">Døgnbutik</string>
@@ -1650,7 +1650,7 @@
 	<string name="type.shop.dry_cleaning">Renseri</string>
 	<string name="type.shop.electronics">Elektronikbutik</string>
 	<string name="type.shop.erotic">Erotisk butik</string>
-	<string name="type.shop.fabric">Butik</string>
+	<string name="type.shop.fabric">Stofbutik</string>
 	<string name="type.shop.farm">Farm Food Shop</string>
 	<string name="type.shop.fashion_accessories">Mode tilbehør</string>
 	<string name="type.shop.florist">Blomsterbutik</string>
@@ -1672,11 +1672,11 @@
 	<string name="type.shop.mall">Indkøbscenter</string>
 	<string name="type.shop.massage">Massageklinik</string>
 	<string name="type.shop.mobile_phone">Mobiltelefonbutik</string>
-	<string name="type.shop.money_lender">Butik</string>
+	<string name="type.shop.money_lender">Pengeudlåner</string>
 	<string name="type.shop.motorcycle">Motorcykelforhandler</string>
 	<string name="type.shop.motorcycle_repair">Motorcykel reparation</string>
-	<string name="type.shop.music">Butik</string>
-	<string name="type.shop.musical_instrument">Butik</string>
+	<string name="type.shop.music">Pladebutik</string>
+	<string name="type.shop.musical_instrument">Butik med musikinstrumenter</string>
 	<string name="type.shop.newsagent">Avis-kiosk</string>
 	<string name="type.shop.optician">Optiker</string>
 	<string name="type.shop.outdoor">Fritidsudstyr</string>
@@ -1695,7 +1695,7 @@
 	<string name="type.shop.stationery">Kontorartikler</string>
 	<string name="type.shop.supermarket">Supermarked</string>
 	<string name="type.shop.tattoo">Tatovør</string>
-	<string name="type.shop.tea">Butik</string>
+	<string name="type.shop.tea">Tebutik</string>
 	<string name="type.shop.ticket">Billetkontor</string>
 	<string name="type.shop.toys">Legetøjsbutik</string>
 	<string name="type.shop.travel_agency">Rejsebureau</string>

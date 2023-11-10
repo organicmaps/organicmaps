@@ -1646,9 +1646,9 @@
 	<string name="type.shop.car_repair.tyres">Βουλκανιζατέρ</string>
 	<string name="type.shop.carpet">Χαλιά</string>
 	<string name="type.shop.chemist">Χημικά προϊόντα</string>
-	<string name="type.shop.chocolate">Κατάστημα</string>
+	<string name="type.shop.chocolate">Σοκολατοποιία</string>
 	<string name="type.shop.clothes">Κατάστημα ρούχων</string>
-	<string name="type.shop.coffee">Κατάστημα</string>
+	<string name="type.shop.coffee">Καφεκοπτείο</string>
 	<string name="type.shop.computer">Κατάστημα πληροφορικής</string>
 	<string name="type.shop.confectionery">Γλυκά</string>
 	<string name="type.shop.convenience">Ψιλικατζίδικο</string>
@@ -1661,7 +1661,7 @@
 	<string name="type.shop.dry_cleaning">Στεγνό καθάρισμα</string>
 	<string name="type.shop.electronics">Ηλεκτρονικά</string>
 	<string name="type.shop.erotic">Κατάστημα ερωτικών ειδών</string>
-	<string name="type.shop.fabric">Κατάστημα</string>
+	<string name="type.shop.fabric">Υφασματοπωλείο</string>
 	<string name="type.shop.farm">Κατάστημα Αγροτικών Τροφίμων</string>
 	<string name="type.shop.fashion_accessories">Αξεσουάρ μόδας</string>
 	<string name="type.shop.florist">Ανθοπωλείο</string>
@@ -1685,11 +1685,11 @@
 	<string name="type.shop.mall">Εμπορικό κέντρο</string>
 	<string name="type.shop.massage">Αίθουσα μασάζ</string>
 	<string name="type.shop.mobile_phone">Κινητή Τηλεφωνία</string>
-	<string name="type.shop.money_lender">Κατάστημα</string>
+	<string name="type.shop.money_lender">Δανειστής χρημάτων</string>
 	<string name="type.shop.motorcycle">Κατάστημα μοτοσυκλετών</string>
 	<string name="type.shop.motorcycle_repair">Επισκευή μοτοσυκλετών</string>
-	<string name="type.shop.music">Κατάστημα</string>
-	<string name="type.shop.musical_instrument">Κατάστημα</string>
+	<string name="type.shop.music">Κατάστημα δίσκων</string>
+	<string name="type.shop.musical_instrument">Κατάστημα μουσικών οργάνων</string>
 	<string name="type.shop.newsagent">Εφημεριδοπώλης</string>
 	<string name="type.shop.optician">Κατάστημα οπτικών</string>
 	<string name="type.shop.outdoor">Εξοπλισμός υπαίθρου</string>
@@ -1708,7 +1708,7 @@
 	<string name="type.shop.stationery">Κατάστημα γραφικής ύλης</string>
 	<string name="type.shop.supermarket">Σούπερ μάρκετ</string>
 	<string name="type.shop.tattoo">Τατουάζ</string>
-	<string name="type.shop.tea">Κατάστημα</string>
+	<string name="type.shop.tea">Τεϊοπωλείο</string>
 	<string name="type.shop.ticket">Κατάστημα πώλησης εισιτηρίων</string>
 	<string name="type.shop.toys">Κατάστημα παιχνιδιών</string>
 	<string name="type.shop.travel_agency">Ταξιδιωτικό γραφείο</string>

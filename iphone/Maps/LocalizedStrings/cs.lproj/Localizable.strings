@@ -3427,11 +3427,11 @@
 
 "type.shop.chemist" = "Drogerie";
 
-"type.shop.chocolate" = "Obchod";
+"type.shop.chocolate" = "Obchod s čokoládou";
 
 "type.shop.clothes" = "Oblečení";
 
-"type.shop.coffee" = "Obchod";
+"type.shop.coffee" = "Obchod s kávou";
 
 "type.shop.computer" = "Obchod s počítači";
 
@@ -3457,7 +3457,7 @@
 
 "type.shop.erotic" = "Obchod s erotickými pomůckami";
 
-"type.shop.fabric" = "Obchod";
+"type.shop.fabric" = "Obchod s látkami";
 
 "type.shop.farm" = "Prodejna farmářských potravin";
 
@@ -3505,15 +3505,15 @@
 
 "type.shop.mobile_phone" = "Mobily";
 
-"type.shop.money_lender" = "Obchod";
+"type.shop.money_lender" = "Půjčovatel peněz";
 
 "type.shop.motorcycle" = "Prodejna motocyklů";
 
 "type.shop.motorcycle_repair" = "Opravy motocyklů";
 
-"type.shop.music" = "Obchod";
+"type.shop.music" = "Obchod s hudebninami";
 
-"type.shop.musical_instrument" = "Obchod";
+"type.shop.musical_instrument" = "Obchod s hudebními nástroji";
 
 "type.shop.newsagent" = "Novinový stánek";
 
@@ -3551,7 +3551,7 @@
 
 "type.shop.tattoo" = "Tetovací salon";
 
-"type.shop.tea" = "Obchod";
+"type.shop.tea" = "Obchod s čajem";
 
 "type.shop.ticket" = "Prodej vstupenek";
 

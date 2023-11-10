@@ -3427,11 +3427,11 @@
 
 "type.shop.chemist" = "Магазин побутової хімії";
 
-"type.shop.chocolate" = "Крамниця";
+"type.shop.chocolate" = "Шоколадна крамниця";
 
 "type.shop.clothes" = "Магазин одягу";
 
-"type.shop.coffee" = "Крамниця";
+"type.shop.coffee" = "Кавова крамниця";
 
 "type.shop.computer" = "Комп'ютерний магазин";
 
@@ -3457,7 +3457,7 @@
 
 "type.shop.erotic" = "Секс-шоп";
 
-"type.shop.fabric" = "Крамниця";
+"type.shop.fabric" = "Магазин тканин";
 
 "type.shop.farm" = "Магазин фермерських продуктів";
 
@@ -3505,15 +3505,15 @@
 
 "type.shop.mobile_phone" = "Мобільні телефони";
 
-"type.shop.money_lender" = "Крамниця";
+"type.shop.money_lender" = "Кредити";
 
 "type.shop.motorcycle" = "Магазин мотоциклів";
 
 "type.shop.motorcycle_repair" = "Ремонт мотоциклів";
 
-"type.shop.music" = "Крамниця";
+"type.shop.music" = "Музична крамниця";
 
-"type.shop.musical_instrument" = "Крамниця";
+"type.shop.musical_instrument" = "Музичні інструменти";
 
 "type.shop.newsagent" = "Газетний кіоск";
 
@@ -3551,7 +3551,7 @@
 
 "type.shop.tattoo" = "Тату-салон";
 
-"type.shop.tea" = "Крамниця";
+"type.shop.tea" = "Чайна крамниця";
 
 "type.shop.ticket" = "Квитковий кiоск";
 

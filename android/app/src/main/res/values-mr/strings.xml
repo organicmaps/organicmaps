@@ -1702,9 +1702,9 @@
 	<string name="type.shop.car_repair.tyres">टायर दुरुस्ती</string>
 	<string name="type.shop.carpet">कार्पेट्स</string>
 	<string name="type.shop.chemist">औषधालय</string>
-	<string name="type.shop.chocolate">दुकान</string>
+	<string name="type.shop.chocolate">चॉकलेट शॉप</string>
 	<string name="type.shop.clothes">कपड्याचे दुकान</string>
-	<string name="type.shop.coffee">दुकान</string>
+	<string name="type.shop.coffee">कॉफीचे दुकान</string>
 	<string name="type.shop.computer">संगणकाचे दुकान</string>
 	<string name="type.shop.confectionery">मिठाई</string>
 	<string name="type.shop.convenience">सुविधा दुकान</string>
@@ -1714,7 +1714,7 @@
 	<string name="type.shop.doityourself">हार्डवेअर दुकान</string>
 	<string name="type.shop.dry_cleaning">कोरडे धुलाईघर</string>
 	<string name="type.shop.electronics">इलेक्ट्रॉनिक्स</string>
-	<string name="type.shop.fabric">दुकान</string>
+	<string name="type.shop.fabric">फॅब्रिकचे दुकान</string>
 	<string name="type.shop.fashion_accessories">फॅशन अॅक्सेसरीज</string>
 	<string name="type.shop.florist">फुलवाला</string>
 	<string name="type.shop.funeral_directors">अंत्यसंस्कार संचालक</string>
@@ -1732,11 +1732,11 @@
 	<string name="type.shop.mall">मॉल</string>
 	<string name="type.shop.massage">मालिश गृह</string>
 	<string name="type.shop.mobile_phone">मोबाईल</string>
-	<string name="type.shop.money_lender">दुकान</string>
+	<string name="type.shop.money_lender">सावकार</string>
 	<string name="type.shop.motorcycle">दुचाकी विक्रेता</string>
 	<string name="type.shop.motorcycle_repair">मोटरसायकल दुरुस्ती</string>
-	<string name="type.shop.music">दुकान</string>
-	<string name="type.shop.musical_instrument">दुकान</string>
+	<string name="type.shop.music">संगीताच दुकान</string>
+	<string name="type.shop.musical_instrument">वाद्याचे दुकान</string>
 	<string name="type.shop.newsagent">वृत्तपत्र विक्री</string>
 	<string name="type.shop.optician">चष्मेविक्रेता</string>
 	<string name="type.shop.outdoor">भटकंतीचे साहित्य</string>
@@ -1753,7 +1753,7 @@
 	<string name="type.shop.stationery">लेखनसामग्री दुकान</string>
 	<string name="type.shop.supermarket">महाबाजार</string>
 	<string name="type.shop.tattoo">गोंदणाचे(टॅटू) दुकान</string>
-	<string name="type.shop.tea">दुकान</string>
+	<string name="type.shop.tea">चहा दुकान</string>
 	<string name="type.shop.ticket">तिकीटघर</string>
 	<string name="type.shop.toys">खेळण्यांचे दुकान</string>
 	<string name="type.shop.travel_agency">प्रवास एजन्सी</string>

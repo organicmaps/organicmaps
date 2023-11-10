@@ -772,7 +772,7 @@
 	<string name="type.amenity.kindergarten">Mẫu giáo</string>
 	<string name="type.amenity.library">Thư viện</string>
 	<string name="type.amenity.loading_dock">Bến tàu</string>
-	<string name="type.amenity.marketplace">Cửa hàng</string>
+	<string name="type.amenity.marketplace">Thương trường</string>
 	<string name="type.amenity.motorcycle_parking">Bãi đỗ xe máy</string>
 	<string name="type.amenity.nightclub">Câu lạc bộ đêm</string>
 	<string name="type.amenity.nursing_home">Nhà dưỡng lão</string>
@@ -1641,9 +1641,9 @@
 	<string name="type.shop.car_repair.tyres">Vá Lốp</string>
 	<string name="type.shop.carpet">Những cái thảm</string>
 	<string name="type.shop.chemist">Cửa hàng Hóa chất</string>
-	<string name="type.shop.chocolate">Cửa hàng</string>
+	<string name="type.shop.chocolate">Cửa hàng socola</string>
 	<string name="type.shop.clothes">Cửa hàng quần áo</string>
-	<string name="type.shop.coffee">Cửa hàng</string>
+	<string name="type.shop.coffee">Quán cà phê</string>
 	<string name="type.shop.computer">Cửa hàng máy tính</string>
 	<string name="type.shop.confectionery">Cửa hàng kẹo</string>
 	<string name="type.shop.convenience">Cửa hàng tạp hóa</string>
@@ -1656,7 +1656,7 @@
 	<string name="type.shop.dry_cleaning">Giặt Sấy</string>
 	<string name="type.shop.electronics">Cửa hàng điện</string>
 	<string name="type.shop.erotic">Cửa hàng người lớn</string>
-	<string name="type.shop.fabric">Cửa hàng</string>
+	<string name="type.shop.fabric">Cửa hàng vải</string>
 	<string name="type.shop.farm">Cửa hàng thực phẩm nông trại</string>
 	<string name="type.shop.fashion_accessories">Phụ kiện thời trang</string>
 	<string name="type.shop.florist">Cửa hàng hoa</string>
@@ -1679,11 +1679,11 @@
 	<string name="type.shop.mall">Khu mua sắm</string>
 	<string name="type.shop.massage">Quán massage</string>
 	<string name="type.shop.mobile_phone">Cửa hàng điện thoại di động</string>
-	<string name="type.shop.money_lender">Cửa hàng</string>
+	<string name="type.shop.money_lender">Người cho vay tiền</string>
 	<string name="type.shop.motorcycle">Cửa hàng xe máy</string>
 	<string name="type.shop.motorcycle_repair">Sửa chữa xe máy</string>
-	<string name="type.shop.music">Cửa hàng</string>
-	<string name="type.shop.musical_instrument">Cửa hàng</string>
+	<string name="type.shop.music">Cửa hàng âm nhạc</string>
+	<string name="type.shop.musical_instrument">Cửa hàng nhạc cụ</string>
 	<string name="type.shop.newsagent">Quầy báo</string>
 	<string name="type.shop.optician">Cửa hàng mắt kính</string>
 	<string name="type.shop.outdoor">Thiết bị Ngoài trời</string>
@@ -1702,7 +1702,7 @@
 	<string name="type.shop.stationery">Cửa hàng văn phòng phẩm</string>
 	<string name="type.shop.supermarket">Siêu thị</string>
 	<string name="type.shop.tattoo">Tiệm xăm</string>
-	<string name="type.shop.tea">Cửa hàng</string>
+	<string name="type.shop.tea">Quán trà</string>
 	<string name="type.shop.ticket">Phòng vé</string>
 	<string name="type.shop.toys">Cửa hàng đồ chơi</string>
 	<string name="type.shop.travel_agency">Đại lý Du lịch</string>

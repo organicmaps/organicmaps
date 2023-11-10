@@ -1645,9 +1645,9 @@
 	<string name="type.shop.car_repair.tyres">타이어수리점</string>
 	<string name="type.shop.carpet">카펫</string>
 	<string name="type.shop.chemist">화학물질 가게</string>
-	<string name="type.shop.chocolate">가게</string>
+	<string name="type.shop.chocolate">초콜릿 가게</string>
 	<string name="type.shop.clothes">옷 가게</string>
-	<string name="type.shop.coffee">가게</string>
+	<string name="type.shop.coffee">커피숍</string>
 	<string name="type.shop.computer">컴퓨터 판매점</string>
 	<string name="type.shop.confectionery">제과점</string>
 	<string name="type.shop.convenience">편의점</string>
@@ -1660,7 +1660,7 @@
 	<string name="type.shop.dry_cleaning">드라이 클리닝</string>
 	<string name="type.shop.electronics">전자제품</string>
 	<string name="type.shop.erotic">성인용품 가게</string>
-	<string name="type.shop.fabric">가게</string>
+	<string name="type.shop.fabric">원단 가게</string>
 	<string name="type.shop.farm">\"농장 식품 가게\"</string>
 	<string name="type.shop.fashion_accessories">패션 악세사리</string>
 	<string name="type.shop.florist">꽃가게</string>
@@ -1683,11 +1683,11 @@
 	<string name="type.shop.mall">몰</string>
 	<string name="type.shop.massage">마사지샵</string>
 	<string name="type.shop.mobile_phone">휴대폰 대리점</string>
-	<string name="type.shop.money_lender">가게</string>
+	<string name="type.shop.money_lender">자금 대출 기관</string>
 	<string name="type.shop.motorcycle">오토바이 가게</string>
 	<string name="type.shop.motorcycle_repair">오토바이 수리</string>
-	<string name="type.shop.music">가게</string>
-	<string name="type.shop.musical_instrument">가게</string>
+	<string name="type.shop.music">음악 가게</string>
+	<string name="type.shop.musical_instrument">악기 판매점</string>
 	<string name="type.shop.newsagent">신문 가판대</string>
 	<string name="type.shop.optician">안경점 의</string>
 	<string name="type.shop.outdoor">아웃도어 장비</string>
@@ -1706,7 +1706,7 @@
 	<string name="type.shop.stationery">문방구</string>
 	<string name="type.shop.supermarket">슈퍼마켓</string>
 	<string name="type.shop.tattoo">타투 가게</string>
-	<string name="type.shop.tea">가게</string>
+	<string name="type.shop.tea">차 가게</string>
 	<string name="type.shop.ticket">매표소</string>
 	<string name="type.shop.toys">장난감 가게</string>
 	<string name="type.shop.travel_agency">여행사</string>

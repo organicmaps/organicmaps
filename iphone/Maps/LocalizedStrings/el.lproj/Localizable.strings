@@ -3427,11 +3427,11 @@
 
 "type.shop.chemist" = "Χημικά προϊόντα";
 
-"type.shop.chocolate" = "Κατάστημα";
+"type.shop.chocolate" = "Σοκολατοποιία";
 
 "type.shop.clothes" = "Κατάστημα ρούχων";
 
-"type.shop.coffee" = "Κατάστημα";
+"type.shop.coffee" = "Καφεκοπτείο";
 
 "type.shop.computer" = "Κατάστημα πληροφορικής";
 
@@ -3457,7 +3457,7 @@
 
 "type.shop.erotic" = "Κατάστημα ερωτικών ειδών";
 
-"type.shop.fabric" = "Κατάστημα";
+"type.shop.fabric" = "Υφασματοπωλείο";
 
 "type.shop.farm" = "Κατάστημα Αγροτικών Τροφίμων";
 
@@ -3505,15 +3505,15 @@
 
 "type.shop.mobile_phone" = "Κινητή Τηλεφωνία";
 
-"type.shop.money_lender" = "Κατάστημα";
+"type.shop.money_lender" = "Δανειστής χρημάτων";
 
 "type.shop.motorcycle" = "Κατάστημα μοτοσυκλετών";
 
 "type.shop.motorcycle_repair" = "Επισκευή μοτοσυκλετών";
 
-"type.shop.music" = "Κατάστημα";
+"type.shop.music" = "Κατάστημα δίσκων";
 
-"type.shop.musical_instrument" = "Κατάστημα";
+"type.shop.musical_instrument" = "Κατάστημα μουσικών οργάνων";
 
 "type.shop.newsagent" = "Εφημεριδοπώλης";
 
@@ -3551,7 +3551,7 @@
 
 "type.shop.tattoo" = "Τατουάζ";
 
-"type.shop.tea" = "Κατάστημα";
+"type.shop.tea" = "Τεϊοπωλείο";
 
 "type.shop.ticket" = "Κατάστημα πώλησης εισιτηρίων";
 

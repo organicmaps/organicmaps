@@ -3427,11 +3427,11 @@
 
 "type.shop.chemist" = "Temizlik Ürünleri Mağazası";
 
-"type.shop.chocolate" = "Mağaza";
+"type.shop.chocolate" = "Çikolata Dükkanı";
 
 "type.shop.clothes" = "Giyim Mağazası";
 
-"type.shop.coffee" = "Mağaza";
+"type.shop.coffee" = "Kahve Dükkanı";
 
 "type.shop.computer" = "Bilgisayar Mağazası";
 
@@ -3457,7 +3457,7 @@
 
 "type.shop.erotic" = "Erotik Ürünler Mağazası";
 
-"type.shop.fabric" = "Mağaza";
+"type.shop.fabric" = "Kumaş Mağazası";
 
 "type.shop.farm" = "Çiftlik Gıda Dükkanı";
 
@@ -3505,15 +3505,15 @@
 
 "type.shop.mobile_phone" = "Cep Telefonu Mağazası";
 
-"type.shop.money_lender" = "Mağaza";
+"type.shop.money_lender" = "Borç Para Veren";
 
 "type.shop.motorcycle" = "Motosiklet Dükkanı";
 
 "type.shop.motorcycle_repair" = "Motosiklet Tamircisi";
 
-"type.shop.music" = "Mağaza";
+"type.shop.music" = "Müzik Dükkanı";
 
-"type.shop.musical_instrument" = "Mağaza";
+"type.shop.musical_instrument" = "Müzik Aletleri Mağazası";
 
 "type.shop.newsagent" = "Gazete Standı";
 
@@ -3551,7 +3551,7 @@
 
 "type.shop.tattoo" = "Dövme Salonu";
 
-"type.shop.tea" = "Mağaza";
+"type.shop.tea" = "Çay Dükkanı";
 
 "type.shop.ticket" = "Bilet Satıcısı";
 

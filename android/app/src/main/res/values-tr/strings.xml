@@ -1849,9 +1849,9 @@
 	<string name="type.shop.caravan">Karavan Bayiliği</string>
 	<string name="type.shop.carpet">Halıcı</string>
 	<string name="type.shop.chemist">Temizlik Ürünleri Mağazası</string>
-	<string name="type.shop.chocolate">Mağaza</string>
+	<string name="type.shop.chocolate">Çikolata Dükkanı</string>
 	<string name="type.shop.clothes">Giyim Mağazası</string>
-	<string name="type.shop.coffee">Mağaza</string>
+	<string name="type.shop.coffee">Kahve Dükkanı</string>
 	<string name="type.shop.computer">Bilgisayar Mağazası</string>
 	<string name="type.shop.confectionery">Şekerci</string>
 	<string name="type.shop.convenience">Bakkal</string>
@@ -1864,7 +1864,7 @@
 	<string name="type.shop.dry_cleaning">Kuru Temizleme</string>
 	<string name="type.shop.electronics">Elektronik Mağazası</string>
 	<string name="type.shop.erotic">Erotik Ürünler Mağazası</string>
-	<string name="type.shop.fabric">Mağaza</string>
+	<string name="type.shop.fabric">Kumaş Mağazası</string>
 	<string name="type.shop.farm">Çiftlik Gıda Dükkanı</string>
 	<string name="type.shop.fashion_accessories">Moda Aksesuarları</string>
 	<string name="type.shop.florist">Çiçekçi</string>
@@ -1888,11 +1888,11 @@
 	<string name="type.shop.mall">Alışveriş Merkezi</string>
 	<string name="type.shop.massage">Masaj Salonu</string>
 	<string name="type.shop.mobile_phone">Cep Telefonu Mağazası</string>
-	<string name="type.shop.money_lender">Mağaza</string>
+	<string name="type.shop.money_lender">Borç Para Veren</string>
 	<string name="type.shop.motorcycle">Motosiklet Dükkanı</string>
 	<string name="type.shop.motorcycle_repair">Motosiklet Tamircisi</string>
-	<string name="type.shop.music">Mağaza</string>
-	<string name="type.shop.musical_instrument">Mağaza</string>
+	<string name="type.shop.music">Müzik Dükkanı</string>
+	<string name="type.shop.musical_instrument">Müzik Aletleri Mağazası</string>
 	<string name="type.shop.newsagent">Gazete Standı</string>
 	<string name="type.shop.optician">Gözlükçü</string>
 	<string name="type.shop.outdoor">Dış Mekan Ekipmanları</string>
@@ -1911,7 +1911,7 @@
 	<string name="type.shop.stationery">Kırtasiye</string>
 	<string name="type.shop.supermarket">Süpermarket</string>
 	<string name="type.shop.tattoo">Dövme Salonu</string>
-	<string name="type.shop.tea">Mağaza</string>
+	<string name="type.shop.tea">Çay Dükkanı</string>
 	<string name="type.shop.ticket">Bilet Satıcısı</string>
 	<string name="type.shop.toys">Oyuncakçı</string>
 	<string name="type.shop.travel_agency">Seyahat Acentesi</string>

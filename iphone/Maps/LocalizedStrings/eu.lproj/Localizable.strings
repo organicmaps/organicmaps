@@ -1700,7 +1700,7 @@
 
 "type.building.train_station" = "Tren geltokian";
 
-"type.building.warehouse" = "Denda";
+"type.building.warehouse" = "Biltegia";
 
 "type.cemetery.grave" = "Hilobia";
 
@@ -3427,11 +3427,11 @@
 
 "type.shop.chemist" = "Botika";
 
-"type.shop.chocolate" = "Denda";
+"type.shop.chocolate" = "Txokolate Denda";
 
 "type.shop.clothes" = "Arropa denda";
 
-"type.shop.coffee" = "Denda";
+"type.shop.coffee" = "Kafe Denda";
 
 "type.shop.computer" = "Denda informatikoa";
 
@@ -3457,7 +3457,7 @@
 
 "type.shop.erotic" = "Sexu denda";
 
-"type.shop.fabric" = "Denda";
+"type.shop.fabric" = "Oihal-denda";
 
 "type.shop.farm" = "Baserriko Janari Denda";
 
@@ -3473,7 +3473,7 @@
 
 "type.shop.gas" = "Gas biltegia";
 
-"type.shop.gift" = "Denda";
+"type.shop.gift" = "Opari denda";
 
 "type.shop.greengrocer" = "Fruta denda";
 
@@ -3505,15 +3505,15 @@
 
 "type.shop.mobile_phone" = "Mugikorra";
 
-"type.shop.money_lender" = "Denda";
+"type.shop.money_lender" = "Diru emailea";
 
 "type.shop.motorcycle" = "Moto denda";
 
 "type.shop.motorcycle_repair" = "Motoen Konponketa";
 
-"type.shop.music" = "Denda";
+"type.shop.music" = "Disko-denda";
 
-"type.shop.musical_instrument" = "Denda";
+"type.shop.musical_instrument" = "Musika Tresnen Denda";
 
 "type.shop.newsagent" = "Kioskoa";
 
@@ -3551,7 +3551,7 @@
 
 "type.shop.tattoo" = "Tatuajeak";
 
-"type.shop.tea" = "Denda";
+"type.shop.tea" = "Te-denda";
 
 "type.shop.ticket" = "Sarreren salmenta";
 
