@@ -967,4 +967,20 @@ UNIT_TEST(Israel_Jerusalem_Palestine_NoBorderPenalty)
                                    FromLatLon(31.7776832, 35.2236876), 76133);
 }
 
+// https://github.com/organicmaps/organicmaps/issues/6510
+UNIT_TEST(EqualMaxSpeeds_PreferPrimary_NotResidential)
+{
+  CalculateRouteAndTestRouteLength(GetVehicleComponents(VehicleType::Car),
+                                   FromLatLon(46.5239, 5.6187), {0., 0.},
+                                   FromLatLon(46.5240, 5.6096), 1123);
+}
+
+// https://github.com/organicmaps/organicmaps/issues/3033#issuecomment-1798343531
+UNIT_TEST(Spain_NoMaxSpeeds_KeepTrunk_NotTrunkLink)
+{
+  CalculateRouteAndTestRouteLength(GetVehicleComponents(VehicleType::Car),
+                                   FromLatLon(43.3773971, -3.43177355), {0., 0.},
+                                   FromLatLon(43.3685773, -3.42580007), 1116.79);
+}
+
 } // namespace route_test

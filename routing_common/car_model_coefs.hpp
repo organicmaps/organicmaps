@@ -28,8 +28,8 @@ HighwayBasedFactors const kHighwayBasedFactors = {
     {HighwayType::HighwayUnclassified, InOutCityFactor(0.70 /* in city */, 0.75 /* out city */)},
 
     // Tier 4:
-    {HighwayType::HighwayResidential, InOutCityFactor(0.75)},
-    {HighwayType::HighwayLivingStreet, InOutCityFactor(0.75)},
+    {HighwayType::HighwayResidential, InOutCityFactor(0.70)},
+    {HighwayType::HighwayLivingStreet, InOutCityFactor(0.70)},
 
     // The rest:
     // By VNG: Changed 0.3 -> 0.95 for Road and 0.3 -> 1.0 for Track.
