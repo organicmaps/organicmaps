@@ -73,7 +73,9 @@
       <app.organicmaps.widget.CustomTextInputLayout
         style="@style/MwmWidget.Editor.CustomTextInput"
         android:layout_marginTop="@dimen/margin_base"
-        android:textColorHint="?android:textColorSecondary">
+        android:textColorHint="?android:textColorSecondary"
+        app:endIconMode="password_toggle"
+        app:endIconTint="?android:textColorSecondary">
         <com.google.android.material.textfield.TextInputEditText
           android:id="@+id/osm_password"
           style="@style/MwmWidget.Editor.FieldLayout.EditText"
