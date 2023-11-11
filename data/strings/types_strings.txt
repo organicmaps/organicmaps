@@ -5022,7 +5022,7 @@
     da = Parkeringsbilletmaskine
     de = Parkautomat
     el = Εισιτήρια στάθμευσης
-    es = Máquina de pago de tique de aparcamiento
+    es = Máquina de pago de aparcamiento
     et = Parkimispiletid
     eu = Aparkatzeko txartelak ordaintzeko makina
     fa = پارکو متر

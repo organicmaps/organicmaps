@@ -250,7 +250,7 @@ pl:4Parking
 pt:5Estacionamento
 pt-BR:5Estacionamento
 ro:4Parcare
-es:5Aparcamiento
+es:5Aparcamiento|5Estacionamiento|Aparcar|Estacionar|Parquear
 et:Parkla
 eu:5Aparkalekua
 sv:4Parkering
@@ -11419,7 +11419,7 @@ pl:Parking dla rowerów
 pt:Estacionamento de bicicletas
 pt-BR:Bicicletário|estacionamento de bicicletas
 ro:Parcare biciclete
-es:Aparcamiento de bicis
+es:5Aparcamiento de bicicletas|5Estacionamiento de bicicletas|4Parking de bicicletas|Aparcamiento de bicis|Estacionamiento de bicis|Parking de bicis
 et:4Jalgrattaparkla
 eu:Bizikleta aparkalekua
 sv:4Cykelparkering
@@ -12046,7 +12046,7 @@ cs:4Parkovací automat
 da:4Parkeringsbilletmaskine
 de:4Parkautomat|Parkscheinautomat|Parkticketautomat
 el:Εισιτήρια στάθμευσης
-es:Máquina de pago de tique de aparcamiento
+es:4Máquina de pago de aparcamiento|4Tique de aparcamiento|Tique de estacionamiento|Ticket de aparcamiento|Ticket de estacionamiento|Máquina de pago de tique de aparcamiento|5Parquímetro
 et:Parkimispiletid|Parkimisautomaat
 eu:4Aparkatzeko txartelak ordaintzeko makina
 fa:پارکو متر
@@ -13614,7 +13614,7 @@ cs:Parkování pro motocykly
 da:4Motorcykelparkering
 de:4Motorrad-Parkplatz|9Motorradparkplatz
 el:Χώρος στάθμευσης μοτοσικλετών
-es:Aparcamiento de motos
+es:5Aparcamiento de motocicletas|5Estacionamiento de motocicletas|4Parking de motocicletas|Aparcamiento de motos|Estacionamiento de motos|Parking de motos
 et:Mootorrattaparkla
 eu:Motoentzako aparkalekua
 fi:5Moottoripyörien pysäköinti
@@ -13651,7 +13651,7 @@ cs:Parkovací místo pro invalidy
 da:Handicapparkeringsplads
 de:Behindertenparkplatz
 el:Χώρος στάθμευσης για ΑΜΕΑ
-es:Plaza de aparcamiento para discapacitados
+es:Plaza de aparcamiento para discapacitados|Plaza de estacionamiento para discapacitados|Plaza de parking para discapacitados
 et:Invaliidide parkimiskoht
 eu:Ezinduentzako aparkalekua
 fa:ﻦﯿﻟﻮﻠﻌﻣ ﮎﺭﺎﭘ ﯼﺎﺟ
