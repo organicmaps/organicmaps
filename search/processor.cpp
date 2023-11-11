@@ -698,8 +698,8 @@ bool Processor::SearchCoordinates()
       results.emplace_back(r.m_lat, r.m_lon);
     }
 
-    geo::GeoURLInfo const info = m_geoUrlParser.Parse(token);
-    if (info.IsValid())
+    geo::GeoURLInfo info;
+    if (m_geoUrlParser.Parse(token, info))
     {
       coords_found = true;
       results.emplace_back(info.m_lat, info.m_lon);
