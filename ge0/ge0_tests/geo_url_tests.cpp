@@ -215,11 +215,7 @@ UNIT_TEST(GeoURL_LatLon)
   GeoURLInfo info;
 
   TEST(!parser.Parse("mapswithme:123.33,32.22/showmethemagic", info), ());
-
-  TEST(parser.Parse("mapswithme:32.22, 123.33/showmethemagic", info), ());
-  TEST_ALMOST_EQUAL_ABS(info.m_lat, 32.22, kEps, ());
-  TEST_ALMOST_EQUAL_ABS(info.m_lon, 123.33, kEps, ());
-
+  TEST(!parser.Parse("mapswithme:32.22, 123.33/showmethemagic", info), ());
   TEST(!parser.Parse("model: iphone 7,1", info), ());
 }
 
@@ -238,10 +234,10 @@ UNIT_TEST(GeoURL_OpenStreetMap)
   TEST_ALMOST_EQUAL_ABS(info.m_lon, 35.50664, kEps, ());
   TEST_ALMOST_EQUAL_ABS(info.m_zoom, 16.0, kEps, ());
 
-  TEST(parser.Parse("https://www.openstreetmap.org/#map=19/53.90323/-27.55806", info), ());
+  TEST(parser.Parse("https://www.openstreetmap.org/#map=21/53.90323/-27.55806", info), ());
   TEST_ALMOST_EQUAL_ABS(info.m_lat, 53.90323, kEps, ());
   TEST_ALMOST_EQUAL_ABS(info.m_lon, -27.55806, kEps, ());
-  TEST_ALMOST_EQUAL_ABS(info.m_zoom, 17.0, kEps, ());
+  TEST_ALMOST_EQUAL_ABS(info.m_zoom, 20.0, kEps, ());
 
   TEST(parser.Parse("https://www.openstreetmap.org/way/45394171#map=10/34.67379/33.04422", info), ());
   TEST_ALMOST_EQUAL_ABS(info.m_lat, 34.67379, kEps, ());
@@ -254,19 +250,19 @@ UNIT_TEST(GeoURL_BadZoom)
   UnifiedParser parser;
   GeoURLInfo info;
 
-  TEST(parser.Parse("geo:52.23405,21.01547?z=19", info), ());
+  TEST(parser.Parse("geo:52.23405,21.01547?z=22", info), ());
   TEST_ALMOST_EQUAL_ABS(info.m_lat, 52.23405, kEps, ());
   TEST_ALMOST_EQUAL_ABS(info.m_lon, 21.01547, kEps, ());
-  TEST_ALMOST_EQUAL_ABS(info.m_zoom, 17.0, kEps, ());
+  TEST_ALMOST_EQUAL_ABS(info.m_zoom, 20.0, kEps, ());
 
   TEST(parser.Parse("geo:-52.23405,21.01547?z=nineteen", info), ());
   TEST_ALMOST_EQUAL_ABS(info.m_lat, -52.23405, kEps, ());
   TEST_ALMOST_EQUAL_ABS(info.m_lon, 21.01547, kEps, ());
-  TEST_ALMOST_EQUAL_ABS(info.m_zoom, 17.0, kEps, ());
+  TEST_ALMOST_EQUAL_ABS(info.m_zoom, 0.0, kEps, ());
 
   TEST(parser.Parse("geo:52.23405,21.01547?z=-1", info), ());
   TEST_ALMOST_EQUAL_ABS(info.m_lat, 52.23405, kEps, ());
   TEST_ALMOST_EQUAL_ABS(info.m_lon, 21.01547, kEps, ());
-  TEST_GREATER_OR_EQUAL(info.m_zoom, 1.0, ());
+  TEST_GREATER_OR_EQUAL(info.m_zoom, 0.0, ());
 }
 } // namespace geo_url_tests

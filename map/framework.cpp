@@ -4,8 +4,6 @@
 #include "map/user_mark.hpp"
 #include "map/track_mark.hpp"
 
-#include "ge0/geo_url_parser.hpp"
-#include "ge0/parser.hpp"
 #include "ge0/url_generator.hpp"
 
 #include "routing/index_router.hpp"
@@ -346,7 +344,6 @@ Framework::Framework(FrameworkParams const & params, bool loadMaps)
 
   m_bmManager->InitRegionAddressGetter(m_featuresFetcher.GetDataSource(), *m_infoGetter);
 
-  m_parsedMapApi.SetBookmarkManager(m_bmManager.get());
   m_routingManager.SetBookmarkManager(m_bmManager.get());
   m_searchMarks.SetBookmarkManager(m_bmManager.get());
 
@@ -1755,106 +1752,6 @@ void Framework::SetWidgetLayout(gui::TWidgetsLayoutInfo && layout)
 {
   ASSERT(m_drapeEngine != nullptr, ());
   m_drapeEngine->SetWidgetLayout(std::move(layout));
-}
-
-bool Framework::ShowMapForURL(string const & url)
-{
-  m2::PointD point;
-  double scale = 0;
-  string name;
-  ApiMarkPoint const * apiMark = nullptr;
-
-  enum ResultT { FAILED, NEED_CLICK, NO_NEED_CLICK };
-  ResultT result = FAILED;
-
-  // It's an API request, parsed in parseAndSetApiURL and nativeParseAndSetApiUrl.
-  if (m_parsedMapApi.IsValid())
-  {
-    if (!m_parsedMapApi.GetViewportParams(point, scale))
-    {
-      point = {0, 0};
-      scale = 0;
-    }
-
-    apiMark = m_parsedMapApi.GetSinglePoint();
-    result = apiMark ? NEED_CLICK : NO_NEED_CLICK;
-  }
-  else if (strings::StartsWith(url, "om") || strings::StartsWith(url, "ge0"))
-  {
-    // Note that om scheme is used to encode both API and ge0 links.
-    ge0::Ge0Parser parser;
-    ge0::Ge0Parser::Result parseResult;
-
-    if (parser.Parse(url, parseResult))
-    {
-      point = mercator::FromLatLon(parseResult.m_lat, parseResult.m_lon);
-      scale = parseResult.m_zoomLevel;
-      name = std::move(parseResult.m_name);
-      result = NEED_CLICK;
-    }
-  }
-  else  // Actually, we can parse any geo url scheme with correct coordinates.
-  {
-    geo::GeoURLInfo info;
-    if (geo::UnifiedParser().Parse(url, info))
-    {
-      point = mercator::FromLatLon(info.m_lat, info.m_lon);
-      scale = info.m_zoom;
-      result = NEED_CLICK;
-    }
-  }
-
-  if (result != FAILED)
-  {
-    // Always hide current map selection.
-    DeactivateMapSelection(true /* notifyUI */);
-
-    // Set viewport and stop follow mode.
-    StopLocationFollow();
-
-    // ShowRect function interferes with ActivateMapSelection and we have strange behaviour as a result.
-    // Use more obvious SetModelViewCenter here.
-    if (m_drapeEngine)
-      m_drapeEngine->SetModelViewCenter(point, scale, true, true);
-
-    if (result != NO_NEED_CLICK)
-    {
-      place_page::BuildInfo info;
-      info.m_needAnimationOnSelection = false;
-      if (apiMark != nullptr)
-      {
-        info.m_mercator = apiMark->GetPivot();
-        info.m_userMarkId = apiMark->GetId();
-      }
-      else
-      {
-        info.m_mercator = point;
-      }
-
-      m_currentPlacePageInfo = BuildPlacePageInfo(info);
-      if (!name.empty())
-        m_currentPlacePageInfo->SetCustomName(name);
-      ActivateMapSelection();
-    }
-
-    return true;
-  }
-
-  return false;
-}
-
-url_scheme::ParsedMapApi::ParsingResult Framework::ParseAndSetApiURL(string const & url)
-{
-  using namespace url_scheme;
-
-  // Clear every current API-mark.
-  {
-    auto editSession = GetBookmarkManager().GetEditSession();
-    editSession.ClearGroup(UserMark::Type::API);
-    editSession.SetIsVisible(UserMark::Type::API, true);
-  }
-
-  return m_parsedMapApi.SetUrlAndParse(url);
 }
 
 Framework::ParsedRoutingData Framework::GetParsedRoutingData() const

@@ -19,8 +19,7 @@ double constexpr kEps = 1e-10;
 // 2. The value is arbitrary anyway: we want to parse a "z=%f" pair
 //    from a URL parameter, and different map providers may have different
 //    maximal zoom levels.
-double constexpr kMaxZoom = 17.0;
-double constexpr kDefaultZoom = 15.0;
+double constexpr kMaxZoom = 20.0;
 
 bool MatchLatLonZoom(string const & s, regex const & re,
                      size_t lati, size_t loni, size_t zoomi,
@@ -276,7 +275,7 @@ bool GeoParser::Parse(std::string const & raw, GeoURLInfo & info) const
     }
     else
     {
-      LOG(LWARNING, ("Invalid z=", raw));
+      LOG(LWARNING, ("Invalid z=", *z));
     }
   }
 
@@ -329,7 +328,7 @@ void GeoURLInfo::Reset()
 {
   m_lat = ms::LatLon::kInvalid;
   m_lon = ms::LatLon::kInvalid;
-  m_zoom = kMaxZoom;
+  m_zoom = 0.0;
   m_query = "";
   m_label = "";
 }
@@ -337,7 +336,7 @@ void GeoURLInfo::Reset()
 void GeoURLInfo::SetZoom(double x)
 {
   if (x < 1.0)
-    m_zoom = kDefaultZoom;
+    LOG(LWARNING, ("Invalid zoom:", x));
   else if (x > kMaxZoom)
     m_zoom = kMaxZoom;
   else

@@ -6,6 +6,9 @@
 
 namespace ge0
 {
+// Used by map/mwm_url.cpp.
+extern std::array<std::string_view, 6> const kGe0Prefixes;
+
 class Ge0Parser
 {
 public:
@@ -20,10 +23,9 @@ public:
   Ge0Parser();
 
   bool Parse(std::string const & url, Result & result);
-
-protected:
   bool ParseAfterPrefix(std::string const & url, size_t from, Result & result);
 
+protected:
   uint8_t DecodeBase64Char(char const c);
   static double DecodeZoom(uint8_t const zoomByte);
   bool DecodeLatLon(std::string const & s, double & lat, double & lon);

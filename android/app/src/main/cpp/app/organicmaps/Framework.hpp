@@ -165,7 +165,7 @@ namespace android
 
     bool IsDownloadingActive();
 
-    bool ShowMapForURL(std::string const & url);
+    void ExecuteMapApiRequest();
 
     void DeactivatePopup();
 

@@ -26,7 +26,6 @@ extern jclass g_loggerClazz;
 extern jclass g_keyValueClazz;
 extern jclass g_networkPolicyClazz;
 extern jclass g_elevationInfoClazz;
-extern jclass g_parsingResultClazz;
 
 namespace jni
 {
