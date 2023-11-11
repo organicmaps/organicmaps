@@ -181,7 +181,7 @@
     <item name="android:cacheColorHint">@android:color/transparent</item>
   </style>
 
-  <style name="MwmWidget.TextView" parent="android:Widget.TextView">
+  <style name="MwmWidget.TextView" parent="android:Widget.Material.TextView">
     <item name="android:background">@android:color/transparent</item>
   </style>
 
