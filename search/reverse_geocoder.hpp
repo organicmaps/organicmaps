@@ -138,12 +138,19 @@ public:
 
   /// @return The nearest exact address where building has house number and valid street match.
   void GetNearbyAddress(m2::PointD const & center, Address & addr) const;
-  /// @return The nearest exact address where building is at most |maxDistanceM| far from |center|,
-  /// has house number and valid street match.
-  void GetNearbyAddress(m2::PointD const & center, double maxDistanceM, Address & addr) const;
-  /// @param addr (out) the exact address of a feature.
+
+  /// @param[in]  placeAsStreet Use house->place index same as streets to define address.
+  /// Looks like it should be always true, but keep a param for now.
+  /// @{
+  /// @param[out] addr  The nearest exact address where building is at most |maxDistanceM| far from |center|,
+  /// has house number and valid street (place) match.
+  void GetNearbyAddress(m2::PointD const & center, double maxDistanceM, Address & addr,
+                        bool placeAsStreet = false) const;
+  /// @param[out] addr  The exact address of a feature.
   /// @returns false if  can't extruct address or ft have no house number.
-  bool GetExactAddress(FeatureType & ft, Address & addr) const;
+  bool GetExactAddress(FeatureType & ft, Address & addr, bool placeAsStreet = false) const;
+  /// @}
+
   bool GetExactAddress(FeatureID const & fid, Address & addr) const;
 
   /// Returns the nearest region address where mwm or exact city is known.
@@ -158,12 +165,16 @@ private:
   class HouseTable
   {
   public:
-    explicit HouseTable(DataSource const & dataSource) : m_dataSource(dataSource) {}
+    explicit HouseTable(DataSource const & dataSource, bool placeAsStreet = false)
+      : m_dataSource(dataSource), m_placeAsStreet(placeAsStreet)
+    {
+    }
     std::optional<HouseToStreetTable::Result> Get(FeatureID const & fid);
 
   private:
     DataSource const & m_dataSource;
     MwmSet::MwmHandle m_handle;
+    bool m_placeAsStreet;
   };
 
   /// Ignores changes from editor if |ignoreEdits| is true.

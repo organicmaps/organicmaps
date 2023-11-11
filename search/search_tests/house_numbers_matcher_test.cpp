@@ -267,5 +267,8 @@ UNIT_TEST(HouseNumber_LooksLike)
   TEST(!LooksLikeHouseNumber("street", false /* isPrefix */), ());
 
   TEST(LooksLikeHouseNumber("2:40", false /* isPrefix */), ());
+
+  TEST(LooksLikeHouseNumber("к424", false /* isPrefix */), ());
+  TEST(LooksLikeHouseNumber("к12", true /* isPrefix */), ());
 }
 } // namespace house_number_matcher_test

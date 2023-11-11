@@ -126,6 +126,12 @@ public:
   TestVillage(m2::PointD const & center, std::string const & name, std::string const & lang, uint8_t rank);
 };
 
+class TestSuburb : public TestPlace
+{
+public:
+  TestSuburb(m2::PointD const & center, std::string const & name, std::string const & lang);
+};
+
 class TestStreet : public TestFeature
 {
 public:
@@ -209,10 +215,14 @@ public:
   std::string ToDebugString() const override;
 
   void SetType(uint32_t type) { m_type = type; }
+  void SetPlace(std::string_view place)
+  {
+    m_addr.Set(feature::AddressData::Type::Place, place);
+  }
 
 private:
-  std::string const m_houseNumber;
-  std::string const m_streetName;
+  std::string m_houseNumber;
+  feature::AddressData m_addr;
   uint32_t m_type = 0;
 };
 

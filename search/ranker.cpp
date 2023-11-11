@@ -435,10 +435,10 @@ private:
 
   bool GetExactAddress(FeatureType & ft, m2::PointD const & center, ReverseGeocoder::Address & addr) const
   {
-    if (m_reverseGeocoder.GetExactAddress(ft, addr))
+    if (m_reverseGeocoder.GetExactAddress(ft, addr, true /* placeAsStreet */))
       return true;
 
-    m_reverseGeocoder.GetNearbyAddress(center, 0.0 /* maxDistanceM */, addr);
+    m_reverseGeocoder.GetNearbyAddress(center, 0.0 /* maxDistanceM */, addr, true /* placeAsStreet */);
     return addr.IsValid();
   }
 

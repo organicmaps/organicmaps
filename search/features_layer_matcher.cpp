@@ -11,10 +11,11 @@
 
 #include <string>
 
-using namespace std;
 
 namespace search
 {
+using namespace std;
+
 /// Max distance from house to street where we do search matching
 /// even if there is no exact street written for this house.
 int constexpr kMaxApproxStreetDistanceM = 100;
@@ -26,6 +27,7 @@ FeaturesLayerMatcher::FeaturesLayerMatcher(DataSource const & dataSource,
   , m_reverseGeocoder(dataSource)
   , m_nearbyStreetsCache("FeatureToNearbyStreets")
   , m_matchingStreetsCache("BuildingToStreet")
+  , m_place2address("PlaceToAddresses")
   , m_loader(scales::GetUpperScale(), ReverseGeocoder::kLookupRadiusM)
   , m_cancellable(cancellable)
 {
@@ -50,7 +52,33 @@ void FeaturesLayerMatcher::OnQueryFinished()
 {
   m_nearbyStreetsCache.ClearIfNeeded();
   m_matchingStreetsCache.ClearIfNeeded();
+  m_place2address.ClearIfNeeded();
+
   m_loader.OnQueryFinished();
+}
+
+std::vector<uint32_t> const & FeaturesLayerMatcher::GetPlaceAddrFeatures(
+    uint32_t placeId, std::function<CBV ()> const & fn)
+{
+  ASSERT(fn, ());
+
+  auto const res = m_place2address.Get(placeId);
+  if (res.second)
+  {
+    auto & value = m_context->m_value;
+    if (!value.m_house2place)
+      value.m_house2place = LoadHouseToPlaceTable(value);
+
+    fn().ForEach([&](uint32_t fid)
+    {
+      auto const r = value.m_house2place->Get(fid);
+      if (r && r->m_streetId == placeId)
+        res.first.push_back(fid);
+    });
+
+    ASSERT(base::IsSortedAndUnique(res.first.begin(), res.first.end()), ());
+  }
+  return res.first;
 }
 
 uint32_t FeaturesLayerMatcher::GetMatchingStreet(FeatureID const & houseId)

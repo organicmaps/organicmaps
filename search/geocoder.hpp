@@ -271,8 +271,8 @@ private:
   // pre-check to cut off unnecessary work.
   bool IsLayerSequenceSane(std::vector<FeaturesLayer> const & layers) const;
 
-  // Finds all paths through layers and emits reachable features from
-  // the lowest layer.
+  uint32_t MatchWorld2Country(FeatureID const & id) const;
+  // Finds all paths through layers and emits reachable features from the lowest layer.
   void FindPaths(BaseContext & ctx);
 
   void TraceResult(Tracer & tracer, BaseContext const & ctx, MwmSet::MwmId const & mwmId,
