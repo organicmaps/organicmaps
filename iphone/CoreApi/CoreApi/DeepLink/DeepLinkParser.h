@@ -2,12 +2,18 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
-@protocol IDeepLinkData;
+typedef NS_ENUM(NSUInteger, DeeplinkUrlType) {
+  DeeplinkUrlTypeIncorrect = 0,
+  DeeplinkUrlTypeMap,
+  DeeplinkUrlTypeRoute,
+  DeeplinkUrlTypeSearch,
+  DeeplinkUrlTypeCrosshair,
+};
 
 @interface DeepLinkParser : NSObject
 
-+ (id<IDeepLinkData>)parseAndSetApiURL:(NSURL*)url;
-+ (bool)showMapForUrl:(NSURL*)url;
++ (DeeplinkUrlType)parseAndSetApiURL:(NSURL *)url;
++ (void)executeMapApiRequest;
 + (void)addBookmarksFile:(NSURL*)url;
 @end
 

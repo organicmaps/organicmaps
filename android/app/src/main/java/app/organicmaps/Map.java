@@ -313,9 +313,9 @@ public final class Map
     return nativeIsEngineCreated();
   }
 
-  public static boolean showMapForUrl(String url)
+  public static void executeMapApiRequest()
   {
-    return nativeShowMapForUrl(url);
+    nativeExecuteMapApiRequest();
   }
 
   private void setupWidgets(final Context context, int width, int height)
@@ -375,7 +375,7 @@ public final class Map
   private static native void nativeSetRenderingInitializationFinishedListener(
       @Nullable MapRenderingListener listener);
 
-  private static native boolean nativeShowMapForUrl(String url);
+  private static native void nativeExecuteMapApiRequest();
 
   // Surface
   private static native boolean nativeAttachSurface(Surface surface);

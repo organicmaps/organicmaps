@@ -5,11 +5,9 @@
 #include "geometry/latlon.hpp"
 
 @implementation DeepLinkSearchData
-- (instancetype)init:(DeeplinkUrlType)urlType success:(BOOL)success {
+- (instancetype)init {
   self = [super init];
   if (self) {
-    _urlType = urlType;
-    _success = success;
     auto const &request = GetFramework().GetParsedSearchRequest();
     ms::LatLon const center = GetFramework().GetParsedCenterLatLon();
     _query = [@((request.m_query + " ").c_str()) stringByRemovingPercentEncoding];
@@ -19,6 +17,10 @@
     _isSearchOnMap = request.m_isSearchOnMap;
   }
   return self;
+}
+
+- (BOOL)hasValidCenterLatLon {
+  return _centerLat != ms::LatLon::kInvalid && _centerLon != ms::LatLon::kInvalid;
 }
 
 - (void)onViewportChanged:(int)zoomLevel {

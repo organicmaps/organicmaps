@@ -17,8 +17,8 @@ public:
   static double constexpr kInvalid = -1000.0;
 
   // Default values are invalid.
-  double m_lat = kMinLon;
-  double m_lon = kMinLon;
+  double m_lat = kInvalid;
+  double m_lon = kInvalid;
 
   LatLon() = default;
   LatLon(double lat, double lon) : m_lat(lat), m_lon(lon) {}

@@ -330,6 +330,10 @@ public:
   bool HasPlacePageInfo() const { return m_currentPlacePageInfo.has_value(); }
   place_page::Info const & GetCurrentPlacePageInfo() const;
   place_page::Info & GetCurrentPlacePageInfo();
+  void BuildAndSetPlacePageInfo(place_page::BuildInfo const & buildInfo)
+  {
+    OnTapEvent(buildInfo);
+  }
 
   void InvalidateRendering();
   void EnableDebugRectRendering(bool enabled);
@@ -547,8 +551,15 @@ public:
   void RunFirstLaunchAnimation();
 
   /// Set correct viewport, parse API, show balloon.
-  bool ShowMapForURL(std::string const & url);
-  url_scheme::ParsedMapApi::ParsingResult ParseAndSetApiURL(std::string const & url);
+  void ExecuteMapApiRequest()
+  {
+    m_parsedMapApi.ExecuteMapApiRequest(*this);
+  }
+
+  url_scheme::ParsedMapApi::UrlType ParseAndSetApiURL(std::string const & url)
+  {
+    return m_parsedMapApi.SetUrlAndParse(url);
+  }
 
   struct ParsedRoutingData
   {

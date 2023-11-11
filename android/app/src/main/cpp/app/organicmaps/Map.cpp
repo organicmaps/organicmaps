@@ -45,10 +45,10 @@ Java_app_organicmaps_Map_nativeUpdateEngineDpi(JNIEnv *, jclass, jint dpi)
   return g_framework->UpdateDpi(dpi);
 }
 
-JNIEXPORT jboolean JNICALL
-Java_app_organicmaps_Map_nativeShowMapForUrl(JNIEnv * env, jclass, jstring url)
+JNIEXPORT void JNICALL
+Java_app_organicmaps_Map_nativeExecuteMapApiRequest(JNIEnv * env, jclass)
 {
-  return g_framework->ShowMapForURL(jni::ToNativeString(env, url));
+  return g_framework->ExecuteMapApiRequest();
 }
 
 JNIEXPORT void JNICALL

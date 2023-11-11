@@ -74,11 +74,8 @@
 		47F701EF238C86F000D18E95 /* PlacePageButtonsData.h in Headers */ = {isa = PBXBuildFile; fileRef = 47F701ED238C86F000D18E95 /* PlacePageButtonsData.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		47F701F0238C86F000D18E95 /* PlacePageButtonsData.mm in Sources */ = {isa = PBXBuildFile; fileRef = 47F701EE238C86F000D18E95 /* PlacePageButtonsData.mm */; };
 		47F701F3238C877C00D18E95 /* PlacePageButtonsData+Core.h in Headers */ = {isa = PBXBuildFile; fileRef = 47F701F1238C877C00D18E95 /* PlacePageButtonsData+Core.h */; };
-		99103843237EDFA200893C9F /* DeepLinkData.h in Headers */ = {isa = PBXBuildFile; fileRef = 99103841237EDFA200893C9F /* DeepLinkData.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		99103844237EDFA200893C9F /* DeepLinkData.m in Sources */ = {isa = PBXBuildFile; fileRef = 99103842237EDFA200893C9F /* DeepLinkData.m */; };
 		9940622023EAC57900493D1A /* ElevationHeightPoint.h in Headers */ = {isa = PBXBuildFile; fileRef = 9940621E23EAC57900493D1A /* ElevationHeightPoint.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		9940622123EAC57900493D1A /* ElevationHeightPoint.m in Sources */ = {isa = PBXBuildFile; fileRef = 9940621F23EAC57900493D1A /* ElevationHeightPoint.m */; };
-		99447849238559F2004DAEE5 /* DeeplinkUrlType.h in Headers */ = {isa = PBXBuildFile; fileRef = 99447847238559F2004DAEE5 /* DeeplinkUrlType.h */; };
 		9957FACE237AB01400855F48 /* DeepLinkParser.h in Headers */ = {isa = PBXBuildFile; fileRef = 9957FACC237AB01400855F48 /* DeepLinkParser.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		9957FACF237AB01400855F48 /* DeepLinkParser.mm in Sources */ = {isa = PBXBuildFile; fileRef = 9957FACD237AB01400855F48 /* DeepLinkParser.mm */; };
 		9957FADB237ACB1100855F48 /* DeepLinkSearchData.h in Headers */ = {isa = PBXBuildFile; fileRef = 9957FAD9237ACB1100855F48 /* DeepLinkSearchData.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -166,11 +163,8 @@
 		47F701ED238C86F000D18E95 /* PlacePageButtonsData.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PlacePageButtonsData.h; sourceTree = "<group>"; };
 		47F701EE238C86F000D18E95 /* PlacePageButtonsData.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = PlacePageButtonsData.mm; sourceTree = "<group>"; };
 		47F701F1238C877C00D18E95 /* PlacePageButtonsData+Core.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "PlacePageButtonsData+Core.h"; sourceTree = "<group>"; };
-		99103841237EDFA200893C9F /* DeepLinkData.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = DeepLinkData.h; sourceTree = "<group>"; };
-		99103842237EDFA200893C9F /* DeepLinkData.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = DeepLinkData.m; sourceTree = "<group>"; };
 		9940621E23EAC57900493D1A /* ElevationHeightPoint.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ElevationHeightPoint.h; sourceTree = "<group>"; };
 		9940621F23EAC57900493D1A /* ElevationHeightPoint.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ElevationHeightPoint.m; sourceTree = "<group>"; };
-		99447847238559F2004DAEE5 /* DeeplinkUrlType.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = DeeplinkUrlType.h; sourceTree = "<group>"; };
 		9957FACC237AB01400855F48 /* DeepLinkParser.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = DeepLinkParser.h; sourceTree = "<group>"; };
 		9957FACD237AB01400855F48 /* DeepLinkParser.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = DeepLinkParser.mm; sourceTree = "<group>"; };
 		9957FAD9237ACB1100855F48 /* DeepLinkSearchData.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = DeepLinkSearchData.h; sourceTree = "<group>"; };
@@ -384,22 +378,11 @@
 			path = Storage;
 			sourceTree = "<group>";
 		};
-		99103840237ED97600893C9F /* Data */ = {
-			isa = PBXGroup;
-			children = (
-				9957FAD9237ACB1100855F48 /* DeepLinkSearchData.h */,
-				9957FADA237ACB1100855F48 /* DeepLinkSearchData.mm */,
-				99103841237EDFA200893C9F /* DeepLinkData.h */,
-				99103842237EDFA200893C9F /* DeepLinkData.m */,
-				99447847238559F2004DAEE5 /* DeeplinkUrlType.h */,
-			);
-			path = Data;
-			sourceTree = "<group>";
-		};
 		9957FAC1237AABD800855F48 /* DeepLink */ = {
 			isa = PBXGroup;
 			children = (
-				99103840237ED97600893C9F /* Data */,
+				9957FADA237ACB1100855F48 /* DeepLinkSearchData.mm */,
+				9957FAD9237ACB1100855F48 /* DeepLinkSearchData.h */,
 				9957FACC237AB01400855F48 /* DeepLinkParser.h */,
 				9957FACD237AB01400855F48 /* DeepLinkParser.mm */,
 			);
@@ -456,7 +439,6 @@
 				47942D83237CC52E00DEFAE3 /* MWMOpeningHours.h in Headers */,
 				4718C4322355FC3C00640DF1 /* MWMNetworkPolicy.h in Headers */,
 				47CA68EC2506F6F100671019 /* MWMTrack+Core.h in Headers */,
-				99103843237EDFA200893C9F /* DeepLinkData.h in Headers */,
 				47F4F1FD23A3D1AC0022FD56 /* MWMMapNodeAttributes+Core.h in Headers */,
 				9974CA2923DF1968003FE824 /* ElevationProfileData.h in Headers */,
 				47C637DD2354B79B00E12DE0 /* MWMSearchFrameworkHelper.h in Headers */,
@@ -476,7 +458,6 @@
 				47F4F1F923A3336C0022FD56 /* MWMMapNodeAttributes.h in Headers */,
 				479F704A234F785B00011E2E /* MWMTypes.h in Headers */,
 				47C637D72354AEBE00E12DE0 /* MWMMapOverlayManager.h in Headers */,
-				99447849238559F2004DAEE5 /* DeeplinkUrlType.h in Headers */,
 				47942D9C237D927800DEFAE3 /* PlacePageBookmarkData.h in Headers */,
 				47942D72237CC40B00DEFAE3 /* OpeningHours.h in Headers */,
 				47942D6B237CC3D600DEFAE3 /* PlacePageData.h in Headers */,
@@ -558,7 +539,6 @@
 				9957FADC237ACB1100855F48 /* DeepLinkSearchData.mm in Sources */,
 				9957FACF237AB01400855F48 /* DeepLinkParser.mm in Sources */,
 				47F4F1FA23A3336C0022FD56 /* MWMMapNodeAttributes.mm in Sources */,
-				99103844237EDFA200893C9F /* DeepLinkData.m in Sources */,
 				47942D88237CCA8800DEFAE3 /* PlacePagePreviewData.mm in Sources */,
 				47942D9D237D927800DEFAE3 /* PlacePageBookmarkData.mm in Sources */,
 				47942D86237CC55500DEFAE3 /* MWMOpeningHoursCommon.mm in Sources */,

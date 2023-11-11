@@ -589,9 +589,9 @@ void Framework::MoveBookmark(kml::MarkId markId, kml::MarkGroupId curCat, kml::M
   m_work.GetBookmarkManager().GetEditSession().MoveBookmark(markId, curCat, newCat);
 }
 
-bool Framework::ShowMapForURL(string const & url)
+void Framework::ExecuteMapApiRequest()
 {
-  return m_work.ShowMapForURL(url);
+  return m_work.ExecuteMapApiRequest();
 }
 
 void Framework::DeactivatePopup()
@@ -809,13 +809,10 @@ Java_app_organicmaps_Framework_nativeClearApiPoints(JNIEnv * env, jclass clazz)
   frm()->GetBookmarkManager().GetEditSession().ClearGroup(UserMark::Type::API);
 }
 
-JNIEXPORT jobject JNICALL
+JNIEXPORT jint JNICALL
 Java_app_organicmaps_Framework_nativeParseAndSetApiUrl(JNIEnv * env, jclass clazz, jstring url)
 {
-  static jmethodID const resultConstructor = jni::GetConstructorID(env, g_parsingResultClazz, "(IZ)V");
-  auto const result = frm()->ParseAndSetApiURL(jni::ToNativeString(env, url));
-  return env->NewObject(g_parsingResultClazz, resultConstructor, static_cast<jint>(result.m_type),
-                        static_cast<jboolean>(result.m_isSuccess));
+  return static_cast<jint>(frm()->ParseAndSetApiURL(jni::ToNativeString(env, url)));
 }
 
 JNIEXPORT jobject JNICALL
@@ -873,6 +870,8 @@ JNIEXPORT jdoubleArray JNICALL
 Java_app_organicmaps_Framework_nativeGetParsedCenterLatLon(JNIEnv * env, jclass)
 {
   ms::LatLon const center = frm()->GetParsedCenterLatLon();
+  if (!center.IsValid())
+    return nullptr;
 
   double latlon[] = {center.m_lat, center.m_lon};
   jdoubleArray jLatLon = env->NewDoubleArray(2);
