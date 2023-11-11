@@ -367,7 +367,7 @@
     fr = Continuez tout droit.
     hi = सीधे चलें।
     hr = Idite ravno.
-    hu = Hajtson előre.
+    hu = Haladjon tovább egyenesen.
     id = Lurus terus.
     it = Sempre dritto.
     ja = 直進です。
@@ -406,7 +406,7 @@
     fr = Sortie.
     hi = बाहर जाएं.
     hr = Izlaz.
-    hu = Kilépés.
+    hu = Hajtson ki!
     id = Keluar.
     it = Uscita.
     ja = 出口.
@@ -484,7 +484,7 @@
     fr = Vous êtes arrivé.
     hi = आप पहुंच गए हैं।
     hr = Stigli ste.
-    hu = Ön megérkezett.
+    hu = Megérkezett.
     id = Anda sudah sampai.
     it = Sei arrivato.
     ja = 到着。
@@ -1381,7 +1381,7 @@
     fr = Prenez la cinquième sortie.
     hi = पाँचवाँ एग्जिट लें।
     hr = Izađite na petom izlazu.
-    hu = Hajtson ki a ötödik kijáratnál.
+    hu = Hajtson ki az ötödik kijáratnál.
     id = Ambil jalan keluar kelima.
     it = Prendi la quinta uscita.
     ja = 五番目の出口です。
@@ -1576,7 +1576,7 @@
     fr = Prenez la dixième sortie.
     hi = दसवाँ एग्जिट लें।
     hr = Izađite na desetom izlazu.
-    hu = Hajtson ki a tízedik kijáratnál.
+    hu = Hajtson ki a tizedik kijáratnál.
     id = Ambil jalan keluar kesepuluh.
     it = Prendi la decima uscita.
     ja = 十番目の出口です。
@@ -2511,7 +2511,7 @@
     fa = دوربین کنترل سرعت در نزدیکی
     fi = Edessä on kamera
     fr = Caméra devant
-    hu = Kamera elöl
+    hu = Kamera következik
     id = Diawasi kamera
     it = Autovelox in prossimità
     ja = この先にある自動速度違反取締装置
