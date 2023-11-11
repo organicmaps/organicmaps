@@ -927,7 +927,7 @@
 	<string name="type.amenity.vending_machine.drinks">Máquina expendedora de bebidas</string>
 	<string name="type.amenity.vending_machine.food">Máquina expendedora de comida</string>
 	<string name="type.amenity.vending_machine.newspapers">Máquina expendedora de periódicos</string>
-	<string name="type.amenity.vending_machine.parking_tickets">Máquina de pago de tique de aparcamiento</string>
+	<string name="type.amenity.vending_machine.parking_tickets">Máquina de pago de aparcamiento</string>
 	<string name="type.amenity.vending_machine.public_transport_tickets">Máquina expendedora de boletos para el transporte público</string>
 	<string name="type.amenity.vending_machine.sweets">Máquina expendedora de dulces</string>
 	<string name="type.amenity.vending_machine.excrement_bags">Maquina expendedora de bolsas para excrementos</string>

@@ -1555,7 +1555,7 @@
 
 "type.amenity.vending_machine.newspapers" = "Máquina expendedora de periódicos";
 
-"type.amenity.vending_machine.parking_tickets" = "Máquina de pago de tique de aparcamiento";
+"type.amenity.vending_machine.parking_tickets" = "Máquina de pago de aparcamiento";
 
 "type.amenity.vending_machine.public_transport_tickets" = "Máquina expendedora de billetes de transporte público";
 
