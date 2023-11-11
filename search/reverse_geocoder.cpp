@@ -176,12 +176,13 @@ void ReverseGeocoder::GetNearbyAddress(m2::PointD const & center, Address & addr
   GetNearbyAddress(center, kLookupRadiusM, addr);
 }
 
-void ReverseGeocoder::GetNearbyAddress(m2::PointD const & center, double maxDistanceM, Address & addr) const
+void ReverseGeocoder::GetNearbyAddress(m2::PointD const & center, double maxDistanceM,
+                                       Address & addr, bool placeAsStreet/* = false*/) const
 {
   vector<Building> buildings;
   GetNearbyBuildings(center, maxDistanceM, buildings);
 
-  HouseTable table(m_dataSource);
+  HouseTable table(m_dataSource, placeAsStreet);
   size_t triesCount = 0;
 
   for (auto const & b : buildings)
@@ -194,20 +195,23 @@ void ReverseGeocoder::GetNearbyAddress(m2::PointD const & center, double maxDist
   }
 }
 
-bool ReverseGeocoder::GetExactAddress(FeatureType & ft, Address & addr) const
+bool ReverseGeocoder::GetExactAddress(FeatureType & ft, Address & addr, bool placeAsStreet/* = false*/) const
 {
   std::string const & hn = GetHouseNumber(ft);
   if (hn.empty())
     return false;
 
-  HouseTable table(m_dataSource);
+  HouseTable table(m_dataSource, placeAsStreet);
   return GetNearbyAddress(table, FromFeatureImpl(ft, hn, 0.0 /* distMeters */), false /* ignoreEdits */, addr);
 }
 
 bool ReverseGeocoder::GetExactAddress(FeatureID const & fid, Address & addr) const
 {
   bool res;
-  m_dataSource.ReadFeature([&](FeatureType & ft) { res = GetExactAddress(ft, addr); }, fid);
+  m_dataSource.ReadFeature([&](FeatureType & ft)
+  {
+    res = GetExactAddress(ft, addr, true /* placeAsStreet */);
+  }, fid);
   return res;
 }
 
@@ -356,7 +360,14 @@ std::optional<HouseToStreetTable::Result> ReverseGeocoder::HouseTable::Get(Featu
   if (!value->m_house2street)
     value->m_house2street = LoadHouseToStreetTable(*value);
 
-  return value->m_house2street->Get(fid.m_index);
+  auto res = value->m_house2street->Get(fid.m_index);
+  if (!res && m_placeAsStreet)
+  {
+    if (!value->m_house2place)
+      value->m_house2place = LoadHouseToPlaceTable(*value);
+    res = value->m_house2place->Get(fid.m_index);
+  }
+  return res;
 }
 
 string ReverseGeocoder::Address::FormatAddress() const

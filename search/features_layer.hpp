@@ -1,5 +1,6 @@
 #pragma once
 
+#include "search/cbv.hpp"
 #include "search/model.hpp"
 #include "search/token_range.hpp"
 
@@ -21,20 +22,18 @@ struct FeaturesLayer
   void Clear();
 
   // Non-owning ptr to a sorted vector of features.
-  std::vector<uint32_t> const * m_sortedFeatures;
+  std::vector<uint32_t> const * m_sortedFeatures = nullptr;
+  // Fetch vector of Features, described by this layer (used for CITY, SUBURB).
+  std::function<CBV ()> m_getFeatures;
 
   strings::UniString m_subQuery;
-
   TokenRange m_tokenRange;
   Model::Type m_type;
 
-  // *NOTE* This field is meaningful only when m_type equals to
-  // SEARCH_TYPE_BUILDING.
-  //
+  // Meaningful only when m_type equals to BUILDING.
   // When true, m_sortedFeatures contains only features retrieved from
   // search index by m_subQuery, and it's necessary for Geocoder to
-  // perform additional work to retrieve features matching by house
-  // number.
+  // perform additional work to retrieve features matching by house number.
   bool m_hasDelayedFeatures;
 
   bool m_lastTokenIsPrefix;

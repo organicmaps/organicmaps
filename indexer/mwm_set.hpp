@@ -380,7 +380,7 @@ public:
 
   std::shared_ptr<feature::FeaturesOffsetsTable> m_table;
   std::unique_ptr<indexer::MetadataDeserializer> m_metaDeserializer;
-  std::unique_ptr<HouseToStreetTable> m_house2street;
+  std::unique_ptr<HouseToStreetTable> m_house2street, m_house2place;
 
   explicit MwmValue(platform::LocalCountryFile const & localFile);
   void SetTable(MwmInfoEx & info);

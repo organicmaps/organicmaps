@@ -172,6 +172,84 @@ UNIT_CLASS_TEST(ProcessorTest, AddressSmoke)
   TEST(ResultsMatch("35 1st", {ExactMatch(wonderlandId, odd)}), ());
 }
 
+UNIT_CLASS_TEST(ProcessorTest, AddressPlaceSmoke)
+{
+  string const lang = "default";
+  m2::PointD const sm(0.005, 0.005);
+
+  // 1.
+  TestVillage village({0, 0}, "Баравая", lang, 0/* rank */);
+  TestBuilding bld1(village.GetCenter() + sm, {}/* name */, "36", {}/* street */, lang);
+  bld1.SetPlace(village.GetName(lang));
+  // No place for it.
+  TestBuilding bld2(village.GetCenter() - sm, {}/* name */, "36", {}/* street */, lang);
+
+  // 2.
+  TestCity city1({0.5, 0.5}, "Mannheim", lang, 0/* rank */);
+  TestSuburb suburb1(city1.GetCenter() + sm, "F2", lang);
+  TestBuilding bld3(suburb1.GetCenter() + sm, {}/* name */, "4", {}/* street */, lang);
+  bld3.SetPlace(suburb1.GetName(lang));
+
+  // 3.
+  TestCity city2({-0.5, -0.5}, "Brno", lang, 100/* rank */);
+  TestSuburb suburb2(city2.GetCenter() - sm, "Štýřice", lang);
+  TestStreet street({city2.GetCenter() - sm, city2.GetCenter() + sm}, "Gallašova", lang);
+  TestBuilding bld4(city2.GetCenter() + sm, {}/* name */, "54/11", street.GetName(lang), lang);
+  bld4.SetPlace(suburb2.GetName(lang));
+
+  // 4.
+  TestCity city3(mercator::FromLatLon(55.9964233, 37.1985340), "Зеленоград", lang, 0/* rank */);
+  TestBuilding bld5(mercator::FromLatLon(55.9642412, 37.1897657), {}/* name */, "к2308А", {}/* street */, lang);
+  bld5.SetPlace(city3.GetName(lang));
+  // City that presents only in World to mix World and Country IDs.
+  TestCity city4(mercator::FromLatLon(50, 30), "Dummy", lang, 0/* rank */);
+
+  auto const worldId = BuildWorld([&](TestMwmBuilder & builder)
+  {
+    builder.Add(city1);
+    builder.Add(city2);
+    builder.Add(city3);
+    builder.Add(city4);
+  });
+
+  // Country name Czech is important for the conscription house matching.
+  auto const wonderlandId = BuildCountry("Czech", [&](TestMwmBuilder & builder)
+  {
+    builder.Add(village);
+    builder.Add(bld1);
+    builder.Add(bld2);
+
+    builder.Add(city1);
+    builder.Add(suburb1);
+    builder.Add(bld3);
+
+    builder.Add(city2);
+    builder.Add(suburb2);
+    builder.Add(street);
+    builder.Add(bld4);
+
+    builder.Add(city3);
+    builder.Add(bld5);
+  });
+
+  SetViewport({-1, -1, 1, 1});
+  TEST(ResultsMatch("Баравая 36", {ExactMatch(wonderlandId, bld1)}), ());
+  TEST(ResultsMatch("Mannheim F2 4", {ExactMatch(wonderlandId, bld3)}), ());
+  TEST(ResultsMatch("Зелегонрад к2308", {ExactMatch(wonderlandId, bld5)}), ());
+
+  {
+    TEST(ResultsMatch("Brno Štýřice 54", {ExactMatch(wonderlandId, bld4)}), ());
+
+    Rules rules = {ExactMatch(wonderlandId, bld4), ExactMatch(wonderlandId, street)};
+    TEST(ResultsMatch("Brno Gallašova 11", rules), ());
+    TEST(ResultsMatch("Brno Štýřice Gallašova 11", rules), ());
+
+    // Now we don't distinguish addr:conscriptionnumber and addr:streetnumber
+    TEST(ResultsMatch("Brno Štýřice 11", {ExactMatch(wonderlandId, bld4)}), ());
+    TEST(ResultsMatch("Brno Gallašova 54", rules), ());
+  }
+}
+
 UNIT_CLASS_TEST(ProcessorTest, Smoke)
 {
   string const countryName = "Wonderland";
@@ -767,6 +845,9 @@ UNIT_CLASS_TEST(ProcessorTest, TestPostcodes)
   });
   auto countryId = BuildCountry("Wonderland", [&](TestMwmBuilder & builder)
   {
+    builder.Add(dolgoprudny);
+    builder.Add(london);
+
     builder.Add(street);
     builder.Add(building28);
     builder.Add(building29);
@@ -2605,8 +2686,7 @@ UNIT_CLASS_TEST(ProcessorTest, OrderCountries)
 
 UNIT_CLASS_TEST(ProcessorTest, Suburbs)
 {
-  TestPOI suburb({0, 0}, "Bloomsbury", "en");
-  suburb.SetTypes({{"place", "suburb"}});
+  TestSuburb suburb({0, 0}, "Bloomsbury", "en");
 
   TestStreet street({{-0.5, -0.5}, {0, 0}, {0.5, 0.5}}, "Malet place", "en");
 

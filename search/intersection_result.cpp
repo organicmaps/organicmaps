@@ -16,12 +16,17 @@ void IntersectionResult::Set(Model::Type type, uint32_t id)
   case Model::TYPE_BUILDING: m_building = id; break;
   case Model::TYPE_STREET: m_street = id; break;
   case Model::TYPE_SUBURB: m_suburb = id; break;
-  case Model::TYPE_CITY:
+
+  /// @todo Store city (place) name for ranking? I suspect that it should work fine now, without it.
+  case Model::TYPE_CITY: break;
+
   case Model::TYPE_VILLAGE:
   case Model::TYPE_STATE:
   case Model::TYPE_COUNTRY:
   case Model::TYPE_UNCLASSIFIED:
-  case Model::TYPE_COUNT: ASSERT(false, ("Unsupported type.")); break;
+  case Model::TYPE_COUNT:
+    ASSERT(false, ("Unsupported type."));
+    break;
   }
 }
 

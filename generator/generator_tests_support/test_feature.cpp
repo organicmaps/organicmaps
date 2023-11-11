@@ -217,6 +217,11 @@ TestVillage::TestVillage(m2::PointD const & center, string const & name, string 
 {
 }
 
+TestSuburb::TestSuburb(m2::PointD const & center, string const & name, string const & lang)
+  : TestPlace(center, name, lang, classif().GetTypeByPath({"place", "suburb"}))
+{
+}
+
 // TestStreet --------------------------------------------------------------------------------------
 TestStreet::TestStreet(vector<m2::PointD> const & points, string const & name, string const & lang)
   : TestFeature(points, MakeName(name, lang), Type::Line)
@@ -378,16 +383,17 @@ TestBuilding::TestBuilding(m2::PointD const & center, string const & name,
 
 TestBuilding::TestBuilding(m2::PointD const & center, string const & name,
                            string const & houseNumber, string_view street, string const & lang)
-  : TestFeature(center, MakeName(name, lang)), m_houseNumber(houseNumber), m_streetName(street)
+  : TestFeature(center, MakeName(name, lang)), m_houseNumber(houseNumber)
 {
+  m_addr.Set(AddressData::Type::Street, street);
 }
 
 TestBuilding::TestBuilding(m2::RectD const & boundary, string const & name,
                            string const & houseNumber, string_view street, string const & lang)
   : TestFeature(boundary, MakeName(name, lang))
   , m_houseNumber(houseNumber)
-  , m_streetName(street)
 {
+  m_addr.Set(AddressData::Type::Street, street);
 }
 
 void TestBuilding::Serialize(FeatureBuilder & fb) const
@@ -397,8 +403,8 @@ void TestBuilding::Serialize(FeatureBuilder & fb) const
   auto & params = fb.GetParams();
   if (!m_houseNumber.empty())
     params.AddHouseNumber(m_houseNumber);
-  if (!m_streetName.empty())
-    params.SetStreet(m_streetName);
+
+  params.SetAddress(AddressData(m_addr));
 
   if (m_type == 0)
     fb.AddType(classif().GetTypeByPath({"building"}));

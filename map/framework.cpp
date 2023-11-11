@@ -616,7 +616,7 @@ search::ReverseGeocoder::Address Framework::GetAddressAtPoint(m2::PointD const &
   search::ReverseGeocoder const coder(m_featuresFetcher.GetDataSource());
   search::ReverseGeocoder::Address addr;
   /// @todo Call exact address manually here?
-  coder.GetNearbyAddress(pt, 0.5 /* maxDistanceM */, addr);
+  coder.GetNearbyAddress(pt, 0.5 /* maxDistanceM */, addr, true /* placeAsStreet */);
   return addr;
 }
 

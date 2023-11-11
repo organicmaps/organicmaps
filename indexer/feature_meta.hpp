@@ -186,6 +186,10 @@ public:
   };
 
   // Store single value only.
+  void Set(Type type, std::string_view s)
+  {
+    Set(type, std::string(s));
+  }
   void Set(Type type, std::string s)
   {
     if (!s.empty())
