@@ -165,6 +165,15 @@ std::set<OsmElement::Tag> const kHighwaysWhereIgnoreBarriersWithoutAccess = {
     {OsmElement::Tag("highway", "trunk_link")}
 };
 
+// motorway_junction blocks not only highway link, but main road also.
+// Actually, tagging motorway_junction with access is not used, see https://overpass-turbo.eu/s/1d1t
+// https://github.com/organicmaps/organicmaps/issues/1389
+std::set<OsmElement::Tag> const kIgnoreAccess = {
+    {OsmElement::Tag("highway", "motorway_junction")}
+};
+
+auto const kEmptyAccess = RoadAccess::Type::Count;
+
 bool ParseRoadAccess(string const & roadAccessPath, OsmIdToFeatureIds const & osmIdToFeatureIds,
                      RoadAccessCollector::RoadAccessByVehicleType & roadAccessByVehicleType)
 {
@@ -318,9 +327,9 @@ void ParseRoadAccessConditional(
     {
       buffer = moveIterAndCheck();
       strings::Trim(buffer);
-      RoadAccess::Type roadAccessType = RoadAccess::Type::Count;
+      RoadAccess::Type roadAccessType = kEmptyAccess;
       FromString(buffer, roadAccessType);
-      CHECK_NOT_EQUAL(roadAccessType, RoadAccess::Type::Count, (line));
+      CHECK_NOT_EQUAL(roadAccessType, kEmptyAccess, (line));
 
       /// @todo Avoid temporary string when OpeningHours (boost::spirit) will allow string_view.
       string strBuffer(moveIterAndCheck());
@@ -364,7 +373,7 @@ RoadAccess::Type GetAccessTypeFromMapping(OsmElement const & elem, TagMapping co
     if (it != mapping->cend())
       return it->second;
   }
-  return RoadAccess::Type::Count;
+  return kEmptyAccess;
 }
 
 optional<std::pair<string, string>> GetTagValueConditionalAccess(
@@ -455,22 +464,22 @@ void RoadAccessTagProcessor::Process(OsmElement const & elem)
     for (auto const tagMapping : mapping)
     {
       auto const accessType = GetAccessTypeFromMapping(elem, tagMapping);
-      if (accessType != RoadAccess::Type::Count)
-        return optional<RoadAccess::Type>(accessType);
+      if (accessType != kEmptyAccess)
+        return accessType;
     }
-
-    return optional<RoadAccess::Type>();
+    return kEmptyAccess;
   };
 
-  if (auto op = getAccessType(m_accessMappings))
+  auto op = getAccessType(m_accessMappings);
+  if (op != kEmptyAccess)
   {
-    if (*op == RoadAccess::Type::Yes)
+    if (op == RoadAccess::Type::Yes)
       return;
 
     switch (elem.m_type)
     {
-    case OsmElement::EntityType::Node: m_barriersWithAccessTag.emplace(elem.m_id, *op); return;
-    case OsmElement::EntityType::Way: m_wayToAccess.emplace(elem.m_id, *op); return;
+    case OsmElement::EntityType::Node: m_barriersWithAccessTag.emplace(elem.m_id, op); return;
+    case OsmElement::EntityType::Way: m_wayToAccess.emplace(elem.m_id, op); return;
     default: return;
     }
   }
@@ -479,8 +488,9 @@ void RoadAccessTagProcessor::Process(OsmElement const & elem)
     return;
 
   // Apply barrier tags if we have no {vehicle = ...}, {access = ...} etc.
-  if (auto op = getAccessType(m_barrierMappings))
-    m_barriersWithoutAccessTag.emplace(elem.m_id, *op);
+  op = getAccessType(m_barrierMappings);
+  if (op != kEmptyAccess)
+    m_barriersWithoutAccessTag.emplace(elem.m_id, op);
 }
 
 void RoadAccessTagProcessor::ProcessConditional(OsmElement const & elem)
@@ -497,7 +507,7 @@ void RoadAccessTagProcessor::ProcessConditional(OsmElement const & elem)
   auto accesses = parser.ParseAccessConditionalTag(tag, value);
   for (auto & access : accesses)
   {
-    if (access.m_accessType != RoadAccess::Type::Count)
+    if (access.m_accessType != kEmptyAccess)
       m_wayToAccessConditional[elem.m_id].emplace_back(std::move(access));
   }
 }
@@ -588,6 +598,11 @@ std::shared_ptr<generator::CollectorInterface> RoadAccessWriter::Clone(
 
 void RoadAccessWriter::CollectFeature(FeatureBuilder const & fb, OsmElement const & elem)
 {
+  for (auto const & tag : elem.m_tags)
+    if (kIgnoreAccess.count(tag))
+      return;
+
+  /// @todo Hm, should we process elem (access candidates) for non-roads?
   for (auto & p : m_tagProcessors)
   {
     p.Process(elem);
@@ -607,6 +622,8 @@ void RoadAccessWriter::CollectFeature(FeatureBuilder const & fb, OsmElement cons
     }
   }
 
+  /// @todo Why do we write additional [way id -> nodes] temporary file if we can read
+  /// nodes by way id from preprocess stage index.
   WriteToSink(*m_waysWriter, elem.m_id);
   WriteToSink(*m_waysWriter, ignoreBarrierWithoutAccessOnThisWay);
   rw::WriteVectorOfPOD(*m_waysWriter, elem.m_nodes);
@@ -803,8 +820,7 @@ RoadAccess::Type AccessConditionalTagParser::GetAccessByVehicleAndStringValue(
     if (it != vehicleToAccess.end())
       return it->second;
   }
-
-  return RoadAccess::Type::Count;
+  return kEmptyAccess;
 }
 
 // static

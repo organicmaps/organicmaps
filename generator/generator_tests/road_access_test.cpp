@@ -205,8 +205,14 @@ UNIT_TEST(RoadAccessWriter_Merge)
       OsmElement::EntityType::Node);
 
   // We should ignore this barrier because it's without access tag and placed on highway-motorway.
-  auto const p3 = generator_tests::MakeOsmElement(32 /* id */, {{"barrier", "lift_gate"}},
-                                                  OsmElement::EntityType::Node);
+  auto const p3 = generator_tests::MakeOsmElement(
+      32 /* id */, {{"barrier", "lift_gate"}},
+      OsmElement::EntityType::Node);
+
+  // Ignore all motorway_junction access.
+  auto const p4 = generator_tests::MakeOsmElement(
+      31 /* id */, {{"highway", "motorway_junction"}, {"access", "private"}},
+      OsmElement::EntityType::Node);
 
   auto c1 = std::make_shared<RoadAccessWriter>(filename);
   auto c2 = c1->Clone(nullptr);
@@ -215,6 +221,7 @@ UNIT_TEST(RoadAccessWriter_Merge)
   c1->CollectFeature(MakeFbForTest(p1), p1);
   c2->CollectFeature(MakeFbForTest(p2), p2);
   c3->CollectFeature(MakeFbForTest(p3), p3);
+  c1->CollectFeature(MakeFbForTest(p4), p4);
 
   c1->CollectFeature(MakeFbForTest(w1), w1);
   c2->CollectFeature(MakeFbForTest(w2), w2);
