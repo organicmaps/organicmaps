@@ -857,20 +857,20 @@
 	<string name="type.amenity.nightclub">Ночной клуб</string>
 	<string name="type.amenity.nursing_home">Дом престарелых</string>
 	<string name="type.amenity.parking">Парковка</string>
-	<string name="type.amenity.parking.fee">Платная парковка</string>
+	<string name="type.amenity.parking.fee">Парковка</string>
 	<string name="type.amenity.parking.multi.storey">Многоэтажная парковка</string>
 	<string name="type.amenity.parking.no.access">Частная парковка</string>
 	<string name="type.amenity.parking.permissive">Частная парковка</string>
 	<string name="type.amenity.parking.private">Частная парковка</string>
 	<string name="type.amenity.parking.park_and_ride">Парковка</string>
 	<string name="type.amenity.parking.underground">Подземный паркинг</string>
-	<string name="type.amenity.parking.underground.fee">Платная подземная парковка</string>
+	<string name="type.amenity.parking.underground.fee">Подземный паркинг</string>
 	<string name="type.amenity.parking.underground.private">Частная подземная парковка</string>
 	<string name="type.amenity.parking.street_side">Придорожная парковка</string>
-	<string name="type.amenity.parking.street_side.fee">Платная придорожная парковка</string>
+	<string name="type.amenity.parking.street_side.fee">Придорожная парковка</string>
 	<string name="type.amenity.parking.street_side.private">Частная придорожная парковка</string>
 	<string name="type.amenity.parking.lane">Парковочная полоса</string>
-	<string name="type.amenity.parking.lane.fee">Платная парковочная полоса</string>
+	<string name="type.amenity.parking.lane.fee">Парковочная полоса</string>
 	<string name="type.amenity.parking.lane.private">Частная парковочная полоса</string>
 	<string name="type.amenity.parking_entrance">Въезд на парковку</string>
 	<string name="type.amenity.parking_entrance.private">Въезд на частную парковку</string>
@@ -1127,6 +1127,7 @@
 	<!-- This is for main/primary entrances, for secondary entrances see type.entrance -->
 	<string name="type.entrance.main">Главный вход</string>
 	<string name="type.entrance.exit">Выход</string>
+	<string name="type.fee.no">Бесплатно</string>
 	<string name="type.healthcare.laboratory">Медицинская лаборатория</string>
 	<string name="type.healthcare.physiotherapist">Физиотерапевт</string>
 	<string name="type.healthcare.alternative">Альтернативная медицина</string>

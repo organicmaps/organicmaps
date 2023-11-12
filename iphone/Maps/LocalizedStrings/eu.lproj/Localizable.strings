@@ -1398,7 +1398,7 @@
 
 "type.amenity.parking" = "Aparkalekua";
 
-"type.amenity.parking.fee" = "Ordaindutako aparkalekua";
+"type.amenity.parking.fee" = "Aparkalekua";
 
 "type.amenity.parking.multi.storey" = "Solairu anitzeko aparkalekua";
 
@@ -1412,19 +1412,19 @@
 
 "type.amenity.parking.underground" = "Lurpeko Aparkalekua";
 
-"type.amenity.parking.underground.fee" = "Ordaindutako lurpeko aparkalekua";
+"type.amenity.parking.underground.fee" = "Lurpeko Aparkalekua";
 
 "type.amenity.parking.underground.private" = "Lurpeko aparkaleku pribatua";
 
 "type.amenity.parking.street_side" = "Kale alboko aparkalekua";
 
-"type.amenity.parking.street_side.fee" = "Ordaindutako kale alboko aparkalekua";
+"type.amenity.parking.street_side.fee" = "Kale alboko aparkalekua";
 
 "type.amenity.parking.street_side.private" = "Kale alboko aparkaleku pribatua";
 
 "type.amenity.parking.lane" = "Erreiaren aparkalekua";
 
-"type.amenity.parking.lane.fee" = "Ordaindutako erreiaren aparkalekua";
+"type.amenity.parking.lane.fee" = "Erreiaren aparkalekua";
 
 "type.amenity.parking.lane.private" = "Errei pribatuko aparkalekua";
 
@@ -1933,6 +1933,10 @@
 "type.entrance.main" = "Sarrera Nagusia";
 
 "type.entrance.exit" = "Irten";
+
+"type.fee.yes" = "💲";
+
+"type.fee.no" = "Doan";
 
 "type.healthcare.laboratory" = "Medikuntza laborategia";
 

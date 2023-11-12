@@ -783,20 +783,20 @@
 	<string name="type.amenity.nightclub">ไนต์คลับ</string>
 	<string name="type.amenity.nursing_home">บ้านพักคนชรา</string>
 	<string name="type.amenity.parking">ที่จอดรถ</string>
-	<string name="type.amenity.parking.fee">ที่จอดรถแบบเสียค่าบริการ</string>
+	<string name="type.amenity.parking.fee">ที่จอดรถ</string>
 	<string name="type.amenity.parking.multi.storey">ที่จอดรถหลายชั้น</string>
 	<string name="type.amenity.parking.no.access">ที่จอดรถส่วนตัว</string>
 	<string name="type.amenity.parking.permissive">ที่จอดรถส่วนตัว</string>
 	<string name="type.amenity.parking.private">ที่จอดรถส่วนตัว</string>
 	<string name="type.amenity.parking.park_and_ride">ที่จอดรถ</string>
 	<string name="type.amenity.parking.underground">ที่จอดรถใต้ดิน</string>
-	<string name="type.amenity.parking.underground.fee">ที่จอดรถใต้ดินแบบชำระเงิน</string>
+	<string name="type.amenity.parking.underground.fee">ที่จอดรถใต้ดิน</string>
 	<string name="type.amenity.parking.underground.private">ที่จอดรถใต้ดินส่วนตัว</string>
 	<string name="type.amenity.parking.street_side">ที่จอดรถริมถนน</string>
-	<string name="type.amenity.parking.street_side.fee">ที่จอดรถริมถนนแบบชำระเงิน</string>
+	<string name="type.amenity.parking.street_side.fee">ที่จอดรถริมถนน</string>
 	<string name="type.amenity.parking.street_side.private">ที่จอดรถริมถนนส่วนตัว</string>
 	<string name="type.amenity.parking.lane">ที่จอดรถเลน</string>
-	<string name="type.amenity.parking.lane.fee">ที่จอดรถเลนแบบชำระเงิน</string>
+	<string name="type.amenity.parking.lane.fee">ที่จอดรถเลน</string>
 	<string name="type.amenity.parking.lane.private">ที่จอดรถเลนส่วนตัว</string>
 	<string name="type.amenity.parking_entrance">ทางเข้าที่จอดรถ</string>
 	<string name="type.amenity.parking_entrance.private">ทางเข้าที่จอดรถส่วนตัว</string>
@@ -1006,6 +1006,7 @@
 	<!-- This is for main/primary entrances, for secondary entrances see type.entrance -->
 	<string name="type.entrance.main">ทางเข้าหลัก</string>
 	<string name="type.entrance.exit">ทางออก</string>
+	<string name="type.fee.no">ฟรี</string>
 	<string name="type.healthcare.laboratory">ห้องปฏิบัติการทางการแพทย์</string>
 	<string name="type.healthcare.physiotherapist">นักกายภาพบำบัด</string>
 	<string name="type.healthcare.alternative">การแพทย์ทางเลือก</string>

@@ -1398,7 +1398,7 @@
 
 "type.amenity.parking" = "Parking";
 
-"type.amenity.parking.fee" = "Płatny parking";
+"type.amenity.parking.fee" = "Parking";
 
 "type.amenity.parking.multi.storey" = "Parking wielopoziomowy";
 
@@ -1412,19 +1412,19 @@
 
 "type.amenity.parking.underground" = "Parking podziemny";
 
-"type.amenity.parking.underground.fee" = "Płatny parking podziemny";
+"type.amenity.parking.underground.fee" = "Parking podziemny";
 
 "type.amenity.parking.underground.private" = "Prywatny parking podziemny";
 
 "type.amenity.parking.street_side" = "Parking od strony ulicy";
 
-"type.amenity.parking.street_side.fee" = "Płatny parking przy ulicy";
+"type.amenity.parking.street_side.fee" = "Parking od strony ulicy";
 
 "type.amenity.parking.street_side.private" = "Prywatna ulica parking boczny";
 
 "type.amenity.parking.lane" = "Parking na pasie ruchu";
 
-"type.amenity.parking.lane.fee" = "Płatny parking na pasie ruchu";
+"type.amenity.parking.lane.fee" = "Parking na pasie ruchu";
 
 "type.amenity.parking.lane.private" = "Parking na prywatnym pasie ruchu";
 
@@ -1933,6 +1933,10 @@
 "type.entrance.main" = "Główne wejście";
 
 "type.entrance.exit" = "Wyjdź";
+
+"type.fee.yes" = "💲";
+
+"type.fee.no" = "Bezpłatne";
 
 "type.healthcare.laboratory" = "Laboratorium Medyczne";
 

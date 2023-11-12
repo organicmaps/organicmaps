@@ -1398,7 +1398,7 @@
 
 "type.amenity.parking" = "Parkering";
 
-"type.amenity.parking.fee" = "Betalt parkering";
+"type.amenity.parking.fee" = "Parkering";
 
 "type.amenity.parking.multi.storey" = "Parkering i flere etager";
 
@@ -1412,19 +1412,19 @@
 
 "type.amenity.parking.underground" = "Underjordisk parkering";
 
-"type.amenity.parking.underground.fee" = "Betalt underjordisk parkering";
+"type.amenity.parking.underground.fee" = "Underjordisk parkering";
 
 "type.amenity.parking.underground.private" = "Privat underjordisk parkering";
 
 "type.amenity.parking.street_side" = "Parkering på gadesiden";
 
-"type.amenity.parking.street_side.fee" = "Betalt parkering på gadesiden";
+"type.amenity.parking.street_side.fee" = "Parkering på gadesiden";
 
 "type.amenity.parking.street_side.private" = "Privat gade sideparkering";
 
 "type.amenity.parking.lane" = "Parkering på kørebane";
 
-"type.amenity.parking.lane.fee" = "Betalt baneparkering";
+"type.amenity.parking.lane.fee" = "Parkering på kørebane";
 
 "type.amenity.parking.lane.private" = "Privat vej parkering";
 
@@ -1933,6 +1933,10 @@
 "type.entrance.main" = "Hovedindgang";
 
 "type.entrance.exit" = "Udgang";
+
+"type.fee.yes" = "💲";
+
+"type.fee.no" = "Gratis";
 
 "type.healthcare.laboratory" = "Medicinsk laboratorium";
 

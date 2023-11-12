@@ -1398,7 +1398,7 @@
 
 "type.amenity.parking" = "پارکینگ";
 
-"type.amenity.parking.fee" = "ﯽﻟﻮﭘ ﮓﻨﯿﮐﺭﺎﭘ";
+"type.amenity.parking.fee" = "پارکینگ";
 
 "type.amenity.parking.multi.storey" = "ﻪﻘﺒﻃ ﺪﻨﭼ ﮓﻨﯿﮐﺭﺎﭘ";
 
@@ -1412,19 +1412,19 @@
 
 "type.amenity.parking.underground" = "ﯽﻨﯿﻣﺯ ﺮﯾﺯ ﮓﻨﯿﮐﺭﺎﭘ";
 
-"type.amenity.parking.underground.fee" = "پارکینگ زیرزمینی پولی";
+"type.amenity.parking.underground.fee" = "ﯽﻨﯿﻣﺯ ﺮﯾﺯ ﮓﻨﯿﮐﺭﺎﭘ";
 
 "type.amenity.parking.underground.private" = "پارکینگ زیرزمینی اختصاصی";
 
 "type.amenity.parking.street_side" = "پارکینگ کنار خیابان";
 
-"type.amenity.parking.street_side.fee" = "پارکینگ کنار خیابان پولی";
+"type.amenity.parking.street_side.fee" = "پارکینگ کنار خیابان";
 
 "type.amenity.parking.street_side.private" = "پارکینگ کنار خیابان خصوصی";
 
 "type.amenity.parking.lane" = "پارکینگ لاین";
 
-"type.amenity.parking.lane.fee" = "پارکینگ لاین پولی";
+"type.amenity.parking.lane.fee" = "پارکینگ لاین";
 
 "type.amenity.parking.lane.private" = "پارکینگ لاین خصوصی";
 
@@ -1933,6 +1933,10 @@
 "type.entrance.main" = "ﯽﻠﺻﺍ ﯼﺩﻭﺭﻭ";
 
 "type.entrance.exit" = "خارج شوید";
+
+"type.fee.yes" = "💲";
+
+"type.fee.no" = "رایگان";
 
 "type.healthcare.laboratory" = "ﯽﮑﺷﺰﭘ ﻩﺎﮕﺸﯾﺎﻣﺯﺁ";
 

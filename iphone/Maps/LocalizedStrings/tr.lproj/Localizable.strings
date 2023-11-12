@@ -1398,7 +1398,7 @@
 
 "type.amenity.parking" = "Otopark";
 
-"type.amenity.parking.fee" = "Ücretli Otopark";
+"type.amenity.parking.fee" = "Otopark";
 
 "type.amenity.parking.multi.storey" = "Çok Katlı Otopark";
 
@@ -1412,19 +1412,19 @@
 
 "type.amenity.parking.underground" = "Yeraltı otoparkı";
 
-"type.amenity.parking.underground.fee" = "Ücretli yeraltı otoparkı";
+"type.amenity.parking.underground.fee" = "Yeraltı otoparkı";
 
 "type.amenity.parking.underground.private" = "Özel yeraltı otoparkı";
 
 "type.amenity.parking.street_side" = "Sokak tarafı otopark";
 
-"type.amenity.parking.street_side.fee" = "Ücretli cadde tarafı otopark";
+"type.amenity.parking.street_side.fee" = "Sokak tarafı otopark";
 
 "type.amenity.parking.street_side.private" = "Özel sokak tarafı otopark";
 
 "type.amenity.parking.lane" = "Şerit park";
 
-"type.amenity.parking.lane.fee" = "Ücretli şerit park";
+"type.amenity.parking.lane.fee" = "Şerit park";
 
 "type.amenity.parking.lane.private" = "Özel şerit otopark";
 
@@ -1933,6 +1933,10 @@
 "type.entrance.main" = "Ana giriş";
 
 "type.entrance.exit" = "Çıkış";
+
+"type.fee.yes" = "💲";
+
+"type.fee.no" = "Ücretsiz";
 
 "type.healthcare.laboratory" = "Tıbbi Laboratuvar";
 

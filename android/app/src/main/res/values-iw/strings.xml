@@ -309,19 +309,19 @@
 	<string name="type.amenity.language_school">תופשל רפס תיב</string>
 	<string name="type.amenity.loading_dock">רציף טעינה</string>
 	<string name="type.amenity.parking">היָנָחֲ</string>
-	<string name="type.amenity.parking.fee">םולשתב הינח</string>
+	<string name="type.amenity.parking.fee">היָנָחֲ</string>
 	<string name="type.amenity.parking.multi.storey">תומוק בר הינח</string>
 	<string name="type.amenity.parking.no.access">תיטרפ הינח</string>
 	<string name="type.amenity.parking.permissive">תיטרפ הינח</string>
 	<string name="type.amenity.parking.private">תיטרפ הינח</string>
 	<string name="type.amenity.parking.underground">תיעקרק - תת הינח</string>
-	<string name="type.amenity.parking.underground.fee">חניה תת קרקעית בתשלום</string>
+	<string name="type.amenity.parking.underground.fee">תיעקרק - תת הינח</string>
 	<string name="type.amenity.parking.underground.private">חניה תת קרקעית פרטית</string>
 	<string name="type.amenity.parking.street_side">חניה בצד הרחוב</string>
-	<string name="type.amenity.parking.street_side.fee">חניה ברחוב בתשלום</string>
+	<string name="type.amenity.parking.street_side.fee">חניה בצד הרחוב</string>
 	<string name="type.amenity.parking.street_side.private">חניה פרטית בצד הרחוב</string>
 	<string name="type.amenity.parking.lane">חנייה בנתיב</string>
-	<string name="type.amenity.parking.lane.fee">חנייה בנתיב בתשלום</string>
+	<string name="type.amenity.parking.lane.fee">חנייה בנתיב</string>
 	<string name="type.amenity.parking.lane.private">חניה פרטית בנתיב</string>
 	<string name="type.amenity.parking_entrance">הינחל הסינכ</string>
 	<string name="type.amenity.parking_entrance.private">כניסה פרטית לחניה</string>
@@ -462,6 +462,7 @@
 	<!-- This is for main/primary entrances, for secondary entrances see type.entrance -->
 	<string name="type.entrance.main">תישארה הסינכ</string>
 	<string name="type.entrance.exit">יְצִיאָה</string>
+	<string name="type.fee.no">חינם</string>
 	<string name="type.healthcare.laboratory">תיאופר הדבעמ</string>
 	<string name="type.healthcare.physiotherapist">פיזיותרפיסט</string>
 	<string name="type.healthcare.alternative">רפואה אלטרנטיבית</string>

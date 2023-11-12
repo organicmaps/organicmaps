@@ -784,20 +784,20 @@
 	<string name="type.amenity.nightclub">کلوپ شبانه</string>
 	<string name="type.amenity.nursing_home">خانه سالمندان</string>
 	<string name="type.amenity.parking">پارکینگ</string>
-	<string name="type.amenity.parking.fee">ﯽﻟﻮﭘ ﮓﻨﯿﮐﺭﺎﭘ</string>
+	<string name="type.amenity.parking.fee">پارکینگ</string>
 	<string name="type.amenity.parking.multi.storey">ﻪﻘﺒﻃ ﺪﻨﭼ ﮓﻨﯿﮐﺭﺎﭘ</string>
 	<string name="type.amenity.parking.no.access">ﯽﺻﺎﺼﺘﺧﺍ ﮓﻨﯿﮐﺭﺎﭘ</string>
 	<string name="type.amenity.parking.permissive">ﯽﺻﺎﺼﺘﺧﺍ ﮓﻨﯿﮐﺭﺎﭘ</string>
 	<string name="type.amenity.parking.private">ﯽﺻﺎﺼﺘﺧﺍ ﮓﻨﯿﮐﺭﺎﭘ</string>
 	<string name="type.amenity.parking.park_and_ride">پارکینگ</string>
 	<string name="type.amenity.parking.underground">ﯽﻨﯿﻣﺯ ﺮﯾﺯ ﮓﻨﯿﮐﺭﺎﭘ</string>
-	<string name="type.amenity.parking.underground.fee">پارکینگ زیرزمینی پولی</string>
+	<string name="type.amenity.parking.underground.fee">ﯽﻨﯿﻣﺯ ﺮﯾﺯ ﮓﻨﯿﮐﺭﺎﭘ</string>
 	<string name="type.amenity.parking.underground.private">پارکینگ زیرزمینی اختصاصی</string>
 	<string name="type.amenity.parking.street_side">پارکینگ کنار خیابان</string>
-	<string name="type.amenity.parking.street_side.fee">پارکینگ کنار خیابان پولی</string>
+	<string name="type.amenity.parking.street_side.fee">پارکینگ کنار خیابان</string>
 	<string name="type.amenity.parking.street_side.private">پارکینگ کنار خیابان خصوصی</string>
 	<string name="type.amenity.parking.lane">پارکینگ لاین</string>
-	<string name="type.amenity.parking.lane.fee">پارکینگ لاین پولی</string>
+	<string name="type.amenity.parking.lane.fee">پارکینگ لاین</string>
 	<string name="type.amenity.parking.lane.private">پارکینگ لاین خصوصی</string>
 	<string name="type.amenity.parking_entrance">ﮓﻨﯿﮐﺭﺎﭘ ﯼﺩﻭﺭﻭ</string>
 	<string name="type.amenity.parking_entrance.private">ورودی پارکینگ اختصاصی</string>
@@ -921,6 +921,7 @@
 	<!-- This is for main/primary entrances, for secondary entrances see type.entrance -->
 	<string name="type.entrance.main">ﯽﻠﺻﺍ ﯼﺩﻭﺭﻭ</string>
 	<string name="type.entrance.exit">خارج شوید</string>
+	<string name="type.fee.no">رایگان</string>
 	<string name="type.healthcare.laboratory">ﯽﮑﺷﺰﭘ ﻩﺎﮕﺸﯾﺎﻣﺯﺁ</string>
 	<string name="type.healthcare.physiotherapist">فیزیوتراپیست</string>
 	<string name="type.healthcare.alternative">طب جایگزین</string>

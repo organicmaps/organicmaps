@@ -1398,7 +1398,7 @@
 
 "type.amenity.parking" = "Parkering";
 
-"type.amenity.parking.fee" = "Betald parkering";
+"type.amenity.parking.fee" = "Parkering";
 
 "type.amenity.parking.multi.storey" = "Flervånings parkering";
 
@@ -1412,19 +1412,19 @@
 
 "type.amenity.parking.underground" = "Underjordisk parkering";
 
-"type.amenity.parking.underground.fee" = "Betald underjordisk parkering";
+"type.amenity.parking.underground.fee" = "Underjordisk parkering";
 
 "type.amenity.parking.underground.private" = "Privat underjordisk parkering";
 
 "type.amenity.parking.street_side" = "Gata sida parkering";
 
-"type.amenity.parking.street_side.fee" = "Betald gata sidoparkering";
+"type.amenity.parking.street_side.fee" = "Gata sida parkering";
 
 "type.amenity.parking.street_side.private" = "Privat gata sidoparkering";
 
 "type.amenity.parking.lane" = "Körfält parkering";
 
-"type.amenity.parking.lane.fee" = "Avgiftsbelagd körfältsparkering";
+"type.amenity.parking.lane.fee" = "Körfält parkering";
 
 "type.amenity.parking.lane.private" = "Privat körfält parkering";
 
@@ -1933,6 +1933,10 @@
 "type.entrance.main" = "Huvudentré";
 
 "type.entrance.exit" = "Utgång";
+
+"type.fee.yes" = "💲";
+
+"type.fee.no" = "Gratis";
 
 "type.healthcare.laboratory" = "Medicinskt laboratorium";
 

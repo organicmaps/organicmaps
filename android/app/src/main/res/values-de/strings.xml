@@ -838,20 +838,20 @@
 	<string name="type.amenity.nightclub">Nachtclub</string>
 	<string name="type.amenity.nursing_home">Pflegeheim</string>
 	<string name="type.amenity.parking">Parkplatz</string>
-	<string name="type.amenity.parking.fee">Kostenpflichtiger Parkplatz</string>
+	<string name="type.amenity.parking.fee">Parkplatz</string>
 	<string name="type.amenity.parking.multi.storey">Parkhaus</string>
 	<string name="type.amenity.parking.no.access">Privatparkplatz</string>
 	<string name="type.amenity.parking.permissive">Privatparkplatz</string>
 	<string name="type.amenity.parking.private">Privatparkplatz</string>
 	<string name="type.amenity.parking.park_and_ride">P+R-Parkplatz</string>
 	<string name="type.amenity.parking.underground">Tiefgarage</string>
-	<string name="type.amenity.parking.underground.fee">Kostenpflichtige Tiefgarage</string>
+	<string name="type.amenity.parking.underground.fee">Tiefgarage</string>
 	<string name="type.amenity.parking.underground.private">Private Tiefgarage</string>
 	<string name="type.amenity.parking.street_side">Parkbucht</string>
-	<string name="type.amenity.parking.street_side.fee">Kostenpflichtige Parkbucht</string>
+	<string name="type.amenity.parking.street_side.fee">Parkbucht</string>
 	<string name="type.amenity.parking.street_side.private">Private Parkbucht</string>
 	<string name="type.amenity.parking.lane">Fahrspur parken</string>
-	<string name="type.amenity.parking.lane.fee">Bezahltes parken auf der straße</string>
+	<string name="type.amenity.parking.lane.fee">Fahrspur parken</string>
 	<string name="type.amenity.parking.lane.private">Privatspur parken</string>
 	<string name="type.amenity.parking_entrance">Parkplatzeinfahrt</string>
 	<string name="type.amenity.parking_entrance.private">Private Parkplatzeinfahrt</string>
@@ -1095,6 +1095,7 @@
 	<!-- This is for main/primary entrances, for secondary entrances see type.entrance -->
 	<string name="type.entrance.main">Haupteingang</string>
 	<string name="type.entrance.exit">Ausfahrt</string>
+	<string name="type.fee.no">Kostenlos</string>
 	<string name="type.healthcare.laboratory">Medizinisches Labor</string>
 	<string name="type.healthcare.physiotherapist">Physiotherapie</string>
 	<string name="type.healthcare.alternative">Alternative Medizin</string>

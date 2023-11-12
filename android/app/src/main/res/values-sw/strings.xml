@@ -291,19 +291,19 @@
 	<string name="type.amenity.language_school">Shule ya Lugha</string>
 	<string name="type.amenity.loading_dock">Inapakia kituo</string>
 	<string name="type.amenity.parking">Maegesho</string>
-	<string name="type.amenity.parking.fee">Maegesho ya Kulipwa</string>
+	<string name="type.amenity.parking.fee">Maegesho</string>
 	<string name="type.amenity.parking.multi.storey">Maegesho ya Hifadhi nyingi</string>
 	<string name="type.amenity.parking.no.access">Maegesho ya Kibinafsi</string>
 	<string name="type.amenity.parking.permissive">Maegesho ya Kibinafsi</string>
 	<string name="type.amenity.parking.private">Maegesho ya Kibinafsi</string>
 	<string name="type.amenity.parking.underground">Maegesho ya chini ya ardhi</string>
-	<string name="type.amenity.parking.underground.fee">Maegesho ya chini ya ardhi yanayolipwa</string>
+	<string name="type.amenity.parking.underground.fee">Maegesho ya chini ya ardhi</string>
 	<string name="type.amenity.parking.underground.private">Maegesho ya kibinafsi ya chini ya ardhi</string>
 	<string name="type.amenity.parking.street_side">Maegesho ya upande wa mtaa</string>
-	<string name="type.amenity.parking.street_side.fee">Maegesho yanayolipishwa ya barabarani</string>
+	<string name="type.amenity.parking.street_side.fee">Maegesho ya upande wa mtaa</string>
 	<string name="type.amenity.parking.street_side.private">Maegesho ya upande wa mtaa wa kibinafsi</string>
 	<string name="type.amenity.parking.lane">Maegesho ya njia</string>
-	<string name="type.amenity.parking.lane.fee">Maegesho ya njia ya kulipwa</string>
+	<string name="type.amenity.parking.lane.fee">Maegesho ya njia</string>
 	<string name="type.amenity.parking.lane.private">Maegesho ya njia ya kibinafsi</string>
 	<string name="type.amenity.parking_entrance">Mlango wa maegesho</string>
 	<string name="type.amenity.parking_entrance.private">Mlango wa maegesho ya kibinafsi</string>
@@ -367,6 +367,7 @@
 	<!-- This is for main/primary entrances, for secondary entrances see type.entrance -->
 	<string name="type.entrance.main">Mlango Mkuu</string>
 	<string name="type.entrance.exit">Utgång</string>
+	<string name="type.fee.no">Bila</string>
 	<string name="type.healthcare.laboratory">Maabara ya Matibabu</string>
 	<string name="type.healthcare.physiotherapist">Mtaalamu wa Physiotherapist</string>
 	<string name="type.healthcare.alternative">Dawa mbadala</string>

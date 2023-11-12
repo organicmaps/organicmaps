@@ -793,20 +793,20 @@
 	<string name="type.amenity.nightclub">ナイトクラブ</string>
 	<string name="type.amenity.nursing_home">養護施設</string>
 	<string name="type.amenity.parking">駐車場</string>
-	<string name="type.amenity.parking.fee">有料駐車場</string>
+	<string name="type.amenity.parking.fee">駐車場</string>
 	<string name="type.amenity.parking.multi.storey">立体駐車場</string>
 	<string name="type.amenity.parking.no.access">専用駐車場</string>
 	<string name="type.amenity.parking.permissive">専用駐車場</string>
 	<string name="type.amenity.parking.private">専用駐車場</string>
 	<string name="type.amenity.parking.park_and_ride">駐車場</string>
 	<string name="type.amenity.parking.underground">地下駐車場</string>
-	<string name="type.amenity.parking.underground.fee">有料地下駐車場</string>
+	<string name="type.amenity.parking.underground.fee">地下駐車場</string>
 	<string name="type.amenity.parking.underground.private">専用地下駐車場</string>
 	<string name="type.amenity.parking.street_side">路上駐車</string>
-	<string name="type.amenity.parking.street_side.fee">有料路上駐車場</string>
+	<string name="type.amenity.parking.street_side.fee">路上駐車</string>
 	<string name="type.amenity.parking.street_side.private">プライベート・ストリート・サイド・パーキング</string>
 	<string name="type.amenity.parking.lane">レーンパーキング</string>
-	<string name="type.amenity.parking.lane.fee">有料レーン駐車場</string>
+	<string name="type.amenity.parking.lane.fee">レーンパーキング</string>
 	<string name="type.amenity.parking.lane.private">専用レーン駐車場</string>
 	<string name="type.amenity.parking_entrance">駐車場入口</string>
 	<string name="type.amenity.parking_entrance.private">専用駐車場入り口</string>
@@ -1035,6 +1035,7 @@
 	<!-- This is for main/primary entrances, for secondary entrances see type.entrance -->
 	<string name="type.entrance.main">正面玄関</string>
 	<string name="type.entrance.exit">終了する</string>
+	<string name="type.fee.no">無料</string>
 	<string name="type.healthcare.laboratory">医療研究所</string>
 	<string name="type.healthcare.physiotherapist">理学療法士</string>
 	<string name="type.healthcare.alternative">代替医療</string>

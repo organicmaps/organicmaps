@@ -1398,7 +1398,7 @@
 
 "type.amenity.parking" = "Паркинг";
 
-"type.amenity.parking.fee" = "Платен паркинг";
+"type.amenity.parking.fee" = "Паркинг";
 
 "type.amenity.parking.multi.storey" = "Многоетажен паркинг";
 
@@ -1412,19 +1412,19 @@
 
 "type.amenity.parking.underground" = "Подземен паркинг";
 
-"type.amenity.parking.underground.fee" = "Платен подземен паркинг";
+"type.amenity.parking.underground.fee" = "Подземен паркинг";
 
 "type.amenity.parking.underground.private" = "Частен подземен паркинг";
 
 "type.amenity.parking.street_side" = "Паркинг от страната на улицата";
 
-"type.amenity.parking.street_side.fee" = "Платен паркинг от страната на улицата";
+"type.amenity.parking.street_side.fee" = "Паркинг от страната на улицата";
 
 "type.amenity.parking.street_side.private" = "Частна улица страничен паркинг";
 
 "type.amenity.parking.lane" = "Паркинг на платното";
 
-"type.amenity.parking.lane.fee" = "Платен паркинг";
+"type.amenity.parking.lane.fee" = "Паркинг на платното";
 
 "type.amenity.parking.lane.private" = "Частна лента за паркиране";
 
@@ -1933,6 +1933,10 @@
 "type.entrance.main" = "Главния вход";
 
 "type.entrance.exit" = "Изход";
+
+"type.fee.yes" = "💲";
+
+"type.fee.no" = "Безплатно";
 
 "type.healthcare.laboratory" = "Медицинска лаборатория";
 

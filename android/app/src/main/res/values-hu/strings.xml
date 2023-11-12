@@ -803,20 +803,20 @@
 	<string name="type.amenity.nightclub">Éjszakai mulató</string>
 	<string name="type.amenity.nursing_home">Idősek otthona</string>
 	<string name="type.amenity.parking">Parkoló</string>
-	<string name="type.amenity.parking.fee">Fizetős parkolás</string>
+	<string name="type.amenity.parking.fee">Parkoló</string>
 	<string name="type.amenity.parking.multi.storey">Többszintes parkoló</string>
 	<string name="type.amenity.parking.no.access">Saját parkoló</string>
 	<string name="type.amenity.parking.permissive">Saját parkoló</string>
 	<string name="type.amenity.parking.private">Saját parkoló</string>
 	<string name="type.amenity.parking.park_and_ride">Parkoló</string>
 	<string name="type.amenity.parking.underground">Mélygarázs</string>
-	<string name="type.amenity.parking.underground.fee">Fizetős mélygarázs</string>
+	<string name="type.amenity.parking.underground.fee">Mélygarázs</string>
 	<string name="type.amenity.parking.underground.private">Privát földalatti parkoló</string>
 	<string name="type.amenity.parking.street_side">Utca oldali parkolás</string>
-	<string name="type.amenity.parking.street_side.fee">Fizetős utcai parkolás</string>
+	<string name="type.amenity.parking.street_side.fee">Utca oldali parkolás</string>
 	<string name="type.amenity.parking.street_side.private">Privát utca oldali parkolás</string>
 	<string name="type.amenity.parking.lane">Sávos parkolás</string>
-	<string name="type.amenity.parking.lane.fee">Fizetős sávos parkolás</string>
+	<string name="type.amenity.parking.lane.fee">Sávos parkolás</string>
 	<string name="type.amenity.parking.lane.private">Privát sávos parkolás</string>
 	<string name="type.amenity.parking_entrance">Parkoló bejárata</string>
 	<string name="type.amenity.parking_entrance.private">Privát parkoló bejárat</string>
@@ -1025,6 +1025,7 @@
 	<!-- This is for main/primary entrances, for secondary entrances see type.entrance -->
 	<string name="type.entrance.main">Főbejárat</string>
 	<string name="type.entrance.exit">Kilépés</string>
+	<string name="type.fee.no">Ingyenes</string>
 	<string name="type.healthcare.laboratory">Orvosi laboratórium</string>
 	<string name="type.healthcare.physiotherapist">Fizioterapeuta</string>
 	<string name="type.healthcare.alternative">Alternatív gyógyászat</string>

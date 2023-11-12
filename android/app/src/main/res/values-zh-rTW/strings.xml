@@ -816,20 +816,20 @@
 	<string name="type.amenity.nightclub">夜店</string>
 	<string name="type.amenity.nursing_home">養老院</string>
 	<string name="type.amenity.parking">停車場</string>
-	<string name="type.amenity.parking.fee">付費停車</string>
+	<string name="type.amenity.parking.fee">停車場</string>
 	<string name="type.amenity.parking.multi.storey">多層停車場</string>
 	<string name="type.amenity.parking.no.access">私人停車場</string>
 	<string name="type.amenity.parking.permissive">私人停車場</string>
 	<string name="type.amenity.parking.private">私人停車場</string>
 	<string name="type.amenity.parking.park_and_ride">停車場</string>
 	<string name="type.amenity.parking.underground">地下停車場</string>
-	<string name="type.amenity.parking.underground.fee">收費地下停車場</string>
+	<string name="type.amenity.parking.underground.fee">地下停車場</string>
 	<string name="type.amenity.parking.underground.private">私人地下停車場</string>
 	<string name="type.amenity.parking.street_side">街邊停車</string>
-	<string name="type.amenity.parking.street_side.fee">付費街邊停車場</string>
+	<string name="type.amenity.parking.street_side.fee">街邊停車</string>
 	<string name="type.amenity.parking.street_side.private">私人街邊停車場</string>
 	<string name="type.amenity.parking.lane">車道停車</string>
-	<string name="type.amenity.parking.lane.fee">收費車道停車</string>
+	<string name="type.amenity.parking.lane.fee">車道停車</string>
 	<string name="type.amenity.parking.lane.private">私人車道停車</string>
 	<string name="type.amenity.parking_entrance">停車場入口</string>
 	<string name="type.amenity.parking_entrance.private">私人停車場入口</string>
@@ -1040,6 +1040,7 @@
 	<!-- This is for main/primary entrances, for secondary entrances see type.entrance -->
 	<string name="type.entrance.main">主要入口</string>
 	<string name="type.entrance.exit">出口</string>
+	<string name="type.fee.no">免費</string>
 	<string name="type.healthcare.laboratory">醫學實驗室</string>
 	<string name="type.healthcare.physiotherapist">物理治療師</string>
 	<string name="type.healthcare.alternative">替代藥物</string>

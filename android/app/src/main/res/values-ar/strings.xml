@@ -854,20 +854,20 @@
 	<string name="type.amenity.nightclub">نادي ليلي</string>
 	<string name="type.amenity.nursing_home">دار تمريض</string>
 	<string name="type.amenity.parking">موقف سيارات</string>
-	<string name="type.amenity.parking.fee">موقف سيارات مدفوع</string>
+	<string name="type.amenity.parking.fee">موقف سيارات</string>
 	<string name="type.amenity.parking.multi.storey">موقف سيارات متعدد الطوابق</string>
 	<string name="type.amenity.parking.no.access">موقف سيارات خاص</string>
 	<string name="type.amenity.parking.permissive">موقف سيارات خاص</string>
 	<string name="type.amenity.parking.private">موقف سيارات خاص</string>
 	<string name="type.amenity.parking.park_and_ride">موقف اصطفاف وركوب</string>
 	<string name="type.amenity.parking.underground">موقف سيارات تحت الأرض</string>
-	<string name="type.amenity.parking.underground.fee">موقف سيارات مدفوع الأجر تحت الأرض</string>
+	<string name="type.amenity.parking.underground.fee">موقف سيارات تحت الأرض</string>
 	<string name="type.amenity.parking.underground.private">موقف سيارات خاص تحت الأرض</string>
 	<string name="type.amenity.parking.street_side">موقف سيارات على جانب الشارع</string>
-	<string name="type.amenity.parking.street_side.fee">موقف سيارات مدفوع الأجر على جانب الشارع</string>
+	<string name="type.amenity.parking.street_side.fee">موقف سيارات على جانب الشارع</string>
 	<string name="type.amenity.parking.street_side.private">موقف سيارات خاص على جانب الشارع</string>
 	<string name="type.amenity.parking.lane">وقوف السيارات لين</string>
-	<string name="type.amenity.parking.lane.fee">موقف سيارات مدفوع الأجر</string>
+	<string name="type.amenity.parking.lane.fee">وقوف السيارات لين</string>
 	<string name="type.amenity.parking.lane.private">موقف سيارات خاص بالممر</string>
 	<string name="type.amenity.parking_entrance">مدخل موقف سيارات</string>
 	<string name="type.amenity.parking_entrance.private">مدخل خاص لوقوف السيارات</string>
@@ -1123,6 +1123,7 @@
 	<!-- This is for main/primary entrances, for secondary entrances see type.entrance -->
 	<string name="type.entrance.main">المدخل الرئيسي</string>
 	<string name="type.entrance.exit">مخرج</string>
+	<string name="type.fee.no">مجانية</string>
 	<string name="type.healthcare.laboratory">مختبر طبي</string>
 	<string name="type.healthcare.physiotherapist">اخصائي علاج طبيعي</string>
 	<string name="type.healthcare.alternative">الطب البديل</string>

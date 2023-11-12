@@ -1398,7 +1398,7 @@
 
 "type.amenity.parking" = "Parkoviště";
 
-"type.amenity.parking.fee" = "Placené parkoviště";
+"type.amenity.parking.fee" = "Parkoviště";
 
 "type.amenity.parking.multi.storey" = "Vícepodlažní parkoviště";
 
@@ -1412,19 +1412,19 @@
 
 "type.amenity.parking.underground" = "Podzemní parkoviště";
 
-"type.amenity.parking.underground.fee" = "Placené podzemní parkoviště";
+"type.amenity.parking.underground.fee" = "Podzemní parkoviště";
 
 "type.amenity.parking.underground.private" = "Soukromé podzemní parkoviště";
 
 "type.amenity.parking.street_side" = "Parkování na straně ulice";
 
-"type.amenity.parking.street_side.fee" = "Placené parkování na ulici";
+"type.amenity.parking.street_side.fee" = "Parkování na straně ulice";
 
 "type.amenity.parking.street_side.private" = "Soukromé parkování na ulici";
 
 "type.amenity.parking.lane" = "Parkovací pruh";
 
-"type.amenity.parking.lane.fee" = "Placené parkování v pruzích";
+"type.amenity.parking.lane.fee" = "Parkovací pruh";
 
 "type.amenity.parking.lane.private" = "Soukromý parkovací pruh";
 
@@ -1933,6 +1933,10 @@
 "type.entrance.main" = "Hlavní vchod";
 
 "type.entrance.exit" = "Exit";
+
+"type.fee.yes" = "💲";
+
+"type.fee.no" = "Zdarma";
 
 "type.healthcare.laboratory" = "Lékařská laboratoř";
 

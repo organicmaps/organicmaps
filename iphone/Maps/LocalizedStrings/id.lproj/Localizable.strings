@@ -1398,7 +1398,7 @@
 
 "type.amenity.parking" = "Parkir";
 
-"type.amenity.parking.fee" = "Parkir Berbayar";
+"type.amenity.parking.fee" = "Parkir";
 
 "type.amenity.parking.multi.storey" = "Parkir Bertingkat";
 
@@ -1412,19 +1412,19 @@
 
 "type.amenity.parking.underground" = "Parkir bawah tanah";
 
-"type.amenity.parking.underground.fee" = "Parkir bawah tanah berbayar";
+"type.amenity.parking.underground.fee" = "Parkir bawah tanah";
 
 "type.amenity.parking.underground.private" = "Parkir bawah tanah pribadi";
 
 "type.amenity.parking.street_side" = "Parkir di tepi jalan";
 
-"type.amenity.parking.street_side.fee" = "Parkir di tepi jalan berbayar";
+"type.amenity.parking.street_side.fee" = "Parkir di tepi jalan";
 
 "type.amenity.parking.street_side.private" = "Parkir sisi jalan pribadi";
 
 "type.amenity.parking.lane" = "Parkir jalur";
 
-"type.amenity.parking.lane.fee" = "Parkir jalur berbayar";
+"type.amenity.parking.lane.fee" = "Parkir jalur";
 
 "type.amenity.parking.lane.private" = "Parkir jalur pribadi";
 
@@ -1933,6 +1933,10 @@
 "type.entrance.main" = "Pintu masuk utama";
 
 "type.entrance.exit" = "Keluar";
+
+"type.fee.yes" = "💲";
+
+"type.fee.no" = "Gratis";
 
 "type.healthcare.laboratory" = "Laboratorium medis";
 
