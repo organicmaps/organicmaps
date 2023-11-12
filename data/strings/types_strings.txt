@@ -10762,43 +10762,7 @@
     zh-Hant = 出口
 
   [type.fee.yes]
-    en = Paid
-    ar = مدفوعة
-    be = Платна
-    bg = Платено
-    ca = De pagament
-    cs = Placené
-    da = Betalt
-    de = Kostenpflichtig
-    el = Επί πληρωμή
-    es = De pago
-    et = Tasuline
-    eu = Ordaindua
-    fa = پولی
-    fi = Maksullinen
-    fr = Payant
-    he = בתשלום
-    hu = Fizetős
-    id = Berbayar
-    it = A pagamento
-    ja = 有料
-    ko = 유료
-    mr = सशुल्क
-    nb = Betalt
-    nl = Betaald
-    pl = Płatne
-    pt = Pago
-    ro = Plătit
-    ru = Платно
-    sk = Platené
-    sv = Betalt
-    sw = Kulipwa
-    th = จ่าย
-    tr = Ücretli
-    uk = Платно
-    vi = Trả phí
-    zh-Hans = 付费
-    zh-Hant = 付費
+    en = 💲
 
   [type.fee.no]
     en = Free
