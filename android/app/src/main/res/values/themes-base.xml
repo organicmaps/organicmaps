@@ -96,7 +96,6 @@
     <item name="subwayMenuDisabled">@drawable/ic_layers_subway_inactive</item>
     <item name="isoLinesMenuDisabled">@drawable/ic_layers_isoline_inactive</item>
     <item name="accentColorSelector">@color/accent_color_selector</item>
-    <item name="icClearRounded">@drawable/ic_clear_rounded</item>
     <item name="android:textAppearance">@style/TextAppearance</item>
     <item name="android:textAppearanceSmall">@style/TextAppearance.Small</item>
     <item name="android:textAppearanceMedium">@style/TextAppearance.Medium</item>
@@ -228,7 +227,6 @@
     <item name="subwayMenuEnabled">@drawable/ic_layers_subway_active_night</item>
     <item name="isoLinesMenuEnabled">@drawable/ic_layers_isoline_active_night</item>
     <item name="accentColorSelector">@color/accent_color_selector_night</item>
-    <item name="icClearRounded">@drawable/ic_clear_rounded_night</item>
     <item name="android:textAppearance">@style/TextAppearance</item>
     <item name="android:textAppearanceSmall">@style/TextAppearance.Small</item>
     <item name="android:textAppearanceMedium">@style/TextAppearance.Medium</item>

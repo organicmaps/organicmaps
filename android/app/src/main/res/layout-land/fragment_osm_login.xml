@@ -86,7 +86,9 @@
           android:textColorHint="?android:textColorSecondary"
           app:layout_constraintLeft_toRightOf="@id/osm_username_container"
           app:layout_constraintRight_toRightOf="parent"
-          app:layout_constraintTop_toTopOf="parent">
+          app:layout_constraintTop_toTopOf="parent"
+          app:endIconMode="password_toggle"
+          app:endIconTint="?android:textColorSecondary">
           <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/osm_password"
             style="@style/MwmWidget.Editor.FieldLayout.EditText"
