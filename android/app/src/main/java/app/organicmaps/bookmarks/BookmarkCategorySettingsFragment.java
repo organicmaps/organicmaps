@@ -9,6 +9,7 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -19,8 +20,10 @@ import app.organicmaps.bookmarks.data.BookmarkCategory;
 import app.organicmaps.bookmarks.data.BookmarkManager;
 import app.organicmaps.util.Utils;
 
+import app.organicmaps.util.InputUtils;
 import com.google.android.material.dialog.MaterialAlertDialogBuilder;
 import com.google.android.material.textfield.TextInputEditText;
+import com.google.android.material.textfield.TextInputLayout;
 
 import java.util.Objects;
 
@@ -63,14 +66,14 @@ public class BookmarkCategorySettingsFragment extends BaseMwmToolbarFragment
   private void initViews(@NonNull View root)
   {
     mEditCategoryNameView = root.findViewById(R.id.edit_list_name_view);
+    TextInputLayout clearNameBtn = root.findViewById(R.id.edit_list_name_input);
+    clearNameBtn.setEndIconOnClickListener(v -> clearAndFocus(mEditCategoryNameView));
     mEditCategoryNameView.setText(mCategory.getName());
     InputFilter[] f = { new InputFilter.LengthFilter(TEXT_LENGTH_LIMIT) };
     mEditCategoryNameView.setFilters(f);
     mEditCategoryNameView.requestFocus();
     mEditDescView = root.findViewById(R.id.edit_description);
     mEditDescView.setText(mCategory.getDescription());
-    View clearNameBtn = root.findViewById(R.id.edit_text_clear_btn);
-    clearNameBtn.setOnClickListener(v -> mEditCategoryNameView.getEditableText().clear());
   }
 
   @Override
@@ -151,5 +154,12 @@ public class BookmarkCategorySettingsFragment extends BaseMwmToolbarFragment
   {
     String categoryDesc = getEditableCategoryDesc();
     return !TextUtils.equals(mCategory.getDescription(), categoryDesc);
+  }
+
+  private void clearAndFocus(TextView textView)
+  {
+    textView.getEditableText().clear();
+    textView.requestFocus();
+    InputUtils.showKeyboard(textView);
   }
 }

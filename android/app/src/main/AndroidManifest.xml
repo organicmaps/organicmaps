@@ -848,7 +848,8 @@
 
     <activity
       android:name="app.organicmaps.bookmarks.BookmarkCategorySettingsActivity"
-      android:label="@string/edit"/>
+      android:label="@string/edit"
+      android:windowSoftInputMode="stateVisible"/>
     <activity
       android:name="app.organicmaps.widget.placepage.PlaceDescriptionActivity"
       android:label="@string/place_description_title"/>
