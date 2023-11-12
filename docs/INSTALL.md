@@ -285,6 +285,8 @@ To switch themes you can enter this commands:
 - `?dark` - Night theme
 - `?vlight` - Day theme for vehicle navigation
 - `?vdark` - Night theme for vehicle navigation
+- `?olight` - Outdoors day theme
+- `?odark` - Outdoors night theme
 
 There are also other commands for turning on/off isolines, anti-aliasing, etc. Check [DEBUG_COMMANDS.md](DEBUG_COMMANDS.md) to learn about them.
 
@@ -335,7 +337,7 @@ This is important, otherwise the following menus won't be visible.
 Install Android SDK and NDK:
 
 - Open "SDK Manager" (under "More Actions" in a welcome screen or a three-dot menu in a list of recent projects screen or "Tools" top menu item in an open project).
-- Select "Android 13.0 ("Tiramisu") / API Level 33" SDK.
+- Select "Android 14.0 ("Upside Down Cake") / API Level 34" SDK.
 - Switch to "SDK Tools" tab.
 - Check "Show Package Details" checkbox.
 - Select "NDK (Side by side)" version **26.1.10909125**.
@@ -369,7 +371,7 @@ _Windows 10:_ no action needed, should work out of the box.
 ### Create a device
 
 Setup a virtual device to use [emulator](https://developer.android.com/studio/run/emulator) ("Tools > Device Manager") or [use a hardware device for debugging](https://developer.android.com/studio/run/device).
-If using an emulator, make sure to choose a system image with API Level 31. Use ABI _x86_64_ for Intel-based processors and _arm64-v8a_ for ARM-based processors (e.g. M1/M2 Macs).
+If using an emulator, make sure to choose a system image with API Level 34. Use ABI _x86_64_ for Intel-based processors and _arm64-v8a_ for ARM-based processors (e.g. M1/M2 Macs).
 
 Android Studio has issues in parsing the C++ part of the project, please let us know if you know how to resolve it. As a workaround, for working C++ suggestions, you may use:
 
@@ -438,7 +440,7 @@ Check if you have a system-wide Java Runtime Environment (JRE) installed:
 java -version
 ```
 
-If your system doesn't have a JRE installed or Java version is less than 11 (OpenJDK)
+If your system doesn't have a JRE installed or Java version is less than 17 (OpenJDK)
 or you want command line builds to use a JRE version bundled with the Studio
 then set the `JAVA_HOME` environment variable:
 
