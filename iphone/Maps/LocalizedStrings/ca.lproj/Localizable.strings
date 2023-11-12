@@ -1398,7 +1398,7 @@
 
 "type.amenity.parking" = "Parking";
 
-"type.amenity.parking.fee" = "Paid Parking";
+"type.amenity.parking.fee" = "Parking";
 
 "type.amenity.parking.multi.storey" = "Multi Storey Parking";
 
@@ -1412,19 +1412,19 @@
 
 "type.amenity.parking.underground" = "Underground Parking";
 
-"type.amenity.parking.underground.fee" = "Aparcament subterrani de pagament";
+"type.amenity.parking.underground.fee" = "Underground Parking";
 
 "type.amenity.parking.underground.private" = "Aparcament subterrani privat";
 
 "type.amenity.parking.street_side" = "Aparcament al carrer";
 
-"type.amenity.parking.street_side.fee" = "Aparcament al carrer de pagament";
+"type.amenity.parking.street_side.fee" = "Aparcament al carrer";
 
 "type.amenity.parking.street_side.private" = "Aparcament privat al carrer";
 
 "type.amenity.parking.lane" = "Aparcament del carril";
 
-"type.amenity.parking.lane.fee" = "Aparcament de carril de pagament";
+"type.amenity.parking.lane.fee" = "Aparcament del carril";
 
 "type.amenity.parking.lane.private" = "Aparcament de carril privat";
 
@@ -1933,6 +1933,10 @@
 "type.entrance.main" = "Entrada principal";
 
 "type.entrance.exit" = "Sortida";
+
+"type.fee.yes" = "💲";
+
+"type.fee.no" = "Gratuït";
 
 "type.healthcare.laboratory" = "Medical Laboratory";
 

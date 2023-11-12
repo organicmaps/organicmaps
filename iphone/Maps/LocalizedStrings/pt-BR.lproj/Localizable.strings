@@ -1398,7 +1398,7 @@
 
 "type.amenity.parking" = "Estacionamento";
 
-"type.amenity.parking.fee" = "Estacionamento pago";
+"type.amenity.parking.fee" = "Estacionamento";
 
 "type.amenity.parking.multi.storey" = "Edifício-garagem";
 
@@ -1412,19 +1412,19 @@
 
 "type.amenity.parking.underground" = "Estacionamento subterrâneo";
 
-"type.amenity.parking.underground.fee" = "Estacionamento subterrâneo pago";
+"type.amenity.parking.underground.fee" = "Estacionamento subterrâneo";
 
 "type.amenity.parking.underground.private" = "Estacionamento subterrâneo privativo";
 
 "type.amenity.parking.street_side" = "Estacionamento ao lado da rua";
 
-"type.amenity.parking.street_side.fee" = "Estacionamento ao lado da rua pago";
+"type.amenity.parking.street_side.fee" = "Estacionamento ao lado da rua";
 
 "type.amenity.parking.street_side.private" = "Estacionamento ao lado da rua privativo";
 
 "type.amenity.parking.lane" = "Estacionamento na rua";
 
-"type.amenity.parking.lane.fee" = "Estacionamento na rua pago";
+"type.amenity.parking.lane.fee" = "Estacionamento na rua";
 
 "type.amenity.parking.lane.private" = "Estacionamento na rua privativo";
 
@@ -1933,6 +1933,10 @@
 "type.entrance.main" = "Entrada principal";
 
 "type.entrance.exit" = "Sair";
+
+"type.fee.yes" = "💲";
+
+"type.fee.no" = "Gratuito";
 
 "type.healthcare.laboratory" = "Laboratório médico";
 

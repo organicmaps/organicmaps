@@ -1398,7 +1398,7 @@
 
 "type.amenity.parking" = "موقف سيارات";
 
-"type.amenity.parking.fee" = "موقف سيارات مدفوع";
+"type.amenity.parking.fee" = "موقف سيارات";
 
 "type.amenity.parking.multi.storey" = "موقف سيارات متعدد الطوابق";
 
@@ -1412,19 +1412,19 @@
 
 "type.amenity.parking.underground" = "موقف سيارات تحت الأرض";
 
-"type.amenity.parking.underground.fee" = "موقف سيارات مدفوع الأجر تحت الأرض";
+"type.amenity.parking.underground.fee" = "موقف سيارات تحت الأرض";
 
 "type.amenity.parking.underground.private" = "موقف سيارات خاص تحت الأرض";
 
 "type.amenity.parking.street_side" = "موقف سيارات على جانب الشارع";
 
-"type.amenity.parking.street_side.fee" = "موقف سيارات مدفوع الأجر على جانب الشارع";
+"type.amenity.parking.street_side.fee" = "موقف سيارات على جانب الشارع";
 
 "type.amenity.parking.street_side.private" = "موقف سيارات خاص على جانب الشارع";
 
 "type.amenity.parking.lane" = "وقوف السيارات لين";
 
-"type.amenity.parking.lane.fee" = "موقف سيارات مدفوع الأجر";
+"type.amenity.parking.lane.fee" = "وقوف السيارات لين";
 
 "type.amenity.parking.lane.private" = "موقف سيارات خاص بالممر";
 
@@ -1933,6 +1933,10 @@
 "type.entrance.main" = "المدخل الرئيسي";
 
 "type.entrance.exit" = "مخرج";
+
+"type.fee.yes" = "💲";
+
+"type.fee.no" = "مجانية";
 
 "type.healthcare.laboratory" = "مختبر طبي";
 

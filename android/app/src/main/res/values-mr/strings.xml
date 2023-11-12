@@ -798,14 +798,14 @@
 	<string name="type.amenity.nightclub">नाईट क्लब</string>
 	<string name="type.amenity.nursing_home">वृद्धाश्रम</string>
 	<string name="type.amenity.parking">वाहनतळ</string>
+	<string name="type.amenity.parking.fee">वाहनतळ</string>
 	<string name="type.amenity.parking.park_and_ride">वाहनतळ</string>
-	<string name="type.amenity.parking.underground.fee">सशुल्क भूमिगत पार्किंग</string>
 	<string name="type.amenity.parking.underground.private">खाजगी भूमिगत पार्किंग</string>
 	<string name="type.amenity.parking.street_side">स्ट्रीट साइड पार्किंग</string>
-	<string name="type.amenity.parking.street_side.fee">पेड स्ट्रीट साइड पार्किंग</string>
+	<string name="type.amenity.parking.street_side.fee">स्ट्रीट साइड पार्किंग</string>
 	<string name="type.amenity.parking.street_side.private">खाजगी रस्त्यावरील बाजूचे पार्किंग</string>
 	<string name="type.amenity.parking.lane">लेन पार्किंग</string>
-	<string name="type.amenity.parking.lane.fee">सशुल्क लेन पार्किंग</string>
+	<string name="type.amenity.parking.lane.fee">लेन पार्किंग</string>
 	<string name="type.amenity.parking.lane.private">खाजगी लेन पार्किंग</string>
 	<string name="type.amenity.parking_entrance.private">खाजगी पार्किंग प्रवेशद्वार</string>
 	<string name="type.amenity.parking_space">पार्किंगची जागा</string>
@@ -988,6 +988,7 @@
 	<!-- This is for main/primary entrances, for secondary entrances see type.entrance -->
 	<string name="type.entrance.main">मुख्य प्रवेशद्वार</string>
 	<string name="type.entrance.exit">बाहेर पडा</string>
+	<string name="type.fee.no">विनामूल्य</string>
 	<string name="type.healthcare.laboratory">वैद्यकीय प्रयोगशाळा</string>
 	<string name="type.healthcare.physiotherapist">फिजिओथेरपिस्ट</string>
 	<string name="type.healthcare.alternative">पर्यायी औषध</string>

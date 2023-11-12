@@ -1398,7 +1398,7 @@
 
 "type.amenity.parking" = "Парковка";
 
-"type.amenity.parking.fee" = "Платна парковка";
+"type.amenity.parking.fee" = "Парковка";
 
 "type.amenity.parking.multi.storey" = "Багатоповерховий паркінг";
 
@@ -1412,19 +1412,19 @@
 
 "type.amenity.parking.underground" = "Підземний паркінг";
 
-"type.amenity.parking.underground.fee" = "Платний підземний паркінг";
+"type.amenity.parking.underground.fee" = "Підземний паркінг";
 
 "type.amenity.parking.underground.private" = "Приватний підземний паркінг";
 
 "type.amenity.parking.street_side" = "Парковка з боку вулиці";
 
-"type.amenity.parking.street_side.fee" = "Платне паркування з боку вулиці";
+"type.amenity.parking.street_side.fee" = "Парковка з боку вулиці";
 
 "type.amenity.parking.street_side.private" = "Приватна парковка з боку вулиці";
 
 "type.amenity.parking.lane" = "Парковка по смугах";
 
-"type.amenity.parking.lane.fee" = "Платна смуга для паркування";
+"type.amenity.parking.lane.fee" = "Парковка по смугах";
 
 "type.amenity.parking.lane.private" = "Автостоянка на окремій смузі";
 
@@ -1933,6 +1933,10 @@
 "type.entrance.main" = "Головний вхід";
 
 "type.entrance.exit" = "Виходьте.";
+
+"type.fee.yes" = "💲";
+
+"type.fee.no" = "Безкоштовно";
 
 "type.healthcare.laboratory" = "Медична лабораторія";
 

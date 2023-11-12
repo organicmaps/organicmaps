@@ -879,20 +879,20 @@
 	<string name="type.amenity.nightclub">Nightclub</string>
 	<string name="type.amenity.nursing_home">Nursing Home</string>
 	<string name="type.amenity.parking">Parking</string>
-	<string name="type.amenity.parking.fee">Paid Parking</string>
+	<string name="type.amenity.parking.fee">Parking</string>
 	<string name="type.amenity.parking.multi.storey">Multi Storey Parking</string>
 	<string name="type.amenity.parking.no.access">Private Parking</string>
 	<string name="type.amenity.parking.permissive">Private Parking</string>
 	<string name="type.amenity.parking.private">Private Parking</string>
 	<string name="type.amenity.parking.park_and_ride">Park And Ride Parking</string>
 	<string name="type.amenity.parking.underground">Underground Parking</string>
-	<string name="type.amenity.parking.underground.fee">Paid Underground Parking</string>
+	<string name="type.amenity.parking.underground.fee">Underground Parking</string>
 	<string name="type.amenity.parking.underground.private">Private Underground Parking</string>
 	<string name="type.amenity.parking.street_side">Street-Side Parking</string>
-	<string name="type.amenity.parking.street_side.fee">Paid Street-Side Parking</string>
+	<string name="type.amenity.parking.street_side.fee">Street-Side Parking</string>
 	<string name="type.amenity.parking.street_side.private">Private Street-Side Parking</string>
 	<string name="type.amenity.parking.lane">Lane Parking</string>
-	<string name="type.amenity.parking.lane.fee">Paid Lane Parking</string>
+	<string name="type.amenity.parking.lane.fee">Lane Parking</string>
 	<string name="type.amenity.parking.lane.private">Private Lane Parking</string>
 	<string name="type.amenity.parking_entrance">Parking Entrance</string>
 	<string name="type.amenity.parking_entrance.private">Private Parking Entrance</string>
@@ -1149,6 +1149,8 @@
 	<!-- This is for main/primary entrances, for secondary entrances see type.entrance -->
 	<string name="type.entrance.main">Main Entrance</string>
 	<string name="type.entrance.exit">Exit</string>
+	<string name="type.fee.yes">💲</string>
+	<string name="type.fee.no">Free</string>
 	<string name="type.healthcare.laboratory">Medical Laboratory</string>
 	<string name="type.healthcare.physiotherapist">Physiotherapist</string>
 	<string name="type.healthcare.alternative">Alternative Medicine</string>

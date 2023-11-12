@@ -1398,7 +1398,7 @@
 
 "type.amenity.parking" = "주차";
 
-"type.amenity.parking.fee" = "유료 주차장";
+"type.amenity.parking.fee" = "주차";
 
 "type.amenity.parking.multi.storey" = "다층 주차장";
 
@@ -1412,19 +1412,19 @@
 
 "type.amenity.parking.underground" = "지하주차장";
 
-"type.amenity.parking.underground.fee" = "유료 지하 주차장";
+"type.amenity.parking.underground.fee" = "지하주차장";
 
 "type.amenity.parking.underground.private" = "전용 지하 주차장";
 
 "type.amenity.parking.street_side" = "노상 주차장";
 
-"type.amenity.parking.street_side.fee" = "유료 노상 주차장";
+"type.amenity.parking.street_side.fee" = "노상 주차장";
 
 "type.amenity.parking.street_side.private" = "전용 노상 주차장";
 
 "type.amenity.parking.lane" = "차선 주차";
 
-"type.amenity.parking.lane.fee" = "유료 차선 주차";
+"type.amenity.parking.lane.fee" = "차선 주차";
 
 "type.amenity.parking.lane.private" = "전용 차선 주차";
 
@@ -1933,6 +1933,10 @@
 "type.entrance.main" = "정문";
 
 "type.entrance.exit" = "종료";
+
+"type.fee.yes" = "💲";
+
+"type.fee.no" = "무료";
 
 "type.healthcare.laboratory" = "의료 연구실";
 

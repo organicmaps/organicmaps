@@ -779,19 +779,19 @@
 	<string name="type.amenity.ice_cream">Марозіва</string>
 	<string name="type.amenity.loading_dock">Пагрузная платформа</string>
 	<string name="type.amenity.parking">Паркоўка</string>
-	<string name="type.amenity.parking.fee">Платная паркоўка</string>
+	<string name="type.amenity.parking.fee">Паркоўка</string>
 	<string name="type.amenity.parking.multi.storey">Шматпавярховая паркоўка</string>
 	<string name="type.amenity.parking.no.access">Прыватная паркоўка</string>
 	<string name="type.amenity.parking.permissive">Прыватная паркоўка</string>
 	<string name="type.amenity.parking.private">Прыватная паркоўка</string>
 	<string name="type.amenity.parking.underground">Падземны паркінг</string>
-	<string name="type.amenity.parking.underground.fee">Платная падземная паркоўка</string>
+	<string name="type.amenity.parking.underground.fee">Падземны паркінг</string>
 	<string name="type.amenity.parking.underground.private">Прыватны падземны паркінг</string>
 	<string name="type.amenity.parking.street_side">Паркоўка з боку вуліцы</string>
-	<string name="type.amenity.parking.street_side.fee">Платная паркоўка з боку вуліцы</string>
+	<string name="type.amenity.parking.street_side.fee">Паркоўка з боку вуліцы</string>
 	<string name="type.amenity.parking.street_side.private">Прыватная паркоўка з боку вуліцы</string>
 	<string name="type.amenity.parking.lane">Завулак паркоўкі</string>
-	<string name="type.amenity.parking.lane.fee">Платная паркоўка</string>
+	<string name="type.amenity.parking.lane.fee">Завулак паркоўкі</string>
 	<string name="type.amenity.parking.lane.private">Прыватная паркоўка</string>
 	<string name="type.amenity.parking_entrance">Уваход на паркоўку</string>
 	<string name="type.amenity.parking_entrance.private">Уваход на прыватную паркоўку</string>
@@ -886,6 +886,7 @@
 	<!-- This is for main/primary entrances, for secondary entrances see type.entrance -->
 	<string name="type.entrance.main">Галоўны ўваход</string>
 	<string name="type.entrance.exit">Выхад</string>
+	<string name="type.fee.no">бясплатна</string>
 	<string name="type.healthcare.laboratory">Медыцынская лабараторыя</string>
 	<string name="type.healthcare.physiotherapist">Фізіятэрапеўт</string>
 	<string name="type.healthcare.alternative">Альтэрнатыўная медыцына</string>

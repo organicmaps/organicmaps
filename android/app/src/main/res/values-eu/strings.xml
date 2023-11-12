@@ -842,20 +842,20 @@
 	<string name="type.amenity.nightclub">Diskoteka</string>
 	<string name="type.amenity.nursing_home">Zaharren egoitza</string>
 	<string name="type.amenity.parking">Aparkalekua</string>
-	<string name="type.amenity.parking.fee">Ordaindutako aparkalekua</string>
+	<string name="type.amenity.parking.fee">Aparkalekua</string>
 	<string name="type.amenity.parking.multi.storey">Solairu anitzeko aparkalekua</string>
 	<string name="type.amenity.parking.no.access">Aparkaleku pribatua</string>
 	<string name="type.amenity.parking.permissive">Aparkaleku pribatua</string>
 	<string name="type.amenity.parking.private">Aparkaleku pribatua</string>
 	<string name="type.amenity.parking.park_and_ride">Aparkalekua</string>
 	<string name="type.amenity.parking.underground">Lurpeko Aparkalekua</string>
-	<string name="type.amenity.parking.underground.fee">Ordaindutako lurpeko aparkalekua</string>
+	<string name="type.amenity.parking.underground.fee">Lurpeko Aparkalekua</string>
 	<string name="type.amenity.parking.underground.private">Lurpeko aparkaleku pribatua</string>
 	<string name="type.amenity.parking.street_side">Kale alboko aparkalekua</string>
-	<string name="type.amenity.parking.street_side.fee">Ordaindutako kale alboko aparkalekua</string>
+	<string name="type.amenity.parking.street_side.fee">Kale alboko aparkalekua</string>
 	<string name="type.amenity.parking.street_side.private">Kale alboko aparkaleku pribatua</string>
 	<string name="type.amenity.parking.lane">Erreiaren aparkalekua</string>
-	<string name="type.amenity.parking.lane.fee">Ordaindutako erreiaren aparkalekua</string>
+	<string name="type.amenity.parking.lane.fee">Erreiaren aparkalekua</string>
 	<string name="type.amenity.parking.lane.private">Errei pribatuko aparkalekua</string>
 	<string name="type.amenity.parking_entrance">Aparkalekuaren sarrera</string>
 	<string name="type.amenity.parking_entrance.private">Aparkaleku pribatuaren sarrera</string>
@@ -1108,6 +1108,7 @@
 	<!-- This is for main/primary entrances, for secondary entrances see type.entrance -->
 	<string name="type.entrance.main">Sarrera Nagusia</string>
 	<string name="type.entrance.exit">Irten</string>
+	<string name="type.fee.no">Doan</string>
 	<string name="type.healthcare.laboratory">Medikuntza laborategia</string>
 	<string name="type.healthcare.physiotherapist">Fisioterapeuta</string>
 	<string name="type.healthcare.alternative">Medikuntza alternatiboa</string>

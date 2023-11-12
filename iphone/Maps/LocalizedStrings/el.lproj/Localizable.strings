@@ -1398,7 +1398,7 @@
 
 "type.amenity.parking" = "Χώρος στάθμευσης";
 
-"type.amenity.parking.fee" = "Χώρος στάθμευσης επί πληρωμή";
+"type.amenity.parking.fee" = "Χώρος στάθμευσης";
 
 "type.amenity.parking.multi.storey" = "Πολυώροφος χώρος στάθμευσης";
 
@@ -1412,19 +1412,19 @@
 
 "type.amenity.parking.underground" = "Υπόγειος χώρος στάθμευσης";
 
-"type.amenity.parking.underground.fee" = "Υπόγειος χώρος στάθμευσης επί πληρωμή";
+"type.amenity.parking.underground.fee" = "Υπόγειος χώρος στάθμευσης";
 
 "type.amenity.parking.underground.private" = "Ιδιωτικός υπόγειος χώρος στάθμευσης";
 
 "type.amenity.parking.street_side" = "Στάθμευση στην πλευρά του δρόμου";
 
-"type.amenity.parking.street_side.fee" = "Πληρωμένη στάθμευση στο δρόμο";
+"type.amenity.parking.street_side.fee" = "Στάθμευση στην πλευρά του δρόμου";
 
 "type.amenity.parking.street_side.private" = "Ιδιωτικός δρόμος πλευρικός χώρος στάθμευσης";
 
 "type.amenity.parking.lane" = "Λωρίδα στάθμευσης";
 
-"type.amenity.parking.lane.fee" = "Χώρος στάθμευσης επί πληρωμή";
+"type.amenity.parking.lane.fee" = "Λωρίδα στάθμευσης";
 
 "type.amenity.parking.lane.private" = "Ιδιωτική λωρίδα στάθμευσης";
 
@@ -1933,6 +1933,10 @@
 "type.entrance.main" = "Κύρια είσοδος";
 
 "type.entrance.exit" = "Έξοδος";
+
+"type.fee.yes" = "💲";
+
+"type.fee.no" = "Δωρεάν";
 
 "type.healthcare.laboratory" = "Ιατρικό Εργαστήριο";
 

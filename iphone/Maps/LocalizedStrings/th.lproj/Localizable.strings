@@ -1398,7 +1398,7 @@
 
 "type.amenity.parking" = "ที่จอดรถ";
 
-"type.amenity.parking.fee" = "ที่จอดรถแบบเสียค่าบริการ";
+"type.amenity.parking.fee" = "ที่จอดรถ";
 
 "type.amenity.parking.multi.storey" = "ที่จอดรถหลายชั้น";
 
@@ -1412,19 +1412,19 @@
 
 "type.amenity.parking.underground" = "ที่จอดรถใต้ดิน";
 
-"type.amenity.parking.underground.fee" = "ที่จอดรถใต้ดินแบบชำระเงิน";
+"type.amenity.parking.underground.fee" = "ที่จอดรถใต้ดิน";
 
 "type.amenity.parking.underground.private" = "ที่จอดรถใต้ดินส่วนตัว";
 
 "type.amenity.parking.street_side" = "ที่จอดรถริมถนน";
 
-"type.amenity.parking.street_side.fee" = "ที่จอดรถริมถนนแบบชำระเงิน";
+"type.amenity.parking.street_side.fee" = "ที่จอดรถริมถนน";
 
 "type.amenity.parking.street_side.private" = "ที่จอดรถริมถนนส่วนตัว";
 
 "type.amenity.parking.lane" = "ที่จอดรถเลน";
 
-"type.amenity.parking.lane.fee" = "ที่จอดรถเลนแบบชำระเงิน";
+"type.amenity.parking.lane.fee" = "ที่จอดรถเลน";
 
 "type.amenity.parking.lane.private" = "ที่จอดรถเลนส่วนตัว";
 
@@ -1933,6 +1933,10 @@
 "type.entrance.main" = "ทางเข้าหลัก";
 
 "type.entrance.exit" = "ทางออก";
+
+"type.fee.yes" = "💲";
+
+"type.fee.no" = "ฟรี";
 
 "type.healthcare.laboratory" = "ห้องปฏิบัติการทางการแพทย์";
 

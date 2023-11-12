@@ -781,20 +781,20 @@
 	<string name="type.amenity.nightclub">Câu lạc bộ đêm</string>
 	<string name="type.amenity.nursing_home">Nhà dưỡng lão</string>
 	<string name="type.amenity.parking">đỗ xe</string>
-	<string name="type.amenity.parking.fee">Đậu xe trả phí</string>
+	<string name="type.amenity.parking.fee">đỗ xe</string>
 	<string name="type.amenity.parking.multi.storey">Bãi đậu xe nhiều tầng</string>
 	<string name="type.amenity.parking.no.access">Bãi đậu xe tư nhân</string>
 	<string name="type.amenity.parking.permissive">Bãi đậu xe tư nhân</string>
 	<string name="type.amenity.parking.private">Bãi đậu xe tư nhân</string>
 	<string name="type.amenity.parking.park_and_ride">đỗ xe</string>
 	<string name="type.amenity.parking.underground">Bãi đậu xe ngầm</string>
-	<string name="type.amenity.parking.underground.fee">Bãi đậu xe ngầm trả phí</string>
+	<string name="type.amenity.parking.underground.fee">Bãi đậu xe ngầm</string>
 	<string name="type.amenity.parking.underground.private">Bãi đậu xe ngầm riêng</string>
 	<string name="type.amenity.parking.street_side">Bãi đậu xe bên đường</string>
-	<string name="type.amenity.parking.street_side.fee">Bãi đậu xe trả phí bên đường</string>
+	<string name="type.amenity.parking.street_side.fee">Bãi đậu xe bên đường</string>
 	<string name="type.amenity.parking.street_side.private">Bãi đậu xe riêng bên đường</string>
 	<string name="type.amenity.parking.lane">Làn đường đỗ xe</string>
-	<string name="type.amenity.parking.lane.fee">Đỗ xe trên làn đường phải trả tiền</string>
+	<string name="type.amenity.parking.lane.fee">Làn đường đỗ xe</string>
 	<string name="type.amenity.parking.lane.private">Bãi đậu xe làn đường riêng</string>
 	<string name="type.amenity.parking_entrance">Lối vào bãi đậu xe</string>
 	<string name="type.amenity.parking_entrance.private">Lối vào bãi đậu xe riêng</string>
@@ -1003,6 +1003,7 @@
 	<!-- This is for main/primary entrances, for secondary entrances see type.entrance -->
 	<string name="type.entrance.main">Lối vào chính</string>
 	<string name="type.entrance.exit">Lối ra</string>
+	<string name="type.fee.no">Miễn phí</string>
 	<string name="type.healthcare.laboratory">Phòng thí nghiệm y tế</string>
 	<string name="type.healthcare.physiotherapist">Nhà vật lý trị liệu</string>
 	<string name="type.healthcare.alternative">Liều thuốc thay thế</string>

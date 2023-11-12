@@ -1398,7 +1398,7 @@
 
 "type.amenity.parking" = "đỗ xe";
 
-"type.amenity.parking.fee" = "Đậu xe trả phí";
+"type.amenity.parking.fee" = "đỗ xe";
 
 "type.amenity.parking.multi.storey" = "Bãi đậu xe nhiều tầng";
 
@@ -1412,19 +1412,19 @@
 
 "type.amenity.parking.underground" = "Bãi đậu xe ngầm";
 
-"type.amenity.parking.underground.fee" = "Bãi đậu xe ngầm trả phí";
+"type.amenity.parking.underground.fee" = "Bãi đậu xe ngầm";
 
 "type.amenity.parking.underground.private" = "Bãi đậu xe ngầm riêng";
 
 "type.amenity.parking.street_side" = "Bãi đậu xe bên đường";
 
-"type.amenity.parking.street_side.fee" = "Bãi đậu xe trả phí bên đường";
+"type.amenity.parking.street_side.fee" = "Bãi đậu xe bên đường";
 
 "type.amenity.parking.street_side.private" = "Bãi đậu xe riêng bên đường";
 
 "type.amenity.parking.lane" = "Làn đường đỗ xe";
 
-"type.amenity.parking.lane.fee" = "Đỗ xe trên làn đường phải trả tiền";
+"type.amenity.parking.lane.fee" = "Làn đường đỗ xe";
 
 "type.amenity.parking.lane.private" = "Bãi đậu xe làn đường riêng";
 
@@ -1933,6 +1933,10 @@
 "type.entrance.main" = "Lối vào chính";
 
 "type.entrance.exit" = "Lối ra";
+
+"type.fee.yes" = "💲";
+
+"type.fee.no" = "Miễn phí";
 
 "type.healthcare.laboratory" = "Phòng thí nghiệm y tế";
 

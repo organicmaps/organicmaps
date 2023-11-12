@@ -831,20 +831,20 @@
 	<string name="type.amenity.nightclub">Ööklubi</string>
 	<string name="type.amenity.nursing_home">Hooldekodu</string>
 	<string name="type.amenity.parking">Parkimine</string>
-	<string name="type.amenity.parking.fee">Tasuline parkimine</string>
+	<string name="type.amenity.parking.fee">Parkimine</string>
 	<string name="type.amenity.parking.multi.storey">Parkimine mitmel korrusel</string>
 	<string name="type.amenity.parking.no.access">Privaatne parkimine</string>
 	<string name="type.amenity.parking.permissive">Privaatne parkimine</string>
 	<string name="type.amenity.parking.private">Privaatne parkimine</string>
 	<string name="type.amenity.parking.park_and_ride">Parkimine</string>
 	<string name="type.amenity.parking.underground">Maa-alune parkimine</string>
-	<string name="type.amenity.parking.underground.fee">Tasuline maa-alune parkimine</string>
+	<string name="type.amenity.parking.underground.fee">Maa-alune parkimine</string>
 	<string name="type.amenity.parking.underground.private">Privaatne maa-alune parkimine</string>
 	<string name="type.amenity.parking.street_side">Tänavaäärne parkimine</string>
-	<string name="type.amenity.parking.street_side.fee">Tasuline tänavaäärne parkimine</string>
+	<string name="type.amenity.parking.street_side.fee">Tänavaäärne parkimine</string>
 	<string name="type.amenity.parking.street_side.private">Privaatne tänavaäärne parkimine</string>
 	<string name="type.amenity.parking.lane">Parkimine sõidurajal</string>
-	<string name="type.amenity.parking.lane.fee">Tasuline parkimine</string>
+	<string name="type.amenity.parking.lane.fee">Parkimine sõidurajal</string>
 	<string name="type.amenity.parking.lane.private">Privaatne tee parkimine</string>
 	<string name="type.amenity.parking_entrance">Parkla sissepääs</string>
 	<string name="type.amenity.parking_entrance.private">Eraldi parkla sissepääs</string>
@@ -1101,6 +1101,7 @@
 	<!-- This is for main/primary entrances, for secondary entrances see type.entrance -->
 	<string name="type.entrance.main">Peasissekäik</string>
 	<string name="type.entrance.exit">Väljumine</string>
+	<string name="type.fee.no">Tasuta</string>
 	<string name="type.healthcare.laboratory">Meditsiinilabor</string>
 	<string name="type.healthcare.physiotherapist">Füsioterapeut</string>
 	<string name="type.healthcare.alternative">Alternatiivne meditsiin</string>

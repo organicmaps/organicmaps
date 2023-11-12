@@ -781,20 +781,20 @@
 	<string name="type.amenity.nightclub">Nattklubb</string>
 	<string name="type.amenity.nursing_home">Vårdhem</string>
 	<string name="type.amenity.parking">Parkering</string>
-	<string name="type.amenity.parking.fee">Betald parkering</string>
+	<string name="type.amenity.parking.fee">Parkering</string>
 	<string name="type.amenity.parking.multi.storey">Flervånings parkering</string>
 	<string name="type.amenity.parking.no.access">Privat parkering</string>
 	<string name="type.amenity.parking.permissive">Privat parkering</string>
 	<string name="type.amenity.parking.private">Privat parkering</string>
 	<string name="type.amenity.parking.park_and_ride">Parkering</string>
 	<string name="type.amenity.parking.underground">Underjordisk parkering</string>
-	<string name="type.amenity.parking.underground.fee">Betald underjordisk parkering</string>
+	<string name="type.amenity.parking.underground.fee">Underjordisk parkering</string>
 	<string name="type.amenity.parking.underground.private">Privat underjordisk parkering</string>
 	<string name="type.amenity.parking.street_side">Gata sida parkering</string>
-	<string name="type.amenity.parking.street_side.fee">Betald gata sidoparkering</string>
+	<string name="type.amenity.parking.street_side.fee">Gata sida parkering</string>
 	<string name="type.amenity.parking.street_side.private">Privat gata sidoparkering</string>
 	<string name="type.amenity.parking.lane">Körfält parkering</string>
-	<string name="type.amenity.parking.lane.fee">Avgiftsbelagd körfältsparkering</string>
+	<string name="type.amenity.parking.lane.fee">Körfält parkering</string>
 	<string name="type.amenity.parking.lane.private">Privat körfält parkering</string>
 	<string name="type.amenity.parking_entrance">Parkering entré</string>
 	<string name="type.amenity.parking_entrance.private">Privat parkeringsingång</string>
@@ -1001,6 +1001,7 @@
 	<!-- This is for main/primary entrances, for secondary entrances see type.entrance -->
 	<string name="type.entrance.main">Huvudentré</string>
 	<string name="type.entrance.exit">Utgång</string>
+	<string name="type.fee.no">Gratis</string>
 	<string name="type.healthcare.laboratory">Medicinskt laboratorium</string>
 	<string name="type.healthcare.physiotherapist">Fysioterapeut</string>
 	<string name="type.healthcare.alternative">Alternativ medicin</string>

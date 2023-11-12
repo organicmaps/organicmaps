@@ -781,20 +781,20 @@
 	<string name="type.amenity.nightclub">Νυχτερινό κέντρο διασκέδασης</string>
 	<string name="type.amenity.nursing_home">Γηροκομείο</string>
 	<string name="type.amenity.parking">Χώρος στάθμευσης</string>
-	<string name="type.amenity.parking.fee">Χώρος στάθμευσης επί πληρωμή</string>
+	<string name="type.amenity.parking.fee">Χώρος στάθμευσης</string>
 	<string name="type.amenity.parking.multi.storey">Πολυώροφος χώρος στάθμευσης</string>
 	<string name="type.amenity.parking.no.access">Ιδιωτικός χώρος στάθμευσης</string>
 	<string name="type.amenity.parking.permissive">Ιδιωτικός χώρος στάθμευσης</string>
 	<string name="type.amenity.parking.private">Ιδιωτικός χώρος στάθμευσης</string>
 	<string name="type.amenity.parking.park_and_ride">Χώρος στάθμευσης</string>
 	<string name="type.amenity.parking.underground">Υπόγειος χώρος στάθμευσης</string>
-	<string name="type.amenity.parking.underground.fee">Υπόγειος χώρος στάθμευσης επί πληρωμή</string>
+	<string name="type.amenity.parking.underground.fee">Υπόγειος χώρος στάθμευσης</string>
 	<string name="type.amenity.parking.underground.private">Ιδιωτικός υπόγειος χώρος στάθμευσης</string>
 	<string name="type.amenity.parking.street_side">Στάθμευση στην πλευρά του δρόμου</string>
-	<string name="type.amenity.parking.street_side.fee">Πληρωμένη στάθμευση στο δρόμο</string>
+	<string name="type.amenity.parking.street_side.fee">Στάθμευση στην πλευρά του δρόμου</string>
 	<string name="type.amenity.parking.street_side.private">Ιδιωτικός δρόμος πλευρικός χώρος στάθμευσης</string>
 	<string name="type.amenity.parking.lane">Λωρίδα στάθμευσης</string>
-	<string name="type.amenity.parking.lane.fee">Χώρος στάθμευσης επί πληρωμή</string>
+	<string name="type.amenity.parking.lane.fee">Λωρίδα στάθμευσης</string>
 	<string name="type.amenity.parking.lane.private">Ιδιωτική λωρίδα στάθμευσης</string>
 	<string name="type.amenity.parking_entrance">Είσοδος στάθμευσης</string>
 	<string name="type.amenity.parking_entrance.private">Ιδιωτική είσοδος στάθμευσης</string>
@@ -1004,6 +1004,7 @@
 	<!-- This is for main/primary entrances, for secondary entrances see type.entrance -->
 	<string name="type.entrance.main">Κύρια είσοδος</string>
 	<string name="type.entrance.exit">Έξοδος</string>
+	<string name="type.fee.no">Δωρεάν</string>
 	<string name="type.healthcare.laboratory">Ιατρικό Εργαστήριο</string>
 	<string name="type.healthcare.physiotherapist">Φυσικοθεραπευτής</string>
 	<string name="type.healthcare.alternative">Εναλλακτική ιατρική</string>

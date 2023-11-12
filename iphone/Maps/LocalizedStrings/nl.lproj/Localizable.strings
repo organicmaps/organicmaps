@@ -1398,7 +1398,7 @@
 
 "type.amenity.parking" = "Parkeerplaats";
 
-"type.amenity.parking.fee" = "Betaald parkeren";
+"type.amenity.parking.fee" = "Parkeerplaats";
 
 "type.amenity.parking.multi.storey" = "Parkeren met meerdere verdiepingen";
 
@@ -1412,19 +1412,19 @@
 
 "type.amenity.parking.underground" = "Ondergrondse parking";
 
-"type.amenity.parking.underground.fee" = "Betaald ondergronds parkeren";
+"type.amenity.parking.underground.fee" = "Ondergrondse parking";
 
 "type.amenity.parking.underground.private" = "Ondergronds privéparkeren";
 
 "type.amenity.parking.street_side" = "Parkeren aan de straatkant";
 
-"type.amenity.parking.street_side.fee" = "Betaald parkeren aan de straatkant";
+"type.amenity.parking.street_side.fee" = "Parkeren aan de straatkant";
 
 "type.amenity.parking.street_side.private" = "Prive straat parkeren aan de zijkant";
 
 "type.amenity.parking.lane" = "Rijbaan parkeren";
 
-"type.amenity.parking.lane.fee" = "Betaald parkeren op rijstroken";
+"type.amenity.parking.lane.fee" = "Rijbaan parkeren";
 
 "type.amenity.parking.lane.private" = "Privé parkeerplaats";
 
@@ -1933,6 +1933,10 @@
 "type.entrance.main" = "Hoofdingang";
 
 "type.entrance.exit" = "Ga naar";
+
+"type.fee.yes" = "💲";
+
+"type.fee.no" = "Gratis";
 
 "type.healthcare.laboratory" = "Medisch laboratorium";
 

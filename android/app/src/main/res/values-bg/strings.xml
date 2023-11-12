@@ -700,19 +700,19 @@
 	<string name="type.amenity.language_school">Езиково училище</string>
 	<string name="type.amenity.loading_dock">Товарен док</string>
 	<string name="type.amenity.parking">Паркинг</string>
-	<string name="type.amenity.parking.fee">Платен паркинг</string>
+	<string name="type.amenity.parking.fee">Паркинг</string>
 	<string name="type.amenity.parking.multi.storey">Многоетажен паркинг</string>
 	<string name="type.amenity.parking.no.access">Частен паркинг</string>
 	<string name="type.amenity.parking.permissive">Частен паркинг</string>
 	<string name="type.amenity.parking.private">Частен паркинг</string>
 	<string name="type.amenity.parking.underground">Подземен паркинг</string>
-	<string name="type.amenity.parking.underground.fee">Платен подземен паркинг</string>
+	<string name="type.amenity.parking.underground.fee">Подземен паркинг</string>
 	<string name="type.amenity.parking.underground.private">Частен подземен паркинг</string>
 	<string name="type.amenity.parking.street_side">Паркинг от страната на улицата</string>
-	<string name="type.amenity.parking.street_side.fee">Платен паркинг от страната на улицата</string>
+	<string name="type.amenity.parking.street_side.fee">Паркинг от страната на улицата</string>
 	<string name="type.amenity.parking.street_side.private">Частна улица страничен паркинг</string>
 	<string name="type.amenity.parking.lane">Паркинг на платното</string>
-	<string name="type.amenity.parking.lane.fee">Платен паркинг</string>
+	<string name="type.amenity.parking.lane.fee">Паркинг на платното</string>
 	<string name="type.amenity.parking.lane.private">Частна лента за паркиране</string>
 	<string name="type.amenity.parking_entrance">Вход за паркинг</string>
 	<string name="type.amenity.parking_entrance.private">Частен вход за паркинг</string>
@@ -769,6 +769,7 @@
 	<!-- This is for main/primary entrances, for secondary entrances see type.entrance -->
 	<string name="type.entrance.main">Главния вход</string>
 	<string name="type.entrance.exit">Изход</string>
+	<string name="type.fee.no">Безплатно</string>
 	<string name="type.healthcare.laboratory">Медицинска лаборатория</string>
 	<string name="type.healthcare.physiotherapist">Физиотерапевт</string>
 	<string name="type.healthcare.alternative">Алтернативна медицина</string>

@@ -781,20 +781,20 @@
 	<string name="type.amenity.nightclub">Kelab malam</string>
 	<string name="type.amenity.nursing_home">Panti Jompo</string>
 	<string name="type.amenity.parking">Parkir</string>
-	<string name="type.amenity.parking.fee">Parkir Berbayar</string>
+	<string name="type.amenity.parking.fee">Parkir</string>
 	<string name="type.amenity.parking.multi.storey">Parkir Bertingkat</string>
 	<string name="type.amenity.parking.no.access">Parkir pribadi</string>
 	<string name="type.amenity.parking.permissive">Parkir pribadi</string>
 	<string name="type.amenity.parking.private">Parkir pribadi</string>
 	<string name="type.amenity.parking.park_and_ride">Parkir</string>
 	<string name="type.amenity.parking.underground">Parkir bawah tanah</string>
-	<string name="type.amenity.parking.underground.fee">Parkir bawah tanah berbayar</string>
+	<string name="type.amenity.parking.underground.fee">Parkir bawah tanah</string>
 	<string name="type.amenity.parking.underground.private">Parkir bawah tanah pribadi</string>
 	<string name="type.amenity.parking.street_side">Parkir di tepi jalan</string>
-	<string name="type.amenity.parking.street_side.fee">Parkir di tepi jalan berbayar</string>
+	<string name="type.amenity.parking.street_side.fee">Parkir di tepi jalan</string>
 	<string name="type.amenity.parking.street_side.private">Parkir sisi jalan pribadi</string>
 	<string name="type.amenity.parking.lane">Parkir jalur</string>
-	<string name="type.amenity.parking.lane.fee">Parkir jalur berbayar</string>
+	<string name="type.amenity.parking.lane.fee">Parkir jalur</string>
 	<string name="type.amenity.parking.lane.private">Parkir jalur pribadi</string>
 	<string name="type.amenity.parking_entrance">Pintu masuk parkir</string>
 	<string name="type.amenity.parking_entrance.private">Pintu masuk parkir pribadi</string>
@@ -1002,6 +1002,7 @@
 	<!-- This is for main/primary entrances, for secondary entrances see type.entrance -->
 	<string name="type.entrance.main">Pintu masuk utama</string>
 	<string name="type.entrance.exit">Keluar</string>
+	<string name="type.fee.no">Gratis</string>
 	<string name="type.healthcare.laboratory">Laboratorium medis</string>
 	<string name="type.healthcare.physiotherapist">Fisioterapis</string>
 	<string name="type.healthcare.alternative">Pengobatan alternatif</string>

@@ -848,20 +848,20 @@
 	<string name="type.amenity.nightclub">Нічний клуб</string>
 	<string name="type.amenity.nursing_home">Будинок для людей похилого віку</string>
 	<string name="type.amenity.parking">Парковка</string>
-	<string name="type.amenity.parking.fee">Платна парковка</string>
+	<string name="type.amenity.parking.fee">Парковка</string>
 	<string name="type.amenity.parking.multi.storey">Багатоповерховий паркінг</string>
 	<string name="type.amenity.parking.no.access">Приватна парковка</string>
 	<string name="type.amenity.parking.permissive">Приватна парковка</string>
 	<string name="type.amenity.parking.private">Приватна парковка</string>
 	<string name="type.amenity.parking.park_and_ride">Парковка</string>
 	<string name="type.amenity.parking.underground">Підземний паркінг</string>
-	<string name="type.amenity.parking.underground.fee">Платний підземний паркінг</string>
+	<string name="type.amenity.parking.underground.fee">Підземний паркінг</string>
 	<string name="type.amenity.parking.underground.private">Приватний підземний паркінг</string>
 	<string name="type.amenity.parking.street_side">Парковка з боку вулиці</string>
-	<string name="type.amenity.parking.street_side.fee">Платне паркування з боку вулиці</string>
+	<string name="type.amenity.parking.street_side.fee">Парковка з боку вулиці</string>
 	<string name="type.amenity.parking.street_side.private">Приватна парковка з боку вулиці</string>
 	<string name="type.amenity.parking.lane">Парковка по смугах</string>
-	<string name="type.amenity.parking.lane.fee">Платна смуга для паркування</string>
+	<string name="type.amenity.parking.lane.fee">Парковка по смугах</string>
 	<string name="type.amenity.parking.lane.private">Автостоянка на окремій смузі</string>
 	<string name="type.amenity.parking_entrance">Вхід на паркінг</string>
 	<string name="type.amenity.parking_entrance.private">Приватний під\'їзд для паркування</string>
@@ -1113,6 +1113,7 @@
 	<!-- This is for main/primary entrances, for secondary entrances see type.entrance -->
 	<string name="type.entrance.main">Головний вхід</string>
 	<string name="type.entrance.exit">Виходьте.</string>
+	<string name="type.fee.no">Безкоштовно</string>
 	<string name="type.healthcare.laboratory">Медична лабораторія</string>
 	<string name="type.healthcare.physiotherapist">Фізіотерапевт</string>
 	<string name="type.healthcare.alternative">Альтернативна медицина</string>

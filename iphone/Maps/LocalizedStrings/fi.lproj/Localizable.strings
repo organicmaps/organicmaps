@@ -1398,7 +1398,7 @@
 
 "type.amenity.parking" = "Parkkipaikka";
 
-"type.amenity.parking.fee" = "Maksullinen pysäköinti";
+"type.amenity.parking.fee" = "Parkkipaikka";
 
 "type.amenity.parking.multi.storey" = "Monikerroksinen pysäköinti";
 
@@ -1412,19 +1412,19 @@
 
 "type.amenity.parking.underground" = "Maanalainen pysäköinti";
 
-"type.amenity.parking.underground.fee" = "Maksullinen maanalainen pysäköinti";
+"type.amenity.parking.underground.fee" = "Maanalainen pysäköinti";
 
 "type.amenity.parking.underground.private" = "Yksityinen maanalainen pysäköintialue";
 
 "type.amenity.parking.street_side" = "Kadun puolella pysäköinti";
 
-"type.amenity.parking.street_side.fee" = "Maksullinen kadunvarsipysäköinti";
+"type.amenity.parking.street_side.fee" = "Kadun puolella pysäköinti";
 
 "type.amenity.parking.street_side.private" = "Yksityinen katu puolella pysäköinti";
 
 "type.amenity.parking.lane" = "Kaistapysäköinti";
 
-"type.amenity.parking.lane.fee" = "Maksullinen pysäköintikaista";
+"type.amenity.parking.lane.fee" = "Kaistapysäköinti";
 
 "type.amenity.parking.lane.private" = "Yksityinen kaista pysäköinti";
 
@@ -1933,6 +1933,10 @@
 "type.entrance.main" = "Pääsisäänkäynti";
 
 "type.entrance.exit" = "Ulos";
+
+"type.fee.yes" = "💲";
+
+"type.fee.no" = "Ilmainen";
 
 "type.healthcare.laboratory" = "Lääketieteellinen laboratorio";
 

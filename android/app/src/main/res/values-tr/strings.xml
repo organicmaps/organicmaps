@@ -848,20 +848,20 @@
 	<string name="type.amenity.nightclub">Gece Kulübü</string>
 	<string name="type.amenity.nursing_home">Huzurevi</string>
 	<string name="type.amenity.parking">Otopark</string>
-	<string name="type.amenity.parking.fee">Ücretli Otopark</string>
+	<string name="type.amenity.parking.fee">Otopark</string>
 	<string name="type.amenity.parking.multi.storey">Çok Katlı Otopark</string>
 	<string name="type.amenity.parking.no.access">Özel Otopark</string>
 	<string name="type.amenity.parking.permissive">Özel Otopark</string>
 	<string name="type.amenity.parking.private">Özel Otopark</string>
 	<string name="type.amenity.parking.park_and_ride">Otopark</string>
 	<string name="type.amenity.parking.underground">Yeraltı otoparkı</string>
-	<string name="type.amenity.parking.underground.fee">Ücretli yeraltı otoparkı</string>
+	<string name="type.amenity.parking.underground.fee">Yeraltı otoparkı</string>
 	<string name="type.amenity.parking.underground.private">Özel yeraltı otoparkı</string>
 	<string name="type.amenity.parking.street_side">Sokak tarafı otopark</string>
-	<string name="type.amenity.parking.street_side.fee">Ücretli cadde tarafı otopark</string>
+	<string name="type.amenity.parking.street_side.fee">Sokak tarafı otopark</string>
 	<string name="type.amenity.parking.street_side.private">Özel sokak tarafı otopark</string>
 	<string name="type.amenity.parking.lane">Şerit park</string>
-	<string name="type.amenity.parking.lane.fee">Ücretli şerit park</string>
+	<string name="type.amenity.parking.lane.fee">Şerit park</string>
 	<string name="type.amenity.parking.lane.private">Özel şerit otopark</string>
 	<string name="type.amenity.parking_entrance">Otopark girişi</string>
 	<string name="type.amenity.parking_entrance.private">Özel otopark girişi</string>
@@ -1112,6 +1112,7 @@
 	<!-- This is for main/primary entrances, for secondary entrances see type.entrance -->
 	<string name="type.entrance.main">Ana giriş</string>
 	<string name="type.entrance.exit">Çıkış</string>
+	<string name="type.fee.no">Ücretsiz</string>
 	<string name="type.healthcare.laboratory">Tıbbi Laboratuvar</string>
 	<string name="type.healthcare.physiotherapist">Fizyoterapist</string>
 	<string name="type.healthcare.alternative">Alternatif tıp</string>

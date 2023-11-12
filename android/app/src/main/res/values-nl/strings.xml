@@ -840,20 +840,20 @@
 	<string name="type.amenity.nightclub">Nachtclub</string>
 	<string name="type.amenity.nursing_home">Bejaardentehuis</string>
 	<string name="type.amenity.parking">Parkeerplaats</string>
-	<string name="type.amenity.parking.fee">Betaald parkeren</string>
+	<string name="type.amenity.parking.fee">Parkeerplaats</string>
 	<string name="type.amenity.parking.multi.storey">Parkeren met meerdere verdiepingen</string>
 	<string name="type.amenity.parking.no.access">Privé parkeerplaats</string>
 	<string name="type.amenity.parking.permissive">Privé parkeerplaats</string>
 	<string name="type.amenity.parking.private">Privé parkeerplaats</string>
 	<string name="type.amenity.parking.park_and_ride">Parkeerplaats P+R</string>
 	<string name="type.amenity.parking.underground">Ondergrondse parking</string>
-	<string name="type.amenity.parking.underground.fee">Betaald ondergronds parkeren</string>
+	<string name="type.amenity.parking.underground.fee">Ondergrondse parking</string>
 	<string name="type.amenity.parking.underground.private">Ondergronds privéparkeren</string>
 	<string name="type.amenity.parking.street_side">Parkeren aan de straatkant</string>
-	<string name="type.amenity.parking.street_side.fee">Betaald parkeren aan de straatkant</string>
+	<string name="type.amenity.parking.street_side.fee">Parkeren aan de straatkant</string>
 	<string name="type.amenity.parking.street_side.private">Prive straat parkeren aan de zijkant</string>
 	<string name="type.amenity.parking.lane">Rijbaan parkeren</string>
-	<string name="type.amenity.parking.lane.fee">Betaald parkeren op rijstroken</string>
+	<string name="type.amenity.parking.lane.fee">Rijbaan parkeren</string>
 	<string name="type.amenity.parking.lane.private">Privé parkeerplaats</string>
 	<string name="type.amenity.parking_entrance">Parkeeringang</string>
 	<string name="type.amenity.parking_entrance.private">Eigen parkeerplaats ingang</string>
@@ -1108,6 +1108,7 @@
 	<!-- This is for main/primary entrances, for secondary entrances see type.entrance -->
 	<string name="type.entrance.main">Hoofdingang</string>
 	<string name="type.entrance.exit">Ga naar</string>
+	<string name="type.fee.no">Gratis</string>
 	<string name="type.healthcare.laboratory">Medisch laboratorium</string>
 	<string name="type.healthcare.physiotherapist">Fysiotherapeut</string>
 	<string name="type.healthcare.alternative">Alternatieve geneeskunde</string>

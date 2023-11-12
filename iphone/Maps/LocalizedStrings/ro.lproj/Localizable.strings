@@ -1398,7 +1398,7 @@
 
 "type.amenity.parking" = "Parcare";
 
-"type.amenity.parking.fee" = "Parcare cu plată";
+"type.amenity.parking.fee" = "Parcare";
 
 "type.amenity.parking.multi.storey" = "Parcare cu mai multe etaje";
 
@@ -1412,19 +1412,19 @@
 
 "type.amenity.parking.underground" = "Parcare subterană";
 
-"type.amenity.parking.underground.fee" = "Parcare subterană plătită";
+"type.amenity.parking.underground.fee" = "Parcare subterană";
 
 "type.amenity.parking.underground.private" = "Parcare subterană privată";
 
 "type.amenity.parking.street_side" = "Parcare pe partea stradală";
 
-"type.amenity.parking.street_side.fee" = "Plătită parcare laterală la stradă";
+"type.amenity.parking.street_side.fee" = "Parcare pe partea stradală";
 
 "type.amenity.parking.street_side.private" = "Privat parcare laterală pe stradă";
 
 "type.amenity.parking.lane" = "Parcare pe bandă";
 
-"type.amenity.parking.lane.fee" = "Parcare pe bandă cu plată";
+"type.amenity.parking.lane.fee" = "Parcare pe bandă";
 
 "type.amenity.parking.lane.private" = "Parcare pe alee privată";
 
@@ -1933,6 +1933,10 @@
 "type.entrance.main" = "Intrarea principala";
 
 "type.entrance.exit" = "Ieșire";
+
+"type.fee.yes" = "💲";
+
+"type.fee.no" = "Gratuit";
 
 "type.healthcare.laboratory" = "Laborator medical";
 

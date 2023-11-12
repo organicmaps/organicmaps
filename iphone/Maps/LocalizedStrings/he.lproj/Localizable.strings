@@ -1398,7 +1398,7 @@
 
 "type.amenity.parking" = "היָנָחֲ";
 
-"type.amenity.parking.fee" = "םולשתב הינח";
+"type.amenity.parking.fee" = "היָנָחֲ";
 
 "type.amenity.parking.multi.storey" = "תומוק בר הינח";
 
@@ -1412,19 +1412,19 @@
 
 "type.amenity.parking.underground" = "תיעקרק - תת הינח";
 
-"type.amenity.parking.underground.fee" = "חניה תת קרקעית בתשלום";
+"type.amenity.parking.underground.fee" = "תיעקרק - תת הינח";
 
 "type.amenity.parking.underground.private" = "חניה תת קרקעית פרטית";
 
 "type.amenity.parking.street_side" = "חניה בצד הרחוב";
 
-"type.amenity.parking.street_side.fee" = "חניה ברחוב בתשלום";
+"type.amenity.parking.street_side.fee" = "חניה בצד הרחוב";
 
 "type.amenity.parking.street_side.private" = "חניה פרטית בצד הרחוב";
 
 "type.amenity.parking.lane" = "חנייה בנתיב";
 
-"type.amenity.parking.lane.fee" = "חנייה בנתיב בתשלום";
+"type.amenity.parking.lane.fee" = "חנייה בנתיב";
 
 "type.amenity.parking.lane.private" = "חניה פרטית בנתיב";
 
@@ -1933,6 +1933,10 @@
 "type.entrance.main" = "תישארה הסינכ";
 
 "type.entrance.exit" = "יְצִיאָה";
+
+"type.fee.yes" = "💲";
+
+"type.fee.no" = "חינם";
 
 "type.healthcare.laboratory" = "תיאופר הדבעמ";
 

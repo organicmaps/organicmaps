@@ -1398,7 +1398,7 @@
 
 "type.amenity.parking" = "Parkimine";
 
-"type.amenity.parking.fee" = "Tasuline parkimine";
+"type.amenity.parking.fee" = "Parkimine";
 
 "type.amenity.parking.multi.storey" = "Parkimine mitmel korrusel";
 
@@ -1412,19 +1412,19 @@
 
 "type.amenity.parking.underground" = "Maa-alune parkimine";
 
-"type.amenity.parking.underground.fee" = "Tasuline maa-alune parkimine";
+"type.amenity.parking.underground.fee" = "Maa-alune parkimine";
 
 "type.amenity.parking.underground.private" = "Privaatne maa-alune parkimine";
 
 "type.amenity.parking.street_side" = "Tänavaäärne parkimine";
 
-"type.amenity.parking.street_side.fee" = "Tasuline tänavaäärne parkimine";
+"type.amenity.parking.street_side.fee" = "Tänavaäärne parkimine";
 
 "type.amenity.parking.street_side.private" = "Privaatne tänavaäärne parkimine";
 
 "type.amenity.parking.lane" = "Parkimine sõidurajal";
 
-"type.amenity.parking.lane.fee" = "Tasuline parkimine";
+"type.amenity.parking.lane.fee" = "Parkimine sõidurajal";
 
 "type.amenity.parking.lane.private" = "Privaatne tee parkimine";
 
@@ -1933,6 +1933,10 @@
 "type.entrance.main" = "Peasissekäik";
 
 "type.entrance.exit" = "Väljumine";
+
+"type.fee.yes" = "💲";
+
+"type.fee.no" = "Tasuta";
 
 "type.healthcare.laboratory" = "Meditsiinilabor";
 

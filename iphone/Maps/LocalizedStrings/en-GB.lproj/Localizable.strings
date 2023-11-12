@@ -1398,7 +1398,7 @@
 
 "type.amenity.parking" = "Parking";
 
-"type.amenity.parking.fee" = "Paid Parking";
+"type.amenity.parking.fee" = "Parking";
 
 "type.amenity.parking.multi.storey" = "Multi Storey Parking";
 
@@ -1412,13 +1412,13 @@
 
 "type.amenity.parking.underground" = "Underground Parking";
 
-"type.amenity.parking.underground.fee" = "Paid Underground Parking";
+"type.amenity.parking.underground.fee" = "Underground Parking";
 
 "type.amenity.parking.underground.private" = "Private Underground Parking";
 
 "type.amenity.parking.street_side" = "Street-Side Parking";
 
-"type.amenity.parking.street_side.fee" = "Paid Street-Side Parking";
+"type.amenity.parking.street_side.fee" = "Street-Side Parking";
 
 "type.amenity.parking.street_side.private" = "Private Street-Side Parking";
 
@@ -1933,6 +1933,10 @@
 "type.entrance.main" = "Main Entrance";
 
 "type.entrance.exit" = "Exit";
+
+"type.fee.yes" = "💲";
+
+"type.fee.no" = "Free";
 
 "type.healthcare.laboratory" = "Medical Laboratory";
 

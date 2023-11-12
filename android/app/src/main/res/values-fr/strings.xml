@@ -846,20 +846,20 @@
 	<string name="type.amenity.nightclub">Discothèque</string>
 	<string name="type.amenity.nursing_home">Maison de retraite</string>
 	<string name="type.amenity.parking">Stationnement</string>
-	<string name="type.amenity.parking.fee">Stationnement payant</string>
+	<string name="type.amenity.parking.fee">Stationnement</string>
 	<string name="type.amenity.parking.multi.storey">Stationnement à plusieurs étages</string>
 	<string name="type.amenity.parking.no.access">Stationnement privé</string>
 	<string name="type.amenity.parking.permissive">Stationnement privé</string>
 	<string name="type.amenity.parking.private">Stationnement privé</string>
 	<string name="type.amenity.parking.park_and_ride">Parking relais</string>
 	<string name="type.amenity.parking.underground">Stationnement souterrain</string>
-	<string name="type.amenity.parking.underground.fee">Parking souterrain payant</string>
+	<string name="type.amenity.parking.underground.fee">Stationnement souterrain</string>
 	<string name="type.amenity.parking.underground.private">Parking privé souterrain</string>
 	<string name="type.amenity.parking.street_side">Stationnement latéral sur voie</string>
-	<string name="type.amenity.parking.street_side.fee">Stationnement latéral sur voie payant</string>
+	<string name="type.amenity.parking.street_side.fee">Stationnement latéral sur voie</string>
 	<string name="type.amenity.parking.street_side.private">Stationnement latéral sur voie privée</string>
 	<string name="type.amenity.parking.lane">Stationnement le long de la voie</string>
-	<string name="type.amenity.parking.lane.fee">Stationnement payant le long de la voie</string>
+	<string name="type.amenity.parking.lane.fee">Stationnement le long de la voie</string>
 	<string name="type.amenity.parking.lane.private">Stationnement sur voie privée</string>
 	<string name="type.amenity.parking_entrance">Entrée parking</string>
 	<string name="type.amenity.parking_entrance.private">Entrée parking privé</string>
@@ -1105,6 +1105,7 @@
 	<!-- This is for main/primary entrances, for secondary entrances see type.entrance -->
 	<string name="type.entrance.main">Entrée principale</string>
 	<string name="type.entrance.exit">Sortie</string>
+	<string name="type.fee.no">Gratuit</string>
 	<string name="type.healthcare.laboratory">Laboratoire médical</string>
 	<string name="type.healthcare.physiotherapist">Physiothérapeute</string>
 	<string name="type.healthcare.alternative">Médecine alternative</string>

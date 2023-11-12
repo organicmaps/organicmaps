@@ -1398,7 +1398,7 @@
 
 "type.amenity.parking" = "Parkoló";
 
-"type.amenity.parking.fee" = "Fizetős parkolás";
+"type.amenity.parking.fee" = "Parkoló";
 
 "type.amenity.parking.multi.storey" = "Többszintes parkoló";
 
@@ -1412,19 +1412,19 @@
 
 "type.amenity.parking.underground" = "Mélygarázs";
 
-"type.amenity.parking.underground.fee" = "Fizetős mélygarázs";
+"type.amenity.parking.underground.fee" = "Mélygarázs";
 
 "type.amenity.parking.underground.private" = "Privát földalatti parkoló";
 
 "type.amenity.parking.street_side" = "Utca oldali parkolás";
 
-"type.amenity.parking.street_side.fee" = "Fizetős utcai parkolás";
+"type.amenity.parking.street_side.fee" = "Utca oldali parkolás";
 
 "type.amenity.parking.street_side.private" = "Privát utca oldali parkolás";
 
 "type.amenity.parking.lane" = "Sávos parkolás";
 
-"type.amenity.parking.lane.fee" = "Fizetős sávos parkolás";
+"type.amenity.parking.lane.fee" = "Sávos parkolás";
 
 "type.amenity.parking.lane.private" = "Privát sávos parkolás";
 
@@ -1933,6 +1933,10 @@
 "type.entrance.main" = "Főbejárat";
 
 "type.entrance.exit" = "Kilépés";
+
+"type.fee.yes" = "💲";
+
+"type.fee.no" = "Ingyenes";
 
 "type.healthcare.laboratory" = "Orvosi laboratórium";
 

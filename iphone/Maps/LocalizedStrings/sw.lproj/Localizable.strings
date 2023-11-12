@@ -1398,7 +1398,7 @@
 
 "type.amenity.parking" = "Maegesho";
 
-"type.amenity.parking.fee" = "Maegesho ya Kulipwa";
+"type.amenity.parking.fee" = "Maegesho";
 
 "type.amenity.parking.multi.storey" = "Maegesho ya Hifadhi nyingi";
 
@@ -1412,19 +1412,19 @@
 
 "type.amenity.parking.underground" = "Maegesho ya chini ya ardhi";
 
-"type.amenity.parking.underground.fee" = "Maegesho ya chini ya ardhi yanayolipwa";
+"type.amenity.parking.underground.fee" = "Maegesho ya chini ya ardhi";
 
 "type.amenity.parking.underground.private" = "Maegesho ya kibinafsi ya chini ya ardhi";
 
 "type.amenity.parking.street_side" = "Maegesho ya upande wa mtaa";
 
-"type.amenity.parking.street_side.fee" = "Maegesho yanayolipishwa ya barabarani";
+"type.amenity.parking.street_side.fee" = "Maegesho ya upande wa mtaa";
 
 "type.amenity.parking.street_side.private" = "Maegesho ya upande wa mtaa wa kibinafsi";
 
 "type.amenity.parking.lane" = "Maegesho ya njia";
 
-"type.amenity.parking.lane.fee" = "Maegesho ya njia ya kulipwa";
+"type.amenity.parking.lane.fee" = "Maegesho ya njia";
 
 "type.amenity.parking.lane.private" = "Maegesho ya njia ya kibinafsi";
 
@@ -1933,6 +1933,10 @@
 "type.entrance.main" = "Mlango Mkuu";
 
 "type.entrance.exit" = "Utgång";
+
+"type.fee.yes" = "💲";
+
+"type.fee.no" = "Bila";
 
 "type.healthcare.laboratory" = "Maabara ya Matibabu";
 

@@ -820,7 +820,7 @@
 	<string name="type.amenity.parking.underground.private">Estacionamento subterrâneo privativo</string>
 	<string name="type.amenity.parking.street_side.private">Estacionamento ao lado da rua privativo</string>
 	<string name="type.amenity.parking.lane">Estacionamento na rua</string>
-	<string name="type.amenity.parking.lane.fee">Estacionamento na rua pago</string>
+	<string name="type.amenity.parking.lane.fee">Estacionamento na rua</string>
 	<string name="type.amenity.parking.lane.private">Estacionamento na rua privativo</string>
 	<string name="type.amenity.parking_entrance.private">Entrada para estacionamento privativo</string>
 	<string name="type.amenity.payment_terminal">Terminal de pagamento</string>

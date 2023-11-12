@@ -1398,7 +1398,7 @@
 
 "type.amenity.parking" = "वाहनतळ";
 
-"type.amenity.parking.fee" = "Paid Parking";
+"type.amenity.parking.fee" = "वाहनतळ";
 
 "type.amenity.parking.multi.storey" = "Multi Storey Parking";
 
@@ -1412,19 +1412,19 @@
 
 "type.amenity.parking.underground" = "Underground Parking";
 
-"type.amenity.parking.underground.fee" = "सशुल्क भूमिगत पार्किंग";
+"type.amenity.parking.underground.fee" = "Underground Parking";
 
 "type.amenity.parking.underground.private" = "खाजगी भूमिगत पार्किंग";
 
 "type.amenity.parking.street_side" = "स्ट्रीट साइड पार्किंग";
 
-"type.amenity.parking.street_side.fee" = "पेड स्ट्रीट साइड पार्किंग";
+"type.amenity.parking.street_side.fee" = "स्ट्रीट साइड पार्किंग";
 
 "type.amenity.parking.street_side.private" = "खाजगी रस्त्यावरील बाजूचे पार्किंग";
 
 "type.amenity.parking.lane" = "लेन पार्किंग";
 
-"type.amenity.parking.lane.fee" = "सशुल्क लेन पार्किंग";
+"type.amenity.parking.lane.fee" = "लेन पार्किंग";
 
 "type.amenity.parking.lane.private" = "खाजगी लेन पार्किंग";
 
@@ -1933,6 +1933,10 @@
 "type.entrance.main" = "मुख्य प्रवेशद्वार";
 
 "type.entrance.exit" = "बाहेर पडा";
+
+"type.fee.yes" = "💲";
+
+"type.fee.no" = "विनामूल्य";
 
 "type.healthcare.laboratory" = "वैद्यकीय प्रयोगशाळा";
 

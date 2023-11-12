@@ -848,20 +848,20 @@
 	<string name="type.amenity.nightclub">Discoteca</string>
 	<string name="type.amenity.nursing_home">Residencia de ancianos</string>
 	<string name="type.amenity.parking">Aparcamiento</string>
-	<string name="type.amenity.parking.fee">Aparcamiento de pago</string>
+	<string name="type.amenity.parking.fee">Aparcamiento</string>
 	<string name="type.amenity.parking.multi.storey">Aparcamiento de varios pisos</string>
 	<string name="type.amenity.parking.no.access">Aparcamiento privado</string>
 	<string name="type.amenity.parking.permissive">Aparcamiento privado</string>
 	<string name="type.amenity.parking.private">Aparcamiento privado</string>
 	<string name="type.amenity.parking.park_and_ride">Aparcamiento</string>
 	<string name="type.amenity.parking.underground">Aparcamiento subterráneo</string>
-	<string name="type.amenity.parking.underground.fee">Aparcamiento subterráneo de pago</string>
+	<string name="type.amenity.parking.underground.fee">Aparcamiento subterráneo</string>
 	<string name="type.amenity.parking.underground.private">Aparcamiento subterráneo privado</string>
 	<string name="type.amenity.parking.street_side">Aparcamiento en la calle</string>
-	<string name="type.amenity.parking.street_side.fee">Aparcamiento en la calle de pago</string>
+	<string name="type.amenity.parking.street_side.fee">Aparcamiento en la calle</string>
 	<string name="type.amenity.parking.street_side.private">Aparcamiento en la calle privado</string>
 	<string name="type.amenity.parking.lane">Aparcamiento en carril</string>
-	<string name="type.amenity.parking.lane.fee">Aparcamiento en carril de pago</string>
+	<string name="type.amenity.parking.lane.fee">Aparcamiento en carril</string>
 	<string name="type.amenity.parking.lane.private">Aparcamiento en carril privado</string>
 	<string name="type.amenity.parking_entrance">Entrada al aparcamiento</string>
 	<string name="type.amenity.parking_entrance.private">Entrada al aparcamiento privado</string>
@@ -1118,6 +1118,7 @@
 	<!-- This is for main/primary entrances, for secondary entrances see type.entrance -->
 	<string name="type.entrance.main">Entrada principal</string>
 	<string name="type.entrance.exit">Salir</string>
+	<string name="type.fee.no">Gratis</string>
 	<string name="type.healthcare.laboratory">Laboratorio médico</string>
 	<string name="type.healthcare.physiotherapist">Fisioterapeuta</string>
 	<string name="type.healthcare.alternative">Medicina alternativa</string>

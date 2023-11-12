@@ -1398,7 +1398,7 @@
 
 "type.amenity.parking" = "駐車場";
 
-"type.amenity.parking.fee" = "有料駐車場";
+"type.amenity.parking.fee" = "駐車場";
 
 "type.amenity.parking.multi.storey" = "立体駐車場";
 
@@ -1412,19 +1412,19 @@
 
 "type.amenity.parking.underground" = "地下駐車場";
 
-"type.amenity.parking.underground.fee" = "有料地下駐車場";
+"type.amenity.parking.underground.fee" = "地下駐車場";
 
 "type.amenity.parking.underground.private" = "専用地下駐車場";
 
 "type.amenity.parking.street_side" = "路上駐車";
 
-"type.amenity.parking.street_side.fee" = "有料路上駐車場";
+"type.amenity.parking.street_side.fee" = "路上駐車";
 
 "type.amenity.parking.street_side.private" = "プライベート・ストリート・サイド・パーキング";
 
 "type.amenity.parking.lane" = "レーンパーキング";
 
-"type.amenity.parking.lane.fee" = "有料レーン駐車場";
+"type.amenity.parking.lane.fee" = "レーンパーキング";
 
 "type.amenity.parking.lane.private" = "専用レーン駐車場";
 
@@ -1933,6 +1933,10 @@
 "type.entrance.main" = "正面玄関";
 
 "type.entrance.exit" = "終了する";
+
+"type.fee.yes" = "💲";
+
+"type.fee.no" = "無料";
 
 "type.healthcare.laboratory" = "医療研究所";
 

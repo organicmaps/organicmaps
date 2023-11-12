@@ -840,20 +840,20 @@
 	<string name="type.amenity.nightclub">Yökerho</string>
 	<string name="type.amenity.nursing_home">Hoitokoti</string>
 	<string name="type.amenity.parking">Parkkipaikka</string>
-	<string name="type.amenity.parking.fee">Maksullinen pysäköinti</string>
+	<string name="type.amenity.parking.fee">Parkkipaikka</string>
 	<string name="type.amenity.parking.multi.storey">Monikerroksinen pysäköinti</string>
 	<string name="type.amenity.parking.no.access">Yksityinen pysäköinti</string>
 	<string name="type.amenity.parking.permissive">Yksityinen pysäköinti</string>
 	<string name="type.amenity.parking.private">Yksityinen pysäköinti</string>
 	<string name="type.amenity.parking.park_and_ride">Liityntäpysäköinti</string>
 	<string name="type.amenity.parking.underground">Maanalainen pysäköinti</string>
-	<string name="type.amenity.parking.underground.fee">Maksullinen maanalainen pysäköinti</string>
+	<string name="type.amenity.parking.underground.fee">Maanalainen pysäköinti</string>
 	<string name="type.amenity.parking.underground.private">Yksityinen maanalainen pysäköintialue</string>
 	<string name="type.amenity.parking.street_side">Kadun puolella pysäköinti</string>
-	<string name="type.amenity.parking.street_side.fee">Maksullinen kadunvarsipysäköinti</string>
+	<string name="type.amenity.parking.street_side.fee">Kadun puolella pysäköinti</string>
 	<string name="type.amenity.parking.street_side.private">Yksityinen katu puolella pysäköinti</string>
 	<string name="type.amenity.parking.lane">Kaistapysäköinti</string>
-	<string name="type.amenity.parking.lane.fee">Maksullinen pysäköintikaista</string>
+	<string name="type.amenity.parking.lane.fee">Kaistapysäköinti</string>
 	<string name="type.amenity.parking.lane.private">Yksityinen kaista pysäköinti</string>
 	<string name="type.amenity.parking_entrance">Pysäköinnin sisäänkäynti</string>
 	<string name="type.amenity.parking_entrance.private">Yksityinen pysäköintialue sisäänkäynti</string>
@@ -1105,6 +1105,7 @@
 	<!-- This is for main/primary entrances, for secondary entrances see type.entrance -->
 	<string name="type.entrance.main">Pääsisäänkäynti</string>
 	<string name="type.entrance.exit">Ulos</string>
+	<string name="type.fee.no">Ilmainen</string>
 	<string name="type.healthcare.laboratory">Lääketieteellinen laboratorio</string>
 	<string name="type.healthcare.physiotherapist">Fysioterapeutti</string>
 	<string name="type.healthcare.alternative">Vaihtoehtoinen lääketiede</string>
