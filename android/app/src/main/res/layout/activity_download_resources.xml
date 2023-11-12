@@ -6,18 +6,19 @@
   android:layout_width="match_parent"
   android:layout_height="match_parent"
   android:background="?cardBackground">
-  <app.organicmaps.widget.HeightLimitedFrameLayout
-    android:id="@+id/layout"
+  <androidx.constraintlayout.widget.ConstraintLayout
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:layout_above="@id/button_container"
-    android:layout_gravity="center"
-    android:orientation="vertical">
+    android:layout_above="@+id/button_container"
+    android:layout_gravity="center">
     <LinearLayout
       android:layout_width="match_parent"
-      android:layout_height="wrap_content"
+      android:layout_height="match_parent"
       android:layout_gravity="center_vertical"
-      android:orientation="vertical">
+      android:gravity="center"
+      android:orientation="vertical"
+      app:layout_constraintBottom_toBottomOf="parent"
+      app:layout_constraintTop_toTopOf="parent">
       <TextView
         android:id="@+id/head_message"
         style="?fontHeadline6"
@@ -38,7 +39,7 @@
         android:textColor="?android:textColorSecondary"
         tools:text="@string/download_resources" />
     </LinearLayout>
-  </app.organicmaps.widget.HeightLimitedFrameLayout>
+  </androidx.constraintlayout.widget.ConstraintLayout>
   <include
     android:id="@+id/button_container"
     layout="@layout/button_with_progress"
