@@ -110,8 +110,8 @@ public class EditBookmarkFragment extends BaseMwmDialogFragment implements View.
       UiUtils.setViewInsetsPaddingNoBottom(v, windowInsets);
       return windowInsets;
     });
-    final TextView textView = toolbar.findViewById(R.id.tv__save);
-    textView.setOnClickListener(new View.OnClickListener()
+    final ImageView imageView = toolbar.findViewById(R.id.save);
+    imageView.setOnClickListener(new View.OnClickListener()
     {
       @Override
       public void onClick(View v)

@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout
   xmlns:android="http://schemas.android.com/apk/res/android"
+  xmlns:app="http://schemas.android.com/apk/res-auto"
   android:layout_width="match_parent"
   android:layout_height="match_parent">
   <androidx.appcompat.widget.Toolbar
@@ -9,17 +10,17 @@
     android:layout_width="match_parent"
     android:layout_height="?attr/actionBarSize"
     android:theme="@style/MwmWidget.ToolbarTheme">
-    <TextView
-      android:id="@+id/tv__save"
-      android:layout_width="wrap_content"
-      android:layout_height="match_parent"
-      android:layout_gravity="end"
+    <ImageView
+      app:tint="@color/image_view"
+      android:id="@+id/save"
+      android:src="@drawable/ic_done"
+      android:layout_width="?actionBarSize"
+      android:layout_height="?actionBarSize"
+      android:layout_alignParentEnd="true"
       android:background="?attr/selectableItemBackgroundBorderless"
-      android:clickable="true"
-      android:gravity="center_vertical"
-      android:padding="@dimen/margin_half"
-      android:text="@string/save"
-      android:textAppearance="@style/MwmTextAppearance.Toolbar.Title.Button" />
+      android:layout_gravity="end"
+      android:scaleType="centerInside"
+      android:contentDescription="@string/save" />
   </androidx.appcompat.widget.Toolbar>
   <FrameLayout
     style="@style/MwmWidget.FrameLayout.Elevation"
