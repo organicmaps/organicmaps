@@ -105,6 +105,17 @@ class GlobalStyleSheet: IStyleSheet {
     theme.add(styleName: "MenuBackground") { (s) -> (Void) in
       s.backgroundColor = colors.menuBackground
     }
+    
+    theme.add(styleName: "BottomTabBarButton") { (s) -> (Void) in
+      s.backgroundColor = colors.tabBarButtonBackground
+      s.tintColor = colors.blackSecondaryText
+      s.coloring = MWMButtonColoring.black
+      s.cornerRadius = 8
+      s.shadowColor = UIColor(0,0,0,alpha20)
+      s.shadowOpacity = 1
+      s.shadowOffset = CGSize(width: 0, height: 1)
+      s.onTintColor = .red
+    }
 
     theme.add(styleName: "BlackOpaqueBackground") { (s) -> (Void) in
       s.backgroundColor = colors.blackOpaque

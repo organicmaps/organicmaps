@@ -6,6 +6,7 @@ class DayColors: IColors {
   // Light green color
   var primaryLight = UIColor(36, 180, 98, alpha100)
   var menuBackground = UIColor(255, 255, 255, alpha90)
+  var tabBarButtonBackground = UIColor(255, 255, 255, alpha70)
   var downloadBadgeBackground = UIColor(255, 55, 35, alpha100)
   // Background color && press color
   var pressBackground = UIColor(245, 245, 245, alpha100)
@@ -67,6 +68,7 @@ class NightColors: IColors {
   // Light green color
   var primaryLight = UIColor(65, 70, 75, alpha100)
   var menuBackground = UIColor(45, 50, 55, alpha90)
+  var tabBarButtonBackground = UIColor(60, 64, 68, alpha70)
   var downloadBadgeBackground = UIColor(230, 70, 60, alpha100)
   // Background color && press color
   var pressBackground = UIColor(50, 54, 58, alpha100)
