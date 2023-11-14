@@ -34,6 +34,7 @@ import androidx.annotation.UiThread;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.widget.Toolbar;
 import androidx.core.app.ActivityCompat;
+import androidx.core.content.IntentCompat;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 import androidx.fragment.app.Fragment;
@@ -66,7 +67,7 @@ import app.organicmaps.editor.FeatureCategoryActivity;
 import app.organicmaps.editor.ReportFragment;
 import app.organicmaps.help.HelpActivity;
 import app.organicmaps.intent.Factory;
-import app.organicmaps.intent.MapTask;
+import app.organicmaps.intent.IntentProcessor;
 import app.organicmaps.location.LocationHelper;
 import app.organicmaps.location.LocationListener;
 import app.organicmaps.location.LocationState;
@@ -115,12 +116,12 @@ import com.google.android.material.dialog.MaterialAlertDialogBuilder;
 
 import java.util.ArrayList;
 import java.util.Objects;
-import java.util.Stack;
 
 import static android.Manifest.permission.ACCESS_COARSE_LOCATION;
 import static android.Manifest.permission.ACCESS_FINE_LOCATION;
 import static android.Manifest.permission.POST_NOTIFICATIONS;
 import static android.content.pm.PackageManager.PERMISSION_GRANTED;
+import static app.organicmaps.SplashActivity.EXTRA_INITIAL_INTENT;
 import static app.organicmaps.location.LocationState.FOLLOW;
 import static app.organicmaps.location.LocationState.FOLLOW_AND_ROTATE;
 import static app.organicmaps.location.LocationState.LOCATION_TAG;
@@ -144,10 +145,10 @@ public class MwmActivity extends BaseMwmFragmentActivity
 {
   private static final String TAG = MwmActivity.class.getSimpleName();
 
-  public static final String EXTRA_TASK = "map_task";
-  public static final String EXTRA_LAUNCH_BY_DEEP_LINK = "launch_by_deep_link";
-  public static final String EXTRA_BACK_URL = "backurl";
-  public static final String EXTRA_UPDATE_THEME = "update_theme";
+  public static final String EXTRA_COUNTRY_ID = "country_id";
+  public static final String EXTRA_CATEGORY_ID = "category_id";
+  public static final String EXTRA_BOOKMARK_ID = "bookmark_id";
+  public static final String EXTRA_TRACK_ID = "track_id";
   private static final String EXTRA_CONSUMED = "mwm.extra.intent.processed";
 
   private static final String[] DOCKED_FRAGMENTS = { SearchFragment.class.getName(),
@@ -160,9 +161,6 @@ public class MwmActivity extends BaseMwmFragmentActivity
 
   private static final String MAIN_MENU_ID = "MAIN_MENU_BOTTOM_SHEET";
   private static final String LAYERS_MENU_ID = "LAYERS_MENU_BOTTOM_SHEET";
-
-  // Map tasks that we run AFTER rendering initialized
-  private final Stack<MapTask> mTasks = new Stack<>();
 
   @Nullable
   private MapFragment mMapFragment;
@@ -236,7 +234,13 @@ public class MwmActivity extends BaseMwmFragmentActivity
   public static Intent createShowMapIntent(@NonNull Context context, @Nullable String countryId)
   {
     return new Intent(context, DownloadResourcesLegacyActivity.class)
-        .putExtra(DownloadResourcesLegacyActivity.EXTRA_COUNTRY, countryId);
+        .putExtra(EXTRA_COUNTRY_ID, countryId);
+  }
+
+  @Override
+  public void onRenderingRestored()
+  {
+    processIntent();
   }
 
   @Override
@@ -245,25 +249,78 @@ public class MwmActivity extends BaseMwmFragmentActivity
     checkMeasurementSystem();
   }
 
-  @Override
-  public void onRenderingRestored()
-  {
-    runTasks();
-  }
-
   // Called from JNI.
   @Override
   @Keep
   @SuppressWarnings("unused")
   public void onRenderingInitializationFinished()
   {
-    runTasks();
+    ThemeSwitcher.INSTANCE.restart(true);
+
+    autostartLocation();
+
+    if (RoutingController.get().isPlanning())
+      onPlanningStarted();
+    else if (RoutingController.get().isNavigating())
+      onNavigationStarted();
+    else if (RoutingController.get().hasSavedRoute())
+      RoutingController.get().restoreRoute();
+
+    processIntent();
   }
 
-  private void runTasks()
+  /**
+   * Process intents AFTER rendering is initialized.
+   */
+  private void processIntent()
   {
-    while (!mTasks.isEmpty())
-      mTasks.pop().run(this);
+    if (!isMapRendererActive())
+      throw new AssertionError("Must be called when rendering is active");
+
+    final Intent intent = getIntent();
+    if (intent == null || intent.getBooleanExtra(EXTRA_CONSUMED, false))
+      return;
+    intent.putExtra(EXTRA_CONSUMED, true);
+
+    final long categoryId = intent.getLongExtra(EXTRA_CATEGORY_ID, -1);
+    final long bookmarkId = intent.getLongExtra(EXTRA_BOOKMARK_ID, -1);
+    final long trackId = intent.getLongExtra(EXTRA_TRACK_ID, -1);
+    if (bookmarkId != -1)
+    {
+      Objects.requireNonNull(BookmarkManager.INSTANCE.getBookmarkInfo(bookmarkId));
+      BookmarkManager.INSTANCE.showBookmarkOnMap(bookmarkId);
+      return;
+    }
+    else if (trackId != -1)
+    {
+      Objects.requireNonNull(BookmarkManager.INSTANCE.getTrack(trackId));
+      Framework.nativeShowTrackRect(trackId);
+      return;
+    }
+    else if (categoryId != -1)
+    {
+      BookmarkManager.INSTANCE.showBookmarkCategoryOnMap(categoryId);
+      return;
+    }
+
+    final String countryId = intent.getStringExtra(EXTRA_COUNTRY_ID);
+    if (countryId != null)
+    {
+      Framework.nativeShowCountry(countryId, false);
+      return;
+    }
+
+    final IntentProcessor[] mIntentProcessors = {
+        new Factory.GeoIntentProcessor(),
+        new Factory.HttpGeoIntentProcessor(),
+        new Factory.HttpMapsIntentProcessor(),
+        new Factory.KmzKmlProcessor(),
+    };
+    for (IntentProcessor ip : mIntentProcessors)
+    {
+      if (ip.process(intent, this))
+        break;
+    }
   }
 
   private static void checkMeasurementSystem()
@@ -443,7 +500,8 @@ public class MwmActivity extends BaseMwmFragmentActivity
     mDisplayManager = DisplayManager.from(this);
     mDisplayManager.addListener(DisplayType.Device, this);
 
-    boolean isLaunchByDeepLink = getIntent().getBooleanExtra(EXTRA_LAUNCH_BY_DEEP_LINK, false);
+    final Intent intent = getIntent();
+    boolean isLaunchByDeepLink = intent != null && !intent.hasCategory(Intent.CATEGORY_LAUNCHER);
     initViews(isLaunchByDeepLink);
     updateViewsInsets();
 
@@ -454,25 +512,6 @@ public class MwmActivity extends BaseMwmFragmentActivity
         this::onLocationResolutionResult);
     mPostNotificationPermissionRequest = registerForActivityResult(new ActivityResultContracts.RequestPermission(),
         this::onPostNotificationPermissionResult);
-
-    boolean isConsumed = savedInstanceState == null && processIntent(getIntent());
-    // If the map activity is launched by any incoming intent (deeplink, update maps event, etc)
-    // or it's the first launch (onboarding) we haven't to try restoring the route,
-    // showing the tips, etc.
-    if (isConsumed || Config.isFirstLaunch(this))
-      return;
-
-    if (RoutingController.get().isPlanning())
-      onPlanningStarted();
-    else if (RoutingController.get().isNavigating())
-      onNavigationStarted();
-    else if (savedInstanceState == null && RoutingController.get().hasSavedRoute())
-      addTask(new Factory.RestoreRouteTask());
-
-    autostartLocation();
-
-    if (getIntent().getBooleanExtra(EXTRA_UPDATE_THEME, false))
-      ThemeSwitcher.INSTANCE.restart(isMapRendererActive());
   }
 
   private void refreshLightStatusBar()
@@ -601,7 +640,7 @@ public class MwmActivity extends BaseMwmFragmentActivity
     mSearchController.show();
   }
 
-  public void showPositionChooserForAPI(String appName)
+  public void showPositionChooserForAPI(@Nullable String appName)
   {
     showPositionChooser(Framework.ChoosePositionMode.API, false, false);
     if (!TextUtils.isEmpty(appName))
@@ -970,55 +1009,21 @@ public class MwmActivity extends BaseMwmFragmentActivity
   @Override
   protected void onNewIntent(Intent intent)
   {
-    super.onNewIntent(intent);
+    // {@link see BaseMwmFragmentActivity.onCreate()}
+    final Intent initialIntent = IntentCompat.getParcelableExtra(intent, EXTRA_INITIAL_INTENT, Intent.class);
+    if (initialIntent != null)
+      intent = initialIntent;
     setIntent(intent);
-    processIntent(intent);
+    super.onNewIntent(intent);
+    if (isMapRendererActive())
+      processIntent();
   }
 
-  private boolean processIntent(Intent intent)
-  {
-    if (intent == null)
-      return false;
-
-    if (intent.hasExtra(EXTRA_TASK))
-    {
-      addTask(intent);
-      return true;
-    }
-
-    return false;
-  }
-
-  private void addTask(Intent intent)
-  {
-    if (intent != null &&
-        !intent.getBooleanExtra(EXTRA_CONSUMED, false) &&
-        intent.hasExtra(EXTRA_TASK) &&
-        ((intent.getFlags() & Intent.FLAG_ACTIVITY_LAUNCHED_FROM_HISTORY) == 0))
-    {
-      final MapTask mapTask = (MapTask) intent.getSerializableExtra(EXTRA_TASK);
-      mTasks.add(mapTask);
-      intent.removeExtra(EXTRA_TASK);
-
-      if (isMapRendererActive())
-        runTasks();
-
-      // mark intent as consumed
-      intent.putExtra(EXTRA_CONSUMED, true);
-    }
-  }
 
   private boolean isMapRendererActive()
   {
     return mMapFragment != null && Map.isEngineCreated()
            && mMapFragment.isContextCreated();
-  }
-
-  private void addTask(MapTask task)
-  {
-    mTasks.add(task);
-    if (isMapRendererActive())
-      runTasks();
   }
 
   @CallSuper
@@ -1097,6 +1102,10 @@ public class MwmActivity extends BaseMwmFragmentActivity
     IsolinesManager.from(getApplicationContext()).detach();
     mSearchController.detach();
     Utils.keepScreenOn(false, getWindow());
+
+    final String backUrl = Framework.nativeGetParsedBackUrl();
+    if (!TextUtils.isEmpty(backUrl))
+      Utils.openUri(this, Uri.parse(backUrl));
   }
 
   @CallSuper
@@ -1413,7 +1422,7 @@ public class MwmActivity extends BaseMwmFragmentActivity
       if (height != 0)
         offset = height;
     }
-    adjustCompassAndTraffic(offset);
+    updateCompassOffset(offset);
   }
 
   @Override
@@ -1442,7 +1451,7 @@ public class MwmActivity extends BaseMwmFragmentActivity
     else
     {
       if (mIsTabletLayout && mCurrentWindowInsets != null)
-        adjustCompassAndTraffic(mCurrentWindowInsets.getInsets(WindowInsetsCompat.Type.systemBars()).top);
+        updateCompassOffset(mCurrentWindowInsets.getInsets(WindowInsetsCompat.Type.systemBars()).top);
       else if (!mIsTabletLayout)
         mRoutingPlanInplaceController.show(false);
 
@@ -1451,21 +1460,6 @@ public class MwmActivity extends BaseMwmFragmentActivity
       if (completionListener != null)
         completionListener.run();
     }
-  }
-
-  private void adjustCompassAndTraffic(final int offsetY)
-  {
-    addTask(new MapTask()
-    {
-      private static final long serialVersionUID = 9177064181621376624L;
-
-      @Override
-      public boolean run(@NonNull MwmActivity target)
-      {
-        updateCompassOffset(offsetY);
-        return true;
-      }
-    });
   }
 
   @Override
@@ -1826,6 +1820,9 @@ public class MwmActivity extends BaseMwmFragmentActivity
    */
   private void autostartLocation()
   {
+    if (!isMapRendererActive())
+      throw new AssertionError("Must be called when rendering is active");
+
     if (LocationState.nativeGetMode() == LocationState.NOT_FOLLOW_NO_POSITION)
     {
       Logger.i(LOCATION_TAG, "Location updates are stopped by the user manually.");
@@ -2100,41 +2097,17 @@ public class MwmActivity extends BaseMwmFragmentActivity
         Map.zoomIn();
         return true;
       case KeyEvent.KEYCODE_ESCAPE:
-        Intent currIntent = getIntent();
-        if (currIntent == null || !currIntent.hasExtra(EXTRA_BACK_URL))
-          return super.onKeyUp(keyCode, event);
-
-        String backUrl = currIntent.getStringExtra(EXTRA_BACK_URL);
-        if (TextUtils.isEmpty(backUrl))
-          return super.onKeyUp(keyCode, event);
-
-        Uri back_uri = Uri.parse(backUrl);
-        if (back_uri == null)
-          return super.onKeyUp(keyCode, event);
-
-        return Utils.openUri(this, back_uri);
+        final Intent currIntent = getIntent();
+        final String backUrl = Framework.nativeGetParsedBackUrl();
+        if (TextUtils.isEmpty(backUrl) || (currIntent != null && Factory.isStartedForApiResult(currIntent)))
+        {
+          finish();
+          return true;
+        }
+        return super.onKeyUp(keyCode, event);
       default:
         return super.onKeyUp(keyCode, event);
     }
-  }
-
-  public void showTrackOnMap(long trackId)
-  {
-    Track track = BookmarkManager.INSTANCE.getTrack(trackId);
-    Objects.requireNonNull(track);
-    Framework.nativeShowTrackRect(trackId);
-  }
-
-  public void showBookmarkOnMap(long bookmarkId)
-  {
-    BookmarkInfo info = BookmarkManager.INSTANCE.getBookmarkInfo(bookmarkId);
-    Objects.requireNonNull(info);
-    BookmarkManager.INSTANCE.showBookmarkOnMap(bookmarkId);
-  }
-
-  public void showBookmarkCategoryOnMap(long categoryId)
-  {
-    BookmarkManager.INSTANCE.showBookmarkCategoryOnMap(categoryId);
   }
 
   public void onAddPlaceOptionSelected()

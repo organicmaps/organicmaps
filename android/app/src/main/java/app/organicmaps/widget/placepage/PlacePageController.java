@@ -5,6 +5,7 @@ import android.app.Activity;
 import android.content.Intent;
 import android.content.res.Resources;
 import android.os.Bundle;
+import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -25,10 +26,10 @@ import app.organicmaps.Framework;
 import app.organicmaps.MwmActivity;
 import app.organicmaps.R;
 import app.organicmaps.api.Const;
-import app.organicmaps.api.ParsedMwmRequest;
 import app.organicmaps.bookmarks.data.BookmarkManager;
 import app.organicmaps.bookmarks.data.MapObject;
 import app.organicmaps.bookmarks.data.RoadWarningMarkType;
+import app.organicmaps.intent.Factory;
 import app.organicmaps.routing.RoutingController;
 import app.organicmaps.settings.RoadType;
 import app.organicmaps.util.ThemeUtils;
@@ -418,18 +419,13 @@ public class PlacePageController extends Fragment implements
   {
     if (mMapObject == null)
       return;
-    final ParsedMwmRequest request = ParsedMwmRequest.getCurrentRequest();
-    if (request != null && request.isPickPointMode())
-    {
-      final Intent result = new Intent();
-      result.putExtra(Const.EXTRA_POINT_LAT, mMapObject.getLat())
-            .putExtra(Const.EXTRA_POINT_LON, mMapObject.getLon())
-            .putExtra(Const.EXTRA_POINT_NAME, mMapObject.getTitle())
-            .putExtra(Const.EXTRA_POINT_ID, mMapObject.getApiId())
-            .putExtra(Const.EXTRA_ZOOM_LEVEL, Framework.nativeGetDrawScale());
-      requireActivity().setResult(Activity.RESULT_OK, result);
-      ParsedMwmRequest.setCurrentRequest(null);
-    }
+    final Intent result = new Intent();
+    result.putExtra(Const.EXTRA_POINT_LAT, mMapObject.getLat())
+          .putExtra(Const.EXTRA_POINT_LON, mMapObject.getLon())
+          .putExtra(Const.EXTRA_POINT_NAME, mMapObject.getTitle())
+          .putExtra(Const.EXTRA_POINT_ID, mMapObject.getApiId())
+          .putExtra(Const.EXTRA_ZOOM_LEVEL, Framework.nativeGetDrawScale());
+    requireActivity().setResult(Activity.RESULT_OK, result);
     requireActivity().finish();
   }
 
@@ -550,8 +546,7 @@ public class PlacePageController extends Fragment implements
     }
     else
     {
-      final ParsedMwmRequest request = ParsedMwmRequest.getCurrentRequest();
-      if (showBackButton || (request != null && request.isPickPointMode()))
+      if (showBackButton)
         buttons.add(PlacePageButtons.ButtonType.BACK);
 
       boolean needToShowRoutingButtons = RoutingController.get().isPlanning() || showRoutingButton;
@@ -583,6 +578,10 @@ public class PlacePageController extends Fragment implements
   @Override
   public void onChanged(@Nullable MapObject mapObject)
   {
+    final Activity activity = requireActivity();
+    final Intent intent = activity.getIntent();
+    final boolean showBackButton = (intent != null && (Factory.isStartedForApiResult(intent) ||
+        !TextUtils.isEmpty(Framework.nativeGetParsedBackUrl())));
     mMapObject = mapObject;
     if (mapObject != null)
     {
@@ -594,7 +593,7 @@ public class PlacePageController extends Fragment implements
       createPlacePageFragments();
       updateButtons(
           mapObject,
-          mMapObject.isApiPoint(),
+          showBackButton,
           !mMapObject.isMyPosition());
     }
     else

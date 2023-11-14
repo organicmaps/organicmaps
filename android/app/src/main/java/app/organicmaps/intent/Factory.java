@@ -1,5 +1,7 @@
 package app.organicmaps.intent;
 
+import static app.organicmaps.api.Const.EXTRA_PICK_POINT;
+
 import android.content.ContentResolver;
 import android.content.Intent;
 import android.net.Uri;
@@ -7,13 +9,12 @@ import android.text.TextUtils;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.core.content.IntentCompat;
 
-import app.organicmaps.DownloadResourcesLegacyActivity;
 import app.organicmaps.Framework;
 import app.organicmaps.Map;
 import app.organicmaps.MwmActivity;
 import app.organicmaps.MwmApplication;
-import app.organicmaps.api.ParsedMwmRequest;
 import app.organicmaps.api.ParsedRoutingData;
 import app.organicmaps.api.ParsedSearchRequest;
 import app.organicmaps.api.ParsingResult;
@@ -26,23 +27,26 @@ import app.organicmaps.search.SearchActivity;
 import app.organicmaps.search.SearchEngine;
 import app.organicmaps.util.StorageUtils;
 import app.organicmaps.util.StringUtils;
-import app.organicmaps.util.Utils;
 import app.organicmaps.util.concurrency.ThreadPool;
 
 import java.io.File;
 
 public class Factory
 {
+  public static boolean isStartedForApiResult(@NonNull Intent intent)
+  {
+    return intent.getBooleanExtra(EXTRA_PICK_POINT, false);
+  }
+
   public static class GeoIntentProcessor implements IntentProcessor
   {
-    @Nullable
     @Override
-    public MapTask process(@NonNull Intent intent)
+    public boolean process(@NonNull Intent intent, @NonNull MwmActivity activity)
     {
       final String uri = processIntent(intent);
       if (uri == null)
-        return null;
-      return new OpenUrlTask(uri);
+        return false;
+      return OpenUrlTask.run(uri, activity);
     }
 
     @Nullable
@@ -54,172 +58,91 @@ public class Factory
       final String scheme = intent.getScheme();
       if (!"geo".equals(scheme) && !"ge0".equals(scheme) && !"om".equals(scheme) && !"mapsme".equals(scheme))
         return null;
-      SearchEngine.INSTANCE.cancelInteractiveSearch();
-      final ParsedMwmRequest request = ParsedMwmRequest.extractFromIntent(intent);
-      ParsedMwmRequest.setCurrentRequest(request);
       return uri.toString();
     }
   }
 
   public static class HttpGeoIntentProcessor implements IntentProcessor
   {
-    @Nullable
     @Override
-    public MapTask process(@NonNull Intent intent)
+    public boolean process(@NonNull Intent intent, @NonNull MwmActivity activity)
     {
       final Uri uri = intent.getData();
       if (uri == null)
-        return null;
+        return false;
       final String scheme = intent.getScheme();
       if (!"http".equalsIgnoreCase(scheme) && !"https".equalsIgnoreCase(scheme))
-        return null;
+        return false;
       final String host = uri.getHost();
       if (!"omaps.app".equalsIgnoreCase(host) && !"ge0.me".equalsIgnoreCase(host))
-        return null;
+        return false;
       if (uri.getPath() == null)
-        return null;
+        return false;
       final String ge0Url = "om:/" + uri.getPath();
-
-      SearchEngine.INSTANCE.cancelInteractiveSearch();
-      final ParsedMwmRequest request = ParsedMwmRequest.extractFromIntent(intent);
-      ParsedMwmRequest.setCurrentRequest(request);
-      return new OpenUrlTask(ge0Url);
+      return OpenUrlTask.run(ge0Url, activity);
     }
   }
 
   public static class HttpMapsIntentProcessor implements IntentProcessor
   {
-    @Nullable
     @Override
-    public MapTask process(@NonNull Intent intent)
+    public boolean process(@NonNull Intent intent, @NonNull MwmActivity activity)
     {
       final Uri uri = intent.getData();
       if (uri == null)
-        return null;
+        return false;
       final String scheme = intent.getScheme();
       if (!"http".equalsIgnoreCase(scheme) && !"https".equalsIgnoreCase(scheme))
-        return null;
+        return false;
       if (uri.getHost() == null)
-        return null;
+        return false;
       final String host = StringUtils.toLowerCase(uri.getHost());
       if (!host.contains("google") && !host.contains("2gis") && !host.contains("openstreetmap"))
-        return null;
-      return new OpenHttpMapsUrlTask(uri.toString());
-    }
-  }
-
-  public static class OpenCountryTaskProcessor implements IntentProcessor
-  {
-    @Nullable
-    @Override
-    public MapTask process(@NonNull Intent intent)
-    {
-      if (!intent.hasExtra(DownloadResourcesLegacyActivity.EXTRA_COUNTRY))
-        return null;
-      String countryId = intent.getStringExtra(DownloadResourcesLegacyActivity.EXTRA_COUNTRY);
-      return new ShowCountryTask(countryId);
+        return false;
+      return Map.showMapForUrl(uri.toString());
     }
   }
 
   public static class KmzKmlProcessor implements IntentProcessor
   {
-    @NonNull
-    private final DownloadResourcesLegacyActivity mActivity;
-
-    public KmzKmlProcessor(@NonNull DownloadResourcesLegacyActivity activity)
-    {
-      mActivity = activity;
-    }
-
-    @Nullable
     @Override
-    public MapTask process(@NonNull Intent intent)
+    public boolean process(@NonNull Intent intent, @NonNull MwmActivity activity)
     {
       // See KML/KMZ/KMB intent filters in manifest.
       final Uri uri;
       if (Intent.ACTION_VIEW.equals(intent.getAction()))
         uri = intent.getData();
       else if (Intent.ACTION_SEND.equals(intent.getAction()))
-        uri = intent.getParcelableExtra(Intent.EXTRA_STREAM);
+        uri = IntentCompat.getParcelableExtra(intent, Intent.EXTRA_STREAM, Uri.class);
       else
         uri = null;
       if (uri == null)
-        return null;
+        return false;
 
-      MwmApplication app = MwmApplication.from(mActivity);
+      MwmApplication app = MwmApplication.from(activity);
       final File tempDir = new File(StorageUtils.getTempPath(app));
-      final ContentResolver resolver = mActivity.getContentResolver();
+      final ContentResolver resolver = activity.getContentResolver();
       ThreadPool.getStorage().execute(() -> {
         BookmarkManager.INSTANCE.importBookmarksFile(resolver, uri, tempDir);
-        mActivity.runOnUiThread(mActivity::showMap);
       });
-      return null;
+      return false;
     }
   }
 
-  abstract static class UrlTaskWithStatistics implements MapTask
+  private static class OpenUrlTask
   {
-    private static final long serialVersionUID = -8661639898700431066L;
-    @NonNull
-    private final String mUrl;
-
-    UrlTaskWithStatistics(@NonNull String url)
-    {
-      Utils.checkNotNull(url);
-      mUrl = url;
-    }
-
-    @NonNull
-    String getUrl()
-    {
-      return mUrl;
-    }
-  }
-
-  public static class OpenHttpMapsUrlTask extends UrlTaskWithStatistics
-  {
-    OpenHttpMapsUrlTask(@NonNull String url)
-    {
-      super(url);
-    }
-
-    @Override
-    public boolean run(@NonNull MwmActivity target)
-    {
-      return Map.showMapForUrl(getUrl());
-    }
-  }
-
-  public static class OpenUrlTask extends UrlTaskWithStatistics
-  {
-    private static final long serialVersionUID = -7257820771228127413L;
     private static final int SEARCH_IN_VIEWPORT_ZOOM = 16;
 
-    OpenUrlTask(@NonNull String url)
+    // TODO: will be merged into HttpMapsIntentProcessor later.
+    public static boolean run(@NonNull String url, @NonNull MwmActivity target)
     {
-      super(url);
-    }
+      SearchEngine.INSTANCE.cancelInteractiveSearch();
 
-    @Override
-    public boolean run(@NonNull MwmActivity target)
-    {
-      final ParsingResult result = Framework.nativeParseAndSetApiUrl(getUrl());
-
-      final Uri uri = Uri.parse(getUrl());
-      if (uri.isHierarchical())
-      {
-        final String backUrl = uri.getQueryParameter("backurl");
-        if (!TextUtils.isEmpty(backUrl))
-        {
-          final Intent intent = target.getIntent();
-          if (intent != null)
-            intent.putExtra(MwmActivity.EXTRA_BACK_URL, backUrl);
-        }
-      }
+      final ParsingResult result = Framework.nativeParseAndSetApiUrl(url);
 
       // TODO: Kernel recognizes "om://", "mapsme://", "mwm://" and "mapswithme://" schemas only!!!
       if (result.getUrlType() == ParsingResult.TYPE_INCORRECT)
-        return Map.showMapForUrl(getUrl());
+        return Map.showMapForUrl(url);
 
       if (!result.isSuccess())
         return false;
@@ -230,7 +153,7 @@ public class Factory
           return false;
 
         case ParsingResult.TYPE_MAP:
-          return Map.showMapForUrl(getUrl());
+          return Map.showMapForUrl(url);
 
         case ParsingResult.TYPE_ROUTE:
           final ParsedRoutingData data = Framework.nativeGetParsedRoutingData();
@@ -274,99 +197,6 @@ public class Factory
       }
 
       return false;
-    }
-  }
-
-  public static class ShowCountryTask implements MapTask {
-    private static final long serialVersionUID = 256630934543189768L;
-    private final String mCountryId;
-
-    public ShowCountryTask(String countryId)
-    {
-      mCountryId = countryId;
-    }
-
-    @Override
-    public boolean run(@NonNull MwmActivity target)
-    {
-      Framework.nativeShowCountry(mCountryId, false);
-      return true;
-    }
-  }
-
-  public static class ShowBookmarkCategoryTask implements MapTask
-  {
-    private static final long serialVersionUID = 8285565041410550281L;
-    final long mCategoryId;
-
-    public ShowBookmarkCategoryTask(long categoryId)
-    {
-      mCategoryId = categoryId;
-    }
-
-    public boolean run(@NonNull MwmActivity target)
-    {
-      target.showBookmarkCategoryOnMap(mCategoryId);
-      return true;
-    }
-  }
-
-  static abstract class BaseUserMarkTask implements MapTask
-  {
-    private static final long serialVersionUID = -3348320422813422144L;
-    final long mCategoryId;
-    final long mId;
-
-    BaseUserMarkTask(long categoryId, long id)
-    {
-      mCategoryId = categoryId;
-      mId = id;
-    }
-  }
-
-  public static class ShowBookmarkTask extends BaseUserMarkTask
-  {
-    private static final long serialVersionUID = 7582931785363515736L;
-
-    public ShowBookmarkTask(long categoryId, long bookmarkId)
-    {
-      super(categoryId, bookmarkId);
-    }
-
-    @Override
-    public boolean run(@NonNull MwmActivity target)
-    {
-      target.showBookmarkOnMap(mId);
-      return true;
-    }
-  }
-
-  public static class ShowTrackTask extends BaseUserMarkTask
-  {
-    private static final long serialVersionUID = 1091286722919338991L;
-
-    public ShowTrackTask(long categoryId, long trackId)
-    {
-      super(categoryId, trackId);
-    }
-
-    @Override
-    public boolean run(@NonNull MwmActivity target)
-    {
-      target.showTrackOnMap(mId);
-      return true;
-    }
-  }
-
-  public static class RestoreRouteTask implements MapTask
-  {
-    private static final long serialVersionUID = 6123893958975977040L;
-
-    @Override
-    public boolean run(@NonNull MwmActivity target)
-    {
-      RoutingController.get().restoreRoute();
-      return true;
     }
   }
 }

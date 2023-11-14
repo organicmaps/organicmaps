@@ -5,8 +5,10 @@ import android.content.Intent;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
+import app.organicmaps.MwmActivity;
+
 public interface IntentProcessor
 {
   @Nullable
-  MapTask process(@NonNull Intent intent);
+  boolean process(@NonNull Intent intent, @NonNull MwmActivity activity);
 }

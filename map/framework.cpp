@@ -1873,6 +1873,11 @@ std::string const & Framework::GetParsedAppName() const
   return m_parsedMapApi.GetAppName();
 }
 
+std::string const & Framework::GetParsedBackUrl() const
+{
+  return m_parsedMapApi.GetGlobalBackUrl();
+}
+
 ms::LatLon Framework::GetParsedCenterLatLon() const
 {
   return m_parsedMapApi.GetCenterLatLon();

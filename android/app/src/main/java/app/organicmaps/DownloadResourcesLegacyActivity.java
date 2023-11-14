@@ -21,13 +21,10 @@ import androidx.annotation.Nullable;
 import androidx.annotation.StringRes;
 import androidx.annotation.StyleRes;
 
-import app.organicmaps.api.ParsedMwmRequest;
 import app.organicmaps.base.BaseMwmFragmentActivity;
 import app.organicmaps.downloader.CountryItem;
 import app.organicmaps.downloader.MapManager;
 import app.organicmaps.intent.Factory;
-import app.organicmaps.intent.IntentProcessor;
-import app.organicmaps.intent.MapTask;
 import app.organicmaps.location.LocationHelper;
 import app.organicmaps.location.LocationListener;
 import app.organicmaps.util.Config;
@@ -35,7 +32,6 @@ import app.organicmaps.util.ConnectionState;
 import app.organicmaps.util.StringUtils;
 import app.organicmaps.util.UiUtils;
 import app.organicmaps.util.Utils;
-import app.organicmaps.util.log.Logger;
 import com.google.android.material.dialog.MaterialAlertDialogBuilder;
 
 import java.util.List;
@@ -44,8 +40,6 @@ import java.util.List;
 public class DownloadResourcesLegacyActivity extends BaseMwmFragmentActivity
 {
   private static final String TAG = DownloadResourcesLegacyActivity.class.getSimpleName();
-
-  public static final String EXTRA_COUNTRY = "country";
 
   // Error codes, should match the same codes in JNI
   private static final int ERR_DOWNLOAD_SUCCESS = 0;
@@ -62,8 +56,6 @@ public class DownloadResourcesLegacyActivity extends BaseMwmFragmentActivity
   private CheckBox mChbDownloadCountry;
 
   private String mCurrentCountry;
-  @Nullable
-  private MapTask mMapTaskToForward;
 
   @Nullable
   private Dialog mAlertDialog;
@@ -97,15 +89,6 @@ public class DownloadResourcesLegacyActivity extends BaseMwmFragmentActivity
     @SuppressWarnings("unused")
     void onFinish(int errorCode);
   }
-
-  @NonNull
-  private final IntentProcessor[] mIntentProcessors = {
-      new Factory.GeoIntentProcessor(),
-      new Factory.HttpGeoIntentProcessor(),
-      new Factory.HttpMapsIntentProcessor(),
-      new Factory.OpenCountryTaskProcessor(),
-      new Factory.KmzKmlProcessor(this),
-  };
 
   private final LocationListener mLocationListener = new LocationListener()
   {
@@ -221,7 +204,6 @@ public class DownloadResourcesLegacyActivity extends BaseMwmFragmentActivity
       return;
     }
 
-    mMapTaskToForward = processIntent();
     showMap();
   }
 
@@ -371,19 +353,14 @@ public class DownloadResourcesLegacyActivity extends BaseMwmFragmentActivity
     // Disable animation because MwmActivity should appear exactly over this one
     intent.addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION | Intent.FLAG_ACTIVITY_CLEAR_TOP);
 
-    // Add saved task to forward to map activity.
-    if (mMapTaskToForward != null)
+    // See {@link SplashActivity.processNavigation()}
+    final Intent initialIntent = getIntent();
+    intent.putExtra(SplashActivity.EXTRA_INITIAL_INTENT, initialIntent);
+    if (Factory.isStartedForApiResult(initialIntent))
     {
-      intent.putExtra(MwmActivity.EXTRA_TASK, mMapTaskToForward);
-      intent.putExtra(MwmActivity.EXTRA_LAUNCH_BY_DEEP_LINK, true);
-      mMapTaskToForward = null;
-
-      if (ParsedMwmRequest.getCurrentRequest() != null)
-      {
-        // Wait for the result from MwmActivity for API callers.
-        mApiRequest.launch(intent);
-        return;
-      }
+      // Wait for the result from MwmActivity for API callers.
+      mApiRequest.launch(intent);
+      return;
     }
 
     startActivity(intent);
@@ -412,7 +389,6 @@ public class DownloadResourcesLegacyActivity extends BaseMwmFragmentActivity
       else
       {
         mAreResourcesDownloaded = true;
-        mMapTaskToForward = processIntent();
         showMap();
       }
     }
@@ -420,26 +396,6 @@ public class DownloadResourcesLegacyActivity extends BaseMwmFragmentActivity
     {
       showErrorDialog(result);
     }
-  }
-
-  @Nullable
-  private MapTask processIntent()
-  {
-    final Intent intent = getIntent();
-    if (intent == null)
-      return null;
-
-    String msg = "Incoming intent uri: " + intent;
-    Logger.i(TAG, msg);
-
-    MapTask mapTaskToForward;
-    for (IntentProcessor ip : mIntentProcessors)
-    {
-      if ((mapTaskToForward = ip.process(intent)) != null)
-        return mapTaskToForward;
-    }
-
-    return null;
   }
 
   private void showErrorDialog(int result)
