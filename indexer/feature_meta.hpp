@@ -182,7 +182,7 @@ class AddressData : public MetadataBase
 public:
   enum class Type : uint8_t
   {
-    Street, Place, Suburb,
+    Street, Place,
   };
 
   // Store single value only.

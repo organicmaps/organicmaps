@@ -188,12 +188,6 @@ enum class SuburbType
   Count
 };
 
-static_assert(base::Underlying(SuburbType::Residential) <
-                  base::Underlying(SuburbType::Neighbourhood),
-              "");
-static_assert(base::Underlying(SuburbType::Neighbourhood) < base::Underlying(SuburbType::Suburb),
-              "");
-
 class IsSuburbChecker : public BaseChecker
 {
   IsSuburbChecker();

@@ -1101,11 +1101,12 @@ UNIT_CLASS_TEST(TestRawGenerator, Addr_Street_Place)
   {
     std::string m_file;
     size_t m_addrCount;
-    bool m_checkPlace;
+    bool m_checkStreet, m_checkPlace;
   };
   TestData const arrFiles[] = {
-    { "./data/osm_test_data/addr_street_place.osm", 1, true },
-    { "./data/osm_test_data/addr_street_very_far.osm", 2, false },
+    { "./data/osm_test_data/addr_street_place.osm", 1, true, true },
+    { "./data/osm_test_data/addr_street_very_far.osm", 2, true, false },
+    { "./data/osm_test_data/zelenograd.osm", 1, false, true },
   };
 
   for (auto const & data : arrFiles)
@@ -1135,7 +1136,8 @@ UNIT_CLASS_TEST(TestRawGenerator, Addr_Street_Place)
         TEST(!ft->GetHouseNumber().empty(), ());
         ++count;
 
-        TEST(house2street->Get(ft->GetID().m_index), ());
+        if (data.m_checkStreet)
+          TEST(house2street->Get(ft->GetID().m_index), ());
         if (data.m_checkPlace)
           TEST(house2place->Get(ft->GetID().m_index), ());
       }
