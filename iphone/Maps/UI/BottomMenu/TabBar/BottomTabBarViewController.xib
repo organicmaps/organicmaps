@@ -34,8 +34,8 @@
                                 <constraint firstAttribute="width" secondItem="dzf-7Z-N6a" secondAttribute="height" id="qNJ-0K-sK0"/>
                             </constraints>
                             <fontDescription key="fontDescription" type="system" pointSize="30"/>
-                            <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
-                            <state key="normal" image="ic_menu_question"/>
+                            <inset key="imageEdgeInsets" minX="9" minY="9" maxX="9" maxY="9"/>
+                            <state key="normal" image="logo"/>
                             <connections>
                                 <action selector="onHelpButtonPressed:" destination="-1" eventType="touchUpInside" id="1gx-P2-sRJ"/>
                             </connections>
@@ -132,13 +132,16 @@
             <nil key="simulatedTopBarMetrics"/>
             <nil key="simulatedBottomBarMetrics"/>
             <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
+            <connections>
+                <outlet property="mainButtonsView" destination="vum-s3-PHx" id="fBi-DA-orA"/>
+            </connections>
             <point key="canvasLocation" x="72" y="254"/>
         </view>
     </objects>
     <resources>
         <image name="ic_menu" width="48" height="48"/>
         <image name="ic_menu_bookmark_list" width="48" height="48"/>
-        <image name="ic_menu_question" width="29" height="29"/>
         <image name="ic_menu_search" width="48" height="48"/>
+        <image name="logo" width="512" height="512"/>
     </resources>
 </document>
