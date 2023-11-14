@@ -21,7 +21,6 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import app.organicmaps.MwmActivity;
 import app.organicmaps.R;
-import app.organicmaps.intent.Factory;
 import app.organicmaps.location.LocationHelper;
 import app.organicmaps.routing.RoutingController;
 import app.organicmaps.util.StringUtils;
@@ -99,7 +98,7 @@ class DownloaderAdapter extends RecyclerView.Adapter<DownloaderAdapter.ViewHolde
   {
     Intent intent = new Intent(adapter.mActivity, MwmActivity.class);
     intent.addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION);
-    intent.putExtra(MwmActivity.EXTRA_TASK, new Factory.ShowCountryTask(item.id));
+    intent.putExtra(MwmActivity.EXTRA_COUNTRY_ID, item.id);
     adapter.mActivity.startActivity(intent);
 
     if (!(adapter.mActivity instanceof MwmActivity))

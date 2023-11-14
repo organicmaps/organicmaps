@@ -236,8 +236,7 @@ public class BookmarksListFragment extends BaseMwmRecyclerFragment<ConcatAdapter
     mFabViewOnMap.setOnClickListener(v ->
     {
       final Intent i = makeMwmActivityIntent();
-      i.putExtra(MwmActivity.EXTRA_TASK,
-          new Factory.ShowBookmarkCategoryTask(mCategoryDataSource.getData().getId()));
+      i.putExtra(MwmActivity.EXTRA_CATEGORY_ID, mCategoryDataSource.getData().getId());
       i.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
       startActivity(i);
     });
@@ -563,16 +562,16 @@ public class BookmarksListFragment extends BaseMwmRecyclerFragment<ConcatAdapter
   private void onTrackClicked(int position, @NonNull Intent i, @NonNull BookmarkListAdapter adapter)
   {
     final Track track = (Track) adapter.getItem(position);
-    i.putExtra(MwmActivity.EXTRA_TASK,
-               new Factory.ShowTrackTask(track.getCategoryId(), track.getTrackId()));
+    i.putExtra(MwmActivity.EXTRA_CATEGORY_ID, track.getCategoryId());
+    i.putExtra(MwmActivity.EXTRA_TRACK_ID, track.getTrackId());
   }
 
   private void onBookmarkClicked(int position, @NonNull Intent i,
                                  @NonNull BookmarkListAdapter adapter)
   {
     final BookmarkInfo bookmark = (BookmarkInfo) adapter.getItem(position);
-    i.putExtra(MwmActivity.EXTRA_TASK,
-               new Factory.ShowBookmarkTask(bookmark.getCategoryId(), bookmark.getBookmarkId()));
+    i.putExtra(MwmActivity.EXTRA_CATEGORY_ID, bookmark.getCategoryId());
+    i.putExtra(MwmActivity.EXTRA_BOOKMARK_ID, bookmark.getBookmarkId());
   }
 
   public void onItemMore(int position)

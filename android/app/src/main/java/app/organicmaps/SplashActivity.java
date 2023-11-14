@@ -15,8 +15,10 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.annotation.StringRes;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.content.IntentCompat;
 
 import app.organicmaps.display.DisplayManager;
+import app.organicmaps.intent.Factory;
 import app.organicmaps.location.LocationHelper;
 import app.organicmaps.util.Config;
 import app.organicmaps.util.LocationUtils;
@@ -190,12 +192,11 @@ public class SplashActivity extends AppCompatActivity
       }
 
       Intent initialIntent = input.hasExtra(EXTRA_INITIAL_INTENT) ?
-                           input.getParcelableExtra(EXTRA_INITIAL_INTENT) :
+                           IntentCompat.getParcelableExtra(input, EXTRA_INITIAL_INTENT, Intent.class) :
                            input;
       result.putExtra(EXTRA_INITIAL_INTENT, initialIntent);
-      if (!initialIntent.hasCategory(Intent.CATEGORY_LAUNCHER))
+      if (Factory.isStartedForApiResult(initialIntent))
       {
-        /// @todo Is it ok that we don't call setFirstStartDialogSeen here?
         // Wait for the result from MwmActivity for API callers.
         mApiRequest.launch(result);
         return;

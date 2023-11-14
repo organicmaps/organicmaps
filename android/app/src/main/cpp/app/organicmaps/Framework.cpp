@@ -858,7 +858,15 @@ Java_app_organicmaps_Framework_nativeGetParsedSearchRequest(JNIEnv * env, jclass
 JNIEXPORT jstring JNICALL
 Java_app_organicmaps_Framework_nativeGetParsedAppName(JNIEnv * env, jclass)
 {
-  return jni::ToJavaString(env, frm()->GetParsedAppName());
+  std::string const & appName = frm()->GetParsedAppName();
+  return (appName.empty()) ? nullptr : jni::ToJavaString(env, appName);
+}
+
+JNIEXPORT jstring JNICALL
+Java_app_organicmaps_Framework_nativeGetParsedBackUrl(JNIEnv * env, jclass)
+{
+  std::string const & backUrl = frm()->GetParsedBackUrl();
+  return (backUrl.empty()) ? nullptr : jni::ToJavaString(env, backUrl);
 }
 
 JNIEXPORT jdoubleArray JNICALL

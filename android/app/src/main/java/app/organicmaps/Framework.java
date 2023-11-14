@@ -230,9 +230,10 @@ public class Framework
   public static native ParsingResult nativeParseAndSetApiUrl(String url);
   public static native ParsedRoutingData nativeGetParsedRoutingData();
   public static native ParsedSearchRequest nativeGetParsedSearchRequest();
-  public static native String nativeGetParsedAppName();
+  public static native @Nullable String nativeGetParsedAppName();
   @Size(2)
   public static native double[] nativeGetParsedCenterLatLon();
+  public static native @Nullable String nativeGetParsedBackUrl();
 
   public static native void nativeDeactivatePopup();
 

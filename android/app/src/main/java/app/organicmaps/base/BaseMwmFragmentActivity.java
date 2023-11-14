@@ -1,5 +1,7 @@
 package app.organicmaps.base;
 
+import static app.organicmaps.SplashActivity.EXTRA_INITIAL_INTENT;
+
 import android.content.Context;
 import android.content.Intent;
 import android.media.AudioManager;
@@ -12,6 +14,7 @@ import androidx.annotation.Nullable;
 import androidx.annotation.StyleRes;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
+import androidx.core.content.IntentCompat;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentFactory;
 import androidx.fragment.app.FragmentManager;
@@ -65,9 +68,13 @@ public abstract class BaseMwmFragmentActivity extends AppCompatActivity
     // An intent that was skipped due to core wasn't initialized has to be used
     // as a target intent for this activity, otherwise all input extras will be lost
     // in a splash activity loop.
-    Intent initialIntent = getIntent().getParcelableExtra(SplashActivity.EXTRA_INITIAL_INTENT);
-    if (initialIntent != null)
-      setIntent(initialIntent);
+    final Intent intent = getIntent();
+    if (intent != null)
+    {
+      final Intent initialIntent = IntentCompat.getParcelableExtra(intent, EXTRA_INITIAL_INTENT, Intent.class);
+      if (initialIntent != null)
+        setIntent(initialIntent);
+    }
 
     if (!MwmApplication.from(this).arePlatformAndCoreInitialized())
     {
