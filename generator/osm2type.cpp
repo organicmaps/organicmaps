@@ -200,6 +200,8 @@ protected:
   static void Call(std::function<void(string &, string &)> const & f, string & k, string & v)
   {
     f(k, v);
+    k.clear();
+    v.clear();
   }
 
 private:
@@ -1173,114 +1175,91 @@ void GetNameAndType(OsmElement * p, FeatureBuilderParams & params,
 
   // Stage3: Process base feature tags.
   std::string houseName, houseNumber, conscriptionHN, streetHN, addrPostcode;
+  std::string addrCity, addrSuburb;
   feature::AddressData addr;
   TagProcessor(p).ApplyRules<void(string &, string &)>(
   {
       {"addr:housenumber", "*", [&houseNumber](string & k, string & v)
       {
         houseNumber = std::move(v);
-        k.clear();
-        v.clear();
       }},
       {"addr:conscriptionnumber", "*", [&conscriptionHN](string & k, string & v)
       {
         conscriptionHN = std::move(v);
-        k.clear();
-        v.clear();
       }},
       {"addr:provisionalnumber", "*", [&conscriptionHN](string & k, string & v)
       {
         conscriptionHN = std::move(v);
-        k.clear();
-        v.clear();
       }},
       {"addr:streetnumber", "*", [&streetHN](string & k, string & v)
       {
         streetHN = std::move(v);
-        k.clear();
-        v.clear();
       }},
       {"contact:housenumber", "*", [&houseNumber](string & k, string & v)
       {
         if (houseNumber.empty())
           houseNumber = std::move(v);
-        k.clear();
-        v.clear();
       }},
       {"addr:housename", "*", [&houseName](string & k, string & v)
       {
         houseName = std::move(v);
-        k.clear();
-        v.clear();
       }},
       {"addr:street", "*", [&addr](string & k, string & v)
       {
         addr.Set(feature::AddressData::Type::Street, std::move(v));
-        k.clear();
-        v.clear();
       }},
       {"contact:street", "*", [&addr](string & k, string & v)
       {
         addr.SetIfAbsent(feature::AddressData::Type::Street, std::move(v));
-        k.clear();
-        v.clear();
       }},
       {"addr:place", "*", [&addr](string & k, string & v)
       {
         addr.Set(feature::AddressData::Type::Place, std::move(v));
-        k.clear();
-        v.clear();
       }},
-      {"addr:suburb", "*", [&addr](string & k, string & v)
+      {"addr:city", "*", [&addrCity](string & k, string & v)
+       {
+         addrCity = std::move(v);
+      }},
+      {"addr:suburb", "*", [&addrSuburb](string & k, string & v)
       {
-        addr.Set(feature::AddressData::Type::Suburb, std::move(v));
-        k.clear();
-        v.clear();
+        addrSuburb = std::move(v);
       }},
       {"addr:postcode", "*", [&addrPostcode](string & k, string & v)
       {
         addrPostcode = std::move(v);
-        k.clear();
-        v.clear();
       }},
       {"postal_code", "*", [&addrPostcode](string & k, string & v)
       {
         addrPostcode = std::move(v);
-        k.clear();
-        v.clear();
       }},
       {"contact:postcode", "*", [&addrPostcode](string & k, string & v)
       {
         if (addrPostcode.empty())
           addrPostcode = std::move(v);
-        k.clear();
-        v.clear();
       }},
-      {"population", "*",
-       [&params](string & k, string & v) {
-         // Get population rank.
-         uint64_t const population = generator::osm_element::GetPopulation(v);
-         if (population != 0)
-           params.rank = feature::PopulationToRank(population);
-       }},
-      {"ref", "*",
-       [&params](string & k, string & v) {
-         // Get reference (we process road numbers only).
-         params.ref = v;
-         k.clear();
-         v.clear();
-       }},
-      {"layer", "*",
-       [&params](string & /* k */, string & v) {
-         // Get layer.
-         if (params.layer == feature::LAYER_EMPTY)
-         {
-           // atoi error value (0) should match empty layer constant.
-           static_assert(feature::LAYER_EMPTY == 0);
-           params.layer = atoi(v.c_str());
-           params.layer = base::Clamp(params.layer, int8_t(feature::LAYER_LOW), int8_t(feature::LAYER_HIGH));
-         }
-       }},
+      {"population", "*", [&params](string & k, string & v)
+      {
+        // Get population rank.
+        uint64_t const population = generator::osm_element::GetPopulation(v);
+        if (population != 0)
+          params.rank = feature::PopulationToRank(population);
+      }},
+      {"ref", "*", [&params](string & k, string & v)
+      {
+        // Get reference (we process road numbers only).
+        params.ref = std::move(v);
+      }},
+      {"layer", "*", [&params](string & k, string & v)
+      {
+        // Get layer.
+        if (params.layer == feature::LAYER_EMPTY)
+        {
+          // atoi error value (0) should match empty layer constant.
+          static_assert(feature::LAYER_EMPTY == 0);
+          params.layer = atoi(v.c_str());
+          params.layer = base::Clamp(params.layer, int8_t(feature::LAYER_LOW), int8_t(feature::LAYER_HIGH));
+        }
+      }},
   });
 
   // OSM consistency check with house numbers.
@@ -1305,6 +1284,47 @@ void GetNameAndType(OsmElement * p, FeatureBuilderParams & params,
     }
 
     /// @todo Remove "ev." prefix from HN?
+  }
+
+  if (!houseNumber.empty() && addr.Empty())
+  {
+    if (!addrSuburb.empty())
+    {
+      // Treat addr:suburb as addr:place (https://overpass-turbo.eu/s/1Dlz)
+      addr.Set(feature::AddressData::Type::Place, std::move(addrSuburb));
+    }
+    else if (!addrCity.empty())
+    {
+      // Treat addr:city as addr:place
+      class CityBBox
+      {
+        std::vector<m2::RectD> m_rects;
+      public:
+        CityBBox()
+        {
+          // Зеленоград
+          m_rects.emplace_back(37.119113, 55.944925, 37.273608, 56.026874);
+
+          // Add new {lon, lat} city bboxes here.
+        }
+        bool IsInside(m2::PointD const & pt)
+        {
+          auto const ll = mercator::ToLatLon(pt);
+          for (auto const & r : m_rects)
+          {
+            if (r.IsPointInside({ll.m_lon, ll.m_lat}))
+              return true;
+          }
+          return false;
+        }
+      };
+
+      static CityBBox s_cityBBox;
+
+      auto const org = calcOrg(p);
+      if (org && s_cityBBox.IsInside(*org))
+        addr.Set(feature::AddressData::Type::Place, std::move(addrCity));
+    }
   }
 
   params.SetAddress(std::move(addr));
