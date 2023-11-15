@@ -645,4 +645,25 @@ UNIT_CLASS_TEST(TestRawGenerator, Place_NoCityBoundaries)
   TEST(table.Load(), ());
   TEST_EQUAL(table.GetSize(), 0, ());
 }
+
+UNIT_CLASS_TEST(TestRawGenerator, Relation_Fence)
+{
+  std::string const mwmName = "Fences";
+
+  BuildFB("./data/osm_test_data/fence_relation.osm", mwmName);
+
+  uint32_t const fenceType = classif().GetTypeByPath({"barrier", "fence"});
+
+  size_t count = 0;
+  ForEachFB(mwmName, [&](feature::FeatureBuilder const & fb)
+  {
+    if (fb.GetGeomType() == feature::GeomType::Line)
+    {
+      ++count;
+      TEST(fb.HasType(fenceType), ());
+    }
+  });
+  TEST_EQUAL(count, 2, ());
+}
+
 } // namespace raw_generator_tests
