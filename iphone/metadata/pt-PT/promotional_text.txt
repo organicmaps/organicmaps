@@ -1,1 +1,1 @@
-Por favor, corrija erros do mapa no OpenStreetMap.org e avise-nos sobre quaisquer erros da aplicação. O seu apoio motiva a nossa equipa de entusiastas a melhorá-la.
+Os problemas com dados do mapa são abordados no OpenStreetMaps.org. Se forem erros na aplicação Organic Maps, contacte-nos.
