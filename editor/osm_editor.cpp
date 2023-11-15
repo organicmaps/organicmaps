@@ -230,6 +230,8 @@ bool Editor::Save(FeaturesContainer const & features) const
       xf.SetMWMFeatureIndex(index.first);
       if (!fti.m_street.empty())
         xf.SetTagValue(kAddrStreetTag, fti.m_street);
+      // remove external_uri tag before upload
+      xf.RemoveTag("external_uri")
       ASSERT_NOT_EQUAL(0, fti.m_modificationTimestamp, ());
       xf.SetModificationTime(fti.m_modificationTimestamp);
       if (fti.m_uploadAttemptTimestamp != base::INVALID_TIME_STAMP)
