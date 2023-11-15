@@ -13,7 +13,6 @@
 
 #include "indexer/dat_section_header.hpp"
 #include "indexer/feature_impl.hpp"
-#include "indexer/feature_processor.hpp"
 #include "indexer/scales.hpp"
 #include "indexer/scales_patch.hpp"
 
@@ -142,7 +141,7 @@ public:
     }
   }
 
-  void SetBounds(m2::RectD bounds) { m_bounds = bounds; }
+  void SetBounds(m2::RectD const & bounds) { m_bounds = bounds; }
 
   void operator()(FeatureBuilder & fb)
   {
@@ -151,97 +150,104 @@ public:
 
     if (!fb.IsPoint())
     {
-    bool const isLine = fb.IsLine();
-    bool const isArea = fb.IsArea();
-    CHECK(!isLine || !isArea, (fb.GetMostGenericOsmId()));
+      bool const isLine = fb.IsLine();
+      bool const isArea = fb.IsArea();
+      CHECK(!isLine || !isArea, (fb.GetMostGenericOsmId()));
 
-    int const scalesStart = static_cast<int>(m_header.GetScalesCount()) - 1;
-    for (int i = scalesStart; i >= 0; --i)
-    {
-      int level = m_header.GetScale(i);
-      // TODO : re-checks geom limit rect size via IsDrawableForIndexGeometryOnly() which was checked already in CalculateMidPoints.
-      if (fb.IsDrawableInRange(scales::PatchMinDrawableScale(i > 0 ? m_header.GetScale(i - 1) + 1 : 0),
-                               scales::PatchMaxDrawableScale(level)))
+      m2::RectD const & rect = fb.GetLimitRect();
+      Polygons const & polys = fb.GetGeometry();
+      bool const isCoast = fb.IsCoastCell();
+
+      int const scalesStart = static_cast<int>(m_header.GetScalesCount()) - 1;
+      for (int i = scalesStart; i >= 0; --i)
       {
-        bool const isCoast = fb.IsCoastCell();
-        // Increment zoom level for coastline polygons (check and simplification)
-        // for better visual quality in the first geometry batch or whole WorldCoasts.
-        if (isCoast)
+        int level = m_header.GetScale(i);
+        /// @todo: Re-checks geom limit rect size via IsDrawableForIndexGeometryOnly()
+        /// which was already checked in CalculateMidPoints.
+        if (fb.IsDrawableInRange(scales::PatchMinDrawableScale(i > 0 ? m_header.GetScale(i - 1) + 1 : 0),
+                                 scales::PatchMaxDrawableScale(level)))
         {
-          if (level <= scales::GetUpperWorldScale())
-            ++level;
-          if (i == 0)
-            ++level;
-        }
-
-        m2::RectD const rect = fb.GetLimitRect();
-
-        // Simplify and serialize geometry.
-        // The same line simplification algo is used both for lines
-        // and areas. For the latter polygon's outline is simplified and
-        // tesselated afterwards. But e.g. simplifying a circle from 50
-        // to 10 points will not produce 5 times less triangles.
-        // Hence difference between numbers of triangles between trg0 and trg1
-        // is much higher than between trg1 and trg2.
-        Points points;
-
-        // Do not change linear geometry for the upper scale.
-        if (isLine && i == scalesStart && IsCountry() && routing::IsRoad(fb.GetTypes()))
-          points = holder.GetSourcePoints();
-        else if (isLine || holder.NeedProcessTriangles())
-          SimplifyPoints(level, isCoast, rect, holder.GetSourcePoints(), points);
-
-        if (isLine)
-          holder.AddPoints(points, i);
-
-        if (isArea && holder.NeedProcessTriangles())
-        {
-          // Simplify and serialize triangles.
-          bool const good = isCoast || scales::IsGoodOutlineForLevel(level, points);
-
-          // At this point we don't need last point equal to first.
-          CHECK_GREATER(points.size(), 0, ());
-          points.pop_back();
-
-          Polygons const & polys = fb.GetGeometry();
-          if (polys.size() == 1 && good && holder.TryToMakeStrip(points))
-            continue;
-
-          Polygons simplified;
-          if (good)
+          // Increment zoom level for coastline polygons (check and simplification)
+          // for better visual quality in the first geometry batch or whole WorldCoasts.
+          /// @todo Probably, better to keep 3 zooms (skip trg0 with fallback to trg1)?
+          if (isCoast)
           {
-            simplified.push_back({});
-            simplified.back().swap(points);
+            if (level <= scales::GetUpperWorldScale())
+              ++level;
+            if (i == 0)
+              ++level;
           }
-          else
-            LOG(LDEBUG, ("Area: too small or degenerate 1st polygon of", polys.size(), ", points count", points.size(), "at scale", i, DebugPrint(fb)));
 
-          auto iH = polys.begin();
-          for (++iH; iH != polys.end(); ++iH)
+          // Simplify and serialize geometry.
+          // The same line simplification algo is used both for lines
+          // and areas. For the latter polygon's outline is simplified and
+          // tesselated afterwards. But e.g. simplifying a circle from 50
+          // to 10 points will not produce 5 times less triangles.
+          // Hence difference between numbers of triangles between trg0 and trg1
+          // is much higher than between trg1 and trg2.
+          Points points;
+
+          // Do not change linear geometry for the upper scale.
+          if (isLine && i == scalesStart && IsCountry() && routing::IsRoad(fb.GetTypes()))
+            points = holder.GetSourcePoints();
+          else if (isLine || holder.NeedProcessTriangles())
+            SimplifyPoints(level, isCoast, rect, holder.GetSourcePoints(), points);
+
+          if (isLine)
+            holder.AddPoints(points, i);
+
+          if (isArea && holder.NeedProcessTriangles())
           {
-            simplified.push_back({});
+            // Simplify and serialize triangles.
+            Polygons simplified;
 
-            SimplifyPoints(level, isCoast, rect, *iH, simplified.back());
-
-            if (scales::IsGoodOutlineForLevel(level, simplified.back()))
+            bool const isGood = isCoast || scales::IsGoodOutlineForLevel(level, points);
+            if (isGood)
             {
-              // At this point we don't need last point equal to first.
-              CHECK_GREATER(simplified.back().size(), 0, ());
-              simplified.back().pop_back();
+              // A polygon's closed outline has 3 points and the 4th should be same as the first.
+              CHECK_GREATER_OR_EQUAL(points.size(), 4, ());
+              points.pop_back();
+
+              if (polys.size() == 1 && holder.TryToMakeStrip(points))
+              {
+                // No need to iterate lower zooms if we made a valid strip.
+                break;
+              }
+
+              simplified.push_back(std::move(points));
             }
             else
             {
-              // Remove small or degenerate polygon.
-              simplified.pop_back();
-              LOG(LDEBUG, ("Area: too small or degenerate 2nd+ polygon of", polys.size(), ", points count", simplified.back().size(), "at scale", i, DebugPrint(fb)));
+              LOG(LDEBUG, ("Area: too small or degenerate 1st (outer) polygon of", polys.size(),
+                           ", points count", points.size(), "at scale", i, DebugPrint(fb)));
+              continue;
             }
-          }
 
-          if (!simplified.empty())
-            holder.AddTriangles(simplified, i);
+            auto iH = polys.begin();
+            for (++iH; iH != polys.end(); ++iH)
+            {
+              points.clear();
+              SimplifyPoints(level, isCoast, rect, *iH, points);
+
+              if (scales::IsGoodOutlineForLevel(level, points))
+              {
+                // A polygon's closed outline has 3 points and the 4th should be same as the first.
+                CHECK_GREATER_OR_EQUAL(points.size(), 4, ());
+                points.pop_back();
+                simplified.push_back(std::move(points));
+              }
+              else
+              {
+                LOG(LDEBUG, ("Area: too small or degenerate 2nd+ (inner) polygon of", polys.size(),
+                             ", points count", points.size(), "at scale", i, DebugPrint(fb)));
+              }
+            }
+
+            if (!simplified.empty())
+              holder.AddTriangles(simplified, i);
+          }
         }
       }
-    }
     }
 
     // Override "alt_name" with synonym for Country or State for better search matching.
@@ -321,7 +327,7 @@ private:
       feature::SimplifyPoints(DistanceToSegmentWithRectBounds(rect), level, in, out);
     else
       feature::SimplifyPoints(m2::SquaredDistanceFromSegmentToPoint(), level, in, out);
-    }
+  }
 
   std::string m_filename;
 

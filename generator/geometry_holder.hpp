@@ -56,11 +56,9 @@ public:
   {
   }
 
-  void SetInner() { m_trgInner = true; }
-
   FeatureBuilder::SupportingData & GetBuffer() { return m_buffer; }
 
-  Points const & GetSourcePoints()
+  Points const & GetSourcePoints() const
   {
     // For inner geometry lines keep simplifying the previous version to ensure points visibility is consistent.
     return !m_current.empty() ? m_current : m_fb.GetOuterGeometry();
