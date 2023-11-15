@@ -51,8 +51,7 @@ void RelationTagsNode::Process(RelationElement const & e)
     // - used in routing information
     // - used in building addresses matching
     if (p.first == "network" || p.first == "operator" || p.first == "route" ||
-        p.first == "maxspeed" ||
-        strings::StartsWith(p.first, "addr:"))
+        p.first == "maxspeed" || strings::StartsWith(p.first, "addr:"))
     {
       if (!Base::IsKeyTagExists(p.first))
         Base::AddCustomTag(p);
@@ -79,12 +78,19 @@ bool RelationTagsWay::IsAcceptBoundary(RelationElement const & e) const
 
 void RelationTagsWay::Process(RelationElement const & e)
 {
-  /// @todo Review route relations in future.
-  /// Actually, now they give a lot of dummy tags.
+  // https://github.com/organicmaps/organicmaps/issues/4051
+  /// @todo We skip useful Linear tags. Put workaround now and review *all* this logic in future!
+  /// Should parse classifier types for Relations separately and combine classifier types
+  /// with Nodes and Ways, according to the drule's geometry type.
+  auto const barrier = e.GetTagValue("barrier");
+  if (!barrier.empty())
+    Base::AddCustomTag({"barrier", std::string(barrier)});
+
   auto const type = e.GetType();
   if (Base::IsSkipRelation(type))
     return;
 
+  /// @todo Review route relations in future. Actually, now they give a lot of dummy tags.
   if (type == "route")
   {
     if (e.GetTagValue("route") == "road")
