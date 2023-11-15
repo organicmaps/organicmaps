@@ -1,11 +1,10 @@
-Organic Maps est une application de navigation respectueuse de la vie privée, destinée aux conducteurs, aux randonneurs et aux cyclistes. Il n'y a pas de suivi de localisation, pas de collecte de données et pas de publicité, vous pouvez ainsi contrôler vos données. La recherche, le guidage et la navigation s'effectuent sans signal de téléphone portable, ce qui est idéal pour les sentiers de randonnée éloignés ou pour les endroits où les connexions sont insuffisantes. Organic Maps utilise les données d'OpenStreetMap, dont les contributeurs viennent du monde entier. Le projet est géré par la communauté, le code est ouvert et la priorité est donnée au développement de la communauté et à la collaboration.
+Organic Maps est une application de navigation GPS respectueuse de la vie privée, destinée aux conducteurs, aux randonneurs et aux cyclistes. L'application permet de naviguer en toute confidentialité - pas de suivi de la localisation, pas de collecte de données et pas de publicité. La recherche, le routage et la navigation fonctionnent même sans signal cellulaire, ce qui est idéal pour les voyages sur des sentiers de randonnée éloignés ou dans des endroits où les connexions sont insuffisantes. Organic Maps utilise les données d'OpenStreetMap, dont les contributeurs viennent du monde entier. Le projet est porté par la communauté, le code est ouvert et la priorité est donnée au développement de la communauté et à la collaboration.
 
-• Aucun signal cellulaire requis - Recherche et itinéraire sans signal
-• Utilisation efficace de la batterie - Réduction de la consommation de la batterie
-• Recherche rapide - Trouver des lieux rapidement
+- Aucun signal cellulaire requis - Recherche et itinéraire sans signal
+- Utilisation optimale de la batterie - Réduction de la consommation de batterie
+- Recherche rapide - Trouver des lieux rapidement
 
-Chez Organic Maps, nous accordons une grande importance à la protection de la vie privée :
-• Pas de suivi
-• Pas de collecte de données
-• Pas de publicité
-
+Chez Organic Maps, nous accordons une grande importance à la confidentialité :
+- Pas de géolocalisation
+- Pas de collecte de données
+- Pas de publicité
