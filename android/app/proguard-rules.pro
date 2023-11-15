@@ -25,3 +25,6 @@
 
 # Disable obfuscation since it is open-source app.
 -dontobfuscate
+# R8 crypts the source line numbers in all log messages.
+# https://github.com/organicmaps/organicmaps/issues/6559#issuecomment-1812039926
+-dontoptimize
