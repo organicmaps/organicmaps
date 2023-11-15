@@ -1,12 +1,12 @@
-Novos dados OSM de 20/09
+• Novos dados OpenStreetMap de 20 de setembro
 • Novo modo de rota (helicóptero) para medição em linha reta
-• Voz e direções de fundo
-• Correção de diálogo "Aguarde…" no Android 13 com cartão SD
-• Não pausa a música ao girar ecrã
+• Voz e direções em segundo plano
+• Correção no diálogo "Aguarde…" em Android 13 com cartão SD
+• Não pausa a música ao girar o ecrã
 • Adicionados/melhorados muitos ícones e estilos
-• Maior relevância dos resultados de pesquisa
-• Entradas do estacionamento podem ser buscadas
-• Teste de TTS nas configurações
-• Botão de posição da seta corrigido no Android 5-6
-• Traduções aprimoradas para ar, es e pl
+• Mais relevância nos resultados de pesquisas
+• Podem ser pesquisadas entradas de estacionamentos
+• Teste de voz TTS nas configurações
+• Botão de posição da seta corrigido em Android 5 e 6
+
 …mais: omaps.org/news
