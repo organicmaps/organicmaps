@@ -16,9 +16,29 @@ final class AboutController: MWMViewController, UITableViewDataSource, UITableVi
     df.timeStyle = .none
     return String(format: L("data_version"), df.string(from:mapsDate), mapsVersionInt)
   }
+  
+  private var onDidAppearCompletionHandler: (() -> Void)?
+
+  init(onDidAppearCompletionHandler: (() -> Void)? = nil) {
+    self.onDidAppearCompletionHandler = onDidAppearCompletionHandler
+    super.init(nibName: nil, bundle: nil)
+  }
+
+  @available(*, unavailable)
+  required init?(coder: NSCoder) {
+    fatalError("init(coder:) has not been implemented")
+  }
 
   private func isDonateEnabled() -> Bool {
     return Settings.donateUrl() != nil
+  }
+  
+  override func viewDidAppear(_ animated: Bool) {
+    super.viewDidAppear(animated)
+    if let completionHandler = onDidAppearCompletionHandler {
+      completionHandler()
+      onDidAppearCompletionHandler = nil
+    }
   }
 
   override func loadView() {
