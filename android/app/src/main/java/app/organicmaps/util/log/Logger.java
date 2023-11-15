@@ -88,16 +88,17 @@ public final class Logger
     log(Log.ERROR, tag, msg, tr);
   }
 
-  // Index of stacktrace depth where the original log method call resides.
-  private static final int CALL_STACK_INDEX = 3;
-
   @NonNull
   private static String getSourcePoint()
   {
     final StackTraceElement[] stackTrace = new Throwable().getStackTrace();
-    assert stackTrace.length > CALL_STACK_INDEX : "Synthetic stacktrace doesn't have enough elements";
-
-    final StackTraceElement st = stackTrace[CALL_STACK_INDEX];
+    // Skip the chain of Logger.x() -> Logger.log() calls.
+    int f = 0;
+    for (; f < stackTrace.length && stackTrace[f].getClassName().equals(Logger.class.getName()); f++);
+    // The stack trace should have at least one non-logger frame, but who wants to crash here if it doesn't?
+    if (f == stackTrace.length)
+      return "Unknown";
+    final StackTraceElement st = stackTrace[f];
     StringBuilder sb = new StringBuilder(80);
     final String fileName = st.getFileName();
     if (fileName != null)
