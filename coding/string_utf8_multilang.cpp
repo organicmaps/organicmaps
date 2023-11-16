@@ -11,7 +11,7 @@ namespace
 // Note that it's not feasible to increase languages number here due to current encoding (6 bit to
 // store language code).
 std::array<StringUtf8Multilang::Lang, StringUtf8Multilang::kMaxSupportedLanguages> const kLanguages = {{
-     {"default", "Native for each country", {"Any-Latin"}},
+     {"default", "Name in local language", {"Any-Latin"}},
      {"en", "English", {}},
      {"ja", "日本語", {}},
      {"fr", "Français", {}},
