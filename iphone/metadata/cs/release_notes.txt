@@ -1,30 +1,54 @@
-• Nová data map OSM k 20. září
-• Přidán nový typ trasy "pravítko" (alias vrtulník) pro rychlé měření přímých vzdáleností
-• Nastavení oddělovačů desetinných míst a skupin v závislosti na lokalizaci systému
-• Odstraněno otravné zvětšení v režimu plánování trasy
-• Opraveno Otevřeno/Zavřeno zobrazované někdy šedou barvou
-• V editoru lze přidávat jeskyně
-• Vylepšeny překlady do arabštiny, polštiny a španělštiny
+• New OpenStreetMap data as of November 13, 2023
+• It is possible to zoom in deeper now and see more POIs in dense areas
+• Outdoors map style preview (please read on to know how to activate it)
+• Removed bottom tab bar to show more map on the screen
+• Added experimental "Details on KAYAK" affiliate link to hotels
+• Removed the unnecessary "route" button on the map (tap or long-tap a place on the map or select a search result to build a route using the "Route To" button instead)
+• Highlighted the Route To button and hinted the FAQ for new users
+• Fixed CarPlay dark/light mode colors
+• Fixed keyboard input on iPadOS 15+
+• "Inertial" kinetic scroll improvements
+• Removed max limit to search bookmarks
+• Brands are displayed in the Place Page
 
-Vyhledávání
-• Vjezdy na parkoviště lze vyhledávat
-• Vylepšeno porovnávání ulic a relevance výsledků
-• Vyhledávání potravin a domácích potřeb
+Routing
+• Don't route through access=emergency, military, agricultural, forestry
+• Tuned ferry crossing estimations
+• Improved cross-country and cross-region routing
+• Improved residential routes
 
-Stylování mapy:
-• Nové nebo aktualizované ikony pro továrnu, vinárnu, knihovnu, opravnu kol, půjčovnu kol, parkoviště kol, saunu, loterii, knihkupectví, masáže, šití, knihy, podzemní parkoviště, parkoviště pro invalidy, bránu, prodej pytlíků na exkrementy, velkoobchod, venkovní posezení, řemeslné výrobky, brusírnu, stravovací zařízení, vzduchotechniku, řezačku klíčů a zámečníka.
-• Přidáno prohlídka vozidel, veřejné lázně, cyklistická závora, vodní toky (kanalizace, příkop, odpadní vody), akvárium, shromaždiště, zábavní pasáž, mormonské kostely, návštěvnické centrum, průmyslový důl, historické objekty (dělo, kotva, kámen, letadlo, tank, důl, vrak, lokomotiva)
-• Přidáno vykreslování mostů a tunelů pro cyklostezky, pěší cesty, stezky, koleje, přemostění, schody
-• Vykreslení značky barrier=ditch odlišně od značky waterway=ditch
-• Sníženy priority názvů řek (a dalších méně důležitých tratí) v režimu navigace
-• Vyladěné priority názvů silnic a silničních štítů
-• Opraveno zobrazování ikon u parkovacích domů
-• Snížena viditelnost ikon menších a soukromých parkovišť, odstraněna výplň plochy pro podzemní parkoviště
-• Snížena viditelnost požárních hydrantů
-• Nezobrazují se čísla domů u budov, které jsou příliš malé pro aktuální úroveň přiblížení
-• Nezobrazuje se ikona hvězdy pro čtverce
-• Doladění písma čísel domů a priority kreslení
-• Přidány čáry dálnic a pěších cest, mostních komunikací a cyklostezek pro detailní přiblížení (z18-) v režimu navigace
-• Odstraněno vykreslování tunelů dálnice-stezka/cesta/pěší cesta/schody v režimu navigace
+Search
+• Process platz-pl like strasse-str
+• Improved address matching
+• Improved search of brands
 
-…a další menší opravy a vylepšení, podrobnosti najdete na https://omaps.org/news!
+Map styling
+• Added flowerbeds, rental shops, bicycle rentals, motorcycle repairs, petting zoo, prison areas, compressed air
+• Added nature reserves and military zones rendering to the car navigation mode
+• Added Docklands Light Railway, Porto metro
+• Display names of ski pistes
+• Tuned/updated icons of fitness centre, yoga, theatre, artwork, statue, theme park, bbq, lighthouse, windmill, heliport & helipad, hunting stand, Kingdom Hall of Jehovah's Witnesses, paid & private versions of parkings and parking entrances, convenience / deli / farm / grocery / health_food shops, tobacco shop
+• Better farmyard & garage landuse area fills
+• Increased scrubs, alpine huts visibility
+• Updated sanitary dump station icons and adjusted its priority
+• Reduced visibility of cave entrances and improved the icon
+• Increased visibility of standalone house numbers
+• Reduced Tokyo subway visibility -- kudos to charlie2clarke
+• Removed minor road markers/shields cluttering the map in Estonia
+• Fix colors of Estonia and Germany road markers / shields
+• Increased visibilities of road markers / shields on tertiary and residential road
+• Fixed "gaps" in some densely mapped lines
+• Fixed "gaps" in the outlines of bridges and other compound lines
+
+Outdoors map style preview:
+• Tailored for out-of-the-city outdoor activities like hiking, backcountry cycling/MTB, 4x4, etc.
+• Emphasizes paths/tracks, cliffs, railways, powerlines, rivers and streams, water sources, peaks, mountain saddles and passes, waterfalls, lighthouses, caves, viewpoints, campsites, huts, shelters, picnic sites, gates, stiles, fords, etc.
+• Enable by typing `?olight` in the search field and return to the map; type `?light` to switch back to the main style
+• Use `?odark` and `?dark` for a dark style
+• Android and iOS developers wanted to help with adding a nice UI for style switching!
+
+Translations
+• Improved "avoid …" routing options wording
+• Improved Arabic, Basque, Chinese, Czech, Danish, Finnish, Greek, Hungarian, Indonesian, Italian, Korean, Marathi, Polish, Romanian, Slovak, Spanish, Sweden, Thai, Turkish, Ukrainian, and Vietnamese translations
+
+…and more smaller fixes and improvements, check https://omaps.org/news for details!

@@ -1,10 +1,7 @@
-• Нові дані OSM станом на 20 вересня
-• Новий тип маршруту Лінійка (колишній Гелікоптер) для вимірювання відстаней по прямій
-• Голосові інструкції на фоні навіть з вимкненим екраном
-• Виправляння діалогу "Зачекайте…" в Android 13 при роботі з SD картою
-• Музика не призупиняється при повороті екрану
-• Покращено стилі мапи та багато іконок
-• Більш точні пошукові результати
-• Вʼїзди в паркінги знаходяться пошуком
-• Тестування голосових підказок в меню налаштувань
-• Виправлення в роботі backurl API
+• New OpenStreetMap data as of November 13
+• The maximum zoom level is twice as deep as it was before
+• Fixed import of bookmarks in KMB format
+• Added experimental "Details on KAYAK" affiliate link to hotels
+• Disabled the screen wake lock by default to improve power-saving
+• Corrected the location search indication when the map is moved or zoomed
+• Outdoors map style preview - read on how to activate it and about many other improvements on omaps.org/news

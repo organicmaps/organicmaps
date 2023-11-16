@@ -1,12 +1,7 @@
-• Novos dados OpenStreetMap de 20 de setembro
-• Novo modo de rota (helicóptero) para medição em linha reta
-• Voz e direções em segundo plano
-• Correção no diálogo "Aguarde…" em Android 13 com cartão SD
-• Não pausa a música ao girar o ecrã
-• Adicionados/melhorados muitos ícones e estilos
-• Mais relevância nos resultados de pesquisas
-• Podem ser pesquisadas entradas de estacionamentos
-• Teste de voz TTS nas configurações
-• Botão de posição da seta corrigido em Android 5 e 6
-
-…mais: omaps.org/news
+• New OpenStreetMap data as of November 13
+• The maximum zoom level is twice as deep as it was before
+• Fixed import of bookmarks in KMB format
+• Added experimental "Details on KAYAK" affiliate link to hotels
+• Disabled the screen wake lock by default to improve power-saving
+• Corrected the location search indication when the map is moved or zoomed
+• Outdoors map style preview - read on how to activate it and about many other improvements on omaps.org/news

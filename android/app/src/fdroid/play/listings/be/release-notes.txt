@@ -1,9 +1,7 @@
-• Новыя дадзеныя OpenStreetMap па стане на 20 верасня
-• Новы тып маршрутнай лінейкі (раней верталёт) для вымярэння адлегласцей па прамой
-• Галасавыя інструкцыі ў фонавым рэжыме, нават калі экран выключаны
-• Выпраўлена дыялогавае акно «Пачакайце...» у Android 13 пры працы з SD-картай
-• Музыка не спыняецца пры павароце экрана
-• Палепшаныя стылі карты і шмат значкоў
-• Больш дакладныя вынікі пошуку
-• Пад'езды да парковак даступныя для пошуку
-• Тэставанне галасавых падказак у меню налад
+• New OpenStreetMap data as of November 13
+• The maximum zoom level is twice as deep as it was before
+• Fixed import of bookmarks in KMB format
+• Added experimental "Details on KAYAK" affiliate link to hotels
+• Disabled the screen wake lock by default to improve power-saving
+• Corrected the location search indication when the map is moved or zoomed
+• Outdoors map style preview - read on how to activate it and about many other improvements on omaps.org/news

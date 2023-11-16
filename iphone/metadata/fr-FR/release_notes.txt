@@ -1,30 +1,54 @@
-• Nouvelles données cartographiques OSM en date du 20 septembre
-• Ajout d'un nouveau type d'itinéraire "Règle" (alias "à vol d'oiseau") pour mesurer rapidement les distances en ligne droite.
-• Réglage des séparateurs de décimales et de groupes en fonction de la configuration locale du système
-• Suppression du zoom gênant en mode planification d'itinéraire
-• Correction de l'affichage de Ouvert/Fermé parfois en couleur grise
-• Les grottes peuvent être ajoutées dans l'éditeur
-• Amélioration des traductions en arabe, polonais et espagnol
+• New OpenStreetMap data as of November 13, 2023
+• It is possible to zoom in deeper now and see more POIs in dense areas
+• Outdoors map style preview (please read on to know how to activate it)
+• Removed bottom tab bar to show more map on the screen
+• Added experimental "Details on KAYAK" affiliate link to hotels
+• Removed the unnecessary "route" button on the map (tap or long-tap a place on the map or select a search result to build a route using the "Route To" button instead)
+• Highlighted the Route To button and hinted the FAQ for new users
+• Fixed CarPlay dark/light mode colors
+• Fixed keyboard input on iPadOS 15+
+• "Inertial" kinetic scroll improvements
+• Removed max limit to search bookmarks
+• Brands are displayed in the Place Page
 
-Recherche
-• Les entrées de parking peuvent être recherchées
-• Amélioration de la correspondance des rues et de la pertinence des résultats
-• Recherche d'épicerie et d'articles ménagers
+Routing
+• Don't route through access=emergency, military, agricultural, forestry
+• Tuned ferry crossing estimations
+• Improved cross-country and cross-region routing
+• Improved residential routes
 
-Style de carte :
-• Nouvelles icônes ou mises à jour pour les usines, les caves, les bibliothèques, les stations de réparation de vélos, les locations de vélos, les parkings à vélos, les saunas, les loteries, les libraires, les massages, les ateliers de couture, les livres, les parkings souterrains, les places de parking pour handicapés, les portails, les distributeurs de sacs d'excréments, les magasins des grossistes, les sièges extérieurs, l'artisanat, les moulins, les traiteurs, les chauffagistes, les tailleurs de clés et les serruriers.
-• Ajout de l'inspection des véhicules, des bains publics, des barrières cyclables, des voies d'eau (drain, fossé, douve, eaux usées), de l'aquarium, des points de rassemblement, des salles de jeux, des églises mormones, des centres de visiteurs, des mines industrielles, des objets historiques (canon, ancre, pierre, avion, char, mine, épave, locomotive).
-• Ajout du rendu des ponts et tunnels pour les pistes cyclables, les voies piétonnes, les sentiers, les pistes cavalières, les escaliers.
-• Rendu de la barrière=ditch différent de la voie d'eau=ditch
-• Réduction des priorités des noms de rivières (et d'autres lignes de moindre importance) en mode navigation
-• Ajustement des priorités des noms de routes et des boucliers routiers
-• Correction de l'affichage des icônes pour les bâtiments de stationnement
-• Réduction de la visibilité des icônes des parkings mineurs et privés, suppression du remplissage de la zone pour les parkings souterrains
-• Réduction de la visibilité des bouches d'incendie
-• Affichage désactivé pour les numéros de maison pour les bâtiments qui sont trop petits pour le niveau de zoom actuel
-• Affichage désactivé l'icône d'étoile pour les places
-- Ajustement de la police des numéros de maison et de la priorité de dessin
-- Ajout de lignes autoroutes-piétons, voies cavalières et pistes cyclables pour les zooms détaillés (z18-) en mode navigation
-- Suppression du rendu des tunnels autoroutiers/chemins/chemins/pieds/marches en mode navigation
+Search
+• Process platz-pl like strasse-str
+• Improved address matching
+• Improved search of brands
 
-...et d'autres petites corrections et améliorations, consultez https://omaps.org/news pour plus de détails !
+Map styling
+• Added flowerbeds, rental shops, bicycle rentals, motorcycle repairs, petting zoo, prison areas, compressed air
+• Added nature reserves and military zones rendering to the car navigation mode
+• Added Docklands Light Railway, Porto metro
+• Display names of ski pistes
+• Tuned/updated icons of fitness centre, yoga, theatre, artwork, statue, theme park, bbq, lighthouse, windmill, heliport & helipad, hunting stand, Kingdom Hall of Jehovah's Witnesses, paid & private versions of parkings and parking entrances, convenience / deli / farm / grocery / health_food shops, tobacco shop
+• Better farmyard & garage landuse area fills
+• Increased scrubs, alpine huts visibility
+• Updated sanitary dump station icons and adjusted its priority
+• Reduced visibility of cave entrances and improved the icon
+• Increased visibility of standalone house numbers
+• Reduced Tokyo subway visibility -- kudos to charlie2clarke
+• Removed minor road markers/shields cluttering the map in Estonia
+• Fix colors of Estonia and Germany road markers / shields
+• Increased visibilities of road markers / shields on tertiary and residential road
+• Fixed "gaps" in some densely mapped lines
+• Fixed "gaps" in the outlines of bridges and other compound lines
+
+Outdoors map style preview:
+• Tailored for out-of-the-city outdoor activities like hiking, backcountry cycling/MTB, 4x4, etc.
+• Emphasizes paths/tracks, cliffs, railways, powerlines, rivers and streams, water sources, peaks, mountain saddles and passes, waterfalls, lighthouses, caves, viewpoints, campsites, huts, shelters, picnic sites, gates, stiles, fords, etc.
+• Enable by typing `?olight` in the search field and return to the map; type `?light` to switch back to the main style
+• Use `?odark` and `?dark` for a dark style
+• Android and iOS developers wanted to help with adding a nice UI for style switching!
+
+Translations
+• Improved "avoid …" routing options wording
+• Improved Arabic, Basque, Chinese, Czech, Danish, Finnish, Greek, Hungarian, Indonesian, Italian, Korean, Marathi, Polish, Romanian, Slovak, Spanish, Sweden, Thai, Turkish, Ukrainian, and Vietnamese translations
+
+…and more smaller fixes and improvements, check https://omaps.org/news for details!
