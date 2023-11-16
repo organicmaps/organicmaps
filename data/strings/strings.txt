@@ -25849,7 +25849,7 @@
     ca = Quan està activat, la pantalla sempre estarà encesa quan es mostri el mapa.
     cs = Je-li tato funkce povolena, bude obrazovka při zobrazení mapy vždy zapnutá.
     da = Når den er aktiveret, vil skærmen altid være tændt, når kortet vises.
-    de = Wenn diese option aktiviert ist, ist der bildschirm bei der anzeige der karte immer eingeschaltet.
+    de = Wenn diese Option aktiviert ist, ist der Bildschirm bei der Anzeige der Karte immer eingeschaltet.
     el = Όταν είναι ενεργοποιημένη, η οθόνη θα είναι πάντα αναμμένη όταν εμφανίζεται ο χάρτης.
     es = Cuando está activada, la pantalla siempre estará encendida cuando se muestre el mapa.
     es-MX = Cuando está habilitado, la pantalla siempre estará encendida cuando se muestre el mapa.
