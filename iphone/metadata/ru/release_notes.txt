@@ -1,30 +1,54 @@
-• Новые данные карт OpenStreetMap по состоянию на 20 сентября
-• Добавлен новый тип маршрута "Линейка" (он же "Вертолетный роутинг") для быстрого измерения расстояний по прямой
-• Устранено раздражающее масштабирование в режиме планирования маршрута
-• Исправлено отображение открытых/закрытых пещер иногда серым цветом
-• Пещеры теперь могут быть добавлены в редакторе
-• Установка десятичных и групповых разделителей в зависимости от локали системы
-• Улучшены переводы на арабский, польский, испанский языки
+• New OpenStreetMap data as of November 13, 2023
+• It is possible to zoom in deeper now and see more POIs in dense areas
+• Outdoors map style preview (please read on to know how to activate it)
+• Removed bottom tab bar to show more map on the screen
+• Added experimental "Details on KAYAK" affiliate link to hotels
+• Removed the unnecessary "route" button on the map (tap or long-tap a place on the map or select a search result to build a route using the "Route To" button instead)
+• Highlighted the Route To button and hinted the FAQ for new users
+• Fixed CarPlay dark/light mode colors
+• Fixed keyboard input on iPadOS 15+
+• "Inertial" kinetic scroll improvements
+• Removed max limit to search bookmarks
+• Brands are displayed in the Place Page
 
-Поиск
-• Въезды на парковку находятся поиском
-• Улучшено сопоставление улиц и релевантность результатов
-• Поиск продуктовых магазинов и товаров для дома
+Routing
+• Don't route through access=emergency, military, agricultural, forestry
+• Tuned ferry crossing estimations
+• Improved cross-country and cross-region routing
+• Improved residential routes
 
-Стилизация карты
-• Новые или обновленные иконки для завода, винодельни, книжного шкафа, библиотеки, станции ремонта велосипедов, проката велосипедов, велопарковки, сауны, лотереи, букмекера, массажа, шитья, книг, подземной парковки, парковочного места для инвалидов, ворот, автоматов для экскрементных пакетов, оптового магазина, сидений на открытом воздухе, ремесел, мельниц, предприятий общественного питания, систем отопления, вентиляции и кондиционирования, изготовления ключей и слесарей
-• Добавлены автоинспекция, общественная баня, велобарьер, водные пути (сток, канава, ров, сточные воды), аквариум, пункт сбора, зал аттракционов, мормонские церкви, центр посетителей, промышленная шахта, исторические объекты (пушка, якорь, камень, самолет, танк, шахта, обломки, локомотив)
-• Добавлен рендеринг мостов и тоннелей для велодорожек, пешеходных дорожек, тропинок, дорожек, мостовых, ступеней
-• Рендеринг рва (барьера) отличается от рендеринга рва (водного пути)
-• Уменьшены приоритеты названий рек (и других малозначимых линий) в режиме навигации
-• Настроены приоритеты названий дорог и дорожных щитов
-• Исправлено отображение иконок зданий парковки
-• Уменьшена видимость иконок мелких и частных парковок, удалена заливка площади для подземных парковок
-• Уменьшена видимость пожарных гидрантов
-• Номера домов отображаются над иконками и надписями основных POI, а также не отображаются номера домов для зданий, которые слишком малы для текущего масштаба
-• Не отображать значок звезды для квадратов
-• Уточнить шрифт номеров домов и приоритет отрисовки
-• Добавлены линии пешеходных, мостовых и велосипедных дорожек на детальном масштабе (z18+) в режиме навигации
-• Скрыты пешеходные тоннели в режиме навигации
+Search
+• Process platz-pl like strasse-str
+• Improved address matching
+• Improved search of brands
 
-…и еще больше мелких исправлений и улучшений, подробности смотрите на https://omaps.org/ru/news !
+Map styling
+• Added flowerbeds, rental shops, bicycle rentals, motorcycle repairs, petting zoo, prison areas, compressed air
+• Added nature reserves and military zones rendering to the car navigation mode
+• Added Docklands Light Railway, Porto metro
+• Display names of ski pistes
+• Tuned/updated icons of fitness centre, yoga, theatre, artwork, statue, theme park, bbq, lighthouse, windmill, heliport & helipad, hunting stand, Kingdom Hall of Jehovah's Witnesses, paid & private versions of parkings and parking entrances, convenience / deli / farm / grocery / health_food shops, tobacco shop
+• Better farmyard & garage landuse area fills
+• Increased scrubs, alpine huts visibility
+• Updated sanitary dump station icons and adjusted its priority
+• Reduced visibility of cave entrances and improved the icon
+• Increased visibility of standalone house numbers
+• Reduced Tokyo subway visibility -- kudos to charlie2clarke
+• Removed minor road markers/shields cluttering the map in Estonia
+• Fix colors of Estonia and Germany road markers / shields
+• Increased visibilities of road markers / shields on tertiary and residential road
+• Fixed "gaps" in some densely mapped lines
+• Fixed "gaps" in the outlines of bridges and other compound lines
+
+Outdoors map style preview:
+• Tailored for out-of-the-city outdoor activities like hiking, backcountry cycling/MTB, 4x4, etc.
+• Emphasizes paths/tracks, cliffs, railways, powerlines, rivers and streams, water sources, peaks, mountain saddles and passes, waterfalls, lighthouses, caves, viewpoints, campsites, huts, shelters, picnic sites, gates, stiles, fords, etc.
+• Enable by typing `?olight` in the search field and return to the map; type `?light` to switch back to the main style
+• Use `?odark` and `?dark` for a dark style
+• Android and iOS developers wanted to help with adding a nice UI for style switching!
+
+Translations
+• Improved "avoid …" routing options wording
+• Improved Arabic, Basque, Chinese, Czech, Danish, Finnish, Greek, Hungarian, Indonesian, Italian, Korean, Marathi, Polish, Romanian, Slovak, Spanish, Sweden, Thai, Turkish, Ukrainian, and Vietnamese translations
+
+…and more smaller fixes and improvements, check https://omaps.org/news for details!

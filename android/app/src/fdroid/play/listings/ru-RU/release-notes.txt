@@ -1,10 +1,7 @@
-• Новые данные OSM по состоянию на 20 сентября
-• Новый тип маршрута Линейка (бывший вертолет) для измерения расстояний по прямой
-• Голосовые инструкции на фоне даже с выключенным экраном
-• Исправление диалога "Подождите…" в Android 13 при работе с SD картой
-• Музыка не останавливается при повороте экрана
-• Улучшены стили карты и много иконок.
-• Более точные поисковые результаты
-• Въезды в паркинги находятся поиском
-• Тестирование голосовых подсказок в меню настроек
-…подробнее: omaps.org/ru/news
+• New OpenStreetMap data as of November 13
+• The maximum zoom level is twice as deep as it was before
+• Fixed import of bookmarks in KMB format
+• Added experimental "Details on KAYAK" affiliate link to hotels
+• Disabled the screen wake lock by default to improve power-saving
+• Corrected the location search indication when the map is moved or zoomed
+• Outdoors map style preview - read on how to activate it and about many other improvements on omaps.org/news

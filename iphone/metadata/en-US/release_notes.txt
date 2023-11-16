@@ -1,30 +1,53 @@
-• New OSM maps data as of September 20
-• Added new route type "Ruler" (aka Helicopter Routing) to quickly measure straight distances
-• Set decimal and grouping separators depending on the system locale
-• Removed annoying zoom in route planning mode
-• Fixed Open/Closed shown sometimes in gray color
-• Caves can be added in the Editor
-• Improved Arabic, Polish, Spanish translations
+• New OpenStreetMap data as of November 13, 2023
+• It is possible to zoom in deeper now and see more POIs in dense areas
+• Outdoors map style preview (please read on to know how to activate it)
+• Removed bottom tab bar to show more map on the screen
+• Removed the unnecessary "route" button on the map (tap or long-tap a place on the map or select a search result to build a route using the "Route To" button instead)
+• Highlighted the Route To button and hinted the FAQ for new users
+• Fixed CarPlay dark/light mode colors
+• Fixed keyboard input on iPadOS 15+
+• "Inertial" kinetic scroll improvements
+• Removed max limit to search bookmarks
+• Brands are displayed in the Place Page
+
+Routing
+• Don't route through access=emergency, military, agricultural, forestry
+• Tuned ferry crossing estimations
+• Improved cross-country and cross-region routing
+• Improved residential routes
 
 Search
-• Parking entrances are searchable
-• Improved street matching and results relevance
-• Search for grocery and houseware
+• Process platz-pl like strasse-str
+• Improved address matching
+• Improved search of brands
 
-Map styling:
-• New or updated icons for factory, winery, bookcase, library, bicycle repair station, bicycle rental, bicycle parking, sauna, lottery, bookmaker, massage, sewing, books, underground parking, disabled parking space, gate, excrement bags vending, wholesale shop, outdoor seating, handicraft, grinding mill, caterer, hvac, key cutter and locksmith
-• Added vehicle inspection, public bath, cycle barrier, waterways (drain, ditch, moat, wastewater), aquarium, assembly point, amusement arcade, Mormon churches, visitor center, industrial mine, historic objects (cannon, anchor, stone, aircraft, tank, mine, wreck, locomotive)
-• Added bridges and tunnels rendering for cycleways, footways, paths, tracks, bridleways, steps
-• Render barrier=ditch differently from waterway=ditch
-• Reduced priorities of river names (and of other lower-importance lines) in navigation mode
-• Tuned road names and road shield priorities
-• Fixed icons display for parking buildings
-• Reduced visibility of minor and private parking icons, removed area fill for underground parking
-• Reduced fire hydrants visibility
-• Don’t display house numbers for buildings that are too small for the current zoom level
-• Don't display star icon for squares
-• Fine-tune house numbers font and drawing priority
-• Added highway-pedestrian, bridleway, and cycleway lines for detailed zooms (z18-) in navigation mode
-• Removed highway-path/track/footway/steps tunnels rendering in navigation mode
+Map styling
+• Added flowerbeds, rental shops, bicycle rentals, motorcycle repairs, petting zoo, prison areas, compressed air
+• Added nature reserves and military zones rendering to the car navigation mode
+• Added Docklands Light Railway, Porto metro
+• Display names of ski pistes
+• Tuned/updated icons of fitness centre, yoga, theatre, artwork, statue, theme park, bbq, lighthouse, windmill, heliport & helipad, hunting stand, Kingdom Hall of Jehovah's Witnesses, paid & private versions of parkings and parking entrances, convenience / deli / farm / grocery / health_food shops, tobacco shop
+• Better farmyard & garage landuse area fills
+• Increased scrubs, alpine huts visibility
+• Updated sanitary dump station icons and adjusted its priority
+• Reduced visibility of cave entrances and improved the icon
+• Increased visibility of standalone house numbers
+• Reduced Tokyo subway visibility -- kudos to charlie2clarke
+• Removed minor road markers/shields cluttering the map in Estonia
+• Fix colors of Estonia and Germany road markers / shields
+• Increased visibilities of road markers / shields on tertiary and residential road
+• Fixed "gaps" in some densely mapped lines
+• Fixed "gaps" in the outlines of bridges and other compound lines
+
+Outdoors map style preview:
+• Tailored for out-of-the-city outdoor activities like hiking, backcountry cycling/MTB, 4x4, etc.
+• Emphasizes paths/tracks, cliffs, railways, powerlines, rivers and streams, water sources, peaks, mountain saddles and passes, waterfalls, lighthouses, caves, viewpoints, campsites, huts, shelters, picnic sites, gates, stiles, fords, etc.
+• Enable by typing `?olight` in the search field and return to the map; type `?light` to switch back to the main style
+• Use `?odark` and `?dark` for a dark style
+• Android and iOS developers wanted to help with adding a nice UI for style switching!
+
+Translations
+• Improved "avoid …" routing options wording
+• Improved Arabic, Basque, Chinese, Czech, Danish, Finnish, Greek, Hungarian, Indonesian, Italian, Korean, Marathi, Polish, Romanian, Slovak, Spanish, Sweden, Thai, Turkish, Ukrainian, and Vietnamese translations
 
 …and more smaller fixes and improvements, check https://omaps.org/news for details!

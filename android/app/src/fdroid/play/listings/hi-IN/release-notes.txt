@@ -1,12 +1,7 @@
-• नया OpenStreetMap 20 सितंबर तक का डेटा मैप करता है
-• सीधी दूरी मापने के लिए नया रूलर (उर्फ हेलीकॉप्टर) रूटिंग
-• पृष्ठभूमि आवाज और दिशानिर्देश
-• एसडी कार्ड के साथ एंड्रॉइड 13 पर "प्रतीक्षा करें..." संवाद को ठीक किया गया
-• स्क्रीन घूमने पर संगीत को न रोकें
-• कई आइकन और शैलियों को जोड़ा/सुधार किया गया
-• बेहतर खोज परिणाम प्रासंगिकता
-• पार्किंग प्रवेश द्वार खोजने योग्य हैं
-• सेटिंग्स में टीटीएस आवाज का परीक्षण करें
-• एंड्रॉइड 5 और 6 पर तीर स्थिति बटन को ठीक किया गया
-
-...और: omaps.org/news
+• New OpenStreetMap data as of November 13
+• The maximum zoom level is twice as deep as it was before
+• Fixed import of bookmarks in KMB format
+• Added experimental "Details on KAYAK" affiliate link to hotels
+• Disabled the screen wake lock by default to improve power-saving
+• Corrected the location search indication when the map is moved or zoomed
+• Outdoors map style preview - read on how to activate it and about many other improvements on omaps.org/news

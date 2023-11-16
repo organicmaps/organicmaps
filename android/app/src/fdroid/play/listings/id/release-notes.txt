@@ -1,12 +1,7 @@
-• Data peta OpenStreetMap baru pada tanggal 20 September
-• Rute Penggaris (alias Helikopter) baru utk pengukuran jarak lurus
-• Suara latar belakang dan petunjuk arah
-• Memperbaiki dialog "Tunggu..." pada Android 13 dengan kartu SD
-• Jgn jeda musik saat layar diputar
-• Ditambahkan/ditingkatkan banyak ikon & gaya
-• Peningkatan relevansi hasil pencarian
-• Pintu masuk parkir dpt dicari
-• Uji suara TTS dalam pengaturan
-• Diperbaiki tombol posisi panah di Android 5&6
-
-...selengkapnya: omaps.org/news
+• New OpenStreetMap data as of November 13
+• The maximum zoom level is twice as deep as it was before
+• Fixed import of bookmarks in KMB format
+• Added experimental "Details on KAYAK" affiliate link to hotels
+• Disabled the screen wake lock by default to improve power-saving
+• Corrected the location search indication when the map is moved or zoomed
+• Outdoors map style preview - read on how to activate it and about many other improvements on omaps.org/news

@@ -1,11 +1,7 @@
-• Data OpenStreetMap peta baharu setakat 20 September.
-• Peraturan Baru (aka Helikopter) penghalaan untuk pengukuran jarak lurus.
-• Suara latar dan arah.
-• Dialog "Tunggu…" pada Android 13 dengan kad SD telah diperbaiki.
-• Jangan jeda muzik apabila skrin diputarkan.
-• Ditambah/dipertingkatkan banyak ikon dan gaya.
-• Pintu masuk tempat letak kereta boleh dicari.
-• Uji suara TTS dalam tetapan.
-• Butang kedudukan anak panah tetap pada Android 5&6.
-
-…lagi: omaps.org/berita
+• New OpenStreetMap data as of November 13
+• The maximum zoom level is twice as deep as it was before
+• Fixed import of bookmarks in KMB format
+• Added experimental "Details on KAYAK" affiliate link to hotels
+• Disabled the screen wake lock by default to improve power-saving
+• Corrected the location search indication when the map is moved or zoomed
+• Outdoors map style preview - read on how to activate it and about many other improvements on omaps.org/news

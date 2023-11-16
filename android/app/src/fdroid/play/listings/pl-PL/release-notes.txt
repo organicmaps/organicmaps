@@ -1,10 +1,7 @@
-Nowe mapy z danymi OSM z 20 września
-• Nowy tryb nawigacji Linijka (tzw. helikopter) do pomiaru dystansu w linii prostej
-• Komunikaty głosowe nawigacji w tle
-• Poprawiono komunikat "Czekaj…" na Androidzie 13 z kartą SD
-• Muzyka nie pauzuje, gdy ekran jest obrócony
-• Dodano i ulepszono wiele ikon oraz stylów
-• Poprawiono dokładność wyników wyszukiwania
-• Można już wyszukać wjazdy na parking
-• Test komunikatów głosowych TTS w ustawieniach
-Poprawiono przycisk strzałki lokalizacji w Androidzie 5,6
+• New OpenStreetMap data as of November 13
+• The maximum zoom level is twice as deep as it was before
+• Fixed import of bookmarks in KMB format
+• Added experimental "Details on KAYAK" affiliate link to hotels
+• Disabled the screen wake lock by default to improve power-saving
+• Corrected the location search indication when the map is moved or zoomed
+• Outdoors map style preview - read on how to activate it and about many other improvements on omaps.org/news

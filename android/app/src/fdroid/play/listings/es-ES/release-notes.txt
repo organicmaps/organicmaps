@@ -1,12 +1,7 @@
-• Nuevos datos de OSM desde 20 de septiembre
-• Nueva medición de distancia de líneas rectas
-• Voz de fondo e indicaciones
-• Se corrigió el error de diálogo "Esperando..." en Android 13 con tarjeta SD
-• La música ya no se pausa cuando la pantalla gira
-• Iconos actualizados
-• Mejorada los resultados de la búsqueda.
-• Se pueden buscar las entradas de los aparcamientos
-• Probar la voz TTS en los ajustes
-• Botón de posición de flecha fijo en Android 5&6
-
-Más detalles: omaps.org/news
+• New OpenStreetMap data as of November 13
+• The maximum zoom level is twice as deep as it was before
+• Fixed import of bookmarks in KMB format
+• Added experimental "Details on KAYAK" affiliate link to hotels
+• Disabled the screen wake lock by default to improve power-saving
+• Corrected the location search indication when the map is moved or zoomed
+• Outdoors map style preview - read on how to activate it and about many other improvements on omaps.org/news

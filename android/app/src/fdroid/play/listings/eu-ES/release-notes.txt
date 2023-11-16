@@ -1,10 +1,7 @@
-• OpenStreetMap maparen datu berriak irailaren 20etik aurrera
-• Erregela berria (aka Helikopteroa) ibilbide zuzena neurtzeko
-• Atzeko planoko ahotsa eta jarraibideak
-• "Itxaron…" elkarrizketa-koadroa konpondu da Android 13 SD txartelarekin
-• Ez eten musika pantaila biratzen denean
-• Ikono eta estilo asko gehitu eta hobetu ditu
-• Bilaketa-emaitzen garrantzia hobetu
-• Aparkalekuen sarrerak bilatu daitezke
-• Ahots-proba ezarpenen menuan
-• Backurl API finkoa
+• New OpenStreetMap data as of November 13
+• The maximum zoom level is twice as deep as it was before
+• Fixed import of bookmarks in KMB format
+• Added experimental "Details on KAYAK" affiliate link to hotels
+• Disabled the screen wake lock by default to improve power-saving
+• Corrected the location search indication when the map is moved or zoomed
+• Outdoors map style preview - read on how to activate it and about many other improvements on omaps.org/news

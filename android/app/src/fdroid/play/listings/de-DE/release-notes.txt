@@ -1,13 +1,7 @@
-• Neue OSM-Daten mit Stand 20. September
-• Neue Distanzmessung von geraden Linien
-• Hintergrundstimme und Wegbeschreibungen
-• Fehler "Warten..." Dialog bei Android 13 mit SD-Karte behoben
-• Musik wird bei Bildschirmdrehung nicht mehr pausiert
-• Icons aktualisiert
-• Verbesserte Relevanz der Suchergebnisse
-• Parkhauseingänge sind suchbar
-• Sprachtest im Einstellungsmenü
-• Fehler bei backurl API behoben
-• Verbesserte arabische, polnische und spanische Übersetzung
-
-Mehr Details: omaps.org/de/news
+• Neue OSM-Daten mit Stand 13. November
+• Es ist jetzt möglich weiter in die Karte zu zoomen um mehr Objekte in dichten Gebieten zu sehen
+• Outdoor Karten Anzeige Vorschau (aktivierbar mit den Begriffen ?olight oder ?odrak in der Suchleiste)
+• Probleme für den Import von Lesezeichen im KBM Vormat behoben
+• Verbesserung der Anzeige des Standort-Knopfs
+• Verbesserungen beim Scrollen von Karten
+• Verbesserte Wegfindung, Suche, Anzeige, Icons und Übersetzungen
