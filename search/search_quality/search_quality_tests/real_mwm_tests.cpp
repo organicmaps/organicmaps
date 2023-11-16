@@ -464,7 +464,7 @@ UNIT_CLASS_TEST(MwmTestsFixture, Hawaii_Address)
 
   auto request = MakeRequest("1000 Ululani Street");
   // Address should be at the top.
-  HasAddress(Range(request->Results(), 0, 3), "Ululani Street", "1000");
+  HasAddress(Range(request->Results(), 0, 3), "Ululani Street", "1000", {"entrance"});
 }
 
 // https://github.com/organicmaps/organicmaps/issues/3712
