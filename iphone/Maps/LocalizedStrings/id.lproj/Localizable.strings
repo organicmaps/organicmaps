@@ -789,6 +789,12 @@
 
 "book_button" = "Pesan";
 
+/* A referral link on the place page for some hotels */
+"more_on_kayak" = "Perincian di KAYAK";
+
+/* An explanation dialog shown when clicking on more_on_kayak link. */
+"dialog_kayak_disclaimer" = "Bonus rujukan yang diterima untuk setiap pemesanan melalui tautan ini digunakan untuk pengembangan Organic Maps.";
+
 "placepage_call_button" = "Hubungi";
 
 "placepage_edit_bookmark_button" = "Edit Bookmark";

@@ -502,6 +502,10 @@
 	<string name="hour">h</string>
 	<string name="minute">min</string>
 	<string name="placepage_more_button">Veel</string>
+	<!-- A referral link on the place page for some hotels -->
+	<string name="more_on_kayak">Üksikasjad KAYAKi kohta</string>
+	<!-- An explanation dialog shown when clicking on more_on_kayak link. -->
+	<string name="dialog_kayak_disclaimer">Iga selle lingi kaudu tehtud broneeringu eest saadav boonus läheb Organic Maps\'i arendamiseks.</string>
 	<string name="placepage_edit_bookmark_button">Muuda järjehoidjat</string>
 	<string name="editor_comment_hint">Kommenteeri…</string>
 	<string name="editor_reset_edits_message">Loobu kõigist kohalikest muudatustest?</string>

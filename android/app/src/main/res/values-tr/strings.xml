@@ -514,6 +514,10 @@
 	<string name="hour">sa</string>
 	<string name="minute">dk</string>
 	<string name="placepage_more_button">Diğer</string>
+	<!-- A referral link on the place page for some hotels -->
+	<string name="more_on_kayak">KAYAK hakkında detaylar</string>
+	<!-- An explanation dialog shown when clicking on more_on_kayak link. -->
+	<string name="dialog_kayak_disclaimer">Bu bağlantı üzerinden yapılan her rezervasyon için alınan yönlendirme bonusu Organic Maps\'in geliştirilmesine harcanmaktadır.</string>
 	<string name="placepage_edit_bookmark_button">Yer İmini Düzenle</string>
 	<string name="editor_comment_hint">Yorum…</string>
 	<string name="editor_reset_edits_message">Tüm yerel değişiklikler sıfırlansın mı?</string>

@@ -789,6 +789,12 @@
 
 "book_button" = "Đặt trước";
 
+/* A referral link on the place page for some hotels */
+"more_on_kayak" = "Chi tiết trên KAYAK";
+
+/* An explanation dialog shown when clicking on more_on_kayak link. */
+"dialog_kayak_disclaimer" = "Phần thưởng giới thiệu nhận được cho mỗi lần đặt phòng thông qua liên kết này sẽ hướng tới việc phát triển bản đồ không phải trả tiền.";
+
 "placepage_call_button" = "Gọi";
 
 "placepage_edit_bookmark_button" = "Sửa Dấu Trang";

@@ -512,6 +512,10 @@
 	<string name="hour">г</string>
 	<string name="minute">хв</string>
 	<string name="placepage_more_button">Яшчэ</string>
+	<!-- A referral link on the place page for some hotels -->
+	<string name="more_on_kayak">Падрабязнасці на KAYAK</string>
+	<!-- An explanation dialog shown when clicking on more_on_kayak link. -->
+	<string name="dialog_kayak_disclaimer">Рэферальны бонус, атрыманы за кожнае браніраванне па гэтай спасылцы, ідзе на распрацоўку Organic Maps.</string>
 	<string name="placepage_edit_bookmark_button">Рэдагаваць закладку</string>
 	<string name="editor_comment_hint">Каментарый…</string>
 	<string name="editor_reset_edits_message">Адмовіцца ад усіх лакальных змен?</string>

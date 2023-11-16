@@ -495,6 +495,10 @@
 	<string name="miles_per_hour">mph</string>
 	<string name="minute">min</string>
 	<string name="placepage_more_button">Mai mult</string>
+	<!-- A referral link on the place page for some hotels -->
+	<string name="more_on_kayak">Detalii pe KAYAK</string>
+	<!-- An explanation dialog shown when clicking on more_on_kayak link. -->
+	<string name="dialog_kayak_disclaimer">Bonusul de recomandare primit pentru fiecare rezervare prin acest link este destinat dezvoltării Organic Maps.</string>
 	<string name="placepage_edit_bookmark_button">Modifică locul preferat</string>
 	<string name="editor_comment_hint">Comentariu…</string>
 	<string name="editor_reset_edits_message">Ștergi toate modificările locale?</string>

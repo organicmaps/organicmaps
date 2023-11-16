@@ -486,6 +486,10 @@
 	<string name="hour">時間</string>
 	<string name="minute">分</string>
 	<string name="placepage_more_button">さらに詳しく</string>
+	<!-- A referral link on the place page for some hotels -->
+	<string name="more_on_kayak">KAYAK で詳細表示</string>
+	<!-- An explanation dialog shown when clicking on more_on_kayak link. -->
+	<string name="dialog_kayak_disclaimer">このリンクを経由した予約の紹介ボーナスは、Organic Mapsの発展のために使われる。</string>
 	<string name="placepage_edit_bookmark_button">ブックマークを編集</string>
 	<string name="editor_comment_hint">コメント…</string>
 	<string name="editor_reset_edits_message">すべてのローカルの変更をリセットしますか？</string>

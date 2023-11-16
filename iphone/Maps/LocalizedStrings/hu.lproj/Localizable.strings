@@ -789,6 +789,12 @@
 
 "book_button" = "Foglalás";
 
+/* A referral link on the place page for some hotels */
+"more_on_kayak" = "Részletek a KAYAK-on";
+
+/* An explanation dialog shown when clicking on more_on_kayak link. */
+"dialog_kayak_disclaimer" = "Az ezen a linken keresztül történő minden egyes foglalásért kapott ajánlói bónusz az Organic Maps fejlesztését szolgálja.";
+
 "placepage_call_button" = "Hívás";
 
 "placepage_edit_bookmark_button" = "Könyvjelző szerkesztése";

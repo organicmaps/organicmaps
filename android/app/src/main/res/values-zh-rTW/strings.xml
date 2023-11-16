@@ -502,6 +502,10 @@
 	<string name="hour">小時</string>
 	<string name="minute">分鐘</string>
 	<string name="placepage_more_button">更多</string>
+	<!-- A referral link on the place page for some hotels -->
+	<string name="more_on_kayak">KAYAK 上的詳細資訊</string>
+	<!-- An explanation dialog shown when clicking on more_on_kayak link. -->
+	<string name="dialog_kayak_disclaimer">透過此連結進行的每次預訂收到的推薦獎金將用於開發有機地圖</string>
 	<string name="placepage_edit_bookmark_button">編輯書籤</string>
 	<string name="editor_comment_hint">註解…</string>
 	<string name="editor_reset_edits_message">重設所有本機變更？</string>

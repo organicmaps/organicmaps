@@ -527,6 +527,10 @@
 	<string name="hour">س</string>
 	<string name="minute">د</string>
 	<string name="placepage_more_button">المزيد</string>
+	<!-- A referral link on the place page for some hotels -->
+	<string name="more_on_kayak">التفاصيل على KAYAK</string>
+	<!-- An explanation dialog shown when clicking on more_on_kayak link. -->
+	<string name="dialog_kayak_disclaimer">تذهب مكافأة الإحالة التي يتم تلقيها لكل حجز من خلال هذا الرابط إلى تطوير Organic Maps.</string>
 	<string name="placepage_edit_bookmark_button">تحرير العلامة المرجعية</string>
 	<string name="editor_comment_hint">تعليق…</string>
 	<string name="editor_reset_edits_message">هل تريد مسح كافة التغييرات المحلية؟</string>

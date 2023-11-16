@@ -85,6 +85,10 @@
 	<!-- Text in About and OSM Login screens. %@ is replaced by a local, human readable date. -->
 	<string name="osm_presentation">Takwimu za katuni kutoka kwa OpenStreetMap kama ya %s. Ni kama Wikipedia ambapo unaweza kuongeza au kuhariri maeneo kwa watumiaji wote ulimwenguni.</string>
 	<string name="editor_other_info">Tuma ujumbe kwenye vihariri vya OSM</string>
+	<!-- A referral link on the place page for some hotels -->
+	<string name="more_on_kayak">Maelezo kuhusu KAYAK</string>
+	<!-- An explanation dialog shown when clicking on more_on_kayak link. -->
+	<string name="dialog_kayak_disclaimer">Bonasi ya rufaa inayopokelewa kwa kila nafasi uliyohifadhi kupitia kiungo hiki huenda kwenye uundaji wa ramani za kikaboni.</string>
 	<string name="editor_share_to_all_dialog_message_2">Wahariri wa OpenStreetMap watakagua mabadiliko na kuwasiliana nawe ikiwa wana maswali yoyote.</string>
 	<!-- Settings: "Send general feedback" button -->
 	<string name="feedback_general">Maoni Jumla</string>

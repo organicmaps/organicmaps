@@ -514,6 +514,10 @@
 	<string name="hour">t</string>
 	<string name="minute">min</string>
 	<string name="placepage_more_button">Lisää</string>
+	<!-- A referral link on the place page for some hotels -->
+	<string name="more_on_kayak">Lisätietoa osoitteessa KAYAK</string>
+	<!-- An explanation dialog shown when clicking on more_on_kayak link. -->
+	<string name="dialog_kayak_disclaimer">Jokaisesta tämän linkin kautta tehdystä varauksesta saatu suosittelubonus käytetään Organic Mapsin kehittämiseen.</string>
 	<string name="placepage_edit_bookmark_button">Muokkaa kirjanmerkkiä</string>
 	<string name="editor_comment_hint">Kommentti…</string>
 	<string name="editor_reset_edits_message">Nollataanko kaikki paikalliset muutokset?</string>

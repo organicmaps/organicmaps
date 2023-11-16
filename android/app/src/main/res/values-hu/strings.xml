@@ -502,6 +502,10 @@
 	<string name="hour">ó</string>
 	<string name="minute">p</string>
 	<string name="placepage_more_button">Még</string>
+	<!-- A referral link on the place page for some hotels -->
+	<string name="more_on_kayak">Részletek a KAYAK-on</string>
+	<!-- An explanation dialog shown when clicking on more_on_kayak link. -->
+	<string name="dialog_kayak_disclaimer">Az ezen a linken keresztül történő minden egyes foglalásért kapott ajánlói bónusz az Organic Maps fejlesztését szolgálja.</string>
 	<string name="placepage_edit_bookmark_button">Könyvjelző szerkesztése</string>
 	<string name="editor_comment_hint">Megjegyzés…</string>
 	<string name="editor_reset_edits_message">Elveti az összes helyi módosítást?</string>

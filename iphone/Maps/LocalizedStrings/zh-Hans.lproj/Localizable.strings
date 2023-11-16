@@ -789,6 +789,12 @@
 
 "book_button" = "预約";
 
+/* A referral link on the place page for some hotels */
+"more_on_kayak" = "KAYAK 上的详细信息";
+
+/* An explanation dialog shown when clicking on more_on_kayak link. */
+"dialog_kayak_disclaimer" = "每次通过此链接预订所获得的推荐奖金将用于 Organic Maps 的开发。";
+
 "placepage_call_button" = "呼叫";
 
 "placepage_edit_bookmark_button" = "编辑书签";

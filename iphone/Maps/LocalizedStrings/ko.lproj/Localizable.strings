@@ -789,6 +789,12 @@
 
 "book_button" = "예약";
 
+/* A referral link on the place page for some hotels */
+"more_on_kayak" = "KAYAK의 세부 정보";
+
+/* An explanation dialog shown when clicking on more_on_kayak link. */
+"dialog_kayak_disclaimer" = "이 링크를 통해 예약할 때마다 받는 추천 보너스는 오가닉맵 개발에 사용됩니다.";
+
 "placepage_call_button" = "전화";
 
 "placepage_edit_bookmark_button" = "즐겨찾기 편집";

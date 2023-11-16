@@ -789,6 +789,12 @@
 
 "book_button" = "पुस्तक";
 
+/* A referral link on the place page for some hotels */
+"more_on_kayak" = "कायाक वर तपशील";
+
+/* An explanation dialog shown when clicking on more_on_kayak link. */
+"dialog_kayak_disclaimer" = "या लिंकद्वारे प्रत्येक बुकिंगसाठी मिळणारा रेफरल बोनस ऑरगॅनिक नकाशांच्या विकासासाठी जातो.";
+
 "placepage_call_button" = "फोन करा";
 
 "placepage_edit_bookmark_button" = "खूणपत्र संपादित करा";

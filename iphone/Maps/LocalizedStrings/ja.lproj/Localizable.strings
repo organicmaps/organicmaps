@@ -789,6 +789,12 @@
 
 "book_button" = "予約";
 
+/* A referral link on the place page for some hotels */
+"more_on_kayak" = "KAYAK で詳細表示";
+
+/* An explanation dialog shown when clicking on more_on_kayak link. */
+"dialog_kayak_disclaimer" = "このリンクを経由した予約の紹介ボーナスは、Organic Mapsの発展のために使われる。";
+
 "placepage_call_button" = "コール";
 
 "placepage_edit_bookmark_button" = "ブックマークを編集";

@@ -789,6 +789,12 @@
 
 "book_button" = "Reserva";
 
+/* A referral link on the place page for some hotels */
+"more_on_kayak" = "Detalls a KAYAK";
+
+/* An explanation dialog shown when clicking on more_on_kayak link. */
+"dialog_kayak_disclaimer" = "La bonificació de referència rebuda per cada reserva a través d'aquest enllaç es destina al desenvolupament de Organic Maps.";
+
 "placepage_call_button" = "Truca-hi";
 
 "placepage_edit_bookmark_button" = "Edita el marcador";

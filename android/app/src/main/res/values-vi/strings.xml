@@ -488,6 +488,10 @@
 	<string name="hour">giờ</string>
 	<string name="minute">phút</string>
 	<string name="placepage_more_button">Bổ sung</string>
+	<!-- A referral link on the place page for some hotels -->
+	<string name="more_on_kayak">Chi tiết trên KAYAK</string>
+	<!-- An explanation dialog shown when clicking on more_on_kayak link. -->
+	<string name="dialog_kayak_disclaimer">Phần thưởng giới thiệu nhận được cho mỗi lần đặt phòng thông qua liên kết này sẽ hướng tới việc phát triển bản đồ không phải trả tiền.</string>
 	<string name="placepage_edit_bookmark_button">Sửa Dấu Trang</string>
 	<string name="editor_comment_hint">Nhận xét…</string>
 	<string name="editor_reset_edits_message">Cài đặt lại tất cả thay đổi cục bộ?</string>
