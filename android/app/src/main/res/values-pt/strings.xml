@@ -495,6 +495,10 @@
 	<string name="hour">h</string>
 	<string name="minute">min</string>
 	<string name="placepage_more_button">Mais</string>
+	<!-- A referral link on the place page for some hotels -->
+	<string name="more_on_kayak">Detalhes em KAYAK</string>
+	<!-- An explanation dialog shown when clicking on more_on_kayak link. -->
+	<string name="dialog_kayak_disclaimer">O bónus de referência recebido por cada reserva efectuada através desta ligação reverte a favor do desenvolvimento do Organic Maps.</string>
 	<string name="placepage_edit_bookmark_button">Editar favorito</string>
 	<string name="editor_comment_hint">Comentário…</string>
 	<string name="editor_reset_edits_message">Eliminar todas as alterações locais?</string>

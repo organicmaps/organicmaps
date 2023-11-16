@@ -789,6 +789,12 @@
 
 "book_button" = "Erreserba";
 
+/* A referral link on the place page for some hotels */
+"more_on_kayak" = "Xehetasunak KAYAK-en";
+
+/* An explanation dialog shown when clicking on more_on_kayak link. */
+"dialog_kayak_disclaimer" = "Esteka honen bidez erreserba bakoitzeko jasotzen den erreferentzia-bonua Organic Maps garatzera doa.";
+
 "placepage_call_button" = "Deitu";
 
 "placepage_edit_bookmark_button" = "Editatu markagailua";

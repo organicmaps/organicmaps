@@ -789,6 +789,12 @@
 
 "book_button" = "預約";
 
+/* A referral link on the place page for some hotels */
+"more_on_kayak" = "KAYAK 上的詳細資訊";
+
+/* An explanation dialog shown when clicking on more_on_kayak link. */
+"dialog_kayak_disclaimer" = "透過此連結進行的每次預訂收到的推薦獎金將用於開發有機地圖";
+
 "placepage_call_button" = "呼叫";
 
 "placepage_edit_bookmark_button" = "編輯書籤";

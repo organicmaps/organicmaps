@@ -250,6 +250,10 @@
 	<string name="level">קוֹמָה</string>
 	<!-- Text in About and OSM Login screens. %@ is replaced by a local, human readable date. -->
 	<string name="osm_presentation">נתונים קרטוגרפיים מ- OpenStreetMap נכון לשנת %s. זה כמו Wikipedia בו תוכלו להוסיף או לערוך מקומות לכל המשתמשים ברחבי העולם.</string>
+	<!-- A referral link on the place page for some hotels -->
+	<string name="more_on_kayak">פרטים על KAYAK</string>
+	<!-- An explanation dialog shown when clicking on more_on_kayak link. -->
+	<string name="dialog_kayak_disclaimer">בונוס ההפניה המתקבל עבור כל הזמנה דרך קישור זה מיועד לפיתוח מפות אורגניות.</string>
 	<string name="editor_share_to_all_dialog_message_2">.ןהשלכ תולאש םהל שי םא רשק ךתיא ורציו םייונישה תא וקדבי OpenStreetMap יכרוע</string>
 	<string name="transliteration_title">תעתיק ללטינית</string>
 	<!-- Bookmark categories screen, button that opens folder selection dialog to import KML/KMZ/GPX/KMB files -->

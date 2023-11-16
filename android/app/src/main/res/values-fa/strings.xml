@@ -485,6 +485,10 @@
 	<string name="hour">ساعت</string>
 	<string name="minute">دقیقه</string>
 	<string name="placepage_more_button">بیشتر</string>
+	<!-- A referral link on the place page for some hotels -->
+	<string name="more_on_kayak">جزئیات در KAYAK</string>
+	<!-- An explanation dialog shown when clicking on more_on_kayak link. -->
+	<string name="dialog_kayak_disclaimer">پاداش ارجاعی دریافت شده برای هر رزرو از طریق این پیوند به سمت توسعه نقشه های ارگانیک می رود.</string>
 	<string name="placepage_edit_bookmark_button">ویرایش نشانه‌ها</string>
 	<string name="editor_comment_hint">اظهار نظر</string>
 	<string name="editor_reset_edits_message">آیا تغییرات محلی را نادیده می گیرید؟</string>

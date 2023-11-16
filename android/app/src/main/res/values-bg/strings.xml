@@ -478,6 +478,10 @@
 	<string name="hour">ч</string>
 	<string name="minute">мин</string>
 	<string name="placepage_more_button">Още</string>
+	<!-- A referral link on the place page for some hotels -->
+	<string name="more_on_kayak">Подробности в KAYAK</string>
+	<!-- An explanation dialog shown when clicking on more_on_kayak link. -->
+	<string name="dialog_kayak_disclaimer">Полученият бонус за всяка резервация чрез тази връзка отива за развитието на Organic Maps.</string>
 	<string name="placepage_edit_bookmark_button">Редакция на отметка</string>
 	<string name="editor_comment_hint">Коментиране…</string>
 	<string name="editor_reset_edits_message">Отхвърляне на всички локални промени?</string>

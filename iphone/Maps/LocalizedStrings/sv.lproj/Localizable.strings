@@ -789,6 +789,12 @@
 
 "book_button" = "Boka";
 
+/* A referral link on the place page for some hotels */
+"more_on_kayak" = "Information på KAYAK";
+
+/* An explanation dialog shown when clicking on more_on_kayak link. */
+"dialog_kayak_disclaimer" = "Hänvisningsbonusen som erhålls för varje bokning via denna länk går till utvecklingen av Organic Maps.";
+
 "placepage_call_button" = "Ring";
 
 "placepage_edit_bookmark_button" = "Redigera bokmärke";

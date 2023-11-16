@@ -789,6 +789,12 @@
 
 "book_button" = "Забронировать";
 
+/* A referral link on the place page for some hotels */
+"more_on_kayak" = "Подробнее на KAYAK";
+
+/* An explanation dialog shown when clicking on more_on_kayak link. */
+"dialog_kayak_disclaimer" = "Реферальный бонус, полученный за каждое бронирование по этой ссылке, идёт на разработку Organic Maps.";
+
 "placepage_call_button" = "Позвонить";
 
 "placepage_edit_bookmark_button" = "Редактировать метку";

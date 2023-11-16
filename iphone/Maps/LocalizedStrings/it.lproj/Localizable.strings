@@ -789,6 +789,12 @@
 
 "book_button" = "Prenota";
 
+/* A referral link on the place page for some hotels */
+"more_on_kayak" = "Dettagli su KAYAK";
+
+/* An explanation dialog shown when clicking on more_on_kayak link. */
+"dialog_kayak_disclaimer" = "Il bonus ricevuto per ogni prenotazione effettuata tramite questo link è destinato allo sviluppo di Organic Maps.";
+
 "placepage_call_button" = "Chiama";
 
 "placepage_edit_bookmark_button" = "Modifica luogo preferito";

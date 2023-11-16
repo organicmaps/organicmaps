@@ -789,6 +789,12 @@
 
 "book_button" = "Reserveeri";
 
+/* A referral link on the place page for some hotels */
+"more_on_kayak" = "Üksikasjad KAYAKi kohta";
+
+/* An explanation dialog shown when clicking on more_on_kayak link. */
+"dialog_kayak_disclaimer" = "Iga selle lingi kaudu tehtud broneeringu eest saadav boonus läheb Organic Maps'i arendamiseks.";
+
 "placepage_call_button" = "Helista";
 
 "placepage_edit_bookmark_button" = "Muuda järjehoidjat";

@@ -488,6 +488,10 @@
 	<string name="hour">t</string>
 	<string name="minute">min</string>
 	<string name="placepage_more_button">자세히</string>
+	<!-- A referral link on the place page for some hotels -->
+	<string name="more_on_kayak">KAYAK의 세부 정보</string>
+	<!-- An explanation dialog shown when clicking on more_on_kayak link. -->
+	<string name="dialog_kayak_disclaimer">이 링크를 통해 예약할 때마다 받는 추천 보너스는 오가닉맵 개발에 사용됩니다.</string>
 	<string name="placepage_edit_bookmark_button">즐겨찾기 편집</string>
 	<string name="editor_comment_hint">설명…</string>
 	<string name="editor_reset_edits_message">지역 변경 사항을 재설정하시겠습니까?</string>

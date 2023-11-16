@@ -789,6 +789,12 @@
 
 "book_button" = "Boeken";
 
+/* A referral link on the place page for some hotels */
+"more_on_kayak" = "Details op KAYAK";
+
+/* An explanation dialog shown when clicking on more_on_kayak link. */
+"dialog_kayak_disclaimer" = "De doorverwijsbonus die je ontvangt voor elke boeking via deze link gaat naar de ontwikkeling van Organic Maps.";
+
 "placepage_call_button" = "Bellen";
 
 "placepage_edit_bookmark_button" = "Bladwijzer bewerken";

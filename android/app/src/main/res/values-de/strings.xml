@@ -510,6 +510,10 @@
 	<string name="hour">h</string>
 	<string name="minute">min</string>
 	<string name="placepage_more_button">Mehr</string>
+	<!-- A referral link on the place page for some hotels -->
+	<string name="more_on_kayak">Einzelheiten bei KAYAK</string>
+	<!-- An explanation dialog shown when clicking on more_on_kayak link. -->
+	<string name="dialog_kayak_disclaimer">Der empfehlungsbonus, den wir für jede buchung über diesen link erhalten, fließt in die entwicklung von Organic Maps.</string>
 	<string name="placepage_edit_bookmark_button">Lesezeichen bearbeiten</string>
 	<string name="editor_comment_hint">Kommentar…</string>
 	<string name="editor_reset_edits_message">Alle lokalen Korrekturen verwerfen</string>
@@ -725,7 +729,7 @@
 	<string name="disconnect_usb_cable_title">USB-Kabel trennen</string>
 	<string name="enable_keep_screen_on">Bildschirm anlassen</string>
 	<!-- Description in preferences -->
-	<string name="enable_keep_screen_on_description">Wenn diese option aktiviert ist, ist der bildschirm bei der anzeige der karte immer eingeschaltet.</string>
+	<string name="enable_keep_screen_on_description">Wenn diese Option aktiviert ist, ist der Bildschirm bei der Anzeige der Karte immer eingeschaltet.</string>
 	<!-- A preference title; keep short! -->
 	<string name="enable_show_on_lock_screen">Auf dem Sperrbildschirm anzeigen</string>
 	<!-- Description in preferences -->

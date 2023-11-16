@@ -789,6 +789,12 @@
 
 "book_button" = "Book";
 
+/* A referral link on the place page for some hotels */
+"more_on_kayak" = "Maelezo kuhusu KAYAK";
+
+/* An explanation dialog shown when clicking on more_on_kayak link. */
+"dialog_kayak_disclaimer" = "Bonasi ya rufaa inayopokelewa kwa kila nafasi uliyohifadhi kupitia kiungo hiki huenda kwenye uundaji wa ramani za kikaboni.";
+
 "placepage_call_button" = "Call";
 
 "placepage_edit_bookmark_button" = "Edit Bookmark";

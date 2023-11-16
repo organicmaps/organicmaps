@@ -789,6 +789,12 @@
 
 "book_button" = "Varaa";
 
+/* A referral link on the place page for some hotels */
+"more_on_kayak" = "Lisätietoa osoitteessa KAYAK";
+
+/* An explanation dialog shown when clicking on more_on_kayak link. */
+"dialog_kayak_disclaimer" = "Jokaisesta tämän linkin kautta tehdystä varauksesta saatu suosittelubonus käytetään Organic Mapsin kehittämiseen.";
+
 "placepage_call_button" = "Soita";
 
 "placepage_edit_bookmark_button" = "Muokkaa kirjanmerkkiä";

@@ -481,6 +481,10 @@
 	<string name="hour">तास</string>
 	<string name="minute">मिनिट</string>
 	<string name="placepage_more_button">अधिक</string>
+	<!-- A referral link on the place page for some hotels -->
+	<string name="more_on_kayak">कायाक वर तपशील</string>
+	<!-- An explanation dialog shown when clicking on more_on_kayak link. -->
+	<string name="dialog_kayak_disclaimer">या लिंकद्वारे प्रत्येक बुकिंगसाठी मिळणारा रेफरल बोनस ऑरगॅनिक नकाशांच्या विकासासाठी जातो.</string>
 	<string name="placepage_edit_bookmark_button">खूणपत्र संपादित करा</string>
 	<string name="editor_comment_hint">टिप्पणी</string>
 	<string name="editor_reset_edits_message">सर्व स्थानिक बदल टाकून द्यायचे?</string>

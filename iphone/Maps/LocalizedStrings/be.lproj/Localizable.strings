@@ -789,6 +789,12 @@
 
 "book_button" = "Забраніраваць";
 
+/* A referral link on the place page for some hotels */
+"more_on_kayak" = "Падрабязнасці на KAYAK";
+
+/* An explanation dialog shown when clicking on more_on_kayak link. */
+"dialog_kayak_disclaimer" = "Рэферальны бонус, атрыманы за кожнае браніраванне па гэтай спасылцы, ідзе на распрацоўку Organic Maps.";
+
 "placepage_call_button" = "Патэлефанаваць";
 
 "placepage_edit_bookmark_button" = "Рэдагаваць закладку";

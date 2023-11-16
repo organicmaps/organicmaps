@@ -514,6 +514,10 @@
 	<string name="hour">t</string>
 	<string name="minute">min</string>
 	<string name="placepage_more_button">Mer</string>
+	<!-- A referral link on the place page for some hotels -->
+	<string name="more_on_kayak">Mer informasjon om KAYAK</string>
+	<!-- An explanation dialog shown when clicking on more_on_kayak link. -->
+	<string name="dialog_kayak_disclaimer">Henvisningsbonusen som mottas for hver bestilling via denne lenken, går til utviklingen av Organic Maps.</string>
 	<string name="placepage_edit_bookmark_button">Rediger bokmerke</string>
 	<string name="editor_comment_hint">Kommentar…</string>
 	<string name="editor_reset_edits_message">Nullstille alle lokale endringer?</string>

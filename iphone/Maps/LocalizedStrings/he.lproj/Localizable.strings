@@ -789,6 +789,12 @@
 
 "book_button" = "Book";
 
+/* A referral link on the place page for some hotels */
+"more_on_kayak" = "פרטים על KAYAK";
+
+/* An explanation dialog shown when clicking on more_on_kayak link. */
+"dialog_kayak_disclaimer" = "בונוס ההפניה המתקבל עבור כל הזמנה דרך קישור זה מיועד לפיתוח מפות אורגניות.";
+
 "placepage_call_button" = "Call";
 
 "placepage_edit_bookmark_button" = "Edit Bookmark";

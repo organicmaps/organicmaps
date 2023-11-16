@@ -498,6 +498,10 @@
 	<string name="hour">小時</string>
 	<string name="minute">分鐘</string>
 	<string name="placepage_more_button">更多</string>
+	<!-- A referral link on the place page for some hotels -->
+	<string name="more_on_kayak">KAYAK 上的详细信息</string>
+	<!-- An explanation dialog shown when clicking on more_on_kayak link. -->
+	<string name="dialog_kayak_disclaimer">每次通过此链接预订所获得的推荐奖金将用于 Organic Maps 的开发。</string>
 	<string name="placepage_edit_bookmark_button">编辑书签</string>
 	<string name="editor_comment_hint">备注…</string>
 	<string name="editor_reset_edits_message">重置所有本地更改？</string>

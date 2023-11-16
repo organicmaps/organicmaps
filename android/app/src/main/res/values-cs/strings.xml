@@ -494,6 +494,10 @@
 	<string name="hour">hod</string>
 	<string name="minute">min</string>
 	<string name="placepage_more_button">Více</string>
+	<!-- A referral link on the place page for some hotels -->
+	<string name="more_on_kayak">Podrobnosti na KAYAK</string>
+	<!-- An explanation dialog shown when clicking on more_on_kayak link. -->
+	<string name="dialog_kayak_disclaimer">Bonus za každou rezervaci provedenou prostřednictvím tohoto odkazu je určen na rozvoj služby Organic Maps.</string>
 	<string name="placepage_edit_bookmark_button">Upravit záložku</string>
 	<string name="editor_comment_hint">Poznámka…</string>
 	<string name="editor_reset_edits_message">Vymazat všechny místní změny?</string>
