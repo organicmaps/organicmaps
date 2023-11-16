@@ -929,8 +929,7 @@ void PostprocessElement(OsmElement * p, FeatureBuilderParams & params)
     {
       /// @todo Make a function like HaveAddressLikeType ?
       ftype::TruncValue(t, 1);
-      if (t != types.Get(CachedTypes::Entrance) &&
-          t != types.Get(CachedTypes::WheelchairAny) &&
+      if (t != types.Get(CachedTypes::WheelchairAny) &&
           t != types.Get(CachedTypes::InternetAny))
       {
         hasSuitableType = true;
@@ -940,8 +939,6 @@ void PostprocessElement(OsmElement * p, FeatureBuilderParams & params)
 
     if (!hasSuitableType)
     {
-      /// @todo Worth to add Address type for existing Entrance only when params.name is not empty.
-      /// When we will fix entrance only styles to correct draw house number.
       AddParam(CachedTypes::Address);
 
       // https://github.com/organicmaps/organicmaps/issues/5803
@@ -1346,6 +1343,9 @@ void GetNameAndType(OsmElement * p, FeatureBuilderParams & params,
     size_t const typesCount = params.m_types.size();
     if (params.FinishAddingTypesEx() == FeatureParams::TYPES_EXCEED_MAX)
       LOG(LWARNING, ("Exceeded types count for:", DebugPrintID(*p), "Types:", typesCount, typesString));
+
+    if (!params.house.IsEmpty() && !ftypes::IsAddressObjectChecker::Instance()(params.m_types))
+      LOG(LWARNING, ("Have house number for _non-address_:", DebugPrintID(*p), "Types:", typesString));
   }
 
   // Stage6: Collect additional information about feature such as

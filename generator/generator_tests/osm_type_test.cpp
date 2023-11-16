@@ -234,8 +234,7 @@ UNIT_CLASS_TEST(TestWithClassificator, OsmType_Address)
 
     auto const params = GetFeatureBuilderParams(tags);
 
-    TEST_EQUAL(params.m_types.size(), 4, (params));
-    TEST(params.IsTypeExist(addrType), ());
+    TEST_EQUAL(params.m_types.size(), 3, (params));
     TEST(params.IsTypeExist(GetType({"entrance", "main"})), ());
     TEST(params.IsTypeExist(GetType({"wheelchair", "no"})), ());
     TEST(params.IsTypeExist(GetType({"internet_access", "wlan"})), ());
