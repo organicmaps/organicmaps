@@ -74,6 +74,7 @@ void RoutingSession::BuildRoute(Checkpoints const & checkpoints, uint32_t timeou
 
   m_isFollowing = false;
   m_routingRebuildCount = -1; // -1 for the first rebuild.
+  m_routingRebuildAnnounceCount = 0;
 
   RebuildRoute(checkpoints.GetStart(), m_buildReadyCallback, m_needMoreMapsCallback,
                m_removeRouteCallback, timeoutSec, SessionState::RouteBuilding, false /* adjust */);
@@ -242,6 +243,10 @@ void RoutingSession::Reset()
   m_passedDistanceOnRouteMeters = 0.0;
   m_isFollowing = false;
   m_lastCompletionPercent = 0;
+
+  // reset announcement counters
+  m_routingRebuildCount = -1;
+  m_routingRebuildAnnounceCount = 0;
 }
 
 void RoutingSession::SetState(SessionState state)
@@ -483,6 +488,14 @@ void RoutingSession::GenerateNotifications(std::vector<std::string> & notificati
   notifications.clear();
 
   ASSERT(m_route, ());
+
+  // Generate recalculating notification if needed and reset
+  if (m_routingRebuildCount > m_routingRebuildAnnounceCount)
+  {
+    m_routingRebuildAnnounceCount = m_routingRebuildCount;
+    notifications.emplace_back(m_turnNotificationsMgr.GenerateRecalculatingText());
+    return;
+  }
 
   // Voice turn notifications.
   if (!m_routingSettings.m_soundDirection)
