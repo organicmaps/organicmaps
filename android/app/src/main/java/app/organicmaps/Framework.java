@@ -371,14 +371,25 @@ public class Framework
 
   public static native void nativeZoomToPoint(double lat, double lon, int zoom, boolean animate);
 
+  @Retention(RetentionPolicy.SOURCE)
+  @IntDef({ChoosePositionMode.NONE, ChoosePositionMode.EDITOR, ChoosePositionMode.API})
+  public @interface ChoosePositionMode
+  {
+    // Keep in sync with `enum ChoosePositionMode` in Framework.hpp.
+    public static final int NONE = 0;
+    public static final int EDITOR = 1;
+    public static final int API = 2;
+  }
   /**
+   * @param mode - see ChoosePositionMode values.
    * @param isBusiness selection area will be bounded by building borders, if its true(eg. true for businesses in buildings).
    * @param applyPosition if true, map'll be animated to currently selected object.
    */
-  public static native void nativeTurnOnChoosePositionMode(boolean isBusiness, boolean applyPosition);
-  public static native void nativeTurnOffChoosePositionMode();
-  public static native boolean nativeIsInChoosePositionMode();
+  public static native void nativeSetChoosePositionMode(@ChoosePositionMode int mode, boolean isBusiness,
+                                                        boolean applyPosition);
+  public static native @ChoosePositionMode int nativeGetChoosePositionMode();
   public static native boolean nativeIsDownloadedMapAtScreenCenter();
+
   public static native String nativeGetActiveObjectFormattedCuisine();
 
   public static native void nativeSetVisibleRect(int left, int top, int right, int bottom);

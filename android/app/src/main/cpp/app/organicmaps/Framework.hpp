@@ -49,6 +49,14 @@ namespace android
     MGRS = 5           // Military Grid Reference System
   };
 
+  // Keep in sync `public @interface ChoosePositionMode`in Framework.java.
+  enum class ChoosePositionMode
+  {
+    None = 0,
+    Editor = 1,
+    Api = 2,
+  };
+
   class Framework : private power_management::PowerManager::Subscriber
   {
   private:
@@ -75,7 +83,7 @@ namespace android
     TransitReadManager::TransitStateChangedFn m_onTransitStateChangedFn;
     IsolinesManager::IsolinesStateChangedFn m_onIsolinesStateChangedFn;
 
-    bool m_isChoosePositionMode = false;
+    ChoosePositionMode m_isChoosePositionMode = ChoosePositionMode::None;
     bool m_isSurfaceDestroyed = false;
 
   public:
@@ -179,8 +187,8 @@ namespace android
     void Set3dMode(bool allow3d, bool allow3dBuildings);
     void Get3dMode(bool & allow3d, bool & allow3dBuildings);
 
-    void SetChoosePositionMode(bool isChoosePositionMode, bool isBusiness, bool hasPosition, m2::PointD const & position);
-    bool GetChoosePositionMode();
+    void SetChoosePositionMode(ChoosePositionMode mode, bool isBusiness, bool hasPosition, m2::PointD const & position);
+    ChoosePositionMode GetChoosePositionMode();
 
     void UpdateMyPositionRoutingOffset(int offsetY);
     void SetupWidget(gui::EWidget widget, float x, float y, dp::Anchor anchor);
