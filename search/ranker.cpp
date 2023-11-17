@@ -608,6 +608,10 @@ private:
   uint8_t NormalizeRank(uint8_t rank, Model::Type type, m2::PointD const & center,
                         string const & country, bool isCapital, bool isRelaxed)
   {
+    // Do not prioritize objects with population < 800. Same as RankToPopulation(rank) < 800, but faster.
+    if (rank <= 70)
+      return 0;
+
     if (isRelaxed)
       rank /= 5.0;
 
