@@ -113,6 +113,46 @@
   </screenshots>
 
   <releases>
+   <release version="2023.11.17-17" date="2023-11-17">
+     <description>
+       <p>Highlights:</p>
+         <ul>
+           <li>New OSM maps data as of November 13, 2023</li>
+           <li>It is possible to zoom in deeper now and see more POIs in dense areas</li>
+           <li>Outdoors map style preview (activate with ?olight or ?odark in search)</li>
+           <li>Brands are displayed in the Place Page</li>
+         </ul>
+       <p>Search:</p>
+         <ul>
+           <li>Process platz-pl like strasse-str</li>
+           <li>Improved address matching</li>
+           <li>Improved search of brands</li>
+         </ul>
+       <p>Translations:</p>
+         <ul>
+           <li>Improved Arabic, Basque, Chinese, Czech, Danish, Finnish, Greek, Hungarian, Indonesian, Italian, Korean, Marathi, Polish, Romanian, Slovak, Spanish, Sweden, Thai, Turkish, Ukrainian, and Vietnamese translations</li>
+         </ul>
+       <p>Styles:</p>
+         <ul>
+           <li>Added flowerbeds, rental shops, bicycle rentals, motorcycle repairs, petting zoo, prison areas, compressed air</li>
+           <li>Added nature reserves and military zones rendering to the car navigation mode</li>
+           <li>Added Docklands Light Railway, Porto metro</li>
+           <li>Display names of ski pistes</li>
+           <li>Tuned/updated icons of fitness centre, yoga, theatre, artwork, statue, theme park, bbq, lighthouse, windmill, heliport &amp; helipad, hunting stand, Kingdom Hall of Jehovah's Witnesses, paid &amp; private versions of parkings and parking entrances, convenience / deli / farm / grocery / health_food shops, tobacco shop</li>
+           <li>Better farmyard &amp; garage landuse area fills</li>
+           <li>Increased scrubs, alpine huts visibility</li>
+           <li>Updated sanitary dump station icons and adjusted its priority</li>
+           <li>Reduced visibility of cave entrances and improved the icon</li>
+           <li>Increased visibility of standalone house numbers</li>
+           <li>Reduced Tokyo subway visibility -- kudos to charlie2clarke</li>
+           <li>Removed minor road markers/shields cluttering the map in Estonia</li>
+           <li>Fix colors of Estonia and Germany road markers / shields</li>
+           <li>Increased visibilities of road markers / shields on tertiary and residential road</li>
+           <li>Fixed "gaps" in some densely mapped lines</li>
+           <li>Fixed "gaps" in the outlines of bridges and other compound lines</li>
+         </ul>
+     </description>
+   </release>
    <release version="2023.09.22-27" date="2023-09-22">
      <description>
        <p>Highlights:</p>
