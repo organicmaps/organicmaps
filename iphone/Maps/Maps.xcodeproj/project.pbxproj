@@ -4486,7 +4486,6 @@
 				CODE_SIGN_STYLE = Manual;
 				CURRENT_PROJECT_VERSION = 0;
 				DEVELOPMENT_TEAM = 9Z6432XD7L;
-				"DEVELOPMENT_TEAM[sdk=iphoneos*]" = 9Z6432XD7L;
 				FRAMEWORK_SEARCH_PATHS = "$(inherited)";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -4497,7 +4496,6 @@
 				OTHER_SWIFT_FLAGS = "$(inherited)";
 				PRODUCT_BUNDLE_IDENTIFIER = app.organicmaps.debug;
 				PROVISIONING_PROFILE_SPECIFIER = "CarPlay Debug";
-				"PROVISIONING_PROFILE_SPECIFIER[sdk=iphoneos*]" = "rtsisyk-ios-dev";
 			};
 			name = Debug;
 		};
