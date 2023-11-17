@@ -239,7 +239,8 @@ bool Framework::CreateDrapeEngine(JNIEnv * env, jobject jSurface, int densityDpi
     p.m_surfaceHeight = oglFactory->GetHeight();
   }
   p.m_visualScale = static_cast<float>(dp::VisualScale(densityDpi));
-  p.m_isChoosePositionMode = m_isChoosePositionMode;
+  // Drape doesn't care about Editor vs Api mode differences.
+  p.m_isChoosePositionMode = m_isChoosePositionMode != ChoosePositionMode::None;
   p.m_hints.m_isFirstLaunch = firstLaunch;
   p.m_hints.m_isLaunchByDeepLink = launchByDeepLink;
   ASSERT(!m_guiPositions.empty(), ("GUI elements must be set-up before engine is created"));
@@ -448,15 +449,15 @@ void Framework::Get3dMode(bool & allow3d, bool & allow3dBuildings)
   m_work.Load3dMode(allow3d, allow3dBuildings);
 }
 
-void Framework::SetChoosePositionMode(bool isChoosePositionMode, bool isBusiness,
+void Framework::SetChoosePositionMode(ChoosePositionMode mode, bool isBusiness,
                                       bool hasPosition, m2::PointD const & position)
 {
-  m_isChoosePositionMode = isChoosePositionMode;
-  m_work.BlockTapEvents(isChoosePositionMode);
-  m_work.EnableChoosePositionMode(isChoosePositionMode, isBusiness, hasPosition, position);
+  m_isChoosePositionMode = mode;
+  m_work.BlockTapEvents(mode != ChoosePositionMode::None);
+  m_work.EnableChoosePositionMode(mode != ChoosePositionMode::None, isBusiness, hasPosition, position);
 }
 
-bool Framework::GetChoosePositionMode()
+ChoosePositionMode Framework::GetChoosePositionMode()
 {
   return m_isChoosePositionMode;
 }
@@ -1710,24 +1711,19 @@ Java_app_organicmaps_Framework_nativeGetPoiContactUrl(JNIEnv *env, jclass, jint 
 }
 
 JNIEXPORT void JNICALL
-Java_app_organicmaps_Framework_nativeTurnOnChoosePositionMode(JNIEnv *, jclass, jboolean isBusiness, jboolean applyPosition)
+Java_app_organicmaps_Framework_nativeSetChoosePositionMode(JNIEnv *, jclass, jint mode, jboolean isBusiness,
+                                                           jboolean applyPosition)
 {
   auto const pos = applyPosition && frm()->HasPlacePageInfo()
       ? g_framework->GetPlacePageInfo().GetMercator()
       : m2::PointD();
-  g_framework->SetChoosePositionMode(true, isBusiness, applyPosition, pos);
+  g_framework->SetChoosePositionMode(static_cast<android::ChoosePositionMode>(mode), isBusiness, applyPosition, pos);
 }
 
-JNIEXPORT void JNICALL
-Java_app_organicmaps_Framework_nativeTurnOffChoosePositionMode(JNIEnv *, jclass)
+JNIEXPORT jint JNICALL
+Java_app_organicmaps_Framework_nativeGetChoosePositionMode(JNIEnv *, jclass)
 {
-  g_framework->SetChoosePositionMode(false, false, false, m2::PointD());
-}
-
-JNIEXPORT jboolean JNICALL
-Java_app_organicmaps_Framework_nativeIsInChoosePositionMode(JNIEnv *, jclass)
-{
-  return g_framework->GetChoosePositionMode();
+  return static_cast<jint>(g_framework->GetChoosePositionMode());
 }
 
 JNIEXPORT jboolean JNICALL
@@ -1853,7 +1849,7 @@ Java_app_organicmaps_Framework_nativeSetPowerManagerScheme(JNIEnv *, jclass, jin
 JNIEXPORT void JNICALL
 Java_app_organicmaps_Framework_nativeSetViewportCenter(JNIEnv *, jclass, jdouble lat, jdouble lon, jint zoom)
 {
-  // isAnim = true because of previous nativeTurnOnChoosePositionMode animations.
+  // isAnim = true because of previous nativeSetChoosePositionMode animations.
   frm()->SetViewportCenter(mercator::FromLatLon(lat, lon), static_cast<int>(zoom), true /* isAnim */);
 }
 
