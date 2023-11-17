@@ -199,6 +199,10 @@ void RelationTagsWay::Process(RelationElement const & e)
     if (p.first == "place" || p.first == "de:place" || p.first == "capital")
       continue;
 
+    // Otherwise we have a bunch of minor islands (and other stuff) inside a country with a huge search rank.
+    if (p.first == "population")
+      continue;
+
     // Do not pass "ref" tags from boundaries and other, non-route relations to highways.
     if (p.first == "ref" && isHighway)
       continue;
