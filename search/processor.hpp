@@ -64,7 +64,6 @@ public:
   void SetPreferredLocale(std::string const & locale);
   void SetInputLocale(std::string const & locale);
   void SetQuery(std::string const & query, bool categorialRequest = false);
-  inline std::string const & GetPivotRegion() const { return m_region; }
 
   inline bool IsEmptyQuery() const { return m_prefix.empty() && m_tokens.empty(); }
 
@@ -145,8 +144,6 @@ protected:
   storage::CountryInfoGetter const & m_infoGetter;
   using CountriesTrie = base::MemTrie<storage::CountryId, base::VectorValues<bool>>;
   CountriesTrie m_countriesTrie;
-
-  std::string m_region;
 
   /// @todo Replace with QueryParams.
   /// @{
