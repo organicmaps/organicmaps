@@ -2,7 +2,6 @@
 • It is possible to zoom in deeper now and see more POIs in dense areas
 • Outdoors map style preview (please read on to know how to activate it)
 • Removed bottom tab bar to show more map on the screen
-• Added experimental "Details on KAYAK" affiliate link to hotels
 • Removed the unnecessary "route" button on the map (tap or long-tap a place on the map or select a search result to build a route using the "Route To" button instead)
 • Highlighted the Route To button and hinted the FAQ for new users
 • Fixed CarPlay dark/light mode colors
