@@ -13,7 +13,7 @@ varying LOW_P vec4 v_color;
 varying vec2 v_colorTexCoord;
 #endif
 
-varying vec2 v_halfLength;
+//varying vec2 v_halfLength;
 
 void main()
 {
@@ -31,7 +31,7 @@ void main()
 #else
   v_colorTexCoord = a_colorTexCoord;
 #endif
-  v_halfLength = vec2(sign(a_normal.z) * halfWidth, abs(a_normal.z));
+  //v_halfLength = vec2(sign(a_normal.z) * halfWidth, abs(a_normal.z));
   vec4 pos = vec4(transformedAxisPos, a_position.z, 1.0) * u_projection;
   gl_Position = applyPivotTransform(pos, u_pivotTransform, 0.0);
 }
