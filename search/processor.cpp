@@ -3,7 +3,6 @@
 #include "ge0/parser.hpp"
 
 #include "search/common.hpp"
-#include "search/cuisine_filter.hpp"
 #include "search/geometry_utils.hpp"
 #include "search/intermediate_result.hpp"
 #include "search/latlon_match.hpp"
@@ -11,7 +10,6 @@
 #include "search/postcode_points.hpp"
 #include "search/query_params.hpp"
 #include "search/ranking_utils.hpp"
-#include "search/search_index_values.hpp"
 #include "search/search_params.hpp"
 #include "search/utils.hpp"
 #include "search/utm_mgrs_coords_match.hpp"
@@ -25,17 +23,14 @@
 #include "indexer/feature.hpp"
 #include "indexer/feature_algo.hpp"
 #include "indexer/feature_utils.hpp"
-#include "indexer/features_vector.hpp"
 #include "indexer/ftypes_matcher.hpp"
 #include "indexer/mwm_set.hpp"
 #include "indexer/postcodes_matcher.hpp"
 #include "indexer/search_delimiters.hpp"
 #include "indexer/search_string_utils.hpp"
-#include "indexer/trie_reader.hpp"
 
 #include "platform/preferred_languages.hpp"
 
-#include "coding/compressed_bit_vector.hpp"
 #include "coding/string_utf8_multilang.hpp"
 
 #include "geometry/latlon.hpp"
@@ -911,7 +906,11 @@ void Processor::InitRanker(Geocoder::Params const & geocoderParams,
   params.m_batchSize = searchParams.m_batchSize;
   params.m_limit = searchParams.m_maxNumResults;
   params.m_pivot = GetPivotPoint(viewportSearch);
-  params.m_pivotRegion = GetPivotRegion();
+  {
+    storage::CountryInfo info;
+    m_infoGetter.GetRegionInfo(params.m_pivot, info);
+    params.m_pivotRegion = std::move(info.m_name);
+  }
 
   params.m_preferredTypes = m_preferredTypes;
   // Remove "secondary" category types from preferred.
