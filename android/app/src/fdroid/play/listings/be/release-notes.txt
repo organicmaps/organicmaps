@@ -1,6 +1,5 @@
-• New OpenStreetMap data as of November 13
-• The maximum zoom level is twice as deep as it was before
-• Fixed import of bookmarks in KMB format
-• Disabled the screen wake lock by default to improve power-saving
-• Corrected the location search indication when the map is moved or zoomed
-• Outdoors map style preview - read on how to activate it and about many other improvements on omaps.org/news
+• Новыя дадзеныя OpenStreetMap па стане на 13 лістапада.
+• Цяпер зуміцца/набліжаць карту можна яшчэ мацней!
+• Выпраўлены імпарт метак у фармаце KMB.
+• Выпраўлена індыкацыя пошуку месцазнаходжання пры перамяшчэнні або маштабаванні карты.
+• Пра тое, як актываваць эксперыментальны стыль для пешых паходаў, а таксама пра многія іншыя паляпшэнні, чытайце на сайце omaps.org/news
