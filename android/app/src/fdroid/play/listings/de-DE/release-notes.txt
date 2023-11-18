@@ -1,7 +1,6 @@
-• Neue OSM-Daten mit Stand 13. November
-• Es ist jetzt möglich weiter in die Karte zu zoomen um mehr Objekte in dichten Gebieten zu sehen
-• Outdoor Karten Anzeige Vorschau (aktivierbar mit den Begriffen ?olight oder ?odrak in der Suchleiste)
-• Probleme für den Import von Lesezeichen im KBM Vormat behoben
-• Verbesserung der Anzeige des Standort-Knopfs
-• Verbesserungen beim Scrollen von Karten
-• Verbesserte Wegfindung, Suche, Anzeige, Icons und Übersetzungen
+• Neue OpenStreetMap-Daten vom 13. November
+• Die maximale Zoomstufe ist jetzt doppelt so tief wie zuvor
+• Behebung des Imports von Lesezeichen im KMB-Format
+• Standardmäßige Deaktivierung des Bildschirm-Wake-Locks zur Verbesserung der Akkulaufzeit
+• Korrekte Anzeige der Ortssuche, wenn die Karte verschoben oder gezoomt wird
+• Vorschau des Outdoors-Kartenstils - Weitere Informationen zur Aktivierung und zu vielen anderen Verbesserungen finden Sie auf omaps.org/news.
