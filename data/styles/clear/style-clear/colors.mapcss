@@ -105,10 +105,10 @@
 @primary_orange_medium: #FF9440;
 @primary_orange_light: #FFA14C;
 @secondary: #FFFFFF;
-@residential: #FFFFFF;
-@unclassified: #FFFFFF;
-@pedestrian: #FFFFFF;
-@footway: #FFFFFF;
+@residential: #F8F8F8;
+@unclassified: #F8F8F8;
+@pedestrian: #F8F8F8;
+@footway: #F8F8F8;
 @cycleway: #FF87AD;
 @construction: #BBBBAA;
 @track: #635730;
