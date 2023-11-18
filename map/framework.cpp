@@ -3281,10 +3281,10 @@ void Framework::FillDescription(FeatureType & ft, place_page::Info & info) const
   auto const deviceLang = StringUtf8Multilang::GetLangIndex(languages::GetCurrentNorm());
   auto const langPriority = feature::GetDescriptionLangPriority(regionData, deviceLang);
 
-  std::string description = m_descriptionsLoader->GetDescription(ft.GetID(), langPriority);
-  if (!description.empty())
+  std::string wikiDescription = m_descriptionsLoader->GetWikiDescription(ft.GetID(), langPriority);
+  if (!wikiDescription.empty())
   {
-    info.SetDescription(std::move(description));
+    info.SetWikiDescription(std::move(wikiDescription));
     info.SetOpeningMode(m_routingManager.IsRoutingActive()
                         ? place_page::OpeningMode::Preview
                         : place_page::OpeningMode::PreviewPlus);

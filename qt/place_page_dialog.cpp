@@ -82,7 +82,7 @@ PlacePageDialog::PlacePageDialog(QWidget * parent, place_page::Info const & info
   if (auto cuisines = info.FormatCuisines(); !cuisines.empty())
     addEntry(DebugPrint(PropID::FMD_CUISINE), cuisines);
 
-  if (auto const & descr = info.GetDescription(); !descr.empty())
+  if (auto const & descr = info.GetWikiDescription(); !descr.empty())
   {
     QLabel * value = addEntry("Wiki Description", {});
     auto const qWikiDescription = QString::fromStdString(descr);
@@ -129,7 +129,7 @@ PlacePageDialog::PlacePageDialog(QWidget * parent, place_page::Info const & info
   grid->addWidget(dbb);
   setLayout(grid);
 
-  string const title = string("Place Page") + (info.IsBookmark() ? " (bookmarked)" : "");
+  auto const title = std::string("Place Page") + (info.IsBookmark() ? " (bookmarked)" : "");
   setWindowTitle(title.c_str());
 }
 

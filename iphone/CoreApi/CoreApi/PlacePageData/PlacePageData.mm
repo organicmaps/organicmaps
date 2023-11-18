@@ -45,9 +45,8 @@ static PlacePageRoadType convertRoadType(RoadWarningMarkType roadType) {
       _bookmarkData = [[PlacePageBookmarkData alloc] initWithRawData:rawData()];
     }
 
-    NSString *descr = @(rawData().GetDescription().c_str());
-    if (descr.length > 0) {
-      _wikiDescriptionHtml = [NSString stringWithFormat:@"<html><body>%@</body></html>", descr];
+    if (auto const & wikiDescription = rawData().GetWikiDescription(); !wikiDescription.empty()) {
+      _wikiDescriptionHtml = @(("<html><body>" + wikiDescription + "</body></html>").c_str());
     }
 
     _roadType = convertRoadType(rawData().GetRoadType());

@@ -77,12 +77,12 @@ jobject CreateMapObject(JNIEnv * env, place_page::Info const & info, int mapObje
   jni::TScopedLocalRef jSubtitle(env, jni::ToJavaString(env, info.GetSubtitle()));
   jni::TScopedLocalRef jAddress(env, jni::ToJavaString(env, info.GetAddress()));
   jni::TScopedLocalRef jApiId(env, jni::ToJavaString(env, parseApi ? info.GetApiUrl() : ""));
-  jni::TScopedLocalRef jDescription(env, jni::ToJavaString(env, info.GetDescription()));
+  jni::TScopedLocalRef jWikiDescription(env, jni::ToJavaString(env, info.GetWikiDescription()));
   jobject mapObject =
       env->NewObject(g_mapObjectClazz, ctorId, jFeatureId.get(), mapObjectType, jTitle.get(),
                      jSecondaryTitle.get(), jSubtitle.get(), jAddress.get(), lat, lon, jApiId.get(),
                      routingPointInfo,
-                     static_cast<jint>(info.GetOpeningMode()), popularity, jDescription.get(),
+                     static_cast<jint>(info.GetOpeningMode()), popularity, jWikiDescription.get(),
                      static_cast<jint>(info.GetRoadType()), jrawTypes);
 
   if (parseMeta)
@@ -120,12 +120,12 @@ jobject CreateBookmark(JNIEnv *env, const place_page::Info &info,
   jni::TScopedLocalRef jSecondaryTitle(env, jni::ToJavaString(env, info.GetSecondaryTitle()));
   jni::TScopedLocalRef jSubtitle(env, jni::ToJavaString(env, info.GetSubtitle()));
   jni::TScopedLocalRef jAddress(env, jni::ToJavaString(env, info.GetAddress()));
-  jni::TScopedLocalRef jDescription(env, jni::ToJavaString(env, info.GetDescription()));
+  jni::TScopedLocalRef jWikiDescription(env, jni::ToJavaString(env, info.GetWikiDescription()));
   jobject mapObject = env->NewObject(
           g_bookmarkClazz, ctorId, jFeatureId.get(), static_cast<jlong>(categoryId),
           static_cast<jlong>(bookmarkId), jTitle.get(), jSecondaryTitle.get(), jSubtitle.get(),
           jAddress.get(), routingPointInfo.get(), info.GetOpeningMode(), popularity.get(),
-          jDescription.get(), jrawTypes.get());
+          jWikiDescription.get(), jrawTypes.get());
 
   if (info.HasMetadata())
     InjectMetadata(env, g_mapObjectClazz, mapObject, info);

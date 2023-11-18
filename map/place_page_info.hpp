@@ -139,7 +139,7 @@ public:
   /// Convenient wrapper for type, cuisines, elevation, stars, wifi etc.
   std::string const & GetSubtitle() const { return m_uiSubtitle; };
   std::string const & GetAddress() const { return m_uiAddress; }
-  std::string const & GetDescription() const { return m_description; }
+  std::string const & GetWikiDescription() const { return m_description; }
   /// @returns coordinate in DMS format if isDMS is true
   std::string GetFormattedCoordinate(CoordinatesFormat format) const;
 
@@ -208,7 +208,7 @@ public:
   /// MapObject
   void SetFromFeatureType(FeatureType & ft);
 
-  void SetDescription(std::string && description) { m_description = std::move(description); }
+  void SetWikiDescription(std::string && description) { m_description = std::move(description); }
 
   void SetMercator(m2::PointD const & mercator);
   std::vector<std::string> GetRawTypes() const { return m_types.ToObjectNames(); }
