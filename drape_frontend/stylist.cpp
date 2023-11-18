@@ -215,7 +215,7 @@ Stylist::Stylist(FeatureType & f, uint8_t zoomLevel, int8_t deviceLang)
     if (m_captionDescriptor.IsHouseNumberExists())
     {
       bool isGood = true;
-      if (zoomLevel < scales::GetUpperStyleScale())
+      if (zoomLevel < scales::GetPointHousenumbersScale())
       {
         if (geomType == feature::GeomType::Area)
         {
@@ -224,11 +224,7 @@ Stylist::Stylist(FeatureType & f, uint8_t zoomLevel, int8_t deviceLang)
           isGood = std::min(r.SizeX(), r.SizeY()) > scales::GetEpsilonForHousenumbers(zoomLevel);
         }
         else
-        {
-          // Limit point housenumbers display to detailed zooms only (z18-).
-          ASSERT_EQUAL(geomType, feature::GeomType::Point, ());
-          isGood = zoomLevel >= scales::GetPointHousenumbersScale();
-        }
+          isGood = false;
       }
 
       if (isGood)
