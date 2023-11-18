@@ -8,7 +8,7 @@
 
 namespace descriptions
 {
-std::string Loader::GetDescription(FeatureID const & featureId, std::vector<int8_t> const & langPriority)
+std::string Loader::GetWikiDescription(FeatureID const & featureId, std::vector<int8_t> const & langPriority)
 {
   auto const handle = m_dataSource.GetMwmHandleById(featureId.m_mwmId);
 
