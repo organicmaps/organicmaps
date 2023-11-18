@@ -254,6 +254,12 @@
 /* Settings «Route» category: «Tts enabled» title */
 "pref_tts_enable_title" = "ध्वनि निर्देश";
 
+/* Settings «Route» category: «Tts announce street names» title */
+"pref_tts_street_names_title" = "सड़कों के नाम की घोषणा करें";
+
+/* Settings «Route» category: «Tts announce street names» description */
+"pref_tts_street_names_description" = "सक्षम होने पर, सड़क का नाम या मुड़ने के लिए निकास का नाम ज़ोर से बोला जाएगा।";
+
 /* Settings «Route» category: «Tts language» title */
 "pref_tts_language_title" = "आवाज की भाषा";
 

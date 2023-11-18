@@ -252,7 +252,13 @@
 "pref_map_3d_buildings_disabled_summary" = "Majengo ya 3D yamezimwa katika hali ya kuokoa nishati";
 
 /* Settings «Route» category: «Tts enabled» title */
-"pref_tts_enable_title" = "Voice Instructions";
+"pref_tts_enable_title" = "Tangaza Majina ya Mitaa";
+
+/* Settings «Route» category: «Tts announce street names» title */
+"pref_tts_street_names_title" = "Tangaza Majina ya Mitaa";
+
+/* Settings «Route» category: «Tts announce street names» description */
+"pref_tts_street_names_description" = "Ikiwashwa, jina la barabara au la kutoka ili kuwasha litasemwa kwa sauti.";
 
 /* Settings «Route» category: «Tts language» title */
 "pref_tts_language_title" = "Voice Language";
