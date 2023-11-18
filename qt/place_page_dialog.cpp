@@ -11,15 +11,6 @@
 #include <QtWidgets/QPushButton>
 #include <QtWidgets/QVBoxLayout>
 
-using namespace std;
-
-string GenerateStars(int count)
-{
-  string stars;
-  for (int i = 0; i < count; ++i)
-    stars.append("★");
-  return stars;
-}
 
 PlacePageDialog::PlacePageDialog(QWidget * parent, place_page::Info const & info,
                                  search::ReverseGeocoder::Address const & address)
@@ -40,6 +31,7 @@ PlacePageDialog::PlacePageDialog(QWidget * parent, place_page::Info const & info
       label->setText(QString::fromStdString("<a href=\"" + value + "\">" + value + "</a>"));
     }
     grid->addWidget(label, row++, 1);
+    return label;
   };
 
   {
@@ -91,7 +83,13 @@ PlacePageDialog::PlacePageDialog(QWidget * parent, place_page::Info const & info
     addEntry(DebugPrint(PropID::FMD_CUISINE), cuisines);
 
   if (auto const & descr = info.GetDescription(); !descr.empty())
-    addEntry("Description size", std::to_string(descr.size()));
+  {
+    QLabel * value = addEntry("Wiki Description", {});
+    auto const qWikiDescription = QString::fromStdString(descr);
+    QString clippedText = QFontMetrics{value->font()}.elidedText(qWikiDescription, Qt::ElideRight, value->width());
+    value->setText(clippedText);
+    value->setToolTip(qWikiDescription);
+  }
 
   info.ForEachMetadataReadable([&addEntry](PropID id, std::string const & value)
   {
