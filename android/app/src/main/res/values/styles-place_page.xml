@@ -54,7 +54,6 @@
   </style>
 
   <style name="PlacePageMetadataText.Button">
-    <item name="android:textAllCaps">true</item>
     <item name="android:gravity">center_vertical</item>
     <item name="android:textAppearance">@style/MwmTextAppearance.PlacePage.Accent</item>
   </style>

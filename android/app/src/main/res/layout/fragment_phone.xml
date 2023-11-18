@@ -31,7 +31,6 @@
         android:gravity="center_vertical"
         android:padding="@dimen/margin_base"
         android:text="@string/editor_add_phone"
-        android:textAllCaps="true"
         android:textAppearance="@style/MwmTextAppearance.Body3"
         android:textColor="?colorAccent"/>
 

@@ -58,6 +58,7 @@
     <item name="android:textColorPrimary">?textDialogTheme</item>
     <item name="android:textSize">@dimen/text_size_body_1</item>
     <item name="android:windowTitleStyle">@style/MwmTheme.DialogTitleStyle.Light</item>
+    <item name="textAllCaps">false</item>
   </style>
 
   <style name="MwmTheme.DialogTitleBase">
@@ -78,6 +79,7 @@
     <item name="android:textSize">@dimen/text_size_body_1</item>
     <!-- Used for the title in the dialog -->
     <item name="android:windowTitleStyle">@style/MwmTheme.DialogTitleStyle.Night</item>
+    <item name="textAllCaps">false</item>
   </style>
 
   <style name="MwmTheme.DialogTitleStyle.Night" parent="MwmTheme.DialogTitleBase">

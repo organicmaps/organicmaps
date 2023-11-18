@@ -67,7 +67,6 @@
     android:gravity="center_vertical"
     android:minHeight="@dimen/height_block_base"
     android:text="@string/edit_opening_hours"
-    android:textAllCaps="true"
     android:textAppearance="@style/MwmTextAppearance.Body1"
     android:textColor="?colorAccent"/>
 

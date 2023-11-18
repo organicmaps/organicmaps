@@ -25,7 +25,6 @@
         android:fontFamily="@string/robotoMedium"
         android:gravity="center"
         android:letterSpacing="0.01"
-        android:textAllCaps="true"
         android:textAppearance="?android:attr/textAppearanceMedium"
         android:textSize="@dimen/text_size_body_3"
         android:textStyle="normal"

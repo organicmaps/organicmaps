@@ -96,7 +96,7 @@
   <style name="MwmTextAppearance.Button">
     <item name="android:textSize">@dimen/text_size_button</item>
     <item name="android:textColor">?colorAccent</item>
-    <item name="android:textAllCaps">true</item>
+    <item name="android:textAllCaps">false</item>
   </style>
 
   <style name="MwmTextAppearance.Button.Red">
@@ -124,7 +124,6 @@
 
   <style name="MwmTextAppearance.Toolbar.Title.Button">
     <item name="android:textSize">@dimen/text_size_body_3</item>
-    <item name="android:textAllCaps">true</item>
   </style>
 
   <style name="MwmTextAppearance.NavMenu">

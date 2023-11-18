@@ -268,7 +268,6 @@
         android:background="?clickableBackground"
         android:padding="@dimen/margin_half_plus"
         android:text="@string/editor_time_add_closed"
-        android:textAllCaps="true"
         android:textAppearance="@style/MwmTextAppearance.Body1"
         android:textColor="?colorAccent"/>
 
@@ -281,7 +280,6 @@
       android:background="?clickableBackground"
       android:padding="@dimen/margin_half_plus"
       android:text="@string/editor_time_delete"
-      android:textAllCaps="true"
       android:textAppearance="@style/MwmTextAppearance.Body1"
       android:textColor="@color/base_red"/>
 
