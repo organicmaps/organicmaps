@@ -10,7 +10,9 @@
 "make_a_u_turn":"Ta en U-sving.",
 "go_straight":"Fortsett rett fram.",
 "exit":"Ta avkjøringen.",
-"destination":"Du ankommer.",
+"onto":"inn på",
+"take_exit_number":"Ta avkjøringen inn på",
+"destination":"Ankommer du.",
 "you_have_reached_the_destination":"Du har ankommet.",
 "in_50_meters":"Om femti meter",
 "in_100_meters":"Om hundre meter",
@@ -29,7 +31,8 @@
 "in_2_kilometers":"Om to kilometer",
 "in_2_5_kilometers":"Om to og en halv kilometer",
 "in_3_kilometers":"Om tre kilometer",
-"then":"så",
+"then":"deretter",
+"dist_direction_onto_street":"%1$s %2$s %3$s %4$s",
 "take_the_1_exit":"Ta første avkjøring.",
 "take_the_2_exit":"Ta andre avkjøring.",
 "take_the_3_exit":"Ta tredje avkjøring.",
@@ -63,5 +66,5 @@
 "in_1_mile":"Om en mile",
 "in_1_5_miles":"Om halvannen mile",
 "in_2_miles":"Om to mile",
-"unknown_camera":"Kamera foran"
+"unknown_camera":"Fotoboks foran"
 }
