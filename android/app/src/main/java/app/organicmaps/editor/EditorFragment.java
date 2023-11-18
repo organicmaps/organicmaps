@@ -476,7 +476,7 @@ public class EditorFragment extends BaseMwmFragment implements View.OnClickListe
 
   private static TextInputEditText findInput(View blockWithInput)
   {
-    return (TextInputEditText) blockWithInput.findViewById(R.id.input);
+    return blockWithInput.findViewById(R.id.input);
   }
 
   private TextInputEditText findInputAndInitBlock(View blockWithInput, @DrawableRes int icon, @StringRes int hint)
@@ -489,7 +489,7 @@ public class EditorFragment extends BaseMwmFragment implements View.OnClickListe
     ((ImageView) blockWithInput.findViewById(R.id.icon)).setImageResource(icon);
     final TextInputLayout input = blockWithInput.findViewById(R.id.custom_input);
     input.setHint(hint);
-    return (TextInputEditText) input.findViewById(R.id.input);
+    return input.findViewById(R.id.input);
   }
 
   @Override
