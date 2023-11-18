@@ -68,7 +68,7 @@ class StoragePathAdapter extends BaseAdapter
                sb.length() - size.length(), sb.length(), Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
 
     final String path = item.mPath + (item.mIsReadonly ? " (read-only)" : "");
-    sb.append("\n" + path);
+    sb.append("\n").append(path);
     sb.setSpan(new ForegroundColorSpan(ThemeUtils.getColor(mActivity, android.R.attr.textColorSecondary)),
                sb.length() - path.length(), sb.length(), Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
     sb.setSpan(new AbsoluteSizeSpan(UiUtils.dimen(mActivity, R.dimen.text_size_body_4)),

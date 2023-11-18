@@ -129,9 +129,7 @@ public class BookmarksListFragment extends BaseMwmRecyclerFragment<ConcatAdapter
 
     BookmarkCollectionAdapter adapter = new BookmarkCollectionAdapter(getCategoryOrThrow(),
                                                                       mCategoryItems);
-    adapter.setOnClickListener((v, item) -> {
-      BookmarkListActivity.startForResult(this, item);
-    });
+    adapter.setOnClickListener((v, item) -> BookmarkListActivity.startForResult(this, item));
 
     return adapter;
   }
@@ -170,7 +168,7 @@ public class BookmarksListFragment extends BaseMwmRecyclerFragment<ConcatAdapter
     if (bar != null)
       bar.setTitle(mCategoryDataSource.getData().getName());
 
-    ViewGroup toolbar = ((AppCompatActivity) requireActivity()).findViewById(R.id.toolbar);
+    ViewGroup toolbar = requireActivity().findViewById(R.id.toolbar);
     mSearchContainer = toolbar.findViewById(R.id.search_container);
     UiUtils.hide(mSearchContainer, R.id.back);
 
@@ -227,18 +225,9 @@ public class BookmarksListFragment extends BaseMwmRecyclerFragment<ConcatAdapter
   {
     BookmarkListAdapter adapter = getBookmarkListAdapter();
     adapter.registerAdapterDataObserver(mCategoryDataSource);
-    adapter.setOnClickListener((v, position) ->
-    {
-      onItemClick(position);
-    });
-    adapter.setOnLongClickListener((v, position) ->
-    {
-      onItemMore(position);
-    });
-    adapter.setMoreListener((v, position) ->
-    {
-      onItemMore(position);
-    });
+    adapter.setOnClickListener((v, position) -> onItemClick(position));
+    adapter.setOnLongClickListener((v, position) -> onItemMore(position));
+    adapter.setMoreListener((v, position) -> onItemMore(position));
   }
 
   private void configureFab(@NonNull View view)
