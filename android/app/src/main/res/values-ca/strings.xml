@@ -227,6 +227,10 @@
 	<string name="pref_map_3d_buildings_disabled_summary">Els edificis en 3D es desactiven en mode d\'estalvi d\'energia</string>
 	<!-- Settings «Route» category: «Tts enabled» title -->
 	<string name="pref_tts_enable_title">Instruccions de veu</string>
+	<!-- Settings «Route» category: «Tts announce street names» title -->
+	<string name="pref_tts_street_names_title">Anuncia els noms dels carrers</string>
+	<!-- Settings «Route» category: «Tts announce street names» description -->
+	<string name="pref_tts_street_names_description">Quan s\'activa, el nom del carrer o la sortida per girar es pronunciarà en veu alta.</string>
 	<!-- Settings «Route» category: «Tts language» title -->
 	<string name="pref_tts_language_title">Llengua de la veu</string>
 	<!-- Settings «Route» category: «Test Voice Directions» title -->
