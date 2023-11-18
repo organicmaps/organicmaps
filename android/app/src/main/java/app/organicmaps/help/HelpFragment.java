@@ -88,25 +88,10 @@ public class HelpFragment extends BaseMwmFragment implements View.OnClickListene
     setupItem(R.id.copyright, false, root);
     View termOfUseView = root.findViewById(R.id.term_of_use_link);
     View privacyPolicyView = root.findViewById(R.id.privacy_policy);
-    termOfUseView.setOnClickListener(v -> onTermOfUseClick());
-    privacyPolicyView.setOnClickListener(v -> onPrivacyPolicyClick());
+    termOfUseView.setOnClickListener(v -> Utils.openUrl(requireActivity(), getResources().getString(R.string.translated_om_site_url) + "terms/"));
+    privacyPolicyView.setOnClickListener(v -> Utils.openUrl(requireActivity(), getResources().getString(R.string.translated_om_site_url) + "privacy/"));
 
     return root;
-  }
-
-  private void openLink(@NonNull String link)
-  {
-    Utils.openUrl(requireActivity(), link);
-  }
-
-  private void onPrivacyPolicyClick()
-  {
-    openLink(getResources().getString(R.string.translated_om_site_url) + "privacy/");
-  }
-
-  private void onTermOfUseClick()
-  {
-    openLink(getResources().getString(R.string.translated_om_site_url) + "terms/");
   }
 
   @Override
@@ -114,35 +99,35 @@ public class HelpFragment extends BaseMwmFragment implements View.OnClickListene
   {
     final int id = v.getId();
     if (id == R.id.web)
-      openLink(getResources().getString(R.string.translated_om_site_url));
+      Utils.openUrl(requireActivity(), getResources().getString(R.string.translated_om_site_url));
     else if (id == R.id.news)
-      openLink(getResources().getString(R.string.translated_om_site_url) + "news/");
+      Utils.openUrl(requireActivity(), getResources().getString(R.string.translated_om_site_url) + "news/");
     else if (id == R.id.email)
       Utils.sendTo(requireContext(), BuildConfig.SUPPORT_MAIL, "Organic Maps");
     else if (id == R.id.github)
-      openLink(Constants.Url.GITHUB);
+      Utils.openUrl(requireActivity(), Constants.Url.GITHUB);
     else if (id == R.id.telegram)
-      openLink(getString(R.string.telegram_url));
+      Utils.openUrl(requireActivity(), getString(R.string.telegram_url));
     else if (id == R.id.instagram)
-      openLink(getString(R.string.instagram_url));
+      Utils.openUrl(requireActivity(), getString(R.string.instagram_url));
     else if (id == R.id.facebook)
       Utils.showFacebookPage(requireActivity());
     else if (id == R.id.twitter)
-      openLink(Constants.Url.TWITTER);
+      Utils.openUrl(requireActivity(), Constants.Url.TWITTER);
     else if (id == R.id.matrix)
-      openLink(Constants.Url.MATRIX);
+      Utils.openUrl(requireActivity(), Constants.Url.MATRIX);
     else if (id == R.id.mastodon)
-      openLink(Constants.Url.MASTODON);
+      Utils.openUrl(requireActivity(), Constants.Url.MASTODON);
     else if (id == R.id.openstreetmap)
-      openLink(getString(R.string.osm_wiki_about_url));
+      Utils.openUrl(requireActivity(), getString(R.string.osm_wiki_about_url));
     else if (id == R.id.faq)
       ((HelpActivity) requireActivity()).stackFragment(FaqFragment.class, getString(R.string.faq), null);
     else if (id == R.id.report)
       Utils.sendBugReport(requireActivity(), "");
     else if (id == R.id.support_us)
-      openLink(getResources().getString(R.string.translated_om_site_url) + "support-us/");
+      Utils.openUrl(requireActivity(), getResources().getString(R.string.translated_om_site_url) + "support-us/");
     else if (id == R.id.donate)
-      openLink(mDonateUrl);
+      Utils.openUrl(requireActivity(), mDonateUrl);
     else if (id == R.id.rate)
       Utils.openAppInMarket(requireActivity(), BuildConfig.REVIEW_URL);
     else if (id == R.id.copyright)
