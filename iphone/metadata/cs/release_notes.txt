@@ -1,53 +1,53 @@
-• New OpenStreetMap data as of November 13, 2023
-• It is possible to zoom in deeper now and see more POIs in dense areas
-• Outdoors map style preview (please read on to know how to activate it)
-• Removed bottom tab bar to show more map on the screen
-• Removed the unnecessary "route" button on the map (tap or long-tap a place on the map or select a search result to build a route using the "Route To" button instead)
-• Highlighted the Route To button and hinted the FAQ for new users
-• Fixed CarPlay dark/light mode colors
-• Fixed keyboard input on iPadOS 15+
-• "Inertial" kinetic scroll improvements
-• Removed max limit to search bookmarks
-• Brands are displayed in the Place Page
+• Nová data OpenStreetMap k 13. listopadu 2023
+• Nyní je možné přiblížit větší hloubku a zobrazit více bodů zájmu v hustě osídlených oblastech
+• Náhled ve stylu venkovní mapy (přečtěte si prosím, jak jej aktivovat)
+• Odstraněn spodní pruh karet, aby se na obrazovce zobrazilo více mapy
+• Odstraněno nepotřebné tlačítko "trasa" na mapě (místo toho můžete klepnutím nebo dlouhým klepnutím na místo na mapě nebo výběrem výsledku vyhledávání sestavit trasu pomocí tlačítka "Trasa do")
+• Zvýrazněno tlačítko "Trasa do" a pro nové uživatele naznačeny nejčastější dotazy a odpovědi.
+• Opraveny barvy tmavého/světlého režimu CarPlay
+• Opraveno zadávání z klávesnice v systému iPadOS 15+
+• Vylepšení "setrvačného" kinetického posouvání
+• Odstraněn maximální limit pro vyhledávání záložek
+• Značky se zobrazují na stránce Místo
 
-Routing
-• Don't route through access=emergency, military, agricultural, forestry
-• Tuned ferry crossing estimations
-• Improved cross-country and cross-region routing
-• Improved residential routes
+Směrování
+• Zakázáno směrování přes access=emergency, military, agricultural, forestr
+• Vyladěny odhady přejezdů trajektů
+• Vylepšené směrování mezi zeměmi a regiony
+• Vylepšené obytné trasy
 
-Search
-• Process platz-pl like strasse-str
-• Improved address matching
-• Improved search of brands
+Vyhledávání
+• Zpracování platz-pl jako strasse-str
+• Vylepšené porovnávání adres
+• Vylepšené vyhledávání značek
 
-Map styling
-• Added flowerbeds, rental shops, bicycle rentals, motorcycle repairs, petting zoo, prison areas, compressed air
-• Added nature reserves and military zones rendering to the car navigation mode
-• Added Docklands Light Railway, Porto metro
-• Display names of ski pistes
-• Tuned/updated icons of fitness centre, yoga, theatre, artwork, statue, theme park, bbq, lighthouse, windmill, heliport & helipad, hunting stand, Kingdom Hall of Jehovah's Witnesses, paid & private versions of parkings and parking entrances, convenience / deli / farm / grocery / health_food shops, tobacco shop
-• Better farmyard & garage landuse area fills
-• Increased scrubs, alpine huts visibility
-• Updated sanitary dump station icons and adjusted its priority
-• Reduced visibility of cave entrances and improved the icon
-• Increased visibility of standalone house numbers
-• Reduced Tokyo subway visibility -- kudos to charlie2clarke
-• Removed minor road markers/shields cluttering the map in Estonia
-• Fix colors of Estonia and Germany road markers / shields
-• Increased visibilities of road markers / shields on tertiary and residential road
-• Fixed "gaps" in some densely mapped lines
-• Fixed "gaps" in the outlines of bridges and other compound lines
+Stylování mapy
+• Přidány květinové záhony, půjčovny, půjčovny kol, opravny motocyklů, zoologická zahrada, vězení, stlačený vzduch
+• Do režimu automobilové navigace přidány přírodní rezervace a vykreslování vojenských zón
+• Přidána lehká železnice Docklands Light Railway, metro Porto
+• Zobrazení názvů lyžařských sjezdovek
+• Vyladěny/aktualizovány ikony fitness centra, jógy, divadla, uměleckých děl, soch, zábavního parku, BBQ, majáku, větrného mlýna, heliportu a přistávací plochy pro vrtulníky, loveckého stánku, Síně království Svědků Jehovových, placených a soukromých verzí parkovišť a vjezdů na parkoviště, prodejen smíšeného zboží / lahůdek / farmářských prodejen / potravin / zdravé výživy, prodejny tabáku
+• Lepší náplně ploch pro využití zemědělských usedlostí a garáží
+• Větší viditelnost křovin, horských chat
+• Aktualizovány ikony hygienické skládky a upravena její priorita
+• Snížena viditelnost vchodů do jeskyní a vylepšena ikona
+• Zvýšena viditelnost samostatných čísel domů
+• Snížena viditelnost tokijského metra - pochvala pro charlie2clarke
+• Odstraněny drobné silniční značky/štítky, které znepřehledňovaly mapu v Estonsku
+• Opraveny barvy silničních značek/štítů v Estonsku a Německu
+• Zvýšena viditelnost silničních značek / štítů na silnicích třetí třídy a obytných ulicích
+• Opraveny "mezery" v některých hustě zmapovaných liniích
+• Opraveny "mezery" v obrysech mostů a dalších složených linií
 
-Outdoors map style preview:
-• Tailored for out-of-the-city outdoor activities like hiking, backcountry cycling/MTB, 4x4, etc.
-• Emphasizes paths/tracks, cliffs, railways, powerlines, rivers and streams, water sources, peaks, mountain saddles and passes, waterfalls, lighthouses, caves, viewpoints, campsites, huts, shelters, picnic sites, gates, stiles, fords, etc.
-• Enable by typing `?olight` in the search field and return to the map; type `?light` to switch back to the main style
-• Use `?odark` and `?dark` for a dark style
-• Android and iOS developers wanted to help with adding a nice UI for style switching!
+Náhled ve stylu venkovní mapy:
+• Na míru pro outdoorové aktivity mimo město, jako je pěší turistika, terénní cyklistika/MTB, 4x4 atd.
+• Zdůrazňuje stezky/trasy, skály, železnice, elektrické vedení, řeky a potoky, vodní zdroje, vrcholy, horská sedla a průsmyky, vodopády, majáky, jeskyně, vyhlídky, tábořiště, chaty, přístřešky, pikniková místa, brány, stezky, brody atd.
+• Povolíte zadáním `?olight` do vyhledávacího pole a vrátíte se na mapu; zadáním `?light` se přepnete zpět na hlavní styl.
+• Pro tmavý styl použijte `?odark` a `?dark`.
+• Vývojáři pro Android a iOS chtěli pomoci s přidáním pěkného uživatelského rozhraní pro přepínání stylů!
 
-Translations
-• Improved "avoid …" routing options wording
-• Improved Arabic, Basque, Chinese, Czech, Danish, Finnish, Greek, Hungarian, Indonesian, Italian, Korean, Marathi, Polish, Romanian, Slovak, Spanish, Sweden, Thai, Turkish, Ukrainian, and Vietnamese translations
+Překlady
+• Vylepšené znění možností směrování "vyhnout se ..."
+• Vylepšené překlady arabštiny, baskičtiny, čínštiny, češtiny, dánštiny, finštiny, řečtiny, maďarštiny, indonéštiny, italštiny, korejštiny, maráthštiny, polštiny, rumunštiny, slovenštiny, španělštiny, Švédska, thajštiny, turečtiny, ukrajinštiny a vietnamštiny.
 
-…and more smaller fixes and improvements, check https://omaps.org/news for details!
+...a další menší opravy a vylepšení, podrobnosti najdete na https://omaps.org/news!
