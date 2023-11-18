@@ -1,7 +1,6 @@
 package app.organicmaps.editor;
 
 import android.content.Intent;
-import android.net.Uri;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -21,6 +20,7 @@ import app.organicmaps.util.Constants;
 import app.organicmaps.util.DateUtils;
 import app.organicmaps.util.InputUtils;
 import app.organicmaps.util.UiUtils;
+import app.organicmaps.util.Utils;
 import app.organicmaps.util.concurrency.ThreadPool;
 import app.organicmaps.util.concurrency.UiThread;
 import com.google.android.material.dialog.MaterialAlertDialogBuilder;
@@ -51,9 +51,9 @@ public class OsmLoginFragment extends BaseMwmToolbarFragment
     mLoginButton = view.findViewById(R.id.login);
     mLoginButton.setOnClickListener((v) -> login());
     mLostPasswordButton = view.findViewById(R.id.lost_password);
-    mLostPasswordButton.setOnClickListener((v) -> recoverPassword());
+    mLostPasswordButton.setOnClickListener((v) -> Utils.openUrl(requireActivity(), Constants.Url.OSM_RECOVER_PASSWORD));
     Button registerButton = view.findViewById(R.id.register);
-    registerButton.setOnClickListener((v) -> register());
+    registerButton.setOnClickListener((v) -> Utils.openUrl(requireActivity(), Constants.Url.OSM_REGISTER));
     mProgress = view.findViewById(R.id.osm_login_progress);
     final String dataVersion = DateUtils.getShortDateFormatter().format(Framework.getDataVersion());
     ((TextView) view.findViewById(R.id.osm_presentation))
@@ -82,11 +82,6 @@ public class OsmLoginFragment extends BaseMwmToolbarFragment
     mLoginInput.setEnabled(enable);
     mLoginButton.setEnabled(enable);
     mLostPasswordButton.setEnabled(enable);
-  }
-
-  private void recoverPassword()
-  {
-    startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse(Constants.Url.OSM_RECOVER_PASSWORD)));
   }
 
   private void processAuth(@Size(2) String[] auth, String username)
@@ -118,10 +113,5 @@ public class OsmLoginFragment extends BaseMwmToolbarFragment
     if (extras != null && extras.getBoolean("redirectToProfile", false))
       startActivity(new Intent(requireContext(), ProfileActivity.class));
     requireActivity().finish();
-  }
-
-  private void register()
-  {
-    startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse(Constants.Url.OSM_REGISTER)));
   }
 }

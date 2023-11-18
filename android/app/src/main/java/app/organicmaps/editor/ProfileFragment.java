@@ -1,7 +1,6 @@
 package app.organicmaps.editor;
 
 import android.content.Intent;
-import android.net.Uri;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -15,6 +14,7 @@ import androidx.annotation.Nullable;
 import app.organicmaps.R;
 import app.organicmaps.base.BaseMwmToolbarFragment;
 import app.organicmaps.util.UiUtils;
+import app.organicmaps.util.Utils;
 import app.organicmaps.util.concurrency.ThreadPool;
 import app.organicmaps.util.concurrency.UiThread;
 import com.google.android.material.dialog.MaterialAlertDialogBuilder;
@@ -49,8 +49,8 @@ public class ProfileFragment extends BaseMwmToolbarFragment
     View sentBlock = editsBlock.findViewById(R.id.sent_edits);
     mEditsSent = sentBlock.findViewById(R.id.edits_count);
     mEditsSentProgress = sentBlock.findViewById(R.id.edits_count_progress);
-    view.findViewById(R.id.about_osm).setOnClickListener((v) -> openOsmAboutUrl());
-    view.findViewById(R.id.osm_history).setOnClickListener((v) -> openOsmHistoryUrl());
+    view.findViewById(R.id.about_osm).setOnClickListener((v) -> Utils.openUrl(requireActivity(), getString(R.string.osm_wiki_about_url)));
+    view.findViewById(R.id.osm_history).setOnClickListener((v) -> Utils.openUrl(requireActivity(), OsmOAuth.getHistoryUrl(requireContext())));
   }
 
   private void refreshViews()
@@ -85,22 +85,12 @@ public class ProfileFragment extends BaseMwmToolbarFragment
   {
     new MaterialAlertDialogBuilder(requireContext(), R.style.MwmTheme_AlertDialog)
         .setMessage(R.string.are_you_sure)
-        .setPositiveButton(R.string.ok, (dialog, which) ->
+        .setPositiveButton(R.string.yes, (dialog, which) ->
         {
           OsmOAuth.clearAuthorization(requireContext());
           refreshViews();
         })
         .setNegativeButton(R.string.no, null)
         .show();
-  }
-
-  private void openOsmAboutUrl()
-  {
-    startActivity(new Intent((Intent.ACTION_VIEW), Uri.parse(getString(R.string.osm_wiki_about_url))));
-  }
-
-  private void openOsmHistoryUrl()
-  {
-    startActivity(new Intent((Intent.ACTION_VIEW), Uri.parse(OsmOAuth.getHistoryUrl(requireContext()))));
   }
 }

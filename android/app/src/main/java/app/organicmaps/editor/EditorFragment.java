@@ -1,8 +1,6 @@
 package app.organicmaps.editor;
 
 import android.content.Context;
-import android.content.Intent;
-import android.net.Uri;
 import android.os.Bundle;
 import android.text.InputType;
 import android.text.TextUtils;
@@ -518,7 +516,7 @@ public class EditorFragment extends BaseMwmFragment implements View.OnClickListe
     else if (id == R.id.add_langs)
       mParent.addLanguage();
     else if (id == R.id.about_osm)
-      startActivity(new Intent((Intent.ACTION_VIEW), Uri.parse(getString(R.string.osm_wiki_about_url))));
+      Utils.openUrl(requireActivity(), getString(R.string.osm_wiki_about_url));
     else if (id == R.id.reset)
       reset();
   }
