@@ -63,6 +63,7 @@ public class AdvancedTimetableFragment extends BaseMwmFragment
     view.findViewById(R.id.examples).setOnClickListener(this);
     mInput = view.findViewById(R.id.et__timetable);
     mExample = view.findViewById(R.id.wv__examples);
+    mExample.getSettings().setJavaScriptEnabled(true);
     mExample.loadUrl(Constants.Url.OPENING_HOURS_MANUAL);
     mExamplesTitle = view.findViewById(R.id.tv__examples_title);
     setExampleDrawables(R.drawable.ic_type_text, R.drawable.ic_expand_more);
