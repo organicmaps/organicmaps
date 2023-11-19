@@ -1,5 +1,6 @@
 package app.organicmaps.util;
 
+import static android.Manifest.permission.ACCESS_COARSE_LOCATION;
 import static android.Manifest.permission.ACCESS_FINE_LOCATION;
 import static android.content.pm.PackageManager.PERMISSION_GRANTED;
 
@@ -123,7 +124,7 @@ public class LocationUtils
 
   public static boolean checkCoarseLocationPermission(@NonNull Context context)
   {
-    return ContextCompat.checkSelfPermission(context, ACCESS_FINE_LOCATION) == PERMISSION_GRANTED;
+    return ContextCompat.checkSelfPermission(context, ACCESS_COARSE_LOCATION) == PERMISSION_GRANTED;
   }
 
   public static boolean checkLocationPermission(@NonNull Context context)
