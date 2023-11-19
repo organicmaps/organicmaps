@@ -1,6 +1,7 @@
 package app.organicmaps.widget.placepage;
 
 import android.content.Context;
+import android.os.Build;
 import android.view.Menu;
 import android.view.View;
 import android.widget.PopupMenu;
@@ -78,8 +79,11 @@ public class PlacePageUtils
   public static void copyToClipboard(Context context, View frame, String text)
   {
     Utils.copyTextToClipboard(context, text);
-    Utils.showSnackbarAbove(frame.getRootView().findViewById(R.id.pp_buttons_layout), frame,
-                            context.getString(R.string.copied_to_clipboard, text));
+    if (Build.VERSION.SDK_INT < Build.VERSION_CODES.TIRAMISU)
+    {
+      Utils.showSnackbarAbove(frame.getRootView().findViewById(R.id.pp_buttons_layout), frame,
+                              context.getString(R.string.copied_to_clipboard, text));
+    }
   }
 
   public static void showCopyPopup(Context context, View popupAnchor, List<String> items)
