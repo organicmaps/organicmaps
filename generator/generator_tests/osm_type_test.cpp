@@ -1842,6 +1842,22 @@ UNIT_CLASS_TEST(TestWithClassificator, OsmType_Metadata)
     TEST_EQUAL(params.GetMetadata().Get(feature::Metadata::FMD_BRAND), "English", ());
     TEST_EQUAL(getDescr(params, "default"), "Default", ());
   }
+
+  {
+    Tags const tags = {
+      {"amenity", "cafe"},
+      {"internet_access", "wlan"},
+      {"internet_access:password", "corrientes4199"},
+      {"name", "Jimbo"},
+      {"wifi", "corrientes4199"},
+    };
+
+    auto const params = GetFeatureBuilderParams(tags);
+    TEST_EQUAL(params.m_types.size(), 2, (params));
+    TEST(params.IsTypeExist(GetType({"amenity", "cafe"})), (params));
+    TEST(params.IsTypeExist(GetType({"internet_access", "wlan"})), (params));
+    TEST_EQUAL(params.GetMetadata().Get(feature::Metadata::FMD_INTERNET), "wlan", ());
+  }
 }
 
 UNIT_CLASS_TEST(TestWithClassificator, OsmType_Vending)
