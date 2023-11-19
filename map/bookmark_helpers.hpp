@@ -103,7 +103,11 @@ std::string GenerateValidAndUniqueFilePathForGPX(std::string const & fileName);
 std::unique_ptr<kml::FileData> LoadKmlFile(std::string const & file, KmlFileType fileType);
 std::unique_ptr<kml::FileData> LoadKmlData(Reader const & reader, KmlFileType fileType);
 
-std::string GetKMLorGPXPath(std::string const & filePath);
+std::vector<std::string> GetKMLOrGPXFilesPathsToLoad(std::string const & filePath);
+std::vector<std::string> GetFilePathsToLoadFromKml(std::string const & filePath);
+std::vector<std::string> GetFilePathsToLoadFromGpx(std::string const & filePath);
+std::vector<std::string> GetFilePathsToLoadFromKmb(std::string const & filePath);
+std::vector<std::string> GetFilePathsToLoadFromKmz(std::string const & filePath);
 std::string GetLowercaseFileExt(std::string const & filePath);
 
 bool SaveKmlFileSafe(kml::FileData & kmlData, std::string const & file, KmlFileType fileType);
