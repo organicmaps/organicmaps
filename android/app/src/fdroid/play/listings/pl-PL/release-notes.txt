@@ -3,4 +3,4 @@
 • Naprawiono import zakładek w formacie KMB
 • Domyślnie wyłączono blokadę wybudzania ekranu, aby poprawić oszczędzanie energii
 • Poprawiono wskaźnik wyszukiwania lokalizacji, gdy mapa jest przesuwana lub powiększana
-• Podgląd stylu mapy plenerowej — przeczytaj, jak ją aktywować, oraz o wielu innych ulepszeniach, na stronie omaps.org/news
+• Podgląd stylu mapy plenerowej — przeczytaj, jak ją aktywować, oraz o wielu innych ulepszeniach, na stronie omaps.org/pl/news
