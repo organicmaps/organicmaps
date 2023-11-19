@@ -10,8 +10,9 @@
 UNIT_TEST(KMZ_UnzipTest)
 {
   std::string const kmzFile = GetPlatform().TestsDataPathForFile("kml_test_data/test.kmz");
-  std::string const filePath = GetKMLorGPXPath(kmzFile);
-
+  auto const filePaths = GetKMLOrGPXFilesPathsToLoad(kmzFile);
+  TEST_EQUAL(1, filePaths.size(), ());
+  std::string const filePath = filePaths[0];
   TEST(!filePath.empty(), ());
   SCOPE_GUARD(fileGuard, std::bind(&base::DeleteFileX, filePath));
 
@@ -37,5 +38,33 @@ UNIT_TEST(KMZ_UnzipTest)
     TEST_ALMOST_EQUAL_ULPS(bm.GetPivot().x, -156.0405130750025, ("KML wrong org x!"));
     TEST_ALMOST_EQUAL_ULPS(bm.GetPivot().y, 21.12480639056074, ("KML wrong org y!"));
     TEST_EQUAL(bm.GetScale(), 0, ("KML wrong scale!"));
+  }
+}
+
+UNIT_TEST(Multi_KML_KMZ_UnzipTest)
+{
+  std::string const kmzFile = GetPlatform().TestsDataPathForFile("kml_test_data/BACRNKMZ.kmz");
+  auto const filePaths = GetKMLOrGPXFilesPathsToLoad(kmzFile);
+  std::vector<std::string> expectedFileNames =
+  {
+      "BACRNKMZfilesCampgrounds 26may2022 green and tree icon",
+      "BACRNKMZfilesIndoor Accommodations 26may2022 placemark purple and bed icon",
+      "BACRNKMZfilesRoute 1 Canada - West-East Daily Segments",
+      "BACRNKMZfilesRoute 2 Canada - West-East Daily Segments",
+      "BACRNKMZfilesRoute Connector Canada - West-East Daily Segments",
+      "BACRNKMZdoc"
+
+  };
+  TEST_EQUAL(expectedFileNames.size(), filePaths.size(), ());
+  for (auto const & filePath : filePaths)
+  {
+    auto matched = false;
+    for (auto const & expectedFileName : expectedFileNames)
+    {
+      matched = filePath.find(expectedFileName) != std::string::npos;
+      if (matched)
+        break;
+    }
+    TEST(matched, ("Unexpected file path: " + filePath));
   }
 }

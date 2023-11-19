@@ -21,6 +21,7 @@
 #include "base/file_name_utils.hpp"
 #include "base/string_utils.hpp"
 
+#include <algorithm>
 #include <map>
 #include <sstream>
 
@@ -345,71 +346,83 @@ std::unique_ptr<kml::FileData> LoadKmlFile(std::string const & file, KmlFileType
   return kmlData;
 }
 
-std::string GetKMLorGPXPath(std::string const & filePath)
+std::vector<std::string> GetKMLOrGPXFilesPathsToLoad(std::string const & filePath)
 {
   std::string const fileExt = GetLowercaseFileExt(filePath);
-  std::string fileSavePath;
   if (fileExt == kKmlExtension)
   {
-    // Copy input file to temp output KML with unique name.
-    fileSavePath = GenerateValidAndUniqueFilePathForKML(base::FileNameFromFullPath(filePath));
-    if (!base::CopyFileX(filePath, fileSavePath))
-      return {};
+    return GetFilePathsToLoadFromKml(filePath);
   }
   else if (fileExt == kGpxExtension)
   {
-    // Copy input file to temp GPX with unique name.
-    fileSavePath = GenerateValidAndUniqueFilePathForGPX(base::FileNameFromFullPath(filePath));
-    if (!base::CopyFileX(filePath, fileSavePath))
-      return {};
+    return GetFilePathsToLoadFromGpx(filePath);
   }
   else if (fileExt == kKmbExtension)
   {
-    // Convert input file and save to temp KML with unique name.
-    auto kmlData = LoadKmlFile(filePath, KmlFileType::Binary);
-    if (kmlData == nullptr)
-      return {};
-
-    fileSavePath = GenerateValidAndUniqueFilePathForKML(base::FileNameFromFullPath(filePath));
-    if (!SaveKmlFileByExt(*kmlData, fileSavePath))
-      return {};
+    return GetFilePathsToLoadFromKmb(filePath);
   }
   else if (fileExt == kKmzExtension)
   {
-    // Extract KML file from KMZ archive and save to temp KML with unique name.
-    try
-    {
-      ZipFileReader::FileList files;
-      ZipFileReader::FilesList(filePath, files);
-      std::string kmlFileName;
-      std::string ext;
-      for (size_t i = 0; i < files.size(); ++i)
-      {
-        ext = GetLowercaseFileExt(files[i].first);
-        if (ext == kKmlExtension)
-        {
-          kmlFileName = files[i].first;
-          break;
-        }
-      }
-      if (kmlFileName.empty())
-        return {};
-
-      fileSavePath = GenerateValidAndUniqueFilePathForKML(kmlFileName);
-      ZipFileReader::UnzipFile(filePath, kmlFileName, fileSavePath);
-    }
-    catch (RootException const & e)
-    {
-      LOG(LWARNING, ("Error unzipping file", filePath, e.Msg()));
-      return {};
-    }
+    return GetFilePathsToLoadFromKmz(filePath);
   }
   else
   {
     LOG(LWARNING, ("Unknown file type", filePath));
     return {};
   }
-  return fileSavePath;
+}
+
+std::vector<std::string> GetFilePathsToLoadFromKmz(std::string const & filePath)
+{  // Extract KML files from KMZ archive and save to temp KMLs with unique name.
+  std::vector<std::string> kmlFilePaths;
+  try
+  {
+    ZipFileReader::FileList files;
+    ZipFileReader::FilesList(filePath, files);
+    files.erase(std::remove_if(files.begin(), files.end(),
+        [](auto const & file){ return GetLowercaseFileExt(file.first) != kKmlExtension; }),
+        files.end());
+    for (auto const & [kmlFileInZip, size] : files)
+    {
+      auto const name = base::FileNameFromFullPath(kmlFileInZip);
+      auto fileSavePath = GenerateValidAndUniqueFilePathForKML(kmlFileInZip);
+      ZipFileReader::UnzipFile(filePath, kmlFileInZip, fileSavePath);
+      kmlFilePaths.push_back(std::move(fileSavePath));
+    }
+  }
+  catch (RootException const & e)
+  {
+    LOG(LWARNING, ("Error unzipping file", filePath, e.Msg()));
+  }
+  return kmlFilePaths;
+}
+
+std::vector<std::string> GetFilePathsToLoadFromKmb(std::string const & filePath)
+{  // Convert input file and save to temp KML with unique name.
+  auto kmlData = LoadKmlFile(filePath, KmlFileType::Binary);
+  if (kmlData == nullptr)
+    return {};
+
+  auto fileSavePath = GenerateValidAndUniqueFilePathForKML(base::FileNameFromFullPath(filePath));
+  if (!SaveKmlFileByExt(*kmlData, fileSavePath))
+    return {};
+  return {std::move(fileSavePath)};
+}
+
+std::vector<std::string> GetFilePathsToLoadFromGpx(std::string const & filePath)
+{  // Copy input file to temp GPX with unique name.
+  auto fileSavePath = GenerateValidAndUniqueFilePathForGPX(base::FileNameFromFullPath(filePath));
+  if (!base::CopyFileX(filePath, fileSavePath))
+    return {};
+  return {std::move(fileSavePath)};
+}
+
+std::vector<std::string> GetFilePathsToLoadFromKml(std::string const & filePath)
+{  // Copy input file to temp output KML with unique name.
+  auto fileSavePath = GenerateValidAndUniqueFilePathForKML(base::FileNameFromFullPath(filePath));
+  if (!base::CopyFileX(filePath, fileSavePath))
+    return {};
+  return {std::move(fileSavePath)};
 }
 
 std::unique_ptr<kml::FileData> LoadKmlData(Reader const & reader, KmlFileType fileType)
