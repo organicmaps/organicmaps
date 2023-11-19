@@ -207,15 +207,13 @@ UNIT_TEST(Metadata_ValidateAndFormat_wikimedia_commons)
 
   p(kWikiKey, "File:Boğaz (105822801).jpeg");
   TEST_EQUAL(md.Get(Metadata::FMD_WIKIMEDIA_COMMONS), "File:Boğaz (105822801).jpeg", ());
-  md.Drop(Metadata::FMD_WIKIPEDIA);
 
   p(kWikiKey, "Category:Bosphorus");
   TEST_EQUAL(md.Get(Metadata::FMD_WIKIMEDIA_COMMONS), "Category:Bosphorus", ());
-  md.Drop(Metadata::FMD_WIKIPEDIA);
 
+  md.Drop(Metadata::FMD_WIKIMEDIA_COMMONS);
   p(kWikiKey, "incorrect_wikimedia_content");
   TEST(md.Get(Metadata::FMD_WIKIMEDIA_COMMONS).empty(), ());
-  md.Drop(Metadata::FMD_WIKIPEDIA);
 }
 
 // Look at: https://wiki.openstreetmap.org/wiki/Key:duration for details

@@ -530,5 +530,7 @@ void MetadataTagProcessor::operator()(std::string const & k, std::string const &
   case Metadata::FMD_COUNT: CHECK(false, (mdType, "should not be parsed from OSM."));
   }
 
-  md.Set(mdType, valid);
+  /// @todo What should remain for multiple tag keys, like PHONE_NUMBER, WEBSITE, INTERNET?
+  if (!valid.empty())
+    md.Set(mdType, valid);
 }
