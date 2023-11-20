@@ -44,10 +44,9 @@ Náhled ve stylu venkovní mapy:
 • Zdůrazňuje stezky/trasy, skály, železnice, elektrické vedení, řeky a potoky, vodní zdroje, vrcholy, horská sedla a průsmyky, vodopády, majáky, jeskyně, vyhlídky, tábořiště, chaty, přístřešky, pikniková místa, brány, stezky, brody atd.
 • Povolíte zadáním `?olight` do vyhledávacího pole a vrátíte se na mapu; zadáním `?light` se přepnete zpět na hlavní styl.
 • Pro tmavý styl použijte `?odark` a `?dark`.
-• Vývojáři pro Android a iOS chtěli pomoci s přidáním pěkného uživatelského rozhraní pro přepínání stylů!
 
 Překlady
-• Vylepšené znění možností směrování "vyhnout se ..."
+• Vylepšené znění možností směrování "vyhnout se …"
 • Vylepšené překlady arabštiny, baskičtiny, čínštiny, češtiny, dánštiny, finštiny, řečtiny, maďarštiny, indonéštiny, italštiny, korejštiny, maráthštiny, polštiny, rumunštiny, slovenštiny, španělštiny, Švédska, thajštiny, turečtiny, ukrajinštiny a vietnamštiny.
 
-...a další menší opravy a vylepšení, podrobnosti najdete na https://omaps.org/news!
+…a další menší opravy a vylepšení, podrobnosti najdete na https://omaps.org/hu/news !

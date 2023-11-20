@@ -32,7 +32,7 @@ Style de la carte
 • Mise à jour des icônes de la station d'épuration et modification de sa priorité
 • Réduction de la visibilité des entrées de grottes et amélioration de l'icône
 • Augmentation de la visibilité des numéros de maison autonomes
-• Réduction de la visibilité du métro de Tokyo -- merci à charlie2clarke
+• Réduction de la visibilité du métro de Tokyo
 • Suppression des marqueurs routiers mineurs/écrans qui encombraient la carte en Estonie
 • Correction des couleurs des marqueurs routiers / boucliers de l'Estonie et de l'Allemagne
 • Augmentation de la visibilité des marqueurs routiers / boucliers sur les routes tertiaires et résidentielles
@@ -45,10 +45,10 @@ Aperçu du style de carte pour l'extérieur :
 • Accentuation des chemins/pistes, falaises, voies ferrées, lignes électriques, rivières et ruisseaux, sources d'eau, sommets, cols de montagne, chutes d'eau, phares, grottes, points de vue, campings, cabanes, abris, sites de pique-nique, portes, échalas, gués, etc.
 • Activer en tapant `?olight` dans le champ de recherche et revenir à la carte ; taper `?light` pour revenir au style principal.
 • Utilisez `?odark` et `?dark` pour un style sombre
-• Les développeurs Android et iOS sont invités à participer à l'ajout d'une interface utilisateur agréable pour le changement de style !
+• Les développeurs sont invités à participer à l'ajout d'une interface utilisateur agréable pour le changement de style !
 
 Traductions
 • Amélioration de la formulation des options de routage "éviter ...".
 • Amélioration des traductions en arabe, basque, chinois, tchèque, danois, finlandais, grec, hongrois, indonésien, italien, coréen, marathi, polonais, roumain, slovaque, espagnol, Suède, thaï, turc, ukrainien et vietnamien.
 
-...et d'autres petites corrections et améliorations, consultez https://omaps.org/news pour plus de détails !
+...et d'autres petites corrections et améliorations, consultez https://omaps.org/fr/news pour plus de détails !
