@@ -32,7 +32,7 @@ Map styling
 • Updated sanitary dump station icons and adjusted its priority
 • Reduced visibility of cave entrances and improved the icon
 • Increased visibility of standalone house numbers
-• Reduced Tokyo subway visibility -- kudos to charlie2clarke
+• Reduced Tokyo subway visibility
 • Removed minor road markers/shields cluttering the map in Estonia
 • Fix colors of Estonia and Germany road markers / shields
 • Increased visibilities of road markers / shields on tertiary and residential road
@@ -44,7 +44,7 @@ Outdoors map style preview:
 • Emphasizes paths/tracks, cliffs, railways, powerlines, rivers and streams, water sources, peaks, mountain saddles and passes, waterfalls, lighthouses, caves, viewpoints, campsites, huts, shelters, picnic sites, gates, stiles, fords, etc.
 • Enable by typing `?olight` in the search field and return to the map; type `?light` to switch back to the main style
 • Use `?odark` and `?dark` for a dark style
-• Android and iOS developers wanted to help with adding a nice UI for style switching!
+• Developers wanted to add a nice UI for style switching!
 
 Translations
 • Improved "avoid …" routing options wording

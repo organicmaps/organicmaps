@@ -1,53 +1,51 @@
-• New OpenStreetMap data as of November 13, 2023
-• It is possible to zoom in deeper now and see more POIs in dense areas
-• Outdoors map style preview (please read on to know how to activate it)
-• Removed bottom tab bar to show more map on the screen
-• Removed the unnecessary "route" button on the map (tap or long-tap a place on the map or select a search result to build a route using the "Route To" button instead)
-• Highlighted the Route To button and hinted the FAQ for new users
-• Fixed CarPlay dark/light mode colors
-• Fixed keyboard input on iPadOS 15+
-• "Inertial" kinetic scroll improvements
-• Removed max limit to search bookmarks
-• Brands are displayed in the Place Page
+• Новые данные OpenStreetMap за 13 ноября 2023 г.
+• Теперь можно увеличить масштаб и увидеть больше POI в густонаселенных районах.
+• Предварительный просмотр стиля карты для активного отдыха (ниже написано, как его активировать).
+• Удалена нижняя панель, чтобы было видно больше карты.
+• Удалена ненужная кнопка «Маршрут» на карте (чтобы построить маршрут, выберите результат поиска или любое место на карте одиночным/длинным нажатием, и затем нажмите кнопку «Сюда»).
+• Исправлены цвета темного/светлого режима CarPlay.
+• Исправлен ввод с клавиатуры на iPadOS 15+.
+• Улучшена «инерционная» кинетическая прокрутка карты.
+• Поиск по меткам не ограничен 5000 метками.
+• На странице места теперь отображаются бренды.
 
-Routing
-• Don't route through access=emergency, military, agricultural, forestry
-• Tuned ferry crossing estimations
-• Improved cross-country and cross-region routing
-• Improved residential routes
+Маршрутизация
+• Через дороги специализированного назначения маршруты больше не прокладываются.
+• Улучшена оценка времени паромной переправы.
+• Улучшена маршрутизация между странами и регионами.
+• Улучшены маршруты по жилым районам.
 
-Search
-• Process platz-pl like strasse-str
-• Improved address matching
-• Improved search of brands
+Поиск
+• Лучше находятся площади.
+• Улучшено сопоставление адресов.
+• Улучшен поиск брендов.
 
-Map styling
-• Added flowerbeds, rental shops, bicycle rentals, motorcycle repairs, petting zoo, prison areas, compressed air
-• Added nature reserves and military zones rendering to the car navigation mode
-• Added Docklands Light Railway, Porto metro
-• Display names of ski pistes
-• Tuned/updated icons of fitness centre, yoga, theatre, artwork, statue, theme park, bbq, lighthouse, windmill, heliport & helipad, hunting stand, Kingdom Hall of Jehovah's Witnesses, paid & private versions of parkings and parking entrances, convenience / deli / farm / grocery / health_food shops, tobacco shop
-• Better farmyard & garage landuse area fills
-• Increased scrubs, alpine huts visibility
-• Updated sanitary dump station icons and adjusted its priority
-• Reduced visibility of cave entrances and improved the icon
-• Increased visibility of standalone house numbers
-• Reduced Tokyo subway visibility -- kudos to charlie2clarke
-• Removed minor road markers/shields cluttering the map in Estonia
-• Fix colors of Estonia and Germany road markers / shields
-• Increased visibilities of road markers / shields on tertiary and residential road
-• Fixed "gaps" in some densely mapped lines
-• Fixed "gaps" in the outlines of bridges and other compound lines
+Стиль карты
+• Добавлены клумбы, пункты проката, прокат велосипедов, ремонт мотоциклов, контактный зоопарк, тюремные помещения, сжатый воздух.
+• В режиме автомобильной навигации рисуются заповедники и военные зоны.
+• Добавлена легкая железная дорога Доклендс, метро Порту.
+• Отображаются названия лыжных трасс.
+• Обновлены значки фитнес-центра, йоги, театра, произведений искусства, статуй, тематического парка, барбекю, маяка, ветряной мельницы, вертолетной площадки, охотничьих площадок, платных и частных парковок и въездов на них, гастрономов, ферм, продуктовых магазинов, магазинов здорового питания, табачных магазинов
+• Улучшены цвета территории фермерского двора и гаража.
+• Повышена видимость кустарников и альпийских хижин.
+• Обновлены значки станций санитарной свалки и изменён их приоритет.
+• Улучшена иконка и уменьшена видимость входов в пещеры.
+• Повышена видимость номеров отдельных домов.
+• Уменьшена видимость в токийском метро.
+• Удалены мелкие дорожные знаки/щиты, загромождающие карту в Эстонии.
+• Исправлены цвета дорожных знаков/щитов Эстонии и Германии.
+• Повышенная видимость дорожных знаков/щитов на дорогах второстепенного и жилого значения.
+• Исправлена отрисовка некоторых мостов.
 
-Outdoors map style preview:
-• Tailored for out-of-the-city outdoor activities like hiking, backcountry cycling/MTB, 4x4, etc.
-• Emphasizes paths/tracks, cliffs, railways, powerlines, rivers and streams, water sources, peaks, mountain saddles and passes, waterfalls, lighthouses, caves, viewpoints, campsites, huts, shelters, picnic sites, gates, stiles, fords, etc.
-• Enable by typing `?olight` in the search field and return to the map; type `?light` to switch back to the main style
-• Use `?odark` and `?dark` for a dark style
-• Android and iOS developers wanted to help with adding a nice UI for style switching!
+Демонстрация стиля карты для активного отдыха:
+• Предназначен для активного отдыха за городом, например пеших прогулок, езды на велосипеде по бездорожью/MTB, внедорожников 4x4 и т.д.
+• Выделяет тропы, скалы, железные дороги, линии электропередач, реки и ручьи, источники воды, вершины, горные седловины и перевалы, водопады, маяки, пещеры, смотровые площадки, кемпинги, хижины, убежища, места для пикников, ворота, переправы, броды и т.д.
+• Включите, набрав ?olight в поле поиска и вернитесь к карте; введите ?light, чтобы вернуться к основному стилю
+• Используйте ?odark и ?dark для темного стиля.
+• Ищем разработчиков для добавления красивого пользовательского интерфейса для переключения стилей!
 
-Translations
-• Improved "avoid …" routing options wording
-• Improved Arabic, Basque, Chinese, Czech, Danish, Finnish, Greek, Hungarian, Indonesian, Italian, Korean, Marathi, Polish, Romanian, Slovak, Spanish, Sweden, Thai, Turkish, Ukrainian, and Vietnamese translations
+Переводы
+• Улучшена формулировка параметров маршрутизации «избегать…».
+• Улучшены переводы на арабский, баскский, китайский, чешский, датский, финский, греческий, венгерский, индонезийский, итальянский, корейский, маратхи, польский, румынский, словацкий, испанский, шведский, тайский, турецкий, украинский и вьетнамский языки.
 
-…and more smaller fixes and improvements, check https://omaps.org/news for details!
+…и другие мелкие исправления и улучшения, подробности смотрите на https://omaps.org/ru/news !

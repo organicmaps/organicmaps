@@ -1,53 +1,48 @@
-• New OpenStreetMap data as of November 13, 2023
-• It is possible to zoom in deeper now and see more POIs in dense areas
-• Outdoors map style preview (please read on to know how to activate it)
-• Removed bottom tab bar to show more map on the screen
-• Removed the unnecessary "route" button on the map (tap or long-tap a place on the map or select a search result to build a route using the "Route To" button instead)
-• Highlighted the Route To button and hinted the FAQ for new users
-• Fixed CarPlay dark/light mode colors
-• Fixed keyboard input on iPadOS 15+
-• "Inertial" kinetic scroll improvements
-• Removed max limit to search bookmarks
-• Brands are displayed in the Place Page
+• Нові дані OSM станом на 13 жовтня
+• Максимальний масштаб збільшено у два рази
+• Виправляння імпорту міток у форматі KMB
+• Застосунок за умовчання дозволяє екрану вимкнутись для економії акумулятора
+• Покращення індікатору місцезнаходження при масштабуванні та переміщенні мапи
+• Новий стиль для орієнтування на природі (поки в режимі попереднього перегляду). Дізнайтесь, як його активувати нижче.
 
-Routing
-• Don't route through access=emergency, military, agricultural, forestry
-• Tuned ferry crossing estimations
-• Improved cross-country and cross-region routing
-• Improved residential routes
+Маршрути
+• Більше не будується маршрут дорогами з access=emergency, military, agricultural, forestry
+• Покращено оцінку часу при використання паромної переправи
+• Маршрути між країнами та між округами будуються краще
+• Покращення маршрутів по житловим кварталам
 
-Search
-• Process platz-pl like strasse-str
-• Improved address matching
-• Improved search of brands
+Пошук
+• Адреси platz-pl обробляються як strasse-str
+• Покращення роспазнавання адрес
+• Покращення пошуку за брендом
 
-Map styling
-• Added flowerbeds, rental shops, bicycle rentals, motorcycle repairs, petting zoo, prison areas, compressed air
-• Added nature reserves and military zones rendering to the car navigation mode
-• Added Docklands Light Railway, Porto metro
-• Display names of ski pistes
-• Tuned/updated icons of fitness centre, yoga, theatre, artwork, statue, theme park, bbq, lighthouse, windmill, heliport & helipad, hunting stand, Kingdom Hall of Jehovah's Witnesses, paid & private versions of parkings and parking entrances, convenience / deli / farm / grocery / health_food shops, tobacco shop
-• Better farmyard & garage landuse area fills
-• Increased scrubs, alpine huts visibility
-• Updated sanitary dump station icons and adjusted its priority
-• Reduced visibility of cave entrances and improved the icon
-• Increased visibility of standalone house numbers
-• Reduced Tokyo subway visibility -- kudos to charlie2clarke
-• Removed minor road markers/shields cluttering the map in Estonia
-• Fix colors of Estonia and Germany road markers / shields
-• Increased visibilities of road markers / shields on tertiary and residential road
-• Fixed "gaps" in some densely mapped lines
-• Fixed "gaps" in the outlines of bridges and other compound lines
+Стиль мапи
+• На мапі відображаються клумби, арендні магазини, оренда велосипедів, ремонт мотоциклів, контактні зоопарки, території вʼязниць, компресори для накачування коліс
+• В режимі автомобільної навігації відображаються заповідники та військові зони
+• Нові схеми метро Docklands Light Railway, та Porto metro
+• Для лижних трас відображається назва
+• Нові поліпшені іконки для фітнес-залів, центрів йоги, театрів, витворів мистецтва, скульптур, парків розваг, барбекю, маяків, вітряків, гелікоптерних майданчиків, мисливських стендів, Залів Царства Свідків Єгови, платних та бехкоштовних паркінгів, міні-магазінив, гастрономів, фермерських магазинів, продуктових магазинів, магазинів здорового харчування, тютюнових магазинів
+• Покращено зовнішній вигляд господарських ділянок та гаражних кооперативів
+• Краще видно лікарні та альпійські хатинки
+• Оновлено іконку станції санітарного звалища та змінено пріоритет відображення
+• Входи до печер відображаються рідше та отримали нову іконку
+• Номери будинків навпаки відображаються частіше
+• Іконки токійського метро більше не засмічують мапу. Подяка за це charlie2clarke
+• Прибрано щитки другорядних доріг в Естонії
+• Виправлено колір дорожніх щитків в Німечині та Естонії
+• Покращено видимість дорожніх щитків для третьорядних та міських доріг
+• Виправлені прогалини в деяких місцях із великою кількістю ліній
+• Виправлені прогалини в полігонах мостів та інших зʼєднувальних ліній
 
-Outdoors map style preview:
-• Tailored for out-of-the-city outdoor activities like hiking, backcountry cycling/MTB, 4x4, etc.
-• Emphasizes paths/tracks, cliffs, railways, powerlines, rivers and streams, water sources, peaks, mountain saddles and passes, waterfalls, lighthouses, caves, viewpoints, campsites, huts, shelters, picnic sites, gates, stiles, fords, etc.
-• Enable by typing `?olight` in the search field and return to the map; type `?light` to switch back to the main style
-• Use `?odark` and `?dark` for a dark style
-• Android and iOS developers wanted to help with adding a nice UI for style switching!
+Новий стиль для орієнтування на природі:
+• Пристосований для тих, кто проводить час за містом, ходить в походи, їздить по пересіченій місцевості на велосипедах чи позашляховиках
+• Акцентує увагу на пішохідних стежках, кручах, залізничних дорогах, лініях електропередач, річках та струмочках, джерелах води, вершинах, гірських перевалах та стежках, водопадах, маяках, печерах, оглядових майданчиках, кемпінгах, хатинках, укриттях, місцях для пікніку, воротах, парканах, тощо
+• Щоб увімкнути новий стиль введіть `?olight` в поле пошуку та поверніться до мапи. Введить `?light` щоб повернути стандартний стиль
+• Використовуйте `?odark` та `?dark` для темного режиму
+• Закликаємо розробників реализувати більш зручний UI для перемикання природного стилю!
 
-Translations
-• Improved "avoid …" routing options wording
-• Improved Arabic, Basque, Chinese, Czech, Danish, Finnish, Greek, Hungarian, Indonesian, Italian, Korean, Marathi, Polish, Romanian, Slovak, Spanish, Sweden, Thai, Turkish, Ukrainian, and Vietnamese translations
+Переклади
+• Покращено текст при виборі правил обʼїзду
+• Покращено переклади арабською, баскською, китайською, чеською, датською, фінською, грецькою, угорською, індонезійською, італійською, корейською, польською, румунською, словацькою, іспанською, шведською, тайською, турецькою, українською та вʼєтнамською мовами
 
-…and more smaller fixes and improvements, check https://omaps.org/news for details!
+… та ще багато невеликих поліпшень. Слідкуйте за новинами https://omaps.org/uk/news/
