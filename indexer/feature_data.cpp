@@ -98,9 +98,9 @@ public:
   {
     // 2-arity is better than 1-arity
 
-    ftype::TruncValue(t, 2);
-    if (IsIn2(t))
-      return 1;
+//    ftype::TruncValue(t, 2);
+//    if (IsIn2(t))
+//      return 1;
 
     ftype::TruncValue(t, 1);
     if (t == m_building)
@@ -134,29 +134,9 @@ private:
         {"internet_access"},
         {"organic"},
         {"wheelchair"},
-        {"entrance"},
         {"cuisine"},
         {"recycling"},
         {"area:highway"},
-        {"earthquake:damage"},
-        {"emergency"},  // used in subway facilities (Barcelona)
-        {"landuse"},    // used together with more specific types like aerodrome
-        {"barrier"},    // for example - fence + school, but anyway barrier's names are useless
-    };
-
-    base::StringIL const types2[] = {
-        // 2-arity
-        {"amenity", "atm"},
-        {"amenity", "bench"},
-        {"amenity", "shelter"},
-        {"amenity", "toilets"},
-        {"amenity", "drinking_water"},
-        {"shop", "copyshop"},             // often used as secondary tag for amenity=post_office
-        {"leisure", "pitch"},             // give priority to the "sport"=* tag
-        {"sport", "9pin"},
-        {"sport", "10pin"},
-        {"public_transport", "platform"},
-        {"highway", "elevator"},          // used with railway=subway_entrance (DC)
     };
 
     Classificator const & c = classif();
@@ -167,19 +147,12 @@ private:
     for (auto const & type : types1)
       m_types1.push_back(c.GetTypeByPath(type));
 
-    m_types2.reserve(std::size(types2));
-    for (auto const & type : types2)
-        m_types2.push_back(c.GetTypeByPath(type));
-
     std::sort(m_types1.begin(), m_types1.end());
-    std::sort(m_types2.begin(), m_types2.end());
   }
 
   bool IsIn1(uint32_t t) const { return std::binary_search(m_types1.begin(), m_types1.end(), t); }
-  bool IsIn2(uint32_t t) const { return std::binary_search(m_types2.begin(), m_types2.end(), t); }
 
   vector<uint32_t> m_types1;
-  vector<uint32_t> m_types2;
   uint32_t m_building;
 };
 } // namespace
@@ -220,9 +193,23 @@ uint8_t CalculateHeader(size_t const typesCount, HeaderGeomType const headerGeom
   return header;
 }
 
-void TypesHolder::SortBySpec()
+void TypesHolder::SortByUseless()
 {
   UselessTypesChecker::Instance().SortUselessToEnd(*this);
+}
+
+void TypesHolder::SortBySpec()
+{
+  auto const & cl = classif();
+  auto const getPriority = [&cl](uint32_t type)
+  {
+    return cl.GetObject(type)->GetMaxOverlaysPriority();
+  };
+
+  std::stable_sort(begin(), end(), [&getPriority](uint32_t t1, uint32_t t2)
+  {
+    return getPriority(t1) > getPriority(t2);
+  });
 }
 
 vector<string> TypesHolder::ToObjectNames() const

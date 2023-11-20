@@ -134,7 +134,7 @@ UNIT_TEST(Classificator_DrawingRules)
 namespace
 {
 
-pair<int, int> GetMinMax(int level, vector<uint32_t> const & types, drule::rule_type_t ruleType)
+pair<int, int> GetMinMax(int level, vector<uint32_t> const & types, drule::TypeT ruleType)
 {
   pair<int, int> res(numeric_limits<int>::max(), numeric_limits<int>::min());
 
@@ -167,7 +167,7 @@ string CombineArrT(base::StringIL const & arrT)
   return result;
 }
 
-void CheckPriority(vector<base::StringIL> const & arrT, vector<size_t> const & arrI, drule::rule_type_t ruleType)
+void CheckPriority(vector<base::StringIL> const & arrT, vector<size_t> const & arrI, drule::TypeT ruleType)
 {
   Classificator const & c = classif();
   vector<vector<uint32_t> > types;
