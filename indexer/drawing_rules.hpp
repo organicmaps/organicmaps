@@ -58,7 +58,7 @@ namespace drule
     RulesHolder();
     ~RulesHolder();
 
-    Key AddRule(int scale, rule_type_t type, BaseRule * p);
+    Key AddRule(int scale, TypeT type, BaseRule * p);
 
     BaseRule const * Find(Key const & k) const;
 

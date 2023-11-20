@@ -78,7 +78,7 @@ static double constexpr kBaseDepthFg = 0,
   };
 
   /// drawing type of rule - can be one of ...
-  enum rule_type_t { line, area, symbol, caption, circle, pathtext, waymarker, shield, count_of_rules };
+  enum TypeT { line, area, symbol, caption, circle, pathtext, waymarker, shield, count_of_rules };
 
   typedef buffer_vector<Key, 16> KeysT;
   void MakeUnique(KeysT & keys);

@@ -43,7 +43,7 @@ public:
 
 protected:
   void FillCommonParams(CommonOverlayViewParams & p) const;
-  double PriorityToDepth(int priority, drule::rule_type_t ruleType, double areaDepth) const;
+  double PriorityToDepth(int priority, drule::TypeT ruleType, double areaDepth) const;
 
   TInsertShapeFn m_insertShape;
   FeatureType & m_f;

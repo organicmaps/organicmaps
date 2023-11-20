@@ -116,7 +116,11 @@ namespace feature
 
     void Remove(uint32_t type);
 
-    /// Sort types by it's specification (more detailed type goes first).
+    /// Used in tests only to check UselessTypesChecker
+    /// (which is used in the generator to discard least important types if max types count is exceeded).
+    void SortByUseless();
+
+    /// Sort types by it's specification (more detailed type goes first). Should be used in client app.
     void SortBySpec();
 
     bool Equals(TypesHolder const & other) const;

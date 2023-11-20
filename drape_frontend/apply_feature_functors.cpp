@@ -395,7 +395,7 @@ void ApplyPointFeature::ExtractCaptionParams(CaptionDefProto const * primaryProt
   }
 }
 
-double BaseApplyFeature::PriorityToDepth(int priority, drule::rule_type_t ruleType, double areaDepth) const
+double BaseApplyFeature::PriorityToDepth(int priority, drule::TypeT ruleType, double areaDepth) const
 {
   double depth = priority;
 

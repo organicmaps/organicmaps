@@ -85,7 +85,7 @@ void RulesHolder::Clean()
   m_colors.clear();
 }
 
-Key RulesHolder::AddRule(int scale, rule_type_t type, BaseRule * p)
+Key RulesHolder::AddRule(int scale, TypeT type, BaseRule * p)
 {
   ASSERT ( 0 <= scale && scale <= scales::GetUpperStyleScale(), (scale) );
   ASSERT ( 0 <= type && type < count_of_rules, () );
@@ -269,7 +269,7 @@ namespace
     RulesHolder & m_holder;
 
     template <class TRule, class TProtoRule>
-    void AddRule(ClassifObject * p, int scale, rule_type_t type, TProtoRule const & rule,
+    void AddRule(ClassifObject * p, int scale, TypeT type, TProtoRule const & rule,
                  vector<string> const & apply_if)
     {
       unique_ptr<ISelector> selector;
