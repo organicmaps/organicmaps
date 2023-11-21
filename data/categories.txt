@@ -7793,6 +7793,22 @@ sw:Uwanja wa gofu|michezo
 fa:زمین گلف
 mr:गोल्फचे मैदान
 
+leisure-hackerspace
+en:4Hackerspace
+ar:هاكرزبيس
+be:Хакерская прастора
+es-MX:Espacio hacker
+fa:فضای هکرها
+he:האקרספייס
+ja:ハッカースペース
+ko:해커스 스페이스
+mr:हॅकरस्पेस
+ru:Хакерспейс
+th:แฮกเกอร์สเปซ
+vi:Không gian tin tặc
+zh-Hans:创客空间
+zh-Hant:駭客空間
+
 leisure-pitch
 en:4Sports Ground|sport|U+26BD|U+26BE|U+1F3BE|U+1F3C0|U+1F3C8|U+1F3C9|U+1F3C3
 ru:Спортплощадка|спорт|4спортивная площадка
