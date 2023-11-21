@@ -292,6 +292,8 @@ void FillDetails(FeatureType & ft, Result::Details & details)
   auto const roadShields = ftypes::GetRoadShieldsNames(ft);
   details.m_roadShields = strings::JoinStrings(roadShields, osm::MapObject::kFieldsSeparator);
 
+  details.m_fee = feature::GetLocalizedFeeType(feature::TypesHolder(ft));
+
   details.m_isInitialized = true;
 }
 
