@@ -1266,6 +1266,9 @@ area|z17-[amenity=driving_school]
 node|z17-[amenity=language_school],
 area|z17-[amenity=language_school]
 {icon-image: language_school-m.svg;}
+node|z17-[leisure=hackerspace],
+area|z17-[leisure=hackerspace]
+{icon-image: hackerspace-m.svg;}
 
 /* 5.3 Sport */
 

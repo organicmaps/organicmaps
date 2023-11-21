@@ -1674,3 +1674,4 @@ amenity|parking|underground|private;[amenity=parking][location=underground][acce
 amenity|parking|street_side|private;[amenity=parking][parking=street_side][access=private];;name;int_name;1590;
 amenity|parking|lane|private;[amenity=parking][parking=lane][access=private];;name;int_name;1591;
 amenity|compressed_air;1592;
+leisure|hackerspace;1593;

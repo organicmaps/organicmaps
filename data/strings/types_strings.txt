@@ -15826,6 +15826,24 @@
     zh-Hans = 高尔夫球场
     zh-Hant = 高爾夫球場
 
+  [type.leisure.hackerspace]
+    en = Hackerspace
+    ar = هاكرزبيس
+    be = Хакерская прастора
+    es-MX = Espacio hacker
+    fa = فضای هکرها
+    he = האקרספייס
+    hi = हैकर्सस्पेस
+    ja = ハッカースペース
+    ko = 해커스 스페이스
+    mr = हॅकरस्पेस
+    ru = Хакерспейс
+    th = แฮกเกอร์สเปซ
+    vi = Không gian tin tặc
+    zh-Hans = 创客空间
+    zh-Hant = 駭客空間
+
+  
   [type.leisure.ice_rink]
     en = Ice Rink
     af = Ysskaatsbaan
