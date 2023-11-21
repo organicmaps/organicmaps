@@ -6253,7 +6253,7 @@
     pt = Doar
     pt-BR = Doar
     ro = Donează
-    ru = Поддержать рублём
+    ru = Поддержать деньгами
     sk = Darovať
     sv = Donera
     sw = Changia
