@@ -20,6 +20,8 @@ using Observer = id<MWMSearchManagerObserver>;
 using Observers = NSHashTable<Observer>;
 }  // namespace
 
+const CGFloat kWidthForiPad = 320;
+
 @interface MWMMapViewControlsManager ()
 
 @property(nonatomic) MWMSearchManager *searchManager;
@@ -471,13 +473,23 @@ using Observers = NSHashTable<Observer>;
     [parentView addSubview:contentView];
     [parentView addSubview:actionBarView];
     [self layoutTopViews];
+    // Set Search controller default hidden state for iPad before it will be shown.
+    if (IPAD) {
+      self.searchViewContainerLeadingConstraint.constant = -kWidthForiPad;
+      [parentView.superview layoutIfNeeded];
+    }
   }
   [UIView animateWithDuration:kDefaultAnimationDuration
     animations:^{
-      CGFloat const alpha = hidden ? 0 : 1;
-      contentView.alpha = alpha;
-      actionBarView.alpha = alpha;
-      searchBarView.alpha = alpha;
+      if (IPAD) {
+        self.searchViewContainerLeadingConstraint.constant = hidden ? -kWidthForiPad : 0;
+        [parentView.superview layoutIfNeeded];
+      } else {
+        CGFloat const alpha = hidden ? 0 : 1;
+        contentView.alpha = alpha;
+        actionBarView.alpha = alpha;
+        searchBarView.alpha = alpha;
+      }
     }
     completion:^(BOOL finished) {
       if (!hidden)
@@ -508,6 +520,9 @@ using Observers = NSHashTable<Observer>;
 }
 - (UIView *)searchViewContainer {
   return [MapViewController sharedController].searchViewContainer;
+}
+- (NSLayoutConstraint *)searchViewContainerLeadingConstraint {
+  return [MapViewController sharedController].searchViewContainerLeadingConstraint;
 }
 - (UIView *)actionBarContainer {
   return [MapViewController sharedController].controlsView;
