@@ -47,7 +47,7 @@ Podgląd stylu mapy plenerowej:
 • Poszukiwani deweloperzy Androida i iOS do pomocy w dodaniu przyjaznego interfejsu użytkownika do zmiany stylu!
 
 Tłumaczenia
-• Poprawione sformułowanie opcji routingu „unikaj…”
+• Poprawiono sformułowanie opcji routingu „unikaj…”
 • Poprawiono tłumaczenia Arabic, Basque, Chinese, Czech, Danish, Finnish, Greek, Hungarian, Indonesian, Italian, Korean, Marathi, Polish, Romanian, Slovak, Spanish, Sweden, Thai, Turkish, Ukrainian, i Vietnamese
 
 
