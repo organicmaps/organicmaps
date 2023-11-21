@@ -412,14 +412,14 @@ void RoutingManager::OnBuildRouteReady(Route const & route, RouterResultCode cod
 
   // Validate route (in case of bicycle routing it can be invalid).
   ASSERT(route.IsValid(), ());
-  //if (route.IsValid() && m_currentRouterType != routing::RouterType::Ruler)
-  //{
-    //m2::RectD routeRect = route.GetPoly().GetLimitRect();
-    //routeRect.Scale(kRouteScaleMultiplier); // TODO: Disable zoom
-    //m_drapeEngine.SafeCall(&df::DrapeEngine::SetModelViewRect, routeRect,
-    //                       true /* applyRotation */, -1 /* zoom */, true /* isAnim */,
-    //                       true /* useVisibleViewport */);
-  //}
+  if (route.IsValid() && m_currentRouterType != routing::RouterType::Ruler && route.GetSubrouteCount() == 1)
+  {
+    m2::RectD routeRect = route.GetPoly().GetLimitRect();
+    routeRect.Scale(kRouteScaleMultiplier);
+    m_drapeEngine.SafeCall(&df::DrapeEngine::SetModelViewRect, routeRect,
+                           true /* applyRotation */, -1 /* zoom */, true /* isAnim */,
+                           true /* useVisibleViewport */);
+  }
 
   CallRouteBuilded(hasWarnings ? RouterResultCode::HasWarnings : code, storage::CountriesSet());
 }
