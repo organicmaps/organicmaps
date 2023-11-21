@@ -419,8 +419,10 @@ std::optional<Segment> IndexGraphStarterJoints<Graph>::GetParentSegment(
       return {};
     }
 
+#ifdef DEBUG
     auto const & startSegment = isOutgoing ? m_startSegment : m_endSegment;
     ASSERT_EQUAL(fakeJointSegment.GetSegment(!opposite /* start */), startSegment, ());
+#endif  // DEBUG
   }
   else
   {
