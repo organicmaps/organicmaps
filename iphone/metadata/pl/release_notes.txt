@@ -1,5 +1,5 @@
 • Nowe dane OpenStreetMap z 13 listopada 2023 r
-• Możliwe jest teraz większe przybliżenie i zobaczenie większej liczby punktów POI, w gęstych obszarach
+• Teraz, możliwe jest większe przybliżenie i zobaczenie większej liczby punktów POI, w gęstych obszarach
 • Podgląd stylu mapy plenerowej (czytaj dalej, aby dowiedzieć się, jak go aktywować)
 • Usunięto dolny pasek zakładek, aby wyświetlić więcej mapy na ekranie
 • Usunięto niepotrzebny przycisk „trasa” na mapie (dotknij lub naciśnij długo miejsce na mapie lub wybierz wynik wyszukiwania, aby wyznaczyć trasę za pomocą przycisku „Trasa do”)
@@ -47,8 +47,7 @@ Podgląd stylu mapy plenerowej:
 • Poszukiwani deweloperzy Androida i iOS do pomocy w dodaniu przyjaznego interfejsu użytkownika do zmiany stylu!
 
 Tłumaczenia
-• Poprawiono sformułowanie opcji routingu „unikaj…”
-• Poprawiono tłumaczenia Arabic, Basque, Chinese, Czech, Danish, Finnish, Greek, Hungarian, Indonesian, Italian, Korean, Marathi, Polish, Romanian, Slovak, Spanish, Sweden, Thai, Turkish, Ukrainian, i Vietnamese
-
+• Poprawiono sformułowanie opcji wyznaczania trasy „unikaj…”
+• Poprawiono tłumaczenia Arabic, Basque, Chinese, Czech, Danish, Finnish, Greek, Hungarian, Indonesian, Italian, Korean, Marathi, Polish, Romanian, Slovak, Spanish, Sweden, Thai, Turkish, Ukrainian i Vietnamese
 
 "...i więcej mniejszych poprawek i ulepszeń, sprawdź https://omaps.org/pl/news aby poznać szczegóły!"
