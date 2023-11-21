@@ -262,7 +262,7 @@
 	<!-- Button in the main Help dialog -->
 	<string name="faq">Вопросы и ответы</string>
 	<!-- Button in the main menu -->
-	<string name="donate">Поддержать рублём</string>
+	<string name="donate">Поддержать деньгами</string>
 	<!-- Button in the main Help dialog -->
 	<string name="how_to_support_us">Помочь проекту</string>
 	<!-- Button in the main Help dialog -->

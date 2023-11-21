@@ -310,7 +310,7 @@
 "faq" = "Вопросы и ответы";
 
 /* Button in the main menu */
-"donate" = "Поддержать рублём";
+"donate" = "Поддержать деньгами";
 
 /* Button in the main Help dialog */
 "how_to_support_us" = "Помочь проекту";
