@@ -66,6 +66,8 @@ public:
     uint16_t m_minutesUntilOpen = 0;
 
     uint16_t m_minutesUntilClosed = 0;
+      
+    std::string m_fee;
 
     bool m_isInitialized = false;
   };
@@ -93,6 +95,7 @@ public:
   std::string const & GetAirportIata() const { return m_details.m_airportIata; }
   std::string const & GetBrand() const { return m_details.m_brand; }
   std::string const & GetRoadShields() const { return m_details.m_roadShields; }
+  std::string const & GetFee() const { return m_details.m_fee; }
   bool IsHotel() const { return m_details.m_isHotel; }
 
   osm::YesNoUnknown IsOpenNow() const { return m_details.m_isOpenNow; }
