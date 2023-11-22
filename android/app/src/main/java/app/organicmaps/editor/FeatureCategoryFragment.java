@@ -8,7 +8,6 @@ import android.view.ViewGroup;
 import androidx.annotation.CallSuper;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import androidx.core.os.BundleCompat;
 
 import app.organicmaps.R;
 import app.organicmaps.base.BaseMwmRecyclerFragment;
@@ -45,7 +44,7 @@ public class FeatureCategoryFragment extends BaseMwmRecyclerFragment<FeatureCate
     final Bundle args = getArguments();
     if (args != null)
     {
-      mSelectedCategory = BundleCompat.getParcelable(args, FeatureCategoryActivity.EXTRA_FEATURE_CATEGORY,
+      mSelectedCategory = Utils.getParcelable(args, FeatureCategoryActivity.EXTRA_FEATURE_CATEGORY,
           FeatureCategory.class);
     }
     mToolbarController = new SearchToolbarController(view, requireActivity())

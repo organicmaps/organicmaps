@@ -12,12 +12,12 @@ import android.view.ViewGroup;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import androidx.core.os.BundleCompat;
 
 import app.organicmaps.R;
 import app.organicmaps.base.BaseMwmToolbarFragment;
 import app.organicmaps.bookmarks.data.BookmarkCategory;
 import app.organicmaps.bookmarks.data.BookmarkManager;
+import app.organicmaps.util.Utils;
 
 import com.google.android.material.dialog.MaterialAlertDialogBuilder;
 import com.google.android.material.textfield.TextInputEditText;
@@ -45,7 +45,7 @@ public class BookmarkCategorySettingsFragment extends BaseMwmToolbarFragment
   {
     super.onCreate(savedInstanceState);
     final Bundle args = requireArguments();
-    mCategory = Objects.requireNonNull(BundleCompat.getParcelable(args,
+    mCategory = Objects.requireNonNull(Utils.getParcelable(args,
         BookmarkCategorySettingsActivity.EXTRA_BOOKMARK_CATEGORY, BookmarkCategory.class));
   }
 
