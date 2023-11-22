@@ -16,7 +16,6 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.os.BundleCompat;
 import androidx.recyclerview.widget.ConcatAdapter;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.recyclerview.widget.SimpleItemAnimator;
@@ -36,6 +35,7 @@ import app.organicmaps.intent.Factory;
 import app.organicmaps.location.LocationHelper;
 import app.organicmaps.search.NativeBookmarkSearchListener;
 import app.organicmaps.search.SearchEngine;
+import app.organicmaps.util.Utils;
 import app.organicmaps.widget.SearchToolbarController;
 import app.organicmaps.widget.placepage.EditBookmarkFragment;
 import app.organicmaps.widget.recycler.DividerItemDecorationWithPadding;
@@ -58,7 +58,6 @@ public class BookmarksListFragment extends BaseMwmRecyclerFragment<ConcatAdapter
 {
   public static final String TAG = BookmarksListFragment.class.getSimpleName();
   public static final String EXTRA_CATEGORY = "bookmark_category";
-  public static final String EXTRA_BUNDLE = "bookmark_bundle";
   private static final int INDEX_BOOKMARKS_COLLECTION_ADAPTER = 0;
   private static final int INDEX_BOOKMARKS_LIST_ADAPTER = 1;
   private static final String BOOKMARKS_MENU_ID = "BOOKMARKS_MENU_BOTTOM_SHEET";
@@ -109,8 +108,7 @@ public class BookmarksListFragment extends BaseMwmRecyclerFragment<ConcatAdapter
   private BookmarkCategory getCategoryOrThrow()
   {
     final Bundle args = requireArguments();
-    final Bundle extra = Objects.requireNonNull(args.getBundle(EXTRA_BUNDLE));
-    return Objects.requireNonNull(BundleCompat.getParcelable(extra, EXTRA_CATEGORY, BookmarkCategory.class));
+    return Objects.requireNonNull(Utils.getParcelable(args, EXTRA_CATEGORY, BookmarkCategory.class));
   }
 
   @NonNull

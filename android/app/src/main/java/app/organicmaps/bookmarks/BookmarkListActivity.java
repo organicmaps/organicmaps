@@ -1,7 +1,5 @@
 package app.organicmaps.bookmarks;
 
-import static app.organicmaps.bookmarks.BookmarksListFragment.EXTRA_BUNDLE;
-
 import android.content.Intent;
 import android.os.Bundle;
 
@@ -62,9 +60,8 @@ public class BookmarkListActivity extends BaseToolbarActivity
   static void startForResult(@NonNull Fragment fragment, @NonNull BookmarkCategory category)
   {
     Bundle args = new Bundle();
-    args.putParcelable(BookmarksListFragment.EXTRA_CATEGORY, category);
     Intent intent = new Intent(fragment.requireActivity(), BookmarkListActivity.class);
-    intent.putExtra(EXTRA_BUNDLE, args);
+    intent.putExtra(BookmarksListFragment.EXTRA_CATEGORY, category);
     fragment.startActivityForResult(intent, BookmarkCategoriesFragment.REQ_CODE_DELETE_CATEGORY);
   }
 }

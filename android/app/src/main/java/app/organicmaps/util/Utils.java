@@ -13,6 +13,7 @@ import android.content.pm.ResolveInfo;
 import android.content.res.Resources;
 import android.net.Uri;
 import android.os.Build;
+import android.os.Bundle;
 import android.text.Html;
 import android.text.Spannable;
 import android.text.SpannableStringBuilder;
@@ -33,6 +34,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.annotation.StringRes;
 import androidx.core.app.NavUtils;
+import androidx.core.os.BundleCompat;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 
@@ -720,6 +722,13 @@ public class Utils
         }
       });
     }
+  }
+
+  public static <T> T getParcelable(@NonNull Bundle in, @Nullable String key,
+                                    @NonNull Class<T> clazz)
+  {
+    in.setClassLoader(clazz.getClassLoader());
+    return BundleCompat.getParcelable(in, key, clazz);
   }
 
   @SuppressWarnings("deprecation")
