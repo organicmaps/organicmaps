@@ -1,53 +1,53 @@
-• New OpenStreetMap data as of November 13, 2023
-• It is possible to zoom in deeper now and see more POIs in dense areas
-• Outdoors map style preview (please read on to know how to activate it)
-• Removed bottom tab bar to show more map on the screen
-• Removed the unnecessary "route" button on the map (tap or long-tap a place on the map or select a search result to build a route using the "Route To" button instead)
-• Highlighted the Route To button and hinted the FAQ for new users
-• Fixed CarPlay dark/light mode colors
-• Fixed keyboard input on iPadOS 15+
-• "Inertial" kinetic scroll improvements
-• Removed max limit to search bookmarks
-• Brands are displayed in the Place Page
+• Nowe dane OpenStreetMap z 13 listopada 2023 r
+• Teraz, możliwe jest większe przybliżenie i zobaczenie większej liczby punktów POI, w gęstych obszarach
+• Podgląd stylu mapy plenerowej (czytaj dalej, aby dowiedzieć się, jak go aktywować)
+• Usunięto dolny pasek zakładek, aby wyświetlić więcej mapy na ekranie
+• Usunięto niepotrzebny przycisk „trasa” na mapie (dotknij lub naciśnij długo miejsce na mapie lub wybierz wynik wyszukiwania, aby wyznaczyć trasę za pomocą przycisku „Trasa do”)
+• Podświetlono przycisk "Trasa do" i wskazano FAQ dla nowych użytkowników.
+• Naprawiono kolory trybu ciemny/jasny CarPlay
+• Naprawiono wprowadzanie danych z klawiatury w systemie iPadOS 15+
+• Ulepszenia przewijania kinetycznego z wykorzystaniem inercji
+• Usunięto maksymalny limit wyszukiwania zakładek
+• Nazwy marek są wyświetlane na karcie miejsca
 
-Routing
-• Don't route through access=emergency, military, agricultural, forestry
-• Tuned ferry crossing estimations
-• Improved cross-country and cross-region routing
-• Improved residential routes
+Wyznaczanie trasy
+• Nie wyznaczaj tras przez obszary=awaryjne, wojskowe, rolnicze, leśne
+• Dostosowane szacunki przepraw promowych
+• Ulepszone wyznaczanie tras między krajami i regionami
+• Ulepszone wyznaczanie tras przez obszary mieszkalne
 
-Search
-• Process platz-pl like strasse-str
-• Improved address matching
-• Improved search of brands
+Wyszukiwanie
+• Przetwarzaj "platz-pl" jak "strasse-str"
+• Ulepszono dopasowywanie adresów
+• Ulepszono wyszukiwanie marek
 
-Map styling
-• Added flowerbeds, rental shops, bicycle rentals, motorcycle repairs, petting zoo, prison areas, compressed air
-• Added nature reserves and military zones rendering to the car navigation mode
-• Added Docklands Light Railway, Porto metro
-• Display names of ski pistes
-• Tuned/updated icons of fitness centre, yoga, theatre, artwork, statue, theme park, bbq, lighthouse, windmill, heliport & helipad, hunting stand, Kingdom Hall of Jehovah's Witnesses, paid & private versions of parkings and parking entrances, convenience / deli / farm / grocery / health_food shops, tobacco shop
-• Better farmyard & garage landuse area fills
-• Increased scrubs, alpine huts visibility
-• Updated sanitary dump station icons and adjusted its priority
-• Reduced visibility of cave entrances and improved the icon
-• Increased visibility of standalone house numbers
-• Reduced Tokyo subway visibility
-• Removed minor road markers/shields cluttering the map in Estonia
-• Fix colors of Estonia and Germany road markers / shields
-• Increased visibilities of road markers / shields on tertiary and residential road
-• Fixed "gaps" in some densely mapped lines
-• Fixed "gaps" in the outlines of bridges and other compound lines
+Styl mapy
+• Dodano kwietniki, wypożyczalnie, wypożyczalnie rowerów, warsztaty motocyklowe, mini zoo, obszary więzienne, stacje sprężonego powietrza
+• Dodano renderowanie rezerwatów przyrody i stref wojskowych do trybu nawigacji samochodowej
+• Dodano Docklands Light Railway, metro w Porto
+• Wyświetlanie nazw tras narciarskich
+• Dostosowano/zaktualizowano ikony centrów fitness, jogi, teatru, dzieł sztuki, pomników, parków rozrywki, miejsc do grillowania, latarni morskich, wiatraków, heliportów i lądowisk helikopterowych, ambony myśliwskiej, Domu Królestwa Świadków Jehowy, płatnych i prywatnych wersji parkingów oraz wejść na parkingi, sklepów spożywczych, delikatesów, farmaceutycznych i zdrowej żywności, sklepów z tytoniem
+• Lepsze wypełnienia obszarów podwórza i garażu
+• Zwiększona widoczność zarośli i schronisk alpejskich
+• Zaktualizowane ikony stacji sanitarnej do opróżniania toalet chemicznych i dostosowano jej priorytet
+• Zmniejszona widoczność wejść do jaskiń i ulepszona ikona
+• Zwiększona widoczność numerów domów, stanowiących osobne budynki
+• Zmniejszona widoczność metra w Tokio
+• Usunięto niepotrzebne znakczniki dróg na mapie w Estonii
+• Poprawiono kolory znaczników dróg w Estonii i Niemczech
+• Zwiększona widoczność znaczników na drogach o charakterze usługowym i osiedlowym
+• Naprawiono "przerwy" w niektórych gęsto naniesionych liniach
+• Naprawiono "przerwy" w konturach mostów i innych złożonych linii
 
-Outdoors map style preview:
-• Tailored for out-of-the-city outdoor activities like hiking, backcountry cycling/MTB, 4x4, etc.
-• Emphasizes paths/tracks, cliffs, railways, powerlines, rivers and streams, water sources, peaks, mountain saddles and passes, waterfalls, lighthouses, caves, viewpoints, campsites, huts, shelters, picnic sites, gates, stiles, fords, etc.
-• Enable by typing `?olight` in the search field and return to the map; type `?light` to switch back to the main style
-• Use `?odark` and `?dark` for a dark style
-• Developers wanted to add a nice UI for style switching!
+Podgląd stylu mapy plenerowej:
+• Dostosowany do aktywności na świeżym powietrzu poza miastem, takich jak wędrówki, jazda na rowerze po bezdrożach/MTB, jazda terenowa 4x4, itp.
+• Podkreśla  trasy, klify, tory kolejowe, linie energetyczne, rzeki i strumienie, źródła wody, szczyty, siodła i przełęcze górskie, wodospady, latarnie morskie, jaskinie, punkty widokowe, kempingi, chatki, schronienia, miejsca na pikniki, bramy, kraty, przeprawy brodowe itp
+• Aktywuj, wpisując ?olight w pole wyszukiwania i powróć do mapy; wpisz ?light, aby wrócić do głównego stylu
+• Użyj ?odark i ?dark dla ciemnego stylu
+• Poszukiwani deweloperzy Androida i iOS do pomocy w dodaniu przyjaznego interfejsu użytkownika do zmiany stylu!
 
-Translations
-• Improved "avoid …" routing options wording
-• Improved Arabic, Basque, Chinese, Czech, Danish, Finnish, Greek, Hungarian, Indonesian, Italian, Korean, Marathi, Polish, Romanian, Slovak, Spanish, Sweden, Thai, Turkish, Ukrainian, and Vietnamese translations
+Tłumaczenia
+• Poprawiono sformułowanie opcji wyznaczania trasy „unikaj…”
+• Poprawiono tłumaczenia Arabic, Basque, Chinese, Czech, Danish, Finnish, Greek, Hungarian, Indonesian, Italian, Korean, Marathi, Polish, Romanian, Slovak, Spanish, Sweden, Thai, Turkish, Ukrainian i Vietnamese
 
-…and more smaller fixes and improvements, check https://omaps.org/news for details!
+"...i więcej mniejszych poprawek i ulepszeń, sprawdź https://omaps.org/pl/news aby poznać szczegóły!"
