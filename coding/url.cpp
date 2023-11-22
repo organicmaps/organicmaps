@@ -174,6 +174,10 @@ string UrlDecode(string_view encodedUrl)
       result += FromHex(encodedUrl.substr(i + 1, 2));
       i += 2;
     }
+    else if (encodedUrl[i] == '+')
+    {
+      result += ' ';
+    }
     else
     {
       result += encodedUrl[i];
