@@ -355,6 +355,14 @@ UNIT_TEST(SearchApiGeoScheme)
     TEST_ALMOST_EQUAL_ABS(latlon.m_lat, 35.3381607, kEps, ());
     TEST_ALMOST_EQUAL_ABS(latlon.m_lon, 33.3290564, kEps, ());
   }
+  {
+    ParsedMapApi api("geo:0,0?q=123+Main+St,+Seattle,+WA+98101");
+    TEST_EQUAL(api.GetRequestType(), UrlType::Search, ());
+    auto const & request = api.GetSearchRequest();
+    ms::LatLon latlon = api.GetCenterLatLon();
+    TEST(!latlon.IsValid(), ());
+    TEST_EQUAL(request.m_query, "123 Main St, Seattle, WA 98101", ());
+  }
 }
 
 UNIT_TEST(CrosshairApi)
