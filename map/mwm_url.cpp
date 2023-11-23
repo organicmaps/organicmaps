@@ -461,7 +461,7 @@ void ParsedMapApi::ExecuteMapApiRequest(Framework & fm)
 
   // ShowRect function interferes with ActivateMapSelection and we have strange behaviour as a result.
   // Use more obvious SetModelViewCenter here.
-  fm.SetViewportCenter(center, zoomLevel, true);
+  fm.SetViewportCenter(center, zoomLevel, true, true);
 
   // Don't show the place page in case of multiple points.
   if (m_mapPoints.size() > 1)
