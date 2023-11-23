@@ -73,19 +73,18 @@ line|z9-[boundary=administrative][admin_level=2]
 /* 3.2 Region */
 
 line|z4[boundary=administrative][admin_level=3]
-{width: 0.8;dashes: 0.9,0.36;}
+{width: 0.8; dashes: 0.9,0.4;}
+
 line|z5[boundary=administrative][admin_level=4]
-{width: 0.7;opacity: 0.8;dashes: 1.35,0.9;}
+{width: 0.7; opacity: 0.8; dashes: 1.3,0.9;}
 line|z6[boundary=administrative][admin_level=4]
-{width: 0.8;dashes: 0.9,0.45;}
-line|z7[boundary=administrative][admin_level=4]
-{width: 0.9;dashes: 1.8,0.9;}
-line|z8[boundary=administrative][admin_level=4]
-{width: 0.9;dashes: 1.44,1.44;}
+{width: 0.8; dashes: 1.3,0.9;}
+line|z7-[boundary=administrative][admin_level=4]
+{width: 0.9; dashes: 1.8,0.9;}
 line|z9[boundary=administrative][admin_level=4]
-{width: 1;dashes: 1.8,0.9;}
+{width: 1;}
 line|z10-[boundary=administrative][admin_level=4]
-{width: 1.2;dashes: 1.8,0.9;}
+{width: 1.2;}
 
 
 /* 4.VEGETATION */
