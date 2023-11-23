@@ -5758,8 +5758,8 @@ cont {
       width: 1.8
       color: 9197606
       dashdot {
-        dd: 1.0
-        dd: 1.0
+        dd: 0.9
+        dd: 0.9
       }
       priority: 50
     }
@@ -5770,8 +5770,8 @@ cont {
       width: 1.8
       color: 9197606
       dashdot {
-        dd: 1.0
-        dd: 1.0
+        dd: 0.9
+        dd: 0.9
       }
       priority: 50
     }
@@ -5782,8 +5782,8 @@ cont {
       width: 1.8
       color: 9197606
       dashdot {
-        dd: 1.0
-        dd: 1.0
+        dd: 0.9
+        dd: 0.9
       }
       priority: 50
     }
@@ -5794,8 +5794,8 @@ cont {
       width: 1.8
       color: 9197606
       dashdot {
-        dd: 1.0
-        dd: 1.0
+        dd: 0.9
+        dd: 0.9
       }
       priority: 50
     }
@@ -6371,8 +6371,8 @@ cont {
       width: 0.8
       color: 7565931
       dashdot {
-        dd: 1.0
-        dd: 1.0
+        dd: 0.9
+        dd: 0.4
       }
       priority: 70
       join: BEVELJOIN
@@ -6388,8 +6388,8 @@ cont {
       width: 0.7
       color: 863203947
       dashdot {
-        dd: 1.35
-        dd: 1.0
+        dd: 1.3
+        dd: 0.9
       }
       priority: 70
       join: BEVELJOIN
@@ -6402,8 +6402,8 @@ cont {
       width: 0.8
       color: 7565931
       dashdot {
-        dd: 1.0
-        dd: 1.0
+        dd: 1.3
+        dd: 0.9
       }
       priority: 70
       join: BEVELJOIN
@@ -6417,7 +6417,7 @@ cont {
       color: 7565931
       dashdot {
         dd: 1.8
-        dd: 1.0
+        dd: 0.9
       }
       priority: 70
       join: BEVELJOIN
@@ -6430,8 +6430,8 @@ cont {
       width: 0.9
       color: 7565931
       dashdot {
-        dd: 1.44
-        dd: 1.44
+        dd: 1.8
+        dd: 0.9
       }
       priority: 70
       join: BEVELJOIN
@@ -6445,7 +6445,7 @@ cont {
       color: 7565931
       dashdot {
         dd: 1.8
-        dd: 1.0
+        dd: 0.9
       }
       priority: 70
       join: BEVELJOIN
@@ -6459,7 +6459,7 @@ cont {
       color: 7565931
       dashdot {
         dd: 1.8
-        dd: 1.0
+        dd: 0.9
       }
       priority: 70
       join: BEVELJOIN
@@ -6473,7 +6473,7 @@ cont {
       color: 7565931
       dashdot {
         dd: 1.8
-        dd: 1.0
+        dd: 0.9
       }
       priority: 70
       join: BEVELJOIN
@@ -6487,7 +6487,7 @@ cont {
       color: 7565931
       dashdot {
         dd: 1.8
-        dd: 1.0
+        dd: 0.9
       }
       priority: 70
       join: BEVELJOIN
@@ -6501,7 +6501,7 @@ cont {
       color: 7565931
       dashdot {
         dd: 1.8
-        dd: 1.0
+        dd: 0.9
       }
       priority: 70
       cap: BUTTCAP
@@ -6514,7 +6514,7 @@ cont {
       color: 7565931
       dashdot {
         dd: 1.8
-        dd: 1.0
+        dd: 0.9
       }
       priority: 70
       cap: BUTTCAP
@@ -6527,7 +6527,7 @@ cont {
       color: 7565931
       dashdot {
         dd: 1.8
-        dd: 1.0
+        dd: 0.9
       }
       priority: 70
       cap: BUTTCAP
@@ -6540,7 +6540,7 @@ cont {
       color: 7565931
       dashdot {
         dd: 1.8
-        dd: 1.0
+        dd: 0.9
       }
       priority: 70
     }
@@ -6552,7 +6552,7 @@ cont {
       color: 7565931
       dashdot {
         dd: 1.8
-        dd: 1.0
+        dd: 0.9
       }
       priority: 70
     }
@@ -6564,7 +6564,7 @@ cont {
       color: 7565931
       dashdot {
         dd: 1.8
-        dd: 1.0
+        dd: 0.9
       }
       priority: 70
     }
@@ -6576,7 +6576,7 @@ cont {
       color: 7565931
       dashdot {
         dd: 1.8
-        dd: 1.0
+        dd: 0.9
       }
       priority: 70
     }
@@ -6588,7 +6588,7 @@ cont {
       color: 7565931
       dashdot {
         dd: 1.8
-        dd: 1.0
+        dd: 0.9
       }
       priority: 70
     }
@@ -83761,7 +83761,7 @@ cont {
       width: 1.5
       color: 8026746
       dashdot {
-        dd: 1.0
+        dd: 0.8
         dd: 12.0
       }
       priority: 260
@@ -83854,7 +83854,7 @@ cont {
       width: 1.5
       color: 8026746
       dashdot {
-        dd: 1.0
+        dd: 0.8
         dd: 12.0
       }
       priority: 260
@@ -83947,7 +83947,7 @@ cont {
       width: 1.5
       color: 8026746
       dashdot {
-        dd: 1.0
+        dd: 0.8
         dd: 12.0
       }
       priority: 260
