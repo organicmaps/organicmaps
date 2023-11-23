@@ -497,8 +497,8 @@ mapswithme
 *waterway|fish_pass|tunnel
 *natural|water|lock
 waterway|canal
-mapswithme
-mapswithme
+*fee|yes
+*fee|no
 mapswithme
 *highway|trunk_link|tunnel
 mapswithme
@@ -1590,5 +1590,3 @@ amenity|recycling|container
 *amenity|parking|street_side|private
 *amenity|parking|lane|private
 *amenity|compressed_air
-*fee|yes
-*fee|no
