@@ -416,6 +416,29 @@ To enable logging in case of crashes, after installing a debug version, run:
 adb shell pm grant app.organicmaps.debug android.permission.READ_LOGS
 ```
 
+
+### Android Auto Development
+
+Android Auto can be developed and tested without having a physical device by using [Desktop Head Unit (DHU)](https://developer.android.com/training/cars/testing/dhu). Go to Android Studio > Tools -> SDK Manager -> SDK Tools to enable "Android Auto Desktop Head Unit". Desktop Head Unit version 2.0 build 2022-03-30-438482292 was tested.
+
+[Android Auto App](https://play.google.com/store/apps/details?id=com.google.android.projection.gearhead) is required for Auto functionality. The app should be installed from Google Play before connecting a phone to the Desktop Head Unit or a real car. Please don't waste time on trying to download and install that app manually on phones without Google Play unless you have genuine Google Play Services installed and root access to put the app into the system partition.
+
+To run Android Auto, connect the phone using USB cable and run the Desktop Head Unit with `--usb` flag:
+
+```
+~/Library/Android/sdk/extras/google/auto/desktop-head-unit --usb
+```
+
+```
+[REDACTED]
+[I]: Found device 'SAMSUNG SAMSUNG_Android XXXXXXXXX' in accessory mode (vid=18d1, pid=2d01).
+[I]: Found accessory: ifnum: 0, rd_ep: 129, wr_ep: 1
+[I]: Attaching to USB device...
+[I]: Attached!
+```
+
+Organic Maps icon will appear in the application list in DHU.
+
 ### More options
 
 #### Building from the command line
@@ -513,7 +536,6 @@ If you are low on RAM, disk space or traffic there are ways to reduce system req
 - for debugging use an older emulated device with low RAM and screen resolution, e.g. "Nexus S";
 - make sure the emulator uses [hardware acceleration](https://developer.android.com/studio/run/emulator-acceleration);
 - don't use emulator, debug on a hardware device instead.
-
 
 ## iOS app
 
