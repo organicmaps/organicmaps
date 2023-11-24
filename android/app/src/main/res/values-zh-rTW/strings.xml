@@ -818,6 +818,7 @@
 	<string name="type.amenity.parking">停車場</string>
 	<string name="type.amenity.parking.fee">停車場</string>
 	<string name="type.amenity.parking.multi.storey">多層停車場</string>
+	<string name="type.amenity.parking.multi.storey.fee">多層停車場</string>
 	<string name="type.amenity.parking.no.access">私人停車場</string>
 	<string name="type.amenity.parking.permissive">私人停車場</string>
 	<string name="type.amenity.parking.private">私人停車場</string>

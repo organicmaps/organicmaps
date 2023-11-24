@@ -1402,6 +1402,8 @@
 
 "type.amenity.parking.multi.storey" = "Viacposchodové parkovisko";
 
+"type.amenity.parking.multi.storey.fee" = "Viacposchodové parkovisko";
+
 "type.amenity.parking.no.access" = "Súkromné parkovisko";
 
 "type.amenity.parking.permissive" = "Súkromné parkovisko";

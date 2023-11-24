@@ -1402,6 +1402,8 @@
 
 "type.amenity.parking.multi.storey" = "Багатоповерховий паркінг";
 
+"type.amenity.parking.multi.storey.fee" = "Багатоповерховий паркінг";
+
 "type.amenity.parking.no.access" = "Приватна парковка";
 
 "type.amenity.parking.permissive" = "Приватна парковка";

@@ -1402,6 +1402,8 @@
 
 "type.amenity.parking.multi.storey" = "Parcheggio multipiano";
 
+"type.amenity.parking.multi.storey.fee" = "Parcheggio multipiano";
+
 "type.amenity.parking.no.access" = "Parcheggio privato";
 
 "type.amenity.parking.permissive" = "Parcheggio privato";

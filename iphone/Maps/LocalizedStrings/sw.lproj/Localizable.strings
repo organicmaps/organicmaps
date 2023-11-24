@@ -1402,6 +1402,8 @@
 
 "type.amenity.parking.multi.storey" = "Maegesho ya Hifadhi nyingi";
 
+"type.amenity.parking.multi.storey.fee" = "Maegesho ya Hifadhi nyingi";
+
 "type.amenity.parking.no.access" = "Maegesho ya Kibinafsi";
 
 "type.amenity.parking.permissive" = "Maegesho ya Kibinafsi";

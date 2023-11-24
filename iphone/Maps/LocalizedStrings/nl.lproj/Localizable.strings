@@ -1402,6 +1402,8 @@
 
 "type.amenity.parking.multi.storey" = "Parkeren met meerdere verdiepingen";
 
+"type.amenity.parking.multi.storey.fee" = "Parkeren met meerdere verdiepingen";
+
 "type.amenity.parking.no.access" = "Privé parkeerplaats";
 
 "type.amenity.parking.permissive" = "Privé parkeerplaats";

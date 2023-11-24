@@ -1402,6 +1402,8 @@
 
 "type.amenity.parking.multi.storey" = "موقف سيارات متعدد الطوابق";
 
+"type.amenity.parking.multi.storey.fee" = "موقف سيارات متعدد الطوابق";
+
 "type.amenity.parking.no.access" = "موقف سيارات خاص";
 
 "type.amenity.parking.permissive" = "موقف سيارات خاص";

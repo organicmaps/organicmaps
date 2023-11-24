@@ -1402,6 +1402,8 @@
 
 "type.amenity.parking.multi.storey" = "Parcare cu mai multe etaje";
 
+"type.amenity.parking.multi.storey.fee" = "Parcare cu mai multe etaje";
+
 "type.amenity.parking.no.access" = "Parcare privată";
 
 "type.amenity.parking.permissive" = "Parcare privată";

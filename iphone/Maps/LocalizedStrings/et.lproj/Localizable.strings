@@ -1402,6 +1402,8 @@
 
 "type.amenity.parking.multi.storey" = "Parkimine mitmel korrusel";
 
+"type.amenity.parking.multi.storey.fee" = "Parkimine mitmel korrusel";
+
 "type.amenity.parking.no.access" = "Privaatne parkimine";
 
 "type.amenity.parking.permissive" = "Privaatne parkimine";

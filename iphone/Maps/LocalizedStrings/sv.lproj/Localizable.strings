@@ -1402,6 +1402,8 @@
 
 "type.amenity.parking.multi.storey" = "Flervånings parkering";
 
+"type.amenity.parking.multi.storey.fee" = "Flervånings parkering";
+
 "type.amenity.parking.no.access" = "Privat parkering";
 
 "type.amenity.parking.permissive" = "Privat parkering";

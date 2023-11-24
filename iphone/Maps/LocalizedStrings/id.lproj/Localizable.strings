@@ -1402,6 +1402,8 @@
 
 "type.amenity.parking.multi.storey" = "Parkir Bertingkat";
 
+"type.amenity.parking.multi.storey.fee" = "Parkir Bertingkat";
+
 "type.amenity.parking.no.access" = "Parkir pribadi";
 
 "type.amenity.parking.permissive" = "Parkir pribadi";

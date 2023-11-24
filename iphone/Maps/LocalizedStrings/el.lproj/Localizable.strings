@@ -1402,6 +1402,8 @@
 
 "type.amenity.parking.multi.storey" = "Πολυώροφος χώρος στάθμευσης";
 
+"type.amenity.parking.multi.storey.fee" = "Πολυώροφος χώρος στάθμευσης";
+
 "type.amenity.parking.no.access" = "Ιδιωτικός χώρος στάθμευσης";
 
 "type.amenity.parking.permissive" = "Ιδιωτικός χώρος στάθμευσης";

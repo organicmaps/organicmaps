@@ -1402,6 +1402,8 @@
 
 "type.amenity.parking.multi.storey" = "다층 주차장";
 
+"type.amenity.parking.multi.storey.fee" = "다층 주차장";
+
 "type.amenity.parking.no.access" = "전용 주차장";
 
 "type.amenity.parking.permissive" = "전용 주차장";

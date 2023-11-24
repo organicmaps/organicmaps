@@ -1402,6 +1402,8 @@
 
 "type.amenity.parking.multi.storey" = "ที่จอดรถหลายชั้น";
 
+"type.amenity.parking.multi.storey.fee" = "ที่จอดรถหลายชั้น";
+
 "type.amenity.parking.no.access" = "ที่จอดรถส่วนตัว";
 
 "type.amenity.parking.permissive" = "ที่จอดรถส่วนตัว";

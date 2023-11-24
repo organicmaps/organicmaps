@@ -1402,6 +1402,8 @@
 
 "type.amenity.parking.multi.storey" = "Többszintes parkoló";
 
+"type.amenity.parking.multi.storey.fee" = "Többszintes parkoló";
+
 "type.amenity.parking.no.access" = "Saját parkoló";
 
 "type.amenity.parking.permissive" = "Saját parkoló";

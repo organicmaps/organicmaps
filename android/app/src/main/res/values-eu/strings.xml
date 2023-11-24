@@ -844,6 +844,7 @@
 	<string name="type.amenity.parking">Aparkalekua</string>
 	<string name="type.amenity.parking.fee">Aparkalekua</string>
 	<string name="type.amenity.parking.multi.storey">Solairu anitzeko aparkalekua</string>
+	<string name="type.amenity.parking.multi.storey.fee">Solairu anitzeko aparkalekua</string>
 	<string name="type.amenity.parking.no.access">Aparkaleku pribatua</string>
 	<string name="type.amenity.parking.permissive">Aparkaleku pribatua</string>
 	<string name="type.amenity.parking.private">Aparkaleku pribatua</string>

@@ -1402,6 +1402,8 @@
 
 "type.amenity.parking.multi.storey" = "Solairu anitzeko aparkalekua";
 
+"type.amenity.parking.multi.storey.fee" = "Solairu anitzeko aparkalekua";
+
 "type.amenity.parking.no.access" = "Aparkaleku pribatua";
 
 "type.amenity.parking.permissive" = "Aparkaleku pribatua";
