@@ -419,7 +419,7 @@ adb shell pm grant app.organicmaps.debug android.permission.READ_LOGS
 
 ### Android Auto Development
 
-Android Auto can be developed and tested without having a physical device by using [Desktop Head Unit (DHU)](https://developer.android.com/training/cars/testing/dhu). Go to Android Studio > Tools -> SDK Manager -> SDK Tools to enable "Android Auto Desktop Head Unit". Desktop Head Unit version 2.0 build 2022-03-30-438482292 was tested.
+Android Auto can be developed and tested without having a physical device by using [Desktop Head Unit (DHU)](https://developer.android.com/training/cars/testing/dhu). Go to Android Studio > Tools -> SDK Manager -> SDK Tools and enable "Android Auto Desktop Head Unit".
 
 [Android Auto App](https://play.google.com/store/apps/details?id=com.google.android.projection.gearhead) is required for Auto functionality. The app should be installed from Google Play before connecting a phone to the Desktop Head Unit or a real car. Android Auto doesn't work on phones without Google Play Services.
 
