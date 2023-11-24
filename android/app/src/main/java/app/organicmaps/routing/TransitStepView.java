@@ -89,7 +89,7 @@ public class TransitStepView extends View implements MultilineLayoutManager.Sque
     {
       mDrawable = null;
       mText = info.getDistance() + " " + info.getDistanceUnits();
-      mTextPaint.setColor(Color.BLACK);
+      mTextPaint.setColor(ThemeUtils.isDefaultTheme(getContext()) ? Color.BLACK : Color.WHITE);
     }
     else
     {
