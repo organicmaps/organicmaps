@@ -3293,7 +3293,7 @@ GLAPI void APIENTRY glMinSampleShadingARB (GLfloat value);
 
 #ifndef GL_ARB_shader_group_vote
 #define GL_ARB_shader_group_vote 1
-#endif /* GL_ARB_shader_group_vote */
+#endif 
 
 #ifndef GL_ARB_shader_image_load_store
 #define GL_ARB_shader_image_load_store 1
