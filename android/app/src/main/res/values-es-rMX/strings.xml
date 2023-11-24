@@ -220,6 +220,7 @@
 	<string name="type.amenity.parking">Estacionamiento</string>
 	<string name="type.amenity.parking.fee">Estacionamiento</string>
 	<string name="type.amenity.parking.multi.storey">Estacionamiento de varios pisos</string>
+	<string name="type.amenity.parking.multi.storey.fee">Estacionamiento de varios pisos</string>
 	<string name="type.amenity.parking.no.access">Estacionamiento privado</string>
 	<string name="type.amenity.parking.permissive">Estacionamiento privado</string>
 	<string name="type.amenity.parking.private">Estacionamiento privado</string>

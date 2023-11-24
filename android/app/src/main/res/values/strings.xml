@@ -881,6 +881,7 @@
 	<string name="type.amenity.parking">Parking</string>
 	<string name="type.amenity.parking.fee">Parking</string>
 	<string name="type.amenity.parking.multi.storey">Multi Storey Parking</string>
+	<string name="type.amenity.parking.multi.storey.fee">Multi Storey Parking</string>
 	<string name="type.amenity.parking.no.access">Private Parking</string>
 	<string name="type.amenity.parking.permissive">Private Parking</string>
 	<string name="type.amenity.parking.private">Private Parking</string>

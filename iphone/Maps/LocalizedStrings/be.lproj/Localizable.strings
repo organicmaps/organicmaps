@@ -1402,6 +1402,8 @@
 
 "type.amenity.parking.multi.storey" = "Шматпавярховая паркоўка";
 
+"type.amenity.parking.multi.storey.fee" = "Шматпавярховая паркоўка";
+
 "type.amenity.parking.no.access" = "Прыватная паркоўка";
 
 "type.amenity.parking.permissive" = "Прыватная паркоўка";

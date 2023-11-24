@@ -1402,6 +1402,8 @@
 
 "type.amenity.parking.multi.storey" = "Çok Katlı Otopark";
 
+"type.amenity.parking.multi.storey.fee" = "Çok Katlı Otopark";
+
 "type.amenity.parking.no.access" = "Özel Otopark";
 
 "type.amenity.parking.permissive" = "Özel Otopark";

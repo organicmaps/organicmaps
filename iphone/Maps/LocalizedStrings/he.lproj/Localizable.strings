@@ -1402,6 +1402,8 @@
 
 "type.amenity.parking.multi.storey" = "תומוק בר הינח";
 
+"type.amenity.parking.multi.storey.fee" = "תומוק בר הינח";
+
 "type.amenity.parking.no.access" = "תיטרפ הינח";
 
 "type.amenity.parking.permissive" = "תיטרפ הינח";

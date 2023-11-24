@@ -1402,6 +1402,8 @@
 
 "type.amenity.parking.multi.storey" = "多層停車場";
 
+"type.amenity.parking.multi.storey.fee" = "多層停車場";
+
 "type.amenity.parking.no.access" = "私人停車場";
 
 "type.amenity.parking.permissive" = "私人停車場";

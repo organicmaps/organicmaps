@@ -1402,6 +1402,8 @@
 
 "type.amenity.parking.multi.storey" = "Multi Storey Parking";
 
+"type.amenity.parking.multi.storey.fee" = "Multi Storey Parking";
+
 "type.amenity.parking.no.access" = "Private Parking";
 
 "type.amenity.parking.permissive" = "Private Parking";
@@ -1422,11 +1424,11 @@
 
 "type.amenity.parking.street_side.private" = "Private Street-Side Parking";
 
-"type.amenity.parking.lane" = "Parking";
+"type.amenity.parking.lane" = "Lane Parking";
 
-"type.amenity.parking.lane.fee" = "Parking";
+"type.amenity.parking.lane.fee" = "Lane Parking";
 
-"type.amenity.parking.lane.private" = "Parking";
+"type.amenity.parking.lane.private" = "Private Lane Parking";
 
 "type.amenity.parking_entrance" = "Parking Entrance";
 

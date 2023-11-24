@@ -850,6 +850,7 @@
 	<string name="type.amenity.parking">Парковка</string>
 	<string name="type.amenity.parking.fee">Парковка</string>
 	<string name="type.amenity.parking.multi.storey">Багатоповерховий паркінг</string>
+	<string name="type.amenity.parking.multi.storey.fee">Багатоповерховий паркінг</string>
 	<string name="type.amenity.parking.no.access">Приватна парковка</string>
 	<string name="type.amenity.parking.permissive">Приватна парковка</string>
 	<string name="type.amenity.parking.private">Приватна парковка</string>

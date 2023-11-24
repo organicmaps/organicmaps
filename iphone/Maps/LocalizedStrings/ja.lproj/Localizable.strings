@@ -1402,6 +1402,8 @@
 
 "type.amenity.parking.multi.storey" = "立体駐車場";
 
+"type.amenity.parking.multi.storey.fee" = "立体駐車場";
+
 "type.amenity.parking.no.access" = "専用駐車場";
 
 "type.amenity.parking.permissive" = "専用駐車場";

@@ -848,6 +848,7 @@
 	<string name="type.amenity.parking">Parking</string>
 	<string name="type.amenity.parking.fee">Parking</string>
 	<string name="type.amenity.parking.multi.storey">Parking wielopoziomowy</string>
+	<string name="type.amenity.parking.multi.storey.fee">Parking wielopoziomowy</string>
 	<string name="type.amenity.parking.no.access">Parking prywatny</string>
 	<string name="type.amenity.parking.permissive">Parking prywatny</string>
 	<string name="type.amenity.parking.private">Parking prywatny</string>

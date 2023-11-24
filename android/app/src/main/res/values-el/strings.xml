@@ -783,6 +783,7 @@
 	<string name="type.amenity.parking">Χώρος στάθμευσης</string>
 	<string name="type.amenity.parking.fee">Χώρος στάθμευσης</string>
 	<string name="type.amenity.parking.multi.storey">Πολυώροφος χώρος στάθμευσης</string>
+	<string name="type.amenity.parking.multi.storey.fee">Πολυώροφος χώρος στάθμευσης</string>
 	<string name="type.amenity.parking.no.access">Ιδιωτικός χώρος στάθμευσης</string>
 	<string name="type.amenity.parking.permissive">Ιδιωτικός χώρος στάθμευσης</string>
 	<string name="type.amenity.parking.private">Ιδιωτικός χώρος στάθμευσης</string>

@@ -1402,6 +1402,8 @@
 
 "type.amenity.parking.multi.storey" = "Bãi đậu xe nhiều tầng";
 
+"type.amenity.parking.multi.storey.fee" = "Bãi đậu xe nhiều tầng";
+
 "type.amenity.parking.no.access" = "Bãi đậu xe tư nhân";
 
 "type.amenity.parking.permissive" = "Bãi đậu xe tư nhân";
