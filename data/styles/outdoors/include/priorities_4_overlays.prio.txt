@@ -1284,7 +1284,6 @@ historic-stone                                      # icon z18- (also has captio
 amenity-post_box                                    # icon z18- (also has caption(optional) z18-)
 amenity-recycling-container                         # icon z17- (also has caption(optional) z19-)
 historic-memorial-stolperstein                      # icon z19- (also has caption(optional) z19-)
-leisure-garden-residential                          # caption z18- (also has area z12-)
 === 200
 
 amenity-parking-lane                                # icon z18- (also has caption(optional) z18-, area z17-)
