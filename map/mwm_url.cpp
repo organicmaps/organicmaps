@@ -461,7 +461,9 @@ void ParsedMapApi::ExecuteMapApiRequest(Framework & fm)
 
   // ShowRect function interferes with ActivateMapSelection and we have strange behaviour as a result.
   // Use more obvious SetModelViewCenter here.
-  fm.SetViewportCenter(center, zoomLevel, true);
+  /// @todo Funny, but animation is still present, but now centering works fine.
+  /// Looks like there is one more set viewport call somewhere.
+  fm.SetViewportCenter(center, zoomLevel, false /* isAnim */, true /* trackVisibleViewport */);
 
   // Don't show the place page in case of multiple points.
   if (m_mapPoints.size() > 1)
