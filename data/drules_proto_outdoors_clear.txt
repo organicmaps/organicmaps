@@ -52625,7 +52625,6 @@ cont {
       color: 11190117
       priority: -1930
     }
-    apply_if: "!name"
   }
   element {
     scale: 17
@@ -52633,7 +52632,6 @@ cont {
       color: 11190117
       priority: -1930
     }
-    apply_if: "!name"
   }
   element {
     scale: 18
@@ -52641,23 +52639,6 @@ cont {
       color: 11190117
       priority: -1930
     }
-    apply_if: "!name"
-  }
-  element {
-    scale: 18
-    area {
-      color: 11190117
-      priority: -1930
-    }
-    caption {
-      primary {
-        height: 10
-        color: 4473924
-        offset_y: 1
-      }
-      priority: 200
-    }
-    apply_if: "name"
   }
   element {
     scale: 19
@@ -52665,23 +52646,6 @@ cont {
       color: 11190117
       priority: -1930
     }
-    apply_if: "!name"
-  }
-  element {
-    scale: 19
-    area {
-      color: 11190117
-      priority: -1930
-    }
-    caption {
-      primary {
-        height: 10
-        color: 4473924
-        offset_y: 1
-      }
-      priority: 200
-    }
-    apply_if: "name"
   }
   element {
     scale: 20
@@ -52689,23 +52653,6 @@ cont {
       color: 11190117
       priority: -1930
     }
-    apply_if: "!name"
-  }
-  element {
-    scale: 20
-    area {
-      color: 11190117
-      priority: -1930
-    }
-    caption {
-      primary {
-        height: 10
-        color: 4473924
-        offset_y: 1
-      }
-      priority: 200
-    }
-    apply_if: "name"
   }
 }
 cont {

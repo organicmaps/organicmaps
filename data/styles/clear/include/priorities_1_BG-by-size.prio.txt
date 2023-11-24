@@ -119,7 +119,7 @@ natural-bare_rock                                   # area z12- (also has captio
 === 80
 
 leisure-garden                                      # area z12- (also has icon z16-, caption(optional) z16-)
-leisure-garden-residential                          # area z12- (also has caption z18-)
+leisure-garden-residential                          # area z12-
 leisure-park                                        # area z10- (also has icon z14-, caption(optional) z14-)
 leisure-park-no-access                              # area z10- (also has icon z14-, caption(optional) z14-)
 leisure-park-permissive                             # area z10- (also has icon z14-, caption(optional) z14-)
