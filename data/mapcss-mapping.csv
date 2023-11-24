@@ -1675,3 +1675,5 @@ amenity|parking|street_side|private;[amenity=parking][parking=street_side][acces
 amenity|parking|lane|private;[amenity=parking][parking=lane][access=private];;name;int_name;1591;
 amenity|compressed_air;1592;
 leisure|hackerspace;1593;
+railway|station|subway|singapore;[railway=station][transport=subway][city=singapore],[railway=station][station=subway][city=singapore];;name;int_name;1594;
+railway|subway_entrance|singapore;[railway=subway_entrance][city=singapore];;name;int_name;1595;

@@ -21777,6 +21777,9 @@
   [type.railway.station.subway.shiraz]
     ref = type.railway.station.subway
 
+  [type.railway.station.subway.singapore]
+    ref = type.railway.station.subway
+
   [type.railway.station.subway.sofia]
     ref = type.railway.station.subway
 
@@ -22193,6 +22196,9 @@
     ref = type.railway.subway_entrance
 
   [type.railway.subway_entrance.shiraz]
+    ref = type.railway.subway_entrance
+
+  [type.railway.subway_entrance.singapore]
     ref = type.railway.subway_entrance
 
   [type.railway.subway_entrance.sofia]

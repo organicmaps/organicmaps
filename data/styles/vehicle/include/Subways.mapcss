@@ -736,6 +736,12 @@ node|z14[railway=station][transport=subway][city=shiraz] {icon-image: subway-shi
 node|z15-[railway=station][transport=subway][city=shiraz] {icon-image: subway-shiraz-m.svg;}
 node|z16-[railway=subway_entrance][city=shiraz] {icon-image: subway-shiraz-s.svg;}
 
+/* Singapore Subway Station */
+node|z13[railway=station][transport=subway][city=singapore] {icon-image: subway-singapore-s.svg;icon-min-distance: 1;}
+node|z14[railway=station][transport=subway][city=singapore] {icon-image: subway-singapore-s.svg;}
+node|z15-[railway=station][transport=subway][city=singapore] {icon-image: subway-singapore-m.svg;}
+node|z16-[railway=subway_entrance][city=singapore] {icon-image: subway-singapore-s.svg;}
+
 /* Sofia Subway Station */
 node|z13[railway=station][transport=subway][city=sofia] {icon-image: subway-sofia-s.svg;icon-min-distance: 1;}
 node|z14[railway=station][transport=subway][city=sofia] {icon-image: subway-sofia-s.svg;}
