@@ -406,7 +406,9 @@ area|z16-[leisure=garden][garden:type!=residential][name]::int_name
 */
 area|z14-[leisure=park][!name],
 area|z14-[landuse=forest][!name],
-area|z16-[leisure=garden][!name],
+area|z16-[leisure=garden][garden:type!=residential][!name],
+{text: none}
+area|z16-[leisure=garden][garden:type=residential],
 {text: none}
 
 area|z14-[landuse=forest][name]
@@ -431,7 +433,7 @@ area|z18-[leisure=park][name],
 area|z18-[leisure=garden][garden:type!=residential][name],
 {font-size: 13;}
 area|z18-[leisure=park][name]::int_name,
-area|z18-[leisure=garden][name]::int_name,
+area|z18-[leisure=garden][garden:type!=residential][name]::int_name,
 area|z18-[landuse=forest][name]::int_name,
 {font-size: 11;}
 
