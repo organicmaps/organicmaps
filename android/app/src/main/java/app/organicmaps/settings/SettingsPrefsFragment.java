@@ -765,7 +765,7 @@ public class SettingsPrefsFragment extends BaseXmlSettingsFragment
           if (isKeepScreenOnEnabled != newVal)
           {
             Config.setKeepScreenOnEnabled(newVal);
-            Utils.keepScreenOn(newVal, requireActivity().getWindow());
+            // No need to call Utils.keepScreenOn() here, as relevant activities do it when starting / stopping.
           }
           return true;
         });
