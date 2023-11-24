@@ -463,6 +463,29 @@ To enable logging in case of crashes, after installing a debug version, run:
 adb shell pm grant app.organicmaps.debug android.permission.READ_LOGS
 ```
 
+
+### Android Auto Development
+
+Android Auto can be developed and tested without having a physical device by using [Desktop Head Unit (DHU)](https://developer.android.com/training/cars/testing/dhu). Go to Android Studio > Tools -> SDK Manager -> SDK Tools and enable "Android Auto Desktop Head Unit".
+
+[Android Auto App](https://play.google.com/store/apps/details?id=com.google.android.projection.gearhead) is required for Auto functionality. The app should be installed from Google Play before connecting a phone to the Desktop Head Unit or a real car. Android Auto doesn't work on phones without Google Play Services.
+
+To run Android Auto, connect the phone using USB cable and run the Desktop Head Unit with `--usb` flag:
+
+```
+~/Library/Android/sdk/extras/google/auto/desktop-head-unit --usb
+```
+
+```
+[REDACTED]
+[I]: Found device 'SAMSUNG SAMSUNG_Android XXXXXXXXX' in accessory mode (vid=18d1, pid=2d01).
+[I]: Found accessory: ifnum: 0, rd_ep: 129, wr_ep: 1
+[I]: Attaching to USB device...
+[I]: Attached!
+```
+
+Organic Maps icon will appear in the application list in DHU.
+
 ### More options
 
 #### Building from the command line
@@ -555,12 +578,12 @@ NDK version **26.1.10909125** and CMake version **3.22.1** are installed.
 If you are low on RAM, disk space or traffic there are ways to reduce system requirements:
 - exclude the `cpp` folder from indexing. If you do not make any work on the C++ code, this will greatly improve the start-up performance and the ram usage of Android Studio. Click on the `Project` tab on the left, find the `cpp` folder (should be next to the `java` folder), right click on it and select `Mark Directory as` -> `Excluded` (red folder icon). Then restart Android Studio.
 - in Android Studio enable "File > Power Save Mode";
+- disable the "Android NDK Support" plugin in "Settings -> Plugins" completely and use another IDE (Visual Studio Code, Qt Creator, etc.) for editing C++ code instead;
 - don't install Android Studio, run builds and emulator from command line;
 - build only for target arches you actually need, e.g. `arm64`;
 - for debugging use an older emulated device with low RAM and screen resolution, e.g. "Nexus S";
 - make sure the emulator uses [hardware acceleration](https://developer.android.com/studio/run/emulator-acceleration);
 - don't use emulator, debug on a hardware device instead.
-
 
 ## iOS app
 
