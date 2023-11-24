@@ -2779,6 +2779,9 @@
     zh-Hans = 多层停车场
     zh-Hant = 多層停車場
 
+  [type.amenity.parking.multi.storey.fee]
+    ref = type.amenity.parking.multi.storey
+
   [type.amenity.parking.no.access]
     ref = type.amenity.parking.private
 
@@ -3031,7 +3034,6 @@
     zh-Hant = 私人街邊停車場
 
   [type.amenity.parking.lane]
-    ref = type.amenity.parking
     en = Lane Parking
     ar = وقوف السيارات لين
     be = Завулак паркоўкі
@@ -3076,7 +3078,6 @@
     ref = type.amenity.parking.lane
 
   [type.amenity.parking.lane.private]
-    ref = type.amenity.parking.lane
     en = Private Lane Parking
     ar = موقف سيارات خاص بالممر
     be = Прыватная паркоўка
