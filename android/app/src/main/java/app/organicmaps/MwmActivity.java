@@ -1082,6 +1082,7 @@ public class MwmActivity extends BaseMwmFragmentActivity
     LocationState.nativeSetListener(this);
     LocationHelper.from(this).addListener(this);
     mSearchController.attach(this);
+    Utils.keepScreenOn(Config.isKeepScreenOnEnabled() || RoutingController.get().isNavigating(), getWindow());
   }
 
   @Override
@@ -1696,11 +1697,6 @@ public class MwmActivity extends BaseMwmFragmentActivity
     RoutingController controller = RoutingController.get();
     if (controller.isPlanning())
       showAddStartOrFinishFrame(controller, true);
-
-    if (newMode == FOLLOW || newMode == FOLLOW_AND_ROTATE)
-      Utils.keepScreenOn(Config.isKeepScreenOnEnabled() || RoutingController.get().isNavigating(), getWindow());
-    else
-      Utils.keepScreenOn(RoutingController.get().isNavigating(), getWindow());
 
     final LocationHelper locationHelper = LocationHelper.from(this);
 

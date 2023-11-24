@@ -76,7 +76,7 @@ public class Utils
    */
   public static void keepScreenOn(boolean enable, Window w)
   {
-    Logger.i(TAG, "enabled = " + enable + " window = " + w);
+    Logger.i(TAG, "KeepScreenOn = " + enable + " window = " + w);
     if (enable)
       w.addFlags(android.view.WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
     else
@@ -93,7 +93,7 @@ public class Utils
 
   public static void showOnLockScreen(boolean enable, Activity activity)
   {
-    Logger.i(TAG, "enabled = " + enable + " window = " + activity.getWindow());
+    Logger.i(TAG, "showOnLockScreen = " + enable + " window = " + activity.getWindow());
     if (Build.VERSION.SDK_INT < Build.VERSION_CODES.O_MR1)
       showOnLockScreenOld(enable, activity);
     else
