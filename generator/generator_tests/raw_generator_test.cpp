@@ -1180,4 +1180,23 @@ UNIT_CLASS_TEST(TestRawGenerator, Area_Relation_Bad)
   }
 }
 
+UNIT_CLASS_TEST(TestRawGenerator, Railway_Station)
+{
+  std::string const mwmName = "Railway";
+  auto const & cl = classif();
+
+  BuildFB("./data/osm_test_data/railway_station.osm", mwmName);
+
+  size_t count = 0;
+  ForEachFB(mwmName, [&](feature::FeatureBuilder const & fb)
+  {
+    TEST_EQUAL(fb.GetGeomType(), feature::GeomType::Area, ());
+    TEST(!fb.GetOuterGeometry().empty(), ());
+    TEST(fb.HasType(cl.GetTypeByPath({"railway", "station", "subway", "lille"})), (fb));
+
+    ++count;
+  });
+  TEST_EQUAL(count, 1, ());
+}
+
 } // namespace raw_generator_tests

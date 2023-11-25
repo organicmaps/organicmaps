@@ -430,7 +430,7 @@ void MatchTypes(OsmElement * p, FeatureBuilderParams & params, TypesFilterFnT co
   }
 }
 
-string MatchCity(OsmElement const * p)
+string MatchCity(ms::LatLon const & ll)
 {
   // needs to be in format {minLon, minLat, maxLon, maxLat}
   // Draw boundary around metro with http://bboxfinder.com (set to Lon/Lat)
@@ -559,8 +559,7 @@ string MatchCity(OsmElement const * p)
       {"yokohama", {139.464781, 35.312501, 139.776935, 35.592738}},
   };
 
-  m2::PointD const pt(p->m_lon, p->m_lat);
-
+  m2::PointD const pt(ll.m_lon, ll.m_lat);
   for (auto const & city : cities)
   {
     if (city.second.IsPointInside(pt))
@@ -726,19 +725,25 @@ void PreprocessElement(OsmElement * p, CalculateOriginFnT const & calcOrg)
   if (!hasLayer && layer)
     p->AddTag("layer", layer);
 
-  if (p->m_type == OsmElement::EntityType::Node)
+  // Append tags for Node or Way. Relation logic may be too complex to make such a straightforward tagging.
+  if (p->m_type != OsmElement::EntityType::Relation)
   {
     // Tag 'city' is needed for correct selection of metro icons.
-    if (isSubway || isLightRail)
+    if ((isSubway || isLightRail) && calcOrg)
     {
-      string const city = MatchCity(p);
-      if (!city.empty())
-        p->AddTag("city", city);
+      auto const org = calcOrg(p);
+      if (org)
+      {
+        string const city = MatchCity(mercator::ToLatLon(*org));
+        if (!city.empty())
+          p->AddTag("city", city);
+      }
     }
 
     // Convert public_transport tags to the older schema.
     if (isPlatform && isBus)
       p->AddTag("highway", "bus_stop");
+
     if (isStopPosition)
     {
       if (isTram)
@@ -750,7 +755,7 @@ void PreprocessElement(OsmElement * p, CalculateOriginFnT const & calcOrg)
       }
     }
   }
-  else if (p->m_type == OsmElement::EntityType::Relation && isMultipolygon)
+  else if (isMultipolygon)
   {
     p->AddTag("area", "yes");
   }
@@ -1318,6 +1323,7 @@ void GetNameAndType(OsmElement * p, FeatureBuilderParams & params,
 
       static CityBBox s_cityBBox;
 
+      CHECK(calcOrg, ());
       auto const org = calcOrg(p);
       if (org && s_cityBBox.IsInside(*org))
         addr.Set(feature::AddressData::Type::Place, std::move(addrCity));
