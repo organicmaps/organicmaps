@@ -160,6 +160,12 @@ def osName = System.properties['os.name'].toLowerCase()
 project.ext.appId = 'app.organicmaps'
 project.ext.appName = 'Organic Maps'
 
+java {
+  toolchain {
+    languageVersion.set(JavaLanguageVersion.of(17))
+  }
+}
+
 android {
   namespace 'app.organicmaps'
 
@@ -411,8 +417,8 @@ android {
   }
 
   compileOptions {
-    sourceCompatibility JavaVersion.VERSION_11
-    targetCompatibility JavaVersion.VERSION_11
+    sourceCompatibility JavaVersion.VERSION_17
+    targetCompatibility JavaVersion.VERSION_17
   }
   packagingOptions.jniLibs {
     excludes += [
