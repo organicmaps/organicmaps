@@ -4,9 +4,9 @@ import static app.organicmaps.util.Config.KEY_PREF_STATISTICS;
 
 import android.content.Context;
 import android.content.SharedPreferences;
-import android.preference.PreferenceManager;
 
 import androidx.annotation.NonNull;
+import androidx.preference.PreferenceManager;
 
 import app.organicmaps.MwmApplication;
 import app.organicmaps.R;
