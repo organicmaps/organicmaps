@@ -164,7 +164,14 @@ public enum TtsPlayer
         }
 
         @Override
-        public void onError(String utteranceId) {
+        @SuppressWarnings("deprecated") // abstract method must be implemented
+        public void onError(String utteranceId)
+        {
+          mAudioFocusManager.releaseAudioFocus();
+        }
+
+        @Override
+        public void onError(String utteranceId, int errorCode) {
           mAudioFocusManager.releaseAudioFocus();
         }
       });
