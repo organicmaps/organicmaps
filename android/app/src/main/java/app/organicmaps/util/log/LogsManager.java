@@ -6,7 +6,8 @@ import android.content.Context;
 import android.content.SharedPreferences;
 import android.location.LocationManager;
 import android.net.ConnectivityManager;
-import android.net.NetworkInfo;
+import android.net.Network;
+import android.net.NetworkCapabilities;
 import android.os.Build;
 import android.os.Debug;
 import android.util.Log;
@@ -249,10 +250,11 @@ public final class LogsManager
     final ConnectivityManager manager = (ConnectivityManager) mApplication.getSystemService(Context.CONNECTIVITY_SERVICE);
     if (manager != null)
     {
-      // TODO: getAllNetworkInfo() is deprecated, for alternatives check
-      // https://stackoverflow.com/questions/32547006/connectivitymanager-getnetworkinfoint-deprecated
-      for (NetworkInfo info : manager.getAllNetworkInfo())
-        sb.append("\n\t").append(info.toString());
+      for (Network network : manager.getAllNetworks())
+      {
+        final NetworkCapabilities cap = manager.getNetworkCapabilities(network);
+        sb.append("\n\tid=").append(network.toString()).append("\n").append(cap != null ? cap.toString() : "null");
+      }
     }
     sb.append("\nLocation providers:");
     final LocationManager locMngr = (android.location.LocationManager) mApplication.getSystemService(Context.LOCATION_SERVICE);
