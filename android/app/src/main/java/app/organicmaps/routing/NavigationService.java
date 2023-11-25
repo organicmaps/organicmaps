@@ -8,6 +8,7 @@ import static android.content.pm.PackageManager.PERMISSION_GRANTED;
 import android.annotation.SuppressLint;
 import android.app.ForegroundServiceStartNotAllowedException;
 import android.app.Notification;
+import android.app.NotificationManager;
 import android.app.PendingIntent;
 import android.app.Service;
 import android.content.Context;
@@ -139,7 +140,7 @@ public class NavigationService extends Service implements LocationListener
 
     mNotificationBuilder = new NotificationCompat.Builder(context, CHANNEL_ID)
         .setCategory(NotificationCompat.CATEGORY_NAVIGATION)
-        .setPriority(Notification.PRIORITY_LOW)
+        .setPriority(NotificationManager.IMPORTANCE_LOW)
         .setVisibility(NotificationCompat.VISIBILITY_PUBLIC)
         .setOngoing(true)
         .setShowWhen(false)
