@@ -9,3 +9,4 @@ TryExec=OMaps
 Exec=OMaps
 Categories=Maps;Education;Geography;Geoscience;Qt;
 Keywords=Map;Maps;Offline Maps;OMaps;Organic Maps;OrganicMaps;OSM;OpenStreetMap;
+X-KDE-FormFactor=desktop;tablet;handset;
