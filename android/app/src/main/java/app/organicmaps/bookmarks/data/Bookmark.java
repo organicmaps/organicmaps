@@ -7,6 +7,7 @@ import androidx.annotation.IntRange;
 import androidx.annotation.Keep;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.core.os.ParcelCompat;
 
 import app.organicmaps.Framework;
 import app.organicmaps.routing.RoutePointInfo;
@@ -71,7 +72,7 @@ public class Bookmark extends MapObject
     super(type, source);
     mCategoryId = source.readLong();
     mBookmarkId = source.readLong();
-    mIcon = source.readParcelable(Icon.class.getClassLoader());
+    mIcon = ParcelCompat.readParcelable(source, Icon.class.getClassLoader(), Icon.class);
     mMerX = source.readDouble();
     mMerY = source.readDouble();
     initXY();

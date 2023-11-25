@@ -7,6 +7,7 @@ import androidx.annotation.IntDef;
 import androidx.annotation.Keep;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.core.os.ParcelCompat;
 
 import app.organicmaps.routing.RoutePointInfo;
 import app.organicmaps.search.Popularity;
@@ -110,8 +111,7 @@ public class MapObject implements PlacePageData
 
   protected MapObject(@MapObjectType int type, Parcel source)
   {
-    //noinspection ResourceType
-    this(source.readParcelable(FeatureId.class.getClassLoader()), // FeatureId
+    this(ParcelCompat.readParcelable(source, FeatureId.class.getClassLoader(), FeatureId.class), // FeatureId
          type, // MapObjectType
          source.readString(), // Title
          source.readString(), // SecondaryTitle
@@ -119,11 +119,11 @@ public class MapObject implements PlacePageData
          source.readString(), // Address
          source.readDouble(), // Lat
          source.readDouble(), // Lon
-         source.readParcelable(Metadata.class.getClassLoader()),
+         ParcelCompat.readParcelable(source, Metadata.class.getClassLoader(), Metadata.class),
          source.readString(), // ApiId;
-         source.readParcelable(RoutePointInfo.class.getClassLoader()), // RoutePointInfo
+         ParcelCompat.readParcelable(source, RoutePointInfo.class.getClassLoader(), RoutePointInfo.class), // RoutePointInfo
          source.readInt(), // mOpeningMode
-         source.readParcelable(Popularity.class.getClassLoader()),
+         ParcelCompat.readParcelable(source, Popularity.class.getClassLoader(), Popularity.class),
          source.readString(),
          source.readInt(),
          null // mRawTypes
