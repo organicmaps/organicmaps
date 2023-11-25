@@ -51,11 +51,13 @@ public class MediaPlayerWrapper
   }
 
   @NonNull
+  @SuppressWarnings("deprecation") // https://github.com/organicmaps/organicmaps/issues/3632
   private static AsyncTask<Integer, Void, InitializationResult> makeInitTask(@NonNull MediaPlayerWrapper wrapper)
   {
     return new InitPlayerTask(wrapper);
   }
 
+  @SuppressWarnings("deprecation") // https://github.com/organicmaps/organicmaps/issues/3632
   public void playback(@RawRes int streamResId)
   {
     if (isCurrentSoundStream(streamResId) && mPlayer == null)
