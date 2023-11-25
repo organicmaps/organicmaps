@@ -4,6 +4,7 @@ import android.os.Parcel;
 import android.os.Parcelable;
 
 import androidx.annotation.Nullable;
+import androidx.core.os.ParcelCompat;
 
 import app.organicmaps.bookmarks.data.Error;
 import app.organicmaps.bookmarks.data.Result;
@@ -23,8 +24,8 @@ public class OperationStatus implements Parcelable
 
   private OperationStatus(Parcel in)
   {
-    mResult = in.readParcelable(Result.class.getClassLoader());
-    mError = in.readParcelable(Error.class.getClassLoader());
+    mResult = ParcelCompat.readParcelable(in, Result.class.getClassLoader(), Result.class);
+    mError = ParcelCompat.readParcelable(in, Error.class.getClassLoader(), Error.class);
   }
 
   public static final Creator<OperationStatus> CREATOR = new Creator<OperationStatus>()
