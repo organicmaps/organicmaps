@@ -88,6 +88,7 @@ class GlobalStyleSheet: IStyleSheet {
 
     theme.add(styleName: "Background") { (s) -> (Void) in
       s.backgroundColor = colors.white
+      s.backgroundColorSelected = colors.pressBackground
     }
 
     theme.add(styleName: "PressBackground") { (s) -> (Void) in
