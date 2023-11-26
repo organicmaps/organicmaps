@@ -13,13 +13,17 @@ class PlacePageHeaderViewController: UIViewController {
   @IBOutlet private var titleLabel: UILabel?
   @IBOutlet private var expandView: UIView!
   @IBOutlet private var shadowView: UIView!
-
-  override func viewDidLoad() {
+  @IBOutlet private var grabberView: UIView!
+    
+    override func viewDidLoad() {
     super.viewDidLoad()
     presenter?.configure()
     let tap = UITapGestureRecognizer(target: self, action: #selector(onExpandPressed(sender:)))
     expandView.addGestureRecognizer(tap)
     headerView.layer.maskedCorners = [.layerMinXMinYCorner, .layerMaxXMinYCorner]
+    iPadSpecific { [weak self] in
+      self?.grabberView.isHidden = true
+    }
   }
 
   @objc func onExpandPressed(sender: UITapGestureRecognizer) {
