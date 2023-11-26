@@ -143,7 +143,7 @@ public class StoragePathFragment extends BaseSettingsFragment
   }
 
   @Override
-  public boolean onBackPressed()
+  public boolean getOnBackPressedDispatcher()
   {
     return false;
   }

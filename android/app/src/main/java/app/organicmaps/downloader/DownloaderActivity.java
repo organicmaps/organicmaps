@@ -16,10 +16,10 @@ public class DownloaderActivity extends BaseMwmFragmentActivity
   }
 
   @Override
-  public void onBackPressed()
+  public void getOnBackPressedDispatcher()
   {
     OnBackPressListener fragment = (OnBackPressListener)getSupportFragmentManager().findFragmentById(getFragmentContentResId());
-    if (!fragment.onBackPressed())
-      super.onBackPressed();
+    if (!fragment.getOnBackPressedDispatcher())
+      super.getOnBackPressedDispatcher();
   }
 }

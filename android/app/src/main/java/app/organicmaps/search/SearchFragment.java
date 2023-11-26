@@ -126,7 +126,7 @@ public class SearchFragment extends BaseMwmFragment
     @Override
     public void onUpClick()
     {
-      if (!onBackPressed())
+      if (!getOnBackPressedDispatcher())
         super.onUpClick();
     }
 
@@ -524,7 +524,7 @@ public class SearchFragment extends BaseMwmFragment
   }
 
   @Override
-  public boolean onBackPressed()
+  public boolean getOnBackPressedDispatcher()
   {
     if (mToolbarController.hasQuery())
     {

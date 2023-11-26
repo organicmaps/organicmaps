@@ -253,7 +253,7 @@ public class PlaceScreen extends BaseMapScreen implements OnBackPressedCallback.
   }
 
   @Override
-  public void onBackPressed()
+  public void getOnBackPressedDispatcher()
   {
     mRoutingController.cancel();
   }

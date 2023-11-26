@@ -126,7 +126,7 @@ public class TimetableContainerFragment extends BaseMwmFragment implements Timet
   }
 
   @Override
-  public boolean onBackPressed()
+  public boolean getOnBackPressedDispatcher()
   {
     return false;
   }

@@ -39,7 +39,7 @@ public class RoutingPlanFragment extends BaseMwmFragment
   }
 
   @Override
-  public boolean onBackPressed()
+  public boolean getOnBackPressedDispatcher()
   {
     return RoutingController.get().cancel();
   }

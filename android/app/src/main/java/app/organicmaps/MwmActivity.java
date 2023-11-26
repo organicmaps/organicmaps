@@ -1118,7 +1118,7 @@ public class MwmActivity extends BaseMwmFragmentActivity
   }
 
   @Override
-  public void onBackPressed()
+  public void getOnBackPressedDispatcher()
   {
     final RoutingController routingController = RoutingController.get();
     if (!closeBottomSheet(MAIN_MENU_ID) && !closeBottomSheet(LAYERS_MENU_ID) &&
@@ -1128,7 +1128,7 @@ public class MwmActivity extends BaseMwmFragmentActivity
     {
       try
       {
-        super.onBackPressed();
+        super.getOnBackPressedDispatcher();
       }
       catch (IllegalStateException e)
       {
@@ -1144,7 +1144,7 @@ public class MwmActivity extends BaseMwmFragmentActivity
     {
       final Fragment fragment = manager.findFragmentByTag(tag);
       if (fragment != null && fragment.isResumed() && fragment instanceof OnBackPressListener)
-        return ((OnBackPressListener) fragment).onBackPressed();
+        return ((OnBackPressListener) fragment).getOnBackPressedDispatcher();
     }
 
     return false;

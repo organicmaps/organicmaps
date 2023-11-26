@@ -8,7 +8,7 @@ public class OnBackPressedCallback extends androidx.activity.OnBackPressedCallba
 {
   public interface Callback
   {
-    void onBackPressed();
+    void getOnBackPressedDispatcher();
   }
 
   private final ScreenManager mScreenManager;
@@ -22,9 +22,9 @@ public class OnBackPressedCallback extends androidx.activity.OnBackPressedCallba
   }
 
   @Override
-  public void handleOnBackPressed()
+  public void getOnBackPressedDispatcher()
   {
-    mCallback.onBackPressed();
+    mCallback.getOnBackPressedDispatcher();
     mScreenManager.pop();
   }
 }

@@ -35,9 +35,9 @@ public class CopyrightFragment extends BaseMwmFragment
   }
 
   @Override
-  public boolean onBackPressed()
+  public boolean getOnBackPressedDispatcher()
   {
-    if (!mDelegate.onBackPressed())
+    if (!mDelegate.getOnBackPressedDispatcher())
     {
       ((HelpActivity) requireActivity()).stackFragment(HelpFragment.class, getString(R.string.help), null);
     }

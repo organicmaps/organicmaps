@@ -16,7 +16,7 @@ public class BaseMwmFragment extends Fragment implements OnBackPressListener
   }
 
   @Override
-  public boolean onBackPressed()
+  public boolean getOnBackPressedDispatcher()
   {
     return false;
   }

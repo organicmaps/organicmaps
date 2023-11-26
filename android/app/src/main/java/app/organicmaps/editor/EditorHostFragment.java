@@ -128,7 +128,7 @@ public class EditorHostFragment extends BaseMwmToolbarFragment implements View.O
     mSave = toolbar.findViewById(R.id.save);
     mSave.setOnClickListener(this);
     UiUtils.setupHomeUpButtonAsNavigationIcon(getToolbarController().getToolbar(),
-                                              v -> onBackPressed());
+                                              v -> getOnBackPressedDispatcher());
 
     if (getArguments() != null)
       mIsNewObject = getArguments().getBoolean(EditorActivity.EXTRA_NEW_OBJECT, false);
@@ -166,7 +166,7 @@ public class EditorHostFragment extends BaseMwmToolbarFragment implements View.O
   }
 
   @Override
-  public boolean onBackPressed()
+  public boolean getOnBackPressedDispatcher()
   {
     switch (mMode)
     {
