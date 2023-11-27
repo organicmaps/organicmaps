@@ -261,7 +261,10 @@ set_source_files_properties(
   PROPERTIES SKIP_UNITY_BUILD_INCLUSION TRUE
 )
 
-omim_add_test_subdirectory(generator_tests_support)
+if (NOT (SKIP_TOOLS AND SKIP_TESTS))
+  # Used in both tests and some tools.
+  add_subdirectory(generator_tests_support)
+endif()
 omim_add_test_subdirectory(generator_tests)
 omim_add_test_subdirectory(generator_integration_tests)
 
