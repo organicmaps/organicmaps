@@ -178,8 +178,8 @@ target_link_libraries(${PROJECT_NAME}
 )
 
 if(PLATFORM_DESKTOP)
-  add_subdirectory(search_quality)
   add_subdirectory(search_tests_support)
+  add_subdirectory(search_quality)
 endif()
 
 omim_add_test_subdirectory(search_tests)
