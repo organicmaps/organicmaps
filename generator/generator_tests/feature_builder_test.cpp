@@ -195,7 +195,7 @@ UNIT_CLASS_TEST(TestWithClassificator, FBuilder_RemoveUselessNames)
   TEST(fb1.IsValid(), (fb1));
 }
 
-UNIT_CLASS_TEST(TestWithClassificator, FBuilder_ParamsParsing)
+UNIT_CLASS_TEST(TestWithClassificator, FBuilder_HN)
 {
   FeatureBuilderParams params;
 
@@ -204,11 +204,11 @@ UNIT_CLASS_TEST(TestWithClassificator, FBuilder_ParamsParsing)
   TEST_EQUAL(params.house.Get(), "123", ());
 
   params.MakeZero();
-  TEST(params.AddHouseNumber("0000123"), ());
-  TEST_EQUAL(params.house.Get(), "123", ());
+  TEST(params.AddHouseNumber("00123"), ());
+  TEST_EQUAL(params.house.Get(), "00123", ());
 
   params.MakeZero();
-  TEST(params.AddHouseNumber("000000"), ());
+  TEST(params.AddHouseNumber("0"), ());
   TEST_EQUAL(params.house.Get(), "0", ());
 }
 

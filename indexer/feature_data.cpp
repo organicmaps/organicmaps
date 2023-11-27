@@ -301,7 +301,7 @@ bool FeatureParams::AddName(string_view lang, string_view s)
   if (IsDummyName(s))
     return false;
 
-  // The "default" new name will replace the old one if any (e.g. from AddHouseName call).
+  // The "default" new name will replace the old one if any (e.g. from SetHouseNumberAndHouseName call).
   name.AddString(lang, s);
   return true;
 }
@@ -358,13 +358,6 @@ bool FeatureParams::AddHouseNumber(string houseNumber)
 
   // Replace full-width digits, mostly in Japan, by ascii-ones.
   strings::NormalizeDigits(houseNumber);
-
-  // Remove leading zeroes from house numbers.
-  // It's important for debug checks of serialized-deserialized feature.
-  size_t i = 0;
-  while (i + 1 < houseNumber.size() && houseNumber[i] == '0')
-    ++i;
-  houseNumber.erase(0, i);
 
   // Assign house number as-is to create building-address if needed.
   // Final checks are made in FeatureBuilder::PreSerialize().
