@@ -1,5 +1,12 @@
 include(OmimConfig)
 
+# Tests read files from a data directory.
+if (NOT SKIP_TESTS)
+  if (NOT IS_DIRECTORY ${CMAKE_BINARY_DIR}/data AND NOT IS_SYMLINK ${CMAKE_BINARY_DIR}/data)
+    file(CREATE_LINK ${OMIM_ROOT}/data ${CMAKE_BINARY_DIR}/data SYMBOLIC)
+  endif()
+endif()
+
 # TestServer fixture configuration
 add_test(
   NAME OmimStartTestServer
