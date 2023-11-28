@@ -672,6 +672,7 @@ world  +
             residential  -
             {}
         golf_course  -
+        hackerspace  -
         ice_rink  -
         landscape_reserve  -
         marina  -
