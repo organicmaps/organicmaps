@@ -2487,6 +2487,8 @@
 
 "type.leisure.golf_course" = "Golf Course";
 
+"type.leisure.hackerspace" = "Hackerspace";
+
 "type.leisure.ice_rink" = "Ice Rink";
 
 "type.leisure.landscape_reserve" = "Landscape Reserve";

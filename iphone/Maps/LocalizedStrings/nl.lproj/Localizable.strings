@@ -2487,6 +2487,8 @@
 
 "type.leisure.golf_course" = "Golfbaan";
 
+"type.leisure.hackerspace" = "Hackerspace";
+
 "type.leisure.ice_rink" = "Schaatsbaan";
 
 "type.leisure.landscape_reserve" = "Landschapsreservaat";

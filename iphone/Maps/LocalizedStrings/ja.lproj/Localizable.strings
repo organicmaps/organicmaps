@@ -2487,6 +2487,8 @@
 
 "type.leisure.golf_course" = "ゴルフコース";
 
+"type.leisure.hackerspace" = "ハッカースペース";
+
 "type.leisure.ice_rink" = "アイスリンク";
 
 "type.leisure.landscape_reserve" = "自然保護区";

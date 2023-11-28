@@ -2487,6 +2487,8 @@
 
 "type.leisure.golf_course" = "Sân gôn";
 
+"type.leisure.hackerspace" = "Không gian tin tặc";
+
 "type.leisure.ice_rink" = "Ice Rink";
 
 "type.leisure.landscape_reserve" = "Landscape Reserve";

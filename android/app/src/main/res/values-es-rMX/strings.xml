@@ -363,6 +363,7 @@
 	<string name="type.landuse.landfill">Vertedero</string>
 	<string name="type.landuse.railway">Estructuras ferroviarias</string>
 	<string name="type.leisure.dog_park">Lugar para pasear al perro</string>
+	<string name="type.leisure.hackerspace">Espacio hacker</string>
 	<string name="type.leisure.nature_reserve">Reserva</string>
 	<string name="type.leisure.park">Parque</string>
 	<string name="type.leisure.park.no.access">Parque</string>

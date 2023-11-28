@@ -1403,6 +1403,7 @@
 	<string name="type.leisure.garden">حديقة</string>
 	<string name="type.leisure.garden.residential">حديقة</string>
 	<string name="type.leisure.golf_course">ملعب غولف</string>
+	<string name="type.leisure.hackerspace">هاكرزبيس</string>
 	<string name="type.leisure.marina">مرسى</string>
 	<string name="type.leisure.nature_reserve">محمية طبيعية</string>
 	<string name="type.leisure.outdoor_seating">جلوس في الهواء الطلق</string>

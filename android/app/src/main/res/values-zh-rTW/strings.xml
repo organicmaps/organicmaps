@@ -1291,6 +1291,7 @@
 	<string name="type.leisure.garden">花園</string>
 	<string name="type.leisure.garden.residential">花園</string>
 	<string name="type.leisure.golf_course">高爾夫球場</string>
+	<string name="type.leisure.hackerspace">駭客空間</string>
 	<string name="type.leisure.nature_reserve">自然保護區</string>
 	<string name="type.leisure.outdoor_seating">戶外座位</string>
 	<string name="type.leisure.park">公園</string>

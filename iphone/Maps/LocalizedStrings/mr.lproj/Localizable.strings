@@ -2487,6 +2487,8 @@
 
 "type.leisure.golf_course" = "गोल्फचे मैदान";
 
+"type.leisure.hackerspace" = "हॅकरस्पेस";
+
 "type.leisure.ice_rink" = "हिम क्रीडा क्षेत्र";
 
 "type.leisure.landscape_reserve" = "Landscape Reserve";
