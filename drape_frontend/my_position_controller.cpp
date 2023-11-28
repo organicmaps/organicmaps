@@ -26,7 +26,7 @@ namespace
 int const kPositionRoutingOffsetY = 104;
 double const kMinSpeedThresholdMps = 2.8;  // 10 km/h
 double const kGpsBearingLifetimeSec = 5.0;
-double const kMaxPendingLocationTimeSec = 5.0;
+double const kMaxPendingLocationTimeSec = 60.0;
 double const kMaxTimeInBackgroundSec = 60.0 * 60 * 30;  // 30 hours before starting detecting position again
 double const kMaxNotFollowRoutingTimeSec = 20.0;
 double const kMaxUpdateLocationInvervalSec = 30.0;
@@ -905,8 +905,7 @@ void MyPositionController::CheckIsWaitingForLocation()
     if (m_pendingStarted && m_pendingTimer.ElapsedSeconds() >= kMaxPendingLocationTimeSec)
     {
       m_pendingStarted = false;
-      // Check if there is no location yet when restoring from a background or after permission dialog.
-      if (m_listener && IsWaitingForLocation())
+      if (m_listener)
         m_listener->PositionPendingTimeout();
     }
   }
