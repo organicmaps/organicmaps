@@ -2487,6 +2487,8 @@
 
 "type.leisure.golf_course" = "Golf Sahası";
 
+"type.leisure.hackerspace" = "Hackerspace";
+
 "type.leisure.ice_rink" = "Buz Pateni Pisti";
 
 "type.leisure.landscape_reserve" = "Peyzaj Rezervi";

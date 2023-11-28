@@ -15843,7 +15843,6 @@
     zh-Hans = 创客空间
     zh-Hant = 駭客空間
 
-  
   [type.leisure.ice_rink]
     en = Ice Rink
     af = Ysskaatsbaan

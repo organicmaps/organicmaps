@@ -2487,6 +2487,8 @@
 
 "type.leisure.golf_course" = "Площадка для гольфа";
 
+"type.leisure.hackerspace" = "Хакерспейс";
+
 "type.leisure.ice_rink" = "Каток";
 
 "type.leisure.landscape_reserve" = "Ландшафтный заповедник";

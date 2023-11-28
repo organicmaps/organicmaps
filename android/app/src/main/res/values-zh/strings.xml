@@ -1341,6 +1341,7 @@
 	<string name="type.leisure.garden">花园</string>
 	<string name="type.leisure.garden.residential">居民区花园</string>
 	<string name="type.leisure.golf_course">高尔夫球场</string>
+	<string name="type.leisure.hackerspace">创客空间</string>
 	<string name="type.leisure.ice_rink">滑冰场</string>
 	<string name="type.leisure.marina">游艇码头</string>
 	<string name="type.leisure.nature_reserve">自然保护区</string>

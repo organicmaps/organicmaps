@@ -2487,6 +2487,8 @@
 
 "type.leisure.golf_course" = "高尔夫球场";
 
+"type.leisure.hackerspace" = "创客空间";
+
 "type.leisure.ice_rink" = "滑冰场";
 
 "type.leisure.landscape_reserve" = "Landscape Reserve";

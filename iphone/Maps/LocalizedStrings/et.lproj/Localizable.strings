@@ -2487,6 +2487,8 @@
 
 "type.leisure.golf_course" = "Golfirada";
 
+"type.leisure.hackerspace" = "Hackerspace";
+
 "type.leisure.ice_rink" = "Liuväli";
 
 "type.leisure.landscape_reserve" = "Maastikukaitseala";

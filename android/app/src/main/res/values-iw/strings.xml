@@ -617,6 +617,7 @@
 	<string name="type.landuse.basin">אגן מים</string>
 	<string name="type.landuse.flowerbed">מיטת פרחים</string>
 	<string name="type.leisure.dance">םידוקיר םלוא</string>
+	<string name="type.leisure.hackerspace">האקרספייס</string>
 	<string name="type.leisure.outdoor_seating">ישיבה בחוץ</string>
 	<string name="type.leisure.picnic_table">קינקיפ ןחלוש</string>
 	<string name="type.man_made.tower.communication">מגדל תקשורת</string>
