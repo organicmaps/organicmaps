@@ -52778,6 +52778,73 @@ cont {
   }
 }
 cont {
+  name: "leisure-hackerspace"
+  element {
+    scale: 17
+    symbol {
+      name: "hackerspace-m"
+      priority: 850
+    }
+    caption {
+      primary {
+        height: 10
+        color: 4473924
+        offset_y: 1
+        is_optional: true
+      }
+      priority: -9150
+    }
+  }
+  element {
+    scale: 18
+    symbol {
+      name: "hackerspace-m"
+      priority: 850
+    }
+    caption {
+      primary {
+        height: 10
+        color: 4473924
+        offset_y: 1
+        is_optional: true
+      }
+      priority: -9150
+    }
+  }
+  element {
+    scale: 19
+    symbol {
+      name: "hackerspace-m"
+      priority: 850
+    }
+    caption {
+      primary {
+        height: 10
+        color: 4473924
+        offset_y: 1
+        is_optional: true
+      }
+      priority: -9150
+    }
+  }
+  element {
+    scale: 20
+    symbol {
+      name: "hackerspace-m"
+      priority: 850
+    }
+    caption {
+      primary {
+        height: 10
+        color: 4473924
+        offset_y: 1
+        is_optional: true
+      }
+      priority: -9150
+    }
+  }
+}
+cont {
   name: "leisure-ice_rink"
   element {
     scale: 17
