@@ -1501,6 +1501,7 @@
 	<string name="type.railway.station.subway.sf">Ngầm</string>
 	<string name="type.railway.station.subway.shanghai">Ngầm</string>
 	<string name="type.railway.station.subway.shiraz">Ngầm</string>
+	<string name="type.railway.station.subway.singapore">Ngầm</string>
 	<string name="type.railway.station.subway.sofia">Ngầm</string>
 	<string name="type.railway.station.subway.spb">Ngầm</string>
 	<string name="type.railway.station.subway.stockholm">Ngầm</string>
@@ -1612,6 +1613,7 @@
 	<string name="type.railway.subway_entrance.sf">Lỗi vào Metro</string>
 	<string name="type.railway.subway_entrance.shanghai">Lỗi vào Metro</string>
 	<string name="type.railway.subway_entrance.shiraz">Lỗi vào Metro</string>
+	<string name="type.railway.subway_entrance.singapore">Lỗi vào Metro</string>
 	<string name="type.railway.subway_entrance.sofia">Lỗi vào Metro</string>
 	<string name="type.railway.subway_entrance.spb">Lỗi vào Metro</string>
 	<string name="type.railway.subway_entrance.stockholm">Lỗi vào Metro</string>

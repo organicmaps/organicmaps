@@ -1560,6 +1560,7 @@
 	<string name="type.railway.station.subway.sf">T-bane</string>
 	<string name="type.railway.station.subway.shanghai">T-bane</string>
 	<string name="type.railway.station.subway.shiraz">T-bane</string>
+	<string name="type.railway.station.subway.singapore">T-bane</string>
 	<string name="type.railway.station.subway.sofia">T-bane</string>
 	<string name="type.railway.station.subway.spb">T-bane</string>
 	<string name="type.railway.station.subway.stockholm">T-bane</string>
@@ -1671,6 +1672,7 @@
 	<string name="type.railway.subway_entrance.sf">T-bane inngang</string>
 	<string name="type.railway.subway_entrance.shanghai">T-bane inngang</string>
 	<string name="type.railway.subway_entrance.shiraz">T-bane inngang</string>
+	<string name="type.railway.subway_entrance.singapore">T-bane inngang</string>
 	<string name="type.railway.subway_entrance.sofia">T-bane inngang</string>
 	<string name="type.railway.subway_entrance.spb">T-bane inngang</string>
 	<string name="type.railway.subway_entrance.stockholm">T-bane inngang</string>

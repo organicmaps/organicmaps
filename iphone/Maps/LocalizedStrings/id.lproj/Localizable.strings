@@ -3112,6 +3112,8 @@
 
 "type.railway.station.subway.shiraz" = "Stasiun bawah tanah";
 
+"type.railway.station.subway.singapore" = "Stasiun bawah tanah";
+
 "type.railway.station.subway.sofia" = "Stasiun bawah tanah";
 
 "type.railway.station.subway.spb" = "Stasiun bawah tanah";
@@ -3339,6 +3341,8 @@
 "type.railway.subway_entrance.shanghai" = "Pintu masuk kereta bawah tanah";
 
 "type.railway.subway_entrance.shiraz" = "Pintu masuk kereta bawah tanah";
+
+"type.railway.subway_entrance.singapore" = "Pintu masuk kereta bawah tanah";
 
 "type.railway.subway_entrance.sofia" = "Pintu masuk kereta bawah tanah";
 

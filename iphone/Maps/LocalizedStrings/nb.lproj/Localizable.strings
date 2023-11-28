@@ -3112,6 +3112,8 @@
 
 "type.railway.station.subway.shiraz" = "T-bane";
 
+"type.railway.station.subway.singapore" = "T-bane";
+
 "type.railway.station.subway.sofia" = "T-bane";
 
 "type.railway.station.subway.spb" = "T-bane";
@@ -3339,6 +3341,8 @@
 "type.railway.subway_entrance.shanghai" = "T-bane inngang";
 
 "type.railway.subway_entrance.shiraz" = "T-bane inngang";
+
+"type.railway.subway_entrance.singapore" = "T-bane inngang";
 
 "type.railway.subway_entrance.sofia" = "T-bane inngang";
 

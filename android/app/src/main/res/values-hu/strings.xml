@@ -1522,6 +1522,7 @@
 	<string name="type.railway.station.subway.sf">Földalatti</string>
 	<string name="type.railway.station.subway.shanghai">Földalatti</string>
 	<string name="type.railway.station.subway.shiraz">Földalatti</string>
+	<string name="type.railway.station.subway.singapore">Földalatti</string>
 	<string name="type.railway.station.subway.sofia">Földalatti</string>
 	<string name="type.railway.station.subway.spb">Földalatti</string>
 	<string name="type.railway.station.subway.stockholm">Földalatti</string>
@@ -1633,6 +1634,7 @@
 	<string name="type.railway.subway_entrance.sf">Földalatti bejárat</string>
 	<string name="type.railway.subway_entrance.shanghai">Földalatti bejárat</string>
 	<string name="type.railway.subway_entrance.shiraz">Földalatti bejárat</string>
+	<string name="type.railway.subway_entrance.singapore">Földalatti bejárat</string>
 	<string name="type.railway.subway_entrance.sofia">Földalatti bejárat</string>
 	<string name="type.railway.subway_entrance.spb">Földalatti bejárat</string>
 	<string name="type.railway.subway_entrance.stockholm">Földalatti bejárat</string>

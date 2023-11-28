@@ -1554,6 +1554,7 @@
 	<string name="type.railway.station.subway.sf">भुयारी मार्ग</string>
 	<string name="type.railway.station.subway.shanghai">भुयारी मार्ग</string>
 	<string name="type.railway.station.subway.shiraz">भुयारी मार्ग</string>
+	<string name="type.railway.station.subway.singapore">भुयारी मार्ग</string>
 	<string name="type.railway.station.subway.sofia">भुयारी मार्ग</string>
 	<string name="type.railway.station.subway.spb">भुयारी मार्ग</string>
 	<string name="type.railway.station.subway.stockholm">भुयारी मार्ग</string>
@@ -1668,6 +1669,7 @@
 	<string name="type.railway.subway_entrance.sf">भुयारी प्रवेशद्वार</string>
 	<string name="type.railway.subway_entrance.shanghai">भुयारी प्रवेशद्वार</string>
 	<string name="type.railway.subway_entrance.shiraz">भुयारी प्रवेशद्वार</string>
+	<string name="type.railway.subway_entrance.singapore">भुयारी प्रवेशद्वार</string>
 	<string name="type.railway.subway_entrance.sofia">भुयारी प्रवेशद्वार</string>
 	<string name="type.railway.subway_entrance.spb">भुयारी प्रवेशद्वार</string>
 	<string name="type.railway.subway_entrance.stockholm">भुयारी प्रवेशद्वार</string>

@@ -3112,6 +3112,8 @@
 
 "type.railway.station.subway.shiraz" = "지하철";
 
+"type.railway.station.subway.singapore" = "지하철";
+
 "type.railway.station.subway.sofia" = "지하철";
 
 "type.railway.station.subway.spb" = "지하철";
@@ -3339,6 +3341,8 @@
 "type.railway.subway_entrance.shanghai" = "지하철 입구";
 
 "type.railway.subway_entrance.shiraz" = "지하철 입구";
+
+"type.railway.subway_entrance.singapore" = "지하철 입구";
 
 "type.railway.subway_entrance.sofia" = "지하철 입구";
 

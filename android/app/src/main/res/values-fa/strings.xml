@@ -1418,6 +1418,7 @@
 	<string name="type.railway.station.subway.sf">حمل و نقل</string>
 	<string name="type.railway.station.subway.shanghai">حمل و نقل</string>
 	<string name="type.railway.station.subway.shiraz">حمل و نقل</string>
+	<string name="type.railway.station.subway.singapore">حمل و نقل</string>
 	<string name="type.railway.station.subway.sofia">حمل و نقل</string>
 	<string name="type.railway.station.subway.spb">حمل و نقل</string>
 	<string name="type.railway.station.subway.stockholm">حمل و نقل</string>
@@ -1529,6 +1530,7 @@
 	<string name="type.railway.subway_entrance.sf">ورودی مترو</string>
 	<string name="type.railway.subway_entrance.shanghai">ورودی مترو</string>
 	<string name="type.railway.subway_entrance.shiraz">ورودی مترو</string>
+	<string name="type.railway.subway_entrance.singapore">ورودی مترو</string>
 	<string name="type.railway.subway_entrance.sofia">ورودی مترو</string>
 	<string name="type.railway.subway_entrance.spb">ورودی مترو</string>
 	<string name="type.railway.subway_entrance.stockholm">ورودی مترو</string>

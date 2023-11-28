@@ -3112,6 +3112,8 @@
 
 "type.railway.station.subway.shiraz" = "Földalatti";
 
+"type.railway.station.subway.singapore" = "Földalatti";
+
 "type.railway.station.subway.sofia" = "Földalatti";
 
 "type.railway.station.subway.spb" = "Földalatti";
@@ -3339,6 +3341,8 @@
 "type.railway.subway_entrance.shanghai" = "Földalatti bejárat";
 
 "type.railway.subway_entrance.shiraz" = "Földalatti bejárat";
+
+"type.railway.subway_entrance.singapore" = "Földalatti bejárat";
 
 "type.railway.subway_entrance.sofia" = "Földalatti bejárat";
 

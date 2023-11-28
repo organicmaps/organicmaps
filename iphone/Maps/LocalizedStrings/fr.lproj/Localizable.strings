@@ -3112,6 +3112,8 @@
 
 "type.railway.station.subway.shiraz" = "Station de métro";
 
+"type.railway.station.subway.singapore" = "Station de métro";
+
 "type.railway.station.subway.sofia" = "Station de métro";
 
 "type.railway.station.subway.spb" = "Station de métro";
@@ -3339,6 +3341,8 @@
 "type.railway.subway_entrance.shanghai" = "Entrée du métro";
 
 "type.railway.subway_entrance.shiraz" = "Entrée du métro";
+
+"type.railway.subway_entrance.singapore" = "Entrée du métro";
 
 "type.railway.subway_entrance.sofia" = "Entrée du métro";
 
