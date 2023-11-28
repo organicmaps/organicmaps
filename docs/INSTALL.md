@@ -265,14 +265,6 @@ ctest -R "base_tests|coding_tests" --output-on-failure
 ctest -L "omim_test" -E "base_tests|coding_tests" --output-on-failure
 ```
 
-When developing, it is more convenient to use a symlink:
-
-```bash
-cd build
-ln -s ../data/ data
-./coding_tests
-```
-
 Some tests [are known to be broken](https://github.com/organicmaps/organicmaps/issues?q=is%3Aissue+is%3Aopen+label%3ATests) and disabled on CI.
 
 ### Test Coverage

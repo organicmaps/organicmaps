@@ -123,7 +123,6 @@ jobs:
           sudo locale-gen ru_RU
           sudo locale-gen ru_RU.UTF-8
           sudo update-locale
-          ln -s ../data data
           ctest -L "omim-test" -E "$CTEST_EXCLUDE_REGEX" --output-on-failure
 
       - name: Run coverage report generation
