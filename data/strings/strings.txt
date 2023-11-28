@@ -25782,6 +25782,8 @@
     ru = Скачать карту мира
     tr = Dünya haritasını indir
     uk = Завантажити карту світу
+    zh-Hans = 下载世界地图
+    zh-Hant = 下載世界地圖
 
   [disk_error]
     tags = android

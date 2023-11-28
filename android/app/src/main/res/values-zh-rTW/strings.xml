@@ -703,6 +703,7 @@
 	<string name="elevation_profile_distance">距離：</string>
 	<string name="elevation_profile_time">時間：</string>
 	<string name="isolines_toast_zooms_1_10">放大地圖以查看等高線</string>
+	<string name="download_map_title">下載世界地圖</string>
 	<!-- Used in DownloadResources startup screen -->
 	<string name="disconnect_usb_cable_title">拔除 USB 線</string>
 	<string name="enable_keep_screen_on">保持螢幕開啟</string>
