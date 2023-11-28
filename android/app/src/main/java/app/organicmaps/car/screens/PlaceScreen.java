@@ -6,6 +6,7 @@ import static android.text.Spanned.SPAN_INCLUSIVE_INCLUSIVE;
 import android.content.Intent;
 import android.net.Uri;
 import android.text.SpannableString;
+import android.text.TextUtils;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -23,6 +24,8 @@ import androidx.car.app.model.Template;
 import androidx.car.app.navigation.model.MapTemplate;
 import androidx.core.graphics.drawable.IconCompat;
 import androidx.lifecycle.LifecycleOwner;
+
+import org.w3c.dom.Text;
 
 import app.organicmaps.Framework;
 import app.organicmaps.R;
@@ -245,10 +248,9 @@ public class PlaceScreen extends BaseMapScreen implements OnBackPressedCallback.
   @NonNull
   private static String getFirstPhoneNumber(@NonNull MapObject mapObject)
   {
-    if (!mapObject.hasMetadata())
-      return "";
-
     final String phones = mapObject.getMetadata(Metadata.MetadataType.FMD_PHONE_NUMBER);
+    if (TextUtils.isEmpty(phones))
+      return "";
     return phones.split(";", 1)[0];
   }
 

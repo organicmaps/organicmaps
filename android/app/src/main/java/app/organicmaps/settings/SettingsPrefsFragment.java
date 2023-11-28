@@ -1,8 +1,8 @@
 package app.organicmaps.settings;
 
-import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.net.Uri;
 import android.os.Bundle;
 import android.speech.tts.TextToSpeech;
@@ -21,6 +21,7 @@ import androidx.preference.PreferenceCategory;
 import androidx.preference.PreferenceScreen;
 import androidx.preference.TwoStatePreference;
 import app.organicmaps.Framework;
+import app.organicmaps.MwmApplication;
 import app.organicmaps.R;
 import app.organicmaps.downloader.MapManager;
 import app.organicmaps.downloader.OnmapDownloader;
@@ -31,6 +32,7 @@ import app.organicmaps.location.LocationProviderFactory;
 import app.organicmaps.sound.LanguageData;
 import app.organicmaps.sound.TtsPlayer;
 import app.organicmaps.util.Config;
+import app.organicmaps.util.LocationUtils;
 import app.organicmaps.util.NetworkPolicy;
 import app.organicmaps.util.PowerManagment;
 import app.organicmaps.util.SharedPropertiesUtils;
@@ -258,18 +260,19 @@ public class SettingsPrefsFragment extends BaseXmlSettingsFragment
       initAutoZoomPrefsCallbacks();
       initLoggingEnabledPrefsCallbacks();
       initEmulationBadStorage();
-      initUseMobileDataPrefsCallbacks();
       initPowerManagementPrefsCallbacks();
-      final boolean playServices = initPlayServicesPrefsCallbacks();
-      if (!playServices)
-      {
-        // Remove "Tracking" section completely.
-        final PreferenceCategory tracking = findPreference(getString(R.string.pref_subtittle_opt_out));
-        if (tracking != null)
-          mPreferenceScreen.removePreference(tracking);
-      }
       initScreenSleepEnabledPrefsCallbacks();
       initShowOnLockScreenPrefsCallbacks();
+      // Paranoid Mode
+      initUseMobileDataPrefsCallbacks();
+      initGoogleLocationPrefsCallbacks();
+      initNetworkLocationPrefsCallbacks();
+      initTwoStatePrefsCallback(R.string.pref_show_facebook);
+      initTwoStatePrefsCallback(R.string.pref_show_instagram);
+      initTwoStatePrefsCallback(R.string.pref_show_twitter);
+      initTwoStatePrefsCallback(R.string.pref_show_vk);
+      initTwoStatePrefsCallback(R.string.pref_show_line);
+      initTwoStatePrefsCallback(R.string.pref_show_kayak);
     }
     else if (isOnTtsScreen())
     {
@@ -333,7 +336,6 @@ public class SettingsPrefsFragment extends BaseXmlSettingsFragment
   public void onResume()
   {
     super.onResume();
-
     if (isOnTtsScreen())
       updateTts();
   }
@@ -516,43 +518,70 @@ public class SettingsPrefsFragment extends BaseXmlSettingsFragment
     });
   }
 
-  private boolean initPlayServicesPrefsCallbacks()
+  private void initGoogleLocationPrefsCallbacks()
   {
-    final Preference pref = findPreference(getString(R.string.pref_play_services));
+    final String PREF_GOOGLE_LOCATION = getString(R.string.pref_google_location);
+    final TwoStatePreference pref = findPreference(PREF_GOOGLE_LOCATION);
     if (pref == null)
-      return false;
-
-    if (!LocationProviderFactory.isGoogleLocationAvailable(requireActivity().getApplicationContext()))
-    {
-      removePreference(getString(R.string.pref_subtittle_opt_out), pref);
-      return false;
-    }
+      return;
+    if (!LocationProviderFactory.isGoogleLocationAvailable(requireContext()))
+      removePreference(getString(R.string.prefs_group_paranoid_mode), pref);
     else
-    {
-      ((TwoStatePreference) pref).setChecked(Config.useGoogleServices());
-      pref.setOnPreferenceChangeListener(new Preference.OnPreferenceChangeListener()
+      initLocationPrefsCallbacks(pref, PREF_GOOGLE_LOCATION);
+  }
+
+  private void initNetworkLocationPrefsCallbacks()
+  {
+    final String PREF_NETWORK_LOCATION = getString(R.string.pref_network_location);
+    final TwoStatePreference pref = findPreference(PREF_NETWORK_LOCATION);
+    if (pref == null)
+      return;
+    initLocationPrefsCallbacks(pref, PREF_NETWORK_LOCATION);
+  }
+
+  private void initLocationPrefsCallbacks(@NonNull TwoStatePreference pref, String key)
+  {
+    final SharedPreferences sharedPrefs = MwmApplication.prefs(requireContext());
+    pref.setChecked(sharedPrefs.getBoolean(key, true));
+    pref.setOnPreferenceChangeListener((preference, newValue) -> {
+      final LocationHelper locationHelper = LocationHelper.from(requireContext());
+      boolean oldVal = sharedPrefs.getBoolean(key, true);
+      boolean newVal = (Boolean) newValue;
+      if (oldVal != newVal)
       {
-        @SuppressLint("MissingPermission")
-        @Override
-        public boolean onPreferenceChange(Preference preference, Object newValue)
+        final SharedPreferences.Editor editor = sharedPrefs.edit();
+        editor.putBoolean(key, newVal);
+        editor.apply();
+        if (locationHelper.isActive())
         {
-          final LocationHelper locationHelper = LocationHelper.from(requireContext());
-          boolean oldVal = Config.useGoogleServices();
-          boolean newVal = (Boolean) newValue;
-          if (oldVal != newVal)
-          {
-            Config.setUseGoogleService(newVal);
-            if (locationHelper.isActive())
-            {
-              locationHelper.stop();
-              locationHelper.start();
-            }
-          }
-          return true;
+          locationHelper.stop();
+          if (LocationUtils.checkLocationPermission(requireContext()))
+            locationHelper.start();
         }
-      });
+      }
       return true;
-    }
+    });
+  }
+
+  private void initTwoStatePrefsCallback(@StringRes int keyId)
+  {
+    final String key = getString(keyId);
+    final TwoStatePreference pref = findPreference(key);
+    if (pref == null)
+      return;
+    final SharedPreferences sharedPrefs = MwmApplication.prefs(requireContext());
+    pref.setChecked(sharedPrefs.getBoolean(key, true));
+    pref.setOnPreferenceChangeListener((preference, newValue) -> {
+      boolean oldVal = sharedPrefs.getBoolean(key, true);
+      boolean newVal = (Boolean) newValue;
+      if (oldVal != newVal)
+      {
+        final SharedPreferences.Editor editor = sharedPrefs.edit();
+        editor.putBoolean(key, newVal);
+        editor.apply();
+      }
+      return true;
+    });
   }
 
   private void init3dModePrefsCallbacks()

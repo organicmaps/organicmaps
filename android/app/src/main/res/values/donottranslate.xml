@@ -9,7 +9,6 @@
   <string name="pref_munits" translatable="false">MeasurementUnits</string>
   <string name="pref_storage" translatable="false">Storage</string>
   <string name="pref_show_zoom_buttons" translatable="false">ZoomButtonsEnabled</string>
-  <string name="pref_play_services" translatable="false">PlayServicesEnabled</string>
   <string name="pref_enable_logging" translatable="false">EnableLogging</string>
   <string name="pref_emulate_bad_external_storage" translatable="false">EmulateBadExternalStorage</string>
   <string name="pref_about" translatable="false">AboutOrganicMaps</string>
@@ -31,7 +30,6 @@
   <string name="pref_osm_profile" translatable="false">Osm profile</string>
   <string name="pref_auto_zoom" translatable="false">AutoZoom</string>
   <string name="pref_large_fonts_size" translatable="false">LargeFontSize</string>
-  <string name="pref_use_mobile_data" translatable="false">UseMobileData</string>
   <string name="pref_settings_general" translatable="false">GeneralSettings</string>
   <string name="pref_navigation" translatable="false">Navigation</string>
   <string name="pref_information" translatable="false">Information</string>
@@ -55,10 +53,22 @@
   <string name="tag_menu_collapse" translatable="false">collapse</string>
   <string name="tag_height_limited" translatable="false">height limited</string>
 
-  <string name="pref_subtittle_opt_out" translatable="false">pref_opt_out</string>
+  <!-- Paranoid Mode preferences -->
+  <string name="prefs_group_paranoid_mode" translatable="false">prefs_group_paranoid_mode</string>
+  <string name="pref_use_mobile_data" translatable="false">UseMobileData</string>
   <string name="never_enum_value" translatable="false">NEVER</string>
   <string name="always_enum_value" translatable="false">ALWAYS</string>
   <string name="auto_enum_value" translatable="false">AUTO</string>
+  <string name="pref_google_location" translatable="false">GoogleLocation</string>
+  <string name="pref_network_location" translatable="false">NetworkLocation</string>
+  <string name="pref_show_facebook" translatable="false">ShowFacebook</string>
+  <string name="pref_show_instagram" translatable="false">ShowInstagram</string>
+  <string name="pref_show_twitter" translatable="false">ShowTwitter</string>
+  <string name="pref_show_vk" translatable="false">ShowVk</string>
+  <string name="pref_show_line" translatable="false">ShowLine</string>
+  <string name="pref_show_kayak" translatable="false">ShowKayak</string>
+
+  <!-- Other -->
   <string name="placepage_behavior" translatable="false">com.google.android.material.bottomsheet.BottomSheetBehavior</string>
   <string name="car_notification_channel_name" translatable="false">CAR_NOTIFICATION_CHANNEL</string>
 </resources>

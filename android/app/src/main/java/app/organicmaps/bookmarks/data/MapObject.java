@@ -8,14 +8,18 @@ import androidx.annotation.Keep;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
+import app.organicmaps.Framework;
 import app.organicmaps.routing.RoutePointInfo;
 import app.organicmaps.search.Popularity;
+import app.organicmaps.util.Utils;
+import app.organicmaps.util.log.Logger;
 import app.organicmaps.widget.placepage.PlacePageData;
 
 import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Date;
 import java.util.List;
 
 // TODO(yunikkk): Refactor. Displayed information is different from edited information, and it's better to
@@ -251,11 +255,29 @@ public class MapObject implements PlacePageData
     return mRoadWarningMarkType;
   }
 
-  @NonNull
+  @Nullable
   public String getMetadata(Metadata.MetadataType type)
   {
-    final String res = mMetadata.getMetadata(type);
-    return res == null ? "" : res;
+    return mMetadata.getMetadata(type);
+  }
+
+  @Nullable
+  public String getWebsiteUrl()
+  {
+    String website = getMetadata(Metadata.MetadataType.FMD_WEBSITE);
+    String url = getMetadata(Metadata.MetadataType.FMD_URL);
+    return TextUtils.isEmpty(website) ? url : website;
+  }
+
+  @Nullable
+  public String getKayakUrl()
+  {
+    final String uri = getMetadata(Metadata.MetadataType.FMD_EXTERNAL_URI);
+    if (TextUtils.isEmpty(uri))
+      return null;
+    final Date firstDay = new Date();
+    final Date lastDay = new Date(firstDay.getTime() + (1000 * 60 * 60 * 24));
+    return Framework.nativeGetKayakHotelLink(Utils.getCountryCode(), uri, firstDay, lastDay);
   }
 
   public boolean hasMetadata()

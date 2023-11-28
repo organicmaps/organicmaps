@@ -1,5 +1,7 @@
 package app.organicmaps.car.util;
 
+import android.text.TextUtils;
+
 import androidx.annotation.DrawableRes;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -110,7 +112,7 @@ public final class UiHelpers
     final Timetable[] timetables = OpeningHours.nativeTimetablesFromString(ohStr);
     final boolean isEmptyTT = (timetables == null || timetables.length == 0);
 
-    if (ohStr.isEmpty() && isEmptyTT)
+    if (TextUtils.isEmpty(ohStr) && isEmptyTT)
       return null;
 
     final Row.Builder builder = new Row.Builder();

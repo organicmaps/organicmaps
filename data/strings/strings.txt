@@ -7367,89 +7367,55 @@
     zh-Hans = 更新地图
     zh-Hant = 更新地圖
 
-  [google_play_services]
+  [pref_google_location_title]
     comment = Preference title
     tags = android
-    en = Google Play Services
-    af = Google Play-dienste
-    ar = خدمات Google Play
-    be = Сэрвісы Google Play
-    bg = Услуги за Google Play
-    ca = Serveis de Google Play
-    cs = Služby Google Play
-    da = Google Play-tjenester
-    de = Google Play-Dienste
-    el = Υπηρεσίες Google Play
-    es = Servicios de Google Play
-    et = Google Play teenused
-    eu = Google Play Zerbitzuak
-    fa = خدمات Google Play
-    fi = Google Play -palvelut
-    fr = Services Google Play
-    hi = Google Play सेवाएं
-    hu = Google Play-szolgáltatások
-    id = Layanan Google Play
-    ja = Google Play 開発者サービス
-    ko = Google Play 서비스
-    lt = Google Play paslaugos
-    mr = Google Play सेवा
-    nb = Google Play-tjenester
-    nl = Google Play-services
-    pl = Usługi Google Play
-    pt = Serviços do Google Play
-    ro = Servicii Google Play
-    ru = Сервисы Google Play
-    sk = Služby Google Play
-    sv = Google Play-tjänster
-    sw = Huduma za Google Play
-    th = บริการของ Google Play
-    tr = Google Play Hizmetleri
-    uk = Сервіси Google Play
-    vi = Dịch vụ Google Play
-    zh-Hans = Google Play 服务
-    zh-Hant = Google Play 服務
+    en = Google Location
 
-  [pref_use_google_play]
+  [pref_google_location_summary]
     comment = Preference text
     tags = android
-    en = Use Google Play Services to determine your current location
-    af = Gebruik Google Play-dienste om u huidige ligging te bepaal
-    ar = استخدام خدمات Google Play لتحديد موقعك الحالي
-    be = Выкарыстоўваць сэрвісы Google Play для вызначэння месцазнаходжання
-    bg = Използвайте услугите на Google Play, за да определите текущото си местоположение
-    ca = Usa els serveis de Google Play per a obtenir la ubicació actual
-    cs = Používat Služby Google Play pro získání aktuální polohy
-    da = Anvend Google Play Services til at få din aktuelle placering
-    de = Nutzen Sie die Google Play-Dienste, um Ihren aktuellen Standort zu erhalten
-    el = Χρησιμοποιήστε υπηρεσίες Google Play για να προσδιορίσετε την τρέχουσα τοποθεσία σας
-    es = Usar los servicios de Google Play para obtener su ubicación actual
-    et = Kasuta Google Play teenuseid oma hetkeasukoha määramiseks
-    eu = Erabili Google Play zerbitzuak zure uneko kokapena zehazteko
-    fa = استفاده از Google Play Services برای تعیین موقعیت کنونی شما
-    fi = Käytä Google Play -palveluita sijaintisi selvittämiseksi
-    fr = Utilisez les Services Google Play pour obtenir votre emplacement actuel
-    hu = Használja a Google Play szolgáltatást, hogy szert tegyen aktuális helyszínéről
-    id = Gunakan Layanan Google Play untuk mendapatkan lokasi Anda saat ini
-    it = Usa i servizi Google Play per ottenere la tua posizione attuale
-    ja = 現在のロケーションを取得するためにGoogle Playのサービスを使う
-    ko = Google Play 서비스를 사용하여 현재 위치 정보 얻기
-    lt = Naudoti Google Play paslaugas dabartinės vietos nustatymui
-    mr = तुमचे वर्तमान स्थान निर्धारित करण्यासाठी Google Play सेवा वापरा
-    nb = Bruk Google Play Services for å hente din nåværende posisjon
-    nl = Gebruik de diensten van Google Play om uw huidige locatie te bepalen
-    pl = Używa usług Google Play do ustalenia aktualnego położenia
-    pt = Use os Serviços Google Play para determinar a sua localização atual
-    pt-BR = Usar Serviços do Google Play para determinar a sua localização atual
-    ro = Folosește serviciile Google Play pentru a obține poziția actuală
-    ru = Использовать Google Play Services для определения позиции
-    sk = Pomocou Google Play služieb získajte svoju aktuálnu polohu
-    sv = Använd Google Play Services för att bestämma din aktuella position
-    th = ใช้บริการ Google Play เพื่อรับตำแหน่งปัจจุบันของคุณ
-    tr = Mevcut konumunuzu belirlemek için Google Play Hizmetlerini kullanın
-    uk = Щоб визначити ваше поточне місцезнаходження, використовуйте сервіси Google Play
-    vi = Sử dụng Dịch vụ Google Play để có được vị trí hiện tại của bạn
-    zh-Hans = 使用Google Play服务以获取您的当前位置。
-    zh-Hant = 使用 Google Play 服務來獲得您的目前位置
+    en = Determine your current location based on nearby cell towers and Wi-Fi access points using the Google Location Services API.
+
+  [pref_network_location_title]
+    comment = Preference title
+    tags = android
+    en = Network Location
+
+  [pref_network_location_summary]
+    comment = Preference text
+    tags = android
+    en = Determine your current location based on nearby cell towers and Wi-Fi access points using the system network provider.
+
+  [pref_show_facebook_title]
+    comment = Preference Title
+    tags = android
+    en = Facebook Links
+
+  [pref_show_instagram_title]
+    comment = Preference title
+    tags = android
+    en = Instagram Links
+
+  [pref_show_twitter_title]
+    comment = Preference title
+    tags = android
+    en = Twitter Links
+
+  [pref_show_vk_title]
+    comment = Preference title
+    tags = android
+    en = VK Links
+
+  [pref_show_line_title]
+    comment = Preference title
+    tags = android
+    en = LINE Links
+
+  [pref_show_kayak_title]
+    comment = Preference title
+    tags = android
+    en = Kayak Links
 
   [routing_download_maps_along]
     comment = Text for routing error dialog
@@ -20528,49 +20494,10 @@
     zh-Hans = %d 跟踪
     zh-Hant = %d 軌跡
 
-  [subtittle_opt_out]
+  [prefs_group_paranoid_mode_title]
     comment = used to choose between the Google and Android location services
     tags = android
-    en = Tracking settings
-    af = Naspoorinstellings
-    ar = إعدادات التتبع
-    be = Налады адсочвання
-    bg = Настройки за проследяване
-    ca = Configuració de seguiment
-    cs = Natavení doprovodu
-    da = Tracking-indstillinger
-    de = Standortdienste
-    el = Ρυθμίσεις διαδρομών
-    es = Configuraciones de seguimiento
-    es-MX = Configuraciones de rastreo
-    et = Asukoha määramise seaded
-    eu = Jarraipen ezarpenak
-    fa = تنظیمات ردیابی
-    fi = Paikannusasetukset
-    fr = Paramètres de suivi
-    hu = Követési beállítások
-    id = Pengaturan treking
-    it = Impostazioni percorso
-    ja = 追跡の設定
-    ko = 추적 설정
-    lt = Sekimo nustatymai
-    mr = ट्रॅकिंग सेटिंग
-    nb = Turinnstillinger
-    nl = Tracking-instellingen
-    pl = Ustawienia śledzenia
-    pt = Configurações de rastreamento
-    pt-BR = Configurações de rastreamento
-    ro = Opțiuni tracking
-    ru = Настройки сопровождения
-    sk = Nastavenie sledovania
-    sv = Spårningsinställningar
-    sw = Mipangilio ya ufuatiliaji
-    th = การตั้งค่าการติดตาม
-    tr = Takip ayarları
-    uk = Налаштування супроводу
-    vi = Thiết lập theo dõi
-    zh-Hans = 支持设置
-    zh-Hant = 跟蹤設置
+    en = Paranoid Mode
 
   [privacy_policy]
     tags = android,ios

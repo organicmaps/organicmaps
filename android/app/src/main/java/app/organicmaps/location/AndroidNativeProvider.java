@@ -5,8 +5,10 @@ import static android.Manifest.permission.ACCESS_FINE_LOCATION;
 import static app.organicmaps.util.concurrency.UiThread.runLater;
 
 import android.content.Context;
+import android.content.SharedPreferences;
 import android.location.Location;
 import android.location.LocationManager;
+import android.os.Build;
 import android.os.Bundle;
 import android.os.Looper;
 
@@ -17,6 +19,7 @@ import androidx.core.location.LocationManagerCompat;
 import androidx.core.location.LocationRequestCompat;
 
 import app.organicmaps.MwmApplication;
+import app.organicmaps.R;
 import app.organicmaps.util.log.Logger;
 
 import java.util.HashSet;
@@ -61,6 +64,7 @@ class AndroidNativeProvider extends BaseLocationProvider
   @NonNull
   private final LocationManager mLocationManager;
   private Set<String> mProviders;
+  private boolean mIsNetworkLocationAllowed;
 
   @NonNull
   final private NativeLocationListener mNativeLocationListener = new NativeLocationListener();
@@ -73,6 +77,10 @@ class AndroidNativeProvider extends BaseLocationProvider
     // This service is always available on all versions of Android
     if (mLocationManager == null)
       throw new IllegalStateException("Can't get LOCATION_SERVICE");
+
+    final SharedPreferences prefs = MwmApplication.prefs(context);
+    final String PREF_NETWORK_LOCATION = context.getString(R.string.pref_google_location);
+    mIsNetworkLocationAllowed = prefs.getBoolean(PREF_NETWORK_LOCATION, true);
   }
 
   // A permission is checked externally
@@ -98,8 +106,16 @@ class AndroidNativeProvider extends BaseLocationProvider
     // https://issuetracker.google.com/issues/215186921#comment3
     // https://github.com/organicmaps/organicmaps/issues/4158
     //
-    mProviders.addAll(mLocationManager.getProviders(true));
-    mProviders.remove(LocationManager.PASSIVE_PROVIDER); // not really useful if other providers are enabled.
+    if (mLocationManager.isProviderEnabled(LocationManager.GPS_PROVIDER))
+      mProviders.add(LocationManager.GPS_PROVIDER);
+    if (mIsNetworkLocationAllowed)
+    {
+      if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.S &&
+          mLocationManager.isProviderEnabled(LocationManager.FUSED_PROVIDER))
+          mProviders.add(LocationManager.FUSED_PROVIDER);
+      if (mLocationManager.isProviderEnabled(LocationManager.NETWORK_PROVIDER))
+        mProviders.add(LocationManager.NETWORK_PROVIDER);
+    }
     if (mProviders.isEmpty())
     {
       // Call this callback in the next event loop to allow LocationHelper::start() to finish.

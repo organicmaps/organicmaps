@@ -68,14 +68,6 @@
       android:defaultValue="false"
       android:order="13"/>
     <ListPreference
-      android:key="@string/pref_use_mobile_data"
-      android:title="@string/mobile_data"
-      app:singleLineTitle="false"
-      android:summary="@string/mobile_data_description"
-      android:entries="@array/mobile_data_options"
-      android:entryValues="@array/mobile_data_options_values"
-      android:order="14"/>
-    <ListPreference
       android:key="@string/pref_power_management"
       android:title="@string/power_managment_title"
       app:singleLineTitle="false"
@@ -174,16 +166,61 @@
     </PreferenceScreen>
   </androidx.preference.PreferenceCategory>
   <androidx.preference.PreferenceCategory
-    android:key="@string/pref_subtittle_opt_out"
-    android:title="@string/subtittle_opt_out"
+    android:key="@string/prefs_group_paranoid_mode"
+    android:title="@string/prefs_group_paranoid_mode_title"
     android:order="6">
-    <SwitchPreferenceCompat
-      android:key="@string/pref_play_services"
-      android:title="@string/google_play_services"
+    <ListPreference
+      android:key="@string/pref_use_mobile_data"
+      android:title="@string/mobile_data"
       app:singleLineTitle="false"
-      android:summary="@string/pref_use_google_play"
-      android:defaultValue="true"
+      android:summary="@string/mobile_data_description"
+      android:entries="@array/mobile_data_options"
+      android:entryValues="@array/mobile_data_options_values"
       android:order="1"/>
+    <SwitchPreferenceCompat
+      android:key="@string/pref_google_location"
+      android:title="@string/pref_google_location_title"
+      app:singleLineTitle="false"
+      android:summary="@string/pref_google_location_summary"
+      android:defaultValue="true"
+      android:order="2"/>
+    <SwitchPreferenceCompat
+      android:key="@string/pref_network_location"
+      android:title="@string/pref_network_location_title"
+      app:singleLineTitle="false"
+      android:summary="@string/pref_network_location_summary"
+      android:defaultValue="true"
+      android:order="3"/>
+    <SwitchPreferenceCompat
+      android:key="@string/pref_show_facebook"
+      android:title="@string/pref_show_facebook_title"
+      android:defaultValue="true"
+      android:order="4"/>
+    <SwitchPreferenceCompat
+      android:key="@string/pref_show_instagram"
+      android:title="@string/pref_show_instagram_title"
+      android:defaultValue="true"
+      android:order="5"/>
+    <SwitchPreferenceCompat
+      android:key="@string/pref_show_twitter"
+      android:title="@string/pref_show_twitter_title"
+      android:defaultValue="true"
+      android:order="6"/>
+    <SwitchPreferenceCompat
+      android:key="@string/pref_show_vk"
+      android:title="@string/pref_show_vk_title"
+      android:defaultValue="true"
+      android:order="7"/>
+    <SwitchPreferenceCompat
+      android:key="@string/pref_show_line"
+      android:title="@string/pref_show_line_title"
+      android:defaultValue="true"
+      android:order="8"/>
+    <SwitchPreferenceCompat
+      android:key="@string/pref_show_kayak"
+      android:title="@string/pref_show_kayak_title"
+      android:defaultValue="true"
+      android:order="20"/>
   </androidx.preference.PreferenceCategory>
   <androidx.preference.PreferenceCategory
     android:key="@string/pref_information"

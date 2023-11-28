@@ -21,7 +21,6 @@ public final class Config
   private static final String KEY_DOWNLOADER_AUTO = "AutoDownloadEnabled";
   private static final String KEY_PREF_ZOOM_BUTTONS = "ZoomButtonsEnabled";
   static final String KEY_PREF_STATISTICS = "StatisticsEnabled";
-  private static final String KEY_PREF_USE_GS = "UseGoogleServices";
 
   private static final String KEY_MISC_DISCLAIMER_ACCEPTED = "IsDisclaimerApproved";
   private static final String KEY_MISC_KAYAK_ACCEPTED = "IsKayakApproved";
@@ -197,16 +196,6 @@ public final class Config
     setBool(KEY_MISC_SHOW_ON_LOCK_SCREEN, enabled);
   }
 
-  public static boolean useGoogleServices()
-  {
-    return getBool(KEY_PREF_USE_GS, true);
-  }
-
-  public static void setUseGoogleService(boolean use)
-  {
-    setBool(KEY_PREF_USE_GS, use);
-  }
-
   public static boolean isRoutingDisclaimerAccepted()
   {
     return getBool(KEY_MISC_DISCLAIMER_ACCEPTED);
@@ -373,6 +362,15 @@ public final class Config
     {
       nativeSetBoolean(KEY_MISC_KEEP_SCREEN_ON, !getBool(KEY_MISC_ENABLE_SCREEN_SLEEP, false));
       nativeDeleteConfigValue(KEY_MISC_ENABLE_SCREEN_SLEEP);
+    }
+
+    // Migrate KEY_PREF_USE_GS from Config to Android preferences.
+    final String KEY_PREF_USE_GS = "UseGoogleServices";
+    if (nativeHasConfigValue(KEY_PREF_USE_GS))
+    {
+      final String PREF_GOOGLE_LOCATION = context.getString(R.string.pref_google_location);
+      editor.putBoolean(PREF_GOOGLE_LOCATION, getBool(KEY_PREF_USE_GS, true));
+      nativeDeleteConfigValue(KEY_PREF_USE_GS);
     }
 
     editor.apply();
