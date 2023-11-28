@@ -199,7 +199,7 @@
             <constraints>
                 <constraint firstAttribute="trailing" secondItem="2gF-Kc-0a7" secondAttribute="trailing" id="Fdx-hX-coi"/>
                 <constraint firstItem="2gF-Kc-0a7" firstAttribute="top" secondItem="d2A-Id-T62" secondAttribute="top" id="Y62-Rf-LAh"/>
-                <constraint firstAttribute="height" constant="36" id="eLk-al-10m"/>
+                <constraint firstAttribute="height" constant="40" id="eLk-al-10m"/>
                 <constraint firstItem="2gF-Kc-0a7" firstAttribute="leading" secondItem="d2A-Id-T62" secondAttribute="leading" id="itE-d4-hzw"/>
                 <constraint firstAttribute="bottom" secondItem="2gF-Kc-0a7" secondAttribute="bottom" id="s4H-Jq-xk9"/>
             </constraints>
