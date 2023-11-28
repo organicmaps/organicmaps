@@ -3112,6 +3112,8 @@
 
 "type.railway.station.subway.shiraz" = "Metroa";
 
+"type.railway.station.subway.singapore" = "Metroa";
+
 "type.railway.station.subway.sofia" = "Metroa";
 
 "type.railway.station.subway.spb" = "Metroa";
@@ -3339,6 +3341,8 @@
 "type.railway.subway_entrance.shanghai" = "Metroko sarrera";
 
 "type.railway.subway_entrance.shiraz" = "Metroko sarrera";
+
+"type.railway.subway_entrance.singapore" = "Metroko sarrera";
 
 "type.railway.subway_entrance.sofia" = "Metroko sarrera";
 

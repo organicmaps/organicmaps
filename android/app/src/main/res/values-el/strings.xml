@@ -1505,6 +1505,7 @@
 	<string name="type.railway.station.subway.sf">Μετρό</string>
 	<string name="type.railway.station.subway.shanghai">Μετρό</string>
 	<string name="type.railway.station.subway.shiraz">Μετρό</string>
+	<string name="type.railway.station.subway.singapore">Μετρό</string>
 	<string name="type.railway.station.subway.sofia">Μετρό</string>
 	<string name="type.railway.station.subway.spb">Μετρό</string>
 	<string name="type.railway.station.subway.stockholm">Μετρό</string>
@@ -1616,6 +1617,7 @@
 	<string name="type.railway.subway_entrance.sf">Είσοδος μετρό</string>
 	<string name="type.railway.subway_entrance.shanghai">Είσοδος μετρό</string>
 	<string name="type.railway.subway_entrance.shiraz">Είσοδος μετρό</string>
+	<string name="type.railway.subway_entrance.singapore">Είσοδος μετρό</string>
 	<string name="type.railway.subway_entrance.sofia">Είσοδος μετρό</string>
 	<string name="type.railway.subway_entrance.spb">Είσοδος μετρό</string>
 	<string name="type.railway.subway_entrance.stockholm">Είσοδος μετρό</string>

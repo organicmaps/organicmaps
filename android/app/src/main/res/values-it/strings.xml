@@ -1651,6 +1651,7 @@
 	<string name="type.railway.station.subway.sf">Stazione della metrò</string>
 	<string name="type.railway.station.subway.shanghai">Stazione della metrò</string>
 	<string name="type.railway.station.subway.shiraz">Stazione della metrò</string>
+	<string name="type.railway.station.subway.singapore">Stazione della metrò</string>
 	<string name="type.railway.station.subway.sofia">Stazione della metrò</string>
 	<string name="type.railway.station.subway.spb">Stazione della metrò</string>
 	<string name="type.railway.station.subway.stockholm">Stazione della metrò</string>
@@ -1763,6 +1764,7 @@
 	<string name="type.railway.subway_entrance.sf">Stazione metropolitana</string>
 	<string name="type.railway.subway_entrance.shanghai">Stazione metropolitana</string>
 	<string name="type.railway.subway_entrance.shiraz">Stazione metropolitana</string>
+	<string name="type.railway.subway_entrance.singapore">Stazione metropolitana</string>
 	<string name="type.railway.subway_entrance.sofia">Stazione metropolitana</string>
 	<string name="type.railway.subway_entrance.spb">Stazione metropolitana</string>
 	<string name="type.railway.subway_entrance.stockholm">Stazione metropolitana</string>

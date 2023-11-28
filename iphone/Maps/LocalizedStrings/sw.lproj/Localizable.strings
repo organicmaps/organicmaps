@@ -3112,6 +3112,8 @@
 
 "type.railway.station.subway.shiraz" = "Subway Station";
 
+"type.railway.station.subway.singapore" = "Subway Station";
+
 "type.railway.station.subway.sofia" = "Subway Station";
 
 "type.railway.station.subway.spb" = "Subway Station";
@@ -3339,6 +3341,8 @@
 "type.railway.subway_entrance.shanghai" = "Lango la kuingilia stesheni ya reli";
 
 "type.railway.subway_entrance.shiraz" = "Lango la kuingilia stesheni ya reli";
+
+"type.railway.subway_entrance.singapore" = "Lango la kuingilia stesheni ya reli";
 
 "type.railway.subway_entrance.sofia" = "Lango la kuingilia stesheni ya reli";
 
