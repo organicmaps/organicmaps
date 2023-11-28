@@ -129,7 +129,6 @@ build()
   [ -d "$DIRNAME" -a -n "$OPT_CLEAN" ] && rm -r "$DIRNAME"
   if [ ! -d "$DIRNAME" ]; then
     mkdir -p "$DIRNAME"
-    ln -s "$OMIM_PATH/data" "$DIRNAME/data"
   fi
   cd "$DIRNAME"
   if [ -z "$OPT_DESIGNER" ]; then
