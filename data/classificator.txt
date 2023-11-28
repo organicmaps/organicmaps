@@ -1034,6 +1034,7 @@ world  +
                 sf  -
                 shanghai  -
                 shiraz  -
+                singapore  -
                 sofia  -
                 spb  -
                 stockholm  -
@@ -1151,6 +1152,7 @@ world  +
             sf  -
             shanghai  -
             shiraz  -
+            singapore  -
             sofia  -
             spb  -
             stockholm  -
