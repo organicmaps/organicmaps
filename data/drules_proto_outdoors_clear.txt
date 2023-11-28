@@ -97380,6 +97380,186 @@ cont {
   }
 }
 cont {
+  name: "railway-station-subway-singapore"
+  element {
+    scale: 13
+    symbol {
+      name: "subway-singapore-s"
+      priority: 6300
+      min_distance: 1
+    }
+  }
+  element {
+    scale: 14
+    symbol {
+      name: "subway-singapore-s"
+      priority: 6300
+      min_distance: 1
+    }
+    caption {
+      primary {
+        height: 11
+        color: 2236962
+        stroke_color: 1308622847
+        offset_y: 1
+        is_optional: true
+      }
+      secondary {
+        height: 9
+        color: 2236962
+        stroke_color: 1308622847
+        offset_y: 1
+        is_optional: true
+      }
+      priority: -3700
+    }
+  }
+  element {
+    scale: 15
+    symbol {
+      name: "subway-singapore-m"
+      priority: 6300
+    }
+    caption {
+      primary {
+        height: 12
+        color: 2236962
+        stroke_color: 872415231
+        offset_y: 1
+        is_optional: true
+      }
+      secondary {
+        height: 10
+        color: 2236962
+        stroke_color: 872415231
+        offset_y: 1
+        is_optional: true
+      }
+      priority: -3700
+    }
+  }
+  element {
+    scale: 16
+    symbol {
+      name: "subway-singapore-m"
+      priority: 6300
+    }
+    caption {
+      primary {
+        height: 13
+        color: 2236962
+        stroke_color: 872415231
+        offset_y: 1
+        is_optional: true
+      }
+      secondary {
+        height: 11
+        color: 2236962
+        stroke_color: 872415231
+        offset_y: 1
+        is_optional: true
+      }
+      priority: -3700
+    }
+  }
+  element {
+    scale: 17
+    symbol {
+      name: "subway-singapore-m"
+      priority: 6300
+    }
+    caption {
+      primary {
+        height: 13
+        color: 2236962
+        stroke_color: 452984831
+        offset_y: 1
+        is_optional: true
+      }
+      secondary {
+        height: 11
+        color: 2236962
+        stroke_color: 452984831
+        offset_y: 1
+        is_optional: true
+      }
+      priority: -3700
+    }
+  }
+  element {
+    scale: 18
+    symbol {
+      name: "subway-singapore-m"
+      priority: 6300
+    }
+    caption {
+      primary {
+        height: 13
+        color: 2236962
+        stroke_color: 452984831
+        offset_y: 1
+        is_optional: true
+      }
+      secondary {
+        height: 11
+        color: 2236962
+        stroke_color: 452984831
+        offset_y: 1
+        is_optional: true
+      }
+      priority: -3700
+    }
+  }
+  element {
+    scale: 19
+    symbol {
+      name: "subway-singapore-m"
+      priority: 6300
+    }
+    caption {
+      primary {
+        height: 13
+        color: 2236962
+        stroke_color: 452984831
+        offset_y: 1
+        is_optional: true
+      }
+      secondary {
+        height: 11
+        color: 2236962
+        stroke_color: 452984831
+        offset_y: 1
+        is_optional: true
+      }
+      priority: -3700
+    }
+  }
+  element {
+    scale: 20
+    symbol {
+      name: "subway-singapore-m"
+      priority: 6300
+    }
+    caption {
+      primary {
+        height: 13
+        color: 2236962
+        stroke_color: 452984831
+        offset_y: 1
+        is_optional: true
+      }
+      secondary {
+        height: 11
+        color: 2236962
+        stroke_color: 452984831
+        offset_y: 1
+        is_optional: true
+      }
+      priority: -3700
+    }
+  }
+}
+cont {
   name: "railway-station-subway-sofia"
   element {
     scale: 13
@@ -110792,6 +110972,112 @@ cont {
     scale: 20
     symbol {
       name: "subway-shiraz-s"
+      priority: 3300
+    }
+    caption {
+      primary {
+        height: 13
+        color: 2236962
+        stroke_color: 452984831
+        offset_y: 1
+        is_optional: true
+      }
+      secondary {
+        height: 11
+        color: 2236962
+        stroke_color: 452984831
+        offset_y: 1
+        is_optional: true
+      }
+      priority: -6700
+    }
+  }
+}
+cont {
+  name: "railway-subway_entrance-singapore"
+  element {
+    scale: 16
+    symbol {
+      name: "subway-singapore-s"
+      priority: 3300
+    }
+  }
+  element {
+    scale: 17
+    symbol {
+      name: "subway-singapore-s"
+      priority: 3300
+    }
+    caption {
+      primary {
+        height: 13
+        color: 2236962
+        stroke_color: 452984831
+        offset_y: 1
+        is_optional: true
+      }
+      secondary {
+        height: 11
+        color: 2236962
+        stroke_color: 452984831
+        offset_y: 1
+        is_optional: true
+      }
+      priority: -6700
+    }
+  }
+  element {
+    scale: 18
+    symbol {
+      name: "subway-singapore-s"
+      priority: 3300
+    }
+    caption {
+      primary {
+        height: 13
+        color: 2236962
+        stroke_color: 452984831
+        offset_y: 1
+        is_optional: true
+      }
+      secondary {
+        height: 11
+        color: 2236962
+        stroke_color: 452984831
+        offset_y: 1
+        is_optional: true
+      }
+      priority: -6700
+    }
+  }
+  element {
+    scale: 19
+    symbol {
+      name: "subway-singapore-s"
+      priority: 3300
+    }
+    caption {
+      primary {
+        height: 13
+        color: 2236962
+        stroke_color: 452984831
+        offset_y: 1
+        is_optional: true
+      }
+      secondary {
+        height: 11
+        color: 2236962
+        stroke_color: 452984831
+        offset_y: 1
+        is_optional: true
+      }
+      priority: -6700
+    }
+  }
+  element {
+    scale: 20
+    symbol {
+      name: "subway-singapore-s"
       priority: 3300
     }
     caption {

@@ -1591,3 +1591,5 @@ amenity|recycling|container
 *amenity|parking|lane|private
 *amenity|compressed_air
 *leisure|hackerspace
+*railway|station|subway|singapore
+*railway|subway_entrance|singapore
