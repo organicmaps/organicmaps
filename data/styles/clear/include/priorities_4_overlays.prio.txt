@@ -751,6 +751,16 @@ amenity-shelter                                     # icon z16- (also has captio
 highway-ford                                        # icon z16- and pathtext z16- (also has line z13-)
 === 2850
 
+highway-path-route                                  # pathtext z15- (also has line z12-)
+highway-track-route                                 # pathtext z15- (also has line z12-)
+=== 2820
+
+highway-path-named                                  # pathtext z15- (also has line z12-)
+highway-path-surface_good                           # pathtext z15- (also has line z12-)
+highway-track-named                                 # pathtext z15- (also has line z12-)
+highway-track-surface_good                          # pathtext z15- (also has line z12-)
+=== 2810
+
 highway-bridleway                                   # pathtext z15- (also has line z14-)
 highway-bridleway-bridge                            # pathtext z15- (also has line z14-, line::bridgeblack z17-, line::bridgewhite z15-)
 highway-bridleway-permissive                        # pathtext z15- (also has line z14-)

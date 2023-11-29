@@ -260,6 +260,16 @@ highway-service-parking_aisle                       # line z15- (also has pathte
 highway-service-tunnel                              # line z13- (also has pathtext z16-)
 === 190
 
+highway-path-route                                  # line z11- (also has pathtext z13-)
+highway-track-route                                 # line z11- (also has pathtext z13-)
+=== 187
+
+highway-path-named                                  # line z11- (also has pathtext z13-)
+highway-path-surface_good                           # line z11- (also has pathtext z13-)
+highway-track-named                                 # line z11- (also has pathtext z13-)
+highway-track-surface_good                          # line z11- (also has pathtext z13-)
+=== 185
+
 highway-footway                                     # line z15- (also has pathtext z15-)
 highway-footway-alpine_hiking                       # line z11- (also has pathtext z15-)
 highway-footway-area                                # line z15- and area z14- (also has pathtext z15-)

@@ -235,6 +235,16 @@ highway-service-parking_aisle                       # line z14- (also has pathte
 highway-service-tunnel                              # line z14- (also has pathtext z16-)
 === 140
 
+highway-path-route                                  # line z17-
+highway-track-route                                 # line z16-
+=== 137
+
+highway-path-named                                  # line z17-
+highway-path-surface_good                           # line z14-
+highway-track-named                                 # line z16-
+highway-track-surface_good                          # line z14-
+=== 135
+
 highway-bridleway                                   # line z18-
 highway-bridleway-bridge                            # line z18-
 highway-bridleway-permissive                        # line z18-
