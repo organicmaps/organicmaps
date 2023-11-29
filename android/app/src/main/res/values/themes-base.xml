@@ -89,9 +89,11 @@
     <item name="transitPedestrianBackground">@color/black_4</item>
     <item name="transitRulerBackground">@color/black_4</item>
     <item name="transitStepDivider">@drawable/dot_divider</item>
+    <item name="outdoorsMenuEnabled">@drawable/ic_layers_isoline_active</item>
     <item name="trafficMenuEnabled">@drawable/ic_layers_traffic_active</item>
     <item name="subwayMenuEnabled">@drawable/ic_layers_subway_active</item>
     <item name="isoLinesMenuEnabled">@drawable/ic_layers_isoline_active</item>
+    <item name="outdoorsMenuDisabled">@drawable/ic_layers_isoline_inactive</item>
     <item name="trafficMenuDisabled">@drawable/ic_layers_traffic_inactive</item>
     <item name="subwayMenuDisabled">@drawable/ic_layers_subway_inactive</item>
     <item name="isoLinesMenuDisabled">@drawable/ic_layers_isoline_inactive</item>
@@ -223,6 +225,7 @@
     <item name="transitPedestrianBackground">@color/white_4</item>
     <item name="transitRulerBackground">@color/white_4</item>
     <item name="transitStepDivider">@drawable/dot_divider_night</item>
+    <item name="outdoorsMenuEnabled">@drawable/ic_layers_isoline_active_night</item>
     <item name="trafficMenuEnabled">@drawable/ic_layers_traffic_active_night</item>
     <item name="subwayMenuEnabled">@drawable/ic_layers_subway_active_night</item>
     <item name="isoLinesMenuEnabled">@drawable/ic_layers_isoline_active_night</item>

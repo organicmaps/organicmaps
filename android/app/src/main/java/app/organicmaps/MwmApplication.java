@@ -29,6 +29,7 @@ import app.organicmaps.location.LocationHelper;
 import app.organicmaps.location.LocationState;
 import app.organicmaps.location.SensorHelper;
 import app.organicmaps.maplayer.isolines.IsolinesManager;
+import app.organicmaps.maplayer.outdoors.OutdoorsManager;
 import app.organicmaps.maplayer.subway.SubwayManager;
 import app.organicmaps.maplayer.traffic.TrafficManager;
 import app.organicmaps.routing.NavigationService;
@@ -62,6 +63,10 @@ public class MwmApplication extends Application implements Application.ActivityL
   @SuppressWarnings("NotNullFieldNotInitialized")
   @NonNull
   private IsolinesManager mIsolinesManager;
+
+  @SuppressWarnings("NotNullFieldNotInitialized")
+  @NonNull
+  private OutdoorsManager mOutdoorsManager;
 
   @SuppressWarnings("NotNullFieldNotInitialized")
   @NonNull
@@ -103,6 +108,12 @@ public class MwmApplication extends Application implements Application.ActivityL
   public IsolinesManager getIsolinesManager()
   {
     return mIsolinesManager;
+  }
+
+  @NonNull
+  public OutdoorsManager getOutdoorsManager()
+  {
+    return mOutdoorsManager;
   }
 
   @NonNull

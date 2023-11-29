@@ -56,7 +56,7 @@ public enum ThemeSwitcher
 
   @SuppressWarnings("NotNullFieldNotInitialized")
   @NonNull
-  private Context mContext;
+  private static Context mContext;
 
   public void initialize(@NonNull Context context)
   {
@@ -98,11 +98,21 @@ public enum ThemeSwitcher
   private void changeMapStyle(@NonNull String newTheme, @NonNull String oldTheme)
   {
     @Framework.MapStyle
-    int style = RoutingController.get().isVehicleNavigation()
-                ? Framework.MAP_STYLE_VEHICLE_CLEAR : Framework.MAP_STYLE_CLEAR;
-    if (ThemeUtils.isNightTheme(mContext, newTheme))
+    int style;
+    if (newTheme.equals(Framework.MAP_STYLE_OUTDOORS_CLEAR) || newTheme.equals(Framework.MAP_STYLE_OUTDOORS_DARK))
+    {
+      style = Framework.MAP_STYLE_OUTDOORS_CLEAR;
+      if (ThemeUtils.isNightTheme(mContext, newTheme))
+        style = Framework.MAP_STYLE_OUTDOORS_DARK;
+    }
+    else
+    {
       style = RoutingController.get().isVehicleNavigation()
-              ? Framework.MAP_STYLE_VEHICLE_DARK : Framework.MAP_STYLE_DARK;
+              ? Framework.MAP_STYLE_VEHICLE_CLEAR : Framework.MAP_STYLE_CLEAR;
+      if (ThemeUtils.isNightTheme(mContext, newTheme))
+        style = RoutingController.get().isVehicleNavigation()
+                ? Framework.MAP_STYLE_VEHICLE_DARK : Framework.MAP_STYLE_DARK;
+    }
 
     if (!newTheme.equals(oldTheme))
     {
@@ -124,7 +134,7 @@ public enum ThemeSwitcher
     }
   }
 
-  private void SetMapStyle(@Framework.MapStyle int style)
+  public static void SetMapStyle(@Framework.MapStyle int style)
   {
     // Because of the distinct behavior in auto theme, Android Auto employs its own mechanism for theme switching.
     // For the Android Auto theme switcher, please consult the app.organicmaps.car.util.ThemeUtils module.
