@@ -51,7 +51,7 @@ public enum Mode
         @Override
         public void setEnabled(@NonNull Context context, boolean isEnabled)
         {
-          IsolinesManager.from(context).setEnabled(isEnabled);
+          IsolinesManager.from(context).setEnabled(context, isEnabled);
         }
       };
   

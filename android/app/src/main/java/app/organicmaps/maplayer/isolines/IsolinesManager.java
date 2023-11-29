@@ -7,6 +7,8 @@ import androidx.annotation.NonNull;
 
 import app.organicmaps.Framework;
 import app.organicmaps.MwmApplication;
+import app.organicmaps.util.ThemeSwitcher;
+import app.organicmaps.util.ThemeUtils;
 
 public class IsolinesManager
 {
@@ -28,17 +30,29 @@ public class IsolinesManager
     nativeAddListener(mListener);
   }
 
-  public void setEnabled(boolean isEnabled)
+  public void setEnabled(@NonNull Context context, boolean isEnabled)
   {
     if (isEnabled == isEnabled())
       return;
 
     Framework.nativeSetIsolinesLayerEnabled(isEnabled);
-  }
-
-  public void toggle()
-  {
-    setEnabled(!isEnabled());
+    @Framework.MapStyle
+    int newMapStyle;
+    if (isEnabled)
+    {
+      if (ThemeUtils.isDefaultTheme(context))
+        newMapStyle = Framework.MAP_STYLE_OUTDOORS_CLEAR;
+      else
+        newMapStyle = Framework.MAP_STYLE_OUTDOORS_DARK;
+    }
+    else
+    {
+      if (ThemeUtils.isDefaultTheme(context))
+        newMapStyle = Framework.MAP_STYLE_CLEAR;
+      else
+        newMapStyle = Framework.MAP_STYLE_DARK;
+    }
+    ThemeSwitcher.SetMapStyle(newMapStyle);
   }
 
   public void initialize()
