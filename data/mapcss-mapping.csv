@@ -186,7 +186,7 @@ amenity|recycling|container;[amenity=recycling][recycling_type=container];;name;
 leisure|garden;110;
 landuse|commercial;111;
 railway|station;112;
-highway|path|hiking;[highway=path][route=hiking],[highway=path][sac_scale=hiking];;name;int_name;113;
+highway|path|hiking;[highway=path][sac_scale=hiking];;name;int_name;113;
 amenity|hospital;114;
 # TODO: merge with "intermittent".
 waterway|stream|ephemeral;[waterway=stream][intermittent=ephemeral];;name;int_name;115;
@@ -1682,3 +1682,7 @@ amenity|compressed_air;1592;
 leisure|hackerspace;1593;
 railway|station|subway|singapore;[railway=station][transport=subway][city=singapore],[railway=station][station=subway][city=singapore];;name;int_name;1594;
 railway|subway_entrance|singapore;[railway=subway_entrance][city=singapore];;name;int_name;1595;
+highway|path|route_major;[highway=path][route?][network=iwn],[highway=path][route?][network=nwn],[highway=path][route?][network=rwn];;name;int_name;1600;
+highway|path|route_minor;[highway=path][route?][network=lwn],[highway=path][route?][!network];;name;int_name;1601;
+highway|track|route_major;[highway=track][route?][network=iwn],[highway=track][route?][network=nwn],[highway=track][route?][network=rwn];;name;int_name;1603;
+highway|track|route_minor;[highway=track][route?][network=lwn],[highway=track][route?][!network];;name;int_name;1604;
