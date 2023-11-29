@@ -454,7 +454,10 @@ world  +
             hiking  -
             horse  -
             mountain_hiking  -
+            named  -
             permissive  -
+            route  -
+            surface_good  -
             tunnel  -
             {}
         pedestrian  +
@@ -518,8 +521,11 @@ world  +
             grade3  -
             grade4  -
             grade5  -
+            named  -
             no-access  -
             permissive  -
+            route  -
+            surface_good  -
             tunnel  -
             {}
         traffic_signals  -

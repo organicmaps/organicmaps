@@ -1593,3 +1593,13 @@ amenity|recycling|container
 *leisure|hackerspace
 *railway|station|subway|singapore
 *railway|subway_entrance|singapore
+mapswithme
+mapswithme
+mapswithme
+mapswithme
+*highway|path|route
+*highway|path|named
+*highway|path|surface_good
+*highway|track|route
+*highway|track|named
+*highway|track|surface_good

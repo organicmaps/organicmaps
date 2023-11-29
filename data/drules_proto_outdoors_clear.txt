@@ -28988,6 +28988,200 @@ cont {
   }
 }
 cont {
+  name: "highway-path-named"
+  element {
+    scale: 11
+    lines {
+      width: 1.0
+      color: 10506258
+      dashdot {
+        dd: 3.5
+        dd: 2.0
+      }
+      priority: 185
+      join: BEVELJOIN
+      cap: BUTTCAP
+    }
+  }
+  element {
+    scale: 12
+    lines {
+      width: 1.1
+      color: 10506258
+      dashdot {
+        dd: 3.5
+        dd: 2.0
+      }
+      priority: 185
+      join: BEVELJOIN
+      cap: BUTTCAP
+    }
+  }
+  element {
+    scale: 13
+    lines {
+      width: 1.3
+      color: 10506258
+      dashdot {
+        dd: 4.0
+        dd: 2.5
+      }
+      priority: 185
+      cap: BUTTCAP
+    }
+    path_text {
+      primary {
+        height: 8
+        color: 3355443
+        stroke_color: 872415231
+      }
+      priority: 2810
+    }
+  }
+  element {
+    scale: 14
+    lines {
+      width: 1.6
+      color: 10506258
+      dashdot {
+        dd: 4.0
+        dd: 2.5
+      }
+      priority: 185
+      cap: BUTTCAP
+    }
+    path_text {
+      primary {
+        height: 8
+        color: 3355443
+        stroke_color: 872415231
+      }
+      priority: 2810
+    }
+  }
+  element {
+    scale: 15
+    lines {
+      width: 2.0
+      color: 10506258
+      dashdot {
+        dd: 6.0
+        dd: 3.5
+      }
+      priority: 185
+      cap: BUTTCAP
+    }
+    path_text {
+      primary {
+        height: 8
+        color: 3355443
+        stroke_color: 872415231
+      }
+      priority: 2810
+    }
+  }
+  element {
+    scale: 16
+    lines {
+      width: 2.6
+      color: 10506258
+      dashdot {
+        dd: 6.0
+        dd: 3.5
+      }
+      priority: 185
+    }
+    path_text {
+      primary {
+        height: 9
+        color: 3355443
+        stroke_color: 872415231
+      }
+      priority: 2810
+    }
+  }
+  element {
+    scale: 17
+    lines {
+      width: 3.3
+      color: 10506258
+      dashdot {
+        dd: 8.0
+        dd: 4.5
+      }
+      priority: 185
+    }
+    path_text {
+      primary {
+        height: 9
+        color: 3355443
+        stroke_color: 872415231
+      }
+      priority: 2810
+    }
+  }
+  element {
+    scale: 18
+    lines {
+      width: 4.0
+      color: 10506258
+      dashdot {
+        dd: 8.0
+        dd: 4.5
+      }
+      priority: 185
+    }
+    path_text {
+      primary {
+        height: 10
+        color: 3355443
+        stroke_color: 872415231
+      }
+      priority: 2810
+    }
+  }
+  element {
+    scale: 19
+    lines {
+      width: 4.0
+      color: 10506258
+      dashdot {
+        dd: 8.0
+        dd: 4.5
+      }
+      priority: 185
+    }
+    path_text {
+      primary {
+        height: 10
+        color: 3355443
+        stroke_color: 872415231
+      }
+      priority: 2810
+    }
+  }
+  element {
+    scale: 20
+    lines {
+      width: 4.0
+      color: 10506258
+      dashdot {
+        dd: 8.0
+        dd: 4.5
+      }
+      priority: 185
+    }
+    path_text {
+      primary {
+        height: 10
+        color: 3355443
+        stroke_color: 872415231
+      }
+      priority: 2810
+    }
+  }
+}
+cont {
   name: "highway-path-permissive"
   element {
     scale: 11
@@ -29178,6 +29372,394 @@ cont {
         stroke_color: 872415231
       }
       priority: 2800
+    }
+  }
+}
+cont {
+  name: "highway-path-route"
+  element {
+    scale: 11
+    lines {
+      width: 1.0
+      color: 10506258
+      dashdot {
+        dd: 3.5
+        dd: 2.0
+      }
+      priority: 187
+      join: BEVELJOIN
+      cap: BUTTCAP
+    }
+  }
+  element {
+    scale: 12
+    lines {
+      width: 1.1
+      color: 10506258
+      dashdot {
+        dd: 3.5
+        dd: 2.0
+      }
+      priority: 187
+      join: BEVELJOIN
+      cap: BUTTCAP
+    }
+  }
+  element {
+    scale: 13
+    lines {
+      width: 1.3
+      color: 10506258
+      dashdot {
+        dd: 4.0
+        dd: 2.5
+      }
+      priority: 187
+      cap: BUTTCAP
+    }
+    path_text {
+      primary {
+        height: 8
+        color: 3355443
+        stroke_color: 872415231
+      }
+      priority: 2820
+    }
+  }
+  element {
+    scale: 14
+    lines {
+      width: 1.6
+      color: 10506258
+      dashdot {
+        dd: 4.0
+        dd: 2.5
+      }
+      priority: 187
+      cap: BUTTCAP
+    }
+    path_text {
+      primary {
+        height: 8
+        color: 3355443
+        stroke_color: 872415231
+      }
+      priority: 2820
+    }
+  }
+  element {
+    scale: 15
+    lines {
+      width: 2.0
+      color: 10506258
+      dashdot {
+        dd: 6.0
+        dd: 3.5
+      }
+      priority: 187
+      cap: BUTTCAP
+    }
+    path_text {
+      primary {
+        height: 8
+        color: 3355443
+        stroke_color: 872415231
+      }
+      priority: 2820
+    }
+  }
+  element {
+    scale: 16
+    lines {
+      width: 2.6
+      color: 10506258
+      dashdot {
+        dd: 6.0
+        dd: 3.5
+      }
+      priority: 187
+    }
+    path_text {
+      primary {
+        height: 9
+        color: 3355443
+        stroke_color: 872415231
+      }
+      priority: 2820
+    }
+  }
+  element {
+    scale: 17
+    lines {
+      width: 3.3
+      color: 10506258
+      dashdot {
+        dd: 8.0
+        dd: 4.5
+      }
+      priority: 187
+    }
+    path_text {
+      primary {
+        height: 9
+        color: 3355443
+        stroke_color: 872415231
+      }
+      priority: 2820
+    }
+  }
+  element {
+    scale: 18
+    lines {
+      width: 4.0
+      color: 10506258
+      dashdot {
+        dd: 8.0
+        dd: 4.5
+      }
+      priority: 187
+    }
+    path_text {
+      primary {
+        height: 10
+        color: 3355443
+        stroke_color: 872415231
+      }
+      priority: 2820
+    }
+  }
+  element {
+    scale: 19
+    lines {
+      width: 4.0
+      color: 10506258
+      dashdot {
+        dd: 8.0
+        dd: 4.5
+      }
+      priority: 187
+    }
+    path_text {
+      primary {
+        height: 10
+        color: 3355443
+        stroke_color: 872415231
+      }
+      priority: 2820
+    }
+  }
+  element {
+    scale: 20
+    lines {
+      width: 4.0
+      color: 10506258
+      dashdot {
+        dd: 8.0
+        dd: 4.5
+      }
+      priority: 187
+    }
+    path_text {
+      primary {
+        height: 10
+        color: 3355443
+        stroke_color: 872415231
+      }
+      priority: 2820
+    }
+  }
+}
+cont {
+  name: "highway-path-surface_good"
+  element {
+    scale: 11
+    lines {
+      width: 1.0
+      color: 10506258
+      dashdot {
+        dd: 3.5
+        dd: 2.0
+      }
+      priority: 185
+      join: BEVELJOIN
+      cap: BUTTCAP
+    }
+  }
+  element {
+    scale: 12
+    lines {
+      width: 1.1
+      color: 10506258
+      dashdot {
+        dd: 3.5
+        dd: 2.0
+      }
+      priority: 185
+      join: BEVELJOIN
+      cap: BUTTCAP
+    }
+  }
+  element {
+    scale: 13
+    lines {
+      width: 1.3
+      color: 10506258
+      dashdot {
+        dd: 4.0
+        dd: 2.5
+      }
+      priority: 185
+      cap: BUTTCAP
+    }
+    path_text {
+      primary {
+        height: 8
+        color: 3355443
+        stroke_color: 872415231
+      }
+      priority: 2810
+    }
+  }
+  element {
+    scale: 14
+    lines {
+      width: 1.6
+      color: 10506258
+      dashdot {
+        dd: 4.0
+        dd: 2.5
+      }
+      priority: 185
+      cap: BUTTCAP
+    }
+    path_text {
+      primary {
+        height: 8
+        color: 3355443
+        stroke_color: 872415231
+      }
+      priority: 2810
+    }
+  }
+  element {
+    scale: 15
+    lines {
+      width: 2.0
+      color: 10506258
+      dashdot {
+        dd: 6.0
+        dd: 3.5
+      }
+      priority: 185
+      cap: BUTTCAP
+    }
+    path_text {
+      primary {
+        height: 8
+        color: 3355443
+        stroke_color: 872415231
+      }
+      priority: 2810
+    }
+  }
+  element {
+    scale: 16
+    lines {
+      width: 2.6
+      color: 10506258
+      dashdot {
+        dd: 6.0
+        dd: 3.5
+      }
+      priority: 185
+    }
+    path_text {
+      primary {
+        height: 9
+        color: 3355443
+        stroke_color: 872415231
+      }
+      priority: 2810
+    }
+  }
+  element {
+    scale: 17
+    lines {
+      width: 3.3
+      color: 10506258
+      dashdot {
+        dd: 8.0
+        dd: 4.5
+      }
+      priority: 185
+    }
+    path_text {
+      primary {
+        height: 9
+        color: 3355443
+        stroke_color: 872415231
+      }
+      priority: 2810
+    }
+  }
+  element {
+    scale: 18
+    lines {
+      width: 4.0
+      color: 10506258
+      dashdot {
+        dd: 8.0
+        dd: 4.5
+      }
+      priority: 185
+    }
+    path_text {
+      primary {
+        height: 10
+        color: 3355443
+        stroke_color: 872415231
+      }
+      priority: 2810
+    }
+  }
+  element {
+    scale: 19
+    lines {
+      width: 4.0
+      color: 10506258
+      dashdot {
+        dd: 8.0
+        dd: 4.5
+      }
+      priority: 185
+    }
+    path_text {
+      primary {
+        height: 10
+        color: 3355443
+        stroke_color: 872415231
+      }
+      priority: 2810
+    }
+  }
+  element {
+    scale: 20
+    lines {
+      width: 4.0
+      color: 10506258
+      dashdot {
+        dd: 8.0
+        dd: 4.5
+      }
+      priority: 185
+    }
+    path_text {
+      primary {
+        height: 10
+        color: 3355443
+        stroke_color: 872415231
+      }
+      priority: 2810
     }
   }
 }
@@ -38870,6 +39452,200 @@ cont {
   }
 }
 cont {
+  name: "highway-track-named"
+  element {
+    scale: 11
+    lines {
+      width: 1.1
+      color: 6510384
+      dashdot {
+        dd: 6.0
+        dd: 2.5
+      }
+      priority: 185
+      join: BEVELJOIN
+      cap: BUTTCAP
+    }
+  }
+  element {
+    scale: 12
+    lines {
+      width: 1.3
+      color: 6510384
+      dashdot {
+        dd: 6.0
+        dd: 2.5
+      }
+      priority: 185
+      join: BEVELJOIN
+      cap: BUTTCAP
+    }
+  }
+  element {
+    scale: 13
+    lines {
+      width: 1.6
+      color: 6510384
+      dashdot {
+        dd: 7.0
+        dd: 3.0
+      }
+      priority: 185
+      cap: BUTTCAP
+    }
+    path_text {
+      primary {
+        height: 8
+        color: 3355443
+        stroke_color: 872415231
+      }
+      priority: 2810
+    }
+  }
+  element {
+    scale: 14
+    lines {
+      width: 2.0
+      color: 6510384
+      dashdot {
+        dd: 7.0
+        dd: 3.0
+      }
+      priority: 185
+      cap: BUTTCAP
+    }
+    path_text {
+      primary {
+        height: 8
+        color: 3355443
+        stroke_color: 872415231
+      }
+      priority: 2810
+    }
+  }
+  element {
+    scale: 15
+    lines {
+      width: 2.5
+      color: 6510384
+      dashdot {
+        dd: 9.0
+        dd: 3.5
+      }
+      priority: 185
+      cap: BUTTCAP
+    }
+    path_text {
+      primary {
+        height: 8
+        color: 3355443
+        stroke_color: 872415231
+      }
+      priority: 2810
+    }
+  }
+  element {
+    scale: 16
+    lines {
+      width: 3.2
+      color: 6510384
+      dashdot {
+        dd: 9.0
+        dd: 3.5
+      }
+      priority: 185
+    }
+    path_text {
+      primary {
+        height: 9
+        color: 3355443
+        stroke_color: 872415231
+      }
+      priority: 2810
+    }
+  }
+  element {
+    scale: 17
+    lines {
+      width: 4.0
+      color: 6510384
+      dashdot {
+        dd: 12.0
+        dd: 4.0
+      }
+      priority: 185
+    }
+    path_text {
+      primary {
+        height: 9
+        color: 3355443
+        stroke_color: 872415231
+      }
+      priority: 2810
+    }
+  }
+  element {
+    scale: 18
+    lines {
+      width: 5.0
+      color: 6510384
+      dashdot {
+        dd: 12.0
+        dd: 4.0
+      }
+      priority: 185
+    }
+    path_text {
+      primary {
+        height: 10
+        color: 3355443
+        stroke_color: 872415231
+      }
+      priority: 2810
+    }
+  }
+  element {
+    scale: 19
+    lines {
+      width: 5.0
+      color: 6510384
+      dashdot {
+        dd: 12.0
+        dd: 4.0
+      }
+      priority: 185
+    }
+    path_text {
+      primary {
+        height: 10
+        color: 3355443
+        stroke_color: 872415231
+      }
+      priority: 2810
+    }
+  }
+  element {
+    scale: 20
+    lines {
+      width: 5.0
+      color: 6510384
+      dashdot {
+        dd: 12.0
+        dd: 4.0
+      }
+      priority: 185
+    }
+    path_text {
+      primary {
+        height: 10
+        color: 3355443
+        stroke_color: 872415231
+      }
+      priority: 2810
+    }
+  }
+}
+cont {
   name: "highway-track-no-access"
   element {
     scale: 11
@@ -39254,6 +40030,394 @@ cont {
         stroke_color: 872415231
       }
       priority: 2800
+    }
+  }
+}
+cont {
+  name: "highway-track-route"
+  element {
+    scale: 11
+    lines {
+      width: 1.1
+      color: 6510384
+      dashdot {
+        dd: 6.0
+        dd: 2.5
+      }
+      priority: 187
+      join: BEVELJOIN
+      cap: BUTTCAP
+    }
+  }
+  element {
+    scale: 12
+    lines {
+      width: 1.3
+      color: 6510384
+      dashdot {
+        dd: 6.0
+        dd: 2.5
+      }
+      priority: 187
+      join: BEVELJOIN
+      cap: BUTTCAP
+    }
+  }
+  element {
+    scale: 13
+    lines {
+      width: 1.6
+      color: 6510384
+      dashdot {
+        dd: 7.0
+        dd: 3.0
+      }
+      priority: 187
+      cap: BUTTCAP
+    }
+    path_text {
+      primary {
+        height: 8
+        color: 3355443
+        stroke_color: 872415231
+      }
+      priority: 2820
+    }
+  }
+  element {
+    scale: 14
+    lines {
+      width: 2.0
+      color: 6510384
+      dashdot {
+        dd: 7.0
+        dd: 3.0
+      }
+      priority: 187
+      cap: BUTTCAP
+    }
+    path_text {
+      primary {
+        height: 8
+        color: 3355443
+        stroke_color: 872415231
+      }
+      priority: 2820
+    }
+  }
+  element {
+    scale: 15
+    lines {
+      width: 2.5
+      color: 6510384
+      dashdot {
+        dd: 9.0
+        dd: 3.5
+      }
+      priority: 187
+      cap: BUTTCAP
+    }
+    path_text {
+      primary {
+        height: 8
+        color: 3355443
+        stroke_color: 872415231
+      }
+      priority: 2820
+    }
+  }
+  element {
+    scale: 16
+    lines {
+      width: 3.2
+      color: 6510384
+      dashdot {
+        dd: 9.0
+        dd: 3.5
+      }
+      priority: 187
+    }
+    path_text {
+      primary {
+        height: 9
+        color: 3355443
+        stroke_color: 872415231
+      }
+      priority: 2820
+    }
+  }
+  element {
+    scale: 17
+    lines {
+      width: 4.0
+      color: 6510384
+      dashdot {
+        dd: 12.0
+        dd: 4.0
+      }
+      priority: 187
+    }
+    path_text {
+      primary {
+        height: 9
+        color: 3355443
+        stroke_color: 872415231
+      }
+      priority: 2820
+    }
+  }
+  element {
+    scale: 18
+    lines {
+      width: 5.0
+      color: 6510384
+      dashdot {
+        dd: 12.0
+        dd: 4.0
+      }
+      priority: 187
+    }
+    path_text {
+      primary {
+        height: 10
+        color: 3355443
+        stroke_color: 872415231
+      }
+      priority: 2820
+    }
+  }
+  element {
+    scale: 19
+    lines {
+      width: 5.0
+      color: 6510384
+      dashdot {
+        dd: 12.0
+        dd: 4.0
+      }
+      priority: 187
+    }
+    path_text {
+      primary {
+        height: 10
+        color: 3355443
+        stroke_color: 872415231
+      }
+      priority: 2820
+    }
+  }
+  element {
+    scale: 20
+    lines {
+      width: 5.0
+      color: 6510384
+      dashdot {
+        dd: 12.0
+        dd: 4.0
+      }
+      priority: 187
+    }
+    path_text {
+      primary {
+        height: 10
+        color: 3355443
+        stroke_color: 872415231
+      }
+      priority: 2820
+    }
+  }
+}
+cont {
+  name: "highway-track-surface_good"
+  element {
+    scale: 11
+    lines {
+      width: 1.1
+      color: 6510384
+      dashdot {
+        dd: 6.0
+        dd: 2.5
+      }
+      priority: 185
+      join: BEVELJOIN
+      cap: BUTTCAP
+    }
+  }
+  element {
+    scale: 12
+    lines {
+      width: 1.3
+      color: 6510384
+      dashdot {
+        dd: 6.0
+        dd: 2.5
+      }
+      priority: 185
+      join: BEVELJOIN
+      cap: BUTTCAP
+    }
+  }
+  element {
+    scale: 13
+    lines {
+      width: 1.6
+      color: 6510384
+      dashdot {
+        dd: 7.0
+        dd: 3.0
+      }
+      priority: 185
+      cap: BUTTCAP
+    }
+    path_text {
+      primary {
+        height: 8
+        color: 3355443
+        stroke_color: 872415231
+      }
+      priority: 2810
+    }
+  }
+  element {
+    scale: 14
+    lines {
+      width: 2.0
+      color: 6510384
+      dashdot {
+        dd: 7.0
+        dd: 3.0
+      }
+      priority: 185
+      cap: BUTTCAP
+    }
+    path_text {
+      primary {
+        height: 8
+        color: 3355443
+        stroke_color: 872415231
+      }
+      priority: 2810
+    }
+  }
+  element {
+    scale: 15
+    lines {
+      width: 2.5
+      color: 6510384
+      dashdot {
+        dd: 9.0
+        dd: 3.5
+      }
+      priority: 185
+      cap: BUTTCAP
+    }
+    path_text {
+      primary {
+        height: 8
+        color: 3355443
+        stroke_color: 872415231
+      }
+      priority: 2810
+    }
+  }
+  element {
+    scale: 16
+    lines {
+      width: 3.2
+      color: 6510384
+      dashdot {
+        dd: 9.0
+        dd: 3.5
+      }
+      priority: 185
+    }
+    path_text {
+      primary {
+        height: 9
+        color: 3355443
+        stroke_color: 872415231
+      }
+      priority: 2810
+    }
+  }
+  element {
+    scale: 17
+    lines {
+      width: 4.0
+      color: 6510384
+      dashdot {
+        dd: 12.0
+        dd: 4.0
+      }
+      priority: 185
+    }
+    path_text {
+      primary {
+        height: 9
+        color: 3355443
+        stroke_color: 872415231
+      }
+      priority: 2810
+    }
+  }
+  element {
+    scale: 18
+    lines {
+      width: 5.0
+      color: 6510384
+      dashdot {
+        dd: 12.0
+        dd: 4.0
+      }
+      priority: 185
+    }
+    path_text {
+      primary {
+        height: 10
+        color: 3355443
+        stroke_color: 872415231
+      }
+      priority: 2810
+    }
+  }
+  element {
+    scale: 19
+    lines {
+      width: 5.0
+      color: 6510384
+      dashdot {
+        dd: 12.0
+        dd: 4.0
+      }
+      priority: 185
+    }
+    path_text {
+      primary {
+        height: 10
+        color: 3355443
+        stroke_color: 872415231
+      }
+      priority: 2810
+    }
+  }
+  element {
+    scale: 20
+    lines {
+      width: 5.0
+      color: 6510384
+      dashdot {
+        dd: 12.0
+        dd: 4.0
+      }
+      priority: 185
+    }
+    path_text {
+      primary {
+        height: 10
+        color: 3355443
+        stroke_color: 872415231
+      }
+      priority: 2810
     }
   }
 }
@@ -97385,7 +98549,7 @@ cont {
     scale: 13
     symbol {
       name: "subway-singapore-s"
-      priority: 6300
+      priority: 6650
       min_distance: 1
     }
   }
@@ -97393,7 +98557,7 @@ cont {
     scale: 14
     symbol {
       name: "subway-singapore-s"
-      priority: 6300
+      priority: 6650
       min_distance: 1
     }
     caption {
@@ -97411,14 +98575,14 @@ cont {
         offset_y: 1
         is_optional: true
       }
-      priority: -3700
+      priority: -3350
     }
   }
   element {
     scale: 15
     symbol {
       name: "subway-singapore-m"
-      priority: 6300
+      priority: 6650
     }
     caption {
       primary {
@@ -97435,14 +98599,14 @@ cont {
         offset_y: 1
         is_optional: true
       }
-      priority: -3700
+      priority: -3350
     }
   }
   element {
     scale: 16
     symbol {
       name: "subway-singapore-m"
-      priority: 6300
+      priority: 6650
     }
     caption {
       primary {
@@ -97459,14 +98623,14 @@ cont {
         offset_y: 1
         is_optional: true
       }
-      priority: -3700
+      priority: -3350
     }
   }
   element {
     scale: 17
     symbol {
       name: "subway-singapore-m"
-      priority: 6300
+      priority: 6650
     }
     caption {
       primary {
@@ -97483,14 +98647,14 @@ cont {
         offset_y: 1
         is_optional: true
       }
-      priority: -3700
+      priority: -3350
     }
   }
   element {
     scale: 18
     symbol {
       name: "subway-singapore-m"
-      priority: 6300
+      priority: 6650
     }
     caption {
       primary {
@@ -97507,14 +98671,14 @@ cont {
         offset_y: 1
         is_optional: true
       }
-      priority: -3700
+      priority: -3350
     }
   }
   element {
     scale: 19
     symbol {
       name: "subway-singapore-m"
-      priority: 6300
+      priority: 6650
     }
     caption {
       primary {
@@ -97531,14 +98695,14 @@ cont {
         offset_y: 1
         is_optional: true
       }
-      priority: -3700
+      priority: -3350
     }
   }
   element {
     scale: 20
     symbol {
       name: "subway-singapore-m"
-      priority: 6300
+      priority: 6650
     }
     caption {
       primary {
@@ -97555,7 +98719,7 @@ cont {
         offset_y: 1
         is_optional: true
       }
-      priority: -3700
+      priority: -3350
     }
   }
 }
