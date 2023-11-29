@@ -1174,6 +1174,8 @@ void GetNameAndType(OsmElement * p, FeatureBuilderParams & params,
   NamesExtractor namesExtractor(params);
   ForEachTag(p, namesExtractor);
   namesExtractor.Finish();
+  if (!params.name.IsEmpty())
+    p->AddTag("_named", "yes");
 
   // Stage3: Process base feature tags.
   std::string houseName, houseNumber, conscriptionHN, streetHN, addrPostcode;
