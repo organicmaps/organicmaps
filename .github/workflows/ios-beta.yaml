@@ -66,7 +66,9 @@ jobs:
           rm -rf ./private.git
 
       - name: Compile and upload to TestFlight
-        run: ./fastlane.sh upload_testflight
+        run: |
+          echo "IOS_VERSION=$(tools/unix/version.sh ios_version)-$(tools/unix/version.sh ios_build)" >> "$GITHUB_ENV"
+          ./fastlane.sh upload_testflight
         env:
           APPSTORE_CERTIFICATE_PASSWORD: '${{ secrets.APPSTORE_CERTIFICATE_PASSWORD }}'
         working-directory: xcode
@@ -74,6 +76,6 @@ jobs:
       - name: Upload ipa and DSYMs artifacts
         uses: actions/upload-artifact@v3
         with:
-          name: ipa and DSYM archive
+          name: ipa and DSYM archive ${{ env.IOS_VERSION }}
           path: xcode/build/*
           if-no-files-found: error
