@@ -144,7 +144,25 @@ void RelationTagsWay::Process(RelationElement const & e)
       if (route == "bicycle")
         Base::AddCustomTag({"bicycle", "yes"});
       else if (route == "foot" || route == "hiking")
+      {
         Base::AddCustomTag({"foot", "yes"});
+
+        if (route == "hiking")
+        {
+          auto const hwValue = m_current->GetTag("highway");
+          if (hwValue == "path" || hwValue == "track")
+          {
+            Base::AddCustomTag({"route", "hiking"});
+
+            if (!Base::IsKeyTagExists("name"))
+            {
+              std::string name(e.GetTagValue("name"));
+              if (!name.empty()) //pastk: prefer name from the most local network
+                Base::AddCustomTag({"name", std::move(name)});
+            }
+          }
+        }        
+      }
     }
 
     if (!fetchTags)
