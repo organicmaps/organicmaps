@@ -54,6 +54,13 @@ line|z11-[highway=path],
 line|z11-[highway=footway][sac_scale],
 {color: @path;opacity: 1;}
 
+line|z10-[highway=path][route?][network=iwn],
+line|z10-[highway=track][route?][network=iwn],
+{color: red; opacity: 1;}
+line|z10-[highway=path][route?][network=lwn],
+line|z10-[highway=track][route?][network=lwn],
+{color: blue; opacity: 1;}
+
 /* 8.5 Construction & Proposed 13-22 ZOOM */
 
 line|z11-[highway=construction],
@@ -84,6 +91,10 @@ line|z17[highway=track],
 line|z18-[highway=track],
 {width: 5; dashes: 12,4;}
 
+line|z10-[highway=track][route?][network=iwn],
+line|z10-[highway=track][route?][network=lwn],
+{width: 2.3; dashes: 7,3;}
+
 line|z11[highway=path],
 line|z11[highway=footway][sac_scale],
 {width: 1; dashes: 3.5,2;}
@@ -108,6 +119,10 @@ line|z17[highway=footway][sac_scale],
 line|z18-[highway=path],
 line|z18-[highway=footway][sac_scale],
 {width: 4; dashes: 8,4.5;}
+
+line|z10-[highway=path][route?][network=iwn],
+line|z10-[highway=path][route?][network=lwn],
+{width: 2.0; dashes: 4,2.5;}
 
 /* 9.RAIL 11-22 ZOOM */
 
