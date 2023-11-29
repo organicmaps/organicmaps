@@ -46,7 +46,7 @@ void Translator::Emit(OsmElement const & src)
   if (!m_filter->IsAccepted(element))
     return;
 
-  m_tagsEnricher(element);
+  m_tagsEnricher(element); // Pull necessary tags from relations.
   m_collector->Collect(element);
   m_featureMaker->Add(element); // A feature is created from OSM tags.
   feature::FeatureBuilder feature;
