@@ -15,6 +15,7 @@
 #include <functional>
 #include <string>
 
+#include <QGesture>
 #include <QOpenGLShaderProgram>
 #include <QOpenGLBuffer>
 #include <QOpenGLVertexArrayObject>
@@ -557,4 +558,36 @@ void MapWidget::wheelEvent(QWheelEvent * e)
   m_framework.Scale(exp(e->angleDelta().y() / 3.0 / 360.0), m2::PointD(L2D(pos.x()), L2D(pos.y())), false);
 }
 
+void MapWidget::grabGestures(const QList<Qt::GestureType> &gestures)
+{
+  for (Qt::GestureType gesture : gestures)
+    grabGesture(gesture);
+}
+
+bool MapWidget::event(QEvent *event)
+{
+  if (event->type() == QEvent::Gesture)
+    return gestureEvent(static_cast<QGestureEvent*>(event));
+  return QWidget::event(event);
+}
+
+bool MapWidget::gestureEvent(QGestureEvent *event)
+{
+  if (QGesture *pinch = event->gesture(Qt::PinchGesture))
+    pinchTriggered(static_cast<QPinchGesture *>(pinch));
+  return true;
+}
+
+void MapWidget::pinchTriggered(QPinchGesture *gesture)
+{
+  QPinchGesture::ChangeFlags changeFlags = gesture->changeFlags();
+  m2::PointD centerPoint = m_framework.GetVisiblePixelCenter();
+  if (changeFlags & QPinchGesture::ScaleFactorChanged)
+  {
+    qreal totalScaleFactor = gesture->totalScaleFactor();
+
+    if (totalScaleFactor != 1.0)
+      m_framework.Scale((totalScaleFactor > 1.0) ? Framework::SCALE_MAG : Framework::SCALE_MIN, true);
+  }
+}
 } // namespace qt::common
