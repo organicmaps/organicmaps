@@ -13,6 +13,8 @@
 #include <memory>
 
 class Framework;
+class QGestureEvent;
+class QPinchGesture;
 class QMouseEvent;
 class QWidget;
 class ScreenBase;
@@ -35,6 +37,7 @@ public:
   void BindHotkeys(QWidget & parent);
   void BindSlider(ScaleSlider & slider);
   void CreateEngine();
+  void grabGestures(const QList<Qt::GestureType> &gestures);
 
 signals:
   void OnContextMenuRequested(QPoint const & p);
@@ -78,6 +81,10 @@ protected:
   void initializeGL() override;
   void paintGL() override;
   void resizeGL(int width, int height) override;
+
+  bool event(QEvent * event) override;
+  bool gestureEvent(QGestureEvent * event);
+  void pinchTriggered(QPinchGesture * gesture);
 
   void mouseDoubleClickEvent(QMouseEvent * e) override;
   void mousePressEvent(QMouseEvent * e) override;
