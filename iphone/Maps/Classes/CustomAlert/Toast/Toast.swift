@@ -58,9 +58,9 @@ final class Toast: NSObject {
     
     let topConstraint: NSLayoutConstraint
     if alignment == .bottom {
-      topConstraint = blurView.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: -50)
+      topConstraint = blurView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor, constant: -63)
     } else {
-      topConstraint = blurView.topAnchor.constraint(equalTo: view.topAnchor, constant: 50)
+      topConstraint = blurView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 50)
     }
     
     NSLayoutConstraint.activate([
