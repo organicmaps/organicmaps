@@ -692,7 +692,7 @@
 	<string name="transit_not_found">本區域的地鐵導航目前不可用</string>
 	<string name="dialog_pedestrian_route_is_long_header">未找到捷運路線圖</string>
 	<string name="dialog_pedestrian_route_is_long_message">選擇捷運站附近的起點和終點</string>
-	<string name="button_layer_isolines">高度</string>
+	<string name="button_layer_isolines">等高線</string>
 	<string name="isolines_activation_error_dialog">如需使用等高線，請更新或下載所需區域的地圖</string>
 	<string name="isolines_location_error_dialog">暫時無法獲取該地區的等高線</string>
 	<string name="elevation_profile_ascent">上坡</string>

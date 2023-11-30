@@ -684,7 +684,7 @@
 	<string name="transit_not_found">本区域的地铁导航目前不可用</string>
 	<string name="dialog_pedestrian_route_is_long_header">地铁路线图未找到</string>
 	<string name="dialog_pedestrian_route_is_long_message">选择地铁站附近的起点和终点</string>
-	<string name="button_layer_isolines">高度</string>
+	<string name="button_layer_isolines">等高线</string>
 	<string name="isolines_activation_error_dialog">如需使用高度线，请更新或下载所需区域的地图</string>
 	<string name="isolines_location_error_dialog">暂时无法获取该地区的高低线</string>
 	<string name="elevation_profile_ascent">上坡</string>
