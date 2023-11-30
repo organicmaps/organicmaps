@@ -25071,8 +25071,8 @@
     tr = Arazi
     uk = Висоти
     vi = Độ cao
-    zh-Hans = 高度
-    zh-Hant = 高度
+    zh-Hans = 等高线
+    zh-Hant = 等高線
 
   [isolines_activation_error_dialog]
     tags = android,ios
