@@ -11989,6 +11989,7 @@
     es = Abre en %@
     et = Avatakse %@ jooksul
     eu = %@ barru irekiko da
+    fi = Avautuu %@ kuluttua
     fr = Ouvert dans %@
     it = Apre tra %@
     lt = Atsidaro už %@
@@ -12034,6 +12035,7 @@
     es = Cierra en %@
     et = Suletakse %@ jooksul
     eu = %@ barru itxiko da
+    fi = Sulkeutuu %@ kuluttua
     fr = Fermé dans %@
     it = Chiude tra %@
     lt = Užsidaro už %@
