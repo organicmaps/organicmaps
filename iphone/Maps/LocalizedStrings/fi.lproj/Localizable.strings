@@ -599,11 +599,11 @@
 
 "opens_at" = "Aukeaa kello %@";
 
-"opens_in" = "Opens in %@";
+"opens_in" = "Avautuu %@ kuluttua";
 
 "closes_at" = "Sulkeutuu kello %@";
 
-"closes_in" = "Closes in %@";
+"closes_in" = "Sulkeutuu %@ kuluttua";
 
 "closed" = "Suljettu";
 

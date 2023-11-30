@@ -1161,7 +1161,7 @@
 
 "dialog_pedestrian_route_is_long_message" = "選擇捷運站附近的起點和終點";
 
-"button_layer_isolines" = "高度";
+"button_layer_isolines" = "等高線";
 
 "isolines_activation_error_dialog" = "如需使用等高線，請更新或下載所需區域的地圖";
 

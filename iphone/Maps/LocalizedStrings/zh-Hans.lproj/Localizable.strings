@@ -1161,7 +1161,7 @@
 
 "dialog_pedestrian_route_is_long_message" = "选择地铁站附近的起点和终点";
 
-"button_layer_isolines" = "高度";
+"button_layer_isolines" = "等高线";
 
 "isolines_activation_error_dialog" = "如需使用高度线，请更新或下载所需区域的地图";
 

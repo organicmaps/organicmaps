@@ -430,6 +430,8 @@
 	<string name="day_off_today">Suljettu tänään</string>
 	<string name="day_off">Suljettu</string>
 	<string name="today">Tänään</string>
+	<string name="opens_in">Avautuu %s kuluttua</string>
+	<string name="closes_in">Sulkeutuu %s kuluttua</string>
 	<string name="closed">Suljettu</string>
 	<string name="edit_opening_hours">Muokkaa aukioloaikoja</string>
 	<string name="no_osm_account">Eikö sinulla ole OpenStreetMap-tiliä?</string>
