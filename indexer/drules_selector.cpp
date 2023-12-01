@@ -98,6 +98,29 @@ private:
   TType const m_value;
 };
 
+class HasSelector : public ISelector
+{
+public:
+  typedef bool (*THasFeatureTagValueFn)(FeatureType &, int);
+
+  HasSelector(THasFeatureTagValueFn fn, SelectorOperatorType op)
+  : m_hasFeatureValueFn(fn), m_testHas(op == SelectorOperatorIsSet)
+  {
+    ASSERT(op == SelectorOperatorIsSet || op == SelectorOperatorIsNotSet, ());
+    ASSERT(fn != nullptr, ());
+  }
+
+  // ISelector overrides:
+  bool Test(FeatureType & ft, int zoom) const override
+  {
+    return m_hasFeatureValueFn(ft, zoom) == m_testHas;
+  }
+
+private:
+  THasFeatureTagValueFn m_hasFeatureValueFn;
+  bool m_testHas;
+};
+
 /*
 uint32_t TagSelectorToType(string value)
 {
@@ -139,11 +162,9 @@ bool GetPopulation(FeatureType & ft, int, uint64_t & population)
   return true;
 }
 
-// Feature tag value evaluator for tag 'name'
-bool GetName(FeatureType & ft, int, string & name)
+bool HasName(FeatureType & ft, int)
 {
-  name = ft.GetReadableName();
-  return true;
+  return ft.HasName();
 }
 
 // Feature tag value evaluator for tag 'bbox_area' (bounding box area in sq.meters)
@@ -165,7 +186,7 @@ unique_ptr<ISelector> ParseSelector(string const & str)
   {
     // bad string format
     LOG(LDEBUG, ("Invalid selector format:", str));
-    return unique_ptr<ISelector>();
+    return {};
   }
 
   if (e.m_tag == "population")
@@ -175,13 +196,13 @@ unique_ptr<ISelector> ParseSelector(string const & str)
     {
       // bad string format
       LOG(LDEBUG, ("Invalid selector:", str));
-      return unique_ptr<ISelector>();
+      return {};
     }
     return make_unique<Selector<uint64_t>>(&GetPopulation, e.m_operator, value);
   }
   else if (e.m_tag == "name")
   {
-    return make_unique<Selector<string>>(&GetName, e.m_operator, e.m_value);
+    return make_unique<HasSelector>(&HasName, e.m_operator);
   }
   else if (e.m_tag == "bbox_area")
   {
@@ -190,7 +211,7 @@ unique_ptr<ISelector> ParseSelector(string const & str)
     {
       // bad string format
       LOG(LDEBUG, ("Invalid selector:", str));
-      return unique_ptr<ISelector>();
+      return {};
     }
     return make_unique<Selector<double>>(&GetBoundingBoxArea, e.m_operator, value);
   }
@@ -208,7 +229,7 @@ unique_ptr<ISelector> ParseSelector(string const & str)
 //  }
 
   LOG(LERROR, ("Unrecognized selector:", str));
-  return unique_ptr<ISelector>();
+  return {};
 }
 
 unique_ptr<ISelector> ParseSelector(vector<string> const & strs)

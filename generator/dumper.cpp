@@ -65,7 +65,7 @@ struct SearchTokensCollector
     void operator()(FeatureType & f, uint32_t)
     {
       ++m_totalCount;
-      auto const [primary, secondary] = f.GetPreferredNames();
+      auto const primary = f.GetReadableName();
       if (!primary.empty())
         ++m_namesCount;
 

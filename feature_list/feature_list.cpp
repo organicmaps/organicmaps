@@ -227,7 +227,7 @@ public:
     string name(f.GetName(StringUtf8Multilang::kDefaultCode));
     if (name.empty())
     {
-      std::tie(name, std::ignore) = f.GetPreferredNames();
+      name = f.GetReadableName();
       if (name.empty())
         name = metaOperator;
     }
