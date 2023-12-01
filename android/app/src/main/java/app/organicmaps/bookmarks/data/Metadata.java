@@ -22,7 +22,8 @@ public class Metadata implements Parcelable
     FMD_FAX_NUMBER(4),
     FMD_STARS(5),
     FMD_OPERATOR(6),
-    FMD_URL(7),
+    // Removed and is not used in the core. Use FMD_WEBSITE instead.
+    //FMD_URL(7),
     FMD_WEBSITE(8),
     FMD_INTERNET(9),
     FMD_ELE(10),

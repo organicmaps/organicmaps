@@ -94,7 +94,7 @@ public class PlacePageLinksFragment extends Fragment implements Observer<MapObje
     case FMD_EXTERNAL_URI:
       return getExternalUrl(mapObject);
     case FMD_WEBSITE:
-      return getWebsiteUrl(mapObject);
+      return getWebsiteUrl(mapObject, false /* strip */);
     case FMD_CONTACT_FACEBOOK:
     case FMD_CONTACT_INSTAGRAM:
     case FMD_CONTACT_TWITTER:
@@ -202,7 +202,9 @@ public class PlacePageLinksFragment extends Fragment implements Observer<MapObje
     final List<String> items = new ArrayList<>();
     items.add(url);
 
-    final String metadata = type == Metadata.MetadataType.FMD_WEBSITE ? getWebsiteUrl(mMapObject) : mMapObject.getMetadata(type);
+    final String metadata = type == Metadata.MetadataType.FMD_WEBSITE
+        ? getWebsiteUrl(mMapObject, false /* strip */)
+        : mMapObject.getMetadata(type);
     // Add user names for social media if available
     if (!metadata.equals(url) && isSocialUsername(type))
       items.add(metadata);
@@ -237,17 +239,26 @@ public class PlacePageLinksFragment extends Fragment implements Observer<MapObje
     return kayakUri;
   }
 
-  private static String getWebsiteUrl(MapObject mapObject)
+  private static String kHttp = "http://";
+  private static String kHttps = "https://";
+
+  private static String getWebsiteUrl(MapObject mapObject, boolean strip)
   {
-    String website = mapObject.getMetadata(Metadata.MetadataType.FMD_WEBSITE);
-    String url = mapObject.getMetadata(Metadata.MetadataType.FMD_URL);
-    return TextUtils.isEmpty(website) ? url : website;
+    final String website = mapObject.getMetadata(Metadata.MetadataType.FMD_WEBSITE);
+    final int len = website.length();
+    if (strip && len > 1)
+    {
+      final int start = website.startsWith(kHttps) ? kHttps.length() : (website.startsWith(kHttp) ? kHttp.length() : 0);
+      final int end = website.endsWith("/") ? len - 1 : len;
+      return website.substring(start, end);
+    }
+    return website;
   }
 
   private void refreshLinks()
   {
     UiUtils.showIf(getExternalUrl(mMapObject) != null, mKayak);
-    refreshMetadataOrHide(getWebsiteUrl(mMapObject), mWebsite, mTvWebsite);
+    refreshMetadataOrHide(getWebsiteUrl(mMapObject, true /* strip */), mWebsite, mTvWebsite);
     String wikimedia_commons = mMapObject.getMetadata(Metadata.MetadataType.FMD_WIKIMEDIA_COMMONS);
     String wikimedia_commons_text = TextUtils.isEmpty(wikimedia_commons) ? "" : getResources().getString(R.string.wikimedia_commons);
     refreshMetadataOrHide(wikimedia_commons_text, mWikimedia, mTvWikimedia);
