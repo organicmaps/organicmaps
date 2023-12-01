@@ -830,7 +830,7 @@
 
 "refresh" = "Värskenda";
 
-"placepage_add_place_button" = "Lisa koht kaardile";
+"placepage_add_place_button" = "Lisa koht OpenStreetMapile";
 
 /* Displayed when saving some edits to the map to warn against publishing personal data */
 "editor_share_to_all_dialog_title" = "Kas soovid saata selle kõigile kasutajatele?";

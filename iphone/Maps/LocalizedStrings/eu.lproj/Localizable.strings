@@ -830,7 +830,7 @@
 
 "refresh" = "Eguneratu";
 
-"placepage_add_place_button" = "Gehitu toki bat mapan";
+"placepage_add_place_button" = "Gehitu lekua OpenStreetMap-era";
 
 /* Displayed when saving some edits to the map to warn against publishing personal data */
 "editor_share_to_all_dialog_title" = "Erabiltzaile guztiei bidali nahi diezu?";

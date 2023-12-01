@@ -501,7 +501,7 @@
 	<string name="error_enter_correct_phone">正しい電話番号を入力してください</string>
 	<string name="error_enter_correct_web">有効なウェブアドレスを入力してください</string>
 	<string name="error_enter_correct_email">有効なメールアドレスを入力してください</string>
-	<string name="placepage_add_place_button">地図上に場所を追加</string>
+	<string name="placepage_add_place_button">OpenStreetMapに場所を追加する</string>
 	<!-- Displayed when saving some edits to the map to warn against publishing personal data -->
 	<string name="editor_share_to_all_dialog_title">全てのユーザーに送信しますか？</string>
 	<!-- Dialog before publishing the modifications to the public map. -->

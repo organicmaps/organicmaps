@@ -532,7 +532,7 @@
 	<string name="error_enter_correct_twitter_page">Voer een geldig Twitter-webadres of een gebruikersnaam in</string>
 	<string name="error_enter_correct_vk_page">Voer een geldig VB webadres of een accountnaam in</string>
 	<string name="error_enter_correct_line_page">Voer een geldig LINE-webadres of een LINE ID in</string>
-	<string name="placepage_add_place_button">Een plek toevoegen aan de kaart</string>
+	<string name="placepage_add_place_button">Plaats toevoegen aan OpenStreetMap</string>
 	<!-- Displayed when saving some edits to the map to warn against publishing personal data -->
 	<string name="editor_share_to_all_dialog_title">Wil je het naar alle gebruikers sturen?</string>
 	<!-- Dialog before publishing the modifications to the public map. -->

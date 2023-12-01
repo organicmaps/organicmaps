@@ -530,7 +530,7 @@
 	<string name="error_enter_correct_web">Увядзіце правільны вэб-адрас</string>
 	<string name="error_enter_correct_email">Увядзіце правільны адрас электронный пошты</string>
 	<string name="error_enter_correct_line_page">Увядзіце сапраўдны LINE ID або вэб-адрас</string>
-	<string name="placepage_add_place_button">Дадаць месца на мапу</string>
+	<string name="placepage_add_place_button">Дадаць месца ў OpenStreetMap</string>
 	<!-- Displayed when saving some edits to the map to warn against publishing personal data -->
 	<string name="editor_share_to_all_dialog_title">Хочаце адправіць усім карыстальнікам?</string>
 	<!-- Dialog before publishing the modifications to the public map. -->

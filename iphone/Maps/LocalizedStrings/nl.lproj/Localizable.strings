@@ -830,7 +830,7 @@
 
 "refresh" = "Updaten";
 
-"placepage_add_place_button" = "Een plek toevoegen aan de kaart";
+"placepage_add_place_button" = "Plaats toevoegen aan OpenStreetMap";
 
 /* Displayed when saving some edits to the map to warn against publishing personal data */
 "editor_share_to_all_dialog_title" = "Wil je het naar alle gebruikers sturen?";

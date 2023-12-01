@@ -517,7 +517,7 @@
 	<string name="error_enter_correct_twitter_page">Inserisci un indirizzo web o un nome utente Twitter valido</string>
 	<string name="error_enter_correct_vk_page">Inserisci un indirizzo web o un nome di account VK valido</string>
 	<string name="error_enter_correct_line_page">Inserisca un indirizzo web LINE valido o un ID LINE</string>
-	<string name="placepage_add_place_button">Aggiungi un luogo sulla mappa</string>
+	<string name="placepage_add_place_button">Aggiungi un luogo a OpenStreetMap</string>
 	<!-- Displayed when saving some edits to the map to warn against publishing personal data -->
 	<string name="editor_share_to_all_dialog_title">Vuoi inviarlo a tutti gli utenti?</string>
 	<!-- Dialog before publishing the modifications to the public map. -->

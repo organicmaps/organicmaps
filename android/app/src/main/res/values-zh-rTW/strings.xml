@@ -521,7 +521,7 @@
 	<string name="error_enter_correct_instagram_page">輸入有效 Instagram 網址或帳號名稱</string>
 	<string name="error_enter_correct_twitter_page">輸入有效推特網址或使用者名稱</string>
 	<string name="error_enter_correct_vk_page">輸入有效 VK 網益止或帳號名稱</string>
-	<string name="placepage_add_place_button">增加地點到地圖上</string>
+	<string name="placepage_add_place_button">將地點新增至 OpenStreetMap</string>
 	<!-- Displayed when saving some edits to the map to warn against publishing personal data -->
 	<string name="editor_share_to_all_dialog_title">您想要發給所有用戶嗎？</string>
 	<!-- Dialog before publishing the modifications to the public map. -->

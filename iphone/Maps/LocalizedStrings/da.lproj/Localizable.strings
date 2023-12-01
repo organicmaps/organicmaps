@@ -830,7 +830,7 @@
 
 "refresh" = "Opdater";
 
-"placepage_add_place_button" = "Tilføj et sted på kortet";
+"placepage_add_place_button" = "Tilføj sted til OpenStreetMap";
 
 /* Displayed when saving some edits to the map to warn against publishing personal data */
 "editor_share_to_all_dialog_title" = "Ønsker du at sende det til alle brugere?";

@@ -513,7 +513,7 @@
 	<string name="error_enter_correct_phone">输入正确的电话号码</string>
 	<string name="error_enter_correct_web">输入有效网址</string>
 	<string name="error_enter_correct_email">输入有效电子邮箱</string>
-	<string name="placepage_add_place_button">添加地点到地图上</string>
+	<string name="placepage_add_place_button">将地点添加到 OpenStreetMap</string>
 	<!-- Displayed when saving some edits to the map to warn against publishing personal data -->
 	<string name="editor_share_to_all_dialog_title">您想要发给所有用户吗？</string>
 	<!-- Dialog before publishing the modifications to the public map. -->

@@ -830,7 +830,7 @@
 
 "refresh" = "Päivitä";
 
-"placepage_add_place_button" = "Lisää paikka kartalle";
+"placepage_add_place_button" = "Lisää paikka OpenStreetMapiin";
 
 /* Displayed when saving some edits to the map to warn against publishing personal data */
 "editor_share_to_all_dialog_title" = "Haluatko lähettää sen kaikille käyttäjille?";

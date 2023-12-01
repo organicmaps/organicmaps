@@ -830,7 +830,7 @@
 
 "refresh" = "更新";
 
-"placepage_add_place_button" = "添加地点到地图上";
+"placepage_add_place_button" = "将地点添加到 OpenStreetMap";
 
 /* Displayed when saving some edits to the map to warn against publishing personal data */
 "editor_share_to_all_dialog_title" = "您想要发给所有用户吗？";

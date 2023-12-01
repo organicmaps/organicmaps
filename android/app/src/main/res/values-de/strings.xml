@@ -532,7 +532,7 @@
 	<string name="error_enter_correct_twitter_page">Geben Sie eine gültige Twitter-Webadresse oder einen Benutzernamen ein</string>
 	<string name="error_enter_correct_vk_page">Geben Sie eine gültige VK-Webadresse oder einen Kontonamen ein</string>
 	<string name="error_enter_correct_line_page">Geben Sie eine gültige LINE-Webadresse oder LINE ID ein</string>
-	<string name="placepage_add_place_button">Einen Ort zur Karte hinzufügen</string>
+	<string name="placepage_add_place_button">Einen Ort zu OpenStreetMap hinzufügen</string>
 	<!-- Displayed when saving some edits to the map to warn against publishing personal data -->
 	<string name="editor_share_to_all_dialog_title">An alle Benutzer senden?</string>
 	<!-- Dialog before publishing the modifications to the public map. -->

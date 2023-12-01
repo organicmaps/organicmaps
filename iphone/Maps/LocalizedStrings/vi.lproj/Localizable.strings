@@ -830,7 +830,7 @@
 
 "refresh" = "Cập nhật";
 
-"placepage_add_place_button" = "Thêm địa điểm vào bản đồ";
+"placepage_add_place_button" = "Thêm địa điểm vào OpenStreetMap";
 
 /* Displayed when saving some edits to the map to warn against publishing personal data */
 "editor_share_to_all_dialog_title" = "Bạn có muốn gửi cho toàn bộ người dùng?";

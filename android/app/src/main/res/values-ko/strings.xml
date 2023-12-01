@@ -503,7 +503,7 @@
 	<string name="error_enter_correct_phone">올바른 전화 번호 입력</string>
 	<string name="error_enter_correct_web">유효한 웹 주소 입력</string>
 	<string name="error_enter_correct_email">유효한 이메일 주소 입력</string>
-	<string name="placepage_add_place_button">지도에 장소 추가</string>
+	<string name="placepage_add_place_button">오픈스트리트맵에 장소 추가</string>
 	<!-- Displayed when saving some edits to the map to warn against publishing personal data -->
 	<string name="editor_share_to_all_dialog_title">이를 모든 사용자에게 전송하시겠습니까?</string>
 	<!-- Dialog before publishing the modifications to the public map. -->

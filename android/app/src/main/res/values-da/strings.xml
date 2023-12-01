@@ -505,7 +505,7 @@
 	<string name="error_enter_correct_phone">Indtast korrekt telefonnummer</string>
 	<string name="error_enter_correct_web">Indtast en gyldig webadresse</string>
 	<string name="error_enter_correct_email">Indtast en gyldig emailadresse</string>
-	<string name="placepage_add_place_button">Tilføj et sted på kortet</string>
+	<string name="placepage_add_place_button">Tilføj sted til OpenStreetMap</string>
 	<!-- Displayed when saving some edits to the map to warn against publishing personal data -->
 	<string name="editor_share_to_all_dialog_title">Ønsker du at sende det til alle brugere?</string>
 	<!-- Dialog before publishing the modifications to the public map. -->

@@ -509,7 +509,7 @@
 	<string name="error_enter_correct_phone">Zadejte správné telefonní číslo</string>
 	<string name="error_enter_correct_web">Zadat platnou webovou adresu</string>
 	<string name="error_enter_correct_email">Zadat platný email</string>
-	<string name="placepage_add_place_button">Přidat místo na mapu</string>
+	<string name="placepage_add_place_button">Přidat místo do OpenStreetMap</string>
 	<!-- Displayed when saving some edits to the map to warn against publishing personal data -->
 	<string name="editor_share_to_all_dialog_title">Chcete jej poslat všem uživatelům?</string>
 	<!-- Dialog before publishing the modifications to the public map. -->

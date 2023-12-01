@@ -510,7 +510,7 @@
 	<string name="error_enter_correct_phone">Introduza um número de telefone correto</string>
 	<string name="error_enter_correct_web">Preencha com um endereço válido na Internet</string>
 	<string name="error_enter_correct_email">Preencha com um endereço válido de email</string>
-	<string name="placepage_add_place_button">Adicionar um local ao mapa</string>
+	<string name="placepage_add_place_button">Adicionar um local no OpenStreetMap</string>
 	<!-- Displayed when saving some edits to the map to warn against publishing personal data -->
 	<string name="editor_share_to_all_dialog_title">Quer enviar para todos os utilizadores?</string>
 	<!-- Dialog before publishing the modifications to the public map. -->
