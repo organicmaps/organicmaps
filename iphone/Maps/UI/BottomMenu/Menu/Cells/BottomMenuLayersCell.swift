@@ -16,7 +16,12 @@ class BottomMenuLayersCell: UITableViewCell {
       updateIsoLinesButton()
     }
   }
-  
+  @IBOutlet private var outdoorButton: BottomMenuLayerButton! {
+    didSet {
+      updateOutdoorButton()
+    }
+  }
+
   var onClose: (()->())?
   
   override func awakeFromNib() {
@@ -48,6 +53,11 @@ class BottomMenuLayersCell: UITableViewCell {
     let enabled = MapOverlayManager.isoLinesEnabled()
     isoLinesButton.setStyleAndApply(enabled ? "MenuButtonEnabled" : "MenuButtonDisabled")
   }
+    
+  private func updateOutdoorButton() {
+    let enabled = MapOverlayManager.outdoorEnabled()
+    outdoorButton.setStyleAndApply(enabled ? "MenuButtonEnabled" : "MenuButtonDisabled")
+  }
   
   @IBAction func onCloseButtonPressed(_ sender: Any) {
     onClose?()
@@ -67,6 +77,11 @@ class BottomMenuLayersCell: UITableViewCell {
     let enable = !MapOverlayManager.isoLinesEnabled()
     MapOverlayManager.setIsoLinesEnabled(enable)
   }
+    
+  @IBAction func onOutdoorButton(_ sender: Any) {
+    let enable = !MapOverlayManager.outdoorEnabled()
+    MapOverlayManager.setOutdoorEnabled(enable)
+  }
 }
 
 extension BottomMenuLayersCell: MapOverlayManagerObserver {
@@ -80,5 +95,9 @@ extension BottomMenuLayersCell: MapOverlayManagerObserver {
   
   func onIsoLinesStateUpdated() {
     updateIsoLinesButton()
+  }
+    
+  func onOutdoorStateUpdated() {
+    updateOutdoorButton()
   }
 }
