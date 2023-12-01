@@ -136,7 +136,8 @@ class PlacePageInfoViewController: UIViewController {
     }
 
     if let website = placePageInfoData.website {
-      websiteView = createInfoItem(website, icon: UIImage(named: "ic_placepage_website"), style: .link) { [weak self] in
+      // Strip website url only when the value is displayed, to avoid issues when it's opened or edited.
+      websiteView = createInfoItem(stripUrl(str: website), icon: UIImage(named: "ic_placepage_website"), style: .link) { [weak self] in
         self?.delegate?.didPressWebsite()
       }
     }
@@ -246,6 +247,16 @@ class PlacePageInfoViewController: UIViewController {
     addChild(viewController)
     stackView.addArrangedSubviewWithSeparator(viewController.view)
     viewController.didMove(toParent: self)
+  }
+
+  private static let kHttp = "http://"
+  private static let kHttps = "https://"
+
+  private func stripUrl(str: String) -> String {
+    let dropFromStart = str.hasPrefix(PlacePageInfoViewController.kHttps) ? PlacePageInfoViewController.kHttps.count
+        : (str.hasPrefix(PlacePageInfoViewController.kHttp) ? PlacePageInfoViewController.kHttp.count : 0);
+    let dropFromEnd = str.hasSuffix("/") ? 1 : 0;
+    return String(str.dropFirst(dropFromStart).dropLast(dropFromEnd))
   }
 }
 
