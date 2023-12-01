@@ -163,7 +163,7 @@ void PathTextContext::Update(ScreenBase const & screen)
     if (screen.IsReverseProjection3d(pos))
     {
       if (pixelSpline.GetSize() > 1)
-        m_pixel3dSplines.push_back(pixelSpline);
+        m_pixel3dSplines.push_back(std::move(pixelSpline));
       pixelSpline.Clear();
       continue;
     }
@@ -176,16 +176,17 @@ void PathTextContext::Update(ScreenBase const & screen)
   if (m_pixel3dSplines.empty())
     return;
 
-  for (size_t i = 0, sz = m_globalOffsets.size(); i < sz; ++i)
+  ASSERT_EQUAL(m_globalPivots.size(), m_globalOffsets.size(), ());
+  for (auto const & pivot : m_globalPivots)
   {
-    m2::PointD const pt2d = screen.GtoP(m_globalPivots[i]);
+    m2::PointD const pt2d = screen.GtoP(pivot);
     if (!screen.IsReverseProjection3d(pt2d))
     {
       auto projectionIter = GetProjectedPoint(screen.PtoP3d(pt2d));
       if (!projectionIter.IsAttached())
         continue;
       m_centerPointIters.push_back(projectionIter);
-      m_centerGlobalPivots.push_back(m_globalPivots[i]);
+      m_centerGlobalPivots.push_back(pivot);
     }
   }
 }

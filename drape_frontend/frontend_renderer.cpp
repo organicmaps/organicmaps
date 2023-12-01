@@ -1433,10 +1433,11 @@ void FrontendRenderer::RenderScene(ScreenBase const & modelView, bool activeFram
     Render2dLayer(modelView);
     RenderUserMarksLayer(modelView, DepthLayer::UserLineLayer);
 
+    bool const hasTransitRouteData = HasTransitRouteData();
     if (m_buildingsFramebuffer->IsSupported() && !m_routeRenderer->IsRulerRoute())
     {
       RenderTrafficLayer(modelView);
-      if (!HasTransitRouteData())
+      if (!hasTransitRouteData)
         RenderRouteLayer(modelView);
       Render3dLayer(modelView);
     }
@@ -1444,7 +1445,7 @@ void FrontendRenderer::RenderScene(ScreenBase const & modelView, bool activeFram
     {
       Render3dLayer(modelView);
       RenderTrafficLayer(modelView);
-      if (!HasTransitRouteData())
+      if (!hasTransitRouteData)
         RenderRouteLayer(modelView);
     }
 
@@ -1486,7 +1487,7 @@ void FrontendRenderer::RenderScene(ScreenBase const & modelView, bool activeFram
       }
     }
 
-    if (HasTransitRouteData())
+    if (hasTransitRouteData)
       RenderRouteLayer(modelView);
 
     {

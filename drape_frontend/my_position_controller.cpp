@@ -513,8 +513,7 @@ void MyPositionController::OnLocationUpdate(location::GpsInfo const & info, bool
   if (m_listener != nullptr)
     m_listener->PositionChanged(Position(), IsModeHasPosition());
 
-  double const kEps = 1e-5;
-  if (fabs(m_lastLocationTimestamp - info.m_timestamp) > kEps)
+  if (fabs(m_lastLocationTimestamp - info.m_timestamp) > 1.0E-5)
   {
     m_lastLocationTimestamp = info.m_timestamp;
     m_updateLocationTimer.Reset();
@@ -556,7 +555,7 @@ void MyPositionController::OnCompassUpdate(location::CompassInfo const & info, S
 
 bool MyPositionController::UpdateViewportWithAutoZoom()
 {
-  double autoScale = m_enablePerspectiveInRouting ? m_autoScale3d : m_autoScale2d;
+  double const autoScale = m_enablePerspectiveInRouting ? m_autoScale3d : m_autoScale2d;
   if (autoScale > 0.0 && m_mode == location::FollowAndRotate &&
       m_isInRouting && m_enableAutoZoomInRouting && !m_needBlockAutoZoom)
   {
