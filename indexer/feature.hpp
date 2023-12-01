@@ -8,8 +8,6 @@
 #include "base/macros.hpp"
 
 #include <array>
-#include <functional>
-#include <iterator>
 #include <string>
 #include <vector>
 
@@ -149,8 +147,6 @@ public:
 
   /// @name Get names for feature.
   //@{
-  /// @return {primary, secondary} names
-  std::pair<std::string_view, std::string_view> GetPreferredNames();
   void GetPreferredNames(bool allowTranslit, int8_t deviceLang, feature::NameParamsOut & out);
 
   /// Get one most suitable name for user.

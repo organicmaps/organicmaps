@@ -765,13 +765,6 @@ void FeatureType::ParseGeometryAndTriangles(int scale)
   ParseTriangles(scale);
 }
 
-std::pair<std::string_view, std::string_view> FeatureType::GetPreferredNames()
-{
-  feature::NameParamsOut out;
-  GetPreferredNames(false /* allowTranslit */, StringUtf8Multilang::GetLangIndex(languages::GetCurrentNorm()), out);
-  return { out.primary, out.secondary };
-}
-
 void FeatureType::GetPreferredNames(bool allowTranslit, int8_t deviceLang, feature::NameParamsOut & out)
 {
   if (!HasName())
