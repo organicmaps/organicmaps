@@ -516,7 +516,7 @@
 	<string name="error_enter_correct_phone">Digite um número de telefone correto</string>
 	<string name="error_enter_correct_web">Digite um endereço de site válido</string>
 	<string name="error_enter_correct_email">Digite um endereço de email válido</string>
-	<string name="placepage_add_place_button">Adicionar um local ao mapa</string>
+	<string name="placepage_add_place_button">Adicionar um local no OpenStreetMap</string>
 	<!-- Displayed when saving some edits to the map to warn against publishing personal data -->
 	<string name="editor_share_to_all_dialog_title">Deseja enviar para todos os usuários?</string>
 	<!-- Dialog before publishing the modifications to the public map. -->

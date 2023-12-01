@@ -57,6 +57,7 @@
 	<string name="more_on_kayak">Fotos, reseñas, reservas.</string>
 	<!-- An explanation dialog shown when clicking on more_on_kayak link. -->
 	<string name="dialog_kayak_disclaimer">El bono de recomendación recibido por cada reserva a través de este enlace se destina al desarrollo de Organic Maps.</string>
+	<string name="placepage_add_place_button">Agregar lugar a OpenStreetMap</string>
 	<string name="transliteration_title">Transliteración al alfabeto latino</string>
 	<string name="dialog_error_storage_title">Problema de acceso al almacenamiento</string>
 	<string name="dialog_error_storage_message">El almacenamiento externo no está disponible. Es posible que se haya quitado o dañado la tarjeta SD, o que el sistema de archivos solo permita la lectura. Revíselo y escríbanos a support\@organicmaps.app</string>

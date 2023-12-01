@@ -538,7 +538,7 @@
 	<string name="error_enter_correct_twitter_page">Введіть вірну веб-адресу Twitter сторінки або і\'мя користувача</string>
 	<string name="error_enter_correct_vk_page">Введіть вірну веб-адресу VK сторінки або і\'мя користувача</string>
 	<string name="error_enter_correct_line_page">Введіть вірну веб-адресу LINE сторінки або LINE ID</string>
-	<string name="placepage_add_place_button">Додати на мапу</string>
+	<string name="placepage_add_place_button">Додати місце на OpenStreetMap</string>
 	<!-- Displayed when saving some edits to the map to warn against publishing personal data -->
 	<string name="editor_share_to_all_dialog_title">Надіслати усім користувачам?</string>
 	<!-- Dialog before publishing the modifications to the public map. -->

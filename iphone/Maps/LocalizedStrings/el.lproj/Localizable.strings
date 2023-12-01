@@ -830,7 +830,7 @@
 
 "refresh" = "Ενημέρωση";
 
-"placepage_add_place_button" = "Να προστεθεί η τοποθεσία στο χάρτη";
+"placepage_add_place_button" = "Προσθήκη τόπου στο OpenStreetMap";
 
 /* Displayed when saving some edits to the map to warn against publishing personal data */
 "editor_share_to_all_dialog_title" = "Θέλετε να το στείλετε σε όλους τους χρήστες;";

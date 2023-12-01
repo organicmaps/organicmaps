@@ -830,7 +830,7 @@
 
 "refresh" = "Memperbarui";
 
-"placepage_add_place_button" = "Tambahkan tempat ke peta";
+"placepage_add_place_button" = "Menambahkan tempat ke OpenStreetMap";
 
 /* Displayed when saving some edits to the map to warn against publishing personal data */
 "editor_share_to_all_dialog_title" = "Apakah Anda ingin mengirimkannya ke semua pengguna?";

@@ -536,7 +536,7 @@
 	<string name="error_enter_correct_twitter_page">Skriv inn en gyldig Twitter-adresse eller -brukernavn.</string>
 	<string name="error_enter_correct_vk_page">Skriv inn en gyldig VB-adresse eller -kontonavn</string>
 	<string name="error_enter_correct_line_page">Skriv inn en gyldig LINE-adresse eller -ID.</string>
-	<string name="placepage_add_place_button">Legg til en plass på kartet</string>
+	<string name="placepage_add_place_button">Legg til sted i OpenStreetMap</string>
 	<!-- Displayed when saving some edits to the map to warn against publishing personal data -->
 	<string name="editor_share_to_all_dialog_title">Vil du sende det til alle brukere?</string>
 	<!-- Dialog before publishing the modifications to the public map. -->

@@ -536,7 +536,7 @@
 	<string name="error_enter_correct_twitter_page">Geçerli bir Twitter web adresi veya kullanıcı adı girin</string>
 	<string name="error_enter_correct_vk_page">Geçerli bir VK web adresi veya hesap adı girin</string>
 	<string name="error_enter_correct_line_page">Geçerli bir LINE web adresi veya LINE ID\'si girin</string>
-	<string name="placepage_add_place_button">Haritaya bir yer ekle</string>
+	<string name="placepage_add_place_button">OpenStreetMap\'e Yer Ekle</string>
 	<!-- Displayed when saving some edits to the map to warn against publishing personal data -->
 	<string name="editor_share_to_all_dialog_title">Bunu tüm kullanıcılara göndermek ister misiniz?</string>
 	<!-- Dialog before publishing the modifications to the public map. -->

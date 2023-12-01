@@ -493,7 +493,7 @@
 	<string name="error_enter_correct_phone">Въведете валиден телефонен номер</string>
 	<string name="error_enter_correct_web">Въведете валиден уеб адрес</string>
 	<string name="error_enter_correct_email">Въведете валиден имейл</string>
-	<string name="placepage_add_place_button">Добавяне на място в картата</string>
+	<string name="placepage_add_place_button">Добавяне на място в OpenStreetMap</string>
 	<!-- Displayed when saving some edits to the map to warn against publishing personal data -->
 	<string name="editor_share_to_all_dialog_title">Искате ли да го изпратите на всички потребители?</string>
 	<!-- Dialog before publishing the modifications to the public map. -->
