@@ -1,4 +1,6 @@
 #include "app/organicmaps/core/jni_helper.hpp"
+#include "app/organicmaps/core/jni_java_methods.hpp"
+#include "app/organicmaps/util/Distance.hpp"
 
 #include "indexer/search_string_utils.hpp"
 
