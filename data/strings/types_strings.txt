@@ -11495,6 +11495,94 @@
     zh-Hans = 步行道路
     zh-Hant = 人行步道
 
+  [type.highway.footway.sidewalk]
+    en = Sidewalk
+    af = Sypaadjie
+    ar = رصيف
+    be = Тратуар
+    bg = Тротоар
+    ca = Vorera
+    cs = Chodník
+    da = Fortov
+    de = Bürgersteig
+    el = Πεζοδρόμιο
+    es = Acera
+    es-MX = Banqueta
+    et = Kõnnitee
+    eu = Espaloia
+    fa = پیاده رو
+    fi = Sidewalk
+    fr = Trottoir
+    he = מדרכה
+    hi = फ़ुटपाथ
+    hu = Járda
+    id = Trotoar
+    it = Marciapiede
+    ja = 歩道
+    ko = 보도
+    lt = Šaligatvis
+    mr = फुटपाथ
+    nb = Fortau
+    nl = Stoep
+    pl = Chodnik
+    pt = Passeio
+    pt-BR = Calçada
+    ro = Trotuar
+    ru = Тротуар
+    sk = Chodník
+    sv = Trottoar
+    sw = Njia ya kando
+    th = ทางเท้า
+    tr = Kaldırım
+    uk = Тротуар
+    vi = Đường đi bộ
+    zh-Hans = 人行道
+    zh-Hant = 人行道
+
+  [type.highway.footway.crossing]
+    en = Pedestrian Crossing
+    af = Voetgangersoorgang
+    ar = عبور المشاة
+    be = Пешаходны пераход
+    bg = Пешеходно пресичане
+    ca = Pas de vianants
+    cs = Přechod pro chodce
+    da = Fodgængerovergang
+    de = Fußgängerübergang
+    el = Διάβαση πεζών
+    es = Paso de peatones
+    es-MX = Cruce peatonal
+    et = Jalakäijate ülekäigurada
+    eu = Oinezkoen pasabidea
+    fa = محل عبور عابر پیاده
+    fi = Jalankulkijoiden ylitys
+    fr = Passage pour piétons
+    he = מעבר הולכי רגל
+    hi = पैदल पार पथ
+    hu = Gyalogátkelőhely
+    id = Penyeberangan Pejalan Kaki
+    it = Attraversamento pedonale
+    ja = 横断歩道
+    ko = 횡단보도
+    lt = Pėsčiųjų perėja
+    mr = पादचारी ओलांडणे
+    nb = Fotgjengerovergang
+    nl = Voetgangersoversteekplaats
+    pl = Przejście dla pieszych
+    pt = Passagem de peões
+    pt-BR = Travessia de pedestres
+    ro = Trecere de pietoni
+    ru = Пешеходный переход
+    sk = Prechod pre chodcov
+    sv = Övergångsställe för fotgängare
+    sw = Kivuko cha Watembea kwa miguu
+    th = ทางม้าลาย
+    tr = Yaya Geçidi
+    uk = Пішохідний перехід
+    vi = Vạch qua đường
+    zh-Hans = 行人过街天桥
+    zh-Hant = 行人穿越道
+
   [type.highway.footway.alpine_hiking]
     ref = type.highway.path
     de = Alpinwanderweg
@@ -11584,9 +11672,6 @@
     pt = Caminho pedonal
     pt-BR = Caminho pedonal
     zh-Hans = 步行道路
-
-  [type.highway.footway.permissive]
-    ref = type.highway.footway
 
   [type.highway.footway.tunnel]
     ref = type.highway.road.tunnel
@@ -18391,45 +18476,6 @@
     zh-Hans = 海峡
     zh-Hant = 海峽
 
-  [type.natural.tree]
-    en = Tree
-    af = Boom
-    ar = شجرة
-    be = Дрэва
-    bg = Дърво
-    cs = Strom
-    da = Træ
-    de = Baum
-    el = Δέντρο
-    es = Árbol
-    et = Puu
-    eu = Zuhaitza
-    fa = درخت
-    fi = Puu
-    fr = Arbre
-    he = עץ
-    hu = Fa
-    id = Pohon
-    it = Albero
-    ja = 木
-    ko = 나무
-    mr = झाड
-    nb = Tre
-    nl = Boom
-    pl = Drzewo
-    pt = Árvore
-    ro = Arbore
-    ru = Дерево
-    sk = Strom
-    sv = Träd
-    sw = Mti
-    th = ต้นไม้
-    tr = Ağaç
-    uk = Дерево
-    vi = Cây
-    zh-Hans = 树
-    zh-Hant = 樹
-
   [type.natural.tree_row]
     en = Tree Row
     af = Boomry
@@ -20307,42 +20353,6 @@
     vi = Nhà máy điện gió
     zh-Hans = 风力发电厂
     zh-Hant = 風力發電廠
-
-  [type.power.pole]
-    en = Power Pole
-    af = Elektrisiteitspaal
-    ar = عمود كهرباء
-    cs = Sloup elektrického vedení
-    da = El-pol
-    de = Nieder-/Mittelspannungsmast
-    el = Πυλώνες μεταφοράς ρεύματος
-    es = Poste eléctrico
-    et = Elektripost
-    eu = Zutabe elektrikoa
-    fa = برج قدرت
-    fi = Sähköpylväs
-    fr = Poteau électrique
-    hu = Villanyoszlop
-    id = Menara listrik
-    it = Palo elettrico
-    ja = 電柱
-    ko = 전봇대
-    mr = विद्युत मनोरा
-    nb = Strømmast
-    nl = Elektriciteitspaal
-    pl = Słup elektryczny
-    pt = Poste de eletricidade
-    pt-BR = Poste de eletricidade
-    ro = Stâlp de electricitate
-    ru = Опора ЛЭП
-    sk = Stĺp elektrického vedenia
-    sv = Elstolpe
-    th = เสาไฟฟ้า
-    tr = Elektrik Direği
-    uk = Стовп ЛЕП
-    vi = Trụ Điện
-    zh-Hans = 电线杆
-    zh-Hant = 電塔
 
   [type.power.station]
     en = Power Station

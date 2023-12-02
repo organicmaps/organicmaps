@@ -700,7 +700,6 @@ highway-footway-demanding_mountain_hiking           # pathtext z15- (also has li
 highway-footway-difficult_alpine_hiking             # pathtext z15- (also has line z14-)
 highway-footway-hiking                              # pathtext z15- (also has line z14-)
 highway-footway-mountain_hiking                     # pathtext z15- (also has line z14-)
-highway-footway-permissive                          # pathtext z15- (also has line z15-)
 highway-path                                        # pathtext z15- (also has line z14-)
 highway-path-alpine_hiking                          # pathtext z15- (also has line z14-)
 highway-path-bicycle                                # pathtext z15- (also has line z14-)

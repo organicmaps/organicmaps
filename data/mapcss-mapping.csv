@@ -70,7 +70,8 @@ railway|rail|main;[railway=rail][usage=main][!highspeed][!service];;name;int_nam
 landuse|residential;15;
 highway|path;16;
 highway|bus_stop;17;
-natural|tree;18;
+# ~4M usages.
+highway|footway|sidewalk;[highway=footway][footway=sidewalk];;name;int_name;18;
 place|locality;19;
 natural|coastline;20;
 place|village;21;
@@ -109,7 +110,8 @@ natural|water|pond;[natural=water][water=pond];;name;int_name;47;
 landuse|farmland;48;
 barrier|fence;49;
 natural|water|lake;[natural=water][water=lake];;name;int_name;50;
-power|pole;51;
+# ~3M usages. TODO: consolidate all other footway=link/etc. values into highway-footway-minor.
+highway|footway|crossing;[highway=footway][footway=crossing];;name;int_name;51;
 waterway|riverbank;52;
 highway|path|bicycle;[highway=path][bicycle?];;name;int_name;53;
 landuse|meadow;54;
@@ -186,6 +188,7 @@ landuse|commercial;111;
 railway|station;112;
 highway|path|hiking;[highway=path][route=hiking],[highway=path][sac_scale=hiking];;name;int_name;113;
 amenity|hospital;114;
+# TODO: merge with "intermittent".
 waterway|stream|ephemeral;[waterway=stream][intermittent=ephemeral];;name;int_name;115;
 highway|trunk|bridge;[highway=trunk][bridge?];;name;int_name;116;
 amenity|post_office;117;
@@ -226,7 +229,7 @@ natural|water|river;[natural=water][water=river];;name;int_name;149;
 railway|tram;150;
 amenity|toilets;151;
 natural|water|basin;[natural=water][water=basin];;name;int_name;152;
-highway|footway|permissive;[highway=footway][access=permissive],[highway=footway][foot=permissive];;name;int_name;153;
+deprecated:highway|footway|permissive:11.2023;[highway=footway][access=permissive],[highway=footway][foot=permissive];x;name;int_name;153;highway|footway
 leisure|picnic_table;154;
 landuse|construction;155;
 tourism|viewpoint;156;

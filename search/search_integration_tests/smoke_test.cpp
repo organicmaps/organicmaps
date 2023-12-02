@@ -234,7 +234,6 @@ UNIT_CLASS_TEST(SmokeTest, CategoriesTest)
   base::StringIL const arrInvisible[] = {
       {"man_made", "tower"},
       {"man_made", "water_tower"},
-      {"natural", "tree"},
 
       {"place", "continent"},
       {"place", "county"},

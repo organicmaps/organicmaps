@@ -842,6 +842,11 @@ line|z18[highway=footway]
 line|z19-[highway=footway],
 {width: 4.2; dashes: 10,3.5; opacity: 1;}
 
+/* Don't display sidewalks and pedestrian crossings on z15. */
+line|z15[highway=footway][footway=sidewalk],
+line|z15[highway=footway][footway=crossing],
+{width: 0;}
+
 line|z17-[highway=footway][tunnel?]::tunnelBackground
 {casing-width-add: 0.5;}
 line|z17-[highway=footway][tunnel?]::tunnelCasing

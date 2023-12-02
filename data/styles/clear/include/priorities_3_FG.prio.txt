@@ -49,6 +49,7 @@ highway-cycleway                                    # line z13- (also has pathte
 highway-cycleway-bridge                             # line z13- (also has line::bridgeblack z17-, line::bridgewhite z15-, pathtext z15-)
 highway-cycleway-permissive                         # line z13- (also has pathtext z15-)
 highway-cycleway-tunnel                             # line z13- (also has line::tunnelBackground z17-, line::tunnelCasing z17-, pathtext z15-)
+highway-footway-crossing                            # line z16-
 highway-steps                                       # line z15- (also has pathtext z16-)
 highway-steps-bridge                                # line z15- (also has line::bridgeblack z17-, line::bridgewhite z15-, pathtext z16-)
 highway-steps-tunnel                                # line z15- (also has line::tunnelBackground z17-, line::tunnelCasing z17-, pathtext z16-)
@@ -269,7 +270,7 @@ highway-footway-demanding_mountain_hiking           # line z14- (also has pathte
 highway-footway-difficult_alpine_hiking             # line z14- (also has pathtext z15-)
 highway-footway-hiking                              # line z14- (also has pathtext z15-)
 highway-footway-mountain_hiking                     # line z14- (also has pathtext z15-)
-highway-footway-permissive                          # line z15- (also has pathtext z15-)
+highway-footway-sidewalk                            # line z16-
 highway-footway-tunnel                              # line z15- (also has line::tunnelBackground z17-, line::tunnelCasing z17-, pathtext z15-)
 highway-path                                        # line z14- (also has pathtext z15-)
 highway-path-alpine_hiking                          # line z14- (also has pathtext z15-)
