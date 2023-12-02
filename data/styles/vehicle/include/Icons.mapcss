@@ -510,7 +510,7 @@ node|z15-[amenity=university],
 node|z15-[amenity=hospital],
 node|z14-[barrier=toll_booth],
 area|z14-[barrier=toll_booth],
-node|z15-[barrier=border_control],
+node|z14-[barrier=border_control],
 node|z16-[barrier=lift_gate],
 area|z16-[barrier=lift_gate],
 node|z17-[amenity=bank],
@@ -633,20 +633,15 @@ node|z18-[amenity=police],
 area|z18-[amenity=police]
 {icon-image: police-m.svg; font-size: 14.5; icon-min-distance: 10;}
 
-node|z12-14[barrier=toll_booth],
-area|z12-14[barrier=toll_booth]
-{icon-image: toll_booth-m.svg;icon-min-distance: 8;}
-node|z15-16[barrier=toll_booth],
-area|z15-16[barrier=toll_booth]
-{icon-image: toll_booth-m.svg;icon-min-distance: 8;}
-node|z17-[barrier=toll_booth],
-area|z17-[barrier=toll_booth]
-{icon-image: toll_booth-m.svg;icon-min-distance: 8;}
+node|z12[barrier=toll_booth],
+area|z12[barrier=toll_booth],
+{icon-image: toll_booth-s.svg; icon-min-distance: 8;}
+node|z13-[barrier=toll_booth],
+area|z13-[barrier=toll_booth],
+{icon-image: toll_booth-m.svg; icon-min-distance: 8;}
 
-node|z15-[barrier=border_control]
-{icon-image:bcontrol-m.svg;}
-node|z17-[barrier=border_control]
-{icon-image:bcontrol-m.svg;}
+node|z14-[barrier=border_control],
+{icon-image: bcontrol-m.svg;}
 
 node|z16-[barrier=lift_gate],
 area|z16-[barrier=lift_gate]

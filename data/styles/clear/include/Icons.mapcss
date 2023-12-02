@@ -34,8 +34,8 @@ area|z11-[waterway=waterfall],
 node|z12-[natural=cave_entrance],
 area|z12-[natural=cave_entrance],
 node|z13-[natural=peak][name],
-node|z14-[natural=saddle],
-area|z14-[natural=saddle],
+node|z16-[natural=saddle],
+area|z16-[natural=saddle],
 node|z14-[mountain_pass],
 area|z14-[mountain_pass],
 node|z14-[natural=spring],
@@ -95,19 +95,26 @@ node|z13[natural=peak][name],
 node|z14[natural=peak][name],
 {icon-image: peakt-s.svg;font-size: 10;}
 node|z15-[natural=peak][name],
-node|z15-[natural=rock],
-area|z15-[natural=rock],
 {icon-image: peakt-m.svg;font-size: 10;}
 
 node|z15-[natural=peak][!name],
 {icon-image: peakt-m.svg;font-size: 10;}
 
-/* ToDo: Make the same as natural=peak when we will have -s,-m icons */
-node|z14-[natural=saddle],
-area|z14-[natural=saddle],
+node|z16-[natural=rock],
+area|z16-[natural=rock],
+{icon-image: peakt-s.svg; font-size: 10;}
+
+
 node|z14-[mountain_pass],
 area|z14-[mountain_pass],
-{icon-image: mountain-pass.svg;text-offset: 1;font-size: 10;}
+{icon-image: mountain-pass-s.svg;text-offset: 1;font-size: 10;}
+node|z15-[mountain_pass],
+area|z15-[mountain_pass],
+{icon-image: mountain-pass-m.svg;}
+node|z16-[natural=saddle],
+area|z16-[natural=saddle],
+{icon-image: mountain-pass-m.svg;text-offset: 1;font-size: 10;}
+
 
 node|z16[leisure=beach_resort],
 area|z16[leisure=beach_resort]
@@ -914,7 +921,7 @@ node|z15-[landuse=quarry],
 area|z15-[landuse=quarry],
 node|z15-[landuse=industrial][industrial=mine],
 area|z15-[landuse=industrial][industrial=mine],
-node|z15-[barrier=border_control],
+node|z14-[barrier=border_control],
 node|z16-[amenity=veterinary],
 area|z16-[amenity=veterinary],
 node|z16-[amenity=fountain],
@@ -1297,8 +1304,8 @@ area|z17-[leisure=swimming_pool]
 node|z17-[leisure=swimming_pool][access=private],
 area|z17-[leisure=swimming_pool][access=private]
 {icon-image: zero-icon.svg;}
-node|z17-[leisure=golf_course],
-area|z17-[leisure=golf_course]
+node|z15-[leisure=golf_course],
+area|z15-[leisure=golf_course],
 {icon-image: golf-m.svg;icon-min-distance: 10;}
 
 node|z17-[sport],
@@ -1527,14 +1534,16 @@ area|z15-[man_made=lighthouse]
 {icon-image: lighthouse-m.svg;}
 
 node|z12-14[barrier=toll_booth],
-area|z12-14[barrier=toll_booth]
-{icon-image: toll_booth-s.svg;icon-min-distance: 8;}
+area|z12-14[barrier=toll_booth],
+{icon-image: toll_booth-s.svg;}
 node|z15-[barrier=toll_booth],
-area|z15-[barrier=toll_booth]
-{icon-image: toll_booth-m.svg;icon-min-distance: 8;}
+area|z15-[barrier=toll_booth],
+{icon-image: toll_booth-m.svg;}
 
-node|z15-[barrier=border_control]
-{icon-image:bcontrol-m.svg;}
+node|z14-[barrier=border_control],
+{icon-image: bcontrol-s.svg;}
+node|z15-[barrier=border_control],
+{icon-image: bcontrol-m.svg;}
 
 node|z16-[barrier=block],
 node|z16-[barrier=bollard],
