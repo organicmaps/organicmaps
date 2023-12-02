@@ -1686,3 +1686,7 @@ highway|path|route_major;[highway=path][route?][network=iwn],[highway=path][rout
 highway|path|route_minor;[highway=path][route?][network=lwn],[highway=path][route?][!network];;name;int_name;1601;
 highway|track|route_major;[highway=track][route?][network=iwn],[highway=track][route?][network=nwn],[highway=track][route?][network=rwn];;name;int_name;1603;
 highway|track|route_minor;[highway=track][route?][network=lwn],[highway=track][route?][!network];;name;int_name;1604;
+highway|footway|route_major;[highway=footway][route?][network=iwn],[highway=footway][route?][network=nwn],[highway=footway][route?][network=rwn];;name;int_name;1605;
+highway|footway|route_minor;[highway=footway][route?][network=lwn],[highway=footway][route?][!network];;name;int_name;1606;
+highway|bridleway|route_major;[highway=bridleway][route?][network=iwn],[highway=bridleway][route?][network=nwn],[highway=bridleway][route?][network=rwn];;name;int_name;1607;
+highway|bridleway|route_minor;[highway=bridleway][route?][network=lwn],[highway=bridleway][route?][!network];;name;int_name;1608;
