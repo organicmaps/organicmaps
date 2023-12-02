@@ -34,10 +34,8 @@ area|z11-[waterway=waterfall],
 node|z12-[natural=cave_entrance],
 area|z12-[natural=cave_entrance],
 node|z13-[natural=peak][name],
-node|z14-[natural=saddle],
-area|z14-[natural=saddle],
+node|z16-[natural=saddle],
 node|z14-[mountain_pass],
-area|z14-[mountain_pass],
 node|z14-[natural=spring],
 area|z14-[natural=spring],
 node|z14-[natural=hot_spring],
@@ -95,19 +93,20 @@ node|z13[natural=peak][name],
 node|z14[natural=peak][name],
 {icon-image: peakt-s.svg;font-size: 10;}
 node|z15-[natural=peak][name],
-node|z15-[natural=rock],
-area|z15-[natural=rock],
 {icon-image: peakt-m.svg;font-size: 10;}
 
 node|z15-[natural=peak][!name],
 {icon-image: peakt-m.svg;font-size: 10;}
 
-/* ToDo: Make the same as natural=peak when we will have -s,-m icons */
-node|z14-[natural=saddle],
-area|z14-[natural=saddle],
-node|z14-[mountain_pass],
-area|z14-[mountain_pass],
-{icon-image: mountain-pass.svg;text-offset: 1;font-size: 10;}
+node|z16-[natural=rock],
+area|z16-[natural=rock],
+{icon-image: peakt-s.svg; font-size: 10;}
+
+node|z14[mountain_pass],
+{icon-image: mountain-pass-s.svg; font-size: 10;}
+node|z15-[mountain_pass],
+node|z15-[natural=saddle],
+{icon-image: mountain-pass-m.svg; font-size: 10;}
 
 node|z16[leisure=beach_resort],
 area|z16[leisure=beach_resort]
@@ -180,15 +179,15 @@ node|z15-[natural=geyser],
 area|z15-[natural=geyser]
 {icon-image: geyser-m.svg;text-offset:8;font-size: 10;icon-min-distance: 24;}
 
-node|z15-[amenity=water_point],
-area|z15-[amenity=water_point],
-node|z15-[amenity=drinking_water],
-area|z15-[amenity=drinking_water],
-node|z15-[man_made=water_tap],
-area|z15-[man_made=water_tap],
-node|z15-[man_made=water_well],
-area|z15-[man_made=water_well],
-{icon-image: drinking-water-s.svg;icon-min-distance: 36;}
+node|z16-[amenity=water_point],
+area|z16-[amenity=water_point],
+node|z16-[amenity=drinking_water],
+area|z16-[amenity=drinking_water],
+node|z16-[man_made=water_tap],
+area|z16-[man_made=water_tap],
+node|z16-[man_made=water_well],
+area|z16-[man_made=water_well],
+{icon-image: drinking-water-s.svg;}
 node|z19-[amenity=water_point],
 area|z19-[amenity=water_point],
 node|z19-[amenity=drinking_water],
@@ -197,7 +196,7 @@ node|z19-[man_made=water_tap],
 area|z19-[man_made=water_tap],
 node|z19-[man_made=water_well],
 area|z19-[man_made=water_well],
-{icon-image: drinking-water-m.svg;icon-min-distance: 36;}
+{icon-image: drinking-water-m.svg;}
 
 /* 3. TRANSPORT */
 
@@ -436,10 +435,10 @@ area|z15-[historic=battlefield],
 node|z15-[tourism=gallery],
 area|z15-[tourism=gallery],
 node|z15-[tourism=artwork],
-node|z15-[tourism=information][information=office],
-node|z15-[tourism=information][information=visitor_centre],
 node|z15-[historic=ship],
 node|z16-[tourism=information],
+node|z15-[tourism=information][information=office],
+node|z15-[tourism=information][information=visitor_centre],
 node|z16-[historic=aircraft],
 node|z16-[historic=tank],
 node|z16-[historic=wreck],
@@ -887,7 +886,7 @@ node|z15-[landuse=quarry],
 area|z15-[landuse=quarry],
 node|z15-[landuse=industrial][industrial=mine],
 area|z15-[landuse=industrial][industrial=mine],
-node|z15-[barrier=border_control],
+node|z14-[barrier=border_control],
 node|z16-[amenity=veterinary],
 area|z16-[amenity=veterinary],
 node|z16-[amenity=fountain],
@@ -918,7 +917,6 @@ node|z16-[leisure=dog_park],
 area|z16-[leisure=dog_park],
 node|z16-[man_made=windmill],
 area|z16-[man_made=windmill],
-node|z16-[man_made=survey_point],
 node|z16-[amenity=college],
 area|z16-[amenity=college],
 node|z16-[amenity=conference_centre],
@@ -975,6 +973,8 @@ node|z17-[amenity=school],
 area|z17-[amenity=school],
 node|z17-[amenity=cinema],
 area|z17-[amenity=cinema],
+node|z17-[amenity=ice_cream],
+area|z17-[amenity=ice_cream],
 node|z17-[leisure=bowling_alley],
 area|z17-[leisure=bowling_alley],
 node|z17-[amenity=police],
@@ -1053,6 +1053,7 @@ node|z18-[amenity=public_bookcase],
 area|z18-[amenity=public_bookcase],
 node|z19-[power=substation],
 area|z19-[power=substation],
+node|z18-[man_made=survey_point],
 node|z18-[tourism],
 area|z18-[tourism],
 node|z18-[office],
@@ -1271,8 +1272,8 @@ area|z17-[leisure=swimming_pool]
 node|z17-[leisure=swimming_pool][access=private],
 area|z17-[leisure=swimming_pool][access=private]
 {icon-image: zero-icon.svg;}
-node|z17-[leisure=golf_course],
-area|z17-[leisure=golf_course]
+node|z15-[leisure=golf_course],
+area|z15-[leisure=golf_course],
 {icon-image: golf-m.svg;icon-min-distance: 10;}
 
 node|z17-[sport],
@@ -1501,14 +1502,16 @@ area|z15-[man_made=lighthouse]
 {icon-image: lighthouse-m.svg;}
 
 node|z12-14[barrier=toll_booth],
-area|z12-14[barrier=toll_booth]
-{icon-image: toll_booth-s.svg;icon-min-distance: 8;}
+area|z12-14[barrier=toll_booth],
+{icon-image: toll_booth-s.svg;}
 node|z15-[barrier=toll_booth],
-area|z15-[barrier=toll_booth]
-{icon-image: toll_booth-m.svg;icon-min-distance: 8;}
+area|z15-[barrier=toll_booth],
+{icon-image: toll_booth-m.svg;}
 
-node|z15-[barrier=border_control]
-{icon-image:bcontrol-m.svg;}
+node|z14[barrier=border_control],
+{icon-image: bcontrol-s.svg;}
+node|z15-[barrier=border_control],
+{icon-image: bcontrol-m.svg;}
 
 node|z16-[barrier=block],
 node|z16-[barrier=bollard],
@@ -1518,6 +1521,8 @@ node|z16-[barrier=turnstile],
 {icon-image: dot-m.svg;font-size: 11;}
 
 node|z16-[barrier=entrance],
+{icon-image: barrier-entrance-s.svg; font-size: 11;}
+
 node|z16-[barrier=gate],
 node|z16-[barrier=kissing_gate],
 {icon-image: gate-s.svg;font-size: 11;}
@@ -1526,6 +1531,8 @@ node|z16-[barrier=cycle_barrier],
 {icon-image: cycle_barrier-s.svg;font-size: 11;}
 
 node|z16-[highway=ford],
+{icon-image: ford-m.svg;}
+
 /* ToDo: Make separate tower icon? Because of a good landmark */
 node|z16-[power=tower],
 node|z15-[man_made=flagpole],
@@ -1767,7 +1774,7 @@ node|z18-[amenity=bbq],
 area|z18-[amenity=bbq]
 {icon-image: bbq-m.svg;font-size: 11;}
 
-node|z16-[man_made=survey_point]
+node|z18-[man_made=survey_point],
 {icon-image: survey_point-m.svg;font-size: 11;}
  
 node|z19-[man_made=cairn]
