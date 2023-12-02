@@ -291,6 +291,11 @@ line|z16-[highway=ford],
 line|z16-[highway=raceway],
 {text: name;text-color: @label_medium;text-halo-opacity: 0.8;text-halo-radius: 1;text-halo-color: @label_halo_light;}
 
+/* Don't display names of sidewalks and pedestrian crossings. */
+line|z15-[highway=footway][footway=sidewalk],
+line|z15-[highway=footway][footway=crossing],
+{text: none;}
+
 line|z15[highway=construction],
 line|z15[highway=bridleway],
 line|z15[highway=path],
