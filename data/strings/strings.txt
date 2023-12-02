@@ -2796,7 +2796,7 @@
     et = Tanklad
     eu = Gasolindegia
     fa = سوخت
-    fi = Polttoaine
+    fi = Huoltoasema
     fr = Stations-service
     he = גז
     hu = Benzinkút
@@ -3526,7 +3526,7 @@
     et = Taaskasutus
     eu = Birziklapena
     fa = بازیافت
-    fi = Kierrätys
+    fi = Jätteiden kierrätys
     fr = Recyclage
     hu = Újrahasznosítás
     id = Mendaur ulang
