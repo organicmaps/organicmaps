@@ -699,8 +699,10 @@ historic-ruins                                      # icon z17- (also has captio
 === 300
 
 amenity-fast_food                                   # icon z17- (also has caption(optional) z17-)
+shop-convenience
 === 250
 
+amenity-toilets
 amenity-bank                                        # icon z17- (also has caption(optional) z17-)
 amenity-parcel_locker                               # icon z17- (also has caption(optional) z17-)
 amenity-police                                      # icon z17-
