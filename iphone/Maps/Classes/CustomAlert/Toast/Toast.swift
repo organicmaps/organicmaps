@@ -44,10 +44,10 @@ final class Toast: NSObject {
   }
 
   @objc func show(in view: UIView?, alignment: Alignment) {
-    guard let view else { return }
+    guard let view = view else { return }
     blurView.translatesAutoresizingMaskIntoConstraints = false
     view.addSubview(blurView)
-    
+
     let leadingConstraint = blurView.leadingAnchor.constraint(greaterThanOrEqualTo: view.leadingAnchor, constant: 16)
     let trailingConstraint = blurView.trailingAnchor.constraint(lessThanOrEqualTo: view.trailingAnchor, constant: -16)
     
