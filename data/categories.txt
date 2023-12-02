@@ -595,7 +595,7 @@ es:Caravanas|Autocaravanas
 et:Haagiselamud
 eu:Karabanak
 fa:RV ﯼﺍﺮﺑ
-fi:RV tilat
+fi:Karavaanaritilat
 fr:Aménagements pour camping-car|4caravane|mobile home
 he:םינאוורק רובע
 hu:RV számára
@@ -711,7 +711,7 @@ es:Segunda mano
 et:Kasutatud
 eu:Bigarren eskuko
 fa:دست دوم
-fi:Käytetty
+fi:Käytetyt tavarat
 fr:D'occasion
 he:יד שניה
 hu:Second-hand
