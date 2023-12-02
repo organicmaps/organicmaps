@@ -633,6 +633,21 @@ line|z18[highway=construction],
 line|z19-[highway=construction],
 {width: 6;dashes: 18,6.2;}
 
+/* 8.7 Footway & Steps 18-22 ZOOM */
+
+/* [highway=footway] should be defined before [highway=footway][sac_scale] in 8.6. */
+line|z18-[highway=footway],
+line|z18-[highway=steps],
+{color: @footway; opacity: 0.7; width: 1.5; dashes: 5,2;}
+
+/* Don't display sidewalks at z18. */
+line|z18[highway=footway][footway=sidewalk],
+{width: 0;}
+
+line|z18-[highway=footway][tunnel?],
+line|z18-[highway=steps][tunnel?],
+{width: 0;}
+
 /* 8.6 Track & Path 16-22 ZOOM */
 
 line|z14-[highway=track][tracktype=grade1],
@@ -671,15 +686,6 @@ line|z19-[highway=path],
 line|z19-[highway=footway][sac_scale],
 {width: 1.5; dashes: 4,2.5;}
 line|z17-[highway=path][tunnel?],
-{width: 0;}
-
-/* 8.7 Footway & Steps 18-22 ZOOM */
-
-line|z18-[highway=footway],
-line|z18-[highway=steps],
-{color: @footway; opacity: 0.7; width: 1.5; dashes: 5,2;}
-line|z18-[highway=footway][tunnel?],
-line|z18-[highway=steps][tunnel?],
 {width: 0;}
 
 /* 8.9 Bridleway 18-22 ZOOM */

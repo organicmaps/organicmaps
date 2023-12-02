@@ -57,6 +57,9 @@ highway-world_towns_level                           # line z6-9
 # highway-trunk-tunnel                              # line(casing) z12- (also has line z7-, pathtext z10-, shield::shield z10-)
 # === 249
 
+highway-footway-crossing                            # line z18-
+=== 245
+
 highway-motorway_link                               # line z10- (also has line(casing) z14-, pathtext z10-, shield::shield z10-)
 highway-motorway_link-bridge                        # line z10- (also has line::bridgeblack z14-, line::bridgewhite z14-, line(casing) z14-, pathtext z10-, shield::shield z10-)
 highway-motorway_link-tunnel                        # line z10- (also has line(casing) z12-, pathtext z10-, shield::shield z10-)
@@ -250,7 +253,7 @@ highway-footway-demanding_mountain_hiking           # line z17-
 highway-footway-difficult_alpine_hiking             # line z17-
 highway-footway-hiking                              # line z17-
 highway-footway-mountain_hiking                     # line z17-
-highway-footway-permissive                          # line z18-
+highway-footway-sidewalk                            # line z19-
 highway-path                                        # line z17-
 highway-path-alpine_hiking                          # line z17-
 highway-path-bicycle                                # line z17-
