@@ -790,7 +790,7 @@
 "book_button" = "Rezervasyon";
 
 /* A referral link on the place page for some hotels */
-"more_on_kayak" = "KAYAK hakkında detaylar";
+"more_on_kayak" = "Fotoğraflar, yorumlar, rezervasyon";
 
 /* An explanation dialog shown when clicking on more_on_kayak link. */
 "dialog_kayak_disclaimer" = "Bu bağlantı üzerinden yapılan her rezervasyon için alınan yönlendirme bonusu Organic Maps'in geliştirilmesine harcanmaktadır.";

@@ -102,7 +102,7 @@
 "transport" = "Liikenne";
 
 /* Search category for fuel stations; any changes should be duplicated in categories.txt @fuel! */
-"fuel" = "Polttoaine";
+"fuel" = "Huoltoasema";
 
 /* Search category for parking lots; any changes should be duplicated in categories.txt @parking! */
 "parking" = "Parkkipaikka";
@@ -153,7 +153,7 @@
 "wifi" = "WiFi";
 
 /* Search category for recycling; any changes should be duplicated in categories.txt @recycling! */
-"recycling" = "Kierrätys";
+"recycling" = "Jätteiden kierrätys";
 
 /* Search category for water; any changes should be duplicated in categories.txt @water! also used to sort bookmarks by type */
 "water" = "Vesi";
@@ -599,11 +599,11 @@
 
 "opens_at" = "Aukeaa kello %@";
 
-"opens_in" = "Opens in %@";
+"opens_in" = "Avautuu %@ kuluttua";
 
 "closes_at" = "Sulkeutuu kello %@";
 
-"closes_in" = "Closes in %@";
+"closes_in" = "Sulkeutuu %@ kuluttua";
 
 "closed" = "Suljettu";
 
@@ -790,7 +790,7 @@
 "book_button" = "Varaa";
 
 /* A referral link on the place page for some hotels */
-"more_on_kayak" = "Lisätietoa osoitteessa KAYAK";
+"more_on_kayak" = "Kuvat, arvostelut, varaus";
 
 /* An explanation dialog shown when clicking on more_on_kayak link. */
 "dialog_kayak_disclaimer" = "Jokaisesta tämän linkin kautta tehdystä varauksesta saatu suosittelubonus käytetään Organic Mapsin kehittämiseen.";

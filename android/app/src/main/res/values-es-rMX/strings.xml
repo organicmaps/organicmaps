@@ -54,7 +54,7 @@
 	<!-- SECTION: Strings for downloading map from search -->
 	<string name="editor_other_info">Enviar nota a los editores de OSM</string>
 	<!-- A referral link on the place page for some hotels -->
-	<string name="more_on_kayak">Detalles sobre KAYAK</string>
+	<string name="more_on_kayak">Fotos, reseñas, reservas.</string>
 	<!-- An explanation dialog shown when clicking on more_on_kayak link. -->
 	<string name="dialog_kayak_disclaimer">El bono de recomendación recibido por cada reserva a través de este enlace se destina al desarrollo de Organic Maps.</string>
 	<string name="transliteration_title">Transliteración al alfabeto latino</string>

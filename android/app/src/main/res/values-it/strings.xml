@@ -496,7 +496,7 @@
 	<string name="minute">min</string>
 	<string name="placepage_more_button">Di più</string>
 	<!-- A referral link on the place page for some hotels -->
-	<string name="more_on_kayak">Dettagli su KAYAK</string>
+	<string name="more_on_kayak">Foto, recensioni, prenotazioni</string>
 	<!-- An explanation dialog shown when clicking on more_on_kayak link. -->
 	<string name="dialog_kayak_disclaimer">Il bonus ricevuto per ogni prenotazione effettuata tramite questo link è destinato allo sviluppo di Organic Maps.</string>
 	<string name="placepage_edit_bookmark_button">Modifica luogo preferito</string>

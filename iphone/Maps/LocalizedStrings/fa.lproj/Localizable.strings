@@ -790,7 +790,7 @@
 "book_button" = "رزرو";
 
 /* A referral link on the place page for some hotels */
-"more_on_kayak" = "جزئیات در KAYAK";
+"more_on_kayak" = "عکس ها، نظرات، رزرو";
 
 /* An explanation dialog shown when clicking on more_on_kayak link. */
 "dialog_kayak_disclaimer" = "پاداش ارجاعی دریافت شده برای هر رزرو از طریق این پیوند به سمت توسعه نقشه های ارگانیک می رود.";

@@ -491,7 +491,7 @@
 	<string name="minute">mnt</string>
 	<string name="placepage_more_button">Lainnya</string>
 	<!-- A referral link on the place page for some hotels -->
-	<string name="more_on_kayak">Perincian di KAYAK</string>
+	<string name="more_on_kayak">Foto, ulasan, pemesanan</string>
 	<!-- An explanation dialog shown when clicking on more_on_kayak link. -->
 	<string name="dialog_kayak_disclaimer">Bonus rujukan yang diterima untuk setiap pemesanan melalui tautan ini digunakan untuk pengembangan Organic Maps.</string>
 	<string name="placepage_edit_bookmark_button">Edit Bookmark</string>

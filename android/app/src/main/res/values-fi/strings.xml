@@ -124,7 +124,7 @@
 	<!-- Search category for public transport; any changes should be duplicated in categories.txt @transport! -->
 	<string name="transport">Liikenne</string>
 	<!-- Search category for fuel stations; any changes should be duplicated in categories.txt @fuel! -->
-	<string name="fuel">Polttoaine</string>
+	<string name="fuel">Huoltoasema</string>
 	<!-- Search category for parking lots; any changes should be duplicated in categories.txt @parking! -->
 	<string name="parking">Parkkipaikka</string>
 	<!-- Search category for clothes/shoes/gifts/jewellery/sport shops; any changes should be duplicated in categories.txt @shopping! -->
@@ -158,7 +158,7 @@
 	<!-- Search category for WiFi access; any changes should be duplicated in categories.txt @wifi! -->
 	<string name="wifi">WiFi</string>
 	<!-- Search category for recycling; any changes should be duplicated in categories.txt @recycling! -->
-	<string name="recycling">Kierrätys</string>
+	<string name="recycling">Jätteiden kierrätys</string>
 	<!-- Search category for water; any changes should be duplicated in categories.txt @water! also used to sort bookmarks by type -->
 	<string name="water">Vesi</string>
 	<!-- Search category for RV facilities; any changes should be duplicated in categories.txt @rv! -->
@@ -430,6 +430,8 @@
 	<string name="day_off_today">Suljettu tänään</string>
 	<string name="day_off">Suljettu</string>
 	<string name="today">Tänään</string>
+	<string name="opens_in">Avautuu %s kuluttua</string>
+	<string name="closes_in">Sulkeutuu %s kuluttua</string>
 	<string name="closed">Suljettu</string>
 	<string name="edit_opening_hours">Muokkaa aukioloaikoja</string>
 	<string name="no_osm_account">Eikö sinulla ole OpenStreetMap-tiliä?</string>
@@ -515,7 +517,7 @@
 	<string name="minute">min</string>
 	<string name="placepage_more_button">Lisää</string>
 	<!-- A referral link on the place page for some hotels -->
-	<string name="more_on_kayak">Lisätietoa osoitteessa KAYAK</string>
+	<string name="more_on_kayak">Kuvat, arvostelut, varaus</string>
 	<!-- An explanation dialog shown when clicking on more_on_kayak link. -->
 	<string name="dialog_kayak_disclaimer">Jokaisesta tämän linkin kautta tehdystä varauksesta saatu suosittelubonus käytetään Organic Mapsin kehittämiseen.</string>
 	<string name="placepage_edit_bookmark_button">Muokkaa kirjanmerkkiä</string>

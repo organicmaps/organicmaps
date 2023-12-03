@@ -491,7 +491,7 @@
 	<string name="minute">น.</string>
 	<string name="placepage_more_button">เพิ่มเติม</string>
 	<!-- A referral link on the place page for some hotels -->
-	<string name="more_on_kayak">รายละเอียดบน KAYAK</string>
+	<string name="more_on_kayak">รูปภาพ รีวิว การจอง</string>
 	<!-- An explanation dialog shown when clicking on more_on_kayak link. -->
 	<string name="dialog_kayak_disclaimer">โบนัสการแนะนำที่ได้รับสำหรับการจองแต่ละครั้งผ่านลิงก์นี้จะนำไปใช้ในการพัฒนาแผนที่ทั่วไป</string>
 	<string name="placepage_edit_bookmark_button">แก้ไข Bookmark</string>
