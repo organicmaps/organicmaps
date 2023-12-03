@@ -103,9 +103,6 @@ public final class UiHelpers
   @Nullable
   public static Row getPlaceOpeningHoursRow(@NonNull MapObject place, @NonNull CarContext context)
   {
-    if (!place.hasMetadata())
-      return null;
-
     final String ohStr = place.getMetadata(Metadata.MetadataType.FMD_OPEN_HOURS);
     final Timetable[] timetables = OpeningHours.nativeTimetablesFromString(ohStr);
     final boolean isEmptyTT = (timetables == null || timetables.length == 0);
