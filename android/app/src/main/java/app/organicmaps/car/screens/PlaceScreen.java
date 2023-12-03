@@ -6,6 +6,7 @@ import static android.text.Spanned.SPAN_INCLUSIVE_INCLUSIVE;
 import android.content.Intent;
 import android.net.Uri;
 import android.text.SpannableString;
+import android.text.TextUtils;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -198,9 +199,10 @@ public class PlaceScreen extends BaseMapScreen implements OnBackPressedCallback.
   {
     Objects.requireNonNull(mMapObject);
 
-    final String phoneNumber = getFirstPhoneNumber(mMapObject);
-    if (!phoneNumber.isEmpty())
+    final String phones = mMapObject.getMetadata(Metadata.MetadataType.FMD_PHONE_NUMBER);
+    if (!TextUtils.isEmpty(phones))
     {
+      final String phoneNumber = phones.split(";", 1)[0];
       final Action.Builder openDialBuilder = new Action.Builder();
       openDialBuilder.setIcon(new CarIcon.Builder(IconCompat.createWithResource(getCarContext(), R.drawable.ic_phone)).build());
       openDialBuilder.setOnClickListener(() -> getCarContext().startCarApp(new Intent(Intent.ACTION_DIAL, Uri.parse("tel:" + phoneNumber))));
@@ -240,16 +242,6 @@ public class PlaceScreen extends BaseMapScreen implements OnBackPressedCallback.
 
     // Driving Options changed. Let's rebuild the route
     mRoutingController.rebuildLastRoute();
-  }
-
-  @NonNull
-  private static String getFirstPhoneNumber(@NonNull MapObject mapObject)
-  {
-    if (!mapObject.hasMetadata())
-      return "";
-
-    final String phones = mapObject.getMetadata(Metadata.MetadataType.FMD_PHONE_NUMBER);
-    return phones.split(";", 1)[0];
   }
 
   @Override

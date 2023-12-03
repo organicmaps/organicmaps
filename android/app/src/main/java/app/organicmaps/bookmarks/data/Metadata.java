@@ -97,11 +97,6 @@ public class Metadata implements Parcelable
     return mMetadataMap.get(type);
   }
 
-  boolean isEmpty()
-  {
-    return mMetadataMap.isEmpty();
-  }
-
   @Override
   public int describeContents()
   {

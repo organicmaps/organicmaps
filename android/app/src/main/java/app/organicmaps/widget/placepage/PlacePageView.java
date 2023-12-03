@@ -142,13 +142,12 @@ public class PlacePageView extends Fragment implements View.OnClickListener,
   private PlacePageViewModel mViewModel;
   private MapObject mMapObject;
 
-  private static void refreshMetadataOrHide(String metadata, View metaLayout, TextView metaTv)
+  private static void refreshMetadataOrHide(@Nullable String metadata, @NonNull View metaLayout, @NonNull TextView metaTv)
   {
     if (!TextUtils.isEmpty(metadata))
     {
       metaLayout.setVisibility(VISIBLE);
-      if (metaTv != null)
-        metaTv.setText(metadata);
+      metaTv.setText(metadata);
     }
     else
       metaLayout.setVisibility(GONE);
@@ -314,14 +313,14 @@ public class PlacePageView extends Fragment implements View.OnClickListener,
 
   private void updateLinksView()
   {
-    final boolean hasLinkAvailable = PlacePageLinksFragment.hasLinkAvailable(mMapObject);
-    updateViewFragment(PlacePageLinksFragment.class, LINKS_FRAGMENT_TAG, R.id.place_page_links_fragment, hasLinkAvailable);
+    updateViewFragment(PlacePageLinksFragment.class, LINKS_FRAGMENT_TAG, R.id.place_page_links_fragment, true);
   }
 
   private void updateOpeningHoursView()
   {
     final String ohStr = mMapObject.getMetadata(Metadata.MetadataType.FMD_OPEN_HOURS);
-    updateViewFragment(PlacePageOpeningHoursFragment.class, OPENING_HOURS_FRAGMENT_TAG, R.id.place_page_opening_hours_fragment, !ohStr.isEmpty());
+    updateViewFragment(PlacePageOpeningHoursFragment.class, OPENING_HOURS_FRAGMENT_TAG,
+        R.id.place_page_opening_hours_fragment, !TextUtils.isEmpty(ohStr));
   }
 
   private void updatePhoneView()
