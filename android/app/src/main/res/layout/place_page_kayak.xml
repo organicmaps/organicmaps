@@ -10,13 +10,13 @@
   tools:visibility="visible">
 
   <ImageView
-    android:id="@+id/iv__place_booking"
+    android:id="@+id/iv__place_kayak"
     style="@style/PlacePageMetadataIcon"
-    android:src="@drawable/ic_bookmark_hotel"
+    android:src="@drawable/ic_kayak_white"
     app:tint="?colorAccent"/>
 
   <TextView
-      android:id="@+id/tv__place_booking"
+      android:id="@+id/tv__place_kayak"
       android:layout_width="match_parent"
       android:layout_height="wrap_content"
       android:text="@string/more_on_kayak"
