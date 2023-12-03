@@ -10,4 +10,4 @@
   android:src="@drawable/ic_feedback"
   android:clickable="true"
   android:focusable="true"
-  app:fabSize="normal"/>
+  app:fabSize="normal" />
