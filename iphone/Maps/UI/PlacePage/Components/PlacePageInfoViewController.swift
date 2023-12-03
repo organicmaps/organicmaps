@@ -146,12 +146,6 @@ class PlacePageInfoViewController: UIViewController {
         self?.delegate?.didPressWikipedia()
       }
     }
-    
-    if placePageInfoData.kayak != nil {
-      kayakView = createInfoItem(L("more_on_kayak"), icon: UIImage(named: "ic_placepage_kayak"), style: .link) { [weak self] in
-        self?.delegate?.didPressKayak()
-      }
-    }
 
     if placePageInfoData.wikimediaCommons != nil {
       wikimediaCommonsView = createInfoItem(L("wikimedia_commons"), icon: UIImage(named: "ic_placepage_wikimedia_commons"), style: .link) { [weak self] in
@@ -206,6 +200,12 @@ class PlacePageInfoViewController: UIViewController {
     if let address = placePageInfoData.address {
       addressView = createInfoItem(address, icon: UIImage(named: "ic_placepage_adress"))
       addressView?.canShowMenu = true
+    }
+
+    if placePageInfoData.kayak != nil {
+      kayakView = createInfoItem(L("more_on_kayak"), icon: UIImage(named: "ic_placepage_kayak"), style: .link) { [weak self] in
+        self?.delegate?.didPressKayak()
+      }
     }
 
     var formatId = self.coordinatesFormatId
