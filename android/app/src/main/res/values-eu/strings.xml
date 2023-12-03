@@ -513,7 +513,7 @@
 	<string name="minute">min</string>
 	<string name="placepage_more_button">Gehiago</string>
 	<!-- A referral link on the place page for some hotels -->
-	<string name="more_on_kayak">Xehetasunak KAYAK-en</string>
+	<string name="more_on_kayak">Argazkiak, iritziak, erreserba</string>
 	<!-- An explanation dialog shown when clicking on more_on_kayak link. -->
 	<string name="dialog_kayak_disclaimer">Esteka honen bidez erreserba bakoitzeko jasotzen den erreferentzia-bonua Organic Maps garatzera doa.</string>
 	<string name="placepage_edit_bookmark_button">Editatu markagailua</string>

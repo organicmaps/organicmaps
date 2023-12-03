@@ -790,7 +790,7 @@
 "book_button" = "Book";
 
 /* A referral link on the place page for some hotels */
-"more_on_kayak" = "Λεπτομέρειες στο KAYAK";
+"more_on_kayak" = "Φωτογραφίες, κριτικές, κράτηση";
 
 /* An explanation dialog shown when clicking on more_on_kayak link. */
 "dialog_kayak_disclaimer" = "Το μπόνους παραπομπής που λαμβάνετε για κάθε κράτηση μέσω αυτού του συνδέσμου πηγαίνει στην ανάπτυξη του Organic Maps.";

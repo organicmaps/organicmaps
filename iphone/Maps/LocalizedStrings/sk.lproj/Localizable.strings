@@ -790,7 +790,7 @@
 "book_button" = "Rezervovať";
 
 /* A referral link on the place page for some hotels */
-"more_on_kayak" = "Podrobnosti na KAYAK";
+"more_on_kayak" = "Fotografie, recenzie, rezervácie";
 
 /* An explanation dialog shown when clicking on more_on_kayak link. */
 "dialog_kayak_disclaimer" = "Bonus získaný za každú rezerváciu prostredníctvom tohto odkazu ide na rozvoj služby Organic Maps.";

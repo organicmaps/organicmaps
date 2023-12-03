@@ -517,7 +517,7 @@
 	<string name="minute">хв</string>
 	<string name="placepage_more_button">Ще</string>
 	<!-- A referral link on the place page for some hotels -->
-	<string name="more_on_kayak">Докладніше на KAYAK</string>
+	<string name="more_on_kayak">Фото, відгуки, бронювання</string>
 	<!-- An explanation dialog shown when clicking on more_on_kayak link. -->
 	<string name="dialog_kayak_disclaimer">Реферальний бонус, отриманий за кожне бронювання за цим посиланням, йде на розробку Organic Maps.</string>
 	<string name="placepage_edit_bookmark_button">Редагувати мiтку</string>

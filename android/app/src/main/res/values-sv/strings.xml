@@ -487,7 +487,7 @@
 	<string name="minute">min</string>
 	<string name="placepage_more_button">Mer</string>
 	<!-- A referral link on the place page for some hotels -->
-	<string name="more_on_kayak">Information på KAYAK</string>
+	<string name="more_on_kayak">Foton, recensioner, bokning</string>
 	<!-- An explanation dialog shown when clicking on more_on_kayak link. -->
 	<string name="dialog_kayak_disclaimer">Hänvisningsbonusen som erhålls för varje bokning via denna länk går till utvecklingen av Organic Maps.</string>
 	<string name="placepage_edit_bookmark_button">Redigera bokmärke</string>

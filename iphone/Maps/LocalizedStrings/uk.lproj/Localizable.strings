@@ -790,7 +790,7 @@
 "book_button" = "Забронювати";
 
 /* A referral link on the place page for some hotels */
-"more_on_kayak" = "Докладніше на KAYAK";
+"more_on_kayak" = "Фото, відгуки, бронювання";
 
 /* An explanation dialog shown when clicking on more_on_kayak link. */
 "dialog_kayak_disclaimer" = "Реферальний бонус, отриманий за кожне бронювання за цим посиланням, йде на розробку Organic Maps.";

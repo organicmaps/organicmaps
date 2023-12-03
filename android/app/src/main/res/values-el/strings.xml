@@ -483,7 +483,7 @@
 	<string name="current_location_unknown_stop_button">Στοπ</string>
 	<string name="placepage_more_button">Περισσότερα</string>
 	<!-- A referral link on the place page for some hotels -->
-	<string name="more_on_kayak">Λεπτομέρειες στο KAYAK</string>
+	<string name="more_on_kayak">Φωτογραφίες, κριτικές, κράτηση</string>
 	<!-- An explanation dialog shown when clicking on more_on_kayak link. -->
 	<string name="dialog_kayak_disclaimer">Το μπόνους παραπομπής που λαμβάνετε για κάθε κράτηση μέσω αυτού του συνδέσμου πηγαίνει στην ανάπτυξη του Organic Maps.</string>
 	<string name="placepage_edit_bookmark_button">Επεξεργασία αγαπημένου</string>
