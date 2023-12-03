@@ -15,3 +15,8 @@ line|z16-[highway=footway],
 line|z16-[highway=bridleway],
 line|z16-[highway=cycleway],
 {font-size: 12;}
+
+/* Don't display names of sidewalks and pedestrian crossings. */
+line|z13-[highway=footway][footway=sidewalk],
+line|z13-[highway=footway][footway=crossing],
+{text: none;}
