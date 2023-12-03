@@ -49,16 +49,13 @@ highway-cycleway                                    # line z13- (also has pathte
 highway-cycleway-bridge                             # line z13- (also has line::bridgeblack z17-, line::bridgewhite z15-, pathtext z15-)
 highway-cycleway-permissive                         # line z13- (also has pathtext z15-)
 highway-cycleway-tunnel                             # line z13- (also has line::tunnelBackground z17-, line::tunnelCasing z17-, pathtext z15-)
-highway-footway-crossing                            # line z16- (also has line(casing) z16-)
+highway-footway-crossing                            # line z15-
 highway-steps                                       # line z15- (also has pathtext z16-)
 highway-steps-bridge                                # line z15- (also has line::bridgeblack z17-, line::bridgewhite z15-, pathtext z16-)
 highway-steps-tunnel                                # line z15- (also has line::tunnelBackground z17-, line::tunnelCasing z17-, pathtext z16-)
 hwtag-oneway::arrows                                # line::arrows z15-
 waterway-weir                                       # line z14- (also has pathtext z15-)
 === 330
-
-# highway-footway-crossing                          # line(casing) z16- (also has line z16-)
-# === 329
 
 barrier-city_wall                                   # line z14-
 barrier-fence                                       # line z16-
@@ -264,10 +261,14 @@ highway-service-parking_aisle                       # line z15- (also has pathte
 highway-service-tunnel                              # line z15- (also has pathtext z16-)
 === 190
 
+highway-bridleway-route_major                       # line z14- (also has pathtext z15-)
+highway-footway-route_major                         # line z15- (also has pathtext z15-)
 highway-path-route_major                            # line z14- (also has pathtext z15-)
 highway-track-route_major                           # line z14- (also has pathtext z15-)
 === 187
 
+highway-bridleway-route_minor                       # line z14- (also has pathtext z15-)
+highway-footway-route_minor                         # line z15- (also has pathtext z15-)
 highway-path-route_minor                            # line z14- (also has pathtext z15-)
 highway-track-route_minor                           # line z14- (also has pathtext z15-)
 === 185
@@ -281,7 +282,7 @@ highway-footway-demanding_mountain_hiking           # line z14- (also has pathte
 highway-footway-difficult_alpine_hiking             # line z14- (also has pathtext z15-)
 highway-footway-hiking                              # line z14- (also has pathtext z15-)
 highway-footway-mountain_hiking                     # line z14- (also has pathtext z15-)
-highway-footway-sidewalk                            # line z16-
+highway-footway-sidewalk                            # line z15-
 highway-footway-tunnel                              # line z15- (also has line::tunnelBackground z17-, line::tunnelCasing z17-, pathtext z15-)
 highway-path                                        # line z14- (also has pathtext z15-)
 highway-path-alpine_hiking                          # line z14- (also has pathtext z15-)

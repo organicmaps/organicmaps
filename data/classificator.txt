@@ -404,6 +404,8 @@ world  +
         bridleway  +
             bridge  -
             permissive  -
+            route_major  -
+            route_minor  -
             tunnel  -
             {}
         bus_stop  -
@@ -422,12 +424,15 @@ world  +
             alpine_hiking  -
             area  -
             bridge  -
+            crossing  -
             demanding_alpine_hiking  -
             demanding_mountain_hiking  -
             difficult_alpine_hiking  -
             hiking  -
             mountain_hiking  -
-            permissive  -
+            route_major  -
+            route_minor  -
+            sidewalk  -
             tunnel  -
             {}
         ford  -
@@ -455,6 +460,8 @@ world  +
             horse  -
             mountain_hiking  -
             permissive  -
+            route_major  -
+            route_minor  -
             tunnel  -
             {}
         pedestrian  +
@@ -520,6 +527,8 @@ world  +
             grade5  -
             no-access  -
             permissive  -
+            route_major  -
+            route_minor  -
             tunnel  -
             {}
         traffic_signals  -
@@ -757,7 +766,6 @@ world  +
         scrub  -
         spring  -
         strait  -
-        tree  -
         tree_row  -
         volcano  -
         water  +
@@ -857,7 +865,6 @@ world  +
             solar  -
             wind  -
             {}
-        pole  -
         station  -
         substation  -
         tower  -
