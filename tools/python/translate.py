@@ -94,7 +94,7 @@ def google_translate(text, source_language):
     lang = GOOGLE_TARGET_LANGUAGES[i]
     if lang == 'zh-TW':
       lang = 'zh-Hant'
-    translations[lang] = line.capitalize()
+    translations[lang] = line
     i = i + 1
     print(lang + ' = ' + line)
   return translations
@@ -124,7 +124,7 @@ def deepl_translate(text, source_language):
       lang = 'zh-Hans'
     elif lang == 'en-US':
       lang = 'en'
-    translations[lang] = translation.capitalize()
+    translations[lang] = translation
     print(lang + ' = ' + translation)
   return translations
 
@@ -168,7 +168,7 @@ if __name__ == '__main__':
       translations.pop(regional)
 
   print('\nMerged Deepl and Google translations:')
-  en = translations.pop('en').title()  # Historically, English is always in Title Case
+  en = translations.pop('en')
   langs = list(translations.keys())
   langs.sort()
 
