@@ -34,7 +34,7 @@
         android:id="@+id/edit_name_container"
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
-        <app.organicmaps.widget.CustomTextInputLayout
+        <com.google.android.material.textfield.TextInputLayout
           android:id="@+id/edit_list_name_input"
           style="@style/MwmWidget.Editor.CustomTextInput"
           android:textColorHint="?android:textColorSecondary"
@@ -47,10 +47,10 @@
           android:hint="@string/list"
           android:layout_width="match_parent"
           android:layout_height="wrap_content" />
-        </app.organicmaps.widget.CustomTextInputLayout>
+        </com.google.android.material.textfield.TextInputLayout>
       </LinearLayout>
     </LinearLayout>
-    <app.organicmaps.widget.CustomTextInputLayout
+    <com.google.android.material.textfield.TextInputLayout
       style="@style/MwmWidget.Editor.CustomTextInput"
       android:textColorHint="?android:textColorSecondary">
     <com.google.android.material.textfield.TextInputEditText
@@ -63,7 +63,7 @@
       android:layout_width="match_parent"
       android:layout_height="wrap_content"
       android:inputType="textMultiLine"/>
-    </app.organicmaps.widget.CustomTextInputLayout>
+    </com.google.android.material.textfield.TextInputLayout>
     <View
       android:background="?android:attr/windowBackground"
       android:layout_width="match_parent"

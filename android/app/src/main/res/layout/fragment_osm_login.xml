@@ -60,17 +60,18 @@
         android:text="@string/login_to_make_edits_visible"
         android:textAppearance="@style/MwmTextAppearance.Body2"
         android:textColor="?android:textColorPrimary" />
-      <app.organicmaps.widget.CustomTextInputLayout
+      <com.google.android.material.textfield.TextInputLayout
         style="@style/MwmWidget.Editor.CustomTextInput"
         android:layout_marginTop="@dimen/margin_half"
-        android:textColorHint="?android:textColorSecondary">
+        android:textColorHint="?android:textColorSecondary"
+        app:endIconMode="custom">
         <com.google.android.material.textfield.TextInputEditText
           android:id="@+id/osm_username"
           style="@style/MwmWidget.Editor.FieldLayout.EditText"
           android:autofillHints="emailAddress"
           android:hint="@string/email_or_username" />
-      </app.organicmaps.widget.CustomTextInputLayout>
-      <app.organicmaps.widget.CustomTextInputLayout
+      </com.google.android.material.textfield.TextInputLayout>
+      <com.google.android.material.textfield.TextInputLayout
         style="@style/MwmWidget.Editor.CustomTextInput"
         android:layout_marginTop="@dimen/margin_base"
         android:textColorHint="?android:textColorSecondary"
@@ -82,7 +83,7 @@
           android:autofillHints="password"
           android:hint="@string/password"
           android:inputType="textPassword" />
-      </app.organicmaps.widget.CustomTextInputLayout>
+      </com.google.android.material.textfield.TextInputLayout>
       <FrameLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"

@@ -271,7 +271,7 @@
           android:layout_height="32dp"
           android:text="@string/editor_other_info"
           android:textAppearance="@style/MwmTextAppearance.Body2"/>
-        <app.organicmaps.widget.CustomTextInputLayout
+        <com.google.android.material.textfield.TextInputLayout
           android:id="@+id/custom_input"
           style="@style/MwmWidget.Editor.CustomTextInput"
           android:gravity="center_vertical"
@@ -282,7 +282,7 @@
             style="@style/MwmWidget.Editor.FieldLayout.EditText"
             android:inputType="textMultiLine"
             android:hint="@string/editor_detailed_description_hint"/>
-        </app.organicmaps.widget.CustomTextInputLayout>
+        </com.google.android.material.textfield.TextInputLayout>
         <TextView
           android:layout_width="match_parent"
           android:layout_height="wrap_content"
