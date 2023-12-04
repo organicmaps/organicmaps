@@ -64,7 +64,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="@dimen/margin_half">
-        <app.organicmaps.widget.CustomTextInputLayout
+        <com.google.android.material.textfield.TextInputLayout
           android:id="@+id/osm_username_container"
           style="@style/MwmWidget.Editor.CustomTextInput"
           android:layout_width="0dp"
@@ -72,14 +72,15 @@
           android:textColorHint="?android:textColorSecondary"
           app:layout_constraintLeft_toLeftOf="parent"
           app:layout_constraintRight_toLeftOf="@id/osm_password_container"
-          app:layout_constraintTop_toTopOf="parent">
+          app:layout_constraintTop_toTopOf="parent"
+          app:endIconMode="custom">
           <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/osm_username"
             style="@style/MwmWidget.Editor.FieldLayout.EditText"
             android:autofillHints="emailAddress"
             android:hint="@string/email_or_username" />
-        </app.organicmaps.widget.CustomTextInputLayout>
-        <app.organicmaps.widget.CustomTextInputLayout
+        </com.google.android.material.textfield.TextInputLayout>
+        <com.google.android.material.textfield.TextInputLayout
           android:id="@+id/osm_password_container"
           style="@style/MwmWidget.Editor.CustomTextInput"
           android:layout_width="0dp"
@@ -95,7 +96,7 @@
             android:autofillHints="password"
             android:hint="@string/password"
             android:inputType="textPassword" />
-        </app.organicmaps.widget.CustomTextInputLayout>
+        </com.google.android.material.textfield.TextInputLayout>
       </androidx.constraintlayout.widget.ConstraintLayout>
       <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
