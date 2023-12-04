@@ -2,6 +2,7 @@ package app.organicmaps.help;
 
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.os.Build;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -9,15 +10,14 @@ import android.view.ViewGroup;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-
-import com.google.android.material.dialog.MaterialAlertDialogBuilder;
-import com.google.android.material.floatingactionbutton.FloatingActionButton;
-
 import app.organicmaps.R;
 import app.organicmaps.WebContainerDelegate;
 import app.organicmaps.base.BaseMwmFragment;
 import app.organicmaps.util.Constants;
 import app.organicmaps.util.Utils;
+import app.organicmaps.widget.ObservableWebView;
+import com.google.android.material.dialog.MaterialAlertDialogBuilder;
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 public class FaqFragment extends BaseMwmFragment
 {
@@ -71,6 +71,21 @@ public class FaqFragment extends BaseMwmFragment
         .setItems(new CharSequence[] { getString(R.string.feedback_general), getString(R.string.report_a_bug) },
                   mDialogClickListener)
         .show());
+
+    ObservableWebView observableWebView = root.findViewById(R.id.webview);
+    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M)
+    {
+      observableWebView.setOnScrollChangeListener((v, scrollX, scrollY, oldScrollX, oldScrollY) -> {
+        if (scrollY > oldScrollY)
+        {
+          feedbackFab.hide();
+        }
+        else
+        {
+          feedbackFab.show();
+        }
+      });
+    }
 
     return root;
   }
