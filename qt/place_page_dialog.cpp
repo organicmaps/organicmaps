@@ -1,16 +1,16 @@
 #include "qt/place_page_dialog.hpp"
 
-#include "map/place_page_info.hpp"
+#include "qt/qt_common/text_dialog.hpp"
 
-#include <string>
+#include "map/place_page_info.hpp"
 
 #include <QtWidgets/QDialogButtonBox>
 #include <QtWidgets/QGridLayout>
 #include <QtWidgets/QHBoxLayout>
 #include <QtWidgets/QLabel>
 #include <QtWidgets/QPushButton>
-#include <QtWidgets/QVBoxLayout>
 
+#include <string>
 
 PlacePageDialog::PlacePageDialog(QWidget * parent, place_page::Info const & info,
                                  search::ReverseGeocoder::Address const & address)
@@ -41,7 +41,8 @@ PlacePageDialog::PlacePageDialog(QWidget * parent, place_page::Info const & info
 
   addEntry("CountryId", info.GetCountryId());
 
-  if (auto const & title = info.GetTitle(); !title.empty())
+  auto const & title = info.GetTitle();
+  if (!title.empty())
     addEntry("Title", title);
 
   if (auto const & subTitle = info.GetSubtitle(); !subTitle.empty())
@@ -82,13 +83,28 @@ PlacePageDialog::PlacePageDialog(QWidget * parent, place_page::Info const & info
   if (auto cuisines = info.FormatCuisines(); !cuisines.empty())
     addEntry(DebugPrint(PropID::FMD_CUISINE), cuisines);
 
+  QDialogButtonBox * dbb = new QDialogButtonBox();
+  QPushButton * closeButton = new QPushButton("Close");
+  closeButton->setDefault(true);
+  connect(closeButton, &QAbstractButton::clicked, this, &PlacePageDialog::OnClose);
+  dbb->addButton(closeButton, QDialogButtonBox::RejectRole);
+
+  if (info.ShouldShowEditPlace())
+  {
+    QPushButton * editButton = new QPushButton("Edit Place");
+    connect(editButton, &QAbstractButton::clicked, this, &PlacePageDialog::OnEdit);
+    dbb->addButton(editButton, QDialogButtonBox::AcceptRole);
+  }
+
   if (auto const & descr = info.GetWikiDescription(); !descr.empty())
   {
-    QLabel * value = addEntry("Wiki Description", {});
-    auto const qWikiDescription = QString::fromStdString(descr);
-    QString clippedText = QFontMetrics{value->font()}.elidedText(qWikiDescription, Qt::ElideRight, value->width());
-    value->setText(clippedText);
-    value->setToolTip(qWikiDescription);
+    QPushButton * wikiButton = new QPushButton("Wiki Description");
+    connect(wikiButton, &QAbstractButton::clicked, this, [this, descr, title]()
+    {
+      auto textDialog = TextDialog(this, QString::fromStdString(descr), QString::fromStdString("Wikipedia: " + title));
+      textDialog.exec();
+    });
+    dbb->addButton(wikiButton, QDialogButtonBox::ActionRole);
   }
 
   info.ForEachMetadataReadable([&addEntry](PropID id, std::string const & value)
@@ -114,23 +130,11 @@ PlacePageDialog::PlacePageDialog(QWidget * parent, place_page::Info const & info
     addEntry(DebugPrint(id), value, isLink);
   });
 
-  QDialogButtonBox * dbb = new QDialogButtonBox();
-  QPushButton * closeButton = new QPushButton("Close");
-  closeButton->setDefault(true);
-  connect(closeButton, &QAbstractButton::clicked, this, &PlacePageDialog::OnClose);
-  dbb->addButton(closeButton, QDialogButtonBox::RejectRole);
-
-  if (info.ShouldShowEditPlace())
-  {
-    QPushButton * editButton = new QPushButton("Edit Place");
-    connect(editButton, &QAbstractButton::clicked, this, &PlacePageDialog::OnEdit);
-    dbb->addButton(editButton, QDialogButtonBox::AcceptRole);
-  }
   grid->addWidget(dbb);
   setLayout(grid);
 
-  auto const title = std::string("Place Page") + (info.IsBookmark() ? " (bookmarked)" : "");
-  setWindowTitle(title.c_str());
+  auto const ppTitle = std::string("Place Page") + (info.IsBookmark() ? " (bookmarked)" : "");
+  setWindowTitle(ppTitle.c_str());
 }
 
 void PlacePageDialog::OnClose() { reject(); }
