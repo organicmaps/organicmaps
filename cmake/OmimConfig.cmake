@@ -2,6 +2,7 @@
 if (MSVC)
   set(OMIM_WARNING_FLAGS /W0)
   add_compile_options(/Zc:lambda)
+  add_compile_options(/Zc:externConstexpr)
 else()
   set(OMIM_WARNING_FLAGS
     $<$<NOT:$<CXX_COMPILER_ID:MSVC>>:-Wall -Wextra -Wpedantic>

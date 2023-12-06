@@ -108,31 +108,36 @@ set(SRC
   viewport.cpp
   viewport.hpp
   visual_scale.hpp
-  # TODO: Why Vulkan is added on all platforms, even on iOS and Mac?
-  vulkan/vulkan_base_context.cpp
-  vulkan/vulkan_base_context.hpp
-  vulkan/vulkan_gpu_buffer_impl.cpp
-  vulkan/vulkan_gpu_buffer_impl.hpp
-  vulkan/vulkan_gpu_program.hpp
-  vulkan/vulkan_layers.cpp
-  vulkan/vulkan_layers.hpp
-  vulkan/vulkan_memory_manager.cpp
-  vulkan/vulkan_memory_manager.hpp
-  vulkan/vulkan_mesh_object_impl.cpp
-  vulkan/vulkan_object_manager.cpp
-  vulkan/vulkan_object_manager.hpp
-  vulkan/vulkan_param_descriptor.cpp
-  vulkan/vulkan_param_descriptor.hpp
-  vulkan/vulkan_pipeline.cpp
-  vulkan/vulkan_pipeline.hpp
-  vulkan/vulkan_staging_buffer.cpp
-  vulkan/vulkan_staging_buffer.hpp
-  vulkan/vulkan_texture.cpp
-  vulkan/vulkan_texture.hpp
-  vulkan/vulkan_utils.cpp
-  vulkan/vulkan_utils.hpp
-  vulkan/vulkan_vertex_array_buffer_impl.cpp
 )
+
+if (NOT MSVC)
+  append(SRC
+    # TODO: Why Vulkan is added on all platforms, even on iOS and Mac?
+    vulkan/vulkan_base_context.cpp
+    vulkan/vulkan_base_context.hpp
+    vulkan/vulkan_gpu_buffer_impl.cpp
+    vulkan/vulkan_gpu_buffer_impl.hpp
+    vulkan/vulkan_gpu_program.hpp
+    vulkan/vulkan_layers.cpp
+    vulkan/vulkan_layers.hpp
+    vulkan/vulkan_memory_manager.cpp
+    vulkan/vulkan_memory_manager.hpp
+    vulkan/vulkan_mesh_object_impl.cpp
+    vulkan/vulkan_object_manager.cpp
+    vulkan/vulkan_object_manager.hpp
+    vulkan/vulkan_param_descriptor.cpp
+    vulkan/vulkan_param_descriptor.hpp
+    vulkan/vulkan_pipeline.cpp
+    vulkan/vulkan_pipeline.hpp
+    vulkan/vulkan_staging_buffer.cpp
+    vulkan/vulkan_staging_buffer.hpp
+    vulkan/vulkan_texture.cpp
+    vulkan/vulkan_texture.hpp
+    vulkan/vulkan_utils.cpp
+    vulkan/vulkan_utils.hpp
+    vulkan/vulkan_vertex_array_buffer_impl.cpp
+  )
+endif()
 
 if (PLATFORM_IPHONE)
   append(SRC
