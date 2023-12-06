@@ -614,15 +614,16 @@ line|z14-[highway=raceway],
 {color: @track;opacity: 0.7;}
 line|z15-[leisure=track][!area],
 {color: @sport;opacity: 0.7;}
-line|z14-[highway=path],
-line|z14-[highway=footway][sac_scale],
-{color: @path;opacity: 0.6;}
 line|z14-[highway=bridleway]
 {color: @bridleway;opacity: 0.6;}
 line|z15-[highway=footway],
 {color: @footway;opacity: 0.75;}
 line|z15-[highway=steps],
 {color: @footway;opacity: 0.85;}
+line|z14-[highway=path],
+/* Important to be declared after ordinary [highway=footway] to avoid overriding. */
+line|z14-[highway=footway][sac_scale],
+{color: @path;opacity: 0.6;}
 line|z16-[highway=pedestrian][tunnel?]
 {color: @unclassified_tunnel;casing-width: 1;casing-linecap: butt;casing-color: @unclassified_tunnel_casing; casing-opacity: 0.7;}
 line|z17-[highway=footway][tunnel?]::tunnelBackground,
