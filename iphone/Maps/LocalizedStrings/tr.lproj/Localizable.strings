@@ -2010,6 +2010,10 @@
 
 "type.highway.footway" = "Yaya Yolu";
 
+"type.highway.footway.sidewalk" = "Kaldırım";
+
+"type.highway.footway.crossing" = "Yaya Geçidi";
+
 "type.highway.footway.alpine_hiking" = "Yol";
 
 "type.highway.footway.area" = "Yaya Alanı";
@@ -2026,8 +2030,6 @@
 "type.highway.footway.hiking" = "Yol";
 
 "type.highway.footway.mountain_hiking" = "Yol";
-
-"type.highway.footway.permissive" = "Yaya Yolu";
 
 /* These translations are used for all type.highway.*.tunnel. */
 "type.highway.footway.tunnel" = "Tünel";
@@ -2670,8 +2672,6 @@
 
 "type.natural.strait" = "Boğaz";
 
-"type.natural.tree" = "Ağaç";
-
 "type.natural.tree_row" = "Ağaç Sırası";
 
 "type.natural.vineyard" = "Bağ";
@@ -2799,8 +2799,6 @@
 "type.power.plant.solar" = "Güneş Enerjisi Santrali";
 
 "type.power.plant.wind" = "Rüzgar Santrali";
-
-"type.power.pole" = "Elektrik Direği";
 
 "type.power.station" = "Elektrik Santrali";
 

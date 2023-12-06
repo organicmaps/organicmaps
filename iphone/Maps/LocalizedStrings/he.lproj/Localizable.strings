@@ -2010,6 +2010,10 @@
 
 "type.highway.footway" = "Foot Path";
 
+"type.highway.footway.sidewalk" = "מדרכה";
+
+"type.highway.footway.crossing" = "מעבר הולכי רגל";
+
 "type.highway.footway.alpine_hiking" = "Path";
 
 "type.highway.footway.area" = "Foot Path";
@@ -2026,8 +2030,6 @@
 "type.highway.footway.hiking" = "Path";
 
 "type.highway.footway.mountain_hiking" = "Path";
-
-"type.highway.footway.permissive" = "Foot Path";
 
 /* These translations are used for all type.highway.*.tunnel. */
 "type.highway.footway.tunnel" = "מִנהָרָה";
@@ -2670,8 +2672,6 @@
 
 "type.natural.strait" = "מצר ים";
 
-"type.natural.tree" = "עץ";
-
 "type.natural.tree_row" = "שורת עצים";
 
 "type.natural.vineyard" = "כרם";
@@ -2799,8 +2799,6 @@
 "type.power.plant.solar" = "תחנת כוח סולארית";
 
 "type.power.plant.wind" = "תחנת כוח רוח";
-
-"type.power.pole" = "Power Pole";
 
 "type.power.station" = "Power Station";
 

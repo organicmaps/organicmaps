@@ -2010,6 +2010,10 @@
 
 "type.highway.footway" = "길";
 
+"type.highway.footway.sidewalk" = "보도";
+
+"type.highway.footway.crossing" = "횡단보도";
+
 "type.highway.footway.alpine_hiking" = "길";
 
 "type.highway.footway.area" = "길";
@@ -2026,8 +2030,6 @@
 "type.highway.footway.hiking" = "길";
 
 "type.highway.footway.mountain_hiking" = "길";
-
-"type.highway.footway.permissive" = "길";
 
 /* These translations are used for all type.highway.*.tunnel. */
 "type.highway.footway.tunnel" = "터널";
@@ -2670,8 +2672,6 @@
 
 "type.natural.strait" = "해협";
 
-"type.natural.tree" = "나무";
-
 "type.natural.tree_row" = "나무 행";
 
 "type.natural.vineyard" = "포도원";
@@ -2799,8 +2799,6 @@
 "type.power.plant.solar" = "태양광 발전소";
 
 "type.power.plant.wind" = "풍력 발전소";
-
-"type.power.pole" = "전봇대";
 
 "type.power.station" = "Power Station";
 

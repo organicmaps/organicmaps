@@ -1146,6 +1146,8 @@
 	<string name="type.highway.cycleway.tunnel">Tunel</string>
 	<string name="type.highway.elevator">Igogailua</string>
 	<string name="type.highway.footway">Bidea</string>
+	<string name="type.highway.footway.sidewalk">Espaloia</string>
+	<string name="type.highway.footway.crossing">Oinezkoen pasabidea</string>
 	<string name="type.highway.footway.alpine_hiking">Bidea</string>
 	<string name="type.highway.footway.area">Bidea</string>
 	<!-- These translations are used for all type.highway.*.bridge. -->
@@ -1155,7 +1157,6 @@
 	<string name="type.highway.footway.difficult_alpine_hiking">Bidea</string>
 	<string name="type.highway.footway.hiking">Bidea</string>
 	<string name="type.highway.footway.mountain_hiking">Bidea</string>
-	<string name="type.highway.footway.permissive">Bidea</string>
 	<!-- These translations are used for all type.highway.*.tunnel. -->
 	<string name="type.highway.footway.tunnel">Tunel</string>
 	<string name="type.highway.ford">Ford (lekukoa)</string>
@@ -1427,7 +1428,6 @@
 	<string name="type.natural.scrub">Sastrakak</string>
 	<string name="type.natural.spring">Udaberria</string>
 	<string name="type.natural.strait">Estua</string>
-	<string name="type.natural.tree">Zuhaitza</string>
 	<string name="type.natural.tree_row">Zuhaitz ilara</string>
 	<string name="type.natural.vineyard">Mahasti</string>
 	<string name="type.natural.volcano">Sumendi</string>
@@ -1486,7 +1486,6 @@
 	<string name="type.power.plant.hydro">Zentral hidroelektrikoa</string>
 	<string name="type.power.plant.solar">Eguzki-zentrala</string>
 	<string name="type.power.plant.wind">Zentral eolikoa</string>
-	<string name="type.power.pole">Zutabe elektrikoa</string>
 	<string name="type.power.substation">Azpiestazioa</string>
 	<string name="type.power.tower">Zutabe elektrikoa</string>
 	<string name="type.public_transport">Garraio publikoa</string>

@@ -2010,6 +2010,10 @@
 
 "type.highway.footway" = "مسار للمشاة";
 
+"type.highway.footway.sidewalk" = "رصيف";
+
+"type.highway.footway.crossing" = "عبور المشاة";
+
 "type.highway.footway.alpine_hiking" = "مسار";
 
 "type.highway.footway.area" = "منطقة مشاة";
@@ -2026,8 +2030,6 @@
 "type.highway.footway.hiking" = "مسار";
 
 "type.highway.footway.mountain_hiking" = "مسار";
-
-"type.highway.footway.permissive" = "مسار للمشاة";
 
 /* These translations are used for all type.highway.*.tunnel. */
 "type.highway.footway.tunnel" = "نفق للمشاة";
@@ -2670,8 +2672,6 @@
 
 "type.natural.strait" = "مضيق";
 
-"type.natural.tree" = "شجرة";
-
 "type.natural.tree_row" = "صف شجر";
 
 "type.natural.vineyard" = "حقل عنب";
@@ -2799,8 +2799,6 @@
 "type.power.plant.solar" = "محطة طاقة شمسية";
 
 "type.power.plant.wind" = "محطة طاقة الرياح";
-
-"type.power.pole" = "عمود كهرباء";
 
 "type.power.station" = "Power Station";
 

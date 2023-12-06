@@ -1104,6 +1104,8 @@
 	<!-- These translations are used for all type.highway.*.tunnel. -->
 	<string name="type.highway.cycleway.tunnel">Túnel</string>
 	<string name="type.highway.footway">Caminho pedonal</string>
+	<string name="type.highway.footway.sidewalk">Passeio</string>
+	<string name="type.highway.footway.crossing">Passagem de peões</string>
 	<string name="type.highway.footway.alpine_hiking">Caminho pedonal</string>
 	<string name="type.highway.footway.area">Caminho pedonal</string>
 	<!-- These translations are used for all type.highway.*.bridge. -->
@@ -1113,7 +1115,6 @@
 	<string name="type.highway.footway.difficult_alpine_hiking">Caminho pedonal</string>
 	<string name="type.highway.footway.hiking">Caminho pedonal</string>
 	<string name="type.highway.footway.mountain_hiking">Caminho pedonal</string>
-	<string name="type.highway.footway.permissive">Caminho pedonal</string>
 	<!-- These translations are used for all type.highway.*.tunnel. -->
 	<string name="type.highway.footway.tunnel">Túnel</string>
 	<string name="type.highway.ford">Vau</string>
@@ -1430,7 +1431,6 @@
 	<string name="type.natural.scrub">Matagal</string>
 	<string name="type.natural.spring">Nascente</string>
 	<string name="type.natural.strait">Estreito</string>
-	<string name="type.natural.tree">Árvore</string>
 	<string name="type.natural.tree_row">Linha de árvores</string>
 	<string name="type.natural.vineyard">Vinha</string>
 	<string name="type.natural.volcano">Vulcão</string>
@@ -1495,7 +1495,6 @@
 	<string name="type.power.plant.hydro">Usina hidrelétrica</string>
 	<string name="type.power.plant.solar">Planta de energia solar</string>
 	<string name="type.power.plant.wind">Usina de energia eólica</string>
-	<string name="type.power.pole">Poste de eletricidade</string>
 	<string name="type.power.station">Subestação elétrica</string>
 	<string name="type.power.substation">Subestação elétrica</string>
 	<string name="type.power.tower">Torre de eletricidade</string>

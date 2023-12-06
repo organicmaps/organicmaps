@@ -2010,6 +2010,10 @@
 
 "type.highway.footway" = "مسیر";
 
+"type.highway.footway.sidewalk" = "پیاده رو";
+
+"type.highway.footway.crossing" = "محل عبور عابر پیاده";
+
 "type.highway.footway.alpine_hiking" = "مسیر";
 
 "type.highway.footway.area" = "مسیر";
@@ -2026,8 +2030,6 @@
 "type.highway.footway.hiking" = "مسیر";
 
 "type.highway.footway.mountain_hiking" = "مسیر";
-
-"type.highway.footway.permissive" = "مسیر";
 
 /* These translations are used for all type.highway.*.tunnel. */
 "type.highway.footway.tunnel" = "تونل";
@@ -2670,8 +2672,6 @@
 
 "type.natural.strait" = "تنگه";
 
-"type.natural.tree" = "درخت";
-
 "type.natural.tree_row" = "ردیف درخت";
 
 "type.natural.vineyard" = "تاکستان";
@@ -2799,8 +2799,6 @@
 "type.power.plant.solar" = "نیروگاه خورشیدی";
 
 "type.power.plant.wind" = "نیروگاه بادی";
-
-"type.power.pole" = "برج قدرت";
 
 "type.power.station" = "Power Station";
 

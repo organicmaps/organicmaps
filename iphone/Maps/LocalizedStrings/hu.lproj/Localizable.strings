@@ -2010,6 +2010,10 @@
 
 "type.highway.footway" = "Ösvény";
 
+"type.highway.footway.sidewalk" = "Járda";
+
+"type.highway.footway.crossing" = "Gyalogátkelőhely";
+
 "type.highway.footway.alpine_hiking" = "Ösvény";
 
 "type.highway.footway.area" = "Ösvény";
@@ -2026,8 +2030,6 @@
 "type.highway.footway.hiking" = "Ösvény";
 
 "type.highway.footway.mountain_hiking" = "Ösvény";
-
-"type.highway.footway.permissive" = "Ösvény";
 
 /* These translations are used for all type.highway.*.tunnel. */
 "type.highway.footway.tunnel" = "Alagút";
@@ -2670,8 +2672,6 @@
 
 "type.natural.strait" = "Szoros";
 
-"type.natural.tree" = "Fa";
-
 "type.natural.tree_row" = "Fa sor";
 
 "type.natural.vineyard" = "Szőlőskert";
@@ -2799,8 +2799,6 @@
 "type.power.plant.solar" = "Naperőmű";
 
 "type.power.plant.wind" = "Szélerőmű";
-
-"type.power.pole" = "Villanyoszlop";
 
 "type.power.station" = "Power Station";
 

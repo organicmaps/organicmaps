@@ -1079,6 +1079,8 @@
 	<!-- These translations are used for all type.highway.*.tunnel. -->
 	<string name="type.highway.cycleway.tunnel">隧道</string>
 	<string name="type.highway.footway">人行步道</string>
+	<string name="type.highway.footway.sidewalk">人行道</string>
+	<string name="type.highway.footway.crossing">行人穿越道</string>
 	<string name="type.highway.footway.alpine_hiking">人行步道</string>
 	<string name="type.highway.footway.area">人行步道</string>
 	<!-- These translations are used for all type.highway.*.bridge. -->
@@ -1088,7 +1090,6 @@
 	<string name="type.highway.footway.difficult_alpine_hiking">人行步道</string>
 	<string name="type.highway.footway.hiking">人行步道</string>
 	<string name="type.highway.footway.mountain_hiking">人行步道</string>
-	<string name="type.highway.footway.permissive">人行步道</string>
 	<!-- These translations are used for all type.highway.*.tunnel. -->
 	<string name="type.highway.footway.tunnel">隧道</string>
 	<string name="type.highway.ford">淺灘</string>
@@ -1361,7 +1362,6 @@
 	<string name="type.natural.scrub">叢林</string>
 	<string name="type.natural.spring">泉水</string>
 	<string name="type.natural.strait">海峽</string>
-	<string name="type.natural.tree">樹</string>
 	<string name="type.natural.tree_row">樹列</string>
 	<string name="type.natural.vineyard">葡萄園</string>
 	<string name="type.natural.volcano">火山</string>
@@ -1418,7 +1418,6 @@
 	<string name="type.power.plant.hydro">水力發電廠</string>
 	<string name="type.power.plant.solar">太陽能發電廠</string>
 	<string name="type.power.plant.wind">風力發電廠</string>
-	<string name="type.power.pole">電塔</string>
 	<string name="type.power.substation">變電所</string>
 	<string name="type.power.tower">電塔</string>
 	<string name="type.railway.funicular">纜車</string>

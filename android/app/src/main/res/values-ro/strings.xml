@@ -1055,6 +1055,8 @@
 	<!-- These translations are used for all type.highway.*.tunnel. -->
 	<string name="type.highway.cycleway.tunnel">Tunel</string>
 	<string name="type.highway.footway">Cale</string>
+	<string name="type.highway.footway.sidewalk">Trotuar</string>
+	<string name="type.highway.footway.crossing">Trecere de pietoni</string>
 	<string name="type.highway.footway.alpine_hiking">Cale</string>
 	<string name="type.highway.footway.area">Cale</string>
 	<!-- These translations are used for all type.highway.*.bridge. -->
@@ -1064,7 +1066,6 @@
 	<string name="type.highway.footway.difficult_alpine_hiking">Cale</string>
 	<string name="type.highway.footway.hiking">Cale</string>
 	<string name="type.highway.footway.mountain_hiking">Cale</string>
-	<string name="type.highway.footway.permissive">Cale</string>
 	<!-- These translations are used for all type.highway.*.tunnel. -->
 	<string name="type.highway.footway.tunnel">Tunel</string>
 	<string name="type.highway.ford">Superficial</string>
@@ -1332,7 +1333,6 @@
 	<string name="type.natural.scrub">Boschet</string>
 	<string name="type.natural.spring">Izvor</string>
 	<string name="type.natural.strait">Strâmtoare</string>
-	<string name="type.natural.tree">Arbore</string>
 	<string name="type.natural.tree_row">Rândul de copaci</string>
 	<string name="type.natural.vineyard">Vie</string>
 	<string name="type.natural.volcano">Vulcan</string>
@@ -1389,7 +1389,6 @@
 	<string name="type.power.plant.hydro">Centrală hidroelectrică</string>
 	<string name="type.power.plant.solar">Centrală solară</string>
 	<string name="type.power.plant.wind">Centrală eoliană</string>
-	<string name="type.power.pole">Stâlp de electricitate</string>
 	<string name="type.power.substation">Stație subterană</string>
 	<string name="type.power.tower">Stâlp de electricitate</string>
 	<string name="type.railway.funicular">Funicular</string>

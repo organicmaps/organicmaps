@@ -275,10 +275,11 @@
 	<!-- These translations are used for all type.highway.*.tunnel. -->
 	<string name="type.highway.cycleway.tunnel">Túnel</string>
 	<string name="type.highway.footway">Camino</string>
+	<string name="type.highway.footway.sidewalk">Banqueta</string>
+	<string name="type.highway.footway.crossing">Cruce peatonal</string>
 	<string name="type.highway.footway.area">Camino</string>
 	<!-- These translations are used for all type.highway.*.bridge. -->
 	<string name="type.highway.footway.bridge">Puente</string>
-	<string name="type.highway.footway.permissive">Camino</string>
 	<!-- These translations are used for all type.highway.*.tunnel. -->
 	<string name="type.highway.footway.tunnel">Túnel</string>
 	<string name="type.highway.ford">Vado</string>

@@ -2010,6 +2010,10 @@
 
 "type.highway.footway" = "Camino";
 
+"type.highway.footway.sidewalk" = "Acera";
+
+"type.highway.footway.crossing" = "Paso de peatones";
+
 "type.highway.footway.alpine_hiking" = "Senderismo alpino";
 
 "type.highway.footway.area" = "Zona peatonal";
@@ -2026,8 +2030,6 @@
 "type.highway.footway.hiking" = "Sendero";
 
 "type.highway.footway.mountain_hiking" = "Camino";
-
-"type.highway.footway.permissive" = "Camino";
 
 /* These translations are used for all type.highway.*.tunnel. */
 "type.highway.footway.tunnel" = "Túnel peatonal";
@@ -2670,8 +2672,6 @@
 
 "type.natural.strait" = "Estrecho";
 
-"type.natural.tree" = "Árbol";
-
 "type.natural.tree_row" = "Fila de árboles";
 
 "type.natural.vineyard" = "Viña";
@@ -2799,8 +2799,6 @@
 "type.power.plant.solar" = "Planta de energía solar";
 
 "type.power.plant.wind" = "Planta eólica";
-
-"type.power.pole" = "Poste eléctrico";
 
 "type.power.station" = "Estación eléctrica";
 

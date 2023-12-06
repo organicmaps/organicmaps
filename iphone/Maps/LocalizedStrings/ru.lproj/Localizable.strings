@@ -2010,6 +2010,10 @@
 
 "type.highway.footway" = "Пешеходная дорожка";
 
+"type.highway.footway.sidewalk" = "Тротуар";
+
+"type.highway.footway.crossing" = "Пешеходный переход";
+
 "type.highway.footway.alpine_hiking" = "Тропа";
 
 "type.highway.footway.area" = "Пешеходная зона";
@@ -2026,8 +2030,6 @@
 "type.highway.footway.hiking" = "Тропа";
 
 "type.highway.footway.mountain_hiking" = "Тропа";
-
-"type.highway.footway.permissive" = "Пешеходная дорожка";
 
 /* These translations are used for all type.highway.*.tunnel. */
 "type.highway.footway.tunnel" = "Пешеходный тоннель";
@@ -2670,8 +2672,6 @@
 
 "type.natural.strait" = "Пролив";
 
-"type.natural.tree" = "Дерево";
-
 "type.natural.tree_row" = "Ряд деревьев";
 
 "type.natural.vineyard" = "Виноградник";
@@ -2799,8 +2799,6 @@
 "type.power.plant.solar" = "Солнечная электростанция";
 
 "type.power.plant.wind" = "Ветряная электростанция";
-
-"type.power.pole" = "Опора ЛЭП";
 
 "type.power.station" = "Электростанция";
 

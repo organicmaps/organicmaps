@@ -2010,6 +2010,10 @@
 
 "type.highway.footway" = "เส้นทาง";
 
+"type.highway.footway.sidewalk" = "ทางเท้า";
+
+"type.highway.footway.crossing" = "ทางม้าลาย";
+
 "type.highway.footway.alpine_hiking" = "เส้นทาง";
 
 "type.highway.footway.area" = "เส้นทาง";
@@ -2026,8 +2030,6 @@
 "type.highway.footway.hiking" = "เส้นทาง";
 
 "type.highway.footway.mountain_hiking" = "เส้นทาง";
-
-"type.highway.footway.permissive" = "เส้นทาง";
 
 /* These translations are used for all type.highway.*.tunnel. */
 "type.highway.footway.tunnel" = "อุโมงค์";
@@ -2670,8 +2672,6 @@
 
 "type.natural.strait" = "ช่องแคบ";
 
-"type.natural.tree" = "ต้นไม้";
-
 "type.natural.tree_row" = "แถวต้นไม้";
 
 "type.natural.vineyard" = "ไร่องุ่น";
@@ -2799,8 +2799,6 @@
 "type.power.plant.solar" = "โรงไฟฟ้าพลังงานแสงอาทิตย์";
 
 "type.power.plant.wind" = "โรงไฟฟ้าพลังงานลม";
-
-"type.power.pole" = "เสาไฟฟ้า";
 
 "type.power.station" = "Power Station";
 

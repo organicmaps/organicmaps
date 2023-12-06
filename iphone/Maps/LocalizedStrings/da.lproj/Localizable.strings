@@ -2010,6 +2010,10 @@
 
 "type.highway.footway" = "Sti";
 
+"type.highway.footway.sidewalk" = "Fortov";
+
+"type.highway.footway.crossing" = "Fodgængerovergang";
+
 "type.highway.footway.alpine_hiking" = "Sti";
 
 "type.highway.footway.area" = "Sti";
@@ -2026,8 +2030,6 @@
 "type.highway.footway.hiking" = "Sti";
 
 "type.highway.footway.mountain_hiking" = "Sti";
-
-"type.highway.footway.permissive" = "Sti";
 
 /* These translations are used for all type.highway.*.tunnel. */
 "type.highway.footway.tunnel" = "Tunnel";
@@ -2670,8 +2672,6 @@
 
 "type.natural.strait" = "Stræde";
 
-"type.natural.tree" = "Træ";
-
 "type.natural.tree_row" = "Trærækker";
 
 "type.natural.vineyard" = "Vingård";
@@ -2799,8 +2799,6 @@
 "type.power.plant.solar" = "Solcelleanlæg";
 
 "type.power.plant.wind" = "Vindkraftværk";
-
-"type.power.pole" = "El-pol";
 
 "type.power.station" = "Power Station";
 

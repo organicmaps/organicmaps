@@ -2010,6 +2010,10 @@
 
 "type.highway.footway" = "Διαδρομή";
 
+"type.highway.footway.sidewalk" = "Πεζοδρόμιο";
+
+"type.highway.footway.crossing" = "Διάβαση πεζών";
+
 "type.highway.footway.alpine_hiking" = "Διαδρομή";
 
 "type.highway.footway.area" = "Διαδρομή";
@@ -2026,8 +2030,6 @@
 "type.highway.footway.hiking" = "Διαδρομή";
 
 "type.highway.footway.mountain_hiking" = "Διαδρομή";
-
-"type.highway.footway.permissive" = "Διαδρομή";
 
 /* These translations are used for all type.highway.*.tunnel. */
 "type.highway.footway.tunnel" = "Σήραγγα";
@@ -2670,8 +2672,6 @@
 
 "type.natural.strait" = "Πορθμός";
 
-"type.natural.tree" = "Δέντρο";
-
 "type.natural.tree_row" = "Σειρά δέντρων";
 
 "type.natural.vineyard" = "Αμπελώνας";
@@ -2799,8 +2799,6 @@
 "type.power.plant.solar" = "Ηλιακός σταθμός παραγωγής ενέργειας";
 
 "type.power.plant.wind" = "Αιολική μονάδα παραγωγής ενέργειας";
-
-"type.power.pole" = "Πυλώνες μεταφοράς ρεύματος";
 
 "type.power.station" = "Power Station";
 

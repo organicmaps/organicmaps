@@ -1038,6 +1038,8 @@
 	<!-- These translations are used for all type.highway.*.tunnel. -->
 	<string name="type.highway.cycleway.tunnel">Đường hầm</string>
 	<string name="type.highway.footway">Đường</string>
+	<string name="type.highway.footway.sidewalk">Đường đi bộ</string>
+	<string name="type.highway.footway.crossing">Vạch qua đường</string>
 	<string name="type.highway.footway.alpine_hiking">Đường</string>
 	<string name="type.highway.footway.area">Đường</string>
 	<!-- These translations are used for all type.highway.*.bridge. -->
@@ -1047,7 +1049,6 @@
 	<string name="type.highway.footway.difficult_alpine_hiking">Đường</string>
 	<string name="type.highway.footway.hiking">Đường</string>
 	<string name="type.highway.footway.mountain_hiking">Đường</string>
-	<string name="type.highway.footway.permissive">Đường</string>
 	<!-- These translations are used for all type.highway.*.tunnel. -->
 	<string name="type.highway.footway.tunnel">Đường hầm</string>
 	<string name="type.highway.ford">Đập tràn</string>
@@ -1316,7 +1317,6 @@
 	<string name="type.natural.scrub">Bụi rậm</string>
 	<string name="type.natural.spring">Suối</string>
 	<string name="type.natural.strait">Eo biển</string>
-	<string name="type.natural.tree">Cây</string>
 	<string name="type.natural.tree_row">Hàng cây</string>
 	<string name="type.natural.vineyard">Vườn nho</string>
 	<string name="type.natural.volcano">Núi lửa</string>
@@ -1373,7 +1373,6 @@
 	<string name="type.power.plant.hydro">Nhà máy thủy điện</string>
 	<string name="type.power.plant.solar">Nhà máy điện mặt trời</string>
 	<string name="type.power.plant.wind">Nhà máy điện gió</string>
-	<string name="type.power.pole">Trụ Điện</string>
 	<string name="type.power.substation">Trạm biến áp</string>
 	<string name="type.power.tower">Trụ Điện</string>
 	<string name="type.railway.funicular">Đường sắt leo núi</string>

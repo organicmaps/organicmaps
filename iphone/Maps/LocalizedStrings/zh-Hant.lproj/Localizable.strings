@@ -2010,6 +2010,10 @@
 
 "type.highway.footway" = "人行步道";
 
+"type.highway.footway.sidewalk" = "人行道";
+
+"type.highway.footway.crossing" = "行人穿越道";
+
 "type.highway.footway.alpine_hiking" = "人行步道";
 
 "type.highway.footway.area" = "人行步道";
@@ -2026,8 +2030,6 @@
 "type.highway.footway.hiking" = "人行步道";
 
 "type.highway.footway.mountain_hiking" = "人行步道";
-
-"type.highway.footway.permissive" = "人行步道";
 
 /* These translations are used for all type.highway.*.tunnel. */
 "type.highway.footway.tunnel" = "隧道";
@@ -2670,8 +2672,6 @@
 
 "type.natural.strait" = "海峽";
 
-"type.natural.tree" = "樹";
-
 "type.natural.tree_row" = "樹列";
 
 "type.natural.vineyard" = "葡萄園";
@@ -2799,8 +2799,6 @@
 "type.power.plant.solar" = "太陽能發電廠";
 
 "type.power.plant.wind" = "風力發電廠";
-
-"type.power.pole" = "電塔";
 
 "type.power.station" = "Power Station";
 

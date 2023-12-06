@@ -2010,6 +2010,10 @@
 
 "type.highway.footway" = "पादचारी मार्ग";
 
+"type.highway.footway.sidewalk" = "फुटपाथ";
+
+"type.highway.footway.crossing" = "पादचारी ओलांडणे";
+
 "type.highway.footway.alpine_hiking" = "पथ";
 
 "type.highway.footway.area" = "पादचारी झोन";
@@ -2026,8 +2030,6 @@
 "type.highway.footway.hiking" = "पथ";
 
 "type.highway.footway.mountain_hiking" = "पथ";
-
-"type.highway.footway.permissive" = "पादचारी मार्ग";
 
 /* These translations are used for all type.highway.*.tunnel. */
 "type.highway.footway.tunnel" = "पादचारी बोगदा";
@@ -2670,8 +2672,6 @@
 
 "type.natural.strait" = "सामुद्रधुनी";
 
-"type.natural.tree" = "झाड";
-
 "type.natural.tree_row" = "झाडाची रांग";
 
 "type.natural.vineyard" = "द्राक्षमळा";
@@ -2799,8 +2799,6 @@
 "type.power.plant.solar" = "सौर ऊर्जा संयंत्र";
 
 "type.power.plant.wind" = "पवन ऊर्जा संयंत्र";
-
-"type.power.pole" = "विद्युत मनोरा";
 
 "type.power.station" = "विद्युत घर";
 

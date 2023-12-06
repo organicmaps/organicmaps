@@ -403,6 +403,8 @@
 	<string name="type.highway.cycleway.bridge">Daraja</string>
 	<!-- These translations are used for all type.highway.*.tunnel. -->
 	<string name="type.highway.cycleway.tunnel">Mtaro</string>
+	<string name="type.highway.footway.sidewalk">Njia ya kando</string>
+	<string name="type.highway.footway.crossing">Kivuko cha Watembea kwa miguu</string>
 	<!-- These translations are used for all type.highway.*.bridge. -->
 	<string name="type.highway.footway.bridge">Daraja</string>
 	<!-- These translations are used for all type.highway.*.tunnel. -->
@@ -578,7 +580,6 @@
 	<string name="type.natural.scrub">Eneo la Vichaka</string>
 	<string name="type.natural.spring">Chemchemi</string>
 	<string name="type.natural.strait">Mlango Bahari</string>
-	<string name="type.natural.tree">Mti</string>
 	<string name="type.natural.tree_row">Safu ya mti</string>
 	<string name="type.natural.vineyard">Shamba la mizabibu</string>
 	<string name="type.natural.volcano">Volkeno</string>

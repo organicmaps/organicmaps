@@ -2010,6 +2010,10 @@
 
 "type.highway.footway" = "Fußweg";
 
+"type.highway.footway.sidewalk" = "Bürgersteig";
+
+"type.highway.footway.crossing" = "Fußgängerübergang";
+
 "type.highway.footway.alpine_hiking" = "Alpinwanderweg";
 
 "type.highway.footway.area" = "Fußweg";
@@ -2026,8 +2030,6 @@
 "type.highway.footway.hiking" = "Wanderweg";
 
 "type.highway.footway.mountain_hiking" = "Bergwanderweg";
-
-"type.highway.footway.permissive" = "Fußweg";
 
 /* These translations are used for all type.highway.*.tunnel. */
 "type.highway.footway.tunnel" = "Fußgängertunnel";
@@ -2670,8 +2672,6 @@
 
 "type.natural.strait" = "Meerenge";
 
-"type.natural.tree" = "Baum";
-
 "type.natural.tree_row" = "Baumreihe";
 
 "type.natural.vineyard" = "Weinberg";
@@ -2799,8 +2799,6 @@
 "type.power.plant.solar" = "Solarkraftwerk";
 
 "type.power.plant.wind" = "Windkraftanlage";
-
-"type.power.pole" = "Nieder-/Mittelspannungsmast";
 
 "type.power.station" = "Umspannwerk";
 

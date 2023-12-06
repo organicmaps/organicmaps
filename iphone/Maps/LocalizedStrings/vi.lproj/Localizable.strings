@@ -2010,6 +2010,10 @@
 
 "type.highway.footway" = "Đường";
 
+"type.highway.footway.sidewalk" = "Đường đi bộ";
+
+"type.highway.footway.crossing" = "Vạch qua đường";
+
 "type.highway.footway.alpine_hiking" = "Đường";
 
 "type.highway.footway.area" = "Đường";
@@ -2026,8 +2030,6 @@
 "type.highway.footway.hiking" = "Đường";
 
 "type.highway.footway.mountain_hiking" = "Đường";
-
-"type.highway.footway.permissive" = "Đường";
 
 /* These translations are used for all type.highway.*.tunnel. */
 "type.highway.footway.tunnel" = "Đường hầm";
@@ -2670,8 +2672,6 @@
 
 "type.natural.strait" = "Eo biển";
 
-"type.natural.tree" = "Cây";
-
 "type.natural.tree_row" = "Hàng cây";
 
 "type.natural.vineyard" = "Vườn nho";
@@ -2799,8 +2799,6 @@
 "type.power.plant.solar" = "Nhà máy điện mặt trời";
 
 "type.power.plant.wind" = "Nhà máy điện gió";
-
-"type.power.pole" = "Trụ Điện";
 
 "type.power.station" = "Power Station";
 

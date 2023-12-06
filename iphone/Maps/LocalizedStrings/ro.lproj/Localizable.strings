@@ -2010,6 +2010,10 @@
 
 "type.highway.footway" = "Cale";
 
+"type.highway.footway.sidewalk" = "Trotuar";
+
+"type.highway.footway.crossing" = "Trecere de pietoni";
+
 "type.highway.footway.alpine_hiking" = "Cale";
 
 "type.highway.footway.area" = "Cale";
@@ -2026,8 +2030,6 @@
 "type.highway.footway.hiking" = "Cale";
 
 "type.highway.footway.mountain_hiking" = "Cale";
-
-"type.highway.footway.permissive" = "Cale";
 
 /* These translations are used for all type.highway.*.tunnel. */
 "type.highway.footway.tunnel" = "Tunel";
@@ -2670,8 +2672,6 @@
 
 "type.natural.strait" = "Strâmtoare";
 
-"type.natural.tree" = "Arbore";
-
 "type.natural.tree_row" = "Rândul de copaci";
 
 "type.natural.vineyard" = "Vie";
@@ -2799,8 +2799,6 @@
 "type.power.plant.solar" = "Centrală solară";
 
 "type.power.plant.wind" = "Centrală eoliană";
-
-"type.power.pole" = "Stâlp de electricitate";
 
 "type.power.station" = "Power Station";
 

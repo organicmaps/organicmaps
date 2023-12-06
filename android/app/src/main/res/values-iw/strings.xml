@@ -501,6 +501,8 @@
 	<string name="type.highway.cycleway.bridge">לְגַשֵׁר</string>
 	<!-- These translations are used for all type.highway.*.tunnel. -->
 	<string name="type.highway.cycleway.tunnel">מִנהָרָה</string>
+	<string name="type.highway.footway.sidewalk">מדרכה</string>
+	<string name="type.highway.footway.crossing">מעבר הולכי רגל</string>
 	<!-- These translations are used for all type.highway.*.bridge. -->
 	<string name="type.highway.footway.bridge">לְגַשֵׁר</string>
 	<!-- These translations are used for all type.highway.*.tunnel. -->
@@ -666,7 +668,6 @@
 	<string name="type.natural.scrub">בתה</string>
 	<string name="type.natural.spring">מעיין</string>
 	<string name="type.natural.strait">מצר ים</string>
-	<string name="type.natural.tree">עץ</string>
 	<string name="type.natural.tree_row">שורת עצים</string>
 	<string name="type.natural.vineyard">כרם</string>
 	<string name="type.natural.volcano">הר געש</string>

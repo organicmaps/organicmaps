@@ -2010,6 +2010,10 @@
 
 "type.highway.footway" = "Polku";
 
+"type.highway.footway.sidewalk" = "Sidewalk";
+
+"type.highway.footway.crossing" = "Jalankulkijoiden ylitys";
+
 "type.highway.footway.alpine_hiking" = "Polku";
 
 "type.highway.footway.area" = "Jalankulkualue";
@@ -2026,8 +2030,6 @@
 "type.highway.footway.hiking" = "Vaellus";
 
 "type.highway.footway.mountain_hiking" = "Vuoristovaellus";
-
-"type.highway.footway.permissive" = "Polku";
 
 /* These translations are used for all type.highway.*.tunnel. */
 "type.highway.footway.tunnel" = "Jalankulkutunneli";
@@ -2670,8 +2672,6 @@
 
 "type.natural.strait" = "Salmi";
 
-"type.natural.tree" = "Puu";
-
 "type.natural.tree_row" = "Puurivi";
 
 "type.natural.vineyard" = "Viinitila";
@@ -2799,8 +2799,6 @@
 "type.power.plant.solar" = "Aurinkovoimala";
 
 "type.power.plant.wind" = "Tuulivoimala";
-
-"type.power.pole" = "Sähköpylväs";
 
 "type.power.station" = "Power Station";
 

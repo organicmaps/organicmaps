@@ -1049,6 +1049,8 @@
 	<!-- These translations are used for all type.highway.*.tunnel. -->
 	<string name="type.highway.cycleway.tunnel">Tunel</string>
 	<string name="type.highway.footway">Cesta</string>
+	<string name="type.highway.footway.sidewalk">Chodník</string>
+	<string name="type.highway.footway.crossing">Přechod pro chodce</string>
 	<string name="type.highway.footway.alpine_hiking">Cesta</string>
 	<string name="type.highway.footway.area">Cesta</string>
 	<!-- These translations are used for all type.highway.*.bridge. -->
@@ -1058,7 +1060,6 @@
 	<string name="type.highway.footway.difficult_alpine_hiking">Cesta</string>
 	<string name="type.highway.footway.hiking">Cesta</string>
 	<string name="type.highway.footway.mountain_hiking">Cesta</string>
-	<string name="type.highway.footway.permissive">Cesta</string>
 	<!-- These translations are used for all type.highway.*.tunnel. -->
 	<string name="type.highway.footway.tunnel">Tunel</string>
 	<string name="type.highway.ford">Brod</string>
@@ -1327,7 +1328,6 @@
 	<string name="type.natural.scrub">Křoviny</string>
 	<string name="type.natural.spring">Pramen</string>
 	<string name="type.natural.strait">Průliv</string>
-	<string name="type.natural.tree">Strom</string>
 	<string name="type.natural.tree_row">Řada stromů</string>
 	<string name="type.natural.vineyard">Vinice</string>
 	<string name="type.natural.volcano">Sopka</string>
@@ -1384,7 +1384,6 @@
 	<string name="type.power.plant.hydro">Vodní elektrárna</string>
 	<string name="type.power.plant.solar">Solární elektrárna</string>
 	<string name="type.power.plant.wind">Větrná elektrárna</string>
-	<string name="type.power.pole">Sloup elektrického vedení</string>
 	<string name="type.power.substation">Rozvodna</string>
 	<string name="type.power.tower">Sloup elektrického vedení</string>
 	<string name="type.railway.funicular">Lanovka</string>
