@@ -1033,6 +1033,8 @@
 	<!-- These translations are used for all type.highway.*.tunnel. -->
 	<string name="type.highway.cycleway.tunnel">Tunnel</string>
 	<string name="type.highway.footway">Sti</string>
+	<string name="type.highway.footway.sidewalk">Fortov</string>
+	<string name="type.highway.footway.crossing">Fodgængerovergang</string>
 	<string name="type.highway.footway.alpine_hiking">Sti</string>
 	<string name="type.highway.footway.area">Sti</string>
 	<!-- These translations are used for all type.highway.*.bridge. -->
@@ -1042,7 +1044,6 @@
 	<string name="type.highway.footway.difficult_alpine_hiking">Sti</string>
 	<string name="type.highway.footway.hiking">Sti</string>
 	<string name="type.highway.footway.mountain_hiking">Sti</string>
-	<string name="type.highway.footway.permissive">Sti</string>
 	<!-- These translations are used for all type.highway.*.tunnel. -->
 	<string name="type.highway.footway.tunnel">Tunnel</string>
 	<string name="type.highway.ford">Vadested</string>
@@ -1309,7 +1310,6 @@
 	<string name="type.natural.scrub">Kratbevokset område</string>
 	<string name="type.natural.spring">Kilde</string>
 	<string name="type.natural.strait">Stræde</string>
-	<string name="type.natural.tree">Træ</string>
 	<string name="type.natural.tree_row">Trærækker</string>
 	<string name="type.natural.vineyard">Vingård</string>
 	<string name="type.natural.volcano">Vulkan</string>
@@ -1366,7 +1366,6 @@
 	<string name="type.power.plant.hydro">Vandkraftværk</string>
 	<string name="type.power.plant.solar">Solcelleanlæg</string>
 	<string name="type.power.plant.wind">Vindkraftværk</string>
-	<string name="type.power.pole">El-pol</string>
 	<string name="type.power.substation">Transformerstation</string>
 	<string name="type.power.tower">El-pol</string>
 	<string name="type.railway.funicular">Funicular</string>

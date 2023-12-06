@@ -2010,6 +2010,10 @@
 
 "type.highway.footway" = "Cesta";
 
+"type.highway.footway.sidewalk" = "Chodník";
+
+"type.highway.footway.crossing" = "Přechod pro chodce";
+
 "type.highway.footway.alpine_hiking" = "Cesta";
 
 "type.highway.footway.area" = "Cesta";
@@ -2026,8 +2030,6 @@
 "type.highway.footway.hiking" = "Cesta";
 
 "type.highway.footway.mountain_hiking" = "Cesta";
-
-"type.highway.footway.permissive" = "Cesta";
 
 /* These translations are used for all type.highway.*.tunnel. */
 "type.highway.footway.tunnel" = "Tunel";
@@ -2670,8 +2672,6 @@
 
 "type.natural.strait" = "Průliv";
 
-"type.natural.tree" = "Strom";
-
 "type.natural.tree_row" = "Řada stromů";
 
 "type.natural.vineyard" = "Vinice";
@@ -2799,8 +2799,6 @@
 "type.power.plant.solar" = "Solární elektrárna";
 
 "type.power.plant.wind" = "Větrná elektrárna";
-
-"type.power.pole" = "Sloup elektrického vedení";
 
 "type.power.station" = "Power Station";
 

@@ -1135,6 +1135,8 @@
 	<string name="type.highway.cycleway.tunnel">Tunnel</string>
 	<string name="type.highway.elevator">Ascensore</string>
 	<string name="type.highway.footway">Sentiero</string>
+	<string name="type.highway.footway.sidewalk">Marciapiede</string>
+	<string name="type.highway.footway.crossing">Attraversamento pedonale</string>
 	<string name="type.highway.footway.alpine_hiking">Sentiero</string>
 	<string name="type.highway.footway.area">Sentiero</string>
 	<!-- These translations are used for all type.highway.*.bridge. -->
@@ -1144,7 +1146,6 @@
 	<string name="type.highway.footway.difficult_alpine_hiking">Sentiero</string>
 	<string name="type.highway.footway.hiking">Sentiero</string>
 	<string name="type.highway.footway.mountain_hiking">Sentiero</string>
-	<string name="type.highway.footway.permissive">Sentiero</string>
 	<!-- These translations are used for all type.highway.*.tunnel. -->
 	<string name="type.highway.footway.tunnel">Tunnel</string>
 	<string name="type.highway.ford">Guado</string>
@@ -1452,7 +1453,6 @@
 	<string name="type.natural.scrub">Boscaglia</string>
 	<string name="type.natural.spring">Sorgente</string>
 	<string name="type.natural.strait">Stretto</string>
-	<string name="type.natural.tree">Albero</string>
 	<string name="type.natural.tree_row">Fila di alberi</string>
 	<string name="type.natural.vineyard">Vigneto</string>
 	<string name="type.natural.volcano">Vulcano</string>
@@ -1516,7 +1516,6 @@
 	<string name="type.power.plant.hydro">Centrale idroelettrica</string>
 	<string name="type.power.plant.solar">Centrale solare</string>
 	<string name="type.power.plant.wind">Centrale eolica</string>
-	<string name="type.power.pole">Palo elettrico</string>
 	<string name="type.power.substation">Sottostazione elettrica</string>
 	<string name="type.power.tower">Pilone elettrico</string>
 	<string name="type.psurface">Superficie</string>

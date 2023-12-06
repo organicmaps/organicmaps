@@ -2010,6 +2010,10 @@
 
 "type.highway.footway" = "Sentiero";
 
+"type.highway.footway.sidewalk" = "Marciapiede";
+
+"type.highway.footway.crossing" = "Attraversamento pedonale";
+
 "type.highway.footway.alpine_hiking" = "Sentiero";
 
 "type.highway.footway.area" = "Sentiero";
@@ -2026,8 +2030,6 @@
 "type.highway.footway.hiking" = "Sentiero";
 
 "type.highway.footway.mountain_hiking" = "Sentiero";
-
-"type.highway.footway.permissive" = "Sentiero";
 
 /* These translations are used for all type.highway.*.tunnel. */
 "type.highway.footway.tunnel" = "Tunnel";
@@ -2670,8 +2672,6 @@
 
 "type.natural.strait" = "Stretto";
 
-"type.natural.tree" = "Albero";
-
 "type.natural.tree_row" = "Fila di alberi";
 
 "type.natural.vineyard" = "Vigneto";
@@ -2799,8 +2799,6 @@
 "type.power.plant.solar" = "Centrale solare";
 
 "type.power.plant.wind" = "Centrale eolica";
-
-"type.power.pole" = "Palo elettrico";
 
 "type.power.station" = "Power Station";
 

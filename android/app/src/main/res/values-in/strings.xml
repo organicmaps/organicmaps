@@ -1036,6 +1036,8 @@
 	<!-- These translations are used for all type.highway.*.tunnel. -->
 	<string name="type.highway.cycleway.tunnel">Terowongan</string>
 	<string name="type.highway.footway">Jalur</string>
+	<string name="type.highway.footway.sidewalk">Trotoar</string>
+	<string name="type.highway.footway.crossing">Penyeberangan Pejalan Kaki</string>
 	<string name="type.highway.footway.alpine_hiking">Jalur</string>
 	<string name="type.highway.footway.area">Jalur</string>
 	<!-- These translations are used for all type.highway.*.bridge. -->
@@ -1045,7 +1047,6 @@
 	<string name="type.highway.footway.difficult_alpine_hiking">Jalur</string>
 	<string name="type.highway.footway.hiking">Jalur</string>
 	<string name="type.highway.footway.mountain_hiking">Jalur</string>
-	<string name="type.highway.footway.permissive">Jalur</string>
 	<!-- These translations are used for all type.highway.*.tunnel. -->
 	<string name="type.highway.footway.tunnel">Terowongan</string>
 	<string name="type.highway.ford">Menyeberang</string>
@@ -1313,7 +1314,6 @@
 	<string name="type.natural.scrub">Semak</string>
 	<string name="type.natural.spring">Mata air</string>
 	<string name="type.natural.strait">Selat</string>
-	<string name="type.natural.tree">Pohon</string>
 	<string name="type.natural.tree_row">Baris pohon</string>
 	<string name="type.natural.vineyard">Kebun anggur</string>
 	<string name="type.natural.volcano">Gunung berapi</string>
@@ -1370,7 +1370,6 @@
 	<string name="type.power.plant.hydro">Pembangkit listrik tenaga air</string>
 	<string name="type.power.plant.solar">Pembangkit listrik tenaga surya</string>
 	<string name="type.power.plant.wind">Pembangkit listrik tenaga angin</string>
-	<string name="type.power.pole">Menara listrik</string>
 	<string name="type.power.substation">Stasiun bawah tanah</string>
 	<string name="type.power.tower">Menara listrik</string>
 	<string name="type.railway.funicular">Kereta gantung</string>

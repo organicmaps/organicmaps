@@ -1153,6 +1153,8 @@
 	<string name="type.highway.cycleway.tunnel">Тунель</string>
 	<string name="type.highway.elevator">Ліфт</string>
 	<string name="type.highway.footway">Пішохідна доріжка</string>
+	<string name="type.highway.footway.sidewalk">Тротуар</string>
+	<string name="type.highway.footway.crossing">Пішохідний перехід</string>
 	<string name="type.highway.footway.alpine_hiking">Стежка</string>
 	<string name="type.highway.footway.area">Пішохідна зона</string>
 	<!-- These translations are used for all type.highway.*.bridge. -->
@@ -1162,7 +1164,6 @@
 	<string name="type.highway.footway.difficult_alpine_hiking">Стежка</string>
 	<string name="type.highway.footway.hiking">Стежка</string>
 	<string name="type.highway.footway.mountain_hiking">Стежка</string>
-	<string name="type.highway.footway.permissive">Пішохідна доріжка</string>
 	<!-- These translations are used for all type.highway.*.tunnel. -->
 	<string name="type.highway.footway.tunnel">Тунель</string>
 	<string name="type.highway.ford">Брід</string>
@@ -1485,7 +1486,6 @@
 	<string name="type.natural.scrub">Зарості</string>
 	<string name="type.natural.spring">Джерело</string>
 	<string name="type.natural.strait">Протока</string>
-	<string name="type.natural.tree">Дерево</string>
 	<string name="type.natural.tree_row">Ряд дерев</string>
 	<string name="type.natural.vineyard">Виноградник</string>
 	<string name="type.natural.volcano">Вулкан</string>
@@ -1550,7 +1550,6 @@
 	<string name="type.power.plant.hydro">Гідроелектростанція</string>
 	<string name="type.power.plant.solar">Сонячна електростанція</string>
 	<string name="type.power.plant.wind">Вітрова електростанція</string>
-	<string name="type.power.pole">Стовп ЛЕП</string>
 	<string name="type.power.station">Електростанція</string>
 	<string name="type.power.substation">Підстанція</string>
 	<string name="type.power.tower">Стовп ЛЕП</string>

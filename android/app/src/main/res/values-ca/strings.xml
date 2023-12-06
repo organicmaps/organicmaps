@@ -809,6 +809,8 @@
 
 	<!-- SECTION: Types: Roads -->
 	<string name="type.highway.busway">Carretera dedicada a l\'autobús</string>
+	<string name="type.highway.footway.sidewalk">Vorera</string>
+	<string name="type.highway.footway.crossing">Pas de vianants</string>
 
 	<!-- SECTION: Types: Historic -->
 	<string name="type.historic.aircraft">Avions Històrics</string>

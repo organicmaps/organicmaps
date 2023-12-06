@@ -1059,6 +1059,8 @@
 	<!-- These translations are used for all type.highway.*.tunnel. -->
 	<string name="type.highway.cycleway.tunnel">Alagút</string>
 	<string name="type.highway.footway">Ösvény</string>
+	<string name="type.highway.footway.sidewalk">Járda</string>
+	<string name="type.highway.footway.crossing">Gyalogátkelőhely</string>
 	<string name="type.highway.footway.alpine_hiking">Ösvény</string>
 	<string name="type.highway.footway.area">Ösvény</string>
 	<!-- These translations are used for all type.highway.*.bridge. -->
@@ -1068,7 +1070,6 @@
 	<string name="type.highway.footway.difficult_alpine_hiking">Ösvény</string>
 	<string name="type.highway.footway.hiking">Ösvény</string>
 	<string name="type.highway.footway.mountain_hiking">Ösvény</string>
-	<string name="type.highway.footway.permissive">Ösvény</string>
 	<!-- These translations are used for all type.highway.*.tunnel. -->
 	<string name="type.highway.footway.tunnel">Alagút</string>
 	<string name="type.highway.ford">Gázló</string>
@@ -1336,7 +1337,6 @@
 	<string name="type.natural.scrub">Cserjés</string>
 	<string name="type.natural.spring">Forrás</string>
 	<string name="type.natural.strait">Szoros</string>
-	<string name="type.natural.tree">Fa</string>
 	<string name="type.natural.tree_row">Fa sor</string>
 	<string name="type.natural.vineyard">Szőlőskert</string>
 	<string name="type.natural.volcano">Tűzhányó</string>
@@ -1393,7 +1393,6 @@
 	<string name="type.power.plant.hydro">Vízerőmű</string>
 	<string name="type.power.plant.solar">Naperőmű</string>
 	<string name="type.power.plant.wind">Szélerőmű</string>
-	<string name="type.power.pole">Villanyoszlop</string>
 	<string name="type.power.substation">Kapcsolószekrény</string>
 	<string name="type.power.tower">Villanyoszlop</string>
 	<string name="type.railway.funicular">Funicular</string>

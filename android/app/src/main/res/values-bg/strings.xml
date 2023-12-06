@@ -800,6 +800,8 @@
 	<string name="type.highway.cycleway.bridge">Мост</string>
 	<!-- These translations are used for all type.highway.*.tunnel. -->
 	<string name="type.highway.cycleway.tunnel">Тунел</string>
+	<string name="type.highway.footway.sidewalk">Тротоар</string>
+	<string name="type.highway.footway.crossing">Пешеходно пресичане</string>
 	<!-- These translations are used for all type.highway.*.bridge. -->
 	<string name="type.highway.footway.bridge">Мост</string>
 	<!-- These translations are used for all type.highway.*.tunnel. -->
@@ -968,7 +970,6 @@
 	<string name="type.natural.scrub">Гъсталаци</string>
 	<string name="type.natural.spring">Извор</string>
 	<string name="type.natural.strait">Проток</string>
-	<string name="type.natural.tree">Дърво</string>
 	<string name="type.natural.tree_row">Ред дървета</string>
 	<string name="type.natural.vineyard">Лозе</string>
 	<string name="type.natural.volcano">Вулкан</string>

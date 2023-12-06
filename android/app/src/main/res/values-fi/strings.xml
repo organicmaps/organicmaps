@@ -1147,6 +1147,8 @@
 	<string name="type.highway.cycleway.tunnel">Tunneli</string>
 	<string name="type.highway.elevator">Hissi</string>
 	<string name="type.highway.footway">Polku</string>
+	<string name="type.highway.footway.sidewalk">Sidewalk</string>
+	<string name="type.highway.footway.crossing">Jalankulkijoiden ylitys</string>
 	<string name="type.highway.footway.alpine_hiking">Polku</string>
 	<string name="type.highway.footway.area">Jalankulkualue</string>
 	<!-- These translations are used for all type.highway.*.bridge. -->
@@ -1156,7 +1158,6 @@
 	<string name="type.highway.footway.difficult_alpine_hiking">Vaikea alppivaellus</string>
 	<string name="type.highway.footway.hiking">Vaellus</string>
 	<string name="type.highway.footway.mountain_hiking">Vuoristovaellus</string>
-	<string name="type.highway.footway.permissive">Polku</string>
 	<!-- These translations are used for all type.highway.*.tunnel. -->
 	<string name="type.highway.footway.tunnel">Jalankulkutunneli</string>
 	<string name="type.highway.ford">Kahluupaikka</string>
@@ -1451,7 +1452,6 @@
 	<string name="type.natural.scrub">Tiheiköt</string>
 	<string name="type.natural.spring">Lähde</string>
 	<string name="type.natural.strait">Salmi</string>
-	<string name="type.natural.tree">Puu</string>
 	<string name="type.natural.tree_row">Puurivi</string>
 	<string name="type.natural.vineyard">Viinitila</string>
 	<string name="type.natural.volcano">Tulivuori</string>
@@ -1508,7 +1508,6 @@
 	<string name="type.power.plant.hydro">Vesivoimalaitos</string>
 	<string name="type.power.plant.solar">Aurinkovoimala</string>
 	<string name="type.power.plant.wind">Tuulivoimala</string>
-	<string name="type.power.pole">Sähköpylväs</string>
 	<string name="type.power.substation">Muuntoasema</string>
 	<string name="type.power.tower">Sähköpylväs</string>
 	<string name="type.railway.funicular">Köysirata</string>

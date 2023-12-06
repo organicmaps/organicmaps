@@ -2010,6 +2010,10 @@
 
 "type.highway.footway" = "Foot Path";
 
+"type.highway.footway.sidewalk" = "Njia ya kando";
+
+"type.highway.footway.crossing" = "Kivuko cha Watembea kwa miguu";
+
 "type.highway.footway.alpine_hiking" = "Path";
 
 "type.highway.footway.area" = "Foot Path";
@@ -2026,8 +2030,6 @@
 "type.highway.footway.hiking" = "Path";
 
 "type.highway.footway.mountain_hiking" = "Path";
-
-"type.highway.footway.permissive" = "Foot Path";
 
 /* These translations are used for all type.highway.*.tunnel. */
 "type.highway.footway.tunnel" = "Mtaro";
@@ -2670,8 +2672,6 @@
 
 "type.natural.strait" = "Mlango Bahari";
 
-"type.natural.tree" = "Mti";
-
 "type.natural.tree_row" = "Safu ya mti";
 
 "type.natural.vineyard" = "Shamba la mizabibu";
@@ -2799,8 +2799,6 @@
 "type.power.plant.solar" = "Kiwanda cha nishati ya jua";
 
 "type.power.plant.wind" = "Kiwanda cha nguvu cha upepo";
-
-"type.power.pole" = "Power Pole";
 
 "type.power.station" = "Power Station";
 

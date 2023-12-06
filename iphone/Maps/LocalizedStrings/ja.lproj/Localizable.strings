@@ -2010,6 +2010,10 @@
 
 "type.highway.footway" = "歩道";
 
+"type.highway.footway.sidewalk" = "歩道";
+
+"type.highway.footway.crossing" = "横断歩道";
+
 "type.highway.footway.alpine_hiking" = "歩道";
 
 "type.highway.footway.area" = "歩道";
@@ -2026,8 +2030,6 @@
 "type.highway.footway.hiking" = "歩道";
 
 "type.highway.footway.mountain_hiking" = "歩道";
-
-"type.highway.footway.permissive" = "歩道";
 
 /* These translations are used for all type.highway.*.tunnel. */
 "type.highway.footway.tunnel" = "トンネル";
@@ -2670,8 +2672,6 @@
 
 "type.natural.strait" = "海峡";
 
-"type.natural.tree" = "木";
-
 "type.natural.tree_row" = "並木";
 
 "type.natural.vineyard" = "ブドウ園";
@@ -2799,8 +2799,6 @@
 "type.power.plant.solar" = "太陽光発電所";
 
 "type.power.plant.wind" = "風力発電所";
-
-"type.power.pole" = "電柱";
 
 "type.power.station" = "変電所";
 

@@ -1038,6 +1038,8 @@
 	<!-- These translations are used for all type.highway.*.tunnel. -->
 	<string name="type.highway.cycleway.tunnel">Σήραγγα</string>
 	<string name="type.highway.footway">Διαδρομή</string>
+	<string name="type.highway.footway.sidewalk">Πεζοδρόμιο</string>
+	<string name="type.highway.footway.crossing">Διάβαση πεζών</string>
 	<string name="type.highway.footway.alpine_hiking">Διαδρομή</string>
 	<string name="type.highway.footway.area">Διαδρομή</string>
 	<!-- These translations are used for all type.highway.*.bridge. -->
@@ -1047,7 +1049,6 @@
 	<string name="type.highway.footway.difficult_alpine_hiking">Διαδρομή</string>
 	<string name="type.highway.footway.hiking">Διαδρομή</string>
 	<string name="type.highway.footway.mountain_hiking">Διαδρομή</string>
-	<string name="type.highway.footway.permissive">Διαδρομή</string>
 	<!-- These translations are used for all type.highway.*.tunnel. -->
 	<string name="type.highway.footway.tunnel">Σήραγγα</string>
 	<string name="type.highway.ford">Πέρασμα</string>
@@ -1319,7 +1320,6 @@
 	<string name="type.natural.scrub">Θαμνώδες περιοχή</string>
 	<string name="type.natural.spring">Πηγή νερού</string>
 	<string name="type.natural.strait">Πορθμός</string>
-	<string name="type.natural.tree">Δέντρο</string>
 	<string name="type.natural.tree_row">Σειρά δέντρων</string>
 	<string name="type.natural.vineyard">Αμπελώνας</string>
 	<string name="type.natural.volcano">Ηφαίστειο</string>
@@ -1376,7 +1376,6 @@
 	<string name="type.power.plant.hydro">Υδροηλεκτρικό εργοστάσιο</string>
 	<string name="type.power.plant.solar">Ηλιακός σταθμός παραγωγής ενέργειας</string>
 	<string name="type.power.plant.wind">Αιολική μονάδα παραγωγής ενέργειας</string>
-	<string name="type.power.pole">Πυλώνες μεταφοράς ρεύματος</string>
 	<string name="type.power.substation">Υποσταθμός</string>
 	<string name="type.power.tower">Πυλώνες μεταφοράς ρεύματος</string>
 	<string name="type.railway.funicular">Μονωτικό τρενάκι</string>

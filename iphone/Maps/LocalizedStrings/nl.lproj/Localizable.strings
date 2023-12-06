@@ -2010,6 +2010,10 @@
 
 "type.highway.footway" = "Voetpad";
 
+"type.highway.footway.sidewalk" = "Stoep";
+
+"type.highway.footway.crossing" = "Voetgangersoversteekplaats";
+
 "type.highway.footway.alpine_hiking" = "Alpine wandelpad";
 
 "type.highway.footway.area" = "Voetgangerszone";
@@ -2026,8 +2030,6 @@
 "type.highway.footway.hiking" = "Wandelpad";
 
 "type.highway.footway.mountain_hiking" = "Bergpad";
-
-"type.highway.footway.permissive" = "Voetpad";
 
 /* These translations are used for all type.highway.*.tunnel. */
 "type.highway.footway.tunnel" = "Voetgangerstunnel";
@@ -2670,8 +2672,6 @@
 
 "type.natural.strait" = "Zeestraat";
 
-"type.natural.tree" = "Boom";
-
 "type.natural.tree_row" = "Bomenrij";
 
 "type.natural.vineyard" = "Wijngaard";
@@ -2799,8 +2799,6 @@
 "type.power.plant.solar" = "Zonne-energiecentrale";
 
 "type.power.plant.wind" = "Windkrachtcentrale";
-
-"type.power.pole" = "Elektriciteitspaal";
 
 "type.power.station" = "Transformatorstation";
 

@@ -2010,6 +2010,10 @@
 
 "type.highway.footway" = "步行道路";
 
+"type.highway.footway.sidewalk" = "人行道";
+
+"type.highway.footway.crossing" = "行人过街天桥";
+
 "type.highway.footway.alpine_hiking" = "步行道路";
 
 "type.highway.footway.area" = "步行道路";
@@ -2026,8 +2030,6 @@
 "type.highway.footway.hiking" = "步行道路";
 
 "type.highway.footway.mountain_hiking" = "步行道路";
-
-"type.highway.footway.permissive" = "步行道路";
 
 /* These translations are used for all type.highway.*.tunnel. */
 "type.highway.footway.tunnel" = "隧道";
@@ -2670,8 +2672,6 @@
 
 "type.natural.strait" = "海峡";
 
-"type.natural.tree" = "树";
-
 "type.natural.tree_row" = "树列";
 
 "type.natural.vineyard" = "葡萄园";
@@ -2799,8 +2799,6 @@
 "type.power.plant.solar" = "太阳能发电厂";
 
 "type.power.plant.wind" = "风力发电厂";
-
-"type.power.pole" = "电线杆";
 
 "type.power.station" = "Power Station";
 

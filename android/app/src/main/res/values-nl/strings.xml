@@ -1148,6 +1148,8 @@
 	<string name="type.highway.cycleway.tunnel">Fietstunnel</string>
 	<string name="type.highway.elevator">Lift</string>
 	<string name="type.highway.footway">Voetpad</string>
+	<string name="type.highway.footway.sidewalk">Stoep</string>
+	<string name="type.highway.footway.crossing">Voetgangersoversteekplaats</string>
 	<string name="type.highway.footway.alpine_hiking">Alpine wandelpad</string>
 	<string name="type.highway.footway.area">Voetgangerszone</string>
 	<!-- These translations are used for all type.highway.*.bridge. -->
@@ -1157,7 +1159,6 @@
 	<string name="type.highway.footway.difficult_alpine_hiking">Moeilijk alpine bergklimpad</string>
 	<string name="type.highway.footway.hiking">Wandelpad</string>
 	<string name="type.highway.footway.mountain_hiking">Bergpad</string>
-	<string name="type.highway.footway.permissive">Voetpad</string>
 	<!-- These translations are used for all type.highway.*.tunnel. -->
 	<string name="type.highway.footway.tunnel">Voetgangerstunnel</string>
 	<string name="type.highway.ford">Voorde</string>
@@ -1479,7 +1480,6 @@
 	<string name="type.natural.scrub">Kreupel bos</string>
 	<string name="type.natural.spring">Bron</string>
 	<string name="type.natural.strait">Zeestraat</string>
-	<string name="type.natural.tree">Boom</string>
 	<string name="type.natural.tree_row">Bomenrij</string>
 	<string name="type.natural.vineyard">Wijngaard</string>
 	<string name="type.natural.volcano">Vulkaan</string>
@@ -1543,7 +1543,6 @@
 	<string name="type.power.plant.hydro">Waterkrachtcentrale</string>
 	<string name="type.power.plant.solar">Zonne-energiecentrale</string>
 	<string name="type.power.plant.wind">Windkrachtcentrale</string>
-	<string name="type.power.pole">Elektriciteitspaal</string>
 	<string name="type.power.station">Transformatorstation</string>
 	<string name="type.power.substation">Transformatorstation</string>
 	<string name="type.power.tower">Elektriciteitsmast</string>

@@ -917,6 +917,8 @@
 	<string name="type.highway.cycleway.bridge">Мост</string>
 	<!-- These translations are used for all type.highway.*.tunnel. -->
 	<string name="type.highway.cycleway.tunnel">Тунэль</string>
+	<string name="type.highway.footway.sidewalk">Тратуар</string>
+	<string name="type.highway.footway.crossing">Пешаходны пераход</string>
 	<!-- These translations are used for all type.highway.*.bridge. -->
 	<string name="type.highway.footway.bridge">Мост</string>
 	<!-- These translations are used for all type.highway.*.tunnel. -->
@@ -1099,7 +1101,6 @@
 	<string name="type.natural.scrub">Зараснікі</string>
 	<string name="type.natural.spring">Крыніца</string>
 	<string name="type.natural.strait">Праліў</string>
-	<string name="type.natural.tree">Дрэва</string>
 	<string name="type.natural.tree_row">Шэраг дрэў</string>
 	<string name="type.natural.vineyard">Вінаграднік</string>
 	<string name="type.natural.volcano">Вулкан</string>

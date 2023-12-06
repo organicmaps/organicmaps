@@ -1039,6 +1039,8 @@
 	<!-- These translations are used for all type.highway.*.tunnel. -->
 	<string name="type.highway.cycleway.tunnel">터널</string>
 	<string name="type.highway.footway">길</string>
+	<string name="type.highway.footway.sidewalk">보도</string>
+	<string name="type.highway.footway.crossing">횡단보도</string>
 	<string name="type.highway.footway.alpine_hiking">길</string>
 	<string name="type.highway.footway.area">길</string>
 	<!-- These translations are used for all type.highway.*.bridge. -->
@@ -1048,7 +1050,6 @@
 	<string name="type.highway.footway.difficult_alpine_hiking">길</string>
 	<string name="type.highway.footway.hiking">길</string>
 	<string name="type.highway.footway.mountain_hiking">길</string>
-	<string name="type.highway.footway.permissive">길</string>
 	<!-- These translations are used for all type.highway.*.tunnel. -->
 	<string name="type.highway.footway.tunnel">터널</string>
 	<string name="type.highway.ford">여울</string>
@@ -1319,7 +1320,6 @@
 	<string name="type.natural.scrub">관목지</string>
 	<string name="type.natural.spring">샘</string>
 	<string name="type.natural.strait">해협</string>
-	<string name="type.natural.tree">나무</string>
 	<string name="type.natural.tree_row">나무 행</string>
 	<string name="type.natural.vineyard">포도원</string>
 	<string name="type.natural.volcano">화산</string>
@@ -1376,7 +1376,6 @@
 	<string name="type.power.plant.hydro">수력 발전소</string>
 	<string name="type.power.plant.solar">태양광 발전소</string>
 	<string name="type.power.plant.wind">풍력 발전소</string>
-	<string name="type.power.pole">전봇대</string>
 	<string name="type.power.substation">변전소</string>
 	<string name="type.power.tower">전봇대</string>
 	<string name="type.railway.funicular">케이블카</string>

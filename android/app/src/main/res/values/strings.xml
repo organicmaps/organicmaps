@@ -1190,6 +1190,8 @@
 	<string name="type.highway.cycleway.tunnel">Tunnel</string>
 	<string name="type.highway.elevator">Elevator</string>
 	<string name="type.highway.footway">Foot Path</string>
+	<string name="type.highway.footway.sidewalk">Sidewalk</string>
+	<string name="type.highway.footway.crossing">Pedestrian Crossing</string>
 	<string name="type.highway.footway.alpine_hiking">Path</string>
 	<string name="type.highway.footway.area">Pedestrian Area</string>
 	<!-- These translations are used for all type.highway.*.bridge. -->
@@ -1199,7 +1201,6 @@
 	<string name="type.highway.footway.difficult_alpine_hiking">Path</string>
 	<string name="type.highway.footway.hiking">Path</string>
 	<string name="type.highway.footway.mountain_hiking">Path</string>
-	<string name="type.highway.footway.permissive">Foot Path</string>
 	<!-- These translations are used for all type.highway.*.tunnel. -->
 	<string name="type.highway.footway.tunnel">Pedestrian Tunnel</string>
 	<string name="type.highway.ford">Ford</string>
@@ -1542,7 +1543,6 @@
 	<string name="type.natural.scrub">Scrub</string>
 	<string name="type.natural.spring">Natural Spring</string>
 	<string name="type.natural.strait">Strait</string>
-	<string name="type.natural.tree">Tree</string>
 	<string name="type.natural.tree_row">Tree Row</string>
 	<string name="type.natural.vineyard">Vineyard</string>
 	<string name="type.natural.volcano">Volcano</string>
@@ -1607,7 +1607,6 @@
 	<string name="type.power.plant.hydro">Hydroelectric Power Plant</string>
 	<string name="type.power.plant.solar">Solar Power Plant</string>
 	<string name="type.power.plant.wind">Wind Power Plant</string>
-	<string name="type.power.pole">Power Pole</string>
 	<string name="type.power.station">Power Station</string>
 	<string name="type.power.substation">Substation</string>
 	<string name="type.power.tower">Power Tower</string>

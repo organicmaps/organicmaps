@@ -1040,6 +1040,8 @@
 	<!-- These translations are used for all type.highway.*.tunnel. -->
 	<string name="type.highway.cycleway.tunnel">อุโมงค์</string>
 	<string name="type.highway.footway">เส้นทาง</string>
+	<string name="type.highway.footway.sidewalk">ทางเท้า</string>
+	<string name="type.highway.footway.crossing">ทางม้าลาย</string>
 	<string name="type.highway.footway.alpine_hiking">เส้นทาง</string>
 	<string name="type.highway.footway.area">เส้นทาง</string>
 	<!-- These translations are used for all type.highway.*.bridge. -->
@@ -1049,7 +1051,6 @@
 	<string name="type.highway.footway.difficult_alpine_hiking">เส้นทาง</string>
 	<string name="type.highway.footway.hiking">เส้นทาง</string>
 	<string name="type.highway.footway.mountain_hiking">เส้นทาง</string>
-	<string name="type.highway.footway.permissive">เส้นทาง</string>
 	<!-- These translations are used for all type.highway.*.tunnel. -->
 	<string name="type.highway.footway.tunnel">อุโมงค์</string>
 	<string name="type.highway.ford">ที่ตื้นของทางน้ำ</string>
@@ -1319,7 +1320,6 @@
 	<string name="type.natural.scrub">ป่าละเมาะ</string>
 	<string name="type.natural.spring">ฤดูใบไม้ผลิ</string>
 	<string name="type.natural.strait">ช่องแคบ</string>
-	<string name="type.natural.tree">ต้นไม้</string>
 	<string name="type.natural.tree_row">แถวต้นไม้</string>
 	<string name="type.natural.vineyard">ไร่องุ่น</string>
 	<string name="type.natural.volcano">ภูเขาไฟ</string>
@@ -1376,7 +1376,6 @@
 	<string name="type.power.plant.hydro">โรงไฟฟ้าพลังน้ำ</string>
 	<string name="type.power.plant.solar">โรงไฟฟ้าพลังงานแสงอาทิตย์</string>
 	<string name="type.power.plant.wind">โรงไฟฟ้าพลังงานลม</string>
-	<string name="type.power.pole">เสาไฟฟ้า</string>
 	<string name="type.power.substation">สถานีไฟฟ้า</string>
 	<string name="type.power.tower">เสาไฟฟ้า</string>
 	<string name="type.railway.funicular">รถกระเช้าไฟฟ้า</string>

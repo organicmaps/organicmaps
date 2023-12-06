@@ -1080,6 +1080,8 @@
 	<string name="type.highway.cycleway.tunnel">Túnel para ciclistas</string>
 	<string name="type.highway.elevator">Elevador</string>
 	<string name="type.highway.footway">Caminho pedonal</string>
+	<string name="type.highway.footway.sidewalk">Calçada</string>
+	<string name="type.highway.footway.crossing">Travessia de pedestres</string>
 	<string name="type.highway.footway.alpine_hiking">Caminho pedonal</string>
 	<string name="type.highway.footway.area">Área de pedestres</string>
 	<!-- These translations are used for all type.highway.*.bridge. -->
@@ -1089,7 +1091,6 @@
 	<string name="type.highway.footway.difficult_alpine_hiking">Caminho pedonal difícil</string>
 	<string name="type.highway.footway.hiking">Caminho pedonal</string>
 	<string name="type.highway.footway.mountain_hiking">Caminho pedonal</string>
-	<string name="type.highway.footway.permissive">Caminho pedonal</string>
 	<!-- These translations are used for all type.highway.*.tunnel. -->
 	<string name="type.highway.footway.tunnel">Túnel para pedestres</string>
 	<string name="type.highway.ford">Rio raso</string>
@@ -1377,7 +1378,6 @@
 	<string name="type.power.plant.hydro">Usina hidrelétrica</string>
 	<string name="type.power.plant.solar">Planta de energia solar</string>
 	<string name="type.power.plant.wind">Usina de energia eólica</string>
-	<string name="type.power.pole">Poste de eletricidade</string>
 	<string name="type.power.station">Subestação elétrica</string>
 	<string name="type.power.substation">Subestação elétrica</string>
 	<string name="type.power.tower">Torre de eletricidade</string>

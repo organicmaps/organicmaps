@@ -1141,6 +1141,8 @@
 	<string name="type.highway.cycleway.tunnel">Jalgratta tunnel</string>
 	<string name="type.highway.elevator">Lift</string>
 	<string name="type.highway.footway">Jalgrada</string>
+	<string name="type.highway.footway.sidewalk">Kõnnitee</string>
+	<string name="type.highway.footway.crossing">Jalakäijate ülekäigurada</string>
 	<string name="type.highway.footway.alpine_hiking">Alpi matkarada</string>
 	<string name="type.highway.footway.area">Jalakäijate ala</string>
 	<!-- These translations are used for all type.highway.*.bridge. -->
@@ -1150,7 +1152,6 @@
 	<string name="type.highway.footway.difficult_alpine_hiking">Nõudlik mägimatkarada</string>
 	<string name="type.highway.footway.hiking">Rada</string>
 	<string name="type.highway.footway.mountain_hiking">Mägirada</string>
-	<string name="type.highway.footway.permissive">Jalgrada</string>
 	<!-- These translations are used for all type.highway.*.tunnel. -->
 	<string name="type.highway.footway.tunnel">Jalakäijate tunnel</string>
 	<string name="type.highway.ford">Koolmekoht</string>
@@ -1475,7 +1476,6 @@
 	<string name="type.natural.scrub">Võsa</string>
 	<string name="type.natural.spring">Allikas</string>
 	<string name="type.natural.strait">Väin</string>
-	<string name="type.natural.tree">Puu</string>
 	<string name="type.natural.tree_row">Puude rida</string>
 	<string name="type.natural.vineyard">Viinamarjaistandus</string>
 	<string name="type.natural.volcano">Vulkaan</string>
@@ -1540,7 +1540,6 @@
 	<string name="type.power.plant.hydro">Hüdroelektrijaam</string>
 	<string name="type.power.plant.solar">Päikeseelektrijaam</string>
 	<string name="type.power.plant.wind">Tuuleelektrijaam</string>
-	<string name="type.power.pole">Elektripost</string>
 	<string name="type.power.station">Elektrijaam</string>
 	<string name="type.power.substation">Alajaam</string>
 	<string name="type.power.tower">Elektripost</string>

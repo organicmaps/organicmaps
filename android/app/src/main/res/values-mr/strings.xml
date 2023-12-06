@@ -1025,6 +1025,8 @@
 	<string name="type.highway.cycleway.tunnel">बोगदा</string>
 	<string name="type.highway.elevator">उद्वाहक(लिफ्ट)</string>
 	<string name="type.highway.footway">पादचारी मार्ग</string>
+	<string name="type.highway.footway.sidewalk">फुटपाथ</string>
+	<string name="type.highway.footway.crossing">पादचारी ओलांडणे</string>
 	<string name="type.highway.footway.alpine_hiking">पथ</string>
 	<string name="type.highway.footway.area">पादचारी झोन</string>
 	<!-- These translations are used for all type.highway.*.bridge. -->
@@ -1034,7 +1036,6 @@
 	<string name="type.highway.footway.difficult_alpine_hiking">पथ</string>
 	<string name="type.highway.footway.hiking">पथ</string>
 	<string name="type.highway.footway.mountain_hiking">पथ</string>
-	<string name="type.highway.footway.permissive">पादचारी मार्ग</string>
 	<!-- These translations are used for all type.highway.*.tunnel. -->
 	<string name="type.highway.footway.tunnel">पादचारी बोगदा</string>
 	<string name="type.highway.living_street">वस्ती मार्ग</string>
@@ -1346,7 +1347,6 @@
 	<string name="type.natural.scrub">खुरटी झाडे</string>
 	<string name="type.natural.spring">झरे</string>
 	<string name="type.natural.strait">सामुद्रधुनी</string>
-	<string name="type.natural.tree">झाड</string>
 	<string name="type.natural.tree_row">झाडाची रांग</string>
 	<string name="type.natural.vineyard">द्राक्षमळा</string>
 	<string name="type.natural.volcano">ज्वालामुखी</string>
@@ -1411,7 +1411,6 @@
 	<string name="type.power.plant.hydro">जलविद्युत प्रकल्प</string>
 	<string name="type.power.plant.solar">सौर ऊर्जा संयंत्र</string>
 	<string name="type.power.plant.wind">पवन ऊर्जा संयंत्र</string>
-	<string name="type.power.pole">विद्युत मनोरा</string>
 	<string name="type.power.station">विद्युत घर</string>
 	<string name="type.power.substation">विद्युत सबस्टेशन</string>
 	<string name="type.power.tower">विद्युत मनोरा</string>
