@@ -15,7 +15,7 @@
 *landuse|residential
 *highway|path
 *highway|bus_stop
-*natural|tree
+*highway|footway|sidewalk
 *place|locality
 *natural|coastline
 *place|village
@@ -48,7 +48,7 @@
 *landuse|farmland
 *barrier|fence
 *natural|water|lake
-*power|pole
+*highway|footway|crossing
 *waterway|riverbank
 *highway|path|bicycle
 *landuse|meadow
@@ -150,7 +150,7 @@ leisure|pitch
 *railway|tram
 *amenity|toilets
 *natural|water|basin
-*highway|footway|permissive
+highway|footway
 *leisure|picnic_table
 *landuse|construction
 *tourism|viewpoint
