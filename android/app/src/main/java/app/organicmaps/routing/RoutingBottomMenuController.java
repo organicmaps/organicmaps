@@ -284,7 +284,10 @@ final class RoutingBottomMenuController implements View.OnClickListener
     {
       mStart.setText(mContext.getText(R.string.p2p_start));
       mStart.setOnClickListener(v -> {
-        if (mListener != null)
+        // Ignore the event if the back and start buttons are pressed at the same time.
+        // See {@link #RoutingPlanController.onUpClick()}.
+        // https://github.com/organicmaps/organicmaps/issues/6628
+        if (mListener != null && RoutingController.get().isPlanning())
           mListener.onRoutingStart();
       });
     }
