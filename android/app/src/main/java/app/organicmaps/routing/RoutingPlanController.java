@@ -165,6 +165,10 @@ public class RoutingPlanController extends ToolbarController
   @Override
   public void onUpClick()
   {
+    // Ignore the event if the back and start buttons are pressed at the same time.
+    // See {@link #RoutingBottomMenuController.setStartButton()}.
+    if (RoutingController.get().isNavigating())
+      return;
     RoutingController.get().cancel();
   }
 

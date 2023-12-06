@@ -1674,6 +1674,9 @@ public class MwmActivity extends BaseMwmFragmentActivity
   {
     final RoutingController controller = RoutingController.get();
 
+    if (showAddStartOrFinishFrame(controller, true))
+      return false;
+
     // Starting and ending points must be non-null, see {@link #showAddStartOrFinishFrame() }.
     final MapObject startPoint = Objects.requireNonNull(controller.getStartPoint());
     if (startPoint.isMyPosition())
@@ -1705,7 +1708,7 @@ public class MwmActivity extends BaseMwmFragmentActivity
     Logger.d(LOCATION_TAG, "newMode = " + LocationState.nameOf(newMode));
     mMapButtonsViewModel.setMyPositionMode(newMode);
     RoutingController controller = RoutingController.get();
-    if (controller.isPlanning())
+    if (controller.isPlanning() || controller.isBuilding() || controller.isErrorEncountered())
       showAddStartOrFinishFrame(controller, true);
 
     if (newMode == FOLLOW || newMode == FOLLOW_AND_ROTATE)
