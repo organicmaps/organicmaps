@@ -428,10 +428,14 @@ public class BookmarkListAdapter extends RecyclerView.Adapter<Holders.BaseBookma
         View desc = inflater.inflate(R.layout.item_category_description, parent, false);
         TextView moreBtn = desc.findViewById(R.id.more_btn);
         TextView text = desc.findViewById(R.id.text);
+        TextView title = desc.findViewById(R.id.title);
+        TextView author = desc.findViewById(R.id.author);
         setMoreButtonVisibility(text, moreBtn);
         holder = new Holders.DescriptionViewHolder(desc, mSectionsDataSource.getCategory());
-        text.setOnClickListener(v -> onMoreButtonClicked(text));
-        moreBtn.setOnClickListener(v -> onMoreButtonClicked(text));
+        text.setOnClickListener(v -> onMoreButtonClicked(text, moreBtn));
+        moreBtn.setOnClickListener(v -> onMoreButtonClicked(text, moreBtn));
+        title.setOnClickListener(v -> onMoreButtonClicked(text, moreBtn));
+        author.setOnClickListener(v -> onMoreButtonClicked(text, moreBtn));
         break;
     }
 
@@ -532,11 +536,17 @@ public class BookmarkListAdapter extends RecyclerView.Adapter<Holders.BaseBookma
     });
   }
 
-  private void onMoreButtonClicked(TextView text)
+  private void onMoreButtonClicked(TextView text, TextView moreBtn)
   {
     if (text.getMaxLines() == MAX_VISIBLE_LINES)
+    {
       text.setMaxLines(Integer.MAX_VALUE);
+      moreBtn.setVisibility(View.GONE);
+    }
     else
+    {
       text.setMaxLines(MAX_VISIBLE_LINES);
+      moreBtn.setVisibility(View.VISIBLE);
+    }
   }
 }
