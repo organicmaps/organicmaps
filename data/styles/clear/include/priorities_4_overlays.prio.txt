@@ -694,6 +694,12 @@ highway-ford                                        # icon z16- and pathtext z16
 natural-rock                                        # icon z15-
 === 2850
 
+highway-bridleway-hiking_route
+highway-footway-hiking_route
+highway-path-hiking_route
+highway-track-hiking_route
+=== 2830
+
 highway-footway-alpine_hiking                       # pathtext z15- (also has line z14-)
 highway-footway-demanding_alpine_hiking             # pathtext z15- (also has line z14-)
 highway-footway-demanding_mountain_hiking           # pathtext z15- (also has line z14-)
