@@ -9003,10 +9003,10 @@ cont {
   element {
     scale: 18
     lines {
-      width: 1.5
-      color: 1294673959
+      width: 1.1
+      color: 1720994322
       dashdot {
-        dd: 5.0
+        dd: 3.5
         dd: 2.0
       }
       priority: 130
@@ -9016,10 +9016,10 @@ cont {
     scale: 19
     lines {
       width: 1.5
-      color: 1294673959
+      color: 1720994322
       dashdot {
-        dd: 5.0
-        dd: 2.0
+        dd: 4.0
+        dd: 2.5
       }
       priority: 130
     }
@@ -9028,10 +9028,10 @@ cont {
     scale: 20
     lines {
       width: 1.5
-      color: 1294673959
+      color: 1720994322
       dashdot {
-        dd: 5.0
-        dd: 2.0
+        dd: 4.0
+        dd: 2.5
       }
       priority: 130
     }
@@ -9116,6 +9116,45 @@ cont {
   }
 }
 cont {
+  name: "highway-footway-crossing"
+  element {
+    scale: 18
+    lines {
+      width: 1.5
+      color: 1294673959
+      dashdot {
+        dd: 5.0
+        dd: 2.0
+      }
+      priority: 245
+    }
+  }
+  element {
+    scale: 19
+    lines {
+      width: 1.5
+      color: 1294673959
+      dashdot {
+        dd: 5.0
+        dd: 2.0
+      }
+      priority: 245
+    }
+  }
+  element {
+    scale: 20
+    lines {
+      width: 1.5
+      color: 1294673959
+      dashdot {
+        dd: 5.0
+        dd: 2.0
+      }
+      priority: 245
+    }
+  }
+}
+cont {
   name: "highway-footway-demanding_alpine_hiking"
   element {
     scale: 17
@@ -9132,10 +9171,10 @@ cont {
   element {
     scale: 18
     lines {
-      width: 1.5
-      color: 1294673959
+      width: 1.1
+      color: 1720994322
       dashdot {
-        dd: 5.0
+        dd: 3.5
         dd: 2.0
       }
       priority: 130
@@ -9145,10 +9184,10 @@ cont {
     scale: 19
     lines {
       width: 1.5
-      color: 1294673959
+      color: 1720994322
       dashdot {
-        dd: 5.0
-        dd: 2.0
+        dd: 4.0
+        dd: 2.5
       }
       priority: 130
     }
@@ -9157,10 +9196,10 @@ cont {
     scale: 20
     lines {
       width: 1.5
-      color: 1294673959
+      color: 1720994322
       dashdot {
-        dd: 5.0
-        dd: 2.0
+        dd: 4.0
+        dd: 2.5
       }
       priority: 130
     }
@@ -9183,10 +9222,10 @@ cont {
   element {
     scale: 18
     lines {
-      width: 1.5
-      color: 1294673959
+      width: 1.1
+      color: 1720994322
       dashdot {
-        dd: 5.0
+        dd: 3.5
         dd: 2.0
       }
       priority: 130
@@ -9196,10 +9235,10 @@ cont {
     scale: 19
     lines {
       width: 1.5
-      color: 1294673959
+      color: 1720994322
       dashdot {
-        dd: 5.0
-        dd: 2.0
+        dd: 4.0
+        dd: 2.5
       }
       priority: 130
     }
@@ -9208,10 +9247,10 @@ cont {
     scale: 20
     lines {
       width: 1.5
-      color: 1294673959
+      color: 1720994322
       dashdot {
-        dd: 5.0
-        dd: 2.0
+        dd: 4.0
+        dd: 2.5
       }
       priority: 130
     }
@@ -9234,10 +9273,10 @@ cont {
   element {
     scale: 18
     lines {
-      width: 1.5
-      color: 1294673959
+      width: 1.1
+      color: 1720994322
       dashdot {
-        dd: 5.0
+        dd: 3.5
         dd: 2.0
       }
       priority: 130
@@ -9247,10 +9286,10 @@ cont {
     scale: 19
     lines {
       width: 1.5
-      color: 1294673959
+      color: 1720994322
       dashdot {
-        dd: 5.0
-        dd: 2.0
+        dd: 4.0
+        dd: 2.5
       }
       priority: 130
     }
@@ -9259,10 +9298,10 @@ cont {
     scale: 20
     lines {
       width: 1.5
-      color: 1294673959
+      color: 1720994322
       dashdot {
-        dd: 5.0
-        dd: 2.0
+        dd: 4.0
+        dd: 2.5
       }
       priority: 130
     }
@@ -9285,10 +9324,10 @@ cont {
   element {
     scale: 18
     lines {
-      width: 1.5
-      color: 1294673959
+      width: 1.1
+      color: 1720994322
       dashdot {
-        dd: 5.0
+        dd: 3.5
         dd: 2.0
       }
       priority: 130
@@ -9298,10 +9337,10 @@ cont {
     scale: 19
     lines {
       width: 1.5
-      color: 1294673959
+      color: 1720994322
       dashdot {
-        dd: 5.0
-        dd: 2.0
+        dd: 4.0
+        dd: 2.5
       }
       priority: 130
     }
@@ -9310,10 +9349,10 @@ cont {
     scale: 20
     lines {
       width: 1.5
-      color: 1294673959
+      color: 1720994322
       dashdot {
-        dd: 5.0
-        dd: 2.0
+        dd: 4.0
+        dd: 2.5
       }
       priority: 130
     }
@@ -9336,10 +9375,10 @@ cont {
   element {
     scale: 18
     lines {
-      width: 1.5
-      color: 1294673959
+      width: 1.1
+      color: 1720994322
       dashdot {
-        dd: 5.0
+        dd: 3.5
         dd: 2.0
       }
       priority: 130
@@ -9349,10 +9388,10 @@ cont {
     scale: 19
     lines {
       width: 1.5
-      color: 1294673959
+      color: 1720994322
       dashdot {
-        dd: 5.0
-        dd: 2.0
+        dd: 4.0
+        dd: 2.5
       }
       priority: 130
     }
@@ -9361,29 +9400,17 @@ cont {
     scale: 20
     lines {
       width: 1.5
-      color: 1294673959
+      color: 1720994322
       dashdot {
-        dd: 5.0
-        dd: 2.0
+        dd: 4.0
+        dd: 2.5
       }
       priority: 130
     }
   }
 }
 cont {
-  name: "highway-footway-permissive"
-  element {
-    scale: 18
-    lines {
-      width: 1.5
-      color: 1294673959
-      dashdot {
-        dd: 5.0
-        dd: 2.0
-      }
-      priority: 130
-    }
-  }
+  name: "highway-footway-sidewalk"
   element {
     scale: 19
     lines {

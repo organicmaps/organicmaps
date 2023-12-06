@@ -422,12 +422,13 @@ world  +
             alpine_hiking  -
             area  -
             bridge  -
+            crossing  -
             demanding_alpine_hiking  -
             demanding_mountain_hiking  -
             difficult_alpine_hiking  -
             hiking  -
             mountain_hiking  -
-            permissive  -
+            sidewalk  -
             tunnel  -
             {}
         ford  -
@@ -757,7 +758,6 @@ world  +
         scrub  -
         spring  -
         strait  -
-        tree  -
         tree_row  -
         volcano  -
         water  +
@@ -857,7 +857,6 @@ world  +
             solar  -
             wind  -
             {}
-        pole  -
         station  -
         substation  -
         tower  -

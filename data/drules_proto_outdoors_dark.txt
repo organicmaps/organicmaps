@@ -23156,6 +23156,69 @@ cont {
   }
 }
 cont {
+  name: "highway-footway-crossing"
+  element {
+    scale: 16
+    lines {
+      width: 2.0
+      color: 1078675011
+      dashdot {
+        dd: 5.0
+        dd: 2.0
+      }
+      priority: 330
+    }
+  }
+  element {
+    scale: 17
+    lines {
+      width: 2.4
+      color: 1078675011
+      dashdot {
+        dd: 6.0
+        dd: 2.5
+      }
+      priority: 330
+    }
+  }
+  element {
+    scale: 18
+    lines {
+      width: 3.2
+      color: 4933187
+      dashdot {
+        dd: 8.0
+        dd: 3.0
+      }
+      priority: 330
+    }
+  }
+  element {
+    scale: 19
+    lines {
+      width: 4.2
+      color: 4933187
+      dashdot {
+        dd: 10.0
+        dd: 3.5
+      }
+      priority: 330
+    }
+  }
+  element {
+    scale: 20
+    lines {
+      width: 4.2
+      color: 4933187
+      dashdot {
+        dd: 10.0
+        dd: 3.5
+      }
+      priority: 330
+    }
+  }
+}
+cont {
   name: "highway-footway-demanding_alpine_hiking"
   element {
     scale: 11
@@ -24046,28 +24109,7 @@ cont {
   }
 }
 cont {
-  name: "highway-footway-permissive"
-  element {
-    scale: 15
-    lines {
-      width: 1.5
-      color: 1078675011
-      dashdot {
-        dd: 5.0
-        dd: 2.0
-      }
-      priority: 180
-      cap: BUTTCAP
-    }
-    path_text {
-      primary {
-        height: 8
-        color: 7829367
-        stroke_color: 856756480
-      }
-      priority: 2820
-    }
-  }
+  name: "highway-footway-sidewalk"
   element {
     scale: 16
     lines {
@@ -24078,14 +24120,6 @@ cont {
         dd: 2.0
       }
       priority: 180
-    }
-    path_text {
-      primary {
-        height: 9
-        color: 7829367
-        stroke_color: 856756480
-      }
-      priority: 2820
     }
   }
   element {
@@ -24099,14 +24133,6 @@ cont {
       }
       priority: 180
     }
-    path_text {
-      primary {
-        height: 9
-        color: 7829367
-        stroke_color: 856756480
-      }
-      priority: 2820
-    }
   }
   element {
     scale: 18
@@ -24118,14 +24144,6 @@ cont {
         dd: 3.0
       }
       priority: 180
-    }
-    path_text {
-      primary {
-        height: 10
-        color: 7829367
-        stroke_color: 856756480
-      }
-      priority: 2820
     }
   }
   element {
@@ -24139,14 +24157,6 @@ cont {
       }
       priority: 180
     }
-    path_text {
-      primary {
-        height: 10
-        color: 7829367
-        stroke_color: 856756480
-      }
-      priority: 2820
-    }
   }
   element {
     scale: 20
@@ -24158,14 +24168,6 @@ cont {
         dd: 3.5
       }
       priority: 180
-    }
-    path_text {
-      primary {
-        height: 10
-        color: 7829367
-        stroke_color: 856756480
-      }
-      priority: 2820
     }
   }
 }
