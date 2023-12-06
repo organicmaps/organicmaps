@@ -2154,7 +2154,7 @@ public class MwmActivity extends BaseMwmFragmentActivity
           getDownloadMapsCounter(),
           this::onDownloadMapsOptionSelected
       ));
-      mDonatesUrl = Config.getDonateUrl();
+      mDonatesUrl = Config.getDonateUrl(getApplicationContext());
       if (!TextUtils.isEmpty(mDonatesUrl))
         items.add(new MenuBottomSheetItem(R.string.donate, R.drawable.ic_donate, this::onDonateOptionSelected));
       items.add(new MenuBottomSheetItem(R.string.settings, R.drawable.ic_settings, this::onSettingsOptionSelected));

@@ -12,6 +12,7 @@ import androidx.annotation.Nullable;
 import androidx.recyclerview.widget.RecyclerView;
 
 import app.organicmaps.R;
+import app.organicmaps.util.Config;
 
 import java.util.ArrayList;
 
@@ -48,7 +49,13 @@ public class MenuAdapter extends RecyclerView.Adapter<MenuAdapter.ViewHolder>
   {
     final MenuBottomSheetItem item = dataSet.get(position);
     final ImageView iv = viewHolder.getIconImageView();
-    iv.setImageResource(item.iconRes);
+    if (item.iconRes == R.drawable.ic_donate && Config.isNY())
+    {
+      iv.setImageResource(R.drawable.ic_christmas_tree);
+      iv.setImageTintMode(null);
+    }
+    else
+      iv.setImageResource(item.iconRes);
     viewHolder.getContainer().setOnClickListener((v) -> onMenuItemClick(item));
     viewHolder.getTitleTextView().setText(item.titleRes);
     TextView badge = viewHolder.getBadgeTextView();
