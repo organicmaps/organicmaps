@@ -1652,38 +1652,6 @@ public class MwmActivity extends BaseMwmFragmentActivity
         .show();
   }
 
-  private boolean showStartPointNotice()
-  {
-    final RoutingController controller = RoutingController.get();
-
-    if (showAddStartOrFinishFrame(controller, true))
-      return false;
-
-    // Starting and ending points must be non-null, see {@link #showAddStartOrFinishFrame() }.
-    final MapObject startPoint = Objects.requireNonNull(controller.getStartPoint());
-    if (startPoint.isMyPosition())
-      return true;
-
-    final MapObject endPoint = Objects.requireNonNull(controller.getEndPoint());
-    final MaterialAlertDialogBuilder builder = new MaterialAlertDialogBuilder(this, R.style.MwmTheme_AlertDialog)
-        .setTitle(R.string.p2p_only_from_current)
-        .setMessage(R.string.p2p_reroute_from_current)
-        .setCancelable(false)
-        .setNegativeButton(R.string.cancel, null)
-        .setPositiveButton(R.string.ok, endPoint.isMyPosition() ?
-            (dialog, which) -> controller.swapPoints() :
-            (dialog, which) -> {
-              // The current location may change while this dialog is still shown on the screen.
-              final MapObject myPosition = LocationHelper.from(this).getMyPosition();
-              controller.setStartPoint(myPosition);
-            }
-        )
-        .setOnDismissListener(dialog -> mAlertDialog = null);
-    dismissAlertDialog();
-    mAlertDialog = builder.show();
-    return false;
-  }
-
   @Override
   public void onMyPositionModeChanged(int newMode)
   {
@@ -1966,11 +1934,17 @@ public class MwmActivity extends BaseMwmFragmentActivity
   @Override
   public void onRoutingStart()
   {
-    if (!showStartPointNotice())
+    final RoutingController controller = RoutingController.get();
+    if (showAddStartOrFinishFrame(controller, true))
       return;
 
     if (!showRoutingDisclaimer())
       return;
+
+    // Starting and ending points must be non-null, see {@link #showAddStartOrFinishFrame() }.
+    final MapObject startPoint = Objects.requireNonNull(controller.getStartPoint());
+    if (!startPoint.isMyPosition())
+      Toast.makeText(this, getString(R.string.dialog_routing_rebuild_from_current_location), Toast.LENGTH_LONG).show();
 
     closeFloatingPanels();
     RoutingController.get().start();

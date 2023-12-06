@@ -24,7 +24,7 @@
 + (instancetype)deleteMapProhibitedAlert;
 + (instancetype)unsavedEditsAlertWithOkBlock:(MWMVoidBlock)okBlock;
 + (instancetype)locationServiceNotSupportedAlert;
-+ (instancetype)point2PointAlertWithOkBlock:(MWMVoidBlock)okBlock needToRebuild:(BOOL)needToRebuild;
++ (instancetype)routingRebuildFromCurrentLocation;
 + (instancetype)disableAutoDownloadAlertWithOkBlock:(MWMVoidBlock)okBlock;
 + (instancetype)downloaderNoConnectionAlertWithOkBlock:(MWMVoidBlock)okBlock cancelBlock:(MWMVoidBlock)cancelBlock;
 + (instancetype)downloaderNotEnoughSpaceAlert;

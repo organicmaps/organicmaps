@@ -23,6 +23,7 @@ import app.organicmaps.util.concurrency.UiThread;
 import app.organicmaps.util.log.Logger;
 
 import java.util.Calendar;
+import java.util.Objects;
 import java.util.concurrent.TimeUnit;
 
 
@@ -215,9 +216,12 @@ public class RoutingController
     Logger.d(TAG, "[B] State: " + mState + ", BuildState: " + mBuildState + " -> " + newState);
     mBuildState = newState;
 
-    final MapObject startPoint = getStartPoint();
-    if (mBuildState == BuildState.BUILT && (startPoint == null || !startPoint.isMyPosition()))
-      Framework.nativeDisableFollowing();
+    if (isBuilt() && !isNavigating())
+    {
+      final MapObject startPoint = Objects.requireNonNull(getStartPoint());
+      if (!startPoint.isMyPosition())
+        Framework.nativeDisableFollowing();
+    }
 
     if (mContainer != null)
       mContainer.updateMenu();

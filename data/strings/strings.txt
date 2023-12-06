@@ -11048,94 +11048,6 @@
     zh-Hans = 到这去
     zh-Hant = 到這去
 
-  [p2p_only_from_current]
-    tags = android,ios
-    en = Navigation is only available from your current location.
-    af = Navigering is slegs beskikbaar vanaf u huidige ligging.
-    ar = تتوفر الملاحة من خلال موقعك الحالي فقط.
-    az = Naviqasiya yalnız cari yerinizdən mümkündür.
-    be = Навігацыя магчыма толькі ад цяперашняга месцазнаходжання.
-    bg = Навигацията е възможна само от текущото ви местоположение.
-    ca = La navegació només és disponible des de la ubicació actual.
-    cs = Navigovat lze pouze z současného umístění.
-    da = Navigation er kun tilgængelig fra din nuværende lokalitet.
-    de = Die Navigation ist nur von Ihrem aktuellen Standort verfügbar.
-    el = Η πλοήγηση είναι διαθέσιμη μόνο από την τρέχουσα τοποθεσία σας.
-    es = La navegación solo está disponible desde su ubicación actual.
-    et = Navigeerimine on saadaval ainult Sinu praegusest asukohast.
-    eu = Nabigazioa zure uneko kokapenetik soilik dago erabilgarri.
-    fa = مسیر‌یابی فقط از موقعیت کنونی شما قابل انجام است.
-    fi = Navigointi onnistuu vain nykyisestä sijainnistasi.
-    fr = La navigation est uniquement disponible à partir de votre emplacement actuel.
-    he = ניווט זמין רק מהמיקום הנוכחי שלך.
-    hi = नेविगेशन केवल आपके वर्तमान स्थान से उपलब्ध है।
-    hu = A navigáció csak a jelenlegi helyzetéből érhető el.
-    id = Navigasi tersedia hanya dari lokasi Anda saat ini.
-    it = La navigazione è disponibile solo dalla tua posizione attuale.
-    ja = ナビゲーションは現在位置からのみ利用できます。
-    ko = 현재 위치에서만 네비게이션을 사용할 수 있습니다.
-    lt = Navigacija yra prieinama tik iš jūsų dabartinės vietos.
-    mr = मार्गनिर्देशन फक्त तुमच्या वर्तमान स्थानावरून उपलब्ध आहे.
-    nb = Navigering er kun tilgjengelig fra din nåværende beliggenhet.
-    nl = Navigatie is uitsluitend beschikbaar vanuit uw huidige locatie.
-    pl = Nawigacja jest dostępna tylko od twojej bieżącej lokalizacji.
-    pt = Só é possível navegar a partir da sua localização atual.
-    pt-BR = Só é possível navegar a partir da sua localização atual.
-    ro = Navigația este disponibilă doar având ca punct de plecare poziția ta actuală.
-    ru = Навигация возможна только из текущего местоположения.
-    sk = Navigácia je dostupná iba z vašej aktuálnej polohy.
-    sv = Navigering är endast tillgänglig från din aktuella plats.
-    th = สามารถใช้การนำทางได้เฉพาะจากตำแหน่งที่ตั้งปัจจุบันของคุณเท่านั้น
-    tr = Navigasyon sadece şu anki konumunuzdan mevcut.
-    uk = Маршрут можна прокласти лише з поточного місцезнаходження.
-    vi = Chức năng tìm đường chỉ có sẵn từ vị trí hiện tại của bạn.
-    zh-Hans = 导航只能从您目前的位置开始。
-    zh-Hant = 導航只能從您目前的位置開始。
-
-  [p2p_reroute_from_current]
-    tags = android,ios
-    en = Do you want to plan a route from your current location?
-    af = Wil u ’n roete vanaf u huidige ligging beplan?
-    ar = هل ترغب في أن نرسم مسار لك من موقعك الحالي؟
-    az = Hazırkı yerinizdən marşrut planlaşdırmağımızı istərdinizmi?
-    be = Хочаце перапракласці маршрут ад цяперашняга месцазнаходжання?
-    bg = Искате ли да планираме маршрут от текущото ви местоположение?
-    ca = Voleu que planifiquem una ruta des de la vostra ubicació actual?
-    cs = Máme naplánovat trasu z vašeho současného umístění?
-    da = Ønsker du, at vi planlægger en rute fra din nuværende placering?
-    de = Soll eine Route von Ihrem aktuellen Standort aus berechnet werden?
-    el = Θέλετε να σχεδιάσουμε μια διαδρομή από την τρέχουσα θέση σας;
-    es = ¿Quiere que planeemos una ruta desde su ubicación actual?
-    et = Kas soovid, et planeeriksime marsruudi Sinu praegusest asukohast?
-    eu = Zure uneko kokapenetik ibilbide bat antolatzea nahi duzu?
-    fa = آیا می خواهید یک مسیر را از موقعیت فعلیتان برنامه ریزی کنیم؟
-    fi = Haluatko valita vaihtoehtoisen reitin?
-    fr = Souhaitez-vous que nous planifiions un itinéraire à partir de votre emplacement actuel ?
-    he = ברצונך לתכנן מסלול מהמיקום הנוכחי שלך?
-    hi = क्या आप अपने वर्तमान स्थान से मार्ग की योजना बनाना चाहते हैं?
-    hu = Szeretne útvonaltervet készíttetni a jelenlegi pozíciójától?
-    id = Apakah Anda ingin kami merencanakan sebuah rute dari lokasi Anda saat ini?
-    it = Vuoi che pianifichiamo un percorso dalla tua posizione attuale?
-    ja = 現在位置からのルートを作成しますか？
-    ko = 현재 위치에서 경로를 계획하시겠습니까?
-    lt = Norite, kad mes suplanuotumėme maršrutą iš jūsų dabartinės vietos?
-    mr = तुमच्या वर्तमान स्थानापासून मार्ग नियोजन करायचे का?
-    nb = Vil du vi skal planlegge en rute fra din nåværende posisjon?
-    nl = Wilt u een route plannen vanaf uw huidige locatie?
-    pl = Czy chcesz, byśmy zaplanowali trasę z Twojej bieżącej lokalizacji?
-    pt = Quer planear uma rota a partir da sua localização atual?
-    pt-BR = Deseja planejar uma rota a partir da sua localização atual?
-    ro = Vrei să planifici un traseu din poziția ta actuală?
-    ru = Хотите перестроить маршрут от вашего местоположения?
-    sk = Máme naplánovať trasu z vašej súčasnej pozície?
-    sv = Vill du att vi planerar en färdväg från din nuvarande plats?
-    th = คุณต้องการให้เราาวงแผนเส้นทางจากสถานที่ตั้งปัจจุบันของคุณหรือไม่?
-    tr = Mevcut konumunuzdan bir rota planlamamızı ister misiniz?
-    uk = Хочете спланувати маршрут із поточного місцезнаходження?
-    vi = Bạn có muốn chúng tôi vạch đường từ vị trí hiện tại của bạn không?
-    zh-Hans = 你是否想要规划当前位置的路线？
-    zh-Hant = 你是否想要規劃目前位置的路線？
-
   [next_button]
     comment = Edit open hours/set time and minutes dialog
     tags = android
@@ -24583,8 +24495,8 @@
     zh-Hans = 发生了错误。请重新启动程序
     zh-Hant = 發生錯誤，請重新啟動 app
 
-  [dialog_routing_rebuild_from_current_location_carplay]
-    tags = ios
+  [dialog_routing_rebuild_from_current_location]
+    tags = android,ios
     en = The route will be rebuilt from your current location
     af = Die roete sal vanaf u huidige ligging herbou word
     ar = سيتم إعادة رسم الطريق من موقعك الحالي

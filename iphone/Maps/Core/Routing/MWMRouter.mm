@@ -291,27 +291,11 @@ char const *kRenderAltitudeImagesQueueLabel = "mapsme.mwmrouter.renderAltitudeIm
     if (routePoints.size() >= 2)
     {
       auto p1 = [[MWMRoutePoint alloc] initWithRouteMarkData:routePoints.front()];
-      auto p2 = [[MWMRoutePoint alloc] initWithRouteMarkData:routePoints.back()];
-
-      CLLocation *lastLocation = [MWMLocationManager lastLocation];
-      if (p1.isMyPosition && lastLocation)
-      {
-        rm.FollowRoute();
-        [[MWMMapViewControlsManager manager] onRouteStart];
-        [MWMThemeManager setAutoUpdates:YES];
-      }
-      else
-      {
-        BOOL const needToRebuild = lastLocation && [MWMLocationManager isStarted] && !p2.isMyPosition;
-
-        [[MWMAlertViewController activeAlertController]
-          presentPoint2PointAlertWithOkBlock:^{
-            [self buildFromPoint:[[MWMRoutePoint alloc] initWithLastLocationAndType:MWMRoutePointTypeStart
-                                                                  intermediateIndex:0]
-                      bestRouter:NO];
-          }
-                               needToRebuild:needToRebuild];
-      }
+      if ([MWMLocationManager isStarted] && !p1.isMyPosition)
+        [[MWMAlertViewController activeAlertController] presentRoutingRebuildFromCurrentLocation];
+      rm.FollowRoute();
+      [[MWMMapViewControlsManager manager] onRouteStart];
+      [MWMThemeManager setAutoUpdates:YES];
     }
   };
 

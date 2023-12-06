@@ -633,7 +633,8 @@ bool RoutingSession::EnableFollowMode()
 {
   CHECK_THREAD_CHECKER(m_threadChecker, ());
   LOG(LINFO, ("Routing enables a following mode. SessionState: ", m_state));
-  if (m_state == SessionState::RouteNotStarted || m_state == SessionState::OnRoute)
+  if (m_state == SessionState::RouteNotStarted || m_state == SessionState::RouteNoFollowing ||
+      m_state == SessionState::OnRoute)
   {
     SetState(SessionState::OnRoute);
     m_isFollowing = true;
