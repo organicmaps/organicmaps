@@ -49,7 +49,7 @@
     <FrameLayout
       android:id="@+id/downloader_controls_frame"
       android:layout_width="180dp"
-      android:layout_height="@dimen/downloader_status_size"
+      android:layout_height="48dp"
       android:clipChildren="false">
       <Button
         android:id="@+id/downloader_button"
@@ -57,6 +57,7 @@
         android:layout_width="180dp"
         android:layout_gravity="center"
         android:visibility="gone"
+        android:layout_height="match_parent"
         tools:visibility="visible"/>
       <app.organicmaps.widget.WheelProgressView
         android:id="@+id/wheel_downloader_progress"

@@ -20,6 +20,7 @@
       style="@style/MwmWidget.Editor.FieldLayout.EditText"
       android:hint="@string/editor_edit_place_name_hint"
       android:inputType="textCapSentences"
+      android:padding="@dimen/margin_base"
       android:singleLine="true" />
   </com.google.android.material.textfield.TextInputLayout>
   <ImageButton
@@ -27,7 +28,7 @@
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
     android:background="?selectableItemBackgroundBorderless"
-    android:padding="@dimen/margin_half"
+    android:padding="@dimen/margin_half_plus"
     android:src="@drawable/ic_close"
     app:tint="@color/base_red" />
 </LinearLayout>

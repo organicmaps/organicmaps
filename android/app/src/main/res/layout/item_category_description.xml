@@ -41,6 +41,7 @@
         android:background="@android:color/transparent"
         android:clickable="true"
         android:gravity="start|top"
+        android:padding="@dimen/margin_base"
         android:text="@string/category_desc_more"
         android:textColor="?attr/colorAccent"
         android:layout_marginTop="2dp" />
