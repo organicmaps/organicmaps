@@ -2,12 +2,16 @@
 @import("../../clear/include/Roads_label.mapcss");
 
 
-/* 8.OTHERS ROADS 15-22 ZOOM */
-
 line|z13-[highway=track],
 line|z13-[highway=path],
-{text: name;text-color: @label_medium;text-halo-opacity: 0.8;text-halo-radius: 1;text-halo-color: @label_halo_light;}
+line|z13-[highway=footway],
+line|z13-[highway=bridleway],
+line|z13-[highway=cycleway],
+{text: name; font-size: 10; text-color: @label_medium;text-halo-opacity: 0.8;text-halo-radius: 1;text-halo-color: @label_halo_light;}
 
-line|z13-15[highway=path],
-line|z13-15[highway=track],
-{font-size: 8;}
+line|z16-[highway=path],
+line|z16-[highway=track],
+line|z16-[highway=footway],
+line|z16-[highway=bridleway],
+line|z16-[highway=cycleway],
+{font-size: 12;}

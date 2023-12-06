@@ -47,17 +47,6 @@ line|z19-[highway=service][service=parking_aisle],
 
 /* 8.OTHERS ROADS 13-22 ZOOM */
 
-line|z11-[highway=track],
-{color: @track;opacity: 1;}
-
-line|z11-[highway=path],
-line|z11-[highway=bridleway][route],
-line|z11-[highway=footway][sac_scale],
-line|z11-[highway=footway][route],
-{color: @path; opacity: 1;}
-
-/* 8.5 Construction & Proposed 13-22 ZOOM */
-
 line|z11-[highway=construction],
 line|z11-[highway=proposed]
 {color: @construction; opacity: 1;}
@@ -67,7 +56,25 @@ line|z11-12[highway=proposed]
 {width: 1.2; dashes: 3.6,1.8;}
 /* see base style for other zooms */
 
-/* 8.6 Track & Path 14-22 ZOOM */
+
+line|z12-[highway=footway],
+{color: @footway; opacity: 1;}
+
+line|z11-[highway=track],
+{color: @track;opacity: 1;}
+
+line|z11-[highway=path],
+line|z11-[highway=footway][route],
+line|z12-[highway=footway][sac_scale],
+{color: @path; opacity: 1;}
+
+/* TODO: change color to be similar to cycleways. */
+line|z11-[highway=bridleway],
+{color: @path; opacity: 1;}
+
+line|z12-[highway=cycleway]
+{color: @cycleway; opacity: 1;}
+
 
 line|z12[highway=track],
 {width: 1.3; dashes: 5,2.5;}
@@ -102,50 +109,90 @@ line|z18-[highway=track][route],
 {width: 7.5;}
 
 line|z12[highway=path],
-line|z12[highway=footway][sac_scale],
+line|z12[highway=footway],
 {width: 1.1; dashes: 3.5,2;}
 line|z13[highway=path],
-line|z13[highway=footway][sac_scale],
+line|z13[highway=footway],
 {width: 1.3; dashes: 4,2.5;}
 line|z14[highway=path],
-line|z14[highway=footway][sac_scale],
+line|z14[highway=footway],
 {width: 1.6; dashes: 4,2.5;}
 line|z15[highway=path],
-line|z15[highway=footway][sac_scale],
+line|z15[highway=footway],
 {width: 2; dashes: 6,3.5;}
 line|z16[highway=path],
-line|z16[highway=footway][sac_scale],
+line|z16[highway=footway],
 {width: 2.6; dashes: 6,3.5;}
 line|z17[highway=path],
-line|z17[highway=footway][sac_scale],
+line|z17[highway=footway],
 {width: 3.3; dashes: 8,4.5;}
 line|z18-[highway=path],
-line|z18-[highway=footway][sac_scale],
+line|z18-[highway=footway],
 {width: 4; dashes: 8,4.5;}
 
+line|z12[highway=bridleway],
+{width: 1.1; dashes: 6,1;}
+line|z13[highway=bridleway],
+{width: 1.3; dashes: 7,1.2;}
+line|z14[highway=bridleway],
+{width: 1.6; dashes: 7,1.2;}
+line|z15[highway=bridleway],
+{width: 2; dashes: 9,1.7;}
+line|z16[highway=bridleway],
+{width: 2.6; dashes: 9,1.7;}
+line|z17[highway=bridleway],
+{width: 3.3; dashes: 12,2.2;}
+line|z18-[highway=bridleway],
+{width: 4; dashes: 12,2.2;}
+
 line|z11[highway=path][route],
+line|z11[highway=footway][route],
+line|z11[highway=bridleway][route],
 {width: 1.3; dashes: 3.5,2;}
 line|z12[highway=path][route],
 line|z12[highway=footway][route],
+line|z12[highway=bridleway][route],
 {width: 1.6;}
 line|z13[highway=path][route],
 line|z13[highway=footway][route],
+line|z13[highway=bridleway][route],
 {width: 2;}
 line|z14[highway=path][route],
 line|z14[highway=footway][route],
+line|z14[highway=bridleway][route],
 {width: 2.6;}
 line|z15[highway=path][route],
 line|z15[highway=footway][route],
+line|z15[highway=bridleway][route],
 {width: 3.3;}
 line|z16[highway=path][route],
 line|z16[highway=footway][route],
+line|z16[highway=bridleway][route],
 {width: 4;}
 line|z17[highway=path][route],
 line|z17[highway=footway][route],
+line|z17[highway=bridleway][route],
 {width: 5;}
 line|z18-[highway=path][route],
 line|z18-[highway=footway][route],
+line|z18-[highway=bridleway][route],
 {width: 6;}
+
+
+line|z12[highway=cycleway],
+{width: 0.8;}
+line|z13[highway=cycleway],
+{width: 1.1;}
+line|z14[highway=cycleway],
+{width: 1.4;}
+line|z15[highway=cycleway],
+{width: 1.6;}
+line|z16[highway=cycleway],
+{width: 1.9;}
+line|z17[highway=cycleway],
+{width: 2.3;}
+line|z18-[highway=cycleway],
+{width: 2.8;}
 
 /* 9.RAIL 11-22 ZOOM */
 
