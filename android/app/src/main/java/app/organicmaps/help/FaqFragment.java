@@ -15,7 +15,6 @@ import app.organicmaps.WebContainerDelegate;
 import app.organicmaps.base.BaseMwmFragment;
 import app.organicmaps.util.Constants;
 import app.organicmaps.util.Utils;
-import app.organicmaps.widget.ObservableWebView;
 import com.google.android.material.dialog.MaterialAlertDialogBuilder;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
@@ -72,18 +71,13 @@ public class FaqFragment extends BaseMwmFragment
                   mDialogClickListener)
         .show());
 
-    ObservableWebView observableWebView = root.findViewById(R.id.webview);
     if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M)
     {
-      observableWebView.setOnScrollChangeListener((v, scrollX, scrollY, oldScrollX, oldScrollY) -> {
+      root.findViewById(R.id.webview).setOnScrollChangeListener((v, scrollX, scrollY, oldScrollX, oldScrollY) -> {
         if (scrollY > oldScrollY)
-        {
           feedbackFab.hide();
-        }
         else
-        {
           feedbackFab.show();
-        }
       });
     }
 
