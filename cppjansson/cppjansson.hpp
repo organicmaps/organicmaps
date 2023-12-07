@@ -63,7 +63,7 @@ public:
   json_t * get_deep_copy() const { return json_deep_copy(get()); }
 
 private:
-  JsonHandle<json_t> m_handle;
+  JsonHandle m_handle;
 };
 
 JSONPtr LoadFromString(std::string const & str);

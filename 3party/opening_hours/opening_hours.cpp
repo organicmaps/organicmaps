@@ -32,6 +32,7 @@
 #include <iomanip>
 #include <ios>
 #include <ostream>
+#include <sstream>
 #include <tuple>
 #include <type_traits>
 #include <vector>

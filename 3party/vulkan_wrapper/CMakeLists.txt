@@ -1,9 +1,15 @@
 project(vulkan_wrapper)
 
 set(SRC
-  vulkan_wrapper.cpp
   vulkan_wrapper.h
 )
+
+if (NOT MSVC)
+  append(SRC vulkan_wrapper.cpp)
+else()
+  append(SRC vulkan_wrapper_win.cpp)
+endif()
+
 
 add_library(${PROJECT_NAME} ${SRC})
 

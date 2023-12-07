@@ -52,10 +52,7 @@ add_subdirectory(opening_hours)
 add_subdirectory(sdf_image)
 add_subdirectory(stb_image)
 add_subdirectory(succinct)
-
-if (NOT MSVC)
-  add_subdirectory(vulkan_wrapper)
-endif()
+add_subdirectory(vulkan_wrapper)
 
 if (PLATFORM_DESKTOP)
   add_subdirectory(libtess2)

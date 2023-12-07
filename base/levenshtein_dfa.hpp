@@ -94,7 +94,7 @@ public:
   };
 
   LevenshteinDFA() = default;
-  LevenshteinDFA(LevenshteinDFA const &) = delete;
+  LevenshteinDFA(LevenshteinDFA const &) = default;
   LevenshteinDFA(LevenshteinDFA &&) = default;
   LevenshteinDFA & operator=(LevenshteinDFA &&) = default;
 

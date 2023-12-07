@@ -14,8 +14,7 @@
 
 namespace base
 {
-namespace
-{
+
 using namespace std::literals;
 auto constexpr kDebug    = "DEBUG"sv;
 auto constexpr kInfo     = "INFO"sv;
@@ -29,7 +28,7 @@ std::string ToString(LogLevel level)
 {
   auto const & names = GetLogLevelNames();
   CHECK_LESS(level, names.size(), ());
-  return names[level];
+  return std::string(names[level]);
 }
 
 bool FromString(std::string const & s, LogLevel & level)
@@ -42,12 +41,13 @@ bool FromString(std::string const & s, LogLevel & level)
   return true;
 }
 
-std::array<char const *, NUM_LOG_LEVELS> const & GetLogLevelNames()
+static std::array<std::string_view, NUM_LOG_LEVELS> const kNames = {
+    {"DEBUG", "INFO", "WARNING", "ERROR", "CRITICAL"}};
+
+std::array<std::string_view, NUM_LOG_LEVELS> const constexpr & GetLogLevelNames()
 {
   // If you're going to modify the behavior of the function, please,
   // check validity of LogHelper ctor.
-  static std::array<char const *, NUM_LOG_LEVELS> const kNames = {
-      {"DEBUG", "INFO", "WARNING", "ERROR", "CRITICAL"}};
   return kNames;
 }
 

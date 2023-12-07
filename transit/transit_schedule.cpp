@@ -15,7 +15,7 @@ uint32_t constexpr kMask6bits = 0x3F;
 std::tm ToCalendarTime(time_t const & ts)
 {
   std::tm tm;
-  localtime_r(&ts, &tm);
+  localtime_s(&tm, &ts);
   return tm;
 }
 
