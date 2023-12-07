@@ -19,10 +19,8 @@
 #include "indexer/scales.hpp"
 
 #include "geometry/clipping.hpp"
-#include "geometry/mercator.hpp"
 
 #include <array>
-#include <cmath>
 #include <vector>
 
 namespace df
@@ -325,24 +323,11 @@ void GenerateTextShapes(ref_ptr<dp::GraphicsContext> context, ref_ptr<dp::Textur
   }
 }
 
-m2::SharedSpline SimplifySpline(m2::SharedSpline const & in, double minSqrLength)
+m2::SharedSpline SimplifySpline(m2::SharedSpline const & in, double minSegSqLength)
 {
-  m2::SharedSpline spline;
-  spline.Reset(new m2::Spline(in->GetSize()));
-
-  m2::PointD lastAddedPoint;
+  m2::SharedSpline spline(in->GetSize());
   for (auto const & point : in->GetPath())
-  {
-    if (spline->GetSize() > 1 && point.SquaredLength(lastAddedPoint) < minSqrLength)
-    {
-      spline->ReplacePoint(point);
-    }
-    else
-    {
-      spline->AddPoint(point);
-      lastAddedPoint = point;
-    }
-  }
+    spline->AddOrProlongPoint(point, minSegSqLength, false /* checkAngle */);
   return spline;
 }
 
@@ -560,12 +545,7 @@ void CacheUserLines(ref_ptr<dp::GraphicsContext> context, TileKey const & tileKe
 
   double const vs = df::VisualParams::Instance().GetVisualScale();
   bool const simplify = tileKey.m_zoomLevel <= 15;
-
-  // This var is used only if simplify == true.
-  double minSegmentSqrLength = 1.0;
-  if (simplify)
-    minSegmentSqrLength = base::Pow2(4.0 * vs * GetScreenScale(tileKey.m_zoomLevel));
-
+  double const minSegSqLength = simplify ? base::Pow2(4.0 * vs * GetScreenScale(tileKey.m_zoomLevel)) : 0;
   m2::RectD const tileRect = tileKey.GetGlobalRect();
 
   // Process spline by segments that are no longer than tile size.
@@ -600,7 +580,7 @@ void CacheUserLines(ref_ptr<dp::GraphicsContext> context, TileKey const & tileKe
       */
 
       if (simplify)
-        spline = SimplifySpline(spline, minSegmentSqrLength);
+        spline = SimplifySpline(spline, minSegSqLength);
 
       if (spline->GetSize() < 2)
         continue;

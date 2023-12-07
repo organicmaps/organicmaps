@@ -50,7 +50,7 @@ public:
 
   void AddPoint(PointD const & pt);
   void ReplacePoint(PointD const & pt);
-  bool IsProlonging(PointD const & pt) const;
+  void AddOrProlongPoint(PointD const & pt, double minSegSqLength, bool checkAngle);
 
   size_t GetSize() const;
   std::vector<PointD> const & GetPath() const { return m_position; }
@@ -101,19 +101,26 @@ class SharedSpline
 {
 public:
   SharedSpline() = default;
+  explicit SharedSpline(size_t reservedSize);
   explicit SharedSpline(std::vector<PointD> const & path);
   explicit SharedSpline(std::vector<PointD> && path);
 
-  bool IsNull() const;
-  void Reset(Spline * spline);
-  //void Reset(std::vector<PointD> const & path);
+  void Reset() { m_spline.reset(); }
 
   Spline::iterator CreateIterator() const;
 
-  Spline * operator->();
-  Spline const * operator->() const;
-
-  Spline const * Get() const;
+  bool IsNull() const { return m_spline == nullptr; }
+  Spline * operator->()
+  {
+    ASSERT(!IsNull(), ());
+    return m_spline.get();
+  }
+  Spline const * operator->() const { return Get(); }
+  Spline const * Get() const
+  {
+    ASSERT(!IsNull(), ());
+    return m_spline.get();
+  }
 
 private:
   std::shared_ptr<Spline> m_spline;
