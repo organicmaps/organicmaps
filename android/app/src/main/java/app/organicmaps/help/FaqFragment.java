@@ -2,21 +2,21 @@ package app.organicmaps.help;
 
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.os.Build;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-
 import app.organicmaps.R;
 import app.organicmaps.WebContainerDelegate;
 import app.organicmaps.base.BaseMwmFragment;
 import app.organicmaps.util.Constants;
 import app.organicmaps.util.Utils;
 import com.google.android.material.dialog.MaterialAlertDialogBuilder;
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 public class FaqFragment extends BaseMwmFragment
 {
@@ -63,13 +63,23 @@ public class FaqFragment extends BaseMwmFragment
       }
     };
 
-    TextView feedback = root.findViewById(R.id.feedback);
-    feedback.setOnClickListener(v -> new MaterialAlertDialogBuilder(requireActivity(), R.style.MwmTheme_AlertDialog)
+    FloatingActionButton feedbackFab = root.findViewById(R.id.feedback_fab);
+    feedbackFab.setOnClickListener(v -> new MaterialAlertDialogBuilder(requireActivity(), R.style.MwmTheme_AlertDialog)
         .setTitle(R.string.feedback)
         .setNegativeButton(R.string.cancel, null)
-        .setItems(new CharSequence[]{getString(R.string.feedback_general), getString(R.string.report_a_bug)},
-            mDialogClickListener)
+        .setItems(new CharSequence[] { getString(R.string.feedback_general), getString(R.string.report_a_bug) },
+                  mDialogClickListener)
         .show());
+
+    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M)
+    {
+      root.findViewById(R.id.webview).setOnScrollChangeListener((v, scrollX, scrollY, oldScrollX, oldScrollY) -> {
+        if (scrollY > oldScrollY)
+          feedbackFab.hide();
+        else
+          feedbackFab.show();
+      });
+    }
 
     return root;
   }
