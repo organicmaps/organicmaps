@@ -891,9 +891,9 @@ void ApplyLineFeatureGeometry::ProcessRule(LineRuleProto const & lineRule)
 ApplyLineFeatureAdditional::ApplyLineFeatureAdditional(TileKey const & tileKey, TInsertShapeFn const & insertShape,
                                                        FeatureType & f, double currentScaleGtoP,
                                                        CaptionDescription const & captions,
-                                                       std::vector<m2::SharedSpline> const & clippedSplines)
+                                                       std::vector<m2::SharedSpline> && clippedSplines)
   : TBase(tileKey, insertShape, f, captions)
-  , m_clippedSplines(clippedSplines)
+  , m_clippedSplines(std::move(clippedSplines))
   , m_currentScaleGtoP(currentScaleGtoP)
 {
   ASSERT(!m_clippedSplines.empty(), ());
