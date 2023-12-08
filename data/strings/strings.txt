@@ -22842,15 +22842,8 @@
     tags = android,ios
     ref = yes
     be = Ёсць
-    ca = sí
-    es = sí
-    et = jah
-    eu = bai
     fa = بلی
-    fi = kyllä
-    fr = oui
     he = כן
-    nl = ja
     ru = Есть
     tr = Var
 
@@ -22859,13 +22852,6 @@
     tags = android,ios
     ref = no
     be = Няма
-    ca = no
-    es = no
-    et = ei
-    eu = ez
-    fi = ei
-    fr = non
-    nl = nee
     tr = Yok
 
   [trip_finished]
