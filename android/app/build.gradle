@@ -233,10 +233,10 @@ android {
         // For the emulator, chromebooks and some Intel Atom devices.
         abiFilters.add('x86_64')
       }
-      println("Building for " + abiFilters + " archs.")
+      println('Building for ' + abiFilters + ' archs.')
     }
 
-    setProperty("archivesBaseName", appName.replaceAll("\\s","") + "-" + defaultConfig.versionCode)
+    setProperty('archivesBaseName', appName.replaceAll('\\s','') + '-' + defaultConfig.versionCode)
 
     if (!androidAutoEnabled) {
       sourceSets.main.java.excludes += '**/organicmaps/car'
@@ -250,26 +250,26 @@ android {
     final int HUAWEI_VERSION_CODE_BASE = 01_00_00_00_00
 
     google {
-      dimension "default"
+      dimension 'default'
       versionName = android.defaultConfig.versionName + '-Google'
       buildConfigField 'String', 'SUPPORT_MAIL', '"googleplay@organicmaps.app"'
       buildConfigField 'String', 'REVIEW_URL', '"market://details?id=app.organicmaps"'
     }
 
     web {
-      dimension "default"
+      dimension 'default'
       versionName = android.defaultConfig.versionName + '-Web'
       buildConfigField 'String', 'SUPPORT_MAIL', '"apk@organicmaps.app"'
     }
 
     fdroid {
-      dimension "default"
+      dimension 'default'
       versionName = android.defaultConfig.versionName + '-FDroid'
       buildConfigField 'String', 'SUPPORT_MAIL', '"fdroid@organicmaps.app"'
     }
 
     huawei {
-      dimension "default"
+      dimension 'default'
       versionName = android.defaultConfig.versionName + '-Huawei'
       versionCode = HUAWEI_VERSION_CODE_BASE + android.defaultConfig.versionCode
       buildConfigField 'String', 'SUPPORT_MAIL', '"huawei@organicmaps.app"'
@@ -285,7 +285,7 @@ android {
 
   splits.abi {
     boolean enabled = project.hasProperty('splitApk')
-    println ("Create separate apks: " + enabled)
+    println ('Create separate apks: ' + enabled)
     enable enabled
     reset()
     include 'x86', 'armeabi-v7a', 'arm64-v8a', 'x86_64'
@@ -395,7 +395,7 @@ android {
           // A new beta release is created for each commit.
           // Use the last commit message for the release notes.
           releaseNotes = getCommitMessage()
-          groups = "qa" // Notify only selected people.
+          groups = 'qa' // Notify only selected people.
           serviceCredentialsFile = "$projectDir/firebase-app-distribution.json"
         }
       }
@@ -404,9 +404,9 @@ android {
 
   externalNativeBuild {
     cmake {
-      version "3.22.1+"
-      buildStagingDirectory "./nativeOutputs"
-      path "../../CMakeLists.txt"
+      version '3.22.1+'
+      buildStagingDirectory './nativeOutputs'
+      path '../../CMakeLists.txt'
     }
   }
 
@@ -456,7 +456,7 @@ task prepareGoogleReleaseListing {
     final sourceDir = new File("${projectDir}/src/$sourceFlavor/play/listings")
     final targetDir = new File("${projectDir}/src/$targetFlavor/play/listings")
     final sourceFiles = fileTree(dir: sourceDir,
-        include: "**/*.txt", exclude: "**/*-${targetFlavor}.txt")
+        include: '**/*.txt', exclude: "**/*-${targetFlavor}.txt")
     sourceFiles.each { File sourceFile ->
       final locale = sourceFile.parentFile.getName()
       final targetLocaleDir = new File(targetDir, locale)
@@ -464,7 +464,7 @@ task prepareGoogleReleaseListing {
         targetLocaleDir.mkdirs()
       final targetFile = new File(targetLocaleDir, sourceFile.getName())
       // Override Google-specific values by using ${name}-google.txt files.
-      final overrideFile = new File(sourceFile.getPath().replace(".txt", "-${targetFlavor}.txt"))
+      final overrideFile = new File(sourceFile.getPath().replace('.txt', "-${targetFlavor}.txt"))
       targetFile.text = overrideFile.exists() ? overrideFile.text : sourceFile.text
     }
     copy {
@@ -476,11 +476,11 @@ task prepareGoogleReleaseListing {
 
 play {
   enabled.set(false)
-  track.set("production")
+  track.set('production')
   userFraction.set(Double.valueOf(0.10)) // 10%
   defaultToAppBundles.set(true)
   releaseStatus.set(ReleaseStatus.IN_PROGRESS)
-  serviceAccountCredentials.set(file("google-play.json"))
+  serviceAccountCredentials.set(file('google-play.json'))
 }
 
 huaweiPublish {
