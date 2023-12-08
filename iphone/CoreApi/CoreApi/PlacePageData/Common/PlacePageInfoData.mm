@@ -79,7 +79,9 @@ using namespace osm;
           break;
       }
     });
-
+    
+    _atm = rawData.HasAtm() ? NSLocalizedString(@"type.amenity.atm", nil) : nil;
+      
     _address = rawData.GetAddress().empty() ? nil : @(rawData.GetAddress().c_str());
     _coordFormats = @[@(rawData.GetFormattedCoordinate(place_page::CoordinatesFormat::LatLonDMS).c_str()),
                       @(rawData.GetFormattedCoordinate(place_page::CoordinatesFormat::LatLonDecimal).c_str()),
