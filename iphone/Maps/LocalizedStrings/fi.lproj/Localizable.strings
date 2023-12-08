@@ -1061,10 +1061,10 @@
 "no" = "Ei";
 
 /* E.g. "WiFi:Yes" */
-"yes_available" = "kyllä";
+"yes_available" = "Kyllä";
 
 /* E.g. "WiFi:No" */
-"no_available" = "ei";
+"no_available" = "Ei";
 
 "trip_finished" = "Olet perillä!";
 
