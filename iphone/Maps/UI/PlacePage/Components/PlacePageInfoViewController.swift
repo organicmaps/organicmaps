@@ -89,6 +89,7 @@ class PlacePageInfoViewController: UIViewController {
   private var cuisineView: InfoItemViewController?
   private var operatorView: InfoItemViewController?
   private var wifiView: InfoItemViewController?
+  private var atmView: InfoItemViewController?
   private var addressView: InfoItemViewController?
   private var levelView: InfoItemViewController?
   private var coordinatesView: InfoItemViewController?
@@ -156,6 +157,10 @@ class PlacePageInfoViewController: UIViewController {
 
     if let wifi = placePageInfoData.wifiAvailable {
       wifiView = createInfoItem(wifi, icon: UIImage(named: "ic_placepage_wifi"))
+    }
+    
+    if let atm = placePageInfoData.atm {
+      atmView = createInfoItem(atm, icon: UIImage(named: "ic_placepage_atm"))
     }
 
     if let level = placePageInfoData.level {
