@@ -1061,10 +1061,10 @@
 "no" = "Ez";
 
 /* E.g. "WiFi:Yes" */
-"yes_available" = "bai";
+"yes_available" = "Bai";
 
 /* E.g. "WiFi:No" */
-"no_available" = "ez";
+"no_available" = "Ez";
 
 "trip_finished" = "Iritsi zara!";
 

@@ -667,9 +667,9 @@
 	<!-- A generic "No" button in dialogs -->
 	<string name="no">Non</string>
 	<!-- E.g. "WiFi:Yes" -->
-	<string name="yes_available">oui</string>
+	<string name="yes_available">Oui</string>
 	<!-- E.g. "WiFi:No" -->
-	<string name="no_available">non</string>
+	<string name="no_available">Non</string>
 	<string name="trip_finished">Vous êtes arrivé !</string>
 	<string name="ok">Ok</string>
 	<!-- max. 10 symbols, both iOS and Android -->
