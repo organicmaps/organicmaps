@@ -53,6 +53,7 @@ add_subdirectory(sdf_image)
 add_subdirectory(stb_image)
 add_subdirectory(succinct)
 add_subdirectory(vulkan_wrapper)
+add_subdirectory(zlib)
 
 if (PLATFORM_DESKTOP)
   add_subdirectory(libtess2)
