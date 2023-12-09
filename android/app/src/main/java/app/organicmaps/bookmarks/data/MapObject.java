@@ -291,6 +291,11 @@ public class MapObject implements PlacePageData
     return !TextUtils.isEmpty(getMetadata(Metadata.MetadataType.FMD_PHONE_NUMBER));
   }
 
+  public boolean hasAtm()
+  {
+    return mRawTypes.contains("amenity-atm");
+  }
+
   public final boolean isMyPosition()
   {
     return mMapObjectType == MY_POSITION;
