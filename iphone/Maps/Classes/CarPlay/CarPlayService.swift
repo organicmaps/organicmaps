@@ -31,6 +31,7 @@ final class CarPlayService: NSObject {
   }
   var preparedToPreviewTrips: [CPTrip] = []
   var isUserPanMap: Bool = false
+  private var searchText = ""
 
   @objc func setup(window: CPWindow, interfaceController: CPInterfaceController) {
     isCarplayActivated = true
@@ -480,12 +481,13 @@ extension CarPlayService: CPListTemplateDelegate {
 // MARK: - CPSearchTemplateDelegate implementation
 extension CarPlayService: CPSearchTemplateDelegate {
   func searchTemplate(_ searchTemplate: CPSearchTemplate, updatedSearchText searchText: String, completionHandler: @escaping ([CPListItem]) -> Void) {
+    self.searchText = searchText
     let locale = window?.textInputMode?.primaryLanguage ?? "en"
     guard let searchService = searchService else {
       completionHandler([])
       return
     }
-    searchService.searchText(searchText, forInputLocale: locale, completionHandler: { results in
+    searchService.searchText(self.searchText, forInputLocale: locale, completionHandler: { results in
       var items = [CPListItem]()
       for object in results {
         let item = CPListItem(text: object.title, detailText: object.address)
@@ -504,6 +506,18 @@ extension CarPlayService: CPSearchTemplateDelegate {
       preparePreviewForSearchResults(selectedRow: metadata.originalRow)
     }
     completionHandler()
+  }
+  
+  func searchTemplateSearchButtonPressed(_ searchTemplate: CPSearchTemplate) {
+    let locale = window?.textInputMode?.primaryLanguage ?? "en"
+    guard let searchService = searchService else {
+      return
+    }
+    searchService.searchText(searchText, forInputLocale: locale, completionHandler: { [weak self] results in
+      guard let self = self else { return }
+      let template = ListTemplateBuilder.buildListTemplate(for: .searchResults(results: results))
+      self.pushTemplate(template, animated: true)
+    })
   }
 }
 
