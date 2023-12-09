@@ -244,7 +244,7 @@ void CalculateOffsets(dp::Anchor anchor, float textRatio,
   {
     size_t const end = delimIndexes[index];
     ASSERT_NOT_EQUAL(start, end, ());
-    lengthAndHeight.emplace_back(0, 0);
+    lengthAndHeight.emplace_back(0.0f, 0.0f);
     TLengthAndHeight & node = lengthAndHeight.back();
     for (size_t glyphIndex = start; glyphIndex < end && glyphIndex < glyphs.size(); ++glyphIndex)
     {

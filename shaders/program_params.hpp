@@ -46,7 +46,11 @@ private:
     } \
   }
 
+#ifdef _MSC_VER
+#define ALIGNMENT __declspec(align(16))
+#else
 #define ALIGNMENT __attribute__ ((aligned(16)))
+#endif
 
 struct MapProgramParams
 {

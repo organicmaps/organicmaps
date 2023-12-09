@@ -34,6 +34,8 @@ target_include_directories(${PROJECT_NAME}
 
 if(NOT PLATFORM_WIN)
   target_compile_definitions(${PROJECT_NAME} PRIVATE HAVE_PTHREAD)
+else()
+  target_compile_definitions(${PROJECT_NAME} PRIVATE _SILENCE_STDEXT_HASH_DEPRECATION_WARNINGS)
 endif ()
 
 target_compile_options(${PROJECT_NAME} PRIVATE
