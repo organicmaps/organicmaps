@@ -50,9 +50,14 @@ bool TranslatorsPool::Finish()
     std::future<TranslatorPtr> right;
     queue.WaitAndPop(left);
     queue.WaitAndPop(right);
-    queue.Push(pool.Submit([left{std::move(left)}, right{std::move(right)}]() mutable {
-      auto leftTranslator = left.get();
-      auto rigthTranslator = right.get();
+    // ThreadPool uses packaged_task<> to wrap lambda. MSVC compiler requires lambda to be copyable.
+    // But std::future is not copyable. Need to wrap 'left' and 'right' futures into shared_ptr
+    // (It's known behaviour of MSVC: https://stackoverflow.com/a/48999075)
+    auto leftPtr = std::make_shared<std::future<TranslatorPtr>>(std::move(left));
+    auto rightPtr = std::make_shared<std::future<TranslatorPtr>>(std::move(right));
+    queue.Push(pool.Submit([left = leftPtr, right = rightPtr]() mutable {
+      auto leftTranslator = left->get();
+      auto rigthTranslator = right->get();
       rigthTranslator->Finish();
       leftTranslator->Finish();
       leftTranslator->Merge(*rigthTranslator);

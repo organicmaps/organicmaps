@@ -61,9 +61,9 @@ public:
 
   enum EFileType
   {
-    Unknown = 0x1,
-    Regular = 0x2,
-    Directory = 0x4
+    FILE_TYPE_OTHER = 0x1,
+    FILE_TYPE_REGULAR = 0x2,
+    FILE_TYPE_DIRECTORY = 0x4
   };
 
   enum class EConnectionType : uint8_t

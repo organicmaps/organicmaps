@@ -167,7 +167,7 @@ void CmdMatchDir(string const & logDir, string const & trackExt, string const & 
 {
   LOG(LINFO,
       ("Matching dir:", logDir, ". Input distribution will be saved to:", inputDistribution));
-  Platform::EFileType fileType = Platform::FILE_TYPE_UNKNOWN;
+  Platform::EFileType fileType = Platform::FILE_TYPE_OTHER;
   Platform::EError const result = Platform::GetFileType(logDir, fileType);
 
   if (result == Platform::ERR_FILE_DOES_NOT_EXIST)

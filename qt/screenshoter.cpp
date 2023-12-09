@@ -327,16 +327,20 @@ void Screenshoter::OnGraphicsReady()
 
 void Screenshoter::WaitPosition()
 {
+#if defined(OMIM_OS_MAC) || defined(OMIM_OS_LINUX)
   m_framework.NotifyGraphicsReady(
       [this]() { GetPlatform().RunTask(Platform::Thread::Gui, [this] { OnPositionReady(); }); },
       false /* needInvalidate */);
+#endif
 }
 
 void Screenshoter::WaitGraphics()
 {
+#if defined(OMIM_OS_MAC) || defined(OMIM_OS_LINUX)
   m_framework.NotifyGraphicsReady(
       [this]() { GetPlatform().RunTask(Platform::Thread::Gui, [this] { OnGraphicsReady(); }); },
       true /* needInvalidate */);
+#endif
 }
 
 void Screenshoter::SaveScreenshot()

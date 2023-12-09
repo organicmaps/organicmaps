@@ -34,14 +34,14 @@ public:
 
   class ResourceInfo
   {
+  private:
+    m2::RectF m_texRect;
+
   public:
     explicit ResourceInfo(m2::RectF const & texRect);
     virtual ~ResourceInfo() = default;
     virtual ResourceType GetType() const = 0;
     m2::RectF const & GetTexRect() const;
-
-  private:
-    m2::RectF m_texRect;
   };
 
   Texture() = default;

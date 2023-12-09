@@ -94,7 +94,7 @@ bool Platform::RmDirRecursively(std::string const & dirName)
     if (GetFileType(path, type) != ERR_OK)
       continue;
 
-    if (type == Directory)
+    if (type == FILE_TYPE_DIRECTORY)
     {
       if (!IsSpecialDirName(file) && !RmDirRecursively(path))
         res = false;
@@ -246,7 +246,7 @@ bool Platform::IsDirectory(std::string const & path)
   EFileType fileType;
   if (GetFileType(path, fileType) != ERR_OK)
     return false;
-  return fileType == Directory;
+  return fileType == Platform::FILE_TYPE_DIRECTORY;
 }
 
 // static
@@ -254,21 +254,21 @@ void Platform::GetFilesRecursively(std::string const & directory, FilesList & fi
 {
   TFilesWithType files;
 
-  GetFilesByType(directory, Platform::Regular, files);
+  GetFilesByType(directory, Platform::FILE_TYPE_REGULAR, files);
   for (auto const & p : files)
   {
     auto const & file = p.first;
-    CHECK_EQUAL(p.second, Platform::Regular, ("dir:", directory, "file:", file));
+    CHECK_EQUAL(p.second, Platform::FILE_TYPE_REGULAR, ("dir:", directory, "file:", file));
     filesList.push_back(base::JoinPath(directory, file));
   }
 
   TFilesWithType subdirs;
-  GetFilesByType(directory, Platform::Directory, subdirs);
+  GetFilesByType(directory, Platform::FILE_TYPE_DIRECTORY, subdirs);
 
   for (auto const & p : subdirs)
   {
     auto const & subdir = p.first;
-    CHECK_EQUAL(p.second, Platform::Directory, ("dir:", directory, "subdir:", subdir));
+    CHECK_EQUAL(p.second, Platform::FILE_TYPE_DIRECTORY, ("dir:", directory, "subdir:", subdir));
     if (subdir == "." || subdir == "..")
       continue;
 
@@ -298,7 +298,7 @@ bool Platform::MkDirChecked(std::string const & dirName)
     Platform::EFileType type;
     if (!GetFileTypeChecked(dirName, type))
       return false;
-    if (type != Platform::Directory)
+    if (type != Platform::FILE_TYPE_DIRECTORY)
     {
       LOG(LERROR, (dirName, "exists, but not a dirName:", type));
       return false;

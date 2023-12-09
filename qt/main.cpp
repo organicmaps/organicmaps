@@ -114,7 +114,11 @@ int main(int argc, char * argv[])
   // TODO: Refactor our doubles parsing code to use locale-independent delimiters.
   // For example, https://github.com/google/double-conversion can be used.
   // See http://dbaron.org/log/20121222-locale for more details.
+#if defined(OMIM_OS_MAC) || defined(OMIM_OS_LINUX)
   (void)::setenv("LC_NUMERIC", "C", 1);
+#else
+  _putenv_s("LC_NUMERIC", "C");
+#endif
 
   Platform & platform = GetPlatform();
 
@@ -168,8 +172,13 @@ int main(int argc, char * argv[])
   {
     std::unique_ptr<qt::ScreenshotParams> screenshotParams;
 
-    if (!FLAGS_lang.empty())
+    if (!FLAGS_lang.empty()) {
+#if defined(OMIM_OS_MAC) || defined(OMIM_OS_LINUX)
       (void)::setenv("LANGUAGE", FLAGS_lang.c_str(), 1);
+#else
+      _putenv_s("LANGUAGE", FLAGS_lang.c_str());
+#endif
+    }
 
     if (!FLAGS_kml_path.empty() || !FLAGS_points.empty() || !FLAGS_rects.empty())
     {

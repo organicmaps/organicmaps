@@ -130,11 +130,11 @@ Platform::EError Platform::GetFileType(std::string const & path, EFileType & typ
   if (_stat32(path.c_str(), &stats) != 0)
     return ErrnoToError();
   if (stats.st_mode & _S_IFREG)
-    type = Regular;
+    type = Platform::FILE_TYPE_REGULAR;
   else if (stats.st_mode & _S_IFDIR)
-    type = Directory;
+    type = Platform::FILE_TYPE_DIRECTORY;
   else
-    type = Unknown;
+    type = Platform::FILE_TYPE_OTHER;
   return ERR_OK;
 }
 

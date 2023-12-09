@@ -101,7 +101,7 @@ void ForEachTrackFile(
     shared_ptr<routing::NumMwmIds> numMwmIds,
     std::function<void(std::string const & filename, MwmToMatchedTracks const &)> && toDo)
 {
-  Platform::EFileType fileType = Platform::FILE_TYPE_UNKNOWN;
+  Platform::EFileType fileType = Platform::FILE_TYPE_OTHER;
   Platform::EError const result = Platform::GetFileType(filepath, fileType);
 
   if (result == Platform::ERR_FILE_DOES_NOT_EXIST)
