@@ -15,6 +15,7 @@ TRANS_CMD = 'trans'
 # Use DeepL when possible with a fall back to Google.
 # List of Google Translate target languages: https://cloud.google.com/translate/docs/languages
 GOOGLE_TARGET_LANGUAGES = [
+  'af',
   'ar',
   'be',
   'ca',
@@ -48,7 +49,7 @@ DEEPL_TARGET_LANGUAGES = [
     'it',
     'ja',
     'ko',
-#    'lt',
+    'lt',
 #    'lv',
     'nb',
     'nl',
