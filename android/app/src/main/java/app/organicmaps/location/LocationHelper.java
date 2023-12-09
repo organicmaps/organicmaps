@@ -2,12 +2,17 @@ package app.organicmaps.location;
 
 import static android.Manifest.permission.ACCESS_COARSE_LOCATION;
 import static android.Manifest.permission.ACCESS_FINE_LOCATION;
+import static android.location.LocationManager.GPS_PROVIDER;
+import static android.location.LocationManager.NETWORK_PROVIDER;
+import static app.organicmaps.util.LocationUtils.FUSED_PROVIDER;
+import static app.organicmaps.util.concurrency.UiThread.runLater;
 
-import android.annotation.SuppressLint;
 import android.app.PendingIntent;
 import android.content.Context;
 import android.location.Location;
 import android.location.LocationManager;
+import android.os.Handler;
+import android.os.Looper;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -15,7 +20,9 @@ import androidx.annotation.RequiresPermission;
 import androidx.annotation.UiThread;
 import androidx.core.content.ContextCompat;
 import androidx.core.location.GnssStatusCompat;
+import androidx.core.location.LocationListenerCompat;
 import androidx.core.location.LocationManagerCompat;
+import androidx.core.location.LocationRequestCompat;
 
 import app.organicmaps.Framework;
 import app.organicmaps.Map;
@@ -28,31 +35,72 @@ import app.organicmaps.util.LocationUtils;
 import app.organicmaps.util.NetworkPolicy;
 import app.organicmaps.util.log.Logger;
 
+import java.util.HashMap;
 import java.util.LinkedHashSet;
+import java.util.Objects;
 import java.util.Set;
 
-public class LocationHelper implements BaseLocationProvider.Listener
+public class LocationHelper
 {
   private static final long INTERVAL_FOLLOW_MS = 0;
   private static final long INTERVAL_NOT_FOLLOW_MS = 3000;
   private static final long INTERVAL_NAVIGATION_MS = 0;
 
   private static final long AGPS_EXPIRATION_TIME_MS = 16 * 60 * 60 * 1000; // 16 hours
+  private static final long NOT_SWITCH_TO_NETWORK_WHEN_GPS_LOST_MS = 12000;
 
   @NonNull
   private final Context mContext;
 
   private static final String TAG = LocationState.LOCATION_TAG;
+
+  private static final Looper sMainLooper = Objects.requireNonNull(Looper.getMainLooper());
+  private static final Handler sHandler = new Handler(sMainLooper);
+
   @NonNull
   private final Set<LocationListener> mListeners = new LinkedHashSet<>();
   @Nullable
   private Location mSavedLocation;
   private MapObject mMyPosition;
   @NonNull
-  private BaseLocationProvider mLocationProvider;
-  private long mInterval;
+  private LocationRequestCompat mLocationRequest;
   private boolean mInFirstRun;
-  private boolean mActive;
+  @NonNull
+  private final HashMap<String, LocationProvider> mProviders = new HashMap<>();
+  @NonNull
+  private final LocationManager mLocationManager;
+  private @Nullable Runnable mGpsWatchdog;
+
+  private class LocationListenerImpl implements LocationListenerCompat
+  {
+    @Override
+    @RequiresPermission(anyOf = {ACCESS_COARSE_LOCATION, ACCESS_FINE_LOCATION})
+    public void onLocationChanged(@NonNull Location location)
+    {
+      LocationHelper.this.onLocationChanged(location);
+    }
+
+    @Override
+    @RequiresPermission(anyOf = {ACCESS_COARSE_LOCATION, ACCESS_FINE_LOCATION})
+    public void onProviderEnabled(@NonNull String name)
+    {
+      final LocationProvider provider = mProviders.get(name);
+      if (provider == null)
+        throw new AssertionError("Unknown provider '" + name + "'");
+      LocationHelper.this.enableProvider(name, provider);
+    }
+
+    @Override
+    @RequiresPermission(anyOf = {ACCESS_COARSE_LOCATION, ACCESS_FINE_LOCATION})
+    public void onProviderDisabled(@NonNull String name)
+    {
+      final LocationProvider provider = mProviders.get(name);
+      if (provider == null)
+        throw new AssertionError("Unknown provider '" + name + "'");
+      LocationHelper.this.disableProvider(name, provider);
+      checkStatus();
+    }
+  }
 
   @NonNull
   private GnssStatusCompat.Callback mGnssStatusCallback = new GnssStatusCompat.Callback()
@@ -101,7 +149,21 @@ public class LocationHelper implements BaseLocationProvider.Listener
   public LocationHelper(@NonNull Context context)
   {
     mContext = context;
-    mLocationProvider = LocationProviderFactory.getProvider(mContext, this);
+    mLocationManager = (LocationManager) MwmApplication.from(context).getSystemService(Context.LOCATION_SERVICE);
+    // This service is always available on all versions of Android
+    if (mLocationManager == null)
+      throw new AssertionError("Can't get LOCATION_SERVICE");
+    mLocationRequest = new LocationRequestCompat.Builder(0).build(); // stub
+
+    for (String name: mLocationManager.getAllProviders())
+    {
+      if (FUSED_PROVIDER.equals(name))
+        continue;
+      mProviders.put(name, new AndroidNativeProvider(mLocationManager, name, new LocationListenerImpl()));
+    }
+    LocationProvider fusedProvider = LocationProviderFactory.getProvider(context, new LocationListenerImpl());
+    if (fusedProvider != null)
+      mProviders.put(FUSED_PROVIDER, fusedProvider);
   }
 
   /**
@@ -110,12 +172,6 @@ public class LocationHelper implements BaseLocationProvider.Listener
   @Nullable
   public MapObject getMyPosition()
   {
-    if (!isActive())
-    {
-      mMyPosition = null;
-      return null;
-    }
-
     if (mSavedLocation == null)
       return null;
 
@@ -132,14 +188,6 @@ public class LocationHelper implements BaseLocationProvider.Listener
    */
   @Nullable
   public Location getSavedLocation() { return mSavedLocation; }
-
-  /**
-   * Indicates about whether a location provider is polling location updates right now or not.
-   */
-  public boolean isActive()
-  {
-    return mActive;
-  }
 
   private void notifyLocationUpdated()
   {
@@ -167,16 +215,10 @@ public class LocationHelper implements BaseLocationProvider.Listener
         mSavedLocation.getBearing());
   }
 
-  @Override
-  public void onLocationChanged(@NonNull Location location)
+  @RequiresPermission(anyOf = {ACCESS_COARSE_LOCATION, ACCESS_FINE_LOCATION})
+  private void onLocationChanged(@NonNull Location location)
   {
-    Logger.d(TAG, "provider = " + mLocationProvider.getClass().getSimpleName() + " location = " + location);
-
-    if (!isActive())
-    {
-      Logger.w(TAG, "Provider is not active");
-      return;
-    }
+    Logger.d(TAG, "location = " + location);
 
     if (!LocationUtils.isAccuracySatisfied(location))
     {
@@ -196,58 +238,19 @@ public class LocationHelper implements BaseLocationProvider.Listener
     mSavedLocation = location;
     mMyPosition = null;
     notifyLocationUpdated();
-  }
 
-  // Used by GoogleFusedLocationProvider.
-  @SuppressWarnings("unused")
-  @Override
-  @UiThread
-  public void onLocationResolutionRequired(@NonNull PendingIntent pendingIntent)
-  {
-    Logger.d(TAG);
-
-    if (!isActive())
+    if (mGpsWatchdog == null && LocationUtils.isFromGpsProvider(location) && RoutingController.get().isVehicleNavigation())
     {
-      Logger.w(TAG, "Provider is not active");
-      return;
+      Logger.d(TAG, "Disabling all providers except 'gps' provider");
+      for (var entry: mProviders.entrySet())
+      {
+        if (GPS_PROVIDER.equals(entry.getKey()))
+          continue;
+        disableProvider(entry.getKey(), entry.getValue());
+      }
+      mGpsWatchdog = this::checkGps;
+      sHandler.postDelayed(mGpsWatchdog, NOT_SWITCH_TO_NETWORK_WHEN_GPS_LOST_MS);
     }
-
-    // Stop provider until location resolution is granted.
-    stop();
-    LocationState.nativeOnLocationError(LocationState.ERROR_GPS_OFF);
-
-    for (LocationListener listener : mListeners)
-      listener.onLocationResolutionRequired(pendingIntent);
-  }
-
-  // Used by GoogleFusedLocationProvider.
-  @SuppressWarnings("unused")
-  @RequiresPermission(anyOf = {ACCESS_COARSE_LOCATION, ACCESS_FINE_LOCATION})
-  @Override
-  @UiThread
-  public void onFusedLocationUnsupported()
-  {
-    // Try to downgrade to the native provider first and restart the service before notifying the user.
-    Logger.d(TAG, "provider = " + mLocationProvider.getClass().getSimpleName() + " is not supported," +
-        " downgrading to use native provider");
-    mLocationProvider.stop();
-    mLocationProvider = new AndroidNativeProvider(mContext, this);
-    mActive = true;
-    mLocationProvider.start(mInterval);
-  }
-
-  @Override
-  @UiThread
-  public void onLocationDisabled()
-  {
-    Logger.d(TAG, "provider = " + mLocationProvider.getClass().getSimpleName() +
-        " settings = " + LocationUtils.areLocationServicesTurnedOn(mContext));
-
-    stop();
-    LocationState.nativeOnLocationError(LocationState.ERROR_GPS_OFF);
-
-    for (LocationListener listener : mListeners)
-      listener.onLocationDisabled();
   }
 
   /**
@@ -300,49 +303,21 @@ public class LocationHelper implements BaseLocationProvider.Listener
    * Restart the location with a new refresh interval if changed.
    */
   @RequiresPermission(anyOf = {ACCESS_COARSE_LOCATION, ACCESS_FINE_LOCATION})
-  public void restartWithNewMode()
-  {
-    if (!isActive())
-    {
-      start();
-      return;
-    }
-
-    final long newInterval = calcLocationUpdatesInterval();
-    if (newInterval == mInterval)
-      return;
-
-    Logger.i(TAG, "update refresh interval: old = " + mInterval + " new = " + newInterval);
-    mLocationProvider.stop();
-    mInterval = newInterval;
-    mLocationProvider.start(newInterval);
-  }
-
-  /**
-   * Starts polling location updates.
-   */
-  @RequiresPermission(anyOf = {ACCESS_COARSE_LOCATION, ACCESS_FINE_LOCATION})
   public void start()
   {
-    if (isActive())
+    final LocationRequestCompat newRequest = new LocationRequestCompat.Builder(calcLocationUpdatesInterval())
+        // The quality is a hint to providers on how they should weigh power vs accuracy tradeoffs.
+        .setQuality(LocationRequestCompat.QUALITY_HIGH_ACCURACY)
+        .build();
+    Logger.i(TAG, "old = " + mLocationRequest + " new = " + newRequest);
+    if (!newRequest.equals(mLocationRequest))
     {
-      Logger.d(TAG, "Already started");
-      return;
+      for (var entry : mProviders.entrySet())
+        disableProvider(entry.getKey(), entry.getValue());
     }
-
-    Logger.i(TAG);
-    checkForAgpsUpdates();
-
-    if (LocationUtils.checkFineLocationPermission(mContext))
-      SensorHelper.from(mContext).start();
-
-    final long oldInterval = mInterval;
-    mInterval = calcLocationUpdatesInterval();
-    Logger.i(TAG, "provider = " + mLocationProvider.getClass().getSimpleName() +
-        " mInFirstRun = " + mInFirstRun + " oldInterval = " + oldInterval + " interval = " + mInterval);
-    mActive = true;
-    mLocationProvider.start(mInterval);
-    subscribeToGnssStatusUpdates();
+    mLocationRequest = newRequest;
+    for (var entry : mProviders.entrySet())
+      enableProvider(entry.getKey(), entry.getValue());
   }
 
   /**
@@ -350,17 +325,17 @@ public class LocationHelper implements BaseLocationProvider.Listener
    */
   public void stop()
   {
-    if (!isActive())
-    {
-      Logger.d(TAG, "Already stopped");
-      return;
-    }
+    if (LocationUtils.checkLocationPermission(mContext))
+      throw new AssertionError("Missing location permissions");
 
     Logger.i(TAG);
-    mLocationProvider.stop();
-    unsubscribeFromGnssStatusUpdates();
-    SensorHelper.from(mContext).stop();
-    mActive = false;
+    if (mGpsWatchdog != null)
+    {
+      sHandler.removeCallbacks(mGpsWatchdog);
+      mGpsWatchdog = null;
+    }
+    for (var entry : mProviders.entrySet())
+      disableProvider(entry.getKey(), entry.getValue());
   }
 
   /**
@@ -368,9 +343,7 @@ public class LocationHelper implements BaseLocationProvider.Listener
    */
   public void resumeLocationInForeground()
   {
-    if (isActive())
-      return;
-    else if (!Map.isEngineCreated())
+    if (!Map.isEngineCreated())
     {
       // LocationState.nativeGetMode() is initialized only after drape creation.
       // https://github.com/organicmaps/organicmaps/issues/1128#issuecomment-1784435190
@@ -406,9 +379,8 @@ public class LocationHelper implements BaseLocationProvider.Listener
 
     Logger.d(TAG, "Requesting new A-GPS data");
     Config.setAgpsTimestamp(currentTimestamp);
-    final LocationManager manager = (LocationManager) mContext.getSystemService(Context.LOCATION_SERVICE);
-    manager.sendExtraCommand(LocationManager.GPS_PROVIDER, "force_xtra_injection", null);
-    manager.sendExtraCommand(LocationManager.GPS_PROVIDER, "force_time_injection", null);
+    mLocationManager.sendExtraCommand(GPS_PROVIDER, "force_xtra_injection", null);
+    mLocationManager.sendExtraCommand(GPS_PROVIDER, "force_time_injection", null);
   }
 
   private void subscribeToGnssStatusUpdates()
@@ -418,8 +390,7 @@ public class LocationHelper implements BaseLocationProvider.Listener
     if (!LocationUtils.checkFineLocationPermission(mContext))
       return;
     final LocationManager locationManager = (LocationManager) mContext.getSystemService(Context.LOCATION_SERVICE);
-    LocationManagerCompat.registerGnssStatusCallback(locationManager, ContextCompat.getMainExecutor(mContext),
-        mGnssStatusCallback);
+    LocationManagerCompat.registerGnssStatusCallback(locationManager, sHandler, mGnssStatusCallback);
   }
 
   private void unsubscribeFromGnssStatusUpdates()
@@ -459,4 +430,66 @@ public class LocationHelper implements BaseLocationProvider.Listener
       Framework.nativeRunFirstLaunchAnimation();
     }
   }
+
+  @RequiresPermission(anyOf = {ACCESS_COARSE_LOCATION, ACCESS_FINE_LOCATION})
+  private void enableProvider(@NonNull String name, @NonNull LocationProvider provider)
+  {
+    if (provider.isActive())
+      return;
+    provider.start(mLocationRequest);
+
+    if (GPS_PROVIDER.equals(name))
+    {
+      checkForAgpsUpdates();
+      subscribeToGnssStatusUpdates();
+      SensorHelper.from(mContext).start();
+    }
+  }
+
+  @RequiresPermission(anyOf = {ACCESS_COARSE_LOCATION, ACCESS_FINE_LOCATION})
+  private void disableProvider(@NonNull String name, @NonNull LocationProvider provider)
+  {
+    provider.stop();
+    if (GPS_PROVIDER.equals(name))
+    {
+      unsubscribeFromGnssStatusUpdates();
+      SensorHelper.from(mContext).stop();
+    }
+  }
+
+  private void checkStatus()
+  {
+    PendingIntent resolutionIntent = null;
+    for (LocationProvider provider: mProviders.values())
+    {
+      if (provider.isActive())
+        return;
+      if (resolutionIntent == null)
+        resolutionIntent = provider.getResolutionIntent();
+    }
+    mMyPosition = null;
+    for (LocationListener listener : mListeners)
+      listener.onLocationDisabled(resolutionIntent);
+  }
+
+  private void checkGps()
+  {
+    if (!LocationUtils.checkLocationPermission(mContext))
+      throw new AssertionError("Missing location permissions");
+    if (mGpsWatchdog == null)
+      throw new AssertionError("mGpsWatchdog is null");
+
+    if (mSavedLocation != null && (System.currentTimeMillis() - mSavedLocation.getTime() < NOT_SWITCH_TO_NETWORK_WHEN_GPS_LOST_MS))
+    {
+      // GPS is alive.
+      runLater(mGpsWatchdog, NOT_SWITCH_TO_NETWORK_WHEN_GPS_LOST_MS);
+      return;
+    }
+
+    // GPS is not alive - start all providers.
+    mGpsWatchdog = null;
+    for (var entry : mProviders.entrySet())
+      enableProvider(entry.getKey(), entry.getValue());
+  }
 }
+

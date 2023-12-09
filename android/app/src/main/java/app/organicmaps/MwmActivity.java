@@ -1719,8 +1719,7 @@ public class MwmActivity extends BaseMwmFragmentActivity
     if (LocationState.getMode() == LocationState.NOT_FOLLOW_NO_POSITION)
     {
       Logger.i(LOCATION_TAG, "Location updates are stopped by the user manually.");
-      if (locationHelper.isActive())
-        locationHelper.stop();
+      locationHelper.stop();
       return;
     }
 
@@ -1740,7 +1739,7 @@ public class MwmActivity extends BaseMwmFragmentActivity
       return;
     }
 
-    locationHelper.restartWithNewMode();
+    locationHelper.start();
 
     if ((newMode == FOLLOW || newMode == FOLLOW_AND_ROTATE) && !LocationUtils.checkFineLocationPermission(this))
     {
@@ -1891,25 +1890,6 @@ public class MwmActivity extends BaseMwmFragmentActivity
   }
 
   /**
-   * Called by GoogleFusedLocationProvider to request to GPS and/or Wi-Fi.
-   * @param pendingIntent an intent to launch.
-   */
-  @Override
-  @UiThread
-  public void onLocationResolutionRequired(@NonNull PendingIntent pendingIntent)
-  {
-    Logger.d(LOCATION_TAG);
-
-    // Cancel our dialog in favor of system dialog.
-    dismissLocationErrorDialog();
-
-    // Launch system permission resolution dialog.
-    Logger.i(LOCATION_TAG, "Starting location resolution dialog");
-    IntentSenderRequest intentSenderRequest = new IntentSenderRequest.Builder(pendingIntent.getIntentSender()).build();
-    mLocationResolutionRequest.launch(intentSenderRequest);
-  }
-
-  /**
    * Triggered by onLocationResolutionRequired().
    * @param result invocation result.
    */
@@ -1940,12 +1920,11 @@ public class MwmActivity extends BaseMwmFragmentActivity
    */
   @Override
   @UiThread
-  public void onLocationDisabled()
+  public void onLocationDisabled(@Nullable PendingIntent pendingIntent)
   {
     Logger.d(LOCATION_TAG, "settings = " + LocationUtils.areLocationServicesTurnedOn(this));
 
-    // Calls onMyPositionModeChanged(NOT_FOLLOW_NO_POSITION).
-    LocationState.nativeOnLocationError(LocationState.ERROR_GPS_OFF);
+    // LocationState.nativeOnLocationError(LocationState.ERROR_GPS_OFF) is already called by LocationHelper.
 
     if (mLocationErrorDialog != null && mLocationErrorDialog.isShowing())
     {
@@ -1953,6 +1932,16 @@ public class MwmActivity extends BaseMwmFragmentActivity
       return;
     }
 
+    if (pendingIntent != null)
+    {
+      // Launch system permission resolution dialog.
+      Logger.i(LOCATION_TAG, "Starting system location resolution dialog");
+      IntentSenderRequest intentSenderRequest = new IntentSenderRequest.Builder(pendingIntent.getIntentSender()).build();
+      mLocationResolutionRequest.launch(intentSenderRequest);
+      return;
+    }
+
+    Logger.i(LOCATION_TAG, "Starting our location resolution dialog");
     final MaterialAlertDialogBuilder builder = new MaterialAlertDialogBuilder(this, R.style.MwmTheme_AlertDialog)
         .setTitle(R.string.enable_location_services)
         .setMessage(R.string.location_is_disabled_long_text)

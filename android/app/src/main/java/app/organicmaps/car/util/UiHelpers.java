@@ -188,7 +188,7 @@ public final class UiHelpers
     builder.setOnClickListener(() -> {
       LocationState.nativeSwitchToNextMode();
       final LocationHelper locationHelper = LocationHelper.from(context);
-      if (!locationHelper.isActive() && LocationUtils.checkFineLocationPermission(context))
+      if (LocationUtils.checkFineLocationPermission(context))
         locationHelper.start();
     });
     return builder.build();

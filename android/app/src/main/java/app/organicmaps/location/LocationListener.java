@@ -4,17 +4,13 @@ import android.app.PendingIntent;
 import android.location.Location;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 
 public interface LocationListener
 {
   void onLocationUpdated(@NonNull Location location);
 
-  default void onLocationDisabled()
-  {
-    // No op.
-  }
-
-  default void onLocationResolutionRequired(@NonNull PendingIntent pendingIntent)
+  default void onLocationDisabled(@Nullable PendingIntent pendingIntent)
   {
     // No op.
   }

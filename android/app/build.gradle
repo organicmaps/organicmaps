@@ -23,7 +23,7 @@ buildscript {
   // ln -sf ../../../../google/java/app/organicmaps/location src/$flavor/java/app/organicmaps/
   // ls -la src/$flavor/java/app/organicmaps/location/GoogleFusedLocationProvider.java
   // ```
-  ext.googleMobileServicesEnabled = taskName.contains('google') || taskName.contains('huawei') || taskName.contains('web')
+  ext.googleMobileServicesEnabled = taskName.contains('google') || taskName.contains('huawei') || taskName.contains('web') || isSyncWithFiles
 
   // Firebase Crashlytics compile-time feature flag: -Pfirebase=true|false
   def googleFirebaseServicesFlag = findProperty('firebase')

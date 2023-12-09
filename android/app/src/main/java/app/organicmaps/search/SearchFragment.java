@@ -169,7 +169,7 @@ public class SearchFragment extends BaseMwmFragment
   private final LocationListener mLocationListener = new LocationListener()
   {
     @Override
-    public void onLocationUpdated(Location location)
+    public void onLocationUpdated(@NonNull Location location)
     {
       mLastPosition.set(location.getLatitude(), location.getLongitude());
 

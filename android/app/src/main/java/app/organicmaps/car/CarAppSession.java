@@ -141,7 +141,7 @@ public final class CarAppSession extends Session implements DefaultLifecycleObse
       Framework.nativePlacePageActivationListener(this);
     }
     SensorHelper.from(getCarContext()).addListener(this);
-    if (LocationUtils.checkFineLocationPermission(getCarContext()) && !LocationHelper.from(getCarContext()).isActive())
+    if (LocationUtils.checkFineLocationPermission(getCarContext()))
       LocationHelper.from(getCarContext()).start();
 
     if (mDisplayManager.isCarDisplayUsed())

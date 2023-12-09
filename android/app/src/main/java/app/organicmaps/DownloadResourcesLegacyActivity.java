@@ -93,7 +93,7 @@ public class DownloadResourcesLegacyActivity extends BaseMwmFragmentActivity
   private final LocationListener mLocationListener = new LocationListener()
   {
     @Override
-    public void onLocationUpdated(Location location)
+    public void onLocationUpdated(@NonNull Location location)
     {
       if (mCurrentCountry != null)
         return;

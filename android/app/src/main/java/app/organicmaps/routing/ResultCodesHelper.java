@@ -10,6 +10,7 @@ import androidx.annotation.StringRes;
 import app.organicmaps.MwmApplication;
 import app.organicmaps.R;
 import app.organicmaps.location.LocationHelper;
+import app.organicmaps.location.LocationState;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -47,7 +48,7 @@ class ResultCodesHelper
     switch (errorCode)
     {
     case NO_POSITION:
-      if (!LocationHelper.from(context).isActive())
+      if (LocationState.getMode() == LocationState.NOT_FOLLOW_NO_POSITION)
       {
         titleRes = R.string.dialog_routing_location_turn_on;
         messages.add(resources.getString(R.string.dialog_routing_location_unknown_turn_on));

@@ -162,8 +162,7 @@ public class SplashActivity extends AppCompatActivity
     {
       final LocationHelper locationHelper = app.getLocationHelper();
       locationHelper.onEnteredIntoFirstRun();
-      if (!locationHelper.isActive())
-        locationHelper.start();
+      locationHelper.start();
     }
 
     if (!asyncContinue)
