@@ -13,8 +13,6 @@
 
 #include <algorithm>
 #include <cstdint>
-#include <functional>
-#include <sstream>
 #include <string>
 #include <unordered_map>
 #include <utility>
@@ -25,8 +23,6 @@ namespace routing
 /// \brief Restriction to modify road graph.
 struct Restriction
 {
-  static uint32_t const kInvalidFeatureId;
-
   /// \brief Types of road graph restrictions.
   /// \note Despite the fact more that 10 restriction tags are present in osm all of them
   /// could be split into two categories.

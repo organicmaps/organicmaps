@@ -2,18 +2,14 @@
 
 #include "transit/transit_entities.hpp"
 
-#include "indexer/scales.hpp"
+#include "indexer/feature_decl.hpp"
 
 #include "geometry/point2d.hpp"
 
-#include "base/newtype.hpp"
 #include "base/visitor.hpp"
 
-#include <algorithm>
-#include <cstdint>
 #include <limits>
 #include <string>
-#include <unordered_map>
 #include <vector>
 
 // This is the implementation of the new transit classes which support not only subway, but also
@@ -53,7 +49,6 @@ namespace experimental
 using FeatureId = uint32_t;
 using OsmId = uint64_t;
 
-FeatureId constexpr kInvalidFeatureId = std::numeric_limits<FeatureId>::max();
 OsmId constexpr kInvalidOsmId = std::numeric_limits<OsmId>::max();
 
 class SingleMwmSegment
