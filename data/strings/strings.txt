@@ -17186,6 +17186,7 @@
     be = Выключыць запіс вашага нядаўна пройдзенага маршрута?
     bg = Деактивиране на записването на последния ви маршрут?
     ca = Voleu desactivar l'enregistrament de la ruta recent?
+test!
     cs = Zakázat zaznamenávání vaší nedávno ujeté trasy?
     da = Vil du deaktivere gemningen af din seneste rejserute?
     de = Aufzeichnung Ihrer kürzlich gefahrenen Route deaktivieren?
