@@ -2,7 +2,10 @@
 # Compatibility with CMake < 3.5 will be removed from a future version of CMake.
 set(CMAKE_WARN_DEPRECATED OFF CACHE BOOL "" FORCE)
 
-if (NOT WITH_SYSTEM_PROVIDED_3PARTY)
+if (WITH_SYSTEM_PROVIDED_3PARTY)
+  set(GFLAGS_USE_TARGET_NAMESPACE ON)
+  find_package(gflags REQUIRED GLOBAL)
+else()
   # Configure expat library.
   # Suppress "Policy CMP0077 is not set: option() honors normal variables"
   # for the expat options below.
