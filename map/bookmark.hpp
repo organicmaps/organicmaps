@@ -31,11 +31,11 @@ public:
 
   std::string GetPreferredName() const;
 
-  kml::LocalizableString GetName() const;
+  kml::LocalizableString const & GetName() const;
   void SetName(kml::LocalizableString const & name);
   void SetName(std::string const & name, int8_t langCode);
 
-  std::string GetCustomName() const;
+  //std::string GetCustomName() const;
   void SetCustomName(std::string const & customName);
 
   kml::PredefinedColor GetColor() const;
@@ -55,6 +55,7 @@ public:
   dp::Anchor GetAnchor() const override;
   drape_ptr<SymbolNameZoomInfo> GetSymbolNames() const override;
 
+  /// @return Bookmark color constant from style.mapcss.
   df::ColorConstant GetColorConstant() const override;
 
   kml::MarkGroupId GetGroupId() const override;

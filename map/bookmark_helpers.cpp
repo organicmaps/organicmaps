@@ -381,22 +381,33 @@ std::string GetKMLorGPXPath(std::string const & filePath)
     {
       ZipFileReader::FileList files;
       ZipFileReader::FilesList(filePath, files);
-      std::string kmlFileName;
-      std::string ext;
-      for (size_t i = 0; i < files.size(); ++i)
+
+      for (auto const & [file, _] : files)
       {
-        ext = GetLowercaseFileExt(files[i].first);
-        if (ext == kKmlExtension)
+        std::string const ext = GetLowercaseFileExt(file);
+        if (ext == kKmlExtension && fileSavePath.empty())
         {
-          kmlFileName = files[i].first;
-          break;
+          fileSavePath = GenerateValidAndUniqueFilePathForKML(file);
+          ZipFileReader::UnzipFile(filePath, file, fileSavePath);
+        }
+        else if (ext == ".png")
+        {
+          std::string dir = base::GetDirectory(file);
+          if (dir != ".")
+          {
+            dir = base::JoinPath(GetBookmarksDirectory(), dir);
+            if (!Platform::MkDirRecursively(dir))
+            {
+              LOG(LERROR, ("Can't create folder:", dir));
+              continue;
+            }
+          }
+          else
+            dir = GetBookmarksDirectory();
+
+          ZipFileReader::UnzipFile(filePath, file, base::JoinPath(dir, base::FileNameFromFullPath(file)));
         }
       }
-      if (kmlFileName.empty())
-        return {};
-
-      fileSavePath = GenerateValidAndUniqueFilePathForKML(kmlFileName);
-      ZipFileReader::UnzipFile(filePath, kmlFileName, fileSavePath);
     }
     catch (RootException const & e)
     {
@@ -409,6 +420,7 @@ std::string GetKMLorGPXPath(std::string const & filePath)
     LOG(LWARNING, ("Unknown file type", filePath));
     return {};
   }
+
   return fileSavePath;
 }
 

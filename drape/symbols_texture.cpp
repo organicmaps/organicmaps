@@ -4,9 +4,10 @@
 
 #include "platform/platform.hpp"
 
-#include "coding/reader.hpp"
+#include "coding/file_reader.hpp"
 #include "coding/parse_xml.hpp"
 
+#include "base/shared_buffer_manager.hpp"
 #include "base/string_utils.hpp"
 
 #include "3party/stb_image/stb_image.h"
@@ -131,9 +132,8 @@ void LoadSymbols(std::string const & skinPathName, std::string const & textureNa
     DefinitionLoader loader(definitionInserter, convertToUV);
 
     {
-      ReaderPtr<Reader> reader =
-          GetStyleReader().GetResourceReader(textureName + ".sdf", skinPathName);
-      ReaderSource<ReaderPtr<Reader>> source(reader);
+      auto reader = GetStyleReader().GetResourceReader(textureName + ".sdf", skinPathName);
+      ReaderSource source(reader);
       if (!ParseXML(source, loader))
       {
         failureHandler("Error parsing skin");
@@ -145,11 +145,10 @@ void LoadSymbols(std::string const & skinPathName, std::string const & textureNa
     }
 
     {
-      ReaderPtr<Reader> reader =
-          GetStyleReader().GetResourceReader(textureName + ".png", skinPathName);
+      auto reader = GetStyleReader().GetResourceReader(textureName + ".png", skinPathName);
       size_t const size = static_cast<size_t>(reader.Size());
       rawData.resize(size);
-      reader.Read(0, &rawData[0], size);
+      reader.Read(0, rawData.data(), size);
     }
   }
   catch (RootException & e)
@@ -159,8 +158,7 @@ void LoadSymbols(std::string const & skinPathName, std::string const & textureNa
   }
 
   int w, h, bpp;
-  unsigned char * data =
-      stbi_load_from_memory(&rawData[0], static_cast<int>(rawData.size()), &w, &h, &bpp, 0);
+  unsigned char * data = stbi_load_from_memory(rawData.data(), static_cast<int>(rawData.size()), &w, &h, &bpp, 0);
   ASSERT_EQUAL(bpp, 4, ("Incorrect symbols texture format"));
   ASSERT(glm::isPowerOfTwo(w), (w));
   ASSERT(glm::isPowerOfTwo(h), (h));
@@ -178,29 +176,6 @@ void LoadSymbols(std::string const & skinPathName, std::string const & textureNa
 }
 }  // namespace
 
-SymbolsTexture::SymbolKey::SymbolKey(std::string const & symbolName)
-  : m_symbolName(symbolName)
-{}
-
-Texture::ResourceType SymbolsTexture::SymbolKey::GetType() const
-{
-  return Texture::ResourceType::Symbol;
-}
-
-std::string const & SymbolsTexture::SymbolKey::GetSymbolName() const
-{
-  return m_symbolName;
-}
-
-SymbolsTexture::SymbolInfo::SymbolInfo(const m2::RectF & texRect)
-  : ResourceInfo(texRect)
-{}
-
-Texture::ResourceType SymbolsTexture::SymbolInfo::GetType() const
-{
-  return Texture::ResourceType::Symbol;
-}
-
 SymbolsTexture::SymbolsTexture(ref_ptr<dp::GraphicsContext> context, std::string const & skinPathName,
                                std::string const & textureName, ref_ptr<HWTextureAllocator> allocator)
   : m_name(textureName)
@@ -213,7 +188,7 @@ void SymbolsTexture::Load(ref_ptr<dp::GraphicsContext> context, std::string cons
 {
   auto definitionInserter = [this](std::string const & name, m2::RectF const & rect)
   {
-    m_definition.insert(std::make_pair(name, SymbolsTexture::SymbolInfo(rect)));
+    m_definition.emplace(name, SymbolInfo(rect));
   };
 
   auto completionHandler = [this, &allocator, context](unsigned char * data, uint32_t width, uint32_t height)
@@ -256,15 +231,13 @@ void SymbolsTexture::Invalidate(ref_ptr<dp::GraphicsContext> context, std::strin
 
 ref_ptr<Texture::ResourceInfo> SymbolsTexture::FindResource(Texture::Key const & key, bool & newResource)
 {
-  newResource = false;
-  if (key.GetType() != Texture::ResourceType::Symbol)
-    return nullptr;
+  ASSERT(key.GetType() == Texture::ResourceType::Symbol, ());
 
+  newResource = false;
   std::string const & symbolName = static_cast<SymbolKey const &>(key).GetSymbolName();
 
   auto it = m_definition.find(symbolName);
-  ASSERT(it != m_definition.end(), (symbolName));
-  return make_ref(&it->second);
+  return (it != m_definition.end() ? make_ref(&it->second) : nullptr);
 }
 
 void SymbolsTexture::Fail(ref_ptr<dp::GraphicsContext> context)
@@ -278,11 +251,6 @@ void SymbolsTexture::Fail(ref_ptr<dp::GraphicsContext> context)
   p.m_height = 1;
 
   Create(context, p, make_ref(&alphaTexture));
-}
-
-bool SymbolsTexture::IsSymbolContained(std::string const & symbolName) const
-{
-  return m_definition.find(symbolName) != m_definition.end();
 }
 
 bool SymbolsTexture::DecodeToMemory(std::string const & skinPathName, std::string const & textureName,
@@ -317,4 +285,86 @@ bool SymbolsTexture::DecodeToMemory(std::string const & skinPathName, std::strin
               definitionInserter, completionHandler, failureHandler);
   return result;
 }
+
+bool LoadedSymbol::FromPngFile(std::string const & filePath)
+{
+  std::vector<uint8_t> buffer;
+  try
+  {
+    FileReader reader(filePath);
+    size_t const size = static_cast<size_t>(reader.Size());
+    buffer.resize(size);
+    reader.Read(0, buffer.data(), size);
+  }
+  catch (RootException & e)
+  {
+    return false;
+  }
+
+  int bpp;
+  m_data = stbi_load_from_memory(buffer.data(), static_cast<int>(buffer.size()), &m_width, &m_height, &bpp, 0);
+  if (m_data && bpp == 4) // only this fits TextureFormat::RGBA8
+    return true;
+
+  LOG(LWARNING, ("Error loading PNG for path:", filePath, "Result:", bool(m_data != nullptr), bpp));
+  return false;
+}
+
+void LoadedSymbol::Free()
+{
+  if (m_data)
+  {
+    stbi_image_free(m_data);
+    m_data = nullptr;
+  }
+}
+
+ref_ptr<Texture::ResourceInfo> SymbolsIndex::MapResource(SymbolKey const & key, bool & newResource)
+{
+  auto const & symbolName = key.GetSymbolName();
+
+  std::lock_guard guard(m_mapping);
+  auto it = m_index.find(symbolName);
+  if (it != m_index.end())
+  {
+    newResource = false;
+    return make_ref(&it->second);
+  }
+
+  LoadedSymbol symbol;
+  if (!symbol.FromPngFile(symbolName))
+    return {};
+
+  newResource = true;
+
+  m2::RectU pixelRect;
+  m_packer.Pack(symbol.m_width, symbol.m_height, pixelRect);
+
+  {
+    std::lock_guard<std::mutex> guard(m_upload);
+    m_pendingNodes.emplace_back(pixelRect, std::move(symbol));
+  }
+
+  auto res = m_index.emplace(symbolName, SymbolInfo(m_packer.MapTextureCoords(pixelRect)));
+  ASSERT(res.second, ());
+  return make_ref(&res.first->second);
+}
+
+void SymbolsIndex::UploadResources(ref_ptr<dp::GraphicsContext> context, ref_ptr<Texture> texture)
+{
+  TPendingNodes pendingNodes;
+  {
+    std::lock_guard<std::mutex> upload(m_upload);
+    if (m_pendingNodes.empty())
+      return;
+    m_pendingNodes.swap(pendingNodes);
+  }
+
+  for (auto const & [rect, symbol] : pendingNodes)
+  {
+    m2::PointU const zeroPoint = rect.LeftBottom();
+    texture->UploadData(context, zeroPoint.x, zeroPoint.y, rect.SizeX(), rect.SizeY(), make_ref(symbol.m_data));
+  }
+}
+
 }  // namespace dp

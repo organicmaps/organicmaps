@@ -4,6 +4,7 @@
 #include "drape/glyph_generator.hpp"
 #include "drape/glyph_manager.hpp"
 #include "drape/pointers.hpp"
+#include "drape/rect_packer.hpp"
 
 #include <atomic>
 #include <map>
@@ -13,23 +14,7 @@
 
 namespace dp
 {
-class GlyphPacker
-{
-public:
-  explicit GlyphPacker(m2::PointU const & size);
-
-  bool PackGlyph(uint32_t width, uint32_t height, m2::RectU & rect);
-  bool CanBePacked(uint32_t glyphsCount, uint32_t width, uint32_t height) const;
-  m2::RectF MapTextureCoords(m2::RectU const & pixelRect) const;
-  bool IsFull() const;
-  m2::PointU const & GetSize() const { return m_size; }
-
-private:
-  m2::PointU m_size = m2::PointU(0, 0);
-  m2::PointU m_cursor = m2::PointU(0, 0);
-  uint32_t m_yStep = 0;
-  bool m_isFull = false;
-};
+using GlyphPacker = RectPacker;
 
 class GlyphKey : public Texture::Key
 {

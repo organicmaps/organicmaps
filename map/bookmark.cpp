@@ -103,16 +103,29 @@ dp::Anchor Bookmark::GetAnchor() const
 
 drape_ptr<df::UserPointMark::SymbolNameZoomInfo> Bookmark::GetSymbolNames() const
 {
+  // Order:
+  // - CustomImage from 'mwm:properties' (can be file icon from images)
+  // - File icon from images
+  // - bookmark-default icon as mask with further GetColorConstant()
+
   auto symbolNames = GetCustomSymbolNames();
   if (symbolNames != nullptr)
     return symbolNames;
 
   symbolNames = make_unique_dp<SymbolNameZoomInfo>();
 
-  symbolNames->insert(std::make_pair(1 /* zoomLevel */, "bookmark-default-xs"));
-  symbolNames->insert(std::make_pair(8 /* zoomLevel */, "bookmark-default-s"));
-  auto const iconType = GetBookmarkIconType(m_data.m_icon);
-  symbolNames->insert(std::make_pair(14 /* zoomLevel */, "bookmark-" + iconType + "-m"));
+  if (!m_data.m_iconPath.empty())
+  {
+    symbolNames->m_pathPrefix = GetBookmarksDirectory();
+    symbolNames->Emplace(1, m_data.m_iconPath);
+  }
+  else
+  {
+    symbolNames->Emplace(1, "bookmark-default-xs");
+    symbolNames->Emplace(8, "bookmark-default-s");
+    symbolNames->Emplace(14, "bookmark-" + GetBookmarkIconType(m_data.m_icon) + "-m");
+  }
+
   return symbolNames;
 }
 
@@ -123,6 +136,8 @@ drape_ptr<df::UserPointMark::SymbolNameZoomInfo> Bookmark::GetCustomSymbolNames(
     return nullptr;
 
   auto symbolNames = make_unique_dp<SymbolNameZoomInfo>();
+  symbolNames->m_pathPrefix = GetBookmarksDirectory();
+
   strings::Tokenize(it->second, ";", [&](std::string_view token)
   {
     uint8_t zoomLevel = 1;
@@ -130,10 +145,10 @@ drape_ptr<df::UserPointMark::SymbolNameZoomInfo> Bookmark::GetCustomSymbolNames(
     if (pos != std::string::npos && strings::to_uint(token.substr(0, pos), zoomLevel))
       token = token.substr(pos + 1);
     if (!token.empty() && zoomLevel >= 1 && zoomLevel <= scales::GetUpperStyleScale())
-      symbolNames->emplace(zoomLevel, std::string(token));
+      symbolNames->Emplace(zoomLevel, std::string(token));
   });
 
-  if (symbolNames->empty())
+  if (symbolNames->IsEmpty())
     return nullptr;
 
   return symbolNames;
@@ -175,6 +190,10 @@ df::ColorConstant Bookmark::GetColorConstant() const
       return "BookmarkGray";
     case kml::PredefinedColor::BlueGray:
       return "BookmarkBlueGray";
+
+    // Default red color.
+    /// @todo By VNG: What will happen if user symbol will have 'mask' pixels (like bookmark-default-m.png)?
+    /// Looks like they will be filled with this default red color, see CacheUserMarks.
     case kml::PredefinedColor::None:
     case kml::PredefinedColor::Count:
       return "BookmarkRed";
@@ -203,7 +222,7 @@ std::string Bookmark::GetPreferredName() const
   return GetPreferredBookmarkName(m_data);
 }
 
-kml::LocalizableString Bookmark::GetName() const
+kml::LocalizableString const & Bookmark::GetName() const
 {
   return m_data.m_name;
 }
@@ -220,10 +239,10 @@ void Bookmark::SetName(std::string const & name, int8_t langCode)
   m_data.m_name[langCode] = name;
 }
 
-std::string Bookmark::GetCustomName() const
-{
-  return GetPreferredBookmarkStr(m_data.m_customName);
-}
+//std::string Bookmark::GetCustomName() const
+//{
+//  return GetPreferredBookmarkStr(m_data.m_customName);
+//}
 
 void Bookmark::SetCustomName(std::string const & customName)
 {
@@ -277,9 +296,8 @@ kml::MarkGroupId Bookmark::GetGroupId() const
 bool Bookmark::CanFillPlacePageMetadata() const
 {
   auto const & p = m_data.m_properties;
-  if (auto const hours = p.find("hours"); hours != p.end() && !hours->second.empty())
-    return true;
-  return false;
+  auto const hours = p.find("hours");
+  return (hours != p.end() && !hours->second.empty());
 }
 
 void Bookmark::Attach(kml::MarkGroupId groupId)

@@ -81,19 +81,41 @@ BookmarkManager::SharingResult GetFileForSharing(BookmarkManager::KMLDataCollect
   if (fileName.empty())
     fileName = base::GetNameFromFullPathWithoutExt(kmlToShare.first);
 
-  auto const filePath = base::JoinPath(GetPlatform().TmpDir(), fileName + std::string{kKmlExtension});
-  SCOPE_GUARD(fileGuard, std::bind(&base::DeleteFileX, filePath));
+  /// @todo Really needed for zip?
+  if (!strings::IsASCIIString(fileName))
+    fileName = kDefaultBookmarksFileName;
+  fileName.append(kKmlExtension);
+
+  auto const & tmpDir = GetPlatform().TmpDir();
+  std::vector<std::string> filePaths, fileNames;
+  fileNames.push_back(fileName);
+  filePaths.push_back(base::JoinPath(tmpDir, fileNames.back()));
+  SCOPE_GUARD(fileGuard, std::bind(&base::DeleteFileX, filePaths.back()));
 
   auto const categoryId = kmlToShare.second->m_categoryData.m_id;
 
-  if (!SaveKmlFileSafe(*kmlToShare.second, filePath, KmlFileType::Text))
+  if (!SaveKmlFileSafe(*kmlToShare.second, filePaths.back(), KmlFileType::Text))
     return {categoryId, BookmarkManager::SharingResult::Code::FileError, "Bookmarks file does not exist."};
 
-  auto const tmpFilePath = base::JoinPath(GetPlatform().TmpDir(), fileName + std::string{kKmzExtension});
-  if (!CreateZipFromPathDeflatedAndDefaultCompression(filePath, tmpFilePath))
+  auto const bookmarksDir = GetBookmarksDirectory();
+  for (auto const & bmData : kmlToShare.second->m_bookmarksData)
+  {
+    if (!bmData.m_iconPath.empty())
+    {
+      auto const path = base::JoinPath(bookmarksDir, bmData.m_iconPath);
+      if (Platform::IsFileExistsByFullPath(path))
+      {
+        fileNames.push_back(bmData.m_iconPath);
+        filePaths.push_back(std::move(path));
+      }
+    }
+  }
+
+  auto const kmzFilePath = base::JoinPath(tmpDir, fileName);
+  if (!CreateZipFromFiles(filePaths, kmzFilePath, CompressionLevel::DefaultCompression, &fileNames))
     return {categoryId, BookmarkManager::SharingResult::Code::ArchiveError, "Could not create archive."};
 
-  return {categoryId, tmpFilePath};
+  return {categoryId, kmzFilePath};
 }
 
 std::string ToString(BookmarkManager::SortingType type)
@@ -187,6 +209,20 @@ void BookmarkManager::DeleteUserMark(kml::MarkId markId)
 Bookmark * BookmarkManager::CreateBookmark(kml::BookmarkData && bmData)
 {
   CHECK_THREAD_CHECKER(m_threadChecker, ());
+
+  if (!bmData.m_iconPath.empty())
+  {
+    // Check that user icon file is actually present.
+    if (!GetPlatform().IsFileExistsByFullPath(base::JoinPath(GetBookmarksDirectory(), bmData.m_iconPath)))
+    {
+      LOG(LWARNING, ("Bookmark's icon file is not exist:", bmData.m_iconPath));
+
+      bmData.m_iconPath.clear();
+      if (bmData.m_color.m_predefinedColor == kml::PredefinedColor::None)
+        bmData.m_color.m_predefinedColor = kml::PredefinedColor::Red;
+    }
+  }
+
   return AddBookmark(std::make_unique<Bookmark>(std::move(bmData)));
 }
 
@@ -2158,7 +2194,7 @@ kml::MarkGroupId BookmarkManager::CreateBookmarkCategory(kml::CategoryData && da
   return groupId;
 }
 
-kml::MarkGroupId BookmarkManager::CreateBookmarkCategory(std::string const & name, bool autoSave)
+kml::MarkGroupId BookmarkManager::CreateBookmarkCategory(std::string const & name, bool autoSave /* = true */)
 {
   CHECK_THREAD_CHECKER(m_threadChecker, ());
   auto const groupId = UserMarkIdStorage::Instance().GetNextCategoryId();
@@ -2519,6 +2555,7 @@ std::unique_ptr<kml::FileData> BookmarkManager::CollectBmGroupKMLData(BookmarkCa
   return kmlData;
 }
 
+/*
 bool BookmarkManager::SaveBookmarkCategory(kml::MarkGroupId groupId)
 {
   CHECK_THREAD_CHECKER(m_threadChecker, ());
@@ -2538,6 +2575,7 @@ bool BookmarkManager::SaveBookmarkCategory(kml::MarkGroupId groupId, Writer & wr
   auto kmlData = CollectBmGroupKMLData(group);
   return SaveKmlData(*kmlData, writer, fileType);
 }
+*/
 
 BookmarkManager::KMLDataCollectionPtr BookmarkManager::PrepareToSaveBookmarks(
   kml::GroupIdCollection const & groupIdCollection)

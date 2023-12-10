@@ -5,22 +5,22 @@
 #include "platform/platform.hpp"
 #include "platform/settings.hpp"
 
-#include "coding/internal/file_data.hpp"
 
-#include "base/file_name_utils.hpp"
-
-WritableDirChanger::WritableDirChanger(std::string const & testDir, SettingsDirPolicy settingsDirPolicy)
+WritableDirChanger::WritableDirChanger(std::string const & testDir, bool m_settingsDir /* = false */)
   : m_writableDirBeforeTest(GetPlatform().WritableDir())
   , m_testDirFullPath(m_writableDirBeforeTest + testDir)
-  , m_settingsDirPolicy(settingsDirPolicy)
+  , m_settingsDir(m_settingsDir)
 {
   Platform & platform = GetPlatform();
   platform.RmDirRecursively(m_testDirFullPath);
   TEST(!platform.IsFileExistsByFullPath(m_testDirFullPath), ());
   TEST_EQUAL(Platform::ERR_OK, platform.MkDir(m_testDirFullPath), ());
   platform.SetWritableDirForTests(m_testDirFullPath);
-  if (m_settingsDirPolicy == SettingsDirPolicy::UseWritableDir)
+  if (m_settingsDir)
+  {
     platform.SetSettingsDir(m_testDirFullPath);
+    /// @todo Make a copy of settings.ini file here?
+  }
   settings::Clear();
 }
 
@@ -30,7 +30,7 @@ WritableDirChanger::~WritableDirChanger()
   Platform & platform = GetPlatform();
   std::string const writableDirForTest = platform.WritableDir();
   platform.SetWritableDirForTests(m_writableDirBeforeTest);
-  if (m_settingsDirPolicy == SettingsDirPolicy::UseWritableDir)
+  if (m_settingsDir)
     platform.SetSettingsDir(m_writableDirBeforeTest);
   platform.RmDirRecursively(writableDirForTest);
 }

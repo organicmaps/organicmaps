@@ -212,7 +212,7 @@ drape_ptr<df::UserPointMark::SymbolNameZoomInfo> SearchMarkPoint::GetSymbolNames
     return nullptr;
 
   auto symbolZoomInfo = make_unique_dp<SymbolNameZoomInfo>();
-  symbolZoomInfo->emplace(1 /*kWorldZoomLevel*/, *symbolName);
+  symbolZoomInfo->Emplace(1, *symbolName);
   return symbolZoomInfo;
 }
 

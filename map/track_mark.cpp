@@ -40,7 +40,7 @@ void TrackInfoMark::SetTrackId(kml::TrackId trackId)
 drape_ptr<df::UserPointMark::SymbolNameZoomInfo> TrackInfoMark::GetSymbolNames() const
 {
   auto symbol = make_unique_dp<SymbolNameZoomInfo>();
-  symbol->insert(std::make_pair(kMinInfoVisibleZoom, kInfoSignSymbolName));
+  symbol->Emplace(kMinInfoVisibleZoom, kInfoSignSymbolName);
   return symbol;
 }
 
@@ -91,7 +91,7 @@ void TrackSelectionMark::SetMyPositionDistance(double distance)
 drape_ptr<df::UserPointMark::SymbolNameZoomInfo> TrackSelectionMark::GetSymbolNames() const
 {
   auto symbol = make_unique_dp<SymbolNameZoomInfo>();
-  symbol->insert(std::make_pair(m_minVisibleZoom, kTrackDeselectedSymbolName));
+  symbol->Emplace(m_minVisibleZoom, kTrackDeselectedSymbolName);
   return symbol;
 }
 
