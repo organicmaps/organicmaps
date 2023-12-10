@@ -29,11 +29,6 @@
       android:paddingTop="@dimen/margin_half_plus"
       android:layout_width="match_parent"
       android:layout_height="wrap_content">
-      <LinearLayout
-        android:orientation="horizontal"
-        android:id="@+id/edit_name_container"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content">
         <com.google.android.material.textfield.TextInputLayout
           android:id="@+id/edit_list_name_input"
           style="@style/MwmWidget.Editor.CustomTextInput"
@@ -48,7 +43,6 @@
           android:layout_width="match_parent"
           android:layout_height="wrap_content" />
         </com.google.android.material.textfield.TextInputLayout>
-      </LinearLayout>
     </LinearLayout>
     <com.google.android.material.textfield.TextInputLayout
       style="@style/MwmWidget.Editor.CustomTextInput"

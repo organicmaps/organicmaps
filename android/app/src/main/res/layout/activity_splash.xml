@@ -9,7 +9,7 @@
   <ImageView
       android:id="@+id/iv__logo"
       android:layout_width="wrap_content"
-      android:layout_height="wrap_content"
+      android:layout_height="0dp"
       android:contentDescription="@null"
       android:src="@drawable/splash"
       android:layout_weight="1000"
