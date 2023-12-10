@@ -1647,11 +1647,10 @@ uint32_t Geocoder::MatchWorld2Country(FeatureID const & id) const
   }, id);
 
   // Match name and center in the current MwmContext.
-  uint32_t constexpr kInvalidId = std::numeric_limits<uint32_t>::max();
-  uint32_t resID = kInvalidId;
+  uint32_t resID = kInvalidFeatureId;
   m_context->ForEachFeature({pt, pt}, [&](FeatureType & ft)
   {
-    if (resID == kInvalidId &&
+    if (resID == kInvalidFeatureId &&
         ft.GetName(StringUtf8Multilang::kDefaultCode) == name &&
         // Relaxed points comparison because geometry coding in the World and in a Country is different.
         feature::GetCenter(ft).EqualDxDy(pt, kMwmPointAccuracy * 100))
@@ -1660,7 +1659,6 @@ uint32_t Geocoder::MatchWorld2Country(FeatureID const & id) const
     }
   });
 
-  ASSERT(resID != kInvalidId, ());
   return resID;
 }
 
@@ -1697,7 +1695,8 @@ void Geocoder::FindPaths(BaseContext & ctx)
       InitLayer(Model::TYPE_CITY, ctx.m_city->m_tokenRange, cityLayer);
 
       // Convert Feature's index, because a city maybe from World, but should match with Country MWM index.
-      cityFeature.push_back(MatchWorld2Country(ctx.m_city->m_featureId));
+      if (uint32_t fid = MatchWorld2Country(ctx.m_city->m_featureId); fid != kInvalidFeatureId)
+        cityFeature.push_back(fid);
       cityLayer.m_sortedFeatures = &cityFeature;
       cityLayer.m_getFeatures = [this, &ctx]()
       {
