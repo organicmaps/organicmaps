@@ -36,7 +36,8 @@
     android:layout_marginStart="@dimen/margin_base"
     android:layout_marginEnd="@dimen/margin_base"
     android:minHeight="@dimen/elevation_profile_chart_info_min_height"
-    android:orientation="horizontal">
+    android:orientation="horizontal"
+    android:baselineAligned="false">
     <LinearLayout
       android:layout_width="0dp"
       android:layout_height="match_parent"
