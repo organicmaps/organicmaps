@@ -438,4 +438,10 @@ string GetLocalizedFeeType(TypesHolder const & types)
   return localized_types[0];
 }
 
+bool HasAtm(TypesHolder const & types)
+{
+    auto const & isAtmType = ftypes::IsATMChecker::Instance();
+    return isAtmType(types);
+}
+
 } // namespace feature
