@@ -3,9 +3,7 @@
 #include "routing/base/astar_graph.hpp"
 #include "routing/base/astar_vertex_data.hpp"
 
-#include "routing/fake_feature_ids.hpp"
 #include "routing/joint_segment.hpp"
-#include "routing/mwm_hierarchy_handler.hpp"
 #include "routing/segment.hpp"
 
 #include "geometry/latlon.hpp"
@@ -116,7 +114,6 @@ public:
   }
 
 private:
-  static auto constexpr kInvalidFeatureId = FakeFeatureIds::kIndexGraphStarterId;
   static auto constexpr kInvalidId = JointSegment::kInvalidSegmentId;
   static auto constexpr kInvisibleEndId = kInvalidId - 1;
   static auto constexpr kInvisibleStartId = kInvalidId - 2;

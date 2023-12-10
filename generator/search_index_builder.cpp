@@ -480,7 +480,6 @@ void BuildAddressTable(FilesContainerR & container, std::string const & addressD
   std::atomic<uint32_t> address = 0;
   std::atomic<uint32_t> missing = 0;
 
-  uint32_t constexpr kInvalidFeatureId = std::numeric_limits<uint32_t>::max();
   /// @see Addr_Street_Place test for checking constants.
   double constexpr kStreetRadiusM = 2000;
   double constexpr kPlaceRadiusM = 4000;

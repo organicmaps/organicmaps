@@ -249,7 +249,7 @@ std::pair<TransitId, StopData> SubwayConverter::MakeStop(routing::transit::Stop 
   stopData.m_point = stopSubway.GetPoint();
   stopData.m_osmId = stopSubway.GetOsmId();
 
-  if (stopSubway.GetFeatureId() != routing::transit::kInvalidFeatureId)
+  if (stopSubway.GetFeatureId() != kInvalidFeatureId)
     stopData.m_featureId = stopSubway.GetFeatureId();
 
   return {stopId, stopData};

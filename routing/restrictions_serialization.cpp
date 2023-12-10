@@ -20,9 +20,6 @@ std::vector<Restriction::Type> const RestrictionHeader::kRestrictionTypes = {
     Restriction::Type::OnlyUTurn
 };
 
-// static
-uint32_t const Restriction::kInvalidFeatureId = std::numeric_limits<uint32_t>::max();
-
 bool Restriction::operator==(Restriction const & restriction) const
 {
   return m_featureIds == restriction.m_featureIds && m_type == restriction.m_type;

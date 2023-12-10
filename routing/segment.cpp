@@ -2,7 +2,7 @@
 
 #include "routing/fake_feature_ids.hpp"
 
-#include "std/boost_container_hash.hpp"
+#include "std/boost_container_hash.hpp"     // needed despite of IDE warning
 
 #include <sstream>
 
