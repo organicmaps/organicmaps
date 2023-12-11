@@ -15,6 +15,7 @@ TRANS_CMD = 'trans'
 # Use DeepL when possible with a fall back to Google.
 # List of Google Translate target languages: https://cloud.google.com/translate/docs/languages
 GOOGLE_TARGET_LANGUAGES = [
+  'af',
   'ar',
   'be',
   'ca',
@@ -48,7 +49,7 @@ DEEPL_TARGET_LANGUAGES = [
     'it',
     'ja',
     'ko',
-#    'lt',
+    'lt',
 #    'lv',
     'nb',
     'nl',
@@ -94,7 +95,7 @@ def google_translate(text, source_language):
     lang = GOOGLE_TARGET_LANGUAGES[i]
     if lang == 'zh-TW':
       lang = 'zh-Hant'
-    translations[lang] = line.capitalize()
+    translations[lang] = line
     i = i + 1
     print(lang + ' = ' + line)
   return translations
@@ -124,7 +125,7 @@ def deepl_translate(text, source_language):
       lang = 'zh-Hans'
     elif lang == 'en-US':
       lang = 'en'
-    translations[lang] = translation.capitalize()
+    translations[lang] = translation
     print(lang + ' = ' + translation)
   return translations
 
@@ -138,6 +139,26 @@ def usage():
       print('Install it using `brew install translate-shell`')
     else:
       print('See https://www.soimort.org/translate-shell/ for installation instructions')
+
+
+# Returns a list of all languages supported by the core (search) in data/categories.txt
+def get_supported_categories_txt_languages():
+  script_dir = os.path.dirname(os.path.realpath(__file__))
+  categories_txt_path = os.path.join(script_dir, '..', '..', 'data', 'categories.txt')
+  languages = set()
+  with open(categories_txt_path) as f:
+    for line in f.readlines():
+      if not line: continue
+      if line[0] == '#': continue
+      colon_index = line.find(':')
+      # en: en-US: zh-Hant:
+      if colon_index == 2 or colon_index == 5 or colon_index == 7:
+        languages.add(line[:colon_index])
+
+  # Convert to list.
+  languages = list(languages)
+  languages.sort()
+  return languages
 
 if __name__ == '__main__':
   if len(sys.argv) < 2:
@@ -168,13 +189,21 @@ if __name__ == '__main__':
       translations.pop(regional)
 
   print('\nMerged Deepl and Google translations:')
-  en = translations.pop('en').title()  # Historically, English is always in Title Case
+  en = translations.pop('en')
   langs = list(translations.keys())
   langs.sort()
 
+  categories_txt_languages = get_supported_categories_txt_languages()
+  absent_in_categories_txt = [item for item in langs if item not in categories_txt_languages]
   print('============ categories.txt format ============')
+  if len(absent_in_categories_txt) > 0:
+    print('\nWARNING: The following translations are not supported yet in the categories.txt and are skipped:')
+    print(absent_in_categories_txt)
+    print('See indexer/categories_holder.hpp for details.\n')
   print('en:' + en)
   for lang in langs:
+    if lang in absent_in_categories_txt:
+      continue
     print(lang + ':' + translations[lang])
 
   print('============ strings.txt format ============')

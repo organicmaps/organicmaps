@@ -34,7 +34,8 @@ public class MapPlaceholderActivity extends BaseMwmFragmentActivity implements D
   public void onDisplayChangedToDevice(@NonNull Runnable onTaskFinishedCallback)
   {
     mRemoveDisplayListener = false;
-    startActivity(new Intent(this, MwmActivity.class));
+    startActivity(new Intent(this, MwmActivity.class)
+        .putExtra(MwmActivity.EXTRA_UPDATE_THEME, true));
     finish();
     onTaskFinishedCallback.run();
   }

@@ -501,7 +501,7 @@
 	<string name="error_enter_correct_phone">Ange korrekt telefonnummer</string>
 	<string name="error_enter_correct_web">Ange en giltig webadress</string>
 	<string name="error_enter_correct_email">Ange en giltig e-postadress</string>
-	<string name="placepage_add_place_button">Lägg till en plats på kartan</string>
+	<string name="placepage_add_place_button">Lägg till plats i OpenStreetMap</string>
 	<!-- Displayed when saving some edits to the map to warn against publishing personal data -->
 	<string name="editor_share_to_all_dialog_title">Vill du skicka det till alla användare?</string>
 	<!-- Dialog before publishing the modifications to the public map. -->

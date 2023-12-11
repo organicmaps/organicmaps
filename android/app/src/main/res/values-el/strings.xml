@@ -497,7 +497,7 @@
 	<string name="error_enter_correct_phone">Εισάγετε έναν έγκυρο αριθμό τηλεφώνου</string>
 	<string name="error_enter_correct_web">Εισάγετε μια έγκυρη διεύθυνση ιστοτόπου</string>
 	<string name="error_enter_correct_email">Εισάγετε ένα έγκυρο email</string>
-	<string name="placepage_add_place_button">Να προστεθεί η τοποθεσία στο χάρτη</string>
+	<string name="placepage_add_place_button">Προσθήκη τόπου στο OpenStreetMap</string>
 	<!-- Displayed when saving some edits to the map to warn against publishing personal data -->
 	<string name="editor_share_to_all_dialog_title">Θέλετε να το στείλετε σε όλους τους χρήστες;</string>
 	<!-- Dialog before publishing the modifications to the public map. -->

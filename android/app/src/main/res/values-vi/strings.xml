@@ -503,7 +503,7 @@
 	<string name="error_enter_correct_phone">Nhập chính xác số điện thoại</string>
 	<string name="error_enter_correct_web">Nhập địa chỉ trang web hợp lệ</string>
 	<string name="error_enter_correct_email">Nhập email hợp lệ</string>
-	<string name="placepage_add_place_button">Thêm địa điểm vào bản đồ</string>
+	<string name="placepage_add_place_button">Thêm địa điểm vào OpenStreetMap</string>
 	<!-- Displayed when saving some edits to the map to warn against publishing personal data -->
 	<string name="editor_share_to_all_dialog_title">Bạn có muốn gửi cho toàn bộ người dùng?</string>
 	<!-- Dialog before publishing the modifications to the public map. -->

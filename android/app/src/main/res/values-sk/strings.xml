@@ -501,7 +501,7 @@
 	<string name="error_enter_correct_phone">Zadajte správne telefónne číslo</string>
 	<string name="error_enter_correct_web">Zadajte platnú webovú adresu</string>
 	<string name="error_enter_correct_email">Zadajte platný email</string>
-	<string name="placepage_add_place_button">Pridať miesto na mape</string>
+	<string name="placepage_add_place_button">Pridať miesto do OpenStreetMap</string>
 	<!-- Displayed when saving some edits to the map to warn against publishing personal data -->
 	<string name="editor_share_to_all_dialog_title">Odoslať všetkým používateľom?</string>
 	<!-- Dialog before publishing the modifications to the public map. -->

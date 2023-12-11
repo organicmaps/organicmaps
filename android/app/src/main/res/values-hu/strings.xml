@@ -517,7 +517,7 @@
 	<string name="error_enter_correct_phone">Adja meg a helyes telefonszámot</string>
 	<string name="error_enter_correct_web">Adj meg egy érvényes weboldalcímet</string>
 	<string name="error_enter_correct_email">Adj meg egy érvényes email-címet</string>
-	<string name="placepage_add_place_button">Hely hozzáadása a térképhez</string>
+	<string name="placepage_add_place_button">Hely hozzáadása az OpenStreetMap-hez</string>
 	<!-- Displayed when saving some edits to the map to warn against publishing personal data -->
 	<string name="editor_share_to_all_dialog_title">Szeretnéd elküldeni az összes felhasználónak?</string>
 	<!-- Dialog before publishing the modifications to the public map. -->

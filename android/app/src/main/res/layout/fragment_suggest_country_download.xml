@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<app.organicmaps.widget.HeightLimitedFrameLayout
+<androidx.constraintlayout.widget.ConstraintLayout
   xmlns:android="http://schemas.android.com/apk/res/android"
   xmlns:wheel="http://schemas.android.com/apk/res-auto"
   xmlns:tools="http://schemas.android.com/tools"
@@ -18,13 +18,17 @@
     android:layout_gravity="center_horizontal"
     android:gravity="center_horizontal"
     android:orientation="vertical"
-    android:layout_marginTop="@dimen/margin_double"
     android:paddingStart="@dimen/margin_double_and_half"
-    android:paddingEnd="@dimen/margin_double_and_half">
+    android:paddingEnd="@dimen/margin_double_and_half"
+    android:layout_marginTop="@dimen/margin_base_plus"
+    wheel:layout_constraintEnd_toEndOf="parent"
+    wheel:layout_constraintStart_toStartOf="parent"
+    wheel:layout_constraintTop_toTopOf="parent">
     <TextView
       android:layout_width="match_parent"
       android:layout_height="wrap_content"
       android:gravity="center"
+      android:layout_marginTop="@dimen/margin_half"
       android:text="@string/search_without_internet_advertisement"
       android:textAppearance="@style/MwmTextAppearance.Body2"/>
 
@@ -47,9 +51,9 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="@dimen/margin_half"
+        android:gravity="center"
         android:paddingTop="@dimen/margin_half"
         android:paddingBottom="@dimen/margin_half"
-        android:gravity="center"
         android:textAppearance="@style/MwmTextAppearance.Title"
         tools:text="Some country name"/>
 
@@ -64,10 +68,10 @@
       android:id="@+id/ll__location_unknown"
       android:layout_width="match_parent"
       android:layout_height="wrap_content"
-      android:orientation="vertical"
-      android:gravity="center_horizontal"
-      android:clipToPadding="false"
       android:clipChildren="false"
+      android:clipToPadding="false"
+      android:gravity="center_horizontal"
+      android:orientation="vertical"
       android:visibility="gone"
       tools:visibility="visible">
       <TextView
@@ -95,7 +99,9 @@
     android:orientation="vertical"
     android:paddingStart="@dimen/margin_double_and_half"
     android:paddingEnd="@dimen/margin_double_and_half"
-    android:visibility="gone">
+    android:visibility="gone"
+    wheel:layout_constraintBottom_toTopOf="@+id/ll__select_download"
+    wheel:layout_constraintTop_toTopOf="parent">
     <TextView
       android:id="@+id/tv__active_country_name"
       android:layout_width="wrap_content"
@@ -119,4 +125,4 @@
       wheel:wheelSecondaryColor="?dividerHorizontal"
       wheel:wheelThickness="@dimen/margin_eighth"/>
   </LinearLayout>
-</app.organicmaps.widget.HeightLimitedFrameLayout>
+</androidx.constraintlayout.widget.ConstraintLayout>

@@ -500,7 +500,7 @@
 	<string name="error_enter_correct_phone">شماره تلفن معتبری وارد نمایید</string>
 	<string name="error_enter_correct_web">ادرس وب معتبری وارد نمایید</string>
 	<string name="error_enter_correct_email">ایمیل معتبری وارد نمایید</string>
-	<string name="placepage_add_place_button">اضافه کردن یک مکان به نقشه</string>
+	<string name="placepage_add_place_button">مکان را به OpenStreetMap اضافه کنید</string>
 	<!-- Displayed when saving some edits to the map to warn against publishing personal data -->
 	<string name="editor_share_to_all_dialog_title">آیا می خواهید آن را برای دیگر کاربران ارسال کنید؟</string>
 	<!-- Dialog before publishing the modifications to the public map. -->

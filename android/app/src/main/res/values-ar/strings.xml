@@ -549,7 +549,7 @@
 	<string name="error_enter_correct_twitter_page">أدخل اسم مستخدم او موقع ويب خاص بتويتر صالح</string>
 	<string name="error_enter_correct_vk_page">أدخل اسم حساب أو عنوان ويب خاص بموقع VK صالح</string>
 	<string name="error_enter_correct_line_page">أدخل رقم تعريفي خاص بتطبيق LINE أو موقع ويب خاص بتطيق LINE صالح</string>
-	<string name="placepage_add_place_button">إضافة مكان ما للخريطة</string>
+	<string name="placepage_add_place_button">أضف مكانًا إلى OpenStreetMap</string>
 	<!-- Displayed when saving some edits to the map to warn against publishing personal data -->
 	<string name="editor_share_to_all_dialog_title">هل ترغب في إرساله لجميع المستخدمين؟</string>
 	<!-- Dialog before publishing the modifications to the public map. -->

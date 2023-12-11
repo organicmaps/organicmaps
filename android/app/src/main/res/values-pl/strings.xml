@@ -536,7 +536,7 @@
 	<string name="error_enter_correct_twitter_page">Wprowadź poprawny adres lub nazwę konta na Twitterze</string>
 	<string name="error_enter_correct_vk_page">Wprowadź poprawny adres lub nazwę konta na VK</string>
 	<string name="error_enter_correct_line_page">Wpisz prawidłowy url LINE lub LINE ID</string>
-	<string name="placepage_add_place_button">Dodaj miejsce do mapy</string>
+	<string name="placepage_add_place_button">Dodaj miejsce do OpenStreetMap</string>
 	<!-- Displayed when saving some edits to the map to warn against publishing personal data -->
 	<string name="editor_share_to_all_dialog_title">Czy chcesz wysłać je wszystkim użytkownikom?</string>
 	<!-- Dialog before publishing the modifications to the public map. -->

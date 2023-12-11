@@ -538,7 +538,7 @@
 	<string name="error_enter_correct_twitter_page">Syötä kelvollinen Twitter-käyttäjätunnus tai verkko-osoite</string>
 	<string name="error_enter_correct_vk_page">Syötä kelvollinen VK-käyttäjätunnus tai verkko-osoite</string>
 	<string name="error_enter_correct_line_page">Syötä kelvollinen LINE ID tai verkko-osoite</string>
-	<string name="placepage_add_place_button">Lisää paikka kartalle</string>
+	<string name="placepage_add_place_button">Lisää paikka OpenStreetMapiin</string>
 	<!-- Displayed when saving some edits to the map to warn against publishing personal data -->
 	<string name="editor_share_to_all_dialog_title">Haluatko lähettää sen kaikille käyttäjille?</string>
 	<!-- Dialog before publishing the modifications to the public map. -->

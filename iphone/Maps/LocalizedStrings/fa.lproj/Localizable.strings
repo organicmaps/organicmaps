@@ -830,7 +830,7 @@
 
 "refresh" = "بروزرسانی";
 
-"placepage_add_place_button" = "اضافه کردن یک مکان به نقشه";
+"placepage_add_place_button" = "مکان را به OpenStreetMap اضافه کنید";
 
 /* Displayed when saving some edits to the map to warn against publishing personal data */
 "editor_share_to_all_dialog_title" = "آیا می خواهید آن را برای دیگر کاربران ارسال کنید؟";

@@ -158,9 +158,8 @@ private:
   m2::SharedSpline m_spline;
   std::vector<m2::SharedSpline> m_clippedSplines;
   double const m_currentScaleGtoP;
-  double const m_minSegmentSqrLength;
-  m2::PointD m_lastAddedPoint;
   bool const m_simplify;
+  double const m_minSegSqLength;
 
 #ifdef LINES_GENERATION_CALC_FILTERED_POINTS
   int m_readCount = 0;
@@ -175,7 +174,7 @@ class ApplyLineFeatureAdditional : public BaseApplyFeature
 public:
   ApplyLineFeatureAdditional(TileKey const & tileKey, TInsertShapeFn const & insertShape,
                              FeatureType & f, double currentScaleGtoP, CaptionDescription const & captions,
-                             std::vector<m2::SharedSpline> const & clippedSplines);
+                             std::vector<m2::SharedSpline> && clippedSplines);
 
   void ProcessAdditionalLineRules(PathTextRuleProto const * pathtextRule, ShieldRuleProto const * shieldRule,
                                   ref_ptr<dp::TextureManager> texMng, ftypes::RoadShieldsSetT const & roadShields,

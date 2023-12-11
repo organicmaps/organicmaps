@@ -830,7 +830,7 @@
 
 "refresh" = "Actualizar";
 
-"placepage_add_place_button" = "Añadir un lugar al mapa";
+"placepage_add_place_button" = "Añadir lugar a OpenStreetMap";
 
 /* Displayed when saving some edits to the map to warn against publishing personal data */
 "editor_share_to_all_dialog_title" = "¿Quiere enviarlo a todos los usuarios?";

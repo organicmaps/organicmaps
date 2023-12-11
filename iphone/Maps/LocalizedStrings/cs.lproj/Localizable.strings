@@ -830,7 +830,7 @@
 
 "refresh" = "Aktualizovat";
 
-"placepage_add_place_button" = "Přidat místo na mapu";
+"placepage_add_place_button" = "Přidat místo do OpenStreetMap";
 
 /* Displayed when saving some edits to the map to warn against publishing personal data */
 "editor_share_to_all_dialog_title" = "Chcete jej poslat všem uživatelům?";

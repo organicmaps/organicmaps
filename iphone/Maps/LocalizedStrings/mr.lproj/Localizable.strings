@@ -830,7 +830,7 @@
 
 "refresh" = "अद्ययावत करा";
 
-"placepage_add_place_button" = "नकाशावर एक ठिकाण जोडा";
+"placepage_add_place_button" = "OpenStreetMap मध्ये ठिकाण जोडा";
 
 /* Displayed when saving some edits to the map to warn against publishing personal data */
 "editor_share_to_all_dialog_title" = "तुम्ही ते सर्व वापरकर्त्यांना पाठवू इच्छिता?";

@@ -517,7 +517,7 @@
 	<string name="error_enter_correct_twitter_page">Introdu o adresă web sau un nume de utilizator Twitter valabil</string>
 	<string name="error_enter_correct_vk_page">Introdu o adresă web sau un nume de cont VK valabil</string>
 	<string name="error_enter_correct_line_page">Introdu o adresă web LINE valabilă sau un ID LINE</string>
-	<string name="placepage_add_place_button">Adaugă un loc pe hartă</string>
+	<string name="placepage_add_place_button">Adaugă un loc pe OpenStreetMap</string>
 	<!-- Displayed when saving some edits to the map to warn against publishing personal data -->
 	<string name="editor_share_to_all_dialog_title">Vrei să-l trimiți tuturor utilizatorilor?</string>
 	<!-- Dialog before publishing the modifications to the public map. -->

@@ -19,6 +19,8 @@ set(SRC
   scale_slider.hpp
   spinner.cpp
   spinner.hpp
+  text_dialog.cpp
+  text_dialog.hpp
 )
 
 omim_add_library(${PROJECT_NAME} ${SRC} ${RESOURCES})

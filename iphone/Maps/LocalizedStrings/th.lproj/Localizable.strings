@@ -830,7 +830,7 @@
 
 "refresh" = "อัปเดต";
 
-"placepage_add_place_button" = "เพิ่มสถานที่ไปยังแผนที่";
+"placepage_add_place_button" = "เพิ่มสถานที่ลงใน OpenStreetMap";
 
 /* Displayed when saving some edits to the map to warn against publishing personal data */
 "editor_share_to_all_dialog_title" = "คุณต้องการส่งมันให้ผู้ใช้ทั้งหมดหรือไม่?";

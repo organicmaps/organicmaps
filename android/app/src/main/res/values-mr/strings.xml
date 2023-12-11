@@ -501,7 +501,7 @@
 	<string name="error_enter_correct_facebook_page">वैध Facebook वेब पत्ता, खाते किंवा पृष्ठ नाव प्रविष्ट करा</string>
 	<string name="error_enter_correct_instagram_page">वैध Instagram वेब पत्ता किंवा खाते नाव प्रविष्ट करा</string>
 	<string name="error_enter_correct_twitter_page">वैध Twitter वेब पत्ता किंवा वापरकर्तानाव प्रविष्ट करा</string>
-	<string name="placepage_add_place_button">नकाशावर एक ठिकाण जोडा</string>
+	<string name="placepage_add_place_button">OpenStreetMap मध्ये ठिकाण जोडा</string>
 	<!-- Displayed when saving some edits to the map to warn against publishing personal data -->
 	<string name="editor_share_to_all_dialog_title">तुम्ही ते सर्व वापरकर्त्यांना पाठवू इच्छिता?</string>
 	<!-- Dialog before publishing the modifications to the public map. -->

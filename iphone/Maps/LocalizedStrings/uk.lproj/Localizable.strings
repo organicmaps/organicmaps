@@ -830,7 +830,7 @@
 
 "refresh" = "Оновити";
 
-"placepage_add_place_button" = "Додати на мапу";
+"placepage_add_place_button" = "Додати місце на OpenStreetMap";
 
 /* Displayed when saving some edits to the map to warn against publishing personal data */
 "editor_share_to_all_dialog_title" = "Надіслати усім користувачам?";

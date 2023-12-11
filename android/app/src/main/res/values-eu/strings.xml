@@ -534,7 +534,7 @@
 	<string name="error_enter_correct_twitter_page">Sartu baliozko Twitter erabiltzaile izena edo web helbide bat</string>
 	<string name="error_enter_correct_vk_page">Sartu baliozko web helbide bat edo VK kontuaren izena</string>
 	<string name="error_enter_correct_line_page">Sartu baliozko web helbidea edo LINEko IDa</string>
-	<string name="placepage_add_place_button">Gehitu toki bat mapan</string>
+	<string name="placepage_add_place_button">Gehitu lekua OpenStreetMap-era</string>
 	<!-- Displayed when saving some edits to the map to warn against publishing personal data -->
 	<string name="editor_share_to_all_dialog_title">Erabiltzaile guztiei bidali nahi diezu?</string>
 	<!-- Dialog before publishing the modifications to the public map. -->

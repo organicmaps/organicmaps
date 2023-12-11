@@ -60,20 +60,40 @@ void Spline::ReplacePoint(PointD const & pt)
   AddPoint(pt);
 }
 
-bool Spline::IsProlonging(PointD const & pt) const
+void Spline::AddOrProlongPoint(PointD const & pt, double minSegSqLength, bool checkAngle)
 {
-  size_t const sz = m_position.size();
-  if (sz < 2)
-    return false;
+  if (m_position.empty())
+  {
+    m_position.push_back(pt);
+    return;
+  }
 
   PointD dir = pt - m_position.back();
   if (dir.IsAlmostZero())
-    return true;
-  dir = dir.Normalize();
+    return;
+  double len = dir.SquaredLength();
+  ASSERT_GREATER(len, 0, ());
 
-  ASSERT(!m_direction.empty(), ());
+  if (m_position.size() > 1 && len < minSegSqLength)
+  {
+    ReplacePoint(pt);
+    return;
+  }
+
+  len = sqrt(len);
+  dir = dir / len;
+
   // Some cos(angle) == 1 (angle == 0) threshold.
-  return std::fabs(DotProduct(m_direction.back(), dir)) > 0.995;
+  if (checkAngle && !m_direction.empty() && std::fabs(DotProduct(m_direction.back(), dir)) > 0.995)
+  {
+    ReplacePoint(pt);
+  }
+  else
+  {
+    m_position.push_back(pt);
+    m_length.push_back(len);
+    m_direction.push_back(dir);
+  }
 }
 
 size_t Spline::GetSize() const
@@ -144,7 +164,7 @@ void Spline::InitDirections()
 
 Spline::iterator::iterator()
   : m_checker(false)
-  , m_spl(NULL)
+  , m_spl(nullptr)
   , m_index(0)
   , m_dist(0)
 {
@@ -252,6 +272,11 @@ void Spline::iterator::AdvanceForward(double step)
   m_avrDir += m_pos;
 }
 
+SharedSpline::SharedSpline(size_t reservedSize)
+  : m_spline(std::make_shared<Spline>(reservedSize))
+{
+}
+
 SharedSpline::SharedSpline(std::vector<PointD> const & path)
   : m_spline(std::make_shared<Spline>(path))
 {
@@ -262,21 +287,6 @@ SharedSpline::SharedSpline(std::vector<PointD> && path)
 {
 }
 
-bool SharedSpline::IsNull() const
-{
-  return m_spline == nullptr;
-}
-
-void SharedSpline::Reset(Spline * spline)
-{
-  m_spline.reset(spline);
-}
-
-//void SharedSpline::Reset(std::vector<PointD> const & path)
-//{
-//  m_spline.reset(new Spline(path));
-//}
-
 Spline::iterator SharedSpline::CreateIterator() const
 {
   Spline::iterator result;
@@ -284,20 +294,4 @@ Spline::iterator SharedSpline::CreateIterator() const
   return result;
 }
 
-Spline * SharedSpline::operator->()
-{
-  ASSERT(!IsNull(), ());
-  return m_spline.get();
-}
-
-Spline const * SharedSpline::operator->() const
-{
-  return Get();
-}
-
-Spline const * SharedSpline::Get() const
-{
-  ASSERT(!IsNull(), ());
-  return m_spline.get();
-}
 } // namespace m2
