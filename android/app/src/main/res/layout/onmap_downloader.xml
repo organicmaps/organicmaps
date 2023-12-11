@@ -49,6 +49,7 @@
     <FrameLayout
       android:id="@+id/downloader_controls_frame"
       android:layout_width="180dp"
+      android:layout_height="48dp"
       android:clipChildren="false">
       <Button
         android:id="@+id/downloader_button"
