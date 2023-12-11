@@ -1350,7 +1350,7 @@
 
 "type.amenity.money_transfer" = "Transfer pieniędzy";
 
-"type.amenity.music_school" = "Szkoła Muzyczna";
+"type.amenity.music_school" = "Szkoła muzyczna";
 
 "type.amenity.language_school" = "Szkoła językowa";
 
@@ -1474,7 +1474,7 @@
 
 "type.amenity.post_box" = "Skrzynka pocztowa";
 
-"type.amenity.post_office" = "Urząd Pocztowy";
+"type.amenity.post_office" = "Urząd pocztowy";
 
 "type.amenity.prison" = "Więzienie";
 
@@ -1934,13 +1934,13 @@
 /* This is for main/primary entrances, for secondary entrances see type.entrance */
 "type.entrance.main" = "Główne wejście";
 
-"type.entrance.exit" = "Wyjdź";
+"type.entrance.exit" = "Wyjście";
 
 "type.fee.yes" = "💲";
 
 "type.fee.no" = "Bezpłatne";
 
-"type.healthcare.laboratory" = "Laboratorium Medyczne";
+"type.healthcare.laboratory" = "Laboratorium medyczne";
 
 "type.healthcare.physiotherapist" = "Fizjoterapeuta";
 
@@ -2079,13 +2079,13 @@
 
 "type.highway.pedestrian" = "Deptak";
 
-"type.highway.pedestrian.area" = "Deptak";
+"type.highway.pedestrian.area" = "Obszar deptaka";
 
 /* These translations are used for all type.highway.*.bridge. */
-"type.highway.pedestrian.bridge" = "Most pieszy";
+"type.highway.pedestrian.bridge" = "Most dla pieszych";
 
 /* These translations are used for all type.highway.*.tunnel. */
-"type.highway.pedestrian.tunnel" = "Tunel pieszy";
+"type.highway.pedestrian.tunnel" = "Tunel dla pieszych";
 
 "type.highway.primary" = "Ulica";
 
@@ -2105,9 +2105,9 @@
 
 "type.highway.raceway" = "Tor wyścigowy";
 
-"type.highway.residential" = "Ulica";
+"type.highway.residential" = "Droga lokalna";
 
-"type.highway.residential.area" = "Ulica";
+"type.highway.residential.area" = "Droga lokalna";
 
 /* These translations are used for all type.highway.*.bridge. */
 "type.highway.residential.bridge" = "Most";
@@ -2144,14 +2144,14 @@
 /* These translations are used for all type.highway.*.tunnel. */
 "type.highway.secondary_link.tunnel" = "Tunel drogowy";
 
-"type.highway.service" = "Ulica";
+"type.highway.service" = "Droga dojazdowa";
 
-"type.highway.service.area" = "Ulica";
+"type.highway.service.area" = "Droga dojazdowa";
 
 /* These translations are used for all type.highway.*.bridge. */
 "type.highway.service.bridge" = "Most drogowy";
 
-"type.highway.service.driveway" = "Ulica";
+"type.highway.service.driveway" = "Droga podjazdowa";
 
 "type.highway.service.parking_aisle" = "Miejsca parkingowe";
 
@@ -2186,26 +2186,26 @@
 /* These translations are used for all type.highway.*.tunnel. */
 "type.highway.tertiary_link.tunnel" = "Tunel drogowy";
 
-"type.highway.track" = "Droga polna/leśna";
+"type.highway.track" = "Droga na pola lub do lasu";
 
-"type.highway.track.area" = "Droga polna/leśna";
+"type.highway.track.area" = "Droga na pola lub do lasu";
 
 /* These translations are used for all type.highway.*.bridge. */
 "type.highway.track.bridge" = "Most";
 
-"type.highway.track.grade1" = "Droga polna/leśna";
+"type.highway.track.grade1" = "Droga na pola lub do lasu";
 
-"type.highway.track.grade2" = "Droga polna/leśna";
+"type.highway.track.grade2" = "Droga na pola lub do lasu";
 
-"type.highway.track.grade3" = "Droga polna/leśna";
+"type.highway.track.grade3" = "Droga na pola lub do lasu";
 
-"type.highway.track.grade4" = "Droga polna/leśna";
+"type.highway.track.grade4" = "Droga na pola lub do lasu";
 
-"type.highway.track.grade5" = "Droga polna/leśna";
+"type.highway.track.grade5" = "Droga na pola lub do lasu";
 
-"type.highway.track.no.access" = "Droga polna/leśna";
+"type.highway.track.no.access" = "Droga na pola lub do lasu";
 
-"type.highway.track.permissive" = "Droga polna/leśna";
+"type.highway.track.permissive" = "Droga na pola lub do lasu";
 
 /* These translations are used for all type.highway.*.tunnel. */
 "type.highway.track.tunnel" = "Tunel drogowy";
@@ -2252,17 +2252,17 @@
 
 "type.area_highway.primary" = "Ulica";
 
-"type.area_highway.residential" = "Ulica";
+"type.area_highway.residential" = "Droga lokalna";
 
 "type.area_highway.secondary" = "Ulica";
 
-"type.area_highway.service" = "Ulica";
+"type.area_highway.service" = "Droga dojazdowa";
 
 "type.area_highway.tertiary" = "Ulica";
 
 "type.area_highway.steps" = "Schody";
 
-"type.area_highway.track" = "Droga polna/leśna";
+"type.area_highway.track" = "Droga na pola lub do lasu";
 
 "type.area_highway.trunk" = "Ulica";
 
@@ -2275,7 +2275,7 @@
 
 /********** Types: Historic **********/
 
-"type.historic" = "Historyczne";
+"type.historic" = "Obiekt historyczny";
 
 "type.historic.aircraft" = "Historyczny samolot";
 
@@ -2575,7 +2575,7 @@
 
 "type.man_made.wastewater_plant" = "Oczyszczalnia ścieków";
 
-"type.man_made.water_tap" = "Woda pitna";
+"type.man_made.water_tap" = "Kran z wodą";
 
 "type.man_made.water_tower" = "Wieża wodna";
 
@@ -3570,7 +3570,7 @@
 
 "type.shop.video_games" = "Sklep z grami wideo";
 
-"type.shop.wine" = "Sklep monopolowy";
+"type.shop.wine" = "Sklep z winami";
 
 "type.shop.agrarian" = "Sklep rolniczy";
 
