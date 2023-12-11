@@ -120,7 +120,7 @@ set(ZLIB_SRCS
     zutil.c
 )
 
-if(NOT MINGW)
+if(WIN32 AND NOT MINGW)
     set(ZLIB_DLL_SRCS
         win32/zlib1.rc # If present will override custom build rule below.
     )
@@ -151,8 +151,9 @@ add_library(zlib SHARED ${ZLIB_SRCS} ${ZLIB_DLL_SRCS} ${ZLIB_PUBLIC_HDRS} ${ZLIB
 add_library(zlibstatic STATIC ${ZLIB_SRCS} ${ZLIB_PUBLIC_HDRS} ${ZLIB_PRIVATE_HDRS})
 set_target_properties(zlib PROPERTIES DEFINE_SYMBOL ZLIB_DLL)
 set_target_properties(zlib PROPERTIES SOVERSION 1)
+set_target_properties(zlib PROPERTIES UNITY_BUILD OFF)
 
-if(NOT CYGWIN)
+if(WIN32 AND NOT CYGWIN)
     # This property causes shared libraries on Linux to have the full version
     # encoded into their final filename.  We disable this on Cygwin because
     # it causes cygz-${ZLIB_FULL_VERSION}.dll to be created when cygz.dll
@@ -188,26 +189,4 @@ if(NOT SKIP_INSTALL_FILES AND NOT SKIP_INSTALL_ALL )
 endif()
 if(NOT SKIP_INSTALL_FILES AND NOT SKIP_INSTALL_ALL )
     install(FILES ${ZLIB_PC} DESTINATION "${INSTALL_PKGCONFIG_DIR}")
-endif()
-
-#============================================================================
-# Example binaries
-#============================================================================
-
-add_executable(example test/example.c)
-target_link_libraries(example zlib)
-add_test(example example)
-
-add_executable(minigzip test/minigzip.c)
-target_link_libraries(minigzip zlib)
-
-if(HAVE_OFF64_T)
-    add_executable(example64 test/example.c)
-    target_link_libraries(example64 zlib)
-    set_target_properties(example64 PROPERTIES COMPILE_FLAGS "-D_FILE_OFFSET_BITS=64")
-    add_test(example64 example64)
-
-    add_executable(minigzip64 test/minigzip.c)
-    target_link_libraries(minigzip64 zlib)
-    set_target_properties(minigzip64 PROPERTIES COMPILE_FLAGS "-D_FILE_OFFSET_BITS=64")
 endif()

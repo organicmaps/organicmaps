@@ -61,7 +61,7 @@ public:
 
   enum EFileType
   {
-    FILE_TYPE_OTHER = 0x1,
+    FILE_TYPE_OTHER = 0x1, // FILE_TYPE_UNKNOWN is reserved const in winbase.h
     FILE_TYPE_REGULAR = 0x2,
     FILE_TYPE_DIRECTORY = 0x4
   };

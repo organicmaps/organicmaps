@@ -102,8 +102,13 @@ string GetKayakHotelURL(const string & countryIsoCode, uint64_t kayakHotelId,
   url << url::Slug(kayakHotelName) << ",";
   url << "-c" << kayakCityId << "-h" << kayakHotelId << "-details";
   struct tm firstDayTm, lastDayTm;
+#ifdef MSVC
   localtime_s(&firstDayTm, &firstDay);
   localtime_s(&lastDayTm, &lastDay);
+#else
+  localtime_r(&firstDay, &firstDayTm);
+  localtime_r(&lastDay, &lastDayTm);
+#endif
   char firstDayBuf[sizeof("9999-99-99")];
   char lastDayBuf[sizeof("9999-99-99")];
   strftime(firstDayBuf, sizeof(firstDayBuf), "%Y-%m-%d", &firstDayTm);
