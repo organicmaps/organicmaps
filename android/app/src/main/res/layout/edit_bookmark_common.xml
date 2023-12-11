@@ -16,10 +16,14 @@
     android:layout_marginEnd="@dimen/margin_half"
     android:orientation="vertical">
     <com.google.android.material.textfield.TextInputLayout
+      android:id="@+id/edit_bookmark_name_input"
       style="?fontBody1"
       android:layout_width="match_parent"
       android:layout_height="wrap_content"
-      android:textColorHint="?android:textColorSecondary">
+      android:textColorHint="?android:textColorSecondary"
+      app:endIconMode="custom"
+      app:endIconDrawable="@drawable/ic_clear_rounded"
+      app:endIconTint="?android:textColorSecondary">
       <com.google.android.material.textfield.TextInputEditText
         android:id="@+id/et__bookmark_name"
         style="@style/MwmWidget.PlacePage.EditText"
