@@ -57661,9 +57661,9 @@
   el = Γουάρντ, Κάμποτ, Ντε Αρκ
 
 [US_Arkansas_South Description]
-  en = Stamps, Rockport, Rockport
-  ru = Стэмпс
-  el = Σταμπς, Ρόκπορτ, Ρόκπορτ
+  en = Stamps, Rockport
+  ru = Стэмпс, Рокпорт
+  el = Σταμπς, Ρόκπορτ
 
 [US_California_Bakersfield_Bakersfield Description]
   en = Arroyo Grande, Pismo Beach, Maricopa
