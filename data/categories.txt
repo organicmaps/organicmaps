@@ -9077,6 +9077,45 @@ sw:4Maji ya kunywa
 fa:اب اشامیدنی
 mr:पिण्याचे पाणी
 
+natural-hot_spring|@water
+en:3Hot Spring
+ar:ربيع حار
+be:4Гарачая крыніца|4Геатэрмальная крыніца
+bg:Горещ извор
+ca:Font termal|Font calenta|Deu termal
+cs:Termální pramen
+da:Varm kilde
+de:Heiße Quelle|Thermalquelle
+el:Θερμή πηγή|Ιαματική πηγή
+es:Aguas termales
+et:Kuumaveeallikas
+eu:Udaberri beroa
+fa:چشمه آب گرم
+fi:Kuuma lähde
+fr:Source chaude
+he:מעיין חם
+hu:Melegvizű forrás|Termálvíz
+id:Sumber Air Panas
+it:Sorgente calda
+ja:温泉
+ko:온천
+mr:गरम पाण्याचा झरा
+nb:Varm kilde
+nl:Hete bron|Warmwaterbron
+pl:Gorące źródło
+pt:Nascente de água quente
+ro:Izvor termal
+ru:4Горячий источник|4Геотермальный источник
+sk:Horúci prameň|Termálny prameň
+sv:Varm källa
+sw:Majira ya joto
+th:น้ำพุร้อน
+tr:Kaplıca
+uk:4Гаряче джерело|4Геотермальне джерело|4Термальні води
+vi:Suối nóng
+zh-Hans:温泉
+zh-Hant:溫泉
+
 natural-spring|@water
 en:3Spring
 ru:4Родник|ключ|источник
