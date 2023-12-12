@@ -14828,6 +14828,45 @@ tr:İskele|Marina|Rıhtım
 uk:5Пристань|3Марина
 zh-Hans:游艇码头
 
+piste:type-downhill|piste:type-nordic
+en:3Skiing|Ski run
+ar:التزلج|مسار التزلج
+be:Лыжы|Лыжная траса
+bg:Ски|Ски писта
+ca:Esquí|Pista d'esquí
+cs:Lyžování|Lyžařská sjezdovka
+da:Skiløb|Skiløjpe
+de:Skifahren|Skipiste
+el:Σκι|Πίστα σκι
+es:Esquí|Pista de esquí
+et:Suusatamine|Suusarada
+eu:Eskia|Eski pista
+fa:اسکی|پیست اسکی
+fi:Hiihto|Hiihtolatu
+fr:Ski|Piste de ski
+he:סקי|ריצת סקי
+hu:Síelés|Sífutás
+id:Ski|Lari ski
+it:Sci|Pista da sci
+ja:スキー|スキー滑走
+ko:스키|스키 달리기
+mr:स्कीइंग|स्की रन
+nb:Skiløp|Skiløype
+nl:Skiën|Skipiste
+pl:Narciarstwo|Stok narciarski
+pt:Esquiar|Pista de esqui
+ro:Schi|Pârtie de schi
+ru:Лыжи|Лыжная трасса
+sk:Lyžovanie|Lyžiarsky svah
+sv:Skidåkning|Skidspår
+sw:Skiing|Mbio za kuteleza
+th:เล่นสกี|วิ่งสกี
+tr:Kayak|Kayak pisti
+uk:Лижи|Лижна траса
+vi:Trượt tuyết|Chạy trượt tuyết
+zh-Hans:滑雪|滑雪道
+zh-Hant:滑雪|滑雪道
+
 amenity-events_venue
 en:Events Venue
 ar:مكان الأحداث

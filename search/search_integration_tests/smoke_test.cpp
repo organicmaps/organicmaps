@@ -223,6 +223,8 @@ UNIT_CLASS_TEST(SmokeTest, CategoriesTest)
       {"highway", "trunk_link"},
       {"highway", "unclassified"},
       {"historic", "citywalls"},
+      {"piste:type", "downhill"},
+      {"piste:type", "nordic"},
   };
   set<uint32_t> notPointTypes;
   for (auto const & tags : arrNotPoint)
