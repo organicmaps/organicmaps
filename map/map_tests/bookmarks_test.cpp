@@ -134,9 +134,9 @@ char const * kmlString =
     "</kml>";
 
 #define BM_CALLBACKS {                                                            \
-    []()                                                                         \
+    []() -> StringsBundle const &                                                \
     {                                                                            \
-      static StringsBundle dummyBundle;                                          \
+      static StringsBundle const dummyBundle;                                    \
       return dummyBundle;                                                        \
     },                                                                           \
     static_cast<BookmarkManager::Callbacks::GetSeacrhAPIFn>(nullptr),            \
@@ -1216,9 +1216,9 @@ UNIT_CLASS_TEST(Runner, Bookmarks_Listeners)
   };
 
   BookmarkManager::Callbacks callbacks(
-    []()
+    []() -> StringsBundle const &
     {
-      static StringsBundle dummyBundle;
+      static StringsBundle const dummyBundle;
       return dummyBundle;
     },
     static_cast<BookmarkManager::Callbacks::GetSeacrhAPIFn>(nullptr),
