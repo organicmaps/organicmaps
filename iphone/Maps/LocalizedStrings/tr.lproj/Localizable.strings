@@ -790,10 +790,13 @@
 "book_button" = "Rezervasyon";
 
 /* A referral link on the place page for some hotels */
-"more_on_kayak" = "KAYAK hakkında detaylar";
+"more_on_kayak" = "Fotoğraflar, yorumlar, rezervasyon";
 
 /* An explanation dialog shown when clicking on more_on_kayak link. */
 "dialog_kayak_disclaimer" = "Bu bağlantı üzerinden yapılan her rezervasyon için alınan yönlendirme bonusu Organic Maps'in geliştirilmesine harcanmaktadır.";
+
+/* A referral link on the place page for some hotels */
+"dialog_kayak_button" = "Kayak hakkında detaylar";
 
 "placepage_call_button" = "Ara";
 
@@ -830,7 +833,7 @@
 
 "refresh" = "Yenile";
 
-"placepage_add_place_button" = "Haritaya bir yer ekle";
+"placepage_add_place_button" = "OpenStreetMap'e Yer Ekle";
 
 /* Displayed when saving some edits to the map to warn against publishing personal data */
 "editor_share_to_all_dialog_title" = "Bunu tüm kullanıcılara göndermek ister misiniz?";

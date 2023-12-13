@@ -487,9 +487,11 @@
 	<string name="minute">min</string>
 	<string name="placepage_more_button">Mer</string>
 	<!-- A referral link on the place page for some hotels -->
-	<string name="more_on_kayak">Information på KAYAK</string>
+	<string name="more_on_kayak">Foton, recensioner, bokning</string>
 	<!-- An explanation dialog shown when clicking on more_on_kayak link. -->
 	<string name="dialog_kayak_disclaimer">Hänvisningsbonusen som erhålls för varje bokning via denna länk går till utvecklingen av Organic Maps.</string>
+	<!-- A referral link on the place page for some hotels -->
+	<string name="dialog_kayak_button">Information på Kayak</string>
 	<string name="placepage_edit_bookmark_button">Redigera bokmärke</string>
 	<string name="editor_comment_hint">kommentar…</string>
 	<string name="editor_reset_edits_message">Återställ alla lokala ändringar?</string>
@@ -501,7 +503,7 @@
 	<string name="error_enter_correct_phone">Ange korrekt telefonnummer</string>
 	<string name="error_enter_correct_web">Ange en giltig webadress</string>
 	<string name="error_enter_correct_email">Ange en giltig e-postadress</string>
-	<string name="placepage_add_place_button">Lägg till en plats på kartan</string>
+	<string name="placepage_add_place_button">Lägg till plats i OpenStreetMap</string>
 	<!-- Displayed when saving some edits to the map to warn against publishing personal data -->
 	<string name="editor_share_to_all_dialog_title">Vill du skicka det till alla användare?</string>
 	<!-- Dialog before publishing the modifications to the public map. -->

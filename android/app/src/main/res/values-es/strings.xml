@@ -515,9 +515,11 @@
 	<string name="minute">min</string>
 	<string name="placepage_more_button">Más</string>
 	<!-- A referral link on the place page for some hotels -->
-	<string name="more_on_kayak">Detalles en KAYAK</string>
+	<string name="more_on_kayak">Fotos, opiniones, reservas</string>
 	<!-- An explanation dialog shown when clicking on more_on_kayak link. -->
 	<string name="dialog_kayak_disclaimer">La bonificación por recomendación recibida por cada reserva a través de este enlace se destina al desarrollo de Organic Maps.</string>
+	<!-- A referral link on the place page for some hotels -->
+	<string name="dialog_kayak_button">Detalles en Kayak</string>
 	<string name="placepage_edit_bookmark_button">Editar marcador</string>
 	<string name="editor_comment_hint">Comentario…</string>
 	<string name="editor_reset_edits_message">¿Restablecer todos los cambios locales?</string>
@@ -536,7 +538,7 @@
 	<string name="error_enter_correct_twitter_page">Introduzca una dirección web o un nombre de usuario válido de Twitter</string>
 	<string name="error_enter_correct_vk_page">Introduzca una dirección web o un nombre de cuenta de VK válidos</string>
 	<string name="error_enter_correct_line_page">Introduzca una dirección web o ID de LINE válidos</string>
-	<string name="placepage_add_place_button">Añadir un lugar al mapa</string>
+	<string name="placepage_add_place_button">Añadir lugar a OpenStreetMap</string>
 	<!-- Displayed when saving some edits to the map to warn against publishing personal data -->
 	<string name="editor_share_to_all_dialog_title">¿Quiere enviarlo a todos los usuarios?</string>
 	<!-- Dialog before publishing the modifications to the public map. -->

@@ -496,9 +496,11 @@
 	<string name="minute">min</string>
 	<string name="placepage_more_button">Mai mult</string>
 	<!-- A referral link on the place page for some hotels -->
-	<string name="more_on_kayak">Detalii pe KAYAK</string>
+	<string name="more_on_kayak">Fotografii, comentarii, rezervări</string>
 	<!-- An explanation dialog shown when clicking on more_on_kayak link. -->
 	<string name="dialog_kayak_disclaimer">Bonusul de recomandare primit pentru fiecare rezervare prin acest link este destinat dezvoltării Organic Maps.</string>
+	<!-- A referral link on the place page for some hotels -->
+	<string name="dialog_kayak_button">Detalii pe Kayak</string>
 	<string name="placepage_edit_bookmark_button">Modifică locul preferat</string>
 	<string name="editor_comment_hint">Comentariu…</string>
 	<string name="editor_reset_edits_message">Ștergi toate modificările locale?</string>
@@ -517,7 +519,7 @@
 	<string name="error_enter_correct_twitter_page">Introdu o adresă web sau un nume de utilizator Twitter valabil</string>
 	<string name="error_enter_correct_vk_page">Introdu o adresă web sau un nume de cont VK valabil</string>
 	<string name="error_enter_correct_line_page">Introdu o adresă web LINE valabilă sau un ID LINE</string>
-	<string name="placepage_add_place_button">Adaugă un loc pe hartă</string>
+	<string name="placepage_add_place_button">Adaugă un loc pe OpenStreetMap</string>
 	<!-- Displayed when saving some edits to the map to warn against publishing personal data -->
 	<string name="editor_share_to_all_dialog_title">Vrei să-l trimiți tuturor utilizatorilor?</string>
 	<!-- Dialog before publishing the modifications to the public map. -->

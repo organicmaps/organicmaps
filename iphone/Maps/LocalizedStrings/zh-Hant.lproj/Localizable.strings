@@ -790,10 +790,13 @@
 "book_button" = "預約";
 
 /* A referral link on the place page for some hotels */
-"more_on_kayak" = "KAYAK 上的詳細資訊";
+"more_on_kayak" = "照片、評論、預訂";
 
 /* An explanation dialog shown when clicking on more_on_kayak link. */
 "dialog_kayak_disclaimer" = "透過此連結進行的每次預訂收到的推薦獎金將用於開發有機地圖";
+
+/* A referral link on the place page for some hotels */
+"dialog_kayak_button" = "Kayak 上的詳細資訊";
 
 "placepage_call_button" = "呼叫";
 
@@ -830,7 +833,7 @@
 
 "refresh" = "更新";
 
-"placepage_add_place_button" = "增加地點到地圖上";
+"placepage_add_place_button" = "將地點新增至 OpenStreetMap";
 
 /* Displayed when saving some edits to the map to warn against publishing personal data */
 "editor_share_to_all_dialog_title" = "您想要發給所有用戶嗎？";

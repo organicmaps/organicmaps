@@ -790,10 +790,13 @@
 "book_button" = "Đặt trước";
 
 /* A referral link on the place page for some hotels */
-"more_on_kayak" = "Chi tiết trên KAYAK";
+"more_on_kayak" = "Hình ảnh, đánh giá, đặt phòng";
 
 /* An explanation dialog shown when clicking on more_on_kayak link. */
 "dialog_kayak_disclaimer" = "Phần thưởng giới thiệu nhận được cho mỗi lần đặt phòng thông qua liên kết này sẽ hướng tới việc phát triển bản đồ không phải trả tiền.";
+
+/* A referral link on the place page for some hotels */
+"dialog_kayak_button" = "Chi tiết trên Kayak";
 
 "placepage_call_button" = "Gọi";
 
@@ -830,7 +833,7 @@
 
 "refresh" = "Cập nhật";
 
-"placepage_add_place_button" = "Thêm địa điểm vào bản đồ";
+"placepage_add_place_button" = "Thêm địa điểm vào OpenStreetMap";
 
 /* Displayed when saving some edits to the map to warn against publishing personal data */
 "editor_share_to_all_dialog_title" = "Bạn có muốn gửi cho toàn bộ người dùng?";

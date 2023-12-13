@@ -504,9 +504,11 @@
 	<string name="minute">min</string>
 	<string name="placepage_more_button">Més</string>
 	<!-- A referral link on the place page for some hotels -->
-	<string name="more_on_kayak">Detalls a KAYAK</string>
+	<string name="more_on_kayak">Fotos, comentaris, reserves</string>
 	<!-- An explanation dialog shown when clicking on more_on_kayak link. -->
 	<string name="dialog_kayak_disclaimer">La bonificació de referència rebuda per cada reserva a través d\'aquest enllaç es destina al desenvolupament de Organic Maps.</string>
+	<!-- A referral link on the place page for some hotels -->
+	<string name="dialog_kayak_button">Detalls a Kayak</string>
 	<string name="placepage_edit_bookmark_button">Edita el marcador</string>
 	<string name="editor_comment_hint">Comentari…</string>
 	<string name="editor_reset_edits_message">Voleu descartar tots els canvis locals?</string>
@@ -525,7 +527,7 @@
 	<string name="error_enter_correct_twitter_page">Introduïu una adreça web de Twitter o un nom d\'usuari vàlids</string>
 	<string name="error_enter_correct_vk_page">Introduïu una adreça web de VK o un nom de compte vàlids</string>
 	<string name="error_enter_correct_line_page">Introduïu una adreça web de LINE o un ID LINE vàlids</string>
-	<string name="placepage_add_place_button">Afegeix un lloc en el mapa</string>
+	<string name="placepage_add_place_button">Afegeix un lloc a OpenStreetMap</string>
 	<!-- Displayed when saving some edits to the map to warn against publishing personal data -->
 	<string name="editor_share_to_all_dialog_title">Voleu enviar-ho a tots els usuaris?</string>
 	<!-- Dialog before publishing the modifications to the public map. -->

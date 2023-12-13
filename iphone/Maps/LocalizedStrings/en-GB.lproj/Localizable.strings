@@ -790,10 +790,13 @@
 "book_button" = "Book";
 
 /* A referral link on the place page for some hotels */
-"more_on_kayak" = "Details on KAYAK";
+"more_on_kayak" = "Photos, reviews, booking";
 
 /* An explanation dialog shown when clicking on more_on_kayak link. */
 "dialog_kayak_disclaimer" = "The referral bonus received for each booking through this link goes towards the development of Organic Maps.";
+
+/* A referral link on the place page for some hotels */
+"dialog_kayak_button" = "Details on Kayak";
 
 "placepage_call_button" = "Call";
 
@@ -830,7 +833,7 @@
 
 "refresh" = "Update";
 
-"placepage_add_place_button" = "Add a place to the map";
+"placepage_add_place_button" = "Add Place to OpenStreetMap";
 
 /* Displayed when saving some edits to the map to warn against publishing personal data */
 "editor_share_to_all_dialog_title" = "Do you want to send it to all users?";

@@ -790,10 +790,13 @@
 "book_button" = "Резервиране";
 
 /* A referral link on the place page for some hotels */
-"more_on_kayak" = "Подробности в KAYAK";
+"more_on_kayak" = "Снимки, отзиви, резервация";
 
 /* An explanation dialog shown when clicking on more_on_kayak link. */
 "dialog_kayak_disclaimer" = "Полученият бонус за всяка резервация чрез тази връзка отива за развитието на Organic Maps.";
+
+/* A referral link on the place page for some hotels */
+"dialog_kayak_button" = "Подробности в Kayak";
 
 "placepage_call_button" = "Обаждане";
 
@@ -830,7 +833,7 @@
 
 "refresh" = "Обновление";
 
-"placepage_add_place_button" = "Добавяне на място в картата";
+"placepage_add_place_button" = "Добавяне на място в OpenStreetMap";
 
 /* Displayed when saving some edits to the map to warn against publishing personal data */
 "editor_share_to_all_dialog_title" = "Искате ли да го изпратите на всички потребители?";

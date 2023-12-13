@@ -489,9 +489,11 @@
 	<string name="minute">phút</string>
 	<string name="placepage_more_button">Bổ sung</string>
 	<!-- A referral link on the place page for some hotels -->
-	<string name="more_on_kayak">Chi tiết trên KAYAK</string>
+	<string name="more_on_kayak">Hình ảnh, đánh giá, đặt phòng</string>
 	<!-- An explanation dialog shown when clicking on more_on_kayak link. -->
 	<string name="dialog_kayak_disclaimer">Phần thưởng giới thiệu nhận được cho mỗi lần đặt phòng thông qua liên kết này sẽ hướng tới việc phát triển bản đồ không phải trả tiền.</string>
+	<!-- A referral link on the place page for some hotels -->
+	<string name="dialog_kayak_button">Chi tiết trên Kayak</string>
 	<string name="placepage_edit_bookmark_button">Sửa Dấu Trang</string>
 	<string name="editor_comment_hint">Nhận xét…</string>
 	<string name="editor_reset_edits_message">Cài đặt lại tất cả thay đổi cục bộ?</string>
@@ -503,7 +505,7 @@
 	<string name="error_enter_correct_phone">Nhập chính xác số điện thoại</string>
 	<string name="error_enter_correct_web">Nhập địa chỉ trang web hợp lệ</string>
 	<string name="error_enter_correct_email">Nhập email hợp lệ</string>
-	<string name="placepage_add_place_button">Thêm địa điểm vào bản đồ</string>
+	<string name="placepage_add_place_button">Thêm địa điểm vào OpenStreetMap</string>
 	<!-- Displayed when saving some edits to the map to warn against publishing personal data -->
 	<string name="editor_share_to_all_dialog_title">Bạn có muốn gửi cho toàn bộ người dùng?</string>
 	<!-- Dialog before publishing the modifications to the public map. -->

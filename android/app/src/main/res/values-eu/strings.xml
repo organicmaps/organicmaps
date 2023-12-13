@@ -513,9 +513,11 @@
 	<string name="minute">min</string>
 	<string name="placepage_more_button">Gehiago</string>
 	<!-- A referral link on the place page for some hotels -->
-	<string name="more_on_kayak">Xehetasunak KAYAK-en</string>
+	<string name="more_on_kayak">Argazkiak, iritziak, erreserba</string>
 	<!-- An explanation dialog shown when clicking on more_on_kayak link. -->
 	<string name="dialog_kayak_disclaimer">Esteka honen bidez erreserba bakoitzeko jasotzen den erreferentzia-bonua Organic Maps garatzera doa.</string>
+	<!-- A referral link on the place page for some hotels -->
+	<string name="dialog_kayak_button">Xehetasunak Kayak-en</string>
 	<string name="placepage_edit_bookmark_button">Editatu markagailua</string>
 	<string name="editor_comment_hint">Iruzkina…</string>
 	<string name="editor_reset_edits_message">Tokiko aldaketa guztiak berrezarri nahi dituzu?</string>
@@ -534,7 +536,7 @@
 	<string name="error_enter_correct_twitter_page">Sartu baliozko Twitter erabiltzaile izena edo web helbide bat</string>
 	<string name="error_enter_correct_vk_page">Sartu baliozko web helbide bat edo VK kontuaren izena</string>
 	<string name="error_enter_correct_line_page">Sartu baliozko web helbidea edo LINEko IDa</string>
-	<string name="placepage_add_place_button">Gehitu toki bat mapan</string>
+	<string name="placepage_add_place_button">Gehitu lekua OpenStreetMap-era</string>
 	<!-- Displayed when saving some edits to the map to warn against publishing personal data -->
 	<string name="editor_share_to_all_dialog_title">Erabiltzaile guztiei bidali nahi diezu?</string>
 	<!-- Dialog before publishing the modifications to the public map. -->

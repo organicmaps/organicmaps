@@ -790,10 +790,13 @@
 "book_button" = "予約";
 
 /* A referral link on the place page for some hotels */
-"more_on_kayak" = "KAYAK で詳細表示";
+"more_on_kayak" = "写真、レビュー、予約";
 
 /* An explanation dialog shown when clicking on more_on_kayak link. */
 "dialog_kayak_disclaimer" = "このリンクを経由した予約の紹介ボーナスは、Organic Mapsの発展のために使われる。";
+
+/* A referral link on the place page for some hotels */
+"dialog_kayak_button" = "Kayak で詳細表示";
 
 "placepage_call_button" = "コール";
 
@@ -830,7 +833,7 @@
 
 "refresh" = "更新";
 
-"placepage_add_place_button" = "地図上に場所を追加";
+"placepage_add_place_button" = "OpenStreetMapに場所を追加する";
 
 /* Displayed when saving some edits to the map to warn against publishing personal data */
 "editor_share_to_all_dialog_title" = "全てのユーザーに送信しますか？";

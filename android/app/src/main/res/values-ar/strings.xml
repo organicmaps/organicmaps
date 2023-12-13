@@ -528,9 +528,11 @@
 	<string name="minute">د</string>
 	<string name="placepage_more_button">المزيد</string>
 	<!-- A referral link on the place page for some hotels -->
-	<string name="more_on_kayak">التفاصيل على KAYAK</string>
+	<string name="more_on_kayak">الصور والتعليقات والحجز</string>
 	<!-- An explanation dialog shown when clicking on more_on_kayak link. -->
 	<string name="dialog_kayak_disclaimer">تذهب مكافأة الإحالة التي يتم تلقيها لكل حجز من خلال هذا الرابط إلى تطوير Organic Maps.</string>
+	<!-- A referral link on the place page for some hotels -->
+	<string name="dialog_kayak_button">التفاصيل على Kayak</string>
 	<string name="placepage_edit_bookmark_button">تحرير العلامة المرجعية</string>
 	<string name="editor_comment_hint">تعليق…</string>
 	<string name="editor_reset_edits_message">هل تريد مسح كافة التغييرات المحلية؟</string>
@@ -549,7 +551,7 @@
 	<string name="error_enter_correct_twitter_page">أدخل اسم مستخدم او موقع ويب خاص بتويتر صالح</string>
 	<string name="error_enter_correct_vk_page">أدخل اسم حساب أو عنوان ويب خاص بموقع VK صالح</string>
 	<string name="error_enter_correct_line_page">أدخل رقم تعريفي خاص بتطبيق LINE أو موقع ويب خاص بتطيق LINE صالح</string>
-	<string name="placepage_add_place_button">إضافة مكان ما للخريطة</string>
+	<string name="placepage_add_place_button">أضف مكانًا إلى OpenStreetMap</string>
 	<!-- Displayed when saving some edits to the map to warn against publishing personal data -->
 	<string name="editor_share_to_all_dialog_title">هل ترغب في إرساله لجميع المستخدمين؟</string>
 	<!-- Dialog before publishing the modifications to the public map. -->

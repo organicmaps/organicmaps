@@ -491,9 +491,11 @@
 	<string name="minute">น.</string>
 	<string name="placepage_more_button">เพิ่มเติม</string>
 	<!-- A referral link on the place page for some hotels -->
-	<string name="more_on_kayak">รายละเอียดบน KAYAK</string>
+	<string name="more_on_kayak">รูปภาพ รีวิว การจอง</string>
 	<!-- An explanation dialog shown when clicking on more_on_kayak link. -->
 	<string name="dialog_kayak_disclaimer">โบนัสการแนะนำที่ได้รับสำหรับการจองแต่ละครั้งผ่านลิงก์นี้จะนำไปใช้ในการพัฒนาแผนที่ทั่วไป</string>
+	<!-- A referral link on the place page for some hotels -->
+	<string name="dialog_kayak_button">รายละเอียดบน Kayak</string>
 	<string name="placepage_edit_bookmark_button">แก้ไข Bookmark</string>
 	<string name="editor_comment_hint">ข้อคิดเห็น</string>
 	<string name="editor_reset_edits_message">ตั้งค่าการเปลี่ยนแปลงท้องถิ่นทั้งหมด</string>
@@ -505,7 +507,7 @@
 	<string name="error_enter_correct_phone">กรอกหมายเลขโทรศัพท์ที่ถูกต้อง</string>
 	<string name="error_enter_correct_web">กรอกที่อยู่เว็บที่ถูกต้อง</string>
 	<string name="error_enter_correct_email">กรอกอีเมลที่ถูกต้อง</string>
-	<string name="placepage_add_place_button">เพิ่มสถานที่ไปยังแผนที่</string>
+	<string name="placepage_add_place_button">เพิ่มสถานที่ลงใน OpenStreetMap</string>
 	<!-- Displayed when saving some edits to the map to warn against publishing personal data -->
 	<string name="editor_share_to_all_dialog_title">คุณต้องการส่งมันให้ผู้ใช้ทั้งหมดหรือไม่?</string>
 	<!-- Dialog before publishing the modifications to the public map. -->

@@ -503,9 +503,11 @@
 	<string name="minute">min</string>
 	<string name="placepage_more_button">Veel</string>
 	<!-- A referral link on the place page for some hotels -->
-	<string name="more_on_kayak">Üksikasjad KAYAKi kohta</string>
+	<string name="more_on_kayak">Fotod, arvustused, broneerimine</string>
 	<!-- An explanation dialog shown when clicking on more_on_kayak link. -->
 	<string name="dialog_kayak_disclaimer">Iga selle lingi kaudu tehtud broneeringu eest saadav boonus läheb Organic Maps\'i arendamiseks.</string>
+	<!-- A referral link on the place page for some hotels -->
+	<string name="dialog_kayak_button">Üksikasjad Kayaki kohta</string>
 	<string name="placepage_edit_bookmark_button">Muuda järjehoidjat</string>
 	<string name="editor_comment_hint">Kommenteeri…</string>
 	<string name="editor_reset_edits_message">Loobu kõigist kohalikest muudatustest?</string>
@@ -524,7 +526,7 @@
 	<string name="error_enter_correct_twitter_page">Sisesta kehtiv Twitteri veebiaadress või kasutajanimi</string>
 	<string name="error_enter_correct_vk_page">Sisesta kehtiv VK veebiaadress või konto nimi</string>
 	<string name="error_enter_correct_line_page">Sisesta kehtiv LINE veebiaadress või LINE ID</string>
-	<string name="placepage_add_place_button">Lisa koht kaardile</string>
+	<string name="placepage_add_place_button">Lisa koht OpenStreetMapile</string>
 	<!-- Displayed when saving some edits to the map to warn against publishing personal data -->
 	<string name="editor_share_to_all_dialog_title">Kas soovid saata selle kõigile kasutajatele?</string>
 	<!-- Dialog before publishing the modifications to the public map. -->

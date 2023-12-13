@@ -499,9 +499,11 @@
 	<string name="minute">分鐘</string>
 	<string name="placepage_more_button">更多</string>
 	<!-- A referral link on the place page for some hotels -->
-	<string name="more_on_kayak">KAYAK 上的详细信息</string>
+	<string name="more_on_kayak">照片、评论、预订</string>
 	<!-- An explanation dialog shown when clicking on more_on_kayak link. -->
 	<string name="dialog_kayak_disclaimer">每次通过此链接预订所获得的推荐奖金将用于 Organic Maps 的开发。</string>
+	<!-- A referral link on the place page for some hotels -->
+	<string name="dialog_kayak_button">Kayak 上的详细信息</string>
 	<string name="placepage_edit_bookmark_button">编辑书签</string>
 	<string name="editor_comment_hint">备注…</string>
 	<string name="editor_reset_edits_message">重置所有本地更改？</string>
@@ -513,7 +515,7 @@
 	<string name="error_enter_correct_phone">输入正确的电话号码</string>
 	<string name="error_enter_correct_web">输入有效网址</string>
 	<string name="error_enter_correct_email">输入有效电子邮箱</string>
-	<string name="placepage_add_place_button">添加地点到地图上</string>
+	<string name="placepage_add_place_button">将地点添加到 OpenStreetMap</string>
 	<!-- Displayed when saving some edits to the map to warn against publishing personal data -->
 	<string name="editor_share_to_all_dialog_title">您想要发给所有用户吗？</string>
 	<!-- Dialog before publishing the modifications to the public map. -->

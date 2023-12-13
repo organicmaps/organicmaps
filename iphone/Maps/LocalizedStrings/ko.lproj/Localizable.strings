@@ -790,10 +790,13 @@
 "book_button" = "예약";
 
 /* A referral link on the place page for some hotels */
-"more_on_kayak" = "KAYAK의 세부 정보";
+"more_on_kayak" = "사진, 리뷰, 예약";
 
 /* An explanation dialog shown when clicking on more_on_kayak link. */
 "dialog_kayak_disclaimer" = "이 링크를 통해 예약할 때마다 받는 추천 보너스는 오가닉맵 개발에 사용됩니다.";
+
+/* A referral link on the place page for some hotels */
+"dialog_kayak_button" = "Kayak의 세부 정보";
 
 "placepage_call_button" = "전화";
 
@@ -830,7 +833,7 @@
 
 "refresh" = "최신 정보";
 
-"placepage_add_place_button" = "지도에 장소 추가";
+"placepage_add_place_button" = "오픈스트리트맵에 장소 추가";
 
 /* Displayed when saving some edits to the map to warn against publishing personal data */
 "editor_share_to_all_dialog_title" = "이를 모든 사용자에게 전송하시겠습니까?";

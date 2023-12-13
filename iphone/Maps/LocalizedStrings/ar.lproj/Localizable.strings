@@ -790,10 +790,13 @@
 "book_button" = "حجز";
 
 /* A referral link on the place page for some hotels */
-"more_on_kayak" = "التفاصيل على KAYAK";
+"more_on_kayak" = "الصور والتعليقات والحجز";
 
 /* An explanation dialog shown when clicking on more_on_kayak link. */
 "dialog_kayak_disclaimer" = "تذهب مكافأة الإحالة التي يتم تلقيها لكل حجز من خلال هذا الرابط إلى تطوير Organic Maps.";
+
+/* A referral link on the place page for some hotels */
+"dialog_kayak_button" = "التفاصيل على Kayak";
 
 "placepage_call_button" = "اتصال";
 
@@ -830,7 +833,7 @@
 
 "refresh" = "تحديث";
 
-"placepage_add_place_button" = "إضافة مكان ما للخريطة";
+"placepage_add_place_button" = "أضف مكانًا إلى OpenStreetMap";
 
 /* Displayed when saving some edits to the map to warn against publishing personal data */
 "editor_share_to_all_dialog_title" = "هل ترغب في إرساله لجميع المستخدمين؟";

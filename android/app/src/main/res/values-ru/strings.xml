@@ -262,7 +262,7 @@
 	<!-- Button in the main Help dialog -->
 	<string name="faq">Вопросы и ответы</string>
 	<!-- Button in the main menu -->
-	<string name="donate">Поддержать рублём</string>
+	<string name="donate">Поддержать деньгами</string>
 	<!-- Button in the main Help dialog -->
 	<string name="how_to_support_us">Помочь проекту</string>
 	<!-- Button in the main Help dialog -->
@@ -518,9 +518,11 @@
 	<string name="minute">мин</string>
 	<string name="placepage_more_button">Ещё</string>
 	<!-- A referral link on the place page for some hotels -->
-	<string name="more_on_kayak">Подробнее на KAYAK</string>
+	<string name="more_on_kayak">Фотографии, отзывы, бронирование</string>
 	<!-- An explanation dialog shown when clicking on more_on_kayak link. -->
 	<string name="dialog_kayak_disclaimer">Реферальный бонус, полученный за каждое бронирование по этой ссылке, идёт на разработку Organic Maps.</string>
+	<!-- A referral link on the place page for some hotels -->
+	<string name="dialog_kayak_button">Подробнее на Kayak</string>
 	<string name="placepage_edit_bookmark_button">Редактировать метку</string>
 	<string name="editor_comment_hint">Коментарий…</string>
 	<string name="editor_reset_edits_message">Сбросить все локальные правки?</string>
@@ -539,7 +541,7 @@
 	<string name="error_enter_correct_twitter_page">Введите корректный веб-адрес Twitter страницы или имя пользователя</string>
 	<string name="error_enter_correct_vk_page">Введите корректный веб-адрес VK страницы или имя пользователя</string>
 	<string name="error_enter_correct_line_page">Введите корректный веб-адрес LINE страницы или LINE ID</string>
-	<string name="placepage_add_place_button">Добавить место на карту</string>
+	<string name="placepage_add_place_button">Добавить место в OpenStreetMap</string>
 	<!-- Displayed when saving some edits to the map to warn against publishing personal data -->
 	<string name="editor_share_to_all_dialog_title">Отправить всем пользователям?</string>
 	<!-- Dialog before publishing the modifications to the public map. -->

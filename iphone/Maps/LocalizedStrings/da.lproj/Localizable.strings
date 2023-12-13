@@ -790,10 +790,13 @@
 "book_button" = "Book";
 
 /* A referral link on the place page for some hotels */
-"more_on_kayak" = "Detaljer på KAYAK";
+"more_on_kayak" = "Fotos, anmeldelser, booking";
 
 /* An explanation dialog shown when clicking on more_on_kayak link. */
 "dialog_kayak_disclaimer" = "Henvisningsbonussen, der modtages for hver booking via dette link, går til udviklingen af Organic Maps.";
+
+/* A referral link on the place page for some hotels */
+"dialog_kayak_button" = "Detaljer på Kayak";
 
 "placepage_call_button" = "Ring";
 
@@ -830,7 +833,7 @@
 
 "refresh" = "Opdater";
 
-"placepage_add_place_button" = "Tilføj et sted på kortet";
+"placepage_add_place_button" = "Tilføj sted til OpenStreetMap";
 
 /* Displayed when saving some edits to the map to warn against publishing personal data */
 "editor_share_to_all_dialog_title" = "Ønsker du at sende det til alle brugere?";

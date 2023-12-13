@@ -479,9 +479,11 @@
 	<string name="minute">мин</string>
 	<string name="placepage_more_button">Още</string>
 	<!-- A referral link on the place page for some hotels -->
-	<string name="more_on_kayak">Подробности в KAYAK</string>
+	<string name="more_on_kayak">Снимки, отзиви, резервация</string>
 	<!-- An explanation dialog shown when clicking on more_on_kayak link. -->
 	<string name="dialog_kayak_disclaimer">Полученият бонус за всяка резервация чрез тази връзка отива за развитието на Organic Maps.</string>
+	<!-- A referral link on the place page for some hotels -->
+	<string name="dialog_kayak_button">Подробности в Kayak</string>
 	<string name="placepage_edit_bookmark_button">Редакция на отметка</string>
 	<string name="editor_comment_hint">Коментиране…</string>
 	<string name="editor_reset_edits_message">Отхвърляне на всички локални промени?</string>
@@ -493,7 +495,7 @@
 	<string name="error_enter_correct_phone">Въведете валиден телефонен номер</string>
 	<string name="error_enter_correct_web">Въведете валиден уеб адрес</string>
 	<string name="error_enter_correct_email">Въведете валиден имейл</string>
-	<string name="placepage_add_place_button">Добавяне на място в картата</string>
+	<string name="placepage_add_place_button">Добавяне на място в OpenStreetMap</string>
 	<!-- Displayed when saving some edits to the map to warn against publishing personal data -->
 	<string name="editor_share_to_all_dialog_title">Искате ли да го изпратите на всички потребители?</string>
 	<!-- Dialog before publishing the modifications to the public map. -->

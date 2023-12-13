@@ -310,7 +310,7 @@
 "faq" = "Вопросы и ответы";
 
 /* Button in the main menu */
-"donate" = "Поддержать рублём";
+"donate" = "Поддержать деньгами";
 
 /* Button in the main Help dialog */
 "how_to_support_us" = "Помочь проекту";
@@ -790,10 +790,13 @@
 "book_button" = "Забронировать";
 
 /* A referral link on the place page for some hotels */
-"more_on_kayak" = "Подробнее на KAYAK";
+"more_on_kayak" = "Фотографии, отзывы, бронирование";
 
 /* An explanation dialog shown when clicking on more_on_kayak link. */
 "dialog_kayak_disclaimer" = "Реферальный бонус, полученный за каждое бронирование по этой ссылке, идёт на разработку Organic Maps.";
+
+/* A referral link on the place page for some hotels */
+"dialog_kayak_button" = "Подробнее на Kayak";
 
 "placepage_call_button" = "Позвонить";
 
@@ -830,7 +833,7 @@
 
 "refresh" = "Обновить";
 
-"placepage_add_place_button" = "Добавить место на карту";
+"placepage_add_place_button" = "Добавить место в OpenStreetMap";
 
 /* Displayed when saving some edits to the map to warn against publishing personal data */
 "editor_share_to_all_dialog_title" = "Отправить всем пользователям?";

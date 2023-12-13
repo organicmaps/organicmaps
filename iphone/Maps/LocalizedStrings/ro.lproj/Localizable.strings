@@ -790,10 +790,13 @@
 "book_button" = "Rezervare";
 
 /* A referral link on the place page for some hotels */
-"more_on_kayak" = "Detalii pe KAYAK";
+"more_on_kayak" = "Fotografii, comentarii, rezervări";
 
 /* An explanation dialog shown when clicking on more_on_kayak link. */
 "dialog_kayak_disclaimer" = "Bonusul de recomandare primit pentru fiecare rezervare prin acest link este destinat dezvoltării Organic Maps.";
+
+/* A referral link on the place page for some hotels */
+"dialog_kayak_button" = "Detalii pe Kayak";
 
 "placepage_call_button" = "Apelează";
 
@@ -830,7 +833,7 @@
 
 "refresh" = "Actualizează";
 
-"placepage_add_place_button" = "Adaugă un loc pe hartă";
+"placepage_add_place_button" = "Adaugă un loc pe OpenStreetMap";
 
 /* Displayed when saving some edits to the map to warn against publishing personal data */
 "editor_share_to_all_dialog_title" = "Vrei să-l trimiți tuturor utilizatorilor?";

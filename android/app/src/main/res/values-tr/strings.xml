@@ -515,9 +515,11 @@
 	<string name="minute">dk</string>
 	<string name="placepage_more_button">Diğer</string>
 	<!-- A referral link on the place page for some hotels -->
-	<string name="more_on_kayak">KAYAK hakkında detaylar</string>
+	<string name="more_on_kayak">Fotoğraflar, yorumlar, rezervasyon</string>
 	<!-- An explanation dialog shown when clicking on more_on_kayak link. -->
 	<string name="dialog_kayak_disclaimer">Bu bağlantı üzerinden yapılan her rezervasyon için alınan yönlendirme bonusu Organic Maps\'in geliştirilmesine harcanmaktadır.</string>
+	<!-- A referral link on the place page for some hotels -->
+	<string name="dialog_kayak_button">Kayak hakkında detaylar</string>
 	<string name="placepage_edit_bookmark_button">Yer İmini Düzenle</string>
 	<string name="editor_comment_hint">Yorum…</string>
 	<string name="editor_reset_edits_message">Tüm yerel değişiklikler sıfırlansın mı?</string>
@@ -536,7 +538,7 @@
 	<string name="error_enter_correct_twitter_page">Geçerli bir Twitter web adresi veya kullanıcı adı girin</string>
 	<string name="error_enter_correct_vk_page">Geçerli bir VK web adresi veya hesap adı girin</string>
 	<string name="error_enter_correct_line_page">Geçerli bir LINE web adresi veya LINE ID\'si girin</string>
-	<string name="placepage_add_place_button">Haritaya bir yer ekle</string>
+	<string name="placepage_add_place_button">OpenStreetMap\'e Yer Ekle</string>
 	<!-- Displayed when saving some edits to the map to warn against publishing personal data -->
 	<string name="editor_share_to_all_dialog_title">Bunu tüm kullanıcılara göndermek ister misiniz?</string>
 	<!-- Dialog before publishing the modifications to the public map. -->

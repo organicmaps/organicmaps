@@ -487,9 +487,11 @@
 	<string name="minute">分</string>
 	<string name="placepage_more_button">さらに詳しく</string>
 	<!-- A referral link on the place page for some hotels -->
-	<string name="more_on_kayak">KAYAK で詳細表示</string>
+	<string name="more_on_kayak">写真、レビュー、予約</string>
 	<!-- An explanation dialog shown when clicking on more_on_kayak link. -->
 	<string name="dialog_kayak_disclaimer">このリンクを経由した予約の紹介ボーナスは、Organic Mapsの発展のために使われる。</string>
+	<!-- A referral link on the place page for some hotels -->
+	<string name="dialog_kayak_button">Kayak で詳細表示</string>
 	<string name="placepage_edit_bookmark_button">ブックマークを編集</string>
 	<string name="editor_comment_hint">コメント…</string>
 	<string name="editor_reset_edits_message">すべてのローカルの変更をリセットしますか？</string>
@@ -501,7 +503,7 @@
 	<string name="error_enter_correct_phone">正しい電話番号を入力してください</string>
 	<string name="error_enter_correct_web">有効なウェブアドレスを入力してください</string>
 	<string name="error_enter_correct_email">有効なメールアドレスを入力してください</string>
-	<string name="placepage_add_place_button">地図上に場所を追加</string>
+	<string name="placepage_add_place_button">OpenStreetMapに場所を追加する</string>
 	<!-- Displayed when saving some edits to the map to warn against publishing personal data -->
 	<string name="editor_share_to_all_dialog_title">全てのユーザーに送信しますか？</string>
 	<!-- Dialog before publishing the modifications to the public map. -->

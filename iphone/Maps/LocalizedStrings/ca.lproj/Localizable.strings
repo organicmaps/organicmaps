@@ -790,10 +790,13 @@
 "book_button" = "Reserva";
 
 /* A referral link on the place page for some hotels */
-"more_on_kayak" = "Detalls a KAYAK";
+"more_on_kayak" = "Fotos, comentaris, reserves";
 
 /* An explanation dialog shown when clicking on more_on_kayak link. */
 "dialog_kayak_disclaimer" = "La bonificació de referència rebuda per cada reserva a través d'aquest enllaç es destina al desenvolupament de Organic Maps.";
+
+/* A referral link on the place page for some hotels */
+"dialog_kayak_button" = "Detalls a Kayak";
 
 "placepage_call_button" = "Truca-hi";
 
@@ -830,7 +833,7 @@
 
 "refresh" = "Actualitza";
 
-"placepage_add_place_button" = "Afegeix un lloc en el mapa";
+"placepage_add_place_button" = "Afegeix un lloc a OpenStreetMap";
 
 /* Displayed when saving some edits to the map to warn against publishing personal data */
 "editor_share_to_all_dialog_title" = "Voleu enviar-ho a tots els usuaris?";

@@ -790,10 +790,13 @@
 "book_button" = "Book";
 
 /* A referral link on the place page for some hotels */
-"more_on_kayak" = "פרטים על KAYAK";
+"more_on_kayak" = "תמונות, ביקורות, הזמנה";
 
 /* An explanation dialog shown when clicking on more_on_kayak link. */
 "dialog_kayak_disclaimer" = "בונוס ההפניה המתקבל עבור כל הזמנה דרך קישור זה מיועד לפיתוח מפות אורגניות.";
+
+/* A referral link on the place page for some hotels */
+"dialog_kayak_button" = "פרטים על Kayak";
 
 "placepage_call_button" = "Call";
 
@@ -830,7 +833,7 @@
 
 "refresh" = "Update";
 
-"placepage_add_place_button" = "Add a place to the map";
+"placepage_add_place_button" = "הוסף מקום ל-OpenStreetMap";
 
 /* Displayed when saving some edits to the map to warn against publishing personal data */
 "editor_share_to_all_dialog_title" = "Do you want to send it to all users?";

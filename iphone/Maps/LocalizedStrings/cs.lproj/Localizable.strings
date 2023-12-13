@@ -790,10 +790,13 @@
 "book_button" = "Rezervace";
 
 /* A referral link on the place page for some hotels */
-"more_on_kayak" = "Podrobnosti na KAYAK";
+"more_on_kayak" = "Fotografie, recenze, rezervace";
 
 /* An explanation dialog shown when clicking on more_on_kayak link. */
 "dialog_kayak_disclaimer" = "Bonus za každou rezervaci provedenou prostřednictvím tohoto odkazu je určen na rozvoj služby Organic Maps.";
+
+/* A referral link on the place page for some hotels */
+"dialog_kayak_button" = "Podrobnosti na Kayak";
 
 "placepage_call_button" = "Volat";
 
@@ -830,7 +833,7 @@
 
 "refresh" = "Aktualizovat";
 
-"placepage_add_place_button" = "Přidat místo na mapu";
+"placepage_add_place_button" = "Přidat místo do OpenStreetMap";
 
 /* Displayed when saving some edits to the map to warn against publishing personal data */
 "editor_share_to_all_dialog_title" = "Chcete jej poslat všem uživatelům?";

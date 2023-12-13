@@ -482,9 +482,11 @@
 	<string name="minute">मिनिट</string>
 	<string name="placepage_more_button">अधिक</string>
 	<!-- A referral link on the place page for some hotels -->
-	<string name="more_on_kayak">कायाक वर तपशील</string>
+	<string name="more_on_kayak">फोटोपुनरावलोकनेबुकिंगबुकिंग</string>
 	<!-- An explanation dialog shown when clicking on more_on_kayak link. -->
 	<string name="dialog_kayak_disclaimer">या लिंकद्वारे प्रत्येक बुकिंगसाठी मिळणारा रेफरल बोनस ऑरगॅनिक नकाशांच्या विकासासाठी जातो.</string>
+	<!-- A referral link on the place page for some hotels -->
+	<string name="dialog_kayak_button">कायाक वर तपशील</string>
 	<string name="placepage_edit_bookmark_button">खूणपत्र संपादित करा</string>
 	<string name="editor_comment_hint">टिप्पणी</string>
 	<string name="editor_reset_edits_message">सर्व स्थानिक बदल टाकून द्यायचे?</string>
@@ -501,7 +503,7 @@
 	<string name="error_enter_correct_facebook_page">वैध Facebook वेब पत्ता, खाते किंवा पृष्ठ नाव प्रविष्ट करा</string>
 	<string name="error_enter_correct_instagram_page">वैध Instagram वेब पत्ता किंवा खाते नाव प्रविष्ट करा</string>
 	<string name="error_enter_correct_twitter_page">वैध Twitter वेब पत्ता किंवा वापरकर्तानाव प्रविष्ट करा</string>
-	<string name="placepage_add_place_button">नकाशावर एक ठिकाण जोडा</string>
+	<string name="placepage_add_place_button">OpenStreetMap मध्ये ठिकाण जोडा</string>
 	<!-- Displayed when saving some edits to the map to warn against publishing personal data -->
 	<string name="editor_share_to_all_dialog_title">तुम्ही ते सर्व वापरकर्त्यांना पाठवू इच्छिता?</string>
 	<!-- Dialog before publishing the modifications to the public map. -->

@@ -790,10 +790,13 @@
 "book_button" = "Book";
 
 /* A referral link on the place page for some hotels */
-"more_on_kayak" = "Λεπτομέρειες στο KAYAK";
+"more_on_kayak" = "Φωτογραφίες, κριτικές, κράτηση";
 
 /* An explanation dialog shown when clicking on more_on_kayak link. */
 "dialog_kayak_disclaimer" = "Το μπόνους παραπομπής που λαμβάνετε για κάθε κράτηση μέσω αυτού του συνδέσμου πηγαίνει στην ανάπτυξη του Organic Maps.";
+
+/* A referral link on the place page for some hotels */
+"dialog_kayak_button" = "Λεπτομέρειες στο Kayak";
 
 "placepage_call_button" = "Κλήση";
 
@@ -830,7 +833,7 @@
 
 "refresh" = "Ενημέρωση";
 
-"placepage_add_place_button" = "Να προστεθεί η τοποθεσία στο χάρτη";
+"placepage_add_place_button" = "Προσθήκη τόπου στο OpenStreetMap";
 
 /* Displayed when saving some edits to the map to warn against publishing personal data */
 "editor_share_to_all_dialog_title" = "Θέλετε να το στείλετε σε όλους τους χρήστες;";

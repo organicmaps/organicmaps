@@ -513,9 +513,11 @@
 	<string name="minute">хв</string>
 	<string name="placepage_more_button">Яшчэ</string>
 	<!-- A referral link on the place page for some hotels -->
-	<string name="more_on_kayak">Падрабязнасці на KAYAK</string>
+	<string name="more_on_kayak">Фота, водгукі, браніраванне</string>
 	<!-- An explanation dialog shown when clicking on more_on_kayak link. -->
 	<string name="dialog_kayak_disclaimer">Рэферальны бонус, атрыманы за кожнае браніраванне па гэтай спасылцы, ідзе на распрацоўку Organic Maps.</string>
+	<!-- A referral link on the place page for some hotels -->
+	<string name="dialog_kayak_button">Падрабязнасці на Kayak</string>
 	<string name="placepage_edit_bookmark_button">Рэдагаваць закладку</string>
 	<string name="editor_comment_hint">Каментарый…</string>
 	<string name="editor_reset_edits_message">Адмовіцца ад усіх лакальных змен?</string>
@@ -530,7 +532,7 @@
 	<string name="error_enter_correct_web">Увядзіце правільны вэб-адрас</string>
 	<string name="error_enter_correct_email">Увядзіце правільны адрас электронный пошты</string>
 	<string name="error_enter_correct_line_page">Увядзіце сапраўдны LINE ID або вэб-адрас</string>
-	<string name="placepage_add_place_button">Дадаць месца на мапу</string>
+	<string name="placepage_add_place_button">Дадаць месца ў OpenStreetMap</string>
 	<!-- Displayed when saving some edits to the map to warn against publishing personal data -->
 	<string name="editor_share_to_all_dialog_title">Хочаце адправіць усім карыстальнікам?</string>
 	<!-- Dialog before publishing the modifications to the public map. -->

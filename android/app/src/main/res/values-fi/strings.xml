@@ -515,9 +515,11 @@
 	<string name="minute">min</string>
 	<string name="placepage_more_button">Lisää</string>
 	<!-- A referral link on the place page for some hotels -->
-	<string name="more_on_kayak">Lisätietoa osoitteessa KAYAK</string>
+	<string name="more_on_kayak">Kuvat, arvostelut, varaus</string>
 	<!-- An explanation dialog shown when clicking on more_on_kayak link. -->
 	<string name="dialog_kayak_disclaimer">Jokaisesta tämän linkin kautta tehdystä varauksesta saatu suosittelubonus käytetään Organic Mapsin kehittämiseen.</string>
+	<!-- A referral link on the place page for some hotels -->
+	<string name="dialog_kayak_button">Lisätietoa osoitteessa Kayak</string>
 	<string name="placepage_edit_bookmark_button">Muokkaa kirjanmerkkiä</string>
 	<string name="editor_comment_hint">Kommentti…</string>
 	<string name="editor_reset_edits_message">Nollataanko kaikki paikalliset muutokset?</string>
@@ -536,7 +538,7 @@
 	<string name="error_enter_correct_twitter_page">Syötä kelvollinen Twitter-käyttäjätunnus tai verkko-osoite</string>
 	<string name="error_enter_correct_vk_page">Syötä kelvollinen VK-käyttäjätunnus tai verkko-osoite</string>
 	<string name="error_enter_correct_line_page">Syötä kelvollinen LINE ID tai verkko-osoite</string>
-	<string name="placepage_add_place_button">Lisää paikka kartalle</string>
+	<string name="placepage_add_place_button">Lisää paikka OpenStreetMapiin</string>
 	<!-- Displayed when saving some edits to the map to warn against publishing personal data -->
 	<string name="editor_share_to_all_dialog_title">Haluatko lähettää sen kaikille käyttäjille?</string>
 	<!-- Dialog before publishing the modifications to the public map. -->

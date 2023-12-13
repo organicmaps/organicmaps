@@ -790,10 +790,13 @@
 "book_button" = "पुस्तक";
 
 /* A referral link on the place page for some hotels */
-"more_on_kayak" = "कायाक वर तपशील";
+"more_on_kayak" = "फोटोपुनरावलोकनेबुकिंगबुकिंग";
 
 /* An explanation dialog shown when clicking on more_on_kayak link. */
 "dialog_kayak_disclaimer" = "या लिंकद्वारे प्रत्येक बुकिंगसाठी मिळणारा रेफरल बोनस ऑरगॅनिक नकाशांच्या विकासासाठी जातो.";
+
+/* A referral link on the place page for some hotels */
+"dialog_kayak_button" = "कायाक वर तपशील";
 
 "placepage_call_button" = "फोन करा";
 
@@ -830,7 +833,7 @@
 
 "refresh" = "अद्ययावत करा";
 
-"placepage_add_place_button" = "नकाशावर एक ठिकाण जोडा";
+"placepage_add_place_button" = "OpenStreetMap मध्ये ठिकाण जोडा";
 
 /* Displayed when saving some edits to the map to warn against publishing personal data */
 "editor_share_to_all_dialog_title" = "तुम्ही ते सर्व वापरकर्त्यांना पाठवू इच्छिता?";

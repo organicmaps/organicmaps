@@ -790,10 +790,13 @@
 "book_button" = "Varaa";
 
 /* A referral link on the place page for some hotels */
-"more_on_kayak" = "Lisätietoa osoitteessa KAYAK";
+"more_on_kayak" = "Kuvat, arvostelut, varaus";
 
 /* An explanation dialog shown when clicking on more_on_kayak link. */
 "dialog_kayak_disclaimer" = "Jokaisesta tämän linkin kautta tehdystä varauksesta saatu suosittelubonus käytetään Organic Mapsin kehittämiseen.";
+
+/* A referral link on the place page for some hotels */
+"dialog_kayak_button" = "Lisätietoa osoitteessa Kayak";
 
 "placepage_call_button" = "Soita";
 
@@ -830,7 +833,7 @@
 
 "refresh" = "Päivitä";
 
-"placepage_add_place_button" = "Lisää paikka kartalle";
+"placepage_add_place_button" = "Lisää paikka OpenStreetMapiin";
 
 /* Displayed when saving some edits to the map to warn against publishing personal data */
 "editor_share_to_all_dialog_title" = "Haluatko lähettää sen kaikille käyttäjille?";

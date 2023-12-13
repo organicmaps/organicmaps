@@ -491,9 +491,11 @@
 	<string name="minute">mnt</string>
 	<string name="placepage_more_button">Lainnya</string>
 	<!-- A referral link on the place page for some hotels -->
-	<string name="more_on_kayak">Perincian di KAYAK</string>
+	<string name="more_on_kayak">Foto, ulasan, pemesanan</string>
 	<!-- An explanation dialog shown when clicking on more_on_kayak link. -->
 	<string name="dialog_kayak_disclaimer">Bonus rujukan yang diterima untuk setiap pemesanan melalui tautan ini digunakan untuk pengembangan Organic Maps.</string>
+	<!-- A referral link on the place page for some hotels -->
+	<string name="dialog_kayak_button">Perincian di Kayak</string>
 	<string name="placepage_edit_bookmark_button">Edit Bookmark</string>
 	<string name="editor_comment_hint">Komentar…</string>
 	<string name="editor_reset_edits_message">Atur ulang perubahan lokal?</string>
@@ -505,7 +507,7 @@
 	<string name="error_enter_correct_phone">Masukkan nomor telepon yang benar</string>
 	<string name="error_enter_correct_web">Masukkan alamat web valid</string>
 	<string name="error_enter_correct_email">Masukkan surel valid</string>
-	<string name="placepage_add_place_button">Tambahkan tempat ke peta</string>
+	<string name="placepage_add_place_button">Menambahkan tempat ke OpenStreetMap</string>
 	<!-- Displayed when saving some edits to the map to warn against publishing personal data -->
 	<string name="editor_share_to_all_dialog_title">Apakah Anda ingin mengirimkannya ke semua pengguna?</string>
 	<!-- Dialog before publishing the modifications to the public map. -->
