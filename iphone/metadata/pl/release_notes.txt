@@ -1,4 +1,5 @@
 • Nowe dane OpenStreetMap z 13 listopada 2023 r
+• Naprawiono awarię na iOS 12, 13 i 14 podczas wybierania dowolnego obiektu na mapie
 • Teraz, możliwe jest większe przybliżenie i zobaczenie większej liczby punktów POI, w gęstych obszarach
 • Podgląd stylu mapy plenerowej (czytaj dalej, aby dowiedzieć się, jak go aktywować)
 • Usunięto dolny pasek zakładek, aby wyświetlić więcej mapy na ekranie
@@ -9,6 +10,7 @@
 • Ulepszenia przewijania kinetycznego z wykorzystaniem inercji
 • Usunięto maksymalny limit wyszukiwania zakładek
 • Nazwy marek są wyświetlane na karcie miejsca
+• Dodano eksperymentalny link polecający "Zdjęcia, opinie, rezerwacja" dla niektórych hoteli, które są już obecne w OpenStreetMap.
 
 Wyznaczanie trasy
 • Nie wyznaczaj tras przez obszary=awaryjne, wojskowe, rolnicze, leśne

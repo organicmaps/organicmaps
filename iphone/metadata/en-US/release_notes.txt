@@ -1,4 +1,5 @@
 • New OpenStreetMap data as of November 13, 2023
+• Fixed crash on iOS 12, 13 and 14 when selecting any object on the map
 • It is possible to zoom in deeper now and see more POIs in dense areas
 • Outdoors map style preview (please read on to know how to activate it)
 • Removed bottom tab bar to show more map on the screen

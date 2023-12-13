@@ -1,8 +1,9 @@
 • New OpenStreetMap data as of November 13, 2023
+• Fixed crash on iOS 12, 13 and 14 when selecting any object on the map
 • It is possible to zoom in deeper now and see more POIs in dense areas
 • Outdoors map style preview (please read on to know how to activate it)
 • Removed bottom tab bar to show more map on the screen
-• Added experimental "Details on KAYAK" affiliate link to hotels
+• Added an experimental referral link "Photos, reviews, booking" for some hotels that are already present in OpenStreetMap.
 • Removed the unnecessary "route" button on the map (tap or long-tap a place on the map or select a search result to build a route using the "Route To" button instead)
 • Highlighted the Route To button and hinted the FAQ for new users
 • Fixed CarPlay dark/light mode colors

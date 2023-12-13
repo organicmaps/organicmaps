@@ -1,4 +1,5 @@
 • Nová data OpenStreetMap k 13. listopadu 2023
+• Oprava pádu v systémech iOS 12, 13 a 14 při výběru libovolného objektu na mapě.
 • Nyní je možné přiblížit větší hloubku a zobrazit více bodů zájmu v hustě osídlených oblastech
 • Náhled ve stylu venkovní mapy (přečtěte si prosím, jak jej aktivovat)
 • Odstraněn spodní pruh karet, aby se na obrazovce zobrazilo více mapy
@@ -9,6 +10,7 @@
 • Vylepšení "setrvačného" kinetického posouvání
 • Odstraněn maximální limit pro vyhledávání záložek
 • Značky se zobrazují na stránce Místo
+• Přidán experimentální odkaz "Fotky, recenze, rezervace" pro některé hotely, které jsou již přítomny v OpenStreetMap
 
 Směrování
 • Zakázáno směrování přes access=emergency, military, agricultural, forestr

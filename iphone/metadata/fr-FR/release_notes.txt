@@ -1,4 +1,5 @@
 • Nouvelles données OpenStreetMap en date du 13 novembre 2023
+• Correction d'un crash sur iOS 12, 13 et 14 lors de la sélection d'un objet sur la carte
 • Il est maintenant possible de zoomer plus profondément et de voir plus de POIs dans les zones denses
 • Aperçu du style de carte extérieur (veuillez lire la suite pour savoir comment l'activer)
 • Suppression de la barre d'onglets inférieure pour afficher plus de cartes à l'écran
@@ -9,6 +10,7 @@
 • Amélioration du défilement cinétique "inertiel".
 • Suppression de la limite maximale des signets de recherche
 • Les marques sont affichées dans la page d'accueil
+• Ajout d'un lien de référence expérimental "Photos, commentaires, réservation" pour certains hôtels déjà présents dans OpenStreetMap.
 
 Routage
 • L'itinéraire ne passera plus par access=emergency, military, agricultural, forestry
@@ -37,7 +39,6 @@ Style de la carte
 • Correction des couleurs des marqueurs routiers / boucliers de l'Estonie et de l'Allemagne
 • Augmentation de la visibilité des marqueurs routiers / boucliers sur les routes tertiaires et résidentielles
 • Correction des "trous" dans certaines lignes densément cartographiées
-• Correction des "trous" dans les contours des ponts et autres lignes composées
 
 
 Aperçu du style de carte pour l'extérieur :
@@ -47,8 +48,4 @@ Aperçu du style de carte pour l'extérieur :
 • Utilisez `?odark` et `?dark` pour un style sombre
 • Les développeurs sont invités à participer à l'ajout d'une interface utilisateur agréable pour le changement de style !
 
-Traductions
-• Amélioration de la formulation des options de routage "éviter ...".
-• Amélioration des traductions en arabe, basque, chinois, tchèque, danois, finlandais, grec, hongrois, indonésien, italien, coréen, marathi, polonais, roumain, slovaque, espagnol, Suède, thaï, turc, ukrainien et vietnamien.
-
-...et d'autres petites corrections et améliorations, consultez https://omaps.org/fr/news pour plus de détails !
+…et d'autres petites corrections et améliorations, consultez https://omaps.org/fr/news pour plus de détails !
