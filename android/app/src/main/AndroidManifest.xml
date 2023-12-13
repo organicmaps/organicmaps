@@ -45,8 +45,8 @@
   //-->
   <uses-permission-sdk-23 android:name="android.permission.POST_NOTIFICATIONS"/>
 
-  <uses-permission android:name="androidx.car.app.ACCESS_SURFACE" android:enabled="${ANDROID_AUTO_ENABLED}" />
-  <uses-permission android:name="androidx.car.app.NAVIGATION_TEMPLATES" android:enabled="${ANDROID_AUTO_ENABLED}" />
+  <uses-permission android:name="androidx.car.app.NAVIGATION_TEMPLATES"/>
+  <uses-permission android:name="androidx.car.app.ACCESS_SURFACE"/>
 
   <queries>
     <intent>
@@ -861,8 +861,7 @@
     <service
         android:name="app.organicmaps.car.CarAppService"
         android:foregroundServiceType="location"
-        android:exported="true"
-        android:enabled="${ANDROID_AUTO_ENABLED}">
+        android:exported="true">
       <intent-filter>
         <action android:name="androidx.car.app.CarAppService" />
         <category android:name="androidx.car.app.category.NAVIGATION" />
@@ -894,12 +893,11 @@
 
     <meta-data
         android:name="com.google.android.gms.car.application"
-        android:resource="@xml/automotive_app_desc"
-        android:enabled="${ANDROID_AUTO_ENABLED}"/>
+        android:resource="@xml/automotive_app_desc"/>
 
     <meta-data
         android:name="androidx.car.app.minCarApiLevel"
-        android:value="5"
-        android:enabled="${ANDROID_AUTO_ENABLED}"/>
+        android:value="5"/>
+
   </application>
 </manifest>
