@@ -520,6 +520,8 @@
 	<string name="more_on_kayak">Photos, commentaires, réservations</string>
 	<!-- An explanation dialog shown when clicking on more_on_kayak link. -->
 	<string name="dialog_kayak_disclaimer">La prime de parrainage reçue pour chaque réservation effectuée par l\'intermédiaire de ce lien sert à développer Organic Maps.</string>
+	<!-- A confirmation button text in the explanation dialog that opens hotel details page on Kayak website. -->
+	<string name="dialog_kayak_button">Détails sur Kayak</string>
 	<string name="placepage_edit_bookmark_button">Éditer le signet</string>
 	<string name="editor_comment_hint">Commentaire…</string>
 	<string name="editor_reset_edits_message">Abandonner toutes les modifications locales ?</string>
@@ -667,9 +669,9 @@
 	<!-- A generic "No" button in dialogs -->
 	<string name="no">Non</string>
 	<!-- E.g. "WiFi:Yes" -->
-	<string name="yes_available">oui</string>
+	<string name="yes_available">Oui</string>
 	<!-- E.g. "WiFi:No" -->
-	<string name="no_available">non</string>
+	<string name="no_available">Non</string>
 	<string name="trip_finished">Vous êtes arrivé !</string>
 	<string name="ok">Ok</string>
 	<!-- max. 10 symbols, both iOS and Android -->

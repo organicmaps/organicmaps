@@ -516,6 +516,8 @@
 	<string name="more_on_kayak">Argazkiak, iritziak, erreserba</string>
 	<!-- An explanation dialog shown when clicking on more_on_kayak link. -->
 	<string name="dialog_kayak_disclaimer">Esteka honen bidez erreserba bakoitzeko jasotzen den erreferentzia-bonua Organic Maps garatzera doa.</string>
+	<!-- A confirmation button text in the explanation dialog that opens hotel details page on Kayak website. -->
+	<string name="dialog_kayak_button">Xehetasunak Kayak-en</string>
 	<string name="placepage_edit_bookmark_button">Editatu markagailua</string>
 	<string name="editor_comment_hint">Iruzkina…</string>
 	<string name="editor_reset_edits_message">Tokiko aldaketa guztiak berrezarri nahi dituzu?</string>
@@ -664,9 +666,9 @@
 	<!-- A generic "No" button in dialogs -->
 	<string name="no">Ez</string>
 	<!-- E.g. "WiFi:Yes" -->
-	<string name="yes_available">bai</string>
+	<string name="yes_available">Bai</string>
 	<!-- E.g. "WiFi:No" -->
-	<string name="no_available">ez</string>
+	<string name="no_available">Ez</string>
 	<string name="trip_finished">Iritsi zara!</string>
 	<string name="ok">Ados</string>
 	<!-- max. 10 symbols, both iOS and Android -->

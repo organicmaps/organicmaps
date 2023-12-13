@@ -9,7 +9,7 @@
 
 #include "indexer/data_source.hpp"
 #include "indexer/drawing_rules.hpp"
-#include "indexer/drules_include.hpp"
+#include "indexer/drules_include.hpp"   // needed despite of IDE warning
 #include "indexer/feature_algo.hpp"
 
 #include "coding/reader.hpp"
@@ -89,7 +89,7 @@ void ReadTransitTask::Do()
     FillItemsByIdMap(graphData.GetStops(), m_transitInfo->m_stopsSubway);
     for (auto const & stop : m_transitInfo->m_stopsSubway)
     {
-      if (stop.second.GetFeatureId() != routing::transit::kInvalidFeatureId)
+      if (stop.second.GetFeatureId() != kInvalidFeatureId)
       {
         auto const featureId = FeatureID(m_mwmId, stop.second.GetFeatureId());
         m_transitInfo->m_features[featureId] = {};
@@ -130,7 +130,7 @@ void ReadTransitTask::Do()
 
     for (auto const & stop : m_transitInfo->m_stopsPT)
     {
-      if (stop.second.GetFeatureId() != ::transit::experimental::kInvalidFeatureId)
+      if (stop.second.GetFeatureId() != kInvalidFeatureId)
       {
         auto const featureId = FeatureID(m_mwmId, stop.second.GetFeatureId());
         m_transitInfo->m_features[featureId] = {};

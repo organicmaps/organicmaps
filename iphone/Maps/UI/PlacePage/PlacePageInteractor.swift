@@ -41,7 +41,7 @@ extension PlacePageInteractor: PlacePageInfoViewControllerDelegate {
     } else { 
       let alert = UIAlertController(title: nil, message: L("dialog_kayak_disclaimer"), preferredStyle: .alert)
       alert.addAction(UIAlertAction(title: L("cancel"), style: .cancel))
-      alert.addAction(UIAlertAction(title: L("more_on_kayak"), style: .default, handler: { _ in
+      alert.addAction(UIAlertAction(title: L("dialog_kayak_button"), style: .default, handler: { _ in
         UserDefaults.standard.set(true, forKey: kUDDidShowKayakInformationDialog)
         MWMPlacePageManagerHelper.openKayak(self.placePageData)
       }))

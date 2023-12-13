@@ -795,6 +795,9 @@
 /* An explanation dialog shown when clicking on more_on_kayak link. */
 "dialog_kayak_disclaimer" = "Esteka honen bidez erreserba bakoitzeko jasotzen den erreferentzia-bonua Organic Maps garatzera doa.";
 
+/* A confirmation button text in the explanation dialog that opens hotel details page on Kayak website. */
+"dialog_kayak_button" = "Xehetasunak Kayak-en";
+
 "placepage_call_button" = "Deitu";
 
 "placepage_edit_bookmark_button" = "Editatu markagailua";
@@ -1061,10 +1064,10 @@
 "no" = "Ez";
 
 /* E.g. "WiFi:Yes" */
-"yes_available" = "bai";
+"yes_available" = "Bai";
 
 /* E.g. "WiFi:No" */
-"no_available" = "ez";
+"no_available" = "Ez";
 
 "trip_finished" = "Iritsi zara!";
 

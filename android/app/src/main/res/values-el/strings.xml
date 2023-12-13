@@ -486,6 +486,8 @@
 	<string name="more_on_kayak">Φωτογραφίες, κριτικές, κράτηση</string>
 	<!-- An explanation dialog shown when clicking on more_on_kayak link. -->
 	<string name="dialog_kayak_disclaimer">Το μπόνους παραπομπής που λαμβάνετε για κάθε κράτηση μέσω αυτού του συνδέσμου πηγαίνει στην ανάπτυξη του Organic Maps.</string>
+	<!-- A confirmation button text in the explanation dialog that opens hotel details page on Kayak website. -->
+	<string name="dialog_kayak_button">Λεπτομέρειες στο Kayak</string>
 	<string name="placepage_edit_bookmark_button">Επεξεργασία αγαπημένου</string>
 	<string name="editor_comment_hint">Σχόλιο…</string>
 	<string name="editor_reset_edits_message">Απόρριψη όλων των τοπικών αλλαγών;</string>

@@ -1661,7 +1661,7 @@ public class MwmActivity extends BaseMwmFragmentActivity
         .setTitle(R.string.how_to_support_us)
         .setMessage(R.string.dialog_kayak_disclaimer)
         .setCancelable(false)
-        .setPositiveButton(R.string.more_on_kayak, (dlg, which) -> {
+        .setPositiveButton(R.string.dialog_kayak_button, (dlg, which) -> {
           Config.acceptKayakDisclaimer();
           Utils.openUrl(this, url);
         })
@@ -1673,6 +1673,9 @@ public class MwmActivity extends BaseMwmFragmentActivity
   private boolean showStartPointNotice()
   {
     final RoutingController controller = RoutingController.get();
+
+    if (showAddStartOrFinishFrame(controller, true))
+      return false;
 
     // Starting and ending points must be non-null, see {@link #showAddStartOrFinishFrame() }.
     final MapObject startPoint = Objects.requireNonNull(controller.getStartPoint());
@@ -1705,7 +1708,7 @@ public class MwmActivity extends BaseMwmFragmentActivity
     Logger.d(LOCATION_TAG, "newMode = " + LocationState.nameOf(newMode));
     mMapButtonsViewModel.setMyPositionMode(newMode);
     RoutingController controller = RoutingController.get();
-    if (controller.isPlanning())
+    if (controller.isPlanning() || controller.isBuilding() || controller.isErrorEncountered())
       showAddStartOrFinishFrame(controller, true);
 
     if (newMode == FOLLOW || newMode == FOLLOW_AND_ROTATE)

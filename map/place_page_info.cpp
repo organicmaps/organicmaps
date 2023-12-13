@@ -22,6 +22,7 @@ namespace place_page
 char const * const Info::kStarSymbol = "★";
 char const * const Info::kMountainSymbol = "▲";
 char const * const kWheelchairSymbol = "\u267F";
+char const * const kAtmSymbol = "💳";
 
 bool Info::IsBookmark() const
 {
@@ -162,6 +163,10 @@ std::string Info::FormatSubtitle(bool withType) const
   auto const eleStr = GetElevationFormatted();
   if (!eleStr.empty())
     append(kMountainSymbol + eleStr);
+    
+  // ATM
+  if (HasAtm())
+    append(kAtmSymbol);
 
   // Internet.
   if (HasWifi())

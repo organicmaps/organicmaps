@@ -168,6 +168,11 @@ string MapObject::GetLocalizedFeeType() const
   return feature::GetLocalizedFeeType(m_types);
 }
 
+bool MapObject::HasAtm() const
+{
+  return feature::HasAtm(m_types);
+}
+
 string MapObject::FormatCuisines() const
 {
   return strings::JoinStrings(GetLocalizedCuisines(), kFieldsSeparator);

@@ -795,6 +795,9 @@
 /* An explanation dialog shown when clicking on more_on_kayak link. */
 "dialog_kayak_disclaimer" = "Jokaisesta tämän linkin kautta tehdystä varauksesta saatu suosittelubonus käytetään Organic Mapsin kehittämiseen.";
 
+/* A confirmation button text in the explanation dialog that opens hotel details page on Kayak website. */
+"dialog_kayak_button" = "Lisätietoa osoitteessa Kayak";
+
 "placepage_call_button" = "Soita";
 
 "placepage_edit_bookmark_button" = "Muokkaa kirjanmerkkiä";
@@ -1061,10 +1064,10 @@
 "no" = "Ei";
 
 /* E.g. "WiFi:Yes" */
-"yes_available" = "kyllä";
+"yes_available" = "Kyllä";
 
 /* E.g. "WiFi:No" */
-"no_available" = "ei";
+"no_available" = "Ei";
 
 "trip_finished" = "Olet perillä!";
 

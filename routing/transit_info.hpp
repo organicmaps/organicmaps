@@ -5,6 +5,8 @@
 #include "transit/transit_types.hpp"
 #include "transit/transit_version.hpp"
 
+#include "indexer/feature_decl.hpp"
+
 #include "base/assert.hpp"
 
 #include <memory>
@@ -64,7 +66,7 @@ public:
     GateSubway() = default;
     explicit GateSubway(transit::Gate const & gate) : m_featureId(gate.GetFeatureId()) {}
 
-    transit::FeatureId m_featureId = transit::kInvalidFeatureId;
+    transit::FeatureId m_featureId = kInvalidFeatureId;
   };
 
   struct GatePT
@@ -74,7 +76,7 @@ public:
     {
     }
 
-    ::transit::experimental::FeatureId m_featureId = ::transit::experimental::kInvalidFeatureId;
+    ::transit::experimental::FeatureId m_featureId = kInvalidFeatureId;
   };
 
   struct TransferSubway

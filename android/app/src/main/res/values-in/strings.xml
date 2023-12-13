@@ -494,6 +494,8 @@
 	<string name="more_on_kayak">Foto, ulasan, pemesanan</string>
 	<!-- An explanation dialog shown when clicking on more_on_kayak link. -->
 	<string name="dialog_kayak_disclaimer">Bonus rujukan yang diterima untuk setiap pemesanan melalui tautan ini digunakan untuk pengembangan Organic Maps.</string>
+	<!-- A confirmation button text in the explanation dialog that opens hotel details page on Kayak website. -->
+	<string name="dialog_kayak_button">Perincian di Kayak</string>
 	<string name="placepage_edit_bookmark_button">Edit Bookmark</string>
 	<string name="editor_comment_hint">Komentar…</string>
 	<string name="editor_reset_edits_message">Atur ulang perubahan lokal?</string>

@@ -15,7 +15,7 @@ import androidx.annotation.Nullable;
 import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
-import androidx.core.widget.NestedScrollViewClickFixed;
+import androidx.core.widget.NestedScrollView;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentActivity;
 import androidx.fragment.app.FragmentManager;
@@ -54,7 +54,7 @@ public class PlacePageController extends Fragment implements
 
   private static final float PREVIEW_PLUS_RATIO = 0.45f;
   private BottomSheetBehavior<View> mPlacePageBehavior;
-  private NestedScrollViewClickFixed mPlacePage;
+  private NestedScrollView mPlacePage;
   private ViewGroup mPlacePageContainer;
   private View mPlacePageStatusBarBackground;
   private ViewGroup mCoordinator;

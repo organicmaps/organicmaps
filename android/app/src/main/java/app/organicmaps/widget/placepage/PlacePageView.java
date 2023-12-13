@@ -97,6 +97,8 @@ public class PlacePageView extends Fragment implements View.OnClickListener,
   private TextView mTvOperator;
   private View mLevel;
   private TextView mTvLevel;
+  private View mAtm;
+  private TextView mTvAtm;
   private View mCuisine;
   private TextView mTvCuisine;
   private View mEntrance;
@@ -142,13 +144,12 @@ public class PlacePageView extends Fragment implements View.OnClickListener,
   private PlacePageViewModel mViewModel;
   private MapObject mMapObject;
 
-  private static void refreshMetadataOrHide(String metadata, View metaLayout, TextView metaTv)
+  private static void refreshMetadataOrHide(@Nullable String metadata, @NonNull View metaLayout, @NonNull TextView metaTv)
   {
     if (!TextUtils.isEmpty(metadata))
     {
       metaLayout.setVisibility(VISIBLE);
-      if (metaTv != null)
-        metaTv.setText(metadata);
+      metaTv.setText(metadata);
     }
     else
       metaLayout.setVisibility(GONE);
@@ -232,6 +233,8 @@ public class PlacePageView extends Fragment implements View.OnClickListener,
     mTvOperator = mFrame.findViewById(R.id.tv__place_operator);
     mLevel = mFrame.findViewById(R.id.ll__place_level);
     mTvLevel = mFrame.findViewById(R.id.tv__place_level);
+    mAtm = mFrame.findViewById(R.id.ll__place_atm);
+    mTvAtm = mFrame.findViewById(R.id.tv__place_atm);
     mCuisine = mFrame.findViewById(R.id.ll__place_cuisine);
     mTvCuisine = mFrame.findViewById(R.id.tv__place_cuisine);
     mEntrance = mFrame.findViewById(R.id.ll__place_entrance);
@@ -247,6 +250,7 @@ public class PlacePageView extends Fragment implements View.OnClickListener,
     address.setOnLongClickListener(this);
     mOperator.setOnLongClickListener(this);
     mLevel.setOnLongClickListener(this);
+    mAtm.setOnLongClickListener(this);
 
     mDownloaderIcon = new DownloaderStatusIcon(mPreview.findViewById(R.id.downloader_status_frame));
 
@@ -314,14 +318,14 @@ public class PlacePageView extends Fragment implements View.OnClickListener,
 
   private void updateLinksView()
   {
-    final boolean hasLinkAvailable = PlacePageLinksFragment.hasLinkAvailable(mMapObject);
-    updateViewFragment(PlacePageLinksFragment.class, LINKS_FRAGMENT_TAG, R.id.place_page_links_fragment, hasLinkAvailable);
+    updateViewFragment(PlacePageLinksFragment.class, LINKS_FRAGMENT_TAG, R.id.place_page_links_fragment, true);
   }
 
   private void updateOpeningHoursView()
   {
     final String ohStr = mMapObject.getMetadata(Metadata.MetadataType.FMD_OPEN_HOURS);
-    updateViewFragment(PlacePageOpeningHoursFragment.class, OPENING_HOURS_FRAGMENT_TAG, R.id.place_page_opening_hours_fragment, !ohStr.isEmpty());
+    updateViewFragment(PlacePageOpeningHoursFragment.class, OPENING_HOURS_FRAGMENT_TAG,
+        R.id.place_page_opening_hours_fragment, !TextUtils.isEmpty(ohStr));
   }
 
   private void updatePhoneView()
@@ -386,6 +390,7 @@ public class PlacePageView extends Fragment implements View.OnClickListener,
     refreshWiFi();
     refreshMetadataOrHide(mMapObject.getMetadata(Metadata.MetadataType.FMD_FLATS), mEntrance, mTvEntrance);
     refreshMetadataOrHide(mMapObject.getMetadata(Metadata.MetadataType.FMD_LEVEL), mLevel, mTvLevel);
+    refreshMetadataOrHide(mMapObject.hasAtm() ? getString(R.string.type_amenity_atm) : "", mAtm, mTvAtm);
 
 //    showTaxiOffer(mapObject);
 
@@ -552,6 +557,8 @@ public class PlacePageView extends Fragment implements View.OnClickListener,
       items.add(mTvOperator.getText().toString());
     else if (id == R.id.ll__place_level)
       items.add(mTvLevel.getText().toString());
+    else if (id == R.id.ll__place_atm)
+      items.add(mTvAtm.getText().toString());
 
     final Context context = requireContext();
     if (items.size() == 1)

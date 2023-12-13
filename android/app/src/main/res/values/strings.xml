@@ -543,6 +543,8 @@
 	<string name="more_on_kayak">Photos, reviews, booking</string>
 	<!-- An explanation dialog shown when clicking on more_on_kayak link. -->
 	<string name="dialog_kayak_disclaimer">The referral bonus received for each booking through this link goes towards the development of Organic Maps.</string>
+	<!-- A confirmation button text in the explanation dialog that opens hotel details page on Kayak website. -->
+	<string name="dialog_kayak_button">Details on Kayak</string>
 	<string name="placepage_edit_bookmark_button">Edit Bookmark</string>
 	<string name="editor_comment_hint">Comment…</string>
 	<string name="editor_reset_edits_message">Discard all local changes?</string>

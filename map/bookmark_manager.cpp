@@ -1841,15 +1841,14 @@ void BookmarkManager::LoadBookmarkRoutine(std::string const & filePath, bool isT
     auto collection = std::make_shared<KMLDataCollection>();
 
     // Convert KML/KMZ/KMB files to temp KML file and GPX to temp GPX file.
-    std::string fileSavePath = GetKMLorGPXPath(filePath);
-    if (!fileSavePath.empty())
+    for (auto const & fileToLoad : GetKMLOrGPXFilesPathsToLoad(filePath))
     {
-      auto const ext = GetLowercaseFileExt(fileSavePath);
+      auto const ext = GetLowercaseFileExt(fileToLoad);
       std::unique_ptr<kml::FileData> kmlData;
       if (ext == kKmlExtension)
-        kmlData = LoadKmlFile(fileSavePath, KmlFileType::Text);
+        kmlData = LoadKmlFile(fileToLoad, KmlFileType::Text);
       else if (ext == kGpxExtension)
-        kmlData = LoadKmlFile(fileSavePath, KmlFileType::Gpx);
+        kmlData = LoadKmlFile(fileToLoad, KmlFileType::Gpx);
       else
       {
         ASSERT(false, ("Unsupported bookmarks extension", ext));
@@ -1858,15 +1857,15 @@ void BookmarkManager::LoadBookmarkRoutine(std::string const & filePath, bool isT
       if (m_needTeardown)
         return;
 
-      base::DeleteFileX(fileSavePath);
-      if (kmlData)
+      base::DeleteFileX(fileToLoad);
+      if (kmlData && (!kmlData->m_tracksData.empty() || !kmlData->m_bookmarksData.empty()))
       {
-        fileSavePath = GenerateValidAndUniqueFilePathForKML(base::GetNameFromFullPathWithoutExt(std::move(fileSavePath)));
+        auto kmlFileToLoad = GenerateValidAndUniqueFilePathForKML(base::GetNameFromFullPathWithoutExt(fileToLoad));
 
-        if (!SaveKmlFileSafe(*kmlData, fileSavePath, KmlFileType::Text))
-          base::DeleteFileX(fileSavePath);
+        if (!SaveKmlFileSafe(*kmlData, kmlFileToLoad, KmlFileType::Text))
+          base::DeleteFileX(kmlFileToLoad);
         else
-          collection->emplace_back(std::move(fileSavePath), std::move(kmlData));
+          collection->emplace_back(std::move(kmlFileToLoad), std::move(kmlData));
       }
     }
 

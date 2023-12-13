@@ -795,6 +795,9 @@
 /* An explanation dialog shown when clicking on more_on_kayak link. */
 "dialog_kayak_disclaimer" = "Az ezen a linken keresztül történő minden egyes foglalásért kapott ajánlói bónusz az Organic Maps fejlesztését szolgálja.";
 
+/* A confirmation button text in the explanation dialog that opens hotel details page on Kayak website. */
+"dialog_kayak_button" = "Részletek a Kayak-on";
+
 "placepage_call_button" = "Hívás";
 
 "placepage_edit_bookmark_button" = "Könyvjelző szerkesztése";

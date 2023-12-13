@@ -128,7 +128,10 @@ public class EditTextDialogFragment extends BaseMwmDialogFragment
     // Wait till alert is shown to get mPositiveButton.
     editTextDialog.setOnShowListener((dialog) -> {
       mPositiveButton = editTextDialog.getButton(DialogInterface.BUTTON_POSITIVE);
-      this.validateInput(requireActivity(), mInitialText);
+      final FragmentActivity activity = getActivity();
+      if (activity == null)
+        return;
+      this.validateInput(activity, mInitialText);
     });
 
     // Setup validation on input edit.
@@ -137,7 +140,10 @@ public class EditTextDialogFragment extends BaseMwmDialogFragment
       @Override
       public void onTextChanged(CharSequence s, int start, int before, int count)
       {
-        EditTextDialogFragment.this.validateInput(requireActivity(), s.toString());
+        final FragmentActivity activity = getActivity();
+        if (activity == null)
+          return;
+        EditTextDialogFragment.this.validateInput(activity, s.toString());
       }
     });
 

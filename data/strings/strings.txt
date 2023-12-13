@@ -705,7 +705,7 @@
     lt = Šiuo metu jūsų įrenginio ar programėlės visos vietovės tarnybos yra išjungtos. Įjunkite jas nustatymuose.
     mr = आपल्या उपकरणात किंवा ऍप मध्ये स्थानसेवा सध्या बंद आहेत. कृपया सेटिंग मधून त्यांना चालू  करा.
     nb = Du har for øyeblikket deaktivert alle posisjonstjenester for denne enheten eller applikasjonen. Slå dem på i «Innstillinger».
-    nl = U heeft momenteel alle locatieservices voor dit apparaat of deze app uitgeschakeld. Schakel ze in bij Instellingen
+    nl = U heeft momenteel alle locatieservices voor dit apparaat of deze app uitgeschakeld. Schakel ze in bij Instellingen.
     pl = Usługi lokalizacji są aktualnie wyłączone dla tego urządzenia lub aplikacji. Proszę włączyć je w ustawieniach.
     pt = Atualmente tem todos os serviços de localização para este dispositivo ou aplicação desativados. Por favor ative-os nas definições do sistema.
     pt-BR = Atualmente todos os serviços de localização para este dispositivo ou aplicativo estão desativados. Por favor ative-os em configurações.
@@ -1337,7 +1337,7 @@
     lt = Atjunkite USB laidą arba įdėkite atminties kortelę, kad naudotumėte Organic Maps
     mr = Organic Maps वापरण्यासाठी कृपया USB केबल काढून टाका किंवा मेमरी कार्ड घाला
     nb = Koble fra USB-kabelen eller sett inn minnekortet for å bruke Organic Maps
-    nl = Verwijder de USB kabel of plaats een geheugenkaart om Organic Maps te gebruiken
+    nl = Verwijder de USB-kabel of plaats een geheugenkaart om Organic Maps te gebruiken
     pl = Proszę odłączyć kabel USB albo włożyć kartę pamięci, aby korzystać z Organic Maps
     pt = Por favor desligue o cabo USB ou introduza um cartão de memória para utilizar o Organic Maps
     pt-BR = Por favor desconecte o cabo USB ou insira um cartão de memória para utilizar o Organic Maps
@@ -1806,7 +1806,7 @@
     lt = Adresyno spalva
     mr = खूणपत्र रंग
     nb = Bokmerk farge
-    nl = Bladwijzer-kleur
+    nl = Bladwijzerkleur
     pl = Kolor zakładki
     pt = Cor do favorito
     pt-BR = Cor do favorito
@@ -3623,7 +3623,7 @@
     ko = RV용
     lt = Rekreacinio transporto aikštelės
     nb = Bobilanlegg
-    nl = Caravan faciliteiten
+    nl = Caravanfaciliteiten
     pl = Kamper
     pt = Para trailers
     pt-BR = Para trailers
@@ -3709,7 +3709,7 @@
     lt = Su jumis bendrinamas Organic Maps adresynas
     mr = Organic Maps द्वारे तुम्हाला खूणपत्रे सामायिक केले
     nb = Delte Organic Maps-bokmerker
-    nl = Bladwijzers van Organic Maps met u gedeeld
+    nl = Bladwijzers van Organic Maps zijn met u gedeeld
     pl = Udostępnione zakładki z Organic Maps
     pt = Os favoritos do Organic Maps foram partilhados consigo
     pt-BR = Favoritos do Organic Maps foram compartilhados com você
@@ -3821,7 +3821,7 @@
     lt = Adresynas įkeltas! Galite rasti jį žemėlapyje arba adresyno tvarkytuvės ekrane.
     mr = खूणपत्रे वाचून झाले! ते तुम्ही नकाशावर किंवा खूणपत्र व्यवस्थापक पटलावर पाहू शकता.
     nb = Bokmerkene ble lastet inn! Du finner dem på kartet eller på skjermen «Bokmerkeadministrasjon».
-    nl = Bladwijzers succesvol geüpload! U vindt ze op de kaart of op het scherm van de Bladwijzer Manager.
+    nl = Bladwijzers succesvol geüpload! U vindt ze op de kaart of op het scherm van de Bladwijzerbeheerder.
     pl = Wczytano zakładki! Można odnaleźć je na mapie lub na ekranie menedżera zakładek.
     pt = Os favoritos foram carregados com sucesso! Pode encontrá-los no mapa ou no ecrã de gestão dos favoritos.
     pt-BR = Favoritos carregados com sucesso! Você pode encontrá-los no mapa ou na tela de gestão dos favoritos.
@@ -6422,7 +6422,7 @@
     lt = El. pašto paskyra nenustatyta. Ją sukonfigūruokite arba susisiekite kitu būdu: %@
     mr = ईमेल वाहक सेट केलेले नाही. कृपया ते सेट करा किंवा वेगळ्या पद्धतीने आमच्याशी %@ वर संपर्क करा
     nb = E-postklienten har ikke blitt konfigurert. Konfigurer den eller bruk en annen måte å kontakte oss på %@
-    nl = De emailcliënt is niet ingesteld. Gelieve de cliënt te configureren of op een andere manier contact met ons op te nemen op %@
+    nl = De emailcliënt is niet ingesteld. Gelieve de cliënt te configureren of contact met ons op te nemen op %@
     pl = Klient pocztowy nie został skonfigurowany. Proszę skonfigurować go, bądź skorzystać z innych opcji, aby się z nami skontaktować na %@
     pt = O programa de email não está configurado. Por favor, configure-o ou utilize qualquer outra forma de nos contactar através de %@
     pt-BR = O cliente de email não está configurado. Por favor, configure-o ou utilize qualquer outro modo para nos contatar através de %@
@@ -6594,7 +6594,7 @@
     lt = Judinkite telefoną aštuoniukės formos judesiu, kad sukalibruotumėte kompasą ir žemėlapyje nustatytumėte rodyklės kryptį.
     mr = होकायंत्र कॅलिब्रेट करण्यासाठी आणि नकाशावर बाणाची दिशा निश्चित करण्यासाठी फोनला आकृती-आठ मोशनमध्ये हलवा.
     nb = Beveg telefonen i en åttetallsbevegelse for å kalibrere kompasset og fikse pilretningen på kartet.
-    nl = Beweeg de telefoon in een achtvormige beweging om het kompas te kalibreren en de richting van de pijl op de kaart vast te stellen.
+    nl = Beweeg de telefoon in een achtvormige beweging om het kompas te kalibreren en de pijl op de kaart in de juiste richting te doen wijzen.
     pl = Przesuń telefon ruchem w kształcie ósemki, aby skalibrować kompas i ustalić kierunek strzałki na mapie.
     pt = Mova o telemóvel num movimento em forma de oito para calibrar a bússola e fixar a direcção da seta no mapa.
     pt-BR = Mova o telefone em um movimento em forma de oito para calibrar a bússola e fixar a direção da seta no mapa.
@@ -7181,7 +7181,7 @@
     lt = Maršrutai gali būti sukurti, jei jie yra vieno regiono žemėlapio ribose.
     mr = केवळ एका प्रदेशाच्या नकाशामध्ये पूर्णपणे समाविष्ट असलेले मार्ग तयार केले जाऊ शकतात.
     nb = Det kan bare opprettes ruter som passer fullstendig innenfor ett enkelt kart.
-    nl = Slechts de routes die volledig opgenomen zijn in één kaart kunnen gecreëerd worden.
+    nl = Enkel routes die volledig in één kaart passen, kunnen gecreëerd worden.
     pl = Trasy można tworzyć tylko pod warunkiem, że zawarte będą w ramach pojedynczej mapy.
     pt = Só podem ser criadas rotas que estejam completamente contidas num único mapa.
     pt-BR = Só podem ser criadas rotas que estejam completamente contidas num único mapa.
@@ -8155,7 +8155,7 @@
     lt = Tamsiai violetinis
     mr = गडद जांभळा
     nb = Mørkepurpur
-    nl = Donker paars
+    nl = Donkerpaars
     pl = Ciemnopurpurowy
     pt = Purpúreo escuro
     pt-BR = Lilás escuro
@@ -8327,7 +8327,7 @@
     lt = Citrininis
     mr = पोपटी
     nb = Limegrønn
-    nl = Lime
+    nl = Limoen
     pl = Lima
     pt = Lima
     pt-BR = Lima
@@ -8965,7 +8965,7 @@
     lt = Atsisiųsti reikalingus failus
     mr = आवश्यक फाईली डाउनलोड करा
     nb = Last ned nødvendige filer
-    nl = Download vereiste bestanden
+    nl = Download de vereiste bestanden
     pl = Pobierz wymagane pliki
     pt = Descarregar os ficheiros necessários
     pt-BR = Baixar os arquivos necessários
@@ -10577,7 +10577,7 @@
     lt = Norite, kad mes suplanuotumėme maršrutą iš jūsų dabartinės vietos?
     mr = तुमच्या वर्तमान स्थानापासून मार्ग नियोजन करायचे का?
     nb = Vil du vi skal planlegge en rute fra din nåværende posisjon?
-    nl = Wilt u dat wij een route plannen vanaf uw huidige locatie?
+    nl = Wilt u een route plannen vanaf uw huidige locatie?
     pl = Czy chcesz, byśmy zaplanowali trasę z Twojej bieżącej lokalizacji?
     pt = Quer planear uma rota a partir da sua localização atual?
     pt-BR = Deseja planejar uma rota a partir da sua localização atual?
@@ -11278,7 +11278,7 @@
     lt = Pakeitėte pasaulio žemėlapį. Nelaikykite jo sau! Pasakykite savo draugams ir redaguokite jį kartu.
     mr = तुम्ही जगाचा नकाशा बदलला आहे. हे स्वतःपुरते ठेऊ नका! मित्रांना पण सांगा आणि एकत्र संपादित करा.
     nb = Du har endret verdenskartet. Ikke skjul denne! Fortell vennene dine, og rediger det sammen.
-    nl = Je hebt de wereldkaart gewijzigd. Verberg dit niet! Vertel het je vrienden en bewerk het samen.
+    nl = Je hebt de wereldkaart gewijzigd. Verberg dit niet! Vertel het je vrienden en bewerk haar samen.
     pl = Dokonałeś zmian na mapie świata. Nie kryj się z tym! Powiadom znajomych i edytujcie mapę razem.
     pt = Alterou o mapa mundial. Não mantenha as alterações para si mesmo! Diga aos seus amigos e editem-no juntos.
     pt-BR = Você modificou o mapa-múndi. Não esconda isto! Diga aos seus amigos e edite junto com eles.
@@ -13607,7 +13607,7 @@
     lt = Patikrinkite nustatymus ir įsitikinkite, kad jūsų įrenginys turi prieigą prie interneto.
     mr = कृपया तुमचे सेटिंग तपासा आणि तुमचे उपकरण इंटरनेटशी जोडले असल्याची खात्री करा.
     nb = Kontroller innstillingene dine og sørg for at enheten din er koblet til Internett.
-    nl = Controleer je instellingen en zorg ervoor dat het apparaat is verbonden met het internet.
+    nl = Controleer je instellingen en zorg ervoor dat het apparaat verbonden is met het internet.
     pl = Sprawdź swoje ustawienia i upewnij się, że urządzenie ma połączenie z Internetem.
     pt = Por favor, verifique as suas opções e certifique-se que o dispositivo está ligado à Internet.
     pt-BR = Por favor, verifique as suas configurações e certifique-se de que o dispositivo está conectado à internet.
@@ -15009,7 +15009,7 @@
     lt = Jūsų pasiūlyti žemėlapio pakeitimas bus išsiųsti OpenStreetMap bendruomenei. Aprašykite papildomą informaciją, kuri negali būti redaguojama Organic Maps.
     mr = तुम्ही सुचवलेले नकाशातील बदल OpenStreetMap समुदायाला पाठवले जातील. Organic Maps मध्ये संपादित न करता येणाऱ्या अधिक तपशीलांचे वर्णन करा.
     nb = De foreslåtte endringene vil sendes til OpenStreetMap-gruppen. Beskriv detaljene som ikke kan redigeres i Organic Maps.
-    nl = Uw voorgestelde wijzigingen worden verzonden naar de OpenStreetMap-community. Beschrijf de details die niet kunnen worden bewerkt in Organic Maps.
+    nl = Uw voorgestelde wijzigingen worden verzonden naar de OpenStreetMap-gemeenschap. Beschrijf de details die niet kunnen worden bewerkt in Organic Maps.
     pl = Twoje sugestie zmian zostaną wysłane do społeczności OpenStreetMap. Opisz szczegóły, których nie można edytować w Organic Maps.
     pt = As suas alterações sugeridas irão ser enviadas para a comunidade OpenStreetMap. Descreva os dados que não podem ser editados no Organic Maps.
     pt-BR = Suas sugestões de mudança serão enviadas para a comunidade OpenStreetMap. Descreva em detalhes o que não pode ser editado com o Organic Maps.
@@ -15173,7 +15173,7 @@
     lt = Atsisiųskite žemėlapius, kad ieškotumėte vietos ir keliautumėte neprisijungę prie tinklo.
     mr = स्थान शोधण्यासाठी नकाशे डाउनलोड करा आणि ऑफलाइन मार्गनिर्देशन वापरा.
     nb = Last ned kart for å finne plasseringen og navigere frakoblet.
-    nl = Download kaarten om de locatie te zoeken en offline te navigeren.
+    nl = Download kaarten om een locatie te zoeken en offline te navigeren.
     pl = Aby znajdować miejsca i nawigować bez połączenia z internetem, musisz pobrać mapy.
     pt = Descarregar mapas para encontrar a localização e navegar offline.
     pt-BR = Baixe mapas para pesquisar locais e usar navegação offline.
@@ -15504,7 +15504,7 @@
     lt = Įjungti Enable access to geolocation in the device settings
     mr = उपकरणाच्या सेटिंगमध्ये भूस्थानाची उपलब्धता चालू करा
     nb = Tillat bruk av av geografisk lokalisering i enhetens innstillinger
-    nl = Schakel de toegang tot geolocaties in in de instellingen van het apparaat
+    nl = Schakel de toegang tot geolocatie in in de instellingen van het apparaat
     pl = Włącz dostęp do geolokalizacji w ustawieniach urządzenia
     pt = Conceda o acesso à geolocalização nas configurações do dispositivo
     pt-BR = Permita o acesso à geolocalização nas configurações do dispositivo
@@ -16126,6 +16126,49 @@
     vi = Phần thưởng giới thiệu nhận được cho mỗi lần đặt phòng thông qua liên kết này sẽ hướng tới việc phát triển bản đồ không phải trả tiền.
     zh-Hans = 每次通过此链接预订所获得的推荐奖金将用于 Organic Maps 的开发。
     zh-Hant = 透過此連結進行的每次預訂收到的推薦獎金將用於開發有機地圖
+
+  [dialog_kayak_button]
+    comment = A confirmation button text in the explanation dialog that opens hotel details page on Kayak website.
+    tags = android,ios
+    en = Details on Kayak
+    ar = التفاصيل على Kayak
+    be = Падрабязнасці на Kayak
+    bg = Подробности в Kayak
+    ca = Detalls a Kayak
+    cs = Podrobnosti na Kayak
+    da = Detaljer på Kayak
+    de = Einzelheiten bei Kayak
+    el = Λεπτομέρειες στο Kayak
+    es = Detalles en Kayak
+    es-MX = Detalles sobre Kayak
+    et = Üksikasjad Kayaki kohta
+    eu = Xehetasunak Kayak-en
+    fa = جزئیات در Kayak
+    fi = Lisätietoa osoitteessa Kayak
+    fr = Détails sur Kayak
+    he = פרטים על Kayak
+    hi = कयाक पर विवरण
+    hu = Részletek a Kayak-on
+    id = Perincian di Kayak
+    it = Dettagli su Kayak
+    ja = Kayak で詳細表示
+    ko = Kayak의 세부 정보
+    mr = कायाक वर तपशील
+    nb = Mer informasjon om Kayak
+    nl = Details op Kayak
+    pl = Szczegóły na Kayak
+    pt = Detalhes em Kayak
+    ro = Detalii pe Kayak
+    ru = Подробнее на Kayak
+    sk = Podrobnosti na Kayak
+    sv = Information på Kayak
+    sw = Maelezo kuhusu Kayak
+    th = รายละเอียดบน Kayak
+    tr = Kayak hakkında detaylar
+    uk = Докладніше на Kayak
+    vi = Chi tiết trên Kayak
+    zh-Hans = Kayak 上的详细信息
+    zh-Hant = Kayak 上的詳細資訊
 
   [placepage_call_button]
     tags = ios
@@ -16848,7 +16891,7 @@
     lt = Įveskite Instagram saityno adresą arba paskyros pavadinimą
     mr = वैध Instagram वेब पत्ता किंवा खाते नाव प्रविष्ट करा
     nb = Skriv inn en gyldig Instagram-adresse eller -kontonavn
-    nl = Voer een geldig Instagram-webadres of een accountnaam in
+    nl = Voer een geldig Instagram-webadres of accountnaam in
     pl = Wprowadź poprawny link lub nazwę konta na Instagramie
     ro = Introdu o adresă web sau un nume de cont Instagram valabil
     ru = Введите корректный веб-адрес Instagram страницы или имя пользователя
@@ -16872,7 +16915,7 @@
     lt = Įveskite Twitter saityno adresą arba naudotojo vardą
     mr = वैध Twitter वेब पत्ता किंवा वापरकर्तानाव प्रविष्ट करा
     nb = Skriv inn en gyldig Twitter-adresse eller -brukernavn.
-    nl = Voer een geldig Twitter-webadres of een gebruikersnaam in
+    nl = Voer een geldig Twitter-webadres of gebruikersnaam in
     pl = Wprowadź poprawny adres lub nazwę konta na Twitterze
     ro = Introdu o adresă web sau un nume de utilizator Twitter valabil
     ru = Введите корректный веб-адрес Twitter страницы или имя пользователя
@@ -16895,7 +16938,7 @@
     it = Inserisci un indirizzo web o un nome di account VK valido
     lt = Įveskite VK saityno adresą arba paskyros pavadinimą
     nb = Skriv inn en gyldig VB-adresse eller -kontonavn
-    nl = Voer een geldig VB webadres of een accountnaam in
+    nl = Voer een geldig VB-webadres of accountnaam in
     pl = Wprowadź poprawny adres lub nazwę konta na VK
     ro = Introdu o adresă web sau un nume de cont VK valabil
     ru = Введите корректный веб-адрес VK страницы или имя пользователя
@@ -16919,7 +16962,7 @@
     it = Inserisca un indirizzo web LINE valido o un ID LINE
     lt = Įveskite LINE saityno adresą arba LINE ID
     nb = Skriv inn en gyldig LINE-adresse eller -ID.
-    nl = Voer een geldig LINE-webadres of een LINE ID in
+    nl = Voer een geldig LINE-webadres of LINE ID in
     pl = Wpisz prawidłowy url LINE lub LINE ID
     ro = Introdu o adresă web LINE valabilă sau un ID LINE
     ru = Введите корректный веб-адрес LINE страницы или LINE ID
@@ -18242,7 +18285,7 @@
     lt = Kai kurioms kalboms jums reikės įdiegti šnekos sintezatorių arba papildomą kalbos paketą iš programėlių parduotuvės (Play parduotuvė, Galaxy parduotuvė, Programėlių galerija, FDroid).\nAtidarykite įrenginio nustatymus → Kalbos ir įvestis → Kalba → Teksto į kalbą išvestis.\nČia galite tvarkyti nustatymus šnekos sintezatoriui (pavyzdžiui, atsisiųsti kalbos paketą) ir pasirinkti kitą teksto į kalbą variklį.
     mr = काही भाषांसाठी, तुम्हाला अँप स्टोअर (Google Play, Galaxy Store, App Gallery, FDroid) वरून स्पीच मिश्रक किंवा अतिरिक्त भाषा संच इन्स्टॉल करावे लागतील.\nतुमच्या उपकरणाची सेटिंग → भाषा आणि इनपुट → स्पीच → "टेक्स्ट टू स्पीच आउटपुट" उघडा.\nयेथे तुम्ही स्पीच मिश्रणासाठी सेटिंग व्यवस्थापित करू शकता (उदाहरणार्थ, ऑफलाइन वापरासाठी भाषा संच डाउनलोड करा) आणि दुसरे टेक्स्ट-टू-स्पीच इंजिन निवडा.
     nb = For enkelte språk er det nødvendig å installere en annen talesyntese eller en ekstra språkpakke fra appbutikken (Google Play, Galaxy Store, App Gallery, FDroid).\nGå til enhetens innstillinger → Språk og input → Tale → Tekst til tale output.\nHer kan du administrere innstillingene for talesyntese (for eksempel laste ned språkpakke for offline bruk) og velge en annen tekst-til-tale-motor.
-    nl = Voor sommige talen dient u een andere spraaksynthese software of een aanvullende taalpakket te installeren van de app store (Google Play, Galaxy Store, App Gallery, FDroid).\nOpen de instellingen van uw toestel → Taal en invoer → Spraak → Uitvoer voor tekst-naar-spraak.\nHier kunt u instellingen voor spraaksynthese beheren (bijvoorbeeld taalpakket downloaden voor offline gebruik) en een andere tekst-naar-spraak engine selecteren.
+    nl = Voor sommige talen dient u een andere spraaksynthesesoftware of een aanvullende taalpakket te installeren van de app store (Google Play, Galaxy Store, App Gallery, FDroid).\nOpen de instellingen van uw toestel → Taal en invoer → Spraak → Uitvoer voor tekst-naar-spraak.\nHier kunt u instellingen voor spraaksynthese beheren (bijvoorbeeld taalpakket downloaden voor offline gebruik) en een andere tekst-naar-spraak engine selecteren.
     pl = W przypadku niektórych języków wymagana będzie instalacja innego syntezatora lub pakietu językowego ze strony aplikacji (Google Play, Galaxy Store, App Gallery, FDroid). Otwórz ustawienia urządzenia → Język i klawiatura → Mowa → Przetwarzanie tekstu na mowę.\nMożesz w tym miejscu zarządzać ustawieniami syntezy mowy (np. pobrać pakiet językowy do stosowania offline) i wybrać inny silnik przetwarzania tekstu na mowę.
     pt = Para alguns idiomas, precisará de instalar outro sintetizador de voz ou um pacote de idiomas adicional a partir da loja de aplicações (Google Play, Galaxy Store, App Gallery, FDroid). Abra as Configurações do seu dispositivo → Idioma e entrada → Voz → Saída de texto para voz. Aqui pode gerir as configurações de síntese de voz (por exemplo, transferir um pacote de idioma para poder utilizá-lo sem estar ligado à Internet) ou selecionar outro motor de texto para voz.
     ro = Pentru unele limbi trebuie să instalezi alt sintetizator de voce sau un pachet lingvistic suplimentar din Magazinul de aplicații (Google Play, Galaxy Store, App Gallery, FDroid).\nDeschide setările dispozitivului → Limbă → Transformare text în vorbire → Motor preferat.\nAici poți alege motorul de transformare a textului în vorbire și poți descărca o limbă pentru utilizare fără internet.
@@ -18329,7 +18372,7 @@
     lt = Transliteracija į lotynų
     mr = लॅटिनमध्ये (इंग्रजीची अक्षरे) लिप्यंतरण
     nb = Omskrivning til latin
-    nl = Transliteratie in het Latijn
+    nl = Transliteratie in het Latijnse alfabet
     pl = Transkrypcja na alfabet łaciński
     pt = Transliteração para o latim
     pt-BR = Transliteração para alfabeto latino
@@ -18877,7 +18920,7 @@
     lt = Išorinė saugykla yra neprieinama. SD kortelė galimai yra pašalinti, pažeista arba failų sistema yra nustatyti tik skaitymui. Patikrinkite SD kortelę arba susisiekite su mumis support@organicmaps.app
     mr = बाह्य साठ्याचा प्रवेश अपयशी. SD कार्ड कदाचित काढले गेले असेल, खराब झाले असेल किंवा फाइल सिस्टम ही केवळ-वाचनीय असावी. कृपया, तुमचे SD कार्ड तपासा किंवा support@organicmaps.app वर आमच्याशी संपर्क साधा
     nb = Ekstern lagring er ikke tilgjengelig. Sannsynligvis er SD-kortet fjernet eller skadet eller så er filsystemet skrivebeskyttet. Undersøk og kontakt oss på support@organicmaps.app
-    nl = Externe opslag is niet beschikbaar, wellicht is de SD-kaart verwijderd, beschadigd of is het bestandssysteem alleen-lezen. Gelieve het te controleren en ons te contacteren via support@organicmaps.app
+    nl = Externe opslag is niet beschikbaar, wellicht is de SD-kaart verwijderd, beschadigd of is het bestandssysteem alleen-lezen. Gelieve dit te controleren en ons te contacteren via support@organicmaps.app
     pl = Zewnętrzny nośnik pamięci masowej jest niedostępny. Prawdopodobnie usunięto lub uszkodzono kartę SD bądź jej system plików służy tylko do odczytu. Zweryfikuj to i skontaktuj się z nami pod adresem support@organicmaps.app
     pt = O armazenamento externo não está disponível. Provavelmente porque o cartão SD foi removido, danificado ou o sistema de ficheiros é apenas para leitura. Verifique e contacte-nos através do email support@organicmaps.app
     pt-BR = O armazenamento externo não está disponível, é provável que o cartão SD tenha sido removido, danificado ou o sistema de arquivo seja apenas para leitura. Verifique e entre em contato conosco em support@organicmaps.app
@@ -20210,7 +20253,7 @@
     lt = Kai kurie failai nebuvo konvertuoti.
     mr = काही फायली रूपांतरित झाल्या नाहीत.
     nb = Noen filer ble ikke konvertert.
-    nl = Sommige bestanden waren niet geconverteerd.
+    nl = Sommige bestanden werden niet geconverteerd.
     pl = Sommige bestanden waren niet geconverteerd.
     pt = Alguns ficheiros não foram convertidos.
     pt-BR = Alguns arquivos não foram convertidos.
@@ -20604,7 +20647,7 @@
     lt = Privatumo politika
     mr = गोपनीयता धोरण
     nb = Personvernpolitikk
-    nl = Privacy beleid
+    nl = Privacybeleid
     pl = Polityka prywatności
     pt = Política de privacidade
     pt-BR = Política de privacidade
@@ -21192,7 +21235,7 @@
     lt = Vieša prieiga
     mr = सार्वजनिक प्रवेश
     nb = Offentlig tilgang
-    nl = Publiek toegang
+    nl = Publieke toegang
     pl = Dostęp publiczny
     pt = Acesso público
     pt-BR = Acesso público
@@ -21580,7 +21623,7 @@
     lt = Vietos aprašymas
     mr = ठिकाणाचे वर्णन
     nb = Plasser beskrivelse
-    nl = Plaats Beschrijving
+    nl = Plaatsbeschrijving
     pl = Opis miejsca
     pt = Descrição do local
     pt-BR = Descrição do lugar
@@ -21624,7 +21667,7 @@
     lt = Žemėlapių atsisiuntėjas
     mr = नकाशा डाउनलोडक
     nb = Nedlast kart
-    nl = Kaart downloader
+    nl = Kaartdownloader
     pl = Pobieranie map
     pt = Descarregador de mapas
     pt-BR = Downloader do mapa
@@ -22842,15 +22885,8 @@
     tags = android,ios
     ref = yes
     be = Ёсць
-    ca = sí
-    es = sí
-    et = jah
-    eu = bai
     fa = بلی
-    fi = kyllä
-    fr = oui
     he = כן
-    nl = ja
     ru = Есть
     tr = Var
 
@@ -22859,13 +22895,6 @@
     tags = android,ios
     ref = no
     be = Няма
-    ca = no
-    es = no
-    et = ei
-    eu = ez
-    fi = ei
-    fr = non
-    nl = nee
     tr = Yok
 
   [trip_finished]
@@ -23062,7 +23091,7 @@
     lt = Nėra GPS signalo. Pereikite prie atviros vietos
     mr = GPS सिग्नल नाही. कृपया उघड्या परिसरात जा
     nb = Ingen GPS-signal. Vennligst gå til et åpent område
-    nl = Geen GPS-signaal. Ga naar het open veld
+    nl = Geen GPS-signaal. Ga naar een open omgeving
     pl = Brak sygnału GPS. Dostań się do terenu otwartego
     pt = Sem sinal de GPS. Desloque-se para uma área sem obstáculos no céu
     pt-BR = Sem sinal de GPS. Por favor, vá para uma região aberta
@@ -23104,7 +23133,7 @@
     lt = Nepavyko sukurti maršruto. Nurodykite kitus maršruto taškus
     mr = मार्ग तयार करण्यात अक्षम. कृपया इतर मार्ग बिंदू निर्दिष्ट करा
     nb = Kan ikke planlegge rute. Vennligst spesifiser en annen posisjon for rute
-    nl = Kan route niet bouwen. Selecteer andere tussenpunten
+    nl = Kan route niet berekenen. Selecteer andere tussenpunten
     pl = Brak możliwości zbudowania trasy. Wybierz inne punkty trasy
     pt = Não foi possível calcular o percurso. Escolha outros pontos do percurso
     pt-BR = Incapaz de traçar rota. Por favor, especifique outros pontos para a rota
@@ -23146,7 +23175,7 @@
     lt = Atsisiųskite trūkstamus žemėlapius, kad sukurtumėte maršrutą
     mr = मार्ग तयार करण्यासाठी, तुमच्या उपकरणावर गहाळ नकाशे डाउनलोड करा
     nb = For å beregne rute last ned manglende kart på enheten din
-    nl = Om een route te bouwen, download u ontbrekende kaarten
+    nl = Om een route te berekenen, download de ontbrekende kaarten
     pl = Aby wyznaczyć trasę, pobierz brakujące mapy na Twoim urządzeniu
     pt = Para calcular o percurso é preciso descarregar primeiro os mapas
     pt-BR = Para criar uma rota, baixe os mapas ausentes no seu dispositivo
@@ -23188,7 +23217,7 @@
     lt = Įvyko klaida. Iš naujo paleiskite programėlę
     mr = त्रुटी आढळली. कृपया ऍप पुनःचालू करा
     nb = Feil oppstod. Vennligst restart appen
-    nl = Lets fout gegaan. Start de app opnieuw
+    nl = Iets is fout gegaan. Start de app opnieuw
     pl = Wystąpił błąd. Uruchom aplikację ponownie
     pt = Surgiu um erro. Por favor reinicie a aplicação
     pt-BR = Ocorreu um erro. Por favor, reinicie o aplicativo
@@ -23230,7 +23259,7 @@
     lt = Maršrutas bus perkurtas iš jūsų dabartinės vietos
     mr = तुमच्या वर्तमान स्थानावरून मार्ग पुन्हा तयार केला जाईल
     nb = Rute vil planlegges fra din nåværende posisjon
-    nl = De route wordt opnieuw opgebouwd vanaf uw huidige positie
+    nl = De route wordt opnieuw berekend vanaf uw huidige locatie
     pl = Trasa zostanie przebudowana z Twojej bieżącej lokalizacji
     pt = O percurso será recalculado a partir da sua localização atual
     pt-BR = A rota sera retraçada a partir de sua localização atual
@@ -23272,7 +23301,7 @@
     lt = Maršrutas bus konvertuotas automobilinį
     mr = मार्गाचे रुपांतर वाहनासाठी केले जाईल
     nb = Rute vil oppdateres til kjørerute
-    nl = De route wordt gewijzigd in de autoroute
+    nl = De route wordt veranderd naar een autoroute
     pl = Trasa zostanie zmieniona na samochodową
     pt = O percurso será convertido num percurso para automóvel
     pt-BR = A rota será alterada para uma de automóvel
@@ -23357,7 +23386,7 @@
     lt = Greičio matuokliai
     mr = वेगकॅमेरा
     nb = Kamera-info
-    nl = Cameras
+    nl = Snelheidscamera's
     pl = Kamery
     pt = Radares
     pt-BR = Radares
@@ -23399,7 +23428,7 @@
     lt = Greičio įspėjimas
     mr = गती चेतावणी
     nb = Kamera-advarsel
-    nl = Over cameras
+    nl = Over snelheidscamera's
     pl = Info o kamerach
     pt = Avisos de velocidade
     pt-BR = Alertas de velocidade
@@ -25105,7 +25134,7 @@
     lt = Atsisiųskite vietovės žemėlapį, jei norite aktyvinti ir naudoti topografinį sluoksnį
     mr = भूस्वरूप स्तर वापरण्यासाठी कृपया नकाशा डाउनलोड किंवा अद्ययावत करा
     nb = For å bruke høydekurver oppdater eller last opp kartet til nødvendig område
-    nl = Als u gebruik wilt maken van hoogtelijnen, moet u een kaart van het gewenste gebied bijwerken of downloaden
+    nl = Als u gebruik wilt maken van hoogtelijnen, moet u de kaart van het gewenste gebied bijwerken of downloaden
     pl = Do skorzystania z poziomic, pobierz mapę tego obszaru.
     pt = Para ativar e usar a camada topográfica, por favor atualize ou descarregue o mapa da área
     pt-BR = Para ativar e usar a camada topográfica, atualize ou baixe o mapa da região
@@ -25148,7 +25177,7 @@
     lt = Topografinis sluoksnis šiai vietovei yra neprieinamas
     mr = या भागात भूस्वरूप स्तर अद्याप उपलब्ध नाही
     nb = Høydekurver er ikke tilgjengelige i dette området ennå
-    nl = De hoogtelijnen zijn nog niet beschikbaar in deze regio
+    nl = Hoogtelijnen zijn nog niet beschikbaar in deze regio
     pl = Poziomice nie są jeszcze dostępne w tym regionie
     pt = A camada topográfica ainda não está disponível nesta área
     pt-BR = A camada topográfica ainda não está disponível para esta região
@@ -25661,7 +25690,7 @@
     lt = Priartinkite, kad tyrinėtumėte izolinijas
     mr = समोच्च रेषा पाहायला नकाशा विशाल (झूम) करा
     nb = Forstørr kartet for å se høydekurver
-    nl = Zoom in om isolijnen te bekijken
+    nl = Zoom in om hoogtelijnen te bekijken
     pl = Powiększ mapę, aby zobaczyć poziomice
     pt = Amplie o mapa para ver as curvas de nível
     pt-BR = Use o zoom para explorar as isolinhas

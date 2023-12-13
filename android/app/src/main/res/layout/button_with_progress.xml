@@ -2,6 +2,7 @@
 <LinearLayout
   xmlns:android="http://schemas.android.com/apk/res/android"
   xmlns:tools="http://schemas.android.com/tools"
+  xmlns:app="http://schemas.android.com/apk/res-auto"
   android:layout_width="match_parent"
   android:layout_height="wrap_content"
   android:orientation="vertical">
@@ -14,16 +15,17 @@
     android:textAppearance="?fontBody2"
     android:visibility="gone"
     tools:visibility="visible"/>
-  <ProgressBar
+  <com.google.android.material.progressindicator.LinearProgressIndicator
     android:id="@+id/progressbar"
-    style="@style/Widget.AppCompat.ProgressBar.Horizontal"
+    style="@style/Widget.MaterialComponents.LinearProgressIndicator"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:layout_marginStart="@dimen/margin_base_plus"
     android:layout_marginTop="@dimen/margin_base"
     android:layout_marginEnd="@dimen/margin_base_plus"
     android:layout_marginBottom="@dimen/margin_base"
-    android:indeterminate="false" />
+    android:indeterminate="false"
+    app:indicatorColor="?android:colorAccent"/>
   <Button
     android:id="@+id/btn_download_resources"
     style="@style/MwmWidget.Button.Primary"

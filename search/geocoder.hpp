@@ -30,11 +30,9 @@
 #include "base/dfa_helpers.hpp"
 #include "base/levenshtein_dfa.hpp"
 
-#include <functional>
 #include <map>
 #include <memory>
 #include <optional>
-#include <string>
 #include <vector>
 
 class CategoriesHolder;
@@ -271,6 +269,7 @@ private:
   // pre-check to cut off unnecessary work.
   bool IsLayerSequenceSane(std::vector<FeaturesLayer> const & layers) const;
 
+  /// @returns kInvalidFeatureId in no matching found.
   uint32_t MatchWorld2Country(FeatureID const & id) const;
   // Finds all paths through layers and emits reachable features from the lowest layer.
   void FindPaths(BaseContext & ctx);

@@ -489,6 +489,8 @@
 	<string name="more_on_kayak">عکس ها، نظرات، رزرو</string>
 	<!-- An explanation dialog shown when clicking on more_on_kayak link. -->
 	<string name="dialog_kayak_disclaimer">پاداش ارجاعی دریافت شده برای هر رزرو از طریق این پیوند به سمت توسعه نقشه های ارگانیک می رود.</string>
+	<!-- A confirmation button text in the explanation dialog that opens hotel details page on Kayak website. -->
+	<string name="dialog_kayak_button">جزئیات در Kayak</string>
 	<string name="placepage_edit_bookmark_button">ویرایش نشانه‌ها</string>
 	<string name="editor_comment_hint">اظهار نظر</string>
 	<string name="editor_reset_edits_message">آیا تغییرات محلی را نادیده می گیرید؟</string>

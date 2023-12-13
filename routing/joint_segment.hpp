@@ -1,8 +1,9 @@
 #pragma once
 
-#include "routing/fake_feature_ids.hpp"
 #include "routing/route_weight.hpp"
 #include "routing/segment.hpp"
+
+#include "indexer/feature_decl.hpp"
 
 #include <limits>
 #include <string>
@@ -40,7 +41,6 @@ public:
   }
 
 private:
-  static uint32_t constexpr kInvalidFeatureId = FakeFeatureIds::kIndexGraphStarterId;
   uint32_t m_featureId = kInvalidFeatureId;
 
   uint32_t m_startSegmentId = kInvalidSegmentId;

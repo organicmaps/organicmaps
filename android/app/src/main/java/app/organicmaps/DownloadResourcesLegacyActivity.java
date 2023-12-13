@@ -9,7 +9,6 @@ import android.text.TextUtils;
 import android.view.View;
 import android.widget.Button;
 import android.widget.CheckBox;
-import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import androidx.activity.result.ActivityResultLauncher;
@@ -33,6 +32,7 @@ import app.organicmaps.util.StringUtils;
 import app.organicmaps.util.UiUtils;
 import app.organicmaps.util.Utils;
 import com.google.android.material.dialog.MaterialAlertDialogBuilder;
+import com.google.android.material.progressindicator.LinearProgressIndicator;
 
 import java.util.List;
 
@@ -51,7 +51,7 @@ public class DownloadResourcesLegacyActivity extends BaseMwmFragmentActivity
   private static final int ERR_FILE_IN_PROGRESS = -6;
 
   private TextView mTvMessage;
-  private ProgressBar mProgress;
+  private LinearProgressIndicator mProgress;
   private Button mBtnDownload;
   private CheckBox mChbDownloadCountry;
 
