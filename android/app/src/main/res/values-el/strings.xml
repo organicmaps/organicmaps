@@ -1301,7 +1301,7 @@
 	<string name="type.natural.glacier">Παγετώνας</string>
 	<string name="type.natural.grassland">Βοσκότοποι</string>
 	<string name="type.natural.heath">Ρείκι</string>
-	<string name="type.natural.hot_spring">Ιαματικές πηγές</string>
+	<string name="type.natural.hot_spring">Θερμή πηγή</string>
 	<string name="type.natural.water.lake">Λίμνη</string>
 	<string name="type.natural.water.lock">Θάλαμος κλειδαριάς</string>
 	<string name="type.natural.water.pond">Δεξαμενή</string>

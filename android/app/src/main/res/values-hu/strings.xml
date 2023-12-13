@@ -1318,7 +1318,7 @@
 	<string name="type.natural.glacier">Gleccser</string>
 	<string name="type.natural.grassland">Füves puszta</string>
 	<string name="type.natural.heath">Fenyér</string>
-	<string name="type.natural.hot_spring">Termálvíz</string>
+	<string name="type.natural.hot_spring">Melegvizű forrás</string>
 	<string name="type.natural.water.lake">Tó</string>
 	<string name="type.natural.water.lock">Zsilipkamra</string>
 	<string name="type.natural.water.pond">Tavacska</string>

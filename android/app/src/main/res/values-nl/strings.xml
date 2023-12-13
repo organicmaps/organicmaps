@@ -1461,7 +1461,7 @@
 	<string name="type.natural.glacier">Gletsjer</string>
 	<string name="type.natural.grassland">Grasland</string>
 	<string name="type.natural.heath">Heide</string>
-	<string name="type.natural.hot_spring">Heetwaterbron</string>
+	<string name="type.natural.hot_spring">Hete bron</string>
 	<string name="type.natural.water.lake">Meer</string>
 	<string name="type.natural.water.lock">Slotkamer</string>
 	<string name="type.natural.water.pond">Plas</string>

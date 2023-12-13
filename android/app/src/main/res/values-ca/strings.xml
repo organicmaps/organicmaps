@@ -820,6 +820,7 @@
 	<string name="type.landuse.flowerbed">Llit de flors</string>
 	<string name="type.leisure.outdoor_seating">Seients a l\'aire lliure</string>
 	<string name="type.man_made.tower.communication">Torre de comunicacions</string>
+	<string name="type.natural.hot_spring">Font termal</string>
 	<string name="type.power.generator.solar">Generador solar</string>
 	<string name="type.power.generator.wind">Generador eòlic</string>
 	<string name="type.power.generator.gas">Central elèctrica de turbina de gas</string>
