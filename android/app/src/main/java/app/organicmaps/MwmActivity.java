@@ -1661,7 +1661,7 @@ public class MwmActivity extends BaseMwmFragmentActivity
         .setTitle(R.string.how_to_support_us)
         .setMessage(R.string.dialog_kayak_disclaimer)
         .setCancelable(false)
-        .setPositiveButton(R.string.more_on_kayak, (dlg, which) -> {
+        .setPositiveButton(R.string.dialog_kayak_button, (dlg, which) -> {
           Config.acceptKayakDisclaimer();
           Utils.openUrl(this, url);
         })

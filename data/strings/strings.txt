@@ -16127,6 +16127,49 @@
     zh-Hans = 每次通过此链接预订所获得的推荐奖金将用于 Organic Maps 的开发。
     zh-Hant = 透過此連結進行的每次預訂收到的推薦獎金將用於開發有機地圖
 
+  [dialog_kayak_button]
+    comment = A confirmation button text in the explanation dialog that opens hotel details page on Kayak website.
+    tags = android,ios
+    en = Details on Kayak
+    ar = التفاصيل على Kayak
+    be = Падрабязнасці на Kayak
+    bg = Подробности в Kayak
+    ca = Detalls a Kayak
+    cs = Podrobnosti na Kayak
+    da = Detaljer på Kayak
+    de = Einzelheiten bei Kayak
+    el = Λεπτομέρειες στο Kayak
+    es = Detalles en Kayak
+    es-MX = Detalles sobre Kayak
+    et = Üksikasjad Kayaki kohta
+    eu = Xehetasunak Kayak-en
+    fa = جزئیات در Kayak
+    fi = Lisätietoa osoitteessa Kayak
+    fr = Détails sur Kayak
+    he = פרטים על Kayak
+    hi = कयाक पर विवरण
+    hu = Részletek a Kayak-on
+    id = Perincian di Kayak
+    it = Dettagli su Kayak
+    ja = Kayak で詳細表示
+    ko = Kayak의 세부 정보
+    mr = कायाक वर तपशील
+    nb = Mer informasjon om Kayak
+    nl = Details op Kayak
+    pl = Szczegóły na Kayak
+    pt = Detalhes em Kayak
+    ro = Detalii pe Kayak
+    ru = Подробнее на Kayak
+    sk = Podrobnosti na Kayak
+    sv = Information på Kayak
+    sw = Maelezo kuhusu Kayak
+    th = รายละเอียดบน Kayak
+    tr = Kayak hakkında detaylar
+    uk = Докладніше на Kayak
+    vi = Chi tiết trên Kayak
+    zh-Hans = Kayak 上的详细信息
+    zh-Hant = Kayak 上的詳細資訊
+
   [placepage_call_button]
     tags = ios
     en = Call
