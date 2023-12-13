@@ -506,6 +506,8 @@
 	<string name="more_on_kayak">Fényképek, vélemények, foglalás</string>
 	<!-- An explanation dialog shown when clicking on more_on_kayak link. -->
 	<string name="dialog_kayak_disclaimer">Az ezen a linken keresztül történő minden egyes foglalásért kapott ajánlói bónusz az Organic Maps fejlesztését szolgálja.</string>
+	<!-- A confirmation button text in the explanation dialog that opens hotel details page on Kayak website. -->
+	<string name="dialog_kayak_button">Részletek a Kayak-on</string>
 	<string name="placepage_edit_bookmark_button">Könyvjelző szerkesztése</string>
 	<string name="editor_comment_hint">Megjegyzés…</string>
 	<string name="editor_reset_edits_message">Elveti az összes helyi módosítást?</string>

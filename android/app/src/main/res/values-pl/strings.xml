@@ -518,6 +518,8 @@
 	<string name="more_on_kayak">Zdjęcia, opinie, rezerwacja</string>
 	<!-- An explanation dialog shown when clicking on more_on_kayak link. -->
 	<string name="dialog_kayak_disclaimer">Premia za polecenie otrzymywana za każdą rezerwację za pośrednictwem tego linku jest przeznaczana na rozwój Organic Maps.</string>
+	<!-- A confirmation button text in the explanation dialog that opens hotel details page on Kayak website. -->
+	<string name="dialog_kayak_button">Szczegóły na Kayak</string>
 	<string name="placepage_edit_bookmark_button">Edytuj zakładkę</string>
 	<string name="editor_comment_hint">Komentarz…</string>
 	<string name="editor_reset_edits_message">Usunąć wszystkie lokalne zmiany?</string>

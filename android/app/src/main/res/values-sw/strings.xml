@@ -89,6 +89,8 @@
 	<string name="more_on_kayak">Picha, hakiki, uhifadhi</string>
 	<!-- An explanation dialog shown when clicking on more_on_kayak link. -->
 	<string name="dialog_kayak_disclaimer">Bonasi ya rufaa inayopokelewa kwa kila nafasi uliyohifadhi kupitia kiungo hiki huenda kwenye uundaji wa ramani za kikaboni.</string>
+	<!-- A confirmation button text in the explanation dialog that opens hotel details page on Kayak website. -->
+	<string name="dialog_kayak_button">Maelezo kuhusu Kayak</string>
 	<string name="placepage_add_place_button">Ongeza Mahali kwa OpenStreetMap</string>
 	<string name="editor_share_to_all_dialog_message_2">Wahariri wa OpenStreetMap watakagua mabadiliko na kuwasiliana nawe ikiwa wana maswali yoyote.</string>
 	<!-- Settings: "Send general feedback" button -->

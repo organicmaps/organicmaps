@@ -795,6 +795,9 @@
 /* An explanation dialog shown when clicking on more_on_kayak link. */
 "dialog_kayak_disclaimer" = "Henvisningsbonusen som mottas for hver bestilling via denne lenken, går til utviklingen av Organic Maps.";
 
+/* A confirmation button text in the explanation dialog that opens hotel details page on Kayak website. */
+"dialog_kayak_button" = "Mer informasjon om Kayak";
+
 "placepage_call_button" = "Ring";
 
 "placepage_edit_bookmark_button" = "Rediger bokmerke";

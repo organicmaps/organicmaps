@@ -520,6 +520,8 @@
 	<string name="more_on_kayak">Фото, відгуки, бронювання</string>
 	<!-- An explanation dialog shown when clicking on more_on_kayak link. -->
 	<string name="dialog_kayak_disclaimer">Реферальний бонус, отриманий за кожне бронювання за цим посиланням, йде на розробку Organic Maps.</string>
+	<!-- A confirmation button text in the explanation dialog that opens hotel details page on Kayak website. -->
+	<string name="dialog_kayak_button">Докладніше на Kayak</string>
 	<string name="placepage_edit_bookmark_button">Редагувати мiтку</string>
 	<string name="editor_comment_hint">Коментар…</string>
 	<string name="editor_reset_edits_message">Скинути всі локальні виправлення?</string>

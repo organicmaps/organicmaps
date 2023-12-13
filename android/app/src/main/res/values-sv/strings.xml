@@ -490,6 +490,8 @@
 	<string name="more_on_kayak">Foton, recensioner, bokning</string>
 	<!-- An explanation dialog shown when clicking on more_on_kayak link. -->
 	<string name="dialog_kayak_disclaimer">Hänvisningsbonusen som erhålls för varje bokning via denna länk går till utvecklingen av Organic Maps.</string>
+	<!-- A confirmation button text in the explanation dialog that opens hotel details page on Kayak website. -->
+	<string name="dialog_kayak_button">Information på Kayak</string>
 	<string name="placepage_edit_bookmark_button">Redigera bokmärke</string>
 	<string name="editor_comment_hint">kommentar…</string>
 	<string name="editor_reset_edits_message">Återställ alla lokala ändringar?</string>

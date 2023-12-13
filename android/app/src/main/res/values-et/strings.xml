@@ -506,6 +506,8 @@
 	<string name="more_on_kayak">Fotod, arvustused, broneerimine</string>
 	<!-- An explanation dialog shown when clicking on more_on_kayak link. -->
 	<string name="dialog_kayak_disclaimer">Iga selle lingi kaudu tehtud broneeringu eest saadav boonus läheb Organic Maps\'i arendamiseks.</string>
+	<!-- A confirmation button text in the explanation dialog that opens hotel details page on Kayak website. -->
+	<string name="dialog_kayak_button">Üksikasjad Kayaki kohta</string>
 	<string name="placepage_edit_bookmark_button">Muuda järjehoidjat</string>
 	<string name="editor_comment_hint">Kommenteeri…</string>
 	<string name="editor_reset_edits_message">Loobu kõigist kohalikest muudatustest?</string>
