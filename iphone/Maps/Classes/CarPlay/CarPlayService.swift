@@ -375,6 +375,11 @@ extension CarPlayService: CPMapTemplateDelegate {
     isUserPanMap = true
   }
 
+  func mapTemplate(_ mapTemplate: CPMapTemplate, didUpdatePanGestureWithTranslation translation: CGPoint, velocity: CGPoint) {
+    let scaleFactor = self.carplayVC?.mapView?.contentScaleFactor ?? 1
+    FrameworkHelper.scrollMap(-scaleFactor * translation.x, -scaleFactor * translation.y);
+  }
+
   func mapTemplate(_ mapTemplate: CPMapTemplate, startedTrip trip: CPTrip, using routeChoice: CPRouteChoice) {
     guard let info = routeChoice.userInfo as? RouteInfo else {
       if let info = routeChoice.userInfo as? [String: Any],

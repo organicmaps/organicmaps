@@ -112,6 +112,10 @@
   GetFramework().Move(offset.horizontal, offset.vertical, true);
 }
 
++ (void)scrollMap:(double) distanceX :(double) distanceY {
+  GetFramework().Scroll(distanceX, distanceY);
+}
+
 + (void)deactivateMapSelection:(BOOL)notifyUI {
   GetFramework().DeactivateMapSelection(notifyUI);
 }
