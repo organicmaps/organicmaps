@@ -594,8 +594,8 @@
 	<plurals name="tracks">
 	  <item quantity="other">%d út</item>
 	</plurals>
-	<!-- used to choose between the Google and Android location services -->
-	<string name="subtittle_opt_out">Követési beállítások</string>
+	<!-- Settings privacy group in settings screen -->
+	<string name="privacy">Adatvédelem</string>
 	<string name="privacy_policy">Adatvédelmi irányelvek</string>
 	<string name="terms_of_use">Felhasználási feltételek</string>
 	<string name="button_layer_traffic">Forgalom</string>

@@ -605,8 +605,8 @@
 	  <item quantity="one">%d traça</item>
 	  <item quantity="other">%d traces</item>
 	</plurals>
-	<!-- used to choose between the Google and Android location services -->
-	<string name="subtittle_opt_out">Configuració de seguiment</string>
+	<!-- Settings privacy group in settings screen -->
+	<string name="privacy">Privadesa</string>
 	<string name="privacy_policy">Normes de confidencialitat</string>
 	<string name="terms_of_use">Considicions del servei</string>
 	<string name="button_layer_traffic">Trànsit</string>

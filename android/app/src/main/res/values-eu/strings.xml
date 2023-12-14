@@ -614,8 +614,8 @@
 	  <item quantity="one">arrasto %d</item>
 	  <item quantity="other">%d arrasto</item>
 	</plurals>
-	<!-- used to choose between the Google and Android location services -->
-	<string name="subtittle_opt_out">Jarraipen ezarpenak</string>
+	<!-- Settings privacy group in settings screen -->
+	<string name="privacy">Pribatutasuna</string>
 	<string name="privacy_policy">Pribatutasun politika</string>
 	<string name="terms_of_use">Erabilera baldintzak</string>
 	<string name="button_layer_traffic">Trafikoa</string>

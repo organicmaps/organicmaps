@@ -618,8 +618,8 @@
 	  <item quantity="one">%d reitti</item>
 	  <item quantity="other">%d reittiä</item>
 	</plurals>
-	<!-- used to choose between the Google and Android location services -->
-	<string name="subtittle_opt_out">Paikannusasetukset</string>
+	<!-- Settings privacy group in settings screen -->
+	<string name="privacy">Yksityisyys</string>
 	<string name="privacy_policy">Yksityisyyskäytäntö</string>
 	<string name="terms_of_use">Käyttöehdot</string>
 	<string name="button_layer_traffic">Liikenne</string>

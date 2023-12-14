@@ -623,8 +623,8 @@
 	  <item quantity="one">%d трек</item>
 	  <item quantity="other">%d треков</item>
 	</plurals>
-	<!-- used to choose between the Google and Android location services -->
-	<string name="subtittle_opt_out">Настройки сопровождения</string>
+	<!-- Settings privacy group in settings screen -->
+	<string name="privacy">Приватность</string>
 	<string name="privacy_policy">Политика конфиденциальности</string>
 	<string name="terms_of_use">Условия использования</string>
 	<string name="button_layer_traffic">Пробки</string>

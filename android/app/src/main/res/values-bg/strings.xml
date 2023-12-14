@@ -571,8 +571,8 @@
 	  <item quantity="one">%d пътека</item>
 	  <item quantity="other">%d пътеки</item>
 	</plurals>
-	<!-- used to choose between the Google and Android location services -->
-	<string name="subtittle_opt_out">Настройки за проследяване</string>
+	<!-- Settings privacy group in settings screen -->
+	<string name="privacy">Поверителност</string>
 	<string name="privacy_policy">Политика за поверителност</string>
 	<string name="terms_of_use">Условия за ползване</string>
 	<string name="button_layer_traffic">Трафик</string>
