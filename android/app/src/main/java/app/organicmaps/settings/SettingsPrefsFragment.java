@@ -276,7 +276,7 @@ public class SettingsPrefsFragment extends BaseXmlSettingsFragment
       if (!playServices)
       {
         // Remove "Tracking" section completely.
-        final PreferenceCategory tracking = findPreference(getString(R.string.pref_subtittle_opt_out));
+        final PreferenceCategory tracking = findPreference(getString(R.string.pref_privacy));
         if (tracking != null)
           mPreferenceScreen.removePreference(tracking);
       }
@@ -534,7 +534,7 @@ public class SettingsPrefsFragment extends BaseXmlSettingsFragment
 
     if (!LocationProviderFactory.isGoogleLocationAvailable(requireActivity().getApplicationContext()))
     {
-      removePreference(getString(R.string.pref_subtittle_opt_out), pref);
+      removePreference(getString(R.string.pref_privacy), pref);
       return false;
     }
     else
