@@ -21,7 +21,7 @@
                         <rect key="frame" x="0.0" y="0.0" width="340" height="50"/>
                         <subviews>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Map Layers" textAlignment="natural" lineBreakMode="clip" baselineAdjustment="alignBaselines" minimumScaleFactor="0.5" adjustsLetterSpacingToFitWidth="YES" adjustsFontForContentSizeCategory="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Vuk-dn-n2c">
-                                <rect key="frame" x="16" y="13" width="543" height="24"/>
+                                <rect key="frame" x="116" y="13" width="108" height="24"/>
                                 <fontDescription key="fontDescription" type="boldSystem" pointSize="20"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
@@ -88,14 +88,14 @@
                                 <rect key="frame" x="0.0" y="0.0" width="102.5" height="64"/>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <userDefinedRuntimeAttributes>
-                                    <userDefinedRuntimeAttribute type="image" keyPath="image" value="btn_menu_isomaps"/>
+                                    <userDefinedRuntimeAttribute type="image" keyPath="image" value="btn_menu_outdoors"/>
                                     <userDefinedRuntimeAttribute type="number" keyPath="spacing">
                                         <real key="value" value="10"/>
                                     </userDefinedRuntimeAttribute>
                                     <userDefinedRuntimeAttribute type="number" keyPath="numberOfLines">
                                         <integer key="value" value="2"/>
                                     </userDefinedRuntimeAttribute>
-                                    <userDefinedRuntimeAttribute type="string" keyPath="title" value="Outdoor"/>
+                                    <userDefinedRuntimeAttribute type="string" keyPath="localizedText" value="button_layer_outdoor"/>
                                 </userDefinedRuntimeAttributes>
                                 <connections>
                                     <action selector="onOutdoorButton:" destination="KGk-i7-Jjw" eventType="touchUpInside" id="UQ2-jj-fPc"/>
@@ -197,8 +197,9 @@
         </tableViewCell>
     </objects>
     <resources>
-        <image name="btn_menu_isomaps" width="50" height="50"/>
-        <image name="btn_menu_subway" width="50" height="50"/>
+        <image name="btn_menu_isomaps" width="151" height="151"/>
+        <image name="btn_menu_outdoors" width="151" height="151"/>
+        <image name="btn_menu_subway" width="151" height="151"/>
         <image name="ic_clear_24" width="20" height="20"/>
     </resources>
 </document>

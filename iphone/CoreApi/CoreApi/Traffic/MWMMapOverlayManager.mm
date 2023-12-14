@@ -187,7 +187,7 @@ static NSString *didChangeOutdoorMapStyle = @"didChangeOutdoorMapStyle";
     [self setTrafficEnabled:false];
   }
 
-    auto &f = GetFramework();
+  auto &f = GetFramework();
   switch (f.GetMapStyle()) {
     case MapStyleClear:
     case MapStyleVehicleClear:

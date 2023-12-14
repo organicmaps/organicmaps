@@ -1,11 +1,6 @@
 import UIKit
 
 class BottomMenuLayersCell: UITableViewCell {
-  @IBOutlet private var trafficButton: BottomMenuLayerButton! {
-    didSet {
-      updateTrafficButton()
-    }
-  }
   @IBOutlet private var subwayButton: BottomMenuLayerButton! {
     didSet {
       updateSubwayButton()
@@ -37,13 +32,6 @@ class BottomMenuLayersCell: UITableViewCell {
     super.setSelected(selected, animated: animated)
   }
   
-  private func updateTrafficButton() {
-    // TODO: enable button back in xib.
-    if trafficButton == nil { return }
-    let enabled = MapOverlayManager.trafficEnabled()
-    trafficButton.setStyleAndApply(enabled ? "MenuButtonEnabled" : "MenuButtonDisabled")
-  }
-  
   private func updateSubwayButton() {
     let enabled = MapOverlayManager.transitEnabled()
     subwayButton.setStyleAndApply(enabled ? "MenuButtonEnabled" : "MenuButtonDisabled")
@@ -63,11 +51,6 @@ class BottomMenuLayersCell: UITableViewCell {
     onClose?()
   }
   
-  @IBAction func onTrafficButton(_ sender: Any) {
-    let enable = !MapOverlayManager.trafficEnabled()
-    MapOverlayManager.setTrafficEnabled(enable)
-  }
-  
   @IBAction func onSubwayButton(_ sender: Any) {
     let enable = !MapOverlayManager.transitEnabled()
     MapOverlayManager.setTransitEnabled(enable)
@@ -85,10 +68,6 @@ class BottomMenuLayersCell: UITableViewCell {
 }
 
 extension BottomMenuLayersCell: MapOverlayManagerObserver {
-  func onTrafficStateUpdated() {
-    updateTrafficButton()
-  }
-  
   func onTransitStateUpdated() {
     updateSubwayButton()
   }
