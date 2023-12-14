@@ -582,8 +582,8 @@
 	<plurals name="tracks">
 	  <item quantity="other">trek %d</item>
 	</plurals>
-	<!-- used to choose between the Google and Android location services -->
-	<string name="subtittle_opt_out">Pengaturan treking</string>
+	<!-- Settings privacy group in settings screen -->
+	<string name="privacy">Privasi</string>
 	<string name="privacy_policy">Kebijakan privasi</string>
 	<string name="terms_of_use">Ketentuan penggunaan</string>
 	<string name="button_layer_traffic">Lalu lintas</string>

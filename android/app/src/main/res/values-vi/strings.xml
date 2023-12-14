@@ -580,8 +580,8 @@
 	<plurals name="tracks">
 	  <item quantity="other">%d các chặn đường</item>
 	</plurals>
-	<!-- used to choose between the Google and Android location services -->
-	<string name="subtittle_opt_out">Thiết lập theo dõi</string>
+	<!-- Settings privacy group in settings screen -->
+	<string name="privacy">Sự riêng tư</string>
 	<string name="privacy_policy">Chính sách bảo mật</string>
 	<string name="terms_of_use">Điều khoảng sử dụng</string>
 	<string name="button_layer_traffic">Giao thông</string>

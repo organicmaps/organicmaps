@@ -591,8 +591,6 @@
 	  <item quantity="one">%d percurso</item>
 	  <item quantity="other">%d percursos</item>
 	</plurals>
-	<!-- used to choose between the Google and Android location services -->
-	<string name="subtittle_opt_out">Configurações de rastreamento</string>
 	<string name="privacy_policy">Política de privacidade</string>
 	<string name="terms_of_use">Termos de uso</string>
 	<string name="button_layer_traffic">Tráfego</string>

@@ -578,8 +578,8 @@
 	<plurals name="tracks">
 	  <item quantity="other">%d ट्रॅक</item>
 	</plurals>
-	<!-- used to choose between the Google and Android location services -->
-	<string name="subtittle_opt_out">ट्रॅकिंग सेटिंग</string>
+	<!-- Settings privacy group in settings screen -->
+	<string name="privacy">गोपनीयता</string>
 	<string name="privacy_policy">गोपनीयता धोरण</string>
 	<string name="terms_of_use">वापरण्याच्या अटी</string>
 	<string name="button_layer_traffic">ट्रॅफिक</string>

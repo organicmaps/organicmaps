@@ -597,8 +597,8 @@
 	<plurals name="tracks">
 	  <item quantity="other">%d 軌跡</item>
 	</plurals>
-	<!-- used to choose between the Google and Android location services -->
-	<string name="subtittle_opt_out">跟蹤設置</string>
+	<!-- Settings privacy group in settings screen -->
+	<string name="privacy">隱私</string>
 	<string name="privacy_policy">隱私政策</string>
 	<string name="terms_of_use">使用條款</string>
 	<string name="button_layer_traffic">路況</string>

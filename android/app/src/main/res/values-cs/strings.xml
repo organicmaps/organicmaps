@@ -587,8 +587,8 @@
 	<plurals name="tracks">
 	  <item quantity="other">%d cest</item>
 	</plurals>
-	<!-- used to choose between the Google and Android location services -->
-	<string name="subtittle_opt_out">Natavení doprovodu</string>
+	<!-- Settings privacy group in settings screen -->
+	<string name="privacy">Soukromí</string>
 	<string name="privacy_policy">Zásady ochrany osobních údajů</string>
 	<string name="terms_of_use">Podmínky užívání</string>
 	<string name="button_layer_traffic">Zácpy</string>

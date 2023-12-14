@@ -579,8 +579,8 @@
 	<plurals name="tracks">
 	  <item quantity="other">%d sledovania</item>
 	</plurals>
-	<!-- used to choose between the Google and Android location services -->
-	<string name="subtittle_opt_out">Nastavenie sledovania</string>
+	<!-- Settings privacy group in settings screen -->
+	<string name="privacy">Súkromia</string>
 	<string name="privacy_policy">Zásady ochrany osobných údajov</string>
 	<string name="terms_of_use">Podmienky používania</string>
 	<string name="button_layer_traffic">Vyťaženie</string>
