@@ -9077,6 +9077,45 @@ sw:4Maji ya kunywa
 fa:اب اشامیدنی
 mr:पिण्याचे पाणी
 
+natural-hot_spring|@water
+en:3Hot Spring
+ar:ربيع حار
+be:4Гарачая крыніца|4Геатэрмальная крыніца
+bg:Горещ извор
+ca:Font termal|Font calenta|Deu termal
+cs:Termální pramen
+da:Varm kilde
+de:Heiße Quelle|Thermalquelle
+el:Θερμή πηγή|Ιαματική πηγή
+es:Aguas termales
+et:Kuumaveeallikas
+eu:Udaberri beroa
+fa:چشمه آب گرم
+fi:Kuuma lähde
+fr:Source chaude
+he:מעיין חם
+hu:Melegvizű forrás|Termálvíz
+id:Sumber Air Panas
+it:Sorgente calda
+ja:温泉
+ko:온천
+mr:गरम पाण्याचा झरा
+nb:Varm kilde
+nl:Hete bron|Warmwaterbron
+pl:Gorące źródło
+pt:Nascente de água quente
+ro:Izvor termal
+ru:4Горячий источник|4Геотермальный источник
+sk:Horúci prameň|Termálny prameň
+sv:Varm källa
+sw:Majira ya joto
+th:น้ำพุร้อน
+tr:Kaplıca
+uk:4Гаряче джерело|4Геотермальне джерело|4Термальні води
+vi:Suối nóng
+zh-Hans:温泉
+zh-Hant:溫泉
+
 natural-spring|@water
 en:3Spring
 ru:4Родник|ключ|источник
@@ -14788,6 +14827,45 @@ ru:4Причал|5пристань|3Марина
 tr:İskele|Marina|Rıhtım
 uk:5Пристань|3Марина
 zh-Hans:游艇码头
+
+piste:type-downhill|piste:type-nordic
+en:3Skiing|Ski run
+ar:التزلج|مسار التزلج
+be:Лыжы|Лыжная траса
+bg:Ски|Ски писта
+ca:Esquí|Pista d'esquí
+cs:Lyžování|Lyžařská sjezdovka
+da:Skiløb|Skiløjpe
+de:Skifahren|Skipiste
+el:Σκι|Πίστα σκι
+es:Esquí|Pista de esquí
+et:Suusatamine|Suusarada
+eu:Eskia|Eski pista
+fa:اسکی|پیست اسکی
+fi:Hiihto|Hiihtolatu
+fr:Ski|Piste de ski
+he:סקי|ריצת סקי
+hu:Síelés|Sífutás
+id:Ski|Lari ski
+it:Sci|Pista da sci
+ja:スキー|スキー滑走
+ko:스키|스키 달리기
+mr:स्कीइंग|स्की रन
+nb:Skiløp|Skiløype
+nl:Skiën|Skipiste
+pl:Narciarstwo|Stok narciarski
+pt:Esquiar|Pista de esqui
+ro:Schi|Pârtie de schi
+ru:Лыжи|Лыжная трасса
+sk:Lyžovanie|Lyžiarsky svah
+sv:Skidåkning|Skidspår
+sw:Skiing|Mbio za kuteleza
+th:เล่นสกี|วิ่งสกี
+tr:Kayak|Kayak pisti
+uk:Лижи|Лижна траса
+vi:Trượt tuyết|Chạy trượt tuyết
+zh-Hans:滑雪|滑雪道
+zh-Hant:滑雪|滑雪道
 
 amenity-events_venue
 en:Events Venue
