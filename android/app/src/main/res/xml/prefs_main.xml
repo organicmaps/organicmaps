@@ -174,8 +174,8 @@
     </PreferenceScreen>
   </androidx.preference.PreferenceCategory>
   <androidx.preference.PreferenceCategory
-    android:key="@string/pref_subtittle_opt_out"
-    android:title="@string/subtittle_opt_out"
+    android:key="@string/pref_privacy"
+    android:title="@string/privacy"
     android:order="6">
     <SwitchPreferenceCompat
       android:key="@string/pref_play_services"

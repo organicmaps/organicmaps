@@ -616,8 +616,8 @@
 	  <item quantity="one">%d ruta</item>
 	  <item quantity="other">%d rutas</item>
 	</plurals>
-	<!-- used to choose between the Google and Android location services -->
-	<string name="subtittle_opt_out">Configuraciones de seguimiento</string>
+	<!-- Settings privacy group in settings screen -->
+	<string name="privacy">Privacidad</string>
 	<string name="privacy_policy">Política de privacidad</string>
 	<string name="terms_of_use">Condiciones de uso</string>
 	<string name="button_layer_traffic">Tráfico</string>

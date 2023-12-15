@@ -3,6 +3,7 @@ package app.organicmaps.util;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.os.Build;
+import android.text.TextUtils;
 
 import androidx.annotation.NonNull;
 import androidx.preference.PreferenceManager;
@@ -339,10 +340,21 @@ public final class Config
     nativeSetTransliteration(value);
   }
 
-  @NonNull
-  public static String getDonateUrl()
+  public static boolean isNY()
   {
-    return getString(KEY_DONATE_URL);
+    return getBool("NY");
+  }
+
+  @NonNull
+  @SuppressWarnings("ConstantConditions") // BuildConfig
+  public static String getDonateUrl(@NonNull Context context)
+  {
+    final String url = getString(KEY_DONATE_URL);
+    // Enable donations by default if not Google or Huawei. Replace organicmaps.app/donate/ with localized page.
+    if ((url.isEmpty() && !BuildConfig.FLAVOR.equals("google") && !BuildConfig.FLAVOR.equals("huawei")) ||
+        url.endsWith("organicmaps.app/donate/"))
+      return context.getString(R.string.translated_om_site_url) + "donate/";
+    return url;
   }
 
   public static void init(@NonNull Context context)

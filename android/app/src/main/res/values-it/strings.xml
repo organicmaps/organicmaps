@@ -597,8 +597,8 @@
 	  <item quantity="one">%d percorso</item>
 	  <item quantity="other">%d percorsi</item>
 	</plurals>
-	<!-- used to choose between the Google and Android location services -->
-	<string name="subtittle_opt_out">Impostazioni percorso</string>
+	<!-- Settings privacy group in settings screen -->
+	<string name="privacy">Privacy</string>
 	<string name="privacy_policy">Riservatezza</string>
 	<string name="terms_of_use">Condizioni d\'uso</string>
 	<string name="button_layer_traffic">Traffico</string>

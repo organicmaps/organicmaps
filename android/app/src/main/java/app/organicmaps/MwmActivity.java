@@ -233,12 +233,6 @@ public class MwmActivity extends BaseMwmFragmentActivity
   }
 
   @Override
-  public void onRenderingRestored()
-  {
-    processIntent();
-  }
-
-  @Override
   public void onRenderingCreated()
   {
     checkMeasurementSystem();
@@ -267,8 +261,8 @@ public class MwmActivity extends BaseMwmFragmentActivity
    */
   private void processIntent()
   {
-    if (!isMapRendererActive())
-      throw new AssertionError("Must be called when rendering is active");
+    if (!Map.isEngineCreated())
+      throw new AssertionError("Must be called with initialized Drape");
 
     final Intent intent = getIntent();
     if (intent == null || intent.getBooleanExtra(EXTRA_CONSUMED, false))
@@ -513,6 +507,16 @@ public class MwmActivity extends BaseMwmFragmentActivity
 
     if (getIntent().getBooleanExtra(EXTRA_UPDATE_THEME, false))
       ThemeSwitcher.INSTANCE.restart(isMapRendererActive());
+
+    /*
+     * onRenderingInitializationFinished() hook is not called when MwmActivity is recreated with the already
+     * initialized Drape engine. This can happen when the activity is swiped away from the most recent app lists
+     * during navigation and then restarted from the launcher. Call this hook explicitly here to run operations
+     * that require initialized Drape, such as restoring navigation and processing incoming intents.
+     * https://github.com/organicmaps/organicmaps/issues/6712
+     */
+    if (Map.isEngineCreated())
+      onRenderingInitializationFinished();
   }
 
   private void refreshLightStatusBar()
@@ -2150,7 +2154,7 @@ public class MwmActivity extends BaseMwmFragmentActivity
           getDownloadMapsCounter(),
           this::onDownloadMapsOptionSelected
       ));
-      mDonatesUrl = Config.getDonateUrl();
+      mDonatesUrl = Config.getDonateUrl(getApplicationContext());
       if (!TextUtils.isEmpty(mDonatesUrl))
         items.add(new MenuBottomSheetItem(R.string.donate, R.drawable.ic_donate, this::onDonateOptionSelected));
       items.add(new MenuBottomSheetItem(R.string.settings, R.drawable.ic_settings, this::onSettingsOptionSelected));

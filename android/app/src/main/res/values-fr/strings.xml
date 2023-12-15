@@ -617,8 +617,8 @@
 	<plurals name="tracks">
 	  <item quantity="other">%d pistes</item>
 	</plurals>
-	<!-- used to choose between the Google and Android location services -->
-	<string name="subtittle_opt_out">Paramètres de suivi</string>
+	<!-- Settings privacy group in settings screen -->
+	<string name="privacy">Vie privée</string>
 	<string name="privacy_policy">Politique de confidentialité</string>
 	<string name="terms_of_use">Conditions d\'utilisation</string>
 	<string name="button_layer_traffic">Trafic</string>

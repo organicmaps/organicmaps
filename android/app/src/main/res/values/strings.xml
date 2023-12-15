@@ -641,8 +641,8 @@
 	  <item quantity="one">%d track</item>
 	  <item quantity="other">%d tracks</item>
 	</plurals>
-	<!-- used to choose between the Google and Android location services -->
-	<string name="subtittle_opt_out">Tracking settings</string>
+	<!-- Settings privacy group in settings screen -->
+	<string name="privacy">Privacy</string>
 	<string name="privacy_policy">Privacy policy</string>
 	<string name="terms_of_use">Terms of use</string>
 	<string name="button_layer_traffic">Traffic</string>

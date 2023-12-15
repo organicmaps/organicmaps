@@ -2,6 +2,7 @@ package app.organicmaps.maplayer;
 
 import android.content.Context;
 import android.os.Bundle;
+import android.text.TextUtils;
 import android.util.TypedValue;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -24,6 +25,7 @@ import app.organicmaps.routing.RoutingController;
 import app.organicmaps.util.Config;
 import app.organicmaps.util.ThemeUtils;
 import app.organicmaps.util.UiUtils;
+import app.organicmaps.util.Utils;
 import app.organicmaps.widget.menu.MyPositionButton;
 import app.organicmaps.widget.placepage.PlacePageViewModel;
 import com.google.android.material.badge.BadgeDrawable;
@@ -85,7 +87,10 @@ public class MapButtonsController extends Fragment
     final FloatingActionButton helpButton = mFrame.findViewById(R.id.help_button);
     if (helpButton != null)
     {
-      helpButton.setImageResource(R.drawable.logo);
+      if (Config.isNY() && !TextUtils.isEmpty(Config.getDonateUrl(requireContext())))
+        helpButton.setImageResource(R.drawable.ic_christmas_tree);
+      else
+        helpButton.setImageResource(R.drawable.logo);
       // Keep this button colorful in normal theme.
       if (!ThemeUtils.isNightTheme(requireContext()))
         helpButton.getDrawable().setTintList(null);

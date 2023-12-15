@@ -38,10 +38,7 @@ public class HelpFragment extends BaseMwmFragment implements View.OnClickListene
   @Override
   public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState)
   {
-    mDonateUrl = Config.getDonateUrl();
-    if (TextUtils.isEmpty(mDonateUrl) && !BuildConfig.FLAVOR.equals("google") && !BuildConfig.FLAVOR.equals("huawei"))
-      mDonateUrl = getResources().getString(R.string.translated_om_site_url) + "donate/";
-
+    mDonateUrl = Config.getDonateUrl(requireContext());
     View root = inflater.inflate(R.layout.about, container, false);
 
     ((TextView) root.findViewById(R.id.version))
@@ -78,7 +75,12 @@ public class HelpFragment extends BaseMwmFragment implements View.OnClickListene
     if (TextUtils.isEmpty(mDonateUrl))
       donateView.setVisibility(View.GONE);
     else
+    {
+      if (Config.isNY())
+        donateView.setCompoundDrawablesRelativeWithIntrinsicBounds(R.drawable.ic_christmas_tree, 0,
+            R.drawable.ic_christmas_tree, 0);
       setupItem(R.id.donate, isLandscape, root);
+    }
 
     if (BuildConfig.REVIEW_URL.isEmpty())
       root.findViewById(R.id.rate).setVisibility(View.GONE);

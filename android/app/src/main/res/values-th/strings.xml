@@ -581,8 +581,8 @@
 	<plurals name="tracks">
 	  <item quantity="other">%d ติดตามต่าง ๆ</item>
 	</plurals>
-	<!-- used to choose between the Google and Android location services -->
-	<string name="subtittle_opt_out">การตั้งค่าการติดตาม</string>
+	<!-- Settings privacy group in settings screen -->
+	<string name="privacy">ความเป็นส่วนตัว</string>
 	<string name="privacy_policy">นโยบายความเป็นส่วนตัว</string>
 	<string name="terms_of_use">ข้อกำหนดในการใช้งาน</string>
 	<string name="button_layer_traffic">การจราจร</string>

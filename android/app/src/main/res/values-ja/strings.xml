@@ -577,8 +577,8 @@
 	<plurals name="tracks">
 	  <item quantity="other">%dの追跡</item>
 	</plurals>
-	<!-- used to choose between the Google and Android location services -->
-	<string name="subtittle_opt_out">追跡の設定</string>
+	<!-- Settings privacy group in settings screen -->
+	<string name="privacy">プライバシー</string>
 	<string name="privacy_policy">個人情報保護方針</string>
 	<string name="terms_of_use">ご利用規約</string>
 	<string name="button_layer_traffic">交通状況</string>

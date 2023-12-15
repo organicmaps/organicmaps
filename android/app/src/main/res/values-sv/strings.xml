@@ -580,8 +580,8 @@
 	<plurals name="tracks">
 	  <item quantity="other">%d spår</item>
 	</plurals>
-	<!-- used to choose between the Google and Android location services -->
-	<string name="subtittle_opt_out">Spårningsinställningar</string>
+	<!-- Settings privacy group in settings screen -->
+	<string name="privacy">Zasebnost</string>
 	<string name="privacy_policy">Integritetspolicy</string>
 	<string name="terms_of_use">Allmänna villkor</string>
 	<string name="button_layer_traffic">Trafik</string>

@@ -582,8 +582,8 @@
 	<plurals name="tracks">
 	  <item quantity="other">%d ruter</item>
 	</plurals>
-	<!-- used to choose between the Google and Android location services -->
-	<string name="subtittle_opt_out">Tracking-indstillinger</string>
+	<!-- Settings privacy group in settings screen -->
+	<string name="privacy">Privatliv</string>
 	<string name="privacy_policy">Privatlivspolitik</string>
 	<string name="terms_of_use">Vilkår for bruger</string>
 	<string name="button_layer_traffic">Trafik</string>
