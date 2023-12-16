@@ -1,10 +1,9 @@
-Organic Maps es una aplicación de navegación GPS con privacidad, para conductores, excursionistas y ciclistas. La aplicación ofrece navegación con privacidad: sin seguimiento en la ubicación, sin recopilación de los datos y sin anuncios. La búsqueda, el enrutamiento y la navegación funcionan sin la señal del teléfono móvil, lo que resulta ideal para viajar por rutas de senderismo lejanas o lugares con malas conexiones. Organic Maps utiliza los datos de OpenStreetMap, de origen colectivo, con colaboradores de todo el mundo. El proyecto está impulsado por la comunidad, el código es abierto y da prioridad al desarrollo y la colaboración de la comunidad.
+Organic Maps es una aplicación de navegación GPS con privacidad, para conductores, excursionistas y ciclistas. La aplicación no tiene seguimiento de ubicación ni recopilación de datos. La búsqueda, el enrutamiento y la navegación funcionan sin señal de teléfono celular, ideal para viajes en rutas de senderismo distantes o lugares con malas conexiones. Organic Maps utiliza los datos de OpenStreetMap de fuentes múltiples con colaboradores de todo el mundo. El proyecto es impulsado por la comunidad, el código es de código abierto y prioriza el desarrollo y la colaboración comunitarios.
 
-• Sin necesidad de señal del móvil: busca y rastrea sin necesidad de la señal.
-• Utiliza de forma eficiente la batería - Reduce el consumo de batería
+• No se requiere señal celular - Buscar & Ruta sin una señal
+• Uso eficiente de la batería - Reducción del drenaje de la batería
 • Búsqueda rápida - Encuentra ubicaciones rápidamente
 
 En Organic Maps, valoramos la privacidad:
-• No rastreamos la ubicación
-• Sin recopilación de datos
-• Sin anuncios
+• Sin seguimiento de la ubicación
+• Ninguna recopilación de datos
