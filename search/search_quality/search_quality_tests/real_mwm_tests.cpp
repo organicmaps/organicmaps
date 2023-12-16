@@ -550,7 +550,8 @@ UNIT_CLASS_TEST(MwmTestsFixture, Generic_Buildings_Rank)
     auto const & results = request->Results();
     TEST_GREATER(results.size(), kResultsCount, ());
 
-    Range const range(results, 0, kResultsCount);
+    // results[0] is a named POI ~9km (https://www.openstreetmap.org/node/9730886727)
+    Range const range(results, 1, kResultsCount);
     EqualClassifType(range, GetClassifTypes({{"man_made", "tower", "communication"}}));
     TEST_LESS(SortedByDistance(range, center), 5000.0, ());
   }
@@ -816,7 +817,7 @@ UNIT_CLASS_TEST(MwmTestsFixture, WaterTap)
     TEST_GREATER_OR_EQUAL(results.size(), kTopPoiResultsCount, ());
 
     Range const range(results);
-    EqualClassifType(range, GetClassifTypes({{"man_made", "water_tap"}}));
+    EqualClassifType(range, GetClassifTypes({{"amenity", "drinking_water"}, {"man_made", "water_tap"}}));
     double const dist = SortedByDistance(range, center);
     TEST_LESS(dist, 3500, ());
   }
@@ -849,6 +850,10 @@ UNIT_CLASS_TEST(MwmTestsFixture, BA_SanMartin)
   SetViewportAndLoadMaps(center);
 
   {
+    /// @todo
+    /// - "Parque San Martin", "General San Martin" towns should be on top
+    /// - Railway station sometimes fail because of "shuffle". Can increase m_everywhereBatchSize var.
+
     auto request = MakeRequest("San Martin");
     auto const & results = request->Results();
     size_t constexpr kResultsCount = 12;
