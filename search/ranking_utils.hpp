@@ -193,7 +193,7 @@ public:
     Init();
   }
 
-  std::vector<strings::UniString> const & GetTokens() { return m_tokens; }
+  std::vector<strings::UniString> const & GetTokens() const { return m_tokens; }
   size_t Size() const { return m_tokens.size(); }
   strings::UniString const & Token(size_t i) const { return m_tokens[i]; }
   strings::LevenshteinDFA const & DFA(size_t i)
