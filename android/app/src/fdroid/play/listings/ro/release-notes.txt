@@ -1,6 +1,6 @@
-• New OpenStreetMap data as of November 13
-• The maximum zoom level is twice as deep as it was before
-• Fixed import of bookmarks in KMB format
-• Disabled the screen wake lock by default to improve power-saving
-• Corrected the location search indication when the map is moved or zoomed
-• Outdoors map style preview - read on how to activate it and about many other improvements on omaps.org/news
+• Date noi OpenStreetMap de pe 13 Noiembrie
+• Nivelul maxim de zoom este de două ori mai adânc decât până acum
+• Repararea importului de bookmark-uri de format KMB
+• Blocarea de trezire a ecranului este dezactivată implicit pentru a îmbunătăți utilizarea bateriei
+• Indicatorul de căutare a locației a fost corectat când harta este mișcată sau mărită
+• Stil de previzualizare a hărții de exterior - citiți cum să îl activați și alte noi îmbunătățiri pe omaps.org/news
