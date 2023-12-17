@@ -10,7 +10,6 @@ public class MapButtonsViewModel extends ViewModel
   private final MutableLiveData<Float> mBottomButtonsHeight = new MutableLiveData<>(0f);
   private final MutableLiveData<MapButtonsController.LayoutMode> mLayoutMode = new MutableLiveData<>(MapButtonsController.LayoutMode.regular);
   private final MutableLiveData<Integer> mMyPositionMode = new MutableLiveData<>();
-  private final MutableLiveData<Mode> mMapLayerMode = new MutableLiveData<>();
   private final MutableLiveData<SearchWheel.SearchOption> mSearchOption = new MutableLiveData<>();
 
   public MutableLiveData<Boolean> getButtonsHidden()
@@ -51,16 +50,6 @@ public class MapButtonsViewModel extends ViewModel
   public void setMyPositionMode(int mode)
   {
     mMyPositionMode.setValue(mode);
-  }
-
-  public MutableLiveData<Mode> getMapLayerMode()
-  {
-    return mMapLayerMode;
-  }
-
-  public void setMapLayerMode(Mode mode)
-  {
-    mMapLayerMode.setValue(mode);
   }
 
   public MutableLiveData<SearchWheel.SearchOption> getSearchOption()

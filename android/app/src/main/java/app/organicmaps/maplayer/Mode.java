@@ -4,9 +4,11 @@ import android.content.Context;
 
 import androidx.annotation.NonNull;
 
+import app.organicmaps.Framework;
 import app.organicmaps.maplayer.isolines.IsolinesManager;
 import app.organicmaps.maplayer.subway.SubwayManager;
 import app.organicmaps.maplayer.traffic.TrafficManager;
+import app.organicmaps.util.ThemeSwitcher;
 
 public enum Mode
 {
@@ -52,6 +54,21 @@ public enum Mode
         public void setEnabled(@NonNull Context context, boolean isEnabled)
         {
           IsolinesManager.from(context).setEnabled(isEnabled);
+        }
+      },
+  OUTDOORS
+      {
+        @Override
+        public boolean isEnabled(@NonNull Context context)
+        {
+          return Framework.nativeIsOutdoorsLayerEnabled();
+        }
+
+        @Override
+        public void setEnabled(@NonNull Context context, boolean isEnabled)
+        {
+          Framework.nativeSetOutdoorsLayerEnabled(isEnabled);
+          ThemeSwitcher.INSTANCE.restart(true);
         }
       };
   

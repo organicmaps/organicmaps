@@ -700,6 +700,9 @@ public:
   bool LoadIsolinesEnabled();
   void SaveIsolinesEnabled(bool enabled);
 
+  bool LoadOutdoorsEnabled();
+  void SaveOutdoorsEnabled(bool enabled);
+
   dp::ApiVersion LoadPreferredGraphicsAPI();
   void SavePreferredGraphicsAPI(dp::ApiVersion apiVersion);
 

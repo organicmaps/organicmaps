@@ -45,9 +45,11 @@
   <attr name="trafficMenuDisabled" format="reference"/>
   <attr name="subwayMenuDisabled" format="reference"/>
   <attr name="isoLinesMenuDisabled" format="reference"/>
+  <attr name="outdoorsMenuDisabled" format="reference"/>
   <attr name="trafficMenuEnabled" format="reference"/>
   <attr name="subwayMenuEnabled" format="reference"/>
   <attr name="isoLinesMenuEnabled" format="reference"/>
+  <attr name="outdoorsMenuEnabled" format="reference"/>
   <attr name="accentColorSelector" format="color"/>
   <attr name="bookingFilterTitleColor" format="color"/>
   <attr name="adsRemovalOptionsBg" format="reference"/>
