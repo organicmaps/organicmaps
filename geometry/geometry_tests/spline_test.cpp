@@ -1,5 +1,6 @@
 #include "testing/testing.hpp"
 
+#include "geometry/geometry_tests/equality.hpp"
 #include "geometry/spline.hpp"
 
 #include <vector>
@@ -19,7 +20,7 @@ void TestPointDDir(PointD const & dst, PointD const & src)
   TEST_ALMOST_EQUAL_ULPS(dst.y/len1, src.y/len2, ());
 }
 
-UNIT_TEST(Spline_SmoothedDirections)
+UNIT_TEST(SmoothedDirections)
 {
   vector<PointD> path;
   path.push_back(PointD(0, 0));
@@ -60,7 +61,7 @@ UNIT_TEST(Spline_SmoothedDirections)
   TestPointDDir(itr.m_avrDir, dir12 * 0.5 + dir2 * 0.5);
 }
 
-UNIT_TEST(Spline_UsualDirections)
+UNIT_TEST(UsualDirections)
 {
   vector<PointD> path;
   path.push_back(PointD(0, 0));
@@ -99,7 +100,7 @@ UNIT_TEST(Spline_UsualDirections)
   TestPointDDir(itr.m_dir, dir2);
 }
 
-UNIT_TEST(Spline_Positions)
+UNIT_TEST(Positions)
 {
   vector<PointD> path;
   path.push_back(PointD(0, 0));
@@ -148,7 +149,7 @@ UNIT_TEST(Spline_Positions)
   TestPointDDir(itr.m_pos, PointD(80, 40));
 }
 
-UNIT_TEST(Spline_BeginAgain)
+UNIT_TEST(BeginAgain)
 {
   vector<PointD> path;
   path.push_back(PointD(0, 0));
@@ -187,7 +188,7 @@ UNIT_TEST(Spline_BeginAgain)
   TEST_EQUAL(itr.BeginAgain(), true, ());
 }
 
-UNIT_TEST(Spline_Length)
+UNIT_TEST(Length)
 {
   vector<PointD> path;
   PointD const p1(27.5536633, 64.2492523);
@@ -209,34 +210,4 @@ UNIT_TEST(Spline_Length)
   double len2 = l1 + l2 + l3 + l4;
   TEST_ALMOST_EQUAL_ULPS(len1, len2, ());
 }
-
-bool EqualLast(Spline const & spl, PointD const & pt)
-{
-  return base::AlmostEqualULPs(spl.GetPath().back(), pt);
-}
-
-UNIT_TEST(Spline_AddOrProlong)
-{
-  double constexpr minSegSqLength = 1;
-
-  Spline spl;
-  spl.AddOrProlongPoint({0, 0}, minSegSqLength, false);
-  TEST_EQUAL(spl.GetSize(), 1, ());
-
-  spl.AddOrProlongPoint({1, 1}, minSegSqLength, true);
-  TEST_EQUAL(spl.GetSize(), 2, ());
-
-  spl.AddOrProlongPoint({1.5, 1.5}, minSegSqLength, false);
-  TEST_EQUAL(spl.GetSize(), 2, ());
-  TEST(EqualLast(spl, {1.5, 1.5}), ());
-
-  spl.AddOrProlongPoint({3, 3}, minSegSqLength, true);
-  TEST_EQUAL(spl.GetSize(), 2, ());
-  TEST(EqualLast(spl, {3, 3}), ());
-
-  spl.AddOrProlongPoint({4, 4}, minSegSqLength, false);
-  TEST_EQUAL(spl.GetSize(), 3, ());
-  TEST(EqualLast(spl, {4, 4}), ());
-}
-
 }  // namespace spline_test
