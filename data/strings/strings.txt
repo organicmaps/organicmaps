@@ -25568,7 +25568,7 @@
     ro = Dificultate
     ru = Сложность
     sk = Obtiažnosť
-    sv = Komplexitet
+    sv = Svårighet
     sw = Ugumu
     th = ลำบาก
     tr = Zorluk
