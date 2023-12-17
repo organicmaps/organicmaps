@@ -104,8 +104,6 @@ struct BuildInfo
 class Info : public osm::MapObject
 {
 public:
-  static char const * const kStarSymbol;
-  static char const * const kMountainSymbol;
 
   void SetBuildInfo(place_page::BuildInfo const & info) { m_buildInfo = info; }
   place_page::BuildInfo const & GetBuildInfo() const { return m_buildInfo; }

@@ -19,10 +19,9 @@
 
 namespace place_page
 {
-char const * const Info::kStarSymbol = "★";
-char const * const Info::kMountainSymbol = "▲";
-char const * const kWheelchairSymbol = "\u267F";
-char const * const kAtmSymbol = "💳";
+static constexpr std::string_view kMountainSymbol= "▲";
+static constexpr std::string_view kWheelchairSymbol = "♿️";
+static constexpr std::string_view kAtmSymbol = "💳";
 
 bool Info::IsBookmark() const
 {
@@ -162,7 +161,10 @@ std::string Info::FormatSubtitle(bool withType) const
   // Elevation.
   auto const eleStr = GetElevationFormatted();
   if (!eleStr.empty())
-    append(kMountainSymbol + eleStr);
+  {
+    append(kMountainSymbol);
+    append(eleStr);
+  }
     
   // ATM
   if (HasAtm())
@@ -301,7 +303,7 @@ std::string Info::FormatStars() const
 {
   std::string stars;
   for (int i = 0; i < GetStars(); ++i)
-    stars.append(kStarSymbol);
+    stars.append(MapObject::kStarSymbol);
   return stars;
 }
 
