@@ -1,7 +1,5 @@
 #pragma once
 
-#include "drape/pointers.hpp"
-
 #include "indexer/feature_decl.hpp"
 
 #include "geometry/spline.hpp"
@@ -21,10 +19,10 @@ public:
   ReadMetalineTask(MapDataProvider & model, MwmSet::MwmId const & mwmId);
 
   void Run();
-  void Cancel();
-  bool IsCancelled() const;
+  bool UpdateCache(MetalineCache & cache);
 
-  MetalineCache const & GetMetalines() const { return m_metalines; }
+  void Cancel() { m_isCancelled = true; }
+  bool IsCancelled() const { return m_isCancelled; }
   MwmSet::MwmId const & GetMwmId() const { return m_mwmId; }
 
 private:

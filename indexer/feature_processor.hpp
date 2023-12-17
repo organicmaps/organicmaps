@@ -12,7 +12,7 @@
 namespace feature
 {
 template <class ToDo>
-void ForEachFeature(ModelReaderPtr reader, ToDo && toDo)
+void ForEachFeature(ModelReaderPtr const & reader, ToDo && toDo)
 {
   FeaturesVectorTest features((FilesContainerR(reader)));
   features.GetVector().ForEach(std::forward<ToDo>(toDo));

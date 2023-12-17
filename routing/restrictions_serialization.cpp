@@ -2,14 +2,12 @@
 
 #include <sstream>
 
-using namespace std;
-
 namespace
 {
-char const kNo[] = "No";
-char const kOnly[] = "Only";
-char const kNoUTurn[] = "NoUTurn";
-char const kOnlyUTurn[] = "OnlyUTurn";
+char constexpr kNo[] = "No";
+char constexpr kOnly[] = "Only";
+char constexpr kNoUTurn[] = "NoUTurn";
+char constexpr kOnlyUTurn[] = "OnlyUTurn";
 }  // namespace
 
 namespace routing
@@ -21,9 +19,6 @@ std::vector<Restriction::Type> const RestrictionHeader::kRestrictionTypes = {
     Restriction::Type::NoUTurn,
     Restriction::Type::OnlyUTurn
 };
-
-// static
-uint32_t const Restriction::kInvalidFeatureId = numeric_limits<uint32_t>::max();
 
 bool Restriction::operator==(Restriction const & restriction) const
 {
@@ -56,7 +51,7 @@ void RestrictionHeader::Reset()
     m_restrictionCount.emplace(type, 0);
 }
 
-string DebugPrint(Restriction::Type const & type)
+std::string DebugPrint(Restriction::Type const & type)
 {
   switch (type)
   {
@@ -68,9 +63,9 @@ string DebugPrint(Restriction::Type const & type)
   return "Unknown";
 }
 
-string DebugPrint(Restriction const & restriction)
+std::string DebugPrint(Restriction const & restriction)
 {
-  ostringstream out;
+  std::ostringstream out;
   out << "[" << DebugPrint(restriction.m_type) << "]: {";
   for (size_t i = 0; i < restriction.m_featureIds.size(); ++i)
   {

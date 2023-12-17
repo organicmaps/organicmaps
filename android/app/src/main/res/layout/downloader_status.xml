@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout
+  xmlns:android="http://schemas.android.com/apk/res/android"
+  xmlns:wheel="http://schemas.android.com/apk/res-auto"
+  xmlns:tools="http://schemas.android.com/tools"
+  android:layout_width="@dimen/downloader_status_size"
+  android:layout_height="@dimen/downloader_status_size"
+  tools:background="#20000FF0">
+  <app.organicmaps.widget.WheelProgressView
+    android:id="@+id/downloader_progress_wheel"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="?clickableBackground"
+    wheel:wheelProgressColor="?colorAccent"
+    wheel:wheelSecondaryColor="?dividerHorizontal"
+    wheel:wheelThickness="@dimen/margin_eighth"/>
+
+  <ImageView
+    android:id="@+id/downloader_status"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:scaleType="center"
+    android:background="?clickableBackground"
+    tools:src="@drawable/downloader_failed"/>
+</FrameLayout>

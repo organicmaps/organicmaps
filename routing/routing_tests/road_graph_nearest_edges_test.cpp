@@ -52,8 +52,8 @@ UNIT_TEST(RoadGraph_NearestEdges)
     ri1.m_speedKMPH = 5;
     ri1.m_bidirectional = true;
 
-    graph.AddRoad(move(ri0));
-    graph.AddRoad(move(ri1));
+    graph.AddRoad(std::move(ri0));
+    graph.AddRoad(std::move(ri1));
   }
 
   // We are standing at x junction.

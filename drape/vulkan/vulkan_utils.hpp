@@ -70,6 +70,12 @@ struct SamplerKey
                                      dp::vulkan::GetVulkanResultString(statusCode))); \
   } while (false)
 
+#define CHECK_VK_CALL_EX(method, msg) \
+  do { \
+    VkResult const statusCode = method; \
+    CHECK_EQUAL(statusCode, VK_SUCCESS, msg); \
+  } while (false)
+
 #define CHECK_RESULT_VK_CALL(method, statusCode) \
   do { \
     CHECK(statusCode == VK_SUCCESS, ("Vulkan error:", #method, "finished with code", \

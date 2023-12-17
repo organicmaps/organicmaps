@@ -11,7 +11,7 @@
 #include <string>
 #include <random>
 
-#include "3party/pugixml/pugixml/src/pugixml.hpp"
+#include <pugixml.hpp>
 
 using osm::ServerApi06;
 using osm::OsmOAuth;

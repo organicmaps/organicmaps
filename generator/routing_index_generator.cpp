@@ -19,7 +19,6 @@
 
 #include "transit/experimental/transit_data.hpp"
 #include "transit/transit_graph_data.hpp"
-#include "transit/transit_serdes.hpp"
 
 #include "routing_common/bicycle_model.hpp"
 #include "routing_common/car_model.hpp"
@@ -29,7 +28,6 @@
 #include "indexer/feature_processor.hpp"
 
 #include "coding/files_container.hpp"
-#include "coding/geometry_coding.hpp"
 #include "coding/point_coding.hpp"
 #include "coding/reader.hpp"
 
@@ -43,9 +41,6 @@
 #include "base/timer.hpp"
 
 #include <algorithm>
-#include <cstdint>
-#include <functional>
-#include <limits>
 #include <map>
 #include <memory>
 #include <unordered_map>
@@ -56,7 +51,7 @@ namespace routing_builder
 using namespace feature;
 using namespace platform;
 using namespace routing;
-using namespace std;
+using std::string, std::vector;
 
 class VehicleMaskBuilder final
 {
@@ -100,9 +95,9 @@ private:
     return mask;
   }
 
-  shared_ptr<VehicleModelInterface> const m_pedestrianModel;
-  shared_ptr<VehicleModelInterface> const m_bicycleModel;
-  shared_ptr<VehicleModelInterface> const m_carModel;
+  std::shared_ptr<VehicleModelInterface> const m_pedestrianModel;
+  std::shared_ptr<VehicleModelInterface> const m_bicycleModel;
+  std::shared_ptr<VehicleModelInterface> const m_carModel;
 };
 
 class Processor final
@@ -116,8 +111,8 @@ public:
 
   void ProcessAllFeatures(string const & filename)
   {
-    namespace pl = std::placeholders;
-    ForEachFeature(filename, bind(&Processor::ProcessFeature, this, pl::_1, pl::_2));
+    using namespace std::placeholders;
+    ForEachFeature(filename, std::bind(&Processor::ProcessFeature, this, _1, _2));
   }
 
   void BuildGraph(IndexGraph & graph) const
@@ -133,7 +128,7 @@ public:
     graph.Import(joints);
   }
 
-  unordered_map<uint32_t, VehicleMask> const & GetMasks() const { return m_masks; }
+  std::unordered_map<uint32_t, VehicleMask> const & GetMasks() const { return m_masks; }
 
 private:
   void ProcessFeature(FeatureType & f, uint32_t id)
@@ -153,8 +148,8 @@ private:
   }
 
   VehicleMaskBuilder const m_maskBuilder;
-  unordered_map<uint64_t, Joint> m_posToJoint;
-  unordered_map<uint32_t, VehicleMask> m_masks;
+  std::unordered_map<uint64_t, Joint> m_posToJoint;
+  std::unordered_map<uint32_t, VehicleMask> m_masks;
 };
 
 class IndexGraphWrapper final
@@ -165,8 +160,8 @@ public:
   {
   }
 
-  // Just for compatibility with IndexGraphStarterJoints
-  // @{
+  /// @name For compatibility with IndexGraphStarterJoints
+  /// @{
   Segment GetStartSegment() const { return m_start; }
   Segment GetFinishSegment() const { return {}; }
   bool ConvertToReal(Segment const & /* segment */) const { return false; }
@@ -198,7 +193,9 @@ public:
   }
 
   RouteWeight GetAStarWeightEpsilon() { return RouteWeight(0.0); }
-  // @}
+
+  RouteWeight GetCrossBorderPenalty(NumMwmId mwmId1, NumMwmId mwmId2) { return RouteWeight(0); }
+  /// @}
 
   ms::LatLon const & GetPoint(Segment const & s, bool forward)
   {
@@ -275,9 +272,8 @@ void CalcCrossMwmTransitions(
     CrossMwmConnectorBuilderEx<base::GeoObjectId> & builder)
 {
   VehicleMaskBuilder const maskMaker(country, countryParentNameGetterFn);
-  map<uint32_t, base::GeoObjectId> featureIdToOsmId;
-  CHECK(ParseWaysFeatureIdToOsmIdMapping(mappingFile, featureIdToOsmId),
-        ("Can't parse feature id to osm id mapping. File:", mappingFile));
+  std::map<uint32_t, base::GeoObjectId> featureIdToOsmId;
+  ParseWaysFeatureIdToOsmIdMapping(mappingFile, featureIdToOsmId);
 
   auto const & path = base::JoinPath(intermediateDir, CROSS_MWM_OSM_WAYS_DIR, country);
 
@@ -495,27 +491,27 @@ void CalcCrossMwmConnectors(
 template <typename CrossMwmId>
 void FillWeights(string const & path, string const & mwmFile, string const & country,
                  CountryParentNameGetterFn const & countryParentNameGetterFn,
-                 bool disableCrossMwmProgress, CrossMwmConnectorBuilderEx<CrossMwmId> & builder)
+                 CrossMwmConnectorBuilderEx<CrossMwmId> & builder)
 {
   base::Timer timer;
 
   // We use leaps for cars only. To use leaps for other vehicle types add weights generation
   // here and change WorldGraph mode selection rule in IndexRouter::CalculateSubroute.
   VehicleType const vhType = VehicleType::Car;
-  shared_ptr<VehicleModelInterface> vehicleModel =
+  std::shared_ptr<VehicleModelInterface> vehicleModel =
       CarModelFactory(countryParentNameGetterFn).GetVehicleModelForCountry(country);
 
   MwmValue mwmValue(LocalCountryFile(path, platform::CountryFile(country), 0 /* version */));
   uint32_t mwmNumRoads = DeserializeIndexGraphNumRoads(mwmValue, vhType);
-  IndexGraph graph(make_shared<Geometry>(GeometryLoader::CreateFromFile(mwmFile, vehicleModel), mwmNumRoads),
-                                         EdgeEstimator::Create(vhType, *vehicleModel,
-                                                               nullptr /* trafficStash */,
-                                                               nullptr /* dataSource */,
-                                                               nullptr /* numMvmIds */));
+  IndexGraph graph(std::make_shared<Geometry>(GeometryLoader::CreateFromFile(mwmFile, vehicleModel), mwmNumRoads),
+                                              EdgeEstimator::Create(vhType, *vehicleModel,
+                                                                    nullptr /* trafficStash */,
+                                                                    nullptr /* dataSource */,
+                                                                    nullptr /* numMvmIds */));
   graph.SetCurrentTimeGetter([time = GetCurrentTimestamp()] { return time; });
   DeserializeIndexGraph(mwmValue, vhType, graph);
 
-  map<Segment, map<Segment, RouteWeight>> weights;
+  std::map<Segment, std::map<Segment, RouteWeight>> weights;
   size_t foundCount = 0;
   size_t notFoundCount = 0;
 
@@ -527,6 +523,7 @@ void FillWeights(string const & path, string const & mwmFile, string const & cou
     if (i % 10 == 0)
       LOG(LINFO, ("Building leaps:", i, "/", numEnters, "waves passed"));
 
+    i++;
     using Algorithm =
         AStarAlgorithm<JointSegment, JointEdge, RouteWeight>;
 
@@ -535,14 +532,15 @@ void FillWeights(string const & path, string const & mwmFile, string const & cou
     DijkstraWrapperJoints wrapper(indexGraphWrapper, enter);
     Algorithm::Context context(wrapper);
 
-    unordered_map<uint32_t, vector<JointSegment>> visitedVertexes;
+    std::unordered_map<uint32_t, vector<JointSegment>> visitedVertexes;
     astar.PropagateWave(
         wrapper, wrapper.GetStartJoint(),
-        [&](JointSegment const & vertex) {
+        [&](JointSegment const & vertex)
+        {
           if (vertex.IsFake())
           {
-            Segment start = wrapper.GetSegmentOfFakeJoint(vertex, true /* start */);
-            Segment end = wrapper.GetSegmentOfFakeJoint(vertex, false /* start */);
+            auto const & start = wrapper.GetSegmentOfFakeJoint(vertex, true /* start */);
+            auto const & end = wrapper.GetSegmentOfFakeJoint(vertex, false /* start */);
             if (start.IsForward() != end.IsForward())
               return true;
 
@@ -581,9 +579,7 @@ void FillWeights(string const & path, string const & mwmFile, string const & cou
           if (context.HasParent(jointSegment))
           {
             JointSegment const & parent = context.GetParent(jointSegment);
-            parentSegment = parent.IsFake() ? wrapper.GetSegmentOfFakeJoint(parent, false /* start */)
-                                            : parent.GetSegment(false /* start */);
-
+            parentSegment = wrapper.GetSegmentFromJoint(parent, false /* start */);
             weight = context.GetDistance(parent);
           }
           else
@@ -676,7 +672,7 @@ void SerializeCrossMwm(string const & mwmFile, string const & sectionName,
 void BuildRoutingCrossMwmSection(string const & path, string const & mwmFile,
                                  string const & country, string const & intermediateDir,
                                  CountryParentNameGetterFn const & countryParentNameGetterFn,
-                                 string const & osmToFeatureFile, bool disableCrossMwmProgress)
+                                 string const & osmToFeatureFile)
 {
   LOG(LINFO, ("Building cross mwm section for", country));
   CrossMwmConnectorBuilderEx<base::GeoObjectId> builder;
@@ -684,7 +680,9 @@ void BuildRoutingCrossMwmSection(string const & path, string const & mwmFile,
   CalcCrossMwmConnectors(path, mwmFile, intermediateDir, country, countryParentNameGetterFn,
                          osmToFeatureFile, {} /* edgeIdToFeatureId */, builder);
 
-  FillWeights(path, mwmFile, country, countryParentNameGetterFn, disableCrossMwmProgress, builder);
+  // We use leaps for cars only. To use leaps for other vehicle types add weights generation
+  // here and change WorldGraph mode selection rule in IndexRouter::CalculateSubroute.
+  FillWeights(path, mwmFile, country, countryParentNameGetterFn, builder);
 
   SerializeCrossMwm(mwmFile, CROSS_MWM_FILE_TAG, builder);
 }

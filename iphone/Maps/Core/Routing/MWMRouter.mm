@@ -17,6 +17,7 @@
 
 #include "platform/local_country_file_utils.hpp"
 #include "platform/localization.hpp"
+#include "platform/distance.hpp"
 
 using namespace routing;
 
@@ -55,6 +56,7 @@ char const *kRenderAltitudeImagesQueueLabel = "mapsme.mwmrouter.renderAltitudeIm
   switch ([self type]) {
     case MWMRouterTypeVehicle:
     case MWMRouterTypePublicTransport:
+    case MWMRouterTypeRuler:
       return NO;
     case MWMRouterTypePedestrian:
     case MWMRouterTypeBicycle:
@@ -88,6 +90,12 @@ char const *kRenderAltitudeImagesQueueLabel = "mapsme.mwmrouter.renderAltitudeIm
 + (BOOL)IsRouteValid {
   return GetFramework().GetRoutingManager().IsRouteValid();
 }
+
++ (BOOL)isSpeedCamLimitExceeded
+{
+  return GetFramework().GetRoutingManager().IsSpeedCamLimitExceeded();
+}
+
 + (NSArray<MWMRoutePoint *> *)points {
   NSMutableArray<MWMRoutePoint *> *points = [@[] mutableCopy];
   auto const routePoints = GetFramework().GetRoutingManager().GetRoutePoints();
@@ -337,25 +345,24 @@ char const *kRenderAltitudeImagesQueueLabel = "mapsme.mwmrouter.renderAltitudeIm
   auto const &rm = GetFramework().GetRoutingManager();
   routing::FollowingInfo info;
   rm.GetRouteFollowingInfo(info);
-  auto navManager = [MWMNavigationDashboardManager sharedManager];
   if (!info.IsValid())
-    return;
+      return;
+  auto navManager = [MWMNavigationDashboardManager sharedManager];
   if ([MWMRouter type] == MWMRouterTypePublicTransport)
     [navManager updateTransitInfo:rm.GetTransitRouteInfo()];
   else
-    [navManager updateFollowingInfo:info type:[MWMRouter type]];
+    [navManager updateFollowingInfo:info routePoints:[MWMRouter points] type:[MWMRouter type]];
 }
 
 + (void)routeAltitudeImageForSize:(CGSize)size completion:(MWMImageHeightBlock)block {
   if (![self hasRouteAltitude])
     return;
 
-  auto routePointDistanceM = std::make_shared<std::vector<double>>(std::vector<double>());
-  auto altitudes = std::make_shared<geometry::Altitudes>(geometry::Altitudes());
-  if (!GetFramework().GetRoutingManager().GetRouteAltitudesAndDistancesM(*routePointDistanceM, *altitudes))
+  auto altitudes = std::make_shared<RoutingManager::DistanceAltitude>();
+  if (!GetFramework().GetRoutingManager().GetRouteAltitudesAndDistancesM(*altitudes))
     return;
 
-  // Note. |routePointDistanceM| and |altitudes| should not be used in the method after line below.
+  // |altitudes| should not be used in the method after line below.
   dispatch_async(self.router.renderAltitudeImagesQueue, [=]() {
     auto router = self.router;
     CGFloat const screenScale = [UIScreen mainScreen].scale;
@@ -369,28 +376,24 @@ char const *kRenderAltitudeImagesQueueLabel = "mapsme.mwmrouter.renderAltitudeIm
 
     NSValue *sizeValue = [NSValue valueWithCGSize:scaledSize];
     NSData *imageData = router.altitudeImagesData[sizeValue];
-    if (!imageData) {
+    if (!imageData)
+    {
+      altitudes->Simplify();
+
       std::vector<uint8_t> imageRGBAData;
-      uint32_t totalAscent = 0;
-      uint32_t totalDescent = 0;
-      measurement_utils::Units units = measurement_utils::Units::Metric;
-
-      if (!GetFramework().GetRoutingManager().GenerateRouteAltitudeChart(width, height, *altitudes,
-                                                                         *routePointDistanceM, imageRGBAData,
-                                                                         totalAscent, totalDescent, units)) {
+      if (!altitudes->GenerateRouteAltitudeChart(width, height, imageRGBAData))
         return;
-      }
-
       if (imageRGBAData.empty())
         return;
       imageData = [NSData dataWithBytes:imageRGBAData.data() length:imageRGBAData.size()];
       router.altitudeImagesData[sizeValue] = imageData;
 
+      uint32_t totalAscentM, totalDescentM;
+      altitudes->CalculateAscentDescent(totalAscentM, totalDescentM);
+
       auto const localizedUnits = platform::GetLocalizedAltitudeUnits();
-      router.totalAscent = 
-        @(measurement_utils::FormatAltitudeWithLocalization(totalAscent, localizedUnits.m_low).c_str());
-      router.totalDescent = 
-        @(measurement_utils::FormatAltitudeWithLocalization(totalDescent, localizedUnits.m_low).c_str());
+      router.totalAscent = @(platform::Distance::CreateAltitudeFormatted(totalAscentM).ToString().c_str());
+      router.totalDescent = @(platform::Distance::CreateAltitudeFormatted(totalDescentM).ToString().c_str());
     }
 
     dispatch_async(dispatch_get_main_queue(), ^{
@@ -572,7 +575,7 @@ char const *kRenderAltitudeImagesQueueLabel = "mapsme.mwmrouter.renderAltitudeIm
 }
 
 + (BOOL)hasActiveDrivingOptions {
-  return [MWMRoutingOptions new].hasOptions && self.type == MWMRouterTypeVehicle;
+  return [MWMRoutingOptions new].hasOptions;
 }
 
 + (void)avoidRoadTypeAndRebuild:(MWMRoadType)type {

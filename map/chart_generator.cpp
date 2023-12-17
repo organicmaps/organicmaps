@@ -1,6 +1,7 @@
 #include "map/chart_generator.hpp"
 
 #include "base/assert.hpp"
+#include "base/logging.hpp"
 #include "base/math.hpp"
 
 #include <algorithm>
@@ -10,10 +11,11 @@
 #include "3party/agg/agg_path_storage.h"
 #include "3party/agg/agg_pixfmt_rgba.h"
 #include "3party/agg/agg_rasterizer_scanline_aa.h"
-#include "3party/agg/agg_renderer_primitives.h"
 #include "3party/agg/agg_renderer_scanline.h"
 #include "3party/agg/agg_scanline_p.h"
 
+namespace maps
+{
 using namespace std;
 
 namespace
@@ -54,13 +56,14 @@ agg::rgba8 GetLineColor(MapStyle mapStyle)
   switch (mapStyle)
   {
   case MapStyleCount:
-    LOG(LERROR, ("Wrong map style param."));
-    // No need break or return here.
+    LOG(LERROR, ("Wrong map style param."));  // fallthrough
   case MapStyleDark:
   case MapStyleVehicleDark:
+  case MapStyleOutdoorsDark:
     return agg::rgba8(255, 230, 140, 255);
   case MapStyleClear:
   case MapStyleVehicleClear:
+  case MapStyleOutdoorsClear:
   case MapStyleMerged:
     return agg::rgba8(30, 150, 240, 255);
   }
@@ -73,12 +76,15 @@ agg::rgba8 GetCurveColor(MapStyle mapStyle)
   {
   case MapStyleCount:
     LOG(LERROR, ("Wrong map style param."));
+    [[fallthrough]];
     // No need break or return here.
   case MapStyleDark:
   case MapStyleVehicleDark:
+  case MapStyleOutdoorsDark:
     return agg::rgba8(255, 230, 140, 20);
   case MapStyleClear:
   case MapStyleVehicleClear:
+  case MapStyleOutdoorsClear:
   case MapStyleMerged:
     return agg::rgba8(30, 150, 240, 20);
   }
@@ -86,8 +92,6 @@ agg::rgba8 GetCurveColor(MapStyle mapStyle)
 }
 }  // namespace
 
-namespace maps
-{
 void ScaleChartData(vector<double> & chartData, double scale)
 {
   for (size_t i = 0; i < chartData.size(); ++i)

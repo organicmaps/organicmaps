@@ -152,8 +152,10 @@ public:
     {
       if (ft.GetGeomType() != feature::GeomType::Line)
         return;
+
+      /// @todo Transported (railway=rail) are also present here :)
       auto const roadClass = ftypes::GetHighwayClass(feature::TypesHolder(ft));
-      if (roadClass == ftypes::HighwayClass::Error ||
+      if (roadClass == ftypes::HighwayClass::Undefined ||
           roadClass == ftypes::HighwayClass::Pedestrian)
       {
         return;
@@ -243,7 +245,7 @@ private:
 MainWindow::MainWindow(Framework & framework)
   : m_framework(framework)
 {
-  m_mapWidget = new MapWidget(m_framework, false /* apiOpenGLES3 */, this /* parent */);
+  m_mapWidget = new MapWidget(m_framework, this /* parent */);
 
   m_layout = new QHBoxLayout();
   m_layout->addWidget(m_mapWidget);

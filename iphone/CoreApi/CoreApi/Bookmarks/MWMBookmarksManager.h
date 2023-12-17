@@ -35,7 +35,6 @@ NS_SWIFT_NAME(BookmarksManager)
 - (void)loadBookmarks;
 
 - (BOOL)isCategoryNotEmpty:(MWMMarkGroupID)groupId;
-- (BOOL)isSearchAllowed:(MWMMarkGroupID)groupId;
 - (void)prepareForSearch:(MWMMarkGroupID)groupId;
 - (NSString *)getCategoryName:(MWMMarkGroupID)groupId;
 - (uint64_t)getCategoryMarksCount:(MWMMarkGroupID)groupId;
@@ -48,6 +47,7 @@ NS_SWIFT_NAME(BookmarksManager)
 - (MWMBookmarkGroupType)getCategoryGroupType:(MWMMarkGroupID)groupId;
 - (nullable NSURL *)getCategoryImageUrl:(MWMMarkGroupID)groupId;
 - (BOOL)hasExtraInfo:(MWMMarkGroupID)groupId;
+- (BOOL)isHtmlDescription:(MWMMarkGroupID)groupId;
 
 - (MWMMarkGroupID)createCategoryWithName:(NSString *)name;
 - (void)setCategory:(MWMMarkGroupID)groupId name:(NSString *)name;

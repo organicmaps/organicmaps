@@ -1,27 +1,29 @@
 #include "kinetic_scroller.hpp"
 #include "visual_params.hpp"
 
-#include "indexer/scales.hpp"
-
-#include "base/logging.hpp"
-
 #include <algorithm>
 
 namespace df
 {
-double const kKineticDuration = 1.5;
-double const kKineticFadeoff = 4.0;
-double const kKineticThreshold = 50.0;
-double const kKineticAcceleration = 0.4;
-double const kKineticMaxSpeedStart = 1000.0; // pixels per second
-double const kKineticMaxSpeedEnd = 10000.0; // pixels per second
-double const kInstantVelocityThresholdUnscaled = 200.0; // pixels per second
+double constexpr kKineticDuration = 1.5;
+double constexpr kKineticFadeoff = 4.0;
+double constexpr kKineticAcceleration = 0.4;
+
+// Time window to store move points for better (smooth) _instant_ velocity calculation.
+double constexpr kTimeWindowSec = 0.05;
+double constexpr kMinDragTimeSec = 0.01;
+
+/// @name Generic pixels per second. Should multiply on visual scale.
+/// @{
+double constexpr kKineticMaxSpeedStart = 1000.0;
+double constexpr kKineticMaxSpeedEnd = 5000.0;
+double constexpr kInstantVelocityThreshold = 200.0;
+/// @}
 
 double CalculateKineticMaxSpeed(ScreenBase const & modelView)
 {
   double const lerpCoef = 1.0 - GetNormalizedZoomLevel(modelView.GetScale());
-  return (kKineticMaxSpeedStart * lerpCoef + kKineticMaxSpeedEnd * (1.0 - lerpCoef)) *
-         VisualParams::Instance().GetVisualScale();
+  return kKineticMaxSpeedStart * lerpCoef + kKineticMaxSpeedEnd * (1.0 - lerpCoef);
 }
 
 class KineticScrollAnimation : public Animation
@@ -122,25 +124,30 @@ void KineticScroller::Init(ScreenBase const & modelView)
 {
   ASSERT(!m_isActive, ());
   m_isActive = true;
-  m_lastRect = modelView.GlobalRect();
-  m_lastTimestamp = std::chrono::steady_clock::now();
-  m_updatePosition = modelView.GlobalRect().GlobalCenter();
-  m_updateTimestamp = m_lastTimestamp;
+
+  m_points.clear();
+  m_points.emplace_back(modelView.GlobalRect().Center(), ClockT::now());
 }
 
 void KineticScroller::Update(ScreenBase const & modelView)
 {
   ASSERT(m_isActive, ());
-  using namespace std::chrono;
-  auto const nowTimestamp = std::chrono::steady_clock::now();
-  auto const curPos = modelView.GlobalRect().GlobalCenter();
 
-  double const instantPixelLen = (modelView.GtoP(curPos) - modelView.GtoP(m_updatePosition)).Length();
-  auto const updateElapsed = duration_cast<duration<double>>(nowTimestamp - m_updateTimestamp).count();
-  m_instantVelocity = (updateElapsed >= 1e-5) ? instantPixelLen / updateElapsed : 0.0;
+  auto const nowTime = ClockT::now();
+  if (m_points.size() > 1)
+  {
+    auto it = std::find_if(m_points.begin(), m_points.end(), [&nowTime](auto const & e)
+    {
+      return GetDurationSeconds(nowTime, e.second) <= kTimeWindowSec;
+    });
 
-  m_updateTimestamp = nowTimestamp;
-  m_updatePosition = curPos;
+    // Keep last point always.
+    if (it == m_points.end())
+      --it;
+    m_points.erase(m_points.begin(), it);
+  }
+
+  m_points.emplace_back(modelView.GlobalRect().Center(), nowTime);
 }
 
 bool KineticScroller::IsActive() const
@@ -148,31 +155,30 @@ bool KineticScroller::IsActive() const
   return m_isActive;
 }
 
-m2::PointD KineticScroller::GetDirection(ScreenBase const & modelView) const
+// Calculate direction in mercator space, and velocity in pixel space.
+// We need the same reaction on different zoom levels, and should calculate velocity on pixel space.
+std::pair<m2::PointD, double> KineticScroller::GetDirectionAndVelocity(ScreenBase const & modelView) const
 {
-  // In KineticScroller we store m_direction in mixed state.
-  // Direction in mercator space, and length(m_direction) in pixel space.
-  // We need same reaction on different zoom levels, and should calculate velocity on pixel space.
   ASSERT(m_isActive, ());
-  using namespace std::chrono;
-  auto const nowTimestamp = steady_clock::now();
-  auto const elapsed = duration_cast<duration<double>>(nowTimestamp - m_lastTimestamp).count();
+  ASSERT(!m_points.empty(), ());
+
+  // Or take m_points.back() ?
   m2::PointD const currentCenter = modelView.GlobalRect().GlobalCenter();
 
-  m2::PointD const lastCenter = m_lastRect.GlobalCenter();
-  double const pxDeltaLength = (modelView.GtoP(currentCenter) - modelView.GtoP(lastCenter)).Length();
-  m2::PointD delta = currentCenter - lastCenter;
-  if (!delta.IsAlmostZero())
-  {
-    delta = delta.Normalize();
+  double const lengthPixel = (modelView.GtoP(currentCenter) - modelView.GtoP(m_points.front().first)).Length();
+  double const elapsedSec = std::max(kMinDragTimeSec, GetDurationSeconds(ClockT::now(), m_points.front().second));
+  double const vs = VisualParams::Instance().GetVisualScale();
 
-    // Velocity on pixels.
-    double const v = std::min(pxDeltaLength / elapsed, CalculateKineticMaxSpeed(modelView));
+  // Most touch filtrations happen here.
+  double const velocity = lengthPixel / elapsedSec;
+  if (velocity < kInstantVelocityThreshold * vs)
+    return {{}, 0};
 
-    // At this point length(m_direction) already in pixel space, and delta normalized.
-    return delta * v;
-  }
-  return m2::PointD::Zero();
+  m2::PointD const delta = currentCenter - m_points.front().first;
+  if (delta.IsAlmostZero())
+    return {{}, 0};
+
+  return {delta.Normalize(), std::min(velocity, CalculateKineticMaxSpeed(modelView) * vs)};
 }
 
 void KineticScroller::Cancel()
@@ -182,30 +188,20 @@ void KineticScroller::Cancel()
 
 drape_ptr<Animation> KineticScroller::CreateKineticAnimation(ScreenBase const & modelView)
 {
-  static double vs = VisualParams::Instance().GetVisualScale();
-  static double kVelocityThreshold = kKineticThreshold * vs;
-  static double kInstantVelocityThreshold = kInstantVelocityThresholdUnscaled * vs;
-
-  if (m_instantVelocity < kInstantVelocityThreshold)
-  {
-    Cancel();
-    return drape_ptr<Animation>();
-  }
-
-  auto const direction = GetDirection(modelView);
+  auto const [dir, velocity] = GetDirectionAndVelocity(modelView);
+  // Cancel current animation in any case.
   Cancel();
+  if (velocity < 1E-6)
+    return {};
 
-  if (direction.Length() < kVelocityThreshold)
-    return drape_ptr<Animation>();
-
-  // Before we start animation we have to convert length(m_direction) from pixel space to mercator space.
+  // Before we start animation we have to convert velocity vector from pixel space to mercator space.
   m2::PointD const center = modelView.GlobalRect().GlobalCenter();
-  double const offset = (modelView.PtoG(modelView.GtoP(center) + direction) - center).Length();
+  double const offset = (modelView.PtoG(modelView.GtoP(center) + dir * velocity) - center).Length();
   double const glbLength = kKineticAcceleration * offset;
-  m2::PointD const glbDirection = direction.Normalize() * glbLength;
+  m2::PointD const glbDirection = dir * glbLength;
   m2::PointD const targetCenter = center + glbDirection;
   if (!df::GetWorldRect().IsPointInside(targetCenter))
-    return drape_ptr<Animation>();
+    return {};
 
   return make_unique_dp<KineticScrollAnimation>(center, glbDirection, kKineticDuration);
 }

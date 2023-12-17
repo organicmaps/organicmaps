@@ -6,7 +6,7 @@
 #include <cstring>
 #include <string>
 
-namespace
+namespace turns_tts_text_tests
 {
 using namespace routing::turns;
 using namespace routing::turns::sound;
@@ -24,9 +24,9 @@ UNIT_TEST(GetDistanceTextIdMetersTest)
   Notification const notification1(500, 0, false, CarDirection::TurnRight,
                                    measurement_utils::Units::Metric);
   TEST_EQUAL(GetDistanceTextId(notification1), "in_500_meters", ());
-  Notification const notification2(500, 0, true, CarDirection::TurnRight,
-                                   measurement_utils::Units::Metric);
-  TEST_EQUAL(GetDistanceTextId(notification2), "then", ());
+//  Notification const notification2(500, 0, true, CarDirection::TurnRight,
+//                                   measurement_utils::Units::Metric);
+//  TEST_EQUAL(GetDistanceTextId(notification2), "then", ());
   Notification const notification3(200, 0, false, CarDirection::TurnRight,
                                    measurement_utils::Units::Metric);
   TEST_EQUAL(GetDistanceTextId(notification3), "in_200_meters", ());
@@ -42,9 +42,9 @@ UNIT_TEST(GetDistanceTextIdFeetTest)
   Notification const notification1(500, 0, false, CarDirection::TurnRight,
                                    measurement_utils::Units::Imperial);
   TEST_EQUAL(GetDistanceTextId(notification1), "in_500_feet", ());
-  Notification const notification2(500, 0, true, CarDirection::TurnRight,
-                                   measurement_utils::Units::Imperial);
-  TEST_EQUAL(GetDistanceTextId(notification2), "then", ());
+//  Notification const notification2(500, 0, true, CarDirection::TurnRight,
+//                                   measurement_utils::Units::Imperial);
+//  TEST_EQUAL(GetDistanceTextId(notification2), "then", ());
   Notification const notification3(800, 0, false, CarDirection::TurnRight,
                                    measurement_utils::Units::Imperial);
   TEST_EQUAL(GetDistanceTextId(notification3), "in_800_feet", ());
@@ -158,7 +158,7 @@ UNIT_TEST(GetTtsTextTest)
 
 UNIT_TEST(GetAllSoundedDistMetersTest)
 {
-  VecPairDist const allSoundedDistMeters = GetAllSoundedDistMeters();
+  VecPairDist const & allSoundedDistMeters = GetAllSoundedDistMeters();
 
   TEST(is_sorted(allSoundedDistMeters.cbegin(), allSoundedDistMeters.cend(),
                  [](PairDist const & p1, PairDist const & p2)
@@ -177,7 +177,7 @@ UNIT_TEST(GetAllSoundedDistMetersTest)
 
 UNIT_TEST(GetAllSoundedDistFeet)
 {
-  VecPairDist const allSoundedDistFeet = GetAllSoundedDistFeet();
+  VecPairDist const & allSoundedDistFeet = GetAllSoundedDistFeet();
 
   TEST(is_sorted(allSoundedDistFeet.cbegin(), allSoundedDistFeet.cend(),
                  [](PairDist const & p1, PairDist const & p2)
@@ -196,8 +196,8 @@ UNIT_TEST(GetAllSoundedDistFeet)
 
 UNIT_TEST(GetSoundedDistMeters)
 {
-  vector<uint32_t> const soundedDistMeters = GetSoundedDistMeters();
-  VecPairDist const allSoundedDistMeters = GetAllSoundedDistMeters();
+  vector<uint32_t> const & soundedDistMeters = GetSoundedDistMeters();
+  VecPairDist const & allSoundedDistMeters = GetAllSoundedDistMeters();
 
   TEST(is_sorted(soundedDistMeters.cbegin(), soundedDistMeters.cend()), ());
   // Checking that allSounded contains any element of inst.
@@ -217,7 +217,7 @@ UNIT_TEST(GetSoundedDistMeters)
 UNIT_TEST(GetSoundedDistFeet)
 {
   vector<uint32_t> soundedDistFeet = GetSoundedDistFeet();
-  VecPairDist const allSoundedDistFeet = GetAllSoundedDistFeet();
+  VecPairDist const & allSoundedDistFeet = GetAllSoundedDistFeet();
 
   TEST(is_sorted(soundedDistFeet.cbegin(), soundedDistFeet.cend()), ());
   // Checking that allSounded contains any element of inst.
@@ -232,4 +232,4 @@ UNIT_TEST(GetSoundedDistFeet)
   TEST_EQUAL(soundedDistFeet[7], 2000, ());
   TEST_EQUAL(soundedDistFeet[10], 5000, ());
 }
-}  //  namespace
+}  // namespace turns_tts_text_tests

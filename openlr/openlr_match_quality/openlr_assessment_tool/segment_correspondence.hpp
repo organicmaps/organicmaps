@@ -3,7 +3,7 @@
 #include "openlr/decoded_path.hpp"
 #include "openlr/openlr_model.hpp"
 
-#include "3party/pugixml/pugixml/src/pugixml.hpp"
+#include <pugixml.hpp>
 
 namespace openlr
 {

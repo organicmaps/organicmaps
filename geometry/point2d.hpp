@@ -1,13 +1,11 @@
 #pragma once
 
 #include "base/assert.hpp"
-#include "base/base.hpp"
 #include "base/math.hpp"
 #include "base/matrix.hpp"
 
 #include <array>
 #include <cmath>
-#include <functional>
 #include <limits>
 #include <sstream>
 #include <typeinfo>
@@ -22,8 +20,7 @@ public:
 
   T x, y;
 
-  constexpr Point() : x(T()), y(T()) {}
-
+  Point() = default;
   constexpr Point(T x_, T y_) : x(x_), y(y_) {}
 
   template <typename U>

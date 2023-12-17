@@ -40,6 +40,7 @@ void RunTestLoop(char const * testName, testing::RenderFunction && fn, bool auto
 
   int argc = 1;
   QApplication app(argc, &raw);
+
   if (autoExit)
     QTimer::singleShot(3000, &app, SLOT(quit()));
 

@@ -63,7 +63,7 @@ public:
     DrawPrimitives(context);
 
     Unbind(program);
-  };
+  }
 
   uint32_t GetNextBufferIndex() const { return static_cast<uint32_t>(m_buffers.size()); }
 

@@ -16,7 +16,7 @@
 #include <limits>
 #include <vector>
 
-namespace
+namespace maxspeeds_test
 {
 using namespace measurement_utils;
 using namespace routing;
@@ -28,6 +28,7 @@ void TestMaxspeedsSerialization(vector<FeatureMaxspeed> const & speeds)
   MemWriter<vector<char>> w(buffer);
 
   std::vector<MaxspeedsSerializer::FeatureSpeedMacro> inputSpeeds;
+  inputSpeeds.reserve(speeds.size());
   MaxspeedConverter const & converter = GetMaxspeedConverter();
   for (auto const & s : speeds)
   {
@@ -234,4 +235,4 @@ UNIT_TEST(Maxspeed_Smoke)
     TEST_EQUAL(maxspeed.GetSpeedKmPH(false /* forward */), 40, ());
   }
 }
-}  // namespace
+}  // namespace maxspeeds_test

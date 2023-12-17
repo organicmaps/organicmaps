@@ -20,6 +20,7 @@ let alpha100: CGFloat = 1.0
   var secondary: UIColor { get }
   var primaryLight: UIColor { get }
   var menuBackground:  UIColor { get }
+  var tabBarButtonBackground:  UIColor { get }
   var downloadBadgeBackground: UIColor { get }
   var pressBackground: UIColor { get }
   var red: UIColor { get }

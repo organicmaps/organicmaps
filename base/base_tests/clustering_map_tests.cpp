@@ -63,7 +63,7 @@ public:
   template <typename V>
   void Append(Key const & key, V && value)
   {
-    m_m.Append(key, forward<V>(value));
+    m_m.Append(key, std::forward<V>(value));
   }
 
   void Union(Key const & u, Key const & v) { m_m.Union(u, v); }

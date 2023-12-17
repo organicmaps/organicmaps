@@ -5,6 +5,8 @@
 #include "transit/transit_types.hpp"
 #include "transit/transit_version.hpp"
 
+#include "indexer/feature_decl.hpp"
+
 #include "base/assert.hpp"
 
 #include <memory>
@@ -64,7 +66,7 @@ public:
     GateSubway() = default;
     explicit GateSubway(transit::Gate const & gate) : m_featureId(gate.GetFeatureId()) {}
 
-    transit::FeatureId m_featureId = transit::kInvalidFeatureId;
+    transit::FeatureId m_featureId = kInvalidFeatureId;
   };
 
   struct GatePT
@@ -74,7 +76,7 @@ public:
     {
     }
 
-    ::transit::experimental::FeatureId m_featureId = ::transit::experimental::kInvalidFeatureId;
+    ::transit::experimental::FeatureId m_featureId = kInvalidFeatureId;
   };
 
   struct TransferSubway
@@ -195,7 +197,7 @@ private:
 class TransitInfoWrapper final
 {
 public:
-  explicit TransitInfoWrapper(std::unique_ptr<TransitInfo> ptr) : m_ptr(move(ptr)) {}
+  explicit TransitInfoWrapper(std::unique_ptr<TransitInfo> ptr) : m_ptr(std::move(ptr)) {}
   explicit TransitInfoWrapper(TransitInfoWrapper && rhs) { swap(m_ptr, rhs.m_ptr); }
   explicit TransitInfoWrapper(TransitInfoWrapper const & rhs)
   {
@@ -228,7 +230,7 @@ public:
     return *m_ptr;
   }
 
-  void Set(std::unique_ptr<TransitInfo> ptr) { m_ptr = move(ptr); }
+  void Set(std::unique_ptr<TransitInfo> ptr) { m_ptr = std::move(ptr); }
 
 private:
   std::unique_ptr<TransitInfo> m_ptr;

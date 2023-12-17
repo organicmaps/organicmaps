@@ -13,7 +13,7 @@ class GeoURLInfo
 public:
   GeoURLInfo();
 
-  bool IsValid() const;
+  bool IsLatLonValid() const;
   void Reset();
 
   void SetZoom(double x);
@@ -23,6 +23,8 @@ public:
   double m_lat;
   double m_lon;
   double m_zoom;
+  std::string m_query;
+  std::string m_label;
 };
 
 class DoubleGISParser
@@ -76,12 +78,23 @@ private:
   int m_lonPriority;
 };
 
+class GeoParser
+{
+public:
+  GeoParser();
+  bool Parse(std::string const & url, GeoURLInfo & info) const;
+private:
+  std::regex m_latlonRe;
+  std::regex m_zoomRe;
+};
+
 class UnifiedParser
 {
 public:
-  GeoURLInfo Parse(std::string const & url);
+  bool Parse(std::string const & url, GeoURLInfo & info);
 
 private:
+  GeoParser m_geoParser;
   DoubleGISParser m_dgParser;
   OpenStreetMapParser m_osmParser;
   LatLonParser m_llParser;

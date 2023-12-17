@@ -38,7 +38,7 @@ UNIT_TEST(CountriesNamesTest)
 
   auto & value = *handle.GetValue();
   TEST(value.HasSearchIndex(), ());
-  search::MwmContext const mwmContext(move(handle));
+  search::MwmContext const mwmContext(std::move(handle));
   base::Cancellable const cancellable;
   search::CategoriesCache cache(ftypes::IsLocalityChecker::Instance(), cancellable);
 
@@ -46,7 +46,7 @@ UNIT_TEST(CountriesNamesTest)
                                  StringUtf8Multilang::kDefaultCode,
                                  StringUtf8Multilang::kInternationalCode };
 
-  set<string> const kIgnoreList = {"Turkish Republic Of Northern Cyprus",
+  set<string> const kIgnoreList = {"Northern Cyprus",
                                    "Transnistria",
                                    "Nagorno-Karabakh Republic",
                                    "Republic of Artsakh",
@@ -82,6 +82,6 @@ UNIT_TEST(CountriesNamesTest)
     }
 
     // If this test fails, most likely somebody added fake place=country object into OSM.
-    TEST(found, ("Cannot find countries.txt record for country feature:", ft->DebugString(FeatureType::BEST_GEOMETRY)));
+    TEST(found, ("Cannot find countries.txt record for country feature:", ft->DebugString()));
   });
 }

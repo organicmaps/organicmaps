@@ -21,23 +21,12 @@
 #include "platform/local_country_file.hpp"
 #include "platform/local_country_file_utils.hpp"
 #include "platform/platform.hpp"
-#include "platform/preferred_languages.hpp"
 
 #include "geometry/distance_on_sphere.hpp"
-#include "geometry/latlon.hpp"
 
 #include "base/math.hpp"
 #include "base/stl_helpers.hpp"
 
-#include "private.h"
-
-#include <functional>
-#include <limits>
-#include <map>
-#include <memory>
-#include <set>
-#include <tuple>
-#include <utility>
 
 namespace integration
 {
@@ -127,11 +116,17 @@ void GetAllLocalFiles(vector<LocalCountryFile> & localFiles)
     file.SyncWithDisk();
 }
 
-shared_ptr<VehicleRouterComponents> CreateAllMapsComponents(VehicleType vehicleType)
+shared_ptr<VehicleRouterComponents>
+CreateAllMapsComponents(VehicleType vehicleType, std::set<std::string> const & skipMaps)
 {
   vector<LocalCountryFile> localFiles;
   GetAllLocalFiles(localFiles);
-  ASSERT(!localFiles.empty(), ());
+  base::EraseIf(localFiles, [&skipMaps](LocalCountryFile const & cf)
+  {
+    return skipMaps.count(cf.GetCountryName()) > 0;
+  });
+  TEST(!localFiles.empty(), ());
+
   return make_shared<VehicleRouterComponents>(localFiles, vehicleType);
 }
 
@@ -141,7 +136,7 @@ IRouterComponents & GetVehicleComponents(VehicleType vehicleType)
 
   auto it = kVehicleComponents.find(vehicleType);
   if (it == kVehicleComponents.end())
-    tie(it, ignore) = kVehicleComponents.emplace(vehicleType, CreateAllMapsComponents(vehicleType));
+    tie(it, ignore) = kVehicleComponents.emplace(vehicleType, CreateAllMapsComponents(vehicleType, {}));
 
   CHECK(it->second, ());
   return *(it->second);
@@ -165,7 +160,7 @@ TRouteResult CalculateRoute(IRouterComponents const & routerComponents,
 {
   RouterDelegate delegate;
   shared_ptr<Route> route = make_shared<Route>("mapsme", 0 /* route id */);
-  routerComponents.GetRouter().SetGuides(move(guides));
+  routerComponents.GetRouter().SetGuides(std::move(guides));
   RouterResultCode result = routerComponents.GetRouter().CalculateRoute(
       checkpoints, m2::PointD::Zero() /* startDirection */, false /* adjust */, delegate, *route);
   ASSERT(route, ());
@@ -181,14 +176,24 @@ void TestTurnCount(routing::Route const & route, uint32_t expectedTurnCount)
   TEST_EQUAL(turns.size() - 1, expectedTurnCount, ());
 }
 
-void TestCurrentStreetName(routing::Route const & route, string const & expectedStreetName)
+void TestTurns(Route const & route, vector<CarDirection> const & expectedTurns)
+{
+  vector<turns::TurnItem> turns;
+  route.GetTurnsForTesting(turns);
+  TEST_EQUAL(turns.size() - 1, expectedTurns.size(), ());
+
+  for (size_t i = 0; i < expectedTurns.size(); ++i)
+    TEST_EQUAL(turns[i].m_turn, expectedTurns[i], ());
+}
+
+void TestCurrentStreetName(Route const & route, string const & expectedStreetName)
 {
   RouteSegment::RoadNameInfo roadNameInfo;
   route.GetCurrentStreetName(roadNameInfo);
   TEST_EQUAL(roadNameInfo.m_name, expectedStreetName, ());
 }
 
-void TestNextStreetName(routing::Route const & route, string const & expectedStreetName)
+void TestNextStreetName(Route const & route, string const & expectedStreetName)
 {
   RouteSegment::RoadNameInfo roadNameInfo;
   route.GetNextTurnStreetName(roadNameInfo);
@@ -227,7 +232,7 @@ void CalculateRouteAndTestRouteLength(IRouterComponents const & routerComponents
                                       m2::PointD const & startPoint,
                                       m2::PointD const & startDirection,
                                       m2::PointD const & finalPoint, double expectedRouteMeters,
-                                      double relativeError /* = 0.07 */)
+                                      double relativeError /* = 0.02 */)
 {
   TRouteResult routeResult =
       CalculateRoute(routerComponents, startPoint, startDirection, finalPoint);

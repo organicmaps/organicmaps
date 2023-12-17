@@ -112,9 +112,12 @@ bool SupportManager::IsVulkanForbidden() const
 bool SupportManager::IsVulkanForbidden(std::string const & deviceName,
                                        Version apiVersion, Version driverVersion) const
 {
-  /// @todo Should we ban all PowerVR Rogue devices?
   static char const * kBannedDevices[] = {
-    "PowerVR Rogue G6110", "PowerVR Rogue GE8100", "PowerVR Rogue GE8300"
+    /// @todo Should we ban all PowerVR Rogue devices?
+    // https://github.com/organicmaps/organicmaps/issues/1379
+    "PowerVR Rogue G6110", "PowerVR Rogue GE8100", "PowerVR Rogue GE8300",
+    // https://github.com/organicmaps/organicmaps/issues/5539
+    "Adreno (TM) 418",
   };
 
   // On these configurations we've detected fatal driver-specific Vulkan errors.
@@ -123,8 +126,12 @@ bool SupportManager::IsVulkanForbidden(std::string const & deviceName,
       Configuration{"Adreno (TM) 506", {1, 1, 66}, {512, 313, 0}},
       Configuration{"Adreno (TM) 530", {1, 1, 66}, {512, 313, 0}},
 
+      /// @todo Route line is flickering in nav mode.
+      /// Samsung Galaxy S8 (SM-G950F)
+      Configuration{"Mali-G71", {1, 0, 97}, {16, 0, 0}},
+
       /// @todo Dashed lines stopped drawing after updating LineShape::Construct<DashedLineBuilder>.
-      /// Should obtain a device (Huawei P20) for better investigation.
+      /// Huawei P20
       Configuration{"Mali-G72", {1, 1, 97}, {18, 0, 0}},
   };
 

@@ -36,8 +36,8 @@ namespace generator
 {
 namespace tests_support
 {
-using namespace std;
 using namespace feature;
+using std::string, std::vector;
 
 namespace
 {
@@ -65,7 +65,7 @@ TestMwmBuilder::TestMwmBuilder(platform::LocalCountryFile & file, DataHeader::Ma
   : m_file(file)
   , m_type(type)
   , m_collector(
-        make_unique<FeaturesCollector>(m_file.GetPath(MapFileType::Map) + EXTENSION_TMP))
+        std::make_unique<FeaturesCollector>(m_file.GetPath(MapFileType::Map) + EXTENSION_TMP))
   , m_version(version)
 {
 }
@@ -117,17 +117,10 @@ bool TestMwmBuilder::Add(FeatureBuilder & fb)
     CHECK(strings::to_uint(metadata.Get(Metadata::FMD_TEST_ID), testId), ());
     m_boundariesTable.Append(testId, indexer::CityBoundary(fb.GetOuterGeometry()));
 
-    auto const center = fb.GetGeometryCenter();
-    fb.SetCenter(center);
+    fb.SetCenter(fb.GetGeometryCenter());
   }
 
-  if (!fb.PreSerializeAndRemoveUselessNamesForIntermediate())
-  {
-    LOG(LWARNING, ("Can't pre-serialize feature."));
-    return false;
-  }
-
-  if (!fb.RemoveInvalidTypes())
+  if (!fb.RemoveInvalidTypes() || !fb.PreSerializeAndRemoveUselessNamesForIntermediate())
   {
     LOG(LWARNING, ("No types."));
     return false;
@@ -137,8 +130,8 @@ bool TestMwmBuilder::Add(FeatureBuilder & fb)
   return true;
 }
 
-void TestMwmBuilder::SetUKPostcodesData(
-    string const & postcodesPath, shared_ptr<storage::CountryInfoGetter> const & countryInfoGetter)
+void TestMwmBuilder::SetUKPostcodesData(string const & postcodesPath,
+    std::shared_ptr<storage::CountryInfoGetter> const & countryInfoGetter)
 {
   m_ukPostcodesPath = postcodesPath;
   m_postcodesCountryInfoGetter = countryInfoGetter;
@@ -186,7 +179,7 @@ void TestMwmBuilder::Finish()
           ("Can't build postcodes section."));
   }
 
-  UNUSED_VALUE(base::DeleteFileX(path + TEMP_ADDR_FILENAME));
+  UNUSED_VALUE(base::DeleteFileX(path + TEMP_ADDR_EXTENSION));
 
   if (m_type == DataHeader::MapType::World)
   {

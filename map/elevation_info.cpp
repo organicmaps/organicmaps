@@ -1,5 +1,7 @@
 #include "map/elevation_info.hpp"
 
+#include "geometry/mercator.hpp"
+
 #include "base/string_utils.hpp"
 
 namespace
@@ -31,8 +33,8 @@ ElevationInfo::ElevationInfo(Track const & track)
   : m_id(track.GetId())
   , m_name(track.GetName())
 {
-  auto const & points = track.GetPointsWithAltitudes();
-
+  // (Distance, Elevation) chart doesn't have a sence for multiple track's geometry.
+  auto const & points = track.GetSingleGeometry();
   if (points.empty())
     return;
 

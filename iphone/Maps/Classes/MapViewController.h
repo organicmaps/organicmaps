@@ -47,5 +47,6 @@
 @property(strong, nonatomic) IBOutlet EAGLView * _Nonnull mapView;
 @property(strong, nonatomic) IBOutlet UIView * _Nonnull controlsView;
 @property(strong, nonatomic) IBOutlet UIView * _Nonnull searchViewContainer;
+@property(strong, nonatomic) IBOutlet NSLayoutConstraint * _Nonnull searchViewContainerLeadingConstraint;
 
 @end

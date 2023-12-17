@@ -1,11 +1,10 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<svg width="24px" height="24px" viewBox="0 0 24 24" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
-    <title>photo-shop-m</title>
-    <g id="Page-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
-        <g id="photo-shop-m" fill-rule="nonzero">
-            <circle id="Oval" fill="#FFFFFF" opacity="0.6" cx="12" cy="12" r="12"></circle>
-            <circle id="Oval" fill="#8C5F93" cx="12" cy="12" r="11"></circle>
-            <path d="M9.9,6 L8.619,7.4 L6.4,7.4 C5.63,7.4 5,8.03 5,8.8 L5,17.2 C5,17.97 5.63,18.6 6.4,18.6 L17.6,18.6 C18.37,18.6 19,17.97 19,17.2 L19,8.8 C19,8.03 18.37,7.4 17.6,7.4 L15.381,7.4 L14.1,6 L9.9,6 Z M12,16.5 C10.068,16.5 8.5,14.932 8.5,13 C8.5,11.068 10.068,9.5 12,9.5 C13.932,9.5 15.5,11.068 15.5,13 C15.5,14.932 13.932,16.5 12,16.5 Z" id="Shape" fill="#FFFFFF"></path>
-        </g>
-    </g>
+<svg version="1.1" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+ <title>photo-shop-m</title>
+ <g fill="none" fill-rule="evenodd">
+  <g id="photo-shop-m" fill-rule="nonzero">
+   <circle id="Oval" cx="12" cy="12" r="12" fill="#fff" opacity=".6"/>
+   <circle id="Oval" cx="12" cy="12" r="11" fill="#8C5F93"/>
+   <path id="Shape" d="m9.9 6-1.281 1.4h-2.219c-0.77 0-1.4 0.63-1.4 1.4v8.4c0 0.77 0.63 1.4 1.4 1.4h11.2c0.77 0 1.4-0.63 1.4-1.4v-8.4c0-0.77-0.63-1.4-1.4-1.4h-2.219l-1.281-1.4h-4.2zm2.1 10.5c-1.932 0-3.5-1.568-3.5-3.5s1.568-3.5 3.5-3.5 3.5 1.568 3.5 3.5-1.568 3.5-3.5 3.5z" fill="#fff"/>
+  </g>
+ </g>
 </svg>

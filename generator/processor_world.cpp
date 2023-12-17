@@ -1,8 +1,6 @@
 #include "generator/processor_world.hpp"
 
-#include "generator/cities_boundaries_builder.hpp"
 #include "generator/feature_builder.hpp"
-#include "generator/generate_info.hpp"
 
 #include "defines.hpp"
 
@@ -17,7 +15,7 @@ ProcessorWorld::ProcessorWorld(std::shared_ptr<FeatureProcessorQueue> const & qu
   m_processingChain->Add(std::make_shared<WorldLayer>(popularityFilename));
   auto affiliation = std::make_shared<feature::SingleAffiliation>(WORLD_FILE_NAME);
   m_affiliationsLayer =
-      std::make_shared<AffiliationsFeatureLayer<>>(kAffiliationsBufferSize, affiliation, m_queue);
+      std::make_shared<AffiliationsFeatureLayer>(kAffiliationsBufferSize, affiliation, m_queue);
   m_processingChain->Add(m_affiliationsLayer);
 }
 

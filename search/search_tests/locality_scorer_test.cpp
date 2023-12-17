@@ -6,12 +6,10 @@
 #include "search/geocoder_context.hpp"
 #include "search/ranking_utils.hpp"
 
-#include "indexer/search_delimiters.hpp"
 #include "indexer/search_string_utils.hpp"
 
 #include "coding/compressed_bit_vector.hpp"
 
-#include "base/assert.hpp"
 #include "base/mem_trie.hpp"
 #include "base/stl_helpers.hpp"
 #include "base/string_utils.hpp"
@@ -52,10 +50,11 @@ public:
     m_scorer.SetPivotForTesting(pivot);
 
     vector<UniString> tokens;
-    Delimiters delims;
-    SplitUniString(NormalizeAndSimplifyString(query), base::MakeBackInsertFunctor(tokens), delims);
-    // We remove stop words from query in processor.
-    base::EraseIf(tokens, &IsStopWord);
+    search::ForEachNormalizedToken(query, [&tokens](strings::UniString && token)
+    {
+      if (!IsStopWord(token))
+        tokens.push_back(std::move(token));
+    });
 
     m_params.Init(query, tokens, lastTokenIsPrefix);
   }
@@ -64,8 +63,7 @@ public:
                    m2::PointD const & center = {}, bool belongsToMatchedRegion = false)
   {
     set<UniString> tokens;
-    Delimiters delims;
-    SplitUniString(NormalizeAndSimplifyString(name), base::MakeInsertFunctor(tokens), delims);
+    SplitUniString(NormalizeAndSimplifyString(name), base::MakeInsertFunctor(tokens), Delimiters());
 
     for (auto const & token : tokens)
       m_searchIndex.Add(token, featureId);
@@ -79,10 +77,10 @@ public:
   Ids GetTopLocalities(size_t limit)
   {
     BaseContext ctx;
-    ctx.m_tokens.assign(m_params.GetNumTokens(), BaseContext::TOKEN_TYPE_COUNT);
-    ctx.m_numTokens = m_params.GetNumTokens();
+    size_t const numTokens = m_params.GetNumTokens();
+    ctx.m_tokens.assign(numTokens, BaseContext::TOKEN_TYPE_COUNT);
 
-    for (size_t i = 0; i < m_params.GetNumTokens(); ++i)
+    for (size_t i = 0; i < numTokens; ++i)
     {
       auto const & token = m_params.GetToken(i);
       bool const isPrefixToken = m_params.IsPrefixToken(i);
@@ -116,7 +114,7 @@ public:
 
     Ids ids;
     for (auto const & locality : localities)
-      ids.push_back(locality.m_featureId);
+      ids.push_back(locality.GetFeatureIndex());
     return ids;
   }
 

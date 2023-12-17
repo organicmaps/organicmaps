@@ -1,25 +1,16 @@
 #include "qt/place_page_dialog.hpp"
 
-#include "map/place_page_info.hpp"
+#include "qt/qt_common/text_dialog.hpp"
 
-#include <string>
+#include "map/place_page_info.hpp"
 
 #include <QtWidgets/QDialogButtonBox>
 #include <QtWidgets/QGridLayout>
 #include <QtWidgets/QHBoxLayout>
 #include <QtWidgets/QLabel>
 #include <QtWidgets/QPushButton>
-#include <QtWidgets/QVBoxLayout>
 
-using namespace std;
-
-string GenerateStars(int count)
-{
-  string stars;
-  for (int i = 0; i < count; ++i)
-    stars.append("★");
-  return stars;
-}
+#include <string>
 
 PlacePageDialog::PlacePageDialog(QWidget * parent, place_page::Info const & info,
                                  search::ReverseGeocoder::Address const & address)
@@ -28,45 +19,36 @@ PlacePageDialog::PlacePageDialog(QWidget * parent, place_page::Info const & info
   QGridLayout * grid = new QGridLayout();
   int row = 0;
 
+  auto const addEntry = [grid, &row](std::string const & key, std::string const & value, bool isLink = false)
   {
-    grid->addWidget(new QLabel("lat, lon"), row, 0);
+    grid->addWidget(new QLabel(QString::fromStdString(key)), row, 0);
+    QLabel * label = new QLabel(QString::fromStdString(value));
+    label->setTextInteractionFlags(Qt::TextSelectableByMouse);
+    if (isLink)
+    {
+      label->setOpenExternalLinks(true);
+      label->setTextInteractionFlags(Qt::TextBrowserInteraction);
+      label->setText(QString::fromStdString("<a href=\"" + value + "\">" + value + "</a>"));
+    }
+    grid->addWidget(label, row++, 1);
+    return label;
+  };
+
+  {
     ms::LatLon const ll = info.GetLatLon();
-    string const llstr =
-        strings::to_string_dac(ll.m_lat, 7) + ", " + strings::to_string_dac(ll.m_lon, 7);
-    QLabel * label = new QLabel(llstr.c_str());
-    label->setTextInteractionFlags(Qt::TextSelectableByMouse);
-    grid->addWidget(label, row++, 1);
+    addEntry("lat, lon", strings::to_string_dac(ll.m_lat, 7) + ", " + strings::to_string_dac(ll.m_lon, 7));
   }
 
-  {
-    grid->addWidget(new QLabel("CountryId"), row, 0);
-    QLabel * label = new QLabel(QString::fromStdString(info.GetCountryId()));
-    label->setTextInteractionFlags(Qt::TextSelectableByMouse);
-    grid->addWidget(label, row++, 1);
-  }
+  addEntry("CountryId", info.GetCountryId());
 
-  if (auto const & title = info.GetTitle(); !title.empty())
-  {
-    grid->addWidget(new QLabel("Title"), row, 0);
-    QLabel * label = new QLabel(QString::fromStdString(title));
-    label->setTextInteractionFlags(Qt::TextSelectableByMouse);
-    grid->addWidget(label, row++, 1);
-  }
+  auto const & title = info.GetTitle();
+  if (!title.empty())
+    addEntry("Title", title);
 
   if (auto const & subTitle = info.GetSubtitle(); !subTitle.empty())
-  {
-    grid->addWidget(new QLabel("Subtitle"), row, 0);
-    QLabel * label = new QLabel(QString::fromStdString(subTitle));
-    label->setTextInteractionFlags(Qt::TextSelectableByMouse);
-    grid->addWidget(label, row++, 1);
-  }
+    addEntry("Subtitle", subTitle);
 
-  {
-    grid->addWidget(new QLabel("Address"), row, 0);
-    QLabel * label = new QLabel(QString::fromStdString(address.FormatAddress()));
-    label->setTextInteractionFlags(Qt::TextSelectableByMouse);
-    grid->addWidget(label, row++, 1);
-  }
+  addEntry("Address", address.FormatAddress());
 
   if (info.IsBookmark())
   {
@@ -88,126 +70,18 @@ PlacePageDialog::PlacePageDialog(QWidget * parent, place_page::Info const & info
 
   if (info.IsFeature())
   {
-    grid->addWidget(new QLabel("Feature ID"), row, 0);
-    auto labelF = new QLabel(QString::fromStdString(DebugPrint(info.GetID())));
-    labelF->setTextInteractionFlags(Qt::TextSelectableByMouse);
-    grid->addWidget(labelF, row++, 1);
-
-    grid->addWidget(new QLabel("Raw Types"), row, 0);
-    QLabel * labelT = new QLabel(QString::fromStdString(DebugPrint(info.GetTypes())));
-    labelT->setTextInteractionFlags(Qt::TextSelectableByMouse);
-    grid->addWidget(labelT, row++, 1);
+    addEntry("Feature ID", DebugPrint(info.GetID()));
+    addEntry("Raw Types", DebugPrint(info.GetTypes()));
   }
 
-  if (auto const & descr = info.GetDescription(); !descr.empty())
-  {
-    grid->addWidget(new QLabel("Description size"), row, 0);
-    grid->addWidget(new QLabel(QString::fromStdString(std::to_string(descr.size()))), row++, 1);
-  }
+  auto const layer = info.GetLayer();
+  if (layer != feature::LAYER_EMPTY)
+    addEntry("Layer", std::to_string(layer));
 
-  for (auto const prop : info.AvailableProperties())
-  {
-    QString k;
-    string v;
-    bool link = false;
-    switch (prop)
-    {
-    case osm::Props::Phone:
-      k = "Phone";
-      v = info.GetPhone();
-      break;
-    case osm::Props::Fax:
-      k = "Fax";
-      v = info.GetFax();
-      break;
-    case osm::Props::Email:
-      k = "Email";
-      v = info.GetEmail();
-      link = true;
-      break;
-    case osm::Props::Website:
-      k = "Website";
-      v = info.GetWebsite();
-      link = true;
-      break;
-    case osm::Props::ContactFacebook:
-      k = "Facebook";
-      v = info.GetFacebookPage();
-      link = true;
-      break;
-    case osm::Props::ContactInstagram:
-      k = "Instagram";
-      v = info.GetInstagramPage();
-      link = true;
-      break;
-    case osm::Props::ContactTwitter:
-      k = "Twitter";
-      v = info.GetTwitterPage();
-      link = true;
-      break;
-    case osm::Props::ContactVk:
-      k = "VK";
-      v = info.GetVkPage();
-      link = true;
-      break;
-    case osm::Props::ContactLine:
-      k = "LINE";
-      v = info.GetLinePage();
-      link = true;
-      break;
-    case osm::Props::Internet:
-      k = "Internet";
-      v = DebugPrint(info.GetInternet());
-      break;
-    case osm::Props::Cuisine:
-      k = "Cuisine";
-      v = strings::JoinStrings(info.GetCuisines(), ", ");
-      break;
-    case osm::Props::OpeningHours:
-      k = "OpeningHours";
-      v = info.GetOpeningHours();
-      break;
-    case osm::Props::Stars:
-      k = "Stars";
-      v = GenerateStars(info.GetStars());
-      break;
-    case osm::Props::Operator:
-      k = "Operator";
-      v = info.GetOperator();
-      break;
-    case osm::Props::Elevation:
-      k = "Elevation";
-      v = info.GetElevationFormatted();
-      break;
-    case osm::Props::Wikipedia:
-      k = "Wikipedia";
-      v = info.GetWikipediaLink();
-      link = true;
-      break;
-    case osm::Props::Flats:
-      k = "Flats";
-      v = info.GetFlats();
-      break;
-    case osm::Props::BuildingLevels:
-      k = "Building Levels";
-      v = info.GetBuildingLevels();
-      break;
-    case osm::Props::Level:
-      k = "Level";
-      v = info.GetLevel();
-      break;
-    }
-    grid->addWidget(new QLabel(k), row, 0);
-    QLabel * label = new QLabel(QString::fromStdString(v));
-    label->setTextInteractionFlags(Qt::TextSelectableByMouse);
-    if (link)
-    {
-      label->setOpenExternalLinks(true);
-      label->setTextInteractionFlags(Qt::TextBrowserInteraction);
-      label->setText(QString::fromStdString("<a href=\"" + v + "\">" + v + "</a>"));
-    }
-    grid->addWidget(label, row++, 1);
-  }
+  using PropID = osm::MapObject::MetadataID;
+
+  if (auto cuisines = info.FormatCuisines(); !cuisines.empty())
+    addEntry(DebugPrint(PropID::FMD_CUISINE), cuisines);
 
   QDialogButtonBox * dbb = new QDialogButtonBox();
   QPushButton * closeButton = new QPushButton("Close");
@@ -221,11 +95,46 @@ PlacePageDialog::PlacePageDialog(QWidget * parent, place_page::Info const & info
     connect(editButton, &QAbstractButton::clicked, this, &PlacePageDialog::OnEdit);
     dbb->addButton(editButton, QDialogButtonBox::AcceptRole);
   }
+
+  if (auto const & descr = info.GetWikiDescription(); !descr.empty())
+  {
+    QPushButton * wikiButton = new QPushButton("Wiki Description");
+    connect(wikiButton, &QAbstractButton::clicked, this, [this, descr, title]()
+    {
+      auto textDialog = TextDialog(this, QString::fromStdString(descr), QString::fromStdString("Wikipedia: " + title));
+      textDialog.exec();
+    });
+    dbb->addButton(wikiButton, QDialogButtonBox::ActionRole);
+  }
+
+  info.ForEachMetadataReadable([&addEntry](PropID id, std::string const & value)
+  {
+    bool isLink = false;
+    switch (id)
+    {
+    case PropID::FMD_EMAIL:
+    case PropID::FMD_WEBSITE:
+    case PropID::FMD_CONTACT_FACEBOOK:
+    case PropID::FMD_CONTACT_INSTAGRAM:
+    case PropID::FMD_CONTACT_TWITTER:
+    case PropID::FMD_CONTACT_VK:
+    case PropID::FMD_CONTACT_LINE:
+    case PropID::FMD_WIKIPEDIA:
+    case PropID::FMD_WIKIMEDIA_COMMONS:
+      isLink = true;
+      break;
+    default:
+      break;
+    }
+
+    addEntry(DebugPrint(id), value, isLink);
+  });
+
   grid->addWidget(dbb);
   setLayout(grid);
 
-  string const title = string("Place Page") + (info.IsBookmark() ? " (bookmarked)" : "");
-  setWindowTitle(title.c_str());
+  auto const ppTitle = std::string("Place Page") + (info.IsBookmark() ? " (bookmarked)" : "");
+  setWindowTitle(ppTitle.c_str());
 }
 
 void PlacePageDialog::OnClose() { reject(); }

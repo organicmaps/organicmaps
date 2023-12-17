@@ -31,7 +31,7 @@ class Doc
 public:
   Doc(string const & text, string const & lang) : m_lang(StringUtf8Multilang::GetLangIndex(lang))
   {
-    NormalizeAndTokenizeString(text, m_tokens);
+    m_tokens = NormalizeAndTokenizeString(text);
   }
 
   template <typename ToDo>
@@ -60,9 +60,7 @@ public:
     auto prev = m_index.GetAllIds();
     TEST(base::IsSortedAndUnique(prev.cbegin(), prev.cend()), ());
 
-    vector<UniString> tokens;
-    NormalizeAndTokenizeString(query, tokens);
-    for (auto const & token : tokens)
+    ForEachNormalizedToken(query, [&](strings::UniString const & token)
     {
       SearchTrieRequest<UniStringDFA> request;
       request.m_names.emplace_back(token);
@@ -78,7 +76,7 @@ public:
       set_intersection(prev.begin(), prev.end(), curr.begin(), curr.end(),
                        back_inserter(intersection));
       prev = intersection;
-    }
+    });
 
     return prev;
   }

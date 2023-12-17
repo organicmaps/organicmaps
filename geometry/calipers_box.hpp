@@ -25,6 +25,13 @@ public:
   CalipersBox() = default;
   explicit CalipersBox(std::vector<PointD> const & points);
 
+  // Used in CitiesBoundariesDecoder. Faster than ctor.
+  void Deserialize(std::vector<PointD> && points);
+  // Remove useless points in case of degenerate box. Used in unit tests.
+  void Normalize();
+
+  bool TestValid() const;
+
   std::vector<PointD> const & Points() const { return m_points; }
 
   bool HasPoint(PointD const & p) const { return HasPoint(p, kEps); }

@@ -7,17 +7,14 @@
 #include "geometry/simplification.hpp"
 
 #include "indexer/feature_data.hpp"
-#include "indexer/feature_visibility.hpp"
 #include "indexer/scales.hpp"
 
 #include "base/assert.hpp"
 #include "base/math.hpp"
 
 #include <cmath>
-#include <cstdint>
 #include <functional>
 #include <limits>
-#include <utility>
 #include <vector>
 
 namespace feature
@@ -28,10 +25,9 @@ class CalculateMidPoints
 {
 public:
   using CellAndOffset = std::pair<uint64_t, uint64_t>;
-  using MinDrawableScalePolicy = std::function<int(TypesHolder const & types, m2::RectD limitRect)>;
+  using MinDrawableScaleFn = std::function<int (FeatureBuilder const & fb)>;
 
   CalculateMidPoints();
-  CalculateMidPoints(MinDrawableScalePolicy const & minDrawableScalePolicy);
 
   void operator()(FeatureBuilder const & ft, uint64_t pos);
   bool operator()(m2::PointD const & p);
@@ -43,11 +39,11 @@ public:
 
 private:
   m2::PointD m_midLoc;
-  m2::PointD m_midAll;
+  m2::PointD m_midAll = m2::PointD::Zero();
   size_t m_locCount = 0;
   size_t m_allCount = 0;
   uint8_t m_coordBits = serial::GeometryCodingParams().GetCoordBits();
-  MinDrawableScalePolicy m_minDrawableScalePolicy;
+  MinDrawableScaleFn m_minDrawableScaleFn;
   std::vector<CellAndOffset> m_vec;
 };
 
@@ -81,7 +77,7 @@ public:
       return std::numeric_limits<double>::max();
     }
 
-    return m2::SquaredDistanceFromSegmentToPoint<m2::PointD>()(a, b, p);
+    return m2::SquaredDistanceFromSegmentToPoint()(a, b, p);
   }
 
   double GetEpsilon() const { return m_eps; }

@@ -199,9 +199,9 @@ IndicesRange Batcher::InsertLineRaw(ref_ptr<GraphicsContext> context, RenderStat
                                         0 /* vertexStride */, indices);
 }
 
-void Batcher::StartSession(TFlushFn const & flusher)
+void Batcher::StartSession(TFlushFn && flusher)
 {
-  m_flushInterface = flusher;
+  m_flushInterface = std::move(flusher);
 }
 
 void Batcher::EndSession(ref_ptr<GraphicsContext> context)
@@ -314,11 +314,11 @@ Batcher * BatcherFactory::GetNew() const
 }
 
 SessionGuard::SessionGuard(ref_ptr<GraphicsContext> context, Batcher & batcher,
-                           Batcher::TFlushFn const & flusher)
+                           Batcher::TFlushFn && flusher)
   : m_context(context)
   , m_batcher(batcher)
 {
-  m_batcher.StartSession(flusher);
+  m_batcher.StartSession(std::move(flusher));
 }
 
 SessionGuard::~SessionGuard()

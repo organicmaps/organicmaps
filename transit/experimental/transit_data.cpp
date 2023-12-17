@@ -182,6 +182,7 @@ TimeTable GetTimeTableFromJson(json_t * obj)
     std::vector<TimeInterval> timeIntervals;
 
     auto const & rawValues = GetVectorFromJson<uint64_t>(item, "intervals");
+    timeIntervals.reserve(rawValues.size());
     for (auto const & rawValue : rawValues)
       timeIntervals.push_back(TimeInterval(rawValue));
 

@@ -6,20 +6,16 @@
 #include "indexer/ftraits.hpp"
 
 #include "geometry/latlon.hpp"
-#include "geometry/mercator.hpp"
 
 #include "coding/string_utf8_multilang.hpp"
-
-#include "base/stl_helpers.hpp"
 
 #include <string>
 #include <vector>
 
-class FeatureType;
-
 namespace osm
 {
 class EditableMapObject;
+
 /// OSM internet_access tag values.
 enum class Internet
 {
@@ -34,35 +30,12 @@ std::string DebugPrint(Internet internet);
 /// @param[in]  inet  Should be lowercase like in DebugPrint.
 Internet InternetFromString(std::string_view inet);
 
-// Object details in the sorted order, visible to users.
-// Must correspond MapObject.java
-enum class Props : uint8_t
-{
-  OpeningHours = 0,
-  Phone = 1,
-  Fax = 2,
-  Website = 3,
-  Email = 4,
-  Cuisine = 5,
-  Stars = 6,
-  Operator = 7,
-  Elevation = 8,
-  Internet = 9,
-  Wikipedia = 10,
-  Flats = 11,
-  BuildingLevels = 12,
-  Level = 13,
-  ContactFacebook = 14,
-  ContactInstagram = 15,
-  ContactTwitter = 16,
-  ContactVk = 17,
-  ContactLine = 18
-};
-std::string DebugPrint(Props props);
-
 class MapObject
 {
 public:
+  static char const * kFieldsSeparator;
+  static constexpr uint8_t kMaxStarsCount = 7;
+
   void SetFromFeatureType(FeatureType & ft);
 
   FeatureID const & GetID() const;
@@ -73,24 +46,39 @@ public:
   std::vector<m2::PointD> const & GetPoints() const;
 
   feature::TypesHolder const & GetTypes() const;
-  std::string GetDefaultName() const;
+  std::string_view GetDefaultName() const;
   StringUtf8Multilang const & GetNameMultilang() const;
 
   std::string const & GetHouseNumber() const;
+  std::string_view GetPostcode() const;
 
   /// @name Metadata fields.
-  //@{
-  std::vector<Props> AvailableProperties() const;
-  std::string_view GetPhone() const;
-  std::string_view GetFax() const;
-  std::string_view GetEmail() const;
-  std::string_view GetWebsite() const;
-  std::string_view GetFacebookPage() const;
-  std::string_view GetInstagramPage() const;
-  std::string_view GetTwitterPage() const;
-  std::string_view GetVkPage() const;
-  std::string_view GetLinePage() const;
-  Internet GetInternet() const;
+  /// @todo Can implement polymorphic approach here and store map<MetadataID, MetadataEntryIFace>.
+  /// All store/load/valid operations will be via MetadataEntryIFace interface instead of switch-case.
+  /// @{
+  using MetadataID = feature::Metadata::EType;
+
+  std::string_view GetMetadata(MetadataID type) const;
+
+  template <class FnT> void ForEachMetadataReadable(FnT && fn) const
+  {
+    m_metadata.ForEach([&fn](MetadataID id, std::string const & value)
+    {
+      switch (id)
+      {
+      case MetadataID::FMD_WIKIPEDIA: fn(id, feature::Metadata::ToWikiURL(value)); break;
+      case MetadataID::FMD_WIKIMEDIA_COMMONS: fn(id, feature::Metadata::ToWikimediaCommonsURL(value)); break;
+      /// @todo Clients should make separate processing of non-string values, skip for now.
+      /// @see EditableMapObject::ForEachMetadataItem.
+      case MetadataID::FMD_DESCRIPTION:
+      case MetadataID::FMD_CUSTOM_IDS:
+      case MetadataID::FMD_PRICE_RATES:
+      case MetadataID::FMD_RATINGS:
+        break;
+      default: fn(id, value); break;
+      }
+    });
+  }
 
   /// @returns non-localized cuisines keys.
   std::vector<std::string> GetCuisines() const;
@@ -100,32 +88,33 @@ public:
   std::vector<std::string> GetRecyclingTypes() const;
   /// @returns translated recycling type(s).
   std::vector<std::string> GetLocalizedRecyclingTypes() const;
+  /// @returns translated fee type.
+  std::string GetLocalizedFeeType() const;
   /// @returns translated and formatted cuisines.
   std::string FormatCuisines() const;
-  std::vector<std::string> GetRoadShields() const;
+
   std::string FormatRoadShields() const;
+
   std::string_view GetOpeningHours() const;
-  std::string_view GetOperator() const;
+  Internet GetInternet() const;
   int GetStars() const;
+  ftraits::WheelchairAvailability GetWheelchairType() const;
+
+  /// @returns true if feature has ATM type.
+  bool HasAtm() const;
+
   /// @returns formatted elevation in feet or meters, or empty string.
   std::string GetElevationFormatted() const;
-  bool GetElevation(double & outElevationInMeters) const;
-  /// @returns URL to Wikipedia or empty string.
-  std::string GetWikipediaLink() const;
-  std::string_view GetFlats() const;
-  std::string_view GetBuildingLevels() const;
-  std::string_view GetLevel() const;
-  ftraits::WheelchairAvailability GetWheelchairType() const;
-  std::string_view GetAirportIata() const;
-
-  // TODO(Vlad, yunikkk): Use Props enum + getters instead of direct metadata access.
-  // TODO: Remove this method.
-  feature::Metadata const & GetMetadata() const;
+  /// @}
 
   bool IsPointType() const;
   feature::GeomType GetGeomType() const { return m_geomType; };
+  int8_t GetLayer() const { return m_layer; };
+
   /// @returns true if object is of building type.
   bool IsBuilding() const;
+
+  void AssignMetadata(feature::Metadata & dest) const { dest = m_metadata; }
 
 protected:
   /// @returns "the best" type to display in UI.
@@ -139,69 +128,12 @@ protected:
 
   StringUtf8Multilang m_name;
   std::string m_houseNumber;
-  std::string m_roadNumber;
+  std::vector<std::string> m_roadShields;
   feature::TypesHolder m_types;
   feature::Metadata m_metadata;
 
   feature::GeomType m_geomType = feature::GeomType::Undefined;
+  int8_t m_layer = feature::LAYER_EMPTY;
 };
 
-/// Helper to convert internal feature::Metadata::FMD_* enum into a users-visible one.
-template <class T>
-std::vector<Props> MetadataToProps(std::vector<T> const & metadata)
-{
-  std::vector<Props> res;
-  using feature::Metadata;
-  for (auto const type : metadata)
-  {
-    switch (static_cast<Metadata::EType>(type))
-    {
-    case Metadata::FMD_OPEN_HOURS: res.push_back(Props::OpeningHours); break;
-    case Metadata::FMD_PHONE_NUMBER: res.push_back(Props::Phone); break;
-    case Metadata::FMD_FAX_NUMBER: res.push_back(Props::Fax); break;
-    case Metadata::FMD_STARS: res.push_back(Props::Stars); break;
-    case Metadata::FMD_OPERATOR:
-      res.push_back(Props::Operator);
-      break;
-    // Url is not used in UI and should be matched to Website.
-    case Metadata::FMD_URL:
-    case Metadata::FMD_WEBSITE: res.push_back(Props::Website); break;
-    case Metadata::FMD_CONTACT_FACEBOOK: res.push_back(Props::ContactFacebook); break;
-    case Metadata::FMD_CONTACT_INSTAGRAM: res.push_back(Props::ContactInstagram); break;
-    case Metadata::FMD_CONTACT_TWITTER: res.push_back(Props::ContactTwitter); break;
-    case Metadata::FMD_CONTACT_VK: res.push_back(Props::ContactVk); break;
-    case Metadata::FMD_CONTACT_LINE: res.push_back(Props::ContactLine); break;
-    case Metadata::FMD_INTERNET: res.push_back(Props::Internet); break;
-    case Metadata::FMD_ELE: res.push_back(Props::Elevation); break;
-    case Metadata::FMD_EMAIL: res.push_back(Props::Email); break;
-    case Metadata::FMD_WIKIPEDIA: res.push_back(Props::Wikipedia); break;
-    case Metadata::FMD_FLATS: res.push_back(Props::Flats); break;
-    case Metadata::FMD_BUILDING_LEVELS: res.push_back(Props::BuildingLevels); break;
-    case Metadata::FMD_LEVEL: res.push_back(Props::Level); break;
-
-    case Metadata::FMD_DESTINATION:
-    case Metadata::FMD_DESTINATION_REF:
-    case Metadata::FMD_JUNCTION_REF:
-    case Metadata::FMD_TURN_LANES:
-    case Metadata::FMD_TURN_LANES_FORWARD:
-    case Metadata::FMD_TURN_LANES_BACKWARD:
-    // Postcode should be processed separately, in the address.
-    case Metadata::FMD_POSTCODE:
-    case Metadata::FMD_HEIGHT:
-    case Metadata::FMD_MIN_HEIGHT:
-    case Metadata::FMD_DENOMINATION:
-    case Metadata::FMD_TEST_ID:
-    case Metadata::FMD_AIRPORT_IATA:
-    case Metadata::FMD_BRAND:
-    case Metadata::FMD_DURATION:
-    case Metadata::FMD_DESCRIPTION:
-    case Metadata::FMD_COUNT:
-    case Metadata::FMD_BUILDING_MIN_LEVEL:
-      break;
-      // Please add new cases when compiler issues an "unhandled switch case" warning here.
-    }
-  }
-  base::SortUnique(res);
-  return res;
-}
 }  // namespace osm

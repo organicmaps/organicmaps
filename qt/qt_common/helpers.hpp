@@ -4,9 +4,7 @@
 
 #include <QtGui/QMouseEvent>
 
-namespace qt
-{
-namespace common
+namespace qt::common
 {
 bool IsLeftButton(Qt::MouseButtons buttons);
 bool IsLeftButton(QMouseEvent const * const e);
@@ -28,5 +26,6 @@ struct Hotkey
 };
 
 location::GpsInfo MakeGpsInfo(m2::PointD const & point);
-}  // namespace common
-}  // namespace qt
+
+void SetDefaultSurfaceFormat(QString const & platformName);
+} // namespace qt::common

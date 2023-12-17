@@ -65,7 +65,7 @@ void ReconstructRoute(DirectionsEngine & engine, IndexRoadGraph const & graph,
     return;
 
   FillSegmentInfo(times, routeSegments);
-  route.SetRouteSegments(move(routeSegments));
+  route.SetRouteSegments(std::move(routeSegments));
 
   vector<m2::PointD> routeGeometry;
   JunctionsToPoints(path, routeGeometry);

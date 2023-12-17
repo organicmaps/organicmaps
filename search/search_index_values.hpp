@@ -1,15 +1,10 @@
 #pragma once
 
 #include "coding/compressed_bit_vector.hpp"
-#include "coding/geometry_coding.hpp"
-#include "coding/read_write_utils.hpp"
 #include "coding/write_to_sink.hpp"
 
 #include "base/assert.hpp"
-#include "base/logging.hpp"
 
-#include <cstddef>
-#include <cstdint>
 #include <memory>
 #include <utility>
 #include <vector>
@@ -109,7 +104,7 @@ public:
     std::vector<uint64_t> ids(values.size());
     for (size_t i = 0; i < ids.size(); ++i)
       ids[i] = values[i].m_featureId;
-    m_cbv = coding::CompressedBitVectorBuilder::FromBitPositions(move(ids));
+    m_cbv = coding::CompressedBitVectorBuilder::FromBitPositions(std::move(ids));
   }
 
   // This method returns number of values in the current instance of

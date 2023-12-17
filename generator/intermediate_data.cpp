@@ -10,12 +10,10 @@
 
 #include "defines.hpp"
 
-using namespace std;
+namespace generator::cache
+{
+using std::string;
 
-namespace generator
-{
-namespace cache
-{
 namespace
 {
 size_t const kFlushCount = 1024;
@@ -32,9 +30,9 @@ void ToLatLon(double lat, double lon, LatLon & ll)
   int64_t const lat64 = lat * kValueOrder;
   int64_t const lon64 = lon * kValueOrder;
 
-  CHECK(lat64 >= numeric_limits<int32_t>::min() && lat64 <= numeric_limits<int32_t>::max(),
+  CHECK(lat64 >= std::numeric_limits<int32_t>::min() && lat64 <= std::numeric_limits<int32_t>::max(),
         ("Latitude is out of 32bit boundary:", lat64));
-  CHECK(lon64 >= numeric_limits<int32_t>::min() && lon64 <= numeric_limits<int32_t>::max(),
+  CHECK(lon64 >= std::numeric_limits<int32_t>::min() && lon64 <= std::numeric_limits<int32_t>::max(),
         ("Longitude is out of 32bit boundary:", lon64));
   ll.m_lat = static_cast<int32_t>(lat64);
   ll.m_lon = static_cast<int32_t>(lon64);
@@ -68,7 +66,7 @@ public:
   uint64_t GetNumProcessedPoints() const override { return m_numProcessedPoints; }
 
 private:
-  uint64_t m_numProcessedPoints;
+  uint64_t m_numProcessedPoints{0};
 };
 
 // RawFilePointStorageMmapReader -------------------------------------------------------------------
@@ -144,7 +142,7 @@ public:
 
 private:
   FileReader m_fileReader;
-  vector<LatLon> m_data;
+  std::vector<LatLon> m_data;
 };
 
 // RawMemPointStorageWriter ------------------------------------------------------------------------
@@ -176,7 +174,7 @@ public:
 
 private:
   FileWriter m_fileWriter;
-  vector<LatLon> m_data;
+  std::vector<LatLon> m_data;
   uint64_t m_numProcessedPoints = 0;
 };
 
@@ -224,7 +222,7 @@ public:
 
 private:
   FileReader m_fileReader;
-  unordered_map<uint64_t, LatLon> m_map;
+  std::unordered_map<uint64_t, LatLon> m_map;
 };
 
 // MapFilePointStorageWriter -----------------------------------------------------------------------
@@ -274,7 +272,7 @@ IndexFileReader::IndexFileReader(string const & name)
   {
     m_elements.resize(base::checked_cast<size_t>(fileSize / sizeof(Element)));
   }
-  catch (bad_alloc const &)
+  catch (std::bad_alloc const &)
   {
     LOG(LCRITICAL, ("Insufficient memory for required offset map"));
   }
@@ -299,7 +297,7 @@ bool IndexFileReader::GetValueByKey(Key key, Value & value) const
 
 // IndexFileWriter ---------------------------------------------------------------------------------
 IndexFileWriter::IndexFileWriter(string const & name) :
-  m_fileWriter(name.c_str())
+  m_fileWriter(name)
 {
 }
 
@@ -347,9 +345,9 @@ IntermediateDataObjectsCache::AllocatedObjects &
 IntermediateDataObjectsCache::GetOrCreatePointStorageReader(
     feature::GenerateInfo::NodeStorageType type, string const & name)
 {
-  static mutex m;
-  auto const k = to_string(static_cast<int>(type)) + name;
-  lock_guard<mutex> lock(m);
+  static std::mutex m;
+  auto const k = std::to_string(static_cast<int>(type)) + name;
+  std::lock_guard lock(m);
   auto it = m_objects.find(k);
   if (it == cend(m_objects))
     return m_objects.emplace(k, AllocatedObjects(CreatePointStorageReader(type, name))).first->second;
@@ -359,14 +357,14 @@ IntermediateDataObjectsCache::GetOrCreatePointStorageReader(
 
 void IntermediateDataObjectsCache::Clear()
 {
-  m_objects = unordered_map<string, AllocatedObjects>();
+  m_objects = std::unordered_map<std::string, AllocatedObjects>();
 }
 
 IndexFileReader const & IntermediateDataObjectsCache::AllocatedObjects::GetOrCreateIndexReader(
-    string const & name)
+    std::string const & name)
 {
-  static mutex m;
-  lock_guard<mutex> lock(m);
+  static std::mutex m;
+  std::lock_guard lock(m);
   auto it = m_fileReaders.find(name);
   if (it == cend(m_fileReaders))
     return m_fileReaders.emplace(name, IndexFileReader(name)).first->second;
@@ -399,7 +397,7 @@ IntermediateDataWriter::IntermediateDataWriter(PointStorageWriterInterface & nod
 
 void IntermediateDataWriter::AddRelation(Key id, RelationElement const & e)
 {
-  static set<string_view> const types = {"multipolygon", "route", "boundary",
+  static std::set<std::string_view> const types = {"multipolygon", "route", "boundary",
                                     "associatedStreet", "building", "restriction"};
   auto const relationType = e.GetType();
   if (!types.count(relationType))
@@ -422,32 +420,32 @@ void IntermediateDataWriter::SaveIndex()
 }
 
 // Functions
-unique_ptr<PointStorageReaderInterface>
+std::unique_ptr<PointStorageReaderInterface>
 CreatePointStorageReader(feature::GenerateInfo::NodeStorageType type, string const & name)
 {
   switch (type)
   {
   case feature::GenerateInfo::NodeStorageType::File:
-    return make_unique<RawFilePointStorageMmapReader>(name);
+    return std::make_unique<RawFilePointStorageMmapReader>(name);
   case feature::GenerateInfo::NodeStorageType::Index:
-    return make_unique<MapFilePointStorageReader>(name);
+    return std::make_unique<MapFilePointStorageReader>(name);
   case feature::GenerateInfo::NodeStorageType::Memory:
-    return make_unique<RawMemPointStorageReader>(name);
+    return std::make_unique<RawMemPointStorageReader>(name);
   }
   UNREACHABLE();
 }
 
-unique_ptr<PointStorageWriterInterface>
+std::unique_ptr<PointStorageWriterInterface>
 CreatePointStorageWriter(feature::GenerateInfo::NodeStorageType type, string const & name)
 {
   switch (type)
   {
   case feature::GenerateInfo::NodeStorageType::File:
-    return make_unique<RawFilePointStorageWriter>(name);
+    return std::make_unique<RawFilePointStorageWriter>(name);
   case feature::GenerateInfo::NodeStorageType::Index:
-    return make_unique<MapFilePointStorageWriter>(name);
+    return std::make_unique<MapFilePointStorageWriter>(name);
   case feature::GenerateInfo::NodeStorageType::Memory:
-    return make_unique<RawMemPointStorageWriter>(name);
+    return std::make_unique<RawMemPointStorageWriter>(name);
   }
   UNREACHABLE();
 }
@@ -459,17 +457,16 @@ IntermediateData::IntermediateData(IntermediateDataObjectsCache & objectsCache,
 {
   auto & allocatedObjects = m_objectsCache.GetOrCreatePointStorageReader(
       info.m_nodeStorageType, info.GetCacheFileName(NODES_FILE));
-  m_reader = make_shared<IntermediateDataReader>(allocatedObjects, info);
+  m_reader = std::make_shared<IntermediateDataReader>(allocatedObjects, info);
 }
 
-shared_ptr<IntermediateDataReader> const & IntermediateData::GetCache() const
+std::shared_ptr<IntermediateDataReader> const & IntermediateData::GetCache() const
 {
   return m_reader;
 }
 
-shared_ptr<IntermediateData> IntermediateData::Clone() const
+std::shared_ptr<IntermediateData> IntermediateData::Clone() const
 {
-  return make_shared<IntermediateData>(m_objectsCache, m_info);
+  return std::make_shared<IntermediateData>(m_objectsCache, m_info);
 }
-}  // namespace cache
 }  // namespace generator

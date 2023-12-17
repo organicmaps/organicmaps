@@ -15,7 +15,6 @@ set(SRC
   binding_info.hpp
   buffer_base.cpp
   buffer_base.hpp
-  color.cpp
   color.hpp
   constants.hpp
   cpu_buffer.cpp
@@ -174,6 +173,7 @@ target_link_libraries(${PROJECT_NAME}
   vulkan_wrapper
   stb_image
   sdf_image
+  harfbuzz
   ICU::i18n
   expat
   $<$<BOOL:${PLATFORM_MAC}>:-framework\ OpenGL>

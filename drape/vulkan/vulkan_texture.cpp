@@ -2,7 +2,6 @@
 #include "drape/vulkan/vulkan_base_context.hpp"
 #include "drape/vulkan/vulkan_staging_buffer.hpp"
 
-#include "base/logging.hpp"
 
 drape_ptr<dp::HWTextureAllocator> CreateVulkanAllocator()
 {
@@ -12,7 +11,7 @@ drape_ptr<dp::HWTextureAllocator> CreateVulkanAllocator()
 ref_ptr<dp::HWTextureAllocator> GetDefaultVulkanAllocator()
 {
   static dp::vulkan::VulkanTextureAllocator allocator;
-  return make_ref<dp::HWTextureAllocator>(&allocator);
+  return make_ref(&allocator);
 }
 
 namespace dp
@@ -83,12 +82,8 @@ VkBufferImageCopy BufferCopyRegion(uint32_t x, uint32_t y, uint32_t width, uint3
 
 drape_ptr<HWTexture> VulkanTextureAllocator::CreateTexture(ref_ptr<dp::GraphicsContext> context)
 {
-  return make_unique_dp<VulkanTexture>(make_ref<VulkanTextureAllocator>(this));
+  return make_unique_dp<VulkanTexture>(make_ref(this));
 }
-
-VulkanTexture::VulkanTexture(ref_ptr<VulkanTextureAllocator> allocator)
-  : m_allocator(allocator)
-{}
 
 VulkanTexture::~VulkanTexture()
 {

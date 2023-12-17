@@ -1,7 +1,7 @@
-<svg width="13" height="13" viewBox="0 0 13 13">
-  <g fill="none">
-    <rect width="13" height="13" fill="#FFF" opacity=".4"/>
-    <rect width="11" height="11" x="1" y="1" fill="#99111C"/>
-    <polyline fill="#FFF" points="4.054 4 5.588 4 6.496 7.665 7.403 4 8.943 4 10 9.409 8.948 9.409 8.149 5.311 7.032 9.409 5.968 9.409 4.851 5.311 4.052 9.409 3 9.409" opacity=".6"/>
-  </g>
+<svg viewBox="0 0 13 13" xmlns="http://www.w3.org/2000/svg">
+ <g>
+  <rect width="13" height="13" fill="#FFF" opacity=".4"/>
+  <rect x="1" y="1" width="11" height="11" fill="#99111C"/>
+  <polyline points="4.054 4 5.588 4 6.496 7.665 7.403 4 8.943 4 10 9.409 8.948 9.409 8.149 5.311 7.032 9.409 5.968 9.409 4.851 5.311 4.052 9.409 3 9.409" fill="#FFF" opacity=".6"/>
+ </g>
 </svg>

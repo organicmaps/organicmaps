@@ -16,9 +16,37 @@ final class AboutController: MWMViewController, UITableViewDataSource, UITableVi
     df.timeStyle = .none
     return String(format: L("data_version"), df.string(from:mapsDate), mapsVersionInt)
   }
+  
+  private var onDidAppearCompletionHandler: (() -> Void)?
+
+  init(onDidAppearCompletionHandler: (() -> Void)? = nil) {
+    self.onDidAppearCompletionHandler = onDidAppearCompletionHandler
+    super.init(nibName: nil, bundle: nil)
+  }
+
+  @available(*, unavailable)
+  required init?(coder: NSCoder) {
+    fatalError("init(coder:) has not been implemented")
+  }
+
+  private func isDonateEnabled() -> Bool {
+    return Settings.donateUrl() != nil
+  }
+  
+  override func viewDidAppear(_ animated: Bool) {
+    super.viewDidAppear(animated)
+    if let completionHandler = onDidAppearCompletionHandler {
+      completionHandler()
+      onDidAppearCompletionHandler = nil
+    }
+  }
 
   override func loadView() {
     super.loadView()
+
+    if isDonateEnabled() {
+      labels[0][kDonateCellIndex] = "donate"
+    }
 
     title = L("about_menu_title")
 
@@ -114,12 +142,14 @@ final class AboutController: MWMViewController, UITableViewDataSource, UITableVi
 
   // MARK: - UITableView data source
 
-  // Update didSelect... delegate after modifying this list.
-  private let labels = [
+  // Update didSelect... delegate and tools/python/clean_strings_txt.py after modifying this list.
+  private var labels = [
     ["news", "faq", "report_a_bug", "how_to_support_us", "rate_the_app"],
-    ["telegram", "github", "website", "email", "facebook", "twitter", "instagram", "matrix", "openstreetmap"],
+    ["telegram", "github", "website", "email", "matrix", "mastodon", "facebook", "twitter", "instagram", "openstreetmap"],
     ["privacy_policy", "terms_of_use", "copyright"],
   ]
+  // Replaces "how_to_support_us" above.
+  private let kDonateCellIndex = 3
 
   // Additional section is used to properly resize the header view by putting it in the table cell.
   func numberOfSections(in tableView: UITableView) -> Int { return labels.count + 1 }
@@ -151,7 +181,12 @@ final class AboutController: MWMViewController, UITableViewDataSource, UITableVi
       ])
     } else {
       cell = getCell(tableView: tableView, identifier: "default")
-      cell.textLabel!.text = L(labels[indexPath[0] - 1][indexPath[1]])
+      let text = L(labels[indexPath[0] - 1][indexPath[1]])
+      if (indexPath.section == 1 && indexPath.row == kDonateCellIndex && Settings.isNY()) {
+        cell.textLabel!.text = "🎄" + text + "🎄"
+      } else {
+        cell.textLabel!.text = text
+      }
     }
     return cell
   }
@@ -165,33 +200,34 @@ final class AboutController: MWMViewController, UITableViewDataSource, UITableVi
     // See labels array above.
     switch indexPath[0] {
       // Header section click.
-      case 0: self.openUrl("https://organicmaps.app/donate/")
+      case 0: self.openUrl(L("translated_om_site_url") + "donate/")
       // First buttons section.
       case 1: switch indexPath[1] {
-        case 0: self.openUrl("https://organicmaps.app/news/")
+        case 0: self.openUrl(L("translated_om_site_url") + "news/")
         case 1: self.navigationController?.pushViewController(FaqController(), animated: true)
         case 2: sendEmailWith(header: "Organic Maps Bugreport", toRecipients: [kiOSEmail])
-        case 3: self.openUrl("https://organicmaps.app/support-us/")
+        case kDonateCellIndex: self.openUrl(isDonateEnabled() ? Settings.donateUrl() : L("translated_om_site_url") + "support-us/")
         case 4: UIApplication.shared.rateApp()
         default: fatalError("Invalid cell0 \(indexPath)")
       }
       // Second section. Open urls in external Safari so logged-in users can easily follow us.
       case 2: switch indexPath[1] {
-        case 0: self.openUrl("https://t.me/OrganicMapsApp", inSafari: true)
+        case 0: self.openUrl(L("telegram_url"), inSafari: true)
         case 1: self.openUrl("https://github.com/organicmaps/organicmaps/", inSafari: true)
-        case 2: self.openUrl("https://organicmaps.app/")
+        case 2: self.openUrl(L("translated_om_site_url"))
         case 3: sendEmailWith(header: "Organic Maps", toRecipients: [kiOSEmail])
-        case 4: self.openUrl("https://facebook.com/OrganicMaps", inSafari: true)
-        case 5: self.openUrl("https://twitter.com/OrganicMapsApp", inSafari: true)
-        case 6: self.openUrl("https://www.instagram.com/organicmaps.app", inSafari: true)
-        case 7: self.openUrl("https://matrix.to/#/%23organicmaps:matrix.org", inSafari: true)
-        case 8: self.openUrl("https://wiki.openstreetmap.org/wiki/About_OpenStreetMap", inSafari: true)
+        case 4: self.openUrl("https://matrix.to/#/#organicmaps:matrix.org", inSafari: true)
+        case 5: self.openUrl("https://fosstodon.org/@organicmaps", inSafari: true)
+        case 6: self.openUrl("https://facebook.com/OrganicMaps", inSafari: true)
+        case 7: self.openUrl("https://twitter.com/OrganicMapsApp", inSafari: true)
+        case 8: self.openUrl(L("instagram_url"), inSafari: true)
+        case 9: self.openUrl(L("osm_wiki_about_url"), inSafari: true)
         default: fatalError("Invalid cell1 \(indexPath)")
       }
       // Third section.
       case 3: switch indexPath[1] {
-        case 0: self.openUrl("https://organicmaps.app/privacy")
-        case 1: self.openUrl("https://organicmaps.app/terms")
+        case 0: self.openUrl(L("translated_om_site_url") + "privacy/")
+        case 1: self.openUrl(L("translated_om_site_url") + "terms/")
         case 2: showCopyright()
         default: fatalError("Invalid cell2 \(indexPath)")
       }
@@ -256,12 +292,13 @@ final class AboutController: MWMViewController, UITableViewDataSource, UITableVi
     let subject = emailSubject(subject: header)
     let body = emailBody()
 
-    // Try Gmail and Outlook first.
-    if openGmail(subject: subject, body: body, recipients: toRecipients)
-        || openOutlook(subject: subject, body: body, recipients: toRecipients) {
+    // Before iOS 14, try to open alternate email apps first, assuming that if users installed them, they're using them.
+    let os = ProcessInfo().operatingSystemVersion
+    if (os.majorVersion < 14 && (openGmail(subject: subject, body: body, recipients: toRecipients) ||
+                                 openOutlook(subject: subject, body: body, recipients: toRecipients))) {
       return
     }
-
+    // From iOS 14, it is possible to change the default mail app, and mailto should open a default mail app.
     if MWMMailViewController.canSendMail() {
       let vc = MWMMailViewController()
       vc.mailComposeDelegate = self

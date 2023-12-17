@@ -31,4 +31,7 @@ NS_SWIFT_NAME(Settings)
 + (BOOL)isTrackWarningAlertShown;
 + (void)setTrackWarningAlertShown:(BOOL)shown;
 
++ (NSString *)donateUrl;
++ (BOOL)isNY;
+
 @end

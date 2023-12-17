@@ -339,14 +339,14 @@ public:
     m_genInfo.m_citiesBoundariesFilename =
         m_genInfo.GetIntermediateFileName("citiesboundaries.bin");
     auto const cameraToWays = m_genInfo.GetIntermediateFileName(CAMERAS_TO_WAYS_FILENAME);
-    auto const citiesAreas = m_genInfo.GetIntermediateFileName(CITIES_AREAS_TMP_FILENAME);
+    auto const cityBoundaries = m_genInfo.GetIntermediateFileName(CITY_BOUNDARIES_COLLECTOR_FILENAME);
     auto const maxSpeeds = m_genInfo.GetIntermediateFileName(MAXSPEEDS_FILENAME);
     auto const metalines = m_genInfo.GetIntermediateFileName(METALINES_FILENAME);
     auto const restrictions = m_genInfo.GetIntermediateFileName(RESTRICTIONS_FILENAME);
     auto const roadAccess = m_genInfo.GetIntermediateFileName(ROAD_ACCESS_FILENAME);
 
     for (auto const & generatedFile :
-         {cameraToWays, citiesAreas, maxSpeeds, metalines, restrictions, roadAccess,
+         {cameraToWays, cityBoundaries, maxSpeeds, metalines, restrictions, roadAccess,
           m_genInfo.m_citiesBoundariesFilename})
     {
       CHECK(!Platform::IsFileExistsByFullPath(generatedFile), (generatedFile));
@@ -358,7 +358,7 @@ public:
     TEST(rawGenerator.Execute(), ());
 
     TestGeneratedFile(cameraToWays, 0 /* fileSize */);
-    TestGeneratedFile(citiesAreas, 18601 /* fileSize */);
+    TestGeneratedFile(cityBoundaries, 18601 /* fileSize */);
     TestGeneratedFile(maxSpeeds, 1301155 /* fileSize */);
     TestGeneratedFile(metalines, 287660 /* fileSize */);
     TestGeneratedFile(restrictions, 371110 /* fileSize */);

@@ -7,7 +7,6 @@
 
 #include <memory>
 #include <string>
-#include <vector>
 
 namespace search
 {
@@ -18,8 +17,10 @@ public:
   void SetLocale(std::string const & locale);
 
   std::string GetLocalizedFullName(storage::CountryId const & id) const;
-  void GetLocalizedFullName(storage::CountryId const & id,
-                            std::vector<std::string> & nameParts) const;
+
+  using NameBufferT = buffer_vector<std::string, 4>;
+  void GetLocalizedFullName(storage::CountryId const & id, NameBufferT & nameParts) const;
+
   std::string GetLocalizedCountryName(storage::CountryId const & id) const;
 
 private:

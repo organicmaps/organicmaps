@@ -340,7 +340,7 @@
         {
             "key": "Argentina_Cuyo",
             "value": {
-                "profileName": "poor",
+                "profileName": "small",
                 "tileCoordsSubset": [],
                 "tilesAreBanned": false
             }
@@ -356,7 +356,7 @@
         {
             "key": "Argentina_Northwest",
             "value": {
-                "profileName": "poor",
+                "profileName": "small",
                 "tileCoordsSubset": [],
                 "tilesAreBanned": false
             }
@@ -364,7 +364,7 @@
         {
             "key": "Argentina_Pampas",
             "value": {
-                "profileName": "extra_small",
+                "profileName": "small",
                 "tileCoordsSubset": [],
                 "tilesAreBanned": false
             }
@@ -372,7 +372,7 @@
         {
             "key": "Argentina_Patagonia",
             "value": {
-                "profileName": "poor",
+                "profileName": "small",
                 "tileCoordsSubset": [],
                 "tilesAreBanned": false
             }
@@ -1500,7 +1500,15 @@
         {
             "key": "Chile_North",
             "value": {
-                "profileName": "poor",
+                "profileName": "small",
+                "tileCoordsSubset": [],
+                "tilesAreBanned": false
+            }
+        },
+        {
+            "key": "Chile_South",
+            "value": {
+                "profileName": "extra_small",
                 "tileCoordsSubset": [],
                 "tilesAreBanned": false
             }
@@ -1525,6 +1533,14 @@
             "key": "China_Fujian",
             "value": {
                 "profileName": "poor",
+                "tileCoordsSubset": [],
+                "tilesAreBanned": false
+            }
+        },
+        {
+            "key": "China_Guangdong",
+            "value": {
+                "profileName": "normal",
                 "tileCoordsSubset": [],
                 "tilesAreBanned": false
             }
@@ -1667,6 +1683,22 @@
         },
         {
             "key": "China_Shanxi",
+            "value": {
+                "profileName": "poor",
+                "tileCoordsSubset": [],
+                "tilesAreBanned": false
+            }
+        },
+        {
+            "key": "China_Tibet Autonomous Region",
+            "value": {
+                "profileName": "extra_small",
+                "tileCoordsSubset": [],
+                "tilesAreBanned": false
+            }
+        },
+        {
+            "key": "China_Xinjiang",
             "value": {
                 "profileName": "poor",
                 "tileCoordsSubset": [],
@@ -4869,7 +4901,15 @@
         {
             "key": "Kazakhstan_North",
             "value": {
-                "profileName": "poor",
+                "profileName": "extra_small",
+                "tileCoordsSubset": [],
+                "tilesAreBanned": false
+            }
+        },
+        {
+            "key": "Kazakhstan_South",
+            "value": {
+                "profileName": "extra_small",
                 "tileCoordsSubset": [],
                 "tilesAreBanned": false
             }
@@ -4901,7 +4941,7 @@
         {
             "key": "Kyrgyzstan",
             "value": {
-                "profileName": "poor",
+                "profileName": "small",
                 "tileCoordsSubset": [],
                 "tilesAreBanned": false
             }
@@ -5166,6 +5206,14 @@
             "key": "Nagorno-Karabakh",
             "value": {
                 "profileName": "normal",
+                "tileCoordsSubset": [],
+                "tilesAreBanned": false
+            }
+        },
+        {
+            "key": "Namibia",
+            "value": {
+                "profileName": "small",
                 "tileCoordsSubset": [],
                 "tilesAreBanned": false
             }
@@ -5965,7 +6013,7 @@
         {
             "key": "Russia_Amur Oblast",
             "value": {
-                "profileName": "poor",
+                "profileName": "extra_small",
                 "tileCoordsSubset": [],
                 "tilesAreBanned": false
             }
@@ -5981,7 +6029,7 @@
         {
             "key": "Russia_Arkhangelsk Oblast_North",
             "value": {
-                "profileName": "poor",
+                "profileName": "extra_small",
                 "tileCoordsSubset": [],
                 "tilesAreBanned": false
             }
@@ -6021,7 +6069,7 @@
         {
             "key": "Russia_Buryatia",
             "value": {
-                "profileName": "poor",
+                "profileName": "extra_small",
                 "tileCoordsSubset": [],
                 "tilesAreBanned": false
             }
@@ -6038,6 +6086,14 @@
             "key": "Russia_Chelyabinsk Oblast",
             "value": {
                 "profileName": "normal",
+                "tileCoordsSubset": [],
+                "tilesAreBanned": false
+            }
+        },
+        {
+            "key": "Russia_Chukotka Autonomous Okrug",
+            "value": {
+                "profileName": "extra_small",
                 "tileCoordsSubset": [],
                 "tilesAreBanned": false
             }
@@ -6061,7 +6117,7 @@
         {
             "key": "Russia_Irkutsk Oblast",
             "value": {
-                "profileName": "poor",
+                "profileName": "extra_small",
                 "tileCoordsSubset": [],
                 "tilesAreBanned": false
             }
@@ -6109,7 +6165,7 @@
         {
             "key": "Russia_Kamchatka Krai",
             "value": {
-                "profileName": "poor",
+                "profileName": "extra_small",
                 "tileCoordsSubset": [],
                 "tilesAreBanned": false
             }
@@ -6126,6 +6182,14 @@
             "key": "Russia_Kemerov Oblast",
             "value": {
                 "profileName": "small",
+                "tileCoordsSubset": [],
+                "tilesAreBanned": false
+            }
+        },
+        {
+            "key": "Russia_Khabarovsk Krai",
+            "value": {
+                "profileName": "extra_small",
                 "tileCoordsSubset": [],
                 "tilesAreBanned": false
             }
@@ -6149,7 +6213,7 @@
         {
             "key": "Russia_Komi Republic",
             "value": {
-                "profileName": "poor",
+                "profileName": "extra_small",
                 "tileCoordsSubset": [],
                 "tilesAreBanned": false
             }
@@ -6181,7 +6245,7 @@
         {
             "key": "Russia_Krasnoyarsk Krai_South",
             "value": {
-                "profileName": "poor",
+                "profileName": "extra_small",
                 "tileCoordsSubset": [],
                 "tilesAreBanned": false
             }
@@ -6229,7 +6293,7 @@
         {
             "key": "Russia_Magadan Oblast",
             "value": {
-                "profileName": "poor",
+                "profileName": "extra_small",
                 "tileCoordsSubset": [],
                 "tilesAreBanned": false
             }
@@ -6365,7 +6429,7 @@
         {
             "key": "Russia_Primorsky Krai",
             "value": {
-                "profileName": "poor",
+                "profileName": "extra_small",
                 "tileCoordsSubset": [],
                 "tilesAreBanned": false
             }
@@ -6515,6 +6579,14 @@
             }
         },
         {
+            "key": "Russia_Tomsk Oblast",
+            "value": {
+                "profileName": "extra_small",
+                "tileCoordsSubset": [],
+                "tilesAreBanned": false
+            }
+        },
+        {
             "key": "Russia_Tula Oblast",
             "value": {
                 "profileName": "high_f2",
@@ -6525,7 +6597,7 @@
         {
             "key": "Russia_Tuva",
             "value": {
-                "profileName": "poor",
+                "profileName": "extra_small",
                 "tileCoordsSubset": [],
                 "tilesAreBanned": false
             }
@@ -6597,7 +6669,7 @@
         {
             "key": "Russia_Yamalo-Nenets Autonomous Okrug",
             "value": {
-                "profileName": "poor",
+                "profileName": "extra_small",
                 "tileCoordsSubset": [],
                 "tilesAreBanned": false
             }
@@ -6613,7 +6685,15 @@
         {
             "key": "Russia_Yugra_Khanty",
             "value": {
-                "profileName": "poor",
+                "profileName": "extra_small",
+                "tileCoordsSubset": [],
+                "tilesAreBanned": false
+            }
+        },
+        {
+            "key": "Russia_Yugra_Surgut",
+            "value": {
+                "profileName": "extra_small",
                 "tileCoordsSubset": [],
                 "tilesAreBanned": false
             }
@@ -6621,7 +6701,7 @@
         {
             "key": "Russia_Zabaykalsky Krai",
             "value": {
-                "profileName": "poor",
+                "profileName": "extra_small",
                 "tileCoordsSubset": [],
                 "tilesAreBanned": false
             }
@@ -6973,7 +7053,7 @@
         {
             "key": "South Sudan",
             "value": {
-                "profileName": "poor",
+                "profileName": "extra_small",
                 "tileCoordsSubset": [],
                 "tilesAreBanned": false
             }
@@ -7189,7 +7269,7 @@
         {
             "key": "Sudan_East",
             "value": {
-                "profileName": "poor",
+                "profileName": "extra_small",
                 "tileCoordsSubset": [],
                 "tilesAreBanned": false
             }
@@ -7197,7 +7277,7 @@
         {
             "key": "Sudan_West",
             "value": {
-                "profileName": "poor",
+                "profileName": "extra_small",
                 "tileCoordsSubset": [],
                 "tilesAreBanned": false
             }
@@ -7245,7 +7325,7 @@
         {
             "key": "Sweden_Norra Sverige",
             "value": {
-                "profileName": "poor",
+                "profileName": "normal",
                 "tileCoordsSubset": [],
                 "tilesAreBanned": false
             }
@@ -7373,7 +7453,7 @@
         {
             "key": "Tajikistan",
             "value": {
-                "profileName": "poor",
+                "profileName": "small",
                 "tileCoordsSubset": [],
                 "tilesAreBanned": false
             }
@@ -7533,7 +7613,7 @@
         {
             "key": "Turkmenistan",
             "value": {
-                "profileName": "poor",
+                "profileName": "small",
                 "tileCoordsSubset": [],
                 "tilesAreBanned": false
             }
@@ -7931,6 +8011,408 @@
             }
         },
         {
+            "key": "US_Alaska",
+            "value": {
+                "profileName": "normal",
+                "tileSource": "https://github.com/organicmaps/organicmaps/issues/6271",
+                "tileCoordsSubset": [
+                    {
+                        "bottomLat": 57,
+                        "leftLon": -157
+                    },
+                    {
+                        "bottomLat": 57,
+                        "leftLon": -156
+                    },
+                    {
+                        "bottomLat": 57,
+                        "leftLon": -155
+                    },
+                    {
+                        "bottomLat": 57,
+                        "leftLon": -154
+                    },
+                    {
+                        "bottomLat": 58,
+                        "leftLon": -157
+                    },
+                    {
+                        "bottomLat": 58,
+                        "leftLon": -156
+                    },
+                    {
+                        "bottomLat": 58,
+                        "leftLon": -155
+                    },
+                    {
+                        "bottomLat": 58,
+                        "leftLon": -154
+                    },
+                    {
+                        "bottomLat": 58,
+                        "leftLon": -153
+                    },
+                    {
+                        "bottomLat": 58,
+                        "leftLon": -139
+                    },
+                    {
+                        "bottomLat": 58,
+                        "leftLon": -138
+                    },
+                    {
+                        "bottomLat": 58,
+                        "leftLon": -137
+                    },
+                    {
+                        "bottomLat": 58,
+                        "leftLon": -136
+                    },
+                    {
+                        "bottomLat": 59,
+                        "leftLon": -157
+                    },
+                    {
+                        "bottomLat": 59,
+                        "leftLon": -156
+                    },
+                    {
+                        "bottomLat": 59,
+                        "leftLon": -155
+                    },
+                    {
+                        "bottomLat": 59,
+                        "leftLon": -154
+                    },
+                    {
+                        "bottomLat": 59,
+                        "leftLon": -153
+                    },
+                    {
+                        "bottomLat": 59,
+                        "leftLon": -152
+                    },
+                    {
+                        "bottomLat": 59,
+                        "leftLon": -151
+                    },
+                    {
+                        "bottomLat": 59,
+                        "leftLon": -150
+                    },
+                    {
+                        "bottomLat": 59,
+                        "leftLon": -146
+                    },
+                    {
+                        "bottomLat": 59,
+                        "leftLon": -145
+                    },
+                    {
+                        "bottomLat": 59,
+                        "leftLon": -144
+                    },
+                    {
+                        "bottomLat": 59,
+                        "leftLon": -143
+                    },
+                    {
+                        "bottomLat": 59,
+                        "leftLon": -142
+                    },
+                    {
+                        "bottomLat": 59,
+                        "leftLon": -141
+                    },
+                    {
+                        "bottomLat": 59,
+                        "leftLon": -140
+                    },
+                    {
+                        "bottomLat": 59,
+                        "leftLon": -139
+                    },
+                    {
+                        "bottomLat": 59,
+                        "leftLon": -138
+                    },
+                    {
+                        "bottomLat": 59,
+                        "leftLon": -137
+                    },
+                    {
+                        "bottomLat": 59,
+                        "leftLon": -136
+                    },
+                    {
+                        "bottomLat": 60,
+                        "leftLon": -155
+                    },
+                    {
+                        "bottomLat": 60,
+                        "leftLon": -154
+                    },
+                    {
+                        "bottomLat": 60,
+                        "leftLon": -153
+                    },
+                    {
+                        "bottomLat": 60,
+                        "leftLon": -151
+                    },
+                    {
+                        "bottomLat": 60,
+                        "leftLon": -150
+                    },
+                    {
+                        "bottomLat": 60,
+                        "leftLon": -149
+                    },
+                    {
+                        "bottomLat": 60,
+                        "leftLon": -146
+                    },
+                    {
+                        "bottomLat": 60,
+                        "leftLon": -145
+                    },
+                    {
+                        "bottomLat": 60,
+                        "leftLon": -144
+                    },
+                    {
+                        "bottomLat": 60,
+                        "leftLon": -143
+                    },
+                    {
+                        "bottomLat": 60,
+                        "leftLon": -142
+                    },
+                    {
+                        "bottomLat": 60,
+                        "leftLon": -141
+                    },
+                    {
+                        "bottomLat": 60,
+                        "leftLon": -140
+                    },
+                    {
+                        "bottomLat": 61,
+                        "leftLon": -155
+                    },
+                    {
+                        "bottomLat": 61,
+                        "leftLon": -154
+                    },
+                    {
+                        "bottomLat": 61,
+                        "leftLon": -153
+                    },
+                    {
+                        "bottomLat": 61,
+                        "leftLon": -150
+                    },
+                    {
+                        "bottomLat": 61,
+                        "leftLon": -149
+                    },
+                    {
+                        "bottomLat": 61,
+                        "leftLon": -146
+                    },
+                    {
+                        "bottomLat": 61,
+                        "leftLon": -145
+                    },
+                    {
+                        "bottomLat": 61,
+                        "leftLon": -144
+                    },
+                    {
+                        "bottomLat": 61,
+                        "leftLon": -143
+                    },
+                    {
+                        "bottomLat": 61,
+                        "leftLon": -142
+                    },
+                    {
+                        "bottomLat": 61,
+                        "leftLon": -141
+                    },
+                    {
+                        "bottomLat": 61,
+                        "leftLon": -140
+                    },
+                    {
+                        "bottomLat": 62,
+                        "leftLon": -153
+                    },
+                    {
+                        "bottomLat": 62,
+                        "leftLon": -152
+                    },
+                    {
+                        "bottomLat": 62,
+                        "leftLon": -151
+                    },
+                    {
+                        "bottomLat": 62,
+                        "leftLon": -150
+                    },
+                    {
+                        "bottomLat": 62,
+                        "leftLon": -149
+                    },
+                    {
+                        "bottomLat": 62,
+                        "leftLon": -146
+                    },
+                    {
+                        "bottomLat": 62,
+                        "leftLon": -145
+                    },
+                    {
+                        "bottomLat": 62,
+                        "leftLon": -144
+                    },
+                    {
+                        "bottomLat": 62,
+                        "leftLon": -143
+                    },
+                    {
+                        "bottomLat": 62,
+                        "leftLon": -142
+                    },
+                    {
+                        "bottomLat": 62,
+                        "leftLon": -141
+                    },
+                    {
+                        "bottomLat": 62,
+                        "leftLon": -140
+                    },
+                    {
+                        "bottomLat": 63,
+                        "leftLon": -153
+                    },
+                    {
+                        "bottomLat": 63,
+                        "leftLon": -152
+                    },
+                    {
+                        "bottomLat": 63,
+                        "leftLon": -151
+                    },
+                    {
+                        "bottomLat": 63,
+                        "leftLon": -150
+                    },
+                    {
+                        "bottomLat": 63,
+                        "leftLon": -149
+                    },
+                    {
+                        "bottomLat": 66,
+                        "leftLon": -161
+                    },
+                    {
+                        "bottomLat": 66,
+                        "leftLon": -160
+                    },
+                    {
+                        "bottomLat": 66,
+                        "leftLon": -159
+                    },
+                    {
+                        "bottomLat": 66,
+                        "leftLon": -158
+                    },
+                    {
+                        "bottomLat": 67,
+                        "leftLon": -161
+                    },
+                    {
+                        "bottomLat": 67,
+                        "leftLon": -160
+                    },
+                    {
+                        "bottomLat": 67,
+                        "leftLon": -159
+                    },
+                    {
+                        "bottomLat": 67,
+                        "leftLon": -158
+                    },
+                    {
+                        "bottomLat": 67,
+                        "leftLon": -157
+                    },
+                    {
+                        "bottomLat": 67,
+                        "leftLon": -156
+                    },
+                    {
+                        "bottomLat": 67,
+                        "leftLon": -155
+                    },
+                    {
+                        "bottomLat": 67,
+                        "leftLon": -154
+                    },
+                    {
+                        "bottomLat": 67,
+                        "leftLon": -153
+                    },
+                    {
+                        "bottomLat": 67,
+                        "leftLon": -152
+                    },
+                    {
+                        "bottomLat": 67,
+                        "leftLon": -151
+                    },
+                    {
+                        "bottomLat": 67,
+                        "leftLon": -150
+                    },
+                    {
+                        "bottomLat": 68,
+                        "leftLon": -157
+                    },
+                    {
+                        "bottomLat": 68,
+                        "leftLon": -156
+                    },
+                    {
+                        "bottomLat": 68,
+                        "leftLon": -155
+                    },
+                    {
+                        "bottomLat": 68,
+                        "leftLon": -154
+                    },
+                    {
+                        "bottomLat": 68,
+                        "leftLon": -153
+                    },
+                    {
+                        "bottomLat": 68,
+                        "leftLon": -152
+                    },
+                    {
+                        "bottomLat": 68,
+                        "leftLon": -151
+                    },
+                    {
+                        "bottomLat": 68,
+                        "leftLon": -150
+                    }
+                ],
+                "tilesAreBanned": false
+            }
+        },
+        {
             "key": "US_Arizona_Flagstaff",
             "value": {
                 "profileName": "small",
@@ -8197,7 +8679,7 @@
         {
             "key": "US_Idaho_North",
             "value": {
-                "profileName": "poor",
+                "profileName": "extra_small",
                 "tileCoordsSubset": [],
                 "tilesAreBanned": false
             }
@@ -8541,7 +9023,7 @@
         {
             "key": "US_Montana_East",
             "value": {
-                "profileName": "poor",
+                "profileName": "extra_small",
                 "tileCoordsSubset": [],
                 "tilesAreBanned": false
             }
@@ -8573,7 +9055,7 @@
         {
             "key": "US_Nevada",
             "value": {
-                "profileName": "poor",
+                "profileName": "extra_small",
                 "tileCoordsSubset": [],
                 "tilesAreBanned": false
             }
@@ -9133,7 +9615,7 @@
         {
             "key": "US_Wyoming",
             "value": {
-                "profileName": "poor",
+                "profileName": "extra_small",
                 "tileCoordsSubset": [],
                 "tilesAreBanned": false
             }
@@ -9141,7 +9623,7 @@
         {
             "key": "Uzbekistan",
             "value": {
-                "profileName": "poor",
+                "profileName": "small",
                 "tileCoordsSubset": [],
                 "tilesAreBanned": false
             }

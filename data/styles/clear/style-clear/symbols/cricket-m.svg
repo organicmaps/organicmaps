@@ -1,76 +1,14 @@
-<?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<svg
-   width="24px"
-   height="24px"
-   viewBox="0 0 24 24"
-   version="1.1"
-   id="svg17"
-   sodipodi:docname="cricket-m.svg"
-   inkscape:version="1.2 (dc2aedaf03, 2022-05-15)"
-   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
-   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
-   xmlns="http://www.w3.org/2000/svg"
-   xmlns:svg="http://www.w3.org/2000/svg">
-  <defs
-     id="defs21" />
-  <sodipodi:namedview
-     id="namedview19"
-     pagecolor="#ffffff"
-     bordercolor="#000000"
-     borderopacity="0.25"
-     inkscape:showpageshadow="2"
-     inkscape:pageopacity="0.0"
-     inkscape:pagecheckerboard="0"
-     inkscape:deskcolor="#d1d1d1"
-     showgrid="false"
-     inkscape:zoom="31.5"
-     inkscape:cx="12.047619"
-     inkscape:cy="12"
-     inkscape:window-width="1920"
-     inkscape:window-height="1003"
-     inkscape:window-x="0"
-     inkscape:window-y="0"
-     inkscape:window-maximized="1"
-     inkscape:current-layer="svg17" />
-  <title
-     id="title2">cricket-m</title>
-  <g
-     id="Page-1"
-     stroke="none"
-     stroke-width="1"
-     fill="none"
-     fill-rule="evenodd">
-    <g
-       id="cricket-m"
-       fill-rule="nonzero">
-      <g
-         id="Group"
-         transform="translate(5.000000, 5.000000)"
-         fill="#FFFFFF">
-        <g
-           transform="translate(0.000000, 1.400000)"
-           id="Path" />
-        <g
-           id="g810"
-           transform="matrix(1.2874846,0,0,1.2874846,-2.0247844,-1.8242585)">
-          <path
-             d="M 9.135,6.167 3.192,0.224 c -0.273,-0.273 -0.714,-0.273 -0.987,0 L 0.224,2.205 c -0.273,0.273 -0.273,0.714 0,0.987 l 5.943,5.943 c 0.273,0.273 0.714,0.273 0.987,0 L 9.135,7.154 c 0.273,-0.273 0.273,-0.714 0,-0.987 z"
-             id="path7"
-             style="fill:#717065;fill-opacity:1"
-             transform="translate(0,1.4)" />
-          <path
-             d="m 8.638,9.632 2.471,2.471 c 0.273,0.273 0.721,0.273 0.994,0 v 0 c 0.273,-0.273 0.273,-0.721 0,-0.994 L 9.632,8.638 Z"
-             id="path9"
-             style="fill:#717065;fill-opacity:1"
-             transform="translate(0,1.4)" />
-          <circle
-             id="circle12"
-             cx="11.55"
-             cy="2.45"
-             r="2.45"
-             style="fill:#717065;fill-opacity:1" />
-        </g>
-      </g>
+<svg version="1.1" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+ <title>cricket-m</title>
+ <g fill="none" fill-rule="evenodd">
+  <g id="cricket-m" fill-rule="nonzero">
+   <g id="Group" transform="translate(5 5)" fill="#fff">
+    <g transform="matrix(1.2875 0 0 1.2875 -2.0248 -1.8243)" fill="#717065">
+     <path transform="translate(0,1.4)" d="m9.135 6.167-5.943-5.943c-0.273-0.273-0.714-0.273-0.987 0l-1.981 1.981c-0.273 0.273-0.273 0.714 0 0.987l5.943 5.943c0.273 0.273 0.714 0.273 0.987 0l1.981-1.981c0.273-0.273 0.273-0.714 0-0.987z"/>
+     <path transform="translate(0,1.4)" d="m8.638 9.632 2.471 2.471c0.273 0.273 0.721 0.273 0.994 0s0.273-0.721 0-0.994l-2.471-2.471z"/>
+     <circle cx="11.55" cy="2.45" r="2.45"/>
     </g>
+   </g>
   </g>
+ </g>
 </svg>

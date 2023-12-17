@@ -1,12 +1,7 @@
-#include "routing/routing_integration_tests/routing_test_tools.hpp"
-
 #include "testing/testing.hpp"
 
 #include "map/framework.hpp"
 #include "map/routing_manager.hpp"
-
-#include "routing/routing_callbacks.hpp"
-#include "routing/routing_options.hpp"
 
 #include "storage/routing_helpers.hpp"
 #include "storage/storage.hpp"
@@ -19,10 +14,10 @@
 #include <set>
 #include <string>
 
+namespace absent_regions_finder_tests
+{
 using namespace routing;
 
-namespace
-{
 class TestAbsentRegionsFinder
 {
 public:
@@ -80,7 +75,6 @@ std::set<std::string> TestAbsentRegionsFinder::GetRegions(Checkpoints const & ch
 
   return regions;
 }
-} // namespace
 
 // From "Russia_Republic of Karelia_South" to "Russia_Krasnodar Krai".
 // https://www.openstreetmap.org/directions?engine=fossgis_osrm_car&route=61.759%2C34.452%3B45.070%2C38.940#map=5/54.869/40.210
@@ -139,7 +133,7 @@ UNIT_CLASS_TEST(TestAbsentRegionsFinder, Kingston_DC)
 }
 
 // From "US_Colorado_Aspen" to "Canada_Saskatchewan_Saskatoon".
-// https://www.openstreetmap.org/directions?engine=fossgis_osrm_car&route=39.9578%2C-106.8238%3B49.9167%2C-106.9606#map=5/46.284/-101.609
+// https://www.openstreetmap.org/directions?engine=fossgis_osrm_car&route=39.95763%2C-106.79994%3B49.92034%2C-106.99302
 UNIT_CLASS_TEST(TestAbsentRegionsFinder, Colorado_Saskatchewan)
 {
   Checkpoints const checkpoints{mercator::FromLatLon(39.95763, -106.79994),
@@ -152,43 +146,37 @@ UNIT_CLASS_TEST(TestAbsentRegionsFinder, Colorado_Saskatchewan)
 }
 
 // From "Belgium_Flemish Brabant" to "Germany_North Rhine-Westphalia_Regierungsbezirk Koln_Aachen".
-// https://www.openstreetmap.org/directions?engine=fossgis_osrm_car&route=50.878%2C4.447%3B50.775%2C6.444#map=9/50.8204/5.5810
-/// @todo OSRM route differs from Organic (check the link below). The difference is not significant,
-/// just Organic wants to cross 3 countries instead of 2 (+Netherlands).
+// https://www.openstreetmap.org/directions?engine=fossgis_osrm_car&route=50.87763%2C4.44676%3B50.76935%2C6.42488
 UNIT_CLASS_TEST(TestAbsentRegionsFinder, Belgium_Germany)
 {
   Checkpoints const checkpoints{mercator::FromLatLon(50.87763, 4.44676),
                                 mercator::FromLatLon(50.76935, 6.42488)};
 
-  std::set<std::string> const planRegions{"Belgium_Flemish Brabant", "Belgium_Limburg",
-                                          "Germany_North Rhine-Westphalia_Regierungsbezirk Koln_Aachen",
-                                          "Netherlands_Limburg"};
-
-  TestRegions(checkpoints, planRegions);
-}
-
-// From "Germany_North Rhine-Westphalia_Regierungsbezirk Koln_Aachen" to "Belgium_Flemish Brabant".
-UNIT_CLASS_TEST(TestAbsentRegionsFinder, Germany_Belgium)
-{
-  Checkpoints const checkpoints{mercator::FromLatLon(50.76935, 6.42488),
-                                mercator::FromLatLon(50.78285, 4.46508)};
-
-  // OSRM makes route via Netherlands (177km).
-  std::set<std::string> const plan1 = {
+  // OSRM, Valhalla prefers major road E40 vs GraphHopper with E314 (the difference is 5 minutes).
+  // "Belgium_Liege" should present for E40 and not present for E314.
+  /// @todo OM usually takes E40, but sometimes E314 :)
+  std::set<std::string> const planRegions = {
     "Belgium_Flemish Brabant", "Belgium_Liege", "Belgium_Limburg",
     "Germany_North Rhine-Westphalia_Regierungsbezirk Koln_Aachen",
     "Netherlands_Limburg"
   };
 
-  /// @todo OM makes this route (183km). They are really equal, but need to investigate deeper.
-  /// But the trick here is that we also need Belgium_Walloon Brabant for a small piece of route.
-  std::set<std::string> const plan2 = {
-    "Belgium_Flemish Brabant", "Belgium_Liege", "Germany_North Rhine-Westphalia_Regierungsbezirk Koln_Aachen"
+  TestRegions(checkpoints, planRegions);
+}
+
+// From "Germany_North Rhine-Westphalia_Regierungsbezirk Koln_Aachen" to "Belgium_Flemish Brabant".
+// https://www.openstreetmap.org/directions?engine=fossgis_osrm_car&route=50.76935%2C6.42488%3B50.78285%2C4.46508
+UNIT_CLASS_TEST(TestAbsentRegionsFinder, Germany_Belgium)
+{
+  Checkpoints const checkpoints{mercator::FromLatLon(50.76935, 6.42488),
+                                mercator::FromLatLon(50.78285, 4.46508)};
+
+  std::set<std::string> const planRegions = {
+    "Belgium_Flemish Brabant", "Belgium_Liege", "Belgium_Limburg",
+    "Germany_North Rhine-Westphalia_Regierungsbezirk Koln_Aachen"
   };
 
-  /// @todo Make OR option here.
-  //TestRegions(checkpoints, plan1);
-  TestRegions(checkpoints, plan2);
+  TestRegions(checkpoints, planRegions);
 }
 
 // From "Kazakhstan_South" to "Mongolia".
@@ -265,9 +253,7 @@ UNIT_CLASS_TEST(TestAbsentRegionsFinder, China)
   Checkpoints const checkpoints{mercator::FromLatLon(30.78611, 102.55829),
                                 mercator::FromLatLon(27.54127, 102.02502)};
 
-  std::set<std::string> const planRegions{};
-
-  TestRegions(checkpoints, planRegions);
+  TestRegions(checkpoints, {});
 }
 
 // Inside "Finland_Eastern Finland_North".
@@ -276,9 +262,7 @@ UNIT_CLASS_TEST(TestAbsentRegionsFinder, Finland)
   Checkpoints const checkpoints{mercator::FromLatLon(63.54162, 28.71141),
                                 mercator::FromLatLon(64.6790, 28.73029)};
 
-  std::set<std::string> const planRegions{};
-
-  TestRegions(checkpoints, planRegions);
+  TestRegions(checkpoints, {});
 }
 
 // https://github.com/organicmaps/organicmaps/issues/980
@@ -292,3 +276,26 @@ UNIT_CLASS_TEST(TestAbsentRegionsFinder, BC_Alberta)
 
   TestRegions(checkpoints, planRegions);
 }
+
+// https://github.com/organicmaps/organicmaps/issues/1721
+UNIT_CLASS_TEST(TestAbsentRegionsFinder, Germany_Cologne_Croatia_Zagreb)
+{
+  Checkpoints const checkpoints{mercator::FromLatLon(50.924, 6.943),
+                                mercator::FromLatLon(45.806, 15.963)};
+
+  /// @todo Optimal route should include Graz-Maribor-Zagreb.
+  auto const & rgns = GetRegions(checkpoints);
+  TEST(rgns.count("Austria_Styria_Graz") > 0, ());
+}
+
+UNIT_CLASS_TEST(TestAbsentRegionsFinder, Russia_SPB_Pechory)
+{
+  Checkpoints const checkpoints{mercator::FromLatLon(59.9387323, 30.3162295),
+                                mercator::FromLatLon(57.8133044, 27.6081855)};
+
+  /// @todo Optimal should not include Estonia.
+  for (auto const & rgn : GetRegions(checkpoints))
+    TEST(!strings::StartsWith(rgn, "Estonia"), ());
+}
+
+} // namespace absent_regions_finder_tests

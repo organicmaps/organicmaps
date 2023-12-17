@@ -1,6 +1,5 @@
 #include "indexer/categories_holder.hpp"
 #include "indexer/classificator.hpp"
-#include "indexer/search_delimiters.hpp"
 #include "indexer/search_string_utils.hpp"
 
 #include "coding/reader.hpp"
@@ -148,18 +147,14 @@ void CategoriesHolder::AddCategory(Category & cat, std::vector<uint32_t> & types
 
       auto const localePrefix = strings::UniString(1, static_cast<strings::UniChar>(locale));
 
-      auto const uniName = search::NormalizeAndSimplifyString(synonym.m_name);
-
-      std::vector<strings::UniString> tokens;
-      SplitUniString(uniName, base::MakeBackInsertFunctor(tokens), search::Delimiters());
-
-      for (auto const & token : tokens)
+      search::ForEachNormalizedToken(synonym.m_name, [&](strings::UniString const & token)
       {
-        if (!ValidKeyToken(token))
-          continue;
-        for (uint32_t const t : types)
-          m_name2type.Add(localePrefix + token, t);
-      }
+        if (ValidKeyToken(token))
+        {
+          for (uint32_t const t : types)
+            m_name2type.Add(localePrefix + token, t);
+        }
+      });
     }
   }
 

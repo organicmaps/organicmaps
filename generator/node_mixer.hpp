@@ -8,9 +8,9 @@
 
 namespace generator
 {
-void MixFakeNodes(std::istream & stream, std::function<void(OsmElement &)> processor);
+void MixFakeNodes(std::istream & stream, std::function<void(OsmElement &)> const & processor);
 
-inline void MixFakeNodes(std::string const filePath, std::function<void(OsmElement &)> processor)
+inline void MixFakeNodes(std::string const filePath, std::function<void(OsmElement &)> const & processor)
 {
   std::ifstream stream(filePath);
   MixFakeNodes(stream, processor);

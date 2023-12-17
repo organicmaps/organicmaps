@@ -15,7 +15,7 @@ using namespace turns;
 using namespace ftypes;
 
 CarDirectionsEngine::CarDirectionsEngine(MwmDataSource & dataSource, shared_ptr<NumMwmIds> numMwmIds)
-  : DirectionsEngine(dataSource, move(numMwmIds))
+  : DirectionsEngine(dataSource, std::move(numMwmIds))
 {
 }
 
@@ -53,7 +53,7 @@ void FixupCarTurns(vector<RouteSegment> & routeSegments)
       ASSERT(enterRoundAbout == kInvalidEnter, ("It's not expected to find new EnterRoundAbout until previous EnterRoundAbout was leaved."));
       enterRoundAbout = idx;
       ASSERT(exitNum == 0, ("exitNum is reset at start and after LeaveRoundAbout."));
-      exitNum = 0;
+      exitNum = t.m_exitNum; // Normally it is 0, but sometimes it can be 1.
     }
     else if (t.m_turn == CarDirection::StayOnRoundAbout)
     {
@@ -415,7 +415,7 @@ void CorrectRightmostAndLeftmost(vector<TurnCandidate> const & turnCandidates,
     // If yes - this candidate is rightmost, not route's one.
     if (candidate->m_angle < kMaxAbsAngleConsideredLeftOrRightMost)
       break;
-  };
+  }
 }
 
 void GetTurnDirectionBasic(IRoutingResult const & result, size_t const outgoingSegmentIndex,
@@ -461,6 +461,9 @@ void GetTurnDirectionBasic(IRoutingResult const & result, size_t const outgoingS
   if (turnInfo.m_ingoing->m_onRoundabout || turnInfo.m_outgoing->m_onRoundabout)
   {
     turn.m_turn = GetRoundaboutDirection(turnInfo, nodes, numMwmIds);
+    // If there is 1 or more exits (nodes.candidates > 1) right at the enter it should be counted. Issue #3027.
+    if (turn.m_turn == CarDirection::EnterRoundAbout && nodes.candidates.size() > 1)
+      turn.m_exitNum = 1;
     return;
   }
 
@@ -475,7 +478,7 @@ void GetTurnDirectionBasic(IRoutingResult const & result, size_t const outgoingS
 
   if (turnCandidates.size() == 1)
   {
-    ASSERT(turnCandidates.front().m_segment == firstOutgoingSeg, ());
+    //ASSERT_EQUAL(turnCandidates.front().m_segment, firstOutgoingSeg, ());
 
     if (IsGoStraightOrSlightTurn(intermediateDirection))
       return;
@@ -597,8 +600,7 @@ size_t CheckUTurnOnRoute(IRoutingResult const & result, size_t const outgoingSeg
   return 0;
 }
 
-bool FixupLaneSet(CarDirection turn, vector<SingleLaneInfo> & lanes,
-                  function<bool(LaneWay l, CarDirection t)> checker)
+bool FixupLaneSet(CarDirection turn, vector<SingleLaneInfo> & lanes, bool (*checker)(LaneWay, CarDirection))
 {
   bool isLaneConformed = false;
   // There are two nested loops below. (There is a for-loop in checker.)
@@ -619,21 +621,50 @@ bool FixupLaneSet(CarDirection turn, vector<SingleLaneInfo> & lanes,
   return isLaneConformed;
 }
 
+template <typename It>
+bool SelectFirstUnrestrictedLane(LaneWay direction, It lanesBegin, It lanesEnd)
+{
+  const It firstUnrestricted = find_if(lanesBegin, lanesEnd, IsLaneUnrestricted);
+  if (firstUnrestricted == lanesEnd)
+    return false;
+
+  firstUnrestricted->m_isRecommended = true;
+  firstUnrestricted->m_lane.insert(firstUnrestricted->m_lane.begin(), direction);
+  return true;
+}
+
+bool SelectUnrestrictedLane(CarDirection turn, vector<SingleLaneInfo> & lanes)
+{
+  if (IsTurnMadeFromLeft(turn))
+    return SelectFirstUnrestrictedLane(LaneWay::Left, lanes.begin(), lanes.end());
+  else if (IsTurnMadeFromRight(turn))
+    return SelectFirstUnrestrictedLane(LaneWay::Right, lanes.rbegin(), lanes.rend());
+  return false;
+}
+
 void SelectRecommendedLanes(vector<RouteSegment> & routeSegments)
 {
-  for (size_t idx = 0; idx < routeSegments.size(); ++idx)
+  for (auto & segment : routeSegments)
   {
-    auto & t = routeSegments[idx].GetTurn();
+    auto & t = segment.GetTurn();
     if (t.IsTurnNone() || t.m_lanes.empty())
       continue;
-    auto & lanes = routeSegments[idx].GetTurnLanes();
+    auto & lanes = segment.GetTurnLanes();
     // Checking if there are elements in lanes which correspond with the turn exactly.
     // If so fixing up all the elements in lanes which correspond with the turn.
     if (FixupLaneSet(t.m_turn, lanes, &IsLaneWayConformedTurnDirection))
       continue;
     // If not checking if there are elements in lanes which corresponds with the turn
     // approximately. If so fixing up all these elements.
-    FixupLaneSet(t.m_turn, lanes, &IsLaneWayConformedTurnDirectionApproximately);
+    if (FixupLaneSet(t.m_turn, lanes, &IsLaneWayConformedTurnDirectionApproximately))
+      continue;
+    // If not, check if there is an unrestricted lane which could correspond to the
+    // turn. If so, fix up that lane.
+    if (SelectUnrestrictedLane(t.m_turn, lanes))
+      continue;
+    // Otherwise, we don't have lane recommendations for the user, so we don't
+    // want to send the lane data any further.
+    segment.ClearTurnLanes();
   }
 }
 

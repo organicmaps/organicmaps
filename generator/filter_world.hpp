@@ -1,7 +1,8 @@
 #pragma once
 
 #include "generator/filter_interface.hpp"
-#include "generator/popular_places_section_builder.hpp"
+
+#include "indexer/ftypes_matcher.hpp"
 
 #include <string>
 
@@ -23,5 +24,6 @@ public:
 
 private:
   std::string m_popularityFilename;
+  ftypes::IsCityTownOrVillageChecker const & m_isCityTownVillage;
 };
 }  // namespace generator

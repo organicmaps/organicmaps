@@ -202,7 +202,7 @@ m2::PointD SearchMarkPoint::GetPixelOffset() const
 {
   if (!IsHotel())
     return {0.0, 4.0};
-  return {};
+  return {0.0, 0.0};
 }
 
 drape_ptr<df::UserPointMark::SymbolNameZoomInfo> SearchMarkPoint::GetSymbolNames() const
@@ -218,9 +218,9 @@ drape_ptr<df::UserPointMark::SymbolNameZoomInfo> SearchMarkPoint::GetSymbolNames
 
 drape_ptr<df::UserPointMark::SymbolOffsets> SearchMarkPoint::GetSymbolOffsets() const
 {
-  m2::PointF offset;
+  m2::PointF offset(0, 0);
   if (!IsHotel())
-    offset = m2::PointF{0.0, 1.0};
+    offset.y = 1;
   return make_unique_dp<SymbolOffsets>(static_cast<size_t>(scales::UPPER_STYLE_SCALE), offset);
 }
 

@@ -24,15 +24,6 @@
 #import <netinet/in.h>
 
 
-namespace
-{
-// Checks if copyright.html file is present in the directory.
-bool IsResourcesDir(std::string const & dir)
-{
-  return Platform::IsFileExistsByFullPath(base::JoinPath(dir, "copyright.html"));
-}
-}  // namespace
-
 Platform::Platform()
 {
   // OMaps.app/Content/Resources or omim-build-debug for tests.
@@ -160,7 +151,7 @@ std::string Platform::DeviceModel() const
 Platform::EConnectionType Platform::ConnectionStatus()
 {
   struct sockaddr_in zero;
-  bzero(&zero, sizeof(zero));
+  memset(&zero, 0, sizeof(zero));
   zero.sin_len = sizeof(zero);
   zero.sin_family = AF_INET;
   SCNetworkReachabilityRef reachability = SCNetworkReachabilityCreateWithAddress(kCFAllocatorDefault, reinterpret_cast<const struct sockaddr*>(&zero));
@@ -191,4 +182,13 @@ uint8_t Platform::GetBatteryLevel()
 
 void Platform::GetSystemFontNames(FilesList & res) const
 {
+}
+
+// static
+time_t Platform::GetFileCreationTime(std::string const & path)
+{
+  struct stat st;
+  if (0 == stat(path.c_str(), &st))
+    return st.st_birthtimespec.tv_sec;
+  return 0;
 }

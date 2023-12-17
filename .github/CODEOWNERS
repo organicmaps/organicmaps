@@ -1,0 +1,9 @@
+# Require legal approval for all new graphics
+android/app/src/main/res/drawable*/ @organicmaps/legal
+android/app/src/main/res/fonts/ @organicmaps/legal
+android/app/src/main/res/mipmap*/ @organicmaps/legal
+data/*.ttf @organicmaps/legal
+data/resources*/ @organicmaps/legal
+data/search-icons/ @organicmaps/legal
+data/styles/clear/style-*/ @organicmaps/legal
+iphone/Maps/Images.xcassets/ @organicmaps/legal

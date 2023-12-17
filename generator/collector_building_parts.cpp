@@ -74,16 +74,14 @@ BuildingPartsCollector::BuildingParts BuildingPartsCollector::BuildingParts::Rea
   return bp;
 }
 
-BuildingPartsCollector::BuildingPartsCollector(
-    std::string const & filename, std::shared_ptr<cache::IntermediateDataReaderInterface> const & cache)
+BuildingPartsCollector::BuildingPartsCollector(std::string const & filename, IDRInterfacePtr const & cache)
   : CollectorInterface(filename)
   , m_cache(cache)
   , m_writer(std::make_unique<FileWriter>(GetTmpFilename()))
 {
 }
 
-std::shared_ptr<CollectorInterface> BuildingPartsCollector::Clone(
-    std::shared_ptr<cache::IntermediateDataReaderInterface> const & cache) const
+std::shared_ptr<CollectorInterface> BuildingPartsCollector::Clone(IDRInterfacePtr const & cache) const
 {
   return std::make_shared<BuildingPartsCollector>(GetFilename(), cache ? cache : m_cache);
 }
@@ -182,11 +180,6 @@ void BuildingPartsCollector::OrderCollectedData()
   FileWriter writer(GetFilename());
   for (auto const & bp : collectedData)
     BuildingParts::Write(writer, bp);
-}
-
-void BuildingPartsCollector::Merge(CollectorInterface const & collector)
-{
-  collector.MergeInto(*this);
 }
 
 void BuildingPartsCollector::MergeInto(BuildingPartsCollector & collector) const

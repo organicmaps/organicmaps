@@ -13,15 +13,11 @@
 #include "geometry/point2d.hpp"
 
 #include "base/assert.hpp"
-#include "base/exception.hpp"
-#include "base/macros.hpp"
 #include "base/newtype.hpp"
 
 #include <cmath>
-#include <cstdint>
 #include <limits>
 #include <map>
-#include <sstream>
 #include <string>
 #include <type_traits>
 #include <unordered_map>
@@ -89,9 +85,8 @@ public:
 
   void operator()(std::vector<m2::PointD> const & vs, char const * /* name */ = nullptr)
   {
-    CHECK_LESS_OR_EQUAL(vs.size(), std::numeric_limits<uint64_t>::max(), ());
     WriteVarUint(m_sink, static_cast<uint64_t>(vs.size()));
-    m2::PointU lastEncodedPoint;
+    m2::PointU lastEncodedPoint(0, 0);
     for (auto const & p : vs)
     {
       m2::PointU const pointU = PointDToPointU(p, kPointCoordBits);
@@ -165,7 +160,6 @@ public:
   template <typename T>
   void operator()(std::vector<T> const & vs, char const * /* name */ = nullptr)
   {
-    CHECK_LESS_OR_EQUAL(vs.size(), std::numeric_limits<uint64_t>::max(), ());
     WriteVarUint(m_sink, static_cast<uint64_t>(vs.size()));
     for (auto const & v : vs)
       (*this)(v);
@@ -174,7 +168,6 @@ public:
   template <class K, class V, class H>
   void operator()(std::unordered_map<K, V, H> const & container, char const * /* name */ = nullptr)
   {
-    CHECK_LESS_OR_EQUAL(container.size(), std::numeric_limits<uint64_t>::max(), ());
     WriteVarUint(m_sink, static_cast<uint64_t>(container.size()));
     for (auto const & [key, val] : container)
     {
@@ -186,7 +179,6 @@ public:
   template <class K, class V, class H>
   void operator()(std::map<K, V, H> const & container, char const * /* name */ = nullptr)
   {
-    CHECK_LESS_OR_EQUAL(container.size(), std::numeric_limits<uint64_t>::max(), ());
     WriteVarUint(m_sink, static_cast<uint64_t>(container.size()));
     for (auto const & [key, val] : container)
     {
@@ -227,14 +219,14 @@ public:
   std::enable_if_t<std::is_same<T, uint32_t>::value || std::is_same<T, uint64_t>::value> operator()(
       T & t, char const * name = nullptr)
   {
-    t = ReadVarUint<T, Source>(m_source);
+    t = ReadVarUint<T>(m_source);
   }
 
   template <typename T>
   std::enable_if_t<std::is_same<T, int32_t>::value || std::is_same<T, int64_t>::value> operator()(
       T & t, char const * name = nullptr)
   {
-    t = ReadVarInt<T, Source>(m_source);
+    t = ReadVarInt<T>(m_source);
   }
 
   template <typename T>
@@ -253,18 +245,18 @@ public:
 
   void operator()(m2::PointD & p, char const * /* name */ = nullptr)
   {
-    p = Int64ToPointObsolete(ReadVarInt<int64_t, Source>(m_source), kPointCoordBits);
+    p = Int64ToPointObsolete(ReadVarInt<int64_t>(m_source), kPointCoordBits);
   }
 
   void operator()(Edge::WrappedEdgeId & id, char const * /* name */ = nullptr)
   {
-    id = m_lastWrappedEdgeId + Edge::WrappedEdgeId(ReadVarUint<uint64_t, Source>(m_source));
+    id = m_lastWrappedEdgeId + Edge::WrappedEdgeId(ReadVarUint<uint64_t>(m_source));
     m_lastWrappedEdgeId = id;
   }
 
   void operator()(Stop::WrappedStopId & id, char const * /* name */ = nullptr)
   {
-    id = m_lastWrappedStopId + Stop::WrappedStopId(ReadVarUint<uint64_t, Source>(m_source));
+    id = m_lastWrappedStopId + Stop::WrappedStopId(ReadVarUint<uint64_t>(m_source));
     m_lastWrappedStopId = id;
   }
 
@@ -339,13 +331,13 @@ public:
 
   void operator()(std::vector<m2::PointD> & vs, char const * /* name */ = nullptr)
   {
-    auto const size = static_cast<size_t>(ReadVarUint<uint64_t, Source>(m_source));
-    m2::PointU lastDecodedPoint;
+    auto const size = ReadVarUint<uint64_t>(m_source);
+    m2::PointU lastDecodedPoint(0, 0);
     vs.resize(size);
     for (auto & p : vs)
     {
       m2::PointU const pointU = coding::DecodePointDeltaFromUint(
-          ReadVarUint<uint64_t, Source>(m_source), lastDecodedPoint);
+          ReadVarUint<uint64_t>(m_source), lastDecodedPoint);
       p = PointUToPointD(pointU, kPointCoordBits);
       lastDecodedPoint = pointU;
     }
@@ -354,7 +346,7 @@ public:
   template <typename T>
   void operator()(std::vector<T> & vs, char const * /* name */ = nullptr)
   {
-    auto const size = static_cast<size_t>(ReadVarUint<uint64_t, Source>(m_source));
+    auto const size = ReadVarUint<uint64_t>(m_source);
     vs.resize(size);
     for (auto & v : vs)
       (*this)(v);
@@ -363,7 +355,7 @@ public:
   template <class K, class V, class H>
   void operator()(std::unordered_map<K, V, H> & container, char const * /* name */ = nullptr)
   {
-    auto const size = static_cast<size_t>(ReadVarUint<uint64_t, Source>(m_source));
+    auto const size = static_cast<size_t>(ReadVarUint<uint64_t>(m_source));
     for (size_t i = 0; i < size; ++i)
     {
       K key;
@@ -379,7 +371,7 @@ public:
   template <class K, class V, class H>
   void operator()(std::map<K, V, H> & container, char const * /* name */ = nullptr)
   {
-    auto const size = static_cast<size_t>(ReadVarUint<uint64_t, Source>(m_source));
+    auto const size = static_cast<size_t>(ReadVarUint<uint64_t>(m_source));
     for (size_t i = 0; i < size; ++i)
     {
       K key;

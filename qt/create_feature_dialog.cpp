@@ -1,8 +1,10 @@
 #include "qt/create_feature_dialog.hpp"
 
-#include "platform/preferred_languages.hpp"
-
 #include "editor/new_feature_categories.hpp"
+
+#include "indexer/classificator.hpp"
+
+#include "platform/preferred_languages.hpp"
 
 #include <QtWidgets/QAbstractButton>
 #include <QtWidgets/QDialogButtonBox>
@@ -12,16 +14,14 @@
 CreateFeatureDialog::CreateFeatureDialog(QWidget * parent, osm::NewFeatureCategories & cats)
   : QDialog(parent)
 {
-  cats.AddLanguage("en");  // Default.
+  cats.AddLanguage("en");
   cats.AddLanguage(languages::GetCurrentNorm());
 
   QListWidget * allSortedList = new QListWidget();
 
-  auto const & typeNames = cats.GetAllCreatableTypeNames();
-  for (auto const & name : typeNames)
-  {
-    new QListWidgetItem(name.c_str() /* name */, allSortedList);
-  }
+  for (auto const & name : cats.GetAllCreatableTypeNames())
+    new QListWidgetItem(QString::fromStdString(name), allSortedList);
+
   connect(allSortedList, &QAbstractItemView::clicked, this, &CreateFeatureDialog::OnListItemSelected);
 
   QDialogButtonBox * dbb = new QDialogButtonBox();
@@ -38,6 +38,9 @@ CreateFeatureDialog::CreateFeatureDialog(QWidget * parent, osm::NewFeatureCatego
 
 void CreateFeatureDialog::OnListItemSelected(QModelIndex const & i)
 {
-  m_selectedType = static_cast<uint32_t>(i.data(Qt::UserRole).toULongLong());
+  auto const clType = i.data(Qt::DisplayRole).toString().toStdString();
+  m_selectedType = classif().GetTypeByReadableObjectName(clType);
+  ASSERT(m_selectedType != ftype::GetEmptyValue(), ());
+
   accept();
 }

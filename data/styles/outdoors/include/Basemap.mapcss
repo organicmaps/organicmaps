@@ -1,0 +1,192 @@
+/* Keep here changes of the base map style file only. */
+@import("../../clear/include/Basemap.mapcss");
+
+
+/* 6.WATER */
+
+line|z10-[waterway=river],
+line|z10-[waterway=riverbank],
+line|z11-[waterway=stream],
+line|z11-[waterway=canal],
+line|z11-[natural=strait],
+line|z13-[waterway=fish_pass],
+line|z15-[waterway=ditch],
+line|z15-[waterway=drain],
+{opacity: 1; color: @river;}
+
+/* 6.2 Line water(river,canal etc.) */
+
+line|z10-[waterway=river],
+line|z10-[waterway=riverbank],
+line|z11-[natural=strait],
+line|z11-[waterway=stream],
+line|z11-[waterway=canal],
+line|z13-[waterway=fish_pass],
+{text-color: @water_label; text-halo-opacity: 0.5; text-halo-radius: 1; text-halo-color: @label_halo_light;}
+
+line|z10[waterway=river],
+line|z10[waterway=riverbank],
+{width: 1.4;}
+
+line|z11-12[waterway=river],
+line|z11-12[waterway=riverbank],
+line|z11-12[natural=strait],
+{width: 2;}
+line|z11-12[waterway=stream],
+line|z11-12[waterway=canal],
+{width: 1;}
+
+line|z13[waterway=river],
+line|z13[waterway=riverbank],
+line|z13[natural=strait],
+{width: 2.7;}
+line|z13[waterway=stream],
+line|z13[waterway=canal],
+line|z13[waterway=fish_pass],
+{width: 1.3;}
+line|z11-12[waterway=stream][intermittent],
+{width: 0;}
+line|z13[waterway=stream][intermittent],
+{width: 1; dashes: 2.7,2.7;}
+
+line|z14[waterway=river],
+line|z14[waterway=riverbank],
+line|z14[natural=strait],
+{width: 3.5;}
+line|z14[waterway=stream],
+line|z14[waterway=canal],
+line|z14[waterway=fish_pass],
+{width: 1.8;}
+line|z14[waterway=stream][intermittent],
+{width: 1.4; dashes: 3.5,3.5;}
+
+line|z15-[waterway=river],
+line|z15-[waterway=riverbank],
+line|z15-[natural=strait],
+{width: 4.6;}
+line|z15-[waterway=stream],
+line|z15-[waterway=canal],
+line|z15-[waterway=fish_pass],
+{width: 2.4;}
+line|z15-[waterway=stream][intermittent],
+{width: 2; dashes: 5,5;}
+
+line|z15-[waterway=ditch],
+line|z15-[waterway=drain],
+{width: 1.6; dashes: 0.9,0.9;}
+line|z17-[waterway=ditch],
+line|z17-[waterway=drain],
+{width: 2;}
+
+/* Do not draw tunnel waterways */
+
+line[waterway][tunnel]
+{width: 0;}
+
+
+/* 8.1 Pier, dam, cutline */
+
+line|z13-[man_made=cutline],
+{width: 1.5; color: @green0; opacity: 0.6;}
+line|z14[man_made=cutline],
+{width: 2;}
+line|z15[man_made=cutline],
+{width: 3;}
+line|z16[man_made=cutline],
+{width: 4.5;}
+line|z17[man_made=cutline],
+{width: 6;}
+line|z18-[man_made=cutline],
+{width: 8;}
+
+/* 8.3 Barriers, cliffs */
+
+/*
+  The triangles pattern uses "dashes: " parameter as a 4 values tuple:
+  dash length (===), triangle base (tb), triangle height, base height / dash width.
+  ===\tb /===  - base height / dash width
+      \ /    | - triangle height
+
+  Set width = triangle height + base height.
+*/
+
+line|z12-13[natural=cliff],
+line|z12-13[natural=earth_bank],
+{color: @cliff; width: 2; dashes: 1.4,1.4; opacity: 0.7;}
+line|z14[natural=cliff],
+line|z14[natural=earth_bank],
+{width: 3; dashes: 1.5,1.5; opacity: 0.7;}
+line|z15[natural=cliff],
+line|z15[natural=earth_bank],
+{width: 6.2; dashes: 3,3.5,4.5,1.2; opacity: 0.7;}
+line|z16[natural=cliff],
+line|z16[natural=earth_bank],
+{width: 7.4; dashes: 3.5,5,6,1.4; opacity: 0.7;}
+line|z17[natural=cliff],
+line|z17[natural=earth_bank],
+{width: 9.5; dashes: 4,6,8,1.5; opacity: 0.8;}
+line|z18[natural=cliff],
+line|z18[natural=earth_bank],
+{width: 11.9; dashes: 5,7,10,1.9; opacity: 0.8;}
+line|z19-[natural=cliff],
+line|z19-[natural=earth_bank],
+{width: 14.3; dashes: 6,8.5,12,2.3; opacity: 0.8;}
+
+/* 9. ISOLINES */
+
+line|z10-[isoline=step_1000],
+{color: @isoline1000;}
+line|z10-[isoline=step_500],
+{color: @isoline500;}
+
+line|z12-[isoline=step_100],
+{color: @isoline100;}
+
+line|z14-[isoline=step_50],
+line|z15-[isoline=zero],
+{color: @isoline50;}
+
+line|z15-[isoline=step_10],
+{color: @isoline10;}
+
+
+line|z10-11[isoline=step_1000],
+{width: 0.8; opacity: 0.6;}
+line|z10-11[isoline=step_500],
+{width: 0.8; opacity: 0.35;}
+
+line|z12-13[isoline=step_1000],
+{width: 1.0; opacity: 0.6;}
+line|z12-13[isoline=step_500],
+{width: 0.8; opacity: 0.5;}
+line|z12-13[isoline=step_100],
+{width: 0.8; opacity: 0.35;}
+
+line|z14-[isoline=step_1000],
+{width: 1.2; opacity: 0.8;}
+line|z14-15[isoline=step_500],
+{width: 1.0; opacity: 0.6;}
+line|z14-15[isoline=step_100],
+{width: 0.8; opacity: 0.5;}
+line|z14-15[isoline=step_50],
+{width: 0.8; opacity: 0.35;}
+
+line|z15[isoline=zero],
+line|z15[isoline=step_10],
+{width: 0.8; opacity: 0.35;}
+
+line|z16-[isoline=step_500],
+{width: 1.2; opacity: 0.8;}
+line|z16-[isoline=step_100],
+{width: 1.0; opacity: 0.6;}
+line|z16-17[isoline=step_50],
+{width: 0.8; opacity: 0.5;}
+line|z16-17[isoline=zero],
+line|z16-17[isoline=step_10],
+{width: 0.8; opacity: 0.5;}
+
+line|z18-[isoline=step_50],
+{width: 1.0; opacity: 0.6;}
+line|z18-[isoline=zero],
+line|z18-[isoline=step_10],
+{width: 0.8; opacity: 0.6;}

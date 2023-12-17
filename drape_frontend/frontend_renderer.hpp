@@ -1,16 +1,11 @@
 #pragma once
 
-#include "base/thread.hpp"
-
-#include "drape_frontend/gui/layer_render.hpp"
-
-#include "drape_frontend/backend_renderer.hpp"
 #include "drape_frontend/base_renderer.hpp"
 #include "drape_frontend/drape_api_renderer.hpp"
 #include "drape_frontend/frame_values.hpp"
 #include "drape_frontend/gps_track_renderer.hpp"
+#include "drape_frontend/gui/layer_render.hpp"
 #include "drape_frontend/my_position_controller.hpp"
-#include "drape_frontend/navigator.hpp"
 #include "drape_frontend/overlays_tracker.hpp"
 #include "drape_frontend/render_group.hpp"
 #include "drape_frontend/render_state_extension.hpp"
@@ -18,7 +13,6 @@
 #include "drape_frontend/route_renderer.hpp"
 #include "drape_frontend/postprocess_renderer.hpp"
 #include "drape_frontend/threads_commutator.hpp"
-#include "drape_frontend/tile_info.hpp"
 #include "drape_frontend/traffic_renderer.hpp"
 #include "drape_frontend/transit_scheme_renderer.hpp"
 #include "drape_frontend/user_event_stream.hpp"
@@ -29,18 +23,18 @@
 
 #include "drape/overlay_tree.hpp"
 #include "drape/pointers.hpp"
-#include "drape/vertex_array_buffer.hpp"
 
 #include "platform/location.hpp"
 
 #include "geometry/screenbase.hpp"
 #include "geometry/triangle2d.hpp"
 
+#include "base/thread.hpp"
+
 #include <array>
 #include <functional>
 #include <memory>
 #include <optional>
-#include <unordered_set>
 #include <vector>
 
 namespace dp
@@ -74,6 +68,12 @@ struct TapInfo
   static m2::AnyRectD GetPreciseTapRect(m2::PointD const & mercator, double eps);
 };
 
+/*
+ * A FrontendRenderer holds several RenderLayers, one per each df::DepthLayer,
+ * a rendering order of the layers is set in RenderScene().
+ * Each RenderLayer contains several RenderGroups, one per each tile and RenderState.
+ * Each RenderGroup contains several RenderBuckets holding VertexArrayBuffers and optional OverlayHandles.
+ */
 class FrontendRenderer : public BaseRenderer,
                          public MyPositionController::Listener,
                          public UserEventStream::Listener
@@ -148,9 +148,10 @@ public:
   void ChangeModelView(double autoScale, m2::PointD const & userPos, double azimuth,
                        m2::PointD const & pxZero, TAnimationCreator const & parallelAnimCreator) override;
 
-  drape_ptr<ScenarioManager> const & GetScenarioManager() const;
-
+  drape_ptr<ScenarioManager> const & GetScenarioManager() const { return m_scenarioManager; }
   location::EMyPositionMode GetMyPositionMode() const { return m_myPositionController->GetCurrentMode(); }
+
+  void OnEnterBackground();
 
 protected:
   void AcceptMessage(ref_ptr<Message> message) override;
@@ -187,7 +188,6 @@ private:
   void PreRender3dLayer(ScreenBase const & modelView);
   void Render3dLayer(ScreenBase const & modelView);
   void RenderOverlayLayer(ScreenBase const & modelView);
-  void RenderNavigationOverlayLayer(ScreenBase const & modelView);
   void RenderUserMarksLayer(ScreenBase const & modelView, DepthLayer layerId);
   void RenderNonDisplaceableUserMarksLayer(ScreenBase const & modelView, DepthLayer layerId);
   void RenderTransitSchemeLayer(ScreenBase const & modelView);
@@ -227,6 +227,7 @@ private:
 
   void OnScaleStarted() override;
   void OnRotated() override;
+  void OnScrolled(m2::PointD const & distance) override;
   void CorrectScalePoint(m2::PointD & pt) const override;
   void CorrectScalePoint(m2::PointD & pt1, m2::PointD & pt2) const override;
   void CorrectGlobalScalePoint(m2::PointD & pt) const override;
@@ -346,6 +347,22 @@ private:
   ScreenBase m_lastReadedModelView;
   TTilesCollection m_notFinishedTiles;
 
+  bool IsValidCurrentZoom() const
+  {
+    /// @todo Well, this function was introduced to ASSERT m_currentZoomLevel != -1.
+    /// Can't say for sure is it right or wrong, but also can't garantee with post-messages order.
+
+    // In some cases RenderScene, UpdateContextDependentResources can be called before the rendering of
+    // the first frame. m_currentZoomLevel will be equal to -1, before ResolveZoomLevel call.
+    return m_currentZoomLevel >= 0;
+  }
+
+  int GetCurrentZoom() const
+  {
+    ASSERT(IsValidCurrentZoom(), ());
+    return m_currentZoomLevel;
+  }
+
   int m_currentZoomLevel = -1;
 
   ref_ptr<RequestedTiles> m_requestedTiles;
@@ -387,7 +404,6 @@ private:
   bool m_forceUpdateScene;
   bool m_forceUpdateUserMarks;
 
-  bool m_isAntialiasingEnabled = false;
   drape_ptr<PostprocessRenderer> m_postprocessRenderer;
   std::vector<PostprocessRenderer::Effect> m_enabledOnStartEffects;
 
@@ -422,8 +438,6 @@ private:
   {
     base::Timer m_timer;
     double m_frameTime = 0.0;
-    bool m_modelViewChanged = true;
-    bool m_viewportChanged = true;
     uint32_t m_inactiveFramesCounter = 0;
     bool m_forceFullRedrawNextFrame = false;
 #ifdef SHOW_FRAMES_STATS

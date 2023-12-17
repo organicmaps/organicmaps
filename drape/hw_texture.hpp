@@ -29,6 +29,8 @@ public:
     bool m_isMutable = false;
 
     ref_ptr<HWTextureAllocator> m_allocator;
+
+    friend std::string DebugPrint(Params const & p);
   };
 
   void Create(ref_ptr<dp::GraphicsContext> context, Params const & params);
@@ -50,7 +52,7 @@ public:
   uint32_t GetHeight() const;
   float GetS(uint32_t x) const;
   float GetT(uint32_t y) const;
-  
+
   Params const & GetParams() const { return m_params; }
 
   uint32_t GetID() const;
@@ -58,9 +60,6 @@ public:
 protected:
   Params m_params;
   uint32_t m_textureID = 0;
-  uint32_t m_pixelBufferID = 0;
-  uint32_t m_pixelBufferSize = 0;
-  uint32_t m_pixelBufferElementSize = 0;
 };
 
 class HWTextureAllocator
@@ -87,6 +86,10 @@ public:
   bool Validate() const override;
 
 private:
+  uint32_t m_pixelBufferID = 0;
+  uint32_t m_pixelBufferSize = 0;
+  uint8_t m_pixelBufferElementSize = 0;
+
   glConst m_unpackedLayout = 0;
   glConst m_unpackedPixelType = 0;
 };

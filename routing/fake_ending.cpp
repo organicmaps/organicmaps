@@ -12,11 +12,11 @@
 #include <tuple>
 #include <utility>
 
+namespace routing
+{
 using namespace routing;
 using namespace std;
 
-namespace routing
-{
 LatLonWithAltitude CalcProjectionToSegment(LatLonWithAltitude const & begin,
                                            LatLonWithAltitude const & end,
                                            m2::PointD const & point)

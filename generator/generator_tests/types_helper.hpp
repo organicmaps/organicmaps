@@ -13,13 +13,12 @@
 
 namespace tests
 {
-template <size_t N, size_t M>
-inline void AddTypes(FeatureParams & params, char const * (&arr)[N][M])
+template <size_t N>
+inline void AddTypes(FeatureParams & params, base::StringIL (&arr)[N])
 {
   Classificator const & c = classif();
-
-  for (size_t i = 0; i < N; ++i)
-    params.AddType(c.GetTypeByPath(std::vector<std::string>(arr[i], arr[i] + M)));
+  for (auto const & e : arr)
+    params.AddType(c.GetTypeByPath(e));
 }
 
 inline void FillXmlElement(std::vector<OsmElement::Tag> const & tags, OsmElement * p)

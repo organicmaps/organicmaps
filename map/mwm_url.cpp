@@ -2,45 +2,32 @@
 
 #include "map/api_mark_point.hpp"
 #include "map/bookmark_manager.hpp"
+#include "map/framework.hpp"
+
+#include "ge0/parser.hpp"
+#include "ge0/geo_url_parser.hpp"
 
 #include "geometry/mercator.hpp"
+#include "geometry/latlon.hpp"
 #include "indexer/scales.hpp"
 
 #include "drape_frontend/visual_params.hpp"
 
-#include "platform/settings.hpp"
-
 #include "base/logging.hpp"
+#include "base/scope_guard.hpp"
 #include "base/string_utils.hpp"
 
 #include <array>
-
-using namespace std;
+#include <tuple>
 
 namespace url_scheme
 {
-namespace lead
-{
-struct CampaignDescription
-{
-  void Write() const
-  {
-    if (!IsValid())
-    {
-      LOG(LERROR, ("Invalid campaign description"));
-      return;
-    }
-  }
+using namespace std;
 
-  bool IsValid() const { return !m_from.empty() && !m_type.empty() && !m_name.empty(); }
-
-  string m_from;
-  string m_type;
-  string m_name;
-  string m_content;
-  string m_keyword;
-};
-}  // namespace lead
+namespace
+{
+string_view constexpr kCenterLatLon = "cll";
+string_view constexpr kAppName = "appname";
 
 namespace map
 {
@@ -51,7 +38,6 @@ char const * kId = "id";
 char const * kStyle = "s";
 char const * kBackUrl = "backurl";
 char const * kVersion = "v";
-char const * kAppName = "appname";
 char const * kBalloonAction = "balloonaction";
 }  // namespace map
 
@@ -71,32 +57,14 @@ char const * kRouteTypeTransit = "transit";
 namespace search
 {
 char const * kQuery = "query";
-char const * kCenterLatLon = "cll";
 char const * kLocale = "locale";
 char const * kSearchOnMap = "map";
 }  // namespace search
 
-namespace
-{
-std::array<std::string, 4> const kAvailableSchemes = {{"mapswithme", "mwm", "mapsme", "om"}};
-
-ParsedMapApi::UrlType GetUrlType(url::Url const & url)
-{
-  if (!base::IsExist(kAvailableSchemes, url.GetScheme()))
-    return ParsedMapApi::UrlType::Incorrect;
-
-  auto const & type = url.GetHost();
-  if (type == "map")
-    return ParsedMapApi::UrlType::Map;
-  if (type == "route")
-    return ParsedMapApi::UrlType::Route;
-  if (type == "search")
-    return ParsedMapApi::UrlType::Search;
-  if (type == "crosshair")
-    return ParsedMapApi::UrlType::Crosshair;
-
-  return ParsedMapApi::UrlType::Incorrect;
-}
+// See also kGe0Prefixes in ge0/parser.hpp
+std::array<std::string_view, 3> const kLegacyMwmPrefixes = {{
+  "mapsme://", "mwm://", "mapswithme://"
+}};
 
 bool ParseLatLon(std::string const & key, std::string const & value,
                  double & lat, double & lon)
@@ -122,56 +90,55 @@ bool ParseLatLon(std::string const & key, std::string const & value,
   }
   return true;
 }
+
+// A helper for SetUrlAndParse() below.
+// kGe0Prefixes supports API and ge0 links, kLegacyMwmPrefixes - only API.
+inline tuple<size_t, bool> findUrlPrefix(string const & url)
+{
+  for (auto prefix : ge0::kGe0Prefixes)
+  {
+    if (strings::StartsWith(url, prefix))
+      return {prefix.size(), true};
+  }
+  for (auto prefix : kLegacyMwmPrefixes)
+  {
+    if (strings::StartsWith(url, prefix))
+      return {prefix.size(), false};
+  }
+  return {string::npos, false};
+}
 }  // namespace
 
-void ParsedMapApi::SetBookmarkManager(BookmarkManager * manager)
-{
-  m_bmManager = manager;
-}
-
-ParsedMapApi::ParsingResult ParsedMapApi::SetUrlAndParse(string const & url)
+ParsedMapApi::UrlType ParsedMapApi::SetUrlAndParse(string const & raw)
 {
   Reset();
+  SCOPE_GUARD(guard, [this]() { Reset(); });
 
-  auto const u = url::Url(url);
-  auto const urlType = GetUrlType(u);
-  m_isValid = Parse(u, urlType);
-
-  return {urlType, m_isValid};
-}
-
-bool ParsedMapApi::Parse(url::Url const & url, UrlType type)
-{
-  switch (type)
+  auto [prefix, checkForGe0Link] = findUrlPrefix(raw);
+  if (prefix != string::npos)
   {
-    case UrlType::Incorrect:
-      return false;
-    case UrlType::Map:
+    url::Url const url = url::Url("om://" + raw.substr(prefix));
+    if (!url.IsValid())
+      return m_requestType = UrlType::Incorrect;
+
+    // The URL is prefixed by one of the kGe0Prefixes or kLegacyMwmPrefixes prefixes
+    // => check for well-known API methods first.
+    string const & type = url.GetHost();
+    if (type == "map")
     {
-      vector<ApiPoint> points;
       bool correctOrder = true;
-      url.ForEachParam([&points, &correctOrder, this](auto const & key, auto const & value)
+      url.ForEachParam([&correctOrder, this](auto const & key, auto const & value)
       {
-        ParseMapParam(key, value, points, correctOrder);
+        ParseMapParam(key, value, correctOrder);
       });
 
-      if (points.empty() || !correctOrder)
-        return false;
+      if (m_mapPoints.empty() || !correctOrder)
+        return m_requestType = UrlType::Incorrect;
 
-      ASSERT(m_bmManager != nullptr, ());
-      auto editSession = m_bmManager->GetEditSession();
-      for (auto const & p : points)
-      {
-        m2::PointD glPoint(mercator::FromLatLon(p.m_lat, p.m_lon));
-        auto * mark = editSession.CreateUserMark<ApiMarkPoint>(glPoint);
-        mark->SetName(p.m_name);
-        mark->SetApiID(p.m_id);
-        mark->SetStyle(style::GetSupportedStyle(p.m_style));
-      }
-
-      return true;
+      guard.release();
+      return m_requestType = UrlType::Map;
     }
-    case UrlType::Route:
+    else if (type == "route")
     {
       m_routePoints.clear();
       using namespace route;
@@ -182,43 +149,91 @@ bool ParsedMapApi::Parse(url::Url const & url, UrlType type)
       });
 
       if (pattern.size() != 0)
-        return false;
+        return m_requestType = UrlType::Incorrect;
 
       if (m_routePoints.size() != 2)
-      {
-        ASSERT(false, ());
-        return false;
-      }
+        return m_requestType = UrlType::Incorrect;
 
-      return true;
+      guard.release();
+      return m_requestType = UrlType::Route;
     }
-    case UrlType::Search:
-    {
-      SearchRequest request;
-      url.ForEachParam([&request, this](auto const & key, auto const & value)
-      {
-        ParseSearchParam(key, value, request);
-      });
-      if (request.m_query.empty())
-        return false;
-
-      m_request = request;
-      return true;
-    }
-    case UrlType::Crosshair:
+    else if (type == "search")
     {
       url.ForEachParam([this](auto const & key, auto const & value)
       {
-         ParseCrosshairParam(key, value);
+        ParseSearchParam(key, value);
       });
-      return true;
+      if (m_searchRequest.m_query.empty())
+        return m_requestType = UrlType::Incorrect;
+
+      guard.release();
+      return m_requestType = UrlType::Search;
+    }
+    else if (type == "crosshair")
+    {
+      url.ForEachParam([this](auto const & key, auto const & value)
+      {
+         ParseCommonParam(key, value);
+      });
+
+      guard.release();
+      return m_requestType = UrlType::Crosshair;
+    }
+    else if (checkForGe0Link)
+    {
+      // The URL is prefixed by one of the kGe0Prefixes AND doesn't match any supported API call:
+      // => try to decode ge0 short link.
+      ge0::Ge0Parser parser;
+      ge0::Ge0Parser::Result info;
+      if (!parser.ParseAfterPrefix(raw, prefix, info))
+        return UrlType::Incorrect;
+
+      m_zoomLevel = info.m_zoomLevel;
+      m_mapPoints.push_back({info.m_lat, info.m_lon, info.m_name, "" /* m_id */, "" /* m_style */});
+
+      guard.release();
+      return m_requestType = UrlType::Map;
+    }
+    else
+    {
+      // The URL is prefixed by one of the kLegacyPrefixes AND doesn't match any supported API call => error.
+      LOG(LWARNING, ("Unsupported legacy API URL:", raw));
+      return m_requestType = UrlType::Incorrect;
+    }
+  }
+  else
+  {
+    // The URL is not prefixed by any special prefixes => try to parse for lat,lon and other geo parameters.
+    geo::GeoURLInfo info;
+    if (!geo::UnifiedParser().Parse(raw, info))
+      return m_requestType = UrlType::Incorrect;
+
+    if (!info.m_query.empty())
+    {
+      // The URL has "q=" parameter => convert to a Search API request.
+      m_searchRequest = SearchRequest();
+      m_searchRequest.m_query = info.m_query;
+      m_centerLatLon = {info.m_lat, info.m_lon};
+      m_zoomLevel = info.m_zoom;
+      guard.release();
+      return m_requestType = UrlType::Search;
+    }
+    else
+    {
+     // The URL doesn't have "q=" parameter => convert to a Map API request.
+      ASSERT(info.IsLatLonValid(), ());
+      m_centerLatLon = {info.m_lat, info.m_lon};
+      m_zoomLevel = info.m_zoom;
+      m_mapPoints.push_back({info.m_lat, info.m_lon, info.m_label, "" /* m_id */, "" /* m_style */});
+      guard.release();
+      return m_requestType = UrlType::Map;
     }
   }
   UNREACHABLE();
 }
 
 void ParsedMapApi::ParseMapParam(std::string const & key, std::string const & value,
-                                 vector<ApiPoint> & points, bool & correctOrder)
+                                 bool & correctOrder)
 {
   using namespace map;
 
@@ -227,21 +242,24 @@ void ParsedMapApi::ParseMapParam(std::string const & key, std::string const & va
     double lat = 0.0;
     double lon = 0.0;
     if (!ParseLatLon(key, value, lat, lon))
+    {
+      LOG(LWARNING, ("Incorrect 'll':", value));
       return;
+    }
 
-    ApiPoint pt{.m_lat = lat, .m_lon = lon};
-    points.push_back(pt);
+    m_mapPoints.push_back({lat, lon, "" /* m_name */, "" /* m_id */, "" /* m_style */});
   }
   else if (key == kZoomLevel)
   {
-    if (!strings::to_double(value, m_zoomLevel))
-      m_zoomLevel = 0.0;
+    double zoomLevel;
+    if (strings::to_double(value, zoomLevel))
+      m_zoomLevel = zoomLevel;
   }
   else if (key == kName)
   {
-    if (!points.empty())
+    if (!m_mapPoints.empty())
     {
-      points.back().m_name = value;
+      m_mapPoints.back().m_name = value;
     }
     else
     {
@@ -252,9 +270,9 @@ void ParsedMapApi::ParseMapParam(std::string const & key, std::string const & va
   }
   else if (key == kId)
   {
-    if (!points.empty())
+    if (!m_mapPoints.empty())
     {
-      points.back().m_id = value;
+      m_mapPoints.back().m_id = value;
     }
     else
     {
@@ -265,9 +283,9 @@ void ParsedMapApi::ParseMapParam(std::string const & key, std::string const & va
   }
   else if (key == kStyle)
   {
-    if (!points.empty())
+    if (!m_mapPoints.empty())
     {
-      points.back().m_style = value;
+      m_mapPoints.back().m_style = value;
     }
     else
     {
@@ -288,13 +306,13 @@ void ParsedMapApi::ParseMapParam(std::string const & key, std::string const & va
     if (!strings::to_int(value, m_version))
       m_version = 0;
   }
-  else if (key == kAppName)
-  {
-    m_appName = value;
-  }
   else if (key == kBalloonAction)
   {
     m_goBackOnBalloonClick = true;
+  }
+  else
+  {
+    ParseCommonParam(key, value);
   }
 }
 
@@ -311,7 +329,10 @@ void ParsedMapApi::ParseRouteParam(std::string const & key, std::string const & 
     double lat = 0.0;
     double lon = 0.0;
     if (!ParseLatLon(key, value, lat, lon))
+    {
+      LOG(LWARNING, ("Incorrect 'sll':", value));
       return;
+    }
 
     RoutePoint p;
     p.m_org = mercator::FromLatLon(lat, lon);
@@ -339,88 +360,119 @@ void ParsedMapApi::ParseRouteParam(std::string const & key, std::string const & 
   pattern.erase(pattern.begin());
 }
 
-void ParsedMapApi::ParseSearchParam(std::string const & key, std::string const & value,
-                                    SearchRequest & request) const
+void ParsedMapApi::ParseSearchParam(std::string const & key, std::string const & value)
 {
   using namespace search;
 
   if (key == kQuery)
   {
-    request.m_query = value;
-  }
-  else if (key == kCenterLatLon)
-  {
-    double lat = 0.0;
-    double lon = 0.0;
-    if (ParseLatLon(key, value, lat, lon))
-    {
-      request.m_centerLat = lat;
-      request.m_centerLon = lon;
-    }
+    m_searchRequest.m_query = value;
   }
   else if (key == kLocale)
   {
-    request.m_locale = value;
+    m_searchRequest.m_locale = value;
   }
   else if (key == kSearchOnMap)
   {
-    request.m_isSearchOnMap = true;
+    m_searchRequest.m_isSearchOnMap = true;
+  }
+  else
+  {
+    ParseCommonParam(key, value);
   }
 }
 
-void ParsedMapApi::ParseCrosshairParam(std::string const & key, std::string const & value)
+void ParsedMapApi::ParseCommonParam(std::string const & key, std::string const & value)
 {
-  if (key == map::kAppName)
+  if (key == kAppName)
+  {
     m_appName = value;
+  }
+  else if (key == kCenterLatLon)
+  {
+    double lat, lon;
+    if (ParseLatLon(key, value, lat, lon))
+      m_centerLatLon = {lat, lon};
+    else
+      LOG(LWARNING, ("Incorrect 'cll':", value));
+  }
 }
 
 void ParsedMapApi::Reset()
 {
+  m_requestType = UrlType::Incorrect;
+  m_mapPoints = {};
   m_routePoints = {};
-  m_request = {};
+  m_searchRequest = {};
   m_globalBackUrl ={};
   m_appName = {};
+  m_centerLatLon = ms::LatLon::Invalid();
   m_routingType = {};
   m_version = 0;
   m_zoomLevel = 0.0;
   m_goBackOnBalloonClick = false;
-  m_isValid = false;
 }
 
-bool ParsedMapApi::GetViewportParams(m2::PointD & center, double & scale) const
+void ParsedMapApi::ExecuteMapApiRequest(Framework & fm)
 {
-  auto const & markIds = m_bmManager->GetUserMarkIds(UserMark::Type::API);
-  if (markIds.size() == 1 && m_zoomLevel >= 1)
+  ASSERT_EQUAL(m_requestType, UrlType::Map, ("Must be a Map API request"));
+  VERIFY(m_mapPoints.size() > 0, ("Map API request must have at least one point"));
+
+  // Clear every current API-mark.
+  auto editSession = fm.GetBookmarkManager().GetEditSession();
+  editSession.ClearGroup(UserMark::Type::API);
+  editSession.SetIsVisible(UserMark::Type::API, true);
+
+  // Add marks from the request.
+  m2::RectD viewport;
+  for (auto const & p : m_mapPoints)
   {
-    scale = min(static_cast<double>(scales::GetUpperComfortScale()), m_zoomLevel);
-    center = m_bmManager->GetUserMark(*markIds.begin())->GetPivot();
-    return true;
+    m2::PointD glPoint(mercator::FromLatLon(p.m_lat, p.m_lon));
+    auto * mark = editSession.CreateUserMark<ApiMarkPoint>(glPoint);
+    mark->SetName(p.m_name);
+    mark->SetApiID(p.m_id);
+    mark->SetStyle(style::GetSupportedStyle(p.m_style));
+    viewport.Add(glPoint);
+  }
+
+  // Calculate the optimal viewport.
+  VERIFY(viewport.IsValid(), ());
+  m2::PointD const center = viewport.Center();
+
+  // Calculate the best zoom.
+  int zoomLevel;
+  if (m_mapPoints.size() == 1)
+  {
+    if (m_zoomLevel >= 1.0)  // 0 means uninitialized/not passed to the API.
+      zoomLevel = min(scales::GetUpperComfortScale(), static_cast<int>(m_zoomLevel));
+    else
+      zoomLevel = scales::GetUpperComfortScale();
   }
   else
   {
-    m2::RectD result;
-    for (auto markId : markIds)
-      result.Add(m_bmManager->GetUserMark(markId)->GetPivot());
-
-    if (result.IsValid())
-    {
-      center = result.Center();
-      scale = df::GetDrawTileScale(result);
-      return true;
-    }
-
-    return false;
+    zoomLevel = df::GetDrawTileScale(viewport);
   }
-}
 
-ApiMarkPoint const * ParsedMapApi::GetSinglePoint() const
-{
-  ASSERT(m_bmManager != nullptr, ());
-  auto const & markIds = m_bmManager->GetUserMarkIds(UserMark::Type::API);
-  if (markIds.size() != 1)
-    return nullptr;
+  // Always hide current map selection.
+  fm.DeactivateMapSelection(true /* notifyUI */);
 
-  return static_cast<ApiMarkPoint const *>(m_bmManager->GetUserMark(*markIds.begin()));
+  // Set viewport and stop follow mode.
+  fm.StopLocationFollow();
+
+  // ShowRect function interferes with ActivateMapSelection and we have strange behaviour as a result.
+  // Use more obvious SetModelViewCenter here.
+  /// @todo Funny, but animation is still present, but now centering works fine.
+  /// Looks like there is one more set viewport call somewhere.
+  fm.SetViewportCenter(center, zoomLevel, false /* isAnim */, true /* trackVisibleViewport */);
+
+  // Don't show the place page in case of multiple points.
+  if (m_mapPoints.size() > 1)
+    return;
+  place_page::BuildInfo info;
+  info.m_needAnimationOnSelection = false;
+  info.m_mercator = mercator::FromLatLon(m_mapPoints[0].m_lat, m_mapPoints[0].m_lon);
+  // Other details will be filled in by BuildPlacePageInfo().
+  fm.BuildAndSetPlacePageInfo(info);
 }
 
 std::string DebugPrint(ParsedMapApi::UrlType type)

@@ -1,6 +1,6 @@
 project(desktop)
 
-QT5_ADD_RESOURCES(RES_SOURCES res/resources.qrc)
+QT6_ADD_RESOURCES(RES_SOURCES res/resources.qrc)
 
 set(SRC
   about.cpp
@@ -71,11 +71,11 @@ target_link_libraries(${PROJECT_NAME}
 if (BUILD_DESIGNER)
   target_link_libraries(${PROJECT_NAME} generator)
   set(BUNDLE_NAME "OMaps.Designer")
-  set(BUNDLE_DISPLAY_NAME "OMaps Designer")
+  set(BUNDLE_DISPLAY_NAME "Organic Maps Designer")
   set(BUNDLE_ICON designer.icns)
 else()
   set(BUNDLE_NAME "OMaps")
-  set(BUNDLE_DISPLAY_NAME "OMaps Desktop")
+  set(BUNDLE_DISPLAY_NAME "Organic Maps Desktop")
   set(BUNDLE_ICON mac.icns)
 endif()
 
@@ -148,14 +148,14 @@ install(TARGETS ${PROJECT_NAME} DESTINATION ${CMAKE_INSTALL_PREFIX}/bin/)
 install(DIRECTORY ${OMIM_ROOT}/data DESTINATION ${CMAKE_INSTALL_PREFIX}/share/organicmaps/)
 
 if (PLATFORM_LINUX)
-  install(FILES ${OMIM_ROOT}/qt/res/app.organicmaps.desktop.metainfo.xml DESTINATION ${CMAKE_INSTALL_PREFIX}/share/metainfo/)
+  install(FILES ${OMIM_ROOT}/packaging/app.organicmaps.desktop.metainfo.xml DESTINATION ${CMAKE_INSTALL_PREFIX}/share/metainfo/)
   install(FILES ${OMIM_ROOT}/qt/res/OrganicMaps.desktop DESTINATION ${CMAKE_INSTALL_PREFIX}/share/applications/)
   install(FILES ${OMIM_ROOT}/qt/res/logo.png DESTINATION ${CMAKE_INSTALL_PREFIX}/share/icons/hicolor/512x512/apps/ RENAME organicmaps.png)
 endif()
 
 if (NOT PLATFORM_LINUX)
   # On Linux, ICU data is loaded from the shared library.
-  copy_resources(icudt70l.dat)
+  copy_resources(icudt73l.dat)
 endif()
 
 if (PLATFORM_MAC)

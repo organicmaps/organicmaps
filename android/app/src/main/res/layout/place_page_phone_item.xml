@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+  xmlns:android="http://schemas.android.com/apk/res/android"
+  xmlns:app="http://schemas.android.com/apk/res-auto"
+  xmlns:tools="http://schemas.android.com/tools"
+  android:id="@+id/ll__place_phone"
+  style="@style/PlacePageItemFrame"
+  tools:background="#2000FF00"
+  android:orientation="horizontal"
+  android:visibility="visible"
+  android:tag="phone">
+
+  <ImageView
+    android:id="@+id/iv__place_phone"
+    style="@style/PlacePageMetadataIcon"
+    android:src="@drawable/ic_phone"
+    app:tint="?colorAccent"/>
+
+  <TextView
+    android:id="@+id/tv__place_phone"
+    style="@style/PlacePageMetadataText"
+    android:textAppearance="@style/MwmTextAppearance.PlacePage.Accent"
+    tools:text="+1 234 567-89-00"/>
+</LinearLayout>

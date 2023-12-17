@@ -106,35 +106,32 @@ void ReadFeatureType(std::function<void(FeatureType &)> const & fn, FeatureSourc
 // FeaturesLoaderGuard ---------------------------------------------------------------------
 std::string FeaturesLoaderGuard::GetCountryFileName() const
 {
-  if (!m_handle.IsAlive())
-    return {};
-
+  ASSERT(m_handle.IsAlive(), ());
   return m_handle.GetValue()->GetCountryFileName();
+}
+
+int64_t FeaturesLoaderGuard::GetVersion() const
+{
+  ASSERT(m_handle.IsAlive(), ());
+  return m_handle.GetInfo()->GetVersion();
 }
 
 bool FeaturesLoaderGuard::IsWorld() const
 {
-  if (!m_handle.IsAlive())
-    return false;
-
-  return m_handle.GetValue()->GetHeader().GetType() ==
-         feature::DataHeader::MapType::World;
+  ASSERT(m_handle.IsAlive(), ());
+  return m_handle.GetValue()->GetHeader().GetType() == feature::DataHeader::MapType::World;
 }
 
 std::unique_ptr<FeatureType> FeaturesLoaderGuard::GetOriginalOrEditedFeatureByIndex(uint32_t index) const
 {
-  if (!m_handle.IsAlive())
-    return {};
-
+  ASSERT(m_handle.IsAlive(), ());
   ASSERT_NOT_EQUAL(m_source->GetFeatureStatus(index), FeatureStatus::Created, ());
   return GetFeatureByIndex(index);
 }
 
 std::unique_ptr<FeatureType> FeaturesLoaderGuard::GetFeatureByIndex(uint32_t index) const
 {
-  if (!m_handle.IsAlive())
-    return {};
-
+  ASSERT(m_handle.IsAlive(), ());
   ASSERT_NOT_EQUAL(FeatureStatus::Deleted, m_source->GetFeatureStatus(index),
                    ("Deleted feature was cached. It should not be here. Please review your code."));
 
@@ -171,10 +168,13 @@ std::unique_ptr<MwmInfo> DataSource::CreateInfo(platform::LocalCountryFile const
 
 std::unique_ptr<MwmValue> DataSource::CreateValue(MwmInfo & info) const
 {
-  // Create a section with rank table if it does not exist.
   platform::LocalCountryFile const & localFile = info.GetLocalFile();
   auto p = std::make_unique<MwmValue>(localFile);
+
   p->SetTable(dynamic_cast<MwmInfoEx &>(info));
+
+  p->m_metaDeserializer = indexer::MetadataDeserializer::Load(p->m_cont);
+  CHECK(p->m_metaDeserializer, ());
   return p;
 }
 
@@ -217,8 +217,8 @@ void DataSource::ForEachInIntervals(ReaderCallback const & fn, covering::Coverin
     fn(GetMwmHandleById(worldID[1]), cov, scale);
 }
 
-void DataSource::ForEachFeatureIDInRect(FeatureIdCallback const & f, m2::RectD const & rect,
-                                        int scale) const
+void DataSource::ForEachFeatureIDInRect(FeatureIdCallback const & f, m2::RectD const & rect, int scale,
+                                        covering::CoveringMode mode /* = covering::ViewportWithLowLevels */) const
 {
   auto readFeatureId = [&f](uint32_t index, FeatureSource & src)
   {
@@ -227,7 +227,7 @@ void DataSource::ForEachFeatureIDInRect(FeatureIdCallback const & f, m2::RectD c
   };
 
   ReadMWMFunctor readFunctor(*m_factory, readFeatureId);
-  ForEachInIntervals(readFunctor, covering::LowLevelsOnly, rect, scale);
+  ForEachInIntervals(readFunctor, mode, rect, scale);
 }
 
 void DataSource::ForEachInRect(FeatureCallback const & f, m2::RectD const & rect, int scale) const

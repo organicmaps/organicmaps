@@ -1,0 +1,127 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<osm version='0.6' generator='JOSM'>
+  <node id='2390257168' timestamp='2021-11-11T19:36:42Z' uid='715684' user='Eebie' visible='true' version='3' changeset='113666178' lat='50.4798377' lon='5.5236812' />
+  <node id='2390257169' timestamp='2021-11-11T19:36:42Z' uid='715684' user='Eebie' visible='true' version='4' changeset='113666178' lat='50.479698' lon='5.5234162' />
+  <node id='2390257170' timestamp='2021-11-11T19:37:21Z' uid='715684' user='Eebie' visible='true' version='5' changeset='113666195' lat='50.4797242' lon='5.5235228' />
+  <node id='2390257171' timestamp='2021-11-11T19:36:42Z' uid='715684' user='Eebie' visible='true' version='4' changeset='113666178' lat='50.4797478' lon='5.5238424' />
+  <node id='2390257172' timestamp='2021-11-11T19:36:42Z' uid='715684' user='Eebie' visible='true' version='4' changeset='113666178' lat='50.4796523' lon='5.523241' />
+  <node id='2390257173' timestamp='2021-11-11T19:36:42Z' uid='715684' user='Eebie' visible='true' version='4' changeset='113666178' lat='50.479716' lon='5.5234836' />
+  <node id='2390257174' timestamp='2021-11-11T19:36:42Z' uid='715684' user='Eebie' visible='true' version='4' changeset='113666178' lat='50.479884' lon='5.5233377' />
+  <node id='2390257175' timestamp='2021-11-11T19:36:42Z' uid='715684' user='Eebie' visible='true' version='4' changeset='113666178' lat='50.479836' lon='5.5231479' />
+  <node id='2390257176' timestamp='2021-11-11T19:36:42Z' uid='715684' user='Eebie' visible='true' version='4' changeset='113666178' lat='50.4797754' lon='5.5234563' />
+  <node id='2390257177' timestamp='2021-11-11T19:36:42Z' uid='715684' user='Eebie' visible='true' version='4' changeset='113666178' lat='50.4796906' lon='5.5232036' />
+  <node id='2390257178' timestamp='2021-11-11T19:36:42Z' uid='715684' user='Eebie' visible='true' version='4' changeset='113666178' lat='50.4796807' lon='5.523155' />
+  <node id='2390257179' timestamp='2021-11-11T19:36:42Z' uid='715684' user='Eebie' visible='true' version='4' changeset='113666178' lat='50.4796385' lon='5.5231773' />
+  <node id='2390257180' timestamp='2021-11-11T19:36:42Z' uid='715684' user='Eebie' visible='true' version='4' changeset='113666178' lat='50.4796725' lon='5.5234314' />
+  <node id='2390257181' timestamp='2021-11-11T19:36:42Z' uid='715684' user='Eebie' visible='true' version='4' changeset='113666178' lat='50.4797684' lon='5.5234165' />
+  <node id='2390257182' timestamp='2021-11-11T19:36:42Z' uid='715684' user='Eebie' visible='true' version='4' changeset='113666178' lat='50.479665' lon='5.5232378' />
+  <node id='9244278860' timestamp='2021-11-11T19:37:21Z' uid='715684' user='Eebie' visible='true' version='2' changeset='113666195' lat='50.4797348' lon='5.5235743' />
+  <node id='9244278861' timestamp='2021-11-11T19:37:21Z' uid='715684' user='Eebie' visible='true' version='2' changeset='113666195' lat='50.4797927' lon='5.5235438' />
+  <node id='9244278865' timestamp='2021-11-11T19:36:42Z' uid='715684' user='Eebie' visible='true' version='1' changeset='113666178' lat='50.4796831' lon='5.5234983' />
+  <node id='9244278892' timestamp='2021-11-11T19:36:42Z' uid='715684' user='Eebie' visible='true' version='1' changeset='113666178' lat='50.4797304' lon='5.5235762' />
+  <node id='9244278893' timestamp='2021-11-11T19:36:42Z' uid='715684' user='Eebie' visible='true' version='1' changeset='113666178' lat='50.4796913' lon='5.5235387' />
+  <node id='9244278894' timestamp='2021-11-11T19:36:42Z' uid='715684' user='Eebie' visible='true' version='1' changeset='113666178' lat='50.4796446' lon='5.5232048'>
+    <tag k='entrance' v='yes' />
+  </node>
+  <node id='9244278895' timestamp='2021-11-11T19:36:42Z' uid='715684' user='Eebie' visible='true' version='1' changeset='113666178' lat='50.4796899' lon='5.5233639'>
+    <tag k='entrance' v='main' />
+  </node>
+  <node id='9244278898' timestamp='2021-11-11T19:36:42Z' uid='715684' user='Eebie' visible='true' version='1' changeset='113666178' lat='50.4797557' lon='5.5237343' />
+  <node id='9244278899' timestamp='2021-11-11T19:36:42Z' uid='715684' user='Eebie' visible='true' version='1' changeset='113666178' lat='50.4797297' lon='5.5237525' />
+  <node id='9244278900' timestamp='2021-11-11T19:36:42Z' uid='715684' user='Eebie' visible='true' version='1' changeset='113666178' lat='50.4798088' lon='5.5237473' />
+  <node id='9244278901' timestamp='2021-11-11T19:36:42Z' uid='715684' user='Eebie' visible='true' version='1' changeset='113666178' lat='50.4798159' lon='5.5237398' />
+  <node id='9244278902' timestamp='2021-11-11T19:36:42Z' uid='715684' user='Eebie' visible='true' version='1' changeset='113666178' lat='50.4798092' lon='5.5237072' />
+  <node id='9244278903' timestamp='2021-11-11T19:36:42Z' uid='715684' user='Eebie' visible='true' version='1' changeset='113666178' lat='50.4798104' lon='5.5237544' />
+  <node id='9244278904' timestamp='2021-11-11T19:36:42Z' uid='715684' user='Eebie' visible='true' version='1' changeset='113666178' lat='50.4797969' lon='5.5235415' />
+  <node id='9244278905' timestamp='2021-11-11T19:36:42Z' uid='715684' user='Eebie' visible='true' version='1' changeset='113666178' lat='50.4798078' lon='5.523157' />
+  <node id='9244278906' timestamp='2021-11-11T19:36:42Z' uid='715684' user='Eebie' visible='true' version='1' changeset='113666178' lat='50.4798081' lon='5.5231476' />
+  <node id='9244278907' timestamp='2021-11-11T19:36:42Z' uid='715684' user='Eebie' visible='true' version='1' changeset='113666178' lat='50.4798442' lon='5.5231934' />
+  <node id='9244278908' timestamp='2021-11-11T19:36:42Z' uid='715684' user='Eebie' visible='true' version='1' changeset='113666178' lat='50.4798711' lon='5.5232679' />
+  <node id='9244278909' timestamp='2021-11-11T19:36:42Z' uid='715684' user='Eebie' visible='true' version='1' changeset='113666178' lat='50.4798517' lon='5.5233584' />
+  <node id='9244278910' timestamp='2021-11-11T19:36:42Z' uid='715684' user='Eebie' visible='true' version='1' changeset='113666178' lat='50.4798539' lon='5.5233749' />
+  <way id='1001541388' timestamp='2021-11-11T19:36:42Z' uid='715684' user='Eebie' visible='true' version='1' changeset='113666178'>
+    <nd ref='9244278904' />
+    <nd ref='9244278861' />
+    <nd ref='9244278860' />
+    <nd ref='9244278892' />
+    <nd ref='9244278898' />
+    <nd ref='9244278899' />
+    <nd ref='2390257171' />
+    <nd ref='9244278903' />
+    <nd ref='9244278900' />
+    <nd ref='9244278901' />
+    <nd ref='9244278902' />
+    <nd ref='2390257168' />
+    <nd ref='9244278904' />
+    <tag k='building:part' v='yes' />
+  </way>
+  <way id='1001541389' timestamp='2021-11-11T19:37:21Z' uid='715684' user='Eebie' visible='true' version='2' changeset='113666195'>
+    <nd ref='2390257176' />
+    <nd ref='2390257173' />
+    <nd ref='2390257170' />
+    <nd ref='9244278893' />
+    <nd ref='9244278865' />
+    <nd ref='2390257180' />
+    <nd ref='2390257169' />
+    <nd ref='9244278895' />
+    <nd ref='2390257182' />
+    <nd ref='2390257172' />
+    <nd ref='9244278894' />
+    <nd ref='2390257179' />
+    <nd ref='2390257178' />
+    <nd ref='2390257177' />
+    <nd ref='9244278906' />
+    <nd ref='9244278905' />
+    <nd ref='2390257175' />
+    <nd ref='9244278907' />
+    <nd ref='9244278908' />
+    <nd ref='2390257174' />
+    <nd ref='9244278909' />
+    <nd ref='9244278910' />
+    <nd ref='2390257181' />
+    <nd ref='2390257176' />
+    <tag k='building:part' v='yes' />
+  </way>
+  <way id='1001541394' timestamp='2021-11-11T19:37:21Z' uid='715684' user='Eebie' visible='true' version='2' changeset='113666195'>
+    <nd ref='2390257176' />
+    <nd ref='2390257173' />
+    <nd ref='2390257170' />
+    <nd ref='9244278860' />
+    <nd ref='9244278861' />
+    <nd ref='2390257176' />
+    <tag k='building:part' v='yes' />
+    <tag k='defensive' v='donjon' />
+    <tag k='heritage' v='yes' />
+    <tag k='image' v='File:Avouerie Anthisnes 2018.jpg' />
+    <tag k='man_made' v='tower' />
+    <tag k='name' v='Donjon' />
+    <tag k='start_date' v='C12' />
+    <tag k='tower:type' v='defensive' />
+  </way>
+  <relation id='13430355' timestamp='2021-11-11T19:36:42Z' uid='715684' user='Eebie' visible='true' version='1' changeset='113666178'>
+    <member type='way' ref='1001541394' role='outer' />
+    <member type='way' ref='1001541388' role='outer' />
+    <member type='way' ref='1001541389' role='outer' />
+    <tag k='addr:city' v='Anthisnes' />
+    <tag k='addr:country' v='BE' />
+    <tag k='addr:housenumber' v='19' />
+    <tag k='addr:postcode' v='4160' />
+    <tag k='addr:street' v='Avenue de l&apos;Abbaye' />
+    <tag k='alt_name' v='Avouerie d&apos;Anthisnes' />
+    <tag k='building' v='castle' />
+    <tag k='castle_type' v='defensive' />
+    <tag k='clt:criteria' v='M' />
+    <tag k='clt:inscription_date' v='1970' />
+    <tag k='heritage' v='4' />
+    <tag k='heritage:operator' v='clt' />
+    <tag k='heritage:website' v='http://lampspw.wallonie.be/dgo4/site_thema/index.php/dossier/view/BC_PAT/61079-CLT-0003-01' />
+    <tag k='historic' v='castle' />
+    <tag k='image' v='File:Avouerie Anthisnes 2018.jpg' />
+    <tag k='name' v='Château de l&apos;Avouerie' />
+    <tag k='ref:clt' v='61079-CLT-0003-01' />
+    <tag k='start_date' v='C17' />
+    <tag k='type' v='multipolygon' />
+    <tag k='website' v='https://www.avouerie.be/' />
+    <tag k='wikipedia' v='fr:Avouerie d&apos;Anthisnes' />
+  </relation>
+</osm>

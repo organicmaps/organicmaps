@@ -1,7 +1,6 @@
 #pragma once
 
 #include "geometry/latlon.hpp"
-#include "geometry/point2d.hpp"
 
 namespace ms
 {

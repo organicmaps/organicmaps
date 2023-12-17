@@ -1,52 +1,6 @@
-<?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<svg
-   enable-background="new 0 0 24 24"
-   height="24"
-   viewBox="0 0 24 24"
-   width="24"
-   fill="#000000"
-   version="1.1"
-   id="svg14"
-   sodipodi:docname="self_improvement_black_24dp.svg"
-   inkscape:version="1.2.1 (9c6d41e410, 2022-07-14)"
-   inkscape:export-filename="yoga/yoga-m.svg"
-   inkscape:export-xdpi="96"
-   inkscape:export-ydpi="96"
-   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
-   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
-   xmlns="http://www.w3.org/2000/svg"
-   xmlns:svg="http://www.w3.org/2000/svg">
-  <defs
-     id="defs18" />
-  <sodipodi:namedview
-     id="namedview16"
-     pagecolor="#ffffff"
-     bordercolor="#000000"
-     borderopacity="0.25"
-     inkscape:showpageshadow="2"
-     inkscape:pageopacity="0.0"
-     inkscape:pagecheckerboard="0"
-     inkscape:deskcolor="#d1d1d1"
-     showgrid="false"
-     inkscape:zoom="32.291667"
-     inkscape:cx="11.984516"
-     inkscape:cy="12.030968"
-     inkscape:window-width="1920"
-     inkscape:window-height="979"
-     inkscape:window-x="0"
-     inkscape:window-y="0"
-     inkscape:window-maximized="1"
-     inkscape:current-layer="svg14" />
-  <g
-     id="g12"
-     style="fill:#717065;fill-opacity:1">
-    <g
-       id="g10"
-       style="fill:#717065;fill-opacity:1">
-      <path
-         id="circle6"
-         style="opacity:0.6;fill:#ffffff;fill-opacity:1"
-         d="m 12,4 a 2,2 0 0 0 -2,2 2,2 0 0 0 2,2 2,2 0 0 0 2,-2 2,2 0 0 0 -2,-2 z m -0.519531,5 c -0.59,0 -1.151251,0.2607036 -1.5312502,0.7207031 L 8.609375,11.320312 C 7.1593765,13.040311 5.2399978,14 3,14 v 2 c 2.7699972,0 5.1900018,-1.170002 7,-3.25 V 15 L 6.1191406,16.550781 C 5.4491413,16.820781 5,17.480938 5,18.210938 5,19.200937 5.7990635,20 6.7890625,20 H 9 V 19.5 C 9,18.120001 10.120001,17 11.5,17 h 3 c 0.28,0 0.5,0.22 0.5,0.5 0,0.28 -0.22,0.5 -0.5,0.5 h -3 C 10.670001,18 10,18.670001 10,19.5 V 20 h 7.210938 C 18.200937,20 19,19.200937 19,18.210938 c 0,-0.73 -0.449141,-1.390157 -1.119141,-1.660157 L 14,15 v -2.25 c 1.809998,2.079998 4.230003,3.25 7,3.25 v -2 c -2.239998,0 -4.159611,-0.959689 -5.599609,-2.679688 L 14.060547,9.7207031 C 13.680547,9.2607036 13.119296,9 12.529297,9 Z" />
-    </g>
-  </g>
+<?xml version="1.0" encoding="UTF-8"?>
+<svg version="1.1" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+	<circle id="Oval" cx="12" cy="12" r="12" fill="#000" opacity=".6"/>
+	<circle cx="12" cy="12" r="11" fill="#717065"/>
+	<path d="m12 5.0712a1.7322 1.7322 0 0 0-1.7322 1.7322 1.7322 1.7322 0 0 0 1.7322 1.7322 1.7322 1.7322 0 0 0 1.7322-1.7322 1.7322 1.7322 0 0 0-1.7322-1.7322zm-0.44996 4.3305c-0.511 0-0.99714 0.22579-1.3263 0.6242l-1.1604 1.3854c-1.2558 1.4897-2.9182 2.3209-4.8583 2.3209v1.7322c2.3991 0 4.4951-1.0133 6.0627-2.8148v1.9487l-3.3612 1.3431c-0.58029 0.23385-0.96925 0.80561-0.96925 1.4379 0 0.85744 0.69207 1.5495 1.5495 1.5495h1.9149v-0.43305c0-1.1952 0.97003-2.1652 2.1652-2.1652h2.5983c0.24251 0 0.43305 0.19054 0.43305 0.43305s-0.19054 0.43305-0.43305 0.43305h-2.5983c-0.71886 0-1.2992 0.58029-1.2992 1.2992v0.43305h6.2454c0.85744 0 1.5495-0.69207 1.5495-1.5495 0-0.63225-0.389-1.2041-0.96925-1.4379l-3.3612-1.3431v-1.9487c1.5676 1.8015 3.6636 2.8148 6.0627 2.8148v-1.7322c-1.9401 0-3.6026-0.83119-4.8498-2.3209l-1.1604-1.3854c-0.32912-0.39841-0.81522-0.6242-1.3262-0.6242z" fill="#000"/>
 </svg>

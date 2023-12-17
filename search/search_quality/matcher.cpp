@@ -5,11 +5,10 @@
 
 #include "indexer/feature.hpp"
 #include "indexer/feature_algo.hpp"
+#include "indexer/road_shields_parser.hpp"
 #include "indexer/search_string_utils.hpp"
 
-#include "base/assert.hpp"
 #include "base/control_flow.hpp"
-#include "base/stl_helpers.hpp"
 #include "base/string_utils.hpp"
 
 #include <algorithm>
@@ -59,10 +58,19 @@ bool EndsWithHouseNumber(Iter beg, Iter end)
   return false;
 }
 
+std::vector<std::string> NormalizeAndTokenizeAsUtf8(std::string_view str)
+{
+  std::vector<std::string> res;
+  ForEachNormalizedToken(str, [&res](strings::UniString const & token)
+  {
+    res.push_back(strings::ToUtf8(token));
+  });
+  return res;
+}
+
 bool StreetMatches(std::string_view name, std::vector<std::string> const & queryTokens)
 {
-  auto const nameTokens = search::NormalizeAndTokenizeAsUtf8(name);
-
+  auto const nameTokens = NormalizeAndTokenizeAsUtf8(name);
   if (nameTokens.empty())
     return false;
 
@@ -144,10 +152,6 @@ bool Matcher::Matches(strings::UniString const & query, Sample::Result const & g
 bool Matcher::Matches(strings::UniString const & query, Sample::Result const & golden,
                       FeatureType & ft)
 {
-  static double constexpr kToleranceMeters = 50;
-
-  auto const houseNumber = ft.GetHouseNumber();
-
   auto const queryTokens = NormalizeAndTokenizeAsUtf8(ToUtf8(query));
 
   bool nameMatches = false;
@@ -159,7 +163,14 @@ bool Matcher::Matches(strings::UniString const & query, Sample::Result const & g
   {
     if (ft.GetGeomType() == feature::GeomType::Line)
     {
-      nameMatches = StreetMatches(ft.GetRoadNumber(), queryTokens);
+      for (auto const & name : ftypes::GetRoadShieldsNames(ft))
+      {
+        if (StreetMatches(name, queryTokens))
+        {
+          nameMatches = true;
+          break;
+        }
+      }
     }
     else
     {
@@ -188,10 +199,11 @@ bool Matcher::Matches(strings::UniString const & query, Sample::Result const & g
   });
 
   bool houseNumberMatches = true;
-  if (!golden.m_houseNumber.empty() && !houseNumber.empty())
-    houseNumberMatches = golden.m_houseNumber == houseNumber;
+  std::string const & hn = ft.GetHouseNumber();
+  if (!golden.m_houseNumber.empty() && !hn.empty())
+    houseNumberMatches = golden.m_houseNumber == hn;
 
-  return (nameMatches && houseNumberMatches &&
-          feature::GetMinDistanceMeters(ft, golden.m_pos) < kToleranceMeters);
+  /// @todo Where are 50 meters came from?
+  return (nameMatches && houseNumberMatches && feature::GetMinDistanceMeters(ft, golden.m_pos) < 50.0);
 }
 }  // namespace search

@@ -12,20 +12,11 @@
 #include <algorithm>
 #include <map>
 
-namespace
-{
-using namespace routing;
-using namespace std;
-
-Segment GetReverseSegment(Segment const & segment)
-{
-  return Segment(segment.GetMwmId(), segment.GetFeatureId(), segment.GetSegmentIdx(),
-                 !segment.IsForward());
-}
-}  // namespace
 
 namespace routing
 {
+using namespace std;
+
 // IndexGraphStarter::Ending -----------------------------------------------------------------------
 void IndexGraphStarter::Ending::FillMwmIds()
 {
@@ -81,7 +72,7 @@ void IndexGraphStarter::SetGuides(GuidesGraph const & guides) { m_guides = guide
 
 void IndexGraphStarter::SetRegionsGraphMode(std::shared_ptr<RegionsSparseGraph> regionsSparseGraph)
 {
-  m_regionsGraph = move(regionsSparseGraph);
+  m_regionsGraph = std::move(regionsSparseGraph);
   m_graph.SetRegionsGraphMode(true);
 }
 
@@ -270,17 +261,17 @@ RouteWeight IndexGraphStarter::CalcSegmentWeight(Segment const & segment,
   Segment real;
   if (m_fake.FindReal(segment, real))
   {
-    auto const partLen = ms::DistanceOnEarth(vertex.GetPointFrom(), vertex.GetPointTo());
-    auto const fullLen =
-        ms::DistanceOnEarth(GetPoint(real, false /* front */), GetPoint(real, true /* front */));
+    double const partLen = ms::DistanceOnEarth(vertex.GetPointFrom(), vertex.GetPointTo());
+
+    if (IsRegionsGraphMode())
+      return RouteWeight(partLen);
+
+    double const fullLen = ms::DistanceOnEarth(GetPoint(real, false), GetPoint(real, true));
     // Note 1. |fullLen| == 0.0 in case of Segment(s) with the same ends.
     // Note 2. There is the following logic behind |return 0.0 * m_graph.CalcSegmentWeight(real, ...);|:
     // it's necessary to return a instance of the structure |RouteWeight| with zero wight.
     // Theoretically it may be differ from |RouteWeight(0)| because some road access block
     // may be kept in it and it is up to |RouteWeight| to know how to multiply by zero.
-
-    if (IsRegionsGraphMode())
-      return RouteWeight(partLen);
 
     Weight weight;
     if (IsGuidesSegment(real))
@@ -356,7 +347,7 @@ void IndexGraphStarter::AddEnding(FakeEnding const & thisEnding)
       otherSegments[p.m_segment].push_back(p.m_junction);
       // We use |otherEnding| to generate proper fake edges in case both endings have projections
       // to the same segment. Direction of p.m_segment does not matter.
-      otherSegments[GetReverseSegment(p.m_segment)].push_back(p.m_junction);
+      otherSegments[p.m_segment.GetReversed()].push_back(p.m_junction);
     }
   }
 
@@ -386,12 +377,13 @@ void IndexGraphStarter::AddEnding(FakeEnding const & thisEnding)
       auto const it = otherSegments.find(projection.m_segment);
       if (it != otherSegments.end())
       {
-        LatLonWithAltitude otherJunction = it->second[0];
-        double distBackToOther =
-            ms::DistanceOnEarth(backJunction.GetLatLon(), otherJunction.GetLatLon());
+        ASSERT(!it->second.empty(), ());
+
+        LatLonWithAltitude otherJunction;
+        double distBackToOther = 1.0E8;
         for (auto const & coord : it->second)
         {
-          double curDist = ms::DistanceOnEarth(backJunction.GetLatLon(), coord.GetLatLon());
+          double const curDist = ms::DistanceOnEarth(backJunction.GetLatLon(), coord.GetLatLon());
           if (curDist < distBackToOther)
           {
             distBackToOther = curDist;
@@ -399,8 +391,7 @@ void IndexGraphStarter::AddEnding(FakeEnding const & thisEnding)
           }
         }
 
-        auto const distBackToThis =
-            ms::DistanceOnEarth(backJunction.GetLatLon(), projection.m_junction.GetLatLon());
+        double const distBackToThis = ms::DistanceOnEarth(backJunction.GetLatLon(), projection.m_junction.GetLatLon());
 
         if (distBackToThis < distBackToOther)
           frontJunction = otherJunction;
@@ -421,7 +412,7 @@ void IndexGraphStarter::AddEnding(FakeEnding const & thisEnding)
 
       if (!projection.m_isOneWay)
       {
-        auto const backwardSegment = GetReverseSegment(projection.m_segment);
+        auto const backwardSegment = projection.m_segment.GetReversed();
         FakeVertex backwardPartOfReal(
             backwardSegment.GetMwmId(), isStart ? projection.m_junction : frontJunction,
             isStart ? backJunction : projection.m_junction, FakeVertex::Type::PartOfReal);
@@ -448,7 +439,7 @@ void IndexGraphStarter::AddEnding(FakeEnding const & thisEnding, FakeEnding cons
     otherSegments[p.m_segment] = p.m_junction;
     // We use |otherEnding| to generate proper fake edges in case both endings have projections
     // to the same segment. Direction of p.m_segment does not matter.
-    otherSegments[GetReverseSegment(p.m_segment)] = p.m_junction;
+    otherSegments[p.m_segment.GetReversed()] = p.m_junction;
   }
 
   // Add pure fake vertex
@@ -504,7 +495,7 @@ void IndexGraphStarter::AddEnding(FakeEnding const & thisEnding, FakeEnding cons
 
     if (!strictForward && !projection.m_isOneWay)
     {
-      auto const backwardSegment = GetReverseSegment(projection.m_segment);
+      auto const backwardSegment = projection.m_segment.GetReversed();
       FakeVertex backwardPartOfReal(
           backwardSegment.GetMwmId(), isStart ? projection.m_junction : frontJunction,
           isStart ? backJunction : projection.m_junction, FakeVertex::Type::PartOfReal);
@@ -522,6 +513,38 @@ void IndexGraphStarter::ConnectLoopToGuideSegments(
     LatLonWithAltitude realTo, vector<pair<FakeVertex, Segment>> const & partsOfReal)
 {
   m_fake.ConnectLoopToGuideSegments(loop, realSegment, realFrom, realTo, partsOfReal);
+}
+
+HighwayCategory IndexGraphStarter::GetHighwayCategory(Segment seg) const
+{
+  if (IsFakeSegment(seg))
+  {
+    Segment real;
+    if (m_fake.FindReal(seg, real))
+      seg = real;
+    else
+      return HighwayCategory::Unknown;
+  }
+
+  auto const hwType = m_graph.GetIndexGraph(seg.GetMwmId()).GetRoadGeometry(seg.GetFeatureId()).GetHighwayType();
+  if (!hwType)
+    return HighwayCategory::Unknown;
+
+  switch (*hwType)
+  {
+  case HighwayType::HighwayMotorway: case HighwayType::HighwayMotorwayLink:
+  case HighwayType::HighwayTrunk: case HighwayType::HighwayTrunkLink:
+    return HighwayCategory::Major;
+  case HighwayType::HighwayPrimary: case HighwayType::HighwayPrimaryLink:
+    return HighwayCategory::Primary;
+  case HighwayType::HighwaySecondary: case HighwayType::HighwaySecondaryLink:
+  case HighwayType::HighwayTertiary: case HighwayType::HighwayTertiaryLink:
+    return HighwayCategory::Usual;
+  case HighwayType::RouteFerry: case HighwayType::RouteShuttleTrain:
+    return HighwayCategory::Transit;
+  default:
+    return HighwayCategory::Minor;
+  }
 }
 
 void IndexGraphStarter::AddStart(FakeEnding const & startEnding, FakeEnding const & finishEnding,

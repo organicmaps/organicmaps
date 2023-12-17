@@ -2,6 +2,11 @@
 
 #include <string>
 
+namespace measurement_utils
+{
+enum class Units;
+}
+
 namespace platform
 {
 struct LocalizedUnits
@@ -18,5 +23,7 @@ extern std::string GetLocalizedMyPositionBookmarkName();
 
 extern LocalizedUnits GetLocalizedDistanceUnits();
 extern LocalizedUnits GetLocalizedAltitudeUnits();
+
+extern const std::string & GetLocalizedSpeedUnits(measurement_utils::Units units);
 extern std::string GetLocalizedSpeedUnits();
 }  // namespace platform

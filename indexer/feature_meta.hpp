@@ -35,17 +35,6 @@ public:
     return sv;
   }
 
-  std::vector<uint8_t> GetPresentTypes() const
-  {
-    std::vector<uint8_t> types;
-    types.reserve(m_metadata.size());
-
-    for (auto const & item : m_metadata)
-      types.push_back(item.first);
-
-    return types;
-  }
-
   inline bool Empty() const { return m_metadata.empty(); }
   inline size_t Size() const { return m_metadata.size(); }
 
@@ -77,6 +66,8 @@ public:
     return m_metadata == other.m_metadata;
   }
 
+  void Clear() { m_metadata.clear(); }
+
 protected:
   friend bool indexer::MetadataDeserializer::Get(uint32_t id, MetadataBase & meta);
 
@@ -88,10 +79,9 @@ protected:
       m_metadata.erase(type);
     else
     {
-      auto res = m_metadata.try_emplace(type, std::move(value));
-      if (!res.second)
-        res.first->second = std::move(value);
-      sv = res.first->second;
+      auto & res = m_metadata[type];
+      res = std::move(value);
+      sv = res;
     }
 
     return sv;
@@ -107,18 +97,17 @@ public:
   /// @note! Do not change values here.
   /// Add new types to the end of list, before FMD_COUNT.
   /// Add new types to the corresponding list in android/.../Metadata.java.
-  /// Add new types to the corresponding list in generator/pygen/pygen.cpp.
   /// For types parsed from OSM get corresponding OSM tag to MetadataTagProcessor::TypeFromString().
   enum EType : int8_t
   {
-    // Defined by classifier types now.
-    //FMD_CUISINE = 1,
+    // Used as id only, because cuisines are defined by classifier types now. Will be active in future.
+    FMD_CUISINE = 1,
     FMD_OPEN_HOURS = 2,
     FMD_PHONE_NUMBER = 3,
     FMD_FAX_NUMBER = 4,
     FMD_STARS = 5,
     FMD_OPERATOR = 6,
-    FMD_URL = 7,
+    //FMD_URL = 7,        // Deprecated, use FMD_WEBSITE
     FMD_WEBSITE = 8,
     /// @todo We have meta and classifier type at the same type. It's ok now for search, but should be revised in future.
     FMD_INTERNET = 9,
@@ -136,10 +125,10 @@ public:
     FMD_DENOMINATION = 21,
     FMD_BUILDING_LEVELS = 22,
     FMD_TEST_ID = 23,
-    // FMD_SPONSORED_ID = 24,
-    // FMD_PRICE_RATE = 25,
-    // FMD_RATING = 26,
-    // FMD_BANNER_URL = 27,
+    FMD_CUSTOM_IDS = 24,
+    FMD_PRICE_RATES = 25,
+    FMD_RATINGS = 26,
+    FMD_EXTERNAL_URI = 27,
     FMD_LEVEL = 28,
     FMD_AIRPORT_IATA = 29,
     FMD_BRAND = 30,
@@ -157,16 +146,19 @@ public:
     FMD_DESTINATION_REF = 38,
     FMD_JUNCTION_REF = 39,
     FMD_BUILDING_MIN_LEVEL = 40,
+    FMD_WIKIMEDIA_COMMONS = 41,
     FMD_COUNT
   };
 
-  /// Used to normalize tags like "contact:phone", "phone" and "contact:mobile" to a common metadata enum value.
-  static bool TypeFromString(std::string const & osmTagKey, EType & outType);
+  enum ESource : uint8_t { SRC_KAYAK = 0 };
 
-  template <class FnT> void ForEachKey(FnT && fn) const
+  /// Used to normalize tags like "contact:phone", "phone" and "contact:mobile" to a common metadata enum value.
+  static bool TypeFromString(std::string_view osmTagKey, EType & outType);
+
+  template <class FnT> void ForEach(FnT && fn) const
   {
     for (auto const & e : m_metadata)
-      fn(static_cast<Metadata::EType>(e.first));
+      fn(static_cast<Metadata::EType>(e.first), e.second);
   }
 
   bool Has(EType type) const { return MetadataBase::Has(static_cast<uint8_t>(type)); }
@@ -178,7 +170,11 @@ public:
   }
   void Drop(EType type) { Set(type, std::string()); }
 
+  static std::string ToWikiURL(std::string v);
   std::string GetWikiURL() const;
+  static std::string ToWikimediaCommonsURL(std::string const & v);
+
+  void ClearPOIAttribs();
 };
 
 class AddressData : public MetadataBase
@@ -186,14 +182,25 @@ class AddressData : public MetadataBase
 public:
   enum class Type : uint8_t
   {
-    Street,
-    Postcode
+    Street, Place,
   };
 
-  void Add(Type type, std::string const & s)
+  // Store single value only.
+  void Set(Type type, std::string_view s)
   {
-    /// @todo Probably, we need to add separator here and store multiple values.
-    MetadataBase::Set(base::Underlying(type), s);
+    Set(type, std::string(s));
+  }
+  void Set(Type type, std::string s)
+  {
+    if (!s.empty())
+      MetadataBase::Set(base::Underlying(type), std::move(s));
+  }
+
+  void SetIfAbsent(Type type, std::string s)
+  {
+    uint8_t const ut = base::Underlying(type);
+    if (!s.empty() && !Has(ut))
+      MetadataBase::Set(ut, std::move(s));
   }
 
   std::string_view Get(Type type) const { return MetadataBase::Get(base::Underlying(type)); }
@@ -252,8 +259,7 @@ public:
 
   void SetLeapWeightSpeed(double speedValue)
   {
-    std::string strValue = std::to_string(speedValue);
-    MetadataBase::Set(Type::RD_LEAP_WEIGHT_SPEED, strValue);
+    MetadataBase::Set(Type::RD_LEAP_WEIGHT_SPEED, std::to_string(speedValue));
   }
 
   /// @see EdgeEstimator::GetLeapWeightSpeed

@@ -1,8 +1,7 @@
 #include "routing/nearest_edge_finder.hpp"
 
+#include "geometry/mercator.hpp"
 #include "geometry/parametrized_segment.hpp"
-
-#include "indexer/feature.hpp"
 
 #include "base/assert.hpp"
 

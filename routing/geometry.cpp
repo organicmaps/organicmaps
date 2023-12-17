@@ -1,12 +1,11 @@
 #include "routing/geometry.hpp"
 
 #include "routing/city_roads.hpp"
-#include "routing/data_source.hpp"
 #include "routing/maxspeeds.hpp"
-#include "routing/routing_exceptions.hpp"
 
 #include "indexer/altitude_loader.hpp"
-#include "indexer/ftypes_matcher.hpp"
+#include "indexer/feature.hpp"
+#include "indexer/feature_source.hpp"
 
 #include "geometry/distance_on_sphere.hpp"
 #include "geometry/mercator.hpp"
@@ -26,6 +25,7 @@ double CalcFerryDurationHours(string_view durationHours, double roadLenKm)
   // Look for more info: https://confluence.mail.ru/display/MAPSME/Ferries
   // Shortly: the coefs were received from statistic about ferries with durations in OSM.
   double constexpr kIntercept = 0.2490726747447476;
+  /// @todo This constant means that average ferry speed is 1/0.02 = 50km/h OMG!
   double constexpr kSlope = 0.02078913;
 
   if (durationHours.empty())
@@ -127,6 +127,8 @@ public:
   void Load(uint32_t featureId, RoadGeometry & road) override
   {
     auto feature = m_featuresVector.GetVector().GetByIndex(featureId);
+    CHECK(feature, ());
+    feature->SetID({{}, featureId});
     feature->ParseGeometry(FeatureType::BEST_GEOMETRY);
 
     // Note. If FileGeometryLoader is used for generation cross mwm section for bicycle or
@@ -150,15 +152,21 @@ RoadGeometry::RoadGeometry(bool oneWay, double weightSpeedKMpH, double etaSpeedK
   ASSERT_GREATER(weightSpeedKMpH, 0.0, ());
   ASSERT_GREATER(etaSpeedKMpH, 0.0, ());
 
-  m_junctions.reserve(points.size());
+  size_t const count = points.size();
+  ASSERT_GREATER(count, 1, ());
+
+  m_junctions.reserve(count);
   for (auto const & point : points)
     m_junctions.emplace_back(mercator::ToLatLon(point), geometry::kDefaultAltitudeMeters);
+
+  m_distances.resize(count - 1, -1);
 }
 
 void RoadGeometry::Load(VehicleModelInterface const & vehicleModel, FeatureType & feature,
                         geometry::Altitudes const * altitudes, RoadAttrsGetter & attrs)
 {
-  CHECK(altitudes == nullptr || altitudes->size() == feature.GetPointsCount(), ());
+  size_t const count = feature.GetPointsCount();
+  CHECK(altitudes == nullptr || altitudes->size() == count, ());
 
   m_highwayType = vehicleModel.GetHighwayType(feature);
 
@@ -186,37 +194,66 @@ void RoadGeometry::Load(VehicleModelInterface const & vehicleModel, FeatureType 
   }
 
   m_junctions.clear();
-  m_junctions.reserve(feature.GetPointsCount());
-  for (size_t i = 0; i < feature.GetPointsCount(); ++i)
+  m_junctions.reserve(count);
+  for (size_t i = 0; i < count; ++i)
   {
-    m_junctions.emplace_back(mercator::ToLatLon(feature.GetPoint(i)),
-                             altitudes ? (*altitudes)[i] : geometry::kDefaultAltitudeMeters);
-  }
+    auto const ll = mercator::ToLatLon(feature.GetPoint(i));
+    m_junctions.emplace_back(ll, altitudes ? (*altitudes)[i] : geometry::kDefaultAltitudeMeters);
 
-  if (m_routingOptions.Has(RoutingOptions::Road::Ferry))
-  {
-    auto const roadLenKm = GetRoadLengthM() / 1000.0;
-    double const durationH = CalcFerryDurationHours(feature.GetMetadata(feature::Metadata::FMD_DURATION), roadLenKm);
-    CHECK(!base::AlmostEqualAbs(durationH, 0.0, 1e-5), (durationH));
-
-    if (roadLenKm != 0.0)
+#ifdef DEBUG
+    // I'd like to check these big jumps manually, if any.
+    if (altitudes && i > 0)
     {
-      m_forwardSpeed = m_backwardSpeed =
-          SpeedKMpH(std::min(vehicleModel.GetMaxWeightSpeed(), roadLenKm / durationH));
+      // Since we store integer altitudes, 1 is a possible error for 2 points.
+      geometry::Altitude constexpr kError = 1;
+
+      auto const altDiff = abs((*altitudes)[i] - (*altitudes)[i-1]);
+      if (altDiff > kError)
+      {
+        double const dist = ms::DistanceOnEarth(m_junctions[i-1].GetLatLon(), m_junctions[i].GetLatLon());
+        if ((altDiff - kError) / dist > 0.3)
+          LOG(LWARNING, ("Altitudes jump:", m_junctions[i-1], m_junctions[i]));
+      }
+    }
+#endif
+  }
+  m_distances.resize(count - 1, -1);
+
+  bool const isFerry = m_routingOptions.Has(RoutingOptions::Road::Ferry);
+  /// @todo Add RouteShuttleTrain into RoutingOptions?
+  if (isFerry || (m_highwayType && *m_highwayType == HighwayType::RouteShuttleTrain))
+  {
+    // Skip shuttle train calculation without duration.
+    auto const durationMeta = feature.GetMetadata(feature::Metadata::FMD_DURATION);
+    if (isFerry || !durationMeta.empty())
+    {
+      /// @todo Also process "interval" OSM tag (without additional boarding penalties).
+      // https://github.com/organicmaps/organicmaps/issues/3695
+
+      auto const roadLenKm = GetRoadLengthM() / 1000.0;
+      double const durationH = CalcFerryDurationHours(durationMeta, roadLenKm);
+      CHECK(!base::AlmostEqualAbs(durationH, 0.0, 1e-5), (durationH));
+
+      if (roadLenKm != 0.0)
+      {
+        double const speed = roadLenKm / durationH;
+        ASSERT_LESS_OR_EQUAL(speed, vehicleModel.GetMaxWeightSpeed(), (roadLenKm, durationH, fID));
+        m_forwardSpeed = m_backwardSpeed = SpeedKMpH(speed);
+      }
     }
   }
 
-  if (m_valid && (!m_forwardSpeed.IsValid() || !m_backwardSpeed.IsValid()))
+  if (m_valid)
   {
-    auto const & id = feature.GetID();
-    CHECK(!m_junctions.empty(), ("mwm:", id.GetMwmName(), ", featureId:", id.m_index));
-    auto const & begin = m_junctions.front().GetLatLon();
-    auto const & end = m_junctions.back().GetLatLon();
-    LOG(LERROR,
-        ("Invalid speed m_forwardSpeed:", m_forwardSpeed, "m_backwardSpeed:", m_backwardSpeed,
-         "mwm:", id.GetMwmName(), ", featureId:", id.m_index, ", begin:", begin, "end:", end));
-    m_valid = false;
+    ASSERT(m_forwardSpeed.IsValid() && m_backwardSpeed.IsValid(), (feature.DebugString()));
   }
+}
+
+double RoadGeometry::GetDistance(uint32_t idx) const
+{
+  if (m_distances[idx] < 0)
+    m_distances[idx] = ms::DistanceOnEarth(m_junctions[idx].GetLatLon(), m_junctions[idx + 1].GetLatLon());
+  return m_distances[idx];
 }
 
 SpeedKMpH const & RoadGeometry::GetSpeed(bool forward) const
@@ -226,10 +263,13 @@ SpeedKMpH const & RoadGeometry::GetSpeed(bool forward) const
 
 double RoadGeometry::GetRoadLengthM() const
 {
+  uint32_t const count = GetPointsCount();
   double lenM = 0.0;
-  for (size_t i = 1; i < GetPointsCount(); ++i)
+
+  if (count > 0)
   {
-    lenM += ms::DistanceOnEarth(m_junctions[i - 1].GetLatLon(), m_junctions[i].GetLatLon());
+    for (uint32_t i = 0; i < count - 1; ++i)
+      lenM += GetDistance(i);
   }
 
   return lenM;
@@ -237,7 +277,7 @@ double RoadGeometry::GetRoadLengthM() const
 
 // Geometry ----------------------------------------------------------------------------------------
 Geometry::Geometry(unique_ptr<GeometryLoader> loader, size_t roadsCacheSize)
-  : m_loader(move(loader))
+  : m_loader(std::move(loader))
 {
   CHECK(m_loader, ());
 

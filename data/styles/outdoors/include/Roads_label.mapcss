@@ -1,0 +1,13 @@
+/* Keep here changes of the base map style file only. */
+@import("../../clear/include/Roads_label.mapcss");
+
+
+/* 8.OTHERS ROADS 15-22 ZOOM */
+
+line|z13-[highway=track],
+line|z13-[highway=path],
+{text: name;text-color: @label_medium;text-halo-opacity: 0.8;text-halo-radius: 1;text-halo-color: @label_halo_light;}
+
+line|z13-15[highway=path],
+line|z13-15[highway=track],
+{font-size: 8;}

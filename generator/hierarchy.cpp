@@ -17,15 +17,12 @@
 #include <limits>
 #include <numeric>
 
-#pragma clang diagnostic push
-#pragma clang diagnostic ignored "-Wcomma"
-#include <boost/geometry.hpp>
-#pragma clang diagnostic pop
+#include "std/boost_geometry.hpp"
 #include <boost/geometry/geometries/register/point.hpp>
 #include <boost/geometry/geometries/register/ring.hpp>
 
-BOOST_GEOMETRY_REGISTER_POINT_2D(m2::PointD, double, boost::geometry::cs::cartesian, x, y);
-BOOST_GEOMETRY_REGISTER_RING(std::vector<m2::PointD>);
+BOOST_GEOMETRY_REGISTER_POINT_2D(m2::PointD, double, boost::geometry::cs::cartesian, x, y)
+BOOST_GEOMETRY_REGISTER_RING(std::vector<m2::PointD>)
 
 namespace generator
 {

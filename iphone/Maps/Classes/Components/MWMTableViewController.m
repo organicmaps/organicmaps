@@ -19,6 +19,27 @@
   return NO;
 }
 
+- (void)tableView:(UITableView *)tableView willDisplayHeaderView:(UIView *)view forSection:(NSInteger)section
+{
+  [self fixHeaderAndFooterFontsInDarkMode:view];
+}
+
+- (void)tableView:(UITableView *)tableView willDisplayFooterView:(UIView *)view forSection:(NSInteger)section
+{
+  [self fixHeaderAndFooterFontsInDarkMode:view];
+}
+
+// Fix table section header font color for all tables, including Setting and Route Options.
+- (void)fixHeaderAndFooterFontsInDarkMode:(UIView*)headerView {
+  if ([headerView isKindOfClass: [UITableViewHeaderFooterView class]]) {
+    UITableViewHeaderFooterView* header = (UITableViewHeaderFooterView *)headerView;
+    header.textLabel.textColor = [UIColor blackSecondaryText];
+    if (self.tableView.style == UITableViewStyleGrouped) {
+      header.detailTextLabel.textColor = [UIColor blackSecondaryText];
+    }
+  }
+}
+
 - (void)viewDidLoad
 {
   [super viewDidLoad];

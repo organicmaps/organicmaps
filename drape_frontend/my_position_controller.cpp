@@ -7,21 +7,17 @@
 #include "drape_frontend/user_event_stream.hpp"
 #include "drape_frontend/visual_params.hpp"
 
-#include "indexer/scales.hpp"
-
 #include "geometry/mercator.hpp"
-
-#include "base/math.hpp"
 
 #include "platform/measurement_utils.hpp"
 
+#include "base/math.hpp"
 
 #include <algorithm>
 #include <array>
 #include <chrono>
 #include <string>
 #include <vector>
-#include <utility>
 
 namespace df
 {
@@ -31,7 +27,7 @@ int const kPositionRoutingOffsetY = 104;
 double const kMinSpeedThresholdMps = 2.8;  // 10 km/h
 double const kGpsBearingLifetimeSec = 5.0;
 double const kMaxPendingLocationTimeSec = 60.0;
-double const kMaxTimeInBackgroundSec = 60.0 * 60 * 8;  // 8 hours
+double const kMaxTimeInBackgroundSec = 60.0 * 60 * 30;  // 30 hours before starting detecting position again
 double const kMaxNotFollowRoutingTimeSec = 20.0;
 double const kMaxUpdateLocationInvervalSec = 30.0;
 double const kMaxBlockAutoZoomTimeSec = 10.0;
@@ -41,7 +37,7 @@ int const kMaxScaleZoomLevel = 16;
 int const kDefaultAutoZoom = 16;
 double const kUnknownAutoZoom = -1.0;
 
-int GetZoomLevel(ScreenBase const & screen)
+inline int GetZoomLevel(ScreenBase const & screen)
 {
   return static_cast<int>(df::GetZoomLevel(screen.GetScale()));
 }
@@ -52,6 +48,11 @@ int GetZoomLevel(ScreenBase const & screen, m2::PointD const & position, double 
   m2::PointD const size(errorRadius, errorRadius);
   s.SetFromRect(m2::AnyRectD(position, ang::Angle<double>(screen.GetAngle()), m2::RectD(position - size, position + size)));
   return GetZoomLevel(s);
+}
+
+inline double GetVisualScale()
+{
+  return df::VisualParams::Instance().GetVisualScale();
 }
 
 // Calculate zoom value in meters per pixel
@@ -86,7 +87,7 @@ double CalculateZoomBySpeed(double speedMpS, bool isPerspectiveAllowed)
     if (scales[i].first >= speedKmpH)
       break;
 
-  double const vs = df::VisualParams::Instance().GetVisualScale();
+  double const vs = GetVisualScale();
 
   if (i == 0)
     return scales.front().second / vs;
@@ -134,7 +135,7 @@ MyPositionController::MyPositionController(Params && params, ref_ptr<DrapeNotifi
   , m_autoScale3d(m_autoScale2d)
   , m_lastGPSBearingTimer(false)
   , m_lastLocationTimestamp(0.0)
-  , m_positionRoutingOffsetY(kPositionRoutingOffsetY)
+  , m_positionRoutingOffsetY(kPositionRoutingOffsetY * GetVisualScale())
   , m_isDirtyViewport(false)
   , m_isDirtyAutoZoom(false)
   , m_isPendingAnimation(false)
@@ -151,13 +152,13 @@ MyPositionController::MyPositionController(Params && params, ref_ptr<DrapeNotifi
   using namespace location;
 
   m_mode = PendingPosition;
-  if (m_hints.m_isFirstLaunch)
-  {
-    m_desiredInitMode = Follow;
-  }
-  else if (m_hints.m_isLaunchByDeepLink)
+  if (m_hints.m_isLaunchByDeepLink)
   {
     m_desiredInitMode = NotFollow;
+  }
+  else if (m_hints.m_isFirstLaunch)
+  {
+    m_desiredInitMode = Follow;
   }
   else if (params.m_timeInBackground >= kMaxTimeInBackgroundSec)
   {
@@ -168,7 +169,7 @@ MyPositionController::MyPositionController(Params && params, ref_ptr<DrapeNotifi
     m_desiredInitMode = params.m_initMode;
 
     // Do not start position if we ended previous session without it.
-    if (!params.m_isRoutingActive && m_desiredInitMode == NotFollowNoPosition)
+    if (!m_isInRouting && m_desiredInitMode == NotFollowNoPosition)
       m_mode = NotFollowNoPosition;
   }
 
@@ -187,10 +188,10 @@ void MyPositionController::OnUpdateScreen(ScreenBase const & screen)
 {
   m_pixelRect = screen.PixelRectIn3d();
   if (m_visiblePixelRect.IsEmptyInterior())
-    m_visiblePixelRect = m_pixelRect;
+    SetVisibleViewport(m_pixelRect);
 }
 
-void MyPositionController::SetVisibleViewport(const m2::RectD &rect)
+void MyPositionController::SetVisibleViewport(m2::RectD const & rect)
 {
   m_visiblePixelRect = rect;
 }
@@ -228,9 +229,6 @@ bool MyPositionController::IsModeHasPosition() const
 void MyPositionController::DragStarted()
 {
   m_needBlockAnimation = true;
-
-  if (m_mode == location::PendingPosition)
-    ChangeMode(location::NotFollowNoPosition);
 }
 
 void MyPositionController::DragEnded(m2::PointD const & distance)
@@ -247,9 +245,6 @@ void MyPositionController::ScaleStarted()
 {
   m_needBlockAnimation = true;
   ResetBlockAutoZoomTimer();
-
-  if (m_mode == location::PendingPosition)
-    ChangeMode(location::NotFollowNoPosition);
 }
 
 void MyPositionController::ScaleEnded()
@@ -267,10 +262,19 @@ void MyPositionController::ScaleEnded()
 
 void MyPositionController::Rotated()
 {
-  if (m_mode == location::PendingPosition)
-    ChangeMode(location::NotFollowNoPosition);
-  else if (m_mode == location::FollowAndRotate)
+  if (m_mode == location::FollowAndRotate)
     m_wasRotationInScaling = true;
+}
+
+void MyPositionController::Scrolled(m2::PointD const & distance)
+{
+  if (m_mode == location::PendingPosition)
+    return;
+
+  if (distance.Length() > 0)
+    StopLocationFollow();
+
+  UpdateViewport(kDoNotChangeZoom);
 }
 
 void MyPositionController::ResetRoutingNotFollowTimer(bool blockTimer)
@@ -317,10 +321,15 @@ void MyPositionController::CorrectGlobalScalePoint(m2::PointD & pt) const
 
 void MyPositionController::SetRenderShape(ref_ptr<dp::GraphicsContext> context,
                                           ref_ptr<dp::TextureManager> texMng,
-                                          drape_ptr<MyPosition> && shape)
+                                          drape_ptr<MyPosition> && shape,
+                                          Arrow3d::PreloadedData && preloadedData)
 {
   m_shape = std::move(shape);
-  m_shape->InitArrow(context, texMng);
+  if (!m_shape->InitArrow(context, texMng, std::move(preloadedData)))
+  {
+    m_shape.reset();
+    LOG(LERROR, ("Invalid Arrow3D mesh."));
+  }
 }
 
 void MyPositionController::ResetRenderShape()
@@ -340,7 +349,6 @@ void MyPositionController::NextMode(ScreenBase const & screen)
   // Start looking for location.
   if (m_mode == location::NotFollowNoPosition)
   {
-    ResetNotification(m_locationWaitingNotifyId);
     ChangeMode(location::PendingPosition);
 
     if (!m_isPositionAssigned)
@@ -433,31 +441,14 @@ void MyPositionController::OnLocationUpdate(location::GpsInfo const & info, bool
     m_isDirtyViewport = true;
   }
 
-  using namespace std::chrono;
-  auto const delta =
-    duration_cast<seconds>(system_clock::now().time_since_epoch()).count() - info.m_timestamp;
-  if (delta >= kMaxUpdateLocationInvervalSec)
-  {
-    m_positionIsObsolete = true;
-    m_autoScale2d = m_autoScale3d = kUnknownAutoZoom;
-  }
-  else
-  {
-    m_positionIsObsolete = false;
-  }
+  // Assume that every new position is fresh enough. We can't make some straightforward filtering here
+  // like comparing system_clock::now().time_since_epoch() and info.m_timestamp, because can't rely
+  // on valid time settings on endpoint device.
+  m_positionIsObsolete = false;
 
   if (!m_isPositionAssigned)
   {
-    // If the position was never assigned, the new mode will be the desired one except next cases:
     location::EMyPositionMode newMode = m_desiredInitMode;
-    if (m_mode == location::NotFollowNoPosition)
-    {
-      // We touch the map during the PendingPosition mode and current mode was converted into NotFollowNoPosition.
-      // New mode will be NotFollow to prevent spontaneous map snapping.
-      ResetRoutingNotFollowTimer();
-      newMode = location::NotFollow;
-    }
-
     ChangeMode(newMode);
 
     if (!m_hints.m_isFirstLaunch || !AnimationSystem::Instance().AnimationExists(Animation::Object::MapPlane))
@@ -522,8 +513,7 @@ void MyPositionController::OnLocationUpdate(location::GpsInfo const & info, bool
   if (m_listener != nullptr)
     m_listener->PositionChanged(Position(), IsModeHasPosition());
 
-  double const kEps = 1e-5;
-  if (fabs(m_lastLocationTimestamp - info.m_timestamp) > kEps)
+  if (fabs(m_lastLocationTimestamp - info.m_timestamp) > 1.0E-5)
   {
     m_lastLocationTimestamp = info.m_timestamp;
     m_updateLocationTimer.Reset();
@@ -533,18 +523,12 @@ void MyPositionController::OnLocationUpdate(location::GpsInfo const & info, bool
 
 void MyPositionController::LoseLocation()
 {
-  if (!IsModeHasPosition())
+  if (m_mode == location::NotFollowNoPosition)
     return;
-
-  if (m_mode == location::Follow || m_mode == location::FollowAndRotate)
-  {
-    ResetNotification(m_locationWaitingNotifyId);
+  else if (m_mode == location::Follow || m_mode == location::FollowAndRotate)
     ChangeMode(location::PendingPosition);
-  }
   else
-  {
     ChangeMode(location::NotFollowNoPosition);
-  }
 
   if (m_listener != nullptr)
     m_listener->PositionChanged(Position(), false /* hasPosition */);
@@ -571,7 +555,7 @@ void MyPositionController::OnCompassUpdate(location::CompassInfo const & info, S
 
 bool MyPositionController::UpdateViewportWithAutoZoom()
 {
-  double autoScale = m_enablePerspectiveInRouting ? m_autoScale3d : m_autoScale2d;
+  double const autoScale = m_enablePerspectiveInRouting ? m_autoScale3d : m_autoScale2d;
   if (autoScale > 0.0 && m_mode == location::FollowAndRotate &&
       m_isInRouting && m_enableAutoZoomInRouting && !m_needBlockAutoZoom)
   {
@@ -603,6 +587,8 @@ void MyPositionController::Render(ref_ptr<dp::GraphicsContext> context, ref_ptr<
     if (!IsModeChangeViewport())
       m_isPendingAnimation = false;
 
+    /// @todo Put under !m_hints.m_screenshotMode?
+    /// Why do we have 6 modifiers (and 6 variables inside), if better to make 1 function m_shape->Render(Params)?
     m_shape->SetPositionObsolete(m_positionIsObsolete);
     m_shape->SetPosition(m2::PointF(GetDrawablePosition()));
     m_shape->SetAzimuth(static_cast<float>(GetDrawableAzimut()));
@@ -648,10 +634,11 @@ void MyPositionController::ChangeMode(location::EMyPositionMode newMode)
 
   if (newMode == location::PendingPosition)
   {
+    ResetNotification(m_locationWaitingNotifyId);
     m_pendingTimer.Reset();
     m_pendingStarted = true;
   }
-  else if (newMode != location::NotFollowNoPosition)
+  else
   {
     m_pendingStarted = false;
   }
@@ -678,9 +665,6 @@ void MyPositionController::StopLocationFollow()
     ChangeMode(location::NotFollow);
   m_desiredInitMode = location::NotFollow;
 
-  if (m_mode == location::PendingPosition)
-    ChangeMode(location::NotFollowNoPosition);
-
   ResetRoutingNotFollowTimer();
 }
 
@@ -695,8 +679,6 @@ void MyPositionController::OnEnterForeground(double backgroundTime)
 
 void MyPositionController::OnEnterBackground()
 {
-  if (!m_isInRouting && !df::IsModeChangeViewport(m_mode))
-    ChangeMode(location::NotFollowNoPosition);
 }
 
 void MyPositionController::OnCompassTapped()
@@ -780,13 +762,13 @@ m2::PointD MyPositionController::GetRotationPixelCenter() const
 
 m2::PointD MyPositionController::GetRoutingRotationPixelCenter() const
 {
-  return {m_visiblePixelRect.Center().x,
-          m_visiblePixelRect.maxY() - m_positionRoutingOffsetY * VisualParams::Instance().GetVisualScale()};
+  return { m_visiblePixelRect.Center().x, m_visiblePixelRect.maxY() - m_positionRoutingOffsetY };
 }
 
 void MyPositionController::UpdateRoutingOffsetY(bool useDefault, int offsetY)
 {
-  m_positionRoutingOffsetY = useDefault ? kPositionRoutingOffsetY : offsetY + Arrow3d::GetMaxBottomSize();
+  double const vs = GetVisualScale();
+  m_positionRoutingOffsetY = useDefault ? kPositionRoutingOffsetY * vs : offsetY + Arrow3d::GetMaxBottomSize() * vs;
 }
 
 m2::PointD MyPositionController::GetDrawablePosition()
@@ -916,13 +898,12 @@ void MyPositionController::DeactivateRouting()
 
 void MyPositionController::CheckIsWaitingForLocation()
 {
-  if (IsWaitingForLocation() || m_mode == location::NotFollowNoPosition)
+  if (IsWaitingForLocation())
   {
     CHECK_ON_TIMEOUT(m_locationWaitingNotifyId, kMaxPendingLocationTimeSec, CheckIsWaitingForLocation);
     if (m_pendingStarted && m_pendingTimer.ElapsedSeconds() >= kMaxPendingLocationTimeSec)
     {
       m_pendingStarted = false;
-      ChangeMode(location::NotFollowNoPosition);
       if (m_listener)
         m_listener->PositionPendingTimeout();
     }

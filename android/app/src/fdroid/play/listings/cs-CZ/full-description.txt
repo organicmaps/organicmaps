@@ -1,0 +1,10 @@
+Organic Maps je navigační aplikace s ochranou soukromí pro řidiče, turisty a cyklisty. Aplikace má navigaci s ochranou soukromí - žádné sledování polohy, neshromažďuje data a nemá reklamy. Vyhledávání, směrování a navigace fungují bez mobilního signálu, což je ideální pro cestování na vzdálených turistických trasách nebo místech se špatným připojením. Aplikace Organic Maps využívá data OpenStreetMap, na jejichž tvorbě se podílejí davy přispěvatelů z celého světa. Projekt je řízen komunitou, kód je open-source a upřednostňuje komunitní rozvoj a spolupráci.
+
+• Není nutný mobilní signál - vyhledávání a trasování bez signálu
+• Efektivní využití baterie - menší vybíjení baterie
+• Rychlé vyhledávání - rychlé vyhledávání míst
+
+V Organic Maps si ceníme soukromí:
+• Žádné sledování polohy
+• Žádné shromažďování dat
+• Žádné reklamy

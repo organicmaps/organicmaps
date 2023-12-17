@@ -38,7 +38,7 @@
 - (NSString *)configuredHtmlWithText:(NSString *)htmlText {
   NSString *html = [htmlText stringByReplacingOccurrencesOfString:@"<body>"
                                                        withString:@"<body><font face=\"helvetica\" size=\"14pt\">"];
-  html = [htmlText stringByReplacingOccurrencesOfString:@"</body>" withString:@"</font></body>"];
+  html = [html stringByReplacingOccurrencesOfString:@"</body>" withString:@"</font></body>"];
   return html;
 }
 

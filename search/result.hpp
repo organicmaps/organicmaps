@@ -10,6 +10,7 @@
 #include "geometry/point2d.hpp"
 
 #include "base/assert.hpp"
+#include "base/checked_cast.hpp"
 #include "base/buffer_vector.hpp"
 
 #include <algorithm>
@@ -65,6 +66,8 @@ public:
     uint16_t m_minutesUntilOpen = 0;
 
     uint16_t m_minutesUntilClosed = 0;
+      
+    std::string m_fee;
 
     bool m_isInitialized = false;
   };
@@ -72,15 +75,11 @@ public:
   // Min distance to search result when popularity label has a higher priority (in meters).
   static auto constexpr kPopularityHighPriorityMinDistance = 50000.0;
 
-  // For Type::Feature.
-  Result(FeatureID const & id, m2::PointD const & pt, std::string && str,
-         std::string && address, uint32_t featureType, Details && meta);
+  Result(m2::PointD const & pt, std::string const & name) : m_center(pt), m_str(name) {}
+  void FromFeature(FeatureID const & id, uint32_t featureType, Details const & details);
 
-  // For Type::LatLon.
-  Result(m2::PointD const & pt, std::string && latlon, std::string && address);
-
-  // For Type::Postcode.
-  Result(m2::PointD const & pt, std::string && postcode);
+  void SetAddress(std::string && address) { m_address = std::move(address); }
+  void SetType(Result::Type type) { m_resultType = type; }
 
   // For Type::PureSuggest.
   Result(std::string str, std::string && suggest);
@@ -96,6 +95,7 @@ public:
   std::string const & GetAirportIata() const { return m_details.m_airportIata; }
   std::string const & GetBrand() const { return m_details.m_brand; }
   std::string const & GetRoadShields() const { return m_details.m_roadShields; }
+  std::string const & GetFee() const { return m_details.m_fee; }
   bool IsHotel() const { return m_details.m_isHotel; }
 
   osm::YesNoUnknown IsOpenNow() const { return m_details.m_isOpenNow; }
@@ -189,7 +189,6 @@ std::string DebugPrint(search::Result::Type type);
 class Results
 {
 public:
-  using Iter = std::vector<Result>::iterator;
   using ConstIter = std::vector<Result>::const_iterator;
 
   enum class Type
@@ -209,30 +208,22 @@ public:
     m_status = cancelled ? Status::EndedCancelled : Status::EndedNormal;
   }
 
+  // Used for results in the list.
   bool AddResult(Result && result);
 
-  // Fast version of AddResult() that doesn't do any checks for
-  // duplicates.
+  // Fast version of AddResult() that doesn't do any checks for duplicates.
+  // Used for results in the viewport.
   void AddResultNoChecks(Result && result);
-  void AddResultsNoChecks(ConstIter first, ConstIter last);
 
   void AddBookmarkResult(bookmarks::Result const & result);
 
   void Clear();
 
-  Iter begin() { return m_results.begin(); }
-  Iter end() { return m_results.end(); }
   ConstIter begin() const { return m_results.cbegin(); }
   ConstIter end() const { return m_results.cend(); }
 
   size_t GetCount() const { return m_results.size(); }
   size_t GetSuggestsCount() const;
-
-  Result & operator[](size_t i)
-  {
-    ASSERT_LESS(i, m_results.size(), ());
-    return m_results[i];
-  }
 
   Result const & operator[](size_t i) const
   {
@@ -242,12 +233,13 @@ public:
 
   bookmarks::Results const & GetBookmarksResults() const;
 
+  /// @deprecated Fucntion is obsolete (used in tests) and doesn't take into account bookmarks.
   template <typename Fn>
   void SortBy(Fn && comparator)
   {
-    std::sort(begin(), end(), std::forward<Fn>(comparator));
-    for (int32_t i = 0; i < static_cast<int32_t>(GetCount()); ++i)
-      operator[](i).SetPositionInResults(i);
+    std::sort(m_results.begin(), m_results.end(), comparator);
+    for (size_t i = 0; i < m_results.size(); ++i)
+      m_results[i].SetPositionInResults(base::asserted_cast<uint32_t>(i));
   }
 
 private:

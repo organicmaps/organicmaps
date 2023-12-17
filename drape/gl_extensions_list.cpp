@@ -37,6 +37,11 @@ void GLExtensionsList::Init(dp::ApiVersion apiVersion)
     SetExtension(VertexArrayObject, true);
     SetExtension(UintIndices, true);
   }
+#elif defined(OMIM_OS_LINUX)
+  SetExtension(MapBuffer, true);
+  SetExtension(UintIndices, true);
+  SetExtension(VertexArrayObject, true);
+  SetExtension(MapBufferRange, true);
 #elif defined(OMIM_OS_WINDOWS)
   SetExtension(MapBuffer, true);
   SetExtension(UintIndices, true);

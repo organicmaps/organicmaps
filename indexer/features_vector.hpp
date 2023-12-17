@@ -1,6 +1,5 @@
 #pragma once
 
-#include "indexer/dat_section_header.hpp"
 #include "indexer/feature.hpp"
 #include "indexer/metadata_serdes.hpp"
 #include "indexer/shared_load_info.hpp"
@@ -21,7 +20,8 @@ class FeaturesVector
 
 public:
   FeaturesVector(FilesContainerR const & cont, feature::DataHeader const & header,
-                 feature::FeaturesOffsetsTable const * table);
+                 feature::FeaturesOffsetsTable const * table,
+                 indexer::MetadataDeserializer * metaDeserializer);
 
   std::unique_ptr<FeatureType> GetByIndex(uint32_t index) const;
 
@@ -32,7 +32,7 @@ public:
     uint32_t index = 0;
     m_recordReader->ForEachRecord([&](uint32_t pos, std::vector<uint8_t> && data)
     {
-      FeatureType ft(&m_loadInfo, std::move(data), m_metaDeserializer.get());
+      FeatureType ft(&m_loadInfo, std::move(data), m_metaDeserializer);
 
       // We can't properly set MwmId here, because FeaturesVector
       // works with FileContainerR, not with MwmId/MwmHandle/MwmValue.
@@ -68,14 +68,14 @@ private:
   feature::SharedLoadInfo m_loadInfo;
   std::unique_ptr<RecordReader> m_recordReader;
   feature::FeaturesOffsetsTable const * m_table;
-  std::unique_ptr<indexer::MetadataDeserializer> m_metaDeserializer;
+  indexer::MetadataDeserializer * m_metaDeserializer;
 };
 
 /// Test features vector (reader) that combines all the needed data for stand-alone work.
 /// Used in generator_tool and unit tests.
 class FeaturesVectorTest
 {
-  DISALLOW_COPY(FeaturesVectorTest);
+  DISALLOW_COPY_AND_MOVE(FeaturesVectorTest);
 
   FilesContainerR m_cont;
   feature::DataHeader m_header;

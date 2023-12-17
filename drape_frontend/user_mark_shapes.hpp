@@ -66,7 +66,7 @@ struct UserLineRenderParams
   int m_minZoom = 1;
   DepthLayer m_depthLayer = DepthLayer::UserLineLayer;
   std::vector<LineLayer> m_layers;
-  m2::SharedSpline m_spline;
+  std::vector<m2::SharedSpline> m_splines;
 };
 
 using UserMarksRenderCollection = std::unordered_map<kml::MarkId, drape_ptr<UserMarkRenderParams>>;
@@ -77,7 +77,7 @@ struct UserMarkRenderData
   UserMarkRenderData(dp::RenderState const & state,
                      drape_ptr<dp::RenderBucket> && bucket,
                      TileKey const & tileKey)
-    : m_state(state), m_bucket(move(bucket)), m_tileKey(tileKey)
+    : m_state(state), m_bucket(std::move(bucket)), m_tileKey(tileKey)
   {}
 
   dp::RenderState m_state;

@@ -636,7 +636,7 @@
 		6753416F1A3F57BF00A0A8C3 /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
-				LastUpgradeCheck = 1400;
+				LastUpgradeCheck = 1410;
 				TargetAttributes = {
 					39FD27061CC65A7100AFF551 = {
 						CreatedOnToolsVersion = 7.2.1;
@@ -800,7 +800,6 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 34BA2D6A1DBE169E00FAB345 /* common-debug.xcconfig */;
 			buildSettings = {
-				GCC_PREFIX_HEADER = "$(OMIM_ROOT)/precompiled_headers.hpp";
 			};
 			name = Debug;
 		};
@@ -808,7 +807,6 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 34BA2D6B1DBE169E00FAB345 /* common-release.xcconfig */;
 			buildSettings = {
-				GCC_PREFIX_HEADER = "$(OMIM_ROOT)/precompiled_headers.hpp";
 			};
 			name = Release;
 		};
@@ -816,6 +814,10 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				EXECUTABLE_PREFIX = lib;
+				HEADER_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(OMIM_ROOT)/3party/fast_double_parser/include",
+				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
 			name = Debug;
@@ -824,6 +826,10 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				EXECUTABLE_PREFIX = lib;
+				HEADER_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(OMIM_ROOT)/3party/fast_double_parser/include",
+				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
 			name = Release;

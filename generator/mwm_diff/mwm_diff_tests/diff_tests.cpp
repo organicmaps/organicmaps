@@ -4,7 +4,6 @@
 
 #include "platform/platform.hpp"
 
-#include "coding/file_reader.hpp"
 #include "coding/file_writer.hpp"
 #include "coding/internal/file_data.hpp"
 
@@ -12,16 +11,12 @@
 #include "base/logging.hpp"
 #include "base/scope_guard.hpp"
 
-#include <cstdint>
-#include <string>
 #include <vector>
 
-namespace generator
-{
-namespace diff_tests
+namespace generator::diff_tests
 {
 using namespace mwm_diff;
-using namespace std;
+using std::string, std::vector;
 
 UNIT_TEST(IncrementalUpdates_Smoke)
 {
@@ -50,7 +45,7 @@ UNIT_TEST(IncrementalUpdates_Smoke)
 
   {
     // Alter the old mwm slightly.
-    vector<uint8_t> oldMwmContents = FileReader(oldMwmPath).ReadAsBytes();
+    vector<uint8_t> oldMwmContents = base::ReadFile(oldMwmPath);
     size_t const sz = oldMwmContents.size();
     for (size_t i = 3 * sz / 10; i < 4 * sz / 10; i++)
       oldMwmContents[i] += static_cast<uint8_t>(i);
@@ -72,7 +67,7 @@ UNIT_TEST(IncrementalUpdates_Smoke)
 
   {
     // Corrupt the diff file contents.
-    vector<uint8_t> diffContents = FileReader(diffPath).ReadAsBytes();
+    vector<uint8_t> diffContents = base::ReadFile(diffPath);
 
     // Leave the version bits intact.
     for (size_t i = 4; i < diffContents.size(); i += 2)
@@ -93,5 +88,4 @@ UNIT_TEST(IncrementalUpdates_Smoke)
   TEST_EQUAL(ApplyDiff(oldMwmPath, newMwmPath2, diffPath, cancellable),
              DiffApplicationResult::Failed, ());
 }
-}  // namespace diff_tests
-}  // namespace generator
+}  // namespace generator::diff_tests

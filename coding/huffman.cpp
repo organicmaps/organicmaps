@@ -5,8 +5,6 @@
 #include <queue>
 #include <utility>
 
-using namespace std;
-
 namespace coding
 {
 HuffmanCoder::~HuffmanCoder()
@@ -66,7 +64,7 @@ void HuffmanCoder::DeleteHuffmanTree(Node * root)
 
 void HuffmanCoder::BuildHuffmanTree(Freqs const & freqs)
 {
-  priority_queue<Node *, vector<Node *>, NodeComparator> pq;
+  std::priority_queue<Node *, std::vector<Node *>, NodeComparator> pq;
   for (auto const & e : freqs.GetTable())
     pq.push(new Node(e.first, e.second, true /* isLeaf */));
 
@@ -83,7 +81,7 @@ void HuffmanCoder::BuildHuffmanTree(Freqs const & freqs)
     auto b = pq.top();
     pq.pop();
     if (a->symbol > b->symbol)
-      swap(a, b);
+      std::swap(a, b);
     // Give it the smaller symbol to make the resulting encoding more predictable.
     auto ab = new Node(a->symbol, a->freq + b->freq, false /* isLeaf */);
     ab->l = a;

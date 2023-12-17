@@ -91,7 +91,7 @@ namespace track_analyzing
 {
 LogParser::LogParser(shared_ptr<routing::NumMwmIds> numMwmIds,
                      unique_ptr<m4::Tree<routing::NumMwmId>> mwmTree, string const & dataDir)
-  : m_numMwmIds(move(numMwmIds)), m_mwmTree(move(mwmTree)), m_dataDir(dataDir)
+  : m_numMwmIds(std::move(numMwmIds)), m_mwmTree(std::move(mwmTree)), m_dataDir(dataDir)
 {
   CHECK(m_numMwmIds, ());
   CHECK(m_mwmTree, ());

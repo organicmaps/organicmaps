@@ -32,17 +32,6 @@ public:
 
   enum class HouseToStreetTableFormat
   {
-    // An array of elements where i-th element is an index of a street
-    // in a vector returned by ReverseGeocoder::GetNearbyStreets() for
-    // the i-th feature.  Each element normally fits into 3 bits, but
-    // there can be exceptions, and these exceptions are stored in a
-    // separate table. See ReverseGeocoder and FixedBitsDDVector for
-    // details.
-    Fixed3BitsDDVector,
-
-    // Elias-Fano based map from feature id to corresponding street feature id.
-    EliasFanoMap,
-
     // Versioning is independent of MwmTraits: section format depends on the section header.
     HouseToStreetTableWithHeader,
 

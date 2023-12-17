@@ -11,6 +11,8 @@ set(shader_files
     GL/arrow3d_outline.fsh.glsl
     GL/arrow3d_shadow.fsh.glsl
     GL/arrow3d_shadow.vsh.glsl
+    GL/arrow3d_textured.fsh.glsl
+    GL/arrow3d_textured.vsh.glsl
     GL/circle.fsh.glsl
     GL/circle.vsh.glsl
     GL/circle_point.fsh.glsl
@@ -141,7 +143,7 @@ if (PLATFORM_IPHONE)
 endif()
 
 # Do not include glm's CMakeLists.txt, because it's outdated and not necessary.
-target_include_directories(${PROJECT_NAME} PUBLIC ${OMIM_ROOT}/3party/glm)
+target_include_directories(${PROJECT_NAME} PUBLIC ${OMIM_ROOT}/3party/glm ${OMIM_ROOT}/3party/utf8cpp/include)
 
 target_link_libraries(${PROJECT_NAME} drape)
 

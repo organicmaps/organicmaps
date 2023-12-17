@@ -2,7 +2,6 @@
 
 #include "routing/geometry.hpp"
 #include "routing/latlon_with_altitude.hpp"
-#include "routing/routing_exceptions.hpp"
 #include "routing/routing_helpers.hpp"
 #include "routing/traffic_stash.hpp"
 
@@ -18,7 +17,6 @@
 
 namespace routing
 {
-using namespace routing;
 using namespace std;
 using namespace traffic;
 using measurement_utils::KmphToMps;
@@ -29,7 +27,7 @@ geometry::Altitude constexpr kMountainSicknessAltitudeM = 2500;
 
 double TimeBetweenSec(ms::LatLon const & from, ms::LatLon const & to, double speedMpS)
 {
-  CHECK_GREATER(speedMpS, 0.0, ("from:", from, "to:", to));
+  ASSERT_GREATER(speedMpS, 0.0, ("from:", from, "to:", to));
 
   double const distanceM = ms::DistanceOnEarth(from, to);
   return distanceM / speedMpS;
@@ -44,75 +42,126 @@ double CalcTrafficFactor(SpeedGroup speedGroup)
   }
 
   double const percentage = 0.01 * kSpeedGroupThresholdPercentage[static_cast<size_t>(speedGroup)];
-  CHECK_GREATER(percentage, 0.0, (speedGroup));
+  ASSERT_GREATER(percentage, 0.0, (speedGroup));
   return 1.0 / percentage;
 }
 
-template <typename GetClimbPenalty>
-double CalcClimbSegment(EdgeEstimator::Purpose purpose, Segment const & segment,
-                        RoadGeometry const & road, GetClimbPenalty && getClimbPenalty)
+double GetSpeedMpS(EdgeEstimator::Purpose purpose, Segment const & segment, RoadGeometry const & road)
 {
-  LatLonWithAltitude const & from = road.GetJunction(segment.GetPointId(false /* front */));
-  LatLonWithAltitude const & to = road.GetJunction(segment.GetPointId(true /* front */));
   SpeedKMpH const & speed = road.GetSpeed(segment.IsForward());
+  double const speedMpS = KmphToMps(purpose == EdgeEstimator::Purpose::Weight ? speed.m_weight : speed.m_eta);
+  ASSERT_GREATER(speedMpS, 0.0, (segment));
+  return speedMpS;
+}
 
-  double const distance = ms::DistanceOnEarth(from.GetLatLon(), to.GetLatLon());
-  double const speedMpS =
-      KmphToMps(purpose == EdgeEstimator::Purpose::Weight ? speed.m_weight : speed.m_eta);
-  CHECK_GREATER(speedMpS, 0.0, ("from:", from.GetLatLon(), "to:", to.GetLatLon(), "speed:", speed));
-  double const timeSec = distance / speedMpS;
+bool IsTransit(std::optional<HighwayType> type)
+{
+  return type && (type == HighwayType::RouteFerry || type == HighwayType::RouteShuttleTrain);
+}
 
-  if (base::AlmostEqualAbs(distance, 0.0, 0.1))
-    return timeSec;
+template <class CalcSpeed>
+double CalcClimbSegment(EdgeEstimator::Purpose purpose, Segment const & segment,
+                        RoadGeometry const & road, CalcSpeed && calcSpeed)
+{
+  double const distance = road.GetDistance(segment.GetSegmentIdx());
+  double speedMpS = GetSpeedMpS(purpose, segment, road);
 
-  double const altitudeDiff =
-      static_cast<double>(to.GetAltitude()) - static_cast<double>(from.GetAltitude());
-  return timeSec * getClimbPenalty(purpose, altitudeDiff / distance, to.GetAltitude());
+  static double constexpr kSmallDistanceM = 1;   // we have altitude threshold is 0.5m
+  if (distance > kSmallDistanceM && !IsTransit(road.GetHighwayType()))
+  {
+    LatLonWithAltitude const & from = road.GetJunction(segment.GetPointId(false /* front */));
+    LatLonWithAltitude const & to = road.GetJunction(segment.GetPointId(true /* front */));
+
+    ASSERT(to.GetAltitude() != geometry::kInvalidAltitude && from.GetAltitude() != geometry::kInvalidAltitude, ());
+    auto const altitudeDiff = to.GetAltitude() - from.GetAltitude();
+
+    if (altitudeDiff != 0)
+    {
+      speedMpS = calcSpeed(speedMpS, altitudeDiff / distance, to.GetAltitude());
+      ASSERT_GREATER(speedMpS, 0.0, (segment));
+    }
+  }
+
+  return distance / speedMpS;
 }
 }  // namespace
 
-double GetPedestrianClimbPenalty(EdgeEstimator::Purpose purpose, double tangent,
-                                 geometry::Altitude altitudeM)
+double GetPedestrianClimbPenalty(EdgeEstimator::Purpose purpose, double tangent, geometry::Altitude altitudeM)
 {
   double constexpr kMinPenalty = 1.0;
   // Descent penalty is less then the ascent penalty.
   double const impact = tangent >= 0.0 ? 1.0 : 0.35;
-  tangent = std::abs(tangent);
 
   if (altitudeM >= kMountainSicknessAltitudeM)
+    return kMinPenalty + (10.0 + (altitudeM - kMountainSicknessAltitudeM) * 10.0 / 1500.0) * fabs(tangent) * impact;
+
+  // Use magic constant from this table: https://en.wikipedia.org/wiki/Tobler's_hiking_function#Sample_values
+  // Tobler's returns unusually big values for bigger tangent.
+  // See Australia_Mountains_Downlhill test.
+  if (purpose == EdgeEstimator::Purpose::Weight || fabs(tangent) > 1.19)
   {
-    return kMinPenalty + (10.0 + (altitudeM - kMountainSicknessAltitudeM) * 10.0 / 1500.0) *
-                             std::abs(tangent) * impact;
+    tangent = fabs(tangent);
+    // Some thoughts about gradient and foot walking: https://gre-kow.livejournal.com/26916.html
+    // 3cm diff with avg foot length 60cm is imperceptible (see Hungary_UseFootways).
+    double constexpr kTangentThreshold = 3.0/60.0;
+    if (tangent < kTangentThreshold)
+      return kMinPenalty;
+
+    // ETA coefficients are calculated in https://github.com/mapsme/omim-scripts/pull/21
+    auto const penalty = purpose == EdgeEstimator::Purpose::Weight
+                             ? 5.0 * tangent + 7.0 * tangent * tangent
+                             : 3.01 * tangent + 3.54 * tangent * tangent;
+
+    return kMinPenalty + penalty * impact;
   }
-
-  // ETA coefficients are calculated in https://github.com/mapsme/omim-scripts/pull/21
-  auto const penalty = purpose == EdgeEstimator::Purpose::Weight
-                           ? 5.0 * tangent + 7.0 * tangent * tangent
-                           : 3.01 * tangent + 3.54 * tangent * tangent;
-
-  return kMinPenalty + penalty * impact;
+  else
+  {
+    // Use Tobler’s Hiking Function for ETA like more comprehensive. See France_Uphill_Downlhill test.
+    // Why not in Weight? See Crimea_Altitude_Mountains test.
+    // https://mtntactical.com/research/yet-calculating-movement-uneven-terrain/
+    // Returns factor: W(0) / W(tangent).
+    return exp(-3.5 * (0.05 - fabs(tangent + 0.05)));
+  }
 }
 
-double GetBicycleClimbPenalty(EdgeEstimator::Purpose purpose, double tangent,
-                              geometry::Altitude altitudeM)
+double GetBicycleClimbPenalty(EdgeEstimator::Purpose purpose, double tangent, geometry::Altitude altitudeM)
 {
   double constexpr kMinPenalty = 1.0;
   double const impact = tangent >= 0.0 ? 1.0 : 0.35;
-  tangent = std::abs(tangent);
 
   if (altitudeM >= kMountainSicknessAltitudeM)
-    return kMinPenalty + 50.0 * tangent * impact;
+    return kMinPenalty + 50.0 * fabs(tangent) * impact;
 
+  // By VNG: This approach is strange at least because it always returns penalty > 1 (even for downhill)
+  /*
+  tangent = fabs(tangent);
   // ETA coefficients are calculated in https://github.com/mapsme/omim-scripts/pull/22
   auto const penalty = purpose == EdgeEstimator::Purpose::Weight
                            ? 10.0 * tangent + 26.0 * tangent * tangent
                            : 8.8 * tangent + 6.51 * tangent * tangent;
 
   return kMinPenalty + penalty * impact;
+  */
+
+  // https://web.tecnico.ulisboa.pt/~rosamfelix/gis/declives/SpeedSlopeFactor.html
+  double const slope = tangent * 100;
+
+  double factor;
+  if (slope < -30)
+    factor = 1.5;
+  else if (slope < 0)
+  {
+    // Min factor (max speed) will be at slope = -13.
+    factor = 1 + 2 * 0.7 / 13.0 * slope + 0.7 / 169 * slope * slope;
+  }
+  else if (slope <= 20)
+    factor = 1 + slope * slope / 49;
+  else
+    factor = 10.0;
+  return factor;
 }
 
-double GetCarClimbPenalty(EdgeEstimator::Purpose /* purpose */, double /* tangent */,
-                          geometry::Altitude /* altitudeM */)
+double GetCarClimbPenalty(EdgeEstimator::Purpose, double, geometry::Altitude)
 {
   return 1.0;
 }
@@ -135,6 +184,8 @@ EdgeEstimator::EdgeEstimator(double maxWeightSpeedKMpH, SpeedKMpH const & offroa
 
 double EdgeEstimator::CalcHeuristic(ms::LatLon const & from, ms::LatLon const & to) const
 {
+  // For the correct A*, we should use maximum _possible_ speed here, including:
+  // default model, feature stored, unlimited autobahn, ferry or rail transit.
   return TimeBetweenSec(from, to, m_maxWeightSpeedMpS);
 }
 
@@ -143,12 +194,12 @@ double EdgeEstimator::ComputeDefaultLeapWeightSpeed() const
   // 1.76 factor was computed as an average ratio of escape/enter speed to max MWM speed across all MWMs.
   //return m_maxWeightSpeedMpS / 1.76;
 
-  /// @todo By VNG: Current m_maxWeightSpeedMpS is > 120 km/h, so estimating speed was > 60km/h
-  /// for start/end fake edges by straight line! I strongly believe that this is very! optimistic.
-  /// Set factor to 2.15:
-  /// - lower bound Russia_MoscowDesnogorsk (https://github.com/organicmaps/organicmaps/issues/1071)
-  /// - upper bound RussiaSmolenskRussiaMoscowTimeTest
-  return m_maxWeightSpeedMpS / 2.15;
+  // By VNG: Current m_maxWeightSpeedMpS is > 120 km/h, so estimating speed was > 60km/h
+  // for start/end fake edges by straight line! I strongly believe that this is very! optimistic.
+  // Set speed to 57.5km/h (16m/s):
+  // - lower bound Russia_MoscowDesnogorsk (https://github.com/organicmaps/organicmaps/issues/1071)
+  // - upper bound RussiaSmolenskRussiaMoscowTimeTest
+  return 16.0;
 }
 
 /*
@@ -220,21 +271,23 @@ public:
 
   // EdgeEstimator overrides:
   double GetUTurnPenalty(Purpose /* purpose */) const override { return 0.0 /* seconds */; }
-  // Based on: https://confluence.mail.ru/display/MAPSME/Ferries
   double GetFerryLandingPenalty(Purpose purpose) const override
   {
     switch (purpose)
     {
-    case Purpose::Weight: return 20.0 * 60.0;  // seconds
-    case Purpose::ETA: return 8.0 * 60.0;      // seconds
+    case Purpose::Weight: return 10 * 60;   // seconds
+    case Purpose::ETA: return 8 * 60;       // seconds
     }
     UNREACHABLE();
   }
 
-  double CalcSegmentWeight(Segment const & segment, RoadGeometry const & road,
-                           Purpose purpose) const override
+  double CalcSegmentWeight(Segment const & segment, RoadGeometry const & road, Purpose purpose) const override
   {
-    return CalcClimbSegment(purpose, segment, road, GetPedestrianClimbPenalty);
+    return CalcClimbSegment(purpose, segment, road,
+        [purpose](double speedMpS, double tangent, geometry::Altitude altitude)
+        {
+          return speedMpS / GetPedestrianClimbPenalty(purpose, tangent, altitude);
+        });
   }
 };
 
@@ -249,21 +302,51 @@ public:
 
   // EdgeEstimator overrides:
   double GetUTurnPenalty(Purpose /* purpose */) const override { return 20.0 /* seconds */; }
-  // Based on: https://confluence.mail.ru/display/MAPSME/Ferries
   double GetFerryLandingPenalty(Purpose purpose) const override
   {
     switch (purpose)
     {
-    case Purpose::Weight: return 20 * 60;  // seconds
-    case Purpose::ETA: return 8 * 60;      // seconds
+    case Purpose::Weight: return 10 * 60;   // seconds
+    case Purpose::ETA: return 8 * 60;       // seconds
     }
     UNREACHABLE();
   }
 
-  double CalcSegmentWeight(Segment const & segment, RoadGeometry const & road,
-                           Purpose purpose) const override
+  double CalcSegmentWeight(Segment const & segment, RoadGeometry const & road, Purpose purpose) const override
   {
-    return CalcClimbSegment(purpose, segment, road, GetBicycleClimbPenalty);
+    return CalcClimbSegment(purpose, segment, road,
+        [purpose, this](double speedMpS, double tangent, geometry::Altitude altitude)
+        {
+          auto const factor = GetBicycleClimbPenalty(purpose, tangent, altitude);
+          ASSERT_GREATER(factor, 0.0, ());
+
+          /// @todo Take out "bad" bicycle road (path, track, footway, ...) check into BicycleModel?
+          static double constexpr badBicycleRoadSpeed = KmphToMps(9);
+          if (speedMpS <= badBicycleRoadSpeed)
+          {
+            if (factor > 1)
+              speedMpS /= factor;
+          }
+          else
+          {
+            if (factor > 1)
+            {
+              // Calculate uphill speed according to the average bicycle speed, because "good-roads" like
+              // residential, secondary, cycleway are "equal-low-speed" uphill and road type doesn't matter.
+              static double constexpr avgBicycleSpeed = KmphToMps(20);
+              double const upperBound = avgBicycleSpeed / factor;
+              if (speedMpS > upperBound)
+              {
+                // Add small weight to distinguish roads by class (10 is a max factor value).
+                speedMpS = upperBound + (purpose == Purpose::Weight ? speedMpS / (10 * avgBicycleSpeed) : 0);
+              }
+            }
+            else
+              speedMpS /= factor;
+          }
+
+          return std::min(speedMpS, GetMaxWeightSpeedMpS());
+        });
   }
 };
 
@@ -273,47 +356,39 @@ class CarEstimator final : public EdgeEstimator
 public:
   CarEstimator(DataSource * dataSourcePtr, std::shared_ptr<NumMwmIds> numMwmIds,
                shared_ptr<TrafficStash> trafficStash, double maxWeightSpeedKMpH,
-               SpeedKMpH const & offroadSpeedKMpH);
+               SpeedKMpH const & offroadSpeedKMpH)
+    : EdgeEstimator(maxWeightSpeedKMpH, offroadSpeedKMpH, dataSourcePtr, numMwmIds)
+    , m_trafficStash(std::move(trafficStash))
+  {
+  }
 
   // EdgeEstimator overrides:
   double CalcSegmentWeight(Segment const & segment, RoadGeometry const & road, Purpose purpose) const override;
-  double GetUTurnPenalty(Purpose /* purpose */) const override;
-  double GetFerryLandingPenalty(Purpose purpose) const override;
+  double GetUTurnPenalty(Purpose /* purpose */) const override
+  {
+    // Adds 2 minutes penalty for U-turn. The value is quite arbitrary
+    // and needs to be properly selected after a number of real-world
+    // experiments.
+    return 2 * 60;  // seconds
+  }
+
+  double GetFerryLandingPenalty(Purpose purpose) const override
+  {
+    switch (purpose)
+    {
+    case Purpose::Weight: return 20 * 60;   // seconds
+    case Purpose::ETA: return 20 * 60;      // seconds
+    }
+    UNREACHABLE();
+  }
 
 private:
   shared_ptr<TrafficStash> m_trafficStash;
 };
 
-CarEstimator::CarEstimator(DataSource * dataSourcePtr, std::shared_ptr<NumMwmIds> numMwmIds,
-                           shared_ptr<TrafficStash> trafficStash, double maxWeightSpeedKMpH,
-                           SpeedKMpH const & offroadSpeedKMpH)
-  : EdgeEstimator(maxWeightSpeedKMpH, offroadSpeedKMpH, dataSourcePtr, numMwmIds)
-  , m_trafficStash(move(trafficStash))
-{
-}
-
-double CarEstimator::GetUTurnPenalty(Purpose /* purpose */) const
-{
-  // Adds 2 minutes penalty for U-turn. The value is quite arbitrary
-  // and needs to be properly selected after a number of real-world
-  // experiments.
-  return 2 * 60;  // seconds
-}
-
-double CarEstimator::GetFerryLandingPenalty(Purpose purpose) const
-{
-  switch (purpose)
-  {
-  case Purpose::Weight: return 40 * 60;  // seconds
-  // Based on https://confluence.mail.ru/display/MAPSME/Ferries
-  case Purpose::ETA: return 20 * 60;  // seconds
-  }
-  UNREACHABLE();
-}
-
 double CarEstimator::CalcSegmentWeight(Segment const & segment, RoadGeometry const & road, Purpose purpose) const
 {
-  double result = CalcClimbSegment(purpose, segment, road, GetCarClimbPenalty);
+  double result = road.GetDistance(segment.GetSegmentIdx()) / GetSpeedMpS(purpose, segment, road);
 
   if (m_trafficStash)
   {
@@ -325,7 +400,7 @@ double CarEstimator::CalcSegmentWeight(Segment const & segment, RoadGeometry con
     {
       // Current time estimation are too optimistic.
       // Need more accurate tuning: traffic lights, traffic jams, road models and so on.
-      // Add some penalty to make estimation of a more realistic.
+      // Add some penalty to make estimation more realistic.
       /// @todo Make accurate tuning, remove penalty.
       result *= 1.8;
     }

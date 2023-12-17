@@ -63,4 +63,7 @@ bool CopyFileX(std::string const & fOld, std::string const & fNew);
 /// @return false if moving fails. DOES NOT THROW exceptions
 bool MoveFileX(std::string const & fOld, std::string const & fNew);
 bool IsEqualFiles(std::string const & firstFile, std::string const & secondFile);
+
+std::vector<uint8_t> ReadFile(std::string const & filePath);
+
 }  // namespace base

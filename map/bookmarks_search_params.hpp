@@ -21,12 +21,10 @@ struct BookmarksSearchParams
     Cancelled
   };
 
-  using OnStarted = std::function<void()>;
-  using OnResults = std::function<void(Results const & results, Status status)>;
-
   std::string m_query;
   kml::MarkGroupId m_groupId = kml::kInvalidMarkGroupId;
-  OnStarted m_onStarted;
+
+  using OnResults = std::function<void(Results results, Status status)>;
   OnResults m_onResults;
 };
 

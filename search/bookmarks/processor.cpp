@@ -2,9 +2,6 @@
 
 #include "search/emitter.hpp"
 
-#include "indexer/search_delimiters.hpp"
-#include "indexer/search_string_utils.hpp"
-
 #include "base/assert.hpp"
 #include "base/checked_cast.hpp"
 #include "base/dfa_helpers.hpp"
@@ -13,9 +10,7 @@
 #include "base/string_utils.hpp"
 
 #include <algorithm>
-#include <cstddef>
 
-using namespace std;
 
 namespace search
 {
@@ -219,7 +214,7 @@ void Processor::DetachFromGroup(Id const & id, GroupId const & group)
 
 void Processor::Search(Params const & params) const
 {
-  set<Id> ids;
+  std::set<Id> ids;
   auto insertId = [&ids](Id const & id, bool /* exactMatch */) { ids.insert(id); };
 
   for (size_t i = 0; i < params.GetNumTokens(); ++i)
@@ -236,7 +231,7 @@ void Processor::Search(Params const & params) const
   IdfMap idfs(*this, 1.0 /* unknownIdf */);
   auto qv = GetQueryVec(idfs, params);
 
-  vector<IdInfoPair> idInfos;
+  std::vector<IdInfoPair> idInfos;
   for (auto const & id : ids)
   {
     BailIfCancelled();

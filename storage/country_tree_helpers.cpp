@@ -9,7 +9,7 @@ namespace storage
 {
 CountryId GetTopmostParentFor(CountryTree const & countries, CountryId const & countryId)
 {
-  std::vector<CountryTree::Node const *> nodes;
+  CountryTree::NodesBufferT nodes;
   countries.Find(countryId, nodes);
   if (nodes.empty())
   {

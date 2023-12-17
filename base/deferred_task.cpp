@@ -18,7 +18,7 @@ DeferredTask::DeferredTask(Duration const & duration) : m_duration(duration)
       if (m_cv.wait_for(l, m_duration) != std::cv_status::timeout || !m_fn)
         continue;
 
-      auto fn = move(m_fn);
+      auto fn = std::move(m_fn);
       m_fn = nullptr;
 
       l.unlock();

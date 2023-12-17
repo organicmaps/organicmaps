@@ -4,10 +4,7 @@
 #include "drape/gl_functions.hpp"
 #include "drape/utils/gpu_mem_tracker.hpp"
 
-#include "platform/platform.hpp"
-
 #include "base/logging.hpp"
-#include "base/math.hpp"
 
 #include "std/target_os.hpp"
 
@@ -25,10 +22,19 @@ extern ref_ptr<dp::HWTextureAllocator> GetDefaultVulkanAllocator();
 
 namespace dp
 {
+std::string DebugPrint(HWTexture::Params const & p)
+{
+  std::ostringstream ss;
+  ss << "Width = " << p.m_width
+     << "; Height = " << p.m_height
+     << "; Format = " << DebugPrint(p.m_format)
+     << "; IsRenderTarget = " << p.m_isRenderTarget;
+  return ss.str();
+}
+
 void UnpackFormat(ref_ptr<dp::GraphicsContext> context, TextureFormat format,
                   glConst & layout, glConst & pixelType)
 {
-  CHECK(context != nullptr, ());
   auto const apiVersion = context->GetApiVersion();
   CHECK(apiVersion == dp::ApiVersion::OpenGLES2 || apiVersion == dp::ApiVersion::OpenGLES3, ());
 
@@ -103,21 +109,9 @@ void HWTexture::Create(ref_ptr<dp::GraphicsContext> context, Params const & para
   Create(context, params, nullptr);
 }
 
-void HWTexture::Create(ref_ptr<dp::GraphicsContext> context, Params const & params,
-                       ref_ptr<void> /* data */)
+void HWTexture::Create(ref_ptr<dp::GraphicsContext>, Params const & params, ref_ptr<void>)
 {
   m_params = params;
-
-  // OpenGL ES 2.0 does not support PBO, Metal has no necessity in it.
-  uint32_t const bytesPerPixel = GetBytesPerPixel(m_params.m_format);
-  if (context && context->GetApiVersion() == dp::ApiVersion::OpenGLES3 && params.m_usePixelBuffer &&
-      bytesPerPixel > 0)
-  {
-    float const kPboPercent = 0.1f;
-    m_pixelBufferElementSize = bytesPerPixel;
-    m_pixelBufferSize =
-        static_cast<uint32_t>(kPboPercent * m_params.m_width * m_params.m_height * bytesPerPixel);
-  }
 
 #if defined(TRACK_GPU_MEM)
   uint32_t const memSize = (CHAR_BIT * bytesPerPixel * m_params.m_width * m_params.m_height) >> 3;
@@ -173,6 +167,19 @@ void OpenGLHWTexture::Create(ref_ptr<dp::GraphicsContext> context, Params const 
 {
   Base::Create(context, params, data);
 
+  CHECK(context && m_textureID == 0 && m_pixelBufferID == 0, ());
+
+  // OpenGL ES 2.0 does not support PBO.
+  if (params.m_usePixelBuffer && context->GetApiVersion() == dp::ApiVersion::OpenGLES3)
+  {
+    m_pixelBufferElementSize = GetBytesPerPixel(m_params.m_format);
+    if (m_pixelBufferElementSize > 0)
+    {
+      // Buffer size = 10%
+      m_pixelBufferSize = static_cast<uint32_t>(0.1 * m_params.m_width * m_params.m_height * m_pixelBufferElementSize);
+    }
+  }
+
   m_textureID = GLFunctions::glGenTexture();
   Bind(context);
 
@@ -204,9 +211,9 @@ void OpenGLHWTexture::UploadData(ref_ptr<dp::GraphicsContext> context, uint32_t 
 {
   ASSERT(Validate(), ());
   uint32_t const mappingSize = height * width * m_pixelBufferElementSize;
-  if (m_pixelBufferID != 0 && m_pixelBufferSize != 0 && m_pixelBufferSize >= mappingSize)
+  if (m_pixelBufferID != 0 && m_pixelBufferSize >= mappingSize)
   {
-    ASSERT_GREATER(m_pixelBufferElementSize, 0, ());
+    ASSERT_GREATER(mappingSize, 0, ());
     GLFunctions::glBindBuffer(m_pixelBufferID, gl_const::GLPixelBufferWrite);
     GLFunctions::glBufferSubData(gl_const::GLPixelBufferWrite, mappingSize, data.get(), 0);
     GLFunctions::glTexSubImage2D(x, y, width, height, m_unpackedLayout, m_unpackedPixelType, nullptr);

@@ -1,13 +1,10 @@
 #include "indexer/search_string_utils.hpp"
 
-#include "indexer/string_set.hpp"
 #include "indexer/transliteration_loader.hpp"
 
 #include "coding/transliteration.hpp"
 
-#include "base/assert.hpp"
 #include "base/dfa_helpers.hpp"
-#include "base/macros.hpp"
 #include "base/mem_trie.hpp"
 
 #include <algorithm>
@@ -15,50 +12,38 @@
 #include <queue>
 #include <vector>
 
-#include "3party/utfcpp/source/utf8/unchecked.h"
-
-using namespace std;
-using namespace strings;
+#include <utf8cpp/utf8/unchecked.h>
 
 namespace search
 {
+using std::string;
+using namespace strings;
+
 namespace
 {
-vector<strings::UniString> const kAllowedMisprints = {
-    strings::MakeUniString("ckq"),
-    strings::MakeUniString("eyjiu"),
-    strings::MakeUniString("gh"),
-    strings::MakeUniString("pf"),
-    strings::MakeUniString("vw"),
-    strings::MakeUniString("ао"),
-    strings::MakeUniString("еиэ"),
-    strings::MakeUniString("шщ"),
+std::vector<UniString> const kAllowedMisprints = {
+    MakeUniString("ckq"),
+    MakeUniString("eyjiu"),
+    MakeUniString("gh"),
+    MakeUniString("pf"),
+    MakeUniString("vw"),
+
+    // Russian
+    MakeUniString("ао"),
+    MakeUniString("еиэ"),
+    MakeUniString("шщ"),
+
+    // Spanish
+    MakeUniString("jh"),  // "Jose" <-> "Hose"
+    MakeUniString("fh"),  // "Hernández" <-> "Fernández"
 };
 
-// Replaces '#' followed by an end-of-string or a digit with space.
-void RemoveNumeroSigns(UniString & s)
-{
-  size_t const n = s.size();
+std::pair<UniString, UniString> const kPreprocessReplacements[] = {
+    {MakeUniString("пр-т"),  MakeUniString("проспект")},
+    {MakeUniString("пр-д"),  MakeUniString("проезд")},
+    {MakeUniString("наб-я"), MakeUniString("набережная")}
+};
 
-  size_t i = 0;
-  while (i < n)
-  {
-    if (s[i] != '#')
-    {
-      ++i;
-      continue;
-    }
-
-    size_t j = i + 1;
-    while (j < n && IsASCIISpace(s[j]))
-      ++j;
-
-    if (j == n || IsASCIIDigit(s[j]))
-      s[i] = ' ';
-
-    i = j;
-  }
-}
 
 void TransliterateHiraganaToKatakana(UniString & s)
 {
@@ -68,37 +53,43 @@ void TransliterateHiraganaToKatakana(UniString & s)
 
   InitTransliterationInstanceWithDefaultDirs();
   string out;
-  if (Transliteration::Instance().TransliterateForce(strings::ToUtf8(s), "Hiragana-Katakana", out))
+  if (Transliteration::Instance().TransliterateForce(ToUtf8(s), "Hiragana-Katakana", out))
     s = MakeUniString(out);
 }
 }  // namespace
 
-size_t GetMaxErrorsForTokenLength(size_t length)
+size_t GetMaxErrorsForToken(UniString const & token)
 {
-  if (length < 4)
-    return 0;
-  if (length < 8)
-    return 1;
-  return 2;
-}
-
-size_t GetMaxErrorsForToken(strings::UniString const & token)
-{
-  bool const digitsOnly = all_of(token.begin(), token.end(), ::isdigit);
+  bool const digitsOnly = std::all_of(token.begin(), token.end(), ::isdigit);
   if (digitsOnly)
     return 0;
   return GetMaxErrorsForTokenLength(token.size());
 }
 
-strings::LevenshteinDFA BuildLevenshteinDFA(strings::UniString const & s)
+LevenshteinDFA BuildLevenshteinDFA(UniString const & s)
 {
+  ASSERT(!s.empty(), ());
   // In search we use LevenshteinDFAs for fuzzy matching. But due to
   // performance reasons, we limit prefix misprints to fixed set of substitutions defined in
   // kAllowedMisprints and skipped letters.
-  return strings::LevenshteinDFA(s, 1 /* prefixSize */, kAllowedMisprints, GetMaxErrorsForToken(s));
+  return LevenshteinDFA(s, 1 /* prefixSize */, kAllowedMisprints, GetMaxErrorsForToken(s));
 }
 
-UniString NormalizeAndSimplifyString(string_view s)
+LevenshteinDFA BuildLevenshteinDFA_Category(UniString const & s)
+{
+  // https://github.com/organicmaps/organicmaps/issues/3655
+  // Separate DFA for categories (_Category) to avoid fancy matchings like:
+  // cafe <-> care
+  // ecco -> eco
+  // shop <-> shoe
+  // warte -> waste
+  /// @todo "hote" doesn't match "hotel" now. Allow prefix search for categories?
+
+  ASSERT(!s.empty(), ());
+  return LevenshteinDFA(s, 1 /* prefixSize */, kAllowedMisprints, GetMaxErrorsForToken_Category(s.size()));
+}
+
+UniString NormalizeAndSimplifyString(std::string_view s)
 {
   UniString uniString = MakeUniString(s);
   for (size_t i = 0; i < uniString.size(); ++i)
@@ -139,6 +130,10 @@ UniString NormalizeAndSimplifyString(string_view s)
       c = 'a';
       uniString.insert(uniString.begin() + (i++) + 1, 'e');
       break;
+    case 0x2018:  // ‘
+    case 0x2019:  // ’
+      c = '\'';
+      break;
     case 0x2116:  // №
       c = '#';
       break;
@@ -150,17 +145,18 @@ UniString NormalizeAndSimplifyString(string_view s)
   TransliterateHiraganaToKatakana(uniString);
 
   // Remove accents that can appear after NFKD normalization.
-  uniString.erase_if([](UniChar const & c) {
+  uniString.erase_if([](UniChar const & c)
+  {
     // ̀  COMBINING GRAVE ACCENT
     // ́  COMBINING ACUTE ACCENT
     return (c == 0x0300 || c == 0x0301);
   });
 
-  RemoveNumeroSigns(uniString);
-
   // Replace sequence of spaces with single one.
-  auto const spacesChecker = [](UniChar lhs, UniChar rhs) { return (lhs == rhs) && (lhs == ' '); };
-  uniString.erase(unique(uniString.begin(), uniString.end(), spacesChecker), uniString.end());
+  base::Unique(uniString, [](UniChar l, UniChar r)
+  {
+    return (l == r && l == ' ');
+  });
 
   return uniString;
 
@@ -189,15 +185,11 @@ UniString NormalizeAndSimplifyString(string_view s)
   */
 }
 
-void PreprocessBeforeTokenization(strings::UniString & query)
+void PreprocessBeforeTokenization(UniString & query)
 {
   search::Delimiters const delims;
-  vector<pair<strings::UniString, strings::UniString>> const replacements = {
-      {MakeUniString("пр-т"),  MakeUniString("проспект")},
-      {MakeUniString("пр-д"),  MakeUniString("проезд")},
-      {MakeUniString("наб-я"), MakeUniString("набережная")}};
 
-  for (auto const & replacement : replacements)
+  for (auto const & replacement : kPreprocessReplacements)
   {
     auto start = query.begin();
     while ((start = std::search(start, query.end(), replacement.first.begin(),
@@ -206,7 +198,7 @@ void PreprocessBeforeTokenization(strings::UniString & query)
       auto end = start + replacement.first.size();
       if ((start == query.begin() || delims(*(start - 1))) && (end == query.end() || delims(*end)))
       {
-        auto const dist = distance(query.begin(), start);
+        auto const dist = std::distance(query.begin(), start);
         query.Replace(start, end, replacement.second.begin(), replacement.second.end());
         start = query.begin() + dist;
       }
@@ -219,6 +211,22 @@ UniString FeatureTypeToString(uint32_t type)
 {
   string const s = "!type:" + to_string(type);
   return UniString(s.begin(), s.end());
+}
+
+std::vector<UniString> NormalizeAndTokenizeString(std::string_view s)
+{
+  std::vector<UniString> tokens;
+  ForEachNormalizedToken(s, base::MakeBackInsertFunctor(tokens));
+  return tokens;
+}
+
+bool TokenizeStringAndCheckIfLastTokenIsPrefix(std::string_view s, std::vector<UniString> & tokens)
+{
+  auto const uniString = NormalizeAndSimplifyString(s);
+
+  Delimiters delims;
+  SplitUniString(uniString, base::MakeBackInsertFunctor(tokens), delims);
+  return !uniString.empty() && !delims(uniString.back());
 }
 
 namespace
@@ -258,8 +266,8 @@ public:
 
     void Swap(BooleanSum & rhs)
     {
-      swap(m_value, rhs.m_value);
-      swap(m_empty, rhs.m_empty);
+      std::swap(m_value, rhs.m_value);
+      std::swap(m_empty, rhs.m_empty);
     }
 
     bool m_value;
@@ -281,11 +289,11 @@ public:
   bool MatchWithMisprints(DFA const & dfa) const
   {
     using TrieIt = Trie::Iterator;
-    using State = pair<TrieIt, typename DFA::Iterator>;
+    using State = std::pair<TrieIt, typename DFA::Iterator>;
 
     auto const trieRoot = m_strings.GetRootIterator();
 
-    queue<State> q;
+    std::queue<State> q;
     q.emplace(trieRoot, dfa.Begin());
 
     while (!q.empty())
@@ -296,13 +304,14 @@ public:
       auto const & currTrieIt = p.first;
       auto const & currDfaIt = p.second;
 
-      if (currDfaIt.Accepts())
+      if (currDfaIt.Accepts() && !currTrieIt.GetValues().Empty())
         return true;
 
-      currTrieIt.ForEachMove([&q, &currDfaIt](UniChar const & c, TrieIt const & nextTrieIt) {
+      currTrieIt.ForEachMove([&q, &currDfaIt](UniChar const & c, TrieIt const & nextTrieIt)
+      {
         auto nextDfaIt = currDfaIt;
         nextDfaIt.Move(c);
-        strings::DFAMove(nextDfaIt, nextTrieIt.GetLabel());
+        DFAMove(nextDfaIt, nextTrieIt.GetLabel());
         if (!nextDfaIt.Rejects())
           q.emplace(nextTrieIt, nextDfaIt);
       });
@@ -312,111 +321,81 @@ public:
   }
 
 private:
+  // Keep only *very-common-used* (by OSM stats) "streets" here. Can increase search index, otherwise.
+  // Too many "streets" increases entropy only and produces messy results ..
+  // Note! If "street" is present here, it should contain all possible synonyms (avenue -> av, ave).
   StreetsSynonymsHolder()
   {
     char const * affics[] =
     {
       // Russian - Русский
-      "аллея", "бульвар", "набережная", "переулок", "площадь", "проезд", "проспект", "шоссе", "тупик", "улица", "тракт", "ал", "бул", "наб", "пер", "пл", "пр", "просп", "ш", "туп", "ул", "тр",
+      "улица", "ул",
 
       // English - English
-      "street", "st", "avenue", "av", "ave", "square", "sq", "road", "rd", "boulevard", "blvd", "drive", "dr", "highway", "hwy", "lane", "ln", "way", "circle", "place", "pl",
+      "street", "st", "road", "rd", "drive", "dr", "lane", "ln", "avenue", "av", "ave",
 
       // Belarusian - Беларуская мова
-      "вуліца", "вул", "завулак", "набярэжная", "плошча", "пл", "праезд", "праспект", "пр", "тракт", "тр", "тупік",
+      "вуліца", "вул",
 
-      // Bulgarian - Български
-      "булевард", "бул", "площад", "пл", "улица", "ул", "квартал", "кв",
+      // Arabic
+      "شارع",
 
-      /// @todo Do not use popular POI (carrefour) or Street name (rambla) tokens as generic street synonyms.
-      /// This POIs (Carrefour supermarket) and Streets (La Rambla - most popular street in Barcelona)
-      /// will be lost in search results, otherwise.
-      /// Should reconsider candidates fetching and sorting logic from scratch to make correct processing.
-
-      // Canada
-      "allee", "alley", "autoroute", "aut", "bypass", "byway", /*"carrefour", "carref",*/ "côte", "expressway", "freeway", "fwy", "pky", "pkwy",
-      /// @todo Do not use next _common search_ (e.g. 'park' is a prefix of 'parkway') tokens as generic street synonyms.
-      /// Should reconsider streets matching logic to get this synonyms back.
-      //"line", "link", "loop", "parkway", "path", "pathway", "route", "trail", "walk",
+      // Armenian
+      "փողոց",
 
       // Catalan language (Barcelona, Valencia, ...)
-      "avinguda", "carrer", /*"rambla", "ronda",*/ "passeig", "passatge", "travessera",
+      "carrer",
 
       // Croatian - Hrvatski
-      "šetalište", "trg", "ulica", "ul", "poljana",
-
-      // Czech - Čeština
-      "ulice", "ul", "náměstí", "nám", "nábřeží", "nábr",
-
-      // Danish - Dansk
-      "plads", "alle", "gade",
-
-      // Dutch - Nederlands
-      "laan", "ln.", "straat", "steenweg", "stwg", "st",
-
-      // Estonian - Eesti
-      "maantee", "mnt", "puiestee", "tee", "pst",
-
-      // Finnish - Suomi
-      "kaari", "kri", "katu", "kuja", "kj", "kylä", "polku", "tie", "t", "tori", "väylä", "vlä",
+      "ulica",  // Also common used transcription from RU
 
       // French - Français
-      "rue", "avenue", "carré", "cercle", "route", "boulevard", "drive", "autoroute", "lane", "chemin",
+      "rue",
+
+      // Georgia
+      "ქუჩა",
 
       // German - Deutsch
-      "allee", "al", "brücke", "br", "chaussee", "gasse", "gr", "pfad", "straße", "str", "weg", "platz",
+      "straße", "str", "platz", "pl",
 
       // Hungarian - Magyar
-      "utca", "út", "u.", "tér", "körút", "krt.", "rakpart", "rkp.",
+      "utca", "út",
 
-       // Italian - Italiano
-      "corso", "piazza", "piazzale", "strada", "via", "viale", "calle", "fondamenta",
+      // Indonesia
+      "jalan",
 
+      // Italian - Italiano
+      "via",
+
+      /// @todo Also expect that this synonyms should be in categories.txt list, but we dont support lt, lv langs now.
+      /// @{
       // Latvian - Latviešu
-      "iela", "laukums",
-
+      "iela",
       // Lithuanian - Lietuvių
-      "gatvė", "g.", "aikštė", "a", "prospektas", "pr.", "pl", "kel",
-
-      // Nepalese - नेपाली
-      "मार्ग", "marg",
-
-      // Norwegian - Norsk
-      "vei", "veien", "vn", "gaten", "gata", "gt", "plass", "plassen", "sving", "svingen", "sv",
-
-      // Polish - Polski
-      "aleja", "aleje", "aleji", "alejach", "aleją", "plac", "placu", "placem", "ulica", "ulicy",
+      "gatvė", "g.",
+      ///@}
 
       // Portuguese - Português
-      "rua", "r.", "travessa", "tr.", "praça", "pç.", "avenida", "quadrado", "estrada", "boulevard", "carro", "auto-estrada", "lane", "caminho",
+      "rua",
 
-      // Romanian - Română
-      "bul", "bdul", "blv", "bulevard", "bulevardu", "calea", "cal", "piața", "pţa", "pța", "strada", "stra", "stradela", "sdla", "stradă", "unitate", "autostradă", "lane",
-
-      // Slovenian - Slovenščina
-      "cesta", "ulica", "trg", "nabrežje",
+      // Romanian - Română (Moldova)
+      "strada",
 
       // Spanish - Español
-      "avenida", "avd", "avda", "bulevar", "bulev", "calle", "calleja", "cllja", "callejón", "callej", "cjon", "callejuela", "cjla", "callizo", "cllzo", "calzada", "czada", "costera", "coste", "plza", "pza", "plazoleta", "pzta", "plazuela", "plzla", "tránsito", "trans", "transversal", "trval", "trasera", "tras", "travesía", "trva", "paseo", "plaça",
-
-      // Swedish - Svenska
-      "väg", "vägen", "gatan", "gränd", "gränden", "stig", "stigen", "plats", "platsen",
+      "calle", "avenida",
 
       // Turkish - Türkçe
-      "sokak", "sk.", "sok", "sokağı", "cadde", "cad", "cd", "caddesi", "bulvar", "bulvarı", "blv.",
+      "sokağı", "sokak", "sk",
 
       // Ukrainian - Українська
-      "дорога", "провулок", "площа", "шосе", "вулиця", "дор", "пров", "вул",
+      "вулиця", "вул",
 
       // Vietnamese - Tiếng Việt
-      "quốc lộ", "ql", "tỉnh lộ", "tl", "Đại lộ", "Đl", "Đường", "Đ", "Đường sắt", "Đs", "Đường phố", "Đp", "vuông", "con Đường", "Đại lộ", "Đường cao tốc",
+      "đường",
     };
 
     for (auto const * s : affics)
-    {
-      UniString const us = NormalizeAndSimplifyString(s);
-      m_strings.Add(us, true /* end of string */);
-    }
+      m_strings.Add(NormalizeAndSimplifyString(s), true /* end of string */);
   }
 
   Trie m_strings;
@@ -445,13 +424,13 @@ string DropLastToken(string const & str)
   return string(str.begin(), iter.base());
 }
 
-UniString GetStreetNameAsKey(string_view name, bool ignoreStreetSynonyms)
+UniString GetStreetNameAsKey(std::string_view name, bool ignoreStreetSynonyms)
 {
   if (name.empty())
     return UniString();
 
   UniString res;
-  Tokenize(name, kStreetTokensSeparator, [&](string_view v)
+  Tokenize(name, kStreetTokensSeparator, [&](std::string_view v)
   {
     UniString const s = NormalizeAndSimplifyString(v);
     if (!ignoreStreetSynonyms || !IsStreetSynonym(s))
@@ -476,7 +455,7 @@ bool IsStreetSynonymWithMisprints(UniString const & s)
 
 bool IsStreetSynonymPrefixWithMisprints(UniString const & s)
 {
-  auto const dfa = strings::PrefixDFAModifier<strings::LevenshteinDFA>(BuildLevenshteinDFA(s));
+  auto const dfa = PrefixDFAModifier<LevenshteinDFA>(BuildLevenshteinDFA(s));
   return StreetsSynonymsHolder::Instance().MatchWithMisprints(dfa);
 }
 
@@ -488,29 +467,45 @@ bool ContainsNormalized(string const & str, string const & substr)
 }
 
 // StreetTokensFilter ------------------------------------------------------------------------------
-void StreetTokensFilter::Put(strings::UniString const & token, bool isPrefix, size_t tag)
+void StreetTokensFilter::Put(UniString const & token, bool isPrefix, size_t tag)
 {
-  using IsStreetChecker = std::function<bool(strings::UniString const &)>;
-
-  IsStreetChecker isStreet = m_withMisprints ? IsStreetSynonymWithMisprints : IsStreetSynonym;
-  IsStreetChecker isStreetPrefix =
-      m_withMisprints ? IsStreetSynonymPrefixWithMisprints : IsStreetSynonymPrefix;
-
-  auto const isStreetSynonym = isStreet(token);
-  if ((isPrefix && isStreetPrefix(token)) || (!isPrefix && isStreetSynonym))
+  if (isPrefix)
   {
-    ++m_numSynonyms;
-    if (m_numSynonyms == 1)
+    if (m_withMisprints)
     {
-      m_delayedToken = token;
-      m_delayedTag = tag;
-      return;
+      if (IsStreetSynonymPrefixWithMisprints(token))
+        return;
     }
-
-    // Do not emit delayed token for incomplete street synonym.
-    if ((!isPrefix || isStreetSynonym) && m_numSynonyms == 2)
-      EmitToken(m_delayedToken, m_delayedTag);
+    else
+    {
+      if (IsStreetSynonymPrefix(token))
+        return;
+    }
   }
-  EmitToken(token, tag);
+  else
+  {
+    if (m_withMisprints)
+    {
+      if (IsStreetSynonymWithMisprints(token))
+        return;
+    }
+    else
+    {
+      if (IsStreetSynonym(token))
+        return;
+    }
+  }
+
+  m_callback(token, tag);
 }
+
+String2StringMap const & GetDACHStreets()
+{
+  static String2StringMap res = {
+    { MakeUniString("strasse"), MakeUniString("str") },
+    { MakeUniString("platz"), MakeUniString("pl") },
+  };
+  return res;
+}
+
 }  // namespace search

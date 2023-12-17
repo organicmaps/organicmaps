@@ -27,7 +27,7 @@
 #include <set>
 #include <string>
 
-#include "gflags/gflags.h"
+#include <gflags/gflags.h>
 
 DEFINE_string(srtm_dir_path, "", "Path to directory with SRTM files");
 DEFINE_string(mwm_file_path, "", "Path to an mwm file.");

@@ -75,3 +75,5 @@ private:
   std::string m_filename;
 };
 }  // namespace feature
+
+using AffiliationInterfacePtr = std::shared_ptr<feature::AffiliationInterface>;

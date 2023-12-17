@@ -191,7 +191,7 @@ void OGLContext::SetDepthTestEnabled(bool enabled)
 void OGLContext::SetDepthTestFunction(TestFunction depthFunction)
 {
   GLFunctions::glDepthFunc(DecodeTestFunction(depthFunction));
-};
+}
 
 void OGLContext::SetStencilTestEnabled(bool enabled)
 {

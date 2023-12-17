@@ -8,19 +8,16 @@
 #include "indexer/search_string_utils.hpp"
 
 #include "base/scope_guard.hpp"
-#include "base/stl_helpers.hpp"
 #include "base/timer.hpp"
 
 #include <algorithm>
-#include <cstdint>
-#include <functional>
 #include <map>
 #include <vector>
 
-using namespace std;
-
 namespace search
 {
+using namespace std;
+
 namespace
 {
 class InitSuggestions
@@ -88,7 +85,7 @@ Engine::Engine(DataSource & dataSource, CategoriesHolder const & categories,
   : m_shutdown(false)
 {
   InitSuggestions doInit;
-  categories.ForEachName(bind<void>(ref(doInit), placeholders::_1));
+  categories.ForEachName(doInit);
   doInit.GetSuggests(m_suggests);
 
   m_contexts.resize(params.m_numThreads);
@@ -96,7 +93,7 @@ Engine::Engine(DataSource & dataSource, CategoriesHolder const & categories,
   {
     auto processor = make_unique<Processor>(dataSource, categories, m_suggests, infoGetter);
     processor->SetPreferredLocale(params.m_locale);
-    m_contexts[i].m_processor = move(processor);
+    m_contexts[i].m_processor = std::move(processor);
   }
 
   m_threads.reserve(params.m_numThreads);
@@ -120,12 +117,12 @@ Engine::~Engine()
     thread.join();
 }
 
-weak_ptr<ProcessorHandle> Engine::Search(SearchParams const & params)
+weak_ptr<ProcessorHandle> Engine::Search(SearchParams params)
 {
   shared_ptr<ProcessorHandle> handle(new ProcessorHandle());
-  PostMessage(Message::TYPE_TASK, [this, params, handle](Processor & processor)
+  PostMessage(Message::TYPE_TASK, [this, params = std::move(params), handle](Processor & processor)
               {
-                DoSearch(params, handle, processor);
+                DoSearch(std::move(params), handle, processor);
               });
   return handle;
 }
@@ -256,7 +253,7 @@ void Engine::MainLoop(Context & context)
       // next free search thread.
       if (!m_messages.empty())
       {
-        context.m_messages.push(move(m_messages.front()));
+        context.m_messages.push(std::move(m_messages.front()));
         m_messages.pop();
       }
 
@@ -278,16 +275,16 @@ template <typename... Args>
 void Engine::PostMessage(Args &&... args)
 {
   lock_guard<mutex> lock(m_mu);
-  m_messages.emplace(forward<Args>(args)...);
+  m_messages.emplace(std::forward<Args>(args)...);
   m_cv.notify_one();
 }
 
-void Engine::DoSearch(SearchParams const & params, shared_ptr<ProcessorHandle> handle,
-                      Processor & processor)
+void Engine::DoSearch(SearchParams params, shared_ptr<ProcessorHandle> handle, Processor & processor)
 {
-  LOG(LINFO, ("Search started."));
+  LOG(LINFO, ("Search started:", params.m_mode));
   base::Timer timer;
-  SCOPE_GUARD(printDuration, [&timer]() {
+  SCOPE_GUARD(printDuration, [&timer]()
+  {
     LOG(LINFO, ("Search ended in", timer.ElapsedMilliseconds(), "ms."));
   });
 
@@ -295,6 +292,6 @@ void Engine::DoSearch(SearchParams const & params, shared_ptr<ProcessorHandle> h
   handle->Attach(processor);
   SCOPE_GUARD(detach, [&handle] { handle->Detach(); });
 
-  processor.Search(params);
+  processor.Search(std::move(params));
 }
 }  // namespace search

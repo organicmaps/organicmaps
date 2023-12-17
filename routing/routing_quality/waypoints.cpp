@@ -11,8 +11,6 @@
 #include <algorithm>
 #include <utility>
 
-using namespace std;
-
 namespace routing_quality
 {
 namespace metrics
@@ -54,7 +52,7 @@ Similarity CompareByNumberOfMatchedWaypoints(routing::FollowedPolyline const & p
   for (size_t j = 0; j < candidates.size(); ++j)
   {
     auto const result = CompareByNumberOfMatchedWaypoints(polyline, candidates[j]);
-    bestResult = max(bestResult, result);
+    bestResult = std::max(bestResult, result);
   }
 
   LOG(LDEBUG, ("Best result:", bestResult));
@@ -68,18 +66,18 @@ Similarity CheckWaypoints(Params const & params, ReferenceRoutes && referenceRou
   auto result = builder.ProcessTask(params);
 
   return metrics::CompareByNumberOfMatchedWaypoints(result.GetRoutes().back().m_followedPolyline,
-                                                    move(referenceRoutes));
+                                                    std::move(referenceRoutes));
 }
 
 bool CheckRoute(Params const & params, ReferenceRoutes && referenceRoutes)
 {
-  return CheckWaypoints(params, move(referenceRoutes)) == 1.0;
+  return CheckWaypoints(params, std::move(referenceRoutes)) == 1.0;
 }
 
 bool CheckCarRoute(ms::LatLon const & start, ms::LatLon const & finish,
                    ReferenceRoutes && referenceTracks)
 {
   Params const params(routing::VehicleType::Car, start, finish);
-  return CheckRoute(params, move(referenceTracks));
+  return CheckRoute(params, std::move(referenceTracks));
 }
 }  // namespace routing_quality

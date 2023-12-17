@@ -11,6 +11,8 @@ set(SRC
   country_defines.hpp
   country_file.cpp
   country_file.hpp
+  distance.cpp
+  distance.hpp
   downloader_defines.hpp
   downloader_utils.cpp
   downloader_utils.hpp
@@ -54,7 +56,22 @@ set(SRC
   socket.hpp
   string_storage_base.cpp
   string_storage_base.hpp
+  utm_mgrs_utils.cpp
+  utm_mgrs_utils.hpp
 )
+
+if (NOT SKIP_QT_GUI AND PLATFORM_DESKTOP AND PLATFORM_LINUX)
+  message("Building with Qt Positioning")
+  find_package(Qt6 REQUIRED COMPONENTS Positioning)
+  set(QT_POSITIONING true)
+  append(SRC
+    qt_location_service.hpp
+    qt_location_service.cpp
+  )
+else()
+  message("Building without Qt Positioning")
+  set(QT_POSITIONING false)
+endif()
 
 if(${PLATFORM_IPHONE})
   append(SRC
@@ -83,12 +100,32 @@ elseif(${PLATFORM_ANDROID})
     platform_unix_impl.hpp
   )
 else() # neither iPhone nor Android
+  # Find bash first, on Windows it can be either in Git or in WSL
+  find_program(BASH bash)
+  # Generate version header file.
+  execute_process(COMMAND "${BASH}" tools/unix/version.sh qt_version
+    WORKING_DIRECTORY ${CMAKE_SOURCE_DIR}
+    OUTPUT_VARIABLE OM_VERSION
+    OUTPUT_STRIP_TRAILING_WHITESPACE
+    COMMAND_ERROR_IS_FATAL ANY
+  )
+  execute_process(COMMAND "${BASH}" tools/unix/version.sh qt_int_version
+    WORKING_DIRECTORY ${CMAKE_SOURCE_DIR}
+    OUTPUT_VARIABLE OM_INT_VERSION
+    OUTPUT_STRIP_TRAILING_WHITESPACE
+    COMMAND_ERROR_IS_FATAL ANY
+  )
+  configure_file("${CMAKE_CURRENT_SOURCE_DIR}/platform_qt_version.cpp.in"
+                 "${CMAKE_CURRENT_BINARY_DIR}/platform_qt_version.cpp"
+                  @ONLY)
+
   append(SRC
     localization_dummy.cpp
     location_service.cpp
     location_service.hpp
     network_policy_dummy.cpp
     platform_qt.cpp
+    "${CMAKE_CURRENT_BINARY_DIR}/platform_qt_version.cpp"
   )
 
   if (${PLATFORM_WIN})
@@ -136,6 +173,9 @@ else() # neither iPhone nor Android
 endif()
 
 omim_add_library(${PROJECT_NAME} ${SRC})
+if (QT_POSITIONING)
+  target_compile_definitions(${PROJECT_NAME} PRIVATE "QT_LOCATION_SERVICE")
+endif()
 
 if (APPLE)
   target_compile_options(${PROJECT_NAME} PRIVATE "-fobjc-arc")
@@ -148,8 +188,9 @@ endif()
 target_link_libraries(${PROJECT_NAME}
   geometry  # mercator::YToLat
   coding
-  $<$<BOOL:${PLATFORM_DESKTOP}>:Qt5::Core>
-  $<$<BOOL:${PLATFORM_LINUX}>:Qt5::Network>
+  $<$<BOOL:${PLATFORM_DESKTOP}>:Qt6::Core>
+  $<$<BOOL:${PLATFORM_LINUX}>:Qt6::Network>
+  $<$<BOOL:${QT_POSITIONING}>:Qt6::Positioning>
   $<$<BOOL:${PLATFORM_MAC}>:-framework\ Foundation -framework\ SystemConfiguration -framework\ CoreLocation -framework\ CFNetwork>
 )
 

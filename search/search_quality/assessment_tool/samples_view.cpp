@@ -9,7 +9,7 @@
 
 #include <QtGui/QContextMenuEvent>
 #include <QtGui/QStandardItem>
-#include <QtWidgets/QAction>
+#include <QtGui/QAction>
 #include <QtWidgets/QHeaderView>
 #include <QtWidgets/QMenu>
 
@@ -54,6 +54,7 @@ SamplesView::SamplesView(QWidget * parent) : QTableView(parent)
   }
 
   m_model = new Model(this /* parent */);
+  // TODO: Do not invoke virtual functions from constructor.
   setModel(m_model);
 }
 

@@ -6,8 +6,6 @@
 
 namespace tesselator_test
 {
-using namespace std;
-
 typedef m2::PointD P;
 
 class DoDump
@@ -25,7 +23,7 @@ public:
   }
 };
 
-size_t RunTest(list<vector<P> > const & l)
+size_t RunTest(std::list<std::vector<P> > const & l)
 {
   tesselator::TrianglesInfo info;
   int const trianglesCount = tesselator::TesselateInterior(l, info);
@@ -38,8 +36,8 @@ size_t RunTest(list<vector<P> > const & l)
 
 size_t RunTess(P const * arr, size_t count)
 {
-  list<vector<P> > l;
-  l.push_back(vector<P>());
+  std::list<std::vector<P> > l;
+  l.emplace_back();
   l.back().assign(arr, arr + count);
 
   return RunTest(l);
@@ -57,17 +55,17 @@ UNIT_TEST(Tesselator_Odd)
 
   size_t const count = ARRAY_SIZE(arr);
 
-  list<vector<P> > l;
-  l.push_back(vector<P>());
+  std::list<std::vector<P> > l;
+  l.emplace_back();
   l.back().assign(arr, arr + count);
-  l.push_back(vector<P>());
+  l.emplace_back();
   l.back().assign(arr, arr + count);
 
   TEST_EQUAL(0, RunTest(l), ());
 
   P arr1[] = { P(-100, -100), P(100, -100), P(100, 100), P(-100, 100) };
 
-  l.push_back(vector<P>());
+  l.emplace_back();
   l.back().assign(arr1, arr1 + ARRAY_SIZE(arr1));
 
   TEST_EQUAL(2, RunTest(l), ());

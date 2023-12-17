@@ -31,7 +31,7 @@ class LevenshteinDFA
 public:
   static size_t const kStartingState;
   static size_t const kRejectingState;
-  
+
   struct Position
   {
     Position() = default;
@@ -93,14 +93,18 @@ public:
     LevenshteinDFA const & m_dfa;
   };
 
-  LevenshteinDFA(LevenshteinDFA const &) = default;
+  LevenshteinDFA() = default;
+  LevenshteinDFA(LevenshteinDFA const &) = delete;
   LevenshteinDFA(LevenshteinDFA &&) = default;
+  LevenshteinDFA & operator=(LevenshteinDFA &&) = default;
 
   LevenshteinDFA(UniString const & s, size_t prefixSize,
                  std::vector<UniString> const & prefixMisprints, size_t maxErrors);
   LevenshteinDFA(std::string const & s, size_t prefixSize, size_t maxErrors);
   LevenshteinDFA(UniString const & s, size_t maxErrors);
   LevenshteinDFA(std::string const & s, size_t maxErrors);
+
+  bool IsEmpty() const { return m_alphabet.empty(); }
 
   inline Iterator Begin() const { return Iterator(*this); }
 
@@ -133,8 +137,8 @@ private:
 
   size_t Move(size_t s, UniChar c) const;
 
-  size_t const m_size;
-  size_t const m_maxErrors;
+  size_t m_size;
+  size_t m_maxErrors;
 
   std::vector<UniChar> m_alphabet;
 

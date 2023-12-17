@@ -45,7 +45,7 @@ struct DownloaderSearchParams;
 
 class SearchAPI : public search::DownloaderSearchCallback::Delegate,
                   public search::ViewportSearchCallback::Delegate,
-                  public search::ProductInfo::Delegate
+                  public search::EverywhereSearchCallback::Delegate
 {
 public:
   struct Delegate
@@ -81,16 +81,16 @@ public:
   }
 
   // Search everywhere.
-  bool SearchEverywhere(search::EverywhereSearchParams const & params);
+  bool SearchEverywhere(search::EverywhereSearchParams params);
 
   // Search in the viewport.
-  bool SearchInViewport(search::ViewportSearchParams const & params);
+  bool SearchInViewport(search::ViewportSearchParams params);
 
   // Search for maps by countries or cities.
-  bool SearchInDownloader(storage::DownloaderSearchParams const & params);
+  bool SearchInDownloader(storage::DownloaderSearchParams params);
 
   // Search for bookmarks.
-  bool SearchInBookmarks(search::BookmarksSearchParams const & params);
+  bool SearchInBookmarks(search::BookmarksSearchParams params);
 
   search::Engine & GetEngine() { return m_engine; }
   search::Engine const & GetEngine() const { return m_engine; }
@@ -118,18 +118,11 @@ public:
 
   void EnableIndexingOfBookmarksDescriptions(bool enable);
 
-  // A hint on the maximum number of bookmarks that can be stored in the
-  // search index for bookmarks. It is advisable that the client send
-  // OnBookmarksDeleted if the limit is crossed.
-  // The limit is not enforced by the Search API.
-  static size_t GetMaximumPossibleNumberOfBookmarksToIndex();
-
   // By default all created bookmarks are saved in BookmarksProcessor
   // but we do not index them in an attempt to save time and memory.
   // This method must be used to enable or disable indexing all current and future
   // bookmarks belonging to |groupId|.
   void EnableIndexingOfBookmarkGroup(kml::MarkGroupId const & groupId, bool enable);
-  bool IsIndexingOfBookmarkGroupEnabled(kml::MarkGroupId const & groupId);
   std::unordered_set<kml::MarkGroupId> const & GetIndexableGroups() const;
 
   // Returns the bookmarks search to its default, pre-launch state.
@@ -153,7 +146,7 @@ private:
     bool m_isDelayed = false;
   };
 
-  bool Search(search::SearchParams const & params, bool forceSearch);
+  bool Search(search::SearchParams params, bool forceSearch);
   void Search(SearchIntent & intent);
 
   void SetViewportIfPossible(search::SearchParams & params);

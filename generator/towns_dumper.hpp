@@ -12,8 +12,9 @@ class TownsDumper
 {
 public:
   void CheckElement(OsmElement const & em);
-
   void Dump(std::string const & filePath);
+
+  static double GetDistanceThreshold();
 
 private:
   void FilterTowns();

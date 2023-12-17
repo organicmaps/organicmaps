@@ -4,17 +4,15 @@
 
 #include <type_traits>
 
-using namespace std;
-
 namespace
 {
-template <typename Number, typename EnableIf = enable_if_t<is_integral<Number>::value, void>>
+template <typename Number, typename EnableIf = std::enable_if_t<std::is_integral<Number>::value, void>>
 bool SumWillOverflow(Number lhs, Number rhs)
 {
   if (lhs > 0)
-    return rhs > numeric_limits<Number>::max() - lhs;
+    return rhs > std::numeric_limits<Number>::max() - lhs;
   if (lhs < 0)
-    return rhs < numeric_limits<Number>::min() - lhs;
+    return rhs < std::numeric_limits<Number>::min() - lhs;
   return false;
 }
 }  // namespace
@@ -49,8 +47,8 @@ RouteWeight RouteWeight::operator+(RouteWeight const & rhs) const
 
 RouteWeight RouteWeight::operator-(RouteWeight const & rhs) const
 {
-  ASSERT_NOT_EQUAL(m_numPassThroughChanges, numeric_limits<int8_t>::min(), ());
-  ASSERT_NOT_EQUAL(m_numAccessChanges, numeric_limits<int8_t>::min(), ());
+  ASSERT_NOT_EQUAL(m_numPassThroughChanges, std::numeric_limits<int8_t>::min(), ());
+  ASSERT_NOT_EQUAL(m_numAccessChanges, std::numeric_limits<int8_t>::min(), ());
   ASSERT(
       !SumWillOverflow(m_numPassThroughChanges, static_cast<int8_t>(-rhs.m_numPassThroughChanges)),
       (m_numPassThroughChanges, -rhs.m_numPassThroughChanges));
@@ -132,7 +130,7 @@ double RouteWeight::GetIntegratedWeight() const
   return res;
 }
 
-ostream & operator<<(ostream & os, RouteWeight const & routeWeight)
+std::ostream & operator<<(std::ostream & os, RouteWeight const & routeWeight)
 {
   os << "("
      << static_cast<int32_t>(routeWeight.GetNumPassThroughChanges()) << ", "

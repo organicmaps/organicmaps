@@ -1,8 +1,5 @@
 #include "platform/mwm_traits.hpp"
 
-#include "base/logging.hpp"
-#include "base/macros.hpp"
-
 namespace version
 {
 MwmTraits::MwmTraits(MwmVersion const & version) : m_version(version) {}
@@ -40,10 +37,6 @@ std::string DebugPrint(MwmTraits::HouseToStreetTableFormat format)
 {
   switch (format)
   {
-  case MwmTraits::HouseToStreetTableFormat::Fixed3BitsDDVector:
-    return "Fixed3BitsDDVector";
-  case MwmTraits::HouseToStreetTableFormat::EliasFanoMap:
-    return "EliasFanoMap";
   case MwmTraits::HouseToStreetTableFormat::HouseToStreetTableWithHeader:
     return "HouseToStreetTableWithHeader";
   case MwmTraits::HouseToStreetTableFormat::Unknown:

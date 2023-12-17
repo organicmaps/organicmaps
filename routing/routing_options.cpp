@@ -6,18 +6,13 @@
 
 #include "base/assert.hpp"
 #include "base/checked_cast.hpp"
-#include "base/logging.hpp"
-#include "base/macros.hpp"
 #include "base/string_utils.hpp"
 
-#include <initializer_list>
 #include <sstream>
-#include <utility>
-
-using namespace std;
 
 namespace routing
 {
+using namespace std;
 
 // RoutingOptions -------------------------------------------------------------------------------------
 
@@ -74,17 +69,20 @@ RoutingOptionsClassifier::RoutingOptionsClassifier()
     {{"psurface", "unpaved_good"},        RoutingOptions::Road::Dirty}
   };
 
+  m_data.Reserve(std::size(types));
   for (auto const & data : types)
-    VERIFY(m_data.insert({c.GetTypeByPath(data.first), data.second}).second, ());
+    m_data.Insert(c.GetTypeByPath(data.first), data.second);
+  m_data.FinishBuilding();
 }
 
 optional<RoutingOptions::Road> RoutingOptionsClassifier::Get(uint32_t type) const
 {
-  auto const it = m_data.find(type);
-  if (it == m_data.cend())
-    return {};
+  ftype::TruncValue(type, 2); // in case of highway-motorway-bridge
 
-  return it->second;
+  auto const * res = m_data.Find(type);
+  if (res)
+    return *res;
+  return {};
 }
 
 RoutingOptionsClassifier const & RoutingOptionsClassifier::Instance()
@@ -93,9 +91,9 @@ RoutingOptionsClassifier const & RoutingOptionsClassifier::Instance()
   return instance;
 }
 
-RoutingOptions::Road ChooseMainRoutingOptionRoad(RoutingOptions options)
+RoutingOptions::Road ChooseMainRoutingOptionRoad(RoutingOptions options, bool isCarRouter)
 {
-  if (options.Has(RoutingOptions::Road::Toll))
+  if (isCarRouter && options.Has(RoutingOptions::Road::Toll))
     return RoutingOptions::Road::Toll;
 
   if (options.Has(RoutingOptions::Road::Ferry))
@@ -157,11 +155,6 @@ RoutingOptionSetter::RoutingOptionSetter(RoutingOptions::RoadType roadsMask)
 {
   m_saved = RoutingOptions::LoadCarOptionsFromSettings();
   RoutingOptions::SaveCarOptionsToSettings(RoutingOptions(roadsMask));
-}
-
-RoutingOptionSetter::RoutingOptionSetter(RoutingOptions::Road road)
-  : RoutingOptionSetter(static_cast<RoutingOptions::RoadType>(road))
-{
 }
 
 RoutingOptionSetter::~RoutingOptionSetter()

@@ -12,11 +12,9 @@
 #include "platform/country_file.hpp"
 #include "platform/local_country_file.hpp"
 
-#include <cstdint>
 #include <memory>
 #include <set>
 #include <string>
-#include <utility>
 #include <vector>
 
 /*
@@ -42,14 +40,15 @@
  * 6. It's a good idea to use short routes for testing turns. The thing is geometry of long routes
  *    could be changed from one dataset to another. The shorter the route the less is the chance it's changed.
  */
+
+typedef std::pair<std::shared_ptr<routing::Route>, routing::RouterResultCode> TRouteResult;
+
+namespace integration
+{
 using namespace routing;
 using namespace turns;
 using platform::LocalCountryFile;
 
-typedef std::pair<std::shared_ptr<Route>, RouterResultCode> TRouteResult;
-
-namespace integration
-{
 std::shared_ptr<FeaturesFetcher> CreateFeaturesFetcher(
     std::vector<LocalCountryFile> const & localFiles);
 
@@ -105,7 +104,9 @@ void TestOnlineFetcher(ms::LatLon const & startPoint, ms::LatLon const & finalPo
                        std::vector<std::string> const & expected,
                        IRouterComponents & routerComponents);
 
-std::shared_ptr<VehicleRouterComponents> CreateAllMapsComponents(VehicleType vehicleType);
+std::shared_ptr<VehicleRouterComponents>
+CreateAllMapsComponents(VehicleType vehicleType, std::set<std::string> const & skipMaps);
+
 IRouterComponents & GetVehicleComponents(VehicleType vehicleType);
 
 TRouteResult CalculateRoute(IRouterComponents const & routerComponents,
@@ -116,6 +117,7 @@ TRouteResult CalculateRoute(IRouterComponents const & routerComponents,
                             Checkpoints const & checkpoints, GuidesTracks && guides);
 
 void TestTurnCount(Route const & route, uint32_t expectedTurnCount);
+void TestTurns(Route const & route, std::vector<CarDirection> const & expectedTurns);
 
 /// Testing route length.
 /// It is used for checking if routes have expected(sample) length.
@@ -131,7 +133,7 @@ void CalculateRouteAndTestRouteLength(IRouterComponents const & routerComponents
                                       m2::PointD const & startPoint,
                                       m2::PointD const & startDirection,
                                       m2::PointD const & finalPoint, double expectedRouteMeters,
-                                      double relativeError = 0.07);
+                                      double relativeError = 0.02);
 
 void CalculateRouteAndTestRouteTime(IRouterComponents const & routerComponents,
                                     m2::PointD const & startPoint,

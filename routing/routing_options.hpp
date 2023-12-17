@@ -1,9 +1,10 @@
 #pragma once
 
+#include "base/small_map.hpp"
+
 #include <optional>
 #include <string>
 #include <type_traits>
-#include <unordered_map>
 
 namespace routing
 {
@@ -12,7 +13,7 @@ class RoutingOptions
 public:
   static std::string const kAvoidRoutingOptionSettingsForCar;
 
-  enum class Road : uint8_t
+  enum Road : uint8_t
   {
     Usual    = 1u << 0,
     Toll     = 1u << 1,
@@ -50,10 +51,10 @@ public:
   static RoutingOptionsClassifier const & Instance();
 
 private:
-  std::unordered_map<uint32_t, RoutingOptions::Road> m_data;
+  base::SmallMap<uint32_t, RoutingOptions::Road> m_data;
 };
 
-RoutingOptions::Road ChooseMainRoutingOptionRoad(RoutingOptions options);
+RoutingOptions::Road ChooseMainRoutingOptionRoad(RoutingOptions options, bool isCarRouter);
 
 std::string DebugPrint(RoutingOptions const & routingOptions);
 std::string DebugPrint(RoutingOptions::Road type);
@@ -63,7 +64,6 @@ class RoutingOptionSetter
 {
 public:
   explicit RoutingOptionSetter(RoutingOptions::RoadType roadsMask);
-  explicit RoutingOptionSetter(RoutingOptions::Road road);
   ~RoutingOptionSetter();
 
 private:

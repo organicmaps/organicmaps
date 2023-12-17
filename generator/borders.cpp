@@ -87,10 +87,7 @@ public:
       std::vector<m2::PointD> out;
 
       /// @todo Choose scale level for simplification.
-      double const eps = base::Pow2(scales::GetEpsilonForSimplify(10));
-      m2::SquaredDistanceFromSegmentToPoint<m2::PointD> distFn;
-      SimplifyNearOptimal(20, in.begin(), in.end(), eps, distFn,
-                          AccumulateSkipSmallTrg<decltype(distFn), m2::PointD>(distFn, out, eps));
+      SimplifyDefault(in.begin(), in.end(), base::Pow2(scales::GetEpsilonForSimplify(10)), out);
 
       serial::SaveOuterPath(out, cp, *w);
     }
@@ -107,7 +104,6 @@ private:
 
   std::vector<storage::CountryDef> m_polys;
 };
-}  // namespace
 
 bool ReadPolygon(std::istream & stream, m2::RegionD & region, std::string const & filename)
 {
@@ -139,6 +135,15 @@ bool ReadPolygon(std::istream & stream, m2::RegionD & region, std::string const 
 
   // drop inner rings
   return name[0] != '!';
+}
+}  // namespace
+
+bool CountryPolygons::Contains(m2::PointD const & point) const
+{
+  return m_polygons.ForAnyInRect(m2::RectD(point, point), [&](auto const & rgn)
+  {
+    return rgn.Contains(point, ContainsCompareFn(GetContainsEpsilon()));
+  });
 }
 
 bool LoadBorders(std::string const & borderFile, std::vector<m2::RegionD> & outBorders)
@@ -184,10 +189,11 @@ bool GetBordersRect(std::string const & baseDir, std::string const & country,
 
 CountryPolygonsCollection LoadCountriesList(std::string const & baseDir)
 {
-  LOG(LINFO, ("Loading countries."));
+  LOG(LINFO, ("Loading countries in", BORDERS_DIR, "folder in", baseDir));
 
   CountryPolygonsCollection countryPolygonsCollection;
-  ForEachCountry(baseDir, [&](auto const & name, auto const & borders) {
+  ForEachCountry(baseDir, [&](auto const & name, auto const & borders)
+  {
     PolygonsTree polygons;
     for (m2::RegionD const & border : borders)
       polygons.Add(border, border.GetRect());
@@ -257,9 +263,9 @@ void UnpackBorders(std::string const & baseDir, std::string const & targetDir)
   }
 }
 
-
 CountryPolygonsCollection const & GetOrCreateCountryPolygonsTree(std::string const & baseDir)
 {
+  /// @todo Are there many different paths with polygons, that we have to store map?
   static std::mutex mutex;
   static std::unordered_map<std::string, CountryPolygonsCollection> countriesMap;
 

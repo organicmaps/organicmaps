@@ -3,9 +3,8 @@
 #include "routing/fake_feature_ids.hpp"
 #include "routing/index_graph.hpp"
 
-#include "indexer/feature_altitude.hpp"
-
 #include "geometry/mercator.hpp"
+
 
 namespace routing
 {
@@ -15,12 +14,6 @@ using namespace std;
 // TODO(o.khlopkova) Replace this constant with implementation of intervals calculation on the
 // gtfs converter step.
 size_t constexpr kDefaultIntervalS = 60 * 60;  // 1 hour.
-
-Segment GetReverseSegment(Segment const & segment)
-{
-  return Segment(segment.GetMwmId(), segment.GetFeatureId(), segment.GetSegmentIdx(),
-                 !segment.IsForward());
-}
 
 LatLonWithAltitude const & GetStopJunction(
     map<transit::StopId, LatLonWithAltitude> const & stopCoords, transit::StopId stopId)
@@ -34,7 +27,7 @@ LatLonWithAltitude const & GetStopJunction(
 // static
 bool TransitGraph::IsTransitFeature(uint32_t featureId)
 {
-  return FakeFeatureIds::IsTransitFeature(featureId); 
+  return FakeFeatureIds::IsTransitFeature(featureId);
 }
 
 // static
@@ -429,7 +422,7 @@ void TransitGraph::AddGate(transit::Gate const & gate, FakeEnding const & ending
       auto const fakeBackwardSegment = GetNewTransitSegment();
       m_fake.AddVertex(projectionSegment, fakeBackwardSegment, backwardPartOfReal,
                        !isEnter /* isOutgoing */, true /* isPartOfReal */,
-                       GetReverseSegment(projection.m_segment));
+                       projection.m_segment.GetReversed());
     }
 
     // Connect gate to stops
@@ -486,7 +479,7 @@ void TransitGraph::AddGate(::transit::experimental::Gate const & gate, FakeEndin
       auto const fakeBackwardSegment = GetNewTransitSegment();
       m_fake.AddVertex(projectionSegment, fakeBackwardSegment, backwardPartOfReal,
                        !isEnter /* isOutgoing */, true /* isPartOfReal */,
-                       GetReverseSegment(projection.m_segment));
+                       projection.m_segment.GetReversed());
     }
 
     // Connect gate to stops
@@ -547,7 +540,7 @@ void TransitGraph::AddStop(::transit::experimental::Stop const & stop, FakeEndin
         auto const fakeBackwardSegment = GetNewTransitSegment();
         m_fake.AddVertex(projectionSegment, fakeBackwardSegment, backwardPartOfReal,
                          !isEnter /* isOutgoing */, true /* isPartOfReal */,
-                         GetReverseSegment(projection.m_segment));
+                         projection.m_segment.GetReversed());
       }
 
       // Connect stop to graph.

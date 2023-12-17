@@ -3,9 +3,16 @@
 #include "std/target_os.hpp"
 
 #include <ctime>
+#include <optional>
 #include <vector>
 
-namespace
+#if defined(OMIM_OS_MAC)
+std::unique_ptr<location::LocationService> CreateAppleLocationService(location::LocationObserver &);
+#elif defined(QT_LOCATION_SERVICE)
+std::unique_ptr<location::LocationService> CreateQtLocationService(location::LocationObserver &, std::string const & sourceName);
+#endif
+
+namespace location
 {
 static double ApproxDistanceSquareInMeters(double lat1, double lon1, double lat2, double lon2)
 {
@@ -17,15 +24,12 @@ static double ApproxDistanceSquareInMeters(double lat1, double lon1, double lat2
 /// Chooses most accurate data from different position services
 class PositionFilter
 {
-  location::GpsInfo * m_prevLocation;
+  std::optional<location::GpsInfo> m_prevLocation;
 public:
-  PositionFilter() : m_prevLocation(NULL) {}
-  ~PositionFilter() { delete m_prevLocation; }
-
   /// @return true if location should be sent to observers
   bool Passes(location::GpsInfo const & newLocation)
   {
-    if (std::time(NULL) - newLocation.m_timestamp > 300.0)
+    if (std::time(nullptr) - newLocation.m_timestamp > 300.0)
       return false;
 
     bool passes = true;
@@ -43,19 +47,14 @@ public:
         passes = false;
     }
     else
-      m_prevLocation = new location::GpsInfo(newLocation);
+      m_prevLocation = newLocation;
     return passes;
   }
 };
-}  // namespace
 
-extern "C" location::LocationService * CreateAppleLocationService(location::LocationObserver &);
-
-namespace location
-{
   class DesktopLocationService : public LocationService, public LocationObserver
   {
-    std::vector<LocationService *> m_services;
+    std::vector<std::unique_ptr<LocationService>> m_services;
     PositionFilter m_filter;
     bool m_reportFirstEvent;
 
@@ -74,33 +73,31 @@ namespace location
     explicit DesktopLocationService(LocationObserver & observer)
       : LocationService(observer), m_reportFirstEvent(true)
     {
-#if defined(OMIM_OS_MAC)
+#if defined(QT_LOCATION_SERVICE)
+#if defined(OMIM_OS_LINUX)
+      m_services.push_back(CreateQtLocationService(*this, "geoclue2"));
+#endif // OMIM_OS_LINUX
+#elif defined(OMIM_OS_MAC) // No QT_LOCATION_SERVICE
       m_services.push_back(CreateAppleLocationService(*this));
-#endif
-    }
-
-    virtual ~DesktopLocationService()
-    {
-      for (size_t i = 0; i < m_services.size(); ++i)
-        delete m_services[i];
+#endif // QT_LOCATION_SERVICE
     }
 
     virtual void Start()
     {
-      for (size_t i = 0; i < m_services.size(); ++i)
-        m_services[i]->Start();
+      for (auto & service : m_services)
+        service->Start();
     }
 
     virtual void Stop()
     {
-      for (size_t i = 0; i < m_services.size(); ++i)
-        m_services[i]->Stop();
+      for (auto & service : m_services)
+        service->Stop();
       m_reportFirstEvent = true;
     }
   };
 }  // namespace location
 
-location::LocationService * CreateDesktopLocationService(location::LocationObserver & observer)
+std::unique_ptr<location::LocationService> CreateDesktopLocationService(location::LocationObserver & observer)
 {
-  return new location::DesktopLocationService(observer);
+  return std::make_unique<location::DesktopLocationService>(observer);
 }

@@ -5,7 +5,7 @@
 #include "indexer/feature.hpp"
 #include "indexer/feature_source.hpp"
 
-#include "geometry/algorithm.hpp"
+#include "geometry/intersection_score.hpp"
 #include "geometry/mercator.hpp"
 
 #include "base/logging.hpp"
@@ -62,20 +62,23 @@ FeatureID MigrateWayOrRelatonFeatureIndex(
   // This can be any point on a feature.
   auto const someFeaturePoint = geometry[0];
 
-  forEach(
-      [&fid, &geometry, &count, &bestScore](FeatureType & ft) {
+  forEach([&fid, &geometry, &count, &bestScore](FeatureType & ft)
+      {
         if (ft.GetGeomType() != feature::GeomType::Area)
           return;
         ++count;
-        auto ftGeometry = ft.GetTrianglesAsPoints(FeatureType::BEST_GEOMETRY);
+
+        std::vector<m2::PointD> ftGeometry;
+        assign_range(ftGeometry, ft.GetTrianglesAsPoints(FeatureType::BEST_GEOMETRY));
 
         double score = 0.0;
         try
         {
           score = matcher::ScoreTriangulatedGeometries(geometry, ftGeometry);
         }
-        catch (matcher::NotAPolygonException & ex)
+        catch (geometry::NotAPolygonException & ex)
         {
+          LOG(LWARNING, (ex.Msg()));
           // Support migration for old application versions.
           // TODO(a): To remove it when version 8.0.x will no longer be supported.
           base::SortUnique(geometry);

@@ -166,7 +166,7 @@ UNIT_TEST(MetalinesTest_Case6)
   TEST_EQUAL(outputData.at(keyB).size(), 1 /* ways count */, ());
 }
 
-UNIT_TEST(MetalinesTest_MetalinesBuilderMarge)
+UNIT_TEST(MetalinesTest_MetalinesBuilderMerge)
 {
   classificator::Load();
   auto const filename = generator_tests::GetFileName();

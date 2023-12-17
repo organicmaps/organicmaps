@@ -1,11 +1,8 @@
 #include "routing/single_vehicle_world_graph.hpp"
 
-#include "routing/base/astar_algorithm.hpp"
+#include "base/assert.hpp"
 
 #include <algorithm>
-#include <utility>
-
-#include "base/assert.hpp"
 
 namespace routing
 {
@@ -23,9 +20,9 @@ SingleVehicleWorldGraph::SingleVehicleWorldGraph(unique_ptr<CrossMwmGraph> cross
                                                  unique_ptr<IndexGraphLoader> loader,
                                                  shared_ptr<EdgeEstimator> estimator,
                                                  MwmHierarchyHandler && hierarchyHandler)
-  : m_crossMwmGraph(move(crossMwmGraph))
-  , m_loader(move(loader))
-  , m_estimator(move(estimator))
+  : m_crossMwmGraph(std::move(crossMwmGraph))
+  , m_loader(std::move(loader))
+  , m_estimator(std::move(estimator))
   , m_hierarchyHandler(std::move(hierarchyHandler))
 {
   CHECK(m_loader, ());
@@ -37,7 +34,6 @@ void SingleVehicleWorldGraph::CheckAndProcessTransitFeatures(Segment const & par
                                                              WeightListT & parentWeights,
                                                              bool isOutgoing)
 {
-  bool opposite = !isOutgoing;
   JointEdgeListT newCrossMwmEdges;
 
   NumMwmId const mwmId = parent.GetMwmId();
@@ -58,7 +54,7 @@ void SingleVehicleWorldGraph::CheckAndProcessTransitFeatures(Segment const & par
     for (auto const & twin : twins)
     {
       NumMwmId const twinMwmId = twin.GetMwmId();
-      Segment const start(twinMwmId, twin.GetFeatureId(), target.GetSegmentId(!opposite), target.IsForward());
+      Segment const start(twinMwmId, twin.GetFeatureId(), target.GetSegmentId(isOutgoing), target.IsForward());
 
       auto & twinIndexGraph = GetIndexGraph(twinMwmId);
 
@@ -67,12 +63,11 @@ void SingleVehicleWorldGraph::CheckAndProcessTransitFeatures(Segment const & par
       ASSERT_EQUAL(lastPoints.size(), 1, ());
 
       if (auto edge = currentIndexGraph.GetJointEdgeByLastPoint(parent,
-                                                                target.GetSegment(!opposite),
+                                                                target.GetSegment(isOutgoing),
                                                                 isOutgoing, lastPoints.back()))
       {
         newCrossMwmEdges.emplace_back(*edge);
         newCrossMwmEdges.back().GetTarget().AssignID(twin);
-        newCrossMwmEdges.back().GetWeight() += m_hierarchyHandler.GetCrossBorderPenalty(mwmId, twinMwmId);
 
         parentWeights.push_back(parentWeights[i]);
       }
@@ -174,6 +169,7 @@ RouteWeight SingleVehicleWorldGraph::CalcOffroadWeight(ms::LatLon const & from,
 
 double SingleVehicleWorldGraph::CalculateETA(Segment const & from, Segment const & to)
 {
+  /// @todo Crutch, for example we can loose ferry penalty here (no twin segments), @see Russia_CrossMwm_Ferry.
   if (from.GetMwmId() != to.GetMwmId())
     return CalculateETAWithoutPenalty(to);
 
@@ -214,6 +210,11 @@ void SingleVehicleWorldGraph::GetTwinsInner(Segment const & segment, bool isOutg
                                             vector<Segment> & twins)
 {
   m_crossMwmGraph->GetTwins(segment, isOutgoing, twins);
+}
+
+RouteWeight SingleVehicleWorldGraph::GetCrossBorderPenalty(NumMwmId mwmId1, NumMwmId mwmId2)
+{
+  return m_hierarchyHandler.GetCrossBorderPenalty(mwmId1, mwmId2);
 }
 
 bool SingleVehicleWorldGraph::IsRoutingOptionsGood(Segment const & segment)

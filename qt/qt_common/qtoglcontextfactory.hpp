@@ -4,7 +4,6 @@
 #include "qt/qt_common/qtoglcontext.hpp"
 
 #include <QtGui/QOpenGLContext>
-#include <QtGui/QOpenGLFramebufferObject>
 
 #include <memory>
 

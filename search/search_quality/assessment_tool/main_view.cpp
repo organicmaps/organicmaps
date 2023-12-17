@@ -1,19 +1,17 @@
-#include "search/search_quality/assessment_tool/main_view.hpp"
+#include "main_view.hpp"
 
-#include "search/search_quality/assessment_tool/feature_info_dialog.hpp"
-#include "search/search_quality/assessment_tool/helpers.hpp"
-#include "search/search_quality/assessment_tool/model.hpp"
-#include "search/search_quality/assessment_tool/results_view.hpp"
-#include "search/search_quality/assessment_tool/sample_view.hpp"
-#include "search/search_quality/assessment_tool/samples_view.hpp"
+#include "feature_info_dialog.hpp"
+#include "helpers.hpp"
+#include "model.hpp"
+#include "results_view.hpp"
+#include "sample_view.hpp"
+#include "samples_view.hpp"
 
 #include "qt/qt_common/map_widget.hpp"
 #include "qt/qt_common/scale_slider.hpp"
 
 #include "map/framework.hpp"
 #include "map/place_page_info.hpp"
-
-#include "indexer/feature_algo.hpp"
 
 #include "geometry/mercator.hpp"
 
@@ -28,7 +26,6 @@
 #include <QtGui/QIntValidator>
 #include <QtGui/QKeySequence>
 #include <QtWidgets/QApplication>
-#include <QtWidgets/QDesktopWidget>
 #include <QtWidgets/QDialog>
 #include <QtWidgets/QDialogButtonBox>
 #include <QtWidgets/QDockWidget>
@@ -127,9 +124,9 @@ void MainView::ShowSample(size_t sampleIndex, search::Sample const & sample,
   OnSampleChanged(sampleIndex, isUseless, hasEdits);
 }
 
-void MainView::AddFoundResults(search::Results::ConstIter begin, search::Results::ConstIter end)
+void MainView::AddFoundResults(search::Results const & results)
 {
-  m_sampleView->AddFoundResults(begin, end);
+  m_sampleView->AddFoundResults(results);
 }
 
 void MainView::ShowNonFoundResults(std::vector<search::Sample::Result> const & results,
@@ -140,25 +137,10 @@ void MainView::ShowNonFoundResults(std::vector<search::Sample::Result> const & r
 
 void MainView::ShowMarks(Context const & context)
 {
-  ClearSearchResultMarks();
-  ShowFoundResultsMarks(context.m_foundResults.begin(), context.m_foundResults.end());
-  ShowNonFoundResultsMarks(context.m_nonFoundResults, context.m_nonFoundResultsEdits.GetEntries());
+  m_sampleView->ClearSearchResultMarks();
+  m_sampleView->ShowFoundResultsMarks(context.m_foundResults);
+  m_sampleView->ShowNonFoundResultsMarks(context.m_nonFoundResults, context.m_nonFoundResultsEdits.GetEntries());
 }
-
-void MainView::ShowFoundResultsMarks(search::Results::ConstIter begin,
-                                     search::Results::ConstIter end)
-
-{
-  m_sampleView->ShowFoundResultsMarks(begin, end);
-}
-
-void MainView::ShowNonFoundResultsMarks(std::vector<search::Sample::Result> const & results,
-                                        std::vector<ResultsEdits::Entry> const & entries)
-{
-  m_sampleView->ShowNonFoundResultsMarks(results, entries);
-}
-
-void MainView::ClearSearchResultMarks() { m_sampleView->ClearSearchResultMarks(); }
 
 void MainView::MoveViewportToResult(search::Result const & result)
 {
@@ -303,7 +285,7 @@ void MainView::InitMenuBar()
 
   {
     m_initiateBackgroundSearch = new QAction(tr("Initiate background search"), this /* parent */);
-    m_initiateBackgroundSearch->setShortcut(Qt::CTRL | Qt::Key_I);
+    m_initiateBackgroundSearch->setShortcut(static_cast<int>(Qt::CTRL) | static_cast<int>(Qt::Key_I));
     m_initiateBackgroundSearch->setStatusTip(
         tr("Search in the background for the queries from a selected range"));
     m_initiateBackgroundSearch->setEnabled(false);
@@ -342,7 +324,7 @@ void MainView::InitMapWidget()
   widget->setLayout(layout);
 
   {
-    auto * mapWidget = new qt::common::MapWidget(m_framework, false /* apiOpenGLES3 */,
+    auto * mapWidget = new qt::common::MapWidget(m_framework,
                                                  false /* screenshotMode */, widget /* parent */);
     connect(mapWidget, &qt::common::MapWidget::OnContextMenuRequested,
             [this](QPoint const & p) { AddSelectedFeature(p); });
@@ -543,7 +525,7 @@ void MainView::AddSelectedFeature(QPoint const & p)
 QDockWidget * MainView::CreateDock(QWidget & widget)
 {
   auto * dock = new QDockWidget(QString(), this /* parent */, Qt::Widget);
-  dock->setFeatures(QDockWidget::DockWidgetClosable | 
+  dock->setFeatures(QDockWidget::DockWidgetClosable |
                     QDockWidget::DockWidgetMovable |
                     QDockWidget::DockWidgetFloatable);
   dock->setWidget(&widget);

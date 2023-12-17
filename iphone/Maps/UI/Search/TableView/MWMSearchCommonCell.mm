@@ -5,15 +5,11 @@
 
 #include "map/place_page_info.hpp"
 
+#include "geometry/mercator.hpp"
+
 #include "platform/localization.hpp"
-#include "platform/measurement_utils.hpp"
-namespace
-{
-bool PopularityHasHigherPriority(bool hasPosition, double distanceInMeters)
-{
-  return !hasPosition || distanceInMeters > search::Result::kPopularityHighPriorityMinDistance;
-}
-}  // namespace
+#include "platform/distance.hpp"
+
 
 @interface MWMSearchCommonCell ()
 
@@ -36,19 +32,22 @@ bool PopularityHasHigherPriority(bool hasPosition, double distanceInMeters)
   self.locationLabel.text = @(result.GetAddress().c_str());
   [self.locationLabel sizeToFit];
 
-  NSUInteger const starsCount = result.GetStarsCount();
+  int const starsCount = std::min(7, result.GetStarsCount());
   NSString * cuisine = @(result.GetCuisine().c_str()).capitalizedString;
   NSString * airportIata = @(result.GetAirportIata().c_str());
   NSString * roadShields = @(result.GetRoadShields().c_str());
+  NSString * fee = @(result.GetFee().c_str());
   NSString * brand  = @"";
   if (!result.GetBrand().empty())
     brand = @(platform::GetLocalizedBrandName(result.GetBrand()).c_str());
   
   NSString * description = @"";
 
-  static NSString * fiveStars = [NSString stringWithUTF8String:"★★★★★"];
-  if (starsCount > 0)
-    description = [fiveStars substringToIndex:starsCount];
+  if (result.IsHotel() && starsCount > 0)
+  {
+    static NSString * sevenStars = [NSString stringWithUTF8String:"★★★★★★★"];
+    description = [sevenStars substringToIndex:starsCount];
+  }
   else if (airportIata.length > 0)
     description = airportIata;
   else if (roadShields.length > 0)
@@ -59,6 +58,8 @@ bool PopularityHasHigherPriority(bool hasPosition, double distanceInMeters)
     description = brand;
   else if (cuisine.length > 0)
     description = cuisine;
+  else if (fee.length > 0)
+    description = fee;
   
   if ([description length] == 0)
     self.infoLabel.text = localizedTypeName;
@@ -71,12 +72,9 @@ bool PopularityHasHigherPriority(bool hasPosition, double distanceInMeters)
   {
     if (result.HasPoint())
     {
-      auto const localizedUnits = platform::GetLocalizedDistanceUnits();
       distanceInMeters =
           mercator::DistanceOnEarth(lastLocation.mercator, result.GetFeatureCenter());
-      std::string distanceStr = measurement_utils::FormatDistanceWithLocalization(distanceInMeters,
-                                                                                  localizedUnits.m_high,
-                                                                                  localizedUnits.m_low);
+      std::string distanceStr = platform::Distance::CreateFormatted(distanceInMeters).ToString();
       self.distanceLabel.text = @(distanceStr.c_str());
     }
   }

@@ -131,7 +131,7 @@ bool SequenceAnimation::GetTargetProperty(Object object, ObjectProperty property
 
 void SequenceAnimation::AddAnimation(drape_ptr<Animation> && animation)
 {
-  m_animations.emplace_back(move(animation));
+  m_animations.emplace_back(std::move(animation));
   if (m_animations.size() == 1)
     ObtainObjectProperties();
 }

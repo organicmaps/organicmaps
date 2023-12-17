@@ -127,7 +127,7 @@ final class BaseRoutePreviewStatus: SolidTouchView {
                                     completion: { image, totalAscent, totalDescent in
                                     self.heightProfileImage.image = image
                                     if let totalAscent = totalAscent, let totalDescent = totalDescent {                                      
-                                      self.elevation = NSAttributedString(string: "▲ \(totalAscent) ▼ \(totalDescent)", attributes: BaseRoutePreviewStatus.elevationAttributes)
+                                      self.elevation = NSAttributedString(string: "↗ \(totalAscent) ↘ \(totalDescent)", attributes: BaseRoutePreviewStatus.elevationAttributes)
                                     }
       })
     } else {
@@ -142,9 +142,10 @@ final class BaseRoutePreviewStatus: SolidTouchView {
 
     if let result = info.estimate.mutableCopy() as? NSMutableAttributedString {
       if let elevation = self.elevation {
-        result.append(info.estimateDot)
+        result.append(MWMNavigationDashboardEntity.estimateDot())
         result.append(elevation)
       }
+      
       resultLabel.attributedText = result
     }
   }
@@ -152,7 +153,7 @@ final class BaseRoutePreviewStatus: SolidTouchView {
   @objc func onNavigationInfoUpdated(_ info: MWMNavigationDashboardEntity) {
     navigationInfo = info
     updateResultsLabel()
-    arriveLabel?.text = String(coreFormat: L("routing_arrive"), arguments: [info.arrival])
+    arriveLabel?.text = String(format: L("routing_arrive"), arguments: [info.arrival])
   }
 
   override var sideButtonsAreaAffectDirections: MWMAvailableAreaAffectDirections {

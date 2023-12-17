@@ -2,7 +2,6 @@
 #include "drape/vulkan/vulkan_utils.hpp"
 
 #include "base/assert.hpp"
-#include "base/macros.hpp"
 #include "base/math.hpp"
 
 #include <algorithm>
@@ -58,11 +57,23 @@ VkMemoryPropertyFlags GetMemoryPropertyFlags(
   return 0;
 }
 
-bool Less(drape_ptr<VulkanMemoryManager::MemoryBlock> const & b1,
-          drape_ptr<VulkanMemoryManager::MemoryBlock> const & b2)
+struct LessBlockSize
 {
-  return b1->m_blockSize < b2->m_blockSize;
-}
+  using BlockPtrT = drape_ptr<VulkanMemoryManager::MemoryBlock>;
+
+  bool operator()(BlockPtrT const & b1, BlockPtrT const & b2) const
+  {
+    return b1->m_blockSize < b2->m_blockSize;
+  }
+  bool operator()(BlockPtrT const & b1, uint32_t b2) const
+  {
+    return b1->m_blockSize < b2;
+  }
+  bool operator()(uint32_t b1, BlockPtrT const & b2) const
+  {
+    return b1 < b2->m_blockSize;
+  }
+};
 }  // namespace
 
 VulkanMemoryManager::VulkanMemoryManager(VkDevice device, VkPhysicalDeviceLimits const & deviceLimits,
@@ -143,10 +154,11 @@ VulkanMemoryManager::AllocationPtr VulkanMemoryManager::Allocate(ResourceType re
                                                                  VkMemoryRequirements memReqs,
                                                                  uint64_t blockHash)
 {
+  size_t const intResType = static_cast<size_t>(resourceType);
   auto const alignedSize = GetAligned(static_cast<uint32_t>(memReqs.size), GetSizeAlignment(memReqs));
   // Looking for an existed block.
   {
-    auto & m = m_memory[static_cast<size_t>(resourceType)];
+    auto & m = m_memory[intResType];
     auto const it = m.find(blockHash);
     if (it != m.end())
     {
@@ -165,11 +177,9 @@ VulkanMemoryManager::AllocationPtr VulkanMemoryManager::Allocate(ResourceType re
     }
 
     // Looking for a block in free ones.
-    auto & fm = m_freeBlocks[static_cast<size_t>(resourceType)];
+    auto & fm = m_freeBlocks[intResType];
     // Free blocks array must be sorted by size.
-    static drape_ptr<MemoryBlock> refBlock = make_unique_dp<MemoryBlock>();
-    refBlock->m_blockSize = alignedSize;
-    auto const freeBlockIt = std::lower_bound(fm.begin(), fm.end(), refBlock, &Less);
+    auto const freeBlockIt = std::lower_bound(fm.begin(), fm.end(), alignedSize, LessBlockSize());
     if (freeBlockIt != fm.end())
     {
       drape_ptr<MemoryBlock> freeBlock = std::move(*freeBlockIt);
@@ -199,12 +209,10 @@ VulkanMemoryManager::AllocationPtr VulkanMemoryManager::Allocate(ResourceType re
     memoryTypeIndex = GetMemoryTypeIndex(memReqs.memoryTypeBits, flags);
   }
 
-  if (!memoryTypeIndex)
-    CHECK(false, ("Unsupported memory allocation configuration."));
+  CHECK(memoryTypeIndex, ("Unsupported memory allocation configuration."));
 
   // Create new memory block.
-  auto const blockSize = std::max(kMinBlockSizeInBytes[static_cast<size_t>(resourceType)],
-                                  alignedSize);
+  auto const blockSize = std::max(kMinBlockSizeInBytes[intResType], alignedSize);
   VkDeviceMemory memory = {};
   VkMemoryAllocateInfo memAllocInfo = {};
   memAllocInfo.sType = VK_STRUCTURE_TYPE_MEMORY_ALLOCATE_INFO;
@@ -212,11 +220,15 @@ VulkanMemoryManager::AllocationPtr VulkanMemoryManager::Allocate(ResourceType re
   memAllocInfo.allocationSize = blockSize;
   memAllocInfo.memoryTypeIndex = *memoryTypeIndex;
   IncrementTotalAllocationsCount();
-  CHECK_VK_CALL(vkAllocateMemory(m_device, &memAllocInfo, nullptr, &memory));
-  m_sizes[static_cast<size_t>(resourceType)] += blockSize;
+
+  CHECK_VK_CALL_EX(vkAllocateMemory(m_device, &memAllocInfo, nullptr, &memory),
+                   ("Requested size =", blockSize, "Allocated sizes =", m_sizes, "Total allocs =", m_totalAllocationCounter,
+                    m_memory[intResType].size(), m_freeBlocks[intResType].size()));
+
+  m_sizes[intResType] += blockSize;
 
   // Attach block.
-  auto & m = m_memory[static_cast<size_t>(resourceType)];
+  auto & m = m_memory[intResType];
 
   auto newBlock = make_unique_dp<MemoryBlock>();
   newBlock->m_memory = memory;
@@ -279,7 +291,7 @@ void VulkanMemoryManager::Deallocate(AllocationPtr ptr)
         memoryBlock->m_freeOffset = 0;
         auto & fm = m_freeBlocks[resourceIndex];
         fm.push_back(std::move(memoryBlock));
-        std::sort(fm.begin(), fm.end(), &Less);
+        std::sort(fm.begin(), fm.end(), LessBlockSize());
       }
     }
   }
@@ -333,7 +345,7 @@ void VulkanMemoryManager::EndDeallocationSession()
       m_memory[i].erase(hash);
     hashesToDelete.clear();
 
-    std::sort(fm.begin(), fm.end(), &Less);
+    std::sort(fm.begin(), fm.end(), LessBlockSize());
   }
 }
 

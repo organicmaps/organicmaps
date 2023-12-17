@@ -5,28 +5,23 @@
 #include "search/idf_map.hpp"
 #include "search/ranking_utils.hpp"
 #include "search/retrieval.hpp"
-#include "search/token_slice.hpp"
-#include "search/utils.hpp"
 
 #include "indexer/search_string_utils.hpp"
 
-#include "base/checked_cast.hpp"
 #include "base/dfa_helpers.hpp"
 #include "base/levenshtein_dfa.hpp"
-#include "base/stl_helpers.hpp"
 
 #include <algorithm>
 #include <sstream>
 #include <unordered_set>
-#include <utility>
 
+namespace search
+{
 using namespace std;
 using namespace strings;
 
 using PrefixDFA = PrefixDFAModifier<LevenshteinDFA>;
 
-namespace search
-{
 namespace
 {
 class IdfMapDelegate : public IdfMap::Delegate
@@ -70,12 +65,12 @@ private:
 };
 }  // namespace
 
-// static
-size_t const LocalityScorer::kDefaultReadLimit = 100;
+// Used as a default (minimun) number of candidates for futher processing (read FeatureType).
+size_t constexpr kDefaultReadLimit = 100;
 
 // LocalityScorer::ExLocality ----------------------------------------------------------------------
-LocalityScorer::ExLocality::ExLocality(Locality const & locality, double queryNorm, uint8_t rank)
-  : m_locality(locality), m_queryNorm(queryNorm), m_rank(rank)
+LocalityScorer::ExLocality::ExLocality(Locality && locality, double queryNorm, uint8_t rank)
+  : m_locality(std::move(locality)), m_queryNorm(queryNorm), m_rank(rank)
 {
 }
 
@@ -90,17 +85,17 @@ void LocalityScorer::GetTopLocalities(MwmSet::MwmId const & countryId, BaseConte
                                       CBV const & filter, size_t limit,
                                       vector<Locality> & localities)
 {
-  double const kUnknownIdf = 1.0;
-
-  CHECK_EQUAL(ctx.m_numTokens, m_params.GetNumTokens(), ());
+  double constexpr kUnknownIdf = 1.0;
+  size_t const numTokens = ctx.NumTokens();
+  ASSERT_EQUAL(numTokens, m_params.GetNumTokens(), ());
 
   localities.clear();
 
-  vector<Retrieval::ExtendedFeatures> intersections(ctx.m_numTokens);
+  vector<Retrieval::ExtendedFeatures> intersections(numTokens);
   vector<pair<LevenshteinDFA, uint64_t>> tokensToDf;
   vector<pair<PrefixDFA, uint64_t>> prefixToDf;
-  bool const havePrefix = ctx.m_numTokens > 0 && m_params.LastTokenIsPrefix();
-  size_t const nonPrefixTokens = havePrefix ? ctx.m_numTokens - 1 : ctx.m_numTokens;
+  bool const havePrefix = numTokens > 0 && m_params.LastTokenIsPrefix();
+  size_t const nonPrefixTokens = havePrefix ? numTokens - 1 : numTokens;
   for (size_t i = 0; i < nonPrefixTokens; ++i)
   {
     intersections[i] = ctx.m_features[i].Intersect(filter);
@@ -117,7 +112,7 @@ void LocalityScorer::GetTopLocalities(MwmSet::MwmId const & countryId, BaseConte
 
   if (havePrefix)
   {
-    auto const count = ctx.m_numTokens - 1;
+    auto const count = numTokens - 1;
     intersections[count] = ctx.m_features[count].Intersect(filter);
     auto const prefixDf = intersections[count].m_features.PopCount();
     if (prefixDf != 0)
@@ -133,13 +128,13 @@ void LocalityScorer::GetTopLocalities(MwmSet::MwmId const & countryId, BaseConte
   IdfMapDelegate delegate(tokensToDf, prefixToDf);
   IdfMap idfs(delegate, kUnknownIdf);
 
-  for (size_t startToken = 0; startToken < ctx.m_numTokens; ++startToken)
+  for (size_t startToken = 0; startToken < numTokens; ++startToken)
   {
     auto intersection = intersections[startToken];
     QueryVec::Builder builder;
 
     for (size_t endToken = startToken + 1;
-         endToken <= ctx.m_numTokens && !intersection.m_features.IsEmpty(); ++endToken)
+         endToken <= numTokens && !intersection.m_features.IsEmpty(); ++endToken)
     {
       auto const curToken = endToken - 1;
       auto const & token = m_params.GetToken(curToken).GetOriginal();
@@ -152,13 +147,13 @@ void LocalityScorer::GetTopLocalities(MwmSet::MwmId const & countryId, BaseConte
       // Skip locality candidates that match only numbers.
       if (!m_params.IsNumberTokens(tokenRange))
       {
-        intersection.ForEach([&](uint32_t featureId, bool exactMatch) {
-          localities.emplace_back(countryId, featureId, tokenRange, QueryVec(idfs, builder),
-                                  exactMatch);
+        intersection.ForEach([&](uint32_t featureId, bool exactMatch)
+        {
+          localities.emplace_back(FeatureID(countryId, featureId), tokenRange, QueryVec(idfs, builder), exactMatch);
         });
       }
 
-      if (endToken < ctx.m_numTokens)
+      if (endToken < numTokens)
         intersection = intersection.Intersect(intersections[endToken]);
     }
   }
@@ -173,8 +168,8 @@ void LocalityScorer::LeaveTopLocalities(IdfMap & idfs, size_t limit, vector<Loca
   for (auto & locality : localities)
   {
     auto const queryNorm = locality.m_queryVec.Norm();
-    auto const rank = m_delegate.GetRank(locality.m_featureId);
-    els.emplace_back(locality, queryNorm, rank);
+    auto const rank = m_delegate.GetRank(locality.GetFeatureIndex());
+    els.emplace_back(std::move(locality), queryNorm, rank);
   }
 
   // We don't want to read too many names for localities, so this is
@@ -214,20 +209,25 @@ void LocalityScorer::LeaveTopLocalities(IdfMap & idfs, size_t limit, vector<Loca
     }
   }
 
-  LeaveTopBySimilarityAndOther(limit, els);
-  ASSERT_LESS_OR_EQUAL(els.size(), limit, ());
+  GroupBySimilarityAndOther(els);
 
   localities.clear();
   localities.reserve(els.size());
-  for (auto const & el : els)
-    localities.push_back(el.m_locality);
-  ASSERT_LESS_OR_EQUAL(localities.size(), limit, ());
+
+  unordered_set<uint32_t> seen;
+  for (auto it = els.begin(); it != els.end() && localities.size() < limit; ++it)
+  {
+    if (seen.insert(it->GetId()).second)
+      localities.push_back(std::move(it->m_locality));
+  }
+  ASSERT_EQUAL(seen.size(), localities.size(), ());
 }
 
 void LocalityScorer::LeaveTopByExactMatchNormAndRank(size_t limitUniqueIds,
                                                      vector<ExLocality> & els) const
 {
-  sort(els.begin(), els.end(), [](ExLocality const & lhs, ExLocality const & rhs) {
+  sort(els.begin(), els.end(), [](ExLocality const & lhs, ExLocality const & rhs)
+  {
     if (lhs.m_locality.m_exactMatch != rhs.m_locality.m_exactMatch)
       return lhs.m_locality.m_exactMatch;
     auto const ln = lhs.m_queryNorm;
@@ -237,17 +237,21 @@ void LocalityScorer::LeaveTopByExactMatchNormAndRank(size_t limitUniqueIds,
     return lhs.m_rank > rhs.m_rank;
   });
 
+  // This logic with additional filtering set makes sense when _equal_ localities by GetId()
+  // have _different_ primary compare params (m_exactMatch, m_queryNorm, m_rank).
+  // It's possible when same locality was matched by different tokens.
   unordered_set<uint32_t> seen;
-  for (size_t i = 0; i < els.size() && seen.size() < limitUniqueIds; ++i)
-    seen.insert(els[i].GetId());
-  ASSERT_LESS_OR_EQUAL(seen.size(), limitUniqueIds, ());
+  auto it = els.begin();
+  for (; it != els.end() && seen.size() < limitUniqueIds; ++it)
+    seen.insert(it->GetId());
 
-  base::EraseIf(els, [&](ExLocality const & el) { return seen.find(el.GetId()) == seen.cend(); });
+  els.erase(it, els.end());
 }
 
-void LocalityScorer::LeaveTopBySimilarityAndOther(size_t limit, vector<ExLocality> & els) const
+void LocalityScorer::GroupBySimilarityAndOther(vector<ExLocality> & els) const
 {
-  sort(els.begin(), els.end(), [](ExLocality const & lhs, ExLocality const & rhs) {
+  sort(els.begin(), els.end(), [](ExLocality const & lhs, ExLocality const & rhs)
+  {
     if (lhs.m_similarity != rhs.m_similarity)
       return lhs.m_similarity > rhs.m_similarity;
     if (lhs.m_locality.m_tokenRange.Size() != rhs.m_locality.m_tokenRange.Size())
@@ -259,11 +263,13 @@ void LocalityScorer::LeaveTopBySimilarityAndOther(size_t limit, vector<ExLocalit
     return lhs.m_locality.m_featureId < rhs.m_locality.m_featureId;
   });
 
-  auto lessDistance = [](ExLocality const & lhs, ExLocality const & rhs) {
+  auto const lessDistance = [](ExLocality const & lhs, ExLocality const & rhs)
+  {
     return lhs.m_distanceToPivot < rhs.m_distanceToPivot;
   };
 
-  auto const compareSimilaritySizeAndRegion = [](ExLocality const & lhs, ExLocality const & rhs) {
+  auto const compareSimilaritySizeAndRegion = [](ExLocality const & lhs, ExLocality const & rhs)
+  {
     if (lhs.m_similarity != rhs.m_similarity)
       return lhs.m_similarity > rhs.m_similarity;
     if (lhs.m_locality.m_tokenRange.Size() != rhs.m_locality.m_tokenRange.Size())
@@ -287,23 +293,12 @@ void LocalityScorer::LeaveTopBySimilarityAndOther(size_t limit, vector<ExLocalit
     for (auto it = range.first; it != range.second; ++it)
     {
       if (it != closest)
-        tmp.emplace_back(move(*it));
+        tmp.emplace_back(std::move(*it));
     }
     begin = range.second;
   }
 
-  unordered_set<uint32_t> seen;
-
-  els.clear();
-  els.reserve(limit);
-  for (size_t i = 0; i < tmp.size() && els.size() < limit; ++i)
-  {
-    auto const id = tmp[i].GetId();
-    if (seen.insert(id).second)
-    {
-      els.emplace_back(move(tmp[i]));
-    }
-  }
+  els.swap(tmp);
 }
 
 void LocalityScorer::GetDocVecs(uint32_t localityId, vector<DocVec> & dvs) const
@@ -313,14 +308,13 @@ void LocalityScorer::GetDocVecs(uint32_t localityId, vector<DocVec> & dvs) const
 
   for (auto const & name : names)
   {
-    vector<UniString> tokens;
-    NormalizeAndTokenizeString(name, tokens);
-    base::EraseIf(tokens, &IsStopWord);
-
     DocVec::Builder builder;
-    for (auto const & token : tokens)
-      builder.Add(token);
-    dvs.emplace_back(builder);
+    ForEachNormalizedToken(name, [&](strings::UniString const & token)
+    {
+      if (!IsStopWord(token))
+        builder.Add(token);
+    });
+    dvs.emplace_back(std::move(builder));
   }
 }
 

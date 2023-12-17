@@ -1,0 +1,2381 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<osm version='0.6' generator='JOSM'>
+  <node id='524878' timestamp='2021-05-11T16:59:35Z' uid='675791' user='Lukas615' visible='true' version='12' changeset='104526067' lat='54.7923579' lon='8.834713' />
+  <node id='524879' timestamp='2021-05-11T16:59:35Z' uid='675791' user='Lukas615' visible='true' version='13' changeset='104526067' lat='54.7938928' lon='8.834314' />
+  <node id='524880' timestamp='2021-07-02T15:34:16Z' uid='137242' user='Rainero' visible='true' version='12' changeset='107319026' lat='54.7950112' lon='8.833637'>
+    <tag k='railway' v='signal' />
+    <tag k='railway:signal:direction' v='backward' />
+    <tag k='railway:signal:distant' v='DE-ESO:vr' />
+    <tag k='railway:signal:distant:form' v='semaphore' />
+    <tag k='railway:signal:distant:height' v='normal' />
+    <tag k='railway:signal:distant:states' v='DE-ESO:vr0;DE-ESO:vr1' />
+    <tag k='railway:signal:position' v='left' />
+  </node>
+  <node id='524881' timestamp='2011-07-30T21:00:54Z' uid='347762' user='Heideammer' visible='true' version='10' changeset='8875876' lat='54.7959413' lon='8.8325503' />
+  <node id='524882' timestamp='2011-07-30T21:00:54Z' uid='347762' user='Heideammer' visible='true' version='10' changeset='8875876' lat='54.7966913' lon='8.8310503' />
+  <node id='524885' timestamp='2011-11-25T07:15:07Z' uid='152289' user='cgu66' visible='true' version='11' changeset='9941197' lat='54.8014108' lon='8.816671' />
+  <node id='524887' timestamp='2011-07-30T21:00:55Z' uid='347762' user='Heideammer' visible='true' version='10' changeset='8875876' lat='54.8063025' lon='8.8016336' />
+  <node id='524888' timestamp='2011-07-30T21:00:55Z' uid='347762' user='Heideammer' visible='true' version='10' changeset='8875876' lat='54.8091913' lon='8.7927725' />
+  <node id='524920' timestamp='2011-07-30T21:00:55Z' uid='347762' user='Heideammer' visible='true' version='10' changeset='8875876' lat='54.8499833' lon='8.6978712' />
+  <node id='524921' timestamp='2011-07-30T21:00:55Z' uid='347762' user='Heideammer' visible='true' version='10' changeset='8875876' lat='54.8532891' lon='8.691881' />
+  <node id='524922' timestamp='2011-07-30T21:00:55Z' uid='347762' user='Heideammer' visible='true' version='10' changeset='8875876' lat='54.8549557' lon='8.6888532' />
+  <node id='524923' timestamp='2016-11-13T18:26:00Z' uid='92274' user='adjuva' visible='true' version='11' changeset='43612361' lat='54.8569126' lon='8.6853243'>
+    <tag k='railway' v='signal' />
+    <tag k='railway:signal:direction' v='forward' />
+    <tag k='railway:signal:distant' v='DE-ESO:vr' />
+    <tag k='railway:signal:distant:form' v='semaphore' />
+    <tag k='railway:signal:distant:height' v='normal' />
+    <tag k='railway:signal:distant:states' v='DE-ESO:vr0;DE-ESO:vr1;DE-ESO:vr2' />
+    <tag k='railway:signal:main' v='DE-ESO:hp' />
+    <tag k='railway:signal:main:form' v='semaphore' />
+    <tag k='railway:signal:main:function' v='entry' />
+    <tag k='railway:signal:main:height' v='normal' />
+    <tag k='railway:signal:main:states' v='DE-ESO:hp0;DE-ESO:hp1' />
+    <tag k='railway:signal:main:substitute_signal' v='DE-ESO:db:zs1' />
+    <tag k='railway:signal:position' v='right' />
+    <tag k='ref' v='A' />
+  </node>
+  <node id='524935' timestamp='2015-06-06T17:12:29Z' uid='50299' user='Todeskuh' visible='true' version='15' changeset='31773206' lat='54.8730727' lon='8.6574362' />
+  <node id='524958' timestamp='2022-04-17T04:27:58Z' uid='92274' user='adjuva' visible='true' version='10' changeset='119803600' lat='54.8726873' lon='8.4254264'>
+    <tag k='railway' v='switch' />
+    <tag k='railway:local_operated' v='no' />
+    <tag k='railway:switch' v='default' />
+    <tag k='railway:switch:electric' v='yes' />
+    <tag k='railway:turnout_side' v='left' />
+    <tag k='source' v='Bing' />
+  </node>
+  <node id='524960' timestamp='2008-10-30T22:06:30Z' uid='45263' user='Noframe' visible='true' version='6' changeset='634640' lat='54.8778889' lon='8.4013056' />
+  <node id='524961' timestamp='2008-10-30T22:06:30Z' uid='45263' user='Noframe' visible='true' version='6' changeset='634640' lat='54.8798889' lon='8.3932222' />
+  <node id='524962' timestamp='2022-04-17T04:27:58Z' uid='92274' user='adjuva' visible='true' version='7' changeset='119803600' lat='54.8813132' lon='8.3889578' />
+  <node id='524963' timestamp='2013-09-19T17:41:53Z' uid='311036' user='haavee' visible='true' version='7' changeset='17926799' lat='54.8844189' lon='8.3807031' />
+  <node id='524964' timestamp='2013-09-19T17:41:53Z' uid='311036' user='haavee' visible='true' version='7' changeset='17926799' lat='54.8895627' lon='8.3670161' />
+  <node id='524965' timestamp='2013-09-19T17:41:53Z' uid='311036' user='haavee' visible='true' version='7' changeset='17926799' lat='54.8904998' lon='8.3645139' />
+  <node id='524966' timestamp='2017-04-03T10:47:04Z' uid='28992' user='gallseife' visible='true' version='7' changeset='47407801' lat='54.8941497' lon='8.3546201' />
+  <node id='524967' timestamp='2022-04-17T04:27:58Z' uid='92274' user='adjuva' visible='true' version='8' changeset='119803600' lat='54.8952516' lon='8.3508525' />
+  <node id='524969' timestamp='2017-04-03T10:47:04Z' uid='28992' user='gallseife' visible='true' version='7' changeset='47407801' lat='54.8965864' lon='8.3446506' />
+  <node id='524970' timestamp='2016-11-13T18:26:00Z' uid='92274' user='adjuva' visible='true' version='8' changeset='43612361' lat='54.8974338' lon='8.3395011' />
+  <node id='34526171' timestamp='2022-07-24T08:43:42Z' uid='536583' user='Strubbl' visible='true' version='9' changeset='124000714' lat='54.8923044' lon='8.3596908'>
+    <tag k='check_date:crossing:barrier' v='2022-07-23' />
+    <tag k='crossing:barrier' v='half' />
+    <tag k='crossing:light' v='yes' />
+    <tag k='railway' v='level_crossing' />
+  </node>
+  <node id='267971022' timestamp='2021-07-02T15:34:16Z' uid='137242' user='Rainero' visible='true' version='8' changeset='107319026' lat='54.7964653' lon='8.8315978'>
+    <tag k='crossing:barrier' v='half' />
+    <tag k='crossing:light' v='yes' />
+    <tag k='crossing:saltire' v='yes' />
+    <tag k='railway' v='level_crossing' />
+    <tag k='railway:position:exact' v='199.276' />
+    <tag k='railway:ref' v='Niebüll K114' />
+  </node>
+  <node id='268146690' timestamp='2021-05-11T16:59:35Z' uid='675791' user='Lukas615' visible='true' version='9' changeset='104526067' lat='54.7911864' lon='8.8348888'>
+    <tag k='crossing:barrier' v='double_half' />
+    <tag k='crossing:bell' v='yes' />
+    <tag k='crossing:chicane' v='no' />
+    <tag k='crossing:light' v='no' />
+    <tag k='railway' v='level_crossing' />
+  </node>
+  <node id='271936618' timestamp='2021-07-06T22:03:53Z' uid='137242' user='Rainero' visible='true' version='7' changeset='107523086' lat='54.8512246' lon='8.6956497'>
+    <tag k='crossing:barrier' v='half' />
+    <tag k='crossing:bell' v='yes' />
+    <tag k='crossing:light' v='yes' />
+    <tag k='railway' v='level_crossing' />
+    <tag k='railway:position:exact' v='210.002' />
+  </node>
+  <node id='276409057' timestamp='2021-07-06T22:03:53Z' uid='137242' user='Rainero' visible='true' version='6' changeset='107523086' lat='54.840607' lon='8.7150439'>
+    <tag k='crossing:barrier' v='half' />
+    <tag k='crossing:bell' v='no' />
+    <tag k='crossing:light' v='yes' />
+    <tag k='crossing:saltire' v='yes' />
+    <tag k='railway' v='level_crossing' />
+    <tag k='railway:position:exact' v='208.282' />
+    <tag k='railway:ref' v='Emmelsbüll' />
+  </node>
+  <node id='309086205' timestamp='2021-05-11T16:59:35Z' uid='675791' user='Lukas615' visible='true' version='6' changeset='104526067' lat='54.7913397' lon='8.8348579'>
+    <tag k='operator' v='DB Netz AG' />
+    <tag k='railway' v='switch' />
+    <tag k='railway:local_operated' v='no' />
+    <tag k='railway:switch' v='default' />
+    <tag k='railway:switch:electric' v='no' />
+    <tag k='railway:switch:movable_frog' v='no' />
+    <tag k='railway:switch:resetting' v='no' />
+    <tag k='railway:turnout_side' v='right' />
+  </node>
+  <node id='374399330' timestamp='2022-07-24T08:43:43Z' uid='536583' user='Strubbl' visible='true' version='5' changeset='124000714' lat='54.8973385' lon='8.3400406'>
+    <tag k='check_date:crossing:barrier' v='2022-07-23' />
+    <tag k='crossing:barrier' v='half' />
+    <tag k='crossing:light' v='yes' />
+    <tag k='railway' v='level_crossing' />
+  </node>
+  <node id='374435435' timestamp='2019-06-16T07:22:19Z' uid='78613' user='heilbron' visible='true' version='7' changeset='71294404' lat='54.9028165' lon='8.3210833'>
+    <tag k='crossing:barrier' v='no' />
+    <tag k='railway' v='level_crossing' />
+  </node>
+  <node id='457585350' timestamp='2022-07-31T04:51:26Z' uid='536583' user='Strubbl' visible='true' version='4' changeset='124288166' lat='54.8785767' lon='8.3982539'>
+    <tag k='check_date:crossing:barrier' v='2022-07-31' />
+    <tag k='crossing:barrier' v='half' />
+    <tag k='crossing:light' v='yes' />
+    <tag k='railway' v='level_crossing' />
+  </node>
+  <node id='484224437' timestamp='2022-07-31T06:09:20Z' uid='536583' user='Strubbl' visible='true' version='6' changeset='124289072' lat='54.8035265' lon='8.8101886'>
+    <tag k='crossing:barrier' v='half' />
+    <tag k='railway' v='level_crossing' />
+  </node>
+  <node id='486752994' timestamp='2022-07-31T04:51:28Z' uid='536583' user='Strubbl' visible='true' version='5' changeset='124288166' lat='54.8743403' lon='8.4164549'>
+    <tag k='check_date:crossing:barrier' v='2022-07-31' />
+    <tag k='crossing:barrier' v='half' />
+    <tag k='crossing:light' v='yes' />
+    <tag k='railway' v='level_crossing' />
+  </node>
+  <node id='487845497' timestamp='2022-07-31T04:51:27Z' uid='536583' user='Strubbl' visible='true' version='4' changeset='124288166' lat='54.876101' lon='8.4089379'>
+    <tag k='check_date:crossing:barrier' v='2022-07-31' />
+    <tag k='crossing:barrier' v='half' />
+    <tag k='crossing:light' v='yes' />
+    <tag k='railway' v='level_crossing' />
+  </node>
+  <node id='571604019' timestamp='2016-07-02T16:31:53Z' uid='1431737' user='ma-rt-in' visible='true' version='3' changeset='40443506' lat='54.7850002' lon='8.8355909' />
+  <node id='571604046' timestamp='2021-05-11T16:59:35Z' uid='675791' user='Lukas615' visible='true' version='3' changeset='104526067' lat='54.7900461' lon='8.8350898'>
+    <tag k='operator' v='DB Netz AG' />
+    <tag k='railway' v='switch' />
+    <tag k='railway:local_operated' v='no' />
+    <tag k='railway:switch' v='default' />
+    <tag k='railway:switch:electric' v='no' />
+    <tag k='railway:switch:movable_frog' v='no' />
+    <tag k='railway:switch:resetting' v='no' />
+    <tag k='railway:turnout_side' v='right' />
+  </node>
+  <node id='571604047' timestamp='2021-05-11T16:59:35Z' uid='675791' user='Lukas615' visible='true' version='4' changeset='104526067' lat='54.7905228' lon='8.8350058'>
+    <tag k='operator' v='DB Netz AG' />
+    <tag k='railway' v='switch' />
+    <tag k='railway:local_operated' v='no' />
+    <tag k='railway:switch' v='default' />
+    <tag k='railway:switch:electric' v='no' />
+    <tag k='railway:switch:movable_frog' v='no' />
+    <tag k='railway:switch:resetting' v='no' />
+    <tag k='railway:turnout_side' v='right' />
+  </node>
+  <node id='572415561' timestamp='2023-01-21T17:35:33Z' uid='5432507' user='cEvLGWiQ' visible='true' version='9' changeset='131548889' lat='54.9038793' lon='8.3177419'>
+    <tag k='hgv' v='yes' />
+    <tag k='name' v='Terminal Westerland' />
+    <tag k='operator' v='Deutsche Bahn' />
+    <tag k='phone' v='+49 180 6228383' />
+    <tag k='railway' v='car_shuttle' />
+    <tag k='uic_name' v='Westerland (Sylt)' />
+    <tag k='uic_ref' v='8006369' />
+    <tag k='website' v='https://www.syltshuttle.de' />
+    <tag k='wikidata' v='Q1673169' />
+    <tag k='wikipedia' v='de:Autozugverkehr Niebüll–Westerland' />
+  </node>
+  <node id='573345497' timestamp='2014-01-18T09:36:25Z' uid='347762' user='Heideammer' visible='true' version='2' changeset='20063308' lat='54.8204086' lon='8.7581749' />
+  <node id='573345507' timestamp='2014-02-27T15:08:23Z' uid='50299' user='Todeskuh' visible='true' version='2' changeset='20810622' lat='54.8235318' lon='8.748747' />
+  <node id='619531938' timestamp='2010-01-24T22:55:19Z' uid='61552' user='goegeo' visible='true' version='1' changeset='3707164' lat='54.7855239' lon='8.8353687' />
+  <node id='619532012' timestamp='2021-05-11T16:59:35Z' uid='675791' user='Lukas615' visible='true' version='4' changeset='104526067' lat='54.7912644' lon='8.8348735' />
+  <node id='619532019' timestamp='2021-05-11T16:59:35Z' uid='675791' user='Lukas615' visible='true' version='3' changeset='104526067' lat='54.7925328' lon='8.8346862'>
+    <tag k='operator' v='DB Netz AG' />
+    <tag k='railway' v='switch' />
+    <tag k='railway:switch' v='outer_curved' />
+    <tag k='railway:turnout_side' v='right' />
+  </node>
+  <node id='619532034' timestamp='2021-05-11T16:59:35Z' uid='675791' user='Lukas615' visible='true' version='2' changeset='104526067' lat='54.7930321' lon='8.8345779' />
+  <node id='619532035' timestamp='2021-05-11T16:59:35Z' uid='675791' user='Lukas615' visible='true' version='7' changeset='104526067' lat='54.7933945' lon='8.8344649'>
+    <tag k='operator' v='DB Netz AG' />
+    <tag k='railway' v='switch' />
+    <tag k='railway:switch' v='outer_curved' />
+  </node>
+  <node id='619532041' timestamp='2022-04-17T05:37:42Z' uid='92274' user='adjuva' visible='true' version='5' changeset='119803600' lat='54.7944967' lon='8.8340228'>
+    <tag k='railway' v='milestone' />
+    <tag k='railway:position' v='199.0' />
+  </node>
+  <node id='674689502' timestamp='2023-03-18T20:39:21Z' uid='8748' user='ToniE' visible='true' version='12' changeset='133837637' lat='54.9065227' lon='8.3113687'>
+    <tag k='name' v='Terminal Westerland' />
+    <tag k='operator' v='Deutsche Bahn' />
+    <tag k='phone' v='+49 180 6228383' />
+    <tag k='public_transport' v='stop_position' />
+    <tag k='railway' v='halt' />
+    <tag k='train' v='yes' />
+    <tag k='uic_name' v='Westerland (Sylt)' />
+    <tag k='uic_ref' v='8006369' />
+    <tag k='website' v='https://www.syltshuttle.de/' />
+    <tag k='wikidata' v='Q1673169' />
+    <tag k='wikipedia' v='de:Autozugverkehr Niebüll–Westerland' />
+  </node>
+  <node id='674689535' timestamp='2012-06-24T10:41:04Z' uid='123364' user='Tronikon' visible='true' version='4' changeset='11998290' lat='54.8724119' lon='8.4287139' />
+  <node id='674689536' timestamp='2022-04-17T04:27:58Z' uid='92274' user='adjuva' visible='true' version='7' changeset='119803600' lat='54.8722958' lon='8.4306395'>
+    <tag k='crossing:barrier' v='full' />
+    <tag k='crossing:light' v='no' />
+    <tag k='railway' v='level_crossing' />
+  </node>
+  <node id='674689541' timestamp='2021-07-06T22:03:53Z' uid='137242' user='Rainero' visible='true' version='6' changeset='107523086' lat='54.8251416' lon='8.7444105'>
+    <tag k='crossing:barrier' v='half' />
+    <tag k='crossing:bell' v='no' />
+    <tag k='crossing:light' v='yes' />
+    <tag k='crossing:saltire' v='yes' />
+    <tag k='railway' v='level_crossing' />
+    <tag k='railway:position' v='205.7' />
+    <tag k='railway:position:exact' v='205.724' />
+    <tag k='railway:ref' v='Lehnshallig' />
+  </node>
+  <node id='674689542' timestamp='2021-07-06T22:03:53Z' uid='137242' user='Rainero' visible='true' version='3' changeset='107523086' lat='54.8264394' lon='8.7414021' />
+  <node id='674689543' timestamp='2011-07-30T21:00:58Z' uid='347762' user='Heideammer' visible='true' version='2' changeset='8875876' lat='54.8290706' lon='8.7360778' />
+  <node id='674689544' timestamp='2021-07-06T22:03:53Z' uid='137242' user='Rainero' visible='true' version='3' changeset='107523086' lat='54.8339215' lon='8.7272076'>
+    <tag k='railway' v='milestone' />
+    <tag k='railway:position' v='207.2' />
+  </node>
+  <node id='674689553' timestamp='2011-07-30T21:00:58Z' uid='347762' user='Heideammer' visible='true' version='2' changeset='8875876' lat='54.8103059' lon='8.7893533' />
+  <node id='674689555' timestamp='2012-06-24T10:41:04Z' uid='123364' user='Tronikon' visible='true' version='4' changeset='11998290' lat='54.8717677' lon='8.4397557' />
+  <node id='674689557' timestamp='2022-04-17T05:02:09Z' uid='92274' user='adjuva' visible='true' version='4' changeset='119803600' lat='54.8709792' lon='8.4541489'>
+    <tag k='railway' v='signal' />
+    <tag k='railway:signal:direction' v='forward' />
+    <tag k='railway:signal:position' v='left' />
+    <tag k='railway:signal:speed_limit_distant' v='DE-ESO:lf6' />
+    <tag k='railway:signal:speed_limit_distant:form' v='sign' />
+    <tag k='railway:signal:speed_limit_distant:height' v='normal' />
+    <tag k='railway:signal:speed_limit_distant:speed' v='100' />
+  </node>
+  <node id='674689558' timestamp='2012-03-19T20:21:29Z' uid='43972' user='chris66' visible='true' version='3' changeset='11033808' lat='54.8703243' lon='8.4646817' />
+  <node id='674689559' timestamp='2015-10-28T15:19:29Z' uid='50299' user='Todeskuh' visible='true' version='5' changeset='34928955' lat='54.870238' lon='8.4679511' />
+  <node id='674689560' timestamp='2015-10-28T15:19:29Z' uid='50299' user='Todeskuh' visible='true' version='4' changeset='34928955' lat='54.8709364' lon='8.4735543' />
+  <node id='674689561' timestamp='2012-06-24T10:41:04Z' uid='123364' user='Tronikon' visible='true' version='4' changeset='11998290' lat='54.8704417' lon='8.4707737' />
+  <node id='674689562' timestamp='2015-10-28T15:19:29Z' uid='50299' user='Todeskuh' visible='true' version='4' changeset='34928955' lat='54.873482' lon='8.4812384' />
+  <node id='674689563' timestamp='2015-10-28T15:19:29Z' uid='50299' user='Todeskuh' visible='true' version='4' changeset='34928955' lat='54.8743359' lon='8.4836701' />
+  <node id='674689564' timestamp='2015-10-28T15:19:29Z' uid='50299' user='Todeskuh' visible='true' version='4' changeset='34928955' lat='54.8737223' lon='8.4819057' />
+  <node id='674689565' timestamp='2022-04-17T04:43:11Z' uid='92274' user='adjuva' visible='true' version='4' changeset='119803600' lat='54.8810484' lon='8.5033508' />
+  <node id='674689566' timestamp='2012-03-19T20:21:30Z' uid='43972' user='chris66' visible='true' version='3' changeset='11033808' lat='54.8797197' lon='8.4991807' />
+  <node id='674689567' timestamp='2012-03-19T20:21:30Z' uid='43972' user='chris66' visible='true' version='3' changeset='11033808' lat='54.8820446' lon='8.5074135' />
+  <node id='674689568' timestamp='2022-04-17T04:27:58Z' uid='92274' user='adjuva' visible='true' version='4' changeset='119803600' lat='54.8827613' lon='8.5115729' />
+  <node id='674689569' timestamp='2022-04-17T04:27:58Z' uid='92274' user='adjuva' visible='true' version='4' changeset='119803600' lat='54.8831643' lon='8.5152602' />
+  <node id='674689570' timestamp='2022-04-17T04:43:11Z' uid='92274' user='adjuva' visible='true' version='5' changeset='119803600' lat='54.8849944' lon='8.5653862' />
+  <node id='674689571' timestamp='2022-04-17T04:43:11Z' uid='92274' user='adjuva' visible='true' version='4' changeset='119803600' lat='54.8843997' lon='8.548218'>
+    <tag k='railway' v='milestone' />
+    <tag k='railway:position' v='221.0' />
+  </node>
+  <node id='674689572' timestamp='2012-03-19T19:58:11Z' uid='43972' user='chris66' visible='true' version='3' changeset='11033808' lat='54.8838049' lon='8.5310884' />
+  <node id='674689573' timestamp='2012-03-19T19:58:11Z' uid='43972' user='chris66' visible='true' version='4' changeset='11033808' lat='54.885733' lon='8.5862036' />
+  <node id='674689574' timestamp='2014-07-01T10:09:23Z' uid='50299' user='Todeskuh' visible='true' version='5' changeset='23407883' lat='54.8865352' lon='8.6091774' />
+  <node id='674689575' timestamp='2022-04-17T04:43:11Z' uid='92274' user='adjuva' visible='true' version='5' changeset='119803600' lat='54.8861411' lon='8.5980465' />
+  <node id='674689576' timestamp='2014-07-01T10:09:23Z' uid='50299' user='Todeskuh' visible='true' version='6' changeset='23407883' lat='54.8847672' lon='8.6337533' />
+  <node id='674689577' timestamp='2012-03-19T20:06:00Z' uid='43972' user='chris66' visible='true' version='4' changeset='11033808' lat='54.8857266' lon='8.6294432' />
+  <node id='674689578' timestamp='2014-05-24T17:08:23Z' uid='50299' user='Todeskuh' visible='true' version='4' changeset='22527653' lat='54.8863292' lon='8.6253375' />
+  <node id='674689579' timestamp='2012-03-19T20:06:00Z' uid='43972' user='chris66' visible='true' version='3' changeset='11033808' lat='54.8867113' lon='8.6206895' />
+  <node id='674689580' timestamp='2014-07-01T10:09:23Z' uid='50299' user='Todeskuh' visible='true' version='4' changeset='23407883' lat='54.8867697' lon='8.6190016' />
+  <node id='674689581' timestamp='2012-03-19T20:06:00Z' uid='43972' user='chris66' visible='true' version='3' changeset='11033808' lat='54.8867157' lon='8.614521' />
+  <node id='674689582' timestamp='2012-03-19T20:06:00Z' uid='43972' user='chris66' visible='true' version='4' changeset='11033808' lat='54.8805825' lon='8.6444883' />
+  <node id='674689583' timestamp='2014-07-01T10:09:23Z' uid='50299' user='Todeskuh' visible='true' version='5' changeset='23407883' lat='54.8822091' lon='8.6411574' />
+  <node id='674689584' timestamp='2014-07-01T10:09:23Z' uid='50299' user='Todeskuh' visible='true' version='5' changeset='23407883' lat='54.8840109' lon='8.6363345' />
+  <node id='674689585' timestamp='2016-07-04T10:14:04Z' uid='1431737' user='ma-rt-in' visible='true' version='4' changeset='40475197' lat='54.8621564' lon='8.6762724' />
+  <node id='674689586' timestamp='2014-02-27T15:08:24Z' uid='50299' user='Todeskuh' visible='true' version='6' changeset='20810622' lat='54.8612777' lon='8.6777815'>
+    <tag k='crossing:barrier' v='full' />
+    <tag k='crossing:bell' v='yes' />
+    <tag k='crossing:light' v='no' />
+    <tag k='railway' v='level_crossing' />
+  </node>
+  <node id='674689591' timestamp='2022-04-17T04:27:58Z' uid='92274' user='adjuva' visible='true' version='5' changeset='119803600' lat='54.8600593' lon='8.6798299' />
+  <node id='674689592' timestamp='2012-03-19T20:12:33Z' uid='43972' user='chris66' visible='true' version='3' changeset='11033808' lat='54.8697835' lon='8.6631652' />
+  <node id='674689593' timestamp='2021-07-06T20:44:43Z' uid='137242' user='Rainero' visible='true' version='6' changeset='107520720' lat='54.8669082' lon='8.6680761'>
+    <tag k='crossing:barrier' v='half' />
+    <tag k='crossing:bell' v='yes' />
+    <tag k='crossing:light' v='yes' />
+    <tag k='railway' v='level_crossing' />
+  </node>
+  <node id='674689594' timestamp='2022-04-17T04:27:58Z' uid='92274' user='adjuva' visible='true' version='4' changeset='119803600' lat='54.8440823' lon='8.7086821' />
+  <node id='1215170634' timestamp='2011-03-23T18:54:14Z' uid='322211' user='messi' visible='true' version='1' changeset='7649038' lat='54.8975218' lon='8.3389417' />
+  <node id='1215170635' timestamp='2011-03-23T18:54:14Z' uid='322211' user='messi' visible='true' version='1' changeset='7649038' lat='54.8976082' lon='8.3384837' />
+  <node id='1215170636' timestamp='2011-03-23T18:54:14Z' uid='322211' user='messi' visible='true' version='1' changeset='7649038' lat='54.8977008' lon='8.3380401' />
+  <node id='1215170642' timestamp='2011-03-23T18:54:14Z' uid='322211' user='messi' visible='true' version='1' changeset='7649038' lat='54.8978942' lon='8.337303' />
+  <node id='1215170644' timestamp='2011-03-23T18:54:14Z' uid='322211' user='messi' visible='true' version='1' changeset='7649038' lat='54.8979971' lon='8.3369238' />
+  <node id='1215170647' timestamp='2011-03-23T18:54:14Z' uid='322211' user='messi' visible='true' version='1' changeset='7649038' lat='54.898137' lon='8.3364551' />
+  <node id='1215170649' timestamp='2016-11-13T18:25:57Z' uid='92274' user='adjuva' visible='true' version='2' changeset='43612361' lat='54.8985678' lon='8.3351467' />
+  <node id='1215170651' timestamp='2016-11-13T18:25:57Z' uid='92274' user='adjuva' visible='true' version='2' changeset='43612361' lat='54.8988116' lon='8.3344171' />
+  <node id='1215170676' timestamp='2017-10-08T09:56:36Z' uid='2149259' user='Nakaner-repair' visible='true' version='5' changeset='52726410' lat='54.90247' lon='8.3223358'>
+    <tag k='railway' v='switch' />
+    <tag k='railway:switch' v='default' />
+  </node>
+  <node id='1215170678' timestamp='2016-07-08T16:10:53Z' uid='178114' user='Martin2009' visible='true' version='2' changeset='40575037' lat='54.9025242' lon='8.3221231' />
+  <node id='1215170680' timestamp='2017-10-08T09:56:36Z' uid='2149259' user='Nakaner-repair' visible='true' version='4' changeset='52726410' lat='54.9025632' lon='8.3219678'>
+    <tag k='railway' v='switch' />
+    <tag k='railway:switch' v='default' />
+  </node>
+  <node id='1215171183' timestamp='2016-11-13T18:25:58Z' uid='92274' user='adjuva' visible='true' version='2' changeset='43612361' lat='54.9031126' lon='8.3200271' />
+  <node id='1215171184' timestamp='2011-03-23T18:54:33Z' uid='322211' user='messi' visible='true' version='1' changeset='7649038' lat='54.9036391' lon='8.318455' />
+  <node id='1215171186' timestamp='2011-03-23T18:54:33Z' uid='322211' user='messi' visible='true' version='1' changeset='7649038' lat='54.9040278' lon='8.3173116' />
+  <node id='1215171187' timestamp='2018-01-19T11:24:27Z' uid='3080626' user='Weltstaat' visible='true' version='2' changeset='55575218' lat='54.9043199' lon='8.3164749' />
+  <node id='1215171194' timestamp='2018-01-19T11:24:27Z' uid='3080626' user='Weltstaat' visible='true' version='2' changeset='55575218' lat='54.9044627' lon='8.3160507' />
+  <node id='1215171196' timestamp='2018-01-19T11:24:27Z' uid='3080626' user='Weltstaat' visible='true' version='2' changeset='55575218' lat='54.9058198' lon='8.3128527' />
+  <node id='1215171198' timestamp='2018-01-19T11:24:27Z' uid='3080626' user='Weltstaat' visible='true' version='2' changeset='55575218' lat='54.9059648' lon='8.3125478' />
+  <node id='1215171534' timestamp='2016-11-15T01:38:19Z' uid='92274' user='adjuva' visible='true' version='3' changeset='43659379' lat='54.9020945' lon='8.3238722'>
+    <tag k='railway' v='signal' />
+    <tag k='railway:signal:direction' v='forward' />
+    <tag k='railway:signal:position' v='left' />
+    <tag k='railway:signal:shunting' v='DE-ESO:ra10' />
+    <tag k='railway:signal:shunting:form' v='sign' />
+    <tag k='railway:signal:shunting:height' v='normal' />
+  </node>
+  <node id='1215171535' timestamp='2016-07-08T16:10:54Z' uid='178114' user='Martin2009' visible='true' version='2' changeset='40575037' lat='54.9011572' lon='8.3272217' />
+  <node id='1215171539' timestamp='2016-07-08T16:10:54Z' uid='178114' user='Martin2009' visible='true' version='2' changeset='40575037' lat='54.9001859' lon='8.330228' />
+  <node id='1215171541' timestamp='2022-04-17T05:37:42Z' uid='92274' user='adjuva' visible='true' version='4' changeset='119803600' lat='54.8996071' lon='8.3320117'>
+    <tag k='railway' v='milestone' />
+    <tag k='railway:position' v='236.0' />
+  </node>
+  <node id='1337089016' timestamp='2012-03-19T20:39:36Z' uid='43972' user='chris66' visible='true' version='2' changeset='11033808' lat='54.8792164' lon='8.3955895' />
+  <node id='1379347454' timestamp='2022-07-31T06:09:13Z' uid='536583' user='Strubbl' visible='true' version='2' changeset='124289072' lat='54.8114807' lon='8.7857854'>
+    <tag k='crossing:barrier' v='half' />
+    <tag k='railway' v='level_crossing' />
+  </node>
+  <node id='1379347476' timestamp='2021-07-06T22:03:53Z' uid='137242' user='Rainero' visible='true' version='2' changeset='107523086' lat='54.82786' lon='8.7384031'>
+    <tag k='railway' v='milestone' />
+    <tag k='railway:position' v='206.2' />
+  </node>
+  <node id='1379347565' timestamp='2021-07-06T22:03:53Z' uid='137242' user='Rainero' visible='true' version='3' changeset='107523086' lat='54.831665' lon='8.7313421'>
+    <tag k='railway' v='signal' />
+    <tag k='railway:signal:direction' v='backward' />
+    <tag k='railway:signal:distant' v='DE-ESO:vr' />
+    <tag k='railway:signal:distant:form' v='semaphore' />
+    <tag k='railway:signal:distant:height' v='normal' />
+    <tag k='railway:signal:distant:states' v='DE-ESO:vr0;DE-ESO:vr1;DE-ESO:vr2' />
+    <tag k='railway:signal:position' v='left' />
+  </node>
+  <node id='1379347613' timestamp='2014-02-27T15:08:15Z' uid='50299' user='Todeskuh' visible='true' version='2' changeset='20810622' lat='54.8348452' lon='8.7255204' />
+  <node id='1379347720' timestamp='2021-07-06T22:03:53Z' uid='137242' user='Rainero' visible='true' version='2' changeset='107523086' lat='54.8425728' lon='8.7114351'>
+    <tag k='railway' v='milestone' />
+    <tag k='railway:position' v='208.6' />
+  </node>
+  <node id='1379347995' timestamp='2012-03-19T20:12:32Z' uid='43972' user='chris66' visible='true' version='2' changeset='11033808' lat='54.871921' lon='8.6594105' />
+  <node id='1379348020' timestamp='2021-07-06T20:44:43Z' uid='137242' user='Rainero' visible='true' version='4' changeset='107520720' lat='54.8752296' lon='8.6536859'>
+    <tag k='railway' v='milestone' />
+    <tag k='railway:position' v='213.8' />
+  </node>
+  <node id='1379348033' timestamp='2011-07-30T21:00:22Z' uid='347762' user='Heideammer' visible='true' version='1' changeset='8875876' lat='54.8773094' lon='8.6501761' />
+  <node id='1682072152' timestamp='2012-03-19T19:58:10Z' uid='43972' user='chris66' visible='true' version='2' changeset='11033808' lat='54.8852976' lon='8.573812' />
+  <node id='1682100109' timestamp='2021-07-06T22:03:53Z' uid='137242' user='Rainero' visible='true' version='3' changeset='107523086' lat='54.8150687' lon='8.774686'>
+    <tag k='crossing:light' v='yes' />
+    <tag k='crossing:saltire' v='yes' />
+    <tag k='railway' v='level_crossing' />
+    <tag k='railway:position:exact' v='203.481' />
+    <tag k='railway:ref' v='144 Gotteskoog' />
+  </node>
+  <node id='1682100112' timestamp='2022-04-17T04:27:58Z' uid='92274' user='adjuva' visible='true' version='7' changeset='119803600' lat='54.8201051' lon='8.7591748'>
+    <tag k='railway' v='switch' />
+    <tag k='railway:local_operated' v='no' />
+    <tag k='railway:switch' v='default' />
+    <tag k='railway:switch:electric' v='no' />
+    <tag k='railway:turnout_side' v='right' />
+  </node>
+  <node id='1682100115' timestamp='2021-07-06T22:03:53Z' uid='137242' user='Rainero' visible='true' version='3' changeset='107523086' lat='54.8237914' lon='8.7479948' />
+  <node id='1682100132' timestamp='2022-04-17T04:27:58Z' uid='92274' user='adjuva' visible='true' version='5' changeset='119803600' lat='54.859134' lon='8.6814683'>
+    <tag k='railway' v='switch' />
+    <tag k='railway:local_operated' v='no' />
+    <tag k='railway:switch' v='wye' />
+    <tag k='railway:switch:electric' v='no' />
+  </node>
+  <node id='1682214677' timestamp='2012-06-24T10:41:03Z' uid='123364' user='Tronikon' visible='true' version='2' changeset='11998290' lat='54.8721701' lon='8.4326904' />
+  <node id='1682214711' timestamp='2018-01-19T11:24:27Z' uid='3080626' user='Weltstaat' visible='true' version='2' changeset='55575218' lat='54.9046018' lon='8.3156754' />
+  <node id='1682214714' timestamp='2012-03-19T20:39:21Z' uid='43972' user='chris66' visible='true' version='1' changeset='11033808' lat='54.9056033' lon='8.3133835' />
+  <node id='1800415172' timestamp='2015-10-28T15:19:29Z' uid='50299' user='Todeskuh' visible='true' version='2' changeset='34928955' lat='54.8702405' lon='8.4663672' />
+  <node id='1800415181' timestamp='2012-06-24T10:40:58Z' uid='123364' user='Tronikon' visible='true' version='1' changeset='11998290' lat='54.8703033' lon='8.4693607' />
+  <node id='1800415188' timestamp='2022-04-17T04:27:58Z' uid='92274' user='adjuva' visible='true' version='2' changeset='119803600' lat='54.8725458' lon='8.426787' />
+  <node id='1800415192' timestamp='2022-04-17T04:27:58Z' uid='92274' user='adjuva' visible='true' version='2' changeset='119803600' lat='54.8726027' lon='8.4262124' />
+  <node id='1800415196' timestamp='2022-04-17T04:27:58Z' uid='92274' user='adjuva' visible='true' version='2' changeset='119803600' lat='54.872844' lon='8.424135' />
+  <node id='1800415198' timestamp='2022-04-17T04:27:58Z' uid='92274' user='adjuva' visible='true' version='2' changeset='119803600' lat='54.8729363' lon='8.4234284' />
+  <node id='1800415200' timestamp='2022-04-17T04:27:58Z' uid='92274' user='adjuva' visible='true' version='2' changeset='119803600' lat='54.8730464' lon='8.4226937' />
+  <node id='1800415202' timestamp='2022-04-17T04:27:58Z' uid='92274' user='adjuva' visible='true' version='2' changeset='119803600' lat='54.8731669' lon='8.4219385' />
+  <node id='1800415204' timestamp='2022-04-17T04:27:58Z' uid='92274' user='adjuva' visible='true' version='3' changeset='119803600' lat='54.8733343' lon='8.4210177'>
+    <tag k='railway' v='signal' />
+    <tag k='railway:signal:combined' v='DE-ESO:ks' />
+    <tag k='railway:signal:combined:form' v='light' />
+    <tag k='railway:signal:combined:function' v='entry' />
+    <tag k='railway:signal:combined:height' v='normal' />
+    <tag k='railway:signal:combined:states' v='DE-ESO:hp0;DE-ESO:ks1;DE-ESO:ks2' />
+    <tag k='railway:signal:direction' v='backward' />
+    <tag k='railway:signal:position' v='left' />
+    <tag k='ref' v='39 F' />
+  </node>
+  <node id='1800415206' timestamp='2022-04-17T04:27:58Z' uid='92274' user='adjuva' visible='true' version='2' changeset='119803600' lat='54.8735619' lon='8.4198646' />
+  <node id='1800415208' timestamp='2022-04-17T04:27:58Z' uid='92274' user='adjuva' visible='true' version='2' changeset='119803600' lat='54.8738011' lon='8.4187617' />
+  <node id='1883946834' timestamp='2020-08-12T12:50:46Z' uid='11590344' user='aleph_null' visible='true' version='4' changeset='89305777' lat='54.8668635' lon='8.6681583'>
+    <tag k='bicycle' v='yes' />
+    <tag k='crossing:barrier' v='full' />
+    <tag k='crossing:bell' v='yes' />
+    <tag k='crossing:light' v='yes' />
+    <tag k='railway' v='crossing' />
+  </node>
+  <node id='2338623077' timestamp='2022-10-07T18:51:23Z' uid='14309561' user='kmpoppe (@ Mapillary Update)' visible='true' version='5' changeset='127167273' lat='54.8922461' lon='8.3598462'>
+    <tag k='crossing:barrier' v='half' />
+    <tag k='crossing:light' v='yes' />
+    <tag k='mapillary' v='925811984659177' />
+    <tag k='railway' v='crossing' />
+  </node>
+  <node id='2425961860' timestamp='2018-07-16T18:42:22Z' uid='207581' user='Hjart' visible='true' version='7' changeset='60773310' lat='54.8864134' lon='8.6059142'>
+    <tag k='crossing' v='uncontrolled' />
+    <tag k='crossing:barrier' v='no' />
+    <tag k='crossing:bell' v='no' />
+    <tag k='crossing:light' v='no' />
+    <tag k='crossing:supervision' v='no' />
+    <tag k='railway' v='level_crossing' />
+  </node>
+  <node id='2464149406' timestamp='2022-04-18T11:13:45Z' uid='92274' user='adjuva' visible='true' version='5' changeset='119852769' lat='54.8870685' lon='8.3736486'>
+    <tag k='railway' v='switch' />
+    <tag k='railway:local_operated' v='no' />
+    <tag k='railway:switch' v='default' />
+    <tag k='railway:switch:electric' v='no' />
+    <tag k='railway:turnout_side' v='right' />
+  </node>
+  <node id='2464149412' timestamp='2022-04-18T11:13:45Z' uid='92274' user='adjuva' visible='true' version='5' changeset='119852769' lat='54.8911913' lon='8.3626458'>
+    <tag k='railway' v='switch' />
+    <tag k='railway:switch' v='default' />
+    <tag k='railway:turnout_side' v='left' />
+  </node>
+  <node id='2626811987' timestamp='2014-01-18T09:36:12Z' uid='347762' user='Heideammer' visible='true' version='1' changeset='20063308' lat='54.8194214' lon='8.7613016' />
+  <node id='2692706554' timestamp='2021-07-06T22:03:53Z' uid='137242' user='Rainero' visible='true' version='2' changeset='107523086' lat='54.8241634' lon='8.7469613' />
+  <node id='2692706559' timestamp='2022-04-17T04:27:58Z' uid='92274' user='adjuva' visible='true' version='5' changeset='119803600' lat='54.8247301' lon='8.7454966'>
+    <tag k='railway' v='switch' />
+    <tag k='railway:local_operated' v='no' />
+    <tag k='railway:switch' v='default' />
+    <tag k='railway:switch:electric' v='no' />
+    <tag k='railway:turnout_side' v='left' />
+  </node>
+  <node id='2692706733' timestamp='2022-04-17T04:27:58Z' uid='92274' user='adjuva' visible='true' version='3' changeset='119803600' lat='54.8643547' lon='8.6724883'>
+    <tag k='railway' v='switch' />
+    <tag k='railway:local_operated' v='no' />
+    <tag k='railway:switch' v='default' />
+    <tag k='railway:switch:electric' v='no' />
+    <tag k='railway:turnout_side' v='right' />
+  </node>
+  <node id='2878377448' timestamp='2014-05-24T17:08:05Z' uid='50299' user='Todeskuh' visible='true' version='1' changeset='22527653' lat='54.7973715' lon='8.829019' />
+  <node id='2878377464' timestamp='2014-05-24T17:08:05Z' uid='50299' user='Todeskuh' visible='true' version='1' changeset='22527653' lat='54.8852905' lon='8.6316524' />
+  <node id='2878377467' timestamp='2014-05-24T17:08:05Z' uid='50299' user='Todeskuh' visible='true' version='1' changeset='22527653' lat='54.8860326' lon='8.6275899' />
+  <node id='2878377470' timestamp='2014-05-24T17:08:05Z' uid='50299' user='Todeskuh' visible='true' version='1' changeset='22527653' lat='54.886566' lon='8.6229764' />
+  <node id='2941591593' timestamp='2014-07-01T10:09:18Z' uid='50299' user='Todeskuh' visible='true' version='1' changeset='23407883' lat='54.8810105' lon='8.6436979' />
+  <node id='2941591596' timestamp='2014-07-01T10:09:18Z' uid='50299' user='Todeskuh' visible='true' version='1' changeset='23407883' lat='54.8814168' lon='8.6428879' />
+  <node id='2941591599' timestamp='2022-04-17T04:27:58Z' uid='92274' user='adjuva' visible='true' version='2' changeset='119803600' lat='54.8826675' lon='8.6400731'>
+    <tag k='railway' v='milestone' />
+    <tag k='railway:position' v='215.0' />
+  </node>
+  <node id='2941592902' timestamp='2014-07-01T10:09:19Z' uid='50299' user='Todeskuh' visible='true' version='1' changeset='23407883' lat='54.883142' lon='8.6388602' />
+  <node id='2941592905' timestamp='2014-07-01T10:09:19Z' uid='50299' user='Todeskuh' visible='true' version='1' changeset='23407883' lat='54.8835959' lon='8.6375915' />
+  <node id='2941592908' timestamp='2014-07-01T10:09:19Z' uid='50299' user='Todeskuh' visible='true' version='1' changeset='23407883' lat='54.8844223' lon='8.6349846' />
+  <node id='2941592911' timestamp='2014-07-01T10:09:19Z' uid='50299' user='Todeskuh' visible='true' version='1' changeset='23407883' lat='54.8850644' lon='8.6326108' />
+  <node id='2941592914' timestamp='2014-07-01T10:09:19Z' uid='50299' user='Todeskuh' visible='true' version='1' changeset='23407883' lat='54.8855278' lon='8.6305435' />
+  <node id='2941592917' timestamp='2014-07-01T10:09:19Z' uid='50299' user='Todeskuh' visible='true' version='1' changeset='23407883' lat='54.8861912' lon='8.6264962' />
+  <node id='2941592921' timestamp='2014-07-01T10:09:19Z' uid='50299' user='Todeskuh' visible='true' version='1' changeset='23407883' lat='54.8867494' lon='8.6198278' />
+  <node id='2941592923' timestamp='2014-07-01T10:09:19Z' uid='50299' user='Todeskuh' visible='true' version='1' changeset='23407883' lat='54.8867811' lon='8.6167417' />
+  <node id='2941592924' timestamp='2014-07-01T10:09:19Z' uid='50299' user='Todeskuh' visible='true' version='1' changeset='23407883' lat='54.8867835' lon='8.6179033' />
+  <node id='3098380359' timestamp='2014-09-27T09:42:26Z' uid='675791' user='Lukas615' visible='true' version='1' changeset='25702085' lat='54.7896288' lon='8.835116' />
+  <node id='3098380361' timestamp='2014-09-27T09:42:26Z' uid='675791' user='Lukas615' visible='true' version='1' changeset='25702085' lat='54.786859' lon='8.8352153' />
+  <node id='3098380362' timestamp='2014-09-27T09:42:26Z' uid='675791' user='Lukas615' visible='true' version='1' changeset='25702085' lat='54.7874621' lon='8.8352126' />
+  <node id='3098380365' timestamp='2014-09-27T09:42:26Z' uid='675791' user='Lukas615' visible='true' version='1' changeset='25702085' lat='54.788953' lon='8.8351348' />
+  <node id='3098380366' timestamp='2014-09-27T09:42:26Z' uid='675791' user='Lukas615' visible='true' version='1' changeset='25702085' lat='54.7864692' lon='8.8352099' />
+  <node id='3098380367' timestamp='2014-09-27T09:42:26Z' uid='675791' user='Lukas615' visible='true' version='1' changeset='25702085' lat='54.7882416' lon='8.8351777' />
+  <node id='3098380370' timestamp='2014-09-27T09:42:26Z' uid='675791' user='Lukas615' visible='true' version='1' changeset='25702085' lat='54.7862032' lon='8.8352233' />
+  <node id='3098380381' timestamp='2021-05-11T16:59:35Z' uid='675791' user='Lukas615' visible='true' version='3' changeset='104526067' lat='54.7910885' lon='8.8349047'>
+    <tag k='operator' v='DB Netz AG' />
+    <tag k='railway' v='switch' />
+    <tag k='railway:local_operated' v='no' />
+    <tag k='railway:switch' v='default' />
+    <tag k='railway:switch:electric' v='no' />
+    <tag k='railway:switch:movable_frog' v='no' />
+    <tag k='railway:switch:resetting' v='no' />
+    <tag k='railway:turnout_side' v='right' />
+  </node>
+  <node id='3098380384' timestamp='2016-07-04T10:06:03Z' uid='1431737' user='ma-rt-in' visible='true' version='2' changeset='40475076' lat='54.7859834' lon='8.8352577' />
+  <node id='3806798090' timestamp='2015-10-28T15:19:26Z' uid='50299' user='Todeskuh' visible='true' version='1' changeset='34928955' lat='54.8702299' lon='8.467324' />
+  <node id='3806798092' timestamp='2015-10-28T15:19:26Z' uid='50299' user='Todeskuh' visible='true' version='1' changeset='34928955' lat='54.8705326' lon='8.4714443' />
+  <node id='3806798095' timestamp='2015-10-28T15:19:26Z' uid='50299' user='Todeskuh' visible='true' version='1' changeset='34928955' lat='54.8706326' lon='8.4720687' />
+  <node id='3806798098' timestamp='2015-10-28T15:19:27Z' uid='50299' user='Todeskuh' visible='true' version='1' changeset='34928955' lat='54.8707751' lon='8.4728078' />
+  <node id='3806798101' timestamp='2015-10-28T15:19:27Z' uid='50299' user='Todeskuh' visible='true' version='1' changeset='34928955' lat='54.8710818' lon='8.4741375' />
+  <node id='3806798104' timestamp='2015-10-28T15:19:27Z' uid='50299' user='Todeskuh' visible='true' version='1' changeset='34928955' lat='54.8712659' lon='8.4748247' />
+  <node id='3806798107' timestamp='2015-10-28T15:19:27Z' uid='50299' user='Todeskuh' visible='true' version='1' changeset='34928955' lat='54.8716657' lon='8.476084' />
+  <node id='3806798110' timestamp='2015-10-28T15:19:27Z' uid='50299' user='Todeskuh' visible='true' version='1' changeset='34928955' lat='54.8724624' lon='8.4783516' />
+  <node id='4278583111' timestamp='2023-03-18T20:39:21Z' uid='8748' user='ToniE' visible='true' version='2' changeset='133837637' lat='54.7848668' lon='8.8356656'>
+    <tag k='name' v='Niebüll' />
+    <tag k='public_transport' v='stop_position' />
+    <tag k='railway' v='halt' />
+    <tag k='train' v='yes' />
+    <tag k='uic_name' v='Niebüll' />
+    <tag k='uic_ref' v='8004343' />
+  </node>
+  <node id='4281720399' timestamp='2016-07-04T10:06:02Z' uid='1431737' user='ma-rt-in' visible='true' version='1' changeset='40475076' lat='54.7858907' lon='8.8352742' />
+  <node id='4281727077' timestamp='2016-07-04T10:14:03Z' uid='1431737' user='ma-rt-in' visible='true' version='1' changeset='40475197' lat='54.8631015' lon='8.6746465' />
+  <node id='4291041878' timestamp='2016-07-08T16:10:48Z' uid='178114' user='Martin2009' visible='true' version='1' changeset='40575037' lat='54.899359' lon='8.3327629' />
+  <node id='4291041883' timestamp='2016-07-08T16:10:48Z' uid='178114' user='Martin2009' visible='true' version='1' changeset='40575037' lat='54.8997999' lon='8.3314213' />
+  <node id='4291042893' timestamp='2016-07-08T16:10:48Z' uid='178114' user='Martin2009' visible='true' version='1' changeset='40575037' lat='54.9005316' lon='8.3292058' />
+  <node id='4291042901' timestamp='2016-07-08T16:10:48Z' uid='178114' user='Martin2009' visible='true' version='1' changeset='40575037' lat='54.9008704' lon='8.3281589' />
+  <node id='4291042907' timestamp='2016-07-08T16:10:49Z' uid='178114' user='Martin2009' visible='true' version='1' changeset='40575037' lat='54.9014852' lon='8.3260829' />
+  <node id='4291042913' timestamp='2016-07-08T16:10:49Z' uid='178114' user='Martin2009' visible='true' version='1' changeset='40575037' lat='54.901741' lon='8.3251589' />
+  <node id='4291042916' timestamp='2017-10-08T09:56:44Z' uid='2149259' user='Nakaner-repair' visible='true' version='4' changeset='52726410' lat='54.9022756' lon='8.3232226'>
+    <tag k='railway' v='switch' />
+    <tag k='railway:switch' v='default' />
+  </node>
+  <node id='4291042925' timestamp='2016-07-08T16:10:49Z' uid='178114' user='Martin2009' visible='true' version='1' changeset='40575037' lat='54.9027487' lon='8.3213223' />
+  <node id='4498898478' timestamp='2021-07-06T22:03:53Z' uid='137242' user='Rainero' visible='true' version='2' changeset='107523086' lat='54.8191214' lon='8.7622102'>
+    <tag k='railway' v='milestone' />
+    <tag k='railway:position' v='204.4' />
+  </node>
+  <node id='4498898479' timestamp='2021-07-06T22:03:53Z' uid='137242' user='Rainero' visible='true' version='2' changeset='107523086' lat='54.8191935' lon='8.7619983'>
+    <tag k='railway' v='signal' />
+    <tag k='railway:signal:direction' v='forward' />
+    <tag k='railway:signal:distant' v='DE-ESO:vr' />
+    <tag k='railway:signal:distant:form' v='semaphore' />
+    <tag k='railway:signal:distant:height' v='normal' />
+    <tag k='railway:signal:distant:states' v='DE-ESO:vr0;DE-ESO:vr1;DE-ESO:vr2' />
+    <tag k='railway:signal:main' v='DE-ESO:hp' />
+    <tag k='railway:signal:main:form' v='semaphore' />
+    <tag k='railway:signal:main:function' v='entry' />
+    <tag k='railway:signal:main:height' v='normal' />
+    <tag k='railway:signal:main:states' v='DE-ESO:hp0;DE-ESO:hp1;DE-ESO:hp2' />
+    <tag k='railway:signal:main:substitute_signal' v='DE-ESO:db:zs1' />
+    <tag k='railway:signal:position' v='right' />
+    <tag k='ref' v='A' />
+  </node>
+  <node id='4498898481' timestamp='2016-11-13T18:25:11Z' uid='92274' user='adjuva' visible='true' version='1' changeset='43612361' lat='54.8213058' lon='8.7554666'>
+    <tag k='railway' v='signal' />
+    <tag k='railway:signal:direction' v='backward' />
+    <tag k='railway:signal:main' v='DE-ESO:hp' />
+    <tag k='railway:signal:main:form' v='semaphore' />
+    <tag k='railway:signal:main:function' v='exit' />
+    <tag k='railway:signal:main:height' v='normal' />
+    <tag k='railway:signal:main:states' v='DE-ESO:hp0;DE-ESO:hp1' />
+    <tag k='railway:signal:position' v='left' />
+    <tag k='ref' v='C' />
+  </node>
+  <node id='4498898485' timestamp='2016-11-13T18:25:11Z' uid='92274' user='adjuva' visible='true' version='1' changeset='43612361' lat='54.8234154' lon='8.7490984'>
+    <tag k='railway' v='signal' />
+    <tag k='railway:signal:direction' v='forward' />
+    <tag k='railway:signal:main' v='DE-ESO:hp' />
+    <tag k='railway:signal:main:form' v='semaphore' />
+    <tag k='railway:signal:main:function' v='exit' />
+    <tag k='railway:signal:main:height' v='normal' />
+    <tag k='railway:signal:main:states' v='DE-ESO:hp0;DE-ESO:hp1' />
+    <tag k='railway:signal:main:substitute_signal' v='DE-ESO:db:zs1' />
+    <tag k='railway:signal:position' v='right' />
+    <tag k='ref' v='E' />
+  </node>
+  <node id='4498898486' timestamp='2021-07-06T22:03:53Z' uid='137242' user='Rainero' visible='true' version='2' changeset='107523086' lat='54.8255666' lon='8.743423'>
+    <tag k='railway' v='milestone' />
+    <tag k='railway:position' v='205.8' />
+  </node>
+  <node id='4498898487' timestamp='2021-07-06T22:03:53Z' uid='137242' user='Rainero' visible='true' version='2' changeset='107523086' lat='54.8257799' lon='8.7429226'>
+    <tag k='railway' v='signal' />
+    <tag k='railway:signal:direction' v='backward' />
+    <tag k='railway:signal:distant' v='DE-ESO:vr' />
+    <tag k='railway:signal:distant:form' v='semaphore' />
+    <tag k='railway:signal:distant:height' v='normal' />
+    <tag k='railway:signal:distant:states' v='DE-ESO:vr0;DE-ESO:vr1;DE-ESO:vr2' />
+    <tag k='railway:signal:main' v='DE-ESO:hp' />
+    <tag k='railway:signal:main:form' v='semaphore' />
+    <tag k='railway:signal:main:function' v='entry' />
+    <tag k='railway:signal:main:height' v='normal' />
+    <tag k='railway:signal:main:states' v='DE-ESO:hp0;DE-ESO:hp1;DE-ESO:hp2' />
+    <tag k='railway:signal:main:substitute_signal' v='DE-ESO:db:zs1' />
+    <tag k='railway:signal:position' v='left' />
+    <tag k='ref' v='B' />
+  </node>
+  <node id='4498898488' timestamp='2022-04-18T11:13:45Z' uid='92274' user='adjuva' visible='true' version='5' changeset='119852769' lat='54.8926571' lon='8.358757'>
+    <tag k='railway' v='signal' />
+    <tag k='railway:signal:combined' v='DE-ESO:ks' />
+    <tag k='railway:signal:combined:form' v='light' />
+    <tag k='railway:signal:combined:function' v='entry' />
+    <tag k='railway:signal:combined:height' v='normal' />
+    <tag k='railway:signal:combined:states' v='DE-ESO:hp0;DE-ESO:ks1;DE-ESO:ks2' />
+    <tag k='railway:signal:direction' v='backward' />
+    <tag k='railway:signal:position' v='left' />
+    <tag k='railway:signal:speed_limit' v='DE-ESO:zs3' />
+    <tag k='railway:signal:speed_limit:form' v='light' />
+    <tag k='railway:signal:speed_limit:speed' v='40;60;off' />
+    <tag k='ref' v='38 F' />
+  </node>
+  <node id='4498898589' timestamp='2016-11-13T18:25:11Z' uid='92274' user='adjuva' visible='true' version='1' changeset='43612361' lat='54.8983126' lon='8.3359217'>
+    <tag k='railway' v='signal' />
+    <tag k='railway:signal:direction' v='forward' />
+    <tag k='railway:signal:distant' v='DE-ESO:vr' />
+    <tag k='railway:signal:distant:form' v='semaphore' />
+    <tag k='railway:signal:distant:height' v='normal' />
+    <tag k='railway:signal:distant:states' v='DE-ESO:vr0;DE-ESO:vr1;DE-ESO:vr2' />
+    <tag k='railway:signal:position' v='right' />
+  </node>
+  <node id='4498898590' timestamp='2016-11-13T18:25:11Z' uid='92274' user='adjuva' visible='true' version='1' changeset='43612361' lat='54.9013622' lon='8.3265099'>
+    <tag k='railway' v='signal' />
+    <tag k='railway:signal:direction' v='backward' />
+    <tag k='railway:signal:main' v='DE-ESO:hp' />
+    <tag k='railway:signal:main:form' v='semaphore' />
+    <tag k='railway:signal:main:function' v='entry' />
+    <tag k='railway:signal:main:states' v='DE-ESO:hp0;DE-ESO:hp1;DE-ESO:hp2' />
+    <tag k='railway:signal:main:substitute_signal' v='DE-ESO:db:zs1' />
+    <tag k='railway:signal:position' v='left' />
+    <tag k='ref' v='A' />
+  </node>
+  <node id='4498898592' timestamp='2017-10-08T09:56:45Z' uid='2149259' user='Nakaner-repair' visible='true' version='3' changeset='52726410' lat='54.9028569' lon='8.320942'>
+    <tag k='railway' v='switch' />
+    <tag k='railway:switch' v='default' />
+  </node>
+  <node id='4498898594' timestamp='2018-12-31T22:29:44Z' uid='2070657' user='der neue' visible='true' version='2' changeset='65922983' lat='54.9029841' lon='8.3204552'>
+    <tag k='railway' v='signal' />
+    <tag k='railway:signal:direction' v='backward' />
+    <tag k='railway:signal:minor' v='DE-ESO:sh' />
+    <tag k='railway:signal:minor:form' v='semaphore' />
+    <tag k='railway:signal:minor:height' v='normal' />
+    <tag k='railway:signal:minor:states' v='DE-ESO:sh0;DE-ESO:sh1' />
+    <tag k='railway:signal:position' v='left' />
+    <tag k='ref' v='5' />
+  </node>
+  <node id='4501656335' timestamp='2021-05-11T16:59:35Z' uid='675791' user='Lukas615' visible='true' version='2' changeset='104526067' lat='54.7941106' lon='8.8342234'>
+    <tag k='railway' v='signal' />
+    <tag k='railway:signal:direction' v='forward' />
+    <tag k='railway:signal:position' v='right' />
+    <tag k='railway:signal:speed_limit' v='DE-ESO:lf7' />
+    <tag k='railway:signal:speed_limit:form' v='sign' />
+    <tag k='railway:signal:speed_limit:height' v='normal' />
+    <tag k='railway:signal:speed_limit:speed' v='80' />
+  </node>
+  <node id='4501656336' timestamp='2021-05-11T16:59:35Z' uid='675791' user='Lukas615' visible='true' version='2' changeset='104526067' lat='54.7947536' lon='8.8338481'>
+    <tag k='railway' v='signal' />
+    <tag k='railway:signal:direction' v='forward' />
+    <tag k='railway:signal:position' v='left' />
+    <tag k='railway:signal:shunting' v='DE-ESO:ra10' />
+    <tag k='railway:signal:shunting:form' v='sign' />
+    <tag k='railway:signal:shunting:height' v='normal' />
+  </node>
+  <node id='4501656337' timestamp='2021-07-02T15:34:16Z' uid='137242' user='Rainero' visible='true' version='5' changeset='107319026' lat='54.797007' lon='8.8301382'>
+    <tag k='note' v='Einfahrsignal wurde ~100m vor den Bü verschoben, das Vorsignal aber nicht.' />
+    <tag k='railway' v='signal' />
+    <tag k='railway:signal:direction' v='backward' />
+    <tag k='railway:signal:main' v='DE-ESO:hp' />
+    <tag k='railway:signal:main:form' v='semaphore' />
+    <tag k='railway:signal:main:function' v='entry' />
+    <tag k='railway:signal:main:height' v='normal' />
+    <tag k='railway:signal:main:states' v='DE-ESO:hp0;DE-ESO:hp1;DE-ESO:hp2' />
+    <tag k='railway:signal:main:substitute_signal' v='DE-ESO:db:zs1' />
+    <tag k='railway:signal:position' v='left' />
+    <tag k='railway:signal:route' v='DE-ESO:zs2' />
+    <tag k='railway:signal:route:form' v='light' />
+    <tag k='railway:signal:route:states' v='G' />
+    <tag k='railway:signal:speed_limit' v='DE-ESO:zs3' />
+    <tag k='railway:signal:speed_limit:form' v='light' />
+    <tag k='railway:signal:speed_limit:height' v='normal' />
+    <tag k='railway:signal:speed_limit:speed' v='60' />
+    <tag k='ref' v='F' />
+  </node>
+  <node id='4501656338' timestamp='2021-07-02T15:34:16Z' uid='137242' user='Rainero' visible='true' version='2' changeset='107319026' lat='54.7967864' lon='8.8307879' />
+  <node id='4501656339' timestamp='2016-11-15T01:37:18Z' uid='92274' user='adjuva' visible='true' version='1' changeset='43659379' lat='54.7971896' lon='8.8296005'>
+    <tag k='railway' v='signal' />
+    <tag k='railway:signal:direction' v='forward' />
+    <tag k='railway:signal:position' v='right' />
+    <tag k='railway:signal:speed_limit' v='DE-ESO:lf7' />
+    <tag k='railway:signal:speed_limit:form' v='sign' />
+    <tag k='railway:signal:speed_limit:height' v='normal' />
+    <tag k='railway:signal:speed_limit:speed' v='100' />
+  </node>
+  <node id='4501656340' timestamp='2016-11-15T01:37:18Z' uid='92274' user='adjuva' visible='true' version='1' changeset='43659379' lat='54.7980019' lon='8.827092'>
+    <tag k='railway' v='milestone' />
+    <tag k='railway:position' v='199.6' />
+  </node>
+  <node id='4501656341' timestamp='2016-11-15T01:37:18Z' uid='92274' user='adjuva' visible='true' version='1' changeset='43659379' lat='54.7980696' lon='8.8268849'>
+    <tag k='railway' v='signal' />
+    <tag k='railway:signal:direction' v='backward' />
+    <tag k='railway:signal:position' v='left' />
+    <tag k='railway:signal:speed_limit' v='DE-ESO:lf7' />
+    <tag k='railway:signal:speed_limit:form' v='sign' />
+    <tag k='railway:signal:speed_limit:height' v='normal' />
+    <tag k='railway:signal:speed_limit:speed' v='80' />
+  </node>
+  <node id='4501656342' timestamp='2021-07-06T19:30:06Z' uid='137242' user='Rainero' visible='true' version='2' changeset='107517953' lat='54.8008913' lon='8.8182591'>
+    <tag k='railway' v='signal' />
+    <tag k='railway:signal:direction' v='backward' />
+    <tag k='railway:signal:distant' v='DE-ESO:vr' />
+    <tag k='railway:signal:distant:form' v='semaphore' />
+    <tag k='railway:signal:distant:height' v='normal' />
+    <tag k='railway:signal:distant:states' v='DE-ESO:vr0;DE-ESO:vr1;DE-ESO:vr2' />
+    <tag k='railway:signal:position' v='left' />
+  </node>
+  <node id='4501656343' timestamp='2021-07-06T19:30:06Z' uid='137242' user='Rainero' visible='true' version='2' changeset='107517953' lat='54.8009146' lon='8.818188'>
+    <tag k='railway' v='signal' />
+    <tag k='railway:signal:direction' v='backward' />
+    <tag k='railway:signal:position' v='left' />
+    <tag k='railway:signal:speed_limit_distant' v='DE-ESO:lf6' />
+    <tag k='railway:signal:speed_limit_distant:form' v='sign' />
+    <tag k='railway:signal:speed_limit_distant:height' v='normal' />
+    <tag k='railway:signal:speed_limit_distant:speed' v='80' />
+  </node>
+  <node id='4501656344' timestamp='2016-11-15T01:37:18Z' uid='92274' user='adjuva' visible='true' version='1' changeset='43659379' lat='54.8147436' lon='8.7756916'>
+    <tag k='railway' v='signal' />
+    <tag k='railway:signal:direction' v='forward' />
+    <tag k='railway:signal:distant' v='DE-ESO:vr' />
+    <tag k='railway:signal:distant:form' v='semaphore' />
+    <tag k='railway:signal:distant:height' v='normal' />
+    <tag k='railway:signal:distant:states' v='DE-ESO:vr0;DE-ESO:vr1;DE-ESO:vr2' />
+    <tag k='railway:signal:position' v='right' />
+  </node>
+  <node id='4501656350' timestamp='2016-11-15T01:37:19Z' uid='92274' user='adjuva' visible='true' version='1' changeset='43659379' lat='54.8507049' lon='8.6965798'>
+    <tag k='railway' v='signal' />
+    <tag k='railway:signal:direction' v='forward' />
+    <tag k='railway:signal:distant' v='DE-ESO:vr' />
+    <tag k='railway:signal:distant:form' v='semaphore' />
+    <tag k='railway:signal:distant:height' v='normal' />
+    <tag k='railway:signal:distant:states' v='DE-ESO:vr0;DE-ESO:vr1' />
+    <tag k='railway:signal:position' v='right' />
+  </node>
+  <node id='4501656351' timestamp='2016-11-15T01:37:19Z' uid='92274' user='adjuva' visible='true' version='1' changeset='43659379' lat='54.8511406' lon='8.6957916'>
+    <tag k='railway' v='milestone' />
+    <tag k='railway:position' v='210.0' />
+  </node>
+  <node id='4501656352' timestamp='2016-11-15T01:37:19Z' uid='92274' user='adjuva' visible='true' version='1' changeset='43659379' lat='54.8585813' lon='8.6824167'>
+    <tag k='railway' v='signal' />
+    <tag k='railway:signal:direction' v='backward' />
+    <tag k='railway:signal:position' v='right' />
+    <tag k='railway:signal:shunting' v='DE-ESO:ra10' />
+    <tag k='railway:signal:shunting:form' v='sign' />
+    <tag k='railway:signal:shunting:height' v='normal' />
+  </node>
+  <node id='4501656353' timestamp='2016-11-15T01:37:19Z' uid='92274' user='adjuva' visible='true' version='1' changeset='43659379' lat='54.8612384' lon='8.6778497'>
+    <tag k='railway' v='milestone' />
+    <tag k='railway:position' v='211.6' />
+  </node>
+  <node id='4501656355' timestamp='2016-11-15T01:37:19Z' uid='92274' user='adjuva' visible='true' version='1' changeset='43659379' lat='54.8614213' lon='8.677535'>
+    <tag k='railway' v='signal' />
+    <tag k='railway:signal:direction' v='backward' />
+    <tag k='railway:signal:main' v='DE-ESO:hp' />
+    <tag k='railway:signal:main:form' v='semaphore' />
+    <tag k='railway:signal:main:function' v='exit' />
+    <tag k='railway:signal:main:height' v='normal' />
+    <tag k='railway:signal:main:states' v='DE-ESO:hp0;DE-ESO:hp1' />
+    <tag k='railway:signal:main:substitute_signal' v='DE-ESO:db:zs1' />
+    <tag k='railway:signal:position' v='left' />
+    <tag k='ref' v='P2' />
+  </node>
+  <node id='4501656357' timestamp='2021-07-06T20:44:43Z' uid='137242' user='Rainero' visible='true' version='2' changeset='107520720' lat='54.8614556' lon='8.6774761'>
+    <tag k='railway' v='signal' />
+    <tag k='railway:signal:direction' v='backward' />
+    <tag k='railway:signal:position' v='left' />
+    <tag k='railway:signal:speed_limit' v='DE-ESO:lf7' />
+    <tag k='railway:signal:speed_limit:form' v='sign' />
+    <tag k='railway:signal:speed_limit:height' v='normal' />
+    <tag k='railway:signal:speed_limit:speed' v='100' />
+  </node>
+  <node id='4501656359' timestamp='2021-07-06T20:44:43Z' uid='137242' user='Rainero' visible='true' version='2' changeset='107520720' lat='54.8640233' lon='8.6730639'>
+    <tag k='railway' v='signal' />
+    <tag k='railway:signal:direction' v='forward' />
+    <tag k='railway:signal:main' v='DE-ESO:hp' />
+    <tag k='railway:signal:main:form' v='semaphore' />
+    <tag k='railway:signal:main:function' v='exit' />
+    <tag k='railway:signal:main:height' v='normal' />
+    <tag k='railway:signal:main:states' v='DE-ESO:hp0;DE-ESO:hp1;DE-ESO:hp2' />
+    <tag k='railway:signal:main:substitute_signal' v='DE-ESO:db:zs1' />
+    <tag k='railway:signal:position' v='right' />
+    <tag k='ref' v='N2' />
+  </node>
+  <node id='4501656361' timestamp='2022-04-17T04:27:58Z' uid='92274' user='adjuva' visible='true' version='2' changeset='119803600' lat='54.8651115' lon='8.6712225'>
+    <tag k='railway' v='milestone' />
+    <tag k='railway:position' v='212.2' />
+  </node>
+  <node id='4501656363' timestamp='2022-04-17T04:27:58Z' uid='92274' user='adjuva' visible='true' version='2' changeset='119803600' lat='54.8654206' lon='8.670673' />
+  <node id='4501656366' timestamp='2022-04-17T04:27:58Z' uid='92274' user='adjuva' visible='true' version='3' changeset='119803600' lat='54.8659621' lon='8.6697213'>
+    <tag k='railway' v='switch' />
+    <tag k='railway:local_operated' v='no' />
+    <tag k='railway:switch' v='default' />
+    <tag k='railway:switch:electric' v='no' />
+    <tag k='railway:turnout_side' v='left' />
+    <tag k='ref' v='8' />
+  </node>
+  <node id='4501656367' timestamp='2022-04-17T04:27:58Z' uid='92274' user='adjuva' visible='true' version='3' changeset='119803600' lat='54.8659779' lon='8.6696943'>
+    <tag k='railway' v='switch' />
+    <tag k='railway:local_operated' v='no' />
+    <tag k='railway:switch' v='default' />
+    <tag k='railway:switch:electric' v='no' />
+    <tag k='railway:turnout_side' v='right' />
+    <tag k='ref' v='9' />
+  </node>
+  <node id='4501656369' timestamp='2022-04-17T04:27:58Z' uid='92274' user='adjuva' visible='true' version='2' changeset='119803600' lat='54.8685018' lon='8.6653516'>
+    <tag k='railway' v='signal' />
+    <tag k='railway:signal:direction' v='backward' />
+    <tag k='railway:signal:distant' v='DE-ESO:vr' />
+    <tag k='railway:signal:distant:form' v='semaphore' />
+    <tag k='railway:signal:distant:states' v='DE-ESO:vr0;DE-ESO:vr1' />
+    <tag k='railway:signal:main' v='DE-ESO:hp' />
+    <tag k='railway:signal:main:form' v='semaphore' />
+    <tag k='railway:signal:main:function' v='entry' />
+    <tag k='railway:signal:main:height' v='normal' />
+    <tag k='railway:signal:main:states' v='DE-ESO:hp0;DE-ESO:hp1;DE-ESO:hp2' />
+    <tag k='railway:signal:main:substitute_signal' v='DE-ESO:db:zs1' />
+    <tag k='railway:signal:position' v='left' />
+    <tag k='ref' v='F' />
+  </node>
+  <node id='4501656370' timestamp='2022-04-17T04:27:58Z' uid='92274' user='adjuva' visible='true' version='2' changeset='119803600' lat='54.868529' lon='8.6653052'>
+    <tag k='railway' v='signal' />
+    <tag k='railway:signal:direction' v='backward' />
+    <tag k='railway:signal:position' v='left' />
+    <tag k='railway:signal:speed_limit_distant' v='DE-ESO:lf6' />
+    <tag k='railway:signal:speed_limit_distant:form' v='sign' />
+    <tag k='railway:signal:speed_limit_distant:height' v='normal' />
+    <tag k='railway:signal:speed_limit_distant:speed' v='100' />
+  </node>
+  <node id='4501656374' timestamp='2016-11-15T01:37:20Z' uid='92274' user='adjuva' visible='true' version='1' changeset='43659379' lat='54.8714613' lon='8.4452621'>
+    <tag k='railway' v='signal' />
+    <tag k='railway:signal:direction' v='backward' />
+    <tag k='railway:signal:position' v='left' />
+    <tag k='railway:signal:speed_limit' v='DE-ESO:lf7' />
+    <tag k='railway:signal:speed_limit:form' v='sign' />
+    <tag k='railway:signal:speed_limit:height' v='normal' />
+    <tag k='railway:signal:speed_limit:speed' v='140' />
+  </node>
+  <node id='4501656376' timestamp='2016-11-15T01:37:20Z' uid='92274' user='adjuva' visible='true' version='1' changeset='43659379' lat='54.8715106' lon='8.4755954'>
+    <tag k='railway' v='milestone' />
+    <tag k='railway:position' v='226.0' />
+  </node>
+  <node id='4501656377' timestamp='2022-04-17T04:27:58Z' uid='92274' user='adjuva' visible='true' version='2' changeset='119803600' lat='54.8715148' lon='8.4442713'>
+    <tag k='railway' v='switch' />
+    <tag k='railway:local_operated' v='no' />
+    <tag k='railway:switch' v='default' />
+    <tag k='railway:switch:electric' v='yes' />
+    <tag k='railway:turnout_side' v='left' />
+  </node>
+  <node id='4501656378' timestamp='2022-04-17T04:27:58Z' uid='92274' user='adjuva' visible='true' version='2' changeset='119803600' lat='54.8715288' lon='8.4440045'>
+    <tag k='railway' v='switch' />
+    <tag k='railway:local_operated' v='no' />
+    <tag k='railway:switch' v='default' />
+    <tag k='railway:switch:electric' v='yes' />
+    <tag k='railway:turnout_side' v='right' />
+  </node>
+  <node id='4501656380' timestamp='2016-11-15T01:37:21Z' uid='92274' user='adjuva' visible='true' version='1' changeset='43659379' lat='54.8716277' lon='8.4421985' />
+  <node id='4501656381' timestamp='2022-04-17T04:27:58Z' uid='92274' user='adjuva' visible='true' version='2' changeset='119803600' lat='54.8716404' lon='8.4419472'>
+    <tag k='railway' v='signal' />
+    <tag k='railway:signal:direction' v='backward' />
+    <tag k='railway:signal:main' v='DE-ESO:hp' />
+    <tag k='railway:signal:main:form' v='light' />
+    <tag k='railway:signal:main:function' v='exit' />
+    <tag k='railway:signal:main:height' v='normal' />
+    <tag k='railway:signal:main:states' v='DE-ESO:hp0;DE-ESO:hp1' />
+    <tag k='railway:signal:main:substitute_signal' v='DE-ESO:db:zs1' />
+    <tag k='railway:signal:position' v='left' />
+    <tag k='ref' v='39 P1' />
+  </node>
+  <node id='4501656386' timestamp='2022-04-17T04:27:58Z' uid='92274' user='adjuva' visible='true' version='2' changeset='119803600' lat='54.8722406' lon='8.4315644'>
+    <tag k='railway' v='signal' />
+    <tag k='railway:signal:direction' v='forward' />
+    <tag k='railway:signal:main' v='DE-ESO:ks' />
+    <tag k='railway:signal:main:form' v='light' />
+    <tag k='railway:signal:main:function' v='exit' />
+    <tag k='railway:signal:main:height' v='normal' />
+    <tag k='railway:signal:main:states' v='DE-ESO:hp0;DE-ESO:ks1' />
+    <tag k='railway:signal:position' v='right' />
+    <tag k='ref' v='39 N1' />
+  </node>
+  <node id='4501656387' timestamp='2022-04-17T04:27:58Z' uid='92274' user='adjuva' visible='true' version='2' changeset='119803600' lat='54.8722775' lon='8.4309554'>
+    <tag k='railway' v='signal' />
+    <tag k='railway:signal:direction' v='backward' />
+    <tag k='railway:signal:position' v='left' />
+    <tag k='railway:signal:speed_limit' v='DE-ESO:lf7' />
+    <tag k='railway:signal:speed_limit:form' v='sign' />
+    <tag k='railway:signal:speed_limit:height' v='normal' />
+    <tag k='railway:signal:speed_limit:speed' v='120' />
+  </node>
+  <node id='4501657789' timestamp='2016-11-15T01:37:21Z' uid='92274' user='adjuva' visible='true' version='1' changeset='43659379' lat='54.8745918' lon='8.6547928'>
+    <tag k='railway' v='signal' />
+    <tag k='railway:signal:direction' v='backward' />
+    <tag k='railway:signal:distant' v='DE-ESO:vr' />
+    <tag k='railway:signal:distant:form' v='semaphore' />
+    <tag k='railway:signal:distant:height' v='normal' />
+    <tag k='railway:signal:distant:states' v='DE-ESO:vr0;DE-ESO:vr1;DE-ESO:vr2' />
+    <tag k='railway:signal:position' v='left' />
+  </node>
+  <node id='4501657790' timestamp='2022-04-17T04:27:58Z' uid='92274' user='adjuva' visible='true' version='2' changeset='119803600' lat='54.8748111' lon='8.4144765'>
+    <tag k='railway' v='milestone' />
+    <tag k='railway:position' v='230.0' />
+  </node>
+  <node id='4501657791' timestamp='2022-04-17T04:27:58Z' uid='92274' user='adjuva' visible='true' version='2' changeset='119803600' lat='54.8756482' lon='8.410882'>
+    <tag k='railway' v='signal' />
+    <tag k='railway:signal:direction' v='backward' />
+    <tag k='railway:signal:distant' v='DE-ESO:ks' />
+    <tag k='railway:signal:distant:form' v='light' />
+    <tag k='railway:signal:distant:height' v='normal' />
+    <tag k='railway:signal:distant:states' v='DE-ESO:ks1;DE-ESO:ks2' />
+    <tag k='railway:signal:position' v='left' />
+  </node>
+  <node id='4501657792' timestamp='2016-11-15T01:37:22Z' uid='92274' user='adjuva' visible='true' version='1' changeset='43659379' lat='54.8790342' lon='8.6471789'>
+    <tag k='railway' v='milestone' />
+    <tag k='railway:position' v='214.4' />
+  </node>
+  <node id='4501657794' timestamp='2022-04-18T11:13:45Z' uid='92274' user='adjuva' visible='true' version='3' changeset='119852769' lat='54.8818298' lon='8.3875775'>
+    <tag k='railway' v='signal' />
+    <tag k='railway:signal:direction' v='forward' />
+    <tag k='railway:signal:distant' v='DE-ESO:ks' />
+    <tag k='railway:signal:distant:form' v='light' />
+    <tag k='railway:signal:distant:height' v='normal' />
+    <tag k='railway:signal:distant:states' v='DE-ESO:ks1;DE-ESO:ks2' />
+    <tag k='railway:signal:position' v='right' />
+    <tag k='railway:signal:speed_limit_distant' v='DE-ESO:zs3v' />
+    <tag k='railway:signal:speed_limit_distant:form' v='light' />
+    <tag k='railway:signal:speed_limit_distant:speed' v='40;60;off' />
+  </node>
+  <node id='4501657795' timestamp='2016-11-15T01:37:22Z' uid='92274' user='adjuva' visible='true' version='1' changeset='43659379' lat='54.8842988' lon='8.545522'>
+    <tag k='railway' v='signal' />
+    <tag k='railway:signal:direction' v='backward' />
+    <tag k='railway:signal:distant' v='DE-ESO:vr' />
+    <tag k='railway:signal:distant:form' v='light' />
+    <tag k='railway:signal:distant:height' v='normal' />
+    <tag k='railway:signal:distant:states' v='DE-ESO:vr0;DE-ESO:vr1' />
+    <tag k='railway:signal:position' v='left' />
+  </node>
+  <node id='4501657796' timestamp='2022-04-17T04:43:11Z' uid='92274' user='adjuva' visible='true' version='2' changeset='119803600' lat='54.8848296' lon='8.5606734' />
+  <node id='4501657797' timestamp='2022-04-17T04:43:11Z' uid='92274' user='adjuva' visible='true' version='2' changeset='119803600' lat='54.8848422' lon='8.5610605'>
+    <tag k='railway' v='signal' />
+    <tag k='railway:signal:direction' v='forward' />
+    <tag k='railway:signal:main' v='DE-ESO:hp' />
+    <tag k='railway:signal:main:form' v='light' />
+    <tag k='railway:signal:main:function' v='block' />
+    <tag k='railway:signal:main:height' v='normal' />
+    <tag k='railway:signal:main:states' v='DE-ESO:hp0;DE-ESO:hp1' />
+    <tag k='railway:signal:position' v='left' />
+    <tag k='ref' v='22' />
+  </node>
+  <node id='4501657801' timestamp='2022-04-18T11:13:45Z' uid='92274' user='adjuva' visible='true' version='4' changeset='119852769' lat='54.885501' lon='8.3778205'>
+    <tag k='railway' v='signal' />
+    <tag k='railway:signal:combined' v='DE-ESO:ks' />
+    <tag k='railway:signal:combined:form' v='light' />
+    <tag k='railway:signal:combined:function' v='entry' />
+    <tag k='railway:signal:combined:height' v='normal' />
+    <tag k='railway:signal:combined:states' v='DE-ESO:hp0;DE-ESO:ks1;DE-ESO:ks2' />
+    <tag k='railway:signal:direction' v='forward' />
+    <tag k='railway:signal:position' v='right' />
+    <tag k='railway:signal:speed_limit' v='DE-ESO:zs3' />
+    <tag k='railway:signal:speed_limit:form' v='light' />
+    <tag k='railway:signal:speed_limit:speed' v='40;60;off' />
+    <tag k='ref' v='38 A' />
+  </node>
+  <node id='4501657802' timestamp='2016-11-15T01:37:22Z' uid='92274' user='adjuva' visible='true' version='1' changeset='43659379' lat='54.886274' lon='8.3757673'>
+    <tag k='railway' v='milestone' />
+    <tag k='railway:position' v='232.8' />
+  </node>
+  <node id='4501657804' timestamp='2022-04-17T04:43:11Z' uid='92274' user='adjuva' visible='true' version='2' changeset='119803600' lat='54.8864778' lon='8.6076406' />
+  <node id='4501657806' timestamp='2016-11-15T01:37:23Z' uid='92274' user='adjuva' visible='true' version='1' changeset='43659379' lat='54.8865721' lon='8.3749741'>
+    <tag k='railway' v='signal' />
+    <tag k='railway:signal:direction' v='backward' />
+    <tag k='railway:signal:position' v='right' />
+    <tag k='railway:signal:shunting' v='DE-ESO:ra10' />
+    <tag k='railway:signal:shunting:form' v='sign' />
+    <tag k='railway:signal:shunting:height' v='normal' />
+  </node>
+  <node id='4501657807' timestamp='2022-04-17T05:47:56Z' uid='92274' user='adjuva' visible='true' version='2' changeset='119803600' lat='54.8872301' lon='8.3732068'>
+    <tag k='railway' v='milestone' />
+    <tag k='railway:position' v='233.0' />
+  </node>
+  <node id='4501657822' timestamp='2016-11-15T01:37:23Z' uid='92274' user='adjuva' visible='true' version='1' changeset='43659379' lat='54.8916327' lon='8.3614736'>
+    <tag k='railway' v='signal' />
+    <tag k='railway:signal:direction' v='forward' />
+    <tag k='railway:signal:position' v='left' />
+    <tag k='railway:signal:shunting' v='DE-ESO:ra10' />
+    <tag k='railway:signal:shunting:form' v='sign' />
+    <tag k='railway:signal:shunting:height' v='normal' />
+  </node>
+  <node id='4501657823' timestamp='2016-11-15T01:37:23Z' uid='92274' user='adjuva' visible='true' version='1' changeset='43659379' lat='54.9022285' lon='8.3233965'>
+    <tag k='railway' v='signal' />
+    <tag k='railway:signal:direction' v='forward' />
+    <tag k='railway:signal:position' v='right' />
+    <tag k='railway:signal:speed_limit' v='DE-ESO:lf7' />
+    <tag k='railway:signal:speed_limit:form' v='sign' />
+    <tag k='railway:signal:speed_limit:height' v='normal' />
+    <tag k='railway:signal:speed_limit:speed' v='100' />
+    <tag k='railway:signal:speed_limit:turn_direction' v='left' />
+  </node>
+  <node id='4592378547' timestamp='2017-12-17T17:16:01Z' uid='92274' user='adjuva' visible='true' version='2' changeset='54708532' lat='54.862459' lon='8.6757519'>
+    <tag k='name' v='Klanxbüll' />
+    <tag k='operator' v='DB Station&amp;Service AG' />
+    <tag k='public_transport' v='stop_position' />
+    <tag k='railway' v='stop' />
+    <tag k='ref' v='2' />
+    <tag k='train' v='yes' />
+  </node>
+  <node id='4592390195' timestamp='2021-12-15T15:40:46Z' uid='78454' user='FanTasMo' visible='true' version='3' changeset='114969661' lat='54.8721361' lon='8.4332865'>
+    <tag k='local_ref' v='1' />
+    <tag k='public_transport' v='stop_position' />
+    <tag k='railway' v='stop' />
+    <tag k='train' v='yes' />
+  </node>
+  <node id='4592409885' timestamp='2021-12-15T15:40:46Z' uid='78454' user='FanTasMo' visible='true' version='3' changeset='114969661' lat='54.8890095' lon='8.3684687'>
+    <tag k='local_ref' v='2' />
+    <tag k='public_transport' v='stop_position' />
+    <tag k='railway' v='stop' />
+    <tag k='train' v='yes' />
+  </node>
+  <node id='4771885287' timestamp='2022-04-17T04:27:58Z' uid='92274' user='adjuva' visible='true' version='2' changeset='119803600' lat='54.887434' lon='8.372672'>
+    <tag k='railway' v='signal' />
+    <tag k='railway:signal:direction' v='backward' />
+    <tag k='railway:signal:minor' v='DE-ESO:sh' />
+    <tag k='railway:signal:minor:form' v='light' />
+    <tag k='railway:signal:minor:height' v='dwarf' />
+    <tag k='railway:signal:minor:states' v='DE-ESO:hp0;DE-ESO:sh1' />
+    <tag k='railway:signal:position' v='left' />
+  </node>
+  <node id='4771885288' timestamp='2022-04-17T04:27:58Z' uid='92274' user='adjuva' visible='true' version='2' changeset='119803600' lat='54.8908314' lon='8.3636157'>
+    <tag k='railway' v='signal' />
+    <tag k='railway:signal:direction' v='forward' />
+    <tag k='railway:signal:minor' v='DE-ESO:sh' />
+    <tag k='railway:signal:minor:form' v='light' />
+    <tag k='railway:signal:minor:height' v='dwarf' />
+    <tag k='railway:signal:minor:states' v='DE-ESO:hp0;DE-ESO:sh1' />
+    <tag k='railway:signal:position' v='right' />
+  </node>
+  <node id='4771885291' timestamp='2022-04-17T04:27:58Z' uid='92274' user='adjuva' visible='true' version='2' changeset='119803600' lat='54.8876356' lon='8.3721395'>
+    <tag k='railway' v='signal' />
+    <tag k='railway:signal:direction' v='backward' />
+    <tag k='railway:signal:main' v='DE-ESO:ks' />
+    <tag k='railway:signal:main:form' v='light' />
+    <tag k='railway:signal:main:function' v='exit' />
+    <tag k='railway:signal:main:height' v='normal' />
+    <tag k='railway:signal:main:states' v='DE-ESO:hp0;DE-ESO:ks1;DE-ESO:kennlicht' />
+    <tag k='railway:signal:position' v='left' />
+    <tag k='ref' v='38 P12' />
+  </node>
+  <node id='4771885293' timestamp='2022-04-17T04:27:58Z' uid='92274' user='adjuva' visible='true' version='3' changeset='119803600' lat='54.8906148' lon='8.3641979'>
+    <tag k='note' v='Position geschätzt' />
+    <tag k='railway' v='signal' />
+    <tag k='railway:signal:direction' v='forward' />
+    <tag k='railway:signal:main' v='DE-ESO:ks' />
+    <tag k='railway:signal:main:form' v='light' />
+    <tag k='railway:signal:main:function' v='exit' />
+    <tag k='railway:signal:main:height' v='normal' />
+    <tag k='railway:signal:main:states' v='DE-ESO:hp0;DE-ESO:ks1;DE-ESO:kennlicht' />
+    <tag k='railway:signal:position' v='right' />
+    <tag k='ref' v='38 N11' />
+  </node>
+  <node id='4772596540' timestamp='2017-04-03T10:47:03Z' uid='28992' user='gallseife' visible='true' version='1' changeset='47407801' lat='54.8963817' lon='8.3457986' />
+  <node id='4772596541' timestamp='2017-04-03T10:47:04Z' uid='28992' user='gallseife' visible='true' version='1' changeset='47407801' lat='54.8934094' lon='8.3567259' />
+  <node id='4772596542' timestamp='2017-04-03T10:47:04Z' uid='28992' user='gallseife' visible='true' version='1' changeset='47407801' lat='54.894486' lon='8.3535368' />
+  <node id='4772596543' timestamp='2017-04-03T10:47:04Z' uid='28992' user='gallseife' visible='true' version='1' changeset='47407801' lat='54.894793' lon='8.3525014' />
+  <node id='4772596544' timestamp='2017-04-03T10:47:04Z' uid='28992' user='gallseife' visible='true' version='1' changeset='47407801' lat='54.8959722' lon='8.3478022' />
+  <node id='4772596545' timestamp='2017-04-03T10:47:04Z' uid='28992' user='gallseife' visible='true' version='1' changeset='47407801' lat='54.8961449' lon='8.3470016' />
+  <node id='4772596546' timestamp='2022-04-18T11:13:45Z' uid='92274' user='adjuva' visible='true' version='3' changeset='119852769' lat='54.895846' lon='8.3484224'>
+    <tag k='railway' v='signal' />
+    <tag k='railway:signal:direction' v='backward' />
+    <tag k='railway:signal:distant' v='DE-ESO:ks' />
+    <tag k='railway:signal:distant:form' v='light' />
+    <tag k='railway:signal:distant:height' v='normal' />
+    <tag k='railway:signal:distant:states' v='DE-ESO:ks1;DE-ESO:ks2' />
+    <tag k='railway:signal:position' v='left' />
+    <tag k='railway:signal:speed_limit_distant' v='DE-ESO:zs3v' />
+    <tag k='railway:signal:speed_limit_distant:form' v='light' />
+    <tag k='railway:signal:speed_limit_distant:height' v='normal' />
+    <tag k='railway:signal:speed_limit_distant:speed' v='40;60;off' />
+  </node>
+  <node id='4876736298' timestamp='2021-07-06T22:03:53Z' uid='137242' user='Rainero' visible='true' version='2' changeset='107523086' lat='54.8407376' lon='8.7148039' />
+  <node id='4876736299' timestamp='2021-07-06T22:03:53Z' uid='137242' user='Rainero' visible='true' version='2' changeset='107523086' lat='54.8408152' lon='8.7146613' />
+  <node id='5111693415' timestamp='2017-09-17T20:06:18Z' uid='402577' user='Kalle mit der Kelle' visible='true' version='1' changeset='52126449' lat='54.8718558' lon='8.4382091' />
+  <node id='5347143086' timestamp='2021-05-11T16:59:35Z' uid='675791' user='Lukas615' visible='true' version='2' changeset='104526067' lat='54.7911552' lon='8.8348947'>
+    <tag k='crossing:barrier' v='double_half' />
+    <tag k='crossing:bell' v='yes' />
+    <tag k='crossing:chicane' v='no' />
+    <tag k='crossing:light' v='yes' />
+    <tag k='railway' v='crossing' />
+  </node>
+  <node id='5348954375' timestamp='2018-01-19T11:24:25Z' uid='3080626' user='Weltstaat' visible='true' version='1' changeset='55575218' lat='54.9047336' lon='8.3153482' />
+  <node id='5348954376' timestamp='2018-01-19T11:24:25Z' uid='3080626' user='Weltstaat' visible='true' version='1' changeset='55575218' lat='54.9049079' lon='8.3149552' />
+  <node id='5348954377' timestamp='2018-01-19T11:24:25Z' uid='3080626' user='Weltstaat' visible='true' version='1' changeset='55575218' lat='54.9052842' lon='8.3141626' />
+  <node id='5348954378' timestamp='2018-01-19T11:24:25Z' uid='3080626' user='Weltstaat' visible='true' version='1' changeset='55575218' lat='54.9054037' lon='8.3138917' />
+  <node id='6175627961' timestamp='2018-12-31T22:29:42Z' uid='2070657' user='der neue' visible='true' version='1' changeset='65922983' lat='54.9025118' lon='8.3221718'>
+    <tag k='railway' v='signal' />
+    <tag k='railway:signal:direction' v='backward' />
+    <tag k='railway:signal:main' v='DE-ESO:hp' />
+    <tag k='railway:signal:main:form' v='semaphore' />
+    <tag k='railway:signal:main:function' v='exit' />
+    <tag k='railway:signal:main:height' v='normal' />
+    <tag k='railway:signal:main:states' v='DE-ESO:hp0;DE-ESO:hp2' />
+    <tag k='railway:signal:main:substitute_signal' v='DE-ESO:db:zs1' />
+    <tag k='railway:signal:position' v='left' />
+    <tag k='railway:signal:shunting' v='DE-ESO:ra11' />
+    <tag k='railway:signal:shunting:form' v='sign' />
+    <tag k='railway:signal:shunting:height' v='normal' />
+    <tag k='railway:signal:shunting:states' v='DE-ESO:ra11;DE-ESO:sh1' />
+    <tag k='ref' v='G' />
+  </node>
+  <node id='6175716902' timestamp='2018-12-31T23:54:45Z' uid='2070657' user='der neue' visible='true' version='1' changeset='65923829' lat='54.9031761' lon='8.3198374'>
+    <tag k='railway' v='signal' />
+    <tag k='railway:signal:direction' v='forward' />
+    <tag k='railway:signal:position' v='right' />
+    <tag k='railway:signal:speed_limit' v='DE-ESO:zs3' />
+    <tag k='railway:signal:speed_limit:form' v='sign' />
+    <tag k='railway:signal:speed_limit:height' v='normal' />
+    <tag k='railway:signal:speed_limit:speed' v='30' />
+  </node>
+  <node id='6182211215' timestamp='2019-01-03T21:55:11Z' uid='2070657' user='der neue' visible='true' version='1' changeset='66002958' lat='54.7893511' lon='8.8351237'>
+    <tag k='railway' v='signal' />
+    <tag k='railway:signal:departure' v='DE-ESO:zp' />
+    <tag k='railway:signal:departure:form' v='light' />
+    <tag k='railway:signal:departure:states' v='DE-ESO:zp9' />
+    <tag k='railway:signal:direction' v='forward' />
+    <tag k='railway:signal:main' v='DE-ESO:hp' />
+    <tag k='railway:signal:main:form' v='semaphore' />
+    <tag k='railway:signal:main:function' v='exit' />
+    <tag k='railway:signal:main:height' v='normal' />
+    <tag k='railway:signal:main:states' v='DE-ESO:hp0;DE-ESO:hp2' />
+    <tag k='railway:signal:position' v='right' />
+    <tag k='ref' v='N6' />
+  </node>
+  <node id='6182211218' timestamp='2021-05-11T16:59:35Z' uid='675791' user='Lukas615' visible='true' version='2' changeset='104526067' lat='54.7905487' lon='8.8350022'>
+    <tag k='operator' v='DB Netz AG' />
+    <tag k='railway' v='signal' />
+    <tag k='railway:signal:direction' v='forward' />
+    <tag k='railway:signal:position' v='left' />
+    <tag k='railway:signal:speed_limit_distant' v='DE-ESO:lf6' />
+    <tag k='railway:signal:speed_limit_distant:deactivated' v='no' />
+    <tag k='railway:signal:speed_limit_distant:form' v='sign' />
+    <tag k='railway:signal:speed_limit_distant:height' v='normal' />
+    <tag k='railway:signal:speed_limit_distant:speed' v='30' />
+  </node>
+  <node id='6182211223' timestamp='2021-05-11T16:59:35Z' uid='675791' user='Lukas615' visible='true' version='2' changeset='104526067' lat='54.7911135' lon='8.8349017'>
+    <tag k='operator' v='DB Netz AG' />
+    <tag k='railway' v='signal' />
+    <tag k='railway:signal:crossing_distant' v='DE-ESO:bü3' />
+    <tag k='railway:signal:crossing_distant:deactivated' v='no' />
+    <tag k='railway:signal:crossing_distant:form' v='sign' />
+    <tag k='railway:signal:direction' v='forward' />
+    <tag k='railway:signal:position' v='right' />
+  </node>
+  <node id='6182211232' timestamp='2021-05-11T16:59:35Z' uid='675791' user='Lukas615' visible='true' version='2' changeset='104526067' lat='54.7936972' lon='8.8343859'>
+    <tag k='operator' v='DB Netz AG' />
+    <tag k='railway' v='signal' />
+    <tag k='railway:signal:direction' v='backward' />
+    <tag k='railway:signal:minor' v='DE-ESO:sh' />
+    <tag k='railway:signal:minor:deactivated' v='no' />
+    <tag k='railway:signal:minor:form' v='light' />
+    <tag k='railway:signal:minor:height' v='dwarf' />
+    <tag k='railway:signal:minor:states' v='DE-ESO:hp0;DE-ESO:sh1' />
+    <tag k='railway:signal:position' v='left' />
+  </node>
+  <node id='6196665916' timestamp='2019-01-09T22:34:45Z' uid='2070657' user='der neue' visible='true' version='1' changeset='66177493' lat='54.7877034' lon='8.8352018'>
+    <tag k='railway' v='signal' />
+    <tag k='railway:signal:departure' v='DE-ESO:zp' />
+    <tag k='railway:signal:departure:form' v='light' />
+    <tag k='railway:signal:departure:states' v='DE-ESO:zp9' />
+    <tag k='railway:signal:direction' v='forward' />
+    <tag k='railway:signal:position' v='right' />
+  </node>
+  <node id='6196665922' timestamp='2019-01-09T22:34:46Z' uid='2070657' user='der neue' visible='true' version='1' changeset='66177493' lat='54.7893266' lon='8.8351255'>
+    <tag k='railway' v='signal' />
+    <tag k='railway:signal:direction' v='forward' />
+    <tag k='railway:signal:position' v='right' />
+    <tag k='railway:signal:speed_limit' v='DE-ESO:zs3' />
+    <tag k='railway:signal:speed_limit:form' v='sign' />
+    <tag k='railway:signal:speed_limit:height' v='dwarf' />
+    <tag k='railway:signal:speed_limit:speed' v='60' />
+  </node>
+  <node id='6196665924' timestamp='2019-01-09T22:34:46Z' uid='2070657' user='der neue' visible='true' version='1' changeset='66177493' lat='54.7893373' lon='8.8351241'>
+    <tag k='railway' v='signal' />
+    <tag k='railway:signal:direction' v='forward' />
+    <tag k='railway:signal:minor' v='DE-ESO:sh' />
+    <tag k='railway:signal:minor:form' v='light' />
+    <tag k='railway:signal:minor:height' v='dwarf' />
+    <tag k='railway:signal:minor:states' v='DE-ESO:hp0;DE-ESO:sh1' />
+    <tag k='railway:signal:position' v='right' />
+  </node>
+  <node id='6406619617' timestamp='2019-04-15T12:42:57Z' uid='9632384' user='Nie ls' visible='true' version='1' changeset='69233781' lat='54.7954852' lon='8.8331632' />
+  <node id='7610403424' timestamp='2020-06-10T21:28:45Z' uid='3153077' user='nhaesler' visible='true' version='1' changeset='86484543' lat='54.7961546' lon='8.8321941' />
+  <node id='7623920564' timestamp='2020-06-15T20:29:15Z' uid='3153077' user='nhaesler' visible='true' version='1' changeset='86686752' lat='54.8113191' lon='8.7862746' />
+  <node id='7623920565' timestamp='2020-06-15T20:29:15Z' uid='3153077' user='nhaesler' visible='true' version='1' changeset='86686752' lat='54.8112736' lon='8.7864139' />
+  <node id='7807102811' timestamp='2021-07-06T20:44:43Z' uid='137242' user='Rainero' visible='true' version='2' changeset='107520720' lat='54.8613056' lon='8.6777335'>
+    <tag k='railway' v='crossing' />
+  </node>
+  <node id='8722387668' timestamp='2021-05-11T16:59:35Z' uid='675791' user='Lukas615' visible='true' version='1' changeset='104526067' lat='54.7898326' lon='8.835108' />
+  <node id='8722387669' timestamp='2021-05-11T16:59:35Z' uid='675791' user='Lukas615' visible='true' version='1' changeset='104526067' lat='54.7915573' lon='8.8348156' />
+  <node id='8722387671' timestamp='2021-05-11T16:59:35Z' uid='675791' user='Lukas615' visible='true' version='1' changeset='104526067' lat='54.7918793' lon='8.8347653' />
+  <node id='8722387673' timestamp='2021-05-11T16:59:35Z' uid='675791' user='Lukas615' visible='true' version='1' changeset='104526067' lat='54.7943361' lon='8.8341115' />
+  <node id='8888081850' timestamp='2021-07-02T15:34:16Z' uid='137242' user='Rainero' visible='true' version='1' changeset='107319026' lat='54.7963456' lon='8.8318415' />
+  <node id='8898945109' timestamp='2021-07-06T19:30:06Z' uid='137242' user='Rainero' visible='true' version='1' changeset='107517953' lat='54.8019942' lon='8.814864' />
+  <node id='8899107746' timestamp='2021-07-06T20:44:43Z' uid='137242' user='Rainero' visible='true' version='1' changeset='107520720' lat='54.8863614' lon='8.6042393'>
+    <tag k='railway' v='milestone' />
+    <tag k='railway:position' v='217.4' />
+  </node>
+  <node id='8899107749' timestamp='2022-04-17T05:47:56Z' uid='92274' user='adjuva' visible='true' version='2' changeset='119803600' lat='54.8638068' lon='8.6734389'>
+    <tag k='railway' v='milestone' />
+    <tag k='railway:position' v='212.0' />
+  </node>
+  <node id='8899107751' timestamp='2022-04-17T05:47:56Z' uid='92274' user='adjuva' visible='true' version='2' changeset='119803600' lat='54.8701792' lon='8.6624664'>
+    <tag k='railway' v='milestone' />
+    <tag k='railway:position' v='213.0' />
+  </node>
+  <node id='8899107757' timestamp='2022-04-17T04:27:58Z' uid='92274' user='adjuva' visible='true' version='2' changeset='119803600' lat='54.8765569' lon='8.6514458'>
+    <tag k='railway' v='milestone' />
+    <tag k='railway:position' v='214.0' />
+  </node>
+  <node id='8899107759' timestamp='2021-07-06T20:44:43Z' uid='137242' user='Rainero' visible='true' version='1' changeset='107520720' lat='54.8740047' lon='8.6558145'>
+    <tag k='railway' v='milestone' />
+    <tag k='railway:position' v='213.6' />
+  </node>
+  <node id='8899107762' timestamp='2022-04-17T04:27:58Z' uid='92274' user='adjuva' visible='true' version='2' changeset='119803600' lat='54.8676359' lon='8.6668312'>
+    <tag k='railway' v='milestone' />
+    <tag k='railway:position' v='212.6' />
+  </node>
+  <node id='8899315101' timestamp='2022-04-17T04:27:58Z' uid='92274' user='adjuva' visible='true' version='2' changeset='119803600' lat='54.8438115' lon='8.7091675'>
+    <tag k='railway' v='milestone' />
+    <tag k='railway:position' v='208.8' />
+  </node>
+  <node id='8899315102' timestamp='2021-07-06T22:03:53Z' uid='137242' user='Rainero' visible='true' version='1' changeset='107523086' lat='54.8413355' lon='8.7136957'>
+    <tag k='railway' v='milestone' />
+    <tag k='railway:position' v='208.4' />
+  </node>
+  <node id='8899315103' timestamp='2021-07-06T22:03:53Z' uid='137242' user='Rainero' visible='true' version='1' changeset='107523086' lat='54.8401006' lon='8.7159647'>
+    <tag k='railway' v='milestone' />
+    <tag k='railway:position' v='208.2' />
+  </node>
+  <node id='8899315104' timestamp='2021-07-06T22:03:53Z' uid='137242' user='Rainero' visible='true' version='1' changeset='107523086' lat='54.838864' lon='8.7182133'>
+    <tag k='railway' v='milestone' />
+    <tag k='railway:position' v='208.0' />
+  </node>
+  <node id='8899315105' timestamp='2021-07-06T22:03:53Z' uid='137242' user='Rainero' visible='true' version='1' changeset='107523086' lat='54.8376334' lon='8.7204509'>
+    <tag k='railway' v='milestone' />
+    <tag k='railway:position' v='207.8' />
+  </node>
+  <node id='8899315106' timestamp='2021-07-06T22:03:53Z' uid='137242' user='Rainero' visible='true' version='1' changeset='107523086' lat='54.8363915' lon='8.722709'>
+    <tag k='railway' v='milestone' />
+    <tag k='railway:position' v='207.6' />
+  </node>
+  <node id='8899315107' timestamp='2021-07-06T22:03:53Z' uid='137242' user='Rainero' visible='true' version='1' changeset='107523086' lat='54.8362867' lon='8.7228995'>
+    <tag k='railway' v='signal' />
+    <tag k='railway:signal:crossing' v='DE-ESO:bü' />
+    <tag k='railway:signal:crossing:form' v='light' />
+    <tag k='railway:signal:crossing:states' v='DE-ESO:bü0;DE-ESO:bü1' />
+    <tag k='railway:signal:direction' v='forward' />
+    <tag k='railway:signal:position' v='right' />
+  </node>
+  <node id='8899315108' timestamp='2021-07-06T22:03:53Z' uid='137242' user='Rainero' visible='true' version='1' changeset='107523086' lat='54.8351542' lon='8.7249587'>
+    <tag k='railway' v='milestone' />
+    <tag k='railway:position' v='207.4' />
+  </node>
+  <node id='8899315109' timestamp='2021-07-06T22:03:53Z' uid='137242' user='Rainero' visible='true' version='1' changeset='107523086' lat='54.8326889' lon='8.7294704'>
+    <tag k='railway' v='milestone' />
+    <tag k='railway:position' v='207.0' />
+  </node>
+  <node id='8899315110' timestamp='2021-07-06T22:03:53Z' uid='137242' user='Rainero' visible='true' version='1' changeset='107523086' lat='54.8314386' lon='8.7317525'>
+    <tag k='railway' v='milestone' />
+    <tag k='railway:position' v='206.8' />
+  </node>
+  <node id='8899315111' timestamp='2021-07-06T22:03:53Z' uid='137242' user='Rainero' visible='true' version='1' changeset='107523086' lat='54.830536' lon='8.7334242' />
+  <node id='8899315112' timestamp='2021-07-06T22:03:53Z' uid='137242' user='Rainero' visible='true' version='1' changeset='107523086' lat='54.8304127' lon='8.7336476' />
+  <node id='8899315113' timestamp='2021-07-06T22:03:53Z' uid='137242' user='Rainero' visible='true' version='1' changeset='107523086' lat='54.8302162' lon='8.7340034'>
+    <tag k='railway' v='milestone' />
+    <tag k='railway:position' v='206.6' />
+  </node>
+  <node id='8899315114' timestamp='2021-07-06T22:03:53Z' uid='137242' user='Rainero' visible='true' version='1' changeset='107523086' lat='54.826651' lon='8.7409563'>
+    <tag k='railway' v='milestone' />
+    <tag k='railway:position' v='206.0' />
+  </node>
+  <node id='8899315115' timestamp='2021-07-06T22:03:53Z' uid='137242' user='Rainero' visible='true' version='1' changeset='107523086' lat='54.8245192' lon='8.7460338'>
+    <tag k='railway' v='milestone' />
+    <tag k='railway:position' v='205.6' />
+  </node>
+  <node id='8899315116' timestamp='2021-07-06T22:03:53Z' uid='137242' user='Rainero' visible='true' version='1' changeset='107523086' lat='54.823569' lon='8.748638'>
+    <tag k='railway' v='milestone' />
+    <tag k='railway:position' v='205.4' />
+  </node>
+  <node id='8899319417' timestamp='2021-07-06T22:03:53Z' uid='137242' user='Rainero' visible='true' version='1' changeset='107523086' lat='54.8226613' lon='8.7513749'>
+    <tag k='railway' v='milestone' />
+    <tag k='railway:position' v='205.2' />
+  </node>
+  <node id='8899319422' timestamp='2021-07-06T22:03:53Z' uid='137242' user='Rainero' visible='true' version='1' changeset='107523086' lat='54.821772' lon='8.7540593'>
+    <tag k='railway' v='milestone' />
+    <tag k='railway:position' v='205.0' />
+  </node>
+  <node id='8899319423' timestamp='2021-07-06T22:03:53Z' uid='137242' user='Rainero' visible='true' version='1' changeset='107523086' lat='54.8200025' lon='8.759494'>
+    <tag k='railway' v='milestone' />
+    <tag k='railway:position' v='204.6' />
+  </node>
+  <node id='8899319424' timestamp='2021-07-06T22:03:53Z' uid='137242' user='Rainero' visible='true' version='1' changeset='107523086' lat='54.8182459' lon='8.7649164'>
+    <tag k='railway' v='milestone' />
+    <tag k='railway:position' v='204.2' />
+  </node>
+  <node id='8899319425' timestamp='2021-07-06T22:03:53Z' uid='137242' user='Rainero' visible='true' version='1' changeset='107523086' lat='54.8173639' lon='8.7676286'>
+    <tag k='railway' v='milestone' />
+    <tag k='railway:position' v='204.0' />
+  </node>
+  <node id='8899319426' timestamp='2021-07-06T22:03:53Z' uid='137242' user='Rainero' visible='true' version='1' changeset='107523086' lat='54.8164807' lon='8.7703444'>
+    <tag k='railway' v='milestone' />
+    <tag k='railway:position' v='203.8' />
+  </node>
+  <node id='8899319427' timestamp='2021-07-06T22:03:53Z' uid='137242' user='Rainero' visible='true' version='1' changeset='107523086' lat='54.8155992' lon='8.7730548'>
+    <tag k='railway' v='milestone' />
+    <tag k='railway:position' v='203.6' />
+  </node>
+  <node id='8899319428' timestamp='2022-04-17T04:27:58Z' uid='92274' user='adjuva' visible='true' version='2' changeset='119803600' lat='54.8145619' lon='8.7762528'>
+    <tag k='railway' v='milestone' />
+    <tag k='railway:position' v='203.4' />
+  </node>
+  <node id='8899319429' timestamp='2022-04-17T04:27:58Z' uid='92274' user='adjuva' visible='true' version='2' changeset='119803600' lat='54.8449128' lon='8.707158'>
+    <tag k='railway' v='signal' />
+    <tag k='railway:signal:crossing' v='DE-ESO:bü' />
+    <tag k='railway:signal:crossing:form' v='light' />
+    <tag k='railway:signal:crossing:states' v='DE-ESO:bü0;DE-ESO:bü1' />
+    <tag k='railway:signal:direction' v='backward' />
+    <tag k='railway:signal:position' v='left' />
+  </node>
+  <node id='8899319430' timestamp='2022-04-17T04:27:58Z' uid='92274' user='adjuva' visible='true' version='2' changeset='119803600' lat='54.8450423' lon='8.7069223'>
+    <tag k='railway' v='milestone' />
+    <tag k='railway:position' v='209.0' />
+  </node>
+  <node id='9172336317' timestamp='2021-10-14T16:57:44Z' uid='39180' user='echoray' visible='true' version='1' changeset='112512567' lat='54.8744362' lon='8.4160455'>
+    <tag k='railway' v='defect_detector' />
+  </node>
+  <node id='9671366955' timestamp='2022-04-17T04:27:58Z' uid='92274' user='adjuva' visible='true' version='1' changeset='119803600' lat='54.8955159' lon='8.349819' />
+  <node id='9671366956' timestamp='2022-04-17T05:47:56Z' uid='92274' user='adjuva' visible='true' version='2' changeset='119803600' lat='54.8921309' lon='8.3601504'>
+    <tag k='railway' v='milestone' />
+    <tag k='railway:position' v='234.0' />
+  </node>
+  <node id='9671366960' timestamp='2022-04-17T04:27:58Z' uid='92274' user='adjuva' visible='true' version='1' changeset='119803600' lat='54.8806937' lon='8.3907049' />
+  <node id='9671366962' timestamp='2022-04-17T04:27:58Z' uid='92274' user='adjuva' visible='true' version='1' changeset='119803600' lat='54.872484' lon='8.4275529' />
+  <node id='9671366968' timestamp='2022-04-17T04:27:58Z' uid='92274' user='adjuva' visible='true' version='1' changeset='119803600' lat='54.8712293' lon='8.4495534'>
+    <tag k='railway' v='signal' />
+    <tag k='railway:signal:combined' v='DE-ESO:ks' />
+    <tag k='railway:signal:combined:form' v='light' />
+    <tag k='railway:signal:combined:function' v='entry' />
+    <tag k='railway:signal:combined:height' v='normal' />
+    <tag k='railway:signal:combined:states' v='DE-ESO:hp0;DE-ESO:ks1;DE-ESO:ks2' />
+    <tag k='railway:signal:direction' v='forward' />
+    <tag k='railway:signal:position' v='left' />
+    <tag k='ref' v='39 AA' />
+  </node>
+  <node id='9671366969' timestamp='2022-04-17T04:27:58Z' uid='92274' user='adjuva' visible='true' version='1' changeset='119803600' lat='54.870306' lon='8.4650498'>
+    <tag k='railway' v='signal' />
+    <tag k='railway:signal:direction' v='forward' />
+    <tag k='railway:signal:distant' v='DE-ESO:ks' />
+    <tag k='railway:signal:distant:form' v='light' />
+    <tag k='railway:signal:distant:height' v='normal' />
+    <tag k='railway:signal:distant:states' v='DE-ESO:ks1;DE-ESO:ks2' />
+    <tag k='railway:signal:position' v='left' />
+  </node>
+  <node id='9671366970' timestamp='2022-04-17T04:27:58Z' uid='92274' user='adjuva' visible='true' version='1' changeset='119803600' lat='54.882985' lon='8.5134211' />
+  <node id='9671366972' timestamp='2022-04-17T04:27:58Z' uid='92274' user='adjuva' visible='true' version='1' changeset='119803600' lat='54.8832259' lon='8.5161162' />
+  <node id='9671366974' timestamp='2022-04-17T04:27:58Z' uid='92274' user='adjuva' visible='true' version='1' changeset='119803600' lat='54.8832972' lon='8.5173944' />
+  <node id='9671366976' timestamp='2022-04-17T04:43:11Z' uid='92274' user='adjuva' visible='true' version='2' changeset='119803600' lat='54.8835076' lon='8.5233873'>
+    <tag k='railway' v='milestone' />
+    <tag k='railway:position' v='222.6' />
+  </node>
+  <node id='9671366978' timestamp='2022-04-17T04:27:58Z' uid='92274' user='adjuva' visible='true' version='1' changeset='119803600' lat='54.8862591' lon='8.6259258'>
+    <tag k='railway' v='milestone' />
+    <tag k='railway:position' v='216.0' />
+  </node>
+  <node id='9671366980' timestamp='2022-04-17T04:27:58Z' uid='92274' user='adjuva' visible='true' version='1' changeset='119803600' lat='54.886577' lon='8.6104139'>
+    <tag k='railway' v='milestone' />
+    <tag k='railway:position' v='217.0' />
+  </node>
+  <node id='9671366982' timestamp='2022-04-17T04:27:58Z' uid='92274' user='adjuva' visible='true' version='1' changeset='119803600' lat='54.8595016' lon='8.6808255' />
+  <node id='9671366984' timestamp='2022-04-17T04:27:58Z' uid='92274' user='adjuva' visible='true' version='1' changeset='119803600' lat='54.8574408' lon='8.6843859'>
+    <tag k='railway' v='milestone' />
+    <tag k='railway:position' v='211.0' />
+  </node>
+  <node id='9671366989' timestamp='2022-04-17T04:27:58Z' uid='92274' user='adjuva' visible='true' version='1' changeset='119803600' lat='54.8138449' lon='8.7784608'>
+    <tag k='railway' v='milestone' />
+    <tag k='railway:position' v='203.2' />
+  </node>
+  <node id='9671366990' timestamp='2022-04-17T04:27:58Z' uid='92274' user='adjuva' visible='true' version='1' changeset='119803600' lat='54.8129669' lon='8.7811634'>
+    <tag k='railway' v='milestone' />
+    <tag k='railway:position' v='203.0' />
+  </node>
+  <node id='9671366991' timestamp='2022-04-17T04:27:58Z' uid='92274' user='adjuva' visible='true' version='1' changeset='119803600' lat='54.8085552' lon='8.7947236'>
+    <tag k='railway' v='milestone' />
+    <tag k='railway:position' v='202.0' />
+  </node>
+  <node id='9671366992' timestamp='2022-04-17T04:27:58Z' uid='92274' user='adjuva' visible='true' version='1' changeset='119803600' lat='54.8041436' lon='8.8082796'>
+    <tag k='railway' v='milestone' />
+    <tag k='railway:position' v='201.0' />
+  </node>
+  <node id='9671373936' timestamp='2022-04-17T05:02:09Z' uid='92274' user='adjuva' visible='true' version='1' changeset='119803600' lat='54.8720961' lon='8.4339891'>
+    <tag k='railway' v='signal' />
+    <tag k='railway:signal:direction' v='forward' />
+    <tag k='railway:signal:position' v='right' />
+    <tag k='railway:signal:speed_limit' v='DE-ESO:lf7' />
+    <tag k='railway:signal:speed_limit:form' v='sign' />
+    <tag k='railway:signal:speed_limit:height' v='normal' />
+    <tag k='railway:signal:speed_limit:speed' v='100' />
+    <tag k='railway:signal:speed_limit:turn_direction' v='right' />
+  </node>
+  <node id='9671373937' timestamp='2022-04-17T05:02:09Z' uid='92274' user='adjuva' visible='true' version='1' changeset='119803600' lat='54.8714795' lon='8.44488'>
+    <tag k='railway' v='milestone' />
+    <tag k='railway:position' v='228.0' />
+  </node>
+  <node id='9671373939' timestamp='2022-04-17T05:02:09Z' uid='92274' user='adjuva' visible='true' version='1' changeset='119803600' lat='54.8705904' lon='8.4604019'>
+    <tag k='railway' v='milestone' />
+    <tag k='railway:position' v='227.0' />
+  </node>
+  <node id='9671373941' timestamp='2022-04-17T05:02:09Z' uid='92274' user='adjuva' visible='true' version='1' changeset='119803600' lat='54.870398' lon='8.4634966'>
+    <tag k='railway' v='milestone' />
+    <tag k='railway:position' v='226.8' />
+  </node>
+  <node id='9671377710' timestamp='2022-04-17T04:43:11Z' uid='92274' user='adjuva' visible='true' version='1' changeset='119803600' lat='54.8761484' lon='8.4889034'>
+    <tag k='railway' v='milestone' />
+    <tag k='railway:position' v='225.0' />
+  </node>
+  <node id='9671377711' timestamp='2022-04-17T04:43:11Z' uid='92274' user='adjuva' visible='true' version='1' changeset='119803600' lat='54.8814945' lon='8.5050035' />
+  <node id='9671377715' timestamp='2022-04-17T04:43:11Z' uid='92274' user='adjuva' visible='true' version='1' changeset='119803600' lat='54.8807455' lon='8.5023354'>
+    <tag k='railway' v='milestone' />
+    <tag k='railway:position' v='224.0' />
+  </node>
+  <node id='9671377716' timestamp='2022-04-17T04:43:11Z' uid='92274' user='adjuva' visible='true' version='1' changeset='119803600' lat='54.8832573' lon='8.5166087' />
+  <node id='9671380414' timestamp='2022-04-17T05:37:42Z' uid='92274' user='adjuva' visible='true' version='1' changeset='119803600' lat='54.7997271' lon='8.8218259'>
+    <tag k='railway' v='milestone' />
+    <tag k='railway:position' v='200.0' />
+  </node>
+  <node id='9671380416' timestamp='2022-04-17T05:37:42Z' uid='92274' user='adjuva' visible='true' version='1' changeset='119803600' lat='54.8962658' lon='8.3463875'>
+    <tag k='railway' v='milestone' />
+    <tag k='railway:position' v='235.0' />
+  </node>
+  <node id='9671384064' timestamp='2022-04-17T04:27:58Z' uid='92274' user='adjuva' visible='true' version='1' changeset='119803600' lat='54.8401877' lon='8.7158063'>
+    <tag k='historic:railway' v='station' />
+    <tag k='name' v='Emmelsbüll' />
+  </node>
+  <node id='9671391625' timestamp='2022-04-17T05:06:53Z' uid='92274' user='adjuva' visible='true' version='1' changeset='119803600' lat='54.8823252' lon='8.3862621'>
+    <tag k='railway' v='milestone' />
+    <tag k='railway:position' v='232.0' />
+  </node>
+  <node id='9671391626' timestamp='2022-04-17T05:06:53Z' uid='92274' user='adjuva' visible='true' version='1' changeset='119803600' lat='54.878181' lon='8.4000373'>
+    <tag k='railway' v='milestone' />
+    <tag k='railway:position' v='231.0' />
+  </node>
+  <node id='9671391627' timestamp='2022-04-17T05:06:53Z' uid='92274' user='adjuva' visible='true' version='1' changeset='119803600' lat='54.8723733' lon='8.4293551'>
+    <tag k='railway' v='milestone' />
+    <tag k='railway:position' v='229.0' />
+  </node>
+  <node id='9671391718' timestamp='2022-04-17T04:43:11Z' uid='92274' user='adjuva' visible='true' version='1' changeset='119803600' lat='54.8832846' lon='8.5171679'>
+    <tag k='railway' v='milestone' />
+    <tag k='railway:position' v='223.0' />
+  </node>
+  <node id='9671391721' timestamp='2022-04-17T04:43:11Z' uid='92274' user='adjuva' visible='true' version='1' changeset='119803600' lat='54.8838585' lon='8.5326547'>
+    <tag k='railway' v='milestone' />
+    <tag k='railway:position' v='222.0' />
+  </node>
+  <node id='9671391723' timestamp='2022-04-17T04:43:11Z' uid='92274' user='adjuva' visible='true' version='1' changeset='119803600' lat='54.8860258' lon='8.5949284'>
+    <tag k='railway' v='milestone' />
+    <tag k='railway:position' v='218.0' />
+  </node>
+  <node id='9671391724' timestamp='2022-04-17T04:43:11Z' uid='92274' user='adjuva' visible='true' version='1' changeset='119803600' lat='54.8854925' lon='8.5793588'>
+    <tag k='railway' v='milestone' />
+    <tag k='railway:position' v='219.0' />
+  </node>
+  <node id='9671391726' timestamp='2022-04-17T04:43:11Z' uid='92274' user='adjuva' visible='true' version='1' changeset='119803600' lat='54.8849437' lon='8.563799'>
+    <tag k='railway' v='milestone' />
+    <tag k='railway:position' v='220.0' />
+  </node>
+  <way id='28140784' timestamp='2021-05-11T16:59:35Z' uid='675791' user='Lukas615' visible='true' version='12' changeset='104526067'>
+    <nd ref='619532035' />
+    <nd ref='619532034' />
+    <nd ref='619532019' />
+    <nd ref='524878' />
+    <nd ref='8722387671' />
+    <nd ref='8722387669' />
+    <nd ref='309086205' />
+    <tag k='electrified' v='no' />
+    <tag k='gauge' v='1435' />
+    <tag k='maxspeed' v='50' />
+    <tag k='operator' v='DB Netz AG' />
+    <tag k='passenger_lines' v='2' />
+    <tag k='railway' v='rail' />
+    <tag k='railway:pzb' v='yes' />
+    <tag k='service' v='crossover' />
+  </way>
+  <way id='45081701' timestamp='2021-05-11T16:59:35Z' uid='675791' user='Lukas615' visible='true' version='15' changeset='104526067'>
+    <nd ref='3098380381' />
+    <nd ref='6182211218' />
+    <tag k='electrified' v='no' />
+    <tag k='gauge' v='1435' />
+    <tag k='maxspeed' v='30' />
+    <tag k='operator' v='DB Netz AG' />
+    <tag k='railway' v='rail' />
+    <tag k='railway:pzb' v='yes' />
+    <tag k='service' v='siding' />
+  </way>
+  <way id='45177863' timestamp='2022-04-17T04:27:58Z' uid='92274' user='adjuva' visible='true' version='17' changeset='119803600'>
+    <nd ref='2692706559' />
+    <nd ref='8899315115' />
+    <nd ref='2692706554' />
+    <nd ref='1682100115' />
+    <nd ref='8899315116' />
+    <nd ref='573345507' />
+    <nd ref='4498898485' />
+    <nd ref='8899319417' />
+    <nd ref='8899319422' />
+    <nd ref='4498898481' />
+    <nd ref='573345497' />
+    <nd ref='1682100112' />
+    <tag k='detail' v='track' />
+    <tag k='electrified' v='no' />
+    <tag k='gauge' v='1435' />
+    <tag k='maxspeed' v='100' />
+    <tag k='note' v='approximately' />
+    <tag k='operator' v='DB Netz AG' />
+    <tag k='passenger_lines' v='2' />
+    <tag k='railway' v='rail' />
+    <tag k='railway:pzb' v='yes' />
+    <tag k='railway:radio' v='gsm-r' />
+    <tag k='ref' v='1210' />
+    <tag k='usage' v='main' />
+  </way>
+  <way id='46898628' timestamp='2021-05-11T16:59:35Z' uid='675791' user='Lukas615' visible='true' version='11' changeset='104526067'>
+    <nd ref='309086205' />
+    <nd ref='619532012' />
+    <tag k='electrified' v='no' />
+    <tag k='gauge' v='1435' />
+    <tag k='maxspeed' v='50' />
+    <tag k='operator' v='DB Netz AG' />
+    <tag k='passenger_lines' v='4' />
+    <tag k='railway' v='rail' />
+    <tag k='railway:pzb' v='yes' />
+    <tag k='ref' v='1201' />
+    <tag k='usage' v='branch' />
+  </way>
+  <way id='105509484' timestamp='2021-02-27T00:09:38Z' uid='675791' user='Lukas615' visible='true' version='14' changeset='100079435'>
+    <nd ref='524970' />
+    <nd ref='1215170634' />
+    <nd ref='1215170635' />
+    <nd ref='1215170636' />
+    <nd ref='1215170642' />
+    <nd ref='1215170644' />
+    <nd ref='1215170647' />
+    <nd ref='4498898589' />
+    <nd ref='1215170649' />
+    <nd ref='1215170651' />
+    <nd ref='4291041878' />
+    <tag k='detail' v='track' />
+    <tag k='electrified' v='no' />
+    <tag k='gauge' v='1435' />
+    <tag k='maxspeed' v='100' />
+    <tag k='operator' v='DB Netz AG' />
+    <tag k='passenger_lines' v='1' />
+    <tag k='railway' v='rail' />
+    <tag k='railway:pzb' v='yes' />
+    <tag k='railway:radio' v='gsm-r' />
+    <tag k='ref' v='1210' />
+    <tag k='usage' v='main' />
+  </way>
+  <way id='105509541' timestamp='2020-08-30T21:07:45Z' uid='1758654' user='JJJWegdam' visible='true' version='19' changeset='90156865'>
+    <nd ref='1215170680' />
+    <nd ref='4291042925' />
+    <nd ref='374435435' />
+    <nd ref='4498898592' />
+    <nd ref='4498898594' />
+    <nd ref='1215171183' />
+    <nd ref='6175716902' />
+    <nd ref='1215171184' />
+    <nd ref='572415561' />
+    <nd ref='1215171186' />
+    <nd ref='1215171187' />
+    <nd ref='1215171194' />
+    <nd ref='1682214711' />
+    <nd ref='5348954375' />
+    <nd ref='5348954376' />
+    <nd ref='5348954377' />
+    <nd ref='5348954378' />
+    <nd ref='1682214714' />
+    <nd ref='1215171196' />
+    <nd ref='1215171198' />
+    <nd ref='674689502' />
+    <tag k='electrified' v='no' />
+    <tag k='gauge' v='1435' />
+    <tag k='maxspeed' v='30' />
+    <tag k='railway' v='rail' />
+    <tag k='railway:pzb' v='yes' />
+    <tag k='railway:radio' v='gsm-r' />
+    <tag k='service' v='siding' />
+    <tag k='source' v='DB SyltShuttle Westerland - Niebüll' />
+  </way>
+  <way id='105509563' timestamp='2021-02-27T00:09:38Z' uid='675791' user='Lukas615' visible='true' version='9' changeset='100079435'>
+    <nd ref='4291042916' />
+    <nd ref='4501657823' />
+    <nd ref='1215171534' />
+    <nd ref='4291042913' />
+    <nd ref='4291042907' />
+    <nd ref='4498898590' />
+    <nd ref='1215171535' />
+    <nd ref='4291042901' />
+    <nd ref='4291042893' />
+    <nd ref='1215171539' />
+    <nd ref='4291041883' />
+    <nd ref='1215171541' />
+    <nd ref='4291041878' />
+    <tag k='detail' v='track' />
+    <tag k='electrified' v='no' />
+    <tag k='gauge' v='1435' />
+    <tag k='maxspeed' v='100' />
+    <tag k='operator' v='DB Netz AG' />
+    <tag k='passenger_lines' v='1' />
+    <tag k='railway' v='rail' />
+    <tag k='railway:pzb' v='yes' />
+    <tag k='railway:radio' v='gsm-r' />
+    <tag k='ref' v='1210' />
+    <tag k='source' v='Bing' />
+    <tag k='usage' v='main' />
+  </way>
+  <way id='138292042' timestamp='2021-07-02T15:34:16Z' uid='137242' user='Rainero' visible='true' version='28' changeset='107319026'>
+    <nd ref='4501656335' />
+    <nd ref='8722387673' />
+    <nd ref='619532041' />
+    <nd ref='4501656336' />
+    <nd ref='524880' />
+    <nd ref='6406619617' />
+    <nd ref='524881' />
+    <nd ref='7610403424' />
+    <nd ref='8888081850' />
+    <nd ref='267971022' />
+    <nd ref='524882' />
+    <nd ref='4501656338' />
+    <nd ref='4501656337' />
+    <nd ref='4501656339' />
+    <tag k='detail' v='track' />
+    <tag k='electrified' v='no' />
+    <tag k='gauge' v='1435' />
+    <tag k='maxspeed' v='80' />
+    <tag k='operator' v='DB Netz AG' />
+    <tag k='passenger_lines' v='1' />
+    <tag k='railway' v='rail' />
+    <tag k='railway:pzb' v='yes' />
+    <tag k='railway:radio' v='gsm-r' />
+    <tag k='ref' v='1210' />
+    <tag k='usage' v='main' />
+  </way>
+  <way id='155852061' timestamp='2022-04-17T04:27:58Z' uid='92274' user='adjuva' visible='true' version='24' changeset='119803600'>
+    <nd ref='4501656363' />
+    <nd ref='4501656366' />
+    <nd ref='4501656367' />
+    <nd ref='1883946834' />
+    <nd ref='674689593' />
+    <nd ref='8899107762' />
+    <nd ref='4501656369' />
+    <nd ref='4501656370' />
+    <nd ref='674689592' />
+    <nd ref='8899107751' />
+    <nd ref='1379347995' />
+    <nd ref='524935' />
+    <nd ref='8899107759' />
+    <nd ref='4501657789' />
+    <nd ref='1379348020' />
+    <nd ref='8899107757' />
+    <nd ref='1379348033' />
+    <nd ref='4501657792' />
+    <nd ref='674689582' />
+    <nd ref='2941591593' />
+    <nd ref='2941591596' />
+    <nd ref='674689583' />
+    <nd ref='2941591599' />
+    <nd ref='2941592902' />
+    <nd ref='2941592905' />
+    <nd ref='674689584' />
+    <nd ref='2941592908' />
+    <nd ref='674689576' />
+    <nd ref='2941592911' />
+    <nd ref='2878377464' />
+    <nd ref='2941592914' />
+    <nd ref='674689577' />
+    <nd ref='2878377467' />
+    <nd ref='2941592917' />
+    <nd ref='9671366978' />
+    <nd ref='674689578' />
+    <nd ref='2878377470' />
+    <nd ref='674689579' />
+    <nd ref='2941592921' />
+    <nd ref='674689580' />
+    <nd ref='2941592924' />
+    <nd ref='2941592923' />
+    <nd ref='674689581' />
+    <nd ref='9671366980' />
+    <nd ref='674689574' />
+    <tag k='detail' v='track' />
+    <tag k='electrified' v='no' />
+    <tag k='gauge' v='1435' />
+    <tag k='maxspeed' v='140' />
+    <tag k='operator' v='DB Netz AG' />
+    <tag k='passenger_lines' v='2' />
+    <tag k='railway' v='rail' />
+    <tag k='railway:pzb' v='yes' />
+    <tag k='railway:radio' v='gsm-r' />
+    <tag k='ref' v='1210' />
+    <tag k='usage' v='main' />
+  </way>
+  <way id='305236478' timestamp='2022-04-17T04:27:58Z' uid='92274' user='adjuva' visible='true' version='9' changeset='119803600'>
+    <nd ref='571604047' />
+    <nd ref='571604046' />
+    <tag k='electrified' v='no' />
+    <tag k='gauge' v='1435' />
+    <tag k='maxspeed' v='60' />
+    <tag k='operator' v='DB Netz AG' />
+    <tag k='railway' v='rail' />
+    <tag k='railway:pzb' v='yes' />
+    <tag k='service' v='siding' />
+  </way>
+  <way id='305236479' timestamp='2022-04-17T04:27:58Z' uid='92274' user='adjuva' visible='true' version='13' changeset='119803600'>
+    <nd ref='4278583111' />
+    <nd ref='571604019' />
+    <nd ref='619531938' />
+    <nd ref='4281720399' />
+    <nd ref='3098380384' />
+    <nd ref='3098380370' />
+    <nd ref='3098380366' />
+    <nd ref='3098380361' />
+    <nd ref='3098380362' />
+    <nd ref='6196665916' />
+    <nd ref='3098380367' />
+    <nd ref='3098380365' />
+    <nd ref='6196665922' />
+    <tag k='electrified' v='no' />
+    <tag k='gauge' v='1435' />
+    <tag k='operator' v='DB Netz AG' />
+    <tag k='railway' v='rail' />
+    <tag k='railway:pzb' v='yes' />
+    <tag k='service' v='siding' />
+  </way>
+  <way id='363283919' timestamp='2022-04-17T05:06:53Z' uid='92274' user='adjuva' visible='true' version='13' changeset='119803600'>
+    <nd ref='524958' />
+    <nd ref='1800415196' />
+    <nd ref='1800415198' />
+    <nd ref='1800415200' />
+    <nd ref='1800415202' />
+    <nd ref='1800415204' />
+    <nd ref='1800415206' />
+    <nd ref='1800415208' />
+    <nd ref='486752994' />
+    <nd ref='9172336317' />
+    <nd ref='4501657790' />
+    <nd ref='4501657791' />
+    <nd ref='487845497' />
+    <nd ref='524960' />
+    <nd ref='9671391626' />
+    <nd ref='457585350' />
+    <nd ref='1337089016' />
+    <nd ref='524961' />
+    <nd ref='9671366960' />
+    <nd ref='524962' />
+    <nd ref='4501657794' />
+    <nd ref='9671391625' />
+    <nd ref='524963' />
+    <nd ref='4501657801' />
+    <nd ref='4501657802' />
+    <nd ref='4501657806' />
+    <nd ref='2464149406' />
+    <tag k='detail' v='track' />
+    <tag k='electrified' v='no' />
+    <tag k='embankment' v='yes' />
+    <tag k='gauge' v='1435' />
+    <tag k='maxspeed' v='100' />
+    <tag k='operator' v='DB Netz AG' />
+    <tag k='passenger_lines' v='1' />
+    <tag k='railway' v='rail' />
+    <tag k='railway:pzb' v='yes' />
+    <tag k='railway:radio' v='gsm-r' />
+    <tag k='ref' v='1210' />
+    <tag k='usage' v='main' />
+  </way>
+  <way id='363283921' timestamp='2021-02-27T00:09:38Z' uid='675791' user='Lukas615' visible='true' version='11' changeset='100079435'>
+    <nd ref='2464149406' />
+    <nd ref='4501657807' />
+    <nd ref='4771885287' />
+    <nd ref='4771885291' />
+    <nd ref='4592409885' />
+    <nd ref='524964' />
+    <nd ref='524965' />
+    <nd ref='4771885293' />
+    <nd ref='4771885288' />
+    <nd ref='2464149412' />
+    <tag k='detail' v='track' />
+    <tag k='electrified' v='no' />
+    <tag k='gauge' v='1435' />
+    <tag k='maxspeed' v='100' />
+    <tag k='operator' v='DB Netz AG' />
+    <tag k='passenger_lines' v='2' />
+    <tag k='railway' v='rail' />
+    <tag k='railway:pzb' v='yes' />
+    <tag k='railway:radio' v='gsm-r' />
+    <tag k='railway:track_ref' v='2' />
+    <tag k='ref' v='1210' />
+    <tag k='usage' v='main' />
+  </way>
+  <way id='363283922' timestamp='2022-04-17T05:37:42Z' uid='92274' user='adjuva' visible='true' version='14' changeset='119803600'>
+    <nd ref='2464149412' />
+    <nd ref='4501657822' />
+    <nd ref='9671366956' />
+    <nd ref='2338623077' />
+    <nd ref='34526171' />
+    <nd ref='4498898488' />
+    <nd ref='4772596541' />
+    <nd ref='524966' />
+    <nd ref='4772596542' />
+    <nd ref='4772596543' />
+    <nd ref='524967' />
+    <nd ref='9671366955' />
+    <nd ref='4772596546' />
+    <nd ref='4772596544' />
+    <nd ref='4772596545' />
+    <nd ref='9671380416' />
+    <nd ref='4772596540' />
+    <nd ref='524969' />
+    <nd ref='374399330' />
+    <nd ref='524970' />
+    <tag k='detail' v='track' />
+    <tag k='electrified' v='no' />
+    <tag k='gauge' v='1435' />
+    <tag k='maxspeed' v='100' />
+    <tag k='operator' v='DB Netz AG' />
+    <tag k='passenger_lines' v='1' />
+    <tag k='railway' v='rail' />
+    <tag k='railway:pzb' v='yes' />
+    <tag k='railway:radio' v='gsm-r' />
+    <tag k='ref' v='1210' />
+    <tag k='usage' v='main' />
+  </way>
+  <way id='428767446' timestamp='2022-04-17T04:27:58Z' uid='92274' user='adjuva' visible='true' version='12' changeset='119803600'>
+    <nd ref='4876736299' />
+    <nd ref='8899315102' />
+    <nd ref='1379347720' />
+    <nd ref='8899315101' />
+    <nd ref='674689594' />
+    <nd ref='8899319429' />
+    <nd ref='8899319430' />
+    <nd ref='524920' />
+    <nd ref='4501656350' />
+    <nd ref='4501656351' />
+    <nd ref='271936618' />
+    <nd ref='524921' />
+    <nd ref='524922' />
+    <nd ref='524923' />
+    <nd ref='9671366984' />
+    <nd ref='4501656352' />
+    <nd ref='1682100132' />
+    <tag k='detail' v='track' />
+    <tag k='electrified' v='no' />
+    <tag k='gauge' v='1435' />
+    <tag k='maxspeed' v='100' />
+    <tag k='operator' v='DB Netz AG' />
+    <tag k='passenger_lines' v='1' />
+    <tag k='railway' v='rail' />
+    <tag k='railway:pzb' v='yes' />
+    <tag k='railway:radio' v='gsm-r' />
+    <tag k='ref' v='1210' />
+    <tag k='usage' v='main' />
+  </way>
+  <way id='428767448' timestamp='2021-05-11T16:59:35Z' uid='675791' user='Lukas615' visible='true' version='10' changeset='104526067'>
+    <nd ref='3098380381' />
+    <nd ref='6182211223' />
+    <nd ref='5347143086' />
+    <nd ref='268146690' />
+    <nd ref='619532012' />
+    <tag k='electrified' v='no' />
+    <tag k='gauge' v='1435' />
+    <tag k='maxspeed' v='50' />
+    <tag k='operator' v='DB Netz AG' />
+    <tag k='passenger_lines' v='4' />
+    <tag k='railway' v='rail' />
+    <tag k='railway:pzb' v='yes' />
+    <tag k='ref' v='1201' />
+    <tag k='usage' v='branch' />
+  </way>
+  <way id='429902929' timestamp='2020-08-30T21:07:45Z' uid='1758654' user='JJJWegdam' visible='true' version='5' changeset='90156865'>
+    <nd ref='1215170676' />
+    <nd ref='4291042916' />
+    <tag k='electrified' v='no' />
+    <tag k='maxspeed' v='30' />
+    <tag k='railway' v='rail' />
+    <tag k='railway:pzb' v='yes' />
+    <tag k='railway:radio' v='gsm-r' />
+    <tag k='source' v='Bing' />
+  </way>
+  <way id='453088235' timestamp='2022-04-17T05:02:09Z' uid='92274' user='adjuva' visible='true' version='10' changeset='119803600'>
+    <nd ref='3806798098' />
+    <nd ref='3806798095' />
+    <nd ref='3806798092' />
+    <nd ref='674689561' />
+    <nd ref='1800415181' />
+    <nd ref='674689559' />
+    <nd ref='3806798090' />
+    <nd ref='1800415172' />
+    <nd ref='9671366969' />
+    <nd ref='674689558' />
+    <nd ref='9671373941' />
+    <nd ref='9671373939' />
+    <nd ref='674689557' />
+    <nd ref='9671366968' />
+    <nd ref='4501656374' />
+    <tag k='detail' v='track' />
+    <tag k='electrified' v='no' />
+    <tag k='gauge' v='1435' />
+    <tag k='maxspeed' v='140' />
+    <tag k='operator' v='DB Netz AG' />
+    <tag k='passenger_lines' v='2' />
+    <tag k='railway' v='rail' />
+    <tag k='railway:pzb' v='yes' />
+    <tag k='railway:radio' v='gsm-r' />
+    <tag k='ref' v='1210' />
+    <tag k='usage' v='main' />
+  </way>
+  <way id='453088241' timestamp='2021-02-27T00:09:38Z' uid='675791' user='Lukas615' visible='true' version='7' changeset='100079435'>
+    <nd ref='1215170676' />
+    <nd ref='6175627961' />
+    <nd ref='1215170678' />
+    <nd ref='1215170680' />
+    <tag k='electrified' v='no' />
+    <tag k='gauge' v='1435' />
+    <tag k='maxspeed' v='30' />
+    <tag k='railway' v='rail' />
+    <tag k='railway:pzb' v='yes' />
+    <tag k='railway:radio' v='gsm-r' />
+  </way>
+  <way id='453088243' timestamp='2022-04-17T04:43:11Z' uid='92274' user='adjuva' visible='true' version='12' changeset='119803600'>
+    <nd ref='674689574' />
+    <nd ref='4501657804' />
+    <nd ref='2425961860' />
+    <nd ref='8899107746' />
+    <nd ref='674689575' />
+    <nd ref='9671391723' />
+    <nd ref='674689573' />
+    <nd ref='9671391724' />
+    <nd ref='1682072152' />
+    <nd ref='674689570' />
+    <nd ref='9671391726' />
+    <nd ref='4501657797' />
+    <nd ref='4501657796' />
+    <nd ref='674689571' />
+    <nd ref='4501657795' />
+    <nd ref='9671391721' />
+    <nd ref='674689572' />
+    <nd ref='9671366976' />
+    <nd ref='9671366974' />
+    <nd ref='9671391718' />
+    <nd ref='9671377716' />
+    <nd ref='9671366972' />
+    <nd ref='674689569' />
+    <nd ref='9671366970' />
+    <nd ref='674689568' />
+    <nd ref='674689567' />
+    <nd ref='9671377711' />
+    <nd ref='674689565' />
+    <nd ref='9671377715' />
+    <nd ref='674689566' />
+    <nd ref='9671377710' />
+    <nd ref='674689563' />
+    <nd ref='674689564' />
+    <nd ref='674689562' />
+    <nd ref='3806798110' />
+    <nd ref='3806798107' />
+    <nd ref='4501656376' />
+    <nd ref='3806798104' />
+    <nd ref='3806798101' />
+    <nd ref='674689560' />
+    <nd ref='3806798098' />
+    <tag k='detail' v='track' />
+    <tag k='electrified' v='no' />
+    <tag k='gauge' v='1435' />
+    <tag k='maxspeed' v='140' />
+    <tag k='operator' v='DB Netz AG' />
+    <tag k='passenger_lines' v='2' />
+    <tag k='railway' v='rail' />
+    <tag k='railway:pzb' v='yes' />
+    <tag k='railway:radio' v='gsm-r' />
+    <tag k='ref' v='1210' />
+    <tag k='usage' v='main' />
+  </way>
+  <way id='453428633' timestamp='2022-04-17T05:37:42Z' uid='92274' user='adjuva' visible='true' version='11' changeset='119803600'>
+    <nd ref='4501656341' />
+    <nd ref='9671380414' />
+    <nd ref='4501656342' />
+    <nd ref='4501656343' />
+    <nd ref='524885' />
+    <nd ref='8898945109' />
+    <nd ref='484224437' />
+    <nd ref='9671366992' />
+    <nd ref='524887' />
+    <nd ref='9671366991' />
+    <nd ref='524888' />
+    <nd ref='674689553' />
+    <nd ref='7623920565' />
+    <tag k='detail' v='track' />
+    <tag k='electrified' v='no' />
+    <tag k='gauge' v='1435' />
+    <tag k='maxspeed' v='100' />
+    <tag k='operator' v='DB Netz AG' />
+    <tag k='passenger_lines' v='1' />
+    <tag k='railway' v='rail' />
+    <tag k='railway:pzb' v='yes' />
+    <tag k='railway:radio' v='gsm-r' />
+    <tag k='ref' v='1210' />
+    <tag k='usage' v='main' />
+  </way>
+  <way id='453428638' timestamp='2021-02-27T00:09:38Z' uid='675791' user='Lukas615' visible='true' version='10' changeset='100079435'>
+    <nd ref='619532035' />
+    <nd ref='6182211232' />
+    <nd ref='524879' />
+    <nd ref='4501656335' />
+    <tag k='detail' v='track' />
+    <tag k='electrified' v='no' />
+    <tag k='gauge' v='1435' />
+    <tag k='maxspeed' v='60' />
+    <tag k='operator' v='DB Netz AG' />
+    <tag k='passenger_lines' v='1' />
+    <tag k='railway' v='rail' />
+    <tag k='railway:pzb' v='yes' />
+    <tag k='railway:radio' v='gsm-r' />
+    <tag k='ref' v='1210' />
+    <tag k='usage' v='main' />
+  </way>
+  <way id='453428644' timestamp='2021-02-27T00:09:38Z' uid='675791' user='Lukas615' visible='true' version='8' changeset='100079435'>
+    <nd ref='4501656339' />
+    <nd ref='2878377448' />
+    <nd ref='4501656340' />
+    <nd ref='4501656341' />
+    <tag k='detail' v='track' />
+    <tag k='electrified' v='no' />
+    <tag k='gauge' v='1435' />
+    <tag k='maxspeed' v='100' />
+    <tag k='maxspeed:backward' v='80' />
+    <tag k='maxspeed:forward' v='100' />
+    <tag k='operator' v='DB Netz AG' />
+    <tag k='passenger_lines' v='1' />
+    <tag k='railway' v='rail' />
+    <tag k='railway:pzb' v='yes' />
+    <tag k='railway:radio' v='gsm-r' />
+    <tag k='ref' v='1210' />
+    <tag k='usage' v='main' />
+  </way>
+  <way id='453428648' timestamp='2022-04-17T05:02:09Z' uid='92274' user='adjuva' visible='true' version='8' changeset='119803600'>
+    <nd ref='4501656374' />
+    <nd ref='9671373937' />
+    <nd ref='4501656377' />
+    <nd ref='4501656378' />
+    <nd ref='4501656380' />
+    <tag k='detail' v='track' />
+    <tag k='electrified' v='no' />
+    <tag k='gauge' v='1435' />
+    <tag k='maxspeed' v='120' />
+    <tag k='operator' v='DB Netz AG' />
+    <tag k='passenger_lines' v='2' />
+    <tag k='railway' v='rail' />
+    <tag k='railway:pzb' v='yes' />
+    <tag k='railway:radio' v='gsm-r' />
+    <tag k='ref' v='1210' />
+    <tag k='usage' v='main' />
+  </way>
+  <way id='453428650' timestamp='2022-04-17T05:02:09Z' uid='92274' user='adjuva' visible='true' version='10' changeset='119803600'>
+    <nd ref='4501656380' />
+    <nd ref='4501656381' />
+    <nd ref='674689555' />
+    <nd ref='5111693415' />
+    <nd ref='9671373936' />
+    <tag k='detail' v='track' />
+    <tag k='electrified' v='no' />
+    <tag k='gauge' v='1435' />
+    <tag k='maxspeed' v='120' />
+    <tag k='operator' v='DB Netz AG' />
+    <tag k='passenger_lines' v='2' />
+    <tag k='railway' v='rail' />
+    <tag k='railway:pzb' v='yes' />
+    <tag k='railway:radio' v='gsm-r' />
+    <tag k='railway:track_ref' v='1' />
+    <tag k='ref' v='1210' />
+    <tag k='usage' v='main' />
+  </way>
+  <way id='453428654' timestamp='2022-04-17T05:06:53Z' uid='92274' user='adjuva' visible='true' version='7' changeset='119803600'>
+    <nd ref='4501656387' />
+    <nd ref='674689536' />
+    <nd ref='9671391627' />
+    <nd ref='674689535' />
+    <nd ref='9671366962' />
+    <nd ref='1800415188' />
+    <nd ref='1800415192' />
+    <nd ref='524958' />
+    <tag k='detail' v='track' />
+    <tag k='electrified' v='no' />
+    <tag k='gauge' v='1435' />
+    <tag k='maxspeed' v='100' />
+    <tag k='operator' v='DB Netz AG' />
+    <tag k='passenger_lines' v='2' />
+    <tag k='railway' v='rail' />
+    <tag k='railway:pzb' v='yes' />
+    <tag k='railway:radio' v='gsm-r' />
+    <tag k='railway:track_ref' v='1' />
+    <tag k='ref' v='1210' />
+    <tag k='usage' v='main' />
+  </way>
+  <way id='453428657' timestamp='2022-04-17T04:27:58Z' uid='92274' user='adjuva' visible='true' version='10' changeset='119803600'>
+    <nd ref='1682100132' />
+    <nd ref='9671366982' />
+    <nd ref='674689591' />
+    <nd ref='4501656353' />
+    <nd ref='674689586' />
+    <nd ref='7807102811' />
+    <nd ref='4501656355' />
+    <nd ref='4501656357' />
+    <tag k='detail' v='track' />
+    <tag k='electrified' v='no' />
+    <tag k='gauge' v='1435' />
+    <tag k='maxspeed' v='100' />
+    <tag k='operator' v='DB Netz AG' />
+    <tag k='passenger_lines' v='2' />
+    <tag k='railway' v='rail' />
+    <tag k='railway:pzb' v='yes' />
+    <tag k='railway:radio' v='gsm-r' />
+    <tag k='railway:track_ref' v='2' />
+    <tag k='ref' v='1210' />
+    <tag k='usage' v='main' />
+  </way>
+  <way id='453428665' timestamp='2021-07-06T20:44:43Z' uid='137242' user='Rainero' visible='true' version='9' changeset='107520720'>
+    <nd ref='4501656357' />
+    <nd ref='674689585' />
+    <nd ref='4592378547' />
+    <nd ref='4281727077' />
+    <nd ref='8899107749' />
+    <nd ref='4501656359' />
+    <nd ref='2692706733' />
+    <nd ref='4501656361' />
+    <nd ref='4501656363' />
+    <tag k='detail' v='track' />
+    <tag k='electrified' v='no' />
+    <tag k='gauge' v='1435' />
+    <tag k='maxspeed' v='140' />
+    <tag k='operator' v='DB Netz AG' />
+    <tag k='passenger_lines' v='2' />
+    <tag k='railway' v='rail' />
+    <tag k='railway:pzb' v='yes' />
+    <tag k='railway:radio' v='gsm-r' />
+    <tag k='railway:track_ref' v='2' />
+    <tag k='ref' v='1210' />
+    <tag k='usage' v='main' />
+  </way>
+  <way id='495957830' timestamp='2021-02-27T00:09:38Z' uid='675791' user='Lukas615' visible='true' version='6' changeset='100079435'>
+    <nd ref='4876736298' />
+    <nd ref='4876736299' />
+    <tag k='bridge' v='yes' />
+    <tag k='detail' v='track' />
+    <tag k='electrified' v='no' />
+    <tag k='gauge' v='1435' />
+    <tag k='layer' v='1' />
+    <tag k='maxspeed' v='100' />
+    <tag k='operator' v='DB Netz AG' />
+    <tag k='passenger_lines' v='1' />
+    <tag k='railway' v='rail' />
+    <tag k='railway:pzb' v='yes' />
+    <tag k='railway:radio' v='gsm-r' />
+    <tag k='ref' v='1210' />
+    <tag k='usage' v='main' />
+  </way>
+  <way id='495957831' timestamp='2021-07-06T22:03:53Z' uid='137242' user='Rainero' visible='true' version='7' changeset='107523086'>
+    <nd ref='2692706559' />
+    <nd ref='674689541' />
+    <nd ref='4498898486' />
+    <nd ref='4498898487' />
+    <nd ref='674689542' />
+    <nd ref='8899315114' />
+    <nd ref='1379347476' />
+    <nd ref='674689543' />
+    <nd ref='8899315113' />
+    <nd ref='8899315112' />
+    <tag k='detail' v='track' />
+    <tag k='electrified' v='no' />
+    <tag k='gauge' v='1435' />
+    <tag k='maxspeed' v='100' />
+    <tag k='operator' v='DB Netz AG' />
+    <tag k='passenger_lines' v='1' />
+    <tag k='railway' v='rail' />
+    <tag k='railway:pzb' v='yes' />
+    <tag k='railway:radio' v='gsm-r' />
+    <tag k='ref' v='1210' />
+    <tag k='usage' v='main' />
+  </way>
+  <way id='816313070' timestamp='2022-04-17T04:27:58Z' uid='92274' user='adjuva' visible='true' version='4' changeset='119803600'>
+    <nd ref='7623920564' />
+    <nd ref='1379347454' />
+    <nd ref='9671366990' />
+    <nd ref='9671366989' />
+    <nd ref='8899319428' />
+    <nd ref='4501656344' />
+    <nd ref='1682100109' />
+    <nd ref='8899319427' />
+    <nd ref='8899319426' />
+    <nd ref='8899319425' />
+    <nd ref='8899319424' />
+    <nd ref='4498898478' />
+    <nd ref='4498898479' />
+    <nd ref='2626811987' />
+    <nd ref='8899319423' />
+    <nd ref='1682100112' />
+    <tag k='detail' v='track' />
+    <tag k='electrified' v='no' />
+    <tag k='gauge' v='1435' />
+    <tag k='maxspeed' v='100' />
+    <tag k='operator' v='DB Netz AG' />
+    <tag k='passenger_lines' v='1' />
+    <tag k='railway' v='rail' />
+    <tag k='railway:pzb' v='yes' />
+    <tag k='railway:radio' v='gsm-r' />
+    <tag k='ref' v='1210' />
+    <tag k='usage' v='main' />
+  </way>
+  <way id='816313071' timestamp='2021-02-27T00:09:38Z' uid='675791' user='Lukas615' visible='true' version='2' changeset='100079435'>
+    <nd ref='7623920565' />
+    <nd ref='7623920564' />
+    <tag k='bridge' v='yes' />
+    <tag k='detail' v='track' />
+    <tag k='electrified' v='no' />
+    <tag k='gauge' v='1435' />
+    <tag k='layer' v='1' />
+    <tag k='maxspeed' v='100' />
+    <tag k='operator' v='DB Netz AG' />
+    <tag k='passenger_lines' v='1' />
+    <tag k='railway' v='rail' />
+    <tag k='railway:pzb' v='yes' />
+    <tag k='railway:radio' v='gsm-r' />
+    <tag k='ref' v='1210' />
+    <tag k='usage' v='main' />
+  </way>
+  <way id='842481396' timestamp='2022-04-17T04:27:58Z' uid='92274' user='adjuva' visible='true' version='3' changeset='119803600'>
+    <nd ref='6196665922' />
+    <nd ref='6196665924' />
+    <nd ref='6182211215' />
+    <nd ref='3098380359' />
+    <nd ref='8722387668' />
+    <nd ref='571604046' />
+    <tag k='electrified' v='no' />
+    <tag k='gauge' v='1435' />
+    <tag k='maxspeed' v='60' />
+    <tag k='operator' v='DB Netz AG' />
+    <tag k='railway' v='rail' />
+    <tag k='railway:pzb' v='yes' />
+    <tag k='service' v='siding' />
+  </way>
+  <way id='842481398' timestamp='2021-05-11T16:59:35Z' uid='675791' user='Lukas615' visible='true' version='2' changeset='104526067'>
+    <nd ref='6182211218' />
+    <nd ref='571604047' />
+    <tag k='electrified' v='no' />
+    <tag k='gauge' v='1435' />
+    <tag k='maxspeed' v='60' />
+    <tag k='operator' v='DB Netz AG' />
+    <tag k='railway' v='rail' />
+    <tag k='railway:pzb' v='yes' />
+    <tag k='service' v='siding' />
+  </way>
+  <way id='962064812' timestamp='2021-07-06T22:03:53Z' uid='137242' user='Rainero' visible='true' version='1' changeset='107523086'>
+    <nd ref='8899315112' />
+    <nd ref='8899315111' />
+    <tag k='bridge' v='yes' />
+    <tag k='detail' v='track' />
+    <tag k='electrified' v='no' />
+    <tag k='gauge' v='1435' />
+    <tag k='maxspeed' v='100' />
+    <tag k='operator' v='DB Netz AG' />
+    <tag k='passenger_lines' v='1' />
+    <tag k='railway' v='rail' />
+    <tag k='railway:pzb' v='yes' />
+    <tag k='railway:radio' v='gsm-r' />
+    <tag k='ref' v='1210' />
+    <tag k='usage' v='main' />
+  </way>
+  <way id='962064813' timestamp='2022-04-17T04:27:58Z' uid='92274' user='adjuva' visible='true' version='2' changeset='119803600'>
+    <nd ref='8899315111' />
+    <nd ref='8899315110' />
+    <nd ref='1379347565' />
+    <nd ref='8899315109' />
+    <nd ref='674689544' />
+    <nd ref='1379347613' />
+    <nd ref='8899315108' />
+    <nd ref='8899315107' />
+    <nd ref='8899315106' />
+    <nd ref='8899315105' />
+    <nd ref='8899315104' />
+    <nd ref='8899315103' />
+    <nd ref='9671384064' />
+    <nd ref='276409057' />
+    <nd ref='4876736298' />
+    <tag k='detail' v='track' />
+    <tag k='electrified' v='no' />
+    <tag k='gauge' v='1435' />
+    <tag k='maxspeed' v='100' />
+    <tag k='operator' v='DB Netz AG' />
+    <tag k='passenger_lines' v='1' />
+    <tag k='railway' v='rail' />
+    <tag k='railway:pzb' v='yes' />
+    <tag k='railway:radio' v='gsm-r' />
+    <tag k='ref' v='1210' />
+    <tag k='usage' v='main' />
+  </way>
+  <way id='1052365935' timestamp='2022-04-17T05:02:09Z' uid='92274' user='adjuva' visible='true' version='1' changeset='119803600'>
+    <nd ref='9671373936' />
+    <nd ref='4592390195' />
+    <nd ref='1682214677' />
+    <nd ref='4501656386' />
+    <nd ref='4501656387' />
+    <tag k='detail' v='track' />
+    <tag k='electrified' v='no' />
+    <tag k='gauge' v='1435' />
+    <tag k='maxspeed:backward' v='120' />
+    <tag k='maxspeed:forward' v='100' />
+    <tag k='operator' v='DB Netz AG' />
+    <tag k='passenger_lines' v='2' />
+    <tag k='railway' v='rail' />
+    <tag k='railway:pzb' v='yes' />
+    <tag k='railway:radio' v='gsm-r' />
+    <tag k='railway:track_ref' v='1' />
+    <tag k='ref' v='1210' />
+    <tag k='usage' v='main' />
+  </way>
+  <relation id='6384504' timestamp='2023-03-22T08:31:17Z' uid='8748' user='ToniE' visible='true' version='15' changeset='133967951'>
+    <member type='node' ref='674689502' role='stop' />
+    <member type='node' ref='4278583111' role='stop' />
+    <member type='way' ref='105509541' role='' />
+    <member type='way' ref='453088241' role='' />
+    <member type='way' ref='429902929' role='' />
+    <member type='way' ref='105509563' role='' />
+    <member type='way' ref='105509484' role='' />
+    <member type='way' ref='363283922' role='' />
+    <member type='way' ref='363283921' role='' />
+    <member type='way' ref='363283919' role='' />
+    <member type='way' ref='453428654' role='' />
+    <member type='way' ref='1052365935' role='' />
+    <member type='way' ref='453428650' role='' />
+    <member type='way' ref='453428648' role='' />
+    <member type='way' ref='453088235' role='' />
+    <member type='way' ref='453088243' role='' />
+    <member type='way' ref='155852061' role='' />
+    <member type='way' ref='453428665' role='' />
+    <member type='way' ref='453428657' role='' />
+    <member type='way' ref='428767446' role='' />
+    <member type='way' ref='495957830' role='' />
+    <member type='way' ref='962064813' role='' />
+    <member type='way' ref='962064812' role='' />
+    <member type='way' ref='495957831' role='' />
+    <member type='way' ref='45177863' role='' />
+    <member type='way' ref='816313070' role='' />
+    <member type='way' ref='816313071' role='' />
+    <member type='way' ref='453428633' role='' />
+    <member type='way' ref='453428644' role='' />
+    <member type='way' ref='138292042' role='' />
+    <member type='way' ref='453428638' role='' />
+    <member type='way' ref='28140784' role='' />
+    <member type='way' ref='46898628' role='' />
+    <member type='way' ref='428767448' role='' />
+    <member type='way' ref='45081701' role='' />
+    <member type='way' ref='842481398' role='' />
+    <member type='way' ref='305236478' role='' />
+    <member type='way' ref='842481396' role='' />
+    <member type='way' ref='305236479' role='' />
+    <tag k='bicycle' v='yes' />
+    <tag k='duration' v='35' />
+    <tag k='foot' v='yes' />
+    <tag k='from' v='Westerland (Sylt)' />
+    <tag k='hgv' v='yes' />
+    <tag k='motorcar' v='yes' />
+    <tag k='name' v='Sylt-Shuttle: Westerland (Sylt) =&gt; Niebüll' />
+    <tag k='note' v='http://wiki.openstreetmap.org/wiki/Proposed_features/shuttle_train' />
+    <tag k='operator' v='DB Fernverkehr AG' />
+    <tag k='public_transport:version' v='1' />
+    <tag k='ref' v='Sylt-Shuttle' />
+    <tag k='render' v='no' />
+    <tag k='route' v='train' />
+    <tag k='shuttle' v='yes' />
+    <tag k='to' v='Niebüll' />
+    <tag k='type' v='route' />
+  </relation>
+  <relation id='15617114' timestamp='2023-03-22T08:31:17Z' uid='8748' user='ToniE' visible='true' version='2' changeset='133967951'>
+    <member type='relation' ref='6377345' role='' />
+    <member type='relation' ref='6384504' role='' />
+    <tag k='bicycle' v='yes' />
+    <tag k='foot' v='yes' />
+    <tag k='hgv' v='yes' />
+    <tag k='motorcar' v='yes' />
+    <tag k='name' v='Sylt-Shuttle Niebüll &lt;=&gt; Westerland (Sylt)' />
+    <tag k='note' v='http://wiki.openstreetmap.org/wiki/Proposed_features/shuttle_train' />
+    <tag k='operator' v='DB Fernverkehr AG' />
+    <tag k='ref' v='Sylt-Shuttle' />
+    <tag k='route_master' v='train' />
+    <tag k='shuttle' v='yes' />
+    <tag k='type' v='route_master' />
+  </relation>
+</osm>

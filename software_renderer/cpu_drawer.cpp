@@ -5,6 +5,7 @@
 
 #include "drape_frontend/navigator.hpp"
 #include "drape_frontend/visual_params.hpp"
+#include "drape/utils/projection.hpp"
 
 #include "geometry/angles.hpp"
 #include "geometry/tree4d.hpp"
@@ -715,10 +716,10 @@ void CPUDrawer::Draw(FeatureData const & data)
   bool const isArea = !data.m_areas.empty();
 
   drule::BaseRule const * pSymbolRule = nullptr;
-  double symbolDepth = software_renderer::minDepth;
+  double symbolDepth = dp::kMinDepth;
 
   drule::BaseRule const * pShieldRule = nullptr;
-  double shieldDepth = software_renderer::minDepth;
+  double shieldDepth = dp::kMinDepth;
 
   // separating path rules from other
   for (size_t i = 0; i < rules.size(); ++i)

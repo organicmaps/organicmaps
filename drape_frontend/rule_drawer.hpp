@@ -26,18 +26,24 @@ namespace df
 class EngineContext;
 class Stylist;
 
+/*
+ * RuleDrawer() is invoked for each feature in the tile.
+ * It creates a Stylist which filters suitable drawing rules for the feature.
+ * Then passes on the drawing rules to ApplyPoint/Area/LineFeature objects
+ * which create corresponding MapShape objects (which might in turn create OverlayHandles).
+ * The RuleDrawer flushes geometry MapShapes immediately for each feature,
+ * while overlay MapShapes are flushed altogether after all features are processed.
+ */
 class RuleDrawer
 {
 public:
-  using TDrawerCallback = std::function<void(FeatureType &, Stylist &)>;
   using TCheckCancelledCallback = std::function<bool()>;
   using TIsCountryLoadedByNameFn = std::function<bool(std::string_view)>;
   using TInsertShapeFn = std::function<void(drape_ptr<MapShape> && shape)>;
 
-  RuleDrawer(TDrawerCallback const & drawerFn,
-             TCheckCancelledCallback const & checkCancelled,
+  RuleDrawer(TCheckCancelledCallback const & checkCancelled,
              TIsCountryLoadedByNameFn const & isLoadedFn,
-             ref_ptr<EngineContext> engineContext);
+             ref_ptr<EngineContext> engineContext, int8_t deviceLang);
   ~RuleDrawer();
 
   void operator()(FeatureType & f);
@@ -47,25 +53,22 @@ public:
 #endif
 
 private:
-  void ProcessAreaStyle(FeatureType & f, Stylist const & s, TInsertShapeFn const & insertShape,
-                        int & minVisibleScale);
-  void ProcessLineStyle(FeatureType & f, Stylist const & s, TInsertShapeFn const & insertShape,
-                        int & minVisibleScale);
-  void ProcessPointStyle(FeatureType & f, Stylist const & s, TInsertShapeFn const & insertShape,
-                         int & minVisibleScale);
+  void ProcessAreaAndPointStyle(FeatureType & f, Stylist const & s, TInsertShapeFn const & insertShape);
+  void ProcessLineStyle(FeatureType & f, Stylist const & s, TInsertShapeFn const & insertShape);
+  void ProcessPointStyle(FeatureType & f, Stylist const & s, TInsertShapeFn const & insertShape);
 
-  bool CheckCoastlines(FeatureType & f, Stylist const & s);
+  bool CheckCoastlines(FeatureType & f);
 
   bool CheckCancelled();
 
   bool IsDiscardCustomFeature(FeatureID const & id) const;
 
-  TDrawerCallback m_callback;
   TCheckCancelledCallback m_checkCancelled;
   TIsCountryLoadedByNameFn m_isLoadedFn;
 
   ref_ptr<EngineContext> m_context;
   CustomFeaturesContextPtr m_customFeaturesContext;
+  int8_t m_deviceLang;
   std::unordered_set<m2::Spline const *> m_usedMetalines;
 
   m2::RectD m_globalRect;
@@ -75,8 +78,10 @@ private:
   TrafficSegmentsGeometry m_trafficGeometry;
 
   std::array<TMapShapes, df::MapShapeTypeCount> m_mapShapes;
-  bool m_wasCancelled;
 
   GeneratedRoadShields m_generatedRoadShields;
+
+  uint8_t m_zoomLevel = 0;
+  bool m_wasCancelled = false;
 };
 }  // namespace df

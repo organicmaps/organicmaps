@@ -96,7 +96,7 @@ uint32_t FeaturesCollector::WriteFeatureBase(std::vector<char> const & bytes, Fe
 uint32_t FeaturesCollector::Collect(FeatureBuilder const & fb)
 {
   FeatureBuilder::Buffer bytes;
-  fb.SerializeForIntermediate(bytes);
+  fb.SerializeAccuratelyForIntermediate(bytes);
   uint32_t const featureId = WriteFeatureBase(bytes, fb);
   CHECK_LESS(0, m_featureID, ());
   return featureId;

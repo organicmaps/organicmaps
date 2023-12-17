@@ -5,23 +5,9 @@
 
 #include "base/assert.hpp"
 
-#include <utility>
-
-using namespace feature;
-
 namespace generator
 {
-FeatureMakerBase::FeatureMakerBase(
-    std::shared_ptr<cache::IntermediateDataReaderInterface> const & cache)
-  : m_cache(cache)
-{
-}
-
-void FeatureMakerBase::SetCache(
-    std::shared_ptr<cache::IntermediateDataReaderInterface> const & cache)
-{
-  m_cache = cache;
-}
+using namespace feature;
 
 bool FeatureMakerBase::Add(OsmElement & element)
 {
@@ -64,11 +50,11 @@ bool FeatureMakerBase::GetNextFeature(FeatureBuilder & feature)
 
 void TransformToPoint(FeatureBuilder & feature)
 {
-  if (!feature.IsArea() && !feature.IsLine())
+  if (feature.IsPoint())
     return;
 
-  auto const center = feature.GetGeometryCenter();
-  feature.SetCenter(center);
+  feature.SetCenter(feature.GetGeometryCenter());
+
   auto & params = feature.GetParams();
   if (!params.house.IsEmpty())
     params.SetGeomTypePointEx();

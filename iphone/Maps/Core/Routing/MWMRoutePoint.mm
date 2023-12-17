@@ -3,6 +3,8 @@
 #import "MWMLocationManager.h"
 #import "MWMRoutePoint+CPP.h"
 
+#include "geometry/mercator.hpp"
+
 #include "platform/measurement_utils.hpp"
 
 @interface MWMRoutePoint ()

@@ -23,7 +23,7 @@
 #include <limits>
 #include <vector>
 
-#include "gflags/gflags.h"
+#include <gflags/gflags.h>
 
 DEFINE_string(srtm_path, "", "Path to directory with SRTM files");
 DEFINE_string(mwm_path, "", "Path to mwm files (writable dir)");

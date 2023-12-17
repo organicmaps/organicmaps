@@ -1,11 +1,8 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<svg width="24px" height="24px" viewBox="0 0 24 24" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
-    <title>wayside_shrine-m</title>
-    <g id="Page-2:-Night" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd" opacity="0.6">
-        <g id="wayside_shrine-m" fill-rule="nonzero">
-            <circle id="Oval" fill="#FFFFFF" cx="12" cy="12" r="12"></circle>
-            <circle id="Oval" fill="#7F5933" cx="12" cy="12" r="11"></circle>
-            <path d="M11.9995431,4 L6,10.1273333 L7.03434097,11.1829333 L12.0004569,6.1112 L16.965659,11.1829333 L18,10.1273333 L11.9995431,4 Z M16.0702048,12.1526667 L16.0702048,18 L14.2427473,18 L14.2427473,14.7333333 C14.2427473,13.4444 13.2202848,12.4 11.9584253,12.4 C10.6965659,12.4 9.6741034,13.4444 9.6741034,14.7333333 L9.6741034,18 L7.84664585,18 L7.84664585,12.2198667 L11.9922333,8.0796 L16.0702048,12.1526667 Z" id="Shape" fill="#FFFFFF"></path>
-        </g>
-    </g>
+<svg version="1.1" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+ <title>wayside_shrine-m</title>
+ <g fill="none" fill-rule="evenodd">
+  <g id="wayside_shrine-m" fill-rule="nonzero">
+   <path id="Shape" d="m11.999 3-7.7137 7.878 1.3299 1.3572 6.385-6.5208 6.3838 6.5208 1.3299-1.3572zm5.2337 10.482v7.518h-2.3496v-4.2c0-1.6572-1.3146-3-2.937-3-1.6224 0-2.937 1.3428-2.937 3v4.2h-2.3496v-7.4316l5.33-5.3232z" fill="#717065" opacity=".6"/>
+  </g>
+ </g>
 </svg>

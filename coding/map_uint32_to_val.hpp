@@ -1,11 +1,9 @@
 #pragma once
 
-#include "coding/endianness.hpp"
 #include "coding/files_container.hpp"
 #include "coding/memory_region.hpp"
 #include "coding/reader.hpp"
 #include "coding/succinct_mapper.hpp"
-#include "coding/varint.hpp"
 #include "coding/write_to_sink.hpp"
 #include "coding/writer.hpp"
 
@@ -199,7 +197,7 @@ private:
       uint32_t const idsSize = m_header.m_positionsOffset - sizeof(m_header);
       std::vector<uint8_t> data(idsSize);
       m_reader.Read(sizeof(m_header), data.data(), data.size());
-      m_idsRegion = std::make_unique<CopiedMemoryRegion>(move(data));
+      m_idsRegion = std::make_unique<CopiedMemoryRegion>(std::move(data));
 
       coding::MapVisitor visitor(m_idsRegion->ImmutableData());
       m_ids.map(visitor);
@@ -209,7 +207,7 @@ private:
       uint32_t const offsetsSize = m_header.m_variablesOffset - m_header.m_positionsOffset;
       std::vector<uint8_t> data(offsetsSize);
       m_reader.Read(m_header.m_positionsOffset, data.data(), data.size());
-      m_offsetsRegion = std::make_unique<CopiedMemoryRegion>(move(data));
+      m_offsetsRegion = std::make_unique<CopiedMemoryRegion>(std::move(data));
 
       coding::MapVisitor visitor(m_offsetsRegion->ImmutableData());
       m_offsets.map(visitor);

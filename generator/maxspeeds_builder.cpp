@@ -34,9 +34,9 @@ namespace routing_builder
 using namespace feature;
 using namespace generator;
 using namespace routing;
-using namespace std;
+using std::string;
 
-char const kDelim[] = ", \t\r\n";
+char constexpr kDelim[] = ", \t\r\n";
 
 template <class TokenizerT> bool ParseOneSpeedValue(TokenizerT & iter, MaxspeedType & value)
 {
@@ -101,11 +101,11 @@ public:
 
     auto const GetSpeed = [&](uint32_t fid) -> Maxspeed *
     {
-      auto osmid = GetOsmID(fid);
-      if (osmid.GetType() == base::GeoObjectId::Type::Invalid)
+      auto const osmId = GetOsmID(fid);
+      if (osmId.GetType() == base::GeoObjectId::Type::Invalid)
         return nullptr;
 
-      auto const maxspeedIt = osmIdToMaxspeed.find(osmid);
+      auto const maxspeedIt = osmIdToMaxspeed.find(osmId);
       if (maxspeedIt == osmIdToMaxspeed.cend())
         return nullptr;
 
@@ -347,7 +347,7 @@ bool ParseMaxspeeds(string const & filePath, OsmIdToMaxspeed & osmIdToMaxspeed)
 {
   osmIdToMaxspeed.clear();
 
-  ifstream stream(filePath);
+  std::ifstream stream(filePath);
   if (!stream)
     return false;
 
@@ -390,7 +390,7 @@ bool ParseMaxspeeds(string const & filePath, OsmIdToMaxspeed & osmIdToMaxspeed)
         return false;
     }
 
-    auto const res = osmIdToMaxspeed.insert(make_pair(base::MakeOsmWay(osmId), speed));
+    auto const res = osmIdToMaxspeed.emplace(base::MakeOsmWay(osmId), speed);
     if (!res.second)
       return false;
   }
@@ -398,7 +398,7 @@ bool ParseMaxspeeds(string const & filePath, OsmIdToMaxspeed & osmIdToMaxspeed)
 }
 
 void BuildMaxspeedsSection(IndexGraph * graph, string const & dataPath,
-                           map<uint32_t, base::GeoObjectId> const & featureIdToOsmId,
+                           FeatureIdToOsmId const & featureIdToOsmId,
                            string const & maxspeedsFilename)
 {
   MaxspeedsMwmCollector collector(dataPath, featureIdToOsmId, graph);
@@ -410,8 +410,8 @@ void BuildMaxspeedsSection(IndexGraph * graph, string const & dataPath,
 void BuildMaxspeedsSection(IndexGraph * graph, string const & dataPath,
                            string const & osmToFeaturePath, string const & maxspeedsFilename)
 {
-  map<uint32_t, base::GeoObjectId> featureIdToOsmId;
-  CHECK(ParseWaysFeatureIdToOsmIdMapping(osmToFeaturePath, featureIdToOsmId), ());
+  FeatureIdToOsmId featureIdToOsmId;
+  ParseWaysFeatureIdToOsmIdMapping(osmToFeaturePath, featureIdToOsmId);
   BuildMaxspeedsSection(graph, dataPath, featureIdToOsmId, maxspeedsFilename);
 }
 }  // namespace routing_builder

@@ -13,7 +13,6 @@
 #include "drape/overlay_handle.hpp"
 #include "drape/render_bucket.hpp"
 
-#include "indexer/map_style_reader.hpp"
 
 namespace df
 {
@@ -60,17 +59,17 @@ MyPosition::MyPosition(ref_ptr<dp::GraphicsContext> context, ref_ptr<dp::Texture
   , m_accuracy(0.0f)
   , m_showAzimuth(false)
   , m_isRoutingMode(false)
-  , m_obsoletePosition(false)
 {
   m_parts.resize(4);
   CacheAccuracySector(context, mng);
   CachePointPosition(context, mng);
 }
 
-void MyPosition::InitArrow(ref_ptr<dp::GraphicsContext> context, ref_ptr<dp::TextureManager> mng)
+bool MyPosition::InitArrow(ref_ptr<dp::GraphicsContext> context, ref_ptr<dp::TextureManager> mng,
+                           Arrow3d::PreloadedData && preloadedData)
 {
-  m_arrow3d = make_unique_dp<Arrow3d>(context);
-  m_arrow3d->SetTexture(mng);
+  m_arrow3d = make_unique_dp<Arrow3d>(context, mng, std::move(preloadedData));
+  return m_arrow3d->IsValid();
 }
 
 void MyPosition::SetPosition(m2::PointF const & pt)
@@ -100,7 +99,6 @@ void MyPosition::SetRoutingMode(bool routingMode)
 
 void MyPosition::SetPositionObsolete(bool obsolete)
 {
-  m_obsoletePosition = obsolete;
   CHECK(m_arrow3d != nullptr, ());
   m_arrow3d->SetPositionObsolete(obsolete);
 }

@@ -1,11 +1,10 @@
 #include "base/file_name_utils.hpp"
 
-#include "std/target_os.hpp"
-
-using namespace std;
 
 namespace base
 {
+using namespace std;
+
 void GetNameWithoutExt(string & name)
 {
   string::size_type const i = name.rfind('.');
@@ -32,19 +31,17 @@ void GetNameFromFullPath(string & name)
     name = name.substr(i+1);
 }
 
-std::string GetNameFromFullPath(std::string const & path)
+std::string FileNameFromFullPath(std::string path)
 {
-  std::string name = path;
-  GetNameFromFullPath(name);
-  return name;
+  GetNameFromFullPath(path);
+  return path;
 }
 
-string GetNameFromFullPathWithoutExt(string const & path)
+string GetNameFromFullPathWithoutExt(string path)
 {
-  string name = path;
-  GetNameFromFullPath(name);
-  GetNameWithoutExt(name);
-  return name;
+  GetNameFromFullPath(path);
+  GetNameWithoutExt(path);
+  return path;
 }
 
 string GetDirectory(string const & name)

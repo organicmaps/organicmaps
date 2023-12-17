@@ -1,8 +1,8 @@
-#include "search/search_quality/assessment_tool/main_model.hpp"
+#include "main_model.hpp"
+#include "view.hpp"
 
 #include "search/feature_loader.hpp"
 #include "search/search_params.hpp"
-#include "search/search_quality/assessment_tool/view.hpp"
 #include "search/search_quality/helpers.hpp"
 #include "search/search_quality/matcher.hpp"
 
@@ -11,16 +11,12 @@
 #include "geometry/algorithm.hpp"
 #include "geometry/mercator.hpp"
 
-#include "coding/string_utf8_multilang.hpp"
-
 #include "platform/platform.hpp"
 
 #include "base/assert.hpp"
-#include "base/logging.hpp"
 
 #include <algorithm>
 #include <fstream>
-#include <functional>
 #include <iterator>
 
 using namespace std;
@@ -135,7 +131,6 @@ void MainModel::OnSampleSelected(int index)
   m_view->ShowSample(index, sample, sample.m_pos, context.IsUseless(), context.HasChanges());
 
   m_runner.ResetForegroundSearch();
-  m_numShownResults = 0;
 
   if (context.m_initialized)
   {
@@ -331,9 +326,7 @@ void MainModel::UpdateViewOnResults(search::Results const & results)
 {
   CHECK(m_threadChecker.CalledOnOriginalThread(), ());
 
-  CHECK_LESS_OR_EQUAL(m_numShownResults, results.GetCount(), ());
-  m_view->AddFoundResults(results.begin() + m_numShownResults, results.end());
-  m_numShownResults = results.GetCount();
+  m_view->AddFoundResults(results);
 
   if (!results.IsEndedNormal())
     return;

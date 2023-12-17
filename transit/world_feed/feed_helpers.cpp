@@ -64,9 +64,9 @@ ProjectionData GetProjection(std::vector<m2::PointD> const & polyline, size_t in
   projData.m_distFromPoint = proj.m_dist;
   projData.m_proj = proj.m_point;
 
-  auto const next = direction == Direction::Forward ? index + 1 : index - 1;
+  int64_t const next = direction == Direction::Forward ? index + 1 : index - 1;
   CHECK_GREATER_OR_EQUAL(next, 0, ());
-  CHECK_LESS(next, polyline.size(), ());
+  CHECK_LESS(static_cast<size_t>(next), polyline.size(), ());
 
   if (base::AlmostEqualAbs(proj.m_point, polyline[index], kEps))
   {

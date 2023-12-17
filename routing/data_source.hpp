@@ -5,6 +5,8 @@
 
 #include "indexer/data_source.hpp"
 
+#include "base/lru_cache.hpp"
+
 #include <map>
 #include <unordered_map>
 
@@ -22,8 +24,8 @@ class MwmDataSource
   // Used for FeaturesRoadGraph in openlr only.
   std::map<MwmSet::MwmId, MwmSet::MwmHandle> m_handles2;
 
-  // Last used FeatureType source.
-  std::unique_ptr<FeatureSource> m_features;
+  // Cache is important for Cross-Mwm routing, where we need at least 2 sources simultaneously.
+  LruCache<MwmSet::MwmId, std::unique_ptr<FeatureSource>> m_featureSources{4};
 
   MwmSet::MwmHandle const * GetHandleSafe(NumMwmId numMwmId)
   {
@@ -41,14 +43,14 @@ class MwmDataSource
   }
 
 public:
-  /// @param[in]  numMwmIDs Cay be null, if don't call NumMwmId functions.
+  /// @param[in]  numMwmIDs Can be null, if won't call NumMwmId functions.
   MwmDataSource(DataSource & dataSource, std::shared_ptr<NumMwmIds> numMwmIDs)
     : m_dataSource(dataSource), m_numMwmIDs(std::move(numMwmIDs))
   {}
 
   void FreeHandles()
   {
-    m_features.release();
+    m_featureSources.Clear();
     m_handles.clear();
     m_handles2.clear();
   }
@@ -125,11 +127,13 @@ public:
 
   std::unique_ptr<FeatureType> GetFeature(FeatureID const & id)
   {
-    if (!m_features || id.m_mwmId != m_features->GetMwmId())
-      m_features = m_dataSource.CreateFeatureSource(GetHandle(id.m_mwmId));
+    bool found = false;
+    auto & ptr = m_featureSources.Find(id.m_mwmId, found);
+    if (!found)
+      ptr = m_dataSource.CreateFeatureSource(GetHandle(id.m_mwmId));
 
     /// @todo Should we also retrieve "modified" features here?
-    return m_features->GetOriginalFeature(id.m_index);
+    return ptr->GetOriginalFeature(id.m_index);
   }
 };
 } // namespace routing

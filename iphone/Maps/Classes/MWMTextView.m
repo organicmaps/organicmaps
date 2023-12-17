@@ -21,7 +21,7 @@
 }
 
 - (void)dealloc {
-  [NSNotificationCenter.defaultCenter removeObserver:self name:UITextViewTextDidChangeNotification object:nil];
+  [NSNotificationCenter.defaultCenter removeObserver:self];
 }
 
 - (UILabel *)placeholderView {

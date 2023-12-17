@@ -2,22 +2,37 @@
 
 #include "search/house_numbers_matcher.hpp"
 
+#include "base/string_utils.hpp"
+
 #include <string>
 #include <vector>
 
-#include "base/string_utils.hpp"
 
+namespace house_number_matcher_test
+{
 using namespace search::house_numbers;
-using namespace search;
 using namespace strings;
 using namespace std;
 
-namespace
-{
 bool HouseNumbersMatch(string const & houseNumber, string const & query, bool queryIsPrefix = false)
 {
-  return search::house_numbers::HouseNumbersMatch(MakeUniString(houseNumber), MakeUniString(query),
-                                                  queryIsPrefix);
+  vector<Token> queryParse;
+  ParseQuery(MakeUniString(query), queryIsPrefix, queryParse);
+  return search::house_numbers::HouseNumbersMatch(MakeUniString(houseNumber), queryParse);
+}
+
+bool HouseNumbersMatchConscription(string const & houseNumber, string const & query, bool queryIsPrefix = false)
+{
+  vector<Token> queryParse;
+  ParseQuery(MakeUniString(query), queryIsPrefix, queryParse);
+  return search::house_numbers::HouseNumbersMatchConscription(MakeUniString(houseNumber), queryParse);
+}
+
+bool HouseNumbersMatchRange(string_view const & hnRange, string const & query, feature::InterpolType interpol)
+{
+  vector<Token> queryParse;
+  ParseQuery(MakeUniString(query), false /* isPrefix */, queryParse);
+  return search::house_numbers::HouseNumbersMatchRange(hnRange, queryParse, interpol);
 }
 
 bool CheckTokenizer(string const & utf8s, vector<string> const & expected)
@@ -65,9 +80,13 @@ bool CheckParser(string const & utf8s, string const & expected)
 
   return true;
 }
-}  // namespace
 
-UNIT_TEST(HouseNumberTokenizer_Smoke)
+UNIT_TEST(HouseNumber_ToUInt)
+{
+  TEST_EQUAL(ToUInt(MakeUniString("1234987650")), 1234987650ULL, ());
+}
+
+UNIT_TEST(HouseNumber_Tokenizer)
 {
   TEST(CheckTokenizer("123Б", {"123", "б"}), ());
   TEST(CheckTokenizer("123/Б", {"123", "/", "б"}), ());
@@ -77,7 +96,7 @@ UNIT_TEST(HouseNumberTokenizer_Smoke)
   TEST(CheckTokenizer("9 литер аб1", {"9", "литер", "аб", "1"}), ());
 }
 
-UNIT_TEST(HouseNumberParser_Smoke)
+UNIT_TEST(HouseNumber_Parser)
 {
   TEST(CheckParser("123Б", "123 б"), ());
   TEST(CheckParser("123/4 Литер А", "123 4 а"), ());
@@ -87,14 +106,16 @@ UNIT_TEST(HouseNumberParser_Smoke)
   TEST(CheckParser("9 литер А корпус 2", "9 2 а"), ());
   TEST(CheckParser("39с79", "39 79"), ());
   TEST(CheckParser("9 литер аб1", "9 1"), ());
+  TEST(CheckParser("1-100", "1 100"), ());
 }
 
-UNIT_TEST(HouseNumbersMatcher_Smoke)
+UNIT_TEST(HouseNumber_Matcher)
 {
   TEST(HouseNumbersMatch("39с79", "39"), ());
   TEST(HouseNumbersMatch("39с79", "39 Строение 79"), ());
   TEST(HouseNumbersMatch("39с79", "39 к. 79"), ());
   TEST(HouseNumbersMatch("39 - 79", "39 строение 79"), ());
+  TEST(!HouseNumbersMatch("39-79", "49"), ());
   TEST(HouseNumbersMatch("39/79", "39 строение 79"), ());
   TEST(HouseNumbersMatch("127а корпус 2", "127а"), ());
   TEST(HouseNumbersMatch("127а корпус 2", "127а кор. 2"), ());
@@ -144,12 +165,57 @@ UNIT_TEST(HouseNumbersMatcher_Smoke)
   TEST(HouseNumbersMatch("16 к1", "16 к1"), ());
   TEST(HouseNumbersMatch("16 к1", "дом 16 к1"), ());
   TEST(HouseNumbersMatch("14 д 1", "дом 14 д1"), ());
+
+  TEST(HouseNumbersMatch("12;14", "12"), ());
+  TEST(HouseNumbersMatch("12;14", "14"), ());
+  TEST(!HouseNumbersMatch("12;14", "13"), ());
+  TEST(HouseNumbersMatch("12,14", "12"), ());
+  TEST(HouseNumbersMatch("12,14", "14"), ());
+  TEST(!HouseNumbersMatch("12,14", "13"), ());
 }
 
-UNIT_TEST(LooksLikeHouseNumber_Smoke)
+UNIT_TEST(HouseNumber_Matcher_Conscription)
+{
+  TEST(HouseNumbersMatchConscription("77/21", "77"), ());
+  TEST(HouseNumbersMatchConscription("77 b/21", "77b"), ());
+
+  TEST(HouseNumbersMatchConscription("77/21", "21"), ());
+  TEST(HouseNumbersMatchConscription("77/21 a", "21a"), ());
+
+  TEST(HouseNumbersMatchConscription("77/21", "77/21"), ());
+  TEST(HouseNumbersMatchConscription("77/21", "21/77"), ());
+
+  TEST(HouseNumbersMatchConscription("77x/21y", "77"), ());
+  TEST(HouseNumbersMatchConscription("77x/21y", "21"), ());
+
+  /// @todo Controversial, but need skip ParseQuery and treat query as 2 separate inputs.
+  /// @{
+  TEST(HouseNumbersMatchConscription("77/21", "77x/21y"), ());
+  TEST(!HouseNumbersMatchConscription("77x/21y", "77/21"), ());
+  TEST(!HouseNumbersMatchConscription("78/21", "77/21"), ());
+  /// @}
+}
+
+UNIT_TEST(HouseNumber_Matcher_Range)
+{
+  using IType = feature::InterpolType;
+
+  TEST(HouseNumbersMatchRange("3000:3100", "3088", IType::Even), ());
+  TEST(!HouseNumbersMatchRange("3000:3100", "3088", IType::Odd), ());
+  TEST(!HouseNumbersMatchRange("3000:3100", "3000", IType::Any), ());
+  TEST(!HouseNumbersMatchRange("3000:3100", "3100", IType::Any), ());
+  TEST(HouseNumbersMatchRange("2:40", "32A", IType::Even), ());
+  TEST(!HouseNumbersMatchRange("2:40", "33B", IType::Even), ());
+
+  /// @todo Maybe some day ..
+  //TEST(HouseNumbersMatchRange("30A:30D", "30B", IType::Any), ());
+}
+
+UNIT_TEST(HouseNumber_LooksLike)
 {
   TEST(LooksLikeHouseNumber("1", false /* isPrefix */), ());
   TEST(LooksLikeHouseNumber("ev 10", false /* isPrefix */), ());
+  TEST(LooksLikeHouseNumber("ev.1", false /* isPrefix */), ());
 
   TEST(LooksLikeHouseNumber("14 к", true /* isPrefix */), ());
   TEST(LooksLikeHouseNumber("14 кор", true /* isPrefix */), ());
@@ -178,6 +244,8 @@ UNIT_TEST(LooksLikeHouseNumber_Smoke)
 
   TEST(LooksLikeHouseNumber("дом ", true /* isPrefix */), ());
   TEST(LooksLikeHouseNumber("дом ", false /* isPrefix */), ());
+  TEST(LooksLikeHouseNumber("house", true /* isPrefix */), ());
+  TEST(LooksLikeHouseNumber("house ", false /* isPrefix */), ());
 
   TEST(LooksLikeHouseNumber("дом 39 строение 79", false /* isPrefix */), ());
 
@@ -190,4 +258,17 @@ UNIT_TEST(LooksLikeHouseNumber_Smoke)
   TEST(LooksLikeHouseNumber("д 16", false /* isPrefix */), ());
   TEST(LooksLikeHouseNumber("дом 16", false /* isPrefix */), ());
   TEST(LooksLikeHouseNumber("дом 14 д 1", false /* isPrefix */), ());
+
+  TEST(LooksLikeHouseNumber("12;14", false /* isPrefix */), ());
+  TEST(LooksLikeHouseNumber("12,14", true /* isPrefix */), ());
+
+  TEST(!LooksLikeHouseNumber("улица", false /* isPrefix */), ());
+  TEST(!LooksLikeHouseNumber("avenida", false /* isPrefix */), ());
+  TEST(!LooksLikeHouseNumber("street", false /* isPrefix */), ());
+
+  TEST(LooksLikeHouseNumber("2:40", false /* isPrefix */), ());
+
+  TEST(LooksLikeHouseNumber("к424", false /* isPrefix */), ());
+  TEST(LooksLikeHouseNumber("к12", true /* isPrefix */), ());
 }
+} // namespace house_number_matcher_test

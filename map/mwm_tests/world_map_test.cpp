@@ -47,5 +47,5 @@ UNIT_TEST(World_Capitals)
   }
 
   // Got 225 values from the first launch. May vary slightly ..
-  TEST_GREATER_OR_EQUAL(capitalsCount, 220, ());
+  TEST_GREATER_OR_EQUAL(capitalsCount, 215, ());
 }

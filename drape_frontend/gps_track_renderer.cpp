@@ -6,14 +6,9 @@
 
 #include "shaders/programs.hpp"
 
-#include "drape/drape_diagnostics.hpp"
-#include "drape/glsl_func.hpp"
 #include "drape/vertex_array_buffer.hpp"
 
 #include "indexer/map_style_reader.hpp"
-#include "indexer/scales.hpp"
-
-#include "base/logging.hpp"
 
 #include <algorithm>
 #include <array>
@@ -49,16 +44,6 @@ uint8_t const kMaxNightAlpha = 102;
 double const kUnknownDistanceTime = 5 * 60; // seconds
 
 double const kDistanceScalar = 0.4;
-
-float CalculateRadius(ScreenBase const & screen)
-{
-  double zoom = 0.0;
-  int index = 0;
-  float lerpCoef = 0.0f;
-  ExtractZoomFactors(screen, zoom, index, lerpCoef);
-  float const radius = InterpolateByZoomLevels(index, lerpCoef, kRadiusInPixel);
-  return radius * static_cast<float>(VisualParams::Instance().GetVisualScale());
-}
 
 #ifdef DEBUG
 bool GpsPointsSortPredicate(GpsTrackPoint const & pt1, GpsTrackPoint const & pt2)
@@ -215,7 +200,7 @@ void GpsTrackRenderer::RenderTrack(ref_ptr<dp::GraphicsContext> context, ref_ptr
     if (m_waitForRenderData)
       return;
 
-    m_radius = CalculateRadius(screen);
+    m_radius = CalculateRadius(screen, kRadiusInPixel);
     double const currentScaleGtoP = 1.0 / screen.GetScale();
     double const radiusMercator = m_radius / currentScaleGtoP;
     double const diameterMercator = 2.0 * radiusMercator;

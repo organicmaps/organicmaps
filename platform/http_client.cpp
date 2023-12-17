@@ -175,7 +175,7 @@ string HttpClient::NormalizeServerCookies(string && cookies)
   // Split by ", ". Can have invalid tokens here, expires= can also contain a comma.
   while (getline(is, str, ','))
   {
-    size_t const leading = str.find_first_not_of(" ");
+    size_t const leading = str.find_first_not_of(' ');
     if (leading != string::npos)
       str.substr(leading).swap(str);
 
@@ -193,7 +193,7 @@ string HttpClient::NormalizeServerCookies(string && cookies)
       result.append("; ");
 
     // Read cookie itself.
-    result.append(str, 0, str.find(";"));
+    result.append(str, 0, str.find(';'));
   }
   return result;
 }

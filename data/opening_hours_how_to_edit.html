@@ -1,9 +1,216 @@
-<p>The opening hours field specifies when the amenity is open. Use <b>24/7</b> for facilities working non-stop. Examples of more specific intervals:</p>
-<ul>
-<li><b>Mo-Fr 10:00-21:00</b><br>A single interval is list of weekdates ("-" for a range, "," to add another range), then a space and a time range. A single "Mo-Su" can be omitted, e.g. <b>11:00-20:00</b>.</li>
-<li><b>Mo-We,Fr 09:00-13:30,14:00-18:30</b><br>Use commas to add ranges, e.g. when the amenity has a lunch break, or is open on non-consecutive weekdays. Do not insert extra spaces.</li>
-<li><b>Mo-Fr 09:00-20:00; Sa-Su 10:00-19:00</b><br>A semicolon separates different definitions for different weekdates. Note the "09": you must always use two digits for hours.</li>
-<li><b>Mo-Su 10:00-19:00; Jun off; Dec 25 off</b><br>You can exclude days or even months with an "off" word.</li>
-<li><b>Mo-Fr 17:00-03:00, Sa-Su 18:00+</b><br>Time intervals can span midnight, and it is safer to use comma instead of a semicolon in such cases. The plus sign means closing time is unspecified.
-</ul>
-<p>More examples, rules, syntax and specifications can be found on a <a href="https://wiki.openstreetmap.org/wiki/Key:opening_hours">wiki page for the key</a>.</p>
+<!DOCTYPE html>
+<html>
+
+<head>
+  <style>
+    /* All langs are invisible by default. */
+    [lang] {
+      display: none;
+    }
+
+    .example {
+    font-weight: bold;
+    font-family: monospace;
+  }
+  </style>
+    <script>
+    "use strict";
+    function getLanguage() {
+      var lang = navigator.language || navigator.userLanguage;
+      var found = location.href.indexOf("?");
+      if (found != -1) {
+        var urlParams = new URLSearchParams(location.href.substr(found));
+        var queryLang = urlParams.get("lang");
+        if (queryLang) lang = queryLang;
+      }
+      return lang;
+    }
+
+    // TODO: Update this list with a new translation.
+    var translations = ['en', 'ru', 'fr', 'pl', 'ro', 'nl'];
+    // Show Russian for browsers with this language codes.
+    var canReadRussian = ['ab', 'be', 'kk', 'ky', 'tg', 'uz'];
+
+    // TODO: Properly handle be-EN, he-RU or similar cases.
+    function showLanguage() {
+      var lang = getLanguage();
+      var iso6391 = lang.substring(0, 2);
+      if (canReadRussian.indexOf(iso6391) >= 0)  // Array.includes is not supported in Android 5 and 6.
+        lang = 'ru';
+      else if (translations.indexOf(iso6391) >= 0) {
+        if (lang != 'pt-BR')
+          lang = iso6391;
+      } else
+        lang = 'en';
+
+      var elems = document.querySelectorAll('[lang="' + lang + '"]');
+      // Make them visible.
+      for (var i = 0; i < elems.length; ++i) elems[i].style.display = "block";
+    }
+    </script>
+</head>
+
+<body onload="showLanguage()">
+<div lang="en">
+    <p>
+        The opening hours field specifies when the amenity is open. Use <span class="example">24/7</span> for facilities working non-stop. Examples of more specific intervals:
+    </p>
+    <ul>
+        <li>
+            <span class="example">Mo-Fr 10:00-21:00</span><br>
+            A single interval is list of weekdates ("-" for a range, "," to add another range), then a space and a time range. A single "Mo-Su" can be omitted, e.g. <span class="example">11:00-20:00</span>.
+        </li>
+        <li>
+            <span class="example">Mo-We,Fr 09:00-13:30,14:00-18:30</span><br>
+            Use commas to add ranges, e.g. when the amenity has a lunch break, or is open on non-consecutive weekdays. Do not insert extra spaces.
+        </li>
+        <li>
+            <span class="example">Mo-Fr 09:00-20:00; Sa-Su 10:00-19:00</span><br>
+            A semicolon separates different definitions for different weekdates. Note the "09": you must always use two digits for hours.
+        </li>
+        <li>
+            <span class="example">Mo-Su 10:00-19:00; Jun off; Dec 25 off</span><br>
+            You can exclude days or even months with an "off" word.
+        </li>
+        <li>
+            <span class="example">Mo-Fr 17:00-03:00, Sa-Su 18:00+</span><br>
+            Time intervals can span midnight, and it is safer to use comma instead of a semicolon in such cases. The plus sign means closing time is unspecified.
+        </li>
+    </ul>
+</div>
+
+<div lang="fr">
+    <p>
+        Le champ heures d'ouverture permet d'indiquer les heures d'ouverture d'un lieu. Utiliser <span class="example">24/7</span> pour les lieux ouverts non-stop. Exemples d'horaires plus spécifiques:
+    </p>
+    <ul>
+        <li>
+            <span class="example">Mo-Fr 10:00-21:00</span><br>
+            Un intervalle unique est une liste de dates hebdomadaires ("-" pour un intervalle, "," pour ajouter un autre intervalle), suivie d'un espace et d'un intervalle de temps. Un seul "Mo-Su" peut être omis, par exemple <span class="example">11:00-20:00</span>.
+        </li>
+        <li>
+            <span class="example">Mo-We,Fr 09:00-13:30,14:00-18:30</span><br>
+            Utilisez des virgules pour ajouter des plages, par exemple lorsque le lieu a une pause déjeuner ou est ouvert des jours de semaine non consécutifs. N'insérez pas d'espaces supplémentaires.
+        </li>
+        <li>
+            <span class="example">Mo-Fr 09:00-20:00; Sa-Su 10:00-19:00</span><br>
+            Un point-virgule sépare différentes définitions pour les différents jours de la semaine. Notez le "09" : vous devez toujours utiliser deux chiffres pour les heures.
+        </li>
+        <li>
+            <span class="example">Mo-Su 10:00-19:00; Jun off; Dec 25 off</span><br>
+            Vous pouvez exclure des jours ou même des mois avec le mot « off ».
+        </li>
+        <li>
+            <span class="example">Mo-Fr 17:00-03:00, Sa-Su 18:00+</span><br>
+            Les intervalles de temps peuvent s'étendre au dela de minuit, et il est plus sûr d'utiliser une virgule au lieu d'un point-virgule dans de tels cas. Le signe plus signifie que l'heure de fermeture n'est pas spécifiée.
+        </li>
+    </ul>
+</div>
+
+<div lang="ru">
+    <p>
+        В поле «Время работы» нужно указать, когда заведение открыто (на английском). Используйте <span class="example">24/7</span>, если заведение работает круглосуточно. Примеры других интервалов:
+    </p>
+    <ul>
+        <li>
+            <span class="example">Mo-Fr 10:00-21:00</span><br>
+            Один интервал — это список дат недели («-» для диапазона, «,» для добавления другого диапазона), затем пробел и временной диапазон. <span class="example">«Mo-Su»</span> можно опустить, например. <span class="example">11:00-20:00</span>.
+        </li>
+        <li>
+            <span class="example">Mo-We,Fr 09:00-13:30,14:00-18:30</span><br>
+            Для добавления диапазонов используйте запятые, например: когда в заведении есть обеденный перерыв или оно открыто в непоследовательные будние дни. Не вставляйте лишние пробелы.
+        </li>
+        <li>
+            <span class="example">Mo-Fr 09:00-20:00; Sa-Su 10:00-19:00</span><br>
+            Точка с запятой разделяет разные определения для разных дат недели. Обратите внимание на «09»: для обозначения часов всегда необходимо использовать две цифры.</li>
+        <li>
+            <span class="example">Mo-Su 10:00-19:00; Jun off; Dec 25 off</span><br>
+            Вы можете исключить дни или даже месяцы, указав слово «off».</li>
+        <li>
+            <span class="example">Mo-Fr 17:00-03:00, Sa-Su 18:00+</span><br>
+            Временные интервалы могут включать полночь и следующий день, поэтому в таких случаях безопаснее использовать запятую вместо точки с запятой. Знак плюс означает, что точное время закрытия не указано.
+    </ul>
+</div>
+<div lang="pl">
+    <p>
+        Pole godziny otwarcia określa, kiedy obiekt jest otwarty. Użyj <span class="example">24/7</span>, jeśli obiekty pracują całą dobę. Przykłady bardziej szczegółowych interwałów:
+    </p>
+    <ul>
+        <li>
+            <span class="example">Mo-Fr 10:00-21:00</span><br>
+            Pojedynczy interwał to lista dat tygodnia („-” dla zakresu, "," aby dodać kolejny zakres), następnie spacja i zakres czasu. Pojedyncze „Mo-Su” można pominąć, np. <span class="example">11:00-20:00</span>.
+        </li>
+        <li>
+            <span class="example">Mo-We,Fr 09:00-13:30,14:00-18:30</span><br>
+            Aby dodać zakresy, użyj przecinków, np. gdy obiekt ma przerwę obiadową lub jest otwarty w nie następujące po sobie dni powszednie. Nie wstawiaj dodatkowych spacji.
+        </li>
+        <li>
+            <span class="example">Mo-Fr 09:00-20:00; Sa-Su 10:00-19:00</span><br>
+            Średnik oddziela różne definicje różnych dat tygodnia. Zwróć uwagę na „09”: zawsze musisz używać dwóch cyfr w celu określenia godzin.
+        </li>
+        <li>
+            <span class="example">Mo-Su 10:00-19:00; Jun off; Dec 25 off</span><br>
+            Możesz wykluczyć dni lub nawet miesiące słowem „off”.
+        </li>
+        <li>
+            <span class="example">Mo-Fr 17:00-03:00, Sa-Su 18:00+</span><br>
+            Przedziały czasowe mogą obejmować północ i w takich przypadkach bezpieczniej jest używać przecinka zamiast średnika. Znak plus oznacza, że godzina zamknięcia nie jest określona.
+        </li>
+    </ul>
+</div>
+<div lang="ro">
+    <p>
+        Câmpul ore de deschidere arată când este deschisă locația. Folosiți <span class="example">24/7</span> pentru locațiile deschise non-stop. Exemple de intervale mai specifice:
+    </p>
+    <ul>
+        <li>
+            <span class="example">Mo-Fr 10:00-21:00</span><br>
+            Un singur interval este o listă de zile ale săptămânii ("-" pentru un interval, "," pentru a adăuga un alt interval), urmat de un spațiu și un interval orar. Un interval "Mo-Su" poate fi omis, de exemplu <span class="example">11:00-20:00</span>.
+        </li>
+        <li>
+            <span class="example">Mo-We,Fr 09:00-13:30,14:00-18:30</span><br>
+            Folosiți virgula pentru a adăuga intervale, de exemplu când locația are pauză de prânz sau e deschisă în zile ne-consecutive. Nu adăugați spații suplimentare.
+        </li>
+        <li>
+            <span class="example">Mo-Fr 09:00-20:00; Sa-Su 10:00-19:00</span><br>
+            Punct și virgulă separă definiții diferite pentru zile ale săptămânii diferite. Atenție la "09": trebuie să folosiți întotdeauna două cifre pentru ore.
+        </li>
+        <li>
+            <span class="example">Mo-Su 10:00-19:00; Jun off; Dec 25 off</span><br>
+            Puteți exclude zile și chiar luni întregi folosind cuvântul "off".
+        </li>
+        <li>
+            <span class="example">Mo-Fr 17:00-03:00, Sa-Su 18:00+</span><br>
+            Intervalele de timp pot cuprinde miezul nopții, și e mai sigur să folosiți virgulă în loc de punct și virgulă în asemenea cazuri. Semnul plus înseamnă că timpul de închidere nu este specificat.
+        </li>
+    </ul>
+</div>
+<div lang="nl">
+    <p>
+        Het openingstijdenveld specificeert wanneer de winkel open is. Gebruik <span class="example">24/7</span> voor faciliteiten die altijd open zijn. Voorbeelden van meer specifieke intervallen zijn:
+    </p>
+    <ul>
+        <li>
+            <span class="example">Mo-Fr 10:00-21:00</span><br>
+            Een enkel interval is een lijst van weekdagen ("-" voor een reeks, "," om nog een reeks toe te voegen), gevolgd door een spatie en een tijdsreeks. Een enkele "Mo-Su" kan weggelaten worden bijvoorbeeld <span class="example">11:00-20:00</span>.
+        </li>
+        <li>
+            <span class="example">Mo-We,Fr 09:00-13:30,14:00-18:30</span><br>
+            Gebruik komma's om reeksen toe te voegen, bijvoorbeeld als de faciliteit een lunchpauze heeft, of open is op niet opeenvolgende weekdagen. Voeg geen extra spaties toe.
+        </li>
+        <li>
+            <span class="example">Mo-Fr 09:00-20:00; Sa-Su 10:00-19:00</span><br>
+            Een puntkomma scheidt verschillende definities voor verschillende weekdagen. Let op de "09": je moet altijd twee cijfers gebruiken voor uren.
+        </li>
+        <li>
+            <span class="example">Mo-Su 10:00-19:00; Jun off; Dec 25 off</span><br>
+            Je kan dagen of zelfs maanden uitsluiten met het woord "off".
+        </li>
+        <li>
+            <span class="example">Mo-Fr 17:00-03:00, Sa-Su 18:00+</span><br>
+            Tijdsintervallen kunnen over middernacht heengaan, en het is veiliger om dan een komma in plaats van een puntkomma te gebruiken. Het plusteken betekent dat de sluitingstijd ongespecificeerd is.
+        </li>
+    </ul>
+</div>
+</body>
+</html>

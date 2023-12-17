@@ -14,17 +14,12 @@
 #include "base/assert.hpp"
 #include "base/file_name_utils.hpp"
 #include "base/logging.hpp"
-#include "base/scope_guard.hpp"
 #include "base/string_utils.hpp"
 #include "base/thread_pool_computational.hpp"
 
 #include <algorithm>
 #include <future>
-#include <iostream>
-#include <iterator>
-#include <thread>
 #include <tuple>
-#include <utility>
 
 namespace
 {
@@ -64,15 +59,15 @@ std::vector<m2::PointD> AppendPointsWithAnyDirection(std::vector<MarkedPoint> co
 
   for (size_t k = from; k <= to; ++k)
     result.emplace_back(copyFrom[k].m_point);
-  
+
   return result;
 }
 
 double AbsAreaDiff(std::vector<m2::PointD> const & firstPolygon,
                    std::vector<m2::PointD> const & secondPolygon)
 {
-  auto const firstArea = generator::routing_city_boundaries::AreaOnEarth(firstPolygon);
-  auto const secondArea = generator::routing_city_boundaries::AreaOnEarth(secondPolygon);
+  auto const firstArea = generator::AreaOnEarth(firstPolygon);
+  auto const secondArea = generator::AreaOnEarth(secondPolygon);
   return std::abs(secondArea - firstArea);
 }
 

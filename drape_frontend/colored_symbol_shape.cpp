@@ -306,21 +306,17 @@ void ColoredSymbolShape::Draw(ref_ptr<dp::GraphicsContext> context, ref_ptr<dp::
 
   dp::AttributeProvider provider(1, static_cast<uint32_t>(buffer.size()));
   provider.InitStream(0, gpu::ColoredSymbolVertex::GetBindingInfo(), make_ref(buffer.data()));
-  batcher->InsertTriangleList(context, state, make_ref(&provider), move(handle));
+  batcher->InsertTriangleList(context, state, make_ref(&provider), std::move(handle));
 }
 
 uint64_t ColoredSymbolShape::GetOverlayPriority() const
 {
-  // Special displacement mode.
-  if (m_params.m_specialDisplacement == SpecialDisplacement::SpecialMode)
-    return dp::CalculateSpecialModePriority(m_params.m_specialPriority);
-
   if (m_params.m_specialDisplacement == SpecialDisplacement::SpecialModeUserMark)
     return dp::CalculateSpecialModeUserMarkPriority(m_params.m_specialPriority);
 
   if (m_params.m_specialDisplacement == SpecialDisplacement::UserMark)
     return dp::CalculateUserMarkPriority(m_params.m_minVisibleScale, m_params.m_specialPriority);
 
-  return dp::CalculateOverlayPriority(m_params.m_minVisibleScale, m_params.m_rank, m_params.m_depth);
+  return dp::CalculateOverlayPriority(m_params.m_rank, m_params.m_depth);
 }
 }  // namespace df

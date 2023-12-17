@@ -21,7 +21,7 @@
 #include <thread>
 #include <vector>
 
-namespace
+namespace concurrent_feature_parsing_test
 {
 using namespace platform;
 using namespace std;
@@ -102,4 +102,4 @@ UNIT_TEST(ConcurrentFeatureParsingTest)
   for (auto const & mwm : mwms)
     TestConcurrentAccessToFeatures(mwm);
 }
-}  // namespace
+}  // namespace concurrent_feature_parsing_test

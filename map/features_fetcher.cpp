@@ -3,7 +3,6 @@
 #include "platform/platform.hpp"
 
 #include "indexer/classificator_loader.hpp"
-#include "indexer/scales.hpp"
 
 #include "base/assert.hpp"
 #include "base/logging.hpp"
@@ -71,8 +70,7 @@ m2::RectD FeaturesFetcher::GetWorldRect() const
 {
   if (m_rect == m2::RectD())
   {
-    // rect is empty when now countries are loaded
-    // return max global rect
+    // Rect is empty when no countries are loaded, return max global rect.
     return mercator::Bounds::FullRect();
   }
   return m_rect;

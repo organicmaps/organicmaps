@@ -41,21 +41,16 @@ public:
     std::vector<SegmentInfo> m_crossMwmSegments;
   };
 
-  CrossMwmOsmWaysCollector(std::string intermediateDir,
-                           std::string const & targetDir,
-                           bool haveBordersForWholeWorld);
-  CrossMwmOsmWaysCollector(std::string intermediateDir,
-                           std::shared_ptr<feature::CountriesFilesAffiliation> affiliation);
+  CrossMwmOsmWaysCollector(std::string intermediateDir, AffiliationInterfacePtr affiliation);
 
   // generator::CollectorInterface overrides:
   // @{
-  std::shared_ptr<CollectorInterface> Clone(
-      std::shared_ptr<cache::IntermediateDataReaderInterface> const & = {}) const override;
+  std::shared_ptr<CollectorInterface> Clone(IDRInterfacePtr const & = {}) const override;
 
   void CollectFeature(feature::FeatureBuilder const & fb, OsmElement const & element) override;
 
-  void Merge(generator::CollectorInterface const & collector) override;
-  void MergeInto(CrossMwmOsmWaysCollector & collector) const override;
+  IMPLEMENT_COLLECTOR_IFACE(CrossMwmOsmWaysCollector);
+  void MergeInto(CrossMwmOsmWaysCollector & collector) const;
   // @}
 
 protected:
@@ -66,6 +61,6 @@ protected:
 private:
   std::string m_intermediateDir;
   std::map<std::string, std::vector<CrossMwmInfo>> m_mwmToCrossMwmOsmIds;
-  std::shared_ptr<feature::CountriesFilesAffiliation> m_affiliation;
+  AffiliationInterfacePtr m_affiliation;
 };
 }  // namespace generator

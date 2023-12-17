@@ -3,7 +3,6 @@
 #include "kml/types_v3.hpp"
 #include "kml/types_v6.hpp"
 #include "kml/types_v7.hpp"
-#include "kml/types_v8.hpp"
 #include "kml/types.hpp"
 
 #include "coding/geometry_coding.hpp"
@@ -11,10 +10,7 @@
 #include "coding/text_storage.hpp"
 #include "coding/varint.hpp"
 
-#include "geometry/mercator.hpp"
 #include "geometry/point_with_altitude.hpp"
-
-#include "base/bits.hpp"
 
 #include <algorithm>
 #include <type_traits>
@@ -291,6 +287,11 @@ public:
     WriteVarUint(m_sink, ToSecondsSinceEpoch(t));
   }
 
+  void operator()(TimestampMillis const & t, char const * /* name */ = nullptr)
+  {
+    WriteVarUint(m_sink, ToSecondsSinceEpoch(t) * 1000);
+  }
+
   void operator()(double d, char const * /* name */ = nullptr)
   {
     auto const encoded = DoubleToUint32(d, kMinRating, kMaxRating, m_doubleBits);
@@ -378,9 +379,14 @@ public:
     WriteVarUint(m_sink, encoded);
   }
 
-  void operator()(Timestamp const & t, char const * name = nullptr)
+  void operator()(Timestamp const & t, char const * /* name */ = nullptr)
   {
     WriteVarUint(m_sink, ToSecondsSinceEpoch(t));
+  }
+
+  void operator()(TimestampMillis const & t, char const * /* name */ = nullptr)
+  {
+    WriteVarUint(m_sink, ToSecondsSinceEpoch(t) * 1000);
   }
 
   void operator()(PredefinedColor color, char const * /* name */ = nullptr)
@@ -401,7 +407,7 @@ public:
       (*this)(v);
   }
 
-  void operator()(std::vector<m2::PointD> const & points, char const * /* name */ = nullptr)
+  template <class T> void SavePointsSequence(std::vector<T> const & points)
   {
     WriteVarUint(m_sink, static_cast<uint32_t>(points.size()));
     m2::PointU lastUpt = m2::PointU::Zero();
@@ -413,23 +419,28 @@ public:
     }
   }
 
-  void operator()(std::vector<geometry::PointWithAltitude> const & points,
-                  char const * /* name */ = nullptr)
+  void operator()(std::vector<m2::PointD> const & points, char const * /* name */ = nullptr)
   {
-    WriteVarUint(m_sink, static_cast<uint32_t>(points.size()));
-    m2::PointU lastUpt = m2::PointU::Zero();
-    for (auto const & point : points)
-    {
-      auto const upt = PointDToPointU(point.GetPoint(), m_doubleBits);
-      coding::EncodePointDelta(m_sink, lastUpt, upt);
-      lastUpt = upt;
-    }
+    SavePointsSequence(points);
+  }
+
+  void operator()(MultiGeometry::LineT const & points, char const * /* name */ = nullptr)
+  {
+    SavePointsSequence(points);
+
     geometry::Altitude lastAltitude = geometry::kDefaultAltitudeMeters;
     for (auto const & point : points)
     {
       WriteVarInt(m_sink, point.GetAltitude() - lastAltitude);
       lastAltitude = point.GetAltitude();
     }
+  }
+
+  void operator()(MultiGeometry const & geom, char const * /* name */ = nullptr)
+  {
+    /// @todo Update version if we want to save multi geometry into binary.
+    CHECK(!geom.m_lines.empty(), ());
+    (*this)(geom.m_lines[0]);
   }
 
   template <typename D>
@@ -490,6 +501,12 @@ public:
   {
     auto const v = ReadVarUint<uint64_t, Source>(m_source);
     t = FromSecondsSinceEpoch(v);
+  }
+
+  void operator()(TimestampMillis & t, char const * /* name */ = nullptr)
+  {
+    auto const v = ReadVarUint<uint64_t, Source>(m_source);
+    t = FromSecondsSinceEpoch(v / 1000);
   }
 
   void operator()(double & d, char const * /* name */ = nullptr)
@@ -589,6 +606,12 @@ public:
     t = FromSecondsSinceEpoch(v);
   }
 
+  void operator()(TimestampMillis & t, char const * /* name */ = nullptr)
+  {
+    auto const v = ReadVarUint<uint64_t, Source>(m_source);
+    t = FromSecondsSinceEpoch(v / 1000);
+  }
+
   void operator()(PredefinedColor & color, char const * /* name */ = nullptr)
   {
     color = static_cast<PredefinedColor>(ReadPrimitiveFromSource<uint8_t>(m_source));
@@ -616,35 +639,41 @@ public:
     }
   }
 
-  void operator()(std::vector<m2::PointD> & points, char const * /* name */ = nullptr)
+  template <class T> void LoadPointsSequence(std::vector<T> & points)
   {
-    auto const sz = ReadVarUint<uint32_t, Source>(m_source);
+    auto const sz = ReadVarUint<uint32_t, Source>(this->m_source);
     points.reserve(sz);
     m2::PointU lastUpt = m2::PointU::Zero();
     for (uint32_t i = 0; i < sz; ++i)
     {
-      lastUpt = coding::DecodePointDelta(m_source, lastUpt);
+      lastUpt = coding::DecodePointDelta(this->m_source, lastUpt);
       points.emplace_back(PointUToPointD(lastUpt, m_doubleBits));
     }
   }
 
-  void operator()(std::vector<geometry::PointWithAltitude> & points,
-                  char const * /* name */ = nullptr)
+  void operator()(std::vector<m2::PointD> & points, char const * /* name */ = nullptr)
   {
-    auto const sz = ReadVarUint<uint32_t, Source>(m_source);
-    points.reserve(sz);
-    m2::PointU lastUpt = m2::PointU::Zero();
-    for (uint32_t i = 0; i < sz; ++i)
-    {
-      lastUpt = coding::DecodePointDelta(m_source, lastUpt);
-      points.emplace_back(PointUToPointD(lastUpt, m_doubleBits), geometry::kDefaultAltitudeMeters);
-    }
+    LoadPointsSequence(points);
+  }
+
+  void operator()(MultiGeometry::LineT & points, char const * /* name */ = nullptr)
+  {
+    LoadPointsSequence(points);
+
     geometry::Altitude lastAltitude = geometry::kDefaultAltitudeMeters;
     for (auto & point : points)
     {
       point.SetAltitude(lastAltitude + ReadVarInt<int32_t>(m_source));
       lastAltitude = point.GetAltitude();
     }
+  }
+
+  void operator()(MultiGeometry & geom, char const * /* name */ = nullptr)
+  {
+    /// @todo Update version if we want to save multi geometry into binary.
+    MultiGeometry::LineT line;
+    (*this)(line);
+    geom.m_lines.push_back(std::move(line));
   }
 
   template <typename D>

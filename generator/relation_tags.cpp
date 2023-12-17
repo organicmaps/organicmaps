@@ -2,7 +2,10 @@
 
 #include "generator/osm_element.hpp"
 
+#include"indexer/classificator.hpp"
+
 #include "base/stl_helpers.hpp"
+#include "base/string_utils.hpp"
 
 namespace generator
 {
@@ -28,6 +31,9 @@ bool RelationTagsBase::IsKeyTagExists(std::string const & key) const
 
 void RelationTagsBase::AddCustomTag(std::pair<std::string, std::string> const & p)
 {
+  /// @todo UpdateTag is better here, because caller doesn't always make IsKeyTagExists check ?!
+  /// I suspect that it works ok now, because duplicating key tag is added to the end of tags vector
+  /// and GetNameAndType function grabs it last.
   m_current->AddTag(p.first, p.second);
 }
 
@@ -37,6 +43,8 @@ void RelationTagsNode::Process(RelationElement const & e)
   if (Base::IsSkipRelation(type))
     return;
 
+  bool const isBoundary = (type == "boundary");
+  bool const isPlaceDest = Base::IsKeyTagExists("place") || Base::IsKeyTagExists("de:place");
   bool const processAssociatedStreet = type == "associatedStreet" &&
                                        Base::IsKeyTagExists("addr:housenumber") &&
                                        !Base::IsKeyTagExists("addr:street");
@@ -46,15 +54,21 @@ void RelationTagsNode::Process(RelationElement const & e)
     // - used in routing information
     // - used in building addresses matching
     if (p.first == "network" || p.first == "operator" || p.first == "route" ||
-        p.first == "maxspeed" ||
-        strings::StartsWith(p.first, "addr:"))
+        p.first == "maxspeed" || strings::StartsWith(p.first, "addr:"))
     {
       if (!Base::IsKeyTagExists(p.first))
         Base::AddCustomTag(p);
     }
-    // Convert associatedStreet relation name to addr:street tag if we don't have one.
     else if (p.first == "name" && processAssociatedStreet)
+    {
+      // Convert associatedStreet relation name to addr:street tag if we don't have one.
       Base::AddCustomTag({"addr:street", p.second});
+    }
+    else if (isBoundary && isPlaceDest && (p.first == "wikipedia" || p.first == "wikidata"))
+    {
+      if (!Base::IsKeyTagExists(p.first))
+        Base::AddCustomTag(p);
+    }
   }
 }
 
@@ -62,54 +76,107 @@ bool RelationTagsWay::IsAcceptBoundary(RelationElement const & e) const
 {
   // Do not accumulate boundary types (boundary=administrative) for inner polygons.
   // Example: Minsk city border (admin_level=8) is inner for Minsk area border (admin_level=4).
-  return e.GetWayRole(Base::m_featureID) != "inner";
+  if (e.GetWayRole(Base::m_featureID) == "inner")
+    return false;
+
+  // Skip religious_administration, political, etc ...
+  // https://github.com/organicmaps/organicmaps/issues/4702
+  auto const v = e.GetTagValue("boundary");
+  return (!v.empty () && classif().GetTypeByPathSafe({"boundary", v}) != Classificator::INVALID_TYPE);
 }
 
 void RelationTagsWay::Process(RelationElement const & e)
 {
-  /// @todo Review route relations in future.
-  /// Actually, now they give a lot of dummy tags.
+  // https://github.com/organicmaps/organicmaps/issues/4051
+  /// @todo We skip useful Linear tags. Put workaround now and review *all* this logic in future!
+  /// Should parse classifier types for Relations separately and combine classifier types
+  /// with Nodes and Ways, according to the drule's geometry type.
+  auto const barrier = e.GetTagValue("barrier");
+  if (!barrier.empty())
+    Base::AddCustomTag({"barrier", std::string(barrier)});
+
   auto const type = e.GetType();
   if (Base::IsSkipRelation(type))
     return;
 
+  bool const isHighway = Base::IsKeyTagExists("highway");
+
+  /// @todo Review route relations in future. Actually, now they give a lot of dummy tags.
   if (type == "route")
   {
-    if (e.GetTagValue("route") == "road")
+    auto const route = e.GetTagValue("route");
+    bool fetchTags = (isHighway && route == "road");
+
+    if (fetchTags)
     {
-      // Append "network/ref" to the feature ref tag.
+      /* Road ref format is
+       *    8;e-road/E 67;ee:local/7841171
+       * where road refs/shields are separated by a ";"
+       * with an optionally prepended network code followed by a "/".
+       * Its parsed by indexer/road_shields_parser.cpp.
+       */
       std::string ref(e.GetTagValue("ref"));
       if (!ref.empty())
       {
+        auto refBase = m_current->GetTag("ref");
+        if (refBase == ref)
+          refBase.clear();
+
         auto const network = e.GetTagValue("network");
         // Not processing networks with more than 15 chars (see road_shields_parser.cpp).
         if (!network.empty() && network.find('/') == std::string::npos && network.size() < 15)
           ref = std::string(network).append(1, '/').append(ref);
 
-        auto const refBase = m_current->GetTag("ref");
         if (!refBase.empty())
-          ref = std::string(refBase).append(1, ';').append(ref);
+          ref = refBase + ';' + ref;
 
         Base::AddCustomTag({"ref", std::move(ref)});
       }
     }
-    return;
+    else
+    {
+      // Pass this route Relation forward to fetch it's tags (like foot, bicycle, ..., wikipedia).
+      fetchTags = (route == "ferry" || (route == "train" && !e.GetTagValue("shuttle").empty()));
+    }
+
+    if (isHighway)
+    {
+      if (route == "bicycle")
+        Base::AddCustomTag({"bicycle", "yes"});
+      else if (route == "foot" || route == "hiking")
+        Base::AddCustomTag({"foot", "yes"});
+    }
+
+    if (!fetchTags)
+      return;
   }
 
   if (type == "building")
     return;
 
-  bool const isBoundary = (type == "boundary") && IsAcceptBoundary(e);
+  bool isBoundary = false;
+  if (type == "boundary")
+  {
+    if (!IsAcceptBoundary(e))
+      return;
+    isBoundary = true;
+  }
+
+  bool const isPlaceDest = Base::IsKeyTagExists("place") || Base::IsKeyTagExists("de:place");
   bool const isAssociatedStreet = type == "associatedStreet";
   bool const processAssociatedStreet = isAssociatedStreet &&
                                        Base::IsKeyTagExists("addr:housenumber") &&
                                        !Base::IsKeyTagExists("addr:street");
-  bool const isHighway = Base::IsKeyTagExists("highway");
 
   for (auto const & p : e.m_tags)
   {
     /// @todo Skip common key tags.
-    if (p.first == "type" || p.first == "route" || p.first == "area")
+    if (p.first == "type" || p.first == "area")
+      continue;
+
+    /// @todo We can't assign whole Relation's duration to the each Way. Split on Ways somehow?
+    /// Make separate route = ferry/train(shuttle) Relations processing with generating one Way (routing edge).
+    if (p.first == "duration")
       continue;
 
     // Convert associatedStreet relation name to addr:street tag if we don't have one.
@@ -123,13 +190,17 @@ void RelationTagsWay::Process(RelationElement const & e)
       continue;
     }
 
-    if (isAssociatedStreet && p.first == "wikipedia")
+    if (p.first == "wikipedia" || p.first == "wikidata")
+    {
+      if ((isBoundary && !isPlaceDest) || (!isHighway && isAssociatedStreet) || Base::IsKeyTagExists(p.first))
+        continue;
+    }
+
+    if (p.first == "place" || p.first == "de:place" || p.first == "capital")
       continue;
 
-    if (!isBoundary && p.first == "boundary")
-      continue;
-
-    if (p.first == "place")
+    // Otherwise we have a bunch of minor islands (and other stuff) inside a country with a huge search rank.
+    if (p.first == "population")
       continue;
 
     // Do not pass "ref" tags from boundaries and other, non-route relations to highways.

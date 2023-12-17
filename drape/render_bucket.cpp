@@ -36,7 +36,7 @@ drape_ptr<OverlayHandle> RenderBucket::PopOverlayHandle()
   ASSERT(!m_overlay.empty(), ());
   size_t lastElement = m_overlay.size() - 1;
   swap(m_overlay[0], m_overlay[lastElement]);
-  drape_ptr<OverlayHandle> h = move(m_overlay[lastElement]);
+  drape_ptr<OverlayHandle> h = std::move(m_overlay[lastElement]);
   m_overlay.pop_back();
   return h;
 }
@@ -48,7 +48,7 @@ ref_ptr<OverlayHandle> RenderBucket::GetOverlayHandle(size_t index)
 
 void RenderBucket::AddOverlayHandle(drape_ptr<OverlayHandle> && handle)
 {
-  m_overlay.push_back(move(handle));
+  m_overlay.push_back(std::move(handle));
 }
 
 void RenderBucket::BeforeUpdate()

@@ -10,6 +10,8 @@
 #include "indexer/feature_algo.hpp"
 #include "indexer/feature_utils.hpp"
 #include "indexer/ftypes_matcher.hpp"
+#include "indexer/map_object.hpp"
+#include "indexer/road_shields_parser.hpp"
 
 #include "platform/measurement_utils.hpp"
 
@@ -79,15 +81,15 @@ bool PreRankerResult::LessRankAndPopularity(PreRankerResult const & lhs, PreRank
     return lhs.m_info.m_rank > rhs.m_info.m_rank;
   if (lhs.m_info.m_popularity != rhs.m_info.m_popularity)
     return lhs.m_info.m_popularity > rhs.m_info.m_popularity;
+
+  /// @todo Remove this epilog when we will have _enough_ ranks and popularities in data.
   return lhs.m_info.m_distanceToPivot < rhs.m_info.m_distanceToPivot;
 }
 
 // static
 bool PreRankerResult::LessDistance(PreRankerResult const & lhs, PreRankerResult const & rhs)
 {
-  if (lhs.m_info.m_distanceToPivot != rhs.m_info.m_distanceToPivot)
-    return lhs.m_info.m_distanceToPivot < rhs.m_info.m_distanceToPivot;
-  return lhs.m_info.m_rank > rhs.m_info.m_rank;
+  return lhs.m_info.m_distanceToPivot < rhs.m_info.m_distanceToPivot;
 }
 
 // static
@@ -119,11 +121,7 @@ bool PreRankerResult::LessByExactMatch(PreRankerResult const & lhs, PreRankerRes
   if (lScore != rScore)
     return lScore;
 
-  auto const byTokens = CompareByTokensMatch(lhs, rhs);
-  if (byTokens != 0)
-    return byTokens == -1;
-
-  return LessDistance(lhs, rhs);
+  return CompareByTokensMatch(lhs, rhs) == -1;
 }
 
 bool PreRankerResult::CategoriesComparator::operator()(PreRankerResult const & lhs,
@@ -149,19 +147,21 @@ std::string DebugPrint(PreRankerResult const & r)
   ostringstream os;
   os << "PreRankerResult "
      << "{ FID: " << r.GetId().m_index    // index is enough here for debug purpose
+     << "; m_matchedTokensNumber: " << r.m_matchedTokensNumber
+     << "; m_isRelaxed: " << r.m_isRelaxed
      << "; " << DebugPrint(r.m_info)
      << " }";
   return os.str();
 }
 
 // RankerResult ------------------------------------------------------------------------------------
-RankerResult::RankerResult(FeatureType & f, m2::PointD const & center, m2::PointD const & pivot,
+RankerResult::RankerResult(FeatureType & ft, m2::PointD const & center,
                            string displayName, string const & fileName)
-  : m_types(f)
+  : m_types(ft)
   , m_str(std::move(displayName))
-  , m_id(f.GetID())
+  , m_id(ft.GetID())
   , m_resultType(ftypes::IsBuildingChecker::Instance()(m_types) ? Type::Building : Type::Feature)
-  , m_geomType(f.GetGeomType())
+  , m_geomType(ft.GetGeomType())
 {
   ASSERT(m_id.IsValid(), ());
   ASSERT(!m_types.Empty(), ());
@@ -170,12 +170,12 @@ RankerResult::RankerResult(FeatureType & f, m2::PointD const & center, m2::Point
 
   m_region.SetParams(fileName, center);
 
-  FillDetails(f, m_details);
+  FillDetails(ft, m_details);
 }
 
-RankerResult::RankerResult(FeatureType & ft, m2::PointD const & pivot, std::string const & fileName)
+RankerResult::RankerResult(FeatureType & ft, std::string const & fileName)
   : RankerResult(ft, feature::GetCenter(ft, FeatureType::WORST_GEOMETRY),
-                 pivot, std::string(ft.GetReadableName()), fileName)
+                 std::string(ft.GetReadableName()), fileName)
 {
 }
 
@@ -280,17 +280,21 @@ void FillDetails(FeatureType & ft, Result::Details & details)
     }
   }
 
-  if (strings::to_uint(ft.GetMetadata(feature::Metadata::FMD_STARS), details.m_stars))
-    details.m_stars = std::min(details.m_stars, uint8_t(5));
+  feature::TypesHolder const typesHolder(ft);
+
+  details.m_isHotel = ftypes::IsHotelChecker::Instance()(typesHolder);
+  if (details.m_isHotel && strings::to_uint(ft.GetMetadata(feature::Metadata::FMD_STARS), details.m_stars))
+    details.m_stars = std::min(details.m_stars, osm::MapObject::kMaxStarsCount);
   else
     details.m_stars = 0;
 
-  string const kFieldsSeparator = " • ";
-  auto const cuisines = feature::GetLocalizedCuisines(feature::TypesHolder(ft));
-  details.m_cuisine = strings::JoinStrings(cuisines, kFieldsSeparator);
+  auto const cuisines = feature::GetLocalizedCuisines(typesHolder);
+  details.m_cuisine = strings::JoinStrings(cuisines, osm::MapObject::kFieldsSeparator);
 
-  auto const roadShields = feature::GetRoadShieldsNames(ft.GetRoadNumber());
-  details.m_roadShields = strings::JoinStrings(roadShields, kFieldsSeparator);
+  auto const roadShields = ftypes::GetRoadShieldsNames(ft);
+  details.m_roadShields = strings::JoinStrings(roadShields, osm::MapObject::kFieldsSeparator);
+
+  details.m_fee = feature::GetLocalizedFeeType(typesHolder);
 
   details.m_isInitialized = true;
 }

@@ -21,6 +21,8 @@ typedef void (^MWMImageHeightBlock)(UIImage *, NSString *, NSString *);
 + (BOOL)isRouteRebuildingOnly;
 + (BOOL)isOnRoute;
 
++ (BOOL)isSpeedCamLimitExceeded;
+
 + (BOOL)canAddIntermediatePoint;
 
 + (void)startRouting;

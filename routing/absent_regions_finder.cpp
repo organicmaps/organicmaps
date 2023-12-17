@@ -33,7 +33,7 @@ void AbsentRegionsFinder::GenerateAbsentRegions(Checkpoints const & checkpoints,
 
   // iOS can't reuse threads. So we need to recreate the thread.
   m_routerThread = std::make_unique<threads::Thread>();
-  m_routerThread->Create(move(router));
+  m_routerThread->Create(std::move(router));
 }
 
 void AbsentRegionsFinder::GetAbsentRegions(std::set<std::string> & regions)

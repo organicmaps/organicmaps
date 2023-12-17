@@ -3,7 +3,7 @@
 
 static CGFloat const kTopTextViewOffset = 12.;
 static NSString *const kTextViewContentSizeKeyPath = @"contentSize";
-static CGFloat const kMinimalTextViewHeight = 104.;
+static CGFloat const kMinimalTextViewHeight = 44.;
 static void *kContext = &kContext;
 
 @interface MWMNoteCell () <UITextViewDelegate>

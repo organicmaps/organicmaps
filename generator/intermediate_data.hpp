@@ -246,7 +246,8 @@ public:
 
   virtual ~IntermediateDataReaderInterface() = default;
 
-  virtual bool GetNode(Key id, double & lat, double & lon) const = 0;
+  /// \a x \a y are in mercator projection coordinates. @see IntermediateDataWriter::AddNode.
+  virtual bool GetNode(Key id, double & y, double & x) const = 0;
   virtual bool GetWay(Key id, WayElement & e) = 0;
   virtual bool GetRelation(Key id, RelationElement & e) = 0;
 
@@ -264,13 +265,12 @@ public:
   IntermediateDataReader(IntermediateDataObjectsCache::AllocatedObjects & objs,
                          feature::GenerateInfo const & info);
 
-  // IntermediateDataReaderInterface overrides:
-  // TODO |GetNode()|, |lat|, |lon| are used as y, x in real.
-  bool GetNode(Key id, double & lat, double & lon) const override
+  /// \a x \a y are in mercator projection coordinates. @see IntermediateDataWriter::AddNode.
+  bool GetNode(Key id, double & y, double & x) const override
   {
-    return m_nodes.GetPoint(id, lat, lon);
+    return m_nodes.GetPoint(id, y, x);
   }
-  
+
   bool GetWay(Key id, WayElement & e) override { return m_ways.Read(id, e); }
   bool GetRelation(Key id, RelationElement & e) override { return m_relations.Read(id, e); }
 
@@ -298,7 +298,7 @@ private:
   template <typename Element, typename ToDo>
   class ElementProcessorBase
   {
-  public:  
+  public:
     ElementProcessorBase(CacheReader & reader, ToDo & toDo)
       : m_reader(reader)
       , m_toDo(toDo)
@@ -343,7 +343,8 @@ class IntermediateDataWriter
 public:
   IntermediateDataWriter(PointStorageWriterInterface & nodes, feature::GenerateInfo const & info);
 
-  void AddNode(Key id, double lat, double lon) { m_nodes.AddPoint(id, lat, lon); }
+  /// \a x \a y are in mercator projection coordinates. @see IntermediateDataReaderInterface::GetNode.
+  void AddNode(Key id, double y, double x) { m_nodes.AddPoint(id, y, x); }
   void AddWay(Key id, WayElement const & e) { m_ways.Write(id, e); }
 
   void AddRelation(Key id, RelationElement const & e);

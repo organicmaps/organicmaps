@@ -28,7 +28,7 @@ public:
     ft.ForEachPoint([&res] (m2::PointD const &) { res = true; }, m_scale);
     ft.ForEachTriangle([&res] (m2::PointD const &, m2::PointD const &, m2::PointD const &) { res = true; }, m_scale);
 
-    TEST(res, (ft.DebugString(m_scale), "Scale =", m_scale));
+    TEST(res, (ft.DebugString(), "Scale =", m_scale));
   }
 
   void SetScale(int scale)

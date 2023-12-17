@@ -3,7 +3,6 @@
 #include <memory>
 #include <string>
 #include <unordered_map>
-#include <utility>
 #include <vector>
 
 namespace platform
@@ -32,14 +31,11 @@ public:
   std::string GetLocale() const { return m_locale; }
   TTranslations GetAllSortedTranslations() const;
 
-private:
-  friend TGetTextByIdPtr GetTextByIdFactory(TextSource textSource, std::string const & localeName);
-  friend TGetTextByIdPtr ForTestingGetTextByIdFactory(std::string const & jsonBuffer,
-                                                      std::string const & localeName);
-  friend TGetTextByIdPtr MakeGetTextById(std::string const & jsonBuffer, std::string const & localeName);
+  static TGetTextByIdPtr Create(std::string const & jsonBuffer, std::string const & localeName);
 
+private:
   GetTextById(std::string const & jsonBuffer, std::string const & localeName);
-  void InitFromJson(std::string const & jsonBuffer);
+
   /// \note IsValid is used only in factories and shall be private.
   bool IsValid() const { return !m_localeTexts.empty(); }
 

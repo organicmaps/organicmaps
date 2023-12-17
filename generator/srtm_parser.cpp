@@ -50,7 +50,7 @@ SrtmTile::SrtmTile()
   Invalidate();
 }
 
-SrtmTile::SrtmTile(SrtmTile && rhs) : m_data(move(rhs.m_data)), m_valid(rhs.m_valid)
+SrtmTile::SrtmTile(SrtmTile && rhs) : m_data(std::move(rhs.m_data)), m_valid(rhs.m_valid)
 {
   rhs.Invalidate();
 }

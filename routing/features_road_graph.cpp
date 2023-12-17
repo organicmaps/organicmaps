@@ -7,16 +7,7 @@
 
 #include "routing_common/vehicle_model.hpp"
 
-#include "indexer/classificator.hpp"
-#include "indexer/ftypes_matcher.hpp"
-#include "indexer/scales.hpp"
-
 #include "coding/point_coding.hpp"
-
-#include "geometry/distance_on_sphere.hpp"
-
-#include "base/logging.hpp"
-#include "base/macros.hpp"
 
 #include <limits>
 
@@ -83,7 +74,7 @@ VehicleModelInterface * FeaturesRoadGraphBase::CrossCountryVehicleModel::GetVehi
   ASSERT(vehicleModel, ());
   ASSERT_EQUAL(m_maxSpeed, vehicleModel->GetMaxWeightSpeed(), ());
 
-  itr = m_cache.emplace(featureId.m_mwmId, move(vehicleModel)).first;
+  itr = m_cache.emplace(featureId.m_mwmId, std::move(vehicleModel)).first;
   return itr->second.get();
 }
 
@@ -222,7 +213,7 @@ void FeaturesRoadGraphBase::GetJunctionTypes(geometry::PointWithAltitude const &
 IRoadGraph::Mode FeaturesRoadGraphBase::GetMode() const
 {
   return m_mode;
-};
+}
 
 void FeaturesRoadGraphBase::ClearState()
 {
@@ -263,9 +254,13 @@ void FeaturesRoadGraphBase::ExtractRoadInfo(FeatureID const & featureId, Feature
 
   CHECK_EQUAL(altitudes.size(), pointsCount, ("GetAltitudes for", featureId, "returns wrong altitudes:", altitudes));
 
-  ri.m_junctions.resize_no_init(pointsCount);
+  ri.m_junctions.resize(pointsCount);
   for (size_t i = 0; i < pointsCount; ++i)
-    ri.m_junctions[i] = { ft.GetPoint(i), altitudes[i] };
+  {
+    auto & pt = ri.m_junctions[i];
+    pt.SetPoint(ft.GetPoint(i));
+    pt.SetAltitude(altitudes[i]);
+  }
 }
 
 IRoadGraph::RoadInfo const & FeaturesRoadGraphBase::GetCachedRoadInfo(

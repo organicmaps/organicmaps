@@ -7,9 +7,6 @@ typedef NS_ENUM(NSInteger, MWMDrivingOptionsState) {
   MWMDrivingOptionsStateChange
 };
 
-@class MWMNavigationDashboardEntity;
-@class MWMNavigationDashboardManager;
-@class MWMTaxiCollectionView;
 @class MWMRoutePreview;
 
 @protocol MWMRoutePreviewDelegate

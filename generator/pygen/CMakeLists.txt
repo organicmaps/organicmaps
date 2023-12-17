@@ -30,7 +30,7 @@ omim_link_libraries(
   freetype
   expat
   ICU::i18n
-  jansson
+  cppjansson
   protobuf
   bsdiff
   minizip

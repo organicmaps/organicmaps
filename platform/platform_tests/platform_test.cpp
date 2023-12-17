@@ -10,6 +10,7 @@
 #include "base/file_name_utils.hpp"
 #include "base/logging.hpp"
 #include "base/scope_guard.hpp"
+#include "base/stl_helpers.hpp"
 
 #include <functional>
 #include <initializer_list>
@@ -100,6 +101,8 @@ UNIT_TEST(GetFilesInDir_Smoke)
 
   pl.GetFilesByExt(dir, DATA_FILE_EXTENSION, files1);
   TEST_GREATER(files1.size(), 0, (dir, "folder should contain some data files"));
+
+  TEST(base::IsExist(files1, "minsk-pass.mwm"), ());
 
   pl.GetFilesByRegExp(dir, ".*\\" DATA_FILE_EXTENSION "$", files2);
   TEST_EQUAL(files1, files2, ());

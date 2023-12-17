@@ -356,6 +356,14 @@ NSString *const kPP2BookmarkEditingSegue = @"PP2BookmarkEditing";
   */
 }
 
+- (void)viewDidAppear:(BOOL)animated {
+  [super viewDidAppear:animated];
+  // Cold start deep links should be handled when the map is initialized.
+  // Otherwise PP container view is nil, or there is no animation/selection of the point.
+  if (DeepLinkHandler.shared.isLaunchedByDeeplink)
+    (void)[DeepLinkHandler.shared handleDeepLinkAndReset];
+}
+
 - (void)viewDidLayoutSubviews {
   [super viewDidLayoutSubviews];
   if (!self.mapView.drapeEngineCreated)
@@ -399,7 +407,10 @@ NSString *const kPP2BookmarkEditingSegue = @"PP2BookmarkEditing";
   return NO;
 }
 - (UIStatusBarStyle)preferredStatusBarStyle {
-  return [self.controlsManager preferredStatusBarStyle];
+  MWMMapViewControlsManager * manager = self.controlsManager;
+  if (manager)
+    return manager.preferredStatusBarStyle;
+  return UIStatusBarStyleDefault;
 }
 
 - (void)updateStatusBarStyle {
@@ -549,11 +560,11 @@ NSString *const kPP2BookmarkEditingSegue = @"PP2BookmarkEditing";
   if (self.isViewLoaded) {
     auto searchState = MWMSearchManagerStateHidden;
     [MWMRouter stopRouting];
-    if ([action isEqualToString:@"me.maps.3daction.bookmarks"])
+    if ([action isEqualToString:@"app.organicmaps.3daction.bookmarks"])
       [self.bookmarksCoordinator open];
-    else if ([action isEqualToString:@"me.maps.3daction.search"])
+    else if ([action isEqualToString:@"app.organicmaps.3daction.search"])
       searchState = MWMSearchManagerStateDefault;
-    else if ([action isEqualToString:@"me.maps.3daction.route"])
+    else if ([action isEqualToString:@"app.organicmaps.3daction.route"])
       [self.controlsManager onRoutePrepare];
     [MWMSearchManager manager].state = searchState;
   } else {
@@ -613,8 +624,10 @@ NSString *const kPP2BookmarkEditingSegue = @"PP2BookmarkEditing";
 #pragma mark - Properties
 
 - (MWMMapViewControlsManager *)controlsManager {
-  if (!self.isViewLoaded)
+  if (!self.isViewLoaded) {
+    // TODO: Returns nil when called from MapViewController.preferredStatusBarStyle.
     return nil;
+  }
   if (!_controlsManager)
     _controlsManager = [[MWMMapViewControlsManager alloc] initWithParentController:self];
   return _controlsManager;
@@ -696,14 +709,23 @@ NSString *const kPP2BookmarkEditingSegue = @"PP2BookmarkEditing";
 }
 
 - (NSArray *)keyCommands {
-   return @[[UIKeyCommand keyCommandWithInput:UIKeyInputDownArrow modifierFlags:0 action:@selector(zoomOut)], // Alternative, not shown when holding CMD
+  NSArray *commands = @[
+    [UIKeyCommand keyCommandWithInput:UIKeyInputDownArrow modifierFlags:0 action:@selector(zoomOut)], // Alternative, not shown when holding CMD
     [UIKeyCommand keyCommandWithInput:@"-" modifierFlags:UIKeyModifierCommand action:@selector(zoomOut) discoverabilityTitle:@"Zoom Out"],
     [UIKeyCommand keyCommandWithInput:UIKeyInputUpArrow modifierFlags:0 action:@selector(zoomIn)], // Alternative, not shown when holding CMD
     [UIKeyCommand keyCommandWithInput:@"=" modifierFlags:UIKeyModifierCommand action:@selector(zoomIn)], // Alternative, not shown when holding CMD
     [UIKeyCommand keyCommandWithInput:@"+" modifierFlags:UIKeyModifierCommand action:@selector(zoomIn) discoverabilityTitle:@"Zoom In"],
     [UIKeyCommand keyCommandWithInput:UIKeyInputEscape modifierFlags:0 action:@selector(goBack) discoverabilityTitle:@"Go Back"],
     [UIKeyCommand keyCommandWithInput:@"0" modifierFlags:UIKeyModifierCommand action:@selector(switchPositionMode) discoverabilityTitle:@"Switch position mode"]
-   ];
+  ];
+
+  if (@available(iOS 15, *)) {
+    for (UIKeyCommand *command in commands) {
+      command.wantsPriorityOverSystemBehavior = YES;
+    }
+  }
+
+  return commands;
 }
 
 - (void)zoomOut {
@@ -719,11 +741,10 @@ NSString *const kPP2BookmarkEditingSegue = @"PP2BookmarkEditing";
 }
 
 - (void)goBack {
-   NSString *backURL = [DeepLinkHandler.shared getBackUrl];
-   BOOL canOpenURL = [[UIApplication sharedApplication] canOpenURL:[NSURL URLWithString:backURL]];
-   if (canOpenURL){
-     [[UIApplication sharedApplication] openURL:[NSURL URLWithString:backURL] options:@{} completionHandler:nil];
-   }
+  NSString *backURL = [DeepLinkHandler.shared getBackUrl];
+  if (backURL != nil) {
+    [[UIApplication sharedApplication] openURL:[NSURL URLWithString: backURL] options:@{} completionHandler:nil];
+  }
 }
 
 @end

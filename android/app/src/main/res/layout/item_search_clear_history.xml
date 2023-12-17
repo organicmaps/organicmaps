@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<TextView xmlns:android="http://schemas.android.com/apk/res/android"
+          xmlns:app="http://schemas.android.com/apk/res-auto"
+          style="@style/MwmWidget.TextView.Search"
+          android:text="@string/clear_search"
+          app:drawableStartCompat="@drawable/ic_cancel"/>

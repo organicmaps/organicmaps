@@ -2,8 +2,6 @@
 
 #include "indexer/string_set.hpp"
 
-#include "base/logging.hpp"
-
 #include <algorithm>
 #include <iterator>
 #include <limits>
@@ -11,15 +9,15 @@
 
 #include <boost/iterator/transform_iterator.hpp>
 
-using namespace std;
-using namespace strings;
-
 using boost::make_transform_iterator;
 
 namespace search
 {
 namespace house_numbers
 {
+using namespace std;
+using namespace strings;
+
 namespace
 {
 // Common strings in house numbers.
@@ -31,50 +29,65 @@ namespace
 // sort | uniq
 //
 // *NOTE* there is a list of exceptions at the end.
-vector<string> const g_strings = {
-    "a",      "aa",      "ab",      "abc",  "ac",   "ad",      "ae",      "af",       "ag",
+
+/// @todo By VNG: This list looks hillarious :) Definitely should set some lower bound number
+/// to filter very exotic entries in addr:housenumber.
+
+// Removed street keywords for now and ALL one-letter strings. It is sensitive for search speed, because:
+// LooksLikeHouseNumber -> MatchBuildingsWithStreets -> *heavy* StreetVicinityLoader::GetStreet
+// "av", "avenida",
+// "ca", "cal",  "calle",  "carrera", "court",
+// "da", "de", "di".
+// "ga",
+// "ł", "la",
+// "ne",
+// "pa", "par", "park", "plaza",
+// "rd", "ro", "road",
+// "so", "south", "st", "street",
+// "vi",
+// "way", "we", "west",
+
+char const * g_strings[] = {
+    "aa",     "ab",      "abc",     "ac",   "ad",   "ae",      "af",      "ag",
     "ah",     "ai",      "aj",      "ak",   "al",   "am",      "an",      "ao",       "ap",
-    "aq",     "ar",      "are",     "as",   "at",   "au",      "av",      "avenida",  "aw",
-    "ax",     "ay",      "az",      "azm",  "b",    "ba",      "bab",     "bah",      "bak",
+    "aq",     "ar",      "are",     "as",   "at",   "au",      "aw",
+    "ax",     "ay",      "az",      "azm",  "ba",   "bab",     "bah",     "bak",
     "bb",     "bc",      "bd",      "be",   "bedr", "ben",     "bf",      "bg",       "bh",
     "bij",    "bis",     "bk",      "bl",   "bldg", "blk",     "bloc",    "block",    "bloco",
     "blok",   "bm",      "bmn",     "bn",   "bo",   "boe",     "bol",     "bor",      "bov",
     "box",    "bp",      "br",      "bra",  "brc",  "bs",      "bsa",     "bu",       "building",
-    "bus",    "bv",      "bwn",     "bx",   "by",   "c",       "ca",      "cab",      "cal",
-    "calle",  "carrera", "cat",     "cbi",  "cbu",  "cc",      "ccz",     "cd",       "ce",
-    "centre", "cfn",     "cgc",     "cjg",  "cl",   "club",    "cottage", "cottages", "court",
-    "cso",    "cum",     "d",       "da",   "db",   "dd",      "de",      "df",       "di",
-    "dia",    "dvu",     "e",       "ec",   "ee",   "eh",      "em",      "en",       "esm",
-    "ev",     "f",       "farm",    "fdo",  "fer",  "ff",      "fixme",   "flat",     "flats",
-    "floor",  "g",       "ga",      "gar",  "gara", "gas",     "gb",      "gg",       "gr",
-    "grg",    "h",       "ha",      "haus", "hh",   "hl",      "ho",      "house",    "hr",
-    "hs",     "hv",      "i",       "ii",   "iii",  "int",     "iv",      "ix",       "j",
-    "jab",    "jf",      "jj",      "jms",  "jtg",  "k",       "ka",      "kab",      "kk",
-    "km",     "kmb",     "kmk",     "knn",  "koy",  "kp",      "kra",     "ksn",      "kud",
-    "l",      "ł",       "la",      "ldo",  "ll",   "local",   "loja",    "lot",      "lote",
-    "lsb",    "lt",      "m",       "mac",  "mad",  "mah",     "mak",     "mat",      "mb",
+    "bv",     "bwn",     "bx",      "by",   "cab",  "cat",     "cbi",     "cbu",      "cc",
+    "ccz",    "cd",      "ce",      "centre", "cfn",  "cgc",   "cjg",     "cl",       "club",
+    "cottage", "cottages", "cso",   "cum",  "db",   "dd",      "df",
+    "dia",    "dvu",     "ec",      "ee",   "eh",   "em",      "en",      "esm",
+    "ev",     "fdo",     "fer",     "ff",   "flat", "flats",   "floor",
+    "gar",    "gara",    "gas",     "gb",   "gg",   "gr",
+    "grg",    "ha",      "haus",    "hh",   "hl",   "ho",      "house",   "hr",
+    "hs",     "hv",      "ii",      "iii",  "int",  "iv",      "ix",
+    "jab",    "jf",      "jj",      "jms",  "jtg",  "ka",      "kab",     "kk",
+    "kmb",    "kmk",     "knn",     "koy",  "kp",   "kra",     "ksn",     "kud",
+    "ldo",    "ll",      "local",   "loja", "lot",  "lote",
+    "lsb",    "lt",      "mac",     "mad",  "mah",  "mak",     "mat",     "mb",
     "mbb",    "mbn",     "mch",     "mei",  "mks",  "mm",      "mny",     "mo",       "mok",
-    "monica", "mor",     "morocco", "msb",  "mtj",  "mtk",     "mvd",     "n",        "na",
-    "ncc",    "ne",      "nij",     "nn",   "no",   "nr",      "nst",     "nu",       "nut",
-    "o",      "of",      "ofof",    "old",  "one",  "oo",      "opl",     "p",        "pa",
-    "pap",    "par",     "park",    "pav",  "pb",   "pch",     "pg",      "ph",       "phd",
-    "pkf",    "plaza",   "plot",    "po",   "pos",  "pp",      "pr",      "pra",      "pya",
-    "q",      "qq",      "quater",  "r",    "ra",   "rbo",     "rd",      "rear",     "reisach",
-    "rk",     "rm",      "ro",      "road", "rood", "rosso",   "rs",      "rw",       "s",
+    "mor",    "msb",     "mtj",     "mtk",  "mvd",  "na",
+    "ncc",    "nij",     "nn",      "no",   "nr",   "nst",     "nu",      "nut",
+    "of",     "ofof",    "old",     "one",  "oo",   "opl",     "pa",
+    "pap",    "pav",     "pb",      "pch",  "pg",   "ph",      "phd",
+    "pkf",    "plot",    "po",      "pos",  "pp",   "pr",      "pra",     "pya",
+    "qq",     "quater",  "ra",      "rbo",  "rear", "reisach",
+    "rk",     "rm",      "rosso",   "rs",   "rw",
     "sab",    "sal",     "sav",     "sb",   "sba",  "sbb",     "sbl",     "sbn",      "sbx",
-    "sc",     "sch",     "sco",     "seb",  "sep",  "sf",      "sgr",     "shop",     "sir",
-    "sj",     "sl",      "sm",      "sn",   "snc",  "so",      "som",     "south",    "sp",
-    "spi",    "spn",     "ss",      "st",   "sta",  "stc",     "std",     "stiege",   "street",
-    "suite",  "sur",     "t",       "tam",  "ter",  "terrace", "tf",      "th",       "the",
+    "sc",     "sch",     "sco",     "seb",  "sep",  "sf",      "sgr",     "sir",
+    "sj",     "sl",      "sm",      "sn",   "snc",  "som",     "sp",
+    "spi",    "spn",     "ss",      "sta",  "stc",  "std",     "stiege",
+    "suite",  "sur",     "tam",     "ter",  "terrace", "tf",   "th",      "the",
     "tl",     "to",      "torre",   "tr",   "traf", "trd",     "ts",      "tt",       "tu",
-    "u",      "uhm",     "unit",    "utc",  "v",    "vi",      "vii",     "w",        "wa",
-    "way",    "we",      "west",    "wf",   "wink", "wrh",     "ws",      "wsb",      "x",
-    "xx",     "y",       "z",       "za",   "zh",   "zona",    "zu",      "zw",       "א",
-    "ב",      "ג",       "α",       "а",    "б",    "бб",      "бл",      "в",        "вл",
-    "вх",     "г",       "д",       "е",    "ж",    "з",       "и",       "к",        "л",
-    "лит",    "м",       "магазин", "н",    "о",    "п",       "р",       "разр",     "с",
-    "стр",    "т",       "тп",      "у",    "уч",   "участок", "ф",       "ц",        "ა",
-    "丁目",   "之",      "号",      "號",
+    "uhm",    "unit",    "utc",     "vii",  "wa",
+    "wf",     "wink",    "wrh",     "ws",   "wsb",
+    "xx",     "za",      "zh",      "zona", "zu",   "zw",      "א",
+    "ב",      "ג",       "α",       "бб",   "бл",   "вл",
+    "вх",    "лит",      "разр",    "стр",  "тп",   "уч",      "участок", "ა",
+    "丁目",   "之",       "号",      "號",
 
     // List of exceptions
     "владение"
@@ -103,9 +116,10 @@ vector<string> const g_patternsStrict = {
 
 
 // List of common synonyms for building parts. Constructed by hand.
-vector<string> const g_buildingPartSynonyms = {
+char const * g_buildingPartSynonyms[] = {
     "building", "bldg", "bld",   "bl",  "unit",     "block", "blk",  "корпус",
-    "корп",     "кор",  "литер", "лит", "строение", "стр",   "блок", "бл"};
+    "корп",     "кор",  "литер", "лит", "строение", "стр",   "блок", "бл"
+};
 
 // List of common stop words for buildings. Constructed by hand.
 UniString const g_stopWords[] = {MakeUniString("дом"), MakeUniString("house"), MakeUniString("д")};
@@ -202,7 +216,7 @@ public:
   // true).
   bool LooksGood(UniString const & s, bool isPrefix) const
   {
-    vector<Token> parse;
+    TokensT parse;
     Tokenize(s, isPrefix, parse);
 
     size_t i = 0;
@@ -222,18 +236,19 @@ public:
           break;
         if (!m_matcher.Has(token.m_value, token.m_prefix))
           return false;
-        // fallthrough
+        [[fallthrough]];
       }
       case Token::TYPE_LETTER:
       {
         if (j == 0 && IsStopWord(token.m_value, token.m_prefix))
           break;
-        // fallthrough
+        [[fallthrough]];
       }
-      case Token::TYPE_NUMBER:         // fallthrough
-      case Token::TYPE_BUILDING_PART:  // fallthrough
+      case Token::TYPE_NUMBER:
+      case Token::TYPE_BUILDING_PART:
       case Token::TYPE_BUILDING_PART_OR_LETTER:
-        parse[i] = move(parse[j]);
+        parse[i] = std::move(parse[j]);
+        ASSERT(!parse[i].m_value.empty(), ());
         ++i;
       }
     }
@@ -301,7 +316,7 @@ bool IsLiteralType(Token::Type type)
 // * when there is at least one number, drops all tokens until the
 //   number and sorts the rest
 // * when there are no numbers at all, sorts tokens
-void SimplifyParse(vector<Token> & tokens)
+void SimplifyParse(TokensT & tokens)
 {
   if (!tokens.empty() && tokens.back().m_prefix)
     tokens.pop_back();
@@ -361,7 +376,7 @@ bool IsShortBuildingSynonym(UniString const & t)
 }
 
 template <typename Fn>
-void ForEachGroup(vector<Token> const & ts, Fn && fn)
+void ForEachGroup(TokensT const & ts, Fn && fn)
 {
   size_t i = 0;
   while (i < ts.size())
@@ -389,7 +404,7 @@ void TransformString(UniString && token, Fn && fn)
 
   if (IsBuildingPartSynonym(token))
   {
-    fn(move(token), Token::TYPE_BUILDING_PART);
+    fn(std::move(token), Token::TYPE_BUILDING_PART);
   }
   else if (size == 4 && StartsWith(token, kLiter))
   {
@@ -401,34 +416,51 @@ void TransformString(UniString && token, Fn && fn)
     UniString firstLetter(token.begin(), token.begin() + 1);
     if (IsShortBuildingSynonym(firstLetter))
     {
-      fn(move(firstLetter), Token::TYPE_BUILDING_PART);
+      fn(std::move(firstLetter), Token::TYPE_BUILDING_PART);
       fn(UniString(token.begin() + 1, token.end()), Token::TYPE_LETTER);
     }
     else
     {
-      fn(move(token), Token::TYPE_STRING);
+      fn(std::move(token), Token::TYPE_STRING);
     }
   }
   else if (size == 1)
   {
     if (IsShortBuildingSynonym(token))
-      fn(move(token), Token::TYPE_BUILDING_PART_OR_LETTER);
+      fn(std::move(token), Token::TYPE_BUILDING_PART_OR_LETTER);
     else
-      fn(move(token), Token::TYPE_LETTER);
+      fn(std::move(token), Token::TYPE_LETTER);
   }
   else
   {
-    fn(move(token), Token::TYPE_STRING);
+    fn(std::move(token), Token::TYPE_STRING);
   }
 }
 }  // namespace
 
-void Tokenize(UniString s, bool isPrefix, vector<Token> & ts)
+uint64_t ToUInt(UniString const & s)
+{
+  uint64_t res = 0;
+  uint64_t pow = 1;
+
+  int i = int(s.size()) - 1;
+  ASSERT(i >= 0 && i <= 10, (i));
+  for (; i >= 0; --i)
+  {
+    ASSERT(IsASCIIDigit(s[i]), (s[i]));
+
+    res += (s[i] - '0') * pow;
+    pow *= 10;
+  }
+  return res;
+}
+
+void Tokenize(UniString s, bool isPrefix, TokensT & ts)
 {
   MakeLowerCaseInplace(s);
   auto addToken = [&ts](UniString && value, Token::Type type)
   {
-    ts.emplace_back(move(value), type);
+    ts.emplace_back(std::move(value), type);
   };
 
   size_t i = 0;
@@ -447,21 +479,21 @@ void Tokenize(UniString s, bool isPrefix, vector<Token> & ts)
       {
         if (j != s.size() || !isPrefix)
         {
-          TransformString(move(token), addToken);
+          TransformString(std::move(token), addToken);
         }
         else if (i + 1 == j)
         {
-          ts.emplace_back(move(token), Token::TYPE_LETTER);
+          ts.emplace_back(std::move(token), Token::TYPE_LETTER);
         }
         else
         {
-          ts.emplace_back(move(token), Token::TYPE_STRING);
+          ts.emplace_back(std::move(token), Token::TYPE_STRING);
           ts.back().m_prefix = true;
         }
       }
       else
       {
-        addToken(move(token), type);
+        addToken(std::move(token), type);
       }
     }
 
@@ -480,9 +512,9 @@ void Tokenize(UniString s, bool isPrefix, vector<Token> & ts)
   }
 }
 
-void ParseHouseNumber(strings::UniString const & s, vector<vector<Token>> & parses)
+void ParseHouseNumber(UniString const & s, vector<TokensT> & parses)
 {
-  vector<Token> tokens;
+  TokensT tokens;
   Tokenize(s, false /* isPrefix */, tokens);
 
   bool numbersSequence = true;
@@ -510,50 +542,37 @@ void ParseHouseNumber(strings::UniString const & s, vector<vector<Token>> & pars
                    parses.emplace_back();
                    auto & parse = parses.back();
                    for (size_t k = i; k < j; ++k)
-                     parse.emplace_back(move(tokens[k]));
+                     parse.emplace_back(std::move(tokens[k]));
                  });
   }
   else
   {
-    parses.emplace_back(move(tokens));
+    parses.emplace_back(std::move(tokens));
   }
 
   for (size_t i = oldSize; i < parses.size(); ++i)
     SimplifyParse(parses[i]);
 }
 
-void ParseQuery(strings::UniString const & query, bool queryIsPrefix, vector<Token> & parse)
+void ParseQuery(UniString const & query, bool queryIsPrefix, TokensT & parse)
 {
   Tokenize(query, queryIsPrefix, parse);
   SimplifyParse(parse);
 }
 
-bool HouseNumbersMatch(strings::UniString const & houseNumber, strings::UniString const & query,
-                       bool queryIsPrefix)
-{
-  if (houseNumber == query)
-    return true;
-
-  vector<Token> queryParse;
-  ParseQuery(query, queryIsPrefix, queryParse);
-
-  return HouseNumbersMatch(houseNumber, queryParse);
-}
-
-bool HouseNumbersMatch(strings::UniString const & houseNumber, vector<Token> const & queryParse)
+bool HouseNumbersMatch(UniString const & houseNumber, TokensT const & queryParse)
 {
   if (houseNumber.empty() || queryParse.empty())
     return false;
 
-  // Fast pre-check, helps to early exit without complex house number
-  // parsing.
+  // Fast pre-check, helps to early exit without complex house number parsing.
   if (IsASCIIDigit(houseNumber[0]) && IsASCIIDigit(queryParse[0].m_value[0]) &&
       houseNumber[0] != queryParse[0].m_value[0])
   {
     return false;
   }
 
-  vector<vector<Token>> houseNumberParses;
+  vector<TokensT> houseNumberParses;
   ParseHouseNumber(houseNumber, houseNumberParses);
 
   for (auto & parse : houseNumberParses)
@@ -570,7 +589,53 @@ bool HouseNumbersMatch(strings::UniString const & houseNumber, vector<Token> con
   return false;
 }
 
-bool LooksLikeHouseNumber(strings::UniString const & s, bool isPrefix)
+bool HouseNumbersMatchConscription(UniString const & houseNumber, TokensT const & queryParse)
+{
+  auto const beg = houseNumber.begin();
+  auto const end = houseNumber.end();
+  auto i = std::find(beg, end, '/');
+  if (i != end)
+  {
+    // Conscription number / street number.
+    return HouseNumbersMatch(UniString(beg, i), queryParse) ||
+           HouseNumbersMatch(UniString(i + 1, end), queryParse);
+  }
+  return HouseNumbersMatch(houseNumber, queryParse);
+}
+
+bool HouseNumbersMatchRange(std::string_view const & hnRange, TokensT const & queryParse, feature::InterpolType interpol)
+{
+  ASSERT(interpol != feature::InterpolType::None, ());
+
+  if (queryParse[0].m_type != Token::TYPE_NUMBER)
+    return false;
+
+  uint64_t const val = ToUInt(queryParse[0].m_value);
+  bool const isEven = (val % 2 == 0);
+  if (interpol == feature::InterpolType::Odd && isEven)
+    return false;
+  if (interpol == feature::InterpolType::Even && !isEven)
+    return false;
+
+  // Generator makes valid normalized values.
+  size_t const i = hnRange.find(':');
+  if (i == std::string_view::npos)
+  {
+    ASSERT(false, (hnRange));
+    return false;
+  }
+
+  uint64_t left, right;
+  if (!strings::to_uint(hnRange.substr(0, i), left) || !strings::to_uint(hnRange.substr(i + 1), right))
+  {
+    ASSERT(false, (hnRange));
+    return false;
+  }
+
+  return left < val && val < right;
+}
+
+bool LooksLikeHouseNumber(UniString const & s, bool isPrefix)
 {
   static HouseNumberClassifier const classifier;
   return classifier.LooksGood(s, isPrefix);
@@ -578,10 +643,10 @@ bool LooksLikeHouseNumber(strings::UniString const & s, bool isPrefix)
 
 bool LooksLikeHouseNumber(string const & s, bool isPrefix)
 {
-  return LooksLikeHouseNumber(strings::MakeUniString(s), isPrefix);
+  return LooksLikeHouseNumber(MakeUniString(s), isPrefix);
 }
 
-bool LooksLikeHouseNumberStrict(strings::UniString const & s)
+bool LooksLikeHouseNumberStrict(UniString const & s)
 {
   static HouseNumberClassifier const classifier(g_patternsStrict);
   return classifier.LooksGood(s, false /* isPrefix */);
@@ -589,7 +654,7 @@ bool LooksLikeHouseNumberStrict(strings::UniString const & s)
 
 bool LooksLikeHouseNumberStrict(string const & s)
 {
-  return LooksLikeHouseNumberStrict(strings::MakeUniString(s));
+  return LooksLikeHouseNumberStrict(MakeUniString(s));
 }
 
 string DebugPrint(Token::Type type)

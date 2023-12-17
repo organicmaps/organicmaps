@@ -1,4 +1,4 @@
-name: iOS Check
+name: iOS Check metadata
 on:
   workflow_dispatch: # Manual trigger
   pull_request:
@@ -13,7 +13,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
-        uses: actions/checkout@v2
+        uses: actions/checkout@v4
 
       - name: Check metadata
         run: ./tools/python/check_store_metadata.py ios

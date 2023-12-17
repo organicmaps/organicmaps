@@ -5,6 +5,8 @@
 
 #include "indexer/classificator.hpp"
 
+#include "geometry/mercator.hpp"
+
 #include "platform/localization.hpp"
 
 @interface MWMCarPlaySearchResultObject()

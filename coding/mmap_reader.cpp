@@ -16,12 +16,10 @@
   #endif
 #endif
 
-using namespace std;
-
 class MmapReader::MmapData
 {
 public:
-  explicit MmapData(string const & fileName, Advice advice)
+  explicit MmapData(std::string const & fileName, Advice advice)
   {
     // @TODO add windows support
 #ifndef OMIM_OS_WINDOWS
@@ -71,7 +69,7 @@ private:
   int m_fd = 0;
 };
 
-MmapReader::MmapReader(string const & fileName, Advice advice)
+MmapReader::MmapReader(std::string const & fileName, Advice advice)
   : base_type(fileName)
   , m_data(std::make_shared<MmapData>(fileName, advice))
   , m_offset(0)
@@ -96,11 +94,11 @@ void MmapReader::Read(uint64_t pos, void * p, size_t size) const
   memcpy(p, m_data->m_memory + m_offset + pos, size);
 }
 
-unique_ptr<Reader> MmapReader::CreateSubReader(uint64_t pos, uint64_t size) const
+std::unique_ptr<Reader> MmapReader::CreateSubReader(uint64_t pos, uint64_t size) const
 {
   ASSERT_LESS_OR_EQUAL(pos + size, Size(), (pos, size));
   // Can't use make_unique with private constructor.
-  return unique_ptr<Reader>(new MmapReader(*this, m_offset + pos, size));
+  return std::unique_ptr<Reader>(new MmapReader(*this, m_offset + pos, size));
 }
 
 uint8_t * MmapReader::Data() const

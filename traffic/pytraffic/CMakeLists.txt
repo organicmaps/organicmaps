@@ -36,7 +36,7 @@ omim_link_libraries(
   geometry
   coding
   base
-  jansson
+  cppjansson
   oauthcpp
   protobuf
   pugixml

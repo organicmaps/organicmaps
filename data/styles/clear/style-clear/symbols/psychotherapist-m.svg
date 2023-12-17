@@ -1,0 +1,13 @@
+<svg version="1.1" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+  <title>psychotherapist-m</title>
+  <g>
+    <circle id="outer" r="12" cx="12" cy="12" fill="#fff" opacity=".6"/>
+    <circle id="inner" r="11" cx="12" cy="12" fill="#c15746"/>
+    <g>
+      <path id="body" style="fill:none;stroke:#fff;stroke-width:1.9;stroke-linecap:round;stroke-linejoin:round" d="m 5.97823,11.3506 4.88507,5.1778 3.8489,-2.5534 3.9605,2.6047"/>
+      <circle id="head" r="1.8652495" cx="4.4898458" cy="8.5334015" style="fill:#fff"/>
+      <path id="couch" d="m 2.74792,11.0789 6.8375,7.5797 H 19.9424" style="fill:none;fill-opacity:1;stroke:#fff;stroke-width:0.949966;stroke-linecap:butt;stroke-linejoin:miter"/>
+      <path id="bubble" style="fill:none;stroke:#fff;stroke-width:0.9;stroke-linejoin:round" d="m 13.6917,5.32344 c -1.9336,-5e-5 -3.501,1.10435 -3.5004,2.46651 0.0014,0.23384 0.05,0.46659 0.1444,0.69061 V 8.48387 L 9.47646,9.41721 11.6118,9.76986 c 0.602,0.31354 1.331,0.48284 2.0799,0.48344 1.9318,0 3.4984,-1.10237 3.5003,-2.46329 6e-4,-1.36211 -1.5667,-2.46652 -3.5003,-2.46646 z"/>
+    </g>
+  </g>
+</svg>

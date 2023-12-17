@@ -1,8 +1,8 @@
 #include "geometry/point_with_altitude.hpp"
 
-#include <sstream>
+#include "std/boost_container_hash.hpp"
 
-#include <boost/container_hash/hash.hpp>
+#include <sstream>
 
 namespace geometry
 {
@@ -11,13 +11,8 @@ PointWithAltitude::PointWithAltitude()
 {
 }
 
-PointWithAltitude::PointWithAltitude(m2::PointD const & point, Altitude altitude)
+PointWithAltitude::PointWithAltitude(m2::PointD const & point, Altitude altitude/* = kDefaultAltitudeMeters */)
   : m_point(point), m_altitude(altitude)
-{
-}
-
-PointWithAltitude::PointWithAltitude(m2::PointD && point, Altitude altitude)
-  : m_point(std::move(point)), m_altitude(altitude)
 {
 }
 
@@ -49,7 +44,7 @@ PointWithAltitude MakePointWithAltitudeForTesting(m2::PointD const & point)
 
 bool AlmostEqualAbs(PointWithAltitude const & lhs, PointWithAltitude const & rhs, double eps)
 {
-  return lhs.GetPoint().EqualDxDy(rhs.GetPoint(), eps) && lhs.GetAltitude() == rhs.GetAltitude();
+  return AlmostEqualAbs(lhs.GetPoint(), rhs.GetPoint(), eps) && lhs.GetAltitude() == rhs.GetAltitude();
 }
 }  // namespace geometry
 

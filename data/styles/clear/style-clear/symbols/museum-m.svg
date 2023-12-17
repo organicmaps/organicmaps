@@ -1,47 +1,10 @@
-<?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<svg
-   xmlns:svg="http://www.w3.org/2000/svg"
-   xmlns="http://www.w3.org/2000/svg"
-   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
-   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
-   inkscape:version="1.1-dev (1:0.92.0+devel+202005110039+9ce7266)"
-   sodipodi:docname="museum-m.svg"
-   id="svg2086"
-   version="1.1"
-   viewBox="0 0 24 24"
-   height="24"
-   width="24">
-  <defs
-     id="defs2090" />
-  <title
-     id="title2078">museum-m</title>
-  <g
-     transform="scale(1.5)"
-     fill-rule="evenodd"
-     fill="none"
-     stroke-width="1"
-     stroke="none"
-     id="Page-1">
-    <g
-       fill-rule="nonzero"
-       id="museum-m">
-      <circle
-         r="8"
-         cy="8"
-         cx="8"
-         opacity="0.6"
-         fill="#ffffff"
-         id="Oval" />
-      <circle
-         r="7.3333335"
-         cy="8"
-         cx="8"
-         fill="#7f5933"
-         id="circle2081" />
-      <path
-         fill="#ffffff"
-         id="Shape"
-         d="M 3.4643878,5.480215 8.0000002,3.4643873 12.535612,5.480215 v 1.0079141 h -1.007914 v 5.0395689 h 1.007914 v 1.007915 H 3.4643878 V 11.527698 H 4.4723017 V 6.4881291 H 3.4643878 Z M 5.883375,6.4881291 V 11.527698 H 7.2944552 V 6.4881291 Z m 2.922945,0 v 5.0395689 h 1.411078 V 6.4881291 Z" />
-    </g>
+<svg version="1.1" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+ <title>museum-m</title>
+ <g transform="scale(1.5)" fill="none" fill-rule="evenodd">
+  <g id="museum-m" fill-rule="nonzero">
+   <circle id="Oval" cx="8" cy="8" r="8" fill="#fff" opacity=".6"/>
+   <circle cx="8" cy="8" r="7.3333" fill="#7f5933"/>
+   <path id="Shape" d="m3.4644 5.4802 4.5356-2.0158 4.5356 2.0158v1.0079h-1.0079v5.0396h1.0079v1.0079h-9.0712v-1.0079h1.0079v-5.0396h-1.0079zm2.419 1.0079v5.0396h1.4111v-5.0396zm2.9229 0v5.0396h1.4111v-5.0396z" fill="#fff"/>
   </g>
+ </g>
 </svg>

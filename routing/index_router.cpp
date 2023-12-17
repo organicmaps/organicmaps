@@ -41,7 +41,6 @@
 
 #include "base/assert.hpp"
 #include "base/exception.hpp"
-#include "base/limited_priority_queue.hpp"
 #include "base/logging.hpp"
 #include "base/scope_guard.hpp"
 #include "base/stl_helpers.hpp"
@@ -55,7 +54,6 @@
 
 namespace routing
 {
-using namespace routing;
 using namespace std;
 
 namespace
@@ -65,13 +63,15 @@ uint32_t constexpr kVisitPeriodForLeaps = 10;
 uint32_t constexpr kVisitPeriod = 40;
 
 double constexpr kLeapsStageContribution = 0.15;
-double constexpr kCandidatesStageContribution = 0.5;
+double constexpr kCandidatesStageContribution = 0.55;
 double constexpr kAlmostZeroContribution = 1e-7;
 
 // If user left the route within this range(meters), adjust the route. Else full rebuild.
 double constexpr kAdjustRangeM = 5000.0;
 // Full rebuild if distance(meters) is less.
 double constexpr kMinDistanceToFinishM = 10000;
+// Near MWMs criteria when choosing routing mode.
+double constexpr kCloseMwmPointsDistanceM = 300000;
 
 double CalcMaxSpeed(NumMwmIds const & numMwmIds,
                     VehicleModelFactoryInterface const & vehicleModelFactory,
@@ -251,8 +251,8 @@ IndexRouter::IndexRouter(VehicleType vehicleType, bool loadAltitudes,
   , m_vehicleModelFactory(CreateVehicleModelFactory(m_vehicleType, countryParentNameGetterFn))
   , m_countryFileFn(countryFileFn)
   , m_countryRectFn(countryRectFn)
-  , m_numMwmIds(move(numMwmIds))
-  , m_numMwmTree(move(numMwmTree))
+  , m_numMwmIds(std::move(numMwmIds))
+  , m_numMwmTree(std::move(numMwmTree))
   , m_trafficStash(CreateTrafficStash(m_vehicleType, m_numMwmIds, trafficCache))
   , m_roadGraph(m_dataSource,
                 vehicleType == VehicleType::Pedestrian || vehicleType == VehicleType::Transit
@@ -641,13 +641,13 @@ RouterResultCode IndexRouter::DoCalculateRoute(Checkpoints const & checkpoints,
     snapping.SetNextStartSegment(nextSegment);
 
     if (!starter)
-      starter = make_unique<IndexGraphStarter>(move(subrouteStarter));
+      starter = make_unique<IndexGraphStarter>(std::move(subrouteStarter));
     else
-      starter->Append(FakeEdgesContainer(move(subrouteStarter)));
+      starter->Append(FakeEdgesContainer(std::move(subrouteStarter)));
   }
 
   route.SetCurrentSubrouteIdx(checkpoints.GetPassedIdx());
-  route.SetSubroteAttrs(move(subroutes));
+  route.SetSubroteAttrs(std::move(subroutes));
 
   IndexGraphStarter::CheckValidRoute(segments);
 
@@ -665,7 +665,7 @@ RouterResultCode IndexRouter::DoCalculateRoute(Checkpoints const & checkpoints,
   for (Segment const & segment : segments)
     m_lastRoute->AddStep(segment, mercator::FromLatLon(starter->GetPoint(segment, true /* front */)));
 
-  m_lastFakeEdges = make_unique<FakeEdgesContainer>(move(*starter));
+  m_lastFakeEdges = make_unique<FakeEdgesContainer>(std::move(*starter));
 
   return RouterResultCode::NoError;
 }
@@ -684,13 +684,14 @@ vector<Segment> ProcessJoints(vector<JointSegment> const & jointsPath,
 
     if (path.empty())
     {
-      path = move(jointPath);
+      path = std::move(jointPath);
       continue;
     }
 
-    path.insert(path.end(),
-                path.back() == jointPath.front() ? jointPath.begin() + 1 : jointPath.begin(),
-                jointPath.end());
+    auto begIter = jointPath.begin();
+    if (path.back() == jointPath.front())
+      ++begIter;
+    path.insert(path.end(), begIter, jointPath.end());
   }
 
   return path;
@@ -741,7 +742,7 @@ RouterResultCode IndexRouter::CalculateSubrouteJointsMode(
 
   AStarAlgorithm<Vertex, Edge, Weight>::Params<Visitor, AStarLengthChecker> params(
       jointStarter, jointStarter.GetStartJoint(), jointStarter.GetFinishJoint(),
-      delegate.GetCancellable(), move(visitor),
+      delegate.GetCancellable(), std::move(visitor),
       AStarLengthChecker(starter));
 
   RoutingResult<Vertex, Weight> routingResult;
@@ -768,7 +769,7 @@ RouterResultCode IndexRouter::CalculateSubrouteNoLeapsMode(
 
   AStarAlgorithm<Vertex, Edge, Weight>::Params<Visitor, AStarLengthChecker> params(
       starter, starter.GetStartSegment(), starter.GetFinishSegment(),
-      delegate.GetCancellable(), move(visitor), AStarLengthChecker(starter));
+      delegate.GetCancellable(), std::move(visitor), AStarLengthChecker(starter));
 
   RoutingResult<Vertex, Weight> routingResult;
   set<NumMwmId> const mwmIds = starter.GetMwms();
@@ -777,8 +778,26 @@ RouterResultCode IndexRouter::CalculateSubrouteNoLeapsMode(
   if (result != RouterResultCode::NoError)
     return result;
 
-  subroute = move(routingResult.m_path);
-  return RouterResultCode::NoError;
+  LOG(LDEBUG, ("Result route weight:", routingResult.m_distance));
+  subroute = std::move(routingResult.m_path);
+  return result;
+}
+
+namespace
+{
+void CollapseForward_ReverseLoops(std::vector<Segment> & path)
+{
+  for (size_t i = 1; i < path.size() - 2;)
+  {
+    auto const beg = path.begin() + i;
+    auto const end = path.end() - 1;
+    auto j = std::find(beg + 1, end, path[i].GetReversed());
+    if (j != end)
+      path.erase(beg, j + 1);
+    else
+      ++i;
+  }
+}
 }
 
 RouterResultCode IndexRouter::CalculateSubrouteLeapsOnlyMode(
@@ -822,85 +841,145 @@ RouterResultCode IndexRouter::CalculateSubrouteLeapsOnlyMode(
       return false;
     };
 
-    std::set<std::pair<Vertex, Vertex>> edges;
-    std::set<Vertex> keys[2];    // 0 - end vertex of the first edge; 1 - beg vertex of the last edge
+    // Use Feature's index as a key to avoid multiple vertices with the same feature but a bit different segment.
+    using EdgeKeyT = std::array<uint32_t, 2>;
+    vector<RoutingResultT> routes;
+    set<EdgeKeyT> edges;
+    set<uint32_t> keys[2];    // 0 - end vertex of the first edge; 1 - beg vertex of the last edge
 
-    size_t constexpr kMaxNumRoutes = 20;
-    base::limited_priority_queue<RoutingResultT, RoutingResultT::LessWeight> routes(kMaxNumRoutes);
+    auto const getBegEnd = [](RoutingResultT const & r) -> EdgeKeyT
+    {
+      size_t const pathSize = r.m_path.size();
+      ASSERT_GREATER(pathSize, 2, ());
+      return { r.m_path[1].GetFeatureId(), r.m_path[pathSize - 2].GetFeatureId() };
+    };
+
+    /// @todo Looks like there is no big deal in this constant due to the bidirectional search.
+    /// But still Zalau -> Tiburg lasts 2 minutes, so set some reasonable timeout.
+    size_t constexpr kMaxVertices = 15;
+    uint64_t constexpr kTimeoutMilliS = 30*1000;
+    base::Timer timer;
 
     using AlgoT = AStarAlgorithm<Vertex, Edge, Weight>;
-    AlgoT algorithm;
-    auto const result = algorithm.FindPathBidirectionalEx(params, [&routes, &edges, &keys](RoutingResultT && route)
+    auto const result = AlgoT().FindPathBidirectionalEx(params, [&](RoutingResultT && route)
     {
-      // Routes fetching is not necessary ordered by m_distance, so continue search.
-      if (routes.size() > kMaxNumRoutes && routes.top().m_distance <= route.m_distance)
-        return false;
-
       // Take unique routes by key vertices.
-      size_t const pathSize = route.m_path.size();
-      ASSERT_GREATER(pathSize, 2, ());
-      auto const & beg = route.m_path[1];
-      auto const & end = route.m_path[pathSize - 2];
-      if (edges.insert({beg, end}).second)
+      auto const be = getBegEnd(route);
+      if (edges.insert(be).second)
       {
-        keys[0].insert(beg);
-        keys[1].insert(end);
-        routes.push(std::move(route));
+        keys[0].insert(be[0]);
+        keys[1].insert(be[1]);
+        routes.push_back(std::move(route));
       }
 
-      /// @todo Looks like there is no big deal in this constant due to the bidirectional search.
-      /// But still Zalau -> Tiburg lasts 2 minutes here.
-      // Continue until got 5 different first/last edges. Bigger maxVertices - bigger calculation time.
-      //size_t const maxVertices = std::min(size_t(5), std::max(size_t(2), (50 + pathSize) / pathSize));
-      size_t constexpr maxVertices = 5;
+      // Stop if got needed number of vertices.
+      if (keys[0].size() >= kMaxVertices && keys[1].size() >= kMaxVertices)
+        return true;
 
-      return keys[0].size() >= maxVertices && keys[1].size() >= maxVertices;
+      // Stop if have some routes and reached timeout.
+      return (!routes.empty() && timer.ElapsedMilliseconds() > kTimeoutMilliS);
     });
 
     if (routes.empty() || result == AlgoT::Result::Cancelled)
       return ConvertResult<Vertex, Edge, Weight>(result);
 
-    candidates = routes.move();
-    sort(candidates.begin(), candidates.end(), [](RoutingResultT const & l, RoutingResultT const & r)
+    sort(routes.begin(), routes.end(), [](RoutingResultT const & l, RoutingResultT const & r)
     {
       return l.m_distance < r.m_distance;
     });
 
+    // Additional heuristic to reduce number of candidates.
+    // Group candidates by category and accept no more than *2* routes of each.
+    // https://github.com/organicmaps/organicmaps/issues/2998
+    // https://github.com/organicmaps/organicmaps/issues/3625
+    class HighwayCategoryChecker
+    {
+      IndexGraphStarter const & m_starter;
+      std::array<uint8_t, static_cast<uint8_t>(HighwayCategory::Unknown)> m_curr, m_upper;
+
+    public:
+      HighwayCategoryChecker(IndexGraphStarter const & starter) : m_starter(starter)
+      {
+        // Check Germany_Italy_Malcesine test when changing this constants.
+        // 2 - max number of leaps candidates per highway category.
+        // Total number of candidates will be definitely less than 2 * size(HighwayCategory).
+        m_curr.fill(0);
+        m_upper.fill(2);
+      }
+      bool operator()(Segment const & seg)
+      {
+        HighwayCategory const cat = m_starter.GetHighwayCategory(seg);
+        if (cat == HighwayCategory::Unknown)
+          return false;
+
+        uint8_t const idx = static_cast<uint8_t>(cat);
+        ASSERT_LESS(idx, m_curr.size(), ());
+        return ++m_curr[idx] <= m_upper[idx];
+      }
+    };
+
+    keys[0].clear();
+    keys[1].clear();
+    HighwayCategoryChecker checkers[2] = {starter, starter};
+
+    for (auto & r : routes)
+    {
+      Segment const * be[] = { &r.m_path[1], &r.m_path[r.m_path.size() - 2] };
+      for (uint8_t idx  = 0; idx < 2; ++idx)
+      {
+        if (keys[idx].insert(be[idx]->GetFeatureId()).second &&
+            checkers[idx](*be[idx]))
+        {
+          uint8_t const nextIdx = (idx + 1) % 2;
+          keys[nextIdx].insert(be[nextIdx]->GetFeatureId());
+          checkers[nextIdx](*be[nextIdx]);
+
+          candidates.push_back(std::move(r));
+          break;
+        }
+      }
+    }
+
+    LOG(LINFO, ("Filtered candidates count =", candidates.size()));
     candidateMidWeights.reserve(candidates.size());
-    for (auto const & c : candidates)
+    for (auto & c : candidates)
+    {
+      CollapseForward_ReverseLoops(c.m_path);
       candidateMidWeights.push_back(leapsGraph.CalcMiddleCrossMwmWeight(c.m_path));
+    }
   }
 
   // Purge cross-mwm-graph cache memory before calculating subroutes for each MWM.
   // CrossMwmConnector takes a lot of memory with its weights matrix now.
   starter.GetGraph().GetCrossMwmGraph().Purge();
 
-  ASSERT_EQUAL(starter.GetGraph().GetMode(), WorldGraphMode::LeapsOnly, ());
-  starter.GetGraph().SetMode(WorldGraphMode::JointSingleMwm);
-
   RoutesCalculator calculator(starter, delegate);
-
-  double const candidateContribution = kCandidatesStageContribution / (2 * candidates.size());
-
-  // Select best candidate by calculating start/end sub-routes and using candidateMidWeights.
   RoutingResultT const * bestC = nullptr;
-  RouteWeight bestW = GetAStarWeightMax<RouteWeight>();
-  for (size_t i = 0; i < candidates.size(); ++i)
+
   {
-    auto const & c = candidates[i];
-    LOG(LDEBUG, ("Process leaps:", c.m_distance, c.m_path));
+    SCOPE_GUARD(progressGuard, [&progress]() { progress->PushAndDropLastSubProgress(); });
+    progress->AppendSubProgress(AStarSubProgress(kCandidatesStageContribution));
+    double const candidateContribution = kCandidatesStageContribution / (2 * candidates.size());
 
-    size_t const sz = c.m_path.size();
-    auto const * r1 = calculator.Calc(c.m_path[0], c.m_path[1], progress, candidateContribution);
-    auto const * r2 = calculator.Calc(c.m_path[sz-2], c.m_path[sz-1], progress, candidateContribution);
-
-    if (r1 && r2)
+    // Select best candidate by calculating start/end sub-routes and using candidateMidWeights.
+    RouteWeight bestW = GetAStarWeightMax<RouteWeight>();
+    for (size_t i = 0; i < candidates.size(); ++i)
     {
-      RouteWeight const w = r1->m_distance + candidateMidWeights[i] + r2->m_distance;
-      if (w < bestW)
+      auto const & c = candidates[i];
+      LOG(LDEBUG, ("Process leaps:", c.m_distance, c.m_path));
+
+      size_t const sz = c.m_path.size();
+      auto const * r1 = calculator.Calc2Times(c.m_path[0], c.m_path[1], progress, candidateContribution);
+      auto const * r2 = calculator.Calc2Times(c.m_path[sz-2], c.m_path[sz-1], progress, candidateContribution);
+
+      if (r1 && r2)
       {
-        bestW = w;
-        bestC = &c;
+        RouteWeight const w = r1->m_distance + candidateMidWeights[i] + r2->m_distance;
+        if (w < bestW)
+        {
+          bestW = w;
+          bestC = &c;
+        }
       }
     }
   }
@@ -918,8 +997,14 @@ RouterResultCode IndexRouter::CalculateSubrouteLeapsOnlyMode(
   if (result.Empty())
     return RouterResultCode::RouteNotFound;
 
-  LeapsPostProcessor leapsPostProcessor(result.m_path, starter);
-  subroute = leapsPostProcessor.GetProcessedPath();
+  LOG(LDEBUG, ("Result route weight:", result.m_distance));
+
+  /// @todo This routine is buggy and should be revised, I'm not sure if it's still needed ...
+  /// Russia_UseDonMotorway test coordinates makes valid route until this point, but LeapsPostProcessor
+  /// adds highway=service detour in this coordinates (53.8782154, 38.0483006) instead of keeping "Дон" motorway.
+//  LeapsPostProcessor leapsPostProcessor(result.m_path, starter);
+//  subroute = leapsPostProcessor.GetProcessedPath();
+  subroute = std::move(result.m_path);
 
   return RouterResultCode::NoError;
 }
@@ -976,7 +1061,7 @@ RouterResultCode IndexRouter::AdjustRoute(Checkpoints const & checkpoints,
   AStarAlgorithm<Vertex, Edge, Weight> algorithm;
   AStarAlgorithm<Vertex, Edge, Weight>::Params<Visitor, AdjustLengthChecker> params(
       starter, starter.GetStartSegment(), {} /* finalVertex */,
-      delegate.GetCancellable(), move(visitor), AdjustLengthChecker(starter));
+      delegate.GetCancellable(), std::move(visitor), AdjustLengthChecker(starter));
 
   RoutingResult<Segment, RouteWeight> result;
   auto const resultCode =
@@ -1010,7 +1095,7 @@ RouterResultCode IndexRouter::AdjustRoute(Checkpoints const & checkpoints,
   CHECK_EQUAL(result.m_path.size(), subrouteOffset, ());
 
   route.SetCurrentSubrouteIdx(checkpoints.GetPassedIdx());
-  route.SetSubroteAttrs(move(subroutes));
+  route.SetSubroteAttrs(std::move(subroutes));
 
   auto const redressResult = RedressRoute(result.m_path, delegate.GetCancellable(), starter, route);
   if (redressResult != RouterResultCode::NoError)
@@ -1026,6 +1111,9 @@ unique_ptr<WorldGraph> IndexRouter::MakeWorldGraph()
 {
   // Use saved routing options for all types (car, bicycle, pedestrian).
   RoutingOptions const routingOptions = RoutingOptions::LoadCarOptionsFromSettings();
+  /// @DebugNote
+  // Add avoid roads here for debug purpose.
+  //routingOptions.Add(RoutingOptions::Road::Motorway);
   LOG(LINFO, ("Avoid next roads:", routingOptions));
 
   auto crossMwmGraph = make_unique<CrossMwmGraph>(
@@ -1040,15 +1128,15 @@ unique_ptr<WorldGraph> IndexRouter::MakeWorldGraph()
   if (m_vehicleType != VehicleType::Transit)
   {
     auto graph = make_unique<SingleVehicleWorldGraph>(
-        move(crossMwmGraph), move(indexGraphLoader), m_estimator,
+        std::move(crossMwmGraph), std::move(indexGraphLoader), m_estimator,
         MwmHierarchyHandler(m_numMwmIds, m_countryParentNameGetterFn));
     graph->SetRoutingOptions(routingOptions);
     return graph;
   }
 
   auto transitGraphLoader = TransitGraphLoader::Create(m_dataSource, m_estimator);
-  return make_unique<TransitWorldGraph>(move(crossMwmGraph), move(indexGraphLoader),
-                                        move(transitGraphLoader), m_estimator);
+  return make_unique<TransitWorldGraph>(std::move(crossMwmGraph), std::move(indexGraphLoader),
+                                        std::move(transitGraphLoader), m_estimator);
 }
 
 int IndexRouter::PointsOnEdgesSnapping::Snap(
@@ -1317,8 +1405,7 @@ bool IndexRouter::PointsOnEdgesSnapping::FindBestEdges(
 }
 
 IndexRouter::RoutingResultT const * IndexRouter::RoutesCalculator::Calc(
-    Segment const & beg, Segment const & end,
-    shared_ptr<AStarProgress> const & progress, double progressCoef)
+    Segment const & beg, Segment const & end, ProgressPtrT const & progress, double progressCoef)
 {
   auto itCache = m_cache.insert({{beg, end}, {}});
   auto * res = &itCache.first->second;
@@ -1349,16 +1436,40 @@ IndexRouter::RoutingResultT const * IndexRouter::RoutesCalculator::Calc(
 
     if (AlgoT().FindPathBidirectional(params, route) == AlgoT::Result::OK)
     {
+      LOG(LDEBUG, ("Sub-route weight:", route.m_distance));
+
       res->m_path = ProcessJoints(route.m_path, jointStarter);
       res->m_distance = route.m_distance;
 
       progress->PushAndDropLastSubProgress();
     }
     else
+    {
       progress->DropLastSubProgress();
+
+      m_cache.erase(itCache.first);
+      return nullptr;
+    }
   }
 
-  return res->Empty() ? nullptr : res;
+  CHECK(!res->Empty(), ());
+  return res;
+}
+
+IndexRouter::RoutingResultT const * IndexRouter::RoutesCalculator::Calc2Times(
+    Segment const & beg, Segment const & end, ProgressPtrT const & progress, double progressCoef)
+{
+  /// @see RussiaMoscow_ItalySienaCenter_SplittedMotorway
+  /// Enter Tuscany motorway (43.5016115, 11.1872607) is splitted by MWM boundaries many times.
+
+  m_starter.GetGraph().SetMode(WorldGraphMode::JointSingleMwm);
+  auto const * r = Calc(beg, end, progress, progressCoef);
+  if (r == nullptr)
+  {
+    m_starter.GetGraph().SetMode(WorldGraphMode::Joints);
+    r = Calc(beg, end, progress, progressCoef);
+  }
+  return r;
 }
 
 RouterResultCode IndexRouter::ProcessLeapsJoints(vector<Segment> const & input,
@@ -1367,7 +1478,11 @@ RouterResultCode IndexRouter::ProcessLeapsJoints(vector<Segment> const & input,
                                                  RoutesCalculator & calculator,
                                                  RoutingResultT & result)
 {
-  CHECK_GREATER_OR_EQUAL(input.size(), 4, ());
+  LOG(LDEBUG, ("Process input:", input));
+
+  // { fake, mwmId1, mwmId2, mwmId2, mwmId3, .. pairs of ids .. , fake }.
+  ASSERT_GREATER_OR_EQUAL(input.size(), 4, ());
+  ASSERT(input.size() % 2 == 0, ());
 
   WorldGraph & worldGraph = starter.GetGraph();
 
@@ -1380,43 +1495,33 @@ RouterResultCode IndexRouter::ProcessLeapsJoints(vector<Segment> const & input,
   // then we have small unneeded leap in other mwm which returns us to start mwm, then we have leap in start mwm
   // to the correct start mwm exit and then we have normal route.
   // |input| mwm ids for such case look like
-  // { fake, startId, otherId, otherId, startId, startId, .. pairs of ids for other leaps .. , finishId, fake}.
-  // To avoid this behavior we collapse all leaps from start to  last occurrence of startId to one leap and
-  // use WorldGraph with NoLeaps mode to proccess these leap. Unlike SingleMwm mode used to process ordinary leaps
-  // NoLeaps allows to use all mwms so if we really need to visit other mwm we will.
+  // { fake, startId, otherId, otherId, startId, startId, .. pairs of ids for other leaps .. , finishId, fake }.
 
-  /// @todo By VNG: Have a feeling that this routine can be simplified.
-  // Stable solution here is to calculate all (max = 4) routes with and without loops, and choose the best one.
+  // Stable solution here is to calculate all routes with and without loops, and choose the best one.
   // https://github.com/organicmaps/organicmaps/issues/821
   // https://github.com/organicmaps/organicmaps/issues/2085
+  // https://github.com/organicmaps/organicmaps/issues/5069
 
-  buffer_vector<std::pair<size_t, size_t>, 4> arrBegEnd;
-  arrBegEnd.emplace_back(1, input.size() - 2);
+  buffer_vector<size_t, 4> arrBeg, arrEnd;
+  size_t const begIdx = 1;
+  size_t const endIdx = input.size() - 2;
+
+  auto const firstMwmId = input[begIdx].GetMwmId();
+  for (size_t i = begIdx; i < endIdx; ++i)
+    if (input[i].GetMwmId() == firstMwmId && (i % 2 == 1))
+      arrBeg.push_back(i);
+
+  auto const lastMwmId = input[endIdx].GetMwmId();
+  for (size_t i = endIdx; i > begIdx; --i)
+    if (input[i].GetMwmId() == lastMwmId && (i % 2 == 0))
+      arrEnd.push_back(i);
+
+  size_t const variantsCount = arrBeg.size() * arrEnd.size();
+  ASSERT(variantsCount > 0, ());
+
+  for (size_t startLeapEnd : arrBeg)
+  for (size_t finishLeapStart : arrEnd)
   {
-    auto const firstMwmId = input[1].GetMwmId();
-    auto const startLeapEndReverseIt = find_if(input.rbegin() + 2, input.rend(),
-                                               [firstMwmId](Segment const & s) { return s.GetMwmId() == firstMwmId; });
-    auto const startLeapEndIt = startLeapEndReverseIt.base() - 1;
-    auto const startLeapEnd = static_cast<size_t>(distance(input.begin(), startLeapEndIt));
-    if (startLeapEnd != arrBegEnd[0].first)
-      arrBegEnd.emplace_back(startLeapEnd, arrBegEnd[0].second);
-
-    // The last leap processed the same way. See the comment above.
-    auto const lastMwmId = input[input.size() - 2].GetMwmId();
-    auto const finishLeapStartIt = find_if(startLeapEndIt, input.end(),
-                                           [lastMwmId](Segment const & s) { return s.GetMwmId() == lastMwmId; });
-    auto const finishLeapStart = static_cast<size_t>(distance(input.begin(), finishLeapStartIt));
-    if (finishLeapStart != arrBegEnd[0].second)
-      arrBegEnd.emplace_back(arrBegEnd[0].first, finishLeapStart);
-
-    if (arrBegEnd.size() == 3)
-      arrBegEnd.emplace_back(startLeapEnd, finishLeapStart);
-  }
-
-  for (auto const & eBegEnd : arrBegEnd)
-  {
-    size_t const startLeapEnd = eBegEnd.first;
-    size_t const finishLeapStart = eBegEnd.second;
     size_t maxStart = 0;
 
     auto const runAStarAlgorithm = [&](size_t start, size_t end, WorldGraphMode mode)
@@ -1425,7 +1530,7 @@ RouterResultCode IndexRouter::ProcessLeapsJoints(vector<Segment> const & input,
       ASSERT_LESS(end, input.size(), ());
 
       maxStart = max(maxStart, start);
-      auto const contribCoef = static_cast<double>(end - maxStart + 1) / input.size() / arrBegEnd.size();
+      auto const contribCoef = static_cast<double>(end - maxStart + 1) / input.size() / variantsCount;
 
       // VNG: I don't like this strategy with clearing previous caches, taking into account
       // that all MWMs were quite likely already loaded before in calculating Leaps path.
@@ -1446,7 +1551,7 @@ RouterResultCode IndexRouter::ProcessLeapsJoints(vector<Segment> const & input,
         auto const & subroute = res->m_path;
         CHECK(!subroute.empty(), ());
 
-        /// @todo Strange logic IMHO, when we remove previous (useless?) calculated path.
+        /// @todo How it's possible when prevStart == start ?
         if (start == prevStart && !paths.empty())
           paths.pop_back();
 
@@ -1471,6 +1576,7 @@ RouterResultCode IndexRouter::ProcessLeapsJoints(vector<Segment> const & input,
 
     size_t lastPrev = 0;
     RouteWeight currentWeight = GetAStarWeightZero<RouteWeight>();
+    RouteWeight lastWeight = currentWeight;
 
     for (size_t i = startLeapEnd; i <= finishLeapStart; ++i)
     {
@@ -1494,55 +1600,48 @@ RouterResultCode IndexRouter::ProcessLeapsJoints(vector<Segment> const & input,
       RoutingResultT const * res = nullptr;
       if (res = tryBuildRoute(prev, next, WorldGraphMode::JointSingleMwm); !res)
       {
-        auto const prevPoint = starter.GetPoint(input[next], true);
-        // |next + 1| - is the twin of |next|
-        // |next + 2| - is the next exit.
-        while (next + 2 < finishLeapStart && next != finishLeapStart)
+        // As written above, it may happen when "Avoid option" is enabled.
+        // Possibile recover here is to shift |prev| and |next| to skip this "bad" MWM, and build a new
+        // (mode = Joints) route (via several MWMs).
+        // https://github.com/organicmaps/organicmaps/issues/5695
+
+        /// @todo Anyway, this _recovering_ is a crutch. Should compare result.m_distance on caller side
+        /// and call ProcessLeapsJoints for the next candidates (not for the "best" only).
+        /// "Cross MWMs" together with "Avoid options" doesn't guarantee a best route, because
+        /// cross-mwm graph keeps only _clean_ (no any avoids) weights.
+
+        if (prev > 0)
         {
-          auto const point = starter.GetPoint(input[next + 2], true);
-          double const distBetweenExistsMeters = ms::DistanceOnEarth(point, prevPoint);
-
-          static double constexpr kMinDistBetweenExitsM = 100000;  // 100 km
-          if (distBetweenExistsMeters > kMinDistBetweenExitsM)
-            break;
-
-          LOG(LINFO, ("Exit:", point, "too close(", distBetweenExistsMeters / 1000, "km ), try get next."));
-          next += 2;
+          prev = lastPrev;
+          currentWeight = lastWeight;
+          if (prev == 0)
+            dropFirstSegment = false;
         }
 
-        if (next + 2 > finishLeapStart || next == finishLeapStart)
+        if (next + 2 > finishLeapStart)
           next = input.size() - 1;
         else
           next += 2;
 
         if (res = tryBuildRoute(prev, next, WorldGraphMode::Joints); !res)
-        {
-          // Already in start
-          if (prev == 0)
-            return RouterResultCode::RouteNotFound;
-
-          prev = lastPrev;
-          if (prev == 0)
-            dropFirstSegment = false;
-
-          if (res = tryBuildRoute(prev, next, WorldGraphMode::Joints); !res)
-            return RouterResultCode::RouteNotFound;
-        }
+          return RouterResultCode::RouteNotFound;
       }
 
       lastPrev = prev;
+      lastWeight = currentWeight;
       i = next;
 
       currentWeight += res->m_distance;
     }
 
     // Update final result if new route is better.
+    LOG(LDEBUG, ("Got a route:", startLeapEnd, finishLeapStart, currentWeight));
     if (result.Empty() || currentWeight < result.m_distance)
     {
-      if (!result.m_path.empty())
+      if (!result.Empty())
       {
         LOG(LDEBUG, ("Found better route, old weight =", result.m_distance, "new weight =", currentWeight));
-        result.m_path.clear();
+        result.Clear();
       }
 
       for (auto const & e : paths)
@@ -1597,30 +1696,45 @@ RouterResultCode IndexRouter::RedressRoute(vector<Segment> const & segments,
     return RouterResultCode::RouteNotFoundRedressRouteError;
   }
 
+  auto & worldGraph = starter.GetGraph();
+
   /// @todo I suspect that we can avoid calculating segments inside ReconstructRoute
   /// and use original |segments| (IndexRoadGraph::GetRouteSegments).
 #ifdef DEBUG
   {
+    auto const isPassThroughAllowed = [&worldGraph](Segment const & s)
+    {
+      return worldGraph.IsPassThroughAllowed(s.GetMwmId(), s.GetFeatureId());
+    };
+
     auto const & rSegments = route.GetRouteSegments();
     ASSERT_EQUAL(segsCount, rSegments.size(), ());
     for (size_t i = 0; i < segsCount; ++i)
     {
       if (segments[i].IsRealSegment())
+      {
         ASSERT_EQUAL(segments[i], rSegments[i].GetSegment(), ());
+
+        if (i > 0 && segments[i - 1].IsRealSegment() &&
+            isPassThroughAllowed(segments[i - 1]) != isPassThroughAllowed(segments[i]))
+        {
+          LOG(LDEBUG, ("Change pass-through point:", mercator::ToLatLon(rSegments[i - 1].GetJunction().GetPoint())));
+        }
+      }
     }
   }
 #endif
 
-  auto & worldGraph = starter.GetGraph();
   for (auto & routeSegment : route.GetRouteSegments())
   {
     auto & segment = routeSegment.GetSegment();
     routeSegment.SetTransitInfo(worldGraph.GetTransitInfo(segment));
 
-    if (m_vehicleType == VehicleType::Car)
-    {
+    if (!m_guides.IsActive())
       routeSegment.SetRoadTypes(starter.GetRoutingOptions(segment));
 
+    if (m_vehicleType == VehicleType::Car)
+    {
       if (segment.IsRealSegment())
       {
         if (!AreSpeedCamerasProhibited(segment.GetMwmId()))
@@ -1642,7 +1756,7 @@ RouterResultCode IndexRouter::RedressRoute(vector<Segment> const & segments,
 
   vector<platform::CountryFile> speedCamProhibited;
   FillSpeedCamProhibitedMwms(segments, speedCamProhibited);
-  route.SetMwmsPartlyProhibitedForSpeedCams(move(speedCamProhibited));
+  route.SetMwmsPartlyProhibitedForSpeedCams(std::move(speedCamProhibited));
 
   return RouterResultCode::NoError;
 }
@@ -1677,7 +1791,8 @@ bool IndexRouter::AreMwmsNear(IndexGraphStarter const & starter) const
       return true;
   }
 
-  return false;
+  return ms::DistanceOnEarth(starter.GetStartJunction().GetLatLon(),
+                             starter.GetFinishJunction().GetLatLon()) < kCloseMwmPointsDistanceM;
 }
 
 bool IndexRouter::DoesTransitSectionExist(NumMwmId numMwmId)

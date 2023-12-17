@@ -22,9 +22,10 @@
 #include <unordered_map>
 #include <utility>
 
+namespace routing
+{
 namespace
 {
-using namespace routing;
 using namespace std;
 
 class IndexGraphLoaderImpl final : public IndexGraphLoader
@@ -37,8 +38,8 @@ public:
     : m_vehicleType(vehicleType)
     , m_loadAltitudes(loadAltitudes)
     , m_dataSource(dataSource)
-    , m_vehicleModelFactory(move(vehicleModelFactory))
-    , m_estimator(move(estimator))
+    , m_vehicleModelFactory(std::move(vehicleModelFactory))
+    , m_estimator(std::move(estimator))
     , m_avoidRoutingOptions(routingOptions)
   {
     CHECK(m_vehicleModelFactory, ());
@@ -71,9 +72,8 @@ private:
   };
   unordered_map<NumMwmId, GraphAttrs> m_graphs;
 
-  using CamerasMapT = map<SegmentCoord, vector<RouteSegment::SpeedCamera>>;
-  unordered_map<NumMwmId, CamerasMapT> m_cachedCameras;
-  CamerasMapT const & ReceiveSpeedCamsFromMwm(NumMwmId numMwmId);
+  unordered_map<NumMwmId, SpeedCamerasMapT> m_cachedCameras;
+  SpeedCamerasMapT const & ReceiveSpeedCamsFromMwm(NumMwmId numMwmId);
 
   RoutingOptions m_avoidRoutingOptions;
   std::function<time_t()> m_currentTimeGetter = [time = GetCurrentTimestamp()]() {
@@ -103,53 +103,31 @@ Geometry & IndexGraphLoaderImpl::GetGeometry(NumMwmId numMwmId)
   return *(res.first->second.m_geometry);
 }
 
-IndexGraphLoaderImpl::CamerasMapT const & IndexGraphLoaderImpl::ReceiveSpeedCamsFromMwm(NumMwmId numMwmId)
+SpeedCamerasMapT const & IndexGraphLoaderImpl::ReceiveSpeedCamsFromMwm(NumMwmId numMwmId)
 {
-  auto res = m_cachedCameras.try_emplace(numMwmId, CamerasMapT{});
+  auto res = m_cachedCameras.try_emplace(numMwmId, SpeedCamerasMapT{});
   if (res.second)
-  {
-    MwmValue const & mwmValue = m_dataSource.GetMwmValue(numMwmId);
-    try
-    {
-      FilesContainerR::TReader reader(mwmValue.m_cont.GetReader(CAMERAS_INFO_FILE_TAG));
-      ReaderSource<FilesContainerR::TReader> src(reader);
-      DeserializeSpeedCamsFromMwm(src, res.first->second);
-    }
-    catch (Reader::OpenException const &)
-    {
-      LOG(LWARNING, (CAMERAS_INFO_FILE_TAG "section not found"));
-    }
-    catch (Reader::Exception const & e)
-    {
-      LOG(LERROR, ("Error while reading", CAMERAS_INFO_FILE_TAG, "section.", e.Msg()));
-    }
-  }
-
+    (void)ReadSpeedCamsFromMwm(m_dataSource.GetMwmValue(numMwmId), res.first->second);
   return res.first->second;
 }
 
 vector<RouteSegment::SpeedCamera> IndexGraphLoaderImpl::GetSpeedCameraInfo(Segment const & segment)
 {
-  CamerasMapT const & camerasMap = ReceiveSpeedCamsFromMwm(segment.GetMwmId());
+  SpeedCamerasMapT const & camerasMap = ReceiveSpeedCamsFromMwm(segment.GetMwmId());
   auto it = camerasMap.find({segment.GetFeatureId(), segment.GetSegmentIdx()});
   if (it == camerasMap.end())
     return {};
 
-  auto camerasTmp = it->second;
-  std::sort(camerasTmp.begin(), camerasTmp.end());
+  auto cameras = it->second;
 
-  // TODO (@gmoryes) do this in generator.
-  // This code matches cameras with equal coefficients and among them
-  // only the camera with minimal maxSpeed is left.
-  static constexpr auto kInvalidCoef = 2.0;
-  camerasTmp.emplace_back(kInvalidCoef, 0.0 /* maxSpeedKmPH */);
-  vector<RouteSegment::SpeedCamera> cameras;
-  for (size_t i = 1; i < camerasTmp.size(); ++i)
+  // By VNG: Leave as it was before (trailing invalid element).
+  cameras.emplace_back(2.0 /* invalid coefficient*/, 0.0 /* maxSpeedKmPH */);
+
+  base::SortUnique(cameras, std::less<RouteSegment::SpeedCamera>(), [](auto const & l, auto const & r)
   {
-    static constexpr auto kEps = 1e-5;
-    if (!base::AlmostEqualAbs(camerasTmp[i - 1].m_coef, camerasTmp[i].m_coef, kEps))
-      cameras.emplace_back(camerasTmp[i - 1]);
-  }
+    return l.EqualCoef(r);
+  });
+
   // Cameras stored from beginning to ending of segment. So if we go at segment in backward direction,
   // we should read cameras in reverse sequence too.
   if (!segment.IsForward())
@@ -190,31 +168,48 @@ IndexGraphLoaderImpl::GeometryPtrT IndexGraphLoaderImpl::CreateGeometry(NumMwmId
 
 void IndexGraphLoaderImpl::Clear() { m_graphs.clear(); }
 
-bool ReadRoadAccessFromMwm(MwmValue const & mwmValue, VehicleType vehicleType,
-                           RoadAccess & roadAccess)
+} // namespace
+
+bool ReadSpeedCamsFromMwm(MwmValue const & mwmValue, SpeedCamerasMapT & camerasMap)
+{
+  try
+  {
+    auto reader = mwmValue.m_cont.GetReader(CAMERAS_INFO_FILE_TAG);
+    ReaderSource src(reader);
+    DeserializeSpeedCamsFromMwm(src, camerasMap);
+    return true;
+  }
+  catch (Reader::OpenException const &)
+  {
+    LOG(LWARNING, (CAMERAS_INFO_FILE_TAG "section not found"));
+  }
+  catch (Reader::Exception const & e)
+  {
+    LOG(LERROR, ("Error while reading", CAMERAS_INFO_FILE_TAG, "section.", e.Msg()));
+  }
+  return false;
+}
+
+bool ReadRoadAccessFromMwm(MwmValue const & mwmValue, VehicleType vehicleType, RoadAccess & roadAccess)
 {
   try
   {
     auto const reader = mwmValue.m_cont.GetReader(ROAD_ACCESS_FILE_TAG);
-    ReaderSource<FilesContainerR::TReader> src(reader);
+    ReaderSource src(reader);
     RoadAccessSerializer::Deserialize(src, vehicleType, roadAccess);
+    return true;
   }
   catch (Reader::OpenException const &)
   {
     LOG(LWARNING, (ROAD_ACCESS_FILE_TAG, "section not found"));
-    return false;
   }
   catch (Reader::Exception const & e)
   {
     LOG(LERROR, ("Error while reading", ROAD_ACCESS_FILE_TAG, "section.", e.Msg()));
-    return false;
   }
-  return true;
+  return false;
 }
-}  // namespace
 
-namespace routing
-{
 // static
 unique_ptr<IndexGraphLoader> IndexGraphLoader::Create(
     VehicleType vehicleType, bool loadAltitudes,
@@ -250,7 +245,7 @@ void DeserializeIndexGraph(MwmValue const & mwmValue, VehicleType vehicleType, I
 
   RoadAccess roadAccess;
   if (ReadRoadAccessFromMwm(mwmValue, vehicleType, roadAccess))
-    graph.SetRoadAccess(move(roadAccess));
+    graph.SetRoadAccess(std::move(roadAccess));
 }
 
 uint32_t DeserializeIndexGraphNumRoads(MwmValue const & mwmValue, VehicleType vehicleType)

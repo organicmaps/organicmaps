@@ -2,7 +2,6 @@
 #import "MWMSearchManager+Layout.h"
 #import "MapViewController.h"
 
-static CGFloat const kWidthForiPad = 320.0;
 static CGFloat const changeModeViewOffsetNormal = -24;
 static CGFloat const changeModeViewOffsetKeyboard = -12;
 
@@ -83,6 +82,10 @@ static CGFloat const changeModeViewOffsetKeyboard = -12;
                                            selector:@selector(keyboardWillHide:)
                                                name:UIKeyboardWillHideNotification
                                              object:nil];
+}
+
+- (void)removeKeyboardObservers {
+  [[NSNotificationCenter defaultCenter] removeObserver:self];
 }
 
 #pragma mark - keyboard movements

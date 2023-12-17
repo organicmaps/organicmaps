@@ -101,7 +101,7 @@ using namespace osm_auth_ios;
 
 - (IBAction)osmTap
 {
-  [self openUrl:@"https://wiki.openstreetmap.org/wiki/Main_Page"];
+  [self openUrl:L(@"osm_wiki_about_url")];
 }
 
 - (IBAction)historyTap

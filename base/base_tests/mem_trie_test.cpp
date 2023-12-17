@@ -101,7 +101,7 @@ UNIT_CLASS_TEST(MemTrieTest, Basic)
   TEST_EQUAL(GetExpectedContents(), GetActualContents(), ());
   TEST_EQUAL(GetNumNodes(), 8, ());
 
-  Trie newTrie(move(m_trie));
+  Trie newTrie(std::move(m_trie));
 
   TEST_EQUAL(m_trie.GetNumNodes(), 1, ());
   TEST(GetTrieContents(m_trie).empty(), ());

@@ -52,16 +52,16 @@ public:
     {
       // String format: <<lat;lon;id;is_capital>>.
       // First ';'.
-      auto pos = oneLine.find(";");
+      auto pos = oneLine.find(';');
       if (pos != std::string::npos)
       {
         // Second ';'.
-        pos = oneLine.find(";", pos + 1);
+        pos = oneLine.find(';', pos + 1);
         if (pos != std::string::npos)
         {
           uint64_t nodeId;
           // Third ';'.
-          auto endPos = oneLine.find(";", pos + 1);
+          auto endPos = oneLine.find(';', pos + 1);
           if (endPos != std::string::npos)
           {
             if (strings::to_uint64(oneLine.substr(pos + 1, endPos - pos - 1), nodeId))
@@ -94,20 +94,6 @@ public:
       CapitalsParserHelper parser(m_capitals);
       parser.ParseStream(reader);
     }
-  }
-
-  TagAdmixer(TagAdmixer const & other)
-    : m_ways(other.m_ways), m_capitals(other.m_capitals) {}
-
-  TagAdmixer & operator=(TagAdmixer const & other)
-  {
-    if (this != &other)
-    {
-      m_ways = other.m_ways;
-      m_capitals = other.m_capitals;
-    }
-
-    return *this;
   }
 
   void Process(OsmElement & element) const

@@ -19,8 +19,7 @@ namespace qt
 {
 char const * kTokenKeySetting = "OsmTokenKey";
 char const * kTokenSecretSetting = "OsmTokenSecret";
-char const * kLoginDialogTitle = "OpenStreetMap Login Dialog";
-char const * kLogoutDialogTitle = "Logout Dialog";
+char const * kLoginDialogTitle = "OpenStreetMap Login";
 
 OsmAuthDialog::OsmAuthDialog(QWidget * parent)
 {
@@ -31,7 +30,7 @@ OsmAuthDialog::OsmAuthDialog(QWidget * parent)
   QVBoxLayout * vLayout = new QVBoxLayout(parent);
 
   QHBoxLayout * loginRow = new QHBoxLayout();
-  loginRow->addWidget(new QLabel(tr("UserName or EMail:")));
+  loginRow->addWidget(new QLabel(tr("Username/email:")));
   QLineEdit * loginLineEdit = new QLineEdit();
   loginLineEdit->setObjectName("login");
   if (!isLoginDialog)
@@ -62,7 +61,7 @@ OsmAuthDialog::OsmAuthDialog(QWidget * parent)
   vLayout->addLayout(buttonsLayout);
 
   setLayout(vLayout);
-  setWindowTitle(isLoginDialog ? tr(kLoginDialogTitle) : tr(kLogoutDialogTitle));
+  setWindowTitle(tr(kLoginDialogTitle));
 }
 
 void SwitchToLogin(QDialog * dlg)
@@ -70,7 +69,6 @@ void SwitchToLogin(QDialog * dlg)
   dlg->findChild<QLineEdit *>("login")->setEnabled(true);
   dlg->findChild<QLineEdit *>("password")->setEnabled(true);
   dlg->findChild<QPushButton *>("button")->setText(dlg->tr("Login"));
-  dlg->setWindowTitle(dlg->tr(kLoginDialogTitle));
 }
 
 void SwitchToLogout(QDialog * dlg)

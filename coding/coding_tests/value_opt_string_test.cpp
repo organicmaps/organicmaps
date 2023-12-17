@@ -5,39 +5,48 @@
 #include "coding/writer.hpp"
 
 #include <algorithm>
-#include <cstddef>
-#include <cstdint>
 #include <string>
 #include <vector>
 
-using namespace std;
-
 namespace
 {
-  template <class T>
-  void TestStringCodingT(T const * arr, size_t count, size_t maxSize)
+
+template <class T>
+void TestStringCodingT(T const * arr, size_t count, size_t maxSize)
+{
+  for (size_t i = 0; i < count; ++i)
   {
-    for (size_t i = 0; i < count; ++i)
-    {
-      StringNumericOptimal s;
-      s.Set(arr[i]);
+    auto const ethalon = strings::to_string(arr[i]);
 
-      vector<char> buffer;
-      MemWriter<vector<char> > w(buffer);
+    StringNumericOptimal s;
+    s.Set(ethalon);
 
-      s.Write(w);
+    std::vector<char> buffer;
+    MemWriter<std::vector<char> > w(buffer);
 
-      size_t const sz = buffer.size();
-      TEST_GREATER(sz, 0, ());
-      TEST_LESS_OR_EQUAL(sz, maxSize, ());
+    s.Write(w);
 
-      MemReader r(&buffer[0], sz);
-      ReaderSource<MemReader> src(r);
-      s.Read(src);
+    size_t const sz = buffer.size();
+    TEST_GREATER(sz, 0, ());
+    TEST_LESS_OR_EQUAL(sz, maxSize, ());
 
-      TEST_EQUAL(strings::to_string(arr[i]), s.Get(), ());
-    }
+    MemReader r(&buffer[0], sz);
+    ReaderSource<MemReader> src(r);
+    s.Read(src);
+
+    TEST_EQUAL(ethalon, s.Get(), ());
   }
+}
+
+} // namespace
+
+UNIT_TEST(StringNumericOptimal_Zero)
+{
+  int t1 = 0;
+  TestStringCodingT(&t1, 1, 1);  // should be coded as VarUint
+
+  std::string t2 = "01";
+  TestStringCodingT(&t2, 1, 3);  // should be coded as String
 }
 
 UNIT_TEST(StringNumericOptimal_IntCoding1)
@@ -60,7 +69,7 @@ UNIT_TEST(StringNumericOptimal_StringCoding)
 
 UNIT_TEST(StringNumericOptimal_LargeStringCoding)
 {
-  string s;
+  std::string s;
   fill_n(back_inserter(s), 10000, 'x');
 
   TestStringCodingT(&s, 1, 10006);

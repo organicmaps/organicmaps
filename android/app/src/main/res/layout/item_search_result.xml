@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+  xmlns:android="http://schemas.android.com/apk/res/android"
+  xmlns:tools="http://schemas.android.com/tools"
+  android:layout_width="match_parent"
+  android:layout_height="wrap_content"
+  android:background="?selectableItemBackground"
+  android:minHeight="@dimen/search_item_height"
+  android:padding="@dimen/margin_base"
+  tools:background="#20FF0000">
+
+  <TextView
+      android:id="@+id/title"
+      android:layout_width="match_parent"
+      android:layout_height="wrap_content"
+      android:layout_alignParentStart="true"
+      android:textAppearance="@style/MwmTextAppearance.Body1"
+      android:ellipsize="end"
+      android:maxLines="2"
+      tools:text="Long long title that wraps to multiple lines"/>
+
+  <TextView
+      android:id="@+id/description"
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:layout_alignParentStart="true"
+      android:layout_below="@id/title"
+      android:layout_toStartOf="@id/open"
+      android:layout_marginEnd="@dimen/margin_half"
+      android:layout_marginTop="@dimen/margin_quarter"
+      android:textAppearance="@style/MwmTextAppearance.Body3"
+      android:maxLines="2"
+      android:ellipsize="end"
+      tools:text="Hotel \u2022 \u2605\u2605\u2605\u2605\u2605"/>
+
+  <TextView
+      android:id="@+id/open"
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:layout_alignParentEnd="true"
+      android:layout_alignTop="@id/description"
+      android:text="@string/closed"
+      android:textAppearance="@style/MwmTextAppearance.Body3" />
+
+  <TextView
+      android:id="@+id/region"
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:layout_alignParentStart="true"
+      android:layout_below="@id/description"
+      android:layout_toStartOf="@id/distance"
+      android:layout_marginTop="@dimen/margin_quarter"
+      android:layout_marginEnd="@dimen/margin_half"
+      android:textAppearance="@style/MwmTextAppearance.Body3"
+      android:textStyle="italic"
+      android:maxLines="2"
+      android:ellipsize="end"
+      tools:text="Russia, Moscow &amp; Central, Moscow"/>
+
+  <TextView
+    android:id="@+id/distance"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:layout_alignParentEnd="true"
+    android:layout_alignBaseline="@id/region"
+    android:layout_below="@id/description"
+    android:textAppearance="@style/MwmTextAppearance.Body3"
+    android:textColor="?colorAccent"
+    tools:text="500 km"/>
+</RelativeLayout>

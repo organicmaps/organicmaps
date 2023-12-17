@@ -48,7 +48,7 @@ public:
     auto result = m_dataSource.RegisterMap(file);
     CHECK_EQUAL(result.second, MwmSet::RegResult::Success, ());
 
-    auto const id = result.first;
+    auto id = result.first;
     auto const info = id.GetInfo();
     CHECK(info.get(), ());
     OnMwmBuilt(*info);
@@ -72,6 +72,7 @@ public:
   void SetMwmVersion(uint32_t version) { m_version = version; }
 
   void RegisterLocalMapsInViewport(m2::RectD const & viewport);
+  void RegisterLocalMapsByPrefix(std::string const & prefix);
 
 protected:
   static void Cleanup(platform::LocalCountryFile const & file);

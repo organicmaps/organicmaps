@@ -5,8 +5,6 @@
 
 #include "routing_common/num_mwm_id.hpp"
 
-#include <cstdint>
-#include <ios>
 #include <string>
 
 namespace routing
@@ -44,10 +42,13 @@ public:
 
   bool operator<(Segment const & seg) const;
   bool operator==(Segment const & seg) const;
-  bool operator!=(Segment const & seg) const;
+  bool operator!=(Segment const & seg) const
+  {
+    return !(*this == seg);
+  }
 
   bool IsInverse(Segment const & seg) const;
-  void Inverse() { m_forward = !m_forward; }
+  Segment GetReversed() const { return { m_mwmId, m_featureId, m_segmentIdx, !m_forward }; }
 
   /// @todo Logically, these functions should be equal, but keep existing logic,
   /// and investigate possible enhancements in future.

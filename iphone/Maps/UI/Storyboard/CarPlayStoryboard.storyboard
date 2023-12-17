@@ -53,11 +53,11 @@
                                         <subviews>
                                             <imageView userInteractionEnabled="NO" contentMode="center" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="ic_carplay_camera" translatesAutoresizingMaskIntoConstraints="NO" id="Vip-QN-Smh">
                                                 <rect key="frame" x="0.0" y="0.0" width="30" height="30"/>
-                                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                <color key="backgroundColor" white="1" alpha="0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                             </imageView>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="60" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ifo-0s-Ynd">
                                                 <rect key="frame" x="0.0" y="0.0" width="30" height="30"/>
-                                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                <color key="backgroundColor" white="1" alpha="0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                 <fontDescription key="fontDescription" type="boldSystem" pointSize="14"/>
                                                 <nil key="textColor"/>
                                                 <nil key="highlightedColor"/>
@@ -107,8 +107,8 @@
                         <outlet property="currentSpeedView" destination="1hD-QK-pwq" id="Mbg-8c-EWp"/>
                         <outlet property="speedCamImageView" destination="Vip-QN-Smh" id="ASc-eP-fXa"/>
                         <outlet property="speedInfoView" destination="dAY-9Y-UMN" id="k1g-9g-oKS"/>
-                        <outlet property="speedLimitContainer" destination="uhn-dc-aMW" id="AQt-AB-ZyL"/>
-                        <outlet property="speedLimitLabel" destination="ifo-0s-Ynd" id="zgD-Di-6YZ"/>
+                        <outlet property="speedCamLimitContainer" destination="uhn-dc-aMW" id="AQt-AB-ZyL"/>
+                        <outlet property="speedCamLimitLabel" destination="ifo-0s-Ynd" id="zgD-Di-6YZ"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="6hr-Cq-l0z" userLabel="First Responder" sceneMemberID="firstResponder"/>

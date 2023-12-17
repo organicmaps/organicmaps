@@ -1,8 +1,8 @@
 #pragma once
+#include "context.hpp"
+#include "edits.hpp"
 
 #include "search/result.hpp"
-#include "search/search_quality/assessment_tool/context.hpp"
-#include "search/search_quality/assessment_tool/edits.hpp"
 #include "search/search_quality/sample.hpp"
 
 #include "geometry/point2d.hpp"
@@ -36,17 +36,11 @@ public:
                           std::optional<m2::PointD> const & position, bool isUseless,
                           bool hasEdits) = 0;
 
-  virtual void AddFoundResults(search::Results::ConstIter begin,
-                               search::Results::ConstIter end) = 0;
+  virtual void AddFoundResults(search::Results const & results) = 0;
   virtual void ShowNonFoundResults(std::vector<search::Sample::Result> const & results,
                                    std::vector<ResultsEdits::Entry> const & entries) = 0;
 
   virtual void ShowMarks(Context const & context) = 0;
-  virtual void ShowFoundResultsMarks(search::Results::ConstIter begin,
-                                     search::Results::ConstIter end) = 0;
-  virtual void ShowNonFoundResultsMarks(std::vector<search::Sample::Result> const & results,
-                                        std::vector<ResultsEdits::Entry> const & entries) = 0;
-  virtual void ClearSearchResultMarks() = 0;
 
   virtual void MoveViewportToResult(search::Result const & result) = 0;
   virtual void MoveViewportToResult(search::Sample::Result const & result) = 0;

@@ -2,8 +2,6 @@
 
 #include "base/assert.hpp"
 
-#include "3party/fast_double_parser/include/fast_double_parser.h"
-
 #include <algorithm>
 #include <cmath>
 #include <iomanip>
@@ -11,6 +9,7 @@
 
 #include <boost/algorithm/string/trim.hpp>
 #include <boost/math/special_functions/fpclassify.hpp>
+#include <fast_double_parser.h>
 
 namespace strings
 {
@@ -71,8 +70,8 @@ bool UniString::IsEqualAscii(char const * s) const
 
 SimpleDelimiter::SimpleDelimiter(char const * delims)
 {
-  std::string const s(delims);
-  std::string::const_iterator it = s.begin();
+  std::string_view const s(delims);
+  auto it = s.begin();
   while (it != s.end())
     m_delims.push_back(utf8::unchecked::next(it));
 }
@@ -118,11 +117,10 @@ bool is_finite(double d)
   return IsFinite(d);
 }
 
-UniString MakeLowerCase(UniString const & s)
+UniString MakeLowerCase(UniString s)
 {
-  UniString result(s);
-  MakeLowerCaseInplace(result);
-  return result;
+  MakeLowerCaseInplace(s);
+  return s;
 }
 
 void MakeLowerCaseInplace(std::string & s)
@@ -134,18 +132,16 @@ void MakeLowerCaseInplace(std::string & s)
   utf8::unchecked::utf32to8(uniStr.begin(), uniStr.end(), back_inserter(s));
 }
 
-std::string MakeLowerCase(std::string const & s)
+std::string MakeLowerCase(std::string s)
 {
-  std::string result(s);
-  MakeLowerCaseInplace(result);
-  return result;
+  MakeLowerCaseInplace(s);
+  return s;
 }
 
-UniString Normalize(UniString const & s)
+UniString Normalize(UniString s)
 {
-  UniString result(s);
-  NormalizeInplace(result);
-  return result;
+  NormalizeInplace(s);
+  return s;
 }
 
 std::string Normalize(std::string const & s)
@@ -280,6 +276,13 @@ std::string ToUtf8(UniString const & s)
   return result;
 }
 
+std::u16string ToUtf16(std::string_view utf8)
+{
+  std::u16string utf16;
+  utf8::unchecked::utf8to16(utf8.begin(), utf8.end(), back_inserter(utf16));
+  return utf16;
+}
+
 bool IsASCIIString(std::string_view sv)
 {
   for (auto c : sv)
@@ -297,13 +300,6 @@ bool IsASCIISpace(UniChar c)
   return c == ' ' || c == '\f' || c == '\n' || c == '\r' || c == '\t' || c == '\v';
 }
 
-bool IsASCIINumeric(std::string const & str)
-{
-  if (str.empty())
-    return false;
-  return std::all_of(str.begin(), str.end(), strings::IsASCIIDigit);
-}
-
 bool IsASCIILatin(UniChar c) { return (c >= 'a' && c <= 'z') || (c >= 'A' && c <= 'Z'); }
 
 bool StartsWith(UniString const & s, UniString const & p)
@@ -311,19 +307,14 @@ bool StartsWith(UniString const & s, UniString const & p)
   return StartsWith(s.begin(), s.end(), p.begin(), p.end());
 }
 
-bool StartsWith(std::string const & s1, char const * s2)
+bool StartsWith(std::string_view s1, std::string_view s2)
 {
-  return (s1.compare(0, strlen(s2), s2) == 0);
+  return (s1.compare(0, s2.length(), s2) == 0);
 }
 
 bool StartsWith(std::string const & s, std::string::value_type c)
 {
   return s.empty() ? false : s.front() == c;
-}
-
-bool StartsWith(std::string const & s1, std::string const & s2)
-{
-  return (s1.compare(0, s2.length(), s2) == 0);
 }
 
 bool EndsWith(UniString const & s1, UniString const & s2)
@@ -334,10 +325,10 @@ bool EndsWith(UniString const & s1, UniString const & s2)
   return std::equal(s1.end() - s2.size(), s1.end(), s2.begin());
 }
 
-bool EndsWith(std::string const & s1, char const * s2)
+bool EndsWith(std::string_view s1, std::string_view s2)
 {
   size_t const n = s1.size();
-  size_t const m = strlen(s2);
+  size_t const m = s2.size();
   if (n < m)
     return false;
   return (s1.compare(n - m, m, s2) == 0);
@@ -346,11 +337,6 @@ bool EndsWith(std::string const & s1, char const * s2)
 bool EndsWith(std::string const & s, std::string::value_type c)
 {
   return s.empty() ? false : s.back() == c;
-}
-
-bool EndsWith(std::string const & s1, std::string const & s2)
-{
-  return s1.size() >= s2.size() && s1.compare(s1.size() - s2.size(), s2.size(), s2) == 0;
 }
 
 bool EatPrefix(std::string & s, std::string const & prefix)
@@ -411,7 +397,7 @@ std::string to_string_dac(double d, int dac)
 
 bool IsHTML(std::string const & utf8)
 {
-  std::string::const_iterator it = utf8.begin();
+  auto it = utf8.begin();
   size_t ltCount = 0;
   size_t gtCount = 0;
   while (it != utf8.end())
@@ -427,8 +413,7 @@ bool IsHTML(std::string const & utf8)
 
 bool AlmostEqual(std::string const & str1, std::string const & str2, size_t mismatchedCount)
 {
-  std::pair<std::string::const_iterator, std::string::const_iterator> mis(str1.begin(),
-                                                                          str2.begin());
+  std::pair mis(str1.begin(), str2.begin());
   auto const str1End = str1.end();
   auto const str2End = str2.end();
 
@@ -455,7 +440,7 @@ void ParseCSVRow(std::string const & s, char const delimiter, std::vector<std::s
   {
     std::string column(*it);
     strings::Trim(column);
-    target.push_back(move(column));
+    target.push_back(std::move(column));
   }
 
   // Special case: if the string is empty, return an empty array instead of {""}.

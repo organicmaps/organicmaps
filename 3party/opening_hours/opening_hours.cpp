@@ -387,7 +387,7 @@ bool operator==(Timespan const & lhs, Timespan const & rhs)
 
   return lhs.GetStart() == rhs.GetStart() &&
          lhs.GetEnd() == rhs.GetEnd() &&
-         lhs.GetPeriod() == lhs.GetPeriod();
+         lhs.GetPeriod() == rhs.GetPeriod();
 }
 
 // NthWeekdayOfTheMonthEntry -----------------------------------------------------------------------

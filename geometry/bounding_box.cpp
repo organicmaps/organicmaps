@@ -1,12 +1,10 @@
 #include "geometry/bounding_box.hpp"
 
-#include <algorithm>
-
-using namespace std;
+#include <algorithm>  // std::min, std::max
 
 namespace m2
 {
-BoundingBox::BoundingBox(vector<PointD> const & points)
+BoundingBox::BoundingBox(std::vector<PointD> const & points)
 {
   for (auto const & p : points)
     Add(p);
@@ -14,10 +12,10 @@ BoundingBox::BoundingBox(vector<PointD> const & points)
 
 void BoundingBox::Add(double x, double y)
 {
-  m_min.x = min(m_min.x, x);
-  m_min.y = min(m_min.y, y);
-  m_max.x = max(m_max.x, x);
-  m_max.y = max(m_max.y, y);
+  m_min.x = std::min(m_min.x, x);
+  m_min.y = std::min(m_min.y, y);
+  m_max.x = std::max(m_max.x, x);
+  m_max.y = std::max(m_max.y, y);
 }
 
 bool BoundingBox::HasPoint(double x, double y) const

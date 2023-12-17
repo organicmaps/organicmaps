@@ -1,0 +1,53 @@
+• Nowe dane OpenStreetMap z 13 listopada 2023 r
+• Teraz, możliwe jest większe przybliżenie i zobaczenie większej liczby punktów POI, w gęstych obszarach
+• Podgląd stylu mapy plenerowej (czytaj dalej, aby dowiedzieć się, jak go aktywować)
+• Usunięto dolny pasek zakładek, aby wyświetlić więcej mapy na ekranie
+• Usunięto niepotrzebny przycisk „trasa” na mapie (dotknij lub naciśnij długo miejsce na mapie lub wybierz wynik wyszukiwania, aby wyznaczyć trasę za pomocą przycisku „Trasa do”)
+• Podświetlono przycisk "Trasa do" i wskazano FAQ dla nowych użytkowników.
+• Naprawiono kolory trybu ciemny/jasny CarPlay
+• Naprawiono wprowadzanie danych z klawiatury w systemie iPadOS 15+
+• Ulepszenia przewijania kinetycznego z wykorzystaniem inercji
+• Usunięto maksymalny limit wyszukiwania zakładek
+• Nazwy marek są wyświetlane na karcie miejsca
+
+Wyznaczanie trasy
+• Nie wyznaczaj tras przez obszary=awaryjne, wojskowe, rolnicze, leśne
+• Dostosowane szacunki przepraw promowych
+• Ulepszone wyznaczanie tras między krajami i regionami
+• Ulepszone wyznaczanie tras przez obszary mieszkalne
+
+Wyszukiwanie
+• Przetwarzaj "platz-pl" jak "strasse-str"
+• Ulepszono dopasowywanie adresów
+• Ulepszono wyszukiwanie marek
+
+Styl mapy
+• Dodano kwietniki, wypożyczalnie, wypożyczalnie rowerów, warsztaty motocyklowe, mini zoo, obszary więzienne, stacje sprężonego powietrza
+• Dodano renderowanie rezerwatów przyrody i stref wojskowych do trybu nawigacji samochodowej
+• Dodano Docklands Light Railway, metro w Porto
+• Wyświetlanie nazw tras narciarskich
+• Dostosowano/zaktualizowano ikony centrów fitness, jogi, teatru, dzieł sztuki, pomników, parków rozrywki, miejsc do grillowania, latarni morskich, wiatraków, heliportów i lądowisk helikopterowych, ambony myśliwskiej, Domu Królestwa Świadków Jehowy, płatnych i prywatnych wersji parkingów oraz wejść na parkingi, sklepów spożywczych, delikatesów, farmaceutycznych i zdrowej żywności, sklepów z tytoniem
+• Lepsze wypełnienia obszarów podwórza i garażu
+• Zwiększona widoczność zarośli i schronisk alpejskich
+• Zaktualizowane ikony stacji sanitarnej do opróżniania toalet chemicznych i dostosowano jej priorytet
+• Zmniejszona widoczność wejść do jaskiń i ulepszona ikona
+• Zwiększona widoczność numerów domów, stanowiących osobne budynki
+• Zmniejszona widoczność metra w Tokio
+• Usunięto niepotrzebne znakczniki dróg na mapie w Estonii
+• Poprawiono kolory znaczników dróg w Estonii i Niemczech
+• Zwiększona widoczność znaczników na drogach o charakterze usługowym i osiedlowym
+• Naprawiono "przerwy" w niektórych gęsto naniesionych liniach
+• Naprawiono "przerwy" w konturach mostów i innych złożonych linii
+
+Podgląd stylu mapy plenerowej:
+• Dostosowany do aktywności na świeżym powietrzu poza miastem, takich jak wędrówki, jazda na rowerze po bezdrożach/MTB, jazda terenowa 4x4, itp.
+• Podkreśla  trasy, klify, tory kolejowe, linie energetyczne, rzeki i strumienie, źródła wody, szczyty, siodła i przełęcze górskie, wodospady, latarnie morskie, jaskinie, punkty widokowe, kempingi, chatki, schronienia, miejsca na pikniki, bramy, kraty, przeprawy brodowe itp
+• Aktywuj, wpisując ?olight w pole wyszukiwania i powróć do mapy; wpisz ?light, aby wrócić do głównego stylu
+• Użyj ?odark i ?dark dla ciemnego stylu
+• Poszukiwani deweloperzy Androida i iOS do pomocy w dodaniu przyjaznego interfejsu użytkownika do zmiany stylu!
+
+Tłumaczenia
+• Poprawiono sformułowanie opcji wyznaczania trasy „unikaj…”
+• Poprawiono tłumaczenia Arabic, Basque, Chinese, Czech, Danish, Finnish, Greek, Hungarian, Indonesian, Italian, Korean, Marathi, Polish, Romanian, Slovak, Spanish, Sweden, Thai, Turkish, Ukrainian i Vietnamese
+
+"...i więcej mniejszych poprawek i ulepszeń, sprawdź https://omaps.org/pl/news aby poznać szczegóły!"

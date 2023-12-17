@@ -4,13 +4,9 @@
 #include "base/cancellable.hpp"
 #include "base/macros.hpp"
 
-#include "std/target_os.hpp"
-
-#include <cstdint>
 #include <functional>
 #include <memory>
 #include <thread>
-#include <utility>
 
 namespace threads
 {
@@ -88,7 +84,7 @@ public:
 
   SimpleThread() noexcept {}
   SimpleThread(SimpleThread && x) noexcept
-    : m_thread(move(x.m_thread))
+    : m_thread(std::move(x.m_thread))
   {}
 
   template <class Fn, class... Args>
@@ -98,7 +94,7 @@ public:
 
   SimpleThread & operator= (SimpleThread && x) noexcept
   {
-    m_thread = move(x.m_thread);
+    m_thread = std::move(x.m_thread);
     return *this;
   }
 

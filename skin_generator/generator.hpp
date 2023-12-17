@@ -12,8 +12,6 @@
 #include <QtCore/QFileInfo>
 #include <QtCore/QSize>
 #include <QtSvg/QSvgRenderer>
-#include <QtXml/QXmlContentHandler>
-#include <QtXml/QXmlDefaultHandler>
 
 #include <cstdint>
 #include <map>

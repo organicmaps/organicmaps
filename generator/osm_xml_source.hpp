@@ -6,21 +6,26 @@
 #include "base/string_utils.hpp"
 
 #include <functional>
+#include <utility>
 #include <string>
 
 class XMLSource
 {
 public:
-  using Emitter = std::function<void(OsmElement *)>;
+  using Emitter = std::function<void(OsmElement &&)>;
 
-  XMLSource(Emitter fn) : m_emitter(fn) {}
+  XMLSource(Emitter && fn) : m_emitter(std::move(fn)) {}
 
   void CharData(std::string const &) {}
 
-  void AddAttr(std::string const & key, std::string const & value)
+  using StringPtrT = char const *;
+
+  void AddAttr(StringPtrT k, StringPtrT value)
   {
     if (!m_current)
       return;
+
+    std::string_view key(k);
 
     if (key == "id")
       CHECK(strings::to_uint64(value, m_current->m_id), ("Unknown element with invalid id:", value));
@@ -40,13 +45,13 @@ public:
       m_current->m_role = value;
   }
 
-  bool Push(std::string const & tagName)
+  bool Push(StringPtrT tagName)
   {
-    ASSERT_GREATER_OR_EQUAL(tagName.size(), 2, ());
+    ASSERT(tagName[0] && tagName[1], ());
 
-    // As tagKey we use first two char of tag name.
-    OsmElement::EntityType tagKey =
-        OsmElement::EntityType(*reinterpret_cast<uint16_t const *>(tagName.data()));
+    // Use first two chars as tagKey from tagName.
+    /// @todo Well, if something goes wrong here, and below, the new OSM tag was added into .osm file dump.
+    auto const tagKey = OsmElement::EntityType(*reinterpret_cast<uint16_t const *>(tagName));
 
     switch (++m_depth)
     {
@@ -65,7 +70,7 @@ public:
     return true;
   }
 
-  void Pop(std::string const & v)
+  void Pop(StringPtrT)
   {
     switch (--m_depth)
     {
@@ -73,7 +78,12 @@ public:
       break;
 
     case 1:
-      m_emitter(m_current);
+      // Skip useless tags. See XMLSource::Push function above.
+      if (m_current->m_type != OsmElement::EntityType::Bounds)
+      {
+        ASSERT_EQUAL(m_current, &m_parent, ());
+        m_emitter(std::move(m_parent));
+      }
       m_parent.Clear();
       break;
 

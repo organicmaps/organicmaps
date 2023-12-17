@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+  xmlns:android="http://schemas.android.com/apk/res/android"
+  xmlns:tools="http://schemas.android.com/tools"
+  android:layout_width="match_parent"
+  android:layout_height="match_parent"
+  xmlns:app="http://schemas.android.com/apk/res-auto"
+  android:orientation="vertical">
+
+  <androidx.appcompat.widget.Toolbar
+    android:id="@+id/toolbar"
+    style="@style/MwmWidget.ToolbarStyle"
+    android:layout_width="match_parent"
+    android:layout_height="?attr/actionBarSize"
+    android:theme="@style/MwmWidget.ToolbarTheme">
+
+    <RelativeLayout
+      android:id="@+id/toolbar_inner_layout"
+      android:layout_gravity="end|center_vertical"
+      android:layout_width="match_parent"
+      android:layout_height="match_parent">
+
+      <include
+        layout="@layout/toolbar_search_controls"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_toStartOf="@+id/save"
+        tools:visibility="gone"/>
+
+      <ImageView
+        app:tint="@color/image_view"
+        android:id="@+id/save"
+        android:layout_width="?actionBarSize"
+        android:layout_height="?actionBarSize"
+        android:layout_alignParentEnd="true"
+        android:layout_gravity="end|center_vertical"
+        android:background="?selectableItemBackgroundBorderless"
+        android:scaleType="centerInside"
+        android:src="@drawable/ic_done"/>
+
+    </RelativeLayout>
+
+  </androidx.appcompat.widget.Toolbar>
+
+  <FrameLayout
+    android:id="@+id/fragment_container"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="?panel"/>
+
+</LinearLayout>

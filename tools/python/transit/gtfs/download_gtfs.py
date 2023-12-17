@@ -1,3 +1,4 @@
+#!/usr/bin/env python3
 """Parses GTFS feeds urls:
 https://transit.land/        - Transitland
 https://storage.googleapis.com/storage/v1/b/mdb-csv/o/sources.csv?alt=media  
@@ -45,13 +46,17 @@ def download_gtfs_sources_mobilitydb(path):
             f"HTTP error {http_err} downloading zip from {URL_MOBILITYDB_GTFS_SOURCE}")
 
 
-def get_gtfs_urls_mobilitydb(path):
+def get_gtfs_urls_mobilitydb(path, countries_list):
     """Extracts the feed urls from the downloaded csv file"""
+    download_from_all_countries = True
+    if countries_list:
+        download_from_all_countries = False
+
     download_gtfs_sources_mobilitydb(path)
     file = open(os.path.join(path, RAW_FILE_MOBILITYDB), encoding='UTF-8')
     raw_sources = csv.DictReader(file)
     next(raw_sources)
-    urls = [field["urls.direct_download"] for field in raw_sources]
+    urls = [field["urls.direct_download"] for field in raw_sources if download_from_all_countries or field["location.country_code"] in countries_list]
     write_list_to_file(os.path.join(path, URLS_FILE_MOBILITYDB), urls)
 
 
@@ -238,6 +243,13 @@ def main():
         help="user key for working with transitland API v2"
     )
 
+    # Example: to download data only for Germany and France use "--mdb_countries DE,FR"
+    parser.add_argument(
+        "-c",
+        "--mdb_countries",
+        help="use data from MobilityDatabase only from selected countries (use ISO codes)",
+    )
+
     args = parser.parse_args()
 
     logging.basicConfig(
@@ -249,7 +261,11 @@ def main():
     if args.mode in ["fullrun", "load_feed_urls"]:
 
         if args.source in ["all", "mobilitydb"]:
-            get_gtfs_urls_mobilitydb(args.path)
+            mdb_countries = []
+            if args.mdb_countries:
+                mdb_countries = args.mdb_countries.split(',')
+
+            get_gtfs_urls_mobilitydb(args.path, mdb_countries)
         if args.source in ["all", "transitland"]:
             if not args.transitland_api_key:
                 logger.error(

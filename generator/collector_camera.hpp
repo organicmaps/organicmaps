@@ -2,9 +2,6 @@
 
 #include "generator/collector_interface.hpp"
 
-#include <cstdint>
-#include <fstream>
-#include <functional>
 #include <memory>
 #include <optional>
 #include <string>
@@ -18,7 +15,6 @@ class ReaderSource;
 class FileReader;
 class FileWriter;
 
-// TODO (@gmoryes) move members of m_routingTagsProcessor to generator
 namespace routing_builder
 {
 class TestCameraCollector;
@@ -32,10 +28,10 @@ class TestCameraCollector;
 /// for more details about input string.
 std::optional<double> GetMaxSpeedKmPH(std::string const & maxSpeedString);
 
-class CameraProcessor
+
+class CameraCollector : public generator::CollectorInterface
 {
-public:
-  struct CameraInfo;
+  friend class TestCameraCollector;
 
   struct CameraInfo
   {
@@ -51,8 +47,6 @@ public:
     static CameraInfo Read(ReaderSource<FileReader> & src);
     static void Write(FileWriter & writer, CameraInfo const & camera);
 
-    void Normalize();
-
     uint64_t m_id = 0;
     double m_lon = 0.0;
     double m_lat = 0.0;
@@ -60,59 +54,34 @@ public:
     std::vector<uint64_t> m_ways;
   };
 
-  static size_t const kMaxSpeedSpeedStringLength;
-
-  CameraProcessor(std::string const & filename);
-  ~CameraProcessor();
-
-  template <typename Fn>
-  void ForEachCamera(Fn && toDo)
-  {
-    for (auto & p : m_speedCameras)
-      toDo(p.second);
-  }
-
-  void ProcessNode(OsmElement const & element);
-  void ProcessWay(OsmElement const & element);
-
-  void FillCameraInWays();
-
-  void Finish();
-  void Merge(CameraProcessor const & cameraProcessor);
-  void Save(std::string const & filename);
-  void OrderCollectedData(std::string const & filename);
-
-private:
-  std::string m_waysFilename;
-  std::unique_ptr<FileWriter> m_waysWriter;
-  std::unordered_map<uint64_t, CameraInfo> m_speedCameras;
-  std::unordered_map<uint64_t, std::vector<uint64_t>> m_cameraToWays;
-};
-
-class CameraCollector : public generator::CollectorInterface
-{
-  friend class TestCameraCollector;
-
 public:
-  explicit CameraCollector(std::string const & filename);
+  CameraCollector(std::string const & filename, IDRInterfacePtr cache);
 
-  // generator::CollectorInterface overrides:
-  std::shared_ptr<CollectorInterface> Clone(
-      std::shared_ptr<generator::cache::IntermediateDataReaderInterface> const & = {})
-      const override;
-  // We will process all nodes before ways because of o5m format:
-  // all nodes are first, then all ways, then all relations.
+  /// @name CollectorInterface overrides:
+  /// @{
+  std::shared_ptr<CollectorInterface> Clone(IDRInterfacePtr const & cache = {}) const override;
   void CollectFeature(feature::FeatureBuilder const & feature, OsmElement const & element) override;
-  void Finish() override;
+  /// @}
 
-  void Merge(generator::CollectorInterface const & collector) override;
-  void MergeInto(CameraCollector & collector) const override;
+  IMPLEMENT_COLLECTOR_IFACE(CameraCollector);
+  void MergeInto(CameraCollector & collector) const;
 
 protected:
   void Save() override;
   void OrderCollectedData() override;
 
+  void FillCameraInWays();
+
+  template <typename Fn> void ForEachCamera(Fn && toDo)
+  {
+    for (auto & p : m_speedCameras)
+      toDo(p.second);
+  }
+
 private:
-  CameraProcessor m_processor;
+  IDRInterfacePtr m_cache;
+  std::vector<uint64_t> m_roadOsmIDs;
+
+  std::unordered_map<uint64_t, CameraInfo> m_speedCameras;
 };
 }  // namespace routing_builder

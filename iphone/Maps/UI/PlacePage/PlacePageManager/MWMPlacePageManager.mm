@@ -10,8 +10,11 @@
 #import "location_util.h"
 
 #import <CoreApi/CoreApi.h>
+#import <CoreApi/StringUtils.h>
 
 #include "platform/downloader_defines.hpp"
+
+#include "indexer/validate_and_format_contacts.hpp"
 
 using namespace storage;
 
@@ -227,6 +230,47 @@ using namespace storage;
 
 - (void)openWebsite:(PlacePageData *)data {
   [self.ownerViewController openUrl:data.infoData.website];
+}
+
+- (void)openKayak:(PlacePageData *)data {
+  [self.ownerViewController openUrl:data.infoData.kayak];
+}
+
+- (void)openWikipedia:(PlacePageData *)data {
+  [self.ownerViewController openUrl:data.infoData.wikipedia];
+}
+
+- (void)openWikimediaCommons:(PlacePageData *)data {
+  [self.ownerViewController openUrl:data.infoData.wikimediaCommons];
+}
+
+- (void)openFacebook:(PlacePageData *)data {
+  std::string const fullUrl = osm::socialContactToURL(osm::MapObject::MetadataID::FMD_CONTACT_FACEBOOK, [data.infoData.facebook UTF8String]);
+  [self.ownerViewController openUrl:ToNSString(fullUrl)];
+}
+
+- (void)openInstagram:(PlacePageData *)data {
+  std::string const fullUrl = osm::socialContactToURL(osm::MapObject::MetadataID::FMD_CONTACT_INSTAGRAM, [data.infoData.instagram UTF8String]);
+  [self.ownerViewController openUrl:ToNSString(fullUrl)];
+}
+
+- (void)openTwitter:(PlacePageData *)data {
+  std::string const fullUrl = osm::socialContactToURL(osm::MapObject::MetadataID::FMD_CONTACT_TWITTER, [data.infoData.twitter UTF8String]);
+  [self.ownerViewController openUrl:ToNSString(fullUrl)];
+}
+
+- (void)openVk:(PlacePageData *)data {
+  std::string const fullUrl = osm::socialContactToURL(osm::MapObject::MetadataID::FMD_CONTACT_VK, [data.infoData.vk UTF8String]);
+  [self.ownerViewController openUrl:ToNSString(fullUrl)];
+}
+
+- (void)openLine:(PlacePageData *)data {
+  std::string const fullUrl = osm::socialContactToURL(osm::MapObject::MetadataID::FMD_CONTACT_LINE, [data.infoData.line UTF8String]);
+  [self.ownerViewController openUrl:ToNSString(fullUrl)];
+}
+
+- (void)openEmail:(PlacePageData *)data {
+  [UIApplication.sharedApplication openURL:data.infoData.emailUrl options:@{} completionHandler:nil];
 }
 
 - (void)openElevationDifficultPopup:(PlacePageData *)data {

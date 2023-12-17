@@ -8,12 +8,10 @@
 
 #include "coding/point_coding.hpp"
 #include "coding/reader.hpp"
-#include "coding/varint.hpp"
 
 #include "base/assert.hpp"
 #include "base/checked_cast.hpp"
 #include "base/logging.hpp"
-#include "base/string_utils.hpp"
 
 #include <algorithm>
 #include <limits>
@@ -25,11 +23,7 @@ CamerasInfoCollector::CamerasInfoCollector(std::string const & dataFilePath,
                                            std::string const & osmIdsToFeatureIdsPath)
 {
   routing::OsmIdToFeatureIds osmIdToFeatureIds;
-  if (!routing::ParseWaysOsmIdToFeatureIdMapping(osmIdsToFeatureIdsPath, osmIdToFeatureIds))
-  {
-    LOG(LCRITICAL, ("An error happened while parsing feature id to osm ids mapping from file:",
-                    osmIdsToFeatureIdsPath));
-  }
+  routing::ParseWaysOsmIdToFeatureIdMapping(osmIdsToFeatureIdsPath, osmIdToFeatureIds);
 
   if (!ParseIntermediateInfo(camerasInfoPath, osmIdToFeatureIds))
     LOG(LCRITICAL, ("Unable to parse intermediate file(", camerasInfoPath, ") about cameras info"));
@@ -105,7 +99,6 @@ bool CamerasInfoCollector::ParseIntermediateInfo(
   uint32_t maxSpeedKmPH = 0;
   uint32_t relatedWaysNumber = 0;
 
-  std::vector<routing::SpeedCameraMwmPosition> ways;
   uint32_t latInt = 0;
   double lat = 0;
 
@@ -115,6 +108,9 @@ bool CamerasInfoCollector::ParseIntermediateInfo(
 
   while (src.Size() > 0)
   {
+    /// @todo Take out intermediate camera info serialization code.
+    /// Should be equal with CameraCollector::CameraInfo::Read.
+
     ReadPrimitiveFromSource(src, latInt);
     ReadPrimitiveFromSource(src, lonInt);
     lat = Uint32ToDouble(latInt, ms::LatLon::kMinLat, ms::LatLon::kMaxLat, kPointCoordBits);
@@ -139,6 +135,7 @@ bool CamerasInfoCollector::ParseIntermediateInfo(
                    "lat(", lat, "), lon(", lon, ")"));
     }
 
+    std::vector<routing::SpeedCameraMwmPosition> ways;
     uint64_t wayOsmId = 0;
     for (uint32_t i = 0; i < relatedWaysNumber; ++i)
     {
@@ -219,11 +216,8 @@ void CamerasInfoCollector::Camera::FindClosestSegmentWithGeometryIndex(FrozenDat
       points[i] = ft.GetPoint(i);
 
     routing::FollowedPolyline polyline(points.begin(), points.end());
-    m2::RectD const rect =
-      mercator::RectByCenterXYAndSizeInMeters(m_data.m_center, kSearchCameraRadiusMeters);
-    auto curSegment = polyline.UpdateProjection(rect);
-    double curCoef = 0.0;
-
+    m2::RectD const rect = mercator::RectByCenterXYAndSizeInMeters(m_data.m_center, kSearchCameraRadiusMeters);
+    auto const curSegment = polyline.UpdateProjection(rect);
     if (!curSegment.IsValid())
       return;
 
@@ -239,15 +233,12 @@ void CamerasInfoCollector::Camera::FindClosestSegmentWithGeometryIndex(FrozenDat
     auto const cameraProjOnSegment = st.ClosestPointTo(m_data.m_center);
     curMinDist = mercator::DistanceOnEarth(cameraProjOnSegment, m_data.m_center);
 
-    curCoef = mercator::DistanceOnEarth(p1, cameraProjOnSegment) /
-              mercator::DistanceOnEarth(p1, p2);
-
     if (curMinDist < bestMinDist)
     {
       bestMinDist = curMinDist;
       bestFeatureId = ft.GetID().m_index;
       bestSegmentId = static_cast<uint32_t>(curSegment.m_ind);
-      bestCoef = curCoef;
+      bestCoef = mercator::DistanceOnEarth(p1, cameraProjOnSegment) / mercator::DistanceOnEarth(p1, p2);
       found = true;
     }
   };

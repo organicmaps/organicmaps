@@ -27,7 +27,7 @@
   m_skin->Resize(p.m_surfaceWidth, p.m_surfaceHeight);
   m_skin->ForEach(
       [&p](gui::EWidget widget, gui::Position const & pos) { p.m_widgetsInitInfo[widget] = pos; });
-  p.m_widgetsInitInfo[gui::WIDGET_SCALE_FPS_LABEL] = gui::Position(dp::LeftBottom);
+  p.m_widgetsInitInfo[gui::WIDGET_SCALE_FPS_LABEL] = gui::Position(m2::PointF(self.visualScale * 10, self.visualScale * 45), dp::LeftTop);
 }
 
 - (void)resize:(CGSize)size
@@ -84,7 +84,7 @@
     }
     layout[w] = pivot;
   });
-  GetFramework().SetWidgetLayout(move(layout));
+  GetFramework().SetWidgetLayout(std::move(layout));
 }
 
 @end

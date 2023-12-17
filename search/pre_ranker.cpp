@@ -17,6 +17,7 @@
 
 #include <algorithm>
 #include <iterator>
+#include <random>
 
 namespace search
 {
@@ -47,7 +48,7 @@ void SweepNearbyResults(m2::PointD const & eps, unordered_set<FeatureID> const &
   filtered.reserve(results.size());
   sweeper.Sweep([&filtered, &results](size_t i)
   {
-    filtered.push_back(move(results[i]));
+    filtered.push_back(std::move(results[i]));
   });
 
   results.swap(filtered);
@@ -55,7 +56,8 @@ void SweepNearbyResults(m2::PointD const & eps, unordered_set<FeatureID> const &
 }  // namespace
 
 PreRanker::PreRanker(DataSource const & dataSource, Ranker & ranker)
-  : m_dataSource(dataSource), m_ranker(ranker), m_pivotFeatures(dataSource)
+: m_dataSource(dataSource), m_ranker(ranker), m_pivotFeatures(dataSource)
+, m_rndSeed(std::random_device()())
 {
 }
 
@@ -129,9 +131,7 @@ void PreRanker::FillMissingFieldsInPreResults()
       }
       else
       {
-        /// @todo We always should have centers table for features (except newly created) or I miss something?
-        ASSERT(false, ("Centers table is missing?"));
-
+        // Possible when search while MWM is reloading or updating (!IsAlive).
         if (!pivotFeaturesInitialized)
         {
           m_pivotFeatures.SetPosition(m_params.m_accuratePivotCenter, m_params.m_scale);
@@ -159,7 +159,14 @@ public:
 };
 } // namespace
 
-void PreRanker::Filter(bool viewportSearch)
+void PreRanker::DbgFindAndLog(std::set<uint32_t> const & ids) const
+{
+  for (auto const & r : m_results)
+    if (ids.count(r.GetId().m_index) > 0)
+      LOG(LDEBUG, (r));
+}
+
+void PreRanker::Filter()
 {
   auto const lessForUnique = [](PreRankerResult const & lhs, PreRankerResult const & rhs)
   {
@@ -171,30 +178,40 @@ void PreRanker::Filter(bool viewportSearch)
     return PreRankerResult::CompareByTokensMatch(lhs, rhs) == -1;
   };
 
+  /// @DebugNote
+  /// Use DbgFindAndLog to check needed ids before and after filtering
+
   base::SortUnique(m_results, lessForUnique, base::EqualsBy(&PreRankerResult::GetId));
 
-  if (viewportSearch)
+  if (m_params.m_viewportSearch)
     FilterForViewportSearch();
 
+  // Viewport search ends here.
   if (m_results.size() <= BatchSize())
     return;
 
-  vector<size_t> indices(m_results.size());
-  generate(indices.begin(), indices.end(), [n = 0] () mutable { return n++; });
-  unordered_set<size_t> filtered;
+  std::vector<size_t> indices(m_results.size());
+  std::generate(indices.begin(), indices.end(), [n = 0] () mutable { return n++; });
+  std::unordered_set<size_t> filtered;
 
   auto const iBeg = indices.begin();
   auto const iMiddle = iBeg + BatchSize();
   auto const iEnd = indices.end();
 
-  nth_element(iBeg, iMiddle, iEnd, CompareIndices(&PreRankerResult::LessDistance, m_results));
+  std::nth_element(iBeg, iMiddle, iEnd, CompareIndices(&PreRankerResult::LessDistance, m_results));
   filtered.insert(iBeg, iMiddle);
 
   if (!m_params.m_categorialRequest)
   {
-    nth_element(iBeg, iMiddle, iEnd, CompareIndices(&PreRankerResult::LessRankAndPopularity, m_results));
+    std::nth_element(iBeg, iMiddle, iEnd, CompareIndices(&PreRankerResult::LessRankAndPopularity, m_results));
     filtered.insert(iBeg, iMiddle);
-    nth_element(iBeg, iMiddle, iEnd, CompareIndices(&PreRankerResult::LessByExactMatch, m_results));
+
+    // Shuffle to give a chance to far results, not only closest ones (see above).
+    // Search is not stable in rare cases, but we avoid increasing m_everywhereBatchSize.
+    /// @todo Move up, when we will have _enough_ ranks and popularities.
+    std::shuffle(iBeg, iEnd, std::mt19937(m_rndSeed));
+
+    std::nth_element(iBeg, iMiddle, iEnd, CompareIndices(&PreRankerResult::LessByExactMatch, m_results));
     filtered.insert(iBeg, iMiddle);
   }
   else
@@ -208,7 +225,7 @@ void PreRanker::Filter(bool viewportSearch)
                                  2 * kPedestrianRadiusMeters;
     comparator.m_viewport = m_params.m_viewport;
 
-    nth_element(iBeg, iMiddle, iEnd, CompareIndices(comparator, m_results));
+    std::nth_element(iBeg, iMiddle, iEnd, CompareIndices(comparator, m_results));
     filtered.insert(iBeg, iMiddle);
   }
 
@@ -223,9 +240,9 @@ void PreRanker::UpdateResults(bool lastUpdate)
 {
   FilterRelaxedResults(lastUpdate);
   FillMissingFieldsInPreResults();
-  Filter(m_params.m_viewportSearch);
+  Filter();
   m_numSentResults += m_results.size();
-  m_ranker.AddPreRankerResults(move(m_results));
+  m_ranker.AddPreRankerResults(std::move(m_results));
   m_results.clear();
   m_ranker.UpdateResults(lastUpdate);
 
@@ -246,16 +263,17 @@ void PreRanker::FilterForViewportSearch()
   {
     auto const & info = result.GetInfo();
 
-    // Interesting, is it possible when there is no center for a search result?
     ASSERT(info.m_centerLoaded, (result.GetId()));
-    if (!info.m_centerLoaded || !m_params.m_viewport.IsPointInside(info.m_center))
+    if (!m_params.m_viewport.IsPointInside(info.m_center))
       return true;
 
-    /// @todo Make some upper bound like for regular search, but not to erase partially matched results?
-    return result.GetMatchedTokensNumber() + 1 < m_params.m_numQueryTokens;
+    // Better criteria than previous (at first glance).
+    /// @todo Probably, should show say 20-30 first results with honest ranking, but need to refactor a lot ..
+    return result.SkipForViewportSearch(m_params.m_numQueryTokens);
   });
 
-  /// @todo Comment next statements to discard viewport filtering (displacement) at all.
+  /// @DebugNote
+  // Comment this line to discard viewport filtering (displacement).
   SweepNearbyResults(m_params.m_minDistanceOnMapBetweenResults, m_prevEmit, m_results);
 
   for (auto const & result : m_results)
@@ -267,6 +285,7 @@ void PreRanker::FilterRelaxedResults(bool lastUpdate)
   auto const iEnd = m_results.end();
   if (lastUpdate)
   {
+    LOG(LDEBUG, ("Flush relaxed results number:", m_relaxedResults.size()));
     m_results.insert(iEnd, make_move_iterator(m_relaxedResults.begin()), make_move_iterator(m_relaxedResults.end()));
     m_relaxedResults.clear();
   }

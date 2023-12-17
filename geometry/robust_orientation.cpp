@@ -15,11 +15,7 @@ extern "C" {
 #endif
 }
 
-using namespace std;
-
-namespace m2
-{
-namespace robust
+namespace m2::robust
 {
 bool Init()
 {
@@ -29,7 +25,7 @@ bool Init()
 
 double OrientedS(PointD const & p1, PointD const & p2, PointD const & p)
 {
-  static bool res = Init();
+  static bool const res = Init();
   ASSERT_EQUAL(res, true, ());
   UNUSED_VALUE(res);
 
@@ -57,11 +53,7 @@ bool IsSegmentInCone(PointD const & v, PointD const & v1, PointD const & vPrev,
     // vertex is concave
     return OrientedS(v, vPrev, v1) < 0.0 && OrientedS(v, vNext, v1) > 0.0;
   }
-  else
-  {
-    // vertex is convex
-    return OrientedS(v, vPrev, v1) < 0.0 || OrientedS(v, vNext, v1) > 0.0;
-  }
+  // vertex is convex
+  return OrientedS(v, vPrev, v1) < 0.0 || OrientedS(v, vNext, v1) > 0.0;
 }
-}  // namespace robust
-}  // namespace m2
+}  // namespace m2::robust

@@ -2,6 +2,9 @@
 
 #include "http_uploader_background.hpp"
 
+#include "base/assert.hpp"
+#include "base/logging.hpp"
+
 static NSString *const kSessionId = @"MWMBackgroundUploader_sessionId";
 
 @interface MWMBackgroundUploader : NSObject <NSURLSessionDelegate>

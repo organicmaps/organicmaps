@@ -10,7 +10,6 @@
 #include "indexer/search_delimiters.hpp"
 #include "indexer/search_string_utils.hpp"
 
-#include "base/stl_helpers.hpp"
 #include "base/string_utils.hpp"
 
 #include <cstdint>
@@ -21,21 +20,19 @@ namespace ranking_tests
 {
 using namespace search;
 using namespace std;
-using namespace strings;
 
 namespace
 {
-NameScores GetScore(string const & name, string const & query, TokenRange const & tokenRange)
+NameScores GetScore(string const & name, string const & query)
 {
-  search::Delimiters delims;
+  Delimiters delims;
   QueryParams params;
 
-  vector<UniString> tokens;
-  SplitUniString(NormalizeAndSimplifyString(query), base::MakeBackInsertFunctor(tokens), delims);
+  auto const tokens = NormalizeAndTokenizeString(query);
 
   params.Init(query, tokens, !query.empty() && !delims(strings::LastUniChar(query)));
 
-  return GetNameScores(name, StringUtf8Multilang::kDefaultCode, TokenSlice(params, tokenRange));
+  return GetNameScores(name, StringUtf8Multilang::kDefaultCode, TokenSlice(params, {0, tokens.size()}));
 }
 
 void AssignRankingInfo(NameScores const & scores, RankingInfo & info, size_t totalLength)
@@ -49,66 +46,152 @@ void AssignRankingInfo(NameScores const & scores, RankingInfo & info, size_t tot
 
 UNIT_TEST(NameScore_Smoke)
 {
-  auto const test = [](string const & name, string const & query, TokenRange const & tokenRange,
+  auto const test = [](string const & name, string const & query,
                        NameScore nameScore, size_t errorsMade, size_t matchedLength)
   {
     NameScores const expected(nameScore, nameScore == NameScore::ZERO ? ErrorsMade() : ErrorsMade(errorsMade),
                               false /* isAltOrOldNAme */, matchedLength);
-    TEST_EQUAL(GetScore(name, query, tokenRange), expected, (name, query, tokenRange));
+    TEST_EQUAL(GetScore(name, query), expected, (name, query));
   };
 
   base::ScopedLogLevelChanger const enableDebug(LDEBUG);
-  //    name,      query,                        range,            expected score,   errors, match length
-  test("New York", "Central Park, New York, US", TokenRange(2, 4), NameScore::FULL_MATCH, 0, 7);
-  test("New York", "York", TokenRange(0, 1), NameScore::SUBSTRING, 0, 4);
-  test("New York", "Chicago", TokenRange(0, 1), NameScore::ZERO, 0, 0);
-  test("Moscow", "Red Square Mosc", TokenRange(2, 3), NameScore::PREFIX, 0, 4);
-  test("Moscow", "Red Square Moscow", TokenRange(2, 3), NameScore::FULL_MATCH, 0, 6);
-  test("Moscow", "Red Square Moscw", TokenRange(2, 3), NameScore::FULL_MATCH, 1, 5);
-  test("San Francisco", "Fran", TokenRange(0, 1), NameScore::SUBSTRING, 0, 4);
-  test("San Francisco", "Fran ", TokenRange(0, 1), NameScore::ZERO, 0, 0);
-  test("San Francisco", "Sa", TokenRange(0, 1), NameScore::PREFIX, 0, 2);
-  test("San Francisco", "San ", TokenRange(0, 1), NameScore::FULL_PREFIX, 0, 3);
-  test("San Francisco", "san fr", TokenRange(0, 2), NameScore::PREFIX, 0, 5);
-  test("San Francisco", "san fracis", TokenRange(0, 2), NameScore::PREFIX, 1, 9);
-  test("South Fredrick Street", "S Fredrick St", TokenRange(0, 3), NameScore::FULL_MATCH, 0, 11);
-  test("South Fredrick Street", "S Fredrick", TokenRange(0, 2), NameScore::FULL_PREFIX, 0, 9);
-  test("South Fredrick Street", "Fredrick St", TokenRange(0, 2), NameScore::SUBSTRING, 0, 10);
-  test("North Scott Boulevard", "N Scott Blvd", TokenRange(0, 3), NameScore::FULL_MATCH, 0, 10);
-  test("North Scott Boulevard", "N Scott", TokenRange(0, 2), NameScore::FULL_PREFIX, 0, 6);
-  test("North Scott Boulevard", "N Sco", TokenRange(0, 2), NameScore::PREFIX, 0, 4);
-  test("Лермонтовъ", "Лермон", TokenRange(0, 1), NameScore::PREFIX, 0, 6);
-  test("Лермонтовъ", "Лермонтов", TokenRange(0, 1), NameScore::PREFIX, 0, 9);
-  test("Лермонтовъ", "Лермонтово", TokenRange(0, 1), NameScore::FULL_MATCH, 1, 10);
-  test("Лермонтовъ", "Лермнтовъ", TokenRange(0, 1), NameScore::FULL_MATCH, 1, 9);
-  test("фото на документы", "фото", TokenRange(0, 1), NameScore::FULL_PREFIX, 0, 4);
-  test("фотоателье", "фото", TokenRange(0, 1), NameScore::PREFIX, 0, 4);
+  //    name,      query,      expected score, errors, match length
+  test("New York", "New York", NameScore::FULL_MATCH, 0, 7);
+  test("New York", "York", NameScore::SUBSTRING, 0, 4);
+  test("New York", "Chicago", NameScore::ZERO, 0, 0);
+  test("Moscow", "Mosc", NameScore::PREFIX, 0, 4);
+  test("Moscow", "Moscow", NameScore::FULL_MATCH, 0, 6);
+  test("Moscow", "Moscw", NameScore::FULL_MATCH, 1, 5);
+  test("San Francisco", "Fran", NameScore::SUBSTRING, 0, 4);
+  test("San Francisco", "Fran ", NameScore::ZERO, 0, 0);
+  test("San Francisco", "Sa", NameScore::PREFIX, 0, 2);
+  test("San Francisco", "San ", NameScore::FULL_PREFIX, 0, 3);
+  test("San Francisco", "san fr", NameScore::PREFIX, 0, 5);
+  test("San Francisco", "san fracis", NameScore::PREFIX, 1, 9);
+  test("South Fredrick Street", "S Fredrick St", NameScore::FULL_MATCH, 0, 11);
+  test("South Fredrick Street", "S Fredrick", NameScore::FULL_PREFIX, 0, 9);
+  test("South Fredrick Street", "Fredrick St", NameScore::SUBSTRING, 0, 10);
+  test("North Scott Boulevard", "N Scott Blvd", NameScore::FULL_MATCH, 0, 10);
+  test("North Scott Boulevard", "N Scott", NameScore::FULL_PREFIX, 0, 6);
+  test("North Scott Boulevard", "N Sco", NameScore::PREFIX, 0, 4);
+  test("Лермонтовъ", "Лермон", NameScore::PREFIX, 0, 6);
+  test("Лермонтовъ", "Лермонтов", NameScore::PREFIX, 0, 9);
+  test("Лермонтовъ", "Лермонтово", NameScore::FULL_MATCH, 1, 10);
+  test("Лермонтовъ", "Лермнтовъ", NameScore::FULL_MATCH, 1, 9);
+  test("фото на документы", "фото", NameScore::FULL_PREFIX, 0, 4);
+  test("фотоателье", "фото", NameScore::PREFIX, 0, 4);
+
+  test("Pennsylvania Ave NW, Washington, DC", "1600 Pennsylvania Ave", NameScore::SUBSTRING, 0, 15);
+  test("Pennsylvania Ave NW, Washington, DC", "Pennsylvania Ave, Chicago", NameScore::FIRST_MATCH, 0, 15);
+
+  test("Barnes & Noble", "barne & noble", NameScore::FULL_MATCH, 1, 10);
+  test("Barnes Avenue", "barne ", NameScore::FULL_PREFIX, 1, 5);
+  test("Barnes Avenue", "barne & noble", NameScore::FIRST_MATCH, 1, 5);
+
+  test("Barnes Avenue", "barne's & noble", NameScore::FIRST_MATCH, 0, 6);
+  test("Barnes & Noble", "barne's & noble", NameScore::FULL_MATCH, 0, 11);
+  test("Barne's & Noble", "barnes & noble", NameScore::FULL_MATCH, 0, 11);
+
+  test("Зона №51", "зона 51", NameScore::FULL_MATCH, 0, 6);
+  test("Зона №51", "зона №", NameScore::FULL_PREFIX, 0, 4);
+
+  test("Göztepe 60. Yıl Parkı", "goztepe parki", NameScore::FIRST_MATCH, 0, 12);
+  test("Göztepe 60. Yıl Parkı", "goztepe 60 parki", NameScore::FIRST_MATCH, 0, 14);
+  test("Göztepe 60. Yıl Parkı", "60 parki", NameScore::SUBSTRING, 0, 7);
+  test("Göztepe 60. Yıl Parkı", "yil parki", NameScore::SUBSTRING, 0, 8);
+}
+
+namespace
+{
+ErrorsMade GetErrorsMade(QueryParams::Token const & token, strings::UniString const & text)
+{
+  return search::impl::GetErrorsMade(token, text, search::BuildLevenshteinDFA(text));
+}
+ErrorsMade GetPrefixErrorsMade(QueryParams::Token const & token, strings::UniString const & text)
+{
+  return search::impl::GetPrefixErrorsMade(token, text, search::BuildLevenshteinDFA(text));
+}
+} // namespace
+
+UNIT_TEST(ErrorsMade_Smoke)
+{
+  {
+    QueryParams::Token const searchToken = strings::MakeUniString("hairdressers");
+
+    auto nameToken = strings::MakeUniString("h");
+    TEST(!GetErrorsMade(searchToken, nameToken).IsValid(), ());
+    TEST(!GetPrefixErrorsMade(searchToken, nameToken).IsValid(), ());
+
+    nameToken = strings::MakeUniString("hair");
+    TEST(!GetErrorsMade(searchToken, nameToken).IsValid(), ());
+    TEST(!GetPrefixErrorsMade(searchToken, nameToken).IsValid(), ());
+  }
+
+  {
+    auto nameToken = strings::MakeUniString("hair");
+
+    QueryParams::Token searchToken = strings::MakeUniString("hair");
+    TEST_EQUAL(GetErrorsMade(searchToken, nameToken).m_errorsMade, 0, ());
+    TEST_EQUAL(GetPrefixErrorsMade(searchToken, nameToken).m_errorsMade, 0, ());
+
+    searchToken = strings::MakeUniString("gair");
+    TEST_EQUAL(GetErrorsMade(searchToken, nameToken).m_errorsMade, 1, ());
+    TEST_EQUAL(GetPrefixErrorsMade(searchToken, nameToken).m_errorsMade, 1, ());
+
+    searchToken = strings::MakeUniString("gai");
+    TEST(!GetErrorsMade(searchToken, nameToken).IsValid(), ());
+    TEST_EQUAL(GetPrefixErrorsMade(searchToken, nameToken).m_errorsMade, 1, ());
+
+    searchToken = strings::MakeUniString("hairrr");
+    TEST(!GetErrorsMade(searchToken, nameToken).IsValid(), ());
+    TEST(!GetPrefixErrorsMade(searchToken, nameToken).IsValid(), ());
+  }
+
+  {
+    auto nameToken = strings::MakeUniString("hairdresser");
+
+    QueryParams::Token searchToken = strings::MakeUniString("hair");
+    TEST(!GetErrorsMade(searchToken, nameToken).IsValid(), ());
+    TEST_EQUAL(GetPrefixErrorsMade(searchToken, nameToken).m_errorsMade, 0, ());
+
+    searchToken = strings::MakeUniString("gair");
+    TEST_EQUAL(GetPrefixErrorsMade(searchToken, nameToken).m_errorsMade, 1, ());
+
+    searchToken = strings::MakeUniString("gairdrese");
+    TEST(!GetErrorsMade(searchToken, nameToken).IsValid(), ());
+    TEST_EQUAL(GetPrefixErrorsMade(searchToken, nameToken).m_errorsMade, 2, ());
+  }
+}
+
+UNIT_TEST(NameScore_Prefix)
+{
+  TEST_EQUAL(GetScore("H Nicks", "hairdressers").m_nameScore, NameScore::ZERO, ());
+  TEST_EQUAL(GetScore("Hair E14", "hairdressers").m_nameScore, NameScore::ZERO, ());
 }
 
 UNIT_TEST(NameScore_SubstringVsErrors)
 {
+  string const query = "Simon";
+
+  RankingInfo info;
+  info.m_type = Model::TYPE_SUBPOI;
+  info.m_tokenRanges[Model::TYPE_SUBPOI] = {0, 1};
+  info.m_numTokens = 1;
+  info.m_allTokensUsed = true;
+  info.m_exactMatch = false;
+
   {
-    string const query = "Simon";
-    TokenRange const range(0, 1);
-
-    RankingInfo info;
-    info.m_tokenRanges[Model::TYPE_SUBPOI] = range;
-    info.m_numTokens = 1;
-    info.m_allTokensUsed = true;
-    info.m_exactMatch = false;
-    info.m_exactCountryOrCapital = false;
-
     RankingInfo poi1 = info;
-    AssignRankingInfo(GetScore("Symon Budny and Vasil Tsiapinski", query, range), poi1, query.size());
+    AssignRankingInfo(GetScore("Symon Budny and Vasil Tsiapinski", query), poi1, query.size());
     TEST_EQUAL(poi1.m_nameScore, NameScore::FULL_PREFIX, ());
     TEST_EQUAL(poi1.m_errorsMade, ErrorsMade(1), ());
 
     RankingInfo poi2 = info;
-    AssignRankingInfo(GetScore("Church of Saints Simon and Helen", query, range), poi2, query.size());
+    AssignRankingInfo(GetScore("Church of Saints Simon and Helen", query), poi2, query.size());
     TEST_EQUAL(poi2.m_nameScore, NameScore::SUBSTRING, ());
     TEST_EQUAL(poi2.m_errorsMade, ErrorsMade(0), ());
 
-    TEST_LESS(poi1.GetLinearModelRank(), poi2.GetLinearModelRank(), ());
+    TEST_LESS(poi1.GetLinearModelRank(), poi2.GetLinearModelRank(), (poi1, poi2));
   }
 }
 
@@ -125,18 +208,16 @@ UNIT_TEST(RankingInfo_PreferCountry)
   auto cafe = info;
   cafe.m_distanceToPivot = 1e3;
   cafe.m_tokenRanges[Model::TYPE_SUBPOI] = TokenRange(0, 1);
-  cafe.m_exactCountryOrCapital = false;
   cafe.m_type = Model::TYPE_SUBPOI;
   cafe.m_classifType.poi = PoiType::Eat;
 
   auto country = info;
   country.m_distanceToPivot = 1e6;
   country.m_tokenRanges[Model::TYPE_COUNTRY] = TokenRange(0, 1);
-  country.m_exactCountryOrCapital = true;
   country.m_type = Model::TYPE_COUNTRY;
 
   // Country should be preferred even if cafe is much closer to viewport center.
-  TEST_LESS(cafe.GetLinearModelRank(), country.GetLinearModelRank(), ());
+  TEST_LESS(cafe.GetLinearModelRank(), country.GetLinearModelRank(), (cafe, country));
 }
 
 UNIT_TEST(RankingInfo_PrefixVsFull)
@@ -146,8 +227,8 @@ UNIT_TEST(RankingInfo_PrefixVsFull)
   info.m_matchedFraction = 1;
   info.m_allTokensUsed = true;
   info.m_exactMatch = false;
-  info.m_exactCountryOrCapital = false;
   info.m_distanceToPivot = 1000;
+  info.m_type = Model::TYPE_SUBPOI;
   info.m_tokenRanges[Model::TYPE_SUBPOI] = TokenRange(0, 2);
 
   {
@@ -161,7 +242,7 @@ UNIT_TEST(RankingInfo_PrefixVsFull)
     prefix.m_nameScore = NameScore::PREFIX;
     prefix.m_errorsMade = ErrorsMade(0);
 
-    TEST_LESS(full.GetLinearModelRank(), prefix.GetLinearModelRank(), ());
+    TEST_LESS(full.GetLinearModelRank(), prefix.GetLinearModelRank(), (full, prefix));
   }
 }
 
@@ -171,7 +252,7 @@ class MwmIdWrapper
 {
   FeatureID m_id;
 public:
-  MwmIdWrapper(MwmSet::MwmId id) : m_id(move(id), 0) {}
+  MwmIdWrapper(MwmSet::MwmId id) : m_id(std::move(id), 0) {}
   FeatureID const & GetId() const { return m_id; }
 };
 

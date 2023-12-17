@@ -1,12 +1,8 @@
 #pragma once
 
-#include "map/bookmark.hpp"
 #include "map/routing_mark.hpp"
 
-
 #include "storage/storage_defines.hpp"
-
-#include "editor/osm_editor.hpp"
 
 #include "drape_frontend/frontend_renderer.hpp"
 #include "drape_frontend/selection_shape.hpp"
@@ -14,15 +10,13 @@
 #include "kml/types.hpp"
 
 #include "indexer/feature_data.hpp"
-#include "indexer/feature_meta.hpp"
 #include "indexer/feature_source.hpp"
 #include "indexer/ftypes_matcher.hpp"
 #include "indexer/map_object.hpp"
 
-#include "geometry/mercator.hpp"
 #include "geometry/point2d.hpp"
 
-#include "defines.hpp"
+#include "platform/utm_mgrs_utils.hpp"
 
 #include <memory>
 #include <optional>
@@ -38,6 +32,16 @@ enum class OpeningMode
   PreviewPlus,
   Details,
   Full
+};
+
+enum class CoordinatesFormat
+{
+  LatLonDMS = 0, // DMS, comma separated
+  LatLonDecimal, // Decimal, comma separated
+  OLCFull, // Open location code, long format
+  OSMLink, // Link to osm.org
+  UTM, // Universal Transverse Mercator
+  MGRS // Military Grid Reference System
 };
 
 struct BuildInfo
@@ -100,7 +104,6 @@ struct BuildInfo
 class Info : public osm::MapObject
 {
 public:
-  static char const * const kSubtitleSeparator;
   static char const * const kStarSymbol;
   static char const * const kMountainSymbol;
 
@@ -136,9 +139,9 @@ public:
   /// Convenient wrapper for type, cuisines, elevation, stars, wifi etc.
   std::string const & GetSubtitle() const { return m_uiSubtitle; };
   std::string const & GetAddress() const { return m_uiAddress; }
-  std::string const & GetDescription() const { return m_description; }
+  std::string const & GetWikiDescription() const { return m_description; }
   /// @returns coordinate in DMS format if isDMS is true
-  std::string GetFormattedCoordinate(bool isDMS) const;
+  std::string GetFormattedCoordinate(CoordinatesFormat format) const;
 
   /// UI setters
   void SetCustomName(std::string const & name);
@@ -205,7 +208,7 @@ public:
   /// MapObject
   void SetFromFeatureType(FeatureType & ft);
 
-  void SetDescription(std::string && description) { m_description = std::move(description); }
+  void SetWikiDescription(std::string && description) { m_description = std::move(description); }
 
   void SetMercator(m2::PointD const & mercator);
   std::vector<std::string> GetRawTypes() const { return m_types.ToObjectNames(); }
@@ -282,8 +285,6 @@ private:
 
   /// Feature status
   FeatureStatus m_featureStatus = FeatureStatus::Untouched;
-
-  feature::TypesHolder m_sortedTypes;
 
   std::optional<ftypes::IsHotelChecker::Type> m_hotelType;
 

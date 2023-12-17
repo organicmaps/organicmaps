@@ -1,11 +1,9 @@
 #include "generator/translator_coastline.hpp"
 
-#include "generator/collector_interface.hpp"
 #include "generator/feature_maker.hpp"
 #include "generator/filter_collection.hpp"
 #include "generator/filter_elements.hpp"
 #include "generator/filter_planet.hpp"
-#include "generator/generate_info.hpp"
 #include "generator/intermediate_data.hpp"
 
 #include "indexer/ftypes_matcher.hpp"
@@ -15,8 +13,6 @@
 #include "base/file_name_utils.hpp"
 
 #include "defines.hpp"
-
-using namespace feature;
 
 namespace generator
 {
@@ -31,7 +27,7 @@ public:
     return std::make_shared<CoastlineFilter>();
   }
 
-  bool IsAccepted(FeatureBuilder const & feature) const override
+  bool IsAccepted(feature::FeatureBuilder const & feature) const override
   {
     auto const & checker = ftypes::IsCoastlineChecker::Instance();
     return checker(feature.GetTypes());
@@ -56,8 +52,6 @@ std::shared_ptr<TranslatorInterface> TranslatorCoastline::Clone() const
 {
   return Translator::CloneBase<TranslatorCoastline>();
 }
-
-void TranslatorCoastline::Merge(TranslatorInterface const & other) { other.MergeInto(*this); }
 
 void TranslatorCoastline::MergeInto(TranslatorCoastline & other) const { MergeIntoBase(other); }
 }  // namespace generator

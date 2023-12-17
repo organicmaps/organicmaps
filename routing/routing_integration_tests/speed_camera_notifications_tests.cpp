@@ -22,12 +22,12 @@
 #include <string>
 #include <vector>
 
+namespace speed_camera_notifications_tests
+{
 using namespace routing;
 using namespace routing::turns;
 using namespace std;
 
-namespace
-{
 string const kCameraOnTheWay = "Speed camera on the way";
 
 location::GpsInfo MoveTo(ms::LatLon const & coords, double speed = -1)
@@ -350,12 +350,12 @@ UNIT_TEST(SpeedCameraNotification_AutoAlwaysMode_7)
 //                          We should here beep signal.
 UNIT_TEST(SpeedCameraNotification_AutoAlwaysMode_8)
 {
-  vector<SpeedCameraManagerMode> modes = {SpeedCameraManagerMode::Auto, SpeedCameraManagerMode::Always};
-  for (auto const mode : modes)
+  for (auto const mode : {SpeedCameraManagerMode::Auto, SpeedCameraManagerMode::Always})
   {
+    // On "Leningradskiy" from East to West direction.
     RoutingSession routingSession;
-    InitRoutingSession({55.67547, 37.52662} /* from */,
-                       {55.67052, 37.51893}   /* to   */,
+    InitRoutingSession({55.6755737, 37.5264126},  // from
+                       {55.67052, 37.51893},      // to
                        routingSession,
                        mode);
 
@@ -483,4 +483,4 @@ UNIT_TEST(SpeedCameraNotification_CameraOnMiniRoundabout)
   ChangePosition({41.201998, 69.109587}, speedKmPH, routingSession);
   TEST(!NoCameraFound(routingSession), ());
 }
-}  // namespace
+}  // namespace speed_camera_notifications_tests

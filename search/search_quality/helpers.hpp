@@ -1,13 +1,9 @@
 #pragma once
 
-#include "storage/storage_defines.hpp"
-
 #include "search/search_tests_support/test_search_engine.hpp"
 
 #include "geometry/rect2d.hpp"
 
-#include <cstddef>
-#include <cstdint>
 #include <memory>
 #include <string>
 #include <vector>
@@ -32,11 +28,7 @@ void InitViewport(std::string viewportName, m2::RectD & viewport);
 
 void InitDataSource(FrozenDataSource & dataSource, std::string const & mwmListPath);
 
-void InitStorageData(storage::Affiliations & affiliations,
-                     storage::CountryNameSynonyms & countryNameSynonyms);
-
 std::unique_ptr<search::tests_support::TestSearchEngine> InitSearchEngine(
-    DataSource & dataSource, storage::Affiliations const & affiliations, std::string const & locale,
-    size_t numThreads);
+    DataSource & dataSource, std::string const & locale, size_t numThreads);
 }  // namespace search_quality
 }  // namespace search

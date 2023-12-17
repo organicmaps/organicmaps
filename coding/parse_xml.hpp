@@ -77,7 +77,7 @@ bool ParseXML(Source & source, XMLDispatcher & dispatcher, bool useCharData = fa
   }
   catch (std::exception const & e)
   {
-    LOG(LERROR, (e.what()));
+    LOG(LWARNING, (e.what()));
     return false;
   }
 

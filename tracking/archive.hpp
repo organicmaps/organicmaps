@@ -4,8 +4,6 @@
 
 #include "platform/location.hpp"
 
-#include "geometry/latlon.hpp"
-
 #include "coding/point_coding.hpp"
 #include "coding/reader.hpp"
 #include "coding/varint.hpp"
@@ -31,10 +29,6 @@
 #pragma clang diagnostic pop
 #endif
 
-namespace
-{
-size_t constexpr kCoordBits = 32;
-}  // namespace
 
 namespace tracking
 {
@@ -50,8 +44,6 @@ struct Restrictions
 
 struct Limits
 {
-  Limits() = delete;
-
   double m_minLat;
   double m_maxLat;
   double m_minLon;
@@ -114,6 +106,8 @@ struct TraitsPacket
 template <>
 struct TraitsPacket<Packet>
 {
+  static size_t constexpr kCoordBits = 32;
+
   template <typename Writer>
   static void Write(Writer & writer, Packet const & packet, bool isDelta)
   {

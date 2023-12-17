@@ -33,16 +33,15 @@ std::vector<PointD> BuildConvexHull(std::vector<PointD> points, double eps)
 {
   base::SortUnique(points);
 
-  auto const n = points.size();
+  ASSERT(points.empty() || points.begin() == min_element(points.begin(), points.end()), ());
 
-  if (n < 2)
+  if (points.size() < 3)
     return points;
-
-  std::iter_swap(points.begin(), min_element(points.begin(), points.end()));
 
   auto const pivot = points[0];
 
-  std::sort(points.begin() + 1, points.end(), [&pivot, &eps](PointD const & lhs, PointD const & rhs) {
+  std::sort(points.begin() + 1, points.end(), [&pivot, &eps](PointD const & lhs, PointD const & rhs)
+  {
     if (IsCCW(lhs, rhs, pivot, eps))
       return true;
     if (IsCCW(rhs, lhs, pivot, eps))

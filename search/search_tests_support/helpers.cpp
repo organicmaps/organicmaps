@@ -13,26 +13,22 @@ namespace tests_support
 {
 using namespace std;
 
-SearchTest::SearchTest(base::LogLevel logLevel /* = base::LDEBUG */)
-  : m_scopedLog(logLevel)
-  , m_engine(m_dataSource, make_unique<storage::CountryInfoGetterForTesting>(), {})
+SearchTestBase::SearchTestBase(base::LogLevel logLevel, bool mockCountryInfo)
+  : m_scopedLog(logLevel), m_engine(m_dataSource, {}, mockCountryInfo)
 {
   SetViewport(mercator::Bounds::FullRect());
+
+  if (!mockCountryInfo)
+    m_engine.InitAffiliations();
 }
 
-void SearchTest::SetViewport(ms::LatLon const & ll, double radiusM)
+void SearchTestBase::SetViewport(ms::LatLon const & ll, double radiusM)
 {
   SetViewport(mercator::MetersToXY(ll.m_lon, ll.m_lat, radiusM));
 }
 
-void SearchTest::RegisterCountry(string const & name, m2::RectD const & rect)
-{
-  auto & infoGetter =
-      static_cast<storage::CountryInfoGetterForTesting &>(m_engine.GetCountryInfoGetter());
-  infoGetter.AddCountry(storage::CountryDef(name, rect));
-}
-
-bool SearchTest::CategoryMatch(std::string const & query, Rules const & rules, string const & locale)
+bool SearchTestBase::CategoryMatch(std::string const & query, Rules const & rules,
+                                   string const & locale /* = "en" */)
 {
   TestSearchRequest request(m_engine, query, locale, Mode::Everywhere, m_viewport);
   request.SetCategorial();
@@ -41,55 +37,68 @@ bool SearchTest::CategoryMatch(std::string const & query, Rules const & rules, s
   return MatchResults(m_dataSource, rules, request.Results());
 }
 
-bool SearchTest::ResultsMatch(std::string const & query, Rules const & rules,
-                              std::string const & locale /* = "en" */,
-                              Mode mode /* = Mode::Everywhere */)
+bool SearchTestBase::ResultsMatch(std::string const & query, Rules const & rules,
+                                  std::string const & locale /* = "en" */,
+                                  Mode mode /* = Mode::Everywhere */)
 {
   TestSearchRequest request(m_engine, query, locale, mode, m_viewport);
   request.Run();
   return MatchResults(m_dataSource, rules, request.Results());
 }
 
-bool SearchTest::ResultsMatch(vector<search::Result> const & results, Rules const & rules)
+bool SearchTestBase::OrderedResultsMatch(std::string const & query, Rules const & rules,
+                                         std::string const & locale /* = "en" */,
+                                         Mode mode /* = Mode::Everywhere */)
+{
+  TestSearchRequest request(m_engine, query, locale, mode, m_viewport);
+  request.Run();
+  return OrderedResultsMatch(request.Results(), rules);
+}
+
+bool SearchTestBase::ResultsMatch(vector<search::Result> const & results, Rules const & rules)
 {
   return MatchResults(m_dataSource, rules, results);
 }
 
-bool SearchTest::ResultsMatch(SearchParams const & params, Rules const & rules)
+bool SearchTestBase::OrderedResultsMatch(std::vector<Result> const & results, Rules const & rules)
 {
-  TestSearchRequest request(m_engine, params);
-  request.Run();
-  return ResultsMatch(request.Results(), rules);
+  if (results.size() != rules.size())
+  {
+    LOG(LWARNING, ("Unexpected results number:", results));
+    return false;
+  }
+
+  for (size_t i = 0; i < results.size(); ++i)
+  {
+    if (!ResultMatches(m_dataSource, rules[i], results[i]))
+    {
+      LOG(LWARNING, ("Not matched:", rules[i], results[i]));
+      return false;
+    }
+  }
+  return true;
 }
 
-bool SearchTest::IsResultMatches(search::Result const & result, Rule const & rule)
+bool SearchTestBase::IsResultMatches(search::Result const & result, Rule const & rule)
 {
   return tests_support::ResultMatches(m_dataSource, rule, result);
 }
 
-bool SearchTest::AlternativeMatch(string const & query, vector<Rules> const & rulesList)
+bool SearchTestBase::AlternativeMatch(string const & query, vector<Rules> const & rulesList)
 {
   TestSearchRequest request(m_engine, query, "en", Mode::Everywhere, m_viewport);
   request.Run();
   return tests_support::AlternativeMatch(m_dataSource, rulesList, request.Results());
 }
 
-size_t SearchTest::GetResultsNumber(string const & query, string const & locale)
+size_t SearchTestBase::GetResultsNumber(string const & query, string const & locale)
 {
   TestSearchRequest request(m_engine, query, locale, Mode::Everywhere, m_viewport);
   request.Run();
   return request.Results().size();
 }
 
-unique_ptr<TestSearchRequest> SearchTest::MakeRequest(SearchParams const & params)
-{
-  auto request = make_unique<TestSearchRequest>(m_engine, params);
-  request->Run();
-  return request;
-}
-
-unique_ptr<TestSearchRequest> SearchTest::MakeRequest(
-    string const & query, string const & locale /* = "en" */)
+SearchParams SearchTestBase::GetDefaultSearchParams(string const & query, string const & locale /* = "en" */) const
 {
   SearchParams params;
   params.m_query = query;
@@ -98,15 +107,17 @@ unique_ptr<TestSearchRequest> SearchTest::MakeRequest(
   params.m_mode = Mode::Everywhere;
   params.m_needAddress = true;
   params.m_suggestsEnabled = false;
-  params.m_streetSearchRadiusM = TestSearchRequest::kDefaultTestStreetSearchRadiusM;
-  params.m_villageSearchRadiusM = TestSearchRequest::kDefaultTestVillageSearchRadiusM;
+  return params;
+}
 
+unique_ptr<TestSearchRequest> SearchTestBase::MakeRequest(SearchParams const & params)
+{
   auto request = make_unique<TestSearchRequest>(m_engine, params);
   request->Run();
   return request;
 }
 
-size_t SearchTest::CountFeatures(m2::RectD const & rect)
+size_t SearchTestBase::CountFeatures(m2::RectD const & rect)
 {
   size_t count = 0;
   auto counter = [&count](const FeatureType & /* ft */) { ++count; };
@@ -114,7 +125,12 @@ size_t SearchTest::CountFeatures(m2::RectD const & rect)
   return count;
 }
 
-// static
+void SearchTest::RegisterCountry(string const & name, m2::RectD const & rect)
+{
+  auto & infoGetter = dynamic_cast<storage::CountryInfoGetterForTesting &>(m_engine.GetCountryInfoGetter());
+  infoGetter.AddCountry(storage::CountryDef(name, rect));
+}
+
 void SearchTest::OnMwmBuilt(MwmInfo const & info)
 {
   switch (info.GetType())

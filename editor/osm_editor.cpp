@@ -3,53 +3,42 @@
 #include "editor/changeset_wrapper.hpp"
 #include "editor/edits_migration.hpp"
 #include "editor/osm_auth.hpp"
-#include "editor/server_api.hpp"
 #include "editor/xml_feature.hpp"
 
-#include "indexer/categories_holder.hpp"
-#include "indexer/classificator.hpp"
-#include "indexer/data_source_helpers.hpp"
 #include "indexer/fake_feature_ids.hpp"
-#include "indexer/feature_algo.hpp"
 #include "indexer/feature_decl.hpp"
-#include "indexer/feature_impl.hpp"
 #include "indexer/feature_meta.hpp"
 #include "indexer/feature_source.hpp"
-#include "indexer/ftypes_matcher.hpp"
 #include "indexer/mwm_set.hpp"
 
 #include "platform/local_country_file_utils.hpp"
 #include "platform/platform.hpp"
-#include "platform/preferred_languages.hpp"
-
-#include "coding/internal/file_data.hpp"
-
-#include "geometry/algorithm.hpp"
 
 #include "base/exception.hpp"
 #include "base/logging.hpp"
 #include "base/stl_helpers.hpp"
-#include "base/string_utils.hpp"
 #include "base/thread_checker.hpp"
 #include "base/timer.hpp"
-
-#include "std/target_os.hpp"
 
 #include <algorithm>
 #include <array>
 #include <sstream>
 
 #include "3party/opening_hours/opening_hours.hpp"
-#include "3party/pugixml/pugixml/src/pugixml.hpp"
+#include <pugixml.hpp>
+#include <utility>
 
+namespace osm
+{
+// TODO(AlexZ): Normalize osm multivalue strings for correct merging
+// (e.g. insert/remove spaces after ';' delimiter);
 using namespace pugi;
-using feature::GeomType;
-using feature::Metadata;
 using editor::XMLFeature;
+using std::make_shared, std::string;
 
 namespace
 {
-constexpr char const * kXmlRootNode = "mapsme";
+constexpr char const * kXmlRootNode = "omaps";
 constexpr char const * kXmlMwmNode = "mwm";
 constexpr char const * kDeleteSection = "delete";
 constexpr char const * kModifySection = "modify";
@@ -65,19 +54,21 @@ constexpr char const * kMatchedFeatureIsEmpty = "Matched feature has no tags";
 
 struct XmlSection
 {
-  XmlSection(FeatureStatus status, std::string const & sectionName)
+  constexpr XmlSection(FeatureStatus status, char const * sectionName)
     : m_status(status), m_sectionName(sectionName)
   {
   }
 
   FeatureStatus m_status = FeatureStatus::Untouched;
-  std::string m_sectionName;
+  char const * m_sectionName;
 };
 
-std::array<XmlSection, 4> const kXmlSections = {{{FeatureStatus::Deleted, kDeleteSection},
-                                                 {FeatureStatus::Modified, kModifySection},
-                                                 {FeatureStatus::Obsolete, kObsoleteSection},
-                                                 {FeatureStatus::Created, kCreateSection}}};
+std::array<XmlSection, 4> constexpr kXmlSections = {
+    {{FeatureStatus::Deleted, kDeleteSection},
+    {FeatureStatus::Modified, kModifySection},
+    {FeatureStatus::Obsolete, kObsoleteSection},
+    {FeatureStatus::Created, kCreateSection}}
+};
 
 struct LogHelper
 {
@@ -108,35 +99,10 @@ struct LogHelper
   MwmSet::MwmId const & m_mwmId;
 };
 
-bool NeedsUpload(std::string const & uploadStatus)
+bool NeedsUpload(string const & uploadStatus)
 {
   return uploadStatus != kUploaded && uploadStatus != kDeletedFromOSMServer &&
          uploadStatus != kMatchedFeatureIsEmpty;
-}
-
-/// Compares editable fields connected with feature ignoring street.
-bool AreObjectsEqualButStreet(osm::EditableMapObject const & lhs,
-                              osm::EditableMapObject const & rhs)
-{
-  feature::TypesHolder const & lhsTypes = lhs.GetTypes();
-  feature::TypesHolder const & rhsTypes = rhs.GetTypes();
-
-  if (!lhsTypes.Equals(rhsTypes))
-    return false;
-
-  if (lhs.GetHouseNumber() != rhs.GetHouseNumber())
-    return false;
-
-  if (lhs.GetCuisines() != rhs.GetCuisines())
-    return false;
-
-  if (!lhs.GetMetadata().Equals(rhs.GetMetadata()))
-    return false;
-
-  if (lhs.GetNameMultilang() != rhs.GetNameMultilang())
-    return false;
-
-  return true;
 }
 
 XMLFeature GetMatchingFeatureFromOSM(osm::ChangesetWrapper & cw, osm::EditableMapObject & o)
@@ -146,7 +112,7 @@ XMLFeature GetMatchingFeatureFromOSM(osm::ChangesetWrapper & cw, osm::EditableMa
   if (o.GetGeomType() == feature::GeomType::Point)
     return cw.GetMatchingNodeFeatureFromOSM(o.GetMercator());
 
-  auto geometry = o.GetTriangesAsPoints();
+  auto const & geometry = o.GetTriangesAsPoints();
 
   ASSERT_GREATER_OR_EQUAL(geometry.size(), 3, ("Is it an area feature?"));
 
@@ -167,13 +133,6 @@ bool IsObsolete(editor::XMLFeature const & xml, FeatureID const & fid)
 }
 }  // namespace
 
-namespace osm
-{
-// TODO(AlexZ): Normalize osm multivalue strings for correct merging
-// (e.g. insert/remove spaces after ';' delimeter);
-
-using namespace std;
-
 Editor::Editor()
   : m_configLoader(m_config)
   , m_notes(editor::Notes::MakeNotes())
@@ -188,11 +147,11 @@ Editor & Editor::Instance()
   return instance;
 }
 
-void Editor::SetDefaultStorage() { m_storage = make_unique<editor::LocalStorage>(); }
+void Editor::SetDefaultStorage() { m_storage = std::make_unique<editor::LocalStorage>(); }
 
 void Editor::LoadEdits()
 {
-  CHECK_THREAD_CHECKER(MainThreadChecker, (""));
+  CHECK_THREAD_CHECKER(MainThreadChecker, ());
   if (!m_delegate)
   {
     LOG(LERROR, ("Can't load any map edits, delegate has not been set."));
@@ -208,7 +167,12 @@ void Editor::LoadEdits()
   m_features.Set(make_shared<FeaturesContainer>());
   auto loadedFeatures = make_shared<FeaturesContainer>();
 
-  for (auto const & mwm : doc.child(kXmlRootNode).children(kXmlMwmNode))
+  auto rootNode = doc.child(kXmlRootNode);
+  // Migrate clients with an old root node.
+  if (!rootNode)
+    rootNode = doc.child("mapsme");
+  // TODO: Empty rootNode is an OK case for the current logic and unit tests. Check if there is a better way to do it.
+  for (auto const & mwm : rootNode.children(kXmlMwmNode))
   {
     string const mapName = mwm.attribute("name").as_string("");
     int64_t const mapVersion = mwm.attribute("version").as_llong(0);
@@ -252,10 +216,10 @@ bool Editor::Save(FeaturesContainer const & features) const
     xml_node mwmNode = root.append_child(kXmlMwmNode);
     mwmNode.append_attribute("name") = mwm.first.GetInfo()->GetCountryName().c_str();
     mwmNode.append_attribute("version") = static_cast<long long>(mwm.first.GetInfo()->GetVersion());
-    xml_node deleted = mwmNode.append_child(kDeleteSection);
-    xml_node modified = mwmNode.append_child(kModifySection);
-    xml_node created = mwmNode.append_child(kCreateSection);
-    xml_node obsolete = mwmNode.append_child(kObsoleteSection);
+    xml_node const deleted = mwmNode.append_child(kDeleteSection);
+    xml_node const modified = mwmNode.append_child(kModifySection);
+    xml_node const created = mwmNode.append_child(kCreateSection);
+    xml_node const obsolete = mwmNode.append_child(kObsoleteSection);
     for (auto & index : mwm.second)
     {
       FeatureTypeInfo const & fti = index.second;
@@ -290,7 +254,7 @@ bool Editor::Save(FeaturesContainer const & features) const
   return m_storage->Save(doc);
 }
 
-bool Editor::SaveTransaction(shared_ptr<FeaturesContainer> const & features)
+bool Editor::SaveTransaction(std::shared_ptr<FeaturesContainer> const & features)
 {
   if (!Save(*features))
     return false;
@@ -313,7 +277,7 @@ void Editor::OnMapRegistered(platform::LocalCountryFile const &)
   LoadEdits();
 }
 
-FeatureStatus Editor::GetFeatureStatus(MwmSet::MwmId const & mwmId, uint32_t index) const
+FeatureStatus Editor::GetFeatureStatus(MwmId const & mwmId, uint32_t index) const
 {
   auto const features = m_features.Get();
   return GetFeatureStatusImpl(*features, mwmId, index);
@@ -325,7 +289,7 @@ FeatureStatus Editor::GetFeatureStatus(FeatureID const & fid) const
   return GetFeatureStatusImpl(*features, fid.m_mwmId, fid.m_index);
 }
 
-bool Editor::IsFeatureUploaded(MwmSet::MwmId const & mwmId, uint32_t index) const
+bool Editor::IsFeatureUploaded(MwmId const & mwmId, uint32_t index) const
 {
   auto const features = m_features.Get();
   return IsFeatureUploadedImpl(*features, mwmId, index);
@@ -397,7 +361,7 @@ Editor::SaveResult Editor::SaveEditedFeature(EditableMapObject const & emo)
     if (featureStatus == FeatureStatus::Created)
     {
       auto const & editedFeatureInfo = features->at(fid.m_mwmId).at(fid.m_index);
-      if (AreObjectsEqualButStreet(fti.m_object, editedFeatureInfo.m_object) &&
+      if (AreObjectsEqualIgnoringStreet(fti.m_object, editedFeatureInfo.m_object) &&
           emo.GetStreet().m_defaultName == editedFeatureInfo.m_street)
       {
         return SaveResult::NothingWasChanged;
@@ -414,14 +378,14 @@ Editor::SaveResult Editor::SaveEditedFeature(EditableMapObject const & emo)
     }
     fti.m_object = emo;
     bool const sameAsInMWM =
-        AreObjectsEqualButStreet(fti.m_object, *originalObjectPtr) &&
+        AreObjectsEqualIgnoringStreet(fti.m_object, *originalObjectPtr) &&
         emo.GetStreet().m_defaultName == GetOriginalFeatureStreet(fti.m_object.GetID());
 
     if (featureStatus != FeatureStatus::Untouched)
     {
       // A feature was modified and equals to the one in editor.
       auto const & editedFeatureInfo = features->at(fid.m_mwmId).at(fid.m_index);
-      if (AreObjectsEqualButStreet(fti.m_object, editedFeatureInfo.m_object) &&
+      if (AreObjectsEqualIgnoringStreet(fti.m_object, editedFeatureInfo.m_object) &&
           emo.GetStreet().m_defaultName == editedFeatureInfo.m_street)
       {
         return SaveResult::NothingWasChanged;
@@ -440,7 +404,7 @@ Editor::SaveResult Editor::SaveEditedFeature(EditableMapObject const & emo)
         }
       }
 
-      // If a feature is not the same as in mwm or it was uploaded
+      // If a feature is not the same as in mwm, or if it was uploaded,
       // we must save it and mark for upload.
     }
     // A feature was NOT edited before and current changes are useless.
@@ -460,7 +424,7 @@ Editor::SaveResult Editor::SaveEditedFeature(EditableMapObject const & emo)
   fti.m_uploadStatus = {};
 
   auto editableFeatures = make_shared<FeaturesContainer>(*features);
-  (*editableFeatures)[fid.m_mwmId][fid.m_index] = move(fti);
+  (*editableFeatures)[fid.m_mwmId][fid.m_index] = std::move(fti);
 
   bool const savedSuccessfully = SaveTransaction(editableFeatures);
 
@@ -478,7 +442,7 @@ bool Editor::RollBackChanges(FeatureID const & fid)
   return RemoveFeature(fid);
 }
 
-void Editor::ForEachCreatedFeature(MwmSet::MwmId const & id, FeatureIndexFunctor const & f,
+void Editor::ForEachCreatedFeature(MwmId const & id, FeatureIndexFunctor const & f,
                                    m2::RectD const & rect, int /*scale*/) const
 {
   auto const features = m_features.Get();
@@ -499,7 +463,7 @@ void Editor::ForEachCreatedFeature(MwmSet::MwmId const & id, FeatureIndexFunctor
   }
 }
 
-optional<osm::EditableMapObject> Editor::GetEditedFeature(FeatureID const & fid) const
+std::optional<osm::EditableMapObject> Editor::GetEditedFeature(FeatureID const & fid) const
 {
   auto const features = m_features.Get();
   auto const * featureInfo = GetFeatureTypeInfo(*features, fid.m_mwmId, fid.m_index);
@@ -520,12 +484,12 @@ bool Editor::GetEditedFeatureStreet(FeatureID const & fid, string & outFeatureSt
   return true;
 }
 
-vector<uint32_t> Editor::GetFeaturesByStatus(MwmSet::MwmId const & mwmId,
-                                             FeatureStatus status) const
+std::vector<uint32_t> Editor::GetFeaturesByStatus(MwmId const & mwmId,
+                                                  FeatureStatus status) const
 {
   auto const features = m_features.Get();
 
-  vector<uint32_t> result;
+  std::vector<uint32_t> result;
   auto const matchedMwm = features->find(mwmId);
   if (matchedMwm == features->cend())
     return result;
@@ -535,7 +499,7 @@ vector<uint32_t> Editor::GetFeaturesByStatus(MwmSet::MwmId const & mwmId,
     if (index.second.m_status == status)
       result.push_back(index.first);
   }
-  sort(result.begin(), result.end());
+  std::sort(result.begin(), result.end());
   return result;
 }
 
@@ -562,10 +526,8 @@ EditableProperties Editor::GetEditableProperties(FeatureType & feature) const
       return {};
     }
 
-    auto const & metadata = originalObjectPtr->GetMetadata();
-
     /// @todo Avoid temporary string when OpeningHours (boost::spirit) will allow string_view.
-    string const featureOpeningHours(metadata.Get(feature::Metadata::FMD_OPEN_HOURS));
+    string const featureOpeningHours(originalObjectPtr->GetOpeningHours());
     /// @note Empty string is parsed as a valid opening hours rule.
     if (!osmoh::OpeningHours(featureOpeningHours).IsValid())
     {
@@ -581,8 +543,10 @@ EditableProperties Editor::GetEditablePropertiesForTypes(feature::TypesHolder co
 {
   editor::TypeAggregatedDescription desc;
   if (m_config.Get()->GetTypeDescription(types.ToObjectNames(), desc))
-    return {desc.GetEditableFields(), desc.IsNameEditable(), desc.IsAddressEditable(),
-            desc.IsCuisineEditable()};
+  {
+    return { std::move(desc.m_editableFields), desc.IsNameEditable(),
+             desc.IsAddressEditable(), desc.IsCuisineEditable() };
+  }
   return {};
 }
 
@@ -595,7 +559,7 @@ bool Editor::HaveMapEditsOrNotesToUpload() const
   return HaveMapEditsToUpload(*features);
 }
 
-bool Editor::HaveMapEditsToUpload(MwmSet::MwmId const & mwmId) const
+bool Editor::HaveMapEditsToUpload(MwmId const & mwmId) const
 {
   if (!mwmId.IsAlive())
     return false;
@@ -618,9 +582,7 @@ void Editor::UploadChanges(string const & key, string const & secret, ChangesetT
                            FinishUploadCallback callback)
 {
   if (m_notes->NotUploadedNotesCount())
-  {
     m_notes->Upload(OsmOAuth::ServerAuth({key, secret}));
-  }
 
   auto const features = m_features.Get();
 
@@ -633,7 +595,7 @@ void Editor::UploadChanges(string const & key, string const & secret, ChangesetT
   auto upload = [this](string key, string secret, ChangesetTags tags, FinishUploadCallback callback)
   {
     int uploadedFeaturesCount = 0, errorsCount = 0;
-    ChangesetWrapper changeset({key, secret}, tags);
+    ChangesetWrapper changeset({key, secret}, std::move(tags));
     auto const features = m_features.Get();
 
     for (auto const & id : *features)
@@ -650,7 +612,6 @@ void Editor::UploadChanges(string const & key, string const & secret, ChangesetT
 
         // TODO(a): Use UploadInfo as part of FeatureTypeInfo.
         UploadInfo uploadInfo = {fti.m_uploadAttemptTimestamp, fti.m_uploadStatus, fti.m_uploadError};
-        string ourDebugFeatureString;
 
         try
         {
@@ -663,7 +624,6 @@ void Editor::UploadChanges(string const & key, string const & secret, ChangesetT
             XMLFeature feature = editor::ToXML(fti.m_object, true);
             if (!fti.m_street.empty())
               feature.SetTagValue(kAddrStreetTag, fti.m_street);
-            ourDebugFeatureString = DebugPrint(feature);
 
             ASSERT_EQUAL(feature.GetType(), XMLFeature::Type::Node,
                          ("Linear and area features creation is not supported yet."));
@@ -715,7 +675,6 @@ void Editor::UploadChanges(string const & key, string const & secret, ChangesetT
             XMLFeature feature = editor::ToXML(fti.m_object, false);
             if (!fti.m_street.empty())
               feature.SetTagValue(kAddrStreetTag, fti.m_street);
-            ourDebugFeatureString = DebugPrint(feature);
 
             auto const originalObjectPtr = GetOriginalMapObject(fti.m_object.GetID());
             if (!originalObjectPtr)
@@ -768,6 +727,7 @@ void Editor::UploadChanges(string const & key, string const & secret, ChangesetT
           uploadInfo.m_uploadError = ex.Msg();
           ++errorsCount;
           LOG(LWARNING, (ex.what()));
+          changeset.SetErrorDescription(ex.Msg());
         }
         catch (ChangesetWrapper::EmptyFeatureException const & ex)
         {
@@ -775,6 +735,7 @@ void Editor::UploadChanges(string const & key, string const & secret, ChangesetT
           uploadInfo.m_uploadError = ex.Msg();
           ++errorsCount;
           LOG(LWARNING, (ex.what()));
+          changeset.SetErrorDescription(ex.Msg());
         }
         catch (RootException const & ex)
         {
@@ -782,6 +743,7 @@ void Editor::UploadChanges(string const & key, string const & secret, ChangesetT
           uploadInfo.m_uploadError = ex.Msg();
           ++errorsCount;
           LOG(LWARNING, (ex.what()));
+          changeset.SetErrorDescription(ex.Msg());
         }
         // TODO(AlexZ): Use timestamp from the server.
         uploadInfo.m_uploadAttemptTimestamp = time(nullptr);
@@ -811,10 +773,10 @@ void Editor::UploadChanges(string const & key, string const & secret, ChangesetT
   if (!m_isUploadingNow)
   {
     m_isUploadingNow = true;
-    GetPlatform().RunTask(Platform::Thread::Network, [upload = move(upload), key, secret,
-                                                      tags = move(tags), callback = move(callback)]()
+    GetPlatform().RunTask(Platform::Thread::Network, [upload = std::move(upload), key, secret,
+                                                      tags = std::move(tags), callback = std::move(callback)]()
     {
-      upload(move(key), move(secret), move(tags), move(callback));
+      upload(std::move(key), std::move(secret), std::move(tags), std::move(callback));
     });
   }
 }
@@ -878,8 +840,8 @@ bool Editor::FillFeatureInfo(FeatureStatus status, XMLFeature const & xml, Featu
 }
 
 Editor::FeatureTypeInfo const * Editor::GetFeatureTypeInfo(FeaturesContainer const & features,
-                                                           MwmSet::MwmId const & mwmId,
-                                                           uint32_t index) const
+                                                           MwmId const & mwmId,
+                                                           uint32_t index)
 {
   auto const matchedMwm = features.find(mwmId);
   if (matchedMwm == features.cend())
@@ -964,8 +926,8 @@ Editor::Stats Editor::GetStats() const
     for (auto & index : id.second)
     {
       auto const & fti = index.second;
-      stats.m_edits.push_back(make_pair(FeatureID(id.first, index.first),
-                                        fti.m_uploadStatus + " " + fti.m_uploadError));
+      stats.m_edits.emplace_back(FeatureID(id.first, index.first),
+                                 fti.m_uploadStatus + " " + fti.m_uploadError);
       LOG(LDEBUG, (fti.m_uploadAttemptTimestamp == base::INVALID_TIME_STAMP
                        ? "NOT_UPLOADED_YET"
                        : base::TimestampToString(fti.m_uploadAttemptTimestamp),
@@ -988,7 +950,7 @@ NewFeatureCategories Editor::GetNewFeatureCategories() const
 }
 
 FeatureID Editor::GenerateNewFeatureId(FeaturesContainer const & features,
-                                       MwmSet::MwmId const & id) const
+                                       MwmId const & id) const
 {
   CHECK_THREAD_CHECKER(MainThreadChecker, (""));
 
@@ -1005,10 +967,10 @@ FeatureID Editor::GenerateNewFeatureId(FeaturesContainer const & features,
     }
   }
   CHECK(feature::FakeFeatureIds::IsEditorCreatedFeature(featureIndex), ());
-  return FeatureID(id, featureIndex);
+  return {id, featureIndex};
 }
 
-bool Editor::CreatePoint(uint32_t type, m2::PointD const & mercator, MwmSet::MwmId const & id,
+bool Editor::CreatePoint(uint32_t type, m2::PointD const & mercator, MwmId const & id,
                          EditableMapObject & outFeature) const
 {
   ASSERT(id.IsAlive(),
@@ -1029,16 +991,16 @@ bool Editor::CreatePoint(uint32_t type, m2::PointD const & mercator, MwmSet::Mwm
 }
 
 void Editor::CreateNote(ms::LatLon const & latLon, FeatureID const & fid,
-                        feature::TypesHolder const & holder, string const & defaultName,
-                        NoteProblemType const type, string const & note)
+                        feature::TypesHolder const & holder, std::string_view defaultName,
+                        NoteProblemType type, std::string_view note)
 {
   CHECK_THREAD_CHECKER(MainThreadChecker, (""));
 
-  ostringstream sstr;
+  std::ostringstream sstr;
   auto canCreate = true;
 
   if (!note.empty())
-    sstr << "\"" << note << "\"\n";
+    sstr << '"' << note << "\"\n";
 
   switch (type)
   {
@@ -1077,12 +1039,10 @@ void Editor::CreateNote(ms::LatLon const & latLon, FeatureID const & fid,
     sstr << "POI name: " << defaultName << "\n";
 
   sstr << "POI types:";
-  for (auto const & type : holder.ToObjectNames())
-  {
-    sstr << ' ' << type;
-  }
+  for (auto const & poiType : holder.ToObjectNames())
+    sstr << ' ' << poiType;
   sstr << "\n";
-  cout << "***TEXT*** " << sstr.str();
+  std::cout << "***TEXT*** " << sstr.str();
   m_notes->CreateNote(latLon, sstr.str());
 }
 
@@ -1116,7 +1076,7 @@ MwmSet::MwmId Editor::GetMwmIdByMapName(string const & name)
   return m_delegate->GetMwmIdByMapName(name);
 }
 
-unique_ptr<EditableMapObject> Editor::GetOriginalMapObject(FeatureID const & fid) const
+std::unique_ptr<EditableMapObject> Editor::GetOriginalMapObject(FeatureID const & fid) const
 {
   if (!m_delegate)
   {
@@ -1143,15 +1103,15 @@ void Editor::ForEachFeatureAtPoint(FeatureTypeFn && fn, m2::PointD const & point
     LOG(LERROR, ("Can't load features in point's vicinity, delegate is not set."));
     return;
   }
-  m_delegate->ForEachFeatureAtPoint(move(fn), point);
+  m_delegate->ForEachFeatureAtPoint(std::move(fn), point);
 }
 
 FeatureID Editor::GetFeatureIdByXmlFeature(FeaturesContainer const & features,
-                                           XMLFeature const & xml, MwmSet::MwmId const & mwmId,
+                                           XMLFeature const & xml, MwmId const & mwmId,
                                            FeatureStatus status, bool needMigrate) const
 {
   ForEachFeaturesNearByFn forEach = [this](FeatureTypeFn && fn, m2::PointD const & point) {
-    return ForEachFeatureAtPoint(move(fn), point);
+    return ForEachFeatureAtPoint(std::move(fn), point);
   };
 
   // TODO(mgsergio): Deleted features are not properly handled yet.
@@ -1162,17 +1122,17 @@ FeatureID Editor::GetFeatureIdByXmlFeature(FeaturesContainer const & features,
     });
   }
 
-  return FeatureID(mwmId, xml.GetMWMFeatureIndex());
+  return {mwmId, xml.GetMWMFeatureIndex()};
 }
 
 void Editor::LoadMwmEdits(FeaturesContainer & loadedFeatures, xml_node const & mwm,
-                          MwmSet::MwmId const & mwmId, bool needMigrate)
+                          MwmId const & mwmId, bool needMigrate)
 {
   LogHelper logHelper(mwmId);
 
   for (auto const & section : kXmlSections)
   {
-    for (auto const & nodeOrWay : mwm.child(section.m_sectionName.c_str()).select_nodes("node|way"))
+    for (auto const & nodeOrWay : mwm.child(section.m_sectionName).select_nodes("node|way"))
     {
       try
       {
@@ -1191,11 +1151,11 @@ void Editor::LoadMwmEdits(FeaturesContainer & loadedFeatures, xml_node const & m
 
         logHelper.OnStatus(section.m_status);
 
-        loadedFeatures[fid.m_mwmId].emplace(fid.m_index, move(fti));
+        loadedFeatures[fid.m_mwmId].emplace(fid.m_index, std::move(fti));
       }
       catch (editor::XMLFeatureError const & ex)
       {
-        ostringstream s;
+        std::ostringstream s;
         nodeOrWay.node().print(s, "  ");
         LOG(LERROR, (ex.what(), "mwmId =", mwmId, "in section", section.m_sectionName, s.str()));
       }
@@ -1207,7 +1167,7 @@ void Editor::LoadMwmEdits(FeaturesContainer & loadedFeatures, xml_node const & m
   }
 }
 
-bool Editor::HaveMapEditsToUpload(FeaturesContainer const & features) const
+bool Editor::HaveMapEditsToUpload(FeaturesContainer const & features)
 {
   for (auto const & id : features)
   {
@@ -1232,7 +1192,7 @@ bool Editor::HaveMapEditsToUpload(FeaturesContainer const & features) const
 }
 
 FeatureStatus Editor::GetFeatureStatusImpl(FeaturesContainer const & features,
-                                           MwmSet::MwmId const & mwmId, uint32_t index) const
+                                           MwmId const & mwmId, uint32_t index)
 {
   // Most popular case optimization.
   if (features.empty())
@@ -1245,14 +1205,13 @@ FeatureStatus Editor::GetFeatureStatusImpl(FeaturesContainer const & features,
   return featureInfo->m_status;
 }
 
-bool Editor::IsFeatureUploadedImpl(FeaturesContainer const & features, MwmSet::MwmId const & mwmId,
-                                   uint32_t index) const
+bool Editor::IsFeatureUploadedImpl(FeaturesContainer const & features, MwmId const & mwmId, uint32_t index)
 {
   auto const * info = GetFeatureTypeInfo(features, mwmId, index);
   return info && info->m_uploadStatus == kUploaded;
 }
 
-string DebugPrint(Editor::SaveResult const saveResult)
+string DebugPrint(Editor::SaveResult saveResult)
 {
   switch (saveResult)
   {

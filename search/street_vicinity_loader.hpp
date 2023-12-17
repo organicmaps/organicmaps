@@ -1,18 +1,17 @@
 #pragma once
 
 #include "search/mwm_context.hpp"
-#include "search/projection_on_street.hpp"
+//#include "search/projection_on_street.hpp"
 #include "search/stats_cache.hpp"
 
-#include "indexer/feature.hpp"
-#include "indexer/feature_algo.hpp"
+//#include "indexer/feature.hpp"
+//#include "indexer/feature_algo.hpp"
 
 #include "geometry/rect2d.hpp"
 
 #include "base/macros.hpp"
 
-#include <algorithm>
-#include <cstdint>
+//#include <algorithm>
 #include <memory>
 #include <vector>
 
@@ -28,19 +27,14 @@ class StreetVicinityLoader
 public:
   struct Street
   {
-    Street() = default;
-    Street(Street && street) = default;
-
-    inline bool IsEmpty() const { return !m_calculator || m_rect.IsEmptyInterior(); }
+    inline bool IsEmpty() const { return m_rect.IsEmptyInterior(); }
 
     std::vector<uint32_t> m_features;
     m2::RectD m_rect;
-    std::unique_ptr<ProjectionOnStreetCalculator> m_calculator;
+    //std::unique_ptr<ProjectionOnStreetCalculator> m_calculator;
 
     /// @todo Cache GetProjection results for features here, because
     /// feature::GetCenter and ProjectionOnStreetCalculator::GetProjection are not so fast.
-
-    DISALLOW_COPY(Street);
   };
 
   StreetVicinityLoader(int scale, double offsetMeters);
@@ -48,6 +42,7 @@ public:
 
   // Calls |fn| on each index in |sortedIds| where sortedIds[index]
   // belongs to the street's vicinity.
+  /*
   template <typename TFn>
   void ForEachInVicinity(uint32_t streetId, std::vector<uint32_t> const & sortedIds,
                          double offsetMeters, TFn const & fn)
@@ -78,6 +73,7 @@ public:
       }
     }
   }
+  */
 
   void OnQueryFinished();
 

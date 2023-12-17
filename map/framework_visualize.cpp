@@ -85,7 +85,12 @@ void Framework::VisualizeCityBoundariesInRect(m2::RectD const & rect)
     std::string id = "fid:" + strings::to_string(fid);
     auto ft = loader.GetFeatureByIndex(fid);
     if (ft)
-      id.append(", name:").append(ft->GetName(StringUtf8Multilang::kDefaultCode));
+    {
+      auto name = ft->GetName(StringUtf8Multilang::kEnglishCode);
+      if (name.empty())
+        name = ft->GetName(StringUtf8Multilang::kDefaultCode);
+      id.append(", name:").append(name);
+    }
 
     boundaries.ForEachBoundary([&id, this](indexer::CityBoundary const & cityBoundary, size_t i)
     {

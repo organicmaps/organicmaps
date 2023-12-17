@@ -161,11 +161,11 @@ public:
   [[nodiscard]] static bool MkDirChecked(std::string const & dirName);
 
   // Creates the directory path dirName.
-  // The function will create all parent directories necessary to create the directory.
+  // The function creates all parent directories necessary to create the directory.
   // Returns true if successful; otherwise returns false.
-  // If the path already exists when this function is called, it will return true.
-  // If it was possible to create only a part of the directories, the function will returns false
-  // and will not restore the previous state of the file system.
+  // If the path already exists when this function is called, it returns true.
+  // If only some intermediate directories were created, the function returns false
+  // and does not restore the previous state of the file system.
   [[nodiscard]] static bool MkDirRecursively(std::string const & dirName);
 
   /// Removes empty directory from the filesystem.
@@ -210,7 +210,7 @@ public:
   /// @param directory directory path with slash at the end
   //@{
   /// @param ext files extension to find, like ".mwm".
-  static void GetFilesByExt(std::string const & directory, std::string const & ext,
+  static void GetFilesByExt(std::string const & directory, std::string_view ext,
                             FilesList & outFiles);
   static void GetFilesByRegExp(std::string const & directory, std::string const & regexp,
                                FilesList & outFiles);
@@ -235,6 +235,9 @@ public:
   static bool GetFileSizeByFullPath(std::string const & filePath, uint64_t & size);
   //@}
 
+  /// @return 0 in case of failure.
+  static time_t GetFileCreationTime(std::string const & path);
+
   /// Used to check available free storage space for downloading.
   enum TStorageStatus
   {
@@ -250,18 +253,23 @@ public:
 
   void GetFontNames(FilesList & res) const;
 
+  // TODO: Optimize for each platform/device.
   int VideoMemoryLimit() const;
-
+  // TODO: Optimize for each platform/device.
   int PreCachingDepth() const;
 
   std::string DeviceName() const;
 
   std::string DeviceModel() const;
 
+  /// @return string version as displayed to the user.
+  std::string Version() const;
+
+  /// @return integer version in yyMMdd format.
+  int32_t IntVersion() const;
+
   /// @return url for clients to download maps
-  //@{
   std::string MetaServerUrl() const;
-  //@}
 
   /// @return JSON-encoded list of urls if metaserver is unreachable
   std::string DefaultUrlsJSON() const;

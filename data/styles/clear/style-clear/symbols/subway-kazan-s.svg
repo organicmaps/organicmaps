@@ -1,14 +1,14 @@
-<svg width="18" height="18" viewBox="0 0 18 18">
-  <g fill="none">
-    <circle cx="9" cy="9" r="9" fill="#FFF" opacity=".6"/>
-    <g transform="translate(1 1)">
-      <circle cx="8" cy="8" r="7.5" fill="#FFF"/>
-      <path fill="#2E7D32" d="M8,1 C11.9,1 15,4.1 15,8 C15,11.9 11.9,15 8,15 C4.1,15 1,11.9 1,8 C1,4.1 4.1,1 8,1 Z M8,0 C3.6,0 0,3.6 0,8 C0,12.4 3.6,16 8,16 C12.4,16 16,12.4 16,8 C16,3.6 12.4,0 8,0 Z"/>
-    </g>
-    <g transform="translate(3 4)">
-      <polygon fill="#2E7D32" points="12 9 8.4 .6 6 4.5 3.6 .6 0 9 3 9 4.3 5.5 6 7.8 7.7 5.6 9 9"/>
-      <polygon fill="#FFF" points="6.2 1.7 8.9 10 9.4 10 6.7 1.5"/>
-      <polygon fill="#FFF" points="5.4 2.7 2.8 10 2.2 10 5 2.5"/>
-    </g>
+<svg viewBox="0 0 18 18" xmlns="http://www.w3.org/2000/svg">
+ <g fill="none">
+  <circle cx="9" cy="9" r="9" fill="#FFF" opacity=".6"/>
+  <g transform="translate(1 1)">
+   <circle cx="8" cy="8" r="7.5" fill="#FFF"/>
+   <path d="m8 1c3.9 0 7 3.1 7 7s-3.1 7-7 7-7-3.1-7-7 3.1-7 7-7zm0-1c-4.4 0-8 3.6-8 8s3.6 8 8 8 8-3.6 8-8-3.6-8-8-8z" fill="#2E7D32"/>
   </g>
+  <g transform="translate(3 4)">
+   <polygon points="12 9 8.4 0.6 6 4.5 3.6 0.6 0 9 3 9 4.3 5.5 6 7.8 7.7 5.6 9 9" fill="#2E7D32"/>
+   <polygon points="6.2 1.7 8.9 10 9.4 10 6.7 1.5" fill="#FFF"/>
+   <polygon points="5.4 2.7 2.8 10 2.2 10 5 2.5" fill="#FFF"/>
+  </g>
+ </g>
 </svg>

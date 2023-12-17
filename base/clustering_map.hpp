@@ -37,6 +37,11 @@ public:
     entry.m_values.push_back(std::forward<V>(value));
   }
 
+  void Delete(Key const & key)
+  {
+    m_table.erase(key);
+  }
+
   // Unions clusters corresponding to |u| and |v|.
   //
   // Amortized complexity: O(α(n) * F + log(m)).

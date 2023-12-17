@@ -28,15 +28,14 @@ public:
   std::vector<double> const & GetOffsets() const;
 
 private:
-  m2::Spline::iterator GetProjectedPoint(std::vector<m2::Spline> const & splines,
-                                         m2::PointD const & pt) const;
+  m2::Spline::iterator GetProjectedPoint(m2::PointD const & pt) const;
 
 private:
   std::vector<m2::PointD> m_globalPivots;
   std::vector<double> m_globalOffsets;
   m2::SharedSpline m_globalSpline;
 
-  std::vector<m2::Spline> m_pixel3dSplines;
+  std::vector<m2::SplineEx> m_pixel3dSplines;
   std::vector<m2::Spline::iterator> m_centerPointIters;
   std::vector<m2::PointD> m_centerGlobalPivots;
 
@@ -60,7 +59,6 @@ public:
   m2::RectD GetPixelRect(ScreenBase const & screen, bool perspective) const override;
   void GetPixelShape(ScreenBase const & screen, bool perspective, Rects & rects) const override;
   void GetAttributeMutation(ref_ptr<dp::AttributeBufferMutator> mutator) const override;
-  uint64_t GetPriorityMask() const override;
   bool Enable3dExtention() const override;
   bool HasLinearFeatureShape() const override;
 
@@ -73,5 +71,5 @@ private:
 };
 
 bool IsValidSplineTurn(m2::PointD const & normalizedDir1, m2::PointD const & normalizedDir2);
-void AddPointAndRound(m2::Spline & spline, m2::PointD const & pt);
+void AddPointAndRound(m2::SplineEx & spline, m2::PointD const & pt);
 }  // namespace df

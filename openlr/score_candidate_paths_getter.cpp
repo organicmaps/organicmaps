@@ -176,7 +176,7 @@ void ScoreCandidatePathsGetter::GetAllSuitablePaths(ScoreEdgeVec const & startLi
 
     if (u->m_distanceM + currentEdgeLen >= bearDistM)
     {
-      allPaths.emplace_back(move(u));
+      allPaths.emplace_back(std::move(u));
       continue;
     }
 
@@ -227,7 +227,6 @@ void ScoreCandidatePathsGetter::GetBestCandidatePaths(vector<shared_ptr<Link>> c
                                                       ScorePathVec & candidates)
 {
   CHECK_NOT_EQUAL(source, LinearSegmentSource::NotValid, ());
-  CHECK_GREATER_OR_EQUAL(requiredBearing, 0, ());
   CHECK_LESS_OR_EQUAL(requiredBearing, 255, ());
 
   multiset<CandidatePath, greater<>> candidatePaths;
@@ -282,7 +281,7 @@ void ScoreCandidatePathsGetter::GetBestCandidatePaths(vector<shared_ptr<Link>> c
     if (!isLastPoint)
       reverse(edges.begin(), edges.end());
 
-    candidates.emplace_back(path.GetScore(), move(edges));
+    candidates.emplace_back(path.GetScore(), std::move(edges));
   }
 }
 

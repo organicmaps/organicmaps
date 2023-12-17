@@ -42,8 +42,7 @@ public:
 
   Rect(T minX, T minY, T maxX, T maxY) : m_minX(minX), m_minY(minY), m_maxX(maxX), m_maxY(maxY)
   {
-    ASSERT(minX <= maxX, ());
-    ASSERT(minY <= maxY, ());
+    ASSERT(minX <= maxX && minY <= maxY, (minX, maxX, minY, maxY));
   }
 
   Rect(Point<T> const & p1, Point<T> const & p2)
@@ -358,7 +357,7 @@ bool HasIntersection(m2::Rect<T> const & rect, TCollection const & geometry)
       return true;
   }
   return false;
-};
+}
 
 template <class TArchive, class PointT>
 TArchive & operator>>(TArchive & ar, m2::Rect<PointT> & rect)

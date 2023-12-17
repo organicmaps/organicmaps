@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+  xmlns:app="http://schemas.android.com/apk/res-auto"
+  xmlns:tools="http://schemas.android.com/tools"
+  android:id="@+id/navigation_frame"
+  android:layout_width="match_parent"
+  android:layout_height="match_parent">
+
+  <include layout="@layout/layout_nav_top" />
+
+  <androidx.coordinatorlayout.widget.CoordinatorLayout
+    android:id="@+id/nav_bottom_sheet_coordinator"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <View
+      android:id="@+id/nav_bottom_sheet_background"
+      android:layout_width="match_parent"
+      android:layout_height="match_parent"
+      android:background="#99000000"
+      android:clickable="true"
+      android:focusable="true"
+      android:visibility="gone"
+      tools:visibility="visible" />
+
+    <FrameLayout
+      android:id="@+id/nav_bottom_sheet"
+      style="?attr/bottomSheetStyle"
+      android:layout_width="match_parent"
+      android:layout_height="wrap_content"
+      app:layout_behavior="com.google.android.material.bottomsheet.BottomSheetBehavior">
+
+      <include layout="@layout/layout_nav_bottom" />
+    </FrameLayout>
+
+  </androidx.coordinatorlayout.widget.CoordinatorLayout>
+
+  <View
+    android:id="@+id/nav_bottom_sheet_nav_bar"
+    android:layout_width="0dp"
+    android:layout_height="0dp"
+    android:layout_gravity="bottom|center"
+    android:background="?cardBackground"/>
+</FrameLayout>

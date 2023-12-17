@@ -18,7 +18,7 @@ namespace simplification_test
 using namespace std;
 
 using P = m2::PointD;
-using DistanceFn = m2::SquaredDistanceFromSegmentToPoint<P>;
+using DistanceFn = m2::SquaredDistanceFromSegmentToPoint;
 using PointOutput = base::BackInsertFunctor<vector<m2::PointD>>;
 using SimplifyFn = void (*)(m2::PointD const *, m2::PointD const *, double, DistanceFn,
                             PointOutput);

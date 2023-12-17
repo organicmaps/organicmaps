@@ -2,6 +2,9 @@ name: Android Release Metadata
 on:
   workflow_dispatch: # Manual trigger
 
+env:
+  JAVA_HOME: /usr/lib/jvm/temurin-17-jdk-amd64  # Java 17 is required for Android Gradle 8 plugin
+
 jobs:
   android-release-metadata:
     name: Upload Google Play metadata
@@ -9,31 +12,22 @@ jobs:
     environment: production
     steps:
       - name: Checkout sources
-        uses: actions/checkout@v2
+        uses: actions/checkout@v3
 
       - name: Parallel submodules checkout
         shell: bash
-        run: git submodule update --init --recursive --jobs=$(($(nproc) * 2))
+        run: git submodule update --depth 1 --init --recursive --jobs=$(($(nproc) * 20))
 
       - name: Checkout screenshots
-        uses: actions/checkout@v2
+        uses: actions/checkout@v4
         with:
           repository: ${{ secrets.SCREENSHOTS_REPO }}
           ssh-key: ${{ secrets.SCREENSHOTS_SSH_KEY }}
           ref: master
           path: screenshots
 
-      # This symlink is not stored in the repo because Linter checks fail for the FDroid build.
-      # Linter complains about an invalid symlink (we don't check out screenshots for FDroid).
-      - name: Create symlink for GP screenshots
-        shell: bash
-        run: |
-          for locale in en-US tr-TR; do
-             ln -sf ../../../../../../screenshots/android/${locale}/graphics android/src/google/play/listings/${locale}/graphics
-          done
-
       - name: Checkout private keys
-        uses: actions/checkout@v2
+        uses: actions/checkout@v4
         with:
           repository: ${{ secrets.PRIVATE_REPO }}
           ssh-key: ${{ secrets.PRIVATE_SSH_KEY }}
@@ -48,6 +42,6 @@ jobs:
 
       - name: Upload
         shell: bash
-        run: ./gradlew publishGoogleReleaseListing
+        run: ./gradlew prepareGoogleReleaseListing publishGoogleReleaseListing
         working-directory: android
         timeout-minutes: 5

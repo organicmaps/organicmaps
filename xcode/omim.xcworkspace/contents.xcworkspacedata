@@ -52,6 +52,9 @@
          location = "container:icu/icu.xcodeproj">
       </FileRef>
       <FileRef
+         location = "container:harfbuzz/harfbuzz.xcodeproj">
+      </FileRef>
+      <FileRef
          location = "container:jansson/jansson.xcodeproj">
       </FileRef>
       <FileRef
@@ -96,6 +99,9 @@
    </FileRef>
    <FileRef
       location = "container:coding/coding.xcodeproj">
+   </FileRef>
+   <FileRef
+      location = "container:cppjansson/cppjansson.xcodeproj">
    </FileRef>
    <FileRef
       location = "group:descriptions/descriptions.xcodeproj">

@@ -20,7 +20,7 @@ class Route;
 
 /// Routing possible statuses enumeration.
 /// \warning  this enum has JNI mirror!
-/// \see android/src/com/mapswithme/maps/routing/ResultCodesHelper.java
+/// \see android/src/app/organicmaps/maps/routing/ResultCodesHelper.java
 // TODO(bykoianko): Items become obsolete now should be removed from the enum.
 enum class RouterResultCode
 {
@@ -108,7 +108,7 @@ inline std::string ToString(RouterResultCode code)
   case RouterResultCode::HasWarnings: return "HasWarnings";
   }
 
-  std::string const result = "Unknown RouterResultCode: " + std::to_string(static_cast<int>(code));
+  std::string result = "Unknown RouterResultCode: " + std::to_string(static_cast<int>(code));
   ASSERT(false, (result));
   return result;
 }

@@ -1,7 +1,7 @@
 #include "generator/city_roads_generator.hpp"
 
 #include "generator/cities_boundaries_checker.hpp"
-#include "generator/feature_builder.hpp"
+#include "generator/collector_routing_city_boundaries.hpp"
 
 #include "routing/city_roads_serialization.hpp"
 #include "routing/routing_helpers.hpp"
@@ -12,43 +12,50 @@
 #include "indexer/feature_data.hpp"
 #include "indexer/feature_processor.hpp"
 
-#include "coding/read_write_utils.hpp"
+#include "geometry/circle_on_earth.hpp"
 
-#include "base/assert.hpp"
-#include "base/geo_object_id.hpp"
 #include "base/logging.hpp"
 
 #include "defines.hpp"
 
-#include <utility>
-
 namespace routing_builder
 {
-using namespace generator;
-using namespace std;
+using generator::CitiesBoundariesChecker;
+using std::string, std::vector;
 
 void LoadCitiesBoundariesGeometry(string const & boundariesPath,
                                   CitiesBoundariesChecker::CitiesBoundaries & result)
 {
   if (!Platform::IsFileExistsByFullPath(boundariesPath))
   {
-    LOG(LINFO, ("No info about city boundaries for routing. No such file:", boundariesPath));
+    LOG(LWARNING, ("No city boundaries file:", boundariesPath));
     return;
   }
 
-  FileReader reader(boundariesPath);
-  ReaderSource<FileReader> source(reader);
+  generator::PlaceBoundariesHolder holder;
+  holder.Deserialize(boundariesPath);
 
-  size_t n = 0;
-  while (source.Size() > 0)
+  size_t points = 0, areas = 0;
+  holder.ForEachLocality([&](generator::PlaceBoundariesHolder::Locality & loc)
   {
-    vector<m2::PointD> boundary;
-    rw::ReadVectorOfPOD(source, boundary);
-    result.emplace_back(boundary);
-    ++n;
-  }
+    CHECK(loc.TestValid(), ());
 
-  LOG(LINFO, ("Read:", n, "boundaries from:", boundariesPath));
+    if (loc.IsPoint() || !loc.IsHonestCity())
+    {
+      ++points;
+      double const radiusM = ftypes::GetRadiusByPopulationForRouting(loc.GetPopulation(), loc.GetPlace());
+      result.emplace_back(ms::CreateCircleGeometryOnEarth(
+                            mercator::ToLatLon(loc.m_center), radiusM, 30.0 /* angleStepDegree */));
+    }
+    else
+    {
+      ++areas;
+      for (auto & poly : loc.m_boundary)
+        result.emplace_back(std::move(poly));
+    }
+  });
+
+  LOG(LINFO, ("Read", points, "point places and", areas, "area places from:", boundariesPath));
 }
 
 /// \brief Fills |cityRoadFeatureIds| with road feature ids if more then
@@ -98,7 +105,7 @@ void SerializeCityRoads(string const & dataPath, vector<uint32_t> && cityRoadFea
   FilesContainerW cont(dataPath, FileWriter::OP_WRITE_EXISTING);
   auto w = cont.GetWriter(CITY_ROADS_FILE_TAG);
 
-  routing::CityRoadsSerializer::Serialize(*w, move(cityRoadFeatureIds));
+  routing::CityRoadsSerializer::Serialize(*w, std::move(cityRoadFeatureIds));
 }
 
 bool BuildCityRoads(string const & mwmPath, string const & boundariesPath)

@@ -9,7 +9,7 @@
 #include <tuple>
 #include <utility>
 
-#include "3party/boost/boost/date_time/gregorian/gregorian.hpp"
+#include <boost/date_time/gregorian/gregorian.hpp>
 
 namespace transit
 {

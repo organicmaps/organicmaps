@@ -22,29 +22,29 @@ final class CarPlayRouter: NSObject {
   var speedCameraMode: SpeedCameraManagerMode {
     return RoutingManager.routingManager.speedCameraMode
   }
-  
+
   override init() {
     listenerContainer = ListenerContainer<CarPlayRouterListener>()
     initialSpeedCamSettings = RoutingManager.routingManager.speedCameraMode
     super.init()
   }
-  
+
   func addListener(_ listener: CarPlayRouterListener) {
     listenerContainer.addListener(listener)
   }
-  
+
   func removeListener(_ listener: CarPlayRouterListener) {
     listenerContainer.removeListener(listener)
   }
-  
+
   func subscribeToEvents() {
     RoutingManager.routingManager.add(self)
   }
-  
+
   func unsubscribeFromEvents() {
     RoutingManager.routingManager.remove(self)
   }
-  
+
   func completeRouteAndRemovePoints() {
     let manager = RoutingManager.routingManager
     manager.stopRoutingAndRemoveRoutePoints(true)
@@ -52,7 +52,7 @@ final class CarPlayRouter: NSObject {
     manager.apply(routeType: .vehicle)
     previewTrip = nil
   }
-  
+
   func rebuildRoute() {
     guard let trip = previewTrip else { return }
     do {
@@ -64,7 +64,7 @@ final class CarPlayRouter: NSObject {
       })
     }
   }
-  
+
   func buildRoute(trip: CPTrip) {
     completeRouteAndRemovePoints()
     previewTrip = trip
@@ -87,11 +87,11 @@ final class CarPlayRouter: NSObject {
         })
         return
     }
-    
+
     let manager = RoutingManager.routingManager
     manager.add(routePoint: startPoint)
     manager.add(routePoint: endPoint)
-    
+
     do {
       try manager.buildRoute()
     } catch let error as NSError {
@@ -101,7 +101,7 @@ final class CarPlayRouter: NSObject {
       })
     }
   }
-  
+
   func updateStartPointAndRebuild(trip: CPTrip) {
     let manager = RoutingManager.routingManager
     previewTrip = trip
@@ -128,27 +128,27 @@ final class CarPlayRouter: NSObject {
       })
     }
   }
-  
+
   func startRoute() {
     let manager = RoutingManager.routingManager
     manager.startRoute()
   }
-  
+
   func setupCarPlaySpeedCameraMode() {
     if case .auto = initialSpeedCamSettings {
       RoutingManager.routingManager.speedCameraMode = .always
     }
   }
-  
+
   func setupInitialSpeedCameraMode() {
     RoutingManager.routingManager.speedCameraMode = initialSpeedCamSettings
   }
-  
+
   func updateSpeedCameraMode(_ mode: SpeedCameraManagerMode) {
     initialSpeedCamSettings = mode
     RoutingManager.routingManager.speedCameraMode = mode
   }
-  
+
   func restoreTripPreviewOnCarplay(beforeRootTemplateDidAppear: Bool) {
     guard MWMRouter.isRestoreProcessCompleted() else {
       DispatchQueue.main.async { [weak self] in
@@ -182,7 +182,7 @@ final class CarPlayRouter: NSObject {
       CarPlayService.shared.preparePreview(trips: [trip])
     }
   }
-  
+
   func restoredNavigationSession() -> (CPTrip, RouteInfo)? {
     let manager = RoutingManager.routingManager
     if manager.isOnRoute,
@@ -211,21 +211,21 @@ extension CarPlayRouter {
       self?.updateUpcomingManeuvers()
     }
   }
-  
+
   func cancelTrip() {
     routeSession?.cancelTrip()
     routeSession = nil
     completeRouteAndRemovePoints()
     RoutingManager.routingManager.resetOnNewTurnCallback()
   }
-  
+
   func finishTrip() {
     routeSession?.finishTrip()
     routeSession = nil
     completeRouteAndRemovePoints()
     RoutingManager.routingManager.resetOnNewTurnCallback()
   }
-  
+
   func updateUpcomingManeuvers() {
     let maneuvers = createUpcomingManeuvers()
     routeSession?.upcomingManeuvers = maneuvers
@@ -249,7 +249,7 @@ extension CarPlayRouter {
     let measurement = Measurement(value: distance, unit: routeInfo.turnUnits)
     return CPTravelEstimates(distanceRemaining: measurement, timeRemaining: 0.0)
   }
-  
+
   private func createUpcomingManeuvers() -> [CPManeuver] {
     guard let routeInfo = RoutingManager.routingManager.routeInfo else {
       return []
@@ -261,15 +261,14 @@ extension CarPlayRouter {
     if routeInfo.roundExitNumber != 0 {
       let ordinalExitNumber = NumberFormatter.localizedString(from: NSNumber(value: routeInfo.roundExitNumber),
                                                               number: .ordinal)
-      let exitNumber = String(coreFormat: L("carplay_roundabout_exit"),
+      let exitNumber = String(format: L("carplay_roundabout_exit"),
                               arguments: [ordinalExitNumber])
       instructionVariant = instructionVariant.isEmpty ? exitNumber : (exitNumber + ", " + instructionVariant)
     }
     primaryManeuver.instructionVariants = [instructionVariant]
     if let imageName = routeInfo.turnImageName,
       let symbol = UIImage(named: imageName) {
-      primaryManeuver.symbolSet = CPImageSet(lightContentImage: symbol,
-                                             darkContentImage: symbol)
+      primaryManeuver.symbolImage = symbol
     }
     if let estimates = createEstimates(routeInfo) {
       primaryManeuver.initialTravelEstimates = estimates
@@ -280,13 +279,12 @@ extension CarPlayRouter {
       let secondaryManeuver = CPManeuver()
       secondaryManeuver.userInfo = CPConstants.Maneuvers.secondary
       secondaryManeuver.instructionVariants = [L("then_turn")]
-      secondaryManeuver.symbolSet = CPImageSet(lightContentImage: symbol,
-                                               darkContentImage: symbol)
+      secondaryManeuver.symbolImage = symbol
       maneuvers.append(secondaryManeuver)
     }
     return maneuvers
   }
-  
+
   func createTrip(startPoint: MWMRoutePoint, endPoint: MWMRoutePoint, routeInfo: RouteInfo? = nil) -> CPTrip {
     let startPlacemark = MKPlacemark(coordinate: CLLocationCoordinate2D(latitude: startPoint.latitude,
                                                                         longitude: startPoint.longitude))
@@ -296,10 +294,10 @@ extension CarPlayRouter {
     let startItem = MKMapItem(placemark: startPlacemark)
     let endItem = MKMapItem(placemark: endPlacemark)
     endItem.name = endPoint.title
-    
+
     let routeChoice = CPRouteChoice(summaryVariants: [" "], additionalInformationVariants: [], selectionSummaryVariants: [])
     routeChoice.userInfo = routeInfo
-    
+
     let trip = CPTrip(origin: startItem, destination: endItem, routeChoices: [routeChoice])
     trip.userInfo = [CPConstants.Trip.start: startPoint, CPConstants.Trip.end: endPoint]
     return trip
@@ -308,10 +306,10 @@ extension CarPlayRouter {
 
 // MARK: - RoutingManagerListener implementation
 extension CarPlayRouter: RoutingManagerListener {
-  func updateCameraInfo(isCameraOnRoute: Bool, speedLimit limit: String?) {
-    CarPlayService.shared.updateCameraUI(isCameraOnRoute: isCameraOnRoute, speedLimit: limit)
+  func updateCameraInfo(isCameraOnRoute: Bool, speedLimitMps limit: Double) {
+    CarPlayService.shared.updateCameraUI(isCameraOnRoute: isCameraOnRoute, speedLimitMps: limit < 0 ? nil : limit)
   }
-  
+
   func processRouteBuilderEvent(with code: RouterResultCode, countries: [String]) {
     guard let trip = previewTrip else {
       return
@@ -345,10 +343,10 @@ extension CarPlayRouter: RoutingManagerListener {
       })
     }
   }
-  
+
   func didLocationUpdate(_ notifications: [String]) {
     guard let trip = previewTrip else { return }
-    
+
     let manager = RoutingManager.routingManager
     if manager.isRouteFinished {
       listenerContainer.forEach({
@@ -356,13 +354,13 @@ extension CarPlayRouter: RoutingManagerListener {
       })
       return
     }
-    
+
     guard let routeInfo = manager.routeInfo,
       manager.isRoutingActive else { return }
     listenerContainer.forEach({
       $0.didUpdateRouteInfo(routeInfo, forTrip: trip)
     })
-    
+
     let tts = MWMTextToSpeech.tts()!
     if manager.isOnRoute && tts.active {
       tts.playTurnNotifications(notifications)

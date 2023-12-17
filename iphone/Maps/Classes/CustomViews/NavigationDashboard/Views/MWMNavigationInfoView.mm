@@ -14,17 +14,18 @@
 
 #include "geometry/angles.hpp"
 
-namespace {
-CGFloat const kTurnsiPhoneWidth = 96;
-CGFloat const kTurnsiPadWidth = 140;
+namespace
+{
+CGFloat constexpr kTurnsiPhoneWidth = 96;
+CGFloat constexpr kTurnsiPadWidth = 140;
 
-CGFloat const kSearchButtonsViewHeightPortrait = 200;
-CGFloat const kSearchButtonsViewWidthPortrait = 200;
-CGFloat const kSearchButtonsViewHeightLandscape = 56;
-CGFloat const kSearchButtonsViewWidthLandscape = 286;
-CGFloat const kSearchButtonsSideSize = 44;
-CGFloat const kBaseTurnsTopOffset = 28;
-CGFloat const kShiftedTurnsTopOffset = 8;
+CGFloat constexpr kSearchButtonsViewHeightPortrait = 200;
+CGFloat constexpr kSearchButtonsViewWidthPortrait = 200;
+CGFloat constexpr kSearchButtonsViewHeightLandscape = 56;
+CGFloat constexpr kSearchButtonsViewWidthLandscape = 286;
+CGFloat constexpr kSearchButtonsSideSize = 44;
+CGFloat constexpr kBaseTurnsTopOffset = 28;
+CGFloat constexpr kShiftedTurnsTopOffset = 8;
 
 NSTimeInterval constexpr kCollapseSearchTimeout = 5.0;
 
@@ -339,6 +340,11 @@ BOOL defaultOrientation(CGSize const &size) {
 
 - (void)refreshLayout {
   dispatch_async(dispatch_get_main_queue(), ^{
+    if (UIDeviceOrientationIsLandscape([UIDevice currentDevice].orientation))
+      self.streetNameLabel.numberOfLines = 1;
+    else
+      self.streetNameLabel.numberOfLines = 2;
+
     auto const availableArea = self.availableArea;
     [self animateConstraintsWithAnimations:^{
       self.topConstraint.constant = availableArea.origin.y;

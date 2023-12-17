@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+  xmlns:android="http://schemas.android.com/apk/res/android"
+  xmlns:app="http://schemas.android.com/apk/res-auto"
+  xmlns:tools="http://schemas.android.com/tools"
+  android:layout_width="match_parent"
+  android:layout_height="wrap_content"
+  android:orientation="vertical">
+  <LinearLayout
+    android:id="@+id/ll__place_wiki"
+    style="@style/PlacePageItemFrame"
+    android:visibility="visible"
+    tools:background="#20FF0000">
+    <ImageView
+      android:id="@+id/iv__place_wiki"
+      style="@style/PlacePageMetadataIcon"
+      android:src="@drawable/ic_wiki"
+      app:tint="?colorAccent" />
+    <TextView
+      android:id="@+id/tv__place_wiki"
+      android:layout_width="match_parent"
+      android:layout_height="wrap_content"
+      android:text="@string/read_in_wikipedia"
+      android:textAppearance="@style/MwmTextAppearance.PlacePage.Accent" />
+  </LinearLayout>
+  <include
+    layout="@layout/place_page_description_layout"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginBottom="@dimen/margin_half"
+    tools:visibility="visible" />
+</LinearLayout>

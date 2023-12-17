@@ -1,0 +1,15 @@
+<svg version="1.1" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+  <g>
+    <circle id="outer" r="12" cx="12" cy="12" fill="#000" opacity=".6"/>
+    <circle id="inner" r="11" cx="12" cy="12" fill="#c15746"/>
+    <g id="tube">
+      <path style="stroke:#000;stroke-width:0.85;stroke-linecap:round;stroke-linejoin:round" d="M 13.9818,5.12063 V 16.6739"/>
+      <path style="stroke:#000;stroke-width:0.4;stroke-linecap:round" d="M 10.0129,7.78034 11.9974,7.77032"/>
+      <path style="stroke:#000;stroke-width:0.4;stroke-linecap:round" d="m 10.0129,9.39916 h 1.5663"/>
+      <path style="stroke:#000;stroke-width:0.85" d="m 13.9822,16.6739 c -4e-4,3.0707 -3.9693,3.0579 -3.9695,0"/>
+      <path style="stroke:#000;stroke-width:0.85;stroke-linecap:round;stroke-linejoin:round" d="M 10.0129,5.12063 V 16.6739"/>
+      <path style="stroke:#000;stroke-width:0.5;stroke-linejoin:round" d="M 14.7233,4.85189 H 9.27666 Z"/>
+      <path style="fill:#000" d="m 13.6932,11.0205 -3.6673,0.005 -0.06602,6.5567 2.26682,1.3766 1.7551,-1.7013 z"/>
+    </g>
+  </g>
+</svg>

@@ -1,1 +1,0 @@
-mapa,offline,viagem,navegação,GPS,direção,rota,caminhada,bicicleta,ciclismo,openstreetmap,osm,trilha

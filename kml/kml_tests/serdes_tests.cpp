@@ -17,7 +17,6 @@
 #include "base/file_name_utils.hpp"
 #include "base/scope_guard.hpp"
 
-#include <chrono>
 #include <cstring>
 #include <functional>
 #include <memory>
@@ -61,7 +60,7 @@ kml::FileData GenerateKmlFileData()
   result.m_categoryData.m_authorId = "12345";
   result.m_categoryData.m_rating = 8.9;
   result.m_categoryData.m_reviewsNumber = 567;
-  result.m_categoryData.m_lastModified = std::chrono::system_clock::from_time_t(1000);
+  result.m_categoryData.m_lastModified = kml::TimestampClock::from_time_t(1000);
   result.m_categoryData.m_accessRules = kml::AccessRules::Public;
   result.m_categoryData.m_tags = {"mountains", "ski", "snowboard"};
   result.m_categoryData.m_toponyms = {"12345", "54321"};
@@ -79,7 +78,7 @@ kml::FileData GenerateKmlFileData()
   bookmarkData.m_color = {kml::PredefinedColor::Blue, 0};
   bookmarkData.m_icon = kml::BookmarkIcon::None;
   bookmarkData.m_viewportScale = 15;
-  bookmarkData.m_timestamp = std::chrono::system_clock::from_time_t(800);
+  bookmarkData.m_timestamp = kml::TimestampClock::from_time_t(800);
   bookmarkData.m_point = m2::PointD(45.9242, 56.8679);
   bookmarkData.m_boundTracks = {0};
   bookmarkData.m_visible = false;
@@ -99,10 +98,12 @@ kml::FileData GenerateKmlFileData()
   trackData.m_description[kRuLang] = "Тестовое описание трека";
   trackData.m_layers = {{6.0, {kml::PredefinedColor::None, 0xff0000ff}},
                         {7.0, {kml::PredefinedColor::None, 0x00ff00ff}}};
-  trackData.m_timestamp = std::chrono::system_clock::from_time_t(900);
-  trackData.m_pointsWithAltitudes = {{m2::PointD(45.9242, 56.8679), 1},
-                                     {m2::PointD(45.2244, 56.2786), 2},
-                                     {m2::PointD(45.1964, 56.9832), 3}};
+  trackData.m_timestamp = kml::TimestampClock::from_time_t(900);
+
+  trackData.m_geometry.Assign({
+    {{45.9242, 56.8679}, 1}, {{45.2244, 56.2786}, 2}, {{45.1964, 56.9832}, 3}
+  });
+
   trackData.m_visible = false;
   trackData.m_nearestToponyms = {"12345", "54321", "98765"};
   trackData.m_properties = {{"tr_property1", "value1"}, {"tr_property2", "value2"}};
@@ -123,7 +124,7 @@ kml::FileData GenerateKmlFileData()
   compilationData1.m_authorId = "54321";
   compilationData1.m_rating = 5.9;
   compilationData1.m_reviewsNumber = 333;
-  compilationData1.m_lastModified = std::chrono::system_clock::from_time_t(999);
+  compilationData1.m_lastModified = kml::TimestampClock::from_time_t(999);
   compilationData1.m_accessRules = kml::AccessRules::Public;
   compilationData1.m_tags = {"mountains", "ski"};
   compilationData1.m_toponyms = {"8", "9"};
@@ -146,7 +147,7 @@ kml::FileData GenerateKmlFileData()
   compilationData2.m_authorId = "11111";
   compilationData2.m_rating = 3.3;
   compilationData2.m_reviewsNumber = 222;
-  compilationData2.m_lastModified = std::chrono::system_clock::from_time_t(323);
+  compilationData2.m_lastModified = kml::TimestampClock::from_time_t(323);
   compilationData2.m_accessRules = kml::AccessRules::Public;
   compilationData2.m_tags = {"mountains", "bike"};
   compilationData2.m_toponyms = {"10", "11"};
@@ -790,4 +791,242 @@ UNIT_TEST(Kml_Deserialization_From_Bin_V6_And_V7)
   }
 
   TEST_EQUAL(dataFromBinV6, dataFromBinV7, ());
+}
+
+
+UNIT_TEST(Kml_Deserialization_From_Bin_V7_And_V8)
+{
+  kml::FileData dataFromBinV7;
+  try
+  {
+    MemReader reader(kBinKmlV7.data(), kBinKmlV7.size());
+    kml::binary::DeserializerKml des(dataFromBinV7);
+    des.Deserialize(reader);
+  }
+  catch (kml::binary::DeserializerKml::DeserializeException const & exc)
+  {
+    TEST(false, ("Exception raised", exc.what()));
+  }
+
+  kml::FileData dataFromBinV8;
+  try
+  {
+    MemReader reader(kBinKmlV8.data(), kBinKmlV8.size());
+    kml::binary::DeserializerKml des(dataFromBinV8);
+    des.Deserialize(reader);
+  }
+  catch (kml::binary::DeserializerKml::DeserializeException const & exc)
+  {
+    TEST(false, ("Exception raised", exc.what()));
+  }
+
+  TEST_EQUAL(dataFromBinV7, dataFromBinV8, ());
+}
+
+UNIT_TEST(Kml_Deserialization_From_Bin_V8_And_V8MM)
+{
+  kml::FileData dataFromBinV8;
+  try
+  {
+    MemReader reader(kBinKmlV8.data(), kBinKmlV8.size());
+    kml::binary::DeserializerKml des(dataFromBinV8);
+    des.Deserialize(reader);
+  }
+  catch (kml::binary::DeserializerKml::DeserializeException const & exc)
+  {
+    TEST(false, ("Exception raised", exc.what()));
+  }
+
+  kml::FileData dataFromBinV8MM;
+  try
+  {
+    MemReader reader(kBinKmlV8MM.data(), kBinKmlV8MM.size());
+    kml::binary::DeserializerKml des(dataFromBinV8MM);
+    des.Deserialize(reader);
+  }
+  catch (kml::binary::DeserializerKml::DeserializeException const & exc)
+  {
+    TEST(false, ("Exception raised", exc.what()));
+  }
+
+  // Can't compare dataFromBinV8.m_categoryData and dataFromBinV8MM.m_categoryData directly
+  // because new format has less properties and different m_id. Compare some properties here:
+  TEST_EQUAL(dataFromBinV8.m_categoryData.m_name, dataFromBinV8MM.m_categoryData.m_name, ());
+  TEST_EQUAL(dataFromBinV8.m_categoryData.m_description, dataFromBinV8MM.m_categoryData.m_description, ());
+  TEST_EQUAL(dataFromBinV8.m_categoryData.m_annotation, dataFromBinV8MM.m_categoryData.m_annotation, ());
+  TEST_EQUAL(dataFromBinV8.m_categoryData.m_accessRules, dataFromBinV8MM.m_categoryData.m_accessRules, ());
+  TEST_EQUAL(dataFromBinV8.m_categoryData.m_visible, dataFromBinV8MM.m_categoryData.m_visible, ());
+  TEST_EQUAL(dataFromBinV8.m_categoryData.m_rating, dataFromBinV8MM.m_categoryData.m_rating, ());
+  TEST_EQUAL(dataFromBinV8.m_categoryData.m_reviewsNumber, dataFromBinV8MM.m_categoryData.m_reviewsNumber, ());
+  TEST_EQUAL(dataFromBinV8.m_categoryData.m_tags, dataFromBinV8MM.m_categoryData.m_tags, ());
+  TEST_EQUAL(dataFromBinV8.m_categoryData.m_properties, dataFromBinV8MM.m_categoryData.m_properties, ());
+
+  TEST_EQUAL(dataFromBinV8.m_bookmarksData, dataFromBinV8MM.m_bookmarksData, ());
+  TEST_EQUAL(dataFromBinV8.m_tracksData, dataFromBinV8MM.m_tracksData, ());
+}
+
+UNIT_TEST(Kml_Ver_2_3)
+{
+  std::string_view constexpr data = R"(<?xml version="1.0" encoding="UTF-8"?>
+    <kml xmlns="http://www.opengis.net/kml/2.2" version="2.3">
+      <Placemark id="PM005">
+        <Track>
+          <when>2010-05-28T02:02:09Z</when>
+          <when>2010-05-28T02:02:35Z</when>
+          <when>2010-05-28T02:02:44Z</when>
+          <when>2010-05-28T02:02:53Z</when>
+          <when>2010-05-28T02:02:54Z</when>
+          <when>2010-05-28T02:02:55Z</when>
+          <when>2010-05-28T02:02:56Z</when>
+          <coord>-122.207881 37.371915 156.000000</coord>
+          <coord>-122.205712 37.373288 152.000000</coord>
+          <coord>-122.204678 37.373939 147.000000</coord>
+          <coord>-122.203572 37.374630 142.199997</coord>
+          <coord>-122.203451 37.374706 141.800003</coord>
+          <coord>-122.203329 37.374780 141.199997</coord>
+          <coord>-122.203207 37.374857 140.199997</coord>
+        </Track>
+        <gx:MultiTrack>
+          <altitudeMode>absolute</altitudeMode>
+          <gx:interpolate>0</gx:interpolate>
+          <gx:Track>
+            <gx:coord>9.42666332 52.94270656 95</gx:coord>
+            <when>2022-12-25T13:12:01.914Z</when>
+            <gx:coord>9.42682572 52.94270115 94</gx:coord>
+            <when>2022-12-25T13:12:36Z</when>
+            <gx:coord>9.42699411 52.94269624 94</gx:coord>
+            <when>2022-12-25T13:12:38Z</when>
+            <gx:coord>9.42716915 52.94268793 95</gx:coord>
+            <when>2022-12-25T13:12:40Z</when>
+            <gx:coord>9.42736231 52.94266046 95</gx:coord>
+            <when>2022-12-25T13:12:42Z</when>
+            <gx:coord>9.42757536 52.94266963 96</gx:coord>
+            <when>2022-12-25T13:12:44Z</when>
+            <ExtendedData>
+              <SchemaData schemaUrl="#geotrackerTrackSchema">
+                <gx:SimpleArrayData name="speed">
+                  <gx:value>0</gx:value>
+                  <gx:value>3.71</gx:value>
+                  <gx:value>5.22</gx:value>
+                  <gx:value>6.16</gx:value>
+                  <gx:value>7.1</gx:value>
+                  <gx:value>7.28</gx:value>
+                </gx:SimpleArrayData>
+                <gx:SimpleArrayData name="course">
+                  <gx:value />
+                  <gx:value>1.57</gx:value>
+                  <gx:value>1.62</gx:value>
+                  <gx:value>1.64</gx:value>
+                  <gx:value>1.69</gx:value>
+                  <gx:value>1.56</gx:value>
+                </gx:SimpleArrayData>
+              </SchemaData>
+            </ExtendedData>
+          </gx:Track>
+        </gx:MultiTrack>
+      </Placemark>
+    </kml>
+  )";
+
+  kml::FileData fData;
+  try
+  {
+    MemReader const reader(data);
+    kml::DeserializerKml des(fData);
+    des.Deserialize(reader);
+  }
+  catch (kml::DeserializerKml::DeserializeException const & ex)
+  {
+    TEST(false, ("Exception raised", ex.Msg()));
+  }
+
+  TEST_EQUAL(fData.m_tracksData.size(), 1, ());
+  auto const & lines = fData.m_tracksData[0].m_geometry.m_lines;
+  TEST_EQUAL(lines.size(), 2, ());
+  TEST_EQUAL(lines[0].size(), 7, ());
+  TEST_EQUAL(lines[1].size(), 6, ());
+}
+
+UNIT_TEST(Kml_Placemark_contains_both_Bookmark_and_Track_data)
+{
+  std::string_view constexpr input = R"(<?xml version="1.0" encoding="UTF-8"?>
+<kml xmlns="http://www.opengis.net/kml/2.2">
+  <Placemark>
+    <MultiGeometry>
+      <Point>
+        <coordinates>28.968447783842,41.009030507129,0</coordinates>
+      </Point>
+      <LineString>
+        <coordinates>28.968447783842,41.009030507129,0 28.965858,41.018449,0</coordinates>
+      </LineString>
+    </MultiGeometry>
+  </Placemark>
+  <Placemark>
+  <MultiGeometry>
+    <LineString>
+      <coordinates>28.968447783842,41.009030507129,0 28.965858,41.018449,0</coordinates>
+    </LineString>
+    <Point>
+      <coordinates>28.968447783842,41.009030507129,0</coordinates>
+    </Point>
+  </MultiGeometry>
+</Placemark>
+</kml>
+  )";
+
+  kml::FileData fData;
+  try
+  {
+    MemReader const reader(input);
+    kml::DeserializerKml des(fData);
+    des.Deserialize(reader);
+  }
+  catch (kml::DeserializerKml::DeserializeException const & ex)
+  {
+    TEST(false, ("Exception raised", ex.Msg()));
+  }
+
+  TEST_EQUAL(fData.m_bookmarksData.size(), 2, ());
+  TEST_EQUAL(fData.m_tracksData.size(), 2, ());
+}
+
+// See https://github.com/organicmaps/organicmaps/issues/5800
+UNIT_TEST(Fix_Invisible_Color_Bug_In_Gpx_Tracks)
+{
+  std::string_view constexpr input = R"(<?xml version="1.0" encoding="UTF-8"?>
+<kml xmlns="http://earth.google.com/kml/2.2">
+<Document>
+  <name>2023-08-20 Malente Radtour</name>
+  <visibility>1</visibility>
+  <Placemark>
+    <name>2023-08-20 Malente Radtour</name>
+    <Style><LineStyle>
+      <color>01000000</color>
+      <width>3</width>
+    </LineStyle></Style>
+    <LineString><coordinates>10.565979,54.16597,26 10.565956,54.165997,26</coordinates></LineString>
+  </Placemark>
+  <Placemark>
+    <name>Test default colors and width</name>
+    <LineString><coordinates>10.465979,54.16597,26 10.465956,54.165997,26</coordinates></LineString>
+  </Placemark>
+</Document>
+</kml>
+  )";
+
+  kml::FileData fData;
+  try
+  {
+    kml::DeserializerKml(fData).Deserialize(MemReader(input));
+  }
+  catch (kml::DeserializerKml::DeserializeException const & ex)
+  {
+    TEST(false, ("Exception raised", ex.Msg()));
+  }
+
+  TEST_EQUAL(fData.m_tracksData.size(), 2, ());
+  TEST_EQUAL(fData.m_tracksData[0].m_layers.size(), 1, ());
+  auto const & layer = fData.m_tracksData[0].m_layers[0];
+  TEST_EQUAL(layer.m_color.m_rgba, kml::kDefaultTrackColor, ("Wrong transparency should be fixed"));
+  TEST_EQUAL(layer.m_lineWidth, 3, ());
 }

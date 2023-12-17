@@ -32,9 +32,53 @@ extension PlacePageInteractor: PlacePageInfoViewControllerDelegate {
   func didPressWebsite() {
     MWMPlacePageManagerHelper.openWebsite(placePageData)
   }
+  
+  func didPressKayak() {
+    let kUDDidShowKayakInformationDialog = "kUDDidShowKayakInformationDialog"
+    
+    if UserDefaults.standard.bool(forKey: kUDDidShowKayakInformationDialog) {
+      MWMPlacePageManagerHelper.openKayak(placePageData)
+    } else { 
+      let alert = UIAlertController(title: nil, message: L("dialog_kayak_disclaimer"), preferredStyle: .alert)
+      alert.addAction(UIAlertAction(title: L("cancel"), style: .cancel))
+      alert.addAction(UIAlertAction(title: L("dialog_kayak_button"), style: .default, handler: { _ in
+        UserDefaults.standard.set(true, forKey: kUDDidShowKayakInformationDialog)
+        MWMPlacePageManagerHelper.openKayak(self.placePageData)
+      }))
+      self.mapViewController?.present(alert, animated: true)
+    }
+  }
 
+  func didPressWikipedia() {
+    MWMPlacePageManagerHelper.openWikipedia(placePageData)
+  }
+  
+  func didPressWikimediaCommons() {
+    MWMPlacePageManagerHelper.openWikimediaCommons(placePageData)
+  }
+  
+  func didPressFacebook() {
+    MWMPlacePageManagerHelper.openFacebook(placePageData)
+  }
+  
+  func didPressInstagram() {
+    MWMPlacePageManagerHelper.openInstagram(placePageData)
+  }
+
+  func didPressTwitter() {
+    MWMPlacePageManagerHelper.openTwitter(placePageData)
+  }
+  
+  func didPressVk() {
+    MWMPlacePageManagerHelper.openVk(placePageData)
+  }
+  
+  func didPressLine() {
+    MWMPlacePageManagerHelper.openLine(placePageData)
+  }
+  
   func didPressEmail() {
-
+    MWMPlacePageManagerHelper.openEmail(placePageData)
   }
 }
 

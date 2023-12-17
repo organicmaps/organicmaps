@@ -54,7 +54,7 @@ namespace agg
 
                 if (cover < cover_full)
                 {
-                    double x = double(cover) / cover_full;
+                    double x = double(cover) / double(cover_full);
                     c.r *= x;
                     c.g *= x;
                     c.b *= x;

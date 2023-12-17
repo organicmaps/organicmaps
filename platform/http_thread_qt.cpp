@@ -135,7 +135,7 @@ void HttpThread::OnDownloadFinished()
     auto const httpStatusCode =
         m_reply->attribute(QNetworkRequest::HttpStatusCodeAttribute).toInt();
     LOG(LWARNING, ("Download has finished with code:", httpStatusCode,
-                   "error:", m_reply->errorString().toUtf8().constData()));
+                   "error:", m_reply->errorString().toStdString()));
     m_callback.OnFinish(httpStatusCode, m_begRange, m_endRange);
   }
   else
@@ -162,4 +162,3 @@ void DeleteNativeHttpThread(HttpThread * request)
   delete request;
 }
 } // namespace downloader
-

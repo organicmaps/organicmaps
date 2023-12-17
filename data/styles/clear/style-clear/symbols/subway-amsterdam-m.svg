@@ -1,9 +1,9 @@
-<svg width="21" height="24" viewBox="0 0 21 24">
-  <g fill="none">
-    <rect width="21" height="24" fill="#FFF" opacity=".6"/>
-    <rect width="19" height="22" x="1" y="1" fill="#0D47A1"/>
-    <polygon fill="#FFF" points="14.4 3 14 3.8 10.5 11.3 10.4 11.2 7 3.9 6.6 3 4 3 4 16 7 16 7 9.4 9.1 14 10.1 16 10.5 16 10.8 16 10.8 16 11.7 14.1 14 9.3 14 16 17 16 17 3"/>
-    <rect width="19" height="5" x="1" y="18" fill="#E0111C"/>
-    <rect width="13" height="1" x="4" y="20" fill="#FFF"/>
-  </g>
+<svg viewBox="0 0 21 24" xmlns="http://www.w3.org/2000/svg">
+ <g>
+  <rect width="21" height="24" fill="#FFF" opacity=".6"/>
+  <rect x="1" y="1" width="19" height="22" fill="#0D47A1"/>
+  <polygon points="14.4 3 14 3.8 10.5 11.3 10.4 11.2 7 3.9 6.6 3 4 3 4 16 7 16 7 9.4 9.1 14 10.1 16 10.5 16 10.8 16 10.8 16 11.7 14.1 14 9.3 14 16 17 16 17 3" fill="#FFF"/>
+  <rect x="1" y="18" width="19" height="5" fill="#E0111C"/>
+  <rect x="4" y="20" width="13" height="1" fill="#FFF"/>
+ </g>
 </svg>

@@ -1,72 +1,63 @@
 #pragma once
 
 #include "generator/cities_boundaries_builder.hpp"
+#include "generator/collector_routing_city_boundaries.hpp"
 #include "generator/feature_builder.hpp"
-
-#include "geometry/rect2d.hpp"
 
 #include "base/geo_object_id.hpp"
 
-#include <functional>
-#include <memory>
+#include <map>
 #include <string>
-#include <unordered_map>
-#include <utility>
 #include <vector>
 
 namespace generator
 {
-bool NeedProcessPlace(feature::FeatureBuilder const & fb);
-
-// This structure encapsulates work with elements of different types.
-// This means that we can consider a set of polygons of one relation as a single entity.
-class FeaturePlace
+struct FeaturePlace
 {
-public:
-  using FeaturesBuilders = std::vector<feature::FeatureBuilder>;
+  feature::FeatureBuilder m_fb;
+  m2::RectD m_rect;
 
-  void Append(feature::FeatureBuilder const & fb);
-  feature::FeatureBuilder const & GetFb() const;
-  FeaturesBuilders const & GetFbs() const;
-
-  // Returns limit rect around all stored feature builders.
-  m2::RectD const & GetAllFbsLimitRect() const;
-
-  // Methods return values for best stored feature builder.
-  base::GeoObjectId GetMostGenericOsmId() const;
-  uint8_t GetRank() const;
-  std::string_view GetName() const;
-  StringUtf8Multilang const & GetMultilangName() const;
-  bool IsPoint() const;
-  m2::RectD const & GetLimitRect() const;
-
-private:
-  m2::RectD m_allFbsLimitRect;
-  FeaturesBuilders m_fbs;
-  size_t m_bestIndex;
+  uint8_t GetRank() const { return m_fb.GetRank(); }
+  uint32_t GetPlaceType() const;
+  bool IsRealCapital() const;
 };
-
-m2::RectD GetLimitRect(FeaturePlace const & fp);
 
 // The class PlaceProcessor is responsible for the union of boundaries of the places.
 class PlaceProcessor
 {
 public:
-  using PlaceWithIds = std::pair<feature::FeatureBuilder, std::vector<base::GeoObjectId>>;
+  explicit PlaceProcessor(std::string const & filename);
 
-  PlaceProcessor(std::shared_ptr<OsmIdToBoundariesTable> boundariesTable = {});
+  void Add(feature::FeatureBuilder && fb);
 
-  void Add(feature::FeatureBuilder const & fb);
-  std::vector<PlaceWithIds> ProcessPlaces();
+  using IDsContainerT = std::vector<base::GeoObjectId>;
+  /// @param[out] ids To store correspondent IDs for test purposes if not nullptr.
+  std::vector<feature::FeatureBuilder> ProcessPlaces(std::vector<IDsContainerT> * ids = nullptr);
+
+  OsmIdToBoundariesTable & GetTable() { return m_boundariesTable; }
 
 private:
-  using FeaturePlaces = std::vector<FeaturePlace>;
+  PlaceBoundariesHolder m_boundariesHolder;
 
-  static std::string GetKey(feature::FeatureBuilder const & fb);
-  void FillTable(FeaturePlaces::const_iterator start, FeaturePlaces::const_iterator end,
-                 FeaturePlaces::const_iterator best) const;
+  FeaturePlace CreatePlace(feature::FeatureBuilder && fb) const;
 
-  std::unordered_map<std::string, std::unordered_map<base::GeoObjectId, FeaturePlace>> m_nameToPlaces;
-  std::shared_ptr<OsmIdToBoundariesTable> m_boundariesTable;
+  struct Key
+  {
+    int m_idx;
+    std::string m_name;
+
+    bool operator<(Key const & rhs) const
+    {
+      if ((m_idx >= 0 && m_idx == rhs.m_idx) || m_name == rhs.m_name)
+        return false;
+
+      return m_name < rhs.m_name;
+    }
+  };
+  std::map<Key, std::vector<FeaturePlace>> m_nameToPlaces;
+
+  OsmIdToBoundariesTable m_boundariesTable;
+
+  std::string m_logTag;
 };
 } // namespace generator

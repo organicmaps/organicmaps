@@ -1,6 +1,9 @@
 name: Linux Check
 on:
   workflow_dispatch: # Manual trigger
+  push:
+    branches:
+      - master
   pull_request:
     paths-ignore:
       - .gitignore
@@ -15,19 +18,25 @@ on:
       - data/strings/**
       - docs/**
       - packaging/**
+      - platform/*apple*
+      - platform/*_android*
+      - platform/*_ios* 
+      - platform/*_mac* 
+      - platform/*_win* 
       - pyhelpers/**
       - tools/**
-      - '!tools/python/run_desktop_tests.py'
-      - '!tools/python/testserver.py'
-      - '!tools/python/SiblingKiller.py'
+      - '!tools/python/test_server/**'
       - xcode/**
 
 jobs:
   linux-no-unity:
     name: Linux no unity build
-    runs-on: ubuntu-latest
-    strategy:
-      fail-fast: false
+    runs-on: ubuntu-22.04
+    # Cancels previous jobs if the same branch or PR was updated again.
+    concurrency:
+      group: ${{ github.workflow }}-no-unity-${{ github.event.pull_request.number || github.ref }}
+      cancel-in-progress: true
+
     steps:
       - name: Free disk space by removing .NET, Android and Haskell
         shell: bash
@@ -35,11 +44,13 @@ jobs:
           sudo rm -rf /usr/share/dotnet /usr/local/lib/android /opt/ghc
 
       - name: Checkout sources
-        uses: actions/checkout@v2
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 100 # enough to get all commits for the current day
 
       - name: Parallel submodules checkout
         shell: bash
-        run: git submodule update --init --recursive --jobs=$(($(nproc) * 2))
+        run: git submodule update --depth 1 --init --recursive --jobs=$(($(nproc) * 20))
 
       - name: Install build tools and dependencies
         shell: bash
@@ -47,22 +58,34 @@ jobs:
           sudo apt update -y
           sudo apt install -y \
               ninja-build \
-              qtbase5-dev \
-              libqt5svg5-dev \
-              clang-tools-11
+              libgl1-mesa-dev \
+              libglvnd-dev \
+              qt6-base-dev \
+              libqt6svg6-dev \
+              qt6-positioning-dev \
+              libqt6positioning6-plugins \
+              libqt6positioning6
 
       - name: Configure
         shell: bash
         run: ./configure.sh
 
+      - name: Configure ccache
+        uses: hendrikmuhs/ccache-action@v1.2
+        with:
+          key: ${{ github.workflow }}-no-unity
+
       - name: CMake
         shell: bash
         env:
-          CC: clang-12
-          CXX: clang++-12
+          CC: clang-14
+          CXX: clang++-14
+          CMAKE_C_COMPILER_LAUNCHER: ccache
+          CMAKE_CXX_COMPILER_LAUNCHER: ccache
         # -g1 should slightly reduce build time.
         run: |
-          cmake . -B build -G Ninja -DCMAKE_BUILD_TYPE=Debug -DCMAKE_CXX_FLAGS=-g1 -DUNITY_DISABLE=ON
+          cmake . -B build -G Ninja -DCMAKE_BUILD_TYPE=Debug \
+            -DCMAKE_CXX_FLAGS=-g1 -DUNITY_DISABLE=ON
 
       - name: Compile
         shell: bash
@@ -71,12 +94,16 @@ jobs:
 
   linux-matrix:
     name: Linux builds and tests
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-22.04
     strategy:
       fail-fast: false
       matrix:
-        compiler: [{ CXX: g++-10, CC: gcc-10 }, { CXX: clang++-12, CC: clang-12 }]
+        compiler: [{ CXX: g++-12, CC: gcc-12 }, { CXX: clang++-14, CC: clang-14 }]
         CMAKE_BUILD_TYPE: [Debug, RelWithDebInfo]
+    # Cancels previous jobs if the same branch or PR was updated again.
+    concurrency:
+      group: ${{ github.workflow }}-unity-${{ matrix.compiler.CC }}-${{ matrix.CMAKE_BUILD_TYPE }}-${{ github.event.pull_request.number || github.ref }}
+      cancel-in-progress: true
 
     steps:
       - name: Free disk space by removing .NET, Android and Haskell
@@ -85,94 +112,75 @@ jobs:
           sudo rm -rf /usr/share/dotnet /usr/local/lib/android /opt/ghc
 
       - name: Checkout sources
-        uses: actions/checkout@v2
+        uses: actions/checkout@v4
 
       - name: Parallel submodules checkout
         shell: bash
-        run: git submodule update --init --recursive --jobs=$(($(nproc) * 2))
+        run: git submodule update --depth 1 --init --recursive --jobs=$(($(nproc) * 20))
 
       - name: Install build tools and dependencies
         shell: bash
         run: |
           sudo apt update -y
           sudo apt install -y \
+              g++-12 \
+              gcc-12 \
               ninja-build \
-              qtbase5-dev \
-              libqt5svg5-dev \
-              clang-tools-11
+              libgl1-mesa-dev \
+              libglvnd-dev \
+              qt6-base-dev \
+              libqt6svg6-dev \
+              qt6-positioning-dev \
+              libqt6positioning6-plugins \
+              libqt6positioning6
 
       - name: Configure
         shell: bash
         run: ./configure.sh
+
+      - name: Configure ccache
+        uses: hendrikmuhs/ccache-action@v1.2
+        with:
+          key: ${{ github.workflow }}-unity-${{ matrix.compiler.CC }}-${{ matrix.CMAKE_BUILD_TYPE }}
 
       - name: CMake
         shell: bash
         env:
           CC: ${{ matrix.compiler.CC }}
           CXX: ${{ matrix.compiler.CXX }}
+          CMAKE_C_COMPILER_LAUNCHER: ccache
+          CMAKE_CXX_COMPILER_LAUNCHER: ccache
         # -g1 should slightly reduce build time.
         run: |
           echo "Building ${{ matrix.CMAKE_BUILD_TYPE }}"
-          cmake . -B build -G Ninja -DCMAKE_BUILD_TYPE=${{ matrix.CMAKE_BUILD_TYPE }} -DCMAKE_C_FLAGS=-g1 -DCMAKE_CXX_FLAGS=-g1
+          cmake . -B build -G Ninja -DCMAKE_BUILD_TYPE=${{ matrix.CMAKE_BUILD_TYPE }} \
+            -DCMAKE_C_FLAGS=-g1 -DCMAKE_CXX_FLAGS=-g1
 
       - name: Compile
         shell: bash
         working-directory: build
         run: ninja
 
-      - name: Checkout world_feed_integration_tests_data
-        uses: actions/checkout@v2
-        with:
-          repository: omapsapp/world_feed_integration_tests_data
-          path: data/world_feed_integration_tests_data
-
       - name: Tests
         shell: bash
-        # generator_integration_tests - https://github.com/organicmaps/organicmaps/issues/225
-        # routing_integration_tests - https://github.com/organicmaps/organicmaps/issues/221
-        # routing_quality_tests - https://github.com/organicmaps/organicmaps/issues/215
-        # drape_tests - requires X Window
-
-        # Separate run of OH boost-based test
+        working-directory: build
+        env:
+          # drape_tests - requires X Window
+          # generator_integration_tests - https://github.com/organicmaps/organicmaps/issues/225
+          # opening_hours_integration_tests - https://github.com/organicmaps/organicmaps/issues/219
+          # opening_hours_supported_features_tests - https://github.com/organicmaps/organicmaps/issues/219
+          # routing_integration_tests - https://github.com/organicmaps/organicmaps/issues/221
+          # shaders_tests - https://github.com/organicmaps/organicmaps/issues/223
+          # world_feed_integration_tests - https://github.com/organicmaps/organicmaps/issues/215
+          CTEST_EXCLUDE_REGEX: "drape_tests|generator_integration_tests|opening_hours_integration_tests|opening_hours_supported_features_tests|routing_benchmarks|routing_integration_tests|routing_quality_tests|search_quality_tests|storage_integration_tests|shaders_tests|world_feed_integration_tests"
         run: |
-          ./build/opening_hours_tests |
-          ./tools/python/run_desktop_tests.py \
-            -f ./build \
-            -u ./data \
-            -d ./data \
-            -e generator_integration_tests \
-            -e routing_integration_tests \
-            -e routing_quality_tests \
-            -e search_quality_tests \
-            -e world_feed_integration_tests \
-            -e drape_tests \
-            -e shaders_tests \
-                            \
-            -e opening_hours_tests \
-            -e opening_hours_integration_tests \
-            -e routing_consistency_tests \
-            -e opening_hours_supported_features_tests \
-            -e storage_integration_tests \
-
-  linux-appstream:
-    name: Linux validate appstream data
-    runs-on: ubuntu-latest
-    strategy:
-      fail-fast: false
-    steps:
-      - name: Checkout sources
-        uses: actions/checkout@v2
-
-      - name: Install appstream validator
-        shell: bash
-        run: |
-          sudo apt update -y
-          sudo apt install -y \
-              flatpak
-          sudo flatpak remote-add --if-not-exists flathub https://flathub.org/repo/flathub.flatpakrepo
-          # We get it from flathub to ensure we have a recent version
-          sudo flatpak install -y org.freedesktop.appstream-glib
-
-      - name: Validate appstream data
-        shell: bash
-        run: flatpak run org.freedesktop.appstream-glib validate --nonet qt/res/app.organicmaps.desktop.metainfo.xml
+          sudo locale-gen en_US
+          sudo locale-gen en_US.UTF-8
+          sudo locale-gen es_ES
+          sudo locale-gen es_ES.UTF-8
+          sudo locale-gen fr_FR
+          sudo locale-gen fr_FR.UTF-8
+          sudo locale-gen ru_RU
+          sudo locale-gen ru_RU.UTF-8
+          sudo update-locale
+          ctest -L "omim-test" -E "$CTEST_EXCLUDE_REGEX" --output-on-failure

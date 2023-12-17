@@ -1,11 +1,10 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<svg width="24px" height="24px" viewBox="0 0 24 24" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
-    <title>kiosk-m</title>
-    <g id="Page-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
-        <g id="kiosk-m" fill-rule="nonzero">
-            <circle id="Oval" fill="#FFFFFF" opacity="0.6" cx="12" cy="12" r="12"></circle>
-            <circle id="Oval" fill="#8C5F93" cx="12" cy="12" r="11"></circle>
-            <path d="M5,6 L5,7.84615385 L19,7.84615385 L19,6 L5,6 Z M6.86666667,18 L17.1333333,18 L17.1333333,9.69230769 L6.86666667,9.69230769 L6.86666667,18 Z M12.4666667,11.5384615 L15.2666667,11.5384615 L15.2666667,16.1538462 L12.4666667,16.1538462 L12.4666667,11.5384615 Z M8.73333333,11.5384615 L11.5333333,11.5384615 L11.5333333,16.1538462 L8.73333333,16.1538462 L8.73333333,11.5384615 Z" id="Shape" fill="#FFFFFF"></path>
-        </g>
-    </g>
+<svg version="1.1" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+ <title>kiosk-m</title>
+ <g fill="none" fill-rule="evenodd">
+  <g id="kiosk-m" fill-rule="nonzero">
+   <circle id="Oval" cx="12" cy="12" r="12" fill="#fff" opacity=".6"/>
+   <circle id="Oval" cx="12" cy="12" r="11" fill="#8C5F93"/>
+   <path id="Shape" d="m5 6v1.8462h14v-1.8462h-14zm1.8667 12h10.267v-8.3077h-10.267v8.3077zm5.6-6.4615h2.8v4.6154h-2.8v-4.6154zm-3.7333 0h2.8v4.6154h-2.8v-4.6154z" fill="#fff"/>
+  </g>
+ </g>
 </svg>

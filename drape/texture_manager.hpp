@@ -79,6 +79,8 @@ public:
     std::string m_colors;
     std::string m_patterns;
     GlyphManager::Params m_glyphMngParams;
+    std::optional<std::string> m_arrowTexturePath;
+    bool m_arrowTextureUseDefaultResourceFolder = false;
   };
 
   explicit TextureManager(ref_ptr<GlyphGenerator> glyphGenerator);
@@ -88,8 +90,8 @@ public:
   void OnSwitchMapStyle(ref_ptr<dp::GraphicsContext> context);
   void GetTexturesToCleanup(std::vector<drape_ptr<HWTexture>> & textures);
 
+  bool GetSymbolRegionSafe(std::string const & symbolName, SymbolRegion & region);
   void GetSymbolRegion(std::string const & symbolName, SymbolRegion & region);
-  bool HasSymbolRegion(std::string const & symbolName) const;
 
   void GetStippleRegion(PenPatternT const & pen, StippleRegion & region);
   void GetColorRegion(Color const & color, ColorRegion & region);
@@ -113,8 +115,15 @@ public:
   ref_ptr<Texture> GetSymbolsTexture() const;
   ref_ptr<Texture> GetTrafficArrowTexture() const;
   ref_ptr<Texture> GetHatchingTexture() const;
+  ref_ptr<Texture> GetArrowTexture() const;
   ref_ptr<Texture> GetSMAAAreaTexture() const;
   ref_ptr<Texture> GetSMAASearchTexture() const;
+
+  void InvalidateArrowTexture(ref_ptr<dp::GraphicsContext> context,
+                              std::optional<std::string> const & texturePath = std::nullopt,
+                              bool useDefaultResourceFolder = false);
+  // Apply must be called on FrontendRenderer.
+  void ApplyInvalidatedStaticTextures();
 
 private:
   struct GlyphGroup
@@ -202,10 +211,10 @@ private:
     FillResults<HybridGlyphGroup>(text, fixedHeight, buffers, group);
   }
 
-  uint32_t GetAbsentGlyphsCount(ref_ptr<Texture> texture, strings::UniString const & text,
-                                int fixedHeight) const;
-  uint32_t GetAbsentGlyphsCount(ref_ptr<Texture> texture, TMultilineText const & text,
-                                int fixedHeight) const;
+//  uint32_t GetAbsentGlyphsCount(ref_ptr<Texture> texture, strings::UniString const & text,
+//                                int fixedHeight) const;
+//  uint32_t GetAbsentGlyphsCount(ref_ptr<Texture> texture, TMultilineText const & text,
+//                                int fixedHeight) const;
 
   void UpdateGlyphTextures(ref_ptr<dp::GraphicsContext> context);
   bool HasAsyncRoutines() const;
@@ -224,8 +233,11 @@ private:
 
   drape_ptr<Texture> m_trafficArrowTexture;
   drape_ptr<Texture> m_hatchingTexture;
+  drape_ptr<Texture> m_arrowTexture;
   drape_ptr<Texture> m_smaaAreaTexture;
   drape_ptr<Texture> m_smaaSearchTexture;
+
+  drape_ptr<Texture> m_newArrowTexture;
 
   drape_ptr<GlyphManager> m_glyphManager;
   drape_ptr<HWTextureAllocator> m_textureAllocator;

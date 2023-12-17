@@ -1,8 +1,8 @@
-<svg width="24" height="24" viewBox="0 0 24 24">
-  <g fill="none">
-    <rect width="24" height="24" fill="#FFF" opacity=".6"/>
-    <rect width="22" height="22" x="1" y="1" fill="#20287D"/>
-    <path fill="#FF8E03" d="M4,13 L9,13 L9,23 L4,23 L4,13 Z M14,13 L19,13 L19,23 L14,23 L14,13 Z"/>
-    <path fill="#FFF" d="M13,17 L14,17 L14,23 L13,23 L13,22 L12,22 L12,21 L11,21 L11,20 L10,20 L10,19 L9,19 L9,18 L8,18 L8,17 L7,17 L7,16 L6,16 L6,15 L5,15 L5,14 L4,14 L4,13 L5,13 L6,13 L7,13 L8,13 L9,13 L10,13 L10,14 L11,14 L11,15 L12,15 L12,16 L13,16 L13,17 Z M22,16 L23,16 L23,22 L22,22 L22,21 L21,21 L21,20 L20,20 L20,19 L19,19 L19,18 L18,18 L18,17 L17,17 L17,16 L16,16 L16,15 L15,15 L15,14 L14,14 L14,13 L15,13 L16,13 L17,13 L18,13 L19,13 L20,13 L20,14 L21,14 L21,15 L22,15 L22,16 Z"/>
-  </g>
+<svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+ <g>
+  <rect width="24" height="24" fill="#FFF" opacity=".6"/>
+  <rect x="1" y="1" width="22" height="22" fill="#20287D"/>
+  <path d="m4 13h5v10h-5v-10zm10 0h5v10h-5v-10z" fill="#FF8E03"/>
+  <path d="m13 17h1v6h-1v-1h-1v-1h-1v-1h-1v-1h-1v-1h-1v-1h-1v-1h-1v-1h-1v-1h-1v-1h1 1 1 1 1 1v1h1v1h1v1h1v1zm9-1h1v6h-1v-1h-1v-1h-1v-1h-1v-1h-1v-1h-1v-1h-1v-1h-1v-1h-1v-1h1 1 1 1 1 1v1h1v1h1v1z" fill="#FFF"/>
+ </g>
 </svg>

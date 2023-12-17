@@ -24,8 +24,7 @@ CollectorTag::CollectorTag(std::string const & filename, std::string const & tag
   m_stream.open(GetTmpFilename());
 }
 
-std::shared_ptr<CollectorInterface> CollectorTag::Clone(
-    std::shared_ptr<cache::IntermediateDataReaderInterface> const &) const
+std::shared_ptr<CollectorInterface> CollectorTag::Clone(IDRInterfacePtr const &) const
 {
   return std::make_shared<CollectorTag>(GetFilename(), m_tagKey, m_validator);
 }
@@ -51,11 +50,6 @@ void CollectorTag::Save()
 }
 
 void CollectorTag::OrderCollectedData() { OrderTextFileByLine(GetFilename()); }
-
-void CollectorTag::Merge(CollectorInterface const & collector)
-{
-  collector.MergeInto(*this);
-}
 
 void CollectorTag::MergeInto(CollectorTag & collector) const
 {

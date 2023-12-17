@@ -4,6 +4,8 @@
 
 #include "platform/platform.hpp"
 
+#include "coding/read_write_utils.hpp"
+
 #include "geometry/point2d.hpp"
 
 namespace generator
@@ -23,20 +25,22 @@ BoundaryPostcodesEnricher::BoundaryPostcodesEnricher(std::string const & boundar
     utils::ReadString(src, postcode);
     std::vector<m2::PointD> geometry;
     rw::ReadVectorOfPOD(src, geometry);
+    CHECK(!postcode.empty() && !geometry.empty(), ());
+
     m_boundaryPostcodes.emplace_back(std::move(postcode), std::move(geometry));
     m_boundariesTree.Add(m_boundaryPostcodes.size() - 1,
                          m_boundaryPostcodes.back().second.GetRect());
   }
-};
+}
 
 void BoundaryPostcodesEnricher::Enrich(feature::FeatureBuilder & fb) const
 {
-  if (!ftypes::IsAddressObjectChecker::Instance()(fb.GetTypes()))
+  auto & params = fb.GetParams();
+  if (!params.GetPostcode().empty() || !ftypes::IsAddressObjectChecker::Instance()(fb.GetTypes()))
     return;
 
   auto const hasName = !fb.GetMultilangName().IsEmpty();
-
-  auto const hasHouseNumber = !fb.GetParams().house.Get().empty();
+  auto const hasHouseNumber = !params.house.IsEmpty();
 
   // We do not save postcodes for unnamed features without house number to reduce amount of data.
   // For example with this filter we have +100Kb for Turkey_Marmara Region_Istanbul.mwm, without
@@ -45,12 +49,13 @@ void BoundaryPostcodesEnricher::Enrich(feature::FeatureBuilder & fb) const
     return;
 
   auto const center = fb.GetKeyPoint();
-  m_boundariesTree.ForAnyInRect(m2::RectD(center, center), [&](size_t i) {
+  m_boundariesTree.ForAnyInRect(m2::RectD(center, center), [&](size_t i)
+  {
     CHECK_LESS(i, m_boundaryPostcodes.size(), ());
     if (!m_boundaryPostcodes[i].second.Contains(center))
       return false;
 
-    fb.GetMetadata().Set(feature::Metadata::FMD_POSTCODE, m_boundaryPostcodes[i].first);
+    params.SetPostcode(m_boundaryPostcodes[i].first);
     return true;
   });
 }

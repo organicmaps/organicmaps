@@ -66,8 +66,8 @@ bool FilterData::NeedSkipWithTags(Tags const & tags) const
   Set<Tags const *> s;
   for (auto const & tag : tags)
   {
-    auto const t = m_skippedTags.equal_range(tag.m_key);
-    for (auto it = t.first; it != t.second; ++it)
+    auto const range = m_skippedTags.equal_range(tag.m_key);
+    for (auto it = range.first; it != range.second; ++it)
     {
       Tags const & t = it->second;
       if (s.Add(&t) && IsMatch(tags, t))
@@ -91,8 +91,6 @@ bool FilterElements::ParseSection(json_t * json, FilterData & fdata)
       return false;
     else if (std::strcmp("tags", key) == 0 && !ParseTags(value, fdata))
       return false;
-
-    return true;
   }
 
   return true;

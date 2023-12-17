@@ -7,12 +7,12 @@
 #include <utility>
 #include <vector>
 
+namespace leaps_postprocessing_tests
+{
 using namespace routing;
 using namespace routing_quality;
 using namespace std;
 
-namespace
-{
 UNIT_TEST(RoutingQuality_NoLoop_Canada)
 {
   TEST(!CheckCarRoute({53.53540, -113.50798} /* start */, {69.44402, -133.03189} /* finish */,
@@ -96,4 +96,4 @@ UNIT_TEST(RoutingQuality_NoLoop_SkopjeMontenegro)
                       {{{42.68296, 20.18158}}} /* reference point */),
        ());
 }
-}  // namespace
+}  // namespace leaps_postprocessing_tests

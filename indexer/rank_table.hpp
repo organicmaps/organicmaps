@@ -48,7 +48,8 @@ public:
 
   virtual ~RankTable() = default;
 
-  // Returns rank of the i-th feature.
+  static uint8_t constexpr kNoRank = 0;
+  /// @return rank of the i-th feature, or kNoRank if there is no rank.
   virtual uint8_t Get(uint64_t i) const = 0;
 
   // Returns total number of ranks (or features, as there is a 1-1 correspondence).
@@ -112,7 +113,6 @@ public:
   //
   // Return true if rank table was successfully generated and written
   // or already exists and has correct format.
-  static bool CreateIfNotExists(platform::LocalCountryFile const & localFile) noexcept;
   static bool CreateIfNotExists(std::string const & mapPath) noexcept;
 };
 }  // namespace search

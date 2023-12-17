@@ -17,11 +17,11 @@
 #include <limits>
 #include <utility>
 
+namespace routing
+{
 using namespace base;
 using namespace std;
 
-namespace routing
-{
 bool IsUTurn(Segment const & u, Segment const & v)
 {
   return u.GetFeatureId() == v.GetFeatureId() && u.GetSegmentIdx() == v.GetSegmentIdx() &&
@@ -35,8 +35,8 @@ bool IsBoarding(bool prevIsFerry, bool nextIsFerry)
 
 IndexGraph::IndexGraph(shared_ptr<Geometry> geometry, shared_ptr<EdgeEstimator> estimator,
                        RoutingOptions routingOptions)
-  : m_geometry(move(geometry)),
-    m_estimator(move(estimator)),
+  : m_geometry(std::move(geometry)),
+    m_estimator(std::move(estimator)),
     m_avoidRoutingOptions(routingOptions)
 {
   CHECK(m_geometry, ());
@@ -106,14 +106,14 @@ void IndexGraph::GetLastPointsForJoint(SegmentListT const & children,
                                        bool isOutgoing,
                                        PointIdListT & lastPoints) const
 {
-  CHECK(lastPoints.empty(), ());
+  ASSERT(lastPoints.empty(), ());
 
   lastPoints.reserve(children.size());
   for (auto const & child : children)
   {
     uint32_t const startPointId = child.GetPointId(!isOutgoing /* front */);
     uint32_t const pointsNumber = GetRoadGeometry(child.GetFeatureId()).GetPointsCount();
-    CHECK_LESS(startPointId, pointsNumber, ());
+    CHECK_LESS(startPointId, pointsNumber, (child));
 
     uint32_t endPointId;
     // child.IsForward() == isOutgoing
@@ -123,9 +123,7 @@ void IndexGraph::GetLastPointsForJoint(SegmentListT const & children,
     bool forward = child.IsForward() == isOutgoing;
     if (IsRoad(child.GetFeatureId()))
     {
-      std::tie(std::ignore, endPointId) =
-        GetRoad(child.GetFeatureId()).FindNeighbor(startPointId, forward,
-                                                   pointsNumber);
+      endPointId = GetRoad(child.GetFeatureId()).FindNeighbor(startPointId, forward, pointsNumber).second;
     }
     else
     {
@@ -242,7 +240,7 @@ void IndexGraph::SetUTurnRestrictions(vector<RestrictionUTurn> && noUTurnRestric
 
 void IndexGraph::SetRoadAccess(RoadAccess && roadAccess)
 {
-  m_roadAccess = move(roadAccess);
+  m_roadAccess = std::move(roadAccess);
   m_roadAccess.SetCurrentTimeGetter(m_currentTimeGetter);
 }
 

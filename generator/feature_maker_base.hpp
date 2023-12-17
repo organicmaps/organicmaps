@@ -15,16 +15,18 @@ namespace generator
 class FeatureMakerBase
 {
 public:
-  explicit FeatureMakerBase(
-      std::shared_ptr<cache::IntermediateDataReaderInterface> const & cache = {});
+  using IDRInterfacePtr = std::shared_ptr<cache::IntermediateDataReaderInterface>;
+
+  explicit FeatureMakerBase(IDRInterfacePtr const & cache = {}) : m_cache(cache) {}
+  void SetCache(IDRInterfacePtr const & cache) { m_cache = cache; }
+
   virtual ~FeatureMakerBase() = default;
 
   virtual std::shared_ptr<FeatureMakerBase> Clone() const = 0;
 
-  void SetCache(std::shared_ptr<cache::IntermediateDataReaderInterface> const & cache);
-
   // Reference on element is non const because ftype::GetNameAndType will be call.
   virtual bool Add(OsmElement & element);
+
   // The function returns true when the receiving feature was successful and a false when not successful.
   bool GetNextFeature(feature::FeatureBuilder & feature);
   size_t Size() const;
@@ -37,7 +39,7 @@ protected:
 
   virtual void ParseParams(FeatureBuilderParams & params, OsmElement & element) const = 0;
 
-  std::shared_ptr<cache::IntermediateDataReaderInterface> m_cache;
+  IDRInterfacePtr m_cache;
   std::queue<feature::FeatureBuilder> m_queue;
 };
 

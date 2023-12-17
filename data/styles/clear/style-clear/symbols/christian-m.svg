@@ -1,11 +1,10 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<svg width="24px" height="24px" viewBox="0 0 24 24" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
-    <title>christian-m</title>
-    <g id="Page-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
-        <g id="christian-m" fill-rule="nonzero">
-            <circle id="Oval" fill="#FFFFFF" opacity="0.6" cx="12" cy="12" r="12"></circle>
-            <circle id="Oval" fill="#7F5933" cx="12" cy="12" r="11"></circle>
-            <polygon id="Path" fill="#FFFFFF" points="13.1111111 8.23076923 17 8.23076923 17 10.3846154 13.1111111 10.3846154 13.1111111 19 10.8888889 19 10.8888889 10.3846154 7 10.3846154 7 8.23076923 10.8888889 8.23076923 10.8888889 5 13.1111111 5"></polygon>
-        </g>
-    </g>
+<svg version="1.1" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+ <title>christian-m</title>
+ <g fill="none" fill-rule="evenodd">
+  <g id="christian-m" fill-rule="nonzero">
+   <circle id="Oval" cx="12" cy="12" r="12" fill="#fff" opacity=".6"/>
+   <circle id="Oval" cx="12" cy="12" r="11" fill="#7F5933"/>
+   <polygon id="Path" points="13.111 8.2308 17 8.2308 17 10.385 13.111 10.385 13.111 19 10.889 19 10.889 10.385 7 10.385 7 8.2308 10.889 8.2308 10.889 5 13.111 5" fill="#fff"/>
+  </g>
+ </g>
 </svg>

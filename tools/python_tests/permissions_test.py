@@ -19,11 +19,11 @@ EXPECTED_PERMISSIONS = {
     "uses-permission: android.permission.WAKE_LOCK",
     "uses-permission: android.permission.BATTERY_STATS",
     "uses-permission: com.google.android.c2dm.permission.RECEIVE",
-    "permission: com.mapswithme.maps.pro.permission.C2D_MESSAGE",
-    "uses-permission: com.mapswithme.maps.pro.permission.C2D_MESSAGE",
+    "permission: app.organicmaps.permission.C2D_MESSAGE",
+    "uses-permission: app.organicmaps.permission.C2D_MESSAGE",
     "uses-permission: android.permission.VIBRATE",
-    "permission: com.mapswithme.maps.pro.permission.RECEIVE_ADM_MESSAGE",
-    "uses-permission: com.mapswithme.maps.pro.permission.RECEIVE_ADM_MESSAGE",
+    "permission: app.organicmaps.permission.RECEIVE_ADM_MESSAGE",
+    "uses-permission: app.organicmaps.permission.RECEIVE_ADM_MESSAGE",
     "uses-permission: com.amazon.device.messaging.permission.RECEIVE",
 }
 

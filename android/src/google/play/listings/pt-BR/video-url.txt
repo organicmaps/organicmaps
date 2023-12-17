@@ -1,1 +1,0 @@
-../../../../fdroid/play/listings/pt-BR/video-url.txt

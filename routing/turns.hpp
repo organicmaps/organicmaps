@@ -224,6 +224,8 @@ std::string GetTurnString(CarDirection turn);
 bool IsLeftTurn(CarDirection t);
 bool IsRightTurn(CarDirection t);
 bool IsLeftOrRightTurn(CarDirection t);
+bool IsTurnMadeFromLeft(CarDirection t);
+bool IsTurnMadeFromRight(CarDirection t);
 bool IsStayOnRoad(CarDirection t);
 bool IsGoStraightOrSlightTurn(CarDirection t);
 
@@ -244,6 +246,8 @@ bool IsLaneWayConformedTurnDirection(LaneWay l, CarDirection t);
  * Otherwise it returns false.
  */
 bool IsLaneWayConformedTurnDirectionApproximately(LaneWay l, CarDirection t);
+
+bool IsLaneUnrestricted(const SingleLaneInfo & lane);
 
 /*!
  * \brief Parse lane information which comes from @lanesString

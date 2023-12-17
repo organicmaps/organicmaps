@@ -5,9 +5,10 @@
 #include "routing/segment.hpp"
 #include "routing/transit_info.hpp"
 #include "routing/turns.hpp"
-#include "routing/maxspeeds.hpp"
 
 #include "routing/base/followed_polyline.hpp"
+
+#include "routing_common/maxspeed_conversion.hpp"
 
 #include "traffic/speed_groups.hpp"
 
@@ -42,25 +43,32 @@ SubrouteUid constexpr kInvalidSubrouteId = std::numeric_limits<uint64_t>::max();
 class RouteSegment final
 {
 public:
-  // Store coefficient where camera placed at the segment (number from 0 to 1)
-  // and it's max speed.
   struct SpeedCamera
   {
     SpeedCamera() = default;
     SpeedCamera(double coef, uint8_t maxSpeedKmPH): m_coef(coef), m_maxSpeedKmPH(maxSpeedKmPH) {}
 
-    friend bool operator<(SpeedCamera const & lhs, SpeedCamera const & rhs)
+    bool EqualCoef(SpeedCamera const & rhs) const
     {
-      static auto constexpr kCoefEps = 1e-5;
-      if (!base::AlmostEqualAbs(lhs.m_coef, rhs.m_coef, kCoefEps))
-        return lhs.m_coef < rhs.m_coef;
+      return base::AlmostEqualAbs(m_coef, rhs.m_coef, 1.0E-5);
+    }
+
+    bool operator<(SpeedCamera const & rhs) const
+    {
+      if (!EqualCoef(rhs))
+        return m_coef < rhs.m_coef;
 
       // Cameras with same position on segment should be sorted in speed decrease order.
       // Thus camera with higher speed will be warned the first.
-      return lhs.m_maxSpeedKmPH > rhs.m_maxSpeedKmPH;
+      return m_maxSpeedKmPH > rhs.m_maxSpeedKmPH;
     }
 
+    friend std::string DebugPrint(SpeedCamera const & rhs);
+
+    /// @todo Can replace with uint16_t feature node index, assuming that all cameras are placed on nodes.
+    // Сoefficient where camera placed at the segment (number from 0 to 1).
     double m_coef = 0.0;
+    // Max speed
     uint8_t m_maxSpeedKmPH = 0;
   };
 
@@ -76,9 +84,10 @@ public:
     bool m_isLink = false;
 
     bool HasBasicTextInfo() const { return !m_ref.empty() || !m_name.empty(); }
-    bool HasExitInfo() const
+    bool HasExitInfo() const { return m_isLink || HasExitTextInfo(); }
+    bool HasExitTextInfo() const
     {
-      return m_isLink || !m_junction_ref.empty() || !m_destination_ref.empty() || !m_destination.empty();
+      return !m_junction_ref.empty() || !m_destination_ref.empty() || !m_destination.empty();
     }
 
     friend std::string DebugPrint(RoadNameInfo const & rni);
@@ -113,7 +122,7 @@ public:
 
   void SetTransitInfo(std::unique_ptr<TransitInfo> transitInfo)
   {
-    m_transitInfo.Set(move(transitInfo));
+    m_transitInfo.Set(std::move(transitInfo));
   }
 
   Segment const & GetSegment() const { return m_segment; }
@@ -121,6 +130,7 @@ public:
   geometry::PointWithAltitude const & GetJunction() const { return m_junction; }
   RoadNameInfo const & GetRoadNameInfo() const { return m_roadNameInfo; }
   turns::TurnItem const & GetTurn() const { return m_turn; }
+  void ClearTurnLanes() { m_turn.m_lanes.clear(); }
 
   double GetDistFromBeginningMeters() const { return m_distFromBeginningMeters; }
   double GetDistFromBeginningMerc() const { return m_distFromBeginningMerc; }

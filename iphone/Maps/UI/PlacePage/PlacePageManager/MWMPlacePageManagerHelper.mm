@@ -15,6 +15,15 @@
 - (void)addBusiness;
 - (void)addPlace:(CLLocationCoordinate2D)coordinate;
 - (void)openWebsite:(PlacePageData *)data;
+- (void)openKayak:(PlacePageData *)data;
+- (void)openWikipedia:(PlacePageData *)data;
+- (void)openWikimediaCommons:(PlacePageData *)data;
+- (void)openEmail:(PlacePageData *)data;
+- (void)openFacebook:(PlacePageData *)data;
+- (void)openInstagram:(PlacePageData *)data;
+- (void)openTwitter:(PlacePageData *)data;
+- (void)openVk:(PlacePageData *)data;
+- (void)openLine:(PlacePageData *)data;
 - (void)call:(PlacePageData *)data;
 - (void)showAllFacilities:(PlacePageData *)data;
 - (void)showPlaceDescription:(NSString *)htmlString;
@@ -61,6 +70,42 @@
 
 + (void)openWebsite:(PlacePageData *)data {
   [[MWMMapViewControlsManager manager].placePageManager openWebsite:data];
+}
+
++ (void)openKayak:(PlacePageData *)data {
+  [[MWMMapViewControlsManager manager].placePageManager openKayak:data];
+}
+
++ (void)openEmail:(PlacePageData *)data {
+  [[MWMMapViewControlsManager manager].placePageManager openEmail:data];
+}
+
++ (void)openWikipedia:(PlacePageData *)data {
+  [[MWMMapViewControlsManager manager].placePageManager openWikipedia:data];
+}
+
++ (void)openWikimediaCommons:(PlacePageData *)data {
+  [[MWMMapViewControlsManager manager].placePageManager openWikimediaCommons:data];
+}
+
++ (void)openFacebook:(PlacePageData *)data {
+  [[MWMMapViewControlsManager manager].placePageManager openFacebook:data];
+}
+
++ (void)openInstagram:(PlacePageData *)data {
+  [[MWMMapViewControlsManager manager].placePageManager openInstagram:data];
+}
+
++ (void)openTwitter:(PlacePageData *)data {
+  [[MWMMapViewControlsManager manager].placePageManager openTwitter:data];
+}
+
++ (void)openVk:(PlacePageData *)data {
+  [[MWMMapViewControlsManager manager].placePageManager openVk:data];
+}
+
++ (void)openLine:(PlacePageData *)data {
+  [[MWMMapViewControlsManager manager].placePageManager openLine:data];
 }
 
 + (void)call:(PlacePageData *)data {

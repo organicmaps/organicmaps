@@ -5,7 +5,7 @@
 
 #include "base/string_utils.hpp"
 
-#include "3party/jansson/myjansson.hpp"
+#include "cppjansson/cppjansson.hpp"
 
 #include <optional>
 #include <string>

@@ -1,6 +1,6 @@
 #include "testing/testing.hpp"
 
-#include "3party/jansson/myjansson.hpp"
+#include "cppjansson/cppjansson.hpp"
 
 UNIT_TEST(Jansson_Smoke)
 {

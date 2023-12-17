@@ -4,9 +4,10 @@
 
 #include "kml/serdes.hpp"
 #include "kml/serdes_binary.hpp"
+#include "kml/serdes_gpx.hpp"
 
 #include "indexer/classificator.hpp"
-#include "indexer/feature_utils.hpp"
+#include "indexer/feature_data.hpp"
 
 #include "platform/localization.hpp"
 #include "platform/platform.hpp"
@@ -15,13 +16,12 @@
 #include "coding/file_reader.hpp"
 #include "coding/file_writer.hpp"
 #include "coding/internal/file_data.hpp"
-#include "coding/sha1.hpp"
 #include "coding/zip_reader.hpp"
 
 #include "base/file_name_utils.hpp"
-#include "base/scope_guard.hpp"
 #include "base/string_utils.hpp"
 
+#include <algorithm>
 #include <map>
 #include <sstream>
 
@@ -206,11 +206,126 @@ void ValidateKmlData(std::unique_ptr<kml::FileData> & data)
       t.m_layers.emplace_back(kml::KmlParser::GetDefaultTrackLayer());
   }
 }
+
+bool IsBadCharForPath(strings::UniChar c)
+{
+  if (c < ' ')
+    return true;
+  for (strings::UniChar const illegalChar : {':', '/', '\\', '<', '>', '\"', '|', '?', '*'})
+  {
+    if (illegalChar == c)
+      return true;
+  }
+
+  return false;
+}
 }  // namespace
 
-std::string const kKmzExtension = ".kmz";
-std::string const kKmlExtension = ".kml";
-std::string const kKmbExtension = ".kmb";
+std::string GetBookmarksDirectory()
+{
+  return base::JoinPath(GetPlatform().SettingsDir(), "bookmarks");
+}
+
+std::string RemoveInvalidSymbols(std::string const & name)
+{
+  strings::UniString filtered;
+  filtered.reserve(name.size());
+  auto it = name.begin();
+  while (it != name.end())
+  {
+    auto const c = ::utf8::unchecked::next(it);
+    if (!IsBadCharForPath(c))
+      filtered.push_back(c);
+  }
+  return strings::ToUtf8(filtered);
+}
+
+// Returns extension with a dot in a lower case.
+std::string GetLowercaseFileExt(std::string const & filePath)
+{
+  return strings::MakeLowerCase(base::GetFileExtension(filePath));
+}
+
+std::string GenerateUniqueFileName(std::string const & path, std::string name, std::string_view ext)
+{
+  // Remove extension, if file name already contains it.
+  if (strings::EndsWith(name, ext))
+    name.resize(name.size() - ext.size());
+
+  size_t counter = 1;
+  std::string suffix, res;
+  do
+  {
+    res = name;
+    res = base::JoinPath(path, res.append(suffix).append(ext));
+    if (!Platform::IsFileExistsByFullPath(res))
+      break;
+    suffix = strings::to_string(counter++);
+  } while (true);
+
+  return res;
+}
+
+std::string GenerateValidAndUniqueFilePathForKML(std::string const & fileName)
+{
+  std::string filePath = RemoveInvalidSymbols(fileName);
+  if (filePath.empty())
+    filePath = kDefaultBookmarksFileName;
+
+  return GenerateUniqueFileName(GetBookmarksDirectory(), std::move(filePath), kKmlExtension);
+}
+
+std::string GenerateValidAndUniqueFilePathForGPX(std::string const & fileName)
+{
+  std::string filePath = RemoveInvalidSymbols(fileName);
+  if (filePath.empty())
+    filePath = kDefaultBookmarksFileName;
+
+  return GenerateUniqueFileName(GetBookmarksDirectory(), std::move(filePath), kGpxExtension);
+}
+
+std::string const kDefaultBookmarksFileName = "Bookmarks";
+
+// Populate empty category & track names based on file name: assign file name to category name,
+// if there is only one unnamed track - assign file name to it, otherwise add numbers 1, 2, 3...
+// to file name to build names for all unnamed tracks
+void FillEmptyNames(std::unique_ptr<kml::FileData> & kmlData, std::string const & file)
+{
+  auto start = file.find_last_of('/') + 1;
+  auto end = file.find_last_of('.');
+  if (end == std::string::npos)
+    end = file.size();
+  auto const name = file.substr(start, end - start);
+
+  if (kmlData->m_categoryData.m_name.empty())
+    kmlData->m_categoryData.m_name[kml::kDefaultLang] = name;
+
+  if (kmlData->m_tracksData.empty())
+    return;
+
+  auto const emptyNames = std::count_if(kmlData->m_tracksData.begin(), kmlData->m_tracksData.end(),
+                                  [](const kml::TrackData & t) { return t.m_name.empty(); });
+  if (emptyNames == 0)
+    return;
+
+  auto emptyTrackNum = 1;
+  for (auto & track : kmlData->m_tracksData)
+  {
+    if (track.m_name.empty())
+    {
+      if (emptyNames == 1)
+      {
+        track.m_name[kml::kDefaultLang] = name;
+        return;
+      }
+      else
+      {
+        track.m_name[kml::kDefaultLang] = name + " " + std::to_string(emptyTrackNum);
+        emptyTrackNum++;
+      }
+    }
+  }
+}
 
 std::unique_ptr<kml::FileData> LoadKmlFile(std::string const & file, KmlFileType fileType)
 {
@@ -218,6 +333,8 @@ std::unique_ptr<kml::FileData> LoadKmlFile(std::string const & file, KmlFileType
   try
   {
     kmlData = LoadKmlData(FileReader(file), fileType);
+    if (kmlData != nullptr)
+      FillEmptyNames(kmlData, file);
   }
   catch (std::exception const & e)
   {
@@ -229,46 +346,83 @@ std::unique_ptr<kml::FileData> LoadKmlFile(std::string const & file, KmlFileType
   return kmlData;
 }
 
-std::unique_ptr<kml::FileData> LoadKmzFile(std::string const & file, std::string & kmlHash)
+std::vector<std::string> GetKMLOrGPXFilesPathsToLoad(std::string const & filePath)
 {
-  std::string unarchievedPath;
+  std::string const fileExt = GetLowercaseFileExt(filePath);
+  if (fileExt == kKmlExtension)
+  {
+    return GetFilePathsToLoadFromKml(filePath);
+  }
+  else if (fileExt == kGpxExtension)
+  {
+    return GetFilePathsToLoadFromGpx(filePath);
+  }
+  else if (fileExt == kKmbExtension)
+  {
+    return GetFilePathsToLoadFromKmb(filePath);
+  }
+  else if (fileExt == kKmzExtension)
+  {
+    return GetFilePathsToLoadFromKmz(filePath);
+  }
+  else
+  {
+    LOG(LWARNING, ("Unknown file type", filePath));
+    return {};
+  }
+}
+
+std::vector<std::string> GetFilePathsToLoadFromKmz(std::string const & filePath)
+{  // Extract KML files from KMZ archive and save to temp KMLs with unique name.
+  std::vector<std::string> kmlFilePaths;
   try
   {
     ZipFileReader::FileList files;
-    ZipFileReader::FilesList(file, files);
-    if (files.empty())
-      return nullptr;
-
-    auto fileName = files.front().first;
-    for (auto const & f : files)
+    ZipFileReader::FilesList(filePath, files);
+    files.erase(std::remove_if(files.begin(), files.end(),
+        [](auto const & file){ return GetLowercaseFileExt(file.first) != kKmlExtension; }),
+        files.end());
+    for (auto const & [kmlFileInZip, size] : files)
     {
-      if (strings::MakeLowerCase(base::GetFileExtension(f.first)) == kKmlExtension)
-      {
-        fileName = f.first;
-        break;
-      }
+      auto const name = base::FileNameFromFullPath(kmlFileInZip);
+      auto fileSavePath = GenerateValidAndUniqueFilePathForKML(kmlFileInZip);
+      ZipFileReader::UnzipFile(filePath, kmlFileInZip, fileSavePath);
+      kmlFilePaths.push_back(std::move(fileSavePath));
     }
-    unarchievedPath = file + ".raw";
-    ZipFileReader::UnzipFile(file, fileName, unarchievedPath);
   }
-  catch (ZipFileReader::OpenException const & ex)
+  catch (RootException const & e)
   {
-    LOG(LWARNING, ("Could not open zip file", ex.what()));
-    return nullptr;
+    LOG(LWARNING, ("Error unzipping file", filePath, e.Msg()));
   }
-  catch (std::exception const & ex)
-  {
-    LOG(LWARNING, ("Unexpected exception on openning zip file", ex.what()));
-    return nullptr;
-  }
+  return kmlFilePaths;
+}
 
-  if (!GetPlatform().IsFileExistsByFullPath(unarchievedPath))
-    return nullptr;
+std::vector<std::string> GetFilePathsToLoadFromKmb(std::string const & filePath)
+{  // Convert input file and save to temp KML with unique name.
+  auto kmlData = LoadKmlFile(filePath, KmlFileType::Binary);
+  if (kmlData == nullptr)
+    return {};
 
-  SCOPE_GUARD(fileGuard, std::bind(&FileWriter::DeleteFileX, unarchievedPath));
+  auto fileSavePath = GenerateValidAndUniqueFilePathForKML(base::FileNameFromFullPath(filePath));
+  if (!SaveKmlFileByExt(*kmlData, fileSavePath))
+    return {};
+  return {std::move(fileSavePath)};
+}
 
-  kmlHash = coding::SHA1::CalculateBase64(unarchievedPath);
-  return LoadKmlFile(unarchievedPath, KmlFileType::Text);
+std::vector<std::string> GetFilePathsToLoadFromGpx(std::string const & filePath)
+{  // Copy input file to temp GPX with unique name.
+  auto fileSavePath = GenerateValidAndUniqueFilePathForGPX(base::FileNameFromFullPath(filePath));
+  if (!base::CopyFileX(filePath, fileSavePath))
+    return {};
+  return {std::move(fileSavePath)};
+}
+
+std::vector<std::string> GetFilePathsToLoadFromKml(std::string const & filePath)
+{  // Copy input file to temp output KML with unique name.
+  auto fileSavePath = GenerateValidAndUniqueFilePathForKML(base::FileNameFromFullPath(filePath));
+  if (!base::CopyFileX(filePath, fileSavePath))
+    return {};
+  return {std::move(fileSavePath)};
 }
 
 std::unique_ptr<kml::FileData> LoadKmlData(Reader const & reader, KmlFileType fileType)
@@ -284,6 +438,11 @@ std::unique_ptr<kml::FileData> LoadKmlData(Reader const & reader, KmlFileType fi
     else if (fileType == KmlFileType::Text)
     {
       kml::DeserializerKml des(*data);
+      des.Deserialize(reader);
+    }
+    else if (fileType == KmlFileType::Gpx)
+    {
+      kml::DeserializerGpx des(*data);
       des.Deserialize(reader);
     }
     else
@@ -341,6 +500,13 @@ bool SaveKmlFileSafe(kml::FileData & kmlData, std::string const & file, KmlFileT
   });
 }
 
+bool SaveKmlFileByExt(kml::FileData & kmlData, std::string const & file)
+{
+  auto const ext = base::GetFileExtension(file);
+  return SaveKmlFileSafe(kmlData, file, ext == kKmbExtension ? KmlFileType::Binary
+                                                             : KmlFileType::Text);
+}
+
 bool SaveKmlData(kml::FileData & kmlData, Writer & writer, KmlFileType fileType)
 {
   try
@@ -381,13 +547,12 @@ void ResetIds(kml::FileData & kmlData)
   for (auto & trackData : kmlData.m_tracksData)
     trackData.m_id = kml::kInvalidTrackId;
   for (auto & compilationData : kmlData.m_compilationsData)
-    compilationData.m_id = kml::kInvalidTrackId;
+    compilationData.m_id = kml::kInvalidMarkGroupId;
 }
 
 bool TruncType(std::string & type)
 {
-  static std::string const kDelim = "-";
-  auto const pos = type.rfind(kDelim);
+  auto const pos = type.rfind('-');
   if (pos == std::string::npos)
     return false;
   type.resize(pos);

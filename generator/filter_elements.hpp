@@ -43,7 +43,7 @@
 #include <unordered_set>
 #include <vector>
 
-#include "3party/jansson/myjansson.hpp"
+#include "cppjansson/cppjansson.hpp"
 
 namespace generator
 {

@@ -30,19 +30,16 @@ public:
   virtual std::shared_ptr<TranslatorInterface> Clone() const = 0;
 
   virtual void Preprocess(OsmElement &) {}
-  virtual void Emit(OsmElement & element) = 0;
+  virtual void Emit(OsmElement const & element) = 0;
   virtual void Finish() = 0;
   virtual bool Save() = 0;
 
   virtual void Merge(TranslatorInterface const &) = 0;
-
-  virtual void MergeInto(TranslatorCountry &) const { FailIfMethodUnsupported(); }
-  virtual void MergeInto(TranslatorCoastline &) const { FailIfMethodUnsupported(); }
-  virtual void MergeInto(TranslatorWorld &) const { FailIfMethodUnsupported(); }
-  virtual void MergeInto(TranslatorCollection &) const { FailIfMethodUnsupported(); }
-  virtual void MergeInto(TranslatorComplex &) const { FailIfMethodUnsupported(); }
-
-private:
-  void FailIfMethodUnsupported() const { CHECK(false, ("This method is unsupported.")); }
 };
 }  // namespace generator
+
+#define IMPLEMENT_TRANSLATOR_IFACE(className)               \
+  void Merge(TranslatorInterface const & ti) override       \
+  {                                                         \
+    dynamic_cast<className const &>(ti).MergeInto(*this);   \
+  }

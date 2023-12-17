@@ -23,52 +23,9 @@ using namespace std;
 namespace
 {
   uint32_t const DEFAULT_BG_COLOR = 0xEEEEDD;
-
-  drule::text_type_t GetTextType(string const & text)
-  {
-    if (text == "addr:housename")
-      return drule::text_type_housename;
-    else if (text == "addr:housenumber")
-      return drule::text_type_housenumber;
-
-    return drule::text_type_name;
-  }
 } // namespace
 
-BaseRule::BaseRule() : m_type(node | way)
-{}
-
-void BaseRule::CheckCacheSize(size_t s)
-{
-  m_id1.resize(s);
-  MakeEmptyID();
-}
-
-uint32_t BaseRule::GetID(size_t threadSlot) const
-{
-  ASSERT(m_id1.size() > threadSlot, ());
-  return m_id1[threadSlot];
-}
-
-void BaseRule::SetID(size_t threadSlot, uint32_t id) const
-{
-  ASSERT(m_id1.size() > threadSlot, ());
-  m_id1[threadSlot] = id;
-}
-
-void BaseRule::MakeEmptyID(size_t threadSlot)
-{
-  ASSERT(m_id1.size() > threadSlot, ());
-  m_id1[threadSlot] = empty_id;
-}
-
-void BaseRule::MakeEmptyID()
-{
-  for (size_t i = 0; i < m_id1.size(); ++i)
-    MakeEmptyID(i);
-}
-
-LineDefProto const * BaseRule::GetLine() const
+LineRuleProto const * BaseRule::GetLine() const
 {
   return 0;
 }
@@ -83,14 +40,14 @@ SymbolRuleProto const * BaseRule::GetSymbol() const
   return 0;
 }
 
-CaptionDefProto const * BaseRule::GetCaption(int) const
+CaptionRuleProto const * BaseRule::GetCaption() const
 {
   return 0;
 }
 
-text_type_t BaseRule::GetCaptionTextType(int) const
+PathTextRuleProto const * BaseRule::GetPathtext() const
 {
-  return text_type_name;
+  return 0;
 }
 
 ShieldRuleProto const * BaseRule::GetShield() const
@@ -98,16 +55,16 @@ ShieldRuleProto const * BaseRule::GetShield() const
   return nullptr;
 }
 
-bool BaseRule::TestFeature(FeatureType & ft, int /* zoom */) const
+bool BaseRule::TestFeature(FeatureType & ft, int zoom) const
 {
   if (nullptr == m_selector)
     return true;
-  return m_selector->Test(ft);
+  return m_selector->Test(ft, zoom);
 }
 
 void BaseRule::SetSelector(unique_ptr<ISelector> && selector)
 {
-  m_selector = move(selector);
+  m_selector = std::move(selector);
 }
 
 RulesHolder::RulesHolder()
@@ -121,46 +78,30 @@ RulesHolder::~RulesHolder()
 
 void RulesHolder::Clean()
 {
-  for (size_t i = 0; i < m_container.size(); ++i)
-  {
-    RuleVec & v = m_container[i];
-    for (size_t j = 0; j < v.size(); ++j)
-      delete v[j];
-    v.clear();
-  }
+  for (size_t i = 0; i < m_dRules.size(); ++i)
+    delete m_dRules[i];
 
-  m_rules.clear();
+  m_dRules.clear();
   m_colors.clear();
 }
 
-Key RulesHolder::AddRule(int scale, rule_type_t type, BaseRule * p)
+Key RulesHolder::AddRule(int scale, TypeT type, BaseRule * p)
 {
   ASSERT ( 0 <= scale && scale <= scales::GetUpperStyleScale(), (scale) );
   ASSERT ( 0 <= type && type < count_of_rules, () );
 
-  m_container[type].push_back(p);
+  m_dRules.push_back(p);
+  auto const index = m_dRules.size() - 1;
+  Key const k(scale, type, index);
 
-  vector<uint32_t> & v = m_rules[scale][type];
-  v.push_back(static_cast<uint32_t>(m_container[type].size()-1));
-
-  int const ret = static_cast<int>(v.size() - 1);
-  Key k(scale, type, ret);
-  ASSERT ( Find(k) == p, (ret) );
+  ASSERT(Find(k) == p, (index));
   return k;
 }
 
 BaseRule const * RulesHolder::Find(Key const & k) const
 {
-  RulesMap::const_iterator i = m_rules.find(k.m_scale);
-  if (i == m_rules.end()) return 0;
-
-  vector<uint32_t> const & v = (i->second)[k.m_type];
-
-  ASSERT ( k.m_index >= 0, (k.m_index) );
-  if (static_cast<size_t>(k.m_index) < v.size())
-    return m_container[k.m_type][v[k.m_index]];
-  else
-    return 0;
+  ASSERT_LESS(k.m_index, m_dRules.size(), ());
+  return m_dRules[k.m_index];
 }
 
 uint32_t RulesHolder::GetBgColor(int scale) const
@@ -179,16 +120,6 @@ uint32_t RulesHolder::GetColor(std::string const & name) const
     return 0;
   }
   return it->second;
-}
-
-void RulesHolder::ClearCaches()
-{
-  ForEachRule([](BaseRule * p) { p->MakeEmptyID(); });
-}
-
-void RulesHolder::ResizeCaches(size_t s)
-{
-  ForEachRule([s](BaseRule * p) { p->CheckCacheSize(s); });
 }
 
 namespace
@@ -211,21 +142,15 @@ namespace
   {
     class Line : public BaseRule
     {
-      LineDefProto m_line;
+      LineRuleProto m_line;
     public:
       explicit Line(LineRuleProto const & r)
+        : m_line(r)
       {
-        m_line.set_color(r.color());
-        m_line.set_width(r.width());
-        m_line.set_join(r.join());
-        m_line.set_cap(r.cap());
-        if (r.has_dashdot())
-          *(m_line.mutable_dashdot()) = r.dashdot();
-        if (r.has_pathsym())
-          *(m_line.mutable_pathsym()) = r.pathsym();
+        ASSERT(r.has_pathsym() || r.width() > 0, ("Zero width line w/o path symbol)"));
       }
 
-      virtual LineDefProto const * GetLine() const { return &m_line; }
+      virtual LineRuleProto const * GetLine() const { return &m_line; }
     };
 
     class Area : public BaseRule
@@ -241,60 +166,32 @@ namespace
     {
       SymbolRuleProto m_symbol;
     public:
-      explicit Symbol(SymbolRuleProto const & r) : m_symbol(r)
-      {
-        SetType(r.apply_for_type());
-      }
+      explicit Symbol(SymbolRuleProto const & r) : m_symbol(r) {}
 
       virtual SymbolRuleProto const * GetSymbol() const { return &m_symbol; }
     };
 
-    template <class T> class CaptionT : public BaseRule
+    class Caption : public BaseRule
     {
-      T m_caption;
-
-      text_type_t m_textTypePrimary;
-      text_type_t m_textTypeSecondary;
-
+      CaptionRuleProto m_caption;
     public:
-      explicit CaptionT(T const & r)
-        : m_caption(r), m_textTypePrimary(text_type_name), m_textTypeSecondary(text_type_name)
+      explicit Caption(CaptionRuleProto const & r)
+        : m_caption(r)
       {
-        if (!m_caption.primary().text().empty())
-          m_textTypePrimary = GetTextType(m_caption.primary().text());
-
-        if (m_caption.has_secondary() && !m_caption.secondary().text().empty())
-          m_textTypeSecondary = GetTextType(m_caption.secondary().text());
+        ASSERT(r.has_primary(),());
       }
 
-      virtual CaptionDefProto const * GetCaption(int i) const
-      {
-        if (i == 0)
-          return &m_caption.primary();
-        else
-        {
-          ASSERT_EQUAL ( i, 1, () );
-          if (m_caption.has_secondary())
-            return &m_caption.secondary();
-          else
-            return 0;
-        }
-      }
-
-      virtual text_type_t GetCaptionTextType(int i) const
-      {
-        if (i == 0)
-          return m_textTypePrimary;
-        else
-        {
-          ASSERT_EQUAL ( i, 1, () );
-          return m_textTypeSecondary;
-        }
-      }
+      virtual CaptionRuleProto const * GetCaption() const { return &m_caption; }
     };
 
-    typedef CaptionT<CaptionRuleProto> Caption;
-    typedef CaptionT<PathTextRuleProto> PathText;
+    class PathText : public BaseRule
+    {
+      PathTextRuleProto m_pathtext;
+    public:
+      explicit PathText(PathTextRuleProto const & r) : m_pathtext(r) {}
+
+      virtual PathTextRuleProto const * GetPathtext() const { return &m_pathtext; }
+    };
 
     class Shield : public BaseRule
     {
@@ -372,7 +269,7 @@ namespace
     RulesHolder & m_holder;
 
     template <class TRule, class TProtoRule>
-    void AddRule(ClassifObject * p, int scale, rule_type_t type, TProtoRule const & rule,
+    void AddRule(ClassifObject * p, int scale, TypeT type, TProtoRule const & rule,
                  vector<string> const & apply_if)
     {
       unique_ptr<ISelector> selector;
@@ -387,7 +284,7 @@ namespace
       }
 
       BaseRule * obj = new TRule(rule);
-      obj->SetSelector(move(selector));
+      obj->SetSelector(std::move(selector));
       Key k = m_holder.AddRule(scale, type, obj);
       p->SetVisibilityOnScale(true, scale);
       k.SetPriority(rule.priority());

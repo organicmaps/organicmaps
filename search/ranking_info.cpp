@@ -26,60 +26,73 @@ double constexpr kCategoriesPopularity = 0.05;
 double constexpr kCategoriesDistanceToPivot = -0.6874177;
 double constexpr kCategoriesRank = 1.0000000;
 double constexpr kCategoriesFalseCats = -1.0000000;
-double constexpr kCategoriesRefusedByFilter = -1.0000000;
 
 double constexpr kDistanceToPivot = -0.2123693;
-double constexpr kRank = 0.1065355;
+// This constant is very important and checked in Famous_Cities_Rank test.
+double constexpr kRank = 0.23;
 double constexpr kPopularity = 1.0000000;
-double constexpr kFalseCats = -0.4172461;
-double constexpr kErrorsMade = -0.05;
+
+// Decreased this value:
+// - On the one hand, when search for "eat", we'd prefer category types, rather than "eat" name.
+// - On the other hand, when search for "subway", do we usually prefer famous fast food or metro?
+double constexpr kFalseCats = -0.01;
+
+double constexpr kErrorsMade = -0.15;
 double constexpr kMatchedFraction = 0.1876736;
 double constexpr kAllTokensUsed = 0.0478513;
-double constexpr kExactCountryOrCapital = 0.1247733;
-double constexpr kRefusedByFilter = -1.0000000;
 double constexpr kCommonTokens = -0.05;
 
-double constexpr kNameScore[static_cast<size_t>(NameScore::COUNT)] = {
+double constexpr kNameScore[] = {
  -0.05,   // Zero
   0,      // Substring
   0.01,   // Prefix
+  0.012,  // First Match
   0.018,  // Full Prefix
   0.02,   // Full Match
 };
+static_assert(std::size(kNameScore) == static_cast<size_t>(NameScore::COUNT));
 
 // 0-based factors from POIs, Streets, Buildings, since we don't have ratings or popularities now.
-double constexpr kType[Model::TYPE_COUNT] = {
-  0 /* SUBPOI */,
-  0 /* COMPLEX_POI */,
-  0 /* Building */,
-  0 /* Street */,
-  0 /* Unclassified */,
- -0.0725383 /* Village */,
-  0.0073583 /* City */,
-  0.0233254 /* State */,
-  0.1679389 /* Country */
+double constexpr kType[] = {
+  0,          // POI
+  0,          // Complex POI
+  0.007,      // Building, to compensate max(kStreetType), see Arbat_Address test.
+  0,          // Street
+  0,          // Suburb
+ -0.02,       // Unclassified
+  0,          // Village
+  0.01,       // City
+  0.0233254,  // State
+  0.1679389,  // Country
 };
+static_assert(std::size(kType) == static_cast<size_t>(Model::TYPE_COUNT));
 
 // 0-based factors from General.
-double constexpr kPoiType[base::Underlying(PoiType::Count)] = {
-  0.0338794 /* TransportMajor */,
-  0.01 /* TransportLocal */,
-  0.01 /* Eat */,
-  0.01 /* Hotel */,
-  0.01 /* Attraction */,
- -0.01 /* Service */,
-  0 /* General */
+double constexpr kPoiType[] = {
+  0.03,       // TransportMajor
+  0.003,      // TransportLocal (0 < it < Residential st)
+  0.01,       // Eat
+  0.01,       // Hotel
+  0.01,       // Shop
+  0.01,       // Attraction
+ -0.01,       // Service
+  0,          // General
 };
+static_assert(std::size(kPoiType) == base::Underlying(PoiType::Count));
 
-double constexpr kStreetType[base::Underlying(StreetType::Count)] = {
-  0 /* Default */,
-  0 /* Pedestrian */,
-  0 /* Cycleway */,
-  0 /* Outdoor */,
-  0.004 /* Residential */,
-  0.005 /* Regular */,
-  0.006 /* Motorway */,
+double constexpr kStreetType[] = {
+  0,          // Default
+  0,          // Pedestrian
+  0,          // Cycleway
+  0,          // Outdoor
+  0.004,      // Minors
+  0.004,      // Residential
+  0.005,      // Regular
+  0.006,      // Motorway
 };
+static_assert(std::size(kStreetType) == base::Underlying(StreetType::Count));
+
+static_assert(kType[Model::TYPE_BUILDING] > kStreetType[StreetType::Motorway]);
 
 // Coeffs sanity checks.
 static_assert(kHasName >= 0, "");
@@ -88,9 +101,6 @@ static_assert(kDistanceToPivot <= 0, "");
 static_assert(kRank >= 0, "");
 static_assert(kPopularity >= 0, "");
 static_assert(kErrorsMade <= 0, "");
-static_assert(kExactCountryOrCapital >= 0, "");
-static_assert(kCategoriesRefusedByFilter < 0, "");
-static_assert(kRefusedByFilter < 0, "");
 
 double TransformDistance(double distance)
 {
@@ -121,34 +131,48 @@ void PrintParse(ostringstream & oss, array<TokenRange, Model::TYPE_COUNT> const 
   oss << "]";
 }
 
+class IsAttraction
+{
+  std::vector<uint32_t> m_sights;
+  uint32_t m_leisure;
+
+public:
+  IsAttraction()
+  {
+    // We have several lists for attractions: short list in search categories for @tourism and long
+    // list in ftypes::AttractionsChecker. We have highway-pedestrian, place-square, historic-tomb,
+    // landuse-cemetery, amenity-townhall etc in long list and logic of long list is "if this object
+    // has high popularity and/or wiki description probably it is attraction". It's better to use
+    // short list here. And leisures too!
+
+    m_sights = search::GetCategoryTypes("sights", "en", GetDefaultCategories());
+    m_leisure = classif().GetTypeByPath({"leisure"});
+  }
+
+  bool operator() (feature::TypesHolder const & th) const
+  {
+    return th.HasWithSubclass(m_leisure) ||
+           base::AnyOf(m_sights, [&th](uint32_t t) { return th.HasWithSubclass(t); });
+  }
+};
+
 class IsServiceTypeChecker
 {
-private:
+public:
   IsServiceTypeChecker()
   {
     Classificator const & c = classif();
     for (char const * e : {"barrier", "power", "traffic_calming"})
-      m_oneLevelTypes.push_back(c.GetTypeByPath({e}));
+      m_types.push_back(c.GetTypeByPath({e}));
   }
 
-public:
-  static IsServiceTypeChecker const & Instance()
+  bool operator() (feature::TypesHolder const & th) const
   {
-    static const IsServiceTypeChecker instance;
-    return instance;
-  }
-
-  bool operator()(feature::TypesHolder const & th) const
-  {
-    return base::AnyOf(th, [&](auto t)
-    {
-      ftype::TruncValue(t, 1);
-      return base::IsExist(m_oneLevelTypes, t);
-    });
+    return base::AnyOf(m_types, [&th](uint32_t t) { return th.HasWithSubclass(t); });
   }
 
 private:
-  vector<uint32_t> m_oneLevelTypes;
+  vector<uint32_t> m_types;
 };
 }  // namespace
 
@@ -178,7 +202,7 @@ std::string DebugPrint(StoredRankingInfo const & info)
   os << "StoredRankingInfo "
      << "{ m_distanceToPivot: " << info.m_distanceToPivot
      << ", m_type: " << DebugPrint(info.m_type)
-     << ", m_resultType: ";
+     << ", m_classifType: ";
 
   if (Model::IsPoi(info.m_type))
     os << DebugPrint(info.m_classifType.poi);
@@ -208,7 +232,6 @@ string DebugPrint(RankingInfo const & info)
      << ", m_pureCats: " << info.m_pureCats
      << ", m_falseCats: " << info.m_falseCats
      << ", m_allTokensUsed: " << info.m_allTokensUsed
-     << ", m_exactCountryOrCapital: " << info.m_exactCountryOrCapital
      << ", m_categorialRequest: " << info.m_categorialRequest
      << ", m_hasName: " << info.m_hasName
      << " }";
@@ -235,7 +258,6 @@ void RankingInfo::ToCSV(ostream & os) const
   os << m_pureCats << ",";
   os << m_falseCats << ",";
   os << (m_allTokensUsed ? 1 : 0) << ",";
-  os << (m_exactCountryOrCapital ? 1 : 0) << ",";
   os << (m_categorialRequest ? 1 : 0) << ",";
   os << (m_hasName ? 1 : 0);
 }
@@ -256,13 +278,15 @@ double RankingInfo::GetLinearModelRank() const
     result += kDistanceToPivot * distanceToPivot;
     result += kRank * rank;
     result += kPopularity * popularity;
-    result += m_falseCats * kFalseCats;
-    result += kType[m_type];
+    result += kFalseCats * (m_falseCats ? 1 : 0);
+
+    ASSERT(m_type < Model::TYPE_COUNT, ());
+    result += kType[GetTypeScore()];
 
     if (Model::IsPoi(m_type))
     {
       CHECK_LESS(m_classifType.poi, PoiType::Count, ());
-      result += kPoiType[base::Underlying(m_classifType.poi)];
+      result += kPoiType[base::Underlying(GetPoiTypeScore())];
     }
     else if (m_type == Model::TYPE_STREET)
     {
@@ -271,7 +295,6 @@ double RankingInfo::GetLinearModelRank() const
     }
 
     result += (m_allTokensUsed ? 1 : 0) * kAllTokensUsed;
-    result += (m_exactCountryOrCapital ? 1 : 0) * kExactCountryOrCapital;
     auto const nameRank = kNameScore[static_cast<size_t>(GetNameScore())] +
                           kErrorsMade * GetErrorsMadePerToken() +
                           kMatchedFraction * m_matchedFraction;
@@ -284,9 +307,10 @@ double RankingInfo::GetLinearModelRank() const
     result += kCategoriesDistanceToPivot * distanceToPivot;
     result += kCategoriesRank * rank;
     result += kCategoriesPopularity * popularity;
-    result += kCategoriesFalseCats * kFalseCats;
+    result += kCategoriesFalseCats * (m_falseCats ? 1 : 0);
     result += m_hasName * kHasName;
   }
+
   return result;
 }
 
@@ -297,29 +321,16 @@ double RankingInfo::GetLinearModelRank() const
 // errorsMade per token is supposed to be a good metric.
 double RankingInfo::GetErrorsMadePerToken() const
 {
-  size_t static const kMaxErrorsPerToken =
-      GetMaxErrorsForTokenLength(numeric_limits<size_t>::max());
   if (!m_errorsMade.IsValid())
-    return static_cast<double>(kMaxErrorsPerToken);
+    return GetMaxErrorsForTokenLength(numeric_limits<size_t>::max());
 
   CHECK_GREATER(m_numTokens, 0, ());
-  return static_cast<double>(m_errorsMade.m_errorsMade) / static_cast<double>(m_numTokens);
+  return m_errorsMade.m_errorsMade / static_cast<double>(m_numTokens);
 }
 
 NameScore RankingInfo::GetNameScore() const
 {
-  if (m_pureCats || m_falseCats)
-  {
-    // If the feature was matched only by categorial tokens, it's
-    // better for ranking to set name score to zero.  For example,
-    // when we're looking for a "cafe", cafes "Cafe Pushkin" and
-    // "Lermontov" both match to the request, but must be ranked in
-    // accordance to their distances to the user position or viewport,
-    // in spite of "Cafe Pushkin" has a non-zero name rank.
-    return NameScore::ZERO;
-  }
-
-  if (m_type == Model::TYPE_SUBPOI && m_nameScore == NameScore::FULL_PREFIX)
+  if (!m_pureCats && m_type == Model::TYPE_SUBPOI && m_nameScore == NameScore::FULL_PREFIX)
   {
     // It's better for ranking when POIs would be equal by name score. Some examples:
     // query="rewe", pois=["REWE", "REWE City", "REWE to Go"]
@@ -333,6 +344,17 @@ NameScore RankingInfo::GetNameScore() const
   return m_nameScore;
 }
 
+Model::Type RankingInfo::GetTypeScore() const
+{
+  return (m_pureCats && m_type == Model::TYPE_BUILDING ? Model::TYPE_UNCLASSIFIED : m_type);
+}
+
+PoiType RankingInfo::GetPoiTypeScore() const
+{
+  // Do not increment score for category-only-matched results or subways will be _always_ on top otherwise.
+  return (m_pureCats ? PoiType::General : m_classifType.poi);
+}
+
 PoiType GetPoiType(feature::TypesHolder const & th)
 {
   using namespace ftypes;
@@ -341,6 +363,9 @@ PoiType GetPoiType(feature::TypesHolder const & th)
     return PoiType::Eat;
   if (IsHotelChecker::Instance()(th))
     return PoiType::Hotel;
+  if (IsShopChecker::Instance()(th))
+    return PoiType::Shop;
+
   if (IsRailwayStationChecker::Instance()(th) ||
       IsSubwayStationChecker::Instance()(th) ||
       IsAirportChecker::Instance()(th))
@@ -350,17 +375,12 @@ PoiType GetPoiType(feature::TypesHolder const & th)
   if (IsPublicTransportStopChecker::Instance()(th))
     return PoiType::TransportLocal;
 
-  // We have several lists for attractions: short list in search categories for @tourism and long
-  // list in ftypes::AttractionsChecker. We have highway-pedestrian, place-square, historic-tomb,
-  // landuse-cemetery, amenity-townhall etc in long list and logic of long list is "if this object
-  // has high popularity and/or wiki description probably it is attraction". It's better to use
-  // short list here.
-  auto static const attractionTypes =
-      search::GetCategoryTypes("sights", "en", GetDefaultCategories());
-  if (base::AnyOf(attractionTypes, [&th](auto t) { return th.Has(t); }))
+  static IsAttraction const attractionCheck;
+  if (attractionCheck(th))
     return PoiType::Attraction;
 
-  if (IsServiceTypeChecker::Instance()(th))
+  static IsServiceTypeChecker const serviceCheck;
+  if (serviceCheck(th))
     return PoiType::Service;
 
   return PoiType::General;
@@ -374,6 +394,7 @@ string DebugPrint(PoiType type)
   case PoiType::TransportLocal: return "TransportLocal";
   case PoiType::Eat: return "Eat";
   case PoiType::Hotel: return "Hotel";
+  case PoiType::Shop: return "Shop";
   case PoiType::Attraction: return "Attraction";
   case PoiType::Service: return "Service";
   case PoiType::General: return "General";
@@ -390,6 +411,7 @@ std::string DebugPrint(StreetType type)
   case StreetType::Pedestrian: return "Pedestrian";
   case StreetType::Cycleway: return "Cycleway";
   case StreetType::Outdoor: return "Outdoor";
+  case StreetType::Minors: return "Minors";
   case StreetType::Residential: return "Residential";
   case StreetType::Regular: return "Regular";
   case StreetType::Motorway: return "Motorway";

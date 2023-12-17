@@ -33,7 +33,7 @@ class PlacePageHeaderPresenter {
 
 extension PlacePageHeaderPresenter: PlacePageHeaderPresenterProtocol {
   func configure() {
-    view?.setTitle(placePagePreviewData.title ?? "")
+    view?.setTitle(placePagePreviewData.title, secondaryTitle: placePagePreviewData.secondaryTitle)
     switch headerType {
     case .flexible:
       view?.isExpandViewHidden = false

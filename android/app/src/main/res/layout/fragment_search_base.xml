@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+             xmlns:tools="http://schemas.android.com/tools"
+             style="@style/MwmWidget.FrameLayout"
+             android:layout_width="match_parent"
+             android:layout_height="match_parent">
+  <include layout="@layout/recycler_default"/>
+
+  <app.organicmaps.widget.PlaceholderView
+    android:id="@+id/placeholder"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:gravity="center_horizontal"
+    android:paddingStart="@dimen/margin_double_and_half"
+    android:paddingEnd="@dimen/margin_double_and_half"
+    android:paddingTop="@dimen/placeholder_margin_top"
+    android:visibility="gone"
+    tools:visibility="visible"/>
+</FrameLayout>

@@ -49,10 +49,11 @@ CGFloat const kButtonsBottomOffset = 6;
     else
       self.minX = self.availableArea.origin.x + kViewControlsOffsetToBounds;
   } else {
+    const auto availableAreaMaxX = self.availableArea.origin.x + self.availableArea.size.width;
     if (hidden)
       self.minX = self.superview.width;
     else
-      self.maxX = self.superview.width - kViewControlsOffsetToBounds;
+      self.maxX = availableAreaMaxX - kViewControlsOffsetToBounds;
   }
 }
 
@@ -79,37 +80,25 @@ CGFloat const kButtonsBottomOffset = 6;
                    }];
 }
 
+// Show/hide zoom and location buttons depending on available vertical space.
 - (void)animate {
   [self layoutYPosition];
 
-  auto const spaceLeft = self.availableHeight;
   BOOL const isZoomHidden = self.zoomIn.alpha == 0.0;
-  BOOL const willZoomHide = (self.location.maxY > spaceLeft);
-  if (willZoomHide) {
-    if (!isZoomHidden)
-      [self fadeZoomButtonsShow:NO];
-  } else {
-    if (isZoomHidden)
-      [self fadeZoomButtonsShow:YES];
-  }
+  BOOL const willZoomHide = (self.location.maxY > self.availableHeight);
+  if (willZoomHide != isZoomHidden)
+    [self fadeZoomButtonsShow: !willZoomHide];
+
   BOOL const isLocationHidden = self.location.alpha == 0.0;
-  BOOL const willLocationHide = (self.location.height > spaceLeft);
-  if (willLocationHide) {
-    if (!isLocationHidden)
-      [self fadeLocationButtonShow:NO];
-  } else {
-    if (isLocationHidden)
-      [self fadeLocationButtonShow:YES];
-  }
+  BOOL const willLocationHide = (self.location.height > self.availableHeight);
+  if (willLocationHide != isLocationHidden)
+    [self fadeLocationButtonShow: !willLocationHide];
 }
 
 #pragma mark - Properties
 
 - (void)setZoomHidden:(BOOL)zoomHidden {
   _zoomHidden = zoomHidden;
-  CGFloat const minX = zoomHidden ? self.width + kViewControlsOffsetToBounds : 0.0;
-  self.zoomIn.minX = minX;
-  self.zoomOut.minX = minX;
   self.zoomIn.hidden = zoomHidden;
   self.zoomOut.hidden = zoomHidden;
   [self setNeedsLayout];
@@ -119,16 +108,16 @@ CGFloat const kButtonsBottomOffset = 6;
   if (animated) {
     if (self.hidden == hidden)
       return;
-    if (!hidden)
-      self.hidden = NO;
+    // Side buttons should be visible during any our show/hide anamation.
+    // Visibility should be detemined by alpha, not self.hidden.
+    self.hidden = NO;
     [UIView animateWithDuration:kDefaultAnimationDuration
       animations:^{
         self.alpha = hidden ? 0.0 : 1.0;
         [self layoutXPosition:hidden];
       }
       completion:^(BOOL finished) {
-        if (hidden)
-          self.hidden = YES;
+        self.hidden = hidden;
       }];
   } else {
     self.hidden = hidden;
@@ -138,8 +127,20 @@ CGFloat const kButtonsBottomOffset = 6;
 - (void)updateAvailableArea:(CGRect)frame {
   if (CGRectEqualToRect(self.availableArea, frame))
     return;
-  self.availableArea = frame;
-  [self layoutXPosition:self.hidden];
+  // If during our show/hide animation position is changed it is corrupted.
+  // Such kind of animation has 2 keys (opacity and position).
+  // But there are other animation cases like change of orientation.
+  // So we can use condition below:
+  // if (self.layer.animationKeys.count != 2)
+  // More elegant way is to check if x values are changed.
+  // If no - there is no need to update self x values.
+  if (self.availableArea.origin.x != frame.origin.x || self.availableArea.size.width != frame.size.width)
+  {
+    self.availableArea = frame;
+    [self layoutXPosition:self.hidden];
+  }
+  else
+    self.availableArea = frame;
   [self setNeedsLayout];
 }
 

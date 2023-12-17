@@ -1,6 +1,6 @@
 #include "indexer/feature_decl.hpp"
 
-#include <boost/container_hash/hash.hpp>
+#include "std/boost_container_hash.hpp"
 
 #include <sstream>
 
@@ -24,20 +24,34 @@ std::string DebugPrint(FeatureID const & id)
   return "{ " + DebugPrint(id.m_mwmId) + ", " + std::to_string(id.m_index) + " }";
 }
 
-// static
-char const * const FeatureID::kInvalidFileName = "INVALID";
-// static
-int64_t const FeatureID::kInvalidMwmVersion = -1;
-
 
 std::string FeatureID::GetMwmName() const
 {
-  return IsValid() ? m_mwmId.GetInfo()->GetCountryName() : kInvalidFileName;
+  return IsValid() ? m_mwmId.GetInfo()->GetCountryName() : std::string();
 }
 
 int64_t FeatureID::GetMwmVersion() const
 {
-  return IsValid() ? m_mwmId.GetInfo()->GetVersion() : kInvalidMwmVersion;
+  return IsValid() ? m_mwmId.GetInfo()->GetVersion() : -1;
+}
+
+bool FeatureID::IsEqualCountry(base::StringIL const & lst) const
+{
+  if (!IsValid())
+    return false;
+
+  auto const & name = m_mwmId.GetInfo()->GetCountryName();
+  for (char const * e : lst)
+  {
+    if (strings::StartsWith(name, e))
+      return true;
+  }
+  return false;
+}
+
+bool FeatureID::IsWorld() const
+{
+  return m_mwmId.GetInfo()->GetType() == MwmInfo::MwmTypeT::WORLD;
 }
 
 size_t std::hash<FeatureID>::operator()(FeatureID const & fID) const

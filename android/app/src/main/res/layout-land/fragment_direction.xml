@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout
+  xmlns:android="http://schemas.android.com/apk/res/android"
+  xmlns:tools="http://schemas.android.com/tools"
+  android:layout_width="match_parent"
+  android:layout_height="match_parent"
+  android:paddingStart="@dimen/margin_direction_side"
+  android:paddingEnd="@dimen/margin_direction_side"
+  tools:background="@color/bg_dialog_translucent">
+  <RelativeLayout
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:layout_gravity="center">
+
+    <app.organicmaps.widget.ArrowView
+      android:id="@+id/av__direction"
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:layout_centerVertical="true"
+      android:layout_marginEnd="@dimen/margin_direction_around_center"
+      android:src="@drawable/ic_direction_fullscreen"/>
+
+    <LinearLayout
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:layout_centerHorizontal="true"
+      android:layout_centerVertical="true"
+      android:layout_toEndOf="@id/av__direction"
+      android:orientation="vertical">
+
+      <TextView
+        android:id="@+id/tv__title"
+        style="@style/MwmWidget.TextView.Direction"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="@dimen/margin_direction_small"
+        android:textSize="@dimen/text_direction_title"
+        tools:text="Some place"/>
+
+      <TextView
+        android:id="@+id/tv__subtitle"
+        style="@style/MwmWidget.TextView.Direction"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textColor="@color/bg_text_translucent"
+        android:textSize="@dimen/text_direction_subtitle"
+        tools:text="Some place type"/>
+
+      <TextView
+        android:id="@+id/tv__straight_distance"
+        style="@style/MwmWidget.TextView.Direction"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/margin_direction_mid"
+        android:textSize="@dimen/text_direction_dist"
+        tools:text="9000 km"/>
+    </LinearLayout>
+  </RelativeLayout>
+</FrameLayout>

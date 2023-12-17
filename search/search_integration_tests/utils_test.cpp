@@ -5,8 +5,9 @@
 #include "generator/generator_tests_support/test_feature.hpp"
 #include "generator/generator_tests_support/test_mwm_builder.hpp"
 
+#include "search/utils.hpp"
+
 #include "indexer/categories_holder.hpp"
-#include "indexer/classificator.hpp"
 #include "indexer/feature_decl.hpp"
 
 #include "geometry/point2d.hpp"

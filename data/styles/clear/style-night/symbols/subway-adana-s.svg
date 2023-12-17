@@ -1,7 +1,7 @@
-<svg width="24" height="24" viewBox="0 0 24 24">
-  <g fill="none">
-    <polygon fill="#FFF" points="22.5 11.1 12.2 .8 11.6 .2 11 .8 .7 11.1 .1 11.7 .7 12.3 11 22.6 11.6 23.2 12.2 22.6 22.5 12.3 23.1 11.7" opacity=".4"/>
-    <rect width="14.6" height="14.6" x="4.3" y="4.4" fill="#803700" transform="rotate(-45 11.6 11.7)"/>
-    <polygon fill="#FFF" points="16.7 15 14.5 7.8 11.6 12.2 8.7 7.8 6.5 15 9 15 9.4 11.7 11.6 15.5 13.9 11.9 14.2 15" opacity=".4"/>
-  </g>
+<svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+ <g>
+  <polygon points="22.5 11.1 12.2 0.8 11.6 0.2 11 0.8 0.7 11.1 0.1 11.7 0.7 12.3 11 22.6 11.6 23.2 12.2 22.6 22.5 12.3 23.1 11.7" fill="#FFF" opacity=".4"/>
+  <rect transform="rotate(-45 11.6 11.7)" x="4.3" y="4.4" width="14.6" height="14.6" fill="#803700"/>
+  <polygon points="16.7 15 14.5 7.8 11.6 12.2 8.7 7.8 6.5 15 9 15 9.4 11.7 11.6 15.5 13.9 11.9 14.2 15" fill="#FFF" opacity=".4"/>
+ </g>
 </svg>

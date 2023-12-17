@@ -215,8 +215,8 @@ public:
         NextValue();
       }
 
-      bool operator==(Iterator const & iter) { return m_reader == iter.m_reader; }
-      bool operator!=(Iterator const & iter) { return !(*this == iter); }
+      bool operator==(Iterator const & iter) const { return m_reader == iter.m_reader; }
+      bool operator!=(Iterator const & iter) const { return !(*this == iter); }
 
       Iterator & operator++() { NextValue(); return *this; }
 
@@ -227,7 +227,7 @@ public:
 
     SubElements(O5MSource * reader, TSubElementGetter const & func) : m_reader(reader), m_func(func) {}
 
-    void Skip() { while (m_reader && m_func(nullptr)); }
+    void Skip() { while (m_reader && m_func(nullptr)) { /* no-op */ } }
 
     Iterator const begin() const { return Iterator(m_reader, m_func); }
     Iterator const end() const { return Iterator(); }
@@ -568,8 +568,8 @@ public:
       NextValue();
     }
 
-    bool operator==(Iterator const & iter) { return m_reader == iter.m_reader; }
-    bool operator!=(Iterator const & iter) { return !(*this == iter); }
+    bool operator==(Iterator const & iter) const { return m_reader == iter.m_reader; }
+    bool operator!=(Iterator const & iter) const { return !(*this == iter); }
     Iterator & operator++() { NextValue(); return *this; }
 
     void NextValue() { m_reader = m_reader->ReadEntity(&m_entity) ? m_reader : nullptr; }

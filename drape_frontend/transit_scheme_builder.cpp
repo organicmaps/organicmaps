@@ -14,10 +14,8 @@
 #include "shaders/programs.hpp"
 
 #include "drape/batcher.hpp"
-#include "drape/glsl_func.hpp"
 #include "drape/glsl_types.hpp"
 #include "drape/render_bucket.hpp"
-#include "drape/utils/vertex_decl.hpp"
 
 #include "transit/transit_entities.hpp"
 
@@ -26,13 +24,11 @@
 
 #include <algorithm>
 
-using namespace std;
-
 namespace df
 {
-int const kTransitSchemeMinZoomLevel = 10;
-float const kTransitLineHalfWidth = 0.8f;
-std::array<float, 20> const kTransitLinesWidthInPixel =
+int constexpr kTransitSchemeMinZoomLevel = 10;
+float constexpr kTransitLineHalfWidth = 0.8f;
+std::array<float, 20> constexpr kTransitLinesWidthInPixel =
 {
   // 1   2     3     4     5     6     7     8     9    10
   1.0f, 1.0f, 1.0f, 1.0f, 1.0f, 1.0f, 1.0f, 1.0f, 1.0f, 1.25f,
@@ -95,7 +91,7 @@ using TGeometryBuffer = std::vector<TransitStaticVertex>;
 
 dp::BindingInfo const & GetTransitStaticBindingInfo()
 {
-  static unique_ptr<dp::BindingInfo> s_info;
+  static std::unique_ptr<dp::BindingInfo> s_info;
   if (s_info == nullptr)
   {
     dp::BindingFiller<TransitStaticVertex> filler(3);
@@ -280,7 +276,7 @@ void FillStopParamsSubway(TransitDisplayInfo const & transitDisplayInfo,
 {
   FeatureID featureId;
   std::string title;
-  if (stop.GetFeatureId() != routing::transit::kInvalidFeatureId)
+  if (stop.GetFeatureId() != kInvalidFeatureId)
   {
     featureId = FeatureID(mwmId, stop.GetFeatureId());
     title = transitDisplayInfo.m_features.at(featureId).m_title;
@@ -303,7 +299,7 @@ void FillStopParamsPT(TransitDisplayInfo const & transitDisplayInfo, MwmSet::Mwm
   FeatureID featureId;
   std::string title;
 
-  if (stop.GetFeatureId() != routing::transit::kInvalidFeatureId)
+  if (stop.GetFeatureId() != kInvalidFeatureId)
   {
     featureId = FeatureID(mwmId, stop.GetFeatureId());
     auto const itFeature = transitDisplayInfo.m_features.find(featureId);

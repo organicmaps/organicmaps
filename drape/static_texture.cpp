@@ -28,7 +28,7 @@ namespace
 using TLoadingCompletion = std::function<void(unsigned char *, uint32_t, uint32_t)>;
 using TLoadingFailure = std::function<void(std::string const &)>;
 
-bool LoadData(std::string const & textureName, std::string const & skinPathName,
+bool LoadData(std::string const & textureName, std::optional<std::string> const & skinPathName,
               uint8_t bytesPerPixel, TLoadingCompletion const & completionHandler,
               TLoadingFailure const & failureHandler)
 {
@@ -38,10 +38,12 @@ bool LoadData(std::string const & textureName, std::string const & skinPathName,
   std::vector<unsigned char> rawData;
   try
   {
-    std::string const fullName = textureName + ".png";
-    ReaderPtr<Reader> reader = skinPathName == StaticTexture::kDefaultResource ?
-                               GetStyleReader().GetDefaultResourceReader(fullName) :
-                               GetStyleReader().GetResourceReader(fullName, skinPathName);
+    ReaderPtr<Reader> reader =
+        skinPathName.has_value()
+            ? skinPathName.value() == StaticTexture::kDefaultResource
+                ? GetStyleReader().GetDefaultResourceReader(textureName)
+                : GetStyleReader().GetResourceReader(textureName, skinPathName.value())
+            : GetPlatform().GetReader(textureName);
 
     CHECK_LESS(reader.Size(), static_cast<uint64_t>(std::numeric_limits<size_t>::max()), ());
     size_t const size = static_cast<size_t>(reader.Size());
@@ -55,23 +57,27 @@ bool LoadData(std::string const & textureName, std::string const & skinPathName,
   }
 
   int w, h, bpp;
-  unsigned char * data =
-      stbi_load_from_memory(&rawData[0], static_cast<int>(rawData.size()), &w, &h, &bpp, 0);
+  if (!stbi_info_from_memory(&rawData[0], static_cast<int>(rawData.size()), &w, &h, &bpp))
+  {
+    failureHandler(std::string("Failed to get image file info from ") + textureName);
+    return false;
+  }
 
-  uint8_t constexpr kSupportedBPP = 4;
-  CHECK_EQUAL(bpp, kSupportedBPP, ("Incorrect texture format"));
   ASSERT(glm::isPowerOfTwo(w), (w));
   ASSERT(glm::isPowerOfTwo(h), (h));
+
+  unsigned char * data =
+      stbi_load_from_memory(&rawData[0], static_cast<int>(rawData.size()), &w, &h, &bpp, 0);
 
   if (bytesPerPixel != bpp)
   {
     std::vector<unsigned char> convertedData(static_cast<size_t>(w * h * bytesPerPixel));
-    uint32_t const pixelsCount = static_cast<uint32_t>(w * h);
-    for (uint32_t i = 0; i < pixelsCount; i++)
+    auto const pixelsCount = static_cast<uint32_t>(w * h);
+    for (uint32_t i = 0; i < pixelsCount; ++i)
     {
       unsigned char const * p = data + i * bpp;
-      for (uint8_t b = 0; b < bytesPerPixel; b++)
-        convertedData[i * bytesPerPixel + b] = p[b];
+      for (uint8_t b = 0; b < bytesPerPixel; ++b)
+        convertedData[i * bytesPerPixel + b] = (b < bpp) ? p[b] : 255;
     }
     stbi_image_free(data);
     completionHandler(convertedData.data(), static_cast<uint32_t>(w), static_cast<uint32_t>(h));
@@ -92,12 +98,14 @@ public:
 };
 }  // namespace
 
-StaticTexture::StaticTexture(ref_ptr<dp::GraphicsContext> context,
-                             std::string const & textureName, std::string const & skinPathName,
-                             dp::TextureFormat format, ref_ptr<HWTextureAllocator> allocator)
+StaticTexture::StaticTexture(ref_ptr<dp::GraphicsContext> context, std::string const & textureName,
+                             std::optional<std::string> const & skinPathName,
+                             dp::TextureFormat format, ref_ptr<HWTextureAllocator> allocator,
+                             bool allowOptional /* = false */)
   : m_textureName(textureName)
   , m_skinPathName(skinPathName)
   , m_format(format)
+  , m_allowOptional(allowOptional)
   , m_info(make_unique_dp<StaticResourceInfo>())
 {
   m_isLoadingCorrect = Load(context, allocator);
@@ -121,20 +129,16 @@ bool StaticTexture::Load(ref_ptr<dp::GraphicsContext> context, ref_ptr<HWTexture
 
   auto failureHandler = [this, context](std::string const & reason)
   {
-    LOG(LERROR, (reason));
-    Fail(context);
+    if (!m_allowOptional)
+    {
+      LOG(LERROR, (reason));
+      Fail(context);
+    }
   };
 
   uint8_t const bytesPerPixel = GetBytesPerPixel(m_format);
   return LoadData(m_textureName, m_skinPathName, bytesPerPixel,
                   completionHandler, failureHandler);
-}
-
-void StaticTexture::Invalidate(ref_ptr<dp::GraphicsContext> context,
-                               ref_ptr<HWTextureAllocator> allocator)
-{
-  Destroy();
-  m_isLoadingCorrect = Load(context, allocator);
 }
 
 ref_ptr<Texture::ResourceInfo> StaticTexture::FindResource(Texture::Key const & key,

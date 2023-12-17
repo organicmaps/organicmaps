@@ -12,6 +12,8 @@ cp ../data/drules_proto_dark.bin assets/
 cp ../data/drules_proto_clear.bin assets/
 cp ../data/drules_proto_vehicle_dark.bin assets/
 cp ../data/drules_proto_vehicle_clear.bin assets/
+cp ../data/drules_proto_outdoors_dark.bin assets/
+cp ../data/drules_proto_outdoors_clear.bin assets/
 cp ../data/editor.config assets/
 cp ../data/faq.html assets/
 cp ../data/fonts_blacklist.txt assets/
@@ -38,7 +40,7 @@ cp -r ../data/resources-6plus_clear/ assets/
 cp -r ../data/sound-strings/ assets/
 cp -r ../data/countries-strings/ assets/
 
-cp -r ../data/icudt70l.dat assets/
+cp -r ../data/icudt73l.dat assets/
 
 
 rm -rf flavors/mwm-ttf-assets

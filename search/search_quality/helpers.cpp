@@ -1,9 +1,5 @@
 #include "search/search_quality/helpers.hpp"
 
-#include "storage/country_info_getter.hpp"
-#include "storage/country_tree.hpp"
-#include "storage/storage.hpp"
-
 #include "indexer/data_source.hpp"
 
 #include "platform/local_country_file.hpp"
@@ -24,7 +20,7 @@
 
 #include "defines.hpp"
 
-#include "3party/jansson/myjansson.hpp"
+#include "cppjansson/cppjansson.hpp"
 
 namespace search
 {
@@ -153,30 +149,14 @@ void InitDataSource(FrozenDataSource & dataSource, string const & mwmListPath)
   LOG(LINFO, ());
 }
 
-void InitStorageData(storage::Affiliations & affiliations,
-                     storage::CountryNameSynonyms & countryNameSynonyms)
-{
-  storage::CountryTree countries;
-  storage::MwmTopCityGeoIds mwmTopCityGeoIds;
-  storage::MwmTopCountryGeoIds mwmTopCountryGeoIds;
-  auto const rv =
-      storage::LoadCountriesFromFile(COUNTRIES_FILE, countries, affiliations, countryNameSynonyms,
-                                     mwmTopCityGeoIds, mwmTopCountryGeoIds);
-  CHECK(rv != -1, ("Can't load countries"));
-}
-
 unique_ptr<search::tests_support::TestSearchEngine> InitSearchEngine(
-    DataSource & dataSource, storage::Affiliations const & affiliations, string const & locale,
-    size_t numThreads)
+    DataSource & dataSource, string const & locale, size_t numThreads)
 {
   search::Engine::Params params;
   params.m_locale = locale;
   params.m_numThreads = base::checked_cast<size_t>(numThreads);
 
-  auto infoGetter = storage::CountryInfoReader::CreateCountryInfoGetter(GetPlatform());
-  infoGetter->SetAffiliations(&affiliations);
-
-  return make_unique<search::tests_support::TestSearchEngine>(dataSource, move(infoGetter), params);
+  return make_unique<search::tests_support::TestSearchEngine>(dataSource, params);
 }
 }  // namespace search_quality
 }  // namespace search

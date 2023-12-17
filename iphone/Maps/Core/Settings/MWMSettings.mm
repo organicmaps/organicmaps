@@ -77,9 +77,9 @@ NSString * const kUDTrackWarningAlertWasShown = @"TrackWarningAlertWasShown";
   if ([MWMCarPlayService shared].isCarplayActivated) {
     UIUserInterfaceStyle style = [[MWMCarPlayService shared] interfaceStyle];
     switch (style) {
-    case UIUserInterfaceStyleLight: return MWMThemeDay;
-    case UIUserInterfaceStyleDark: return MWMThemeNight;
-    case UIUserInterfaceStyleUnspecified: break;
+      case UIUserInterfaceStyleLight: return MWMThemeDay;
+      case UIUserInterfaceStyleDark: return MWMThemeNight;
+      case UIUserInterfaceStyleUnspecified: break;
     }
   }
   auto ud = NSUserDefaults.standardUserDefaults;
@@ -122,10 +122,7 @@ NSString * const kUDTrackWarningAlertWasShown = @"TrackWarningAlertWasShown";
 + (BOOL)largeFontSize { return GetFramework().LoadLargeFontsSize(); }
 + (void)setLargeFontSize:(BOOL)largeFontSize
 {
-  bool const isLargeSize = static_cast<bool>(largeFontSize);
-  auto & f = GetFramework();
-  f.SaveLargeFontsSize(isLargeSize);
-  f.SetLargeFontsSize(isLargeSize);
+  GetFramework().SetLargeFontsSize(static_cast<bool>(largeFontSize));
 }
 
 + (BOOL)transliteration { return GetFramework().LoadTransliteration(); }
@@ -148,4 +145,17 @@ NSString * const kUDTrackWarningAlertWasShown = @"TrackWarningAlertWasShown";
   [ud setBool:shown forKey:kUDTrackWarningAlertWasShown];
   [ud synchronize];
 }
+
++ (NSString *)donateUrl
+{
+  std::string url;
+  return settings::Get("DonateUrl", url) ? @(url.c_str()) : nil;
+}
+
++ (BOOL)isNY
+{
+  bool isNY;
+  return settings::Get("NY", isNY) ? isNY : false;
+}
+
 @end

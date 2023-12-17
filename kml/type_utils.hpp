@@ -1,23 +1,33 @@
 #pragma once
 
-#include "indexer/feature.hpp"
-
-#include "geometry/point2d.hpp"
 #include "geometry/point_with_altitude.hpp"
 
 #include <chrono>
-#include <cstdint>
 #include <limits>
 #include <map>
 #include <set>
-#include <sstream>
 #include <string>
 #include <unordered_map>
 #include <vector>
 
+namespace feature { class RegionData; }
+
 namespace kml
 {
-using Timestamp = std::chrono::time_point<std::chrono::system_clock>;
+using TimestampClock = std::chrono::system_clock;
+using Timestamp = std::chrono::time_point<TimestampClock>;
+class TimestampMillis : public Timestamp {
+public:
+  TimestampMillis() = default;
+  explicit TimestampMillis(Timestamp const & ts) : Timestamp{ts} {}
+  TimestampMillis & operator=(Timestamp const & ts)
+  {
+    if (this != &ts)
+      Timestamp::operator=(ts);
+    return *this;
+  }
+};
+
 using LocalizableString = std::unordered_map<int8_t, std::string>;
 using LocalizableStringSubIndex = std::map<int8_t, uint32_t>;
 using LocalizableStringIndex = std::vector<LocalizableStringSubIndex>;
@@ -40,6 +50,7 @@ using GroupIdSet = std::set<MarkGroupId>;
 
 MarkGroupId constexpr kInvalidMarkGroupId = std::numeric_limits<MarkGroupId>::max();
 MarkId constexpr kInvalidMarkId = std::numeric_limits<MarkId>::max();
+MarkId constexpr kDebugMarkId = kInvalidMarkId - 1;
 TrackId constexpr kInvalidTrackId = std::numeric_limits<TrackId>::max();
 CompilationId constexpr kInvalidCompilationId = std::numeric_limits<CompilationId>::max();
 
@@ -80,16 +91,29 @@ inline void SetDefaultStr(LocalizableString & localizableStr, std::string const 
     localizableStr.erase(kDefaultLangCode);
     return;
   }
-    
+
   localizableStr[kDefaultLangCode] = str;
 }
 
-extern bool IsEqual(std::vector<m2::PointD> const & v1, std::vector<m2::PointD> const & v2);
-extern bool IsEqual(std::vector<geometry::PointWithAltitude> const & v1,
-                    std::vector<geometry::PointWithAltitude> const & v2);
+bool IsEqual(m2::PointD const & lhs, m2::PointD const & rhs);
+bool IsEqual(geometry::PointWithAltitude const & lhs, geometry::PointWithAltitude const & rhs);
+
+template <class T> bool IsEqual(std::vector<T> const & lhs, std::vector<T> const & rhs)
+{
+  if (lhs.size() != rhs.size())
+    return false;
+
+  for (size_t i = 0; i < lhs.size(); ++i)
+  {
+    if (!IsEqual(lhs[i], rhs[i]))
+      return false;
+  }
+
+  return true;
+}
 
 struct BookmarkData;
-std::string GetPreferredBookmarkName(BookmarkData const & bmData, std::string const & languageOrig);
+std::string GetPreferredBookmarkName(BookmarkData const & bmData, std::string_view languageOrig);
 std::string GetPreferredBookmarkStr(LocalizableString const & name, std::string const & languageNorm);
 std::string GetPreferredBookmarkStr(LocalizableString const & name, feature::RegionData const & regionData,
                                     std::string const & languageNorm);

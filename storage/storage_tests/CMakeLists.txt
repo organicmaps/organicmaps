@@ -17,10 +17,11 @@ set(SRC
   test_map_files_downloader.hpp
 )
 
-omim_add_test_with_qt_event_loop(${PROJECT_NAME} ${SRC})
+omim_add_test(${PROJECT_NAME} ${SRC} REQUIRE_QT REQUIRE_SERVER)
 
 target_link_libraries(${PROJECT_NAME}
   platform_tests_support
   generator_tests_support
   storage
+  cppjansson
 )

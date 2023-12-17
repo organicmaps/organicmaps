@@ -2,12 +2,7 @@
 
 #include "platform/measurement_utils.hpp"
 
-#include "base/string_utils.hpp"
-
 #include <algorithm>
-
-using namespace std;
-using namespace measurement_utils;
 
 namespace routing
 {
@@ -15,6 +10,9 @@ namespace turns
 {
 namespace sound
 {
+using namespace std;
+using namespace measurement_utils;
+
 void Settings::SetState(uint32_t notificationTimeSeconds, uint32_t minNotificationDistanceUnits,
                         uint32_t maxNotificationDistanceUnits,
                         vector<uint32_t> const & soundedDistancesUnits,

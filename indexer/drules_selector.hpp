@@ -17,7 +17,7 @@ public:
 
   // If ISelector.Test returns true then style is applicable for the feature,
   // otherwise, if ISelector.Test returns false, style cannot be applied to the feature.
-  virtual bool Test(FeatureType & ft) const = 0;
+  virtual bool Test(FeatureType & ft, int zoom) const = 0;
 };
 
 // Factory method which builds ISelector from a string.

@@ -1,12 +1,7 @@
 #pragma once
 
 #include "generator/affiliation.hpp"
-#include "generator/cities_boundaries_builder.hpp"
 #include "generator/feature_builder.hpp"
-#include "generator/place_processor.hpp"
-#include "generator/type_helper.hpp"
-
-#include "indexer/classificator.hpp"
 
 #include "platform/platform.hpp"
 
@@ -16,7 +11,6 @@
 
 #include "defines.hpp"
 
-#include <cstddef>
 #include <memory>
 #include <string>
 #include <unordered_map>
@@ -24,38 +18,6 @@
 
 namespace generator
 {
-class PlaceHelper
-{
-public:
-  PlaceHelper();
-  explicit PlaceHelper(std::string const & filename);
-
-  static bool IsPlace(feature::FeatureBuilder const & fb);
-
-  bool Process(feature::FeatureBuilder const & fb);
-  std::vector<PlaceProcessor::PlaceWithIds> GetFeatures();
-  std::shared_ptr<OsmIdToBoundariesTable> GetTable() const;
-
-private:
-  std::shared_ptr<OsmIdToBoundariesTable> m_table;
-  PlaceProcessor m_processor;
-};
-
-class ProcessorCities
-{
-public:
-  ProcessorCities(std::string const & temporaryMwmPath,
-                  feature::AffiliationInterface const & affiliation, PlaceHelper & citiesHelper,
-                  size_t threadsCount = 1);
-
-  void Process();
-
-private:
-  std::string m_temporaryMwmPath;
-  feature::AffiliationInterface const & m_affiliation;
-  PlaceHelper & m_citiesHelper;
-  size_t m_threadsCount;
-};
 
 template <typename ToDo>
 void ForEachMwmTmp(std::string const & temporaryMwmPath, ToDo && toDo, size_t threadsCount = 1)
@@ -81,7 +43,7 @@ std::vector<std::vector<std::string>> AppendToMwmTmp(std::vector<feature::Featur
                        feature::AffiliationInterface const & affiliation,
                        std::string const & temporaryMwmPath, size_t threadsCount = 1)
 {
-  auto const affiliations = GetAffiliations(fbs, affiliation, threadsCount);
+  auto affiliations = GetAffiliations(fbs, affiliation, threadsCount);
   std::unordered_map<std::string, std::vector<size_t>> countryToFbsIndexes;
   for (size_t i = 0; i < fbs.size(); ++i)
   {
@@ -92,10 +54,10 @@ std::vector<std::vector<std::string>> AppendToMwmTmp(std::vector<feature::Featur
   base::thread_pool::computational::ThreadPool pool(threadsCount);
   for (auto && p : countryToFbsIndexes)
   {
-    pool.SubmitWork([&, country{std::move(p.first)}, indexes{std::move(p.second)}]() {
+    pool.SubmitWork([&, country = std::move(p.first), indexes = std::move(p.second)]()
+    {
       auto const path = base::JoinPath(temporaryMwmPath, country + DATA_FILE_EXTENSION_TMP);
-      feature::FeatureBuilderWriter<SerializationPolicy> collector(
-            path, FileWriter::Op::OP_APPEND);
+      feature::FeatureBuilderWriter<SerializationPolicy> collector(path, FileWriter::Op::OP_APPEND);
       for (auto const index : indexes)
         collector.Write(fbs[index]);
     });

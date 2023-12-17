@@ -19,6 +19,11 @@ on:
       - docs/**
       - generator/**
       - packaging/**
+      - platform/*_android*
+      - platform/*_linux* 
+      - platform/*_mac* 
+      - platform/*qt* 
+      - platform/*_win* 
       - pyhelpers/**
       - qt*/**
       - skin_generator/**
@@ -28,8 +33,9 @@ on:
 jobs:
   ios-beta:
     name: Apple TestFlight
-    runs-on: macos-12
+    runs-on: macos-13
     env:
+      DEVELOPER_DIR: /Applications/Xcode_15.0.1.app/Contents/Developer
       LANG: en_US.UTF-8  # Fastlane complains that the terminal is using ASCII.
       LANGUAGE: en_US.UTF-8
       LC_ALL: en_US.UTF-8
@@ -39,15 +45,15 @@ jobs:
         shell: bash
     steps:
       - name: Checkout sources
-        uses: actions/checkout@v2
+        uses: actions/checkout@v4
         with:
           fetch-depth: 100 # enough to get all commits for the current day
 
       - name: Parallel submodules checkout
-        run: git submodule update --init --recursive --jobs=4
+        run: git submodule update --depth 1 --init --recursive --jobs=$(($(sysctl -n hw.logicalcpu) * 20))
 
       - name: Checkout private keys
-        uses: actions/checkout@v2
+        uses: actions/checkout@v4
         with:
           repository: ${{ secrets.PRIVATE_REPO }}
           ssh-key: ${{ secrets.PRIVATE_SSH_KEY }}
@@ -60,7 +66,16 @@ jobs:
           rm -rf ./private.git
 
       - name: Compile and upload to TestFlight
-        run: ./fastlane.sh upload_testflight
+        run: |
+          echo "IOS_VERSION=$(tools/unix/version.sh ios_version)-$(tools/unix/version.sh ios_build)" >> "$GITHUB_ENV"
+          ./fastlane.sh upload_testflight
         env:
           APPSTORE_CERTIFICATE_PASSWORD: '${{ secrets.APPSTORE_CERTIFICATE_PASSWORD }}'
         working-directory: xcode
+
+      - name: Upload ipa and DSYMs artifacts
+        uses: actions/upload-artifact@v3
+        with:
+          name: ipa and DSYM archive ${{ env.IOS_VERSION }}
+          path: xcode/build/*
+          if-no-files-found: error

@@ -1,0 +1,9 @@
+<svg version="1.1" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+  <title>optometrist-m</title>
+  <g>
+    <circle id="outer" r="12" cx="12" cy="12" fill="#000" opacity=".6"/>
+    <circle id="inner" r="11" cx="12" cy="12" fill="#c15746"/>
+    <path id="eye_outer" stroke="#000" stroke-width="1.3" fill="none" d="M 2.6894605,12 C 4.9899597,9.1519178 8.4018268,7.5026863 12.000002,7.5026863 c 3.599795,0 7.011662,1.6492315 9.312162,4.4973137 -2.3005,2.849703 -5.712367,4.497313 -9.312162,4.497313 -3.5981752,0 -7.0100423,-1.64761 -9.3105415,-4.497313 z"/>
+    <circle id="eye_inner" r="2" cx="12" cy="12" fill="none" stroke-width="1.8" stroke="#000"/>
+  </g>
+</svg>

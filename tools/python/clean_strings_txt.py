@@ -23,7 +23,7 @@ CORE_RE = re.compile(r'GetLocalizedString\("(.*?)"\)')
 
 # max 2 matches in L(). Tried to make ()+ group, but no luck ..
 IOS_RE = re.compile(r'L\(.*?"(\w+)".*?(?:"(\w+)")?\)')
-IOS_NS_RE = re.compile(r'NSLocalizedString\(\s*?"(\w+)"')
+IOS_NS_RE = re.compile(r'NSLocalizedString\(\s*?@?"(\w+)"')
 IOS_XML_RE = re.compile(r'value=\"(.*?)\"')
 
 ANDROID_JAVA_RE = re.compile(r'R\.string\.([\w_]*)')
@@ -34,12 +34,14 @@ IOS_CANDIDATES_RE = re.compile(r'(.*?):[^L\(]@"([a-z0-9_]*?)"')
 
 HARDCODED_CATEGORIES = None
 
-HARDCODED_COLORS = [
+HARDCODED_STRINGS = [
     # titleForBookmarkColor
     "red", "blue", "purple", "yellow", "pink", "brown", "green", "orange", "deep_purple", "light_blue",
     "cyan", "teal", "lime", "deep_orange", "gray", "blue_gray",
-    # Used in About
-    "matrix"
+    # Used in About in iphone/Maps/UI/Help/AboutController.swift
+    "news", "faq", "report_a_bug", "how_to_support_us", "rate_the_app",
+    "telegram", "github", "website", "email", "matrix", "mastodon", "facebook", "twitter", "instagram", "openstreetmap",
+    "privacy_policy", "terms_of_use", "copyright",
 ]
 
 
@@ -71,13 +73,13 @@ def grep_ios():
 
 def grep_android():
     logging.info("Grepping android...")
-    grep = "grep -r -I 'R.string.' {0}/android/src".format(OMIM_ROOT)
+    grep = "grep -r -I 'R.string.' {0}/android/app/src/main".format(OMIM_ROOT)
     ret = android_grep_wrapper(grep, ANDROID_JAVA_RE)
-    grep = "grep -r -I 'R.plurals.' {0}/android/src".format(OMIM_ROOT)
+    grep = "grep -r -I 'R.plurals.' {0}/android/app/src/main".format(OMIM_ROOT)
     ret.update(android_grep_wrapper(grep, ANDROID_JAVA_PLURAL_RE))
-    grep = "grep -r -I '@string/' {0}/android/res".format(OMIM_ROOT)
+    grep = "grep -r -I '@string/' {0}/android/app/src/main/res".format(OMIM_ROOT)
     ret.update(android_grep_wrapper(grep, ANDROID_XML_RE))
-    grep = "grep -r -I '@string/' {0}/android/AndroidManifest.xml".format(
+    grep = "grep -r -I '@string/' {0}/android/app/src/main/AndroidManifest.xml".format(
         OMIM_ROOT)
     ret.update(android_grep_wrapper(grep, ANDROID_XML_RE))
     ret = parenthesize(ret)
@@ -90,7 +92,7 @@ def grep_android():
 
 def grep_core():
     logging.info("Grepping core...")
-    grep = "grep -r -I --exclude-dir {0}/3party 'GetLocalizedString' {0}/*".format(
+    grep = "grep -wr -I --exclude-dir {0}/3party --exclude-dir {0}/.git --exclude-dir {0}/data 'GetLocalizedString' {0}/*".format(
         OMIM_ROOT)
     ret = android_grep_wrapper(grep, CORE_RE)
     logging.info("Found in core: {0}".format(len(ret)))
@@ -110,7 +112,7 @@ def grep_ios_candidates():
 
 def get_hardcoded():
     ret = parenthesize(HARDCODED_CATEGORIES)
-    ret.update(parenthesize(HARDCODED_COLORS))
+    ret.update(parenthesize(HARDCODED_STRINGS))
     logging.info("Hardcoded colors and categories: {0}".format(len(ret)))
     return ret
 

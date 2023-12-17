@@ -1,0 +1,10 @@
+Organic Maps é um aplicativo de navegação com privacidade para motoristas, caminhantes e ciclistas. O aplicativo oferece navegação com privacidade - sem rastreamento de localização, coleta de dados ou anúncios. A busca, o roteamento e a navegação funcionam sem sinal de celular, ideal para trilhas ou locais com conexões ruins. Organic Maps usa os dados procedentes dos usuários do OpenStreetMap de todo o mundo. O projeto é conduzido pela comunidade, o código é aberto, priorizando a colaboração e o desenvolvimento da comunidade.
+
+• Não é necessário sinal de celular - Pesquise e navegue sem sinal
+• Uso eficiente da bateria - consumo reduzido de energia
+• Pesquisa rápida - Encontre locais rapidamente
+
+No Organic Maps, valorizamos a privacidade:
+• Sem rastreamento
+• Sem coleta de dados
+• Sem anúncios

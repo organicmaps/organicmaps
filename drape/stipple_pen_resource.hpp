@@ -17,12 +17,14 @@
 
 namespace dp
 {
-// Based on ./data/patterns.txt, all paterns have 2 entries now.
-using PenPatternT = buffer_vector<uint8_t, 2>;
+uint32_t constexpr kMaxStipplePenLength = 512;  /// @todo Should be equal with kStippleTextureWidth?
 
-inline uint8_t PatternFloat2Pixel(double d)
+// Based on ./data/patterns.txt, the most of patterns have 2 entries (4 entries for triangles pattern).
+using PenPatternT = buffer_vector<uint16_t, 2>;
+
+inline constexpr uint16_t PatternFloat2Pixel(double d)
 {
-  return static_cast<uint8_t>(std::round(d));
+  return static_cast<uint16_t>(std::round(d));
 }
 
 inline bool IsTrianglePattern(PenPatternT const & p)

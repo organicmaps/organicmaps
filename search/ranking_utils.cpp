@@ -16,30 +16,34 @@ namespace search
 using namespace std;
 using namespace strings;
 
-namespace
-{
-struct TokenInfo
-{
-  bool m_isCategoryToken = false;
-  bool m_inFeatureTypes = false;
-};
-}  // namespace
-
 // CategoriesInfo ----------------------------------------------------------------------------------
 CategoriesInfo::CategoriesInfo(feature::TypesHolder const & holder, TokenSlice const & tokens,
                                Locales const & locales, CategoriesHolder const & categories)
 {
+  struct TokenInfo
+  {
+    bool m_isCategoryToken = false;
+    bool m_inFeatureTypes = false;
+  };
+
   QuerySlice slice(tokens);
   vector<TokenInfo> infos(slice.Size());
-  ForEachCategoryType(slice, locales, categories, [&holder, &infos](size_t i, uint32_t t)
+
+  ForEachCategoryType(slice, locales, categories, [&](size_t i, uint32_t t)
   {
     ASSERT_LESS(i, infos.size(), ());
     auto & info = infos[i];
 
     info.m_isCategoryToken = true;
-    if (holder.Has(t))
+    if (holder.HasWithSubclass(t))
       info.m_inFeatureTypes = true;
   });
+
+  for (size_t i = 0; i < slice.Size(); ++i)
+  {
+    if (infos[i].m_inFeatureTypes)
+      m_matchedLength += slice.Get(i).size();
+  }
 
   // Note that m_inFeatureTypes implies m_isCategoryToken.
 
@@ -66,12 +70,12 @@ string DebugPrint(ErrorsMade const & errorsMade)
 
 namespace impl
 {
-ErrorsMade GetErrorsMade(QueryParams::Token const & token, strings::UniString const & text)
+ErrorsMade GetErrorsMade(QueryParams::Token const & token,
+                         strings::UniString const & text, LevenshteinDFA const & dfa)
 {
   if (token.AnyOfSynonyms([&text](strings::UniString const & s) { return text == s; }))
     return ErrorsMade(0);
 
-  auto const dfa = BuildLevenshteinDFA(text);
   auto it = dfa.Begin();
   strings::DFAMove(it, token.GetOriginal().begin(), token.GetOriginal().end());
   if (it.Accepts())
@@ -80,12 +84,12 @@ ErrorsMade GetErrorsMade(QueryParams::Token const & token, strings::UniString co
   return {};
 }
 
-ErrorsMade GetPrefixErrorsMade(QueryParams::Token const & token, strings::UniString const & text)
+ErrorsMade GetPrefixErrorsMade(QueryParams::Token const & token,
+                               strings::UniString const & text, LevenshteinDFA const & dfa)
 {
   if (token.AnyOfSynonyms([&text](strings::UniString const & s) { return StartsWith(text, s); }))
     return ErrorsMade(0);
 
-  auto const dfa = PrefixDFAModifier<LevenshteinDFA>(BuildLevenshteinDFA(text));
   auto it = dfa.Begin();
   strings::DFAMove(it, token.GetOriginal().begin(), token.GetOriginal().end());
   if (!it.Rejects())
@@ -97,8 +101,8 @@ ErrorsMade GetPrefixErrorsMade(QueryParams::Token const & token, strings::UniStr
 
 bool IsStopWord(UniString const & s)
 {
-  /// @todo Get all common used stop words and take out this array into
-  /// search_string_utils.cpp module for example.
+  /// @todo Get all common used stop words and take out this array into search_string_utils.cpp module for example.
+  /// Should skip this tokens when building search index?
   class StopWordsChecker
   {
     set<UniString> m_set;
@@ -108,9 +112,9 @@ bool IsStopWord(UniString const & s)
       // Don't want to put _full_ stopwords list, not to break current ranking.
       // Only 2-letters and the most common.
       char const * arr[] = {
-        "a",              // English
+        "a", "s", "the",  // English
         "am", "im", "an", // German
-        "de", "di", "da", "la", "le", // French, Spanish, Italian
+        "d", "da", "de", "di", "du", "la", "le", // French, Spanish, Italian
         "и", "я"          // Cyrillic
       };
       for (char const * s : arr)
@@ -123,13 +127,15 @@ bool IsStopWord(UniString const & s)
   return swChecker.Has(s);
 }
 
-void PrepareStringForMatching(string_view name, vector<strings::UniString> & tokens)
+TokensVector::TokensVector(string_view name)
 {
-  SplitUniString(NormalizeAndSimplifyString(name), [&tokens](strings::UniString const & token)
+  ForEachNormalizedToken(name, [this](strings::UniString && token)
   {
     if (!IsStopWord(token))
-      tokens.push_back(token);
-  }, Delimiters());
+      m_tokens.push_back(std::move(token));
+  });
+
+  Init();
 }
 
 string DebugPrint(NameScore const & score)
@@ -139,8 +145,9 @@ string DebugPrint(NameScore const & score)
   case NameScore::ZERO: return "Zero";
   case NameScore::SUBSTRING: return "Substring";
   case NameScore::PREFIX: return "Prefix";
-  case NameScore::FULL_MATCH: return "Full Match";
+  case NameScore::FIRST_MATCH: return "First Match";
   case NameScore::FULL_PREFIX: return "Full Prefix";
+  case NameScore::FULL_MATCH: return "Full Match";
   case NameScore::COUNT: return "Count";
   }
   return "Unknown";

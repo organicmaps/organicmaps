@@ -11,6 +11,8 @@ typedef NS_ENUM(NSInteger, MWMSearchManagerRoutingTooltipSearch) {
 
 @interface MWMSearchManager : NSObject
 
+extern const CGFloat kWidthForiPad;
+
 + (nonnull MWMSearchManager *)manager NS_SWIFT_NAME(manager());
 + (void)addObserver:(nonnull id<MWMSearchManagerObserver>)observer;
 + (void)removeObserver:(nonnull id<MWMSearchManagerObserver>)observer;

@@ -12,14 +12,15 @@
 #include <cstdint>
 #include <type_traits>
 
-/// This function writes, using optimal bytes count.
-/// Pass any integral type and it will write platform-independent.
+// Writes any unsigned integer type using optimal bytes count, platform-independent.
+// Value ranges are [0;127] - 1 byte, [128; 16383] - 2 bytes, [16384; 2097151] - 3 bytes, etc.
 template <typename T, typename TSink>
 void WriteVarUint(TSink & dst, T value)
 {
   static_assert(std::is_unsigned<T>::value, "");
   while (value > 127)
   {
+    // First/greatest bit == 1 indicates that another byte follows.
     WriteToSink(dst, static_cast<uint8_t>((value & 127) | 128));
     value >>= 7;
   }
@@ -141,7 +142,7 @@ uint64_t ReadVarUint(TSource & src, uint64_t const *)
   }
 }
 
-}
+}  // namespace impl
 
 template <typename T, typename TSource>
 T ReadVarUint(TSource & src)
@@ -256,27 +257,27 @@ void const * ReadVarInt64Array(void const * pBeg, WhileConditionT whileCondition
 template <typename F>
 void const * ReadVarInt64Array(void const * pBeg, void const * pEnd, F f)
 {
-  return impl::ReadVarInt64Array<int64_t (*)(uint64_t)>(
-        pBeg, impl::ReadVarInt64ArrayUntilBufferEnd(pEnd), f, &bits::ZigZagDecode);
+  return ::impl::ReadVarInt64Array<int64_t (*)(uint64_t)>(
+        pBeg, ::impl::ReadVarInt64ArrayUntilBufferEnd(pEnd), f, &bits::ZigZagDecode);
 }
 
 template <typename F>
 void const * ReadVarUint64Array(void const * pBeg, void const * pEnd, F f)
 {
-  return impl::ReadVarInt64Array(pBeg, impl::ReadVarInt64ArrayUntilBufferEnd(pEnd), f, base::IdFunctor());
+  return ::impl::ReadVarInt64Array(pBeg, ::impl::ReadVarInt64ArrayUntilBufferEnd(pEnd), f, base::IdFunctor());
 }
 
 template <typename F>
 void const * ReadVarInt64Array(void const * pBeg, size_t count, F f)
 {
-  return impl::ReadVarInt64Array<int64_t (*)(uint64_t)>(
-        pBeg, impl::ReadVarInt64ArrayGivenSize(count), f, &bits::ZigZagDecode);
+  return ::impl::ReadVarInt64Array<int64_t (*)(uint64_t)>(
+        pBeg, ::impl::ReadVarInt64ArrayGivenSize(count), f, &bits::ZigZagDecode);
 }
 
 template <typename F>
 void const * ReadVarUint64Array(void const * pBeg, size_t count, F f)
 {
-  return impl::ReadVarInt64Array(pBeg, impl::ReadVarInt64ArrayGivenSize(count), f, base::IdFunctor());
+  return ::impl::ReadVarInt64Array(pBeg, ::impl::ReadVarInt64ArrayGivenSize(count), f, base::IdFunctor());
 }
 
 template <class Cont, class Sink>

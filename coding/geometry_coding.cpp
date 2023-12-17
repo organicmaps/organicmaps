@@ -9,8 +9,6 @@
 #include <complex>
 #include <stack>
 
-using namespace std;
-
 namespace
 {
 inline m2::PointU ClampPoint(m2::PointD const & maxPoint, m2::PointD const & point)
@@ -42,7 +40,7 @@ bool TestDecoding(InPointsT const & points, m2::PointU const & basePoint,
 {
   size_t const count = points.size();
 
-  vector<m2::PointU> decoded;
+  std::vector<m2::PointU> decoded;
   decoded.resize(count);
 
   OutPointsT decodedA(decoded);
@@ -78,11 +76,12 @@ m2::PointU PredictPointInPolyline(m2::PointD const & maxPoint, m2::PointU const 
 {
   CHECK_NOT_EQUAL(p2, p3, ());
 
+  using std::complex;
   complex<double> const c1(p1.x, p1.y);
   complex<double> const c2(p2.x, p2.y);
   complex<double> const c3(p3.x, p3.y);
   complex<double> const d = (c1 - c2) / (c2 - c3);
-  complex<double> const c0 = c1 + (c1 - c2) * polar(0.5, 0.5 * arg(d));
+  complex<double> const c0 = c1 + (c1 - c2) * std::polar(0.5, 0.5 * arg(d));
 
   /*
   complex<double> const c1(p1.x, p1.y);
@@ -337,7 +336,7 @@ m2::PointU GetMaxPoint(GeometryCodingParams const & params)
 m2::PointU GetBasePoint(GeometryCodingParams const & params) { return params.GetBasePoint(); }
 }  // namespace pts
 
-void Encode(EncodeFunT fn, vector<m2::PointD> const & points, GeometryCodingParams const & params,
+void Encode(EncodeFunT fn, std::vector<m2::PointD> const & points, GeometryCodingParams const & params,
             DeltasT & deltas)
 {
   size_t const count = points.size();
@@ -345,8 +344,8 @@ void Encode(EncodeFunT fn, vector<m2::PointD> const & points, GeometryCodingPara
   pts::PointsU upoints;
   upoints.reserve(count);
 
-  transform(points.begin(), points.end(), back_inserter(upoints),
-            bind(&pts::D2U, placeholders::_1, params.GetCoordBits()));
+  transform(points.begin(), points.end(), std::back_inserter(upoints),
+            std::bind(&pts::D2U, std::placeholders::_1, params.GetCoordBits()));
 
   ASSERT(deltas.empty(), ());
   deltas.resize(count);
@@ -362,7 +361,7 @@ void Decode(DecodeFunT fn, DeltasT const & deltas, GeometryCodingParams const & 
 }
 
 void Decode(DecodeFunT fn, DeltasT const & deltas, GeometryCodingParams const & params,
-            vector<m2::PointD> & points, size_t reserveF)
+            std::vector<m2::PointD> & points, size_t reserveF)
 {
   DecodeImpl(fn, deltas, params, points, reserveF);
 }
@@ -385,7 +384,7 @@ TrianglesChainSaver::TrianglesChainSaver(GeometryCodingParams const & params)
   m_max = pts::GetMaxPoint(params);
 }
 
-void TrianglesChainSaver::operator()(TPoint arr[3], vector<TEdge> edges)
+void TrianglesChainSaver::operator()(TPoint arr[3], std::vector<TEdge> edges)
 {
   m_buffers.push_back(TBuffer());
   MemWriter<TBuffer> writer(m_buffers.back());
@@ -398,7 +397,7 @@ void TrianglesChainSaver::operator()(TPoint arr[3], vector<TEdge> edges)
 
   sort(edges.begin(), edges.end(), edge_less_p0());
 
-  stack<TEdge> st;
+  std::stack<TEdge> st;
   while (true)
   {
     CHECK_EQUAL(curr.m_delta >> 62, 0, ());
@@ -418,7 +417,7 @@ void TrianglesChainSaver::operator()(TPoint arr[3], vector<TEdge> edges)
       // first child
       delta |= (one << i->m_side);
 
-      vector<TEdge>::iterator j = i + 1;
+      std::vector<TEdge>::iterator j = i + 1;
       if (j != edges.end() && j->m_p[0] == nextNode)
       {
         // second child
@@ -463,7 +462,7 @@ void DecodeTriangles(coding::InDeltasT const & deltas, m2::PointU const & basePo
   points.push_back(coding::DecodePointDeltaFromUint(deltas[1], points.back()));
   points.push_back(coding::DecodePointDeltaFromUint(deltas[2] >> 2, points.back()));
 
-  stack<size_t> st;
+  std::stack<size_t> st;
 
   size_t ind = 2;
   uint8_t treeBits = deltas[2] & 3;

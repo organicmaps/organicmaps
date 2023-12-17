@@ -1,7 +1,8 @@
 #pragma once
 
+#include "map/viewport_search_params.hpp"
+
 #include "search/result.hpp"
-#include "search/search_params.hpp"
 
 #include "geometry/rect2d.hpp"
 
@@ -9,9 +10,8 @@
 
 namespace search
 {
-// An on-results-callback that should be used for interactive search.
-//
-// *NOTE* the class is NOT thread safe.
+/// @brief An on-results-callback that should be used for interactive search.
+/// @note NOT thread safe.
 class ViewportSearchCallback
 {
 public:
@@ -22,14 +22,12 @@ public:
 
     virtual void RunUITask(std::function<void()> fn) = 0;
     virtual bool IsViewportSearchActive() const = 0;
-    virtual void ShowViewportSearchResults(Results::ConstIter begin, Results::ConstIter end,
-                                           bool clear) = 0;
+    virtual void ShowViewportSearchResults(Results::ConstIter begin, Results::ConstIter end, bool clear) = 0;
   };
 
-  using OnResults = SearchParams::OnResults;
+  using OnResults = ViewportSearchParams::OnCompleted;
 
-  ViewportSearchCallback(m2::RectD const & viewport, Delegate & delegate,
-                         OnResults const & onResults);
+  ViewportSearchCallback(m2::RectD const & viewport, Delegate & delegate, OnResults onResults);
 
   void operator()(Results const & results);
 

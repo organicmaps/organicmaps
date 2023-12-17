@@ -63,7 +63,7 @@ std::unique_ptr<SingleVehicleWorldGraph> BuildCrossGraph()
   traffic::TrafficCache const trafficCache;
   std::shared_ptr<EdgeEstimator> estimator = CreateEstimatorForCar(trafficCache);
 
-  return BuildWorldGraph(move(loader), estimator, joints);
+  return BuildWorldGraph(std::move(loader), estimator, joints);
 }
 
 //

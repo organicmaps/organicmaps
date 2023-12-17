@@ -1,0 +1,10 @@
+Organic Maps ist eine GPS-Navigations-App mit Fokus auf Datenschutz für Autofahrer, Wanderer und Radfahrer. Die App bietet Navigation mit Datenschutz - keine Standortverfolgung, keine Datenerfassung und keine Werbung. Die Suche, Routenplanung und Navigation funktionieren ohne Mobilfunksignal und sind ideal für Reisen auf entlegenen Wanderwegen oder in Regionen mit schlechter Verbindung. Organic Maps verwendet die von der OpenStreetMap-Community bereitgestellten Daten mit Beitragenden aus der ganzen Welt. Das Projekt ist community-getrieben, der Code ist Open Source und legt Wert auf die Entwicklung und Zusammenarbeit in der Gemeinschaft.
+
+• Kein Mobilfunksignal erforderlich - Suche und Routenplanung ohne Signal
+• Effiziente Akkunutzung - Reduzierter Akkuverbrauch
+• Schnelle Suche - Finde Standorte schnell
+
+Bei Organic Maps wird Datenschutz großgeschrieben:
+• Keine Standortverfolgung
+• Keine Datenerfassung
+• Keine Werbung

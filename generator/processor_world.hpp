@@ -1,6 +1,5 @@
 #pragma once
 
-#include "generator/affiliation.hpp"
 #include "generator/feature_builder.hpp"
 #include "generator/feature_processing_layers.hpp"
 #include "generator/processor_interface.hpp"
@@ -30,7 +29,7 @@ public:
 
 private:
   std::string m_popularityFilename;
-  std::shared_ptr<AffiliationsFeatureLayer<>> m_affiliationsLayer;
+  std::shared_ptr<AffiliationsFeatureLayer> m_affiliationsLayer;
   std::shared_ptr<FeatureProcessorQueue> m_queue;
   std::shared_ptr<LayerBase> m_processingChain;
 };

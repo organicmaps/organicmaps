@@ -7,7 +7,6 @@
 
 #include "base/cancellable.hpp"
 
-#include <cstdint>
 #include <map>
 #include <vector>
 

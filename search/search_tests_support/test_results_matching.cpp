@@ -35,7 +35,7 @@ string ExactMatchingRule::ToString() const
 }
 
 AlternativesMatchingRule::AlternativesMatchingRule(vector<shared_ptr<MatchingRule>> && rules)
-  : m_rules(move(rules))
+  : m_rules(std::move(rules))
 {
 }
 
@@ -67,6 +67,7 @@ bool MatchResults(DataSource const & dataSource, vector<shared_ptr<MatchingRule>
                   vector<search::Result> const & actual)
 {
   vector<FeatureID> resultIds;
+  resultIds.reserve(actual.size());
   for (auto const & a : actual)
     resultIds.push_back(a.GetFeatureID());
   sort(resultIds.begin(), resultIds.end());
@@ -81,8 +82,7 @@ bool MatchResults(DataSource const & dataSource, vector<shared_ptr<MatchingRule>
         return;
       }
     }
-    unexpected.push_back(feature.DebugString(FeatureType::BEST_GEOMETRY) + " from " +
-                         DebugPrint(feature.GetID().m_mwmId));
+    unexpected.push_back(feature.DebugString());
   };
   dataSource.ReadFeatures(removeMatched, resultIds);
 

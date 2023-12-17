@@ -20,8 +20,7 @@ std::string DebugPrint(Locality const & locality)
 {
   std::ostringstream os;
   os << "Locality [ ";
-  os << "m_countryId=" << DebugPrint(locality.m_countryId) << ", ";
-  os << "m_featureId=" << locality.m_featureId << ", ";
+  os << "m_featureId=" << DebugPrint(locality.m_featureId) << ", ";
   os << "m_tokenRange=" << DebugPrint(locality.m_tokenRange) << ", ";
   os << " ]";
   return os.str();

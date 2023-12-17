@@ -1,12 +1,9 @@
 #include "build_style.h"
 #include "build_common.h"
-
-#include "build_skins.h"
 #include "build_drules.h"
+#include "build_skins.h"
 
 #include "platform/platform.hpp"
-
-#include "base/logging.hpp"
 
 #include <exception>
 #include <future>
@@ -55,7 +52,7 @@ void BuildAndApply(QString const & mapcssFile)
   bool const hasSymbols = QDir(styleDir + "symbols/").exists();
   if (hasSymbols)
   {
-    auto future = std::async(BuildSkins, styleDir, outputDir);
+    auto future = std::async(std::launch::async, BuildSkins, styleDir, outputDir);
     BuildDrawingRules(mapcssFile, outputDir);
     future.get(); // may rethrow exception from the BuildSkin
 

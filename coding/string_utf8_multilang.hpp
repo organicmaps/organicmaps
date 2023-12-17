@@ -56,7 +56,7 @@ void ReadString(TSource & src, std::string & s)
 //   10xx xxxx. In the UTF-8 encoding that would be a continuation byte, so
 //   if you start reading the string and such a byte appears out of nowhere in
 //   a place where a continuation byte is not expected you may be sure
-//   that the string for the current language has ended and you've reached the
+//   that the string for the current language has ended, and you've reached the
 //   string for the next language. Note that this breaks the self-synchronization property.
 //
 // * The order of the stored strings is not specified. Any language may come first.
@@ -66,11 +66,11 @@ public:
   struct Lang
   {
     /// OSM language code (e.g. for name:en it's "en" part).
-    std::string m_code;
+    std::string_view m_code;
     /// Native language name.
-    std::string m_name;
+    std::string_view m_name;
     /// Transliterators to latin ids.
-    std::vector<std::string> m_transliteratorsIds;
+    std::vector<std::string_view> m_transliteratorsIds;
   };
 
   static int8_t constexpr kUnsupportedLanguageCode = -1;
@@ -85,21 +85,27 @@ public:
   // 6 bits language code mask. The language code is encoded with 6 bits that are prepended with
   // "10".
   static int8_t constexpr kLangCodeMask = 0x3F;
-  static_assert(kMaxSupportedLanguages == kLangCodeMask + 1, "");
-  static char constexpr kReservedLang[] = "reserved";
+  static_assert(kMaxSupportedLanguages == kLangCodeMask + 1);
+  static std::string_view constexpr kReservedLang = "reserved";
 
   using Languages = buffer_vector<Lang, kMaxSupportedLanguages>;
 
   static Languages const & GetSupportedLanguages();
 
+  // These names require separate search/street processing.
+  static bool IsAltOrOldName(int8_t langCode)
+  {
+    return langCode == kAltNameCode || langCode == kOldNameCode;
+  }
+
   /// @returns kUnsupportedLanguageCode if language is not recognized.
-  static int8_t GetLangIndex(std::string_view const lang);
+  static int8_t GetLangIndex(std::string_view lang);
   /// @returns empty string if langCode is invalid.
-  static char const * GetLangByCode(int8_t langCode);
+  static std::string_view GetLangByCode(int8_t langCode);
   /// @returns empty string if langCode is invalid.
-  static char const * GetLangNameByCode(int8_t langCode);
-  /// @returns empty vector if langCode is invalid.
-  static std::vector<std::string> const & GetTransliteratorsIdsByCode(int8_t langCode);
+  static std::string_view GetLangNameByCode(int8_t langCode);
+  /// @returns nullptr if langCode is invalid.
+  static std::vector<std::string_view> const * GetTransliteratorsIdsByCode(int8_t langCode);
 
   inline bool operator==(StringUtf8Multilang const & rhs) const { return m_s == rhs.m_s; }
   inline bool operator!=(StringUtf8Multilang const & rhs) const { return !(*this == rhs); }

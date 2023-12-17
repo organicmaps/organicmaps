@@ -1,17 +1,13 @@
 #include "indexer/brands_holder.hpp"
 
-#include "indexer/search_string_utils.hpp"
-
 #include "platform/platform.hpp"
 
 #include "coding/reader.hpp"
 #include "coding/reader_streambuf.hpp"
-#include "coding/string_utf8_multilang.hpp"
 
-#include "base/logging.hpp"
+#include "base/string_utils.hpp"
 
 #include <sstream>
-#include <utility>
 
 #include "defines.hpp"
 
@@ -43,17 +39,6 @@ BrandsHolder::BrandsHolder(std::unique_ptr<Reader> && reader)
   ReaderStreamBuf buffer(std::move(reader));
   std::istream s(&buffer);
   LoadFromStream(s);
-}
-
-void BrandsHolder::ForEachNameByKey(std::string const & key,
-                                    std::function<void(Brand::Name const &)> const & toDo) const
-{
-  auto const it = m_keyToName.find(key);
-  if (it == m_keyToName.end())
-    return;
-
-  for (auto const & name : it->second->m_synonyms)
-    toDo(name);
 }
 
 void BrandsHolder::ForEachNameByKeyAndLang(std::string const & key, std::string const & lang,

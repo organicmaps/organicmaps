@@ -204,7 +204,7 @@ void FillSubroutesInfo(Route & route, vector<turns::TurnItem> const & turns /* =
   vector<RouteSegment> segmentInfo;
   RouteSegmentsFrom(kTestSegments, kTestRoute, turns, {}, segmentInfo);
   FillSegmentInfo(kTestTimes, segmentInfo);
-  route.SetRouteSegments(move(segmentInfo));
+  route.SetRouteSegments(std::move(segmentInfo));
   route.SetSubroteAttrs(vector<Route::SubrouteAttrs>(
       {Route::SubrouteAttrs(junctions.front(), junctions.back(), 0, kTestSegments.size())}));
 }
@@ -250,7 +250,7 @@ UNIT_CLASS_TEST(AsyncGuiThreadTestWithRoutingSession, TestRouteBuilding)
 
     unique_ptr<DummyRouter> router =
         make_unique<DummyRouter>(masterRoute, RouterResultCode::NoError, counter);
-    m_session->SetRouter(move(router), nullptr);
+    m_session->SetRouter(std::move(router), nullptr);
     m_session->SetRoutingCallbacks(
         [&timedSignal](Route const &, RouterResultCode) {
           LOG(LINFO, ("Ready"));
@@ -282,7 +282,7 @@ UNIT_CLASS_TEST(AsyncGuiThreadTestWithRoutingSession, TestRouteRebuildingMovingA
 
     unique_ptr<DummyRouter> router =
         make_unique<DummyRouter>(masterRoute, RouterResultCode::NoError, counter);
-    m_session->SetRouter(move(router), nullptr);
+    m_session->SetRouter(std::move(router), nullptr);
 
     // Go along the route.
     m_session->SetRoutingCallbacks(
@@ -364,7 +364,7 @@ UNIT_CLASS_TEST(AsyncGuiThreadTestWithRoutingSession, TestRouteRebuildingMovingT
 
     unique_ptr<DummyRouter> router =
         make_unique<DummyRouter>(masterRoute, RouterResultCode::NoError, counter);
-    m_session->SetRouter(move(router), nullptr);
+    m_session->SetRouter(std::move(router), nullptr);
 
     m_session->SetRoutingCallbacks(
         [&alongTimedSignal](Route const &, RouterResultCode) { alongTimedSignal.Signal(); },
@@ -414,7 +414,7 @@ UNIT_CLASS_TEST(AsyncGuiThreadTestWithRoutingSession, TestFollowRouteFlagPersist
     FillSubroutesInfo(masterRoute, kTestTurns);
     unique_ptr<DummyRouter> router =
         make_unique<DummyRouter>(masterRoute, RouterResultCode::NoError, counter);
-    m_session->SetRouter(move(router), nullptr);
+    m_session->SetRouter(std::move(router), nullptr);
 
     // Go along the route.
     m_session->SetRoutingCallbacks(
@@ -504,7 +504,7 @@ UNIT_CLASS_TEST(AsyncGuiThreadTestWithRoutingSession, TestFollowRoutePercentTest
     size_t counter = 0;
     unique_ptr<DummyRouter> router =
         make_unique<DummyRouter>(masterRoute, RouterResultCode::NoError, counter);
-    m_session->SetRouter(move(router), nullptr);
+    m_session->SetRouter(std::move(router), nullptr);
 
     // Get completion percent of unexisted route.
     TEST_EQUAL(m_session->GetCompletionPercent(), 0, (m_session->GetCompletionPercent()));
@@ -566,7 +566,7 @@ UNIT_CLASS_TEST(AsyncGuiThreadTestWithRoutingSession, TestRouteRebuildingError)
     InitRoutingSession();
     unique_ptr<ReturnCodesRouter> router = make_unique<ReturnCodesRouter>(initializer_list<
         RouterResultCode>{RouterResultCode::NoError, RouterResultCode::InternalError}, kRoute);
-    m_session->SetRouter(move(router), nullptr);
+    m_session->SetRouter(std::move(router), nullptr);
     createTimedSignal.Signal();
   });
   TEST(createTimedSignal.WaitUntil(steady_clock::now() + kRouteBuildingMaxDuration),

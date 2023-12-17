@@ -3,7 +3,6 @@
 #include "drape_frontend/arrow3d.hpp"
 #include "drape_frontend/frame_values.hpp"
 #include "drape_frontend/render_node.hpp"
-#include "drape_frontend/render_state_extension.hpp"
 
 #include "shaders/program_manager.hpp"
 
@@ -13,8 +12,10 @@
 
 #include "geometry/screenbase.hpp"
 
-#include <vector>
+#include <optional>
+#include <string>
 #include <utility>
+#include <vector>
 
 namespace df
 {
@@ -23,7 +24,8 @@ class MyPosition
 public:
   MyPosition(ref_ptr<dp::GraphicsContext> context, ref_ptr<dp::TextureManager> mng);
 
-  void InitArrow(ref_ptr<dp::GraphicsContext> context, ref_ptr<dp::TextureManager> mng);
+  bool InitArrow(ref_ptr<dp::GraphicsContext> context, ref_ptr<dp::TextureManager> mng,
+                 Arrow3d::PreloadedData && preloadedData);
 
   // pt - mercator point.
   void SetPosition(m2::PointF const & pt);
@@ -63,7 +65,6 @@ private:
   float m_accuracy;
   bool m_showAzimuth;
   bool m_isRoutingMode;
-  bool m_obsoletePosition;
 
   using TPart = std::pair<dp::IndicesRange, size_t>;
 

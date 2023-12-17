@@ -13,8 +13,6 @@
 
 namespace feature
 {
-using namespace std;
-
 namespace
 {
 template <class Sink, class Cont>
@@ -22,7 +20,7 @@ void SaveBytes(Sink & sink, Cont const & cont)
 {
   static_assert(sizeof(typename Cont::value_type) == 1);
 
-  uint32_t const count = static_cast<uint32_t>(cont.size());
+  auto const count = static_cast<uint32_t>(cont.size());
   WriteVarUint(sink, count);
   if (count > 0)
     sink.Write(&cont[0], count);
@@ -34,7 +32,7 @@ void LoadBytes(Source & src, Cont & cont)
   static_assert(sizeof(typename Cont::value_type) == 1);
   ASSERT(cont.empty(), ());
 
-  uint32_t const count = ReadVarUint<uint32_t>(src);
+  auto const count = ReadVarUint<uint32_t>(src);
   if (count > 0)
   {
     cont.resize(count);
@@ -43,7 +41,7 @@ void LoadBytes(Source & src, Cont & cont)
 }
 }  // namespace
 
-  DataHeader::DataHeader(string const & fileName)
+  DataHeader::DataHeader(std::string const & fileName)
     : DataHeader((FilesContainerR(GetPlatform().GetReader(fileName))))
   {
   }
@@ -55,9 +53,8 @@ void LoadBytes(Source & src, Cont & cont)
 
   serial::GeometryCodingParams DataHeader::GetGeometryCodingParams(int scaleIndex) const
   {
-    return serial::GeometryCodingParams(
-        m_codingParams.GetCoordBits() - (m_scales.back() - m_scales[scaleIndex]) / 2,
-        m_codingParams.GetBasePointUint64());
+    return { static_cast<uint8_t>(m_codingParams.GetCoordBits() - (m_scales.back() - m_scales[scaleIndex]) / 2),
+             m_codingParams.GetBasePointUint64()};
   }
 
   m2::RectD DataHeader::GetBounds() const
@@ -70,7 +67,7 @@ void LoadBytes(Source & src, Cont & cont)
     m_bounds = RectToInt64Obsolete(r, m_codingParams.GetCoordBits());
   }
 
-  pair<int, int> DataHeader::GetScaleRange() const
+  std::pair<int, int> DataHeader::GetScaleRange() const
   {
     using namespace scales;
 
@@ -81,14 +78,14 @@ void LoadBytes(Source & src, Cont & cont)
 
     switch (type)
     {
-    case MapType::World: return make_pair(low, worldH);
-    case MapType::WorldCoasts: return make_pair(low, high);
+    case MapType::World: return {low, worldH};
+    case MapType::WorldCoasts: return {low, high};
     default:
       ASSERT_EQUAL(type, MapType::Country, ());
-      return make_pair(worldH + 1, high);
+      return {worldH + 1, high};
 
       // Uncomment this to test countries drawing in all scales.
-      //return make_pair(1, high);
+      //return {1, high};
     }
   }
 
@@ -127,7 +124,7 @@ void LoadBytes(Source & src, Cont & cont)
       MYTHROW(CorruptedMwmFile, (r.GetName()));
   }
 
-  string DebugPrint(DataHeader::MapType type)
+  std::string DebugPrint(DataHeader::MapType type)
   {
     switch (type)
     {

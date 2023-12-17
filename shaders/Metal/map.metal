@@ -384,7 +384,7 @@ fragment CapJoinFragment_Output fsCapJoin(const CapJoinFragment_T in [[stage_in]
   if (out.color.a < 0.001)
     out.depth = 1.0;
   else
-    out.depth = in.position.z * in.position.w;
+    out.depth = in.position.z;
   
   return out;
 }
@@ -638,7 +638,7 @@ fragment ColoredSymbolOut_T fsColoredSymbol(const ColoredSymbolFragment_T in [[s
   if (finalColor.a == 0.0)
     out.depth = 1.0;
   else
-    out.depth = in.position.z * in.position.w;
+    out.depth = in.position.z;
   
   out.color = finalColor;
   return out;
@@ -831,7 +831,7 @@ fragment UserMarkOut_T fsUserMark(const UserMarkFragment_T in [[stage_in]],
   if (finalColor.a < 0.001)
     out.depth = 1.0;
   else
-    out.depth = in.position.z * in.position.w;
+    out.depth = in.position.z;
   out.color = finalColor;
   return out;
 }

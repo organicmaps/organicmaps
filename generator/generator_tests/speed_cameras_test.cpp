@@ -1,65 +1,39 @@
 #include "testing/testing.hpp"
 
 #include "generator/camera_info_collector.hpp"
-#include "generator/feature_sorter.hpp"
-#include "generator/generate_info.hpp"
-#include "generator/generator_tests/common.hpp"
-#include "generator/generator_tests_support/routing_helpers.hpp"
-#include "generator/generator_tests_support/test_mwm_builder.hpp"
-#include "generator/intermediate_data.hpp"
 #include "generator/maxspeeds_parser.hpp"
-#include "generator/metalines_builder.hpp"
-#include "generator/osm_source.hpp"
-#include "generator/processor_factory.hpp"
-#include "generator/raw_generator.hpp"
-#include "generator/translator_collection.hpp"
-#include "generator/translator_factory.hpp"
+
+#include "generator/generator_tests_support/routing_helpers.hpp"
+#include "generator/generator_tests_support/test_generator.hpp"
 
 #include "routing/speed_camera_ser_des.hpp"
 
 #include "routing_common/maxspeed_conversion.hpp"
 
-#include "indexer/classificator_loader.hpp"
-#include "indexer/features_offsets_table.hpp"
-#include "indexer/index_builder.hpp"
-#include "indexer/map_style_reader.hpp"
-
-#include "platform/local_country_file.hpp"
 #include "platform/measurement_utils.hpp"
 #include "platform/platform.hpp"
-#include "platform/platform_tests_support/scoped_dir.hpp"
 #include "platform/platform_tests_support/scoped_file.hpp"
-
-#include "coding/internal/file_data.hpp"
 
 #include "geometry/point2d.hpp"
 
 #include "base/file_name_utils.hpp"
-#include "base/logging.hpp"
-#include "base/macros.hpp"
 #include "base/math.hpp"
-#include "base/scope_guard.hpp"
 
 #include "defines.hpp"
 
 #include <algorithm>
 #include <cmath>
-#include <cstdint>
 #include <map>
-#include <set>
 #include <string>
 #include <utility>
 #include <vector>
 
 namespace speed_cameras_test
 {
-using namespace feature;
 using namespace generator;
 using namespace measurement_utils;
-using namespace platform::tests_support;
-using namespace platform;
 using namespace routing;
-using namespace std;
+using std::string;
 
 // Directory name for creating test mwm and temporary files.
 string const kTestDir = "speed_camera_generation_test";
@@ -67,17 +41,14 @@ string const kTestDir = "speed_camera_generation_test";
 // Temporary mwm name for testing.
 string const kTestMwm = "test";
 
-string const kSpeedCameraDataFileName = "speedcamera_in_osm_ids.bin";
-string const kOsmIdsToFeatureIdsName = "osm_ids_to_feature_ids" OSM2FEATURE_FILE_EXTENSION;
-string const kIntermediateFileName = "intermediate_data";
 string const kOsmFileName = "town" OSM_DATA_FILE_EXTENSION;
 
 double constexpr kCoefEqualityEpsilon = 1e-5;
 
 // Pair of featureId and segmentId.
 using routing::SegmentCoord;
-using CameraMap = map<SegmentCoord, vector<RouteSegment::SpeedCamera>>;
-using CameraMapItem = pair<SegmentCoord, RouteSegment::SpeedCamera>;
+using CameraMap = SpeedCamerasMapT;
+using CameraMapItem = std::pair<SegmentCoord, RouteSegment::SpeedCamera>;
 
 CameraMap LoadSpeedCameraFromMwm(string const & mwmFullPath)
 {
@@ -100,122 +71,60 @@ CameraMap LoadSpeedCameraFromMwm(string const & mwmFullPath)
   }
 }
 
-vector<CameraMapItem> UnpackMapToVector(CameraMap const & cameraMap)
+std::vector<CameraMapItem> UnpackMapToVector(CameraMap const & cameraMap)
 {
-  vector<CameraMapItem> result;
+  std::vector<CameraMapItem> result;
   for (auto const & mapIter : cameraMap)
   {
     for (auto const & vectorIter : mapIter.second)
-    {
-      result.push_back({{mapIter.first.m_featureId, mapIter.first.m_segmentId},
-                       {vectorIter.m_coef, vectorIter.m_maxSpeedKmPH}});
-    }
+      result.push_back({mapIter.first, vectorIter});
   }
 
   sort(result.begin(), result.end());
-
   return result;
 }
 
-bool CheckCameraMapsEquality(CameraMap const & lhs, CameraMap const & rhs, double epsilon)
+void CheckCameraMapsEquality(CameraMap const & lhs, CameraMap const & rhs, double epsilon)
 {
-  if (lhs.size() != rhs.size())
-    return false;
+  TEST_EQUAL(lhs.size(), rhs.size(), ());
 
   auto const & vectorL = UnpackMapToVector(lhs);
   auto const & vectorR = UnpackMapToVector(rhs);
 
   for (size_t i = 0; i < vectorL.size(); ++i)
   {
-    // Don not check feature id because of fake nodes. Data about them placed in ./data/
-    // It can differ on jenknins and local computer.
-    if (!(vectorL[i].first.m_segmentId == vectorR[i].first.m_segmentId &&
-          vectorL[i].second.m_maxSpeedKmPH == vectorR[i].second.m_maxSpeedKmPH &&
-          base::AlmostEqualAbs(vectorL[i].second.m_coef, vectorR[i].second.m_coef, epsilon)))
-    {
-      LOG(LINFO, ("These should be equals:",
-                  "sId:", vectorL[i].first.m_segmentId, vectorR[i].first.m_segmentId,
-                  "speed:", vectorL[i].second.m_maxSpeedKmPH, vectorR[i].second.m_maxSpeedKmPH,
-                  "coef:", vectorL[i].second.m_coef, vectorR[i].second.m_coef));
-      return false;
-    }
+    // Do not check feature id because of fake nodes. Data about them placed in ./data/
+    // It can differ on Jenknins and local computer.
+    TEST_EQUAL(vectorL[i].first.GetPointId(), vectorR[i].first.GetPointId(), ());
+    TEST_EQUAL(vectorL[i].second.m_maxSpeedKmPH, vectorR[i].second.m_maxSpeedKmPH, ());
+    TEST(base::AlmostEqualAbs(vectorL[i].second.m_coef, vectorR[i].second.m_coef, epsilon), ());
   }
-
-  return true;
 }
 
 void TestSpeedCameraSectionBuilding(string const & osmContent, CameraMap const & answer,
                                     double epsilon)
 {
-  GetStyleReader().SetCurrentStyle(MapStyleMerged);
-  classificator::Load();
+  // ScopedFile takes relative path only?! and makes WritableDir() + kOsmFileName.
+  // Replace WritebleDir here with temporary path.
   Platform & platform = GetPlatform();
-
   auto const tmpDir = platform.TmpDir();
   platform.SetWritableDirForTests(tmpDir);
 
-  // Create test dir.
-  string const testDirFullPath = base::JoinPath(tmpDir, kTestDir);
-  if (!Platform::MkDirChecked(testDirFullPath))
-  {
-    TEST(false, ("Can't create tmp dir", testDirFullPath));
-    return;
-  }
-  SCOPE_GUARD(cleanupDirGuard, [&testDirFullPath]()
-  {
-    UNUSED_VALUE(Platform::RmDirRecursively(testDirFullPath));
-  });
+  platform::tests_support::ScopedFile const osmScopedFile(kOsmFileName, osmContent);
 
-  string const osmRelativePath = base::JoinPath(kTestDir, kOsmFileName);
-  ScopedFile const osmScopedFile(osmRelativePath, osmContent);
+  generator::tests_support::TestRawGenerator generator;
+  generator.SetupTmpFolder(base::JoinPath(tmpDir, kTestDir));
+  generator.BuildFB(osmScopedFile.GetFullPath(), kTestMwm);
+  generator.BuildFeatures(kTestMwm);
 
-  // Step 1. Generate intermediate data.
-  GenerateInfo genInfo;
-  genInfo.m_fileName = kTestMwm;
-  genInfo.m_bucketNames.push_back(kTestMwm);
-  genInfo.m_cacheDir = testDirFullPath;
-  genInfo.m_tmpDir = testDirFullPath;
-  genInfo.m_targetDir = testDirFullPath;
-  genInfo.m_intermediateDir = testDirFullPath;
-  genInfo.m_nodeStorageType = feature::GenerateInfo::NodeStorageType::Index;
-  genInfo.m_osmFileName = base::JoinPath(tmpDir, osmRelativePath);
-  genInfo.m_osmFileType = feature::GenerateInfo::OsmSourceType::XML;
-  genInfo.m_emitCoasts = false;
-
-  TEST(GenerateIntermediateData(genInfo), ("Cannot generate intermediate data for speed cam"));
-
-  // Building empty mwm.
-  LocalCountryFile country(testDirFullPath, CountryFile(kTestMwm), 0 /* version */);
-  string const mwmRelativePath = base::JoinPath(kTestDir, kTestMwm + DATA_FILE_EXTENSION);
-  ScopedFile const scopedMwm(mwmRelativePath, ScopedFile::Mode::Create);
-
-  // Step 2. Generate binary file about cameras.
-  {
-    CHECK(generator_tests::MakeFakeBordersFile(testDirFullPath, kTestMwm), ());
-    RawGenerator rawGenerator(genInfo);
-    rawGenerator.ForceReloadCache();
-    rawGenerator.GenerateCountries();
-    TEST(rawGenerator.Execute(), ("Cannot generate features for speed camera"));
-  }
-
-  TEST(GenerateFinalFeatures(genInfo, country.GetCountryName(),
-                             feature::DataHeader::MapType::Country),
-       ("Cannot generate final feature"));
-
-  string const & mwmFullPath = scopedMwm.GetFullPath();
-
-  // Collecting additional info for building section.
-  TEST(BuildOffsetsTable(mwmFullPath), ("Cannot create offsets table"));
-
-  TEST(indexer::BuildIndexFromDataFile(mwmFullPath, testDirFullPath + country.GetCountryName()), ());
+  auto const & genInfo = generator.GetGenInfo();
 
   // Step 3. Build section into mwm.
-  string const camerasFilename =
-    genInfo.GetIntermediateFileName(CAMERAS_TO_WAYS_FILENAME);
+  string const camerasFilename = genInfo.GetIntermediateFileName(CAMERAS_TO_WAYS_FILENAME);
 
   if (!answer.empty())
   {
-    // Check that intermediate file is non empty.
+    // Check that intermediate file is non-empty.
     TEST_NOT_EQUAL(base::FileData(camerasFilename, base::FileData::OP_READ).Size(), 0,
                    ("SpeedCam intermediate file is empty"));
   }
@@ -226,14 +135,13 @@ void TestSpeedCameraSectionBuilding(string const & osmContent, CameraMap const &
                ("SpeedCam intermediate file is non empty"));
   }
 
-  string const osmToFeatureFilename =
-    genInfo.GetTargetFileName(kTestMwm) + OSM2FEATURE_FILE_EXTENSION;
+  string const osmToFeatureFilename = genInfo.GetTargetFileName(kTestMwm) + OSM2FEATURE_FILE_EXTENSION;
 
+  auto const mwmFullPath = generator.GetMwmPath(kTestMwm);
   BuildCamerasInfo(mwmFullPath, camerasFilename, osmToFeatureFilename);
 
   CameraMap const cameras = LoadSpeedCameraFromMwm(mwmFullPath);
-  TEST(CheckCameraMapsEquality(answer, cameras, epsilon),
-       ("Test answer and parsed cameras are differ!"));
+  CheckCameraMapsEquality(answer, cameras, epsilon);
 }
 
 // Next unit tests check building of speed camera section in mwm.

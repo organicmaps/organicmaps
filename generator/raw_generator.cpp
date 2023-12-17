@@ -1,7 +1,8 @@
 #include "generator/raw_generator.hpp"
 
-#include "generator/complex_loader.hpp"
+//#include "generator/complex_loader.hpp"
 #include "generator/features_processing_helpers.hpp"
+#include "generator/final_processor_cities.hpp"
 #include "generator/final_processor_coastline.hpp"
 #include "generator/final_processor_country.hpp"
 #include "generator/final_processor_world.hpp"
@@ -11,7 +12,6 @@
 #include "generator/translator_factory.hpp"
 #include "generator/translators_pool.hpp"
 
-#include "base/thread_pool_computational.hpp"
 #include "base/timer.hpp"
 
 #include "defines.hpp"
@@ -95,29 +95,41 @@ void RawGenerator::ForceReloadCache()
   m_cache = std::make_shared<cache::IntermediateData>(m_intermediateDataObjectsCache, m_genInfo);
 }
 
-std::shared_ptr<FeatureProcessorQueue> RawGenerator::GetQueue() { return m_queue; }
-
-void RawGenerator::GenerateCountries()
+void RawGenerator::GenerateCountries(bool isTests/* = false*/)
 {
-  if (!m_genInfo.m_complexHierarchyFilename.empty())
-    m_hierarchyNodesSet = GetOrCreateComplexLoader(m_genInfo.m_complexHierarchyFilename).GetIdsSet();
+//  if (!m_genInfo.m_complexHierarchyFilename.empty())
+//    m_hierarchyNodesSet = GetOrCreateComplexLoader(m_genInfo.m_complexHierarchyFilename).GetIdsSet();
+//  auto const complexFeaturesMixer = std::make_shared<ComplexFeaturesMixer>(m_hierarchyNodesSet);
 
-  auto const complexFeaturesMixer = std::make_shared<ComplexFeaturesMixer>(m_hierarchyNodesSet);
+  AffiliationInterfacePtr affiliation;
+  if (isTests)
+  {
+    affiliation = std::make_shared<feature::SingleAffiliation>(m_genInfo.m_fileName);
+  }
+  else
+  {
+    affiliation = std::make_shared<feature::CountriesFilesIndexAffiliation>(
+        m_genInfo.m_targetDir, m_genInfo.m_haveBordersForWholeWorld);
+  }
 
-  auto processor = CreateProcessor(ProcessorType::Country, m_queue, m_genInfo.m_targetDir,
-                                   m_genInfo.m_haveBordersForWholeWorld, complexFeaturesMixer);
-  m_translators->Append(
-      CreateTranslator(TranslatorType::Country, processor, m_cache, m_genInfo));
-  m_finalProcessors.emplace(CreateCountryFinalProcessor());
+  auto processor = CreateProcessor(ProcessorType::Country, affiliation, m_queue);
+
+  /// @todo Better design is to have one Translator that creates FeatureBuilder from OsmElement
+  /// and dispatches FB into Coastline, World, Country, City processors.
+  /// Now we have at least 2x similar work in OsmElement->GetNameAndType->FeatureBuilder (for Country and World).
+
+  m_translators->Append(CreateTranslator(TranslatorType::Country, processor, m_cache, m_genInfo,
+                                         isTests ? nullptr : affiliation));
+
+  m_finalProcessors.emplace(CreateCountryFinalProcessor(affiliation, false));
+  m_finalProcessors.emplace(CreatePlacesFinalProcessor(affiliation));
 }
 
-void RawGenerator::GenerateWorld()
+void RawGenerator::GenerateWorld(bool cutBordersByWater/* = true */)
 {
-  auto processor =
-      CreateProcessor(ProcessorType::World, m_queue, m_genInfo.m_popularPlacesFilename);
-  m_translators->Append(
-      CreateTranslator(TranslatorType::World, processor, m_cache, m_genInfo));
-  m_finalProcessors.emplace(CreateWorldFinalProcessor());
+  auto processor = CreateProcessor(ProcessorType::World, m_queue, m_genInfo.m_popularPlacesFilename);
+  m_translators->Append(CreateTranslator(TranslatorType::World, processor, m_cache, m_genInfo));
+  m_finalProcessors.emplace(CreateWorldFinalProcessor(cutBordersByWater));
 }
 
 void RawGenerator::GenerateCoasts()
@@ -152,41 +164,32 @@ bool RawGenerator::Execute()
 
   while (!m_finalProcessors.empty())
   {
-    base::thread_pool::computational::ThreadPool threadPool(m_threadsCount);
-    while (true)
-    {
-      auto const finalProcessor = m_finalProcessors.top();
-      m_finalProcessors.pop();
-      threadPool.SubmitWork([finalProcessor{finalProcessor}]() { finalProcessor->Process(); });
-      if (m_finalProcessors.empty() || *finalProcessor != *m_finalProcessors.top())
-        break;
-    }
+    auto const finalProcessor = m_finalProcessors.top();
+    m_finalProcessors.pop();
+    finalProcessor->Process();
   }
 
   LOG(LINFO, ("Final processing is finished."));
   return true;
 }
 
-std::vector<std::string> const & RawGenerator::GetNames() const { return m_names; }
-
 RawGenerator::FinalProcessorPtr RawGenerator::CreateCoslineFinalProcessor()
 {
-  auto finalProcessor = make_shared<CoastlineFinalProcessor>(
-      m_genInfo.GetTmpFileName(WORLD_COASTS_FILE_NAME, DATA_FILE_EXTENSION_TMP));
+  auto finalProcessor = std::make_shared<CoastlineFinalProcessor>(
+      m_genInfo.GetTmpFileName(WORLD_COASTS_FILE_NAME, DATA_FILE_EXTENSION_TMP), m_threadsCount);
   finalProcessor->SetCoastlinesFilenames(
       m_genInfo.GetIntermediateFileName(WORLD_COASTS_FILE_NAME, ".geom"),
       m_genInfo.GetIntermediateFileName(WORLD_COASTS_FILE_NAME, RAW_GEOM_FILE_EXTENSION));
   return finalProcessor;
 }
 
-RawGenerator::FinalProcessorPtr RawGenerator::CreateCountryFinalProcessor(bool addAds)
+RawGenerator::FinalProcessorPtr RawGenerator::CreateCountryFinalProcessor(
+    AffiliationInterfacePtr const & affiliations, bool addAds)
 {
-  auto finalProcessor = make_shared<CountryFinalProcessor>(
-      m_genInfo.m_targetDir, m_genInfo.m_tmpDir, m_genInfo.m_intermediateDir,
-      m_genInfo.m_haveBordersForWholeWorld, m_threadsCount);
+  auto finalProcessor = std::make_shared<CountryFinalProcessor>(affiliations, m_genInfo.m_tmpDir, m_threadsCount);
   finalProcessor->SetIsolinesDir(m_genInfo.m_isolinesDir);
-  finalProcessor->SetCitiesAreas(m_genInfo.GetIntermediateFileName(CITIES_AREAS_TMP_FILENAME));
   finalProcessor->SetMiniRoundabouts(m_genInfo.GetIntermediateFileName(MINI_ROUNDABOUTS_FILENAME));
+  finalProcessor->SetAddrInterpolation(m_genInfo.GetIntermediateFileName(ADDR_INTERPOL_FILENAME));
   if (addAds)
     finalProcessor->SetFakeNodes(base::JoinPath(GetPlatform().ResourcesDir(), MIXED_NODES_FILE));
 
@@ -197,20 +200,29 @@ RawGenerator::FinalProcessorPtr RawGenerator::CreateCountryFinalProcessor(bool a
         m_genInfo.GetTmpFileName(WORLD_COASTS_FILE_NAME));
   }
 
-  finalProcessor->DumpCitiesBoundaries(m_genInfo.m_citiesBoundariesFilename);
-  finalProcessor->DumpRoutingCitiesBoundaries(
-      m_genInfo.GetIntermediateFileName(ROUTING_CITY_BOUNDARIES_TMP_FILENAME),
-      m_genInfo.GetIntermediateFileName(ROUTING_CITY_BOUNDARIES_DUMP_FILENAME));
+  finalProcessor->SetCityBoundariesFiles(m_genInfo.GetIntermediateFileName(CITY_BOUNDARIES_COLLECTOR_FILENAME));
   return finalProcessor;
 }
 
-RawGenerator::FinalProcessorPtr RawGenerator::CreateWorldFinalProcessor()
+RawGenerator::FinalProcessorPtr RawGenerator::CreateWorldFinalProcessor(bool cutBordersByWater)
 {
-  auto finalProcessor = make_shared<WorldFinalProcessor>(
-      m_genInfo.m_tmpDir,
-      m_genInfo.GetIntermediateFileName(WORLD_COASTS_FILE_NAME, RAW_GEOM_FILE_EXTENSION));
+  std::string coastlineGeom;
+  if (cutBordersByWater)
+  {
+    // This file should exist or read exception will be thrown otherwise.
+    coastlineGeom  = m_genInfo.GetIntermediateFileName(WORLD_COASTS_FILE_NAME, RAW_GEOM_FILE_EXTENSION);
+  }
+  auto finalProcessor = std::make_shared<WorldFinalProcessor>(m_genInfo.m_tmpDir, coastlineGeom);
+
   finalProcessor->SetPopularPlaces(m_genInfo.m_popularPlacesFilename);
-  finalProcessor->SetCitiesAreas(m_genInfo.GetIntermediateFileName(CITIES_AREAS_TMP_FILENAME));
+  return finalProcessor;
+}
+
+RawGenerator::FinalProcessorPtr RawGenerator::CreatePlacesFinalProcessor(AffiliationInterfacePtr const & affiliations)
+{
+  auto finalProcessor = std::make_shared<FinalProcessorCities>(affiliations, m_genInfo.m_tmpDir, m_threadsCount);
+  finalProcessor->SetCityBoundariesFiles(m_genInfo.GetIntermediateFileName(CITY_BOUNDARIES_COLLECTOR_FILENAME),
+                                         m_genInfo.m_citiesBoundariesFilename);
   return finalProcessor;
 }
 
@@ -237,24 +249,22 @@ bool RawGenerator::GenerateFilteredFeatures()
 
   Stats stats(100 * m_threadsCount /* logCallCountThreshold */);
 
-  size_t element_pos = 0;
-  std::vector<OsmElement> elements(m_chunkSize);
-  while (sourceProcessor->TryRead(elements[element_pos]))
+  bool isEnd = false;
+  do
   {
-    if (++element_pos != m_chunkSize)
-      continue;
+    std::vector<OsmElement> elements(m_chunkSize);
+    size_t idx = 0;
+    while (idx < m_chunkSize && sourceProcessor->TryRead(elements[idx]))
+      ++idx;
 
-    stats.Log(elements, reader.Pos());
-    translators.Emit(elements);
-    
-    for (auto & e : elements)
-      e.Clear();
+    isEnd = idx < m_chunkSize;
+    stats.Log(elements, reader.Pos(), isEnd/* forcePrint */);
 
-    element_pos = 0;
-  }
-  elements.resize(element_pos);
-  stats.Log(elements, reader.Pos(), true /* forcePrint */);
-  translators.Emit(std::move(elements));
+    if (isEnd)
+      elements.resize(idx);
+    translators.Emit(std::move(elements));
+
+  } while (!isEnd);
 
   LOG(LINFO, ("Input was processed."));
   if (!translators.Finish())
@@ -262,7 +272,12 @@ bool RawGenerator::GenerateFilteredFeatures()
 
   rawGeneratorWriter.ShutdownAndJoin();
   m_names = rawGeneratorWriter.GetNames();
-  LOG(LINFO, ("Names:", m_names));
+  /// @todo: compare to the input list of countries loaded in borders::LoadCountriesList().
+  if (m_names.empty())
+    LOG(LWARNING, ("No feature data " DATA_FILE_EXTENSION_TMP " files were generated for any country!"));
+  else
+    LOG(LINFO, ("Feature data " DATA_FILE_EXTENSION_TMP " files were written for following countries:", m_names));
+
   return true;
 }
 }  // namespace generator

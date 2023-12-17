@@ -59,7 +59,7 @@ bool RoundCorner(m2::PointD const & p1, m2::PointD const & p2, m2::PointD const 
   }
 }
 
-void ReplaceLastCorner(std::vector<m2::PointD> const & roundedCorner, m2::Spline & spline)
+void ReplaceLastCorner(std::vector<m2::PointD> const & roundedCorner, m2::SplineEx & spline)
 {
   if (roundedCorner.empty())
     return;
@@ -77,7 +77,7 @@ bool IsValidSplineTurn(m2::PointD const & normalizedDir1,
   return dotProduct > kCosTurn || fabs(dotProduct - kCosTurn) < kEps;
 }
 
-void AddPointAndRound(m2::Spline & spline, m2::PointD const & pt)
+void AddPointAndRound(m2::SplineEx & spline, m2::PointD const & pt)
 {
   if (spline.GetSize() < 2)
   {
@@ -156,14 +156,14 @@ void PathTextContext::Update(ScreenBase const & screen)
   m_centerPointIters.clear();
   m_centerGlobalPivots.clear();
 
-  m2::Spline pixelSpline(m_globalSpline->GetSize());
+  m2::SplineEx pixelSpline(m_globalSpline->GetSize());
   for (auto pos : m_globalSpline->GetPath())
   {
     pos = screen.GtoP(pos);
     if (screen.IsReverseProjection3d(pos))
     {
       if (pixelSpline.GetSize() > 1)
-        m_pixel3dSplines.push_back(pixelSpline);
+        m_pixel3dSplines.push_back(std::move(pixelSpline));
       pixelSpline.Clear();
       continue;
     }
@@ -176,38 +176,40 @@ void PathTextContext::Update(ScreenBase const & screen)
   if (m_pixel3dSplines.empty())
     return;
 
-  for (size_t i = 0, sz = m_globalOffsets.size(); i < sz; ++i)
+  ASSERT_EQUAL(m_globalPivots.size(), m_globalOffsets.size(), ());
+  for (auto const & pivot : m_globalPivots)
   {
-    m2::PointD const pt2d = screen.GtoP(m_globalPivots[i]);
+    m2::PointD const pt2d = screen.GtoP(pivot);
     if (!screen.IsReverseProjection3d(pt2d))
     {
-      auto projectionIter = GetProjectedPoint(m_pixel3dSplines, screen.PtoP3d(pt2d));
+      auto projectionIter = GetProjectedPoint(screen.PtoP3d(pt2d));
       if (!projectionIter.IsAttached())
         continue;
       m_centerPointIters.push_back(projectionIter);
-      m_centerGlobalPivots.push_back(m_globalPivots[i]);
+      m_centerGlobalPivots.push_back(pivot);
     }
   }
 }
 
-m2::Spline::iterator PathTextContext::GetProjectedPoint(std::vector<m2::Spline> const & splines,
-                                                        m2::PointD const & pt) const
+m2::Spline::iterator PathTextContext::GetProjectedPoint(m2::PointD const & pt) const
 {
   m2::Spline::iterator iter;
   double minDist = std::numeric_limits<double>::max();
 
-  for (auto const & spline : splines)
+  for (auto const & spline : m_pixel3dSplines)
   {
     auto const & path = spline.GetPath();
     if (path.size() < 2)
       continue;
 
-    double step = 0;
+    auto const & lengths = spline.GetLengths();
+    auto const & dirs = spline.GetDirections();
 
+    double step = 0;
     for (size_t i = 0, sz = path.size(); i + 1 < sz; ++i)
     {
-      double const segLength = spline.GetLengths()[i];
-      m2::PointD const segDir = spline.GetDirections()[i];
+      double const segLength = lengths[i];
+      m2::PointD const segDir = dirs[i];
 
       m2::PointD const v = pt - path[i];
       double const t = m2::DotProduct(segDir, v);
@@ -346,11 +348,6 @@ void PathTextHandle::GetAttributeMutation(ref_ptr<dp::AttributeBufferMutator> mu
   // We always update normals for visible text paths.
   SetForceUpdateNormals(IsVisible());
   TextHandle::GetAttributeMutation(mutator);
-}
-
-uint64_t PathTextHandle::GetPriorityMask() const
-{
-  return dp::kPriorityMaskManual | dp::kPriorityMaskRank;
 }
 
 bool PathTextHandle::Enable3dExtention() const

@@ -4,7 +4,8 @@ typedef NS_ENUM(NSInteger, MWMLocationStatus) {
   MWMLocationStatusNoError,
   MWMLocationStatusNotSupported,
   MWMLocationStatusDenied,
-  MWMLocationStatusGPSIsOff
+  MWMLocationStatusGPSIsOff,
+  MWMLocationStatusTimeout // Unused on iOS, (only used on Qt)
 };
 
 NS_ASSUME_NONNULL_BEGIN

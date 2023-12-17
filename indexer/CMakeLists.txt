@@ -29,6 +29,8 @@ set(SRC
   complex/tree_node.hpp
   cuisines.cpp
   cuisines.hpp
+  custom_keyvalue.cpp
+  custom_keyvalue.hpp
   data_factory.cpp
   data_factory.hpp
   data_header.cpp
@@ -84,12 +86,15 @@ set(SRC
   ftraits.hpp
   ftypes_matcher.cpp
   ftypes_matcher.hpp
+  house_to_street_iface.hpp
   index_builder.cpp
   index_builder.hpp
   interval_index.hpp
   interval_index_builder.hpp
   isolines_info.cpp
   isolines_info.hpp
+  kayak.cpp
+  kayak.hpp
   map_object.cpp
   map_object.hpp
   map_style.cpp
@@ -140,13 +145,13 @@ set(SRC
 set(OTHER_FILES drules_struct.proto)
 
 # Disable warnings.
-set_source_files_properties(drules_struct.pb.cc PROPERTIES COMPILE_FLAGS $<$<CXX_COMPILER_ID:AppleClang,Clang>:-Wno-shorten-64-to-32>)
+set_source_files_properties(drules_struct.pb.cc PROPERTIES COMPILE_FLAGS
+  "$<$<CXX_COMPILER_ID:AppleClang,Clang>:-Wno-shorten-64-to-32> $<$<CXX_COMPILER_ID:GNU>:-Wno-deprecated-declarations>"
+)
 
 file(COPY ${OTHER_FILES} DESTINATION ${CMAKE_BINARY_DIR})
 
 omim_add_library(${PROJECT_NAME} ${SRC})
-
-add_subdirectory(${OMIM_ROOT}/3party/protobuf ${CMAKE_CURRENT_BINARY_DIR}/protobuf)
 
 target_link_libraries(${PROJECT_NAME}
   search  # search::DummyRankTable in CachingRankTableLoader

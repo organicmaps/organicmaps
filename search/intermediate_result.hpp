@@ -62,9 +62,14 @@ public:
   std::vector<ResultTracer::Branch> const & GetProvenance() const { return m_provenance; }
 #endif
 
-//  size_t GetInnermostTokensNumber() const { return m_info.InnermostTokenRange().Size(); }
-  size_t GetMatchedTokensNumber() const { return m_matchedTokensNumber; }
+  //size_t GetInnermostTokensNumber() const { return m_info.InnermostTokenRange().Size(); }
+  //size_t GetMatchedTokensNumber() const { return m_matchedTokensNumber; }
   bool IsNotRelaxed() const { return !m_isRelaxed; }
+
+  bool SkipForViewportSearch(size_t queryTokensNumber) const
+  {
+    return m_isRelaxed || m_matchedTokensNumber + 1 < queryTokensNumber;
+  }
 
   void SetRank(uint8_t rank) { m_info.m_rank = rank; }
   void SetPopularity(uint8_t popularity) { m_info.m_popularity = popularity; }
@@ -104,9 +109,9 @@ public:
   };
 
   /// For Type::Feature and Type::Building.
-  RankerResult(FeatureType & f, m2::PointD const & center, m2::PointD const & pivot,
+  RankerResult(FeatureType & ft, m2::PointD const & center,
                std::string displayName, std::string const & fileName);
-  RankerResult(FeatureType & ft, m2::PointD const & pivot, std::string const & fileName);
+  RankerResult(FeatureType & ft, std::string const & fileName);
 
   /// For Type::LatLon.
   RankerResult(double lat, double lon);
@@ -121,6 +126,7 @@ public:
   {
     m_finalRank = info.GetLinearModelRank();
     m_info = info;
+    m_partialCategory = info.m_pureCats && !info.m_allTokensUsed;
   }
 
   FeatureID const & GetID() const { return m_id; }
@@ -133,6 +139,7 @@ public:
 
   double GetDistanceToPivot() const { return m_info.m_distanceToPivot; }
   double GetLinearModelRank() const { return m_finalRank; }
+  bool IsPartialCategory() const { return m_partialCategory; }
 
   bool GetCountryId(storage::CountryInfoGetter const & infoGetter, uint32_t ftype,
                     storage::CountryId & countryId) const;
@@ -174,6 +181,7 @@ private:
 
   StoredRankingInfo m_info;
   std::shared_ptr<RankingInfo> m_dbgInfo;   // used in debug logs and tests, nullptr in production
+  bool m_partialCategory;
 
   FeatureID m_id;
   double m_finalRank;

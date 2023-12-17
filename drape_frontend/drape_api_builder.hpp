@@ -1,9 +1,9 @@
 #pragma once
 
 #include "drape_frontend/drape_api.hpp"
-#include "drape_frontend/render_state_extension.hpp"
 
 #include "drape/render_bucket.hpp"
+#include "drape/render_state.hpp"
 #include "drape/texture_manager.hpp"
 
 #include <string>
@@ -22,7 +22,7 @@ struct DrapeApiRenderProperty
 class DrapeApiBuilder
 {
 public:
-  void BuildLines(ref_ptr<dp::GraphicsContext> context, DrapeApi::TLines const & lines,
+  void BuildLines(ref_ptr<dp::GraphicsContext> context, DrapeApi::TLines & lines,
                   ref_ptr<dp::TextureManager> textures,
                   std::vector<drape_ptr<DrapeApiRenderProperty>> & properties);
 };

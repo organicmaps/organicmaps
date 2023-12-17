@@ -1,11 +1,10 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<svg width="24px" height="24px" viewBox="0 0 24 24" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
-    <title>shoes-m</title>
-    <g id="Page-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
-        <g id="shoes-m" fill-rule="nonzero">
-            <circle id="Oval" fill="#FFFFFF" opacity="0.6" cx="12" cy="12" r="12"></circle>
-            <circle id="Oval" fill="#8C5F93" cx="12" cy="12" r="11"></circle>
-            <path d="M6,18 L8.69558769,18 L8.69558769,15.2673529 L9.43894176,15.2673529 L11.669004,18 L13.1557121,18 L17.999593,16.2158824 C17.999593,16.2158824 18.0729992,14.8923529 16.248065,14.8923529 C12.4931978,14.8923529 11.5091828,12.1605882 11.669004,11.0717647 C11.8288251,9.98294118 12.412358,6 12.412358,6 L6,7.41176471 L6,18 Z" id="Path" fill="#FFFFFF"></path>
-        </g>
-    </g>
+<svg version="1.1" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+ <title>shoes-m</title>
+ <g fill="none" fill-rule="evenodd">
+  <g id="shoes-m" fill-rule="nonzero">
+   <circle id="Oval" cx="12" cy="12" r="12" fill="#fff" opacity=".6"/>
+   <circle id="Oval" cx="12" cy="12" r="11" fill="#8C5F93"/>
+   <path id="Path" d="m6 18h2.6956v-2.7326h0.74335l2.2301 2.7326h1.4867l4.8439-1.7841s0.073406-1.3235-1.7515-1.3235c-3.7549 0-4.7389-2.7318-4.5791-3.8206 0.15982-1.0888 0.74335-5.0718 0.74335-5.0718l-6.4124 1.4118v10.588z" fill="#fff"/>
+  </g>
+ </g>
 </svg>

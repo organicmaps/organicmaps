@@ -13,6 +13,7 @@ from typing import Optional
 from urllib.parse import unquote
 from urllib.parse import urljoin
 from urllib.parse import urlparse
+from urllib.request import url2pathname
 
 import requests
 from bs4 import BeautifulSoup
@@ -24,8 +25,22 @@ from maps_generator.utils.md5 import md5_ext
 logger = logging.getLogger("maps_generator")
 
 
+def is_file_uri(url: AnyStr) -> bool:
+    return urlparse(url).scheme == "file"
+
+def file_uri_to_path(url : AnyStr) -> AnyStr:
+    file_uri = urlparse(url)
+    file_path = file_uri.path
+
+    # URI is something like "file://~/..."
+    if file_uri.netloc == '~':
+        file_path = f'~{file_uri.path}'
+        return os.path.expanduser(file_path)
+
+    return file_path
+
 def is_executable(fpath: AnyStr) -> bool:
-    return os.path.isfile(fpath) and os.access(fpath, os.X_OK)
+    return fpath is not None and os.path.isfile(fpath) and os.access(fpath, os.X_OK)
 
 
 @functools.lru_cache()
@@ -46,6 +61,12 @@ def download_file(url: AnyStr, name: AnyStr, download_if_exists: bool = True):
     logger.info(f"Trying to download {name} from {url}.")
     if not download_if_exists and os.path.exists(name):
         logger.info(f"File {name} already exists.")
+        return
+
+    if is_file_uri(url):
+        # url uses 'file://' scheme
+        shutil.copy2(file_uri_to_path(url), name)
+        logger.info(f"File {name} was copied from {url}.")
         return
 
     tmp_name = f"{name}__"
@@ -163,12 +184,6 @@ def is_exists_file_and_md5(name: AnyStr) -> bool:
 
 def is_verified(name: AnyStr) -> bool:
     return is_exists_file_and_md5(name) and check_md5(name, md5_ext(name))
-
-
-def copy_overwrite(from_path: AnyStr, to_path: AnyStr):
-    if os.path.exists(to_path):
-        shutil.rmtree(to_path)
-    shutil.copytree(from_path, to_path)
 
 
 def make_symlink(target: AnyStr, link_name: AnyStr):

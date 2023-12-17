@@ -1,0 +1,6 @@
+• Neue OpenStreetMap-Daten vom 13. November
+• Die maximale Zoomstufe ist jetzt doppelt so tief wie zuvor
+• Behebung des Imports von Lesezeichen im KMB-Format
+• Standardmäßige Deaktivierung des Bildschirm-Wake-Locks zur Verbesserung der Akkulaufzeit
+• Korrekte Anzeige der Ortssuche, wenn die Karte verschoben oder gezoomt wird
+• Vorschau des Outdoors-Kartenstils - Weitere Informationen zur Aktivierung und zu vielen anderen Verbesserungen finden Sie auf omaps.org/news.

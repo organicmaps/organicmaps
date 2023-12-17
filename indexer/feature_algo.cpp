@@ -2,18 +2,17 @@
 #include "indexer/feature.hpp"
 
 #include "geometry/algorithm.hpp"
+#include "geometry/mercator.hpp"
 #include "geometry/parametrized_segment.hpp"
 #include "geometry/triangle2d.hpp"
-
-#include "base/logging.hpp"
 
 #include <limits>
 
 namespace feature
 {
 /// @returns point on a feature that is the closest to f.GetLimitRect().Center().
-/// It is used by many ednities in the core of mapsme. Do not modify it's
-/// logic if you really-really know what you are doing.
+/// It is used by many entities in the core. Do not modify it's
+/// logic unless you really-really know what you are doing.
 m2::PointD GetCenter(FeatureType & f, int scale)
 {
   GeomType const type = f.GetGeomType();
@@ -23,6 +22,8 @@ m2::PointD GetCenter(FeatureType & f, int scale)
   {
     return f.GetCenter();
   }
+  /// @todo cache calculated area and line centers, as calculation could be quite heavy for big features (and
+  /// involves geometry reading) and a center could be requested multiple times during e.g. search, PP opening, etc.
   case GeomType::Line:
   {
     m2::CalculatePolyLineCenter doCalc;

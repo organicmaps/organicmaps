@@ -1,9 +1,10 @@
 #include "routing/guides_connections.hpp"
 
-#include "routing/fake_feature_ids.hpp"
-
+#include "geometry/mercator.hpp"
 #include "geometry/parametrized_segment.hpp"
 
+namespace routing
+{
 namespace
 {
 // We consider only really close points to be attached to the track.
@@ -18,8 +19,6 @@ double constexpr kEqDistToTrackPointM = 20.0;
 double constexpr kMaxDistToTrackForSkippingM = 100'000.0;
 }  // namespace
 
-namespace routing
-{
 CheckpointTrackProj::CheckpointTrackProj(kml::MarkGroupId guideId, size_t trackIdx,
                                          size_t trackPointIdx,
                                          geometry::PointWithAltitude const & projectedPoint,

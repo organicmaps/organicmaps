@@ -1,14 +1,14 @@
 #pragma once
 
-#include "routing/base/astar_algorithm.hpp"
+#include "routing/base/astar_graph.hpp"
 #include "routing/base/routing_result.hpp"
 
 #include "routing/road_graph.hpp"
-#include "routing/router.hpp"
+
+#include "routing_common/vehicle_model.hpp"
 
 #include "geometry/point_with_altitude.hpp"
 
-#include <cstdint>
 #include <map>
 #include <string>
 
@@ -31,8 +31,8 @@ struct SimpleEdge
 class RoadGraphIFace : public IRoadGraph
 {
 public:
-  virtual RoadInfo GetRoadInfo(FeatureID const & f, routing::SpeedParams const & speedParams) const = 0;
-  virtual double GetSpeedKMpH(FeatureID const & featureId, routing::SpeedParams const & speedParams) const = 0;
+  virtual RoadInfo GetRoadInfo(FeatureID const & f, SpeedParams const & speedParams) const = 0;
+  virtual double GetSpeedKMpH(FeatureID const & featureId, SpeedParams const & speedParams) const = 0;
   virtual double GetMaxSpeedKMpH() const = 0;
 
   double GetSpeedKMpH(Edge const & edge, SpeedParams const & speedParams) const

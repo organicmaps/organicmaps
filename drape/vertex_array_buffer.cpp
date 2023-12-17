@@ -302,7 +302,7 @@ ref_ptr<DataBuffer> VertexArrayBuffer::GetOrCreateBuffer(BindingInfo const & bin
     drape_ptr<DataBuffer> dataBuffer =
         make_unique_dp<DataBuffer>(bindingInfo.GetElementSize(), m_dataBufferSize);
     ref_ptr<DataBuffer> result = make_ref(dataBuffer);
-    (*buffers).insert(std::make_pair(bindingInfo, move(dataBuffer)));
+    (*buffers).insert(std::make_pair(bindingInfo, std::move(dataBuffer)));
     return result;
   }
 

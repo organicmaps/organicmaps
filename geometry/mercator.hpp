@@ -70,9 +70,8 @@ m2::RectD RectByCenterLatLonAndSizeInMeters(double lat, double lon, double size)
 
 inline ms::LatLon ToLatLon(m2::PointD const & point) { return {YToLat(point.y), XToLon(point.x)}; }
 
-/// Converts lat lon rect to mercator one.
-m2::RectD FromLatLonRect(m2::RectD const & latLonRect);
-m2::RectD ToLatLonRect(m2::RectD const & mercatorRect);
+m2::RectD FromLatLon(m2::RectD const & rect);
+m2::RectD ToLatLon(m2::RectD const & rect);
 
 /// Calculates distance on Earth in meters between two mercator points.
 double DistanceOnEarth(m2::PointD const & p1, m2::PointD const & p2);

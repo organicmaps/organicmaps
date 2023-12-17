@@ -4,7 +4,6 @@
 #include "indexer/feature_source.hpp"
 #include "indexer/mwm_set.hpp"
 
-#include <cstdint>
 #include <functional>
 #include <memory>
 #include <utility>
@@ -27,7 +26,8 @@ public:
   ///         now, returns false.
   bool DeregisterMap(platform::CountryFile const & countryFile);
 
-  void ForEachFeatureIDInRect(FeatureIdCallback const & f, m2::RectD const & rect, int scale) const;
+  void ForEachFeatureIDInRect(FeatureIdCallback const & f, m2::RectD const & rect, int scale,
+                              covering::CoveringMode mode = covering::ViewportWithLowLevels) const;
   void ForEachInRect(FeatureCallback const & f, m2::RectD const & rect, int scale) const;
   // Calls |f| for features closest to |center| until |stopCallback| returns true or distance
   // |sizeM| from has been reached. Then for EditableDataSource calls |f| for each edited feature
@@ -88,10 +88,16 @@ public:
   FeaturesLoaderGuard(DataSource const & dataSource, DataSource::MwmId const & id)
     : m_handle(dataSource.GetMwmHandleById(id)), m_source(dataSource.CreateFeatureSource(m_handle))
   {
+    // FeaturesLoaderGuard is always created in-place, so MWM should always be alive.
+    ASSERT(id.IsAlive(), ());
   }
 
   MwmSet::MwmId const & GetId() const { return m_handle.GetId(); }
+  MwmSet::MwmHandle const & GetHandle() const { return m_handle; }
+
   std::string GetCountryFileName() const;
+  int64_t GetVersion() const;
+
   bool IsWorld() const;
   /// Editor core only method, to get 'untouched', original version of feature.
   std::unique_ptr<FeatureType> GetOriginalFeatureByIndex(uint32_t index) const;
@@ -101,6 +107,6 @@ public:
   size_t GetNumFeatures() const { return m_source->GetNumFeatures(); }
 
 private:
-  DataSource::MwmHandle m_handle;
+  MwmSet::MwmHandle m_handle;
   std::unique_ptr<FeatureSource> m_source;
 };

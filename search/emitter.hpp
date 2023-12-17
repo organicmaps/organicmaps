@@ -21,7 +21,7 @@ class Emitter
 public:
   void Init(SearchParams::OnResults onResults)
   {
-    m_onResults = onResults;
+    m_onResults = std::move(onResults);
     m_results.Clear();
     m_prevEmitSize = 0;
     m_timer.Reset();
@@ -41,10 +41,7 @@ public:
         m_timer.ElapsedMilliseconds(), "ms since the search has started."));
     m_prevEmitSize = m_results.GetCount();
 
-    if (m_onResults)
-      m_onResults(m_results);
-    else
-      LOG(LERROR, ("OnResults is not set."));
+    m_onResults(m_results);
   }
 
   Results const & GetResults() const { return m_results; }

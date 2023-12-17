@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.google.android.material.floatingactionbutton.FloatingActionButton
+  xmlns:android="http://schemas.android.com/apk/res/android"
+  android:id="@+id/btn_search"
+  style="@style/MwmWidget.MapButton"
+  android:contentDescription="@string/search"
+  android:src="@drawable/ic_search" />

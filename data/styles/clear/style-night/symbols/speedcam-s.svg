@@ -1,11 +1,10 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<svg width="12px" height="12px" viewBox="0 0 12 12" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
-    <title>speedcam-s</title>
-    <g id="Page-2:-Night" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd" opacity="0.6">
-        <g id="speedcam-s" fill-rule="nonzero">
-            <rect id="Rectangle" fill="#FFFFFF" x="0" y="0" width="12" height="12" rx="3"></rect>
-            <rect id="Rectangle" fill="#000000" x="1" y="1" width="10" height="10" rx="2"></rect>
-            <path d="M5,3 L7,3 L7,3 C8.1045695,3 9,3.8954305 9,5 L9,7 C9,8.1045695 8.1045695,9 7,9 L5,9 C3.8954305,9 3,8.1045695 3,7 L3,5 L3,5 C3,3.8954305 3.8954305,3 5,3 L5,3 Z M6,4.5 C5.17157288,4.5 4.5,5.17157288 4.5,6 C4.5,6.82842712 5.17157288,7.5 6,7.5 C6.82842712,7.5 7.5,6.82842712 7.5,6 L7.5,6 C7.5,5.17157288 6.82842712,4.5 6,4.5 Z M5.5,9 L6.5,9 L6.5,10 L5.5,10 L5.5,9 Z" id="Shape" fill="#FFFFFF"></path>
-        </g>
-    </g>
+<svg version="1.1" viewBox="0 0 12 12" xmlns="http://www.w3.org/2000/svg">
+ <title>speedcam-s</title>
+ <g id="Page-2:-Night" fill="none" fill-rule="evenodd" opacity=".6">
+  <g id="speedcam-s" fill-rule="nonzero">
+   <rect id="Rectangle" width="12" height="12" rx="3" fill="#fff"/>
+   <rect id="Rectangle" x="1" y="1" width="10" height="10" rx="2" fill="#000"/>
+   <path id="Shape" d="m5 3h2c1.1046 0 2 0.89543 2 2v2c0 1.1046-0.89543 2-2 2h-2c-1.1046 0-2-0.89543-2-2v-2c0-1.1046 0.89543-2 2-2zm1 1.5c-0.82843 0-1.5 0.67157-1.5 1.5s0.67157 1.5 1.5 1.5 1.5-0.67157 1.5-1.5-0.67157-1.5-1.5-1.5zm-0.5 4.5h1v1h-1v-1z" fill="#fff"/>
+  </g>
+ </g>
 </svg>

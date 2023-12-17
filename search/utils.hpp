@@ -6,19 +6,14 @@
 
 #include "indexer/categories_holder.hpp"
 #include "indexer/feature_decl.hpp"
-#include "indexer/mwm_set.hpp"
-#include "indexer/search_delimiters.hpp"
 #include "indexer/search_string_utils.hpp"
 #include "indexer/trie.hpp"
 
 #include "geometry/rect2d.hpp"
 
 #include "base/levenshtein_dfa.hpp"
-#include "base/stl_helpers.hpp"
 #include "base/string_utils.hpp"
 
-#include <cstddef>
-#include <cstdint>
 #include <functional>
 #include <memory>
 #include <vector>
@@ -36,14 +31,14 @@ void ForEachCategoryType(StringSliceBase const & slice, Locales const & locales,
   {
     auto const & token = slice.Get(i);
     for (int8_t const locale : locales)
-      categories.ForEachTypeByName(locale, token, std::bind<void>(todo, i, std::placeholders::_1));
+      categories.ForEachTypeByName(locale, token, [&todo, i](uint32_t type) { todo(i, type); });
 
     // Special case processing of 2 codepoints emoji (e.g. black guy on a bike).
     // Only emoji synonyms can have one codepoint.
     if (token.size() > 1)
     {
       categories.ForEachTypeByName(CategoriesHolder::kEnglishCode, strings::UniString(1, token[0]),
-                                   std::bind<void>(todo, i, std::placeholders::_1));
+                                   [&todo, i](uint32_t type) { todo(i, type); });
     }
   }
 }
@@ -64,15 +59,18 @@ void ForEachCategoryTypeFuzzy(StringSliceBase const & slice, Locales const & loc
 
   for (size_t i = 0; i < slice.Size(); ++i)
   {
-    // todo(@m, @y). We build dfa twice for each token: here and in geocoder.cpp.
-    // A possible optimization is to build each dfa once and save it. Note that
-    // dfas for the prefix tokens differ, i.e. we ignore slice.IsPrefix(i) here.
+    /// @todo We build dfa twice for each token: here and in geocoder.cpp.
+    /// A possible optimization is to build each dfa once and save it. Note that
+    /// dfas for the prefix tokens differ, i.e. we ignore slice.IsPrefix(i) here.
+
     SearchTrieRequest<strings::LevenshteinDFA> request;
-    request.m_names.push_back(BuildLevenshteinDFA(slice.Get(i)));
+    /// @todo Shall we match prefix tokens for categories?
+    request.m_names.push_back(BuildLevenshteinDFA_Category(slice.Get(i)));
     request.SetLangs(locales);
 
-    MatchFeaturesInTrie(request, iterator, [&](uint32_t /* type */) { return true; } /* filter */,
-                        std::bind<void>(todo, i, std::placeholders::_1));
+    MatchFeaturesInTrie(request, iterator,
+                        [](uint32_t) { return true; } /* filter */,
+                        [&todo, i](uint32_t type, bool) { todo(i, type); } /* todo */);
   }
 }
 
@@ -86,26 +84,24 @@ bool FillCategories(QuerySliceOnRawStrings<T> const & slice, Locales const & loc
                     CategoriesHolder const & catHolder, std::vector<uint32_t> & types)
 {
   types.clear();
-  catHolder.ForEachNameAndType(
-      [&](CategoriesHolder::Category::Name const & categorySynonym, uint32_t type) {
-        if (!locales.Contains(static_cast<uint64_t>(categorySynonym.m_locale)))
-          return;
+  catHolder.ForEachNameAndType([&](CategoriesHolder::Category::Name const & categorySynonym, uint32_t type)
+  {
+    if (!locales.Contains(static_cast<uint64_t>(categorySynonym.m_locale)))
+      return;
 
-        std::vector<QueryParams::String> categoryTokens;
-        SplitUniString(search::NormalizeAndSimplifyString(categorySynonym.m_name),
-                       base::MakeBackInsertFunctor(categoryTokens), search::Delimiters());
+    auto const categoryTokens = NormalizeAndTokenizeString(categorySynonym.m_name);
 
-        if (slice.Size() != categoryTokens.size())
-          return;
+    if (slice.Size() != categoryTokens.size())
+      return;
 
-        for (size_t i = 0; i < slice.Size(); ++i)
-        {
-          if (slice.Get(i) != categoryTokens[i])
-            return;
-        }
+    for (size_t i = 0; i < slice.Size(); ++i)
+    {
+      if (slice.Get(i) != categoryTokens[i])
+        return;
+    }
 
-        types.push_back(type);
-      });
+    types.push_back(type);
+  });
 
   return !types.empty();
 }

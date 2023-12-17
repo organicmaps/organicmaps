@@ -6,7 +6,6 @@
 #include "search/mwm_context.hpp"
 
 #include "indexer/data_source.hpp"
-#include "indexer/feature_algo.hpp"
 #include "indexer/feature_visibility.hpp"
 #include "indexer/ftypes_matcher.hpp"
 
@@ -15,10 +14,10 @@
 
 #include <vector>
 
-using namespace std;
-
 namespace search
 {
+using namespace std;
+
 namespace
 {
 double const kMaxCityRadiusMeters = 30000.0;
@@ -268,7 +267,7 @@ void LocalityFinder::LoadVicinity(m2::PointD const & p, bool loadCities, bool lo
       if (!m_ranks)
         m_ranks = make_unique<DummyRankTable>();
 
-      MwmContext ctx(move(handle));
+      MwmContext ctx(std::move(handle));
       ctx.ForEachIndex(crect, LocalitiesLoader(ctx, m_boundariesTable, CityFilter(*m_ranks),
                                                m_cities, m_loadedIds));
     }
@@ -285,7 +284,7 @@ void LocalityFinder::LoadVicinity(m2::PointD const & p, bool loadCities, bool lo
         return;
 
       static int const scale = GetVillagesScale();
-      MwmContext ctx(move(handle));
+      MwmContext ctx(std::move(handle));
       ctx.ForEachIndex(vrect, scale,
                        LocalitiesLoader(ctx, m_boundariesTable, VillageFilter(ctx, m_villagesCache),
                                         m_villages, m_loadedIds));
@@ -309,6 +308,8 @@ void LocalityFinder::UpdateMaps()
     switch (info->GetType())
     {
     case MwmInfo::WORLD: m_worldId = id; break;
+    /// @todo Use fair MWM rect from CountryInfoGetter here and everywhere in search?
+    /// @see MwmInfo.m_bordersRect for details.
     case MwmInfo::COUNTRY: m_maps.Add(id, info->m_bordersRect); break;
     case MwmInfo::COASTS: break;
     }

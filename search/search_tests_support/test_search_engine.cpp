@@ -2,6 +2,8 @@
 
 #include "indexer/categories_holder.hpp"
 
+#include "storage/storage.hpp"
+
 #include "platform/platform.hpp"
 
 #include <utility>
@@ -12,18 +14,19 @@ namespace tests_support
 {
 using namespace std;
 
-TestSearchEngine::TestSearchEngine(DataSource & dataSource,
-                                   unique_ptr<storage::CountryInfoGetter> infoGetter,
-                                   Engine::Params const & params)
-  : m_infoGetter(move(infoGetter))
+TestSearchEngine::TestSearchEngine(DataSource & dataSource, Engine::Params const & params, bool mockCountryInfo)
+  : m_infoGetter(mockCountryInfo ?
+                   make_unique<storage::CountryInfoGetterForTesting>() :
+                   storage::CountryInfoReader::CreateCountryInfoGetter(GetPlatform()))
   , m_engine(dataSource, GetDefaultCategories(), *m_infoGetter, params)
 {
 }
 
-TestSearchEngine::TestSearchEngine(DataSource & dataSource, Engine::Params const & params)
-  : m_infoGetter(storage::CountryInfoReader::CreateCountryInfoGetter(GetPlatform()))
-  , m_engine(dataSource, GetDefaultCategories(), *m_infoGetter, params)
+void TestSearchEngine::InitAffiliations()
 {
+  storage::Storage storage;
+  m_affiliations = *storage.GetAffiliations();
+  m_infoGetter->SetAffiliations(&m_affiliations);
 }
 
 weak_ptr<ProcessorHandle> TestSearchEngine::Search(SearchParams const & params)

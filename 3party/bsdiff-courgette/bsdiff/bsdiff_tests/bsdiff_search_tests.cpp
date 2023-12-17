@@ -19,7 +19,7 @@ UNIT_TEST(BSDiffSearchTest_Search)
   //                 012345678901234567890123456789012345678901234
   string const str = "the quick brown fox jumps over the lazy dog.";
   int const size = static_cast<int>(str.size());
-  auto buf = reinterpret_cast<unsigned char const * const>(str.data());
+  auto buf = reinterpret_cast<unsigned char const *>(str.data());
   vector<divsuf::saidx_t> suffix_array(size + 1);
   divsuf::divsufsort_include_empty(buf, suffix_array.data(), size);
 
@@ -63,7 +63,7 @@ UNIT_TEST(BSDiffSearchTest_Search)
   {
     auto const & testCase = testCases[idx];
     int const querySize = static_cast<int>(testCase.m_query_str.size());
-    auto query_buf = reinterpret_cast<unsigned char const * const>(testCase.m_query_str.data());
+    auto query_buf = reinterpret_cast<unsigned char const *>(testCase.m_query_str.data());
 
     // Perform the search.
     bsdiff::SearchResult const match =
@@ -106,7 +106,7 @@ UNIT_TEST(BSDiffSearchTest_SearchExact)
   {
     int const size = static_cast<int>(testCases[idx].size());
     unsigned char const * const buf =
-        reinterpret_cast<unsigned char const * const>(testCases[idx].data());
+        reinterpret_cast<unsigned char const *>(testCases[idx].data());
 
     vector<divsuf::saidx_t> suffix_array(size + 1);
     divsuf::divsufsort_include_empty(buf, suffix_array.data(), size);
@@ -120,7 +120,7 @@ UNIT_TEST(BSDiffSearchTest_SearchExact)
         int querySize = static_cast<int>(query.size());
         CHECK_EQUAL(querySize, hi - lo, ());
         unsigned char const * const query_buf =
-            reinterpret_cast<unsigned char const * const>(query.c_str());
+            reinterpret_cast<unsigned char const *>(query.c_str());
         bsdiff::SearchResult const match =
             bsdiff::search<decltype(suffix_array)>(suffix_array, buf, size, query_buf, querySize);
 

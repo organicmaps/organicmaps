@@ -13,16 +13,23 @@
 #include <sstream>
 #include <utility>
 
+namespace routing
+{
+using namespace routing::turns;
 using namespace std;
 
 namespace
 {
-using namespace routing::turns;
-
 /// The order is important. Starting with the most frequent tokens according to
 /// taginfo.openstreetmap.org we minimize the number of the comparisons in ParseSingleLane().
-array<pair<LaneWay, char const *>, static_cast<size_t>(LaneWay::Count)> const g_laneWayNames = {
-    {{LaneWay::Through, "through"},
+///
+/// A `none` lane can be represented either as "none" or as "". That means both "none" and ""
+/// should be considered names, even though they refer to the same thing. As a result,
+/// `LaneWay::None` appears twice in this array, which is one longer than the number of
+/// enum values.
+array<pair<LaneWay, char const *>, static_cast<size_t>(LaneWay::Count) + 1> const g_laneWayNames = {
+    {{LaneWay::None, ""},
+     {LaneWay::Through, "through"},
      {LaneWay::Left, "left"},
      {LaneWay::Right, "right"},
      {LaneWay::None, "none"},
@@ -33,7 +40,7 @@ array<pair<LaneWay, char const *>, static_cast<size_t>(LaneWay::Count)> const g_
      {LaneWay::SlightRight, "slight_right"},
      {LaneWay::SharpRight, "sharp_right"},
      {LaneWay::Reverse, "reverse"}}};
-static_assert(g_laneWayNames.size() == static_cast<size_t>(LaneWay::Count),
+static_assert(g_laneWayNames.size() == static_cast<size_t>(LaneWay::Count) + 1,
               "Check the size of g_laneWayNames");
 
 array<pair<CarDirection, char const *>, static_cast<size_t>(CarDirection::Count)> const
@@ -58,8 +65,6 @@ static_assert(g_turnNames.size() == static_cast<size_t>(CarDirection::Count),
               "Check the size of g_turnNames");
 }  // namespace
 
-namespace routing
-{
 // SegmentRange -----------------------------------------------------------------------------------
 SegmentRange::SegmentRange(FeatureID const & featureId, uint32_t startSegId, uint32_t endSegId,
                            bool forward, m2::PointD const & start, m2::PointD const & end)
@@ -147,13 +152,14 @@ bool SegmentRange::GetSegmentBySegId(uint32_t segId, NumMwmIds const & numMwmIds
 string DebugPrint(SegmentRange const & segmentRange)
 {
   stringstream out;
-  out << "SegmentRange [ m_featureId = " << DebugPrint(segmentRange.m_featureId)
+  out << "SegmentRange "
+      << "{ m_featureId = " << DebugPrint(segmentRange.m_featureId)
       << ", m_startSegId = " << segmentRange.m_startSegId
       << ", m_endSegId = " << segmentRange.m_endSegId
       << ", m_forward = " << segmentRange.m_forward
       << ", m_start = " << DebugPrint(segmentRange.m_start)
       << ", m_end = " << DebugPrint(segmentRange.m_end)
-      << "]" << endl;
+      << " }";
   return out.str();
 }
 
@@ -168,20 +174,23 @@ bool SingleLaneInfo::operator==(SingleLaneInfo const & other) const
 string DebugPrint(TurnItem const & turnItem)
 {
   stringstream out;
-  out << "TurnItem [ m_index = " << turnItem.m_index
+  out << "TurnItem "
+      << "{ m_index = " << turnItem.m_index
       << ", m_turn = " << DebugPrint(turnItem.m_turn)
-      << ", m_lanes = " << ::DebugPrint(turnItem.m_lanes) << ", m_exitNum = " << turnItem.m_exitNum
+      << ", m_lanes = " << ::DebugPrint(turnItem.m_lanes)
+      << ", m_exitNum = " << turnItem.m_exitNum
       << ", m_pedestrianDir = " << DebugPrint(turnItem.m_pedestrianTurn)
-      << " ]" << endl;
+      << " }";
   return out.str();
 }
 
 string DebugPrint(TurnItemDist const & turnItemDist)
 {
   stringstream out;
-  out << "TurnItemDist [ m_turnItem = " << DebugPrint(turnItemDist.m_turnItem)
+  out << "TurnItemDist "
+      << "{ m_turnItem = " << DebugPrint(turnItemDist.m_turnItem)
       << ", m_distMeters = " << turnItemDist.m_distMeters
-      << " ]" << endl;
+      << " }";
   return out.str();
 }
 
@@ -212,6 +221,16 @@ bool IsLeftOrRightTurn(CarDirection t)
   return IsLeftTurn(t) || IsRightTurn(t);
 }
 
+bool IsTurnMadeFromLeft(CarDirection t)
+{
+  return IsLeftTurn(t) || t == CarDirection::UTurnLeft || t == CarDirection::ExitHighwayToLeft;
+}
+
+bool IsTurnMadeFromRight(CarDirection t)
+{
+  return IsRightTurn(t) || t == CarDirection::UTurnRight || t == CarDirection::ExitHighwayToRight;
+}
+
 bool IsStayOnRoad(CarDirection t)
 {
   return (t == CarDirection::GoStraight || t == CarDirection::StayOnRoundAbout);
@@ -236,12 +255,14 @@ bool IsLaneWayConformedTurnDirection(LaneWay l, CarDirection t)
     case CarDirection::TurnSharpRight:
       return l == LaneWay::SharpRight;
     case CarDirection::TurnSlightRight:
+    case CarDirection::ExitHighwayToRight:
       return l == LaneWay::SlightRight;
     case CarDirection::TurnLeft:
       return l == LaneWay::Left;
     case CarDirection::TurnSharpLeft:
       return l == LaneWay::SharpLeft;
     case CarDirection::TurnSlightLeft:
+    case CarDirection::ExitHighwayToLeft:
       return l == LaneWay::SlightLeft;
     case CarDirection::UTurnLeft:
     case CarDirection::UTurnRight:
@@ -272,7 +293,17 @@ bool IsLaneWayConformedTurnDirectionApproximately(LaneWay l, CarDirection t)
     case CarDirection::UTurnLeft:
     case CarDirection::UTurnRight:
       return l == LaneWay::Reverse;
+    case CarDirection::ExitHighwayToLeft:
+      return l == LaneWay::SlightLeft || l == LaneWay::Left;
+    case CarDirection::ExitHighwayToRight:
+      return l == LaneWay::SlightRight || l == LaneWay::Right;
   }
+}
+
+bool IsLaneUnrestricted(const SingleLaneInfo & lane)
+{
+  /// @todo Is there any reason to store None single lane?
+  return lane.m_lane.size() == 1 && lane.m_lane[0] == LaneWay::None;
 }
 
 void SplitLanes(string const & lanesString, char delimiter, vector<string> & lanes)
@@ -289,7 +320,13 @@ void SplitLanes(string const & lanesString, char delimiter, vector<string> & lan
 bool ParseSingleLane(string const & laneString, char delimiter, TSingleLane & lane)
 {
   lane.clear();
-  istringstream laneStream(laneString);
+  // When `laneString` ends with "" representing none, for example, in "right;",
+  // `getline` will not read any characters, so it exits the loop and does not
+  // handle the "". So, we add a delimiter to the end of `laneString`. Nonempty
+  // final tokens consume the delimiter and act as expected, and empty final tokens
+  // read a the delimiter, so `getline` sets `token` to the empty string rather than
+  // exiting the loop.
+  istringstream laneStream(laneString + delimiter);
   string token;
   while (getline(laneStream, token, delimiter))
   {

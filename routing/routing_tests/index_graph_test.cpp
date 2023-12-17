@@ -32,12 +32,11 @@
 #include <unordered_map>
 #include <vector>
 
-using namespace std;
-
-namespace
+namespace index_graph_test
 {
 using namespace routing;
 using namespace routing_test;
+using namespace std;
 
 using measurement_utils::KmphToMps;
 
@@ -113,10 +112,7 @@ void TestIngoingEdges(IndexGraph & graph, Segment const & segment,
 }
 
 uint32_t AbsDelta(uint32_t v0, uint32_t v1) { return v0 > v1 ? v0 - v1 : v1 - v0; }
-}  // namespace
 
-namespace routing_test
-{
 //                   R4 (one way down)
 //
 // R1     J2--------J3         -1
@@ -147,7 +143,7 @@ UNIT_TEST(EdgesTest)
                   RoadGeometry::Points({{3.0, -1.0}, {3.0, 0.0}, {3.0, 1.0}}));
 
   traffic::TrafficCache const trafficCache;
-  IndexGraph graph(make_shared<Geometry>(move(loader)), CreateEstimatorForCar(trafficCache));
+  IndexGraph graph(make_shared<Geometry>(std::move(loader)), CreateEstimatorForCar(trafficCache));
 
   vector<Joint> joints;
   joints.emplace_back(MakeJoint({{0, 1}, {3, 1}}));  // J0
@@ -208,7 +204,7 @@ UNIT_TEST(FindPathCross)
   traffic::TrafficCache const trafficCache;
   shared_ptr<EdgeEstimator> estimator = CreateEstimatorForCar(trafficCache);
   unique_ptr<WorldGraph> worldGraph =
-      BuildWorldGraph(move(loader), estimator, {MakeJoint({{0, 2}, {1, 2}})});
+      BuildWorldGraph(std::move(loader), estimator, {MakeJoint({{0, 2}, {1, 2}})});
 
   vector<FakeEnding> endPoints;
   for (uint32_t i = 0; i < 4; ++i)
@@ -285,7 +281,7 @@ UNIT_TEST(FindPathManhattan)
       joints.emplace_back(MakeJoint({{i, j}, {j + kCitySize, i}}));
   }
 
-  unique_ptr<WorldGraph> worldGraph = BuildWorldGraph(move(loader), estimator, joints);
+  unique_ptr<WorldGraph> worldGraph = BuildWorldGraph(std::move(loader), estimator, joints);
 
   vector<FakeEnding> endPoints;
   for (uint32_t featureId = 0; featureId < kCitySize; ++featureId)
@@ -382,7 +378,7 @@ UNIT_TEST(RoadSpeed)
   joints.emplace_back(MakeJoint({{0, 0}, {1, 1}}));  // J0
   joints.emplace_back(MakeJoint({{0, 4}, {1, 3}}));  // J1
 
-  unique_ptr<WorldGraph> worldGraph = BuildWorldGraph(move(loader), estimator, joints);
+  unique_ptr<WorldGraph> worldGraph = BuildWorldGraph(std::move(loader), estimator, joints);
 
   auto const start =
       MakeFakeEnding(1 /* featureId */, 0 /* segmentIdx */, m2::PointD(0.5, 0), *worldGraph);
@@ -420,7 +416,7 @@ UNIT_TEST(OneSegmentWay)
 
   traffic::TrafficCache const trafficCache;
   shared_ptr<EdgeEstimator> estimator = CreateEstimatorForCar(trafficCache);
-  unique_ptr<WorldGraph> worldGraph = BuildWorldGraph(move(loader), estimator, vector<Joint>());
+  unique_ptr<WorldGraph> worldGraph = BuildWorldGraph(std::move(loader), estimator, vector<Joint>());
   vector<Segment> const expectedRoute(
       {{kTestNumMwmId, 0 /* featureId */, 0 /* seg id */, true /* forward */}});
 
@@ -459,7 +455,7 @@ UNIT_TEST(OneSegmentWayBackward)
 
   traffic::TrafficCache const trafficCache;
   shared_ptr<EdgeEstimator> estimator = CreateEstimatorForCar(trafficCache);
-  unique_ptr<WorldGraph> worldGraph = BuildWorldGraph(move(loader), estimator, vector<Joint>());
+  unique_ptr<WorldGraph> worldGraph = BuildWorldGraph(std::move(loader), estimator, vector<Joint>());
 
   auto const start =
       MakeFakeEnding(0 /* featureId */, 0 /* segmentIdx */, m2::PointD(2, 0), *worldGraph);
@@ -494,7 +490,7 @@ UNIT_TEST(FakeSegmentCoordinates)
 
   traffic::TrafficCache const trafficCache;
   shared_ptr<EdgeEstimator> estimator = CreateEstimatorForCar(trafficCache);
-  unique_ptr<WorldGraph> worldGraph = BuildWorldGraph(move(loader), estimator, joints);
+  unique_ptr<WorldGraph> worldGraph = BuildWorldGraph(std::move(loader), estimator, joints);
   vector<m2::PointD> const expectedGeom = {{1.0 /* x */, 0.0 /* y */}, {2.0, 0.0}, {3.0, 0.0}};
 
   // Test fake segments have valid coordinates for any combination of start and finish directions
@@ -537,7 +533,7 @@ UNIT_TEST(FakeEndingAStarInvariant)
 
   traffic::TrafficCache const trafficCache;
   shared_ptr<EdgeEstimator> estimator = CreateEstimatorForCar(trafficCache);
-  unique_ptr<WorldGraph> worldGraph = BuildWorldGraph(move(loader), estimator, joints);
+  unique_ptr<WorldGraph> worldGraph = BuildWorldGraph(std::move(loader), estimator, joints);
   vector<Segment> const expectedRoute(
       {{kTestNumMwmId, 0 /* featureId */, 0 /* seg id */, true /* forward */}});
 
@@ -668,7 +664,7 @@ unique_ptr<SingleVehicleWorldGraph> BuildLoopGraph()
 
   traffic::TrafficCache const trafficCache;
   shared_ptr<EdgeEstimator> estimator = CreateEstimatorForCar(trafficCache);
-  return BuildWorldGraph(move(loader), estimator, joints);
+  return BuildWorldGraph(std::move(loader), estimator, joints);
 }
 
 // This test checks that the route from Start to Finish doesn't make an extra loop in F0.
@@ -843,7 +839,7 @@ UNIT_TEST(FinishNearZeroEdge)
 
   traffic::TrafficCache const trafficCache;
   shared_ptr<EdgeEstimator> estimator = CreateEstimatorForCar(trafficCache);
-  unique_ptr<WorldGraph> worldGraph = BuildWorldGraph(move(loader), estimator, joints);
+  unique_ptr<WorldGraph> worldGraph = BuildWorldGraph(std::move(loader), estimator, joints);
   auto const start = MakeFakeEnding({Segment(kTestNumMwmId, 0, 0, true /* forward */)},
                                     m2::PointD(1.0, 0.0), *worldGraph);
   auto const finish = MakeFakeEnding({Segment(kTestNumMwmId, 1, 0, false /* forward */)},
@@ -854,4 +850,4 @@ UNIT_TEST(FinishNearZeroEdge)
       {1.0 /* x */, 0.0 /* y */}, {2.0, 0.0}, {4.0, 0.0}, {5.0, 0.0}};
   TestRouteGeometry(*starter, AlgorithmForIndexGraphStarter::Result::OK, expectedGeom);
 }
-}  // namespace routing_test
+}  // namespace index_graph_test

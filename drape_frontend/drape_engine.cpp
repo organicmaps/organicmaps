@@ -31,7 +31,7 @@ DrapeEngine::DrapeEngine(Params && params)
 
   VisualParams::Init(params.m_vs, df::CalculateTileSize(m_viewport.GetWidth(), m_viewport.GetHeight()));
 
-  df::VisualParams::Instance().SetFontScale(params.m_fontsScaleFactor);
+  SetFontScaleFactor(params.m_fontsScaleFactor);
 
   gui::DrapeGui::Instance().SetSurfaceSize(m2::PointF(m_viewport.GetWidth(), m_viewport.GetHeight()));
 
@@ -92,22 +92,15 @@ DrapeEngine::DrapeEngine(Params && params)
                                     std::move(effects),
                                     params.m_onGraphicsContextInitialized);
 
-  m_frontend = make_unique_dp<FrontendRenderer>(std::move(frParams));
-
-  BackendRenderer::Params brParams(params.m_apiVersion,
-                                   frParams.m_commutator,
-                                   frParams.m_oglContextFactory,
-                                   frParams.m_texMng,
-                                   params.m_model,
-                                   params.m_model.UpdateCurrentCountryFn(),
-                                   make_ref(m_requestedTiles),
-                                   params.m_allow3dBuildings,
-                                   params.m_trafficEnabled,
-                                   params.m_isolinesEnabled,
-                                   params.m_simplifiedTrafficColors,
-                                   params.m_onGraphicsContextInitialized);
+  BackendRenderer::Params brParams(
+      params.m_apiVersion, frParams.m_commutator, frParams.m_oglContextFactory, frParams.m_texMng,
+      params.m_model, params.m_model.UpdateCurrentCountryFn(), make_ref(m_requestedTiles),
+      params.m_allow3dBuildings, params.m_trafficEnabled, params.m_isolinesEnabled,
+      params.m_simplifiedTrafficColors, std::move(params.m_arrow3dCustomDecl),
+      params.m_onGraphicsContextInitialized);
 
   m_backend = make_unique_dp<BackendRenderer>(std::move(brParams));
+  m_frontend = make_unique_dp<FrontendRenderer>(std::move(frParams));
 
   m_widgetsInfo = std::move(params.m_info);
 
@@ -197,6 +190,11 @@ void DrapeEngine::Scale(double factor, m2::PointD const & pxPoint, bool isAnim)
 void DrapeEngine::Move(double factorX, double factorY, bool isAnim)
 {
   AddUserEvent(make_unique_dp<MoveEvent>(factorX, factorY, isAnim));
+}
+
+void DrapeEngine::Scroll(double distanceX, double distanceY)
+{
+  AddUserEvent(make_unique_dp<ScrollEvent>(distanceX, distanceY));
 }
 
 void DrapeEngine::Rotate(double azimuth, bool isAnim)
@@ -492,7 +490,7 @@ void DrapeEngine::SetCompassInfo(location::CompassInfo const & info)
 }
 
 void DrapeEngine::SetGpsInfo(location::GpsInfo const & info, bool isNavigable,
-                             const location::RouteMatchingInfo & routeInfo)
+                             location::RouteMatchingInfo const & routeInfo)
 {
   m_threadCommutator->PostMessage(ThreadsCommutator::RenderThread,
                                   make_unique_dp<GpsInfoMessage>(info, isNavigable, routeInfo),
@@ -743,9 +741,18 @@ void DrapeEngine::OnEnterBackground()
   m_startBackgroundTime = base::Timer::LocalTime();
   settings::Set(kLastEnterBackground, m_startBackgroundTime);
 
-  m_threadCommutator->PostMessage(ThreadsCommutator::RenderThread,
-                                  make_unique_dp<OnEnterBackgroundMessage>(),
-                                  MessagePriority::High);
+  /// @todo By VNG: Make direct call to FR, because logic with PostMessage is not working now.
+  /// Rendering engine becomes disabled first and posted message won't be processed in a correct timing
+  /// and will remain pending in queue, waiting until rendering queue will became active.
+  /// As a result, we will get OnEnterBackground notification when we already entered foreground (sic!).
+  /// One minus with direct call is that we are not in FR rendering thread, but I don't see a problem here now.
+  /// To make it works as expected with PostMessage, we should refactor platform notifications,
+  /// especially Android with its AppBackgroundTracker.
+  m_frontend->OnEnterBackground();
+
+//  m_threadCommutator->PostMessage(ThreadsCommutator::RenderThread,
+//                                  make_unique_dp<OnEnterBackgroundMessage>(),
+//                                  MessagePriority::High);
 }
 
 void DrapeEngine::RequestSymbolsSize(std::vector<std::string> const & symbols,
@@ -832,11 +839,6 @@ void DrapeEngine::EnableIsolines(bool enable)
 
 void DrapeEngine::SetFontScaleFactor(double scaleFactor)
 {
-  double const kMinScaleFactor = 0.5;
-  double const kMaxScaleFactor = 2.0;
-
-  scaleFactor = base::Clamp(scaleFactor, kMinScaleFactor, kMaxScaleFactor);
-
   VisualParams::Instance().SetFontScale(scaleFactor);
 }
 
@@ -946,7 +948,12 @@ drape_ptr<UserLineRenderParams> DrapeEngine::GenerateLineRenderInfo(UserLineMark
   auto renderInfo = make_unique_dp<UserLineRenderParams>();
   renderInfo->m_minZoom = mark->GetMinZoom();
   renderInfo->m_depthLayer = mark->GetDepthLayer();
-  renderInfo->m_spline = m2::SharedSpline(mark->GetPoints());
+
+  mark->ForEachGeometry([&renderInfo](std::vector<m2::PointD> && points)
+  {
+    renderInfo->m_splines.emplace_back(std::move(points));
+  });
+
   renderInfo->m_layers.reserve(mark->GetLayerCount());
   for (size_t layerIndex = 0, layersCount = mark->GetLayerCount(); layerIndex < layersCount; ++layerIndex)
   {
@@ -979,5 +986,12 @@ void DrapeEngine::UpdateMyPositionRoutingOffset(bool useDefault, int offsetY)
   m_threadCommutator->PostMessage(ThreadsCommutator::RenderThread,
                                   make_unique_dp<UpdateMyPositionRoutingOffsetMessage>(useDefault, offsetY),
                                   MessagePriority::Normal);
+}
+
+void DrapeEngine::SetCustomArrow3d(std::optional<Arrow3dCustomDecl> arrow3dCustomDecl)
+{
+  m_threadCommutator->PostMessage(
+      ThreadsCommutator::ResourceUploadThread,
+      make_unique_dp<Arrow3dRecacheMessage>(std::move(arrow3dCustomDecl)), MessagePriority::High);
 }
 }  // namespace df

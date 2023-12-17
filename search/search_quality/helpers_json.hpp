@@ -6,7 +6,7 @@
 #include <optional>
 #include <string>
 
-#include "3party/jansson/myjansson.hpp"
+#include "cppjansson/cppjansson.hpp"
 
 namespace m2
 {

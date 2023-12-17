@@ -254,7 +254,7 @@ void CandidatePathsGetter::GetBestCandidatePaths(
     if (!isLastPoint)
       reverse(begin(edges), end(edges));
 
-    candidates.emplace_back(move(edges));
+    candidates.emplace_back(std::move(edges));
   }
 }
 

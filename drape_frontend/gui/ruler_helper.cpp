@@ -20,7 +20,7 @@ namespace gui
 namespace
 {
 int constexpr kMinPixelWidth = 60;
-int constexpr kMinMetersWidth = 10;
+int constexpr kMinMetersWidth = 5;
 int constexpr kMaxMetersWidth = 1000000;
 
 int constexpr kMinUnitValue = -1;
@@ -72,6 +72,9 @@ UnitValue g_arrYards[] = {
   { "500 mi", 500 * 1760 }
 };
 
+// TODO: fix ruler text to the current zoom level, i.e. make it 100m for z16 always
+// (ruler length will vary still). It'll make debugging and user support easier as
+// we'll be able to tell zoom level of a screenshot by looking at the ruler.
 UnitValue g_arrMeters[] = {
   { "1 m", 1 },
   { "2 m", 2 },
@@ -120,12 +123,12 @@ void RulerHelper::Update(ScreenBase const & screen)
   double metersDiff = CalcMetersDiff(distanceInMeters);
 
   bool const higherThanMax = metersDiff > kMaxMetersWidth;
-  bool const lessThanMin = metersDiff < kMinMetersWidth;
+  ASSERT_GREATER_OR_EQUAL(metersDiff, kMinMetersWidth, ());
   m_pixelLength = static_cast<float>(minPxWidth);
 
   if (higherThanMax)
     m_pixelLength = static_cast<float>(minPxWidth) * 3.0f / 2.0f;
-  else if (!lessThanMin)
+  else
   {
     double const a = ang::AngleTo(pt1, pt0);
     pt0 = mercator::GetSmPoint(pt1, cos(a) * metersDiff, sin(a) * metersDiff);
@@ -224,14 +227,12 @@ double RulerHelper::CalcMetersDiff(double value)
 
   auto conversionFn = &Identity;
 
-  auto units = measurement_utils::Units::Metric;
-  settings::TryGet(settings::kMeasurementUnits, units);
-
-  if (units == measurement_utils::Units::Imperial)
+  using namespace measurement_utils;
+  if (GetMeasurementUnits() == Units::Imperial)
   {
     arrU = g_arrFeets;
     count = ARRAY_SIZE(g_arrFeets);
-    conversionFn = &measurement_utils::MetersToFeet;
+    conversionFn = &MetersToFeet;
   }
 
   int prevUnitRange = m_rangeIndex;
@@ -240,6 +241,7 @@ double RulerHelper::CalcMetersDiff(double value)
   if (arrU[0].m_i > v)
   {
     m_rangeIndex = kMinUnitValue;
+    // TODO: "< X" ruler text seems to be never used.
     m_rulerText = std::string("< ") + arrU[0].m_s;
     result = kMinMetersWidth - 1.0;
   }

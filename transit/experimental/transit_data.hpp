@@ -5,22 +5,16 @@
 #include "coding/reader.hpp"
 #include "coding/writer.hpp"
 
-#include "geometry/point2d.hpp"
-#include "geometry/region2d.hpp"
-
-#include "base/exception.hpp"
 #include "base/geo_object_id.hpp"
 #include "base/visitor.hpp"
 
-#include <cstdint>
 #include <cstring>
 #include <map>
 #include <string>
-#include <type_traits>
 #include <unordered_map>
 #include <vector>
 
-#include "3party/jansson/myjansson.hpp"
+#include "cppjansson/cppjansson.hpp"
 
 namespace transit
 {

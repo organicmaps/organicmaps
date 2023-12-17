@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<svg
+   version="1.1"
+   viewBox="0 0 24 24"
+   id="svg11"
+   sodipodi:docname="cross-m.svg"
+   inkscape:version="1.2.1 (9c6d41e410, 2022-07-14)"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:svg="http://www.w3.org/2000/svg"
+   xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+   xmlns:cc="http://creativecommons.org/ns#"
+   xmlns:dc="http://purl.org/dc/elements/1.1/">
+  <defs
+     id="defs15" />
+  <sodipodi:namedview
+     id="namedview13"
+     pagecolor="#ffffff"
+     bordercolor="#000000"
+     borderopacity="0.25"
+     inkscape:showpageshadow="2"
+     inkscape:pageopacity="0.0"
+     inkscape:pagecheckerboard="0"
+     inkscape:deskcolor="#d1d1d1"
+     showgrid="false"
+     inkscape:zoom="42.791667"
+     inkscape:cx="11.555988"
+     inkscape:cy="12.023369"
+     inkscape:window-width="2356"
+     inkscape:window-height="1347"
+     inkscape:window-x="26"
+     inkscape:window-y="23"
+     inkscape:window-maximized="0"
+     inkscape:current-layer="svg11" />
+  <title
+     id="title2">christian-m</title>
+  <g
+     fill="none"
+     fill-rule="evenodd"
+     id="g9"
+     inkscape:label="g9">
+    <g
+       id="christian-m"
+       fill-rule="nonzero"
+       inkscape:label="cross-m">
+      <polygon
+         id="Path"
+         points="13.111 8.2308 17 8.2308 17 10.385 13.111 10.385 13.111 19 10.889 19 10.889 10.385 7 10.385 7 8.2308 10.889 8.2308 10.889 5 13.111 5"
+         style="fill:#717065;fill-opacity:1;opacity:0.6" />
+    </g>
+  </g>
+  <metadata
+     id="metadata2842">
+    <rdf:RDF>
+      <cc:Work
+         rdf:about="">
+        <dc:title>christian-m</dc:title>
+      </cc:Work>
+    </rdf:RDF>
+  </metadata>
+</svg>

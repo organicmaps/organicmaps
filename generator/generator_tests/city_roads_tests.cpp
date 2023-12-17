@@ -15,9 +15,6 @@
 #include "platform/local_country_file.hpp"
 #include "platform/platform.hpp"
 
-#include "coding/files_container.hpp"
-#include "coding/reader.hpp"
-
 #include "base/assert.hpp"
 #include "base/file_name_utils.hpp"
 #include "base/logging.hpp"
@@ -38,7 +35,7 @@ using namespace coding;
 using namespace platform::tests_support;
 using namespace platform;
 using namespace routing;
-using namespace std;
+using std::string, std::vector;
 
 // Directory name for creating test mwm and temporary files.
 string const kTestDir = "city_roads_generation_test";
@@ -50,7 +47,7 @@ void BuildEmptyMwm(LocalCountryFile & country)
   generator::tests_support::TestMwmBuilder builder(country, feature::DataHeader::MapType::Country);
 }
 
-unique_ptr<CityRoads> LoadCityRoads(LocalCountryFile const & country)
+std::unique_ptr<CityRoads> LoadCityRoads(LocalCountryFile const & country)
 {
   FrozenDataSource dataSource;
   auto const regResult = dataSource.RegisterMap(country);
@@ -81,7 +78,7 @@ void TestCityRoadsBuilding(vector<uint32_t> && cityRoadFeatureIds)
   // Adding city_roads section to mwm.
   string const mwmFullPath = base::JoinPath(writableDir, mwmRelativePath);
   vector<uint32_t> originalCityRoadFeatureIds = cityRoadFeatureIds;
-  routing_builder::SerializeCityRoads(mwmFullPath, move(cityRoadFeatureIds));
+  routing_builder::SerializeCityRoads(mwmFullPath, std::move(cityRoadFeatureIds));
 
   auto const cityRoads = LoadCityRoads(country);
   TEST(cityRoads, ());
@@ -97,7 +94,7 @@ void TestCityRoadsBuilding(vector<uint32_t> && cityRoadFeatureIds)
 
   sort(originalCityRoadFeatureIds.begin(), originalCityRoadFeatureIds.end());
   size_t const kMaxRoadFeatureId = originalCityRoadFeatureIds.back();
-  CHECK_LESS(kMaxRoadFeatureId, numeric_limits<uint32_t>::max(), ());
+  CHECK_LESS(kMaxRoadFeatureId, std::numeric_limits<uint32_t>::max(), ());
   // Note. 2 is added below to test all the if-branches of CityRoads::IsCityRoad() method.
   for (uint32_t fid = 0; fid < kMaxRoadFeatureId + 2; ++fid)
   {

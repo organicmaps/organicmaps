@@ -2,23 +2,18 @@
 
 #include "descriptions/header.hpp"
 
-#include "indexer/feature_decl.hpp"
-
 #include "coding/dd_vector.hpp"
-#include "coding/string_utf8_multilang.hpp"
 #include "coding/text_storage.hpp"
 
 #include "base/assert.hpp"
+#include "base/buffer_vector.hpp"
 #include "base/stl_helpers.hpp"
 
 #include <algorithm>
-#include <cstdint>
-#include <iterator>
 #include <map>
 #include <memory>
 #include <string>
 #include <vector>
-#include <unordered_map>
 #include <utility>
 
 namespace descriptions
@@ -26,7 +21,7 @@ namespace descriptions
 using FeatureIndex = uint32_t;
 using StringIndex = uint32_t;
 using LangCode = int8_t;
-using LangMeta = std::unordered_map<LangCode, StringIndex>;
+using LangMeta = buffer_vector<std::pair<LangCode, StringIndex>, 8>;
 using LangMetaOffset = uint32_t;
 
 enum class Version : uint8_t
@@ -37,16 +32,17 @@ enum class Version : uint8_t
 
 struct FeatureDescription
 {
-  FeatureDescription() = default;
-  FeatureDescription(FeatureIndex index, StringUtf8Multilang && description)
-    : m_featureIndex(index)
-    , m_description(std::move(description))
-  {}
-
-  FeatureIndex m_featureIndex = 0;
-  StringUtf8Multilang m_description;
+  FeatureIndex m_ftIndex = 0;
+  LangMeta m_strIndices;
 };
-using DescriptionsCollection = std::vector<FeatureDescription>;
+
+struct DescriptionsCollection
+{
+  std::vector<FeatureDescription> m_features;
+  std::vector<std::string> m_strings;
+
+  size_t GetFeaturesCount() const { return m_features.size(); }
+};
 
 /// \brief
 /// Section name: "descriptions".
@@ -63,7 +59,11 @@ class Serializer
 public:
   /// \param descriptions A non-empty unsorted collection of feature descriptions.
   ///                     FeatureDescription::m_description must contain non-empty translations.
-  explicit Serializer(DescriptionsCollection && descriptions);
+  explicit Serializer(DescriptionsCollection && descriptions)
+    : m_collection(std::move(descriptions))
+  {
+    std::sort(m_collection.m_features.begin(), m_collection.m_features.end(), base::LessBy(&FeatureDescription::m_ftIndex));
+  }
 
   template <typename Sink>
   void Serialize(Sink & sink)
@@ -98,21 +98,18 @@ public:
   template <typename Sink>
   void SerializeFeaturesIndices(Sink & sink)
   {
-    CHECK(std::is_sorted(m_descriptions.begin(), m_descriptions.end(),
-                         base::LessBy(&FeatureDescription::m_featureIndex)), ());
-
-    for (auto const & index : m_descriptions)
-      WriteToSink(sink, index.m_featureIndex);
+    for (auto const & index : m_collection.m_features)
+      WriteToSink(sink, index.m_ftIndex);
   }
 
   template <typename Sink>
   void SerializeLangMetaCollection(Sink & sink, std::vector<LangMetaOffset> & offsets)
   {
     auto const startPos = sink.Pos();
-    for (auto const & meta : m_langMetaCollection)
+    for (auto const & meta : m_collection.m_features)
     {
       offsets.push_back(static_cast<LangMetaOffset>(sink.Pos() - startPos));
-      for (auto const & pair : meta)
+      for (auto const & pair : meta.m_strIndices)
       {
         WriteToSink(sink, pair.first);
         WriteVarUint(sink, pair.second);
@@ -133,48 +130,33 @@ public:
   void SerializeStrings(Sink & sink)
   {
     coding::BlockedTextStorageWriter<Sink> writer(sink, 200000 /* blockSize */);
-    for (auto const & langIndices : m_groupedByLang)
-    {
-      for (auto const & descIndex : langIndices.second)
-      {
-        std::string_view sv;
-        CHECK(m_descriptions[descIndex].m_description.GetString(langIndices.first, sv), ());
-        writer.Append(sv);
-      }
-    }
+    for (auto const & s : m_collection.m_strings)
+      writer.Append(s);
   }
 
 private:
-  DescriptionsCollection m_descriptions;
-  std::vector<LangMeta> m_langMetaCollection;
-  std::map<LangCode, std::vector<size_t>> m_groupedByLang;
+  DescriptionsCollection m_collection;
 };
 
 class Deserializer
 {
 public:
+  using LangPriorities = std::vector<LangCode>;
+
   template <typename Reader>
-  bool Deserialize(Reader & reader, FeatureIndex featureIndex, std::vector<LangCode> const & langPriority,
-                   std::string & description)
+  std::string Deserialize(Reader & reader, FeatureIndex featureIndex, LangPriorities const & langPriority)
   {
     NonOwningReaderSource source(reader);
     auto const version = static_cast<Version>(ReadPrimitiveFromSource<uint8_t>(source));
 
     auto subReader = reader.CreateSubReader(source.Pos(), source.Size());
     CHECK(subReader, ());
-
-    switch (version)
-    {
-    case Version::V0: return DeserializeV0(*subReader, featureIndex, langPriority, description);
-    }
-    UNREACHABLE();
-
-    return false;
+    CHECK(version == Version::V0, ());
+    return DeserializeV0(*subReader, featureIndex, langPriority);
   }
 
   template <typename Reader>
-  bool DeserializeV0(Reader & reader, FeatureIndex featureIndex, std::vector<LangCode> const & langPriority,
-                     std::string & description)
+  std::string DeserializeV0(Reader & reader, FeatureIndex featureIndex, LangPriorities const & langPriority)
   {
     InitializeIfNeeded(reader);
 
@@ -185,7 +167,7 @@ public:
       DDVector<FeatureIndex, ReaderPtr<Reader>> ids(idsSubReader);
       auto const it = std::lower_bound(ids.begin(), ids.end(), featureIndex);
       if (it == ids.end() || *it != featureIndex)
-        return false;
+        return {};
 
       auto const d = static_cast<uint32_t>(std::distance(ids.begin(), it));
 
@@ -207,22 +189,21 @@ public:
       {
         auto const lang = ReadPrimitiveFromSource<LangCode>(source);
         auto const stringIndex = ReadVarUint<StringIndex>(source);
-        langMeta.insert(std::make_pair(lang, stringIndex));
+        langMeta.emplace_back(lang, stringIndex);
       }
     }
 
     auto stringsSubReader = CreateStringsSubReader(reader);
-    for (auto const lang : langPriority)
+    for (LangCode const lang : langPriority)
     {
-      auto const it = langMeta.find(lang);
-      if (it != langMeta.end())
+      for (auto const & meta : langMeta)
       {
-        description = m_stringsReader.ExtractString(*stringsSubReader, it->second);
-        return true;
+        if (lang == meta.first)
+          return m_stringsReader.ExtractString(*stringsSubReader, meta.second);
       }
     }
 
-    return false;
+    return {};
   }
 
   template <typename Reader>

@@ -1,13 +1,8 @@
 #pragma once
 
-#include "coding/byte_stream.hpp"
 #include "coding/reader.hpp"
 #include "coding/varint.hpp"
 
-#include "base/base.hpp"
-
-#include <algorithm>
-#include <cstdint>
 #include <string>
 #include <vector>
 
@@ -16,7 +11,7 @@ template <class ReaderT>
 class VarRecordReader
 {
 public:
-  VarRecordReader(ReaderT const & reader) : m_reader(reader) {}
+  explicit VarRecordReader(ReaderT const & reader) : m_reader(reader) {}
 
   std::vector<uint8_t> ReadRecord(uint64_t const pos) const
   {
@@ -29,7 +24,7 @@ public:
     return buffer;
   }
 
-  void ForEachRecord(std::function<void(uint32_t, std::vector<uint8_t> &&)> const & f) const
+  template <class FnT> void ForEachRecord(FnT && fn) const
   {
     ReaderSource source(m_reader);
     while (source.Size() > 0)
@@ -38,10 +33,10 @@ public:
       uint32_t const recordSize = ReadVarUint<uint32_t>(source);
       std::vector<uint8_t> buffer(recordSize);
       source.Read(buffer.data(), recordSize);
-      f(static_cast<uint32_t>(pos), std::move(buffer));
+      fn(static_cast<uint32_t>(pos), std::move(buffer));
     }
   }
 
-protected:
+private:
   ReaderT m_reader;
 };

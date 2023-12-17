@@ -32,7 +32,7 @@ bool BuildCentersTableFromDataFile(std::string const & filename, bool forceRebui
       }
 
       feature::DataHeader const header(rcont);
-      FeaturesVector const features(rcont, header, table.get());
+      FeaturesVector const features(rcont, header, table.get(), nullptr);
 
       builder.SetGeometryParams(header.GetBounds());
       features.ForEach([&](FeatureType & ft, uint32_t featureId)

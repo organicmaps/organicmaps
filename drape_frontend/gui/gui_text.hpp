@@ -1,14 +1,12 @@
 #pragma once
 
 #include "drape_frontend/gui/shape.hpp"
-#include "drape_frontend/render_state_extension.hpp"
 
 #include "drape/binding_info.hpp"
 #include "drape/drape_global.hpp"
 #include "drape/glsl_types.hpp"
 #include "drape/texture_manager.hpp"
 
-#include <cstdint>
 #include <functional>
 #include <string>
 #include <unordered_set>
@@ -188,7 +186,7 @@ public:
 
   // Return maximum pixel size.
   static m2::PointF Draw(ref_ptr<dp::GraphicsContext> context, Params const & params,
-                         ref_ptr<dp::TextureManager> mng, dp::Batcher::TFlushFn const & flushFn);
+                         ref_ptr<dp::TextureManager> mng, dp::Batcher::TFlushFn && flushFn);
 };
 
 class StaticLabelHandle : public Handle

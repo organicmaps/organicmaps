@@ -8,7 +8,7 @@
 
 namespace settings
 {
-/// Metric or Feet.
+/// Metric or Imperial.
 extern char const * kMeasurementUnits;
 
 template <class T>
@@ -49,12 +49,33 @@ void Set(std::string const & key, Value const & value)
   StringStorage::Instance().SetValue(key, ToString(value));
 }
 
+/// Automatically saves settings to external file
+inline void Update(std::map<std::string, std::string> const & settings)
+{
+  StringStorage::Instance().Update(settings);
+}
+
 inline void Delete(std::string const & key) { StringStorage::Instance().DeleteKeyAndValue(key); }
 inline void Clear() { StringStorage::Instance().Clear(); }
 
-/// Use this function for running some stuff once according to date.
-/// @param[in]  date  Current date in format yymmdd.
-bool IsFirstLaunchForDate(int date);
+class UsageStats
+{
+  static uint64_t TimeSinceEpoch();
+  uint64_t m_enterForegroundTime = 0;
+  uint64_t m_totalForegroundTime = 0;
+  uint64_t m_sessionsCount = 0;
+
+  std::string m_firstLaunch, m_lastBackground, m_totalForeground, m_sessions;
+
+  StringStorage & m_ss;
+
+public:
+  UsageStats();
+
+  void EnterForeground();
+  void EnterBackground();
+};
+
 } // namespace settings
 
 /*

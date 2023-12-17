@@ -1,0 +1,24 @@
+/* Keep here changes of the base map style file only. */
+@import("../../clear/include/Basemap_label.mapcss");
+
+
+/* 9. ISOLINES */
+
+line[isoline]
+{text-position: line;}
+
+line|z10-[isoline=step_1000],
+{text:name;font-size: 9;fill-opacity: 0.7;text-color: @label_isoline1000;}
+
+line|z11-[isoline=step_500],
+{text:name;font-size: 9;fill-opacity: 0.7;text-color: @label_isoline500;}
+
+line|z13-[isoline=step_100],
+{text:name;font-size: 9;fill-opacity: 0.7;text-color: @label_isoline100;}
+
+line|z15-[isoline=step_50],
+line|z15-[isoline=zero],
+{text:name;font-size: 9;fill-opacity: 0.7;text-color: @label_isoline50;}
+
+line|z16-[isoline=step_10],
+{text:name;font-size: 9;fill-opacity: 0.7;text-color: @label_isoline10;}

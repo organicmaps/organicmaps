@@ -1,6 +1,5 @@
 #pragma once
-
-#include "search/search_quality/assessment_tool/view.hpp"
+#include "view.hpp"
 
 #include "indexer/feature_decl.hpp"
 
@@ -36,16 +35,11 @@ public:
                   std::optional<m2::PointD> const & position, bool isUseless,
                   bool hasEdits) override;
 
-  void AddFoundResults(search::Results::ConstIter begin, search::Results::ConstIter end) override;
+  void AddFoundResults(search::Results const & results) override;
   void ShowNonFoundResults(std::vector<search::Sample::Result> const & results,
                            std::vector<ResultsEdits::Entry> const & entries) override;
 
   void ShowMarks(Context const & context) override;
-  void ShowFoundResultsMarks(search::Results::ConstIter begin,
-                             search::Results::ConstIter end) override;
-  void ShowNonFoundResultsMarks(std::vector<search::Sample::Result> const & results,
-                                std::vector<ResultsEdits::Entry> const & entries) override;
-  void ClearSearchResultMarks() override;
 
   void MoveViewportToResult(search::Result const & result) override;
   void MoveViewportToResult(search::Sample::Result const & result) override;

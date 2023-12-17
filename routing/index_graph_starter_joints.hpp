@@ -3,7 +3,6 @@
 #include "routing/base/astar_graph.hpp"
 #include "routing/base/astar_vertex_data.hpp"
 
-#include "routing/fake_feature_ids.hpp"
 #include "routing/joint_segment.hpp"
 #include "routing/segment.hpp"
 
@@ -11,15 +10,14 @@
 
 #include "base/assert.hpp"
 
+#include "3party/skarupke/bytell_hash_map.hpp"  // needed despite of IDE warning
+
 #include <algorithm>
-#include <limits>
 #include <map>
 #include <optional>
 #include <queue>
-#include <set>
 #include <vector>
 
-#include "3party/skarupke/bytell_hash_map.hpp"
 
 namespace routing
 {
@@ -39,7 +37,10 @@ public:
 
   void Init(Segment const & startSegment, Segment const & endSegment);
 
-  ms::LatLon const & GetPoint(JointSegment const & jointSegment, bool start);
+  ms::LatLon const & GetPoint(JointSegment const & jointSegment, bool start) const
+  {
+    return m_graph.GetPoint(GetSegmentFromJoint(jointSegment, start), jointSegment.IsForward());
+  }
   JointSegment const & GetStartJoint() const { return m_startJoint; }
   JointSegment const & GetFinishJoint() const { return m_endJoint; }
 
@@ -77,14 +78,12 @@ public:
       if (!vertex.IsFake())
         return;
 
-      auto const it = m_fakeJointSegments.find(vertex);
-      ASSERT(it != m_fakeJointSegments.cend(), ());
-
-      auto const & first = it->second.GetSegment(true /* start */);
+      auto const & fake = GetFakeSegmentSure(vertex);
+      auto const & first = fake.GetSegment(true /* start */);
       if (first.IsRealSegment())
         vertex.AssignID(first);
       else
-        vertex.AssignID(it->second.GetSegment(false /* start */));
+        vertex.AssignID(fake.GetSegment(false /* start */));
     };
 
     return m_graph.AreWavesConnectible(forwardParents, commonVertex, backwardParents, converter);
@@ -105,10 +104,16 @@ public:
     return !segment.IsFakeCreated();
   }
 
-  Segment const & GetSegmentOfFakeJoint(JointSegment const & joint, bool start);
+  Segment const & GetSegmentOfFakeJoint(JointSegment const & joint, bool start) const
+  {
+    return GetFakeSegmentSure(joint).GetSegment(start);
+  }
+  Segment GetSegmentFromJoint(JointSegment const & joint, bool start) const
+  {
+    return joint.IsFake() ? GetSegmentOfFakeJoint(joint, start) : joint.GetSegment(start);
+  }
 
 private:
-  static auto constexpr kInvalidFeatureId = FakeFeatureIds::kIndexGraphStarterId;
   static auto constexpr kInvalidId = JointSegment::kInvalidSegmentId;
   static auto constexpr kInvisibleEndId = kInvalidId - 1;
   static auto constexpr kInvisibleStartId = kInvalidId - 2;
@@ -172,6 +177,13 @@ private:
            (jointSegment.GetStartSegmentId() == kInvisibleStartId ||
            jointSegment.GetStartSegmentId() == kInvisibleEndId) &&
            jointSegment.GetStartSegmentId() != kInvalidId;
+  }
+
+  FakeJointSegment const & GetFakeSegmentSure(JointSegment const & key) const
+  {
+    auto const it = m_fakeJointSegments.find(key);
+    ASSERT(it != m_fakeJointSegments.end(), (key));
+    return it->second;
   }
 
   Graph & m_graph;
@@ -304,23 +316,6 @@ RouteWeight IndexGraphStarterJoints<Graph>::HeuristicCostEstimate(JointSegment c
 }
 
 template <typename Graph>
-ms::LatLon const &
-IndexGraphStarterJoints<Graph>::GetPoint(JointSegment const & jointSegment, bool start)
-{
-  Segment segment;
-  if (jointSegment.IsFake())
-  {
-    auto const it = m_fakeJointSegments.find(jointSegment);
-    CHECK(it != m_fakeJointSegments.end(), ("No such fake joint:", jointSegment));
-    segment = it->second.GetSegment(start);
-  }
-  else
-    segment = jointSegment.GetSegment(start);
-
-  return m_graph.GetPoint(segment, jointSegment.IsForward());
-}
-
-template <typename Graph>
 std::vector<Segment> IndexGraphStarterJoints<Graph>::ReconstructJoint(JointSegment const & joint)
 {
   // We have invisible JointSegments, which are come from start to start or end to end.
@@ -367,32 +362,22 @@ void IndexGraphStarterJoints<Graph>::AddFakeJoints(Segment const & segment, bool
   // of fake joints, entered to finish and vice versa.
   EdgeListT const & endings = isOutgoing ? m_endOutEdges : m_startOutEdges;
 
-  bool const opposite = !isOutgoing;
   for (auto const & edge : endings)
   {
     // The one end of FakeJointSegment is start/finish and the opposite end is real segment.
     // So we check, whether |segment| is equal to the real segment of FakeJointSegment.
     // If yes, that means, that we can go from |segment| to start/finish.
     auto const it = m_fakeJointSegments.find(edge.GetTarget());
-    if (it == m_fakeJointSegments.cend())
+    if (it == m_fakeJointSegments.end())
       continue;
 
-    auto const & fakeJointSegment = it->second;
-    Segment const & firstSegment = fakeJointSegment.GetSegment(!opposite /* start */);
+    Segment const & firstSegment = it->second.GetSegment(isOutgoing /* start */);
     if (firstSegment == segment)
     {
       edges.emplace_back(edge);
       return;
     }
   }
-}
-
-template <typename Graph>
-Segment const & IndexGraphStarterJoints<Graph>::GetSegmentOfFakeJoint(JointSegment const & joint, bool start)
-{
-  auto const it = m_fakeJointSegments.find(joint);
-  CHECK(it != m_fakeJointSegments.cend(), ("No such fake joint:", joint));
-  return it->second.GetSegment(start);
 }
 
 template <typename Graph>
@@ -403,21 +388,18 @@ std::optional<Segment> IndexGraphStarterJoints<Graph>::GetParentSegment(
   bool const opposite = !isOutgoing;
   if (vertex.IsFake())
   {
-    CHECK(m_fakeJointSegments.find(vertex) != m_fakeJointSegments.end(),
-          ("No such fake joint:", vertex, "in JointStarter."));
+    FakeJointSegment const & fakeJointSegment = GetFakeSegmentSure(vertex);
 
-    FakeJointSegment const & fakeJointSegment = m_fakeJointSegments[vertex];
-
-    auto const & startSegment = isOutgoing ? m_startSegment : m_endSegment;
     auto const & endSegment = isOutgoing ? m_endSegment : m_startSegment;
-    auto const & endJoint = isOutgoing ? m_endJoint : m_startJoint;
+    parentSegment = fakeJointSegment.GetSegment(opposite /* start */);
 
     // This is case when we can build route from start to finish without real segment, only fake.
     // It happens when start and finish are close to each other.
     // If we want A* stop, we should add |endJoint| to its queue, then A* will see the vertex: |endJoint|
     // where it has already been and stop working.
-    if (fakeJointSegment.GetSegment(opposite /* start */) == endSegment)
+    if (parentSegment == endSegment)
     {
+      auto const & endJoint = isOutgoing ? m_endJoint : m_startJoint;
       if (isOutgoing)
       {
         static auto constexpr kZeroWeight = RouteWeight(0.0);
@@ -434,8 +416,10 @@ std::optional<Segment> IndexGraphStarterJoints<Graph>::GetParentSegment(
       return {};
     }
 
-    CHECK(fakeJointSegment.GetSegment(!opposite /* start */) == startSegment, ());
-    parentSegment = fakeJointSegment.GetSegment(opposite /* start */);
+#ifdef DEBUG
+    auto const & startSegment = isOutgoing ? m_startSegment : m_endSegment;
+    ASSERT_EQUAL(fakeJointSegment.GetSegment(!opposite /* start */), startSegment, ());
+#endif  // DEBUG
   }
   else
   {
@@ -477,16 +461,11 @@ bool IndexGraphStarterJoints<Graph>::FillEdgesAndParentsWeights(
     m_graph.GetEdgeList(vertexData, parentSegment, isOutgoing, edges, parentWeights);
 
     firstFakeId = edges.size();
-    bool const opposite = !isOutgoing;
     for (size_t i = 0; i < firstFakeId; ++i)
     {
-      size_t prevSize = edges.size();
-      auto const & target = edges[i].GetTarget();
+      size_t const prevSize = edges.size();
 
-      auto const & segment = target.IsFake() ? m_fakeJointSegments[target].GetSegment(!opposite)
-                                             : target.GetSegment(!opposite);
-
-      AddFakeJoints(segment, isOutgoing, edges);
+      AddFakeJoints(GetSegmentFromJoint(edges[i].GetTarget(), isOutgoing), isOutgoing, edges);
 
       // If we add fake edge, we should add new parentWeight as "child[i] -> parent".
       // Because fake edge and current edge (jointEdges[i]) have the same first
@@ -520,9 +499,9 @@ void IndexGraphStarterJoints<Graph>::GetEdgeList(
   if (!FillEdgesAndParentsWeights(vertexData, isOutgoing, firstFakeId, edges, parentWeights))
     return;
 
+  auto const & vertex = vertexData.m_vertex;
   if (!isOutgoing)
   {
-    auto const & vertex = vertexData.m_vertex;
     // |parentSegment| is parent-vertex from which we search children.
     // For correct weight calculation we should get weight of JointSegment, that
     // ends in |parentSegment| and add |parentWeight[i]| to the saved value.
@@ -533,25 +512,18 @@ void IndexGraphStarterJoints<Graph>::GetEdgeList(
     for (size_t i = 0; i < edges.size(); ++i)
     {
       // Saving weight of current edges for returning in the next iterations.
-      auto const & w = edges[i].GetWeight();
+      auto & w = edges[i].GetWeight();
       auto const & t = edges[i].GetTarget();
 
-      auto res = m_savedWeight.insert(std::make_pair(t, w));
-      if (!res.second)
-      {
-        // Actually, the edge's weight should be an invariant, no matter how we reached it.
-        // This is true, except for the case in Cross MWM routing with GetCrossBorderPenalty.
-        // We add this penalty if its parent edge is in another MWM. Also, after that, we can
-        // reach the edge from within its current MWM and the penalty will be overwritten.
-        // So keep *max* weight here. Check CrossCountry_XXX tests.
-        res.first->second = std::max(res.first->second, w);
-      }
+      // By VNG: Revert to the MM original code, since Cross-MWM borders penalty is assigned in the end of this function.
+      /// @todo I still have doubts on how we "fetch" weight for ingoing edges with m_savedWeight.
+      m_savedWeight[t] = w;
 
       // For parent JointSegment we know its weight without last segment, because for each child
       // it will differ (child_1 => parent != child_2 => parent), but (!) we save this weight in
       // |parentWeights[]|. So the weight of an ith edge is a cached "weight of parent JointSegment" +
       // "parentWeight[i]".
-      edges[i].GetWeight() = weight + parentWeights[i];
+      w = weight + parentWeights[i];
     }
 
     // Delete useless weight of parent JointSegment.
@@ -563,6 +535,22 @@ void IndexGraphStarterJoints<Graph>::GetEdgeList(
     for (size_t i = firstFakeId; i < edges.size(); ++i)
       edges[i].GetWeight() += parentWeights[i];
   }
+
+  auto const vertexMwmId = vertex.GetMwmId();
+  if (vertexMwmId != kFakeNumMwmId)
+  {
+    /// @todo By VNG: Main problem with current (borders penalty) approach and bidirectional A* is that:
+    /// a weight of v1->v2 transition moving forward (v1 outgoing) should be the same as
+    /// a weight of v1->v2 transition moving backward (v2 ingoing). This is impossible in current (m_savedWeight)
+    /// logic, so I moved Cross-MWM penalty into separate block here after _all_ weights calculations.
+
+    for (auto & e : edges)
+    {
+      auto const targetMwmId = e.GetTarget().GetMwmId();
+      if (targetMwmId != kFakeNumMwmId && vertexMwmId != targetMwmId)
+        e.GetWeight() += m_graph.GetCrossBorderPenalty(vertexMwmId, targetMwmId);
+    }
+  }
 }
 
 template <typename Graph>
@@ -570,7 +558,7 @@ JointSegment IndexGraphStarterJoints<Graph>::CreateFakeJoint(Segment const & fro
                                                              uint32_t featureId/* = kInvalidFeatureId*/)
 {
   JointSegment const result = JointSegment::MakeFake(m_fakeId++, featureId);
-  m_fakeJointSegments[result] = FakeJointSegment(from, to);
+  m_fakeJointSegments.emplace(result, FakeJointSegment(from, to));
   return result;
 }
 
@@ -592,20 +580,14 @@ IndexGraphStarterJoints<Graph>::FindFirstJoints(Segment const & startSegment, bo
     std::vector<Segment> path;
     path.emplace_back(current);
 
-    if (current == startSegment)
-      return path;
-
-    Segment parentSegment;
-    do
+    while (current != startSegment)
     {
-      parentSegment = parent[current];
-      path.emplace_back(parentSegment);
-      current = parentSegment;
-    } while (parentSegment != startSegment);
+      current = parent[current];
+      path.emplace_back(current);
+    }
 
     if (forward)
       std::reverse(path.begin(), path.end());
-
     return path;
   };
 
@@ -684,7 +666,7 @@ template <typename Graph>
 JointSegment IndexGraphStarterJoints<Graph>::CreateInvisibleJoint(Segment const & segment, bool start)
 {
   JointSegment const result = JointSegment::MakeFake(start ? kInvisibleStartId : kInvisibleEndId);
-  m_fakeJointSegments[result] = FakeJointSegment(segment, segment);
+  m_fakeJointSegments.emplace(result, FakeJointSegment(segment, segment));
   return result;
 }
 

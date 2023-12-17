@@ -10,12 +10,10 @@
 #include <cstdint>
 #include <utility>
 
-using namespace std;
-
 namespace routing
 {
-IndexRoadGraph::IndexRoadGraph(IndexGraphStarter & starter, vector<Segment> const & segments,
-                               vector<geometry::PointWithAltitude> const & junctions,
+IndexRoadGraph::IndexRoadGraph(IndexGraphStarter & starter, std::vector<Segment> const & segments,
+                               std::vector<geometry::PointWithAltitude> const & junctions,
                                MwmDataSource & dataSource)
   : m_dataSource(dataSource), m_starter(starter), m_segments(segments)
 {

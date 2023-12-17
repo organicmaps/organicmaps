@@ -1,5 +1,4 @@
 #include "categories_index.hpp"
-#include "search_delimiters.hpp"
 #include "search_string_utils.hpp"
 
 #include "base/assert.hpp"
@@ -8,6 +7,10 @@
 
 #include <algorithm>
 #include <set>
+
+namespace indexer
+{
+using namespace std;
 
 namespace
 {
@@ -29,11 +32,10 @@ void AddAllNonemptySubstrings(base::MemTrie<std::string, base::VectorValues<uint
 template <typename TF>
 void ForEachToken(std::string const & s, TF && fn)
 {
-  std::vector<strings::UniString> tokens;
-  SplitUniString(search::NormalizeAndSimplifyString(s), base::MakeBackInsertFunctor(tokens),
-                 search::Delimiters());
-  for (auto const & token : tokens)
+  search::ForEachNormalizedToken(s, [&fn](strings::UniString const & token)
+  {
     fn(strings::ToUtf8(token));
+  });
 }
 
 void TokenizeAndAddAllSubstrings(base::MemTrie<std::string, base::VectorValues<uint32_t>> & trie,
@@ -47,8 +49,6 @@ void TokenizeAndAddAllSubstrings(base::MemTrie<std::string, base::VectorValues<u
 }
 }  // namespace
 
-namespace indexer
-{
 void CategoriesIndex::AddCategoryByTypeAndLang(uint32_t type, int8_t lang)
 {
   ASSERT(lang >= 1 && static_cast<size_t>(lang) <= CategoriesHolder::kLocaleMapping.size(),

@@ -43,11 +43,11 @@ struct DownloaderSearchResults
 
 struct DownloaderSearchParams
 {
-  using OnResults = std::function<void(DownloaderSearchResults const &)>;
-
-  OnResults m_onResults;
   std::string m_query;
   std::string m_inputLocale;
+
+  using OnResults = std::function<void(DownloaderSearchResults)>;
+  OnResults m_onResults;
 };
 
 inline std::string DebugPrint(DownloaderSearchResult const & r)

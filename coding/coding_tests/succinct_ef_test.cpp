@@ -14,7 +14,8 @@ using namespace std;
 
 template <class T> vector<T> GetUniformValues(size_t count)
 {
-  uniform_int_distribution<T> randDist;
+  // Use max - 1 because succinct makes val + 1 encoding internals.
+  uniform_int_distribution<T> randDist(0, numeric_limits<T>::max() - 1);
   random_device randDevice;
   mt19937 randEngine(randDevice());
 
@@ -33,7 +34,8 @@ template <class T> vector<T> GetNormalValues(size_t count, T mean)
   vector<T> data(count);
   for (size_t i = 0; i < count; ++i)
   {
-    T constexpr const kMax = numeric_limits<T>::max();
+    // Use max - 1 because succinct makes val + 1 encoding internals.
+    T constexpr const kMax = numeric_limits<T>::max() - 1;
     double d = round(randDist(randEngine));
     if (d < 0)
       d = 0;

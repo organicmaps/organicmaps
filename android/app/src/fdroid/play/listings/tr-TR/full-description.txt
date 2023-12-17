@@ -1,0 +1,10 @@
+Organic Maps, sürücü, yürüyüşçü ve bisikletliler için gizlilik ile tasarlanmış bir GNSS seyrüsefer app'idir. Gizlilik ile yol buldurur - yer takibi, veri toplama ya da reklam olmaksızın. Arama, yönlendirme ve seyrüsefer internet sinyali olmadan çalışır ki bu uzak yürüyüş patikaları ya da zayıf bağlantılı yerler için idealdir. Organic Maps yeryüzünün her yanından katkılar ile bir araya getirilmiş OpenStreetMap verisini kullanır. Projenin sahibi ahali, kaynak kodu açıktır, Organic Maps iş birliği ve toplumda kalkınmayı önemser. 
+
+‣ İnternet Sinyali Olması Elzem değil - sinyal olmadan da Ara ve Yönlendir 
+‣ Pili Verimli Kullanma - Düşürülmüş pil tüketimi
+‣ Hızlı Arama - Yerleri hızla bulun
+
+Organic Maps'te mahremiyeti önemseriz:
+• <b>OpenStreetMap</b> Yer Takibi Yok
+• Veri Toplama Yok
+• Reklam Yok

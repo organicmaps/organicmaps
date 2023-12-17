@@ -44,8 +44,7 @@ public:
   template <typename Fn>
   void ForEachPosting(strings::UniString const & token, Fn && fn) const
   {
-    auto const utf8s = strings::ToUtf8(token);
-    ForEachPosting(std::move(utf8s), std::forward<Fn>(fn));
+    ForEachPosting(strings::ToUtf8(token), std::forward<Fn>(fn));
   }
 
   template <typename Sink>

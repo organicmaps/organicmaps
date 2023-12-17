@@ -528,7 +528,7 @@ drape_ptr<df::UserPointMark::SymbolNameZoomInfo> TransitMark::GetSymbolNames() c
   if (m_symbolNames.empty())
     return nullptr;
   return make_unique_dp<SymbolNameZoomInfo>(m_symbolNames);
-};
+}
 
 // static
 void TransitMark::GetDefaultTransitTitle(dp::TitleDecl & titleDecl)
@@ -571,6 +571,11 @@ void SpeedCameraMark::SetTitle(std::string const & title)
 {
   SetDirty();
   m_titleDecl.m_primaryText = title;
+}
+
+std::string const & SpeedCameraMark::GetTitle() const
+{
+  return m_titleDecl.m_primaryText;
 }
 
 void SpeedCameraMark::SetIndex(uint32_t index)

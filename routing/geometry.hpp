@@ -10,10 +10,8 @@
 
 #include "geometry/latlon.hpp"
 
-#include "base/buffer_vector.hpp"
 #include "base/fifo_cache.hpp"
 
-#include <cstdint>
 #include <memory>
 #include <optional>
 #include <string>
@@ -26,7 +24,7 @@ namespace routing
 {
 // @TODO(bykoianko) Consider setting cache size based on available memory.
 // Maximum road geometry cache size in items.
-size_t constexpr kRoadsCacheSize = 5000;
+size_t constexpr kRoadsCacheSize = 10000;
 
 class RoadAttrsGetter;
 
@@ -54,6 +52,9 @@ public:
     ASSERT_LESS(junctionId, m_junctions.size(), ());
     return m_junctions[junctionId];
   }
+
+  double GetDistance(uint32_t segmendIdx) const;
+  double GetRoadLengthM() const;
 
   ms::LatLon const & GetPoint(uint32_t pointId) const { return GetJunction(pointId).GetLatLon(); }
 
@@ -83,10 +84,9 @@ public:
 
   RoutingOptions GetRoutingOptions() const { return m_routingOptions; }
 
-  double GetRoadLengthM() const;
-
 private:
   std::vector<LatLonWithAltitude> m_junctions;
+  mutable std::vector<double> m_distances;    ///< as cache, @see GetDistance()
 
   SpeedKMpH m_forwardSpeed;
   SpeedKMpH m_backwardSpeed;

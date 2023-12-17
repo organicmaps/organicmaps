@@ -1,9 +1,9 @@
-<svg width="18" height="18" viewBox="0 0 18 18">
-  <g fill="none">
-    <polygon fill="#FFF" points="18 0 0 0 0 18 18 18" opacity=".4"/>
-    <rect width="16" height="16" x="1" y="1" fill="#B34D00"/>
-    <g fill="#B3B3B3" transform="translate(3 3)">
-      <path d="M0,0 L1.8,0 L2,0.5 L6,9.8 L10,0.5 L10.2,0 L12,0 L12,12 L10,12 L10,4.6 L6.9,11.8 L6.8,12 L5.2,12 L5.1,11.8 L2,4.6 L2,12 L0,12 L0,0 Z"/>
-    </g>
+<svg viewBox="0 0 18 18" xmlns="http://www.w3.org/2000/svg">
+ <g>
+  <polygon points="18 0 0 0 0 18 18 18" fill="#FFF" opacity=".4"/>
+  <rect x="1" y="1" width="16" height="16" fill="#B34D00"/>
+  <g transform="translate(3 3)" fill="#B3B3B3">
+   <path d="m0 0h1.8l0.2 0.5 4 9.3 4-9.3 0.2-0.5h1.8v12h-2v-7.4l-3.1 7.2-0.1 0.2h-1.6l-0.1-0.2-3.1-7.2v7.4h-2v-12z"/>
   </g>
+ </g>
 </svg>

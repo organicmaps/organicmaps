@@ -2,8 +2,9 @@
 
 #include "drape/oglcontext.hpp"
 
+#include <QOpenGLFramebufferObject>
+
 #include <QtGui/QOffscreenSurface>
-#include <QtGui/QOpenGLFramebufferObject>
 #include <QtGui/QOpenGLContext>
 
 #include <atomic>

@@ -8,6 +8,8 @@
 #include "routing_common/car_model.hpp"
 #include "routing_common/pedestrian_model.hpp"
 
+#include "indexer/classificator.hpp"
+
 #include "geometry/point_with_altitude.hpp"
 #include "geometry/rect2d.hpp"
 #include "geometry/segment2d.hpp"
@@ -43,8 +45,18 @@ bool IsBicycleRoad(Types const & types)
 template <typename Types>
 bool IsRoad(Types const & types)
 {
-  return IsCarRoad(types) || PedestrianModel::AllLimitsInstance().HasRoadType(types) ||
-         IsBicycleRoad(types);
+  if (IsCarRoad(types))
+    return true;
+
+  if (PedestrianModel::AllLimitsInstance().HasRoadType(types) || IsBicycleRoad(types))
+  {
+    // https://github.com/organicmaps/organicmaps/issues/3929
+    // In case when road has pedestrian/bicycle=designated + highway=construction types.
+    static uint32_t const constructionType = classif().GetTypeByPath({"highway", "construction"});
+    return !base::IsExist(types, constructionType);
+  }
+
+  return false;
 }
 
 void FillSegmentInfo(std::vector<double> const & times, std::vector<RouteSegment> & routeSegments);

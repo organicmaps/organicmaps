@@ -3,8 +3,9 @@ on:
   workflow_dispatch:  # Manual trigger
 
 env:
-  RELEASE_NOTES: android/src/google/play/release-notes/en-US/default.txt
-  FDROID_VERSION: android/src/fdroid/play/version.yaml
+  RELEASE_NOTES: android/app/src/google/play/release-notes/en-US/default.txt
+  FDROID_VERSION: android/app/src/fdroid/play/version.yaml
+  JAVA_HOME: /usr/lib/jvm/temurin-17-jdk-amd64  # Java 17 is required for Android Gradle 8 plugin
 
 jobs:
   tag:
@@ -13,7 +14,7 @@ jobs:
     environment: production
     steps:
       - name: Checkout sources
-        uses: actions/checkout@v2
+        uses: actions/checkout@v4
         with:
           fetch-depth: 100  # Enough to get all commits for the last day.
           ssh-key: ${{ secrets.RELEASE_SSH_KEY }}
@@ -74,13 +75,8 @@ jobs:
           sudo apt-get update -y
           sudo apt-get install -y ninja-build
 
-      - name: Set up JDK 11
-        uses: actions/setup-java@v1
-        with:
-          java-version: 11
-
       - name: Checkout sources
-        uses: actions/checkout@v2
+        uses: actions/checkout@v4
         with:
           fetch-depth: 100 # enough to get all commits for the current day
           ref: 'refs/tags/${{ needs.tag.outputs.tag }}'
@@ -94,10 +90,10 @@ jobs:
 
       - name: Parallel submodules checkout
         shell: bash
-        run: git submodule update --init --recursive --jobs=$(($(nproc) * 2))
+        run: git submodule update --depth 1 --init --recursive --jobs=$(($(nproc) * 20))
 
       - name: Checkout screenshots
-        uses: actions/checkout@v2
+        uses: actions/checkout@v4
         with:
           repository: ${{ secrets.SCREENSHOTS_REPO }}
           ssh-key: ${{ secrets.SCREENSHOTS_SSH_KEY }}
@@ -105,7 +101,7 @@ jobs:
           path: screenshots
 
       - name: Checkout private keys
-        uses: actions/checkout@v2
+        uses: actions/checkout@v4
         with:
           repository: ${{ secrets.PRIVATE_REPO }}
           ssh-key: ${{ secrets.PRIVATE_SSH_KEY }}
@@ -126,22 +122,22 @@ jobs:
         shell: bash
         working-directory: android
         run: |
-          gradle bundleGoogleRelease publishGoogleReleaseBundle
+          ./gradlew bundleGoogleRelease publishGoogleReleaseBundle
         if: ${{ matrix.flavor == 'google' }}
 
       - name: Compile and upload to Huawei AppGallery
         shell: bash
         working-directory: android
         run: |
-          gradle bundleHuaweiRelease
-          gradle publishHuaweiAppGalleryHuaweiRelease
+          ./gradlew bundleHuaweiRelease
+          ./gradlew publishHuaweiAppGalleryHuaweiRelease
         if: ${{ matrix.flavor == 'huawei' }}
 
       - name: Compile universal APK
         shell: bash
         working-directory: android
         run: |
-          gradle assembleWebRelease
+          ./gradlew assembleWebRelease
         if: ${{ matrix.flavor == 'web' }}
 
       - name: Prepare release notes
@@ -155,7 +151,7 @@ jobs:
             echo ""
             echo "sha256sum:"
             echo -e '\n```'
-            (cd ./android/build/outputs/apk/web/release/ && sha256sum OrganicMaps-${{ needs.tag.outputs.code }}-web-release.apk) | tr -d '\n'
+            (cd ./android/app/build/outputs/apk/web/release/ && sha256sum OrganicMaps-${{ needs.tag.outputs.code }}-web-release.apk) | tr -d '\n'
             echo -e '\n```'
           } > ${{ runner.temp }}/release-notes.txt
 
@@ -168,5 +164,5 @@ jobs:
           name: ${{ needs.tag.outputs.tag }}
           tag_name: ${{ needs.tag.outputs.tag }}
           discussion_category_name: 'Announcements'
-          files: ./android/build/outputs/apk/web/release/OrganicMaps-${{ needs.tag.outputs.code }}-web-release.apk
+          files: ./android/app/build/outputs/apk/web/release/OrganicMaps-${{ needs.tag.outputs.code }}-web-release.apk
           fail_on_unmatched_files: true

@@ -88,6 +88,20 @@ namespace rw
     impl::ReadCont(src, v);
   }
 
+  template <class Sink, class T>
+  void WritePOD(Sink & sink, T const & value)
+  {
+    static_assert(std::is_trivially_copyable<T>::value, "");
+    sink.Write(&value, sizeof(T));
+  }
+
+  template <class Sink, class T>
+  void ReadPOD(Sink & src, T & value)
+  {
+    static_assert(std::is_trivially_copyable<T>::value, "");
+    src.Read(&value, sizeof(T));
+  }
+
   template <class TSource, class TCont>
   void ReadVectorOfPOD(TSource & src, TCont & v)
   {

@@ -1,52 +1,57 @@
 #include "geometry/spline.hpp"
 
-#include "base/logging.hpp"
-
 #include <numeric>
-#include <utility>
 
 namespace m2
 {
 Spline::Spline(std::vector<PointD> const & path)
+  : m_position(path)
 {
-  Init(path);
+  InitDirections();
 }
 
 Spline::Spline(std::vector<PointD> && path)
+  : m_position(std::move(path))
 {
-  Init(move(path));
+  InitDirections();
 }
 
 Spline::Spline(size_t reservedSize)
 {
-  ASSERT_LESS(0, reservedSize, ());
+  ASSERT_GREATER(reservedSize, 0, ());
   m_position.reserve(reservedSize);
   m_direction.reserve(reservedSize - 1);
   m_length.reserve(reservedSize - 1);
 }
 
+SplineEx::SplineEx(size_t reservedSize)
+  : Spline(reservedSize)
+{
+}
+
 void Spline::AddPoint(PointD const & pt)
 {
-  /// TODO remove this check when fix generator.
-  /// Now we have line objects with zero length segments
-  /// https://jira.mail.ru/browse/MAPSME-3561
-  if (!IsEmpty() && (pt - m_position.back()).IsAlmostZero())
-    return;
-
-  if (IsEmpty())
-    m_position.push_back(pt);
-  else
+  if (!IsEmpty())
   {
-    PointD dir = pt - m_position.back();
-    m_position.push_back(pt);
-    m_length.push_back(dir.Length());
-    m_direction.push_back(dir.Normalize());
+    /// @todo remove this check when fix generator.
+    /// Now we have line objects with zero length segments
+    /// https://jira.mail.ru/browse/MAPSME-3561
+    PointD const dir = pt - m_position.back();
+    if (dir.IsAlmostZero())
+      return;
+
+    double const len = dir.Length();
+    ASSERT_GREATER(len, 0, ());
+    m_length.push_back(len);
+    m_direction.push_back(dir / len);
   }
+
+  m_position.push_back(pt);
 }
 
 void Spline::ReplacePoint(PointD const & pt)
 {
-  ASSERT(m_position.size() > 1, ());
+  ASSERT_GREATER(m_position.size(), 1, ());
   ASSERT(!m_length.empty(), ());
   ASSERT(!m_direction.empty(), ());
   m_position.pop_back();
@@ -55,20 +60,40 @@ void Spline::ReplacePoint(PointD const & pt)
   AddPoint(pt);
 }
 
-bool Spline::IsPrelonging(PointD const & pt)
+void Spline::AddOrProlongPoint(PointD const & pt, double minSegSqLength, bool checkAngle)
 {
-  if (m_position.size() < 2)
-    return false;
+  if (m_position.empty())
+  {
+    m_position.push_back(pt);
+    return;
+  }
 
   PointD dir = pt - m_position.back();
   if (dir.IsAlmostZero())
-    return true;
+    return;
+  double len = dir.SquaredLength();
+  ASSERT_GREATER(len, 0, ());
 
-  dir = dir.Normalize();
-  PointD prevDir = m_direction.back().Normalize();
+  if (m_position.size() > 1 && len < minSegSqLength)
+  {
+    ReplacePoint(pt);
+    return;
+  }
 
-  double const MAX_ANGLE_THRESHOLD = 0.995;
-  return std::fabs(DotProduct(prevDir, dir)) > MAX_ANGLE_THRESHOLD;
+  len = sqrt(len);
+  dir = dir / len;
+
+  // Some cos(angle) == 1 (angle == 0) threshold.
+  if (checkAngle && !m_direction.empty() && std::fabs(DotProduct(m_direction.back(), dir)) > 0.995)
+  {
+    ReplacePoint(pt);
+  }
+  else
+  {
+    m_position.push_back(pt);
+    m_length.push_back(len);
+    m_direction.push_back(dir);
+  }
 }
 
 size_t Spline::GetSize() const
@@ -106,26 +131,40 @@ double Spline::GetLength() const
   return std::accumulate(m_length.begin(), m_length.end(), 0.0);
 }
 
-template <typename T>
-void Spline::Init(T && path)
+double Spline::GetLastLength() const
 {
-  ASSERT(path.size() > 1, ("Wrong path size!"));
-  m_position = std::forward<T>(path);
-  size_t cnt = m_position.size() - 1;
-  m_direction = std::vector<PointD>(cnt);
-  m_length = std::vector<double>(cnt);
+  ASSERT(!m_length.empty(), ());
+  return m_length.back();
+}
 
-  for (size_t i = 0; i < cnt; ++i)
+std::pair<PointD, double> Spline::GetTangentAndLength(size_t i) const
+{
+  ASSERT_LESS(i, m_length.size(), ());
+  return { m_direction[i], m_length[i] };
+}
+
+void Spline::InitDirections()
+{
+  ASSERT_GREATER(m_position.size(), 1, ());
+  size_t const sz = m_position.size() - 1;
+
+  ASSERT(m_direction.empty() && m_length.empty(), ());
+  m_direction.resize(sz);
+  m_length.resize(sz);
+
+  for (size_t i = 0; i < sz; ++i)
   {
     m_direction[i] = m_position[i + 1] - m_position[i];
-    m_length[i] = m_direction[i].Length();
-    m_direction[i] = m_direction[i].Normalize();
+    double const len = m_direction[i].Length();
+    ASSERT_GREATER(len, 0, (i));
+    m_length[i] = len;
+    m_direction[i] = m_direction[i] / len;
   }
 }
 
 Spline::iterator::iterator()
   : m_checker(false)
-  , m_spl(NULL)
+  , m_spl(nullptr)
   , m_index(0)
   , m_dist(0)
 {
@@ -233,29 +272,19 @@ void Spline::iterator::AdvanceForward(double step)
   m_avrDir += m_pos;
 }
 
+SharedSpline::SharedSpline(size_t reservedSize)
+  : m_spline(std::make_shared<Spline>(reservedSize))
+{
+}
+
 SharedSpline::SharedSpline(std::vector<PointD> const & path)
   : m_spline(std::make_shared<Spline>(path))
 {
 }
 
 SharedSpline::SharedSpline(std::vector<PointD> && path)
-  : m_spline(std::make_shared<Spline>(move(path)))
+  : m_spline(std::make_shared<Spline>(std::move(path)))
 {
-}
-
-bool SharedSpline::IsNull() const
-{
-  return m_spline == NULL;
-}
-
-void SharedSpline::Reset(Spline * spline)
-{
-  m_spline.reset(spline);
-}
-
-void SharedSpline::Reset(std::vector<PointD> const & path)
-{
-  m_spline.reset(new Spline(path));
 }
 
 Spline::iterator SharedSpline::CreateIterator() const
@@ -265,20 +294,4 @@ Spline::iterator SharedSpline::CreateIterator() const
   return result;
 }
 
-Spline * SharedSpline::operator->()
-{
-  ASSERT(!IsNull(), ());
-  return m_spline.get();
-}
-
-Spline const * SharedSpline::operator->() const
-{
-  return Get();
-}
-
-Spline const * SharedSpline::Get() const
-{
-  ASSERT(!IsNull(), ());
-  return m_spline.get();
-}
 } // namespace m2

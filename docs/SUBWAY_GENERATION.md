@@ -1,11 +1,11 @@
 # Subway layer generation
 
-For the subway layer to be available in Organic Maps a `SUBWAY_URL`
+For the subway layer to be available in Organic Maps, a `SUBWAY_URL`
 parameter ought to be provided to the
 [map generator](https://github.com/organicmaps/organicmaps/tree/master/tools/python/maps_generator).
-Normally you can specify the link https://cdn.organicmaps.app/subway.json
-to a regularily updatable file.
-This instruction describes how to manually build subway layer file.
+Normally you can specify this link https://cdn.organicmaps.app/subway.json,
+which provides a regularly updated file.
+These instructions describe how to manually build a subway layer file.
 
 Japan is used as target country but any other region from one city to the
 whole planet is also applicable.
@@ -21,15 +21,15 @@ whole planet is also applicable.
     If you already have some not too outdated \*.o5m version, it is enough
     because the subway generation script will update it with `osmupdate`.
 
-1.  With [Organic Maps subways](https://github.com/organicmaps/subways) repository deployed,
+1.  With the [Organic Maps subways](https://github.com/organicmaps/subways) repository deployed,
     run `scripts/process_subways.sh` bash script or prepare your own script
     which launches `process_subways.py` and `validation_to_html.py` scripts
     with suitable options.
 
-1.  Analyze HTML output obtained at the previous step. Broken transport
+1.  Analyse the HTML output obtained at the previous step. Broken transport
     networks won't be included into the map.
 
-1.  Run `tools/python/transit/transit_graph_generator.py` from `omim`.
+1.  Run `tools/python/transit/transit_graph_generator.py` from the repository root.
 
 The last three steps may be expressed as the following shell script:
 

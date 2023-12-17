@@ -41,10 +41,10 @@ public:
   void SetPosition(m2::PointD const & position) { m_position = position; }
   void Show(ESelectedObject obj, m2::PointD const & position, double positionZ, bool isAnimate);
   void Hide();
-  void Render(ref_ptr<dp::GraphicsContext> context, ref_ptr<gpu::ProgramManager> mng, ScreenBase const & screen,
-              int zoomLevel, FrameValues const & frameValues);
+  void Render(ref_ptr<dp::GraphicsContext> context, ref_ptr<gpu::ProgramManager> mng,
+              ScreenBase const & screen, int zoomLevel, FrameValues const & frameValues);
 
-  bool IsVisible(ScreenBase const & screen, m2::PointD & pxPos) const;
+  std::optional<m2::PointD> GetPixelPosition(ScreenBase const & screen, int zoomLevel) const;
   double GetRadius() const { return m_radius; }
   double GetPositionZ() const { return m_positionZ; }
 
@@ -56,6 +56,8 @@ public:
   bool HasSelectionGeometry() const { return !m_selectionGeometry.empty(); }
 
 private:
+  bool IsVisible() const;
+
   m2::PointD m_position;
   double m_positionZ;
   double m_radius;

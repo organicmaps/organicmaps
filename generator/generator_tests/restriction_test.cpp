@@ -8,8 +8,6 @@
 
 #include "traffic/traffic_cache.hpp"
 
-#include "routing/restriction_loader.hpp"
-
 #include "indexer/classificator_loader.hpp"
 
 #include "platform/country_file.hpp"
@@ -38,7 +36,7 @@ using namespace generator;
 using namespace platform::tests_support;
 using namespace platform;
 using namespace routing;
-using namespace std;
+using std::move, std::string, std::unique_ptr, std::vector;
 
 // Directory name for creating test mwm and temporary files.
 string const kTestDir = "restriction_generation_test";
@@ -81,7 +79,7 @@ struct RestrictionUTurnForTests
 
 string DebugPrint(RestrictionUTurnForTests const & r)
 {
-  ostringstream ss;
+  std::ostringstream ss;
   ss << "[" << DebugPrint(r.m_type) << "]: "
      << "feature: " << r.m_featureId << ", "
      << "isFirstPoint: " << r.m_viaIsFirstPoint;
@@ -162,14 +160,14 @@ void TestRestrictionBuilding(string const & restrictionPath,
   // Creating osm ids to feature ids mapping.
   string const mappingRelativePath = base::JoinPath(kTestDir, kOsmIdsToFeatureIdsName);
   ScopedFile const mappingFile(mappingRelativePath, ScopedFile::Mode::Create);
-  string const osmIdsToFeatureIdFullPath = mappingFile.GetFullPath();
+  string const & osmIdsToFeatureIdFullPath = mappingFile.GetFullPath();
   ReEncodeOsmIdsToFeatureIdsMapping(osmIdsToFeatureIdContent, osmIdsToFeatureIdFullPath);
 
   string const restrictionFullPath = base::JoinPath(writableDir, restrictionRelativePath);
   string const & mwmFullPath = scopedMwm.GetFullPath();
 
   // Prepare data to collector.
-  auto restrictionCollector = make_unique<routing_builder::RestrictionCollector>(osmIdsToFeatureIdFullPath, *graph);
+  auto restrictionCollector = std::make_unique<routing_builder::RestrictionCollector>(osmIdsToFeatureIdFullPath, *graph);
 
   TEST(restrictionCollector->Process(restrictionFullPath), ("Bad restrictions were given."));
 
@@ -202,10 +200,10 @@ void TestRestrictionBuilding(string const & restrictionPath,
 // 0         *-> F7 ->*-> F0 ->*-> F1 ->*
 //          -1        0        1        2         3          4
 //
-pair<unique_ptr<IndexGraph>, string> BuildTwoCubeGraph()
+std::pair<unique_ptr<IndexGraph>, string> BuildTwoCubeGraph()
 {
   classificator::Load();
-  unique_ptr<TestGeometryLoader> loader = make_unique<TestGeometryLoader>();
+  auto loader = std::make_unique<TestGeometryLoader>();
   loader->AddRoad(0 /* feature id */, true /* one way */, 1.0 /* speed */,
                   RoadGeometry::Points({{0.0, 0.0}, {1.0, 0.0}}));
   loader->AddRoad(1 /* feature id */, true /* one way */, 1.0 /* speed */,
@@ -244,7 +242,7 @@ pair<unique_ptr<IndexGraph>, string> BuildTwoCubeGraph()
   };
 
   traffic::TrafficCache const trafficCache;
-  shared_ptr<EdgeEstimator> estimator = CreateEstimatorForCar(trafficCache);
+  std::shared_ptr<EdgeEstimator> estimator = CreateEstimatorForCar(trafficCache);
 
   string const osmIdsToFeatureIdsContent = R"(0, 0
                                               1, 1
@@ -258,7 +256,7 @@ pair<unique_ptr<IndexGraph>, string> BuildTwoCubeGraph()
                                               9, 9
                                               10, 10)";
 
-  return {BuildIndexGraph(move(loader), estimator, joints), osmIdsToFeatureIdsContent};
+  return {BuildIndexGraph(std::move(loader), estimator, joints), osmIdsToFeatureIdsContent};
 }
 
 UNIT_TEST(RestrictionGenerationTest_1)
@@ -276,7 +274,7 @@ UNIT_TEST(RestrictionGenerationTest_1)
   };
   vector<RestrictionUTurnForTests> expectedUTurn;
 
-  TestRestrictionBuilding(restrictionPath, osmIdsToFeatureIdsContent, move(indexGraph),
+  TestRestrictionBuilding(restrictionPath, osmIdsToFeatureIdsContent, std::move(indexGraph),
                           expectedNotUTurn, expectedUTurn);
 }
 
@@ -295,7 +293,7 @@ UNIT_TEST(RestrictionGenerationTest_2)
   };
   vector<RestrictionUTurnForTests> expectedUTurn;
 
-  TestRestrictionBuilding(restrictionPath, osmIdsToFeatureIdsContent, move(indexGraph),
+  TestRestrictionBuilding(restrictionPath, osmIdsToFeatureIdsContent, std::move(indexGraph),
                           expectedNotUTurn, expectedUTurn);
 }
 
@@ -316,7 +314,7 @@ UNIT_TEST(RestrictionGenerationTest_3)
   };
   vector<RestrictionUTurnForTests> expectedUTurn;
 
-  TestRestrictionBuilding(restrictionPath, osmIdsToFeatureIdsContent, move(indexGraph),
+  TestRestrictionBuilding(restrictionPath, osmIdsToFeatureIdsContent, std::move(indexGraph),
                           expectedNotUTurn, expectedUTurn);
 }
 
@@ -338,7 +336,7 @@ UNIT_TEST(RestrictionGenerationTest_BadConnection_1)
   };
   vector<RestrictionUTurnForTests> expectedUTurn;
 
-  TestRestrictionBuilding(restrictionPath, osmIdsToFeatureIdsContent, move(indexGraph),
+  TestRestrictionBuilding(restrictionPath, osmIdsToFeatureIdsContent, std::move(indexGraph),
                           expectedNotUTurn, expectedUTurn);
 }
 
@@ -360,7 +358,7 @@ UNIT_TEST(RestrictionGenerationTest_BadConnection_2)
   };
   vector<RestrictionUTurnForTests> expectedUTurn;
 
-  TestRestrictionBuilding(restrictionPath, osmIdsToFeatureIdsContent, move(indexGraph),
+  TestRestrictionBuilding(restrictionPath, osmIdsToFeatureIdsContent, std::move(indexGraph),
                           expectedNotUTurn, expectedUTurn);
 }
 
@@ -382,7 +380,7 @@ UNIT_TEST(RestrictionGenerationTest_WithUTurn_1)
     {Restriction::Type::OnlyUTurn, 6 /* featureId */, true /* viaIsFirstPoint */}
   };
 
-  TestRestrictionBuilding(restrictionPath, osmIdsToFeatureIdsContent, move(indexGraph),
+  TestRestrictionBuilding(restrictionPath, osmIdsToFeatureIdsContent, std::move(indexGraph),
                           expectedNotUTurn, expectedUTurn);
 }
 
@@ -412,7 +410,7 @@ UNIT_TEST(RestrictionGenerationTest_WithUTurn_2)
       {Restriction::Type::OnlyUTurn, 6 /* featureId */, false /* viaIsFirstPoint */}
   };
 
-  TestRestrictionBuilding(restrictionPath, osmIdsToFeatureIdsContent, move(indexGraph),
+  TestRestrictionBuilding(restrictionPath, osmIdsToFeatureIdsContent, std::move(indexGraph),
                           expectedNotUTurn, expectedUTurn);
 }
 
@@ -433,7 +431,7 @@ UNIT_TEST(RestrictionGenerationTest_WithUTurn_BadConnection_1)
   vector<Restriction> expectedNotUTurn;
   vector<RestrictionUTurnForTests> expectedUTurn;
 
-  TestRestrictionBuilding(restrictionPath, osmIdsToFeatureIdsContent, move(indexGraph),
+  TestRestrictionBuilding(restrictionPath, osmIdsToFeatureIdsContent, std::move(indexGraph),
                           expectedNotUTurn, expectedUTurn);
 }
 }  // namespace restriction_test

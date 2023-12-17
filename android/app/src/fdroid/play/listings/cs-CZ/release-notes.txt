@@ -1,0 +1,6 @@
+• Nová data z OpenStreetMap z 13. listopadu
+• Maximální úroveň přiblížení je nyní dvakrát hloubější, než dříve
+• Opraveno importování záložek ve formátu KMB
+• Ve výchozím nastavení vypnuta možnost Zobrazit na uzamčené obrazovce
+• Opravena indikace vyhledávání umístění při přiblížení nebo pohnutí s mapou
+• Náhled stylu venkovních map - jak jej aktivovat a spoustu dalších vylepšení najdete na omaps.org/news

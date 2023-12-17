@@ -2,6 +2,7 @@
 
 #include "kml/minzoom_quadtree.hpp"
 
+#include "base/macros.hpp"
 #include "base/string_utils.hpp"
 
 #include <utility>
@@ -26,5 +27,15 @@ void SetBookmarksMinZoom(FileData & fileData, double countPerTile, int maxZoom)
     valueType.first->m_minZoom = minZoom;
   };
   minZoomQuadtree.SetMinZoom(countPerTile, maxZoom, setMinZoom);
+}
+
+void MultiGeometry::FromPoints(std::vector<m2::PointD> const & points)
+{
+  LineT line;
+  for (auto const & pt : points)
+    line.emplace_back(pt);
+
+  ASSERT(line.size() > 1, ());
+  m_lines.push_back(std::move(line));
 }
 }  // namespace kml

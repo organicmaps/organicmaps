@@ -313,7 +313,7 @@ void TransitRouteDisplay::AddEdgeSubwayForSubroute(routing::RouteSegment const &
     }
     sp.m_marker.m_colors.push_back(currentColor);
 
-    if (stop1.GetFeatureId() != routing::transit::kInvalidFeatureId)
+    if (stop1.GetFeatureId() != kInvalidFeatureId)
     {
       auto const fid = FeatureID(ssp.m_mwmId, stop1.GetFeatureId());
       sp.m_transitMarkInfo.m_featureId = fid;
@@ -356,7 +356,7 @@ void TransitRouteDisplay::AddEdgeSubwayForSubroute(routing::RouteSegment const &
   }
 
   sp.m_transitMarkInfo.m_point = sp.m_marker.m_position;
-  if (stop2.GetFeatureId() != routing::transit::kInvalidFeatureId)
+  if (stop2.GetFeatureId() != kInvalidFeatureId)
   {
     auto const fid = FeatureID(ssp.m_mwmId, stop2.GetFeatureId());
     sp.m_transitMarkInfo.m_featureId = fid;
@@ -442,7 +442,7 @@ void TransitRouteDisplay::AddEdgePTForSubroute(routing::RouteSegment const & seg
     }
     sp.m_marker.m_colors.push_back(currentColor);
 
-    if (stop1.GetFeatureId() != routing::transit::kInvalidFeatureId)
+    if (stop1.GetFeatureId() != kInvalidFeatureId)
     {
       auto const fid = FeatureID(ssp.m_mwmId, stop1.GetFeatureId());
       sp.m_transitMarkInfo.m_featureId = fid;
@@ -486,7 +486,7 @@ void TransitRouteDisplay::AddEdgePTForSubroute(routing::RouteSegment const & seg
   }
 
   sp.m_transitMarkInfo.m_point = sp.m_marker.m_position;
-  if (stop2.GetFeatureId() != routing::transit::kInvalidFeatureId)
+  if (stop2.GetFeatureId() != kInvalidFeatureId)
   {
     auto const fid = FeatureID(ssp.m_mwmId, stop2.GetFeatureId());
     sp.m_transitMarkInfo.m_featureId = fid;
@@ -525,7 +525,7 @@ void TransitRouteDisplay::AddGateSubwayForSubroute(routing::RouteSegment const &
       sp.m_pendingEntrance ? subroute.m_polyline.Back() : segment.GetJunction().GetPoint();
   gateMarkInfo.m_type = TransitMarkInfo::Type::Gate;
   gateMarkInfo.m_symbolName = kZeroIcon;
-  if (gate.m_featureId != routing::transit::kInvalidFeatureId)
+  if (gate.m_featureId != kInvalidFeatureId)
   {
     auto const fid = FeatureID(ssp.m_mwmId, gate.m_featureId);
     auto const & featureInfo = ssp.m_displayInfo.m_features.at(fid);
@@ -577,7 +577,7 @@ void TransitRouteDisplay::AddGatePTForSubroute(routing::RouteSegment const & seg
       sp.m_pendingEntrance ? subroute.m_polyline.Back() : segment.GetJunction().GetPoint();
   gateMarkInfo.m_type = TransitMarkInfo::Type::Gate;
   gateMarkInfo.m_symbolName = kZeroIcon;
-  if (gate.m_featureId != ::transit::experimental::kInvalidFeatureId)
+  if (gate.m_featureId != kInvalidFeatureId)
   {
     auto const fid = FeatureID(ssp.m_mwmId, gate.m_featureId);
     auto const & featureInfo = ssp.m_displayInfo.m_features.at(fid);
@@ -710,7 +710,7 @@ void FillMwmTransitSubway(unique_ptr<TransitDisplayInfo> & mwmTransit,
   case routing::TransitInfo::Type::Gate:
   {
     auto const & gate = transitInfo.GetGateSubway();
-    if (gate.m_featureId != routing::transit::kInvalidFeatureId)
+    if (gate.m_featureId != kInvalidFeatureId)
     {
       auto const featureId = FeatureID(mwmId, gate.m_featureId);
       TransitFeatureInfo featureInfo;
@@ -748,7 +748,7 @@ void FillMwmTransitPT(unique_ptr<TransitDisplayInfo> & mwmTransit,
   case routing::TransitInfo::Type::Gate:
   {
     auto const & gate = transitInfo.GetGatePT();
-    if (gate.m_featureId != ::transit::experimental::kInvalidFeatureId)
+    if (gate.m_featureId != kInvalidFeatureId)
     {
       auto const featureId = FeatureID(mwmId, gate.m_featureId);
       TransitFeatureInfo featureInfo;
@@ -807,6 +807,7 @@ void TransitRouteDisplay::CreateTransitMarks()
       GetTransitMarkerSizes(kStopMarkerScale, m_maxSubrouteWidth);
 
   vector<m2::PointF> transferArrowOffsets;
+  transferArrowOffsets.reserve(transferMarkerSizes.size());
   for (auto const & size : transferMarkerSizes)
     transferArrowOffsets.emplace_back(0.0f, size.y * 0.5f);
 

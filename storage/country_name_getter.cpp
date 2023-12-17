@@ -26,7 +26,7 @@ std::string CountryNameGetter::Get(std::string const & key) const
 
 std::string CountryNameGetter::operator()(CountryId const & countryId) const
 {
-  std::string const name = Get(countryId);
+  std::string name = Get(countryId);
   if (name.empty())
     return countryId;
 

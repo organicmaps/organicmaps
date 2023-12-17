@@ -1,3 +1,4 @@
+#include "private.h"
 #include "platform/platform.hpp"
 
 #include "platform/socket.hpp"
@@ -16,6 +17,7 @@
 #include <optional>
 #include <string>
 
+#include <fcntl.h>
 #include <stdlib.h>
 #include <string.h>  // strrchr
 #include <unistd.h>  // access, readlink
@@ -32,9 +34,6 @@
 
 namespace
 {
-// Web service ip to check internet connection. Now it's a GitHub.com IP.
-char constexpr kSomeWorkingWebServer[] = "140.82.121.4";
-
 // Returns directory where binary resides, including slash at the end.
 std::optional<std::string> GetExecutableDir()
 {
@@ -128,7 +127,7 @@ Platform::Platform()
     // first it checks ${XDG_DATA_HOME}, if empty then it falls back to ${HOME}/.local/share
     m_writableDir = JoinPath(QStandardPaths::writableLocation(
         QStandardPaths::AppDataLocation).toStdString(), "OMaps");
-  
+
     if (!MkDirRecursively(m_writableDir))
       MYTHROW(FileSystemException, ("Can't create writable directory:", m_writableDir));
   }
@@ -170,7 +169,7 @@ std::string Platform::DeviceModel() const
 
 Platform::EConnectionType Platform::ConnectionStatus()
 {
-  int socketFd = socket(AF_INET, SOCK_STREAM, 0);
+  int socketFd = socket(AF_INET, SOCK_STREAM, IPPROTO_TCP);
   SCOPE_GUARD(closeSocket, std::bind(&close, socketFd));
   if (socketFd < 0)
     return EConnectionType::CONNECTION_NONE;
@@ -179,7 +178,7 @@ Platform::EConnectionType Platform::ConnectionStatus()
   memset(&addr, 0, sizeof(addr));
   addr.sin_family = AF_INET;
   addr.sin_port = htons(80);
-  inet_pton(AF_INET, kSomeWorkingWebServer, &addr.sin_addr);
+  inet_pton(AF_INET, DEFAULT_CONNECTION_CHECK_IP, &addr.sin_addr);
 
   if (connect(socketFd, reinterpret_cast<struct sockaddr *>(&addr), sizeof(addr)) < 0)
     return EConnectionType::CONNECTION_NONE;
@@ -200,7 +199,7 @@ uint8_t Platform::GetBatteryLevel()
 
 void Platform::GetSystemFontNames(FilesList & res) const
 {
-  char const * fontsWhitelist[] = {
+  char constexpr const * const fontsWhitelist[] = {
     "Roboto-Medium.ttf",
     "Roboto-Regular.ttf",
     "DroidSansFallback.ttf",
@@ -262,4 +261,20 @@ void Platform::GetSystemFontNames(FilesList & res) const
       }
     }
   }
+}
+
+// static
+time_t Platform::GetFileCreationTime(std::string const & path)
+{
+// In older Linux versions there is no reliable way to get file creation time.
+#if __GLIBC__ >= 2 && __GLIBC_MINOR__ >= 28
+  struct statx st;
+  if (0 == statx(AT_FDCWD, path.c_str(), 0, STATX_BTIME, &st))
+    return st.stx_btime.tv_sec;
+#else
+  struct stat st;
+  if (0 == stat(path.c_str(), &st))
+    return std::min(st.st_atim.tv_sec, st.st_mtim.tv_sec);
+#endif
+  return 0;
 }

@@ -14,37 +14,38 @@
 #include "coding/parse_xml.hpp"
 #include "coding/reader.hpp"
 
+#include <cstring>  // std::strcmp
 #include <set>
 #include <string>
 #include <vector>
 
-using namespace std;
-
 namespace style_symbols_consistency_tests
 {
+typedef std::set<std::string> StringSet;
+
 class SdfParsingDispatcher
 {
 public:
-  explicit SdfParsingDispatcher(set<string> & symbols)
+  explicit SdfParsingDispatcher(StringSet & symbols)
       : m_symbols(symbols)
   {}
 
-  bool Push(string const &) { return true; }
-  void Pop(string const &) {}
-  void CharData(string const &) {}
-  void AddAttr(string const & attribute, string const & value)
+  bool Push(char const *) { return true; }
+  void Pop(char const *) {}
+  void CharData(std::string const &) {}
+  void AddAttr(char const * attribute, char const * value)
   {
-    if (attribute == "name")
+    if (0 == std::strcmp(attribute, "name"))
       m_symbols.insert(value);
   }
 
 private:
-  set<string> & m_symbols;
+  StringSet & m_symbols;
 };
 
-set<string> GetSymbolsSetFromDrawingRule()
+StringSet GetSymbolsSetFromDrawingRule()
 {
-  set<string> symbols;
+  StringSet symbols;
   drule::rules().ForEachRule([&symbols](drule::BaseRule const * rule)
   {
     SymbolRuleProto const * symbol = rule->GetSymbol();
@@ -54,9 +55,9 @@ set<string> GetSymbolsSetFromDrawingRule()
   return symbols;
 }
 
-set<string> GetSymbolsSetFromResourcesFile(string const & density)
+StringSet GetSymbolsSetFromResourcesFile(std::string_view density)
 {
-  set<string> symbols;
+  StringSet symbols;
   SdfParsingDispatcher dispatcher(symbols);
   ReaderPtr<Reader> reader = GetStyleReader().GetResourceReader("symbols.sdf", density);
   ReaderSource<ReaderPtr<Reader> > source(reader);
@@ -69,18 +70,18 @@ UNIT_TEST(Test_SymbolsConsistency)
 {
   bool res = true;
 
-  string const densities[] = { "mdpi", "hdpi", "xhdpi", "xxhdpi", "xxxhdpi", "6plus" };
+  std::string_view constexpr densities[] = { "mdpi", "hdpi", "xhdpi", "xxhdpi", "xxxhdpi", "6plus" };
 
   styles::RunForEveryMapStyle([&](MapStyle mapStyle)
   {
-    set<string> const drawingRuleSymbols = GetSymbolsSetFromDrawingRule();
+    StringSet const drawingRuleSymbols = GetSymbolsSetFromDrawingRule();
 
-    for (string const & density : densities)
+    for (std::string_view density : densities)
     {
-      set<string> const resourceStyles = GetSymbolsSetFromResourcesFile(density);
+      StringSet const resourceStyles = GetSymbolsSetFromResourcesFile(density);
 
-      vector<string> missed;
-      set_difference(drawingRuleSymbols.begin(), drawingRuleSymbols.end(),
+      std::vector<std::string> missed;
+      std::set_difference(drawingRuleSymbols.begin(), drawingRuleSymbols.end(),
                      resourceStyles.begin(), resourceStyles.end(),
                      back_inserter(missed));
 

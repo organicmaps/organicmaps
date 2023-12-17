@@ -7,6 +7,8 @@
 
 #include "coding/file_reader.hpp"
 
+#include "std/target_os.hpp"
+
 #include <utility>
 
 #include <ifaddrs.h>
@@ -21,7 +23,6 @@
 #include <sys/types.h>
 #include <sys/utsname.h>
 #include <sys/xattr.h>
-
 
 #import <CoreFoundation/CFURL.h>
 #import <SystemConfiguration/SystemConfiguration.h>
@@ -119,6 +120,7 @@ std::unique_ptr<ModelReader> Platform::GetReader(std::string const & file, std::
 }
 
 int Platform::VideoMemoryLimit() const { return 8 * 1024 * 1024; }
+
 int Platform::PreCachingDepth() const { return 2; }
 
 std::string Platform::GetMemoryInfo() const
@@ -155,6 +157,28 @@ std::string Platform::DeviceModel() const
   else if (auto m = platform::kDeviceModelsWithMetalDriver[deviceModel])
     deviceModel = m;
   return deviceModel.UTF8String;
+}
+
+std::string Platform::Version() const
+{
+  NSBundle * mainBundle = [NSBundle mainBundle];
+  NSString * version = [mainBundle objectForInfoDictionaryKey:@"CFBundleShortVersionString"];
+  NSString * build = [mainBundle objectForInfoDictionaryKey:@"CFBundleVersion"];
+  return std::string{version.UTF8String} + '-' + build.UTF8String + '-' + OMIM_OS_NAME;
+}
+
+int32_t Platform::IntVersion() const
+{
+  NSString * version = [[NSBundle mainBundle] objectForInfoDictionaryKey:@"CFBundleShortVersionString"];
+  int year = 0;
+  int month = 0;
+  int day = 0;
+  int rc = sscanf(version.UTF8String, "%d.%d.%d", &year, &month, &day);
+  CHECK_EQUAL(rc, 3, ("Failed to parse version"));
+  CHECK(year > 2000 && year < 3000, ("Invalid year"));
+  CHECK(month > 0 && month <= 12, ("Invalid month"));
+  CHECK(day > 0 && day <= 31, ("Invalid day"));
+  return (int32_t)(year - 2000) * 10000 + month * 100 + day;
 }
 
 Platform::EConnectionType Platform::ConnectionStatus()
@@ -223,6 +247,15 @@ void Platform::SetupMeasurementSystem() const
 
 void Platform::GetSystemFontNames(FilesList & res) const
 {
+}
+
+// static
+time_t Platform::GetFileCreationTime(std::string const & path)
+{
+  struct stat st;
+  if (0 == stat(path.c_str(), &st))
+    return st.st_birthtimespec.tv_sec;
+  return 0;
 }
 
 ////////////////////////////////////////////////////////////////////////

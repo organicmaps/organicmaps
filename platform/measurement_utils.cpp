@@ -1,5 +1,5 @@
+#include "platform/locale.hpp"
 #include "platform/measurement_utils.hpp"
-
 #include "platform/settings.hpp"
 
 #include "geometry/mercator.hpp"
@@ -12,56 +12,51 @@
 #include "base/string_utils.hpp"
 
 #include <cmath>
+#include <cstring>    // strstr
 #include <iomanip>
 #include <sstream>
 
+namespace measurement_utils
+{
+using namespace platform;
 using namespace settings;
 using namespace std;
 using namespace strings;
 
-namespace measurement_utils
-{
-namespace
-{
 string ToStringPrecision(double d, int pr)
+{
+  // We assume that the app will be restarted if a user changes device's locale.
+  static Locale const loc = GetCurrentLocale();
+
+  return ToStringPrecisionLocale(loc, d, pr);
+}
+
+string ToStringPrecisionLocale(Locale loc, double d, int pr)
 {
   stringstream ss;
   ss << setprecision(pr) << fixed << d;
-  return ss.str();
-}
+  string out = ss.str();
 
-string FormatDistanceImpl(Units units, double m, string const & low, string const & high)
-{
-  double highF, lowF;
-  switch (units)
+  // std::locale does not work on Android NDK, so decimal and grouping (thousands) separator
+  // shall be customized manually here.
+
+  if (pr)
   {
-  case Units::Imperial: highF = 1609.344; lowF = 0.3048; break;
-  case Units::Metric: highF = 1000.0; lowF = 1.0; break;
+    // Value with decimals. Set locale decimal separator.
+    if (loc.m_decimalSeparator != ".")
+      out.replace(out.size() - pr - 1, 1, loc.m_decimalSeparator);
+  }
+  else
+  {
+    // Value with no decimals. Check if it's equal or bigger than 10000 to
+    // insert the grouping (thousands) separator characters.
+    if (out.size() > 4 && !loc.m_groupingSeparator.empty())
+      for (int pos = out.size() - 3; pos > 0; pos -= 3)
+        out.insert(pos, loc.m_groupingSeparator);
   }
 
-  double lowV = round(m / lowF);
-  // Round distances over 100 units to 10 units, e.g. 112 -> 110, 998 -> 1000
-  lowV = lowV <= 100.0 ? lowV : round(lowV / 10) * 10;
-
-  // Use high units for distances of 1000 units and over,
-  // e.g. 1000m -> 1.0km, 1290m -> 1.3km, 1000ft -> 0.2mi
-  if (lowV >= 1000.0)
-  {
-    double const highV = m / highF;
-    // For distances of 10.0 high units and over round to a whole number, e.g. 9.98 -> 10, 10.9 -> 11
-    return ToStringPrecision(highV, round(highV * 10) / 10 >= 10.0 ? 0 : 1) + " " + high;
-  }
-
-  return ToStringPrecision(lowV, 0) + " " + low;
+  return out;
 }
-
-string FormatAltitudeImpl(Units units, double altitude, string const & localizedUnits)
-{
-  ostringstream ss;
-  ss << fixed << setprecision(0) << altitude << " " << localizedUnits;
-  return ss.str();
-}
-}  // namespace
 
 std::string DebugPrint(Units units)
 {
@@ -73,7 +68,14 @@ std::string DebugPrint(Units units)
   UNREACHABLE();
 }
 
-double ToSpeedKmPH(double speed, measurement_utils::Units units)
+Units GetMeasurementUnits()
+{
+  Units units = measurement_utils::Units::Metric;
+  settings::TryGet(settings::kMeasurementUnits, units);
+  return units;
+}
+
+double ToSpeedKmPH(double speed, Units units)
 {
   switch (units)
   {
@@ -82,25 +84,6 @@ double ToSpeedKmPH(double speed, measurement_utils::Units units)
   }
   UNREACHABLE();
 }
-
-std::string FormatDistanceWithLocalization(double m, OptionalStringRef high, OptionalStringRef low)
-{
-  auto units = Units::Metric;
-  TryGet(kMeasurementUnits, units);
-
-  switch (units)
-  {
-  case Units::Imperial: return FormatDistanceImpl(units, m, low ? *low : "ft", high ? *high : "mi");
-  case Units::Metric: return FormatDistanceImpl(units, m, low ? *low : "m", high ? *high : "km");
-  }
-  UNREACHABLE();
-}
-
-std::string FormatDistance(double m)
-{
-  return FormatDistanceWithLocalization(m, {} /* high */, {} /* low */);
-}
-
 
 string FormatLatLonAsDMSImpl(double value, char positive, char negative, int dac)
 {
@@ -196,53 +179,20 @@ void FormatMercator(m2::PointD const & mercator, string & lat, string & lon, int
   lon = to_string_dac(mercator::XToLon(mercator.x), dac);
 }
 
-string FormatAltitude(double altitudeInMeters)
+double MpsToUnits(double metersPerSecond, Units units)
 {
-  return FormatAltitudeWithLocalization(altitudeInMeters, {} /* localizedUnits */);
-}
-
-string FormatAltitudeWithLocalization(double altitudeInMeters, OptionalStringRef localizedUnits)
-{
-  Units units = Units::Metric;
-  TryGet(kMeasurementUnits, units);
-
   switch (units)
   {
-  case Units::Imperial:
-    return FormatAltitudeImpl(units, MetersToFeet(altitudeInMeters), localizedUnits ? *localizedUnits : "ft");
-  case Units::Metric:
-    return FormatAltitudeImpl(units, altitudeInMeters, localizedUnits ? *localizedUnits : "m");
+  case Units::Imperial: return KmphToMiph(MpsToKmph(metersPerSecond)); break;
+  case Units::Metric: return MpsToKmph(metersPerSecond); break;
   }
   UNREACHABLE();
-}
-
-string FormatSpeed(double metersPerSecond)
-{
-  auto units = Units::Metric;
-  TryGet(kMeasurementUnits, units);
-
-  return FormatSpeedNumeric(metersPerSecond, units) + " " + FormatSpeedUnits(units);
 }
 
 string FormatSpeedNumeric(double metersPerSecond, Units units)
 {
-  double unitsPerHour;
-  switch (units)
-  {
-  case Units::Imperial: unitsPerHour = KmphToMiph(MpsToKmph(metersPerSecond)); break;
-  case Units::Metric: unitsPerHour = MpsToKmph(metersPerSecond); break;
-  }
+  double const unitsPerHour = MpsToUnits(metersPerSecond, units);
   return ToStringPrecision(unitsPerHour, unitsPerHour >= 10.0 ? 0 : 1);
-}
-
-string FormatSpeedUnits(Units units)
-{
-  switch (units)
-  {
-  case Units::Imperial: return "mph";
-  case Units::Metric: return "km/h";
-  }
-  UNREACHABLE();
 }
 
 string FormatOsmLink(double lat, double lon, int zoom)
@@ -302,7 +252,7 @@ bool OSMDistanceToMeters(string const & osmRawValue, double & outMeters)
     break;
 
   // Inches.
-  case '\"': outMeters = InchesToMeters(outMeters); return true;
+  case '"': outMeters = InchesToMeters(outMeters); return true;
 
   // It's probably a range. Use maximum value (if possible) for a range.
   case '-':
@@ -329,9 +279,7 @@ bool OSMDistanceToMeters(string const & osmRawValue, double & outMeters)
     outMeters = NauticalMilesToMeters(outMeters);
   else if (strstr(stop, "mi") == stop)
     outMeters = MilesToMeters(outMeters);
-  else if (strstr(stop, "ft") == stop)
-    outMeters = FeetToMeters(outMeters);
-  else if (strstr(stop, "feet") == stop)
+  else if (strstr(stop, "ft") == stop || strstr(stop, "feet") == stop)
     outMeters = FeetToMeters(outMeters);
   else if (strstr(stop, "km") == stop)
     outMeters = outMeters * 1000;

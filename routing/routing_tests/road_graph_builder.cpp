@@ -13,11 +13,9 @@
 #include <algorithm>
 #include <memory>
 
-using namespace routing;
-using namespace std;
-
-namespace
+namespace routing_test
 {
+using std::move;
 
 auto constexpr kMaxSpeedKMpH = 5.0;
 
@@ -29,7 +27,7 @@ public:
   {
     UNUSED_VALUE(Register(platform::LocalCountryFile::MakeForTesting("0")));
 
-    vector<shared_ptr<MwmInfo>> mwmsInfoList;
+    std::vector<std::shared_ptr<MwmInfo>> mwmsInfoList;
     GetMwmsInfo(mwmsInfoList);
 
     m_mwmInfo = mwmsInfoList[0];
@@ -43,32 +41,27 @@ public:
 private:
   /// @name MwmSet overrides
   //@{
-  unique_ptr<MwmInfo> CreateInfo(platform::LocalCountryFile const &) const override
+  std::unique_ptr<MwmInfo> CreateInfo(platform::LocalCountryFile const &) const override
   {
-    unique_ptr<MwmInfo> info(new MwmInfo());
+    std::unique_ptr<MwmInfo> info(new MwmInfo());
     info->m_maxScale = 1;
     info->m_bordersRect = m2::RectD(0, 0, 1, 1);
     info->m_version.SetFormat(version::Format::lastFormat);
     return info;
   }
-  unique_ptr<MwmValue> CreateValue(MwmInfo & info) const override
+  std::unique_ptr<MwmValue> CreateValue(MwmInfo & info) const override
   {
-    return make_unique<MwmValue>(info.GetLocalFile());
+    return std::make_unique<MwmValue>(info.GetLocalFile());
   }
   //@}
 
-  shared_ptr<MwmInfo> m_mwmInfo;
+  std::shared_ptr<MwmInfo> m_mwmInfo;
 };
-
-}  // namespace
-
-namespace routing_test
-{
 
 void RoadGraphMockSource::AddRoad(RoadInfo && ri)
 {
   CHECK_GREATER_OR_EQUAL(ri.m_junctions.size(), 2, ("Empty road"));
-  m_roads.push_back(move(ri));
+  m_roads.push_back(std::move(ri));
 }
 
 IRoadGraph::RoadInfo RoadGraphMockSource::GetRoadInfo(FeatureID const & featureId,
@@ -155,10 +148,10 @@ void InitRoadGraphMockSourceWithTest1(RoadGraphMockSource & src)
   ri3.m_junctions.push_back(geometry::MakePointWithAltitudeForTesting(m2::PointD(15, 5)));
   ri3.m_junctions.push_back(geometry::MakePointWithAltitudeForTesting(m2::PointD(20, 0)));
 
-  src.AddRoad(move(ri0));
-  src.AddRoad(move(ri1));
-  src.AddRoad(move(ri2));
-  src.AddRoad(move(ri3));
+  src.AddRoad(std::move(ri0));
+  src.AddRoad(std::move(ri1));
+  src.AddRoad(std::move(ri2));
+  src.AddRoad(std::move(ri3));
 }
 
 void InitRoadGraphMockSourceWithTest2(RoadGraphMockSource & graph)
@@ -233,15 +226,15 @@ void InitRoadGraphMockSourceWithTest2(RoadGraphMockSource & graph)
   ri8.m_junctions.push_back(geometry::MakePointWithAltitudeForTesting(m2::PointD(12, 25)));
   ri8.m_junctions.push_back(geometry::MakePointWithAltitudeForTesting(m2::PointD(5, 40)));
 
-  graph.AddRoad(move(ri0));
-  graph.AddRoad(move(ri1));
-  graph.AddRoad(move(ri2));
-  graph.AddRoad(move(ri3));
-  graph.AddRoad(move(ri4));
-  graph.AddRoad(move(ri5));
-  graph.AddRoad(move(ri6));
-  graph.AddRoad(move(ri7));
-  graph.AddRoad(move(ri8));
+  graph.AddRoad(std::move(ri0));
+  graph.AddRoad(std::move(ri1));
+  graph.AddRoad(std::move(ri2));
+  graph.AddRoad(std::move(ri3));
+  graph.AddRoad(std::move(ri4));
+  graph.AddRoad(std::move(ri5));
+  graph.AddRoad(std::move(ri6));
+  graph.AddRoad(std::move(ri7));
+  graph.AddRoad(std::move(ri8));
 }
 
 }  // namespace routing_test

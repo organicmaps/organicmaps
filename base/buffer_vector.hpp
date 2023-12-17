@@ -3,10 +3,7 @@
 #include "base/checked_cast.hpp"
 
 #include <algorithm>
-#include <cstring>       // for memcpy
 #include <iterator>
-#include <type_traits>
-#include <utility>
 #include <vector>
 
 // Calls swap() function using argument dependant lookup.
@@ -34,6 +31,17 @@ private:
     std::move(rhs.m_static, rhs.m_static + rhs.m_size, m_static);
   }
 
+  void SetStaticSize(size_t newSize)
+  {
+    if constexpr (std::is_destructible<T>::value)
+    {
+      // Call destructors for old elements.
+      for (size_t i = newSize; i < m_size; ++i)
+        m_static[i] = T();
+    }
+    m_size = newSize;
+  }
+
   static constexpr size_t SwitchCapacity() { return 3*N/2 + 1; }
 
 public:
@@ -45,9 +53,9 @@ public:
   typedef T * iterator;
 
   buffer_vector() : m_size(0) {}
-  explicit buffer_vector(size_t n, T c = T()) : m_size(0)
+  explicit buffer_vector(size_t n) : m_size(0)
   {
-    resize(n, c);
+    resize(n);
   }
 
   buffer_vector(std::initializer_list<T> init) : m_size(0)
@@ -63,7 +71,7 @@ public:
 
   buffer_vector(buffer_vector const &) = default;
 
-  buffer_vector(buffer_vector && rhs) : m_size(rhs.m_size), m_dynamic(move(rhs.m_dynamic))
+  buffer_vector(buffer_vector && rhs) : m_size(rhs.m_size), m_dynamic(std::move(rhs.m_dynamic))
   {
     if (!IsDynamic())
       MoveStatic(rhs);
@@ -75,13 +83,16 @@ public:
 
   buffer_vector & operator=(buffer_vector && rhs)
   {
-    m_size = rhs.m_size;
-    m_dynamic = move(rhs.m_dynamic);
+    if (this != &rhs)
+    {
+      m_size = rhs.m_size;
+      m_dynamic = std::move(rhs.m_dynamic);
 
-    if (!IsDynamic())
-      MoveStatic(rhs);
+      if (!IsDynamic())
+        MoveStatic(rhs);
 
-    rhs.m_size = 0;
+      rhs.m_size = 0;
+    }
     return *this;
   }
 
@@ -147,7 +158,7 @@ public:
       m_dynamic.reserve(n);
   }
 
-  void resize_no_init(size_t n)
+  void resize(size_t n)
   {
     if (IsDynamic())
     {
@@ -157,7 +168,7 @@ public:
 
     if (n <= N)
     {
-      m_size = n;
+      SetStaticSize(n);
     }
     else
     {
@@ -167,7 +178,7 @@ public:
     }
   }
 
-  void resize(size_t n, T c = T())
+  void resize(size_t n, T c)
   {
     if (IsDynamic())
     {
@@ -177,9 +188,10 @@ public:
 
     if (n <= N)
     {
-      for (size_t i = m_size; i < n; ++i)
-        m_static[i] = c;
-      m_size = n;
+      if (n > m_size)
+        std::fill_n(&m_static[m_size], n - m_size, c);
+
+      SetStaticSize(n);
     }
     else
     {
@@ -198,10 +210,7 @@ public:
       return;
     }
 
-    // here we have to call destructors of objects inside
-    for (size_t i = 0; i < m_size; ++i)
-      m_static[i] = T();
-    m_size = 0;
+    SetStaticSize(0);
   }
 
   /// @todo Here is some inconsistencies:
@@ -464,3 +473,8 @@ typename buffer_vector<T, N>::const_iterator end(buffer_vector<T, N> const & v)
   return v.end();
 }
 }  // namespace std
+
+template <class Dest, class Src> void assign_range(Dest & dest, Src const & src)
+{
+  dest.assign(std::begin(src), std::end(src));
+}

@@ -69,8 +69,6 @@ void DirectedGraph::GetEdgesList(Vertex const & v, bool isOutgoing, EdgeListT & 
   adj = isOutgoing ? m_outgoing[v] : m_ingoing[v];
 }
 
-using namespace std;
-
 namespace
 {
 inline double TimeBetweenSec(geometry::PointWithAltitude const & j1,
@@ -83,7 +81,7 @@ inline double TimeBetweenSec(geometry::PointWithAltitude const & j1,
   double const distanceM = mercator::DistanceOnEarth(j1.GetPoint(), j2.GetPoint());
   double const altitudeDiffM =
       static_cast<double>(j2.GetAltitude()) - static_cast<double>(j1.GetAltitude());
-  return sqrt(distanceM * distanceM + altitudeDiffM * altitudeDiffM) / speedMPS;
+  return std::sqrt(distanceM * distanceM + altitudeDiffM * altitudeDiffM) / speedMPS;
 }
 
 /// A class which represents an weighted edge used by RoadGraph.
@@ -179,7 +177,7 @@ TestAStarBidirectionalAlgo::Result Convert(Algorithm::Result value)
 }
 }  // namespace
 
-string DebugPrint(TestAStarBidirectionalAlgo::Result const & value)
+std::string DebugPrint(TestAStarBidirectionalAlgo::Result const & value)
 {
   switch (value)
   {
@@ -192,7 +190,7 @@ string DebugPrint(TestAStarBidirectionalAlgo::Result const & value)
   }
 
   UNREACHABLE();
-  return string();
+  return std::string();
 }
 
 // *************************** AStar-bidirectional routing algorithm implementation ***********************

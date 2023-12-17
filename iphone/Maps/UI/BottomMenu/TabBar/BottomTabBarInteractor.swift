@@ -1,7 +1,7 @@
 protocol BottomTabBarInteractorProtocol: AnyObject {
   func openSearch()
-  func openPoint2Point()
   func openHelp()
+  func openFaq()
   func openBookmarks()
   func openMenu()
 }
@@ -13,8 +13,6 @@ class BottomTabBarInteractor {
   private weak var controlsManager: MWMMapViewControlsManager?
   private weak var searchManager = MWMSearchManager.manager()
   
-  private var isPoint2PointSelected = false
-
   init(viewController: UIViewController, mapViewController: MapViewController, controlsManager: MWMMapViewControlsManager) {
     self.viewController = viewController
     self.mapViewController = mapViewController
@@ -30,19 +28,17 @@ extension BottomTabBarInteractor: BottomTabBarInteractorProtocol {
       searchManager?.state = .hidden
     }
   }
-
-  func openPoint2Point() {
-    isPoint2PointSelected.toggle()
-    MWMRouter.enableAutoAddLastLocation(false)
-    if (isPoint2PointSelected) {
-      controlsManager?.onRoutePrepare()
-    } else {
-      MWMRouter.stopRouting()
-    }
-  }
   
   func openHelp() {
     MapViewController.shared()?.navigationController?.pushViewController(AboutController(), animated: true)
+  }
+  
+  func openFaq() {
+    guard let navigationController = MapViewController.shared()?.navigationController else { return }
+    let aboutController = AboutController(onDidAppearCompletionHandler: {
+      navigationController.pushViewController(FaqController(), animated: true)
+    })
+    navigationController.pushViewController(aboutController, animated: true)
   }
   
   func openBookmarks() {

@@ -4,13 +4,16 @@ on:
   schedule:
     - cron:  '0 5 * * *' # Once per day at 05:00 UTC
 
+env:
+  JAVA_HOME: /usr/lib/jvm/temurin-17-jdk-amd64  # Java 17 is required for Android Gradle 8 plugin
+
 jobs:
   precondition:
     runs-on: ubuntu-latest
     name: Check preconditions
     steps:
       - name: Checkout sources
-        uses: actions/checkout@v2
+        uses: actions/checkout@v3
         with:
           fetch-depth: 1000 # fetch month or so
 
@@ -21,9 +24,9 @@ jobs:
           DIRS="android base drape drape_frontend editor ge0 map platform routing search shaders storage traffic transit"
           if [ '${{ github.event_name }}' != 'schedule' ] || 
              [ $(git rev-list --count --since="24 hours" HEAD $DIRS) -gt 0 ]; then
-            echo "::set-output name=updated::true"
+            echo "updated=true" >> $GITHUB_OUTPUT
           else
-            echo "::set-output name=updated::"
+            echo "updated=" >> $GITHUB_OUTPUT
           fi
     outputs:
       updated: ${{ steps.check.outputs.updated }}
@@ -41,25 +44,20 @@ jobs:
           sudo apt-get update -y
           sudo apt-get install -y ninja-build
 
-      - name: Set up JDK 11
-        uses: actions/setup-java@v1
-        with:
-          java-version: 11
-
       - name: Install Google SDK
         uses: google-github-actions/setup-gcloud@v0
 
       - name: Checkout sources
-        uses: actions/checkout@v2
+        uses: actions/checkout@v4
         with:
           fetch-depth: 100 # enough to get all commits for the current day
 
       - name: Parallel submodules checkout
         shell: bash
-        run: git submodule update --init --recursive --jobs=$(($(nproc) * 2))
+        run: git submodule update --depth 1 --init --recursive --jobs=$(($(nproc) * 20))
 
       - name: Checkout private keys
-        uses: actions/checkout@v2
+        uses: actions/checkout@v4
         with:
           repository: ${{ secrets.PRIVATE_REPO }}
           ssh-key: ${{ secrets.PRIVATE_SSH_KEY }}
@@ -78,16 +76,25 @@ jobs:
         run: |
           cmake --version
           ninja --version
-          gradle -Parm64 -Parm32 -Pfirebase assembleGoogleDebug
+          ./gradlew -Pfirebase -Parm64-v8a -Parmeabi-v7a -Px86_64 assembleGoogleDebug uploadCrashlyticsSymbolFileGoogleDebug
 
       - name: Run monkey
         run: |
-          gcloud auth activate-service-account --key-file android/firebase-test-lab.json
+          gcloud auth activate-service-account --key-file android/app/firebase-test-lab.json
           gcloud config set project omapsapp
-          gcloud firebase test android run --app ./android/build/outputs/apk/google/debug/OrganicMaps-*-google-debug.apk \
-            --device model=redfin,version=30 \
+          gcloud firebase test android run --app ./android/app/build/outputs/apk/google/debug/OrganicMaps-*-google-debug.apk \
+            --device model=husky,version=34 \
+            --device model=cheetah,version=33 \
+            --device model=bluejay,version=32 \
+            --device model=a51,version=31 \
+            --device model=f2q,version=30 \
             --device model=a10,version=29 \
-            --device model=dipper,version=28 \
-            --device model=OnePlus3T,version=26 \
-            --device model=flo,version=21,orientation=landscape \
+            --device model=Pixel2.arm,version=30 \
+            --device model=MediumPhone.arm,version=29 \
+            --device model=MediumPhone.arm,version=28 \
+            --device model=MediumPhone.arm,version=27 \
+            --device model=Pixel2.arm,version=26,orientation=landscape \
+            --device model=Nexus6,version=25 \
+            --device model=NexusLowRes,version=24 \
+            --device model=NexusLowRes,version=23,orientation=landscape \
             --timeout 15m

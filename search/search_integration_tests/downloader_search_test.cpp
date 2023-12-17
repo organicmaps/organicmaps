@@ -94,7 +94,7 @@ public:
   storage::QueueInterface const & GetQueue() const override { return m_queue; }
 
 private:
-  void GetServersList(ServersListCallback const &) override {}
+  void GetMetaConfig(MetaConfigCallback const &) override {}
   void Download(storage::QueuedCountry &&) override {}
 
   storage::Queue m_queue;

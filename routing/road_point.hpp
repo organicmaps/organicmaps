@@ -5,7 +5,7 @@
 #include <sstream>
 #include <string>
 
-#include <boost/container_hash/hash.hpp>
+#include "std/boost_container_hash.hpp"
 
 namespace routing
 {
@@ -62,7 +62,7 @@ private:
 inline std::string DebugPrint(RoadPoint const & rp)
 {
   std::ostringstream out;
-  out << "RoadPoint [" << rp.GetFeatureId() << ", " << rp.GetPointId() << "]";
+  out << "RoadPoint{" << rp.GetFeatureId() << ", " << rp.GetPointId() << "}";
   return out.str();
 }
 }  // namespace routing

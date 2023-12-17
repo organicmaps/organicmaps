@@ -1,11 +1,7 @@
 #include "routing/routing_quality/routing_quality_tool/utils.hpp"
 
-#include "routing/vehicle_mask.hpp"
-
 #include "kml/serdes.hpp"
 #include "kml/types.hpp"
-
-#include "coding/string_utf8_multilang.hpp"
 
 #include "geometry/point_with_altitude.hpp"
 
@@ -82,7 +78,11 @@ void SaveKmlFileDataTo(RoutesBuilder::Result const & mapsmeResult,
   kml::FileData kml;
 
   size_t colorNumber = 0;
-  auto const addTrack = [&](kml::TrackData && track) {
+  auto const addTrack = [&](kml::MultiGeometry::LineT && line)
+  {
+    kml::TrackData track;
+    track.m_geometry.m_lines.push_back(std::move(line));
+
     CHECK_LESS(colorNumber, kColors.size(), ());
     track.m_layers = {{5.0 /* lineWidth */, {kml::PredefinedColor::None, kColors[colorNumber++]}}};
     kml.m_tracksData.emplace_back(std::move(track));
@@ -94,21 +94,17 @@ void SaveKmlFileDataTo(RoutesBuilder::Result const & mapsmeResult,
   kml.m_bookmarksData.emplace_back(CreateBookmark(start, true /* isStart */));
   kml.m_bookmarksData.emplace_back(CreateBookmark(finish, false /* isStart */));
 
-  auto & resultPoints =
-      mapsmeResult.GetRoutes().back().m_followedPolyline.GetPolyline().GetPoints();
-  kml::TrackData mapsmeTrack;
-  mapsmeTrack.m_pointsWithAltitudes.reserve(resultPoints.size());
-  for (auto const & pt : resultPoints)
-    mapsmeTrack.m_pointsWithAltitudes.emplace_back(pt, geometry::kDefaultAltitudeMeters);
+  auto const & resultPoints = mapsmeResult.GetRoutes().back().m_followedPolyline.GetPolyline().GetPoints();
 
-  addTrack(std::move(mapsmeTrack));
+  kml::MultiGeometry::LineT mmTrack;
+  mmTrack.reserve(resultPoints.size());
+  for (auto const & pt : resultPoints)
+    mmTrack.emplace_back(pt, geometry::kDefaultAltitudeMeters);
+
+  addTrack(std::move(mmTrack));
 
   for (auto const & route : apiResult.GetRoutes())
-  {
-    kml::TrackData apiTrack;
-    apiTrack.m_pointsWithAltitudes = ConvertToPointsWithAltitudes(route.GetWaypoints());
-    addTrack(std::move(apiTrack));
-  }
+    addTrack(ConvertToPointsWithAltitudes(route.GetWaypoints()));
 
   kml::SerializerKml ser(kml);
   FileWriter sink(kmlFile);
@@ -515,16 +511,15 @@ void SimilarityCounter::CreateKmlFiles(double percent, std::vector<Result> const
       CHECK_LESS(realResultIndex, results.size(), ());
       auto const mapsmeResult = RoutesBuilder::Result::Load(results[realResultIndex].m_mapsmeDumpPath);
 
+      std::string const kmlFile = base::JoinPath(savePath, std::to_string(i) + ".kml");
       if (m_routesSaver.GetComparsionType() == ComparisonType::MapsmeVsApi)
       {
         auto const apiResult = api::Response::Load(results[realResultIndex].m_anotherDumpPath);
-        std::string const kmlFile = base::JoinPath(savePath, std::to_string(i) + ".kml");
         SaveKmlFileDataTo(mapsmeResult, apiResult, kmlFile);
       }
       else
       {
         auto const mapsmeAnotherResult = RoutesBuilder::Result::Load(results[realResultIndex].m_anotherDumpPath);
-        std::string const kmlFile = base::JoinPath(savePath, std::to_string(i) + ".kml");
         SaveKmlFileDataTo(mapsmeResult, mapsmeAnotherResult, kmlFile);
       }
 

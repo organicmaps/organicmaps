@@ -2,15 +2,13 @@
 
 #include "indexer/drawing_rule_def.hpp"
 #include "indexer/feature_decl.hpp"
-#include "indexer/map_style.hpp"
 #include "indexer/scales.hpp"
 #include "indexer/types_mapping.hpp"
 
 #include "base/macros.hpp"
+#include "base/stl_helpers.hpp"
 
 #include <bitset>
-#include <initializer_list>
-#include <iostream>
 #include <string>
 #include <utility>
 #include <vector>
@@ -22,7 +20,8 @@ namespace ftype
   inline uint32_t GetEmptyValue() { return 1; }
 
   void PushValue(uint32_t & type, uint8_t value);
-  bool GetValue(uint32_t type, uint8_t level, uint8_t & value);
+  /// @pre level < GetLevel(type).
+  uint8_t GetValue(uint32_t type, uint8_t level);
   void PopValue(uint32_t & type);
   void TruncValue(uint32_t & type, uint8_t level);
   uint8_t GetLevel(uint32_t type);
@@ -88,7 +87,11 @@ public:
   std::string const & GetName() const { return m_name; }
   ClassifObject const * GetObject(size_t i) const;
 
+  std::vector<drule::Key> const & GetDrawRules() const { return m_drawRules; }
   void GetSuitable(int scale, feature::GeomType gt, drule::KeysT & keys) const;
+
+  // Returns std::numeric_limits<int>::min() if there are no overlay drules.
+  int GetMaxOverlaysPriority() const { return m_maxOverlaysPriority; }
 
   bool IsDrawable(int scale) const;
   bool IsDrawableAny() const;
@@ -158,9 +161,11 @@ public:
 
 private:
   std::string m_name;
-  std::vector<drule::Key> m_drawRule;
+  std::vector<drule::Key> m_drawRules;
   std::vector<ClassifObject> m_objs;
   VisibleMask m_visibility;
+
+  int m_maxOverlaysPriority = std::numeric_limits<int>::min();
 };
 
 inline void swap(ClassifObject & r1, ClassifObject & r2)
@@ -192,7 +197,7 @@ public:
   /// Invokes ASSERT in case of nonexisting type
   uint32_t GetTypeByPath(std::vector<std::string> const & path) const;
   uint32_t GetTypeByPath(std::vector<std::string_view> const & path) const;
-  uint32_t GetTypeByPath(std::initializer_list<char const *> const & lst) const;
+  uint32_t GetTypeByPath(base::StringIL const & lst) const;
   ///@}
 
   /// @see GetReadableObjectName().

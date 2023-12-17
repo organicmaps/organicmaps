@@ -25,7 +25,7 @@ omim_link_libraries(
   base
   bsdiff
   ICU::i18n
-  jansson
+  cppjansson
   oauthcpp
   opening_hours
   protobuf

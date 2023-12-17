@@ -55,8 +55,7 @@ struct TrackDataV6
     data.m_description = m_description;
     data.m_layers = m_layers;
     data.m_timestamp = m_timestamp;
-    for (auto & pt : m_points)
-      data.m_pointsWithAltitudes.emplace_back(std::move(pt), geometry::kDefaultAltitudeMeters);
+    data.m_geometry.FromPoints(m_points);
     data.m_visible = m_visible;
     data.m_nearestToponyms = m_nearestToponyms;
     data.m_properties = m_properties;

@@ -2,8 +2,6 @@
 
 #include "search/approximate_string_match.hpp"
 
-#include "indexer/search_delimiters.hpp"
-
 #include "base/stl_helpers.hpp"
 #include "base/string_utils.hpp"
 
@@ -11,12 +9,12 @@
 #include <cstring>
 #include <vector>
 
+namespace string_match_test
+{
 using namespace search;
 using namespace std;
 using namespace strings;
 
-namespace
-{
 struct MatchCostMock
 {
   uint32_t Cost10(char) const { return 1; }
@@ -43,15 +41,18 @@ uint32_t PrefixMatchCost(char const * a, char const * b)
   return StringMatchCost(a, strlen(a), b, strlen(b), MatchCostMock(), 1000, true);
 }
 
-void TestEqual(vector<UniString> const & v, char const * arr[])
+void TestEqual(vector<UniString> const & v, base::StringIL const & expected)
 {
-  for (size_t i = 0; i < v.size(); ++i)
+  TEST_EQUAL(v.size(), expected.size(), (expected));
+
+  size_t i = 0;
+  for (auto const & e : expected)
   {
-    TEST_EQUAL(ToUtf8(v[i]), arr[i], ());
-    TEST_EQUAL(v[i], MakeUniString(arr[i]), ());
+    TEST_EQUAL(ToUtf8(v[i]), e, ());
+    TEST_EQUAL(v[i], MakeUniString(e), ());
+    ++i;
   }
 }
-}  // namespace
 
 UNIT_TEST(StringMatchCost_FullMatch)
 {
@@ -103,15 +104,29 @@ UNIT_TEST(StringMatchCost_PrefixMatch)
 
 UNIT_TEST(StringSplit_Smoke)
 {
-  vector<UniString> tokens;
-
-  {
-    string const s = "1/2";
-    UniString const s1 = NormalizeAndSimplifyString(s);
-    TEST_EQUAL(ToUtf8(s1), s, ());
-
-    char const * arr[] = { "1", "2" };
-    SplitUniString(s1, base::MakeBackInsertFunctor(tokens), Delimiters());
-    TestEqual(tokens, arr);
-  }
+  TestEqual(NormalizeAndTokenizeString("1/2"), { "1", "2" });
+  TestEqual(NormalizeAndTokenizeString("xxx-yyy"), { "xxx", "yyy" });
 }
+
+UNIT_TEST(StringSplit_Apostrophe)
+{
+  TestEqual(NormalizeAndTokenizeString("Barne's & Noble"), { "barnes", "noble" });
+  TestEqual(NormalizeAndTokenizeString("Michael's"), { "michaels" });
+  TestEqual(NormalizeAndTokenizeString("'s"), { "s" });
+  TestEqual(NormalizeAndTokenizeString("xyz'"), { "xyz" });
+  TestEqual(NormalizeAndTokenizeString("'''"), { });
+}
+
+UNIT_TEST(StringSplit_NumeroHashtag)
+{
+  TestEqual(NormalizeAndTokenizeString("Зона №51"), { "зона", "51" });
+  TestEqual(NormalizeAndTokenizeString("Зона № 51"), { "зона", "51" });
+  TestEqual(NormalizeAndTokenizeString("Area #51"), { "area", "51" });
+  TestEqual(NormalizeAndTokenizeString("Area # "), { "area" });
+  TestEqual(NormalizeAndTokenizeString("Area #One"), { "area", "one" });
+  TestEqual(NormalizeAndTokenizeString("xxx#yyy"), { "xxx", "yyy" });
+  TestEqual(NormalizeAndTokenizeString("#'s"), { "s" });
+  TestEqual(NormalizeAndTokenizeString("##osm's"), { "osms" });
+}
+
+} // namespace string_match_test

@@ -12,7 +12,15 @@
 #include <memory>
 
 // Generic Writer. Not thread-safe.
+// 'Writer' has virtual functions but non-virtual destructor
+#ifdef __clang__
+#pragma clang diagnostic push
+#pragma clang diagnostic ignored "-Wnon-virtual-dtor"
+#endif  // __clang__
 class Writer
+#ifdef __clang__
+#pragma clang diagnostic pop
+#endif  // __clang__
 {
 public:
   DECLARE_EXCEPTION(Exception, RootException);

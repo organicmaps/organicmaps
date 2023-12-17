@@ -3,7 +3,6 @@
 #include "map/api_mark_point.hpp"
 #include "map/bookmark.hpp"
 #include "map/bookmark_manager.hpp"
-#include "map/caching_address_getter.hpp"
 #include "map/features_fetcher.hpp"
 #include "map/isolines_manager.hpp"
 #include "map/mwm_url.hpp"
@@ -30,51 +29,39 @@
 #include "kml/type_utils.hpp"
 
 #include "editor/new_feature_categories.hpp"
+#include "editor/osm_editor.hpp"
 
 #include "indexer/caching_rank_table_loader.hpp"
-#include "indexer/data_header.hpp"
 #include "indexer/data_source.hpp"
 #include "indexer/data_source_helpers.hpp"
 #include "indexer/map_object.hpp"
 #include "indexer/map_style.hpp"
 
-#include "search/city_finder.hpp"
 #include "search/displayed_categories.hpp"
-#include "search/mode.hpp"
-#include "search/region_address_getter.hpp"
 #include "search/result.hpp"
 #include "search/reverse_geocoder.hpp"
 
 #include "storage/downloading_policy.hpp"
 #include "storage/storage.hpp"
 
-#include "tracking/reporter.hpp"
-
-
-#include "platform/country_defines.hpp"
 #include "platform/location.hpp"
 #include "platform/platform.hpp"
+#include "platform/distance.hpp"
 
 #include "routing/router.hpp"
-#include "routing/routing_session.hpp"
 
 #include "geometry/rect2d.hpp"
 #include "geometry/screenbase.hpp"
 
-#include "base/deferred_task.hpp"
 #include "base/macros.hpp"
 #include "base/strings_bundle.hpp"
-#include "base/thread_checker.hpp"
 
 #include "std/target_os.hpp"
 
-#include <cstdint>
 #include <functional>
-#include <list>
 #include <memory>
 #include <optional>
 #include <string>
-#include <utility>
 #include <vector>
 
 namespace osm
@@ -223,7 +210,7 @@ protected:
   void InitTransliteration();
 
 public:
-  explicit Framework(FrameworkParams const & params = {});
+  explicit Framework(FrameworkParams const & params = {}, bool loadMaps = true);
   virtual ~Framework() override;
 
   df::DrapeApi & GetDrapeApi() { return m_drapeApi; }
@@ -231,6 +218,9 @@ public:
   /// \returns true if there're unsaved changes in map with |countryId| and false otherwise.
   /// \note It works for group and leaf node.
   bool HasUnsavedEdits(storage::CountryId const & countryId);
+
+  void LoadMapsSync();
+  void LoadMapsAsync(std::function<void()> && callback);
 
   /// Registers all local map files in internal indexes.
   void RegisterAllMaps();
@@ -245,16 +235,10 @@ public:
   /// Shows group or leaf mwm on the map.
   void ShowNode(storage::CountryId const & countryId);
 
-  // TipsApi::Delegate override.
-  /// Checks, whether the country which contains the specified point is loaded.
-  bool IsCountryLoaded(m2::PointD const & pt) const;
   /// Checks, whether the country is loaded.
   bool IsCountryLoadedByName(std::string_view name) const;
 
   void InvalidateRect(m2::RectD const & rect);
-
-  /// @name Get any country info by point.
-  storage::CountryId GetCountryIndex(m2::PointD const & pt) const;
 
   std::string GetCountryName(m2::PointD const & pt) const;
 
@@ -346,6 +330,10 @@ public:
   bool HasPlacePageInfo() const { return m_currentPlacePageInfo.has_value(); }
   place_page::Info const & GetCurrentPlacePageInfo() const;
   place_page::Info & GetCurrentPlacePageInfo();
+  void BuildAndSetPlacePageInfo(place_page::BuildInfo const & buildInfo)
+  {
+    OnTapEvent(buildInfo);
+  }
 
   void InvalidateRendering();
   void EnableDebugRectRendering(bool enabled);
@@ -369,9 +357,8 @@ private:
 
   void OnTapEvent(place_page::BuildInfo const & buildInfo);
   std::optional<place_page::Info> BuildPlacePageInfo(place_page::BuildInfo const & buildInfo);
-  void BuildTrackPlacePage(BookmarkManager::TrackSelectionInfo const & trackSelectionInfo,
-                           place_page::Info & info);
-  BookmarkManager::TrackSelectionInfo FindTrackInTapPosition(place_page::BuildInfo const & buildInfo) const;
+  void BuildTrackPlacePage(Track::TrackSelectionInfo const & trackSelectionInfo, place_page::Info & info);
+  Track::TrackSelectionInfo FindTrackInTapPosition(place_page::BuildInfo const & buildInfo) const;
   UserMark const * FindUserMarkInTapPosition(place_page::BuildInfo const & buildInfo) const;
   FeatureID FindBuildingAtPoint(m2::PointD const & mercator) const;
 
@@ -491,12 +478,12 @@ public:
   /// Calculate distance and direction to POI for the given position.
   /// @param[in]  point             POI's position;
   /// @param[in]  lat, lon, north   Current position and heading from north;
-  /// @param[out] distance          Formatted distance string;
+  /// @param[out] distance          Distance to point from (lat, lon);
   /// @param[out] azimut            Azimut to point from (lat, lon);
   /// @return true  If the POI is near the current position (distance < 25 km);
   bool GetDistanceAndAzimut(m2::PointD const & point,
                             double lat, double lon, double north,
-                            std::string & distance, double & azimut);
+                            platform::Distance & distance, double & azimut);
 
   /// @name Manipulating with model view
   m2::PointD PtoG(m2::PointD const & p) const { return m_currentModelView.PtoG(p); }
@@ -507,11 +494,11 @@ public:
   /// Show all model by it's world rect.
   void ShowAll();
 
-  m2::PointD GetPixelCenter() const;
   m2::PointD GetVisiblePixelCenter() const;
 
   m2::PointD const & GetViewportCenter() const;
-  void SetViewportCenter(m2::PointD const & pt, int zoomLevel = -1, bool isAnim = true);
+  void SetViewportCenter(m2::PointD const & pt, int zoomLevel = -1, bool isAnim = true,
+                         bool trackVisibleViewport = false);
 
   m2::RectD GetCurrentViewport() const;
   void SetVisibleViewport(m2::RectD const & rect);
@@ -554,6 +541,8 @@ public:
   /// factorY = 1.5 moves the map one and a half size up.
   void Move(double factorX, double factorY, bool isAnim);
 
+  void Scroll(double distanceX, double distanceY);
+
   void Rotate(double azimuth, bool isAnim);
 
   void TouchEvent(df::TouchEvent const & touch);
@@ -563,8 +552,15 @@ public:
   void RunFirstLaunchAnimation();
 
   /// Set correct viewport, parse API, show balloon.
-  bool ShowMapForURL(std::string const & url);
-  url_scheme::ParsedMapApi::ParsingResult ParseAndSetApiURL(std::string const & url);
+  void ExecuteMapApiRequest()
+  {
+    m_parsedMapApi.ExecuteMapApiRequest(*this);
+  }
+
+  url_scheme::ParsedMapApi::UrlType ParseAndSetApiURL(std::string const & url)
+  {
+    return m_parsedMapApi.SetUrlAndParse(url);
+  }
 
   struct ParsedRoutingData
   {
@@ -579,6 +575,8 @@ public:
   ParsedRoutingData GetParsedRoutingData() const;
   url_scheme::SearchRequest GetParsedSearchRequest() const;
   std::string const & GetParsedAppName() const;
+  std::string const & GetParsedBackUrl() const;
+  ms::LatLon GetParsedCenterLatLon() const;
 
   using FeatureMatcher = std::function<bool(FeatureType & ft)>;
 
@@ -607,6 +605,7 @@ private:
   void FillSearchResultInfo(SearchMarkPoint const & smp, place_page::Info & info) const;
   void FillMyPositionInfo(place_page::Info & info, place_page::BuildInfo const & buildInfo) const;
   void FillRouteMarkInfo(RouteMarkPoint const & rmp, place_page::Info & info) const;
+  void FillSpeedCameraMarkInfo(SpeedCameraMark const & speedCameraMark, place_page::Info & info) const;
   void FillTransitMarkInfo(TransitMark const & transitMark, place_page::Info & info) const;
   void FillRoadTypeMarkInfo(RoadWarningMark const & roadTypeMark, place_page::Info & info) const;
   void FillPointInfoForBookmark(Bookmark const & bmk, place_page::Info & info) const;
@@ -617,8 +616,7 @@ private:
   void FillDescription(FeatureType & ft, place_page::Info & info) const;
 
 public:
-  search::ReverseGeocoder::Address GetAddressAtPoint(m2::PointD const & pt,
-                                                     double distanceThresholdMeters = 0.5) const;
+  search::ReverseGeocoder::Address GetAddressAtPoint(m2::PointD const & pt) const;
 
   /// Get "best for the user" feature at given point even if it's invisible on the screen.
   /// Ignores coastlines and prefers buildings over other area features.
@@ -677,7 +675,6 @@ public:
   void Load3dMode(bool & allow3d, bool & allow3dBuildings);
 
   void SetLargeFontsSize(bool isLargeSize);
-  void SaveLargeFontsSize(bool isLargeSize);
   bool LoadLargeFontsSize();
 
   bool LoadAutoZoom();
@@ -733,12 +730,9 @@ public:
                   std::string const & note);
 
 private:
-  CachingAddressGetter m_addressGetter;
+  settings::UsageStats m_usageStats;
 
 public:
-  // TipsApi::Delegate override.
-  bool HaveTransit(m2::PointD const & pt) const;
-
   power_management::PowerManager & GetPowerManager() { return m_powerManager; }
 
   // PowerManager::Subscriber override.

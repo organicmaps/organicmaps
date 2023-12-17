@@ -1,67 +1,13 @@
-<?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<svg
-   width="24px"
-   height="24px"
-   viewBox="0 0 24 24"
-   version="1.1"
-   id="svg13"
-   sodipodi:docname="golf-m.svg"
-   inkscape:version="1.2 (dc2aedaf03, 2022-05-15)"
-   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
-   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
-   xmlns="http://www.w3.org/2000/svg"
-   xmlns:svg="http://www.w3.org/2000/svg">
-  <defs
-     id="defs17" />
-  <sodipodi:namedview
-     id="namedview15"
-     pagecolor="#ffffff"
-     bordercolor="#000000"
-     borderopacity="0.25"
-     inkscape:showpageshadow="2"
-     inkscape:pageopacity="0.0"
-     inkscape:pagecheckerboard="0"
-     inkscape:deskcolor="#d1d1d1"
-     showgrid="false"
-     inkscape:zoom="31.5"
-     inkscape:cx="12.047619"
-     inkscape:cy="12"
-     inkscape:window-width="1920"
-     inkscape:window-height="1003"
-     inkscape:window-x="0"
-     inkscape:window-y="0"
-     inkscape:window-maximized="1"
-     inkscape:current-layer="svg13" />
-  <title
-     id="title2">golf-m</title>
-  <g
-     id="Page-1"
-     stroke="none"
-     stroke-width="1"
-     fill="none"
-     fill-rule="evenodd">
-    <g
-       id="golf-m"
-       fill-rule="nonzero">
-      <g
-         id="golf_course_black_24dp"
-         transform="translate(6.000000, 5.000000)"
-         fill="#FFFFFF">
-        <g
-           id="g803"
-           transform="matrix(1.3920364,0,0,1.3920364,-1.888206,-2.5604854)">
-          <circle
-             id="circle7"
-             cx="10.333333"
-             cy="11.666667"
-             r="1"
-             style="fill:#717065;fill-opacity:1" />
-          <path
-             d="M 4.6666667,10.686667 V 4.6533333 L 7.48,3.22 C 7.9666667,2.9733333 7.9666667,2.2666667 7.4733333,2.0266667 L 4.3,0.47333333 c -0.4466667,-0.22 -0.9666667,0.1 -0.9666667,0.59333337 V 11.333333 C 3.3333333,11.7 3.0333333,12 2.6666667,12 2.3,12 2,11.7 2,11.333333 V 10.846667 C 0.80666667,11.08 0,11.506667 0,12 c 0,0.733333 1.7933333,1.333333 4,1.333333 2.2066667,0 4,-0.6 4,-1.333333 0,-0.66 -1.44,-1.206667 -3.3333333,-1.313333 z"
-             id="Path"
-             style="fill:#717065;fill-opacity:1" />
-        </g>
-      </g>
+<svg version="1.1" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+ <title>golf-m</title>
+ <g fill="none" fill-rule="evenodd">
+  <g id="golf-m" fill-rule="nonzero">
+   <g id="golf_course_black_24dp" transform="translate(6 5)" fill="#fff">
+    <g transform="matrix(1.392 0 0 1.392 -1.8882 -2.5605)" fill="#717065">
+     <circle cx="10.333" cy="11.667" r="1"/>
+     <path id="Path" d="m4.6667 10.687v-6.0333l2.8133-1.4333c0.48667-0.24667 0.48667-0.95333-0.0066667-1.1933l-3.1733-1.5533c-0.44667-0.22-0.96667 0.1-0.96667 0.59333v10.267c0 0.36667-0.3 0.66667-0.66667 0.66667-0.36667 0-0.66667-0.3-0.66667-0.66667v-0.48667c-1.1933 0.23333-2 0.66-2 1.1533 0 0.73333 1.7933 1.3333 4 1.3333s4-0.6 4-1.3333c0-0.66-1.44-1.2067-3.3333-1.3133z"/>
     </g>
+   </g>
   </g>
+ </g>
 </svg>

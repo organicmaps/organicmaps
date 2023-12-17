@@ -4,6 +4,9 @@
 
 #import <CoreApi/StringUtils.h>
 
+#include "indexer/validate_and_format_contacts.hpp"
+#include "indexer/kayak.hpp"
+
 #include "map/place_page_info.hpp"
 
 using namespace place_page;
@@ -17,17 +20,26 @@ using namespace osm;
 
 - (instancetype)initWithRawData:(Info const &)rawData ohLocalization:(id<IOpeningHoursLocalization>)localization {
   self = [super init];
-  if (self) {
-    auto availableProperties = rawData.AvailableProperties();
-    for (auto property : availableProperties) {
-      switch (property) {
-        case Props::OpeningHours:
-          _openingHoursString = ToNSString(rawData.GetOpeningHours());
+  if (self)
+  {
+    auto const cuisines = rawData.FormatCuisines();
+    if (!cuisines.empty())
+      _cuisine = ToNSString(cuisines);
+
+    /// @todo Refactor PlacePageInfoData to have a map of simple string properties.
+    using MetadataID = MapObject::MetadataID;
+    rawData.ForEachMetadataReadable([&](MetadataID metaID, std::string const & value)
+    {
+      switch (metaID)
+      {
+        case MetadataID::FMD_OPEN_HOURS:
+          _openingHoursString = ToNSString(value);
           _openingHours = [[OpeningHours alloc] initWithRawString:_openingHoursString
                                                      localization:localization];
           break;
-        case Props::Phone: {
-          _phone = ToNSString(rawData.GetPhone());
+        case MetadataID::FMD_PHONE_NUMBER:
+        {
+          _phone = ToNSString(value);
           NSString *filteredDigits = [[_phone componentsSeparatedByCharactersInSet:
                                        [[NSCharacterSet decimalDigitCharacterSet] invertedSet]]
                                       componentsJoinedByString:@""];
@@ -35,30 +47,48 @@ using namespace osm;
           _phoneUrl = [NSURL URLWithString:[NSString stringWithFormat:@"tel://%@", resultNumber]];
           break;
         }
-        case Props::Website:
-          _website = ToNSString(rawData.GetWebsite());
+        case MetadataID::FMD_WEBSITE: _website = ToNSString(value); break;
+        case MetadataID::FMD_EXTERNAL_URI:
+        {
+          NSString *countryIsoCode = [[NSLocale currentLocale] objectForKey:NSLocaleCountryCode] ?: @"US";
+          time_t firstDaySec = time_t([[NSDate date] timeIntervalSince1970]);
+          time_t lastDaySec = firstDaySec + 86400;
+          std::string kayakUrl = osm::GetKayakHotelURLFromURI([countryIsoCode UTF8String], value, firstDaySec, lastDaySec);
+          if (!kayakUrl.empty())
+            _kayak = ToNSString(kayakUrl);
           break;
-        case Props::Email:
-          _email = ToNSString(rawData.GetEmail());
+        }
+        case MetadataID::FMD_WIKIPEDIA: _wikipedia = ToNSString(value); break;
+        case MetadataID::FMD_WIKIMEDIA_COMMONS: _wikimediaCommons = ToNSString(value); break;
+        case MetadataID::FMD_EMAIL:
+          _email = ToNSString(value);
+          _emailUrl = [NSURL URLWithString:[NSString stringWithFormat:@"mailto:%@", _email]];
           break;
-        case Props::Cuisine:
-          _cuisine = @(strings::JoinStrings(rawData.GetLocalizedCuisines(), Info::kSubtitleSeparator).c_str());
-          break;
-        case Props::Operator:
-          _ppOperator = ToNSString(rawData.GetOperator());
-          break;
-        case Props::Internet:
+        case MetadataID::FMD_CONTACT_FACEBOOK: _facebook = ToNSString(value); break;
+        case MetadataID::FMD_CONTACT_INSTAGRAM: _instagram = ToNSString(value); break;
+        case MetadataID::FMD_CONTACT_TWITTER: _twitter = ToNSString(value); break;
+        case MetadataID::FMD_CONTACT_VK: _vk = ToNSString(value); break;
+        case MetadataID::FMD_CONTACT_LINE: _line = ToNSString(value); break;
+        case MetadataID::FMD_OPERATOR: _ppOperator = ToNSString(value); break;
+        case MetadataID::FMD_INTERNET:
           _wifiAvailable = (rawData.GetInternet() == osm::Internet::No)
               ? NSLocalizedString(@"no_available", nil) : NSLocalizedString(@"yes_available", nil);
           break;
+        case MetadataID::FMD_LEVEL: _level = ToNSString(value); break;
         default:
           break;
       }
-    }
-
+    });
+    
+    _atm = rawData.HasAtm() ? NSLocalizedString(@"type.amenity.atm", nil) : nil;
+      
     _address = rawData.GetAddress().empty() ? nil : @(rawData.GetAddress().c_str());
-    _rawCoordinates = @(rawData.GetFormattedCoordinate(true).c_str());
-    _formattedCoordinates = @(rawData.GetFormattedCoordinate(false).c_str());
+    _coordFormats = @[@(rawData.GetFormattedCoordinate(place_page::CoordinatesFormat::LatLonDMS).c_str()),
+                      @(rawData.GetFormattedCoordinate(place_page::CoordinatesFormat::LatLonDecimal).c_str()),
+                      @(rawData.GetFormattedCoordinate(place_page::CoordinatesFormat::OLCFull).c_str()),
+                      @(rawData.GetFormattedCoordinate(place_page::CoordinatesFormat::OSMLink).c_str()),
+                      @(rawData.GetFormattedCoordinate(place_page::CoordinatesFormat::UTM).c_str()),
+                      @(rawData.GetFormattedCoordinate(place_page::CoordinatesFormat::MGRS).c_str())];
   }
   return self;
 }

@@ -10,10 +10,10 @@
 #include "std/target_os.hpp"
 
 #include <algorithm>
+#include <cstring>    // strlen
 #include <limits>
 #include <map>
 #include <mutex>
-#include <utility>
 
 #if defined(OMIM_OS_WINDOWS)
 #define DP_APIENTRY __stdcall
@@ -234,7 +234,7 @@ TFunc LoadExtension(std::string const & ext)
 
 void GLFunctions::Init(dp::ApiVersion apiVersion)
 {
-  std::lock_guard<std::mutex> lock(s_mutex);
+  std::lock_guard const lock(s_mutex);
   if (s_inited)
     return;
 
@@ -255,8 +255,17 @@ void GLFunctions::Init(dp::ApiVersion apiVersion)
     glUnmapBufferFn = &::glUnmapBuffer;
 
 #elif defined(OMIM_OS_LINUX)
-
-    CHECK(false, ("OpenGLES2 is not yet supported"));
+    void *libhandle = dlopen("libGL.so.1", RTLD_LAZY);
+    if (!libhandle)
+      LOG(LCRITICAL, ("Failed to open libGL.so.1:", dlerror()));
+    glGenVertexArraysFn = (TglGenVertexArraysFn)dlsym(libhandle,"glGenVertexArraysOES");
+    glBindVertexArrayFn = (TglBindVertexArrayFn)dlsym(libhandle, "glBindVertexArrayOES");
+    glDeleteVertexArrayFn = (TglDeleteVertexArrayFn)dlsym(libhandle,"glDeleteVertexArraysOES");
+    glMapBufferFn = (TglMapBufferFn)dlsym(libhandle, "glMapBufferOES");
+    glUnmapBufferFn = (TglUnmapBufferFn)dlsym(libhandle, "glUnmapBufferOES");
+    glMapBufferRangeFn = (TglMapBufferRangeFn)dlsym(libhandle, "glMapBufferRangeEXT");
+    glFlushMappedBufferRangeFn =
+        (TglFlushMappedBufferRangeFn)dlsym(libhandle, "glFlushMappedBufferRangeEXT");
 
 #elif defined(OMIM_OS_ANDROID)
 
@@ -293,7 +302,7 @@ void GLFunctions::Init(dp::ApiVersion apiVersion)
   }
   else
   {
-    ASSERT(false, ("Unknown Graphics API"));
+    CHECK(false, ("Unknown Graphics API"));
   }
 
 #else  // OMIM_OS_WINDOWS
@@ -541,7 +550,7 @@ void GLFunctions::glDisable(glConst mode)
 void GLFunctions::glClearDepthValue(double depth)
 {
   ASSERT_NOT_EQUAL(CurrentApiVersion, dp::ApiVersion::Invalid, ());
-#if defined(OMIM_OS_IPHONE) || defined(OMIM_OS_ANDROID)
+#if defined(OMIM_OS_IPHONE) || defined(OMIM_OS_ANDROID) || defined(OMIM_OS_LINUX)
   GLCHECK(::glClearDepthf(static_cast<GLclampf>(depth)));
 #else
   GLCHECK(::glClearDepth(depth));

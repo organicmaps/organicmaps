@@ -22,7 +22,7 @@
 #include <memory>
 #include <vector>
 
-namespace
+namespace applying_traffic_test
 {
 using namespace routing;
 using namespace routing_test;
@@ -91,7 +91,7 @@ unique_ptr<WorldGraph> BuildXXGraph(shared_ptr<EdgeEstimator> estimator)
       MakeJoint({{7, 1}, {8, 0}}),                         /* joint at point (3, 0) */
   };
 
-  return BuildWorldGraph(move(loader), estimator, joints);
+  return BuildWorldGraph(std::move(loader), estimator, joints);
 }
 
 class ApplyingTrafficTest
@@ -253,4 +253,4 @@ UNIT_CLASS_TEST(ApplyingTrafficTest, XXGraph_ChangingTraffic)
     TestRouteGeometry(*starter, Algorithm::Result::OK, noTrafficGeom);
   }
 }
-}  // namespace
+}  // namespace applying_traffic_test

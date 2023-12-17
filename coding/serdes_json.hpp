@@ -6,7 +6,7 @@
 #include "base/exception.hpp"
 #include "base/scope_guard.hpp"
 
-#include "3party/jansson/myjansson.hpp"
+#include "cppjansson/cppjansson.hpp"
 
 #include <array>
 #include <chrono>
@@ -235,6 +235,11 @@ public:
 
   explicit DeserializerJson(std::string const & source)
     : m_jsonObject(source), m_json(m_jsonObject.get())
+  {
+  }
+
+  explicit DeserializerJson(char const * buffer)
+    : m_jsonObject(buffer), m_json(m_jsonObject.get())
   {
   }
 

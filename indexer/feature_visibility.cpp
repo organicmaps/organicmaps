@@ -4,6 +4,7 @@
 #include "indexer/drawing_rules.hpp"
 #include "indexer/feature.hpp"
 #include "indexer/feature_data.hpp"
+#include "indexer/ftypes_matcher.hpp"
 #include "indexer/scales.hpp"
 
 #include "base/assert.hpp"
@@ -62,28 +63,30 @@ namespace
   class IsDrawableRulesChecker
   {
     int m_scale;
-    GeomType m_gt;
-    bool m_arr[3];
+    GeomType m_geomType;
+    bool m_arr[4];
 
   public:
-    IsDrawableRulesChecker(int scale, GeomType gt, int rules)
-      : m_scale(scale), m_gt(gt)
+    IsDrawableRulesChecker(int scale, GeomType geomType, int rules)
+      : m_scale(scale), m_geomType(geomType)
     {
       m_arr[0] = rules & RULE_CAPTION;
       m_arr[1] = rules & RULE_PATH_TEXT;
       m_arr[2] = rules & RULE_SYMBOL;
+      m_arr[3] = rules & RULE_LINE;
     }
 
     bool operator() (ClassifObject const * p) const
     {
       drule::KeysT keys;
-      p->GetSuitable(m_scale, m_gt, keys);
+      p->GetSuitable(m_scale, m_geomType, keys);
 
       for (auto const & k : keys)
       {
         if ((m_arr[0] && k.m_type == drule::caption) ||
             (m_arr[1] && k.m_type == drule::pathtext) ||
-            (m_arr[2] && k.m_type == drule::symbol))
+            (m_arr[2] && k.m_type == drule::symbol) ||
+            (m_arr[3] && k.m_type == drule::line))
         {
           return true;
         }
@@ -99,31 +102,40 @@ namespace
   /// The functions names and set of types looks strange now and definitely should be revised.
   /// @{
 
-  bool IsUsefulStandaloneType(uint32_t type, GeomType g = GeomType::Undefined)
+  /// These types will be included in geometry index for the corresponding scale (World or Country).
+  /// Needed for search and routing algorithms.
+  int GetNondrawableStandaloneIndexScale(uint32_t type, GeomType geomType = GeomType::Undefined)
   {
     auto const & cl = classif();
 
     static uint32_t const shuttle = cl.GetTypeByPath({"route", "shuttle_train"});
-    if ((g == GeomType::Line || g == GeomType::Undefined) && type == shuttle)
-      return true;
+    if ((geomType == GeomType::Line || geomType == GeomType::Undefined) && type == shuttle)
+      return scales::GetUpperScale();
 
     static uint32_t const region = cl.GetTypeByPath({"place", "region"});
-    if ((g == GeomType::Point || g == GeomType::Undefined) && type == region)
-      return true;
+    if ((geomType == GeomType::Point || geomType == GeomType::Undefined) && type == region)
+      return scales::GetUpperWorldScale();
 
-    return false;
+    ftype::TruncValue(type, 1);
+    static uint32_t const addr = cl.GetTypeByPath({"addr:interpolation"});
+    if ((geomType == GeomType::Line || geomType == GeomType::Undefined) && type == addr)
+      return scales::GetUpperScale();
+
+    return -1;
   }
 
-  /// Warning: Geometry of features with always existing types will be indexed in mwm on all
-  /// zoom levels. If you add an always existing type to drawing types, the displacement of icons
-  /// may work not correctly.
-  bool TypeAlwaysExists(uint32_t type, GeomType g = GeomType::Undefined)
+  bool IsUsefulStandaloneType(uint32_t type, GeomType geomType = GeomType::Undefined)
+  {
+    return GetNondrawableStandaloneIndexScale(type, geomType) >= 0;
+  }
+
+  bool TypeAlwaysExists(uint32_t type, GeomType geomType = GeomType::Undefined)
   {
     auto const & cl = classif();
     if (!cl.IsTypeValid(type))
       return false;
 
-    if (IsUsefulStandaloneType(type, g))
+    if (IsUsefulStandaloneType(type, geomType))
       return true;
 
     static uint32_t const internet = cl.GetTypeByPath({"internet_access"});
@@ -132,7 +144,7 @@ namespace
     uint8_t const typeLevel = ftype::GetLevel(type);
     ftype::TruncValue(type, 1);
 
-    if (g != GeomType::Line)
+    if (geomType != GeomType::Line)
     {
       if (type == internet)
         return true;
@@ -152,13 +164,13 @@ namespace
     return (type == complexEntry);
   }
 
-  bool IsUsefulNondrawableType(uint32_t type, GeomType g = GeomType::Undefined)
+  bool IsUsefulNondrawableType(uint32_t type, GeomType geomType = GeomType::Undefined)
   {
     auto const & cl = classif();
     if (!cl.IsTypeValid(type))
       return false;
 
-    if (TypeAlwaysExists(type, g))
+    if (TypeAlwaysExists(type, geomType))
       return true;
 
     // Exclude generic 1-arity types like [wheelchair].
@@ -166,15 +178,15 @@ namespace
       return false;
 
     static uint32_t const hwtag = cl.GetTypeByPath({"hwtag"});
-    static uint32_t const roundabout = cl.GetTypeByPath({"junction", "roundabout"});
     static uint32_t const psurface = cl.GetTypeByPath({"psurface"});
 
     /// @todo "roundabout" type itself has caption drawing rules (for point junctions?).
-    if ((g == GeomType::Line || g == GeomType::Undefined) && type == roundabout)
+    if ((geomType == GeomType::Line || geomType == GeomType::Undefined) &&
+        ftypes::IsRoundAboutChecker::Instance()(type))
       return true;
 
     ftype::TruncValue(type, 1);
-    if (g == GeomType::Line || g == GeomType::Undefined)
+    if (geomType == GeomType::Line || geomType == GeomType::Undefined)
     {
       if (type == hwtag || type == psurface)
         return true;
@@ -182,12 +194,18 @@ namespace
 
     static uint32_t const arrTypes[] = {
       cl.GetTypeByPath({"wheelchair"}),
-      cl.GetTypeByPath({"cuisine"})
+      cl.GetTypeByPath({"cuisine"}),
+      cl.GetTypeByPath({"fee"}),
     };
     return base::IsExist(arrTypes, type);
   }
   /// @}
-}  // namespace
+} // namespace
+
+bool IsCategoryNondrawableType(uint32_t type)
+{
+  return TypeAlwaysExists(type);
+}
 
 bool IsUsefulType(uint32_t type)
 {
@@ -206,29 +224,15 @@ bool CanGenerateLike(vector<uint32_t> const & types, GeomType geomType)
   return false;
 }
 
-bool IsDrawableForIndex(FeatureType & ft, int level)
+namespace
 {
-  return IsDrawableForIndexGeometryOnly(ft, level) &&
-         IsDrawableForIndexClassifOnly(TypesHolder(ft), level);
-}
-
-bool IsDrawableForIndex(TypesHolder const & types, m2::RectD limitRect, int level)
-{
-  return IsDrawableForIndexGeometryOnly(types, limitRect, level) &&
-         IsDrawableForIndexClassifOnly(types, level);
-}
-
-bool IsDrawableForIndexGeometryOnly(FeatureType & ft, int level)
-{
-  return IsDrawableForIndexGeometryOnly(TypesHolder(ft),
-                                        ft.GetLimitRect(FeatureType::BEST_GEOMETRY), level);
-}
-bool IsDrawableForIndexGeometryOnly(TypesHolder const & types, m2::RectD limitRect, int level)
+bool IsDrawableForIndexGeometryOnly(TypesHolder const & types, m2::RectD const & limitRect, int level)
 {
   Classificator const & c = classif();
 
   static uint32_t const buildingPartType = c.GetTypeByPath({"building:part"});
 
+  // Exclude too small area features unless it's a part of a coast or a building.
   if (types.GetGeomType() == GeomType::Area && !types.Has(c.GetCoastType()) &&
       !types.Has(buildingPartType) && !scales::IsGoodForLevel(level, limitRect))
     return false;
@@ -241,11 +245,32 @@ bool IsDrawableForIndexClassifOnly(TypesHolder const & types, int level)
   Classificator const & c = classif();
   for (uint32_t t : types)
   {
-    if (TypeAlwaysExists(t) || c.GetObject(t)->IsDrawable(level))
+    if (c.GetObject(t)->IsDrawable(level))
+      return true;
+
+    if (level == GetNondrawableStandaloneIndexScale(t))
       return true;
   }
 
   return false;
+}
+} // namespace
+
+bool IsDrawableForIndex(FeatureType & ft, int level)
+{
+  return IsDrawableForIndexGeometryOnly(ft, level) &&
+         IsDrawableForIndexClassifOnly(TypesHolder(ft), level);
+}
+
+bool IsDrawableForIndex(TypesHolder const & types, m2::RectD const & limitRect, int level)
+{
+  return IsDrawableForIndexGeometryOnly(types, limitRect, level) &&
+         IsDrawableForIndexClassifOnly(types, level);
+}
+
+bool IsDrawableForIndexGeometryOnly(FeatureType & ft, int level)
+{
+  return IsDrawableForIndexGeometryOnly(TypesHolder(ft), ft.GetLimitRectChecked(), level);
 }
 
 bool IsUsefulType(uint32_t t, GeomType geomType, bool emptyName)
@@ -281,10 +306,10 @@ bool RemoveUselessTypes(vector<uint32_t> & types, GeomType geomType, bool emptyN
 
 int GetMinDrawableScale(FeatureType & ft)
 {
-  return GetMinDrawableScale(TypesHolder(ft), ft.GetLimitRect(FeatureType::BEST_GEOMETRY));
+  return GetMinDrawableScale(TypesHolder(ft), ft.GetLimitRectChecked());
 }
 
-int GetMinDrawableScale(TypesHolder const & types, m2::RectD limitRect)
+int GetMinDrawableScale(TypesHolder const & types, m2::RectD const & limitRect)
 {
   int const upBound = scales::GetUpperStyleScale();
 
@@ -297,7 +322,8 @@ int GetMinDrawableScale(TypesHolder const & types, m2::RectD limitRect)
   return -1;
 }
 
-int GetMinDrawableScaleGeometryOnly(TypesHolder const & types, m2::RectD limitRect)
+/*
+int GetMinDrawableScaleGeometryOnly(TypesHolder const & types, m2::RectD const & limitRect)
 {
   int const upBound = scales::GetUpperStyleScale();
 
@@ -309,6 +335,7 @@ int GetMinDrawableScaleGeometryOnly(TypesHolder const & types, m2::RectD limitRe
 
   return -1;
 }
+*/
 
 int GetMinDrawableScaleClassifOnly(TypesHolder const & types)
 {
@@ -433,4 +460,4 @@ bool TypeSetChecker::IsEqual(uint32_t type) const
   ftype::TruncValue(type, m_level);
   return (m_type == type);
 }
-}   // namespace feature
+} // namespace feature

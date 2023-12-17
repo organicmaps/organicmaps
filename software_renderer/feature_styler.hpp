@@ -14,9 +14,6 @@ class ScreenBase;
 
 namespace software_renderer
 {
-const int maxDepth = 20000;
-const int minDepth = -20000;
-
 class GlyphCache;
 
 struct DrawRule

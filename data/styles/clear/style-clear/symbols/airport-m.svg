@@ -1,11 +1,10 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<svg width="24px" height="24px" viewBox="0 0 24 24" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
-    <title>airport-m</title>
-    <g id="Page-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
-        <g id="airport-m" fill-rule="nonzero">
-            <rect id="Rectangle" fill="#FFFFFF" opacity="0.6" x="0" y="0" width="24" height="24" rx="2.5"></rect>
-            <rect id="Rectangle" fill="#2F6499" x="1" y="1" width="22" height="22" rx="2"></rect>
-            <path d="M19,15.1 L19,13.8 L13.5263158,10.55 L13.5263158,6.975 C13.5263158,6.4355 13.0678947,6 12.5,6 C11.9321053,6 11.4736842,6.4355 11.4736842,6.975 L11.4736842,10.55 L6,13.8 L6,15.1 L11.4736842,13.475 L11.4736842,17.05 L10.1052632,18.025 L10.1052632,19 L12.5,18.35 L14.8947368,19 L14.8947368,18.025 L13.5263158,17.05 L13.5263158,13.475 L19,15.1 Z" id="Path" fill="#FFFFFF"></path>
-        </g>
-    </g>
+<svg version="1.1" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+ <title>airport-m</title>
+ <g fill="none" fill-rule="evenodd">
+  <g id="airport-m" fill-rule="nonzero">
+   <rect id="Rectangle" width="24" height="24" rx="2.5" fill="#fff" opacity=".6"/>
+   <rect id="Rectangle" x="1" y="1" width="22" height="22" rx="2" fill="#2F6499"/>
+   <path id="Path" d="m19 15.1v-1.3l-5.4737-3.25v-3.575c0-0.5395-0.45842-0.975-1.0263-0.975s-1.0263 0.4355-1.0263 0.975v3.575l-5.4737 3.25v1.3l5.4737-1.625v3.575l-1.3684 0.975v0.975l2.3947-0.65 2.3947 0.65v-0.975l-1.3684-0.975v-3.575l5.4737 1.625z" fill="#fff"/>
+  </g>
+ </g>
 </svg>

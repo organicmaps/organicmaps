@@ -221,7 +221,7 @@ void AnimationSystem::CombineAnimation(drape_ptr<Animation> && animation)
 #ifdef DEBUG_ANIMATIONS
       LOG(LINFO, ("Animation blended"));
 #endif
-      lst.emplace_back(move(animation));
+      lst.emplace_back(std::move(animation));
       if (startImmediately)
         lst.back()->OnStart();
 #ifdef DEBUG_ANIMATIONS
@@ -241,7 +241,7 @@ void AnimationSystem::CombineAnimation(drape_ptr<Animation> && animation)
     startImmediately = false;
   }
   
-  PushAnimation(move(animation));
+  PushAnimation(std::move(animation));
 }
 
 void AnimationSystem::PushAnimation(drape_ptr<Animation> && animation)
@@ -251,7 +251,7 @@ void AnimationSystem::PushAnimation(drape_ptr<Animation> && animation)
 #endif
 
   auto pList = std::make_shared<TAnimationList>();
-  pList->emplace_back(move(animation));
+  pList->emplace_back(std::move(animation));
 
   bool startImmediately = m_animationChain.empty();
   m_animationChain.push_back(pList);

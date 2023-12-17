@@ -1,18 +1,16 @@
 #pragma once
 
 #include "kml/types.hpp"
+#include "kml/serdes_common.hpp"
 
 #include "coding/parse_xml.hpp"
 #include "coding/reader.hpp"
 #include "coding/writer.hpp"
 
 #include "geometry/point2d.hpp"
-#include "geometry/point_with_altitude.hpp"
 
 #include "base/exception.hpp"
-#include "base/stl_helpers.hpp"
 
-#include <chrono>
 #include <string>
 
 namespace kml
@@ -28,7 +26,7 @@ public:
     explicit WriterWrapper(Writer & writer)
       : m_writer(writer)
     {}
-    WriterWrapper & operator<<(std::string const & str);
+    WriterWrapper & operator<<(std::string_view str);
   private:
     Writer & m_writer;
   };
@@ -67,17 +65,24 @@ class KmlParser
 {
 public:
   explicit KmlParser(FileData & data);
-  bool Push(std::string const & name);
-  void AddAttr(std::string const & attr, std::string const & value);
-  bool IsValidAttribute(std::string const & type, std::string const & value,
+
+  /// @name Parser callback functions.
+  /// @{
+  bool Push(std::string name);
+  void AddAttr(std::string attr, std::string value);
+  void Pop(std::string_view tag);
+  void CharData(std::string & value);
+  /// @}
+
+  bool IsValidAttribute(std::string_view type, std::string const & value,
                         std::string const & attrInLowerCase) const;
-  std::string const & GetTagFromEnd(size_t n) const;
-  void Pop(std::string const & tag);
-  void CharData(std::string value);
 
   static kml::TrackLayer GetDefaultTrackLayer();
 
 private:
+  std::string const & GetTagFromEnd(size_t n) const;
+  bool IsProcessTrackTag() const;
+
   enum GeometryType
   {
     GEOMETRY_TYPE_UNKNOWN,
@@ -87,8 +92,10 @@ private:
 
   void ResetPoint();
   void SetOrigin(std::string const & s);
-  void ParseLineCoordinates(std::string const & s, char const * blockSeparator,
-                            char const * coordSeparator);
+  static void ParseAndAddPoints(MultiGeometry::LineT & line, std::string_view s,
+                                char const * blockSeparator, char const * coordSeparator);
+  void ParseLineString(std::string const & s);
+
   bool MakeValid();
   void ParseColor(std::string const &value);
   bool GetColorForStyle(std::string const & styleUrl, uint32_t & color) const;
@@ -100,7 +107,7 @@ private:
 
   std::vector<std::string> m_tags;
   GeometryType m_geometryType;
-  std::vector<geometry::PointWithAltitude> m_pointsWithAltitudes;
+  MultiGeometry m_geometry;
   uint32_t m_color;
 
   std::string m_styleId;
@@ -148,7 +155,14 @@ public:
     NonOwningReaderSource src(reader);
     KmlParser parser(m_fileData);
     if (!ParseXML(src, parser, true))
+    {
+      // Print corrupted KML file for debug and restore purposes.
+      std::string kmlText;
+      reader.ReadAsString(kmlText);
+      if (!kmlText.empty() && kmlText[0] == '<')
+        LOG(LWARNING, (kmlText));
       MYTHROW(DeserializeException, ("Could not parse KML."));
+    }
   }
 
 private:

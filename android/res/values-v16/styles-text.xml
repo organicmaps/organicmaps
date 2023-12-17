@@ -1,7 +1,0 @@
-<?xml version="1.0" encoding="utf-8"?>
-<resources>
-  <style name="MwmTextAppearance.PlacePage.Title"
-         parent="MwmTextAppearance.Body3">
-    <item name="android:fontFamily">sans-serif-medium</item>
-  </style>
-</resources>

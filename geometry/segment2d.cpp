@@ -7,26 +7,24 @@
 #include <sstream>
 #include <string>
 
-using namespace std;
-
 namespace m2
 {
 bool IsPointOnSegmentEps(PointD const & pt, PointD const & p1, PointD const & p2, double eps)
 {
   double const t = robust::OrientedS(p1, p2, pt);
 
-  if (fabs(t) > eps)
+  if (std::fabs(t) > eps)
     return false;
 
   double minX = p1.x;
   double maxX = p2.x;
   if (maxX < minX)
-    swap(maxX, minX);
+    std::swap(maxX, minX);
 
   double minY = p1.y;
   double maxY = p2.y;
   if (maxY < minY)
-    swap(maxY, minY);
+    std::swap(maxY, minY);
 
   return pt.x >= minX - eps && pt.x <= maxX + eps && pt.y >= minY - eps && pt.y <= maxY + eps;
 }
@@ -44,6 +42,7 @@ bool IsPointOnSegment(PointD const & pt, PointD const & p1, PointD const & p2)
 
 bool SegmentsIntersect(PointD const & a, PointD const & b, PointD const & c, PointD const & d)
 {
+  using std::max, std::min;
   return max(a.x, b.x) >= min(c.x, d.x) && min(a.x, b.x) <= max(c.x, d.x) &&
       max(a.y, b.y) >= min(c.y, d.y) && min(a.y, b.y) <= max(c.y, d.y) &&
       robust::OrientedS(a, b, c) * robust::OrientedS(a, b, d) <= 0.0 &&
@@ -75,7 +74,7 @@ std::string DebugPrint(Segment2D const & segment)
   return "(" + DebugPrint(segment.m_u) + ", " + DebugPrint(segment.m_v) + ")";
 }
 
-string DebugPrint(IntersectionResult::Type type)
+std::string DebugPrint(IntersectionResult::Type type)
 {
   using Type = IntersectionResult::Type;
 
@@ -88,9 +87,9 @@ string DebugPrint(IntersectionResult::Type type)
   UNREACHABLE();
 }
 
-string DebugPrint(IntersectionResult const & result)
+std::string DebugPrint(IntersectionResult const & result)
 {
-  ostringstream os;
+  std::ostringstream os;
   os << "Result [";
   if (result.m_type == IntersectionResult::Type::One)
     os << DebugPrint(result.m_point);

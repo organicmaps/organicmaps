@@ -1,0 +1,39 @@
+• Detaljerade offline-kartor med platser som inte finns på andra kartor
+• Cykelvägar, vandringsleder och gångbanor
+• Konturlinjer, höjdprofiler, bergstoppar och lutningar
+• Röstvägledd navigering till fots, på cykel och bakom ratten
+• Snabb offline-sökning
+• Bokmärken för allt du behöver; importera och dela KML-, KMZ- och GPX-filer
+• Mörkt läge för att skona ögonen
+• ... och många andra funktioner!
+
+Organic Maps är rent och ekologiskt, gjort med kärlek:
+
+• Respekterar din personliga integritet
+• Sparar på ditt batteri
+• Förhindrar oförutsedda mobildataavgifter
+
+Organic Maps är fritt från spårare och annat ont:
+
+• Ingen reklam
+• Ingen spårning
+• Ingen datainhämtning
+• Ingen telemetri
+• Inget jobbigt registreringskrav
+• Inga obligatoriska genomgångar
+• Ingen störig skräppost
+• Inga pushnotiser
+• Ingen skräpprogramvara
+• Fri från bekämpningsmedel
+
+På Organic Maps anser vi att personlig integritet är en grundläggande mänsklig rättighet:
+
+• Organic Maps är ett oberoende, gemenskapsdrivet projekt
+• Källkoden är öppen
+• Kartdatan kommer från OpenStreetMap, som också är ett gemenskapsdrivet projekt
+• Vi skyddar din personliga integritet från techjättarnas vakande ögon
+• Var säker oavsett var du befinner dig
+
+Vägra övervakning. Välkomna friheten. Stöd gemenskapen.
+
+Prova Organic Maps!

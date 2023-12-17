@@ -25,6 +25,8 @@ enum class ApiVersion
   Vulkan
 };
 
+/// @todo We have in code: if (anchor & dp::Center) which is not consistent with Center == 0.
+/// Making Center == 1 breaks other defaults. Review this logic in future.
 enum Anchor
 {
   Center = 0,

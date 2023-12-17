@@ -64,16 +64,17 @@ public:
   void SetPreferredLocale(std::string const & locale);
   void SetInputLocale(std::string const & locale);
   void SetQuery(std::string const & query, bool categorialRequest = false);
-  inline std::string const & GetPivotRegion() const { return m_region; }
 
   inline bool IsEmptyQuery() const { return m_prefix.empty() && m_tokens.empty(); }
 
-  void Search(SearchParams const & params);
+  void Search(SearchParams params);
 
-  // Tries to parse a custom debugging command from |m_query|.
-  void SearchDebug();
+  /// Tries to parse a custom debugging command from |m_query|.
+  /// @return True if can stop further search.
+  bool SearchDebug();
   // Tries to generate a (lat, lon) result from |m_query|.
-  void SearchCoordinates();
+  // Returns true if |m_query| contains coordinates.
+  bool SearchCoordinates();
   // Tries to parse a plus code from |m_query| and generate a (lat, lon) result.
   void SearchPlusCode();
   // Tries to parse a postcode from |m_query| and generate a (lat, lon) result based on
@@ -87,7 +88,6 @@ public:
   void InitGeocoder(Geocoder::Params & geocoderParams, SearchParams const & searchParams);
   void InitPreRanker(Geocoder::Params const & geocoderParams, SearchParams const & searchParams);
   void InitRanker(Geocoder::Params const & geocoderParams, SearchParams const & searchParams);
-  void InitEmitter(SearchParams const & searchParams);
 
   void ClearCaches();
   void CacheWorldLocalities();
@@ -121,6 +121,7 @@ protected:
   // 2. fid={ MwmId [Laos, 200623], 123 } or just { MwmId [Laos, 200623], 123 } or whatever current
   //    format of the string returned by FeatureID's DebugPrint is.
   void SearchByFeatureId();
+  void EmitWithMetadata(feature::Metadata::EType type);
 
   Locales GetCategoryLocales() const;
 
@@ -135,20 +136,14 @@ protected:
 
   m2::RectD const & GetViewport() const;
 
-  void EmitFeatureIfExists(std::vector<std::shared_ptr<MwmInfo>> const & infos,
-                           storage::CountryId const & mwmName, std::optional<uint32_t> version,
-                           uint32_t fid);
-  // The results are sorted by distance (to a point from |m_viewport| or |m_position|)
-  // before being emitted.
-  void EmitFeaturesByIndexFromAllMwms(std::vector<std::shared_ptr<MwmInfo>> const & infos,
-                                      uint32_t fid);
+  // The results are sorted by distance (to a point from |m_viewport| or |m_position|) before being emitted.
+  template <class FnT>
+  void EmitResultsFromMwms(std::vector<std::shared_ptr<MwmInfo>> const & infos, FnT const & fn);
 
   CategoriesHolder const & m_categories;
   storage::CountryInfoGetter const & m_infoGetter;
   using CountriesTrie = base::MemTrie<storage::CountryId, base::VectorValues<bool>>;
   CountriesTrie m_countriesTrie;
-
-  std::string m_region;
 
   /// @todo Replace with QueryParams.
   /// @{
