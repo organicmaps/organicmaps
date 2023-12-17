@@ -286,9 +286,9 @@
 	<!-- Item in context menu. -->
 	<string name="downloader_update_map">Värskenda kaart</string>
 	<!-- Preference title -->
-	<string name="google_play_services">Google Play teenused</string>
+	<string name="google_play_services">Google Play asukohateenused</string>
 	<!-- Preference text -->
-	<string name="pref_use_google_play">Kasuta Google Play teenuseid oma hetkeasukoha määramiseks</string>
+	<string name="pref_use_google_play">Määrake kiiresti oma ligikaudne asukoht Bluetoothi, WiFi või mobiilivõrgu kaudu</string>
 	<!-- Text for routing error dialog -->
 	<string name="routing_download_maps_along">Lae alla kõik kaardid oma marsruudil</string>
 	<!-- Text for routing error dialog -->

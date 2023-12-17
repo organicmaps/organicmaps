@@ -288,9 +288,9 @@
 	<!-- Item in context menu. -->
 	<string name="downloader_update_map">更新地圖</string>
 	<!-- Preference title -->
-	<string name="google_play_services">Google Play 服務</string>
+	<string name="google_play_services">Google Play 定位服務</string>
 	<!-- Preference text -->
-	<string name="pref_use_google_play">使用 Google Play 服務來獲得您的目前位置</string>
+	<string name="pref_use_google_play">使用藍牙、WiFi 或行動網路快速確定您的大致位置</string>
 	<!-- Text for routing error dialog -->
 	<string name="routing_download_maps_along">下載沿線地圖</string>
 	<!-- Text for routing error dialog -->

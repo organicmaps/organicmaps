@@ -277,9 +277,9 @@
 	<!-- Item in context menu. -->
 	<string name="downloader_update_map">Ενημέρωση χάρτη</string>
 	<!-- Preference title -->
-	<string name="google_play_services">Υπηρεσίες Google Play</string>
+	<string name="google_play_services">Υπηρεσίες τοποθεσίας Google Play</string>
 	<!-- Preference text -->
-	<string name="pref_use_google_play">Χρησιμοποιήστε υπηρεσίες Google Play για να προσδιορίσετε την τρέχουσα τοποθεσία σας</string>
+	<string name="pref_use_google_play">Προσδιορίστε γρήγορα την κατά προσέγγιση τοποθεσία σας μέσω Bluetooth, WiFi ή δικτύου κινητής τηλεφωνίας</string>
 	<!-- Text for routing error dialog -->
 	<string name="routing_download_maps_along">Κατεβάστε όλους τους χάρτες για ολόκληρο το μήκος της διαδρομής σας</string>
 	<!-- Text for routing error dialog -->

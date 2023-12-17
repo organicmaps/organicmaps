@@ -283,9 +283,9 @@
 	<!-- Item in context menu. -->
 	<string name="downloader_update_map">Обнояване на карта</string>
 	<!-- Preference title -->
-	<string name="google_play_services">Услуги за Google Play</string>
+	<string name="google_play_services">Услуги за местоположение в Google Play</string>
 	<!-- Preference text -->
-	<string name="pref_use_google_play">Използвайте услугите на Google Play, за да определите текущото си местоположение</string>
+	<string name="pref_use_google_play">Бързо определяне на приблизителното ви местоположение чрез Bluetooth, WiFi или мобилна мрежа</string>
 	<!-- Text for routing error dialog -->
 	<string name="routing_download_maps_along">Изтегляне на всички карти по вашия маршрут</string>
 	<!-- Text for routing error dialog -->

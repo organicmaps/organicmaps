@@ -281,8 +281,10 @@
 	<string name="downloader_delete_map">Elimina mappa</string>
 	<!-- Item in context menu. -->
 	<string name="downloader_update_map">Aggiorna mappa</string>
+	<!-- Preference title -->
+	<string name="google_play_services">Servizi di localizzazione di Google Play</string>
 	<!-- Preference text -->
-	<string name="pref_use_google_play">Usa i servizi Google Play per ottenere la tua posizione attuale</string>
+	<string name="pref_use_google_play">Determina rapidamente la tua posizione approssimativa tramite Bluetooth, WiFi o rete mobile</string>
 	<!-- Text for routing error dialog -->
 	<string name="routing_download_maps_along">Scarica le mappe lungo il percorso</string>
 	<!-- Text for routing error dialog -->

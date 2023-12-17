@@ -295,9 +295,9 @@
 	<!-- Item in context menu. -->
 	<string name="downloader_update_map">Абнавіць мапу</string>
 	<!-- Preference title -->
-	<string name="google_play_services">Сэрвісы Google Play</string>
+	<string name="google_play_services">Службы месцазнаходжання Google Play</string>
 	<!-- Preference text -->
-	<string name="pref_use_google_play">Выкарыстоўваць сэрвісы Google Play для вызначэння месцазнаходжання</string>
+	<string name="pref_use_google_play">Хуткае вызначэнне прыблізнага месцазнаходжання з дапамогай Bluetooth, WiFi або мабільнай сеткі</string>
 	<!-- Text for routing error dialog -->
 	<string name="routing_download_maps_along">Спампаваць усе мапы на вашым маршруце</string>
 	<!-- Text for routing error dialog -->

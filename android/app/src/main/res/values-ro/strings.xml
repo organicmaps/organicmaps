@@ -282,9 +282,9 @@
 	<!-- Item in context menu. -->
 	<string name="downloader_update_map">Actualizează harta</string>
 	<!-- Preference title -->
-	<string name="google_play_services">Servicii Google Play</string>
+	<string name="google_play_services">Servicii de localizare Google Play</string>
 	<!-- Preference text -->
-	<string name="pref_use_google_play">Folosește serviciile Google Play pentru a obține poziția actuală</string>
+	<string name="pref_use_google_play">Determinați rapid locația dvs. aproximativă prin Bluetooth, WiFi sau rețea mobilă</string>
 	<!-- Text for routing error dialog -->
 	<string name="routing_download_maps_along">Descarcă hărțile de pe traseu</string>
 	<!-- Text for routing error dialog -->
