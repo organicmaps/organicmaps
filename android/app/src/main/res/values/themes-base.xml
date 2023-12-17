@@ -223,9 +223,6 @@
     <item name="transitPedestrianBackground">@color/white_4</item>
     <item name="transitRulerBackground">@color/white_4</item>
     <item name="transitStepDivider">@drawable/dot_divider_night</item>
-    <item name="trafficMenuEnabled">@drawable/ic_layers_traffic_active_night</item>
-    <item name="subwayMenuEnabled">@drawable/ic_layers_subway_active_night</item>
-    <item name="isoLinesMenuEnabled">@drawable/ic_layers_isoline_active_night</item>
     <item name="accentColorSelector">@color/accent_color_selector_night</item>
     <item name="android:textAppearance">@style/TextAppearance</item>
     <item name="android:textAppearanceSmall">@style/TextAppearance.Small</item>
