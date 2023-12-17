@@ -1671,6 +1671,18 @@ Java_app_organicmaps_Framework_nativeIsIsolinesLayerEnabled(JNIEnv * env, jclass
 }
 
 JNIEXPORT void JNICALL
+Java_app_organicmaps_Framework_nativeSetOutdoorsLayerEnabled(JNIEnv * env, jclass, jboolean enabled)
+{
+  frm()->SaveOutdoorsEnabled(enabled);
+}
+
+JNIEXPORT jboolean JNICALL
+Java_app_organicmaps_Framework_nativeIsOutdoorsLayerEnabled(JNIEnv * env, jclass)
+{
+  return static_cast<jboolean>(frm()->LoadOutdoorsEnabled());
+}
+
+JNIEXPORT void JNICALL
 Java_app_organicmaps_Framework_nativeSaveSettingSchemeEnabled(JNIEnv * env, jclass, jboolean enabled)
 {
   frm()->SaveTransitSchemeEnabled(static_cast<bool>(enabled));

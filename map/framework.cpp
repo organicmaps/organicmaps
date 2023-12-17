@@ -101,6 +101,7 @@ char const kAllowAutoZoom[] = "AutoZoom";
 char const kTrafficEnabledKey[] = "TrafficEnabled";
 char const kTransitSchemeEnabledKey[] = "TransitSchemeEnabled";
 char const kIsolinesEnabledKey[] = "IsolinesEnabled";
+char const kOutdoorsEnabledKey[] = "OutdoorsEnabled";
 char const kTrafficSimplifiedColorsKey[] = "TrafficSimplifiedColors";
 char const kLargeFontsSize[] = "LargeFontsSize";
 char const kTranslitMode[] = "TransliterationMode";
@@ -2494,6 +2495,19 @@ bool Framework::LoadIsolinesEnabled()
 void Framework::SaveIsolinesEnabled(bool enabled)
 {
   settings::Set(kIsolinesEnabledKey, enabled);
+}
+
+bool Framework::LoadOutdoorsEnabled()
+{
+  bool enabled;
+  if (!settings::Get(kOutdoorsEnabledKey, enabled))
+    enabled = false;
+  return enabled;
+}
+
+void Framework::SaveOutdoorsEnabled(bool enabled)
+{
+  settings::Set(kOutdoorsEnabledKey, enabled);
 }
 
 void Framework::EnableChoosePositionMode(bool enable, bool enableBounds, bool applyPosition,

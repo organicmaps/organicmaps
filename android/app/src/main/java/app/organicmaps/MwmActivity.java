@@ -187,7 +187,6 @@ public class MwmActivity extends BaseMwmFragmentActivity
   private PlacePageViewModel mPlacePageViewModel;
   private MapButtonsViewModel mMapButtonsViewModel;
   private MapButtonsController.LayoutMode mPreviousMapLayoutMode;
-  private Mode mPreviousLayerMode;
 
   @Nullable
   private WindowInsetsCompat mCurrentWindowInsets;
@@ -475,8 +474,6 @@ public class MwmActivity extends BaseMwmFragmentActivity
     // We don't need to manually handle removing the observers it follows the activity lifecycle
     mMapButtonsViewModel.getBottomButtonsHeight().observe(this, this::onMapBottomButtonsHeightChange);
     mMapButtonsViewModel.getLayoutMode().observe(this, this::initNavigationButtons);
-    mPreviousLayerMode = mMapButtonsViewModel.getMapLayerMode().getValue();
-    mMapButtonsViewModel.getMapLayerMode().observe(this, this::onLayerChange);
 
     mSearchController = new FloatingSearchToolbarController(this, this);
     mSearchController.getToolbar()
@@ -2131,13 +2128,6 @@ public class MwmActivity extends BaseMwmFragmentActivity
   {
     closeFloatingPanels();
     shareMyLocation();
-  }
-
-  public void onLayerChange(Mode mode)
-  {
-    if (mPreviousLayerMode != mode)
-      closeFloatingPanels();
-    mPreviousLayerMode = mode;
   }
 
   @Override

@@ -25,7 +25,6 @@ import app.organicmaps.routing.RoutingController;
 import app.organicmaps.util.Config;
 import app.organicmaps.util.ThemeUtils;
 import app.organicmaps.util.UiUtils;
-import app.organicmaps.util.Utils;
 import app.organicmaps.widget.menu.MyPositionButton;
 import app.organicmaps.widget.placepage.PlacePageViewModel;
 import com.google.android.material.badge.BadgeDrawable;
@@ -44,7 +43,7 @@ public class MapButtonsController extends Fragment
   @Nullable
   private View mBottomButtonsFrame;
   @Nullable
-  private MapLayersController mToggleMapLayerController;
+  private FloatingActionButton mToggleMapLayerButton;
 
   @Nullable
   private MyPositionButton mNavMyPosition;
@@ -60,7 +59,6 @@ public class MapButtonsController extends Fragment
   private final Observer<Integer> mPlacePageDistanceToTopObserver = this::move;
   private final Observer<Boolean> mButtonHiddenObserver = this::setButtonsHidden;
   private final Observer<Integer> mMyPositionModeObserver = this::updateNavMyPositionButton;
-  private final Observer<Mode> mMapLayerModeObserver = this::toggleMapLayer;
   private final Observer<SearchWheel.SearchOption> mSearchOptionObserver = this::onSearchOptionChange;
 
 
@@ -107,14 +105,11 @@ public class MapButtonsController extends Fragment
     mNavMyPosition = new MyPositionButton(myPosition, (v) -> mMapButtonClickListener.onMapButtonClick(MapButtons.myPosition));
 
     // Some buttons do not exist in navigation mode
-    final FloatingActionButton layersButton = mFrame.findViewById(R.id.layers_button);
-    if (layersButton != null)
+    mToggleMapLayerButton = mFrame.findViewById(R.id.layers_button);
+    if (mToggleMapLayerButton != null)
     {
-      mToggleMapLayerController = new MapLayersController(
-          layersButton,
-          () -> mMapButtonClickListener.onMapButtonClick(MapButtons.toggleMapLayer),
-          requireActivity(),
-          mMapButtonsViewModel);
+      mToggleMapLayerButton.setOnClickListener(view -> mMapButtonClickListener.onMapButtonClick(MapButtons.toggleMapLayer));
+      mToggleMapLayerButton.setVisibility(View.VISIBLE);
     }
     final View menuButton = mFrame.findViewById(R.id.menu_button);
     if (menuButton != null)
@@ -148,8 +143,8 @@ public class MapButtonsController extends Fragment
     mButtonsMap.put(MapButtons.bookmarks, bookmarksButton);
     mButtonsMap.put(MapButtons.search, searchButton);
 
-    if (layersButton != null)
-      mButtonsMap.put(MapButtons.toggleMapLayer, layersButton);
+    if (mToggleMapLayerButton != null)
+      mButtonsMap.put(MapButtons.toggleMapLayer, mToggleMapLayerButton);
     if (menuButton != null)
       mButtonsMap.put(MapButtons.menu, menuButton);
     if (helpButton != null)
@@ -174,8 +169,8 @@ public class MapButtonsController extends Fragment
         UiUtils.showIf(show && Config.showZoomButtons(), buttonView);
         break;
       case toggleMapLayer:
-        if (mToggleMapLayerController != null)
-          mToggleMapLayerController.showButton(show && !isInNavigationMode());
+        if (mToggleMapLayerButton != null)
+          UiUtils.showIf(show && !isInNavigationMode(), mToggleMapLayerButton);
         break;
       case myPosition:
         if (mNavMyPosition != null)
@@ -293,17 +288,6 @@ public class MapButtonsController extends Fragment
     return RoutingController.get().isPlanning() || RoutingController.get().isNavigating();
   }
 
-  public void toggleMapLayer(@Nullable Mode mode)
-  {
-    if (mToggleMapLayerController != null)
-    {
-      if (mode == null)
-        mToggleMapLayerController.disableModes();
-      else
-        mToggleMapLayerController.enableMode(mode);
-    }
-  }
-
   public void updateNavMyPositionButton(int newMode)
   {
     if (mNavMyPosition != null)
@@ -323,7 +307,6 @@ public class MapButtonsController extends Fragment
     mPlacePageViewModel.getPlacePageDistanceToTop().observe(activity, mPlacePageDistanceToTopObserver);
     mMapButtonsViewModel.getButtonsHidden().observe(activity, mButtonHiddenObserver);
     mMapButtonsViewModel.getMyPositionMode().observe(activity, mMyPositionModeObserver);
-    mMapButtonsViewModel.getMapLayerMode().observe(activity, mMapLayerModeObserver);
     mMapButtonsViewModel.getSearchOption().observe(activity, mSearchOptionObserver);
   }
 
@@ -341,7 +324,6 @@ public class MapButtonsController extends Fragment
     mPlacePageViewModel.getPlacePageDistanceToTop().removeObserver(mPlacePageDistanceToTopObserver);
     mMapButtonsViewModel.getButtonsHidden().removeObserver(mButtonHiddenObserver);
     mMapButtonsViewModel.getMyPositionMode().removeObserver(mMyPositionModeObserver);
-    mMapButtonsViewModel.getMapLayerMode().removeObserver(mMapLayerModeObserver);
     mMapButtonsViewModel.getSearchOption().removeObserver(mSearchOptionObserver);
   }
 

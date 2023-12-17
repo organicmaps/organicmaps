@@ -44,6 +44,11 @@ public class LayerBottomSheetItem
     int buttonTextResource = R.string.layers_title;
     switch (mode)
     {
+      case OUTDOORS:
+        disabledResource = R.attr.outdoorsMenuDisabled;
+        enabledResource = R.attr.outdoorsMenuEnabled;
+        buttonTextResource = R.string.button_layer_outdoor;
+        break;
       case SUBWAY:
         disabledResource = R.attr.subwayMenuDisabled;
         enabledResource = R.attr.subwayMenuEnabled;

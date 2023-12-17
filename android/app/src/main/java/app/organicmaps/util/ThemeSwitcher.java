@@ -90,24 +90,33 @@ public enum ThemeSwitcher
   private void setThemeAndMapStyle(@NonNull String theme)
   {
     String oldTheme = Config.getCurrentUiTheme(mContext);
-    Config.setCurrentUiTheme(mContext, theme);
-    changeMapStyle(theme, oldTheme);
-  }
-
-  @androidx.annotation.UiThread
-  private void changeMapStyle(@NonNull String newTheme, @NonNull String oldTheme)
-  {
     @Framework.MapStyle
-    int style = RoutingController.get().isVehicleNavigation()
-                ? Framework.MAP_STYLE_VEHICLE_CLEAR : Framework.MAP_STYLE_CLEAR;
-    if (ThemeUtils.isNightTheme(mContext, newTheme))
-      style = RoutingController.get().isVehicleNavigation()
-              ? Framework.MAP_STYLE_VEHICLE_DARK : Framework.MAP_STYLE_DARK;
+    int oldStyle = Framework.nativeGetMapStyle();
 
-    if (!newTheme.equals(oldTheme))
+    @Framework.MapStyle
+    int style;
+    if (ThemeUtils.isNightTheme(mContext, theme))
     {
-      SetMapStyle(style);
+      if (RoutingController.get().isVehicleNavigation())
+        style = Framework.MAP_STYLE_VEHICLE_DARK;
+      else if (Framework.nativeIsOutdoorsLayerEnabled())
+        style = Framework.MAP_STYLE_OUTDOORS_DARK;
+      else
+        style = Framework.MAP_STYLE_DARK;
+    }
+    else
+    {
+      if (RoutingController.get().isVehicleNavigation())
+        style = Framework.MAP_STYLE_VEHICLE_CLEAR;
+      else if (Framework.nativeIsOutdoorsLayerEnabled())
+        style = Framework.MAP_STYLE_OUTDOORS_CLEAR;
+      else
+        style = Framework.MAP_STYLE_CLEAR;
+    }
 
+    if (!theme.equals(oldTheme))
+    {
+      Config.setCurrentUiTheme(mContext, theme);
       DownloaderStatusIcon.clearCache();
 
       final Activity a = MwmApplication.from(mContext).getTopActivity();

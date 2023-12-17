@@ -36,11 +36,6 @@ public class IsolinesManager
     Framework.nativeSetIsolinesLayerEnabled(isEnabled);
   }
 
-  public void toggle()
-  {
-    setEnabled(!isEnabled());
-  }
-
   public void initialize()
   {
     registerListener();

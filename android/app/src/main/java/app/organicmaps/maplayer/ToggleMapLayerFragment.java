@@ -67,9 +67,9 @@ public class ToggleMapLayerFragment extends Fragment
     Mode mode = item.getMode();
     Context context = v.getContext();
     SharedPropertiesUtils.setLayerMarkerShownForLayerMode(context, mode);
+    mode.setEnabled(context, !mode.isEnabled(context));
     mAdapter.notifyDataSetChanged();
     if (IsolinesManager.from(context).shouldShowNotification())
       Utils.showSnackbar(context, v.getRootView(), R.string.isolines_toast_zooms_1_10);
-    mMapButtonsViewModel.setMapLayerMode(mode);
   }
 }
