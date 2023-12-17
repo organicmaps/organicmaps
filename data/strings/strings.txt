@@ -21199,7 +21199,7 @@
     ro = Ascunde de pe hartă
     ru = Скрыть с карты
     sk = Skryť z mapy
-    sv = Dölj från kort
+    sv = Dölj från karta
     sw = Ficha kwenye ramani
     th = ซ่อนจากแผนที่
     tr = Haritadan gizle
@@ -25568,7 +25568,7 @@
     ro = Dificultate
     ru = Сложность
     sk = Obtiažnosť
-    sv = Komplexitet
+    sv = Svårighet
     sw = Ugumu
     th = ลำบาก
     tr = Zorluk
