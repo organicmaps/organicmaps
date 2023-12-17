@@ -1,20 +1,12 @@
 #pragma once
 
-#include "coding/url.hpp"
-
 #include "geometry/point2d.hpp"
-#include "geometry/rect2d.hpp"
 #include "geometry/latlon.hpp"
 
 #include <string>
 #include <vector>
 
 class Framework;
-
-namespace url
-{
-class Url;
-}
 
 namespace url_scheme
 {
@@ -56,7 +48,7 @@ public:
   };
 
   ParsedMapApi() = default;
-  ParsedMapApi(std::string const & url) { SetUrlAndParse(url); }
+  explicit ParsedMapApi(std::string const & url) { SetUrlAndParse(url); }
 
   UrlType SetUrlAndParse(std::string const & url);
   UrlType GetRequestType() const { return m_requestType; };
@@ -67,7 +59,7 @@ public:
   void Reset();
   bool GoBackOnBalloonClick() const { return m_goBackOnBalloonClick; }
 
-  void ExecuteMapApiRequest(Framework & fm);
+  void ExecuteMapApiRequest(Framework & fm) const;
 
   // Unit test only.
   std::vector<MapPoint> const & GetMapPoints() const
@@ -105,7 +97,7 @@ private:
   void ParseMapParam(std::string const & key, std::string const & value,
                      bool & correctOrder);
   void ParseRouteParam(std::string const & key, std::string const & value,
-                       std::vector<std::string> & pattern);
+                       std::vector<std::string_view> & pattern);
   void ParseSearchParam(std::string const & key, std::string const & value);
   void ParseCommonParam(std::string const & key, std::string const & value);
 
