@@ -28411,7 +28411,7 @@
     et = Suvila
     eu = Txaleta
     fa = هتل
-    fi = Alppimaja
+    fi = Mökki
     fr = Meublé de tourisme
     hu = Turistaház
     it = Chalet
