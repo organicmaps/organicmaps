@@ -22,55 +22,52 @@
 
 namespace url_scheme
 {
-using namespace std;
-
 namespace
 {
-string_view constexpr kCenterLatLon = "cll";
-string_view constexpr kAppName = "appname";
+std::string_view constexpr kCenterLatLon = "cll";
+std::string_view constexpr kAppName = "appname";
 
 namespace map
 {
-char const * kLatLon = "ll";
-char const * kZoomLevel = "z";
-char const * kName = "n";
-char const * kId = "id";
-char const * kStyle = "s";
-char const * kBackUrl = "backurl";
-char const * kVersion = "v";
-char const * kBalloonAction = "balloonaction";
+std::string_view constexpr kLatLon = "ll";
+std::string_view constexpr kZoomLevel = "z";
+std::string_view constexpr kName = "n";
+std::string_view constexpr kId = "id";
+std::string_view constexpr kStyle = "s";
+std::string_view constexpr kBackUrl = "backurl";
+std::string_view constexpr kVersion = "v";
+std::string_view constexpr kBalloonAction = "balloonaction";
 }  // namespace map
 
 namespace route
 {
-char const * kSourceLatLon = "sll";
-char const * kDestLatLon = "dll";
-char const * kSourceName = "saddr";
-char const * kDestName = "daddr";
-char const * kRouteType = "type";
-char const * kRouteTypeVehicle = "vehicle";
-char const * kRouteTypePedestrian = "pedestrian";
-char const * kRouteTypeBicycle = "bicycle";
-char const * kRouteTypeTransit = "transit";
+std::string_view constexpr kSourceLatLon = "sll";
+std::string_view constexpr kDestLatLon = "dll";
+std::string_view constexpr kSourceName = "saddr";
+std::string_view constexpr kDestName = "daddr";
+std::string_view constexpr kRouteType = "type";
+std::string_view constexpr kRouteTypeVehicle = "vehicle";
+std::string_view constexpr kRouteTypePedestrian = "pedestrian";
+std::string_view constexpr kRouteTypeBicycle = "bicycle";
+std::string_view constexpr kRouteTypeTransit = "transit";
 }  // namespace route
 
 namespace search
 {
-char const * kQuery = "query";
-char const * kLocale = "locale";
-char const * kSearchOnMap = "map";
+std::string_view constexpr kQuery = "query";
+std::string_view constexpr kLocale = "locale";
+std::string_view constexpr kSearchOnMap = "map";
 }  // namespace search
 
 // See also kGe0Prefixes in ge0/parser.hpp
-std::array<std::string_view, 3> const kLegacyMwmPrefixes = {{
+constexpr std::array<std::string_view, 3> kLegacyMwmPrefixes = {{
   "mapsme://", "mwm://", "mapswithme://"
 }};
 
-bool ParseLatLon(std::string const & key, std::string const & value,
-                 double & lat, double & lon)
+bool ParseLatLon(std::string const & key, std::string const & value, double & lat, double & lon)
 {
   size_t const firstComma = value.find(',');
-  if (firstComma == string::npos)
+  if (firstComma == std::string::npos)
   {
     LOG(LWARNING, ("Map API: no comma between lat and lon for key:", key, " value:", value));
     return false;
@@ -93,37 +90,40 @@ bool ParseLatLon(std::string const & key, std::string const & value,
 
 // A helper for SetUrlAndParse() below.
 // kGe0Prefixes supports API and ge0 links, kLegacyMwmPrefixes - only API.
-inline tuple<size_t, bool> findUrlPrefix(string const & url)
+std::tuple<size_t, bool> FindUrlPrefix(std::string const & url)
 {
-  for (auto prefix : ge0::kGe0Prefixes)
+  for (auto const prefix : ge0::Ge0Parser::kGe0Prefixes)
   {
     if (strings::StartsWith(url, prefix))
       return {prefix.size(), true};
   }
-  for (auto prefix : kLegacyMwmPrefixes)
+  for (auto const prefix : kLegacyMwmPrefixes)
   {
     if (strings::StartsWith(url, prefix))
       return {prefix.size(), false};
   }
-  return {string::npos, false};
+  return {std::string::npos, false};
 }
 }  // namespace
 
-ParsedMapApi::UrlType ParsedMapApi::SetUrlAndParse(string const & raw)
+ParsedMapApi::UrlType ParsedMapApi::SetUrlAndParse(std::string const & raw)
 {
   Reset();
-  SCOPE_GUARD(guard, [this]() { Reset(); });
-
-  auto [prefix, checkForGe0Link] = findUrlPrefix(raw);
-  if (prefix != string::npos)
+  SCOPE_GUARD(guard, [this]
   {
-    url::Url const url = url::Url("om://" + raw.substr(prefix));
+    if (m_requestType == UrlType::Incorrect)
+      Reset();
+  });
+
+  if (auto const [prefix, checkForGe0Link] = FindUrlPrefix(raw); prefix != std::string::npos)
+  {
+    url::Url const url {"om://" + raw.substr(prefix)};
     if (!url.IsValid())
       return m_requestType = UrlType::Incorrect;
 
+    std::string const & type = url.GetHost();
     // The URL is prefixed by one of the kGe0Prefixes or kLegacyMwmPrefixes prefixes
     // => check for well-known API methods first.
-    string const & type = url.GetHost();
     if (type == "map")
     {
       bool correctOrder = true;
@@ -135,14 +135,13 @@ ParsedMapApi::UrlType ParsedMapApi::SetUrlAndParse(string const & raw)
       if (m_mapPoints.empty() || !correctOrder)
         return m_requestType = UrlType::Incorrect;
 
-      guard.release();
       return m_requestType = UrlType::Map;
     }
     else if (type == "route")
     {
       m_routePoints.clear();
       using namespace route;
-      vector<string> pattern{kSourceLatLon, kSourceName, kDestLatLon, kDestName, kRouteType};
+      std::vector pattern{kSourceLatLon, kSourceName, kDestLatLon, kDestName, kRouteType};
       url.ForEachParam([&pattern, this](auto const & key, auto const & value)
       {
         ParseRouteParam(key, value, pattern);
@@ -154,7 +153,6 @@ ParsedMapApi::UrlType ParsedMapApi::SetUrlAndParse(string const & raw)
       if (m_routePoints.size() != 2)
         return m_requestType = UrlType::Incorrect;
 
-      guard.release();
       return m_requestType = UrlType::Route;
     }
     else if (type == "search")
@@ -166,7 +164,6 @@ ParsedMapApi::UrlType ParsedMapApi::SetUrlAndParse(string const & raw)
       if (m_searchRequest.m_query.empty())
         return m_requestType = UrlType::Incorrect;
 
-      guard.release();
       return m_requestType = UrlType::Search;
     }
     else if (type == "crosshair")
@@ -176,22 +173,19 @@ ParsedMapApi::UrlType ParsedMapApi::SetUrlAndParse(string const & raw)
          ParseCommonParam(key, value);
       });
 
-      guard.release();
       return m_requestType = UrlType::Crosshair;
     }
     else if (checkForGe0Link)
     {
       // The URL is prefixed by one of the kGe0Prefixes AND doesn't match any supported API call:
       // => try to decode ge0 short link.
-      ge0::Ge0Parser parser;
       ge0::Ge0Parser::Result info;
-      if (!parser.ParseAfterPrefix(raw, prefix, info))
+      if (!ge0::Ge0Parser{}.ParseAfterPrefix(raw, prefix, info))
         return UrlType::Incorrect;
 
       m_zoomLevel = info.m_zoomLevel;
       m_mapPoints.push_back({info.m_lat, info.m_lon, info.m_name, "" /* m_id */, "" /* m_style */});
 
-      guard.release();
       return m_requestType = UrlType::Map;
     }
     else
@@ -215,7 +209,6 @@ ParsedMapApi::UrlType ParsedMapApi::SetUrlAndParse(string const & raw)
       m_searchRequest.m_query = info.m_query;
       m_centerLatLon = {info.m_lat, info.m_lon};
       m_zoomLevel = info.m_zoom;
-      guard.release();
       return m_requestType = UrlType::Search;
     }
     else
@@ -225,15 +218,13 @@ ParsedMapApi::UrlType ParsedMapApi::SetUrlAndParse(string const & raw)
       m_centerLatLon = {info.m_lat, info.m_lon};
       m_zoomLevel = info.m_zoom;
       m_mapPoints.push_back({info.m_lat, info.m_lon, info.m_label, "" /* m_id */, "" /* m_style */});
-      guard.release();
       return m_requestType = UrlType::Map;
     }
   }
   UNREACHABLE();
 }
 
-void ParsedMapApi::ParseMapParam(std::string const & key, std::string const & value,
-                                 bool & correctOrder)
+void ParsedMapApi::ParseMapParam(std::string const & key, std::string const & value, bool & correctOrder)
 {
   using namespace map;
 
@@ -296,7 +287,7 @@ void ParsedMapApi::ParseMapParam(std::string const & key, std::string const & va
   else if (key == kBackUrl)
   {
     // Fix missing :// in back url, it's important for iOS
-    if (value.find("://") == string::npos)
+    if (value.find("://") == std::string::npos)
       m_globalBackUrl = value + "://";
     else
       m_globalBackUrl = value;
@@ -317,7 +308,7 @@ void ParsedMapApi::ParseMapParam(std::string const & key, std::string const & va
 }
 
 void ParsedMapApi::ParseRouteParam(std::string const & key, std::string const & value,
-                                   vector<string> & pattern)
+                                   std::vector<std::string_view> & pattern)
 {
   using namespace route;
 
@@ -344,7 +335,7 @@ void ParsedMapApi::ParseRouteParam(std::string const & key, std::string const & 
   }
   else if (key == kRouteType)
   {
-    string const lowerValue = strings::MakeLowerCase(value);
+    std::string const lowerValue = strings::MakeLowerCase(value);
     if (lowerValue == kRouteTypePedestrian || lowerValue == kRouteTypeVehicle ||
         lowerValue == kRouteTypeBicycle || lowerValue == kRouteTypeTransit)
     {
@@ -365,21 +356,13 @@ void ParsedMapApi::ParseSearchParam(std::string const & key, std::string const &
   using namespace search;
 
   if (key == kQuery)
-  {
     m_searchRequest.m_query = value;
-  }
   else if (key == kLocale)
-  {
     m_searchRequest.m_locale = value;
-  }
   else if (key == kSearchOnMap)
-  {
     m_searchRequest.m_isSearchOnMap = true;
-  }
   else
-  {
     ParseCommonParam(key, value);
-  }
 }
 
 void ParsedMapApi::ParseCommonParam(std::string const & key, std::string const & value)
@@ -390,8 +373,7 @@ void ParsedMapApi::ParseCommonParam(std::string const & key, std::string const &
   }
   else if (key == kCenterLatLon)
   {
-    double lat, lon;
-    if (ParseLatLon(key, value, lat, lon))
+    if (double lat, lon; ParseLatLon(key, value, lat, lon))
       m_centerLatLon = {lat, lon};
     else
       LOG(LWARNING, ("Incorrect 'cll':", value));
@@ -401,8 +383,8 @@ void ParsedMapApi::ParseCommonParam(std::string const & key, std::string const &
 void ParsedMapApi::Reset()
 {
   m_requestType = UrlType::Incorrect;
-  m_mapPoints = {};
-  m_routePoints = {};
+  m_mapPoints.clear();
+  m_routePoints.clear();
   m_searchRequest = {};
   m_globalBackUrl ={};
   m_appName = {};
@@ -413,7 +395,7 @@ void ParsedMapApi::Reset()
   m_goBackOnBalloonClick = false;
 }
 
-void ParsedMapApi::ExecuteMapApiRequest(Framework & fm)
+void ParsedMapApi::ExecuteMapApiRequest(Framework & fm) const
 {
   ASSERT_EQUAL(m_requestType, UrlType::Map, ("Must be a Map API request"));
   VERIFY(m_mapPoints.size() > 0, ("Map API request must have at least one point"));
@@ -425,13 +407,13 @@ void ParsedMapApi::ExecuteMapApiRequest(Framework & fm)
 
   // Add marks from the request.
   m2::RectD viewport;
-  for (auto const & p : m_mapPoints)
+  for (auto const & [lat, lon, name, id, style] : m_mapPoints)
   {
-    m2::PointD glPoint(mercator::FromLatLon(p.m_lat, p.m_lon));
+    m2::PointD const glPoint(mercator::FromLatLon(lat, lon));
     auto * mark = editSession.CreateUserMark<ApiMarkPoint>(glPoint);
-    mark->SetName(p.m_name);
-    mark->SetApiID(p.m_id);
-    mark->SetStyle(style::GetSupportedStyle(p.m_style));
+    mark->SetName(name);
+    mark->SetApiID(id);
+    mark->SetStyle(style::GetSupportedStyle(style));
     viewport.Add(glPoint);
   }
 
@@ -444,7 +426,7 @@ void ParsedMapApi::ExecuteMapApiRequest(Framework & fm)
   if (m_mapPoints.size() == 1)
   {
     if (m_zoomLevel >= 1.0)  // 0 means uninitialized/not passed to the API.
-      zoomLevel = min(scales::GetUpperComfortScale(), static_cast<int>(m_zoomLevel));
+      zoomLevel = std::min(scales::GetUpperComfortScale(), static_cast<int>(m_zoomLevel));
     else
       zoomLevel = scales::GetUpperComfortScale();
   }
@@ -468,6 +450,7 @@ void ParsedMapApi::ExecuteMapApiRequest(Framework & fm)
   // Don't show the place page in case of multiple points.
   if (m_mapPoints.size() > 1)
     return;
+
   place_page::BuildInfo info;
   info.m_needAnimationOnSelection = false;
   info.m_mercator = mercator::FromLatLon(m_mapPoints[0].m_lat, m_mapPoints[0].m_lon);

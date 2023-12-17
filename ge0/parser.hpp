@@ -7,12 +7,15 @@
 
 namespace ge0
 {
-// Used by map/mwm_url.cpp.
-extern std::array<std::string_view, 6> const kGe0Prefixes;
-
 class Ge0Parser
 {
 public:
+  // Used by map/mwm_url.cpp.
+  static constexpr std::array<std::string_view, 6> kGe0Prefixes = {{
+      "https://omaps.app/", "om://", "http://omaps.app/",
+      "ge0://", "http://ge0.me/", "https://ge0.me/"
+  }};
+
   struct Result
   {
     double m_zoomLevel = 0.0;
