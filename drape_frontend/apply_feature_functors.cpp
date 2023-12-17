@@ -15,6 +15,7 @@
 
 #include "indexer/drules_include.hpp"
 #include "indexer/feature_source.hpp"
+#include "indexer/map_style_reader.hpp"
 #include "indexer/road_shields_parser.hpp"
 
 #include "geometry/clipping.hpp"
@@ -32,6 +33,9 @@
 
 #include <algorithm>
 #include <cmath>
+#include <limits>
+#include <map>
+#include <mutex>
 
 namespace df
 {
@@ -771,12 +775,12 @@ void ApplyAreaFeature::ProcessRule(AreaRuleProto const & areaRule, double areaDe
 ApplyLineFeatureGeometry::ApplyLineFeatureGeometry(TileKey const & tileKey, TInsertShapeFn const & insertShape,
                                                    FeatureType & f, double currentScaleGtoP)
   : TBase(tileKey, insertShape, f, CaptionDescription())
-  , m_spline(f.GetPointsCount())
   , m_currentScaleGtoP(currentScaleGtoP)
   // TODO(pastk) : calculate just once in the RuleDrawer.
+  , m_minSegmentSqrLength(base::Pow2(4.0 * df::VisualParams::Instance().GetVisualScale() / currentScaleGtoP))
   , m_simplify(tileKey.m_zoomLevel >= 10 && tileKey.m_zoomLevel <= 12)
-  , m_minSegSqLength(m_simplify ? base::Pow2(4.0 * df::VisualParams::Instance().GetVisualScale() / currentScaleGtoP) : 0)
 {
+  m_spline.Reset(new m2::Spline(f.GetPointsCount()));
 }
 
 void ApplyLineFeatureGeometry::operator() (m2::PointD const & point)
@@ -785,7 +789,25 @@ void ApplyLineFeatureGeometry::operator() (m2::PointD const & point)
   ++m_readCount;
 #endif
 
-  m_spline->AddOrProlongPoint(point, m_minSegSqLength, m_simplify /* checkAngle */);
+  if (m_spline->IsEmpty())
+  {
+    m_spline->AddPoint(point);
+    m_lastAddedPoint = point;
+  }
+  else
+  {
+    if (m_simplify &&
+        ((m_spline->GetSize() > 1 && point.SquaredLength(m_lastAddedPoint) < m_minSegmentSqrLength) ||
+          m_spline->IsProlonging(point)))
+    {
+      m_spline->ReplacePoint(point);
+    }
+    else
+    {
+      m_spline->AddPoint(point);
+      m_lastAddedPoint = point;
+    }
+  }
 }
 
 void ApplyLineFeatureGeometry::ProcessLineRules(Stylist::LineRulesT const & lineRules)
