@@ -57,7 +57,9 @@
 	<!-- Button in the main Help dialog -->
 	<string name="how_to_support_us">Saidia mradi</string>
 	<!-- Preference title -->
-	<string name="google_play_services">Huduma za Google Play</string>
+	<string name="google_play_services">Huduma za Mahali za Google Play</string>
+	<!-- Preference text -->
+	<string name="pref_use_google_play">Tambua kwa haraka kadirio la eneo lako kwa kutumia Bluetooth, WiFi au mtandao wa simu</string>
 	<!-- deep purple color -->
 	<string name="deep_purple">Zambarau Iliyoiva</string>
 	<!-- light blue color -->

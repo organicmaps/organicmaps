@@ -309,9 +309,9 @@
 	<!-- Item in context menu. -->
 	<string name="downloader_update_map">تحديث الخريطة</string>
 	<!-- Preference title -->
-	<string name="google_play_services">خدمات Google Play</string>
+	<string name="google_play_services">خدمات الموقع في جوجل بلاي</string>
 	<!-- Preference text -->
-	<string name="pref_use_google_play">استخدام خدمات Google Play لتحديد موقعك الحالي</string>
+	<string name="pref_use_google_play">حدد موقعك التقريبي بسرعة باستخدام Bluetooth أو WiFi أو شبكة الهاتف المحمول</string>
 	<!-- Text for routing error dialog -->
 	<string name="routing_download_maps_along">تنزيل الخرائط على طول طريقك</string>
 	<!-- Text for routing error dialog -->

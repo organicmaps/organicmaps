@@ -988,7 +988,7 @@
 
 "delete_list" = "Radera listan";
 
-"hide_from_map" = "Dölj från kort";
+"hide_from_map" = "Dölj från karta";
 
 "bookmark_list_description_hint" = "Lägg till en beskrivning (text eller html)";
 
@@ -1186,7 +1186,7 @@
 
 "elevation_profile_maxaltitude" = "Max. höjd";
 
-"elevation_profile_difficulty" = "Komplexitet";
+"elevation_profile_difficulty" = "Svårighet";
 
 "elevation_profile_time" = "Tid:";
 

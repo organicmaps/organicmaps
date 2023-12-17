@@ -275,9 +275,9 @@
 	<!-- Item in context menu. -->
 	<string name="downloader_update_map">Uppdatera karta</string>
 	<!-- Preference title -->
-	<string name="google_play_services">Google Play-tjänster</string>
+	<string name="google_play_services">Google Play platstjänster</string>
 	<!-- Preference text -->
-	<string name="pref_use_google_play">Använd Google Play Services för att bestämma din aktuella position</string>
+	<string name="pref_use_google_play">Fastställ snabbt din ungefärliga position via Bluetooth, WiFi eller mobilnät</string>
 	<!-- Text for routing error dialog -->
 	<string name="routing_download_maps_along">Ladda ned kartor längs vägen</string>
 	<!-- Text for routing error dialog -->
@@ -684,7 +684,7 @@
 	<string name="elevation_profile_descent">Backe</string>
 	<string name="elevation_profile_minaltitude">Min. höjd</string>
 	<string name="elevation_profile_maxaltitude">Max. höjd</string>
-	<string name="elevation_profile_difficulty">Komplexitet</string>
+	<string name="elevation_profile_difficulty">Svårighet</string>
 	<string name="elevation_profile_distance">Avst.:</string>
 	<string name="elevation_profile_time">Tid:</string>
 	<string name="isolines_toast_zooms_1_10">Förstora kartan för att se isolinjer</string>

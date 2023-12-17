@@ -211,6 +211,10 @@
 	<string name="downloader_delete_map">מחק מפה</string>
 	<!-- Item in context menu. -->
 	<string name="downloader_update_map">עדכן מפה</string>
+	<!-- Preference title -->
+	<string name="google_play_services">שירותי מיקום של Google Play</string>
+	<!-- Preference text -->
+	<string name="pref_use_google_play">קבע במהירות את המיקום המשוער שלך באמצעות Bluetooth, WiFi או רשת סלולרית</string>
 
 	<!-- SECTION: Routing dialogs strings -->
 	<string name="dialog_routing_disclaimer_title">בעת נסיעה לאורך המסלול, שים לב לדברים הבאים:</string>

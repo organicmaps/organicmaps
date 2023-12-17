@@ -270,9 +270,9 @@
 	<!-- Item in context menu. -->
 	<string name="downloader_update_map">بروزرسانی نقشه</string>
 	<!-- Preference title -->
-	<string name="google_play_services">خدمات Google Play</string>
+	<string name="google_play_services">خدمات مکان Google Play</string>
 	<!-- Preference text -->
-	<string name="pref_use_google_play">استفاده از Google Play Services برای تعیین موقعیت کنونی شما</string>
+	<string name="pref_use_google_play">به سرعت مکان تقریبی خود را با استفاده از بلوتوث، WiFi یا شبکه تلفن همراه تعیین کنید</string>
 	<!-- Text for routing error dialog -->
 	<string name="routing_download_maps_along">دانلود تمامی نقشه‌ها در طول مسیر‌تان</string>
 	<!-- Text for routing error dialog -->

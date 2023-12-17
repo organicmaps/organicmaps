@@ -296,9 +296,9 @@
 	<!-- Item in context menu. -->
 	<string name="downloader_update_map">Haritayı Güncelle</string>
 	<!-- Preference title -->
-	<string name="google_play_services">Google Play Hizmetleri</string>
+	<string name="google_play_services">Google Play Konum Hizmetleri</string>
 	<!-- Preference text -->
-	<string name="pref_use_google_play">Mevcut konumunuzu belirlemek için Google Play Hizmetlerini kullanın</string>
+	<string name="pref_use_google_play">Bluetooth, WiFi veya mobil ağ üzerinden yaklaşık konumunuzu hızlıca belirleyin</string>
 	<!-- Text for routing error dialog -->
 	<string name="routing_download_maps_along">Rota üzerindeki tüm haritaları indir</string>
 	<!-- Text for routing error dialog -->

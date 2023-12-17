@@ -277,9 +277,9 @@
 	<!-- Item in context menu. -->
 	<string name="downloader_update_map">Aktualizovať mapu</string>
 	<!-- Preference title -->
-	<string name="google_play_services">Služby Google Play</string>
+	<string name="google_play_services">Lokalizačné služby Google Play</string>
 	<!-- Preference text -->
-	<string name="pref_use_google_play">Pomocou Google Play služieb získajte svoju aktuálnu polohu</string>
+	<string name="pref_use_google_play">Rýchle určenie približnej polohy cez Bluetooth, WiFi alebo mobilnú sieť</string>
 	<!-- Text for routing error dialog -->
 	<string name="routing_download_maps_along">Stiahnite si mapy pozdĺž trasy</string>
 	<!-- Text for routing error dialog -->

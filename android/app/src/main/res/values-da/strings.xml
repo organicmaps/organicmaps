@@ -277,9 +277,9 @@
 	<!-- Item in context menu. -->
 	<string name="downloader_update_map">Opdater kort</string>
 	<!-- Preference title -->
-	<string name="google_play_services">Google Play-tjenester</string>
+	<string name="google_play_services">Google Play Placeringstjenester</string>
 	<!-- Preference text -->
-	<string name="pref_use_google_play">Anvend Google Play Services til at få din aktuelle placering</string>
+	<string name="pref_use_google_play">Find hurtigt din omtrentlige position via Bluetooth, WiFi eller mobilnetværk</string>
 	<!-- Text for routing error dialog -->
 	<string name="routing_download_maps_along">Download kort på vejen</string>
 	<!-- Text for routing error dialog -->

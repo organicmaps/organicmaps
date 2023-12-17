@@ -296,9 +296,9 @@
 	<!-- Item in context menu. -->
 	<string name="downloader_update_map">Eguneratu mapa</string>
 	<!-- Preference title -->
-	<string name="google_play_services">Google Play Zerbitzuak</string>
+	<string name="google_play_services">Google Play Kokapen Zerbitzuak</string>
 	<!-- Preference text -->
-	<string name="pref_use_google_play">Erabili Google Play zerbitzuak zure uneko kokapena zehazteko</string>
+	<string name="pref_use_google_play">Zehaztu azkar zure gutxi gorabeherako kokapena Bluetooth, WiFi edo sare mugikorra erabiliz</string>
 	<!-- Text for routing error dialog -->
 	<string name="routing_download_maps_along">Deskargatu zure arrastoaren mapa guztiak</string>
 	<!-- Text for routing error dialog -->

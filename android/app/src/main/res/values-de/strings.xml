@@ -294,9 +294,9 @@
 	<!-- Item in context menu. -->
 	<string name="downloader_update_map">Karte aktualisieren</string>
 	<!-- Preference title -->
-	<string name="google_play_services">Google Play-Dienste</string>
+	<string name="google_play_services">Google Play Standortdienste</string>
 	<!-- Preference text -->
-	<string name="pref_use_google_play">Nutzen Sie die Google Play-Dienste, um Ihren aktuellen Standort zu erhalten</string>
+	<string name="pref_use_google_play">Bestimme schnell deinen ungefähren Standort über Bluetooth, WiFi oder das mobile Netzwerk</string>
 	<!-- Text for routing error dialog -->
 	<string name="routing_download_maps_along">Karten entlang der Route herunterladen</string>
 	<!-- Text for routing error dialog -->
