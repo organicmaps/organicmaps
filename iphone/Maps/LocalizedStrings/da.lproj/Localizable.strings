@@ -976,7 +976,7 @@
 
 "button_layer_subway" = "Undergrundsbane";
 
-"layers_title" = "Kortlag";
+"layers_title" = "Kortstile og -lag";
 
 "subway_data_unavailable" = "Kort over undergrundsbaner er ikke tilgængeligt";
 
@@ -1231,6 +1231,9 @@
 
 /* Link to OSM wiki for Editor, Profile and About pages */
 "osm_wiki_about_url" = "https://wiki.openstreetmap.org/wiki/Da:Om_OpenStreetMap";
+
+/* Outdoors/hiking map style (activity) name in the Styles and Layers dialog */
+"button_layer_outdoor" = "Vandring";
 
 
 /********** Types **********/

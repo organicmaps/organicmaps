@@ -624,7 +624,7 @@
 	<string name="terms_of_use">Käyttöehdot</string>
 	<string name="button_layer_traffic">Liikenne</string>
 	<string name="button_layer_subway">Metro</string>
-	<string name="layers_title">Karttatasot</string>
+	<string name="layers_title">Karttatyylit ja tasot</string>
 	<string name="subway_data_unavailable">Metrokartta ei ole saatavilla</string>
 	<string name="bookmarks_empty_list_title">Luettelo on tyhjä</string>
 	<string name="bookmarks_empty_list_message">Lisätäksesi kirjanmerkin, paina kartasta ja sitten paina tähden kuvaa</string>
@@ -762,6 +762,8 @@
 	<string name="aa_grant_permissions">Lupien myöntäminen</string>
 	<!-- Text that will be displayed in the notification title when the app is connected to Android Auto. -->
 	<string name="aa_connected_to_car_notification_title">Liitetty autoon</string>
+	<!-- Outdoors/hiking map style (activity) name in the Styles and Layers dialog -->
+	<string name="button_layer_outdoor">Vaellus</string>
 
 	<!-- SECTION: Types -->
 	<string name="type.addr_interpolation">Osoite/lohko</string>
@@ -1934,7 +1936,7 @@
 	<string name="type.tourism.attraction.specified">Nähtävyys</string>
 	<string name="type.tourism.camp_site">Retkeily</string>
 	<string name="type.tourism.caravan_site">Asuntovaunupaikka</string>
-	<string name="type.tourism.chalet">Alppimaja</string>
+	<string name="type.tourism.chalet">Mökki</string>
 	<string name="type.tourism.gallery">Nähtävyydet</string>
 	<string name="type.tourism.guest_house">Majatalo</string>
 	<string name="type.tourism.hostel">Hostelli</string>

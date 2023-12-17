@@ -615,7 +615,7 @@
 	<string name="terms_of_use">Gebruiksvoorwaarden</string>
 	<string name="button_layer_traffic">Verkeer</string>
 	<string name="button_layer_subway">Metro</string>
-	<string name="layers_title">Kaartweergave</string>
+	<string name="layers_title">Kaartstijlen en -lagen</string>
 	<string name="subway_data_unavailable">Metrokaart is niet beschikbaar</string>
 	<string name="bookmarks_empty_list_title">Deze lijst is leeg</string>
 	<string name="bookmarks_empty_list_message">Om een bladwijzer toe te voegen, tikt u op een plaats op de kaart en vervolgens op het sterpictogram</string>
@@ -757,6 +757,8 @@
 	<string name="aa_grant_permissions">Toestemming geven</string>
 	<!-- Text that will be displayed in the notification title when the app is connected to Android Auto. -->
 	<string name="aa_connected_to_car_notification_title">Verbonden met auto</string>
+	<!-- Outdoors/hiking map style (activity) name in the Styles and Layers dialog -->
+	<string name="button_layer_outdoor">Wandelen</string>
 
 	<!-- SECTION: Types -->
 	<string name="type.addr_interpolation">Adres/blok</string>

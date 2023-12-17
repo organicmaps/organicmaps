@@ -26885,7 +26885,7 @@
     vi = Đã kết nối với ô tô
     zh-Hans = 与汽车连接
     zh-Hant = 連接到汽車
-    
+
   [button_layer_outdoor]
     comment = Outdoors/hiking map style (activity) name in the Styles and Layers dialog
     tags = android,ios

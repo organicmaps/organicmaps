@@ -620,7 +620,7 @@
 	<string name="terms_of_use">Warunki użytkowania</string>
 	<string name="button_layer_traffic">Ruch drogowy</string>
 	<string name="button_layer_subway">Metro</string>
-	<string name="layers_title">Warstwy map</string>
+	<string name="layers_title">Style i warstwy mapy</string>
 	<string name="subway_data_unavailable">Mapa metra jest niedostępna</string>
 	<string name="bookmarks_empty_list_title">Lista jest pusta</string>
 	<string name="bookmarks_empty_list_message">Aby dodać zakładkę, dotknij miejsca na mapie, a następnie dotknij ikony gwiazdy.</string>
@@ -762,6 +762,8 @@
 	<string name="aa_grant_permissions">Przyznaj uprawnienia</string>
 	<!-- Text that will be displayed in the notification title when the app is connected to Android Auto. -->
 	<string name="aa_connected_to_car_notification_title">Podłączono do samochodu</string>
+	<!-- Outdoors/hiking map style (activity) name in the Styles and Layers dialog -->
+	<string name="button_layer_outdoor">Turystyka piesza</string>
 
 	<!-- SECTION: Types -->
 	<string name="type.addr_interpolation">Adres/Blok</string>

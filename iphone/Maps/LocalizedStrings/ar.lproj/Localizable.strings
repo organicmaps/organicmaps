@@ -976,7 +976,7 @@
 
 "button_layer_subway" = "مترو الانفاق";
 
-"layers_title" = "طبقات الخريطة";
+"layers_title" = "أنماط الخريطة وطبقاتها";
 
 "subway_data_unavailable" = "خريطة مترو الانفاق غير متوفرة";
 
@@ -1231,6 +1231,9 @@
 
 /* Link to OSM wiki for Editor, Profile and About pages */
 "osm_wiki_about_url" = "https://wiki.openstreetmap.org/wiki/Ar:About_OpenStreetMap";
+
+/* Outdoors/hiking map style (activity) name in the Styles and Layers dialog */
+"button_layer_outdoor" = "جولة على الأقدام";
 
 
 /********** Types **********/

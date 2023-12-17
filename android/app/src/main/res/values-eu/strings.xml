@@ -620,7 +620,7 @@
 	<string name="terms_of_use">Erabilera baldintzak</string>
 	<string name="button_layer_traffic">Trafikoa</string>
 	<string name="button_layer_subway">Metroa</string>
-	<string name="layers_title">Mapako geruzak</string>
+	<string name="layers_title">Maparen estiloak eta geruzak</string>
 	<string name="subway_data_unavailable">Metroaren mapa ez dago erabilgarri</string>
 	<string name="bookmarks_empty_list_title">Zerrenda hau hutsik dago</string>
 	<string name="bookmarks_empty_list_message">Markagailu bat gehitzeko, ukitu mapako toki bat eta, ondoren, ukitu izarraren ikonoa</string>
@@ -760,6 +760,8 @@
 	<string name="aa_grant_permissions">Eman baimenak</string>
 	<!-- Text that will be displayed in the notification title when the app is connected to Android Auto. -->
 	<string name="aa_connected_to_car_notification_title">Kotxearekin konektatuta</string>
+	<!-- Outdoors/hiking map style (activity) name in the Styles and Layers dialog -->
+	<string name="button_layer_outdoor">Mendi ibilaldiak</string>
 
 	<!-- SECTION: Types -->
 	<string name="type.addr_interpolation">Helbidea/Blokea</string>

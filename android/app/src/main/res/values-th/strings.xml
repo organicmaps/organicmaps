@@ -587,7 +587,7 @@
 	<string name="terms_of_use">ข้อกำหนดในการใช้งาน</string>
 	<string name="button_layer_traffic">การจราจร</string>
 	<string name="button_layer_subway">รถไฟใต้ดิน</string>
-	<string name="layers_title">ชั้นแผนที่</string>
+	<string name="layers_title">รูปแบบและเลเยอร์ของแผนที่</string>
 	<string name="subway_data_unavailable">แผนที่รถไฟใต้ดินไม่พร้อมใช้งาน</string>
 	<string name="bookmarks_empty_list_title">รายการนี้ว่างเปล่า</string>
 	<string name="bookmarks_empty_list_message">เพื่อเพิ่มบุ๊กมาร์ก โปรดแตะที่สถานที่บนแผนที่ แล้วจากนั้นแตะที่ไอคอนรูปดาว</string>
@@ -712,6 +712,8 @@
 	<string name="aa_grant_permissions">ให้สิทธิ์</string>
 	<!-- Text that will be displayed in the notification title when the app is connected to Android Auto. -->
 	<string name="aa_connected_to_car_notification_title">เชื่อมต่อกับรถยนต์</string>
+	<!-- Outdoors/hiking map style (activity) name in the Styles and Layers dialog -->
+	<string name="button_layer_outdoor">การเดินป่า</string>
 
 	<!-- SECTION: Types -->
 	<string name="type.addr_interpolation">ที่อยู่/บล็อค</string>

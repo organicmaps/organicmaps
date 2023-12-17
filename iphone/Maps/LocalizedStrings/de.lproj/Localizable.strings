@@ -976,7 +976,7 @@
 
 "button_layer_subway" = "U-Bahn";
 
-"layers_title" = "Kartenebenen";
+"layers_title" = "Kartenstile und Ebenen";
 
 "subway_data_unavailable" = "Die U-Bahnkarte steht nicht zur Verfügung";
 
@@ -1231,6 +1231,9 @@
 
 /* Link to OSM wiki for Editor, Profile and About pages */
 "osm_wiki_about_url" = "https://wiki.openstreetmap.org/wiki/DE:Über_OSM";
+
+/* Outdoors/hiking map style (activity) name in the Styles and Layers dialog */
+"button_layer_outdoor" = "Wandern";
 
 
 /********** Types **********/

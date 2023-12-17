@@ -976,7 +976,7 @@
 
 "button_layer_subway" = "Metropolitana";
 
-"layers_title" = "Livelli mappa";
+"layers_title" = "Stili e livelli di mappa";
 
 "subway_data_unavailable" = "La mappa della metropolitana non è disponibile";
 
@@ -1231,6 +1231,9 @@
 
 /* Link to OSM wiki for Editor, Profile and About pages */
 "osm_wiki_about_url" = "https://wiki.openstreetmap.org/wiki/IT:About";
+
+/* Outdoors/hiking map style (activity) name in the Styles and Layers dialog */
+"button_layer_outdoor" = "Escursioni";
 
 
 /********** Types **********/

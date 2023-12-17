@@ -619,7 +619,7 @@
 	<string name="terms_of_use">Bruksbetingelser</string>
 	<string name="button_layer_traffic">Trafikk</string>
 	<string name="button_layer_subway">T-bane</string>
-	<string name="layers_title">Kartlag</string>
+	<string name="layers_title">Kartstiler og -lag</string>
 	<string name="subway_data_unavailable">T-banekart er utilgjengelig</string>
 	<string name="bookmarks_empty_list_title">Denne listen er tom</string>
 	<string name="bookmarks_empty_list_message">For å legge til et bokmerke, trykk et sted på kartet og trykk så stjerneikonet</string>
@@ -757,6 +757,8 @@
 	<string name="aa_grant_permissions">Gi tillatelser</string>
 	<!-- Text that will be displayed in the notification title when the app is connected to Android Auto. -->
 	<string name="aa_connected_to_car_notification_title">Tilkoblet til bil</string>
+	<!-- Outdoors/hiking map style (activity) name in the Styles and Layers dialog -->
+	<string name="button_layer_outdoor">Fotturer</string>
 
 	<!-- SECTION: Types -->
 	<string name="type.addr_interpolation">Adresse/blokk</string>

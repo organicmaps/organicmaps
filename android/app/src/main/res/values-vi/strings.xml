@@ -586,7 +586,7 @@
 	<string name="terms_of_use">Điều khoảng sử dụng</string>
 	<string name="button_layer_traffic">Giao thông</string>
 	<string name="button_layer_subway">Xe điện ngầm</string>
-	<string name="layers_title">Các lớp bản đồ</string>
+	<string name="layers_title">Kiểu và lớp bản đồ</string>
 	<string name="subway_data_unavailable">Bản đồ tàu điện ngầm không khả dụng</string>
 	<string name="bookmarks_empty_list_title">Danh sách trống</string>
 	<string name="bookmarks_empty_list_message">Để thêm dấu trang, hãy nhấn vào một địa điểm trên bản đồ và sau đó nhấn vào biểu tượng dấu sao</string>
@@ -711,6 +711,8 @@
 	<string name="aa_grant_permissions">Cấp quyền</string>
 	<!-- Text that will be displayed in the notification title when the app is connected to Android Auto. -->
 	<string name="aa_connected_to_car_notification_title">Đã kết nối với ô tô</string>
+	<!-- Outdoors/hiking map style (activity) name in the Styles and Layers dialog -->
+	<string name="button_layer_outdoor">Đi bộ đường dài</string>
 
 	<!-- SECTION: Types -->
 	<string name="type.addr_interpolation">Địa chỉ/Khối</string>

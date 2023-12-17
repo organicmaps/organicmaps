@@ -586,7 +586,7 @@
 	<string name="terms_of_use">Allmänna villkor</string>
 	<string name="button_layer_traffic">Trafik</string>
 	<string name="button_layer_subway">Tunnelbana</string>
-	<string name="layers_title">Kartlager</string>
+	<string name="layers_title">Kartstilar och lager</string>
 	<string name="subway_data_unavailable">Kartor över tunnelbana är otillgänglig</string>
 	<string name="bookmarks_empty_list_title">Listan är tom</string>
 	<string name="bookmarks_empty_list_message">För att lägga till bokmärken, tryck på kartan och sedan på stjärnikonen</string>
@@ -684,7 +684,7 @@
 	<string name="elevation_profile_descent">Backe</string>
 	<string name="elevation_profile_minaltitude">Min. höjd</string>
 	<string name="elevation_profile_maxaltitude">Max. höjd</string>
-	<string name="elevation_profile_difficulty">Komplexitet</string>
+	<string name="elevation_profile_difficulty">Svårighet</string>
 	<string name="elevation_profile_distance">Avst.:</string>
 	<string name="elevation_profile_time">Tid:</string>
 	<string name="isolines_toast_zooms_1_10">Förstora kartan för att se isolinjer</string>
@@ -713,6 +713,8 @@
 	<string name="aa_grant_permissions">Tilldela behörigheter</string>
 	<!-- Text that will be displayed in the notification title when the app is connected to Android Auto. -->
 	<string name="aa_connected_to_car_notification_title">Ansluten till bilen</string>
+	<!-- Outdoors/hiking map style (activity) name in the Styles and Layers dialog -->
+	<string name="button_layer_outdoor">Vandring</string>
 
 	<!-- SECTION: Types -->
 	<string name="type.addr_interpolation">Adress/Block</string>

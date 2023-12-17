@@ -595,7 +595,6 @@
 	<string name="terms_of_use">Termos de uso</string>
 	<string name="button_layer_traffic">Tráfego</string>
 	<string name="button_layer_subway">Metrô</string>
-	<string name="layers_title">Camadas de mapa</string>
 	<string name="subway_data_unavailable">Mapa de metrô está indisponível</string>
 	<string name="bookmarks_empty_list_title">Esta lista está vazia</string>
 	<string name="bookmarks_empty_list_message">Para adicionar um favorito, toque no mapa e então toque no ícone de estrela</string>

@@ -603,7 +603,7 @@
 	<string name="terms_of_use">Condizioni d\'uso</string>
 	<string name="button_layer_traffic">Traffico</string>
 	<string name="button_layer_subway">Metropolitana</string>
-	<string name="layers_title">Livelli mappa</string>
+	<string name="layers_title">Stili e livelli di mappa</string>
 	<string name="subway_data_unavailable">La mappa della metropolitana non è disponibile</string>
 	<string name="bookmarks_empty_list_title">Questo elenco è vuoto</string>
 	<string name="bookmarks_empty_list_message">Per aggiungere un luogo preferito, tieni premuto un punto sulla mappa e poi tocca l\'icona a forma di stella</string>
@@ -741,6 +741,8 @@
 	<string name="aa_grant_permissions">Concessione dei permessi</string>
 	<!-- Text that will be displayed in the notification title when the app is connected to Android Auto. -->
 	<string name="aa_connected_to_car_notification_title">Collegato all\'auto</string>
+	<!-- Outdoors/hiking map style (activity) name in the Styles and Layers dialog -->
+	<string name="button_layer_outdoor">Escursioni</string>
 
 	<!-- SECTION: Types -->
 	<string name="type.addr_interpolation">Indirizzo/Blocco</string>

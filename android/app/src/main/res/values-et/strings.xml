@@ -609,7 +609,7 @@
 	<string name="terms_of_use">Kasutustingimused</string>
 	<string name="button_layer_traffic">Liiklus</string>
 	<string name="button_layer_subway">Metroo</string>
-	<string name="layers_title">Kaardikihid</string>
+	<string name="layers_title">Kaardi stiilid ja kihid</string>
 	<string name="subway_data_unavailable">Metroo kaart ei ole saadaval</string>
 	<string name="bookmarks_empty_list_title">See loetelu on tühi</string>
 	<string name="bookmarks_empty_list_message">Järjehoidja lisamiseks puuduta kohta kaardil ja seejärel puuduta tähekese ikooni</string>
@@ -747,6 +747,8 @@
 	<string name="aa_grant_permissions">Lubade andmine</string>
 	<!-- Text that will be displayed in the notification title when the app is connected to Android Auto. -->
 	<string name="aa_connected_to_car_notification_title">Ühendatud autoga</string>
+	<!-- Outdoors/hiking map style (activity) name in the Styles and Layers dialog -->
+	<string name="button_layer_outdoor">Matkamine</string>
 
 	<!-- SECTION: Types -->
 	<string name="type.addr_interpolation">Aadress/plokk</string>

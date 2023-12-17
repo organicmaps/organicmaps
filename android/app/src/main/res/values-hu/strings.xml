@@ -600,7 +600,7 @@
 	<string name="terms_of_use">Felhasználási feltételek</string>
 	<string name="button_layer_traffic">Forgalom</string>
 	<string name="button_layer_subway">Metró</string>
-	<string name="layers_title">Térképrétegek</string>
+	<string name="layers_title">Térképstílusok és rétegek</string>
 	<string name="subway_data_unavailable">A metrótérkép nem elérhető</string>
 	<string name="bookmarks_empty_list_title">A lista üres</string>
 	<string name="bookmarks_empty_list_message">A könyvjelző hozzáadásához, érintsen meg a térképen egy helyet majd érintse meg a csillag ikont</string>
@@ -733,6 +733,8 @@
 	<string name="aa_grant_permissions">Engedélyek megadása</string>
 	<!-- Text that will be displayed in the notification title when the app is connected to Android Auto. -->
 	<string name="aa_connected_to_car_notification_title">Autóhoz csatlakoztatva</string>
+	<!-- Outdoors/hiking map style (activity) name in the Styles and Layers dialog -->
+	<string name="button_layer_outdoor">Túrázás</string>
 
 	<!-- SECTION: Types -->
 	<string name="type.addr_interpolation">Cím/blokk</string>

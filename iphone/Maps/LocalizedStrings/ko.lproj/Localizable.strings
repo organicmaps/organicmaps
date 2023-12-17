@@ -976,7 +976,7 @@
 
 "button_layer_subway" = "지하철";
 
-"layers_title" = "맵 레이어";
+"layers_title" = "맵 스타일 및 레이어";
 
 "subway_data_unavailable" = "지하철 지도가 가용하지 않습니다.";
 
@@ -1231,6 +1231,9 @@
 
 /* Link to OSM wiki for Editor, Profile and About pages */
 "osm_wiki_about_url" = "https://wiki.openstreetmap.org/wiki/Ko:OpenStreetMap_소개";
+
+/* Outdoors/hiking map style (activity) name in the Styles and Layers dialog */
+"button_layer_outdoor" = "하이킹";
 
 
 /********** Types **********/

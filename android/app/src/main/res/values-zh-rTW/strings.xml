@@ -603,7 +603,7 @@
 	<string name="terms_of_use">使用條款</string>
 	<string name="button_layer_traffic">路況</string>
 	<string name="button_layer_subway">捷運</string>
-	<string name="layers_title">地圖圖層</string>
+	<string name="layers_title">地圖樣式和圖層</string>
 	<string name="subway_data_unavailable">捷運圖層不可用</string>
 	<string name="bookmarks_empty_list_title">列表為空</string>
 	<string name="bookmarks_empty_list_message">要增加新標籤，請點一下對象卡片中的星型圖標</string>
@@ -735,6 +735,8 @@
 	<string name="aa_grant_permissions">授予權限</string>
 	<!-- Text that will be displayed in the notification title when the app is connected to Android Auto. -->
 	<string name="aa_connected_to_car_notification_title">連接到汽車</string>
+	<!-- Outdoors/hiking map style (activity) name in the Styles and Layers dialog -->
+	<string name="button_layer_outdoor">遠足</string>
 
 	<!-- SECTION: Types -->
 	<string name="type.addr_interpolation">地址/區塊</string>

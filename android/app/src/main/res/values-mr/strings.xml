@@ -584,7 +584,7 @@
 	<string name="terms_of_use">वापरण्याच्या अटी</string>
 	<string name="button_layer_traffic">ट्रॅफिक</string>
 	<string name="button_layer_subway">भुयारी मार्ग</string>
-	<string name="layers_title">नकाशा स्तर</string>
+	<string name="layers_title">नकाशा शैली आणि स्तर</string>
 	<string name="subway_data_unavailable">भुयारी नकाशा अनुपलब्ध आहे</string>
 	<string name="bookmarks_empty_list_title">ही यादी रिकामी आहे</string>
 	<string name="bookmarks_empty_list_message">खूणपत्र जोडण्यासाठी, नकाशातील ठिकाणाला स्पर्श करा आणि नंतर तारा चिन्हाला स्पर्श करा</string>
@@ -722,6 +722,8 @@
 	<string name="aa_grant_permissions">परवानग्या द्या</string>
 	<!-- Text that will be displayed in the notification title when the app is connected to Android Auto. -->
 	<string name="aa_connected_to_car_notification_title">कारला जोडलेले</string>
+	<!-- Outdoors/hiking map style (activity) name in the Styles and Layers dialog -->
+	<string name="button_layer_outdoor">गिर्यारोहण</string>
 
 	<!-- SECTION: Types -->
 	<string name="type.addr_interpolation">पत्ता/ब्लॉक</string>

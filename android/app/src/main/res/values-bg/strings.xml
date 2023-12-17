@@ -577,7 +577,7 @@
 	<string name="terms_of_use">Условия за ползване</string>
 	<string name="button_layer_traffic">Трафик</string>
 	<string name="button_layer_subway">Метро</string>
-	<string name="layers_title">Слоеве на картата</string>
+	<string name="layers_title">Стилове и слоеве на картата</string>
 	<string name="subway_data_unavailable">Картата на метрото не е налична</string>
 	<string name="bookmarks_empty_list_title">Този списък е празен</string>
 	<string name="bookmarks_empty_list_message">За да добавите отметка, докоснете място на картата, след което докоснете звездообразната икона.</string>
@@ -682,6 +682,8 @@
 	<string name="aa_grant_permissions">Предоставяне на разрешения</string>
 	<!-- Text that will be displayed in the notification title when the app is connected to Android Auto. -->
 	<string name="aa_connected_to_car_notification_title">Свързан с автомобил</string>
+	<!-- Outdoors/hiking map style (activity) name in the Styles and Layers dialog -->
+	<string name="button_layer_outdoor">Активен отдих</string>
 
 	<!-- SECTION: Types -->
 	<string name="type.addr_interpolation">Адрес/Блок</string>

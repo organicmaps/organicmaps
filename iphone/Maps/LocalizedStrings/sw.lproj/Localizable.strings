@@ -976,7 +976,7 @@
 
 "button_layer_subway" = "Njia ya chini";
 
-"layers_title" = "Tabaka za ramani";
+"layers_title" = "Mitindo ya Ramani na Tabaka";
 
 "subway_data_unavailable" = "Ramani ya njia ya chini haipatikani";
 
@@ -1231,6 +1231,9 @@
 
 /* Link to OSM wiki for Editor, Profile and About pages */
 "osm_wiki_about_url" = "https://wiki.openstreetmap.org/wiki/About_OpenStreetMap";
+
+/* Outdoors/hiking map style (activity) name in the Styles and Layers dialog */
+"button_layer_outdoor" = "Kutembea kwa miguu";
 
 
 /********** Types **********/

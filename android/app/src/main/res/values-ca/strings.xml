@@ -611,7 +611,7 @@
 	<string name="terms_of_use">Considicions del servei</string>
 	<string name="button_layer_traffic">Trànsit</string>
 	<string name="button_layer_subway">Metro</string>
-	<string name="layers_title">Capes del mapa</string>
+	<string name="layers_title">Estils i capes de mapa</string>
 	<string name="subway_data_unavailable">El mapa del metro no és disponible</string>
 	<string name="bookmarks_empty_list_title">Aquesta llista és buida</string>
 	<string name="bookmarks_empty_list_message">Per a afegir un marcador, toqueu un lloc en el mapa i després toqueu la icona d\'estrella</string>
@@ -753,6 +753,8 @@
 	<string name="aa_grant_permissions">Concedeix permisos</string>
 	<!-- Text that will be displayed in the notification title when the app is connected to Android Auto. -->
 	<string name="aa_connected_to_car_notification_title">Connectat al cotxe</string>
+	<!-- Outdoors/hiking map style (activity) name in the Styles and Layers dialog -->
+	<string name="button_layer_outdoor">Senderisme</string>
 
 	<!-- SECTION: Types -->
 	<string name="type.addr_interpolation">Adreça/Bloc</string>

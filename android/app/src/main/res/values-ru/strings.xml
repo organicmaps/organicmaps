@@ -629,7 +629,7 @@
 	<string name="terms_of_use">Условия использования</string>
 	<string name="button_layer_traffic">Пробки</string>
 	<string name="button_layer_subway">Метро</string>
-	<string name="layers_title">Слои карты</string>
+	<string name="layers_title">Стили и слои карты</string>
 	<string name="subway_data_unavailable">Карта метро недоступна</string>
 	<string name="bookmarks_empty_list_title">Список пустой</string>
 	<string name="bookmarks_empty_list_message">Чтобы добавить метку, нажмите на место на карте, а затем на иконку звёздочки</string>
@@ -773,6 +773,8 @@
 	<string name="aa_grant_permissions">Разрешить</string>
 	<!-- Text that will be displayed in the notification title when the app is connected to Android Auto. -->
 	<string name="aa_connected_to_car_notification_title">Подключено к автомобилю</string>
+	<!-- Outdoors/hiking map style (activity) name in the Styles and Layers dialog -->
+	<string name="button_layer_outdoor">Активный отдых</string>
 
 	<!-- SECTION: Types -->
 	<string name="type.addr_interpolation">Адрес/Блок</string>

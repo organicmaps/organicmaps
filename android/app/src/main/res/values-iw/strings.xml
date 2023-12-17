@@ -263,6 +263,7 @@
 	<string name="bookmarks_import">ייבוא סימניות ורצועות</string>
 	<!-- Settings privacy group in settings screen -->
 	<string name="privacy">פְּרָטִיוּת</string>
+	<string name="layers_title">סגנונות ושכבות מפה</string>
 	<!-- Recommended length for CarPlay and Android Auto is around 25-27 characters -->
 	<string name="avoid_tolls">הימנעו מכבישי אגרה</string>
 	<!-- Recommended length for CarPlay and Android Auto is around 25-27 characters -->
@@ -295,6 +296,8 @@
 	<string name="aa_grant_permissions">הענק הרשאות</string>
 	<!-- Text that will be displayed in the notification title when the app is connected to Android Auto. -->
 	<string name="aa_connected_to_car_notification_title">מחובר לרכב</string>
+	<!-- Outdoors/hiking map style (activity) name in the Styles and Layers dialog -->
+	<string name="button_layer_outdoor">טיול רגלי</string>
 
 	<!-- SECTION: Types -->
 	<string name="type.addr_interpolation">כתובת/חסימה</string>

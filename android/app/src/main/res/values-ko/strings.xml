@@ -585,7 +585,7 @@
 	<string name="terms_of_use">사용 약관</string>
 	<string name="button_layer_traffic">트래픽</string>
 	<string name="button_layer_subway">지하철</string>
-	<string name="layers_title">맵 레이어</string>
+	<string name="layers_title">맵 스타일 및 레이어</string>
 	<string name="subway_data_unavailable">지하철 지도가 가용하지 않습니다.</string>
 	<string name="bookmarks_empty_list_title">이 목록은 비어있습니다.</string>
 	<string name="bookmarks_empty_list_message">북마크를 추가하려면 맵에서 장소를 탭하고 별 모양 아이콘을 탭하세요.</string>
@@ -712,6 +712,8 @@
 	<string name="aa_grant_permissions">권한 부여</string>
 	<!-- Text that will be displayed in the notification title when the app is connected to Android Auto. -->
 	<string name="aa_connected_to_car_notification_title">차량에 연결</string>
+	<!-- Outdoors/hiking map style (activity) name in the Styles and Layers dialog -->
+	<string name="button_layer_outdoor">하이킹</string>
 
 	<!-- SECTION: Types -->
 	<string name="type.addr_interpolation">주소/블록</string>

@@ -622,7 +622,7 @@
 	<string name="terms_of_use">Умови використання</string>
 	<string name="button_layer_traffic">Затор</string>
 	<string name="button_layer_subway">Метрополітен</string>
-	<string name="layers_title">Зображення мапи</string>
+	<string name="layers_title">Стилі та шари мапи</string>
 	<string name="subway_data_unavailable">Мапа метрополітену недоступна</string>
 	<string name="bookmarks_empty_list_title">Список порожній</string>
 	<string name="bookmarks_empty_list_message">Щоб додати нову мітку, натисніть на значок зірочки в картці об’єкта</string>
@@ -764,6 +764,8 @@
 	<string name="aa_grant_permissions">Надавати дозволи</string>
 	<!-- Text that will be displayed in the notification title when the app is connected to Android Auto. -->
 	<string name="aa_connected_to_car_notification_title">Підключено до автомобіля</string>
+	<!-- Outdoors/hiking map style (activity) name in the Styles and Layers dialog -->
+	<string name="button_layer_outdoor">Активний відпочинок</string>
 
 	<!-- SECTION: Types -->
 	<string name="type.addr_interpolation">Адреса/блок</string>

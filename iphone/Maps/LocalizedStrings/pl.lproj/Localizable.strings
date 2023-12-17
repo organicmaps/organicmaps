@@ -976,7 +976,7 @@
 
 "button_layer_subway" = "Metro";
 
-"layers_title" = "Warstwy map";
+"layers_title" = "Style i warstwy mapy";
 
 "subway_data_unavailable" = "Mapa metra jest niedostępna";
 
@@ -1231,6 +1231,9 @@
 
 /* Link to OSM wiki for Editor, Profile and About pages */
 "osm_wiki_about_url" = "https://wiki.openstreetmap.org/wiki/Pl:Wstęp";
+
+/* Outdoors/hiking map style (activity) name in the Styles and Layers dialog */
+"button_layer_outdoor" = "Turystyka piesza";
 
 
 /********** Types **********/

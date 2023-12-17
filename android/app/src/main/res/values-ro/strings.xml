@@ -603,7 +603,7 @@
 	<string name="terms_of_use">Termeni de utilizare</string>
 	<string name="button_layer_traffic">Trafic</string>
 	<string name="button_layer_subway">Metrou</string>
-	<string name="layers_title">Straturile hărții</string>
+	<string name="layers_title">Stiluri și straturi de hartă</string>
 	<string name="subway_data_unavailable">Harta de metrou nu este disponibilă</string>
 	<string name="bookmarks_empty_list_title">Lista este goală</string>
 	<string name="bookmarks_empty_list_message">Pentru a adăuga un loc preferat, ține apăsat un loc pe hartă și după aceea atinge simbolul în formă de stea</string>
@@ -737,6 +737,8 @@
 	<string name="aa_grant_permissions">Acordarea de permisiuni</string>
 	<!-- Text that will be displayed in the notification title when the app is connected to Android Auto. -->
 	<string name="aa_connected_to_car_notification_title">Conectat la mașină</string>
+	<!-- Outdoors/hiking map style (activity) name in the Styles and Layers dialog -->
+	<string name="button_layer_outdoor">Drumeție</string>
 
 	<!-- SECTION: Types -->
 	<string name="type.addr_interpolation">Adresă/Bloc</string>

@@ -976,7 +976,7 @@
 
 "button_layer_subway" = "Metro";
 
-"layers_title" = "Karttatasot";
+"layers_title" = "Karttatyylit ja tasot";
 
 "subway_data_unavailable" = "Metrokartta ei ole saatavilla";
 
@@ -1231,6 +1231,9 @@
 
 /* Link to OSM wiki for Editor, Profile and About pages */
 "osm_wiki_about_url" = "https://wiki.openstreetmap.org/wiki/About_OpenStreetMap";
+
+/* Outdoors/hiking map style (activity) name in the Styles and Layers dialog */
+"button_layer_outdoor" = "Vaellus";
 
 
 /********** Types **********/
@@ -3725,7 +3728,7 @@
 
 "type.tourism.caravan_site" = "Asuntovaunupaikka";
 
-"type.tourism.chalet" = "Alppimaja";
+"type.tourism.chalet" = "Mökki";
 
 "type.tourism.gallery" = "Nähtävyydet";
 

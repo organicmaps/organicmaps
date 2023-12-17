@@ -976,7 +976,7 @@
 
 "button_layer_subway" = "Метро";
 
-"layers_title" = "Слоеве на картата";
+"layers_title" = "Стилове и слоеве на картата";
 
 "subway_data_unavailable" = "Картата на метрото не е налична";
 
@@ -1231,6 +1231,9 @@
 
 /* Link to OSM wiki for Editor, Profile and About pages */
 "osm_wiki_about_url" = "https://wiki.openstreetmap.org/wiki/About_OpenStreetMap";
+
+/* Outdoors/hiking map style (activity) name in the Styles and Layers dialog */
+"button_layer_outdoor" = "Активен отдих";
 
 
 /********** Types **********/

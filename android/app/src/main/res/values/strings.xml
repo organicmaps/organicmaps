@@ -647,7 +647,7 @@
 	<string name="terms_of_use">Terms of use</string>
 	<string name="button_layer_traffic">Traffic</string>
 	<string name="button_layer_subway">Subway</string>
-	<string name="layers_title">Map layers</string>
+	<string name="layers_title">Map Styles and Layers</string>
 	<string name="subway_data_unavailable">Subway map is unavailable</string>
 	<string name="bookmarks_empty_list_title">This list is empty</string>
 	<string name="bookmarks_empty_list_message">To add a bookmark, tap a place on the map and then tap the star icon</string>
@@ -795,6 +795,8 @@
 	<string name="aa_grant_permissions">Grant Permissions</string>
 	<!-- Text that will be displayed in the notification title when the app is connected to Android Auto. -->
 	<string name="aa_connected_to_car_notification_title">Connected to car</string>
+	<!-- Outdoors/hiking map style (activity) name in the Styles and Layers dialog -->
+	<string name="button_layer_outdoor">Outdoors</string>
 
 	<!-- SECTION: Types -->
 	<string name="type.addr_interpolation">Address/Block</string>

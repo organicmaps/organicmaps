@@ -595,7 +595,7 @@
 	<string name="terms_of_use">使用条款</string>
 	<string name="button_layer_traffic">路况</string>
 	<string name="button_layer_subway">地铁</string>
-	<string name="layers_title">地图图层</string>
+	<string name="layers_title">地图样式和图层</string>
 	<string name="subway_data_unavailable">地铁地图不可用</string>
 	<string name="bookmarks_empty_list_title">该列表为空</string>
 	<string name="bookmarks_empty_list_message">要添加新标签，请单击对象卡中的星形图标</string>
@@ -725,6 +725,8 @@
 	<string name="aa_grant_permissions">授予权限</string>
 	<!-- Text that will be displayed in the notification title when the app is connected to Android Auto. -->
 	<string name="aa_connected_to_car_notification_title">与汽车连接</string>
+	<!-- Outdoors/hiking map style (activity) name in the Styles and Layers dialog -->
+	<string name="button_layer_outdoor">徒步旅行</string>
 
 	<!-- SECTION: Types -->
 	<string name="type.addr_interpolation">地址/区块</string>

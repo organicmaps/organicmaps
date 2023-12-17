@@ -631,7 +631,7 @@
 	<string name="terms_of_use">شروط الاستخدام</string>
 	<string name="button_layer_traffic">حركة مرور</string>
 	<string name="button_layer_subway">مترو الانفاق</string>
-	<string name="layers_title">طبقات الخريطة</string>
+	<string name="layers_title">أنماط الخريطة وطبقاتها</string>
 	<string name="subway_data_unavailable">خريطة مترو الانفاق غير متوفرة</string>
 	<string name="bookmarks_empty_list_title">هذه اللائحة فارغة</string>
 	<string name="bookmarks_empty_list_message">لإضافة إشارة مرجعية ، اضغط على مكان على الخريطة ثم انقر على رمز النجمة</string>
@@ -771,6 +771,8 @@
 	<string name="aa_grant_permissions">أذونات المنح</string>
 	<!-- Text that will be displayed in the notification title when the app is connected to Android Auto. -->
 	<string name="aa_connected_to_car_notification_title">متصل بالسيارة</string>
+	<!-- Outdoors/hiking map style (activity) name in the Styles and Layers dialog -->
+	<string name="button_layer_outdoor">جولة على الأقدام</string>
 
 	<!-- SECTION: Types -->
 	<string name="type.addr_interpolation">العنوان / البلوك</string>

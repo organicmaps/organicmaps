@@ -976,7 +976,7 @@
 
 "button_layer_subway" = "捷運";
 
-"layers_title" = "地圖圖層";
+"layers_title" = "地圖樣式和圖層";
 
 "subway_data_unavailable" = "捷運圖層不可用";
 
@@ -1231,6 +1231,9 @@
 
 /* Link to OSM wiki for Editor, Profile and About pages */
 "osm_wiki_about_url" = "https://wiki.openstreetmap.org/wiki/About_OpenStreetMap";
+
+/* Outdoors/hiking map style (activity) name in the Styles and Layers dialog */
+"button_layer_outdoor" = "遠足";
 
 
 /********** Types **********/

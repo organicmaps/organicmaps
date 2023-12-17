@@ -588,7 +588,7 @@
 	<string name="terms_of_use">Ketentuan penggunaan</string>
 	<string name="button_layer_traffic">Lalu lintas</string>
 	<string name="button_layer_subway">Kereta bawah tanah</string>
-	<string name="layers_title">Lapisan peta</string>
+	<string name="layers_title">Gaya dan Lapisan Peta</string>
 	<string name="subway_data_unavailable">Peta bawah tanah tidak tersedia</string>
 	<string name="bookmarks_empty_list_title">Daftar ini kosong</string>
 	<string name="bookmarks_empty_list_message">Untuk menambahkan bookmark, ketuk satu tempat di peta lalu ketuk ikon bintang</string>
@@ -715,6 +715,8 @@
 	<string name="aa_grant_permissions">Memberikan Izin</string>
 	<!-- Text that will be displayed in the notification title when the app is connected to Android Auto. -->
 	<string name="aa_connected_to_car_notification_title">Terhubung ke mobil</string>
+	<!-- Outdoors/hiking map style (activity) name in the Styles and Layers dialog -->
+	<string name="button_layer_outdoor">Pendakian</string>
 
 	<!-- SECTION: Types -->
 	<string name="type.addr_interpolation">Alamat/Blokir</string>

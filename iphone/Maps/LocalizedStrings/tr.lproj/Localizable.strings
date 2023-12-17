@@ -976,7 +976,7 @@
 
 "button_layer_subway" = "Metro";
 
-"layers_title" = "Harita katmanları";
+"layers_title" = "Harita Stilleri ve Katmanları";
 
 "subway_data_unavailable" = "Metro haritası mevcut değil";
 
@@ -1231,6 +1231,9 @@
 
 /* Link to OSM wiki for Editor, Profile and About pages */
 "osm_wiki_about_url" = "https://wiki.openstreetmap.org/wiki/Tr:About";
+
+/* Outdoors/hiking map style (activity) name in the Styles and Layers dialog */
+"button_layer_outdoor" = "Yürüyüş";
 
 
 /********** Types **********/

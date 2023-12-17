@@ -579,7 +579,7 @@
 	<string name="terms_of_use">Όροι χρήσης</string>
 	<string name="button_layer_traffic">Κίνηση</string>
 	<string name="button_layer_subway">Μετρό</string>
-	<string name="layers_title">Επίπεδα του χάρτη</string>
+	<string name="layers_title">Στυλ χάρτη και επίπεδα</string>
 	<string name="subway_data_unavailable">Ο χάρτης μετρό δεν είναι διαθέσιμος</string>
 	<string name="bookmarks_empty_list_title">Η λίστα είναι άδεια</string>
 	<string name="bookmarks_empty_list_message">Για να προσθέσετε σελιδοδείκτη, πατήστε ένα μέρος στο χάρτη και μετά πατήστε το αστεράκι</string>
@@ -706,6 +706,8 @@
 	<string name="aa_grant_permissions">Χορήγηση αδειών</string>
 	<!-- Text that will be displayed in the notification title when the app is connected to Android Auto. -->
 	<string name="aa_connected_to_car_notification_title">Συνδεδεμένο με το αυτοκίνητο</string>
+	<!-- Outdoors/hiking map style (activity) name in the Styles and Layers dialog -->
+	<string name="button_layer_outdoor">Πεζοπορία</string>
 
 	<!-- SECTION: Types -->
 	<string name="type.addr_interpolation">Διεύθυνση/Μπλοκ</string>
