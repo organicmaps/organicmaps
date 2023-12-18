@@ -112,10 +112,10 @@
 		71407E4B294C9FCE00FBD9A4 /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
-				BuildIndependentTargetsInParallel = 1;
+				BuildIndependentTargetsInParallel = YES;
 				DefaultBuildSystemTypeForWorkspace = Latest;
 				LastSwiftUpdateCheck = 1330;
-				LastUpgradeCheck = 1330;
+				LastUpgradeCheck = 1510;
 				TargetAttributes = {
 					71407E78294CB3E800FBD9A4 = {
 						CreatedOnToolsVersion = 13.3;

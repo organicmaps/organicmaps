@@ -3625,7 +3625,8 @@
 			isa = PBXProject;
 			attributes = {
 				BuildIndependentTargetsInParallel = YES;
-				LastUpgradeCheck = 1430;
+				DefaultBuildSystemTypeForWorkspace = Latest;
+				LastUpgradeCheck = 1510;
 				ORGANIZATIONNAME = "Organic Maps";
 				TargetAttributes = {
 					6741A93D1BF340DE002C974C = {
