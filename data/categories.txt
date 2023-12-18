@@ -14862,7 +14862,7 @@ sv:Skidåkning|Skidspår
 sw:Skiing|Mbio za kuteleza
 th:เล่นสกี|วิ่งสกี
 tr:Kayak|Kayak pisti
-uk:Лижи|Лижна траса
+uk:Лижі|Лижи|Лижна траса
 vi:Trượt tuyết|Chạy trượt tuyết
 zh-Hans:滑雪|滑雪道
 zh-Hant:滑雪|滑雪道
