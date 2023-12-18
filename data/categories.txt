@@ -12653,7 +12653,7 @@ ar:شاليه
 cs:4Chalet|Horská chata
 da:Hytte
 nl:4Chalet
-fi:Alppimaja
+fi:Mökki
 fr:4Chalet|Meublé de tourisme
 de:Hütte
 hu:Nyaralóház|Kulcsosház
