@@ -1,6 +1,9 @@
-• Date noi OpenStreetMap de pe 13 Noiembrie
-• Nivelul maxim de zoom este de două ori mai adânc decât până acum
-• Repararea importului de bookmark-uri de format KMB
-• Blocarea de trezire a ecranului este dezactivată implicit pentru a îmbunătăți utilizarea bateriei
-• Indicatorul de căutare a locației a fost corectat când harta este mișcată sau mărită
-• Stil de previzualizare a hărții de exterior - citiți cum să îl activați și alte noi îmbunătățiri pe omaps.org/news
+Christmas & New Year gifts for you from Organic Maps community:
+• Android Auto
+• Outdoors map style for hiking, cycling, and exploring the Nature
+• Search for village addresses without streets in Austria, Czechia, Germany, Poland, Slovakia
+• Type "skiing" to find downhill & Nordic pistes
+• OpenStreetMap map data as of December 13
+• Check photos, reviews, and prices for some hotels. All your donations and bookings contribute to the development of Organic Maps!
+
+…more details at omaps.org/news

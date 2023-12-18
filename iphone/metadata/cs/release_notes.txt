@@ -1,52 +1,27 @@
-• Nová data OpenStreetMap k 13. listopadu 2023
-• Nyní je možné přiblížit větší hloubku a zobrazit více bodů zájmu v hustě osídlených oblastech
-• Náhled ve stylu venkovní mapy (přečtěte si prosím, jak jej aktivovat)
-• Odstraněn spodní pruh karet, aby se na obrazovce zobrazilo více mapy
-• Odstraněno nepotřebné tlačítko "trasa" na mapě (místo toho můžete klepnutím nebo dlouhým klepnutím na místo na mapě nebo výběrem výsledku vyhledávání sestavit trasu pomocí tlačítka "Trasa do")
-• Zvýrazněno tlačítko "Trasa do" a pro nové uživatele naznačeny nejčastější dotazy a odpovědi.
-• Opraveny barvy tmavého/světlého režimu CarPlay
-• Opraveno zadávání z klávesnice v systému iPadOS 15+
-• Vylepšení "setrvačného" kinetického posouvání
-• Odstraněn maximální limit pro vyhledávání záložek
-• Značky se zobrazují na stránce Místo
+We and our contributors have prepared several Christmas/New Year presents for you:
+• Outdoors map style for hiking, cycling, and exploring the Nature
+• Search for addr:place village addresses without streets in Austria, Czechia, Germany, Poland, Slovakia
+• Type "skiing" or "ski run" in the search to find downhill and Nordic pistes
+• OpenStreetMap map data as of December 13
+• Added a button to see photos, reviews, and prices for some hotels. Every booking made through the app contributes to the development of the project!
 
-Směrování
-• Zakázáno směrování přes access=emergency, military, agricultural, forestr
-• Vyladěny odhady přejezdů trajektů
-• Vylepšené směrování mezi zeměmi a regiony
-• Vylepšené obytné trasy
+Other notable fixes and improvements:
+• Fixed several crashes and freezing on iOS 12, 13, 14
+• Multiple KML files can be imported from a single KMZ file
+• A credit card is displayed for places with ATM
+• A dollar emoji is displayed where a fee is requred
+• Prettified websites in Place Page
+• "Zoom in to see isolines" message does not cover buttons
+• CarPlay search button now properly shows search results
+• Improved user interface for the Search on iPad
+• Added Singapore metro icon and fixed Porto metro icon
+• Added Hackerspace
+• Fixed leisure garden areas
+• Consistent displaying of house numbers on zoom 17
 
-Vyhledávání
-• Zpracování platz-pl jako strasse-str
-• Vylepšené porovnávání adres
-• Vylepšené vyhledávání značek
+Translations
+• Improved Chinese, Dutch, Finnish, Polish, Russian translations
+• Added Dutch, French, Polish, Romanian, and Russian translations for edition Opening Hours instructions
+• Fixed missing parking translations
 
-Stylování mapy
-• Přidány květinové záhony, půjčovny, půjčovny kol, opravny motocyklů, zoologická zahrada, vězení, stlačený vzduch
-• Do režimu automobilové navigace přidány přírodní rezervace a vykreslování vojenských zón
-• Přidána lehká železnice Docklands Light Railway, metro Porto
-• Zobrazení názvů lyžařských sjezdovek
-• Vyladěny/aktualizovány ikony fitness centra, jógy, divadla, uměleckých děl, soch, zábavního parku, BBQ, majáku, větrného mlýna, heliportu a přistávací plochy pro vrtulníky, loveckého stánku, Síně království Svědků Jehovových, placených a soukromých verzí parkovišť a vjezdů na parkoviště, prodejen smíšeného zboží / lahůdek / farmářských prodejen / potravin / zdravé výživy, prodejny tabáku
-• Lepší náplně ploch pro využití zemědělských usedlostí a garáží
-• Větší viditelnost křovin, horských chat
-• Aktualizovány ikony hygienické skládky a upravena její priorita
-• Snížena viditelnost vchodů do jeskyní a vylepšena ikona
-• Zvýšena viditelnost samostatných čísel domů
-• Snížena viditelnost tokijského metra - pochvala pro charlie2clarke
-• Odstraněny drobné silniční značky/štítky, které znepřehledňovaly mapu v Estonsku
-• Opraveny barvy silničních značek/štítů v Estonsku a Německu
-• Zvýšena viditelnost silničních značek / štítů na silnicích třetí třídy a obytných ulicích
-• Opraveny "mezery" v některých hustě zmapovaných liniích
-• Opraveny "mezery" v obrysech mostů a dalších složených linií
-
-Náhled ve stylu venkovní mapy:
-• Na míru pro outdoorové aktivity mimo město, jako je pěší turistika, terénní cyklistika/MTB, 4x4 atd.
-• Zdůrazňuje stezky/trasy, skály, železnice, elektrické vedení, řeky a potoky, vodní zdroje, vrcholy, horská sedla a průsmyky, vodopády, majáky, jeskyně, vyhlídky, tábořiště, chaty, přístřešky, pikniková místa, brány, stezky, brody atd.
-• Povolíte zadáním `?olight` do vyhledávacího pole a vrátíte se na mapu; zadáním `?light` se přepnete zpět na hlavní styl.
-• Pro tmavý styl použijte `?odark` a `?dark`.
-
-Překlady
-• Vylepšené znění možností směrování "vyhnout se …"
-• Vylepšené překlady arabštiny, baskičtiny, čínštiny, češtiny, dánštiny, finštiny, řečtiny, maďarštiny, indonéštiny, italštiny, korejštiny, maráthštiny, polštiny, rumunštiny, slovenštiny, španělštiny, Švédska, thajštiny, turečtiny, ukrajinštiny a vietnamštiny.
-
-…a další menší opravy a vylepšení, podrobnosti najdete na https://omaps.org/hu/news !
+…and more smaller fixes and improvements, check https://omaps.org/news for details!
