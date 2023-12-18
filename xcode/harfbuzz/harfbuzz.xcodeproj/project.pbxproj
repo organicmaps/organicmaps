@@ -92,9 +92,9 @@
 		FAF9DD892A86D6D1000D7037 /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
-				BuildIndependentTargetsInParallel = 1;
+				BuildIndependentTargetsInParallel = YES;
 				DefaultBuildSystemTypeForWorkspace = Latest;
-				LastUpgradeCheck = 1430;
+				LastUpgradeCheck = 1510;
 				TargetAttributes = {
 					FAF9DD902A86D6D1000D7037 = {
 						CreatedOnToolsVersion = 14.3.1;

@@ -896,7 +896,9 @@
 		675340921A3F53CB00A0A8C3 /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
-				LastUpgradeCheck = 1410;
+				BuildIndependentTargetsInParallel = YES;
+				DefaultBuildSystemTypeForWorkspace = Latest;
+				LastUpgradeCheck = 1510;
 				TargetAttributes = {
 					670C61241AB0661100C38A8C = {
 						CreatedOnToolsVersion = 6.1.1;
