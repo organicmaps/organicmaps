@@ -43,9 +43,6 @@
   //-->
   <uses-permission-sdk-23 android:name="android.permission.POST_NOTIFICATIONS"/>
 
-  <uses-permission android:name="androidx.car.app.NAVIGATION_TEMPLATES"/>
-  <uses-permission android:name="androidx.car.app.ACCESS_SURFACE"/>
-
   <queries>
     <intent>
       <action android:name="android.intent.action.TTS_SERVICE"/>
@@ -859,15 +856,6 @@
       android:label="@string/driving_options_title"/>
     <activity
         android:name="app.organicmaps.MapPlaceholderActivity"/>
-    <service
-        android:name="app.organicmaps.car.CarAppService"
-        android:foregroundServiceType="location"
-        android:exported="true">
-      <intent-filter>
-        <action android:name="androidx.car.app.CarAppService" />
-        <category android:name="androidx.car.app.category.NAVIGATION" />
-      </intent-filter>
-    </service>
 
     <service
         android:name=".routing.NavigationService"
@@ -895,14 +883,5 @@
     <!-- Version >= 3.0. Dex Dual Mode support for compatible Samsung devices. 
          See the documentation: https://developer.samsung.com/samsung-dex/modify-optimizing.html //-->
     <meta-data android:name="com.samsung.android.multidisplay.keep_process_alive" android:value="true" />
-
-    <meta-data
-        android:name="com.google.android.gms.car.application"
-        android:resource="@xml/automotive_app_desc"/>
-
-    <meta-data
-        android:name="androidx.car.app.minCarApiLevel"
-        android:value="5"/>
-
   </application>
 </manifest>
