@@ -1,6 +1,9 @@
-• New OpenStreetMap data as of November 13
-• The maximum zoom level is twice as deep as it was before
-• Fixed import of bookmarks in KMB format
-• Disabled the screen wake lock by default to improve power-saving
-• Corrected the location search indication when the map is moved or zoomed
-• Outdoors map style preview - read on how to activate it and about many other improvements on omaps.org/news
+Christmas & New Year gifts for you from Organic Maps community:
+• Android Auto
+• Outdoors map style for hiking, cycling, and exploring the Nature
+• Search for village addresses without streets in Austria, Czechia, Germany, Poland, Slovakia
+• Type "skiing" to find downhill & Nordic pistes
+• OpenStreetMap map data as of December 13
+• Check photos, reviews, and prices for some hotels. All your donations and bookings contribute to the development of Organic Maps!
+
+…more details at omaps.org/news

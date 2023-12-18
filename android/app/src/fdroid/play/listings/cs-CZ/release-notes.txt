@@ -1,6 +1,9 @@
-• Nová data z OpenStreetMap z 13. listopadu
-• Maximální úroveň přiblížení je nyní dvakrát hloubější, než dříve
-• Opraveno importování záložek ve formátu KMB
-• Ve výchozím nastavení vypnuta možnost Zobrazit na uzamčené obrazovce
-• Opravena indikace vyhledávání umístění při přiblížení nebo pohnutí s mapou
-• Náhled stylu venkovních map - jak jej aktivovat a spoustu dalších vylepšení najdete na omaps.org/news
+Christmas & New Year gifts for you from Organic Maps community:
+• Android Auto
+• Outdoors map style for hiking, cycling, and exploring the Nature
+• Search for village addresses without streets in Austria, Czechia, Germany, Poland, Slovakia
+• Type "skiing" to find downhill & Nordic pistes
+• OpenStreetMap map data as of December 13
+• Check photos, reviews, and prices for some hotels. All your donations and bookings contribute to the development of Organic Maps!
+
+…more details at omaps.org/news

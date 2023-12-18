@@ -1,6 +1,9 @@
-• Neue OpenStreetMap-Daten vom 13. November
-• Die maximale Zoomstufe ist jetzt doppelt so tief wie zuvor
-• Behebung des Imports von Lesezeichen im KMB-Format
-• Standardmäßige Deaktivierung des Bildschirm-Wake-Locks zur Verbesserung der Akkulaufzeit
-• Korrekte Anzeige der Ortssuche, wenn die Karte verschoben oder gezoomt wird
-• Vorschau des Outdoors-Kartenstils - Weitere Informationen zur Aktivierung und zu vielen anderen Verbesserungen finden Sie auf omaps.org/news.
+Weihnachtsgeschenke aus unserer Community:
+• Android Auto
+• Outdoor-Kartenstil zum Wandern, Radfahren und Erkunden der Natur
+• Suche nach Adressen in einigen Dörfern und kleineren Ortschaften
+• Geben Sie "Skifahren" ein, um Abfahrtspisten und nordische Pisten zu finden
+• OpenStreetMap-Kartendaten, Stand: 13. Dezember
+• Prüfen Sie Fotos, Bewertungen und Preise für einige Hotels. Alle Ihre Spenden und Buchungen tragen zur Entwicklung von Organic Maps bei!
+
+…mehr Details omaps.org/de/news

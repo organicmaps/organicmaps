@@ -1,6 +1,9 @@
-• Aktualizacja danych OpenStreetMap z 13 listopada
-• Maksymalny poziom powiększenia, jest dwukrotnie większy niż wcześniej
-• Naprawiono import zakładek w formacie KMB
-• Domyślnie wyłączono blokadę wybudzania ekranu, aby poprawić oszczędzanie energii
-• Poprawiono wskaźnik wyszukiwania lokalizacji, gdy mapa jest przesuwana lub powiększana
-• Podgląd stylu mapy plenerowej — przeczytaj, jak ją aktywować, oraz o wielu innych ulepszeniach, na stronie omaps.org/pl/news
+Christmas & New Year gifts for you from Organic Maps community:
+• Android Auto
+• Outdoors map style for hiking, cycling, and exploring the Nature
+• Search for village addresses without streets in Austria, Czechia, Germany, Poland, Slovakia
+• Type "skiing" to find downhill & Nordic pistes
+• OpenStreetMap map data as of December 13
+• Check photos, reviews, and prices for some hotels. All your donations and bookings contribute to the development of Organic Maps!
+
+…more details at omaps.org/news
