@@ -13,6 +13,7 @@ import androidx.annotation.Nullable;
 import app.organicmaps.MwmApplication;
 import app.organicmaps.R;
 import app.organicmaps.util.Config;
+import app.organicmaps.util.concurrency.UiThread;
 import app.organicmaps.util.log.Logger;
 
 import java.util.ArrayList;
@@ -142,7 +143,10 @@ public enum TtsPlayer
       return;
 
     mInitializing = true;
-    mTts = new TextToSpeech(context, status -> {
+    // TextToSpeech.OnInitListener() can be called from a non-main thread
+    // on LineageOS '20.0-20231127-RELEASE-thyme' 'Xiaomi/thyme/thyme'.
+    // https://github.com/organicmaps/organicmaps/issues/6903
+    mTts = new TextToSpeech(context, status -> UiThread.run(() -> {
       if (status == TextToSpeech.ERROR)
       {
         Logger.e(TAG, "Failed to initialize TextToSpeach");
@@ -177,7 +181,7 @@ public enum TtsPlayer
       });
       mAudioFocusManager = new AudioFocusManager(context);
       mInitializing = false;
-    });
+    }));
   }
 
   private static boolean isReady()
