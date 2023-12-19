@@ -1,0 +1,24 @@
+name: Validate mapcss files
+on:
+  workflow_dispatch: # Manual trigger
+  pull_request:
+    paths:
+      - .github/workflows/styles-check.yaml  # Run check on self change
+      - data/styles/*/style-*/style.mapcss
+      - tools/unix/generate_drules.sh
+
+jobs:
+  validate-mapcss-files:
+    name: Validate mapcss files
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v4
+        with:
+          python-version: '3'
+
+      - name: Validate mapcss files
+        shell: bash
+        run: |
+          ./tools/unix/generate_drules.sh -v

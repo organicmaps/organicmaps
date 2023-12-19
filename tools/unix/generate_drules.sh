@@ -7,6 +7,55 @@ export PYTHONDONTWRITEBYTECODE=1
 OMIM_PATH="${OMIM_PATH:-$(dirname "$0")/../..}"
 DATA_PATH="${DATA_PATH:-$OMIM_PATH/data}"
 
+VALIDATE_ONLY=0
+
+while getopts ":v" option
+do
+  case "${option}"
+  in
+    v) VALIDATE_ONLY=1;;
+    ?) echo "Usage: ./generate_drules.sh [-v]"; echo "(v) Validates mapcss files only, does not generate."; exit 1;;
+  esac
+done
+
+if [[ $VALIDATE_ONLY -eq 1 ]]
+then
+  set +e # Nonzero response codes are not a problem in this section
+  EXITCODE=0
+
+  # Find compare mapcss keys between the base "clear day" style and other styles
+  BASEFILE=$DATA_PATH/styles/clear/style-clear/style.mapcss
+  BASEKEYS=$(egrep -oh "^[ ]+([^ ]+)" $BASEFILE | sort)
+  echo "Validating mapcss files..."
+  for item in $DATA_PATH/styles/*/style-*/style.mapcss
+  do
+    if [[ $item == $BASEFILE ]]
+    then
+      continue;
+    fi
+    THISKEYS=$(egrep -oh "^[ ]+([^ ]+)" $item | sort)
+    THISDIFF=$(diff --unchanged-line-format="" --old-line-format="- %L" --new-line-format="+ %L" <(echo "$BASEKEYS") <(echo "$THISKEYS"))
+    THISWORDS=$(echo "$THISDIFF" | wc -w)
+    if [[ $THISWORDS -gt 0 ]]
+    then
+      echo -e "\nERROR: Missing/different mapcss keys found:"
+      echo "--- a/$BASEFILE"
+      echo "+++ b/$item"
+      echo "$THISDIFF"
+      EXITCODE=1
+    fi
+  done
+  if [[ $EXITCODE -eq 0 ]]
+  then
+    echo -e "\nSuccess! No mismatched mapcss keys found between these files:"
+    ls $DATA_PATH/styles/*/style-*/style.mapcss
+    echo -e "\nAnd these mapcss keys:"
+    echo "$BASEKEYS"
+  fi
+  set -e
+  exit $EXITCODE
+fi
+
 function BuildDrawingRules() {
   styleType=$1
   styleName=$2
