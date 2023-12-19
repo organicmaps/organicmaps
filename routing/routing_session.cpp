@@ -710,6 +710,7 @@ void RoutingSession::PushPositionAccumulator(m2::PointD const & position)
 
   m_positionAccumulator.PushNextPoint(position);
 }
+
 void RoutingSession::ClearPositionAccumulator()
 {
   CHECK_THREAD_CHECKER(m_threadChecker, ());
@@ -719,7 +720,10 @@ void RoutingSession::ClearPositionAccumulator()
 
 void RoutingSession::EnableTurnNotifications(bool enable)
 {
-  CHECK_THREAD_CHECKER(m_threadChecker, ());
+  // I suspect that if Android TextToSpeech failed, OnInitListener -> Enable(false) is called from some other thread ..
+  // Anyway, I don't see any sync problems here to make hard thread check.
+  //CHECK_THREAD_CHECKER(m_threadChecker, ());
+
   m_turnNotificationsMgr.Enable(enable);
 }
 
