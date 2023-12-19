@@ -1,27 +1,30 @@
-We and our contributors have prepared several Christmas/New Year presents for you:
-• Outdoors map style for hiking, cycling, and exploring the Nature
-• Search for addr:place village addresses without streets in Austria, Czechia, Germany, Poland, Slovakia
-• Type "skiing" or "ski run" in the search to find downhill and Nordic pistes
-• OpenStreetMap map data as of December 13
-• Added a button to see photos, reviews, and prices for some hotels. Every booking made through the app contributes to the development of the project!
+Avec nos contributeurs, nous avons préparé pour vous plusieurs cadeaux de Noël et du Nouvel An :
 
-Other notable fixes and improvements:
-• Fixed several crashes and freezing on iOS 12, 13, 14
-• Multiple KML files can be imported from a single KMZ file
-• A credit card is displayed for places with ATM
-• A dollar emoji is displayed where a fee is requred
-• Prettified websites in Place Page
-• "Zoom in to see isolines" message does not cover buttons
-• CarPlay search button now properly shows search results
-• Improved user interface for the Search on iPad
-• Added Singapore metro icon and fixed Porto metro icon
-• Added Hackerspace
-• Fixed leisure garden areas
-• Consistent displaying of house numbers on zoom 17
+• Style de carte de plein air pour la randonnée, le cyclisme et explorer la nature.
+• Recherche d'adresses de villages addr:place sans rues en Allemagne, Autriche, Pologne, Slovaquie et République tchèque.
+• Tapez "ski" ou "piste de ski" dans la recherche pour trouver des pistes de ski alpin et de ski nordique.
+• Données cartographiques OpenStreetMap en date du 13 décembre
+• Ajout d'un bouton pour voir les photos, les commentaires et les prix de certains hôtels. Chaque réservation effectuée via l'application contribue au développement du projet !
 
-Translations
-• Improved Chinese, Dutch, Finnish, Polish, Russian translations
-• Added Dutch, French, Polish, Romanian, and Russian translations for edition Opening Hours instructions
-• Fixed missing parking translations
+Autres corrections et améliorations notables :
 
-…and more smaller fixes and improvements, check https://omaps.org/news for details!
+• Correction de plusieurs plantages et arrêts sur iOS 12, 13, 14
+• Plusieurs fichiers KML peuvent être importés à partir d'un seul fichier KMZ
+• Une carte de crédit est affichée dans les endroits où il y a un distributeur automatique de billets
+• Un emoji dollar est affiché lorsque des paiements sont demandés
+• Lien des sites web améliorés dans la page des lieux
+• Le message "Zoom avant pour voir les isolignes" ne couvre pas les boutons.
+• Le bouton de recherche CarPlay affiche désormais correctement les résultats de la recherche
+• Amélioration de l'interface utilisateur pour la recherche sur iPad
+• Ajout de l'icône du métro de Singapour et correction de l'icône du métro de Porto
+• Ajout des lieux Hackerspace
+• Correction des zones de jardins
+• Affichage cohérent des numéros de maison sur le zoom 17
+
+Traductions
+
+• Amélioration des traductions en chinois, néerlandais, finlandais, polonais et russe
+• Ajout de traductions en néerlandais, français, polonais, roumain et russe pour les instructions sur l'édition des heures d'ouverture
+• Correction des traductions manquantes pour les parkings
+
+…et d'autres petites corrections et améliorations, consultez https://omaps.org/fr/news pour plus de détails !
