@@ -113,6 +113,43 @@
   </screenshots>
 
   <releases>
+   <release version="2023.12.20-4" date="2023-12-20">
+     <description>
+       <p>Highlights:</p>
+         <ul>
+           <li>New OSM maps data as of December 13, 2023</li>
+           <li>Show Wikipedia articles in a separate dialog</li>
+           <li>Touchscreen pinch-zoom support</li>
+           <li>Multiple KML files can be imported from a single KMZ file</li>
+           <li>A credit card 💳 is displayed for selected places with ATM</li>
+           <li>A dollar emoji 💲 is displayed where a fee is required</li>
+         </ul>
+       <p>Search:</p>
+         <ul>
+           <li>Search for village addresses without streets in Austria, Czechia, Germany, Poland, Slovakia and some other countries (addr:place OSM tag support)</li>
+           <li>Type "skiing" to find downhill &amp; Nordic pistes</li>
+         </ul>
+       <p>Translations:</p>
+         <ul>
+           <li>Improved Chinese, Dutch, Finnish, Polish, Russian translations</li>
+           <li>Added Dutch, French, Polish, Romanian, and Russian translations for edition Opening Hours instructions</li>
+           <li>Fixed missing parking translations</li>
+         </ul>
+       <p>Styles:</p>
+         <ul>
+           <li>Outdoors map style for hiking, cycling, and exploring the Nature. Type ?olight or ?odark in the search to enable it, and ?light or ?dark to disable it. Any volunteers to add convenient buttons are welcome!</li>
+           <li>Please provide feedback on how to improve the Outdoors style</li>
+           <li>Singapore metro icon</li>
+           <li>Added Hackerspace</li>
+           <li>Fixed Porto metro icon</li>
+           <li>Fixed residential leisure garden area fills disappearing on some zoom levels</li>
+           <li>Display house numbers regardless of buildings' sizes on zoom level 17</li>
+           <li>Fine-tuned priorities of many POIs in the main style</li>
+           <li>Less "gaps" in highways on the World map</li>
+           <li>Removed very short ferry lines from the World map</li>
+         </ul>
+     </description>
+   </release>
    <release version="2023.11.17-17" date="2023-11-17">
      <description>
        <p>Highlights:</p>
