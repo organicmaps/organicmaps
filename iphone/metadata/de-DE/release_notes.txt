@@ -15,7 +15,7 @@ Weitere bemerkenswerte Korrekturen und Verbesserungen:
 • Die Schaltfläche für die CarPlay-Suche zeigt jetzt korrekt Suchergebnisse an
 • Verbesserte Benutzeroberfläche für die Suche auf dem iPad
 • Metro-Symbol für Singapur hinzugefügt und Metro-Symbol für Porto korrigiert
-• Hackerspace hinzugefügt
+• Added Hackerspace hinzugefügt
 • Kleingartenbereiche korrigiert
 • Konsistente Anzeige von Hausnummern bei Zoom 17
 

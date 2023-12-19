@@ -1,9 +1,9 @@
-Christmas & New Year gifts for you from Organic Maps community:
+Karácsonyi és újévi ajándékokkal várunk az Organic Maps közösségétől:
 • Android Auto
-• Outdoors map style for hiking, cycling, and exploring the Nature
-• Search for village addresses without streets in Austria, Czechia, Germany, Poland, Slovakia
-• Type "skiing" to find downhill & Nordic pistes
-• OpenStreetMap map data as of December 13
-• Check photos, reviews, and prices for some hotels. All your donations and bookings contribute to the development of Organic Maps!
+• Kültéri térképstílus, ami ideális túrázáshoz, biciklizéshez és a természet felfedezéséhez
+• Címkeresési javítások számos országban
+• Írja be a "Síelés" szót, hogy síterepet találjon
+• OpenStreetMap.org térképek 13.12.2023-tól
+• Egyes hoteleknél már megtekinthetőek azok értékeléseik, fényképeik és árazásuk. Minden anyagi támogatás és hotelfoglalás az Organic Maps további fejlesztését segíti!
 
-…more details at omaps.org/news
+omaps.org/hu/news
