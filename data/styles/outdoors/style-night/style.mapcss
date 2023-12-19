@@ -7,7 +7,6 @@
 @import("../include/Icons.mapcss");
 @import("../include/Subways.mapcss");
 
-
 colors
 {
   GuiText-color: #FFFFFF;
@@ -27,14 +26,20 @@ colors
   RoutePedestrian-opacity: 0.7;
   RouteBicycle-color: #FF4B8C;
   RouteBicycle-opacity: 0.7;
+  RouteRuler-color: #924ab5;
+  RouteRuler-opacity: 0.7;
   RoutePreview-color: #FFFFFF;
   RoutePreview-opacity: 0.3;
   RouteMaskCar-color: #000000;
   RouteMaskCar-opacity: 0.5;
+  RouteFirstSegmentArrowsMaskCar-color: #055FCD;
+  RouteFirstSegmentArrowsMaskCar-opacity: 0.0;
   RouteArrowsMaskCar-color: #055FCD;
   RouteArrowsMaskCar-opacity: 0.3;
   RouteMaskBicycle-color: #000000;
   RouteMaskBicycle-opacity: 0.5;
+  RouteFirstSegmentArrowsMaskBicycle-color: #FF4B8C;
+  RouteFirstSegmentArrowsMaskBicycle-opacity: 0.0;
   RouteArrowsMaskBicycle-color: #FF4B8C;
   RouteArrowsMaskBicycle-opacity: 0.5;
   RouteMaskPedestrian-color: #000000;
