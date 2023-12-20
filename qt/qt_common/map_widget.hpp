@@ -83,8 +83,8 @@ protected:
   void resizeGL(int width, int height) override;
 
   bool event(QEvent * event) override;
-  bool gestureEvent(QGestureEvent * event);
-  void pinchTriggered(QPinchGesture * gesture);
+  bool gestureEvent(QGestureEvent const * event);
+  void pinchTriggered(QPinchGesture const * gesture);
 
   void mouseDoubleClickEvent(QMouseEvent * e) override;
   void mousePressEvent(QMouseEvent * e) override;

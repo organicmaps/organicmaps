@@ -553,41 +553,40 @@ void MapWidget::wheelEvent(QWheelEvent * e)
 
   QPointF const pos = e->position();
 
+  double const factor = e->angleDelta().y() / 3.0 / 360.0;
   // https://doc-snapshots.qt.io/qt6-dev/qwheelevent.html#angleDelta, angleDelta() returns in eighths of a degree.
   /// @todo Here you can tune the speed of zooming.
-  m_framework.Scale(exp(e->angleDelta().y() / 3.0 / 360.0), m2::PointD(L2D(pos.x()), L2D(pos.y())), false);
+  m_framework.Scale(exp(factor), m2::PointD(L2D(pos.x()), L2D(pos.y())), false);
 }
 
-void MapWidget::grabGestures(const QList<Qt::GestureType> &gestures)
+void MapWidget::grabGestures(QList<Qt::GestureType> const & gestures)
 {
   for (Qt::GestureType gesture : gestures)
     grabGesture(gesture);
 }
 
-bool MapWidget::event(QEvent *event)
+bool MapWidget::event(QEvent * event)
 {
   if (event->type() == QEvent::Gesture)
-    return gestureEvent(static_cast<QGestureEvent*>(event));
+    return gestureEvent(dynamic_cast<QGestureEvent const *>(event));
   return QWidget::event(event);
 }
 
-bool MapWidget::gestureEvent(QGestureEvent *event)
+bool MapWidget::gestureEvent(QGestureEvent const * event)
 {
-  if (QGesture *pinch = event->gesture(Qt::PinchGesture))
-    pinchTriggered(static_cast<QPinchGesture *>(pinch));
+  if (QGesture const * pinch = event->gesture(Qt::PinchGesture))
+    pinchTriggered(dynamic_cast<QPinchGesture const *>(pinch));
   return true;
 }
 
-void MapWidget::pinchTriggered(QPinchGesture *gesture)
+void MapWidget::pinchTriggered(QPinchGesture const * gesture)
 {
-  QPinchGesture::ChangeFlags changeFlags = gesture->changeFlags();
-  m2::PointD centerPoint = m_framework.GetVisiblePixelCenter();
-  if (changeFlags & QPinchGesture::ScaleFactorChanged)
+  if (gesture->changeFlags() & QPinchGesture::ScaleFactorChanged)
   {
-    qreal totalScaleFactor = gesture->totalScaleFactor();
-
-    if (totalScaleFactor != 1.0)
-      m_framework.Scale((totalScaleFactor > 1.0) ? Framework::SCALE_MAG : Framework::SCALE_MIN, true);
+    auto const factor = gesture->totalScaleFactor();
+    if (factor != 1.0)
+      m_framework.Scale(factor > 1.0 ? Framework::SCALE_MAG : Framework::SCALE_MIN, true);
   }
 }
+
 } // namespace qt::common
