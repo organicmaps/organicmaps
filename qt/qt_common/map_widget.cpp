@@ -39,11 +39,11 @@ MapWidget::MapWidget(Framework & framework, bool isScreenshotMode, QWidget * par
   , m_contextFactory(nullptr)
 {
   setMouseTracking(true);
-  // Update widget contents each 30ms.
+  // Update widget's content frequency is 60 fps.
   m_updateTimer = std::make_unique<QTimer>(this);
   VERIFY(connect(m_updateTimer.get(), SIGNAL(timeout()), this, SLOT(update())), ());
   m_updateTimer->setSingleShot(false);
-  m_updateTimer->start(30);
+  m_updateTimer->start(1000 / 60);
 }
 
 MapWidget::~MapWidget()
