@@ -4447,6 +4447,8 @@
     ru = Слив для туалетов транспортных средств
     tr = Tank Boşaltma İstasyonu
     uk = Злив для туалетів транспортних засобів
+    zh-Hans = 储液池排泄站
+    zh-Hant = 儲液池排泄站
 
   [type.amenity.school]
     en = School
@@ -5148,6 +5150,8 @@
     ru = Почтомат
     tr = Kilitlenebilen Kutu Dolaplar
     uk = Поштомат
+    zh-Hans = 包裹储物柜
+    zh-Hant = 包裹儲物櫃
 
   [type.amenity.vehicle_inspection]
     en = Vehicle Inspection
@@ -5332,6 +5336,8 @@
     ru = Станция перевалки отходов
     tr = Atık Transfer İstasyonu
     uk = Станція передачі сміття
+    zh-Hans = 垃圾转运站
+    zh-Hant = 垃圾轉運站
 
   [type.amenity.water_point]
     en = Water Tank Refill Point
@@ -16597,6 +16603,8 @@
     ru = Флагшток
     tr = Bayrak Direği
     uk = Флагшток
+    zh-Hans = 旗杆
+    zh-Hant = 旗桿
 
   [type.man_made.lighthouse]
     en = Lighthouse
@@ -22950,6 +22958,8 @@
     ru = Продажа автодомов
     tr = Karavan Bayiliği
     uk = Продаж автобудинків
+    zh-Hans = 房车经销商
+    zh-Hant = 房车經銷商
 
   [type.shop.carpet]
     en = Carpet Shop
@@ -24221,7 +24231,8 @@
     tr = Ev Eşyaları Dükkanı
     uk = Побутові товари
     vi = Cửa hàng đồ gia dụng
-    zh-Hant = 家居用品店
+    zh-Hans = 家居用品商店
+    zh-Hant = 家居用品商店
 
   [type.shop.jewelry]
     en = Jewelry Store
