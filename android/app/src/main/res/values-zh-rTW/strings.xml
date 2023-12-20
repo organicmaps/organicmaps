@@ -269,7 +269,7 @@
 	<!-- Downloaded maps list header -->
 	<string name="downloader_downloaded_subtitle">已下載</string>
 	<!-- Country queued for download -->
-	<string name="downloader_queued">已佇列</string>
+	<string name="downloader_queued">已加入下載隊列</string>
 	<string name="downloader_near_me_subtitle">在我附近</string>
 	<!-- In maps downloader and country place page shows how many maps are downloaded / to download, e.g. "Maps: 3 of 10" -->
 	<string name="downloader_status_maps">地圖</string>
@@ -396,8 +396,8 @@
 	<string name="editor_time_delete">刪除排程</string>
 	<!-- Text for allday switch. -->
 	<string name="editor_time_allday">全天 (24 小時)</string>
-	<string name="editor_time_open">營業中</string>
-	<string name="editor_time_close">休息時間</string>
+	<string name="editor_time_open">開始營業時間</string>
+	<string name="editor_time_close">結束營業時間</string>
 	<string name="editor_time_add_closed">新增休息時間</string>
 	<string name="editor_time_title">營業時間</string>
 	<string name="editor_time_advanced">進階模式</string>
@@ -444,7 +444,7 @@
 	<string name="select_cuisine">選擇料理</string>
 	<!-- login text field -->
 	<string name="email_or_username">電子郵件或使用者名稱</string>
-	<string name="editor_add_phone">新增電話</string>
+	<string name="editor_add_phone">新增電話號碼</string>
 	<string name="level">樓層</string>
 	<string name="downloader_delete_map_dialog">所有對地圖的修改都將與地圖一起被刪除。</string>
 	<string name="downloader_update_maps">更新地圖</string>
@@ -877,6 +877,7 @@
 	<string name="type.recycling.scrap_metal">廢金屬</string>
 	<string name="type.recycling.small_appliances">電子垃圾</string>
 	<string name="type.amenity.restaurant">餐廳</string>
+	<string name="type.amenity.sanitary_dump_station">儲液池排泄站</string>
 	<string name="type.amenity.school">學校</string>
 	<string name="type.amenity.shelter">隱藏處</string>
 	<string name="type.amenity.public_bath">公共浴場</string>
@@ -892,10 +893,12 @@
 	<string name="type.amenity.vending_machine.drinks">飲料自動販賣機</string>
 	<string name="type.amenity.vending_machine.parking_tickets">違規停車罰單繳費機</string>
 	<string name="type.amenity.vending_machine.public_transport_tickets">公共交通售票機</string>
+	<string name="type.amenity.parcel_locker">包裹儲物櫃</string>
 	<string name="type.amenity.vehicle_inspection">車輛檢驗</string>
 	<string name="type.amenity.veterinary">獸醫</string>
 	<string name="type.amenity.waste_basket">垃圾箱</string>
 	<string name="type.amenity.waste_disposal">垃圾</string>
+	<string name="type.amenity.waste_transfer_station">垃圾轉運站</string>
 	<string name="type.amenity.water_point">飲水站</string>
 	<string name="type.barrier.block">街區</string>
 	<string name="type.barrier.bollard">柱</string>
@@ -1315,6 +1318,7 @@
 	<string name="type.leisure.swimming_pool.private">游泳池</string>
 	<string name="type.leisure.water_park">水上樂園</string>
 	<string name="type.man_made.chimney">工廠煙囪</string>
+	<string name="type.man_made.flagpole">旗桿</string>
 	<string name="type.man_made.lighthouse">燈塔</string>
 	<string name="type.man_made.surveillance">監控攝影機</string>
 	<string name="type.man_made.tower">塔</string>
@@ -1698,6 +1702,7 @@
 	<string name="type.shop.car_parts">汽車零件</string>
 	<string name="type.shop.car_repair">汽車維修</string>
 	<string name="type.shop.car_repair.tyres">輪胎修補</string>
+	<string name="type.shop.caravan">房车經銷商</string>
 	<string name="type.shop.carpet">地毯</string>
 	<string name="type.shop.chemist">藥妝店</string>
 	<string name="type.shop.chocolate">購物</string>
@@ -1731,7 +1736,7 @@
 	<string name="type.shop.health_food">保健食品店</string>
 	<string name="type.shop.herbalist">香草店</string>
 	<string name="type.shop.hifi">高保真音響</string>
-	<string name="type.shop.houseware">家居用品店</string>
+	<string name="type.shop.houseware">家居用品商店</string>
 	<string name="type.shop.jewelry">珠寶店</string>
 	<string name="type.shop.kiosk">小舖</string>
 	<string name="type.shop.kitchen">廚房用品店</string>
