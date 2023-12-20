@@ -84,8 +84,8 @@ DrawWidget::DrawWidget(Framework & framework, std::unique_ptr<ScreenshotParams> 
   , m_rubberBand(nullptr)
   , m_emulatingLocation(false)
 {
-  qApp->installEventFilter(this);
   setFocusPolicy(Qt::StrongFocus);
+
   m_framework.SetPlacePageListeners([this]() { ShowPlacePage(); },
                                     {} /* onClose */, {} /* onUpdate */);
 
