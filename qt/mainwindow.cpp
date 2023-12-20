@@ -100,8 +100,7 @@ MainWindow::MainWindow(Framework & framework,
                        , QString const & mapcssFilePath
 #endif
                        )
-  : m_Docks{}
-  , m_locationService(CreateDesktopLocationService(*this))
+  : m_locationService(CreateDesktopLocationService(*this))
   , m_screenshotMode(screenshotParams != nullptr)
 #ifdef BUILD_DESIGNER
   , m_mapcssFilePath(mapcssFilePath)
