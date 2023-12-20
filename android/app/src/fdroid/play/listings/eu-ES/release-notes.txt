@@ -1,5 +1,4 @@
 Organic Maps komunitatearen Gabonetako eta Urte Berriko opariak zuretzat:
-• Android Auto
 • Kanpoko mapa estiloa mendi-ibilaldiak egiteko, bizikletan ibiltzeko eta natura esploratzeko
 • Bilatu kalerik gabeko herri-helbideak Austria, Txekia, Alemania, Polonia, Eslovakian
 • Idatzi "eskia" mendiko pistak aurkitzeko
