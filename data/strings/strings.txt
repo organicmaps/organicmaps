@@ -6817,8 +6817,8 @@
     tr = Sıraya alındı
     uk = В черзі
     vi = Đã xếp hàng chờ
-    zh-Hans = 已排队
-    zh-Hant = 已佇列
+    zh-Hans = 已加入到下载队列
+    zh-Hant = 已加入下載隊列
 
   [downloader_near_me_subtitle]
     tags = android,ios
@@ -10887,8 +10887,8 @@
     tr = Açık
     uk = Відчинено
     vi = Mở cửa
-    zh-Hans = 营业中
-    zh-Hant = 營業中
+    zh-Hans = 开始营业时间
+    zh-Hant = 開始營業時間
 
   [editor_time_close]
     tags = android,ios
@@ -10928,8 +10928,8 @@
     tr = Kapalı
     uk = Зачинено
     vi = Đóng cửa
-    zh-Hans = 未营业
-    zh-Hant = 休息時間
+    zh-Hans = 结束营业时间
+    zh-Hant = 結束營業時間
 
   [editor_time_add_closed]
     tags = android,ios
@@ -13298,7 +13298,8 @@
     ro = Adaugă un număr
     ru = Добавить телефон
     tr = Telefon Ekle
-    zh-Hant = 新增電話
+    zh-Hans = 新增电话号码
+    zh-Hant = 新增電話號碼
 
   [level]
     tags = android,ios
