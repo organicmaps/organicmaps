@@ -984,4 +984,49 @@ UNIT_CLASS_TEST(MwmTestsFixture, Streets_Rank)
   }
 }
 
+// https://github.com/organicmaps/organicmaps/issues/5756
+UNIT_CLASS_TEST(MwmTestsFixture, Pois_Rank)
+{
+  {
+    // Buenos Aires (Palermo)
+    ms::LatLon const center(-34.58524, -58.42516);
+    SetViewportAndLoadMaps(center);
+
+    // mix of amenity=pharmacy + shop=chemistry.
+    auto request = MakeRequest("farmacity");
+    auto const & results = request->Results();
+    TEST_GREATER(results.size(), kPopularPoiResultsCount, ());
+    TEST_LESS(SortedByDistance(Range(results, 0, kPopularPoiResultsCount), center), 3000, ());
+  }
+
+  {
+    // Salem, Oregon
+    ms::LatLon const center(44.8856466, -123.0628986);
+    SetViewportAndLoadMaps(center);
+
+    auto request = MakeRequest("depot");
+    auto const & results = request->Results();
+
+    /// @todo Probably, we should decrease Names matching rank/penalty.
+    // - railway station "XXX Depot"
+    // - a bunch of streets and POIs "Depot XXX" (up to 100km)
+    // - nearest post office "Mail Depot" (500m)
+    size_t constexpr kResultsCount = 11;
+    TEST_GREATER(results.size(), kResultsCount, ());
+    TEST_EQUAL(CountClassifType(Range(results, 0, kResultsCount),
+                                classif().GetTypeByPath({"amenity", "post_office"})), 1, ());
+  }
+
+  {
+    // Istanbul
+    ms::LatLon const center(40.95058, 29.17255);
+    SetViewportAndLoadMaps(center);
+
+    auto request = MakeRequest("Göztepe 60. Yıl Parkı");
+    auto const & results = request->Results();
+    TEST_GREATER(results.size(), kTopPoiResultsCount, ());
+    EqualClassifType(Range(results, 0, 1), GetClassifTypes({{"leisure", "park"}}));
+  }
+}
+
 } // namespace real_mwm_tests

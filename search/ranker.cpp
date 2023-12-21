@@ -377,7 +377,7 @@ public:
 
       if (info.m_classifType.poi != PoiType::Eat &&
           info.m_classifType.poi != PoiType::Hotel &&
-          info.m_classifType.poi != PoiType::Shop)
+          info.m_classifType.poi != PoiType::ShopOrAmenity)
       {
         info.m_hasName = false;
       }

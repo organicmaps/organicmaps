@@ -9,7 +9,6 @@
 #include "base/stl_helpers.hpp"
 
 #include <array>
-#include <iomanip>
 #include <limits>
 #include <sstream>
 
@@ -73,7 +72,7 @@ double constexpr kPoiType[] = {
   0.003,      // TransportLocal (0 < it < Residential st)
   0.01,       // Eat
   0.01,       // Hotel
-  0.01,       // Shop
+  0.01,       // Shop or Amenity
   0.01,       // Attraction
  -0.01,       // Service
   0,          // General
@@ -131,11 +130,20 @@ void PrintParse(ostringstream & oss, array<TokenRange, Model::TYPE_COUNT> const 
   oss << "]";
 }
 
-class IsAttraction
+class BaseTypesChecker
 {
-  std::vector<uint32_t> m_sights;
-  uint32_t m_leisure;
+protected:
+  std::vector<uint32_t> m_types;
 
+public:
+  bool operator() (feature::TypesHolder const & th) const
+  {
+    return base::AnyOf(m_types, [&th](uint32_t t) { return th.HasWithSubclass(t); });
+  }
+};
+
+class IsAttraction : public BaseTypesChecker
+{
 public:
   IsAttraction()
   {
@@ -143,20 +151,57 @@ public:
     // list in ftypes::AttractionsChecker. We have highway-pedestrian, place-square, historic-tomb,
     // landuse-cemetery, amenity-townhall etc in long list and logic of long list is "if this object
     // has high popularity and/or wiki description probably it is attraction". It's better to use
-    // short list here. And leisures too!
+    // short list here.
+    m_types = search::GetCategoryTypes("sights", "en", GetDefaultCategories());
 
-    m_sights = search::GetCategoryTypes("sights", "en", GetDefaultCategories());
-    m_leisure = classif().GetTypeByPath({"leisure"});
-  }
+    // Add _attraction_ leisures too!
+    base::StringIL const types[] = {
+      {"leisure", "beach_resort"},
+      {"leisure", "garden"},
+      {"leisure", "landscape_reserve"},
+      {"leisure", "marina"},
+      {"leisure", "nature_reserve"},
+      {"leisure", "park"},
+    };
 
-  bool operator() (feature::TypesHolder const & th) const
-  {
-    return th.HasWithSubclass(m_leisure) ||
-           base::AnyOf(m_sights, [&th](uint32_t t) { return th.HasWithSubclass(t); });
+    Classificator const & c = classif();
+    for (auto const & e : types)
+      m_types.push_back(c.GetTypeByPath(e));
   }
 };
 
-class IsServiceTypeChecker
+class IsShopOrAmenity : public BaseTypesChecker
+{
+public:
+  IsShopOrAmenity()
+  {
+    base::StringIL const types[] = {
+      {"shop"},
+
+      // Amenity types are very fragmented, so take only most _interesting_ here.
+      {"amenity", "bank"},
+      {"amenity", "brothel"},
+      {"amenity", "car_rental"},
+      {"amenity", "casino"},
+      {"amenity", "cinema"},
+      {"amenity", "clinic"},
+      {"amenity", "hospital"},
+      {"amenity", "library"},
+      {"amenity", "marketplace"},
+      {"amenity", "nightclub"},
+      {"amenity", "pharmacy"},
+      {"amenity", "post_office"},
+      {"amenity", "stripclub"},
+      {"amenity", "theatre"},
+    };
+
+    Classificator const & c = classif();
+    for (auto const & e : types)
+      m_types.push_back(c.GetTypeByPath(e));
+  }
+};
+
+class IsServiceTypeChecker : public BaseTypesChecker
 {
 public:
   IsServiceTypeChecker()
@@ -165,14 +210,6 @@ public:
     for (char const * e : {"barrier", "power", "traffic_calming"})
       m_types.push_back(c.GetTypeByPath({e}));
   }
-
-  bool operator() (feature::TypesHolder const & th) const
-  {
-    return base::AnyOf(m_types, [&th](uint32_t t) { return th.HasWithSubclass(t); });
-  }
-
-private:
-  vector<uint32_t> m_types;
 };
 }  // namespace
 
@@ -363,8 +400,6 @@ PoiType GetPoiType(feature::TypesHolder const & th)
     return PoiType::Eat;
   if (IsHotelChecker::Instance()(th))
     return PoiType::Hotel;
-  if (IsShopChecker::Instance()(th))
-    return PoiType::Shop;
 
   if (IsRailwayStationChecker::Instance()(th) ||
       IsSubwayStationChecker::Instance()(th) ||
@@ -378,6 +413,10 @@ PoiType GetPoiType(feature::TypesHolder const & th)
   static IsAttraction const attractionCheck;
   if (attractionCheck(th))
     return PoiType::Attraction;
+
+  static IsShopOrAmenity const shopOrAmenityCheck;
+  if (shopOrAmenityCheck(th))
+    return PoiType::ShopOrAmenity;
 
   static IsServiceTypeChecker const serviceCheck;
   if (serviceCheck(th))
@@ -394,7 +433,7 @@ string DebugPrint(PoiType type)
   case PoiType::TransportLocal: return "TransportLocal";
   case PoiType::Eat: return "Eat";
   case PoiType::Hotel: return "Hotel";
-  case PoiType::Shop: return "Shop";
+  case PoiType::ShopOrAmenity: return "ShopOrAmenity";
   case PoiType::Attraction: return "Attraction";
   case PoiType::Service: return "Service";
   case PoiType::General: return "General";

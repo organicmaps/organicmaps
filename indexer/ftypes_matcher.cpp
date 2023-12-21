@@ -702,11 +702,6 @@ IsWifiChecker::IsWifiChecker()
   m_types.push_back(classif().GetTypeByPath({"internet_access", "wlan"}));
 }
 
-IsShopChecker::IsShopChecker() : BaseChecker(1)
-{
-  m_types.push_back(classif().GetTypeByPath({"shop"}));
-}
-
 IsEatChecker::IsEatChecker()
 {
   // The order should be the same as in "enum class Type" declaration.
@@ -716,7 +711,9 @@ IsEatChecker::IsEatChecker()
                                   {"amenity", "restaurant"},
                                   {"amenity", "bar"},
                                   {"amenity", "pub"},
-                                  {"amenity", "biergarten"}};
+                                  {"amenity", "biergarten"},
+                                  {"amenity", "food_court"},
+  };
 
   Classificator const & c = classif();
 //  size_t i = 0;
