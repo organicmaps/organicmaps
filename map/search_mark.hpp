@@ -48,7 +48,6 @@ public:
   void SetMatchedName(std::string const & name);
 
   void SetFromType(uint32_t type);
-  void SetHotelType();
   void SetNotFoundType();
 
   void SetPreparing(bool isPreparing);
