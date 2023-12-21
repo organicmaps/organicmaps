@@ -28,8 +28,6 @@ constexpr char const * kYes = "yes";
 constexpr char const * kNo = "no";
 }  // namespace
 
-char const * MapObject::kFieldsSeparator = " • ";
-
 string DebugPrint(osm::Internet internet)
 {
   switch (internet)

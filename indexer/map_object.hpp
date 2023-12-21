@@ -33,7 +33,8 @@ Internet InternetFromString(std::string_view inet);
 class MapObject
 {
 public:
-  static char const * kFieldsSeparator;
+  static constexpr std::string_view kFieldsSeparator = " • ";
+  static constexpr std::string_view kStarSymbol = "★";
   static constexpr uint8_t kMaxStarsCount = 7;
 
   void SetFromFeatureType(FeatureType & ft);

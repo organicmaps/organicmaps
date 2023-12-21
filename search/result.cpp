@@ -5,6 +5,8 @@
 
 #include "indexer/classificator.hpp"
 
+#include "platform/localization.hpp"
+
 #include "geometry/mercator.hpp"
 
 #include "base/string_utils.hpp"
@@ -62,6 +64,18 @@ uint32_t Result::GetFeatureType() const
 {
   ASSERT_EQUAL(m_resultType, Type::Feature, ());
   return m_featureType;
+}
+
+std::string Result::GetLocalizedFeatureType() const
+{
+  ASSERT_EQUAL(m_resultType, Type::Feature, ());
+  return platform::GetLocalizedTypeName(classif().GetReadableObjectName(m_featureType));
+}
+
+std::string Result::GetFeatureDescription() const
+{
+  ASSERT_EQUAL(m_resultType, Type::Feature, ());
+  return GetLocalizedFeatureType() + GetDescription();
 }
 
 m2::PointD Result::GetFeatureCenter() const
