@@ -106,22 +106,16 @@ jobject ToJavaResult(Result const & result, search::ProductInfo const & productI
   jni::TScopedLocalRef featureId(env, usermark_helper::CreateFeatureId(env, isFeature ?
                                                                             result.GetFeatureID() :
                                                                             kEmptyFeatureId));
-  string readableType = isFeature ? classif().GetReadableObjectName(result.GetFeatureType()) : "";
+  std::string const localizedType = isFeature ? result.GetLocalizedFeatureType() : "";
 
-  jni::TScopedLocalRef featureType(env, jni::ToJavaString(env, readableType));
+  jni::TScopedLocalRef featureType(env, jni::ToJavaString(env, localizedType));
   jni::TScopedLocalRef address(env, jni::ToJavaString(env, result.GetAddress()));
   jni::TScopedLocalRef dist(env, ToJavaDistance(env, distance));
-  jni::TScopedLocalRef cuisine(env, jni::ToJavaString(env, result.GetCuisine()));
-  jni::TScopedLocalRef brand(env, jni::ToJavaString(env, result.GetBrand()));
-  jni::TScopedLocalRef airportIata(env, jni::ToJavaString(env, result.GetAirportIata()));
-  jni::TScopedLocalRef roadShields(env, jni::ToJavaString(env, result.GetRoadShields()));
-  jni::TScopedLocalRef fee(env, jni::ToJavaString(env, result.GetFee()));
-
+  jni::TScopedLocalRef description(env, jni::ToJavaString(env, result.GetFeatureDescription()));
 
   jni::TScopedLocalRef desc(env, env->NewObject(g_descriptionClass, g_descriptionConstructor,
                                                 featureId.get(), featureType.get(), address.get(),
-                                                dist.get(), cuisine.get(), brand.get(), airportIata.get(),
-                                                roadShields.get(), fee.get(),
+                                                dist.get(), description.get(),
                                                 static_cast<jint>(result.IsOpenNow()),
                                                 result.GetMinutesUntilOpen(),result.GetMinutesUntilClosed(),
                                                 static_cast<jboolean>(popularityHasHigherPriority)));
@@ -133,7 +127,7 @@ jobject ToJavaResult(Result const & result, search::ProductInfo const & productI
                                                       0/*static_cast<jint>(result.GetRankingInfo().m_popularity)*/));
 
   return env->NewObject(g_resultClass, g_resultConstructor, name.get(), desc.get(), ll.m_lat, ll.m_lon,
-                        ranges.get(), result.IsHotel(), result.GetStarsCount(), popularity.get());
+                        ranges.get(), popularity.get());
 }
 
 jobjectArray BuildSearchResults(vector<search::ProductInfo> const & productInfo,
@@ -240,21 +234,19 @@ extern "C"
     g_resultClass = jni::GetGlobalClassRef(env, "app/organicmaps/search/SearchResult");
     g_resultConstructor = jni::GetConstructorID(
         env, g_resultClass,
-        "(Ljava/lang/String;Lapp/organicmaps/search/SearchResult$Description;DD[IZI"
+        "(Ljava/lang/String;Lapp/organicmaps/search/SearchResult$Description;DD[I"
           "Lapp/organicmaps/search/Popularity;)V");
     g_suggestConstructor = jni::GetConstructorID(env, g_resultClass, "(Ljava/lang/String;Ljava/lang/String;DD[I)V");
     g_descriptionClass = jni::GetGlobalClassRef(env, "app/organicmaps/search/SearchResult$Description");
     /*
         Description(FeatureId featureId, String featureType, String region, Distance distance,
-                    String cuisine, String brand, String airportIata, String roadShields,
-                    String fee, int openNow, int minutesUntilOpen, int minutesUntilClosed,
+                    String description, int openNow, int minutesUntilOpen, int minutesUntilClosed,
                     boolean hasPopularityHigherPriority)
     */
     g_descriptionConstructor = jni::GetConstructorID(env, g_descriptionClass,
                                                      "(Lapp/organicmaps/bookmarks/data/FeatureId;"
                                                      "Ljava/lang/String;Ljava/lang/String;Lapp/organicmaps/util/Distance;"
-                                                     "Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;"
-                                                     "Ljava/lang/String;Ljava/lang/String;IIIZ)V");
+                                                     "Ljava/lang/String;IIIZ)V");
 
     g_popularityClass = jni::GetGlobalClassRef(env, "app/organicmaps/search/Popularity");
     g_popularityConstructor = jni::GetConstructorID(env, g_popularityClass, "(I)V");

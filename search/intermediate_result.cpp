@@ -14,6 +14,7 @@
 #include "indexer/road_shields_parser.hpp"
 
 #include "platform/measurement_utils.hpp"
+#include "platform/localization.hpp"
 
 #include "base/string_utils.hpp"
 
@@ -255,9 +256,12 @@ void FillDetails(FeatureType & ft, Result::Details & details)
   if (details.m_isInitialized)
     return;
 
-  details.m_airportIata = ft.GetMetadata(feature::Metadata::FMD_AIRPORT_IATA);
-  details.m_brand = ft.GetMetadata(feature::Metadata::FMD_BRAND);
-
+  std::string_view airportIata = ft.GetMetadata(feature::Metadata::FMD_AIRPORT_IATA);
+  
+  std::string brand {ft.GetMetadata(feature::Metadata::FMD_BRAND)};
+  if (!brand.empty())
+    brand = platform::GetLocalizedBrandName(brand);
+  
   /// @todo Avoid temporary string when OpeningHours (boost::spirit) will allow string_view.
   std::string const openHours(ft.GetMetadata(feature::Metadata::FMD_OPEN_HOURS));
   if (!openHours.empty())
@@ -282,19 +286,38 @@ void FillDetails(FeatureType & ft, Result::Details & details)
 
   feature::TypesHolder const typesHolder(ft);
 
-  details.m_isHotel = ftypes::IsHotelChecker::Instance()(typesHolder);
-  if (details.m_isHotel && strings::to_uint(ft.GetMetadata(feature::Metadata::FMD_STARS), details.m_stars))
-    details.m_stars = std::min(details.m_stars, osm::MapObject::kMaxStarsCount);
-  else
-    details.m_stars = 0;
+  uint8_t starsCount = 0;
+  bool const isHotel = ftypes::IsHotelChecker::Instance()(typesHolder);
+  if (isHotel && strings::to_uint(ft.GetMetadata(feature::Metadata::FMD_STARS), starsCount))
+    starsCount = std::min(starsCount, osm::MapObject::kMaxStarsCount);
+  std::string stars;
+  for (int i = 0; i < starsCount; ++i)
+    stars.append(osm::MapObject::kStarSymbol);
 
   auto const cuisines = feature::GetLocalizedCuisines(typesHolder);
-  details.m_cuisine = strings::JoinStrings(cuisines, osm::MapObject::kFieldsSeparator);
+  auto const cuisine = strings::JoinStrings(cuisines, osm::MapObject::kFieldsSeparator);
 
   auto const roadShields = ftypes::GetRoadShieldsNames(ft);
-  details.m_roadShields = strings::JoinStrings(roadShields, osm::MapObject::kFieldsSeparator);
+  auto const roadShield = strings::JoinStrings(roadShields, osm::MapObject::kFieldsSeparator);
 
-  details.m_fee = feature::GetLocalizedFeeType(typesHolder);
+  auto const fee = feature::GetLocalizedFeeType(typesHolder);
+    
+  std::string description;
+  
+  if (!stars.empty())
+    description.append(osm::MapObject::kFieldsSeparator).append(stars);
+  if (!airportIata.empty())
+    description.append(osm::MapObject::kFieldsSeparator).append(airportIata);
+  if (!roadShield.empty())
+    description.append(osm::MapObject::kFieldsSeparator).append(roadShield);
+  if (!brand.empty())
+    description.append(osm::MapObject::kFieldsSeparator).append(brand);
+  if (!cuisine.empty())
+    description.append(osm::MapObject::kFieldsSeparator).append(cuisine);
+  if (!fee.empty())
+    description.append(osm::MapObject::kFieldsSeparator).append(fee);
+  
+  details.m_description = std::move(description);
 
   details.m_isInitialized = true;
 }
