@@ -41,7 +41,8 @@ std::vector<UniString> const kAllowedMisprints = {
 std::pair<UniString, UniString> const kPreprocessReplacements[] = {
     {MakeUniString("пр-т"),  MakeUniString("проспект")},
     {MakeUniString("пр-д"),  MakeUniString("проезд")},
-    {MakeUniString("наб-я"), MakeUniString("набережная")}
+    {MakeUniString("наб-я"), MakeUniString("набережная")},
+    {MakeUniString("м-н"), MakeUniString("микрорайон")},
 };
 
 
