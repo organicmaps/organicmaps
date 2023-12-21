@@ -47,10 +47,9 @@ void TestWithCustomMwms::DeregisterMap(std::string const & name)
   m_files.erase(it);
 }
 
-void TestWithCustomMwms::RegisterLocalMapsInViewport(m2::RectD const & viewport)
+template <class FnT>
+void TestWithCustomMwms::RegisterLocalMapsImpl(FnT && check)
 {
-  auto const countriesInfo = storage::CountryInfoReader::CreateCountryInfoGetter(GetPlatform());
-
   std::vector<LocalCountryFile> localFiles;
   FindAllLocalMapsAndCleanup(std::numeric_limits<int64_t>::max() /* latestVersion */, localFiles);
 
@@ -58,7 +57,7 @@ void TestWithCustomMwms::RegisterLocalMapsInViewport(m2::RectD const & viewport)
   {
     // Always load World.mwm, important for search.
     auto const & name = file.GetCountryName();
-    if (name != WORLD_FILE_NAME && !countriesInfo->GetLimitRectForLeaf(name).IsIntersect(viewport))
+    if (name != WORLD_FILE_NAME && !check(name))
       continue;
 
     auto const res = m_dataSource.RegisterMap(file);
@@ -72,24 +71,22 @@ void TestWithCustomMwms::RegisterLocalMapsInViewport(m2::RectD const & viewport)
   }
 }
 
+void TestWithCustomMwms::RegisterLocalMapsInViewport(m2::RectD const & viewport)
+{
+  auto const countriesInfo = storage::CountryInfoReader::CreateCountryInfoGetter(GetPlatform());
+
+  RegisterLocalMapsImpl([&](std::string const & name)
+  {
+    return countriesInfo->GetLimitRectForLeaf(name).IsIntersect(viewport);
+  });
+}
+
 void TestWithCustomMwms::RegisterLocalMapsByPrefix(std::string const & prefix)
 {
-  std::vector<LocalCountryFile> localFiles;
-  FindAllLocalMapsAndCleanup(std::numeric_limits<int64_t>::max() /* latestVersion */, localFiles);
-
-  for (auto const & file : localFiles)
+  RegisterLocalMapsImpl([&](std::string const & name)
   {
-    // Always load World.mwm, important for search.
-    auto const & name = file.GetCountryName();
-    if (name != WORLD_FILE_NAME && !strings::StartsWith(name, prefix))
-      continue;
-
-    auto const res = m_dataSource.RegisterMap(file);
-    CHECK_EQUAL(res.second, MwmSet::RegResult::Success, ());
-
-    auto const & info = res.first.GetInfo();
-    OnMwmBuilt(*info);
-  }
+    return strings::StartsWith(name, prefix);
+  });
 }
 
 }  // namespace tests_support

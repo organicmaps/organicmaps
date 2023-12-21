@@ -932,39 +932,56 @@ UNIT_CLASS_TEST(MwmTestsFixture, BA_RelaxedStreets)
   }
 }
 
+// https://github.com/organicmaps/organicmaps/issues/6127
 UNIT_CLASS_TEST(MwmTestsFixture, Streets_Rank)
 {
-  // Buenos Aires (Palermo)
-  ms::LatLon const center(-34.5802699, -58.4124979);
-  SetViewportAndLoadMaps(center);
-
-  auto const & streetChecker = ftypes::IsStreetOrSquareChecker::Instance();
-
-  auto const processRequest = [&](std::string const & query, size_t idx)
   {
-    auto request = MakeRequest(query);
+    // Buenos Aires (Palermo)
+    ms::LatLon const center(-34.5802699, -58.4124979);
+    SetViewportAndLoadMaps(center);
+
+    auto const & streetChecker = ftypes::IsStreetOrSquareChecker::Instance();
+
+    auto const processRequest = [&](std::string const & query, size_t idx)
+    {
+      auto request = MakeRequest(query);
+      auto const & results = request->Results();
+
+      TEST_GREATER(results.size(), idx, ());
+
+      bool found = false;
+      for (size_t i = 0; i < idx && !found; ++i)
+      {
+        auto const & r = results[i];
+        if (streetChecker(r.GetFeatureType()))
+        {
+          TEST_EQUAL(r.GetString(), "Avenida Santa Fe", ());
+          TEST_LESS(GetDistanceM(r, center), 1000, ());
+          found = true;
+        }
+      }
+      TEST(found, ());
+    };
+
+    /// @todo Street should be highwer than 11.
+    processRequest("Santa Fe ", 11);
+    /// @todo Prefix search" gives POIs (Starbucks) near "Avenida Santa Fe".
+    processRequest("Santa Fe st ", 2);
+  }
+
+  {
+    // Load all Hungary.
+    RegisterLocalMapsByPrefix("Hungary");
+    // Budapest
+    SetViewport({47.4978839, 19.0401458}, 3000);
+
+    auto request = MakeRequest("Szank Beke");
     auto const & results = request->Results();
 
-    TEST_GREATER(results.size(), idx, ());
-
-    bool found = false;
-    for (size_t i = 0; i < idx && !found; ++i)
-    {
-      auto const & r = results[i];
-      if (streetChecker(r.GetFeatureType()))
-      {
-        TEST_EQUAL(r.GetString(), "Avenida Santa Fe", ());
-        TEST_LESS(GetDistanceM(r, center), 1000, ());
-        found = true;
-      }
-    }
-    TEST(found, ());
-  };
-
-  /// @todo Street should be highwer than 11.
-  processRequest("Santa Fe ", 11);
-  /// @todo Prefix search" gives POIs (Starbucks) near "Avenida Santa Fe".
-  processRequest("Santa Fe st ", 2);
+    size_t constexpr kResultsCount = 3;
+    TEST_GREATER(results.size(), kResultsCount, ());
+    EqualClassifType(Range(results, 0, kResultsCount), GetClassifTypes({{"highway"}}));
+  }
 }
 
 } // namespace real_mwm_tests
