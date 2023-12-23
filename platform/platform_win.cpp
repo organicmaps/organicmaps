@@ -34,6 +34,15 @@ static bool GetUserWritableDir(std::string & outDir)
   return false;
 }
 
+static std::string GetUserProfileDir()
+{
+  char pathBuf[MAX_PATH] = {0};
+  if(::SHGetSpecialFolderPathA(NULL, pathBuf, CSIDL_PROFILE, false))
+    return std::string(pathBuf);
+  else
+    return {};
+}
+
 /// @return Full path to the executable file
 static bool GetPathToBinary(std::string & outPath)
 {
@@ -193,4 +202,68 @@ bool Platform::GetFileSizeByFullPath(std::string const & filePath, uint64_t & si
     }
   }
   return false;
+}
+
+void Platform::GetSystemFontNames(FilesList & res) const
+{
+  char constexpr const * const fontsWhitelist[] = {
+      "Calibri.ttf",
+      "console.ttf",
+      "DroidSansMonoSlashed.ttf",
+      "segoeui.ttf",
+      "tahoma.ttf",
+      "verdana.ttf",
+      //
+      "Roboto-Medium.ttf",
+      "Roboto-Regular.ttf",
+      "DroidSansFallback.ttf",
+      "DroidSansFallbackFull.ttf",
+      "DroidSans.ttf",
+      "DroidSansArabic.ttf",
+      "DroidSansSemc.ttf",
+      "DroidSansSemcCJK.ttf",
+      "DroidNaskh-Regular.ttf",
+      "Lohit-Bengali.ttf",
+      "Lohit-Devanagari.ttf",
+      "Lohit-Tamil.ttf",
+      "PakType Naqsh.ttf",
+      "wqy-microhei.ttc",
+      "Jomolhari.ttf",
+      "Padauk.ttf",
+      "KhmerOS.ttf",
+      "Umpush.ttf",
+      "DroidSansThai.ttf",
+      "DroidSansArmenian.ttf",
+      "DroidSansEthiopic-Regular.ttf",
+      "DroidSansGeorgian.ttf",
+      "DroidSansHebrew-Regular.ttf",
+      "DroidSansHebrew.ttf",
+      "DroidSansJapanese.ttf",
+      "LTe50872.ttf",
+      "LTe50259.ttf",
+      "DevanagariOTS.ttf",
+      "FreeSans.ttf",
+      "DejaVuSans.ttf",
+      "arial.ttf",
+      "AbyssinicaSIL-R.ttf",
+  };
+
+  std::string const systemFontsPath[] = {
+      "C:\\Windows\\Fonts",
+      "C:\\Windows\\Boot\\Fonts",
+      GetUserProfileDir() + "\\AppData\\Local\\Microsoft\\Windows\\Fonts"
+  };
+
+  for (auto font : fontsWhitelist)
+  {
+    for (auto sysPath : systemFontsPath)
+    {
+      std::string path = sysPath + font;
+      if (IsFileExistsByFullPath(path))
+      {
+        LOG(LINFO, ("Found usable system font", path));
+        res.push_back(std::move(path));
+      }
+    }
+  }
 }

@@ -137,6 +137,8 @@ else() # neither iPhone nor Android
       http_uploader_dummy.cpp
       platform_win.cpp
       secure_storage_dummy.cpp
+      locale_win.cpp
+      platform_win.cpp
     )
   elseif(${PLATFORM_MAC})
     append(SRC

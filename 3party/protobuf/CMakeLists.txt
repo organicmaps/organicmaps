@@ -25,13 +25,15 @@ set(SRC
 )
 
 if(NOT PLATFORM_WIN)
-  append(SRC
-    protobuf/src/google/protobuf/stubs/atomicops_internals_x86_gcc.cc
-  )
+  #CMAKE_SYSTEM_PROCESSOR could be "aarch64", "armv7-a" or "x86_64"
+  if(${CMAKE_SYSTEM_PROCESSOR} MATCHES "x86_64")
+    append(SRC
+      protobuf/src/google/protobuf/stubs/atomicops_internals_x86_gcc.cc
+    )
+  endif()
 else()
   append(SRC
     protobuf/src/google/protobuf/stubs/atomicops_internals_x86_msvc.cc
-    protobuf/src/google/protobuf/stubs/atomicops_internals_x86_msvc.h
   )
 endif ()
 
