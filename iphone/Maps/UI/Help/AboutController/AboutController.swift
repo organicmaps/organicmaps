@@ -346,7 +346,7 @@ private extension AboutController {
     UIPasteboard.general.string = content
     let message = String(format: L("copied_to_clipboard"), content)
     UIImpactFeedbackGenerator(style: .medium).impactOccurred()
-    Toast.toast(withText: message).show(withAlignment: .bottom, pinToSafeArea: false)
+    Toast.show(withText: message, alignment: .bottom, pinToSafeArea: false)
   }
 }
 

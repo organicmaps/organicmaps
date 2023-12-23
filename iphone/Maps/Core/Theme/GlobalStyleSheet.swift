@@ -23,7 +23,6 @@ enum GlobalStyleSheet: String, CaseIterable {
   case trackRecordingWidgetButton = "TrackRecordingWidgetButton"
   case blackOpaqueBackground = "BlackOpaqueBackground"
   case blueBackground = "BlueBackground"
-  case toastBackground = "ToastBackground"
   case fadeBackground = "FadeBackground"
   case errorBackground = "ErrorBackground"
   case blackStatusBarBackground = "BlackStatusBarBackground"
@@ -62,6 +61,8 @@ enum GlobalStyleSheet: String, CaseIterable {
   case grabber
   case modalSheetBackground
   case modalSheetContent
+  case toastBackground
+  case toastLabel
 }
 
 extension GlobalStyleSheet: IStyleSheet {
@@ -196,10 +197,6 @@ extension GlobalStyleSheet: IStyleSheet {
     case .blueBackground:
       return .add { s in
         s.backgroundColor = colors.linkBlue
-      }
-    case .toastBackground:
-      return .add { s in
-        s.backgroundColor = colors.toastBackground
       }
     case .fadeBackground:
       return .add { s in
@@ -451,6 +448,17 @@ extension GlobalStyleSheet: IStyleSheet {
       return .addFrom(Self.modalSheetBackground) { s in
         s.backgroundColor = colors.clear
         s.clip = true
+      }
+    case .toastBackground:
+      return .add { s in
+        s.cornerRadius = .modalSheet
+        s.clip = true
+      }
+    case .toastLabel:
+      return .add { s in
+        s.font = fonts.regular16
+        s.fontColor = colors.whitePrimaryText
+        s.textAlignment = .center
       }
     }
   }
