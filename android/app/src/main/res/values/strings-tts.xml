@@ -23,8 +23,8 @@
     <item>ca</item>
     <item>da</item>
     <item>de</item>
-    <item>es</item>
-    <item>es-MX</item>
+    <item>es-ES:es-ES</item>
+    <item>es-MX:es-MX</item>
     <item>eu</item>
     <item>fr</item>
     <item>hr</item>
@@ -34,8 +34,8 @@
     <item>nl</item>
     <item>nb</item>
     <item>pl</item>
-    <item>pt</item>
-    <item>pt-BR</item>
+    <item>pt-PT:pt-PT</item>
+    <item>pt-BR:pt-BR</item>
     <item>ro</item>
     <item>sk</item>
     <item>fi</item>
