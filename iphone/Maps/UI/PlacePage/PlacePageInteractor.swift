@@ -80,6 +80,13 @@ extension PlacePageInteractor: PlacePageInfoViewControllerDelegate {
   func didPressEmail() {
     MWMPlacePageManagerHelper.openEmail(placePageData)
   }
+  
+  func didCopy(_ content: String) {
+    UIPasteboard.general.string = content
+    let message = String(format: L("copied_to_clipboard"), content)
+    UIImpactFeedbackGenerator(style: .medium).impactOccurred()
+    Toast.toast(withText: message).show(withAlignment: .bottom)
+  }
 }
 
 // MARK: - WikiDescriptionViewControllerDelegate
