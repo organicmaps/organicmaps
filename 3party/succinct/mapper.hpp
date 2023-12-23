@@ -7,7 +7,6 @@
 #include <boost/utility/enable_if.hpp>
 #include <boost/utility.hpp>
 #include <boost/type_traits/is_pod.hpp>
-#include <boost/iostreams/device/mapped_file.hpp>
 
 #include "mappable_vector.hpp"
 
@@ -281,12 +280,6 @@ namespace succinct { namespace mapper {
         detail::map_visitor mapper(base_address, flags);
         mapper(val, friendly_name);
         return mapper.bytes_read();
-    }
-
-    template <typename T>
-    size_t map(T& val, boost::iostreams::mapped_file_source const& m, uint64_t flags = 0, const char* friendly_name = "<TOP>")
-    {
-        return map(val, m.data(), flags, friendly_name);
     }
 
     template <typename T>

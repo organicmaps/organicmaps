@@ -25,10 +25,13 @@ omim_add_library(${PROJECT_NAME} ${SRC} ${RESOURCES})
 
 set_target_properties(${PROJECT_NAME} PROPERTIES AUTOMOC ON)
 
+find_package(OpenGL REQUIRED)
+
 target_link_libraries(${PROJECT_NAME}
   map
   Qt6::Gui
   Qt6::Widgets
   Qt6::OpenGL
   Qt6::OpenGLWidgets
+  OpenGL32
 )

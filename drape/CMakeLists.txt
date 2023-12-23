@@ -159,7 +159,7 @@ omim_add_library(${PROJECT_NAME} ${SRC})
 # Do not include glm's CMakeLists.txt, because it's outdated and not necessary.
 target_include_directories(${PROJECT_NAME} PUBLIC ${OMIM_ROOT}/3party/glm)
 
-if (PLATFORM_LINUX)
+if (PLATFORM_LINUX OR PLATFORM_WIN)
   find_package(OpenGL)
 endif()
 
@@ -178,6 +178,7 @@ target_link_libraries(${PROJECT_NAME}
   expat
   $<$<BOOL:${PLATFORM_MAC}>:-framework\ OpenGL>
   $<$<BOOL:${PLATFORM_LINUX}>:OpenGL::GL>
+  $<$<BOOL:${PLATFORM_WIN}>:${CMAKE_CURRENT_SOURCE_DIR}/win/libs/libGLESv2.lib>
 )
 
 omim_add_test_subdirectory(drape_tests)
