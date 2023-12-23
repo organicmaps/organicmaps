@@ -204,6 +204,12 @@ bool Platform::GetFileSizeByFullPath(std::string const & filePath, uint64_t & si
   return false;
 }
 
+uint8_t Platform::GetBatteryLevel()
+{
+  // This value is always 100 for desktop.
+  return 100;
+}
+
 void Platform::GetSystemFontNames(FilesList & res) const
 {
   char constexpr const * const fontsWhitelist[] = {
@@ -266,4 +272,13 @@ void Platform::GetSystemFontNames(FilesList & res) const
       }
     }
   }
+}
+
+// static
+time_t Platform::GetFileCreationTime(std::string const & path)
+{
+  struct stat st;
+  if (0 == stat(path.c_str(), &st))
+    return st.st_ctime;
+  return 0;
 }
