@@ -144,7 +144,16 @@ void RelationTagsWay::Process(RelationElement const & e)
       if (route == "bicycle")
         Base::AddCustomTag({"bicycle", "yes"});
       else if (route == "foot" || route == "hiking")
+      {
         Base::AddCustomTag({"foot", "yes"});
+
+        if (route == "hiking")
+        {
+          auto const hw = m_current->GetTag("highway");
+          if (hw == "path" || hw == "track" || hw == "bridleway" || hw == "footway")
+            Base::AddCustomTag({"route", "hiking"});
+        }
+      }
     }
 
     if (!fetchTags)

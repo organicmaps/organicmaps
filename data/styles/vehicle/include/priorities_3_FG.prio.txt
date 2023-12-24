@@ -235,6 +235,12 @@ highway-service-parking_aisle                       # line z14- (also has pathte
 highway-service-tunnel                              # line z14- (also has pathtext z16-)
 === 140
 
+highway-bridleway-hiking_route
+highway-footway-hiking_route
+highway-path-hiking_route
+highway-track-hiking_route
+=== 135
+
 highway-bridleway                                   # line z18-
 highway-bridleway-bridge                            # line z18-
 highway-bridleway-permissive                        # line z18-
