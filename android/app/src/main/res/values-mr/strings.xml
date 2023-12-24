@@ -72,7 +72,7 @@
 	<string name="core_my_places">माझी ठिकाणे</string>
 	<!-- Add bookmark dialog - bookmark name -->
 	<string name="name">नाव</string>
-	<!-- Editor title above street and house number -->
+	<!-- Editor title above street and house number, duplicates [type.building.address] in types_strings.txt -->
 	<string name="address">पत्ता</string>
 	<!-- Add Bookmark dialog/Bookmark list; Bookmarks dialog/Bookmark list cell. -->
 	<string name="list">यादी</string>
@@ -929,7 +929,8 @@
 	<string name="type.boundary.protected_area.5">संरक्षित क्षेत्र</string>
 	<string name="type.boundary.protected_area.6">संरक्षित क्षेत्र</string>
 	<string name="type.building">इमारत</string>
-	<string name="type.building.address">इमारत</string>
+	<!-- Duplicates [address] in strings.txt -->
+	<string name="type.building.address">पत्ता</string>
 	<string name="type.building.has_parts">इमारत</string>
 	<string name="type.building_part">इमारत</string>
 	<string name="type.building.garage">गराज</string>

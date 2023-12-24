@@ -80,7 +80,7 @@
 /* Default bookmark list name */
 "core_my_places" = "我的位置";
 
-/* Editor title above street and house number */
+/* Editor title above street and house number, duplicates [type.building.address] in types_strings.txt */
 "address" = "地址";
 
 /* Settings button in system menu */
@@ -1689,7 +1689,8 @@
 
 "type.building" = "建筑物";
 
-"type.building.address" = "建筑物";
+/* Duplicates [address] in strings.txt */
+"type.building.address" = "地址";
 
 "type.building.has_parts" = "建筑物";
 

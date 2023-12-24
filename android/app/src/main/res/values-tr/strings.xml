@@ -82,7 +82,7 @@
 	<string name="core_my_places">Yerlerim</string>
 	<!-- Add bookmark dialog - bookmark name -->
 	<string name="name">Adı</string>
-	<!-- Editor title above street and house number -->
+	<!-- Editor title above street and house number, duplicates [type.building.address] in types_strings.txt -->
 	<string name="address">Adres</string>
 	<!-- Add Bookmark dialog/Bookmark list; Bookmarks dialog/Bookmark list cell. -->
 	<string name="list">Liste</string>
@@ -990,7 +990,8 @@
 	<string name="type.boundary.protected_area.5">Korunmuş bölge</string>
 	<string name="type.boundary.protected_area.6">Korunmuş bölge</string>
 	<string name="type.building">Bina</string>
-	<string name="type.building.address">Bina</string>
+	<!-- Duplicates [address] in strings.txt -->
+	<string name="type.building.address">Adres</string>
 	<string name="type.building.has_parts">Bina</string>
 	<string name="type.building_part">Bina</string>
 	<string name="type.building.garage">Garaj</string>

@@ -82,7 +82,7 @@
 	<string name="core_my_places">Tempat-tempat Saya</string>
 	<!-- Add bookmark dialog - bookmark name -->
 	<string name="name">Nama</string>
-	<!-- Editor title above street and house number -->
+	<!-- Editor title above street and house number, duplicates [type.building.address] in types_strings.txt -->
 	<string name="address">Alamat</string>
 	<!-- Add Bookmark dialog/Bookmark list; Bookmarks dialog/Bookmark list cell. -->
 	<string name="list">Daftar</string>
@@ -882,7 +882,8 @@
 	<string name="type.boundary.protected_area.5">Kawasan Lindung</string>
 	<string name="type.boundary.protected_area.6">Kawasan Lindung</string>
 	<string name="type.building">Gedung</string>
-	<string name="type.building.address">Gedung</string>
+	<!-- Duplicates [address] in strings.txt -->
+	<string name="type.building.address">Alamat</string>
 	<string name="type.building.has_parts">Gedung</string>
 	<string name="type.building_part">Gedung</string>
 	<string name="type.building.garage">Garasi</string>

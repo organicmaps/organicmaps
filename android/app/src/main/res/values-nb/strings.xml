@@ -82,7 +82,7 @@
 	<string name="core_my_places">Mine steder</string>
 	<!-- Add bookmark dialog - bookmark name -->
 	<string name="name">Navn</string>
-	<!-- Editor title above street and house number -->
+	<!-- Editor title above street and house number, duplicates [type.building.address] in types_strings.txt -->
 	<string name="address">Adresse</string>
 	<!-- Add Bookmark dialog/Bookmark list; Bookmarks dialog/Bookmark list cell. -->
 	<string name="list">Liste</string>
@@ -934,7 +934,8 @@
 	<string name="type.boundary.protected_area.5">Vernet område</string>
 	<string name="type.boundary.protected_area.6">Vernet område</string>
 	<string name="type.building">Bygning</string>
-	<string name="type.building.address">Bygning</string>
+	<!-- Duplicates [address] in strings.txt -->
+	<string name="type.building.address">Adresse</string>
 	<string name="type.building.has_parts">Bygning</string>
 	<string name="type.building_part">Bygning</string>
 	<string name="type.building.garage">Garasje</string>

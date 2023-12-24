@@ -80,7 +80,7 @@
 /* Default bookmark list name */
 "core_my_places" = "Locurile mele";
 
-/* Editor title above street and house number */
+/* Editor title above street and house number, duplicates [type.building.address] in types_strings.txt */
 "address" = "Adresă";
 
 /* Settings button in system menu */
@@ -1689,7 +1689,8 @@
 
 "type.building" = "Clădire";
 
-"type.building.address" = "Clădire";
+/* Duplicates [address] in strings.txt */
+"type.building.address" = "Adresă";
 
 "type.building.has_parts" = "Clădire";
 

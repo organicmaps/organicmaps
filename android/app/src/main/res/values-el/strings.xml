@@ -81,7 +81,7 @@
 	<string name="core_my_places">Οι τοποθεσίες μου</string>
 	<!-- Add bookmark dialog - bookmark name -->
 	<string name="name">Όνομα</string>
-	<!-- Editor title above street and house number -->
+	<!-- Editor title above street and house number, duplicates [type.building.address] in types_strings.txt -->
 	<string name="address">Διεύθυνση</string>
 	<!-- Add Bookmark dialog/Bookmark list; Bookmarks dialog/Bookmark list cell. -->
 	<string name="list">Λίστα</string>
@@ -884,7 +884,8 @@
 	<string name="type.boundary.protected_area.5">Προστατευόμενη Περιοχή</string>
 	<string name="type.boundary.protected_area.6">Προστατευόμενη Περιοχή</string>
 	<string name="type.building">Κτίριο</string>
-	<string name="type.building.address">Κτίριο</string>
+	<!-- Duplicates [address] in strings.txt -->
+	<string name="type.building.address">Διεύθυνση</string>
 	<string name="type.building.has_parts">Κτίριο</string>
 	<string name="type.building_part">Κτίριο</string>
 	<string name="type.building.garage">Γκαράζ</string>

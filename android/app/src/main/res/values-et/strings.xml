@@ -72,7 +72,7 @@
 	<string name="core_my_places">Minu kohad</string>
 	<!-- Add bookmark dialog - bookmark name -->
 	<string name="name">Nimi</string>
-	<!-- Editor title above street and house number -->
+	<!-- Editor title above street and house number, duplicates [type.building.address] in types_strings.txt -->
 	<string name="address">Aadress</string>
 	<!-- Add Bookmark dialog/Bookmark list; Bookmarks dialog/Bookmark list cell. -->
 	<string name="list">Loetelu</string>
@@ -978,7 +978,8 @@
 	<string name="type.boundary.protected_area.5">Kaitseala</string>
 	<string name="type.boundary.protected_area.6">Kaitseala</string>
 	<string name="type.building">Hoone</string>
-	<string name="type.building.address">Hoone</string>
+	<!-- Duplicates [address] in strings.txt -->
+	<string name="type.building.address">Aadress</string>
 	<string name="type.building.has_parts">Hoone</string>
 	<string name="type.building_part">Hoone</string>
 	<string name="type.building.garage">Garaaž</string>

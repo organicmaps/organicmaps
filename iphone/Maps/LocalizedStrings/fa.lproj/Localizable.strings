@@ -80,7 +80,7 @@
 /* Default bookmark list name */
 "core_my_places" = "مکان من";
 
-/* Editor title above street and house number */
+/* Editor title above street and house number, duplicates [type.building.address] in types_strings.txt */
 "address" = "آدرس";
 
 /* Settings button in system menu */
@@ -1689,7 +1689,8 @@
 
 "type.building" = "ساختمان";
 
-"type.building.address" = "ساختمان";
+/* Duplicates [address] in strings.txt */
+"type.building.address" = "آدرس";
 
 "type.building.has_parts" = "ساختمان";
 

@@ -80,8 +80,8 @@
 /* Default bookmark list name */
 "core_my_places" = "Os meus locais";
 
-/* Editor title above street and house number */
-"address" = "Endereço";
+/* Editor title above street and house number, duplicates [type.building.address] in types_strings.txt */
+"address" = "Morada";
 
 /* Settings button in system menu */
 "settings" = "Configurações";
@@ -1689,7 +1689,8 @@
 
 "type.building" = "Edifício";
 
-"type.building.address" = "Edifício";
+/* Duplicates [address] in strings.txt */
+"type.building.address" = "Morada";
 
 "type.building.has_parts" = "Edifício";
 

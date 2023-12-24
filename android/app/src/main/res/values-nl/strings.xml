@@ -80,7 +80,7 @@
 	<string name="core_my_places">Mijn plaatsen</string>
 	<!-- Add bookmark dialog - bookmark name -->
 	<string name="name">Naam</string>
-	<!-- Editor title above street and house number -->
+	<!-- Editor title above street and house number, duplicates [type.building.address] in types_strings.txt -->
 	<string name="address">Adres</string>
 	<!-- Add Bookmark dialog/Bookmark list; Bookmarks dialog/Bookmark list cell. -->
 	<string name="list">Lijst</string>
@@ -987,7 +987,8 @@
 	<string name="type.boundary.protected_area.5">Beschermd gebied</string>
 	<string name="type.boundary.protected_area.6">Beschermd gebied</string>
 	<string name="type.building">Gebouw</string>
-	<string name="type.building.address">Gebouw</string>
+	<!-- Duplicates [address] in strings.txt -->
+	<string name="type.building.address">Adres</string>
 	<string name="type.building.has_parts">Gebouw</string>
 	<string name="type.building_part">Gebouw</string>
 	<string name="type.building.garage">Garage</string>

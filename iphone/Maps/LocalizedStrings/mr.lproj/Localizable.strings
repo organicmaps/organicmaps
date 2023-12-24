@@ -80,7 +80,7 @@
 /* Default bookmark list name */
 "core_my_places" = "माझी ठिकाणे";
 
-/* Editor title above street and house number */
+/* Editor title above street and house number, duplicates [type.building.address] in types_strings.txt */
 "address" = "पत्ता";
 
 /* Settings button in system menu */
@@ -1689,7 +1689,8 @@
 
 "type.building" = "इमारत";
 
-"type.building.address" = "इमारत";
+/* Duplicates [address] in strings.txt */
+"type.building.address" = "पत्ता";
 
 "type.building.has_parts" = "इमारत";
 

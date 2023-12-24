@@ -80,7 +80,7 @@
 /* Default bookmark list name */
 "core_my_places" = "Yerlerim";
 
-/* Editor title above street and house number */
+/* Editor title above street and house number, duplicates [type.building.address] in types_strings.txt */
 "address" = "Adres";
 
 /* Settings button in system menu */
@@ -1689,7 +1689,8 @@
 
 "type.building" = "Bina";
 
-"type.building.address" = "Bina";
+/* Duplicates [address] in strings.txt */
+"type.building.address" = "Adres";
 
 "type.building.has_parts" = "Bina";
 

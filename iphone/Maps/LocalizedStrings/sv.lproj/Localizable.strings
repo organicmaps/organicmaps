@@ -80,7 +80,7 @@
 /* Default bookmark list name */
 "core_my_places" = "Mina Platser";
 
-/* Editor title above street and house number */
+/* Editor title above street and house number, duplicates [type.building.address] in types_strings.txt */
 "address" = "Adress";
 
 /* Settings button in system menu */
@@ -1689,7 +1689,8 @@
 
 "type.building" = "Byggnad";
 
-"type.building.address" = "Byggnad";
+/* Duplicates [address] in strings.txt */
+"type.building.address" = "Adress";
 
 "type.building.has_parts" = "Byggnad";
 
