@@ -154,21 +154,21 @@ UNIT_TEST(GetFilesByType)
   TEST(Platform::IsFileExistsByFullPath(testFile), ());
   SCOPE_GUARD(removeTestFile, bind(FileWriter::DeleteFileX, testFile));
 
-  CheckFilesPresence(baseDir, Platform::FILE_TYPE_DIRECTORY,
+  CheckFilesPresence(baseDir, Platform::EFileType::Directory,
   {{
      kTestDirBaseName, 1 /* present */
    },
    {
      kTestFileBaseName, 0 /* not present */
    }});
-  CheckFilesPresence(baseDir, Platform::FILE_TYPE_REGULAR,
+  CheckFilesPresence(baseDir, Platform::EFileType::Regular,
   {{
      kTestDirBaseName, 0 /* not present */
    },
    {
      kTestFileBaseName, 1 /* present */
    }});
-  CheckFilesPresence(baseDir, Platform::FILE_TYPE_DIRECTORY | Platform::FILE_TYPE_REGULAR,
+  CheckFilesPresence(baseDir, Platform::EFileType::Directory | Platform::EFileType::Regular,
   {{
      kTestDirBaseName, 1 /* present */
    },
