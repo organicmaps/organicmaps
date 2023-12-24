@@ -61,8 +61,11 @@ public:
 
   void Write(void const * p, size_t size) override
   {
+    if (size == 0)
+        return;
+
     auto freeSize = static_cast<intptr_t>(m_Data.size() - m_Pos);
-    if (freeSize < 0)
+    if (freeSize <= 0)
     {
       m_Data.resize(static_cast<size_t>(m_Pos + size));
       freeSize = size;
