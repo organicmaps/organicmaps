@@ -80,7 +80,7 @@
 	<string name="core_my_places">Các Địa chỉ của Tôi</string>
 	<!-- Add bookmark dialog - bookmark name -->
 	<string name="name">Tên</string>
-	<!-- Editor title above street and house number -->
+	<!-- Editor title above street and house number, duplicates [type.building.address] in types_strings.txt -->
 	<string name="address">Địa chỉ</string>
 	<!-- Add Bookmark dialog/Bookmark list; Bookmarks dialog/Bookmark list cell. -->
 	<string name="list">Danh sách</string>
@@ -888,7 +888,8 @@
 	<string name="type.boundary.protected_area.5">Khu bảo tồn</string>
 	<string name="type.boundary.protected_area.6">Khu bảo tồn</string>
 	<string name="type.building">Tòa nhà</string>
-	<string name="type.building.address">Tòa nhà</string>
+	<!-- Duplicates [address] in strings.txt -->
+	<string name="type.building.address">Địa chỉ</string>
 	<string name="type.building.has_parts">Tòa nhà</string>
 	<string name="type.building_part">Tòa nhà</string>
 	<string name="type.building.garage">Gara</string>

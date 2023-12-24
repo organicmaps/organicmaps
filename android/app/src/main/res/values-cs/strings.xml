@@ -80,7 +80,7 @@
 	<string name="core_my_places">Moje místa</string>
 	<!-- Add bookmark dialog - bookmark name -->
 	<string name="name">Název</string>
-	<!-- Editor title above street and house number -->
+	<!-- Editor title above street and house number, duplicates [type.building.address] in types_strings.txt -->
 	<string name="address">Adresa</string>
 	<!-- Add Bookmark dialog/Bookmark list; Bookmarks dialog/Bookmark list cell. -->
 	<string name="list">Seznam</string>
@@ -899,7 +899,8 @@
 	<string name="type.boundary.protected_area.5">Chráněné území</string>
 	<string name="type.boundary.protected_area.6">Chráněné území</string>
 	<string name="type.building">Stavba</string>
-	<string name="type.building.address">Stavba</string>
+	<!-- Duplicates [address] in strings.txt -->
+	<string name="type.building.address">Adresa</string>
 	<string name="type.building.has_parts">Stavba</string>
 	<string name="type.building_part">Stavba</string>
 	<string name="type.building.garage">Garáž</string>

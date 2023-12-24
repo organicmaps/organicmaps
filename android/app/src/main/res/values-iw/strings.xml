@@ -80,7 +80,7 @@
 	<string name="core_my_places">המקומות שלי</string>
 	<!-- Add bookmark dialog - bookmark name -->
 	<string name="name">שם</string>
-	<!-- Editor title above street and house number -->
+	<!-- Editor title above street and house number, duplicates [type.building.address] in types_strings.txt -->
 	<string name="address">כתובת</string>
 	<!-- Add Bookmark dialog/Bookmark list; Bookmarks dialog/Bookmark list cell. -->
 	<string name="list">רשימה</string>
@@ -816,6 +816,8 @@
 	<string name="type.boundary.protected_area.4">אזור מוגן</string>
 	<string name="type.boundary.protected_area.5">אזור מוגן</string>
 	<string name="type.boundary.protected_area.6">אזור מוגן</string>
+	<!-- Duplicates [address] in strings.txt -->
+	<string name="type.building.address">כתובת</string>
 	<string name="type.cemetery.grave">רבק</string>
 	<string name="type.craft">מְלָאכָה</string>
 	<string name="type.craft.beekeeper">כוורן</string>

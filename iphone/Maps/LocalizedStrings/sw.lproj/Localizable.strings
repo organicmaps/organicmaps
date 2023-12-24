@@ -80,8 +80,8 @@
 /* Default bookmark list name */
 "core_my_places" = "My Places";
 
-/* Editor title above street and house number */
-"address" = "Address";
+/* Editor title above street and house number, duplicates [type.building.address] in types_strings.txt */
+"address" = "Anwani";
 
 /* Settings button in system menu */
 "settings" = "Settings";
@@ -1696,7 +1696,8 @@
 
 "type.building" = "Building";
 
-"type.building.address" = "Building";
+/* Duplicates [address] in strings.txt */
+"type.building.address" = "Anwani";
 
 "type.building.has_parts" = "Building";
 

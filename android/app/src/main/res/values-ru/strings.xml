@@ -83,7 +83,7 @@
 	<string name="core_my_places">Мои Метки</string>
 	<!-- Add bookmark dialog - bookmark name -->
 	<string name="name">Название</string>
-	<!-- Editor title above street and house number -->
+	<!-- Editor title above street and house number, duplicates [type.building.address] in types_strings.txt -->
 	<string name="address">Адрес</string>
 	<!-- Add Bookmark dialog/Bookmark list; Bookmarks dialog/Bookmark list cell. -->
 	<string name="list">Список</string>
@@ -1009,7 +1009,8 @@
 	<string name="type.boundary.protected_area.5">Заповедная зона</string>
 	<string name="type.boundary.protected_area.6">Заповедная зона</string>
 	<string name="type.building">Здание</string>
-	<string name="type.building.address">Здание</string>
+	<!-- Duplicates [address] in strings.txt -->
+	<string name="type.building.address">Адрес</string>
 	<string name="type.building.has_parts">Здание</string>
 	<string name="type.building_part">Здание</string>
 	<string name="type.building.garage">Гараж</string>

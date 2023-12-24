@@ -80,7 +80,7 @@
 	<string name="core_my_places">Nire tokiak</string>
 	<!-- Add bookmark dialog - bookmark name -->
 	<string name="name">Izena</string>
-	<!-- Editor title above street and house number -->
+	<!-- Editor title above street and house number, duplicates [type.building.address] in types_strings.txt -->
 	<string name="address">Helbidea</string>
 	<!-- Add Bookmark dialog/Bookmark list; Bookmarks dialog/Bookmark list cell. -->
 	<string name="list">Zerrenda</string>
@@ -991,7 +991,8 @@
 	<string name="type.boundary.protected_area.5">Babestutako Eremua</string>
 	<string name="type.boundary.protected_area.6">Babestutako Eremua</string>
 	<string name="type.building">Eraikin</string>
-	<string name="type.building.address">Eraikin</string>
+	<!-- Duplicates [address] in strings.txt -->
+	<string name="type.building.address">Helbidea</string>
 	<string name="type.building.has_parts">Eraikin</string>
 	<string name="type.building_part">Eraikin</string>
 	<string name="type.building.garage">Garajea</string>

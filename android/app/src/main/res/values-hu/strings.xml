@@ -80,7 +80,7 @@
 	<string name="core_my_places">Saját helyeim</string>
 	<!-- Add bookmark dialog - bookmark name -->
 	<string name="name">Név</string>
-	<!-- Editor title above street and house number -->
+	<!-- Editor title above street and house number, duplicates [type.building.address] in types_strings.txt -->
 	<string name="address">Cím</string>
 	<!-- Add Bookmark dialog/Bookmark list; Bookmarks dialog/Bookmark list cell. -->
 	<string name="list">Lista</string>
@@ -910,7 +910,8 @@
 	<string name="type.boundary.protected_area.5">Védett terület</string>
 	<string name="type.boundary.protected_area.6">Védett terület</string>
 	<string name="type.building">Épület</string>
-	<string name="type.building.address">Épület</string>
+	<!-- Duplicates [address] in strings.txt -->
+	<string name="type.building.address">Cím</string>
 	<string name="type.building.has_parts">Épület</string>
 	<string name="type.building_part">Épület</string>
 	<string name="type.building.garage">Garázs</string>

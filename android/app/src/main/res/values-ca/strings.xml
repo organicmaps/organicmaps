@@ -72,7 +72,7 @@
 	<string name="core_my_places">Els meus llocs</string>
 	<!-- Add bookmark dialog - bookmark name -->
 	<string name="name">Nom</string>
-	<!-- Editor title above street and house number -->
+	<!-- Editor title above street and house number, duplicates [type.building.address] in types_strings.txt -->
 	<string name="address">Adreça</string>
 	<!-- Add Bookmark dialog/Bookmark list; Bookmarks dialog/Bookmark list cell. -->
 	<string name="list">Llista</string>
@@ -801,6 +801,8 @@
 	<string name="type.boundary.protected_area.4">Àrea Protegida</string>
 	<string name="type.boundary.protected_area.5">Àrea Protegida</string>
 	<string name="type.boundary.protected_area.6">Àrea Protegida</string>
+	<!-- Duplicates [address] in strings.txt -->
+	<string name="type.building.address">Adreça</string>
 	<string name="type.craft.caterer">Càtering</string>
 	<string name="type.craft.grinding_mill">Molí de mòlta</string>
 	<string name="type.craft.key_cutter">Tall de claus</string>

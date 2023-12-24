@@ -80,7 +80,7 @@
 	<string name="core_my_places">Locurile mele</string>
 	<!-- Add bookmark dialog - bookmark name -->
 	<string name="name">Denumire</string>
-	<!-- Editor title above street and house number -->
+	<!-- Editor title above street and house number, duplicates [type.building.address] in types_strings.txt -->
 	<string name="address">Adresă</string>
 	<!-- Add Bookmark dialog/Bookmark list; Bookmarks dialog/Bookmark list cell. -->
 	<string name="list">Listă</string>
@@ -906,7 +906,8 @@
 	<string name="type.boundary.protected_area.5">Zonă protejată</string>
 	<string name="type.boundary.protected_area.6">Zonă protejată</string>
 	<string name="type.building">Clădire</string>
-	<string name="type.building.address">Clădire</string>
+	<!-- Duplicates [address] in strings.txt -->
+	<string name="type.building.address">Adresă</string>
 	<string name="type.building.has_parts">Clădire</string>
 	<string name="type.building_part">Clădire</string>
 	<string name="type.building.garage">Garaj</string>

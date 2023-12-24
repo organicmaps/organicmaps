@@ -80,7 +80,7 @@
 	<string name="core_my_places">我的地點</string>
 	<!-- Add bookmark dialog - bookmark name -->
 	<string name="name">名稱</string>
-	<!-- Editor title above street and house number -->
+	<!-- Editor title above street and house number, duplicates [type.building.address] in types_strings.txt -->
 	<string name="address">地址</string>
 	<!-- Add Bookmark dialog/Bookmark list; Bookmarks dialog/Bookmark list cell. -->
 	<string name="list">清單</string>
@@ -929,7 +929,8 @@
 	<string name="type.boundary.protected_area.5">保護區</string>
 	<string name="type.boundary.protected_area.6">保護區</string>
 	<string name="type.building">建築物</string>
-	<string name="type.building.address">建築物</string>
+	<!-- Duplicates [address] in strings.txt -->
+	<string name="type.building.address">地址</string>
 	<string name="type.building.has_parts">建築物</string>
 	<string name="type.building_part">建築物</string>
 	<string name="type.building.garage">車庫</string>

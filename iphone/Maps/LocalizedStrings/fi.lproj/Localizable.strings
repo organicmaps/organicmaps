@@ -80,7 +80,7 @@
 /* Default bookmark list name */
 "core_my_places" = "Paikkani";
 
-/* Editor title above street and house number */
+/* Editor title above street and house number, duplicates [type.building.address] in types_strings.txt */
 "address" = "Osoite";
 
 /* Settings button in system menu */
@@ -1696,7 +1696,8 @@
 
 "type.building" = "Rakennus";
 
-"type.building.address" = "Rakennus";
+/* Duplicates [address] in strings.txt */
+"type.building.address" = "Osoite";
 
 "type.building.has_parts" = "Rakennus";
 

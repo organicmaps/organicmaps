@@ -16,6 +16,8 @@
 	<string name="about_developed_by_enthusiasts">Maombi ya chanzo-wazi iliyoundwa na wanaovutia na wanaojitolea.</string>
 	<!-- The button that opens system location settings -->
 	<string name="location_settings">Mipangilio ya mahali</string>
+	<!-- Editor title above street and house number, duplicates [type.building.address] in types_strings.txt -->
+	<string name="address">Anwani</string>
 	<!-- Header of settings activity where user defines storage path -->
 	<string name="maps_storage">Hifadhi ramani kwenye</string>
 
@@ -345,6 +347,8 @@
 	<string name="type.boundary.protected_area.4">Eneo Lindwa</string>
 	<string name="type.boundary.protected_area.5">Eneo Lindwa</string>
 	<string name="type.boundary.protected_area.6">Eneo Lindwa</string>
+	<!-- Duplicates [address] in strings.txt -->
+	<string name="type.building.address">Anwani</string>
 	<string name="type.cemetery.grave">Kaburi</string>
 	<string name="type.craft">Ufundi</string>
 	<string name="type.craft.beekeeper">Mfugaji nyuki</string>
