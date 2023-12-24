@@ -6385,7 +6385,49 @@
     zh-Hant = 建築物
 
   [type.building.address]
-    ref = type.building
+    comment = Duplicates [address] in strings.txt
+    en = Address
+    af = Adres
+    ar = العنوان
+    be = Адрас
+    bg = Адрес
+    ca = Adreça
+    cs = Adresa
+    da = Adresse
+    de = Adresse
+    el = Διεύθυνση
+    es = Dirección
+    es-MX = Dirección
+    et = Aadress
+    eu = Helbidea
+    fa = آدرس
+    fi = Osoite
+    fr = Adresse
+    he = כתובת
+    hi = पता
+    hu = Cím
+    id = Alamat
+    it = Indirizzo
+    ja = 住所
+    ko = 주소
+    lt = Adresas
+    mr = पत्ता
+    nb = Adresse
+    nl = Adres
+    pl = Adres
+    pt = Morada
+    pt-BR = Endereço
+    ro = Adresă
+    ru = Адрес
+    sk = Adresa
+    sv = Adress
+    sw = Anwani
+    th = ที่อยู่
+    tr = Adres
+    uk = Адреса
+    vi = Địa chỉ
+    zh-Hans = 地址
+    zh-Hant = 地址
 
   [type.building.has_parts]
     ref = type.building
