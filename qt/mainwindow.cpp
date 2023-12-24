@@ -221,9 +221,13 @@ MainWindow::MainWindow(Framework & framework,
   RoutingSettings::LoadSession(m_pDrawWidget->GetFramework());
 }
 
-#if defined(Q_WS_WIN)
-bool MainWindow::winEvent(MSG * msg, long * result)
+#if defined(OMIM_OS_WINDOWS)
+bool MainWindow::nativeEvent(QByteArray const & eventType, void * message, qintptr * result)
 {
+  (void)eventType;
+  (void)result;
+
+  MSG * msg = static_cast<MSG *>(message);
   if (msg->message == WM_SYSCOMMAND)
   {
     switch (msg->wParam)
@@ -238,7 +242,7 @@ bool MainWindow::winEvent(MSG * msg, long * result)
       return true;
     }
   }
-  return false;
+  return QMainWindow::nativeEvent(eventType, message, result);
 }
 #endif
 
