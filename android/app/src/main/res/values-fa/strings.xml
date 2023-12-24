@@ -168,7 +168,7 @@
 	<!-- Share by email button text, also used in editor and About. -->
 	<string name="email">ایمیل</string>
 	<!-- Text for message when used successfully copied something -->
-	<string name="copied_to_clipboard">کپی در کلیپ‌برد: %1$s</string>
+	<string name="copied_to_clipboard">کپی در کلیپ‌برد: %s</string>
 	<!-- Used for bookmark editing -->
 	<string name="done">انجام شد</string>
 	<!-- Data version in «About» screen, %@ is replaced by a local, human readable date. -->

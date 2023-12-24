@@ -190,6 +190,9 @@
 /* Share by email button text, also used in editor and About. */
 "email" = "Surel";
 
+/* Text for message when used successfully copied something */
+"copied_to_clipboard" = "Telah Disalin ke Papan Klip: %@";
+
 /* place preview title */
 "info" = "Info";
 

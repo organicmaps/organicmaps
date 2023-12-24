@@ -168,7 +168,7 @@
 	<!-- Share by email button text, also used in editor and About. -->
 	<string name="email">ई-मेल</string>
 	<!-- Text for message when used successfully copied something -->
-	<string name="copied_to_clipboard">क्लिपबोर्डावर कॉपी केले: %1$s</string>
+	<string name="copied_to_clipboard">क्लिपबोर्डावर कॉपी केले: %s</string>
 	<!-- Used for bookmark editing -->
 	<string name="done">झाले</string>
 	<!-- Data version in «About» screen, %@ is replaced by a local, human readable date. -->

@@ -190,6 +190,9 @@
 /* Share by email button text, also used in editor and About. */
 "email" = "電子郵件";
 
+/* Text for message when used successfully copied something */
+"copied_to_clipboard" = "已複製到剪貼簿：%@";
+
 /* place preview title */
 "info" = "簡介";
 
