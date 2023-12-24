@@ -101,7 +101,7 @@ void ForEachTrackFile(
     shared_ptr<routing::NumMwmIds> numMwmIds,
     std::function<void(std::string const & filename, MwmToMatchedTracks const &)> && toDo)
 {
-  Platform::EFileType fileType = Platform::FILE_TYPE_UNKNOWN;
+  Platform::EFileType fileType = Platform::EFileType::Unknown;
   Platform::EError const result = Platform::GetFileType(filepath, fileType);
 
   if (result == Platform::ERR_FILE_DOES_NOT_EXIST)
@@ -110,7 +110,7 @@ void ForEachTrackFile(
   if (result != Platform::ERR_OK)
     MYTHROW(MessageException, ("Can't get file type for", filepath, "result:", result));
 
-  if (fileType == Platform::FILE_TYPE_REGULAR)
+  if (fileType == Platform::EFileType::Regular)
   {
     MwmToMatchedTracks mwmToMatchedTracks;
     ReadTracks(numMwmIds, filepath, mwmToMatchedTracks);
@@ -118,7 +118,7 @@ void ForEachTrackFile(
     return;
   }
 
-  if (fileType == Platform::FILE_TYPE_DIRECTORY)
+  if (fileType == Platform::EFileType::Directory)
   {
     Platform::FilesList filesList;
     Platform::GetFilesRecursively(filepath, filesList);
