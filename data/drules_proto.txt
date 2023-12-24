@@ -22697,7 +22697,7 @@ cont {
     scale: 15
     lines {
       width: 1.5
-      color: 1090058488
+      color: 1721782290
       dashdot {
         dd: 5.0
         dd: 2.0
@@ -22718,7 +22718,7 @@ cont {
     scale: 16
     lines {
       width: 2.0
-      color: 1090058488
+      color: 1721782290
       dashdot {
         dd: 5.0
         dd: 2.0
@@ -22738,7 +22738,7 @@ cont {
     scale: 17
     lines {
       width: 2.4
-      color: 1090058488
+      color: 1721782290
       dashdot {
         dd: 6.0
         dd: 2.5
@@ -22758,7 +22758,7 @@ cont {
     scale: 18
     lines {
       width: 3.2
-      color: 16316664
+      color: 10506258
       dashdot {
         dd: 8.0
         dd: 3.0
@@ -22778,7 +22778,7 @@ cont {
     scale: 19
     lines {
       width: 4.2
-      color: 16316664
+      color: 10506258
       dashdot {
         dd: 10.0
         dd: 3.5
@@ -22798,7 +22798,7 @@ cont {
     scale: 20
     lines {
       width: 4.2
-      color: 16316664
+      color: 10506258
       dashdot {
         dd: 10.0
         dd: 3.5
@@ -23212,7 +23212,7 @@ cont {
     scale: 15
     lines {
       width: 1.5
-      color: 1090058488
+      color: 1721782290
       dashdot {
         dd: 5.0
         dd: 2.0
@@ -23233,7 +23233,7 @@ cont {
     scale: 16
     lines {
       width: 2.0
-      color: 1090058488
+      color: 1721782290
       dashdot {
         dd: 5.0
         dd: 2.0
@@ -23253,7 +23253,7 @@ cont {
     scale: 17
     lines {
       width: 2.4
-      color: 1090058488
+      color: 1721782290
       dashdot {
         dd: 6.0
         dd: 2.5
@@ -23273,7 +23273,7 @@ cont {
     scale: 18
     lines {
       width: 3.2
-      color: 16316664
+      color: 10506258
       dashdot {
         dd: 8.0
         dd: 3.0
@@ -23293,7 +23293,7 @@ cont {
     scale: 19
     lines {
       width: 4.2
-      color: 16316664
+      color: 10506258
       dashdot {
         dd: 10.0
         dd: 3.5
@@ -23313,7 +23313,7 @@ cont {
     scale: 20
     lines {
       width: 4.2
-      color: 16316664
+      color: 10506258
       dashdot {
         dd: 10.0
         dd: 3.5
@@ -23388,7 +23388,7 @@ cont {
     scale: 15
     lines {
       width: 1.5
-      color: 1090058488
+      color: 1721782290
       dashdot {
         dd: 5.0
         dd: 2.0
@@ -23409,7 +23409,7 @@ cont {
     scale: 16
     lines {
       width: 2.0
-      color: 1090058488
+      color: 1721782290
       dashdot {
         dd: 5.0
         dd: 2.0
@@ -23429,7 +23429,7 @@ cont {
     scale: 17
     lines {
       width: 2.4
-      color: 1090058488
+      color: 1721782290
       dashdot {
         dd: 6.0
         dd: 2.5
@@ -23449,7 +23449,7 @@ cont {
     scale: 18
     lines {
       width: 3.2
-      color: 16316664
+      color: 10506258
       dashdot {
         dd: 8.0
         dd: 3.0
@@ -23469,7 +23469,7 @@ cont {
     scale: 19
     lines {
       width: 4.2
-      color: 16316664
+      color: 10506258
       dashdot {
         dd: 10.0
         dd: 3.5
@@ -23489,7 +23489,7 @@ cont {
     scale: 20
     lines {
       width: 4.2
-      color: 16316664
+      color: 10506258
       dashdot {
         dd: 10.0
         dd: 3.5
@@ -23564,7 +23564,7 @@ cont {
     scale: 15
     lines {
       width: 1.5
-      color: 1090058488
+      color: 1721782290
       dashdot {
         dd: 5.0
         dd: 2.0
@@ -23585,7 +23585,7 @@ cont {
     scale: 16
     lines {
       width: 2.0
-      color: 1090058488
+      color: 1721782290
       dashdot {
         dd: 5.0
         dd: 2.0
@@ -23605,7 +23605,7 @@ cont {
     scale: 17
     lines {
       width: 2.4
-      color: 1090058488
+      color: 1721782290
       dashdot {
         dd: 6.0
         dd: 2.5
@@ -23625,7 +23625,7 @@ cont {
     scale: 18
     lines {
       width: 3.2
-      color: 16316664
+      color: 10506258
       dashdot {
         dd: 8.0
         dd: 3.0
@@ -23645,7 +23645,7 @@ cont {
     scale: 19
     lines {
       width: 4.2
-      color: 16316664
+      color: 10506258
       dashdot {
         dd: 10.0
         dd: 3.5
@@ -23665,7 +23665,7 @@ cont {
     scale: 20
     lines {
       width: 4.2
-      color: 16316664
+      color: 10506258
       dashdot {
         dd: 10.0
         dd: 3.5
@@ -23740,7 +23740,7 @@ cont {
     scale: 15
     lines {
       width: 1.5
-      color: 1090058488
+      color: 1721782290
       dashdot {
         dd: 5.0
         dd: 2.0
@@ -23761,7 +23761,7 @@ cont {
     scale: 16
     lines {
       width: 2.0
-      color: 1090058488
+      color: 1721782290
       dashdot {
         dd: 5.0
         dd: 2.0
@@ -23781,7 +23781,7 @@ cont {
     scale: 17
     lines {
       width: 2.4
-      color: 1090058488
+      color: 1721782290
       dashdot {
         dd: 6.0
         dd: 2.5
@@ -23801,7 +23801,7 @@ cont {
     scale: 18
     lines {
       width: 3.2
-      color: 16316664
+      color: 10506258
       dashdot {
         dd: 8.0
         dd: 3.0
@@ -23821,7 +23821,7 @@ cont {
     scale: 19
     lines {
       width: 4.2
-      color: 16316664
+      color: 10506258
       dashdot {
         dd: 10.0
         dd: 3.5
@@ -23841,7 +23841,7 @@ cont {
     scale: 20
     lines {
       width: 4.2
-      color: 16316664
+      color: 10506258
       dashdot {
         dd: 10.0
         dd: 3.5
@@ -23916,7 +23916,7 @@ cont {
     scale: 15
     lines {
       width: 1.5
-      color: 1090058488
+      color: 1721782290
       dashdot {
         dd: 5.0
         dd: 2.0
@@ -23937,7 +23937,7 @@ cont {
     scale: 16
     lines {
       width: 2.0
-      color: 1090058488
+      color: 1721782290
       dashdot {
         dd: 5.0
         dd: 2.0
@@ -23957,7 +23957,7 @@ cont {
     scale: 17
     lines {
       width: 2.4
-      color: 1090058488
+      color: 1721782290
       dashdot {
         dd: 6.0
         dd: 2.5
@@ -23977,7 +23977,7 @@ cont {
     scale: 18
     lines {
       width: 3.2
-      color: 16316664
+      color: 10506258
       dashdot {
         dd: 8.0
         dd: 3.0
@@ -23997,7 +23997,7 @@ cont {
     scale: 19
     lines {
       width: 4.2
-      color: 16316664
+      color: 10506258
       dashdot {
         dd: 10.0
         dd: 3.5
@@ -24017,7 +24017,7 @@ cont {
     scale: 20
     lines {
       width: 4.2
-      color: 16316664
+      color: 10506258
       dashdot {
         dd: 10.0
         dd: 3.5
@@ -71875,168 +71875,6 @@ cont {
     symbol {
       name: "dot-m"
       priority: 450
-    }
-  }
-}
-cont {
-  name: "psurface-unpaved_bad"
-  element {
-    scale: 14
-    lines {
-      width: 1.4
-      color: 1308425468
-      dashdot {
-        dd: 2.0
-        dd: 1.35
-      }
-      priority: 120
-      cap: BUTTCAP
-    }
-  }
-  element {
-    scale: 15
-    lines {
-      width: 1.4
-      color: 1308425468
-      dashdot {
-        dd: 2.0
-        dd: 1.35
-      }
-      priority: 120
-      cap: BUTTCAP
-    }
-  }
-  element {
-    scale: 16
-    lines {
-      width: 1.4
-      color: 1308425468
-      dashdot {
-        dd: 2.0
-        dd: 1.35
-      }
-      priority: 120
-      cap: BUTTCAP
-    }
-  }
-  element {
-    scale: 17
-    lines {
-      width: 1.4
-      color: 1308425468
-      dashdot {
-        dd: 2.0
-        dd: 1.35
-      }
-      priority: 120
-      cap: BUTTCAP
-    }
-  }
-  element {
-    scale: 18
-    lines {
-      width: 1.4
-      color: 1308425468
-      dashdot {
-        dd: 2.0
-        dd: 1.35
-      }
-      priority: 120
-      cap: BUTTCAP
-    }
-  }
-  element {
-    scale: 19
-    lines {
-      width: 1.4
-      color: 1308425468
-      dashdot {
-        dd: 2.0
-        dd: 1.35
-      }
-      priority: 120
-      cap: BUTTCAP
-    }
-  }
-}
-cont {
-  name: "psurface-unpaved_good"
-  element {
-    scale: 14
-    lines {
-      width: 1.4
-      color: 1308425468
-      dashdot {
-        dd: 2.0
-        dd: 1.35
-      }
-      priority: 120
-      cap: BUTTCAP
-    }
-  }
-  element {
-    scale: 15
-    lines {
-      width: 1.4
-      color: 1308425468
-      dashdot {
-        dd: 2.0
-        dd: 1.35
-      }
-      priority: 120
-      cap: BUTTCAP
-    }
-  }
-  element {
-    scale: 16
-    lines {
-      width: 1.4
-      color: 1308425468
-      dashdot {
-        dd: 2.0
-        dd: 1.35
-      }
-      priority: 120
-      cap: BUTTCAP
-    }
-  }
-  element {
-    scale: 17
-    lines {
-      width: 1.4
-      color: 1308425468
-      dashdot {
-        dd: 2.0
-        dd: 1.35
-      }
-      priority: 120
-      cap: BUTTCAP
-    }
-  }
-  element {
-    scale: 18
-    lines {
-      width: 1.4
-      color: 1308425468
-      dashdot {
-        dd: 2.0
-        dd: 1.35
-      }
-      priority: 120
-      cap: BUTTCAP
-    }
-  }
-  element {
-    scale: 19
-    lines {
-      width: 1.4
-      color: 1308425468
-      dashdot {
-        dd: 2.0
-        dd: 1.35
-      }
-      priority: 120
-      cap: BUTTCAP
     }
   }
 }
