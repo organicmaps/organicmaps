@@ -261,7 +261,7 @@ class CompressedBitVectorHasher
 public:
   static uint64_t Hash(CompressedBitVector const & cbv)
   {
-    uint64_t const kBase = 127;
+    static constexpr uint64_t kBase = 127;
     uint64_t hash = 0;
     CompressedBitVectorEnumerator::ForEach(cbv, [&hash](uint64_t i)
                                            {
