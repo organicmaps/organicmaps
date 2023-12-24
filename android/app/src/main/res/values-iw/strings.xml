@@ -157,7 +157,7 @@
 	<!-- Share button text which opens menu with more buttons, like Message, EMail, Facebook etc. -->
 	<string name="share">הפץ</string>
 	<!-- Text for message when used successfully copied something -->
-	<string name="copied_to_clipboard">הועתקו לזכרון זמני %1$s</string>
+	<string name="copied_to_clipboard">הועתקו לזכרון זמני %s</string>
 	<!-- Used for bookmark editing -->
 	<string name="done">בוצע</string>
 	<!-- Data version in «About» screen, %@ is replaced by a local, human readable date. -->

@@ -192,7 +192,7 @@
 	<!-- Share by email button text, also used in editor and About. -->
 	<string name="email">Email</string>
 	<!-- Text for message when used successfully copied something -->
-	<string name="copied_to_clipboard">In die Zwischenablage kopiert: %1$s</string>
+	<string name="copied_to_clipboard">In die Zwischenablage kopiert: %s</string>
 	<!-- Used for bookmark editing -->
 	<string name="done">Fertig</string>
 	<!-- Data version in «About» screen, %@ is replaced by a local, human readable date. -->

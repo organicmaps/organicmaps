@@ -193,7 +193,7 @@
 	<!-- Share by email button text, also used in editor and About. -->
 	<string name="email">Электронная пошта</string>
 	<!-- Text for message when used successfully copied something -->
-	<string name="copied_to_clipboard">Скапіравана ў буфер абмену: %1$s</string>
+	<string name="copied_to_clipboard">Скапіравана ў буфер абмену: %s</string>
 	<!-- Used for bookmark editing -->
 	<string name="done">Гатова</string>
 	<!-- Data version in «About» screen, %@ is replaced by a local, human readable date. -->

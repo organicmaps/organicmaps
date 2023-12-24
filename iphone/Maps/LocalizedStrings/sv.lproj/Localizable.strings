@@ -190,6 +190,9 @@
 /* Share by email button text, also used in editor and About. */
 "email" = "E-post";
 
+/* Text for message when used successfully copied something */
+"copied_to_clipboard" = "Kopierat till urklippsbordet: %@";
+
 /* place preview title */
 "info" = "Info";
 

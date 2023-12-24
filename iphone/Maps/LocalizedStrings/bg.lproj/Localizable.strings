@@ -190,6 +190,9 @@
 /* Share by email button text, also used in editor and About. */
 "email" = "Имейл";
 
+/* Text for message when used successfully copied something */
+"copied_to_clipboard" = "Копирано в клипборда: %@";
+
 /* place preview title */
 "info" = "Информация";
 

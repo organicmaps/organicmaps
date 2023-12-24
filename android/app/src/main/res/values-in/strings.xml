@@ -181,7 +181,7 @@
 	<!-- Share by email button text, also used in editor and About. -->
 	<string name="email">Surel</string>
 	<!-- Text for message when used successfully copied something -->
-	<string name="copied_to_clipboard">Telah Disalin ke Papan Klip: %1$s</string>
+	<string name="copied_to_clipboard">Telah Disalin ke Papan Klip: %s</string>
 	<!-- Used for bookmark editing -->
 	<string name="done">Selesai</string>
 	<!-- Data version in «About» screen, %@ is replaced by a local, human readable date. -->

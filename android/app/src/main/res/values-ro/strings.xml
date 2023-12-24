@@ -180,7 +180,7 @@
 	<!-- Share by email button text, also used in editor and About. -->
 	<string name="email">E-mail</string>
 	<!-- Text for message when used successfully copied something -->
-	<string name="copied_to_clipboard">Copiat în notițe: %1$s</string>
+	<string name="copied_to_clipboard">Copiat în notițe: %s</string>
 	<!-- Used for bookmark editing -->
 	<string name="done">Gata</string>
 	<!-- Data version in «About» screen, %@ is replaced by a local, human readable date. -->

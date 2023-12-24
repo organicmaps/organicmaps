@@ -184,7 +184,7 @@
 	<!-- Share by email button text, also used in editor and About. -->
 	<string name="email">E-post</string>
 	<!-- Text for message when used successfully copied something -->
-	<string name="copied_to_clipboard">Kopeeritud vahemällu: %1$s</string>
+	<string name="copied_to_clipboard">Kopeeritud vahemällu: %s</string>
 	<!-- Used for bookmark editing -->
 	<string name="done">Valmis</string>
 	<!-- Data version in «About» screen, %@ is replaced by a local, human readable date. -->

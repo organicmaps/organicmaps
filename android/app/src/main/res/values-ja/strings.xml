@@ -177,7 +177,7 @@
 	<!-- Share by email button text, also used in editor and About. -->
 	<string name="email">Eメール</string>
 	<!-- Text for message when used successfully copied something -->
-	<string name="copied_to_clipboard">クリップボードにコピーしました: %1$s</string>
+	<string name="copied_to_clipboard">クリップボードにコピーしました: %s</string>
 	<!-- Used for bookmark editing -->
 	<string name="done">完了</string>
 	<!-- Data version in «About» screen, %@ is replaced by a local, human readable date. -->

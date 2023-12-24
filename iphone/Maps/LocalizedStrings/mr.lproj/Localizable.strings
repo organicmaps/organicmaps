@@ -190,6 +190,9 @@
 /* Share by email button text, also used in editor and About. */
 "email" = "ई-मेल";
 
+/* Text for message when used successfully copied something */
+"copied_to_clipboard" = "क्लिपबोर्डावर कॉपी केले: %@";
+
 /* place preview title */
 "info" = "माहिती";
 
