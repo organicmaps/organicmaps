@@ -536,7 +536,7 @@ void DrapeEngine::SetModelViewListener(ModelViewChangedHandler && fn)
   m_modelViewChangedHandler = std::move(fn);
 }
 
-#if defined(OMIM_OS_MAC) || defined(OMIM_OS_LINUX)
+#if defined(OMIM_OS_DESKTOP)
 void DrapeEngine::NotifyGraphicsReady(GraphicsReadyHandler const & fn, bool needInvalidate)
 {
   m_threadCommutator->PostMessage(ThreadsCommutator::ResourceUploadThread,

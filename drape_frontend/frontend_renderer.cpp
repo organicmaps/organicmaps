@@ -330,7 +330,7 @@ void FrontendRenderer::AcceptMessage(ref_ptr<Message> message)
 #endif
         m_trafficRenderer->OnGeometryReady(GetCurrentZoom());
 
-#if defined(OMIM_OS_MAC) || defined(OMIM_OS_LINUX)
+#if defined(OMIM_OS_DESKTOP)
         if (m_graphicsStage == GraphicsStage::WaitReady)
           m_graphicsStage = GraphicsStage::WaitRendering;
 #endif
@@ -1030,7 +1030,7 @@ void FrontendRenderer::AcceptMessage(ref_ptr<Message> message)
       break;
     }
 
-#if defined(OMIM_OS_MAC) || defined(OMIM_OS_LINUX)
+#if defined(OMIM_OS_DESKTOP)
   case Message::Type::NotifyGraphicsReady:
     {
       ref_ptr<NotifyGraphicsReadyMessage> msg = message;
@@ -1527,7 +1527,7 @@ void FrontendRenderer::RenderScene(ScreenBase const & modelView, bool activeFram
                           modelView);
   }
 
-#if defined(OMIM_OS_MAC) || defined(OMIM_OS_LINUX)
+#if defined(OMIM_OS_DESKTOP)
   if (m_graphicsStage == GraphicsStage::WaitRendering)
     m_graphicsStage = GraphicsStage::Rendered;
 #endif
@@ -1796,7 +1796,7 @@ void FrontendRenderer::RenderFrame()
   m_frameData.m_forceFullRedrawNextFrame = m_overlayTree->IsNeedUpdate();
   if (canSuspend)
   {
-#if defined(OMIM_OS_MAC) || defined(OMIM_OS_LINUX)
+#if defined(OMIM_OS_DESKTOP)
     EmitGraphicsReady();
 #endif
     // Process a message or wait for a message.
@@ -2589,7 +2589,7 @@ void FrontendRenderer::EmitModelViewChanged(ScreenBase const & modelView) const
   m_modelViewChangedHandler(modelView);
 }
 
-#if defined(OMIM_OS_MAC) || defined(OMIM_OS_LINUX)
+#if defined(OMIM_OS_DESKTOP)
 void FrontendRenderer::EmitGraphicsReady()
 {
   if (m_graphicsStage == GraphicsStage::Rendered)

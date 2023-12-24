@@ -650,7 +650,7 @@ void BackendRenderer::AcceptMessage(ref_ptr<Message> message)
       break;
     }
 
-#if defined(OMIM_OS_MAC) || defined(OMIM_OS_LINUX)
+#if defined(OMIM_OS_DESKTOP)
   case Message::Type::NotifyGraphicsReady:
     {
       ref_ptr<NotifyGraphicsReadyMessage> msg = message;

@@ -138,7 +138,7 @@ public:
   using ModelViewChangedHandler = FrontendRenderer::ModelViewChangedHandler;
   void SetModelViewListener(ModelViewChangedHandler && fn);
 
-#if defined(OMIM_OS_MAC) || defined(OMIM_OS_LINUX)
+#if defined(OMIM_OS_DESKTOP)
   using GraphicsReadyHandler = FrontendRenderer::GraphicsReadyHandler;
   void NotifyGraphicsReady(GraphicsReadyHandler const & fn, bool needInvalidate);
 #endif
