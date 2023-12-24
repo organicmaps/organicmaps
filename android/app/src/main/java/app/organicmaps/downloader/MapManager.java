@@ -54,7 +54,7 @@ public final class MapManager
     void onProgress(String countryId, long localSize, long remoteSize);
   }
 
-  interface CurrentCountryChangedListener
+  public interface CurrentCountryChangedListener
   {
     // Called from JNI.
     @Keep
@@ -65,6 +65,17 @@ public final class MapManager
   private static WeakReference<AlertDialog> sCurrentErrorDialog;
 
   private MapManager() {}
+
+  @StringRes
+  public static int getErrorCodeStrRes(final int errorCode)
+  {
+    return switch (errorCode)
+    {
+      case CountryItem.ERROR_NO_INTERNET -> R.string.common_check_internet_connection_dialog;
+      case CountryItem.ERROR_OOM -> R.string.downloader_no_space_title;
+      default -> throw new IllegalArgumentException("Given error can not be displayed: " + errorCode);
+    };
+  }
 
   public static void showError(final Activity activity, final StorageCallbackData errorData,
                                @Nullable final Utils.Proc<Boolean> dialogClickListener)
@@ -85,24 +96,9 @@ public final class MapManager
         return;
     }
 
-    @StringRes int text;
-    switch (errorData.errorCode)
-    {
-    case CountryItem.ERROR_NO_INTERNET:
-      text = R.string.common_check_internet_connection_dialog;
-      break;
-
-    case CountryItem.ERROR_OOM:
-      text = R.string.downloader_no_space_title;
-      break;
-
-    default:
-      throw new IllegalArgumentException("Given error can not be displayed: " + errorData.errorCode);
-    }
-
     final AlertDialog dlg = new MaterialAlertDialogBuilder(activity, R.style.MwmTheme_AlertDialog)
         .setTitle(R.string.country_status_download_failed)
-        .setMessage(text)
+        .setMessage(getErrorCodeStrRes(errorData.errorCode))
         .setNegativeButton(R.string.cancel, (dialog, which) -> {
           sCurrentErrorDialog = null;
           if (dialogClickListener != null)

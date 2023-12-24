@@ -31,23 +31,22 @@ import app.organicmaps.bookmarks.data.MapObject;
 import app.organicmaps.bookmarks.data.Metadata;
 import app.organicmaps.car.SurfaceRenderer;
 import app.organicmaps.car.screens.base.BaseMapScreen;
+import app.organicmaps.car.screens.download.DownloadMapsScreenBuilder;
 import app.organicmaps.car.screens.settings.DrivingOptionsScreen;
 import app.organicmaps.car.util.Colors;
 import app.organicmaps.car.util.OnBackPressedCallback;
 import app.organicmaps.car.util.RoutingHelpers;
 import app.organicmaps.car.util.UiHelpers;
 import app.organicmaps.location.LocationHelper;
+import app.organicmaps.routing.ResultCodesHelper;
 import app.organicmaps.routing.RoutingController;
 import app.organicmaps.routing.RoutingInfo;
 import app.organicmaps.util.Config;
-import app.organicmaps.util.log.Logger;
 
 import java.util.Objects;
 
 public class PlaceScreen extends BaseMapScreen implements OnBackPressedCallback.Callback, RoutingController.Container
 {
-  private static final String TAG = PlaceScreen.class.getSimpleName();
-
   private static final int ROUTER_TYPE = Framework.ROUTER_TYPE_VEHICLE;
 
   @Nullable
@@ -287,11 +286,30 @@ public class PlaceScreen extends BaseMapScreen implements OnBackPressedCallback.
   @Override
   public void onCommonBuildError(int lastResultCode, @NonNull String[] lastMissingMaps)
   {
-    // TODO(AndrewShkrob): Show the download maps request
-    Logger.e(TAG, "lastResultCode: " + lastResultCode + ", lastMissingMaps: " + String.join(", ", lastMissingMaps));
-    CarToast.makeText(getCarContext(), R.string.unable_to_calc_alert_title, CarToast.LENGTH_LONG).show();
-    mIsBuildError = true;
-    invalidate();
+    if (ResultCodesHelper.isDownloadable(lastResultCode, lastMissingMaps.length))
+      getScreenManager().pushForResult(
+          new DownloadMapsScreenBuilder(getCarContext())
+              .setDownloaderType(DownloadMapsScreenBuilder.DownloaderType.BuildRoute)
+              .setMissingMaps(lastMissingMaps)
+              .setResultCode(lastResultCode)
+              .build(),
+          (result) -> {
+            if (Boolean.FALSE.equals(result))
+            {
+              CarToast.makeText(getCarContext(), R.string.unable_to_calc_alert_title, CarToast.LENGTH_LONG).show();
+              mIsBuildError = true;
+            }
+            else
+              mRoutingController.checkAndBuildRoute();
+            invalidate();
+          }
+      );
+    else
+    {
+      CarToast.makeText(getCarContext(), R.string.unable_to_calc_alert_title, CarToast.LENGTH_LONG).show();
+      mIsBuildError = true;
+      invalidate();
+    }
   }
 
   @Override

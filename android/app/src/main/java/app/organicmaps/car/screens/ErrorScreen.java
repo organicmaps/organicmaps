@@ -1,11 +1,11 @@
 package app.organicmaps.car.screens;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.annotation.StringRes;
 import androidx.car.app.CarContext;
 import androidx.car.app.model.Action;
 import androidx.car.app.model.MessageTemplate;
-import androidx.car.app.model.ParkedOnlyOnClickListener;
 import androidx.car.app.model.Template;
 
 import app.organicmaps.R;
@@ -15,15 +15,29 @@ import app.organicmaps.car.util.Colors;
 public class ErrorScreen extends BaseScreen
 {
   @StringRes
+  private final int mTitle;
+  @StringRes
   private final int mErrorMessage;
 
-  private final boolean mIsCloseable;
+  @StringRes
+  private final int mPositiveButtonText;
+  @Nullable
+  private final Runnable mPositiveButtonCallback;
+
+  @StringRes
+  private final int mNegativeButtonText;
+  @Nullable
+  private final Runnable mNegativeButtonCallback;
 
   private ErrorScreen(@NonNull Builder builder)
   {
     super(builder.mCarContext);
+    mTitle = builder.mTitle == -1 ? R.string.app_name : builder.mTitle;
     mErrorMessage = builder.mErrorMessage;
-    mIsCloseable = builder.mIsCloseable;
+    mPositiveButtonText = builder.mPositiveButtonText;
+    mPositiveButtonCallback = builder.mPositiveButtonCallback;
+    mNegativeButtonText = builder.mNegativeButtonText;
+    mNegativeButtonCallback = builder.mNegativeButtonCallback;
   }
 
   @NonNull
@@ -32,17 +46,38 @@ public class ErrorScreen extends BaseScreen
   {
     final MessageTemplate.Builder builder = new MessageTemplate.Builder(getCarContext().getString(mErrorMessage));
     builder.setHeaderAction(Action.APP_ICON);
-    builder.setTitle(getCarContext().getString(R.string.app_name));
-    if (mIsCloseable)
+    builder.setTitle(getCarContext().getString(mTitle));
+    if (mPositiveButtonText != -1)
     {
       builder.addAction(new Action.Builder()
           .setBackgroundColor(Colors.BUTTON_ACCEPT)
-          .setTitle(getCarContext().getString(R.string.close))
-          .setOnClickListener(ParkedOnlyOnClickListener.create(this::finish)).build()
+          .setTitle(getCarContext().getString(mPositiveButtonText))
+          .setOnClickListener(this::onPositiveButton).build()
+      );
+    }
+    if (mNegativeButtonText != -1)
+    {
+      builder.addAction(new Action.Builder()
+          .setTitle(getCarContext().getString(mNegativeButtonText))
+          .setOnClickListener(this::onNegativeButton).build()
       );
     }
 
     return builder.build();
+  }
+
+  private void onPositiveButton()
+  {
+    if (mPositiveButtonCallback != null)
+      mPositiveButtonCallback.run();
+    finish();
+  }
+
+  private void onNegativeButton()
+  {
+    if (mNegativeButtonCallback != null)
+      mNegativeButtonCallback.run();
+    finish();
   }
 
   public static class Builder
@@ -51,13 +86,29 @@ public class ErrorScreen extends BaseScreen
     private final CarContext mCarContext;
 
     @StringRes
+    private int mTitle = -1;
+    @StringRes
     private int mErrorMessage;
 
-    private boolean mIsCloseable;
+    @StringRes
+    private int mPositiveButtonText = -1;
+    @Nullable
+    private Runnable mPositiveButtonCallback;
+
+    @StringRes
+    private int mNegativeButtonText = -1;
+    @Nullable
+    private Runnable mNegativeButtonCallback;
 
     public Builder(@NonNull CarContext carContext)
     {
       mCarContext = carContext;
+    }
+
+    public Builder setTitle(@StringRes int title)
+    {
+      mTitle = title;
+      return this;
     }
 
     public Builder setErrorMessage(@StringRes int errorMessage)
@@ -66,9 +117,17 @@ public class ErrorScreen extends BaseScreen
       return this;
     }
 
-    public Builder setCloseable(boolean isCloseable)
+    public Builder setPositiveButton(@StringRes int text, @Nullable Runnable callback)
     {
-      mIsCloseable = isCloseable;
+      mPositiveButtonText = text;
+      mPositiveButtonCallback = callback;
+      return this;
+    }
+
+    public Builder setNegativeButton(@StringRes int text, @Nullable Runnable callback)
+    {
+      mNegativeButtonText = text;
+      mNegativeButtonCallback = callback;
       return this;
     }
 

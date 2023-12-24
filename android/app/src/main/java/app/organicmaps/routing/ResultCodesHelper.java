@@ -14,7 +14,7 @@ import app.organicmaps.location.LocationHelper;
 import java.util.ArrayList;
 import java.util.List;
 
-class ResultCodesHelper
+public class ResultCodesHelper
 {
   // Codes correspond to native routing::RouterResultCode in routing/routing_callbacks.hpp
   static final int NO_ERROR = 0;
@@ -36,7 +36,7 @@ class ResultCodesHelper
   static final int HAS_WARNINGS = 16;
 
   @NonNull
-  static ResourcesHolder getDialogTitleSubtitle(@NonNull Context context,
+  public static ResourcesHolder getDialogTitleSubtitle(@NonNull Context context,
                                                 int errorCode, int missingCount)
   {
     Resources resources = MwmApplication.from(context).getResources();
@@ -132,7 +132,7 @@ class ResultCodesHelper
         cancelBtnResId);
   }
 
-  static boolean isDownloadable(int resultCode, int missingCount)
+  public static boolean isDownloadable(int resultCode, int missingCount)
   {
     if (missingCount <= 0)
       return false;
@@ -140,6 +140,7 @@ class ResultCodesHelper
     switch (resultCode)
     {
       case INCONSISTENT_MWM_ROUTE:
+      case ROUTE_NOT_FOUND_REDRESS_ROUTE_ERROR:
       case ROUTING_FILE_NOT_EXIST:
       case NEED_MORE_MAPS:
       case ROUTE_NOT_FOUND:
@@ -150,12 +151,12 @@ class ResultCodesHelper
     return false;
   }
 
-  static boolean isMoreMapsNeeded(int resultCode)
+  public static boolean isMoreMapsNeeded(int resultCode)
   {
     return resultCode == NEED_MORE_MAPS;
   }
 
-  static class ResourcesHolder
+  public static class ResourcesHolder
   {
     @NonNull
     private final Pair<String, String> mTitleMessage;
@@ -169,12 +170,12 @@ class ResultCodesHelper
     }
 
     @NonNull
-    Pair<String, String> getTitleMessage()
+    public Pair<String, String> getTitleMessage()
     {
       return mTitleMessage;
     }
 
-    int getCancelBtnResId()
+    public int getCancelBtnResId()
     {
       return mCancelBtnResId;
     }
