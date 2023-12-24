@@ -1,6 +1,7 @@
 #include "testing/testing.hpp"
 
 #include "base/clustering_map.hpp"
+#include "base/internal/message.hpp"
 
 #include <algorithm>
 #include <sstream>
@@ -50,8 +51,8 @@ public:
     {
       ostringstream os;
       os << "Cluster [";
-      os << "keys: " << DebugPrint(cluster.m_keys) << ", ";
-      os << "values: " << DebugPrint(cluster.m_values);
+      os << "keys: " << ::DebugPrint(cluster.m_keys) << ", ";
+      os << "values: " << ::DebugPrint(cluster.m_values);
       os << "]";
       return os.str();
     }
