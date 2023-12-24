@@ -2078,7 +2078,7 @@
     zh-Hant = 名稱
 
   [address]
-    comment = Editor title above street and house number
+    comment = Editor title above street and house number, duplicates [type.building.address] in types_strings.txt
     tags = android,ios
     en = Address
     af = Adres
@@ -2091,12 +2091,14 @@
     de = Adresse
     el = Διεύθυνση
     es = Dirección
+    es-MX = Dirección
     et = Aadress
     eu = Helbidea
     fa = آدرس
     fi = Osoite
     fr = Adresse
     he = כתובת
+    hi = पता
     hu = Cím
     id = Alamat
     it = Indirizzo
@@ -2107,12 +2109,13 @@
     nb = Adresse
     nl = Adres
     pl = Adres
-    pt = Endereço
+    pt = Morada
     pt-BR = Endereço
     ro = Adresă
     ru = Адрес
     sk = Adresa
     sv = Adress
+    sw = Anwani
     th = ที่อยู่
     tr = Adres
     uk = Адреса
