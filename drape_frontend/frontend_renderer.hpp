@@ -206,7 +206,7 @@ private:
 
   void EmitModelViewChanged(ScreenBase const & modelView) const;
 
-#if defined(OMIM_OS_MAC) || defined(OMIM_OS_LINUX)
+#if defined(OMIM_OS_DESKTOP)
   void EmitGraphicsReady();
 #endif
 
@@ -416,7 +416,7 @@ private:
   bool m_firstLaunchAnimationTriggered = false;
   bool m_firstLaunchAnimationInterrupted = false;
 
-#if defined(OMIM_OS_MAC) || defined(OMIM_OS_LINUX)
+#if defined(OMIM_OS_DESKTOP)
   GraphicsReadyHandler m_graphicsReadyFn;
 
   enum class GraphicsStage

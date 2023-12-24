@@ -512,7 +512,7 @@ public:
 
   void SetViewportListener(TViewportChangedFn const & fn);
 
-#if defined(OMIM_OS_MAC) || defined(OMIM_OS_LINUX)
+#if defined(OMIM_OS_DESKTOP)
   using TGraphicsReadyFn = df::DrapeEngine::GraphicsReadyHandler;
   void NotifyGraphicsReady(TGraphicsReadyFn const & fn, bool needInvalidate);
 #endif

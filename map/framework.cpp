@@ -1014,7 +1014,7 @@ void Framework::SetViewportListener(TViewportChangedFn const & fn)
   m_viewportChangedFn = fn;
 }
 
-#if defined(OMIM_OS_MAC) || defined(OMIM_OS_LINUX)
+#if defined(OMIM_OS_DESKTOP)
 void Framework::NotifyGraphicsReady(TGraphicsReadyFn const & fn, bool needInvalidate)
 {
   if (m_drapeEngine != nullptr)
