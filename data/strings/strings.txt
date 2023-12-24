@@ -25758,7 +25758,7 @@
     zh-Hant = 更新
 
   [downloader_loading_ios]
-    tags = ios
+    tags = android,ios
     en = Downloading
     af = Laai tans af
     ar = جاري التنزيل

@@ -23,17 +23,12 @@ import java.util.List;
 
 public class RequestPermissionsScreen extends BaseScreen
 {
-  public interface PermissionsGrantedCallback
-  {
-    void onPermissionsGranted();
-  }
-
   private static final List<String> LOCATION_PERMISSIONS = Arrays.asList(ACCESS_COARSE_LOCATION, ACCESS_FINE_LOCATION);
 
   @NonNull
-  private final PermissionsGrantedCallback mPermissionsGrantedCallback;
+  private final Runnable mPermissionsGrantedCallback;
 
-  public RequestPermissionsScreen(@NonNull CarContext carContext, @NonNull PermissionsGrantedCallback permissionsGrantedCallback)
+  public RequestPermissionsScreen(@NonNull CarContext carContext, @NonNull Runnable permissionsGrantedCallback)
   {
     super(carContext);
     mPermissionsGrantedCallback = permissionsGrantedCallback;
@@ -64,25 +59,24 @@ public class RequestPermissionsScreen extends BaseScreen
     // where the user manually enabled location permissions.
     if (LocationUtils.checkFineLocationPermission(getCarContext()))
     {
-      mPermissionsGrantedCallback.onPermissionsGranted();
+      mPermissionsGrantedCallback.run();
       finish();
     }
   }
 
-  @SuppressWarnings("unused")
   private void onRequestPermissionsResult(@NonNull List<String> grantedPermissions, @NonNull List<String> rejectedPermissions)
   {
     if (grantedPermissions.isEmpty())
     {
       getScreenManager().push(new ErrorScreen.Builder(getCarContext())
           .setErrorMessage(R.string.location_is_disabled_long_text)
-          .setCloseable(true)
+          .setNegativeButton(R.string.close, null)
           .build()
       );
       return;
     }
 
-    mPermissionsGrantedCallback.onPermissionsGranted();
+    mPermissionsGrantedCallback.run();
     finish();
   }
 }
