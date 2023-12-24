@@ -258,7 +258,7 @@ void RuleDrawer::ProcessAreaAndPointStyle(FeatureType & f, Stylist const & s, TI
                   !IsBridgeOrTunnelChecker::Instance()(types);
 
     isBuildingOutline = isBuilding && hasParts && !isPart;
-    is3dBuilding = m_context->Is3dBuildingsEnabled() && (isBuilding && !isBuildingOutline);
+    is3dBuilding = isBuilding && !isBuildingOutline && m_context->Is3dBuildingsEnabled();
   }
 
   m2::PointD featureCenter;
@@ -292,16 +292,19 @@ void RuleDrawer::ProcessAreaAndPointStyle(FeatureType & f, Stylist const & s, TI
     applyPointStyle = m_globalRect.IsPointInside(featureCenter);
   }
 
+  bool const skipTriangles = isBuildingOutline && m_context->Is3dBuildingsEnabled();
+
   ApplyAreaFeature apply(m_context->GetTileKey(), insertShape, f,
                          m_currentScaleGtoP, isBuilding,
-                         m_context->Is3dBuildingsEnabled() && isBuildingOutline /* skipAreaGeometry */,
                          areaMinHeight /* minPosZ */, areaHeight /* posZ */,
                          s.GetCaptionDescription());
-  if (s.m_areaRule || s.m_hatchingRule)
-    f.ForEachTriangle(apply, m_zoomLevel);
 
-  if (apply.HasGeometry())
-    apply.ProcessAreaRules(s.m_areaRule, s.m_hatchingRule);
+  if (!skipTriangles && (s.m_areaRule || s.m_hatchingRule))
+  {
+    f.ForEachTriangle(apply, m_zoomLevel);
+    if (apply.HasGeometry())
+      apply.ProcessAreaRules(s.m_areaRule, s.m_hatchingRule);
+  }
 
   /// @todo Can we put this check in the beginning of this function?
   if (applyPointStyle && !IsDiscardCustomFeature(f.GetID()))

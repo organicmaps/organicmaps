@@ -539,12 +539,11 @@ void ApplyPointFeature::ProcessPointRules(SymbolRuleProto const * symbolRule, Ca
 
 ApplyAreaFeature::ApplyAreaFeature(TileKey const & tileKey, TInsertShapeFn const & insertShape,
                                    FeatureType & f, double currentScaleGtoP, bool isBuilding,
-                                   bool skipAreaGeometry, float minPosZ, float posZ,
+                                   float minPosZ, float posZ,
                                    CaptionDescription const & captions)
   : TBase(tileKey, insertShape, f, captions)
   , m_minPosZ(minPosZ)
   , m_isBuilding(isBuilding)
-  , m_skipAreaGeometry(skipAreaGeometry)
   , m_currentScaleGtoP(currentScaleGtoP)
 {
   m_posZ = posZ;
@@ -554,8 +553,9 @@ void ApplyAreaFeature::operator()(m2::PointD const & p1, m2::PointD const & p2, 
 {
   if (m_isBuilding)
   {
-    if (!m_skipAreaGeometry)
-      ProcessBuildingPolygon(p1, p2, p3);
+    /// @todo I suppose that we don't intersect triangles with tile rect because of _simple_
+    /// 3D and outline algo. It makes sense only if buildings have _not many_ triangles.
+    ProcessBuildingPolygon(p1, p2, p3);
     return;
   }
 
@@ -728,7 +728,7 @@ void ApplyAreaFeature::ProcessAreaRules(AreaRuleProto const * areaRule, AreaRule
   if (hatchingRule)
   {
     ASSERT_GREATER_OR_EQUAL(hatchingRule->priority(), drule::kBasePriorityFg, (m_f.DebugString()));
-    ProcessRule(*hatchingRule, areaDepth, true);
+    ProcessRule(*hatchingRule, areaDepth, true /* isHatching */);
   }
 
   if (areaRule)
@@ -736,7 +736,7 @@ void ApplyAreaFeature::ProcessAreaRules(AreaRuleProto const * areaRule, AreaRule
     // Calculate areaDepth for BG-by-size areas only.
     if (areaRule->priority() < drule::kBasePriorityBgTop)
       areaDepth = drule::CalcAreaBySizeDepth(m_f);
-    ProcessRule(*areaRule, areaDepth, false);
+    ProcessRule(*areaRule, areaDepth, false /* isHatching */);
   }
 }
 
@@ -769,7 +769,9 @@ void ApplyAreaFeature::ProcessRule(AreaRuleProto const & areaRule, double areaDe
     params.m_is3D = !outline.m_indices.empty() && calculateNormals;
   }
 
-  m_insertShape(make_unique_dp<AreaShape>(m_triangles, std::move(outline), params));
+  // see ProcessAreaRules: isHatching first, - !isHatching last.
+  m_insertShape(make_unique_dp<AreaShape>(!isHatching ? std::move(m_triangles) : m_triangles,
+                                          std::move(outline), params));
 }
 
 ApplyLineFeatureGeometry::ApplyLineFeatureGeometry(TileKey const & tileKey, TInsertShapeFn const & insertShape,
