@@ -96,9 +96,9 @@ protected:
 
   void SetLayerEnabled(LayerType type, bool enable);
 
-#if defined(Q_WS_WIN)
+#if defined(OMIM_OS_WINDOWS)
   /// to handle menu messages
-  bool winEvent(MSG * msg, long * result) override;
+  bool nativeEvent(QByteArray const & eventType, void * message, qintptr * result) override;
 #endif
 
   void closeEvent(QCloseEvent * e) override;
