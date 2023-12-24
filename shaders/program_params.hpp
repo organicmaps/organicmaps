@@ -46,9 +46,9 @@ private:
     } \
   }
 
-#define ALIGNMENT __attribute__ ((aligned(16)))
+#define ALIGNMENT alignas(16)
 
-struct MapProgramParams
+struct ALIGNMENT MapProgramParams
 {
   glsl::mat4 m_modelView;
   glsl::mat4 m_projection;
@@ -90,9 +90,9 @@ struct MapProgramParams
     Program::BookmarkAnimAboveText,
     Program::BookmarkAnimAboveTextBillboard,
     Program::BookmarkAboveTextBillboard)
-} ALIGNMENT;
+};
 
-struct RouteProgramParams
+struct ALIGNMENT RouteProgramParams
 {
   glsl::mat4 m_modelView;
   glsl::mat4 m_projection;
@@ -114,9 +114,9 @@ struct RouteProgramParams
     Program::RouteDash,
     Program::RouteArrow,
     Program::RouteMarker)
-} ALIGNMENT;
+};
 
-struct TrafficProgramParams
+struct ALIGNMENT TrafficProgramParams
 {
   glsl::mat4 m_modelView;
   glsl::mat4 m_projection;
@@ -132,9 +132,9 @@ struct TrafficProgramParams
     Program::Traffic,
     Program::TrafficLine,
     Program::TrafficCircle)
-} ALIGNMENT;
+};
 
-struct TransitProgramParams
+struct ALIGNMENT TransitProgramParams
 {
   glsl::mat4 m_modelView;
   glsl::mat4 m_projection;
@@ -147,9 +147,9 @@ struct TransitProgramParams
     Program::Transit,
     Program::TransitCircle,
     Program::TransitMarker)
-} ALIGNMENT;
+};
 
-struct GuiProgramParams
+struct ALIGNMENT GuiProgramParams
 {
   glsl::mat4 m_modelView;
   glsl::mat4 m_projection;
@@ -164,9 +164,9 @@ struct GuiProgramParams
     Program::TextOutlinedGui,
     Program::TexturingGui,
     Program::Ruler)
-} ALIGNMENT;
+};
 
-struct ShapesProgramParams
+struct ALIGNMENT ShapesProgramParams
 {
   glsl::mat4 m_modelView;
   glsl::mat4 m_projection;
@@ -182,9 +182,9 @@ struct ShapesProgramParams
     Program::Accuracy,
     Program::MyPosition,
     Program::SelectionLine)
-} ALIGNMENT;
+};
 
-struct Arrow3dProgramParams
+struct ALIGNMENT Arrow3dProgramParams
 {
   glsl::mat4 m_transform;
   glsl::mat4 m_normalTransform;
@@ -196,24 +196,24 @@ struct Arrow3dProgramParams
     Program::Arrow3dTextured,
     Program::Arrow3dShadow,
     Program::Arrow3dOutline)
-} ALIGNMENT;
+};
 
-struct DebugRectProgramParams
+struct ALIGNMENT DebugRectProgramParams
 {
   glsl::vec4 m_color;
 
   BIND_PROGRAMS(DebugRectProgramParams, Program::DebugRect)
-} ALIGNMENT;
+};
 
-struct ScreenQuadProgramParams
+struct ALIGNMENT ScreenQuadProgramParams
 {
   float m_opacity = 1.0f;
   float m_invertV = 1.0f;
 
   BIND_PROGRAMS(ScreenQuadProgramParams, Program::ScreenQuad)
-} ALIGNMENT;
+};
 
-struct SMAAProgramParams
+struct ALIGNMENT SMAAProgramParams
 {
   glsl::vec4 m_framebufferMetrics;
 
@@ -221,7 +221,7 @@ struct SMAAProgramParams
     Program::SmaaEdges,
     Program::SmaaBlendingWeight,
     Program::SmaaFinal)
-} ALIGNMENT;
+};
 
 #undef ALIGNMENT
 
