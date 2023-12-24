@@ -293,6 +293,8 @@ void RuleDrawer::ProcessAreaAndPointStyle(FeatureType & f, Stylist const & s, TI
   }
 
   bool const skipTriangles = isBuildingOutline && m_context->Is3dBuildingsEnabled();
+  if (!skipTriangles && isBuilding && f.GetTrgVerticesCount(m_zoomLevel) >= 10000)
+    isBuilding = false;
 
   ApplyAreaFeature apply(m_context->GetTileKey(), insertShape, f,
                          m_currentScaleGtoP, isBuilding,

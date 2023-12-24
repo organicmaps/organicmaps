@@ -38,10 +38,7 @@ void AreaShape::Draw(ref_ptr<dp::GraphicsContext> context, ref_ptr<dp::Batcher> 
   }
 
   if (m_params.m_is3D)
-  {
-    if (m_vertexes.size() < 10000)
-      DrawArea3D(context, batcher, colorUv, outlineUv, region.GetTexture());
-  }
+    DrawArea3D(context, batcher, colorUv, outlineUv, region.GetTexture());
   else if (m_params.m_hatching)
     DrawHatchingArea(context, batcher, colorUv, region.GetTexture(), textures->GetHatchingTexture());
   else

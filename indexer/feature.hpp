@@ -116,6 +116,11 @@ public:
   }
 
   size_t GetPointsCount() const;
+  size_t GetTrgVerticesCount(int scale)
+  {
+    ParseTriangles(scale);
+    return m_triangles.size();
+  }
 
   m2::PointD const & GetPoint(size_t i) const;
 
