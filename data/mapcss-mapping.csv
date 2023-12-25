@@ -689,9 +689,9 @@ place|continent;601;
 deprecated|deprecated;602;x
 deprecated|deprecated;603;x
 boundary|administrative|nation;[boundary=administrative][border_type=nation];;name;int_name;604;
-deprecated|deprecated;605;x
-deprecated|deprecated;606;x
-deprecated|deprecated;607;x
+piste:type|hike;605;
+piste:type|connection;606;
+piste:type|skitour;607;
 aerialway|magic_carpet;608;
 deprecated|deprecated;609;x
 deprecated|deprecated;610;x
@@ -700,7 +700,7 @@ deprecated|deprecated;612;x
 deprecated|deprecated;613;x
 deprecated|deprecated;614;x
 deprecated|deprecated;615;x
-deprecated|deprecated;616;x
+piste:type|snow_park;616;
 deprecated|deprecated;617;x
 deprecated|deprecated;618;x
 aerialway|j-bar;619;

@@ -581,6 +581,15 @@ node|z15-[landuse=railway],
 node|z15-[landuse=quarry],
 {text: name;font-size: 10;text-color: @city_label;text-position: center;}
 
+/* 7.3 University & Sport */
+
+area|z15-[piste:type=snow_park],
+{font-size: 9; text-position: center; text: name; text-color: @label_dark; text-halo-radius: 1; text-halo-opacity: 0.7; text-halo-color: @label_halo_light;}
+area|z16-17[piste:type=snow_park],
+{font-size: 10;}
+area|z18-[piste:type=snow_park],
+{font-size: 12;}
+
 /* 	7.4 Cemetery */
 
 area|z15-[landuse=cemetery],

@@ -382,6 +382,9 @@ area|z15-[sport=soccer],
 area|z16-[leisure=playground],
 {fill-color: @sport;}
 
+area|z14-[piste:type=snow_park],
+{fill-color: @piste; fill-opacity: 0.2;}
+
 /* 7.4 Cemetery */
 
 area|z14[landuse=cemetery],

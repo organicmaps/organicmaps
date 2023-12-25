@@ -393,6 +393,9 @@ piste:type-downhill-intermediate                    # line z14- (also has pathte
 piste:type-downhill-novice                          # line z14- (also has pathtext z15-)
 piste:type-nordic                                   # line z14- (also has pathtext z15-)
 piste:type-sled                                     # line z14- (also has pathtext z15-)
+piste:type-skitour
+piste:type-hike
+piste:type-connection
 === 120
 
 building:part                                       # area z16-
@@ -457,6 +460,9 @@ landuse-military                                    # area z12- (also has icon z
 landuse-military-danger_area                        # area z10- (also has icon z16-, caption(optional) z17-)
 leisure-nature_reserve                              # area z10- (also has icon z10-, caption(optional) z11-)
 === 20
+
+piste:type-snow_park
+=== 15
 
 man_made-bridge                                     # area z14-
 === 10
