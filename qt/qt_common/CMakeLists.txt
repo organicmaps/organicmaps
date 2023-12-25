@@ -33,5 +33,5 @@ target_link_libraries(${PROJECT_NAME}
   Qt6::Widgets
   Qt6::OpenGL
   Qt6::OpenGLWidgets
-  OpenGL32
+  $<$<BOOL:${PLATFORM_WIN}>:${CMAKE_CURRENT_SOURCE_DIR}OpenGL32>
 )
