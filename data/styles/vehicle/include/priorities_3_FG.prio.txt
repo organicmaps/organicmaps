@@ -240,10 +240,8 @@ highway-service-tunnel                              # line z14- (also has pathte
 
 highway-bridleway                                   # line z18-
 highway-bridleway-bridge                            # line z18-
-highway-bridleway-permissive                        # line z18-
 highway-cycleway                                    # line z18-
 highway-cycleway-bridge                             # line z18-
-highway-cycleway-permissive                         # line z18-
 highway-footway                                     # line z18-
 highway-footway-alpine_hiking                       # line z17-
 highway-footway-area                                # line z18-
@@ -264,7 +262,6 @@ highway-path-difficult_alpine_hiking                # line z17-
 highway-path-hiking                                 # line z17-
 highway-path-horse                                  # line z17-
 highway-path-mountain_hiking                        # line z17-
-highway-path-permissive                             # line z17-
 highway-pedestrian                                  # line z18-
 highway-pedestrian-area                             # line z18-
 highway-pedestrian-bridge                           # line z18-
@@ -277,7 +274,6 @@ highway-track-grade3                                # line z16-
 highway-track-grade4                                # line z16-
 highway-track-grade5                                # line z16-
 highway-track-no-access                             # line z16-
-highway-track-permissive                            # line z16-
 === 130
 
 highway-construction                                # line z13-
