@@ -94,8 +94,8 @@ line|z18-[man_made=cutline],
 {width: 8;}
 
 
-line|z16-[barrier=fence],
-line|z16-[barrier=wall],
+line|z15-[barrier=fence],
+line|z15-[barrier=wall],
 {color: @fence; width: 1; opacity: 0.7;}
 line|z17[barrier=fence],
 line|z17[barrier=wall],
@@ -104,7 +104,7 @@ line|z18-[barrier=fence],
 line|z18-[barrier=wall],
 {width: 1.5; opacity: 1;}
 
-line|z16-[barrier=ditch],
+line|z15-[barrier=ditch],
 {width: 1.8; opacity: 0.8; color: @cliff; dashes: 0.9,0.9;}
 
 /*
