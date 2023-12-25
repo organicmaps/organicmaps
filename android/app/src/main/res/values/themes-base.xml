@@ -82,10 +82,6 @@
 
     <item name="android:listDivider">@drawable/list_divider</item>
 
-    <!-- if don't override this attribute the app will be crashed on start on Android 4.xx,
-      because on old prelolipop devices vector drawables don't work correctly -->
-    <item name="homeAsUpIndicator">@drawable/back_arrow</item>
-
     <item name="transitPedestrianBackground">@color/black_4</item>
     <item name="transitRulerBackground">@color/black_4</item>
     <item name="transitStepDivider">@drawable/dot_divider</item>
@@ -217,10 +213,6 @@
     <item name="routingButtonHint">@color/routing_button_tint</item>
 
     <item name="android:listDivider">@drawable/list_divider_night</item>
-
-    <!-- if don't override this attribute the app will be crashed on start on Android 4.xx,
-      because on old prelolipop devices vector drawables don't work correctly -->
-    <item name="homeAsUpIndicator">@drawable/back_arrow</item>
 
     <item name="transitPedestrianBackground">@color/white_4</item>
     <item name="transitRulerBackground">@color/white_4</item>
