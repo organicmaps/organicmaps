@@ -14654,6 +14654,19 @@ cont {
 cont {
   name: "barrier-ditch"
   element {
+    scale: 15
+    lines {
+      width: 1.8
+      color: 863850275
+      dashdot {
+        dd: 0.9
+        dd: 0.9
+      }
+      priority: 70
+      cap: BUTTCAP
+    }
+  }
+  element {
     scale: 16
     lines {
       width: 1.8
@@ -14799,6 +14812,15 @@ cont {
 }
 cont {
   name: "barrier-fence"
+  element {
+    scale: 15
+    lines {
+      width: 1.0
+      color: 1296319556
+      priority: 320
+      cap: BUTTCAP
+    }
+  }
   element {
     scale: 16
     lines {
@@ -15604,6 +15626,15 @@ cont {
 }
 cont {
   name: "barrier-wall"
+  element {
+    scale: 15
+    lines {
+      width: 1.0
+      color: 1296319556
+      priority: 320
+      cap: BUTTCAP
+    }
+  }
   element {
     scale: 16
     lines {
@@ -129196,20 +129227,10 @@ cont {
 cont {
   name: "waterway-canal"
   element {
-    scale: 11
-    lines {
-      width: 1.0
-      color: 1711677478
-      priority: -990
-      join: BEVELJOIN
-      cap: BUTTCAP
-    }
-  }
-  element {
     scale: 12
     lines {
       width: 1.0
-      color: 1711677478
+      color: 2147885094
       priority: -990
       join: BEVELJOIN
       cap: BUTTCAP
@@ -129219,7 +129240,7 @@ cont {
     scale: 13
     lines {
       width: 1.3
-      color: 856039462
+      color: 1292247078
       priority: -990
       cap: BUTTCAP
     }
@@ -129851,7 +129872,7 @@ cont {
     scale: 13
     lines {
       width: 1.3
-      color: 856039462
+      color: 1292247078
       priority: -990
       cap: BUTTCAP
     }
@@ -130487,20 +130508,10 @@ cont {
 cont {
   name: "waterway-stream"
   element {
-    scale: 11
-    lines {
-      width: 1.0
-      color: 1711677478
-      priority: -990
-      join: BEVELJOIN
-      cap: BUTTCAP
-    }
-  }
-  element {
     scale: 12
     lines {
       width: 1.0
-      color: 1711677478
+      color: 2147885094
       priority: -990
       join: BEVELJOIN
       cap: BUTTCAP
@@ -130510,7 +130521,7 @@ cont {
     scale: 13
     lines {
       width: 1.3
-      color: 856039462
+      color: 1292247078
       priority: -990
       cap: BUTTCAP
     }
@@ -130644,7 +130655,7 @@ cont {
     scale: 13
     lines {
       width: 1.0
-      color: 856039462
+      color: 1292247078
       dashdot {
         dd: 2.7
         dd: 2.7
@@ -130810,7 +130821,7 @@ cont {
     scale: 13
     lines {
       width: 1.0
-      color: 856039462
+      color: 1292247078
       dashdot {
         dd: 2.7
         dd: 2.7

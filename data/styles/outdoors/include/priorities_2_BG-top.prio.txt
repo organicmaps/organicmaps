@@ -36,12 +36,12 @@ waterway-riverbank                                  # line z10- and area z1- (al
 === 20
 
 natural-strait                                      # line z11- (also has caption z13-)
-waterway-canal                                      # line z11- (also has pathtext z13-)
+waterway-canal                                      # line z12- (also has pathtext z13-)
 waterway-ditch                                      # line z13-
 waterway-drain                                      # line z13-
 waterway-fish_pass                                  # line z13- (also has pathtext z13-)
 waterway-river                                      # line z10- (also has pathtext z11-)
-waterway-stream                                     # line z11- (also has pathtext z13-)
+waterway-stream                                     # line z12- (also has pathtext z13-)
 waterway-stream-ephemeral                           # line z13- (also has pathtext z13-)
 waterway-stream-intermittent                        # line z13- (also has pathtext z13-)
 === 10
