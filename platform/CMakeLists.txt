@@ -183,7 +183,7 @@ if (APPLE)
   target_compile_options(${PROJECT_NAME} PRIVATE "-fobjc-arc")
 endif()
 
-if (PLATFORM_LINUX)
+if (PLATFORM_LINUX OR PLATFORM_WIN)
   set_target_properties(${PROJECT_NAME} PROPERTIES AUTOMOC ON)
 endif()
 
