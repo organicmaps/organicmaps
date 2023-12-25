@@ -339,6 +339,8 @@ line|z15-[aerialway=rope_tow],
 line|z15-[piste:type=downhill],
 line|z15-[piste:type=nordic],
 line|z15-[piste:type=sled],
+line|z15-[piste:type=hike],
+line|z15-[piste:type=skitour],
 {font-size: 9; text: name; text-color: @label_dark; text-halo-radius: 1; text-halo-opacity: 0.7; text-halo-color: @label_halo_light; text-position: line;}
 
 line|z16-17[aerialway=cable_car],
@@ -354,6 +356,8 @@ line|z16-17[aerialway=rope_tow],
 line|z16-17[piste:type=downhill],
 line|z16-17[piste:type=nordic],
 line|z16-17[piste:type=sled],
+line|z16-17[piste:type=hike],
+line|z16-17[piste:type=skitour],
 {font-size: 10;}
 
 line|z18-[aerialway=cable_car],
@@ -369,6 +373,8 @@ line|z18-[aerialway=rope_tow],
 line|z18-[piste:type=downhill],
 line|z18-[piste:type=nordic],
 line|z18-[piste:type=sled],
+line|z18-[piste:type=hike],
+line|z18-[piste:type=skitour],
 {font-size: 12;}
 
 /* 11. FERRY */

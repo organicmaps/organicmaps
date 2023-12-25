@@ -673,6 +673,9 @@ piste:type-downhill-intermediate                    # pathtext z15- (also has li
 piste:type-downhill-novice                          # pathtext z15- (also has line z14-)
 piste:type-nordic                                   # pathtext z15- (also has line z14-)
 piste:type-sled                                     # pathtext z15- (also has line z14-)
+piste:type-skitour
+piste:type-hike
+piste:type-snow_park
 === 2950
 
 natural-water-basin                                 # caption z10- (also has area z1-)

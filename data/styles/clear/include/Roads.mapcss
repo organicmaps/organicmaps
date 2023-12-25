@@ -624,6 +624,8 @@ line|z14-[highway=path],
 /* Important to be declared after ordinary [highway=footway] to avoid overriding. */
 line|z14-[highway=footway][sac_scale],
 {color: @path;opacity: 0.6;}
+line|z14-[piste:type=hike],
+{color: @piste; opacity: 0.4;}
 line|z16-[highway=pedestrian][tunnel?]
 {color: @unclassified_tunnel;casing-width: 1;casing-linecap: butt;casing-color: @unclassified_tunnel_casing; casing-opacity: 0.7;}
 line|z17-[highway=footway][tunnel?]::tunnelBackground,
@@ -791,15 +793,19 @@ line|z19-[highway=track],
 
 line|z14[highway=path],
 line|z14[highway=footway][sac_scale],
+line|z14[piste:type=hike],
 {width: 0.9; dashes: 3.5,2;}
 line|z15[highway=path],
 line|z15[highway=footway][sac_scale],
+line|z15[piste:type=hike],
 {width: 1.1; dashes: 3.5,2;}
 line|z16[highway=path],
 line|z16[highway=footway][sac_scale],
+line|z16[piste:type=hike],
 {width: 1.5; dashes: 4,2.5;}
 line|z17[highway=path],
 line|z17[highway=footway][sac_scale],
+line|z17-[piste:type=hike],
 {width: 2; dashes: 4,2.5;}
 line|z18[highway=path],
 line|z18[highway=footway][sac_scale],
@@ -1356,13 +1362,29 @@ line|z19-[power=line]::dash,
 
 /* 10.3 Piste & Route 14-22 ZOOM */
 
-line|z14-[piste:type=downhill],
 line|z14-[piste:type=nordic],
-line|z14-[piste:type=sled]
-{color: @piste;opacity: 0.6;}
+line|z14-[piste:type=skitour],
+line|z15-[piste:type=connection],
+{color: @piste; opacity: 0.6;}
+
+line|z14[piste:type=nordic],
+line|z14[piste:type=skitour],
+{width: 0.8;}
+line|z15-[piste:type=nordic],
+line|z15-[piste:type=skitour],
+line|z15-[piste:type=connection],
+{width: 1.1;}
+line|z17-[piste:type=nordic],
+line|z17-[piste:type=skitour],
+line|z17-[piste:type=connection],
+{width: 1.5;}
+
+line|z14-[piste:type=downhill],
+line|z14-[piste:type=sled],
+{color: @piste; opacity: 0.5;}
 
 line|z14-[piste:type=downhill][piste:difficulty=novice]
-{color: @piste_novice;}
+{color: @piste_novice; opacity: 0.7;}
 line|z14-[piste:type=downhill][piste:difficulty=easy]
 {color: @piste_easy;}
 line|z14-[piste:type=downhill][piste:difficulty=intermediate]
@@ -1374,39 +1396,16 @@ line|z14-[piste:type=downhill][piste:difficulty=expert],
 line|z14-[piste:type=downhill][piste:difficulty=freeride],
 {color: @piste_freeride;}
 
+
 line|z14[piste:type=downhill],
-line|z14[piste:type=nordic],
 line|z14[piste:type=sled],
-{width: 0.8;}
-line|z14-[piste:type=downhill][piste:difficulty=novice],
-line|z14-[piste:type=downhill][piste:difficulty=easy],
-line|z14-[piste:type=downhill][piste:difficulty=intermediate],
-line|z14-[piste:type=downhill][piste:difficulty=advanced],
-line|z14-[piste:type=downhill][piste:difficulty=expert],
-line|z14-[piste:type=downhill][piste:difficulty=freeride],
-{width: 1;}
-line|z15-[piste:type=downhill][piste:difficulty=novice],
-line|z15-[piste:type=downhill][piste:difficulty=easy],
-line|z15-[piste:type=downhill][piste:difficulty=intermediate],
-line|z15-[piste:type=downhill][piste:difficulty=advanced],
-line|z15-[piste:type=downhill][piste:difficulty=expert],
-line|z15-[piste:type=downhill][piste:difficulty=freeride],
-{width: 1.6;}
+{width: 1; opacity: 0.4;}
 line|z15-[piste:type=downhill],
 line|z15-[piste:type=sled],
-line|z15-[piste:type=nordic],
-{width: 1.1;}
-line|z17-[piste:type=downhill][piste:difficulty=novice],
-line|z17-[piste:type=downhill][piste:difficulty=easy],
-line|z17-[piste:type=downhill][piste:difficulty=intermediate],
-line|z17-[piste:type=downhill][piste:difficulty=advanced],
-line|z17-[piste:type=downhill][piste:difficulty=expert],
-line|z17-[piste:type=downhill][piste:difficulty=freeride],
-{width: 1.8;}
+{width: 1.6;}
 line|z17-[piste:type=downhill],
 line|z17-[piste:type=sled],
-line|z17-[piste:type=nordic],
-{width: 1.5;}
+{width: 1.8;}
 
 /* 11. FERRY */
 
