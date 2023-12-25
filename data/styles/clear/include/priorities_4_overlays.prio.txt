@@ -653,7 +653,6 @@ highway-residential-tunnel::shield                  # shield::shield z15- (also 
 
 highway-cycleway                                    # pathtext z15- (also has line z13-)
 highway-cycleway-bridge                             # pathtext z15- (also has line z13-, line::bridgeblack z17-, line::bridgewhite z15-)
-highway-cycleway-permissive                         # pathtext z15- (also has line z13-)
 highway-cycleway-tunnel                             # pathtext z15- (also has line z13-, line::tunnelBackground z17-, line::tunnelCasing z17-)
 === 2953
 
@@ -710,7 +709,6 @@ highway-path-difficult_alpine_hiking                # pathtext z15- (also has li
 highway-path-hiking                                 # pathtext z15- (also has line z14-)
 highway-path-horse                                  # pathtext z15- (also has line z14-)
 highway-path-mountain_hiking                        # pathtext z15- (also has line z14-)
-highway-path-permissive                             # pathtext z15- (also has line z14-)
 highway-path-tunnel                                 # pathtext z15- (also has line z14-, line::tunnelBackground z17-, line::tunnelCasing z17-)
 === 2820
 
@@ -721,7 +719,6 @@ highway-steps-tunnel                                # pathtext z16- (also has li
 
 highway-bridleway                                   # pathtext z15- (also has line z14-)
 highway-bridleway-bridge                            # pathtext z15- (also has line z14-, line::bridgeblack z17-, line::bridgewhite z15-)
-highway-bridleway-permissive                        # pathtext z15- (also has line z14-)
 highway-bridleway-tunnel                            # pathtext z15- (also has line z14-, line::tunnelBackground z17-, line::tunnelCasing z17-)
 === 2790
 
@@ -734,7 +731,6 @@ highway-track-grade3                                # pathtext z15- (also has li
 highway-track-grade4                                # pathtext z15- (also has line z14-)
 highway-track-grade5                                # pathtext z15- (also has line z14-)
 highway-track-no-access                             # pathtext z15- (also has line z14-)
-highway-track-permissive                            # pathtext z15- (also has line z14-)
 highway-track-tunnel                                # pathtext z15- (also has line z14-, line::tunnelBackground z17-, line::tunnelCasing z17-)
 === 2780
 

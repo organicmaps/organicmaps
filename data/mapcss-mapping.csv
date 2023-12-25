@@ -229,7 +229,7 @@ natural|water|river;[natural=water][water=river];;name;int_name;149;
 railway|tram;150;
 amenity|toilets;151;
 natural|water|basin;[natural=water][water=basin];;name;int_name;152;
-deprecated:highway|footway|permissive:11.2023;[highway=footway][access=permissive],[highway=footway][foot=permissive];x;name;int_name;153;highway|footway
+deprecated:highway|footway|permissive:12.2023;[highway=footway][access=permissive],[highway=footway][foot=permissive];x;name;int_name;153;highway|footway
 leisure|picnic_table;154;
 landuse|construction;155;
 tourism|viewpoint;156;
@@ -306,7 +306,7 @@ sport|baseball;225;
 highway|service|area;[highway=service][area?];;name;int_name;226;
 highway|residential|area;[highway=residential][area?];;name;int_name;227;
 amenity|bus_station;228;
-highway|track|permissive;[highway=track][access=permissive];;name;int_name;229;
+deprecated:highway|track|permissive:12.2023;[highway=track][access=permissive];x;name;int_name;229;highway|track
 waterway|drain|tunnel;[waterway=drain][tunnel?];;name;int_name;230;
 landuse|cemetery|christian;[landuse=cemetery][religion=christian];;name;int_name;231;
 highway|cycleway|tunnel;[highway=cycleway][tunnel?];;name;int_name;232;
@@ -317,7 +317,7 @@ amenity|recycling|centre;[amenity=recycling][recycling_type=centre];;name;int_na
 amenity|recycling;237;
 highway|residential|tunnel;[highway=residential][tunnel?];;name;int_name;238;
 aeroway|helipad;239;
-highway|path|permissive;[highway=path][access=permissive];;name;int_name;240;
+deprecated:highway|path|permissive:12.2023;[highway=path][access=permissive];x;name;int_name;240;highway|path
 place|islet;241;
 sport|basketball;242;
 amenity|cinema;243;
@@ -434,7 +434,7 @@ place|country;349;
 highway|path|alpine_hiking;[highway=path][sac_scale=alpine_hiking];;name;int_name;350;
 tourism|zoo|petting;[tourism=zoo][zoo=petting_zoo];;name;int_name;351;
 sport|scuba_diving;352;
-highway|cycleway|permissive;[highway=cycleway][access=permissive];;name;int_name;353;
+deprecated:highway|cycleway|permissive:12.2023;[highway=cycleway][access=permissive];x;name;int_name;353;highway|cycleway
 highway|unclassified|area;[highway=unclassified][area?];;name;int_name;354;
 natural|volcano;355;
 amenity|parking|underground|fee;[amenity=parking][location=underground][fee],[amenity=parking][parking=underground][fee];;name;int_name;356;
@@ -452,7 +452,7 @@ piste:type|downhill|novice;[piste:type=downhill][piste:difficulty=novice];;name;
 railway|narrow_gauge|bridge;[railway=narrow_gauge][bridge?];;name;int_name;367;
 amenity|parking|lane;[amenity=parking][parking=lane];;name;int_name;368;
 railway|rail|main|tunnel;[railway=rail][usage=main][!highspeed][!service][tunnel?];;name;int_name;369;
-highway|bridleway|permissive;[highway=bridleway][access=permissive];;name;int_name;370;
+deprecated:highway|bridleway|permissive:12.2023;[highway=bridleway][access=permissive];x;name;int_name;370;highway|bridleway
 railway|construction;371;
 railway|rail|branch|bridge;[railway=rail][usage=branch][!highspeed][!service][bridge?],[railway=rail][!usage][!service][!highspeed][bridge?];;name;int_name;372;
 landuse|greenhouse_horticulture;373;
