@@ -693,6 +693,9 @@ highway-ford                                        # icon z14- and pathtext z16
 natural-rock                                        # icon z15-
 === 2850
 
+highway-bridleway                                   # pathtext z15- (also has line z14-)
+highway-bridleway-bridge                            # pathtext z15- (also has line z14-, line::bridgeblack z17-, line::bridgewhite z15-)
+highway-bridleway-tunnel                            # pathtext z15- (also has line z14-, line::tunnelBackground z17-, line::tunnelCasing z17-)
 highway-footway-alpine_hiking                       # pathtext z15- (also has line z11-)
 highway-footway-demanding_alpine_hiking             # pathtext z15- (also has line z11-)
 highway-footway-demanding_mountain_hiking           # pathtext z15- (also has line z11-)
@@ -716,11 +719,6 @@ highway-steps                                       # pathtext z16- (also has li
 highway-steps-bridge                                # pathtext z16- (also has line z15-, line::bridgeblack z17-, line::bridgewhite z15-)
 highway-steps-tunnel                                # pathtext z16- (also has line z15-, line::tunnelBackground z17-, line::tunnelCasing z17-)
 === 2810
-
-highway-bridleway                                   # pathtext z15- (also has line z14-)
-highway-bridleway-bridge                            # pathtext z15- (also has line z14-, line::bridgeblack z17-, line::bridgewhite z15-)
-highway-bridleway-tunnel                            # pathtext z15- (also has line z14-, line::tunnelBackground z17-, line::tunnelCasing z17-)
-=== 2790
 
 highway-track                                       # pathtext z13- (also has line z11-)
 highway-track-area                                  # pathtext z13- (also has line z11-)
