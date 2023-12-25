@@ -16,6 +16,7 @@ import app.organicmaps.R;
 import app.organicmaps.car.SurfaceRenderer;
 import app.organicmaps.car.screens.base.BaseMapScreen;
 import app.organicmaps.car.screens.search.SearchScreen;
+import app.organicmaps.car.util.SuggestionsHelpers;
 import app.organicmaps.car.util.UiHelpers;
 
 public class MapScreen extends BaseMapScreen
@@ -29,6 +30,8 @@ public class MapScreen extends BaseMapScreen
   @Override
   public Template onGetTemplate()
   {
+    SuggestionsHelpers.updateSuggestions(getCarContext());
+
     final MapTemplate.Builder builder = new MapTemplate.Builder();
     builder.setHeader(createHeader());
     builder.setMapController(UiHelpers.createMapController(getCarContext(), getSurfaceRenderer()));
