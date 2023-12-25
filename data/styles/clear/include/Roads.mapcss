@@ -1366,19 +1366,17 @@ line|z14-[piste:type=downhill][piste:difficulty=novice]
 line|z14-[piste:type=downhill][piste:difficulty=easy]
 {color: @piste_easy;}
 line|z14-[piste:type=downhill][piste:difficulty=intermediate]
-{color: @piste_intermadiate;}
+{color: @piste_intermediate;}
 line|z14-[piste:type=downhill][piste:difficulty=advanced]
 {color: @piste_advanced;}
 line|z14-[piste:type=downhill][piste:difficulty=expert],
-line|z14-[piste:type=downhill][piste:difficulty=freeride]
 {color: @piste_expert;}
+line|z14-[piste:type=downhill][piste:difficulty=freeride],
+{color: @piste_freeride;}
 
 line|z14[piste:type=downhill],
 line|z14[piste:type=nordic],
 line|z14[piste:type=sled],
-/*
-line|z14[leisure=skiing]
-*/
 {width: 0.8;}
 line|z14-[piste:type=downhill][piste:difficulty=novice],
 line|z14-[piste:type=downhill][piste:difficulty=easy],
@@ -1397,9 +1395,6 @@ line|z15-[piste:type=downhill][piste:difficulty=freeride],
 line|z15-[piste:type=downhill],
 line|z15-[piste:type=sled],
 line|z15-[piste:type=nordic],
-/*
-line|z15-[leisure=skiing]
-*/
 {width: 1.1;}
 line|z17-[piste:type=downhill][piste:difficulty=novice],
 line|z17-[piste:type=downhill][piste:difficulty=easy],
@@ -1411,9 +1406,6 @@ line|z17-[piste:type=downhill][piste:difficulty=freeride],
 line|z17-[piste:type=downhill],
 line|z17-[piste:type=sled],
 line|z17-[piste:type=nordic],
-/*
-line|z17-[leisure=skiing]
-*/
 {width: 1.5;}
 
 /* 11. FERRY */

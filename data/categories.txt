@@ -14793,7 +14793,7 @@ uk:5Пристань|3Марина
 zh-Hans:游艇码头
 
 piste:type-downhill|piste:type-nordic
-en:3Skiing|Ski run
+en:Skiing|3Ski run|4Piste
 ar:التزلج|مسار التزلج
 be:Лыжы|Лыжная траса
 bg:Ски|Ски писта
@@ -14820,7 +14820,7 @@ nl:Skiën|Skipiste
 pl:Narciarstwo|Stok narciarski
 pt:Esquiar|Pista de esqui
 ro:Schi|Pârtie de schi
-ru:Лыжи|Лыжная трасса
+ru:Лыжи|3Лыжная трасса|4Горнолыжная трасса
 sk:Lyžovanie|Lyžiarsky svah
 sv:Skidåkning|Skidspår
 sw:Skiing|Mbio za kuteleza

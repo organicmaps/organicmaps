@@ -138,9 +138,10 @@
 @piste: #C47AFF;
 @piste_novice:#5feb2e;
 @piste_easy: #0b27fb;
-@piste_intermadiate: #fc0e1b;
-@piste_expert: #220625;
+@piste_intermediate: #fc0e1b;
 @piste_advanced: #0a0a0d;
+@piste_expert: #220625;
+@piste_freeride: #EEA500;
 
 /* 5.5 Transport */
 
