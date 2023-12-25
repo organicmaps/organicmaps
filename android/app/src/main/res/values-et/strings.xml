@@ -711,6 +711,7 @@
 	<string name="elevation_profile_distance">Kaugus:</string>
 	<string name="elevation_profile_time">Aeg:</string>
 	<string name="isolines_toast_zooms_1_10">Isojoonte sirvimiseks suurenda kaarti</string>
+	<string name="downloader_loading_ios">Allalaadimine</string>
 	<string name="download_map_title">Maailma kaardi allalaadimine</string>
 	<!-- Used in DownloadResources startup screen -->
 	<string name="disk_error">Seadme sisemällu või mälukaardile ei saa kausta luua ja faile teisaldada</string>

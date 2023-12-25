@@ -702,6 +702,7 @@
 	<string name="elevation_profile_distance">Táv.:</string>
 	<string name="elevation_profile_time">Idő</string>
 	<string name="isolines_toast_zooms_1_10">Nagyítás az isovonalak felfedezéséhez</string>
+	<string name="downloader_loading_ios">Letöltés</string>
 	<string name="enable_keep_screen_on">Tartsa a képernyőt bekapcsolva</string>
 	<!-- Description in preferences -->
 	<string name="enable_keep_screen_on_description">Ha engedélyezve van, a képernyő mindig be lesz kapcsolva a térkép megjelenítésekor.</string>

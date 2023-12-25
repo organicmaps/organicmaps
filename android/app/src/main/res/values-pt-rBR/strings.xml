@@ -696,6 +696,7 @@
 	<string name="elevation_profile_distance">Dist.:</string>
 	<string name="elevation_profile_time">Tempo:</string>
 	<string name="isolines_toast_zooms_1_10">Use o zoom para explorar as isolinhas</string>
+	<string name="downloader_loading_ios">Baixando</string>
 	<string name="download_map_title">Baixar mapa mundial</string>
 	<!-- Used in DownloadResources startup screen -->
 	<string name="disk_error">Não foi possível criar a pasta e mover os arquivos à memória interna ou sdcard do dispositivo</string>

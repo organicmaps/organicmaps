@@ -687,6 +687,7 @@
 	<string name="elevation_profile_distance">거리:</string>
 	<string name="elevation_profile_time">소비 시간:</string>
 	<string name="isolines_toast_zooms_1_10">등치선 탐색을 위한 확대</string>
+	<string name="downloader_loading_ios">다운로드 중</string>
 	<string name="enable_keep_screen_on">화면 켜짐 유지</string>
 	<!-- Description in preferences -->
 	<string name="enable_keep_screen_on_description">활성화하면 지도를 표시할 때 화면이 항상 켜져 있습니다.</string>

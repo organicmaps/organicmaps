@@ -689,6 +689,7 @@
 	<string name="elevation_profile_distance">ระยะทาง</string>
 	<string name="elevation_profile_time">เวลา:</string>
 	<string name="isolines_toast_zooms_1_10">ขยายเข้าเพื่อสำรวจเส้นชั้นความสูง</string>
+	<string name="downloader_loading_ios">การดาวน์โหลด</string>
 	<string name="enable_keep_screen_on">เปิดหน้าจอไว้</string>
 	<!-- Description in preferences -->
 	<string name="enable_keep_screen_on_description">เมื่อเปิดใช้งาน หน้าจอจะเปิดอยู่เสมอเมื่อแสดงแผนที่</string>

@@ -749,6 +749,7 @@
 	<string name="elevation_profile_distance">Dist.:</string>
 	<string name="elevation_profile_time">Time:</string>
 	<string name="isolines_toast_zooms_1_10">Zoom in to explore isolines</string>
+	<string name="downloader_loading_ios">Downloading</string>
 	<string name="download_map_title">Download the world map</string>
 	<!-- Used in DownloadResources startup screen -->
 	<string name="disk_error">Unable to create folder and move files on internal device\'s memory or sdcard</string>

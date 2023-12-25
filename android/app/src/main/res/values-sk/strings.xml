@@ -687,6 +687,7 @@
 	<string name="elevation_profile_distance">Vzdial.:</string>
 	<string name="elevation_profile_time">Čas:</string>
 	<string name="isolines_toast_zooms_1_10">Priblížením preskúmajte izočiary</string>
+	<string name="downloader_loading_ios">Sťahovanie</string>
 	<string name="enable_keep_screen_on">Ponechajte obrazovku zapnutú</string>
 	<!-- Description in preferences -->
 	<string name="enable_keep_screen_on_description">Ak je táto funkcia zapnutá, obrazovka bude pri zobrazovaní mapy vždy zapnutá.</string>

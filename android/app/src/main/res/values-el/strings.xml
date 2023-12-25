@@ -681,6 +681,7 @@
 	<string name="elevation_profile_distance">Απόστ.:</string>
 	<string name="elevation_profile_time">Διαρκ:</string>
 	<string name="isolines_toast_zooms_1_10">Μεγεθύνετε για να δείτε περιγράμματα</string>
+	<string name="downloader_loading_ios">Φόρτωση</string>
 	<string name="enable_keep_screen_on">Κρατήστε την οθόνη ανοιχτή</string>
 	<!-- Description in preferences -->
 	<string name="enable_keep_screen_on_description">Όταν είναι ενεργοποιημένη, η οθόνη θα είναι πάντα αναμμένη όταν εμφανίζεται ο χάρτης.</string>

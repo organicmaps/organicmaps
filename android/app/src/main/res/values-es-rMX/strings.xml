@@ -197,6 +197,7 @@
 	<string name="elevation_profile_distance">Distancia:</string>
 	<string name="elevation_profile_time">Lapso:</string>
 	<string name="isolines_toast_zooms_1_10">Amplíe el mapa para ver las isolíneas</string>
+	<string name="downloader_loading_ios">Cargando</string>
 	<string name="enable_keep_screen_on">Mantener la pantalla encendida</string>
 	<!-- Description in preferences -->
 	<string name="enable_keep_screen_on_description">Cuando está habilitado, la pantalla siempre estará encendida cuando se muestre el mapa.</string>

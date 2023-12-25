@@ -717,6 +717,7 @@
 	<string name="elevation_profile_distance">Afst.:</string>
 	<string name="elevation_profile_time">Op weg</string>
 	<string name="isolines_toast_zooms_1_10">Zoom in om hoogtelijnen te bekijken</string>
+	<string name="downloader_loading_ios">Downloaden</string>
 	<string name="download_map_title">Download de wereldkaart</string>
 	<!-- Used in DownloadResources startup screen -->
 	<string name="disk_error">Het lukt niet om een map aan te maken en bestanden naar het interne geheugen of een SD-kaart te verplaatsen</string>

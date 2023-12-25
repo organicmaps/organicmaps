@@ -698,6 +698,7 @@
 	<string name="elevation_profile_distance">Distância:</string>
 	<string name="elevation_profile_time">Tempo:</string>
 	<string name="isolines_toast_zooms_1_10">Amplie o mapa para ver as curvas de nível</string>
+	<string name="downloader_loading_ios">A descarregar</string>
 	<string name="download_map_title">Descarregar o mapa mundial</string>
 	<!-- Used in DownloadResources startup screen -->
 	<string name="connection_failure">Falha na coneção</string>
