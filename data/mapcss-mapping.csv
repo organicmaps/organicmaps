@@ -546,7 +546,7 @@ deprecated|deprecated;459;x
 deprecated|deprecated;460;x
 sport|handball;461;
 boundary|administrative|city;[boundary=administrative][border_type=city];;name;int_name;462;
-piste:type|downhill|freeride;[piste:type=downhill][piste:difficulty=freeride];;name;int_name;463;
+piste:type|downhill|freeride;[piste:type=downhill][piste:difficulty=freeride],[piste:type=downhill][piste:grooming=backcountry][!piste:difficulty];;name;int_name;463;
 deprecated|deprecated;464;x
 deprecated|deprecated;465;x
 piste:type|downhill|expert;[piste:type=downhill][piste:difficulty=expert];;name;int_name;466;
