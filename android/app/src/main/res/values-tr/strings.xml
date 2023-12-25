@@ -720,6 +720,7 @@
 	<string name="elevation_profile_distance">Mesafe:</string>
 	<string name="elevation_profile_time">Süre:</string>
 	<string name="isolines_toast_zooms_1_10">İzohipsleri görmek için haritayı büyütün</string>
+	<string name="downloader_loading_ios">İndiriliyor</string>
 	<string name="download_map_title">Dünya haritasını indir</string>
 	<!-- Used in DownloadResources startup screen -->
 	<string name="disk_error">Dahili aygıtın belleğinde veya SD kartta klasör oluşturulamıyor ve dosyalar taşınamıyor</string>

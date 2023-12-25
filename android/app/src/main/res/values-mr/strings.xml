@@ -686,6 +686,7 @@
 	<string name="elevation_profile_distance">अंतर.:</string>
 	<string name="elevation_profile_time">वेळ:</string>
 	<string name="isolines_toast_zooms_1_10">समोच्च रेषा पाहायला नकाशा विशाल (झूम) करा</string>
+	<string name="downloader_loading_ios">डाउनलोड करत आहे</string>
 	<string name="download_map_title">जगाचा नकाशा डाउनलोड करा</string>
 	<!-- Used in DownloadResources startup screen -->
 	<string name="disk_error">उपकरणाच्या अंतर्गत मेमरी किंवा SD-card वर फोल्डर तयार करण्यात आणि फायली हलविण्यात अक्षम</string>

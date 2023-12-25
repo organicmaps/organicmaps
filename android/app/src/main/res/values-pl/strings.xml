@@ -722,6 +722,7 @@
 	<string name="elevation_profile_distance">Odległ.:</string>
 	<string name="elevation_profile_time">Trasa:</string>
 	<string name="isolines_toast_zooms_1_10">Powiększ mapę, aby zobaczyć poziomice</string>
+	<string name="downloader_loading_ios">Pobieranie</string>
 	<string name="download_map_title">Pobierz mapę świata</string>
 	<!-- Used in DownloadResources startup screen -->
 	<string name="disk_error">Nie udało się stworzyć folderu i przenieść plików do pamięci wewnętrznej lub karty SD</string>

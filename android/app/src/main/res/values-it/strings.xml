@@ -707,6 +707,7 @@
 	<string name="elevation_profile_distance">Dist.:</string>
 	<string name="elevation_profile_time">Tempo:</string>
 	<string name="isolines_toast_zooms_1_10">Ingrandisci mappa per vedere l\'isolinea</string>
+	<string name="downloader_loading_ios">Download in corso</string>
 	<string name="download_map_title">Scarica la mappa del mondo</string>
 	<!-- Used in DownloadResources startup screen -->
 	<string name="connection_failure">Errore di connessione</string>

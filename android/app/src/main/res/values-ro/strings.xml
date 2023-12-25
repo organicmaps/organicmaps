@@ -705,6 +705,7 @@
 	<string name="elevation_profile_distance">Dist.:</string>
 	<string name="elevation_profile_time">Timp:</string>
 	<string name="isolines_toast_zooms_1_10">Mărește harta pentru a vedea izoliniile</string>
+	<string name="downloader_loading_ios">Se descarcă</string>
 	<string name="download_map_title">Descarcă harta lumii</string>
 	<!-- Used in DownloadResources startup screen -->
 	<string name="connection_failure">Eroare de conectare</string>

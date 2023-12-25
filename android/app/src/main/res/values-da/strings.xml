@@ -690,6 +690,7 @@
 	<string name="elevation_profile_distance">Afs.:</string>
 	<string name="elevation_profile_time">Tid:</string>
 	<string name="isolines_toast_zooms_1_10">Zoom ind for at udforske isolinjekort</string>
+	<string name="downloader_loading_ios">Downloader</string>
 	<string name="enable_keep_screen_on">Hold skærmen tændt</string>
 	<!-- Description in preferences -->
 	<string name="enable_keep_screen_on_description">Når den er aktiveret, vil skærmen altid være tændt, når kortet vises.</string>

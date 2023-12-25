@@ -724,6 +724,7 @@
 	<string name="elevation_profile_distance">Відст.:</string>
 	<string name="elevation_profile_time">Шлях:</string>
 	<string name="isolines_toast_zooms_1_10">Збільште мапу, щоб побачити ізолінії</string>
+	<string name="downloader_loading_ios">Завантаження</string>
 	<string name="download_map_title">Завантажити карту світу</string>
 	<!-- Used in DownloadResources startup screen -->
 	<string name="disk_error">Неможливо створити папку та перемістити файли до внутрішньої памʼяті або SD карти</string>

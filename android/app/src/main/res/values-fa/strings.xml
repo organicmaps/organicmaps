@@ -688,6 +688,7 @@
 	<string name="elevation_profile_distance">مسافت</string>
 	<string name="elevation_profile_time">زمان:</string>
 	<string name="isolines_toast_zooms_1_10">برای بررسی خطوط تراز زوم کنید</string>
+	<string name="downloader_loading_ios">در حال دانلود</string>
 	<string name="enable_keep_screen_on">صفحه نمایش را روشن بگذارید</string>
 	<!-- Description in preferences -->
 	<string name="enable_keep_screen_on_description">وقتی فعال باشد، هنگام نمایش نقشه، صفحه همیشه روشن خواهد بود.</string>

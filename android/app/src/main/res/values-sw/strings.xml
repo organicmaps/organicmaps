@@ -251,6 +251,7 @@
 	<string name="elevation_profile_distance">Umbali:</string>
 	<string name="elevation_profile_time">Muda:</string>
 	<string name="isolines_toast_zooms_1_10">Vuta karibu kutalii mistari ya kontua</string>
+	<string name="downloader_loading_ios">Inapakua</string>
 	<string name="enable_keep_screen_on">Washa skrini</string>
 	<!-- Description in preferences -->
 	<string name="enable_keep_screen_on_description">Ikiwashwa, skrini itakuwa imewashwa wakati wa kuonyesha ramani.</string>

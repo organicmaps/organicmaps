@@ -688,6 +688,7 @@
 	<string name="elevation_profile_distance">Khoảng cách</string>
 	<string name="elevation_profile_time">Giờ:</string>
 	<string name="isolines_toast_zooms_1_10">Phóng bản đồ để nhìn rõ đường đồng mức</string>
+	<string name="downloader_loading_ios">Tải xuống</string>
 	<string name="enable_keep_screen_on">Giữ màn hình luôn bật</string>
 	<!-- Description in preferences -->
 	<string name="enable_keep_screen_on_description">Khi được bật, màn hình sẽ luôn sáng khi hiển thị bản đồ.</string>
