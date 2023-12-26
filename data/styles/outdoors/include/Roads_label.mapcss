@@ -30,3 +30,14 @@ line|z16-[highway=steps],
 line|z16-[highway=bridleway],
 line|z16-[highway=cycleway],
 {font-size: 12; text-color: @label_medium; text-halo-color: @label_halo_light;}
+
+
+line|z13-[piste:type=nordic],
+line|z13-[piste:type=hike],
+line|z13-[piste:type=skitour],
+{text: name; text-position: line; text-color: @label_light; text-halo-opacity: 0.8; text-halo-radius: 1; text-halo-color: @label_halo_medium;}
+
+line|z13-14[piste:type=nordic],
+line|z13-14[piste:type=hike],
+line|z13-14[piste:type=skitour],
+{font-size: 9;}

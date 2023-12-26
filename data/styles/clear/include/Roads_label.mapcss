@@ -377,6 +377,11 @@ line|z18-[piste:type=hike],
 line|z18-[piste:type=skitour],
 {font-size: 12;}
 
+/* No captions for areal ski runs as they're supposed to have a labelled centerline. */
+area|z15-[piste:type=downhill][area],
+area|z15-[piste:type=sled][area],
+{text: none;}
+
 /* 11. FERRY */
 
 line|z10-[route=ferry],
