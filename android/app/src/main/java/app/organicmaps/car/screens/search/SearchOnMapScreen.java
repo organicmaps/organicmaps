@@ -88,7 +88,7 @@ public class SearchOnMapScreen extends BaseMapScreen implements NativeSearchList
     {
       final String title = result.getTitle(getCarContext());
       builder.setTitle(title);
-      builder.addText(result.getFormattedDescription(getCarContext()));
+      builder.addText(result.description.description);
 
       final CharSequence openingHours = SearchUiHelpers.getOpeningHoursText(getCarContext(), result);
       final CharSequence distance = SearchUiHelpers.getDistanceText(result);

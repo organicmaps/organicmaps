@@ -135,7 +135,7 @@ public class SearchScreen extends BaseMapScreen implements SearchTemplate.Search
     {
       final String title = result.getTitle(getCarContext());
       builder.setTitle(title);
-      builder.addText(result.getFormattedDescription(getCarContext()));
+      builder.addText(result.description.description);
       final CharSequence openingHoursAndDistance = SearchUiHelpers.getOpeningHoursAndDistanceText(getCarContext(), result);
       if (openingHoursAndDistance.length() != 0)
         builder.addText(openingHoursAndDistance);

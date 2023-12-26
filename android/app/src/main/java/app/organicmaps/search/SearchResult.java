@@ -145,11 +145,4 @@ public class SearchResult
 
     return builder;
   }
-
-  // FIXME: Better format based on result type
-  @NonNull
-  public CharSequence getFormattedDescription(@NonNull Context context)
-  {
-    return description.description;
-  }
 }
