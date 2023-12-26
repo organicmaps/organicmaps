@@ -28027,7 +28027,7 @@
   [aa_location_permissions_request]
     comment = Ask user to grant location permissions
     tags = android
-    en = This application requires access to your location for navigation purposes.
+    en = Organic Maps needs location access. When it's safe, check the notification on your phone.
     ar = يتطلب هذا التطبيق الوصول إلى موقعك لأغراض التنقل.
     az = Bu proqram naviqasiya məqsədləri üçün məkanınıza giriş tələb edir.
     be = Гэтаму прылажэнню патрабуецца доступ да вашага месцазнаходжання для навігацыі.
@@ -28158,6 +28158,16 @@
     vi = Đã kết nối với ô tô
     zh-Hans = 与汽车连接
     zh-Hant = 連接到汽車
+
+  [aa_request_permission_notification]
+    comment = Notification title for permission request from AA.
+    tags = android
+    en = This app needs your permission
+
+  [aa_request_permission_activity_text]
+    comment = The text in the activity for location permission request.
+    tags = android
+    en = Organic Maps in Android Auto needs a location permission to work effectively
 
   [button_layer_outdoor]
     comment = Outdoors/hiking map style (activity) name in the Styles and Layers dialog
