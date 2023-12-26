@@ -664,18 +664,6 @@ highway-footway-tunnel                              # pathtext z15- (also has li
 highway-tertiary_link                               # pathtext z18- (also has line z15-)
 highway-tertiary_link-bridge                        # pathtext z18- (also has line z15-, line::bridgeblack z15-, line::bridgewhite z15-)
 highway-tertiary_link-tunnel                        # pathtext z18- (also has line z15-, line(casing) z16-)
-piste:type-downhill                                 # pathtext z15- (also has line z14-)
-piste:type-downhill-advanced                        # pathtext z15- (also has line z14-)
-piste:type-downhill-easy                            # pathtext z15- (also has line z14-)
-piste:type-downhill-expert                          # pathtext z15- (also has line z14-)
-piste:type-downhill-freeride                        # pathtext z15- (also has line z14-)
-piste:type-downhill-intermediate                    # pathtext z15- (also has line z14-)
-piste:type-downhill-novice                          # pathtext z15- (also has line z14-)
-piste:type-nordic                                   # pathtext z15- (also has line z14-)
-piste:type-sled                                     # pathtext z15- (also has line z14-)
-piste:type-skitour
-piste:type-hike
-piste:type-snow_park
 === 2950
 
 natural-water-basin                                 # caption z10- (also has area z1-)
@@ -741,6 +729,18 @@ highway-service-bridge                              # pathtext z16- (also has li
 highway-service-driveway                            # pathtext z16- (also has line z16-)
 highway-service-parking_aisle                       # pathtext z16- (also has line z15-)
 highway-service-tunnel                              # pathtext z16- (also has line z15-)
+piste:type-downhill
+piste:type-downhill-advanced
+piste:type-downhill-easy
+piste:type-downhill-expert
+piste:type-downhill-freeride
+piste:type-downhill-intermediate
+piste:type-downhill-novice
+piste:type-nordic
+piste:type-sled
+piste:type-skitour
+piste:type-hike
+piste:type-snow_park
 === 2770
 
 amenity-townhall                                    # icon z16- (also has caption(optional) z16-)

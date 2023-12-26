@@ -461,6 +461,13 @@ landuse-military-danger_area                        # area z10- (also has icon z
 leisure-nature_reserve                              # area z10- (also has icon z10-, caption(optional) z11-)
 === 20
 
+piste:type-downhill-area
+piste:type-downhill-advanced-area
+piste:type-downhill-easy-area
+piste:type-downhill-expert-area
+piste:type-downhill-intermediate-area
+piste:type-downhill-novice-area
+piste:type-sled-area
 piste:type-snow_park
 === 15
 

@@ -138,6 +138,25 @@ line|z19-[natural=cliff],
 line|z19-[natural=earth_bank],
 {width: 14.3; dashes: 6,8.5,12,2.3; opacity: 0.8;}
 
+
+/* Ski pistes */
+
+area|z13-[piste:type=downhill][area],
+area|z13-[piste:type=sled][area],
+area|z13-[piste:type=snow_park],
+{fill-color: @piste; fill-opacity: 0.15;}
+
+area|z13-[piste:type=downhill][piste:difficulty=novice][area],
+{fill-color: @piste_novice; fill-opacity: 0.25;}
+area|z13-[piste:type=downhill][piste:difficulty=easy][area],
+{fill-color: @piste_easy;}
+area|z13-[piste:type=downhill][piste:difficulty=intermediate][area],
+{fill-color: @piste_intermediate;}
+area|z13-[piste:type=downhill][piste:difficulty=advanced][area],
+{fill-color: @piste_advanced;}
+area|z13-[piste:type=downhill][piste:difficulty=expert][area],
+{fill-color: @piste_expert;}
+
 /* 9. ISOLINES */
 
 line|z10-[isoline=step_1000],

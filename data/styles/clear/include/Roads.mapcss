@@ -1407,6 +1407,10 @@ line|z17-[piste:type=downhill],
 line|z17-[piste:type=sled],
 {width: 1.8;}
 
+area|z14-[piste:type=downhill][area],
+area|z14-[piste:type=sled][area],
+{width: 0;}
+
 /* 11. FERRY */
 
 line|z7-[route=ferry],
