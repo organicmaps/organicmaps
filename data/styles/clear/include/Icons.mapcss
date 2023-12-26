@@ -1089,6 +1089,7 @@ area|z18-[craft],
 node|z19-[amenity],
 area|z19-[amenity],
 node|z19-[emergency=fire_hydrant],
+node|z19-[man_made=cairn],
 {text: name;text-color: @poi_label;text-offset: 1;font-size: 10;}
 
 /* POI */
@@ -1795,6 +1796,9 @@ area|z18-[amenity=bbq]
 
 node|z16-[man_made=survey_point]
 {icon-image: survey_point-m.svg;font-size: 11;}
+ 
+node|z19-[man_made=cairn]
+{icon-image: cairn-m.svg;font-size: 11;}
 
 node|z18-[amenity=public_bookcase],
 area|z18-[amenity=public_bookcase]

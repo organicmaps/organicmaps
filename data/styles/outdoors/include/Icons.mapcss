@@ -275,3 +275,6 @@ node|z14-[power=tower],
 node|z12-[man_made=flagpole],
 node|z13-[man_made=mast],
 {icon-image: dot-m.svg;}
+
+node|z18-[man_made=cairn],
+{icon-image: cairn-m.svg;text: name;text-color: @poi_label;font-size: 12;text-offset: 1;}
