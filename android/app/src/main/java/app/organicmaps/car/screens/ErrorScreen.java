@@ -12,8 +12,9 @@ import androidx.car.app.model.Template;
 import app.organicmaps.R;
 import app.organicmaps.car.screens.base.BaseScreen;
 import app.organicmaps.car.util.Colors;
+import app.organicmaps.car.util.UserActionRequired;
 
-public class ErrorScreen extends BaseScreen
+public class ErrorScreen extends BaseScreen implements UserActionRequired
 {
   @StringRes
   private final int mTitle;
