@@ -1,4 +1,4 @@
-package app.organicmaps.car.screens;
+package app.organicmaps.car.screens.permissions;
 
 import static android.Manifest.permission.ACCESS_COARSE_LOCATION;
 import static android.Manifest.permission.ACCESS_FINE_LOCATION;
@@ -15,21 +15,23 @@ import androidx.core.graphics.drawable.IconCompat;
 import androidx.lifecycle.LifecycleOwner;
 
 import app.organicmaps.R;
+import app.organicmaps.car.screens.ErrorScreen;
 import app.organicmaps.car.screens.base.BaseScreen;
 import app.organicmaps.car.util.Colors;
+import app.organicmaps.car.util.UserActionRequired;
 import app.organicmaps.util.LocationUtils;
 
 import java.util.Arrays;
 import java.util.List;
 
-public class RequestPermissionsScreen extends BaseScreen
+public class RequestPermissionsScreenWithApi extends BaseScreen implements UserActionRequired
 {
   private static final List<String> LOCATION_PERMISSIONS = Arrays.asList(ACCESS_COARSE_LOCATION, ACCESS_FINE_LOCATION);
 
   @NonNull
   private final Runnable mPermissionsGrantedCallback;
 
-  public RequestPermissionsScreen(@NonNull CarContext carContext, @NonNull Runnable permissionsGrantedCallback)
+  public RequestPermissionsScreenWithApi(@NonNull CarContext carContext, @NonNull Runnable permissionsGrantedCallback)
   {
     super(carContext);
     mPermissionsGrantedCallback = permissionsGrantedCallback;
@@ -39,7 +41,7 @@ public class RequestPermissionsScreen extends BaseScreen
   @Override
   public Template onGetTemplate()
   {
-    final MessageTemplate.Builder builder = new MessageTemplate.Builder(getCarContext().getString(R.string.aa_location_permissions_request));
+    final MessageTemplate.Builder builder = new MessageTemplate.Builder(getCarContext().getString(R.string.aa_request_permission_activity_text));
     final Action grantPermissions = new Action.Builder()
         .setTitle(getCarContext().getString(R.string.aa_grant_permissions))
         .setBackgroundColor(Colors.BUTTON_ACCEPT)
