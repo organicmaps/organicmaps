@@ -477,8 +477,6 @@
 		F63AF5131EA6250F00A1DB98 /* FilterCollectionHolderCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = F63AF5111EA6250F00A1DB98 /* FilterCollectionHolderCell.swift */; };
 		F64D9CA01C899C350063FA30 /* MWMEditorViralAlert.mm in Sources */ = {isa = PBXBuildFile; fileRef = F64D9C9E1C899C350063FA30 /* MWMEditorViralAlert.mm */; };
 		F64D9CA31C899C760063FA30 /* MWMEditorViralAlert.xib in Resources */ = {isa = PBXBuildFile; fileRef = F64D9CA11C899C760063FA30 /* MWMEditorViralAlert.xib */; };
-		F653CE0E1C6DEB2E00A453F1 /* MWMDropDown.xib in Resources */ = {isa = PBXBuildFile; fileRef = F652B2E91C6DE8E500D20C8C /* MWMDropDown.xib */; };
-		F653CE121C6DEC8E00A453F1 /* MWMDropDown.m in Sources */ = {isa = PBXBuildFile; fileRef = F653CE101C6DEB5A00A453F1 /* MWMDropDown.m */; };
 		F653CE191C71F62700A453F1 /* MWMAddPlaceNavigationBar.mm in Sources */ = {isa = PBXBuildFile; fileRef = F653CE151C71F60200A453F1 /* MWMAddPlaceNavigationBar.mm */; };
 		F660DEE51EAF4F59004DC056 /* MWMLocationManager+SpeedAndAltitude.swift in Sources */ = {isa = PBXBuildFile; fileRef = F660DEE31EAF4F59004DC056 /* MWMLocationManager+SpeedAndAltitude.swift */; };
 		F6791B141C43DF0B007A8A6E /* MWMStartButton.m in Sources */ = {isa = PBXBuildFile; fileRef = F6791B121C43DEA7007A8A6E /* MWMStartButton.m */; };
@@ -1376,9 +1374,6 @@
 		F64F4B701B4A41D40081A24A /* MWMDownloaderDialogHeader.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MWMDownloaderDialogHeader.xib; sourceTree = "<group>"; };
 		F64F4B721B4A45FD0081A24A /* MWMDownloaderDialogHeader.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MWMDownloaderDialogHeader.h; sourceTree = "<group>"; };
 		F64F4B731B4A45FD0081A24A /* MWMDownloaderDialogHeader.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; lineEnding = 0; path = MWMDownloaderDialogHeader.mm; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objcpp; };
-		F652B2E91C6DE8E500D20C8C /* MWMDropDown.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MWMDropDown.xib; sourceTree = "<group>"; };
-		F653CE0F1C6DEB5A00A453F1 /* MWMDropDown.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MWMDropDown.h; sourceTree = "<group>"; };
-		F653CE101C6DEB5A00A453F1 /* MWMDropDown.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MWMDropDown.m; sourceTree = "<group>"; };
 		F653CE141C71F60200A453F1 /* MWMAddPlaceNavigationBar.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MWMAddPlaceNavigationBar.h; sourceTree = "<group>"; };
 		F653CE151C71F60200A453F1 /* MWMAddPlaceNavigationBar.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; lineEnding = 0; path = MWMAddPlaceNavigationBar.mm; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objcpp; };
 		F653CE171C71F62400A453F1 /* MWMAddPlaceNavigationBar.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MWMAddPlaceNavigationBar.xib; sourceTree = "<group>"; };
@@ -2143,7 +2138,6 @@
 				F653CE131C71F5DC00A453F1 /* AddPlace NavigationBar */,
 				3470402E1EA6470700038379 /* BorderedButton.swift */,
 				340708761F2B5D6C00029ECC /* DimBackground.swift */,
-				F652B2E81C6DE8CF00D20C8C /* DropDown */,
 				F6FEA82B1C58E89B007223CC /* MWMButton.h */,
 				F6FEA82C1C58E89B007223CC /* MWMButton.m */,
 				343E75951E5B1EE20041226A /* MWMCollectionViewController.h */,
@@ -3037,16 +3031,6 @@
 			path = DownloadTransitMapsAlert;
 			sourceTree = "<group>";
 		};
-		F652B2E81C6DE8CF00D20C8C /* DropDown */ = {
-			isa = PBXGroup;
-			children = (
-				F652B2E91C6DE8E500D20C8C /* MWMDropDown.xib */,
-				F653CE0F1C6DEB5A00A453F1 /* MWMDropDown.h */,
-				F653CE101C6DEB5A00A453F1 /* MWMDropDown.m */,
-			);
-			name = DropDown;
-			sourceTree = "<group>";
-		};
 		F653CE131C71F5DC00A453F1 /* AddPlace NavigationBar */ = {
 			isa = PBXGroup;
 			children = (
@@ -3789,7 +3773,6 @@
 				6741A9951BF340DE002C974C /* MWMDownloaderDialogCell.xib in Resources */,
 				6741A9511BF340DE002C974C /* MWMDownloaderDialogHeader.xib in Resources */,
 				6741A96C1BF340DE002C974C /* MWMDownloadTransitMapAlert.xib in Resources */,
-				F653CE0E1C6DEB2E00A453F1 /* MWMDropDown.xib in Resources */,
 				34D3B0241E389D05004100F9 /* MWMEditorAddAdditionalNameTableViewCell.xib in Resources */,
 				34D3B0271E389D05004100F9 /* EditorAdditionalNamePlaceholderTableViewCell.xib in Resources */,
 				F6E2FDB91E097BA00083EBEC /* MWMEditorAdditionalNamesHeader.xib in Resources */,
@@ -4200,7 +4183,6 @@
 				3486B5191E27AD3B0069C126 /* MWMFrameworkListener.mm in Sources */,
 				3404756B1E081A4600C92850 /* MWMSearch+CoreSpotlight.mm in Sources */,
 				CD9AD96C2281B56900EC174A /* CPViewPortState.swift in Sources */,
-				F653CE121C6DEC8E00A453F1 /* MWMDropDown.m in Sources */,
 				3404755C1E081A4600C92850 /* MWMLocationManager.mm in Sources */,
 				3454D7BC1E07F045004AF2AD /* CLLocation+Mercator.mm in Sources */,
 				47E3C7272111E5A8008B3B27 /* AlertPresentationController.swift in Sources */,
