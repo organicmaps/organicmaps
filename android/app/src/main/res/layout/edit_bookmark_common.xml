@@ -26,6 +26,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:hint="@string/name"
+        android:padding="@dimen/margin_half_double_plus"
         android:inputType="textCapSentences"
         android:singleLine="true" />
     </com.google.android.material.textfield.TextInputLayout>
@@ -55,6 +56,7 @@
       android:clickable="true"
       android:paddingTop="@dimen/margin_quarter_plus"
       android:paddingBottom="@dimen/margin_half_plus"
+      android:padding="@dimen/margin_half_double_plus"
       android:textAppearance="@style/MwmTextAppearance.Body1"
       app:drawableEndCompat="@drawable/ic_arrow_down" />
     <View
@@ -87,6 +89,7 @@
       style="@style/MwmWidget.PlacePage.EditText"
       android:layout_width="match_parent"
       android:layout_height="wrap_content"
+      android:padding="@dimen/margin_half_double_plus"
       android:hint="@string/edit_description_hint"
       android:inputType="textMultiLine" />
   </com.google.android.material.textfield.TextInputLayout>

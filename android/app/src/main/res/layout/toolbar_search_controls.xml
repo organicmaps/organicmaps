@@ -28,7 +28,7 @@
     android:hint="@string/search"
     android:imeOptions="actionSearch|flagNoExtractUi"
     android:inputType="text"
-    android:padding="@dimen/margin_quarter"
+    android:padding="@dimen/margin_half_plus"
     android:singleLine="true"
     android:textCursorDrawable="@drawable/cursor_drawable"
     tools:ignore="UnusedAttribute"/>

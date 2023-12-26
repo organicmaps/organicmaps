@@ -11,6 +11,7 @@
     android:id="@+id/checkbox"
     android:layout_width="wrap_content"
     android:layout_height="match_parent"
+    android:padding="@dimen/margin_half"
     android:layout_marginStart="@dimen/margin_half_plus"
     android:layout_marginEnd="@dimen/margin_base_plus" />
   <LinearLayout

@@ -36,6 +36,7 @@
       android:layout_height="wrap_content"
       android:hint="@string/edit_description_hint"
       android:includeFontPadding="false"
+      android:padding="@dimen/margin_base"
       android:inputType="textMultiLine"
       android:textColorHint="?android:textColorSecondary" />
   </FrameLayout>
