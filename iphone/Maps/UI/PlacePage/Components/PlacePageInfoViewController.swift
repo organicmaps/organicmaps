@@ -264,10 +264,6 @@ class PlacePageInfoViewController: UIViewController {
     }
     
     if let address = placePageInfoData.address {
-      addressView = createInfoItem(address, icon: UIImage(named: "ic_placepage_adress"))
-    }
-    
-    if let address = placePageInfoData.address {
       addressView = createInfoItem(address,
                                    icon: UIImage(named: "ic_placepage_adress"),
                                    longPressHandler: { [weak self] in
