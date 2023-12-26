@@ -15872,3 +15872,16 @@ uk:Колекціонер
 vi:Nhà sưu tập
 zh-Hans:收藏家
 zh-Hant:集電極
+
+man_made-cairn
+en:4Cairn
+de:Steinmännchen
+et:Karjäär
+ja:ケルン
+nl:Steengroeve
+pl:Kopiec
+pt:Moledro ou mariola
+pt-BR:Moledro ou mariola
+ru:Тур
+tr:Höyük
+uk:Тур
