@@ -11499,6 +11499,7 @@
 
   [type.highway.footway.sidewalk]
     en = Sidewalk
+    en-GB = Pavement
     af = Sypaadjie
     ar = رصيف
     be = Тратуар
@@ -11513,7 +11514,6 @@
     et = Kõnnitee
     eu = Espaloia
     fa = پیاده رو
-    fi = Sidewalk
     fr = Trottoir
     he = מדרכה
     hi = फ़ुटपाथ
