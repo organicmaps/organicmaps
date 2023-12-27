@@ -53,6 +53,7 @@
 
 	<!-- SECTION: Types: Roads -->
 	<string name="type.highway.elevator">Lift</string>
+	<string name="type.highway.footway.sidewalk">Pavement</string>
 
 	<!-- SECTION: Types: Historic -->
 	<string name="type.leisure.common">Common Land</string>

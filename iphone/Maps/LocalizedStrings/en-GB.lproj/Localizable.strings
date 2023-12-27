@@ -2010,7 +2010,7 @@
 
 "type.highway.footway" = "Foot Path";
 
-"type.highway.footway.sidewalk" = "Sidewalk";
+"type.highway.footway.sidewalk" = "Pavement";
 
 "type.highway.footway.crossing" = "Pedestrian Crossing";
 

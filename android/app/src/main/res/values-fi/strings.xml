@@ -1148,7 +1148,6 @@
 	<string name="type.highway.cycleway.tunnel">Tunneli</string>
 	<string name="type.highway.elevator">Hissi</string>
 	<string name="type.highway.footway">Polku</string>
-	<string name="type.highway.footway.sidewalk">Sidewalk</string>
 	<string name="type.highway.footway.crossing">Jalankulkijoiden ylitys</string>
 	<string name="type.highway.footway.alpine_hiking">Polku</string>
 	<string name="type.highway.footway.area">Jalankulkualue</string>
