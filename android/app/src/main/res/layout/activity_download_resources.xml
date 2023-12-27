@@ -19,12 +19,17 @@
       android:orientation="vertical"
       app:layout_constraintBottom_toBottomOf="parent"
       app:layout_constraintTop_toTopOf="parent">
+      <ImageView
+        android:layout_width="90dp"
+        android:layout_height="90dp"
+        android:src="@drawable/ic_download"
+        app:tint="?android:colorAccent"/>
       <TextView
         android:id="@+id/head_message"
         style="?fontHeadline6"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="@dimen/margin_base_plus"
+        android:layout_marginTop="@dimen/margin_base"
         android:gravity="center"
         android:text="@string/download_map_title" />
       <TextView
