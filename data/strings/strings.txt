@@ -105,7 +105,7 @@
     fa = لغو دانلود
     fi = Peruuta lataus
     fr = Annuler le téléchargement
-    he = בטל  הורדת הקובץ
+    he = בטל הורדת הקובץ
     hu = Letöltés megszakítása
     id = Batalkan Pengunduhan
     it = Annulla il download
@@ -439,7 +439,7 @@
     fa = مایل
     fi = Mailit
     fr = Miles
-    he = מ"ב
+    he = מייל
     hu = Mérföld
     id = Mil
     it = Miglia
@@ -824,7 +824,7 @@
     fa = دانلود با شکست مواجه شد
     fi = Lataus epäonnistui
     fr = Échec lors du téléchargement
-    he = הורדנכשלה
+    he = ההורדה נכשלה
     hu = Letöltése sikertelen
     id = Sedang Mengunduh telah gagal
     it = Il download non è riuscito
@@ -1710,7 +1710,7 @@
     fa = %@ دانلود با شکست مواجه شد
     fi = %@ lataus epäonnistui
     fr = %@, échec lors du téléchargement
-    he = %@ ההורדה  נכשלה
+    he = הורדה של %@ נכשלה
     hu = %@ letöltése sikertelen
     id = %@ gagal diunduh
     it = Il download di %@ non è riuscito
@@ -3615,7 +3615,7 @@
     fa = RV برای
     fi = Karavaanaritilat
     fr = Aménagements pour camping-car
-    he = םינאוורק רובע
+    he = עבור קרוואנים
     hu = RV számára
     id = Untuk RV
     it = Per camper
@@ -3983,7 +3983,7 @@
     fa = متاسفانه,تنظیمات ذخیره سازی نقشه در حال حاظر غیر فعال است
     fi = Valitettavasti karttatallennusasetukset ovat pois päältä.
     fr = Désolé, les paramètres de stockage des cartes sont présentement désactivés.
-    he = . פעילה כרגע מצטערים, הגדרת "שמירת מפה" אינה
+    he = מצטערים, הגדרות שמירת מפה אינן זמינות כרגע.
     hu = Sajnáljuk, a térképek tárolása jelenleg ki van kapcsolva.
     id = Maaf, pengaturan Penyimpanan Peta saat ini sedang non-aktif.
     it = Le impostazioni di archiviazione delle mappe sono disabilitate.
@@ -4068,7 +4068,7 @@
     eu = Ikusi nire uneko kokapena Organic Maps-en! %1$@ edo %2$@ Ez al duzu lineaz kanpoko maparik? Deskargatu hemendik: https://omaps.app/get
     fi = Hei, katso sijaintini Organic Maps-sovelluksessa! %1$@ tai %2$@ Eikö sinulla ole vielä offline-karttoja? Lataa ne täältä: https://omaps.app/get
     fr = Hé, regardez ma position actuelle sur Organic Maps ! %1$@ ou %2$@. Les cartes hors ligne ne sont pas installées ? Les télécharger ici : https://omaps.app/get
-    he = . אין ברשותך מפות לא מקוונות? הורד Organic Maps! %1$@ or %2$@ הי, בדוק את מיקומי הנוכחי ב. https://omaps.app/get הורד אותן מ:
+    he = קבלו את המיקום שלי ב-Organic Maps! %1$@ או %2$@ אין לך מפות בלי אינטרנט? להוריד כאן: https://omaps.app/get
     hu = Nézd meg a Organic Maps helyzetemet! %1$@ vagy %2$@ A program letöltése: https://omaps.app/get
     id = Hei, lihat lokasiku saat ini di Organic Maps! %1$@ atau %2$@ belum memiliki peta offline? Unduh di sini: https://omaps.app/get
     it = Guarda la mia posizione in Organic Maps! %1$@ o %2$@ Non hai scaricato l'app? La puoi scaricare da qui: https://omaps.app/get
@@ -4451,7 +4451,7 @@
     fa = ورژن: %@
     fi = Versio: %@
     fr = Version : %@
-    he = %@ וורסיה
+    he = גירסה: %@
     hu = Verzió: %@
     id = Versi: %@
     it = Versione: %@
@@ -4495,7 +4495,7 @@
     fa = OpenStreetMap: %@ داده‌های
     fi = OpenStreetMap-tiedot: %@
     fr = Données OpenStreetMap : %@
-    he = OpenStreetMap: %@ ינותנ
+    he = נתוני OpenStreetMap: %@
     hu = OpenStreetMap adatok: %@
     id = Data OpenStreetMap: %@
     it = Dati OpenStreetMap: %@
@@ -5965,7 +5965,7 @@
     fa = اخبار
     fi = Uutiset
     fr = Nouvelles
-    he = תוֹשׁדָחֲ
+    he = חדשות
     hu = Újdonságok
     id = Berita
     it = Notizia
@@ -6196,7 +6196,7 @@
     fa = پرسش‌های زیاد پرسیده شده
     fi = Usein kysytyt kysymykset
     fr = Foire aux questions
-    he = תובושתו תולאש
+    he = שאלות ותשובות
     hu = Gyakran Ismételt Kérdések
     id = Pertanyaan dan jawaban
     it = Domande frequenti
@@ -6240,7 +6240,7 @@
     fa = حمایت مالی
     fi = Lahjoita
     fr = Faire un don
-    he = םוֹרתְלִ
+    he = לתרום
     hu = Adományozni
     id = Menyumbangkan
     it = Donare
@@ -6283,7 +6283,7 @@
     fa = ﺪﯿﻨﮐ ﺖﯾﺎﻤﺣ ﻩﮊﻭﺮﭘ ﺯﺍ
     fi = Tue projektia
     fr = Soutenir le projet
-    he = טקיורפב וכמת
+    he = תמכו בפרויקט
     hu = Támogassa a projektet
     id = Mendukung proyek
     it = Sostieni il progetto
@@ -7044,7 +7044,7 @@
     fa = بروزرسانی
     fi = Päivitä
     fr = Mettre à jour
-    he = לְעַדְכֵּן
+    he = לעדכן
     hu = Frissítés
     id = Perbarui
     it = Aggiorna
@@ -12399,7 +12399,7 @@
     fa = شوید OpenStreetMap وارد
     fi = Kirjaudu OpenStreetMapiin
     fr = Se connecter à OpenStreetMap
-    he = OpenStreetMap-ל סנכיה
+    he = היכנס ל-OpenStreetMap
     hu = Jelentkezzen be az OpenStreetMap-be
     id = Masuk ke OpenStreetMap
     it = Accedi a OpenStreetMap
@@ -13319,7 +13319,7 @@
     fa = طبقه
     fi = Kerros
     fr = Étage
-    he = קוֹמָה
+    he = קומה
     hu = Szint
     id = Tingkat
     it = Piano
@@ -17165,7 +17165,7 @@
     fa = ویرایشگران OpenStreetMap ﺗﻐﯿﯿﺮﺍﺕ ﺭﺍ ﺑﺮﺭﺳﯽ ﮐﺮﺩﻩ ﻭ ﺩﺭ ﺻﻮﺭﺕ ﺩﺍﺷﺘﻦ ﻫﺮﮔﻮﻧﻪ ﺳﻮﺍﻝ ﺑﺎ ﺷﻤﺎ ﺗﻤﺎﺱ ﺧﻮﺍﻫﻨﺪ ﮔﺮﻓﺖ.
     fi = OpenStreetMap-editorit tarkistavat muutokset ja ottavat sinuun yhteyttä, jos heillä on kysyttävää.
     fr = Les contributeurs d'OpenStreetMap vérifieront vos modifications et vous contacteront s'ils ont des questions.
-    he = .ןהשלכ תולאש םהל שי םא רשק ךתיא ורציו םייונישה תא וקדבי OpenStreetMap יכרוע
+    he = עורכי OpenStreetMap יבדקו את השינויים ויצרו איתך קשר אם יש להם שאלות כלשהן.
     hu = Az OpenStreetMap szerkesztői ellenőrzik a változásokat, és felveszik Önnel a kapcsolatot, ha kérdéseik vannak.
     id = Editor OpenStreetMap akan memeriksa perubahan dan menghubungi Anda jika ada pertanyaan.
     it = Gli editori di OpenStreetMap controlleranno le modifiche e si metteranno in contatto con te in caso di domande.
@@ -26408,7 +26408,7 @@
     fa = OpenStreetMap داده‌های نقشه از
     fi = OpenStreetMapin karttatiedot
     fr = Données cartographiques d'OpenStreetMap
-    he = OpenStreetMap-מ הפמ ינותנ
+    he = נתוני מפה מ-OpenStreetMap
     hu = Térképadatok az OpenStreetMapből
     id = Data peta dari OpenStreetMap
     it = Dati della mappa da OpenStreetMap
