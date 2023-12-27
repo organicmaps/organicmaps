@@ -1755,33 +1755,33 @@
 
 "type.craft.tailor" = "Croitor";
 
-"type.cuisine.african" = "Bucătărie african";
+"type.cuisine.african" = "Bucătărie africană";
 
-"type.cuisine.american" = "Bucătărie american";
+"type.cuisine.american" = "Bucătărie americană";
 
-"type.cuisine.arab" = "Bucătărie arăbesc";
+"type.cuisine.arab" = "Bucătărie arabă";
 
-"type.cuisine.argentinian" = "Bucătărie argentinian";
+"type.cuisine.argentinian" = "Bucătărie argentiniană";
 
-"type.cuisine.asian" = "Bucătărie asiatic";
+"type.cuisine.asian" = "Bucătărie asiatică";
 
-"type.cuisine.austrian" = "Bucătărie austriac";
+"type.cuisine.austrian" = "Bucătărie austriacă";
 
-"type.cuisine.bagel" = "Chiflă";
+"type.cuisine.bagel" = "Bagel";
 
-"type.cuisine.balkan" = "Bucătărie balcanic";
+"type.cuisine.balkan" = "Bucătărie balcanică";
 
 "type.cuisine.barbecue" = "Grătar";
 
-"type.cuisine.bavarian" = "Bucătărie bavarez";
+"type.cuisine.bavarian" = "Bucătărie bavareză";
 
-"type.cuisine.beef_bowl" = "Ciorbă de văcuță";
+"type.cuisine.beef_bowl" = "Gyudon";
 
-"type.cuisine.brazilian" = "Bucătărie brazilian";
+"type.cuisine.brazilian" = "Bucătărie braziliană";
 
 "type.cuisine.breakfast" = "Mic dejun";
 
-"type.cuisine.bubble_tea" = "Bubble Tea";
+"type.cuisine.bubble_tea" = "Ceai cu perle";
 
 "type.cuisine.burger" = "Burger";
 
@@ -1789,127 +1789,127 @@
 
 "type.cuisine.cake" = "Tort";
 
-"type.cuisine.caribbean" = "Bucătărie caribbean";
+"type.cuisine.caribbean" = "Bucătărie caraibă";
 
 "type.cuisine.chicken" = "Pui";
 
-"type.cuisine.chinese" = "Bucătărie chinez";
+"type.cuisine.chinese" = "Bucătărie chineză";
 
-"type.cuisine.coffee_shop" = "Cafea";
+"type.cuisine.coffee_shop" = "Cafenea";
 
-"type.cuisine.crepe" = "Crep";
+"type.cuisine.crepe" = "Clătite";
 
-"type.cuisine.croatian" = "Bucătărie croat";
+"type.cuisine.croatian" = "Bucătărie croată";
 
 "type.cuisine.curry" = "Curry";
 
 "type.cuisine.deli" = "Deli";
 
-"type.cuisine.diner" = "Cină";
+"type.cuisine.diner" = "Diner";
 
-"type.cuisine.donut" = "Gogoașă";
+"type.cuisine.donut" = "Gogoși";
 
-"type.cuisine.ethiopian" = "Bucătărie etiopian";
+"type.cuisine.ethiopian" = "Bucătărie etiopiană";
 
-"type.cuisine.filipino" = "Bucătărie filipinez";
+"type.cuisine.filipino" = "Bucătărie filipineză";
 
 "type.cuisine.fine_dining" = "Restaurant elegant";
 
 "type.cuisine.fish" = "Pește";
 
-"type.cuisine.fish_and_chips" = "Fish and Chips";
+"type.cuisine.fish_and_chips" = "Pește și cartofi pai";
 
-"type.cuisine.french" = "Bucătărie francez";
+"type.cuisine.french" = "Bucătărie franceză";
 
-"type.cuisine.friture" = "Prăjit";
+"type.cuisine.friture" = "Cartofi prăjiți";
 
-"type.cuisine.georgian" = "Bucătărie georgian";
+"type.cuisine.georgian" = "Bucătărie georgiană";
 
-"type.cuisine.german" = "Bucătărie german";
+"type.cuisine.german" = "Bucătărie germană";
 
-"type.cuisine.greek" = "Bucătărie grecesc";
+"type.cuisine.greek" = "Bucătărie grecească";
 
 "type.cuisine.grill" = "Grătar";
 
-"type.cuisine.heuriger" = "Heuriger";
+"type.cuisine.heuriger" = "Tavernă";
 
 "type.cuisine.hotdog" = "Hot dog";
 
-"type.cuisine.hungarian" = "Bucătărie maghiar";
+"type.cuisine.hungarian" = "Bucătărie maghiară";
 
 "type.cuisine.ice_cream" = "Înghețată";
 
-"type.cuisine.indian" = "Bucătărie indian";
+"type.cuisine.indian" = "Bucătărie indiană";
 
-"type.cuisine.indonesian" = "Bucătărie indonezian";
+"type.cuisine.indonesian" = "Bucătărie indoneziană";
 
-"type.cuisine.international" = "Bucătărie internațional";
+"type.cuisine.international" = "Bucătărie internațională";
 
-"type.cuisine.irish" = "Bucătărie irlandez";
+"type.cuisine.irish" = "Bucătărie irlandeză";
 
-"type.cuisine.italian" = "Bucătărie italian";
+"type.cuisine.italian" = "Bucătărie italiană";
 
-"type.cuisine.italian_pizza" = "Italian, pizza";
+"type.cuisine.italian_pizza" = "Pizza";
 
-"type.cuisine.japanese" = "Bucătărie japonez";
+"type.cuisine.japanese" = "Bucătărie japoneză";
 
 "type.cuisine.kebab" = "Kebab";
 
-"type.cuisine.korean" = "Coreean";
+"type.cuisine.korean" = "Bucătărie coreană";
 
-"type.cuisine.lao" = "Bucătărie lao";
+"type.cuisine.lao" = "Bucătărie laoțiană";
 
-"type.cuisine.lebanese" = "Bucătărie libanez";
+"type.cuisine.lebanese" = "Bucătărie libaneză";
 
-"type.cuisine.local" = "Bucătărie local";
+"type.cuisine.local" = "Bucătărie locală";
 
-"type.cuisine.malagasy" = "Bucătărie malgaș";
+"type.cuisine.malagasy" = "Bucătărie malgașă";
 
-"type.cuisine.malaysian" = "Bucătărie malaysian";
+"type.cuisine.malaysian" = "Bucătărie malaysiană";
 
-"type.cuisine.mediterranean" = "Bucătărie cu specific mediteranean";
+"type.cuisine.mediterranean" = "Bucătărie mediteraneeană";
 
-"type.cuisine.mexican" = "Bucătărie mexican";
+"type.cuisine.mexican" = "Bucătărie mexicană";
 
-"type.cuisine.moroccan" = "Bucătărie marocan";
+"type.cuisine.moroccan" = "Bucătărie marocană";
 
 "type.cuisine.noodles" = "Tăiței";
 
-"type.cuisine.oriental" = "Bucătărie oriental";
+"type.cuisine.oriental" = "Bucătărie orientală";
 
-"type.cuisine.pancake" = "Clătită";
+"type.cuisine.pancake" = "Clătite americane";
 
 "type.cuisine.pasta" = "Paste";
 
-"type.cuisine.persian" = "Bucătărie persan";
+"type.cuisine.persian" = "Bucătărie persană";
 
-"type.cuisine.peruvian" = "Bucătărie peruan";
+"type.cuisine.peruvian" = "Bucătărie peruană";
 
 "type.cuisine.pizza" = "Pizza";
 
-"type.cuisine.polish" = "Bucătărie polonez";
+"type.cuisine.polish" = "Bucătărie poloneză";
 
-"type.cuisine.portuguese" = "Bucătărie portughez";
+"type.cuisine.portuguese" = "Bucătărie portugheză";
 
 "type.cuisine.ramen" = "Ramen";
 
-"type.cuisine.regional" = "Bucătărie regional";
+"type.cuisine.regional" = "Bucătărie regională";
 
-"type.cuisine.russian" = "Bucătărie rusesc";
+"type.cuisine.russian" = "Bucătărie rusă";
 
 "type.cuisine.sandwich" = "Sandwich";
 
-"type.cuisine.sausage" = "Cârnat";
+"type.cuisine.sausage" = "Cârnați";
 
-"type.cuisine.savory_pancakes" = "Clătite delicioase";
+"type.cuisine.savory_pancakes" = "Clătite sărate";
 
 "type.cuisine.seafood" = "Fructe de mare";
 
 "type.cuisine.soba" = "Soba";
 
-"type.cuisine.spanish" = "Bucătărie spaniol";
+"type.cuisine.spanish" = "Bucătărie spaniolă";
 
-"type.cuisine.steak_house" = "Restaurant steakhouse";
+"type.cuisine.steak_house" = "Steakhouse";
 
 "type.cuisine.sushi" = "Sushi";
 
@@ -1917,15 +1917,15 @@
 
 "type.cuisine.tea" = "Ceai";
 
-"type.cuisine.thai" = "Bucătărie tailandez";
+"type.cuisine.thai" = "Bucătărie tailandeză";
 
-"type.cuisine.turkish" = "Bucătărie turcesc";
+"type.cuisine.turkish" = "Bucătărie turcă";
 
-"type.cuisine.vegan" = "Bucătărie vegan";
+"type.cuisine.vegan" = "Bucătărie vegană";
 
-"type.cuisine.vegetarian" = "Bucătărie vegetarian";
+"type.cuisine.vegetarian" = "Bucătărie vegetariană";
 
-"type.cuisine.vietnamese" = "Bucătărie vietnamez";
+"type.cuisine.vietnamese" = "Bucătărie vietnameză";
 
 "type.emergency" = "Emergency";
 
