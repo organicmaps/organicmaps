@@ -7493,7 +7493,7 @@
     pl = Kuchnia afrykańska
     pt = Cozinha africana
     pt-BR = Cozinha africana
-    ro = Bucătărie african
+    ro = Bucătărie africană
     ru = Африканская кухня
     sk = Africká kuchyňa
     sv = Afrikansk mat
@@ -7528,7 +7528,7 @@
     pl = Kuchnia amerykańska
     pt = Cozinha americana
     pt-BR = Cozinha americana
-    ro = Bucătărie american
+    ro = Bucătărie americană
     ru = Американская кухня
     sk = Americká kuchyňa
     sv = Amerikansk mat
@@ -7563,7 +7563,7 @@
     pl = Kuchnia arabska
     pt = Cozinha árabe
     pt-BR = Cozinha árabe
-    ro = Bucătărie arăbesc
+    ro = Bucătărie arabă
     ru = Арабская кухня
     sk = Arabská kuchyňa
     sv = Arabisk mat
@@ -7598,7 +7598,7 @@
     pl = Kuchnia argentyńska
     pt = Cozinha argentina
     pt-BR = Cozinha argentina
-    ro = Bucătărie argentinian
+    ro = Bucătărie argentiniană
     ru = Аргентинская кухня
     sk = Argentínska kuchyňa
     sv = Argentinsk mat
@@ -7633,7 +7633,7 @@
     pl = Kuchnia azjatycka
     pt = Cozinha asiática
     pt-BR = Cozinha asiática
-    ro = Bucătărie asiatic
+    ro = Bucătărie asiatică
     ru = Азиатская кухня
     sk = Ázijská kuchyňa
     sv = Asiatisk mat
@@ -7668,7 +7668,7 @@
     pl = Kuchnia austriacka
     pt = Cozinha austríaca
     pt-BR = Cozinha austríaca
-    ro = Bucătărie austriac
+    ro = Bucătărie austriacă
     ru = Австрийская кухня
     sk = Rakúska kuchyňa
     sv = Österrikisk mat
@@ -7703,7 +7703,7 @@
     pl = Bajgle
     pt = Bagel
     pt-BR = Bagel
-    ro = Chiflă
+    ro = Bagel
     ru = Бeйглы
     sk = Bagely
     sv = Bagel
@@ -7738,7 +7738,7 @@
     pl = Kuchnia bałkańska
     pt = Cozinha balcânica
     pt-BR = Cozinha balcânica
-    ro = Bucătărie balcanic
+    ro = Bucătărie balcanică
     ru = Балканская кухня
     sk = Balkánska kuchyňa
     sv = Balkansk mat
@@ -7809,7 +7809,7 @@
     pl = Kuchnia bawarska
     pt = Cozinha bávara
     pt-BR = Cozinha bávara
-    ro = Bucătărie bavarez
+    ro = Bucătărie bavareză
     ru = Баварская кухня
     sk = Bavorská kuchyňa
     sv = Bayersk mat
@@ -7844,7 +7844,7 @@
     pl = Gyūdon
     pt = Tigela com carne bovina
     pt-BR = Tigela com carne bovina
-    ro = Ciorbă de văcuță
+    ro = Gyudon
     ru = Говядина
     sk = Misa hovädzieho
     sv = Biff donburi
@@ -7879,7 +7879,7 @@
     pl = Kuchnia brazylijska
     pt = Cozinha brasileira
     pt-BR = Cozinha brasileira
-    ro = Bucătărie brazilian
+    ro = Bucătărie braziliană
     ru = Бразильская кухня
     sk = Brazílska kuchyňa
     sv = Brasiliansk mat
@@ -7936,6 +7936,7 @@
     eu = Burbuila tea
     fi = Kuplatee
     it = Bubble tea
+    ro = Ceai cu perle
     ru = Чай с шариками
     uk = Бульбашковий чай
 
@@ -8070,7 +8071,7 @@
     pl = Kuchnia karaibska
     pt = Cozinha caribenha
     pt-BR = Cozinha caribenha
-    ro = Bucătărie caribbean
+    ro = Bucătărie caraibă
     ru = Карибская кухня
     sk = Karibská kuchyňa
     sv = Karibisk mat
@@ -8142,7 +8143,7 @@
     pl = Kuchnia chińska
     pt = Cozinha chinesa
     pt-BR = Cozinha chinesa
-    ro = Bucătărie chinez
+    ro = Bucătărie chineză
     ru = Китайская кухня
     sk = Čína
     sv = Kinesisk mat
@@ -8178,7 +8179,7 @@
     pl = Kawa
     pt = Café
     pt-BR = Café
-    ro = Cafea
+    ro = Cafenea
     ru = Кофе
     sk = Káva
     sv = Kaffe
@@ -8214,7 +8215,7 @@
     pl = Naleśnikarnia
     pt = Panqueca
     pt-BR = Crepe
-    ro = Crep
+    ro = Clătite
     ru = Тонкие блинчики
     sk = Palacinky
     sv = Crêpe
@@ -8249,7 +8250,7 @@
     pl = Kuchnia chorwacka
     pt = Cozinha croata
     pt-BR = Cozinha croata
-    ro = Bucătărie croat
+    ro = Bucătărie croată
     ru = Хорватская кухня
     sk = Chorvátska kuchyňa
     sv = Kroatisk mat
@@ -8357,7 +8358,7 @@
     pl = Bar szybkiej obsługi
     pt = Diner
     pt-BR = Lanchonete
-    ro = Cină
+    ro = Diner
     ru = Дайнер
     sk = Diner
     sv = Matställe
@@ -8393,7 +8394,7 @@
     pl = Pączki
     pt = Donut
     pt-BR = Rosquinha
-    ro = Gogoașă
+    ro = Gogoși
     ru = Пончики
     sk = Šišky
     sv = Munk
@@ -8428,7 +8429,7 @@
     pl = Kuchnia etiopska
     pt = Cozinha etíope
     pt-BR = Cozinha etíope
-    ro = Bucătărie etiopian
+    ro = Bucătărie etiopiană
     ru = Эфиопская кухня
     sk = Etiópska kuchyňa
     sv = Etiopisk mat
@@ -8463,7 +8464,7 @@
     pl = Kuchnia filipińska
     pt = Cozinha filipina
     pt-BR = Cozinha filipina
-    ro = Bucătărie filipinez
+    ro = Bucătărie filipineză
     ru = Филиппинская кухня
     sk = Filipínska kuchyňa
     sv = Filippinsk mat
@@ -8564,6 +8565,7 @@
     pl = Ryba i frytki
     pt = Peixe e batatas fritas
     pt-BR = Peixe e batatas fritas
+    ro = Pește și cartofi pai
     ru = Рыба и картофель фри
     sk = Ryba s hranolkami
     sv = Friterad fisk och pommes frites
@@ -8598,7 +8600,7 @@
     pl = Kuchnia francuska
     pt = Cozinha francesa
     pt-BR = Cozinha francesa
-    ro = Bucătărie francez
+    ro = Bucătărie franceză
     ru = Французская кухня
     sk = Francúzska kuchyňa
     sv = Fransk mat
@@ -8633,7 +8635,7 @@
     pl = Smażalnia
     pt = Fritos
     pt-BR = Fritura
-    ro = Prăjit
+    ro = Cartofi prăjiți
     ru = Блюда во фритюре
     sk = Vyprážané jedlá
     sv = Friterat
@@ -8668,7 +8670,7 @@
     pl = Kuchnia gruzińska
     pt = Cozinha georgiana
     pt-BR = Cozinha georgiana
-    ro = Bucătărie georgian
+    ro = Bucătărie georgiană
     ru = Грузинская кухня
     sk = Gruzínska kuchyňa
     sv = Georgisk mat
@@ -8703,7 +8705,7 @@
     pl = Kuchnia niemiecka
     pt = Cozinha alemã
     pt-BR = Cozinha alemã
-    ro = Bucătărie german
+    ro = Bucătărie germană
     ru = Немецкая кухня
     sk = Nemecká kuchyňa
     sv = Tysk mat
@@ -8738,7 +8740,7 @@
     pl = Kuchnia grecka
     pt = Cozinha grega
     pt-BR = Cozinha grega
-    ro = Bucătărie grecesc
+    ro = Bucătărie grecească
     ru = Греческая кухня
     sk = Grécka kuchyňa
     sv = Grekisk mat
@@ -8807,7 +8809,7 @@
     pl = Heuriger
     pt = Heuriger
     pt-BR = Heuriger
-    ro = Heuriger
+    ro = Tavernă
     ru = Винная таверна (хойригер)
     sk = Heuriger
     sv = Vintaverna (heuriger)
@@ -8877,7 +8879,7 @@
     pl = Kuchnia węgierska
     pt = Cozinha húngara
     pt-BR = Cozinha húngara
-    ro = Bucătărie maghiar
+    ro = Bucătărie maghiară
     ru = Венгерская кухня
     sk = Maďarská kuchyňa
     sv = Ungersk mat
@@ -8949,7 +8951,7 @@
     pl = Kuchnia indyjska
     pt = Cozinha indiana
     pt-BR = Cozinha indiana
-    ro = Bucătărie indian
+    ro = Bucătărie indiană
     ru = Индийская кухня
     sk = Indická kuchyňa
     sv = Indisk mat
@@ -8984,7 +8986,7 @@
     pl = Kuchnia indonezyjska
     pt = Cozinha indonésia
     pt-BR = Cozinha indonésia
-    ro = Bucătărie indonezian
+    ro = Bucătărie indoneziană
     ru = Индонезийская кухня
     sk = Indonézska kuchyňa
     sv = Indonesisk mat
@@ -9020,7 +9022,7 @@
     pl = Kuchnia międzynarodowa
     pt = Cozinha internacional
     pt-BR = Cozinha internacional
-    ro = Bucătărie internațional
+    ro = Bucătărie internațională
     ru = Международная кухня
     sk = Medzinárodné jedlá
     sv = Internationell mat
@@ -9055,7 +9057,7 @@
     pl = Kuchnia irlandzka
     pt = Cozinha irlandesa
     pt-BR = Cozinha irlandesa
-    ro = Bucătărie irlandez
+    ro = Bucătărie irlandeză
     ru = Ирландская кухня
     sk = Írska kuchyňa
     sv = Irländsk mat
@@ -9091,7 +9093,7 @@
     pl = Kuchnia włoska
     pt = Cozinha italiana
     pt-BR = Cozinha italiana
-    ro = Bucătărie italian
+    ro = Bucătărie italiană
     ru = Итальянская кухня
     sk = Talianska kuchyňa
     sv = Italiensk mat
@@ -9127,7 +9129,7 @@
     pl = Kuchnia włoska, pizza
     pt = Italiana, piza
     pt-BR = Italiana, pizza
-    ro = Italian, pizza
+    ro = Pizza
     ru = Итальянская, пиццерия
     sk = Talianska kuchyňa; pizza
     sv = Italiensk, pizza
@@ -9163,7 +9165,7 @@
     pl = Kuchnia japońska
     pt = Cozinha japonesa
     pt-BR = Cozinha japonesa
-    ro = Bucătărie japonez
+    ro = Bucătărie japoneză
     ru = Японская кухня
     sk = Japonská kuchyňa
     sv = Japansk mat
@@ -9233,7 +9235,7 @@
     pl = Kuchnia koreańska
     pt = Cozinha coreana
     pt-BR = Cozinha coreana
-    ro = Coreean
+    ro = Bucătărie coreană
     ru = Корейская
     sk = Kórejská kuchyňa
     sv = Koreansk mat
@@ -9268,7 +9270,7 @@
     pl = Kuchnia laoska
     pt = Cozinha laosiana
     pt-BR = Cozinha laosiana
-    ro = Bucătărie lao
+    ro = Bucătărie laoțiană
     ru = Лаосская кухня
     sk = Laoská kuchyňa
     sv = Laotisk mat
@@ -9303,7 +9305,7 @@
     pl = Kuchnia libańska
     pt = Cozinha libanesa
     pt-BR = Cozinha libanesa
-    ro = Bucătărie libanez
+    ro = Bucătărie libaneză
     ru = Ливанская кухня
     sk = Libanonská kuchyňa
     sv = Libanesisk mat
@@ -9339,7 +9341,7 @@
     pl = Kuchnia lokalna
     pt = Cozinha local
     pt-BR = Cozinha local
-    ro = Bucătărie local
+    ro = Bucătărie locală
     ru = Местная кухня
     sk = Miestna kuchyňa
     sv = Lokal mat
@@ -9374,7 +9376,7 @@
     pl = Kuchnia malgaska
     pt = Cozinha malgaxe
     pt-BR = Cozinha malgaxe
-    ro = Bucătărie malgaș
+    ro = Bucătărie malgașă
     ru = Мадагаскарская кухня
     sk = Madagaskarská kuchyňa
     sv = Madagaskisk mat
@@ -9409,7 +9411,7 @@
     pl = Kuchnia malezyjska
     pt = Cozinha malaia
     pt-BR = Cozinha malaia
-    ro = Bucătărie malaysian
+    ro = Bucătărie malaysiană
     ru = Малазийская кухня
     sk = Malajzijská kuchyňa
     sv = Malaysisk mat
@@ -9444,7 +9446,7 @@
     pl = Kuchnia śródziemnomorska
     pt = Cozinha mediterrânea
     pt-BR = Cozinha mediterrânea
-    ro = Bucătărie cu specific mediteranean
+    ro = Bucătărie mediteraneeană
     ru = Средиземноморская кухня
     sk = Stredomorská kuchyňa
     sv = Medelhavsmat
@@ -9479,7 +9481,7 @@
     pl = Kuchnia meksykańska
     pt = Cozinha mexicana
     pt-BR = Cozinha mexicana
-    ro = Bucătărie mexican
+    ro = Bucătărie mexicană
     ru = Мексиканская кухня
     sk = Mexická kuchyňa
     sv = Mexikansk mat
@@ -9514,7 +9516,7 @@
     pl = Kuchnia marokańska
     pt = Cozinha marroquina
     pt-BR = Cozinha marroquina
-    ro = Bucătărie marocan
+    ro = Bucătărie marocană
     ru = Марокканская кухня
     sk = Marocká kuchyňa
     sv = Marockansk mat
@@ -9585,7 +9587,7 @@
     pl = Kuchnia orientalna
     pt = Cozinha oriental
     pt-BR = Cozinha oriental
-    ro = Bucătărie oriental
+    ro = Bucătărie orientală
     ru = Восточная кухня
     sk = Orientálna kuchyňa
     sv = Orientalisk mat
@@ -9620,7 +9622,7 @@
     pl = Naleśniki
     pt = Crepes
     pt-BR = Panquecas
-    ro = Clătită
+    ro = Clătite americane
     ru = Блинная
     sk = Lievance
     sv = Pannkaka
@@ -9691,7 +9693,7 @@
     pl = Kuchnia perska
     pt = Cozinha persa
     pt-BR = Cozinha persa
-    ro = Bucătărie persan
+    ro = Bucătărie persană
     ru = Иранская кухня
     sk = Perzská kuchyňa
     sv = Persisk mat
@@ -9726,7 +9728,7 @@
     pl = Kuchnia peruwiańska
     pt = Cozinha peruana
     pt-BR = Cozinha peruana
-    ro = Bucătărie peruan
+    ro = Bucătărie peruană
     ru = Перуанская кухня
     sk = Peruánska kuchyňa
     sv = Peruansk mat
@@ -9797,7 +9799,7 @@
     pl = Kuchnia polska
     pt = Cozinha polonesa
     pt-BR = Cozinha polonesa
-    ro = Bucătărie polonez
+    ro = Bucătărie poloneză
     ru = Польская кухня
     sk = Poľská kuchyňa
     sv = Polsk mat
@@ -9832,7 +9834,7 @@
     pl = Kuchnia portugalska
     pt = Cozinha portuguesa
     pt-BR = Cozinha portuguesa
-    ro = Bucătărie portughez
+    ro = Bucătărie portugheză
     ru = Португальская кухня
     sk = Portugalská kuchyňa
     sv = Portugisisk mat
@@ -9903,7 +9905,7 @@
     pl = Kuchnia regionalna
     pt = Cozinha regional
     pt-BR = Cozinha regional
-    ro = Bucătărie regional
+    ro = Bucătărie regională
     ru = Региональная кухня
     sk = Regionálna kuchyňa
     sv = Regional mat
@@ -9938,7 +9940,7 @@
     pl = Kuchnia rosyjska
     pt = Cozinha russa
     pt-BR = Cozinha russa
-    ro = Bucătărie rusesc
+    ro = Bucătărie rusă
     ru = Русская кухня
     sk = Ruská kuchyňa
     sv = Rysk mat
@@ -10009,7 +10011,7 @@
     pl = Kiełbasiarnia
     pt = Salsichas
     pt-BR = Linguiças
-    ro = Cârnat
+    ro = Cârnați
     ru = Сосисочная
     sk = Klobása
     sv = Korv
@@ -10045,7 +10047,7 @@
     pl = Wytrawne naleśniki
     pt = Tortas salgadas
     pt-BR = Panquecas salgadas
-    ro = Clătite delicioase
+    ro = Clătite sărate
     ru = Несладкие блинчики
     sk = Pikantné palacinky
     sv = Fyllda pannkakor
@@ -10151,7 +10153,7 @@
     pl = Kuchnia hiszpańska
     pt = Cozinha espanhola
     pt-BR = Cozinha espanhola
-    ro = Bucătărie spaniol
+    ro = Bucătărie spaniolă
     ru = Испанская кухня
     sk = Španielska kuchyňa
     sv = Spansk mat
@@ -10186,7 +10188,7 @@
     pl = Steki
     pt = Churrasqueira
     pt-BR = Churrascaria
-    ro = Restaurant steakhouse
+    ro = Steakhouse
     ru = Стейк-хаус
     sk = Steak house
     sv = Stekhus
@@ -10327,7 +10329,7 @@
     pl = Kuchnia tajska
     pt = Cozinha tailandesa
     pt-BR = Cozinha tailandesa
-    ro = Bucătărie tailandez
+    ro = Bucătărie tailandeză
     ru = Тайская кухня
     sk = Thajská kuchyňa
     sv = Thailändsk mat
@@ -10362,7 +10364,7 @@
     pl = Kuchnia turecka
     pt = Cozinha turca
     pt-BR = Cozinha turca
-    ro = Bucătărie turcesc
+    ro = Bucătărie turcă
     ru = Турецкая кухня
     sk = Turecká kuchyňa
     sv = Turkisk mat
@@ -10397,7 +10399,7 @@
     pl = Kuchnia wegańska
     pt = Cozinha vegana
     pt-BR = Cozinha vegana
-    ro = Bucătărie vegan
+    ro = Bucătărie vegană
     ru = Веганская кухня
     sk = Vegánske jedlá
     sv = Vegansk mat
@@ -10433,7 +10435,7 @@
     pl = Kuchnia wegetariańska
     pt = Cozinha vegetariana
     pt-BR = Cozinha vegetariana
-    ro = Bucătărie vegetarian
+    ro = Bucătărie vegetariană
     ru = Вегетарианская кухня
     sk = Vegetariánske jedlá
     sv = Vegetarisk mat
@@ -10468,7 +10470,7 @@
     pl = Kuchnia wietnamska
     pt = Cozinha vietnamita
     pt-BR = Cozinha vietnamita
-    ro = Bucătărie vietnamez
+    ro = Bucătărie vietnameză
     ru = Вьетнамская кухня
     sk = Vietnamská kuchyňa
     sv = Vietnamesisk mat
