@@ -823,7 +823,7 @@
 
 "placepage_delete_bookmark_button" = "ブックマークを削除";
 
-"editor_edits_sent_message" = "変更の提案を送信しました";
+"editor_edits_sent_message" = "あなたのメモはOpenStreetMapに送られる";
 
 "editor_comment_hint" = "コメント…";
 

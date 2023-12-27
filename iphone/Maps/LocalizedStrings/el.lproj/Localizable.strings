@@ -823,7 +823,7 @@
 
 "placepage_delete_bookmark_button" = "Διαγραφή αγαπημένου";
 
-"editor_edits_sent_message" = "Οι προτεινόμενες αλλαγές σας έχουν σταλεί";
+"editor_edits_sent_message" = "Η σημείωσή σας θα σταλεί στο OpenStreetMap";
 
 "editor_comment_hint" = "Σχόλιο…";
 

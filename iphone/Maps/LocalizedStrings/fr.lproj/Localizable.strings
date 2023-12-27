@@ -823,7 +823,7 @@
 
 "placepage_delete_bookmark_button" = "Supprimer le signet";
 
-"editor_edits_sent_message" = "Vos modifications suggérées ont été envoyées";
+"editor_edits_sent_message" = "Ta note sera envoyée à OpenStreetMap";
 
 "editor_comment_hint" = "Commentaire…";
 

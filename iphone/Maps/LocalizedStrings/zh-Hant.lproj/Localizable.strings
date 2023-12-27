@@ -823,7 +823,7 @@
 
 "placepage_delete_bookmark_button" = "刪除書籤";
 
-"editor_edits_sent_message" = "您的建議已傳送";
+"editor_edits_sent_message" = "您的註釋將發送至 OpenStreetMap";
 
 "editor_comment_hint" = "註解…";
 

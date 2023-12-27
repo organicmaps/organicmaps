@@ -823,7 +823,7 @@
 
 "placepage_delete_bookmark_button" = "حذف نشانه";
 
-"editor_edits_sent_message" = "تغییر پیشنهادی شما ارسال شد";
+"editor_edits_sent_message" = "یادداشت شما به OpenStreetMap ارسال خواهد شد";
 
 "editor_comment_hint" = "اظهار نظر";
 

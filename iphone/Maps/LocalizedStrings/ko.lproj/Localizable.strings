@@ -823,7 +823,7 @@
 
 "placepage_delete_bookmark_button" = "즐겨찾기 삭제";
 
-"editor_edits_sent_message" = "귀하의 제안 변경사항이 전송되었습니다";
+"editor_edits_sent_message" = "메모가 오픈스트리트맵으로 전송됩니다";
 
 "editor_comment_hint" = "설명…";
 
