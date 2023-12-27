@@ -76,6 +76,16 @@ std::string GetTtsText::GetTurnNotification(Notification const & notification) c
   return distStr + " " + dirStr;
 }
 
+std::string GetTtsText::GetBeginningNotification() const
+{
+  return GetTextById("route_beginning");
+}
+
+std::string GetTtsText::GetRecalculatingNotification() const
+{
+  return GetTextById("route_recalculating");
+}
+
 std::string GetTtsText::GetSpeedCameraNotification() const
 {
   return GetTextById("unknown_camera");

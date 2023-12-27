@@ -10,6 +10,8 @@
 "make_a_u_turn":"Napravite poluzaokret.",
 "go_straight":"Idite ravno.",
 "exit":"Izlaz.",
+"route_beginning":"Pratite označenu rutu.",
+"route_recalculating":"Preusmjeravanje.",
 "destination":"Stižete.",
 "you_have_reached_the_destination":"Stigli ste.",
 "in_50_meters":"Za pedeset metara",

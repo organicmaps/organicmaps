@@ -23,6 +23,10 @@ public:
 
   std::string GetTurnNotification(Notification const & notification) const;
 
+  std::string GetBeginningNotification() const;
+
+  std::string GetRecalculatingNotification() const;
+
   std::string GetSpeedCameraNotification() const;
 
   /// \brief Sets a locale.

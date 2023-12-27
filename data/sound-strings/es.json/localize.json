@@ -10,6 +10,8 @@
 "make_a_u_turn":"Cambie de sentido.",
 "go_straight":"Continúe recto.",
 "exit":"Salida.",
+"route_beginning":"Siga la ruta resaltada.",
+"route_recalculating":"Redirección.",
 "destination":"Llegará a su destino.",
 "you_have_reached_the_destination":"Ha llegado a su destino.",
 "in_50_meters":"En cincuenta metros",

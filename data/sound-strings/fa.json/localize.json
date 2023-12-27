@@ -10,6 +10,8 @@
 "make_a_u_turn":"دور بزنید.",
 "go_straight":"مستقیم بروید.",
 "exit":"خروج.",
+"route_beginning":"مسیر مشخص شده را دنبال کنید.",
+"route_recalculating":"تغییر مسیر.",
 "destination":"به مقصد خواهيد رسيد.",
 "you_have_reached_the_destination":"به مقصد رسيديد.",
 "in_50_meters":"در پنجاه متری",

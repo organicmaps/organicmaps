@@ -10,6 +10,8 @@
 "make_a_u_turn":"انعطف بدوران كامل.",
 "go_straight":"انطلق بشكل مستقيم.",
 "exit":"خروج.",
+"route_beginning":"اتبع الطريق المميز.",
+"route_recalculating":"إعادة التوجيه.",
 "destination":"سوف تصل.",
 "you_have_reached_the_destination":"لقد وصلت.",
 "in_50_meters":"بعد خمسين متراً",

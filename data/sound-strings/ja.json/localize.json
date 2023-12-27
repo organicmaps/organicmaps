@@ -10,6 +10,8 @@
 "make_a_u_turn":"Uターンです。",
 "go_straight":"直進です。",
 "exit":"出口.",
+"route_beginning":"強調表示されたルートに従ってください。",
+"route_recalculating":"ルート変更。",
 "destination":"到着します。",
 "you_have_reached_the_destination":"到着。",
 "in_50_meters":"五十メートル先",

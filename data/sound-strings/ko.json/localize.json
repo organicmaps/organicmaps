@@ -10,6 +10,8 @@
 "make_a_u_turn":"유턴입니다.",
 "go_straight":"직진입니다.",
 "exit":"출구.",
+"route_beginning":"\"강조 표시된 경로를 따르세요.\"",
+"route_recalculating":"경로 재지정.",
 "destination":"도착할 예정입니다.",
 "you_have_reached_the_destination":"도착했습니다.",
 "in_50_meters":"오십 미터 앞",

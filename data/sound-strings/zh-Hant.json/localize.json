@@ -10,6 +10,8 @@
 "make_a_u_turn":"掉頭。",
 "go_straight":"直行。",
 "exit":"出口.",
+"route_beginning":"遵循突出顯示的路線。",
+"route_recalculating":"重新路由。",
 "destination":"您將到達目的地。",
 "you_have_reached_the_destination":"你已到達目的地。",
 "in_50_meters":"前方五十米",

@@ -10,6 +10,8 @@
 "make_a_u_turn":"Otočte se do protisměru.",
 "go_straight":"Jeďte rovně.",
 "exit":"výstup.",
+"route_beginning":"Postupujte podle zvýrazněné trasy.",
+"route_recalculating":"Přesměrování.",
 "destination":"Přijedete do cíle.",
 "you_have_reached_the_destination":"Jste v cíli.",
 "in_50_meters":"Za padesát metrů",

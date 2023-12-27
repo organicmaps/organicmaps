@@ -10,6 +10,8 @@
 "make_a_u_turn":"Wenden Sie.",
 "go_straight":"Fahren Sie geradeaus.",
 "exit":"Nehmen Sie die Ausfahrt.",
+"route_beginning":"Folgen sie der markierten route.",
+"route_recalculating":"Umleitung.",
 "destination":"Werden Sie ankommen.",
 "you_have_reached_the_destination":"Sie sind angekommen.",
 "in_50_meters":"In fünfzig Metern",

@@ -10,6 +10,8 @@
 "make_a_u_turn":"Forduljon vissza.",
 "go_straight":"Haladjon tovább egyenesen.",
 "exit":"Hajtson ki!",
+"route_beginning":"Kövesse a kiemelt útvonalat.",
+"route_recalculating":"Újratervezés.",
 "destination":"Megérkezik.",
 "you_have_reached_the_destination":"Megérkezett.",
 "in_50_meters":"Ötven méter után",

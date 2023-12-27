@@ -10,6 +10,8 @@
 "make_a_u_turn":"Putar balik.",
 "go_straight":"Lurus terus.",
 "exit":"Keluar.",
+"route_beginning":"Ikuti rute yang disorot.",
+"route_recalculating":"Mengubah rute.",
 "destination":"Anda akan tiba.",
 "you_have_reached_the_destination":"Anda sudah sampai.",
 "in_50_meters":"Setelah lima puluh meter",

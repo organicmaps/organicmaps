@@ -10,6 +10,8 @@
 "make_a_u_turn":"Faça inversão de marcha.",
 "go_straight":"Siga em frente.",
 "exit":"Saia.",
+"route_beginning":"Siga a rota destacada.",
+"route_recalculating":"Reencaminhamento.",
 "destination":"Chegará ao seu destino.",
 "you_have_reached_the_destination":"Chegou ao seu destino.",
 "in_50_meters":"A cinquenta metros",

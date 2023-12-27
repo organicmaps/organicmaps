@@ -10,6 +10,8 @@
 "make_a_u_turn":"Otočte sa o stoosemdesiat stupňov.",
 "go_straight":"Choďte rovno.",
 "exit":"Výjazd.",
+"route_beginning":"Postupujte podľa zvýraznenej trasy.",
+"route_recalculating":"Presmerovanie.",
 "destination":"Dorazíte.",
 "you_have_reached_the_destination":"Dorazili ste do cieľa.",
 "in_50_meters":"Po päťdesiatich metroch",

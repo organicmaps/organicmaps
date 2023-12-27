@@ -10,6 +10,8 @@
 "make_a_u_turn":"Effettua un'inversione a U.",
 "go_straight":"Sempre dritto.",
 "exit":"Uscita.",
+"route_beginning":"Seguire il percorso evidenziato.",
+"route_recalculating":"Reindirizzamento.",
 "destination":"Arriverai.",
 "you_have_reached_the_destination":"Sei arrivato.",
 "in_50_meters":"Tra cinquanta metri",

@@ -10,6 +10,8 @@
 "make_a_u_turn":"Întoarceți-vă o sută optzeci de grade.",
 "go_straight":"Mergeți înainte.",
 "exit":"Ieșire.",
+"route_beginning":"Urmați traseul evidențiat.",
+"route_recalculating":"Redirecționare.",
 "destination":"Veți sosi.",
 "you_have_reached_the_destination":"Ați ajuns.",
 "in_50_meters":"După cincizeci de metri",

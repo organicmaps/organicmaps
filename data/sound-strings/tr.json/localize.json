@@ -10,6 +10,8 @@
 "make_a_u_turn":"U dönüşü yapın.",
 "go_straight":"Düz ilerleyin.",
 "exit":"çıkın.",
+"route_beginning":"Vurgulanan rotayı takip edin.",
+"route_recalculating":"Yeniden yönlendirme.",
 "destination":"Varacaksınız.",
 "you_have_reached_the_destination":"Hedef noktasına vardınız.",
 "in_50_meters":"Elli metre sonra",

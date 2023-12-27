@@ -242,6 +242,11 @@ void RoutingSession::Reset()
   m_passedDistanceOnRouteMeters = 0.0;
   m_isFollowing = false;
   m_lastCompletionPercent = 0;
+
+  // reset announcement counters
+  m_routingRebuildCount = -1;
+  m_routingRebuildAnnounceCount = 0;
+  m_routingBeginAnnounced = false;
 }
 
 void RoutingSession::SetState(SessionState state)
@@ -488,7 +493,23 @@ void RoutingSession::GenerateNotifications(std::vector<std::string> & notificati
   CHECK_THREAD_CHECKER(m_threadChecker, ());
   notifications.clear();
 
+  // Generate initial calculation notification
+  if (!m_routingBeginAnnounced)
+  {
+    m_routingBeginAnnounced = true;
+    notifications.emplace_back(m_turnNotificationsMgr.GenerateBeginningText());
+    return;
+  }
+
   ASSERT(m_route, ());
+
+  // Generate recalculating notification if needed and reset
+  if (m_routingRebuildCount > m_routingRebuildAnnounceCount)
+  {
+    m_routingRebuildAnnounceCount = m_routingRebuildCount;
+    notifications.emplace_back(m_turnNotificationsMgr.GenerateRecalculatingText());
+    return;
+  }
 
   // Voice turn notifications.
   if (!m_routingSettings.m_soundDirection)

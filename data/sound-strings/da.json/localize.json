@@ -10,6 +10,8 @@
 "make_a_u_turn":"Vend om.",
 "go_straight":"Fortsæt lige ud.",
 "exit":"Afkørsel.",
+"route_beginning":"Følg den fremhævede rute.",
+"route_recalculating":"Omdirigering.",
 "destination":"Ankommer du.",
 "you_have_reached_the_destination":"Du er ankommet.",
 "in_50_meters":"Om halvtreds meter",

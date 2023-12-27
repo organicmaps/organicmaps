@@ -230,6 +230,8 @@ private:
   double m_passedDistanceOnRouteMeters = 0.0;
   // Rerouting count
   int m_routingRebuildCount = -1; // -1 for the first rebuild called in BuildRoute().
+  int m_routingRebuildAnnounceCount = 0; // track TTS announcement state (ignore the first build)
+  bool m_routingBeginAnnounced = false; // track TTS initial announcement
   mutable double m_lastCompletionPercent = 0.0;
 
   DECLARE_THREAD_CHECKER(m_threadChecker);

@@ -10,6 +10,8 @@
 "make_a_u_turn":"Norabidea aldaketa egin.",
 "go_straight":"Zuzen jarraitu.",
 "exit":"Irteera.",
+"route_beginning":"Jarraitu nabarmendutako ibilbidea.",
+"route_recalculating":"Desbideratzea.",
 "destination":"Zure helmugara iritsiko zara.",
 "you_have_reached_the_destination":"Helmugara iritsi zara.",
 "in_50_meters":"Berrogeita hamar metrora",

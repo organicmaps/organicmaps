@@ -10,6 +10,8 @@
 "make_a_u_turn":"Развернитесь.",
 "go_straight":"Двигайтесь прямо.",
 "exit":"Съезд.",
+"route_beginning":"Следуйте по выделенному маршруту.",
+"route_recalculating":"Изменение маршрута.",
 "destination":"Вы прибудете в пункт назначения.",
 "you_have_reached_the_destination":"Вы прибыли в пункт назначения.",
 "in_50_meters":"Через пятьдесят метров",

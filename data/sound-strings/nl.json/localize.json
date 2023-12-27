@@ -10,6 +10,8 @@
 "make_a_u_turn":"Keer om.",
 "go_straight":"Rij rechtdoor.",
 "exit":"Verlaat.",
+"route_beginning":"Volg de gemarkeerde route.",
+"route_recalculating":"Omleiding.",
 "destination":"Arriveert u.",
 "you_have_reached_the_destination":"Bestemming bereikt.",
 "in_50_meters":"Over vijftig meter",
