@@ -4,7 +4,6 @@ import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.Intent;
 import android.content.res.Configuration;
-import android.net.Uri;
 import android.os.Bundle;
 import android.speech.tts.TextToSpeech;
 import android.text.Spannable;
@@ -389,9 +388,7 @@ public class SettingsPrefsFragment extends BaseXmlSettingsFragment
 
     final String ttsInfoUrl = requireActivity().getString(R.string.tts_info_link);
     ttsLangInfoLink.setOnPreferenceClickListener(preference -> {
-      final Intent intent = new Intent(Intent.ACTION_VIEW);
-      intent.setData(Uri.parse(ttsInfoUrl));
-      requireContext().startActivity(intent);
+      Utils.openUrl(requireContext(), ttsInfoUrl);
       return false;
     });
   }
