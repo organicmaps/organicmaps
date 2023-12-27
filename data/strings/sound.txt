@@ -180,7 +180,7 @@
     mr = चौकातून बाहेर पडा.
     nb = Kjør ut av rundkjøringen.
     nl = Verlaat de rotonde.
-    pl = Zjazd z ronda.
+    pl = Zjedź z ronda.
     pt = Saia da rotunda.
     pt-BR = Saia da rotatória.
     ro = Ieșiți din sensul giratoriu.
@@ -414,7 +414,7 @@
     mr = बाहेर पडा.
     nb = Ta avkjøringen.
     nl = Verlaat.
-    pl = Zjazd.
+    pl = Zjedź zjazdem.
     pt = Saia.
     pt-BR = Pegue a saída.
     ro = Ieșire.
@@ -453,7 +453,7 @@
     mr = तुम्ही पोहोचाल.
     nb = Du ankommer.
     nl = Arriveert u.
-    pl = Dojedziesz.
+    pl = Dojedziesz do celu.
     pt = Chegará ao seu destino.
     pt-BR = Você chegará ao seu destino.
     ro = Veți sosi.
