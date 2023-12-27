@@ -823,7 +823,7 @@
 
 "placepage_delete_bookmark_button" = "Smazat záložku";
 
-"editor_edits_sent_message" = "Odeslali jsme Vámi navržené změny";
+"editor_edits_sent_message" = "Vaše poznámka bude odeslána do OpenStreetMap";
 
 "editor_comment_hint" = "Poznámka…";
 

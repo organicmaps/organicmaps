@@ -823,7 +823,7 @@
 
 "placepage_delete_bookmark_button" = "Radera bokmärke";
 
-"editor_edits_sent_message" = "Dina föreslagna ändringar har skickats";
+"editor_edits_sent_message" = "Din anteckning kommer att skickas till OpenStreetMap";
 
 "editor_comment_hint" = "kommentar…";
 

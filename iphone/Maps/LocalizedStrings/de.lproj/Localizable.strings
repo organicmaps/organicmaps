@@ -823,7 +823,7 @@
 
 "placepage_delete_bookmark_button" = "Lesezeichen löschen";
 
-"editor_edits_sent_message" = "Ihre Änderungsvorschläge wurden gesendet";
+"editor_edits_sent_message" = "Ihre Notiz wird an OpenStreetMap gesendet";
 
 "editor_comment_hint" = "Kommentar…";
 

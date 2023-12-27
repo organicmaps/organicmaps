@@ -823,7 +823,7 @@
 
 "placepage_delete_bookmark_button" = "Poista kirjanmerkki";
 
-"editor_edits_sent_message" = "Ehdottamasi muutokset on lähetetty";
+"editor_edits_sent_message" = "Huomautus lähetetään OpenStreetMapille";
 
 "editor_comment_hint" = "Kommentti…";
 

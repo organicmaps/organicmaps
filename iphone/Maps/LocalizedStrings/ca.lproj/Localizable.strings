@@ -823,7 +823,7 @@
 
 "placepage_delete_bookmark_button" = "Esborra el marcador";
 
-"editor_edits_sent_message" = "S'han enviat els canvis que heu suggerit";
+"editor_edits_sent_message" = "La vostra nota s'enviarà a OpenStreetMap";
 
 "editor_comment_hint" = "Comentari…";
 
