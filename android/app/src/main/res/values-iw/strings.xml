@@ -18,7 +18,7 @@
 	<!-- Choose measurement on first launch alert - choose metric system button -->
 	<string name="kilometres">ק\"מ</string>
 	<!-- Choose measurement on first launch alert - choose imperial system button -->
-	<string name="miles">מ\"ב</string>
+	<string name="miles">מייל</string>
 	<!-- A text for current gps location point/arrow selected on the map -->
 	<string name="core_my_position">מיקומי</string>
 	<!-- Update maps later button text -->
@@ -28,7 +28,7 @@
 	<!-- Location services are disabled by user alert - message -->
 	<string name="location_is_disabled_long_text">שרותי המיקום של מכשיר או ישום זה זה כבויים. הכנס ל \"הגדרות\" Settings)) כדי להדליקם.</string>
 	<!-- Message to display at the center of the screen when the country download has failed -->
-	<string name="country_status_download_failed">הורדנכשלה</string>
+	<string name="country_status_download_failed">ההורדה נכשלה</string>
 	<!-- Button text for the button under the country_status_download_failed message -->
 	<string name="try_again">נסה שוב</string>
 	<string name="about_menu_title">Organic Maps אודות</string>
@@ -61,7 +61,7 @@
 	<!-- REMOVE THIS STRING AFTER REFACTORING -->
 	<string name="continue_download">המשך</string>
 	<!-- Show popup notification on top of the map when country download has failed. -->
-	<string name="download_country_failed">%s ההורדה  נכשלה</string>
+	<string name="download_country_failed">הורדה של %s נכשלה</string>
 	<!-- "Add new bookmark list" dialog title -->
 	<string name="add_new_set">הוסף קבוצה חדשה</string>
 	<!-- Bookmark Color dialog title -->
@@ -127,7 +127,7 @@
 	<!-- Search category for water; any changes should be duplicated in categories.txt @water! also used to sort bookmarks by type -->
 	<string name="water">מים</string>
 	<!-- Search category for RV facilities; any changes should be duplicated in categories.txt @rv! -->
-	<string name="rv">םינאוורק רובע</string>
+	<string name="rv">עבור קרוואנים</string>
 	<!-- Notes field in Bookmarks view -->
 	<string name="description">הערות</string>
 	<!-- Email Subject when sharing bookmark list -->
@@ -143,11 +143,11 @@
 	<!-- Warning message when doing search around current position -->
 	<string name="unknown_current_position">מיקומך לא אותר עדיין</string>
 	<!-- Alert message that we can't run Map Storage settings due to some reasons. -->
-	<string name="cant_change_this_setting">. פעילה כרגע מצטערים, הגדרת \"שמירת מפה\" אינה</string>
+	<string name="cant_change_this_setting">מצטערים, הגדרות שמירת מפה אינן זמינות כרגע.</string>
 	<!-- Alert message that downloading is in progress. -->
 	<string name="downloading_is_active">הודת מפת המדינה מתבצעת כרגע.</string>
 	<!-- Share my position using SMS, %1$@ contains om:// and %2$@ https://omaps.app link WITHOUT NAME. @NOTE non-ascii symbols in the link will result in max 70 characters SMS instead of 140. -->
-	<string name="my_position_share_sms">. אין ברשותך מפות לא מקוונות? הורד Organic Maps! %1$s or %2$s הי, בדוק את מיקומי הנוכחי ב. https://omaps.app/get הורד אותן מ:</string>
+	<string name="my_position_share_sms">קבלו את המיקום שלי ב-Organic Maps! %1$s או %2$s אין לך מפות בלי אינטרנט? להוריד כאן: https://omaps.app/get</string>
 	<!-- Subject for emailed bookmark -->
 	<string name="bookmark_share_email_subject">הי, בדוק את הסיכה שלי במפה של Organic Maps!</string>
 	<!-- Subject for emailed position -->
@@ -161,7 +161,7 @@
 	<!-- Used for bookmark editing -->
 	<string name="done">בוצע</string>
 	<!-- Data version in «About» screen, %@ is replaced by a local, human readable date. -->
-	<string name="data_version">OpenStreetMap: %s ינותנ</string>
+	<string name="data_version">נתוני OpenStreetMap: %s</string>
 	<!-- Confirmation in downloading countries dialog -->
 	<string name="are_you_sure">האם הנך בטוח שרצונך להמשיך?</string>
 	<!-- Title for tracks category in bookmarks manager -->
@@ -180,17 +180,17 @@
 	<string name="placepage_distance">מרחק</string>
 	<string name="search_show_on_map">ראה במפה</string>
 	<!-- Text in About menu, opens Organic Maps news website -->
-	<string name="news">תוֹשׁדָחֲ</string>
+	<string name="news">חדשות</string>
 	<!-- Text in menu -->
 	<string name="rate_the_app">דרגו את האפליקציה</string>
 	<!-- Text in menu -->
 	<string name="help">עזרה</string>
 	<!-- Button in the main Help dialog -->
-	<string name="faq">תובושתו תולאש</string>
+	<string name="faq">שאלות ותשובות</string>
 	<!-- Button in the main menu -->
-	<string name="donate">םוֹרתְלִ</string>
+	<string name="donate">לתרום</string>
 	<!-- Button in the main Help dialog -->
-	<string name="how_to_support_us">טקיורפב וכמת</string>
+	<string name="how_to_support_us">תמכו בפרויקט</string>
 	<!-- Button in the main Help dialog -->
 	<string name="copyright">זכויות יוצרים</string>
 	<!-- Text in menu + Button in the main Help dialog -->
@@ -250,8 +250,8 @@
 	<!-- Tab title in the Edit Opening Hours time picker -->
 	<string name="editor_time_to">עד</string>
 	<string name="twentyfour_seven">יום ולילה</string>
-	<string name="login_osm">OpenStreetMap-ל סנכיה</string>
-	<string name="level">קוֹמָה</string>
+	<string name="login_osm">היכנס ל-OpenStreetMap</string>
+	<string name="level">קומה</string>
 	<!-- Text in About and OSM Login screens. %@ is replaced by a local, human readable date. -->
 	<string name="osm_presentation">נתונים קרטוגרפיים מ- OpenStreetMap נכון לשנת %s. זה כמו Wikipedia בו תוכלו להוסיף או לערוך מקומות לכל המשתמשים ברחבי העולם.</string>
 	<!-- A referral link on the place page for some hotels -->
@@ -261,7 +261,7 @@
 	<!-- A confirmation button text in the explanation dialog that opens hotel details page on Kayak website. -->
 	<string name="dialog_kayak_button">פרטים על Kayak</string>
 	<string name="placepage_add_place_button">הוסף מקום ל-OpenStreetMap</string>
-	<string name="editor_share_to_all_dialog_message_2">.ןהשלכ תולאש םהל שי םא רשק ךתיא ורציו םייונישה תא וקדבי OpenStreetMap יכרוע</string>
+	<string name="editor_share_to_all_dialog_message_2">עורכי OpenStreetMap יבדקו את השינויים ויצרו איתך קשר אם יש להם שאלות כלשהן.</string>
 	<string name="transliteration_title">תעתיק ללטינית</string>
 	<!-- Bookmark categories screen, button that opens folder selection dialog to import KML/KMZ/GPX/KMB files -->
 	<string name="bookmarks_import">ייבוא סימניות ורצועות</string>
@@ -281,7 +281,7 @@
 	<!-- Description in preferences -->
 	<string name="enable_keep_screen_on_description">כאשר מופעל, המסך תמיד יהיה דולק בעת הצגת המפה.</string>
 	<!-- OpenStreetMap text on splash screen -->
-	<string name="splash_subtitle">OpenStreetMap-מ הפמ ינותנ</string>
+	<string name="splash_subtitle">נתוני מפה מ-OpenStreetMap</string>
 	<!-- Tip #00 -->
 	<string name="app_tip_00">תודה על השימוש במפות שנבנו בקהילה שלנו!</string>
 	<!-- Text on the Android Auto placeholder screen that maps are displayed on the phone screen -->

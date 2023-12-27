@@ -10,7 +10,7 @@
 "cancel" = "בטל";
 
 /* Button which interrupts country download */
-"cancel_download" = "בטל  הורדת הקובץ";
+"cancel_download" = "בטל הורדת הקובץ";
 
 /* Button which deletes downloaded country */
 "delete" = "מחק";
@@ -27,7 +27,7 @@
 "leave_a_review" = "הבע דעתך";
 
 /* Choose measurement on first launch alert - choose imperial system button */
-"miles" = "מ\"ב";
+"miles" = "מייל";
 
 /* A text for current gps location point/arrow selected on the map */
 "core_my_position" = "מיקומי";
@@ -48,7 +48,7 @@
 "country_status_download_without_size" = "הורידו מפה";
 
 /* Message to display at the center of the screen when the country download has failed */
-"country_status_download_failed" = "הורדנכשלה";
+"country_status_download_failed" = "ההורדה נכשלה";
 
 "about_menu_title" = "Organic Maps אודות";
 
@@ -159,7 +159,7 @@
 "water" = "מים";
 
 /* Search category for RV facilities; any changes should be duplicated in categories.txt @rv! */
-"rv" = "םינאוורק רובע";
+"rv" = "עבור קרוואנים";
 
 "share_bookmarks_email_body" = "Hello!\n\nAttached are my bookmarks; please open them in Organic Maps. If you don't have it installed you can download it here: https://omaps.app/get?kmz\n\nEnjoy travelling with Organic Maps!";
 
@@ -200,10 +200,10 @@
 "done" = "בוצע";
 
 /* Prints version number in About dialog */
-"version" = "%@ וורסיה";
+"version" = "גירסה: %@";
 
 /* Data version in «About» screen, %@ is replaced by a local, human readable date. */
-"data_version" = "OpenStreetMap: %@ ינותנ";
+"data_version" = "נתוני OpenStreetMap: %@";
 
 /* Title for tracks category in bookmarks manager */
 "tracks_title" = "נתיבים";
@@ -274,7 +274,7 @@
 "website" = "Website";
 
 /* Text in About menu, opens Organic Maps news website */
-"news" = "תוֹשׁדָחֲ";
+"news" = "חדשות";
 
 /* Text in menu */
 "github" = "GitHub";
@@ -310,13 +310,13 @@
 "help" = "עזרה";
 
 /* Button in the main Help dialog */
-"faq" = "תובושתו תולאש";
+"faq" = "שאלות ותשובות";
 
 /* Button in the main menu */
-"donate" = "םוֹרתְלִ";
+"donate" = "לתרום";
 
 /* Button in the main Help dialog */
-"how_to_support_us" = "טקיורפב וכמת";
+"how_to_support_us" = "תמכו בפרויקט";
 
 /* Button in the main Help dialog */
 "copyright" = "זכויות יוצרים";
@@ -357,7 +357,7 @@
 "downloader_search_results" = "Found";
 
 /* Status of outdated country in the list */
-"downloader_status_outdated" = "לְעַדְכֵּן";
+"downloader_status_outdated" = "לעדכן";
 
 /* Status of failed country in the list */
 "downloader_status_failed" = "נכשלה";
@@ -662,7 +662,7 @@
 
 "phone" = "Phone";
 
-"level" = "קוֹמָה";
+"level" = "קומה";
 
 "please_note" = "Please note";
 
@@ -844,7 +844,7 @@
 /* Dialog before publishing the modifications to the public map. */
 "editor_share_to_all_dialog_message_1" = "Make sure you did not enter any private or personal data.";
 
-"editor_share_to_all_dialog_message_2" = ".ןהשלכ תולאש םהל שי םא רשק ךתיא ורציו םייונישה תא וקדבי OpenStreetMap יכרוע";
+"editor_share_to_all_dialog_message_2" = "עורכי OpenStreetMap יבדקו את השינויים ויצרו איתך קשר אם יש להם שאלות כלשהן.";
 
 "navigation_stop_button" = "stop";
 
