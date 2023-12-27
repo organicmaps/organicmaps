@@ -29967,19 +29967,6 @@
     tr = Kayakçı teleferiği
     uk = Бугельний витяг
 
-  [type.piste_type]
-    en = Piste Type
-    af = Tipe skibaan
-    de = Pistentyp
-    es = Tipo de pista
-    et = Punkti liik
-    nl = Pistesoort
-    pt = Tipo de pista
-    pt-BR = Tipo de pista
-    ru = Тип трассы
-    tr = Kayakçı Taşıyıcı
-    uk = Тип траси
-
   [type.piste_type.downhill]
     en = Downhill Ski Run
     af = Ski-afdaling
@@ -29995,6 +29982,9 @@
     tr = Yokuş Aşağı Kayak Pisti
     uk = Гірськолижна траса
 
+  [type.piste_type.downhill.area]
+    ref = type.piste_type.downhill
+
   [type.piste_type.downhill.advanced]
     ref = type.piste_type.downhill
     en = Advanced Downhill Ski Run
@@ -30008,6 +29998,9 @@
     ru = Продвинутая горнолыжная трасса
     tr = Gelişmiş kayak pisti
     uk = Доповнена гірськолижна траса
+
+  [type.piste_type.downhill.advanced.area]
+    ref = type.piste_type.downhill.advanced
 
   [type.piste_type.downhill.easy]
     ref = type.piste_type.downhill
@@ -30023,6 +30016,9 @@
     tr = Basit kayak pisti
     uk = Легка гірськолижна траса
 
+  [type.piste_type.downhill.easy.area]
+    ref = type.piste_type.downhill.easy
+
   [type.piste_type.downhill.expert]
     ref = type.piste_type.downhill
     en = Expert Downhill Ski Run
@@ -30037,8 +30033,12 @@
     tr = Uzmanlar için kayak pisti
     uk = Гірськолижна траса для експертів
 
+  [type.piste_type.downhill.expert.area]
+    ref = type.piste_type.downhill.expert
+
   [type.piste_type.downhill.freeride]
     ref = type.piste_type.downhill
+    en = Freeride Downhill Ski Run
     et = Tasuta mäesuusatamine
     pt = Esqui alpino livre
     pt-BR = Esqui alpino livre
@@ -30060,6 +30060,9 @@
     tr = Orta zorlukta kayak pisti
     uk = Гірськолижна траса середнього рівня
 
+  [type.piste_type.downhill.intermediate.area]
+    ref = type.piste_type.downhill.intermediate
+
   [type.piste_type.downhill.novice]
     ref = type.piste_type.downhill
     en = Novice Downhill Ski Run
@@ -30073,6 +30076,9 @@
     ru = Горнолыжная трасса для новичков
     tr = Yeni başlayanlar için kayak pisti
     uk = Гірськолижна траса для новеньких
+
+  [type.piste_type.downhill.novice.area]
+    ref = type.piste_type.downhill.novice
 
   [type.piste_type.nordic]
     en = Nordic Ski Trail
@@ -30104,6 +30110,183 @@
     ru = Трасса для саней
     tr = Kızak Pisti
     uk = Траса для санок
+
+  [type.piste_type.sled.area]
+    ref = type.piste_type.sled
+
+  [type.piste_type.snow_park]
+    en = Snow Park
+    af = Snow Park
+    ar = حديقة الثلج
+    be = Снежны парк
+    bg = Снежен парк
+    ca = Parc de neu
+    cs = Snow Park
+    da = Snow Park
+    de = Snow Park
+    el = Snow Park
+    es = Parque de nieve
+    et = Snow Park
+    eu = Elur parkea
+    fa = پارک برفی
+    fi = Snow Park
+    fr = Parc à neige
+    he = פארק שלג
+    hi = स्नो पार्क
+    hu = Snow Park
+    id = Snow Park
+    it = Snow Park
+    ja = スノーパーク
+    ko = 스노우 파크
+    lt = Sniego parkas
+    mr = स्नो पार्क
+    nb = Snow Park
+    nl = Sneeuwpark
+    pl = Snow Park
+    pt = Parque de neve
+    ro = Snow Park
+    ru = Снежный парк
+    sk = Snow Park
+    sv = Snöparken
+    sw = Hifadhi ya theluji
+    th = สโนว์พาร์ค
+    tr = Kar Parkı
+    uk = Сніговий парк
+    vi = Công viên tuyết
+    zh-Hans = 冰雪公园
+    zh-Hant = 冰雪公園
+
+  [type.piste_type.hike]
+    en = Snow Hiking Trail
+    af = Sneeustaproete
+    ar = مسار المشي على الجليد
+    be = Снежная пешаходная сцежка
+    bg = Зимна пътека
+    ca = Ruta de senderisme de neu
+    cs = Zimní stezka
+    da = Vandresti i sne
+    de = Schneewanderweg
+    el = Μονοπάτι πεζοπορίας χιονιού
+    es = Senderismo en la nieve
+    es-MX = Ruta de senderismo en la nieve
+    et = Lumi matkarada
+    eu = Elurretako Mendi Ibilbidea
+    fa = مسیر پیاده روی برفی
+    fi = Lumi vaellusreitti
+    fr = Sentier de randonnée dans la neige
+    he = מסלול טיולי שלג
+    hi = स्नो हाइकिंग ट्रेल
+    hu = Hó túraútvonal
+    id = Jalur Pendakian Salju
+    it = Sentiero escursionistico della neve
+    ja = スノーハイキングコース
+    ko = 스노우 하이킹 트레일
+    lt = Sniego pėsčiųjų takas
+    mr = स्नो हायकिंग ट्रेल
+    nb = Tursti i snø
+    nl = Sneeuwwandelpad
+    pl = Śnieżny szlak turystyczny
+    pt = Trilho para caminhadas na neve
+    pt-BR = Trilha de caminhada na neve
+    ro = Zăpadă Hiking Trail
+    ru = Зимняя тропа
+    sk = Snehová turistická trasa
+    sv = Vandringsled i snö
+    sw = Njia ya Kupanda theluji
+    th = เส้นทางเดินป่าหิมะ
+    tr = Kar Yürüyüş Parkuru
+    uk = Зимова стежка
+    vi = Đường mòn đi bộ trên tuyết
+    zh-Hans = 雪地徒步路径
+    zh-Hant = 雪地健行路線
+
+  [type.piste_type.connection]
+    en = Piste Connection
+    af = Piste verbinding
+    ar = اتصال الزحلقة
+    be = Падключэнне да трас
+    bg = Свързване на пистите
+    ca = Connexió de pista
+    cs = Piste Connection
+    da = Pisteforbindelse
+    de = Pistenanschluss
+    el = Σύνδεση πίστας
+    es = Conexión de pistas
+    es-MX = Conexión de pista
+    et = Piste ühendus
+    eu = Pista Konexioa
+    fa = اتصال پیست
+    fi = Pisteen yhteys
+    fr = Connexion aux pistes
+    he = חיבור למסלולים
+    hi = पिस्ट कनेक्शन
+    hu = Pálya kapcsolat
+    id = Koneksi Piste
+    it = Connessione alle piste
+    ja = ピステ・コネクション
+    ko = 피스트 연결
+    lt = "Piste Connection
+    mr = Piste कनेक्शन
+    nb = Pisteforbindelse
+    nl = Pisteverbinding
+    pl = Piste Connection
+    pt = Ligação às pistas
+    pt-BR = Conexão às pistas
+    ro = Conexiune Piste
+    ru = Соединение между трассами
+    sk = Pripojenie na zjazdovku
+    sv = Piste Anslutning
+    sw = Uunganisho wa Piste
+    th = การเชื่อมต่อทางสกี
+    tr = Pist Bağlantısı
+    uk = З'єднання з трасою
+    vi = Kết nối đường trượt tuyết
+    zh-Hans = 滑雪道连接
+    zh-Hant = 滑雪道連接
+
+  [type.piste_type.skitour]
+    en = Skitour Trail
+    af = Skitoer-roete
+    ar = مسار سكيتور
+    be = Скітурная траса
+    bg = Маршрут за скитуринг
+    ca = Ruta d'esquí
+    cs = Stezka Skitour
+    da = Skitour Trail
+    de = Skitour Pfad
+    el = Μονοπάτι Skitour
+    es = Sendero Skitour
+    es-MX = Sendero de esquí
+    et = Skituuri rada
+    eu = Skitour Ibilbidea
+    fa = مسیر اسکیتور
+    fi = Skitour Trail
+    fr = Sentier Skitour
+    he = שביל סקי
+    hi = स्किटौर ट्रेल
+    hu = Skitúra ösvény
+    id = Jalur Skitour
+    it = Sentiero Skitour
+    ja = スキーツアートレイル
+    ko = 스키투어 트레일
+    lt = "Skitour" takas
+    mr = Skitour ट्रेल
+    nb = Skitour-stien
+    nl = Skitourspoor
+    pl = Szlak Skitour
+    pt = Trilho de esqui de passeio
+    pt-BR = Trilha de esqui de passeio
+    ro = Traseul Skitour
+    ru = Маршрут для скитура
+    sk = Trasa Skitour
+    sv = Skitourleden
+    sw = Njia ya Skitour
+    th = เส้นทางสกีทัวร์
+    tr = Skitour Parkuru
+    uk = Маршрут для скітуру
+    vi = Đường mòn Skitour
+    zh-Hans = Skitour 小径
+    zh-Hant = 滑雪旅遊路線
 
   [type.amenity.events_venue]
     en = Events Venue
