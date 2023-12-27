@@ -253,6 +253,7 @@ public class Utils
     }
     catch (ActivityNotFoundException e)
     {
+      Toast.makeText(context, context.getString(R.string.browser_not_available), Toast.LENGTH_LONG).show();
       Logger.e(TAG, "ActivityNotFoundException", e);
     }
     catch (AndroidRuntimeException e)
