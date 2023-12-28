@@ -3,7 +3,7 @@
   <id>app.organicmaps.desktop</id>
 
   <name>Organic Maps</name>
-  <summary>A free offline maps app for travelers, tourists, hikers, and cyclists</summary>
+  <summary>A free offline maps app for travelers, tourists, hikers, drivers and cyclists</summary>
 
   <metadata_license>CC0-1.0</metadata_license>
   <project_license>Apache-2.0</project_license>
@@ -19,7 +19,7 @@
   <description>
     <p>
       Organic Maps is a free Android &amp; iOS offline maps app for travelers,
-      tourists, hikers, and cyclists.
+      tourists, hikers, drivers and cyclists.
       It uses crowd-sourced OpenStreetMap data and is developed with love by
       <em>MapsWithMe</em> (<em>MapsMe</em>) founders and our community.
       No ads, no tracking, no data collection, no crapware.
