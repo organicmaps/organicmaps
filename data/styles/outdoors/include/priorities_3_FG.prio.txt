@@ -384,18 +384,18 @@ building-has_parts                                  # area z14- (also has captio
 building-train_station                              # area z14- (also has caption z16-)
 === 130
 
-piste:type-downhill                                 # line z14- (also has pathtext z15-)
-piste:type-downhill-advanced                        # line z14- (also has pathtext z15-)
-piste:type-downhill-easy                            # line z14- (also has pathtext z15-)
-piste:type-downhill-expert                          # line z14- (also has pathtext z15-)
-piste:type-downhill-freeride                        # line z14- (also has pathtext z15-)
-piste:type-downhill-intermediate                    # line z14- (also has pathtext z15-)
-piste:type-downhill-novice                          # line z14- (also has pathtext z15-)
-piste:type-nordic                                   # line z14- (also has pathtext z15-)
-piste:type-sled                                     # line z14- (also has pathtext z15-)
-piste:type-skitour
-piste:type-hike
-piste:type-connection
+piste:type-connection                               # line z15-
+piste:type-downhill                                 # line z12- (also has pathtext z15-)
+piste:type-downhill-advanced                        # line z12- (also has pathtext z15-)
+piste:type-downhill-easy                            # line z12- (also has pathtext z15-)
+piste:type-downhill-expert                          # line z12- (also has pathtext z15-)
+piste:type-downhill-freeride                        # line z12- (also has pathtext z15-)
+piste:type-downhill-intermediate                    # line z12- (also has pathtext z15-)
+piste:type-downhill-novice                          # line z12- (also has pathtext z15-)
+piste:type-hike                                     # line z12- (also has pathtext z13-)
+piste:type-nordic                                   # line z12- (also has pathtext z13-)
+piste:type-skitour                                  # line z12- (also has pathtext z13-)
+piste:type-sled                                     # line z12- (also has pathtext z15-)
 === 120
 
 building:part                                       # area z16-
@@ -461,14 +461,14 @@ landuse-military-danger_area                        # area z10- (also has icon z
 leisure-nature_reserve                              # area z10- (also has icon z10-, caption(optional) z11-)
 === 20
 
-piste:type-downhill-area
-piste:type-downhill-advanced-area
-piste:type-downhill-easy-area
-piste:type-downhill-expert-area
-piste:type-downhill-intermediate-area
-piste:type-downhill-novice-area
-piste:type-sled-area
-piste:type-snow_park
+piste:type-downhill-advanced-area                   # area z13-
+piste:type-downhill-area                            # area z13-
+piste:type-downhill-easy-area                       # area z13-
+piste:type-downhill-expert-area                     # area z13-
+piste:type-downhill-intermediate-area               # area z13-
+piste:type-downhill-novice-area                     # area z13-
+piste:type-sled-area                                # area z13-
+piste:type-snow_park                                # area z13- (also has caption z15-)
 === 15
 
 man_made-bridge                                     # area z14-

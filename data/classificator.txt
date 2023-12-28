@@ -790,16 +790,33 @@ world  +
         yes  -
         {}
     piste:type  +
+        connection  -
         downhill  +
-            advanced  -
-            easy  -
-            expert  -
+            advanced  +
+                area  -
+                {}
+            area  -
+            easy  +
+                area  -
+                {}
+            expert  +
+                area  -
+                {}
             freeride  -
-            intermediate  -
-            novice  -
+            intermediate  +
+                area  -
+                {}
+            novice  +
+                area  -
+                {}
             {}
+        hike  -
         nordic  -
-        sled  -
+        skitour  -
+        sled  +
+            area  -
+            {}
+        snow_park  -
         {}
     place  +
         city  +
