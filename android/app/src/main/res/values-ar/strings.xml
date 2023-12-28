@@ -2014,6 +2014,10 @@
 	<string name="type.wheelchair.limited">دعم محدود للكراسي المتحركة</string>
 	<string name="type.wheelchair.no">لا دعم للكراسي المتحركة</string>
 	<string name="type.wheelchair.yes">دعم كامل للكراسي المتحركة</string>
+	<string name="type.piste_type.snow_park">حديقة الثلج</string>
+	<string name="type.piste_type.hike">مسار المشي على الجليد</string>
+	<string name="type.piste_type.connection">اتصال الزحلقة</string>
+	<string name="type.piste_type.skitour">مسار سكيتور</string>
 	<string name="type.amenity.events_venue">مكان الأحداث</string>
 	<string name="type.shop.auction">مزاد علني</string>
 	<string name="type.shop.collector">مقتنيات</string>

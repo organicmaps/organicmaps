@@ -3842,25 +3842,45 @@
 
 "type.aerialway.t.bar" = "Ankkurihissi";
 
-"type.piste_type" = "Piste Type";
-
 "type.piste_type.downhill" = "Laskettelurinne";
+
+"type.piste_type.downhill.area" = "Laskettelurinne";
 
 "type.piste_type.downhill.advanced" = "Laskettelurinne";
 
+"type.piste_type.downhill.advanced.area" = "Laskettelurinne";
+
 "type.piste_type.downhill.easy" = "Laskettelurinne";
 
+"type.piste_type.downhill.easy.area" = "Laskettelurinne";
+
 "type.piste_type.downhill.expert" = "Laskettelurinne";
+
+"type.piste_type.downhill.expert.area" = "Laskettelurinne";
 
 "type.piste_type.downhill.freeride" = "Laskettelurinne";
 
 "type.piste_type.downhill.intermediate" = "Laskettelurinne";
 
+"type.piste_type.downhill.intermediate.area" = "Laskettelurinne";
+
 "type.piste_type.downhill.novice" = "Laskettelurinne";
+
+"type.piste_type.downhill.novice.area" = "Laskettelurinne";
 
 "type.piste_type.nordic" = "Latu";
 
 "type.piste_type.sled" = "Kelkkarata";
+
+"type.piste_type.sled.area" = "Kelkkarata";
+
+"type.piste_type.snow_park" = "Snow Park";
+
+"type.piste_type.hike" = "Lumi vaellusreitti";
+
+"type.piste_type.connection" = "Pisteen yhteys";
+
+"type.piste_type.skitour" = "Skitour Trail";
 
 "type.amenity.events_venue" = "Tapahtumapaikka";
 

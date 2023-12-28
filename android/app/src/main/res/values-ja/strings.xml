@@ -1977,6 +1977,10 @@
 	<string name="type.wheelchair.limited">車椅子でのアクセス制限</string>
 	<string name="type.wheelchair.no">車椅子でのアクセスなし</string>
 	<string name="type.wheelchair.yes">車椅子でのアクセスあり</string>
+	<string name="type.piste_type.snow_park">スノーパーク</string>
+	<string name="type.piste_type.hike">スノーハイキングコース</string>
+	<string name="type.piste_type.connection">ピステ・コネクション</string>
+	<string name="type.piste_type.skitour">スキーツアートレイル</string>
 	<string name="type.amenity.events_venue">イベント会場</string>
 	<string name="type.shop.auction">オークション</string>
 	<string name="type.shop.collector">コレクタブル</string>

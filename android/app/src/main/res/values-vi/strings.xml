@@ -1843,6 +1843,10 @@
 	<string name="type.wheelchair.limited">Được trang bị một phần cho người khuyết tật</string>
 	<string name="type.wheelchair.no">Không trang bị cho người khuyết tật</string>
 	<string name="type.wheelchair.yes">Được trang bị cho người khuyết tật</string>
+	<string name="type.piste_type.snow_park">Công viên tuyết</string>
+	<string name="type.piste_type.hike">Đường mòn đi bộ trên tuyết</string>
+	<string name="type.piste_type.connection">Kết nối đường trượt tuyết</string>
+	<string name="type.piste_type.skitour">Đường mòn Skitour</string>
 	<string name="type.amenity.events_venue">Địa điểm tổ chức sự kiện</string>
 	<string name="type.shop.auction">Bán đấu giá</string>
 	<string name="type.shop.collector">Đồ sưu tầm</string>

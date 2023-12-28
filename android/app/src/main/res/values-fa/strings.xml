@@ -1759,6 +1759,10 @@
 	<string name="type.wheelchair.limited">دسترسی محدود با صندلی چرخ دار</string>
 	<string name="type.wheelchair.no">بدون دسترسی با صندلی چرخ دار</string>
 	<string name="type.wheelchair.yes">دسترسی کامل با صندلی چرخ دار</string>
+	<string name="type.piste_type.snow_park">پارک برفی</string>
+	<string name="type.piste_type.hike">مسیر پیاده روی برفی</string>
+	<string name="type.piste_type.connection">اتصال پیست</string>
+	<string name="type.piste_type.skitour">مسیر اسکیتور</string>
 	<string name="type.amenity.events_venue">محل برگزاری رویدادها</string>
 	<string name="type.shop.auction">حراج</string>
 	<string name="type.shop.collector">کلکسیونی ها</string>

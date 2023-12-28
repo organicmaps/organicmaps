@@ -1296,6 +1296,10 @@
 	<string name="type.natural.water.ditch">תעלת ניקוז</string>
 	<string name="type.waterway.ditch.tunnel">גִשׁרוֹן</string>
 	<string name="type.waterway.drain.tunnel">גִשׁרוֹן</string>
+	<string name="type.piste_type.snow_park">פארק שלג</string>
+	<string name="type.piste_type.hike">מסלול טיולי שלג</string>
+	<string name="type.piste_type.connection">חיבור למסלולים</string>
+	<string name="type.piste_type.skitour">שביל סקי</string>
 	<string name="type.amenity.events_venue">מקום אירועים</string>
 	<string name="type.shop.auction">מכירה פומבית</string>
 	<string name="type.shop.collector">פריטי אספנות</string>

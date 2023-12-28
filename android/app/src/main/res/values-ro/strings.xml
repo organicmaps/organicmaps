@@ -1854,6 +1854,10 @@
 	<string name="type.wheelchair.limited">Parțial utilat pentru invalizi</string>
 	<string name="type.wheelchair.no">Nu este utilat pentru invalizi</string>
 	<string name="type.wheelchair.yes">Utilat pentru invalizi</string>
+	<string name="type.piste_type.snow_park">Snow Park</string>
+	<string name="type.piste_type.hike">Zăpadă Hiking Trail</string>
+	<string name="type.piste_type.connection">Conexiune Piste</string>
+	<string name="type.piste_type.skitour">Traseul Skitour</string>
 	<string name="type.amenity.events_venue">Locul de desfășurare a evenimentelor</string>
 	<string name="type.shop.auction">Licitație</string>
 	<string name="type.shop.collector">Colecții</string>

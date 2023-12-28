@@ -1846,6 +1846,10 @@
 	<string name="type.wheelchair.limited">พื้นที่จำกัดการใช้รถเข็นสำหรับผู้ป่วย/ผู้สูงอายุ</string>
 	<string name="type.wheelchair.no">พื้นที่ไม่สามารถใช้รถเข็นสำหรับผู้ป่วย/ผู้สูงอายุ</string>
 	<string name="type.wheelchair.yes">พื้นใช้รถเข็นสำหรับผู้ป่วย/ผู้สูงอายุได้</string>
+	<string name="type.piste_type.snow_park">สโนว์พาร์ค</string>
+	<string name="type.piste_type.hike">เส้นทางเดินป่าหิมะ</string>
+	<string name="type.piste_type.connection">การเชื่อมต่อทางสกี</string>
+	<string name="type.piste_type.skitour">เส้นทางสกีทัวร์</string>
 	<string name="type.amenity.events_venue">สถานที่จัดงาน</string>
 	<string name="type.shop.auction">ประมูล</string>
 	<string name="type.shop.collector">ของสะสม</string>

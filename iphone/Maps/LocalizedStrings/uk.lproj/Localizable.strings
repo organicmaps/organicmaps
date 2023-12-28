@@ -3842,25 +3842,45 @@
 
 "type.aerialway.t.bar" = "Бугельний витяг";
 
-"type.piste_type" = "Тип траси";
-
 "type.piste_type.downhill" = "Гірськолижна траса";
+
+"type.piste_type.downhill.area" = "Гірськолижна траса";
 
 "type.piste_type.downhill.advanced" = "Доповнена гірськолижна траса";
 
+"type.piste_type.downhill.advanced.area" = "Доповнена гірськолижна траса";
+
 "type.piste_type.downhill.easy" = "Легка гірськолижна траса";
 
+"type.piste_type.downhill.easy.area" = "Легка гірськолижна траса";
+
 "type.piste_type.downhill.expert" = "Гірськолижна траса для експертів";
+
+"type.piste_type.downhill.expert.area" = "Гірськолижна траса для експертів";
 
 "type.piste_type.downhill.freeride" = "Гірськолижна траса вільного спуска";
 
 "type.piste_type.downhill.intermediate" = "Гірськолижна траса середнього рівня";
 
+"type.piste_type.downhill.intermediate.area" = "Гірськолижна траса середнього рівня";
+
 "type.piste_type.downhill.novice" = "Гірськолижна траса для новеньких";
+
+"type.piste_type.downhill.novice.area" = "Гірськолижна траса для новеньких";
 
 "type.piste_type.nordic" = "Лижня";
 
 "type.piste_type.sled" = "Траса для санок";
+
+"type.piste_type.sled.area" = "Траса для санок";
+
+"type.piste_type.snow_park" = "Сніговий парк";
+
+"type.piste_type.hike" = "Зимова стежка";
+
+"type.piste_type.connection" = "З'єднання з трасою";
+
+"type.piste_type.skitour" = "Маршрут для скітуру";
 
 "type.amenity.events_venue" = "Місце проведення подій";
 

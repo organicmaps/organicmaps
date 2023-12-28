@@ -1869,6 +1869,10 @@
 	<string name="type.wheelchair.limited">चाकखुर्चीसाठी मर्यादित प्रवेश</string>
 	<string name="type.wheelchair.no">चाकखुर्चीसाठी प्रवेश नाही</string>
 	<string name="type.wheelchair.yes">चाकखुर्चीसाठी प्रवेश</string>
+	<string name="type.piste_type.snow_park">स्नो पार्क</string>
+	<string name="type.piste_type.hike">स्नो हायकिंग ट्रेल</string>
+	<string name="type.piste_type.connection">Piste कनेक्शन</string>
+	<string name="type.piste_type.skitour">Skitour ट्रेल</string>
 	<string name="type.amenity.events_venue">कार्यक्रमाचे ठिकाण</string>
 	<string name="type.shop.auction">लिलाव</string>
 	<string name="type.shop.collector">संग्रहणीय वस्तू</string>

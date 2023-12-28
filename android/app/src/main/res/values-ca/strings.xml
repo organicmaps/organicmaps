@@ -894,6 +894,10 @@
 	<string name="type.natural.water.ditch">Sèquia de drenatge</string>
 	<string name="type.waterway.ditch.tunnel">Embaixada</string>
 	<string name="type.waterway.drain.tunnel">Embaixada</string>
+	<string name="type.piste_type.snow_park">Parc de neu</string>
+	<string name="type.piste_type.hike">Ruta de senderisme de neu</string>
+	<string name="type.piste_type.connection">Connexió de pista</string>
+	<string name="type.piste_type.skitour">Ruta d\'esquí</string>
 	<string name="type.shop.auction">Subhasta</string>
 	<string name="type.shop.collector">Col·leccionables</string>
 </resources>

@@ -1848,6 +1848,10 @@
 	<string name="type.wheelchair.limited">휠체어 접근 제한</string>
 	<string name="type.wheelchair.no">휠체어 접근 금지</string>
 	<string name="type.wheelchair.yes">휠체어 접근 가능</string>
+	<string name="type.piste_type.snow_park">스노우 파크</string>
+	<string name="type.piste_type.hike">스노우 하이킹 트레일</string>
+	<string name="type.piste_type.connection">피스트 연결</string>
+	<string name="type.piste_type.skitour">스키투어 트레일</string>
 	<string name="type.amenity.events_venue">행사장</string>
 	<string name="type.shop.auction">경매</string>
 	<string name="type.shop.collector">수집품</string>

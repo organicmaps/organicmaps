@@ -1831,6 +1831,10 @@
 	<string name="type.wheelchair.limited">Obmedzený bezbariérový prístup</string>
 	<string name="type.wheelchair.no">Žiaden bezbariérový prístup</string>
 	<string name="type.wheelchair.yes">Úplný bezbariérový prístup</string>
+	<string name="type.piste_type.snow_park">Snow Park</string>
+	<string name="type.piste_type.hike">Snehová turistická trasa</string>
+	<string name="type.piste_type.connection">Pripojenie na zjazdovku</string>
+	<string name="type.piste_type.skitour">Trasa Skitour</string>
 	<string name="type.amenity.events_venue">Miesto konania podujatí</string>
 	<string name="type.shop.auction">Aukcia</string>
 	<string name="type.shop.collector">Zberateľské predmety</string>

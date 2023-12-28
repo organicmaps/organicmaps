@@ -1136,6 +1136,10 @@
 	<string name="type.natural.water.ditch">Отводнителна канавка</string>
 	<string name="type.waterway.ditch.tunnel">водосток</string>
 	<string name="type.waterway.drain.tunnel">водосток</string>
+	<string name="type.piste_type.snow_park">Снежен парк</string>
+	<string name="type.piste_type.hike">Зимна пътека</string>
+	<string name="type.piste_type.connection">Свързване на пистите</string>
+	<string name="type.piste_type.skitour">Маршрут за скитуринг</string>
 	<string name="type.amenity.events_venue">Място за провеждане на събития</string>
 	<string name="type.shop.auction">Търг</string>
 	<string name="type.shop.collector">Колекционерски стоки</string>

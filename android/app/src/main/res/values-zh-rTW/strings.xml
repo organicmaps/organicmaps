@@ -1896,6 +1896,10 @@
 	<string name="type.wheelchair.limited">部分配備為殘疾人專用</string>
 	<string name="type.wheelchair.no">未配備殘疾人專用</string>
 	<string name="type.wheelchair.yes">配備殘疾人專用</string>
+	<string name="type.piste_type.snow_park">冰雪公園</string>
+	<string name="type.piste_type.hike">雪地健行路線</string>
+	<string name="type.piste_type.connection">滑雪道連接</string>
+	<string name="type.piste_type.skitour">滑雪旅遊路線</string>
 	<string name="type.amenity.events_venue">活動場所</string>
 	<string name="type.shop.auction">拍賣</string>
 	<string name="type.shop.collector">收藏品</string>

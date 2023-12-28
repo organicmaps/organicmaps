@@ -1843,6 +1843,10 @@
 	<string name="type.wheelchair.limited">Μερικώς εξοπλισμένο για άτομα με ειδικές ανάγκες</string>
 	<string name="type.wheelchair.no">Δεν υπάρχει πρόβλεψη για άτομα με ειδικές ανάγκες</string>
 	<string name="type.wheelchair.yes">Εξοπλισμένο για άτομα με ειδικές ανάγκες</string>
+	<string name="type.piste_type.snow_park">Snow Park</string>
+	<string name="type.piste_type.hike">Μονοπάτι πεζοπορίας χιονιού</string>
+	<string name="type.piste_type.connection">Σύνδεση πίστας</string>
+	<string name="type.piste_type.skitour">Μονοπάτι Skitour</string>
 	<string name="type.amenity.events_venue">Κέντρο εκδηλώσεων</string>
 	<string name="type.shop.auction">Δημοπρασία</string>
 	<string name="type.shop.collector">Συλλεκτικά αντικείμενα</string>

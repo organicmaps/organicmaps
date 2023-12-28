@@ -1994,6 +1994,10 @@
 	<string name="type.wheelchair.limited">部分配备为残疾人专用</string>
 	<string name="type.wheelchair.no">未配备残疾人专用</string>
 	<string name="type.wheelchair.yes">配备残疾人专用</string>
+	<string name="type.piste_type.snow_park">冰雪公园</string>
+	<string name="type.piste_type.hike">雪地徒步路径</string>
+	<string name="type.piste_type.connection">滑雪道连接</string>
+	<string name="type.piste_type.skitour">Skitour 小径</string>
 	<string name="type.amenity.events_venue">活动场所</string>
 	<string name="type.shop.auction">拍卖会</string>
 	<string name="type.shop.collector">收藏品</string>

@@ -3842,25 +3842,45 @@
 
 "type.aerialway.t.bar" = "Schlepplift (T-Bügel)";
 
-"type.piste_type" = "Pistentyp";
-
 "type.piste_type.downhill" = "Ski-Abfahrt";
+
+"type.piste_type.downhill.area" = "Ski-Abfahrt";
 
 "type.piste_type.downhill.advanced" = "Schwierige Ski-Abfahrt";
 
+"type.piste_type.downhill.advanced.area" = "Schwierige Ski-Abfahrt";
+
 "type.piste_type.downhill.easy" = "Leichte Ski-Abfahrt";
 
+"type.piste_type.downhill.easy.area" = "Leichte Ski-Abfahrt";
+
 "type.piste_type.downhill.expert" = "Profi-Ski-Abfahrt";
+
+"type.piste_type.downhill.expert.area" = "Profi-Ski-Abfahrt";
 
 "type.piste_type.downhill.freeride" = "Ski-Abfahrt";
 
 "type.piste_type.downhill.intermediate" = "Mittelschwere Ski-Abfahrt";
 
+"type.piste_type.downhill.intermediate.area" = "Mittelschwere Ski-Abfahrt";
+
 "type.piste_type.downhill.novice" = "Anfängerfreundliche Ski-Abfahrt";
+
+"type.piste_type.downhill.novice.area" = "Anfängerfreundliche Ski-Abfahrt";
 
 "type.piste_type.nordic" = "Langlaufloipe";
 
 "type.piste_type.sled" = "Rodelbahn";
+
+"type.piste_type.sled.area" = "Rodelbahn";
+
+"type.piste_type.snow_park" = "Snow Park";
+
+"type.piste_type.hike" = "Schneewanderweg";
+
+"type.piste_type.connection" = "Pistenanschluss";
+
+"type.piste_type.skitour" = "Skitour Pfad";
 
 "type.amenity.events_venue" = "Veranstaltungszentrum";
 

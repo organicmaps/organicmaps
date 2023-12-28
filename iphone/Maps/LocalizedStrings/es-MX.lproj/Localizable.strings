@@ -3842,25 +3842,45 @@
 
 "type.aerialway.t.bar" = "Telesilla barra en T";
 
-"type.piste_type" = "Tipo de pista";
-
 "type.piste_type.downhill" = "Pista de esquí alpino";
+
+"type.piste_type.downhill.area" = "Pista de esquí alpino";
 
 "type.piste_type.downhill.advanced" = "Pista de esquí alpino";
 
+"type.piste_type.downhill.advanced.area" = "Pista de esquí alpino";
+
 "type.piste_type.downhill.easy" = "Pista de esquí alpino";
 
+"type.piste_type.downhill.easy.area" = "Pista de esquí alpino";
+
 "type.piste_type.downhill.expert" = "Pista de esquí alpino";
+
+"type.piste_type.downhill.expert.area" = "Pista de esquí alpino";
 
 "type.piste_type.downhill.freeride" = "Pista de esquí alpino";
 
 "type.piste_type.downhill.intermediate" = "Pista de esquí alpino";
 
+"type.piste_type.downhill.intermediate.area" = "Pista de esquí alpino";
+
 "type.piste_type.downhill.novice" = "Pista de esquí alpino";
+
+"type.piste_type.downhill.novice.area" = "Pista de esquí alpino";
 
 "type.piste_type.nordic" = "Pista de esquí nórdico";
 
 "type.piste_type.sled" = "Pista para trineos";
+
+"type.piste_type.sled.area" = "Pista para trineos";
+
+"type.piste_type.snow_park" = "Parque de nieve";
+
+"type.piste_type.hike" = "Ruta de senderismo en la nieve";
+
+"type.piste_type.connection" = "Conexión de pista";
+
+"type.piste_type.skitour" = "Sendero de esquí";
 
 "type.amenity.events_venue" = "Lugar para eventos";
 
