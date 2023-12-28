@@ -384,6 +384,7 @@ building-has_parts                                  # area z14- (also has captio
 building-train_station                              # area z14- (also has caption z16-)
 === 130
 
+piste:type-connection                               # line z15-
 piste:type-downhill                                 # line z14- (also has pathtext z15-)
 piste:type-downhill-advanced                        # line z14- (also has pathtext z15-)
 piste:type-downhill-easy                            # line z14- (also has pathtext z15-)
@@ -391,11 +392,10 @@ piste:type-downhill-expert                          # line z14- (also has pathte
 piste:type-downhill-freeride                        # line z14- (also has pathtext z15-)
 piste:type-downhill-intermediate                    # line z14- (also has pathtext z15-)
 piste:type-downhill-novice                          # line z14- (also has pathtext z15-)
+piste:type-hike                                     # line z14- (also has pathtext z15-)
 piste:type-nordic                                   # line z14- (also has pathtext z15-)
+piste:type-skitour                                  # line z14- (also has pathtext z15-)
 piste:type-sled                                     # line z14- (also has pathtext z15-)
-piste:type-skitour
-piste:type-hike
-piste:type-connection
 === 120
 
 building:part                                       # area z16-
@@ -461,7 +461,7 @@ landuse-military-danger_area                        # area z10- (also has icon z
 leisure-nature_reserve                              # area z10- (also has icon z11-, caption(optional) z12-)
 === 20
 
-piste:type-snow_park
+piste:type-snow_park                                # area z14- (also has caption z15-)
 === 15
 
 man_made-bridge                                     # area z14-
