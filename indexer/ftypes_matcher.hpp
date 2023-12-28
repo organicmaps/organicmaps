@@ -305,6 +305,13 @@ public:
   DECLARE_CHECKER_INSTANCE(IsIsolineChecker);
 };
 
+class IsPisteChecker : public BaseChecker
+{
+  IsPisteChecker();
+public:
+  DECLARE_CHECKER_INSTANCE(IsPisteChecker);
+};
+
 class IsPoiChecker : public BaseChecker
 {
   IsPoiChecker();
