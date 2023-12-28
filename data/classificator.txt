@@ -403,7 +403,6 @@ world  +
     highway  +
         bridleway  +
             bridge  -
-            permissive  -
             tunnel  -
             {}
         bus_stop  -
@@ -414,7 +413,6 @@ world  +
         construction  -
         cycleway  +
             bridge  -
-            permissive  -
             tunnel  -
             {}
         elevator  -
@@ -455,7 +453,6 @@ world  +
             hiking  -
             horse  -
             mountain_hiking  -
-            permissive  -
             tunnel  -
             {}
         pedestrian  +
@@ -520,7 +517,6 @@ world  +
             grade4  -
             grade5  -
             no-access  -
-            permissive  -
             tunnel  -
             {}
         traffic_signals  -
