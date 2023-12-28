@@ -20658,97 +20658,154 @@ cont {
 cont {
   name: "highway-bridleway"
   element {
-    scale: 14
+    scale: 11
     lines {
-      width: 0.9
+      width: 1.0
+      color: 1715287582
+      dashdot {
+        dd: 6.0
+        dd: 1.0
+      }
+      priority: 180
+      join: BEVELJOIN
+      cap: BUTTCAP
+    }
+  }
+  element {
+    scale: 12
+    lines {
+      width: 1.1
+      color: 1295857182
+      dashdot {
+        dd: 6.0
+        dd: 1.0
+      }
+      priority: 180
+      join: BEVELJOIN
+      cap: BUTTCAP
+    }
+  }
+  element {
+    scale: 13
+    lines {
+      width: 1.3
       color: 4011550
       dashdot {
-        dd: 2.7
-        dd: 1.26
+        dd: 7.0
+        dd: 1.2
       }
-      priority: 170
+      priority: 180
       cap: BUTTCAP
+    }
+    path_text {
+      primary {
+        height: 10
+        color: 4473924
+        stroke_color: 871230427
+      }
+      priority: 2820
+    }
+  }
+  element {
+    scale: 14
+    lines {
+      width: 1.6
+      color: 4011550
+      dashdot {
+        dd: 7.0
+        dd: 1.2
+      }
+      priority: 180
+      cap: BUTTCAP
+    }
+    path_text {
+      primary {
+        height: 11
+        color: 4473924
+        stroke_color: 871230427
+      }
+      priority: 2820
     }
   }
   element {
     scale: 15
     lines {
-      width: 1.4
+      width: 2.0
       color: 4011550
       dashdot {
-        dd: 2.7
-        dd: 1.26
+        dd: 9.0
+        dd: 1.7
       }
-      priority: 170
+      priority: 180
       cap: BUTTCAP
     }
     path_text {
       primary {
-        height: 8
-        color: 3355443
-        stroke_color: 872415231
+        height: 11
+        color: 4473924
+        stroke_color: 871230427
       }
-      priority: 2790
+      priority: 2820
     }
   }
   element {
     scale: 16
     lines {
-      width: 1.8
+      width: 2.6
       color: 4011550
       dashdot {
-        dd: 3.6
-        dd: 1.8
+        dd: 9.0
+        dd: 1.7
       }
-      priority: 170
+      priority: 180
     }
     path_text {
       primary {
-        height: 9
+        height: 12
         color: 3355443
         stroke_color: 872415231
       }
-      priority: 2790
+      priority: 2820
     }
   }
   element {
     scale: 17
     lines {
-      width: 2.0
+      width: 3.3
       color: 4011550
       dashdot {
-        dd: 4.5
-        dd: 1.8
+        dd: 12.0
+        dd: 2.2
       }
-      priority: 170
+      priority: 180
     }
     path_text {
       primary {
-        height: 9
+        height: 12
         color: 3355443
         stroke_color: 872415231
       }
-      priority: 2790
+      priority: 2820
     }
   }
   element {
     scale: 18
     lines {
-      width: 3.0
+      width: 4.0
       color: 4011550
       dashdot {
-        dd: 7.2
-        dd: 2.7
+        dd: 12.0
+        dd: 2.2
       }
-      priority: 170
+      priority: 180
     }
     path_text {
       primary {
-        height: 10
+        height: 12
         color: 3355443
         stroke_color: 872415231
       }
-      priority: 2790
+      priority: 2820
     }
   }
   element {
@@ -20757,18 +20814,18 @@ cont {
       width: 4.0
       color: 4011550
       dashdot {
-        dd: 9.0
-        dd: 3.6
+        dd: 12.0
+        dd: 2.2
       }
-      priority: 170
+      priority: 180
     }
     path_text {
       primary {
-        height: 10
+        height: 12
         color: 3355443
         stroke_color: 872415231
       }
-      priority: 2790
+      priority: 2820
     }
   }
   element {
@@ -20777,97 +20834,95 @@ cont {
       width: 4.0
       color: 4011550
       dashdot {
-        dd: 9.0
-        dd: 3.6
+        dd: 12.0
+        dd: 2.2
       }
-      priority: 170
+      priority: 180
     }
     path_text {
       primary {
-        height: 10
+        height: 12
         color: 3355443
         stroke_color: 872415231
       }
-      priority: 2790
+      priority: 2820
     }
   }
 }
 cont {
   name: "highway-bridleway-bridge"
   element {
-    scale: 14
+    scale: 11
     lines {
-      width: 0.9
+      width: 1.0
+      color: 1715287582
+      dashdot {
+        dd: 6.0
+        dd: 1.0
+      }
+      priority: 180
+      join: BEVELJOIN
+      cap: BUTTCAP
+    }
+  }
+  element {
+    scale: 12
+    lines {
+      width: 1.1
+      color: 1295857182
+      dashdot {
+        dd: 6.0
+        dd: 1.0
+      }
+      priority: 180
+      join: BEVELJOIN
+      cap: BUTTCAP
+    }
+  }
+  element {
+    scale: 13
+    lines {
+      width: 1.3
       color: 4011550
       dashdot {
-        dd: 2.7
-        dd: 1.26
+        dd: 7.0
+        dd: 1.2
       }
-      priority: 170
+      priority: 180
       cap: BUTTCAP
+    }
+    path_text {
+      primary {
+        height: 10
+        color: 4473924
+        stroke_color: 871230427
+      }
+      priority: 2820
+    }
+  }
+  element {
+    scale: 14
+    lines {
+      width: 1.6
+      color: 4011550
+      dashdot {
+        dd: 7.0
+        dd: 1.2
+      }
+      priority: 180
+      cap: BUTTCAP
+    }
+    path_text {
+      primary {
+        height: 11
+        color: 4473924
+        stroke_color: 871230427
+      }
+      priority: 2820
     }
   }
   element {
     scale: 15
-    lines {
-      width: 3.8
-      color: 871230427
-      priority: 150
-      cap: BUTTCAP
-    }
-    lines {
-      width: 1.4
-      color: 4011550
-      dashdot {
-        dd: 2.7
-        dd: 1.26
-      }
-      priority: 170
-      cap: BUTTCAP
-    }
-    path_text {
-      primary {
-        height: 8
-        color: 3355443
-        stroke_color: 872415231
-      }
-      priority: 2790
-    }
-  }
-  element {
-    scale: 16
-    lines {
-      width: 4.6
-      color: 871230427
-      priority: 150
-      cap: BUTTCAP
-    }
-    lines {
-      width: 1.8
-      color: 4011550
-      dashdot {
-        dd: 3.6
-        dd: 1.8
-      }
-      priority: 170
-    }
-    path_text {
-      primary {
-        height: 9
-        color: 3355443
-        stroke_color: 872415231
-      }
-      priority: 2790
-    }
-  }
-  element {
-    scale: 17
-    lines {
-      width: 6.0
-      color: 1300267136
-      priority: 140
-      cap: BUTTCAP
-    }
     lines {
       width: 5.0
       color: 871230427
@@ -20878,380 +20933,359 @@ cont {
       width: 2.0
       color: 4011550
       dashdot {
-        dd: 4.5
-        dd: 1.8
-      }
-      priority: 170
-    }
-    path_text {
-      primary {
-        height: 9
-        color: 3355443
-        stroke_color: 872415231
-      }
-      priority: 2790
-    }
-  }
-  element {
-    scale: 18
-    lines {
-      width: 8.0
-      color: 1300267136
-      priority: 140
-      cap: BUTTCAP
-    }
-    lines {
-      width: 7.0
-      color: 871230427
-      priority: 150
-      cap: BUTTCAP
-    }
-    lines {
-      width: 3.0
-      color: 4011550
-      dashdot {
-        dd: 7.2
-        dd: 2.7
-      }
-      priority: 170
-    }
-    path_text {
-      primary {
-        height: 10
-        color: 3355443
-        stroke_color: 872415231
-      }
-      priority: 2790
-    }
-  }
-  element {
-    scale: 19
-    lines {
-      width: 10.0
-      color: 1300267136
-      priority: 140
-      cap: BUTTCAP
-    }
-    lines {
-      width: 9.0
-      color: 871230427
-      priority: 150
-      cap: BUTTCAP
-    }
-    lines {
-      width: 4.0
-      color: 4011550
-      dashdot {
         dd: 9.0
-        dd: 3.6
+        dd: 1.7
       }
-      priority: 170
-    }
-    path_text {
-      primary {
-        height: 10
-        color: 3355443
-        stroke_color: 872415231
-      }
-      priority: 2790
-    }
-  }
-  element {
-    scale: 20
-    lines {
-      width: 10.0
-      color: 1300267136
-      priority: 140
-      cap: BUTTCAP
-    }
-    lines {
-      width: 9.0
-      color: 871230427
-      priority: 150
-      cap: BUTTCAP
-    }
-    lines {
-      width: 4.0
-      color: 4011550
-      dashdot {
-        dd: 9.0
-        dd: 3.6
-      }
-      priority: 170
-    }
-    path_text {
-      primary {
-        height: 10
-        color: 3355443
-        stroke_color: 872415231
-      }
-      priority: 2790
-    }
-  }
-}
-cont {
-  name: "highway-bridleway-permissive"
-  element {
-    scale: 14
-    lines {
-      width: 0.9
-      color: 4011550
-      dashdot {
-        dd: 2.7
-        dd: 1.26
-      }
-      priority: 170
-      cap: BUTTCAP
-    }
-  }
-  element {
-    scale: 15
-    lines {
-      width: 1.4
-      color: 4011550
-      dashdot {
-        dd: 2.7
-        dd: 1.26
-      }
-      priority: 170
+      priority: 180
       cap: BUTTCAP
     }
     path_text {
       primary {
-        height: 8
-        color: 3355443
-        stroke_color: 872415231
+        height: 11
+        color: 4473924
+        stroke_color: 871230427
       }
-      priority: 2790
+      priority: 2820
     }
   }
   element {
     scale: 16
     lines {
-      width: 1.8
+      width: 6.2
+      color: 871230427
+      priority: 150
+      cap: BUTTCAP
+    }
+    lines {
+      width: 2.6
       color: 4011550
       dashdot {
-        dd: 3.6
-        dd: 1.8
+        dd: 9.0
+        dd: 1.7
       }
-      priority: 170
+      priority: 180
     }
     path_text {
       primary {
-        height: 9
+        height: 12
         color: 3355443
         stroke_color: 872415231
       }
-      priority: 2790
+      priority: 2820
     }
   }
   element {
     scale: 17
     lines {
-      width: 2.0
+      width: 8.6
+      color: 1300267136
+      priority: 140
+      cap: BUTTCAP
+    }
+    lines {
+      width: 7.6
+      color: 871230427
+      priority: 150
+      cap: BUTTCAP
+    }
+    lines {
+      width: 3.3
       color: 4011550
       dashdot {
-        dd: 4.5
-        dd: 1.8
+        dd: 12.0
+        dd: 2.2
       }
-      priority: 170
+      priority: 180
     }
     path_text {
       primary {
-        height: 9
+        height: 12
         color: 3355443
         stroke_color: 872415231
       }
-      priority: 2790
+      priority: 2820
     }
   }
   element {
     scale: 18
     lines {
-      width: 3.0
+      width: 10.0
+      color: 1300267136
+      priority: 140
+      cap: BUTTCAP
+    }
+    lines {
+      width: 9.0
+      color: 871230427
+      priority: 150
+      cap: BUTTCAP
+    }
+    lines {
+      width: 4.0
       color: 4011550
       dashdot {
-        dd: 7.2
-        dd: 2.7
+        dd: 12.0
+        dd: 2.2
       }
-      priority: 170
+      priority: 180
     }
     path_text {
       primary {
-        height: 10
+        height: 12
         color: 3355443
         stroke_color: 872415231
       }
-      priority: 2790
+      priority: 2820
     }
   }
   element {
     scale: 19
     lines {
+      width: 10.0
+      color: 1300267136
+      priority: 140
+      cap: BUTTCAP
+    }
+    lines {
+      width: 9.0
+      color: 871230427
+      priority: 150
+      cap: BUTTCAP
+    }
+    lines {
       width: 4.0
       color: 4011550
       dashdot {
-        dd: 9.0
-        dd: 3.6
+        dd: 12.0
+        dd: 2.2
       }
-      priority: 170
+      priority: 180
     }
     path_text {
       primary {
-        height: 10
+        height: 12
         color: 3355443
         stroke_color: 872415231
       }
-      priority: 2790
+      priority: 2820
     }
   }
   element {
     scale: 20
     lines {
+      width: 10.0
+      color: 1300267136
+      priority: 140
+      cap: BUTTCAP
+    }
+    lines {
+      width: 9.0
+      color: 871230427
+      priority: 150
+      cap: BUTTCAP
+    }
+    lines {
       width: 4.0
       color: 4011550
       dashdot {
-        dd: 9.0
-        dd: 3.6
+        dd: 12.0
+        dd: 2.2
       }
-      priority: 170
+      priority: 180
     }
     path_text {
       primary {
-        height: 10
+        height: 12
         color: 3355443
         stroke_color: 872415231
       }
-      priority: 2790
+      priority: 2820
     }
   }
 }
 cont {
   name: "highway-bridleway-tunnel"
   element {
-    scale: 14
+    scale: 11
     lines {
-      width: 0.9
-      color: 4011550
+      width: 1.0
+      color: 1715287582
       dashdot {
-        dd: 2.7
-        dd: 1.26
+        dd: 6.0
+        dd: 1.0
       }
-      priority: 170
+      priority: 180
+      join: BEVELJOIN
       cap: BUTTCAP
     }
   }
   element {
-    scale: 15
+    scale: 12
     lines {
-      width: 1.4
-      color: 4011550
+      width: 1.1
+      color: 1295857182
       dashdot {
-        dd: 2.7
-        dd: 1.26
+        dd: 6.0
+        dd: 1.0
       }
-      priority: 170
+      priority: 180
+      join: BEVELJOIN
       cap: BUTTCAP
-    }
-    path_text {
-      primary {
-        height: 8
-        color: 3355443
-        stroke_color: 872415231
-      }
-      priority: 2790
     }
   }
   element {
-    scale: 16
+    scale: 13
     lines {
-      width: 1.8
+      width: 1.3
       color: 4011550
       dashdot {
-        dd: 3.6
-        dd: 1.8
+        dd: 7.0
+        dd: 1.2
       }
-      priority: 170
-    }
-    path_text {
-      primary {
-        height: 9
-        color: 3355443
-        stroke_color: 872415231
-      }
-      priority: 2790
-    }
-  }
-  element {
-    scale: 17
-    lines {
-      width: 2.0
-      color: 4011550
-      dashdot {
-        dd: 4.5
-        dd: 1.8
-      }
-      priority: 170
-    }
-    lines {
-      width: 5.0
-      color: 1307438043
-      priority: 50
-      cap: BUTTCAP
-    }
-    lines {
-      width: 6.0
-      color: 1300267136
-      dashdot {
-        dd: 2.0
-        dd: 2.0
-      }
-      priority: 40
-      cap: BUTTCAP
-    }
-    path_text {
-      primary {
-        height: 9
-        color: 3355443
-        stroke_color: 872415231
-      }
-      priority: 2790
-    }
-  }
-  element {
-    scale: 18
-    lines {
-      width: 3.0
-      color: 4011550
-      dashdot {
-        dd: 7.2
-        dd: 2.7
-      }
-      priority: 170
-    }
-    lines {
-      width: 7.0
-      color: 1307438043
-      priority: 50
-      cap: BUTTCAP
-    }
-    lines {
-      width: 8.0
-      color: 1300267136
-      dashdot {
-        dd: 2.0
-        dd: 2.0
-      }
-      priority: 40
+      priority: 180
       cap: BUTTCAP
     }
     path_text {
       primary {
         height: 10
+        color: 4473924
+        stroke_color: 871230427
+      }
+      priority: 2820
+    }
+  }
+  element {
+    scale: 14
+    lines {
+      width: 1.6
+      color: 4011550
+      dashdot {
+        dd: 7.0
+        dd: 1.2
+      }
+      priority: 180
+      cap: BUTTCAP
+    }
+    path_text {
+      primary {
+        height: 11
+        color: 4473924
+        stroke_color: 871230427
+      }
+      priority: 2820
+    }
+  }
+  element {
+    scale: 15
+    lines {
+      width: 2.0
+      color: 4011550
+      dashdot {
+        dd: 9.0
+        dd: 1.7
+      }
+      priority: 180
+      cap: BUTTCAP
+    }
+    path_text {
+      primary {
+        height: 11
+        color: 4473924
+        stroke_color: 871230427
+      }
+      priority: 2820
+    }
+  }
+  element {
+    scale: 16
+    lines {
+      width: 2.6
+      color: 4011550
+      dashdot {
+        dd: 9.0
+        dd: 1.7
+      }
+      priority: 180
+    }
+    path_text {
+      primary {
+        height: 12
         color: 3355443
         stroke_color: 872415231
       }
-      priority: 2790
+      priority: 2820
+    }
+  }
+  element {
+    scale: 17
+    lines {
+      width: 3.3
+      color: 4011550
+      dashdot {
+        dd: 12.0
+        dd: 2.2
+      }
+      priority: 180
+    }
+    lines {
+      width: 7.6
+      color: 1307438043
+      priority: 50
+      cap: BUTTCAP
+    }
+    lines {
+      width: 8.6
+      color: 1300267136
+      dashdot {
+        dd: 2.0
+        dd: 2.0
+      }
+      priority: 40
+      cap: BUTTCAP
+    }
+    path_text {
+      primary {
+        height: 12
+        color: 3355443
+        stroke_color: 872415231
+      }
+      priority: 2820
+    }
+  }
+  element {
+    scale: 18
+    lines {
+      width: 4.0
+      color: 4011550
+      dashdot {
+        dd: 12.0
+        dd: 2.2
+      }
+      priority: 180
+    }
+    lines {
+      width: 9.0
+      color: 1307438043
+      priority: 50
+      cap: BUTTCAP
+    }
+    lines {
+      width: 10.0
+      color: 1300267136
+      dashdot {
+        dd: 2.0
+        dd: 2.0
+      }
+      priority: 40
+      cap: BUTTCAP
+    }
+    path_text {
+      primary {
+        height: 12
+        color: 3355443
+        stroke_color: 872415231
+      }
+      priority: 2820
     }
   }
   element {
@@ -21260,10 +21294,10 @@ cont {
       width: 4.0
       color: 4011550
       dashdot {
-        dd: 9.0
-        dd: 3.6
+        dd: 12.0
+        dd: 2.2
       }
-      priority: 170
+      priority: 180
     }
     lines {
       width: 9.0
@@ -21283,11 +21317,11 @@ cont {
     }
     path_text {
       primary {
-        height: 10
+        height: 12
         color: 3355443
         stroke_color: 872415231
       }
-      priority: 2790
+      priority: 2820
     }
   }
   element {
@@ -21296,10 +21330,10 @@ cont {
       width: 4.0
       color: 4011550
       dashdot {
-        dd: 9.0
-        dd: 3.6
+        dd: 12.0
+        dd: 2.2
       }
-      priority: 170
+      priority: 180
     }
     lines {
       width: 9.0
@@ -21319,11 +21353,11 @@ cont {
     }
     path_text {
       primary {
-        height: 10
+        height: 12
         color: 3355443
         stroke_color: 872415231
       }
-      priority: 2790
+      priority: 2820
     }
   }
 }
@@ -21715,7 +21749,7 @@ cont {
     scale: 11
     lines {
       width: 1.2
-      color: 866888602
+      color: 11250586
       dashdot {
         dd: 3.6
         dd: 1.8
@@ -21729,7 +21763,7 @@ cont {
     scale: 12
     lines {
       width: 1.2
-      color: 866888602
+      color: 11250586
       dashdot {
         dd: 3.6
         dd: 1.8
@@ -21890,25 +21924,44 @@ cont {
 cont {
   name: "highway-cycleway"
   element {
+    scale: 11
+    lines {
+      width: 0.7
+      color: 1728022445
+      priority: 330
+      join: BEVELJOIN
+      cap: BUTTCAP
+    }
+  }
+  element {
+    scale: 12
+    lines {
+      width: 0.8
+      color: 1308592045
+      priority: 330
+      join: BEVELJOIN
+      cap: BUTTCAP
+    }
+  }
+  element {
     scale: 13
     lines {
-      width: 1.0
+      width: 1.1
       color: 16746413
       priority: 330
       cap: BUTTCAP
+    }
+    path_text {
+      primary {
+        height: 10
+        color: 4473924
+        stroke_color: 871230427
+      }
+      priority: 2953
     }
   }
   element {
     scale: 14
-    lines {
-      width: 1.2
-      color: 16746413
-      priority: 330
-      cap: BUTTCAP
-    }
-  }
-  element {
-    scale: 15
     lines {
       width: 1.4
       color: 16746413
@@ -21917,9 +21970,26 @@ cont {
     }
     path_text {
       primary {
-        height: 8
-        color: 3355443
-        stroke_color: 872415231
+        height: 11
+        color: 4473924
+        stroke_color: 871230427
+      }
+      priority: 2953
+    }
+  }
+  element {
+    scale: 15
+    lines {
+      width: 1.6
+      color: 16746413
+      priority: 330
+      cap: BUTTCAP
+    }
+    path_text {
+      primary {
+        height: 11
+        color: 4473924
+        stroke_color: 871230427
       }
       priority: 2953
     }
@@ -21927,13 +21997,13 @@ cont {
   element {
     scale: 16
     lines {
-      width: 1.6
+      width: 1.9
       color: 16746413
       priority: 330
     }
     path_text {
       primary {
-        height: 9
+        height: 12
         color: 3355443
         stroke_color: 872415231
       }
@@ -21943,13 +22013,13 @@ cont {
   element {
     scale: 17
     lines {
-      width: 1.8
+      width: 2.3
       color: 16746413
       priority: 330
     }
     path_text {
       primary {
-        height: 9
+        height: 12
         color: 3355443
         stroke_color: 872415231
       }
@@ -21959,13 +22029,13 @@ cont {
   element {
     scale: 18
     lines {
-      width: 2.0
+      width: 2.8
       color: 16746413
       priority: 330
     }
     path_text {
       primary {
-        height: 10
+        height: 12
         color: 3355443
         stroke_color: 872415231
       }
@@ -21975,13 +22045,13 @@ cont {
   element {
     scale: 19
     lines {
-      width: 2.2
+      width: 2.8
       color: 16746413
       priority: 330
     }
     path_text {
       primary {
-        height: 10
+        height: 12
         color: 3355443
         stroke_color: 872415231
       }
@@ -21991,13 +22061,13 @@ cont {
   element {
     scale: 20
     lines {
-      width: 2.2
+      width: 2.8
       color: 16746413
       priority: 330
     }
     path_text {
       primary {
-        height: 10
+        height: 12
         color: 3355443
         stroke_color: 872415231
       }
@@ -22008,31 +22078,44 @@ cont {
 cont {
   name: "highway-cycleway-bridge"
   element {
+    scale: 11
+    lines {
+      width: 0.7
+      color: 1728022445
+      priority: 330
+      join: BEVELJOIN
+      cap: BUTTCAP
+    }
+  }
+  element {
+    scale: 12
+    lines {
+      width: 0.8
+      color: 1308592045
+      priority: 330
+      join: BEVELJOIN
+      cap: BUTTCAP
+    }
+  }
+  element {
     scale: 13
     lines {
-      width: 1.0
+      width: 1.1
       color: 16746413
       priority: 330
       cap: BUTTCAP
+    }
+    path_text {
+      primary {
+        height: 10
+        color: 4473924
+        stroke_color: 871230427
+      }
+      priority: 2953
     }
   }
   element {
     scale: 14
-    lines {
-      width: 1.2
-      color: 16746413
-      priority: 330
-      cap: BUTTCAP
-    }
-  }
-  element {
-    scale: 15
-    lines {
-      width: 3.8
-      color: 871230427
-      priority: 150
-      cap: BUTTCAP
-    }
     lines {
       width: 1.4
       color: 16746413
@@ -22041,15 +22124,15 @@ cont {
     }
     path_text {
       primary {
-        height: 8
-        color: 3355443
-        stroke_color: 872415231
+        height: 11
+        color: 4473924
+        stroke_color: 871230427
       }
       priority: 2953
     }
   }
   element {
-    scale: 16
+    scale: 15
     lines {
       width: 4.2
       color: 871230427
@@ -22060,162 +22143,13 @@ cont {
       width: 1.6
       color: 16746413
       priority: 330
-    }
-    path_text {
-      primary {
-        height: 9
-        color: 3355443
-        stroke_color: 872415231
-      }
-      priority: 2953
-    }
-  }
-  element {
-    scale: 17
-    lines {
-      width: 6.6
-      color: 1300267136
-      priority: 140
-      cap: BUTTCAP
-    }
-    lines {
-      width: 5.6
-      color: 871230427
-      priority: 150
-      cap: BUTTCAP
-    }
-    lines {
-      width: 1.8
-      color: 16746413
-      priority: 330
-    }
-    path_text {
-      primary {
-        height: 9
-        color: 3355443
-        stroke_color: 872415231
-      }
-      priority: 2953
-    }
-  }
-  element {
-    scale: 18
-    lines {
-      width: 9.0
-      color: 1300267136
-      priority: 140
-      cap: BUTTCAP
-    }
-    lines {
-      width: 8.0
-      color: 871230427
-      priority: 150
-      cap: BUTTCAP
-    }
-    lines {
-      width: 2.0
-      color: 16746413
-      priority: 330
-    }
-    path_text {
-      primary {
-        height: 10
-        color: 3355443
-        stroke_color: 872415231
-      }
-      priority: 2953
-    }
-  }
-  element {
-    scale: 19
-    lines {
-      width: 10.4
-      color: 1300267136
-      priority: 140
-      cap: BUTTCAP
-    }
-    lines {
-      width: 9.4
-      color: 871230427
-      priority: 150
-      cap: BUTTCAP
-    }
-    lines {
-      width: 2.2
-      color: 16746413
-      priority: 330
-    }
-    path_text {
-      primary {
-        height: 10
-        color: 3355443
-        stroke_color: 872415231
-      }
-      priority: 2953
-    }
-  }
-  element {
-    scale: 20
-    lines {
-      width: 10.4
-      color: 1300267136
-      priority: 140
-      cap: BUTTCAP
-    }
-    lines {
-      width: 9.4
-      color: 871230427
-      priority: 150
-      cap: BUTTCAP
-    }
-    lines {
-      width: 2.2
-      color: 16746413
-      priority: 330
-    }
-    path_text {
-      primary {
-        height: 10
-        color: 3355443
-        stroke_color: 872415231
-      }
-      priority: 2953
-    }
-  }
-}
-cont {
-  name: "highway-cycleway-permissive"
-  element {
-    scale: 13
-    lines {
-      width: 1.0
-      color: 16746413
-      priority: 330
-      cap: BUTTCAP
-    }
-  }
-  element {
-    scale: 14
-    lines {
-      width: 1.2
-      color: 16746413
-      priority: 330
-      cap: BUTTCAP
-    }
-  }
-  element {
-    scale: 15
-    lines {
-      width: 1.4
-      color: 16746413
-      priority: 330
       cap: BUTTCAP
     }
     path_text {
       primary {
-        height: 8
-        color: 3355443
-        stroke_color: 872415231
+        height: 11
+        color: 4473924
+        stroke_color: 871230427
       }
       priority: 2953
     }
@@ -22223,13 +22157,19 @@ cont {
   element {
     scale: 16
     lines {
-      width: 1.6
+      width: 4.8
+      color: 871230427
+      priority: 150
+      cap: BUTTCAP
+    }
+    lines {
+      width: 1.9
       color: 16746413
       priority: 330
     }
     path_text {
       primary {
-        height: 9
+        height: 12
         color: 3355443
         stroke_color: 872415231
       }
@@ -22239,13 +22179,25 @@ cont {
   element {
     scale: 17
     lines {
-      width: 1.8
+      width: 7.6
+      color: 1300267136
+      priority: 140
+      cap: BUTTCAP
+    }
+    lines {
+      width: 6.6
+      color: 871230427
+      priority: 150
+      cap: BUTTCAP
+    }
+    lines {
+      width: 2.3
       color: 16746413
       priority: 330
     }
     path_text {
       primary {
-        height: 9
+        height: 12
         color: 3355443
         stroke_color: 872415231
       }
@@ -22255,13 +22207,25 @@ cont {
   element {
     scale: 18
     lines {
-      width: 2.0
+      width: 10.6
+      color: 1300267136
+      priority: 140
+      cap: BUTTCAP
+    }
+    lines {
+      width: 9.6
+      color: 871230427
+      priority: 150
+      cap: BUTTCAP
+    }
+    lines {
+      width: 2.8
       color: 16746413
       priority: 330
     }
     path_text {
       primary {
-        height: 10
+        height: 12
         color: 3355443
         stroke_color: 872415231
       }
@@ -22271,13 +22235,25 @@ cont {
   element {
     scale: 19
     lines {
-      width: 2.2
+      width: 11.6
+      color: 1300267136
+      priority: 140
+      cap: BUTTCAP
+    }
+    lines {
+      width: 10.6
+      color: 871230427
+      priority: 150
+      cap: BUTTCAP
+    }
+    lines {
+      width: 2.8
       color: 16746413
       priority: 330
     }
     path_text {
       primary {
-        height: 10
+        height: 12
         color: 3355443
         stroke_color: 872415231
       }
@@ -22287,13 +22263,25 @@ cont {
   element {
     scale: 20
     lines {
-      width: 2.2
+      width: 11.6
+      color: 1300267136
+      priority: 140
+      cap: BUTTCAP
+    }
+    lines {
+      width: 10.6
+      color: 871230427
+      priority: 150
+      cap: BUTTCAP
+    }
+    lines {
+      width: 2.8
       color: 16746413
       priority: 330
     }
     path_text {
       primary {
-        height: 10
+        height: 12
         color: 3355443
         stroke_color: 872415231
       }
@@ -22304,25 +22292,44 @@ cont {
 cont {
   name: "highway-cycleway-tunnel"
   element {
+    scale: 11
+    lines {
+      width: 0.7
+      color: 1728022445
+      priority: 330
+      join: BEVELJOIN
+      cap: BUTTCAP
+    }
+  }
+  element {
+    scale: 12
+    lines {
+      width: 0.8
+      color: 1308592045
+      priority: 330
+      join: BEVELJOIN
+      cap: BUTTCAP
+    }
+  }
+  element {
     scale: 13
     lines {
-      width: 1.0
+      width: 1.1
       color: 16746413
       priority: 330
       cap: BUTTCAP
+    }
+    path_text {
+      primary {
+        height: 10
+        color: 4473924
+        stroke_color: 871230427
+      }
+      priority: 2953
     }
   }
   element {
     scale: 14
-    lines {
-      width: 1.2
-      color: 16746413
-      priority: 330
-      cap: BUTTCAP
-    }
-  }
-  element {
-    scale: 15
     lines {
       width: 1.4
       color: 16746413
@@ -22331,9 +22338,26 @@ cont {
     }
     path_text {
       primary {
-        height: 8
-        color: 3355443
-        stroke_color: 872415231
+        height: 11
+        color: 4473924
+        stroke_color: 871230427
+      }
+      priority: 2953
+    }
+  }
+  element {
+    scale: 15
+    lines {
+      width: 1.6
+      color: 16746413
+      priority: 330
+      cap: BUTTCAP
+    }
+    path_text {
+      primary {
+        height: 11
+        color: 4473924
+        stroke_color: 871230427
       }
       priority: 2953
     }
@@ -22341,13 +22365,13 @@ cont {
   element {
     scale: 16
     lines {
-      width: 1.6
+      width: 1.9
       color: 16746413
       priority: 330
     }
     path_text {
       primary {
-        height: 9
+        height: 12
         color: 3355443
         stroke_color: 872415231
       }
@@ -22357,18 +22381,18 @@ cont {
   element {
     scale: 17
     lines {
-      width: 1.8
+      width: 2.3
       color: 16746413
       priority: 330
     }
     lines {
-      width: 5.6
+      width: 6.6
       color: 1307438043
       priority: 50
       cap: BUTTCAP
     }
     lines {
-      width: 6.6
+      width: 7.6
       color: 1300267136
       dashdot {
         dd: 2.0
@@ -22379,7 +22403,7 @@ cont {
     }
     path_text {
       primary {
-        height: 9
+        height: 12
         color: 3355443
         stroke_color: 872415231
       }
@@ -22389,18 +22413,18 @@ cont {
   element {
     scale: 18
     lines {
-      width: 2.0
+      width: 2.8
       color: 16746413
       priority: 330
     }
     lines {
-      width: 8.0
+      width: 9.6
       color: 1307438043
       priority: 50
       cap: BUTTCAP
     }
     lines {
-      width: 9.0
+      width: 10.6
       color: 1300267136
       dashdot {
         dd: 2.0
@@ -22411,7 +22435,7 @@ cont {
     }
     path_text {
       primary {
-        height: 10
+        height: 12
         color: 3355443
         stroke_color: 872415231
       }
@@ -22421,18 +22445,18 @@ cont {
   element {
     scale: 19
     lines {
-      width: 2.2
+      width: 2.8
       color: 16746413
       priority: 330
     }
     lines {
-      width: 9.4
+      width: 10.6
       color: 1307438043
       priority: 50
       cap: BUTTCAP
     }
     lines {
-      width: 10.4
+      width: 11.6
       color: 1300267136
       dashdot {
         dd: 2.0
@@ -22443,7 +22467,7 @@ cont {
     }
     path_text {
       primary {
-        height: 10
+        height: 12
         color: 3355443
         stroke_color: 872415231
       }
@@ -22453,18 +22477,18 @@ cont {
   element {
     scale: 20
     lines {
-      width: 2.2
+      width: 2.8
       color: 16746413
       priority: 330
     }
     lines {
-      width: 9.4
+      width: 10.6
       color: 1307438043
       priority: 50
       cap: BUTTCAP
     }
     lines {
-      width: 10.4
+      width: 11.6
       color: 1300267136
       dashdot {
         dd: 2.0
@@ -22475,7 +22499,7 @@ cont {
     }
     path_text {
       primary {
-        height: 10
+        height: 12
         color: 3355443
         stroke_color: 872415231
       }
@@ -22517,22 +22541,92 @@ cont {
 cont {
   name: "highway-footway"
   element {
-    scale: 15
+    scale: 11
     lines {
-      width: 1.5
-      color: 1090058488
+      width: 1.0
+      color: 1727592696
       dashdot {
-        dd: 5.0
+        dd: 3.5
         dd: 2.0
+      }
+      priority: 180
+      join: BEVELJOIN
+      cap: BUTTCAP
+    }
+  }
+  element {
+    scale: 12
+    lines {
+      width: 1.1
+      color: 1308162296
+      dashdot {
+        dd: 3.5
+        dd: 2.0
+      }
+      priority: 180
+      join: BEVELJOIN
+      cap: BUTTCAP
+    }
+  }
+  element {
+    scale: 13
+    lines {
+      width: 1.3
+      color: 16316664
+      dashdot {
+        dd: 4.0
+        dd: 2.5
       }
       priority: 180
       cap: BUTTCAP
     }
     path_text {
       primary {
-        height: 8
-        color: 3355443
-        stroke_color: 872415231
+        height: 10
+        color: 4473924
+        stroke_color: 871230427
+      }
+      priority: 2950
+    }
+  }
+  element {
+    scale: 14
+    lines {
+      width: 1.6
+      color: 16316664
+      dashdot {
+        dd: 4.0
+        dd: 2.5
+      }
+      priority: 180
+      cap: BUTTCAP
+    }
+    path_text {
+      primary {
+        height: 11
+        color: 4473924
+        stroke_color: 871230427
+      }
+      priority: 2950
+    }
+  }
+  element {
+    scale: 15
+    lines {
+      width: 2.0
+      color: 16316664
+      dashdot {
+        dd: 6.0
+        dd: 3.5
+      }
+      priority: 180
+      cap: BUTTCAP
+    }
+    path_text {
+      primary {
+        height: 11
+        color: 4473924
+        stroke_color: 871230427
       }
       priority: 2950
     }
@@ -22540,17 +22634,17 @@ cont {
   element {
     scale: 16
     lines {
-      width: 2.0
-      color: 1090058488
+      width: 2.6
+      color: 16316664
       dashdot {
-        dd: 5.0
-        dd: 2.0
+        dd: 6.0
+        dd: 3.5
       }
       priority: 180
     }
     path_text {
       primary {
-        height: 9
+        height: 12
         color: 3355443
         stroke_color: 872415231
       }
@@ -22560,17 +22654,17 @@ cont {
   element {
     scale: 17
     lines {
-      width: 2.4
-      color: 1090058488
+      width: 3.3
+      color: 16316664
       dashdot {
-        dd: 6.0
-        dd: 2.5
+        dd: 8.0
+        dd: 4.5
       }
       priority: 180
     }
     path_text {
       primary {
-        height: 9
+        height: 12
         color: 3355443
         stroke_color: 872415231
       }
@@ -22580,17 +22674,17 @@ cont {
   element {
     scale: 18
     lines {
-      width: 3.2
+      width: 4.0
       color: 16316664
       dashdot {
         dd: 8.0
-        dd: 3.0
+        dd: 4.5
       }
       priority: 180
     }
     path_text {
       primary {
-        height: 10
+        height: 12
         color: 3355443
         stroke_color: 872415231
       }
@@ -22600,17 +22694,17 @@ cont {
   element {
     scale: 19
     lines {
-      width: 4.2
+      width: 4.0
       color: 16316664
       dashdot {
-        dd: 10.0
-        dd: 3.5
+        dd: 8.0
+        dd: 4.5
       }
       priority: 180
     }
     path_text {
       primary {
-        height: 10
+        height: 12
         color: 3355443
         stroke_color: 872415231
       }
@@ -22620,17 +22714,17 @@ cont {
   element {
     scale: 20
     lines {
-      width: 4.2
+      width: 4.0
       color: 16316664
       dashdot {
-        dd: 10.0
-        dd: 3.5
+        dd: 8.0
+        dd: 4.5
       }
       priority: 180
     }
     path_text {
       primary {
-        height: 10
+        height: 12
         color: 3355443
         stroke_color: 872415231
       }
@@ -22680,6 +22774,14 @@ cont {
       priority: 180
       cap: BUTTCAP
     }
+    path_text {
+      primary {
+        height: 10
+        color: 4473924
+        stroke_color: 871230427
+      }
+      priority: 2820
+    }
   }
   element {
     scale: 14
@@ -22692,6 +22794,14 @@ cont {
       }
       priority: 180
       cap: BUTTCAP
+    }
+    path_text {
+      primary {
+        height: 11
+        color: 4473924
+        stroke_color: 871230427
+      }
+      priority: 2820
     }
   }
   element {
@@ -22708,9 +22818,9 @@ cont {
     }
     path_text {
       primary {
-        height: 8
-        color: 3355443
-        stroke_color: 872415231
+        height: 11
+        color: 4473924
+        stroke_color: 871230427
       }
       priority: 2820
     }
@@ -22728,7 +22838,7 @@ cont {
     }
     path_text {
       primary {
-        height: 9
+        height: 12
         color: 3355443
         stroke_color: 872415231
       }
@@ -22748,7 +22858,7 @@ cont {
     }
     path_text {
       primary {
-        height: 9
+        height: 12
         color: 3355443
         stroke_color: 872415231
       }
@@ -22768,7 +22878,7 @@ cont {
     }
     path_text {
       primary {
-        height: 10
+        height: 12
         color: 3355443
         stroke_color: 872415231
       }
@@ -22788,7 +22898,7 @@ cont {
     }
     path_text {
       primary {
-        height: 10
+        height: 12
         color: 3355443
         stroke_color: 872415231
       }
@@ -22808,7 +22918,7 @@ cont {
     }
     path_text {
       primary {
-        height: 10
+        height: 12
         color: 3355443
         stroke_color: 872415231
       }
@@ -22819,20 +22929,62 @@ cont {
 cont {
   name: "highway-footway-area"
   element {
-    scale: 14
-    area {
-      color: 15591638
-      priority: -1840
+    scale: 11
+    lines {
+      width: 1.0
+      color: 1727592696
+      dashdot {
+        dd: 3.5
+        dd: 2.0
+      }
+      priority: 180
+      join: BEVELJOIN
+      cap: BUTTCAP
     }
   }
   element {
-    scale: 15
+    scale: 12
     lines {
-      width: 1.5
-      color: 1090058488
+      width: 1.1
+      color: 1308162296
       dashdot {
-        dd: 5.0
+        dd: 3.5
         dd: 2.0
+      }
+      priority: 180
+      join: BEVELJOIN
+      cap: BUTTCAP
+    }
+  }
+  element {
+    scale: 13
+    lines {
+      width: 1.3
+      color: 16316664
+      dashdot {
+        dd: 4.0
+        dd: 2.5
+      }
+      priority: 180
+      cap: BUTTCAP
+    }
+    path_text {
+      primary {
+        height: 10
+        color: 4473924
+        stroke_color: 871230427
+      }
+      priority: 2950
+    }
+  }
+  element {
+    scale: 14
+    lines {
+      width: 1.6
+      color: 16316664
+      dashdot {
+        dd: 4.0
+        dd: 2.5
       }
       priority: 180
       cap: BUTTCAP
@@ -22843,9 +22995,34 @@ cont {
     }
     path_text {
       primary {
-        height: 8
-        color: 3355443
-        stroke_color: 872415231
+        height: 11
+        color: 4473924
+        stroke_color: 871230427
+      }
+      priority: 2950
+    }
+  }
+  element {
+    scale: 15
+    lines {
+      width: 2.0
+      color: 16316664
+      dashdot {
+        dd: 6.0
+        dd: 3.5
+      }
+      priority: 180
+      cap: BUTTCAP
+    }
+    area {
+      color: 15591638
+      priority: -1840
+    }
+    path_text {
+      primary {
+        height: 11
+        color: 4473924
+        stroke_color: 871230427
       }
       priority: 2950
     }
@@ -22853,11 +23030,11 @@ cont {
   element {
     scale: 16
     lines {
-      width: 2.0
-      color: 1090058488
+      width: 2.6
+      color: 16316664
       dashdot {
-        dd: 5.0
-        dd: 2.0
+        dd: 6.0
+        dd: 3.5
       }
       priority: 180
     }
@@ -22867,7 +23044,7 @@ cont {
     }
     path_text {
       primary {
-        height: 9
+        height: 12
         color: 3355443
         stroke_color: 872415231
       }
@@ -22877,11 +23054,11 @@ cont {
   element {
     scale: 17
     lines {
-      width: 2.4
-      color: 1090058488
+      width: 3.3
+      color: 16316664
       dashdot {
-        dd: 6.0
-        dd: 2.5
+        dd: 8.0
+        dd: 4.5
       }
       priority: 180
     }
@@ -22891,7 +23068,7 @@ cont {
     }
     path_text {
       primary {
-        height: 9
+        height: 12
         color: 3355443
         stroke_color: 872415231
       }
@@ -22901,11 +23078,11 @@ cont {
   element {
     scale: 18
     lines {
-      width: 3.2
+      width: 4.0
       color: 16316664
       dashdot {
         dd: 8.0
-        dd: 3.0
+        dd: 4.5
       }
       priority: 180
     }
@@ -22915,7 +23092,7 @@ cont {
     }
     path_text {
       primary {
-        height: 10
+        height: 12
         color: 3355443
         stroke_color: 872415231
       }
@@ -22925,11 +23102,11 @@ cont {
   element {
     scale: 19
     lines {
-      width: 4.2
+      width: 4.0
       color: 16316664
       dashdot {
-        dd: 10.0
-        dd: 3.5
+        dd: 8.0
+        dd: 4.5
       }
       priority: 180
     }
@@ -22939,7 +23116,7 @@ cont {
     }
     path_text {
       primary {
-        height: 10
+        height: 12
         color: 3355443
         stroke_color: 872415231
       }
@@ -22949,11 +23126,11 @@ cont {
   element {
     scale: 20
     lines {
-      width: 4.2
+      width: 4.0
       color: 16316664
       dashdot {
-        dd: 10.0
-        dd: 3.5
+        dd: 8.0
+        dd: 4.5
       }
       priority: 180
     }
@@ -22963,7 +23140,7 @@ cont {
     }
     path_text {
       primary {
-        height: 10
+        height: 12
         color: 3355443
         stroke_color: 872415231
       }
@@ -22974,34 +23151,77 @@ cont {
 cont {
   name: "highway-footway-bridge"
   element {
-    scale: 15
+    scale: 11
     lines {
-      width: 4.0
-      color: 871230427
-      priority: 150
+      width: 1.0
+      color: 1727592696
+      dashdot {
+        dd: 3.5
+        dd: 2.0
+      }
+      priority: 180
+      join: BEVELJOIN
       cap: BUTTCAP
     }
+  }
+  element {
+    scale: 12
     lines {
-      width: 1.5
-      color: 1090058488
+      width: 1.1
+      color: 1308162296
       dashdot {
-        dd: 5.0
+        dd: 3.5
         dd: 2.0
+      }
+      priority: 180
+      join: BEVELJOIN
+      cap: BUTTCAP
+    }
+  }
+  element {
+    scale: 13
+    lines {
+      width: 1.3
+      color: 16316664
+      dashdot {
+        dd: 4.0
+        dd: 2.5
       }
       priority: 180
       cap: BUTTCAP
     }
     path_text {
       primary {
-        height: 8
-        color: 3355443
-        stroke_color: 872415231
+        height: 10
+        color: 4473924
+        stroke_color: 871230427
       }
       priority: 2950
     }
   }
   element {
-    scale: 16
+    scale: 14
+    lines {
+      width: 1.6
+      color: 16316664
+      dashdot {
+        dd: 4.0
+        dd: 2.5
+      }
+      priority: 180
+      cap: BUTTCAP
+    }
+    path_text {
+      primary {
+        height: 11
+        color: 4473924
+        stroke_color: 871230427
+      }
+      priority: 2950
+    }
+  }
+  element {
+    scale: 15
     lines {
       width: 5.0
       color: 871230427
@@ -23010,16 +23230,43 @@ cont {
     }
     lines {
       width: 2.0
-      color: 1090058488
+      color: 16316664
       dashdot {
-        dd: 5.0
-        dd: 2.0
+        dd: 6.0
+        dd: 3.5
+      }
+      priority: 180
+      cap: BUTTCAP
+    }
+    path_text {
+      primary {
+        height: 11
+        color: 4473924
+        stroke_color: 871230427
+      }
+      priority: 2950
+    }
+  }
+  element {
+    scale: 16
+    lines {
+      width: 6.2
+      color: 871230427
+      priority: 150
+      cap: BUTTCAP
+    }
+    lines {
+      width: 2.6
+      color: 16316664
+      dashdot {
+        dd: 6.0
+        dd: 3.5
       }
       priority: 180
     }
     path_text {
       primary {
-        height: 9
+        height: 12
         color: 3355443
         stroke_color: 872415231
       }
@@ -23029,29 +23276,29 @@ cont {
   element {
     scale: 17
     lines {
-      width: 6.8
+      width: 8.6
       color: 1300267136
       priority: 140
       cap: BUTTCAP
     }
     lines {
-      width: 5.8
+      width: 7.6
       color: 871230427
       priority: 150
       cap: BUTTCAP
     }
     lines {
-      width: 2.4
-      color: 1090058488
+      width: 3.3
+      color: 16316664
       dashdot {
-        dd: 6.0
-        dd: 2.5
+        dd: 8.0
+        dd: 4.5
       }
       priority: 180
     }
     path_text {
       primary {
-        height: 9
+        height: 12
         color: 3355443
         stroke_color: 872415231
       }
@@ -23061,29 +23308,29 @@ cont {
   element {
     scale: 18
     lines {
-      width: 8.4
+      width: 10.0
       color: 1300267136
       priority: 140
       cap: BUTTCAP
     }
     lines {
-      width: 7.4
+      width: 9.0
       color: 871230427
       priority: 150
       cap: BUTTCAP
     }
     lines {
-      width: 3.2
+      width: 4.0
       color: 16316664
       dashdot {
         dd: 8.0
-        dd: 3.0
+        dd: 4.5
       }
       priority: 180
     }
     path_text {
       primary {
-        height: 10
+        height: 12
         color: 3355443
         stroke_color: 872415231
       }
@@ -23093,29 +23340,29 @@ cont {
   element {
     scale: 19
     lines {
-      width: 10.4
+      width: 10.0
       color: 1300267136
       priority: 140
       cap: BUTTCAP
     }
     lines {
-      width: 9.4
+      width: 9.0
       color: 871230427
       priority: 150
       cap: BUTTCAP
     }
     lines {
-      width: 4.2
+      width: 4.0
       color: 16316664
       dashdot {
-        dd: 10.0
-        dd: 3.5
+        dd: 8.0
+        dd: 4.5
       }
       priority: 180
     }
     path_text {
       primary {
-        height: 10
+        height: 12
         color: 3355443
         stroke_color: 872415231
       }
@@ -23125,29 +23372,29 @@ cont {
   element {
     scale: 20
     lines {
-      width: 10.4
+      width: 10.0
       color: 1300267136
       priority: 140
       cap: BUTTCAP
     }
     lines {
-      width: 9.4
+      width: 9.0
       color: 871230427
       priority: 150
       cap: BUTTCAP
     }
     lines {
-      width: 4.2
+      width: 4.0
       color: 16316664
       dashdot {
-        dd: 10.0
-        dd: 3.5
+        dd: 8.0
+        dd: 4.5
       }
       priority: 180
     }
     path_text {
       primary {
-        height: 10
+        height: 12
         color: 3355443
         stroke_color: 872415231
       }
@@ -23160,11 +23407,11 @@ cont {
   element {
     scale: 16
     lines {
-      width: 2.0
-      color: 1090058488
+      width: 2.6
+      color: 16316664
       dashdot {
-        dd: 5.0
-        dd: 2.0
+        dd: 6.0
+        dd: 3.5
       }
       priority: 330
     }
@@ -23172,11 +23419,11 @@ cont {
   element {
     scale: 17
     lines {
-      width: 2.4
-      color: 1090058488
+      width: 3.3
+      color: 16316664
       dashdot {
-        dd: 6.0
-        dd: 2.5
+        dd: 8.0
+        dd: 4.5
       }
       priority: 330
     }
@@ -23184,11 +23431,11 @@ cont {
   element {
     scale: 18
     lines {
-      width: 3.2
+      width: 4.0
       color: 16316664
       dashdot {
         dd: 8.0
-        dd: 3.0
+        dd: 4.5
       }
       priority: 330
     }
@@ -23196,11 +23443,11 @@ cont {
   element {
     scale: 19
     lines {
-      width: 4.2
+      width: 4.0
       color: 16316664
       dashdot {
-        dd: 10.0
-        dd: 3.5
+        dd: 8.0
+        dd: 4.5
       }
       priority: 330
     }
@@ -23208,11 +23455,11 @@ cont {
   element {
     scale: 20
     lines {
-      width: 4.2
+      width: 4.0
       color: 16316664
       dashdot {
-        dd: 10.0
-        dd: 3.5
+        dd: 8.0
+        dd: 4.5
       }
       priority: 330
     }
@@ -23260,6 +23507,14 @@ cont {
       priority: 180
       cap: BUTTCAP
     }
+    path_text {
+      primary {
+        height: 10
+        color: 4473924
+        stroke_color: 871230427
+      }
+      priority: 2820
+    }
   }
   element {
     scale: 14
@@ -23272,6 +23527,14 @@ cont {
       }
       priority: 180
       cap: BUTTCAP
+    }
+    path_text {
+      primary {
+        height: 11
+        color: 4473924
+        stroke_color: 871230427
+      }
+      priority: 2820
     }
   }
   element {
@@ -23288,9 +23551,9 @@ cont {
     }
     path_text {
       primary {
-        height: 8
-        color: 3355443
-        stroke_color: 872415231
+        height: 11
+        color: 4473924
+        stroke_color: 871230427
       }
       priority: 2820
     }
@@ -23308,7 +23571,7 @@ cont {
     }
     path_text {
       primary {
-        height: 9
+        height: 12
         color: 3355443
         stroke_color: 872415231
       }
@@ -23328,7 +23591,7 @@ cont {
     }
     path_text {
       primary {
-        height: 9
+        height: 12
         color: 3355443
         stroke_color: 872415231
       }
@@ -23348,7 +23611,7 @@ cont {
     }
     path_text {
       primary {
-        height: 10
+        height: 12
         color: 3355443
         stroke_color: 872415231
       }
@@ -23368,7 +23631,7 @@ cont {
     }
     path_text {
       primary {
-        height: 10
+        height: 12
         color: 3355443
         stroke_color: 872415231
       }
@@ -23388,7 +23651,7 @@ cont {
     }
     path_text {
       primary {
-        height: 10
+        height: 12
         color: 3355443
         stroke_color: 872415231
       }
@@ -23438,6 +23701,14 @@ cont {
       priority: 180
       cap: BUTTCAP
     }
+    path_text {
+      primary {
+        height: 10
+        color: 4473924
+        stroke_color: 871230427
+      }
+      priority: 2820
+    }
   }
   element {
     scale: 14
@@ -23450,6 +23721,14 @@ cont {
       }
       priority: 180
       cap: BUTTCAP
+    }
+    path_text {
+      primary {
+        height: 11
+        color: 4473924
+        stroke_color: 871230427
+      }
+      priority: 2820
     }
   }
   element {
@@ -23466,9 +23745,9 @@ cont {
     }
     path_text {
       primary {
-        height: 8
-        color: 3355443
-        stroke_color: 872415231
+        height: 11
+        color: 4473924
+        stroke_color: 871230427
       }
       priority: 2820
     }
@@ -23486,7 +23765,7 @@ cont {
     }
     path_text {
       primary {
-        height: 9
+        height: 12
         color: 3355443
         stroke_color: 872415231
       }
@@ -23506,7 +23785,7 @@ cont {
     }
     path_text {
       primary {
-        height: 9
+        height: 12
         color: 3355443
         stroke_color: 872415231
       }
@@ -23526,7 +23805,7 @@ cont {
     }
     path_text {
       primary {
-        height: 10
+        height: 12
         color: 3355443
         stroke_color: 872415231
       }
@@ -23546,7 +23825,7 @@ cont {
     }
     path_text {
       primary {
-        height: 10
+        height: 12
         color: 3355443
         stroke_color: 872415231
       }
@@ -23566,7 +23845,7 @@ cont {
     }
     path_text {
       primary {
-        height: 10
+        height: 12
         color: 3355443
         stroke_color: 872415231
       }
@@ -23616,6 +23895,14 @@ cont {
       priority: 180
       cap: BUTTCAP
     }
+    path_text {
+      primary {
+        height: 10
+        color: 4473924
+        stroke_color: 871230427
+      }
+      priority: 2820
+    }
   }
   element {
     scale: 14
@@ -23628,6 +23915,14 @@ cont {
       }
       priority: 180
       cap: BUTTCAP
+    }
+    path_text {
+      primary {
+        height: 11
+        color: 4473924
+        stroke_color: 871230427
+      }
+      priority: 2820
     }
   }
   element {
@@ -23644,9 +23939,9 @@ cont {
     }
     path_text {
       primary {
-        height: 8
-        color: 3355443
-        stroke_color: 872415231
+        height: 11
+        color: 4473924
+        stroke_color: 871230427
       }
       priority: 2820
     }
@@ -23664,7 +23959,7 @@ cont {
     }
     path_text {
       primary {
-        height: 9
+        height: 12
         color: 3355443
         stroke_color: 872415231
       }
@@ -23684,7 +23979,7 @@ cont {
     }
     path_text {
       primary {
-        height: 9
+        height: 12
         color: 3355443
         stroke_color: 872415231
       }
@@ -23704,7 +23999,7 @@ cont {
     }
     path_text {
       primary {
-        height: 10
+        height: 12
         color: 3355443
         stroke_color: 872415231
       }
@@ -23724,7 +24019,7 @@ cont {
     }
     path_text {
       primary {
-        height: 10
+        height: 12
         color: 3355443
         stroke_color: 872415231
       }
@@ -23744,7 +24039,7 @@ cont {
     }
     path_text {
       primary {
-        height: 10
+        height: 12
         color: 3355443
         stroke_color: 872415231
       }
@@ -23794,6 +24089,14 @@ cont {
       priority: 180
       cap: BUTTCAP
     }
+    path_text {
+      primary {
+        height: 10
+        color: 4473924
+        stroke_color: 871230427
+      }
+      priority: 2820
+    }
   }
   element {
     scale: 14
@@ -23806,6 +24109,14 @@ cont {
       }
       priority: 180
       cap: BUTTCAP
+    }
+    path_text {
+      primary {
+        height: 11
+        color: 4473924
+        stroke_color: 871230427
+      }
+      priority: 2820
     }
   }
   element {
@@ -23822,9 +24133,9 @@ cont {
     }
     path_text {
       primary {
-        height: 8
-        color: 3355443
-        stroke_color: 872415231
+        height: 11
+        color: 4473924
+        stroke_color: 871230427
       }
       priority: 2820
     }
@@ -23842,7 +24153,7 @@ cont {
     }
     path_text {
       primary {
-        height: 9
+        height: 12
         color: 3355443
         stroke_color: 872415231
       }
@@ -23862,7 +24173,7 @@ cont {
     }
     path_text {
       primary {
-        height: 9
+        height: 12
         color: 3355443
         stroke_color: 872415231
       }
@@ -23882,7 +24193,7 @@ cont {
     }
     path_text {
       primary {
-        height: 10
+        height: 12
         color: 3355443
         stroke_color: 872415231
       }
@@ -23902,7 +24213,7 @@ cont {
     }
     path_text {
       primary {
-        height: 10
+        height: 12
         color: 3355443
         stroke_color: 872415231
       }
@@ -23922,7 +24233,7 @@ cont {
     }
     path_text {
       primary {
-        height: 10
+        height: 12
         color: 3355443
         stroke_color: 872415231
       }
@@ -23972,6 +24283,14 @@ cont {
       priority: 180
       cap: BUTTCAP
     }
+    path_text {
+      primary {
+        height: 10
+        color: 4473924
+        stroke_color: 871230427
+      }
+      priority: 2820
+    }
   }
   element {
     scale: 14
@@ -23984,6 +24303,14 @@ cont {
       }
       priority: 180
       cap: BUTTCAP
+    }
+    path_text {
+      primary {
+        height: 11
+        color: 4473924
+        stroke_color: 871230427
+      }
+      priority: 2820
     }
   }
   element {
@@ -24000,9 +24327,9 @@ cont {
     }
     path_text {
       primary {
-        height: 8
-        color: 3355443
-        stroke_color: 872415231
+        height: 11
+        color: 4473924
+        stroke_color: 871230427
       }
       priority: 2820
     }
@@ -24020,7 +24347,7 @@ cont {
     }
     path_text {
       primary {
-        height: 9
+        height: 12
         color: 3355443
         stroke_color: 872415231
       }
@@ -24040,7 +24367,7 @@ cont {
     }
     path_text {
       primary {
-        height: 9
+        height: 12
         color: 3355443
         stroke_color: 872415231
       }
@@ -24060,7 +24387,7 @@ cont {
     }
     path_text {
       primary {
-        height: 10
+        height: 12
         color: 3355443
         stroke_color: 872415231
       }
@@ -24080,7 +24407,7 @@ cont {
     }
     path_text {
       primary {
-        height: 10
+        height: 12
         color: 3355443
         stroke_color: 872415231
       }
@@ -24100,7 +24427,7 @@ cont {
     }
     path_text {
       primary {
-        height: 10
+        height: 12
         color: 3355443
         stroke_color: 872415231
       }
@@ -24113,11 +24440,11 @@ cont {
   element {
     scale: 16
     lines {
-      width: 2.0
-      color: 1090058488
+      width: 2.6
+      color: 16316664
       dashdot {
-        dd: 5.0
-        dd: 2.0
+        dd: 6.0
+        dd: 3.5
       }
       priority: 180
     }
@@ -24125,11 +24452,11 @@ cont {
   element {
     scale: 17
     lines {
-      width: 2.4
-      color: 1090058488
+      width: 3.3
+      color: 16316664
       dashdot {
-        dd: 6.0
-        dd: 2.5
+        dd: 8.0
+        dd: 4.5
       }
       priority: 180
     }
@@ -24137,11 +24464,11 @@ cont {
   element {
     scale: 18
     lines {
-      width: 3.2
+      width: 4.0
       color: 16316664
       dashdot {
         dd: 8.0
-        dd: 3.0
+        dd: 4.5
       }
       priority: 180
     }
@@ -24149,11 +24476,11 @@ cont {
   element {
     scale: 19
     lines {
-      width: 4.2
+      width: 4.0
       color: 16316664
       dashdot {
-        dd: 10.0
-        dd: 3.5
+        dd: 8.0
+        dd: 4.5
       }
       priority: 180
     }
@@ -24161,11 +24488,11 @@ cont {
   element {
     scale: 20
     lines {
-      width: 4.2
+      width: 4.0
       color: 16316664
       dashdot {
-        dd: 10.0
-        dd: 3.5
+        dd: 8.0
+        dd: 4.5
       }
       priority: 180
     }
@@ -24174,22 +24501,92 @@ cont {
 cont {
   name: "highway-footway-tunnel"
   element {
-    scale: 15
+    scale: 11
     lines {
-      width: 1.5
-      color: 1090058488
+      width: 1.0
+      color: 1727592696
       dashdot {
-        dd: 5.0
+        dd: 3.5
         dd: 2.0
+      }
+      priority: 180
+      join: BEVELJOIN
+      cap: BUTTCAP
+    }
+  }
+  element {
+    scale: 12
+    lines {
+      width: 1.1
+      color: 1308162296
+      dashdot {
+        dd: 3.5
+        dd: 2.0
+      }
+      priority: 180
+      join: BEVELJOIN
+      cap: BUTTCAP
+    }
+  }
+  element {
+    scale: 13
+    lines {
+      width: 1.3
+      color: 16316664
+      dashdot {
+        dd: 4.0
+        dd: 2.5
       }
       priority: 180
       cap: BUTTCAP
     }
     path_text {
       primary {
-        height: 8
-        color: 3355443
-        stroke_color: 872415231
+        height: 10
+        color: 4473924
+        stroke_color: 871230427
+      }
+      priority: 2950
+    }
+  }
+  element {
+    scale: 14
+    lines {
+      width: 1.6
+      color: 16316664
+      dashdot {
+        dd: 4.0
+        dd: 2.5
+      }
+      priority: 180
+      cap: BUTTCAP
+    }
+    path_text {
+      primary {
+        height: 11
+        color: 4473924
+        stroke_color: 871230427
+      }
+      priority: 2950
+    }
+  }
+  element {
+    scale: 15
+    lines {
+      width: 2.0
+      color: 16316664
+      dashdot {
+        dd: 6.0
+        dd: 3.5
+      }
+      priority: 180
+      cap: BUTTCAP
+    }
+    path_text {
+      primary {
+        height: 11
+        color: 4473924
+        stroke_color: 871230427
       }
       priority: 2950
     }
@@ -24197,17 +24594,17 @@ cont {
   element {
     scale: 16
     lines {
-      width: 2.0
-      color: 1090058488
+      width: 2.6
+      color: 16316664
       dashdot {
-        dd: 5.0
-        dd: 2.0
+        dd: 6.0
+        dd: 3.5
       }
       priority: 180
     }
     path_text {
       primary {
-        height: 9
+        height: 12
         color: 3355443
         stroke_color: 872415231
       }
@@ -24217,22 +24614,22 @@ cont {
   element {
     scale: 17
     lines {
-      width: 2.4
-      color: 1090058488
+      width: 3.3
+      color: 16316664
       dashdot {
-        dd: 6.0
-        dd: 2.5
+        dd: 8.0
+        dd: 4.5
       }
       priority: 180
     }
     lines {
-      width: 5.8
+      width: 7.6
       color: 1307438043
       priority: 50
       cap: BUTTCAP
     }
     lines {
-      width: 6.8
+      width: 8.6
       color: 1300267136
       dashdot {
         dd: 2.0
@@ -24243,7 +24640,7 @@ cont {
     }
     path_text {
       primary {
-        height: 9
+        height: 12
         color: 3355443
         stroke_color: 872415231
       }
@@ -24253,22 +24650,22 @@ cont {
   element {
     scale: 18
     lines {
-      width: 3.2
+      width: 4.0
       color: 16316664
       dashdot {
         dd: 8.0
-        dd: 3.0
+        dd: 4.5
       }
       priority: 180
     }
     lines {
-      width: 7.4
+      width: 9.0
       color: 1307438043
       priority: 50
       cap: BUTTCAP
     }
     lines {
-      width: 8.4
+      width: 10.0
       color: 1300267136
       dashdot {
         dd: 2.0
@@ -24279,7 +24676,7 @@ cont {
     }
     path_text {
       primary {
-        height: 10
+        height: 12
         color: 3355443
         stroke_color: 872415231
       }
@@ -24289,22 +24686,22 @@ cont {
   element {
     scale: 19
     lines {
-      width: 4.2
+      width: 4.0
       color: 16316664
       dashdot {
-        dd: 10.0
-        dd: 3.5
+        dd: 8.0
+        dd: 4.5
       }
       priority: 180
     }
     lines {
-      width: 9.4
+      width: 9.0
       color: 1307438043
       priority: 50
       cap: BUTTCAP
     }
     lines {
-      width: 10.4
+      width: 10.0
       color: 1300267136
       dashdot {
         dd: 2.0
@@ -24315,7 +24712,7 @@ cont {
     }
     path_text {
       primary {
-        height: 10
+        height: 12
         color: 3355443
         stroke_color: 872415231
       }
@@ -24325,22 +24722,22 @@ cont {
   element {
     scale: 20
     lines {
-      width: 4.2
+      width: 4.0
       color: 16316664
       dashdot {
-        dd: 10.0
-        dd: 3.5
+        dd: 8.0
+        dd: 4.5
       }
       priority: 180
     }
     lines {
-      width: 9.4
+      width: 9.0
       color: 1307438043
       priority: 50
       cap: BUTTCAP
     }
     lines {
-      width: 10.4
+      width: 10.0
       color: 1300267136
       dashdot {
         dd: 2.0
@@ -24351,7 +24748,7 @@ cont {
     }
     path_text {
       primary {
-        height: 10
+        height: 12
         color: 3355443
         stroke_color: 872415231
       }
@@ -27064,9 +27461,9 @@ cont {
     }
     path_text {
       primary {
-        height: 8
-        color: 3355443
-        stroke_color: 872415231
+        height: 10
+        color: 4473924
+        stroke_color: 871230427
       }
       priority: 2820
     }
@@ -27085,9 +27482,9 @@ cont {
     }
     path_text {
       primary {
-        height: 8
-        color: 3355443
-        stroke_color: 872415231
+        height: 11
+        color: 4473924
+        stroke_color: 871230427
       }
       priority: 2820
     }
@@ -27106,9 +27503,9 @@ cont {
     }
     path_text {
       primary {
-        height: 8
-        color: 3355443
-        stroke_color: 872415231
+        height: 11
+        color: 4473924
+        stroke_color: 871230427
       }
       priority: 2820
     }
@@ -27126,7 +27523,7 @@ cont {
     }
     path_text {
       primary {
-        height: 9
+        height: 12
         color: 3355443
         stroke_color: 872415231
       }
@@ -27146,7 +27543,7 @@ cont {
     }
     path_text {
       primary {
-        height: 9
+        height: 12
         color: 3355443
         stroke_color: 872415231
       }
@@ -27166,7 +27563,7 @@ cont {
     }
     path_text {
       primary {
-        height: 10
+        height: 12
         color: 3355443
         stroke_color: 872415231
       }
@@ -27186,7 +27583,7 @@ cont {
     }
     path_text {
       primary {
-        height: 10
+        height: 12
         color: 3355443
         stroke_color: 872415231
       }
@@ -27206,7 +27603,7 @@ cont {
     }
     path_text {
       primary {
-        height: 10
+        height: 12
         color: 3355443
         stroke_color: 872415231
       }
@@ -27258,9 +27655,9 @@ cont {
     }
     path_text {
       primary {
-        height: 8
-        color: 3355443
-        stroke_color: 872415231
+        height: 10
+        color: 4473924
+        stroke_color: 871230427
       }
       priority: 2820
     }
@@ -27279,9 +27676,9 @@ cont {
     }
     path_text {
       primary {
-        height: 8
-        color: 3355443
-        stroke_color: 872415231
+        height: 11
+        color: 4473924
+        stroke_color: 871230427
       }
       priority: 2820
     }
@@ -27300,9 +27697,9 @@ cont {
     }
     path_text {
       primary {
-        height: 8
-        color: 3355443
-        stroke_color: 872415231
+        height: 11
+        color: 4473924
+        stroke_color: 871230427
       }
       priority: 2820
     }
@@ -27320,7 +27717,7 @@ cont {
     }
     path_text {
       primary {
-        height: 9
+        height: 12
         color: 3355443
         stroke_color: 872415231
       }
@@ -27340,7 +27737,7 @@ cont {
     }
     path_text {
       primary {
-        height: 9
+        height: 12
         color: 3355443
         stroke_color: 872415231
       }
@@ -27360,7 +27757,7 @@ cont {
     }
     path_text {
       primary {
-        height: 10
+        height: 12
         color: 3355443
         stroke_color: 872415231
       }
@@ -27380,7 +27777,7 @@ cont {
     }
     path_text {
       primary {
-        height: 10
+        height: 12
         color: 3355443
         stroke_color: 872415231
       }
@@ -27400,7 +27797,7 @@ cont {
     }
     path_text {
       primary {
-        height: 10
+        height: 12
         color: 3355443
         stroke_color: 872415231
       }
@@ -27452,9 +27849,9 @@ cont {
     }
     path_text {
       primary {
-        height: 8
-        color: 3355443
-        stroke_color: 872415231
+        height: 10
+        color: 4473924
+        stroke_color: 871230427
       }
       priority: 2820
     }
@@ -27473,9 +27870,9 @@ cont {
     }
     path_text {
       primary {
-        height: 8
-        color: 3355443
-        stroke_color: 872415231
+        height: 11
+        color: 4473924
+        stroke_color: 871230427
       }
       priority: 2820
     }
@@ -27494,9 +27891,9 @@ cont {
     }
     path_text {
       primary {
-        height: 8
-        color: 3355443
-        stroke_color: 872415231
+        height: 11
+        color: 4473924
+        stroke_color: 871230427
       }
       priority: 2820
     }
@@ -27514,7 +27911,7 @@ cont {
     }
     path_text {
       primary {
-        height: 9
+        height: 12
         color: 3355443
         stroke_color: 872415231
       }
@@ -27534,7 +27931,7 @@ cont {
     }
     path_text {
       primary {
-        height: 9
+        height: 12
         color: 3355443
         stroke_color: 872415231
       }
@@ -27554,7 +27951,7 @@ cont {
     }
     path_text {
       primary {
-        height: 10
+        height: 12
         color: 3355443
         stroke_color: 872415231
       }
@@ -27574,7 +27971,7 @@ cont {
     }
     path_text {
       primary {
-        height: 10
+        height: 12
         color: 3355443
         stroke_color: 872415231
       }
@@ -27594,7 +27991,7 @@ cont {
     }
     path_text {
       primary {
-        height: 10
+        height: 12
         color: 3355443
         stroke_color: 872415231
       }
@@ -27646,9 +28043,9 @@ cont {
     }
     path_text {
       primary {
-        height: 8
-        color: 3355443
-        stroke_color: 872415231
+        height: 10
+        color: 4473924
+        stroke_color: 871230427
       }
       priority: 2820
     }
@@ -27667,9 +28064,9 @@ cont {
     }
     path_text {
       primary {
-        height: 8
-        color: 3355443
-        stroke_color: 872415231
+        height: 11
+        color: 4473924
+        stroke_color: 871230427
       }
       priority: 2820
     }
@@ -27694,9 +28091,9 @@ cont {
     }
     path_text {
       primary {
-        height: 8
-        color: 3355443
-        stroke_color: 872415231
+        height: 11
+        color: 4473924
+        stroke_color: 871230427
       }
       priority: 2820
     }
@@ -27720,7 +28117,7 @@ cont {
     }
     path_text {
       primary {
-        height: 9
+        height: 12
         color: 3355443
         stroke_color: 872415231
       }
@@ -27752,7 +28149,7 @@ cont {
     }
     path_text {
       primary {
-        height: 9
+        height: 12
         color: 3355443
         stroke_color: 872415231
       }
@@ -27784,7 +28181,7 @@ cont {
     }
     path_text {
       primary {
-        height: 10
+        height: 12
         color: 3355443
         stroke_color: 872415231
       }
@@ -27816,7 +28213,7 @@ cont {
     }
     path_text {
       primary {
-        height: 10
+        height: 12
         color: 3355443
         stroke_color: 872415231
       }
@@ -27848,7 +28245,7 @@ cont {
     }
     path_text {
       primary {
-        height: 10
+        height: 12
         color: 3355443
         stroke_color: 872415231
       }
@@ -27900,9 +28297,9 @@ cont {
     }
     path_text {
       primary {
-        height: 8
-        color: 3355443
-        stroke_color: 872415231
+        height: 10
+        color: 4473924
+        stroke_color: 871230427
       }
       priority: 2820
     }
@@ -27921,9 +28318,9 @@ cont {
     }
     path_text {
       primary {
-        height: 8
-        color: 3355443
-        stroke_color: 872415231
+        height: 11
+        color: 4473924
+        stroke_color: 871230427
       }
       priority: 2820
     }
@@ -27942,9 +28339,9 @@ cont {
     }
     path_text {
       primary {
-        height: 8
-        color: 3355443
-        stroke_color: 872415231
+        height: 11
+        color: 4473924
+        stroke_color: 871230427
       }
       priority: 2820
     }
@@ -27962,7 +28359,7 @@ cont {
     }
     path_text {
       primary {
-        height: 9
+        height: 12
         color: 3355443
         stroke_color: 872415231
       }
@@ -27982,7 +28379,7 @@ cont {
     }
     path_text {
       primary {
-        height: 9
+        height: 12
         color: 3355443
         stroke_color: 872415231
       }
@@ -28002,7 +28399,7 @@ cont {
     }
     path_text {
       primary {
-        height: 10
+        height: 12
         color: 3355443
         stroke_color: 872415231
       }
@@ -28022,7 +28419,7 @@ cont {
     }
     path_text {
       primary {
-        height: 10
+        height: 12
         color: 3355443
         stroke_color: 872415231
       }
@@ -28042,7 +28439,7 @@ cont {
     }
     path_text {
       primary {
-        height: 10
+        height: 12
         color: 3355443
         stroke_color: 872415231
       }
@@ -28094,9 +28491,9 @@ cont {
     }
     path_text {
       primary {
-        height: 8
-        color: 3355443
-        stroke_color: 872415231
+        height: 10
+        color: 4473924
+        stroke_color: 871230427
       }
       priority: 2820
     }
@@ -28115,9 +28512,9 @@ cont {
     }
     path_text {
       primary {
-        height: 8
-        color: 3355443
-        stroke_color: 872415231
+        height: 11
+        color: 4473924
+        stroke_color: 871230427
       }
       priority: 2820
     }
@@ -28136,9 +28533,9 @@ cont {
     }
     path_text {
       primary {
-        height: 8
-        color: 3355443
-        stroke_color: 872415231
+        height: 11
+        color: 4473924
+        stroke_color: 871230427
       }
       priority: 2820
     }
@@ -28156,7 +28553,7 @@ cont {
     }
     path_text {
       primary {
-        height: 9
+        height: 12
         color: 3355443
         stroke_color: 872415231
       }
@@ -28176,7 +28573,7 @@ cont {
     }
     path_text {
       primary {
-        height: 9
+        height: 12
         color: 3355443
         stroke_color: 872415231
       }
@@ -28196,7 +28593,7 @@ cont {
     }
     path_text {
       primary {
-        height: 10
+        height: 12
         color: 3355443
         stroke_color: 872415231
       }
@@ -28216,7 +28613,7 @@ cont {
     }
     path_text {
       primary {
-        height: 10
+        height: 12
         color: 3355443
         stroke_color: 872415231
       }
@@ -28236,7 +28633,7 @@ cont {
     }
     path_text {
       primary {
-        height: 10
+        height: 12
         color: 3355443
         stroke_color: 872415231
       }
@@ -28288,9 +28685,9 @@ cont {
     }
     path_text {
       primary {
-        height: 8
-        color: 3355443
-        stroke_color: 872415231
+        height: 10
+        color: 4473924
+        stroke_color: 871230427
       }
       priority: 2820
     }
@@ -28309,9 +28706,9 @@ cont {
     }
     path_text {
       primary {
-        height: 8
-        color: 3355443
-        stroke_color: 872415231
+        height: 11
+        color: 4473924
+        stroke_color: 871230427
       }
       priority: 2820
     }
@@ -28330,9 +28727,9 @@ cont {
     }
     path_text {
       primary {
-        height: 8
-        color: 3355443
-        stroke_color: 872415231
+        height: 11
+        color: 4473924
+        stroke_color: 871230427
       }
       priority: 2820
     }
@@ -28350,7 +28747,7 @@ cont {
     }
     path_text {
       primary {
-        height: 9
+        height: 12
         color: 3355443
         stroke_color: 872415231
       }
@@ -28370,7 +28767,7 @@ cont {
     }
     path_text {
       primary {
-        height: 9
+        height: 12
         color: 3355443
         stroke_color: 872415231
       }
@@ -28390,7 +28787,7 @@ cont {
     }
     path_text {
       primary {
-        height: 10
+        height: 12
         color: 3355443
         stroke_color: 872415231
       }
@@ -28410,7 +28807,7 @@ cont {
     }
     path_text {
       primary {
-        height: 10
+        height: 12
         color: 3355443
         stroke_color: 872415231
       }
@@ -28430,7 +28827,7 @@ cont {
     }
     path_text {
       primary {
-        height: 10
+        height: 12
         color: 3355443
         stroke_color: 872415231
       }
@@ -28482,9 +28879,9 @@ cont {
     }
     path_text {
       primary {
-        height: 8
-        color: 3355443
-        stroke_color: 872415231
+        height: 10
+        color: 4473924
+        stroke_color: 871230427
       }
       priority: 2820
     }
@@ -28503,9 +28900,9 @@ cont {
     }
     path_text {
       primary {
-        height: 8
-        color: 3355443
-        stroke_color: 872415231
+        height: 11
+        color: 4473924
+        stroke_color: 871230427
       }
       priority: 2820
     }
@@ -28524,9 +28921,9 @@ cont {
     }
     path_text {
       primary {
-        height: 8
-        color: 3355443
-        stroke_color: 872415231
+        height: 11
+        color: 4473924
+        stroke_color: 871230427
       }
       priority: 2820
     }
@@ -28544,7 +28941,7 @@ cont {
     }
     path_text {
       primary {
-        height: 9
+        height: 12
         color: 3355443
         stroke_color: 872415231
       }
@@ -28564,7 +28961,7 @@ cont {
     }
     path_text {
       primary {
-        height: 9
+        height: 12
         color: 3355443
         stroke_color: 872415231
       }
@@ -28584,7 +28981,7 @@ cont {
     }
     path_text {
       primary {
-        height: 10
+        height: 12
         color: 3355443
         stroke_color: 872415231
       }
@@ -28604,7 +29001,7 @@ cont {
     }
     path_text {
       primary {
-        height: 10
+        height: 12
         color: 3355443
         stroke_color: 872415231
       }
@@ -28624,7 +29021,7 @@ cont {
     }
     path_text {
       primary {
-        height: 10
+        height: 12
         color: 3355443
         stroke_color: 872415231
       }
@@ -28676,9 +29073,9 @@ cont {
     }
     path_text {
       primary {
-        height: 8
-        color: 3355443
-        stroke_color: 872415231
+        height: 10
+        color: 4473924
+        stroke_color: 871230427
       }
       priority: 2820
     }
@@ -28697,9 +29094,9 @@ cont {
     }
     path_text {
       primary {
-        height: 8
-        color: 3355443
-        stroke_color: 872415231
+        height: 11
+        color: 4473924
+        stroke_color: 871230427
       }
       priority: 2820
     }
@@ -28718,9 +29115,9 @@ cont {
     }
     path_text {
       primary {
-        height: 8
-        color: 3355443
-        stroke_color: 872415231
+        height: 11
+        color: 4473924
+        stroke_color: 871230427
       }
       priority: 2820
     }
@@ -28738,7 +29135,7 @@ cont {
     }
     path_text {
       primary {
-        height: 9
+        height: 12
         color: 3355443
         stroke_color: 872415231
       }
@@ -28758,7 +29155,7 @@ cont {
     }
     path_text {
       primary {
-        height: 9
+        height: 12
         color: 3355443
         stroke_color: 872415231
       }
@@ -28778,7 +29175,7 @@ cont {
     }
     path_text {
       primary {
-        height: 10
+        height: 12
         color: 3355443
         stroke_color: 872415231
       }
@@ -28798,7 +29195,7 @@ cont {
     }
     path_text {
       primary {
-        height: 10
+        height: 12
         color: 3355443
         stroke_color: 872415231
       }
@@ -28818,7 +29215,7 @@ cont {
     }
     path_text {
       primary {
-        height: 10
+        height: 12
         color: 3355443
         stroke_color: 872415231
       }
@@ -28870,9 +29267,9 @@ cont {
     }
     path_text {
       primary {
-        height: 8
-        color: 3355443
-        stroke_color: 872415231
+        height: 10
+        color: 4473924
+        stroke_color: 871230427
       }
       priority: 2820
     }
@@ -28891,9 +29288,9 @@ cont {
     }
     path_text {
       primary {
-        height: 8
-        color: 3355443
-        stroke_color: 872415231
+        height: 11
+        color: 4473924
+        stroke_color: 871230427
       }
       priority: 2820
     }
@@ -28912,9 +29309,9 @@ cont {
     }
     path_text {
       primary {
-        height: 8
-        color: 3355443
-        stroke_color: 872415231
+        height: 11
+        color: 4473924
+        stroke_color: 871230427
       }
       priority: 2820
     }
@@ -28932,7 +29329,7 @@ cont {
     }
     path_text {
       primary {
-        height: 9
+        height: 12
         color: 3355443
         stroke_color: 872415231
       }
@@ -28952,7 +29349,7 @@ cont {
     }
     path_text {
       primary {
-        height: 9
+        height: 12
         color: 3355443
         stroke_color: 872415231
       }
@@ -28972,7 +29369,7 @@ cont {
     }
     path_text {
       primary {
-        height: 10
+        height: 12
         color: 3355443
         stroke_color: 872415231
       }
@@ -28992,7 +29389,7 @@ cont {
     }
     path_text {
       primary {
-        height: 10
+        height: 12
         color: 3355443
         stroke_color: 872415231
       }
@@ -29012,201 +29409,7 @@ cont {
     }
     path_text {
       primary {
-        height: 10
-        color: 3355443
-        stroke_color: 872415231
-      }
-      priority: 2820
-    }
-  }
-}
-cont {
-  name: "highway-path-permissive"
-  element {
-    scale: 11
-    lines {
-      width: 1.0
-      color: 1721782290
-      dashdot {
-        dd: 3.5
-        dd: 2.0
-      }
-      priority: 180
-      join: BEVELJOIN
-      cap: BUTTCAP
-    }
-  }
-  element {
-    scale: 12
-    lines {
-      width: 1.1
-      color: 1302351890
-      dashdot {
-        dd: 3.5
-        dd: 2.0
-      }
-      priority: 180
-      join: BEVELJOIN
-      cap: BUTTCAP
-    }
-  }
-  element {
-    scale: 13
-    lines {
-      width: 1.3
-      color: 10506258
-      dashdot {
-        dd: 4.0
-        dd: 2.5
-      }
-      priority: 180
-      cap: BUTTCAP
-    }
-    path_text {
-      primary {
-        height: 8
-        color: 3355443
-        stroke_color: 872415231
-      }
-      priority: 2820
-    }
-  }
-  element {
-    scale: 14
-    lines {
-      width: 1.6
-      color: 10506258
-      dashdot {
-        dd: 4.0
-        dd: 2.5
-      }
-      priority: 180
-      cap: BUTTCAP
-    }
-    path_text {
-      primary {
-        height: 8
-        color: 3355443
-        stroke_color: 872415231
-      }
-      priority: 2820
-    }
-  }
-  element {
-    scale: 15
-    lines {
-      width: 2.0
-      color: 10506258
-      dashdot {
-        dd: 6.0
-        dd: 3.5
-      }
-      priority: 180
-      cap: BUTTCAP
-    }
-    path_text {
-      primary {
-        height: 8
-        color: 3355443
-        stroke_color: 872415231
-      }
-      priority: 2820
-    }
-  }
-  element {
-    scale: 16
-    lines {
-      width: 2.6
-      color: 10506258
-      dashdot {
-        dd: 6.0
-        dd: 3.5
-      }
-      priority: 180
-    }
-    path_text {
-      primary {
-        height: 9
-        color: 3355443
-        stroke_color: 872415231
-      }
-      priority: 2820
-    }
-  }
-  element {
-    scale: 17
-    lines {
-      width: 3.3
-      color: 10506258
-      dashdot {
-        dd: 8.0
-        dd: 4.5
-      }
-      priority: 180
-    }
-    path_text {
-      primary {
-        height: 9
-        color: 3355443
-        stroke_color: 872415231
-      }
-      priority: 2820
-    }
-  }
-  element {
-    scale: 18
-    lines {
-      width: 4.0
-      color: 10506258
-      dashdot {
-        dd: 8.0
-        dd: 4.5
-      }
-      priority: 180
-    }
-    path_text {
-      primary {
-        height: 10
-        color: 3355443
-        stroke_color: 872415231
-      }
-      priority: 2820
-    }
-  }
-  element {
-    scale: 19
-    lines {
-      width: 4.0
-      color: 10506258
-      dashdot {
-        dd: 8.0
-        dd: 4.5
-      }
-      priority: 180
-    }
-    path_text {
-      primary {
-        height: 10
-        color: 3355443
-        stroke_color: 872415231
-      }
-      priority: 2820
-    }
-  }
-  element {
-    scale: 20
-    lines {
-      width: 4.0
-      color: 10506258
-      dashdot {
-        dd: 8.0
-        dd: 4.5
-      }
-      priority: 180
-    }
-    path_text {
-      primary {
-        height: 10
+        height: 12
         color: 3355443
         stroke_color: 872415231
       }
@@ -29258,9 +29461,9 @@ cont {
     }
     path_text {
       primary {
-        height: 8
-        color: 3355443
-        stroke_color: 872415231
+        height: 10
+        color: 4473924
+        stroke_color: 871230427
       }
       priority: 2820
     }
@@ -29279,9 +29482,9 @@ cont {
     }
     path_text {
       primary {
-        height: 8
-        color: 3355443
-        stroke_color: 872415231
+        height: 11
+        color: 4473924
+        stroke_color: 871230427
       }
       priority: 2820
     }
@@ -29300,9 +29503,9 @@ cont {
     }
     path_text {
       primary {
-        height: 8
-        color: 3355443
-        stroke_color: 872415231
+        height: 11
+        color: 4473924
+        stroke_color: 871230427
       }
       priority: 2820
     }
@@ -29320,7 +29523,7 @@ cont {
     }
     path_text {
       primary {
-        height: 9
+        height: 12
         color: 3355443
         stroke_color: 872415231
       }
@@ -29356,7 +29559,7 @@ cont {
     }
     path_text {
       primary {
-        height: 9
+        height: 12
         color: 3355443
         stroke_color: 872415231
       }
@@ -29392,7 +29595,7 @@ cont {
     }
     path_text {
       primary {
-        height: 10
+        height: 12
         color: 3355443
         stroke_color: 872415231
       }
@@ -29428,7 +29631,7 @@ cont {
     }
     path_text {
       primary {
-        height: 10
+        height: 12
         color: 3355443
         stroke_color: 872415231
       }
@@ -29464,7 +29667,7 @@ cont {
     }
     path_text {
       primary {
-        height: 10
+        height: 12
         color: 3355443
         stroke_color: 872415231
       }
@@ -35707,10 +35910,66 @@ cont {
 cont {
   name: "highway-steps"
   element {
+    scale: 12
+    lines {
+      width: 1.1
+      color: 1308162296
+      dashdot {
+        dd: 3.5
+        dd: 2.0
+      }
+      priority: 330
+      join: BEVELJOIN
+      cap: BUTTCAP
+    }
+  }
+  element {
+    scale: 13
+    lines {
+      width: 1.3
+      color: 16316664
+      dashdot {
+        dd: 4.0
+        dd: 2.5
+      }
+      priority: 330
+      cap: BUTTCAP
+    }
+    path_text {
+      primary {
+        height: 10
+        color: 4473924
+        stroke_color: 871230427
+      }
+      priority: 2810
+    }
+  }
+  element {
+    scale: 14
+    lines {
+      width: 1.6
+      color: 16316664
+      dashdot {
+        dd: 4.0
+        dd: 2.5
+      }
+      priority: 330
+      cap: BUTTCAP
+    }
+    path_text {
+      primary {
+        height: 11
+        color: 4473924
+        stroke_color: 871230427
+      }
+      priority: 2810
+    }
+  }
+  element {
     scale: 15
     lines {
       width: 2.4
-      color: 670628088
+      color: 16316664
       dashdot {
         dd: 1.5
         dd: 1.3
@@ -35718,12 +35977,20 @@ cont {
       priority: 330
       cap: BUTTCAP
     }
+    path_text {
+      primary {
+        height: 11
+        color: 4473924
+        stroke_color: 871230427
+      }
+      priority: 2810
+    }
   }
   element {
     scale: 16
     lines {
       width: 4.0
-      color: 670628088
+      color: 16316664
       dashdot {
         dd: 1.8
         dd: 1.6
@@ -35732,7 +35999,7 @@ cont {
     }
     path_text {
       primary {
-        height: 10
+        height: 12
         color: 3355443
         stroke_color: 872415231
       }
@@ -35752,7 +36019,7 @@ cont {
     }
     path_text {
       primary {
-        height: 10
+        height: 12
         color: 3355443
         stroke_color: 872415231
       }
@@ -35772,7 +36039,7 @@ cont {
     }
     path_text {
       primary {
-        height: 10
+        height: 12
         color: 3355443
         stroke_color: 872415231
       }
@@ -35792,7 +36059,7 @@ cont {
     }
     path_text {
       primary {
-        height: 10
+        height: 12
         color: 3355443
         stroke_color: 872415231
       }
@@ -35812,7 +36079,7 @@ cont {
     }
     path_text {
       primary {
-        height: 10
+        height: 12
         color: 3355443
         stroke_color: 872415231
       }
@@ -35823,6 +36090,62 @@ cont {
 cont {
   name: "highway-steps-bridge"
   element {
+    scale: 12
+    lines {
+      width: 1.1
+      color: 1308162296
+      dashdot {
+        dd: 3.5
+        dd: 2.0
+      }
+      priority: 330
+      join: BEVELJOIN
+      cap: BUTTCAP
+    }
+  }
+  element {
+    scale: 13
+    lines {
+      width: 1.3
+      color: 16316664
+      dashdot {
+        dd: 4.0
+        dd: 2.5
+      }
+      priority: 330
+      cap: BUTTCAP
+    }
+    path_text {
+      primary {
+        height: 10
+        color: 4473924
+        stroke_color: 871230427
+      }
+      priority: 2810
+    }
+  }
+  element {
+    scale: 14
+    lines {
+      width: 1.6
+      color: 16316664
+      dashdot {
+        dd: 4.0
+        dd: 2.5
+      }
+      priority: 330
+      cap: BUTTCAP
+    }
+    path_text {
+      primary {
+        height: 11
+        color: 4473924
+        stroke_color: 871230427
+      }
+      priority: 2810
+    }
+  }
+  element {
     scale: 15
     lines {
       width: 0.8
@@ -35832,13 +36155,21 @@ cont {
     }
     lines {
       width: 2.4
-      color: 670628088
+      color: 16316664
       dashdot {
         dd: 1.5
         dd: 1.3
       }
       priority: 330
       cap: BUTTCAP
+    }
+    path_text {
+      primary {
+        height: 11
+        color: 4473924
+        stroke_color: 871230427
+      }
+      priority: 2810
     }
   }
   element {
@@ -35851,7 +36182,7 @@ cont {
     }
     lines {
       width: 4.0
-      color: 670628088
+      color: 16316664
       dashdot {
         dd: 1.8
         dd: 1.6
@@ -35860,7 +36191,7 @@ cont {
     }
     path_text {
       primary {
-        height: 10
+        height: 12
         color: 3355443
         stroke_color: 872415231
       }
@@ -35892,7 +36223,7 @@ cont {
     }
     path_text {
       primary {
-        height: 10
+        height: 12
         color: 3355443
         stroke_color: 872415231
       }
@@ -35924,7 +36255,7 @@ cont {
     }
     path_text {
       primary {
-        height: 10
+        height: 12
         color: 3355443
         stroke_color: 872415231
       }
@@ -35956,7 +36287,7 @@ cont {
     }
     path_text {
       primary {
-        height: 10
+        height: 12
         color: 3355443
         stroke_color: 872415231
       }
@@ -35988,7 +36319,7 @@ cont {
     }
     path_text {
       primary {
-        height: 10
+        height: 12
         color: 3355443
         stroke_color: 872415231
       }
@@ -35999,10 +36330,66 @@ cont {
 cont {
   name: "highway-steps-tunnel"
   element {
+    scale: 12
+    lines {
+      width: 1.1
+      color: 1308162296
+      dashdot {
+        dd: 3.5
+        dd: 2.0
+      }
+      priority: 330
+      join: BEVELJOIN
+      cap: BUTTCAP
+    }
+  }
+  element {
+    scale: 13
+    lines {
+      width: 1.3
+      color: 16316664
+      dashdot {
+        dd: 4.0
+        dd: 2.5
+      }
+      priority: 330
+      cap: BUTTCAP
+    }
+    path_text {
+      primary {
+        height: 10
+        color: 4473924
+        stroke_color: 871230427
+      }
+      priority: 2810
+    }
+  }
+  element {
+    scale: 14
+    lines {
+      width: 1.6
+      color: 16316664
+      dashdot {
+        dd: 4.0
+        dd: 2.5
+      }
+      priority: 330
+      cap: BUTTCAP
+    }
+    path_text {
+      primary {
+        height: 11
+        color: 4473924
+        stroke_color: 871230427
+      }
+      priority: 2810
+    }
+  }
+  element {
     scale: 15
     lines {
       width: 2.4
-      color: 670628088
+      color: 16316664
       dashdot {
         dd: 1.5
         dd: 1.3
@@ -36010,12 +36397,20 @@ cont {
       priority: 330
       cap: BUTTCAP
     }
+    path_text {
+      primary {
+        height: 11
+        color: 4473924
+        stroke_color: 871230427
+      }
+      priority: 2810
+    }
   }
   element {
     scale: 16
     lines {
       width: 4.0
-      color: 670628088
+      color: 16316664
       dashdot {
         dd: 1.8
         dd: 1.6
@@ -36024,7 +36419,7 @@ cont {
     }
     path_text {
       primary {
-        height: 10
+        height: 12
         color: 3355443
         stroke_color: 872415231
       }
@@ -36060,7 +36455,7 @@ cont {
     }
     path_text {
       primary {
-        height: 10
+        height: 12
         color: 3355443
         stroke_color: 872415231
       }
@@ -36096,7 +36491,7 @@ cont {
     }
     path_text {
       primary {
-        height: 10
+        height: 12
         color: 3355443
         stroke_color: 872415231
       }
@@ -36132,7 +36527,7 @@ cont {
     }
     path_text {
       primary {
-        height: 10
+        height: 12
         color: 3355443
         stroke_color: 872415231
       }
@@ -36168,7 +36563,7 @@ cont {
     }
     path_text {
       primary {
-        height: 10
+        height: 12
         color: 3355443
         stroke_color: 872415231
       }
@@ -37334,9 +37729,9 @@ cont {
     }
     path_text {
       primary {
-        height: 8
-        color: 3355443
-        stroke_color: 872415231
+        height: 10
+        color: 4473924
+        stroke_color: 871230427
       }
       priority: 2780
     }
@@ -37355,9 +37750,9 @@ cont {
     }
     path_text {
       primary {
-        height: 8
-        color: 3355443
-        stroke_color: 872415231
+        height: 11
+        color: 4473924
+        stroke_color: 871230427
       }
       priority: 2780
     }
@@ -37376,9 +37771,9 @@ cont {
     }
     path_text {
       primary {
-        height: 8
-        color: 3355443
-        stroke_color: 872415231
+        height: 11
+        color: 4473924
+        stroke_color: 871230427
       }
       priority: 2780
     }
@@ -37396,7 +37791,7 @@ cont {
     }
     path_text {
       primary {
-        height: 9
+        height: 12
         color: 3355443
         stroke_color: 872415231
       }
@@ -37416,7 +37811,7 @@ cont {
     }
     path_text {
       primary {
-        height: 9
+        height: 12
         color: 3355443
         stroke_color: 872415231
       }
@@ -37436,7 +37831,7 @@ cont {
     }
     path_text {
       primary {
-        height: 10
+        height: 12
         color: 3355443
         stroke_color: 872415231
       }
@@ -37456,7 +37851,7 @@ cont {
     }
     path_text {
       primary {
-        height: 10
+        height: 12
         color: 3355443
         stroke_color: 872415231
       }
@@ -37476,7 +37871,7 @@ cont {
     }
     path_text {
       primary {
-        height: 10
+        height: 12
         color: 3355443
         stroke_color: 872415231
       }
@@ -37528,9 +37923,9 @@ cont {
     }
     path_text {
       primary {
-        height: 8
-        color: 3355443
-        stroke_color: 872415231
+        height: 10
+        color: 4473924
+        stroke_color: 871230427
       }
       priority: 2780
     }
@@ -37549,9 +37944,9 @@ cont {
     }
     path_text {
       primary {
-        height: 8
-        color: 3355443
-        stroke_color: 872415231
+        height: 11
+        color: 4473924
+        stroke_color: 871230427
       }
       priority: 2780
     }
@@ -37570,9 +37965,9 @@ cont {
     }
     path_text {
       primary {
-        height: 8
-        color: 3355443
-        stroke_color: 872415231
+        height: 11
+        color: 4473924
+        stroke_color: 871230427
       }
       priority: 2780
     }
@@ -37590,7 +37985,7 @@ cont {
     }
     path_text {
       primary {
-        height: 9
+        height: 12
         color: 3355443
         stroke_color: 872415231
       }
@@ -37610,7 +38005,7 @@ cont {
     }
     path_text {
       primary {
-        height: 9
+        height: 12
         color: 3355443
         stroke_color: 872415231
       }
@@ -37630,7 +38025,7 @@ cont {
     }
     path_text {
       primary {
-        height: 10
+        height: 12
         color: 3355443
         stroke_color: 872415231
       }
@@ -37650,7 +38045,7 @@ cont {
     }
     path_text {
       primary {
-        height: 10
+        height: 12
         color: 3355443
         stroke_color: 872415231
       }
@@ -37670,7 +38065,7 @@ cont {
     }
     path_text {
       primary {
-        height: 10
+        height: 12
         color: 3355443
         stroke_color: 872415231
       }
@@ -37722,9 +38117,9 @@ cont {
     }
     path_text {
       primary {
-        height: 8
-        color: 3355443
-        stroke_color: 872415231
+        height: 10
+        color: 4473924
+        stroke_color: 871230427
       }
       priority: 2780
     }
@@ -37743,9 +38138,9 @@ cont {
     }
     path_text {
       primary {
-        height: 8
-        color: 3355443
-        stroke_color: 872415231
+        height: 11
+        color: 4473924
+        stroke_color: 871230427
       }
       priority: 2780
     }
@@ -37770,9 +38165,9 @@ cont {
     }
     path_text {
       primary {
-        height: 8
-        color: 3355443
-        stroke_color: 872415231
+        height: 11
+        color: 4473924
+        stroke_color: 871230427
       }
       priority: 2780
     }
@@ -37796,7 +38191,7 @@ cont {
     }
     path_text {
       primary {
-        height: 9
+        height: 12
         color: 3355443
         stroke_color: 872415231
       }
@@ -37828,7 +38223,7 @@ cont {
     }
     path_text {
       primary {
-        height: 9
+        height: 12
         color: 3355443
         stroke_color: 872415231
       }
@@ -37860,7 +38255,7 @@ cont {
     }
     path_text {
       primary {
-        height: 10
+        height: 12
         color: 3355443
         stroke_color: 872415231
       }
@@ -37892,7 +38287,7 @@ cont {
     }
     path_text {
       primary {
-        height: 10
+        height: 12
         color: 3355443
         stroke_color: 872415231
       }
@@ -37924,7 +38319,7 @@ cont {
     }
     path_text {
       primary {
-        height: 10
+        height: 12
         color: 3355443
         stroke_color: 872415231
       }
@@ -37976,9 +38371,9 @@ cont {
     }
     path_text {
       primary {
-        height: 8
-        color: 3355443
-        stroke_color: 872415231
+        height: 10
+        color: 4473924
+        stroke_color: 871230427
       }
       priority: 2780
     }
@@ -37997,9 +38392,9 @@ cont {
     }
     path_text {
       primary {
-        height: 8
-        color: 3355443
-        stroke_color: 872415231
+        height: 11
+        color: 4473924
+        stroke_color: 871230427
       }
       priority: 2780
     }
@@ -38018,9 +38413,9 @@ cont {
     }
     path_text {
       primary {
-        height: 8
-        color: 3355443
-        stroke_color: 872415231
+        height: 11
+        color: 4473924
+        stroke_color: 871230427
       }
       priority: 2780
     }
@@ -38038,7 +38433,7 @@ cont {
     }
     path_text {
       primary {
-        height: 9
+        height: 12
         color: 3355443
         stroke_color: 872415231
       }
@@ -38058,7 +38453,7 @@ cont {
     }
     path_text {
       primary {
-        height: 9
+        height: 12
         color: 3355443
         stroke_color: 872415231
       }
@@ -38078,7 +38473,7 @@ cont {
     }
     path_text {
       primary {
-        height: 10
+        height: 12
         color: 3355443
         stroke_color: 872415231
       }
@@ -38098,7 +38493,7 @@ cont {
     }
     path_text {
       primary {
-        height: 10
+        height: 12
         color: 3355443
         stroke_color: 872415231
       }
@@ -38118,7 +38513,7 @@ cont {
     }
     path_text {
       primary {
-        height: 10
+        height: 12
         color: 3355443
         stroke_color: 872415231
       }
@@ -38170,9 +38565,9 @@ cont {
     }
     path_text {
       primary {
-        height: 8
-        color: 3355443
-        stroke_color: 872415231
+        height: 10
+        color: 4473924
+        stroke_color: 871230427
       }
       priority: 2780
     }
@@ -38191,9 +38586,9 @@ cont {
     }
     path_text {
       primary {
-        height: 8
-        color: 3355443
-        stroke_color: 872415231
+        height: 11
+        color: 4473924
+        stroke_color: 871230427
       }
       priority: 2780
     }
@@ -38212,9 +38607,9 @@ cont {
     }
     path_text {
       primary {
-        height: 8
-        color: 3355443
-        stroke_color: 872415231
+        height: 11
+        color: 4473924
+        stroke_color: 871230427
       }
       priority: 2780
     }
@@ -38232,7 +38627,7 @@ cont {
     }
     path_text {
       primary {
-        height: 9
+        height: 12
         color: 3355443
         stroke_color: 872415231
       }
@@ -38252,7 +38647,7 @@ cont {
     }
     path_text {
       primary {
-        height: 9
+        height: 12
         color: 3355443
         stroke_color: 872415231
       }
@@ -38272,7 +38667,7 @@ cont {
     }
     path_text {
       primary {
-        height: 10
+        height: 12
         color: 3355443
         stroke_color: 872415231
       }
@@ -38292,7 +38687,7 @@ cont {
     }
     path_text {
       primary {
-        height: 10
+        height: 12
         color: 3355443
         stroke_color: 872415231
       }
@@ -38312,7 +38707,7 @@ cont {
     }
     path_text {
       primary {
-        height: 10
+        height: 12
         color: 3355443
         stroke_color: 872415231
       }
@@ -38364,9 +38759,9 @@ cont {
     }
     path_text {
       primary {
-        height: 8
-        color: 3355443
-        stroke_color: 872415231
+        height: 10
+        color: 4473924
+        stroke_color: 871230427
       }
       priority: 2780
     }
@@ -38385,9 +38780,9 @@ cont {
     }
     path_text {
       primary {
-        height: 8
-        color: 3355443
-        stroke_color: 872415231
+        height: 11
+        color: 4473924
+        stroke_color: 871230427
       }
       priority: 2780
     }
@@ -38406,9 +38801,9 @@ cont {
     }
     path_text {
       primary {
-        height: 8
-        color: 3355443
-        stroke_color: 872415231
+        height: 11
+        color: 4473924
+        stroke_color: 871230427
       }
       priority: 2780
     }
@@ -38426,7 +38821,7 @@ cont {
     }
     path_text {
       primary {
-        height: 9
+        height: 12
         color: 3355443
         stroke_color: 872415231
       }
@@ -38446,7 +38841,7 @@ cont {
     }
     path_text {
       primary {
-        height: 9
+        height: 12
         color: 3355443
         stroke_color: 872415231
       }
@@ -38466,7 +38861,7 @@ cont {
     }
     path_text {
       primary {
-        height: 10
+        height: 12
         color: 3355443
         stroke_color: 872415231
       }
@@ -38486,7 +38881,7 @@ cont {
     }
     path_text {
       primary {
-        height: 10
+        height: 12
         color: 3355443
         stroke_color: 872415231
       }
@@ -38506,7 +38901,7 @@ cont {
     }
     path_text {
       primary {
-        height: 10
+        height: 12
         color: 3355443
         stroke_color: 872415231
       }
@@ -38558,9 +38953,9 @@ cont {
     }
     path_text {
       primary {
-        height: 8
-        color: 3355443
-        stroke_color: 872415231
+        height: 10
+        color: 4473924
+        stroke_color: 871230427
       }
       priority: 2780
     }
@@ -38579,9 +38974,9 @@ cont {
     }
     path_text {
       primary {
-        height: 8
-        color: 3355443
-        stroke_color: 872415231
+        height: 11
+        color: 4473924
+        stroke_color: 871230427
       }
       priority: 2780
     }
@@ -38600,9 +38995,9 @@ cont {
     }
     path_text {
       primary {
-        height: 8
-        color: 3355443
-        stroke_color: 872415231
+        height: 11
+        color: 4473924
+        stroke_color: 871230427
       }
       priority: 2780
     }
@@ -38620,7 +39015,7 @@ cont {
     }
     path_text {
       primary {
-        height: 9
+        height: 12
         color: 3355443
         stroke_color: 872415231
       }
@@ -38640,7 +39035,7 @@ cont {
     }
     path_text {
       primary {
-        height: 9
+        height: 12
         color: 3355443
         stroke_color: 872415231
       }
@@ -38660,7 +39055,7 @@ cont {
     }
     path_text {
       primary {
-        height: 10
+        height: 12
         color: 3355443
         stroke_color: 872415231
       }
@@ -38680,7 +39075,7 @@ cont {
     }
     path_text {
       primary {
-        height: 10
+        height: 12
         color: 3355443
         stroke_color: 872415231
       }
@@ -38700,7 +39095,7 @@ cont {
     }
     path_text {
       primary {
-        height: 10
+        height: 12
         color: 3355443
         stroke_color: 872415231
       }
@@ -38752,9 +39147,9 @@ cont {
     }
     path_text {
       primary {
-        height: 8
-        color: 3355443
-        stroke_color: 872415231
+        height: 10
+        color: 4473924
+        stroke_color: 871230427
       }
       priority: 2780
     }
@@ -38773,9 +39168,9 @@ cont {
     }
     path_text {
       primary {
-        height: 8
-        color: 3355443
-        stroke_color: 872415231
+        height: 11
+        color: 4473924
+        stroke_color: 871230427
       }
       priority: 2780
     }
@@ -38794,9 +39189,9 @@ cont {
     }
     path_text {
       primary {
-        height: 8
-        color: 3355443
-        stroke_color: 872415231
+        height: 11
+        color: 4473924
+        stroke_color: 871230427
       }
       priority: 2780
     }
@@ -38814,7 +39209,7 @@ cont {
     }
     path_text {
       primary {
-        height: 9
+        height: 12
         color: 3355443
         stroke_color: 872415231
       }
@@ -38834,7 +39229,7 @@ cont {
     }
     path_text {
       primary {
-        height: 9
+        height: 12
         color: 3355443
         stroke_color: 872415231
       }
@@ -38854,7 +39249,7 @@ cont {
     }
     path_text {
       primary {
-        height: 10
+        height: 12
         color: 3355443
         stroke_color: 872415231
       }
@@ -38874,7 +39269,7 @@ cont {
     }
     path_text {
       primary {
-        height: 10
+        height: 12
         color: 3355443
         stroke_color: 872415231
       }
@@ -38894,7 +39289,7 @@ cont {
     }
     path_text {
       primary {
-        height: 10
+        height: 12
         color: 3355443
         stroke_color: 872415231
       }
@@ -38946,9 +39341,9 @@ cont {
     }
     path_text {
       primary {
-        height: 8
-        color: 3355443
-        stroke_color: 872415231
+        height: 10
+        color: 4473924
+        stroke_color: 871230427
       }
       priority: 2780
     }
@@ -38967,9 +39362,9 @@ cont {
     }
     path_text {
       primary {
-        height: 8
-        color: 3355443
-        stroke_color: 872415231
+        height: 11
+        color: 4473924
+        stroke_color: 871230427
       }
       priority: 2780
     }
@@ -38988,9 +39383,9 @@ cont {
     }
     path_text {
       primary {
-        height: 8
-        color: 3355443
-        stroke_color: 872415231
+        height: 11
+        color: 4473924
+        stroke_color: 871230427
       }
       priority: 2780
     }
@@ -39008,7 +39403,7 @@ cont {
     }
     path_text {
       primary {
-        height: 9
+        height: 12
         color: 3355443
         stroke_color: 872415231
       }
@@ -39028,7 +39423,7 @@ cont {
     }
     path_text {
       primary {
-        height: 9
+        height: 12
         color: 3355443
         stroke_color: 872415231
       }
@@ -39048,7 +39443,7 @@ cont {
     }
     path_text {
       primary {
-        height: 10
+        height: 12
         color: 3355443
         stroke_color: 872415231
       }
@@ -39068,7 +39463,7 @@ cont {
     }
     path_text {
       primary {
-        height: 10
+        height: 12
         color: 3355443
         stroke_color: 872415231
       }
@@ -39088,201 +39483,7 @@ cont {
     }
     path_text {
       primary {
-        height: 10
-        color: 3355443
-        stroke_color: 872415231
-      }
-      priority: 2780
-    }
-  }
-}
-cont {
-  name: "highway-track-permissive"
-  element {
-    scale: 11
-    lines {
-      width: 1.1
-      color: 1717786416
-      dashdot {
-        dd: 6.0
-        dd: 2.5
-      }
-      priority: 180
-      join: BEVELJOIN
-      cap: BUTTCAP
-    }
-  }
-  element {
-    scale: 12
-    lines {
-      width: 1.3
-      color: 1298356016
-      dashdot {
-        dd: 6.0
-        dd: 2.5
-      }
-      priority: 180
-      join: BEVELJOIN
-      cap: BUTTCAP
-    }
-  }
-  element {
-    scale: 13
-    lines {
-      width: 1.6
-      color: 6510384
-      dashdot {
-        dd: 7.0
-        dd: 3.0
-      }
-      priority: 180
-      cap: BUTTCAP
-    }
-    path_text {
-      primary {
-        height: 8
-        color: 3355443
-        stroke_color: 872415231
-      }
-      priority: 2780
-    }
-  }
-  element {
-    scale: 14
-    lines {
-      width: 2.0
-      color: 6510384
-      dashdot {
-        dd: 7.0
-        dd: 3.0
-      }
-      priority: 180
-      cap: BUTTCAP
-    }
-    path_text {
-      primary {
-        height: 8
-        color: 3355443
-        stroke_color: 872415231
-      }
-      priority: 2780
-    }
-  }
-  element {
-    scale: 15
-    lines {
-      width: 2.5
-      color: 6510384
-      dashdot {
-        dd: 9.0
-        dd: 3.5
-      }
-      priority: 180
-      cap: BUTTCAP
-    }
-    path_text {
-      primary {
-        height: 8
-        color: 3355443
-        stroke_color: 872415231
-      }
-      priority: 2780
-    }
-  }
-  element {
-    scale: 16
-    lines {
-      width: 3.2
-      color: 6510384
-      dashdot {
-        dd: 9.0
-        dd: 3.5
-      }
-      priority: 180
-    }
-    path_text {
-      primary {
-        height: 9
-        color: 3355443
-        stroke_color: 872415231
-      }
-      priority: 2780
-    }
-  }
-  element {
-    scale: 17
-    lines {
-      width: 4.0
-      color: 6510384
-      dashdot {
-        dd: 12.0
-        dd: 4.0
-      }
-      priority: 180
-    }
-    path_text {
-      primary {
-        height: 9
-        color: 3355443
-        stroke_color: 872415231
-      }
-      priority: 2780
-    }
-  }
-  element {
-    scale: 18
-    lines {
-      width: 5.0
-      color: 6510384
-      dashdot {
-        dd: 12.0
-        dd: 4.0
-      }
-      priority: 180
-    }
-    path_text {
-      primary {
-        height: 10
-        color: 3355443
-        stroke_color: 872415231
-      }
-      priority: 2780
-    }
-  }
-  element {
-    scale: 19
-    lines {
-      width: 5.0
-      color: 6510384
-      dashdot {
-        dd: 12.0
-        dd: 4.0
-      }
-      priority: 180
-    }
-    path_text {
-      primary {
-        height: 10
-        color: 3355443
-        stroke_color: 872415231
-      }
-      priority: 2780
-    }
-  }
-  element {
-    scale: 20
-    lines {
-      width: 5.0
-      color: 6510384
-      dashdot {
-        dd: 12.0
-        dd: 4.0
-      }
-      priority: 180
-    }
-    path_text {
-      primary {
-        height: 10
+        height: 12
         color: 3355443
         stroke_color: 872415231
       }
@@ -39334,9 +39535,9 @@ cont {
     }
     path_text {
       primary {
-        height: 8
-        color: 3355443
-        stroke_color: 872415231
+        height: 10
+        color: 4473924
+        stroke_color: 871230427
       }
       priority: 2780
     }
@@ -39355,9 +39556,9 @@ cont {
     }
     path_text {
       primary {
-        height: 8
-        color: 3355443
-        stroke_color: 872415231
+        height: 11
+        color: 4473924
+        stroke_color: 871230427
       }
       priority: 2780
     }
@@ -39376,9 +39577,9 @@ cont {
     }
     path_text {
       primary {
-        height: 8
-        color: 3355443
-        stroke_color: 872415231
+        height: 11
+        color: 4473924
+        stroke_color: 871230427
       }
       priority: 2780
     }
@@ -39396,7 +39597,7 @@ cont {
     }
     path_text {
       primary {
-        height: 9
+        height: 12
         color: 3355443
         stroke_color: 872415231
       }
@@ -39432,7 +39633,7 @@ cont {
     }
     path_text {
       primary {
-        height: 9
+        height: 12
         color: 3355443
         stroke_color: 872415231
       }
@@ -39468,7 +39669,7 @@ cont {
     }
     path_text {
       primary {
-        height: 10
+        height: 12
         color: 3355443
         stroke_color: 872415231
       }
@@ -39504,7 +39705,7 @@ cont {
     }
     path_text {
       primary {
-        height: 10
+        height: 12
         color: 3355443
         stroke_color: 872415231
       }
@@ -39540,7 +39741,7 @@ cont {
     }
     path_text {
       primary {
-        height: 10
+        height: 12
         color: 3355443
         stroke_color: 872415231
       }

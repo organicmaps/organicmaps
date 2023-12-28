@@ -226,7 +226,7 @@ landuse|forest|deciduous
 *highway|service|area
 *highway|residential|area
 *amenity|bus_station
-*highway|track|permissive
+highway|track
 *waterway|drain|tunnel
 *landuse|cemetery|christian
 *highway|cycleway|tunnel
@@ -237,7 +237,7 @@ landuse|forest|deciduous
 *amenity|recycling
 *highway|residential|tunnel
 *aeroway|helipad
-*highway|path|permissive
+highway|path
 *place|islet
 *sport|basketball
 *amenity|cinema
@@ -350,7 +350,7 @@ amenity|parking|permissive
 *highway|path|alpine_hiking
 *tourism|zoo|petting
 *sport|scuba_diving
-*highway|cycleway|permissive
+highway|cycleway
 *highway|unclassified|area
 *natural|volcano
 *amenity|parking|underground|fee
@@ -367,7 +367,7 @@ highway|service|driveway
 *railway|narrow_gauge|bridge
 *amenity|parking|lane
 *railway|rail|main|tunnel
-*highway|bridleway|permissive
+highway|bridleway
 *railway|construction
 *railway|rail|branch|bridge
 *landuse|greenhouse_horticulture

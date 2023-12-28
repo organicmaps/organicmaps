@@ -56,7 +56,7 @@ landuse-cemetery-christian                          # area z14- (also has icon z
 highway-pedestrian-area                             # area z14- (also has line z13-, pathtext z14-)
 === 170
 
-highway-footway-area                                # area z14- (also has line z15-, pathtext z15-)
+highway-footway-area                                # area z14- (also has line z11-, pathtext z13-)
 leisure-track-area                                  # area z15- (also has caption z16-)
 === 160
 
