@@ -1014,6 +1014,13 @@ Java_app_organicmaps_Framework_nativeFormatSpeed(JNIEnv * env, jclass, jdouble s
                                 platform::GetLocalizedSpeedUnits(units));
 }
 
+JNIEXPORT jdouble JNICALL
+Java_app_organicmaps_Framework_nativeMpsToPlatformUnits(JNIEnv * env, jclass, jdouble meters)
+{
+  auto const units = measurement_utils::GetMeasurementUnits();
+  return measurement_utils::MpsToUnits(meters, units);
+}
+
 /*
 JNIEXPORT jobject JNICALL
 Java_app_organicmaps_Framework_nativeGetOutdatedCountriesString(JNIEnv * env, jclass)
@@ -1237,12 +1244,13 @@ Java_app_organicmaps_Framework_nativeGetRouteFollowingInfo(JNIEnv * env, jclass)
   //                              String currentStreet, String nextStreet,
   //                              double completionPercent, int vehicleTurnOrdinal, int
   //                              vehicleNextTurnOrdinal, int pedestrianTurnOrdinal, int exitNum,
-  //                              int totalTime, SingleLaneInfo[] lanes)
+  //                              int totalTime, SingleLaneInfo[] lanes, int speedLimit, boolean speedLimitExceeded,
+  //                              boolean shouldPlayWarningSignal)
   static jmethodID const ctorRouteInfoID =
       jni::GetConstructorID(env, klass,
                             "(Lapp/organicmaps/util/Distance;Lapp/organicmaps/util/Distance;"
                             "Ljava/lang/String;Ljava/lang/String;DIIIII"
-                            "[Lapp/organicmaps/routing/SingleLaneInfo;ZZ)V");
+                            "[Lapp/organicmaps/routing/SingleLaneInfo;IZZ)V");
 
   vector<routing::FollowingInfo::SingleLaneInfoClient> const & lanes = info.m_lanes;
   jobjectArray jLanes = nullptr;
@@ -1277,6 +1285,7 @@ Java_app_organicmaps_Framework_nativeGetRouteFollowingInfo(JNIEnv * env, jclass)
       ToJavaDistance(env, info.m_distToTurn), jni::ToJavaString(env, info.m_sourceName),
       jni::ToJavaString(env, info.m_displayedStreetName), info.m_completionPercent, info.m_turn,
       info.m_nextTurn, info.m_pedestrianTurn, info.m_exitNum, info.m_time, jLanes,
+      static_cast<jint>(std::round(measurement_utils::MpsToUnits(info.m_speedLimitMps, measurement_utils::GetMeasurementUnits()))),
       static_cast<jboolean>(isSpeedCamLimitExceeded), static_cast<jboolean>(shouldPlaySignal));
   ASSERT(result, (jni::DescribeException()));
   return result;

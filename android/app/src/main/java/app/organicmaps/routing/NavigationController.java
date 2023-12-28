@@ -1,5 +1,6 @@
 package app.organicmaps.routing;
 
+import android.location.Location;
 import android.text.TextUtils;
 import android.view.View;
 import android.widget.ImageView;
@@ -13,9 +14,11 @@ import androidx.core.view.WindowInsetsCompat;
 import androidx.recyclerview.widget.RecyclerView;
 import app.organicmaps.Framework;
 import app.organicmaps.R;
+import app.organicmaps.location.LocationHelper;
 import app.organicmaps.maplayer.traffic.TrafficManager;
 import app.organicmaps.util.UiUtils;
 import app.organicmaps.util.Utils;
+import app.organicmaps.widget.SpeedLimitView;
 import app.organicmaps.widget.menu.NavMenu;
 import com.google.android.material.bottomsheet.BottomSheetBehavior;
 
@@ -42,6 +45,9 @@ public class NavigationController implements TrafficManager.TrafficCallback,
   private final RecyclerView mLanes;
   @NonNull
   private final LanesAdapter mLanesAdapter;
+
+  @NonNull
+  private final SpeedLimitView mSpeedLimit;
 
   private final NavMenu mNavMenu;
   View.OnClickListener mOnSettingsClickListener;
@@ -88,6 +94,8 @@ public class NavigationController implements TrafficManager.TrafficCallback,
     mLanesAdapter = new LanesAdapter();
     initLanesRecycler();
 
+    mSpeedLimit = topFrame.findViewById(R.id.nav_speed_limit);
+
     // Show a blank view below the navbar to hide the menu content
     final View navigationBarBackground = mFrame.findViewById(R.id.nav_bottom_sheet_nav_bar);
     final View nextTurnContainer = mFrame.findViewById(R.id.nav_next_turn_container);
@@ -127,6 +135,8 @@ public class NavigationController implements TrafficManager.TrafficCallback,
       UiUtils.hide(mLanesFrame);
       mLanesAdapter.clearItems();
     }
+
+    updateSpeedLimit(info);
   }
 
   private void updatePedestrian(@NonNull RoutingInfo info)
@@ -255,4 +265,10 @@ public class NavigationController implements TrafficManager.TrafficCallback,
     RoutingController.get().cancel();
   }
 
+  private void updateSpeedLimit(@NonNull final RoutingInfo info)
+  {
+    final Location location = LocationHelper.from(mFrame.getContext()).getSavedLocation();
+    mSpeedLimit.setCurrentSpeed(location != null ? Framework.nativeMpsToPlatformUnits(location.getSpeed()) : -1);
+    mSpeedLimit.setSpeedLimit(info.speedLimit);
+  }
 }

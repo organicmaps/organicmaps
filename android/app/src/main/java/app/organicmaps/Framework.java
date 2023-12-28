@@ -188,6 +188,8 @@ public class Framework
 
   public static native String nativeFormatSpeed(double speed);
 
+  public static native double nativeMpsToPlatformUnits(double meters);
+
   public static native String nativeGetGe0Url(double lat, double lon, double zoomLevel, String name);
 
   public static native String nativeGetAddress(double lat, double lon);
