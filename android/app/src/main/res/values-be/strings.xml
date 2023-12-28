@@ -1302,6 +1302,10 @@
 	<string name="type.waterway.stream.ephemeral">Рака</string>
 	<string name="type.waterway.stream.intermittent">Рака</string>
 	<string name="type.waterway.stream.tunnel">Рака</string>
+	<string name="type.piste_type.snow_park">Снежны парк</string>
+	<string name="type.piste_type.hike">Снежная пешаходная сцежка</string>
+	<string name="type.piste_type.connection">Падключэнне да трас</string>
+	<string name="type.piste_type.skitour">Скітурная траса</string>
 	<string name="type.amenity.events_venue">Месца правядзення мерапрыемстваў</string>
 	<string name="type.shop.auction">Аўкцыён</string>
 	<string name="type.shop.collector">Калекцыйныя прадметы</string>

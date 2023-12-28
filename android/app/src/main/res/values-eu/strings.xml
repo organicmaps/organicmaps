@@ -1954,6 +1954,10 @@
 	<string name="type.wheelchair.limited">Ezinduentzako partzialki hornitua</string>
 	<string name="type.wheelchair.no">Ezinduentzako ekipatuta ez dago</string>
 	<string name="type.wheelchair.yes">Ezinduentzako hornitua</string>
+	<string name="type.piste_type.snow_park">Elur parkea</string>
+	<string name="type.piste_type.hike">Elurretako Mendi Ibilbidea</string>
+	<string name="type.piste_type.connection">Pista Konexioa</string>
+	<string name="type.piste_type.skitour">Skitour Ibilbidea</string>
 	<string name="type.amenity.events_venue">Ekitaldien Lekua</string>
 	<string name="type.shop.auction">Enkantea</string>
 	<string name="type.shop.collector">Bildumagarriak</string>

@@ -1848,6 +1848,10 @@
 	<string name="type.wheelchair.limited">Omezený vstup pro vozíčkáře</string>
 	<string name="type.wheelchair.no">Bez přístupu pro vozíčkáře</string>
 	<string name="type.wheelchair.yes">Plný vstup pro vozíčkáře</string>
+	<string name="type.piste_type.snow_park">Snow Park</string>
+	<string name="type.piste_type.hike">Zimní stezka</string>
+	<string name="type.piste_type.connection">Piste Connection</string>
+	<string name="type.piste_type.skitour">Stezka Skitour</string>
 	<string name="type.amenity.events_venue">Místo konání akcí</string>
 	<string name="type.shop.auction">Aukce</string>
 	<string name="type.shop.collector">Sběratelské předměty</string>

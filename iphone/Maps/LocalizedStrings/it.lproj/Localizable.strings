@@ -3842,25 +3842,45 @@
 
 "type.aerialway.t.bar" = "T-bar Lift";
 
-"type.piste_type" = "Piste Type";
-
 "type.piste_type.downhill" = "Downhill Ski Run";
+
+"type.piste_type.downhill.area" = "Downhill Ski Run";
 
 "type.piste_type.downhill.advanced" = "Pista difficile";
 
+"type.piste_type.downhill.advanced.area" = "Pista difficile";
+
 "type.piste_type.downhill.easy" = "Pista facile";
 
+"type.piste_type.downhill.easy.area" = "Pista facile";
+
 "type.piste_type.downhill.expert" = "Pista per esperti";
+
+"type.piste_type.downhill.expert.area" = "Pista per esperti";
 
 "type.piste_type.downhill.freeride" = "Downhill Ski Run";
 
 "type.piste_type.downhill.intermediate" = "Pista media";
 
+"type.piste_type.downhill.intermediate.area" = "Pista media";
+
 "type.piste_type.downhill.novice" = "Pista per principianti";
+
+"type.piste_type.downhill.novice.area" = "Pista per principianti";
 
 "type.piste_type.nordic" = "Nordic Ski Trail";
 
 "type.piste_type.sled" = "Pista per slitte";
+
+"type.piste_type.sled.area" = "Pista per slitte";
+
+"type.piste_type.snow_park" = "Snow Park";
+
+"type.piste_type.hike" = "Sentiero escursionistico della neve";
+
+"type.piste_type.connection" = "Connessione alle piste";
+
+"type.piste_type.skitour" = "Sentiero Skitour";
 
 "type.amenity.events_venue" = "Sede degli eventi";
 

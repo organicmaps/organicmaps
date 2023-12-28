@@ -1849,16 +1849,25 @@
 	<string name="type.aerialway.platter">Telesqui de disco</string>
 	<string name="type.aerialway.rope_tow">Telesqui de corda</string>
 	<string name="type.aerialway.t.bar">Telesqui de barra em T</string>
-	<string name="type.piste_type">Tipo de pista</string>
 	<string name="type.piste_type.downhill">Esqui alpino</string>
+	<string name="type.piste_type.downhill.area">Esqui alpino</string>
 	<string name="type.piste_type.downhill.advanced">Esqui alpino avançado</string>
+	<string name="type.piste_type.downhill.advanced.area">Esqui alpino avançado</string>
 	<string name="type.piste_type.downhill.easy">Esqui alpino fácil</string>
+	<string name="type.piste_type.downhill.easy.area">Esqui alpino fácil</string>
 	<string name="type.piste_type.downhill.expert">Esqui alpino avançado</string>
+	<string name="type.piste_type.downhill.expert.area">Esqui alpino avançado</string>
 	<string name="type.piste_type.downhill.freeride">Esqui alpino livre</string>
 	<string name="type.piste_type.downhill.intermediate">Esqui alpino intermédio</string>
+	<string name="type.piste_type.downhill.intermediate.area">Esqui alpino intermédio</string>
 	<string name="type.piste_type.downhill.novice">Esqui alpino iniciante</string>
+	<string name="type.piste_type.downhill.novice.area">Esqui alpino iniciante</string>
 	<string name="type.piste_type.nordic">Pista tipo nórdico</string>
 	<string name="type.piste_type.sled">Pista para trenós</string>
+	<string name="type.piste_type.sled.area">Pista para trenós</string>
+	<string name="type.piste_type.hike">Trilha de caminhada na neve</string>
+	<string name="type.piste_type.connection">Conexão às pistas</string>
+	<string name="type.piste_type.skitour">Trilha de esqui de passeio</string>
 	<string name="type.amenity.events_venue">Local do evento</string>
 	<string name="type.shop.collector">Colecionáveis</string>
 </resources>

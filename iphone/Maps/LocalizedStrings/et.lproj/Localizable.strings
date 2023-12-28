@@ -3842,25 +3842,45 @@
 
 "type.aerialway.t.bar" = "Ankurlift";
 
-"type.piste_type" = "Punkti liik";
-
 "type.piste_type.downhill" = "Mäesuusarada";
+
+"type.piste_type.downhill.area" = "Mäesuusarada";
 
 "type.piste_type.downhill.advanced" = "Raske laskumine";
 
+"type.piste_type.downhill.advanced.area" = "Raske laskumine";
+
 "type.piste_type.downhill.easy" = "Kerge laskumine";
 
+"type.piste_type.downhill.easy.area" = "Kerge laskumine";
+
 "type.piste_type.downhill.expert" = "Professionaalne laskumine";
+
+"type.piste_type.downhill.expert.area" = "Professionaalne laskumine";
 
 "type.piste_type.downhill.freeride" = "Tasuta mäesuusatamine";
 
 "type.piste_type.downhill.intermediate" = "Keskmise raskusastmega laskumine";
 
+"type.piste_type.downhill.intermediate.area" = "Keskmise raskusastmega laskumine";
+
 "type.piste_type.downhill.novice" = "Algajasõbralik laskumine";
+
+"type.piste_type.downhill.novice.area" = "Algajasõbralik laskumine";
 
 "type.piste_type.nordic" = "Murdmaa suusarada";
 
 "type.piste_type.sled" = "Kelgurada";
+
+"type.piste_type.sled.area" = "Kelgurada";
+
+"type.piste_type.snow_park" = "Snow Park";
+
+"type.piste_type.hike" = "Lumi matkarada";
+
+"type.piste_type.connection" = "Piste ühendus";
+
+"type.piste_type.skitour" = "Skituuri rada";
 
 "type.amenity.events_venue" = "Ürituste toimumiskoht";
 

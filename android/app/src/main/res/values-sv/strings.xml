@@ -1834,6 +1834,10 @@
 	<string name="type.wheelchair.limited">Delvis utrustad för handikappade</string>
 	<string name="type.wheelchair.no">Ej utrustad för handikappade</string>
 	<string name="type.wheelchair.yes">Utrustad för handikappade</string>
+	<string name="type.piste_type.snow_park">Snöparken</string>
+	<string name="type.piste_type.hike">Vandringsled i snö</string>
+	<string name="type.piste_type.connection">Piste Anslutning</string>
+	<string name="type.piste_type.skitour">Skitourleden</string>
 	<string name="type.amenity.events_venue">Evenemangslokal</string>
 	<string name="type.shop.auction">Auktion</string>
 	<string name="type.shop.collector">Samlingsföremål</string>

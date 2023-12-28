@@ -875,6 +875,10 @@
 	<string name="type.wheelchair.limited">Viti vya magurudumu vinaruhusiwa vichache</string>
 	<string name="type.wheelchair.no">Viti vya magurudumu haviruhusiwi</string>
 	<string name="type.wheelchair.yes">Viti vya magurudumu vinaruhusiwa kabisa</string>
+	<string name="type.piste_type.snow_park">Hifadhi ya theluji</string>
+	<string name="type.piste_type.hike">Njia ya Kupanda theluji</string>
+	<string name="type.piste_type.connection">Uunganisho wa Piste</string>
+	<string name="type.piste_type.skitour">Njia ya Skitour</string>
 	<string name="type.amenity.events_venue">Ukumbi wa Matukio</string>
 	<string name="type.shop.auction">Mnada</string>
 	<string name="type.shop.collector">Mikusanyiko</string>

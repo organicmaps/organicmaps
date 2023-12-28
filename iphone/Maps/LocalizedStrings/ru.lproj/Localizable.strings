@@ -3842,25 +3842,45 @@
 
 "type.aerialway.t.bar" = "Бугельный подъёмник";
 
-"type.piste_type" = "Тип трассы";
-
 "type.piste_type.downhill" = "Горнолыжная трасса";
+
+"type.piste_type.downhill.area" = "Горнолыжная трасса";
 
 "type.piste_type.downhill.advanced" = "Продвинутая горнолыжная трасса";
 
+"type.piste_type.downhill.advanced.area" = "Продвинутая горнолыжная трасса";
+
 "type.piste_type.downhill.easy" = "Лёгкая горнолыжная трасса";
 
+"type.piste_type.downhill.easy.area" = "Лёгкая горнолыжная трасса";
+
 "type.piste_type.downhill.expert" = "Горнолыжная трасса для экспертов";
+
+"type.piste_type.downhill.expert.area" = "Горнолыжная трасса для экспертов";
 
 "type.piste_type.downhill.freeride" = "Горнолыжная трасса для фрирайда";
 
 "type.piste_type.downhill.intermediate" = "Горнолыжная трасса средней сложности";
 
+"type.piste_type.downhill.intermediate.area" = "Горнолыжная трасса средней сложности";
+
 "type.piste_type.downhill.novice" = "Горнолыжная трасса для новичков";
+
+"type.piste_type.downhill.novice.area" = "Горнолыжная трасса для новичков";
 
 "type.piste_type.nordic" = "Лыжня";
 
 "type.piste_type.sled" = "Трасса для саней";
+
+"type.piste_type.sled.area" = "Трасса для саней";
+
+"type.piste_type.snow_park" = "Снежный парк";
+
+"type.piste_type.hike" = "Зимняя тропа";
+
+"type.piste_type.connection" = "Соединение между трассами";
+
+"type.piste_type.skitour" = "Маршрут для скитура";
 
 "type.amenity.events_venue" = "Место проведения мероприятий";
 

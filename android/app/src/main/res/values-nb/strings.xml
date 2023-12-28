@@ -1901,6 +1901,10 @@
 	<string name="type.wheelchair.limited">Begrenset tilgang for rullestol</string>
 	<string name="type.wheelchair.no">Ingen tilgang for rullestol</string>
 	<string name="type.wheelchair.yes">Full tilgang for rullestol</string>
+	<string name="type.piste_type.snow_park">Snow Park</string>
+	<string name="type.piste_type.hike">Tursti i snø</string>
+	<string name="type.piste_type.connection">Pisteforbindelse</string>
+	<string name="type.piste_type.skitour">Skitour-stien</string>
 	<string name="type.amenity.events_venue">Arrangementssted</string>
 	<string name="type.shop.auction">Auksjon</string>
 	<string name="type.shop.collector">Samleobjekter</string>

@@ -2034,6 +2034,10 @@
 	<string name="type.wheelchair.limited">Częściowo wyposażono dla osób niepełnosprawnych</string>
 	<string name="type.wheelchair.no">Nie wyposażono dla osób niepełnosprawnych</string>
 	<string name="type.wheelchair.yes">Wyposażono dla osób niepełnosprawnych</string>
+	<string name="type.piste_type.snow_park">Snow Park</string>
+	<string name="type.piste_type.hike">Śnieżny szlak turystyczny</string>
+	<string name="type.piste_type.connection">Piste Connection</string>
+	<string name="type.piste_type.skitour">Szlak Skitour</string>
 	<string name="type.amenity.events_venue">Sala bankietowa</string>
 	<string name="type.shop.auction">Dom aukcyjny</string>
 	<string name="type.shop.collector">Przedmioty kolekcjonerskie</string>

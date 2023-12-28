@@ -1835,6 +1835,10 @@
 	<string name="type.wheelchair.limited">Akses kursi roda terbatas</string>
 	<string name="type.wheelchair.no">Tidak ada akses kursi roda</string>
 	<string name="type.wheelchair.yes">Akses penuh kursi roda</string>
+	<string name="type.piste_type.snow_park">Snow Park</string>
+	<string name="type.piste_type.hike">Jalur Pendakian Salju</string>
+	<string name="type.piste_type.connection">Koneksi Piste</string>
+	<string name="type.piste_type.skitour">Jalur Skitour</string>
 	<string name="type.amenity.events_venue">Tempat acara</string>
 	<string name="type.shop.auction">Lelang</string>
 	<string name="type.shop.collector">Barang koleksi</string>

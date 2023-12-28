@@ -1863,6 +1863,10 @@
 	<string name="type.wheelchair.limited">Korlátozottan akadálymentesített</string>
 	<string name="type.wheelchair.no">Nem akadálymentesített</string>
 	<string name="type.wheelchair.yes">Teljesen akadálymentesített</string>
+	<string name="type.piste_type.snow_park">Snow Park</string>
+	<string name="type.piste_type.hike">Hó túraútvonal</string>
+	<string name="type.piste_type.connection">Pálya kapcsolat</string>
+	<string name="type.piste_type.skitour">Skitúra ösvény</string>
 	<string name="type.amenity.events_venue">Rendezvények helyszíne</string>
 	<string name="type.shop.auction">Aukció</string>
 	<string name="type.shop.collector">Gyűjthető tárgyak</string>
