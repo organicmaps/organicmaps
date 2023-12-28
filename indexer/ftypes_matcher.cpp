@@ -448,6 +448,11 @@ IsIsolineChecker::IsIsolineChecker() : BaseChecker(1 /* level */)
   m_types.push_back(classif().GetTypeByPath({"isoline"}));
 }
 
+IsPisteChecker::IsPisteChecker() : BaseChecker(1 /* level */)
+{
+  m_types.push_back(classif().GetTypeByPath({"piste:type"}));
+}
+
 IsPoiChecker::IsPoiChecker() : BaseChecker(1 /* level */)
 {
   string_view const poiTypes[] = {
