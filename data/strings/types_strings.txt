@@ -11439,6 +11439,7 @@
     nl = Fietstunnel
     pl = Tunel drogowy dla rowerów
     pt-BR = Túnel para ciclistas
+    ru = Велотоннель
 
   [type.highway.elevator]
     en = Elevator
