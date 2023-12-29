@@ -1165,7 +1165,7 @@
 	<string name="type.highway.cycleway.bridge">Мост</string>
 	<string name="type.highway.cycleway.permissive">Велодорожка</string>
 	<!-- These translations are used for all type.highway.*.tunnel. -->
-	<string name="type.highway.cycleway.tunnel">Тоннель</string>
+	<string name="type.highway.cycleway.tunnel">Велотоннель</string>
 	<string name="type.highway.elevator">Лифт</string>
 	<string name="type.highway.footway">Пешеходная дорожка</string>
 	<string name="type.highway.footway.sidewalk">Тротуар</string>
