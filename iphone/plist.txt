@@ -1,9 +1,11 @@
 [[3d touch strings]]
+
   [search]
     tags = ios
     comment = Used in home screen quick actions.
     en = Search
     ar = البحث
+    az = Axtar
     bg = Търсене
     cs = Hledat
     da = Søg
@@ -39,6 +41,7 @@
     comment = Used in home screen quick actions.
     en = Bookmarks and Tracks
     ar = الإشارات المرجعية والمسارات
+    az = Əlfəcinlər və qeydlər
     be = Закладкі i cцежкі
     bg = Отметки и пътеки
     ca = Marcadors i traces
@@ -80,6 +83,7 @@
     comment = Used in home screen quick actions.
     en = Route
     ar = المسار
+    az = Marşrut
     be = Маршрут
     bg = Маршрут
     ca = Ruta
@@ -88,9 +92,8 @@
     de = Route
     el = Διαδρομή
     es = Ruta
-    et = Tee
-    eu = Ibilbidea
     et = Marsruut
+    eu = Ibilbidea
     fa = مسیر
     fi = Reitti
     fr = Itinéraire
@@ -101,9 +104,9 @@
     it = Linea
     ja = 経路
     ko = 경로
-    mr = मार्ग
     lt = Maršrutas
     lv = Maršruts
+    mr = मार्ग
     ms = Laluan
     nb = Rute
     nl = Route
@@ -125,11 +128,13 @@
     zh-Hant = 路線
 
 [[gps strings]]
+
   [NSLocationAlwaysUsageDescription]
     comment = Needed to explain why we always require access to GPS coordinates, and not only when the app is active.
     en = Detecting location in the background is necessary to fully enjoy the functionality of the app. It is used for navigation and saving your recently traveled track.
     en-GB = Detecting location in the background is necessary to fully enjoy the functionality of the app. It is used for navigation and saving your recently travelled track.
     ar = إن تحديد موقعك الحالي في الخلفية أمر ضروري للاستمتاع بكامل وظائف التطبيق. حيث أنه يُستخدم بشكل أساسي في خيارات متابعة المسار وحفظ الطرق التي تنقلت معها مؤخرا.
+    az = Tətbiqin xüsusiyyətlərini tam çıxarmaq üçün fonda cari yeri müəyyən etmək lazımdır. O, marşrutu izləmək və son səyahət edilmiş yolları saxlamaq seçimi üçün istifadə olunur.
     be = Вызначэнне месцазнаходжання ў фонавым рэжыме неабходна для поўнага выкарыстання функцыянальнасці праграмы. Яно выкарыстоўваецца для навігацыі і захавання вашага нядаўна пройдзенага шляху.
     bg = Дефинирането на текущото местоположение във фонов режим е необходимо, за да се възползвате напълно от функционалността на приложението. То се използва при опциите за проследяване на маршрута и запазване на последния изминат такъв.
     ca = La detecció de la ubicació en segon pla és necessària per gaudir plenament de la funcionalitat de l'aplicació. S'utilitza per a la navegació i desar la ruta feta recentment.
@@ -171,6 +176,7 @@
     en = Determining your location is necessary for navigation and for saving your recently traveled track.
     en-GB = Determining your location is necessary for navigation and for saving your recently travelled track.
     ar = تستخدم خاصية تحديد الموقع الحالي في خيارات اتباع الطريق وحفظ أحدث مسار مشيت عليه.
+    az = Cari yerinizin müəyyən edilməsi marşrutun izlənməsi və son səyahət edilmiş yol seçimlərinin saxlanmasında istifadə olunur.
     be = Вызначэнне вашага месцазнаходжання неабходна для навігацыі і для захавання вашага нядаўна пройдзенага шляху.
     bg = Определянето на местоположението ви е необходимо за навигацията и за запазване на последния изминат маршрут.
     ca = Determinar la vostra ubicació és necessari per a la navegació i per desar el vostre recorregut recentment.

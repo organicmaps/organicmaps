@@ -16,6 +16,7 @@ TRANS_CMD = 'trans'
 # List of Google Translate target languages: https://cloud.google.com/translate/docs/languages
 GOOGLE_TARGET_LANGUAGES = [
   'af',
+  'az',
   'ar',
   'be',
   'ca',
