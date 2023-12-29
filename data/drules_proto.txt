@@ -46475,6 +46475,16 @@ cont {
 cont {
   name: "isoline-step_100"
   element {
+    scale: 11
+    lines {
+      width: 0.8
+      color: 3427361097
+      priority: 60
+      join: BEVELJOIN
+      cap: BUTTCAP
+    }
+  }
+  element {
     scale: 12
     lines {
       width: 0.8
@@ -46780,6 +46790,15 @@ cont {
 }
 cont {
   name: "isoline-step_50"
+  element {
+    scale: 13
+    lines {
+      width: 0.8
+      color: 3428218198
+      priority: 60
+      cap: BUTTCAP
+    }
+  }
   element {
     scale: 14
     lines {
