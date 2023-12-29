@@ -63,8 +63,8 @@ public class OsmLoginFragment extends BaseMwmToolbarFragment
   private void login()
   {
     InputUtils.hideKeyboard(mLoginInput);
-    final String username = mLoginInput.getText().toString();
-    final String password = mPasswordInput.getText().toString();
+    final String username = mLoginInput.getText().toString().trim();
+    final String password = mPasswordInput.getText().toString().trim();
     enableInput(false);
     UiUtils.show(mProgress);
     mLoginButton.setText("");
