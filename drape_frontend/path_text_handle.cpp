@@ -193,8 +193,9 @@ void PathTextContext::Update(ScreenBase const & screen)
 
 m2::Spline::iterator PathTextContext::GetProjectedPoint(m2::PointD const & pt) const
 {
-  m2::Spline::iterator iter;
   double minDist = std::numeric_limits<double>::max();
+  double resStep;
+  m2::SplineEx const * resSpline = nullptr;
 
   for (auto const & spline : m_pixel3dSplines)
   {
@@ -206,13 +207,12 @@ m2::Spline::iterator PathTextContext::GetProjectedPoint(m2::PointD const & pt) c
     auto const & dirs = spline.GetDirections();
 
     double step = 0;
-    for (size_t i = 0, sz = path.size(); i + 1 < sz; ++i)
+    for (size_t i = 0, sz = path.size() - 1; i < sz; ++i)
     {
       double const segLength = lengths[i];
-      m2::PointD const segDir = dirs[i];
+      m2::PointD const & segDir = dirs[i];
 
-      m2::PointD const v = pt - path[i];
-      double const t = m2::DotProduct(segDir, v);
+      double const t = m2::DotProduct(segDir, pt - path[i]);
 
       m2::PointD nearestPt;
       double nearestStep;
@@ -236,18 +236,19 @@ m2::Spline::iterator PathTextContext::GetProjectedPoint(m2::PointD const & pt) c
       if (dist < minDist)
       {
         minDist = dist;
-        iter = spline.GetPoint(nearestStep);
+        resSpline = &spline;
+        resStep = nearestStep;
 
-        double const kEps = 1e-5;
-        if (minDist < kEps)
-          return iter;
+        if (minDist < kMwmPointAccuracy)
+          goto end;
       }
 
       step += segLength;
     }
   }
 
-  return iter;
+end:
+  return resSpline ? resSpline->GetPoint(resStep) : m2::Spline::iterator();
 }
 
 
