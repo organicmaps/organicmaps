@@ -763,7 +763,6 @@
 	<string name="type.aeroway.taxiway">Pista de rolagem</string>
 	<string name="type.aeroway.terminal">Aerogare de passageiros</string>
 	<string name="type.amenity">Amenidades</string>
-	<string name="type.amenity.arts_centre">Centros de arte</string>
 	<string name="type.amenity.atm">Caixa eletrônico</string>
 	<string name="type.amenity.bank">Banco</string>
 	<string name="type.amenity.bar">Drinqueria</string>
