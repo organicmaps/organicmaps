@@ -898,7 +898,7 @@ sk:Suši
 
 cuisine-tapas
 en:Tapas
-ru:Тапас-бар
+ru:5Тапас-бар
 bg:Тапас
 ar:تاباس
 cs:Tapas
@@ -932,7 +932,7 @@ sk:Tapas
 
 cuisine-tea
 en:Tea
-ru:Чайная
+ru:3Чайная
 bg:Чай
 ar:شاي
 cs:Čaj
