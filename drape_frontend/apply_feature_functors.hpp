@@ -15,6 +15,8 @@
 #include "geometry/spline.hpp"
 
 #include <functional>
+#include <map>
+#include <mutex>
 #include <vector>
 
 class CaptionDefProto;
@@ -26,6 +28,67 @@ class TextureManager;
 
 namespace df
 {
+
+#ifdef LINES_GENERATION_CALC_FILTERED_POINTS
+class LinesStat
+{
+public:
+  ~LinesStat()
+  {
+    DumpStats();
+  }
+
+  void DumpStats() const
+  {
+    std::map<int, TValue> zoomValues;
+    for (auto const & f : m_features)
+    {
+      TValue & v = zoomValues[f.first.second];
+      v.m_neededPoints += f.second.m_neededPoints;
+      v.m_readPoints += f.second.m_readPoints;
+    }
+
+    LOG(LINFO, ("===== Lines filtering stats ====="));
+    for (auto const & v : zoomValues)
+    {
+      int const filtered = v.second.m_readPoints - v.second.m_neededPoints;
+      LOG(LINFO, ("Zoom =", v.first, "Filtered", 100 * filtered / (double)v.second.m_readPoints, "% (",
+                  filtered, "out of", v.second.m_readPoints, "points)"));
+    }
+  }
+
+  static LinesStat & Get()
+  {
+    static LinesStat s_stat;
+    return s_stat;
+  }
+
+  void InsertLine(FeatureID const & id, int scale, int vertexCount, int renderVertexCount)
+  {
+    TKey key(id, scale);
+    std::lock_guard g(m_mutex);
+    if (m_features.find(key) != m_features.end())
+      return;
+
+    TValue & v = m_features[key];
+    v.m_readPoints = vertexCount;
+    v.m_neededPoints = renderVertexCount;
+  }
+
+private:
+  LinesStat() = default;
+
+  using TKey = std::pair<FeatureID, int>;
+  struct TValue
+  {
+    int m_readPoints = 0;
+    int m_neededPoints = 0;
+  };
+
+  std::map<TKey, TValue> m_features;
+  std::mutex m_mutex;
+};
+#endif
 
 struct TextViewParams;
 class MapShape;

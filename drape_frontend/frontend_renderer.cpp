@@ -14,6 +14,8 @@
 #include "drape_frontend/user_mark_shapes.hpp"
 #include "drape_frontend/visual_params.hpp"
 
+#include "drape_frontend/apply_feature_functors.hpp"
+
 #include "shaders/programs.hpp"
 
 #include "drape/constants.hpp"
@@ -327,6 +329,9 @@ void FrontendRenderer::AcceptMessage(ref_ptr<Message> message)
       {
 #if defined(DRAPE_MEASURER_BENCHMARK) && defined(GENERATING_STATISTIC)
         DrapeMeasurer::Instance().EndScenePreparing();
+#endif
+#ifdef LINES_GENERATION_CALC_FILTERED_POINTS
+        df::LinesStat::Get().DumpStats();
 #endif
         m_trafficRenderer->OnGeometryReady(GetCurrentZoom());
 
