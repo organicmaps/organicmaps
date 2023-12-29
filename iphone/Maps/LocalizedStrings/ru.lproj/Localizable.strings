@@ -2004,7 +2004,7 @@
 "type.highway.cycleway.permissive" = "Велодорожка";
 
 /* These translations are used for all type.highway.*.tunnel. */
-"type.highway.cycleway.tunnel" = "Тоннель";
+"type.highway.cycleway.tunnel" = "Велотоннель";
 
 "type.highway.elevator" = "Лифт";
 
