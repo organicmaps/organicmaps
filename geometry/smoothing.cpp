@@ -75,14 +75,13 @@ void SmoothPaths(GuidePointsForSmooth const & guidePoints,
                  size_t newPointsPerSegmentCount, double smoothAlpha,
                  std::vector<std::vector<m2::PointD>> & paths)
 {
-  CHECK_EQUAL(guidePoints.size(), paths.size(), ());
-  CHECK_GREATER_OR_EQUAL(smoothAlpha, kUniformAplha, ());
-  CHECK_LESS_OR_EQUAL(smoothAlpha, kChordalAlpha, ());
+  ASSERT_EQUAL(guidePoints.size(), paths.size(), ());
+  ASSERT(smoothAlpha >= kUniformAplha && smoothAlpha <= kChordalAlpha, (smoothAlpha));
 
   for (size_t pathInd = 0; pathInd < paths.size(); ++pathInd)
   {
     auto const & path = paths[pathInd];
-    CHECK_GREATER_OR_EQUAL(path.size(), 2, ());
+    ASSERT_GREATER(path.size(), 1, ());
 
     auto const & guides = guidePoints[pathInd];
 
