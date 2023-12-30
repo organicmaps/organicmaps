@@ -326,6 +326,11 @@ std::string MetadataTagProcessorImpl::ValidateAndFormat_brand(std::string const 
   return v;
 }
 
+std::string MetadataTagProcessorImpl::ValidateAndFormat_capacity(std::string const & v)
+{
+  return v;
+}
+
 std::string MetadataTagProcessorImpl::ValidateAndFormat_duration(std::string const & v) const
 {
   if (!ftypes::IsWayWithDurationChecker::Instance()(m_params.m_types))
@@ -519,6 +524,7 @@ void MetadataTagProcessor::operator()(std::string const & k, std::string const &
     valid = ValidateAndFormat_brand(v);
     break;
   case Metadata::FMD_DURATION: valid = ValidateAndFormat_duration(v); break;
+  case Metadata::FMD_CAPACITY: valid = ValidateAndFormat_capacity(v); break;
   // Metadata types we do not get from OSM.
   case Metadata::FMD_CUISINE:
   case Metadata::FMD_DESCRIPTION:   // processed separately
