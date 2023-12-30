@@ -70,6 +70,7 @@
 @parking: #F2F2BC;
 @military: #E53935;
 @prison: #727272;
+@police: #7c41fc;
 @farmland: #EBE4A5;
 @farmyard: #E5D6AC;
 

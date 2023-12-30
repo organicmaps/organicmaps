@@ -30,6 +30,7 @@ amenity-place_of_worship-taoist                     # area z16- (also has icon z
 === 240
 
 amenity-doctors                                     # area z14- (also has icon z17-, caption(optional) z17-)
+amenity-police                                      # area z12- (also has icon z17-, caption(optional) z17-)
 leisure-swimming_pool                               # area z13- (also has icon z17-, caption(optional) z17-)
 leisure-swimming_pool-private                       # area z13- (also has icon z17-, caption(optional) z17-)
 === 230

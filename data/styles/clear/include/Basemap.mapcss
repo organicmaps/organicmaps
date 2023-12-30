@@ -459,10 +459,14 @@ area|z15-16[amenity=parking][parking=lane],
 area|z15-16[amenity=parking][parking=street_side],
 {fill-color: none;}
 
+/* Other */
+area|z12-[amenity=police]
+{fill-opacity: 0.3; fill-color: @police;}
+
 
 /* 8.BUILDINGS */
 
-/* 8.1 Pier, dam, areal bridge, cutline */
+/* 8.1 Pier, dam, bridge, cutline */
 
 area|z12-[man_made=pier],
 area|z12-[man_made=breakwater],

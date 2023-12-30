@@ -393,6 +393,12 @@ area|z17-[amenity=parking],
 area|z15-[amenity=parking][location=underground],
 {fill-color: none;}
 
+/*Other*/
+
+area|z12-[amenity=police]
+{fill-opacity: 0.3; fill-color: @police;}
+
+
 /* 8.BUILDINGS */
 
 /* 8.1 Pier, dam, areal bridge, cutline */

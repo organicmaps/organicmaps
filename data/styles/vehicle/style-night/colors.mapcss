@@ -68,6 +68,7 @@
 @sport: #070F0A;
 @military: #B71C1C;
 @prison: #7f7f7f;
+@police: #2b1c4c;
 @parking: #191509;
 @parking_l: #1F190A;
 @farmland: #151500;
