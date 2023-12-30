@@ -28,6 +28,7 @@ NS_ASSUME_NONNULL_BEGIN
 @property(nonatomic, readonly, nullable) NSString *wifiAvailable;
 @property(nonatomic, readonly, nullable) NSString *level;
 @property(nonatomic, readonly, nullable) NSString *atm;
+@property(nonatomic, readonly, nullable) NSString *capacity;
 
 @end
 
