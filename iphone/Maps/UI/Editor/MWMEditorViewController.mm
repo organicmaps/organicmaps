@@ -334,7 +334,7 @@ void registerCellsForTableView(std::vector<MWMEditorCellID> const & cells, UITab
     return mid == MetadataID::FMD_POSTCODE || mid == MetadataID::FMD_BUILDING_LEVELS;
   }), editableProperties.end());
   BOOL const isCreating = self.isCreating;
-  BOOL const showNotesToOSMEditors = !isCreating;
+  BOOL const showNotesToOSMEditors = YES;
 
   if (isNameEditable)
   {
