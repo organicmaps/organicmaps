@@ -122,6 +122,8 @@ bool Metadata::TypeFromString(string_view k, Metadata::EType & outType)
     outType = Metadata::FMD_BRAND;
   else if (k == "duration")
     outType = Metadata::FMD_DURATION;
+  else if (k == "capacity")
+    outType = Metadata::FMD_CAPACITY;
   else
     return false;
 
@@ -237,6 +239,7 @@ string ToString(Metadata::EType type)
   case Metadata::FMD_JUNCTION_REF: return "junction:ref";
   case Metadata::FMD_BUILDING_MIN_LEVEL: return "building:min_level";
   case Metadata::FMD_WIKIMEDIA_COMMONS: return "wikimedia_commons";
+  case Metadata::FMD_CAPACITY: return "capacity";
   case Metadata::FMD_COUNT: CHECK(false, ("FMD_COUNT can not be used as a type."));
   };
 
