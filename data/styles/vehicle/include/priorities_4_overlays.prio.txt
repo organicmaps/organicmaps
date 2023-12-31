@@ -701,7 +701,7 @@ amenity-fast_food                                   # icon z17- (also has captio
 
 amenity-bank                                        # icon z17- (also has caption(optional) z17-)
 amenity-parcel_locker                               # icon z17- (also has caption(optional) z17-)
-amenity-police                                      # icon z17-
+amenity-police                                      # icon z17- (also has area z12-)
 amenity-post_office                                 # icon z17- (also has caption(optional) z17-)
 shop-motorcycle                                     # icon z17-
 === 200

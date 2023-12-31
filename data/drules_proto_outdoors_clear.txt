@@ -10967,7 +10967,46 @@ cont {
 cont {
   name: "amenity-police"
   element {
+    scale: 12
+    area {
+      color: 3011265020
+      priority: -1770
+    }
+  }
+  element {
+    scale: 13
+    area {
+      color: 3011265020
+      priority: -1770
+    }
+  }
+  element {
+    scale: 14
+    area {
+      color: 3011265020
+      priority: -1770
+    }
+  }
+  element {
+    scale: 15
+    area {
+      color: 3011265020
+      priority: -1770
+    }
+  }
+  element {
+    scale: 16
+    area {
+      color: 3011265020
+      priority: -1770
+    }
+  }
+  element {
     scale: 17
+    area {
+      color: 3011265020
+      priority: -1770
+    }
     symbol {
       name: "police-m"
       priority: 500
@@ -10984,6 +11023,10 @@ cont {
   }
   element {
     scale: 18
+    area {
+      color: 3011265020
+      priority: -1770
+    }
     symbol {
       name: "police-m"
       priority: 500
@@ -11000,6 +11043,10 @@ cont {
   }
   element {
     scale: 19
+    area {
+      color: 3011265020
+      priority: -1770
+    }
     symbol {
       name: "police-m"
       priority: 500
@@ -11016,6 +11063,10 @@ cont {
   }
   element {
     scale: 20
+    area {
+      color: 3011265020
+      priority: -1770
+    }
     symbol {
       name: "police-m"
       priority: 500
