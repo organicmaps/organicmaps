@@ -94,7 +94,7 @@
 	<string name="maps_storage_downloaded">Mappe</string>
 	<!-- Question dialog for transferring maps from one storage to another -->
 	<string name="move_maps">Vuoi spostare le mappe?</string>
-	<!-- Ask to wait user several minutes (some long process in modal dialog). -->
+	<!-- Ask user to wait several minutes (some long process in modal dialog). -->
 	<string name="wait_several_minutes">Questo può richiedere diversi minuti.\nAttendere prego…</string>
 	<!-- Measurement units title in settings activity -->
 	<string name="measurement_units">Unità di misura</string>
@@ -490,9 +490,13 @@
 	<string name="current_location_unknown_message">La posizione attuale è sconosciuta. È possibile che ci si trovi all\'interno di un edificio o un tunnel.</string>
 	<string name="current_location_unknown_continue_button">Continua</string>
 	<string name="current_location_unknown_stop_button">Ferma</string>
+	<!-- abbreviation for meters -->
 	<string name="m">m</string>
+	<!-- abbreviation for kilometers -->
 	<string name="km">km</string>
+	<!-- abbreviation for kilometers per hour -->
 	<string name="kilometers_per_hour">km/h</string>
+	<!-- abbreviation for mile(s) -->
 	<string name="mi">mi</string>
 	<string name="miles_per_hour">mph</string>
 	<string name="minute">min</string>

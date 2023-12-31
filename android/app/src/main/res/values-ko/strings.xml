@@ -94,7 +94,7 @@
 	<string name="maps_storage_downloaded">지도</string>
 	<!-- Question dialog for transferring maps from one storage to another -->
 	<string name="move_maps">지도를 이동합니까?</string>
-	<!-- Ask to wait user several minutes (some long process in modal dialog). -->
+	<!-- Ask user to wait several minutes (some long process in modal dialog). -->
 	<string name="wait_several_minutes">이 작업은 수 분 소요될 수 있습니다.\n잠시 기다리세요…</string>
 	<!-- Measurement units title in settings activity -->
 	<string name="measurement_units">측정 단위</string>
@@ -478,9 +478,13 @@
 	<string name="current_location_unknown_message">현재 위치를 알 수 없습니다. 건물 안이나 터널 안에서는 검색할 수 없습니다</string>
 	<string name="current_location_unknown_continue_button">계속</string>
 	<string name="current_location_unknown_stop_button">중지</string>
+	<!-- abbreviation for meters -->
 	<string name="m">m</string>
+	<!-- abbreviation for kilometers -->
 	<string name="km">km</string>
+	<!-- abbreviation for kilometers per hour -->
 	<string name="kilometers_per_hour">km/시</string>
+	<!-- abbreviation for mile(s) -->
 	<string name="mi">mi</string>
 	<!-- A unit of measure -->
 	<string name="ft">풋</string>

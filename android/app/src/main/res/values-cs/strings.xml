@@ -94,7 +94,7 @@
 	<string name="maps_storage_downloaded">Mapy</string>
 	<!-- Question dialog for transferring maps from one storage to another -->
 	<string name="move_maps">Přesunout mapy?</string>
-	<!-- Ask to wait user several minutes (some long process in modal dialog). -->
+	<!-- Ask user to wait several minutes (some long process in modal dialog). -->
 	<string name="wait_several_minutes">Tato akce může trvat několik minut.\nProsím čekejte…</string>
 	<!-- Measurement units title in settings activity -->
 	<string name="measurement_units">Měřicí jednotky</string>
@@ -484,9 +484,13 @@
 	<string name="current_location_unknown_message">Nezjistili jsme vaši současnou polohu. Možná jste v budově nebo tunelu.</string>
 	<string name="current_location_unknown_continue_button">Pokračovat</string>
 	<string name="current_location_unknown_stop_button">Zastavit</string>
+	<!-- abbreviation for meters -->
 	<string name="m">m</string>
+	<!-- abbreviation for kilometers -->
 	<string name="km">km</string>
+	<!-- abbreviation for kilometers per hour -->
 	<string name="kilometers_per_hour">km/h</string>
+	<!-- abbreviation for mile(s) -->
 	<string name="mi">mil</string>
 	<!-- A unit of measure -->
 	<string name="ft">stopa</string>

@@ -5005,8 +5005,8 @@
     fa = روشن
     fi = Päällä
     fr = Activé
-    hu = Be
     he = מופעל
+    hu = Be
     id = Aktif
     it = Acceso
     ja = オン
@@ -15036,8 +15036,8 @@
     fa = یک کد‌ پستی معتبر وارد کنید
     fi = Anna kelvollinen postinumero
     fr = Entrer un code postal correct
-    hu = Írja be a helyes irányítószámot
     he = יש להזין מיקוד תקין
+    hu = Írja be a helyes irányítószámot
     id = Masukkan Kode Pos yang benar
     it = Inserire il codice postale corretto
     ja = 正しい郵便番号を入力してください
@@ -15921,8 +15921,8 @@
     fa = کیلومتر
     fi = km
     fr = km
-    hu = km
     he = ק״מ
+    hu = km
     id = km
     it = km
     ja = km
@@ -23270,7 +23270,6 @@
     ref = yes
     be = Ёсць
     fa = بلی
-    he = כן
     ru = Есть
     tr = Var
 
@@ -23279,7 +23278,6 @@
     tags = android,ios
     ref = no
     be = Няма
-    he = לא
     tr = Yok
 
   [trip_finished]

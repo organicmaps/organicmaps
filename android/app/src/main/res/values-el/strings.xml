@@ -95,7 +95,7 @@
 	<string name="maps_storage_downloaded">Χάρτες</string>
 	<!-- Question dialog for transferring maps from one storage to another -->
 	<string name="move_maps">Να γίνει μετακίνηση χαρτών;</string>
-	<!-- Ask to wait user several minutes (some long process in modal dialog). -->
+	<!-- Ask user to wait several minutes (some long process in modal dialog). -->
 	<string name="wait_several_minutes">Αυτό μπορεί να διαρκέσει αρκετά λεπτά. \nΠαρακαλώ περιμένετε…</string>
 	<!-- Measurement units title in settings activity -->
 	<string name="measurement_units">Μονάδες μέτρησης</string>

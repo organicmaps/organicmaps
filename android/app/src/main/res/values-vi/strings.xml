@@ -94,7 +94,7 @@
 	<string name="maps_storage_downloaded">Bản đồ</string>
 	<!-- Question dialog for transferring maps from one storage to another -->
 	<string name="move_maps">Di chuyển bản đồ?</string>
-	<!-- Ask to wait user several minutes (some long process in modal dialog). -->
+	<!-- Ask user to wait several minutes (some long process in modal dialog). -->
 	<string name="wait_several_minutes">Việc này có thể mất vài phút.\nVui lòng đợi…</string>
 	<!-- Measurement units title in settings activity -->
 	<string name="measurement_units">Đơn vị đo</string>
@@ -478,9 +478,13 @@
 	<string name="current_location_unknown_message">Chưa biết địa điểm hiện tại. Có thể bạn đang ở trong một tòa nhà hoặc đường hầm.</string>
 	<string name="current_location_unknown_continue_button">Tiếp tục</string>
 	<string name="current_location_unknown_stop_button">Dừng</string>
+	<!-- abbreviation for meters -->
 	<string name="m">m</string>
+	<!-- abbreviation for kilometers -->
 	<string name="km">km</string>
+	<!-- abbreviation for kilometers per hour -->
 	<string name="kilometers_per_hour">km/giờ</string>
+	<!-- abbreviation for mile(s) -->
 	<string name="mi">dặm</string>
 	<!-- A unit of measure -->
 	<string name="ft">ft</string>

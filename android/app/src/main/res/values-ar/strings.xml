@@ -109,7 +109,7 @@
 	<string name="move_maps">هل تريد نقل الخرائط؟</string>
 	<!-- Error moving map files from one storage to another -->
 	<string name="move_maps_error">فشلت عملية نقل ملفات الخرائط</string>
-	<!-- Ask to wait user several minutes (some long process in modal dialog). -->
+	<!-- Ask user to wait several minutes (some long process in modal dialog). -->
 	<string name="wait_several_minutes">يمكن أن تستغرق هذه العملية عدة دقائق.\nالرجاء الانتظار…</string>
 	<!-- Measurement units title in settings activity -->
 	<string name="measurement_units">وحدات القياس</string>
@@ -517,9 +517,13 @@
 	<string name="current_location_unknown_message">الموقع الحالي غير معروف. ربما تتواجد داخل مبنى أو نفق.</string>
 	<string name="current_location_unknown_continue_button">الاستمرار</string>
 	<string name="current_location_unknown_stop_button">إيقاف</string>
+	<!-- abbreviation for meters -->
 	<string name="m">متر</string>
+	<!-- abbreviation for kilometers -->
 	<string name="km">كم</string>
+	<!-- abbreviation for kilometers per hour -->
 	<string name="kilometers_per_hour">كم/ساعة</string>
+	<!-- abbreviation for mile(s) -->
 	<string name="mi">ميل</string>
 	<!-- A unit of measure -->
 	<string name="ft">قدم</string>

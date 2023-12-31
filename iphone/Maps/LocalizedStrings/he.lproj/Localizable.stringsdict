@@ -19,8 +19,10 @@
       <string>NSStringPluralRuleType</string>
       <key>NSStringFormatValueTypeKey</key>
       <string>d</string>
+      <key>one</key>
+      <string>סימניה %d</string>
       <key>other</key>
-      <string>%d bookmarks</string>
+      <string>%d סימניות</string>
     </dict>
   </dict>
 
@@ -34,8 +36,10 @@
       <string>NSStringPluralRuleType</string>
       <key>NSStringFormatValueTypeKey</key>
       <string>d</string>
+      <key>one</key>
+      <string>נמצא קובץ %d. יהיה ניתן לראות אותו לאחר ההמרה.</string>
       <key>other</key>
-      <string>%d files were found. You can see them after conversion.</string>
+      <string>נמצאו %d קבצים. יהיה ניתן לראות אותם לאחר ההמרה.</string>
     </dict>
   </dict>
 
@@ -49,8 +53,10 @@
       <string>NSStringPluralRuleType</string>
       <key>NSStringFormatValueTypeKey</key>
       <string>d</string>
+      <key>one</key>
+      <string>פריט %d</string>
       <key>other</key>
-      <string>%d objects</string>
+      <string>%d פריטים</string>
     </dict>
   </dict>
 
@@ -64,8 +70,10 @@
       <string>NSStringPluralRuleType</string>
       <key>NSStringFormatValueTypeKey</key>
       <string>d</string>
+      <key>one</key>
+      <string>מסלול %d</string>
       <key>other</key>
-      <string>%d tracks</string>
+      <string>%d מסלולים</string>
     </dict>
   </dict>
 </dict>

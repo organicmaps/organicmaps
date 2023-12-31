@@ -94,7 +94,7 @@
 	<string name="maps_storage_downloaded">地图</string>
 	<!-- Question dialog for transferring maps from one storage to another -->
 	<string name="move_maps">移动地图？</string>
-	<!-- Ask to wait user several minutes (some long process in modal dialog). -->
+	<!-- Ask user to wait several minutes (some long process in modal dialog). -->
 	<string name="wait_several_minutes">这可能需要几分钟的时间。\n请稍候…</string>
 	<!-- Measurement units title in settings activity -->
 	<string name="measurement_units">测量单位</string>
@@ -489,9 +489,13 @@
 	<string name="current_location_unknown_message">当前位置未知，可能您在建筑内或隧道内。</string>
 	<string name="current_location_unknown_continue_button">继续</string>
 	<string name="current_location_unknown_stop_button">停止</string>
+	<!-- abbreviation for meters -->
 	<string name="m">米</string>
+	<!-- abbreviation for kilometers -->
 	<string name="km">公里</string>
+	<!-- abbreviation for kilometers per hour -->
 	<string name="kilometers_per_hour">公里每小时</string>
+	<!-- abbreviation for mile(s) -->
 	<string name="mi">英里</string>
 	<!-- A unit of measure -->
 	<string name="ft">英尺</string>

@@ -84,7 +84,7 @@
 	<string name="maps_storage_summary">नकाशे डाउनलोड करायचे ठिकाण निवडा</string>
 	<!-- Question dialog for transferring maps from one storage to another -->
 	<string name="move_maps">नकाशे हलवायचे?</string>
-	<!-- Ask to wait user several minutes (some long process in modal dialog). -->
+	<!-- Ask user to wait several minutes (some long process in modal dialog). -->
 	<string name="wait_several_minutes">यास काही मिनिटे लागू शकतात.\nकृपया प्रतीक्षा करा…</string>
 	<!-- Measurement units title in settings activity -->
 	<string name="measurement_units">मापन एकके</string>
@@ -471,9 +471,13 @@
 	<string name="current_location_unknown_message">वर्तमान स्थान अज्ञात आहे. कदाचित तुम्ही एखाद्या इमारतीत किंवा बोगद्यात असाल.</string>
 	<string name="current_location_unknown_continue_button">चालू</string>
 	<string name="current_location_unknown_stop_button">थांबा</string>
+	<!-- abbreviation for meters -->
 	<string name="m">m</string>
+	<!-- abbreviation for kilometers -->
 	<string name="km">किमी</string>
+	<!-- abbreviation for kilometers per hour -->
 	<string name="kilometers_per_hour">km/h</string>
+	<!-- abbreviation for mile(s) -->
 	<string name="mi">mi</string>
 	<!-- A unit of measure -->
 	<string name="ft">फूट</string>

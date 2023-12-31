@@ -97,7 +97,7 @@
 	<string name="maps_storage_downloaded">Карти</string>
 	<!-- Question dialog for transferring maps from one storage to another -->
 	<string name="move_maps">Преместване на карти?</string>
-	<!-- Ask to wait user several minutes (some long process in modal dialog). -->
+	<!-- Ask user to wait several minutes (some long process in modal dialog). -->
 	<string name="wait_several_minutes">Това може да отнеме няколко минути.\nМоля изчакайте…</string>
 	<!-- Measurement units title in settings activity -->
 	<string name="measurement_units">Мерни единици</string>
@@ -470,8 +470,11 @@
 	<string name="current_location_unknown_message">Настоящото местоположение е неизвестно. Може би се намирате в сграда или тунел.</string>
 	<string name="current_location_unknown_continue_button">Продължаване</string>
 	<string name="current_location_unknown_stop_button">Стоп</string>
+	<!-- abbreviation for meters -->
 	<string name="m">м</string>
+	<!-- abbreviation for kilometers -->
 	<string name="km">км</string>
+	<!-- abbreviation for mile(s) -->
 	<string name="mi">ми</string>
 	<!-- A unit of measure -->
 	<string name="ft">фут</string>

@@ -94,7 +94,7 @@
 	<string name="maps_storage_downloaded">Kartor</string>
 	<!-- Question dialog for transferring maps from one storage to another -->
 	<string name="move_maps">Flytta kartor?</string>
-	<!-- Ask to wait user several minutes (some long process in modal dialog). -->
+	<!-- Ask user to wait several minutes (some long process in modal dialog). -->
 	<string name="wait_several_minutes">Detta kan ta flera minuter.\nVänligen vänta…</string>
 	<!-- Measurement units title in settings activity -->
 	<string name="measurement_units">Längdenheter</string>
@@ -476,9 +476,13 @@
 	<string name="current_location_unknown_message">Nuvarande plats okänd. Du kanske är i en byggnad eller tunnel.</string>
 	<string name="current_location_unknown_continue_button">Fortsätt</string>
 	<string name="current_location_unknown_stop_button">Stopp</string>
+	<!-- abbreviation for meters -->
 	<string name="m">m</string>
+	<!-- abbreviation for kilometers -->
 	<string name="km">km</string>
+	<!-- abbreviation for kilometers per hour -->
 	<string name="kilometers_per_hour">km/h</string>
+	<!-- abbreviation for mile(s) -->
 	<string name="mi">mile</string>
 	<!-- A unit of measure -->
 	<string name="ft">fot</string>

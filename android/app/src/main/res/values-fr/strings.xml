@@ -108,7 +108,7 @@
 	<string name="move_maps">Déplacer les cartes ?</string>
 	<!-- Error moving map files from one storage to another -->
 	<string name="move_maps_error">Erreur lors du déplacement des cartes</string>
-	<!-- Ask to wait user several minutes (some long process in modal dialog). -->
+	<!-- Ask user to wait several minutes (some long process in modal dialog). -->
 	<string name="wait_several_minutes">Ceci peut prendre plusieurs minutes.\nVeuillez patienter…</string>
 	<!-- Measurement units title in settings activity -->
 	<string name="measurement_units">Unités de mesure</string>
@@ -506,9 +506,13 @@
 	<string name="current_location_unknown_message">L\'emplacement actuel est inconnu. Vous êtes peut-être dans un bâtiment ou dans un tunnel.</string>
 	<string name="current_location_unknown_continue_button">Continuer</string>
 	<string name="current_location_unknown_stop_button">Arrêter</string>
+	<!-- abbreviation for meters -->
 	<string name="m">m</string>
+	<!-- abbreviation for kilometers -->
 	<string name="km">km</string>
+	<!-- abbreviation for kilometers per hour -->
 	<string name="kilometers_per_hour">km/h</string>
+	<!-- abbreviation for mile(s) -->
 	<string name="mi">mi</string>
 	<!-- A unit of measure -->
 	<string name="ft">ft</string>

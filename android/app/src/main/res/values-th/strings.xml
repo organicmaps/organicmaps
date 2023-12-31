@@ -96,7 +96,7 @@
 	<string name="maps_storage_downloaded">แผนที่</string>
 	<!-- Question dialog for transferring maps from one storage to another -->
 	<string name="move_maps">ลบแผนที่?</string>
-	<!-- Ask to wait user several minutes (some long process in modal dialog). -->
+	<!-- Ask user to wait several minutes (some long process in modal dialog). -->
 	<string name="wait_several_minutes">นี่อาจจะใช้เวลาสองสามนาที\nโปรดรอ…</string>
 	<!-- Measurement units title in settings activity -->
 	<string name="measurement_units">หน่วยการวัด</string>
@@ -480,9 +480,13 @@
 	<string name="current_location_unknown_message">ไม่ทราบชื่อสถานที่ปัจจุบัน คุณอาจจะอยู่ในอาคาร หรือ ในอุโมงค์</string>
 	<string name="current_location_unknown_continue_button">ดำเนินการต่อ</string>
 	<string name="current_location_unknown_stop_button">หยุด</string>
+	<!-- abbreviation for meters -->
 	<string name="m">ม.</string>
+	<!-- abbreviation for kilometers -->
 	<string name="km">กม.</string>
+	<!-- abbreviation for kilometers per hour -->
 	<string name="kilometers_per_hour">กม./ชม.</string>
+	<!-- abbreviation for mile(s) -->
 	<string name="mi">ไมล์</string>
 	<!-- A unit of measure -->
 	<string name="ft">ฟุต</string>

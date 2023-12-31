@@ -106,7 +106,7 @@
 	<string name="move_maps">Kaarten verplaatsen?</string>
 	<!-- Error moving map files from one storage to another -->
 	<string name="move_maps_error">Fout bij het verplaatsen van kaartbestanden</string>
-	<!-- Ask to wait user several minutes (some long process in modal dialog). -->
+	<!-- Ask user to wait several minutes (some long process in modal dialog). -->
 	<string name="wait_several_minutes">Dit kan enkele minuten duren.\nEven geduld…</string>
 	<!-- Measurement units title in settings activity -->
 	<string name="measurement_units">Afstandseenheid</string>
@@ -500,9 +500,13 @@
 	<string name="current_location_unknown_message">Huidige locatie is onbekend. Misschien bevindt u zich in een gebouw of tunnel.</string>
 	<string name="current_location_unknown_continue_button">Doorgaan</string>
 	<string name="current_location_unknown_stop_button">Stoppen</string>
+	<!-- abbreviation for meters -->
 	<string name="m">m</string>
+	<!-- abbreviation for kilometers -->
 	<string name="km">km</string>
+	<!-- abbreviation for kilometers per hour -->
 	<string name="kilometers_per_hour">km/h</string>
+	<!-- abbreviation for mile(s) -->
 	<string name="mi">mijl</string>
 	<!-- A unit of measure -->
 	<string name="ft">voet</string>

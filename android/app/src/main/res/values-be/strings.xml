@@ -107,7 +107,7 @@
 	<string name="maps_storage_free_size">%1$s вольна з %2$s</string>
 	<!-- Question dialog for transferring maps from one storage to another -->
 	<string name="move_maps">Перамясціць мапы?</string>
-	<!-- Ask to wait user several minutes (some long process in modal dialog). -->
+	<!-- Ask user to wait several minutes (some long process in modal dialog). -->
 	<string name="wait_several_minutes">Гэта можа заняць некальмі хвілін.\nКалі ласка, пачакайце…</string>
 	<!-- Measurement units title in settings activity -->
 	<string name="measurement_units">Адзінкі вымярэння</string>
@@ -502,9 +502,13 @@
 	<string name="current_location_unknown_message">Месцазнаходжанне невядома. Магчыма вы ў будынку або ў танэлі.</string>
 	<string name="current_location_unknown_continue_button">Працягнуць</string>
 	<string name="current_location_unknown_stop_button">Спыніць</string>
+	<!-- abbreviation for meters -->
 	<string name="m">м</string>
+	<!-- abbreviation for kilometers -->
 	<string name="km">км</string>
+	<!-- abbreviation for kilometers per hour -->
 	<string name="kilometers_per_hour">км/г</string>
+	<!-- abbreviation for mile(s) -->
 	<string name="mi">міля</string>
 	<!-- A unit of measure -->
 	<string name="ft">фут</string>

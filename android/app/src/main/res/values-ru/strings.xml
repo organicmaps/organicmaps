@@ -109,7 +109,7 @@
 	<string name="move_maps">Переместить карты?</string>
 	<!-- Error moving map files from one storage to another -->
 	<string name="move_maps_error">Ошибка перемещения файлов карт</string>
-	<!-- Ask to wait user several minutes (some long process in modal dialog). -->
+	<!-- Ask user to wait several minutes (some long process in modal dialog). -->
 	<string name="wait_several_minutes">Это может занять несколько минут.\nПожалуйста, подождите…</string>
 	<!-- Measurement units title in settings activity -->
 	<string name="measurement_units">Единицы измерения</string>
@@ -507,9 +507,13 @@
 	<string name="current_location_unknown_message">Местоположение не найдено. Возможно, вы находитесь в помещении или в туннеле.</string>
 	<string name="current_location_unknown_continue_button">Продолжить</string>
 	<string name="current_location_unknown_stop_button">Стоп</string>
+	<!-- abbreviation for meters -->
 	<string name="m">м</string>
+	<!-- abbreviation for kilometers -->
 	<string name="km">км</string>
+	<!-- abbreviation for kilometers per hour -->
 	<string name="kilometers_per_hour">км/ч</string>
+	<!-- abbreviation for mile(s) -->
 	<string name="mi">ми</string>
 	<!-- A unit of measure -->
 	<string name="ft">фут</string>

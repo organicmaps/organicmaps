@@ -108,7 +108,7 @@
 	<string name="move_maps">Haritalar taşınsın mı?</string>
 	<!-- Error moving map files from one storage to another -->
 	<string name="move_maps_error">Harita dosyalarını taşıma hatası</string>
-	<!-- Ask to wait user several minutes (some long process in modal dialog). -->
+	<!-- Ask user to wait several minutes (some long process in modal dialog). -->
 	<string name="wait_several_minutes">Bu işlem birkaç dakika sürebilir.\nLütfen bekleyin…</string>
 	<!-- Measurement units title in settings activity -->
 	<string name="measurement_units">Ölçü birimleri</string>
@@ -504,9 +504,13 @@
 	<string name="current_location_unknown_message">Geçerli konum bilinmiyor. Muhtemelen bir bina veya tünelin içindesiniz.</string>
 	<string name="current_location_unknown_continue_button">Devam</string>
 	<string name="current_location_unknown_stop_button">Dur</string>
+	<!-- abbreviation for meters -->
 	<string name="m">m</string>
+	<!-- abbreviation for kilometers -->
 	<string name="km">km</string>
+	<!-- abbreviation for kilometers per hour -->
 	<string name="kilometers_per_hour">km/s</string>
+	<!-- abbreviation for mile(s) -->
 	<string name="mi">mil</string>
 	<!-- A unit of measure -->
 	<string name="ft">fit</string>

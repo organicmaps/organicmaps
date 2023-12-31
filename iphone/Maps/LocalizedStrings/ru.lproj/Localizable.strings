@@ -768,15 +768,19 @@
 
 "location_services_disabled_2" = "2. Нажмите Геопозиция";
 
-/* iOS Dialog for the case when the location permission is not granted */
+/* iOS Dialog for the case when the location permission is not granted; you might find the exact wording for your language here: https://support.apple.com/en-us/102647 (replace 'en-us' in URL with your language/region) */
 "location_services_disabled_3" = "3. Выберите «При использовании программы»";
 
+/* abbreviation for meters */
 "m" = "м";
 
+/* abbreviation for kilometers */
 "km" = "км";
 
+/* abbreviation for kilometers per hour */
 "kilometers_per_hour" = "км/ч";
 
+/* abbreviation for mile(s) */
 "mi" = "ми";
 
 /* A unit of measure */

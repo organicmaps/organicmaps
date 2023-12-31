@@ -93,7 +93,7 @@
 	<string name="maps_storage_downloaded">نقشه‌ها</string>
 	<!-- Question dialog for transferring maps from one storage to another -->
 	<string name="move_maps">آیا نقشه‌ها جابه‌جا شود؟</string>
-	<!-- Ask to wait user several minutes (some long process in modal dialog). -->
+	<!-- Ask user to wait several minutes (some long process in modal dialog). -->
 	<string name="wait_several_minutes">ممکن است چند دقیقه طول بکشد.\nلطفا صبر کنید…</string>
 	<!-- Measurement units title in settings activity -->
 	<string name="measurement_units">واحد اندازه‌گیری</string>
@@ -475,9 +475,13 @@
 	<string name="current_location_unknown_message">مکان شما ناشناس مانده است.ممکن است شما داخل یک ساختمان یا تونل باشید.</string>
 	<string name="current_location_unknown_continue_button">ادامه</string>
 	<string name="current_location_unknown_stop_button">توقف</string>
+	<!-- abbreviation for meters -->
 	<string name="m">متر</string>
+	<!-- abbreviation for kilometers -->
 	<string name="km">کیلومتر</string>
+	<!-- abbreviation for kilometers per hour -->
 	<string name="kilometers_per_hour">کیلومتربرساعت (km/h)</string>
+	<!-- abbreviation for mile(s) -->
 	<string name="mi">مایل</string>
 	<!-- A unit of measure -->
 	<string name="ft">فوت</string>

@@ -96,7 +96,7 @@
 	<string name="maps_storage_downloaded">Peta</string>
 	<!-- Question dialog for transferring maps from one storage to another -->
 	<string name="move_maps">Pindahkan peta?</string>
-	<!-- Ask to wait user several minutes (some long process in modal dialog). -->
+	<!-- Ask user to wait several minutes (some long process in modal dialog). -->
 	<string name="wait_several_minutes">Ini akan memakan waktu beberapa menit.\nMohon tunggu…</string>
 	<!-- Measurement units title in settings activity -->
 	<string name="measurement_units">Unit Pengukuran</string>
@@ -480,9 +480,13 @@
 	<string name="current_location_unknown_message">Lokasi saat ini tidak diketahui. Anda mungkin berada dalam bangunan atau terowongan.</string>
 	<string name="current_location_unknown_continue_button">Lanjutkan</string>
 	<string name="current_location_unknown_stop_button">Berhenti</string>
+	<!-- abbreviation for meters -->
 	<string name="m">m</string>
+	<!-- abbreviation for kilometers -->
 	<string name="km">km</string>
+	<!-- abbreviation for kilometers per hour -->
 	<string name="kilometers_per_hour">km/j</string>
+	<!-- abbreviation for mile(s) -->
 	<string name="mi">mil</string>
 	<!-- A unit of measure -->
 	<string name="ft">kaki</string>
