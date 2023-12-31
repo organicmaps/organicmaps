@@ -19520,7 +19520,7 @@
     fi:other = %d kirjanmerkkiä
     fr:one = %d signet
     fr:other = %d signets
-    he:one = סימניה אחת
+    he:one = סימניה %d
     he:other = %d סימניות
     hu = könyvjelzők %d
     id = %d markah
@@ -20417,7 +20417,7 @@
     fi:other = %d tiedostoa löydettiin. Näet ne muunnoksen jälkeen.
     fr:one = %d fichier a été trouvé. Vous le verrez après la conversion.
     fr:other = %d fichiers ont été trouvés. Vous les verrez après la conversion.
-    he:one = נמצא קובץ אחד. יהיה ניתן לראות אותו לאחר ההמרה.
+    he:one = נמצא קובץ %d. יהיה ניתן לראות אותו לאחר ההמרה.
     he:other = נמצאו %d קבצים. יהיה ניתן לראות אותם לאחר ההמרה.
     hu:one = %d fájlt találtunk. Látni fogja őket a megtérés után.
     hu:other = %d fájl található. Látni fogja őket a megtérés után.
@@ -20756,7 +20756,7 @@
     fi:other = %d kohdetta
     fr:one = %d objet
     fr:other = %d objets
-    he:one = פריט אחד
+    he:one = פריט %d
     he:other = %d פריטים
     hu = %d hely
     id = tempat %d
@@ -20818,7 +20818,7 @@
     fi:other = %d paikkaa
     fr:one = %d lieu
     fr:other = %d lieux
-    he:one = מקום אחד
+    he:one = מקום %d
     he:other = %d מקומות
     hu = %d hely
     id = tempat %d
@@ -20879,7 +20879,7 @@
     fi:one = %d reitti
     fi:other = %d reittiä
     fr = %d pistes
-    he:one = מסלול אחד
+    he:one = מסלול %d
     he:other = %d מסלולים
     hu = %d út
     id = trek %d
