@@ -70,7 +70,7 @@
 @parking: #F2F2BC;
 @military: #E53935;
 @prison: #727272;
-@farmland: #EBE4A5;
+@farmland: #E4DEAD;
 @farmyard: #E5D6AC;
 
 /*4.2 Aerodrome*/
@@ -104,7 +104,8 @@
 @primary_orange:  #FF8726;
 @primary_orange_medium: #FF9440;
 @primary_orange_light: #FFA14C;
-@secondary: #FFFFFF;
+@secondary: #FFB226;
+@secondary_light: #FFBF52;
 @residential: #F8F8F8;
 @unclassified: #F8F8F8;
 @pedestrian: #F8F8F8;

@@ -314,8 +314,11 @@ line|z18-[highway=primary_link][bridge?]::bridgeblack,
 /* 5.SECONDARY 10-22 ZOOM */
 
 line|z10-[highway=secondary],
-line|z13-[highway=secondary_link]
-{color: @secondary;opacity: 0.8;}
+line|z13-[highway=secondary_link],
+{color: @secondary; opacity: 0.8;}
+line|z15-[highway=secondary],
+line|z15-[highway=secondary_link],
+{color: @secondary_light; opacity: 0.8;}
 line|z16-[highway=secondary][tunnel?],
 line|z16-[highway=secondary_link][tunnel?]
 {casing-width: 1;casing-linecap: butt;casing-color: @secondary_tunnel_casing;casing-opacity: 0.7;}
