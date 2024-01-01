@@ -23,7 +23,7 @@
     android:layout_height="wrap_content"
     android:layout_marginStart="@dimen/margin_base"
     android:layout_marginEnd="@dimen/margin_base"
-    android:src="@drawable/ic_checkmark"
+    android:src="@drawable/ic_done"
     app:tint="?iconTint"/>
 
 </LinearLayout>
