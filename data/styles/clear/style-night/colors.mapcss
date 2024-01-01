@@ -104,7 +104,7 @@
 @primary_orange: #593323;
 @primary_orange_medium: #593323;
 @primary_orange_light: #593323;
-@secondary: #4B4643;
+@secondary: #573E33;
 @residential: #4B4643;
 @unclassified: #4B4643;
 @pedestrian: #4D4744;
