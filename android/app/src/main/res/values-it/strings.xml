@@ -750,6 +750,8 @@
 	<string name="aa_connected_to_car_notification_title">Collegato all\'auto</string>
 	<!-- Outdoors/hiking map style (activity) name in the Styles and Layers dialog -->
 	<string name="button_layer_outdoor">Escursioni</string>
+	<!-- Text displayed when a webview or a browser are disabled, and external links can't be opened. -->
+	<string name="browser_not_available">Il browser web non è disponibile</string>
 
 	<!-- SECTION: Types -->
 	<string name="type.addr_interpolation">Indirizzo/Blocco</string>

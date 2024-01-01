@@ -778,6 +778,8 @@
 	<string name="aa_connected_to_car_notification_title">متصل بالسيارة</string>
 	<!-- Outdoors/hiking map style (activity) name in the Styles and Layers dialog -->
 	<string name="button_layer_outdoor">جولة على الأقدام</string>
+	<!-- Text displayed when a webview or a browser are disabled, and external links can't be opened. -->
+	<string name="browser_not_available">متصفح الويب غير متوفر</string>
 
 	<!-- SECTION: Types -->
 	<string name="type.addr_interpolation">العنوان / البلوك</string>
