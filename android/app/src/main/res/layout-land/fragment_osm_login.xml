@@ -70,8 +70,8 @@
           android:layout_width="0dp"
           android:layout_marginEnd="@dimen/margin_half"
           android:textColorHint="?android:textColorSecondary"
-          app:layout_constraintLeft_toLeftOf="parent"
-          app:layout_constraintRight_toLeftOf="@id/osm_password_container"
+          app:layout_constraintStart_toStartOf="parent"
+          app:layout_constraintEnd_toStartOf="@id/osm_password_container"
           app:layout_constraintTop_toTopOf="parent"
           app:endIconMode="custom">
           <com.google.android.material.textfield.TextInputEditText
@@ -85,8 +85,8 @@
           style="@style/MwmWidget.Editor.CustomTextInput"
           android:layout_width="0dp"
           android:textColorHint="?android:textColorSecondary"
-          app:layout_constraintLeft_toRightOf="@id/osm_username_container"
-          app:layout_constraintRight_toRightOf="parent"
+          app:layout_constraintStart_toEndOf="@id/osm_username_container"
+          app:layout_constraintEnd_toEndOf="parent"
           app:layout_constraintTop_toTopOf="parent"
           app:endIconMode="password_toggle"
           app:endIconTint="?android:textColorSecondary">

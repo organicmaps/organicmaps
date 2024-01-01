@@ -106,9 +106,9 @@ public class WheelProgressView extends AppCompatImageView
   @Override
   protected void onSizeChanged(int w, int h, int oldw, int oldh)
   {
-    final int left = getPaddingLeft();
+    final int left = getPaddingStart();
     final int top = getPaddingTop();
-    final int right = w - getPaddingRight();
+    final int right = w - getPaddingEnd();
     final int bottom = h - getPaddingBottom();
     final int width = right - left;
     final int height = bottom - top;
