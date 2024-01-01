@@ -79,9 +79,9 @@ public class FlatProgressView extends View
     mReady = true;
     canvas.save();
 
-    int intWidth = getWidth() - getPaddingLeft() - getPaddingRight();
+    int intWidth = getWidth() - getPaddingStart() - getPaddingEnd();
     int intHeight = getHeight() - getPaddingTop() - getPaddingBottom();
-    canvas.translate(getPaddingLeft(), getPaddingTop());
+    canvas.translate(getPaddingStart(), getPaddingTop());
 
     int progressWidth = (intWidth * mProgress / 100);
     if (progressWidth > 0)

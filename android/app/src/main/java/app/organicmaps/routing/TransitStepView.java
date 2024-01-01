@@ -120,7 +120,7 @@ public class TransitStepView extends View implements MultilineLayoutManager.Sque
   protected void onMeasure(int widthMeasureSpec, int heightMeasureSpec)
   {
     int height = getDefaultSize(getSuggestedMinimumHeight(), MeasureSpec.UNSPECIFIED);
-    int width = getPaddingLeft() + getPaddingRight();
+    int width = getPaddingStart() + getPaddingEnd();
     if (mDrawable != null)
     {
       calculateDrawableBounds(height, mDrawable);
@@ -132,7 +132,7 @@ public class TransitStepView extends View implements MultilineLayoutManager.Sque
       mTextPaint.getTextBounds(mText, 0, mText.length(), mTextBounds);
       if (height == 0)
         height = getPaddingTop() + mTextBounds.height() + getPaddingBottom();
-      final int computedTextWidth = (int) ((mDrawable != null ? getPaddingLeft() : 0) + mTextPaint.measureText(mText));
+      final int computedTextWidth = (int) ((mDrawable != null ? getPaddingStart() : 0) + mTextPaint.measureText(mText));
 
       if (mStepType == TransitStepType.INTERMEDIATE_POINT)
       {
@@ -150,7 +150,7 @@ public class TransitStepView extends View implements MultilineLayoutManager.Sque
   @Override
   public void squeezeTo(@Dimension int width)
   {
-    int tSize = width - 2 * getPaddingLeft() - getPaddingRight() - mDrawableBounds.width();
+    int tSize = width - 2 * getPaddingStart() - getPaddingEnd() - mDrawableBounds.width();
     mText = TextUtils.ellipsize(mText, mTextPaint, tSize, TextUtils.TruncateAt.END).toString();
   }
 
@@ -176,8 +176,8 @@ public class TransitStepView extends View implements MultilineLayoutManager.Sque
     // drawable will be squeezed horizontally to make it squared-shape.
     int acceptableDrawableWidth = drawable.getIntrinsicWidth() > acceptableDrawableHeight
                                   ? acceptableDrawableHeight : drawable.getIntrinsicWidth();
-    mDrawableBounds.set(getPaddingLeft(), getPaddingTop() + vPad,
-                        acceptableDrawableWidth + getPaddingLeft(),
+    mDrawableBounds.set(getPaddingStart(), getPaddingTop() + vPad,
+                        acceptableDrawableWidth + getPaddingStart(),
                         getPaddingTop() + vPad + acceptableDrawableHeight);
   }
 
@@ -197,7 +197,7 @@ public class TransitStepView extends View implements MultilineLayoutManager.Sque
     {
       int yPos = (int) ((getHeight() / 2) - ((mTextPaint.descent() + mTextPaint.ascent()) / 2)) ;
       int xPos = mDrawable != null
-                 ? mDrawable.getBounds().right + getPaddingLeft()
+                 ? mDrawable.getBounds().right + getPaddingStart()
                  : (int) ((getWidth() - mTextPaint.measureText(mText)) / 2);
       canvas.drawText(mText, xPos, yPos, mTextPaint);
     }

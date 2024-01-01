@@ -11,8 +11,7 @@
     android:layout_height="wrap_content"
     android:layout_centerInParent="true"
     android:clipChildren="false"
-    android:clipToPadding="false"
-    android:layoutDirection="ltr">
+    android:clipToPadding="false">
     <include
       layout="@layout/map_buttons_help"
       android:layout_width="wrap_content"

@@ -24,7 +24,7 @@
     android:clipToPadding="false"
     android:padding="@dimen/nav_frame_padding"
     app:layout_constraintBottom_toBottomOf="parent"
-    app:layout_constraintLeft_toLeftOf="parent">
+    app:layout_constraintStart_toStartOf="parent">
     <include
       layout="@layout/map_buttons_bookmarks"
       android:layout_width="wrap_content"
@@ -59,7 +59,7 @@
     android:clipToPadding="false"
     android:padding="@dimen/nav_frame_padding"
     app:layout_constraintBottom_toBottomOf="parent"
-    app:layout_constraintRight_toRightOf="parent">
+    app:layout_constraintEnd_toEndOf="parent">
     <include
       layout="@layout/map_buttons_zoom"
       android:layout_width="wrap_content"

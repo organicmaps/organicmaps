@@ -283,8 +283,8 @@ public final class UiUtils
   public static void setViewInsetsPaddingBottom(View view, WindowInsetsCompat windowInsets)
   {
     final Insets systemInsets = windowInsets.getInsets(WindowInsetsCompat.Type.systemBars());
-    view.setPadding(view.getPaddingLeft(), view.getPaddingTop(),
-                    view.getPaddingRight(), systemInsets.bottom);
+    view.setPaddingRelative(view.getPaddingStart(), view.getPaddingTop(),
+                    view.getPaddingEnd(), systemInsets.bottom);
   }
 
   public static void setViewInsetsPaddingNoBottom(View view, WindowInsetsCompat windowInsets)

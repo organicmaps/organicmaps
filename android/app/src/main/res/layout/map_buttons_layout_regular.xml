@@ -13,9 +13,9 @@
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
     android:layout_alignParentTop="true"
+    android:layout_alignParentLeft="true"
     android:clipChildren="false"
     android:clipToPadding="false"
-    android:layoutDirection="ltr"
     android:padding="@dimen/nav_frame_padding">
     <include
       layout="@layout/map_buttons_layers"
@@ -30,7 +30,8 @@
     android:layout_width="wrap_content"
     android:layout_height="match_parent"
     android:layout_marginTop="@dimen/action_bar_extended_height"
-    android:layout_marginBottom="@dimen/nav_menu_height"    android:layout_alignParentEnd="true"
+    android:layout_marginBottom="@dimen/nav_menu_height"
+    android:layout_alignParentEnd="true"
     android:clipChildren="false"
     android:clipToPadding="false"
     android:padding="@dimen/nav_frame_padding">
