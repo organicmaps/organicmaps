@@ -1682,3 +1682,5 @@ amenity|compressed_air;1592;
 leisure|hackerspace;1593;
 railway|station|subway|singapore;[railway=station][transport=subway][city=singapore],[railway=station][station=subway][city=singapore];;name;int_name;1594;
 railway|subway_entrance|singapore;[railway=subway_entrance][city=singapore];;name;int_name;1595;
+railway|station|subway|boston;[railway=station][transport=subway][city=boston],[railway=station][station=subway][city=boston];;name;int_name;1596;
+railway|subway_entrance|boston;[railway=subway_entrance][city=boston];;name;int_name;1597;
