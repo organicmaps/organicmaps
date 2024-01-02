@@ -532,7 +532,6 @@
     nl = Kunstcentrum
     pl = Centrum sztuki
     pt = Centro de artes
-    pt-BR = Centros de arte
     ro = Centru de artă
     ru = Центр искусств
     sk = Centrum umenia
