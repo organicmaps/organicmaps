@@ -15342,8 +15342,8 @@ ko:복권
 nb:Lotteribilletter
 nl:Loten
 pl:Bilety na loterię
-pt:Bilhete de loteria
-pt-BR:Bilhete de loteria
+pt:Lotaria
+pt-BR:Lotérica
 ro:Bilete la loterie
 ru:Лотерея|Лотерейные билеты
 sk:Lístky do lotérie
