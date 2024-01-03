@@ -16,7 +16,7 @@
     android:elevation="@dimen/nav_elevation"
     app:layout_constraintTop_toTopOf="parent"
     android:clickable="true"
-    android:background="?cardBackground">
+    android:background="#01735C">
     <RelativeLayout
       android:layout_width="match_parent"
       android:layout_height="@dimen/nav_street_height"
