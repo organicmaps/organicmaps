@@ -224,9 +224,6 @@ MainWindow::MainWindow(Framework & framework,
 #if defined(OMIM_OS_WINDOWS)
 bool MainWindow::nativeEvent(QByteArray const & eventType, void * message, qintptr * result)
 {
-  (void)eventType;
-  (void)result;
-
   MSG * msg = static_cast<MSG *>(message);
   if (msg->message == WM_SYSCOMMAND)
   {
