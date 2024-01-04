@@ -132,7 +132,7 @@ public class DownloadResourcesLegacyActivity extends BaseMwmFragmentActivity
     public void onProgress(final int percent)
     {
       if (!isFinishing())
-        mProgress.setProgress(percent);
+        mProgress.setProgressCompat(percent, true);
     }
 
     @Override
@@ -179,7 +179,7 @@ public class DownloadResourcesLegacyActivity extends BaseMwmFragmentActivity
     @Override
     public void onProgress(String countryId, long localSize, long remoteSize)
     {
-      mProgress.setProgress((int)localSize);
+      mProgress.setProgressCompat((int) localSize, true);
     }
   };
 
@@ -264,7 +264,7 @@ public class DownloadResourcesLegacyActivity extends BaseMwmFragmentActivity
       setDownloadMessage(bytes);
 
       mProgress.setMax(bytes);
-      mProgress.setProgress(0);
+      mProgress.setProgressCompat(0, true);
     }
     else
       finishFilesDownload(bytes);
@@ -380,7 +380,7 @@ public class DownloadResourcesLegacyActivity extends BaseMwmFragmentActivity
         UiUtils.hide(mChbDownloadCountry);
         mTvMessage.setText(getString(R.string.downloading_country_can_proceed, item.name));
         mProgress.setMax((int)item.totalSize);
-        mProgress.setProgress(0);
+        mProgress.setProgressCompat(0, true);
 
         mCountryDownloadListenerSlot = MapManager.nativeSubscribe(mCountryDownloadListener);
         MapManager.nativeDownload(mCurrentCountry);
