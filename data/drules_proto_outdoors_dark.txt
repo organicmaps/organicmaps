@@ -56350,6 +56350,57 @@ cont {
   }
 }
 cont {
+  name: "man_made-cairn"
+  element {
+    scale: 18
+    symbol {
+      name: "cairn-m"
+      priority: -9950
+    }
+    caption {
+      primary {
+        height: 12
+        color: 5592405
+        offset_y: 1
+        is_optional: true
+      }
+      priority: -10000
+    }
+  }
+  element {
+    scale: 19
+    symbol {
+      name: "cairn-m"
+      priority: -9950
+    }
+    caption {
+      primary {
+        height: 12
+        color: 5592405
+        offset_y: 1
+        is_optional: true
+      }
+      priority: -10000
+    }
+  }
+  element {
+    scale: 20
+    symbol {
+      name: "cairn-m"
+      priority: -9950
+    }
+    caption {
+      primary {
+        height: 12
+        color: 5592405
+        offset_y: 1
+        is_optional: true
+      }
+      priority: -10000
+    }
+  }
+}
+cont {
   name: "man_made-chimney"
   element {
     scale: 16
