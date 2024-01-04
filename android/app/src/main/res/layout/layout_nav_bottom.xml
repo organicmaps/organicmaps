@@ -21,16 +21,15 @@
     <include layout="@layout/bottom_sheet_handle" />
     <include layout="@layout/layout_nav_bottom_numbers" />
 
-    <app.organicmaps.widget.FlatProgressView
+    <com.google.android.material.progressindicator.LinearProgressIndicator
       android:id="@+id/navigation_progress"
+      style="@style/Widget.MaterialComponents.LinearProgressIndicator"
       android:layout_width="match_parent"
       android:layout_height="wrap_content"
-      app:headColor="?colorAccent"
-      app:headRadius="@dimen/nav_progress_head"
-      app:progressColor="?colorAccent"
-      app:progressThickness="@dimen/nav_progress"
-      app:secondaryProgressColor="@color/bg_routing_progress"
-      app:secondaryProgressThickness="@dimen/nav_progress" />
+      app:indicatorColor="?colorAccent"
+      app:trackCornerRadius="@dimen/nav_progress_head"
+      app:trackThickness="@dimen/nav_progress"
+      app:trackColor="@color/bg_routing_progress" />
   </LinearLayout>
 
   <LinearLayout

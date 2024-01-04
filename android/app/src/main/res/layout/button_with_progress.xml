@@ -25,7 +25,8 @@
     android:layout_marginEnd="@dimen/margin_base_plus"
     android:layout_marginBottom="@dimen/margin_base"
     android:indeterminate="false"
-    app:indicatorColor="?android:colorAccent"/>
+    app:indicatorColor="?android:colorAccent"
+    app:trackColor="@color/bg_routing_progress"/>
   <Button
     android:id="@+id/btn_download_resources"
     style="@style/MwmWidget.Button.Primary"
