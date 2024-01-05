@@ -23283,6 +23283,49 @@
     be = Няма
     tr = Yok
 
+  [capacity]
+    comment = To indicate the capacity of car parkings, bicycle parkings, electric vehicle charging stations...
+    en = Capacity: %@
+    af = Kapasiteit: %@
+    ar = السعة: %@
+    be = Ёмістасць: %@
+    bg = Капацитет: %@
+    ca = Capacitat: %@
+    cs = Kapacita: %@
+    da = Kapacitet: %@
+    de = Kapazität: %@
+    el = Χωρητικότητα: %@
+    es = Capacidad: %@
+    et = Mahutavus: %@
+    eu = Edukiera: %@
+    fa = ظرفیت: %@
+    fi = Kapasiteetti: %@
+    fr = Capacité : %@
+    he = קיבולת: %@
+    hi = क्षमता: %@
+    hu = Kapacitás: %@
+    id = Kapasitas: %@
+    it = Capacità: %@
+    ja = 定員：%@
+    ko = 수용 인원: %@
+    lt = Talpa: %@
+    mr = क्षमता: %@
+    nb = Kapasitet: %@
+    nl = Capaciteit: %@
+    pl = Pojemność: %@
+    pt = Capacidade: %@
+    ro = Capacitate: %@
+    ru = Вместимость: %@
+    sk = Kapacita: %@
+    sv = Kapacitet: %@
+    sw = Uwezo: %@
+    th = ความจุ: %@
+    tr = Kapasite: %@
+    uk = Місткість: %@
+    vi = Công suất: %@
+    zh-Hans = 容量：%@
+    zh-Hant = 容量：%@
+
   [trip_finished]
     tags = android,ios
     en = You have arrived!
