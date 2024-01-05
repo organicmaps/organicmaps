@@ -653,6 +653,8 @@
 	<string name="yes_available">Igen</string>
 	<!-- E.g. "WiFi:No" -->
 	<string name="no_available">Nem</string>
+	<!-- To indicate the capacity of car parkings, bicycle parkings, electric vehicle charging stations... -->
+	<string name="capacity">Kapacitás: %s</string>
 	<string name="trip_finished">Megérkeztél!</string>
 	<string name="ok">Oké</string>
 	<!-- max. 10 symbols, both iOS and Android -->

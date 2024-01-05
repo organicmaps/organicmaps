@@ -1076,6 +1076,9 @@
 /* E.g. "WiFi:No" */
 "no_available" = "Không";
 
+/* To indicate the capacity of car parkings, bicycle parkings, electric vehicle charging stations... */
+"capacity" = "Công suất: %@";
+
 "trip_finished" = "Bạn đã tới nơi!";
 
 "keyboard_availability_alert" = "Bàn phím không khả dụng trong thời gian di chuyển";

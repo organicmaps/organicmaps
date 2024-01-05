@@ -1076,6 +1076,9 @@
 /* E.g. "WiFi:No" */
 "no_available" = "いいえ";
 
+/* To indicate the capacity of car parkings, bicycle parkings, electric vehicle charging stations... */
+"capacity" = "定員：%@";
+
 "trip_finished" = "到着しました!";
 
 "keyboard_availability_alert" = "運転中はキーボードを使用する事はできません";

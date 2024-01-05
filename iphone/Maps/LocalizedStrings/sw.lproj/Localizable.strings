@@ -1076,6 +1076,9 @@
 /* E.g. "WiFi:No" */
 "no_available" = "Hapana";
 
+/* To indicate the capacity of car parkings, bicycle parkings, electric vehicle charging stations... */
+"capacity" = "Uwezo: %@";
+
 "trip_finished" = "Umefika!";
 
 "keyboard_availability_alert" = "Mbao-bonye haipatikani wakati wa kuendesha gari";

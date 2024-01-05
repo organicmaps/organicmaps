@@ -671,6 +671,8 @@
 	<string name="yes_available">Var</string>
 	<!-- E.g. "WiFi:No" -->
 	<string name="no_available">Yok</string>
+	<!-- To indicate the capacity of car parkings, bicycle parkings, electric vehicle charging stations... -->
+	<string name="capacity">Kapasite: %s</string>
 	<string name="trip_finished">Vardınız!</string>
 	<string name="ok">Tamam</string>
 	<!-- max. 10 symbols, both iOS and Android -->

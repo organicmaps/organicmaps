@@ -1076,6 +1076,9 @@
 /* E.g. "WiFi:No" */
 "no_available" = "Nee";
 
+/* To indicate the capacity of car parkings, bicycle parkings, electric vehicle charging stations... */
+"capacity" = "Capaciteit: %@";
+
 "trip_finished" = "U bent aangekomen!";
 
 "keyboard_availability_alert" = "Toetsenbord is niet beschikbaar tijdens het rijden";

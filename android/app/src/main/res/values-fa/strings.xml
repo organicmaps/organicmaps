@@ -639,6 +639,8 @@
 	<string name="yes_available">بلی</string>
 	<!-- E.g. "WiFi:No" -->
 	<string name="no_available">خیر</string>
+	<!-- To indicate the capacity of car parkings, bicycle parkings, electric vehicle charging stations... -->
+	<string name="capacity">ظرفیت: %s</string>
 	<string name="trip_finished">شما به مقصد رسیدید!</string>
 	<string name="ok">موافقت کردن</string>
 	<!-- max. 10 symbols, both iOS and Android -->

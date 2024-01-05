@@ -675,6 +675,8 @@
 	<string name="yes_available">Sí</string>
 	<!-- E.g. "WiFi:No" -->
 	<string name="no_available">No</string>
+	<!-- To indicate the capacity of car parkings, bicycle parkings, electric vehicle charging stations... -->
+	<string name="capacity">Capacidad: %s</string>
 	<string name="trip_finished">¡Ya ha llegado!</string>
 	<string name="ok">Ok</string>
 	<!-- max. 10 symbols, both iOS and Android -->
