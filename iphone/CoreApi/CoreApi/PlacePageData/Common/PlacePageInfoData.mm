@@ -75,7 +75,7 @@ using namespace osm;
               ? NSLocalizedString(@"no_available", nil) : NSLocalizedString(@"yes_available", nil);
           break;
         case MetadataID::FMD_LEVEL: _level = ToNSString(value); break;
-        case MetadataID::FMD_CAPACITY: _capacity = ToNSString(value); break;
+        case MetadataID::FMD_CAPACITY: _capacity = [NSString stringWithFormat:NSLocalizedString(@"capacity", nil), ToNSString(value)]; break;
         default:
           break;
       }
