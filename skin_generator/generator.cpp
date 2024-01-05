@@ -96,7 +96,7 @@ void SkinGenerator::ProcessSymbols(std::string const & svgDataDir,
           QSize defaultSize = m_svgRenderer.defaultSize();
 
           QSize symbolSize = symbolSizes[j];
-          QSize size = defaultSize * (symbolSize.width() / 24.0);
+          QSize size = defaultSize * (symbolSize.width() / 18.0);
 
           // Fitting symbol into symbolSize, saving aspect ratio.
           if (size.width() > symbolSize.width())
