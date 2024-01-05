@@ -15,6 +15,7 @@
     android:layout_margin="@dimen/margin_quarter"
     app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
     android:orientation="horizontal"
+    android:layoutDirection="ltr"
     tools:listitem="@layout/nav_single_lane"
     tools:itemCount="6" />
 </androidx.cardview.widget.CardView>
