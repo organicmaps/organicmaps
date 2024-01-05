@@ -161,10 +161,7 @@ std::string Info::FormatSubtitle(bool withType) const
   // Elevation.
   auto const eleStr = GetElevationFormatted();
   if (!eleStr.empty())
-  {
-    append(kMountainSymbol);
-    append(eleStr);
-  }
+    append(std::string{kMountainSymbol} + eleStr);
     
   // ATM
   if (HasAtm())
