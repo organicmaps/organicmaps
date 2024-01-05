@@ -74,7 +74,7 @@ jobs:
         working-directory: xcode
 
       - name: Upload ipa and DSYMs artifacts
-        uses: actions/upload-artifact@v3
+        uses: actions/upload-artifact@v4
         with:
           name: ipa and DSYM archive ${{ env.IOS_VERSION }}
           path: xcode/build/*

@@ -13,7 +13,7 @@ jobs:
     name: Check preconditions
     steps:
       - name: Checkout sources
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
         with:
           fetch-depth: 1000 # fetch month or so
 
