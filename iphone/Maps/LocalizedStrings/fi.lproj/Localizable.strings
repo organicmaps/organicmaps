@@ -1076,6 +1076,9 @@
 /* E.g. "WiFi:No" */
 "no_available" = "Ei";
 
+/* To indicate the capacity of car parkings, bicycle parkings, electric vehicle charging stations... */
+"capacity" = "Kapasiteetti: %@";
+
 "trip_finished" = "Olet perillä!";
 
 "keyboard_availability_alert" = "Näppäimistö ei ole käytettävissä ajon aikana";

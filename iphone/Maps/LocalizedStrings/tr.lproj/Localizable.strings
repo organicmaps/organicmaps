@@ -1076,6 +1076,9 @@
 /* E.g. "WiFi:No" */
 "no_available" = "Yok";
 
+/* To indicate the capacity of car parkings, bicycle parkings, electric vehicle charging stations... */
+"capacity" = "Kapasite: %@";
+
 "trip_finished" = "Vardınız!";
 
 "keyboard_availability_alert" = "Klavye sürüş sırasında kullanılamaz";

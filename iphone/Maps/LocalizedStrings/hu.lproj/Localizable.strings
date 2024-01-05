@@ -1076,6 +1076,9 @@
 /* E.g. "WiFi:No" */
 "no_available" = "Nem";
 
+/* To indicate the capacity of car parkings, bicycle parkings, electric vehicle charging stations... */
+"capacity" = "Kapacitás: %@";
+
 "trip_finished" = "Megérkeztél!";
 
 "keyboard_availability_alert" = "A billentyűzet nem elérhető vezetés közben";

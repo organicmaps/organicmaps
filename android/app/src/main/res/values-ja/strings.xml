@@ -636,6 +636,8 @@
 	<string name="yes_available">はい</string>
 	<!-- E.g. "WiFi:No" -->
 	<string name="no_available">いいえ</string>
+	<!-- To indicate the capacity of car parkings, bicycle parkings, electric vehicle charging stations... -->
+	<string name="capacity">定員：%s</string>
 	<string name="trip_finished">到着しました!</string>
 	<string name="ok">OK</string>
 	<!-- max. 10 symbols, both iOS and Android -->

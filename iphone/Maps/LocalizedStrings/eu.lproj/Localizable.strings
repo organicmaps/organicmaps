@@ -1076,6 +1076,9 @@
 /* E.g. "WiFi:No" */
 "no_available" = "Ez";
 
+/* To indicate the capacity of car parkings, bicycle parkings, electric vehicle charging stations... */
+"capacity" = "Edukiera: %@";
+
 "trip_finished" = "Iritsi zara!";
 
 "keyboard_availability_alert" = "Teklatua ez dago erabilgarri mugimenduan zehar";

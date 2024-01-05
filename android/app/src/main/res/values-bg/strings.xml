@@ -626,6 +626,8 @@
 	<string name="yes_available">Да</string>
 	<!-- E.g. "WiFi:No" -->
 	<string name="no_available">Не</string>
+	<!-- To indicate the capacity of car parkings, bicycle parkings, electric vehicle charging stations... -->
+	<string name="capacity">Капацитет: %s</string>
 	<string name="ok">Ок</string>
 	<!-- max. 10 symbols, both iOS and Android -->
 	<string name="sort">Сортиране…</string>

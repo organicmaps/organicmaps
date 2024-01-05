@@ -1076,6 +1076,9 @@
 /* E.g. "WiFi:No" */
 "no_available" = "Όχι";
 
+/* To indicate the capacity of car parkings, bicycle parkings, electric vehicle charging stations... */
+"capacity" = "Χωρητικότητα: %@";
+
 "trip_finished" = "Έχετε φτάσει!";
 
 "keyboard_availability_alert" = "Το πληκτρολόγιο δεν είναι διαθέσιμο κατά τη διάρκεια οδήγησης";

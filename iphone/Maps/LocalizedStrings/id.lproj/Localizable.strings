@@ -1076,6 +1076,9 @@
 /* E.g. "WiFi:No" */
 "no_available" = "Tidak";
 
+/* To indicate the capacity of car parkings, bicycle parkings, electric vehicle charging stations... */
+"capacity" = "Kapasitas: %@";
+
 "trip_finished" = "Anda telah tiba!";
 
 "keyboard_availability_alert" = "Papan ketik tidak tersedia saat berkendara";

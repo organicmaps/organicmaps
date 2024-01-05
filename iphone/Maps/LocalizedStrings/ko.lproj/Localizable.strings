@@ -1076,6 +1076,9 @@
 /* E.g. "WiFi:No" */
 "no_available" = "아니오";
 
+/* To indicate the capacity of car parkings, bicycle parkings, electric vehicle charging stations... */
+"capacity" = "수용 인원: %@";
+
 "trip_finished" = "도착했습니다!";
 
 "keyboard_availability_alert" = "운전 중에는 키보드를 사용할 수 없습니다";

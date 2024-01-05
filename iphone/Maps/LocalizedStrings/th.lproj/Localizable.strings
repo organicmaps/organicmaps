@@ -1076,6 +1076,9 @@
 /* E.g. "WiFi:No" */
 "no_available" = "ไม่ใช่";
 
+/* To indicate the capacity of car parkings, bicycle parkings, electric vehicle charging stations... */
+"capacity" = "ความจุ: %@";
+
 "trip_finished" = "คุณมาถึงแล้ว!";
 
 "keyboard_availability_alert" = "คีย์บอร์ดไม่สามารถใช้งานได้ขณะขับขี่";
