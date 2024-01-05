@@ -5258,6 +5258,73 @@ cont {
   }
 }
 cont {
+  name: "amenity-toilets"
+  element {
+    scale: 17
+    symbol {
+      name: "toilets-m"
+      priority: 200
+    }
+    caption {
+      primary {
+        height: 13
+        color: 4473924
+        offset_y: 1
+        is_optional: true
+      }
+      priority: -9800
+    }
+  }
+  element {
+    scale: 18
+    symbol {
+      name: "toilets-m"
+      priority: 200
+    }
+    caption {
+      primary {
+        height: 14
+        color: 4473924
+        offset_y: 1
+        is_optional: true
+      }
+      priority: -9800
+    }
+  }
+  element {
+    scale: 19
+    symbol {
+      name: "toilets-m"
+      priority: 200
+    }
+    caption {
+      primary {
+        height: 14
+        color: 4473924
+        offset_y: 1
+        is_optional: true
+      }
+      priority: -9800
+    }
+  }
+  element {
+    scale: 20
+    symbol {
+      name: "toilets-m"
+      priority: 200
+    }
+    caption {
+      primary {
+        height: 14
+        color: 4473924
+        offset_y: 1
+        is_optional: true
+      }
+      priority: -9800
+    }
+  }
+}
+cont {
   name: "amenity-university"
   element {
     scale: 15
@@ -5577,6 +5644,22 @@ cont {
 }
 cont {
   name: "barrier-border_control"
+  element {
+    scale: 14
+    symbol {
+      name: "bcontrol-m"
+      priority: 1950
+    }
+    caption {
+      primary {
+        height: 11
+        color: 4473924
+        offset_y: 1
+        is_optional: true
+      }
+      priority: -8050
+    }
+  }
   element {
     scale: 15
     symbol {
@@ -6015,7 +6098,7 @@ cont {
   element {
     scale: 12
     symbol {
-      name: "toll_booth-m"
+      name: "toll_booth-s"
       priority: 2850
       min_distance: 8
     }
@@ -9375,7 +9458,7 @@ cont {
   element {
     scale: 14
     symbol {
-      name: "dot-m"
+      name: "ford-m"
       priority: 4150
       min_distance: 20
     }
@@ -9383,7 +9466,7 @@ cont {
   element {
     scale: 15
     symbol {
-      name: "dot-m"
+      name: "ford-m"
       priority: 4150
       min_distance: 20
     }
@@ -9391,7 +9474,7 @@ cont {
   element {
     scale: 16
     symbol {
-      name: "dot-m"
+      name: "ford-m"
       priority: 4150
       min_distance: 20
     }
@@ -9399,7 +9482,7 @@ cont {
   element {
     scale: 17
     symbol {
-      name: "dot-m"
+      name: "ford-m"
       priority: 4150
       min_distance: 20
     }
@@ -9407,7 +9490,7 @@ cont {
   element {
     scale: 18
     symbol {
-      name: "dot-m"
+      name: "ford-m"
       priority: 4150
       min_distance: 20
     }
@@ -9415,7 +9498,7 @@ cont {
   element {
     scale: 19
     symbol {
-      name: "dot-m"
+      name: "ford-m"
       priority: 4150
       min_distance: 20
     }
@@ -9423,7 +9506,7 @@ cont {
   element {
     scale: 20
     symbol {
-      name: "dot-m"
+      name: "ford-m"
       priority: 4150
       min_distance: 20
     }
@@ -80214,6 +80297,64 @@ cont {
   }
 }
 cont {
+  name: "shop-convenience"
+  element {
+    scale: 17
+    symbol {
+      name: "convenience-m"
+      priority: 250
+    }
+  }
+  element {
+    scale: 18
+    symbol {
+      name: "convenience-m"
+      priority: 250
+    }
+    caption {
+      primary {
+        height: 14
+        color: 4473924
+        offset_y: 1
+        is_optional: true
+      }
+      priority: -9750
+    }
+  }
+  element {
+    scale: 19
+    symbol {
+      name: "convenience-m"
+      priority: 250
+    }
+    caption {
+      primary {
+        height: 14
+        color: 4473924
+        offset_y: 1
+        is_optional: true
+      }
+      priority: -9750
+    }
+  }
+  element {
+    scale: 20
+    symbol {
+      name: "convenience-m"
+      priority: 250
+    }
+    caption {
+      primary {
+        height: 14
+        color: 4473924
+        offset_y: 1
+        is_optional: true
+      }
+      priority: -9750
+    }
+  }
+}
+cont {
   name: "shop-mall"
   element {
     scale: 14
@@ -80492,62 +80633,10 @@ cont {
 cont {
   name: "tourism-artwork"
   element {
-    scale: 15
-    symbol {
-      name: "tourism-m"
-      priority: 1150
-      min_distance: 8
-    }
-    caption {
-      primary {
-        height: 10
-        color: 4473924
-        offset_y: 1
-        is_optional: true
-      }
-      priority: -8850
-    }
-  }
-  element {
-    scale: 16
-    symbol {
-      name: "tourism-m"
-      priority: 1150
-      min_distance: 28
-    }
-    caption {
-      primary {
-        height: 10
-        color: 4473924
-        offset_y: 1
-        is_optional: true
-      }
-      priority: -8850
-    }
-  }
-  element {
-    scale: 17
-    symbol {
-      name: "tourism-m"
-      priority: 1150
-      min_distance: 24
-    }
-    caption {
-      primary {
-        height: 10
-        color: 4473924
-        offset_y: 1
-        is_optional: true
-      }
-      priority: -8850
-    }
-  }
-  element {
     scale: 18
     symbol {
       name: "tourism-m"
       priority: 1150
-      min_distance: 24
     }
     caption {
       primary {
@@ -80564,7 +80653,6 @@ cont {
     symbol {
       name: "tourism-m"
       priority: 1150
-      min_distance: 24
     }
     caption {
       primary {
@@ -80581,7 +80669,6 @@ cont {
     symbol {
       name: "tourism-m"
       priority: 1150
-      min_distance: 24
     }
     caption {
       primary {
@@ -80597,62 +80684,10 @@ cont {
 cont {
   name: "tourism-artwork-architecture"
   element {
-    scale: 15
-    symbol {
-      name: "tourism-m"
-      priority: 1150
-      min_distance: 8
-    }
-    caption {
-      primary {
-        height: 10
-        color: 4473924
-        offset_y: 1
-        is_optional: true
-      }
-      priority: -8850
-    }
-  }
-  element {
-    scale: 16
-    symbol {
-      name: "tourism-m"
-      priority: 1150
-      min_distance: 28
-    }
-    caption {
-      primary {
-        height: 10
-        color: 4473924
-        offset_y: 1
-        is_optional: true
-      }
-      priority: -8850
-    }
-  }
-  element {
-    scale: 17
-    symbol {
-      name: "tourism-m"
-      priority: 1150
-      min_distance: 24
-    }
-    caption {
-      primary {
-        height: 10
-        color: 4473924
-        offset_y: 1
-        is_optional: true
-      }
-      priority: -8850
-    }
-  }
-  element {
     scale: 18
     symbol {
       name: "tourism-m"
       priority: 1150
-      min_distance: 24
     }
     caption {
       primary {
@@ -80669,7 +80704,6 @@ cont {
     symbol {
       name: "tourism-m"
       priority: 1150
-      min_distance: 24
     }
     caption {
       primary {
@@ -80686,7 +80720,6 @@ cont {
     symbol {
       name: "tourism-m"
       priority: 1150
-      min_distance: 24
     }
     caption {
       primary {
@@ -80702,62 +80735,10 @@ cont {
 cont {
   name: "tourism-artwork-painting"
   element {
-    scale: 15
-    symbol {
-      name: "tourism-m"
-      priority: 1150
-      min_distance: 8
-    }
-    caption {
-      primary {
-        height: 10
-        color: 4473924
-        offset_y: 1
-        is_optional: true
-      }
-      priority: -8850
-    }
-  }
-  element {
-    scale: 16
-    symbol {
-      name: "tourism-m"
-      priority: 1150
-      min_distance: 28
-    }
-    caption {
-      primary {
-        height: 10
-        color: 4473924
-        offset_y: 1
-        is_optional: true
-      }
-      priority: -8850
-    }
-  }
-  element {
-    scale: 17
-    symbol {
-      name: "tourism-m"
-      priority: 1150
-      min_distance: 24
-    }
-    caption {
-      primary {
-        height: 10
-        color: 4473924
-        offset_y: 1
-        is_optional: true
-      }
-      priority: -8850
-    }
-  }
-  element {
     scale: 18
     symbol {
       name: "tourism-m"
       priority: 1150
-      min_distance: 24
     }
     caption {
       primary {
@@ -80774,7 +80755,6 @@ cont {
     symbol {
       name: "tourism-m"
       priority: 1150
-      min_distance: 24
     }
     caption {
       primary {
@@ -80791,7 +80771,6 @@ cont {
     symbol {
       name: "tourism-m"
       priority: 1150
-      min_distance: 24
     }
     caption {
       primary {
@@ -80807,62 +80786,10 @@ cont {
 cont {
   name: "tourism-artwork-sculpture"
   element {
-    scale: 15
-    symbol {
-      name: "tourism-m"
-      priority: 1150
-      min_distance: 8
-    }
-    caption {
-      primary {
-        height: 10
-        color: 4473924
-        offset_y: 1
-        is_optional: true
-      }
-      priority: -8850
-    }
-  }
-  element {
-    scale: 16
-    symbol {
-      name: "tourism-m"
-      priority: 1150
-      min_distance: 28
-    }
-    caption {
-      primary {
-        height: 10
-        color: 4473924
-        offset_y: 1
-        is_optional: true
-      }
-      priority: -8850
-    }
-  }
-  element {
-    scale: 17
-    symbol {
-      name: "tourism-m"
-      priority: 1150
-      min_distance: 24
-    }
-    caption {
-      primary {
-        height: 10
-        color: 4473924
-        offset_y: 1
-        is_optional: true
-      }
-      priority: -8850
-    }
-  }
-  element {
     scale: 18
     symbol {
       name: "tourism-m"
       priority: 1150
-      min_distance: 24
     }
     caption {
       primary {
@@ -80879,7 +80806,6 @@ cont {
     symbol {
       name: "tourism-m"
       priority: 1150
-      min_distance: 24
     }
     caption {
       primary {
@@ -80896,7 +80822,6 @@ cont {
     symbol {
       name: "tourism-m"
       priority: 1150
-      min_distance: 24
     }
     caption {
       primary {
@@ -80912,62 +80837,10 @@ cont {
 cont {
   name: "tourism-artwork-statue"
   element {
-    scale: 15
-    symbol {
-      name: "tourism-m"
-      priority: 1150
-      min_distance: 8
-    }
-    caption {
-      primary {
-        height: 10
-        color: 4473924
-        offset_y: 1
-        is_optional: true
-      }
-      priority: -8850
-    }
-  }
-  element {
-    scale: 16
-    symbol {
-      name: "tourism-m"
-      priority: 1150
-      min_distance: 28
-    }
-    caption {
-      primary {
-        height: 10
-        color: 4473924
-        offset_y: 1
-        is_optional: true
-      }
-      priority: -8850
-    }
-  }
-  element {
-    scale: 17
-    symbol {
-      name: "tourism-m"
-      priority: 1150
-      min_distance: 24
-    }
-    caption {
-      primary {
-        height: 10
-        color: 4473924
-        offset_y: 1
-        is_optional: true
-      }
-      priority: -8850
-    }
-  }
-  element {
     scale: 18
     symbol {
       name: "tourism-m"
       priority: 1150
-      min_distance: 24
     }
     caption {
       primary {
@@ -80984,7 +80857,6 @@ cont {
     symbol {
       name: "tourism-m"
       priority: 1150
-      min_distance: 24
     }
     caption {
       primary {
@@ -81001,7 +80873,6 @@ cont {
     symbol {
       name: "tourism-m"
       priority: 1150
-      min_distance: 24
     }
     caption {
       primary {

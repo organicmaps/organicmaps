@@ -423,7 +423,7 @@ railway-station-subway-yerevan                      # icon z13- (also has captio
 railway-station-subway-yokohama                     # icon z13- (also has caption(optional) z15-)
 === 2000
 
-barrier-border_control                              # icon z15- (also has caption(optional) z15-)
+barrier-border_control                              # icon z14- (also has caption(optional) z14-)
 historic-city_gate                                  # icon z13- (also has caption(optional) z15-)
 historic-monument                                   # icon z13- (also has caption(optional) z15-)
 === 1950
@@ -488,11 +488,11 @@ tourism-attraction-specified                        # icon z15- (also has captio
 === 1200
 
 amenity-community_centre                            # icon z16- (also has caption(optional) z16-)
-tourism-artwork                                     # icon z15- (also has caption(optional) z15-)
-tourism-artwork-architecture                        # icon z15- (also has caption(optional) z15-)
-tourism-artwork-painting                            # icon z15- (also has caption(optional) z15-)
-tourism-artwork-sculpture                           # icon z15- (also has caption(optional) z15-)
-tourism-artwork-statue                              # icon z15- (also has caption(optional) z15-)
+tourism-artwork                                     # icon z18- (also has caption(optional) z18-)
+tourism-artwork-architecture                        # icon z18- (also has caption(optional) z18-)
+tourism-artwork-painting                            # icon z18- (also has caption(optional) z18-)
+tourism-artwork-sculpture                           # icon z18- (also has caption(optional) z18-)
+tourism-artwork-statue                              # icon z18- (also has caption(optional) z18-)
 === 1150
 
 amenity-cafe                                        # icon z15- (also has caption(optional) z15-)
@@ -699,14 +699,14 @@ historic-ruins                                      # icon z17- (also has captio
 === 300
 
 amenity-fast_food                                   # icon z17- (also has caption(optional) z17-)
-shop-convenience
+shop-convenience                                    # icon z17- (also has caption(optional) z18-)
 === 250
 
-amenity-toilets
 amenity-bank                                        # icon z17- (also has caption(optional) z17-)
 amenity-parcel_locker                               # icon z17- (also has caption(optional) z17-)
 amenity-police                                      # icon z17-
 amenity-post_office                                 # icon z17- (also has caption(optional) z17-)
+amenity-toilets                                     # icon z17- (also has caption(optional) z17-)
 shop-motorcycle                                     # icon z17-
 === 200
 
@@ -945,7 +945,7 @@ entrance-main                                       # icon z18- (also has captio
 # railway-station-subway-yokohama                   # caption(optional) z15- (also has icon z13-)
 # === -8000
 
-# barrier-border_control                            # caption(optional) z15- (also has icon z15-)
+# barrier-border_control                            # caption(optional) z14- (also has icon z14-)
 # historic-city_gate                                # caption(optional) z15- (also has icon z13-)
 # historic-monument                                 # caption(optional) z15- (also has icon z13-)
 # === -8050
@@ -986,11 +986,11 @@ entrance-main                                       # icon z18- (also has captio
 # === -8800
 
 # amenity-community_centre                          # caption(optional) z16- (also has icon z16-)
-# tourism-artwork                                   # caption(optional) z15- (also has icon z15-)
-# tourism-artwork-architecture                      # caption(optional) z15- (also has icon z15-)
-# tourism-artwork-painting                          # caption(optional) z15- (also has icon z15-)
-# tourism-artwork-sculpture                         # caption(optional) z15- (also has icon z15-)
-# tourism-artwork-statue                            # caption(optional) z15- (also has icon z15-)
+# tourism-artwork                                   # caption(optional) z18- (also has icon z18-)
+# tourism-artwork-architecture                      # caption(optional) z18- (also has icon z18-)
+# tourism-artwork-painting                          # caption(optional) z18- (also has icon z18-)
+# tourism-artwork-sculpture                         # caption(optional) z18- (also has icon z18-)
+# tourism-artwork-statue                            # caption(optional) z18- (also has icon z18-)
 # === -8850
 
 # amenity-cafe                                      # caption(optional) z15- (also has icon z15-)
@@ -1169,11 +1169,13 @@ entrance-main                                       # icon z18- (also has captio
 # === -9700
 
 # amenity-fast_food                                 # caption(optional) z17- (also has icon z17-)
+# shop-convenience                                  # caption(optional) z18- (also has icon z17-)
 # === -9750
 
 # amenity-bank                                      # caption(optional) z17- (also has icon z17-)
 # amenity-parcel_locker                             # caption(optional) z17- (also has icon z17-)
 # amenity-post_office                               # caption(optional) z17- (also has icon z17-)
+# amenity-toilets                                   # caption(optional) z17- (also has icon z17-)
 # === -9800
 
 # leisure-park-no-access                            # caption(optional) z14- (also has icon z14-, area z10-)

@@ -5523,19 +5523,10 @@ cont {
 cont {
   name: "amenity-drinking_water"
   element {
-    scale: 15
-    symbol {
-      name: "drinking-water-s"
-      priority: 3500
-      min_distance: 36
-    }
-  }
-  element {
     scale: 16
     symbol {
       name: "drinking-water-s"
       priority: 3500
-      min_distance: 36
     }
   }
   element {
@@ -5543,7 +5534,6 @@ cont {
     symbol {
       name: "drinking-water-s"
       priority: 3500
-      min_distance: 36
     }
   }
   element {
@@ -5551,7 +5541,6 @@ cont {
     symbol {
       name: "drinking-water-s"
       priority: 3500
-      min_distance: 36
     }
   }
   element {
@@ -5559,7 +5548,6 @@ cont {
     symbol {
       name: "drinking-water-m"
       priority: 3500
-      min_distance: 36
     }
     caption {
       primary {
@@ -5576,7 +5564,6 @@ cont {
     symbol {
       name: "drinking-water-m"
       priority: 3500
-      min_distance: 36
     }
     caption {
       primary {
@@ -6913,6 +6900,15 @@ cont {
       priority: 2550
       min_distance: 24
     }
+    caption {
+      primary {
+        height: 10
+        color: 5592405
+        offset_y: 1
+        is_optional: true
+      }
+      priority: -7450
+    }
   }
   element {
     scale: 18
@@ -6920,6 +6916,15 @@ cont {
       name: "ice_cream-m"
       priority: 2550
       min_distance: 24
+    }
+    caption {
+      primary {
+        height: 10
+        color: 5592405
+        offset_y: 1
+        is_optional: true
+      }
+      priority: -7450
     }
   }
   element {
@@ -13638,19 +13643,10 @@ cont {
 cont {
   name: "amenity-water_point"
   element {
-    scale: 15
-    symbol {
-      name: "drinking-water-s"
-      priority: 3050
-      min_distance: 36
-    }
-  }
-  element {
     scale: 16
     symbol {
       name: "drinking-water-s"
       priority: 3050
-      min_distance: 36
     }
   }
   element {
@@ -13658,7 +13654,6 @@ cont {
     symbol {
       name: "drinking-water-s"
       priority: 3050
-      min_distance: 36
     }
   }
   element {
@@ -13666,7 +13661,6 @@ cont {
     symbol {
       name: "drinking-water-s"
       priority: 3050
-      min_distance: 36
     }
   }
   element {
@@ -13674,7 +13668,6 @@ cont {
     symbol {
       name: "drinking-water-m"
       priority: 3050
-      min_distance: 36
     }
     caption {
       primary {
@@ -13691,7 +13684,6 @@ cont {
     symbol {
       name: "drinking-water-m"
       priority: 3050
-      min_distance: 36
     }
     caption {
       primary {
@@ -14112,6 +14104,22 @@ cont {
 }
 cont {
   name: "barrier-border_control"
+  element {
+    scale: 14
+    symbol {
+      name: "bcontrol-s"
+      priority: 5800
+    }
+    caption {
+      primary {
+        height: 10
+        color: 5592405
+        offset_y: 1
+        is_optional: true
+      }
+      priority: -4200
+    }
+  }
   element {
     scale: 15
     symbol {
@@ -14534,7 +14542,7 @@ cont {
   element {
     scale: 16
     symbol {
-      name: "gate-s"
+      name: "barrier-entrance-s"
       priority: 220
     }
     caption {
@@ -14550,7 +14558,7 @@ cont {
   element {
     scale: 17
     symbol {
-      name: "gate-s"
+      name: "barrier-entrance-s"
       priority: 220
     }
     caption {
@@ -14566,7 +14574,7 @@ cont {
   element {
     scale: 18
     symbol {
-      name: "gate-s"
+      name: "barrier-entrance-s"
       priority: 220
     }
     caption {
@@ -14582,7 +14590,7 @@ cont {
   element {
     scale: 19
     symbol {
-      name: "gate-s"
+      name: "barrier-entrance-s"
       priority: 220
     }
     caption {
@@ -14598,7 +14606,7 @@ cont {
   element {
     scale: 20
     symbol {
-      name: "gate-s"
+      name: "barrier-entrance-s"
       priority: 220
     }
     caption {
@@ -15203,7 +15211,6 @@ cont {
     symbol {
       name: "toll_booth-s"
       priority: 6600
-      min_distance: 8
     }
   }
   element {
@@ -15211,7 +15218,6 @@ cont {
     symbol {
       name: "toll_booth-s"
       priority: 6600
-      min_distance: 8
     }
   }
   element {
@@ -15219,7 +15225,6 @@ cont {
     symbol {
       name: "toll_booth-s"
       priority: 6600
-      min_distance: 8
     }
     caption {
       primary {
@@ -15236,7 +15241,6 @@ cont {
     symbol {
       name: "toll_booth-m"
       priority: 6600
-      min_distance: 8
     }
     caption {
       primary {
@@ -15253,7 +15257,6 @@ cont {
     symbol {
       name: "toll_booth-m"
       priority: 6600
-      min_distance: 8
     }
     caption {
       primary {
@@ -15270,7 +15273,6 @@ cont {
     symbol {
       name: "toll_booth-m"
       priority: 6600
-      min_distance: 8
     }
     caption {
       primary {
@@ -15287,7 +15289,6 @@ cont {
     symbol {
       name: "toll_booth-m"
       priority: 6600
-      min_distance: 8
     }
     caption {
       primary {
@@ -15304,7 +15305,6 @@ cont {
     symbol {
       name: "toll_booth-m"
       priority: 6600
-      min_distance: 8
     }
     caption {
       primary {
@@ -15321,7 +15321,6 @@ cont {
     symbol {
       name: "toll_booth-m"
       priority: 6600
-      min_distance: 8
     }
     caption {
       primary {
@@ -23529,7 +23528,7 @@ cont {
       priority: 200
     }
     symbol {
-      name: "dot-m"
+      name: "ford-m"
       priority: 2850
     }
     path_text {
@@ -23553,7 +23552,7 @@ cont {
       priority: 200
     }
     symbol {
-      name: "dot-m"
+      name: "ford-m"
       priority: 2850
     }
     path_text {
@@ -23577,7 +23576,7 @@ cont {
       priority: 200
     }
     symbol {
-      name: "dot-m"
+      name: "ford-m"
       priority: 2850
     }
     path_text {
@@ -23601,7 +23600,7 @@ cont {
       priority: 200
     }
     symbol {
-      name: "dot-m"
+      name: "ford-m"
       priority: 2850
     }
     path_text {
@@ -23625,7 +23624,7 @@ cont {
       priority: 200
     }
     symbol {
-      name: "dot-m"
+      name: "ford-m"
       priority: 2850
     }
     path_text {
@@ -50364,12 +50363,22 @@ cont {
       color: 1251584
       priority: -1860
     }
+    symbol {
+      name: "golf-m"
+      priority: 1800
+      min_distance: 10
+    }
   }
   element {
     scale: 16
     area {
       color: 1251584
       priority: -1860
+    }
+    symbol {
+      name: "golf-m"
+      priority: 1800
+      min_distance: 10
     }
   }
   element {
@@ -54197,38 +54206,6 @@ cont {
 cont {
   name: "man_made-survey_point"
   element {
-    scale: 16
-    symbol {
-      name: "survey_point-m"
-      priority: -9950
-    }
-    caption {
-      primary {
-        height: 11
-        color: 5592405
-        offset_y: 1
-        is_optional: true
-      }
-      priority: -10000
-    }
-  }
-  element {
-    scale: 17
-    symbol {
-      name: "survey_point-m"
-      priority: -9950
-    }
-    caption {
-      primary {
-        height: 11
-        color: 5592405
-        offset_y: 1
-        is_optional: true
-      }
-      priority: -10000
-    }
-  }
-  element {
     scale: 18
     symbol {
       name: "survey_point-m"
@@ -54311,19 +54288,10 @@ cont {
 cont {
   name: "man_made-water_tap"
   element {
-    scale: 15
-    symbol {
-      name: "drinking-water-s"
-      priority: 3050
-      min_distance: 36
-    }
-  }
-  element {
     scale: 16
     symbol {
       name: "drinking-water-s"
       priority: 3050
-      min_distance: 36
     }
   }
   element {
@@ -54331,7 +54299,6 @@ cont {
     symbol {
       name: "drinking-water-s"
       priority: 3050
-      min_distance: 36
     }
   }
   element {
@@ -54339,7 +54306,6 @@ cont {
     symbol {
       name: "drinking-water-s"
       priority: 3050
-      min_distance: 36
     }
   }
   element {
@@ -54347,7 +54313,6 @@ cont {
     symbol {
       name: "drinking-water-m"
       priority: 3050
-      min_distance: 36
     }
   }
   element {
@@ -54355,26 +54320,16 @@ cont {
     symbol {
       name: "drinking-water-m"
       priority: 3050
-      min_distance: 36
     }
   }
 }
 cont {
   name: "man_made-water_well"
   element {
-    scale: 15
-    symbol {
-      name: "drinking-water-s"
-      priority: 3050
-      min_distance: 36
-    }
-  }
-  element {
     scale: 16
     symbol {
       name: "drinking-water-s"
       priority: 3050
-      min_distance: 36
     }
   }
   element {
@@ -54382,7 +54337,6 @@ cont {
     symbol {
       name: "drinking-water-s"
       priority: 3050
-      min_distance: 36
     }
   }
   element {
@@ -54390,7 +54344,6 @@ cont {
     symbol {
       name: "drinking-water-s"
       priority: 3050
-      min_distance: 36
     }
   }
   element {
@@ -54398,7 +54351,6 @@ cont {
     symbol {
       name: "drinking-water-m"
       priority: 3050
-      min_distance: 36
     }
   }
   element {
@@ -54406,7 +54358,6 @@ cont {
     symbol {
       name: "drinking-water-m"
       priority: 3050
-      min_distance: 36
     }
   }
 }
@@ -54577,7 +54528,7 @@ cont {
   element {
     scale: 14
     symbol {
-      name: "mountain-pass"
+      name: "mountain-pass-s"
       priority: 5050
     }
     caption {
@@ -54593,7 +54544,7 @@ cont {
   element {
     scale: 15
     symbol {
-      name: "mountain-pass"
+      name: "mountain-pass-m"
       priority: 5050
     }
     caption {
@@ -54609,7 +54560,7 @@ cont {
   element {
     scale: 16
     symbol {
-      name: "mountain-pass"
+      name: "mountain-pass-m"
       priority: 5050
     }
     caption {
@@ -54625,7 +54576,7 @@ cont {
   element {
     scale: 17
     symbol {
-      name: "mountain-pass"
+      name: "mountain-pass-m"
       priority: 5050
     }
     caption {
@@ -54641,7 +54592,7 @@ cont {
   element {
     scale: 18
     symbol {
-      name: "mountain-pass"
+      name: "mountain-pass-m"
       priority: 5050
     }
     caption {
@@ -54657,7 +54608,7 @@ cont {
   element {
     scale: 19
     symbol {
-      name: "mountain-pass"
+      name: "mountain-pass-m"
       priority: 5050
     }
     caption {
@@ -54673,7 +54624,7 @@ cont {
   element {
     scale: 20
     symbol {
-      name: "mountain-pass"
+      name: "mountain-pass-m"
       priority: 5050
     }
     caption {
@@ -56857,44 +56808,37 @@ cont {
 cont {
   name: "natural-rock"
   element {
-    scale: 15
-    symbol {
-      name: "peakt-m"
-      priority: 2850
-    }
-  }
-  element {
     scale: 16
     symbol {
-      name: "peakt-m"
+      name: "peakt-s"
       priority: 2850
     }
   }
   element {
     scale: 17
     symbol {
-      name: "peakt-m"
+      name: "peakt-s"
       priority: 2850
     }
   }
   element {
     scale: 18
     symbol {
-      name: "peakt-m"
+      name: "peakt-s"
       priority: 2850
     }
   }
   element {
     scale: 19
     symbol {
-      name: "peakt-m"
+      name: "peakt-s"
       priority: 2850
     }
   }
   element {
     scale: 20
     symbol {
-      name: "peakt-m"
+      name: "peakt-s"
       priority: 2850
     }
   }
@@ -56902,41 +56846,16 @@ cont {
 cont {
   name: "natural-saddle"
   element {
-    scale: 14
-    symbol {
-      name: "mountain-pass"
-      priority: 4500
-    }
-    caption {
-      primary {
-        height: 10
-        color: 5592405
-        offset_y: 1
-        is_optional: true
-      }
-      priority: -5500
-    }
-  }
-  element {
     scale: 15
     symbol {
-      name: "mountain-pass"
+      name: "mountain-pass-m"
       priority: 4500
-    }
-    caption {
-      primary {
-        height: 10
-        color: 5592405
-        offset_y: 1
-        is_optional: true
-      }
-      priority: -5500
     }
   }
   element {
     scale: 16
     symbol {
-      name: "mountain-pass"
+      name: "mountain-pass-m"
       priority: 4500
     }
     caption {
@@ -56952,7 +56871,7 @@ cont {
   element {
     scale: 17
     symbol {
-      name: "mountain-pass"
+      name: "mountain-pass-m"
       priority: 4500
     }
     caption {
@@ -56968,7 +56887,7 @@ cont {
   element {
     scale: 18
     symbol {
-      name: "mountain-pass"
+      name: "mountain-pass-m"
       priority: 4500
     }
     caption {
@@ -56984,7 +56903,7 @@ cont {
   element {
     scale: 19
     symbol {
-      name: "mountain-pass"
+      name: "mountain-pass-m"
       priority: 4500
     }
     caption {
@@ -57000,7 +56919,7 @@ cont {
   element {
     scale: 20
     symbol {
-      name: "mountain-pass"
+      name: "mountain-pass-m"
       priority: 4500
     }
     caption {
