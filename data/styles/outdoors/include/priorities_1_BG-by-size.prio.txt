@@ -63,7 +63,7 @@ leisure-track-area                                  # area z15- (also has captio
 aeroway-terminal                                    # area z14- (also has caption z15-)
 === 150
 
-leisure-golf_course                                 # area z12- (also has icon z17-, caption(optional) z17-)
+leisure-golf_course                                 # area z12- (also has icon z15-, caption(optional) z17-)
 === 140
 
 landuse-flowerbed                                   # area z16-

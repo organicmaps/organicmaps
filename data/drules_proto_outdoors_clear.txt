@@ -3415,6 +3415,38 @@ cont {
 cont {
   name: "amenity-bbq"
   element {
+    scale: 16
+    symbol {
+      name: "bbq-m"
+      priority: 450
+    }
+    caption {
+      primary {
+        height: 11
+        color: 4473924
+        offset_y: 1
+        is_optional: true
+      }
+      priority: -9550
+    }
+  }
+  element {
+    scale: 17
+    symbol {
+      name: "bbq-m"
+      priority: 450
+    }
+    caption {
+      primary {
+        height: 11
+        color: 4473924
+        offset_y: 1
+        is_optional: true
+      }
+      priority: -9550
+    }
+  }
+  element {
     scale: 18
     symbol {
       name: "bbq-m"
@@ -5557,7 +5589,6 @@ cont {
     symbol {
       name: "drinking-water-m"
       priority: 3500
-      min_distance: 36
     }
     caption {
       primary {
@@ -5574,7 +5605,6 @@ cont {
     symbol {
       name: "drinking-water-m"
       priority: 3500
-      min_distance: 36
     }
     caption {
       primary {
@@ -5591,7 +5621,6 @@ cont {
     symbol {
       name: "drinking-water-m"
       priority: 3500
-      min_distance: 36
     }
     caption {
       primary {
@@ -5608,7 +5637,6 @@ cont {
     symbol {
       name: "drinking-water-m"
       priority: 3500
-      min_distance: 36
     }
     caption {
       primary {
@@ -5625,7 +5653,6 @@ cont {
     symbol {
       name: "drinking-water-m"
       priority: 3500
-      min_distance: 36
     }
     caption {
       primary {
@@ -5642,7 +5669,6 @@ cont {
     symbol {
       name: "drinking-water-m"
       priority: 3500
-      min_distance: 36
     }
     caption {
       primary {
@@ -6979,6 +7005,15 @@ cont {
       priority: 2550
       min_distance: 24
     }
+    caption {
+      primary {
+        height: 10
+        color: 4473924
+        offset_y: 1
+        is_optional: true
+      }
+      priority: -7450
+    }
   }
   element {
     scale: 18
@@ -6986,6 +7021,15 @@ cont {
       name: "ice_cream-m"
       priority: 2550
       min_distance: 24
+    }
+    caption {
+      primary {
+        height: 10
+        color: 4473924
+        offset_y: 1
+        is_optional: true
+      }
+      priority: -7450
     }
   }
   element {
@@ -11949,7 +11993,7 @@ cont {
   element {
     scale: 13
     symbol {
-      name: "shelter-m"
+      name: "shelter-s"
       priority: 1500
       min_distance: 10
     }
@@ -12457,6 +12501,27 @@ cont {
 }
 cont {
   name: "amenity-toilets"
+  element {
+    scale: 15
+    symbol {
+      name: "toilets-m"
+      priority: 470
+    }
+  }
+  element {
+    scale: 16
+    symbol {
+      name: "toilets-m"
+      priority: 470
+    }
+  }
+  element {
+    scale: 17
+    symbol {
+      name: "toilets-m"
+      priority: 470
+    }
+  }
   element {
     scale: 18
     symbol {
@@ -13784,7 +13849,6 @@ cont {
     symbol {
       name: "drinking-water-m"
       priority: 3050
-      min_distance: 36
     }
     caption {
       primary {
@@ -13801,7 +13865,6 @@ cont {
     symbol {
       name: "drinking-water-m"
       priority: 3050
-      min_distance: 36
     }
     caption {
       primary {
@@ -13818,7 +13881,6 @@ cont {
     symbol {
       name: "drinking-water-m"
       priority: 3050
-      min_distance: 36
     }
     caption {
       primary {
@@ -13835,7 +13897,6 @@ cont {
     symbol {
       name: "drinking-water-m"
       priority: 3050
-      min_distance: 36
     }
     caption {
       primary {
@@ -13852,7 +13913,6 @@ cont {
     symbol {
       name: "drinking-water-m"
       priority: 3050
-      min_distance: 36
     }
     caption {
       primary {
@@ -13869,7 +13929,6 @@ cont {
     symbol {
       name: "drinking-water-m"
       priority: 3050
-      min_distance: 36
     }
     caption {
       primary {
@@ -14291,10 +14350,33 @@ cont {
 cont {
   name: "barrier-border_control"
   element {
+    scale: 12
+    symbol {
+      name: "bcontrol-s"
+      priority: 5800
+    }
+  }
+  element {
+    scale: 13
+    symbol {
+      name: "bcontrol-s"
+      priority: 5800
+    }
+  }
+  element {
     scale: 14
     symbol {
       name: "bcontrol-m"
       priority: 5800
+    }
+    caption {
+      primary {
+        height: 10
+        color: 4473924
+        offset_y: 1
+        is_optional: true
+      }
+      priority: -4200
     }
   }
   element {
@@ -14732,7 +14814,7 @@ cont {
   element {
     scale: 16
     symbol {
-      name: "gate-s"
+      name: "barrier-entrance-s"
       priority: 220
     }
     caption {
@@ -14748,7 +14830,7 @@ cont {
   element {
     scale: 17
     symbol {
-      name: "gate-s"
+      name: "barrier-entrance-s"
       priority: 220
     }
     caption {
@@ -14764,7 +14846,7 @@ cont {
   element {
     scale: 18
     symbol {
-      name: "gate-s"
+      name: "barrier-entrance-s"
       priority: 220
     }
     caption {
@@ -14780,7 +14862,7 @@ cont {
   element {
     scale: 19
     symbol {
-      name: "gate-s"
+      name: "barrier-entrance-s"
       priority: 220
     }
     caption {
@@ -14796,7 +14878,7 @@ cont {
   element {
     scale: 20
     symbol {
-      name: "gate-s"
+      name: "barrier-entrance-s"
       priority: 220
     }
     caption {
@@ -15410,7 +15492,6 @@ cont {
     symbol {
       name: "toll_booth-s"
       priority: 6600
-      min_distance: 8
     }
   }
   element {
@@ -15418,7 +15499,6 @@ cont {
     symbol {
       name: "toll_booth-s"
       priority: 6600
-      min_distance: 8
     }
   }
   element {
@@ -15426,7 +15506,6 @@ cont {
     symbol {
       name: "toll_booth-s"
       priority: 6600
-      min_distance: 8
     }
     caption {
       primary {
@@ -15443,7 +15522,6 @@ cont {
     symbol {
       name: "toll_booth-m"
       priority: 6600
-      min_distance: 8
     }
     caption {
       primary {
@@ -15460,7 +15538,6 @@ cont {
     symbol {
       name: "toll_booth-m"
       priority: 6600
-      min_distance: 8
     }
     caption {
       primary {
@@ -15477,7 +15554,6 @@ cont {
     symbol {
       name: "toll_booth-m"
       priority: 6600
-      min_distance: 8
     }
     caption {
       primary {
@@ -15494,7 +15570,6 @@ cont {
     symbol {
       name: "toll_booth-m"
       priority: 6600
-      min_distance: 8
     }
     caption {
       primary {
@@ -15511,7 +15586,6 @@ cont {
     symbol {
       name: "toll_booth-m"
       priority: 6600
-      min_distance: 8
     }
     caption {
       primary {
@@ -15528,7 +15602,6 @@ cont {
     symbol {
       name: "toll_booth-m"
       priority: 6600
-      min_distance: 8
     }
     caption {
       primary {
@@ -24784,7 +24857,7 @@ cont {
       cap: BUTTCAP
     }
     symbol {
-      name: "dot-m"
+      name: "ford-m"
       priority: 2850
     }
   }
@@ -24801,7 +24874,7 @@ cont {
       cap: BUTTCAP
     }
     symbol {
-      name: "dot-m"
+      name: "ford-m"
       priority: 2850
     }
   }
@@ -24817,7 +24890,7 @@ cont {
       priority: 200
     }
     symbol {
-      name: "dot-m"
+      name: "ford-m"
       priority: 2850
     }
     path_text {
@@ -24841,7 +24914,7 @@ cont {
       priority: 200
     }
     symbol {
-      name: "dot-m"
+      name: "ford-m"
       priority: 2850
     }
     path_text {
@@ -24865,7 +24938,7 @@ cont {
       priority: 200
     }
     symbol {
-      name: "dot-m"
+      name: "ford-m"
       priority: 2850
     }
     path_text {
@@ -24889,7 +24962,7 @@ cont {
       priority: 200
     }
     symbol {
-      name: "dot-m"
+      name: "ford-m"
       priority: 2850
     }
     path_text {
@@ -24913,7 +24986,7 @@ cont {
       priority: 200
     }
     symbol {
-      name: "dot-m"
+      name: "ford-m"
       priority: 2850
     }
     path_text {
@@ -33252,6 +33325,13 @@ cont {
 }
 cont {
   name: "highway-rest_area"
+  element {
+    scale: 14
+    symbol {
+      name: "picnic-m"
+      priority: 3800
+    }
+  }
   element {
     scale: 15
     symbol {
@@ -52937,12 +53017,22 @@ cont {
       color: 13029267
       priority: -1860
     }
+    symbol {
+      name: "golf-m"
+      priority: 1800
+      min_distance: 10
+    }
   }
   element {
     scale: 16
     area {
       color: 13029267
       priority: -1860
+    }
+    symbol {
+      name: "golf-m"
+      priority: 1800
+      min_distance: 10
     }
   }
   element {
@@ -56391,49 +56481,49 @@ cont {
   element {
     scale: 14
     symbol {
-      name: "dot-m"
+      name: "mast-m"
       priority: 850
     }
   }
   element {
     scale: 15
     symbol {
-      name: "dot-m"
+      name: "mast-m"
       priority: 850
     }
   }
   element {
     scale: 16
     symbol {
-      name: "dot-m"
+      name: "mast-m"
       priority: 850
     }
   }
   element {
     scale: 17
     symbol {
-      name: "dot-m"
+      name: "mast-m"
       priority: 850
     }
   }
   element {
     scale: 18
     symbol {
-      name: "dot-m"
+      name: "mast-m"
       priority: 850
     }
   }
   element {
     scale: 19
     symbol {
-      name: "dot-m"
+      name: "mast-m"
       priority: 850
     }
   }
   element {
     scale: 20
     symbol {
-      name: "dot-m"
+      name: "mast-m"
       priority: 850
     }
   }
@@ -56589,49 +56679,49 @@ cont {
   element {
     scale: 14
     symbol {
-      name: "dot-m"
+      name: "mast-m"
       priority: 450
     }
   }
   element {
     scale: 15
     symbol {
-      name: "dot-m"
+      name: "mast-m"
       priority: 450
     }
   }
   element {
     scale: 16
     symbol {
-      name: "dot-m"
+      name: "mast-m"
       priority: 450
     }
   }
   element {
     scale: 17
     symbol {
-      name: "dot-m"
+      name: "mast-m"
       priority: 450
     }
   }
   element {
     scale: 18
     symbol {
-      name: "dot-m"
+      name: "mast-m"
       priority: 450
     }
   }
   element {
     scale: 19
     symbol {
-      name: "dot-m"
+      name: "mast-m"
       priority: 450
     }
   }
   element {
     scale: 20
     symbol {
-      name: "dot-m"
+      name: "mast-m"
       priority: 450
     }
   }
@@ -56900,7 +56990,14 @@ cont {
 cont {
   name: "man_made-survey_point"
   element {
-    scale: 16
+    scale: 14
+    symbol {
+      name: "survey_point-m"
+      priority: -9950
+    }
+  }
+  element {
+    scale: 15
     symbol {
       name: "survey_point-m"
       priority: -9950
@@ -56908,6 +57005,22 @@ cont {
     caption {
       primary {
         height: 11
+        color: 4473924
+        offset_y: 1
+        is_optional: true
+      }
+      priority: -10000
+    }
+  }
+  element {
+    scale: 16
+    symbol {
+      name: "survey_point-m"
+      priority: -9950
+    }
+    caption {
+      primary {
+        height: 12
         color: 4473924
         offset_y: 1
         is_optional: true
@@ -56923,7 +57036,7 @@ cont {
     }
     caption {
       primary {
-        height: 11
+        height: 12
         color: 4473924
         offset_y: 1
         is_optional: true
@@ -56939,7 +57052,7 @@ cont {
     }
     caption {
       primary {
-        height: 11
+        height: 12
         color: 4473924
         offset_y: 1
         is_optional: true
@@ -56955,7 +57068,7 @@ cont {
     }
     caption {
       primary {
-        height: 11
+        height: 12
         color: 4473924
         offset_y: 1
         is_optional: true
@@ -56971,7 +57084,7 @@ cont {
     }
     caption {
       primary {
-        height: 11
+        height: 12
         color: 4473924
         offset_y: 1
         is_optional: true
@@ -57048,7 +57161,6 @@ cont {
     symbol {
       name: "drinking-water-m"
       priority: 3050
-      min_distance: 36
     }
     caption {
       primary {
@@ -57065,7 +57177,6 @@ cont {
     symbol {
       name: "drinking-water-m"
       priority: 3050
-      min_distance: 36
     }
     caption {
       primary {
@@ -57082,7 +57193,6 @@ cont {
     symbol {
       name: "drinking-water-m"
       priority: 3050
-      min_distance: 36
     }
     caption {
       primary {
@@ -57099,7 +57209,6 @@ cont {
     symbol {
       name: "drinking-water-m"
       priority: 3050
-      min_distance: 36
     }
     caption {
       primary {
@@ -57116,7 +57225,6 @@ cont {
     symbol {
       name: "drinking-water-m"
       priority: 3050
-      min_distance: 36
     }
     caption {
       primary {
@@ -57133,7 +57241,6 @@ cont {
     symbol {
       name: "drinking-water-m"
       priority: 3050
-      min_distance: 36
     }
     caption {
       primary {
@@ -57183,7 +57290,6 @@ cont {
     symbol {
       name: "drinking-water-m"
       priority: 3050
-      min_distance: 36
     }
     caption {
       primary {
@@ -57200,7 +57306,6 @@ cont {
     symbol {
       name: "drinking-water-m"
       priority: 3050
-      min_distance: 36
     }
     caption {
       primary {
@@ -57217,7 +57322,6 @@ cont {
     symbol {
       name: "drinking-water-m"
       priority: 3050
-      min_distance: 36
     }
     caption {
       primary {
@@ -57234,7 +57338,6 @@ cont {
     symbol {
       name: "drinking-water-m"
       priority: 3050
-      min_distance: 36
     }
     caption {
       primary {
@@ -57251,7 +57354,6 @@ cont {
     symbol {
       name: "drinking-water-m"
       priority: 3050
-      min_distance: 36
     }
     caption {
       primary {
@@ -57268,7 +57370,6 @@ cont {
     symbol {
       name: "drinking-water-m"
       priority: 3050
-      min_distance: 36
     }
     caption {
       primary {
@@ -57448,14 +57549,14 @@ cont {
   element {
     scale: 11
     symbol {
-      name: "mountain-pass"
+      name: "mountain-pass-s"
       priority: 5050
     }
   }
   element {
     scale: 12
     symbol {
-      name: "mountain-pass"
+      name: "mountain-pass-s"
       priority: 5050
     }
     caption {
@@ -57471,7 +57572,7 @@ cont {
   element {
     scale: 13
     symbol {
-      name: "mountain-pass"
+      name: "mountain-pass-m"
       priority: 5050
     }
     caption {
@@ -57487,7 +57588,7 @@ cont {
   element {
     scale: 14
     symbol {
-      name: "mountain-pass"
+      name: "mountain-pass-m"
       priority: 5050
     }
     caption {
@@ -57503,7 +57604,7 @@ cont {
   element {
     scale: 15
     symbol {
-      name: "mountain-pass"
+      name: "mountain-pass-m"
       priority: 5050
     }
     caption {
@@ -57519,7 +57620,7 @@ cont {
   element {
     scale: 16
     symbol {
-      name: "mountain-pass"
+      name: "mountain-pass-m"
       priority: 5050
     }
     caption {
@@ -57535,7 +57636,7 @@ cont {
   element {
     scale: 17
     symbol {
-      name: "mountain-pass"
+      name: "mountain-pass-m"
       priority: 5050
     }
     caption {
@@ -57551,7 +57652,7 @@ cont {
   element {
     scale: 18
     symbol {
-      name: "mountain-pass"
+      name: "mountain-pass-m"
       priority: 5050
     }
     caption {
@@ -57567,7 +57668,7 @@ cont {
   element {
     scale: 19
     symbol {
-      name: "mountain-pass"
+      name: "mountain-pass-m"
       priority: 5050
     }
     caption {
@@ -57583,7 +57684,7 @@ cont {
   element {
     scale: 20
     symbol {
-      name: "mountain-pass"
+      name: "mountain-pass-m"
       priority: 5050
     }
     caption {
@@ -60093,44 +60194,51 @@ cont {
 cont {
   name: "natural-rock"
   element {
+    scale: 14
+    symbol {
+      name: "peakt-s"
+      priority: 2850
+    }
+  }
+  element {
     scale: 15
     symbol {
-      name: "peakt-m"
+      name: "peakt-s"
       priority: 2850
     }
   }
   element {
     scale: 16
     symbol {
-      name: "peakt-m"
+      name: "peakt-s"
       priority: 2850
     }
   }
   element {
     scale: 17
     symbol {
-      name: "peakt-m"
+      name: "peakt-s"
       priority: 2850
     }
   }
   element {
     scale: 18
     symbol {
-      name: "peakt-m"
+      name: "peakt-s"
       priority: 2850
     }
   }
   element {
     scale: 19
     symbol {
-      name: "peakt-m"
+      name: "peakt-s"
       priority: 2850
     }
   }
   element {
     scale: 20
     symbol {
-      name: "peakt-m"
+      name: "peakt-s"
       priority: 2850
     }
   }
@@ -60138,64 +60246,23 @@ cont {
 cont {
   name: "natural-saddle"
   element {
-    scale: 11
-    symbol {
-      name: "mountain-pass"
-      priority: 4500
-    }
-  }
-  element {
-    scale: 12
-    symbol {
-      name: "mountain-pass"
-      priority: 4500
-    }
-    caption {
-      primary {
-        height: 10
-        color: 4473924
-        offset_y: 1
-        is_optional: true
-      }
-      priority: -5500
-    }
-  }
-  element {
     scale: 13
     symbol {
-      name: "mountain-pass"
+      name: "mountain-pass-m"
       priority: 4500
-    }
-    caption {
-      primary {
-        height: 11
-        color: 4473924
-        offset_y: 1
-        is_optional: true
-      }
-      priority: -5500
     }
   }
   element {
     scale: 14
     symbol {
-      name: "mountain-pass"
+      name: "mountain-pass-m"
       priority: 4500
-    }
-    caption {
-      primary {
-        height: 11
-        color: 4473924
-        offset_y: 1
-        is_optional: true
-      }
-      priority: -5500
     }
   }
   element {
     scale: 15
     symbol {
-      name: "mountain-pass"
+      name: "mountain-pass-m"
       priority: 4500
     }
     caption {
@@ -60211,7 +60278,7 @@ cont {
   element {
     scale: 16
     symbol {
-      name: "mountain-pass"
+      name: "mountain-pass-m"
       priority: 4500
     }
     caption {
@@ -60227,7 +60294,7 @@ cont {
   element {
     scale: 17
     symbol {
-      name: "mountain-pass"
+      name: "mountain-pass-m"
       priority: 4500
     }
     caption {
@@ -60243,7 +60310,7 @@ cont {
   element {
     scale: 18
     symbol {
-      name: "mountain-pass"
+      name: "mountain-pass-m"
       priority: 4500
     }
     caption {
@@ -60259,7 +60326,7 @@ cont {
   element {
     scale: 19
     symbol {
-      name: "mountain-pass"
+      name: "mountain-pass-m"
       priority: 4500
     }
     caption {
@@ -60275,7 +60342,7 @@ cont {
   element {
     scale: 20
     symbol {
-      name: "mountain-pass"
+      name: "mountain-pass-m"
       priority: 4500
     }
     caption {
@@ -73693,49 +73760,49 @@ cont {
   element {
     scale: 14
     symbol {
-      name: "dot-m"
+      name: "power-tower-m"
       priority: 450
     }
   }
   element {
     scale: 15
     symbol {
-      name: "dot-m"
+      name: "power-tower-m"
       priority: 450
     }
   }
   element {
     scale: 16
     symbol {
-      name: "dot-m"
+      name: "power-tower-m"
       priority: 450
     }
   }
   element {
     scale: 17
     symbol {
-      name: "dot-m"
+      name: "power-tower-m"
       priority: 450
     }
   }
   element {
     scale: 18
     symbol {
-      name: "dot-m"
+      name: "power-tower-m"
       priority: 450
     }
   }
   element {
     scale: 19
     symbol {
-      name: "dot-m"
+      name: "power-tower-m"
       priority: 450
     }
   }
   element {
     scale: 20
     symbol {
-      name: "dot-m"
+      name: "power-tower-m"
       priority: 450
     }
   }
@@ -126382,7 +126449,7 @@ cont {
     }
     caption {
       primary {
-        height: 11
+        height: 10
         color: 4473924
         offset_y: 1
         is_optional: true
@@ -126399,7 +126466,7 @@ cont {
     }
     caption {
       primary {
-        height: 11
+        height: 10
         color: 4473924
         offset_y: 1
         is_optional: true
@@ -127608,6 +127675,23 @@ cont {
 cont {
   name: "tourism-camp_site"
   element {
+    scale: 13
+    symbol {
+      name: "campsite-s"
+      priority: 3800
+      min_distance: 12
+    }
+    caption {
+      primary {
+        height: 11
+        color: 4473924
+        offset_y: 1
+        is_optional: true
+      }
+      priority: -6200
+    }
+  }
+  element {
     scale: 14
     symbol {
       name: "campsite-m"
@@ -127725,11 +127809,28 @@ cont {
 cont {
   name: "tourism-caravan_site"
   element {
+    scale: 13
+    symbol {
+      name: "caravan_site-s"
+      priority: 3800
+      min_distance: 12
+    }
+    caption {
+      primary {
+        height: 11
+        color: 4473924
+        offset_y: 1
+        is_optional: true
+      }
+      priority: -6200
+    }
+  }
+  element {
     scale: 14
     symbol {
       name: "caravan_site-m"
       priority: 3800
-      min_distance: 30
+      min_distance: 12
     }
     caption {
       primary {
@@ -127746,7 +127847,7 @@ cont {
     symbol {
       name: "caravan_site-m"
       priority: 3800
-      min_distance: 30
+      min_distance: 12
     }
     caption {
       primary {
@@ -127841,6 +127942,22 @@ cont {
 }
 cont {
   name: "tourism-chalet"
+  element {
+    scale: 14
+    symbol {
+      name: "alpine_hut-m"
+      priority: 3800
+    }
+    caption {
+      primary {
+        height: 11
+        color: 4473924
+        offset_y: 1
+        is_optional: true
+      }
+      priority: -6200
+    }
+  }
   element {
     scale: 15
     symbol {
@@ -128309,6 +128426,22 @@ cont {
 cont {
   name: "tourism-information"
   element {
+    scale: 15
+    symbol {
+      name: "information-m"
+      priority: -9950
+    }
+    caption {
+      primary {
+        height: 11
+        color: 4473924
+        offset_y: 1
+        is_optional: true
+      }
+      priority: -10000
+    }
+  }
+  element {
     scale: 16
     symbol {
       name: "information-m"
@@ -128317,7 +128450,7 @@ cont {
     }
     caption {
       primary {
-        height: 10
+        height: 12
         color: 4473924
         offset_y: 1
         is_optional: true
@@ -128334,7 +128467,7 @@ cont {
     }
     caption {
       primary {
-        height: 10
+        height: 12
         color: 4473924
         offset_y: 1
         is_optional: true
@@ -128351,7 +128484,7 @@ cont {
     }
     caption {
       primary {
-        height: 11
+        height: 12
         color: 4473924
         offset_y: 1
         is_optional: true
@@ -128368,7 +128501,7 @@ cont {
     }
     caption {
       primary {
-        height: 11
+        height: 12
         color: 4473924
         offset_y: 1
         is_optional: true
@@ -128385,7 +128518,7 @@ cont {
     }
     caption {
       primary {
-        height: 11
+        height: 12
         color: 4473924
         offset_y: 1
         is_optional: true
@@ -128397,6 +128530,22 @@ cont {
 cont {
   name: "tourism-information-board"
   element {
+    scale: 15
+    symbol {
+      name: "board"
+      priority: -9950
+    }
+    caption {
+      primary {
+        height: 11
+        color: 4473924
+        offset_y: 1
+        is_optional: true
+      }
+      priority: -10000
+    }
+  }
+  element {
     scale: 16
     symbol {
       name: "board"
@@ -128405,7 +128554,7 @@ cont {
     }
     caption {
       primary {
-        height: 10
+        height: 12
         color: 4473924
         offset_y: 1
         is_optional: true
@@ -128422,7 +128571,7 @@ cont {
     }
     caption {
       primary {
-        height: 10
+        height: 12
         color: 4473924
         offset_y: 1
         is_optional: true
@@ -128439,7 +128588,7 @@ cont {
     }
     caption {
       primary {
-        height: 11
+        height: 12
         color: 4473924
         offset_y: 1
         is_optional: true
@@ -128456,7 +128605,7 @@ cont {
     }
     caption {
       primary {
-        height: 11
+        height: 12
         color: 4473924
         offset_y: 1
         is_optional: true
@@ -128473,7 +128622,7 @@ cont {
     }
     caption {
       primary {
-        height: 11
+        height: 12
         color: 4473924
         offset_y: 1
         is_optional: true
@@ -128485,6 +128634,22 @@ cont {
 cont {
   name: "tourism-information-guidepost"
   element {
+    scale: 15
+    symbol {
+      name: "guidepost"
+      priority: -9950
+    }
+    caption {
+      primary {
+        height: 11
+        color: 4473924
+        offset_y: 1
+        is_optional: true
+      }
+      priority: -10000
+    }
+  }
+  element {
     scale: 16
     symbol {
       name: "guidepost"
@@ -128493,7 +128658,7 @@ cont {
     }
     caption {
       primary {
-        height: 10
+        height: 12
         color: 4473924
         offset_y: 1
         is_optional: true
@@ -128510,7 +128675,7 @@ cont {
     }
     caption {
       primary {
-        height: 10
+        height: 12
         color: 4473924
         offset_y: 1
         is_optional: true
@@ -128527,7 +128692,7 @@ cont {
     }
     caption {
       primary {
-        height: 11
+        height: 12
         color: 4473924
         offset_y: 1
         is_optional: true
@@ -128544,7 +128709,7 @@ cont {
     }
     caption {
       primary {
-        height: 11
+        height: 12
         color: 4473924
         offset_y: 1
         is_optional: true
@@ -128561,7 +128726,7 @@ cont {
     }
     caption {
       primary {
-        height: 11
+        height: 12
         color: 4473924
         offset_y: 1
         is_optional: true
@@ -128573,6 +128738,22 @@ cont {
 cont {
   name: "tourism-information-map"
   element {
+    scale: 15
+    symbol {
+      name: "map"
+      priority: -9950
+    }
+    caption {
+      primary {
+        height: 11
+        color: 4473924
+        offset_y: 1
+        is_optional: true
+      }
+      priority: -10000
+    }
+  }
+  element {
     scale: 16
     symbol {
       name: "map"
@@ -128581,7 +128762,7 @@ cont {
     }
     caption {
       primary {
-        height: 10
+        height: 12
         color: 4473924
         offset_y: 1
         is_optional: true
@@ -128598,7 +128779,7 @@ cont {
     }
     caption {
       primary {
-        height: 10
+        height: 12
         color: 4473924
         offset_y: 1
         is_optional: true
@@ -128615,7 +128796,7 @@ cont {
     }
     caption {
       primary {
-        height: 11
+        height: 12
         color: 4473924
         offset_y: 1
         is_optional: true
@@ -128632,7 +128813,7 @@ cont {
     }
     caption {
       primary {
-        height: 11
+        height: 12
         color: 4473924
         offset_y: 1
         is_optional: true
@@ -128649,7 +128830,7 @@ cont {
     }
     caption {
       primary {
-        height: 11
+        height: 12
         color: 4473924
         offset_y: 1
         is_optional: true
@@ -128661,6 +128842,29 @@ cont {
 cont {
   name: "tourism-information-office"
   element {
+    scale: 13
+    symbol {
+      name: "information-office-m"
+      priority: 4400
+    }
+  }
+  element {
+    scale: 14
+    symbol {
+      name: "information-office-m"
+      priority: 4400
+    }
+    caption {
+      primary {
+        height: 11
+        color: 4473924
+        offset_y: 1
+        is_optional: true
+      }
+      priority: -5600
+    }
+  }
+  element {
     scale: 15
     symbol {
       name: "information-office-m"
@@ -128669,7 +128873,7 @@ cont {
     }
     caption {
       primary {
-        height: 10
+        height: 11
         color: 4473924
         offset_y: 1
         is_optional: true
@@ -128686,7 +128890,7 @@ cont {
     }
     caption {
       primary {
-        height: 10
+        height: 12
         color: 4473924
         offset_y: 1
         is_optional: true
@@ -128703,7 +128907,7 @@ cont {
     }
     caption {
       primary {
-        height: 10
+        height: 12
         color: 4473924
         offset_y: 1
         is_optional: true
@@ -128720,7 +128924,7 @@ cont {
     }
     caption {
       primary {
-        height: 11
+        height: 12
         color: 4473924
         offset_y: 1
         is_optional: true
@@ -128737,7 +128941,7 @@ cont {
     }
     caption {
       primary {
-        height: 11
+        height: 12
         color: 4473924
         offset_y: 1
         is_optional: true
@@ -128754,7 +128958,7 @@ cont {
     }
     caption {
       primary {
-        height: 11
+        height: 12
         color: 4473924
         offset_y: 1
         is_optional: true
@@ -128766,6 +128970,29 @@ cont {
 cont {
   name: "tourism-information-visitor_centre"
   element {
+    scale: 13
+    symbol {
+      name: "information-office-m"
+      priority: 4400
+    }
+  }
+  element {
+    scale: 14
+    symbol {
+      name: "information-office-m"
+      priority: 4400
+    }
+    caption {
+      primary {
+        height: 11
+        color: 4473924
+        offset_y: 1
+        is_optional: true
+      }
+      priority: -5600
+    }
+  }
+  element {
     scale: 15
     symbol {
       name: "information-office-m"
@@ -128774,7 +129001,7 @@ cont {
     }
     caption {
       primary {
-        height: 10
+        height: 11
         color: 4473924
         offset_y: 1
         is_optional: true
@@ -128791,7 +129018,7 @@ cont {
     }
     caption {
       primary {
-        height: 10
+        height: 12
         color: 4473924
         offset_y: 1
         is_optional: true
@@ -128808,7 +129035,7 @@ cont {
     }
     caption {
       primary {
-        height: 10
+        height: 12
         color: 4473924
         offset_y: 1
         is_optional: true
@@ -128825,7 +129052,7 @@ cont {
     }
     caption {
       primary {
-        height: 11
+        height: 12
         color: 4473924
         offset_y: 1
         is_optional: true
@@ -128842,7 +129069,7 @@ cont {
     }
     caption {
       primary {
-        height: 11
+        height: 12
         color: 4473924
         offset_y: 1
         is_optional: true
@@ -128859,7 +129086,7 @@ cont {
     }
     caption {
       primary {
-        height: 11
+        height: 12
         color: 4473924
         offset_y: 1
         is_optional: true
