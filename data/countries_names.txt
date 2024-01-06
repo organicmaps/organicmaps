@@ -49298,7 +49298,7 @@
   el = Αρζαντέιγ, Σερζί, Σαρσέλ
 
 [France_Ile-de-France_Val-de-Marne Description]
-  en = Vitry-sur-Seine, Créteil , Champigny-sur-Marne
+  en = Vitry-sur-Seine, Créteil, Champigny-sur-Marne
   ru = Витри-сюр-Сен, Кретей
   ar = كريتيل
   ja = ヴィトリー＝シュル＝セーヌ, クレテイユ, シャンピニー＝シュル＝マルヌ
@@ -49465,7 +49465,7 @@
   en = Tarbes, Lourdes, Aureilhan
   ru = Тарб, Лурд
   uk = Тарб, Лурд, Ореян
-  el = Ταρμπ, Λουρντ , Ωριλάν
+  el = Ταρμπ, Λουρντ, Ωριλάν
 
 [France_Midi-Pyrenees_Lot Description]
   en = Cahors, Figeac, Gourdon
@@ -58932,14 +58932,14 @@
   el = Πολτάβα, Κρεμένχυκ, Κομσομόλσκ
 
 [Ukraine_Rivne Oblast Description]
-  en = Rivne, Kuznetsovsk, Dubno
-  ru = Ровно, Кузнецовск, Дубно
-  fr = Rivne
-  de = Riwne, Kusnezowsk, Dubno
-  hu = Rivne, Kuznetsovsk, Dubno
+  en = Rivne, Varash (Kuznetsovsk), Dubno
+  ru = Ровно, Вараш (Кузнецовск), Дубно
+  fr = Rivne, Varach (Kouznetsovsk), Doubno
+  de = Riwne, Warasch (Kusnezowsk), Dubno
+  hu = Rivne, Varash (Kuznetsovsk), Dubno
   pl = Równe, Warasz (Kuźniecowsk), Dubno
-  uk = Рівне, Кузнецовськ, Дубно
-  el = Ρίβνα , Κουζνετσόβσκ, Ντούμπνο
+  uk = Рівне, Вараш (Кузнецовськ), Дубно
+  el = Ρίβνα, Vαραση (Κουζνετσόβσκ), Ντούμπνο
 
 [Ukraine_Sumy Oblast Description]
   en = Sumy, Konotop, Shostka
