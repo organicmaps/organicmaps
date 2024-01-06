@@ -1924,7 +1924,6 @@
   zh-Hans = 安特卫普省
   zh-Hant = 安特衛普省
   el = Επαρχία Αμβέρσας
-  he =
   sk = Antverpy
 
 [Belgium_East Flanders]
@@ -1958,7 +1957,6 @@
   zh-Hans = 东弗兰德省
   zh-Hant = 東弗蘭德省
   el = Επαρχία Ανατολικής Φλάνδρας
-  he =
   sk = Východné Flámsko
 
 [Belgium_Flemish Brabant]
@@ -1992,7 +1990,6 @@
   zh-Hans = 弗拉芒-布拉班特省
   zh-Hant = 弗拉芒-布拉班特省
   el = Φλαμανδική Βραβάντη
-  he =
   sk = Flámsky Brabant
 
 [Belgium_Hainaut]
@@ -2026,7 +2023,6 @@
   zh-Hans = 埃诺省
   zh-Hant = 埃諾省
   el = Επαρχία Αινώ
-  he =
   sk = Hennegavsko
 
 [Belgium_Liege]
@@ -2060,7 +2056,6 @@
   zh-Hans = 列日省
   zh-Hant = 列日省
   el = Επαρχία Λιέγης
-  he =
   sk = Lutyšsko
 
 [Belgium_Limburg]
@@ -2094,7 +2089,6 @@
   zh-Hans = 林堡省
   zh-Hant = 林堡省
   el = Επαρχία Λιμβούργου
-  he =
   sk = Limbursko
 
 [Belgium_Luxembourg]
@@ -2128,7 +2122,6 @@
   zh-Hans = 卢森堡省
   zh-Hant = 盧森堡省
   el = Επαρχία Λουξεμβούργου
-  he =
   sk = Luxembourg (provincia)
 
 [Belgium_Namur]
@@ -2162,7 +2155,6 @@
   zh-Hans = 那慕尔省
   zh-Hant = 那慕爾省
   el = Επαρχία του Ναμούρ
-  he =
   sk = Namursko
 
 [Belgium_Walloon Brabant]
@@ -2196,7 +2188,6 @@
   zh-Hans = 瓦隆-布拉班特省
   zh-Hant = 瓦隆-布拉班特省
   el = Επαρχία Βαλλωνικής Βραβάντης
-  he =
   sk = Valónsky Brabant
 
 [Belgium_West Flanders]
@@ -2230,7 +2221,6 @@
   zh-Hans = 西弗兰德省
   zh-Hant = 西弗蘭德省
   el = Επαρχία Δυτικής Φλάνδρας
-  he =
   sk = Západné Flámsko
 
 [Belize]
@@ -3141,7 +3131,6 @@
   zh-Hans = 米纳斯吉拉斯 — 孔塔任
   zh-Hant = 米納斯吉拉斯 — 孔塔任
   el = Μίνας Γκεράις - Κονταζέμ
-  he =
   sk = Minas Gerais — Contagem
 
 [Brazil_Southeast Region_Minas Gerais_North]
@@ -3311,7 +3300,6 @@
   zh-Hans = 圣保罗州 — 里贝朗普雷图
   zh-Hant = 聖保羅州 — 里貝朗普雷圖
   el = Σάο Πάολο — Ριμπειράο Πρέτο
-  he =
   sk = São Paulo — Ribeirão Preto
 
 [British Indian Ocean Territory]
@@ -3741,7 +3729,6 @@
   zh-Hans = 南部巴塔哥尼亚冰原
   zh-Hant = 南部巴塔哥尼亞冰原
   el = Πάγοι Νότιας Παταγονίας
-  he =
   sk = Patagónia južné ľadové pole
 
 [Canada]
@@ -4220,7 +4207,6 @@
   zh-Hans = 拉布拉多
   zh-Hant = 拉布拉多
   el = Λαμπραντόρ
-  he =
   sk = Labrador
 
 [Canada_Labrador_North]
@@ -4254,7 +4240,6 @@
   zh-Hans = 拉布拉多 - 北部
   zh-Hant = 拉布拉多 - 北部
   el = Λαμπραντόρ — Βόρεια
-  he =
   sk = Labrador — Sever
 
 [Canada_Labrador_South]
@@ -4288,7 +4273,6 @@
   zh-Hans = 拉布拉多 - 南部
   zh-Hant = 拉布拉多 - 南部
   el = Λαμπραντόρ — Νότιο
-  he =
   sk = Labrador — Juh
 
 [Canada_Labrador_West]
@@ -4322,7 +4306,6 @@
   zh-Hans = 拉布拉多 - 西部
   zh-Hant = 拉布拉多 - 西部
   el = Λαμπραντόρ — Δυτικό
-  he =
   sk = Labrador — Západ
 
 [Canada_Manitoba]
@@ -4458,7 +4441,6 @@
   zh-Hans = 布兰登
   zh-Hant = 布蘭登
   el = Μπραντόν
-  he =
   sk = Brandon
 
 [Canada_Manitoba_Winnipeg]
@@ -4934,7 +4916,6 @@
   zh-Hans = Sydney,NS
   zh-Hant = Sydney,NS
   el = Σίδνεϊ
-  he =
   sk = Sydney
 
 [Canada_Nunavut]
@@ -5105,7 +5086,6 @@
   zh-Hans = 巴里
   zh-Hant = 巴里
   el = Μπάριε
-  he =
   sk = Barrie
 
 [Canada_Ontario_Kingston]
@@ -5139,7 +5119,6 @@
   zh-Hans = 金斯顿
   zh-Hant = 金斯頓
   el = Κίνγκστον
-  he =
   sk = Kingston
 
 [Canada_Ontario_London]
@@ -5241,7 +5220,6 @@
   zh-Hans = 穆斯法克特里
   zh-Hant = 穆斯法克特裏
   el = Μουζ Φάκτορι
-  he =
   sk = Moose Factory
 
 [Canada_Ontario_Northeastern_S]
@@ -5309,7 +5287,6 @@
   zh-Hans = 北湾
   zh-Hant = 北灣
   el = Νόρθ Μπέι
-  he =
   sk = North Bay
 
 [Canada_Ontario_Northeastern_SW]
@@ -5343,7 +5320,6 @@
   zh-Hans = 苏圣玛丽
   zh-Hant = 蘇聖瑪麗
   el = Σωλτ Σεν Μαρί
-  he =
   sk = Sault Ste. Marie
 
 [Canada_Ontario_Northeastern_Wawa]
@@ -5377,7 +5353,6 @@
   zh-Hans = 沃瓦
   zh-Hant = 沃瓦
   el = Βάβα
-  he =
   sk = Wawa
 
 [Canada_Ontario_Northern]
@@ -5683,7 +5658,6 @@
   zh-Hans = 七岛港
   zh-Hant = 七島港
   el = Σετ-Ιλ
-  he =
   sk = Sept-Îles
 
 [Canada_Quebek_Southeast_Rimouski]
@@ -5717,7 +5691,6 @@
   zh-Hans = 里姆斯基
   zh-Hant = 裏姆斯基
   el = Ριμούσκι
-  he =
   sk = Rimouski
 
 [Canada_Quebek_Southeast_Saguenay]
@@ -5785,7 +5758,6 @@
   zh-Hans = 希布加莫
   zh-Hant = 希布加莫
   el = Τσιμπουγκαμάου
-  he =
   sk = Chibougamau
 
 [Canada_Quebek_West_Rouyn-Noranda]
@@ -5819,7 +5791,6 @@
   zh-Hans = 鲁安 - 诺兰达
   zh-Hant = 魯安 - 諾蘭達
   el = Ρουίν-Νουράντα
-  he =
   sk = Rouyn-Noranda
 
 [Canada_Saskatchewan]
@@ -8041,7 +8012,6 @@
   zh-Hans = 比尔森州
   zh-Hant = 比爾森州
   el = Περιφέρεια Πίλζεν
-  he =
   sk = Plzenský kraj
 
 [Czech_Karlovasky kraj]
@@ -8075,7 +8045,6 @@
   zh-Hans = 卡罗维发利州
   zh-Hant = 卡羅維發利州
   el = Περιφέρεια Κάρλοβι Βάρι
-  he =
   sk = Karlovarský kraj
 
 [Czech_Moravskoslezsko]
@@ -8109,7 +8078,6 @@
   zh-Hans = 摩拉维亚-西里西亚州
   zh-Hant = 摩拉維亞-西里西亞州
   el = Περιφέρεια Μοραβίας-Σιλεσίας
-  he =
   sk = Moravsko-sliezsky kraj
 
 [Czech_Olomoucky kraj]
@@ -8143,7 +8111,6 @@
   zh-Hans = 奥洛穆克州
   zh-Hant = 奧洛穆克州
   el = Περιφέρεια Όλομουτς
-  he =
   sk = Olomoucký kraj
 
 [Czech_Praha]
@@ -8211,7 +8178,6 @@
   zh-Hans = 赫拉德茨-克拉洛韦州
   zh-Hant = 赫拉德茨-克拉洛韋州
   el = Περιφέρεια Χράντεκ Κράλοβε
-  he =
   sk = Královohradecký kraj
 
 [Czech_Severovychod_Liberecky kraj]
@@ -8245,7 +8211,6 @@
   zh-Hans = 利贝雷茨州
   zh-Hant = 利貝雷茨州
   el = Περιφέρεια Λίμπερεκ
-  he =
   sk = Liberecký kraj
 
 [Czech_Severovychod_Pardubicky kraj]
@@ -8279,7 +8244,6 @@
   zh-Hans = 帕尔杜比采州
   zh-Hant = 帕爾杜比采州
   el = Περιφέρεια Παρντούμπιτσε
-  he =
   sk = Pardubický kraj
 
 [Czech_Stredni Cechy_East]
@@ -8381,7 +8345,6 @@
   zh-Hans = 乌斯季州
   zh-Hant = 烏斯季州
   el = Περιφέρεια Ουστί νατ Λάμπεμ
-  he =
   sk = Úsťanský kraj
 
 [Czech_Zlinsky Kraj]
@@ -8415,7 +8378,6 @@
   zh-Hans = 兹林州
   zh-Hant = 茲林州
   el = Περιφέρειας Ζλιν
-  he =
   sk = Zlínsky kraj
 
 [Denmark]
@@ -8486,7 +8448,6 @@
   zh-Hans = 首都大区
   zh-Hant = 首都大區
   el = Περιφέρεια της πρωτεύουσας της Δανίας
-  he =
   sk = Hovedstaden
 
 [Denmark_Central Denmark Region]
@@ -8520,7 +8481,6 @@
   zh-Hans = 中日德兰大区
   zh-Hant = 中日德蘭大區
   el = Κεντρική περιφέρεια Δανίας
-  he =
   sk = Region Midtjylland
 
 [Denmark_North Denmark Region]
@@ -8554,7 +8514,6 @@
   zh-Hans = 北日德兰大区
   zh-Hant = 北日德蘭大區
   el = Περιφέρεια βόρειας Δανίας
-  he =
   sk = Severné Jutsko (administratívny región)
 
 [Denmark_Region Zealand]
@@ -8588,7 +8547,6 @@
   zh-Hans = 西兰大区
   zh-Hant = 西蘭大區
   el = Περιφέρεια Ζηλανδίας
-  he =
   sk = Sjælland (región)
 
 [Denmark_Region of Southern Denmark]
@@ -8622,7 +8580,6 @@
   zh-Hans = 南丹麦大区
   zh-Hant = 南丹麥大區
   el = Περιφέρεια Νότιας Δανίας
-  he =
   sk = Južné Dánsko
 
 [Djibouti]
@@ -9305,7 +9262,6 @@
   zh-Hans = 东芬兰省
   zh-Hant = 東芬蘭省
   el = Ανατολική Φινλανδία
-  he =
   sk = Východné Fínsko
 
 [Finland_Northern Finland]
@@ -9441,7 +9397,6 @@
   zh-Hans = 西南芬兰区
   zh-Hant = 西南芬蘭區
   el = Νοτιοδυτική Φινλανδία
-  he =
   sk = Varsinais-Suomi
 
 [Finland_Western Finland]
@@ -9786,7 +9741,6 @@
   zh-Hans = 朗德省
   zh-Hant = 朗德省
   el = Λάντες
-  he =
   sk = Landes
 
 [France_Aquitaine_Lot-et-Garonne]
@@ -9956,7 +9910,6 @@
   zh-Hans = 康塔尔省
   zh-Hant = 康塔爾省
   el = Καντάλ
-  he =
   sk = Cantal
 
 [France_Auvergne_Haute-Loire]
@@ -9990,7 +9943,6 @@
   zh-Hans = 上卢瓦尔省
   zh-Hant = 上盧瓦爾省
   el = Χαουτε Λοίρ
-  he =
   sk = Haute-Loire
 
 [France_Auvergne_Puy-de-Dome]
@@ -10024,7 +9976,6 @@
   zh-Hans = 多姆山省
   zh-Hant = 多姆山省
   el = Πουί Ντε Ντόμε
-  he =
   sk = Puy-de-Dôme
 
 [France_Brittany]
@@ -10194,7 +10145,6 @@
   zh-Hans = 莫尔比昂省
   zh-Hant = 莫爾比昂省
   el = Μορμπιχάν
-  he =
   sk = Morbihan
 
 [France_Burgundy]
@@ -10262,7 +10212,6 @@
   zh-Hans = 科多尔省
   zh-Hant = 科多爾省
   el = Κοτ ντ 'Ορ
-  he =
   sk = Côte-d’Or
 
 [France_Burgundy_Nievre]
@@ -10296,7 +10245,6 @@
   zh-Hans = 涅夫勒省
   zh-Hant = 涅夫勒省
   el = Νιέβρε
-  he =
   sk = Nièvre
 
 [France_Burgundy_Saone-et-Loire]
@@ -10330,7 +10278,6 @@
   zh-Hans = 索恩-卢瓦尔省
   zh-Hant = 索恩-盧瓦爾省
   el = Σαόν ετ Λορέ
-  he =
   sk = Saône-et-Loire
 
 [France_Burgundy_Yonne]
@@ -10432,7 +10379,6 @@
   zh-Hans = 谢尔省
   zh-Hant = 謝爾省
   el = Σερ
-  he =
   sk = Cher
 
 [France_Centre-Val de Loire_Eure-et-Loir]
@@ -10568,7 +10514,6 @@
   zh-Hans = 卢瓦尔-谢尔省
   zh-Hant = 盧瓦爾-謝爾省
   el = Λορ-ετ-Σερ
-  he =
   sk = Loir-et-Cher
 
 [France_Centre-Val de Loire_Loiret]
@@ -10602,7 +10547,6 @@
   zh-Hans = 卢瓦雷省
   zh-Hant = 盧瓦雷省
   el = Λουαρέ
-  he =
   sk = Loiret
 
 [France_Champagne-Ardenne]
@@ -10806,7 +10750,6 @@
   zh-Hans = 埃松省
   zh-Hant = 埃松省
   el = Εσόν
-  he =
   sk = Essonne
 
 [France_Ile-de-France_Hauts-de-Seine]
@@ -10942,7 +10885,6 @@
   zh-Hans = 塞纳-马恩省
   zh-Hant = 塞納-馬恩省
   el = Σεν-ε-Μαρν
-  he =
   sk = Seine-et-Marne
 
 [France_Ile-de-France_Val-dOise]
@@ -10976,7 +10918,6 @@
   zh-Hans = 瓦勒德瓦兹省
   zh-Hant = 瓦勒德瓦茲省
   el = Βαλ ντ'Ουάζ
-  he =
   sk = Val-d’Oise
 
 [France_Ile-de-France_Val-de-Marne]
@@ -11044,7 +10985,6 @@
   zh-Hans = 伊夫林省
   zh-Hant = 伊夫林省
   el = Ιβλίν
-  he =
   sk = Yvelines
 
 [France_Languedoc-Roussillon]
@@ -11146,7 +11086,6 @@
   zh-Hans = 加尔省
   zh-Hant = 加爾省
   el = Γκαρ
-  he =
   sk = Gard
 
 [France_Languedoc-Roussillon_Herault]
@@ -11248,7 +11187,6 @@
   zh-Hans = 东比利牛斯省
   zh-Hant = 東比利牛斯省
   el = Ανατολικά Πυρηναία
-  he =
   sk = Pyrénées-Orientales
 
 [France_Limousin]
@@ -11724,7 +11662,6 @@
   zh-Hans = 热尔省
   zh-Hant = 熱爾省
   el = Ζερ
-  he =
   sk = Gers
 
 [France_Midi-Pyrenees_Haute-Garonne]
@@ -11792,7 +11729,6 @@
   zh-Hans = 上比利牛斯省
   zh-Hant = 上比利牛斯省
   el = Οτ-Πιρέν (Πυρηναία)
-  he =
   sk = Hautes-Pyrénées
 
 [France_Midi-Pyrenees_Lot]
@@ -12200,7 +12136,6 @@
   zh-Hans = 马耶讷省
   zh-Hant = 馬耶訥省
   el = Μαγιένε
-  he =
   sk = Mayenne
 
 [France_Pays de la Loire_Sarthe]
@@ -12234,7 +12169,6 @@
   zh-Hans = 萨尔特省
   zh-Hant = 薩爾特省
   el = Σάρθε
-  he =
   sk = Sarthe
 
 [France_Pays de la Loire_Vendee]
@@ -12370,7 +12304,6 @@
   zh-Hans = 瓦兹省
   zh-Hant = 瓦茲省
   el = Οισέ
-  he =
   sk = Oise
 
 [France_Picardy_Somme]
@@ -12472,7 +12405,6 @@
   zh-Hans = 夏朗德省
   zh-Hant = 夏朗德省
   el = Σαρέντε
-  he =
   sk = Charente
 
 [France_Poitou-Charentes_Charente-Maritime]
@@ -12676,7 +12608,6 @@
   zh-Hans = 罗讷河口省
   zh-Hant = 羅訥河口省
   el = Μπουσέ Ντε Ρον
-  he =
   sk = Bouches-du-Rhône
 
 [France_Provence-Alpes-Cote dAzur_Hautes-Alpes]
@@ -12778,7 +12709,6 @@
   zh-Hans = 瓦尔省
   zh-Hant = 瓦爾省
   el = Βαρ
-  he =
   sk = Var
 
 [France_Provence-Alpes-Cote dAzur_Vaucluse]
@@ -12948,7 +12878,6 @@
   zh-Hans = 德龙省
   zh-Hant = 德龍省
   el = Ντρόουμ
-  he =
   sk = Drôme
 
 [France_Rhone-Alpes_Haute-Savoie]
@@ -13016,7 +12945,6 @@
   zh-Hans = 伊泽尔省
   zh-Hant = 伊澤爾省
   el = Ιζερέ
-  he =
   sk = Isère
 
 [France_Rhone-Alpes_Loire]
@@ -13468,7 +13396,6 @@
   zh-Hans = 卡尔斯鲁厄行政区
   zh-Hant = 卡爾斯魯厄行政區
   el = Καρλσρούη
-  he =
   sk = Karlsruhe
 
 [Germany_Baden-Wurttemberg_Regierungsbezirk Stuttgart_Heilbronn]
@@ -13502,7 +13429,6 @@
   zh-Hans = 斯图加特行政区 — 海尔布隆
   zh-Hant = 斯圖加特行政區 — 海爾布隆
   el = Στουτγάρδη – Χέιλμπρον
-  he =
   sk = Stuttgart — Heilbronn
 
 [Germany_Baden-Wurttemberg_Regierungsbezirk Stuttgart_Stuttgart]
@@ -13536,7 +13462,6 @@
   zh-Hans = 斯图加特行政区 — 斯图加特
   zh-Hant = 斯圖加特行政區 — 斯圖加特
   el = Στουτγκάρδη - Στουτγκάρδη
-  he =
   sk = Stuttgart — Stuttgart
 
 [Germany_Baden-Wurttemberg_Regierungsbezirk Tubingen]
@@ -13570,7 +13495,6 @@
   zh-Hans = 蒂宾根行政区
   zh-Hant = 蒂賓根行政區
   el = Τούμπινγκεν
-  he =
   sk = Tübingen
 
 [Germany_Berlin]
@@ -13740,7 +13664,6 @@
   zh-Hans = 下巴伐利亚行政区
   zh-Hant = 下巴伐利亞行政區
   el = Χαμηλότερη Βαυαρία
-  he =
   sk = Dolné Bavorsko
 
 [Germany_Free State of Bavaria_Lower Franconia]
@@ -13774,7 +13697,6 @@
   zh-Hans = 下弗兰肯行政区
   zh-Hant = 下弗蘭肯行政區
   el = Χαμηλότερο Φραγκονία
-  he =
   sk = Dolné Fransko
 
 [Germany_Free State of Bavaria_Middle Franconia]
@@ -13808,7 +13730,6 @@
   zh-Hans = 中弗兰肯行政区
   zh-Hant = 中弗蘭肯行政區
   el = Μέση Φραγκονία
-  he =
   sk = Stredné Fransko
 
 [Germany_Free State of Bavaria_Swabia]
@@ -13876,7 +13797,6 @@
   zh-Hans = 上巴伐利亚 - 东部
   zh-Hant = 上巴伐利亞 - 東部
   el = Άνω Βαυαρία - Ανατολική
-  he =
   sk = Horné Bavorsko — Východ
 
 [Germany_Free State of Bavaria_Upper Bavaria_Ingolstadt]
@@ -13910,7 +13830,6 @@
   zh-Hans = 上巴伐利亚行政区 — 因戈尔施塔特
   zh-Hant = 上巴伐利亞行政區 — 因戈爾施塔特
   el = Άνω Βαυαρία - Ίνγκολσταντ
-  he =
   sk = Horné Bavorsko — Ingolstadt
 
 [Germany_Free State of Bavaria_Upper Bavaria_Munchen]
@@ -13944,7 +13863,6 @@
   zh-Hans = 上巴伐利亚行政区 — 慕尼黑
   zh-Hant = 上巴伐利亞行政區 — 慕尼黑
   el = Άνω Βαυαρία - Μόναχο
-  he =
   sk = Horné Bavorsko — Mníchov
 
 [Germany_Free State of Bavaria_Upper Franconia]
@@ -14012,7 +13930,6 @@
   zh-Hans = 上普法尔茨行政区
   zh-Hant = 上普法爾茨行政區
   el = Άνω Παλατινάτο
-  he =
   sk = Horné Falcko
 
 [Germany_Hamburg_main]
@@ -14114,7 +14031,6 @@
   zh-Hans = 达姆施塔特行政区
   zh-Hant = 達姆施塔特行政區
   el = Ντάρμσταντ
-  he =
   sk = Darmstadt
 
 [Germany_Hesse_Regierungsbezirk Giessen]
@@ -14148,7 +14064,6 @@
   zh-Hans = 吉森行政区
   zh-Hant = 吉森行政區
   el = Γκίσεν
-  he =
   sk = Gießen
 
 [Germany_Hesse_Regierungsbezirk Kassel]
@@ -14182,7 +14097,6 @@
   zh-Hans = 卡塞尔行政区
   zh-Hant = 卡塞爾行政區
   el = Κάσελ
-  he =
   sk = Kassel
 
 [Germany_Lower Saxony]
@@ -14454,7 +14368,6 @@
   zh-Hans = 阿恩斯贝格行政区 — 阿恩斯贝格
   zh-Hant = 阿恩斯貝格行政區 — 阿恩斯貝格
   el = Άρνσμπεργκ - Άρνσμπεργκ
-  he =
   sk = Arnsberg — Arnsberg
 
 [Germany_North Rhine-Westphalia_Regierungsbezirk Arnsberg_Dortmund]
@@ -14488,7 +14401,6 @@
   zh-Hans = 阿恩斯贝格行政区 — 多特蒙德
   zh-Hant = 阿恩斯貝格行政區 — 多特蒙德
   el = Άρνσμπεργκ - Ντόρτμουντ
-  he =
   sk = Arnsberg — Dortmund
 
 [Germany_North Rhine-Westphalia_Regierungsbezirk Detmold]
@@ -14522,7 +14434,6 @@
   zh-Hans = 代特莫尔德行政区
   zh-Hant = 代特莫爾德行政區
   el = Ντέτμολντ
-  he =
   sk = Detmold
 
 [Germany_North Rhine-Westphalia_Regierungsbezirk Dusseldorf_Dusseldorf]
@@ -14556,7 +14467,6 @@
   zh-Hans = 杜塞尔多夫行政区 — 杜塞尔多夫
   zh-Hant = 杜塞爾多夫行政區 — 杜塞爾多夫
   el = Ντίσελντορφ - Ντίσελντορφ
-  he =
   sk = Düsseldorf — Düsseldorf
 
 [Germany_North Rhine-Westphalia_Regierungsbezirk Dusseldorf_Mulheim]
@@ -14590,7 +14500,6 @@
   zh-Hans = 杜塞尔多夫行政区 — 米尔海姆
   zh-Hant = 杜塞爾多夫行政區 — 米爾海姆
   el = Ντίσελντορφ - Μιλχάιμ
-  he =
   sk = Düsseldorf — Mülheim an der Ruhr
 
 [Germany_North Rhine-Westphalia_Regierungsbezirk Dusseldorf_Wesel]
@@ -14624,7 +14533,6 @@
   zh-Hans = 杜塞尔多夫行政区 — 韦塞尔
   zh-Hant = 杜塞爾多夫行政區 — 韋塞爾
   el = Ντίσελντορφ - Βέσελ
-  he =
   sk = Düsseldorf — Wesel
 
 [Germany_North Rhine-Westphalia_Regierungsbezirk Koln_Aachen]
@@ -14658,7 +14566,6 @@
   zh-Hans = 科隆行政区 — 亚琛
   zh-Hant = 科隆行政區 — 亞琛
   el = Κολωνία - Άαχεν
-  he =
   sk = Kolín nad Rýnom — Aachen
 
 [Germany_North Rhine-Westphalia_Regierungsbezirk Koln_Koln]
@@ -14692,7 +14599,6 @@
   zh-Hans = 科隆行政区 — 科隆
   zh-Hant = 科隆行政區 — 科隆
   el = Κολωνία - Κολωνία
-  he =
   sk = Kolín nad Rýnom — Kolín nad Rýnom
 
 [Germany_North Rhine-Westphalia_Regierungsbezirk Munster_Munster]
@@ -14726,7 +14632,6 @@
   zh-Hans = 明斯特行政区 — 明斯特
   zh-Hant = 明斯特行政區 — 明斯特
   el = Μούνστερ - Μούνστερ
-  he =
   sk = Münster — Münster
 
 [Germany_North Rhine-Westphalia_Regierungsbezirk Munster_Recklinghausen]
@@ -14760,7 +14665,6 @@
   zh-Hans = 明斯特行政区 — 雷克林豪森
   zh-Hant = 明斯特行政區 — 雷克林豪森
   el = Μούνστερ - Ρεκλινγκχάουζεν
-  he =
   sk = Münster — Recklinghausen
 
 [Germany_Rhineland-Palatinate_Koblenz]
@@ -15176,7 +15080,6 @@
   zh-Hans = 爱琴海地方管理部门
   zh-Hant = 愛琴海地方管理部門
   el = Αιγαίο
-  he =
   sk = Egeis
 
 [Greece_Decentralized Administration of Attica]
@@ -15210,7 +15113,6 @@
   zh-Hans = 阿提卡地方管理部门
   zh-Hant = 阿提卡地方管理部門
   el = Αττική
-  he =
   sk = Atika
 
 [Greece_Decentralized Administration of Crete]
@@ -15244,7 +15146,6 @@
   zh-Hans = 克里特岛地方管理部门
   zh-Hant = 克裏特島地方管理部門
   el = Κρήτη
-  he =
   sk = Kréta
 
 [Greece_Decentralized Administration of Epirus - Western Macedonia]
@@ -15278,7 +15179,6 @@
   zh-Hans = 伊庇鲁斯和西部马其顿地方管理部门
   zh-Hant = 伊庇魯斯和西部馬其頓地方管理部門
   el = Ήπειρος και Δυτική Μακεδονία
-  he =
   sk = Epirus a Západná Makedónia
 
 [Greece_Decentralized Administration of Macedonia and Thrace]
@@ -15312,7 +15212,6 @@
   zh-Hans = 马其顿和色雷斯地方管理部门
   zh-Hant = 馬其頓和色雷斯地方管理部門
   el = Μακεδονία και Θράκη
-  he =
   sk = Makedónia a Trácia
 
 [Greece_Decentralized Administration of Thessaly - Central Greece]
@@ -15346,7 +15245,6 @@
   zh-Hans = 萨利和希腊中部地方管理部门
   zh-Hant = 薩利和希臘中部地方管理部門
   el = Θεσσαλία και Στερεά Ελλάδα
-  he =
   sk = Tesália a Stredné Grécko
 
 [Greece_Decentralized Administration of West Greece]
@@ -15380,7 +15278,6 @@
   zh-Hans = 伯罗奔尼撒半岛地方管理部门
   zh-Hant = 伯羅奔尼撒半島地方管理部門
   el = Πελοπόννησος
-  he =
   sk = Peloponéz
 
 [Greenland]
@@ -17353,7 +17250,6 @@
   zh-Hans = 西爪哇省
   zh-Hant = 西爪哇省
   el = Επαρχία Δυτικής Ιάβας
-  he =
   sk = Provincia západná Jáva
 
 [Indonesia_Jawa Tengah]
@@ -17421,7 +17317,6 @@
   zh-Hans = 东爪哇省
   zh-Hant = 東爪哇省
   el = Επαρχία Ανατολικής Ιάβας
-  he =
   sk = Provincia východná Jáva
 
 [Indonesia_Nusa Tenggara]
@@ -17455,7 +17350,6 @@
   zh-Hans = 小巽他群岛
   zh-Hant = 小巽他群島
   el = Νήσοι Μικρές Σούνδες
-  he =
   sk = Malé Sundy
 
 [Indonesia_West]
@@ -18460,7 +18354,6 @@
   zh-Hans = 拉韦纳省
   zh-Hant = 拉韋納省
   el = Επαρχία Ραβέννας
-  he =
   sk = Provincia Ravenna
 
 [Italy_Emilia-Romagna_Reggio Emilia]
@@ -18494,7 +18387,6 @@
   zh-Hans = 雷焦艾米利亚省
   zh-Hant = 雷焦艾米利亞省
   el = Επαρχία Ρέτζο Εμίλια
-  he =
   sk = Provincia Reggio Emilia
 
 [Italy_Emilia-Romagna_Rimini]
@@ -18528,7 +18420,6 @@
   zh-Hans = 里米尼省
   zh-Hant = 里米尼省
   el = Επαρχία Ρίμινι
-  he =
   sk = Provincia Rimini
 
 [Italy_Friuli]
@@ -19480,7 +19371,6 @@
   zh-Hans = 诺瓦拉省
   zh-Hant = 諾瓦拉省
   el = Επαρχία του Νοβάρα
-  he =
   sk = Provincia Novara
 
 [Italy_Piemont_Torino]
@@ -19514,7 +19404,6 @@
   zh-Hans = 都灵省
   zh-Hant = 都靈省
   el = Επαρχία του Τορίνου
-  he =
   sk = Provincia Turín
 
 [Italy_Piemont_Verbano-Cusio-Ossola]
@@ -19548,7 +19437,6 @@
   zh-Hans = 韦尔巴诺-库西亚-奥索拉省
   zh-Hant = 韋爾巴諾-庫西亞-奧索拉省
   el = Βερμπάνο-Κούζιο-Όσολα
-  he =
   sk = Verbano-Cusio-Ossola
 
 [Italy_Piemont_Vercelli]
@@ -19582,7 +19470,6 @@
   zh-Hans = 韦尔切利省
   zh-Hant = 韋爾切利省
   el = Επαρχία του Βερτσέλλι
-  he =
   sk = Provincia Vercelli
 
 [Italy_Sardinia]
@@ -23873,7 +23760,6 @@
   zh-Hans = 杜卡拉-阿卜达大区
   zh-Hant = 杜卡拉-阿卜達大區
   el = Νουκάλα-Αμπντά
-  he =
   sk = Doukkala-Abda
 
 [Morocco_Rabat-Sale-Zemmour-Zaer]
@@ -23907,7 +23793,6 @@
   zh-Hans = 拉巴特-萨累-宰穆尔-扎埃尔大区
   zh-Hant = 拉巴特-薩累-宰穆爾-扎埃爾大區
   el = Ραμπάτ-Σαλέ-Ζεμούρ-Ζαέρ
-  he =
   sk = Rabat-Salé-Zemmour-Zaer
 
 [Morocco_Southern]
@@ -24477,7 +24362,6 @@
   zh-Hans = 海尔德兰省 — 阿珀尔多伦
   zh-Hant = 海爾德蘭省 — 阿珀爾多倫
   el = Χέλντερλαντ - Άπελντουρν
-  he =
   sk = Gelderland — Apeldoorn
 
 [Netherlands_Gelderland_Zutphen]
@@ -24511,7 +24395,6 @@
   zh-Hans = 海尔德兰省 — 聚特芬
   zh-Hant = 海爾德蘭省 — 聚特芬
   el = Χέλντερλαντ - Ζούτφεν
-  he =
   sk = Gelderland — Zutphen
 
 [Netherlands_Groningen]
@@ -24647,7 +24530,6 @@
   zh-Hans = 北布拉班特省 — 罗森达尔
   zh-Hant = 北布拉班特省 — 羅森達爾
   el = Βόρεια Βραβάντη - Ρόζενταλ
-  he =
   sk = North Brabant — Roosendaal
 
 [Netherlands_North Brabant_Tiburg]
@@ -24681,7 +24563,6 @@
   zh-Hans = 北布拉班特省 — 蒂尔堡
   zh-Hant = 北布拉班特省 — 蒂爾堡
   el = Βόρεια Βραβάντη — Τίλμπουργκ
-  he =
   sk = Severné Brabantsko — Tilburg
 
 [Netherlands_North Brabant_Uden]
@@ -24715,7 +24596,6 @@
   zh-Hans = 北布拉班特省 - 乌登
   zh-Hant = 北布拉班特省 - 烏登
   el = Βόρεια Βραβάντη - Ούντεν
-  he =
   sk = North Brabant — Uden
 
 [Netherlands_North Holland_Alkmaar]
@@ -24817,7 +24697,6 @@
   zh-Hans = 北荷兰省 — 赞斯塔德
   zh-Hant = 北荷蘭省 — 贊斯塔德
   el = Βόρεια Ολλανδία - Ζάνσταντ
-  he =
   sk = North Holland — Zaanstad
 
 [Netherlands_Overijssel_Enschede]
@@ -24919,7 +24798,6 @@
   zh-Hans = 南荷兰省 — 布里勒
   zh-Hant = 南荷蘭省 — 布里勒
   el = Νότια Ολλανδία - Μπρίλε
-  he =
   sk = South Holland — Brielle
 
 [Netherlands_South Holland_Den Haag]
@@ -25055,7 +24933,6 @@
   zh-Hans = 乌得勒支省 — 阿默斯福特
   zh-Hant = 烏得勒支省 — 阿默斯福特
   el = Ουτρέχτη - Άμερσφουτ
-  he =
   sk = Utrecht — Amersfoort
 
 [Netherlands_Utrecht_Utrecht]
@@ -25760,7 +25637,6 @@
   zh-Hans = 海德马克郡
   zh-Hant = 海德馬克郡
   el = Χέντμαρκ
-  he =
   sk = Hedmark
 
 [Norway_Jan Mayen]
@@ -25862,7 +25738,6 @@
   zh-Hans = 奥普兰郡
   zh-Hant = 奧普蘭郡
   el = Όππλαντ
-  he =
   sk = Oppland
 
 [Norway_Southern]
@@ -26646,7 +26521,6 @@
   zh-Hans = 马尼拉大都会
   zh-Hant = 馬尼拉大都會
   el = Μετρό Μανίλα
-  he =
   sk = Metro Manila
 
 [Philippines_Luzon_North]
@@ -27645,7 +27519,6 @@
   zh-Hans = 中部
   zh-Hant = 中部
   el = Σεντρού
-  he =
   sk = Centru
 
 [Romania_North_East]
@@ -27679,7 +27552,6 @@
   zh-Hans = 东北部
   zh-Hant = 東北部
   el = Βορειοανατολικά
-  he =
   sk = Nord-Est
 
 [Romania_North_West]
@@ -27713,7 +27585,6 @@
   zh-Hans = 西北部
   zh-Hant = 西北部
   el = Βορειοαδυτικά
-  he =
   sk = Nord-Vest
 
 [Romania_South]
@@ -27781,7 +27652,6 @@
   zh-Hans = 东南部
   zh-Hant = 東南部
   el = Νοτιοδυτικά
-  he =
   sk = Sud-Est
 
 [Romania_South_West]
@@ -27815,7 +27685,6 @@
   zh-Hans = 西南部
   zh-Hant = 西南部
   el = Νοτιοδυτική περιφέρεια Ρουμανίας
-  he =
   sk = Sud-Vest
 
 [Romania_West]
@@ -27849,7 +27718,6 @@
   zh-Hans = 西部
   zh-Hant = 西部
   el = Δύση
-  he =
   sk = Vest
 
 [Russia_Altai Krai]
@@ -30918,7 +30786,6 @@
   zh-Hans = 圣赫勒拿、阿森松与特里斯坦达库尼亚
   zh-Hant = 聖赫勒拿、阿森松與特里斯坦達庫尼亞
   el = Αγία Ελένη, της Αναλήψεως και Τριστάν ντα Κούνια
-  he =
   sk = Svätá Helena
 
 [Saint Kitts and Nevis]
@@ -31496,7 +31363,6 @@
   zh-Hans = 布拉迪斯拉发州
   zh-Hant = 布拉迪斯拉發州
   el = Περιοχή Μπρατισλάβα
-  he =
   sk = Bratislavský kraj
 
 [Slovakia_Region of Kosice]
@@ -31530,7 +31396,6 @@
   zh-Hans = 科希策州
   zh-Hant = 科希策州
   el = Περιοχή Κόσιτσε
-  he =
   sk = Košický kraj
 
 [Slovakia_Region of Nitra]
@@ -31564,7 +31429,6 @@
   zh-Hans = 尼特拉州
   zh-Hant = 尼特拉州
   el = Περιφέρειας Nitra
-  he =
   sk = Nitriansky kraj
 
 [Slovakia_Region of Presov]
@@ -31598,7 +31462,6 @@
   zh-Hans = 普列索夫州
   zh-Hant = 普列索夫州
   el = Περιφέρεια Πρέσοβ
-  he =
   sk = Prešovský kraj
 
 [Slovakia_Region of Trencin]
@@ -33404,7 +33267,6 @@
   zh-Hans = Bergslagen
   zh-Hant = Bergslagen
   el = Μπεργκσλάνγκεν
-  he =
   sk = Bergslagen
 
 [Sweden_Malardalen]
@@ -33437,7 +33299,6 @@
   zh-Hans = 梅拉达伦
   zh-Hant = 梅拉達倫
   el = Περιοχή πρωτεύουσας
-  he =
   sk = Mälardalen
 
 [Sweden_Mellannorrland]
@@ -33470,7 +33331,6 @@
   zh-Hans = Mellannorrland
   zh-Hant = Mellannorrland
   el = Μελάνορλαντ
-  he =
   sk = Mellannorrland
 
 [Sweden_Norra Sverige]
@@ -33503,7 +33363,6 @@
   zh-Hans = 瑞典北部
   zh-Hant = 瑞典北部
   el = Βόρεια Σουηδία
-  he =
   sk = Norra Sverige
 
 [Sweden_Ostra Gotaland]
@@ -33536,7 +33395,6 @@
   zh-Hans = 东约特兰
   zh-Hant = 東約特蘭
   el = Ανατολική Γκόταλαντ
-  he =
   sk = Ostra Götaland
 
 [Sweden_Sodra Gotaland]
@@ -33569,7 +33427,6 @@
   zh-Hans = 南约特兰
   zh-Hant = 南約特蘭
   el = Νότια Γκόταλαντ
-  he =
   sk = Södra Götaland
 
 [Sweden_Vastra Gotaland]
@@ -33602,7 +33459,6 @@
   zh-Hans = 西约特兰
   zh-Hant = 西約特蘭
   el = Δυτικό Γκόταλαντ
-  he =
   sk = Västra Götaland
 
 [Switzerland]
@@ -33737,7 +33593,6 @@
   zh-Hans = 中部地区
   zh-Hant = 中部地區
   el = Εσπέις Μίτελαντ
-  he =
   sk = Espace Mittelland
 
 [Switzerland_Lake Geneva region]
@@ -33770,7 +33625,6 @@
   zh-Hans = 日内瓦湖区
   zh-Hant = 日內瓦湖區
   el = Περιοχή της λίμνης της Γενεύης
-  he =
   sk = Lake Geneva region
 
 [Switzerland_Northwestern]
@@ -33869,7 +33723,6 @@
   zh-Hans = 苏黎世都会区
   zh-Hant = 蘇黎世都會區
   el = Ζυρίχη
-  he =
   sk = Zurich metropolitan area
 
 [Syria]
@@ -35630,7 +35483,6 @@
   zh-Hans = 奇科
   zh-Hant = 奇科
   el = Τσίκο
-  he =
   sk = Chico
 
 [US_California_LA]
@@ -35729,7 +35581,6 @@
   zh-Hans = 雷丁
   zh-Hant = 雷丁
   el = Ρέντιγκ
-  he =
   sk = Redding
 
 [US_California_Sacramento_Fresno]
@@ -35927,7 +35778,6 @@
   zh-Hans = 圣塔克鲁兹
   zh-Hant = 聖塔克魯茲
   el = Σάντα Κρουζ
-  he =
   sk = Santa Cruz
 
 [US_Colorado_Aspen]
@@ -36557,7 +36407,6 @@
   zh-Hans = 埃尔金
   zh-Hant = 埃爾金
   el = Έλγιν
-  he =
   sk = Elgin
 
 [US_Illinois_Rockford]
@@ -37218,7 +37067,6 @@
   zh-Hans = 普利茅斯
   zh-Hant = 普利茅斯
   el = Πλίμουθ
-  he =
   sk = Plymouth
 
 [US_Massachusetts_Southeastern]
@@ -37251,7 +37099,6 @@
   zh-Hans = 巴恩斯特布尔 (马萨诸塞州)
   zh-Hant = 巴恩斯特布爾 (馬薩諸塞州)
   el = Μπαρνστέιμπλ
-  he =
   sk = Barnstable
 
 [US_Massachusetts_West]
@@ -37515,7 +37362,6 @@
   zh-Hans = 圣克劳德
   zh-Hant = 聖克勞德
   el = Σαιντ Κλάουντ
-  he =
   sk = St. Cloud
 
 [US_Mississippi]
@@ -38181,7 +38027,6 @@
   zh-Hans = 威尔逊
   zh-Hant = 威爾遜
   el = Ουίλσον
-  he =
   sk = Wilson
 
 [US_North Dakota_Bismarck]
@@ -38280,7 +38125,6 @@
   zh-Hans = 迈诺特
   zh-Hant = 邁諾特
   el = Μινότ
-  he =
   sk = Minot
 
 [US_Ohio_Cleveland]
@@ -38555,7 +38399,6 @@
   zh-Hans = 阿尔图纳 (宾夕法尼亚州)
   zh-Hant = 阿爾圖納 (賓夕法尼亞州)
   el = Αλτούνα
-  he =
   sk = Altoona
 
 [US_Pennsylvania_Pittsburgh]
@@ -38621,7 +38464,6 @@
   zh-Hans = 雷丁
   zh-Hant = 雷丁
   el = Ρίντιγκ
-  he =
   sk = Reading
 
 [US_Pennsylvania_Scranton]
@@ -38787,7 +38629,6 @@
   zh-Hans = 佛罗伦萨
   zh-Hant = 佛羅倫薩
   el = Φλωρεντία
-  he =
   sk = Florence
 
 [US_South Dakota]
@@ -39118,7 +38959,6 @@
   zh-Hans = 泰勒
   zh-Hant = 泰勒
   el = Τάιλερ
-  he =
   sk = Tyler
 
 [US_Texas_Wako]
@@ -39184,7 +39024,6 @@
   zh-Hans = 敖德萨
   zh-Hant = 敖德薩
   el = Οδησσός
-  he =
   sk = Odessa
 
 [US_United States Minor Outlying Islands]
@@ -39217,7 +39056,6 @@
   zh-Hans = 美国本土外小岛屿
   zh-Hant = 美國本土外小島嶼
   el = Απομακρυσμένες νησίδες των ΗΠΑ
-  he =
   sk = Menšie odľahlé ostrovy USA
 
 [US_Utah]
@@ -39351,7 +39189,6 @@
   zh-Hans = 林奇堡
   zh-Hant = 林奇堡
   el = Λίντσμπουργκ
-  he =
   sk = Lynchburg
 
 [US_Virginia_Richmond]
@@ -40977,7 +40814,6 @@
   zh-Hans = 威利斯岛
   zh-Hant = 威利斯島
   el = Νήσος Γουίλις
-  he =
   sk = Willis Island
 
 [Wisconsin]
