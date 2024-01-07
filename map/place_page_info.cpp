@@ -170,6 +170,10 @@ std::string Info::FormatSubtitle(bool withType) const
   // Internet.
   if (HasWifi())
     append(m_localizedWifiString);
+    
+  // Toilets.
+  if (HasToilets())
+    append(kToiletsSymbol);
 
   // Wheelchair
   if (GetWheelchairType() == ftraits::WheelchairAvailability::Yes)
