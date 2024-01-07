@@ -395,7 +395,10 @@ public class PlacePageView extends Fragment implements View.OnClickListener,
     refreshWiFi();
     refreshMetadataOrHide(mMapObject.getMetadata(Metadata.MetadataType.FMD_FLATS), mEntrance, mTvEntrance);
     refreshMetadataOrHide(mMapObject.getMetadata(Metadata.MetadataType.FMD_LEVEL), mLevel, mTvLevel);
-    refreshMetadataOrHide(getString(R.string.capacity, mMapObject.getMetadata(Metadata.MetadataType.FMD_CAPACITY)), mCapacity, mTvCapacity);
+
+    final String cap = mMapObject.getMetadata(Metadata.MetadataType.FMD_CAPACITY);
+    refreshMetadataOrHide(!TextUtils.isEmpty(cap) ? getString(R.string.capacity, cap) : "", mCapacity, mTvCapacity);
+
     refreshMetadataOrHide(mMapObject.hasAtm() ? getString(R.string.type_amenity_atm) : "", mAtm, mTvAtm);
 
 //    showTaxiOffer(mapObject);
