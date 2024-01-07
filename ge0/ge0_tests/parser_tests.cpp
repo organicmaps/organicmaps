@@ -243,7 +243,7 @@ UNIT_TEST(LatLonFullAndClippedCoordinates)
     for (double lon = -180; lon < 180; lon += 0.7)
     {
       string const buf = ge0::GenerateShortShowMapUrl(lat, lon, 4, "");
-      size_t const coordInd = buf.find("://") + 4;
+      size_t const coordInd = 19; // strlen("https://omaps.app/") + 1
       for (int i = 9; i >= 1; --i)
       {
         string const str = buf.substr(coordInd, i);
@@ -255,8 +255,8 @@ UNIT_TEST(LatLonFullAndClippedCoordinates)
         double const epsLon = GetLonEpsilon(coordSize);
         double const difLat = fabs(lat - latTmp);
         double const difLon = fabs(lon - lonTmp);
-        TEST(difLat <= epsLat, (str, lat, latTmp, lon, lonTmp, difLat, epsLat));
-        TEST(difLon <= epsLon, (str, lat, latTmp, lon, lonTmp, difLon, epsLon));
+        TEST(difLat <= epsLat, (buf, str, lat, latTmp, lon, lonTmp, difLat, epsLat));
+        TEST(difLon <= epsLon, (buf, str, lat, latTmp, lon, lonTmp, difLon, epsLon));
         maxLatDiffForCoordSize[coordSize] = max(maxLatDiffForCoordSize[coordSize], difLat);
         maxLonDiffForCoordSize[coordSize] = max(maxLonDiffForCoordSize[coordSize], difLon);
       }

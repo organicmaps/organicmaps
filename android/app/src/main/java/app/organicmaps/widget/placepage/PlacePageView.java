@@ -73,12 +73,14 @@ public class PlacePageView extends Fragment implements View.OnClickListener,
   private static final String LINKS_FRAGMENT_TAG = "LINKS_FRAGMENT_TAG";
 
   private static final List<CoordinatesFormat> visibleCoordsFormat =
-      Arrays.asList(CoordinatesFormat.LatLonDMS,
-                    CoordinatesFormat.LatLonDecimal,
+      Arrays.asList(CoordinatesFormat.LatLonDecimal,
+                    CoordinatesFormat.LatLonDMS,
                     CoordinatesFormat.OLCFull,
+                    CoordinatesFormat.GeoUri,
                     CoordinatesFormat.UTM,
                     CoordinatesFormat.MGRS,
-                    CoordinatesFormat.OSMLink);
+                    CoordinatesFormat.OSMLink,
+                    CoordinatesFormat.Ge0Url);
   private View mFrame;
   // Preview.
   private ViewGroup mPreview;

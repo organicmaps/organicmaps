@@ -2289,20 +2289,6 @@ StringsBundle const & Framework::GetStringsBundle()
   return m_stringsBundle;
 }
 
-// static
-string Framework::CodeGe0url(Bookmark const * bmk, bool addName)
-{
-  double lat = mercator::YToLat(bmk->GetPivot().y);
-  double lon = mercator::XToLon(bmk->GetPivot().x);
-  return ge0::GenerateShortShowMapUrl(lat, lon, bmk->GetScale(), addName ? bmk->GetPreferredName() : "");
-}
-
-// static
-string Framework::CodeGe0url(double lat, double lon, double zoomLevel, string const & name)
-{
-  return ge0::GenerateShortShowMapUrl(lat, lon, zoomLevel, name);
-}
-
 string Framework::GenerateApiBackUrl(ApiMarkPoint const & point) const
 {
   string res = m_parsedMapApi.GetGlobalBackUrl();

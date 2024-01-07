@@ -9,6 +9,8 @@
 #include "platform/measurement_utils.hpp"
 #include "platform/preferred_languages.hpp"
 
+#include "ge0/url_generator.hpp"
+
 #include "geometry/mercator.hpp"
 
 #include "base/assert.hpp"
@@ -336,6 +338,10 @@ std::string Info::GetFormattedCoordinate(CoordinatesFormat coordsFormat) const
       else
         return "MGRS: " + mgrsCoords;
     }
+    case CoordinatesFormat::GeoUri: // geo: URI
+      return ge0::GenerateGeoUri(lat, lon, 14, "");
+    case CoordinatesFormat::Ge0Url: // ge0: URL
+      return ge0::GenerateShortShowMapUrl(lat, lon, 14, "");
   }
 }
 

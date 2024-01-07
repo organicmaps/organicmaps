@@ -649,12 +649,6 @@ public enum BookmarkManager
     return nativeGetBookmarkScale(bookmarkId);
   }
 
-  @NonNull
-  public String encode2Ge0Url(@IntRange(from = 0) long bookmarkId, boolean addName)
-  {
-    return nativeEncode2Ge0Url(bookmarkId, addName);
-  }
-
   public void setBookmarkParams(@IntRange(from = 0) long bookmarkId, @NonNull String name,
                                 @Icon.PredefinedColor int color, @NonNull String descr)
   {
@@ -855,10 +849,6 @@ public enum BookmarkManager
   private static native String nativeGetBookmarkDescription(@IntRange(from = 0) long bookmarkId);
 
   private static native double nativeGetBookmarkScale(@IntRange(from = 0) long bookmarkId);
-
-  @NonNull
-  private static native String nativeEncode2Ge0Url(@IntRange(from = 0) long bookmarkId,
-                                                   boolean addName);
 
   private static native void nativeSetBookmarkParams(@IntRange(from = 0) long bookmarkId,
                                                      @NonNull String name,

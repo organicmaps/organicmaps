@@ -41,7 +41,9 @@ enum class CoordinatesFormat
   OLCFull, // Open location code, long format
   OSMLink, // Link to osm.org
   UTM, // Universal Transverse Mercator
-  MGRS // Military Grid Reference System
+  MGRS, // Military Grid Reference System
+  GeoUri, // geo: link, e.g. geo:37.786971,-122.399677
+  Ge0Url, // Organic Maps deep link, e.g. https://omaps.app/o4B4pYZsRs
 };
 
 struct BuildInfo
