@@ -744,6 +744,8 @@
 	<string name="button_layer_outdoor">Túrázás</string>
 	<!-- Text displayed when a webview or a browser are disabled, and external links can't be opened. -->
 	<string name="browser_not_available">A webböngésző nem elérhető</string>
+	<!-- Text displayed in a dialog when OSM authorization is disabled -->
+	<string name="osm_login_not_available">Az OpenStreetMap-es hitelesítés átmenetileg nem elérhető a Google Play új korlátozásai miatt 😾\nCsapatunk dolgozik a probléma megoldásán. Kérjük, legyen türelemmel 🙏</string>
 
 	<!-- SECTION: Types -->
 	<string name="type.addr_interpolation">Cím/blokk</string>

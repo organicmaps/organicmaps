@@ -768,6 +768,8 @@
 	<string name="button_layer_outdoor">Fotturer</string>
 	<!-- Text displayed when a webview or a browser are disabled, and external links can't be opened. -->
 	<string name="browser_not_available">Nettleser er ikke tilgjengelig</string>
+	<!-- Text displayed in a dialog when OSM authorization is disabled -->
+	<string name="osm_login_not_available">OpenStreetMap-autorisasjon er midlertidig utilgjengelig på grunn av nye restriksjoner i Google Play 😾\nVårt team jobber med å løse dette problemet. Vennligst vær tålmodig 🙏</string>
 
 	<!-- SECTION: Types -->
 	<string name="type.addr_interpolation">Adresse/blokk</string>
