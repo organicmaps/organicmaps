@@ -338,7 +338,7 @@ line|z11[highway=secondary]
 line|z12[highway=secondary]
 {width: 1.6;}
 line|z13[highway=secondary],
-line|z14[highway=secondary_link]
+line|z13[highway=secondary_link],
 {width: 2.2;}
 line|z14[highway=secondary],
 line|z14[highway=secondary_link]
@@ -418,7 +418,7 @@ line|z12-13[highway=tertiary]
 {width: 1.2;}
 line|z14[highway=residential],
 line|z14[highway=tertiary],
-line|z15[highway=tertiary_link]
+line|z14[highway=tertiary_link],
 {width: 1.8;}
 line|z15[highway=residential],
 line|z15[highway=tertiary],
