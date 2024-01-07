@@ -332,6 +332,12 @@ class StringsTxt:
 
         if target_file is None:
             target_file = self.strings_path
+        if target_file.endswith('countries_names.txt'):
+            section_padding = 0 * " "
+            key_padding = 2 * " "
+        else:
+            section_padding = 2 * " "
+            key_padding = 4 * " "
         with open(target_file, "w", encoding='utf-8') as outfile:
             for key in self.keys_in_order:
                 # TODO: sort definitions and sections too?
@@ -345,24 +351,24 @@ class StringsTxt:
                         before_block = "\n"
                     continue
 
-                outfile.write("{0}  {1}\n".format(before_block, key))
+                outfile.write("{0}{1}{2}\n".format(before_block, section_padding, key))
                 before_block = "\n"
 
                 ref_tran = {}
                 if key in self.comments_tags_refs:
                     for k, v in self.comments_tags_refs[key].items():
-                        outfile.write("    {0} = {1}\n".format(k, v))
+                        outfile.write("{0}{1} = {2}\n".format(key_padding, k, v))
                         if not keep_resolved and k == "ref":
                             ref_tran = self.translations.get("[{0}]".format(v))
 
-                self._write_translations_for_langs(outfile, sorted_langs, tran, ref_tran)
+                self._write_translations_for_langs(outfile, sorted_langs, tran, ref_tran, key_padding)
 
-    def _write_translations_for_langs(self, outfile, langs, tran, ref_tran):
+    def _write_translations_for_langs(self, outfile, langs, tran, ref_tran, key_padding):
         for lang in langs:
             # don't output translation if it's duplicated in referenced definition
             if lang in tran and tran[lang] != ref_tran.get(lang):
-                outfile.write("    {0} = {1}\n".format(
-                    lang, tran[lang].replace("...", "…")
+                outfile.write("{0}{1} = {2}\n".format(
+                    key_padding, lang, tran[lang].replace("...", "…")
                 ))
 
     def _compare_blocks(self, key_1, key_2):
