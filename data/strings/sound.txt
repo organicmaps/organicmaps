@@ -1369,8 +1369,8 @@
     en = Take the fifth exit.
     ar = اسلك المخرج الخامس.
     be = Збочце на пяты з'езд.
-    cs = Vyjeďte pátým výjezdem.
     ca = Agafeu la cinquena sortida.
+    cs = Vyjeďte pátým výjezdem.
     da = Tag den femte afkørsel.
     de = Nehmen Sie die fünfte Ausfahrt.
     el = Πάρτε την πέμπτη έξοδο.
@@ -2506,8 +2506,8 @@
     de = Blitzer voraus
     el = Κάμερα παρακάτω
     es = Cámara adelante
-    eu = Kamera aurrera
     es-MX = Cámara próxima
+    eu = Kamera aurrera
     fa = دوربین کنترل سرعت در نزدیکی
     fi = Edessä on kamera
     fr = Caméra devant
