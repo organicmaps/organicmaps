@@ -357,6 +357,13 @@ public final class Config
     return url;
   }
 
+  @NonNull
+  @SuppressWarnings("ConstantConditions") // BuildConfig
+  public static boolean isOsmLoginEnabled(@NonNull Context context)
+  {
+    return !BuildConfig.FLAVOR.equals("google");
+  }
+
   public static void init(@NonNull Context context)
   {
     PreferenceManager.setDefaultValues(context, R.xml.prefs_main, false);
