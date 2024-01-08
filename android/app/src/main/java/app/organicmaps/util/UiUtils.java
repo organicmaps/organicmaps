@@ -377,34 +377,4 @@ public final class UiUtils
 
   // utility class
   private UiUtils() {}
-
-  @Override
-    void bind(@NonNull SearchResult result, int order) {
-        super.bind(result, order);
-        setBackground();
-
-        formatOpeningHours(mResult);
-        UiUtils.setTextAndHideIfEmpty(mDescription, mResult.description.description);
-        UiUtils.setTextAndHideIfEmpty(mRegion, mResult.description.region);
-        UiUtils.setTextAndHideIfEmpty(mDistance, mResult.description.distance.toString(mFrame.getContext()));
-
-        // Bold the matched part in the address
-        boldMatchedAddress(mResult);
-    }
-
-    private void boldMatchedAddress(SearchResult result) {
-        // Check if there is a matched part in the address
-        if (!TextUtils.isEmpty(result.matchedText)) {
-            // Bold the matched part in the address
-            String address = result.description.address;
-            SpannableStringBuilder spannable = new SpannableStringBuilder(address);
-
-            int startPos = address.toLowerCase().indexOf(result.matchedText.toLowerCase());
-            if (startPos != -1) {
-                int endPos = startPos + result.matchedText.length();
-                spannable.setSpan(new StyleSpan(Typeface.BOLD), startPos, endPos, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
-                mAddress.setText(spannable);
-            }
-        }
-    }
 }
