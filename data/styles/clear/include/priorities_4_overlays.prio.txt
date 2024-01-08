@@ -622,9 +622,9 @@ highway-residential-tunnel                          # pathtext z13- (also has sh
 highway-road                                        # pathtext z14- (also has line z12-)
 highway-road-bridge                                 # pathtext z14- (also has line z12-, line::bridgeblack z16-, line::bridgewhite z16-)
 highway-road-tunnel                                 # pathtext z14- (also has line z12-)
-highway-secondary_link                              # pathtext z16- (also has line z14-)
-highway-secondary_link-bridge                       # pathtext z16- (also has line z14-, line::bridgeblack z14-, line::bridgewhite z14-)
-highway-secondary_link-tunnel                       # pathtext z16- (also has line z14-, line(casing) z16-)
+highway-secondary_link                              # pathtext z16- (also has line z13-)
+highway-secondary_link-bridge                       # pathtext z16- (also has line z13-, line::bridgeblack z14-, line::bridgewhite z14-)
+highway-secondary_link-tunnel                       # pathtext z16- (also has line z13-, line(casing) z16-)
 === 3000
 
 highway-primary::shield                             # shield::shield z10- (also has pathtext z10-, line z8-)
@@ -663,9 +663,9 @@ highway-footway                                     # pathtext z15- (also has li
 highway-footway-area                                # pathtext z15- (also has line z15-, area z14-)
 highway-footway-bridge                              # pathtext z15- (also has line z15-, line::bridgeblack z17-, line::bridgewhite z15-)
 highway-footway-tunnel                              # pathtext z15- (also has line z15-, line::tunnelBackground z17-, line::tunnelCasing z17-)
-highway-tertiary_link                               # pathtext z18- (also has line z15-)
-highway-tertiary_link-bridge                        # pathtext z18- (also has line z15-, line::bridgeblack z15-, line::bridgewhite z15-)
-highway-tertiary_link-tunnel                        # pathtext z18- (also has line z15-, line(casing) z16-)
+highway-tertiary_link                               # pathtext z18- (also has line z14-)
+highway-tertiary_link-bridge                        # pathtext z18- (also has line z14-, line::bridgeblack z14-, line::bridgewhite z14-)
+highway-tertiary_link-tunnel                        # pathtext z18- (also has line z14-, line(casing) z16-)
 === 2950
 
 natural-water-basin                                 # caption z10- (also has area z1-)
