@@ -77,9 +77,9 @@ highway-tertiary-bridge                             # pathtext z12- (also has sh
 highway-tertiary-tunnel                             # pathtext z12- (also has shield::shield z13-, line z11-, line(casing) z15-)
 === 4100
 
-highway-secondary_link                              # pathtext z16- (also has line(casing) z14-, line z14-)
-highway-secondary_link-bridge                       # pathtext z16- (also has line z14-, line::bridgeblack z14-, line::bridgewhite z14-, line(casing) z14-)
-highway-secondary_link-tunnel                       # pathtext z16- (also has line(casing) z14-, line z14-)
+highway-secondary_link                              # pathtext z16- (also has line z13-, line(casing) z14-)
+highway-secondary_link-bridge                       # pathtext z16- (also has line z13-, line::bridgeblack z14-, line::bridgewhite z14-, line(casing) z14-)
+highway-secondary_link-tunnel                       # pathtext z16- (also has line z13-, line(casing) z14-)
 === 4050
 
 highway-unclassified                                # pathtext z14- (also has line z11-)
@@ -120,9 +120,9 @@ highway-road-bridge                                 # pathtext z14- (also has li
 highway-road-tunnel                                 # pathtext z14- (also has line z12-)
 === 3900
 
-highway-tertiary_link                               # pathtext z18- (also has line(casing) z15-, line z15-)
-highway-tertiary_link-bridge                        # pathtext z18- (also has line z15-, line::bridgeblack z15-, line::bridgewhite z15-, line(casing) z15-)
-highway-tertiary_link-tunnel                        # pathtext z18- (also has line(casing) z15-, line z15-)
+highway-tertiary_link                               # pathtext z18- (also has line z14-, line(casing) z15-)
+highway-tertiary_link-bridge                        # pathtext z18- (also has line z14-, line::bridgeblack z14-, line::bridgewhite z14-, line(casing) z15-)
+highway-tertiary_link-tunnel                        # pathtext z18- (also has line z14-, line(casing) z15-)
 === 3850
 
 place-continent                                     # caption z1-2
