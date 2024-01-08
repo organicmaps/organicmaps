@@ -106,8 +106,8 @@
 @primary_orange_light: #593323;
 @secondary: #573E33;
 @secondary_light: #573E33;
+@tertiary: #4F4A47;
 @residential: #4B4643;
-@unclassified: #4B4643;
 @pedestrian: #4D4744;
 @footway: #4B4643;
 @cycleway: #6E3D47;
@@ -131,8 +131,8 @@
 @secondary_tunnel_casing:  #000000;
 @tertiary_tunnel: #2B2827;
 @tertiary_tunnel_casing:  #000000;
-@unclassified_tunnel: #2B2827;
-@unclassified_tunnel_casing: #000000;
+@residential_tunnel: #2B2827;
+@residential_tunnel_casing: #000000;
 
 /* 5.4 Piste */
 

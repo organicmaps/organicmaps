@@ -28,7 +28,7 @@ line|z11-12[highway=construction],
 
 /* Make service roads more pronounced - they lead to trailheads quite often. */
 line|z13-[highway=service],
-{color: @unclassified; opacity: 1;}
+{color: @residential; opacity: 1;}
 line|z13[highway=service],
 {width: 0.8;}
 line|z14[highway=service],
