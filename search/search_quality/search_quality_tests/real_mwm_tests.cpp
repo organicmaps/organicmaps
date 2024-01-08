@@ -319,17 +319,22 @@ UNIT_CLASS_TEST(MwmTestsFixture, Hamburg_Park)
   auto const & results = request->Results();
   TEST_GREATER(results.size(), kTopPoiResultsCount, ());
 
-  Range const range(results, 0, 4);
+  Range const range(results, 0, 3);
   EqualClassifType(range, GetClassifTypes({
       {"tourism", "theme_park"},
       {"amenity", "fast_food"},
       {"shop", "gift"},
-      {"highway", "service"}
+      // {"amenity", "pharmacy"}, // "Heide-Apotheke" near the "Parkstraße" street
   }));
 
   NameStartsWith(range, {"Heide Park", "Heide-Park"});
   double const dist = SortedByDistance(range, center);
   TEST_LESS(dist, 100000, ());
+
+  EqualClassifType(Range(results, 4, 6), GetClassifTypes({
+      {"highway", "service"},
+      {"highway", "bus_stop"},
+  }));
 }
 
 // https://github.com/organicmaps/organicmaps/issues/1560
@@ -978,9 +983,12 @@ UNIT_CLASS_TEST(MwmTestsFixture, Streets_Rank)
     auto request = MakeRequest("Szank Beke");
     auto const & results = request->Results();
 
-    size_t constexpr kResultsCount = 3;
+    size_t constexpr kResultsCount = 4;
     TEST_GREATER(results.size(), kResultsCount, ());
-    EqualClassifType(Range(results, 0, kResultsCount), GetClassifTypes({{"highway"}}));
+    // - "Béke utca" in Szank
+    // - "Szani Gyros" fast food near the "Béke utca"
+    // - "Béke utca"
+    EqualClassifType(Range(results, 0, kResultsCount), GetClassifTypes({{"highway"}, {"amenity", "fast_food"}}));
   }
 }
 
@@ -1011,7 +1019,7 @@ UNIT_CLASS_TEST(MwmTestsFixture, Pois_Rank)
     // - railway station "XXX Depot"
     // - a bunch of streets and POIs "Depot XXX" (up to 100km)
     // - nearest post office "Mail Depot" (500m)
-    size_t constexpr kResultsCount = 11;
+    size_t constexpr kResultsCount = 20;
     TEST_GREATER(results.size(), kResultsCount, ());
     TEST_EQUAL(CountClassifType(Range(results, 0, kResultsCount),
                                 classif().GetTypeByPath({"amenity", "post_office"})), 1, ());
