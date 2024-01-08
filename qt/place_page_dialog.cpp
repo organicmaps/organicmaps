@@ -3,6 +3,7 @@
 #include "qt/qt_common/text_dialog.hpp"
 
 #include "map/place_page_info.hpp"
+#include "map/routing_mark.hpp"
 
 #include <QtWidgets/QDialogButtonBox>
 #include <QtWidgets/QGridLayout>
@@ -84,6 +85,34 @@ PlacePageDialog::PlacePageDialog(QWidget * parent, place_page::Info const & info
     addEntry(DebugPrint(PropID::FMD_CUISINE), cuisines);
 
   QDialogButtonBox * dbb = new QDialogButtonBox();
+
+  QPushButton * toButton = new QPushButton("To");
+  toButton -> setIcon(QIcon(":/navig64/point-finish.png"));
+  connect(toButton, &QAbstractButton::clicked, this,
+          [this]() {
+            this->SetRoutePointAddMode(RouteMarkType::Finish);
+            this->OnClose();
+            });
+  dbb->addButton(toButton, QDialogButtonBox::ActionRole);
+
+  QPushButton * stopButton = new QPushButton("Stop");
+  stopButton -> setIcon(QIcon(":/navig64/point-intermediate.png"));
+  connect(stopButton, &QAbstractButton::clicked, this,
+          [this]() {
+            this->SetRoutePointAddMode(RouteMarkType::Intermediate);
+            this->OnClose();
+            });
+  dbb->addButton(stopButton, QDialogButtonBox::ActionRole);
+
+  QPushButton * fromButton = new QPushButton("From");
+  fromButton -> setIcon(QIcon(":/navig64/point-start.png"));
+  connect(fromButton, &QAbstractButton::clicked, this,
+          [this]() {
+            this->SetRoutePointAddMode(RouteMarkType::Start);
+            this->OnClose();
+            });
+  dbb->addButton(fromButton, QDialogButtonBox::ActionRole);
+
   QPushButton * closeButton = new QPushButton("Close");
   closeButton->setDefault(true);
   connect(closeButton, &QAbstractButton::clicked, this, &PlacePageDialog::OnClose);
@@ -137,5 +166,10 @@ PlacePageDialog::PlacePageDialog(QWidget * parent, place_page::Info const & info
   setWindowTitle(ppTitle.c_str());
 }
 
+std::optional<RouteMarkType> PlacePageDialog::GetRoutePointAddMode() const { return m_routePointAddMode; };
+void PlacePageDialog::SetRoutePointAddMode(RouteMarkType routePointAddMode)
+{
+    m_routePointAddMode = routePointAddMode;
+};
 void PlacePageDialog::OnClose() { reject(); }
 void PlacePageDialog::OnEdit() { accept(); }

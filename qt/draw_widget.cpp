@@ -524,7 +524,7 @@ void DrawWidget::SubmitRulerPoint(m2::PointD const & pt)
   m_ruler.DrawLine(m_framework.GetDrapeApi());
 }
 
-void DrawWidget::SubmitRoutingPoint(m2::PointD const & pt)
+void DrawWidget::SubmitRoutingPoint(m2::PointD const & pt, bool pointIsMercator)
 {
   auto & routingManager = m_framework.GetRoutingManager();
 
@@ -546,9 +546,9 @@ void DrawWidget::SubmitRoutingPoint(m2::PointD const & pt)
   point.m_pointType = m_routePointAddMode;
   point.m_isMyPosition = false;
   if (!isIntermediate)
-    point.m_position = GetCoordsFromSettingsIfExists(false /* start */, pt);
- else
-    point.m_position = P2G(pt);
+    point.m_position = GetCoordsFromSettingsIfExists(false /* start */, pt, pointIsMercator);
+  else
+    point.m_position = pointIsMercator? pt : P2G(pt);
 
   routingManager.AddRoutePoint(std::move(point));
 
@@ -672,6 +672,12 @@ void DrawWidget::ShowPlacePage()
       LOG(LERROR, ("Error while trying to edit feature."));
     }
   }
+
+  if (auto routePointAddMode = std::move(dlg.GetRoutePointAddMode()))
+  {
+      SetRoutePointAddMode(*routePointAddMode);
+      SubmitRoutingPoint(info.GetMercator(), true);
+  }
   m_framework.DeactivateMapSelection(false);
 }
 
@@ -693,11 +699,11 @@ m2::PointD DrawWidget::P2G(m2::PointD const & pt) const
   return m_framework.P3dtoG(pt);
 }
 
-m2::PointD DrawWidget::GetCoordsFromSettingsIfExists(bool start, m2::PointD const & pt) const
+m2::PointD DrawWidget::GetCoordsFromSettingsIfExists(bool start, m2::PointD const & pt, bool pointIsMercator) const
 {
   if (auto optional = RoutingSettings::GetCoords(start))
     return mercator::FromLatLon(*optional);
 
-  return P2G(pt);
+  return pointIsMercator ? pt : P2G(pt);
 }
 }  // namespace qt
