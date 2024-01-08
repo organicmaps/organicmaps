@@ -834,6 +834,8 @@ UNIT_TEST(UK_MiniRoundabout)
 // https://github.com/organicmaps/organicmaps/issues/5069
 UNIT_TEST(Germany_Netherlands_AvoidLoops)
 {
+  // https://www.openstreetmap.org/directions?engine=fossgis_osrm_car&route=51.682%2C10.220%3B51.919%2C5.845
+
   TRouteResult const routeResult = CalculateRoute(GetVehicleComponents(VehicleType::Car),
                                                   FromLatLon(51.6823791, 10.2197113), {0., 0.},
                                                   FromLatLon(51.9187916, 5.8452563));
@@ -844,7 +846,7 @@ UNIT_TEST(Germany_Netherlands_AvoidLoops)
   TEST(routeResult.first, ());
   Route const & route = *routeResult.first;
   TestRouteLength(route, 405159);
-  TestRouteTime(route, 13768.9);
+  TestRouteTime(route, 14280.7);
 }
 
 UNIT_TEST(Germany_Cologne_Croatia_Zagreb)
