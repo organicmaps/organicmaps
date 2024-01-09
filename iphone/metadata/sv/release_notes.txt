@@ -3,9 +3,6 @@
 • Add Notes section to the 'Add place to OpenStreetMap' screen
 • OpenStreetMap map data as of January 5
 
-General:
-• Display capacity of parkings, bicycle docks and charging stations when they're selected
-
 Styles:
 • Added cairns, updated Singapore subway icon
 • Slightly increased contrast of lines on the World overview map
@@ -31,11 +28,9 @@ Pistes improvements:
 • better piste names and numbers/refs support
 • in Outdoors style: increase pistes visibilities and display detailed piste shapes (area fills)
 
-Search:
-• Adjust shop, amenity, leisure ranking
-
-Linux Desktop:
-• set screen update frequency to 60fps
+Other:
+• Display capacity of parkings, bicycle docks and charging stations when they're selected
+• Adjust shop, amenity, leisure ranking in the search
 
 Translations:
 • new Azebaijani language
