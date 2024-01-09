@@ -104,6 +104,57 @@
   </screenshots>
 
   <releases>
+   <release version="2024.01.09-5" date="2024-01-09">
+     <description>
+       <p>Highlights:</p>
+         <ul>
+           <li>New OSM maps data as of January 5, 2024</li>
+           <li>Added Max Capacity for places</li>
+         </ul>
+       <p>Styles:</p>
+         <ul>
+           <li>Added Cairns, updated Singapore subway icon</li>
+           <li>Slightly increased contrast of lines on the World overview map</li>
+           <li>Make secondary roads a bit brighter than tertiary/etc.</li>
+           <li>Car navigation style: fixed some footways/paths/tracks being displayed too early as white dashed lines</li>
+           <li>Main style: fix color of footways with a sac_scale=* tag to be same as path</li>
+           <li>Fixed very thin lines (e.g. tram lines) having inconsistent transparency/contrast between different devices (driver-dependent)</li>
+           <li>Fix bookmarked children playground icon</li>
+           <li>Remove labels and decrease visibility of footway crossings and sidewalks</li>
+           <li>Tuned contrast of altitude contour lines</li>
+           <li>Crisper looking lines (no edge blur)</li>
+         </ul>
+       <p>Outdoor Style:</p>
+         <ul>
+           <li>More contrast-looking paths, tracks, cutlines, rivers, ditches, railways, cycleways, fences, etc.</li>
+           <li>Reduce visibility of small streams and canals</li>
+           <li>Increase visibility of fences, walls and ditches</li>
+           <li>Increase visibilities of bridle/cycle/foot-ways and steps, increase label sizes</li>
+           <li>Make bridleways' dashes longer</li>
+         </ul>
+       <p>Pistes improvements:</p>
+         <ul>
+           <li>Add snow parks and new piste types: skitour, winter hike, connection</li>
+           <li>Color freeride pistes in yellow-orange, consider ungroomed downhill runs as freeride</li>
+           <li>Better piste names and numbers/refs support</li>
+           <li>In Outdoors style: increase pistes visibilities and display detailed piste shapes (area fills)</li>
+         </ul>
+       <p>Other:</p>
+         <ul>
+           <li>Display capacity of parkings, bicycle docks and charging stations when they're selected</li>
+           <li>Adjust shop, amenity, leisure ranking in search</li>
+         </ul>
+       <p>Linux Desktop:</p>
+         <ul>
+           <li>Set screen update frequency to 60fps</li>
+         </ul>
+       <p>Translations:</p>
+         <ul>
+           <li>New Azerbaijani language</li>
+           <li>Updates to Chinese, Polish, Hebrew, Romanian</li>
+         </ul>
+     </description>
+   </release>
    <release version="2023.12.20-4" date="2023-12-20">
      <description>
        <p>Highlights:</p>
