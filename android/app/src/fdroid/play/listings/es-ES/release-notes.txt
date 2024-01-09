@@ -1,8 +1,10 @@
-La comunidad de Organic Maps le trae como regalo de Navidad y Año Nuevo:
-• Estilo de mapa «para exteriores», adecuado para senderismo, ciclismo y exploración de la naturaleza
-• Búsqueda de direcciones mejorada
-• Escriba «esquí» para encontrar pistas y desniveles
-• Datos cartográficos de OpenStreetMap al 13 de diciembre
-• Compruebe fotos, reseñas y precios de algunos hoteles. Sus donativos y reservaciones contribuyen con el desarrollo de Organic Maps.
+• Android Auto public preview
+• Temporarily disabled OpenStreetMap login to pass the Google Play review (see https://github.com/organicmaps/issues/7000)
+• Fixed issue with the screen intermittently turning off
+• OpenStreetMap map data as of January 5
+• Improved skiing pistes and Outdoors style
+• Added Max Capacity for places
+• Added Azerbaijani translations
+• Fixed Spanish and Portugal voice settings
 
-omaps.org/es/news
+…more details at omaps.org/news

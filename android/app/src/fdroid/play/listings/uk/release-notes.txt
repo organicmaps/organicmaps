@@ -1,8 +1,10 @@
-Новорічні та різдвяні подарунки від спільноти Organic Maps:
-• Новий стиль карти "Активний відпочинок" для пригод на природі
-• Наберіть "лижі" або "лижна траса" в пошуку, щоб покататися
-• Пошук адрес сіл в Австрії, Чехії, Німеччині, Польщі, Словаччині
-• Дані карти OpenStreetMap станом на 13 грудня
-• У деяких готелів можна подивитися фотографії, відгуки та ціни. Усі ваші пожертвування та бронювання сприяють розвитку Organic Maps!
+• Android Auto public preview
+• Temporarily disabled OpenStreetMap login to pass the Google Play review (see https://github.com/organicmaps/issues/7000)
+• Fixed issue with the screen intermittently turning off
+• OpenStreetMap map data as of January 5
+• Improved skiing pistes and Outdoors style
+• Added Max Capacity for places
+• Added Azerbaijani translations
+• Fixed Spanish and Portugal voice settings
 
-…детальніше на omaps.org/uk/news
+…more details at omaps.org/news

@@ -1,8 +1,10 @@
-Prezenty świąteczne i noworoczne od społeczności Organic Maps:
-• Styl mapy przeznaczony do uprawiania turystyki pieszej, rowerowej i odkrywania przyrody na świeżym powietrzu
-• Wyszukiwanie adresów wsi bez ulic
-• Wpisz „narciarstwo”, aby znaleźć trasy zjazdowe i biegi narciarskie.
-• Dane mapy OpenStreetMap na dzień 13 grudnia
-• Sprawdź zdjęcia, recenzje i ceny niektórych hoteli. Wszystkie Twoje darowizny i rezerwacje przyczyniają się do rozwoju Organic Maps!
+• Android Auto public preview
+• Temporarily disabled OpenStreetMap login to pass the Google Play review (see https://github.com/organicmaps/issues/7000)
+• Fixed issue with the screen intermittently turning off
+• OpenStreetMap map data as of January 5
+• Improved skiing pistes and Outdoors style
+• Added Max Capacity for places
+• Added Azerbaijani translations
+• Fixed Spanish and Portugal voice settings
 
-omaps.org/pl/news
+…more details at omaps.org/news

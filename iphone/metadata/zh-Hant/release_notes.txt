@@ -1,34 +1,44 @@
-We have prepared several Christmas/New Year presents for you:
+• Copy place title, address, coordinates and other information using a long tap
+• CarPlay: support touch panning gestures
+• Add Notes section to the 'Add place to OpenStreetMap' screen
+• OpenStreetMap map data as of January 5
 
-• Outdoors map style for hiking, cycling, and exploring the Nature
-• Search for village addresses without streets in Austria, Czechia, Germany, Poland, Slovakia and some other countries
-• Type "skiing" or "ski run" in the search to find downhill and Nordic pistes
-• OpenStreetMap map data as of December 13
-• Added a button to see photos, reviews, and prices for some hotels. Every booking made through the app contributes to the development of the project!
+General:
+• Display capacity of parkings, bicycle docks and charging stations when they're selected
 
-Other notable fixes and improvements:
-• Fixed several crashes and freezing on iOS 12, 13, 14
-• Multiple KML files can be imported from a single KMZ file
-• Less "gaps" in highways on the World map
-• Removed very short ferry lines from the World map
-• A credit card is displayed for selected places with ATM
-• A dollar emoji is displayed where a fee is required
-• Prettified websites in Place Page
-• "Zoom in to see isolines" message does not cover buttons
-• CarPlay Search button now properly shows search results
-• Improved user interface for the Search on iPad
+Styles:
+• Added cairns, updated Singapore subway icon
+• Slightly increased contrast of lines on the World overview map
+• Make secondary roads a bit brighter than tertiary/etc.
+• Car navigation style: fixed some footways/paths/tracks being displayed too early as white dashed lines
+• Main style: fix color of footways with a sac_scale=* tag to be same as path
+• Fixed very thin lines (e.g. tram lines) having inconsistent transparency/contrast between different devices (driver•dependent)
+• Fix bookmarked children playground icon
+• remove labels and decrease visibility of footway crossings and sidewalks
+• tuned contrast of altitude contour lines
+• crisper looking lines (no edge blur)
 
-Styles
-• Singapore metro icon
-• Added Hackerspace
-• Fixed Porto metro icon
-• Fixed residential leisure garden area fills disappearing on some zoom levels
-• Display house numbers regardless of buildings' sizes
-• Fine-tuned visibility of many objects in the main style
+Outdoors style:
+• more contrast•looking paths, tracks, cutlines, rivers, ditches, railways, cycleways, fences, etc.
+• reduce visibility of small streams and canals
+• increase visibility of fences, walls and ditches
+• increase visibilities of bridle/cycle/foot•ways and steps, increase label sizes
+• make bridleways to be the same brown color as paths but with longer dashes
 
-Translations
-• Improved Chinese, Dutch, Finnish, Polish, Russian translations
-• Added Dutch, French, Polish, Romanian, and Russian translations for a place's Business Hours editing instructions
-• Fixed missing parking translations
+Pistes improvements:
+• add snow parks and new piste types: skitour, winter hike, connection
+• color freeride pistes in yellow•orange, consider ungroomed downhill runs as freeride
+• better piste names and numbers/refs support
+• in Outdoors style: increase pistes visibilities and display detailed piste shapes (area fills)
+
+Search:
+• Adjust shop, amenity, leisure ranking
+
+Linux Desktop:
+• set screen update frequency to 60fps
+
+Translations:
+• new Azebaijani language
+• updates to Chinese, Polish, Hebrew, Romanian
 
 …and more smaller fixes and improvements, check https://omaps.org/news for details!

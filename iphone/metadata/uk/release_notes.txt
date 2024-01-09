@@ -1,23 +1,44 @@
-Кілька подарунків до Різдва та Нового року від спільноти Organic Maps:
-• Новий силь карти для активного відпочинку, піших, велосипедних прогулянок і вивчення природи
-• Пошук адрес сіл без вулиць в Австрії, Чехії, Німеччині, Польщі, Словаччині та Німеччині
-• Набравши "лижі" або "лижна траса" в пошуку, можна знайти місця для покатушок
-• Дані карти OpenStreetMap станом на 13 грудня
-• Додано кнопку для перегляду фотографій, відгуків і цін у деяких готелів. Кожне Ваше пожертвування і бронювання, зроблене через додаток, робить внесок у розвиток проекту!
+• Copy place title, address, coordinates and other information using a long tap
+• CarPlay: support touch panning gestures
+• Add Notes section to the 'Add place to OpenStreetMap' screen
+• OpenStreetMap map data as of January 5
 
-Інші помітні виправлення та поліпшення:
-• Виправлено кілька збоїв і зависань на iOS 12, 13, 14
-• Імпорт декількох файлів KML з одного файлу KMZ (перший крок до зручного бекапу)
-• Кредитна картка відображається в місцях із банкоматом, а значок долара • там, де потрібна оплата
-• Повідомлення "Збільште масштаб, щоб побачити ізолінії" тепер не закриває кнопки
-• CarPlay тепер правильно відображає результати пошуку
-• Покращено користувальницький інтерфейс для пошуку на iPad
-• Додано іконку метро Сінгапуру і виправлено іконку метро Порту
-• На карту додано Хакерспейси
+General:
+• Display capacity of parkings, bicycle docks and charging stations when they're selected
 
-Переклади
-• Покращено китайський, голландський, фінський, польський, російський переклади
-• Додано голландський, французький, польський, румунський і російський переклади інструкцій для редагування часу роботи закладів
-• Виправлено переклади деяких парковок
+Styles:
+• Added cairns, updated Singapore subway icon
+• Slightly increased contrast of lines on the World overview map
+• Make secondary roads a bit brighter than tertiary/etc.
+• Car navigation style: fixed some footways/paths/tracks being displayed too early as white dashed lines
+• Main style: fix color of footways with a sac_scale=* tag to be same as path
+• Fixed very thin lines (e.g. tram lines) having inconsistent transparency/contrast between different devices (driver•dependent)
+• Fix bookmarked children playground icon
+• remove labels and decrease visibility of footway crossings and sidewalks
+• tuned contrast of altitude contour lines
+• crisper looking lines (no edge blur)
 
-…повний список змін можна подивитися на https://omaps.org/ru/news
+Outdoors style:
+• more contrast•looking paths, tracks, cutlines, rivers, ditches, railways, cycleways, fences, etc.
+• reduce visibility of small streams and canals
+• increase visibility of fences, walls and ditches
+• increase visibilities of bridle/cycle/foot•ways and steps, increase label sizes
+• make bridleways to be the same brown color as paths but with longer dashes
+
+Pistes improvements:
+• add snow parks and new piste types: skitour, winter hike, connection
+• color freeride pistes in yellow•orange, consider ungroomed downhill runs as freeride
+• better piste names and numbers/refs support
+• in Outdoors style: increase pistes visibilities and display detailed piste shapes (area fills)
+
+Search:
+• Adjust shop, amenity, leisure ranking
+
+Linux Desktop:
+• set screen update frequency to 60fps
+
+Translations:
+• new Azebaijani language
+• updates to Chinese, Polish, Hebrew, Romanian
+
+…and more smaller fixes and improvements, check https://omaps.org/news for details!

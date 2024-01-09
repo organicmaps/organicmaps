@@ -1,6 +1,10 @@
-Organic Maps komunitatearen Gabonetako eta Urte Berriko opariak zuretzat:
-• Kanpoko mapa estiloa mendi-ibilaldiak egiteko, bizikletan ibiltzeko eta natura esploratzeko
-• Bilatu kalerik gabeko herri-helbideak Austria, Txekia, Alemania, Polonia, Eslovakian
-• Idatzi "eskia" mendiko pistak aurkitzeko
-• OpenStreetMap maparen datuak abenduaren 13tik aurrera
-• Egiaztatu hotel batzuen argazkiak, iritziak eta prezioak. Zure dohaintza eta erreserba guztiek OMaps garatzen laguntzen dute!
+• Android Auto public preview
+• Temporarily disabled OpenStreetMap login to pass the Google Play review (see https://github.com/organicmaps/issues/7000)
+• Fixed issue with the screen intermittently turning off
+• OpenStreetMap map data as of January 5
+• Improved skiing pistes and Outdoors style
+• Added Max Capacity for places
+• Added Azerbaijani translations
+• Fixed Spanish and Portugal voice settings
+
+…more details at omaps.org/news

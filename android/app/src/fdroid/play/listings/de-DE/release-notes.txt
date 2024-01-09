@@ -1,8 +1,10 @@
-Weihnachtsgeschenke aus unserer Community:
-• Outdoor-Kartenstil zum Wandern, Radfahren und Erkunden der Natur
-• Suche nach Adressen in einigen Dörfern und kleineren Ortschaften
-• Geben Sie "Skifahren" ein, um Abfahrtspisten und nordische Pisten zu finden
-• OpenStreetMap-Kartendaten, Stand: 13. Dezember
-• Prüfen Sie Fotos, Bewertungen und Preise für einige Hotels. Alle Ihre Spenden und Buchungen tragen zur Entwicklung von Organic Maps bei!
+• Android Auto public preview
+• Temporarily disabled OpenStreetMap login to pass the Google Play review (see https://github.com/organicmaps/issues/7000)
+• Fixed issue with the screen intermittently turning off
+• OpenStreetMap map data as of January 5
+• Improved skiing pistes and Outdoors style
+• Added Max Capacity for places
+• Added Azerbaijani translations
+• Fixed Spanish and Portugal voice settings
 
-…mehr Details omaps.org/de/news
+…more details at omaps.org/news

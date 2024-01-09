@@ -1,30 +1,44 @@
-Avec nos contributeurs, nous avons préparé pour vous plusieurs cadeaux de Noël et du Nouvel An :
+• Copy place title, address, coordinates and other information using a long tap
+• CarPlay: support touch panning gestures
+• Add Notes section to the 'Add place to OpenStreetMap' screen
+• OpenStreetMap map data as of January 5
 
-• Style de carte de plein air pour la randonnée, le cyclisme et explorer la nature.
-• Recherche d'adresses de villages addr:place sans rues en Allemagne, Autriche, Pologne, Slovaquie et République tchèque.
-• Tapez "ski" ou "piste de ski" dans la recherche pour trouver des pistes de ski alpin et de ski nordique.
-• Données cartographiques OpenStreetMap en date du 13 décembre
-• Ajout d'un bouton pour voir les photos, les commentaires et les prix de certains hôtels. Chaque réservation effectuée via l'application contribue au développement du projet !
+General:
+• Display capacity of parkings, bicycle docks and charging stations when they're selected
 
-Autres corrections et améliorations notables :
+Styles:
+• Added cairns, updated Singapore subway icon
+• Slightly increased contrast of lines on the World overview map
+• Make secondary roads a bit brighter than tertiary/etc.
+• Car navigation style: fixed some footways/paths/tracks being displayed too early as white dashed lines
+• Main style: fix color of footways with a sac_scale=* tag to be same as path
+• Fixed very thin lines (e.g. tram lines) having inconsistent transparency/contrast between different devices (driver•dependent)
+• Fix bookmarked children playground icon
+• remove labels and decrease visibility of footway crossings and sidewalks
+• tuned contrast of altitude contour lines
+• crisper looking lines (no edge blur)
 
-• Correction de plusieurs plantages et arrêts sur iOS 12, 13, 14
-• Plusieurs fichiers KML peuvent être importés à partir d'un seul fichier KMZ
-• Une carte de crédit est affichée dans les endroits où il y a un distributeur automatique de billets
-• Un emoji dollar est affiché lorsque des paiements sont demandés
-• Lien des sites web améliorés dans la page des lieux
-• Le message "Zoom avant pour voir les isolignes" ne couvre pas les boutons.
-• Le bouton de recherche CarPlay affiche désormais correctement les résultats de la recherche
-• Amélioration de l'interface utilisateur pour la recherche sur iPad
-• Ajout de l'icône du métro de Singapour et correction de l'icône du métro de Porto
-• Ajout des lieux Hackerspace
-• Correction des zones de jardins
-• Affichage cohérent des numéros de maison sur le zoom 17
+Outdoors style:
+• more contrast•looking paths, tracks, cutlines, rivers, ditches, railways, cycleways, fences, etc.
+• reduce visibility of small streams and canals
+• increase visibility of fences, walls and ditches
+• increase visibilities of bridle/cycle/foot•ways and steps, increase label sizes
+• make bridleways to be the same brown color as paths but with longer dashes
 
-Traductions
+Pistes improvements:
+• add snow parks and new piste types: skitour, winter hike, connection
+• color freeride pistes in yellow•orange, consider ungroomed downhill runs as freeride
+• better piste names and numbers/refs support
+• in Outdoors style: increase pistes visibilities and display detailed piste shapes (area fills)
 
-• Amélioration des traductions en chinois, néerlandais, finlandais, polonais et russe
-• Ajout de traductions en néerlandais, français, polonais, roumain et russe pour les instructions sur l'édition des heures d'ouverture
-• Correction des traductions manquantes pour les parkings
+Search:
+• Adjust shop, amenity, leisure ranking
 
-…et d'autres petites corrections et améliorations, consultez https://omaps.org/fr/news pour plus de détails !
+Linux Desktop:
+• set screen update frequency to 60fps
+
+Translations:
+• new Azebaijani language
+• updates to Chinese, Polish, Hebrew, Romanian
+
+…and more smaller fixes and improvements, check https://omaps.org/news for details!

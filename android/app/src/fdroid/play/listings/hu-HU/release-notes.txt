@@ -1,8 +1,10 @@
-Karácsonyi és újévi ajándékokkal várunk az Organic Maps közösségétől:
-• Kültéri térképstílus, ami ideális túrázáshoz, biciklizéshez és a természet felfedezéséhez
-• Címkeresési javítások számos országban
-• Írja be a "Síelés" szót, hogy síterepet találjon
-• OpenStreetMap.org térképek 13.12.2023-tól
-• Egyes hoteleknél már megtekinthetőek azok értékeléseik, fényképeik és árazásuk. Minden anyagi támogatás és hotelfoglalás az Organic Maps további fejlesztését segíti!
+• Android Auto public preview
+• Temporarily disabled OpenStreetMap login to pass the Google Play review (see https://github.com/organicmaps/issues/7000)
+• Fixed issue with the screen intermittently turning off
+• OpenStreetMap map data as of January 5
+• Improved skiing pistes and Outdoors style
+• Added Max Capacity for places
+• Added Azerbaijani translations
+• Fixed Spanish and Portugal voice settings
 
-omaps.org/hu/news
+…more details at omaps.org/news
