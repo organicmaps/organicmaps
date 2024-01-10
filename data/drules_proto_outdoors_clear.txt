@@ -81008,51 +81008,10 @@ cont {
 cont {
   name: "railway-station-light_rail"
   element {
-    scale: 12
-    symbol {
-      name: "train-s"
-      priority: 6250
-    }
-    caption {
-      primary {
-        height: 9
-        color: 2236962
-        stroke_color: 1728053247
-        offset_y: 1
-        is_optional: true
-      }
-      secondary {
-        height: 8
-        color: 2236962
-        stroke_color: 1728053247
-        offset_y: 1
-        is_optional: true
-      }
-      priority: -3750
-    }
-  }
-  element {
     scale: 13
     symbol {
       name: "train-s"
       priority: 6250
-    }
-    caption {
-      primary {
-        height: 10
-        color: 2236962
-        stroke_color: 1728053247
-        offset_y: 1
-        is_optional: true
-      }
-      secondary {
-        height: 9
-        color: 2236962
-        stroke_color: 1728053247
-        offset_y: 1
-        is_optional: true
-      }
-      priority: -3750
     }
   }
   element {
@@ -81065,14 +81024,14 @@ cont {
       primary {
         height: 11
         color: 2236962
-        stroke_color: 1308622847
+        stroke_color: 872415231
         offset_y: 1
         is_optional: true
       }
       secondary {
-        height: 10
+        height: 9
         color: 2236962
-        stroke_color: 1308622847
+        stroke_color: 872415231
         offset_y: 1
         is_optional: true
       }
@@ -81142,7 +81101,7 @@ cont {
         is_optional: true
       }
       secondary {
-        height: 12
+        height: 11
         color: 2236962
         stroke_color: 452984831
         offset_y: 1
@@ -81166,7 +81125,7 @@ cont {
         is_optional: true
       }
       secondary {
-        height: 12
+        height: 11
         color: 2236962
         stroke_color: 452984831
         offset_y: 1
@@ -81190,7 +81149,7 @@ cont {
         is_optional: true
       }
       secondary {
-        height: 12
+        height: 11
         color: 2236962
         stroke_color: 452984831
         offset_y: 1
@@ -81214,7 +81173,7 @@ cont {
         is_optional: true
       }
       secondary {
-        height: 12
+        height: 11
         color: 2236962
         stroke_color: 452984831
         offset_y: 1
@@ -81227,53 +81186,10 @@ cont {
 cont {
   name: "railway-station-light_rail-london"
   element {
-    scale: 12
-    symbol {
-      name: "light_rail-dlr-london-s"
-      priority: 6250
-      min_distance: 1
-    }
-    caption {
-      primary {
-        height: 9
-        color: 2236962
-        stroke_color: 1728053247
-        offset_y: 1
-        is_optional: true
-      }
-      secondary {
-        height: 8
-        color: 2236962
-        stroke_color: 1728053247
-        offset_y: 1
-        is_optional: true
-      }
-      priority: -3750
-    }
-  }
-  element {
     scale: 13
     symbol {
       name: "light_rail-dlr-london-s"
       priority: 6250
-      min_distance: 1
-    }
-    caption {
-      primary {
-        height: 10
-        color: 2236962
-        stroke_color: 1728053247
-        offset_y: 1
-        is_optional: true
-      }
-      secondary {
-        height: 9
-        color: 2236962
-        stroke_color: 1728053247
-        offset_y: 1
-        is_optional: true
-      }
-      priority: -3750
     }
   }
   element {
@@ -81281,20 +81197,19 @@ cont {
     symbol {
       name: "light_rail-dlr-london-s"
       priority: 6250
-      min_distance: 1
     }
     caption {
       primary {
         height: 11
         color: 2236962
-        stroke_color: 1308622847
+        stroke_color: 872415231
         offset_y: 1
         is_optional: true
       }
       secondary {
-        height: 10
+        height: 9
         color: 2236962
-        stroke_color: 1308622847
+        stroke_color: 872415231
         offset_y: 1
         is_optional: true
       }
@@ -81364,7 +81279,7 @@ cont {
         is_optional: true
       }
       secondary {
-        height: 12
+        height: 11
         color: 2236962
         stroke_color: 452984831
         offset_y: 1
@@ -81388,7 +81303,7 @@ cont {
         is_optional: true
       }
       secondary {
-        height: 12
+        height: 11
         color: 2236962
         stroke_color: 452984831
         offset_y: 1
@@ -81412,7 +81327,7 @@ cont {
         is_optional: true
       }
       secondary {
-        height: 12
+        height: 11
         color: 2236962
         stroke_color: 452984831
         offset_y: 1
@@ -81436,7 +81351,7 @@ cont {
         is_optional: true
       }
       secondary {
-        height: 12
+        height: 11
         color: 2236962
         stroke_color: 452984831
         offset_y: 1
@@ -81449,53 +81364,10 @@ cont {
 cont {
   name: "railway-station-light_rail-porto"
   element {
-    scale: 12
-    symbol {
-      name: "light_rail-porto-s"
-      priority: 6250
-      min_distance: 1
-    }
-    caption {
-      primary {
-        height: 9
-        color: 2236962
-        stroke_color: 1728053247
-        offset_y: 1
-        is_optional: true
-      }
-      secondary {
-        height: 8
-        color: 2236962
-        stroke_color: 1728053247
-        offset_y: 1
-        is_optional: true
-      }
-      priority: -3750
-    }
-  }
-  element {
     scale: 13
     symbol {
       name: "light_rail-porto-s"
       priority: 6250
-      min_distance: 1
-    }
-    caption {
-      primary {
-        height: 10
-        color: 2236962
-        stroke_color: 1728053247
-        offset_y: 1
-        is_optional: true
-      }
-      secondary {
-        height: 9
-        color: 2236962
-        stroke_color: 1728053247
-        offset_y: 1
-        is_optional: true
-      }
-      priority: -3750
     }
   }
   element {
@@ -81503,20 +81375,19 @@ cont {
     symbol {
       name: "light_rail-porto-s"
       priority: 6250
-      min_distance: 1
     }
     caption {
       primary {
         height: 11
         color: 2236962
-        stroke_color: 1308622847
+        stroke_color: 872415231
         offset_y: 1
         is_optional: true
       }
       secondary {
-        height: 10
+        height: 9
         color: 2236962
-        stroke_color: 1308622847
+        stroke_color: 872415231
         offset_y: 1
         is_optional: true
       }
@@ -81586,7 +81457,7 @@ cont {
         is_optional: true
       }
       secondary {
-        height: 12
+        height: 11
         color: 2236962
         stroke_color: 452984831
         offset_y: 1
@@ -81610,7 +81481,7 @@ cont {
         is_optional: true
       }
       secondary {
-        height: 12
+        height: 11
         color: 2236962
         stroke_color: 452984831
         offset_y: 1
@@ -81634,7 +81505,7 @@ cont {
         is_optional: true
       }
       secondary {
-        height: 12
+        height: 11
         color: 2236962
         stroke_color: 452984831
         offset_y: 1
@@ -81658,7 +81529,7 @@ cont {
         is_optional: true
       }
       secondary {
-        height: 12
+        height: 11
         color: 2236962
         stroke_color: 452984831
         offset_y: 1
@@ -81894,7 +81765,6 @@ cont {
     symbol {
       name: "subway-s"
       priority: 6250
-      min_distance: 1
     }
   }
   element {
@@ -81902,20 +81772,19 @@ cont {
     symbol {
       name: "subway-s"
       priority: 6250
-      min_distance: 1
     }
     caption {
       primary {
         height: 11
         color: 2236962
-        stroke_color: 1308622847
+        stroke_color: 872415231
         offset_y: 1
         is_optional: true
       }
       secondary {
         height: 9
         color: 2236962
-        stroke_color: 1308622847
+        stroke_color: 872415231
         offset_y: 1
         is_optional: true
       }
@@ -82074,7 +81943,6 @@ cont {
     symbol {
       name: "subway-adana-s"
       priority: 6250
-      min_distance: 1
     }
   }
   element {
@@ -82082,7 +81950,6 @@ cont {
     symbol {
       name: "subway-adana-s"
       priority: 6250
-      min_distance: 1
     }
   }
   element {
@@ -82090,20 +81957,19 @@ cont {
     symbol {
       name: "subway-adana-s"
       priority: 6250
-      min_distance: 1
     }
     caption {
       primary {
         height: 11
         color: 2236962
-        stroke_color: 1308622847
+        stroke_color: 872415231
         offset_y: 1
         is_optional: true
       }
       secondary {
         height: 9
         color: 2236962
-        stroke_color: 1308622847
+        stroke_color: 872415231
         offset_y: 1
         is_optional: true
       }
@@ -82262,7 +82128,6 @@ cont {
     symbol {
       name: "subway-algeria-s"
       priority: 6250
-      min_distance: 1
     }
   }
   element {
@@ -82270,7 +82135,6 @@ cont {
     symbol {
       name: "subway-algeria-s"
       priority: 6250
-      min_distance: 1
     }
   }
   element {
@@ -82278,20 +82142,19 @@ cont {
     symbol {
       name: "subway-algeria-s"
       priority: 6250
-      min_distance: 1
     }
     caption {
       primary {
         height: 11
         color: 2236962
-        stroke_color: 1308622847
+        stroke_color: 872415231
         offset_y: 1
         is_optional: true
       }
       secondary {
         height: 9
         color: 2236962
-        stroke_color: 1308622847
+        stroke_color: 872415231
         offset_y: 1
         is_optional: true
       }
@@ -82450,7 +82313,6 @@ cont {
     symbol {
       name: "subway-almaty-s"
       priority: 6250
-      min_distance: 1
     }
   }
   element {
@@ -82458,7 +82320,6 @@ cont {
     symbol {
       name: "subway-almaty-s"
       priority: 6250
-      min_distance: 1
     }
   }
   element {
@@ -82466,20 +82327,19 @@ cont {
     symbol {
       name: "subway-almaty-s"
       priority: 6250
-      min_distance: 1
     }
     caption {
       primary {
         height: 11
         color: 2236962
-        stroke_color: 1308622847
+        stroke_color: 872415231
         offset_y: 1
         is_optional: true
       }
       secondary {
         height: 9
         color: 2236962
-        stroke_color: 1308622847
+        stroke_color: 872415231
         offset_y: 1
         is_optional: true
       }
@@ -82638,7 +82498,6 @@ cont {
     symbol {
       name: "subway-amsterdam-s"
       priority: 6250
-      min_distance: 1
     }
   }
   element {
@@ -82646,7 +82505,6 @@ cont {
     symbol {
       name: "subway-amsterdam-s"
       priority: 6250
-      min_distance: 1
     }
   }
   element {
@@ -82654,20 +82512,19 @@ cont {
     symbol {
       name: "subway-amsterdam-s"
       priority: 6250
-      min_distance: 1
     }
     caption {
       primary {
         height: 11
         color: 2236962
-        stroke_color: 1308622847
+        stroke_color: 872415231
         offset_y: 1
         is_optional: true
       }
       secondary {
         height: 9
         color: 2236962
-        stroke_color: 1308622847
+        stroke_color: 872415231
         offset_y: 1
         is_optional: true
       }
@@ -82826,7 +82683,6 @@ cont {
     symbol {
       name: "subway-ankara-s"
       priority: 6250
-      min_distance: 1
     }
   }
   element {
@@ -82834,20 +82690,19 @@ cont {
     symbol {
       name: "subway-ankara-s"
       priority: 6250
-      min_distance: 1
     }
     caption {
       primary {
         height: 11
         color: 2236962
-        stroke_color: 1308622847
+        stroke_color: 872415231
         offset_y: 1
         is_optional: true
       }
       secondary {
         height: 9
         color: 2236962
-        stroke_color: 1308622847
+        stroke_color: 872415231
         offset_y: 1
         is_optional: true
       }
@@ -83006,7 +82861,6 @@ cont {
     symbol {
       name: "subway-athens-s"
       priority: 6250
-      min_distance: 1
     }
   }
   element {
@@ -83014,20 +82868,19 @@ cont {
     symbol {
       name: "subway-athens-s"
       priority: 6250
-      min_distance: 1
     }
     caption {
       primary {
         height: 11
         color: 2236962
-        stroke_color: 1308622847
+        stroke_color: 872415231
         offset_y: 1
         is_optional: true
       }
       secondary {
         height: 9
         color: 2236962
-        stroke_color: 1308622847
+        stroke_color: 872415231
         offset_y: 1
         is_optional: true
       }
@@ -83186,7 +83039,6 @@ cont {
     symbol {
       name: "subway-baku-s"
       priority: 6250
-      min_distance: 1
     }
   }
   element {
@@ -83194,20 +83046,19 @@ cont {
     symbol {
       name: "subway-baku-s"
       priority: 6250
-      min_distance: 1
     }
     caption {
       primary {
         height: 11
         color: 2236962
-        stroke_color: 1308622847
+        stroke_color: 872415231
         offset_y: 1
         is_optional: true
       }
       secondary {
         height: 9
         color: 2236962
-        stroke_color: 1308622847
+        stroke_color: 872415231
         offset_y: 1
         is_optional: true
       }
@@ -83366,7 +83217,6 @@ cont {
     symbol {
       name: "subway-bangkok-s"
       priority: 6250
-      min_distance: 1
     }
   }
   element {
@@ -83374,20 +83224,19 @@ cont {
     symbol {
       name: "subway-bangkok-s"
       priority: 6250
-      min_distance: 1
     }
     caption {
       primary {
         height: 11
         color: 2236962
-        stroke_color: 1308622847
+        stroke_color: 872415231
         offset_y: 1
         is_optional: true
       }
       secondary {
         height: 9
         color: 2236962
-        stroke_color: 1308622847
+        stroke_color: 872415231
         offset_y: 1
         is_optional: true
       }
@@ -83546,7 +83395,6 @@ cont {
     symbol {
       name: "subway-barcelona-s"
       priority: 6250
-      min_distance: 1
     }
   }
   element {
@@ -83554,20 +83402,19 @@ cont {
     symbol {
       name: "subway-barcelona-s"
       priority: 6250
-      min_distance: 1
     }
     caption {
       primary {
         height: 11
         color: 2236962
-        stroke_color: 1308622847
+        stroke_color: 872415231
         offset_y: 1
         is_optional: true
       }
       secondary {
         height: 9
         color: 2236962
-        stroke_color: 1308622847
+        stroke_color: 872415231
         offset_y: 1
         is_optional: true
       }
@@ -83726,7 +83573,6 @@ cont {
     symbol {
       name: "subway-beijing-s"
       priority: 6250
-      min_distance: 1
     }
   }
   element {
@@ -83734,7 +83580,6 @@ cont {
     symbol {
       name: "subway-beijing-s"
       priority: 6250
-      min_distance: 1
     }
   }
   element {
@@ -83742,20 +83587,19 @@ cont {
     symbol {
       name: "subway-beijing-s"
       priority: 6250
-      min_distance: 1
     }
     caption {
       primary {
         height: 11
         color: 2236962
-        stroke_color: 1308622847
+        stroke_color: 872415231
         offset_y: 1
         is_optional: true
       }
       secondary {
         height: 9
         color: 2236962
-        stroke_color: 1308622847
+        stroke_color: 872415231
         offset_y: 1
         is_optional: true
       }
@@ -83914,7 +83758,6 @@ cont {
     symbol {
       name: "subway-bengaluru-s"
       priority: 6250
-      min_distance: 1
     }
   }
   element {
@@ -83922,20 +83765,19 @@ cont {
     symbol {
       name: "subway-bengaluru-s"
       priority: 6250
-      min_distance: 1
     }
     caption {
       primary {
         height: 11
         color: 2236962
-        stroke_color: 1308622847
+        stroke_color: 872415231
         offset_y: 1
         is_optional: true
       }
       secondary {
         height: 9
         color: 2236962
-        stroke_color: 1308622847
+        stroke_color: 872415231
         offset_y: 1
         is_optional: true
       }
@@ -84094,7 +83936,6 @@ cont {
     symbol {
       name: "subway-ubahn-s"
       priority: 6250
-      min_distance: 1
     }
   }
   element {
@@ -84102,7 +83943,6 @@ cont {
     symbol {
       name: "subway-ubahn-s"
       priority: 6250
-      min_distance: 1
     }
   }
   element {
@@ -84110,20 +83950,19 @@ cont {
     symbol {
       name: "subway-ubahn-s"
       priority: 6250
-      min_distance: 1
     }
     caption {
       primary {
         height: 11
         color: 2236962
-        stroke_color: 1308622847
+        stroke_color: 872415231
         offset_y: 1
         is_optional: true
       }
       secondary {
         height: 9
         color: 2236962
-        stroke_color: 1308622847
+        stroke_color: 872415231
         offset_y: 1
         is_optional: true
       }
@@ -84282,7 +84121,6 @@ cont {
     symbol {
       name: "subway-bilbao-s"
       priority: 6250
-      min_distance: 1
     }
   }
   element {
@@ -84290,20 +84128,19 @@ cont {
     symbol {
       name: "subway-bilbao-s"
       priority: 6250
-      min_distance: 1
     }
     caption {
       primary {
         height: 11
         color: 2236962
-        stroke_color: 1308622847
+        stroke_color: 872415231
         offset_y: 1
         is_optional: true
       }
       secondary {
         height: 9
         color: 2236962
-        stroke_color: 1308622847
+        stroke_color: 872415231
         offset_y: 1
         is_optional: true
       }
@@ -84456,13 +84293,197 @@ cont {
   }
 }
 cont {
+  name: "railway-station-subway-boston"
+  element {
+    scale: 12
+    symbol {
+      name: "subway-massachusetts-s"
+      priority: 6250
+    }
+  }
+  element {
+    scale: 13
+    symbol {
+      name: "subway-massachusetts-s"
+      priority: 6250
+    }
+  }
+  element {
+    scale: 14
+    symbol {
+      name: "subway-massachusetts-s"
+      priority: 6250
+    }
+    caption {
+      primary {
+        height: 11
+        color: 2236962
+        stroke_color: 872415231
+        offset_y: 1
+        is_optional: true
+      }
+      secondary {
+        height: 9
+        color: 2236962
+        stroke_color: 872415231
+        offset_y: 1
+        is_optional: true
+      }
+      priority: -3750
+    }
+  }
+  element {
+    scale: 15
+    symbol {
+      name: "subway-massachusetts-m"
+      priority: 6250
+    }
+    caption {
+      primary {
+        height: 12
+        color: 2236962
+        stroke_color: 872415231
+        offset_y: 1
+        is_optional: true
+      }
+      secondary {
+        height: 10
+        color: 2236962
+        stroke_color: 872415231
+        offset_y: 1
+        is_optional: true
+      }
+      priority: -3750
+    }
+  }
+  element {
+    scale: 16
+    symbol {
+      name: "subway-massachusetts-m"
+      priority: 6250
+    }
+    caption {
+      primary {
+        height: 13
+        color: 2236962
+        stroke_color: 872415231
+        offset_y: 1
+        is_optional: true
+      }
+      secondary {
+        height: 11
+        color: 2236962
+        stroke_color: 872415231
+        offset_y: 1
+        is_optional: true
+      }
+      priority: -3750
+    }
+  }
+  element {
+    scale: 17
+    symbol {
+      name: "subway-massachusetts-m"
+      priority: 6250
+    }
+    caption {
+      primary {
+        height: 13
+        color: 2236962
+        stroke_color: 452984831
+        offset_y: 1
+        is_optional: true
+      }
+      secondary {
+        height: 11
+        color: 2236962
+        stroke_color: 452984831
+        offset_y: 1
+        is_optional: true
+      }
+      priority: -3750
+    }
+  }
+  element {
+    scale: 18
+    symbol {
+      name: "subway-massachusetts-m"
+      priority: 6250
+    }
+    caption {
+      primary {
+        height: 13
+        color: 2236962
+        stroke_color: 452984831
+        offset_y: 1
+        is_optional: true
+      }
+      secondary {
+        height: 11
+        color: 2236962
+        stroke_color: 452984831
+        offset_y: 1
+        is_optional: true
+      }
+      priority: -3750
+    }
+  }
+  element {
+    scale: 19
+    symbol {
+      name: "subway-massachusetts-m"
+      priority: 6250
+    }
+    caption {
+      primary {
+        height: 13
+        color: 2236962
+        stroke_color: 452984831
+        offset_y: 1
+        is_optional: true
+      }
+      secondary {
+        height: 11
+        color: 2236962
+        stroke_color: 452984831
+        offset_y: 1
+        is_optional: true
+      }
+      priority: -3750
+    }
+  }
+  element {
+    scale: 20
+    symbol {
+      name: "subway-massachusetts-m"
+      priority: 6250
+    }
+    caption {
+      primary {
+        height: 13
+        color: 2236962
+        stroke_color: 452984831
+        offset_y: 1
+        is_optional: true
+      }
+      secondary {
+        height: 11
+        color: 2236962
+        stroke_color: 452984831
+        offset_y: 1
+        is_optional: true
+      }
+      priority: -3750
+    }
+  }
+}
+cont {
   name: "railway-station-subway-brasilia"
   element {
     scale: 13
     symbol {
       name: "subway-brasilia-s"
       priority: 6250
-      min_distance: 1
     }
   }
   element {
@@ -84470,20 +84491,19 @@ cont {
     symbol {
       name: "subway-brasilia-s"
       priority: 6250
-      min_distance: 1
     }
     caption {
       primary {
         height: 11
         color: 2236962
-        stroke_color: 1308622847
+        stroke_color: 872415231
         offset_y: 1
         is_optional: true
       }
       secondary {
         height: 9
         color: 2236962
-        stroke_color: 1308622847
+        stroke_color: 872415231
         offset_y: 1
         is_optional: true
       }
@@ -84642,7 +84662,6 @@ cont {
     symbol {
       name: "subway-brescia-s"
       priority: 6250
-      min_distance: 1
     }
   }
   element {
@@ -84650,20 +84669,19 @@ cont {
     symbol {
       name: "subway-brescia-s"
       priority: 6250
-      min_distance: 1
     }
     caption {
       primary {
         height: 11
         color: 2236962
-        stroke_color: 1308622847
+        stroke_color: 872415231
         offset_y: 1
         is_optional: true
       }
       secondary {
         height: 9
         color: 2236962
-        stroke_color: 1308622847
+        stroke_color: 872415231
         offset_y: 1
         is_optional: true
       }
@@ -84822,7 +84840,6 @@ cont {
     symbol {
       name: "subway-brussel-s"
       priority: 6250
-      min_distance: 1
     }
   }
   element {
@@ -84830,20 +84847,19 @@ cont {
     symbol {
       name: "subway-brussel-s"
       priority: 6250
-      min_distance: 1
     }
     caption {
       primary {
         height: 11
         color: 2236962
-        stroke_color: 1308622847
+        stroke_color: 872415231
         offset_y: 1
         is_optional: true
       }
       secondary {
         height: 9
         color: 2236962
-        stroke_color: 1308622847
+        stroke_color: 872415231
         offset_y: 1
         is_optional: true
       }
@@ -85002,7 +85018,6 @@ cont {
     symbol {
       name: "subway-bucharest-s"
       priority: 6250
-      min_distance: 1
     }
   }
   element {
@@ -85010,20 +85025,19 @@ cont {
     symbol {
       name: "subway-bucharest-s"
       priority: 6250
-      min_distance: 1
     }
     caption {
       primary {
         height: 11
         color: 2236962
-        stroke_color: 1308622847
+        stroke_color: 872415231
         offset_y: 1
         is_optional: true
       }
       secondary {
         height: 9
         color: 2236962
-        stroke_color: 1308622847
+        stroke_color: 872415231
         offset_y: 1
         is_optional: true
       }
@@ -85182,7 +85196,6 @@ cont {
     symbol {
       name: "subway-budapest-s"
       priority: 6250
-      min_distance: 1
     }
   }
   element {
@@ -85190,20 +85203,19 @@ cont {
     symbol {
       name: "subway-budapest-s"
       priority: 6250
-      min_distance: 1
     }
     caption {
       primary {
         height: 11
         color: 2236962
-        stroke_color: 1308622847
+        stroke_color: 872415231
         offset_y: 1
         is_optional: true
       }
       secondary {
         height: 9
         color: 2236962
-        stroke_color: 1308622847
+        stroke_color: 872415231
         offset_y: 1
         is_optional: true
       }
@@ -85362,7 +85374,6 @@ cont {
     symbol {
       name: "subway-buenosaires-s"
       priority: 6250
-      min_distance: 1
     }
   }
   element {
@@ -85370,7 +85381,6 @@ cont {
     symbol {
       name: "subway-buenosaires-s"
       priority: 6250
-      min_distance: 1
     }
   }
   element {
@@ -85378,20 +85388,19 @@ cont {
     symbol {
       name: "subway-buenosaires-s"
       priority: 6250
-      min_distance: 1
     }
     caption {
       primary {
         height: 11
         color: 2236962
-        stroke_color: 1308622847
+        stroke_color: 872415231
         offset_y: 1
         is_optional: true
       }
       secondary {
         height: 9
         color: 2236962
-        stroke_color: 1308622847
+        stroke_color: 872415231
         offset_y: 1
         is_optional: true
       }
@@ -85550,7 +85559,6 @@ cont {
     symbol {
       name: "subway-bursaray-s"
       priority: 6250
-      min_distance: 1
     }
   }
   element {
@@ -85558,20 +85566,19 @@ cont {
     symbol {
       name: "subway-bursaray-s"
       priority: 6250
-      min_distance: 1
     }
     caption {
       primary {
         height: 11
         color: 2236962
-        stroke_color: 1308622847
+        stroke_color: 872415231
         offset_y: 1
         is_optional: true
       }
       secondary {
         height: 9
         color: 2236962
-        stroke_color: 1308622847
+        stroke_color: 872415231
         offset_y: 1
         is_optional: true
       }
@@ -85730,7 +85737,6 @@ cont {
     symbol {
       name: "subway-cairo-s"
       priority: 6250
-      min_distance: 1
     }
   }
   element {
@@ -85738,20 +85744,19 @@ cont {
     symbol {
       name: "subway-cairo-s"
       priority: 6250
-      min_distance: 1
     }
     caption {
       primary {
         height: 11
         color: 2236962
-        stroke_color: 1308622847
+        stroke_color: 872415231
         offset_y: 1
         is_optional: true
       }
       secondary {
         height: 9
         color: 2236962
-        stroke_color: 1308622847
+        stroke_color: 872415231
         offset_y: 1
         is_optional: true
       }
@@ -85910,7 +85915,6 @@ cont {
     symbol {
       name: "subway-caracas-s"
       priority: 6250
-      min_distance: 1
     }
   }
   element {
@@ -85918,20 +85922,19 @@ cont {
     symbol {
       name: "subway-caracas-s"
       priority: 6250
-      min_distance: 1
     }
     caption {
       primary {
         height: 11
         color: 2236962
-        stroke_color: 1308622847
+        stroke_color: 872415231
         offset_y: 1
         is_optional: true
       }
       secondary {
         height: 9
         color: 2236962
-        stroke_color: 1308622847
+        stroke_color: 872415231
         offset_y: 1
         is_optional: true
       }
@@ -86090,7 +86093,6 @@ cont {
     symbol {
       name: "subway-catania-s"
       priority: 6250
-      min_distance: 1
     }
   }
   element {
@@ -86098,20 +86100,19 @@ cont {
     symbol {
       name: "subway-catania-s"
       priority: 6250
-      min_distance: 1
     }
     caption {
       primary {
         height: 11
         color: 2236962
-        stroke_color: 1308622847
+        stroke_color: 872415231
         offset_y: 1
         is_optional: true
       }
       secondary {
         height: 9
         color: 2236962
-        stroke_color: 1308622847
+        stroke_color: 872415231
         offset_y: 1
         is_optional: true
       }
@@ -86270,7 +86271,6 @@ cont {
     symbol {
       name: "subway-changchun-s"
       priority: 6250
-      min_distance: 1
     }
   }
   element {
@@ -86278,20 +86278,19 @@ cont {
     symbol {
       name: "subway-changchun-s"
       priority: 6250
-      min_distance: 1
     }
     caption {
       primary {
         height: 11
         color: 2236962
-        stroke_color: 1308622847
+        stroke_color: 872415231
         offset_y: 1
         is_optional: true
       }
       secondary {
         height: 9
         color: 2236962
-        stroke_color: 1308622847
+        stroke_color: 872415231
         offset_y: 1
         is_optional: true
       }
@@ -86450,7 +86449,6 @@ cont {
     symbol {
       name: "subway-chengdu-s"
       priority: 6250
-      min_distance: 1
     }
   }
   element {
@@ -86458,20 +86456,19 @@ cont {
     symbol {
       name: "subway-chengdu-s"
       priority: 6250
-      min_distance: 1
     }
     caption {
       primary {
         height: 11
         color: 2236962
-        stroke_color: 1308622847
+        stroke_color: 872415231
         offset_y: 1
         is_optional: true
       }
       secondary {
         height: 9
         color: 2236962
-        stroke_color: 1308622847
+        stroke_color: 872415231
         offset_y: 1
         is_optional: true
       }
@@ -86630,7 +86627,6 @@ cont {
     symbol {
       name: "subway-chicago-s"
       priority: 6250
-      min_distance: 1
     }
   }
   element {
@@ -86638,20 +86634,19 @@ cont {
     symbol {
       name: "subway-chicago-s"
       priority: 6250
-      min_distance: 1
     }
     caption {
       primary {
         height: 11
         color: 2236962
-        stroke_color: 1308622847
+        stroke_color: 872415231
         offset_y: 1
         is_optional: true
       }
       secondary {
         height: 9
         color: 2236962
-        stroke_color: 1308622847
+        stroke_color: 872415231
         offset_y: 1
         is_optional: true
       }
@@ -86810,7 +86805,6 @@ cont {
     symbol {
       name: "subway-chongqing-s"
       priority: 6250
-      min_distance: 1
     }
   }
   element {
@@ -86818,20 +86812,19 @@ cont {
     symbol {
       name: "subway-chongqing-s"
       priority: 6250
-      min_distance: 1
     }
     caption {
       primary {
         height: 11
         color: 2236962
-        stroke_color: 1308622847
+        stroke_color: 872415231
         offset_y: 1
         is_optional: true
       }
       secondary {
         height: 9
         color: 2236962
-        stroke_color: 1308622847
+        stroke_color: 872415231
         offset_y: 1
         is_optional: true
       }
@@ -86990,7 +86983,6 @@ cont {
     symbol {
       name: "subway-dalian-s"
       priority: 6250
-      min_distance: 1
     }
   }
   element {
@@ -86998,20 +86990,19 @@ cont {
     symbol {
       name: "subway-dalian-s"
       priority: 6250
-      min_distance: 1
     }
     caption {
       primary {
         height: 11
         color: 2236962
-        stroke_color: 1308622847
+        stroke_color: 872415231
         offset_y: 1
         is_optional: true
       }
       secondary {
         height: 9
         color: 2236962
-        stroke_color: 1308622847
+        stroke_color: 872415231
         offset_y: 1
         is_optional: true
       }
@@ -87170,7 +87161,6 @@ cont {
     symbol {
       name: "subway-delhi-s"
       priority: 6250
-      min_distance: 1
     }
   }
   element {
@@ -87178,20 +87168,19 @@ cont {
     symbol {
       name: "subway-delhi-s"
       priority: 6250
-      min_distance: 1
     }
     caption {
       primary {
         height: 11
         color: 2236962
-        stroke_color: 1308622847
+        stroke_color: 872415231
         offset_y: 1
         is_optional: true
       }
       secondary {
         height: 9
         color: 2236962
-        stroke_color: 1308622847
+        stroke_color: 872415231
         offset_y: 1
         is_optional: true
       }
@@ -87350,7 +87339,6 @@ cont {
     symbol {
       name: "subway-dnepro-s"
       priority: 6250
-      min_distance: 1
     }
   }
   element {
@@ -87358,20 +87346,19 @@ cont {
     symbol {
       name: "subway-dnepro-s"
       priority: 6250
-      min_distance: 1
     }
     caption {
       primary {
         height: 11
         color: 2236962
-        stroke_color: 1308622847
+        stroke_color: 872415231
         offset_y: 1
         is_optional: true
       }
       secondary {
         height: 9
         color: 2236962
-        stroke_color: 1308622847
+        stroke_color: 872415231
         offset_y: 1
         is_optional: true
       }
@@ -87530,7 +87517,6 @@ cont {
     symbol {
       name: "subway-dubai-s"
       priority: 6250
-      min_distance: 1
     }
   }
   element {
@@ -87538,20 +87524,19 @@ cont {
     symbol {
       name: "subway-dubai-s"
       priority: 6250
-      min_distance: 1
     }
     caption {
       primary {
         height: 11
         color: 2236962
-        stroke_color: 1308622847
+        stroke_color: 872415231
         offset_y: 1
         is_optional: true
       }
       secondary {
         height: 9
         color: 2236962
-        stroke_color: 1308622847
+        stroke_color: 872415231
         offset_y: 1
         is_optional: true
       }
@@ -87710,7 +87695,6 @@ cont {
     symbol {
       name: "subway-ekb-s"
       priority: 6250
-      min_distance: 1
     }
   }
   element {
@@ -87718,20 +87702,19 @@ cont {
     symbol {
       name: "subway-ekb-s"
       priority: 6250
-      min_distance: 1
     }
     caption {
       primary {
         height: 11
         color: 2236962
-        stroke_color: 1308622847
+        stroke_color: 872415231
         offset_y: 1
         is_optional: true
       }
       secondary {
         height: 9
         color: 2236962
-        stroke_color: 1308622847
+        stroke_color: 872415231
         offset_y: 1
         is_optional: true
       }
@@ -87890,7 +87873,6 @@ cont {
     symbol {
       name: "subway-fukuoka-s"
       priority: 6250
-      min_distance: 1
     }
   }
   element {
@@ -87898,20 +87880,19 @@ cont {
     symbol {
       name: "subway-fukuoka-s"
       priority: 6250
-      min_distance: 1
     }
     caption {
       primary {
         height: 11
         color: 2236962
-        stroke_color: 1308622847
+        stroke_color: 872415231
         offset_y: 1
         is_optional: true
       }
       secondary {
         height: 9
         color: 2236962
-        stroke_color: 1308622847
+        stroke_color: 872415231
         offset_y: 1
         is_optional: true
       }
@@ -88070,7 +88051,6 @@ cont {
     symbol {
       name: "subway-glasgow-s"
       priority: 6250
-      min_distance: 1
     }
   }
   element {
@@ -88078,20 +88058,19 @@ cont {
     symbol {
       name: "subway-glasgow-s"
       priority: 6250
-      min_distance: 1
     }
     caption {
       primary {
         height: 11
         color: 2236962
-        stroke_color: 1308622847
+        stroke_color: 872415231
         offset_y: 1
         is_optional: true
       }
       secondary {
         height: 9
         color: 2236962
-        stroke_color: 1308622847
+        stroke_color: 872415231
         offset_y: 1
         is_optional: true
       }
@@ -88250,7 +88229,6 @@ cont {
     symbol {
       name: "subway-guangzhou-s"
       priority: 6250
-      min_distance: 1
     }
   }
   element {
@@ -88258,20 +88236,19 @@ cont {
     symbol {
       name: "subway-guangzhou-s"
       priority: 6250
-      min_distance: 1
     }
     caption {
       primary {
         height: 11
         color: 2236962
-        stroke_color: 1308622847
+        stroke_color: 872415231
         offset_y: 1
         is_optional: true
       }
       secondary {
         height: 9
         color: 2236962
-        stroke_color: 1308622847
+        stroke_color: 872415231
         offset_y: 1
         is_optional: true
       }
@@ -88430,7 +88407,6 @@ cont {
     symbol {
       name: "subway-ubahn-s"
       priority: 6250
-      min_distance: 1
     }
   }
   element {
@@ -88438,20 +88414,19 @@ cont {
     symbol {
       name: "subway-ubahn-s"
       priority: 6250
-      min_distance: 1
     }
     caption {
       primary {
         height: 11
         color: 2236962
-        stroke_color: 1308622847
+        stroke_color: 872415231
         offset_y: 1
         is_optional: true
       }
       secondary {
         height: 9
         color: 2236962
-        stroke_color: 1308622847
+        stroke_color: 872415231
         offset_y: 1
         is_optional: true
       }
@@ -88610,7 +88585,6 @@ cont {
     symbol {
       name: "subway-helsinki-s"
       priority: 6250
-      min_distance: 1
     }
   }
   element {
@@ -88618,20 +88592,19 @@ cont {
     symbol {
       name: "subway-helsinki-s"
       priority: 6250
-      min_distance: 1
     }
     caption {
       primary {
         height: 11
         color: 2236962
-        stroke_color: 1308622847
+        stroke_color: 872415231
         offset_y: 1
         is_optional: true
       }
       secondary {
         height: 9
         color: 2236962
-        stroke_color: 1308622847
+        stroke_color: 872415231
         offset_y: 1
         is_optional: true
       }
@@ -88790,7 +88763,6 @@ cont {
     symbol {
       name: "subway-hirosima-s"
       priority: 6250
-      min_distance: 1
     }
   }
   element {
@@ -88798,20 +88770,19 @@ cont {
     symbol {
       name: "subway-hirosima-s"
       priority: 6250
-      min_distance: 1
     }
     caption {
       primary {
         height: 11
         color: 2236962
-        stroke_color: 1308622847
+        stroke_color: 872415231
         offset_y: 1
         is_optional: true
       }
       secondary {
         height: 9
         color: 2236962
-        stroke_color: 1308622847
+        stroke_color: 872415231
         offset_y: 1
         is_optional: true
       }
@@ -88970,7 +88941,6 @@ cont {
     symbol {
       name: "subway-isfahan-s"
       priority: 6250
-      min_distance: 1
     }
   }
   element {
@@ -88978,20 +88948,19 @@ cont {
     symbol {
       name: "subway-isfahan-s"
       priority: 6250
-      min_distance: 1
     }
     caption {
       primary {
         height: 11
         color: 2236962
-        stroke_color: 1308622847
+        stroke_color: 872415231
         offset_y: 1
         is_optional: true
       }
       secondary {
         height: 9
         color: 2236962
-        stroke_color: 1308622847
+        stroke_color: 872415231
         offset_y: 1
         is_optional: true
       }
@@ -89150,7 +89119,6 @@ cont {
     symbol {
       name: "subway-istanbul-s"
       priority: 6250
-      min_distance: 1
     }
   }
   element {
@@ -89158,7 +89126,6 @@ cont {
     symbol {
       name: "subway-istanbul-s"
       priority: 6250
-      min_distance: 1
     }
   }
   element {
@@ -89166,20 +89133,19 @@ cont {
     symbol {
       name: "subway-istanbul-s"
       priority: 6250
-      min_distance: 1
     }
     caption {
       primary {
         height: 11
         color: 2236962
-        stroke_color: 1308622847
+        stroke_color: 872415231
         offset_y: 1
         is_optional: true
       }
       secondary {
         height: 9
         color: 2236962
-        stroke_color: 1308622847
+        stroke_color: 872415231
         offset_y: 1
         is_optional: true
       }
@@ -89338,7 +89304,6 @@ cont {
     symbol {
       name: "subway-izmir-s"
       priority: 6250
-      min_distance: 1
     }
   }
   element {
@@ -89346,20 +89311,19 @@ cont {
     symbol {
       name: "subway-izmir-s"
       priority: 6250
-      min_distance: 1
     }
     caption {
       primary {
         height: 11
         color: 2236962
-        stroke_color: 1308622847
+        stroke_color: 872415231
         offset_y: 1
         is_optional: true
       }
       secondary {
         height: 9
         color: 2236962
-        stroke_color: 1308622847
+        stroke_color: 872415231
         offset_y: 1
         is_optional: true
       }
@@ -89518,7 +89482,6 @@ cont {
     symbol {
       name: "subway-kazan-s"
       priority: 6250
-      min_distance: 1
     }
   }
   element {
@@ -89526,20 +89489,19 @@ cont {
     symbol {
       name: "subway-kazan-s"
       priority: 6250
-      min_distance: 1
     }
     caption {
       primary {
         height: 11
         color: 2236962
-        stroke_color: 1308622847
+        stroke_color: 872415231
         offset_y: 1
         is_optional: true
       }
       secondary {
         height: 9
         color: 2236962
-        stroke_color: 1308622847
+        stroke_color: 872415231
         offset_y: 1
         is_optional: true
       }
@@ -89698,7 +89660,6 @@ cont {
     symbol {
       name: "subway-kharkiv-s"
       priority: 6250
-      min_distance: 1
     }
   }
   element {
@@ -89706,20 +89667,19 @@ cont {
     symbol {
       name: "subway-kharkiv-s"
       priority: 6250
-      min_distance: 1
     }
     caption {
       primary {
         height: 11
         color: 2236962
-        stroke_color: 1308622847
+        stroke_color: 872415231
         offset_y: 1
         is_optional: true
       }
       secondary {
         height: 9
         color: 2236962
-        stroke_color: 1308622847
+        stroke_color: 872415231
         offset_y: 1
         is_optional: true
       }
@@ -89878,7 +89838,6 @@ cont {
     symbol {
       name: "subway-kiev-s"
       priority: 6250
-      min_distance: 1
     }
     caption {
       primary {
@@ -89896,7 +89855,6 @@ cont {
     symbol {
       name: "subway-kiev-s"
       priority: 6250
-      min_distance: 1
     }
     caption {
       primary {
@@ -89914,20 +89872,19 @@ cont {
     symbol {
       name: "subway-kiev-s"
       priority: 6250
-      min_distance: 1
     }
     caption {
       primary {
         height: 11
         color: 2236962
-        stroke_color: 1308622847
+        stroke_color: 872415231
         offset_y: 1
         is_optional: true
       }
       secondary {
         height: 9
         color: 2236962
-        stroke_color: 1308622847
+        stroke_color: 872415231
         offset_y: 1
         is_optional: true
       }
@@ -89982,94 +89939,6 @@ cont {
       priority: -3750
     }
   }
-  element {
-    scale: 17
-    symbol {
-      name: "zero-icon"
-      priority: 6250
-    }
-    caption {
-      primary {
-        height: 10
-        color: 8355711
-        offset_y: 1
-        is_optional: true
-      }
-      secondary {
-        height: 11
-        color: 2236962
-        offset_y: 1
-        is_optional: true
-      }
-      priority: -3750
-    }
-  }
-  element {
-    scale: 18
-    symbol {
-      name: "zero-icon"
-      priority: 6250
-    }
-    caption {
-      primary {
-        height: 10
-        color: 8355711
-        offset_y: 1
-        is_optional: true
-      }
-      secondary {
-        height: 11
-        color: 2236962
-        offset_y: 1
-        is_optional: true
-      }
-      priority: -3750
-    }
-  }
-  element {
-    scale: 19
-    symbol {
-      name: "zero-icon"
-      priority: 6250
-    }
-    caption {
-      primary {
-        height: 10
-        color: 8355711
-        offset_y: 1
-        is_optional: true
-      }
-      secondary {
-        height: 11
-        color: 2236962
-        offset_y: 1
-        is_optional: true
-      }
-      priority: -3750
-    }
-  }
-  element {
-    scale: 20
-    symbol {
-      name: "zero-icon"
-      priority: 6250
-    }
-    caption {
-      primary {
-        height: 10
-        color: 8355711
-        offset_y: 1
-        is_optional: true
-      }
-      secondary {
-        height: 11
-        color: 2236962
-        offset_y: 1
-        is_optional: true
-      }
-      priority: -3750
-    }
-  }
 }
 cont {
   name: "railway-station-subway-kobe"
@@ -90078,7 +89947,6 @@ cont {
     symbol {
       name: "subway-kobe-s"
       priority: 6250
-      min_distance: 1
     }
   }
   element {
@@ -90086,20 +89954,19 @@ cont {
     symbol {
       name: "subway-kobe-s"
       priority: 6250
-      min_distance: 1
     }
     caption {
       primary {
         height: 11
         color: 2236962
-        stroke_color: 1308622847
+        stroke_color: 872415231
         offset_y: 1
         is_optional: true
       }
       secondary {
         height: 9
         color: 2236962
-        stroke_color: 1308622847
+        stroke_color: 872415231
         offset_y: 1
         is_optional: true
       }
@@ -90258,7 +90125,6 @@ cont {
     symbol {
       name: "subway-kolkata-s"
       priority: 6250
-      min_distance: 1
     }
   }
   element {
@@ -90266,20 +90132,19 @@ cont {
     symbol {
       name: "subway-kolkata-s"
       priority: 6250
-      min_distance: 1
     }
     caption {
       primary {
         height: 11
         color: 2236962
-        stroke_color: 1308622847
+        stroke_color: 872415231
         offset_y: 1
         is_optional: true
       }
       secondary {
         height: 9
         color: 2236962
-        stroke_color: 1308622847
+        stroke_color: 872415231
         offset_y: 1
         is_optional: true
       }
@@ -90438,7 +90303,6 @@ cont {
     symbol {
       name: "subway-kunming-s"
       priority: 6250
-      min_distance: 1
     }
   }
   element {
@@ -90446,20 +90310,19 @@ cont {
     symbol {
       name: "subway-kunming-s"
       priority: 6250
-      min_distance: 1
     }
     caption {
       primary {
         height: 11
         color: 2236962
-        stroke_color: 1308622847
+        stroke_color: 872415231
         offset_y: 1
         is_optional: true
       }
       secondary {
         height: 9
         color: 2236962
-        stroke_color: 1308622847
+        stroke_color: 872415231
         offset_y: 1
         is_optional: true
       }
@@ -90618,7 +90481,6 @@ cont {
     symbol {
       name: "subway-kyoto-s"
       priority: 6250
-      min_distance: 1
     }
   }
   element {
@@ -90626,20 +90488,19 @@ cont {
     symbol {
       name: "subway-kyoto-s"
       priority: 6250
-      min_distance: 1
     }
     caption {
       primary {
         height: 11
         color: 2236962
-        stroke_color: 1308622847
+        stroke_color: 872415231
         offset_y: 1
         is_optional: true
       }
       secondary {
         height: 9
         color: 2236962
-        stroke_color: 1308622847
+        stroke_color: 872415231
         offset_y: 1
         is_optional: true
       }
@@ -90798,7 +90659,6 @@ cont {
     symbol {
       name: "subway-losangeles-s"
       priority: 6250
-      min_distance: 1
     }
   }
   element {
@@ -90806,7 +90666,6 @@ cont {
     symbol {
       name: "subway-losangeles-s"
       priority: 6250
-      min_distance: 1
     }
   }
   element {
@@ -90814,20 +90673,19 @@ cont {
     symbol {
       name: "subway-losangeles-s"
       priority: 6250
-      min_distance: 1
     }
     caption {
       primary {
         height: 11
         color: 2236962
-        stroke_color: 1308622847
+        stroke_color: 872415231
         offset_y: 1
         is_optional: true
       }
       secondary {
         height: 9
         color: 2236962
-        stroke_color: 1308622847
+        stroke_color: 872415231
         offset_y: 1
         is_optional: true
       }
@@ -90986,7 +90844,6 @@ cont {
     symbol {
       name: "subway-lausanne-s"
       priority: 6250
-      min_distance: 1
     }
   }
   element {
@@ -90994,20 +90851,19 @@ cont {
     symbol {
       name: "subway-lausanne-s"
       priority: 6250
-      min_distance: 1
     }
     caption {
       primary {
         height: 11
         color: 2236962
-        stroke_color: 1308622847
+        stroke_color: 872415231
         offset_y: 1
         is_optional: true
       }
       secondary {
         height: 9
         color: 2236962
-        stroke_color: 1308622847
+        stroke_color: 872415231
         offset_y: 1
         is_optional: true
       }
@@ -91166,7 +91022,6 @@ cont {
     symbol {
       name: "subway-lille-s"
       priority: 6250
-      min_distance: 1
     }
   }
   element {
@@ -91174,20 +91029,19 @@ cont {
     symbol {
       name: "subway-lille-s"
       priority: 6250
-      min_distance: 1
     }
     caption {
       primary {
         height: 11
         color: 2236962
-        stroke_color: 1308622847
+        stroke_color: 872415231
         offset_y: 1
         is_optional: true
       }
       secondary {
         height: 9
         color: 2236962
-        stroke_color: 1308622847
+        stroke_color: 872415231
         offset_y: 1
         is_optional: true
       }
@@ -91346,7 +91200,6 @@ cont {
     symbol {
       name: "subway-lima-s"
       priority: 6250
-      min_distance: 1
     }
   }
   element {
@@ -91354,20 +91207,19 @@ cont {
     symbol {
       name: "subway-lima-s"
       priority: 6250
-      min_distance: 1
     }
     caption {
       primary {
         height: 11
         color: 2236962
-        stroke_color: 1308622847
+        stroke_color: 872415231
         offset_y: 1
         is_optional: true
       }
       secondary {
         height: 9
         color: 2236962
-        stroke_color: 1308622847
+        stroke_color: 872415231
         offset_y: 1
         is_optional: true
       }
@@ -91526,7 +91378,6 @@ cont {
     symbol {
       name: "subway-lisboa-s"
       priority: 6250
-      min_distance: 1
     }
   }
   element {
@@ -91534,7 +91385,6 @@ cont {
     symbol {
       name: "subway-lisboa-s"
       priority: 6250
-      min_distance: 1
     }
   }
   element {
@@ -91542,20 +91392,19 @@ cont {
     symbol {
       name: "subway-lisboa-s"
       priority: 6250
-      min_distance: 1
     }
     caption {
       primary {
         height: 11
         color: 2236962
-        stroke_color: 1308622847
+        stroke_color: 872415231
         offset_y: 1
         is_optional: true
       }
       secondary {
         height: 9
         color: 2236962
-        stroke_color: 1308622847
+        stroke_color: 872415231
         offset_y: 1
         is_optional: true
       }
@@ -91714,7 +91563,6 @@ cont {
     symbol {
       name: "subway-london-s"
       priority: 6250
-      min_distance: 1
     }
   }
   element {
@@ -91722,7 +91570,6 @@ cont {
     symbol {
       name: "subway-london-s"
       priority: 6250
-      min_distance: 1
     }
   }
   element {
@@ -91730,20 +91577,19 @@ cont {
     symbol {
       name: "subway-london-s"
       priority: 6250
-      min_distance: 1
     }
     caption {
       primary {
         height: 11
         color: 2236962
-        stroke_color: 1308622847
+        stroke_color: 872415231
         offset_y: 1
         is_optional: true
       }
       secondary {
         height: 9
         color: 2236962
-        stroke_color: 1308622847
+        stroke_color: 872415231
         offset_y: 1
         is_optional: true
       }
@@ -91902,7 +91748,6 @@ cont {
     symbol {
       name: "subway-lyon-s"
       priority: 6250
-      min_distance: 1
     }
   }
   element {
@@ -91910,20 +91755,19 @@ cont {
     symbol {
       name: "subway-lyon-s"
       priority: 6250
-      min_distance: 1
     }
     caption {
       primary {
         height: 11
         color: 2236962
-        stroke_color: 1308622847
+        stroke_color: 872415231
         offset_y: 1
         is_optional: true
       }
       secondary {
         height: 9
         color: 2236962
-        stroke_color: 1308622847
+        stroke_color: 872415231
         offset_y: 1
         is_optional: true
       }
@@ -92082,7 +91926,6 @@ cont {
     symbol {
       name: "subway-madrid-s"
       priority: 6250
-      min_distance: 1
     }
   }
   element {
@@ -92090,7 +91933,6 @@ cont {
     symbol {
       name: "subway-madrid-s"
       priority: 6250
-      min_distance: 1
     }
   }
   element {
@@ -92098,20 +91940,19 @@ cont {
     symbol {
       name: "subway-madrid-s"
       priority: 6250
-      min_distance: 1
     }
     caption {
       primary {
         height: 11
         color: 2236962
-        stroke_color: 1308622847
+        stroke_color: 872415231
         offset_y: 1
         is_optional: true
       }
       secondary {
         height: 9
         color: 2236962
-        stroke_color: 1308622847
+        stroke_color: 872415231
         offset_y: 1
         is_optional: true
       }
@@ -92270,7 +92111,6 @@ cont {
     symbol {
       name: "subway-malaga-s"
       priority: 6250
-      min_distance: 1
     }
   }
   element {
@@ -92278,20 +92118,19 @@ cont {
     symbol {
       name: "subway-malaga-s"
       priority: 6250
-      min_distance: 1
     }
     caption {
       primary {
         height: 11
         color: 2236962
-        stroke_color: 1308622847
+        stroke_color: 872415231
         offset_y: 1
         is_optional: true
       }
       secondary {
         height: 9
         color: 2236962
-        stroke_color: 1308622847
+        stroke_color: 872415231
         offset_y: 1
         is_optional: true
       }
@@ -92450,7 +92289,6 @@ cont {
     symbol {
       name: "subway-manila-s"
       priority: 6250
-      min_distance: 1
     }
   }
   element {
@@ -92458,20 +92296,19 @@ cont {
     symbol {
       name: "subway-manila-s"
       priority: 6250
-      min_distance: 1
     }
     caption {
       primary {
         height: 11
         color: 2236962
-        stroke_color: 1308622847
+        stroke_color: 872415231
         offset_y: 1
         is_optional: true
       }
       secondary {
         height: 9
         color: 2236962
-        stroke_color: 1308622847
+        stroke_color: 872415231
         offset_y: 1
         is_optional: true
       }
@@ -92630,7 +92467,6 @@ cont {
     symbol {
       name: "subway-maracaibo-s"
       priority: 6250
-      min_distance: 1
     }
   }
   element {
@@ -92638,20 +92474,19 @@ cont {
     symbol {
       name: "subway-maracaibo-s"
       priority: 6250
-      min_distance: 1
     }
     caption {
       primary {
         height: 11
         color: 2236962
-        stroke_color: 1308622847
+        stroke_color: 872415231
         offset_y: 1
         is_optional: true
       }
       secondary {
         height: 9
         color: 2236962
-        stroke_color: 1308622847
+        stroke_color: 872415231
         offset_y: 1
         is_optional: true
       }
@@ -92810,7 +92645,6 @@ cont {
     symbol {
       name: "subway-mashhad-s"
       priority: 6250
-      min_distance: 1
     }
   }
   element {
@@ -92818,20 +92652,19 @@ cont {
     symbol {
       name: "subway-mashhad-s"
       priority: 6250
-      min_distance: 1
     }
     caption {
       primary {
         height: 11
         color: 2236962
-        stroke_color: 1308622847
+        stroke_color: 872415231
         offset_y: 1
         is_optional: true
       }
       secondary {
         height: 9
         color: 2236962
-        stroke_color: 1308622847
+        stroke_color: 872415231
         offset_y: 1
         is_optional: true
       }
@@ -92990,7 +92823,6 @@ cont {
     symbol {
       name: "subway-mecca-s"
       priority: 6250
-      min_distance: 1
     }
   }
   element {
@@ -92998,20 +92830,19 @@ cont {
     symbol {
       name: "subway-mecca-s"
       priority: 6250
-      min_distance: 1
     }
     caption {
       primary {
         height: 11
         color: 2236962
-        stroke_color: 1308622847
+        stroke_color: 872415231
         offset_y: 1
         is_optional: true
       }
       secondary {
         height: 9
         color: 2236962
-        stroke_color: 1308622847
+        stroke_color: 872415231
         offset_y: 1
         is_optional: true
       }
@@ -93170,7 +93001,6 @@ cont {
     symbol {
       name: "subway-medellin-s"
       priority: 6250
-      min_distance: 1
     }
   }
   element {
@@ -93178,20 +93008,19 @@ cont {
     symbol {
       name: "subway-medellin-s"
       priority: 6250
-      min_distance: 1
     }
     caption {
       primary {
         height: 11
         color: 2236962
-        stroke_color: 1308622847
+        stroke_color: 872415231
         offset_y: 1
         is_optional: true
       }
       secondary {
         height: 9
         color: 2236962
-        stroke_color: 1308622847
+        stroke_color: 872415231
         offset_y: 1
         is_optional: true
       }
@@ -93350,7 +93179,6 @@ cont {
     symbol {
       name: "subway-mexico-s"
       priority: 6250
-      min_distance: 1
     }
   }
   element {
@@ -93358,7 +93186,6 @@ cont {
     symbol {
       name: "subway-mexico-s"
       priority: 6250
-      min_distance: 1
     }
   }
   element {
@@ -93366,20 +93193,19 @@ cont {
     symbol {
       name: "subway-mexico-s"
       priority: 6250
-      min_distance: 1
     }
     caption {
       primary {
         height: 11
         color: 2236962
-        stroke_color: 1308622847
+        stroke_color: 872415231
         offset_y: 1
         is_optional: true
       }
       secondary {
         height: 9
         color: 2236962
-        stroke_color: 1308622847
+        stroke_color: 872415231
         offset_y: 1
         is_optional: true
       }
@@ -93538,7 +93364,6 @@ cont {
     symbol {
       name: "subway-milan-s"
       priority: 6250
-      min_distance: 1
     }
   }
   element {
@@ -93546,20 +93371,19 @@ cont {
     symbol {
       name: "subway-milan-s"
       priority: 6250
-      min_distance: 1
     }
     caption {
       primary {
         height: 11
         color: 2236962
-        stroke_color: 1308622847
+        stroke_color: 872415231
         offset_y: 1
         is_optional: true
       }
       secondary {
         height: 9
         color: 2236962
-        stroke_color: 1308622847
+        stroke_color: 872415231
         offset_y: 1
         is_optional: true
       }
@@ -93718,7 +93542,6 @@ cont {
     symbol {
       name: "subway-minsk-s"
       priority: 6250
-      min_distance: 1
     }
     caption {
       primary {
@@ -93736,7 +93559,6 @@ cont {
     symbol {
       name: "subway-minsk-s"
       priority: 6250
-      min_distance: 1
     }
     caption {
       primary {
@@ -93754,20 +93576,19 @@ cont {
     symbol {
       name: "subway-minsk-s"
       priority: 6250
-      min_distance: 1
     }
     caption {
       primary {
         height: 11
         color: 2236962
-        stroke_color: 1308622847
+        stroke_color: 872415231
         offset_y: 1
         is_optional: true
       }
       secondary {
         height: 9
         color: 2236962
-        stroke_color: 1308622847
+        stroke_color: 872415231
         offset_y: 1
         is_optional: true
       }
@@ -93820,94 +93641,6 @@ cont {
       priority: -3750
     }
   }
-  element {
-    scale: 17
-    symbol {
-      name: "zero-icon"
-      priority: 6250
-    }
-    caption {
-      primary {
-        height: 10
-        color: 8355711
-        offset_y: 1
-        is_optional: true
-      }
-      secondary {
-        height: 11
-        color: 2236962
-        offset_y: 1
-        is_optional: true
-      }
-      priority: -3750
-    }
-  }
-  element {
-    scale: 18
-    symbol {
-      name: "zero-icon"
-      priority: 6250
-    }
-    caption {
-      primary {
-        height: 10
-        color: 8355711
-        offset_y: 1
-        is_optional: true
-      }
-      secondary {
-        height: 11
-        color: 2236962
-        offset_y: 1
-        is_optional: true
-      }
-      priority: -3750
-    }
-  }
-  element {
-    scale: 19
-    symbol {
-      name: "zero-icon"
-      priority: 6250
-    }
-    caption {
-      primary {
-        height: 10
-        color: 8355711
-        offset_y: 1
-        is_optional: true
-      }
-      secondary {
-        height: 11
-        color: 2236962
-        offset_y: 1
-        is_optional: true
-      }
-      priority: -3750
-    }
-  }
-  element {
-    scale: 20
-    symbol {
-      name: "zero-icon"
-      priority: 6250
-    }
-    caption {
-      primary {
-        height: 10
-        color: 8355711
-        offset_y: 1
-        is_optional: true
-      }
-      secondary {
-        height: 11
-        color: 2236962
-        offset_y: 1
-        is_optional: true
-      }
-      priority: -3750
-    }
-  }
 }
 cont {
   name: "railway-station-subway-montreal"
@@ -93916,7 +93649,6 @@ cont {
     symbol {
       name: "subway-montreal-s"
       priority: 6250
-      min_distance: 1
     }
   }
   element {
@@ -93924,20 +93656,19 @@ cont {
     symbol {
       name: "subway-montreal-s"
       priority: 6250
-      min_distance: 1
     }
     caption {
       primary {
         height: 11
         color: 2236962
-        stroke_color: 1308622847
+        stroke_color: 872415231
         offset_y: 1
         is_optional: true
       }
       secondary {
         height: 9
         color: 2236962
-        stroke_color: 1308622847
+        stroke_color: 872415231
         offset_y: 1
         is_optional: true
       }
@@ -94096,7 +93827,6 @@ cont {
     symbol {
       name: "subway-moscow-s"
       priority: 7000
-      min_distance: 1
     }
   }
   element {
@@ -94104,7 +93834,6 @@ cont {
     symbol {
       name: "subway-moscow-s"
       priority: 7000
-      min_distance: 1
     }
     caption {
       primary {
@@ -94129,7 +93858,6 @@ cont {
     symbol {
       name: "subway-moscow-s"
       priority: 7000
-      min_distance: 1
     }
     caption {
       primary {
@@ -94154,7 +93882,6 @@ cont {
     symbol {
       name: "subway-moscow-s"
       priority: 7000
-      min_distance: 1
     }
     caption {
       primary {
@@ -94198,41 +93925,6 @@ cont {
       priority: -3000
     }
   }
-  element {
-    scale: 16
-    symbol {
-      name: "zero-icon"
-      priority: 7000
-    }
-  }
-  element {
-    scale: 17
-    symbol {
-      name: "zero-icon"
-      priority: 7000
-    }
-  }
-  element {
-    scale: 18
-    symbol {
-      name: "zero-icon"
-      priority: 7000
-    }
-  }
-  element {
-    scale: 19
-    symbol {
-      name: "zero-icon"
-      priority: 7000
-    }
-  }
-  element {
-    scale: 20
-    symbol {
-      name: "zero-icon"
-      priority: 7000
-    }
-  }
 }
 cont {
   name: "railway-station-subway-munchen"
@@ -94241,7 +93933,6 @@ cont {
     symbol {
       name: "subway-ubahn-s"
       priority: 6250
-      min_distance: 1
     }
   }
   element {
@@ -94249,20 +93940,19 @@ cont {
     symbol {
       name: "subway-ubahn-s"
       priority: 6250
-      min_distance: 1
     }
     caption {
       primary {
         height: 11
         color: 2236962
-        stroke_color: 1308622847
+        stroke_color: 872415231
         offset_y: 1
         is_optional: true
       }
       secondary {
         height: 9
         color: 2236962
-        stroke_color: 1308622847
+        stroke_color: 872415231
         offset_y: 1
         is_optional: true
       }
@@ -94421,7 +94111,6 @@ cont {
     symbol {
       name: "subway-nagoya-s"
       priority: 6250
-      min_distance: 1
     }
   }
   element {
@@ -94429,20 +94118,19 @@ cont {
     symbol {
       name: "subway-nagoya-s"
       priority: 6250
-      min_distance: 1
     }
     caption {
       primary {
         height: 11
         color: 2236962
-        stroke_color: 1308622847
+        stroke_color: 872415231
         offset_y: 1
         is_optional: true
       }
       secondary {
         height: 9
         color: 2236962
-        stroke_color: 1308622847
+        stroke_color: 872415231
         offset_y: 1
         is_optional: true
       }
@@ -94601,7 +94289,6 @@ cont {
     symbol {
       name: "subway-newyork-s"
       priority: 6250
-      min_distance: 1
     }
   }
   element {
@@ -94609,7 +94296,6 @@ cont {
     symbol {
       name: "subway-newyork-s"
       priority: 6250
-      min_distance: 1
     }
   }
   element {
@@ -94617,20 +94303,19 @@ cont {
     symbol {
       name: "subway-newyork-s"
       priority: 6250
-      min_distance: 1
     }
     caption {
       primary {
         height: 11
         color: 2236962
-        stroke_color: 1308622847
+        stroke_color: 872415231
         offset_y: 1
         is_optional: true
       }
       secondary {
         height: 9
         color: 2236962
-        stroke_color: 1308622847
+        stroke_color: 872415231
         offset_y: 1
         is_optional: true
       }
@@ -94789,7 +94474,6 @@ cont {
     symbol {
       name: "subway-nnov-s"
       priority: 6250
-      min_distance: 1
     }
   }
   element {
@@ -94797,20 +94481,19 @@ cont {
     symbol {
       name: "subway-nnov-s"
       priority: 6250
-      min_distance: 1
     }
     caption {
       primary {
         height: 11
         color: 2236962
-        stroke_color: 1308622847
+        stroke_color: 872415231
         offset_y: 1
         is_optional: true
       }
       secondary {
         height: 9
         color: 2236962
-        stroke_color: 1308622847
+        stroke_color: 872415231
         offset_y: 1
         is_optional: true
       }
@@ -94969,7 +94652,6 @@ cont {
     symbol {
       name: "subway-novosibirsk-s"
       priority: 6250
-      min_distance: 1
     }
   }
   element {
@@ -94977,20 +94659,19 @@ cont {
     symbol {
       name: "subway-novosibirsk-s"
       priority: 6250
-      min_distance: 1
     }
     caption {
       primary {
         height: 11
         color: 2236962
-        stroke_color: 1308622847
+        stroke_color: 872415231
         offset_y: 1
         is_optional: true
       }
       secondary {
         height: 9
         color: 2236962
-        stroke_color: 1308622847
+        stroke_color: 872415231
         offset_y: 1
         is_optional: true
       }
@@ -95149,7 +94830,6 @@ cont {
     symbol {
       name: "subway-osaka-s"
       priority: 6250
-      min_distance: 1
     }
   }
   element {
@@ -95157,20 +94837,19 @@ cont {
     symbol {
       name: "subway-osaka-s"
       priority: 6250
-      min_distance: 1
     }
     caption {
       primary {
         height: 11
         color: 2236962
-        stroke_color: 1308622847
+        stroke_color: 872415231
         offset_y: 1
         is_optional: true
       }
       secondary {
         height: 9
         color: 2236962
-        stroke_color: 1308622847
+        stroke_color: 872415231
         offset_y: 1
         is_optional: true
       }
@@ -95329,7 +95008,6 @@ cont {
     symbol {
       name: "subway-oslo-s"
       priority: 6250
-      min_distance: 1
     }
   }
   element {
@@ -95337,20 +95015,19 @@ cont {
     symbol {
       name: "subway-oslo-s"
       priority: 6250
-      min_distance: 1
     }
     caption {
       primary {
         height: 11
         color: 2236962
-        stroke_color: 1308622847
+        stroke_color: 872415231
         offset_y: 1
         is_optional: true
       }
       secondary {
         height: 9
         color: 2236962
-        stroke_color: 1308622847
+        stroke_color: 872415231
         offset_y: 1
         is_optional: true
       }
@@ -95509,7 +95186,6 @@ cont {
     symbol {
       name: "subway-palma-s"
       priority: 6250
-      min_distance: 1
     }
   }
   element {
@@ -95517,20 +95193,19 @@ cont {
     symbol {
       name: "subway-palma-s"
       priority: 6250
-      min_distance: 1
     }
     caption {
       primary {
         height: 11
         color: 2236962
-        stroke_color: 1308622847
+        stroke_color: 872415231
         offset_y: 1
         is_optional: true
       }
       secondary {
         height: 9
         color: 2236962
-        stroke_color: 1308622847
+        stroke_color: 872415231
         offset_y: 1
         is_optional: true
       }
@@ -95689,7 +95364,6 @@ cont {
     symbol {
       name: "subway-panama-s"
       priority: 6250
-      min_distance: 1
     }
   }
   element {
@@ -95697,20 +95371,19 @@ cont {
     symbol {
       name: "subway-panama-s"
       priority: 6250
-      min_distance: 1
     }
     caption {
       primary {
         height: 11
         color: 2236962
-        stroke_color: 1308622847
+        stroke_color: 872415231
         offset_y: 1
         is_optional: true
       }
       secondary {
         height: 9
         color: 2236962
-        stroke_color: 1308622847
+        stroke_color: 872415231
         offset_y: 1
         is_optional: true
       }
@@ -95869,7 +95542,6 @@ cont {
     symbol {
       name: "subway-paris-s"
       priority: 6250
-      min_distance: 1
     }
   }
   element {
@@ -95877,7 +95549,6 @@ cont {
     symbol {
       name: "subway-paris-s"
       priority: 6250
-      min_distance: 1
     }
   }
   element {
@@ -95885,20 +95556,19 @@ cont {
     symbol {
       name: "subway-paris-s"
       priority: 6250
-      min_distance: 1
     }
     caption {
       primary {
         height: 11
         color: 2236962
-        stroke_color: 1308622847
+        stroke_color: 872415231
         offset_y: 1
         is_optional: true
       }
       secondary {
         height: 9
         color: 2236962
-        stroke_color: 1308622847
+        stroke_color: 872415231
         offset_y: 1
         is_optional: true
       }
@@ -96057,7 +95727,6 @@ cont {
     symbol {
       name: "subway-philadelphia-s"
       priority: 6250
-      min_distance: 1
     }
   }
   element {
@@ -96065,20 +95734,19 @@ cont {
     symbol {
       name: "subway-philadelphia-s"
       priority: 6250
-      min_distance: 1
     }
     caption {
       primary {
         height: 11
         color: 2236962
-        stroke_color: 1308622847
+        stroke_color: 872415231
         offset_y: 1
         is_optional: true
       }
       secondary {
         height: 9
         color: 2236962
-        stroke_color: 1308622847
+        stroke_color: 872415231
         offset_y: 1
         is_optional: true
       }
@@ -96237,7 +95905,6 @@ cont {
     symbol {
       name: "subway-pyongyang-s"
       priority: 6250
-      min_distance: 1
     }
   }
   element {
@@ -96245,20 +95912,19 @@ cont {
     symbol {
       name: "subway-pyongyang-s"
       priority: 6250
-      min_distance: 1
     }
     caption {
       primary {
         height: 11
         color: 2236962
-        stroke_color: 1308622847
+        stroke_color: 872415231
         offset_y: 1
         is_optional: true
       }
       secondary {
         height: 9
         color: 2236962
-        stroke_color: 1308622847
+        stroke_color: 872415231
         offset_y: 1
         is_optional: true
       }
@@ -96417,7 +96083,6 @@ cont {
     symbol {
       name: "subway-rennes-s"
       priority: 6250
-      min_distance: 1
     }
   }
   element {
@@ -96425,20 +96090,19 @@ cont {
     symbol {
       name: "subway-rennes-s"
       priority: 6250
-      min_distance: 1
     }
     caption {
       primary {
         height: 11
         color: 2236962
-        stroke_color: 1308622847
+        stroke_color: 872415231
         offset_y: 1
         is_optional: true
       }
       secondary {
         height: 9
         color: 2236962
-        stroke_color: 1308622847
+        stroke_color: 872415231
         offset_y: 1
         is_optional: true
       }
@@ -96597,7 +96261,6 @@ cont {
     symbol {
       name: "subway-riodejaneiro-s"
       priority: 6250
-      min_distance: 1
     }
   }
   element {
@@ -96605,20 +96268,19 @@ cont {
     symbol {
       name: "subway-riodejaneiro-s"
       priority: 6250
-      min_distance: 1
     }
     caption {
       primary {
         height: 11
         color: 2236962
-        stroke_color: 1308622847
+        stroke_color: 872415231
         offset_y: 1
         is_optional: true
       }
       secondary {
         height: 9
         color: 2236962
-        stroke_color: 1308622847
+        stroke_color: 872415231
         offset_y: 1
         is_optional: true
       }
@@ -96777,7 +96439,6 @@ cont {
     symbol {
       name: "subway-rome-s"
       priority: 6250
-      min_distance: 1
     }
   }
   element {
@@ -96785,7 +96446,6 @@ cont {
     symbol {
       name: "subway-rome-s"
       priority: 6250
-      min_distance: 1
     }
   }
   element {
@@ -96793,20 +96453,19 @@ cont {
     symbol {
       name: "subway-rome-s"
       priority: 6250
-      min_distance: 1
     }
     caption {
       primary {
         height: 11
         color: 2236962
-        stroke_color: 1308622847
+        stroke_color: 872415231
         offset_y: 1
         is_optional: true
       }
       secondary {
         height: 9
         color: 2236962
-        stroke_color: 1308622847
+        stroke_color: 872415231
         offset_y: 1
         is_optional: true
       }
@@ -96861,94 +96520,6 @@ cont {
       priority: -3750
     }
   }
-  element {
-    scale: 17
-    symbol {
-      name: "zero-icon"
-      priority: 6250
-    }
-    caption {
-      primary {
-        height: 13
-        color: 8355711
-        offset_y: 1
-        is_optional: true
-      }
-      secondary {
-        height: 11
-        color: 2236962
-        offset_y: 1
-        is_optional: true
-      }
-      priority: -3750
-    }
-  }
-  element {
-    scale: 18
-    symbol {
-      name: "zero-icon"
-      priority: 6250
-    }
-    caption {
-      primary {
-        height: 13
-        color: 8355711
-        offset_y: 1
-        is_optional: true
-      }
-      secondary {
-        height: 11
-        color: 2236962
-        offset_y: 1
-        is_optional: true
-      }
-      priority: -3750
-    }
-  }
-  element {
-    scale: 19
-    symbol {
-      name: "zero-icon"
-      priority: 6250
-    }
-    caption {
-      primary {
-        height: 13
-        color: 8355711
-        offset_y: 1
-        is_optional: true
-      }
-      secondary {
-        height: 11
-        color: 2236962
-        offset_y: 1
-        is_optional: true
-      }
-      priority: -3750
-    }
-  }
-  element {
-    scale: 20
-    symbol {
-      name: "zero-icon"
-      priority: 6250
-    }
-    caption {
-      primary {
-        height: 13
-        color: 8355711
-        offset_y: 1
-        is_optional: true
-      }
-      secondary {
-        height: 11
-        color: 2236962
-        offset_y: 1
-        is_optional: true
-      }
-      priority: -3750
-    }
-  }
 }
 cont {
   name: "railway-station-subway-rotterdam"
@@ -96957,7 +96528,6 @@ cont {
     symbol {
       name: "subway-rotterdam-s"
       priority: 6250
-      min_distance: 1
     }
   }
   element {
@@ -96965,20 +96535,19 @@ cont {
     symbol {
       name: "subway-rotterdam-s"
       priority: 6250
-      min_distance: 1
     }
     caption {
       primary {
         height: 11
         color: 2236962
-        stroke_color: 1308622847
+        stroke_color: 872415231
         offset_y: 1
         is_optional: true
       }
       secondary {
         height: 9
         color: 2236962
-        stroke_color: 1308622847
+        stroke_color: 872415231
         offset_y: 1
         is_optional: true
       }
@@ -97137,7 +96706,6 @@ cont {
     symbol {
       name: "subway-samara-s"
       priority: 6250
-      min_distance: 1
     }
   }
   element {
@@ -97145,20 +96713,19 @@ cont {
     symbol {
       name: "subway-samara-s"
       priority: 6250
-      min_distance: 1
     }
     caption {
       primary {
         height: 11
         color: 2236962
-        stroke_color: 1308622847
+        stroke_color: 872415231
         offset_y: 1
         is_optional: true
       }
       secondary {
         height: 9
         color: 2236962
-        stroke_color: 1308622847
+        stroke_color: 872415231
         offset_y: 1
         is_optional: true
       }
@@ -97317,7 +96884,6 @@ cont {
     symbol {
       name: "subway-santiago-s"
       priority: 6250
-      min_distance: 1
     }
   }
   element {
@@ -97325,20 +96891,19 @@ cont {
     symbol {
       name: "subway-santiago-s"
       priority: 6250
-      min_distance: 1
     }
     caption {
       primary {
         height: 11
         color: 2236962
-        stroke_color: 1308622847
+        stroke_color: 872415231
         offset_y: 1
         is_optional: true
       }
       secondary {
         height: 9
         color: 2236962
-        stroke_color: 1308622847
+        stroke_color: 872415231
         offset_y: 1
         is_optional: true
       }
@@ -97497,7 +97062,6 @@ cont {
     symbol {
       name: "subway-santodomingo-s"
       priority: 6250
-      min_distance: 1
     }
   }
   element {
@@ -97505,20 +97069,19 @@ cont {
     symbol {
       name: "subway-santodomingo-s"
       priority: 6250
-      min_distance: 1
     }
     caption {
       primary {
         height: 11
         color: 2236962
-        stroke_color: 1308622847
+        stroke_color: 872415231
         offset_y: 1
         is_optional: true
       }
       secondary {
         height: 9
         color: 2236962
-        stroke_color: 1308622847
+        stroke_color: 872415231
         offset_y: 1
         is_optional: true
       }
@@ -97677,7 +97240,6 @@ cont {
     symbol {
       name: "subway-saopaulo-s"
       priority: 6250
-      min_distance: 1
     }
   }
   element {
@@ -97685,20 +97247,19 @@ cont {
     symbol {
       name: "subway-saopaulo-s"
       priority: 6250
-      min_distance: 1
     }
     caption {
       primary {
         height: 11
         color: 2236962
-        stroke_color: 1308622847
+        stroke_color: 872415231
         offset_y: 1
         is_optional: true
       }
       secondary {
         height: 9
         color: 2236962
-        stroke_color: 1308622847
+        stroke_color: 872415231
         offset_y: 1
         is_optional: true
       }
@@ -97857,7 +97418,6 @@ cont {
     symbol {
       name: "subway-sapporo-s"
       priority: 6250
-      min_distance: 1
     }
   }
   element {
@@ -97865,20 +97425,19 @@ cont {
     symbol {
       name: "subway-sapporo-s"
       priority: 6250
-      min_distance: 1
     }
     caption {
       primary {
         height: 11
         color: 2236962
-        stroke_color: 1308622847
+        stroke_color: 872415231
         offset_y: 1
         is_optional: true
       }
       secondary {
         height: 9
         color: 2236962
-        stroke_color: 1308622847
+        stroke_color: 872415231
         offset_y: 1
         is_optional: true
       }
@@ -98037,7 +97596,6 @@ cont {
     symbol {
       name: "subway-sendai-s"
       priority: 6250
-      min_distance: 1
     }
   }
   element {
@@ -98045,20 +97603,19 @@ cont {
     symbol {
       name: "subway-sendai-s"
       priority: 6250
-      min_distance: 1
     }
     caption {
       primary {
         height: 11
         color: 2236962
-        stroke_color: 1308622847
+        stroke_color: 872415231
         offset_y: 1
         is_optional: true
       }
       secondary {
         height: 9
         color: 2236962
-        stroke_color: 1308622847
+        stroke_color: 872415231
         offset_y: 1
         is_optional: true
       }
@@ -98217,7 +97774,6 @@ cont {
     symbol {
       name: "subway-sanfrancisco-s"
       priority: 6250
-      min_distance: 1
     }
   }
   element {
@@ -98225,7 +97781,6 @@ cont {
     symbol {
       name: "subway-sanfrancisco-s"
       priority: 6250
-      min_distance: 1
     }
   }
   element {
@@ -98233,20 +97788,19 @@ cont {
     symbol {
       name: "subway-sanfrancisco-s"
       priority: 6250
-      min_distance: 1
     }
     caption {
       primary {
         height: 11
         color: 2236962
-        stroke_color: 1308622847
+        stroke_color: 872415231
         offset_y: 1
         is_optional: true
       }
       secondary {
         height: 9
         color: 2236962
-        stroke_color: 1308622847
+        stroke_color: 872415231
         offset_y: 1
         is_optional: true
       }
@@ -98405,7 +97959,6 @@ cont {
     symbol {
       name: "subway-shanghai-s"
       priority: 6250
-      min_distance: 1
     }
   }
   element {
@@ -98413,7 +97966,6 @@ cont {
     symbol {
       name: "subway-shanghai-s"
       priority: 6250
-      min_distance: 1
     }
   }
   element {
@@ -98421,20 +97973,19 @@ cont {
     symbol {
       name: "subway-shanghai-s"
       priority: 6250
-      min_distance: 1
     }
     caption {
       primary {
         height: 11
         color: 2236962
-        stroke_color: 1308622847
+        stroke_color: 872415231
         offset_y: 1
         is_optional: true
       }
       secondary {
         height: 9
         color: 2236962
-        stroke_color: 1308622847
+        stroke_color: 872415231
         offset_y: 1
         is_optional: true
       }
@@ -98593,7 +98144,6 @@ cont {
     symbol {
       name: "subway-shiraz-s"
       priority: 6250
-      min_distance: 1
     }
   }
   element {
@@ -98601,20 +98151,19 @@ cont {
     symbol {
       name: "subway-shiraz-s"
       priority: 6250
-      min_distance: 1
     }
     caption {
       primary {
         height: 11
         color: 2236962
-        stroke_color: 1308622847
+        stroke_color: 872415231
         offset_y: 1
         is_optional: true
       }
       secondary {
         height: 9
         color: 2236962
-        stroke_color: 1308622847
+        stroke_color: 872415231
         offset_y: 1
         is_optional: true
       }
@@ -98773,7 +98322,6 @@ cont {
     symbol {
       name: "subway-singapore-s"
       priority: 6250
-      min_distance: 1
     }
   }
   element {
@@ -98781,20 +98329,19 @@ cont {
     symbol {
       name: "subway-singapore-s"
       priority: 6250
-      min_distance: 1
     }
     caption {
       primary {
         height: 11
         color: 2236962
-        stroke_color: 1308622847
+        stroke_color: 872415231
         offset_y: 1
         is_optional: true
       }
       secondary {
         height: 9
         color: 2236962
-        stroke_color: 1308622847
+        stroke_color: 872415231
         offset_y: 1
         is_optional: true
       }
@@ -98953,7 +98500,6 @@ cont {
     symbol {
       name: "subway-sofia-s"
       priority: 6250
-      min_distance: 1
     }
   }
   element {
@@ -98961,20 +98507,19 @@ cont {
     symbol {
       name: "subway-sofia-s"
       priority: 6250
-      min_distance: 1
     }
     caption {
       primary {
         height: 11
         color: 2236962
-        stroke_color: 1308622847
+        stroke_color: 872415231
         offset_y: 1
         is_optional: true
       }
       secondary {
         height: 9
         color: 2236962
-        stroke_color: 1308622847
+        stroke_color: 872415231
         offset_y: 1
         is_optional: true
       }
@@ -99133,7 +98678,6 @@ cont {
     symbol {
       name: "subway-spb-s"
       priority: 7000
-      min_distance: 1
     }
   }
   element {
@@ -99165,7 +98709,6 @@ cont {
     symbol {
       name: "subway-spb-s"
       priority: 7000
-      min_distance: 1
     }
     caption {
       primary {
@@ -99190,7 +98733,6 @@ cont {
     symbol {
       name: "subway-spb-s"
       priority: 7000
-      min_distance: 1
     }
     caption {
       primary {
@@ -99256,34 +98798,6 @@ cont {
       priority: -3000
     }
   }
-  element {
-    scale: 17
-    symbol {
-      name: "zero-icon"
-      priority: 7000
-    }
-  }
-  element {
-    scale: 18
-    symbol {
-      name: "zero-icon"
-      priority: 7000
-    }
-  }
-  element {
-    scale: 19
-    symbol {
-      name: "zero-icon"
-      priority: 7000
-    }
-  }
-  element {
-    scale: 20
-    symbol {
-      name: "zero-icon"
-      priority: 7000
-    }
-  }
 }
 cont {
   name: "railway-station-subway-stockholm"
@@ -99292,7 +98806,6 @@ cont {
     symbol {
       name: "subway-stockholm-s"
       priority: 6250
-      min_distance: 1
     }
   }
   element {
@@ -99300,7 +98813,6 @@ cont {
     symbol {
       name: "subway-stockholm-s"
       priority: 6250
-      min_distance: 1
     }
   }
   element {
@@ -99308,20 +98820,19 @@ cont {
     symbol {
       name: "subway-stockholm-s"
       priority: 6250
-      min_distance: 1
     }
     caption {
       primary {
         height: 11
         color: 2236962
-        stroke_color: 1308622847
+        stroke_color: 872415231
         offset_y: 1
         is_optional: true
       }
       secondary {
         height: 9
         color: 2236962
-        stroke_color: 1308622847
+        stroke_color: 872415231
         offset_y: 1
         is_optional: true
       }
@@ -99480,7 +98991,6 @@ cont {
     symbol {
       name: "subway-tabriz-s"
       priority: 6250
-      min_distance: 1
     }
   }
   element {
@@ -99488,20 +98998,19 @@ cont {
     symbol {
       name: "subway-tabriz-s"
       priority: 6250
-      min_distance: 1
     }
     caption {
       primary {
         height: 11
         color: 2236962
-        stroke_color: 1308622847
+        stroke_color: 872415231
         offset_y: 1
         is_optional: true
       }
       secondary {
         height: 9
         color: 2236962
-        stroke_color: 1308622847
+        stroke_color: 872415231
         offset_y: 1
         is_optional: true
       }
@@ -99660,7 +99169,6 @@ cont {
     symbol {
       name: "subway-taipei-s"
       priority: 6250
-      min_distance: 1
     }
   }
   element {
@@ -99668,20 +99176,19 @@ cont {
     symbol {
       name: "subway-taipei-s"
       priority: 6250
-      min_distance: 1
     }
     caption {
       primary {
         height: 11
         color: 2236962
-        stroke_color: 1308622847
+        stroke_color: 872415231
         offset_y: 1
         is_optional: true
       }
       secondary {
         height: 9
         color: 2236962
-        stroke_color: 1308622847
+        stroke_color: 872415231
         offset_y: 1
         is_optional: true
       }
@@ -99840,7 +99347,6 @@ cont {
     symbol {
       name: "subway-taoyuan-s"
       priority: 6250
-      min_distance: 1
     }
   }
   element {
@@ -99848,20 +99354,19 @@ cont {
     symbol {
       name: "subway-taoyuan-s"
       priority: 6250
-      min_distance: 1
     }
     caption {
       primary {
         height: 11
         color: 2236962
-        stroke_color: 1308622847
+        stroke_color: 872415231
         offset_y: 1
         is_optional: true
       }
       secondary {
         height: 9
         color: 2236962
-        stroke_color: 1308622847
+        stroke_color: 872415231
         offset_y: 1
         is_optional: true
       }
@@ -100020,7 +99525,6 @@ cont {
     symbol {
       name: "subway-tashkent-s"
       priority: 6250
-      min_distance: 1
     }
   }
   element {
@@ -100028,20 +99532,19 @@ cont {
     symbol {
       name: "subway-tashkent-s"
       priority: 6250
-      min_distance: 1
     }
     caption {
       primary {
         height: 11
         color: 2236962
-        stroke_color: 1308622847
+        stroke_color: 872415231
         offset_y: 1
         is_optional: true
       }
       secondary {
         height: 9
         color: 2236962
-        stroke_color: 1308622847
+        stroke_color: 872415231
         offset_y: 1
         is_optional: true
       }
@@ -100200,7 +99703,6 @@ cont {
     symbol {
       name: "subway-tbilisi-s"
       priority: 6250
-      min_distance: 1
     }
   }
   element {
@@ -100208,20 +99710,19 @@ cont {
     symbol {
       name: "subway-tbilisi-s"
       priority: 6250
-      min_distance: 1
     }
     caption {
       primary {
         height: 11
         color: 2236962
-        stroke_color: 1308622847
+        stroke_color: 872415231
         offset_y: 1
         is_optional: true
       }
       secondary {
         height: 9
         color: 2236962
-        stroke_color: 1308622847
+        stroke_color: 872415231
         offset_y: 1
         is_optional: true
       }
@@ -100380,7 +99881,6 @@ cont {
     symbol {
       name: "subway-tehran-s"
       priority: 6250
-      min_distance: 1
     }
   }
   element {
@@ -100388,20 +99888,19 @@ cont {
     symbol {
       name: "subway-tehran-s"
       priority: 6250
-      min_distance: 1
     }
     caption {
       primary {
         height: 11
         color: 2236962
-        stroke_color: 1308622847
+        stroke_color: 872415231
         offset_y: 1
         is_optional: true
       }
       secondary {
         height: 9
         color: 2236962
-        stroke_color: 1308622847
+        stroke_color: 872415231
         offset_y: 1
         is_optional: true
       }
@@ -100560,7 +100059,6 @@ cont {
     symbol {
       name: "subway-tianjin-s"
       priority: 6250
-      min_distance: 1
     }
   }
   element {
@@ -100568,20 +100066,19 @@ cont {
     symbol {
       name: "subway-tianjin-s"
       priority: 6250
-      min_distance: 1
     }
     caption {
       primary {
         height: 11
         color: 2236962
-        stroke_color: 1308622847
+        stroke_color: 872415231
         offset_y: 1
         is_optional: true
       }
       secondary {
         height: 9
         color: 2236962
-        stroke_color: 1308622847
+        stroke_color: 872415231
         offset_y: 1
         is_optional: true
       }
@@ -100740,20 +100237,19 @@ cont {
     symbol {
       name: "subway-tokyo-s"
       priority: 6250
-      min_distance: 1
     }
     caption {
       primary {
         height: 11
         color: 2236962
-        stroke_color: 1308622847
+        stroke_color: 872415231
         offset_y: 1
         is_optional: true
       }
       secondary {
         height: 9
         color: 2236962
-        stroke_color: 1308622847
+        stroke_color: 872415231
         offset_y: 1
         is_optional: true
       }
@@ -100912,7 +100408,6 @@ cont {
     symbol {
       name: "subway-valencia-s"
       priority: 6250
-      min_distance: 1
     }
   }
   element {
@@ -100920,20 +100415,19 @@ cont {
     symbol {
       name: "subway-valencia-s"
       priority: 6250
-      min_distance: 1
     }
     caption {
       primary {
         height: 11
         color: 2236962
-        stroke_color: 1308622847
+        stroke_color: 872415231
         offset_y: 1
         is_optional: true
       }
       secondary {
         height: 9
         color: 2236962
-        stroke_color: 1308622847
+        stroke_color: 872415231
         offset_y: 1
         is_optional: true
       }
@@ -101092,7 +100586,6 @@ cont {
     symbol {
       name: "subway-vienna-s"
       priority: 6250
-      min_distance: 1
     }
   }
   element {
@@ -101100,7 +100593,6 @@ cont {
     symbol {
       name: "subway-vienna-s"
       priority: 6250
-      min_distance: 1
     }
   }
   element {
@@ -101108,20 +100600,19 @@ cont {
     symbol {
       name: "subway-vienna-s"
       priority: 6250
-      min_distance: 1
     }
     caption {
       primary {
         height: 11
         color: 2236962
-        stroke_color: 1308622847
+        stroke_color: 872415231
         offset_y: 1
         is_optional: true
       }
       secondary {
         height: 9
         color: 2236962
-        stroke_color: 1308622847
+        stroke_color: 872415231
         offset_y: 1
         is_optional: true
       }
@@ -101280,7 +100771,6 @@ cont {
     symbol {
       name: "subway-warszawa-s"
       priority: 6250
-      min_distance: 1
     }
   }
   element {
@@ -101288,20 +100778,19 @@ cont {
     symbol {
       name: "subway-warszawa-s"
       priority: 6250
-      min_distance: 1
     }
     caption {
       primary {
         height: 11
         color: 2236962
-        stroke_color: 1308622847
+        stroke_color: 872415231
         offset_y: 1
         is_optional: true
       }
       secondary {
         height: 9
         color: 2236962
-        stroke_color: 1308622847
+        stroke_color: 872415231
         offset_y: 1
         is_optional: true
       }
@@ -101460,7 +100949,6 @@ cont {
     symbol {
       name: "subway-washington-s"
       priority: 6250
-      min_distance: 1
     }
   }
   element {
@@ -101468,20 +100956,19 @@ cont {
     symbol {
       name: "subway-washington-s"
       priority: 6250
-      min_distance: 1
     }
     caption {
       primary {
         height: 11
         color: 2236962
-        stroke_color: 1308622847
+        stroke_color: 872415231
         offset_y: 1
         is_optional: true
       }
       secondary {
         height: 9
         color: 2236962
-        stroke_color: 1308622847
+        stroke_color: 872415231
         offset_y: 1
         is_optional: true
       }
@@ -101640,7 +101127,6 @@ cont {
     symbol {
       name: "subway-wuhan-s"
       priority: 6250
-      min_distance: 1
     }
   }
   element {
@@ -101648,20 +101134,19 @@ cont {
     symbol {
       name: "subway-wuhan-s"
       priority: 6250
-      min_distance: 1
     }
     caption {
       primary {
         height: 11
         color: 2236962
-        stroke_color: 1308622847
+        stroke_color: 872415231
         offset_y: 1
         is_optional: true
       }
       secondary {
         height: 9
         color: 2236962
-        stroke_color: 1308622847
+        stroke_color: 872415231
         offset_y: 1
         is_optional: true
       }
@@ -101820,7 +101305,6 @@ cont {
     symbol {
       name: "subway-yerevan-s"
       priority: 6250
-      min_distance: 1
     }
   }
   element {
@@ -101828,20 +101312,19 @@ cont {
     symbol {
       name: "subway-yerevan-s"
       priority: 6250
-      min_distance: 1
     }
     caption {
       primary {
         height: 11
         color: 2236962
-        stroke_color: 1308622847
+        stroke_color: 872415231
         offset_y: 1
         is_optional: true
       }
       secondary {
         height: 9
         color: 2236962
-        stroke_color: 1308622847
+        stroke_color: 872415231
         offset_y: 1
         is_optional: true
       }
@@ -102000,7 +101483,6 @@ cont {
     symbol {
       name: "subway-yokohama-s"
       priority: 6250
-      min_distance: 1
     }
   }
   element {
@@ -102008,20 +101490,19 @@ cont {
     symbol {
       name: "subway-yokohama-s"
       priority: 6250
-      min_distance: 1
     }
     caption {
       primary {
         height: 11
         color: 2236962
-        stroke_color: 1308622847
+        stroke_color: 872415231
         offset_y: 1
         is_optional: true
       }
       secondary {
         height: 9
         color: 2236962
-        stroke_color: 1308622847
+        stroke_color: 872415231
         offset_y: 1
         is_optional: true
       }
@@ -103966,6 +103447,112 @@ cont {
   }
 }
 cont {
+  name: "railway-subway_entrance-boston"
+  element {
+    scale: 16
+    symbol {
+      name: "subway-massachusetts-m"
+      priority: 3700
+    }
+  }
+  element {
+    scale: 17
+    symbol {
+      name: "subway-massachusetts-m"
+      priority: 3700
+    }
+    caption {
+      primary {
+        height: 13
+        color: 2236962
+        stroke_color: 452984831
+        offset_y: 1
+        is_optional: true
+      }
+      secondary {
+        height: 11
+        color: 2236962
+        stroke_color: 452984831
+        offset_y: 1
+        is_optional: true
+      }
+      priority: -6300
+    }
+  }
+  element {
+    scale: 18
+    symbol {
+      name: "subway-massachusetts-m"
+      priority: 3700
+    }
+    caption {
+      primary {
+        height: 13
+        color: 2236962
+        stroke_color: 452984831
+        offset_y: 1
+        is_optional: true
+      }
+      secondary {
+        height: 11
+        color: 2236962
+        stroke_color: 452984831
+        offset_y: 1
+        is_optional: true
+      }
+      priority: -6300
+    }
+  }
+  element {
+    scale: 19
+    symbol {
+      name: "subway-massachusetts-m"
+      priority: 3700
+    }
+    caption {
+      primary {
+        height: 13
+        color: 2236962
+        stroke_color: 452984831
+        offset_y: 1
+        is_optional: true
+      }
+      secondary {
+        height: 11
+        color: 2236962
+        stroke_color: 452984831
+        offset_y: 1
+        is_optional: true
+      }
+      priority: -6300
+    }
+  }
+  element {
+    scale: 20
+    symbol {
+      name: "subway-massachusetts-m"
+      priority: 3700
+    }
+    caption {
+      primary {
+        height: 13
+        color: 2236962
+        stroke_color: 452984831
+        offset_y: 1
+        is_optional: true
+      }
+      secondary {
+        height: 11
+        color: 2236962
+        stroke_color: 452984831
+        offset_y: 1
+        is_optional: true
+      }
+      priority: -6300
+    }
+  }
+}
+cont {
   name: "railway-subway_entrance-brasilia"
   element {
     scale: 16
@@ -105591,7 +105178,7 @@ cont {
   element {
     scale: 18
     symbol {
-      name: "subway-entrance-m"
+      name: "subway-delhi-m"
       priority: 3700
     }
     caption {
@@ -105615,7 +105202,7 @@ cont {
   element {
     scale: 19
     symbol {
-      name: "subway-entrance-m"
+      name: "subway-delhi-m"
       priority: 3700
     }
     caption {
@@ -105639,7 +105226,7 @@ cont {
   element {
     scale: 20
     symbol {
-      name: "subway-entrance-m"
+      name: "subway-delhi-m"
       priority: 3700
     }
     caption {
