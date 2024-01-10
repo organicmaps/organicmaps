@@ -1,8 +1,9 @@
-• Accés preliminar públic a la funcionalitat Android Auto
-• S'ha desactivat temporalment l'inici de sessió a l'OpenStreetMap per a passar la revisió de Google Play (vegeu https://github.com/organicmaps/organicmaps/issues/7000)
+• Android Auto
+• S'ha desactivat temporalment l'inici de sessió a l'OpenStreetMap per a passar la revisió de Google Play https://github.com/organicmaps/organicmaps/issues/7000
 • S'ha corregit un problema amb la pantalla que es desengegava intermitentment
-• Dades de l'OpenStreetMap al 5 de gener
+• Dades cartogràfiques de l'OpenStreetMap al 5 de gener
 • Millores en l'estil «Senderisme» i les pistes d'esquí
-• S'ha afegit la dada «Capacitat máxima» als llocs
+• Traducció a l'àzeri
+• Correcció dels paràmetres de veu en castellà i portuguès
 
-… Més informació: omaps.org/ca/news
+…more details at omaps.org/news

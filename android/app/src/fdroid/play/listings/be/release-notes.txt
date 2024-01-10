@@ -1,10 +1,9 @@
-• Android Auto public preview
-• Temporarily disabled OpenStreetMap login to pass the Google Play review (see https://github.com/organicmaps/organicmaps/issues/7000)
-• Fixed issue with the screen intermittently turning off
-• OpenStreetMap map data as of January 5
-• Improved skiing pistes and Outdoors style
-• Added Max Capacity for places
-• Added Azerbaijani translations
-• Fixed Spanish and Portugal voice settings
+• Android Auto
+• Часова адключаны лагін у OpenStreetMap, каб прайсці праверку ў Google Play https://github.com/organicmaps/organicmaps/issues/7000
+• Выпраўлена праблема з перыядычным выключэннем экрана
+• Дадзеныя карты OpenStreetMap па стане на 5 студзеня
+• Палепшаныя лыжныя трасы і стыль для актыўнага адпачынку
+• Дададзена максімальная ёмістасць для некаторых месцаў
+• Дададзены азербайджанскія пераклады
 
-…more details at omaps.org/news
+…падрабязней на omaps.org/news
