@@ -64,8 +64,8 @@ place-town                                          # caption z8-
 place-suburb                                        # caption z10-14
 === 7050
 
-railway-station-subway-moscow                       # icon z11- (also has caption(optional) z12-15)
-railway-station-subway-spb                          # icon z11- (also has caption(optional) z12-16)
+railway-station-subway-moscow                       # icon z11-15 (also has caption(optional) z12-15)
+railway-station-subway-spb                          # icon z11-16 (also has caption(optional) z12-16)
 === 7000
 
 aeroway-aerodrome                                   # icon z14- (also has caption(optional) z14-, area z10-)
@@ -134,9 +134,9 @@ amenity-bus_station                                 # icon z13- (also has captio
 === 6350
 
 railway-station-funicular                           # icon z12- (also has caption(optional) z12-)
-railway-station-light_rail                          # icon z12- (also has caption(optional) z12-)
-railway-station-light_rail-london                   # icon z12- (also has caption(optional) z12-)
-railway-station-light_rail-porto                    # icon z12- (also has caption(optional) z12-)
+railway-station-light_rail                          # icon z13- (also has caption(optional) z14-)
+railway-station-light_rail-london                   # icon z13- (also has caption(optional) z14-)
+railway-station-light_rail-porto                    # icon z13- (also has caption(optional) z14-)
 railway-station-monorail                            # icon z12- (also has caption(optional) z12-)
 railway-station-subway                              # icon z13- (also has caption(optional) z14-)
 railway-station-subway-adana                        # icon z12- (also has caption(optional) z14-)
@@ -183,7 +183,7 @@ railway-station-subway-istanbul                     # icon z12- (also has captio
 railway-station-subway-izmir                        # icon z13- (also has caption(optional) z14-)
 railway-station-subway-kazan                        # icon z13- (also has caption(optional) z14-)
 railway-station-subway-kharkiv                      # icon z13- (also has caption(optional) z14-)
-railway-station-subway-kiev                         # icon z12- (also has caption(optional) z12-)
+railway-station-subway-kiev                         # icon z12-16 (also has caption(optional) z12-16)
 railway-station-subway-kobe                         # icon z13- (also has caption(optional) z14-)
 railway-station-subway-kolkata                      # icon z13- (also has caption(optional) z14-)
 railway-station-subway-kunming                      # icon z13- (also has caption(optional) z14-)
@@ -204,7 +204,7 @@ railway-station-subway-mecca                        # icon z13- (also has captio
 railway-station-subway-medellin                     # icon z13- (also has caption(optional) z14-)
 railway-station-subway-mexico                       # icon z12- (also has caption(optional) z14-)
 railway-station-subway-milan                        # icon z13- (also has caption(optional) z14-)
-railway-station-subway-minsk                        # icon z12- (also has caption(optional) z12-)
+railway-station-subway-minsk                        # icon z12-16 (also has caption(optional) z12-16)
 railway-station-subway-montreal                     # icon z13- (also has caption(optional) z14-)
 railway-station-subway-munchen                      # icon z13- (also has caption(optional) z14-)
 railway-station-subway-nagoya                       # icon z13- (also has caption(optional) z14-)
@@ -220,7 +220,7 @@ railway-station-subway-philadelphia                 # icon z13- (also has captio
 railway-station-subway-pyongyang                    # icon z13- (also has caption(optional) z14-)
 railway-station-subway-rennes                       # icon z13- (also has caption(optional) z14-)
 railway-station-subway-rio                          # icon z13- (also has caption(optional) z14-)
-railway-station-subway-roma                         # icon z12- (also has caption(optional) z14-)
+railway-station-subway-roma                         # icon z12-16 (also has caption(optional) z14-16)
 railway-station-subway-rotterdam                    # icon z13- (also has caption(optional) z14-)
 railway-station-subway-samara                       # icon z13- (also has caption(optional) z14-)
 railway-station-subway-santiago                     # icon z13- (also has caption(optional) z14-)
@@ -1241,8 +1241,8 @@ leisure-swimming_pool-private                       # icon z17- (also has captio
 # aeroway-aerodrome-international                   # caption(optional) z10- (also has icon z7-, area z10-)
 # === -2800
 
-# railway-station-subway-moscow                     # caption(optional) z12-15 (also has icon z11-)
-# railway-station-subway-spb                        # caption(optional) z12-16 (also has icon z11-)
+# railway-station-subway-moscow                     # caption(optional) z12-15 (also has icon z11-15)
+# railway-station-subway-spb                        # caption(optional) z12-16 (also has icon z11-16)
 # === -3000
 
 # aeroway-aerodrome                                 # caption(optional) z14- (also has icon z14-, area z10-)
@@ -1287,9 +1287,9 @@ leisure-swimming_pool-private                       # icon z17- (also has captio
 # === -3650
 
 # railway-station-funicular                         # caption(optional) z12- (also has icon z12-)
-# railway-station-light_rail                        # caption(optional) z12- (also has icon z12-)
-# railway-station-light_rail-london                 # caption(optional) z12- (also has icon z12-)
-# railway-station-light_rail-porto                  # caption(optional) z12- (also has icon z12-)
+# railway-station-light_rail                        # caption(optional) z14- (also has icon z13-)
+# railway-station-light_rail-london                 # caption(optional) z14- (also has icon z13-)
+# railway-station-light_rail-porto                  # caption(optional) z14- (also has icon z13-)
 # railway-station-monorail                          # caption(optional) z12- (also has icon z12-)
 # railway-station-subway                            # caption(optional) z14- (also has icon z13-)
 # railway-station-subway-adana                      # caption(optional) z14- (also has icon z12-)
@@ -1336,7 +1336,7 @@ leisure-swimming_pool-private                       # icon z17- (also has captio
 # railway-station-subway-izmir                      # caption(optional) z14- (also has icon z13-)
 # railway-station-subway-kazan                      # caption(optional) z14- (also has icon z13-)
 # railway-station-subway-kharkiv                    # caption(optional) z14- (also has icon z13-)
-# railway-station-subway-kiev                       # caption(optional) z12- (also has icon z12-)
+# railway-station-subway-kiev                       # caption(optional) z12-16 (also has icon z12-16)
 # railway-station-subway-kobe                       # caption(optional) z14- (also has icon z13-)
 # railway-station-subway-kolkata                    # caption(optional) z14- (also has icon z13-)
 # railway-station-subway-kunming                    # caption(optional) z14- (also has icon z13-)
@@ -1357,7 +1357,7 @@ leisure-swimming_pool-private                       # icon z17- (also has captio
 # railway-station-subway-medellin                   # caption(optional) z14- (also has icon z13-)
 # railway-station-subway-mexico                     # caption(optional) z14- (also has icon z12-)
 # railway-station-subway-milan                      # caption(optional) z14- (also has icon z13-)
-# railway-station-subway-minsk                      # caption(optional) z12- (also has icon z12-)
+# railway-station-subway-minsk                      # caption(optional) z12-16 (also has icon z12-16)
 # railway-station-subway-montreal                   # caption(optional) z14- (also has icon z13-)
 # railway-station-subway-munchen                    # caption(optional) z14- (also has icon z13-)
 # railway-station-subway-nagoya                     # caption(optional) z14- (also has icon z13-)
@@ -1373,7 +1373,7 @@ leisure-swimming_pool-private                       # icon z17- (also has captio
 # railway-station-subway-pyongyang                  # caption(optional) z14- (also has icon z13-)
 # railway-station-subway-rennes                     # caption(optional) z14- (also has icon z13-)
 # railway-station-subway-rio                        # caption(optional) z14- (also has icon z13-)
-# railway-station-subway-roma                       # caption(optional) z14- (also has icon z12-)
+# railway-station-subway-roma                       # caption(optional) z14-16 (also has icon z12-16)
 # railway-station-subway-rotterdam                  # caption(optional) z14- (also has icon z13-)
 # railway-station-subway-samara                     # caption(optional) z14- (also has icon z13-)
 # railway-station-subway-santiago                   # caption(optional) z14- (also has icon z13-)
