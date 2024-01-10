@@ -1,10 +1,9 @@
-
 • Android Auto
-• Se desactivó temporalmente el acceso a OpenStreetMap para pasar la revisión de Google Play (vea https://github.com/organicmaps/organicmaps/issues/7000)
+• Se desactivó temporalmente el acceso a OpenStreetMap para pasar la revisión de Google Play https://github.com/organicmaps/organicmaps/issues/7000
 • Se resolvió un problema con la pantalla que se apagaba intermitentemente
-• Datos de OpenStreetMap al 5 de enero
+• Datos cartográficos de OpenStreetMap al 5 de enero
 • Mejoras en el estilo «Senderismo» y las pistas de esquí
-• Se añadió el dato «Capacidad máxima» a los lugares
+• Traducción al azerí
 • Corrección de las configuraciones de voz en español y portugués
 
-https://omaps.org/es/news
+Para conocer más, vaya a omaps.org/es/news
