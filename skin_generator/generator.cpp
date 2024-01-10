@@ -22,6 +22,11 @@ struct GreaterHeight
   bool operator() (SkinGenerator::SymbolInfo const & left,
                    SkinGenerator::SymbolInfo const & right) const
   {
+    QString symbolIDleft = left.m_fullFileName.left(left.m_fullFileName.lastIndexOf("."));
+    QString symbolIDright = right.m_fullFileName.left(right.m_fullFileName.lastIndexOf("."));
+    if (left.m_size.height() == right.m_size.height()) {
+      return symbolIDleft > symbolIDright;
+    }
     return (left.m_size.height() > right.m_size.height());
   }
 };
