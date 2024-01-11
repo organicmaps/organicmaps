@@ -16,7 +16,7 @@ Główne cechy:
 • Eksport i import zakładek w formatach KML, KMZ, GPX
 • Tryb ciemny, aby chronić Twoje oczy
 
-W Organic Maps nie ma <i>jeszcze</i> Android Auto, transportu publicznego, map satelitarnych i innych fajnych funkcji. Ale z <i>Twoją pomocą i wsparciem</i> możemy krok po kroku ulepszać ten świat.
+W Organic Maps nie ma <i>jeszcze</i> transportu publicznego, map satelitarnych i innych fajnych funkcji. Ale z <i>Twoją pomocą i wsparciem</i> możemy krok po kroku ulepszać ten świat.
 
 Organic Maps jest <b>czyste i organiczne, wykonane z miłością</b>:
 

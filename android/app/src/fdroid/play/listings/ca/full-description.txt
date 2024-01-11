@@ -15,7 +15,7 @@ Característiques clau:
 • Exportació i importació d'adreces d'interès en formats KML, KMZ i GPX
 • Mode fosc per a protegir els ulls
 
-No hi ha <i>de moment</i> Android Auto, transport públic, mapes per satèl·lit i altres funcions interessants a l'Organic Maps. Però amb <i>la vostra ajuda i suport</i>, podem millorar aquest món pas a pas.
+No hi ha <i>de moment</i> transport públic, mapes per satèl·lit i altres funcions interessants a l'Organic Maps. Però amb <i>la vostra ajuda i suport</i>, podem millorar aquest món pas a pas.
 
 L'Organic Maps és <b>pur i orgànic, fet amb amor</b>:
 

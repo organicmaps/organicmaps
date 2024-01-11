@@ -15,7 +15,7 @@ Ezaugarri nagusiak:
 • Laster-markak esportatu eta inportatu KML, KMZ, GPX formatuetan
 • Modu iluna begiak babesteko
 
-<i>Oraindik</i> ez daude Android Auto, garraio publikoa, satelite bidezko mapak eta beste eginbide polit batzuk Organic Mapsen. Baina <i>zure laguntzarekin</i>, urratsez urrats hobetu dezakegu.
+<i>Oraindik</i> ez daude garraio publikoa, satelite bidezko mapak eta beste eginbide polit batzuk Organic Mapsen. Baina <i>zure laguntzarekin</i>, urratsez urrats hobetu dezakegu.
 
 Organic Maps <b>maitasunez egina</b> dago:
 

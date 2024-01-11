@@ -16,7 +16,7 @@ Huvudfunktioner:
 • Bokmärken och import och export av inspelade rutter i formaten KML, KMZ och GPX
 • Mörkt läge för att skona ögonen
 
-Android Auto, kollektivtrafik, flygfoton och andra käcka funktioner finns inte i Organic Maps <i>än</i>. Men med <i>din hjälp och ditt stöd</i> kan vi stegvis göra världen lite bättre.
+Kollektivtrafik, flygfoton och andra käcka funktioner finns inte i Organic Maps <i>än</i>. Men med <i>din hjälp och ditt stöd</i> kan vi stegvis göra världen lite bättre.
 
 Organic Maps är <b>ren och organisk, gjord med kärlek</b>:
 

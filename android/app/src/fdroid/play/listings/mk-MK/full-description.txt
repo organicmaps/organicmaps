@@ -16,7 +16,8 @@ Key features:
 • Bookmarks and tracks export and import in KML, KMZ, GPX formats
 • Dark mode to protect your eyes
 
-There is no Android Auto, public transport, satellite maps, and other cool features <i>yet</i> in Organic Maps. But with <i>your help and support</i>, we can make this world better step by step.
+There is no satellite maps,  public transport, and other cool features <i>yet</i> in Organic Maps. But with <i>your help and support</i>, we can make this world better step by step.
+
 
 Organic Maps is <b>pure and organic, made with love</b>:
 
