@@ -3,8 +3,6 @@
 
 #include "base/string_utils.hpp"
 
-#include <algorithm>
-#include <iterator>
 #include <string>
 
 namespace routing
@@ -16,22 +14,26 @@ namespace sound
 
 namespace
 {
-using namespace routing::turns::sound;
 
 template <class TIter> std::string DistToTextId(TIter begin, TIter end, uint32_t dist)
 {
-  using TValue = typename std::iterator_traits<TIter>::value_type;
-
-  TIter distToSound = lower_bound(begin, end, dist, [](TValue const & p1, uint32_t p2)
-                      {
-                        return p1.first < p2;
-                      });
-  if (distToSound == end)
+  TIter const it = std::lower_bound(begin, end, dist, [](auto const & p1, uint32_t p2) { return p1.first < p2; });
+  if (it == end)
   {
     ASSERT(false, ("notification.m_distanceUnits is not correct."));
-    return std::string{};
+    return {};
   }
-  return distToSound->second;
+
+  if (it != begin)
+  {
+    // Rounding like 130 -> 100; 135 -> 200 is better than upper bound, IMO.
+    auto iPrev = it;
+    --iPrev;
+    if ((dist - iPrev->first) * 2 < (it->first - dist))
+      return iPrev->second;
+  }
+
+  return it->second;
 }
 }  //  namespace
 
@@ -126,12 +128,12 @@ std::string GetRoundaboutTextId(Notification const & notification)
   if (notification.m_turnDir != CarDirection::LeaveRoundAbout)
   {
     ASSERT(false, ());
-    return std::string{};
+    return {};
   }
   if (!notification.m_useThenInsteadOfDistance)
     return "leave_the_roundabout"; // Notification just before leaving a roundabout.
 
-  static const uint8_t kMaxSoundedExit = 11;
+  static constexpr uint8_t kMaxSoundedExit = 11;
   if (notification.m_exitNum == 0 || notification.m_exitNum > kMaxSoundedExit)
     return "leave_the_roundabout";
 
@@ -144,14 +146,14 @@ std::string GetYouArriveTextId(Notification const & notification)
       notification.m_turnDir != CarDirection::ReachedYourDestination)
   {
     ASSERT(false, ());
-    return std::string{};
+    return {};
   }
 
   if (notification.IsPedestrianNotification() &&
       notification.m_turnDirPedestrian != PedestrianDirection::ReachedYourDestination)
   {
     ASSERT(false, ());
-    return std::string{};
+    return {};
   }
 
   if (notification.m_distanceUnits != 0 || notification.m_useThenInsteadOfDistance)
@@ -170,7 +172,7 @@ std::string GetDirectionTextId(Notification const & notification)
     case PedestrianDirection::TurnLeft: return "make_a_left_turn";
     case PedestrianDirection::ReachedYourDestination: return GetYouArriveTextId(notification);
     case PedestrianDirection::None:
-    case PedestrianDirection::Count: ASSERT(false, (notification)); return std::string{};
+    case PedestrianDirection::Count: ASSERT(false, (notification)); return {};
     }
   }
 
@@ -207,10 +209,10 @@ std::string GetDirectionTextId(Notification const & notification)
     case CarDirection::None:
     case CarDirection::Count:
       ASSERT(false, ());
-      return std::string{};
+      return {};
   }
   ASSERT(false, ());
-  return std::string{};
+  return {};
 }
 }  // namespace sound
 }  // namespace turns
