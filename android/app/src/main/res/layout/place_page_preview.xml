@@ -97,8 +97,8 @@
         <com.google.android.material.button.MaterialButton
           android:id="@+id/share_button"
           style="@style/Widget.MaterialComponents.Button.UnelevatedButton"
-          android:layout_width="48dp"
-          android:layout_height="48dp"
+          android:layout_width="@dimen/place_page_top_button"
+          android:layout_height="@dimen/place_page_top_button"
           android:background="?attr/selectableItemBackgroundBorderless"
           android:contentDescription="@string/share"
           android:insetLeft="0dp"
@@ -115,8 +115,8 @@
         <com.google.android.material.button.MaterialButton
           android:id="@+id/close_button"
           style="@style/Widget.MaterialComponents.Button.UnelevatedButton"
-          android:layout_width="48dp"
-          android:layout_height="48dp"
+          android:layout_width="@dimen/place_page_top_button"
+          android:layout_height="@dimen/place_page_top_button"
           android:layout_marginStart="@dimen/margin_quarter"
           android:background="?attr/selectableItemBackgroundBorderless"
           android:contentDescription="@string/close"
