@@ -4565,6 +4565,7 @@
     de = VE-Station
     es = Estación de vaciado para caravanas
     et = Hoidmispaagi prügila
+    fi = Jäteveden tyhjennyspiste
     fr = Station de vidange
     it = Scarico acque nere
     nl = Caravantoilet cassette-leegpunt
@@ -5474,6 +5475,7 @@
     de = Müllumladestation
     es = Estación de transferencia de residuos
     et = Jäätmete üleandmise jaam
+    fi = Jätteiden vastaanottoasema
     fr = Station de transfert de déchets
     it = Centro trasferimento rifiuti
     mr = कचरा हस्तांतरण केंद्र
@@ -16410,6 +16412,7 @@
     be = Хакерская прастора
     es-MX = Espacio hacker
     fa = فضای هکرها
+    fi = Hacklab
     he = האקרספייס
     hi = हैकर्सस्पेस
     ja = ハッカースペース
@@ -16465,6 +16468,7 @@
     de = Jachthafen
     es = Marina
     et = Marina
+    fi = Venesatama
     it = Porto turistico
     ja = マリーナ
     nl = Jachthaven
@@ -17191,6 +17195,7 @@
     de = Fahnenmast
     es = Mástil de bandera
     et = Lipumast
+    fi = Lipputanko
     fr = Mât de drapeau
     it = Alza bandiera
     mr = ध्वजस्तंभ
@@ -23641,6 +23646,7 @@
     de = Wohnmobilhändler
     es = Concesionario de caravanas
     et = Haagiselamute müük
+    fi = Matkailu- ja retkeilyautokauppias
     fr = Concessionnaire de caravanes et camping-cars
     nl = Caravan en camper verkoper
     pl = Sklep z karawanami i kamperami
@@ -24773,6 +24779,7 @@
     et = Isetegemise tööriistad
     eu = Hardware denda
     fa = ﺭﺍﺰﻓﺍ ﺖﺨﺳ ﻩﺎﮕﺷﻭﺮﻓ
+    fi = Rautakauppa
     fr = Quincaillerie
     he = ןיינב ירמוחל תונח
     hu = Barkácsüzlet
