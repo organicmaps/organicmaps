@@ -10,7 +10,7 @@ Característiques clau:
 • Mapes detallats fora de línia amb llocs que no existeixen a Google Maps, gràcies a la comunitat de l'<b>OpenStreetMap</b>
 • Rutes amb bicicleta, rutes d'excursionisme i senderisme
 • Corbes de nivell, perfils d'elevació, cims i pendents
-• Passeig, bicicleta i navegació EXPERIMENTAL en cotxe amb guia de veu
+• Passeig, bicicleta i navegació en cotxe amb guia de veu, Android Auto
 • Cerca ràpida fora de línia
 • Exportació i importació d'adreces d'interès en formats KML, KMZ i GPX
 • Mode fosc per a protegir els ulls
