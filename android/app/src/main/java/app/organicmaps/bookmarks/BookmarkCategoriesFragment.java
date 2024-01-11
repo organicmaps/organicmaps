@@ -2,6 +2,7 @@ package app.organicmaps.bookmarks;
 
 import android.app.Activity;
 import android.app.ProgressDialog;
+import android.content.ClipData;
 import android.content.ContentResolver;
 import android.content.Context;
 import android.content.Intent;
@@ -53,7 +54,7 @@ public class BookmarkCategoriesFragment extends BaseMwmRecyclerFragment<Bookmark
   private static final String TAG = BookmarkCategoriesFragment.class.getSimpleName();
 
   static final int REQ_CODE_DELETE_CATEGORY = 102;
-  static final int REQ_CODE_IMPORT_DIRECTORY = 103;
+  static final int REQ_CODE_IMPORT_FILES = 103;
 
   private static final int MAX_CATEGORY_NAME_LENGTH = 60;
 
@@ -234,7 +235,7 @@ public class BookmarkCategoriesFragment extends BaseMwmRecyclerFragment<Bookmark
   @Override
   public void onImportButtonClick()
   {
-    Intent intent = new Intent(Intent.ACTION_OPEN_DOCUMENT_TREE);
+    Intent intent = new Intent(Intent.ACTION_GET_CONTENT);
 
     // Sic: EXTRA_INITIAL_URI doesn't work
     // https://stackoverflow.com/questions/65326605/extra-initial-uri-will-not-work-no-matter-what-i-do
@@ -244,9 +245,15 @@ public class BookmarkCategoriesFragment extends BaseMwmRecyclerFragment<Bookmark
     // http://stackoverflow.com/a/31334967/1615876
     intent.putExtra("android.content.extra.SHOW_ADVANCED", true);
 
+    intent.putExtra(Intent.EXTRA_ALLOW_MULTIPLE, true);
+
+    // The MAPS.ME format .kmb is supported but not a standard MIME type
+    // so we cannot restrict the file selection by setting EXTRA_MIME_TYPES.
+    intent.setType("*/*");
+
     if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M)
       intent.putExtra(DocumentsContract.EXTRA_EXCLUDE_SELF, true);
-    startActivityForResult(intent, REQ_CODE_IMPORT_DIRECTORY);
+    startActivityForResult(intent, REQ_CODE_IMPORT_FILES);
   }
 
   @Override
@@ -291,30 +298,44 @@ public class BookmarkCategoriesFragment extends BaseMwmRecyclerFragment<Bookmark
       onDeleteActionSelected(getSelectedCategory());
       return;
     }
-    case REQ_CODE_IMPORT_DIRECTORY:
+    case REQ_CODE_IMPORT_FILES:
     {
       if (data == null)
         throw new AssertionError("Data is null");
 
       final Context context = requireActivity();
-      final Uri rootUri = data.getData();
       final ProgressDialog dialog = new ProgressDialog(context, R.style.MwmTheme_ProgressDialog);
       dialog.setMessage(getString(R.string.wait_several_minutes));
       dialog.setProgressStyle(ProgressDialog.STYLE_SPINNER);
       dialog.setIndeterminate(true);
       dialog.setCancelable(false);
       dialog.show();
-      Logger.d(TAG, "Importing bookmarks from " + rootUri);
+      Logger.d(TAG, "Importing bookmarks");
       MwmApplication app = MwmApplication.from(context);
       final File tempDir = new File(StorageUtils.getTempPath(app));
       final ContentResolver resolver = context.getContentResolver();
       ThreadPool.getStorage().execute(() -> {
         AtomicInteger found = new AtomicInteger(0);
-        StorageUtils.listContentProviderFilesRecursively(
-            resolver, rootUri, uri -> {
-              if (BookmarkManager.INSTANCE.importBookmarksFile(resolver, uri, tempDir))
-                found.incrementAndGet();
-            });
+
+        ClipData clipData = data.getClipData();
+        if (clipData != null)
+        {
+          // Multiple files were selected
+          for (int i = 0; i < clipData.getItemCount(); i++)
+          {
+            Uri uri = clipData.getItemAt(i).getUri();
+            if (BookmarkManager.INSTANCE.importBookmarksFile(resolver, uri, tempDir))
+              found.incrementAndGet();
+          }
+        }
+        else
+        {
+          // A single file was selected
+          Uri uri = data.getData();
+          if (uri != null && BookmarkManager.INSTANCE.importBookmarksFile(resolver, uri, tempDir))
+            found.incrementAndGet();
+        }
+
         UiThread.run(() -> {
           if (dialog.isShowing())
             dialog.dismiss();
