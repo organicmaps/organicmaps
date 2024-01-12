@@ -569,7 +569,6 @@ public:
 };
 
 class TurkeyRoadShieldParser : public SimpleRoadShieldParser
-// TODO: Add provincial road parser, formatted as (number)-(number)
 {
 public:
   explicit TurkeyRoadShieldParser(std::string const & baseRoadNumber)
@@ -578,7 +577,10 @@ public:
                                               {"D.", RoadShieldType::Generic_Blue}, // White font.
                                               {"D-", RoadShieldType::Generic_Blue}, // White font.
                                               {"D", RoadShieldType::Generic_Blue}, // White font.
-                                              {"D ", RoadShieldType::Generic_Blue}, // White font.
+                                              {"D ", RoadShieldType::Generic_Blue}}) // White font.
+  {
+  }
+    : NumericRoadShieldParser(baseRoadNumber, {{01, 81, RoadShieldType::Generic_White} }}) //Blue font.                                             
   {
   }
 };
