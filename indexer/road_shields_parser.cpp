@@ -74,7 +74,7 @@ std::unordered_map<std::string, RoadShieldType> const kRoadNetworkShields = {
     {"pl:local", RoadShieldType::Generic_White},
     {"tr:motorway", RoadShieldType::Generic_Orange},
     {"tr:road", RoadShieldType::Generic_Blue},
-    {"tr:provincial", RoadShieldType::Generic_White}
+    {"tr:provincial", RoadShieldType::Generic_White},
     {"ua:national", RoadShieldType::Generic_Blue},
     {"ua:regional", RoadShieldType::Generic_Blue},
     {"ua:territorial", RoadShieldType::Generic_White},
@@ -677,7 +677,7 @@ RoadShieldsSetT GetRoadShields(std::string const & mwmName, std::string const & 
   if (mwmName == "Cyprus")
     return CyprusRoadShieldParser(roadNumber).GetRoadShields();
   if (mwmName == "Turkey")
-    return CyprusRoadShieldParser(roadNumber).GetRoadShields();
+    return TurkeyRoadShieldParser(roadNumber).GetRoadShields();
 
   return SimpleRoadShieldParser(roadNumber, SimpleRoadShieldParser::ShieldTypes()).GetRoadShields();
 }
