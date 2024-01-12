@@ -8,7 +8,7 @@
   android:paddingStart="@dimen/margin_base"
   android:paddingEnd="@dimen/margin_base"
   android:background="?clickableBackground"
-  tools:background="#200000FF">
+  tools:background="#2000FF00">
 
   <include
     android:id="@+id/downloader_status_frame"
