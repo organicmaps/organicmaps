@@ -95,7 +95,7 @@ line|z12-[piste:type=hike],
 {color: @piste; opacity: 0.7;}
 
 line|z11-[highway=bridleway],
-{color: @bridleway; opacity: 1;}
+{color: @path; opacity: 1;}
 
 line|z11-[highway=cycleway],
 {color: @cycleway; opacity: 1;}
