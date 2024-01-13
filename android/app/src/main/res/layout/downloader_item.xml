@@ -7,8 +7,8 @@
   android:minHeight="@dimen/height_item_multiline"
   android:paddingStart="@dimen/margin_base"
   android:paddingEnd="@dimen/margin_base"
-  android:background="?clickableBackground"
-  tools:background="#2000FF00">
+  android:background="@color/base_accent"
+  tools:background="#200000FF">
 
   <include
     android:id="@+id/downloader_status_frame"
