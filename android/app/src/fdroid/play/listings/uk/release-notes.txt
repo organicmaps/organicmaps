@@ -1,5 +1,4 @@
 • Підтримка Android Auto
-• Тимчасово вимкнений вхід до OpenStreetMap для перевірки в Google Play https://github.com/organicmaps/organicmaps/issues/7000
 • Виправлена проблема з періодичним вимкненням екрана
 • Дані карти OpenStreetMap станом на 5 січня
 • Покращені гірськолижні траси та стиль для активного відпочинку
