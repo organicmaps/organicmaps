@@ -4852,6 +4852,7 @@
     fr = Paramètres généraux
     he = הגדרות כלליות
     it = Opzioni generali
+　　ja = 一般
     lt = Bendrieji nustatymai
     mr = सर्वसामान्य सेटिंग
     nb = Generelle instillinger
@@ -4887,6 +4888,7 @@
     he = מידע
     hu = Információk
     it = Informazioni
+    ja = 情報
     lt = Informacija
     mr = माहिती
     nb = Informasjon
@@ -5275,7 +5277,7 @@
     hu = 3D-s épületek
     id = Bangunan 3D
     it = Edifici 3D
-    ja = 3Dビルディング
+    ja = 3Dビル
     ko = 주변 건물 3D
     lt = 3D pastatai
     mr = त्रिमिती (3D) इमारती
@@ -5630,7 +5632,7 @@
     hu = Legutolsó útvonal
     id = Jalur terkini
     it = Percorso recente
-    ja = 最近の移動経路
+    ja = 最近のトラック
     ko = 최근 추적
     lt = Pastaras takas
     mr = अलीकडील ट्रॅक
@@ -6091,7 +6093,8 @@
     fi = Menu
     fr = Menu
     he = תפריט
-    lt = Meniu
+    ja = メニュー
+　　lt = Meniu
     nb = Meny
     pl = Menu
     ru = Меню
@@ -6401,7 +6404,7 @@
     hu = Gyakran Ismételt Kérdések
     id = Pertanyaan dan jawaban
     it = Domande frequenti
-    ja = 質問と回答
+    ja = よくある質問
     ko = 질문과 답변
     lt = Dažniausiai užduodami klausimai
     mr = वारंवार विचारलेले प्रश्न
@@ -6623,7 +6626,7 @@
     hu = Az email kliens nincs beállítva. Kérjük, konfiguráld vagy próbálj meg valamilyen más módon kapcsolatba lépni velünk a %@ email címen keresztül.
     id = Surel pelanggan belum diatur. Mohon konfigurasikan atau gunakan cara lain untuk menghubungi kami di %@
     it = L'app per e-mail non è stata configurata. Si prega di configurarla o di usare altro metodo per contattarci all'indirizzo %@
-    ja = このメールクライアントはセットアップされていません。設定するか、他の方法で%@にご連絡ください。
+    ja = メールアプリは設定されていません。設定するか、%@にご連絡ください。
     ko = 이메일 클라이언트가 설정되지 않았습니다. 이를 구성하거나 %@로 연락할 다른 방법을 사용하십시오.
     lt = El. pašto paskyra nenustatyta. Ją sukonfigūruokite arba susisiekite kitu būdu: %@
     mr = ईमेल वाहक सेट केलेले नाही. कृपया ते सेट करा किंवा वेगळ्या पद्धतीने आमच्याशी %@ वर संपर्क करा
@@ -7018,7 +7021,7 @@
     hu = Várólistás
     id = Telah diantrekan
     it = In coda
-    ja = 待ち行列型の
+    ja = キューに追加済み
     ko = 대기
     lt = Eilėje
     mr = रांगेत
@@ -7061,7 +7064,7 @@
     hu = A közelemben
     id = Dekat saya
     it = Vicino a me
-    ja = 付近
+    ja = 現在地付近
     ko = 내 근처
     lt = Arti manęs
     mr = माझ्या जवळ
@@ -7497,7 +7500,7 @@
     hu = Ismétlés
     id = Ulangi
     it = Riprova
-    ja = リピート
+    ja = 再試行
     ko = 반복
     lt = Bandyti dar kartą
     mr = पुनर्प्रयत्न
@@ -7983,7 +7986,7 @@
     hu = Az ön leírásai (sima szöveg vagy html)
     id = Deskripsi Anda (teks atau html)
     it = Le tue descrizioni (testo o html)
-    ja = 説明（テキストまたはHTML）
+    ja = 詳細（テキストまたはHTML）
     ko = 설명(텍스트 또는 HTML)
     lt = Jūsų aprašymai (tekstas arba HTML)
     mr = तुमचे वर्णन (मजकूर किंवा html)
@@ -8430,7 +8433,7 @@
     hu = Sötét lila
     id = Ungu Gelap
     it = Viola scuro
-    ja = ディープパープル
+    ja = 濃い紫
     ko = 진보라색
     lt = Tamsiai violetinis
     mr = गडद जांभळा
@@ -8475,7 +8478,7 @@
     hu = Világoskék
     id = Biru Muda
     it = Azzurro
-    ja = ライトブルー
+    ja = 空色
     ko = 하늘색
     lt = Šviesiai mėlynas
     mr = फिकट निळा
@@ -8519,7 +8522,7 @@
     hu = Cián
     id = Biru Kehijauan
     it = Ciano
-    ja = シアン
+    ja = 青緑
     ko = 시안
     lt = Žydras
     mr = हिरवट निळा (फिकट)
@@ -8652,7 +8655,7 @@
     hu = Sötét Narancs
     id = Oranye Gelap
     it = Arancione scuro
-    ja = ディープオレンジ
+    ja = 濃いオレンジ
     ko = 진주황색
     lt = Tamsiai oranžinis
     mr = नारंगी
@@ -8698,7 +8701,7 @@
     hu = Szürke
     id = Abu-abu
     it = Grigio
-    ja = グレイ
+    ja = 灰色
     ko = 회색
     lt = Pilkas
     mr = राखाडी
@@ -8744,7 +8747,7 @@
     hu = Kékes Szürke
     id = Biru Keabu-abuan
     it = Grigiazzurro
-    ja = ブルーグレイ
+    ja = 青灰色
     ko = 청회색
     lt = Mėlynai pilkas
     mr = निळा राखाडी
@@ -9092,7 +9095,7 @@
     hu = Nem sikerült létrehozni az útvonalat. A jelenlegi GPS koordináták nem azonosíthatók.
     id = Tidak dapat membuat rute. Koordinat GPS saat ini tidak dapat dikenali.
     it = Impossibile creare il percorso. Impossibile individuare le coordinate GPS attuali.
-    ja = 案内ルートを作成できません。現在地のGPSコードを確認できません。
+    ja = 案内ルートを作成できません。現在のGPS座標が認識できません。
     ko = 경로를 설정할 수 없습니다. 현재 GPS 좌표를 확인할 수 없습니다.
     lt = Nepavyko sukurti maršruto. Nepavyko nustatyti dabartinių GPS koordinačių.
     mr = मार्ग तयार करण्यात अक्षम. वर्तमान GPS सहनिर्देशक ओळखता आले नाहीत.
@@ -9264,7 +9267,7 @@
     hu = Töltse le a szükséges fájlokat
     id = Unduh file yang diperlukan
     it = Scarica i file necessari
-    ja = 必要なファイルをダウンロードしてください
+    ja = 必要なファイルをダウンロード
     ko = 필수 파일 다운로드
     lt = Atsisiųsti reikalingus failus
     mr = आवश्यक फाईली डाउनलोड करा
@@ -9306,7 +9309,7 @@
     hu = Útvonaltervezéshez töltse le és frissítse az összes térkép- és útvonal-információt a tervezett út mentén.
     id = Unduh dan perbarui semua informasi peta dan perutean di sepanjang proyeksi jalan untuk mengalkulasi rute.
     it = Per calcolare il percorso, scarica e aggiorna tutte le mappe e le informazioni di itinerario lungo la strada prevista.
-    ja = 案内ルートを作成するには、表示されたパスに従ってすべてのマップ、ルート情報をダウンロード、アップデートしてください。
+    ja = 案内ルートを作成するには、表示されたパスに従ってすべてのマップ、ルート情報をダウンロードまたはアップデートしてください。
     ko = 경로를 계산하려면 모든 지도와 예상 경로 정보를 다운로드하고 업데이트하세요.
     lt = Atsisiųsti ir atnaujinti visus žemėlapius ir maršrutų informaciją palei planuojamą kelią, kad apskaičiuotumėte maršrutą.
     mr = मार्ग शोधण्यासाठी प्रक्षेपित वाटेभोवतीचे सर्व नकाशे व मार्गनिर्देशक माहिती डाउनलोड करा.
