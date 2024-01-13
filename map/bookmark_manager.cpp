@@ -188,6 +188,7 @@ std::string ToString(BookmarkManager::SortingType type)
   case BookmarkManager::SortingType::ByTime: return "ByTime";
   case BookmarkManager::SortingType::ByType: return "ByType";
   case BookmarkManager::SortingType::ByDistance: return "ByDistance";
+  case BookmarkManager::SortingType::ByName: return "ByName";
   }
   UNREACHABLE();
 }
@@ -200,6 +201,8 @@ bool GetSortingType(std::string const & typeStr, BookmarkManager::SortingType & 
     type = BookmarkManager::SortingType::ByType;
   else if (typeStr == ToString(BookmarkManager::SortingType::ByDistance))
     type = BookmarkManager::SortingType::ByDistance;
+  else if (typeStr == ToString(BookmarkManager::SortingType::ByName))
+    type = BookmarkManager::SortingType::ByName;
   else
     return false;
   return true;
@@ -638,7 +641,8 @@ std::vector<BookmarkManager::SortingType> BookmarkManager::GetAvailableSortingTy
     sortingTypes.push_back(SortingType::ByDistance);
   if (byTimeChecked)
     sortingTypes.push_back(SortingType::ByTime);
-
+  // Sorting by name should always be possible.
+  sortingTypes.push_back(SortingType::ByName);
   return sortingTypes;
 }
 
@@ -683,6 +687,12 @@ std::string BookmarkManager::GetSortedByTimeBlockName(SortedByTimeBlockType bloc
 std::string BookmarkManager::GetTracksSortedBlockName()
 {
   return platform::GetLocalizedString("tracks_title");
+}
+
+// static
+std::string BookmarkManager::GetBookmarksSortedBlockName()
+{
+  return platform::GetLocalizedString("bookmarks");
 }
 
 // static
@@ -1129,6 +1139,16 @@ void BookmarkManager::SortTracksByTime(std::vector<SortTrackData> & tracks)
             });
 }
 
+// static
+void BookmarkManager::SortTracksByName(std::vector<SortTrackData> & tracks)
+{
+  std::sort(tracks.begin(), tracks.end(),
+            [](SortTrackData const & lbm, SortTrackData const & rbm)
+            {
+              return lbm.m_name < rbm.m_name;
+            });
+}
+
 void BookmarkManager::SortByDistance(std::vector<SortBookmarkData> const & bookmarksForSort,
                                      std::vector<SortTrackData> const & tracksForSort,
                                      m2::PointD const & myPosition,
@@ -1325,6 +1345,33 @@ void BookmarkManager::SortByType(std::vector<SortBookmarkData> const & bookmarks
   }
 }
 
+void BookmarkManager::SortByName(std::vector<SortBookmarkData> const & bookmarksForSort,
+                                 std::vector<SortTrackData> const & tracksForSort,
+                                 SortedBlocksCollection & sortedBlocks)
+{
+  std::vector<SortTrackData> sortedTracks = tracksForSort;
+  SortTracksByName(sortedTracks);
+  AddTracksSortedBlock(sortedTracks, sortedBlocks);
+
+  std::vector<SortBookmarkData const *> sortedMarks;
+  sortedMarks.reserve(bookmarksForSort.size());
+  for (auto const & mark : bookmarksForSort)
+    sortedMarks.push_back(&mark);
+
+  std::sort(sortedMarks.begin(), sortedMarks.end(),
+            [](SortBookmarkData const * lbm, SortBookmarkData const * rbm)
+            {
+              return lbm->m_name < rbm->m_name;
+            });
+
+  // Put all bookmarks into one block
+  SortedBlock bookmarkBlock;
+  bookmarkBlock.m_blockName = GetBookmarksSortedBlockName();
+  for (auto mark : sortedMarks)
+    bookmarkBlock.m_markIds.push_back(mark->m_id);
+  sortedBlocks.push_back(bookmarkBlock);
+}
+
 void BookmarkManager::GetSortedCategoryImpl(SortParams const & params,
                                             std::vector<SortBookmarkData> const & bookmarksForSort,
                                             std::vector<SortTrackData> const & tracksForSort,
@@ -1341,6 +1388,9 @@ void BookmarkManager::GetSortedCategoryImpl(SortParams const & params,
     return;
   case SortingType::ByType:
     SortByType(bookmarksForSort, tracksForSort, sortedBlocks);
+    return;
+  case SortingType::ByName:
+    SortByName(bookmarksForSort, tracksForSort, sortedBlocks);
     return;
   }
   UNREACHABLE();
