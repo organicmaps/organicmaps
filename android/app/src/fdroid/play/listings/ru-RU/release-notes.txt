@@ -1,5 +1,4 @@
 • Android Auto
-• Временно отключен вход в систему OpenStreetMap для тестирования в Google Play https://github.com/organicmaps/organicmaps/issues/7000
 • Исправлена проблема с периодическим выключением экрана
 • Данные карты OpenStreetMap по состоянию на 5 января
 • Улучшены горнолыжные склоны и стиль для активного отдыха

@@ -1,5 +1,4 @@
 • Android Auto
-• Temporarily disabled OpenStreetMap login to pass Google Play review https://github.com/organicmaps/organicmaps/issues/7000
 • Fixed issue with the screen intermittently turning off
 • OpenStreetMap map data as of January 5
 • Improved skiing pistes and Outdoors style

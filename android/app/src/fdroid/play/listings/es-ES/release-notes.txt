@@ -1,5 +1,4 @@
 • Android Auto
-• Se desactivó temporalmente el acceso a OpenStreetMap para pasar la revisión de Google Play https://github.com/organicmaps/organicmaps/issues/7000
 • Se resolvió un problema con la pantalla que se apagaba intermitentemente
 • Datos cartográficos de OpenStreetMap al 5 de enero
 • Mejoras en el estilo «Senderismo» y las pistas de esquí
