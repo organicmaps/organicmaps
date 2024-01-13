@@ -126,6 +126,14 @@ public:
   DECLARE_CHECKER_INSTANCE(IsBicycleRentalChecker);
 };
 
+class IsParkingChecker : public BaseChecker
+{
+  IsParkingChecker();
+
+public:
+  DECLARE_CHECKER_INSTANCE(IsParkingChecker);
+};
+
 class IsRecyclingCentreChecker : public BaseChecker
 {
   IsRecyclingCentreChecker();
