@@ -14774,7 +14774,7 @@
     hu = Szervezet hozzáadása
     id = Tambahkan organisasi
     it = Aggiungi attività
-    ja = 団体を追加
+    ja = ビジネスを追加
     ko = 조직 추가
     lt = Pridėti verslą
     mr = व्यवसाय जोडा
@@ -14988,7 +14988,7 @@
     hu = Jelentkezz be, hogy más felhasználók is láthassák a változtatásaidat.
     id = Masuk agar pengguna lain dapat melihat perubahan yang Anda buat.
     it = Accedi per consentire ad altri utenti di vedere le modifiche apportate.
-    ja = 他のユーザーにも変更が表示されるようログインしてください。
+    ja = 他のユーザーにも変更が表示されるようにログインしてください。
     ko = 로그인하여 다른 사용자가 변경한 내용을 볼 수 있도록 하십시오.
     lt = Prisijungti prie OpenStreetMap.org, kad kiti naudotojai galėtų matyti jūsų padarytus pakeitimus.
     mr = इतर वापरकर्त्यांना तुम्ही केलेले बदल दिसण्यासाठी लॉग इन करा
@@ -15032,7 +15032,7 @@
     hu = A letöltéshez több szabad tárhelyre van szükség. Kérjük, töröld a szükségtelen adatokat.
     id = Untuk mengunduh, Anda perlu ruang lebih banyak. Harap menghapus data yang tidak diperlukan.
     it = Per scaricare, hai bisogno di più spazio. Sei pregato di eliminare i dati non necessari.
-    ja = ダウンロードするには空き容量がさらに必要です。不必要なデータを削除してください。
+    ja = ダウンロードするには空き容量が必要です。不要なデータを削除してください。
     ko = 다운로드하려면, 더 많은 여유 공간이 필요합니다. 불필요한 데이터를 삭제하십시오.
     lt = Jei norite atsisiųsti, reikia daugiau vietos. Panaikinkite nereikalingus duomenis.
     mr = डाउनलोड करण्यासाठी तुम्हाला अधिक जागा आवश्यक आहे. कृपया अनावश्यक डेटा पुसून टाका.
