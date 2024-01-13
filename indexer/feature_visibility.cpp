@@ -138,15 +138,16 @@ namespace
     if (IsUsefulStandaloneType(type, geomType))
       return true;
 
-    static uint32_t const internet = cl.GetTypeByPath({"internet_access"});
-    static uint32_t const complexEntry = cl.GetTypeByPath({"complex_entry"});
-
     uint8_t const typeLevel = ftype::GetLevel(type);
     ftype::TruncValue(type, 1);
 
     if (geomType != GeomType::Line)
     {
-      if (type == internet)
+      static uint32_t const arrTypes[] = {
+        cl.GetTypeByPath({"internet_access"}),
+        cl.GetTypeByPath({"toilets"}),
+      };
+      if (base::IsExist(arrTypes, type))
         return true;
 
       // Exclude generic 1-arity types like [organic].
@@ -161,6 +162,7 @@ namespace
       }
     }
 
+    static uint32_t const complexEntry = cl.GetTypeByPath({"complex_entry"});
     return (type == complexEntry);
   }
 

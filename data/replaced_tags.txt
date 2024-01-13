@@ -32,7 +32,6 @@
 atm=yes : amenity=atm
 bench=yes : amenity=bench
 shelter=yes : amenity=shelter
-toilets=yes : amenity=toilets
 restaurant=yes : amenity=restaurant
 ice_cream=yes : amenity=ice_cream
 
