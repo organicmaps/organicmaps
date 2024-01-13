@@ -132,4 +132,7 @@ namespace feature
   /// Returns true if feature has ATM type.
   bool HasAtm(TypesHolder const & types);
 
+  /// Returns true if feature has Toilets type.
+  bool HasToilets(TypesHolder const & types);
+
 }  // namespace feature

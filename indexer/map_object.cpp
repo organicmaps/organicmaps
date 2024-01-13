@@ -171,6 +171,11 @@ bool MapObject::HasAtm() const
   return feature::HasAtm(m_types);
 }
 
+bool MapObject::HasToilets() const
+{
+  return feature::HasToilets(m_types);
+}
+
 string MapObject::FormatCuisines() const
 {
   return strings::JoinStrings(GetLocalizedCuisines(), kFieldsSeparator);

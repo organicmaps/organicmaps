@@ -758,6 +758,13 @@ IsFeeTypeChecker::IsFeeTypeChecker() : BaseChecker(1 /* level */)
   m_types.push_back(c.GetTypeByPath({"fee"}));
 }
 
+IsToiletsChecker::IsToiletsChecker() : BaseChecker(2 /* level */)
+{
+  Classificator const & c = classif();
+  m_types.push_back(c.GetTypeByPath({"amenity", "toilets"}));
+  m_types.push_back(c.GetTypeByPath({"toilets", "yes"}));
+}
+
 IsCityChecker::IsCityChecker()
 {
   m_types.push_back(classif().GetTypeByPath({"place", "city"}));
