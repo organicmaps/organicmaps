@@ -314,6 +314,8 @@ void FillDetails(FeatureType & ft, Result::Details & details)
     description.append(osm::MapObject::kFieldsSeparator).append(brand);
   if (!cuisine.empty())
     description.append(osm::MapObject::kFieldsSeparator).append(cuisine);
+  if (feature::HasToilets(typesHolder))
+    description.append(osm::MapObject::kFieldsSeparator).append(osm::MapObject::kToiletsSymbol);
   if (!fee.empty())
     description.append(osm::MapObject::kFieldsSeparator).append(fee);
   
