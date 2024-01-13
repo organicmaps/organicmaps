@@ -15119,7 +15119,7 @@
     hu = %1$d/%2$d
     id = %1$d dari %2$d
     it = %1$d di %2$d
-    ja = %2$d中%1$d
+    ja = %2$dのうち%1$d
     ko = %2$d중의 %1$d
     lt = %1$d iš %2$d
     mr = %2$d पैकी %1$d
@@ -15162,7 +15162,7 @@
     hu = Letöltés mobilhálózati kapcsolat segítségével?
     id = Unduh dengan menggunakan koneksi jaringan seluler?
     it = Vuoi scaricare utilizzando una connessione di rete cellulare?
-    ja = 携帯通信ネットワークで接続してダウンロードしますか？
+    ja = モバイル通信でダウンロードしますか？
     ko = 셀룰러 네트워크 접속을 사용하여 다운로드하시겠습니까?
     lt = Atsisiųsti naudojant korinį tinklą?
     mr = मोबाईल डेटा वापरून डाउनलोड करायचे?
@@ -15555,7 +15555,7 @@
     hu = Részletes megjegyzés
     id = Komentar mendetail
     it = Commento dettagliato
-    ja = 詳細なコメント
+    ja = 詳細コメント
     ko = 상세 설명
     lt = Išsamus komentaras
     mr = तपशीलवार टिप्पणी
@@ -15598,7 +15598,7 @@
     hu = Javasolt változtatásait elküldjük az OpenStreetMap közösségnek. Írja le a további információkat, amelyek nem szerkeszthetők a Organic Maps-ben.
     id = Saran perubahan Anda akan dikirimkan ke komunitas OpenStreetMap. Jelaskan detail yang tidak dapat diedit di Organic Maps.
     it = Le modifiche alla mappa da te suggerite saranno inviate alla comunità di OpenStreetMap. Descrivi qualsiasi dettaglio aggiuntivo che non può essere modificato in Organic Maps.
-    ja = あなたが提案した変更は、OpenStreetMapのコミュニティに送信されます。Organic Mapsで編集できない詳細を説明してください。
+    ja = 提案した変更は、OpenStreetMapのコミュニティに送信されます。Organic Mapsで編集できない詳細を説明してください。
     ko = 귀하가 제안한 변경 사항은 OpenStreetMap 커뮤니티로 전송됩니다. Organic Maps에서 편집할 수 없는 세부정보를 작성해 주세요.
     lt = Jūsų pasiūlyti žemėlapio pakeitimas bus išsiųsti OpenStreetMap bendruomenei. Aprašykite papildomą informaciją, kuri negali būti redaguojama Organic Maps.
     mr = तुम्ही सुचवलेले नकाशातील बदल OpenStreetMap समुदायाला पाठवले जातील. Organic Maps मध्ये संपादित न करता येणाऱ्या अधिक तपशीलांचे वर्णन करा.
@@ -16029,7 +16029,7 @@
     hu = Hiba történt tartózkodási helye keresésekor. Ellenőrizze készüléke működését és próbálkozzon újra.
     id = Terjadi kesalahan saat mencari lokasi Anda. Periksa apakah perangkat Anda bekerja dengan benar dan coba lagi nanti.
     it = Si è verificato un errore durante la ricerca della tua posizione. Controlla che il tuo dispositivo funzioni correttamente e riprova più tardi.
-    ja = お住まいの地域の検索中にエラーが発生しました。お使いのデバイスが正常に動作していることを確認してから再度試してください。
+    ja = 現在地の検索中にエラーが発生しました。 デバイスが正常に動作していることを確認して、もう一度お試しください。
     ko = 위치 검색 중 오류가 발생했습니다. 장치가 올바르게 작동되는지 확인하고 다시 시도하세요.
     lt = Įvyko klaida ieškant jūsų vietos. Įsitikinkite,kad jūsų įrenginys veikia tinkamai ir bandykite iš naujo.
     mr = तुमचे स्थान शोधत असताना एक त्रुटी आढळली. तुमचे उपकरण योग्यरितीने काम करत असल्याचे तपासा आणि नंतर पुन्हा प्रयत्न करा.
