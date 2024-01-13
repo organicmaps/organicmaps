@@ -925,6 +925,7 @@
 	<string name="type.amenity.telephone">Téléphone</string>
 	<string name="type.amenity.theatre">Théâtre</string>
 	<string name="type.amenity.toilets">Toilettes</string>
+	<string name="type.toilets.yes">Toilettes</string>
 	<string name="type.amenity.townhall">Mairie</string>
 	<string name="type.amenity.university">Université</string>
 	<string name="type.amenity.vending_machine">Distributeur automatique</string>

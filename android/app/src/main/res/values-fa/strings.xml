@@ -860,6 +860,7 @@
 	<string name="type.amenity.telephone">تلفن خانه</string>
 	<string name="type.amenity.theatre">سرگرمی</string>
 	<string name="type.amenity.toilets">دستشویی</string>
+	<string name="type.toilets.yes">دستشویی</string>
 	<string name="type.amenity.townhall">گردشگری</string>
 	<string name="type.amenity.university">دانشگاه</string>
 	<string name="type.amenity.vending_machine.cigarettes">ماشین سیگار فروشی</string>

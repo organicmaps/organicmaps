@@ -934,6 +934,7 @@
 	<string name="type.amenity.telephone">Telefon</string>
 	<string name="type.amenity.theatre">Tiyatro</string>
 	<string name="type.amenity.toilets">Tuvalet</string>
+	<string name="type.toilets.yes">Tuvalet</string>
 	<string name="type.amenity.townhall">Belediye Binası</string>
 	<string name="type.amenity.university">Üniversite</string>
 	<string name="type.amenity.vending_machine">Otomat</string>

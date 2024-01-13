@@ -1555,6 +1555,8 @@
 
 "type.amenity.toilets" = "화장실";
 
+"type.toilets.yes" = "화장실";
+
 "type.amenity.townhall" = "시청";
 
 "type.amenity.university" = "대학";

@@ -1555,6 +1555,8 @@
 
 "type.amenity.toilets" = "ห้องน้ำ";
 
+"type.toilets.yes" = "ห้องน้ำ";
+
 "type.amenity.townhall" = "ศาลากลางจังหวัด";
 
 "type.amenity.university" = "มหาวิทยาลัย";

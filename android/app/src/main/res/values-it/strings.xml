@@ -913,6 +913,7 @@
 	<string name="type.amenity.telephone">Telefono</string>
 	<string name="type.amenity.theatre">Teatro</string>
 	<string name="type.amenity.toilets">Servizi igienici</string>
+	<string name="type.toilets.yes">Servizi igienici</string>
 	<string name="type.amenity.townhall">Municipio</string>
 	<string name="type.amenity.university">Università</string>
 	<string name="type.amenity.vending_machine">Distributore automatico</string>

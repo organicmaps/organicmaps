@@ -1555,6 +1555,8 @@
 
 "type.amenity.toilets" = "Tualet";
 
+"type.toilets.yes" = "Tualet";
+
 "type.amenity.townhall" = "Şəhər zalı";
 
 "type.amenity.university" = "Universitet";

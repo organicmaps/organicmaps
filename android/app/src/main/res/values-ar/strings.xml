@@ -938,6 +938,7 @@
 	<string name="type.amenity.telephone">هاتف</string>
 	<string name="type.amenity.theatre">مسرح</string>
 	<string name="type.amenity.toilets">مرحاض</string>
+	<string name="type.toilets.yes">مرحاض</string>
 	<string name="type.amenity.townhall">مبنى البلدية</string>
 	<string name="type.amenity.university">جامعة</string>
 	<string name="type.amenity.vending_machine">آلة البيع الذاتي</string>

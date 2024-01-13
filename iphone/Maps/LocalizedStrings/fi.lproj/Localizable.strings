@@ -1535,7 +1535,7 @@
 
 "type.amenity.restaurant" = "Ravintola";
 
-"type.amenity.sanitary_dump_station" = "Holding Tank Dump Station";
+"type.amenity.sanitary_dump_station" = "Jäteveden tyhjennyspiste";
 
 "type.amenity.school" = "Koulu";
 
@@ -1554,6 +1554,8 @@
 "type.amenity.theatre" = "Teatteri";
 
 "type.amenity.toilets" = "WC";
+
+"type.toilets.yes" = "WC";
 
 "type.amenity.townhall" = "Kaupungintalo";
 
@@ -1593,7 +1595,7 @@
 
 "type.amenity.waste_disposal" = "Roska";
 
-"type.amenity.waste_transfer_station" = "Waste Transfer Station";
+"type.amenity.waste_transfer_station" = "Jätteiden vastaanottoasema";
 
 "type.amenity.water_point" = "Vesipiste";
 
@@ -2506,13 +2508,13 @@
 
 "type.leisure.golf_course" = "Golf-rata";
 
-"type.leisure.hackerspace" = "Hackerspace";
+"type.leisure.hackerspace" = "Hacklab";
 
 "type.leisure.ice_rink" = "Ice Rink";
 
 "type.leisure.landscape_reserve" = "Landscape Reserve";
 
-"type.leisure.marina" = "Marina";
+"type.leisure.marina" = "Venesatama";
 
 "type.leisure.nature_reserve" = "Luonnonsuojelualue";
 
@@ -2570,7 +2572,7 @@
 
 "type.man_made.survey_point" = "Survey Point";
 
-"type.man_made.flagpole" = "Flagpole";
+"type.man_made.flagpole" = "Lipputanko";
 
 "type.man_made.lighthouse" = "Majakka";
 
@@ -3439,7 +3441,7 @@
 
 "type.shop.car_repair.tyres" = "Rengashuolto";
 
-"type.shop.caravan" = "RV Dealership";
+"type.shop.caravan" = "Matkailu- ja retkeilyautokauppias";
 
 "type.shop.carpet" = "Matot";
 
@@ -3499,7 +3501,7 @@
 
 "type.shop.hairdresser" = "Kampaamo";
 
-"type.shop.hardware" = "Hardware Store";
+"type.shop.hardware" = "Rautakauppa";
 
 "type.shop.health_food" = "Terveysruokakauppa";
 

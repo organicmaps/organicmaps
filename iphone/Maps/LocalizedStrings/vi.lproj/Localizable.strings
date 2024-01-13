@@ -1555,6 +1555,8 @@
 
 "type.amenity.toilets" = "Nhà vệ sinh";
 
+"type.toilets.yes" = "Nhà vệ sinh";
+
 "type.amenity.townhall" = "Trung tâm thành phố";
 
 "type.amenity.university" = "Nhà hát";

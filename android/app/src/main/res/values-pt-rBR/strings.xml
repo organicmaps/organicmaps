@@ -874,6 +874,7 @@
 	<string name="type.amenity.telephone">Telefone</string>
 	<string name="type.amenity.theatre">Teatro</string>
 	<string name="type.amenity.toilets">Banheiro</string>
+	<string name="type.toilets.yes">Banheiro</string>
 	<string name="type.amenity.townhall">Prefeitura ou subprefeitura</string>
 	<string name="type.amenity.university">Universidade</string>
 	<string name="type.amenity.vending_machine">Máquina de venda automática</string>

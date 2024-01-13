@@ -1555,6 +1555,8 @@
 
 "type.amenity.toilets" = "Servizi igienici";
 
+"type.toilets.yes" = "Servizi igienici";
+
 "type.amenity.townhall" = "Municipio";
 
 "type.amenity.university" = "Università";

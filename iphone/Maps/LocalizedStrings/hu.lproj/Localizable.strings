@@ -1555,6 +1555,8 @@
 
 "type.amenity.toilets" = "Mosdó";
 
+"type.toilets.yes" = "Mosdó";
+
 "type.amenity.townhall" = "Városháza";
 
 "type.amenity.university" = "Egyetem";

@@ -926,6 +926,7 @@
 	<string name="type.amenity.telephone">Telefoon</string>
 	<string name="type.amenity.theatre">Theater</string>
 	<string name="type.amenity.toilets">Toiletten</string>
+	<string name="type.toilets.yes">Toiletten</string>
 	<string name="type.amenity.townhall">Gemeentehuis</string>
 	<string name="type.amenity.university">Universiteit</string>
 	<string name="type.amenity.vending_machine">Automaat</string>

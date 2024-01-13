@@ -925,6 +925,7 @@
 	<string name="type.amenity.telephone">Telefon</string>
 	<string name="type.amenity.theatre">Teatr</string>
 	<string name="type.amenity.toilets">Tualet</string>
+	<string name="type.toilets.yes">Tualet</string>
 	<string name="type.amenity.townhall">Şəhər zalı</string>
 	<string name="type.amenity.university">Universitet</string>
 	<string name="type.amenity.vending_machine.cigarettes">Siqaret Dispenseri</string>

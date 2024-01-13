@@ -870,6 +870,7 @@
 	<string name="type.amenity.telephone">Telefon</string>
 	<string name="type.amenity.theatre">Divadlo</string>
 	<string name="type.amenity.toilets">Záchody</string>
+	<string name="type.toilets.yes">Záchody</string>
 	<string name="type.amenity.townhall">Radnice</string>
 	<string name="type.amenity.university">Univerzita</string>
 	<string name="type.amenity.vending_machine.cigarettes">Automat na cigarety</string>

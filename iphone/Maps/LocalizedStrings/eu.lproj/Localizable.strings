@@ -1555,6 +1555,8 @@
 
 "type.amenity.toilets" = "Komuna";
 
+"type.toilets.yes" = "Komuna";
+
 "type.amenity.townhall" = "Udaletxea";
 
 "type.amenity.university" = "Unibertsitatea";

@@ -881,6 +881,7 @@
 	<string name="type.amenity.telephone">Telefon</string>
 	<string name="type.amenity.theatre">Színház</string>
 	<string name="type.amenity.toilets">Mosdó</string>
+	<string name="type.toilets.yes">Mosdó</string>
 	<string name="type.amenity.townhall">Városháza</string>
 	<string name="type.amenity.university">Egyetem</string>
 	<string name="type.amenity.vending_machine.cigarettes">Cigarettaautomata</string>

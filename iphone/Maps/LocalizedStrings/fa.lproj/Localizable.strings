@@ -1555,6 +1555,8 @@
 
 "type.amenity.toilets" = "دستشویی";
 
+"type.toilets.yes" = "دستشویی";
+
 "type.amenity.townhall" = "گردشگری";
 
 "type.amenity.university" = "دانشگاه";

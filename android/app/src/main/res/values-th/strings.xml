@@ -860,6 +860,7 @@
 	<string name="type.amenity.telephone">โทรศัพท์</string>
 	<string name="type.amenity.theatre">โรงละคร</string>
 	<string name="type.amenity.toilets">ห้องน้ำ</string>
+	<string name="type.toilets.yes">ห้องน้ำ</string>
 	<string name="type.amenity.townhall">ศาลากลางจังหวัด</string>
 	<string name="type.amenity.university">มหาวิทยาลัย</string>
 	<string name="type.amenity.vending_machine.cigarettes">เครื่องขายบุหรี่</string>

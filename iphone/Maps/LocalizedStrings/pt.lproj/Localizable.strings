@@ -1555,6 +1555,8 @@
 
 "type.amenity.toilets" = "Casa de banho";
 
+"type.toilets.yes" = "Casa de banho";
+
 "type.amenity.townhall" = "Câmara municipal ou junta de freguesia";
 
 "type.amenity.university" = "Universidade";

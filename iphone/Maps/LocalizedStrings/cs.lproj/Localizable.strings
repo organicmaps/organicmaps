@@ -1555,6 +1555,8 @@
 
 "type.amenity.toilets" = "Záchody";
 
+"type.toilets.yes" = "Záchody";
+
 "type.amenity.townhall" = "Radnice";
 
 "type.amenity.university" = "Univerzita";
