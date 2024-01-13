@@ -24991,6 +24991,52 @@
     zh-Hans = 按时间
     zh-Hant = 按時間
 
+  [by_name]
+    comment = Android
+    tags = android
+    en = By name
+    af = Op Naam
+    ar = بالاسم
+    az = Ada görə
+    be = Па імені
+    bg = По име
+    ca = Per nom
+    cs = Podle jména
+    da = efter navn
+    de = Nach Name
+    el = Με όνομα
+    es = Por nombre
+    es-MX = Por nombre
+    et = Nime järgi
+    eu = Izenaren arabera
+    fa = بر اساس اسم
+    fi = Nimen mukaan
+    fr = Par nom
+    he = לפי שם
+    hi = नाम द्वारा
+    hu = Név szerint
+    id = Berdasarkan Nama
+    it = Per nome
+    ja = 名前で
+    ko = 이름별
+    lt = Pagal pavadinimą
+    mr = नावाने
+    nb = Etter navn
+    nl = Op naam
+    pl = Według nazwy
+    pt = Por nome
+    ro = După nume
+    ru = По имени
+    sk = Podľa mena
+    sv = Efter namn
+    sw = Kwa Jina
+    th = ตามชื่อ
+    tr = İsme göre
+    uk = За назвою
+    vi = Theo Tên
+    zh-Hans = 按名称
+    zh-Hant = 按名字
+
   [week_ago_sorttype]
     tags = android,ios
     en = A week ago
