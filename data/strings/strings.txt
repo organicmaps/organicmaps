@@ -12647,7 +12647,7 @@
     hu = Nem rendelkezel még OpenStreetMap-felhasználói fiókkal?
     id = Tidak ada akun di OpenStreetMap?
     it = Non hai un account OpenStreetMap?
-    ja = OpenStreetMapのアカウントがをお持ちではないですか？
+    ja = OpenStreetMapのアカウントをお持ちではないですか？
     ko = OpenStreetMap에서 계정이 없습니까?
     lt = Neturite OpenStreetMap paskyros?
     mr = OpenStreetMap खाते नाही?
