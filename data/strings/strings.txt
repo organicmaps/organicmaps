@@ -542,7 +542,7 @@
     hu = Később
     id = Nanti
     it = Più tardi
-    ja = 次の機会に
+    ja = 後で
     ko = 나중에
     lt = Vėliau
     mr = नंतर
@@ -718,7 +718,7 @@
     hu = Jelenleg az eszköz vagy alkalmazás helymeghatározási szolgáltatásai le vannak tiltva. Kérjük, engedélyezze őket a Beállításokban.
     id = Saat ini semua Layanan Lokasi untuk perangkat atau aplikasi ini non-aktif. Mohon aktifkan lewat Setelan.
     it = Attualmente tutti i servizi di localizzazione per questo dispositivo o applicazione sono disattivati. Si prega di abilitarli in Impostazioni.
-    ja = 端末の位置情報サービスが無効になっているか、このアプリケーションからの位置情報利用が制限されています。端末の設定を有効化してください。
+    ja = 位置情報サービスが無効になっているか、このアプリからの位置情報利用が制限されています。端末の設定を有効化してください。
     ko = 현재 이 기기 또는 애플리케이션에 대한 모든 위치 서비스가 비활성화되어 있습니다. 설정에서 활성화하십시오.
     lt = Šiuo metu jūsų įrenginio ar programėlės visos vietovės tarnybos yra išjungtos. Įjunkite jas nustatymuose.
     mr = आपल्या उपकरणात किंवा ऍप मध्ये स्थानसेवा सध्या बंद आहेत. कृपया सेटिंग मधून त्यांना चालू  करा.
@@ -2409,6 +2409,7 @@
     fr = Stockage interne privé
     he = אחסון פנימי פרטי
     hu = Belső privát tárhely
+　　ja = アプリ固有のストレージ
     lt = Vidinė privati saugykla
     nb = Intern privat lagring
     nl = Intern persoonlijk geheugen
@@ -2435,6 +2436,7 @@
     fr = Stockage interne partagé
     he = אחסון פנימי משותף
     hu = Belső közös tárhely
+    ja = 共有ストレージ
     lt = Vidinė bendra saugykla
     nb = Intern delt lagring
     nl = Intern gedeeld geheugen
@@ -2461,6 +2463,7 @@
     fr = Carte SD
     he = כרטיס זיכרון
     hu = SD-kártya
+    ja = SDカード
     lt = SD kortelė
     nb = SD-kort
     nl = SD-kaart
@@ -2487,6 +2490,7 @@
     fr = Stockage externe partagé
     he = אחסון חיצוני משותף
     hu = Külső közös tárhely
+    ja = 外部ストレージ
     lt = Išorinė bendra saugykla
     nb = Ekstern delt lagring
     nl = Extern gedeeld geheugen
@@ -2513,6 +2517,7 @@
     fr = %1$@ libres sur %2$@
     he = %1$@ פנוי מתוך %2$@
     hu = %1$@ szabad %2$@-ból
+　　ja = %2$@ のうち %1$@ の空き容量
     lt = %1$@ laisva iš %2$@
     nb = %1$@ ledig av %2$@
     nl = %1$@ beschikbaar van %2$@
