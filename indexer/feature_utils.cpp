@@ -444,4 +444,10 @@ bool HasAtm(TypesHolder const & types)
     return isAtmType(types);
 }
 
+bool HasToilets(TypesHolder const & types)
+{
+  auto const & isToiletsType = ftypes::IsToiletsChecker::Instance();
+  return isToiletsType(types);
+}
+
 } // namespace feature

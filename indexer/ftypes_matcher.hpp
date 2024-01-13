@@ -466,6 +466,14 @@ class IsFeeTypeChecker : public BaseChecker
 public:
   DECLARE_CHECKER_INSTANCE(IsFeeTypeChecker);
 };
+    
+class IsToiletsChecker : public BaseChecker
+{
+  IsToiletsChecker();
+
+public:
+  DECLARE_CHECKER_INSTANCE(IsToiletsChecker);
+};
 
 class IsCityChecker : public BaseChecker
 {
