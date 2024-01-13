@@ -1370,6 +1370,9 @@ world  +
         volleyball  -
         yoga  -
         {}
+    toilets  +
+        yes  -
+        {}
     tourism  +
         alpine_hut  -
         apartment  -
