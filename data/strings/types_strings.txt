@@ -4906,6 +4906,9 @@
     zh-Hans = 厕所
     zh-Hant = 廁所
 
+  [type.toilets.yes]
+    ref = type.amenity.toilets
+
   [type.amenity.townhall]
     en = Town Hall
     af = Stadsaal

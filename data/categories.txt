@@ -6467,7 +6467,7 @@ sw:Choo
 fa:دستشویی|توالت
 mr:शौचालय
 
-amenity-toilets|@toilet
+amenity-toilets|toilets-yes|@toilet
 en:wc|5restroom|4bathroom|loo|lavatory|U+1F6BD|U+1F6BE|U+1F4A9|U+1F6BB|U+1F6B9|U+1F6BA
 bg:тоалетна|ВЦ
 ar:مرحاض|مرحاض
