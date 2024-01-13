@@ -16072,7 +16072,7 @@
     hu = Helyzetmeghatározás kikapcsolva
     id = Identifikasi lokasi dinonaktifkan
     it = I servizi di localizzazione sono disabilitati
-    ja = 位置情報認識機能が無効になっています
+    ja = 位置情報が無効になっています
     ko = 위치 식별 사용할 수 없음
     lt = Vietovės tarnybos yra išjungtos
     mr = स्थान सेवा बंद आहे
@@ -16158,7 +16158,7 @@
     hu = 1. Nyissa meg a Beállításokat
     id = 1. Buka Pengaturan
     it = 1. Apri le impostazioni
-    ja = 1. 設定を開きます
+    ja = 1. 「設定」を開きます
     ko = 1. 설정 열기
     lt = 1. Atidarykite nustatymus
     mr = १. सेटिंग उघडा
@@ -16200,7 +16200,7 @@
     hu = 2. Érintse meg a Helyzet gombot
     id = 2. Ketuk Lokasi
     it = 2. Tocca su Localizzazione
-    ja = 2. 位置情報をタップします
+    ja = 2. 「位置情報」をタップします
     ko = 2. 위치 누르기
     lt = 2. Bakstelėkite „Vietovė“
     mr = २. स्थान टॅप करा
@@ -16243,7 +16243,7 @@
     hu = 3. Kiválaszt az alkalmazás használata alatt
     id = 3. Pilih While Using the App
     it = 3. Seleziona Mentre usi l'app
-    ja = 3. アプリの使用中を選択してください
+    ja = 3. 「アプリの使用中」を選択してください
     ko = 3. 앱 사용 중에 선택
     lt = 3. Pasirinkite Naudojant programėlę
     mr = ३. "ऍप वापरत असताना" निवडा
@@ -16371,7 +16371,7 @@
     hu = km/h
     id = km/j
     it = km/h
-    ja = キロメートル毎時
+    ja = km/h
     ko = km/시
     lt = km/h
     mr = km/h
@@ -16414,7 +16414,7 @@
     hu = mf
     id = mil
     it = mi
-    ja = マイル
+    ja = mi
     ko = mi
     lt = mi
     mr = mi
@@ -16456,7 +16456,7 @@
     he = רגל
     hu = ft
     id = kaki
-    ja = フィート
+    ja = ft
     ko = 풋
     lt = ft
     mr = फूट
@@ -16496,7 +16496,7 @@
     hu = mph
     id = mpj
     it = mph
-    ja = マイル毎時
+    ja = mph
     ko = mph
     lt = mph
     mr = mph
@@ -16840,7 +16840,7 @@
     hu = Hívás
     id = Hubungi
     it = Chiama
-    ja = コール
+    ja = 電話をかける
     ko = 전화
     lt = Skambinti
     mr = फोन करा
@@ -17053,7 +17053,7 @@
     hu = Javasolt változtatásainak elküldése sikerült
     id = Saran perubahan Anda telah dikirim
     it = Le modifiche suggerite sono state inviate
-    ja = あなたの提案の変更が送信されました
+    ja = 変更の提案を送信しました
     ko = 귀하의 제안 변경사항이 전송되었습니다
     lt = Jūsų pasiūlyti pakeitimas išsiųsti
     mr = तुम्ही सुचवलेले बदल पाठवले आहेत
@@ -17139,7 +17139,7 @@
     hu = Elveti az összes helyi módosítást?
     id = Atur ulang perubahan lokal?
     it = Cancellare tutte le modifiche locali?
-    ja = すべてのローカルの変更をリセットしますか？
+    ja = ローカル編集をすべてリセットしますか?
     ko = 지역 변경 사항을 재설정하시겠습니까?
     lt = Anuliuoti visus vietinius pakeitimus?
     mr = सर्व स्थानिक बदल टाकून द्यायचे?
@@ -17311,7 +17311,7 @@
     hu = A hely nem létezik
     id = Tempat tidak ada
     it = Il luogo non esiste
-    ja = 存在しない場所
+    ja = 場所が存在しません
     ko = 존재하지 않는 장소입니다.
     lt = Vieta neegzistuoja
     mr = ठिकाण अस्तित्वात नाही
@@ -17348,6 +17348,7 @@
     fr = Veuillez indiquer la raison pour laquelle vous supprimez cet endroit
     he = נא להסביר את הסיבה למחיקת המקום
     it = Indicare il motivo dell' eliminazione del luogo
+    ja = 場所を削除する理由を教えてください
     lt = Nurodykite vietos panaikinimo priežastį
     mr = कृपया ठिकाण हटवण्याचे कारण सूचित करा
     nb = Forklar hvorfor stedet skal slettes
@@ -17469,7 +17470,7 @@
     hu = Adj meg egy érvényes weboldalcímet
     id = Masukkan alamat web valid
     it = Inserisci un indirizzo web valido
-    ja = 有効なウェブアドレスを入力してください
+    ja = 有効なURLを入力してください
     ko = 유효한 웹 주소 입력
     lt = Įveskite saityno adresą
     mr = वैध वेब पत्ता प्रविष्ट करा
@@ -17547,6 +17548,7 @@
     fr = Saisissez une adresse web, un compte ou un nom de page Facebook valide
     he = הזן כתובת פייסבוק תקינה, משתמש, או שם עמוד
     it = Inserisci un indirizzo web, un account o un nome di pagina Facebook valido
+    ja = 有効な Facebook URL、アカウント、またはページ名を入力してください
     lt = Įveskite Facebook saityno adresą, paskyrą arba puslapio pavadinimą
     mr = वैध Facebook वेब पत्ता, खाते किंवा पृष्ठ नाव प्रविष्ट करा
     nb = Skriv inn en gyldig Facebook-adresse, -konto eller -side.
@@ -17573,6 +17575,7 @@
     fr = Saisissez une adresse web, un nom de compte Instagram valide
     he = הזן כתובת אינטרנט או שם משתמש Instagram תקינים
     it = Inserisci un indirizzo web o un nome di account Instagram valido
+    ja = 有効な Instagram ユーザー名またはURLを入力してください
     lt = Įveskite Instagram saityno adresą arba paskyros pavadinimą
     mr = वैध Instagram वेब पत्ता किंवा खाते नाव प्रविष्ट करा
     nb = Skriv inn en gyldig Instagram-adresse eller -kontonavn
@@ -17599,6 +17602,7 @@
     fr = Saisissez une adresse web, un nom de compte Twitter valide
     he = הזן כתובת אינטרנט או שם משתמש Twitter תקינים
     it = Inserisci un indirizzo web o un nome utente Twitter valido
+    ja = 有効なTwitterユーザー名またはURLを入力してください
     lt = Įveskite Twitter saityno adresą arba naudotojo vardą
     mr = वैध Twitter वेब पत्ता किंवा वापरकर्तानाव प्रविष्ट करा
     nb = Skriv inn en gyldig Twitter-adresse eller -brukernavn.
@@ -17625,6 +17629,7 @@
     fr = Saisissez une adresse web, un nom de compte VK valide
     he = הזן כתובת אינטרנט או שם משתמש VK תקינים
     it = Inserisci un indirizzo web o un nome di account VK valido
+    ja = 有効なVKユーザー名またはURLを入力してください
     lt = Įveskite VK saityno adresą arba paskyros pavadinimą
     nb = Skriv inn en gyldig VB-adresse eller -kontonavn
     nl = Voer een geldig VB-webadres of accountnaam in
@@ -17651,6 +17656,7 @@
     fr = Entrez une adresse web ou un ID de LINE valide
     he = הזן מזהה LINE או כתובת אינטרנט תקינים
     it = Inserisca un indirizzo web LINE valido o un ID LINE
+    ja = 有効なLINEユーザー名またはURLを入力してください
     lt = Įveskite LINE saityno adresą arba LINE ID
     nb = Skriv inn en gyldig LINE-adresse eller -ID.
     nl = Voer een geldig LINE-webadres of LINE ID in
@@ -18337,7 +18343,7 @@
     hu = Részletes információk megjelenítése a mobil internet segítségével?
     id = Gunakan internet seluler untuk memperlihatkan informasi terperinci?
     it = Usare l'Internet mobile per mostrare le informazioni dettagliate?
-    ja = モバイルインターネットを使用して詳細な情報を表示しますか？
+    ja = モバイル通信を使用して詳細な情報を表示しますか？
     ko = 모바일 인터넷을 사용하여 자세한 정보를 표시하시겠습니까?
     lt = Naudoti mobilųjų internetą, kad parodytumėme išsamią informaciją?
     mr = तपशीलवार माहिती दाखवण्यासाठी मोबाईल इंटरनेट वापरायचे?
@@ -18509,7 +18515,7 @@
     hu = Mobil Internet
     id = Internet Seluler
     it = Internet mobile
-    ja = モバイルインターネット
+    ja = モバイル通信
     ko = 모바일 인터넷
     lt = Mobilusis internetas
     mr = मोबाइल इंटरनेट
@@ -18553,7 +18559,7 @@
     hu = Mobilinternet szükséges a térképfrissítési értesítésekhez, valamint a helyszínekre és könyvjelzőkre vonatkozó részletes információk megjelenítéséhez.
     id = Internet seluler diperlukan untuk menampilkan informasi terperinci tentang tempat, seperti foto, harga, dan ulasan.
     it = L'Internet mobile è necessario per visualizzare informazioni dettagliate sulle località, ad esempio foto, prezzi e recensioni.
-    ja = モバイルインターネットは場所、写真、価格やレビューのような詳細情報を表示するのに必要です。
+    ja = モバイル通信は場所、写真、価格やレビューのような詳細情報を表示するのに必要です。
     ko = 모바일 인터넷은 사진, 가격, 리뷰 등 장소에 대한 자세한 정보를 표시하는 데 필요합니다.
     lt = Mobilusis internetas yra reikalingas, kad gautumėte žemėlapių naujinimo pranešimus, ir vietų bei adresyno išsamios informacijos rodymui.
     mr = नकाशा अद्यतन सूचना तसेच ठिकाणे व खूणपत्रांबद्दल तपशीलवार माहिती प्रदर्शित करण्यासाठी मोबाइल इंटरनेट आवश्यक आहे.
@@ -18725,7 +18731,7 @@
     hu = Betűméret növelése a térképen
     id = Perbesar ukuran huruf pada peta
     it = Aumenta caratteri sulla mappa
-    ja = 地図上のフォントサイズを大きく
+    ja = 地図上のフォントサイズを大きくする
     ko = 지도에서 글꼴 크기 늘리기
     lt = Padidinti šrifto dydi žemėlapyje
     mr = नकाशावर टंकाचा (फॉन्टचा) आकार वाढवा
@@ -19030,7 +19036,7 @@
     hu = Egyes nyelveknél másik beszédszintetizátort vagy további nyelvi csomagot kell telepítenie az alkalmazás-áruházból (Google Play, Galaxy Store, App Gallery, FDroid). Nyissa meg a készülék beállításait → Nyelv és bevitel → Beszéd → Szöveg-beszéd átalakító kimenet. Itt kezelheti a beszédszintézis beállításokat (például nyelvi csomag letöltése kapcsolat nélküli használatra) és másik szövegfelolvasót jelölhe tki.
     id = Untuk beberapa bahasa, Anda perlu menginstal synthesizer suara atau paket bahasa tambahan dari toko aplikasi (Google Play, Galaxy Store, App Gallery, FDroid).\nBuka pengaturan perangkat Anda → Language and input (Bahasa dan input) → Speech (Suara) → Text to speech (Teks ke suara).\nDi sini, Anda dapat mengelola pengaturan untuk sintesis suara (contohnya, mengunduh paket bahasa untuk penggunaan tanpa internet) dan memilih mesin tekske suara lain.
     it = Per alcune lingue, sarà necessario installare un altro sintetizzatore vocale o un language pack aggiuntivo dall'app store (Google Play, Galaxy Store, App Gallery, FDroid).\nApri le impostazioni del tuo dispositivo → Lingua e inserimento → Da testo a voce → Motore sintesi vocale.\nQui puoi gestire le impostazioni di sintesi vocale (ad esempio, scaricare una lingua per l'utilizzo offline) e selezionare un altro motore di sintesi vocale.
-    ja = いくつかの言語では、アプリストアからその他の音声合成または追加の言語パックをインストールする必要があります (Google Play マーケット、Galaxy Store) 。お使いのデバイスで [設定] → [言語と入力] → [音声] → [音声出力] を開いてください。ここで音声合成の設定 (たとえば、オフラインで使用する言語パックのダウンロードなど) を管理し、別の音声合成エンジンを選択することができます。
+    ja = いくつかの言語では、アプリストア(Google PlayやGalaxy Storeなど)からその他の音声合成または追加の言語パックをインストールする必要があります。お使いのデバイスで [設定] → [言語と入力] → [音声] → [音声出力] を開いてください。ここで音声合成の設定 (たとえば、オフラインで使用する言語パックのダウンロードなど) を管理し、別の音声合成エンジンを選択することができます。
     ko = 일부 언어의 경우 앱 스토어(Google Play, Galaxy Store, App Gallery, FDroid)에서 다른 음성 합성기 또는 추가 언어 팩을 설치해야 합니다.\n장치의 설정 → 언어 및 입력 → 음성 → 텍스트-음성 변환 출력을 엽니다.\n여기서 음성 합성에 대한 설정을 관리하고(예: 오프라인 사용을 위한 언어 팩 다운로드) 다른 텍스트-음성 변환 엔진을 선택할 수 있습니다.
     lt = Kai kurioms kalboms jums reikės įdiegti šnekos sintezatorių arba papildomą kalbos paketą iš programėlių parduotuvės (Play parduotuvė, Galaxy parduotuvė, Programėlių galerija, FDroid).\nAtidarykite įrenginio nustatymus → Kalbos ir įvestis → Kalba → Teksto į kalbą išvestis.\nČia galite tvarkyti nustatymus šnekos sintezatoriui (pavyzdžiui, atsisiųsti kalbos paketą) ir pasirinkti kitą teksto į kalbą variklį.
     mr = काही भाषांसाठी, तुम्हाला अँप स्टोअर (Google Play, Galaxy Store, App Gallery, FDroid) वरून स्पीच मिश्रक किंवा अतिरिक्त भाषा संच इन्स्टॉल करावे लागतील.\nतुमच्या उपकरणाची सेटिंग → भाषा आणि इनपुट → स्पीच → "टेक्स्ट टू स्पीच आउटपुट" उघडा.\nयेथे तुम्ही स्पीच मिश्रणासाठी सेटिंग व्यवस्थापित करू शकता (उदाहरणार्थ, ऑफलाइन वापरासाठी भाषा संच डाउनलोड करा) आणि दुसरे टेक्स्ट-टू-स्पीच इंजिन निवडा.
@@ -19120,7 +19126,7 @@
     hu = Átírás latin nyelvre
     id = Transliterasi ke dalam bahasa Latin
     it = Trascrizione in latino
-    ja = ラテン文字への字訳
+    ja = ラテン文字への翻字
     ko = 라틴어로 음역
     lt = Transliteracija į lotynų
     mr = लॅटिनमध्ये (इंग्रजीची अक्षरे) लिप्यंतरण
@@ -19209,7 +19215,7 @@
     hu = Kilépés
     id = Keluar
     it = Uscita
-    ja = 終了
+    ja = 出口
     ko = 끝내기
     lt = Išeiti
     mr = बाहेर पडा
@@ -19253,7 +19259,7 @@
     hu = Adjon hozzá kiindulási pontot az útvonal megtervezéséhez
     id = Tambahkan titik awal untuk merencanakan rute
     it = Aggiungi un punto di partenza per pianificare un percorso
-    ja = ルートを計画するには出発地点を追加してください
+    ja = ルートを計画するには出発地を追加してください
     ko = 경로 계획을 세우기 위한 시작 지점을 추가하세요
     lt = Pridėkite pradžios tašką, kad planuotumėte maršrutą
     mr = मार्ग नियोजित करण्यासाठी प्रारंभ बिंदू जोडा
@@ -19297,7 +19303,7 @@
     hu = Adjon hozzá végpontot az útvonal tervezéséhez
     id = Tambahkan titik akhir untuk merencanakan rute
     it = Aggiungi un punto di arrivo per pianificare un percorso
-    ja = ルートを計画するには到着地点を追加してください
+    ja = ルートを計画するには目的地を追加してください
     ko = 경로 계획을 세우기 위한 끝 지점을 추가하세요
     lt = Pridėkite tikslo tašką, kad planuotumėte maršrutą
     mr = मार्ग नियोजित करण्यासाठी इष्टस्थान जोडा
@@ -19385,7 +19391,7 @@
     hu = Terv
     id = Rencana
     it = Pianifica
-    ja = 適用する
+    ja = プラン
     ko = 계획
     lt = Planas
     mr = नियोजन
@@ -19517,7 +19523,7 @@
     hu = Hozzáad megállót
     id = Tambah perhentian
     it = Aggiungi sosta
-    ja = 経由地点を追加
+    ja = 中間地点を追加
     ko = 스톱 추가
     lt = Pridėti sustojimą
     mr = स्टॉप जोडा
@@ -19559,7 +19565,7 @@
     hu = Kiindulás innen:
     id = Mulai dari
     it = Parti da
-    ja = 開始位置
+    ja = 出発地
     ko = 시작 위치:
     lt = Pradėti iš
     mr = पासून प्रारंभ
@@ -19693,7 +19699,7 @@
     hu = Külső tároló nem áll rendelkezésre, valószínűleg az SD-kártyát eltávolították vagy sérült, vagy rendszerfájl csak olvasható. Ellenőrizze, és lépjen kapcsolatba velünk a support@organicmaps.app címen
     id = Penyimpanan eksternal tidak tersedia, mungkin Kartu SD sudah dilepaskan, rusak, atau sistem berkasnya hanya dapat dibaca. Silakan periksa dan beri tahu kami di alamat support@ maps.me
     it = Archivio esterno non disponibile, probabilmente la scheda SD è stata rimossa, è danneggiata o il file system è di sola lettura. Controllala o contattaci su support@organicmaps.app
-    ja = 外部ストレージは使用できません。おそらく SD カードが取り外されたか、破損している、あるいはファイルシステムが読み取り専用になっています。確認後、support@organicmaps.app までご連絡ください。
+    ja = 外部ストレージは使用できません。おそらく SD カードが取り外されたか、破損しているか、あるいはファイルシステムが読み取り専用になっています。確認後、support@organicmaps.app までご連絡ください。
     ko = 외부 저장소를 사용할 수 없습니다. SD 카드가 제거되었거나 손상되었거나 파일 시스템이 읽기 전용일 수 있습니다. 확인 후 support@organicmaps.app로 문의하세요.
     lt = Išorinė saugykla yra neprieinama. SD kortelė galimai yra pašalinti, pažeista arba failų sistema yra nustatyti tik skaitymui. Patikrinkite SD kortelę arba susisiekite su mumis support@organicmaps.app
     mr = बाह्य साठ्याचा प्रवेश अपयशी. SD कार्ड कदाचित काढले गेले असेल, खराब झाले असेल किंवा फाइल सिस्टम ही केवळ-वाचनीय असावी. कृपया, तुमचे SD कार्ड तपासा किंवा support@organicmaps.app वर आमच्याशी संपर्क साधा
@@ -19738,7 +19744,7 @@
     hu = Sérült tároló emulálása
     id = Emulasi penyimpanan yang buruk
     it = Simula archivio danneggiato
-    ja = 壊れたストレージをエミュレート
+    ja = 壊れたストレージをシミュレートする
     ko = 불량 저장소 에뮬레이션
     lt = Emuliuoti blogą saugyklą
     mr = खराब साठ्याचे अनुकरण करा
@@ -20338,7 +20344,7 @@
     hu = Nem lehet megosztani alkalmazáshiba miatt
     id = Tidak dapat berbagi karena kesalahan aplikasi
     it = Impossibile condividere a causa di un errore dell'applicazione
-    ja = アプリケーションエラーのため共有できません
+    ja = エラーのため共有できません
     ko = 애플리케이션 오류로 인해 공유할 수 없습니다
     lt = Napvyko bendrinti dėl programėlės klaidos
     mr = ऍप त्रुटीमुळे सामायिक करण्यात अक्षम
@@ -20473,7 +20479,7 @@
     hu = A név nem lehet üres
     id = Namanya tidak boleh kosong
     it = Il nome non può essere vuoto
-    ja = 名前を空にすることはできませんでした
+    ja = 名前を空にすることはできません
     ko = 이름을 비워 둘 수는 없습니다.
     lt = Pavadinimas negali būti tuščias
     mr = नाव रिक्त असू शकत नाही
