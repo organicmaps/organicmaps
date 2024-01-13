@@ -925,6 +925,7 @@
 	<string name="type.amenity.telephone">Telefonoa</string>
 	<string name="type.amenity.theatre">Antzerkia</string>
 	<string name="type.amenity.toilets">Komuna</string>
+	<string name="type.toilets.yes">Komuna</string>
 	<string name="type.amenity.townhall">Udaletxea</string>
 	<string name="type.amenity.university">Unibertsitatea</string>
 	<string name="type.amenity.vending_machine">Makina saltzailea</string>

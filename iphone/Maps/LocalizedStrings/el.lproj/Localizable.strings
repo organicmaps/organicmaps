@@ -1555,6 +1555,8 @@
 
 "type.amenity.toilets" = "Τουαλέτα";
 
+"type.toilets.yes" = "Τουαλέτα";
+
 "type.amenity.townhall" = "Δημαρχείο";
 
 "type.amenity.university" = "Πανεπιστήμιο";

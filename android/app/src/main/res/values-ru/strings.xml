@@ -943,6 +943,7 @@
 	<string name="type.amenity.telephone">Телефон</string>
 	<string name="type.amenity.theatre">Театр</string>
 	<string name="type.amenity.toilets">Туалет</string>
+	<string name="type.toilets.yes">Туалет</string>
 	<string name="type.amenity.townhall">Администрация</string>
 	<string name="type.amenity.university">Университет</string>
 	<string name="type.amenity.vending_machine">Торговый автомат</string>

@@ -857,6 +857,7 @@
 	<string name="type.amenity.telephone">Điện thoại</string>
 	<string name="type.amenity.theatre">Điểm trú ẩn</string>
 	<string name="type.amenity.toilets">Nhà vệ sinh</string>
+	<string name="type.toilets.yes">Nhà vệ sinh</string>
 	<string name="type.amenity.townhall">Trung tâm thành phố</string>
 	<string name="type.amenity.university">Nhà hát</string>
 	<string name="type.amenity.vending_machine.cigarettes">Máy bán thuốc lá</string>

@@ -1555,6 +1555,8 @@
 
 "type.amenity.toilets" = "Banheiro";
 
+"type.toilets.yes" = "Banheiro";
+
 "type.amenity.townhall" = "Prefeitura ou subprefeitura";
 
 "type.amenity.university" = "Universidade";

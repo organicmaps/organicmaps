@@ -932,6 +932,7 @@
 	<string name="type.amenity.telephone">Telefon</string>
 	<string name="type.amenity.theatre">Teatr</string>
 	<string name="type.amenity.toilets">Toaleta</string>
+	<string name="type.toilets.yes">Toaleta</string>
 	<string name="type.amenity.townhall">Ratusz</string>
 	<string name="type.amenity.university">Uniwersytet</string>
 	<string name="type.amenity.vending_machine">Automat sprzedający</string>

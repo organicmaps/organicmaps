@@ -923,6 +923,7 @@
 	<string name="type.amenity.telephone">Telefon</string>
 	<string name="type.amenity.theatre">Theater</string>
 	<string name="type.amenity.toilets">Toilette</string>
+	<string name="type.toilets.yes">Toilette</string>
 	<string name="type.amenity.townhall">Rathaus</string>
 	<string name="type.amenity.university">Universität</string>
 	<string name="type.amenity.vending_machine">Verkaufsautomat</string>

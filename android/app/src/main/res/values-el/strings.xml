@@ -856,6 +856,7 @@
 	<string name="type.amenity.telephone">Τηλέφωνο</string>
 	<string name="type.amenity.theatre">Θέατρο</string>
 	<string name="type.amenity.toilets">Τουαλέτα</string>
+	<string name="type.toilets.yes">Τουαλέτα</string>
 	<string name="type.amenity.townhall">Δημαρχείο</string>
 	<string name="type.amenity.university">Πανεπιστήμιο</string>
 	<string name="type.amenity.vending_machine.cigarettes">Αυτόματος πωλητής τσιγάρων</string>

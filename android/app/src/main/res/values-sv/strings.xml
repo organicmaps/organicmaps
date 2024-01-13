@@ -859,6 +859,7 @@
 	<string name="type.amenity.telephone">Telefon</string>
 	<string name="type.amenity.theatre">Teater</string>
 	<string name="type.amenity.toilets">Toalett</string>
+	<string name="type.toilets.yes">Toalett</string>
 	<string name="type.amenity.townhall">Rådhus</string>
 	<string name="type.amenity.university">Universitet</string>
 	<string name="type.amenity.vending_machine.cigarettes">Cigarettmaskin</string>

@@ -890,6 +890,7 @@
 	<string name="type.amenity.telephone">Telefone</string>
 	<string name="type.amenity.theatre">Teatro</string>
 	<string name="type.amenity.toilets">Casa de banho</string>
+	<string name="type.toilets.yes">Casa de banho</string>
 	<string name="type.amenity.townhall">Câmara municipal ou junta de freguesia</string>
 	<string name="type.amenity.university">Universidade</string>
 	<string name="type.amenity.vending_machine">Máquina de venda automática</string>

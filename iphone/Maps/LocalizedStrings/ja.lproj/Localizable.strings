@@ -1555,6 +1555,8 @@
 
 "type.amenity.toilets" = "トイレ";
 
+"type.toilets.yes" = "トイレ";
+
 "type.amenity.townhall" = "役場";
 
 "type.amenity.university" = "大学";

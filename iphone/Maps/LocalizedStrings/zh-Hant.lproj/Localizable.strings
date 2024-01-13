@@ -1555,6 +1555,8 @@
 
 "type.amenity.toilets" = "廁所";
 
+"type.toilets.yes" = "廁所";
+
 "type.amenity.townhall" = "市政廳";
 
 "type.amenity.university" = "大學";

@@ -896,6 +896,7 @@
 	<string name="type.amenity.telephone">電話</string>
 	<string name="type.amenity.theatre">劇場</string>
 	<string name="type.amenity.toilets">廁所</string>
+	<string name="type.toilets.yes">廁所</string>
 	<string name="type.amenity.townhall">市政廳</string>
 	<string name="type.amenity.university">大學</string>
 	<string name="type.amenity.vending_machine.cigarettes">香菸自動販賣機</string>

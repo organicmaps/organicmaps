@@ -965,6 +965,7 @@
 	<string name="type.amenity.telephone">Phone</string>
 	<string name="type.amenity.theatre">Theatre</string>
 	<string name="type.amenity.toilets">Toilet</string>
+	<string name="type.toilets.yes">Toilet</string>
 	<string name="type.amenity.townhall">Town Hall</string>
 	<string name="type.amenity.university">University</string>
 	<string name="type.amenity.vending_machine">Vending Machine</string>

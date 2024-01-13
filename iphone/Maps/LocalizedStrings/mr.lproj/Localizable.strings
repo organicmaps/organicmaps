@@ -1555,6 +1555,8 @@
 
 "type.amenity.toilets" = "शौचालय";
 
+"type.toilets.yes" = "शौचालय";
+
 "type.amenity.townhall" = "नगर भवन";
 
 "type.amenity.university" = "विद्यापीठ";

@@ -918,6 +918,7 @@
 	<string name="type.recycling.green_waste">Biojäte</string>
 	<string name="type.recycling.cartons">Kartonki</string>
 	<string name="type.amenity.restaurant">Ravintola</string>
+	<string name="type.amenity.sanitary_dump_station">Jäteveden tyhjennyspiste</string>
 	<string name="type.amenity.school">Koulu</string>
 	<string name="type.amenity.shelter">Katos</string>
 	<string name="type.amenity.public_bath">Julkinen kylpylä</string>
@@ -927,6 +928,7 @@
 	<string name="type.amenity.telephone">Puhelin</string>
 	<string name="type.amenity.theatre">Teatteri</string>
 	<string name="type.amenity.toilets">WC</string>
+	<string name="type.toilets.yes">WC</string>
 	<string name="type.amenity.townhall">Kaupungintalo</string>
 	<string name="type.amenity.university">Yliopisto</string>
 	<string name="type.amenity.vending_machine">Myyntiautomaatti</string>
@@ -945,6 +947,7 @@
 	<string name="type.amenity.veterinary">Eläinlääkäri</string>
 	<string name="type.amenity.waste_basket">Roskakori</string>
 	<string name="type.amenity.waste_disposal">Roska</string>
+	<string name="type.amenity.waste_transfer_station">Jätteiden vastaanottoasema</string>
 	<string name="type.amenity.water_point">Vesipiste</string>
 	<string name="type.barrier">Este</string>
 	<string name="type.barrier.block">Este</string>
@@ -1403,6 +1406,8 @@
 	<string name="type.leisure.garden">Puutarha</string>
 	<string name="type.leisure.garden.residential">Puutarha</string>
 	<string name="type.leisure.golf_course">Golf-rata</string>
+	<string name="type.leisure.hackerspace">Hacklab</string>
+	<string name="type.leisure.marina">Venesatama</string>
 	<string name="type.leisure.nature_reserve">Luonnonsuojelualue</string>
 	<string name="type.leisure.outdoor_seating">Ulkona istuminen</string>
 	<string name="type.leisure.park">Puisto</string>
@@ -1421,6 +1426,7 @@
 	<string name="type.leisure.swimming_pool.private">Uima-allas</string>
 	<string name="type.leisure.water_park">Vesipuisto</string>
 	<string name="type.man_made.chimney">Tehtaan piippu</string>
+	<string name="type.man_made.flagpole">Lipputanko</string>
 	<string name="type.man_made.lighthouse">Majakka</string>
 	<string name="type.man_made.surveillance">Valvontakamera</string>
 	<string name="type.man_made.tower">Torni</string>
@@ -1798,6 +1804,7 @@
 	<string name="type.shop.car_parts">Auton osat</string>
 	<string name="type.shop.car_repair">Autokorjaamo</string>
 	<string name="type.shop.car_repair.tyres">Rengashuolto</string>
+	<string name="type.shop.caravan">Matkailu- ja retkeilyautokauppias</string>
 	<string name="type.shop.carpet">Matot</string>
 	<string name="type.shop.chemist">Kosmetiikkamyymälä</string>
 	<string name="type.shop.chocolate">Suklaakauppa</string>
@@ -1827,6 +1834,7 @@
 	<string name="type.shop.greengrocer">Vihanneskauppias</string>
 	<string name="type.shop.grocery">Päivittäistavarakauppa</string>
 	<string name="type.shop.hairdresser">Kampaamo</string>
+	<string name="type.shop.hardware">Rautakauppa</string>
 	<string name="type.shop.health_food">Terveysruokakauppa</string>
 	<string name="type.shop.herbalist">Yrttikauppa</string>
 	<string name="type.shop.hifi">HiFi Audio</string>
