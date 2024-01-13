@@ -1,4 +1,4 @@
-<svg viewBox="0 0 12 12" xmlns="http://www.w3.org/2000/svg">
+<svg viewBox="0 0 12 12" width="9" height="9" xmlns="http://www.w3.org/2000/svg">
  <g fill-rule="evenodd">
   <rect width="12" height="12" rx="6" fill="#FFF" opacity=".6"/>
   <rect x="1" y="1" width="10" height="10" rx="5" fill="#2F6499"/>

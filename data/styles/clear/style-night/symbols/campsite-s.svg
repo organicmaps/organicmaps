@@ -1,4 +1,4 @@
-<svg width="16" height="16" viewBox="0 0 16 16" version="1.1" xmlns="http://www.w3.org/2000/svg">
+<svg viewBox="0 0 16 16" width="12" height="12" version="1.1" xmlns="http://www.w3.org/2000/svg">
  <g>
   <circle cx="8" cy="8" r="8" fill="#000" opacity=".6"/>
   <circle cx="8" cy="8" r="7" fill="#664e42"/>
