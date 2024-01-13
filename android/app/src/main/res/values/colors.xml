@@ -132,7 +132,7 @@
 
   <color name="elevation_profile_dot_enabled">#FF9600</color>
   <color name="elevation_profile">#009660</color>
-  <color name="elevation_profile_dark">#4BB9E6</color>
+  <color name="elevation_profile_dark">#00B950</color>
 
   <color name="material_calendar_surface_dark">#929292</color>
 </resources>
