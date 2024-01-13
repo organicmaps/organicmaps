@@ -19,7 +19,7 @@
     hu = Jobbra tartson.
     id = Tetap di kanan.
     it = Rimani sulla destra.
-    ja = 右を維持してください。
+    ja = 右側を走行してください。
     ko = 오른쪽에 두기.
     mr = उजवीकडे ठेवा.
     nb = Hold til høyre.
@@ -58,7 +58,7 @@
     hu = Forduljon jobbra.
     id = Belok kanan.
     it = Gira a destra.
-    ja = 右に曲がります。
+    ja = 右折です。
     ko = 우회전하십시오.
     mr = उजवीकडे वळा.
     nb = Ta til høyre.
@@ -97,7 +97,7 @@
     hu = Kanyarodjon élesen jobbra.
     id = Belok tajam ke kanan.
     it = Svoltare a destra.
-    ja = 急に右折。
+    ja = 右に大きく曲がります。
     ko = 급우회전.
     mr = तीव्र उजवे वळण
     nb = Ta skarpt til høyre.
@@ -175,7 +175,7 @@
     hu = Hagyja el a körforgalmat.
     id = Keluar dari bundaran.
     it = Esci dalla rotonda.
-    ja = ロータリーから抜けてください。
+    ja = ロータリーを出ます。
     ko = 원형 교차로에서 나갑니다.
     mr = चौकातून बाहेर पडा.
     nb = Kjør ut av rundkjøringen.
@@ -214,7 +214,7 @@
     hu = Balra tartson.
     id = Tetap di kiri.
     it = Rimani sulla sinistra.
-    ja = 左を維持してください。
+    ja = 左側を走行してください。
     ko = 왼쪽에 두기.
     mr = डावीकडे ठेवा.
     nb = Hold til venstre.
@@ -253,7 +253,7 @@
     hu = Forduljon balra.
     id = Belok kiri.
     it = Gira a sinistra.
-    ja = 左に曲がります。
+    ja = 左折です。
     ko = 좌회전하십시오.
     mr = डावीकडे वळा.
     nb = Ta til venstre.
@@ -292,7 +292,7 @@
     hu = Kanyarodjon élesen balra.
     id = Belok tajam ke kiri.
     it = Svoltare a sinistra.
-    ja = 急に左折。
+    ja = 左に大きく曲がります。
     ko = 급좌회전.
     mr = तीव्र डावे वळण
     nb = Ta skarpt til venstre.
@@ -487,7 +487,7 @@
     hu = Megérkezett.
     id = Anda sudah sampai.
     it = Sei arrivato.
-    ja = 到着。
+    ja = 目的地に到着しました。
     ko = 도착했습니다.
     mr = तुम्ही पोहोचला आहात.
     nb = Du har ankommet.
@@ -2514,7 +2514,7 @@
     hu = Kamera következik
     id = Diawasi kamera
     it = Autovelox in prossimità
-    ja = この先にある自動速度違反取締装置
+    ja = この先に自動速度違反取締装置があります。
     ko = 전방에 카메라
     mr = पुढे कॅमेरा आहे
     nb = Kamera foran
