@@ -1,4 +1,4 @@
-<svg viewBox="0 0 18 18" xmlns="http://www.w3.org/2000/svg">
+<svg viewBox="0 0 18 18" width="13.5" height="13.5" xmlns="http://www.w3.org/2000/svg">
  <g>
   <path d="m9 18c-5 0-9-4-9-9s4-9 9-9 9 4 9 9-4 9-9 9z" fill="#FFF" opacity=".4"/>
   <circle cx="9" cy="9" r="8" fill="#A3A3A3"/>

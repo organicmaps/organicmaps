@@ -1,4 +1,4 @@
-<svg viewBox="0 0 21 15" xmlns="http://www.w3.org/2000/svg">
+<svg viewBox="0 0 21 15" width="15.75" height="11.25" xmlns="http://www.w3.org/2000/svg">
  <g>
   <polygon points="0 7.5 10.5 0 21 7.5 10.5 15" fill="#FFF" opacity=".4"/>
   <polygon points="1 7.5 10.5 1 20 7.5 10.5 14" fill="maroon"/>
