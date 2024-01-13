@@ -2409,7 +2409,7 @@
     fr = Stockage interne privé
     he = אחסון פנימי פרטי
     hu = Belső privát tárhely
-　　ja = アプリ固有のストレージ
+    ja = アプリ固有のストレージ
     lt = Vidinė privati saugykla
     nb = Intern privat lagring
     nl = Intern persoonlijk geheugen
@@ -2517,7 +2517,7 @@
     fr = %1$@ libres sur %2$@
     he = %1$@ פנוי מתוך %2$@
     hu = %1$@ szabad %2$@-ból
-　　ja = %2$@ のうち %1$@ の空き容量
+    ja = %2$@ のうち %1$@ の空き容量
     lt = %1$@ laisva iš %2$@
     nb = %1$@ ledig av %2$@
     nl = %1$@ beschikbaar van %2$@
@@ -3853,7 +3853,7 @@
     fr = Bonjour !\n\nVous trouverez ci-joint mes signets de l'appli Organic Maps. Veuillez les ouvrir si vous avez installé Organic Maps. Si vous ne l'avez pas, téléchargez l'application pour votre appareil iOS ou Android en suivant ce lien : https://omaps.app/get?kmz\n\nBon voyage avec Organic Maps!
     he = שלום!\n\nמצורפות הסימניות שלי, אפשר לפתוח אותן ב-Organic Maps. אם צריך, ניתן להוריד את האפליקצייה מכאן: https://omaps.app/get?kmz\n\nתהנו לנווט עם Organic Maps!
     it = Ciao!\n\nIn allegato ci sono i miei luoghi preferiti. Aprili se hai installato Organic Maps. Oppure, se non ce l'hai, scarica l'app per iOS o Android seguendo questo link: https://omaps.app/\n\nDivertiti a viaggiare con Organic Maps!
-　　ja = こんにちは！\n\n添付ファイルOrganic Mapsのお気に入りリストです。もしインストールされていない場合はここからダウンロードができます： https://omaps.app/get?kmz\n\n旅行を楽しむときはOrganic Mapsを使用してください!
+    ja = こんにちは！\n\n添付ファイルOrganic Mapsのお気に入りリストです。もしインストールされていない場合はここからダウンロードができます： https://omaps.app/get?kmz\n\n旅行を楽しむときはOrganic Mapsを使用してください!
     lt = Labas!\n\nČia prisegtas mano adresynas iš Organic Maps programėlės. Atidaryk jį, jei esi įdiegęs Organic Maps, arba atsisiųsk programėlę savo iOS arba Android įrenginyje su šią nuorodą: https://omaps.app/get?kmz\n\Mėgaukis keliavimu su Organic Maps!
     mr = नमस्कार!\n\nOrganic Maps ऍप मधील माझे खूणपत्रे संलग्न केले आहेत. तुम्ही Organic Maps इन्स्टॉल केले असल्यास हे खूणपत्रे उघडा. इन्स्टॉल केले नसल्यास, पुढील दुव्यावर जाऊन तुमच्या iOS किंवा अँड्रॉइड उपकरणावर हे डाउनलोड करा: https://omaps.app/get?kmz\n\nOrganic Maps सह प्रवासाचा आनंद घ्या!
     nb = Hei!\n\nVedlagt er mine bokmerker fra Organic Maps-appen. Åpne de dersom du har Organic Maps installert. Har du ikke har det, last ned appen til iOS eller Android ved å trykke på denne linken: https://omaps.app/get?kmz\n\nNyt reisen med Organic Maps!
@@ -4852,7 +4852,7 @@
     fr = Paramètres généraux
     he = הגדרות כלליות
     it = Opzioni generali
-　　ja = 一般
+    ja = 一般
     lt = Bendrieji nustatymai
     mr = सर्वसामान्य सेटिंग
     nb = Generelle instillinger
@@ -6094,7 +6094,7 @@
     fr = Menu
     he = תפריט
     ja = メニュー
-　　lt = Meniu
+    lt = Meniu
     nb = Meny
     pl = Menu
     ru = Меню
