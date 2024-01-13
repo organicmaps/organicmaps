@@ -612,7 +612,12 @@ Reconfigure the project to use your developer signing keys:
 - Open `xcode/omim.xcworkspace` in Xcode.
 - Click on "Maps" project.
 - Open "Signing & Capabilities" tab.
-- Choose your team and your signing certificate.
+- Choose a unique bundle identifier (not app.organicmaps.debug) and your team.
+- Select "Automatically manage signing".
+
+If you want to run Organic Maps on a real device, you have to remove the CarPlay entitlement. Open `iphone/Maps/OMaps-Debug.entitlements`
+and remove the `com.apple.developer.carplay-maps` entry. Now you can sign your app again in the "Signing & Capabilities" tab. Testing CarPlay
+on a real device requires [requesting entitlements from Apple](https://developer.apple.com/documentation/carplay/requesting_carplay_entitlements).
 
 ### Building and running
 
