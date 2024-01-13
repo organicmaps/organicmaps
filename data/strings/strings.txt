@@ -27744,7 +27744,7 @@
     hu = Ön most az Organic Maps használja a telefon képernyőjén
     id = Anda sekarang menggunakan Organic Maps pada layar ponsel
     it = Ora stai utilizzando Organic Maps sullo schermo del telefono
-    ja = あなたは今、携帯電話の画面でオーガニック・マップを使用している
+    ja = 端末の画面でOrganic Mapsを使用している
     ko = 이제 휴대폰 화면에서 유기적 지도를 사용하고 있습니다
     mr = तुम्ही आता फोन स्क्रीनवर ऑरगॅनिक नकाशे वापरत आहात
     nb = Du bruker nå Organic Maps på telefonskjermen
