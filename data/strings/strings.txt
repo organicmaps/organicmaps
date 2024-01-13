@@ -2551,7 +2551,7 @@
     hu = Áthelyezzük a térképfájlokat?
     id = Pindahkan peta?
     it = Vuoi spostare le mappe?
-    ja = マップを移動させますか？
+    ja = マップを移動しますか？
     ko = 지도를 이동합니까?
     lt = Perkelti žemėlapius?
     mr = नकाशे हलवायचे?
@@ -2587,6 +2587,7 @@
     fr = Erreur lors du déplacement des cartes
     he = שגיאה בהעברת הקבצים
     hu = Hiba történt a térképfájlok áthelyezése közben
+    ja = マップ移動中にエラーが発生
     lt = Klaida perkeliant žemėlapio failus
     nb = Kunne ikke flytte kart
     nl = Fout bij het verplaatsen van kaartbestanden
@@ -2664,7 +2665,7 @@
     hu = Mértékegységek
     id = Unit Pengukuran
     it = Unità di misura
-    ja = 距離計測単位
+    ja = 距離の単位
     ko = 측정 단위
     lt = Matavimo vienetai
     mr = मापन एकके
@@ -3817,7 +3818,7 @@
     hu = Egy Organic Maps könyvjelzőt osztottak meg Önnel
     id = Bagikan penanda Organic Maps
     it = Questi sono i miei luoghi preferiti
-    ja = Organic Mapsの位置情報シェア
+    ja = Organic Mapsのお気に入りリストが共有されました
     ko = 귀하와 공유된 Organic Maps 즐겨찾기
     lt = Su jumis bendrinamas Organic Maps adresynas
     mr = Organic Maps द्वारे तुम्हाला खूणपत्रे सामायिक केले
@@ -3852,6 +3853,7 @@
     fr = Bonjour !\n\nVous trouverez ci-joint mes signets de l'appli Organic Maps. Veuillez les ouvrir si vous avez installé Organic Maps. Si vous ne l'avez pas, téléchargez l'application pour votre appareil iOS ou Android en suivant ce lien : https://omaps.app/get?kmz\n\nBon voyage avec Organic Maps!
     he = שלום!\n\nמצורפות הסימניות שלי, אפשר לפתוח אותן ב-Organic Maps. אם צריך, ניתן להוריד את האפליקצייה מכאן: https://omaps.app/get?kmz\n\nתהנו לנווט עם Organic Maps!
     it = Ciao!\n\nIn allegato ci sono i miei luoghi preferiti. Aprili se hai installato Organic Maps. Oppure, se non ce l'hai, scarica l'app per iOS o Android seguendo questo link: https://omaps.app/\n\nDivertiti a viaggiare con Organic Maps!
+　　ja = こんにちは！\n\n添付ファイルOrganic Mapsのお気に入りリストです。もしインストールされていない場合はここからダウンロードができます： https://omaps.app/get?kmz\n\n旅行を楽しむときはOrganic Mapsを使用してください!
     lt = Labas!\n\nČia prisegtas mano adresynas iš Organic Maps programėlės. Atidaryk jį, jei esi įdiegęs Organic Maps, arba atsisiųsk programėlę savo iOS arba Android įrenginyje su šią nuorodą: https://omaps.app/get?kmz\n\Mėgaukis keliavimu su Organic Maps!
     mr = नमस्कार!\n\nOrganic Maps ऍप मधील माझे खूणपत्रे संलग्न केले आहेत. तुम्ही Organic Maps इन्स्टॉल केले असल्यास हे खूणपत्रे उघडा. इन्स्टॉल केले नसल्यास, पुढील दुव्यावर जाऊन तुमच्या iOS किंवा अँड्रॉइड उपकरणावर हे डाउनलोड करा: https://omaps.app/get?kmz\n\nOrganic Maps सह प्रवासाचा आनंद घ्या!
     nb = Hei!\n\nVedlagt er mine bokmerker fra Organic Maps-appen. Åpne de dersom du har Organic Maps installert. Har du ikke har det, last ned appen til iOS eller Android ved å trykke på denne linken: https://omaps.app/get?kmz\n\nNyt reisen med Organic Maps!
@@ -3889,7 +3891,7 @@
     hu = Könyvjelzők letöltése
     id = Memuat Penanda
     it = Caricamento luoghi preferiti
-    ja = ブックマークの読み込み中
+    ja = お気に入りをロード中
     ko = 즐겨찾기 로드
     lt = Įkeliamas adresynas
     mr = खूणपत्रे वाचत आहे
@@ -3933,7 +3935,7 @@
     hu = Könyvjelzők letöltése sikeres! Megtalálja őket a térképen vagy a Könyvjelzők kezelése menüben.
     id = Penanda berhasil dimuat! Anda dapat menemukannya pada peta atau pada layar Pengelola Penanda Lokasi.
     it = Luoghi preferiti caricati con successo! Puoi trovarli sulla mappa o nella schermata "Gestione Luoghi preferiti".
-    ja = ブックマークが読み込まれました! ブックマークはマップ上、またはブックマーク管理画面に表示されます。
+    ja = お気に入りをロードできました。 お気に入りはマップ上、またはお気に入り管理画面に表示されます。
     ko = 즐겨찾기가 성공적으로 로드되었습니다! 지도 또는 즐겨찾기 관리자 화면에서 찾으실 수 있습니다.
     lt = Adresynas įkeltas! Galite rasti jį žemėlapyje arba adresyno tvarkytuvės ekrane.
     mr = खूणपत्रे वाचून झाले! ते तुम्ही नकाशावर किंवा खूणपत्र व्यवस्थापक पटलावर पाहू शकता.
@@ -3977,7 +3979,7 @@
     hu = Könyvjelzők feltöltése sikertelen. A fájl sérült lehet.
     id = Gagal mengunggah penanda lokasi. Berkas mungkin rusak.
     it = Caricamento dei luoghi preferiti non riuscito. Il file potrebbe essere corrotto o difettoso.
-    ja = ブックマークのアップロードに失敗しました。ファイルが破損していた、または問題があった可能性があります。
+    ja = お気に入りのロードに失敗しました。ファイルが破損していた、または問題があった可能性があります。
     ko = 즐겨찾기 업로드가 실패했습니다. 파일이 훼손되었거나 결함이 있을지도 모릅니다.
     lt = Nepavyko įkelti adresyno. Failas gali būti pažeistas.
     mr = खूणपत्रे वाचण्यात अपयश. फाइल दूषित किंवा बिघडलेली असू शकते.
@@ -4021,6 +4023,7 @@
     hu = Szerkeszt
     id = Edit
     it = Modifica
+    ja = 編集
     ko = 편집
     lt = Redaguoti
     mr = संपादन
@@ -4108,7 +4111,7 @@
     hu = Sajnáljuk, a térképek tárolása jelenleg ki van kapcsolva.
     id = Maaf, pengaturan Penyimpanan Peta saat ini sedang non-aktif.
     it = Le impostazioni di archiviazione delle mappe sono disabilitate.
-    ja = 恐れ入ります、マップストレージ設定が無効になっています。
+    ja = 恐れ入りますが、マップストレージ設定が無効になっています。
     ko = 죄송합니다, 지도 스토리지 설정이 비활성화되어 있습니다.
     lt = Atsiprašome, šiuo metu žemėlapio saugyklos nustatymai yra išjungti.
     mr = क्षमस्व, नकाशा साठवायचे सेटिंग सध्या बंद आहेत.
@@ -4152,7 +4155,7 @@
     hu = Országletöltés folyamatban.
     id = Pengunduhan negara sedang berjalan.
     it = Il download della mappa è in corso.
-    ja = ダウンロードを実行中です
+    ja = ダウンロード中です
     ko = 국가 다운로드가 지금 진행 중입니다.
     lt = Vyksta žemėlapio atsisiuntimas.
     mr = नकाशा डाउनलोड होत आहे
@@ -4195,7 +4198,7 @@
     hu = Nézd meg a Organic Maps helyzetemet! %1$@ vagy %2$@ A program letöltése: https://omaps.app/get
     id = Hei, lihat lokasiku saat ini di Organic Maps! %1$@ atau %2$@ belum memiliki peta offline? Unduh di sini: https://omaps.app/get
     it = Guarda la mia posizione in Organic Maps! %1$@ o %2$@ Non hai scaricato l'app? La puoi scaricare da qui: https://omaps.app/get
-    ja = 私は今ここにいます。リンク: %1$@, %2$@
+    ja = Organic Maps で私の現在地が見れます！%1$@ または %2$@ オフラインマップはまだインストールしていないですか？ここからダウンロード： https://omaps.app/get
     ko = 현재 위치를 알아 보십시오. %1$@ 또는 %2$@ 열기
     lt = Labas, pažvelk į mano dabartinę vietą Organic Maps! %1$@ arba %2$@ Neturi atjungtinių žemėlapių? Atsisiųsk čia: https://omaps.app/get
     mr = मी आता इथे आहे %1$@ किंवा %2$@ Organic Maps डाउनलोड करा: https://omaps.app/get
@@ -4324,7 +4327,7 @@
     hu = Üdvözlöm!\n\nJelenleg itt vagyok: %1$@ Kattintson erre a hivatkozásra %2$@ vagy erre %3$@, hogy lássa a helyet a térképen.\n\nKöszönöm.
     id = Hai,\n\nSekarang saya ada di sini: %1$@. Klik tautan ini %2$@ atau yang ini %3$@ untuk melihat tempatnya di peta.\n\nTerima kasih.
     it = Ciao,\n\nSono qui adesso: %1$@. Clicca su questo link %2$@ oppure su questo %3$@ per vedere il posto sulla mappa.\n\nGrazie.
-    ja = 私は今ここにいます: %1$@\n\nリンクをクリックすると詳細がマップに表示されます。\n\n%2$@\n\n%3$@
+    ja = 私の現在地はここ: %1$@\n\nリンクをクリックすると詳細がマップに表示されます。\n\n%2$@\n\n%3$@
     ko = 안녕하세요.\n\n지금 다음 위치에 있습니다: %1$@. %2$@ 또는 %3$@ 링크를 클릭하여 지도상에서 해당 장소를 살펴보시기 바랍니다.\n\n감사합니다.
     lt = Labas,\nŠiuo metu esu čia: %1$@. Spustelėk ant %2$@ arba %3$@, kad pamatytum mano vietą žemėlapyje.\n\nAčiū.
     mr = नमस्कार,\n\nमी आता इथे आहे: %1$@. नकाशावर ठिकाण पाहण्यासाठी या %2$@ किंवा या %3$@ वर क्लिक करा.\n\nआभारी.
@@ -4678,7 +4681,7 @@
     hu = Valóban folytatni akarja?
     id = Apakah Anda yakin ingin melanjutkan?
     it = Sei sicuro di voler continuare?
-    ja = 本当に続けますか?
+    ja = 続行しますか？
     ko = 계속하겠습니까?
     lt = Tikrai norite tęsti?
     mr = खात्रीपूर्वक पुढे जायचे?
@@ -4809,7 +4812,7 @@
     hu = Helyzetem megosztása
     id = Bagikan Lokasi Saya
     it = Condividi la mia posizione
-    ja = 位置情報を共有する
+    ja = 現在地を共有する
     ko = 내 위치 공유
     lt = Bendrinti mano vietą
     mr = माझे स्थान सामायिक करा
