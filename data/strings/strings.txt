@@ -542,7 +542,7 @@
     hu = Később
     id = Nanti
     it = Più tardi
-    ja = 次の機会に
+    ja = 後で
     ko = 나중에
     lt = Vėliau
     mr = नंतर
@@ -718,7 +718,7 @@
     hu = Jelenleg az eszköz vagy alkalmazás helymeghatározási szolgáltatásai le vannak tiltva. Kérjük, engedélyezze őket a Beállításokban.
     id = Saat ini semua Layanan Lokasi untuk perangkat atau aplikasi ini non-aktif. Mohon aktifkan lewat Setelan.
     it = Attualmente tutti i servizi di localizzazione per questo dispositivo o applicazione sono disattivati. Si prega di abilitarli in Impostazioni.
-    ja = 端末の位置情報サービスが無効になっているか、このアプリケーションからの位置情報利用が制限されています。端末の設定を有効化してください。
+    ja = 位置情報サービスが無効になっているか、このアプリからの位置情報利用が制限されています。端末の設定を有効化してください。
     ko = 현재 이 기기 또는 애플리케이션에 대한 모든 위치 서비스가 비활성화되어 있습니다. 설정에서 활성화하십시오.
     lt = Šiuo metu jūsų įrenginio ar programėlės visos vietovės tarnybos yra išjungtos. Įjunkite jas nustatymuose.
     mr = आपल्या उपकरणात किंवा ऍप मध्ये स्थानसेवा सध्या बंद आहेत. कृपया सेटिंग मधून त्यांना चालू  करा.
@@ -2409,6 +2409,7 @@
     fr = Stockage interne privé
     he = אחסון פנימי פרטי
     hu = Belső privát tárhely
+    ja = アプリ固有のストレージ
     lt = Vidinė privati saugykla
     nb = Intern privat lagring
     nl = Intern persoonlijk geheugen
@@ -2435,6 +2436,7 @@
     fr = Stockage interne partagé
     he = אחסון פנימי משותף
     hu = Belső közös tárhely
+    ja = 共有ストレージ
     lt = Vidinė bendra saugykla
     nb = Intern delt lagring
     nl = Intern gedeeld geheugen
@@ -2461,6 +2463,7 @@
     fr = Carte SD
     he = כרטיס זיכרון
     hu = SD-kártya
+    ja = SDカード
     lt = SD kortelė
     nb = SD-kort
     nl = SD-kaart
@@ -2487,6 +2490,7 @@
     fr = Stockage externe partagé
     he = אחסון חיצוני משותף
     hu = Külső közös tárhely
+    ja = 外部ストレージ
     lt = Išorinė bendra saugykla
     nb = Ekstern delt lagring
     nl = Extern gedeeld geheugen
@@ -2513,6 +2517,7 @@
     fr = %1$@ libres sur %2$@
     he = %1$@ פנוי מתוך %2$@
     hu = %1$@ szabad %2$@-ból
+    ja = %2$@ のうち %1$@ の空き容量
     lt = %1$@ laisva iš %2$@
     nb = %1$@ ledig av %2$@
     nl = %1$@ beschikbaar van %2$@
@@ -2546,7 +2551,7 @@
     hu = Áthelyezzük a térképfájlokat?
     id = Pindahkan peta?
     it = Vuoi spostare le mappe?
-    ja = マップを移動させますか？
+    ja = マップを移動しますか？
     ko = 지도를 이동합니까?
     lt = Perkelti žemėlapius?
     mr = नकाशे हलवायचे?
@@ -2582,6 +2587,7 @@
     fr = Erreur lors du déplacement des cartes
     he = שגיאה בהעברת הקבצים
     hu = Hiba történt a térképfájlok áthelyezése közben
+    ja = マップ移動中にエラーが発生
     lt = Klaida perkeliant žemėlapio failus
     nb = Kunne ikke flytte kart
     nl = Fout bij het verplaatsen van kaartbestanden
@@ -2659,7 +2665,7 @@
     hu = Mértékegységek
     id = Unit Pengukuran
     it = Unità di misura
-    ja = 距離計測単位
+    ja = 距離の単位
     ko = 측정 단위
     lt = Matavimo vienetai
     mr = मापन एकके
@@ -3812,7 +3818,7 @@
     hu = Egy Organic Maps könyvjelzőt osztottak meg Önnel
     id = Bagikan penanda Organic Maps
     it = Questi sono i miei luoghi preferiti
-    ja = Organic Mapsの位置情報シェア
+    ja = Organic Mapsのお気に入りリストが共有されました
     ko = 귀하와 공유된 Organic Maps 즐겨찾기
     lt = Su jumis bendrinamas Organic Maps adresynas
     mr = Organic Maps द्वारे तुम्हाला खूणपत्रे सामायिक केले
@@ -3847,6 +3853,7 @@
     fr = Bonjour !\n\nVous trouverez ci-joint mes signets de l'appli Organic Maps. Veuillez les ouvrir si vous avez installé Organic Maps. Si vous ne l'avez pas, téléchargez l'application pour votre appareil iOS ou Android en suivant ce lien : https://omaps.app/get?kmz\n\nBon voyage avec Organic Maps!
     he = שלום!\n\nמצורפות הסימניות שלי, אפשר לפתוח אותן ב-Organic Maps. אם צריך, ניתן להוריד את האפליקצייה מכאן: https://omaps.app/get?kmz\n\nתהנו לנווט עם Organic Maps!
     it = Ciao!\n\nIn allegato ci sono i miei luoghi preferiti. Aprili se hai installato Organic Maps. Oppure, se non ce l'hai, scarica l'app per iOS o Android seguendo questo link: https://omaps.app/\n\nDivertiti a viaggiare con Organic Maps!
+    ja = こんにちは！\n\n添付ファイルOrganic Mapsのお気に入りリストです。もしインストールされていない場合はここからダウンロードができます： https://omaps.app/get?kmz\n\n旅行を楽しむときはOrganic Mapsを使用してください!
     lt = Labas!\n\nČia prisegtas mano adresynas iš Organic Maps programėlės. Atidaryk jį, jei esi įdiegęs Organic Maps, arba atsisiųsk programėlę savo iOS arba Android įrenginyje su šią nuorodą: https://omaps.app/get?kmz\n\Mėgaukis keliavimu su Organic Maps!
     mr = नमस्कार!\n\nOrganic Maps ऍप मधील माझे खूणपत्रे संलग्न केले आहेत. तुम्ही Organic Maps इन्स्टॉल केले असल्यास हे खूणपत्रे उघडा. इन्स्टॉल केले नसल्यास, पुढील दुव्यावर जाऊन तुमच्या iOS किंवा अँड्रॉइड उपकरणावर हे डाउनलोड करा: https://omaps.app/get?kmz\n\nOrganic Maps सह प्रवासाचा आनंद घ्या!
     nb = Hei!\n\nVedlagt er mine bokmerker fra Organic Maps-appen. Åpne de dersom du har Organic Maps installert. Har du ikke har det, last ned appen til iOS eller Android ved å trykke på denne linken: https://omaps.app/get?kmz\n\nNyt reisen med Organic Maps!
@@ -3884,7 +3891,7 @@
     hu = Könyvjelzők letöltése
     id = Memuat Penanda
     it = Caricamento luoghi preferiti
-    ja = ブックマークの読み込み中
+    ja = お気に入りをロード中
     ko = 즐겨찾기 로드
     lt = Įkeliamas adresynas
     mr = खूणपत्रे वाचत आहे
@@ -3928,7 +3935,7 @@
     hu = Könyvjelzők letöltése sikeres! Megtalálja őket a térképen vagy a Könyvjelzők kezelése menüben.
     id = Penanda berhasil dimuat! Anda dapat menemukannya pada peta atau pada layar Pengelola Penanda Lokasi.
     it = Luoghi preferiti caricati con successo! Puoi trovarli sulla mappa o nella schermata "Gestione Luoghi preferiti".
-    ja = ブックマークが読み込まれました! ブックマークはマップ上、またはブックマーク管理画面に表示されます。
+    ja = お気に入りをロードできました。 お気に入りはマップ上、またはお気に入り管理画面に表示されます。
     ko = 즐겨찾기가 성공적으로 로드되었습니다! 지도 또는 즐겨찾기 관리자 화면에서 찾으실 수 있습니다.
     lt = Adresynas įkeltas! Galite rasti jį žemėlapyje arba adresyno tvarkytuvės ekrane.
     mr = खूणपत्रे वाचून झाले! ते तुम्ही नकाशावर किंवा खूणपत्र व्यवस्थापक पटलावर पाहू शकता.
@@ -3972,7 +3979,7 @@
     hu = Könyvjelzők feltöltése sikertelen. A fájl sérült lehet.
     id = Gagal mengunggah penanda lokasi. Berkas mungkin rusak.
     it = Caricamento dei luoghi preferiti non riuscito. Il file potrebbe essere corrotto o difettoso.
-    ja = ブックマークのアップロードに失敗しました。ファイルが破損していた、または問題があった可能性があります。
+    ja = お気に入りのロードに失敗しました。ファイルが破損していた、または問題があった可能性があります。
     ko = 즐겨찾기 업로드가 실패했습니다. 파일이 훼손되었거나 결함이 있을지도 모릅니다.
     lt = Nepavyko įkelti adresyno. Failas gali būti pažeistas.
     mr = खूणपत्रे वाचण्यात अपयश. फाइल दूषित किंवा बिघडलेली असू शकते.
@@ -4016,6 +4023,7 @@
     hu = Szerkeszt
     id = Edit
     it = Modifica
+    ja = 編集
     ko = 편집
     lt = Redaguoti
     mr = संपादन
@@ -4103,7 +4111,7 @@
     hu = Sajnáljuk, a térképek tárolása jelenleg ki van kapcsolva.
     id = Maaf, pengaturan Penyimpanan Peta saat ini sedang non-aktif.
     it = Le impostazioni di archiviazione delle mappe sono disabilitate.
-    ja = 恐れ入ります、マップストレージ設定が無効になっています。
+    ja = 恐れ入りますが、マップストレージ設定が無効になっています。
     ko = 죄송합니다, 지도 스토리지 설정이 비활성화되어 있습니다.
     lt = Atsiprašome, šiuo metu žemėlapio saugyklos nustatymai yra išjungti.
     mr = क्षमस्व, नकाशा साठवायचे सेटिंग सध्या बंद आहेत.
@@ -4147,7 +4155,7 @@
     hu = Országletöltés folyamatban.
     id = Pengunduhan negara sedang berjalan.
     it = Il download della mappa è in corso.
-    ja = ダウンロードを実行中です
+    ja = ダウンロード中です
     ko = 국가 다운로드가 지금 진행 중입니다.
     lt = Vyksta žemėlapio atsisiuntimas.
     mr = नकाशा डाउनलोड होत आहे
@@ -4190,7 +4198,7 @@
     hu = Nézd meg a Organic Maps helyzetemet! %1$@ vagy %2$@ A program letöltése: https://omaps.app/get
     id = Hei, lihat lokasiku saat ini di Organic Maps! %1$@ atau %2$@ belum memiliki peta offline? Unduh di sini: https://omaps.app/get
     it = Guarda la mia posizione in Organic Maps! %1$@ o %2$@ Non hai scaricato l'app? La puoi scaricare da qui: https://omaps.app/get
-    ja = 私は今ここにいます。リンク: %1$@, %2$@
+    ja = Organic Maps で私の現在地が見れます！%1$@ または %2$@ オフラインマップはまだインストールしていないですか？ここからダウンロード： https://omaps.app/get
     ko = 현재 위치를 알아 보십시오. %1$@ 또는 %2$@ 열기
     lt = Labas, pažvelk į mano dabartinę vietą Organic Maps! %1$@ arba %2$@ Neturi atjungtinių žemėlapių? Atsisiųsk čia: https://omaps.app/get
     mr = मी आता इथे आहे %1$@ किंवा %2$@ Organic Maps डाउनलोड करा: https://omaps.app/get
@@ -4319,7 +4327,7 @@
     hu = Üdvözlöm!\n\nJelenleg itt vagyok: %1$@ Kattintson erre a hivatkozásra %2$@ vagy erre %3$@, hogy lássa a helyet a térképen.\n\nKöszönöm.
     id = Hai,\n\nSekarang saya ada di sini: %1$@. Klik tautan ini %2$@ atau yang ini %3$@ untuk melihat tempatnya di peta.\n\nTerima kasih.
     it = Ciao,\n\nSono qui adesso: %1$@. Clicca su questo link %2$@ oppure su questo %3$@ per vedere il posto sulla mappa.\n\nGrazie.
-    ja = 私は今ここにいます: %1$@\n\nリンクをクリックすると詳細がマップに表示されます。\n\n%2$@\n\n%3$@
+    ja = 私の現在地はここ: %1$@\n\nリンクをクリックすると詳細がマップに表示されます。\n\n%2$@\n\n%3$@
     ko = 안녕하세요.\n\n지금 다음 위치에 있습니다: %1$@. %2$@ 또는 %3$@ 링크를 클릭하여 지도상에서 해당 장소를 살펴보시기 바랍니다.\n\n감사합니다.
     lt = Labas,\nŠiuo metu esu čia: %1$@. Spustelėk ant %2$@ arba %3$@, kad pamatytum mano vietą žemėlapyje.\n\nAčiū.
     mr = नमस्कार,\n\nमी आता इथे आहे: %1$@. नकाशावर ठिकाण पाहण्यासाठी या %2$@ किंवा या %3$@ वर क्लिक करा.\n\nआभारी.
@@ -4673,7 +4681,7 @@
     hu = Valóban folytatni akarja?
     id = Apakah Anda yakin ingin melanjutkan?
     it = Sei sicuro di voler continuare?
-    ja = 本当に続けますか?
+    ja = 続行しますか？
     ko = 계속하겠습니까?
     lt = Tikrai norite tęsti?
     mr = खात्रीपूर्वक पुढे जायचे?
@@ -4804,7 +4812,7 @@
     hu = Helyzetem megosztása
     id = Bagikan Lokasi Saya
     it = Condividi la mia posizione
-    ja = 位置情報を共有する
+    ja = 現在地を共有する
     ko = 내 위치 공유
     lt = Bendrinti mano vietą
     mr = माझे स्थान सामायिक करा
@@ -4844,6 +4852,7 @@
     fr = Paramètres généraux
     he = הגדרות כלליות
     it = Opzioni generali
+    ja = 一般
     lt = Bendrieji nustatymai
     mr = सर्वसामान्य सेटिंग
     nb = Generelle instillinger
@@ -4879,6 +4888,7 @@
     he = מידע
     hu = Információk
     it = Informazioni
+    ja = 情報
     lt = Informacija
     mr = माहिती
     nb = Informasjon
@@ -5267,7 +5277,7 @@
     hu = 3D-s épületek
     id = Bangunan 3D
     it = Edifici 3D
-    ja = 3Dビルディング
+    ja = 3Dビル
     ko = 주변 건물 3D
     lt = 3D pastatai
     mr = त्रिमिती (3D) इमारती
@@ -5622,7 +5632,7 @@
     hu = Legutolsó útvonal
     id = Jalur terkini
     it = Percorso recente
-    ja = 最近の移動経路
+    ja = 最近のトラック
     ko = 최근 추적
     lt = Pastaras takas
     mr = अलीकडील ट्रॅक
@@ -6083,6 +6093,7 @@
     fi = Menu
     fr = Menu
     he = תפריט
+    ja = メニュー
     lt = Meniu
     nb = Meny
     pl = Menu
@@ -6393,7 +6404,7 @@
     hu = Gyakran Ismételt Kérdések
     id = Pertanyaan dan jawaban
     it = Domande frequenti
-    ja = 質問と回答
+    ja = よくある質問
     ko = 질문과 답변
     lt = Dažniausiai užduodami klausimai
     mr = वारंवार विचारलेले प्रश्न
@@ -6615,7 +6626,7 @@
     hu = Az email kliens nincs beállítva. Kérjük, konfiguráld vagy próbálj meg valamilyen más módon kapcsolatba lépni velünk a %@ email címen keresztül.
     id = Surel pelanggan belum diatur. Mohon konfigurasikan atau gunakan cara lain untuk menghubungi kami di %@
     it = L'app per e-mail non è stata configurata. Si prega di configurarla o di usare altro metodo per contattarci all'indirizzo %@
-    ja = このメールクライアントはセットアップされていません。設定するか、他の方法で%@にご連絡ください。
+    ja = メールアプリは設定されていません。設定するか、%@にご連絡ください。
     ko = 이메일 클라이언트가 설정되지 않았습니다. 이를 구성하거나 %@로 연락할 다른 방법을 사용하십시오.
     lt = El. pašto paskyra nenustatyta. Ją sukonfigūruokite arba susisiekite kitu būdu: %@
     mr = ईमेल वाहक सेट केलेले नाही. कृपया ते सेट करा किंवा वेगळ्या पद्धतीने आमच्याशी %@ वर संपर्क करा
@@ -7010,7 +7021,7 @@
     hu = Várólistás
     id = Telah diantrekan
     it = In coda
-    ja = 待ち行列型の
+    ja = キューに追加済み
     ko = 대기
     lt = Eilėje
     mr = रांगेत
@@ -7053,7 +7064,7 @@
     hu = A közelemben
     id = Dekat saya
     it = Vicino a me
-    ja = 付近
+    ja = 現在地付近
     ko = 내 근처
     lt = Arti manęs
     mr = माझ्या जवळ
@@ -7489,7 +7500,7 @@
     hu = Ismétlés
     id = Ulangi
     it = Riprova
-    ja = リピート
+    ja = 再試行
     ko = 반복
     lt = Bandyti dar kartą
     mr = पुनर्प्रयत्न
@@ -7975,7 +7986,7 @@
     hu = Az ön leírásai (sima szöveg vagy html)
     id = Deskripsi Anda (teks atau html)
     it = Le tue descrizioni (testo o html)
-    ja = 説明（テキストまたはHTML）
+    ja = 詳細（テキストまたはHTML）
     ko = 설명(텍스트 또는 HTML)
     lt = Jūsų aprašymai (tekstas arba HTML)
     mr = तुमचे वर्णन (मजकूर किंवा html)
@@ -8422,7 +8433,7 @@
     hu = Sötét lila
     id = Ungu Gelap
     it = Viola scuro
-    ja = ディープパープル
+    ja = 濃い紫
     ko = 진보라색
     lt = Tamsiai violetinis
     mr = गडद जांभळा
@@ -8467,7 +8478,7 @@
     hu = Világoskék
     id = Biru Muda
     it = Azzurro
-    ja = ライトブルー
+    ja = 空色
     ko = 하늘색
     lt = Šviesiai mėlynas
     mr = फिकट निळा
@@ -8511,7 +8522,7 @@
     hu = Cián
     id = Biru Kehijauan
     it = Ciano
-    ja = シアン
+    ja = 青緑
     ko = 시안
     lt = Žydras
     mr = हिरवट निळा (फिकट)
@@ -8644,7 +8655,7 @@
     hu = Sötét Narancs
     id = Oranye Gelap
     it = Arancione scuro
-    ja = ディープオレンジ
+    ja = 濃いオレンジ
     ko = 진주황색
     lt = Tamsiai oranžinis
     mr = नारंगी
@@ -8690,7 +8701,7 @@
     hu = Szürke
     id = Abu-abu
     it = Grigio
-    ja = グレイ
+    ja = 灰色
     ko = 회색
     lt = Pilkas
     mr = राखाडी
@@ -8736,7 +8747,7 @@
     hu = Kékes Szürke
     id = Biru Keabu-abuan
     it = Grigiazzurro
-    ja = ブルーグレイ
+    ja = 青灰色
     ko = 청회색
     lt = Mėlynai pilkas
     mr = निळा राखाडी
@@ -9084,7 +9095,7 @@
     hu = Nem sikerült létrehozni az útvonalat. A jelenlegi GPS koordináták nem azonosíthatók.
     id = Tidak dapat membuat rute. Koordinat GPS saat ini tidak dapat dikenali.
     it = Impossibile creare il percorso. Impossibile individuare le coordinate GPS attuali.
-    ja = 案内ルートを作成できません。現在地のGPSコードを確認できません。
+    ja = 案内ルートを作成できません。現在のGPS座標が認識できません。
     ko = 경로를 설정할 수 없습니다. 현재 GPS 좌표를 확인할 수 없습니다.
     lt = Nepavyko sukurti maršruto. Nepavyko nustatyti dabartinių GPS koordinačių.
     mr = मार्ग तयार करण्यात अक्षम. वर्तमान GPS सहनिर्देशक ओळखता आले नाहीत.
@@ -9256,7 +9267,7 @@
     hu = Töltse le a szükséges fájlokat
     id = Unduh file yang diperlukan
     it = Scarica i file necessari
-    ja = 必要なファイルをダウンロードしてください
+    ja = 必要なファイルをダウンロード
     ko = 필수 파일 다운로드
     lt = Atsisiųsti reikalingus failus
     mr = आवश्यक फाईली डाउनलोड करा
@@ -9298,7 +9309,7 @@
     hu = Útvonaltervezéshez töltse le és frissítse az összes térkép- és útvonal-információt a tervezett út mentén.
     id = Unduh dan perbarui semua informasi peta dan perutean di sepanjang proyeksi jalan untuk mengalkulasi rute.
     it = Per calcolare il percorso, scarica e aggiorna tutte le mappe e le informazioni di itinerario lungo la strada prevista.
-    ja = 案内ルートを作成するには、表示されたパスに従ってすべてのマップ、ルート情報をダウンロード、アップデートしてください。
+    ja = 案内ルートを作成するには、表示されたパスに従ってすべてのマップ、ルート情報をダウンロードまたはアップデートしてください。
     ko = 경로를 계산하려면 모든 지도와 예상 경로 정보를 다운로드하고 업데이트하세요.
     lt = Atsisiųsti ir atnaujinti visus žemėlapius ir maršrutų informaciją palei planuojamą kelią, kad apskaičiuotumėte maršrutą.
     mr = मार्ग शोधण्यासाठी प्रक्षेपित वाटेभोवतीचे सर्व नकाशे व मार्गनिर्देशक माहिती डाउनलोड करा.
@@ -9427,7 +9438,7 @@
     hu = Kérjük, pontosítsa indulási helyét, vagy célállomását.
     id = Sesuaikan titik mula atau tujuan Anda.
     it = Modifica il punto di partenza o la destinazione.
-    ja = 出発地または目的地の位置調整をしてください。
+    ja = 出発地または目的地を調整してください。
     ko = 출발지나 목적지를 조정하세요.
     lt = Suderinkite jūsų pradžios tašką arba tikslą.
     mr = कृपया तुमचा प्रारंभ किंवा इष्टस्थानाचा बिंदू समायोजित करा.
@@ -9470,7 +9481,7 @@
     hu = Pontosítsa indulási helyét
     id = Sesuaikan titik mula
     it = Modifica il punto di partenza
-    ja = 出発地の位置調整をしてください
+    ja = 出発地を調整
     ko = 출발지 조정
     lt = Derinti pradžios tašką
     mr = प्रारंभ बिंदू समायोजित करा
@@ -9513,7 +9524,7 @@
     hu = Az útvonal nem lett létrehozva. Nem sikerült meghatározni az indulási helyet.
     id = Rute tidak dibuat. Tidak dapat menemukan titik mula.
     it = Percorso non creato. Impossibile individuare il punto di partenza.
-    ja = 案内ルートを作成できません。出発地を確認できませんでした。
+    ja = 案内ルートを作成できません。出発地が確認できませんでした。
     ko = 경로가 설정되지 않았습니다. 출발지를 찾을 수 없습니다.
     lt = Maršrutas nesukurtas. Nepavyko nustatyti pradžios taško.
     mr = मार्ग तयार केला नाही. प्रारंभ बिंदू शोधण्यात अक्षम.
@@ -9599,7 +9610,7 @@
     hu = Pontosítsa célállomását
     id = Sesuaikan tujuan
     it = Modifica la destinazione
-    ja = 目的地の位置調整をしてください
+    ja = 目的地を調整
     ko = 목적지 조정
     lt = Derinti tikslą
     mr = इष्टस्थान समायोजित करा
@@ -9728,7 +9739,7 @@
     hu = Nem találja a köztes pontot.
     id = Tidak dapat menemukan titik antara.
     it = Impossibile individuare un punto intermedio.
-    ja = 中間地点を見つけることができません。
+    ja = 中間地点を確認できませんでした。
     ko = 중간 지점을 찾을 수 없습니다.
     lt = Nepavyko nustatyti tarpinio taško.
     mr = मध्यबिंदू शोधण्यात अक्षम.
@@ -9858,7 +9869,7 @@
     hu = Egy alkalmazáshiba miatt nem sikerült az útvonal létrehozása.
     id = Tidak dapat membuat rute karena kesalahan aplikasi.
     it = Impossibile creare il percorso a causa di un errore dell'applicazione.
-    ja = アプリケーションのエラーにより案内ルートを作成できませんでした。
+    ja = エラーにより案内ルートを作成できませんでした。
     ko = 애플리케이션 오류로 인해 경로를 설정하지 못했습니다.
     lt = Nepavyko sukurti maršruto dėl programėlės klaidos.
     mr = ऍप त्रुटीमुळे मार्ग तयार करण्यात अक्षम.
@@ -9944,7 +9955,7 @@
     hu = Most nem
     id = Jangan Sekarang
     it = Non ora
-    ja = あとで
+    ja = 後で
     ko = 나중에
     lt = Ne dabar
     mr = आता नाही
@@ -10075,7 +10086,7 @@
     hu = Útvonalak kereséséhez és létrehozásához, kérjük, töltsd le a térképet és többé nem lesz szükséged internetkapcsolatra.
     id = Untuk mulai mencari dan membuat rute, silakan unduh peta, dan Anda tidak akan membutuhkan koneksi internet lagi.
     it = Per iniziare a cercare e a creare i percorsi, scarica la mappa e non avrai più bisogno di una connessione a internet.
-    ja = 検索とルート作成を開始するには、地図をダウンロードしてください。地図をダウンロードすると、インターネット接続は必要なくなります。
+    ja = 検索とルート作成を開始するには、地図をダウンロードしてください。地図をダウンロードすると、インターネット接続は不要です。
     ko = 경로를 검색하고 만들기시작하려면, 지도를 다운로드하십시오. 그러면, 더 이상 인터넷 연결이 필요하지 않습니다.
     lt = Atsisiųskite žemėlapį, kad pradėtumėte ieškoti ir kurti maršrutus. Paskui jums nebereikės prisijungimo prie tinklo.
     mr = ठिकाण व मार्ग शोध सुरु करण्यासाठी, कृपया नकाशा डाउनलोड करा. त्यानंतर तुम्हाला इंटरनेटची आवश्यकता भासणार नाही.
@@ -10294,7 +10305,7 @@
     hu = Megérkezik: %@
     id = Kedatangan: %@
     it = Arrivo a %@
-    ja = 到着予定: %@
+    ja = 到着予測: %@
     ko = 도착: %@
     lt = Atvykimas %@
     mr = %@ वाजता आगमन
@@ -10464,7 +10475,7 @@
     hu = Sajnos, semmit nem találtam.
     id = Maaf, saya tidak menemukan apa pun.
     it = Non ho trovato nulla.
-    ja = 申し訳ありませんが該当するものは見つかりませんでした。
+    ja = 該当するものは見つかりませんでした。
     ko = 죄송합니다. 아무것도 찾지 못했습니다.
     lt = Ai! Nerasta rezultatų.
     mr = अरेच्चा, काहीच सापडले नाही.
@@ -10507,7 +10518,7 @@
     hu = Próbáljon másik lekérdezést.
     id = Silakan coba kueri lainnya.
     it = Prova con un'altra ricerca.
-    ja = 別のクエリをお試しください。
+    ja = 条件を変えて検索してみてください。
     ko = 다른 쿼리를 시도하십시오.
     lt = Pabandykite pakeisti jūsų paieškos kriterijų.
     mr = तुमचे शोध निकष बदलण्याचा प्रयत्न करा.
@@ -10593,7 +10604,7 @@
     hu = Aktuális keresés gyors elérése.
     id = Akses kueri pencarian terbaru dengan cepat.
     it = Visualizza le ricerche recenti.
-    ja = 最近の検索クエリに素早くアクセス。
+    ja = 最近の検索を表示します。
     ko = 최근 검색 쿼리에 신속하게 액세스할 수 있습니다.
     lt = Rodyti paskiausias paieškas.
     mr = अलीकडील शोध पहा.
@@ -10672,6 +10683,7 @@
     fr = Wikipédia
     he = ויקיפדיה
     it = Wikipedia
+    ja = ウィキペディア
     lt = Vikipedija
     mr = विकिपीडिया
     pl = Wikipedia
@@ -10688,6 +10700,7 @@
     comment = Place Page link to Wikimedia Commons.
     tags = android,ios
     en = Wikimedia Commons
+    ja = ウィキメディア・コモンズ
     lt = Vikiteka
 
   [p2p_your_location]
@@ -11747,7 +11760,7 @@
     hu = Kérjük, írd le részletesen a problémát, hogy az OpenStreetMap csapata kijavíthassa.
     id = Harap menggambarkan masalah secara rinci sehingga komunitas OpenStreetMap dapat memperbaiki kesalahan.
     it = Si prega di descrivere il problema in dettaglio in modo che la community OpenStreetMap possa riparare l’errore.
-    ja = OpenStreetMapコミュニティがエラーを修正できるよう、問題の詳細を説明してください。
+    ja = OpenStreetMapコミュニティがエラーを修正できるように、問題の詳細を説明してください。
     ko = OpenStreetMap 커뮤니티가 오류를 수정할 수 있도록 상세하게 문제를 설명하십시오.
     lt = Išsamiai aprašykite problemą, kad OpenStreetMap bendruomenę galėtų ištaisyti klaidą.
     mr = OpenStreetMap समुदायाने ही त्रुटी सुधारण्यासाठी कृपया समस्येचे तपशिलात वर्णन करा.
@@ -12343,6 +12356,7 @@
     fr = Ouvre demain à %@
     he = נפתח מחר ב-%@
     it = Apre domani alle %@
+    ja = 明日の %@ から営業
     lt = Atsidaro rytoj %@
     nb = Åpner i morgen klokka %@
     nl = Opent morgen om %@
@@ -12367,6 +12381,7 @@
     fr = Ouvre le %1$@ à %2$@
     he = נפתח ביום %1$@ ב-%2$@
     it = Apre %1$@ alle %2$@
+    ja = %1$@ の %2$@ から営業
     lt = Atsidaro %1$@ %2$@
     nb = Åpner %1$@ klokka %2$@
     nl = Opent %1$@ om %2$@
@@ -12392,6 +12407,7 @@
     fr = Ouvre à %@
     he = נפתח מחר ב-%@
     it = Apre alle %@
+    ja = %@ から営業
     lt = Atsidaro %@
     nb = Åpner klokka %@
     nl = Opent om %@
@@ -12417,6 +12433,7 @@
     fr = Ouvert dans %@
     he = נפתח עוד %@
     it = Apre tra %@
+    ja = あと %@ に営業
     lt = Atsidaro už %@
     nb = Åpner om %@
     nl = Opent over %@
@@ -12442,6 +12459,7 @@
     fr = Ferme à %@
     he = נסגר ב-%@
     it = Chiude alle %@
+    ja = %@ に閉店
     lt = Užsidaro %@
     nb = Stenger %@
     nl = Sluit om %@
@@ -12467,6 +12485,7 @@
     fr = Fermé dans %@
     he = נסגר עוד %@
     it = Chiude tra %@
+    ja = あと %@ に閉店
     lt = Užsidaro už %@
     nb = Stenger om %@
     nl = Sluit over %@
@@ -12499,7 +12518,7 @@
     hu = Zárva
     id = Tutup
     it = Chiuso
-    ja = 閉鎖
+    ja = 閉店
     ko = 닫음
     lt = Uždaryta
     mr = बंद
@@ -12628,7 +12647,7 @@
     hu = Nem rendelkezel még OpenStreetMap-felhasználói fiókkal?
     id = Tidak ada akun di OpenStreetMap?
     it = Non hai un account OpenStreetMap?
-    ja = OpenStreetMapのアカウントがありませんか？
+    ja = OpenStreetMapのアカウントをお持ちではないですか？
     ko = OpenStreetMap에서 계정이 없습니까?
     lt = Neturite OpenStreetMap paskyros?
     mr = OpenStreetMap खाते नाही?
@@ -12671,7 +12690,7 @@
     hu = Regisztráció
     id = Mendaftar
     it = Iscriviti
-    ja = 登録
+    ja = OpenStreetMapのアカウントを登録
     ko = 등록
     lt = Registruokitės OpenStreetMap
     mr = OpenStreetMap वर नोंदणी करा
@@ -13446,6 +13465,7 @@
     fr = Veuillez entrer un nom de rue
     he = יש להזין שם רחוב
     it = Inserire il nome della via
+    ja = 通りの名前を入力してください。
     lt = Įveskite gatvės pavadinimą
     mr = कृपया रस्त्याचे नाव जोडा
     nb = Legg til en gateadresse
@@ -13773,6 +13793,7 @@
     fr = Ajouter un numéro de téléphone
     he = הוסף טלפון
     it = Aggiungi numero
+    ja = 電話番号を追加
     lt = Pridėti telefoną
     mr = फोन जोडा
     nb = Legg til telefon
@@ -13893,7 +13914,7 @@
     hu = A térképekkel együtt minden rajtuk végzett módosítás is törlésre kerül.
     id = Semua perubahan peta akan dihapus bersama dengan peta.
     it = Tutte le tue modifiche alla mappa saranno cancellate insieme alla mappa.
-    ja = この地図を削除すると、今まで行った変更の全ても一緒に削除されます。
+    ja = すべてのマップの変更はマップとともに削除されます。
     ko = 모든 지도의 변경 사항은 지도와 함께 삭제됩니다.
     lt = Visi jūsų žemėlapio pakeitimai bus panaikinti kartu su žemėlapiu.
     mr = तुमचे सर्व नकाशा संपादने नकाशासह पुसले जातील.
@@ -13936,7 +13957,7 @@
     hu = Térképek frissítése
     id = Perbarui peta
     it = Aggiorna mappe
-    ja = 地図をアップデート
+    ja = 地図を更新
     ko = 지도 업데이트
     lt = Naujinti žemėlapius
     mr = नकाशे अद्ययावत करा
@@ -13979,7 +14000,7 @@
     hu = Útvonal létrehozásához frissítsd az összes térképet, majd tervezd meg újra az útvonalat.
     id = Untuk membuat rute, Anda perlu memperbarui semua peta dan kemudian merencanakan rute tersebut lagi.
     it = Per creare un percorso, devi aggiornare tutte le mappe e pianificare nuovamente il percorso.
-    ja = ルートを作成するには、全ての地図をアップデートした後で再びルート計画を行う必要があります。
+    ja = ルートを作成するには、全ての地図を更新した後で再びルート計画を行う必要があります。
     ko = 경로를 만들려면, 모든 지도를 업데이트한 다음, 다시 경로를 계획해야 합니다.
     lt = Jums reikia atnaujinti visus žemėlapius ir planuoti maršrutą dar kartą, kad jį sukurtumėte.
     mr = मार्ग तयार करण्यासाठी तुम्हाला सर्व नकाशे अद्ययावत करावे लागतील आणि मग मार्ग नियोजन करता येईल.
@@ -14108,7 +14129,7 @@
     hu = Kérjük, ellenőrizd a beállításaid és győződj meg arról, hogy a készüléked kapcsolódik az internethez.
     id = Harap memeriksa pengaturan Anda dan pastikan perangkat Anda terhubung dengan internet.
     it = Verifica le tue impostazioni e assicurarti che il tuo dispositivo sia connesso a internet.
-    ja = 設定をチェックし、デバイスがインターネットに接続されているか確認してください。
+    ja = デバイスがインターネットに接続されているか確認してください。
     ko = 설정을 확인하고 장치가 인터넷에 연결되어 있는지 확인하십시오.
     lt = Patikrinkite nustatymus ir įsitikinkite, kad jūsų įrenginys turi prieigą prie interneto.
     mr = कृपया तुमचे सेटिंग तपासा आणि तुमचे उपकरण इंटरनेटशी जोडले असल्याची खात्री करा.
@@ -14194,7 +14215,7 @@
     hu = Kérjük, töröld a szükségtelen adatokat
     id = Harap menghapus data yang tidak diperlukan
     it = Si prega di rimuovere i dati non necessari
-    ja = 不必要なデータを削除してください
+    ja = 不要データを削除してください
     ko = 불필요한 데이터를 제거하십시오.
     lt = Panaikinkite nereikalingus duomenis
     mr = कृपया अनावश्यक डेटा पुसून टाका
@@ -14753,7 +14774,7 @@
     hu = Szervezet hozzáadása
     id = Tambahkan organisasi
     it = Aggiungi attività
-    ja = 団体を追加
+    ja = ビジネスを追加
     ko = 조직 추가
     lt = Pridėti verslą
     mr = व्यवसाय जोडा
@@ -14967,7 +14988,7 @@
     hu = Jelentkezz be, hogy más felhasználók is láthassák a változtatásaidat.
     id = Masuk agar pengguna lain dapat melihat perubahan yang Anda buat.
     it = Accedi per consentire ad altri utenti di vedere le modifiche apportate.
-    ja = 他のユーザーにも変更が表示されるようログインしてください。
+    ja = 他のユーザーにも変更が表示されるようにログインしてください。
     ko = 로그인하여 다른 사용자가 변경한 내용을 볼 수 있도록 하십시오.
     lt = Prisijungti prie OpenStreetMap.org, kad kiti naudotojai galėtų matyti jūsų padarytus pakeitimus.
     mr = इतर वापरकर्त्यांना तुम्ही केलेले बदल दिसण्यासाठी लॉग इन करा
@@ -15011,7 +15032,7 @@
     hu = A letöltéshez több szabad tárhelyre van szükség. Kérjük, töröld a szükségtelen adatokat.
     id = Untuk mengunduh, Anda perlu ruang lebih banyak. Harap menghapus data yang tidak diperlukan.
     it = Per scaricare, hai bisogno di più spazio. Sei pregato di eliminare i dati non necessari.
-    ja = ダウンロードするには空き容量がさらに必要です。不必要なデータを削除してください。
+    ja = ダウンロードするには空き容量が必要です。不要なデータを削除してください。
     ko = 다운로드하려면, 더 많은 여유 공간이 필요합니다. 불필요한 데이터를 삭제하십시오.
     lt = Jei norite atsisiųsti, reikia daugiau vietos. Panaikinkite nereikalingus duomenis.
     mr = डाउनलोड करण्यासाठी तुम्हाला अधिक जागा आवश्यक आहे. कृपया अनावश्यक डेटा पुसून टाका.
@@ -15098,7 +15119,7 @@
     hu = %1$d/%2$d
     id = %1$d dari %2$d
     it = %1$d di %2$d
-    ja = %2$d中%1$d
+    ja = %2$dのうち%1$d
     ko = %2$d중의 %1$d
     lt = %1$d iš %2$d
     mr = %2$d पैकी %1$d
@@ -15141,7 +15162,7 @@
     hu = Letöltés mobilhálózati kapcsolat segítségével?
     id = Unduh dengan menggunakan koneksi jaringan seluler?
     it = Vuoi scaricare utilizzando una connessione di rete cellulare?
-    ja = 携帯通信ネットワークで接続してダウンロードしますか？
+    ja = モバイル通信でダウンロードしますか？
     ko = 셀룰러 네트워크 접속을 사용하여 다운로드하시겠습니까?
     lt = Atsisiųsti naudojant korinį tinklą?
     mr = मोबाईल डेटा वापरून डाउनलोड करायचे?
@@ -15534,7 +15555,7 @@
     hu = Részletes megjegyzés
     id = Komentar mendetail
     it = Commento dettagliato
-    ja = 詳細なコメント
+    ja = 詳細コメント
     ko = 상세 설명
     lt = Išsamus komentaras
     mr = तपशीलवार टिप्पणी
@@ -15577,7 +15598,7 @@
     hu = Javasolt változtatásait elküldjük az OpenStreetMap közösségnek. Írja le a további információkat, amelyek nem szerkeszthetők a Organic Maps-ben.
     id = Saran perubahan Anda akan dikirimkan ke komunitas OpenStreetMap. Jelaskan detail yang tidak dapat diedit di Organic Maps.
     it = Le modifiche alla mappa da te suggerite saranno inviate alla comunità di OpenStreetMap. Descrivi qualsiasi dettaglio aggiuntivo che non può essere modificato in Organic Maps.
-    ja = あなたが提案した変更は、OpenStreetMapのコミュニティに送信されます。Organic Mapsで編集できない詳細を説明してください。
+    ja = 提案した変更は、OpenStreetMapのコミュニティに送信されます。Organic Mapsで編集できない詳細を説明してください。
     ko = 귀하가 제안한 변경 사항은 OpenStreetMap 커뮤니티로 전송됩니다. Organic Maps에서 편집할 수 없는 세부정보를 작성해 주세요.
     lt = Jūsų pasiūlyti žemėlapio pakeitimas bus išsiųsti OpenStreetMap bendruomenei. Aprašykite papildomą informaciją, kuri negali būti redaguojama Organic Maps.
     mr = तुम्ही सुचवलेले नकाशातील बदल OpenStreetMap समुदायाला पाठवले जातील. Organic Maps मध्ये संपादित न करता येणाऱ्या अधिक तपशीलांचे वर्णन करा.
@@ -16008,7 +16029,7 @@
     hu = Hiba történt tartózkodási helye keresésekor. Ellenőrizze készüléke működését és próbálkozzon újra.
     id = Terjadi kesalahan saat mencari lokasi Anda. Periksa apakah perangkat Anda bekerja dengan benar dan coba lagi nanti.
     it = Si è verificato un errore durante la ricerca della tua posizione. Controlla che il tuo dispositivo funzioni correttamente e riprova più tardi.
-    ja = お住まいの地域の検索中にエラーが発生しました。お使いのデバイスが正常に動作していることを確認してから再度試してください。
+    ja = 現在地の検索中にエラーが発生しました。 デバイスが正常に動作していることを確認して、もう一度お試しください。
     ko = 위치 검색 중 오류가 발생했습니다. 장치가 올바르게 작동되는지 확인하고 다시 시도하세요.
     lt = Įvyko klaida ieškant jūsų vietos. Įsitikinkite,kad jūsų įrenginys veikia tinkamai ir bandykite iš naujo.
     mr = तुमचे स्थान शोधत असताना एक त्रुटी आढळली. तुमचे उपकरण योग्यरितीने काम करत असल्याचे तपासा आणि नंतर पुन्हा प्रयत्न करा.
@@ -16051,7 +16072,7 @@
     hu = Helyzetmeghatározás kikapcsolva
     id = Identifikasi lokasi dinonaktifkan
     it = I servizi di localizzazione sono disabilitati
-    ja = 位置情報認識機能が無効になっています
+    ja = 位置情報が無効になっています
     ko = 위치 식별 사용할 수 없음
     lt = Vietovės tarnybos yra išjungtos
     mr = स्थान सेवा बंद आहे
@@ -16137,7 +16158,7 @@
     hu = 1. Nyissa meg a Beállításokat
     id = 1. Buka Pengaturan
     it = 1. Apri le impostazioni
-    ja = 1. 設定を開きます
+    ja = 1. 「設定」を開きます
     ko = 1. 설정 열기
     lt = 1. Atidarykite nustatymus
     mr = १. सेटिंग उघडा
@@ -16179,7 +16200,7 @@
     hu = 2. Érintse meg a Helyzet gombot
     id = 2. Ketuk Lokasi
     it = 2. Tocca su Localizzazione
-    ja = 2. 位置情報をタップします
+    ja = 2. 「位置情報」をタップします
     ko = 2. 위치 누르기
     lt = 2. Bakstelėkite „Vietovė“
     mr = २. स्थान टॅप करा
@@ -16222,7 +16243,7 @@
     hu = 3. Kiválaszt az alkalmazás használata alatt
     id = 3. Pilih While Using the App
     it = 3. Seleziona Mentre usi l'app
-    ja = 3. アプリの使用中を選択してください
+    ja = 3. 「アプリの使用中」を選択してください
     ko = 3. 앱 사용 중에 선택
     lt = 3. Pasirinkite Naudojant programėlę
     mr = ३. "ऍप वापरत असताना" निवडा
@@ -16350,7 +16371,7 @@
     hu = km/h
     id = km/j
     it = km/h
-    ja = キロメートル毎時
+    ja = km/h
     ko = km/시
     lt = km/h
     mr = km/h
@@ -16393,7 +16414,7 @@
     hu = mf
     id = mil
     it = mi
-    ja = マイル
+    ja = mi
     ko = mi
     lt = mi
     mr = mi
@@ -16435,7 +16456,7 @@
     he = רגל
     hu = ft
     id = kaki
-    ja = フィート
+    ja = ft
     ko = 풋
     lt = ft
     mr = फूट
@@ -16475,7 +16496,7 @@
     hu = mph
     id = mpj
     it = mph
-    ja = マイル毎時
+    ja = mph
     ko = mph
     lt = mph
     mr = mph
@@ -16819,7 +16840,7 @@
     hu = Hívás
     id = Hubungi
     it = Chiama
-    ja = コール
+    ja = 電話をかける
     ko = 전화
     lt = Skambinti
     mr = फोन करा
@@ -17032,7 +17053,7 @@
     hu = Javasolt változtatásainak elküldése sikerült
     id = Saran perubahan Anda telah dikirim
     it = Le modifiche suggerite sono state inviate
-    ja = あなたの提案の変更が送信されました
+    ja = 変更の提案を送信しました
     ko = 귀하의 제안 변경사항이 전송되었습니다
     lt = Jūsų pasiūlyti pakeitimas išsiųsti
     mr = तुम्ही सुचवलेले बदल पाठवले आहेत
@@ -17118,7 +17139,7 @@
     hu = Elveti az összes helyi módosítást?
     id = Atur ulang perubahan lokal?
     it = Cancellare tutte le modifiche locali?
-    ja = すべてのローカルの変更をリセットしますか？
+    ja = ローカル編集をすべてリセットしますか?
     ko = 지역 변경 사항을 재설정하시겠습니까?
     lt = Anuliuoti visus vietinius pakeitimus?
     mr = सर्व स्थानिक बदल टाकून द्यायचे?
@@ -17290,7 +17311,7 @@
     hu = A hely nem létezik
     id = Tempat tidak ada
     it = Il luogo non esiste
-    ja = 存在しない場所
+    ja = 場所が存在しません
     ko = 존재하지 않는 장소입니다.
     lt = Vieta neegzistuoja
     mr = ठिकाण अस्तित्वात नाही
@@ -17327,6 +17348,7 @@
     fr = Veuillez indiquer la raison pour laquelle vous supprimez cet endroit
     he = נא להסביר את הסיבה למחיקת המקום
     it = Indicare il motivo dell' eliminazione del luogo
+    ja = 場所を削除する理由を教えてください
     lt = Nurodykite vietos panaikinimo priežastį
     mr = कृपया ठिकाण हटवण्याचे कारण सूचित करा
     nb = Forklar hvorfor stedet skal slettes
@@ -17448,7 +17470,7 @@
     hu = Adj meg egy érvényes weboldalcímet
     id = Masukkan alamat web valid
     it = Inserisci un indirizzo web valido
-    ja = 有効なウェブアドレスを入力してください
+    ja = 有効なURLを入力してください
     ko = 유효한 웹 주소 입력
     lt = Įveskite saityno adresą
     mr = वैध वेब पत्ता प्रविष्ट करा
@@ -17526,6 +17548,7 @@
     fr = Saisissez une adresse web, un compte ou un nom de page Facebook valide
     he = הזן כתובת פייסבוק תקינה, משתמש, או שם עמוד
     it = Inserisci un indirizzo web, un account o un nome di pagina Facebook valido
+    ja = 有効な Facebook URL、アカウント、またはページ名を入力してください
     lt = Įveskite Facebook saityno adresą, paskyrą arba puslapio pavadinimą
     mr = वैध Facebook वेब पत्ता, खाते किंवा पृष्ठ नाव प्रविष्ट करा
     nb = Skriv inn en gyldig Facebook-adresse, -konto eller -side.
@@ -17552,6 +17575,7 @@
     fr = Saisissez une adresse web, un nom de compte Instagram valide
     he = הזן כתובת אינטרנט או שם משתמש Instagram תקינים
     it = Inserisci un indirizzo web o un nome di account Instagram valido
+    ja = 有効な Instagram ユーザー名またはURLを入力してください
     lt = Įveskite Instagram saityno adresą arba paskyros pavadinimą
     mr = वैध Instagram वेब पत्ता किंवा खाते नाव प्रविष्ट करा
     nb = Skriv inn en gyldig Instagram-adresse eller -kontonavn
@@ -17578,6 +17602,7 @@
     fr = Saisissez une adresse web, un nom de compte Twitter valide
     he = הזן כתובת אינטרנט או שם משתמש Twitter תקינים
     it = Inserisci un indirizzo web o un nome utente Twitter valido
+    ja = 有効なTwitterユーザー名またはURLを入力してください
     lt = Įveskite Twitter saityno adresą arba naudotojo vardą
     mr = वैध Twitter वेब पत्ता किंवा वापरकर्तानाव प्रविष्ट करा
     nb = Skriv inn en gyldig Twitter-adresse eller -brukernavn.
@@ -17604,6 +17629,7 @@
     fr = Saisissez une adresse web, un nom de compte VK valide
     he = הזן כתובת אינטרנט או שם משתמש VK תקינים
     it = Inserisci un indirizzo web o un nome di account VK valido
+    ja = 有効なVKユーザー名またはURLを入力してください
     lt = Įveskite VK saityno adresą arba paskyros pavadinimą
     nb = Skriv inn en gyldig VB-adresse eller -kontonavn
     nl = Voer een geldig VB-webadres of accountnaam in
@@ -17630,6 +17656,7 @@
     fr = Entrez une adresse web ou un ID de LINE valide
     he = הזן מזהה LINE או כתובת אינטרנט תקינים
     it = Inserisca un indirizzo web LINE valido o un ID LINE
+    ja = 有効なLINEユーザー名またはURLを入力してください
     lt = Įveskite LINE saityno adresą arba LINE ID
     nb = Skriv inn en gyldig LINE-adresse eller -ID.
     nl = Voer een geldig LINE-webadres of LINE ID in
@@ -18316,7 +18343,7 @@
     hu = Részletes információk megjelenítése a mobil internet segítségével?
     id = Gunakan internet seluler untuk memperlihatkan informasi terperinci?
     it = Usare l'Internet mobile per mostrare le informazioni dettagliate?
-    ja = モバイルインターネットを使用して詳細な情報を表示しますか？
+    ja = モバイル通信を使用して詳細な情報を表示しますか？
     ko = 모바일 인터넷을 사용하여 자세한 정보를 표시하시겠습니까?
     lt = Naudoti mobilųjų internetą, kad parodytumėme išsamią informaciją?
     mr = तपशीलवार माहिती दाखवण्यासाठी मोबाईल इंटरनेट वापरायचे?
@@ -18488,7 +18515,7 @@
     hu = Mobil Internet
     id = Internet Seluler
     it = Internet mobile
-    ja = モバイルインターネット
+    ja = モバイル通信
     ko = 모바일 인터넷
     lt = Mobilusis internetas
     mr = मोबाइल इंटरनेट
@@ -18532,7 +18559,7 @@
     hu = Mobilinternet szükséges a térképfrissítési értesítésekhez, valamint a helyszínekre és könyvjelzőkre vonatkozó részletes információk megjelenítéséhez.
     id = Internet seluler diperlukan untuk menampilkan informasi terperinci tentang tempat, seperti foto, harga, dan ulasan.
     it = L'Internet mobile è necessario per visualizzare informazioni dettagliate sulle località, ad esempio foto, prezzi e recensioni.
-    ja = モバイルインターネットは場所、写真、価格やレビューのような詳細情報を表示するのに必要です。
+    ja = モバイル通信は場所、写真、価格やレビューのような詳細情報を表示するのに必要です。
     ko = 모바일 인터넷은 사진, 가격, 리뷰 등 장소에 대한 자세한 정보를 표시하는 데 필요합니다.
     lt = Mobilusis internetas yra reikalingas, kad gautumėte žemėlapių naujinimo pranešimus, ir vietų bei adresyno išsamios informacijos rodymui.
     mr = नकाशा अद्यतन सूचना तसेच ठिकाणे व खूणपत्रांबद्दल तपशीलवार माहिती प्रदर्शित करण्यासाठी मोबाइल इंटरनेट आवश्यक आहे.
@@ -18704,7 +18731,7 @@
     hu = Betűméret növelése a térképen
     id = Perbesar ukuran huruf pada peta
     it = Aumenta caratteri sulla mappa
-    ja = 地図上のフォントサイズを大きく
+    ja = 地図上のフォントサイズを大きくする
     ko = 지도에서 글꼴 크기 늘리기
     lt = Padidinti šrifto dydi žemėlapyje
     mr = नकाशावर टंकाचा (फॉन्टचा) आकार वाढवा
@@ -19009,7 +19036,7 @@
     hu = Egyes nyelveknél másik beszédszintetizátort vagy további nyelvi csomagot kell telepítenie az alkalmazás-áruházból (Google Play, Galaxy Store, App Gallery, FDroid). Nyissa meg a készülék beállításait → Nyelv és bevitel → Beszéd → Szöveg-beszéd átalakító kimenet. Itt kezelheti a beszédszintézis beállításokat (például nyelvi csomag letöltése kapcsolat nélküli használatra) és másik szövegfelolvasót jelölhe tki.
     id = Untuk beberapa bahasa, Anda perlu menginstal synthesizer suara atau paket bahasa tambahan dari toko aplikasi (Google Play, Galaxy Store, App Gallery, FDroid).\nBuka pengaturan perangkat Anda → Language and input (Bahasa dan input) → Speech (Suara) → Text to speech (Teks ke suara).\nDi sini, Anda dapat mengelola pengaturan untuk sintesis suara (contohnya, mengunduh paket bahasa untuk penggunaan tanpa internet) dan memilih mesin tekske suara lain.
     it = Per alcune lingue, sarà necessario installare un altro sintetizzatore vocale o un language pack aggiuntivo dall'app store (Google Play, Galaxy Store, App Gallery, FDroid).\nApri le impostazioni del tuo dispositivo → Lingua e inserimento → Da testo a voce → Motore sintesi vocale.\nQui puoi gestire le impostazioni di sintesi vocale (ad esempio, scaricare una lingua per l'utilizzo offline) e selezionare un altro motore di sintesi vocale.
-    ja = いくつかの言語では、アプリストアからその他の音声合成または追加の言語パックをインストールする必要があります (Google Play マーケット、Galaxy Store) 。お使いのデバイスで [設定] → [言語と入力] → [音声] → [音声出力] を開いてください。ここで音声合成の設定 (たとえば、オフラインで使用する言語パックのダウンロードなど) を管理し、別の音声合成エンジンを選択することができます。
+    ja = いくつかの言語では、アプリストア(Google PlayやGalaxy Storeなど)からその他の音声合成または追加の言語パックをインストールする必要があります。お使いのデバイスで [設定] → [言語と入力] → [音声] → [音声出力] を開いてください。ここで音声合成の設定 (たとえば、オフラインで使用する言語パックのダウンロードなど) を管理し、別の音声合成エンジンを選択することができます。
     ko = 일부 언어의 경우 앱 스토어(Google Play, Galaxy Store, App Gallery, FDroid)에서 다른 음성 합성기 또는 추가 언어 팩을 설치해야 합니다.\n장치의 설정 → 언어 및 입력 → 음성 → 텍스트-음성 변환 출력을 엽니다.\n여기서 음성 합성에 대한 설정을 관리하고(예: 오프라인 사용을 위한 언어 팩 다운로드) 다른 텍스트-음성 변환 엔진을 선택할 수 있습니다.
     lt = Kai kurioms kalboms jums reikės įdiegti šnekos sintezatorių arba papildomą kalbos paketą iš programėlių parduotuvės (Play parduotuvė, Galaxy parduotuvė, Programėlių galerija, FDroid).\nAtidarykite įrenginio nustatymus → Kalbos ir įvestis → Kalba → Teksto į kalbą išvestis.\nČia galite tvarkyti nustatymus šnekos sintezatoriui (pavyzdžiui, atsisiųsti kalbos paketą) ir pasirinkti kitą teksto į kalbą variklį.
     mr = काही भाषांसाठी, तुम्हाला अँप स्टोअर (Google Play, Galaxy Store, App Gallery, FDroid) वरून स्पीच मिश्रक किंवा अतिरिक्त भाषा संच इन्स्टॉल करावे लागतील.\nतुमच्या उपकरणाची सेटिंग → भाषा आणि इनपुट → स्पीच → "टेक्स्ट टू स्पीच आउटपुट" उघडा.\nयेथे तुम्ही स्पीच मिश्रणासाठी सेटिंग व्यवस्थापित करू शकता (उदाहरणार्थ, ऑफलाइन वापरासाठी भाषा संच डाउनलोड करा) आणि दुसरे टेक्स्ट-टू-स्पीच इंजिन निवडा.
@@ -19099,7 +19126,7 @@
     hu = Átírás latin nyelvre
     id = Transliterasi ke dalam bahasa Latin
     it = Trascrizione in latino
-    ja = ラテン文字への字訳
+    ja = ラテン文字への翻字
     ko = 라틴어로 음역
     lt = Transliteracija į lotynų
     mr = लॅटिनमध्ये (इंग्रजीची अक्षरे) लिप्यंतरण
@@ -19188,7 +19215,7 @@
     hu = Kilépés
     id = Keluar
     it = Uscita
-    ja = 終了
+    ja = 出口
     ko = 끝내기
     lt = Išeiti
     mr = बाहेर पडा
@@ -19232,7 +19259,7 @@
     hu = Adjon hozzá kiindulási pontot az útvonal megtervezéséhez
     id = Tambahkan titik awal untuk merencanakan rute
     it = Aggiungi un punto di partenza per pianificare un percorso
-    ja = ルートを計画するには出発地点を追加してください
+    ja = ルートを計画するには出発地を追加してください
     ko = 경로 계획을 세우기 위한 시작 지점을 추가하세요
     lt = Pridėkite pradžios tašką, kad planuotumėte maršrutą
     mr = मार्ग नियोजित करण्यासाठी प्रारंभ बिंदू जोडा
@@ -19276,7 +19303,7 @@
     hu = Adjon hozzá végpontot az útvonal tervezéséhez
     id = Tambahkan titik akhir untuk merencanakan rute
     it = Aggiungi un punto di arrivo per pianificare un percorso
-    ja = ルートを計画するには到着地点を追加してください
+    ja = ルートを計画するには目的地を追加してください
     ko = 경로 계획을 세우기 위한 끝 지점을 추가하세요
     lt = Pridėkite tikslo tašką, kad planuotumėte maršrutą
     mr = मार्ग नियोजित करण्यासाठी इष्टस्थान जोडा
@@ -19364,7 +19391,7 @@
     hu = Terv
     id = Rencana
     it = Pianifica
-    ja = 適用する
+    ja = プラン
     ko = 계획
     lt = Planas
     mr = नियोजन
@@ -19496,7 +19523,7 @@
     hu = Hozzáad megállót
     id = Tambah perhentian
     it = Aggiungi sosta
-    ja = 経由地点を追加
+    ja = 中間地点を追加
     ko = 스톱 추가
     lt = Pridėti sustojimą
     mr = स्टॉप जोडा
@@ -19538,7 +19565,7 @@
     hu = Kiindulás innen:
     id = Mulai dari
     it = Parti da
-    ja = 開始位置
+    ja = 出発地
     ko = 시작 위치:
     lt = Pradėti iš
     mr = पासून प्रारंभ
@@ -19672,7 +19699,7 @@
     hu = Külső tároló nem áll rendelkezésre, valószínűleg az SD-kártyát eltávolították vagy sérült, vagy rendszerfájl csak olvasható. Ellenőrizze, és lépjen kapcsolatba velünk a support@organicmaps.app címen
     id = Penyimpanan eksternal tidak tersedia, mungkin Kartu SD sudah dilepaskan, rusak, atau sistem berkasnya hanya dapat dibaca. Silakan periksa dan beri tahu kami di alamat support@ maps.me
     it = Archivio esterno non disponibile, probabilmente la scheda SD è stata rimossa, è danneggiata o il file system è di sola lettura. Controllala o contattaci su support@organicmaps.app
-    ja = 外部ストレージは使用できません。おそらく SD カードが取り外されたか、破損している、あるいはファイルシステムが読み取り専用になっています。確認後、support@organicmaps.app までご連絡ください。
+    ja = 外部ストレージは使用できません。おそらく SD カードが取り外されたか、破損しているか、あるいはファイルシステムが読み取り専用になっています。確認後、support@organicmaps.app までご連絡ください。
     ko = 외부 저장소를 사용할 수 없습니다. SD 카드가 제거되었거나 손상되었거나 파일 시스템이 읽기 전용일 수 있습니다. 확인 후 support@organicmaps.app로 문의하세요.
     lt = Išorinė saugykla yra neprieinama. SD kortelė galimai yra pašalinti, pažeista arba failų sistema yra nustatyti tik skaitymui. Patikrinkite SD kortelę arba susisiekite su mumis support@organicmaps.app
     mr = बाह्य साठ्याचा प्रवेश अपयशी. SD कार्ड कदाचित काढले गेले असेल, खराब झाले असेल किंवा फाइल सिस्टम ही केवळ-वाचनीय असावी. कृपया, तुमचे SD कार्ड तपासा किंवा support@organicmaps.app वर आमच्याशी संपर्क साधा
@@ -19717,7 +19744,7 @@
     hu = Sérült tároló emulálása
     id = Emulasi penyimpanan yang buruk
     it = Simula archivio danneggiato
-    ja = 壊れたストレージをエミュレート
+    ja = 壊れたストレージをシミュレートする
     ko = 불량 저장소 에뮬레이션
     lt = Emuliuoti blogą saugyklą
     mr = खराब साठ्याचे अनुकरण करा
@@ -20317,7 +20344,7 @@
     hu = Nem lehet megosztani alkalmazáshiba miatt
     id = Tidak dapat berbagi karena kesalahan aplikasi
     it = Impossibile condividere a causa di un errore dell'applicazione
-    ja = アプリケーションエラーのため共有できません
+    ja = エラーのため共有できません
     ko = 애플리케이션 오류로 인해 공유할 수 없습니다
     lt = Napvyko bendrinti dėl programėlės klaidos
     mr = ऍप त्रुटीमुळे सामायिक करण्यात अक्षम
@@ -20452,7 +20479,7 @@
     hu = A név nem lehet üres
     id = Namanya tidak boleh kosong
     it = Il nome non può essere vuoto
-    ja = 名前を空にすることはできませんでした
+    ja = 名前を空にすることはできません
     ko = 이름을 비워 둘 수는 없습니다.
     lt = Pavadinimas negali būti tuščias
     mr = नाव रिक्त असू शकत नाही
@@ -21201,7 +21228,7 @@
     hu = Visszaállítás
     id = Mengembalikan
     it = Ripristina
-    ja = リストア
+    ja = 復元
     ko = 복원
     lt = Atkurti
     mr = पूर्ववत् करा
@@ -21478,7 +21505,7 @@
     hu = Adatvédelmi irányelvek
     id = Kebijakan privasi
     it = Riservatezza
-    ja = 個人情報保護方針
+    ja = プライバシーポリシー
     ko = 개인정보 보호 방침
     lt = Privatumo politika
     mr = गोपनीयता धोरण
@@ -21523,7 +21550,7 @@
     hu = Felhasználási feltételek
     id = Ketentuan penggunaan
     it = Condizioni d'uso
-    ja = ご利用規約
+    ja = 利用規約
     ko = 사용 약관
     lt = Naudojimo sąlygos
     mr = वापरण्याच्या अटी
@@ -21795,7 +21822,7 @@
     hu = A könyvjelző hozzáadásához, érintsen meg a térképen egy helyet majd érintse meg a csillag ikont
     id = Untuk menambahkan bookmark, ketuk satu tempat di peta lalu ketuk ikon bintang
     it = Per aggiungere un luogo preferito, tieni premuto un punto sulla mappa e poi tocca l'icona a forma di stella
-    ja = ブックマークを追加するには、地図上の場所をタップし、星のアイコンをタップします。
+    ja = ブックマークを追加するには、地図上の場所をタップし、星のアイコンをタップしてください。
     ko = 북마크를 추가하려면 맵에서 장소를 탭하고 별 모양 아이콘을 탭하세요.
     lt = Bakstelėkite ant vietos žemėlapyje ir bakstelėkite ant žvaigždutės piktogramos, kad pridėtumėte adresyną
     mr = खूणपत्र जोडण्यासाठी, नकाशातील ठिकाणाला स्पर्श करा आणि नंतर तारा चिन्हाला स्पर्श करा
@@ -21924,6 +21951,7 @@
     fr = Populaire
     he = פופולארי
     it = Popolare
+    ja = 人気
     lt = Populiarūs
     mr = लोकप्रिय
     nb = Populær
@@ -22005,7 +22033,7 @@
     hu = Törölni a listát
     id = Hapus Daftar
     it = Cancella elenco
-    ja = リスト削除
+    ja = リストを削除
     ko = 리스트 삭제
     lt = Naikinti sąrašą
     mr = यादी मिटवा
@@ -22274,7 +22302,7 @@
     hu = A tag-ek feltöltésekor hiba történt, kérjük próbálja meg még egyszer
     id = Kesalahan terjadi saat memuat tag, silakan coba lagi
     it = Si è verificato un errore durante il caricamento delle etichette, per favore riprova
-    ja = タグのロード中にエラーが起きました。もう一度やり直してください
+    ja = タグのロード中にエラーが起きました発生しました。もう一度やり直してください
     ko = 태그를 불러오는 중 에러가 발생했습니다. 다시 시도해보세요
     lt = Įvyko klaida įkeliant žymes, bandykite iš naujo
     mr = टॅग लोड करताना त्रुटी आढळली, कृपया पुन्हा प्रयत्न करा
@@ -22951,7 +22979,7 @@
     hu = Útvonaltervezési lehetőségek
     id = Pilihan berkendara
     it = Impostazioni di deviazione
-    ja = 運転オプション
+    ja = 経路オプション
     ko = 운전 옵션
     lt = Maršruto pasirinkimo parinktis
     mr = मार्गशोधी पर्याय
@@ -23039,7 +23067,7 @@
     hu = Burkolatlan utak elkerülése
     id = Hindari jalan tanah
     it = Evitare le strade non asfaltate
-    ja = 未舗装道路を回避
+    ja = 未舗装道路を使わない
     ko = 비포장 도로 피하기
     lt = Vengti neasfaltuotų kelių
     mr = कच्चे मार्ग टाळा
@@ -23084,7 +23112,7 @@
     hu = Kompátkelők elkerülése
     id = Hindari feri
     it = Evitare i traghetti
-    ja = フェリー航路を回避
+    ja = フェリーを利用しない
     ko = 여객선 횡단길 피하기
     lt = Vengti kelionių keltu
     mr = जल मार्ग टाळा
@@ -23217,7 +23245,7 @@
     hu = Sajnos nem találunk útvonalat, valószínűleg az általad meghatározott lehetőségek miatt. Kérjük változtass a beállításokon és próbáld újra
     id = Sayangnya kami tidak dapat menemukan rute karena opsi pilihan Anda. Harap ubah pengaturan lalu coba lagi
     it = Purtroppo non siamo riusciti a trovare un percorso, probabilmente a causa delle opzioni che hai scelto. Si prega di cambiare le impostazioni e riprovare.
-    ja = 残念ながら恐らく設定されたオプションのためにルートが見つけられませんでした。設定を変更し、もう一度お試しください
+    ja = ルートが計算できませんでした。 これは、経路オプションまたは不完全な OpenStreetMap データが原因である可能性があります。 経路オプションを変更して再試行してください。
     ko = 아쉽게도 귀하가 정의한 옵션으로는 루트를 찾을 수가 없습니다. 설정을 바꾸신다음 다시 시도해주세요
     lt = Deja, mums nepavyko rasti maršruto tikriausiai dėl jūsų pasirinktų parinkčių. Pakeiskite jas ir bandykite dar kartą.
     mr = दुर्दैवाने, आम्ही मार्ग शोधू शकलो नाही. ह्याचे कारण कदाचित तुम्ही निवडलेले पर्याय असावे. कृपया सेटिंग बदला आणि पुन्हा प्रयत्न करा.
@@ -23262,7 +23290,7 @@
     hu = Elkerülendő utak meghatározása
     id = Tentukan jalan yang dihindari
     it = Definire le strade da evitare
-    ja = 回避するために道を設定
+    ja = 迂回ルートを設定する
     ko = 피할 도로 정의하기
     lt = Apibrėžti vengiamus kelius
     mr = टाळण्याचे मार्ग निवडा
@@ -23307,7 +23335,7 @@
     hu = Útvonaltervezési lehetőségek bekapcsolva
     id = Opsi perutean diaktifkan
     it = Opzioni di deviazione abilitate
-    ja = 運転オプションはアクティブです
+    ja = 経路オプションは有効になっています
     ko = 운전 옵션이 가능합니다
     lt = Maršruto pasirinkimo parinktys įjungtos
     mr = मार्गशोधी पर्याय चालू केले
@@ -23439,7 +23467,7 @@
     hu = Kompátkelők
     id = Penyeberangan kapal feri
     it = Traghetto
-    ja = フェリー航路
+    ja = フェリー
     ko = 여객선 횡단길
     lt = Kelionė keltu
     mr = जल मार्ग
@@ -23483,7 +23511,7 @@
     hu = Gyerünk
     id = Ayo
     it = Si parte
-    ja = レッツゴー
+    ja = 出発
     ko = 가자
     lt = Pirmyn
     mr = चल जाऊया
@@ -23704,7 +23732,7 @@
     hu = Szeretnél újratervezni egy útvonalat?
     id = Anda ingin membuat ulang rute?
     it = Vuoi ricalcolare il percorso?
-    ja = ルートを再構築しますか?
+    ja = ルートを再計算しますか?
     ko = 루트를 재구축하길 원하시나요?
     lt = Norite perkurti maršrutą?
     mr = तुम्हाला मार्ग पुन्हा तयार करायचा आहे का?
@@ -23944,7 +23972,7 @@
     hu = A billentyűzet nem elérhető vezetés közben
     id = Papan ketik tidak tersedia saat berkendara
     it = Tastiera non disponibile in movimento
-    ja = 運転中はキーボードを使用する事はできません
+    ja = 運転中はキーボードを使用できません
     ko = 운전 중에는 키보드를 사용할 수 없습니다
     lt = Klaviatūra nėra prieinama už vairo
     mr = गाडी चालवताना कीबोर्ड उपलब्ध नसतो
@@ -23988,7 +24016,7 @@
     hu = Nem lehet útvonalat tervezni a jelenlegi helyedről
     id = Tidak dapat membuat rute dari lokasi saat ini
     it = Impossibile creare un percorso dalla tua posizione attuale
-    ja = 現在位置からはルートを構築できません
+    ja = 現在位置からはルートを計算できません
     ko = 현재 위치에서 루트를 만들 수 없습니다
     lt = Nepavyko sukurti maršruto iš jūsų dabartinės vietos
     mr = तुमच्या वर्तमान स्थानावरून मार्ग तयार करण्यात अक्षम
@@ -24032,7 +24060,7 @@
     hu = Nem lehet útvonalat tervezni a célodhoz. Kérjük válassz egy másik pontot
     id = Tidak dapat membuat rute ke tujuan Anda. Pilih titik lainnya
     it = Impossibile creare un percorso per raggiungere la destinazione. Scegli un'altra destinazione.
-    ja = 目的地へのルートは構築できません。別の地点を選択してください
+    ja = 目的地へのルートは計算できません。別の地点を選択してください
     ko = 목적지 경로를 만들 수 없습니다. 다른 지점을 선택해주세요
     lt = Nepavyko sukurti maršruto iki jūsų tikslo. Pasirinkite kitą tašką
     mr = तुमच्या इष्टस्थानापर्यंत मार्ग तयार करण्यात अक्षम. कृपया दुसरे ठिकाण निवडा.
@@ -24120,7 +24148,7 @@
     hu = Nem lehet útvonalat tervezni. Kérjük határozz meg más útvonal lehetőségeket
     id = Tidak dapat membuat rute. Harap tentukan titik rute lainnya
     it = Impossibile creare un percorso. Specificare altri punti del percorso
-    ja = ルートが構築できません。別のルート地点を設定して下さい
+    ja = ルートが計算できません。別のルート地点を設定して下さい
     ko = 루트를 만들 수 없습니다. 또 다른 루트 지점을 지정해주세요
     lt = Nepavyko sukurti maršruto. Nurodykite kitus maršruto taškus
     mr = मार्ग तयार करण्यात अक्षम. कृपया इतर मार्ग बिंदू निर्दिष्ट करा
@@ -24164,7 +24192,7 @@
     hu = Útvonal létrehozásához töltsd le a hiányzó térképeket az eszközre
     id = Untuk membuat rute, unduh peta baru di perangkat anda
     it = Per creare un percorso scarica le mappe mancanti sul proprio dispositivo
-    ja = ルートを作成するには、地図に表示されていない部分を端末でダウンロードします
+    ja = ルートを作成するには、不足しているマップを端末でダウンロードしてください
     ko = 루트를 만들려면, 빠진 맵을 기기에 다운로드하세요
     lt = Atsisiųskite trūkstamus žemėlapius, kad sukurtumėte maršrutą
     mr = मार्ग तयार करण्यासाठी, तुमच्या उपकरणावर गहाळ नकाशे डाउनलोड करा
@@ -24252,7 +24280,7 @@
     hu = Az útvonal újra lesz tervezve a jelenlegi helyzetedről
     id = Rute akan dibuat ulang dari lokasi saat ini
     it = Il percorso sarà ricreato a partire dalla tua posizione attuale
-    ja = ルートは現在位置から再構築されます
+    ja = ルートは現在位置から再計算されます
     ko = 루트가 귀하의 현재 위치로부터 재생성됩니다
     lt = Maršrutas bus perkurtas iš jūsų dabartinės vietos
     mr = तुमच्या वर्तमान स्थानावरून मार्ग पुन्हा तयार केला जाईल
@@ -24296,7 +24324,7 @@
     hu = Az útvonal módosítva lesz egy autó számára
     id = Rute akan diubah untuk mobil
     it = Il percorso sarà convertito in un percorso automobilistico
-    ja = ルートは自動車用として修正されます
+    ja = 車ルートに変更されます
     ko = 루트가 차량에 맞춰 수정됩니다
     lt = Maršrutas bus konvertuotas automobilinį
     mr = मार्गाचे रुपांतर वाहनासाठी केले जाईल
@@ -24473,7 +24501,7 @@
     hu = Kérjük, töltsd le a térképeket a Organic Maps alkalmazásban az eszközödre
     id = Silakan unduh peta di apl Organic Maps pada perangkat Anda
     it = Scarica le mappe nell'applicazione Organic Maps sul tuo dispositivo
-    ja = あなたの機器のOrganic Mapsのアプリにマップをダウンロードしてください
+    ja = 端末のOrganic Mapsのアプリにマップをダウンロードしてください
     ko = Organic Maps 앱 안의 지도들을 디바이스에 다운로드하세요
     lt = Atsisiųskite žemėlapius Organic Maps programėlėje
     mr = कृपया तुमच्या उपकरणावर Organic Maps ऍप मध्ये नकाशे डाउनलोड करा
@@ -25544,7 +25572,7 @@
     hu = Állatok
     id = Kebun binatang
     it = Animali
-    ja = 動物園
+    ja = 動物
     ko = 동물원
     lt = Gyvūnai
     mr = प्राणी
@@ -25676,7 +25704,7 @@
     hu = Pénz
     id = Uang
     it = Denaro
-    ja = 金銭
+    ja = お金
     ko = 돈
     lt = Pinigai
     mr = पैसे
@@ -25743,7 +25771,7 @@
 
   [parkings]
     tags = android,ios
-    en = Parkings
+    en = Parking
     af = Parkeerplekke
     ar = مواقف سيارات
     az = Dayanacaqlar
@@ -25787,7 +25815,7 @@
 
   [fuel_places]
     tags = android,ios
-    en = Gas stations
+    en = Gas Stations
     en-GB = Petrol Stations
     af = Vulstasies
     ar = محطات وقود
@@ -25942,7 +25970,7 @@
     hu = Vallási helyek
     id = Tempat ibadah
     it = Luoghi di culto
-    ja = 宗教に関連した場所
+    ja = 礼拝所
     ko = 종교적 장소
     lt = Religinės vietos
     mr = धार्मिक स्थळ
@@ -26215,7 +26243,7 @@
     hu = A topográfiai réteg aktiválásához és használatához kérjük frissítse vagy töltse le az adott terület térképét
     id = Untuk mengaktifkan dan menggunakan lapisan topografi, silakan perbarui atau unduh peta area
     it = Per utilizzare la modalità topografica, aggiornate o scaricate la mappa dell'area interessata
-    ja = トポグラフィーレイヤーを有効化して使用するには、このエリアのマップを更新もしくはダウンロードしてください
+    ja = 地形レイヤーを使用するには、このエリアのマップを更新もしくはダウンロードしてください
     ko = 지형 레이어를 활성화하고 사용하려면 해당 지역의 지도를 업데이트하거나 다운로드하십시오
     lt = Atsisiųskite vietovės žemėlapį, jei norite aktyvinti ir naudoti topografinį sluoksnį
     mr = भूस्वरूप स्तर वापरण्यासाठी कृपया नकाशा डाउनलोड किंवा अद्ययावत करा
@@ -26260,7 +26288,7 @@
     hu = Ezen a területen a topográfiai réteg még nem elérhető
     id = Lapisan topografi belum tersedia untuk wilayah ini
     it = La modalità topografica per questa regione non è ancora disponibile
-    ja = トポグラフィーレイヤーはこの地域ではまだ利用できません
+    ja = 地形レイヤーはこの地域ではまだ利用できません
     ko = 이 지역의 지형 레이어는 아직 사용할 수 없습니다
     lt = Topografinis sluoksnis šiai vietovei yra neprieinamas
     mr = या भागात भूस्वरूप स्तर अद्याप उपलब्ध नाही
@@ -26349,7 +26377,7 @@
     hu = Könnyű
     id = Mudah
     it = Facile
-    ja = イージー
+    ja = 簡単
     ko = 쉬움
     lt = Lengvas
     mr = सोपे
@@ -26393,7 +26421,7 @@
     hu = Mérsékelt
     id = Sedang
     it = Moderato
-    ja = ノーマル
+    ja = 普通
     ko = 보통
     lt = Normalus
     mr = मध्यम
@@ -26437,7 +26465,7 @@
     hu = Nehéz
     id = Sulit
     it = Difficile
-    ja = ハード
+    ja = 困難
     ko = 어려움
     lt = Sunkus
     mr = कठिण
@@ -26797,7 +26825,7 @@
     hu = Nagyítás az isovonalak felfedezéséhez
     id = Perbesar untuk menjelajahi garis kontur
     it = Ingrandisci mappa per vedere l'isolinea
-    ja = 等高線を調べるためにズームインしましょう
+    ja = 等高線を調べるようにズームインしてください
     ko = 등치선 탐색을 위한 확대
     lt = Priartinkite, kad tyrinėtumėte izolinijas
     mr = समोच्च रेषा पाहायला नकाशा विशाल (झूम) करा
@@ -26923,6 +26951,7 @@
     fr = Télécharger la carte du monde
     he = הורד את מפת העולם
     it = Scarica la mappa del mondo
+    ja = 世界地図をダウンロード
     lt = Atsisiųsti pasaulio žemėlapį
     mr = जगाचा नकाशा डाउनलोड करा
     nb = Last ned verdenskart
@@ -26952,6 +26981,7 @@
     fi = Kansion luonti ja tiedoston siirto ei onnistu laitteen muistissa tai SD-koritlla
     fr = Impossible de créer un dossier et de déplacer les fichiers vers la mémoire interne de l'appareil ou la carte SD
     he = לא ניתן ליצור תיקייה ולהעביר קבצים בזיכרון הפנימי או בכרטיס הזיכרון
+    ja = フォルダーの作成と内部ストレージまたはSDカードへのファイルの移動に失敗しました
     lt = Nepavyko sukurti aplanko ir perkelti failus į įrenginio vidinę atmintį ar SD kortelę
     mr = उपकरणाच्या अंतर्गत मेमरी किंवा SD-card वर फोल्डर तयार करण्यात आणि फायली हलविण्यात अक्षम
     nb = Klarte ikke opprette mappe og flytte filer i enhetens minne eller SD-kort
@@ -26977,6 +27007,7 @@
     fi = Tallennusvirhe
     fr = Erreur disque
     he = שגיאת כונן
+    ja = ディスクエラー
     lt = Disko klaida
     mr = डिस्क त्रुटी
     nb = Diskfeil
@@ -27005,6 +27036,7 @@
     fr = Erreur de connexion
     he = כשל חיבור
     it = Errore di connessione
+    ja = 接続エラー
     lt = Tinklo klaida
     mr = जोडणी अयशस्वी
     nb = Tilkoblingsfeil
@@ -27035,6 +27067,7 @@
     fr = Déconnectez le câble USB
     he = נתק כבל USB
     it = Scollegare il cavo USB
+    ja = USBケーブルを抜いてください
     lt = Atjungti USB laidą
     mr = USB केबल काढा
     nb = Fjern USB-kabelen
@@ -27155,6 +27188,7 @@
     he = הצג במסך הנעילה
     hu = Megjelenítés a zárolt képernyőn
     it = Mostra sulla schermata di blocco
+    ja = ロック画面に表示
     lt = Rodyti užrakinimo ekrane
     mr = लॉक पटलावर (स्क्रीनवर) दाखवा
     nb = Vis på låseskjerm
@@ -27187,6 +27221,7 @@
     he = כאשר מופעל, האפליקציה תעבוד במסך הנעילה אפילו כשהמכשיר נעול.
     hu = Ha engedélyezve van, nem kell minden alkalommal feloldanod a telefonod, amíg az alkalmazás fut.
     it = Quando è abilitata, non è necessario sbloccare il dispositivo ogni volta mentre l'app è in esecuzione.
+    ja = 有効にすると、デバイスがロックされている場合でもアプリはロック画面で動作します。
     lt = Jei įjungta, jums nereikės kiekvieną kartą atrakinti įrenginio, kol veikia programėlė.
     mr = चालू असल्यास, ऍप चालू असताना प्रत्येक वेळी तुम्हाला तुमचे उपकरण अनलॉक करण्याची आवश्यकता नाही.
     nb = Når dette er aktivert trenger du ikke låse opp enheten hver gang når appen kjører.
@@ -27371,7 +27406,7 @@
     hu = Kézi frissítés később
     id = Perbarui secara manual nanti
     it = Aggiorna manualmente più tardi
-    ja = あとで手動で更新
+    ja = 後で手動で更新
     ko = 나중에 수동으로 업데이트
     lt = Atnaujinsiu vėliau
     mr = नंतर स्वतः अद्ययावत करा
@@ -27409,6 +27444,7 @@
     fr = Supprimer la route
     he = מחק מסלול
     it = Elimina percorso
+    ja = トラックを削除
     lt = Naikinta taką
     mr = ट्रॅक पुसून टाका
     nb = Slett rute
@@ -27438,6 +27474,7 @@
     fr = Nom de la route
     he = שם המסלול
     it = Nome percorso
+    ja = トラック名
     lt = Tako pavadinimas
     mr = ट्रॅकचे नाव
     nb = Rutenavn
@@ -27467,6 +27504,7 @@
     fr = Déplacer
     he = הזז
     it = Sposta
+    ja = 移動
     lt = Perkelti
     mr = हलवा
     nb = Flytt
@@ -27706,7 +27744,7 @@
     hu = Ön most az Organic Maps használja a telefon képernyőjén
     id = Anda sekarang menggunakan Organic Maps pada layar ponsel
     it = Ora stai utilizzando Organic Maps sullo schermo del telefono
-    ja = あなたは今、携帯電話の画面でオーガニック・マップを使用している
+    ja = 端末の画面でOrganic Mapsを使用している
     ko = 이제 휴대폰 화면에서 유기적 지도를 사용하고 있습니다
     mr = तुम्ही आता फोन स्क्रीनवर ऑरगॅनिक नकाशे वापरत आहात
     nb = Du bruker nå Organic Maps på telefonskjermen
