@@ -9739,7 +9739,7 @@
     hu = Nem találja a köztes pontot.
     id = Tidak dapat menemukan titik antara.
     it = Impossibile individuare un punto intermedio.
-    ja = 中間点を確認できませんでした。
+    ja = 中間地点を確認できませんでした。
     ko = 중간 지점을 찾을 수 없습니다.
     lt = Nepavyko nustatyti tarpinio taško.
     mr = मध्यबिंदू शोधण्यात अक्षम.
@@ -9782,7 +9782,7 @@
     hu = Kérjük, állítsa be köztes pontját.
     id = Harap sesuaikan titik antara Anda.
     it = Modifica il punto intermedio.
-    ja = 中間点を調整してください。
+    ja = 中間地点を調整してください。
     ko = 중간 지점을 조정하세요.
     lt = Suderinkite tarpinį tašką.
     mr = कृपया तुमचा मध्यबिंदू समायोजित करा.
