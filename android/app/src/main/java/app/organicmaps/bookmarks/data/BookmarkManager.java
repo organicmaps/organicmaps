@@ -63,12 +63,13 @@ public enum BookmarkManager
   public static final int CLOUD_NOT_ENOUGH_DISK_SPACE = 2;
 
   @Retention(RetentionPolicy.SOURCE)
-  @IntDef({ SORT_BY_TYPE, SORT_BY_DISTANCE, SORT_BY_TIME })
+  @IntDef({ SORT_BY_TYPE, SORT_BY_DISTANCE, SORT_BY_TIME, SORT_BY_NAME })
   public @interface SortingType {}
 
   public static final int SORT_BY_TYPE = 0;
   public static final int SORT_BY_DISTANCE = 1;
   public static final int SORT_BY_TIME = 2;
+  public static final int SORT_BY_NAME = 3;
 
   // These values have to match the values of kml::CompilationType from kml/types.hpp
   public static final int CATEGORY = 0;
