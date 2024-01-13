@@ -499,7 +499,7 @@ mapswithme
 waterway|canal
 *fee|yes
 *fee|no
-mapswithme
+*toilets|yes
 *highway|trunk_link|tunnel
 mapswithme
 mapswithme
