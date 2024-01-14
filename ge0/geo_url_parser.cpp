@@ -116,14 +116,14 @@ void LatLonParser::operator()(std::string name, std::string const & value)
   double x;
   if (strings::to_double(value, x))
   {
-    if (name == "lat" || name == "y")
+    if (name == "lat" || name == "mlat" || name == "y")
     {
       if (m_info->SetLat(x))
         m_latPriority = priority;
     }
     else
     {
-      ASSERT(name == "lon" || name == "x", (name));
+      ASSERT(name == "lon" || name == "mlon" || name == "x", (name));
       if (m_info->SetLon(x))
         m_lonPriority = priority;
     }
@@ -146,7 +146,7 @@ int LatLonParser::GetCoordinatesPriority(string const & token)
     return kLLPriority;
   if (token == "x" || token == "y")
     return kXYPriority;
-  if (token == "lat" || token == "lon")
+  if (token == "lat" || token == "mlat" || token == "lon" || token == "mlon")
     return kLatLonPriority;
 
   return -1;
