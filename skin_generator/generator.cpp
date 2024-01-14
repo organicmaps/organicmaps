@@ -93,10 +93,10 @@ void SkinGenerator::ProcessSymbols(std::string const & svgDataDir,
         QString fullFileName = QString(dir.absolutePath()) + "/" + fileName;
         if (m_svgRenderer.load(fullFileName))
         {
-          QSize defaultSize = m_svgRenderer.defaultSize();
+          QSize svgSize = m_svgRenderer.defaultSize(); // Size of the SVG file
 
-          QSize symbolSize = symbolSizes[j];
-          QSize size = defaultSize * (symbolSize.width() / 18.0);
+          QSize symbolSize = symbolSizes[j];  // Size of the symbol in the PNG skin
+          QSize size = svgSize * (symbolSize.width() / 18.0); // 18.0 is the size of the -m SVG files
 
           // Fitting symbol into symbolSize, saving aspect ratio.
           if (size.width() > symbolSize.width())
