@@ -735,8 +735,8 @@
 	<string name="buildings">Buildings</string>
 	<string name="money">Money</string>
 	<string name="shops">Shops</string>
-	<string name="parkings">Parkings</string>
-	<string name="fuel_places">Gas stations</string>
+	<string name="parkings">Parking</string>
+	<string name="fuel_places">Gas Stations</string>
 	<string name="medicine">Medicine</string>
 	<string name="search_in_the_list">Search in the list</string>
 	<string name="religious_places">Religious places</string>
