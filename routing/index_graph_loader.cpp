@@ -1,16 +1,12 @@
 #include "routing/index_graph_loader.hpp"
 
-#include "routing/city_roads.hpp"
 #include "routing/data_source.hpp"
 #include "routing/index_graph_serialization.hpp"
 #include "routing/restriction_loader.hpp"
 #include "routing/road_access.hpp"
 #include "routing/road_access_serialization.hpp"
 #include "routing/route.hpp"
-#include "routing/routing_exceptions.hpp"
 #include "routing/speed_camera_ser_des.hpp"
-
-#include "platform/country_defines.hpp"
 
 #include "coding/files_container.hpp"
 
@@ -20,7 +16,7 @@
 #include <algorithm>
 #include <map>
 #include <unordered_map>
-#include <utility>
+
 
 namespace routing
 {
@@ -119,10 +115,6 @@ vector<RouteSegment::SpeedCamera> IndexGraphLoaderImpl::GetSpeedCameraInfo(Segme
     return {};
 
   auto cameras = it->second;
-
-  // By VNG: Leave as it was before (trailing invalid element).
-  cameras.emplace_back(2.0 /* invalid coefficient*/, 0.0 /* maxSpeedKmPH */);
-
   base::SortUnique(cameras, std::less<RouteSegment::SpeedCamera>(), [](auto const & l, auto const & r)
   {
     return l.EqualCoef(r);
