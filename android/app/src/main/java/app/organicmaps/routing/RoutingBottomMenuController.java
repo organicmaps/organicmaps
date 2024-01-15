@@ -255,7 +255,7 @@ final class RoutingBottomMenuController implements View.OnClickListener
       UiUtils.show(mActionButton);
       Drawable icon = ContextCompat.getDrawable(mContext, R.drawable.ic_my_location);
       int colorAccent = ContextCompat.getColor(mContext,
-                                               UiUtils.getStyledResourceId(mContext, R.attr.colorAccent));
+                                               UiUtils.getStyledResourceId(mContext, androidx.appcompat.R.attr.colorAccent));
       mActionIcon.setImageDrawable(Graphics.tint(icon, colorAccent));
     }
     else

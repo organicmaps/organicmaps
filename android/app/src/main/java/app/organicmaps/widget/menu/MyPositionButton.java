@@ -49,7 +49,7 @@ public class MyPositionButton
     @DimenRes int sizeDimen = R.dimen.map_button_icon_size;
     if (mode == LocationState.FOLLOW || mode == LocationState.FOLLOW_AND_ROTATE || mode == LocationState.PENDING_POSITION)
     {
-      colorAttr = R.attr.colorAccent;
+      colorAttr = androidx.appcompat.R.attr.colorAccent;
       if (mode == LocationState.PENDING_POSITION)
         sizeDimen = R.dimen.map_button_size;
       else

@@ -126,7 +126,7 @@ public class ChartController implements OnChartValueSelectedListener,
     x.setGranularityEnabled(true);
     x.setTextColor(ThemeUtils.getColor(mContext, R.attr.elevationProfileAxisLabelColor));
     x.setPosition(XAxis.XAxisPosition.BOTTOM);
-    x.setAxisLineColor(ThemeUtils.getColor(mContext, R.attr.dividerHorizontal));
+    x.setAxisLineColor(ThemeUtils.getColor(mContext, androidx.appcompat.R.attr.dividerHorizontal));
     x.setAxisLineWidth(mContext.getResources().getDimensionPixelSize(R.dimen.divider_height));
     ValueFormatter xAxisFormatter = new AxisValueFormatter(mChart);
     x.setValueFormatter(xAxisFormatter);
