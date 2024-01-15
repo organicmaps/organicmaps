@@ -5,6 +5,7 @@ import android.text.TextUtils;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
+import app.organicmaps.BuildConfig;
 import app.organicmaps.downloader.CountryItem;
 
 import java.util.ArrayList;
@@ -15,9 +16,14 @@ public final class DownloaderHelpers
 {
   static final String[] WORLD_MAPS = new String[]{"World", "WorldCoasts"};
 
+  // World maps may be missing only in the F-Droid build.
+  @SuppressWarnings("ConstantConditions")
   public static boolean isWorldMapsDownloadNeeded()
   {
-    return !CountryItem.fill(WORLD_MAPS[0]).present || !CountryItem.fill(WORLD_MAPS[1]).present;
+    // TODO: Maps are asynchronously initialized in the core. If the initialization takes a significant amount of time, the downloader screen could potentially be displayed, even if the world maps are present.
+    if (BuildConfig.FLAVOR.equals("fdroid"))
+      return !CountryItem.fill(WORLD_MAPS[0]).present || !CountryItem.fill(WORLD_MAPS[1]).present;
+    return false;
   }
 
   @NonNull
