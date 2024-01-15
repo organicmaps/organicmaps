@@ -58,9 +58,8 @@ public:
       if (!EqualCoef(rhs))
         return m_coef < rhs.m_coef;
 
-      // Cameras with same position on segment should be sorted in speed decrease order.
-      // Thus camera with higher speed will be warned the first.
-      return m_maxSpeedKmPH > rhs.m_maxSpeedKmPH;
+      // Keep a camera with lowest speed (unique).
+      return m_maxSpeedKmPH < rhs.m_maxSpeedKmPH;
     }
 
     friend std::string DebugPrint(SpeedCamera const & rhs);
