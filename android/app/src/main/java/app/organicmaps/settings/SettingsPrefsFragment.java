@@ -382,7 +382,7 @@ public class SettingsPrefsFragment extends BaseXmlSettingsFragment
     final Spannable link = new SpannableString(ttsLinkText + "↗");
     // Set link color.
     link.setSpan(new ForegroundColorSpan(ContextCompat.getColor(requireContext(),
-                                                                UiUtils.getStyledResourceId(requireContext(), R.attr.colorAccent))),
+                                                                UiUtils.getStyledResourceId(requireContext(), androidx.appcompat.R.attr.colorAccent))),
                  0, ttsLinkText.length(), 0);
     ttsLangInfoLink.setSummary(link);
 

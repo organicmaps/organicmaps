@@ -110,7 +110,7 @@ public class TransitStepView extends View implements MultilineLayoutManager.Sque
       case RULER:
         return ThemeUtils.getColor(context, R.attr.transitRulerBackground);
       case INTERMEDIATE_POINT:
-        return ThemeUtils.getColor(context, R.attr.colorPrimary);
+        return ThemeUtils.getColor(context, androidx.appcompat.R.attr.colorPrimary);
       default:
         return info.getColor();
     }

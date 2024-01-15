@@ -120,7 +120,7 @@ public class PlacePageController extends Fragment implements
     mViewportMinHeight = res.getDimensionPixelSize(R.dimen.viewport_min_height);
     mButtonsHeight = (int) res.getDimension(R.dimen.place_page_buttons_height);
     mMaxButtons = res.getInteger(R.integer.pp_buttons_max);
-    mRoutingHeaderHeight = (int) res.getDimension(ThemeUtils.getResource(requireContext(), R.attr.actionBarSize));
+    mRoutingHeaderHeight = (int) res.getDimension(ThemeUtils.getResource(requireContext(), androidx.appcompat.R.attr.actionBarSize));
 
     mCoordinator = activity.findViewById(R.id.coordinator);
     mPlacePage = view.findViewById(R.id.placepage);

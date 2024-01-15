@@ -64,7 +64,7 @@ class SearchAdapter extends RecyclerView.Adapter<SearchAdapter.SearchDataViewHol
 
     @AttrRes int getTintAttr()
     {
-      return R.attr.colorAccent;
+      return androidx.appcompat.R.attr.colorAccent;
     }
 
     abstract TextView getTitleView();
