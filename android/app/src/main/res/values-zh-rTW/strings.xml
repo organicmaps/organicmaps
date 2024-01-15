@@ -672,6 +672,8 @@
 	<string name="by_distance">按距離</string>
 	<!-- Android -->
 	<string name="by_date">按時間</string>
+	<!-- Android -->
+	<string name="by_name">按名字</string>
 	<string name="week_ago_sorttype">一週前</string>
 	<string name="month_ago_sorttype">一個月前</string>
 	<string name="moremonth_ago_sorttype">一個多月前</string>

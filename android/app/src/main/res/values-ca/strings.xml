@@ -680,6 +680,8 @@
 	<string name="by_distance">Per distància</string>
 	<!-- Android -->
 	<string name="by_date">Per data</string>
+	<!-- Android -->
+	<string name="by_name">Per nom</string>
 	<string name="week_ago_sorttype">Fa una setmana</string>
 	<string name="month_ago_sorttype">Fa un mes</string>
 	<string name="moremonth_ago_sorttype">Fa més d\'un mes</string>

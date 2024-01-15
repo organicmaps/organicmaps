@@ -685,6 +685,8 @@
 	<string name="by_distance">Məsafəyə görə</string>
 	<!-- Android -->
 	<string name="by_date">Tarixə görə</string>
+	<!-- Android -->
+	<string name="by_name">Ada görə</string>
 	<string name="week_ago_sorttype">Bir həftə əvvəl</string>
 	<string name="month_ago_sorttype">Bir ay əvvəl</string>
 	<string name="moremonth_ago_sorttype">Bir aydan çox əvvəl</string>

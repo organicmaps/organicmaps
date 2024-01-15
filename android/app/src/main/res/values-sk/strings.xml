@@ -654,6 +654,8 @@
 	<string name="by_distance">Podľa vzdialenosti</string>
 	<!-- Android -->
 	<string name="by_date">Podľa dátumu</string>
+	<!-- Android -->
+	<string name="by_name">Podľa mena</string>
 	<string name="week_ago_sorttype">Pred týždňom</string>
 	<string name="month_ago_sorttype">Pred mesiacom</string>
 	<string name="moremonth_ago_sorttype">Pred viac ako mesiacom</string>

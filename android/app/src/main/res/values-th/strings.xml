@@ -656,6 +656,8 @@
 	<string name="by_distance">ตามระยะทาง</string>
 	<!-- Android -->
 	<string name="by_date">ตามวันที่</string>
+	<!-- Android -->
+	<string name="by_name">ตามชื่อ</string>
 	<string name="week_ago_sorttype">สัปดาห์ที่ผ่านมา</string>
 	<string name="month_ago_sorttype">เดือนที่ผ่านมา</string>
 	<string name="moremonth_ago_sorttype">มากกว่าหนึ่งเดือนที่ผ่านมา</string>

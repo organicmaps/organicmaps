@@ -654,6 +654,8 @@
 	<string name="by_distance">거리 별</string>
 	<!-- Android -->
 	<string name="by_date">날짜 별</string>
+	<!-- Android -->
+	<string name="by_name">이름별</string>
 	<string name="week_ago_sorttype">일주일 전</string>
 	<string name="month_ago_sorttype">한달 전</string>
 	<string name="moremonth_ago_sorttype">한달 그 이상 전</string>

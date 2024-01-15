@@ -672,6 +672,8 @@
 	<string name="by_distance">După distanță</string>
 	<!-- Android -->
 	<string name="by_date">După dată</string>
+	<!-- Android -->
+	<string name="by_name">După nume</string>
 	<string name="week_ago_sorttype">Acum o săptămână</string>
 	<string name="month_ago_sorttype">Acum o lună</string>
 	<string name="moremonth_ago_sorttype">Acum mai mult de o lună</string>

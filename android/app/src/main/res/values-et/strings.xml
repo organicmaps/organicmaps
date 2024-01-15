@@ -678,6 +678,8 @@
 	<string name="by_distance">Kauguse järgi</string>
 	<!-- Android -->
 	<string name="by_date">Kuupäeva järgi</string>
+	<!-- Android -->
+	<string name="by_name">Nime järgi</string>
 	<string name="week_ago_sorttype">Nädal tagasi</string>
 	<string name="month_ago_sorttype">Kuu tagasi</string>
 	<string name="moremonth_ago_sorttype">Üle kuu tagasi</string>

@@ -641,6 +641,8 @@
 	<string name="by_distance">По разстояние</string>
 	<!-- Android -->
 	<string name="by_date">По дата</string>
+	<!-- Android -->
+	<string name="by_name">По име</string>
 
 	<!-- SECTION: Bookmark types used for sorting -->
 	<string name="search_in_the_list">Търсене в списъка</string>

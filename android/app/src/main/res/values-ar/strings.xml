@@ -700,6 +700,8 @@
 	<string name="by_distance">حسب المسافة</string>
 	<!-- Android -->
 	<string name="by_date">حسب التاريخ</string>
+	<!-- Android -->
+	<string name="by_name">بالاسم</string>
 	<string name="week_ago_sorttype">منذ أسبوع</string>
 	<string name="month_ago_sorttype">منذ شهر</string>
 	<string name="moremonth_ago_sorttype">منذ أكثر من شهر</string>
