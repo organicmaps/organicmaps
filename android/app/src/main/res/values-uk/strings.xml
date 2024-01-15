@@ -471,7 +471,7 @@
 	<string name="editor_profile_changes">Виправлення, що ураховані</string>
 	<string name="editor_focus_map_on_location">Потягніть мапу, щоб вибрати правильне місцезнаходження об’єкту.</string>
 	<string name="editor_edit_place_title">Редагування</string>
-	<string name="editor_add_place_title">Додовання</string>
+	<string name="editor_add_place_title">Додавання</string>
 	<string name="editor_edit_place_name_hint">Назва місця</string>
 	<string name="editor_edit_place_category_title">Категорія</string>
 	<string name="detailed_problem_description">Детальний опис проблеми</string>
