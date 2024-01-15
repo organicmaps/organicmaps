@@ -14574,7 +14574,7 @@
     sv = Lägger till
     th = กำลังเพิ่ม
     tr = Ekleme
-    uk = Додовання
+    uk = Додавання
     vi = Nhập
     zh-Hans = 添加中
     zh-Hant = 新增中
