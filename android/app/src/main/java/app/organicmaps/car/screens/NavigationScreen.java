@@ -79,7 +79,7 @@ public class NavigationScreen extends BaseMapScreen implements RoutingController
 
     final TravelEstimate destinationTravelEstimate = getDestinationTravelEstimate();
     if (destinationTravelEstimate != null)
-      builder.setDestinationTravelEstimate(getDestinationTravelEstimate());
+      builder.setDestinationTravelEstimate(destinationTravelEstimate);
 
     builder.setNavigationInfo(getNavigationInfo());
     return builder.build();
@@ -114,6 +114,7 @@ public class NavigationScreen extends BaseMapScreen implements RoutingController
     LocationHelper.from(getCarContext()).addListener(mLocationListener);
     if (LocationUtils.checkFineLocationPermission(getCarContext()))
       NavigationService.startForegroundService(getCarContext(), CarAppService.getCarNotificationExtender(getCarContext()));
+    updateTrip();
   }
 
   @Override
