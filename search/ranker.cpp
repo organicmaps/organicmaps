@@ -214,7 +214,13 @@ NameScores GetNameScores(FeatureType & ft, Geocoder::Params const & params,
 
 void RemoveDuplicatingLinear(vector<RankerResult> & results)
 {
-  double constexpr kDistSameStreetMeters = 5000.0;
+  // "Молодечно первомайская ул"; "Тюрли первомайская ул" should remain both :)
+  double constexpr kDistSameStreetMeters = 3000.0;
+
+  /// @todo This kind of filtering doesn't work properly in 2-dimension.
+  /// - less makes X, Y, Z by GetLinearModelRank
+  /// - equal doesn't recognize X == Z by PointDistance because of middle Y
+  /// * Update Result::IsEqualFeature when will be fixed.
 
   auto const lessCmp = [](RankerResult const & r1, RankerResult const & r2)
   {

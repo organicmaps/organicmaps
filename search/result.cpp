@@ -121,6 +121,7 @@ bool Result::IsEqualFeature(Result const & r) const
   if (ftypes::IsPublicTransportStopChecker::Instance()(m_featureType))
     return PointDistance(m_center, r.m_center) < 150.0;
 
+  /// @todo Keep this check until RemoveDuplicatingLinear will be fixed.
   // Filter same streets (with 'same logical street distance' threshold).
   if (ftypes::IsWayChecker::Instance().GetSearchRank(m_featureType) != ftypes::IsWayChecker::Default)
     return PointDistance(m_center, r.m_center) < 2000.0;
