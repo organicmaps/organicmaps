@@ -909,13 +909,13 @@ UNIT_CLASS_TEST(MwmTestsFixture, Full_Address)
   }
 }
 
-UNIT_CLASS_TEST(MwmTestsFixture, BA_RelaxedStreets)
+UNIT_CLASS_TEST(MwmTestsFixture, RelaxedStreets)
 {
-  // Buenos Aires (Palermo)
-  ms::LatLon const center(-34.5802699, -58.4124979);
-  SetViewportAndLoadMaps(center);
-
   {
+    // Buenos Aires (Palermo)
+    ms::LatLon const center(-34.5802699, -58.4124979);
+    SetViewportAndLoadMaps(center);
+
     auto request = MakeRequest("French 1700");
     auto const & results = request->Results();
     TEST_GREATER(results.size(), 20, ());
@@ -933,7 +933,24 @@ UNIT_CLASS_TEST(MwmTestsFixture, BA_RelaxedStreets)
       }
       ++count;
     }
+
+    // "Buenos Aires" neighbour regions should present to get >5 addresses.
     TEST_GREATER(count, 5, ());
+  }
+
+  {
+    // Molodechno
+    ms::LatLon const center(54.3021037, 26.8366091);
+    SetViewportAndLoadMaps(center);
+
+    auto request = MakeRequest("Молодечно первомайская", "ru");
+    auto const & results = request->Results();
+    TEST_GREATER(results.size(), 20, ());
+
+    Range const range(results, 0, 3);
+    EqualClassifType(range, GetClassifTypes({{"highway", "residential"}}));
+    double const dist = SortedByDistance(range, center);
+    TEST_LESS(dist, 3000, ());
   }
 }
 
