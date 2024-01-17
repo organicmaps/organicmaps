@@ -274,7 +274,7 @@
 "website" = "網站";
 
 /* Text in About menu, opens Organic Maps news website */
-"news" = "消息";
+"news" = "新聞";
 
 /* Text in menu */
 "github" = "GitHub";
@@ -289,7 +289,7 @@
 "mastodon" = "Mastodon";
 
 /* Text in menu */
-"facebook" = "臉書";
+"facebook" = "Facebook";
 
 /* Text in menu */
 "twitter" = "X (推特)";
@@ -304,7 +304,7 @@
 "openstreetmap" = "開放街圖";
 
 /* Text in menu */
-"rate_the_app" = "為該應用程式評分";
+"rate_the_app" = "為我們評分";
 
 /* Text in menu */
 "help" = "幫助";
@@ -313,7 +313,7 @@
 "faq" = "問題和解答";
 
 /* Button in the main menu */
-"donate" = "捐款";
+"donate" = "捐助我們";
 
 /* Button in the main Help dialog */
 "how_to_support_us" = "支持項目";
@@ -322,7 +322,7 @@
 "copyright" = "版權";
 
 /* Text in menu + Button in the main Help dialog */
-"report_a_bug" = "報告錯誤";
+"report_a_bug" = "報告問題";
 
 /* Alert text */
 "email_error_body" = "電子郵件客戶端尚未建立。請設定或使用任何其他方式與我們聯絡%@";
@@ -372,7 +372,7 @@
 "downloader_download_map" = "下載地圖";
 
 /* Item status in downloader. */
-"downloader_retry" = "重試";
+"downloader_retry" = "重新下載";
 
 /* Item in context menu. */
 "downloader_delete_map" = "刪除地圖";
@@ -521,9 +521,9 @@
 
 "history" = "記錄";
 
-"search_not_found" = "很抱歉，找不到任何東西。";
+"search_not_found" = "很抱歉，沒有找到任何地點。";
 
-"search_not_found_query" = "請嘗試其他搜尋字詞。";
+"search_not_found_query" = "請嘗試搜尋其它關鍵詞。";
 
 "search_history_title" = "搜尋歷史紀錄";
 
@@ -541,9 +541,9 @@
 
 "p2p_start" = "開始";
 
-"p2p_from_here" = "從";
+"p2p_from_here" = "從這出發";
 
-"p2p_to_here" = "路線終點";
+"p2p_to_here" = "到這去";
 
 "p2p_only_from_current" = "導航只能從您目前的位置開始。";
 
@@ -716,7 +716,7 @@
 
 "download_over_mobile_header" = "用手機網路連線下載嗎？";
 
-"download_over_mobile_message" = "用某些方案或漫遊的話這可能相當昂貴。";
+"download_over_mobile_message" = "如果您使用行動數據或漫遊來進行下載，將可能導致額外的費用。";
 
 "error_enter_correct_house_number" = "輸入正確的門牌號碼";
 
@@ -732,7 +732,7 @@
 /* Place Page title for long tap */
 "core_placepage_unknown_place" = "未知的位置";
 
-"editor_other_info" = "給OSM編輯器發送標記";
+"editor_other_info" = "給 OSM 社區發送標記";
 
 "editor_detailed_description_hint" = "詳細註釋";
 
@@ -750,7 +750,7 @@
 "current_location_unknown_title" = "繼續偵測您的目前位置？";
 
 /* Error that appears after certain time without location. */
-"current_location_unknown_message" = "目前位置未知，可能您在建築物內或隧道內。";
+"current_location_unknown_message" = "我們無法確定您的當前位置，可能是因為您在建築物內或隧道內。";
 
 "current_location_unknown_continue_button" = "繼續";
 
@@ -758,7 +758,7 @@
 
 "current_location_unknown_error_title" = "目前位置未知。";
 
-"current_location_unknown_error_message" = "搜尋您的位置時發生錯誤。請檢查您的裝置是否正常運作，然後重試。";
+"current_location_unknown_error_message" = "定位到您的當前位置時出錯。請檢查您的裝置是否正常運作，然後再試一次。";
 
 "location_services_disabled_header" = "地點定位被禁用";
 
@@ -827,7 +827,7 @@
 
 "editor_remove_place_button" = "移除";
 
-"editor_place_doesnt_exist" = "位置不存在";
+"editor_place_doesnt_exist" = "該地點不存在";
 
 "text_more_button" = "…更多";
 
@@ -863,7 +863,7 @@
 "recent_track_background_dialog_message" = "Organic Maps使用背景中的地理位置記錄您最近去過的路徑。";
 
 /* Text under the version number in the Help dialog. TODO: Synchronize other translations with English. */
-"about_description" = "Organic Maps 是一款免費的開源離線地圖 app。沒有廣告，不會追蹤。如果您在地圖上看到錯誤，請在 OpenStreetMap 中修復吧。這個專案由愛好者在我們的空閒時間創建，因此我們需要您的回饋和支援。";
+"about_description" = "Organic Maps 是一款免費的開源離線地圖 app。沒有廣告，不會追蹤您。如果您在地圖上看到錯誤，請在 OpenStreetMap 中修復吧。這個專案由愛好者在我們的空閒時間創建，因此我們需要您的回饋和支援。";
 
 "general_settings" = "一般設定";
 

@@ -39,11 +39,11 @@
 	<!-- Text in About screen -->
 	<string name="about_headline">對每個人都免費，用愛製成</string>
 	<!-- Text in About screen -->
-	<string name="about_proposition_1">•沒有廣告，沒有跟踪，沒有數據收集</string>
+	<string name="about_proposition_1">•沒有廣告，不會跟踪您，更不會收集您的數據</string>
 	<!-- Text in About screen -->
 	<string name="about_proposition_2">• 節省電池電量，不使用後台數據</string>
 	<!-- Text in About screen -->
-	<string name="about_proposition_3">•快速，簡約，沒有垃圾</string>
+	<string name="about_proposition_3">•快速，簡約，不含垃圾軟體</string>
 	<!-- Text in About screen -->
 	<string name="about_developed_by_enthusiasts">由愛好者和志願者創建的開源應用程序。</string>
 	<!-- The button that opens system location settings -->
@@ -99,7 +99,7 @@
 	<!-- Measurement units title in settings activity -->
 	<string name="measurement_units">測量單位</string>
 	<!-- Detailed description of Measurement Units settings button -->
-	<string name="measurement_units_summary">請選擇公里或英哩</string>
+	<string name="measurement_units_summary">選擇公里或英哩</string>
 
 	<!-- SECTION: Search categories -->
 	<!-- Search category for cafes, bars, restaurants; any changes should be duplicated in categories.txt @eat! -->
@@ -235,9 +235,9 @@
 	<!-- Text in menu -->
 	<string name="website">網站</string>
 	<!-- Text in About menu, opens Organic Maps news website -->
-	<string name="news">消息</string>
+	<string name="news">新聞</string>
 	<!-- Text in menu -->
-	<string name="facebook">臉書</string>
+	<string name="facebook">Facebook</string>
 	<!-- Text in menu -->
 	<string name="twitter">X (推特)</string>
 	<!-- Text in menu -->
@@ -245,19 +245,19 @@
 	<!-- Settings: Send feedback button and dialog title -->
 	<string name="feedback">意見反應</string>
 	<!-- Text in menu -->
-	<string name="rate_the_app">為該應用程式評分</string>
+	<string name="rate_the_app">為我們評分</string>
 	<!-- Text in menu -->
 	<string name="help">幫助</string>
 	<!-- Button in the main Help dialog -->
 	<string name="faq">問題和解答</string>
 	<!-- Button in the main menu -->
-	<string name="donate">捐款</string>
+	<string name="donate">捐助我們</string>
 	<!-- Button in the main Help dialog -->
 	<string name="how_to_support_us">支持項目</string>
 	<!-- Button in the main Help dialog -->
 	<string name="copyright">版權</string>
 	<!-- Text in menu + Button in the main Help dialog -->
-	<string name="report_a_bug">報告錯誤</string>
+	<string name="report_a_bug">報告問題</string>
 	<!-- Toast text when compass calibration may improve the correctness of the current position arrow -->
 	<string name="compass_calibration_recommended">通過以八字形移動手機來校準指南針來改善箭頭方向</string>
 	<!-- Toast text when compass calibration may improve the correctness of the current position arrow -->
@@ -282,7 +282,7 @@
 	<!-- Context menu item for downloader. -->
 	<string name="downloader_download_map">下載地圖</string>
 	<!-- Item status in downloader. -->
-	<string name="downloader_retry">重試</string>
+	<string name="downloader_retry">重新下載</string>
 	<!-- Item in context menu. -->
 	<string name="downloader_delete_map">刪除地圖</string>
 	<!-- Item in context menu. -->
@@ -373,8 +373,8 @@
 	<string name="hide">隱藏</string>
 	<string name="categories">類別</string>
 	<string name="history">記錄</string>
-	<string name="search_not_found">很抱歉，找不到任何東西。</string>
-	<string name="search_not_found_query">請嘗試其他搜尋字詞。</string>
+	<string name="search_not_found">很抱歉，沒有找到任何地點。</string>
+	<string name="search_not_found_query">請嘗試搜尋其它關鍵詞。</string>
 	<string name="search_history_title">搜尋歷史紀錄</string>
 	<string name="search_history_text">檢視最近的搜尋。</string>
 	<string name="clear_search">清除搜尋記錄</string>
@@ -382,8 +382,8 @@
 	<string name="read_in_wikipedia">維基百科</string>
 	<string name="p2p_your_location">您的位置</string>
 	<string name="p2p_start">開始</string>
-	<string name="p2p_from_here">從</string>
-	<string name="p2p_to_here">路線終點</string>
+	<string name="p2p_from_here">從這出發</string>
+	<string name="p2p_to_here">到這去</string>
 	<string name="p2p_only_from_current">導航只能從您目前的位置開始。</string>
 	<string name="p2p_reroute_from_current">你是否想要規劃目前位置的路線？</string>
 	<!-- Edit open hours/set time and minutes dialog -->
@@ -462,15 +462,15 @@
 	<string name="editor_edit_place_category_title">類別</string>
 	<string name="detailed_problem_description">問題的詳細描述</string>
 	<string name="editor_report_problem_other_title">不同的問題</string>
-	<string name="placepage_add_business_button">添加組織</string>
+	<string name="placepage_add_business_button">將地點添加到 OpenStreetMap</string>
 	<string name="message_invalid_feature_position">物件無法設置在這裡</string>
 	<!-- Text in About and OSM Login screens. %@ is replaced by a local, human readable date. -->
-	<string name="osm_presentation">截至%s的OpenStreetMap的製圖數據。就像Wikipedia一樣，您可以為世界上所有用戶添加或編輯位置。</string>
+	<string name="osm_presentation">截止到 %s 的 OpenStreetMap 地圖數據。就像 Wikipedia 一樣，您可以為世界上所有用戶添加或編輯位置。</string>
 	<string name="login_to_make_edits_visible">登入來讓其他使用者能看到您所作出的修改。</string>
 	<!-- Downloaded 10 **of** 20 <- it is that "of" -->
 	<string name="downloader_of">%1$d個/共%2$d個</string>
 	<string name="download_over_mobile_header">用手機網路連線下載嗎？</string>
-	<string name="download_over_mobile_message">用某些方案或漫遊的話這可能相當昂貴。</string>
+	<string name="download_over_mobile_message">如果您使用行動數據或漫遊來進行下載，將可能導致額外的費用。</string>
 	<string name="error_enter_correct_house_number">輸入正確的門牌號碼</string>
 	<string name="editor_storey_number">樓層數（最大 %d）</string>
 	<!-- Error message in Editor when a user tries to set the number of floors for a building higher than %d floors -->
@@ -479,7 +479,7 @@
 	<string name="error_enter_correct_zip_code">輸入正確的郵遞區號</string>
 	<!-- Place Page title for long tap -->
 	<string name="core_placepage_unknown_place">未知的位置</string>
-	<string name="editor_other_info">給OSM編輯器發送標記</string>
+	<string name="editor_other_info">給 OSM 社區發送標記</string>
 	<string name="editor_detailed_description_hint">詳細註釋</string>
 	<string name="editor_detailed_description">您建議的變更將傳送至 OpenStreetMap 社群。說明無法在 Organic Maps 中編輯的詳細資料。</string>
 	<string name="editor_more_about_osm">關於 OpenStreetMap 的更多資訊</string>
@@ -489,7 +489,7 @@
 	<!-- Error title that appears after certain time without location. -->
 	<string name="current_location_unknown_title">繼續偵測您的目前位置？</string>
 	<!-- Error that appears after certain time without location. -->
-	<string name="current_location_unknown_message">目前位置未知，可能您在建築物內或隧道內。</string>
+	<string name="current_location_unknown_message">我們無法確定您的當前位置，可能是因為您在建築物內或隧道內。</string>
 	<string name="current_location_unknown_continue_button">繼續</string>
 	<string name="current_location_unknown_stop_button">停止</string>
 	<!-- abbreviation for meters -->
@@ -518,7 +518,7 @@
 	<string name="editor_reset_edits_button">重設</string>
 	<string name="editor_remove_place_message">移除已新增的位置？</string>
 	<string name="editor_remove_place_button">移除</string>
-	<string name="editor_place_doesnt_exist">位置不存在</string>
+	<string name="editor_place_doesnt_exist">該地點不存在</string>
 	<!-- Phone number error message -->
 	<string name="error_enter_correct_phone">輸入正確的電話號碼</string>
 	<string name="error_enter_correct_web">輸入有效網址</string>
@@ -631,7 +631,7 @@
 	<string name="power_managment_setting_never">從不</string>
 	<string name="power_managment_setting_auto">自動</string>
 	<string name="power_managment_setting_manual_max">最大程度省電</string>
-	<string name="enable_logging_warning_message">此選項啟用以記錄操作來進行診斷。這有助於團隊辨別 app 的問題。請僅在Organic Maps支援請求時開啟該選項。</string>
+	<string name="enable_logging_warning_message">暫時啟用此選項，以便使用「回報問題」功能在幫助對話框中記錄並手動發送詳細的診斷日誌給我們。日誌可能包含位置資訊。</string>
 	<string name="access_rules_author_only">線上編輯</string>
 	<string name="driving_options_title">繞行設定</string>
 	<!-- Recommended length for CarPlay and Android Auto is around 25-27 characters -->
@@ -723,7 +723,7 @@
 	<!-- Description in preferences -->
 	<string name="enable_show_on_lock_screen_description">啟用後，即使設備已鎖定，應用程式仍會在鎖定螢幕上運作。</string>
 	<!-- OpenStreetMap text on splash screen -->
-	<string name="splash_subtitle">來自 OpenStreetMap 的地圖數據</string>
+	<string name="splash_subtitle">地圖數據來自 OpenStreetMap</string>
 	<!-- Tip #00 -->
 	<string name="app_tip_00">感謝您使用我們社區構建的地圖！</string>
 	<!-- Text on the Android Auto placeholder screen that maps are displayed on the phone screen -->
