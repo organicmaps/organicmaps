@@ -98,6 +98,7 @@ char const kMapStyleKey[] = "MapStyleKeyV1";
 char const kAllow3dKey[] = "Allow3d";
 char const kAllow3dBuildingsKey[] = "Buildings3d";
 char const kAllowAutoZoom[] = "AutoZoom";
+char const kAllowAlwaysShowNextTurn[] = "AlwaysShowNextTurn";
 char const kTrafficEnabledKey[] = "TrafficEnabled";
 char const kTransitSchemeEnabledKey[] = "TransitSchemeEnabled";
 char const kIsolinesEnabledKey[] = "IsolinesEnabled";
@@ -2465,6 +2466,25 @@ void Framework::AllowAutoZoom(bool allowAutoZoom)
 void Framework::SaveAutoZoom(bool allowAutoZoom)
 {
   settings::Set(kAllowAutoZoom, allowAutoZoom);
+}
+
+bool Framework::LoadAlwaysShowNextTurn()
+{
+  bool allowAlwaysShowNextTurn;
+  if (!settings::Get(kAllowAlwaysShowNextTurn, allowAlwaysShowNextTurn))
+    allowAlwaysShowNextTurn = true;
+  return allowAlwaysShowNextTurn;
+}
+
+void Framework::AllowAlwaysShowNextTurn(bool allowAlwaysShowNextTurn)
+{
+  if (m_routingManager != nullptr)
+    m_routingManager->SetAlwaysShowNextTurn(allowAlwaysShowNextTurn);
+}
+
+void Framework::SaveAlwaysShowNextTurn(bool allowAlwaysShowNextTurn)
+{
+  settings::Set(kAllowAlwaysShowNextTurn, allowAlwaysShowNextTurn);
 }
 
 bool Framework::LoadTransitSchemeEnabled()

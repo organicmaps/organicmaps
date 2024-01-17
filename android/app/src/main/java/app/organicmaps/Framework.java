@@ -357,6 +357,10 @@ public class Framework
 
   public static native void nativeSetAutoZoomEnabled(boolean enabled);
 
+  public static native boolean nativeGetAlwaysShowNextTurnEnabled();
+
+  public static native void nativeSetAlwaysShowNextTurnEnabled(boolean enabled);
+
   public static native void nativeSetTransitSchemeEnabled(boolean enabled);
 
   public static native void nativeSaveSettingSchemeEnabled(boolean enabled);

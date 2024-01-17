@@ -425,10 +425,10 @@ void RoutingSession::GetRouteFollowingInfo(FollowingInfo & info) const
 
   info.m_completionPercent = GetCompletionPercent();
 
-  double const timeToNearestTurnSec = m_route->GetCurrentTimeToNearestTurnSec();
-
   // Lane information and next street name.
-  if (distanceToTurnMeters < kShowLanesMinDistInMeters || timeToNearestTurnSec < 60.0)
+  if (m_alwaysShowNextTurn
+   || distanceToTurnMeters < kShowLanesMinDistInMeters
+   || m_route->GetCurrentTimeToNearestTurnSec() < 60.0)
   {
     info.m_displayedStreetName = info.m_targetName;
     // There are two nested loops below. Outer one is for lanes and inner one (ctor of
@@ -734,6 +734,13 @@ void RoutingSession::SetTurnNotificationsUnits(measurement_utils::Units const un
   CHECK_THREAD_CHECKER(m_threadChecker, ());
   m_turnNotificationsMgr.SetLengthUnits(units);
 }
+
+void SetAlwaysShowNextTurn(bool alwaysShowNextTurn)
+{
+  CHECK_THREAD_CHECKER(m_threadChecker, ());
+  m_alwaysShowNextTurn = alwaysShowNextTurn;
+}
+
 
 void RoutingSession::SetTurnNotificationsLocale(std::string const & locale)
 {

@@ -27,6 +27,7 @@ using namespace power_management;
 @property(weak, nonatomic) IBOutlet SettingsTableViewLinkCell *nightModeCell;
 @property(weak, nonatomic) IBOutlet SettingsTableViewSwitchCell *perspectiveViewCell;
 @property(weak, nonatomic) IBOutlet SettingsTableViewSwitchCell *autoZoomCell;
+@property(weak, nonatomic) IBOutlet SettingsTableViewSwitchCell *alwaysShowNextTurnCell;
 @property(weak, nonatomic) IBOutlet SettingsTableViewLinkCell *voiceInstructionsCell;
 @property(weak, nonatomic) IBOutlet SettingsTableViewLinkCell *drivingOptionsCell;
 
@@ -203,6 +204,7 @@ using namespace power_management;
   [self.perspectiveViewCell configWithDelegate:self title:L(@"pref_map_3d_title") isOn:on];
 
   [self.autoZoomCell configWithDelegate:self title:L(@"pref_map_auto_zoom") isOn:GetFramework().LoadAutoZoom()];
+  [self.alwaysShowNextTurnCell configWithDelegate:self title:L(@"pref_map_always_show_next_turn") isOn:GetFramework().LoadAlwaysShowNextTurn()];
 
   NSString *ttsEnabledString = [MWMTextToSpeech isTTSEnabled] ? L(@"on") : L(@"off");
   [self.voiceInstructionsCell configWithTitle:L(@"pref_tts_enable_title") info:ttsEnabledString];
@@ -241,6 +243,10 @@ using namespace power_management;
     auto &f = GetFramework();
     f.AllowAutoZoom(value);
     f.SaveAutoZoom(value);
+  } else if (cell == self.alwaysShowNextTurnCell) {
+    auto &f = GetFramework();
+    f.AllowAlwaysShowNextTurn(value);
+    f.SaveAlwaysShowNextTurn(value);
   }
 }
 

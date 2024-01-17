@@ -681,6 +681,10 @@ public:
   void AllowAutoZoom(bool allowAutoZoom);
   void SaveAutoZoom(bool allowAutoZoom);
 
+  bool LoadAlwaysShowNextTurn();
+  bool AllowAlwaysShowNextTurn(bool allowAlwaysShowNextTurn);
+  bool SaveAlwaysShowNextTurn(bool allowAlwaysShowNextTurn);
+
   TrafficManager & GetTrafficManager();
 
   TransitReadManager & GetTransitManager();

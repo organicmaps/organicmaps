@@ -259,6 +259,12 @@ public:
   {
     m_routingSession.SetTurnNotificationsUnits(units);
   }
+
+  void SetAlwaysShowNextTurn(bool alwaysShowNextTurn)
+  {
+    m_routingSession.SetAlwaysShowNextTurn(alwaysShowNextTurn);
+  }
+
   void SetDrapeEngine(ref_ptr<df::DrapeEngine> engine, bool is3dAllowed);
   /// \returns true if altitude information along |m_route| is available and
   /// false otherwise.

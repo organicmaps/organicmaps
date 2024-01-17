@@ -30,6 +30,7 @@
   <string name="pref_3d_buildings" translatable="false">3DBuildings</string>
   <string name="pref_osm_profile" translatable="false">Osm profile</string>
   <string name="pref_auto_zoom" translatable="false">AutoZoom</string>
+  <string name="pref_always_show_next_turn" translatable="false">AlwaysShowNextTurn</string>
   <string name="pref_large_fonts_size" translatable="false">LargeFontSize</string>
   <string name="pref_use_mobile_data" translatable="false">UseMobileData</string>
   <string name="pref_settings_general" translatable="false">GeneralSettings</string>
