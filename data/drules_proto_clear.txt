@@ -5523,23 +5523,9 @@ cont {
 cont {
   name: "amenity-drinking_water"
   element {
-    scale: 16
-    symbol {
-      name: "drinking-water-s"
-      priority: 3500
-    }
-  }
-  element {
-    scale: 17
-    symbol {
-      name: "drinking-water-s"
-      priority: 3500
-    }
-  }
-  element {
     scale: 18
     symbol {
-      name: "drinking-water-s"
+      name: "drinking-water-m"
       priority: 3500
     }
   }
@@ -13643,23 +13629,9 @@ cont {
 cont {
   name: "amenity-water_point"
   element {
-    scale: 16
-    symbol {
-      name: "drinking-water-s"
-      priority: 3050
-    }
-  }
-  element {
-    scale: 17
-    symbol {
-      name: "drinking-water-s"
-      priority: 3050
-    }
-  }
-  element {
     scale: 18
     symbol {
-      name: "drinking-water-s"
+      name: "drinking-water-m"
       priority: 3050
     }
   }
@@ -54108,23 +54080,9 @@ cont {
 cont {
   name: "man_made-water_tap"
   element {
-    scale: 16
-    symbol {
-      name: "drinking-water-s"
-      priority: 3050
-    }
-  }
-  element {
-    scale: 17
-    symbol {
-      name: "drinking-water-s"
-      priority: 3050
-    }
-  }
-  element {
     scale: 18
     symbol {
-      name: "drinking-water-s"
+      name: "drinking-water-m"
       priority: 3050
     }
   }
@@ -54146,23 +54104,9 @@ cont {
 cont {
   name: "man_made-water_well"
   element {
-    scale: 16
-    symbol {
-      name: "drinking-water-s"
-      priority: 3050
-    }
-  }
-  element {
-    scale: 17
-    symbol {
-      name: "drinking-water-s"
-      priority: 3050
-    }
-  }
-  element {
     scale: 18
     symbol {
-      name: "drinking-water-s"
+      name: "drinking-water-m"
       priority: 3050
     }
   }
@@ -55794,7 +55738,6 @@ cont {
     symbol {
       name: "geyser-s"
       priority: 4650
-      min_distance: 24
     }
     caption {
       primary {
@@ -55811,7 +55754,6 @@ cont {
     symbol {
       name: "geyser-m"
       priority: 4650
-      min_distance: 24
     }
     caption {
       primary {
@@ -55828,7 +55770,6 @@ cont {
     symbol {
       name: "geyser-m"
       priority: 4650
-      min_distance: 24
     }
     caption {
       primary {
@@ -55845,7 +55786,6 @@ cont {
     symbol {
       name: "geyser-m"
       priority: 4650
-      min_distance: 24
     }
     caption {
       primary {
@@ -55862,7 +55802,6 @@ cont {
     symbol {
       name: "geyser-m"
       priority: 4650
-      min_distance: 24
     }
     caption {
       primary {
@@ -55879,7 +55818,6 @@ cont {
     symbol {
       name: "geyser-m"
       priority: 4650
-      min_distance: 24
     }
     caption {
       primary {
@@ -55896,7 +55834,6 @@ cont {
     symbol {
       name: "geyser-m"
       priority: 4650
-      min_distance: 24
     }
     caption {
       primary {
@@ -56187,45 +56124,10 @@ cont {
 cont {
   name: "natural-hot_spring"
   element {
-    scale: 14
-    symbol {
-      name: "drinking-water-s"
-      priority: 4650
-      min_distance: 24
-    }
-    caption {
-      primary {
-        height: 10
-        color: 4473924
-        offset_y: 6
-        is_optional: true
-      }
-      priority: -5350
-    }
-  }
-  element {
-    scale: 15
-    symbol {
-      name: "drinking-water-s"
-      priority: 4650
-      min_distance: 24
-    }
-    caption {
-      primary {
-        height: 10
-        color: 4473924
-        offset_y: 6
-        is_optional: true
-      }
-      priority: -5350
-    }
-  }
-  element {
     scale: 16
     symbol {
-      name: "drinking-water-s"
+      name: "drinking-water-m"
       priority: 4650
-      min_distance: 24
     }
     caption {
       primary {
@@ -56240,9 +56142,8 @@ cont {
   element {
     scale: 17
     symbol {
-      name: "drinking-water-s"
+      name: "drinking-water-m"
       priority: 4650
-      min_distance: 24
     }
     caption {
       primary {
@@ -56259,13 +56160,12 @@ cont {
     symbol {
       name: "drinking-water-m"
       priority: 4650
-      min_distance: 24
     }
     caption {
       primary {
         height: 10
         color: 4473924
-        offset_y: 8
+        offset_y: 6
         is_optional: true
       }
       priority: -5350
@@ -56276,13 +56176,12 @@ cont {
     symbol {
       name: "drinking-water-m"
       priority: 4650
-      min_distance: 24
     }
     caption {
       primary {
         height: 10
         color: 4473924
-        offset_y: 8
+        offset_y: 6
         is_optional: true
       }
       priority: -5350
@@ -56293,13 +56192,12 @@ cont {
     symbol {
       name: "drinking-water-m"
       priority: 4650
-      min_distance: 24
     }
     caption {
       primary {
         height: 10
         color: 4473924
-        offset_y: 8
+        offset_y: 6
         is_optional: true
       }
       priority: -5350
@@ -56842,62 +56740,10 @@ cont {
 cont {
   name: "natural-spring"
   element {
-    scale: 14
-    symbol {
-      name: "drinking-water-s"
-      priority: 4650
-      min_distance: 24
-    }
-    caption {
-      primary {
-        height: 10
-        color: 4473924
-        offset_y: 6
-        is_optional: true
-      }
-      priority: -5350
-    }
-  }
-  element {
-    scale: 15
-    symbol {
-      name: "drinking-water-s"
-      priority: 4650
-      min_distance: 24
-    }
-    caption {
-      primary {
-        height: 10
-        color: 4473924
-        offset_y: 6
-        is_optional: true
-      }
-      priority: -5350
-    }
-  }
-  element {
-    scale: 16
-    symbol {
-      name: "drinking-water-s"
-      priority: 4650
-      min_distance: 24
-    }
-    caption {
-      primary {
-        height: 10
-        color: 4473924
-        offset_y: 6
-        is_optional: true
-      }
-      priority: -5350
-    }
-  }
-  element {
     scale: 17
     symbol {
-      name: "drinking-water-s"
+      name: "drinking-water-m"
       priority: 4650
-      min_distance: 24
     }
     caption {
       primary {
@@ -56914,13 +56760,12 @@ cont {
     symbol {
       name: "drinking-water-m"
       priority: 4650
-      min_distance: 24
     }
     caption {
       primary {
         height: 10
         color: 4473924
-        offset_y: 8
+        offset_y: 6
         is_optional: true
       }
       priority: -5350
@@ -56931,13 +56776,12 @@ cont {
     symbol {
       name: "drinking-water-m"
       priority: 4650
-      min_distance: 24
     }
     caption {
       primary {
         height: 10
         color: 4473924
-        offset_y: 8
+        offset_y: 6
         is_optional: true
       }
       priority: -5350
@@ -56948,13 +56792,12 @@ cont {
     symbol {
       name: "drinking-water-m"
       priority: 4650
-      min_distance: 24
     }
     caption {
       primary {
         height: 10
         color: 4473924
-        offset_y: 8
+        offset_y: 6
         is_optional: true
       }
       priority: -5350

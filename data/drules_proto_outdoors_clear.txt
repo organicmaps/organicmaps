@@ -59340,7 +59340,6 @@ cont {
     symbol {
       name: "geyser-m"
       priority: 4650
-      min_distance: 24
     }
     caption {
       primary {
@@ -59357,7 +59356,6 @@ cont {
     symbol {
       name: "geyser-m"
       priority: 4650
-      min_distance: 24
     }
     caption {
       primary {
@@ -59374,7 +59372,6 @@ cont {
     symbol {
       name: "geyser-m"
       priority: 4650
-      min_distance: 24
     }
     caption {
       primary {
@@ -59391,7 +59388,6 @@ cont {
     symbol {
       name: "geyser-m"
       priority: 4650
-      min_distance: 24
     }
     caption {
       primary {
@@ -59408,7 +59404,6 @@ cont {
     symbol {
       name: "geyser-m"
       priority: 4650
-      min_distance: 24
     }
     caption {
       primary {
@@ -59425,7 +59420,6 @@ cont {
     symbol {
       name: "geyser-m"
       priority: 4650
-      min_distance: 24
     }
     caption {
       primary {
@@ -59442,7 +59436,6 @@ cont {
     symbol {
       name: "geyser-m"
       priority: 4650
-      min_distance: 24
     }
     caption {
       primary {
@@ -59751,16 +59744,6 @@ cont {
     symbol {
       name: "drinking-water-s"
       priority: 4650
-      min_distance: 24
-    }
-    caption {
-      primary {
-        height: 10
-        color: 4473924
-        offset_y: 6
-        is_optional: true
-      }
-      priority: -5350
     }
   }
   element {
@@ -59768,7 +59751,6 @@ cont {
     symbol {
       name: "drinking-water-m"
       priority: 4650
-      min_distance: 24
     }
     caption {
       primary {
@@ -59785,7 +59767,6 @@ cont {
     symbol {
       name: "drinking-water-m"
       priority: 4650
-      min_distance: 24
     }
     caption {
       primary {
@@ -59802,7 +59783,6 @@ cont {
     symbol {
       name: "drinking-water-m"
       priority: 4650
-      min_distance: 24
     }
     caption {
       primary {
@@ -59819,7 +59799,6 @@ cont {
     symbol {
       name: "drinking-water-m"
       priority: 4650
-      min_distance: 24
     }
     caption {
       primary {
@@ -59836,7 +59815,6 @@ cont {
     symbol {
       name: "drinking-water-m"
       priority: 4650
-      min_distance: 24
     }
     caption {
       primary {
@@ -59853,7 +59831,6 @@ cont {
     symbol {
       name: "drinking-water-m"
       priority: 4650
-      min_distance: 24
     }
     caption {
       primary {
@@ -60509,7 +60486,6 @@ cont {
     symbol {
       name: "drinking-water-s"
       priority: 4650
-      min_distance: 24
     }
     caption {
       primary {
@@ -60526,7 +60502,6 @@ cont {
     symbol {
       name: "drinking-water-m"
       priority: 4650
-      min_distance: 24
     }
     caption {
       primary {
@@ -60543,7 +60518,6 @@ cont {
     symbol {
       name: "drinking-water-m"
       priority: 4650
-      min_distance: 24
     }
     caption {
       primary {
@@ -60560,7 +60534,6 @@ cont {
     symbol {
       name: "drinking-water-m"
       priority: 4650
-      min_distance: 24
     }
     caption {
       primary {
@@ -60577,7 +60550,6 @@ cont {
     symbol {
       name: "drinking-water-m"
       priority: 4650
-      min_distance: 24
     }
     caption {
       primary {
@@ -60594,7 +60566,6 @@ cont {
     symbol {
       name: "drinking-water-m"
       priority: 4650
-      min_distance: 24
     }
     caption {
       primary {
@@ -60611,7 +60582,6 @@ cont {
     symbol {
       name: "drinking-water-m"
       priority: 4650
-      min_distance: 24
     }
     caption {
       primary {
