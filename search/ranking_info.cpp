@@ -27,6 +27,8 @@ double constexpr kCategoriesRank = 1.0000000;
 double constexpr kCategoriesFalseCats = -1.0000000;
 
 double constexpr kDistanceToPivot = -0.2123693;
+double constexpr kWalkingDistanceM = 5000.0;
+
 // This constant is very important and checked in Famous_Cities_Rank test.
 double constexpr kRank = 0.23;
 double constexpr kPopularity = 1.0000000;
@@ -40,6 +42,7 @@ double constexpr kErrorsMade = -0.15;
 double constexpr kMatchedFraction = 0.1876736;
 double constexpr kAllTokensUsed = 0.0478513;
 double constexpr kCommonTokens = -0.05;
+double constexpr kAltOldNameFactor = 0.7;   // fraction of the result rank
 
 double constexpr kNameScore[] = {
  -0.05,   // Zero
@@ -74,8 +77,8 @@ double constexpr kPoiType[] = {
   0.01,       // Hotel
   0.01,       // Shop or Amenity
   0.01,       // Attraction
- -0.01,       // Service
   0,          // General
+ -0.01,       // Service
 };
 static_assert(std::size(kPoiType) == base::Underlying(PoiType::Count));
 
@@ -103,7 +106,7 @@ static_assert(kErrorsMade <= 0, "");
 
 double TransformDistance(double distance)
 {
-  return min(distance, RankingInfo::kMaxDistMeters) / RankingInfo::kMaxDistMeters;
+  return std::min(distance, RankingInfo::kMaxDistMeters) / RankingInfo::kMaxDistMeters;
 }
 
 void PrintParse(ostringstream & oss, array<TokenRange, Model::TYPE_COUNT> const & ranges,
@@ -338,12 +341,16 @@ double RankingInfo::GetLinearModelRank() const
     }
 
     result += (m_allTokensUsed ? 1 : 0) * kAllTokensUsed;
+
     auto const nameRank = kNameScore[static_cast<size_t>(GetNameScore())] +
                           kErrorsMade * GetErrorsMadePerToken() +
                           kMatchedFraction * m_matchedFraction;
-    result += (m_isAltOrOldName ? 0.7 : 1.0) * nameRank;
+    result += nameRank;
 
     result += kCommonTokens * m_commonTokensFactor;
+
+    if (m_isAltOrOldName && result > 0)
+      result *= kAltOldNameFactor;
   }
   else
   {
@@ -373,15 +380,27 @@ double RankingInfo::GetErrorsMadePerToken() const
 
 NameScore RankingInfo::GetNameScore() const
 {
-  if (!m_pureCats && m_type == Model::TYPE_SUBPOI && m_nameScore == NameScore::FULL_PREFIX)
+  if (!m_pureCats && Model::IsPoi(m_type) && m_classifType.poi <= PoiType::Attraction)
   {
-    // It's better for ranking when POIs would be equal by name score. Some examples:
-    // query="rewe", pois=["REWE", "REWE City", "REWE to Go"]
-    // query="carrefour", pois=["Carrefour", "Carrefour Mini", "Carrefour Gurme"]
+    // It's better for ranking when POIs would be equal by name score in the next cases:
 
-    // The reason behind that is that user usually does search for _any_ shop within some commercial network.
-    // But cities or streets geocoding should distinguish this cases.
-    return NameScore::FULL_MATCH;
+    if (m_nameScore == NameScore::FULL_PREFIX)
+    {
+      // query = "rewe", pois = ["REWE", "REWE City", "REWE to Go"]
+      // query = "carrefour", pois = ["Carrefour", "Carrefour Mini", "Carrefour Gurme"]
+
+      // The reason behind that is that user usually does search for _any_ shop within some commercial network.
+      // But cities or streets geocoding should distinguish this cases.
+      return NameScore::FULL_MATCH;
+    }
+
+    if (m_nameScore != NameScore::ZERO && m_distanceToPivot < kWalkingDistanceM)
+    {
+      // query = "rimi", pois = ["Rimi", "Mini Rimi"]
+
+      // Equal name score for POIs within some reasonable walking distance.
+      return NameScore::FULL_MATCH;
+    }
   }
 
   return m_nameScore;

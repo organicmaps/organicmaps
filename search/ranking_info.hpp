@@ -14,6 +14,7 @@ namespace feature { class TypesHolder; }
 
 namespace search
 {
+/// @note The order is important here (less is better)
 enum class PoiType : uint8_t
 {
   // Railway/subway stations, airports.
@@ -28,10 +29,12 @@ enum class PoiType : uint8_t
   ShopOrAmenity,
   // Attractions.
   Attraction,
-  // Service types: power lines and substations, barrier-fence, etc.
-  Service,
+
   // All other POIs.
   General,
+  // Service types: power lines and substations, barrier-fence, etc.
+  Service,
+
   Count
 };
 

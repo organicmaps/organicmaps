@@ -631,8 +631,9 @@ private:
     case Model::TYPE_VILLAGE: return rank / 2.5;
     case Model::TYPE_CITY:
     {
+      /// @todo Tried to reduce more (1.5), but important Famous_Cities_Rank test fails.
       if (isCapital || m_ranker.m_params.m_viewport.IsPointInside(center))
-        return base::Clamp(static_cast<int>(rank) * 2, 0, 0xFF);
+        return base::Clamp(static_cast<int>(rank * 1.8), 0, 0xFF);
 
       storage::CountryInfo info;
       if (country.empty())
