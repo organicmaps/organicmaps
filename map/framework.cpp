@@ -2478,8 +2478,7 @@ bool Framework::LoadAlwaysShowNextTurn()
 
 void Framework::AllowAlwaysShowNextTurn(bool allowAlwaysShowNextTurn)
 {
-  if (m_routingManager != nullptr)
-    m_routingManager->SetAlwaysShowNextTurn(allowAlwaysShowNextTurn);
+  m_routingManager.SetAlwaysShowNextTurn(allowAlwaysShowNextTurn);
 }
 
 void Framework::SaveAlwaysShowNextTurn(bool allowAlwaysShowNextTurn)

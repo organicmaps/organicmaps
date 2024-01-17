@@ -735,7 +735,7 @@ void RoutingSession::SetTurnNotificationsUnits(measurement_utils::Units const un
   m_turnNotificationsMgr.SetLengthUnits(units);
 }
 
-void SetAlwaysShowNextTurn(bool alwaysShowNextTurn)
+void RoutingSession::SetAlwaysShowNextTurn(bool alwaysShowNextTurn)
 {
   CHECK_THREAD_CHECKER(m_threadChecker, ());
   m_alwaysShowNextTurn = alwaysShowNextTurn;
