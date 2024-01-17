@@ -34,17 +34,17 @@ area|z11-[waterway=waterfall],
 node|z12-[natural=cave_entrance],
 area|z12-[natural=cave_entrance],
 node|z13-[natural=peak][name],
+area|z14-[natural=bare_rock],
 node|z16-[natural=saddle],
 node|z14-[mountain_pass],
-node|z14-[natural=spring],
-area|z14-[natural=spring],
-node|z14-[natural=hot_spring],
-area|z14-[natural=hot_spring],
 node|z14-[natural=geyser],
 area|z14-[natural=geyser],
 node|z16-[natural=beach],
 area|z16-[natural=beach],
-area|z14-[natural=bare_rock],
+node|z16-[natural=hot_spring],
+area|z16-[natural=hot_spring],
+node|z17-[natural=spring],
+area|z17-[natural=spring],
 {text: name;text-color: @poi_label;text-position: center;text-offset: 1;}
 
 node|z13-[natural=peak][!name],
@@ -161,41 +161,27 @@ node|z12-[landuse=forest][!name],
 area|z12-[landuse=forest][!name]
 {}
 
-node|z14-[natural=spring],
-area|z14-[natural=spring],
-node|z14-[natural=hot_spring],
-area|z14-[natural=hot_spring]
-{icon-image: drinking-water-s.svg; text-offset: 6; font-size: 10; icon-min-distance: 24; }
-node|z18-[natural=spring],
-area|z18-[natural=spring],
-node|z18-[natural=hot_spring],
-area|z18-[natural=hot_spring]
-{icon-image: drinking-water-m.svg; text-offset: 8;}
+node|z17-[natural=spring],
+area|z17-[natural=spring],
+node|z16-[natural=hot_spring],
+area|z16-[natural=hot_spring],
+{icon-image: drinking-water-m.svg; text-offset: 6; font-size: 10;}
 
-node|z14[natural=geyser],
-area|z14[natural=geyser]
-{icon-image: geyser-s.svg;text-offset:6;font-size: 10;icon-min-distance: 24;}
+node|z14-[natural=geyser],
+area|z14-[natural=geyser],
+{icon-image: geyser-s.svg;text-offset:6;font-size: 10;}
 node|z15-[natural=geyser],
-area|z15-[natural=geyser]
-{icon-image: geyser-m.svg;text-offset:8;font-size: 10;icon-min-distance: 24;}
+area|z15-[natural=geyser],
+{icon-image: geyser-m.svg;text-offset:8;}
 
-node|z16-[amenity=water_point],
-area|z16-[amenity=water_point],
-node|z16-[amenity=drinking_water],
-area|z16-[amenity=drinking_water],
-node|z16-[man_made=water_tap],
-area|z16-[man_made=water_tap],
-node|z16-[man_made=water_well],
-area|z16-[man_made=water_well],
-{icon-image: drinking-water-s.svg;}
-node|z19-[amenity=water_point],
-area|z19-[amenity=water_point],
-node|z19-[amenity=drinking_water],
-area|z19-[amenity=drinking_water],
-node|z19-[man_made=water_tap],
-area|z19-[man_made=water_tap],
-node|z19-[man_made=water_well],
-area|z19-[man_made=water_well],
+node|z18-[amenity=water_point],
+area|z18-[amenity=water_point],
+node|z18-[amenity=drinking_water],
+area|z18-[amenity=drinking_water],
+node|z18-[man_made=water_tap],
+area|z18-[man_made=water_tap],
+node|z18-[man_made=water_well],
+area|z18-[man_made=water_well],
 {icon-image: drinking-water-m.svg;}
 
 /* 3. TRANSPORT */
