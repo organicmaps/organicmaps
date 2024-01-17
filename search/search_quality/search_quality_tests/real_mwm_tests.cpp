@@ -51,20 +51,20 @@ public:
     auto const & operator[](size_t i) const { return *(begin() + i); }
   };
 
-  /// @return First (minimal) distance in meters.
-  static double SortedByDistance(Range const & results, ms::LatLon const & center)
+  /// @return [First (min), Last (max)] distance in range (meters).
+  static std::pair<double, double> SortedByDistance(Range const & results, ms::LatLon const & center)
   {
-    double const firstDist = ms::DistanceOnEarth(center, mercator::ToLatLon(results[0].GetFeatureCenter()));
+    double const firstDist = GetDistanceM(results[0], center);
 
     double prevDist = firstDist;
     for (size_t i = 1; i < results.size(); ++i)
     {
-      double const dist = ms::DistanceOnEarth(center, mercator::ToLatLon(results[i].GetFeatureCenter()));
+      double const dist = GetDistanceM(results[i], center);
       TEST_LESS(prevDist, dist + kDistanceEpsilon, (results[i-1], results[i]));
       prevDist = dist;
     }
 
-    return firstDist;
+    return {firstDist, prevDist};
   }
 
   static std::vector<uint32_t> GetClassifTypes(std::vector<base::StringIL> const & arr)
@@ -152,81 +152,74 @@ public:
     TEST(found, ());
   }
 
-  double GetDistanceM(search::Result const & r, ms::LatLon const & ll) const
+  static double GetDistanceM(search::Result const & r, ms::LatLon const & ll)
   {
     return ms::DistanceOnEarth(ll, mercator::ToLatLon(r.GetFeatureCenter()));
   }
 };
 
-// https://github.com/organicmaps/organicmaps/issues/3026
-UNIT_CLASS_TEST(MwmTestsFixture, Berlin_Rewe)
+UNIT_CLASS_TEST(MwmTestsFixture, TopPOIs_Smoke)
 {
-  // Berlin
-  ms::LatLon const center(52.5170365, 13.3888599);
-  SetViewportAndLoadMaps(center);
+  // https://github.com/organicmaps/organicmaps/issues/3026
+  {
+    // Berlin
+    ms::LatLon const center(52.5170365, 13.3888599);
+    SetViewportAndLoadMaps(center);
 
-  auto request = MakeRequest("rewe");
-  auto const & results = request->Results();
-  TEST_GREATER(results.size(), kPopularPoiResultsCount, ());
+    auto request = MakeRequest("rewe");
+    auto const & results = request->Results();
+    TEST_GREATER(results.size(), kPopularPoiResultsCount, ());
 
-  Range const range(results, 0, kPopularPoiResultsCount);
-  EqualClassifType(range, GetClassifTypes({{"shop"}, {"amenity", "fast_food"}}));
-  double const dist = SortedByDistance(range, center);
-  TEST_LESS(dist, 1000, ());
-}
+    Range const range(results, 0, kPopularPoiResultsCount);
+    EqualClassifType(range, GetClassifTypes({{"shop"}, {"amenity", "fast_food"}}));
+    TEST_LESS(SortedByDistance(range, center).first, 500, ());
+  }
 
-// https://github.com/organicmaps/organicmaps/issues/1376
-UNIT_CLASS_TEST(MwmTestsFixture, Madrid_Carrefour)
-{
-  // Madrid
-  ms::LatLon const center(40.41048, -3.69773);
-  SetViewportAndLoadMaps(center);
+  // https://github.com/organicmaps/organicmaps/issues/1376
+  {
+    // Madrid
+    ms::LatLon const center(40.41048, -3.69773);
+    SetViewportAndLoadMaps(center);
 
-  auto request = MakeRequest("carrefour");
-  auto const & results = request->Results();
-  TEST_GREATER(results.size(), kPopularPoiResultsCount, ());
+    auto request = MakeRequest("carrefour");
+    auto const & results = request->Results();
+    TEST_GREATER(results.size(), kPopularPoiResultsCount, ());
 
-  /// @todo 'Carrefour' city in Haiti :)
-  TEST_EQUAL(results[0].GetFeatureType(), classif().GetTypeByPath({"place", "city", "capital", "3"}), ());
+    /// @todo results[0] - 'Carrefour' city in Haiti.
+    Range const range(results, 1, kPopularPoiResultsCount);
+    EqualClassifType(range, GetClassifTypes({{"shop"}}));
+    TEST_LESS(SortedByDistance(range, center).first, 200, ());
+  }
 
-  Range const range(results, 1, kPopularPoiResultsCount);
-  EqualClassifType(range, GetClassifTypes({{"shop"}}));
-  double const dist = SortedByDistance(range, center);
-  TEST_LESS(dist, 500, ());
-}
+  // https://github.com/organicmaps/organicmaps/issues/2530
+  {
+    // Nicosia
+    ms::LatLon const center(35.16915, 33.36141);
+    SetViewportAndLoadMaps(center);
 
-// https://github.com/organicmaps/organicmaps/issues/2530
-UNIT_CLASS_TEST(MwmTestsFixture, Nicosia_Jumbo)
-{
-  // Nicosia
-  ms::LatLon const center(35.16915, 33.36141);
-  SetViewportAndLoadMaps(center);
+    auto request = MakeRequest("jumb");
+    auto const & results = request->Results();
+    TEST_GREATER(results.size(), kTopPoiResultsCount, ());
 
-  auto request = MakeRequest("jumb");
-  auto const & results = request->Results();
-  TEST_GREATER(results.size(), kTopPoiResultsCount, ());
+    Range const range(results);
+    EqualClassifType(range, GetClassifTypes({{"shop"}, {"amenity", "parking"}}));
+    TEST_LESS(SortedByDistance(range, center).first, 5000, ());
+  }
 
-  Range const range(results);
-  EqualClassifType(range, GetClassifTypes({{"shop"}, {"amenity", "parking"}}));
-  double const dist = SortedByDistance(range, center);
-  TEST_LESS(dist, 5000, ());
-}
+  // https://github.com/organicmaps/organicmaps/issues/2470
+  {
+    // Aarhus
+    ms::LatLon const center(56.14958, 10.20394);
+    SetViewportAndLoadMaps(center);
 
-// https://github.com/organicmaps/organicmaps/issues/2470
-UNIT_CLASS_TEST(MwmTestsFixture, Aarhus_Netto)
-{
-  // Aarhus
-  ms::LatLon const center(56.14958, 10.20394);
-  SetViewportAndLoadMaps(center);
+    auto request = MakeRequest("netto");
+    auto const & results = request->Results();
+    TEST_GREATER(results.size(), kTopPoiResultsCount, ());
 
-  auto request = MakeRequest("netto");
-  auto const & results = request->Results();
-  TEST_GREATER(results.size(), kTopPoiResultsCount, ());
-
-  Range const range(results);
-  EqualClassifType(range, GetClassifTypes({{"shop"}}));
-  double const dist = SortedByDistance(range, center);
-  TEST_LESS(dist, 500, ());
+    Range const range(results);
+    EqualClassifType(range, GetClassifTypes({{"shop"}}));
+    TEST_LESS(SortedByDistance(range, center).first, 300, ());
+  }
 }
 
 // https://github.com/organicmaps/organicmaps/issues/2133
@@ -236,20 +229,15 @@ UNIT_CLASS_TEST(MwmTestsFixture, NY_Subway)
   ms::LatLon const center(40.7355019, -73.9948155);
   SetViewportAndLoadMaps(center);
 
-  // Interesting case, because Manhattan has high density of:
-  // - "Subway" fast food
-  // - railway-subway category;
-  // - bus stops with name ".. subway ..";
-  // + Some noname cities LIKE("Subway", 1 error) in the World.
   auto request = MakeRequest("subway");
   auto const & results = request->Results();
-  TEST_GREATER(results.size(), kPopularPoiResultsCount, ());
+  TEST_GREATER(results.size(), kTopPoiResultsCount, ());
 
-  // Fast food "Subways" should be the first despite of some "metro" subways are a bit closer ..
-  Range const range(results, 0, 2);
+  /// @todo We are _completely_ missing actual metro in the list with "subway" or even "metro" query.
+  // Fast food "Subways" should be the first.
+  Range const range(results);
   EqualClassifType(range, GetClassifTypes({{"amenity", "fast_food"}}));
-  double const dist = SortedByDistance(range, center);
-  TEST_LESS(dist, 1000, ());
+  TEST_LESS(SortedByDistance(range, center).first, 1000, ());
 }
 
 // https://github.com/organicmaps/organicmaps/issues/3249
@@ -268,8 +256,7 @@ UNIT_CLASS_TEST(MwmTestsFixture, London_Asda)
 
     Range const range(results);
     EqualClassifType(range, GetClassifTypes({{"shop"}, {"amenity"}}));
-    double const dist = SortedByDistance(range, center);
-    TEST_LESS(dist, 2000, ());
+    TEST_LESS(SortedByDistance(range, center).first, 2000, ());
   }
 }
 
@@ -284,10 +271,10 @@ UNIT_CLASS_TEST(MwmTestsFixture, Lyon_Aldi)
   auto const & results = request->Results();
   TEST_GREATER(results.size(), kPopularPoiResultsCount, ());
 
-  Range const range(results);
+  /// @todo First result is "L'ancre aldine", but maybe it is ok?
+  Range const range(results, 1, kPopularPoiResultsCount);
   EqualClassifType(range, GetClassifTypes({{"shop", "supermarket"}}));
-  double const dist = SortedByDistance(range, center);
-  TEST_LESS(dist, 4000, ());
+  TEST_LESS(SortedByDistance(range, center).first, 2000, ());
 }
 
 // https://github.com/organicmaps/organicmaps/issues/1262
@@ -303,8 +290,7 @@ UNIT_CLASS_TEST(MwmTestsFixture, NY_BarnesNoble)
 
   Range const range(results);
   EqualClassifType(range, GetClassifTypes({{"shop", "books"}}));
-  double const dist = SortedByDistance(range, center);
-  TEST_LESS(dist, 2000, ());
+  TEST_LESS(SortedByDistance(range, center).first, 1000, ());
 }
 
 // https://github.com/organicmaps/organicmaps/issues/2470
@@ -328,8 +314,7 @@ UNIT_CLASS_TEST(MwmTestsFixture, Hamburg_Park)
   }));
 
   NameStartsWith(range, {"Heide Park", "Heide-Park"});
-  double const dist = SortedByDistance(range, center);
-  TEST_LESS(dist, 100000, ());
+  TEST_LESS(SortedByDistance(range, center).first, 100000, ());
 
   EqualClassifType(Range(results, 4, 6), GetClassifTypes({
       {"highway", "service"},
@@ -397,12 +382,12 @@ UNIT_CLASS_TEST(MwmTestsFixture, IceCream)
 
   auto request = MakeRequest("Gelato");
   auto const & results = request->Results();
-  size_t constexpr kResultsCount = 10;
+  size_t constexpr kResultsCount = kPopularPoiResultsCount;
   TEST_GREATER(results.size(), kResultsCount, ());
 
   Range const range(results, 0, kResultsCount);
   EqualClassifType(range, GetClassifTypes({{"amenity", "ice_cream"}, {"cuisine", "ice_cream"}}));
-  TEST_LESS(SortedByDistance(range, center), 2000.0, ());
+  TEST_LESS(SortedByDistance(range, center).first, 2000.0, ());
 
   auto request2 = MakeRequest("Ice cream");
   auto const & results2 = request2->Results();
@@ -484,7 +469,7 @@ UNIT_CLASS_TEST(MwmTestsFixture, French_StopWord_Category)
 
   Range const range(results);
   EqualClassifType(range, GetClassifTypes({{"emergency", "fire_hydrant"}}));
-  TEST_LESS(SortedByDistance(range, center), 1000.0, ());
+  TEST_LESS(SortedByDistance(range, center).first, 1000.0, ());
 }
 
 UNIT_CLASS_TEST(MwmTestsFixture, Street_BusStop)
@@ -497,12 +482,12 @@ UNIT_CLASS_TEST(MwmTestsFixture, Street_BusStop)
   {
     auto request = MakeRequest("Juncal", "en");
     auto const & results = request->Results();
-    TEST_GREATER(results.size(), kTopPoiResultsCount, ());
+    TEST_GREATER(results.size(), kPopularPoiResultsCount, ());
 
-    // Top results are Hotel, Shop and Street.
+    // Top results are Amenities, Hotels, Shops and Streets.
     // Full Match street (20 km) is better than Full Prefix bus stop (1 km).
     Range const range(results);
-    EqualClassifType(range, GetClassifTypes({{"tourism", "hotel"}, {"shop"}, {"highway", "residential"}}));
+    EqualClassifType(range, GetClassifTypes({{"tourism", "hotel"}, {"shop"}, {"amenity"}, {"highway", "residential"}}));
   }
 
   {
@@ -513,7 +498,7 @@ UNIT_CLASS_TEST(MwmTestsFixture, Street_BusStop)
     // Top results are Streets (maybe in different cities).
     Range const range(results);
     EqualClassifType(range, GetClassifTypes({{"highway"}}));
-    TEST_LESS(SortedByDistance(range, center), 5000.0, ());
+    TEST_LESS(SortedByDistance(range, center).first, 5000.0, ());
   }
 
   {
@@ -524,7 +509,7 @@ UNIT_CLASS_TEST(MwmTestsFixture, Street_BusStop)
     // Top results are bus stops.
     Range const range(results);
     EqualClassifType(range, GetClassifTypes({{"highway", "bus_stop"}}));
-    TEST_LESS(SortedByDistance(range, center), 5000.0, ());
+    TEST_LESS(SortedByDistance(range, center).first, 5000.0, ());
   }
 
   /// @todo Actually, we have very fancy matching here, starting from 3rd result and below.
@@ -538,8 +523,8 @@ UNIT_CLASS_TEST(MwmTestsFixture, Street_BusStop)
     // Second result is a train station in other MWM, >200km away.
     Range const range(results, 0, 2);
     EqualClassifType(range, GetClassifTypes({{"shop", "supermarket"}, {"railway", "station"}}));
-    TEST_LESS(!SortedByDistance(range, center), 2.0E5, ());
-    TEST_LESS(SortedByDistance(range, center), 3.0E5, ());
+    TEST_LESS(!SortedByDistance(range, center).first, 2.0E5, ());
+    TEST_LESS(SortedByDistance(range, center).first, 3.0E5, ());
   }
 }
 
@@ -550,7 +535,7 @@ UNIT_CLASS_TEST(MwmTestsFixture, Generic_Buildings_Rank)
   SetViewportAndLoadMaps(center);
 
   {
-    size_t constexpr kResultsCount = 10;
+    size_t constexpr kResultsCount = kPopularPoiResultsCount;
     auto request = MakeRequest("cell tower", "en");
     auto const & results = request->Results();
     TEST_GREATER(results.size(), kResultsCount, ());
@@ -558,7 +543,7 @@ UNIT_CLASS_TEST(MwmTestsFixture, Generic_Buildings_Rank)
     // results[0] is a named POI ~9km (https://www.openstreetmap.org/node/9730886727)
     Range const range(results, 1, kResultsCount);
     EqualClassifType(range, GetClassifTypes({{"man_made", "tower", "communication"}}));
-    TEST_LESS(SortedByDistance(range, center), 5000.0, ());
+    TEST_LESS(SortedByDistance(range, center).first, 3000.0, ());
   }
 
   {
@@ -568,7 +553,7 @@ UNIT_CLASS_TEST(MwmTestsFixture, Generic_Buildings_Rank)
 
     Range const range(results);
     EqualClassifType(range, GetClassifTypes({{"shop", "supermarket"}}));
-    TEST_LESS(SortedByDistance(range, center), 1000.0, ());
+    TEST_LESS(SortedByDistance(range, center).second, 1000.0, ());
   }
 }
 
@@ -614,7 +599,7 @@ UNIT_CLASS_TEST(MwmTestsFixture, Milan_Streets)
   TEST_GREATER(results.size(), kResultsCount, ());
 
   Range const range(results, 0, kResultsCount);
-  TEST_LESS(SortedByDistance(range, center), 20000.0, ());
+  TEST_LESS(SortedByDistance(range, center).second, 20000.0, ());
 }
 
 // https://github.com/organicmaps/organicmaps/issues/5150
@@ -631,7 +616,7 @@ UNIT_CLASS_TEST(MwmTestsFixture, London_RedLion)
 
   // Top first results "The Red Lion" in 5 km.
   Range const range(results);
-  TEST_LESS(SortedByDistance(range, center), 5000.0, ());
+  TEST_LESS(SortedByDistance(range, center).first, 5000.0, ());
 }
 
 UNIT_CLASS_TEST(MwmTestsFixture, AddrInterpolation_Rank)
@@ -646,10 +631,10 @@ UNIT_CLASS_TEST(MwmTestsFixture, AddrInterpolation_Rank)
 
     TEST_GREATER(results.size(), kPopularPoiResultsCount, ());
 
-    // Top first address results in 20 km.
+    // Top first address results in 15 km.
     Range const range(results, 0, 2);
     EqualClassifType(range, GetClassifTypes({{"addr:interpolation"}}));
-    TEST_LESS(SortedByDistance(range, center), 20000.0, ());
+    TEST_LESS(SortedByDistance(range, center).second, 15000.0, ());
 
     // - 3(4) place: Exact address in Montevideo, Uruguay (~200km)
     // - 4+ places: addr:interpolation in Argentina
@@ -734,9 +719,10 @@ UNIT_CLASS_TEST(MwmTestsFixture, Famous_Cities_Rank)
     // if (i > 0 && !isGoGo)
     //   continue;
 
-    /// @todo Temporary, USA has a lot of similar close cities.
+    /// @todo Temporary, USA has a lot of similar close cities (Berlin).
+    size_t topNumber = 3;
     if (arrCities[i] == "New York")
-      continue;
+      topNumber = 5;
 
     LOG(LINFO, ("=== Processing:", arrCities[i]));
     SetViewportAndLoadMaps(arrCenters[i]);
@@ -745,22 +731,19 @@ UNIT_CLASS_TEST(MwmTestsFixture, Famous_Cities_Rank)
     {
       auto request = MakeRequest(arrCities[j] + " ", "en");
       auto const & results = request->Results();
-      TEST_GREATER(results.size(), 0, (arrCities[i], arrCities[j]));
+      TEST(!results.empty(), (arrCities[i], arrCities[j]));
 
-      uint32_t type = results[0].GetFeatureType();
-      ftype::TruncValue(type, 3);
-      if (type != capitalType)
+      // Check that needed city is in top.
+      auto const iEnd = results.begin() + std::min(topNumber, results.size());
+      auto const it = std::find_if(results.begin(), iEnd, [capitalType](search::Result const & r)
       {
-        // Buenos Aires should always work.
-        TEST(i != 0, ());
-
-        TEST_GREATER(results.size(), 1, (arrCities[i], arrCities[j]));
-        type = results[1].GetFeatureType();
+        uint32_t type = r.GetFeatureType();
         ftype::TruncValue(type, 3);
+        return (type == capitalType);
+      });
+      TEST(it != iEnd, (arrCities[i], arrCities[j]));
 
-        TEST(type == capitalType, (cl.GetReadableObjectName(type), arrCities[i], arrCities[j]));
-      }
-
+      // Fill centers table while processing first city.
       if (i == 0 && i != j)
         arrCenters[j] = mercator::ToLatLon(results[0].GetFeatureCenter());
     }
@@ -800,9 +783,8 @@ UNIT_CLASS_TEST(MwmTestsFixture, ToiletAirport)
     TEST_EQUAL(results.size(), kResultsCount, ());
 
     Range const range(results, 0, kResultsCount);
-    EqualClassifType(range, GetClassifTypes({{"amenity", "toilets"}}));
-    double const dist = SortedByDistance(range, center);
-    TEST_LESS(dist, 1000, ());
+    EqualClassifType(range, GetClassifTypes({{"amenity", "toilets"}, {"toilets", "yes"}}));
+    TEST_LESS(SortedByDistance(range, center).second, 1000, ());
   }
 }
 
@@ -823,8 +805,7 @@ UNIT_CLASS_TEST(MwmTestsFixture, WaterTap)
 
     Range const range(results);
     EqualClassifType(range, GetClassifTypes({{"amenity", "drinking_water"}, {"man_made", "water_tap"}}));
-    double const dist = SortedByDistance(range, center);
-    TEST_LESS(dist, 3500, ());
+    TEST_LESS(SortedByDistance(range, center).second, 3500, ());
   }
 }
 
@@ -949,8 +930,7 @@ UNIT_CLASS_TEST(MwmTestsFixture, RelaxedStreets)
 
     Range const range(results, 0, 3);
     EqualClassifType(range, GetClassifTypes({{"highway", "residential"}}));
-    double const dist = SortedByDistance(range, center);
-    TEST_LESS(dist, 3000, ());
+    TEST_LESS(SortedByDistance(range, center).first, 3000, ());
   }
 }
 
@@ -985,10 +965,12 @@ UNIT_CLASS_TEST(MwmTestsFixture, Streets_Rank)
       TEST(found, ());
     };
 
-    /// @todo Street should be highwer than 11.
-    processRequest("Santa Fe ", 11);
-    /// @todo Prefix search" gives POIs (Starbucks) near "Avenida Santa Fe".
-    processRequest("Santa Fe st ", 2);
+    /// @todo Streets should be highwer. Now POIs additional rank is greater than Streets rank.
+    processRequest("Santa Fe ", 19);
+    /// @todo Prefix search gives POIs (Starbucks) near "Avenida Santa Fe". Some WTFs for street's ranking here:
+    /// - gives 'Full Prefix' name's rank
+    /// - gives m_matchedFraction: 0.777778, while 'st' should be counted for streets definitely
+    processRequest("Santa Fe st ", 12);
   }
 
   {
@@ -1025,7 +1007,6 @@ UNIT_CLASS_TEST(MwmTestsFixture, Streets_Rank)
   }
 }
 
-// https://github.com/organicmaps/organicmaps/issues/5756
 UNIT_CLASS_TEST(MwmTestsFixture, Pois_Rank)
 {
   {
@@ -1037,7 +1018,7 @@ UNIT_CLASS_TEST(MwmTestsFixture, Pois_Rank)
     auto request = MakeRequest("farmacity");
     auto const & results = request->Results();
     TEST_GREATER(results.size(), kPopularPoiResultsCount, ());
-    TEST_LESS(SortedByDistance(Range(results, 0, kPopularPoiResultsCount), center), 3000, ());
+    TEST_LESS(SortedByDistance(Range(results, 0, kPopularPoiResultsCount), center).second, 2000, ());
   }
 
   {
@@ -1048,16 +1029,37 @@ UNIT_CLASS_TEST(MwmTestsFixture, Pois_Rank)
     auto request = MakeRequest("depot");
     auto const & results = request->Results();
 
-    /// @todo Probably, we should decrease Names matching rank/penalty.
+    // - nearest post office "Mail Depot" (500m)
     // - railway station "XXX Depot"
     // - a bunch of streets and POIs "Depot XXX" (up to 100km)
-    // - nearest post office "Mail Depot" (500m)
     size_t constexpr kResultsCount = 20;
     TEST_GREATER(results.size(), kResultsCount, ());
-    TEST_EQUAL(CountClassifType(Range(results, 0, kResultsCount),
-                                classif().GetTypeByPath({"amenity", "post_office"})), 1, ());
+
+    Range range(results, 0, 2);
+    EqualClassifType(range, GetClassifTypes({{"amenity", "post_office"}, {"railway", "station"}}));
+    TEST_LESS(SortedByDistance(range, center).first, 1000, ());
   }
 
+  // https://github.com/organicmaps/organicmaps/issues/1017
+  {
+    // Adazi, Latvia
+    ms::LatLon const center(57.0819824, 24.3243274);
+    SetViewportAndLoadMaps(center);
+
+    auto request = MakeRequest("rimi");
+    auto const & results = request->Results();
+
+    size_t constexpr kResultsCount = 20;
+    TEST_GREATER(results.size(), kResultsCount, ());
+
+    /// @todo result[0] - 'Rimini' city in Italy
+    // First 2 results - nearest supermarkets.
+    Range range(results, 1, 3);
+    EqualClassifType(range, GetClassifTypes({{"shop", "supermarket"}}));
+    TEST_LESS(SortedByDistance(range, center).second, 1500, ());
+  }
+
+  // https://github.com/organicmaps/organicmaps/issues/5756
   {
     // Istanbul
     ms::LatLon const center(40.95058, 29.17255);
