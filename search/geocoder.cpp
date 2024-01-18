@@ -1783,7 +1783,7 @@ void Geocoder::TraceResult(Tracer & tracer, BaseContext const & ctx, MwmSet::Mwm
 {
   SCOPE_GUARD(emitParse, [&]() { tracer.EmitParse(ctx.m_tokens); });
 
-  if (!Model::IsPoi(type) && type != Model::TYPE_BUILDING)
+  if (!Model::IsPoiOrBuilding(type))
     return;
 
   if (mwmId != m_context->GetId())

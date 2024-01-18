@@ -363,7 +363,7 @@ public:
           info.m_nameScore = NameScore::SUBSTRING;
       }
     }
-    else if (m_params.IsCategorialRequest() && Model::IsPoi(info.m_type))
+    else if (m_params.IsCategorialRequest() && Model::IsPoiOrBuilding(info.m_type))
     {
       // Update info.m_classifType.poi with the _best preferred_ type. Important for categorial request,
       // when the Feature maybe a restaurant and a toilet simultaneously.
