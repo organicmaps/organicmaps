@@ -6,7 +6,6 @@
 #include "generator/generator_tests_support/test_feature.hpp"
 #include "generator/generator_tests_support/test_mwm_builder.hpp"
 
-#include <utility>
 #include <vector>
 
 namespace ranker_test
@@ -98,8 +97,9 @@ UNIT_CLASS_TEST(RankerTest, UniteSameResults)
 UNIT_CLASS_TEST(RankerTest, PreferCountry)
 {
   std::string const name = "Wonderland";
-  TestCountry wonderland(m2::PointD(10.0, 10.0), name, "en");
+  TestCountry wonderland(m2::PointD(9.0, 9.0), name, "en");   // ~1400 km from (0, 0)
   TestPOI cafe(m2::PointD(0.0, 0.0), name, "en");
+  cafe.SetTypes({{"amenity", "cafe"}});
 
   auto const worldID = BuildWorld([&](TestMwmBuilder & builder)
   {

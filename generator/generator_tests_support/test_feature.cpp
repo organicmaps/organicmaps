@@ -167,6 +167,7 @@ void TestPlace::Serialize(FeatureBuilder & fb) const
 {
   TestFeature::Serialize(fb);
   fb.AddType(m_type);
+  fb.GetParams().rank = m_rank;
 }
 
 string TestPlace::ToDebugString() const
@@ -178,8 +179,9 @@ string TestPlace::ToDebugString() const
 }
 
 TestCountry::TestCountry(m2::PointD const & center, std::string const & name, std::string const & lang)
-  : TestPlace(center, name, lang, classif().GetTypeByPath({"place", "country"}))
+  : TestPlace(center, name, lang, classif().GetTypeByPath({"place", "country"}), 170 /* rank */)
 {
+  // Default rank for Country with population ~ 1.0E7
 }
 
 TestState::TestState(m2::PointD const & center, string const & name, string const & lang)

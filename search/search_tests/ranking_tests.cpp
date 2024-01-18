@@ -215,6 +215,7 @@ UNIT_TEST(RankingInfo_PreferCountry)
   country.m_distanceToPivot = 1e6;
   country.m_tokenRanges[Model::TYPE_COUNTRY] = TokenRange(0, 1);
   country.m_type = Model::TYPE_COUNTRY;
+  country.m_rank = 100;   // This is rather small rank for a country.
 
   // Country should be preferred even if cafe is much closer to viewport center.
   TEST_LESS(cafe.GetLinearModelRank(), country.GetLinearModelRank(), (cafe, country));

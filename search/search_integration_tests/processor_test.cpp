@@ -2724,6 +2724,23 @@ UNIT_CLASS_TEST(ProcessorTest, Suburbs)
   }
 }
 
+UNIT_CLASS_TEST(ProcessorTest, Suburbs1)
+{
+  // The same with neighborhood
+  TestSuburb suburb({0, 0}, "les Planes", "default");
+
+  auto countryId = BuildCountry("Wonderland", [&](TestMwmBuilder & builder)
+  {
+    builder.Add(suburb);
+  });
+
+  SetViewport(m2::RectD(-1.0, -1.0, 1.0, 1.0));
+
+  /// @todo Should debug this case. Actually, bad matching because of "carrer".
+  Rules rules = {ExactMatch(countryId, suburb)};
+  TEST(ResultsMatch("carrer de les planes", rules), ());
+}
+
 UNIT_CLASS_TEST(ProcessorTest, ViewportFilter)
 {
   TestStreet street23({{0.5, -1.0}, {0.5, 1.0}}, "23rd February street", "en");

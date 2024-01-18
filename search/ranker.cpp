@@ -557,6 +557,7 @@ private:
         if (scores.m_isAltOrOldName)
           isAltOrOldName = true;
         matchedLength += scores.m_matchedLength;
+        return scores.m_nameScore;
       };
 
       auto const updateDependScore = [&](Model::Type type, uint32_t dependID)
@@ -584,7 +585,15 @@ private:
             ASSERT(preInfo.m_tokenRanges[Model::TYPE_VILLAGE].Empty(), ());
           }
 
-          updateScoreForFeature(*city, type);
+          auto const cityNameScore = updateScoreForFeature(*city, type);
+
+          // Update distance with matched city pivot if we have a _good_ city name score.
+          // A bit controversial distance score reset, but lets try.
+          // Other option is to combine old pivot distance and city distance.
+          // See 'Barcelona_Carrers' test.
+          // "San Francisco" query should not update rank for "Francisco XXX" street in "San YYY" village.
+          if (cityNameScore == NameScore::FULL_MATCH)
+            info.m_distanceToPivot = mercator::DistanceOnEarth(center, city->GetCenter());
         }
       }
 
