@@ -91,8 +91,7 @@ public:
       MatchPOIsWithParent(child, parent, fn);
       break;
     case Model::TYPE_STREET:
-      ASSERT(Model::IsPoi(child.m_type) || child.m_type == Model::TYPE_BUILDING,
-             ("Invalid child layer type:", child.m_type));
+      ASSERT(Model::IsPoiOrBuilding(child.m_type), ("Invalid child layer type:", child.m_type));
       if (Model::IsPoi(child.m_type))
         MatchPOIsWithStreets(child, parent, fn);
       else
