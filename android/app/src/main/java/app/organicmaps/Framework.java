@@ -255,6 +255,8 @@ public class Framework
   public static native void nativeChangeWritableDir(String newPath);
 
   // Routing.
+  public static native void nativeSetIsLandscape(boolean isLandscape);
+  
   public static native boolean nativeIsRoutingActive();
 
   public static native boolean nativeIsRouteBuilt();
@@ -356,10 +358,6 @@ public class Framework
   public static native boolean nativeGetAutoZoomEnabled();
 
   public static native void nativeSetAutoZoomEnabled(boolean enabled);
-
-  public static native boolean nativeGetAlwaysShowNextTurnEnabled();
-
-  public static native void nativeSetAlwaysShowNextTurnEnabled(boolean enabled);
 
   public static native void nativeSetTransitSchemeEnabled(boolean enabled);
 

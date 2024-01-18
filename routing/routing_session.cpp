@@ -426,24 +426,22 @@ void RoutingSession::GetRouteFollowingInfo(FollowingInfo & info) const
   info.m_completionPercent = GetCompletionPercent();
 
   // Lane information and next street name.
-  if (m_alwaysShowNextTurn
-   || distanceToTurnMeters < kShowLanesMinDistInMeters
+  info.m_lanes.clear();
+  info.m_displayedStreetName = info.m_targetName;
+  if (distanceToTurnMeters < kShowLanesMinDistInMeters
    || m_route->GetCurrentTimeToNearestTurnSec() < 60.0)
   {
-    info.m_displayedStreetName = info.m_targetName;
     // There are two nested loops below. Outer one is for lanes and inner one (ctor of
     // SingleLaneInfo) is
     // for each lane's directions. The size of turn.m_lanes is relatively small. Less than 10 in
     // most cases.
-    info.m_lanes.clear();
     info.m_lanes.reserve(turn.m_lanes.size());
     for (size_t j = 0; j < turn.m_lanes.size(); ++j)
       info.m_lanes.emplace_back(turn.m_lanes[j]);
   }
-  else
+  else if(m_isLandscape) 
   {
     info.m_displayedStreetName = "";
-    info.m_lanes.clear();
   }
 
   // Pedestrian info.
@@ -735,10 +733,10 @@ void RoutingSession::SetTurnNotificationsUnits(measurement_utils::Units const un
   m_turnNotificationsMgr.SetLengthUnits(units);
 }
 
-void RoutingSession::SetAlwaysShowNextTurn(bool alwaysShowNextTurn)
+void RoutingSession::SetIsLandscape(bool isLandscape)
 {
   CHECK_THREAD_CHECKER(m_threadChecker, ());
-  m_alwaysShowNextTurn = alwaysShowNextTurn;
+  m_isLandscape = isLandscape;
 }
 
 

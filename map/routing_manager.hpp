@@ -260,9 +260,9 @@ public:
     m_routingSession.SetTurnNotificationsUnits(units);
   }
 
-  void SetAlwaysShowNextTurn(bool alwaysShowNextTurn)
+  void SetIsLandscape(bool isLandscape)
   {
-    m_routingSession.SetAlwaysShowNextTurn(alwaysShowNextTurn);
+    m_routingSession.SetIsLandscape(isLandscape);
   }
 
   void SetDrapeEngine(ref_ptr<df::DrapeEngine> engine, bool is3dAllowed);

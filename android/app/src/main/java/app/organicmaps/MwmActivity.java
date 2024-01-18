@@ -448,7 +448,7 @@ public class MwmActivity extends BaseMwmFragmentActivity
     final boolean newUiModeIsCarConnected = newUiMode == Configuration.UI_MODE_TYPE_CAR;
     final boolean newUiModeIsCarDisconnected = mLastUiMode == Configuration.UI_MODE_TYPE_CAR && newUiMode == Configuration.UI_MODE_TYPE_NORMAL;
     mLastUiMode = newUiMode;
-
+    Framework.nativeSetIsLandscape(newConfig.orientation == Configuration.ORIENTATION_LANDSCAPE);
     if (newUiModeIsCarConnected || newUiModeIsCarDisconnected)
       return;
     recreate();
@@ -568,6 +568,8 @@ public class MwmActivity extends BaseMwmFragmentActivity
     initMainMenu();
     initOnmapDownloader();
     initPositionChooser();
+    
+    Framework.nativeSetIsLandscape(getResources().getConfiguration().orientation == Configuration.ORIENTATION_LANDSCAPE);
   }
 
   private void initPositionChooser()

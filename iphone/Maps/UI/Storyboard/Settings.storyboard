@@ -594,9 +594,6 @@
                     <connections>
                         <outlet property="autoDownloadCell" destination="eE4-OC-9uX" id="c2A-dX-VMy"/>
                         <outlet property="autoZoomCell" destination="veW-Fm-2Hl" id="zbI-m2-mDP"/>
-                        <!--TODO add alwaysShowNextTurnCell. I don't have xcode, so I don't know how without messing things up
-                        <outlet property="alwaysShowNextTurnCell" destination="veW-Fm-2Hl" id="zbI-m2-mDP"/>
-                        -->
                         <outlet property="compassCalibrationCell" destination="P5e-67-f4k" id="KcB-EC-S2y"/>
                         <outlet property="drivingOptionsCell" destination="KrE-Sc-fI1" id="XOl-eI-xJX"/>
                         <outlet property="fontScaleCell" destination="pri-6G-9Zb" id="rHJ-ZT-lwM"/>

@@ -268,7 +268,6 @@ public class SettingsPrefsFragment extends BaseXmlSettingsFragment
       init3dModePrefsCallbacks();
       initPerspectivePrefsCallbacks();
       initAutoZoomPrefsCallbacks();
-      initAlwaysShowNextTurnPrefsCallbacks();
       initLoggingEnabledPrefsCallbacks();
       initEmulationBadStorage();
       initUseMobileDataPrefsCallbacks();
@@ -514,23 +513,6 @@ public class SettingsPrefsFragment extends BaseXmlSettingsFragment
       public boolean onPreferenceChange(Preference preference, Object newValue)
       {
         Framework.nativeSetAutoZoomEnabled((Boolean)newValue);
-        return true;
-      }
-    });
-  }
-
-  private void initAlwaysShowNextTurnPrefsCallbacks()
-  {
-    final TwoStatePreference pref = getPreference(getString(R.string.pref_always_show_next_turn));
-
-    boolean alwaysShowNextTurnEnabled = Framework.nativeGetAlwaysShowNextTurnEnabled();
-    pref.setChecked(alwaysShowNextTurnEnabled);
-    pref.setOnPreferenceChangeListener(new Preference.OnPreferenceChangeListener()
-    {
-      @Override
-      public boolean onPreferenceChange(Preference preference, Object newValue)
-      {
-        Framework.nativeSetAlwaysShowNextTurnEnabled((Boolean)newValue);
         return true;
       }
     });

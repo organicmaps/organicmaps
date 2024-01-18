@@ -1144,6 +1144,12 @@ Java_app_organicmaps_Framework_nativeChangeWritableDir(JNIEnv * env, jclass, jst
   g_framework->AddLocalMaps();
 }
 
+JNIEXPORT void JNICALL
+Java_app_organicmaps_Framework_nativeSetIsLandscape(JNIEnv * env, jclass, jboolean isLandscape)
+{
+  return frm()->GetRoutingManager().SetIsLandscape(static_cast<bool>(isLandscape));
+}
+
 JNIEXPORT jboolean JNICALL
 Java_app_organicmaps_Framework_nativeIsRoutingActive(JNIEnv * env, jclass)
 {
@@ -1645,14 +1651,6 @@ Java_app_organicmaps_Framework_nativeSetAutoZoomEnabled(JNIEnv * env, jclass, jb
 }
 
 JNIEXPORT void JNICALL
-Java_app_organicmaps_Framework_nativeSetAlwaysShowNextTurnEnabled(JNIEnv * env, jclass, jboolean enabled)
-{
-  bool const alwaysShowNextTurnEnabled = static_cast<bool>(enabled);
-  frm()->SaveAlwaysShowNextTurn(alwaysShowNextTurnEnabled);
-  frm()->AllowAlwaysShowNextTurn(alwaysShowNextTurnEnabled);
-}
-
-JNIEXPORT void JNICALL
 Java_app_organicmaps_Framework_nativeSetTransitSchemeEnabled(JNIEnv * env, jclass, jboolean enabled)
 {
   frm()->GetTransitManager().EnableTransitSchemeMode(static_cast<bool>(enabled));
@@ -1700,12 +1698,6 @@ JNIEXPORT jboolean JNICALL
 Java_app_organicmaps_Framework_nativeGetAutoZoomEnabled(JNIEnv *, jclass)
 {
   return frm()->LoadAutoZoom();
-}
-
-JNIEXPORT jboolean JNICALL
-Java_app_organicmaps_Framework_nativeGetAlwaysShowNextTurnEnabled(JNIEnv *, jclass)
-{
-  return frm()->LoadAlwaysShowNextTurn();
 }
 
 // static void nativeZoomToPoint(double lat, double lon, int zoom, boolean animate);

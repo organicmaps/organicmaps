@@ -5739,10 +5739,6 @@
     zh-Hans = 自动缩放
     zh-Hant = 自動縮放
 
-  [pref_map_always_show_next_turn]
-    tags = android,ios
-    en = Always show next turn
-
   [duration_disabled]
     tags = android,ios
     en = Off

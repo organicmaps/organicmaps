@@ -59,6 +59,8 @@ class AvailableArea: UIView {
       let orientation = UIDevice.current.orientation
       guard !orientation.isFlat && orientation != .portraitUpsideDown else { return }
       self.orientation = orientation
+      GetFramework().GetRoutingManager().SetIsLandscape(orientation == landscapeLeft 
+                                                     || orientation == landscapeRight);
     }
   }
 

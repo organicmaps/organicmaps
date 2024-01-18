@@ -138,11 +138,12 @@ public:
   void GenerateNotifications(std::vector<std::string> & notifications);
   void EnableTurnNotifications(bool enable);
   void SetTurnNotificationsUnits(measurement_utils::Units const units);
-  void SetAlwaysShowNextTurn(bool alwaysShowNextTurn);
   void SetTurnNotificationsLocale(std::string const & locale);
   bool AreTurnNotificationsEnabled() const;
   std::string GetTurnNotificationsLocale() const;
   void SetLocaleWithJsonForTesting(std::string const & json, std::string const & locale);
+
+  void SetIsLandscape(bool isLandscape);
 
   void EmitCloseRoutingEvent() const;
 
@@ -209,7 +210,7 @@ private:
   m2::PointD m_userCurrentPosition;
   bool m_userCurrentPositionValid = false;
 
-  bool m_alwaysShowNextTurn = false;
+  bool m_isLandscape = false;
   // Sound turn notification parameters.
   turns::sound::NotificationManager m_turnNotificationsMgr;
 

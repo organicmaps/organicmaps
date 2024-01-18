@@ -120,17 +120,12 @@
       android:title="@string/pref_map_auto_zoom"
       app:singleLineTitle="false"
       android:order="3"/>
-    <SwitchPreferenceCompat
-      android:key="@string/pref_always_show_next_turn"
-      android:title="@string/pref_map_always_show_next_turn"
-      app:singleLineTitle="false"
-      android:order="4"/>
     <androidx.preference.PreferenceScreen
       android:key="@string/pref_tts_screen"
       android:title="@string/pref_tts_enable_title"
       app:singleLineTitle="false"
       android:persistent="false"
-      android:order="5">
+      android:order="4">
       <SwitchPreferenceCompat
         android:key="@string/pref_tts_enabled"
         android:title="@string/pref_tts_enable_title"
