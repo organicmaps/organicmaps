@@ -26,7 +26,7 @@ double constexpr kCategoriesDistanceToPivot = -0.6874177;
 double constexpr kCategoriesRank = 1.0000000;
 double constexpr kCategoriesFalseCats = -1.0000000;
 
-double constexpr kDistanceToPivot = -0.2123693;
+double constexpr kDistanceToPivot = -0.48;
 double constexpr kWalkingDistanceM = 5000.0;
 
 // This constant is very important and checked in Famous_Cities_Rank test.
@@ -38,7 +38,7 @@ double constexpr kPopularity = 1.0000000;
 // - On the other hand, when search for "subway", do we usually prefer famous fast food or metro?
 double constexpr kFalseCats = -0.01;
 
-double constexpr kErrorsMade = -0.15;
+double constexpr kErrorsMade = -0.4;
 double constexpr kMatchedFraction = 0.1876736;
 double constexpr kAllTokensUsed = 0.0478513;
 double constexpr kCommonTokens = -0.05;
