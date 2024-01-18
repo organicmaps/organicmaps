@@ -146,6 +146,8 @@ eu:Burbuila tea
 hi:बुलबुले वाली चाय
 uk:Бульбашковий чай
 be:Чай з бурбалкамі
+zh-Hans:珍珠奶茶
+zh-Hant:珍珠奶茶
 
 cuisine-cake
 en:Cake|bakery

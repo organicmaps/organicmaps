@@ -8341,6 +8341,8 @@
     ro = Ceai cu perle
     ru = Чай с шариками
     uk = Бульбашковий чай
+    zh-Hans = 珍珠奶茶
+    zh-Hant = 珍珠奶茶
 
   [type.cuisine.burger]
     en = Burger
