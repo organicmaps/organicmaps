@@ -27,7 +27,7 @@ class DownloadMapsViewController: MWMViewController {
 
   // MARK: - Properties
 
-  private var searchBar: UISearchBar = UISearchBar()
+  private var searchController = UISearchController(searchResultsController: nil)
   var dataSource: IDownloaderDataSource!
   @objc var mode: MWMMapDownloaderMode = .downloaded
   private var skipCountryEvent = false
@@ -77,13 +77,15 @@ class DownloadMapsViewController: MWMViewController {
       navigationItem.rightBarButtonItem = addMapsButton
     }
     noMapsContainer.isHidden = !dataSource.isEmpty || Storage.shared().downloadInProgress()
-
-    if dataSource.isRoot {
-      searchBar.placeholder = L("downloader_search_field_hint")
-      searchBar.delegate = self
-      // TODO: Fix the height and centering of the searchBar, it's very tricky.
-      navigationItem.titleView = searchBar
-    }
+    extendedLayoutIncludesOpaqueBars = true
+    searchController.searchBar.placeholder = L("downloader_search_field_hint")
+    searchController.searchBar.delegate = self
+    searchController.obscuresBackgroundDuringPresentation = false
+    searchController.hidesNavigationBarDuringPresentation = alternativeSizeClass(iPhone: true, iPad: false)
+    searchController.searchBar.applyTheme()
+    navigationItem.searchController = searchController
+    navigationItem.hidesSearchBarWhenScrolling = false
+    
     configButtons()
   }
 
@@ -279,7 +281,7 @@ extension DownloadMapsViewController: UITableViewDataSource {
       cell = placeCell
     }
     cell.mode = dataSource.isSearching ? .available : mode
-    cell.config(nodeAttrs, searchQuery: searchBar.text)
+    cell.config(nodeAttrs, searchQuery: searchController.searchBar.text)
     cell.delegate = self
     return cell
   }
@@ -355,7 +357,7 @@ extension DownloadMapsViewController: UITableViewDelegate {
 
 extension DownloadMapsViewController: UIScrollViewDelegate {
   func scrollViewWillBeginDragging(_ scrollView: UIScrollView) {
-    searchBar.resignFirstResponder()
+    searchController.searchBar.resignFirstResponder()
   }
 }
 
@@ -412,7 +414,7 @@ extension DownloadMapsViewController: StorageObserver {
       guard let downloaderCell = cell as? MWMMapDownloaderTableViewCell else { continue }
       if downloaderCell.nodeAttrs.countryId != countryId { continue }
       guard let indexPath = tableView.indexPath(for: downloaderCell) else { return }
-      downloaderCell.config(dataSource.item(at: indexPath), searchQuery: searchBar.text)
+      downloaderCell.config(dataSource.item(at: indexPath), searchQuery: searchController.searchBar.text)
     }
   }
 
@@ -451,14 +453,6 @@ extension DownloadMapsViewController: UISearchBarDelegate {
       self.reloadData()
       self.noSerchResultViewController.view.isHidden = !self.dataSource.isEmpty
     }
-  }
-}
-
-// MARK: - UIBarPositioningDelegate
-
-extension DownloadMapsViewController: UIBarPositioningDelegate {
-  func position(for bar: UIBarPositioning) -> UIBarPosition {
-    .topAttached
   }
 }
 
