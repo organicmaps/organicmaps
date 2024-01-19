@@ -17,7 +17,13 @@ class SearchTextField: UITextField {
     for view in subviews {
       if (view is UIButton) {
         let button = view as? UIButton
-        button?.setImage(UIImage(named: "ic_search_clear_14"), for: .normal)
+        let clearButtonImage: UIImage?
+        if #available(iOS 13.0, *) {
+          clearButtonImage = UIImage(named: "ic_clear")?.withRenderingMode(.alwaysTemplate).withTintColor(tintColor)
+        } else {
+          clearButtonImage = UIImage(named: "ic_search_clear_14")
+        }
+        button?.setImage(clearButtonImage, for: .normal)
         button?.tintColor = tintColor
       }
     }
