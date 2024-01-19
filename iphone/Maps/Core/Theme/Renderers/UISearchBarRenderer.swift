@@ -27,7 +27,23 @@ class UISearchBarRenderer: UIViewRenderer {
     var searchTextField: UITextField?
     if #available(iOS 13, *) {
       searchTextField = control.searchTextField
+      control.searchTextField.layer.cornerCurve = .continuous
     }
+    
+    // Default search bar implementation adds the grey transparent image for background. This code removes it and updates the corner radius. This is not working on iPad designed for mac.
+    if #available(iOS 14.0, *), ProcessInfo.processInfo.isiOSAppOnMac {
+    } else {
+      control.setSearchFieldBackgroundImage(UIImage(), for: .normal)
+    }
+    
+    searchTextField?.layer.cornerRadius = 8
+    searchTextField?.layer.masksToBounds = true
+
+    // Placeholder color
+    if let placeholder = searchTextField?.placeholder {
+      searchTextField?.attributedPlaceholder = NSAttributedString(string: placeholder, attributes: [.foregroundColor: UIColor.gray])
+    }
+    
     if let backgroundColor = style.backgroundColor {
       searchTextField?.backgroundColor = backgroundColor
     }
@@ -37,16 +53,28 @@ class UISearchBarRenderer: UIViewRenderer {
       control.setBackgroundImage(barTintColor.getImage(), for: position, barMetrics: .default)
       control.backgroundColor = barTintColor
     }
-    if let tintColor = style.tintColor {
-      control.tintColor = tintColor
-    }
     if let font = style.font {
       searchTextField?.font = font
     }
     if let fontColor = style.fontColor {
       searchTextField?.textColor = fontColor
-      searchTextField?.leftView?.tintColor = fontColor
-      searchTextField?.tintColor = fontColor
+    }
+    if let fontColorDetailed = style.fontColorDetailed {
+      // Cancel button color
+      control.tintColor = fontColorDetailed
+    }
+    if let tintColor = style.tintColor {
+      searchTextField?.leftView?.tintColor = tintColor
+      // Placeholder indicator color
+      searchTextField?.tintColor = tintColor
+      // Clear button image
+      let clearButtonImage: UIImage?
+      if #available(iOS 13.0, *) {
+        clearButtonImage = UIImage(named: "ic_clear")?.withRenderingMode(.alwaysTemplate).withTintColor(tintColor)
+      } else {
+        clearButtonImage = UIImage(named: "ic_search_clear_14")
+      }
+      control.setImage(clearButtonImage, for: .clear, state: .normal)
     }
   }
 
