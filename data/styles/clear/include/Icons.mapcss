@@ -1099,13 +1099,14 @@ node|z17[amenity=clinic],
 area|z17[amenity=clinic],
 node|z17[amenity=doctors],
 area|z17[amenity=doctors],
-{icon-image: hospital-m.svg;icon-min-distance: 4;}
+{icon-image: clinic-m.svg;icon-min-distance: 4;}
 node|z18-[amenity=hospital],
+{icon-image: hospital-m.svg;font-size: 11;}
 node|z18-[amenity=clinic],
 area|z18-[amenity=clinic],
 node|z18-[amenity=doctors],
 area|z18-[amenity=doctors],
-{icon-image: hospital-m.svg;font-size: 11;}
+{icon-image: clinic-m.svg;font-size: 11;}
 node|z17[healthcare=laboratory],
 area|z17[healthcare=laboratory],
 {icon-image: sample_collection-m.svg;}
