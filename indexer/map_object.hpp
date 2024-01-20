@@ -62,6 +62,27 @@ public:
 
   std::string_view GetMetadata(MetadataID type) const;
 
+  bool HasMetadataReadable() const
+  {
+    bool has = false;
+    m_metadata.ForEach([&has](MetadataID id, std::string const & value)
+    {
+      switch (id)
+      {
+      case MetadataID::FMD_WIKIPEDIA:
+      case MetadataID::FMD_WIKIMEDIA_COMMONS:
+      case MetadataID::FMD_DESCRIPTION:
+      case MetadataID::FMD_CUSTOM_IDS:
+      case MetadataID::FMD_PRICE_RATES:
+      case MetadataID::FMD_RATINGS:
+        has = true;
+        break;
+      default: break;
+      }
+    });
+    return has;
+  }
+
   template <class FnT> void ForEachMetadataReadable(FnT && fn) const
   {
     m_metadata.ForEach([&fn](MetadataID id, std::string const & value)
