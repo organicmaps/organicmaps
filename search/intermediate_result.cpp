@@ -286,13 +286,11 @@ void FillDetails(FeatureType & ft, Result::Details & details)
 
   feature::TypesHolder const typesHolder(ft);
 
+  std::string stars;
   uint8_t starsCount = 0;
   bool const isHotel = ftypes::IsHotelChecker::Instance()(typesHolder);
   if (isHotel && strings::to_uint(ft.GetMetadata(feature::Metadata::FMD_STARS), starsCount))
-    starsCount = std::min(starsCount, osm::MapObject::kMaxStarsCount);
-  std::string stars;
-  for (int i = 0; i < starsCount; ++i)
-    stars.append(osm::MapObject::kStarSymbol);
+    stars = feature::FormatStars(starsCount);
 
   auto const cuisines = feature::GetLocalizedCuisines(typesHolder);
   auto const cuisine = strings::JoinStrings(cuisines, feature::kFieldsSeparator);

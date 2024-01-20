@@ -149,7 +149,7 @@ std::string Info::FormatSubtitle(bool withType) const
     append(roadShields);
 
   // Stars.
-  auto const stars = FormatStars();
+  auto const stars = feature::FormatStars(GetStars());
   if (!stars.empty())
     append(stars);
 
@@ -311,14 +311,6 @@ kml::LocalizableString Info::FormatNewBookmarkName() const
   }
 
   return bookmarkName;
-}
-
-std::string Info::FormatStars() const
-{
-  std::string stars;
-  for (int i = 0; i < GetStars(); ++i)
-    stars.append(MapObject::kStarSymbol);
-  return stars;
 }
 
 std::string Info::GetFormattedCoordinate(CoordinatesFormat coordsFormat) const

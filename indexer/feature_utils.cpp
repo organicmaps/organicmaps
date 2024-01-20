@@ -315,6 +315,8 @@ FeatureEstimator const & GetFeatureEstimator()
 }
 }  // namespace
 
+static constexpr std::string_view kStarSymbol = "★";
+
 NameParamsIn::NameParamsIn(StringUtf8Multilang const & src_, RegionData const & regionData_,
                            std::string_view deviceLang_, bool allowTranslit_)
   : NameParamsIn(src_, regionData_, StringUtf8Multilang::GetLangIndex(deviceLang_), allowTranslit_)
@@ -470,6 +472,14 @@ bool HasToilets(TypesHolder const & types)
 {
   auto const & isToiletsType = ftypes::IsToiletsChecker::Instance();
   return isToiletsType(types);
+}
+
+string FormatStars(uint8_t starsCount)
+{
+  std::string stars;
+  for (int i = 0; i < starsCount && i < kMaxStarsCount; ++i)
+    stars.append(kStarSymbol);
+  return stars;
 }
 
 } // namespace feature
