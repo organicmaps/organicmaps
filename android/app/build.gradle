@@ -285,8 +285,6 @@ android {
     disable 'CustomSplashScreen'
     // https://github.com/organicmaps/organicmaps/issues/3610
     disable 'InsecureBaseConfiguration'
-    // https://github.com/organicmaps/organicmaps/issues/3608
-    disable 'UnusedResources'
     abortOnError true
   }
 
