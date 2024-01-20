@@ -7,6 +7,7 @@ import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import app.organicmaps.R;
 import app.organicmaps.util.StringUtils;
 import app.organicmaps.util.UiUtils;
+import static app.organicmaps.downloader.CountryItem.*;
 
 class BottomPanel
 {
@@ -29,14 +30,7 @@ class BottomPanel
     public void onClick(View v)
     {
       final String country = mFragment.getCurrentRoot();
-      MapManager.warnOn3gUpdate(mFragment.requireActivity(), country, new Runnable()
-      {
-        @Override
-        public void run()
-        {
-          MapManager.nativeUpdate(country);
-        }
-      });
+      MapManager.warnOn3gUpdate(mFragment.requireActivity(), country, () -> MapManager.nativeUpdate(country));
     }
   };
 
@@ -103,29 +97,15 @@ class BottomPanel
       {
         switch (status)
         {
-        case CountryItem.STATUS_UPDATABLE:
-          UpdateInfo info = MapManager.nativeGetUpdateInfo(root);
-          setUpdateAllState(info);
-          break;
-
-        case CountryItem.STATUS_DOWNLOADABLE:  // Special case for "Countries" node when no maps currently downloaded.
-        case CountryItem.STATUS_DONE:
-        case CountryItem.STATUS_PARTLY:
-          show = false;
-          break;
-
-        case CountryItem.STATUS_PROGRESS:
-        case CountryItem.STATUS_APPLYING:
-        case CountryItem.STATUS_ENQUEUED:
-          setCancelState();
-          break;
-
-        case CountryItem.STATUS_FAILED:
-          setDownloadAllState();
-          break;
-
-        default:
-          throw new IllegalArgumentException("Inappropriate status for \"" + root + "\": " + status);
+          case STATUS_UPDATABLE ->
+          {
+            UpdateInfo info = MapManager.nativeGetUpdateInfo(root);
+            setUpdateAllState(info);
+          }  // Special case for "Countries" node when no maps currently downloaded.
+          case STATUS_DOWNLOADABLE, STATUS_DONE, STATUS_PARTLY -> show = false;
+          case STATUS_PROGRESS, STATUS_APPLYING, STATUS_ENQUEUED -> setCancelState();
+          case STATUS_FAILED -> setDownloadAllState();
+          default -> throw new IllegalArgumentException("Inappropriate status for \"" + root + "\": " + status);
         }
       }
       else
@@ -135,23 +115,14 @@ class BottomPanel
         {
           switch (status)
           {
-          case CountryItem.STATUS_UPDATABLE:
-            UpdateInfo info = MapManager.nativeGetUpdateInfo(root);
-            setUpdateAllState(info);
-            break;
-
-          case CountryItem.STATUS_DONE:
-            show = false;
-            break;
-
-          case CountryItem.STATUS_PROGRESS:
-          case CountryItem.STATUS_APPLYING:
-          case CountryItem.STATUS_ENQUEUED:
-            setCancelState();
-            break;
-
-          default:
-            setDownloadAllState();
+            case STATUS_UPDATABLE ->
+            {
+              UpdateInfo info = MapManager.nativeGetUpdateInfo(root);
+              setUpdateAllState(info);
+            }
+            case STATUS_DONE -> show = false;
+            case STATUS_PROGRESS, STATUS_APPLYING, STATUS_ENQUEUED -> setCancelState();
+            default -> setDownloadAllState();
           }
         }
       }

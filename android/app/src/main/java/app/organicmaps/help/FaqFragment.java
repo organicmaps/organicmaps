@@ -38,13 +38,8 @@ public class FaqFragment extends BaseMwmFragment
     {
       switch (which)
       {
-        case 0:
-          sendGeneralFeedback();
-          break;
-
-        case 1:
-          reportBug();
-          break;
+        case 0 -> sendGeneralFeedback();
+        case 1 -> reportBug();
       }
     }
   };

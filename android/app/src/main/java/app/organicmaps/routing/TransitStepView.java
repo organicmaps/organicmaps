@@ -103,17 +103,13 @@ public class TransitStepView extends View implements MultilineLayoutManager.Sque
   @ColorInt
   private static int getBackgroundColor(@NonNull Context context, @NonNull TransitStepInfo info)
   {
-    switch (info.getType())
+    return switch (info.getType())
     {
-      case PEDESTRIAN:
-        return ThemeUtils.getColor(context, R.attr.transitPedestrianBackground);
-      case RULER:
-        return ThemeUtils.getColor(context, R.attr.transitRulerBackground);
-      case INTERMEDIATE_POINT:
-        return ThemeUtils.getColor(context, androidx.appcompat.R.attr.colorPrimary);
-      default:
-        return info.getColor();
-    }
+      case PEDESTRIAN -> ThemeUtils.getColor(context, R.attr.transitPedestrianBackground);
+      case RULER -> ThemeUtils.getColor(context, R.attr.transitRulerBackground);
+      case INTERMEDIATE_POINT -> ThemeUtils.getColor(context, androidx.appcompat.R.attr.colorPrimary);
+      default -> info.getColor();
+    };
   }
 
   @Override

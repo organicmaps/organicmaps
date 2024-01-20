@@ -52,7 +52,7 @@ public class Error implements Parcelable
            '}';
   }
 
-  public static final Creator<Error> CREATOR = new Creator<Error>()
+  public static final Creator<Error> CREATOR = new Creator<>()
   {
     @Override
     public Error createFromParcel(Parcel in)

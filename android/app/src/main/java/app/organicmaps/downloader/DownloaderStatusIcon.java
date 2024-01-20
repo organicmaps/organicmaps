@@ -41,24 +41,14 @@ public class DownloaderStatusIcon
 
   protected @AttrRes int selectIcon(CountryItem country)
   {
-    switch (country.status)
+    return switch (country.status)
     {
-    case CountryItem.STATUS_DONE:
-      return R.attr.status_done;
-
-    case CountryItem.STATUS_DOWNLOADABLE:
-    case CountryItem.STATUS_PARTLY:
-      return R.attr.status_downloadable;
-
-    case CountryItem.STATUS_FAILED:
-      return R.attr.status_failed;
-
-    case CountryItem.STATUS_UPDATABLE:
-      return R.attr.status_updatable;
-
-    default:
-      throw new IllegalArgumentException("Inappropriate item status: " + country.status);
-    }
+      case CountryItem.STATUS_DONE -> R.attr.status_done;
+      case CountryItem.STATUS_DOWNLOADABLE, CountryItem.STATUS_PARTLY -> R.attr.status_downloadable;
+      case CountryItem.STATUS_FAILED -> R.attr.status_failed;
+      case CountryItem.STATUS_UPDATABLE -> R.attr.status_updatable;
+      default -> throw new IllegalArgumentException("Inappropriate item status: " + country.status);
+    };
   }
 
   private @DrawableRes int resolveIcon(@AttrRes int iconAttr)

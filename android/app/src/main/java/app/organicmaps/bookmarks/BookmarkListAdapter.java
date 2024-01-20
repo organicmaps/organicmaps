@@ -363,7 +363,7 @@ public class BookmarkListAdapter extends RecyclerView.Adapter<Holders.BaseBookma
   {
     if (searchResults != null)
     {
-      mSearchResults = new ArrayList<Long>(searchResults.length);
+      mSearchResults = new ArrayList<>(searchResults.length);
       for (long id : searchResults)
         mSearchResults.add(id);
     }

@@ -18,23 +18,14 @@ public final class RoutingHelpers
   @NonNull
   public static Distance createDistance(@NonNull final app.organicmaps.util.Distance distance)
   {
-    int displayUnit;
-    switch (distance.mUnits)
+    int displayUnit = switch (distance.mUnits)
     {
-    case Kilometers:
-      displayUnit = distance.mDistance >= 10.0 ? Distance.UNIT_KILOMETERS : Distance.UNIT_KILOMETERS_P1;
-      break;
-    case Feet:
-      displayUnit = Distance.UNIT_FEET;
-      break;
-    case Miles:
-      displayUnit = distance.mDistance >= 10.0 ? Distance.UNIT_MILES : Distance.UNIT_MILES_P1;
-      break;
-    case Meters:
-    default:
-      displayUnit = Distance.UNIT_METERS;
-      break;
-    }
+      case Kilometers ->
+          distance.mDistance >= 10.0 ? Distance.UNIT_KILOMETERS : Distance.UNIT_KILOMETERS_P1;
+      case Feet -> Distance.UNIT_FEET;
+      case Miles -> distance.mDistance >= 10.0 ? Distance.UNIT_MILES : Distance.UNIT_MILES_P1;
+      default -> Distance.UNIT_METERS;
+    };
 
     return Distance.create(distance.mDistance, displayUnit);
   }

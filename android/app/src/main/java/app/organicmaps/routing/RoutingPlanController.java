@@ -219,7 +219,7 @@ public class RoutingPlanController extends ToolbarController
     UiUtils.invisible(mProgressVehicle, mProgressPedestrian, mProgressTransit,
                       mProgressBicycle, mProgressRuler);
     WheelProgressView progressView;
-    switch(router)
+    switch (router)
     {
     case Framework.ROUTER_TYPE_VEHICLE:
       mRouterTypes.check(R.id.vehicle);

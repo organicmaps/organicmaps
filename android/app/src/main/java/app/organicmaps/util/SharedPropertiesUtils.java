@@ -62,17 +62,11 @@ public final class SharedPropertiesUtils
   public static boolean shouldShowNewMarkerForLayerMode(@NonNull Context context,
                                                         @NonNull Mode mode)
   {
-    switch (mode)
+    return switch (mode)
     {
-      case SUBWAY:
-      case TRAFFIC:
-      case ISOLINES:
-        return false;
-      default:
-        return getBoolean(context, PREFS_SHOULD_SHOW_LAYER_MARKER_FOR + mode.name()
-                                                                            .toLowerCase(Locale.ENGLISH),
-                          true);
-    }
+      case SUBWAY, TRAFFIC, ISOLINES -> false;
+      default -> getBoolean(context, PREFS_SHOULD_SHOW_LAYER_MARKER_FOR + mode.name().toLowerCase(Locale.ENGLISH), true);
+    };
   }
 
   public static void setLayerMarkerShownForLayerMode(@NonNull Context context, @NonNull Mode mode)

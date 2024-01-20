@@ -46,7 +46,7 @@ public class Result implements Parcelable
            '}';
   }
 
-  public static final Creator<Result> CREATOR = new Creator<Result>()
+  public static final Creator<Result> CREATOR = new Creator<>()
   {
     @Override
     public Result createFromParcel(Parcel in)

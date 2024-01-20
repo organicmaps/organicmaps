@@ -31,7 +31,6 @@ import app.organicmaps.bookmarks.data.BookmarkSharingResult;
 import app.organicmaps.bookmarks.data.CategoryDataSource;
 import app.organicmaps.bookmarks.data.SortedBlock;
 import app.organicmaps.bookmarks.data.Track;
-import app.organicmaps.intent.Factory;
 import app.organicmaps.location.LocationHelper;
 import app.organicmaps.search.NativeBookmarkSearchListener;
 import app.organicmaps.search.SearchEngine;
@@ -534,17 +533,12 @@ public class BookmarksListFragment extends BaseMwmRecyclerFragment<ConcatAdapter
 
     switch (adapter.getItemViewType(position))
     {
-      case BookmarkListAdapter.TYPE_SECTION:
-      case BookmarkListAdapter.TYPE_DESC:
+      case BookmarkListAdapter.TYPE_SECTION, BookmarkListAdapter.TYPE_DESC ->
+      {
         return;
-
-      case BookmarkListAdapter.TYPE_BOOKMARK:
-        onBookmarkClicked(position, intent, adapter);
-        break;
-
-      case BookmarkListAdapter.TYPE_TRACK:
-        onTrackClicked(position, intent, adapter);
-        break;
+      }
+      case BookmarkListAdapter.TYPE_BOOKMARK -> onBookmarkClicked(position, intent, adapter);
+      case BookmarkListAdapter.TYPE_TRACK -> onTrackClicked(position, intent, adapter);
     }
 
     intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);

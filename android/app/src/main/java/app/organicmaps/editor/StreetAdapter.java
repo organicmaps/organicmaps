@@ -130,14 +130,7 @@ public class StreetAdapter extends RecyclerView.Adapter<StreetAdapter.BaseViewHo
     public AddViewHolder(View itemView)
     {
       super(itemView);
-      itemView.setOnClickListener(new View.OnClickListener()
-      {
-        @Override
-        public void onClick(View v)
-        {
-          addStreet();
-        }
-      });
+      itemView.setOnClickListener(v -> addStreet());
     }
   }
 }

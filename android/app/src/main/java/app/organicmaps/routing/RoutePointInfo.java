@@ -14,7 +14,7 @@ import java.lang.annotation.RetentionPolicy;
 @SuppressWarnings("unused")
 public class RoutePointInfo implements Parcelable
 {
-  public static final Creator<RoutePointInfo> CREATOR = new Creator<RoutePointInfo>()
+  public static final Creator<RoutePointInfo> CREATOR = new Creator<>()
   {
     @Override
     public RoutePointInfo createFromParcel(Parcel in)

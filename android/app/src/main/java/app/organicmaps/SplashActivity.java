@@ -46,14 +46,7 @@ public class SplashActivity extends AppCompatActivity
   private ActivityResultLauncher<Intent> mApiRequest;
 
   @NonNull
-  private final Runnable mInitCoreDelayedTask = new Runnable()
-  {
-    @Override
-    public void run()
-    {
-      init();
-    }
-  };
+  private final Runnable mInitCoreDelayedTask = this::init;
 
   @NonNull
   public static void start(@NonNull Context context,
