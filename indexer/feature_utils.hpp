@@ -12,6 +12,8 @@ namespace feature
 {
   static constexpr uint8_t kMaxStarsCount = 7;
   static constexpr std::string_view kFieldsSeparator = " • ";
+  static constexpr std::string_view kToiletsSymbol = "🚻";
+  static constexpr std::string_view kAtmSymbol = "💳";
   static constexpr std::string_view kWheelchairSymbol = "♿️";
 
   // Address house numbers interpolation.

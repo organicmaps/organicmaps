@@ -19,7 +19,6 @@
 
 namespace place_page
 {
-static constexpr std::string_view kAtmSymbol = "💳";
 
 bool Info::IsBookmark() const
 {
@@ -176,7 +175,7 @@ std::string Info::FormatSubtitle(bool withType) const
 
   // ATM
   if (HasAtm())
-    append(kAtmSymbol);
+    append(feature::kAtmSymbol);
 
   // Internet.
   if (HasWifi())
@@ -184,7 +183,7 @@ std::string Info::FormatSubtitle(bool withType) const
 
   // Toilets.
   if (HasToilets())
-    append(kToiletsSymbol);
+    append(feature::kToiletsSymbol);
 
   // Wheelchair
   if (feature::GetWheelchairType(m_types) == ftraits::WheelchairAvailability::Yes)

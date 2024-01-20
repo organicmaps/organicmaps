@@ -33,8 +33,6 @@ Internet InternetFromString(std::string_view inet);
 class MapObject
 {
 public:
-  static constexpr std::string_view kToiletsSymbol = "🚻";
-
   void SetFromFeatureType(FeatureType & ft);
 
   FeatureID const & GetID() const;
