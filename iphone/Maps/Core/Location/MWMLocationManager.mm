@@ -354,8 +354,6 @@ void setShowLocationAlert(BOOL needShow) {
 
 - (void)orientationChanged
 {
-  GetFramework().GetRoutingManager().SetIsLandscape((CLDeviceOrientation)UIDevice.currentDevice.orientation == landscapeLeft 
-                                                 || (CLDeviceOrientation)UIDevice.currentDevice.orientation == landscapeRight);
   self.locationManager.headingOrientation = (CLDeviceOrientation)UIDevice.currentDevice.orientation;
 }
 

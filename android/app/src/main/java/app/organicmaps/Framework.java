@@ -255,8 +255,6 @@ public class Framework
   public static native void nativeChangeWritableDir(String newPath);
 
   // Routing.
-  public static native void nativeSetIsLandscape(boolean isLandscape);
-  
   public static native boolean nativeIsRoutingActive();
 
   public static native boolean nativeIsRouteBuilt();

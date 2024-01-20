@@ -29,10 +29,7 @@ class DirectionView: SolidTouchView {
   override func layoutSubviews() {
     var textAlignment = NSTextAlignment.center
     if UIDevice.current.orientation == .landscapeLeft || UIDevice.current.orientation == .landscapeRight {
-      GetFramework().GetRoutingManager().SetIsLandscape(true);
       textAlignment = alternative(iPhone: .left, iPad: .center)
-    } else {
-      GetFramework().GetRoutingManager().SetIsLandscape(false);
     }
     titleLabel.textAlignment = textAlignment
     typeLabel.textAlignment = textAlignment

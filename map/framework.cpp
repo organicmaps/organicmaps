@@ -265,6 +265,7 @@ void Framework::OnViewportChanged(ScreenBase const & screen)
   m_trafficManager.UpdateViewport(m_currentModelView);
   m_transitManager.UpdateViewport(m_currentModelView);
   m_isolinesManager.UpdateViewport(m_currentModelView);
+  m_routingManager.SetIsLandscape(m_currentModelView.GetWidth() > m_currentModelView.GetHeight());
 
   if (m_viewportChangedFn != nullptr)
     m_viewportChangedFn(screen);
