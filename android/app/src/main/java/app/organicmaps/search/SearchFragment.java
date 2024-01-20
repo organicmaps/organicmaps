@@ -397,11 +397,8 @@ public class SearchFragment extends BaseMwmFragment
 
     if (RoutingController.get().isWaitingPoiPick())
     {
-      SearchResult.Description description = result.description;
-      String subtitle = description != null
-          ? Utils.getLocalizedFeatureType(requireContext(), description.featureType)
-          : "";
-      String title = TextUtils.isEmpty(result.name) ? subtitle : "";
+      final String subtitle = (result.description != null) ? result.description.localizedFeatureType : "";
+      final String title = TextUtils.isEmpty(result.name) ? subtitle : result.name;
 
       final MapObject point = MapObject.createMapObject(FeatureId.EMPTY, MapObject.SEARCH,
           title, subtitle, result.lat, result.lon);
