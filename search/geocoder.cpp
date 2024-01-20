@@ -1680,12 +1680,22 @@ void Geocoder::FindPaths(BaseContext & ctx)
       switch (l.m_type)
       {
       case Model::TYPE_BUILDING:
-        // Actualy, it means that we have BUILDING layer with LooksLikeHouseNumber token.
+        // Actually, it means that we have BUILDING layer with LooksLikeHouseNumber token.
         hasBuilding = l.m_sortedFeatures->empty();
         break;
       case Model::TYPE_STREET:
       case Model::TYPE_SUBURB:
         hasStreetOrSuburb = true;
+        break;
+      case Model::TYPE_CITY:
+      case Model::TYPE_COMPLEX_POI:
+      case Model::TYPE_COUNT:
+      case Model::TYPE_COUNTRY:
+      case Model::TYPE_STATE:
+      case Model::TYPE_SUBPOI:
+      case Model::TYPE_UNCLASSIFIED:
+      case Model::TYPE_VILLAGE:
+        // TODO: These types could be processed in a different way in the future...
         break;
       }
     }
