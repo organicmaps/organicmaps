@@ -300,6 +300,8 @@ void FillDetails(FeatureType & ft, Result::Details & details)
 
   auto const fee = feature::GetLocalizedFeeType(typesHolder);
 
+  auto const elevation = feature::FormatElevation(ft.GetMetadata(feature::Metadata::FMD_ELE));
+
   std::string description;
 
   auto const append = [&description](std::string_view sv)
@@ -315,6 +317,7 @@ void FillDetails(FeatureType & ft, Result::Details & details)
   append(airportIata);
   append(roadShield);
   append(brand);
+  append(elevation);
   append(cuisine);
   append(fee);
   
