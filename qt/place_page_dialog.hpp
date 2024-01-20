@@ -25,5 +25,5 @@ private slots:
   void OnEdit();
 
 private:
- std::optional<RouteMarkType> m_routePointAddMode;
+  std::optional<RouteMarkType> m_routePointAddMode;
 };

@@ -88,11 +88,11 @@ PlacePageDialog::PlacePageDialog(QWidget * parent, place_page::Info const & info
 
   QPushButton * toButton = new QPushButton("To");
   toButton -> setIcon(QIcon(":/navig64/point-finish.png"));
-  connect(toButton, &QAbstractButton::clicked, this,
-          [this]() {
-            this->SetRoutePointAddMode(RouteMarkType::Finish);
-            this->OnClose();
-            });
+  connect(toButton, &QAbstractButton::clicked, this, [this]
+  {
+    SetRoutePointAddMode(RouteMarkType::Finish);
+    OnClose();
+  });
   dbb->addButton(toButton, QDialogButtonBox::ActionRole);
 
   QPushButton * stopButton = new QPushButton("Stop");
@@ -167,9 +167,10 @@ PlacePageDialog::PlacePageDialog(QWidget * parent, place_page::Info const & info
 }
 
 std::optional<RouteMarkType> PlacePageDialog::GetRoutePointAddMode() const { return m_routePointAddMode; };
+
 void PlacePageDialog::SetRoutePointAddMode(RouteMarkType routePointAddMode)
 {
-    m_routePointAddMode = routePointAddMode;
+  m_routePointAddMode = routePointAddMode;
 };
 void PlacePageDialog::OnClose() { reject(); }
 void PlacePageDialog::OnEdit() { accept(); }

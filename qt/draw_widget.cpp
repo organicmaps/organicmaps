@@ -675,8 +675,8 @@ void DrawWidget::ShowPlacePage()
 
   if (auto routePointAddMode = std::move(dlg.GetRoutePointAddMode()))
   {
-      SetRoutePointAddMode(*routePointAddMode);
-      SubmitRoutingPoint(info.GetMercator(), true);
+    SetRoutePointAddMode(*routePointAddMode);
+    SubmitRoutingPoint(info.GetMercator(), true);
   }
   m_framework.DeactivateMapSelection(false);
 }
