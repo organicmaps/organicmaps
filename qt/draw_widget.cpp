@@ -207,7 +207,7 @@ void DrawWidget::mousePressEvent(QMouseEvent * e)
   if (IsLeftButton(e))
   {
     if (IsShiftModifier(e))
-      SubmitRoutingPoint(pt);
+      SubmitRoutingPoint(pt, false);
     else if (m_ruler.IsActive() && IsAltModifier(e))
       SubmitRulerPoint(pt);
     else if (IsAltModifier(e))
@@ -481,7 +481,7 @@ void DrawWidget::SubmitFakeLocationPoint(m2::PointD const & pt)
 {
   m_emulatingLocation = true;
 
-  m2::PointD const point = GetCoordsFromSettingsIfExists(true /* start */, pt);
+  m2::PointD const point = GetCoordsFromSettingsIfExists(true /* start */, pt, false /* pointIsMercator */);
 
   m_framework.OnLocationUpdate(qt::common::MakeGpsInfo(point));
 
