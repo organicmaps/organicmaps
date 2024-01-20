@@ -57,23 +57,16 @@ public class PlacePageUtils
   @NonNull
   static String toString(@BottomSheetBehavior.State int state)
   {
-    switch (state)
+    return switch (state)
     {
-      case BottomSheetBehavior.STATE_EXPANDED:
-        return "EXPANDED";
-      case BottomSheetBehavior.STATE_COLLAPSED:
-        return "COLLAPSED";
-      case BottomSheetBehavior.STATE_HALF_EXPANDED:
-        return "HALF_EXPANDED";
-      case BottomSheetBehavior.STATE_DRAGGING:
-        return "DRAGGING";
-      case BottomSheetBehavior.STATE_SETTLING:
-        return "SETTLING";
-      case BottomSheetBehavior.STATE_HIDDEN:
-        return "HIDDEN";
-      default:
-        throw new AssertionError("Unsupported state detected: " + state);
-    }
+      case BottomSheetBehavior.STATE_EXPANDED -> "EXPANDED";
+      case BottomSheetBehavior.STATE_COLLAPSED -> "COLLAPSED";
+      case BottomSheetBehavior.STATE_HALF_EXPANDED -> "HALF_EXPANDED";
+      case BottomSheetBehavior.STATE_DRAGGING -> "DRAGGING";
+      case BottomSheetBehavior.STATE_SETTLING -> "SETTLING";
+      case BottomSheetBehavior.STATE_HIDDEN -> "HIDDEN";
+      default -> throw new AssertionError("Unsupported state detected: " + state);
+    };
   }
 
   public static void copyToClipboard(Context context, View frame, String text)

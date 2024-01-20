@@ -155,7 +155,7 @@ public class ElevationInfo implements PlacePageData
       mAltitude = in.readInt();
     }
 
-    public static final Creator<Point> CREATOR = new Creator<Point>()
+    public static final Creator<Point> CREATOR = new Creator<>()
     {
       @Override
       public Point createFromParcel(Parcel in)
@@ -194,7 +194,7 @@ public class ElevationInfo implements PlacePageData
     }
   }
 
-  public static final Creator<ElevationInfo> CREATOR = new Creator<ElevationInfo>()
+  public static final Creator<ElevationInfo> CREATOR = new Creator<>()
   {
     @Override
     public ElevationInfo createFromParcel(Parcel in)

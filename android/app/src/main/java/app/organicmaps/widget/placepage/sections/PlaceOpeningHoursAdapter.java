@@ -43,9 +43,9 @@ public class PlaceOpeningHoursAdapter extends RecyclerView.Adapter<PlaceOpeningH
       final int weekDay = weekDays.get(i);
 
       final Timetable tt = findScheduleForWeekDay(timetables, weekDay);
+      final int startWeekDay = weekDays.get(i);
       if (tt != null)
       {
-        final int startWeekDay = weekDays.get(i);
         while (i < weekDays.size() && tt.containsWeekday(weekDays.get(i)))
           i++;
 
@@ -55,7 +55,6 @@ public class PlaceOpeningHoursAdapter extends RecyclerView.Adapter<PlaceOpeningH
       }
       else
       {
-        final int startWeekDay = weekDays.get(i);
         // Search next working day in timetables.
         while (i + 1 < weekDays.size())
         {

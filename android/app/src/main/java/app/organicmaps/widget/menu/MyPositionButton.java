@@ -59,27 +59,15 @@ public class MyPositionButton
     Context context = mButton.getContext();
     if (image == null)
     {
-      @DrawableRes int drawableRes;
-      switch (mode)
+      @DrawableRes int drawableRes = switch (mode)
       {
-        case LocationState.PENDING_POSITION:
-          drawableRes = ThemeUtils.getResource(context, R.attr.myPositionButtonAnimation);
-          break;
-        case LocationState.NOT_FOLLOW_NO_POSITION:
-          drawableRes = R.drawable.ic_location_off;
-          break;
-        case LocationState.NOT_FOLLOW:
-          drawableRes = R.drawable.ic_not_follow;
-          break;
-        case LocationState.FOLLOW:
-          drawableRes = R.drawable.ic_follow;
-          break;
-        case LocationState.FOLLOW_AND_ROTATE:
-          drawableRes = R.drawable.ic_follow_and_rotate;
-          break;
-        default:
-          throw new IllegalArgumentException("Invalid button mode: " + mode);
-      }
+        case LocationState.PENDING_POSITION -> ThemeUtils.getResource(context, R.attr.myPositionButtonAnimation);
+        case LocationState.NOT_FOLLOW_NO_POSITION -> R.drawable.ic_location_off;
+        case LocationState.NOT_FOLLOW -> R.drawable.ic_not_follow;
+        case LocationState.FOLLOW -> R.drawable.ic_follow;
+        case LocationState.FOLLOW_AND_ROTATE -> R.drawable.ic_follow_and_rotate;
+        default -> throw new IllegalArgumentException("Invalid button mode: " + mode);
+      };
       image = ResourcesCompat.getDrawable(resources, drawableRes, context.getTheme());
       mIcons.put(mode, image);
     }

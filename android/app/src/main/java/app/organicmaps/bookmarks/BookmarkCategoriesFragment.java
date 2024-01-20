@@ -286,48 +286,42 @@ public class BookmarkCategoriesFragment extends BaseMwmRecyclerFragment<Bookmark
       return;
     switch (requestCode)
     {
-    case REQ_CODE_DELETE_CATEGORY:
-    {
-      onDeleteActionSelected(getSelectedCategory());
-      return;
-    }
-    case REQ_CODE_IMPORT_DIRECTORY:
-    {
-      if (data == null)
-        throw new AssertionError("Data is null");
+      case REQ_CODE_DELETE_CATEGORY -> onDeleteActionSelected(getSelectedCategory());
+      case REQ_CODE_IMPORT_DIRECTORY ->
+      {
+        if (data == null)
+          throw new AssertionError("Data is null");
 
-      final Context context = requireActivity();
-      final Uri rootUri = data.getData();
-      final ProgressDialog dialog = new ProgressDialog(context, R.style.MwmTheme_ProgressDialog);
-      dialog.setMessage(getString(R.string.wait_several_minutes));
-      dialog.setProgressStyle(ProgressDialog.STYLE_SPINNER);
-      dialog.setIndeterminate(true);
-      dialog.setCancelable(false);
-      dialog.show();
-      Logger.d(TAG, "Importing bookmarks from " + rootUri);
-      MwmApplication app = MwmApplication.from(context);
-      final File tempDir = new File(StorageUtils.getTempPath(app));
-      final ContentResolver resolver = context.getContentResolver();
-      ThreadPool.getStorage().execute(() -> {
-        AtomicInteger found = new AtomicInteger(0);
-        StorageUtils.listContentProviderFilesRecursively(
-            resolver, rootUri, uri -> {
-              if (BookmarkManager.INSTANCE.importBookmarksFile(resolver, uri, tempDir))
-                found.incrementAndGet();
-            });
-        UiThread.run(() -> {
-          if (dialog.isShowing())
-            dialog.dismiss();
-          int found_val = found.get();
-          String message = context.getResources().getQuantityString(
-              R.plurals.bookmarks_detect_message, found_val, found_val);
-          Toast.makeText(requireContext(), message, Toast.LENGTH_LONG).show();
+        final Context context = requireActivity();
+        final Uri rootUri = data.getData();
+        final ProgressDialog dialog = new ProgressDialog(context, R.style.MwmTheme_ProgressDialog);
+        dialog.setMessage(getString(R.string.wait_several_minutes));
+        dialog.setProgressStyle(ProgressDialog.STYLE_SPINNER);
+        dialog.setIndeterminate(true);
+        dialog.setCancelable(false);
+        dialog.show();
+        Logger.d(TAG, "Importing bookmarks from " + rootUri);
+        MwmApplication app = MwmApplication.from(context);
+        final File tempDir = new File(StorageUtils.getTempPath(app));
+        final ContentResolver resolver = context.getContentResolver();
+        ThreadPool.getStorage().execute(() -> {
+          AtomicInteger found = new AtomicInteger(0);
+          StorageUtils.listContentProviderFilesRecursively(
+              resolver, rootUri, uri -> {
+                if (BookmarkManager.INSTANCE.importBookmarksFile(resolver, uri, tempDir))
+                  found.incrementAndGet();
+              });
+          UiThread.run(() -> {
+            if (dialog.isShowing())
+              dialog.dismiss();
+            int found_val = found.get();
+            String message = context.getResources().getQuantityString(
+                R.plurals.bookmarks_detect_message, found_val, found_val);
+            Toast.makeText(requireContext(), message, Toast.LENGTH_LONG).show();
+          });
         });
-      });
-      break;
-    }
-    default:
-      throw new AssertionError("Invalid requestCode: " + requestCode);
+      }
+      default -> throw new AssertionError("Invalid requestCode: " + requestCode);
     }
   }
 

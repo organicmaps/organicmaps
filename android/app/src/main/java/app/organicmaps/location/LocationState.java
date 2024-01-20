@@ -75,25 +75,14 @@ public final class LocationState
 
   public static String nameOf(@Value int mode)
   {
-    switch (mode)
+    return switch (mode)
     {
-      case PENDING_POSITION:
-        return "PENDING_POSITION";
-
-      case NOT_FOLLOW_NO_POSITION:
-        return "NOT_FOLLOW_NO_POSITION";
-
-      case NOT_FOLLOW:
-        return "NOT_FOLLOW";
-
-      case FOLLOW:
-        return "FOLLOW";
-
-      case FOLLOW_AND_ROTATE:
-        return "FOLLOW_AND_ROTATE";
-
-      default:
-        return "Unknown: " + mode;
-    }
+      case PENDING_POSITION -> "PENDING_POSITION";
+      case NOT_FOLLOW_NO_POSITION -> "NOT_FOLLOW_NO_POSITION";
+      case NOT_FOLLOW -> "NOT_FOLLOW";
+      case FOLLOW -> "FOLLOW";
+      case FOLLOW_AND_ROTATE -> "FOLLOW_AND_ROTATE";
+      default -> "Unknown: " + mode;
+    };
   }
 }

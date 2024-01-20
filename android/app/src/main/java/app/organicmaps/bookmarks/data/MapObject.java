@@ -50,8 +50,8 @@ public class MapObject implements PlacePageData
   public static final int OPENING_MODE_DETAILS = 2;
   public static final int OPENING_MODE_FULL = 3;
 
-  private static String kHttp = "http://";
-  private static String kHttps = "https://";
+  private static final String kHttp = "http://";
+  private static final String kHttps = "https://";
 
   @NonNull
   private final FeatureId mFeatureId;

@@ -245,7 +245,7 @@ public class Icon implements Parcelable
     return mColor;
   }
 
-  public static final Parcelable.Creator<Icon> CREATOR = new Parcelable.Creator<Icon>()
+  public static final Parcelable.Creator<Icon> CREATOR = new Parcelable.Creator<>()
   {
     public Icon createFromParcel(Parcel in)
     {

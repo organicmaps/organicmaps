@@ -62,14 +62,7 @@ public class InputUtils
     if (input == null)
       return;
 
-    UiThread.runLater(new Runnable()
-    {
-      @Override
-      public void run()
-      {
-        showKeyboardSync(input);
-      }
-    }, delay);
+    UiThread.runLater(() -> showKeyboardSync(input), delay);
   }
 
   public static void showKeyboard(View input)

@@ -52,14 +52,7 @@ class SearchHistoryAdapter extends RecyclerView.Adapter<SearchHistoryAdapter.Vie
     {
       case TYPE_ITEM:
         res = new ViewHolder(LayoutInflater.from(viewGroup.getContext()).inflate(R.layout.item_search_recent, viewGroup, false));
-        res.mText.setOnClickListener(new View.OnClickListener()
-        {
-          @Override
-          public void onClick(View v)
-          {
-            mSearchToolbarController.setQuery(res.mText.getText());
-          }
-        });
+        res.mText.setOnClickListener(v -> mSearchToolbarController.setQuery(res.mText.getText()));
         break;
 
       case TYPE_CLEAR:

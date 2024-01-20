@@ -111,24 +111,10 @@ public class EditBookmarkFragment extends BaseMwmDialogFragment implements View.
       return windowInsets;
     });
     final ImageView imageView = toolbar.findViewById(R.id.save);
-    imageView.setOnClickListener(new View.OnClickListener()
-    {
-      @Override
-      public void onClick(View v)
-      {
-        saveBookmark();
-      }
-    });
+    imageView.setOnClickListener(v -> saveBookmark());
     UiUtils.showHomeUpButton(toolbar);
     toolbar.setTitle(R.string.description);
-    toolbar.setNavigationOnClickListener(new View.OnClickListener()
-    {
-      @Override
-      public void onClick(View v)
-      {
-        dismiss();
-      }
-    });
+    toolbar.setNavigationOnClickListener(v -> dismiss());
   }
 
   private void saveBookmark()

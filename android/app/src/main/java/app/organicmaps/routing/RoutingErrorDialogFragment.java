@@ -117,14 +117,7 @@ public class RoutingErrorDialogFragment extends BaseRoutingErrorDialogFragment
     if (button == null)
       return;
 
-    button.setOnClickListener(new View.OnClickListener()
-    {
-      @Override
-      public void onClick(View v)
-      {
-        startDownload();
-      }
-    });
+    button.setOnClickListener(v -> startDownload());
   }
 
   @Override

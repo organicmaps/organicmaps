@@ -387,40 +387,24 @@ class DownloaderAdapter extends RecyclerView.Adapter<DownloaderAdapter.ViewHolde
     {
       switch (mItem.status)
       {
-      case CountryItem.STATUS_DONE:
-      case CountryItem.STATUS_PROGRESS:
-      case CountryItem.STATUS_APPLYING:
-      case CountryItem.STATUS_ENQUEUED:
-        processLongClick();
-        break;
-
-      case CountryItem.STATUS_DOWNLOADABLE:
-      case CountryItem.STATUS_PARTLY:
-        if (clickOnStatus)
-          onDownloadActionSelected(mItem, DownloaderAdapter.this);
-        else
-          processLongClick();
-        break;
-
-      case CountryItem.STATUS_FAILED:
-        RetryFailedDownloadConfirmationListener listener =
-            new RetryFailedDownloadConfirmationListener(mActivity.getApplication());
-        MapManager.warn3gAndRetry(mActivity, mItem.id, listener);
-        break;
-
-      case CountryItem.STATUS_UPDATABLE:
-        MapManager.warnOn3gUpdate(mActivity, mItem.id, new Runnable()
+        case CountryItem.STATUS_DONE, CountryItem.STATUS_PROGRESS, CountryItem.STATUS_APPLYING, CountryItem.STATUS_ENQUEUED ->
+            processLongClick();
+        case CountryItem.STATUS_DOWNLOADABLE, CountryItem.STATUS_PARTLY ->
         {
-          @Override
-          public void run()
-          {
-            MapManager.nativeUpdate(mItem.id);
-          }
-        });
-        break;
-
-      default:
-        throw new IllegalArgumentException("Inappropriate item status: " + mItem.status);
+          if (clickOnStatus)
+            onDownloadActionSelected(mItem, DownloaderAdapter.this);
+          else
+            processLongClick();
+        }
+        case CountryItem.STATUS_FAILED ->
+        {
+          RetryFailedDownloadConfirmationListener listener =
+              new RetryFailedDownloadConfirmationListener(mActivity.getApplication());
+          MapManager.warn3gAndRetry(mActivity, mItem.id, listener);
+        }
+        case CountryItem.STATUS_UPDATABLE ->
+            MapManager.warnOn3gUpdate(mActivity, mItem.id, () -> MapManager.nativeUpdate(mItem.id));
+        default -> throw new IllegalArgumentException("Inappropriate item status: " + mItem.status);
       }
     }
 
@@ -473,26 +457,16 @@ class DownloaderAdapter extends RecyclerView.Adapter<DownloaderAdapter.ViewHolde
       mFoundName = frame.findViewById(R.id.found_name);
       mSize = frame.findViewById(R.id.size);
 
-      frame.setOnClickListener(new View.OnClickListener()
-      {
-        @Override
-        public void onClick(View v)
-        {
-          if (mItem.isExpandable())
-            goDeeper(mItem, true);
-          else
-            processClick(false);
-        }
+      frame.setOnClickListener(v -> {
+        if (mItem.isExpandable())
+          goDeeper(mItem, true);
+        else
+          processClick(false);
       });
 
-      frame.setOnLongClickListener(new View.OnLongClickListener()
-      {
-        @Override
-        public boolean onLongClick(View v)
-        {
-          processLongClick();
-          return true;
-        }
+      frame.setOnLongClickListener(v -> {
+        processLongClick();
+        return true;
       });
     }
 
@@ -584,31 +558,32 @@ class DownloaderAdapter extends RecyclerView.Adapter<DownloaderAdapter.ViewHolde
       {
         switch (ci.category)
         {
-          case CountryItem.CATEGORY_NEAR_ME:
+          case CountryItem.CATEGORY_NEAR_ME ->
+          {
             if (ci.category != prev)
             {
               headerId = CountryItem.CATEGORY_NEAR_ME;
               mItemsAndHeader.add(new GenericItem(mActivity.getString(R.string.downloader_near_me_subtitle)));
               prev = ci.category;
             }
-            break;
-
-          case CountryItem.CATEGORY_DOWNLOADED:
+          }
+          case CountryItem.CATEGORY_DOWNLOADED ->
+          {
             if (ci.category != prev)
             {
               headerId = CountryItem.CATEGORY_DOWNLOADED;
               mItemsAndHeader.add(new GenericItem(mActivity.getString(R.string.downloader_downloaded_subtitle)));
               prev = ci.category;
             }
-            break;
-          default:
+          }
+          default ->
+          {
             int prevHeader = headerId;
             headerId = CountryItem.CATEGORY_AVAILABLE + ci.name.charAt(0);
-
             if (headerId != prevHeader)
               mItemsAndHeader.add(new GenericItem(StringUtils.toUpperCase(ci.name.substring(0, 1))));
-
             prev = ci.category;
+          }
         }
         ci.headerId = headerId;
       }

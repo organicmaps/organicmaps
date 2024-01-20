@@ -147,7 +147,7 @@ public class BookmarkCategory implements Parcelable
     this.mIsVisible = in.readByte() != 0;
   }
 
-  public static final Creator<BookmarkCategory> CREATOR = new Creator<BookmarkCategory>()
+  public static final Creator<BookmarkCategory> CREATOR = new Creator<>()
   {
     @Override
     public BookmarkCategory createFromParcel(Parcel source)

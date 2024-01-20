@@ -16,7 +16,7 @@ public class ThreadPool
   private static ThreadPoolExecutor create(int poolSize, int allowedTime)
   {
     ThreadPoolExecutor res = new ThreadPoolExecutor(poolSize, poolSize, allowedTime, TimeUnit.SECONDS,
-                                                    new LinkedBlockingQueue<Runnable>());
+                                                    new LinkedBlockingQueue<>());
     res.allowCoreThreadTimeOut(true);
     return res;
   }

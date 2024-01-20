@@ -13,7 +13,7 @@ import androidx.annotation.NonNull;
 /// Just creating in JNI and assigning ..
 public class FeatureId implements Parcelable
 {
-  public static final Creator<FeatureId> CREATOR = new Creator<FeatureId>()
+  public static final Creator<FeatureId> CREATOR = new Creator<>()
   {
     @Override
     public FeatureId createFromParcel(Parcel in)

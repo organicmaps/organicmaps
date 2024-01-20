@@ -124,7 +124,7 @@ public class Metadata implements Parcelable
     return metadata;
   }
 
-  public static final Creator<Metadata> CREATOR = new Creator<Metadata>()
+  public static final Creator<Metadata> CREATOR = new Creator<>()
   {
     @Override
     public Metadata createFromParcel(Parcel source)
