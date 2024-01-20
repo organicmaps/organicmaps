@@ -252,11 +252,95 @@ PlacePageDialog::PlacePageDialog(QWidget * parent, place_page::Info const & info
 
     {
       ms::LatLon const ll = info.GetLatLon();
-      addEntry("lat, lon", strings::to_string_dac(ll.m_lat, 7) + ", " + strings::to_string_dac(ll.m_lon, 7));
+      addEntry("Coordinates", strings::to_string_dac(ll.m_lat, 7) + ", " + strings::to_string_dac(ll.m_lon, 7));
     }
 
     layout->addLayout(data);
   }
+
+  // Advanced
+#ifdef DEBUG
+  {
+    {
+      QHLine * line = new QHLine();
+      layout->addWidget(line);
+    }
+
+    layout->addWidget(new QLabel("<b>Advanced</b>"));
+
+    QGridLayout * grid = new QGridLayout();
+
+    int row = 0;
+
+    auto const addEntry = [grid, &row](std::string const & key, std::string const & value, bool isLink = false)
+    {
+      grid->addWidget(new QLabel(QString::fromStdString(key)), row, 0);
+      QLabel * label = new QLabel(QString::fromStdString(value));
+      label->setTextInteractionFlags(Qt::TextSelectableByMouse);
+      if (isLink)
+      {
+        label->setOpenExternalLinks(true);
+        label->setTextInteractionFlags(Qt::TextBrowserInteraction);
+        label->setText(QString::fromStdString("<a href=\"" + value + "\">" + value + "</a>"));
+      }
+      grid->addWidget(label, row++, 1);
+      return label;
+    };
+
+    if (info.IsMyPosition())
+    {
+      grid->addWidget(new QLabel("MyPosition"), row, 0);
+      grid->addWidget(new QLabel("Yes"), row++, 1);
+    }
+
+    if (info.HasApiUrl())
+    {
+      grid->addWidget(new QLabel("Api URL"), row, 0);
+      grid->addWidget(new QLabel(QString::fromStdString(info.GetApiUrl())), row++, 1);
+    }
+
+    addEntry("CountryId", info.GetCountryId());
+
+    if (info.IsFeature())
+    {
+      addEntry("Feature ID", DebugPrint(info.GetID()));
+      addEntry("Raw Types", DebugPrint(info.GetTypes()));
+    }
+
+    auto const layer = info.GetLayer();
+    if (layer != feature::LAYER_EMPTY)
+      addEntry("Layer", std::to_string(layer));
+
+    if(info.HasMetadataReadable()){
+      grid->addWidget(new QLabel("<b>Metadata</b>"), row++, 0, 1, 2);
+
+      info.ForEachMetadataReadable([&addEntry](PropID id, std::string const & value)
+      {
+        bool isLink = false;
+        switch (id)
+        {
+        case PropID::FMD_EMAIL:
+        case PropID::FMD_WEBSITE:
+        case PropID::FMD_CONTACT_FACEBOOK:
+        case PropID::FMD_CONTACT_INSTAGRAM:
+        case PropID::FMD_CONTACT_TWITTER:
+        case PropID::FMD_CONTACT_VK:
+        case PropID::FMD_CONTACT_LINE:
+        case PropID::FMD_WIKIPEDIA:
+        case PropID::FMD_WIKIMEDIA_COMMONS:
+          isLink = true;
+          break;
+        default:
+          break;
+        }
+
+        addEntry(DebugPrint(id), value, isLink);
+      });
+    }
+
+    layout->addLayout(grid);
+  }
+#endif
 
   {
     QHLine * line = new QHLine();
@@ -266,95 +350,16 @@ PlacePageDialog::PlacePageDialog(QWidget * parent, place_page::Info const & info
   {
     QDialogButtonBox * dbb = new QDialogButtonBox();
 
+    QPushButton * closeButton = new QPushButton("Close");
+    closeButton->setDefault(true);
+    connect(closeButton, &QAbstractButton::clicked, this, &PlacePageDialog::OnClose);
+    dbb->addButton(closeButton, QDialogButtonBox::RejectRole);
+
     if (info.ShouldShowEditPlace())
     {
       QPushButton * editButton = new QPushButton("Edit Place");
       connect(editButton, &QAbstractButton::clicked, this, &PlacePageDialog::OnEdit);
       dbb->addButton(editButton, QDialogButtonBox::ActionRole);
-    }
-
-    // Advanced
-    {
-      QPushButton * advancedButton = new QPushButton("Advanced");
-      connect(advancedButton, &QAbstractButton::clicked, this, [this, info]()
-      {
-        auto dialog = QDialog(this);
-
-        QGridLayout * grid = new QGridLayout(&dialog);
-
-        int row = 0;
-
-        auto const addEntry = [grid, &row](std::string const & key, std::string const & value, bool isLink = false)
-        {
-          grid->addWidget(new QLabel(QString::fromStdString(key)), row, 0);
-          QLabel * label = new QLabel(QString::fromStdString(value));
-          label->setTextInteractionFlags(Qt::TextSelectableByMouse);
-          if (isLink)
-          {
-            label->setOpenExternalLinks(true);
-            label->setTextInteractionFlags(Qt::TextBrowserInteraction);
-            label->setText(QString::fromStdString("<a href=\"" + value + "\">" + value + "</a>"));
-          }
-          grid->addWidget(label, row++, 1);
-          return label;
-        };
-
-        if (info.IsMyPosition())
-        {
-          grid->addWidget(new QLabel("MyPosition"), row, 0);
-          grid->addWidget(new QLabel("Yes"), row++, 1);
-        }
-
-        if (info.HasApiUrl())
-        {
-          grid->addWidget(new QLabel("Api URL"), row, 0);
-          grid->addWidget(new QLabel(QString::fromStdString(info.GetApiUrl())), row++, 1);
-        }
-
-        addEntry("CountryId", info.GetCountryId());
-
-        if (info.IsFeature())
-        {
-          addEntry("Feature ID", DebugPrint(info.GetID()));
-          addEntry("Raw Types", DebugPrint(info.GetTypes()));
-        }
-
-        auto const layer = info.GetLayer();
-        if (layer != feature::LAYER_EMPTY)
-          addEntry("Layer", std::to_string(layer));
-
-        QHLine * line = new QHLine();
-        grid->addWidget(line, row++, 0, 1, 2);
-
-        grid->addWidget(new QLabel("<b>Metadata</b>"), row++, 0, 1, 2);
-
-        info.ForEachMetadataReadable([&addEntry](PropID id, std::string const & value)
-        {
-          bool isLink = false;
-          switch (id)
-          {
-          case PropID::FMD_EMAIL:
-          case PropID::FMD_WEBSITE:
-          case PropID::FMD_CONTACT_FACEBOOK:
-          case PropID::FMD_CONTACT_INSTAGRAM:
-          case PropID::FMD_CONTACT_TWITTER:
-          case PropID::FMD_CONTACT_VK:
-          case PropID::FMD_CONTACT_LINE:
-          case PropID::FMD_WIKIPEDIA:
-          case PropID::FMD_WIKIMEDIA_COMMONS:
-            isLink = true;
-            break;
-          default:
-            break;
-          }
-
-          addEntry(DebugPrint(id), value, isLink);
-        });
-
-        dialog.exec();
-      });
-      
-      dbb->addButton(advancedButton, QDialogButtonBox::AcceptRole);
     }
 
     layout->addWidget(dbb, Qt::AlignCenter);
