@@ -4,6 +4,7 @@
 #include "indexer/classificator_loader.hpp"
 #include "indexer/editable_map_object.hpp"
 #include "indexer/feature.hpp"
+#include "indexer/feature_utils.hpp"
 #include "indexer/validate_and_format_contacts.hpp"
 
 #include <string>
@@ -336,7 +337,7 @@ UNIT_TEST(EditableMapObject_SetInternet)
   auto types = emo.GetTypes();
   TEST(types.Has(wifiType), ());
 
-  auto const setInternetAndCheck = [wifiType](EditableMapObject & emo, osm::Internet internet, bool hasWifi)
+  auto const setInternetAndCheck = [wifiType](EditableMapObject & emo, feature::Internet internet, bool hasWifi)
   {
     emo.SetInternet(internet);
 
@@ -345,30 +346,30 @@ UNIT_TEST(EditableMapObject_SetInternet)
     TEST_EQUAL(types.Has(wifiType), hasWifi, ());
   };
 
-  setInternetAndCheck(emo, osm::Internet::No, false);
-  setInternetAndCheck(emo, osm::Internet::Yes, false);
-  setInternetAndCheck(emo, osm::Internet::Wired, false);
-  setInternetAndCheck(emo, osm::Internet::Wlan, true);
-  setInternetAndCheck(emo, osm::Internet::Unknown, false);
-  setInternetAndCheck(emo, osm::Internet::Terminal, false);
+  setInternetAndCheck(emo, feature::Internet::No, false);
+  setInternetAndCheck(emo, feature::Internet::Yes, false);
+  setInternetAndCheck(emo, feature::Internet::Wired, false);
+  setInternetAndCheck(emo, feature::Internet::Wlan, true);
+  setInternetAndCheck(emo, feature::Internet::Unknown, false);
+  setInternetAndCheck(emo, feature::Internet::Terminal, false);
 
   EditableMapObject bunkerEmo;
   bunkerEmo.SetType(classif().GetTypeByPath({"military", "bunker"}));
   types = bunkerEmo.GetTypes();
   TEST(!types.Has(wifiType), ());
 
-  setInternetAndCheck(bunkerEmo, osm::Internet::Wlan, true);
-  setInternetAndCheck(bunkerEmo, osm::Internet::No, false);
-  setInternetAndCheck(bunkerEmo, osm::Internet::Wlan, true);
-  setInternetAndCheck(bunkerEmo, osm::Internet::Yes, false);
-  setInternetAndCheck(bunkerEmo, osm::Internet::Wlan, true);
-  setInternetAndCheck(bunkerEmo, osm::Internet::Wired, false);
-  setInternetAndCheck(bunkerEmo, osm::Internet::Wlan, true);
-  setInternetAndCheck(bunkerEmo, osm::Internet::Unknown, false);
-  setInternetAndCheck(bunkerEmo, osm::Internet::Wlan, true);
-  setInternetAndCheck(bunkerEmo, osm::Internet::Terminal, false);
-  setInternetAndCheck(bunkerEmo, osm::Internet::Wlan, true);
-  setInternetAndCheck(bunkerEmo, osm::Internet::Wlan, true);
+  setInternetAndCheck(bunkerEmo, feature::Internet::Wlan, true);
+  setInternetAndCheck(bunkerEmo, feature::Internet::No, false);
+  setInternetAndCheck(bunkerEmo, feature::Internet::Wlan, true);
+  setInternetAndCheck(bunkerEmo, feature::Internet::Yes, false);
+  setInternetAndCheck(bunkerEmo, feature::Internet::Wlan, true);
+  setInternetAndCheck(bunkerEmo, feature::Internet::Wired, false);
+  setInternetAndCheck(bunkerEmo, feature::Internet::Wlan, true);
+  setInternetAndCheck(bunkerEmo, feature::Internet::Unknown, false);
+  setInternetAndCheck(bunkerEmo, feature::Internet::Wlan, true);
+  setInternetAndCheck(bunkerEmo, feature::Internet::Terminal, false);
+  setInternetAndCheck(bunkerEmo, feature::Internet::Wlan, true);
+  setInternetAndCheck(bunkerEmo, feature::Internet::Wlan, true);
 }
 
 UNIT_TEST(EditableMapObject_RemoveFakeNames)
@@ -663,7 +664,7 @@ UNIT_TEST(EditableMapObject_FromFeatureType)
   emo.SetName(names);
 
   emo.SetMetadata(feature::Metadata::FMD_WEBSITE, "https://some.thing.org");
-  emo.SetInternet(osm::Internet::Wlan);
+  emo.SetInternet(feature::Internet::Wlan);
 
   emo.SetPointType();
   emo.SetMercator(m2::PointD(1.0, 1.0));

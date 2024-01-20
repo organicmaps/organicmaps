@@ -3,6 +3,7 @@
 #include "indexer/feature_data.hpp"
 #include "indexer/feature_decl.hpp"
 #include "indexer/feature_meta.hpp"
+#include "indexer/feature_utils.hpp"
 #include "indexer/ftraits.hpp"
 
 #include "geometry/latlon.hpp"
@@ -15,20 +16,6 @@
 namespace osm
 {
 class EditableMapObject;
-
-/// OSM internet_access tag values.
-enum class Internet
-{
-  Unknown,  //!< Internet state is unknown (default).
-  Wlan,     //!< Wireless Internet access is present.
-  Terminal, //!< A computer with internet service.
-  Wired,    //!< Wired Internet access is present.
-  Yes,      //!< Unspecified Internet access is available.
-  No        //!< There is definitely no any Internet access.
-};
-std::string DebugPrint(Internet internet);
-/// @param[in]  inet  Should be lowercase like in DebugPrint.
-Internet InternetFromString(std::string_view inet);
 
 class MapObject
 {
@@ -93,7 +80,7 @@ public:
   std::string FormatRoadShields() const;
 
   std::string_view GetOpeningHours() const;
-  Internet GetInternet() const;
+  feature::Internet GetInternet() const;
   int GetStars() const;
 
   /// @returns true if feature has ATM type.

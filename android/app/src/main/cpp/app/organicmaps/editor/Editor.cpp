@@ -7,6 +7,7 @@
 
 #include "indexer/cuisines.hpp"
 #include "indexer/editable_map_object.hpp"
+#include "indexer/feature_utils.hpp"
 #include "indexer/validate_and_format_contacts.hpp"
 
 #include "coding/string_utf8_multilang.hpp"
@@ -142,13 +143,13 @@ Java_app_organicmaps_editor_Editor_nativeGetMaxEditableBuildingLevels(JNIEnv *, 
 JNIEXPORT jboolean JNICALL
 Java_app_organicmaps_editor_Editor_nativeHasWifi(JNIEnv *, jclass)
 {
-  return g_editableMapObject.GetInternet() == osm::Internet::Wlan;
+  return g_editableMapObject.GetInternet() == feature::Internet::Wlan;
 }
 
 JNIEXPORT void JNICALL
 Java_app_organicmaps_editor_Editor_nativeSetHasWifi(JNIEnv *, jclass, jboolean hasWifi)
 {
-  g_editableMapObject.SetInternet(hasWifi ? osm::Internet::Wlan : osm::Internet::Unknown);
+  g_editableMapObject.SetInternet(hasWifi ? feature::Internet::Wlan : feature::Internet::Unknown);
 }
 
 JNIEXPORT jboolean JNICALL

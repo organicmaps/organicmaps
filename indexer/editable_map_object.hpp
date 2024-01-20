@@ -3,6 +3,7 @@
 #include "indexer/feature_data.hpp"
 #include "indexer/feature_decl.hpp"
 #include "indexer/feature_meta.hpp"
+#include "indexer/feature_utils.hpp"
 #include "indexer/map_object.hpp"
 
 #include "coding/string_utf8_multilang.hpp"
@@ -130,7 +131,7 @@ public:
   bool UpdateMetadataValue(std::string_view key, std::string value);
 
   void SetOpeningHours(std::string oh);
-  void SetInternet(Internet internet);
+  void SetInternet(feature::Internet internet);
 
   /// @param[in] cuisine is a vector of osm cuisine ids.
 private:

@@ -73,7 +73,7 @@ using namespace osm;
         case MetadataID::FMD_CONTACT_LINE: _line = ToNSString(value); break;
         case MetadataID::FMD_OPERATOR: _ppOperator = ToNSString(value); break;
         case MetadataID::FMD_INTERNET:
-          _wifiAvailable = (rawData.GetInternet() == osm::Internet::No)
+          _wifiAvailable = (rawData.GetInternet() == feature::Internet::No)
               ? NSLocalizedString(@"no_available", nil) : NSLocalizedString(@"yes_available", nil);
           break;
         case MetadataID::FMD_LEVEL: _level = ToNSString(value); break;
