@@ -464,6 +464,12 @@ string GetReadableWheelchairType(TypesHolder const & types)
   return readableTypes[0];
 }
 
+ftraits::WheelchairAvailability GetWheelchairType(TypesHolder const & types)
+{
+  auto const opt = ftraits::Wheelchair::GetValue(types);
+  return opt ? *opt : ftraits::WheelchairAvailability::No;
+}
+
 bool HasAtm(TypesHolder const & types)
 {
   auto const & isAtmType = ftypes::IsATMChecker::Instance();

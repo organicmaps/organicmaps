@@ -203,12 +203,6 @@ int MapObject::GetStars() const
   return count;
 }
 
-ftraits::WheelchairAvailability MapObject::GetWheelchairType() const
-{
-  auto const opt = ftraits::Wheelchair::GetValue(m_types);
-  return opt ? *opt : ftraits::WheelchairAvailability::No;
-}
-
 bool MapObject::IsPointType() const { return m_geomType == feature::GeomType::Point; }
 bool MapObject::IsBuilding() const { return ftypes::IsBuildingChecker::Instance()(m_types); }
 bool MapObject::IsPublicTransportStop() const { return ftypes::IsPublicTransportStopChecker::Instance()(m_types); }
