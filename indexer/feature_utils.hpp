@@ -3,6 +3,8 @@
 #include <string>
 #include <vector>
 
+#include "indexer/ftraits.hpp"
+
 struct FeatureID;
 class StringUtf8Multilang;
 
@@ -10,6 +12,7 @@ namespace feature
 {
   static constexpr uint8_t kMaxStarsCount = 7;
   static constexpr std::string_view kFieldsSeparator = " • ";
+  static constexpr std::string_view kWheelchairSymbol = "♿️";
 
   // Address house numbers interpolation.
   enum class InterpolType { None, Odd, Even, Any };
@@ -134,6 +137,9 @@ namespace feature
 
   // Returns readable wheelchair type.
   std::string GetReadableWheelchairType(TypesHolder const & types);
+  
+  /// @returns wheelchair availability.
+  ftraits::WheelchairAvailability GetWheelchairType(TypesHolder const & types);
 
   /// Returns true if feature has ATM type.
   bool HasAtm(TypesHolder const & types);

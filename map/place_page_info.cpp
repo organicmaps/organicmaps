@@ -19,7 +19,6 @@
 
 namespace place_page
 {
-static constexpr std::string_view kWheelchairSymbol = "♿️";
 static constexpr std::string_view kAtmSymbol = "💳";
 
 bool Info::IsBookmark() const
@@ -188,8 +187,8 @@ std::string Info::FormatSubtitle(bool withType) const
     append(kToiletsSymbol);
 
   // Wheelchair
-  if (GetWheelchairType() == ftraits::WheelchairAvailability::Yes)
-    append(kWheelchairSymbol);
+  if (feature::GetWheelchairType(m_types) == ftraits::WheelchairAvailability::Yes)
+    append(feature::kWheelchairSymbol);
 
   // Fee.
   auto const fee = GetLocalizedFeeType();

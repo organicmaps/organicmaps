@@ -97,7 +97,6 @@ public:
   std::string_view GetOpeningHours() const;
   Internet GetInternet() const;
   int GetStars() const;
-  ftraits::WheelchairAvailability GetWheelchairType() const;
 
   /// @returns true if feature has ATM type.
   bool HasAtm() const;
