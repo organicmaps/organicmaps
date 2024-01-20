@@ -442,7 +442,7 @@ bool EditableMapObject::IsValidMetadata(MetadataID type, std::string const & val
   case MetadataID::FMD_STARS:
   {
     uint32_t stars;
-    return strings::to_uint(value, stars) && stars > 0 && stars <= kMaxStarsCount;
+    return strings::to_uint(value, stars) && stars > 0 && stars <= feature::kMaxStarsCount;
   }
   case MetadataID::FMD_ELE:
   {

@@ -219,8 +219,6 @@ public:
 private:
   std::string FormatSubtitle(bool withType) const;
   std::string GetBookmarkName();
-  /// @returns empty string or GetStars() count of ★ symbol.
-  std::string FormatStars() const;
 
   place_page::BuildInfo m_buildInfo;
 

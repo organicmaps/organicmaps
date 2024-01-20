@@ -8,6 +8,7 @@ class StringUtf8Multilang;
 
 namespace feature
 {
+  static constexpr uint8_t kMaxStarsCount = 7;
   static constexpr std::string_view kFieldsSeparator = " • ";
 
   // Address house numbers interpolation.
@@ -139,5 +140,8 @@ namespace feature
 
   /// Returns true if feature has Toilets type.
   bool HasToilets(TypesHolder const & types);
+
+  /// @returns starsCount of ★ symbol.
+  std::string FormatStars(uint8_t starsCount);
 
 }  // namespace feature
