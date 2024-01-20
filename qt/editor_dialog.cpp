@@ -1,6 +1,7 @@
 #include "qt/editor_dialog.hpp"
 
 #include "indexer/editable_map_object.hpp"
+#include "indexer/feature_utils.hpp"
 
 #include "base/string_utils.hpp"
 
@@ -113,12 +114,12 @@ EditorDialog::EditorDialog(QWidget * parent, osm::EditableMapObject & emo)
       {
         grid->addWidget(new QLabel(kInternetObjectName), row, 0);
         QComboBox * cmb = new QComboBox();
-        std::string const values[] = {DebugPrint(osm::Internet::Unknown),
-                                      DebugPrint(osm::Internet::Wlan),
-                                      DebugPrint(osm::Internet::Wired),
-                                      DebugPrint(osm::Internet::Terminal),
-                                      DebugPrint(osm::Internet::Yes),
-                                      DebugPrint(osm::Internet::No)};
+        std::string const values[] = {DebugPrint(feature::Internet::Unknown),
+                                      DebugPrint(feature::Internet::Wlan),
+                                      DebugPrint(feature::Internet::Wired),
+                                      DebugPrint(feature::Internet::Terminal),
+                                      DebugPrint(feature::Internet::Yes),
+                                      DebugPrint(feature::Internet::No)};
         for (auto const & v : values)
           cmb->addItem(v.c_str());
         cmb->setCurrentText(DebugPrint(emo.GetInternet()).c_str());
@@ -216,7 +217,7 @@ void EditorDialog::OnSave()
     if (prop == PropID::FMD_INTERNET)
     {
       QComboBox * cmb = findChild<QComboBox *>(kInternetObjectName);
-      m_feature.SetInternet(osm::InternetFromString(cmb->currentText().toStdString()));
+      m_feature.SetInternet(feature::InternetFromString(cmb->currentText().toStdString()));
       continue;
     }
     if (prop == PropID::FMD_POSTCODE) // already set above

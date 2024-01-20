@@ -504,7 +504,7 @@ void registerCellsForTableView(std::vector<MWMEditorCellID> const & cells, UITab
     [tCell configWithDelegate:self
                          icon:[UIImage imageNamed:@"ic_placepage_wifi"]
                          text:L(@"wifi")
-                           on:m_mapObject.GetInternet() == osm::Internet::Wlan];
+                           on:m_mapObject.GetInternet() == feature::Internet::Wlan];
     break;
   }
   case MWMEditorCellTypeAdditionalName:
@@ -930,7 +930,7 @@ void registerCellsForTableView(std::vector<MWMEditorCellID> const & cells, UITab
   switch ([self cellTypeForIndexPath:indexPath])
   {
   case MetadataID::FMD_INTERNET:
-    m_mapObject.SetInternet(changeSwitch ? osm::Internet::Wlan : osm::Internet::Unknown);
+    m_mapObject.SetInternet(changeSwitch ? feature::Internet::Wlan : feature::Internet::Unknown);
     break;
   default: NSAssert(false, @"Invalid field for changeSwitch"); break;
   }

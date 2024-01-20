@@ -493,16 +493,16 @@ void EditableMapObject::SetOpeningHours(std::string oh)
   m_metadata.Set(MetadataID::FMD_OPEN_HOURS, std::move(oh));
 }
 
-void EditableMapObject::SetInternet(Internet internet)
+void EditableMapObject::SetInternet(feature::Internet internet)
 {
   m_metadata.Set(MetadataID::FMD_INTERNET, DebugPrint(internet));
 
   uint32_t const wifiType = ftypes::IsWifiChecker::Instance().GetType();
   bool const hasWiFi = m_types.Has(wifiType);
 
-  if (hasWiFi && internet != Internet::Wlan)
+  if (hasWiFi && internet != feature::Internet::Wlan)
     m_types.Remove(wifiType);
-  else if (!hasWiFi && internet == Internet::Wlan)
+  else if (!hasWiFi && internet == feature::Internet::Wlan)
     m_types.Add(wifiType);
 }
 

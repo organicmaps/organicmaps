@@ -2,7 +2,6 @@
 
 #include "indexer/feature.hpp"
 #include "indexer/feature_algo.hpp"
-#include "indexer/feature_utils.hpp"
 #include "indexer/ftypes_matcher.hpp"
 #include "indexer/road_shields_parser.hpp"
 
@@ -18,29 +17,6 @@
 namespace osm
 {
 using namespace std;
-
-namespace
-{
-constexpr char const * kWlan = "wlan";
-constexpr char const * kWired = "wired";
-constexpr char const * kTerminal = "terminal";
-constexpr char const * kYes = "yes";
-constexpr char const * kNo = "no";
-}  // namespace
-
-string DebugPrint(osm::Internet internet)
-{
-  switch (internet)
-  {
-  case Internet::No: return kNo;
-  case Internet::Yes: return kYes;
-  case Internet::Wlan: return kWlan;
-  case Internet::Wired: return kWired;
-  case Internet::Terminal: return kTerminal;
-  case Internet::Unknown: break;
-  }
-  return {};
-}
 
 void MapObject::SetFromFeatureType(FeatureType & ft)
 {
@@ -123,31 +99,14 @@ std::string_view MapObject::GetMetadata(MetadataID type) const
   return m_metadata.Get(type);
 }
 
-Internet InternetFromString(std::string_view inet)
-{
-  if (inet.empty())
-    return Internet::Unknown;
-  if (inet.find(kWlan) != string::npos)
-    return Internet::Wlan;
-  if (inet.find(kWired) != string::npos)
-    return Internet::Wired;
-  if (inet.find(kTerminal) != string::npos)
-    return Internet::Terminal;
-  if (inet == kYes)
-    return Internet::Yes;
-  if (inet == kNo)
-    return Internet::No;
-  return Internet::Unknown;
-}
-
 std::string_view MapObject::GetOpeningHours() const
 {
   return m_metadata.Get(MetadataID::FMD_OPEN_HOURS);
 }
 
-Internet MapObject::GetInternet() const
+feature::Internet MapObject::GetInternet() const
 {
-  return InternetFromString(m_metadata.Get(MetadataID::FMD_INTERNET));
+  return feature::InternetFromString(m_metadata.Get(MetadataID::FMD_INTERNET));
 }
 
 vector<string> MapObject::GetCuisines() const { return feature::GetCuisines(m_types); }
