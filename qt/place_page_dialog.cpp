@@ -97,20 +97,20 @@ PlacePageDialog::PlacePageDialog(QWidget * parent, place_page::Info const & info
 
   QPushButton * stopButton = new QPushButton("Stop");
   stopButton -> setIcon(QIcon(":/navig64/point-intermediate.png"));
-  connect(stopButton, &QAbstractButton::clicked, this,
-          [this]() {
-            this->SetRoutePointAddMode(RouteMarkType::Intermediate);
-            this->OnClose();
-            });
+  connect(stopButton, &QAbstractButton::clicked, this, [this]
+  {
+    SetRoutePointAddMode(RouteMarkType::Intermediate);
+    OnClose();
+  });
   dbb->addButton(stopButton, QDialogButtonBox::ActionRole);
 
   QPushButton * fromButton = new QPushButton("From");
   fromButton -> setIcon(QIcon(":/navig64/point-start.png"));
-  connect(fromButton, &QAbstractButton::clicked, this,
-          [this]() {
-            this->SetRoutePointAddMode(RouteMarkType::Start);
-            this->OnClose();
-            });
+  connect(fromButton, &QAbstractButton::clicked, this, [this]
+  {
+    SetRoutePointAddMode(RouteMarkType::Start);
+    OnClose();
+  });
   dbb->addButton(fromButton, QDialogButtonBox::ActionRole);
 
   QPushButton * closeButton = new QPushButton("Close");
