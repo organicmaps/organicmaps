@@ -97,3 +97,7 @@ if [ "$LOCALES_CONTENT" != "$(cat "$LOCALES_CONFIG")" ]; then
   echo "$LOCALES_CONTENT" > "$LOCALES_CONFIG"
   echo Updated "$LOCALES_CONFIG" file
 fi
+
+# Generate TTS languages.
+TTS_LANGUAGES="$OMIM_PATH/tools/python/tts_languages.py"
+"$TTS_LANGUAGES" "$OMIM_PATH/data/strings/sound.txt" "$OMIM_PATH/platform/tts_languages.hpp"

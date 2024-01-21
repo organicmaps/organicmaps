@@ -1,6 +1,5 @@
 #import "MWMTTSSettingsViewController.h"
 #import <AVFoundation/AVFoundation.h>
-#import "MWMTextToSpeech+CPP.h"
 #import "SwiftBridge.h"
 
 #include <CoreApi/Framework.h>
@@ -61,38 +60,14 @@ struct LanguageCellStrategy : BaseCellStategy
   UITableViewCell * BuildCell(UITableView * tableView, NSIndexPath * indexPath,
                               MWMTTSSettingsViewController * controller) override
   {
-    NSInteger const row = indexPath.row;
-    if (row == controller.languages.size())
-    {
-      Class cls = [SettingsTableViewLinkCell class];
-      auto cell = static_cast<SettingsTableViewLinkCell *>(
-          [tableView dequeueReusableCellWithCellClass:cls indexPath:indexPath]);
-      [cell configWithTitle:L(@"pref_tts_other_section_title") info:nil];
-      return cell;
-    }
+    Class cls = [SettingsTableViewLinkCell class];
+    auto cell = static_cast<SettingsTableViewLinkCell *>(
+                        [tableView dequeueReusableCellWithCellClass:cls indexPath:indexPath]);
 
-    Class cls = [SettingsTableViewSelectableCell class];
-    auto cell = static_cast<SettingsTableViewSelectableCell *>(
-        [tableView dequeueReusableCellWithCellClass:cls indexPath:indexPath]);
-    pair<string, string> const p = controller.languages[row];
-    [cell configWithTitle:@(p.second.c_str())];
-    BOOL const isSelected = [@(p.first.c_str()) isEqualToString:[MWMTextToSpeech savedLanguage]];
-    if (isSelected)
-    {
-      m_selectedCell = cell;
-      cell.accessoryType = UITableViewCellAccessoryCheckmark;
-    }
-    else
-    {
-      cell.accessoryType = UITableViewCellAccessoryNone;
-    }
-
+    NSString* language = NSUserDefaults.standardUserDefaults.ttsLanguage;
+    NSLocale *locale = [[NSLocale alloc] initWithLocaleIdentifier: language];
+    [cell configWithTitle:@"Language" info: [locale localizedStringForLocaleIdentifier:language]];
     return cell;
-  }
-
-  size_t NumberOfRows(MWMTTSSettingsViewController * controller) const override
-  {
-    return controller.languages.size() + 1;  // Number of languages + "Other" cell
   }
 
   NSString * TitleForHeader() const override { return L(@"pref_tts_language_title"); }
@@ -100,21 +75,7 @@ struct LanguageCellStrategy : BaseCellStategy
   void SelectCell(UITableView * tableView, NSIndexPath * indexPath,
                   MWMTTSSettingsViewController * controller) override
   {
-    NSInteger const row = indexPath.row;
-    if (row == controller.languages.size())
-    {
       [controller performSegueWithIdentifier:kSelectTTSLanguageSegueName sender:nil];
-      return;
-    }
-
-    auto cell = [tableView cellForRowAtIndexPath:indexPath];
-    if (m_selectedCell == cell)
-      return;
-
-    m_selectedCell.accessoryType = UITableViewCellAccessoryNone;
-    [[MWMTextToSpeech tts] setNotificationsLocale:@(controller.languages[row].first.c_str())];
-    cell.accessoryType = UITableViewCellAccessoryCheckmark;
-    m_selectedCell = cell;
   }
 
   SettingsTableViewSelectableCell * m_selectedCell = nil;
@@ -210,75 +171,18 @@ struct CamerasCellStrategy : BaseCellStategy
   return self;
 }
 
+- (void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary *)change context:(void *)context {
+    if ([keyPath isEqualToString:@"ttsLanguage"]) {
+      [self.tableView reloadData];
+    }
+}
+
 - (void)viewDidLoad
 {
   [super viewDidLoad];
   self.title = L(@"pref_tts_enable_title");
-  MWMTextToSpeech * tts = [MWMTextToSpeech tts];
 
-  m_languages.reserve(3);
-  auto const & v = tts.availableLanguages;
-  NSAssert(!v.empty(), @"Vector can't be empty!");
-  pair<string, string> const standart = v.front();
-  m_languages.push_back(standart);
-
-  using namespace tts;
-  NSString * currentBcp47 = [AVSpeechSynthesisVoice currentLanguageCode];
-  string const currentBcp47Str = currentBcp47.UTF8String;
-  string const currentTwineStr = bcp47ToTwineLanguage(currentBcp47);
-  if (currentBcp47Str != standart.first && !currentBcp47Str.empty())
-  {
-    string const translated = translatedTwine(currentTwineStr);
-    pair<string, string> const cur{currentBcp47Str, translated};
-    if (translated.empty() || find(v.begin(), v.end(), cur) != v.end())
-      m_languages.push_back(cur);
-    else
-      self.isLocaleLanguageAbsent = YES;
-  }
-
-  NSString * nsSavedLanguage = [MWMTextToSpeech savedLanguage];
-  if (nsSavedLanguage.length)
-  {
-    string const savedLanguage = nsSavedLanguage.UTF8String;
-    if (savedLanguage != currentBcp47Str && savedLanguage != standart.first &&
-        !savedLanguage.empty())
-      m_languages.emplace_back(
-          make_pair(savedLanguage, translatedTwine(bcp47ToTwineLanguage(nsSavedLanguage))));
-  }
-}
-
-- (IBAction)unwind:(id)sender
-{
-  size_t const size = m_languages.size();
-  if (find(m_languages.begin(), m_languages.end(), m_additionalTTSLanguage) != m_languages.end())
-  {
-    [self.tableView reloadData];
-    return;
-  }
-  switch (size)
-  {
-  case 1: m_languages.push_back(m_additionalTTSLanguage); break;
-  case 2:
-    if (self.isLocaleLanguageAbsent)
-      m_languages[size - 1] = m_additionalTTSLanguage;
-    else
-      m_languages.push_back(m_additionalTTSLanguage);
-    break;
-  case 3: m_languages[size - 1] = m_additionalTTSLanguage; break;
-  default: NSAssert(false, @"Incorrect language's count"); break;
-  }
-  [self.tableView reloadData];
-}
-
-- (void)setAdditionalTTSLanguage:(pair<string, string> const &)l
-{
-  [[MWMTextToSpeech tts] setNotificationsLocale:@(l.first.c_str())];
-  m_additionalTTSLanguage = l;
-}
-
-- (vector<pair<string, string>> const &)languages
-{
-  return m_languages;
+  [NSUserDefaults.standardUserDefaults addObserver:self forKeyPath:@"ttsLanguage" options:NSKeyValueObservingOptionNew context:nil];
 }
 
 #pragma mark - UITableViewDataSource

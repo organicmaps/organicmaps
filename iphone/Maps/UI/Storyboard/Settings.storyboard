@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="19529" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="22155" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
     <device id="retina6_1" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="19519"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="22131"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
@@ -1057,7 +1057,7 @@
         <!--Language View Controller-->
         <scene sceneID="Fml-K3-2gi">
             <objects>
-                <tableViewController id="13e-Bs-Dwh" customClass="MWMTTSLanguageViewController" sceneMemberID="viewController">
+                <tableViewController id="13e-Bs-Dwh" customClass="MWMTTSLanguageViewController" customModule="Organic_Maps" customModuleProvider="target" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="grouped" separatorStyle="default" rowHeight="44" sectionHeaderHeight="18" sectionFooterHeight="18" id="3eG-G0-XZP">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -1086,7 +1086,6 @@
                                 </tableViewCellContentView>
                                 <connections>
                                     <outlet property="title" destination="wBg-nH-SXL" id="MCZ-tX-MGv"/>
-                                    <segue destination="SWt-Am-yp4" kind="unwind" identifier="UnwindToTTSSettings" unwindAction="unwind:" id="bpg-7g-3lb"/>
                                 </connections>
                             </tableViewCell>
                         </prototypes>
@@ -1098,7 +1097,6 @@
                     <navigationItem key="navigationItem" id="4EX-eg-Lfl"/>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="qSX-mz-m27" userLabel="First Responder" sceneMemberID="firstResponder"/>
-                <exit id="SWt-Am-yp4" userLabel="Exit" sceneMemberID="exit"/>
             </objects>
             <point key="canvasLocation" x="2577" y="-338"/>
         </scene>

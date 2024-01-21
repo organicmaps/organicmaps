@@ -261,6 +261,7 @@
 		47F86CFF20C936FC00FEE291 /* TabView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 47F86CFE20C936FC00FEE291 /* TabView.swift */; };
 		47F86D0120C93D8D00FEE291 /* TabViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 47F86D0020C93D8D00FEE291 /* TabViewController.swift */; };
 		4A300ED51C6DCFD400140018 /* countries-strings in Resources */ = {isa = PBXBuildFile; fileRef = 4A300ED31C6DCFD400140018 /* countries-strings */; };
+		4BBF0FB32B3BE41400D0B8B1 /* MWMTTSLanguageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4BBF0FB22B3BE41400D0B8B1 /* MWMTTSLanguageViewController.swift */; };
 		6741A9421BF340DE002C974C /* sound-strings in Resources */ = {isa = PBXBuildFile; fileRef = 5605022E1B6211E100169CAD /* sound-strings */; };
 		6741A9451BF340DE002C974C /* classificator.txt in Resources */ = {isa = PBXBuildFile; fileRef = EE026F0511D6AC0D00645242 /* classificator.txt */; };
 		6741A9491BF340DE002C974C /* countries.txt in Resources */ = {isa = PBXBuildFile; fileRef = FA46DA2B12D4166E00968C36 /* countries.txt */; };
@@ -567,7 +568,6 @@
 		F6E2FF5A1E097BA00083EBEC /* MWMNightModeController.m in Sources */ = {isa = PBXBuildFile; fileRef = F6E2FD431E097BA00083EBEC /* MWMNightModeController.m */; };
 		F6E2FF5D1E097BA00083EBEC /* MWMRecentTrackSettingsController.mm in Sources */ = {isa = PBXBuildFile; fileRef = F6E2FD451E097BA00083EBEC /* MWMRecentTrackSettingsController.mm */; };
 		F6E2FF601E097BA00083EBEC /* MWMSettingsViewController.mm in Sources */ = {isa = PBXBuildFile; fileRef = F6E2FD471E097BA00083EBEC /* MWMSettingsViewController.mm */; };
-		F6E2FF631E097BA00083EBEC /* MWMTTSLanguageViewController.mm in Sources */ = {isa = PBXBuildFile; fileRef = F6E2FD491E097BA00083EBEC /* MWMTTSLanguageViewController.mm */; };
 		F6E2FF661E097BA00083EBEC /* MWMTTSSettingsViewController.mm in Sources */ = {isa = PBXBuildFile; fileRef = F6E2FD4B1E097BA00083EBEC /* MWMTTSSettingsViewController.mm */; };
 		F6E2FF691E097BA00083EBEC /* MWMUnitsController.mm in Sources */ = {isa = PBXBuildFile; fileRef = F6E2FD4D1E097BA00083EBEC /* MWMUnitsController.mm */; };
 		F6FE3C391CC50FFD00A73196 /* MWMPlaceDoesntExistAlert.m in Sources */ = {isa = PBXBuildFile; fileRef = F6FE3C371CC50FFD00A73196 /* MWMPlaceDoesntExistAlert.m */; };
@@ -818,7 +818,6 @@
 		347526FB1DC0B00F00918CF5 /* common-release.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; name = "common-release.xcconfig"; path = "../../xcode/common-release.xcconfig"; sourceTree = "<group>"; };
 		34763EE41F2F392300F4D2D3 /* MWMTextToSpeech.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MWMTextToSpeech.h; sourceTree = "<group>"; };
 		34763EE51F2F392300F4D2D3 /* MWMTextToSpeech.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = MWMTextToSpeech.mm; sourceTree = "<group>"; };
-		34763EE91F2F394D00F4D2D3 /* MWMTextToSpeech+CPP.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "MWMTextToSpeech+CPP.h"; sourceTree = "<group>"; };
 		34763EEA1F2F3AD700F4D2D3 /* MWMTextToSpeechObserver.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MWMTextToSpeechObserver.h; sourceTree = "<group>"; };
 		34763F0B1F30CCAC00F4D2D3 /* MWMEditorCellType.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MWMEditorCellType.h; sourceTree = "<group>"; };
 		347AD8081F28B4E6007ACB68 /* MWMSearchManagerObserver.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MWMSearchManagerObserver.h; sourceTree = "<group>"; };
@@ -1141,6 +1140,7 @@
 		4A7D89C21B2EBF3B00AC843E /* resources-mdpi_dark */ = {isa = PBXFileReference; lastKnownFileType = folder; name = "resources-mdpi_dark"; path = "../../data/resources-mdpi_dark"; sourceTree = "<group>"; };
 		4A7D89C31B2EBF3B00AC843E /* resources-xhdpi_dark */ = {isa = PBXFileReference; lastKnownFileType = folder; name = "resources-xhdpi_dark"; path = "../../data/resources-xhdpi_dark"; sourceTree = "<group>"; };
 		4A7D89C41B2EBF3B00AC843E /* resources-xxhdpi_dark */ = {isa = PBXFileReference; lastKnownFileType = folder; name = "resources-xxhdpi_dark"; path = "../../data/resources-xxhdpi_dark"; sourceTree = "<group>"; };
+		4BBF0FB22B3BE41400D0B8B1 /* MWMTTSLanguageViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MWMTTSLanguageViewController.swift; sourceTree = "<group>"; };
 		5605022E1B6211E100169CAD /* sound-strings */ = {isa = PBXFileReference; lastKnownFileType = folder; name = "sound-strings"; path = "../../data/sound-strings"; sourceTree = "<group>"; };
 		6741AA5D1BF340DE002C974C /* Organic Maps (Debug).app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Organic Maps (Debug).app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		6B15907026623AE500944BBA /* 00_NotoSansThai-Regular.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; name = "00_NotoSansThai-Regular.ttf"; path = "../../data/00_NotoSansThai-Regular.ttf"; sourceTree = "<group>"; };
@@ -1532,8 +1532,6 @@
 		F6E2FD451E097BA00083EBEC /* MWMRecentTrackSettingsController.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = MWMRecentTrackSettingsController.mm; sourceTree = "<group>"; };
 		F6E2FD461E097BA00083EBEC /* MWMSettingsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MWMSettingsViewController.h; sourceTree = "<group>"; };
 		F6E2FD471E097BA00083EBEC /* MWMSettingsViewController.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = MWMSettingsViewController.mm; sourceTree = "<group>"; };
-		F6E2FD481E097BA00083EBEC /* MWMTTSLanguageViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MWMTTSLanguageViewController.h; sourceTree = "<group>"; };
-		F6E2FD491E097BA00083EBEC /* MWMTTSLanguageViewController.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = MWMTTSLanguageViewController.mm; sourceTree = "<group>"; };
 		F6E2FD4A1E097BA00083EBEC /* MWMTTSSettingsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MWMTTSSettingsViewController.h; sourceTree = "<group>"; };
 		F6E2FD4B1E097BA00083EBEC /* MWMTTSSettingsViewController.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = MWMTTSSettingsViewController.mm; sourceTree = "<group>"; };
 		F6E2FD4C1E097BA00083EBEC /* MWMUnitsController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MWMUnitsController.h; sourceTree = "<group>"; };
@@ -2202,7 +2200,6 @@
 			children = (
 				34763EE41F2F392300F4D2D3 /* MWMTextToSpeech.h */,
 				34763EE51F2F392300F4D2D3 /* MWMTextToSpeech.mm */,
-				34763EE91F2F394D00F4D2D3 /* MWMTextToSpeech+CPP.h */,
 				34763EEA1F2F3AD700F4D2D3 /* MWMTextToSpeechObserver.h */,
 			);
 			path = TextToSpeech;
@@ -3462,8 +3459,7 @@
 				F6E2FD451E097BA00083EBEC /* MWMRecentTrackSettingsController.mm */,
 				F6E2FD461E097BA00083EBEC /* MWMSettingsViewController.h */,
 				F6E2FD471E097BA00083EBEC /* MWMSettingsViewController.mm */,
-				F6E2FD481E097BA00083EBEC /* MWMTTSLanguageViewController.h */,
-				F6E2FD491E097BA00083EBEC /* MWMTTSLanguageViewController.mm */,
+				4BBF0FB22B3BE41400D0B8B1 /* MWMTTSLanguageViewController.swift */,
 				F6E2FD4A1E097BA00083EBEC /* MWMTTSSettingsViewController.h */,
 				F6E2FD4B1E097BA00083EBEC /* MWMTTSSettingsViewController.mm */,
 				F6E2FD4C1E097BA00083EBEC /* MWMUnitsController.h */,
@@ -3994,7 +3990,6 @@
 				340475621E081A4600C92850 /* MWMNetworkPolicy+UI.m in Sources */,
 				F6E2FEE51E097BA00083EBEC /* MWMSearchNoResults.m in Sources */,
 				3DBD7BE42425015C00ED9FE8 /* ParntersStyleSheet.swift in Sources */,
-				F6E2FF631E097BA00083EBEC /* MWMTTSLanguageViewController.mm in Sources */,
 				342EE4121C43DAA7009F6A49 /* MWMAuthorizationWebViewLoginViewController.mm in Sources */,
 				4715273524907F8200E91BBA /* BookmarkColorViewController.swift in Sources */,
 				47E3C7292111E614008B3B27 /* FadeInAnimatedTransitioning.swift in Sources */,
@@ -4179,6 +4174,7 @@
 				CDCA27382237F1BD00167D87 /* BookmarkInfo.swift in Sources */,
 				993DF11A23F6BDB100AC231A /* UIBarButtonItemRenderer.swift in Sources */,
 				34AB668C1FC5AA330078E451 /* NavigationStreetNameView.swift in Sources */,
+				4BBF0FB32B3BE41400D0B8B1 /* MWMTTSLanguageViewController.swift in Sources */,
 				993DF12923F6BDB100AC231A /* ThemeManager.swift in Sources */,
 				337F98A621D37B7400C8AC27 /* SearchTabViewController.swift in Sources */,
 				3404755F1E081A4600C92850 /* MWMLocationPredictor.mm in Sources */,
