@@ -86,42 +86,45 @@ PlacePageDialog::PlacePageDialog(QWidget * parent, place_page::Info const & info
 
   QDialogButtonBox * dbb = new QDialogButtonBox();
 
-  QPushButton * toButton = new QPushButton("To");
-  toButton -> setIcon(QIcon(":/navig64/point-finish.png"));
-  connect(toButton, &QAbstractButton::clicked, this, [this]
-  {
-    SetRoutePointAddMode(RouteMarkType::Finish);
-    OnClose();
-  });
-  dbb->addButton(toButton, QDialogButtonBox::ActionRole);
-
-  QPushButton * stopButton = new QPushButton("Stop");
-  stopButton -> setIcon(QIcon(":/navig64/point-intermediate.png"));
-  connect(stopButton, &QAbstractButton::clicked, this, [this]
-  {
-    SetRoutePointAddMode(RouteMarkType::Intermediate);
-    OnClose();
-  });
-  dbb->addButton(stopButton, QDialogButtonBox::ActionRole);
-
-  QPushButton * fromButton = new QPushButton("From");
-  fromButton -> setIcon(QIcon(":/navig64/point-start.png"));
+  QPushButton * fromButton = new QPushButton("Route From");
+  fromButton->setIcon(QIcon(":/navig64/point-start.png"));
   connect(fromButton, &QAbstractButton::clicked, this, [this]
   {
-    SetRoutePointAddMode(RouteMarkType::Start);
-    OnClose();
+    done(RouteFrom);
   });
   dbb->addButton(fromButton, QDialogButtonBox::ActionRole);
 
+  QPushButton * addStopButton = new QPushButton("Add Stop");
+  addStopButton->setIcon(QIcon(":/navig64/point-intermediate.png"));
+  connect(addStopButton, &QAbstractButton::clicked, this, [this]
+  {
+    done(AddStop);
+  });
+  dbb->addButton(addStopButton, QDialogButtonBox::ActionRole);
+
+  QPushButton * routeToButton = new QPushButton("Route To");
+  routeToButton->setIcon(QIcon(":/navig64/point-finish.png"));
+  connect(routeToButton, &QAbstractButton::clicked, this, [this]
+  {
+    done(RouteTo);
+  });
+  dbb->addButton(routeToButton, QDialogButtonBox::ActionRole);
+
   QPushButton * closeButton = new QPushButton("Close");
   closeButton->setDefault(true);
-  connect(closeButton, &QAbstractButton::clicked, this, &PlacePageDialog::OnClose);
+  connect(closeButton, &QAbstractButton::clicked, this, [this]
+  {
+    done(Close);
+  });
   dbb->addButton(closeButton, QDialogButtonBox::RejectRole);
 
   if (info.ShouldShowEditPlace())
   {
     QPushButton * editButton = new QPushButton("Edit Place");
-    connect(editButton, &QAbstractButton::clicked, this, &PlacePageDialog::OnEdit);
+    connect(editButton, &QAbstractButton::clicked, this,  [this]
+    {
+      done(EditPlace);
+    });
     dbb->addButton(editButton, QDialogButtonBox::AcceptRole);
   }
 
@@ -138,7 +141,7 @@ PlacePageDialog::PlacePageDialog(QWidget * parent, place_page::Info const & info
 
   info.ForEachMetadataReadable([&addEntry](PropID id, std::string const & value)
   {
-    bool isLink = false;
+    bool isLink;
     switch (id)
     {
     case PropID::FMD_EMAIL:
@@ -153,6 +156,7 @@ PlacePageDialog::PlacePageDialog(QWidget * parent, place_page::Info const & info
       isLink = true;
       break;
     default:
+      isLink = false;
       break;
     }
 
@@ -165,12 +169,3 @@ PlacePageDialog::PlacePageDialog(QWidget * parent, place_page::Info const & info
   auto const ppTitle = std::string("Place Page") + (info.IsBookmark() ? " (bookmarked)" : "");
   setWindowTitle(ppTitle.c_str());
 }
-
-std::optional<RouteMarkType> PlacePageDialog::GetRoutePointAddMode() const { return m_routePointAddMode; };
-
-void PlacePageDialog::SetRoutePointAddMode(RouteMarkType routePointAddMode)
-{
-  m_routePointAddMode = routePointAddMode;
-};
-void PlacePageDialog::OnClose() { reject(); }
-void PlacePageDialog::OnEdit() { accept(); }

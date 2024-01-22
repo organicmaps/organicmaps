@@ -14,16 +14,14 @@ class PlacePageDialog : public QDialog
 {
   Q_OBJECT
 public:
+  enum PressedButton : int {
+    RouteFrom,
+    AddStop,
+    RouteTo,
+    Close,
+    EditPlace
+  };
+
   PlacePageDialog(QWidget * parent, place_page::Info const & info,
                   search::ReverseGeocoder::Address const & address);
-
-  std::optional<RouteMarkType> GetRoutePointAddMode() const;
-  void SetRoutePointAddMode(RouteMarkType);
-
-private slots:
-  void OnClose();
-  void OnEdit();
-
-private:
-  std::optional<RouteMarkType> m_routePointAddMode;
 };

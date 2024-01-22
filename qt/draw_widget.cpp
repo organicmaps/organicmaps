@@ -650,34 +650,51 @@ void DrawWidget::ShowPlacePage()
   }
 
   PlacePageDialog dlg(this, info, address);
-  if (dlg.exec() == QDialog::Accepted)
-  {
-    osm::EditableMapObject emo;
-    if (m_framework.GetEditableMapObject(info.GetID(), emo))
+  switch (dlg.exec()) {
+  case PlacePageDialog::EditPlace:
     {
-      EditorDialog dlg(this, emo);
-      int const result = dlg.exec();
-      if (result == QDialog::Accepted)
+      osm::EditableMapObject emo;
+      if (m_framework.GetEditableMapObject(info.GetID(), emo))
       {
-        m_framework.SaveEditedMapObject(emo);
-        m_framework.UpdatePlacePageInfoForCurrentSelection();
+        EditorDialog dlg(this, emo);
+        int const result = dlg.exec();
+        if (result == QDialog::Accepted)
+        {
+          m_framework.SaveEditedMapObject(emo);
+          m_framework.UpdatePlacePageInfoForCurrentSelection();
+        }
+        else if (result == QDialogButtonBox::DestructiveRole)
+        {
+          m_framework.DeleteFeature(info.GetID());
+        }
       }
-      else if (result == QDialogButtonBox::DestructiveRole)
+      else
       {
-        m_framework.DeleteFeature(info.GetID());
+        LOG(LERROR, ("Error while trying to edit feature."));
       }
     }
-    else
+    break;
+  case PlacePageDialog::RouteFrom:
     {
-      LOG(LERROR, ("Error while trying to edit feature."));
+      SetRoutePointAddMode(RouteMarkType::Start);
+      SubmitRoutingPoint(info.GetMercator(), true);
     }
+    break;
+  case PlacePageDialog::AddStop:
+    {
+      SetRoutePointAddMode(RouteMarkType::Intermediate);
+      SubmitRoutingPoint(info.GetMercator(), true);
+    }
+    break;
+  case PlacePageDialog::RouteTo:
+    {
+      SetRoutePointAddMode(RouteMarkType::Finish);
+      SubmitRoutingPoint(info.GetMercator(), true);
+    }
+    break;
+  default: break;
   }
 
-  if (auto routePointAddMode = dlg.GetRoutePointAddMode())
-  {
-    SetRoutePointAddMode(*routePointAddMode);
-    SubmitRoutingPoint(info.GetMercator(), true);
-  }
   m_framework.DeactivateMapSelection(false);
 }
 
