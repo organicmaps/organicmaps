@@ -131,10 +131,10 @@ public:
     return m_table->GetVersion();
   }
 
-  void Serialize(Writer & writer, bool preserveHostEndiannes) override
+  void Serialize(Writer & writer) override
   {
     EnsureTableLoaded();
-    m_table->Serialize(writer, preserveHostEndiannes);
+    m_table->Serialize(writer);
   }
 
 private:

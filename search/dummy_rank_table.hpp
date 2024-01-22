@@ -16,6 +16,6 @@ public:
   uint8_t Get(uint64_t i) const override;
   uint64_t Size() const override;
   Version GetVersion() const override;
-  void Serialize(Writer & /* writer */, bool /* preserveHostEndianness */) override;
+  void Serialize(Writer &) override;
 };
 }  // namespace search
