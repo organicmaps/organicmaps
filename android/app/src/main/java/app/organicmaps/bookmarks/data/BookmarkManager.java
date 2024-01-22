@@ -559,9 +559,9 @@ public enum BookmarkManager
     nativeSetChildCategoriesVisibility(catId, visible);
   }
 
-  public void prepareCategoryForSharing(long catId)
+  public void prepareCategoriesForSharing(long[] catIds)
   {
-    nativePrepareFileForSharing(catId);
+    nativePrepareFileForSharing(catIds);
   }
 
   public void setNotificationsEnabled(boolean enabled)
@@ -799,7 +799,7 @@ public enum BookmarkManager
 
   private static native void nativeSetAllCategoriesVisibility(boolean visible);
 
-  private static native void nativePrepareFileForSharing(long catId);
+  private static native void nativePrepareFileForSharing(long[] catIds);
 
   private static native boolean nativeIsCategoryEmpty(long catId);
 

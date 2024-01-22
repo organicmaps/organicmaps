@@ -188,20 +188,23 @@ void OnPreparedFileForSharing(JNIEnv * env, BookmarkManager::SharingResult const
 
   static jclass const classBookmarkSharingResult = jni::GetGlobalClassRef(env,
     "app/organicmaps/bookmarks/data/BookmarkSharingResult");
-  // Java signature : BookmarkSharingResult(long categoryId, @Code int code,
+  // Java signature : BookmarkSharingResult(long[] categoriesIds, @Code int code,
   //                                        @NonNull String sharingPath,
   //                                        @NonNull String errorString)
   static jmethodID const ctorBookmarkSharingResult = jni::GetConstructorID(env,
-    classBookmarkSharingResult, "(JILjava/lang/String;Ljava/lang/String;)V");
+    classBookmarkSharingResult, "([JILjava/lang/String;Ljava/lang/String;)V");
 
+  jsize const size = static_cast<jsize>(result.m_categoriesIds.size());
+  jni::ScopedLocalRef<jlongArray> categoriesIds(env, env->NewLongArray(size));
+  std::vector<jlong> tmp(result.m_categoriesIds.cbegin(), result.m_categoriesIds.cend());
+  env->SetLongArrayRegion(categoriesIds.get(), 0, size, tmp.data());
   jni::TScopedLocalRef const sharingPath(env, jni::ToJavaString(env, result.m_sharingPath));
   jni::TScopedLocalRef const errorString(env, jni::ToJavaString(env, result.m_errorString));
   jni::TScopedLocalRef const sharingResult(env, env->NewObject(classBookmarkSharingResult,
-    ctorBookmarkSharingResult, static_cast<jlong>(result.m_categoryId),
+    ctorBookmarkSharingResult, categoriesIds.get(),
     static_cast<jint>(result.m_code), sharingPath.get(), errorString.get()));
 
-  env->CallVoidMethod(bookmarkManagerInstance, g_onPreparedFileForSharingMethod,
-                      sharingResult.get());
+  env->CallVoidMethod(bookmarkManagerInstance, g_onPreparedFileForSharingMethod, sharingResult.get());
   jni::HandleJavaException(env);
 }
 
@@ -592,10 +595,13 @@ Java_app_organicmaps_bookmarks_data_BookmarkManager_nativeSetAllCategoriesVisibi
 }
 
 JNIEXPORT void JNICALL
-Java_app_organicmaps_bookmarks_data_BookmarkManager_nativePrepareFileForSharing(
-        JNIEnv * env, jclass, jlong catId)
+Java_app_organicmaps_bookmarks_data_BookmarkManager_nativePrepareFileForSharing(JNIEnv * env, jclass, jlongArray catIds)
 {
-  frm()->GetBookmarkManager().PrepareFileForSharing(static_cast<kml::MarkGroupId>(catId),
+  auto const size = env->GetArrayLength(catIds);
+  std::vector<jlong> tmp(size);
+  env->GetLongArrayRegion(catIds, 0, size, &tmp[0]);
+  kml::GroupIdCollection catIdsVector(tmp.cbegin(), tmp.cend());
+  frm()->GetBookmarkManager().PrepareFileForSharing(catIdsVector,
     [env](BookmarkManager::SharingResult const & result)
   {
     OnPreparedFileForSharing(env, result);

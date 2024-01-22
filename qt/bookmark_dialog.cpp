@@ -170,7 +170,7 @@ void BookmarkDialog::OnExportClick()
   if (name.isEmpty())
     return;
 
-  m_framework.GetBookmarkManager().PrepareFileForSharing(categoryIt->second,
+  m_framework.GetBookmarkManager().PrepareFileForSharing({categoryIt->second},
     [this, name](BookmarkManager::SharingResult const & result)
   {
     if (result.m_code == BookmarkManager::SharingResult::Code::Success)

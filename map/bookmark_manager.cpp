@@ -87,13 +87,13 @@ BookmarkManager::SharingResult GetFileForSharing(BookmarkManager::KMLDataCollect
   auto const categoryId = kmlToShare.second->m_categoryData.m_id;
 
   if (!SaveKmlFileSafe(*kmlToShare.second, filePath, KmlFileType::Text))
-    return {categoryId, BookmarkManager::SharingResult::Code::FileError, "Bookmarks file does not exist."};
+    return {{categoryId}, BookmarkManager::SharingResult::Code::FileError, "Bookmarks file does not exist."};
 
   auto const tmpFilePath = base::JoinPath(GetPlatform().TmpDir(), fileName + std::string{kKmzExtension});
   if (!CreateZipFromPathDeflatedAndDefaultCompression(filePath, tmpFilePath))
-    return {categoryId, BookmarkManager::SharingResult::Code::ArchiveError, "Could not create archive."};
+    return {{categoryId}, BookmarkManager::SharingResult::Code::ArchiveError, "Could not create archive."};
 
-  return {categoryId, tmpFilePath};
+  return {{categoryId}, tmpFilePath};
 }
 
 std::string ToString(BookmarkManager::SortingType type)
@@ -2596,20 +2596,20 @@ void BookmarkManager::SaveBookmarks(kml::GroupIdCollection const & groupIdCollec
   });
 }
 
-void BookmarkManager::PrepareFileForSharing(kml::MarkGroupId categoryId, SharingHandler && handler)
+void BookmarkManager::PrepareFileForSharing(kml::GroupIdCollection const & categoriesIds, SharingHandler && handler)
 {
   CHECK_THREAD_CHECKER(m_threadChecker, ());
   ASSERT(handler, ());
-  if (IsCategoryEmpty(categoryId))
+  if (categoriesIds.size() == 1 && IsCategoryEmpty(categoriesIds.front()))
   {
-    handler(SharingResult(categoryId, SharingResult::Code::EmptyCategory));
+    handler(SharingResult(categoriesIds, SharingResult::Code::EmptyCategory));
     return;
   }
 
-  auto collection = PrepareToSaveBookmarks({categoryId});
+  auto collection = PrepareToSaveBookmarks(categoriesIds);
   if (!collection || collection->empty())
   {
-    handler(SharingResult(categoryId, SharingResult::Code::FileError));
+    handler(SharingResult(categoriesIds, SharingResult::Code::FileError));
     return;
   }
 

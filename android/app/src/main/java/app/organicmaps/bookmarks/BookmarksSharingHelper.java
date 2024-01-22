@@ -14,6 +14,11 @@ import app.organicmaps.util.SharingUtils;
 import app.organicmaps.util.log.Logger;
 import com.google.android.material.dialog.MaterialAlertDialogBuilder;
 
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
+
+
 public enum BookmarksSharingHelper
 {
   INSTANCE;
@@ -25,13 +30,18 @@ public enum BookmarksSharingHelper
 
   public void prepareBookmarkCategoryForSharing(@NonNull Activity context, long catId)
   {
+    showProgressDialog(context);
+    BookmarkManager.INSTANCE.prepareCategoriesForSharing(new long[]{catId});
+  }
+
+  private void showProgressDialog(@NonNull Activity context)
+  {
     mProgressDialog = new ProgressDialog(context, R.style.MwmTheme_ProgressDialog);
     mProgressDialog.setMessage(context.getString(R.string.please_wait));
     mProgressDialog.setProgressStyle(ProgressDialog.STYLE_SPINNER);
     mProgressDialog.setIndeterminate(true);
     mProgressDialog.setCancelable(false);
     mProgressDialog.show();
-    BookmarkManager.INSTANCE.prepareCategoryForSharing(catId);
   }
 
   public void onPreparedFileForSharing(@NonNull FragmentActivity context,
@@ -57,8 +67,10 @@ public enum BookmarksSharingHelper
             .setMessage(R.string.bookmarks_error_message_share_general)
             .setPositiveButton(R.string.ok, null)
             .show();
-        String catName = BookmarkManager.INSTANCE.getCategoryById(result.getCategoryId()).getName();
-        Logger.e(TAG, "Failed to share bookmark category '" + catName + "', error code: " + result.getCode());
+        List<String> names = new ArrayList<>();
+        for (long categoryId : result.getCategoriesIds())
+          names.add(BookmarkManager.INSTANCE.getCategoryById(categoryId).getName());
+        Logger.e(TAG, "Failed to share bookmark categories " + names + ", error code: " + result.getCode());
       }
       default -> throw new AssertionError("Unsupported bookmark sharing code: " + result.getCode());
     }
