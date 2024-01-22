@@ -570,7 +570,7 @@ static BookmarkManager::SortingType convertSortingTypeToCore(MWMBookmarksSorting
 
 - (void)shareCategory:(MWMMarkGroupID)groupId
 {
-  self.bm.PrepareFileForSharing(groupId, [self](auto sharingResult)
+  self.bm.PrepareFileForSharing({groupId}, [self](auto sharingResult)
   {
     MWMBookmarksShareStatus status;
     switch (sharingResult.m_code)

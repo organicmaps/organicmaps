@@ -21,7 +21,7 @@ public class BookmarkSharingResult
   public static final int ARCHIVE_ERROR = 2;
   public static final int FILE_ERROR = 3;
 
-  private final long mCategoryId;
+  private final long[] mCategoriesIds;
   @Code
   private final int mCode;
   @NonNull
@@ -30,19 +30,19 @@ public class BookmarkSharingResult
   @SuppressWarnings("unused")
   private final String mErrorString;
 
-  private BookmarkSharingResult(long categoryId, @Code int code,
+  public BookmarkSharingResult(long[] categoriesIds, @Code int code,
                                 @NonNull String sharingPath,
                                 @NonNull String errorString)
   {
-    mCategoryId = categoryId;
+    mCategoriesIds = categoriesIds;
     mCode = code;
     mSharingPath = sharingPath;
     mErrorString = errorString;
   }
 
-  public long getCategoryId()
+  public long[] getCategoriesIds()
   {
-    return mCategoryId;
+    return mCategoriesIds;
   }
 
   public int getCode()
