@@ -560,7 +560,8 @@ MAIN_WITH_ERROR_HANDLING([](int argc, char ** argv)
       }
     }
 
-    if (!FLAGS_wikipedia_pages.empty())
+    // Check !generate_popular_places to avoid mixing, generate_popular_places stage uses the same wiki flags.
+    if (!FLAGS_generate_popular_places && !FLAGS_wikipedia_pages.empty())
     {
       // FLAGS_idToWikidata maybe empty.
       DescriptionsSectionBuilder::CollectAndBuild(FLAGS_wikipedia_pages, dataFile, FLAGS_idToWikidata);
@@ -572,11 +573,13 @@ MAIN_WITH_ERROR_HANDLING([](int argc, char ** argv)
 
     if (FLAGS_generate_popular_places)
     {
-      if (!BuildPopularPlacesMwmSection(genInfo.m_popularPlacesFilename, dataFile,
-                                        osmToFeatureFilename))
-      {
+      bool isOk = false;
+      if (!FLAGS_wikipedia_pages.empty())
+        isOk = BuildPopularPlacesFromWikiDump(dataFile, FLAGS_wikipedia_pages, FLAGS_idToWikidata);
+      else
+        isOk = BuildPopularPlacesFromDescriptions(dataFile);
+      if (!isOk)
         LOG(LCRITICAL, ("Error generating popular places mwm section."));
-      }
     }
 
     if (FLAGS_generate_traffic_keys)
