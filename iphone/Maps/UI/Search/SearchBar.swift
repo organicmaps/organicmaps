@@ -29,12 +29,6 @@ final class SearchBar: SolidTouchView {
     }
   }
 
-  private lazy var dateFormatter: DateFormatter = {
-    let formatter = DateFormatter()
-    formatter.setLocalizedDateFormatFromTemplate("EEE, MMMd")
-    return formatter
-  }()
-
   override func awakeFromNib() {
     super.awakeFromNib()
     updateLeftView()
