@@ -8,59 +8,55 @@
 
 namespace utm_mgrs_utils
 {
-using namespace std;
-using namespace math; // To use constexpr math::pi
-using namespace base; // To use base::DegToRad and base::RadToDeg
-using namespace ms; // To use ms::LatLon
-
+namespace
+{
 struct UTMPoint
 {
   double easting;
   double northing;
-  int zone_number;
-  char zone_letter;
-
+  int zoneNumber;
+  char zoneLetter;
 };
 
-constexpr double K0 = 0.9996; // The scale factor at the central meridian.
-constexpr double E = 0.00669438; // The square of the eccentricity for the WGS84 ellipsoid.
-constexpr double E2 = E * E;
-constexpr double E3 = E2 * E;
-constexpr double E_P2 = E / (1 - E);
-constexpr double R = 6378137.0; // The Earth equitorial radius for the WGS84 ellipsoid.
+double constexpr K0 = 0.9996; // The scale factor at the central meridian.
+double constexpr E = 0.00669438; // The square of the eccentricity for the WGS84 ellipsoid.
+double constexpr E2 = E * E;
+double constexpr E3 = E2 * E;
+double constexpr E_P2 = E / (1 - E);
+double constexpr R = 6378137.0; // The Earth equitorial radius for the WGS84 ellipsoid.
 
-constexpr double SQRT_E = 0.996647189; // sqrt(1 - E)
-constexpr double _E = (1 - SQRT_E) / (1 + SQRT_E);
-constexpr double _E2 = _E * _E;
-constexpr double _E3 = _E2 * _E;
-constexpr double _E4 = _E3 * _E;
-constexpr double _E5 = _E4 * _E;
+double constexpr SQRT_E = 0.996647189; // sqrt(1 - E)
+double constexpr _E = (1 - SQRT_E) / (1 + SQRT_E);
+double constexpr _E2 = _E * _E;
+double constexpr _E3 = _E2 * _E;
+double constexpr _E4 = _E3 * _E;
+double constexpr _E5 = _E4 * _E;
 
-constexpr double M1 = (1.0 - E / 4.0 - 3.0 * E2 / 64.0 - 5.0 * E3 / 256.0);
-constexpr double M2 = (3.0 * E / 8.0 + 3.0 * E2 / 32.0 + 45.0 * E3 / 1024.0);
-constexpr double M3 = (15.0 * E2 / 256.0 + 45.0 * E3 / 1024.0);
-constexpr double M4 = (35.0 * E3 / 3072.0);
+double constexpr M1 = (1.0 - E / 4.0 - 3.0 * E2 / 64.0 - 5.0 * E3 / 256.0);
+double constexpr M2 = (3.0 * E / 8.0 + 3.0 * E2 / 32.0 + 45.0 * E3 / 1024.0);
+double constexpr M3 = (15.0 * E2 / 256.0 + 45.0 * E3 / 1024.0);
+double constexpr M4 = (35.0 * E3 / 3072.0);
 
-constexpr double P2 = (3.0 / 2.0 * _E - 27.0 / 32.0 * _E3 + 269.0 / 512.0 * _E5);
-constexpr double P3 = (21.0 / 16.0 * _E2 - 55.0 / 32.0 * _E4);
-constexpr double P4 = (151.0 / 96.0 * _E3 - 417.0 / 128.0 * _E5);
-constexpr double P5 = (1097.0 / 512.0 * _E4);
+double constexpr P2 = (3.0 / 2.0 * _E - 27.0 / 32.0 * _E3 + 269.0 / 512.0 * _E5);
+double constexpr P3 = (21.0 / 16.0 * _E2 - 55.0 / 32.0 * _E4);
+double constexpr P4 = (151.0 / 96.0 * _E3 - 417.0 / 128.0 * _E5);
+double constexpr P5 = (1097.0 / 512.0 * _E4);
 
-constexpr int kInvalidEastingNorthing = -1;
+int constexpr kInvalidEastingNorthing = -1;
 
-const string ZONE_LETTERS = "CDEFGHJKLMNPQRSTUVWXX";
+std::string_view constexpr kZoneLetters = "CDEFGHJKLMNPQRSTUVWXX";
 
-const int NUM_100K_SETS = 6;
-const int SET_ORIGIN_COLUMN_LETTERS[] = { 'S', 'A', 'J', 'S', 'A', 'J' };
-const int SET_ORIGIN_ROW_LETTERS[] = { 'F', 'A', 'F', 'A', 'F', 'A' };
+std::string_view constexpr kSetOriginColumnLetters = "SAJSAJ";
+std::string_view constexpr kSetOriginRowLetters = "FAFAFA";
 
 // Returns angle in radians to be between -π and π.
 double NormalizeAngle(double value)
 {
+  using math::pi;
   if (value < -pi)
-    value += - 2 * pi * ((int)(value - pi) / (2 * pi));
+    value += - 2 * pi * (static_cast<int>(value - pi) / (2 * pi));
   else if (value > pi)
-    value -= 2 * pi * ((int)(value + pi) / (2 * pi));
+    value -= 2 * pi * (static_cast<int>(value + pi) / (2 * pi));
   return value;
 }
 
@@ -73,97 +69,101 @@ int LatLonToZoneNumber(double lat, double lon)
   {
     if (lon < 9.0)
       return 31;
-    else if (lon < 21.0)
+    if (lon < 21.0)
       return 33;
-    else if (lon < 33.0)
+    if (lon < 33.0)
       return 35;
-    else if (lon < 42.0)
+    if (lon < 42.0)
       return 37;
   }
 
-  return int((lon + 180.0) / 6.0) + 1;
+  return static_cast<int>((lon + 180.0) / 6.0) + 1;
 }
 
-optional<char> LatitudeToZoneLetter(double lat)
+std::optional<char> LatitudeToZoneLetter(double lat)
 {
   if (-80.0 <= lat && lat <= 84.0)
-    return ZONE_LETTERS[int(lat + 80.0) >> 3];
-  else
-    return nullopt;
+  {
+    auto const index = static_cast<size_t>(lat + 80.0) >> 3;
+    ASSERT_LESS(index, kZoneLetters.size(), ());
+    return kZoneLetters[index];
+  }
+  return {};
 }
 
-int ZoneNumberToCentralLon(int zone_number)
+int ZoneNumberToCentralLon(int zoneNumber)
 {
-  return (zone_number - 1) * 6 - 180 + 3;
+  return (zoneNumber - 1) * 6 - 180 + 3;
 }
 
-// Main algorithm. Formulars source: https://github.com/Turbo87/utm
+// Main algorithm. Formulas source: https://github.com/Turbo87/utm
 UTMPoint LatLonToUtm(double lat, double lon)
 {
-  double const lat_rad = DegToRad(lat);
-  double const lat_sin = sin(lat_rad);
-  double const lat_cos = cos(lat_rad);
+  using std::sin, std::cos, std::sqrt;
 
-  double const lat_tan = lat_sin / lat_cos;
-  double const lat_tan2 = lat_tan * lat_tan;
-  double const lat_tan4 = lat_tan2 * lat_tan2;
+  double const latRad = base::DegToRad(lat);
+  double const latSin = sin(latRad);
+  double const latCos = cos(latRad);
 
-  int const zone_number = LatLonToZoneNumber(lat, lon);
-  char const zone_letter = (lat >= 0.0) ? 'N' : 'S';
+  double const latTan = latSin / latCos;
+  double const latTan2 = latTan * latTan;
+  double const latTan4 = latTan2 * latTan2;
 
-  double const lon_rad = DegToRad(lon);
-  double const central_lon = ZoneNumberToCentralLon(zone_number);
-  double const central_lon_rad = DegToRad(central_lon);
+  int const zoneNumber = LatLonToZoneNumber(lat, lon);
+  char const zoneLetter = (lat >= 0.0) ? 'N' : 'S';
 
-  double const n = R / sqrt(1 - E * lat_sin * lat_sin);
-  double const c = E_P2 * lat_cos * lat_cos;
+  double const lonRad = base::DegToRad(lon);
+  double const centralLon = ZoneNumberToCentralLon(zoneNumber);
+  double const centralLonRad = base::DegToRad(centralLon);
 
-  double const a = lat_cos * NormalizeAngle(lon_rad - central_lon_rad);
+  double const n = R / sqrt(1.0 - E * latSin * latSin);
+  double const c = E_P2 * latCos * latCos;
+
+  double const a = latCos * NormalizeAngle(lonRad - centralLonRad);
   double const a2 = a * a;
   double const a3 = a2 * a;
   double const a4 = a3 * a;
   double const a5 = a4 * a;
   double const a6 = a5 * a;
 
-  double const m = R * (M1 * lat_rad -
-                   M2 * sin(2 * lat_rad) +
-                   M3 * sin(4 * lat_rad) -
-                   M4 * sin(6 * lat_rad));
+  double const m = R * (M1 * latRad -
+                   M2 * sin(2 * latRad) +
+                   M3 * sin(4 * latRad) -
+                   M4 * sin(6 * latRad));
 
   double const easting = K0 * n * (a +
-                         a3 / 6 * (1 - lat_tan2 + c) +
-                         a5 / 120 * (5 - 18 * lat_tan2 + lat_tan4 + 72 * c - 58 * E_P2)) + 500000.0;
+                         a3 / 6 * (1 - latTan2 + c) +
+                         a5 / 120 * (5 - 18 * latTan2 + latTan4 + 72 * c - 58 * E_P2)) + 500000.0;
 
-  double northing = K0 * (m + n * lat_tan * (a2 / 2 +
-                    a4 / 24 * (5 - lat_tan2 + 9 * c + 4 * c * c) +
-                    a6 / 720 * (61 - 58 * lat_tan2 + lat_tan4 + 600 * c - 330 * E_P2)));
+  double northing = K0 * (m + n * latTan * (a2 / 2 +
+                    a4 / 24 * (5 - latTan2 + 9 * c + 4 * c * c) +
+                    a6 / 720 * (61 - 58 * latTan2 + latTan4 + 600 * c - 330 * E_P2)));
   if (lat < 0.0)
     northing += 10000000.0;
 
-  return {easting, northing, zone_number, zone_letter};
+  return {easting, northing, zoneNumber, zoneLetter};
 }
 
 // Generate UTM string from UTM point parameters.
-string UTMtoStr(UTMPoint point)
+std::string UTMtoStr(UTMPoint const & point)
 {
   // Easting and northing are rounded to nearest integer. Because of that in some cases
   // last 5 digits of UTM and MGRS coordinates could differ (inaccuracy is no more then 1 meter).
   // Some UTM converters truncate easting and northing instead of rounding. Consider this option.
-
-  return to_string(point.zone_number) + string(1, point.zone_letter) + " " + \
-         to_string(int(round(point.easting))) + " " + \
-         to_string(int(round(point.northing)));
+  return std::to_string(point.zoneNumber) + point.zoneLetter + ' ' +
+         std::to_string(static_cast<int>(std::round(point.easting))) + ' ' +
+         std::to_string(static_cast<int>(std::round(point.northing)));
 }
 
 // Build 2 chars string with MGRS 100k designator.
-string get_100k_id(double easting, double northing, int zone_number)
+std::string Get100kId(double easting, double northing, int zoneNumber)
 {
-  int set = zone_number % NUM_100K_SETS;
-  int setColumn = ((int) easting / 100000);
-  int setRow = ((int) northing / 100000) % 20;
+  int const set = zoneNumber % kSetOriginColumnLetters.size();
+  int const setColumn = easting / 100000;
+  int const setRow = static_cast<int>(northing / 100000) % 20;
 
-  int colOrigin = SET_ORIGIN_COLUMN_LETTERS[set];
-  int rowOrigin = SET_ORIGIN_ROW_LETTERS[set];
+  int const colOrigin = kSetOriginColumnLetters[set];
+  int const rowOrigin = kSetOriginRowLetters[set];
 
   int colInt = colOrigin + setColumn - 1;
   int rowInt = rowOrigin + setRow;
@@ -209,52 +209,48 @@ string get_100k_id(double easting, double northing, int zone_number)
   if (rowInt > 'V')
     rowInt = rowInt - 'V' + 'A' - 1;
 
-  string twoLetter = {char(colInt), char(rowInt)};
-
-  return twoLetter;
+  return {static_cast<char>(colInt), static_cast<char>(rowInt)};
 }
 
 // Convert UTM point parameters to MGRS parameters. Additional 2 char code is deducted.
 // Easting and northing parameters are reduced to 5 digits.
-string UTMtoMgrsStr(UTMPoint point, int precision)
+std::string UTMtoMgrsStr(UTMPoint const & point, int precision)
 {
-  if (point.zone_letter == 'Z')
+  if (point.zoneLetter == 'Z')
     return "Latitude limit exceeded";
-  else
-  {
-    string eastingStr = strings::to_string_width((long)point.easting, precision+1);
-    string northingStr = strings::to_string_width((long)point.northing, precision+1);
+  auto const eastingStr = strings::to_string_width(static_cast<long>(point.easting), precision + 1);
+  auto northingStr = strings::to_string_width(static_cast<long>(point.northing), precision + 1);
 
-    if (northingStr.size() > 6)
-      northingStr = northingStr.substr(northingStr.size() - 6);
+  if (northingStr.size() > 6)
+    northingStr = northingStr.substr(northingStr.size() - 6);
 
-    return strings::to_string_width((long) point.zone_number, 2) + point.zone_letter + " " + \
-           get_100k_id(point.easting, point.northing, point.zone_number) + " " + \
-           eastingStr.substr(1, precision) + " " + \
-           northingStr.substr(1, precision);
-  }
+  return strings::to_string_width(point.zoneNumber, 2) + point.zoneLetter + " " +
+         Get100kId(point.easting, point.northing, point.zoneNumber) + " " +
+         eastingStr.substr(1, precision) + " " +
+         northingStr.substr(1, precision);
 }
+}  // namespace
 
 // Convert UTM parameters to lat,lon for WSG 84 ellipsoid.
 // If UTM parameters are valid lat and lon references are used to output calculated coordinates.
 // Otherwise function returns 'false'.
-std::optional<ms::LatLon> UTMtoLatLon(int easting, int northing, int zone_number, char zone_letter)
+std::optional<ms::LatLon> UTMtoLatLon(int easting, int northing, int zoneNumber, char zoneLetter)
 {
-  if (zone_number < 1 || zone_number > 60)
-    return nullopt;
+  if (zoneNumber < 1 || zoneNumber > 60)
+    return {};
 
   if (easting < 100000 || easting >= 1000000)
-    return nullopt;
+    return {};
 
   if (northing < 0 || northing > 10000000)
-    return nullopt;
+    return {};
 
-  if (zone_letter<'C' || zone_letter>'X' || zone_letter == 'I' || zone_letter == 'O')
-    return nullopt;
+  if (zoneLetter < 'C' || zoneLetter > 'X' || zoneLetter == 'I' || zoneLetter == 'O')
+    return {};
 
-  bool northern = (zone_letter >= 'N');
-  double x = (double)easting - 500000.0;
-  double y = (double)northing;
+  bool const northern = (zoneLetter >= 'N');
+  double const x = easting - 500000.0;
+  double y = northing;
 
   if (!northern)
     y -= 10000000.0;
@@ -302,17 +298,20 @@ std::optional<ms::LatLon> UTMtoLatLon(int easting, int northing, int zone_number
                       d3 / 6.0 * (1.0 + 2.0 * p_tan2 + c) +
                       d5 / 120.0 * (5.0 - 2.0 * c + 28.0 * p_tan2 - 3.0 * c2 + 8.0 * E_P2 + 24.0 * p_tan4)) / p_cos;
 
-  longitude = NormalizeAngle(longitude + DegToRad((double)ZoneNumberToCentralLon(zone_number)));
+  longitude = NormalizeAngle(longitude + base::DegToRad(static_cast<double>(ZoneNumberToCentralLon(zoneNumber))));
 
-  return LatLon(RadToDeg(latitude), RadToDeg(longitude));
+  return ms::LatLon(base::RadToDeg(latitude), base::RadToDeg(longitude));
 }
 
-
-/* Given the first letter from a two-letter MGRS 100k zone, and given the
- * MGRS table set for the zone number, figure out the easting value that
- * should be added to the other, secondary easting value.*/
-int SquareCharToEasting(char e, int set) {
-  int curCol = SET_ORIGIN_COLUMN_LETTERS[set];
+namespace
+{
+// Given the first letter from a two-letter MGRS 100k zone, and given the
+// MGRS table set for the zone number, figure out the easting value that
+// should be added to the other, secondary easting value.
+int SquareCharToEasting(char e, size_t set)
+{
+  ASSERT_LESS(set, kSetOriginColumnLetters.size(), ());
+  int curCol = kSetOriginColumnLetters[set];
   int eastingValue = 100000;
   bool rewindMarker = false;
 
@@ -350,7 +349,7 @@ int SquareCharToNorthing(char n, int set)
   if (n > 'V')
     return kInvalidEastingNorthing;
 
-  int curRow = SET_ORIGIN_ROW_LETTERS[set];
+  int curRow = kSetOriginRowLetters[set];
   int northingValue = 0;
   bool rewindMarker = false;
 
@@ -378,105 +377,62 @@ int SquareCharToNorthing(char n, int set)
 // Get minimum northing value of a MGRS zone.
 int ZoneToMinNorthing(char zoneLetter)
 {
-  int northing;
   switch (zoneLetter)
   {
-    case 'C':
-      northing = 1100000;
-      break;
-    case 'D':
-      northing = 2000000;
-      break;
-    case 'E':
-      northing = 2800000;
-      break;
-    case 'F':
-      northing = 3700000;
-      break;
-    case 'G':
-      northing = 4600000;
-      break;
-    case 'H':
-      northing = 5500000;
-      break;
-    case 'J':
-      northing = 6400000;
-      break;
-    case 'K':
-      northing = 7300000;
-      break;
-    case 'L':
-      northing = 8200000;
-      break;
-    case 'M':
-      northing = 9100000;
-      break;
-    case 'N':
-      northing = 0;
-      break;
-    case 'P':
-      northing = 800000;
-      break;
-    case 'Q':
-      northing = 1700000;
-      break;
-    case 'R':
-      northing = 2600000;
-      break;
-    case 'S':
-      northing = 3500000;
-      break;
-    case 'T':
-      northing = 4400000;
-      break;
-    case 'U':
-      northing = 5300000;
-      break;
-    case 'V':
-      northing = 6200000;
-      break;
-    case 'W':
-      northing = 7000000;
-      break;
-    case 'X':
-      northing = 7900000;
-      break;
-    default:
-      northing = kInvalidEastingNorthing;
+  case 'C': return 1100000;
+  case 'D': return 2000000;
+  case 'E': return 2800000;
+  case 'F': return 3700000;
+  case 'G': return 4600000;
+  case 'H': return 5500000;
+  case 'J': return 6400000;
+  case 'K': return 7300000;
+  case 'L': return 8200000;
+  case 'M': return 9100000;
+  case 'N': return 0;
+  case 'P': return 800000;
+  case 'Q': return 1700000;
+  case 'R': return 2600000;
+  case 'S': return 3500000;
+  case 'T': return 4400000;
+  case 'U': return 5300000;
+  case 'V': return 6200000;
+  case 'W': return 7000000;
+  case 'X': return 7900000;
+  default: return kInvalidEastingNorthing;
   }
-
-  return northing;
 }
+}  // namespace
 
 // Convert MGRS parameters to UTM parameters and then use UTM to lat,lon conversion.
-std::optional<ms::LatLon> MGRStoLatLon(int easting, int northing, int zone_code, char zone_letter, char square_code[2])
+std::optional<ms::LatLon> MGRStoLatLon(int easting, int northing, int zoneCode, char zoneLetter, char squareCode[2])
 {
   // Convert easting and northing according to zone_code and square_code
-  if (zone_code < 1 || zone_code > 60)
-    return nullopt;
+  if (zoneCode < 1 || zoneCode > 60)
+    return {};
 
-  if (zone_letter <= 'B' || zone_letter >= 'Y' || zone_letter == 'I' || zone_letter == 'O')
-    return nullopt;
+  if (zoneLetter <= 'B' || zoneLetter >= 'Y' || zoneLetter == 'I' || zoneLetter == 'O')
+    return {};
 
-  int set = zone_code % NUM_100K_SETS;
+  auto const set = zoneCode % kSetOriginColumnLetters.size();
 
-  char char1 = square_code[0];
-  char char2 = square_code[1];
+  auto const char1 = squareCode[0];
+  auto const char2 = squareCode[1];
 
   if (char1 < 'A' || char2 < 'A' || char1 > 'Z' || char2 > 'Z' || char1 == 'I' || char2 == 'I' || char1 == 'O' || char2 == 'O')
-    return nullopt;
+    return {};
 
-  int east100k = SquareCharToEasting(char1, set);
+  int const east100k = SquareCharToEasting(char1, set);
   if (east100k == kInvalidEastingNorthing)
-    return nullopt;
+    return {};
 
   int north100k = SquareCharToNorthing(char2, set);
   if (north100k == kInvalidEastingNorthing)
-    return nullopt;
+    return {};
 
-  int minNorthing = ZoneToMinNorthing(zone_letter);
+  int const minNorthing = ZoneToMinNorthing(zoneLetter);
   if (minNorthing == kInvalidEastingNorthing)
-    return nullopt;
+    return {};
 
   while (north100k < minNorthing)
     north100k += 2000000;
@@ -484,11 +440,11 @@ std::optional<ms::LatLon> MGRStoLatLon(int easting, int northing, int zone_code,
   easting  += east100k;
   northing += north100k;
 
-  return UTMtoLatLon(easting, northing, zone_code, zone_letter);
+  return UTMtoLatLon(easting, northing, zoneCode, zoneLetter);
 }
 
 // Convert lat,lon for WGS84 ellipsoid to MGRS string.
-string FormatMGRS(double lat, double lon, int precision)
+std::string FormatMGRS(double lat, double lon, int precision)
 {
   if (precision > 5)
     precision = 5;
@@ -503,10 +459,10 @@ string FormatMGRS(double lat, double lon, int precision)
   UTMPoint mgrsp = LatLonToUtm(lat, lon);
 
   // Need to set the right letter for the latitude.
-  auto maybeZone = LatitudeToZoneLetter(lat);
+  auto const maybeZone = LatitudeToZoneLetter(lat);
   if (maybeZone)
   {
-    mgrsp.zone_letter = maybeZone.value();
+    mgrsp.zoneLetter = *maybeZone;
     return UTMtoMgrsStr(mgrsp, precision);
   }
 
@@ -514,16 +470,14 @@ string FormatMGRS(double lat, double lon, int precision)
 }
 
 // Convert lat,lon for WGS84 ellipsoid to UTM string.
-string FormatUTM(double lat, double lon)
+std::string FormatUTM(double lat, double lon)
 {
   if (lat <= -80 || lat > 84)
     return {}; // Latitude limit exceeded.
   if (lon <= -180 || lon > 180)
     return {}; // Longitude limit exceeded.
 
-  UTMPoint utm = LatLonToUtm(lat, lon);
-  return UTMtoStr(utm);
+  return UTMtoStr(LatLonToUtm(lat, lon));
 }
-
 
 }  // namespace utm_mgrs_utils
