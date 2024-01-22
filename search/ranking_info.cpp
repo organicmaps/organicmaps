@@ -311,10 +311,6 @@ void RankingInfo::ToCSV(ostream & os) const
 
 double RankingInfo::GetLinearModelRank() const
 {
-  // NOTE: this code must be consistent with scoring_model.py.  Keep
-  // this in mind when you're going to change scoring_model.py or this
-  // code. We're working on automatic rank calculation code generator
-  // integrated in the build system.
   double const distanceToPivot = TransformDistance(m_distanceToPivot);
   double const rank = static_cast<double>(m_rank) / numeric_limits<uint8_t>::max();
   double const popularity = static_cast<double>(m_popularity) / numeric_limits<uint8_t>::max();

@@ -134,6 +134,7 @@ NameScores GetNameScores(FeatureType & ft, Geocoder::Params const & params,
       /// 1. Make sure that this conversion also happens for Address and POI results,
       /// where street is only one component.
       /// 2. Make an optimization: If there are no synonyms or "strasse", skip this step.
+      /// 3. Short street synonym should be scored like full synonym ("AV.SAENZ 459" -> "Avenida SAENZ 459")
       if (type == Model::TYPE_STREET)
       {
         // Searching for "Santa Fe" should rank "Avenida Santa Fe" like FULL_MATCH or FULL_PREFIX, but not SUBSTRING.

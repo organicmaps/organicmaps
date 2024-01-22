@@ -771,11 +771,6 @@ IsToiletsChecker::IsToiletsChecker() : BaseChecker(2 /* level */)
   m_types.push_back(c.GetTypeByPath({"toilets", "yes"}));
 }
 
-IsCityChecker::IsCityChecker()
-{
-  m_types.push_back(classif().GetTypeByPath({"place", "city"}));
-}
-
 IsCapitalChecker::IsCapitalChecker() : BaseChecker(3 /* level */)
 {
   m_types.push_back(classif().GetTypeByPath({"place", "city", "capital"}));
@@ -783,23 +778,21 @@ IsCapitalChecker::IsCapitalChecker() : BaseChecker(3 /* level */)
 
 IsPublicTransportStopChecker::IsPublicTransportStopChecker()
 {
-  m_types.push_back(classif().GetTypeByPath({"highway", "bus_stop"}));
-  m_types.push_back(classif().GetTypeByPath({"railway", "tram_stop"}));
+  Classificator const & c = classif();
+  m_types.push_back(c.GetTypeByPath({"highway", "bus_stop"}));
+  m_types.push_back(c.GetTypeByPath({"railway", "tram_stop"}));
 }
 
 IsMotorwayJunctionChecker::IsMotorwayJunctionChecker()
 {
-  Classificator const & c = classif();
-  m_types.push_back(c.GetTypeByPath({"highway", "motorway_junction"}));
+  m_types.push_back(classif().GetTypeByPath({"highway", "motorway_junction"}));
 }
 
 IsWayWithDurationChecker::IsWayWithDurationChecker()
 {
-  base::StringIL const types[] = {{"route", "ferry"},
-                                  {"route", "shuttle_train"}};
   Classificator const & c = classif();
-  for (auto const & e : types)
-    m_types.push_back(c.GetTypeByPath(e));
+  m_types.push_back(c.GetTypeByPath({"route", "ferry"}));
+  m_types.push_back(c.GetTypeByPath({"route", "shuttle_train"}));
 }
 
 LocalityType LocalityFromString(std::string_view place)

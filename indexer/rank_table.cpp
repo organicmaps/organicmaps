@@ -74,7 +74,7 @@ public:
   }
   uint64_t Size() const override { return m_coding.Size(); }
   RankTable::Version GetVersion() const override { return V0; }
-  void Serialize(Writer & writer, bool preserveHostEndianness) override
+  void Serialize(Writer & writer) override
   {
     uint8_t const version = GetVersion();
     size_t constexpr kVersionSize = sizeof(version);
@@ -112,7 +112,7 @@ void SerializeRankTable(RankTable & table, FilesContainerW & wcont, string const
   vector<char> buffer;
   {
     MemWriter<decltype(buffer)> writer(buffer);
-    table.Serialize(writer, true /* preserveHostEndianness */);
+    table.Serialize(writer);
   }
 
   wcont.Write(buffer, sectionName);

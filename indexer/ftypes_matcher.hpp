@@ -483,13 +483,6 @@ public:
   DECLARE_CHECKER_INSTANCE(IsToiletsChecker);
 };
 
-class IsCityChecker : public BaseChecker
-{
-  IsCityChecker();
-public:
-  DECLARE_CHECKER_INSTANCE(IsCityChecker);
-};
-
 class IsCapitalChecker : public BaseChecker
 {
   IsCapitalChecker();
