@@ -1,17 +1,16 @@
 #include "generator/popular_places_section_builder.hpp"
-
-#include "generator/gen_mwm_info.hpp"
+#include "generator/descriptions_section_builder.hpp"
 #include "generator/utils.hpp"
+
+#include "descriptions/serdes.hpp"
 
 #include "indexer/feature_data.hpp"
 #include "indexer/feature_processor.hpp"
-#include "indexer/ftraits.hpp"
+#include "indexer/ftypes_matcher.hpp"
 #include "indexer/rank_table.hpp"
 
-#include "base/string_utils.hpp"
+#include "coding/csv_reader.hpp"
 
-#include <cstdint>
-#include <limits>
 #include <mutex>
 #include <utility>
 #include <vector>
@@ -59,47 +58,96 @@ void LoadPopularPlaces(std::string const & srcFilename, PopularPlaces & places)
   }
 }
 
-bool BuildPopularPlacesMwmSection(std::string const & srcFilename, std::string const & mwmFile,
-                                  std::string const & osmToFeatureFilename)
+namespace
 {
-  LOG(LINFO, ("Build Popular Places section"));
-
-  std::unordered_map<uint32_t, base::GeoObjectId> featureIdToOsmId;
-  if (!ParseFeatureIdToOsmIdMapping(osmToFeatureFilename, featureIdToOsmId))
-    return false;
-
-  PopularPlaces places;
-  LoadPopularPlaces(srcFilename, places);
-
+template <class RankGetterT> void BuildPopularPlacesImpl(std::string const & mwmFile, RankGetterT && getter)
+{
   bool popularPlaceFound = false;
 
+  auto const & placeChecker = ftypes::IsPlaceChecker::Instance();
+  auto const & poiChecker = ftypes::IsPoiChecker::Instance();
+
   std::vector<PopularityIndex> content;
-  feature::ForEachFeature(mwmFile, [&](FeatureType const & f, uint32_t featureId)
+  feature::ForEachFeature(mwmFile, [&](FeatureType & ft, uint32_t featureId)
   {
     ASSERT_EQUAL(content.size(), featureId, ());
-
     PopularityIndex rank = 0;
-    auto const it = featureIdToOsmId.find(featureId);
-    // Non-OSM features (coastlines, sponsored objects) are not used.
-    if (it != featureIdToOsmId.cend())
-    {
-      auto const placesIt = places.find(it->second);
 
-      if (placesIt != places.cend())
-      {
+    if (placeChecker(ft) || poiChecker(ft))
+    {
+      rank = getter(ft, featureId);
+      if (rank > 0)
         popularPlaceFound = true;
-        rank = placesIt->second;
-      }
     }
 
     content.emplace_back(rank);
   });
-  
-  if (!popularPlaceFound)
-    return true;
 
-  FilesContainerW cont(mwmFile, FileWriter::OP_WRITE_EXISTING);
-  search::RankTableBuilder::Create(content, cont, POPULARITY_RANKS_FILE_TAG);
+  if (popularPlaceFound)
+  {
+    FilesContainerW cont(mwmFile, FileWriter::OP_WRITE_EXISTING);
+    search::RankTableBuilder::Create(content, cont, POPULARITY_RANKS_FILE_TAG);
+  }
+}
+
+PopularityIndex CalcRank(std::string const & str)
+{
+  auto const charsNum = strings::MakeUniString(str).size();
+  return std::min(1.0, charsNum / 100000.0) * std::numeric_limits<PopularityIndex>::max();
+}
+
+} // namespace
+
+bool BuildPopularPlacesFromDescriptions(std::string const & mwmFile)
+{
+  LOG(LINFO, ("Build Popular Places section"));
+
+  /// @todo This routine looks ugly, should make better API.
+  SingleMwmDataSource dataSource(mwmFile);
+  auto handle = dataSource.GetHandle();
+  auto const * value = handle.GetValue();
+  if (!value->m_cont.IsExist(DESCRIPTIONS_FILE_TAG))
+    return false;
+
+  auto readerPtr = value->m_cont.GetReader(DESCRIPTIONS_FILE_TAG);
+  descriptions::Deserializer deserializer;
+
+  std::vector<int8_t> langPriority;
+  langPriority.push_back(StringUtf8Multilang::kEnglishCode);
+
+  BuildPopularPlacesImpl(mwmFile, [&](FeatureType &, uint32_t featureId)
+  {
+    auto const str = deserializer.Deserialize(*readerPtr.GetPtr(), featureId, langPriority);
+    return str.empty() ? 0 : CalcRank(str);
+  });
+
+  return true;
+}
+
+bool BuildPopularPlacesFromWikiDump(std::string const & mwmFile,
+                                    std::string const & wikipediaDir, std::string const & idToWikidataPath)
+{
+  LOG(LINFO, ("Build Popular Places section"));
+
+  DescriptionsCollector collector(wikipediaDir, mwmFile, idToWikidataPath);
+  BuildPopularPlacesImpl(mwmFile, [&](FeatureType & ft, uint32_t featureId) -> PopularityIndex
+  {
+    collector(ft.GetMetadata().GetWikiURL(), featureId);
+
+    if (collector.m_collection.m_features.empty())
+      return 0;
+
+    // If was added
+    auto & data = collector.m_collection.m_features.back();
+    if (data.m_ftIndex == featureId)
+    {
+      for (auto const & [lang, idx] : data.m_strIndices)
+        if (lang == StringUtf8Multilang::kEnglishCode)
+          return CalcRank(collector.m_collection.m_strings[idx]);
+    }
+
+    return 0;
+  });
   return true;
 }
 

@@ -46,6 +46,7 @@ public:
   DataSource & GetDataSource() { return m_dataSource; }
   platform::LocalCountryFile const & GetLocalCountryFile() const { return m_countryFile; }
   MwmSet::MwmId const & GetMwmId() const { return m_mwmId; }
+  MwmSet::MwmHandle GetHandle() { return GetDataSource().GetMwmHandleById(GetMwmId()); }
 
 private:
   FrozenDataSource m_dataSource;
