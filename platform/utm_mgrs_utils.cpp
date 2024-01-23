@@ -224,16 +224,16 @@ std::string UTMtoMgrsStr(UTMPoint const & point, int precision)
   if (northingStr.size() > 6)
     northingStr = northingStr.substr(northingStr.size() - 6);
 
-  return strings::to_string_width(point.zoneNumber, 2) + point.zoneLetter + " " +
-         Get100kId(point.easting, point.northing, point.zoneNumber) + " " +
-         eastingStr.substr(1, precision) + " " +
+  return strings::to_string_width(point.zoneNumber, 2) + point.zoneLetter + ' ' +
+         Get100kId(point.easting, point.northing, point.zoneNumber) + ' ' +
+         eastingStr.substr(1, precision) + ' ' +
          northingStr.substr(1, precision);
 }
 }  // namespace
 
 // Convert UTM parameters to lat,lon for WSG 84 ellipsoid.
 // If UTM parameters are valid lat and lon references are used to output calculated coordinates.
-// Otherwise function returns 'false'.
+// Otherwise function returns empty optional.
 std::optional<ms::LatLon> UTMtoLatLon(int easting, int northing, int zoneNumber, char zoneLetter)
 {
   if (zoneNumber < 1 || zoneNumber > 60)
