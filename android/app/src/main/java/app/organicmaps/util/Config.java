@@ -15,9 +15,6 @@ public final class Config
 {
   private static final String KEY_APP_STORAGE = "StoragePath";
 
-  private static final String KEY_TTS_ENABLED = "TtsEnabled";
-  private static final String KEY_TTS_LANGUAGE = "TtsLanguage";
-
   private static final String KEY_DOWNLOADER_AUTO = "AutoDownloadEnabled";
   private static final String KEY_PREF_ZOOM_BUTTONS = "ZoomButtonsEnabled";
   static final String KEY_PREF_STATISTICS = "StatisticsEnabled";
@@ -71,6 +68,11 @@ public final class Config
     return nativeGetLong(key, def);
   }
 
+  private static float getFloat(@NonNull final String key, final float def)
+  {
+    return (float) nativeGetDouble(key, def);
+  }
+
   @NonNull
   private static String getString(String key)
   {
@@ -103,6 +105,11 @@ public final class Config
     nativeSetLong(key, value);
   }
 
+  private static void setFloat(@NonNull final String key, final float value)
+  {
+    nativeSetDouble(key, value);
+  }
+
   private static void setString(String key, String value)
   {
     nativeSetString(key, value);
@@ -126,26 +133,6 @@ public final class Config
   public static void setStoragePath(String path)
   {
     setString(KEY_APP_STORAGE, path);
-  }
-
-  public static boolean isTtsEnabled()
-  {
-    return getBool(KEY_TTS_ENABLED, true);
-  }
-
-  public static void setTtsEnabled(boolean enabled)
-  {
-    setBool(KEY_TTS_ENABLED, enabled);
-  }
-
-  public static String getTtsLanguage()
-  {
-    return getString(KEY_TTS_LANGUAGE);
-  }
-
-  public static void setTtsLanguage(String language)
-  {
-    setString(KEY_TTS_LANGUAGE, language);
   }
 
   public static boolean isAutodownloadEnabled()
@@ -357,7 +344,6 @@ public final class Config
     return url;
   }
 
-  @NonNull
   @SuppressWarnings("ConstantConditions") // BuildConfig
   public static boolean isOsmLoginEnabled(@NonNull Context context)
   {
@@ -418,6 +404,56 @@ public final class Config
   public static void setSearchHistoryEnabled(boolean enabled)
   {
     setBool(KEY_PREF_SEARCH_HISTORY, enabled);
+  }
+
+  public static class TTS
+  {
+    interface Keys
+    {
+      String ENABLED = "TtsEnabled";
+      String LANGUAGE = "TtsLanguage";
+      String VOLUME = "TtsVolume";
+    }
+
+    public interface Defaults
+    {
+      boolean ENABLED = true;
+
+      float VOLUME_MIN = 0.0f;
+      float VOLUME_MAX = 1.0f;
+      float VOLUME = VOLUME_MAX;
+    }
+
+    public static boolean isEnabled()
+    {
+      return getBool(Keys.ENABLED, Defaults.ENABLED);
+    }
+
+    public static void setEnabled(final boolean enabled)
+    {
+      setBool(Keys.ENABLED, enabled);
+    }
+
+    @NonNull
+    public static String getLanguage()
+    {
+      return getString(Keys.LANGUAGE);
+    }
+
+    public static void setLanguage(@NonNull final String language)
+    {
+      setString(Keys.LANGUAGE, language);
+    }
+
+    public static float getVolume()
+    {
+      return getFloat(Keys.VOLUME, Defaults.VOLUME);
+    }
+
+    public static void setVolume(final float volume)
+    {
+      setFloat(Keys.VOLUME, volume);
+    }
   }
 
   private static native boolean nativeHasConfigValue(String name);
