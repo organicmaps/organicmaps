@@ -34,7 +34,7 @@
     android:layout_marginEnd="@dimen/margin_base"
     android:layout_marginBottom="@dimen/margin_base"
     app:tint="?android:textColorPrimaryInverse"
-    android:src="@drawable/ic_plus"/>
+    app:srcCompat="@drawable/ic_plus"/>
 
   <app.organicmaps.widget.PlaceholderView
     android:id="@+id/placeholder"

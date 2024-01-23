@@ -22,7 +22,7 @@
       <ImageView
         android:layout_width="90dp"
         android:layout_height="90dp"
-        android:src="@drawable/ic_download"
+        app:srcCompat="@drawable/ic_download"
         app:tint="?android:colorAccent"/>
       <TextView
         android:id="@+id/head_message"

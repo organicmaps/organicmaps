@@ -31,7 +31,7 @@
       <ImageView
         app:tint="@color/image_view"
         android:id="@+id/done"
-        android:src="@drawable/ic_done"
+        app:srcCompat="@drawable/ic_done"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:background="?attr/selectableItemBackgroundBorderless"
