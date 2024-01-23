@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.preference.PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
+  <SwitchPreferenceCompat
+      android:key="@string/pref_tts_enabled"
+      android:title="@string/pref_tts_enable_title" />
+  <ListPreference
+      android:key="@string/pref_tts_language"
+      android:title="@string/pref_tts_language_title" />
+  <SeekBarPreference
+      android:key="@string/pref_tts_volume"
+      android:title="@string/volume" />
+  <Preference
+      android:key="@string/pref_tts_test_voice"
+      android:title="@string/pref_tts_test_voice_title" />
+  <Preference
+      android:enabled="false"
+      android:key="@string/pref_tts_info"
+      android:persistent="false"
+      android:selectable="false"
+      android:summary="@string/prefs_languages_information" />
+  <Preference
+      android:enabled="true"
+      android:key="@string/pref_tts_info_link"
+      android:persistent="false"
+      android:selectable="true"
+      android:summary="@string/prefs_languages_information_off_link" />
+</androidx.preference.PreferenceScreen>
