@@ -72,7 +72,6 @@
 		3467CEB2202C6EEE00D3C670 /* BMCNotificationsHeader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3467CEB1202C6EEE00D3C670 /* BMCNotificationsHeader.swift */; };
 		3467CEB6202C6FA900D3C670 /* BMCNotificationsCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3467CEB4202C6FA900D3C670 /* BMCNotificationsCell.swift */; };
 		3467CEB7202C6FA900D3C670 /* BMCNotificationsCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3467CEB5202C6FA900D3C670 /* BMCNotificationsCell.xib */; };
-		346B42AC1DD5E3D20094EBEE /* MWMLocationNotFoundAlert.mm in Sources */ = {isa = PBXBuildFile; fileRef = 346B42AA1DD5E3D20094EBEE /* MWMLocationNotFoundAlert.mm */; };
 		347040301EA6470700038379 /* BorderedButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3470402E1EA6470700038379 /* BorderedButton.swift */; };
 		3472B5CB200F43EF00DC6CD5 /* BackgroundFetchScheduler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3472B5C9200F43EF00DC6CD5 /* BackgroundFetchScheduler.swift */; };
 		3472B5CF200F4A2B00DC6CD5 /* BackgroundFetchTask.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3472B5CD200F4A2B00DC6CD5 /* BackgroundFetchTask.swift */; };
@@ -807,8 +806,6 @@
 		3467CEB1202C6EEE00D3C670 /* BMCNotificationsHeader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BMCNotificationsHeader.swift; sourceTree = "<group>"; };
 		3467CEB4202C6FA900D3C670 /* BMCNotificationsCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BMCNotificationsCell.swift; sourceTree = "<group>"; };
 		3467CEB5202C6FA900D3C670 /* BMCNotificationsCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = BMCNotificationsCell.xib; sourceTree = "<group>"; };
-		346B42A91DD5E3D20094EBEE /* MWMLocationNotFoundAlert.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MWMLocationNotFoundAlert.h; sourceTree = "<group>"; };
-		346B42AA1DD5E3D20094EBEE /* MWMLocationNotFoundAlert.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = MWMLocationNotFoundAlert.mm; sourceTree = "<group>"; };
 		346B42AD1DD5E5450094EBEE /* MWMDefaultAlert_Protected.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MWMDefaultAlert_Protected.h; sourceTree = "<group>"; };
 		3470402E1EA6470700038379 /* BorderedButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BorderedButton.swift; sourceTree = "<group>"; };
 		3472B5C9200F43EF00DC6CD5 /* BackgroundFetchScheduler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BackgroundFetchScheduler.swift; sourceTree = "<group>"; };
@@ -2130,15 +2127,6 @@
 			path = Notifications;
 			sourceTree = "<group>";
 		};
-		346B42A81DD5E3D20094EBEE /* LocationNotFoundAlert */ = {
-			isa = PBXGroup;
-			children = (
-				346B42A91DD5E3D20094EBEE /* MWMLocationNotFoundAlert.h */,
-				346B42AA1DD5E3D20094EBEE /* MWMLocationNotFoundAlert.mm */,
-			);
-			path = LocationNotFoundAlert;
-			sourceTree = "<group>";
-		};
 		346EDAD81B9F0E15004F8DB5 /* Components */ = {
 			isa = PBXGroup;
 			children = (
@@ -2983,7 +2971,6 @@
 				F64D9C9C1C899BEA0063FA30 /* EditorAlert */,
 				F63774E51B59374F00BCF54D /* RoutingDisclaimerAlert */,
 				F6BBF2C31B4FFB56000CF8E2 /* LocationAlert */,
-				346B42A81DD5E3D20094EBEE /* LocationNotFoundAlert */,
 				F64F19801AB81A00006EAF7E /* AlertController */,
 				F64F19841AB81A00006EAF7E /* BaseAlert */,
 				F64F19871AB81A00006EAF7E /* DefaultAlert */,
@@ -4271,7 +4258,6 @@
 				34D3B0481E389D05004100F9 /* MWMNoteCell.m in Sources */,
 				CD9AD967228067F500EC174A /* MapInfo.swift in Sources */,
 				6741AA1D1BF340DE002C974C /* MWMDownloadTransitMapAlert.mm in Sources */,
-				346B42AC1DD5E3D20094EBEE /* MWMLocationNotFoundAlert.mm in Sources */,
 				471A7BBE2481A3D000A0D4C1 /* EditBookmarkViewController.swift in Sources */,
 				993DF0C923F6BD0600AC231A /* ElevationDetailsBuilder.swift in Sources */,
 				674A7E301C0DB10B003D48E1 /* MWMMapWidgets.mm in Sources */,

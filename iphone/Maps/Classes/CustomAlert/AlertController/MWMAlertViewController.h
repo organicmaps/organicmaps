@@ -16,7 +16,6 @@
 - (void)presentLocationAlertWithCancelBlock:(MWMVoidBlock _Nonnull )cancelBlock;
 - (void)presentLocationServicesDisabledAlert;
 - (void)presentLocationServiceNotSupportedAlert;
-- (void)presentLocationNotFoundAlertWithOkBlock:(nonnull MWMVoidBlock)okBlock;
 - (void)presentNoConnectionAlert;
 - (void)presentSearchQuickFilterNoConnectionAlert;
 - (void)presentDeleteMapProhibitedAlert;

@@ -2,7 +2,6 @@
 #import "MWMController.h"
 #import "MWMDownloadTransitMapAlert.h"
 #import "MWMLocationAlert.h"
-#import "MWMLocationNotFoundAlert.h"
 #import "MapViewController.h"
 #import "MapsAppDelegate.h"
 #import "SwiftBridge.h"
@@ -60,11 +59,6 @@ static NSString *const kAlertControllerNibIdentifier = @"MWMAlertViewController"
 - (void)presentLocationServiceNotSupportedAlert {
   [self displayAlert:[MWMAlert locationServiceNotSupportedAlert]];
 }
-
-- (void)presentLocationNotFoundAlertWithOkBlock:(nonnull MWMVoidBlock)okBlock {
-  [self displayAlert:[MWMLocationNotFoundAlert alertWithOkBlock:okBlock]];
-}
-
 - (void)presentNoConnectionAlert {
   [self displayAlert:[MWMAlert noConnectionAlert]];
 }
