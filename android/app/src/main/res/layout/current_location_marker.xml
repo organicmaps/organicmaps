@@ -4,6 +4,7 @@
   xmlns:tools="http://schemas.android.com/tools"
   android:layout_width="wrap_content"
   android:layout_height="wrap_content"
+  xmlns:app="http://schemas.android.com/apk/res-auto"
   tools:background="@color/black_primary"
   tools:ignore="Overdraw">
   <ImageView
@@ -13,7 +14,7 @@
     android:layout_below="@id/label"
     android:layout_centerHorizontal="true"
     android:background="@drawable/ic_you_marker"
-    android:src="@drawable/ic_chart_pin" />
+    app:srcCompat="@drawable/ic_chart_pin" />
   <TextView
     android:id="@+id/label"
     android:layout_width="wrap_content"

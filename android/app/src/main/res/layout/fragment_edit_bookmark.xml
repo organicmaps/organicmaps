@@ -17,7 +17,7 @@
       <ImageView
         app:tint="@color/image_view"
         android:id="@+id/save"
-        android:src="@drawable/ic_done"
+        app:srcCompat="@drawable/ic_done"
         android:layout_width="?actionBarSize"
         android:layout_height="?actionBarSize"
         android:layout_alignParentEnd="true"

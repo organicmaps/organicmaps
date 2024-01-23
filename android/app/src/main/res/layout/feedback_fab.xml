@@ -7,7 +7,7 @@
   android:layout_height="wrap_content"
   android:contentDescription="@string/feedback"
   app:tint="?android:textColorPrimaryInverse"
-  android:src="@drawable/ic_feedback"
+  app:srcCompat="@drawable/ic_feedback"
   android:clickable="true"
   android:focusable="true"
   app:fabSize="normal" />

@@ -14,7 +14,7 @@
     android:layout_height="24dp"
     android:layout_marginEnd="@dimen/margin_double"
     android:scaleType="centerCrop"
-    android:src="@drawable/ic_plus"
+    app:srcCompat="@drawable/ic_plus"
     app:tint="?colorAccent" />
 
   <TextView

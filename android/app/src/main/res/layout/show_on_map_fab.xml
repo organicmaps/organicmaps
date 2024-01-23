@@ -7,7 +7,7 @@
   android:layout_height="wrap_content"
   android:contentDescription="@string/search_show_on_map"
   app:tint="?android:textColorPrimaryInverse"
-  android:src="@drawable/ic_show_on_map"
+  app:srcCompat="@drawable/ic_show_on_map"
   android:clickable="true"
   android:focusable="true"
   app:fabSize="normal"/>

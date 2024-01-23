@@ -149,7 +149,7 @@
           android:layout_height="wrap_content"
           android:layout_gravity="center"
           android:scaleType="center"
-          android:src="@drawable/ic_direction_pagepreview"
+          app:srcCompat="@drawable/ic_direction_pagepreview"
           app:tint="?colorAccent" />
         <TextView
           android:id="@+id/tv__straight_distance"

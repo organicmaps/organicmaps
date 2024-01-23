@@ -2,6 +2,7 @@
 <LinearLayout
   xmlns:android="http://schemas.android.com/apk/res/android"
   xmlns:tools="http://schemas.android.com/tools"
+  xmlns:app="http://schemas.android.com/apk/res-auto"
   android:id="@+id/ll__place_wifi"
   style="@style/PlacePageItemFrame"
   tools:background="#40FF0000"
@@ -10,7 +11,7 @@
   <ImageView
     android:id="@+id/iv__place_wifi"
     style="@style/PlacePageMetadataIcon"
-    android:src="@drawable/ic_wifi"/>
+    app:srcCompat="@drawable/ic_wifi"/>
 
   <TextView
     android:id="@+id/tv__place_wifi"

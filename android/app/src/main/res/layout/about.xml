@@ -23,7 +23,7 @@
         android:layout_marginTop="@dimen/margin_base"
         android:layout_marginBottom="@dimen/margin_half"
         android:contentDescription="@string/app_name"
-        android:src="@drawable/logo"
+        app:srcCompat="@drawable/logo"
         app:tint="?attr/colorLogo" />
 
     <TextView
@@ -90,7 +90,7 @@
           android:layout_height="@dimen/osm_logo"
           android:layout_gravity="center"
           android:contentDescription="@string/openstreetmap"
-          android:src="@drawable/ic_openstreetmap_color"
+          app:srcCompat="@drawable/ic_openstreetmap_color"
           app:layout_constraintBottom_toBottomOf="parent"
           app:layout_constraintStart_toStartOf="parent"
           app:layout_constraintTop_toTopOf="parent" />

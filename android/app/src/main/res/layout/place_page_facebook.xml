@@ -11,7 +11,7 @@
   <ImageView
     android:id="@+id/iv__place_facebook"
     style="@style/PlacePageMetadataIcon"
-    android:src="@drawable/ic_facebook_white"
+    app:srcCompat="@drawable/ic_facebook_white"
     app:tint="?colorAccent"/>
 
   <TextView

@@ -33,7 +33,7 @@
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
     android:layout_marginStart="@dimen/margin_quarter_plus"
-    android:src="@drawable/ic_20px_route_planning_walk"
+    app:srcCompat="@drawable/ic_20px_route_planning_walk"
     app:layout_constraintBottom_toBottomOf="@id/total_time"
     app:layout_constraintStart_toEndOf="@id/dot"
     app:tint="?iconTint"/>

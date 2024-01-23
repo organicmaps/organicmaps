@@ -2,6 +2,7 @@
 <RelativeLayout
   xmlns:android="http://schemas.android.com/apk/res/android"
   xmlns:tools="http://schemas.android.com/tools"
+  xmlns:app="http://schemas.android.com/apk/res-auto"
   android:id="@+id/search_button_frame"
   android:layout_width="wrap_content"
   android:layout_height="wrap_content"
@@ -25,14 +26,14 @@
       android:layout_marginStart="@dimen/margin_half_plus"
       android:layout_marginTop="@dimen/margin_half"
       android:contentDescription="@string/fuel"
-      android:src="@drawable/ic_routing_fuel_on" />
+      app:srcCompat="@drawable/ic_routing_fuel_on" />
     <com.google.android.material.floatingactionbutton.FloatingActionButton
       android:id="@+id/search_parking"
       style="@style/MwmWidget.MapButton.Search"
       android:layout_marginTop="@dimen/margin_base_plus"
       android:layout_toEndOf="@id/search_fuel"
       android:contentDescription="@string/parkings"
-      android:src="@drawable/ic_routing_parking_on" />
+      app:srcCompat="@drawable/ic_routing_parking_on" />
     <com.google.android.material.floatingactionbutton.FloatingActionButton
       android:id="@+id/search_eat"
       style="@style/MwmWidget.MapButton.Search"
@@ -40,7 +41,7 @@
       android:layout_centerVertical="true"
       android:layout_marginEnd="@dimen/margin_half"
       android:contentDescription="@string/eat"
-      android:src="@drawable/ic_routing_eat_on" />
+      app:srcCompat="@drawable/ic_routing_eat_on" />
     <com.google.android.material.floatingactionbutton.FloatingActionButton
       android:id="@+id/search_food"
       style="@style/MwmWidget.MapButton.Search"
@@ -48,7 +49,7 @@
       android:layout_marginBottom="@dimen/margin_base_plus"
       android:layout_toEndOf="@id/search_fuel"
       android:contentDescription="@string/shopping"
-      android:src="@drawable/ic_routing_food_on" />
+      app:srcCompat="@drawable/ic_routing_food_on" />
     <com.google.android.material.floatingactionbutton.FloatingActionButton
       android:id="@+id/search_atm"
       style="@style/MwmWidget.MapButton.Search"
@@ -57,6 +58,6 @@
       android:layout_marginStart="@dimen/margin_half_plus"
       android:layout_marginBottom="@dimen/margin_half"
       android:contentDescription="@string/atm"
-      android:src="@drawable/ic_routing_atm_on" />
+      app:srcCompat="@drawable/ic_routing_atm_on" />
   </RelativeLayout>
 </RelativeLayout>

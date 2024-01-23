@@ -29,6 +29,6 @@
     android:layout_height="wrap_content"
     android:background="?selectableItemBackgroundBorderless"
     android:padding="@dimen/margin_half_plus"
-    android:src="@drawable/ic_close"
+    app:srcCompat="@drawable/ic_close"
     app:tint="@color/base_red" />
 </LinearLayout>
