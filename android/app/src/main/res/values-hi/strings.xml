@@ -199,6 +199,7 @@
 	<string name="button_layer_outdoor">लंबी पैदल यात्रा</string>
 	<!-- Text displayed when a webview or a browser are disabled, and external links can't be opened. -->
 	<string name="browser_not_available">वेब ब्राउज़र उपलब्ध नहीं है</string>
+	<string name="volume">आवाज का स्तर</string>
 
 	<!-- SECTION: Types -->
 	<string name="type.aerialway.cable_car">आकाशीय रज्जुमार्ग</string>

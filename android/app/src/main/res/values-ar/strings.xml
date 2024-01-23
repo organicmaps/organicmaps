@@ -782,6 +782,7 @@
 	<string name="button_layer_outdoor">جولة على الأقدام</string>
 	<!-- Text displayed when a webview or a browser are disabled, and external links can't be opened. -->
 	<string name="browser_not_available">متصفح الويب غير متوفر</string>
+	<string name="volume">مستوى الصوت</string>
 
 	<!-- SECTION: Types -->
 	<string name="type.addr_interpolation">العنوان / البلوك</string>

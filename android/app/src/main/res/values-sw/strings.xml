@@ -283,6 +283,7 @@
 	<string name="button_layer_outdoor">Kutembea kwa miguu</string>
 	<!-- Text displayed when a webview or a browser are disabled, and external links can't be opened. -->
 	<string name="browser_not_available">Kivinjari cha wavuti hakipatikani</string>
+	<string name="volume">Sauti</string>
 
 	<!-- SECTION: Types -->
 	<string name="type.addr_interpolation">Anwani/Zuia</string>

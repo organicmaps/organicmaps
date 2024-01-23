@@ -764,6 +764,7 @@
 	<string name="button_layer_outdoor">Актыўны адпачынак</string>
 	<!-- Text displayed when a webview or a browser are disabled, and external links can't be opened. -->
 	<string name="browser_not_available">Вэб-браўзер недаступны</string>
+	<string name="volume">Гучнасць</string>
 
 	<!-- SECTION: Types -->
 	<string name="type.addr_interpolation">Адрас/Блок</string>
