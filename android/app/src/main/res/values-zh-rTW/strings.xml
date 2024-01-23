@@ -746,6 +746,7 @@
 	<string name="button_layer_outdoor">遠足</string>
 	<!-- Text displayed when a webview or a browser are disabled, and external links can't be opened. -->
 	<string name="browser_not_available">網路瀏覽器不可用</string>
+	<string name="volume">音量</string>
 
 	<!-- SECTION: Types -->
 	<string name="type.addr_interpolation">地址/區塊</string>

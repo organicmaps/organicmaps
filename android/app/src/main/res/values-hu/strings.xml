@@ -746,6 +746,7 @@
 	<string name="browser_not_available">A webböngésző nem elérhető</string>
 	<!-- Text displayed in a dialog when OSM authorization is disabled -->
 	<string name="osm_login_not_available">Az OpenStreetMap-es hitelesítés átmenetileg nem elérhető a Google Play új korlátozásai miatt 😾\nCsapatunk dolgozik a probléma megoldásán. Kérjük, legyen türelemmel 🙏</string>
+	<string name="volume">Hangerő</string>
 
 	<!-- SECTION: Types -->
 	<string name="type.addr_interpolation">Cím/blokk</string>

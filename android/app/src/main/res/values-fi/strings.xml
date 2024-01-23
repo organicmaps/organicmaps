@@ -775,6 +775,7 @@
 	<string name="browser_not_available">Verkkoselain ei ole käytettävissä</string>
 	<!-- Text displayed in a dialog when OSM authorization is disabled -->
 	<string name="osm_login_not_available">OpenStreetMap-valtuutus ei ole tilapäisesti käytettävissä Google Playn uusien rajoitusten vuoksi 😾\nTiimimme työskentelee tämän ongelman ratkaisemiseksi. Ole kärsivällinen 🙏</string>
+	<string name="volume">Äänenvoimakkuus</string>
 
 	<!-- SECTION: Types -->
 	<string name="type.addr_interpolation">Osoite/lohko</string>

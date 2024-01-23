@@ -760,6 +760,7 @@
 	<string name="browser_not_available">Veebibrauser ei ole saadaval</string>
 	<!-- Text displayed in a dialog when OSM authorization is disabled -->
 	<string name="osm_login_not_available">OpenStreetMapi autoriseerimine on ajutiselt kättesaamatu Google Play uute piirangute tõttu 😾\nMeie meeskond töötab selle probleemi lahendamise kallal. Palun olge kannatlik 🙏</string>
+	<string name="volume">Helitugevus</string>
 
 	<!-- SECTION: Types -->
 	<string name="type.addr_interpolation">Aadress/plokk</string>

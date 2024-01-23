@@ -722,6 +722,7 @@
 	<string name="button_layer_outdoor">Đi bộ đường dài</string>
 	<!-- Text displayed when a webview or a browser are disabled, and external links can't be opened. -->
 	<string name="browser_not_available">Trình duyệt web không khả dụng</string>
+	<string name="volume">Âm lượng</string>
 
 	<!-- SECTION: Types -->
 	<string name="type.addr_interpolation">Địa chỉ/Khối</string>

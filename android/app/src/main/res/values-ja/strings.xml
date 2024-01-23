@@ -773,6 +773,7 @@
 	<string name="browser_not_available">ウェブブラウザが利用できない</string>
 	<!-- Text displayed in a dialog when OSM authorization is disabled -->
 	<string name="osm_login_not_available">GooglePlayの新しい制限のため、OpenStreetMapの認証が一時的に利用できない。しばらくお待ちください🙏。</string>
+	<string name="volume">音量</string>
 
 	<!-- SECTION: Types -->
 	<string name="type.addr_interpolation">アドレス/ブロック</string>

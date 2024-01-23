@@ -808,6 +808,7 @@
 	<string name="browser_not_available">Web browser is not available</string>
 	<!-- Text displayed in a dialog when OSM authorization is disabled -->
 	<string name="osm_login_not_available">OpenStreetMap authorization is temporary unavailable due to new restrictions in Google Play 😾\nOur team is working to resolve this issue. Please be patient 🙏</string>
+	<string name="volume">Volume</string>
 
 	<!-- SECTION: Types -->
 	<string name="type.addr_interpolation">Address/Block</string>

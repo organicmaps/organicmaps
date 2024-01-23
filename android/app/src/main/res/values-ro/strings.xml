@@ -753,6 +753,7 @@
 	<string name="browser_not_available">Browserul web nu este disponibil</string>
 	<!-- Text displayed in a dialog when OSM authorization is disabled -->
 	<string name="osm_login_not_available">Autorizarea OpenStreetMap este temporar indisponibilă din cauza noilor restricții din Google Play 😾\nEchipa noastră lucrează pentru a rezolva această problemă. Vă rugăm să aveți răbdare 🙏</string>
+	<string name="volume">Volum</string>
 
 	<!-- SECTION: Types -->
 	<string name="type.addr_interpolation">Adresă/Bloc</string>

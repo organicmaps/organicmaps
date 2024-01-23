@@ -723,6 +723,7 @@
 	<string name="button_layer_outdoor">การเดินป่า</string>
 	<!-- Text displayed when a webview or a browser are disabled, and external links can't be opened. -->
 	<string name="browser_not_available">เว็บเบราว์เซอร์ไม่พร้อมใช้งาน</string>
+	<string name="volume">ระดับเสียง</string>
 
 	<!-- SECTION: Types -->
 	<string name="type.addr_interpolation">ที่อยู่/บล็อค</string>

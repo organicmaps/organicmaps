@@ -733,6 +733,7 @@
 	<string name="button_layer_outdoor">गिर्यारोहण</string>
 	<!-- Text displayed when a webview or a browser are disabled, and external links can't be opened. -->
 	<string name="browser_not_available">वेब ब्राउझर उपलब्ध नाही</string>
+	<string name="volume">आवाजाची स्त्रोत</string>
 
 	<!-- SECTION: Types -->
 	<string name="type.addr_interpolation">पत्ता/ब्लॉक</string>

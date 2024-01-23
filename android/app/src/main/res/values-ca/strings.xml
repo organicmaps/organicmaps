@@ -764,6 +764,7 @@
 	<string name="button_layer_outdoor">Senderisme</string>
 	<!-- Text displayed when a webview or a browser are disabled, and external links can't be opened. -->
 	<string name="browser_not_available">El navegador web no està disponible</string>
+	<string name="volume">Volum</string>
 
 	<!-- SECTION: Types -->
 	<string name="type.addr_interpolation">Adreça/Bloc</string>
