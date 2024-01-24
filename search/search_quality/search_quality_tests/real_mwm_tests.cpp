@@ -1007,6 +1007,22 @@ UNIT_CLASS_TEST(MwmTestsFixture, Streets_Rank)
     // - "Béke utca"
     EqualClassifType(Range(results, 0, kResultsCount), GetClassifTypes({{"highway"}, {"amenity", "fast_food"}}));
   }
+
+  {
+    // Minsk
+    ms::LatLon const center(53.91058, 27.54519);
+    SetViewportAndLoadMaps(center);
+    auto request = MakeRequest("победител", "ru");
+    auto const & results = request->Results();
+    TEST_GREATER(results.size(), kTopPoiResultsCount, ());
+
+    // First result is a viewpoint (attraction).
+    EqualClassifType(Range(results, 0, 1), GetClassifTypes({{"tourism", "viewpoint"}}));
+    // And next are the streets.
+    Range const range(results, 1, 4);
+    EqualClassifType(range, GetClassifTypes({{"highway"}}));
+    TEST_LESS(SortedByDistance(range, center).first, 500, ());
+  }
 }
 
 // https://github.com/organicmaps/organicmaps/issues/5756
