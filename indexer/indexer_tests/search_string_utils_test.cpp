@@ -229,7 +229,7 @@ UNIT_TEST(Street_TokensFilter)
   }
 
   {
-    List expected = {{"набережная", 1}, {"проспект", 2}};
+    List expected = {{"набережная", 1}};
     List actual;
 
     Utf8StreetTokensFilter filter(actual);
@@ -241,7 +241,8 @@ UNIT_TEST(Street_TokensFilter)
   }
 
   {
-    List expected = {{"ленинский", 0}, {"пропект", 1}};
+    List expectedWithMP = {{"ленинский", 0}};
+    List expectedWithoutMP = {{"ленинский", 0}, {"пропект", 1}};
     List actualWithMisprints;
     List actualWithoutMisprints;
 
@@ -253,8 +254,8 @@ UNIT_TEST(Street_TokensFilter)
     filterWithMisprints.Put("пропект", false /* isPrefix */, 1 /* tag */);
     filterWithoutMisprints.Put("пропект", false /* isPrefix */, 1 /* tag */);
 
-    TEST_EQUAL(expected, actualWithMisprints, ());
-    TEST_EQUAL(expected, actualWithoutMisprints, ());
+    TEST_EQUAL(expectedWithMP, actualWithMisprints, ());
+    TEST_EQUAL(expectedWithoutMP, actualWithoutMisprints, ());
   }
 
   {
