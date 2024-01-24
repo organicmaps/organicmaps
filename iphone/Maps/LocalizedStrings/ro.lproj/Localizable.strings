@@ -596,17 +596,17 @@
 
 "today" = "Azi";
 
-"opens_tomorrow_at" = "Opens tomorrow at %@";
+"opens_tomorrow_at" = "Deschide mâine la %@";
 
-"opens_dayoftheweek_at" = "Opens %1$@ at %2$@";
+"opens_dayoftheweek_at" = "Deschide %1$@ la %2$@";
 
-"opens_at" = "Opens at %@";
+"opens_at" = "Deschide la %@";
 
-"opens_in" = "Opens in %@";
+"opens_in" = "Deschide în %@";
 
-"closes_at" = "Closes at %@";
+"closes_at" = "Închide la %@";
 
-"closes_in" = "Closes in %@";
+"closes_in" = "Închide în %@";
 
 "closed" = "Închis";
 
