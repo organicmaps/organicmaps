@@ -120,21 +120,6 @@ std::string MetadataTagProcessorImpl::ValidateAndFormat_operator(std::string con
   return {};
 }
 
-std::string MetadataTagProcessorImpl::ValidateAndFormat_url(std::string const & v)
-{
-  return v;
-}
-
-std::string MetadataTagProcessorImpl::ValidateAndFormat_phone(std::string const & v)
-{
-  return v;
-}
-
-std::string MetadataTagProcessorImpl::ValidateAndFormat_opening_hours(std::string const & v)
-{
-  return v;
-}
-
 std::string MetadataTagProcessorImpl::ValidateAndFormat_ele(std::string const & v) const
 {
   if (IsNoNameNoAddressBuilding(m_params))
@@ -157,43 +142,6 @@ std::string MetadataTagProcessorImpl::ValidateAndFormat_destination(std::string 
     r.append(d);
   });
   return r;
-}
-
-std::string MetadataTagProcessorImpl::ValidateAndFormat_destination_ref(std::string const & v)
-{
-  return v;
-}
-
-std::string MetadataTagProcessorImpl::ValidateAndFormat_junction_ref(std::string const & v)
-{
-  return v;
-}
-
-std::string MetadataTagProcessorImpl::ValidateAndFormat_turn_lanes(std::string const & v)
-{
-  return v;
-}
-
-std::string MetadataTagProcessorImpl::ValidateAndFormat_turn_lanes_forward(std::string const & v)
-{
-  return v;
-}
-
-std::string MetadataTagProcessorImpl::ValidateAndFormat_turn_lanes_backward(std::string const & v)
-{
-  return v;
-}
-
-std::string MetadataTagProcessorImpl::ValidateAndFormat_email(std::string const & v)
-{
-  return v;
-}
-
-std::string MetadataTagProcessorImpl::ValidateAndFormat_postcode(std::string const & v) { return v; }
-
-std::string MetadataTagProcessorImpl::ValidateAndFormat_flats(std::string const & v)
-{
-  return v;
 }
 
 std::string MetadataTagProcessorImpl::ValidateAndFormat_internet(std::string v)
@@ -232,11 +180,6 @@ std::string MetadataTagProcessorImpl::ValidateAndFormat_level(std::string v)
     return strings::to_string(levels);
 
   return {};
-}
-
-std::string MetadataTagProcessorImpl::ValidateAndFormat_denomination(std::string const & v)
-{
-  return v;
 }
 
 std::string MetadataTagProcessorImpl::ValidateAndFormat_wikipedia(std::string v)
@@ -320,16 +263,6 @@ std::string MetadataTagProcessorImpl::ValidateAndFormat_airport_iata(std::string
     c = std::toupper(c);
   }
   return str;
-}
-
-std::string MetadataTagProcessorImpl::ValidateAndFormat_brand(std::string const & v)
-{
-  return v;
-}
-
-std::string MetadataTagProcessorImpl::ValidateAndFormat_capacity(std::string const & v)
-{
-  return v;
 }
 
 std::string MetadataTagProcessorImpl::ValidateAndFormat_duration(std::string const & v) const
@@ -484,16 +417,8 @@ void MetadataTagProcessor::operator()(std::string const & k, std::string const &
   std::string valid;
   switch (mdType)
   {
-  case Metadata::FMD_OPEN_HOURS: valid = ValidateAndFormat_opening_hours(v); break;
-  case Metadata::FMD_FAX_NUMBER:  // The same validator as for phone.
-  case Metadata::FMD_PHONE_NUMBER: valid = ValidateAndFormat_phone(v); break;
+  // Metadata types that have their own validation.
   case Metadata::FMD_STARS: valid = ValidateAndFormat_stars(v); break;
-  case Metadata::FMD_OPERATOR:
-    if (!m_operatorF.Add(getLang()))
-      return;
-    valid = ValidateAndFormat_operator(v);
-    break;
-  case Metadata::FMD_WEBSITE: valid = ValidateAndFormat_url(v); break;
   case Metadata::FMD_CONTACT_FACEBOOK: valid = osm::ValidateAndFormat_facebook(v); break;
   case Metadata::FMD_CONTACT_INSTAGRAM: valid = osm::ValidateAndFormat_instagram(v); break;
   case Metadata::FMD_CONTACT_TWITTER: valid = osm::ValidateAndFormat_twitter(v); break;
@@ -502,39 +427,50 @@ void MetadataTagProcessor::operator()(std::string const & k, std::string const &
   case Metadata::FMD_INTERNET: valid = ValidateAndFormat_internet(v); break;
   case Metadata::FMD_ELE: valid = ValidateAndFormat_ele(v); break;
   case Metadata::FMD_DESTINATION: valid = ValidateAndFormat_destination(v); break;
-  case Metadata::FMD_DESTINATION_REF: valid = ValidateAndFormat_destination_ref(v); break;
-  case Metadata::FMD_JUNCTION_REF: valid = ValidateAndFormat_junction_ref(v); break;
-  case Metadata::FMD_TURN_LANES: valid = ValidateAndFormat_turn_lanes(v); break;
-  case Metadata::FMD_TURN_LANES_FORWARD: valid = ValidateAndFormat_turn_lanes_forward(v); break;
-  case Metadata::FMD_TURN_LANES_BACKWARD: valid = ValidateAndFormat_turn_lanes_backward(v); break;
-  case Metadata::FMD_EMAIL: valid = ValidateAndFormat_email(v); break;
-  case Metadata::FMD_POSTCODE: valid = ValidateAndFormat_postcode(v); break;
   case Metadata::FMD_WIKIPEDIA: valid = ValidateAndFormat_wikipedia(v); break;
   case Metadata::FMD_WIKIMEDIA_COMMONS: valid = ValidateAndFormat_wikimedia_commons(v); break;
-  case Metadata::FMD_FLATS: valid = ValidateAndFormat_flats(v); break;
-  case Metadata::FMD_MIN_HEIGHT:  // The same validator as for height.
+  case Metadata::FMD_MIN_HEIGHT: valid = ValidateAndFormat_height(v); break;
   case Metadata::FMD_HEIGHT: valid = ValidateAndFormat_height(v); break;
-  case Metadata::FMD_DENOMINATION: valid = ValidateAndFormat_denomination(v); break;
-  case Metadata::FMD_BUILDING_MIN_LEVEL:  // The same validator as for building_levels.
+  case Metadata::FMD_BUILDING_MIN_LEVEL: valid = ValidateAndFormat_building_levels(v); break;
   case Metadata::FMD_BUILDING_LEVELS: valid = ValidateAndFormat_building_levels(v); break;
   case Metadata::FMD_LEVEL: valid = ValidateAndFormat_level(v); break;
   case Metadata::FMD_AIRPORT_IATA: valid = ValidateAndFormat_airport_iata(v); break;
-  case Metadata::FMD_BRAND:
-    if (!m_brandF.Add(getLang()))
-      return;
-    valid = ValidateAndFormat_brand(v);
-    break;
   case Metadata::FMD_DURATION: valid = ValidateAndFormat_duration(v); break;
-  case Metadata::FMD_CAPACITY: valid = ValidateAndFormat_capacity(v); break;
-  // Metadata types we do not get from OSM.
+  // Metadata types with no validation yet. (empties will use FMD_PHONE_NUMBER rule)
+  case Metadata::FMD_OPEN_HOURS:
+  case Metadata::FMD_FAX_NUMBER:
+  case Metadata::FMD_WEBSITE:
+  case Metadata::FMD_DESTINATION_REF:
+  case Metadata::FMD_JUNCTION_REF:
+  case Metadata::FMD_TURN_LANES:
+  case Metadata::FMD_TURN_LANES_FORWARD:
+  case Metadata::FMD_TURN_LANES_BACKWARD:
+  case Metadata::FMD_EMAIL:
+  case Metadata::FMD_POSTCODE:
+  case Metadata::FMD_FLATS:
+  case Metadata::FMD_DENOMINATION:
+  case Metadata::FMD_CAPACITY:
+  case Metadata::FMD_PHONE_NUMBER: valid = v; break;
+  // Metadata types we do not get from OSM. (empties will use FMD_COUNT rule)
   case Metadata::FMD_CUISINE:
-  case Metadata::FMD_DESCRIPTION:   // processed separately
+  case Metadata::FMD_DESCRIPTION:
   case Metadata::FMD_TEST_ID:
   case Metadata::FMD_CUSTOM_IDS:
   case Metadata::FMD_PRICE_RATES:
   case Metadata::FMD_RATINGS:
   case Metadata::FMD_EXTERNAL_URI:
   case Metadata::FMD_COUNT: CHECK(false, (mdType, "should not be parsed from OSM."));
+  //Metadata types that have in-switch logic
+  case Metadata::FMD_OPERATOR:
+    if (!m_operatorF.Add(getLang()))
+      return;
+    valid = ValidateAndFormat_operator(v);
+    break;
+  case Metadata::FMD_BRAND:
+    if (!m_brandF.Add(getLang()))
+      return;
+    valid = v;
+    break;
   }
 
   /// @todo What should remain for multiple tag keys, like PHONE_NUMBER, WEBSITE, INTERNET?
