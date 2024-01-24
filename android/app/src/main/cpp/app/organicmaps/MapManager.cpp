@@ -496,7 +496,6 @@ Java_app_organicmaps_downloader_MapManager_nativeUnsubscribeOnCountryChanged(JNI
 {
   g_framework->NativeFramework()->SetCurrentCountryChangedListener(nullptr);
 
-  ASSERT(g_countryChangedListener, ());
   env->DeleteGlobalRef(g_countryChangedListener);
   g_countryChangedListener = nullptr;
 }
