@@ -1,5 +1,6 @@
 #pragma once
 
+#include <optional>
 #include <string>
 
 #include "geometry/latlon.hpp"
@@ -37,6 +38,6 @@ std::string FormatMGRS(double lat, double lon, int prec);
 std::optional<ms::LatLon> UTMtoLatLon(int easting, int northing, int zone_code, char zone_letter);
 
 // Covevrt MGRS coordinates to Lat Lon. If parameters are invalid function returns false
-std::optional<ms::LatLon> MGRStoLatLon(int easting, int northing, int zone_code, char zone_letter, char square_code[2]);
+std::optional<ms::LatLon> MGRStoLatLon(int easting, int northing, int zoneCode, char zone_letter, char squareCode[2]);
 
 }  // namespace utm_mgrs_utils
