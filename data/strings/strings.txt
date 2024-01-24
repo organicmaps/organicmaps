@@ -12423,6 +12423,7 @@
     nl = Opent morgen om %@
     pl = Otwarcie jutro o %@
     pt = Abre amanhã às %@
+    ro = Deschide mâine la %@
     ru = Откроется завтра в %@
     tr = Açılış yarın %@
     uk = Відкриття завтра о %@
@@ -12448,6 +12449,7 @@
     nl = Opent %1$@ om %2$@
     pl = Otwarcie %1$@ o %2$@
     pt = Abre %1$@ às %2$@
+    ro = Deschide %1$@ la %2$@
     ru = Открывается в %1$@ в %2$@
     tr = Açılış %1$@ %2$@
     uk = Відчиняється в %1$@ о %2$@
@@ -12474,6 +12476,7 @@
     nl = Opent om %@
     pl = Otwarcie o %@
     pt = Abre às %@
+    ro = Deschide la %@
     ru = Открывается в %@
     tr = Açılış %@
     uk = Відкриття о %@
@@ -12500,6 +12503,7 @@
     nl = Opent over %@
     pl = Otwarcie za %@
     pt-BR = Abre em %@
+    ro = Deschide în %@
     ru = Открывается через %@
     tr = %@ sonra açılıyor
     uk = Відкривається через %@
@@ -12526,6 +12530,7 @@
     nl = Sluit om %@
     pl = Zamknięcie o %@
     pt = Encerra às %@
+    ro = Închide la %@
     ru = Закрывается в %@
     tr = Kapanış %@
     uk = Закривається о %@
@@ -12552,6 +12557,7 @@
     nl = Sluit over %@
     pl = Zamknięcie za %@
     pt-BR = Fecha em %@
+    ro = Închide în %@
     ru = Закроется через %@
     tr = %@ sonra kapanıyor
     uk = Зачиняється через %@
@@ -16612,6 +16618,7 @@
     pl = godz
     pt = h
     pt-BR = h
+    ro = h
     ru = ч
     sk = hod
     sv = h
