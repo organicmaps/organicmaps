@@ -142,8 +142,19 @@ public:
   }
 };
 
-class IsAttraction : public BaseTypesChecker
+class IsAttraction
 {
+  std::vector<uint32_t> m_types;
+
+public:
+  bool operator() (feature::TypesHolder const & th) const
+  {
+    // Strict check (unlike in BaseTypesChecker) to avoid matching:
+    // - historic-memorial-plaque
+    // - leisure-garden-residential
+    return base::AnyOf(m_types, [&th](uint32_t t) { return th.Has(t); });
+  }
+
 public:
   IsAttraction()
   {
