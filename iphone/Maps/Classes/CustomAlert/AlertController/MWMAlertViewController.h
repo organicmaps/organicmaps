@@ -14,6 +14,7 @@
 - (void)presentRoutingDisclaimerAlertWithOkBlock:(nonnull nonnull MWMVoidBlock)block;
 - (void)presentDisabledLocationAlert;
 - (void)presentLocationAlertWithCancelBlock:(MWMVoidBlock _Nonnull )cancelBlock;
+- (void)presentLocationServicesDisabledAlert;
 - (void)presentLocationServiceNotSupportedAlert;
 - (void)presentLocationNotFoundAlertWithOkBlock:(nonnull MWMVoidBlock)okBlock;
 - (void)presentNoConnectionAlert;

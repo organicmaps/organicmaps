@@ -115,6 +115,11 @@ static NSString *const kAlertControllerNibIdentifier = @"MWMAlertViewController"
 - (void)presentDisabledLocationAlert {
   [self displayAlert:[MWMAlert disabledLocationAlert]];
 }
+
+- (void)presentLocationServicesDisabledAlert; {
+  [self displayAlert:[MWMAlert locationServicesDisabledAlert]];
+}
+
 - (void)presentAlert:(routing::RouterResultCode)type {
   [self displayAlert:[MWMAlert alert:type]];
 }
