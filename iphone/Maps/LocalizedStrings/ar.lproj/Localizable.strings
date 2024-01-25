@@ -771,6 +771,14 @@
 /* iOS Dialog for the case when the location permission is not granted; you might find the exact wording for your language here: https://support.apple.com/en-us/102647 (replace 'en-us' in URL with your language/region) */
 "location_services_disabled_3" = "3. اختيار التفعيل أثناء استخدام التطبيق";
 
+"location_services_disabled_on_device_2" = "2. حدد الخصوصية";
+
+"location_services_disabled_on_device_3" = "3. حدد خدمات الموقع";
+
+"location_services_disabled_on_device_4" = "4. قم بتشغيل خدمات الموقع";
+
+"location_services_disabled_on_device_additional_message" = "أو استمر في استخدام الخرائط العضوية بدون الموقع";
+
 /* abbreviation for meters */
 "m" = "متر";
 
