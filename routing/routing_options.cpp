@@ -157,11 +157,6 @@ RoutingOptionSetter::RoutingOptionSetter(RoutingOptions::RoadType roadsMask)
   RoutingOptions::SaveCarOptionsToSettings(RoutingOptions(roadsMask));
 }
 
-RoutingOptionSetter::RoutingOptionSetter(RoutingOptions::Road road)
-  : RoutingOptionSetter(static_cast<RoutingOptions::RoadType>(road))
-{
-}
-
 RoutingOptionSetter::~RoutingOptionSetter()
 {
   RoutingOptions::SaveCarOptionsToSettings(m_saved);

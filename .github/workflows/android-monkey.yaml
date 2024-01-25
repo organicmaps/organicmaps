@@ -2,7 +2,10 @@ name: Android Monkey
 on:
   workflow_dispatch: # Manual trigger
   schedule:
-    - cron:  '0 5 * * *' # Once per day at 05:00 UTC
+    - cron:  '0 5 * * 0' # Once per week at 05:00 UTC
+
+env:
+  JAVA_HOME: /usr/lib/jvm/temurin-17-jdk-amd64  # Java 17 is required for Android Gradle 8 plugin
 
 jobs:
   precondition:
@@ -10,7 +13,7 @@ jobs:
     name: Check preconditions
     steps:
       - name: Checkout sources
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
         with:
           fetch-depth: 1000 # fetch month or so
 
@@ -45,7 +48,7 @@ jobs:
         uses: google-github-actions/setup-gcloud@v0
 
       - name: Checkout sources
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
         with:
           fetch-depth: 100 # enough to get all commits for the current day
 
@@ -54,7 +57,7 @@ jobs:
         run: git submodule update --depth 1 --init --recursive --jobs=$(($(nproc) * 20))
 
       - name: Checkout private keys
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
         with:
           repository: ${{ secrets.PRIVATE_REPO }}
           ssh-key: ${{ secrets.PRIVATE_SSH_KEY }}
@@ -73,16 +76,17 @@ jobs:
         run: |
           cmake --version
           ninja --version
-          gradle -Pfirebase assembleGoogleDebug uploadCrashlyticsSymbolFileGoogleDebug
+          ./gradlew -Pfirebase -Parm64-v8a -Parmeabi-v7a -Px86_64 assembleGoogleDebug uploadCrashlyticsSymbolFileGoogleDebug
 
       - name: Run monkey
         run: |
-          gcloud auth activate-service-account --key-file android/firebase-test-lab.json
+          gcloud auth activate-service-account --key-file android/app/firebase-test-lab.json
           gcloud config set project omapsapp
-          gcloud firebase test android run --app ./android/build/outputs/apk/google/debug/OrganicMaps-*-google-debug.apk \
-            --device model=panther,version=33 \
+          gcloud firebase test android run --app ./android/app/build/outputs/apk/google/debug/OrganicMaps-*-google-debug.apk \
+            --device model=husky,version=34 \
+            --device model=cheetah,version=33 \
             --device model=bluejay,version=32 \
-            --device model=b2q,version=31 \
+            --device model=a51,version=31 \
             --device model=f2q,version=30 \
             --device model=a10,version=29 \
             --device model=Pixel2.arm,version=30 \
@@ -93,6 +97,4 @@ jobs:
             --device model=Nexus6,version=25 \
             --device model=NexusLowRes,version=24 \
             --device model=NexusLowRes,version=23,orientation=landscape \
-            --device model=Nexus6,version=22 \
-            --device model=Nexus7,version=21 \
             --timeout 15m

@@ -1,0 +1,12 @@
+{
+  "images" : [
+    {
+      "filename" : "ic_ruler_route_selected.svg",
+      "idiom" : "universal"
+    }
+  ],
+  "info" : {
+    "author" : "xcode",
+    "version" : 1
+  }
+}

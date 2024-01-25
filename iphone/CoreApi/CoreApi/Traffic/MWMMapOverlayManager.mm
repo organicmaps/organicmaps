@@ -3,6 +3,7 @@
 #include "Framework.h"
 
 static NSString *kGuidesWasShown = @"guidesWasShown";
+static NSString *didChangeOutdoorMapStyle = @"didChangeOutdoorMapStyle";
 
 @interface MWMMapOverlayManager ()
 
@@ -48,6 +49,13 @@ static NSString *kGuidesWasShown = @"guidesWasShown";
         }
       }
     });
+    [NSNotificationCenter.defaultCenter addObserverForName:didChangeOutdoorMapStyle object:nil queue:nil usingBlock:^(NSNotification * _Nonnull notification) {
+      for (id<MWMMapOverlayManagerObserver> observer in self.observers) {
+        if ([observer respondsToSelector:@selector(onOutdoorStateUpdated)]) {
+          [observer onOutdoorStateUpdated];
+        }
+      }
+    }];
   }
   return self;
 }
@@ -109,6 +117,16 @@ static NSString *kGuidesWasShown = @"guidesWasShown";
   }
 }
 
++ (MWMMapOverlayOutdoorState)outdoorState {
+  switch (GetFramework().GetMapStyle()) {
+    case MapStyleOutdoorsClear:
+    case MapStyleOutdoorsDark:
+      return MWMMapOverlayOutdoorStateEnabled;
+    default:
+      return MWMMapOverlayOutdoorStateDisabled;
+  }
+}
+
 + (BOOL)trafficEnabled {
   return self.trafficState != MWMMapOverlayTrafficStateDisabled;
 }
@@ -123,6 +141,10 @@ static NSString *kGuidesWasShown = @"guidesWasShown";
 
 + (BOOL)isolinesVisible {
   return GetFramework().GetIsolinesManager().IsVisible();
+}
+
++ (BOOL)outdoorEnabled {
+  return self.outdoorState != MWMMapOverlayOutdoorStateDisabled;
 }
 
 + (void)setTrafficEnabled:(BOOL)enable {
@@ -140,6 +162,7 @@ static NSString *kGuidesWasShown = @"guidesWasShown";
   if (enable) {
     [self setTrafficEnabled:!enable];
     [self setIsoLinesEnabled:false];
+    [self setOutdoorEnabled:false];
   }
 
   auto &f = GetFramework();
@@ -156,6 +179,32 @@ static NSString *kGuidesWasShown = @"guidesWasShown";
   auto &f = GetFramework();
   f.GetIsolinesManager().SetEnabled(enable);
   f.SaveIsolinesEnabled(enable);
+}
+
++ (void)setOutdoorEnabled:(BOOL)enable {
+  if (enable) {
+    [self setTransitEnabled:false];
+    [self setTrafficEnabled:false];
+  }
+
+  auto &f = GetFramework();
+  switch (f.GetMapStyle()) {
+    case MapStyleClear:
+    case MapStyleVehicleClear:
+    case MapStyleOutdoorsClear:
+      f.SetMapStyle(enable ? MapStyleOutdoorsClear : MapStyleClear);
+      break;
+    case MapStyleDark:
+    case MapStyleVehicleDark:
+    case MapStyleOutdoorsDark:
+      f.SetMapStyle(enable ? MapStyleOutdoorsDark : MapStyleDark);
+      break;
+    default:
+      break;
+  }
+
+  // TODO: - Observing for the selected/deselected state of the Outdoor style should be implemented not by NSNotificationCenter but the same way as for IsoLines with 'GetFramework().GetIsolinesManager().SetStateListener'.
+  [NSNotificationCenter.defaultCenter postNotificationName:didChangeOutdoorMapStyle object:nil];
 }
 
 @end

@@ -91,7 +91,7 @@ unique_ptr<WorldGraph> BuildXXGraph(shared_ptr<EdgeEstimator> estimator)
       MakeJoint({{7, 1}, {8, 0}}),                         /* joint at point (3, 0) */
   };
 
-  return BuildWorldGraph(move(loader), estimator, joints);
+  return BuildWorldGraph(std::move(loader), estimator, joints);
 }
 
 class ApplyingTrafficTest

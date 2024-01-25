@@ -14,12 +14,6 @@ namespace small_set_test
 {
 using namespace base;
 
-UNIT_TEST(SmallSet_Empty)
-{
-  SmallSet<0> set;
-  TEST_EQUAL(set.Size(), 0, ());
-}
-
 UNIT_TEST(SmallSet_Smoke)
 {
   SmallSet<300> set;

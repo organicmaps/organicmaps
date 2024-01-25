@@ -9,7 +9,7 @@
 #include "geometry/point2d.hpp"
 
 #include "base/math.hpp"
-#include "base/stl_helpers.hpp"
+
 
 namespace search
 {
@@ -47,31 +47,40 @@ void StreetVicinityLoader::LoadStreet(uint32_t featureId, Street & street)
   if (!feature)
     return;
 
-  bool const isStreet = feature->GetGeomType() == feature::GeomType::Line &&
-                        ftypes::IsWayChecker::Instance()(*feature);
-  bool const isSquareOrSuburb = ftypes::IsSquareChecker::Instance()(*feature) ||
-                                ftypes::IsSuburbChecker::Instance()(*feature);
-  if (!isStreet && !isSquareOrSuburb)
+  bool const isStreet =
+      (feature->GetGeomType() == feature::GeomType::Line &&
+       ftypes::IsWayChecker::Instance()(*feature)) ||
+      ftypes::IsSquareChecker::Instance()(*feature);
+  if (!isStreet)
     return;
 
-  std::vector<m2::PointD> points;
+  /// @todo Can be optimized here. Do not aggregate rect, but aggregate covering intervals for each segment, instead.
+  auto const sumRect = [&street, this](m2::PointD const & pt)
+  {
+    street.m_rect.Add(mercator::RectByCenterXYAndSizeInMeters(pt, m_offsetMeters));
+  };
+
   if (feature->GetGeomType() == feature::GeomType::Area)
   {
-    points = feature->GetTrianglesAsPoints(FeatureType::BEST_GEOMETRY);
+    feature->ForEachTriangle([&sumRect](m2::PointD const & p1, m2::PointD const & p2, m2::PointD const & p3)
+                             {
+                               sumRect(p1);
+                               sumRect(p2);
+                               sumRect(p3);
+                             }, FeatureType::BEST_GEOMETRY);
   }
   else
-  {
-    feature->ForEachPoint(base::MakeBackInsertFunctor(points), FeatureType::BEST_GEOMETRY);
-  }
-  ASSERT(!points.empty(), ());
-
-  for (auto const & point : points)
-    street.m_rect.Add(mercator::RectByCenterXYAndSizeInMeters(point, m_offsetMeters));
+    feature->ForEachPoint(sumRect, FeatureType::BEST_GEOMETRY);
+  ASSERT(street.m_rect.IsValid(), ());
 
   covering::CoveringGetter coveringGetter(street.m_rect, covering::ViewportWithLowLevels);
   auto const & intervals = coveringGetter.Get<RectId::DEPTH_LEVELS>(m_scale);
-  m_context->ForEachIndex(intervals, m_scale, base::MakeBackInsertFunctor(street.m_features));
+  m_context->ForEachIndex(intervals, m_scale, [this, &street, featureId](uint32_t id)
+  {
+    if (m_context->GetStreet(id) == featureId)
+      street.m_features.push_back(id);
+  });
 
-  street.m_calculator = std::make_unique<ProjectionOnStreetCalculator>(points);
+  //street.m_calculator = std::make_unique<ProjectionOnStreetCalculator>(points);
 }
 }  // namespace search

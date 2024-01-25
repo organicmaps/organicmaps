@@ -10,7 +10,7 @@
 "search" = "Bilatu";
 
 /* Used in home screen quick actions. */
-"bookmarks" = "Markagailuak";
+"bookmarks_and_tracks" = "Markagailuak eta ibilbideak";
 
 /* Used in home screen quick actions. */
 "route" = "Ibilbidea";

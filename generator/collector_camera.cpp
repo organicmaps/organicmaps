@@ -14,10 +14,8 @@
 #include "platform/measurement_utils.hpp"
 #include "platform/platform.hpp"
 
-#include "coding/internal/file_data.hpp"
 #include "coding/point_coding.hpp"
 #include "coding/reader.hpp"
-#include "coding/reader_writer_ops.hpp"
 #include "coding/write_to_sink.hpp"
 #include "coding/writer.hpp"
 
@@ -25,16 +23,12 @@
 
 #include "base/assert.hpp"
 #include "base/logging.hpp"
-#include "base/string_utils.hpp"
 
 #include <algorithm>
-#include <iterator>
+
 
 namespace routing_builder
 {
-using namespace feature;
-
-size_t const CameraProcessor::kMaxSpeedSpeedStringLength = 32;
 
 std::optional<double> GetMaxSpeedKmPH(std::string const & maxSpeedString)
 {
@@ -49,13 +43,14 @@ std::optional<double> GetMaxSpeedKmPH(std::string const & maxSpeedString)
   return {speedKmPh};
 }
 
-CameraProcessor::CameraInfo::CameraInfo(OsmElement const & element)
+CameraCollector::CameraInfo::CameraInfo(OsmElement const & element)
   : m_id(element.m_id)
   , m_lon(element.m_lon)
   , m_lat(element.m_lat)
 {
+  // Filter long "maxspeed" dummy strings.
   auto const maxspeed = element.GetTag("maxspeed");
-  if (maxspeed.empty() || maxspeed.size() > kMaxSpeedSpeedStringLength)
+  if (maxspeed.empty() || maxspeed.size() > 32)
     return;
 
   if (auto const validatedMaxspeed = GetMaxSpeedKmPH(maxspeed))
@@ -64,11 +59,12 @@ CameraProcessor::CameraInfo::CameraInfo(OsmElement const & element)
     LOG(LWARNING, ("Bad speed format of camera:", maxspeed, ", osmId:", element.m_id));
 }
 
-void CameraProcessor::CameraInfo::Normalize() { std::sort(std::begin(m_ways), std::end(m_ways)); }
-
 // static
-CameraProcessor::CameraInfo CameraProcessor::CameraInfo::Read(ReaderSource<FileReader> & src)
+CameraCollector::CameraInfo CameraCollector::CameraInfo::Read(ReaderSource<FileReader> & src)
 {
+  /// @todo Take out intermediate camera info serialization code.
+  /// Should be equal with CamerasInfoCollector::ParseIntermediateInfo.
+
   CameraInfo camera;
   auto const latInt = ReadPrimitiveFromSource<uint32_t>(src);
   auto const lonInt = ReadPrimitiveFromSource<uint32_t>(src);
@@ -84,7 +80,7 @@ CameraProcessor::CameraInfo CameraProcessor::CameraInfo::Read(ReaderSource<FileR
 }
 
 // static
-void CameraProcessor::CameraInfo::Write(FileWriter & writer, CameraInfo const & camera)
+void CameraCollector::CameraInfo::Write(FileWriter & writer, CameraInfo const & camera)
 {
   uint32_t const lat =
       DoubleToUint32(camera.m_lat, ms::LatLon::kMinLat, ms::LatLon::kMaxLat, kPointCoordBits);
@@ -102,133 +98,88 @@ void CameraProcessor::CameraInfo::Write(FileWriter & writer, CameraInfo const & 
     WriteToSink(writer, wayId);
 }
 
-CameraProcessor::CameraProcessor(std::string const & filename)
-  : m_waysFilename(filename + ".roads_ids"), m_waysWriter(std::make_unique<FileWriter>(m_waysFilename)) {}
-
-CameraProcessor::~CameraProcessor()
+void CameraCollector::FillCameraInWays()
 {
-  CHECK(Platform::RemoveFileIfExists(m_waysFilename), ());
-}
-
-void CameraProcessor::ProcessWay(OsmElement const & element)
-{
-  WriteToSink(*m_waysWriter, element.m_id);
-  rw::WriteVectorOfPOD(*m_waysWriter, element.m_nodes);
-}
-
-void CameraProcessor::FillCameraInWays()
-{
-  FileReader reader(m_waysFilename);
-  ReaderSource<FileReader> src(reader);
-  while (src.Size() > 0)
+  for (uint64_t id : m_roadOsmIDs)
   {
-    uint64_t wayId = ReadPrimitiveFromSource<uint64_t>(src);
-    std::vector<uint64_t> nodes;
-    rw::ReadVectorOfPOD(src, nodes);
-    for (auto const & node : nodes)
-    {
-      auto const itCamera = m_speedCameras.find(node);
-      if (itCamera == m_speedCameras.cend())
-        continue;
+    WayElement way(id);
+    CHECK(m_cache->GetWay(id, way), ());
 
-      m_cameraToWays[itCamera->first].push_back(wayId);
+    for (auto const & node : way.m_nodes)
+    {
+      auto it = m_speedCameras.find(node);
+      if (it != m_speedCameras.cend())
+        it->second.m_ways.push_back(id);
     }
   }
 
-  std::vector<uint64_t> empty;
-  for (auto & p : m_speedCameras)
-    p.second.m_ways = m_cameraToWays.count(p.first) != 0 ? m_cameraToWays.at(p.first) : empty;
-
-  ForEachCamera([](auto & c) { c.Normalize(); });
-}
-
-void CameraProcessor::ProcessNode(OsmElement const & element)
-{
-  CameraInfo camera(element);
-  m_speedCameras.emplace(element.m_id, std::move(camera));
-}
-
-void CameraProcessor::Finish()
-{
-  m_waysWriter.reset({});
-}
-
-void CameraProcessor::Merge(CameraProcessor const & cameraProcessor)
-{
-  auto const & otherCameras = cameraProcessor.m_speedCameras;
-  m_speedCameras.insert(std::begin(otherCameras), std::end(otherCameras));
-
-  base::AppendFileToFile(cameraProcessor.m_waysFilename, m_waysFilename);
-}
-
-void CameraProcessor::Save(std::string const & filename)
-{
-  FillCameraInWays();
-  FileWriter writer(filename);
-  ForEachCamera([&](auto const & camera) { CameraInfo::Write(writer, camera); });
-}
-
-void CameraProcessor::OrderCollectedData(std::string const & filename)
-{
-  std::vector<CameraProcessor::CameraInfo> collectedData;
+  size_t detachedCameras = 0;
+  ForEachCamera([&detachedCameras](auto & c)
   {
-    FileReader reader(filename);
-    ReaderSource src(reader);
-    while (src.Size() > 0)
-      collectedData.emplace_back(CameraInfo::Read(src));
-  }
-  std::sort(std::begin(collectedData), std::end(collectedData));
-  FileWriter writer(filename);
-  for (auto const & camera : collectedData)
-    CameraInfo::Write(writer, camera);
-}
+    if (c.m_ways.empty())
+      ++detachedCameras;
+    else
+      base::SortUnique(c.m_ways);
+  });
 
-CameraCollector::CameraCollector(std::string const & filename) :
-  generator::CollectorInterface(filename), m_processor(GetTmpFilename()) {}
-
-std::shared_ptr<generator::CollectorInterface> CameraCollector::Clone(
-    std::shared_ptr<generator::cache::IntermediateDataReaderInterface> const &) const
-{
-  return std::make_shared<CameraCollector>(GetFilename());
-}
-
-void CameraCollector::CollectFeature(FeatureBuilder const & feature, OsmElement const & element)
-{
-  switch (element.m_type)
-  {
-  case OsmElement::EntityType::Node:
-  {
-    if (ftypes::IsSpeedCamChecker::Instance()(feature.GetTypes()))
-      m_processor.ProcessNode(element);
-    break;
-  }
-  case OsmElement::EntityType::Way:
-  {
-    if (routing::IsCarRoad(feature.GetTypes()))
-      m_processor.ProcessWay(element);
-    break;
-  }
-  default:
-    break;
-  }
-}
-
-void CameraCollector::Finish()
-{
-  m_processor.Finish();
-}
-
-void CameraCollector::Save() { m_processor.Save(GetFilename()); }
-
-void CameraCollector::OrderCollectedData() { m_processor.OrderCollectedData(GetFilename()); }
-
-void CameraCollector::Merge(generator::CollectorInterface const & collector)
-{
-  collector.MergeInto(*this);
+  LOG(LINFO, ("Total cameras count:", m_speedCameras.size(), "Detached cameras count:", detachedCameras));
 }
 
 void CameraCollector::MergeInto(CameraCollector & collector) const
 {
-  collector.m_processor.Merge(m_processor);
+  collector.m_speedCameras.insert(m_speedCameras.begin(), m_speedCameras.end());
+  collector.m_roadOsmIDs.insert(collector.m_roadOsmIDs.end(), m_roadOsmIDs.begin(), m_roadOsmIDs.end());
 }
+
+void CameraCollector::Save()
+{
+  LOG(LINFO, ("Saving speed cameras to", GetFilename()));
+
+  FillCameraInWays();
+
+  FileWriter writer(GetFilename());
+  ForEachCamera([&](auto const & camera) { CameraInfo::Write(writer, camera); });
+}
+
+void CameraCollector::OrderCollectedData()
+{
+  std::vector<CameraInfo> collectedData;
+  {
+    FileReader reader(GetFilename());
+    ReaderSource src(reader);
+    while (src.Size() > 0)
+      collectedData.emplace_back(CameraInfo::Read(src));
+  }
+
+  std::sort(std::begin(collectedData), std::end(collectedData));
+
+  FileWriter writer(GetFilename());
+  for (auto const & camera : collectedData)
+    CameraInfo::Write(writer, camera);
+}
+
+CameraCollector::CameraCollector(std::string const & filename, IDRInterfacePtr cache)
+  : generator::CollectorInterface(filename), m_cache(std::move(cache))
+{
+}
+
+std::shared_ptr<generator::CollectorInterface> CameraCollector::Clone(IDRInterfacePtr const & cache) const
+{
+  return std::make_shared<CameraCollector>(GetFilename(), cache);
+}
+
+void CameraCollector::CollectFeature(feature::FeatureBuilder const & fb, OsmElement const & element)
+{
+  if (element.m_type == OsmElement::EntityType::Node)
+  {
+    if (ftypes::IsSpeedCamChecker::Instance()(fb.GetTypes()))
+      m_speedCameras.emplace(element.m_id, element);
+  }
+  else if (element.m_type == OsmElement::EntityType::Way)
+  {
+    if (fb.IsLine() && routing::IsCarRoad(fb.GetTypes()))
+      m_roadOsmIDs.push_back(element.m_id);
+  }
+}
+
 }  // namespace routing_builder

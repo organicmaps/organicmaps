@@ -1,5 +1,4 @@
 @import("colors.mapcss");
-@import("../include/common_colors.mapcss");
 @import("../include/defaults_new.mapcss");
 @import("../include/Basemap.mapcss");
 @import("../include/Basemap_label.mapcss");
@@ -7,15 +6,6 @@
 @import("../include/Roads_label.mapcss");
 @import("../include/Icons.mapcss");
 @import("../include/Subways.mapcss");
-
-
-canvas
-{
-  background-color: @background;
-  fill-color: @water;
-  default-lines: false;
-  default-points: false;
-}
 
 colors
 {
@@ -31,19 +21,25 @@ colors
   RouteTrafficG1-color: #E82705;
   RouteTrafficG2-color: #E82705;
   RouteTrafficG3-color: #FFE500;
-  RouteTrafficG3-opacity: @traffic_arrow_dark;
+  RouteTrafficG3-opacity: 0.0;
   RoutePedestrian-color: #1D339E;
   RoutePedestrian-opacity: 0.8;
   RouteBicycle-color: #9C27B0;
   RouteBicycle-opacity: 0.8;
+  RouteRuler-color: #66347F;
+  RouteRuler-opacity: 0.9;
   RoutePreview-color: #000000;
   RoutePreview-opacity: 0.3;
   RouteMaskCar-color: #000000;
   RouteMaskCar-opacity: 0.3;
+  RouteFirstSegmentArrowsMaskCar-color: #033B80;
+  RouteFirstSegmentArrowsMaskCar-opacity: 0.0;
   RouteArrowsMaskCar-color: #033B80;
   RouteArrowsMaskCar-opacity: 0.2;
   RouteMaskBicycle-color: #000000;
   RouteMaskBicycle-opacity: 0.5;
+  RouteFirstSegmentArrowsMaskBicycle-color: #9C27B0;
+  RouteFirstSegmentArrowsMaskBicycle-opacity: 0.0;
   RouteArrowsMaskBicycle-color: #9C27B0;
   RouteArrowsMaskBicycle-opacity: 0.2;
   RouteMaskPedestrian-color: #000000;
@@ -64,7 +60,7 @@ colors
   TrafficG1-color: #E42300;
   TrafficG2-color: #E42300;
   TrafficG3-color: #FCDE00;
-  TrafficG3-opacity: @traffic_arrow_dark;
+  TrafficG3-opacity: 0.0;
   TrafficG4-color: #39962E;
   TrafficG5-color: #39962E;
   TrafficTempBlock-color: #525252;

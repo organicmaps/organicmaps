@@ -2,29 +2,28 @@
 
 namespace traffic
 {
-using namespace std;
 
-void TrafficCache::Set(MwmSet::MwmId const & mwmId, shared_ptr<TrafficInfo::Coloring const> coloring)
+void TrafficCache::Set(MwmSet::MwmId const & mwmId, std::shared_ptr<TrafficInfo::Coloring const> coloring)
 {
-  lock_guard<mutex> guard(mutex);
-  m_trafficColoring[mwmId] = coloring;
+  auto guard = std::lock_guard(m_mutex);
+  m_trafficColoring[mwmId] = std::move(coloring);
 }
 
 void TrafficCache::Remove(MwmSet::MwmId const & mwmId)
 {
-  lock_guard<mutex> guard(mutex);
+  auto guard = std::lock_guard(m_mutex);
   m_trafficColoring.erase(mwmId);
 }
 
 void TrafficCache::CopyTraffic(AllMwmTrafficInfo & trafficColoring) const
 {
-  lock_guard<mutex> guard(mutex);
+  auto guard = std::lock_guard(m_mutex);
   trafficColoring = m_trafficColoring;
 }
 
 void TrafficCache::Clear()
 {
-  lock_guard<mutex> guard(mutex);
+  auto guard = std::lock_guard(m_mutex);
   m_trafficColoring.clear();
 }
 }  // namespace traffic

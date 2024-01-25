@@ -69,9 +69,9 @@
       <key>NSStringFormatValueTypeKey</key>
       <string>d</string>
       <key>one</key>
-      <string>%d Strecke</string>
+      <string>%d Track</string>
       <key>other</key>
-      <string>%d Strecken</string>
+      <string>%d Tracks</string>
     </dict>
   </dict>
 </dict>

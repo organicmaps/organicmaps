@@ -5,6 +5,7 @@
 #include "coding/point_coding.hpp"
 
 #include "base/assert.hpp"
+#include "base/internal/message.hpp"  // DebugPrint(Timestamp)
 #include "base/visitor.hpp"
 
 #include <string>
@@ -352,8 +353,7 @@ struct TrackData
   {
     return m_id == data.m_id && m_localId == data.m_localId && m_name == data.m_name &&
            m_description == data.m_description && m_layers == data.m_layers &&
-           IsEqual(m_timestamp, data.m_timestamp) &&
-           m_geometry == data.m_geometry &&
+           IsEqual(m_timestamp, data.m_timestamp) && m_geometry == data.m_geometry &&
            m_visible == data.m_visible && m_nearestToponyms == data.m_nearestToponyms &&
            m_properties == data.m_properties;
   }
@@ -503,4 +503,10 @@ inline std::string DebugPrint(BookmarkIcon icon)
 {
   return ToString(icon);
 }
+
+inline std::string DebugPrint(TimestampMillis const & ts)
+{
+  return ::DebugPrint(static_cast<Timestamp>(ts));
+}
+
 }  // namespace kml

@@ -67,7 +67,7 @@ std::string GetLocalizedFeatureType(std::vector<uint32_t> const & types)
   return platform::GetLocalizedTypeName(c.GetReadableObjectName(type));
 }
 
-std::string GetPreferredBookmarkName(BookmarkData const & bmData, std::string const & languageOrig)
+std::string GetPreferredBookmarkName(BookmarkData const & bmData, std::string_view languageOrig)
 {
   auto const languageNorm = languages::Normalize(languageOrig);
   std::string name = GetPreferredBookmarkStr(bmData.m_customName, languageNorm);

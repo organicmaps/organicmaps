@@ -72,6 +72,7 @@
 /* TRANSPORT */
 @railway_light: #B2B1A2;
 @railway: #8C8B80;
+@railway_tourism: #9C7D65;
 @railway_dash: #EEEEEE;
 @railway_tunnel: #808080;
 @aerialway: #444444;
@@ -90,6 +91,7 @@
 /* NATURAL */
 @glacier: #FFFFFF;
 @water: #8BD3E0;
+@water_bad: #9dc7c1;
 /*@water_1: #9AD2D9;*/
 @river: #36B0BF;
 /*@river_1: #9AD2D9;*/
@@ -111,7 +113,7 @@
 @green6: #888C38;
 
 /* BUILDINGS */
-@housename: #65655E;
+@housenumber: #65655E;
 @building_label: #61615A;
 @building: #D4D3CA;/*#C9C8BB;*/
 @building_dark: #C7C6BF;/*#C2C0B3;*/
@@ -130,7 +132,9 @@
 @parking: #F2F2CE;
 @parking_l: #FCFCC2;/*#F0EBC5;DCDCB9; #F2F2CE;*/
 @military: #E53935;
+@prison: #727272;
 @farmland: #ededc3;
+@farmyard: #e8dabb;
 
 /* BARRIERS */
 @fence: #888888;

@@ -24,13 +24,13 @@ namespace osmoh
       using osmoh::Timespan;
 
       hour_minutes =
-      (hours >> lit(':') >> minutes) [bind(&HourMinutes::AddDuration, _val, _1),
-                                      bind(&HourMinutes::AddDuration, _val, _2)]
+      (hours >> lit(':') >> minutes) [(bind(&HourMinutes::AddDuration, _val, _1),
+                                       bind(&HourMinutes::AddDuration, _val, _2))]
       ;
 
       extended_hour_minutes =
-      (exthours >> lit(':') >> minutes)[bind(&HourMinutes::AddDuration, _val, _1),
-                                        bind(&HourMinutes::AddDuration, _val, _2)]
+      (exthours >> lit(':') >> minutes)[(bind(&HourMinutes::AddDuration, _val, _1),
+                                         bind(&HourMinutes::AddDuration, _val, _2))]
       ;
 
       variable_time =
@@ -53,27 +53,27 @@ namespace osmoh
 
       timespan =
       (time >> dash >> extended_time >> '/' >> hour_minutes)
-      [bind(&Timespan::SetStart, _val, _1),
-       bind(&Timespan::SetEnd, _val, _2),
-       bind(&Timespan::SetPeriod, _val, _3)]
+      [(bind(&Timespan::SetStart, _val, _1),
+        bind(&Timespan::SetEnd, _val, _2),
+        bind(&Timespan::SetPeriod, _val, _3))]
 
       | (time >> dash >> extended_time >> '/' >> minutes)
-      [bind(&Timespan::SetStart, _val, _1),
-       bind(&Timespan::SetEnd, _val, _2),
-       bind(&Timespan::SetPeriod, _val, _3)]
+      [(bind(&Timespan::SetStart, _val, _1),
+        bind(&Timespan::SetEnd, _val, _2),
+        bind(&Timespan::SetPeriod, _val, _3))]
 
       | (time >> dash >> extended_time >> '+')
-      [bind(&Timespan::SetStart, _val, _1),
-       bind(&Timespan::SetEnd, _val, _2),
-       bind(&Timespan::SetPlus, _val, true)]
+      [(bind(&Timespan::SetStart, _val, _1),
+        bind(&Timespan::SetEnd, _val, _2),
+        bind(&Timespan::SetPlus, _val, true))]
 
       | (time >> dash >> extended_time)
-      [bind(&Timespan::SetStart, _val, _1),
-       bind(&Timespan::SetEnd, _val, _2)]
+      [(bind(&Timespan::SetStart, _val, _1),
+        bind(&Timespan::SetEnd, _val, _2))]
 
       | (time >> '+')
-      [bind(&Timespan::SetStart, _val, _1),
-       bind(&Timespan::SetPlus, _val, true)]
+      [(bind(&Timespan::SetStart, _val, _1),
+        bind(&Timespan::SetPlus, _val, true))]
 
       // This rule is only used for collection_times tag wish is not in our interest.
       // | time[bind(&Timespan::SetStart, _val, _1)]

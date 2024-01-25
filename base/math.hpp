@@ -82,7 +82,7 @@ Float constexpr RadToDeg(Float rad)
 }
 
 template <typename T>
-T Clamp(T const x, T const xmin, T const xmax)
+constexpr T Clamp(T const x, T const xmin, T const xmax)
 {
   if (x > xmax)
     return xmax;

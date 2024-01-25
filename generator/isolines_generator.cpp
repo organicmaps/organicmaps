@@ -67,7 +67,7 @@ void IsolineFeaturesGenerator::GenerateIsolines(std::string const & countryName,
     return;
   }
   LOG(LINFO, ("Generating isolines for", countryName));
-  for (auto const & levelIsolines : countryIsolines.m_contours)
+  for (auto & levelIsolines : countryIsolines.m_contours)
   {
     auto const altitude = levelIsolines.first;
     auto const isolineName = GetIsolineName(altitude, countryIsolines.m_valueStep,
@@ -79,14 +79,15 @@ void IsolineFeaturesGenerator::GenerateIsolines(std::string const & countryName,
       continue;
     }
 
-    for (auto const & isoline : levelIsolines.second)
+    for (auto & isoline : levelIsolines.second)
     {
       feature::FeatureBuilder fb;
-      for (auto const & pt : isoline)
-        fb.AddPoint(pt);
+      fb.AssignPoints(std::move(isoline));
+
       fb.AddType(isolineType);
       if (!isolineName.empty())
-        fb.AddName("default", isolineName);
+        fb.SetName(StringUtf8Multilang::kDefaultCode, isolineName);
+
       fb.SetLinear();
       fn(std::move(fb));
     }

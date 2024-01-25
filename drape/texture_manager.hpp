@@ -79,6 +79,8 @@ public:
     std::string m_colors;
     std::string m_patterns;
     GlyphManager::Params m_glyphMngParams;
+    std::optional<std::string> m_arrowTexturePath;
+    bool m_arrowTextureUseDefaultResourceFolder = false;
   };
 
   explicit TextureManager(ref_ptr<GlyphGenerator> glyphGenerator);
@@ -113,8 +115,15 @@ public:
   ref_ptr<Texture> GetSymbolsTexture() const;
   ref_ptr<Texture> GetTrafficArrowTexture() const;
   ref_ptr<Texture> GetHatchingTexture() const;
+  ref_ptr<Texture> GetArrowTexture() const;
   ref_ptr<Texture> GetSMAAAreaTexture() const;
   ref_ptr<Texture> GetSMAASearchTexture() const;
+
+  void InvalidateArrowTexture(ref_ptr<dp::GraphicsContext> context,
+                              std::optional<std::string> const & texturePath = std::nullopt,
+                              bool useDefaultResourceFolder = false);
+  // Apply must be called on FrontendRenderer.
+  void ApplyInvalidatedStaticTextures();
 
 private:
   struct GlyphGroup
@@ -224,8 +233,11 @@ private:
 
   drape_ptr<Texture> m_trafficArrowTexture;
   drape_ptr<Texture> m_hatchingTexture;
+  drape_ptr<Texture> m_arrowTexture;
   drape_ptr<Texture> m_smaaAreaTexture;
   drape_ptr<Texture> m_smaaSearchTexture;
+
+  drape_ptr<Texture> m_newArrowTexture;
 
   drape_ptr<GlyphManager> m_glyphManager;
   drape_ptr<HWTextureAllocator> m_textureAllocator;

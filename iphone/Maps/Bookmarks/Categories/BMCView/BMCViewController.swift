@@ -120,7 +120,7 @@ final class BMCViewController: MWMViewController {
       ppc.sourceRect = anchor.bounds
     }
 
-    let settings = L("list_settings")
+    let settings = L("edit")
     actionSheet.addAction(UIAlertAction(title: settings, style: .default, handler: { _ in
       self.openCategorySettings(category: category)
     }))

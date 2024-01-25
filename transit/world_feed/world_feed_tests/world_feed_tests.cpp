@@ -311,25 +311,25 @@ UNIT_TEST(Transit_GTFS_ProjectStopToLine_MaxDistance)
                                           Direction::Forward, shape), ());
 }
 
-// Complex shape with multiple points on it and multiple stops for projection.
-//
-//                   +-----+
-//              C*  /       \
-//          /+\    /         \  *D
-//       + /    \+/           \
-//      /                     +
-//     /                      |       *E
-//    +                       +-----+
-//    |                             |
-//    |                             |
-//    +---+\                  +-----+
-//          \                 |
-//       B*  +                |
-//       A*   \     +---------+
-//             +    |
-//             |    +
-//             +         *F
-//
+/* Complex shape with multiple points on it and multiple stops for projection.
+ *
+ *                   +-----+
+ *              C*  /       \
+ *          /+\    /         \  *D
+ *       + /    \+/           \
+ *      /                     +
+ *     /                      |       *E
+ *    +                       +-----+
+ *    |                             |
+ *    |                             |
+ *    +---+\                  +-----+
+ *          \                 |
+ *       B*  +                |
+ *       A*   \     +---------+
+ *             +    |
+ *             |    +
+ *             +         *F
+ */
 UNIT_TEST(Transit_GTFS_ProjectStopToLine_NearCircle)
 {
   // index, was inserted

@@ -48,7 +48,7 @@ bool ParseSelector(string const & str, SelectorExpression & e)
       return false; // invalid format
 
     e.m_operator = SelectorOperatorIsNotSet;
-    e.m_tag = move(tag);
+    e.m_tag = std::move(tag);
     e.m_value.clear();
     return true;
   }
@@ -117,7 +117,7 @@ bool ParseSelector(string const & str, SelectorExpression & e)
     return false; // invalid format
 
   e.m_operator = op;
-  e.m_tag = move(tag);
+  e.m_tag = std::move(tag);
   e.m_value = string(str.begin() + pos + len, str.end());
   return true;
 }

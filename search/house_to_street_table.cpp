@@ -29,7 +29,7 @@ class EliasFanoMap : public HouseToStreetTable
 public:
   using Map = MapUint32ToValue<uint32_t>;
 
-  explicit EliasFanoMap(unique_ptr<Reader> && reader) : m_reader(move(reader))
+  explicit EliasFanoMap(unique_ptr<Reader> && reader) : m_reader(std::move(reader))
   {
     ASSERT(m_reader, ());
     auto readBlockCallback = [](auto & source, uint32_t blockSize, vector<uint32_t> & values)
@@ -69,9 +69,8 @@ public:
   // HouseToStreetTable overrides:
   std::optional<Result> Get(uint32_t /* houseId */) const override { return {}; }
 };
-}  // namespace
 
-unique_ptr<HouseToStreetTable> LoadHouseToStreetTable(MwmValue const & value)
+unique_ptr<HouseToStreetTable> LoadHouseTableImpl(MwmValue const & value, std::string const & tag)
 {
   unique_ptr<HouseToStreetTable> result;
 
@@ -80,7 +79,7 @@ unique_ptr<HouseToStreetTable> LoadHouseToStreetTable(MwmValue const & value)
     auto const format = version::MwmTraits(value.GetMwmVersion()).GetHouseToStreetTableFormat();
     CHECK_EQUAL(format, version::MwmTraits::HouseToStreetTableFormat::HouseToStreetTableWithHeader, ());
 
-    FilesContainerR::TReader reader = value.m_cont.GetReader(SEARCH_ADDRESS_FILE_TAG);
+    FilesContainerR::TReader reader = value.m_cont.GetReader(tag);
 
     HouseToStreetTable::Header header;
     ReaderSource source(reader);
@@ -89,7 +88,7 @@ unique_ptr<HouseToStreetTable> LoadHouseToStreetTable(MwmValue const & value)
 
     auto subreader = reader.GetPtr()->CreateSubReader(header.m_tableOffset, header.m_tableSize);
     CHECK(subreader, ());
-    result = make_unique<EliasFanoMap>(move(subreader));
+    result = make_unique<EliasFanoMap>(std::move(subreader));
   }
   catch (Reader::OpenException const & ex)
   {
@@ -99,6 +98,17 @@ unique_ptr<HouseToStreetTable> LoadHouseToStreetTable(MwmValue const & value)
   if (!result)
     result = make_unique<DummyTable>();
   return result;
+}
+} // namespace
+
+std::unique_ptr<HouseToStreetTable> LoadHouseToStreetTable(MwmValue const & value)
+{
+  return LoadHouseTableImpl(value, FEATURE2STREET_FILE_TAG);
+}
+
+std::unique_ptr<HouseToStreetTable> LoadHouseToPlaceTable(MwmValue const & value)
+{
+  return LoadHouseTableImpl(value, FEATURE2PLACE_FILE_TAG);
 }
 
 // HouseToStreetTableBuilder -----------------------------------------------------------------------

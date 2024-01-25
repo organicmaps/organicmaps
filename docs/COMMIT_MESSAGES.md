@@ -24,7 +24,7 @@ Any commit needs a helpful message. Mind the following guidelines when committin
 
 4. Start a sentence with a capital letter.
 5. Do not end the subject line with a period.
-6. Do not put "gh-xx", "closes #xxx" to the subject line.
+6. Do not put "gh-xx", "closes #xxx" in the subject line.
 7. Use the imperative mood in the subject line.
 
    - A properly formed Git commit subject line should always be able to complete

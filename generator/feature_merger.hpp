@@ -28,7 +28,7 @@ public:
 
   bool EqualGeometry(MergedFeatureBuilder const & fb) const;
 
-  inline bool NotEmpty() const { return !GetOuterGeometry().empty(); }
+  inline bool NotEmpty() const { return !GetGeometry().empty(); }
 
   inline m2::PointD FirstPoint() const { return GetOuterGeometry().front(); }
   inline m2::PointD LastPoint() const { return GetOuterGeometry().back(); }
@@ -51,7 +51,8 @@ public:
   std::pair<m2::PointD, bool> GetKeyPoint(size_t i) const;
   size_t GetKeyPointsCount() const;
 
-  double GetPriority() const;
+  // Used to determine which connected line to merge.
+  double GetSquaredLength() const;
 };
 
 /// Feature merger.

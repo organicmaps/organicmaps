@@ -2,6 +2,7 @@
 
 #include "std/target_os.hpp"
 
+#include <utf8cpp/utf8/unchecked.h>
 
 std::string DebugPrint(std::string const & t)
 {
@@ -29,3 +30,13 @@ std::string DebugPrint(std::string const & t)
   return t;
 #endif
 }
+
+namespace internal
+{
+std::string ToUtf8(std::u16string_view utf16)
+{
+  std::string utf8;
+  utf8::unchecked::utf16to8(utf16.begin(), utf16.end(), utf8.begin());
+  return utf8;
+}
+}  // namespace internal

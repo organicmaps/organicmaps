@@ -1,431 +1,458 @@
 #include "generator/collector_routing_city_boundaries.hpp"
 
-#include "generator/final_processor_utils.hpp"
 #include "generator/intermediate_data.hpp"
 #include "generator/osm_element.hpp"
 #include "generator/osm_element_helpers.hpp"
 
-#include "indexer/classificator.hpp"
+#include "indexer/feature_algo.hpp"
 #include "indexer/ftypes_matcher.hpp"
 
-#include "coding/internal/file_data.hpp"
-#include "coding/point_coding.hpp"
-
-#include "geometry/area_on_earth.hpp"
 #include "geometry/mercator.hpp"
 
+#include "coding/read_write_utils.hpp"
+
 #include "base/assert.hpp"
-#include "base/string_utils.hpp"
 
 #include <algorithm>
 #include <iterator>
 
-using namespace feature;
-using namespace feature::serialization_policy;
-
-namespace
-{
-std::optional<uint64_t> GetPlaceNodeFromMembers(OsmElement const & element)
-{
-  uint64_t adminCentreRef = 0;
-  uint64_t labelRef = 0;
-  for (auto const & member : element.m_members)
-  {
-    if (member.m_type == OsmElement::EntityType::Node)
-    {
-      if (member.m_role == "admin_centre")
-        adminCentreRef = member.m_ref;
-      else if (member.m_role == "label")
-        labelRef = member.m_ref;
-    }
-  }
-
-  if (labelRef)
-    return labelRef;
-
-  if (adminCentreRef)
-    return adminCentreRef;
-
-  return {};
-}
-
-bool IsSuitablePlaceType(ftypes::LocalityType localityType)
-{
-  switch (localityType)
-  {
-  case ftypes::LocalityType::City:
-  case ftypes::LocalityType::Town:
-  case ftypes::LocalityType::Village: return true;
-  default: return false;
-  }
-}
-
-ftypes::LocalityType GetPlaceLocalityType(FeatureBuilder const & feature)
-{
-  return ftypes::IsLocalityChecker::Instance().GetType(feature.GetTypesHolder());
-}
-
-void TruncateAndWriteCount(std::string const & file, size_t n)
-{
-  FileWriter writer(file, FileWriter::Op::OP_WRITE_TRUNCATE);
-  WriteToSink(writer, n);
-}
-}  // namespace
-
 namespace generator
 {
-// RoutingCityBoundariesCollector::LocalityData ----------------------------------------------------
+using namespace feature;
+using ftypes::LocalityType;
 
-// static
-bool RoutingCityBoundariesCollector::FilterOsmElement(OsmElement const & osmElement)
+// PlaceBoundariesHolder::Locality ----------------------------------------------------------------
+
+PlaceBoundariesHolder::Locality::Locality(std::string const & placeType, OsmElement const & elem)
+  : m_adminLevel(osm_element::GetAdminLevel(elem))
+  , m_name(elem.GetTag("name"))
+  , m_population(osm_element::GetPopulation(elem))
+  , m_place(ftypes::LocalityFromString(placeType))
 {
-  static std::set<std::string> const kSuitablePlaceValues = {"city", "town", "village", "hamlet"};
-  if (osmElement.IsNode())
-  {
-    if (!osmElement.HasTag("population"))
-      return false;
+}
 
-    auto const place = osmElement.GetTag("place");
-    if (place.empty())
-      return false;
+template <class Sink> void PlaceBoundariesHolder::Locality::Serialize(Sink & sink) const
+{
+  CHECK(TestValid(), ());
 
-    return kSuitablePlaceValues.count(place) != 0;
-  }
+  WriteToSink(sink, static_cast<int8_t>(m_place));
+  WriteToSink(sink, static_cast<int8_t>(m_placeFromNode));
+  WriteVarUint(sink, m_population);
+  WriteVarUint(sink, m_populationFromNode);
+  WriteToSink(sink, m_adminLevel);
 
-  auto const place = osmElement.GetTag("place");
-  if (!place.empty() && kSuitablePlaceValues.count(place) != 0)
+  rw::WritePOD(sink, m_center);
+
+  // Same as FeatureBuilder::SerializeAccuratelyForIntermediate.
+  WriteVarUint(sink, static_cast<uint32_t>(m_boundary.size()));
+  for (auto const & e : m_boundary)
+    rw::WriteVectorOfPOD(sink, e);
+}
+
+template <class Source> void PlaceBoundariesHolder::Locality::Deserialize(Source & src)
+{
+  m_place = static_cast<LocalityType>(ReadPrimitiveFromSource<int8_t>(src));
+  m_placeFromNode = static_cast<LocalityType>(ReadPrimitiveFromSource<int8_t>(src));
+  m_population = ReadVarUint<uint64_t>(src);
+  m_populationFromNode = ReadVarUint<uint64_t>(src);
+  m_adminLevel = ReadPrimitiveFromSource<uint8_t>(src);
+
+  rw::ReadPOD(src, m_center);
+
+  // Same as FeatureBuilder::DeserializeAccuratelyFromIntermediate.
+  m_boundary.resize(ReadVarUint<uint32_t>(src));
+  for (auto & e : m_boundary)
+    rw::ReadVectorOfPOD(src, e);
+
+  RecalcBoundaryRect();
+
+  CHECK(TestValid(), ());
+}
+
+bool PlaceBoundariesHolder::Locality::IsBetterBoundary(Locality const & rhs, std::string const & placeName) const
+{
+  // This function is called for boundary relations only.
+  CHECK(!m_boundary.empty() && !rhs.m_boundary.empty(), ());
+
+  if (IsHonestCity() && !rhs.IsHonestCity())
     return true;
-
-  if (osmElement.IsWay())
+  if (!IsHonestCity() && rhs.IsHonestCity())
     return false;
 
-  // We don't check here "type=boundary" and "boundary=administrative" because some OSM'ers prefer
-  // map boundaries without such tags in some countries (for example in Russia).
-  for (auto const & member : osmElement.m_members)
+  if (!placeName.empty())
   {
-    if (member.m_role == "admin_centre" || member.m_role == "label")
+    if (m_name == placeName && rhs.m_name != placeName)
       return true;
+    if (m_name != placeName && rhs.m_name == placeName)
+      return false;
   }
-  return false;
+
+  // Heuristic: Select boundary with bigger admin_level or smaller boundary.
+  if (m_adminLevel == rhs.m_adminLevel)
+    return GetApproxArea() < rhs.GetApproxArea();
+  return m_adminLevel > rhs.m_adminLevel;
 }
 
-void RoutingCityBoundariesCollector::LocalityData::Serialize(FileWriter & writer,
-                                                             LocalityData const & localityData)
+double PlaceBoundariesHolder::Locality::GetApproxArea() const
 {
-  WriteToSink(writer, localityData.m_population);
-
-  auto const placeType = static_cast<uint32_t>(localityData.m_place);
-  WriteToSink(writer, placeType);
-
-  auto const pointU = PointDToPointU(localityData.m_position, kPointCoordBits);
-  WriteToSink(writer, pointU.x);
-  WriteToSink(writer, pointU.y);
+  double res = 0;
+  for (auto const & poly : m_boundary)
+  {
+    m2::RectD r;
+    CalcRect(poly, r);
+    res += r.Area();
+  }
+  return res;
 }
 
-RoutingCityBoundariesCollector::LocalityData
-RoutingCityBoundariesCollector::LocalityData::Deserialize(ReaderSource<FileReader> & reader)
+ftypes::LocalityType PlaceBoundariesHolder::Locality::GetPlace() const
 {
-  LocalityData localityData;
-  ReadPrimitiveFromSource(reader, localityData.m_population);
+  return (m_placeFromNode != ftypes::LocalityType::None ? m_placeFromNode : m_place);
+}
 
-  uint32_t placeType = 0;
-  ReadPrimitiveFromSource(reader, placeType);
-  localityData.m_place = static_cast<ftypes::LocalityType>(placeType);
+uint64_t PlaceBoundariesHolder::Locality::GetPopulation() const
+{
+  uint64_t p = m_populationFromNode;
+  if (p == 0)
+    p = m_population;
 
-  m2::PointU pointU;
-  ReadPrimitiveFromSource(reader, pointU.x);
-  ReadPrimitiveFromSource(reader, pointU.y);
-  localityData.m_position = PointUToPointD(pointU, kPointCoordBits);
+  // Same as ftypes::GetPopulation.
+  return (p < 10 ? ftypes::GetDefPopulation(GetPlace()) : p);
+}
 
-  return localityData;
+void PlaceBoundariesHolder::Locality::AssignNodeParams(Locality const & node)
+{
+  m_center = node.m_center;
+  m_placeFromNode = node.m_place;
+  m_populationFromNode = node.m_population;
+}
+
+bool PlaceBoundariesHolder::Locality::TestValid() const
+{
+  if (IsPoint())
+    return IsHonestCity() && !m_center.IsAlmostZero();
+
+  if (m_boundary.empty() || !m_boundaryRect.IsValid())
+    return false;
+
+  if (!IsHonestCity())
+  {
+    // This Locality is from boundary relation, based on some Node.
+    return !m_center.IsAlmostZero() && m_placeFromNode >= ftypes::LocalityType::City && m_adminLevel > 0;
+  }
+
+  return true;
+}
+
+bool PlaceBoundariesHolder::Locality::IsInBoundary(m2::PointD const & pt) const
+{
+  CHECK(!m_boundary.empty(), ());
+  return m_boundaryRect.IsPointInside(pt);
+}
+
+void PlaceBoundariesHolder::Locality::RecalcBoundaryRect()
+{
+  m_boundaryRect.MakeEmpty();
+  for (auto const & pts : m_boundary)
+    feature::CalcRect(pts, m_boundaryRect);
+}
+
+std::string DebugPrint(PlaceBoundariesHolder::Locality const & l)
+{
+  std::string rectStr;
+  if (l.m_boundaryRect.IsValid())
+    rectStr = DebugPrint(mercator::ToLatLon(l.m_boundaryRect));
+  else
+    rectStr = "Invalid";
+
+  return "Locality { Rect = " + rectStr + "; Name = " + l.m_name + " }";
+}
+
+// PlaceBoundariesHolder --------------------------------------------------------------------------
+
+void PlaceBoundariesHolder::Serialize(std::string const & fileName) const
+{
+  FileWriter writer(fileName);
+
+  WriteVarUint(writer, static_cast<uint64_t>(m_id2index.size()));
+  for (auto const & e : m_id2index)
+  {
+    WriteToSink(writer, e.first.GetEncodedId());
+    WriteVarUint(writer, e.second);
+  }
+
+  WriteVarUint(writer, static_cast<uint64_t>(m_data.size()));
+  for (auto const & e : m_data)
+    e.Serialize(writer);
+}
+
+void PlaceBoundariesHolder::Deserialize(std::string const & fileName)
+{
+  FileReader reader(fileName);
+  ReaderSource src(reader);
+
+  uint64_t count = ReadVarUint<uint64_t>(src);
+  while (count > 0)
+  {
+    IDType const id(ReadPrimitiveFromSource<uint64_t>(src));
+    CHECK(m_id2index.emplace(id, ReadVarUint<uint64_t>(src)).second, (id));
+    --count;
+  }
+
+  count = ReadVarUint<uint64_t>(src);
+  m_data.resize(count);
+  for (auto & e : m_data)
+    e.Deserialize(src);
+}
+
+void PlaceBoundariesHolder::Add(IDType id, Locality && loc, IDType nodeID)
+{
+  auto [it, added] = m_id2index.emplace(id, m_data.size());
+  if (added)
+  {
+    CHECK(loc.TestValid(), (id));
+    m_data.push_back(std::move(loc));
+  }
+
+  if (nodeID != IDType())
+    CHECK(m_id2index.emplace(nodeID, it->second).second, (id));
+}
+
+int PlaceBoundariesHolder::GetIndex(IDType id) const
+{
+  auto it = m_id2index.find(id);
+  if (it != m_id2index.end())
+    return it->second;
+
+  LOG(LWARNING, ("Place without locality:", id));
+  return -1;
+}
+
+PlaceBoundariesHolder::Locality const *
+PlaceBoundariesHolder::GetBestBoundary(std::vector<IDType> const & ids, m2::PointD const & center) const
+{
+  Locality const * bestLoc = nullptr;
+
+  auto const isBetter = [&bestLoc](Locality const & loc)
+  {
+    if (loc.m_boundary.empty())
+      return false;
+    if (bestLoc == nullptr)
+      return true;
+
+    return loc.IsBetterBoundary(*bestLoc);
+  };
+
+  for (auto id : ids)
+  {
+    int const idx = GetIndex(id);
+    if (idx < 0)
+      continue;
+
+    Locality const & loc = m_data[idx];
+    if (isBetter(loc) && loc.IsInBoundary(center))
+      bestLoc = &loc;
+  }
+
+  return bestLoc;
+}
+
+// PlaceBoundariesBuilder -------------------------------------------------------------------------
+
+void PlaceBoundariesBuilder::Add(Locality && loc, IDType id, std::vector<uint64_t> const & nodes)
+{
+  // Heuristic: store Relation by name only if "connection" nodes are empty.
+  // See Place_CityRelations_IncludePoint.
+  if (nodes.empty() && !loc.m_name.empty() && id.GetType() == base::GeoObjectId::Type::ObsoleteOsmRelation)
+    m_name2rel[loc.m_name].insert(id);
+
+  CHECK(m_id2loc.emplace(id, std::move(loc)).second, ());
+
+  for (uint64_t nodeID : nodes)
+    m_node2rel[base::MakeOsmNode(nodeID)].insert(id);
+}
+
+/// @todo Make move logic in MergeInto functions?
+void PlaceBoundariesBuilder::MergeInto(PlaceBoundariesBuilder & dest) const
+{
+  for (auto const & e : m_id2loc)
+    dest.m_id2loc.emplace(e.first, e.second);
+
+  for (auto const & e : m_node2rel)
+    dest.m_node2rel[e.first].insert(e.second.begin(), e.second.end());
+
+  for (auto const & e : m_name2rel)
+    dest.m_name2rel[e.first].insert(e.second.begin(), e.second.end());
+}
+
+void PlaceBoundariesBuilder::Save(std::string const & fileName)
+{
+  // Find best Locality Relation for Node.
+  std::vector<std::pair<IDType, IDType>> node2rel;
+
+  for (auto const & e : m_id2loc)
+  {
+    // Iterate via honest Node place localities to select best Relation for them.
+    if (!e.second.IsPoint())
+      continue;
+
+    IDsSetT ids;
+    if (auto it = m_node2rel.find(e.first); it != m_node2rel.end())
+      ids.insert(it->second.begin(), it->second.end());
+    if (auto it = m_name2rel.find(e.second.m_name); it != m_name2rel.end())
+      ids.insert(it->second.begin(), it->second.end());
+    if (ids.empty())
+      continue;
+
+    CHECK(e.second.IsHonestCity(), (e.first));
+
+    Locality const * best = nullptr;
+    IDType bestID;
+    for (auto const & relID : ids)
+    {
+      auto const & loc = m_id2loc[relID];
+      if ((best == nullptr || loc.IsBetterBoundary(*best, e.second.m_name)) &&
+          loc.IsInBoundary(e.second.m_center))
+      {
+        best = &loc;
+        bestID = relID;
+      }
+    }
+
+    if (best)
+      node2rel.emplace_back(e.first, bestID);
+  }
+
+  PlaceBoundariesHolder holder;
+
+  // Add Relation localities with Node refs.
+  for (auto const & e : node2rel)
+  {
+    auto itRelation = m_id2loc.find(e.second);
+    CHECK(itRelation != m_id2loc.end(), (e.second));
+
+    auto itNode = m_id2loc.find(e.first);
+    CHECK(itNode != m_id2loc.end(), (e.first));
+
+    /// @todo Node params will be assigned form the "first" valid Node now. Implement Update?
+    itRelation->second.AssignNodeParams(itNode->second);
+    holder.Add(e.second, std::move(itRelation->second), e.first);
+
+    // Do not delete Relation from m_id2loc, because some other Node also can point on it (and we will add reference),
+    // but zero this Locality after move to avoid adding below.
+    itRelation->second = {};
+    CHECK(!itRelation->second.IsHonestCity(), ());
+
+    m_id2loc.erase(itNode);
+  }
+
+  // Add remaining localities.
+  for (auto & e : m_id2loc)
+  {
+    if (e.second.IsHonestCity())
+      holder.Add(e.first, std::move(e.second), IDType());
+  }
+
+  holder.Serialize(fileName);
 }
 
 // RoutingCityBoundariesCollector ------------------------------------------------------------------
 
-RoutingCityBoundariesCollector::RoutingCityBoundariesCollector(
-    std::string const & filename, std::string const & dumpFilename,
-    std::shared_ptr<cache::IntermediateDataReaderInterface> const & cache)
+RoutingCityBoundariesCollector::RoutingCityBoundariesCollector(std::string const & filename, IDRInterfacePtr const & cache)
   : CollectorInterface(filename)
-  , m_writer(std::make_unique<RoutingCityBoundariesWriter>(GetTmpFilename()))
   , m_cache(cache)
   , m_featureMakerSimple(cache)
-  , m_dumpFilename(dumpFilename)
 {
 }
 
-std::shared_ptr<CollectorInterface> RoutingCityBoundariesCollector::Clone(
-    std::shared_ptr<cache::IntermediateDataReaderInterface> const & cache) const
+std::shared_ptr<CollectorInterface> RoutingCityBoundariesCollector::Clone(IDRInterfacePtr const & cache) const
 {
-  return std::make_shared<RoutingCityBoundariesCollector>(GetFilename(), m_dumpFilename,
-                                                          cache ? cache : m_cache);
+  return std::make_shared<RoutingCityBoundariesCollector>(GetFilename(), cache ? cache : m_cache);
 }
 
-void RoutingCityBoundariesCollector::Collect(OsmElement const & osmElement)
+void RoutingCityBoundariesCollector::Collect(OsmElement const & elem)
 {
-  if (!FilterOsmElement(osmElement))
+  bool const isRelation = elem.IsRelation();
+
+  // Fast check: is it a place or a boundary candidate.
+  std::string place = elem.GetTag("place");
+  if (place.empty())
+    place = elem.GetTag("de:place");
+  if (place.empty() && !isRelation)
     return;
 
-  auto osmElementCopy = osmElement;
-  feature::FeatureBuilder feature;
-  m_featureMakerSimple.Add(osmElementCopy);
+  Locality loc(place, elem);
 
-  while (m_featureMakerSimple.GetNextFeature(feature))
+  std::vector<uint64_t> nodes;
+  if (isRelation)
+    nodes = osm_element::GetPlaceNodeFromMembers(elem);
+
+  if (!loc.IsHonestCity())
   {
-    if (feature.IsValid())
-      Process(feature, osmElementCopy);
-  }
-}
-
-void RoutingCityBoundariesCollector::Process(feature::FeatureBuilder & feature,
-                                             OsmElement const & osmElement)
-{
-  ASSERT(FilterOsmElement(osmElement), ());
-
-  if (feature.IsArea() && IsSuitablePlaceType(GetPlaceLocalityType(feature)))
-  {
-    if (feature.PreSerialize())
-      m_writer->Process(feature);
-    return;
-  }
-
-  if (feature.IsArea())
-  {
-    auto const placeOsmIdOp = GetPlaceNodeFromMembers(osmElement);
-    // Elements which have multiple place tags i.e. "place=country" + "place=city" and do not have place node
-    // will pass FilterOsmElement() but can have bad placeType for previous case (IsArea && IsSuitablePlaceType)
-    // and no place node for this case. As we do not know what's the real place type we skip such places.
-    if (!placeOsmIdOp)
-    {
-      LOG(LWARNING, ("Have multiple place tags for", osmElement));
+    if (!isRelation)
       return;
+
+    // Accumulate boundaries, where relations doesn't have exact place=city/town/.. tags, like:
+    // * Turkey "major" cities have admin_level=4 (like state) with "subtowns" with admin_level=6.
+    //    - Istanbul (Kadikoy, Fatih, Beyoglu, ...)
+    //    - Ankara (Altindag, ...)
+    //    - Izmir
+    // * Capitals (like Минск, Москва, Berlin) have admin_level=4.
+    // * Canberra's boundary has place=territory
+    // * Riviera Beach boundary has place=suburb
+    // * Hong Kong boundary has place=region
+
+    if (loc.m_adminLevel < 4)
+      return;
+
+    // Skip Relations like boundary=religious_administration.
+    // Also "boundary" == "administrative" is missing sometimes.
+    auto const boundary = elem.GetTag("boundary");
+    if (boundary != "administrative")
+      return;
+
+    // Should be at least one reference.
+    if (nodes.empty() && loc.m_name.empty())
+      return;
+  }
+
+  auto copy = elem;
+  m_featureMakerSimple.Add(copy);
+
+  bool isGoodFB = false;
+  FeatureBuilder fb;
+  while (m_featureMakerSimple.GetNextFeature(fb))
+  {
+    switch (fb.GetGeomType())
+    {
+    case GeomType::Point:
+      loc.m_center = fb.GetKeyPoint();
+      break;
+    case GeomType::Area:
+      /// @todo Move geometry or make parsing geometry without FeatureBuilder class.
+      loc.m_boundary.push_back(fb.GetOuterGeometry());
+      loc.RecalcBoundaryRect();
+      break;
+
+    default:  // skip non-closed ways
+      continue;
     }
 
-    auto const placeOsmId = *placeOsmIdOp;
-
-    if (feature.PreSerialize())
-      m_writer->Process(placeOsmId, feature);
-    return;
+    isGoodFB = true;
   }
-  else if (feature.IsPoint())
-  {
-    auto const placeType = GetPlaceLocalityType(feature);
 
-    // Elements which have multiple place tags i.e. "place=country" + "place=city" will pass FilterOsmElement()
-    // but can have bad placeType here. As we do not know what's the real place type let's skip such places.
-    if (!IsSuitablePlaceType(placeType))
-    {
-      LOG(LWARNING, ("Have multiple place tags for", osmElement));
-      return;
-    }
-
-    uint64_t const population = osm_element::GetPopulation(osmElement);
-    if (population == 0)
-      return;
-
-    uint64_t nodeOsmId = osmElement.m_id;
-    m2::PointD const center = mercator::FromLatLon(osmElement.m_lat, osmElement.m_lon);
-    m_writer->Process(nodeOsmId, LocalityData(population, placeType, center));
-  }
+  if (isGoodFB)
+    m_builder.Add(std::move(loc), fb.GetMostGenericOsmId(), nodes);
 }
-
-void RoutingCityBoundariesCollector::Finish() { m_writer->Reset(); }
 
 void RoutingCityBoundariesCollector::Save()
 {
-  m_writer->Save(GetFilename(), m_dumpFilename);
-}
-
-void RoutingCityBoundariesCollector::OrderCollectedData()
-{
-  m_writer->OrderCollectedData(GetFilename(), m_dumpFilename);
-}
-
-void RoutingCityBoundariesCollector::Merge(generator::CollectorInterface const & collector)
-{
-  collector.MergeInto(*this);
+  m_builder.Save(GetFilename());
 }
 
 void RoutingCityBoundariesCollector::MergeInto(RoutingCityBoundariesCollector & collector) const
 {
-  m_writer->MergeInto(*collector.m_writer);
+  m_builder.MergeInto(collector.m_builder);
 }
 
-// RoutingCityBoundariesWriter ---------------------------------------------------------------------
-
-// static
-std::string RoutingCityBoundariesWriter::GetNodeToLocalityDataFilename(std::string const & filename)
-{
-  return filename + ".nodeId2locality";
-}
-
-// static
-std::string RoutingCityBoundariesWriter::GetNodeToBoundariesFilename(std::string const & filename)
-{
-  return filename + ".nodeId2Boundaries";
-}
-
-// static
-std::string RoutingCityBoundariesWriter::GetBoundariesFilename(std::string const & filename)
-{
-  return filename + ".boundaries";
-}
-
-RoutingCityBoundariesWriter::RoutingCityBoundariesWriter(std::string const & filename)
-  : m_nodeOsmIdToLocalityDataFilename(GetNodeToLocalityDataFilename(filename))
-  , m_nodeOsmIdToBoundariesFilename(GetNodeToBoundariesFilename(filename))
-  , m_finalBoundariesGeometryFilename(GetBoundariesFilename(filename))
-  , m_nodeOsmIdToLocalityDataWriter(std::make_unique<FileWriter>(m_nodeOsmIdToLocalityDataFilename))
-  , m_nodeOsmIdToBoundariesWriter(std::make_unique<FileWriter>(m_nodeOsmIdToBoundariesFilename))
-  , m_finalBoundariesGeometryWriter(std::make_unique<FileWriter>(m_finalBoundariesGeometryFilename))
-{
-}
-
-RoutingCityBoundariesWriter::~RoutingCityBoundariesWriter()
-{
-  CHECK(Platform::RemoveFileIfExists(m_nodeOsmIdToLocalityDataFilename), (m_nodeOsmIdToLocalityDataFilename));
-  CHECK(Platform::RemoveFileIfExists(m_nodeOsmIdToBoundariesFilename), (m_nodeOsmIdToBoundariesFilename));
-  CHECK(Platform::RemoveFileIfExists(m_finalBoundariesGeometryFilename), (m_finalBoundariesGeometryFilename));
-}
-
-void RoutingCityBoundariesWriter::Process(uint64_t nodeOsmId, LocalityData const & localityData)
-{
-  m_nodeOsmIdToLocalityDataWriter->Write(&nodeOsmId, sizeof(nodeOsmId));
-  LocalityData::Serialize(*m_nodeOsmIdToLocalityDataWriter, localityData);
-
-  ++m_nodeOsmIdToLocalityDataCount;
-}
-
-void RoutingCityBoundariesWriter::Process(uint64_t nodeOsmId,
-                                          feature::FeatureBuilder const & feature)
-{
-  m_nodeOsmIdToBoundariesWriter->Write(&nodeOsmId, sizeof(nodeOsmId));
-  FeatureWriter::Write(*m_nodeOsmIdToBoundariesWriter, feature);
-
-  ++m_nodeOsmIdToBoundariesCount;
-}
-
-void RoutingCityBoundariesWriter::Process(feature::FeatureBuilder const & feature)
-{
-  rw::WriteVectorOfPOD(*m_finalBoundariesGeometryWriter, feature.GetOuterGeometry());
-}
-
-void RoutingCityBoundariesWriter::Reset()
-{
-  m_nodeOsmIdToLocalityDataWriter.reset();
-  m_nodeOsmIdToBoundariesWriter.reset();
-  m_finalBoundariesGeometryWriter.reset();
-}
-
-void RoutingCityBoundariesWriter::MergeInto(RoutingCityBoundariesWriter & writer)
-{
-  CHECK(!m_nodeOsmIdToLocalityDataWriter || !writer.m_nodeOsmIdToLocalityDataWriter,
-        ("Reset() has not been called."));
-  base::AppendFileToFile(m_nodeOsmIdToLocalityDataFilename,
-                         writer.m_nodeOsmIdToLocalityDataFilename);
-
-  CHECK(!m_nodeOsmIdToBoundariesWriter || !writer.m_nodeOsmIdToBoundariesWriter,
-        ("Reset() has not been called."));
-  base::AppendFileToFile(m_nodeOsmIdToBoundariesFilename,
-                         writer.m_nodeOsmIdToBoundariesFilename);
-
-  CHECK(!m_finalBoundariesGeometryWriter || !writer.m_finalBoundariesGeometryWriter,
-        ("Reset() has not been called."));
-  base::AppendFileToFile(m_finalBoundariesGeometryFilename,
-                         writer.m_finalBoundariesGeometryFilename);
-
-  writer.m_nodeOsmIdToLocalityDataCount += m_nodeOsmIdToLocalityDataCount;
-  writer.m_nodeOsmIdToBoundariesCount += m_nodeOsmIdToBoundariesCount;
-}
-
-void RoutingCityBoundariesWriter::Save(std::string const & finalFileName,
-                                       std::string const & dumpFilename)
-{
-  auto const nodeToLocalityFilename = GetNodeToLocalityDataFilename(finalFileName);
-  auto const nodeToBoundariesFilename = GetNodeToBoundariesFilename(finalFileName);
-
-  TruncateAndWriteCount(nodeToLocalityFilename, m_nodeOsmIdToLocalityDataCount);
-  TruncateAndWriteCount(nodeToBoundariesFilename, m_nodeOsmIdToBoundariesCount);
-
-  base::AppendFileToFile(m_nodeOsmIdToLocalityDataFilename, nodeToLocalityFilename);
-  base::AppendFileToFile(m_nodeOsmIdToBoundariesFilename, nodeToBoundariesFilename);
-
-  if (Platform::IsFileExistsByFullPath(m_finalBoundariesGeometryFilename))
-    CHECK(base::CopyFileX(m_finalBoundariesGeometryFilename, dumpFilename), ());
-}
-
-void RoutingCityBoundariesWriter::OrderCollectedData(std::string const & finalFileName,
-                                                     std::string const & dumpFilename)
-{
-  {
-    auto const nodeToLocalityFilename = GetNodeToLocalityDataFilename(finalFileName);
-    std::vector<std::pair<uint64_t, LocalityData>> collectedData;
-    uint64_t count = 0;
-    {
-      FileReader reader(nodeToLocalityFilename);
-      ReaderSource src(reader);
-      ReadPrimitiveFromSource(src, count);
-      collectedData.reserve(count);
-      while (src.Size() > 0)
-      {
-        collectedData.push_back({});
-        ReadPrimitiveFromSource(src, collectedData.back().first);
-        collectedData.back().second = LocalityData::Deserialize(src);
-      }
-      CHECK_EQUAL(collectedData.size(), count, ());
-    }
-    std::sort(std::begin(collectedData), std::end(collectedData));
-    FileWriter writer(nodeToLocalityFilename);
-    WriteToSink(writer, count);
-    for (auto const & p : collectedData)
-    {
-      WriteToSink(writer, p.first);
-      LocalityData::Serialize(writer, p.second);
-    }
-  }
-  {
-    auto const nodeToBoundariesFilename = GetNodeToBoundariesFilename(finalFileName);
-    std::vector<std::pair<uint64_t, FeatureBuilder>> collectedData;
-    uint64_t count = 0;
-    {
-      FileReader reader(nodeToBoundariesFilename);
-      ReaderSource src(reader);
-      ReadPrimitiveFromSource(src, count);
-      collectedData.reserve(count);
-      while (src.Size() > 0)
-      {
-        collectedData.push_back({});
-        ReadPrimitiveFromSource(src, collectedData.back().first);
-        ReadFromSourceRawFormat(src, collectedData.back().second);
-      }
-      CHECK_EQUAL(collectedData.size(), count, ());
-    }
-    std::sort(
-        std::begin(collectedData), std::end(collectedData), [](auto const & lhs, auto const & rhs) {
-          return lhs.first == rhs.first ? Less(lhs.second, rhs.second) : lhs.first < rhs.first;
-        });
-    FileWriter writer(nodeToBoundariesFilename);
-    WriteToSink(writer, count);
-    for (auto const & p : collectedData)
-    {
-      WriteToSink(writer, p.first);
-      FeatureWriter::Write(writer, p.second);
-    }
-  }
-  {
-    std::vector<FeatureBuilder::PointSeq> collectedData;
-    {
-      FileReader reader(dumpFilename);
-      ReaderSource src(reader);
-      while (src.Size() > 0)
-      {
-        collectedData.push_back({});
-        rw::ReadVectorOfPOD(src, collectedData.back());
-      }
-    }
-    std::sort(std::begin(collectedData), std::end(collectedData));
-    FileWriter writer(dumpFilename);
-    for (auto const & p : collectedData)
-      rw::WriteVectorOfPOD(writer, p);
-  }
-}
 }  // namespace generator

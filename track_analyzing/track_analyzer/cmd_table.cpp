@@ -460,7 +460,7 @@ void CmdTagsTable(string const & filepath, string const & trackExtension, String
                                                 info);
           }
 
-          aggregator.Add(move(moveType), info, subtrackBegin, end, geometry);
+          aggregator.Add(std::move(moveType), info, subtrackBegin, end, geometry);
           subtrackBegin = end;
           info.fill(0);
         }

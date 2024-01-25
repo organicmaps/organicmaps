@@ -1,0 +1,8 @@
+Peta Organik ialah apl navigasi GPS dengan privasi, untuk pemandu, pejalan kaki dan penunggang basikal. Apl ini menampilkan navigasi dengan privasi - tiada penjejakan lokasi, tiada pengumpulan data dan tiada iklan. Cari, penghalaan dan navigasi beroperasi tanpa isyarat telefon bimbit, sesuai untuk perjalanan di denai mendaki yang jauh atau lokasi dengan sambungan yang lemah. Peta Organik menggunakan data OpenStreetMap menggunakan sumber-orang ramai dengan penyumbang dari seluruh dunia. Projek ini didorong oleh komuniti-dipandu, kod ini adalah sumber-terbuka, dan mengutamakan pembangunan dan kerjasama komuniti.
+• Tiada Isyarat Sel Diperlukan - Cari & Laluan tanpa isyarat.
+• Penggunaan Bateri yang Cekap - Penghabisan bateri berkurangan.
+• Carian Pantas - Cari lokasi dengan pantas.
+Di Peta Organik, kami menghargai privasi:
+• Tiada Penjejakan Lokasi.
+• Tiada Data Koleksi.
+• Tiada Ads

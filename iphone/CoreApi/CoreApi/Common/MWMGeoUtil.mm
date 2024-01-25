@@ -3,6 +3,7 @@
 #include "geometry/mercator.hpp"
 #include "geometry/angles.hpp"
 
+#include "platform/locale.hpp"
 #include "platform/localization.hpp"
 #include "platform/settings.hpp"
 #include "platform/measurement_utils.hpp"
@@ -31,10 +32,8 @@
 */
 
 - (NSString*) valueAsString {
-  if (self.value > 9.999)
-    return [NSString stringWithFormat:@"%.0f", self.value];
-  else
-    return [NSString stringWithFormat:@"%.1f", self.value];
+  auto const outString = measurement_utils::ToStringPrecision(self.value, self.value >= 10.0 ? 0 : 1);
+  return [NSString stringWithUTF8String:outString.c_str()];
 }
 
 - (instancetype)initAsSpeed:(double) mps {

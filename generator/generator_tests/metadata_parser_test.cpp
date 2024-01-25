@@ -89,20 +89,17 @@ UNIT_CLASS_TEST(TestWithClassificator, Metadata_ValidateAndFormat_operator)
   TEST(md.Empty(), ());
 
   params.SetType(typeAtm);
-  p("operator", "Some");
-  TEST_EQUAL(md.Get(Metadata::FMD_OPERATOR), "Some", ());
-  md.Drop(Metadata::FMD_OPERATOR);
+  p("operator", "Some1");
+  TEST_EQUAL(md.Get(Metadata::FMD_OPERATOR), "Some1", ());
 
   params.SetType(typeFuel);
-  p("operator", "Some");
-  TEST_EQUAL(md.Get(Metadata::FMD_OPERATOR), "Some", ());
-  md.Drop(Metadata::FMD_OPERATOR);
+  p("operator", "Some2");
+  TEST_EQUAL(md.Get(Metadata::FMD_OPERATOR), "Some2", ());
 
   params.SetType(typeCarSharing);
   params.AddType(typeCarRental);
-  p("operator", "Some");
-  TEST_EQUAL(md.Get(Metadata::FMD_OPERATOR), "Some", ());
-  md.Drop(Metadata::FMD_OPERATOR);
+  p("operator", "Some3");
+  TEST_EQUAL(md.Get(Metadata::FMD_OPERATOR), "Some3", ());
 }
 
 UNIT_TEST(Metadata_ValidateAndFormat_height)
@@ -210,15 +207,13 @@ UNIT_TEST(Metadata_ValidateAndFormat_wikimedia_commons)
 
   p(kWikiKey, "File:Boğaz (105822801).jpeg");
   TEST_EQUAL(md.Get(Metadata::FMD_WIKIMEDIA_COMMONS), "File:Boğaz (105822801).jpeg", ());
-  md.Drop(Metadata::FMD_WIKIPEDIA);
 
   p(kWikiKey, "Category:Bosphorus");
   TEST_EQUAL(md.Get(Metadata::FMD_WIKIMEDIA_COMMONS), "Category:Bosphorus", ());
-  md.Drop(Metadata::FMD_WIKIPEDIA);
 
+  md.Drop(Metadata::FMD_WIKIMEDIA_COMMONS);
   p(kWikiKey, "incorrect_wikimedia_content");
   TEST(md.Get(Metadata::FMD_WIKIMEDIA_COMMONS).empty(), ());
-  md.Drop(Metadata::FMD_WIKIPEDIA);
 }
 
 // Look at: https://wiki.openstreetmap.org/wiki/Key:duration for details
@@ -604,4 +599,45 @@ UNIT_CLASS_TEST(TestWithClassificator, ValidateAndFormat_contactLine)
 
   p("contact:line", "https://line.com/ti/p/invalid-domain");
   TEST(md.Empty(), ());
+}
+
+UNIT_TEST(Metadata_ValidateAndFormat_ele)
+{
+  FeatureBuilderParams params;
+  MetadataTagProcessorImpl tagProc(params);
+  TEST_EQUAL(tagProc.ValidateAndFormat_ele(""), "", ());
+  TEST_EQUAL(tagProc.ValidateAndFormat_ele("not a number"), "", ());
+  TEST_EQUAL(tagProc.ValidateAndFormat_ele("0"), "0", ());
+  TEST_EQUAL(tagProc.ValidateAndFormat_ele("0.0"), "0", ());
+  TEST_EQUAL(tagProc.ValidateAndFormat_ele("0.0000000"), "0", ());
+  TEST_EQUAL(tagProc.ValidateAndFormat_ele("22.5"), "22.5", ());
+  TEST_EQUAL(tagProc.ValidateAndFormat_ele("-100.3"), "-100.3", ());
+  TEST_EQUAL(tagProc.ValidateAndFormat_ele("99.0000000"), "99", ());
+  TEST_EQUAL(tagProc.ValidateAndFormat_ele("8900.000023"), "8900", ());
+  TEST_EQUAL(tagProc.ValidateAndFormat_ele("-300.9999"), "-301", ());
+  TEST_EQUAL(tagProc.ValidateAndFormat_ele("-300.9"), "-300.9", ());
+  TEST_EQUAL(tagProc.ValidateAndFormat_ele("15 m"), "15", ());
+  TEST_EQUAL(tagProc.ValidateAndFormat_ele("15.9 m"), "15.9", ());
+  TEST_EQUAL(tagProc.ValidateAndFormat_ele("15.9m"), "15.9", ());
+  TEST_EQUAL(tagProc.ValidateAndFormat_ele("3000 ft"), "914.4", ());
+  TEST_EQUAL(tagProc.ValidateAndFormat_ele("3000ft"), "914.4", ());
+  TEST_EQUAL(tagProc.ValidateAndFormat_ele("100 feet"), "30.48", ());
+  TEST_EQUAL(tagProc.ValidateAndFormat_ele("100feet"), "30.48", ());
+  TEST_EQUAL(tagProc.ValidateAndFormat_ele("11'"), "3.35", ());
+  TEST_EQUAL(tagProc.ValidateAndFormat_ele("11'4\""), "3.45", ());
+}
+
+UNIT_TEST(Metadata_ValidateAndFormat_building_levels)
+{
+  FeatureBuilderParams params;
+  MetadataTagProcessorImpl tp(params);
+  TEST_EQUAL(tp.ValidateAndFormat_building_levels("４"), "4", ());
+  TEST_EQUAL(tp.ValidateAndFormat_building_levels("４floors"), "4", ());
+  TEST_EQUAL(tp.ValidateAndFormat_building_levels("between 1 and ４"), "", ());
+  TEST_EQUAL(tp.ValidateAndFormat_building_levels("0"), "0", ("OSM has many zero-level buildings."));
+  TEST_EQUAL(tp.ValidateAndFormat_building_levels("0.0"), "0", ());
+  TEST_EQUAL(tp.ValidateAndFormat_building_levels(""), "", ());
+  TEST_EQUAL(tp.ValidateAndFormat_building_levels("Level 1"), "", ());
+  TEST_EQUAL(tp.ValidateAndFormat_building_levels("2.51"), "2.5", ());
+  TEST_EQUAL(tp.ValidateAndFormat_building_levels("250"), "", ("Too many levels."));
 }

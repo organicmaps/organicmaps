@@ -11,8 +11,10 @@
 #include "indexer/feature_utils.hpp"
 #include "indexer/ftypes_matcher.hpp"
 #include "indexer/map_object.hpp"
+#include "indexer/road_shields_parser.hpp"
 
 #include "platform/measurement_utils.hpp"
+#include "platform/localization.hpp"
 
 #include "base/string_utils.hpp"
 
@@ -80,15 +82,15 @@ bool PreRankerResult::LessRankAndPopularity(PreRankerResult const & lhs, PreRank
     return lhs.m_info.m_rank > rhs.m_info.m_rank;
   if (lhs.m_info.m_popularity != rhs.m_info.m_popularity)
     return lhs.m_info.m_popularity > rhs.m_info.m_popularity;
+
+  /// @todo Remove this epilog when we will have _enough_ ranks and popularities in data.
   return lhs.m_info.m_distanceToPivot < rhs.m_info.m_distanceToPivot;
 }
 
 // static
 bool PreRankerResult::LessDistance(PreRankerResult const & lhs, PreRankerResult const & rhs)
 {
-  if (lhs.m_info.m_distanceToPivot != rhs.m_info.m_distanceToPivot)
-    return lhs.m_info.m_distanceToPivot < rhs.m_info.m_distanceToPivot;
-  return lhs.m_info.m_rank > rhs.m_info.m_rank;
+  return lhs.m_info.m_distanceToPivot < rhs.m_info.m_distanceToPivot;
 }
 
 // static
@@ -120,11 +122,7 @@ bool PreRankerResult::LessByExactMatch(PreRankerResult const & lhs, PreRankerRes
   if (lScore != rScore)
     return lScore;
 
-  auto const byTokens = CompareByTokensMatch(lhs, rhs);
-  if (byTokens != 0)
-    return byTokens == -1;
-
-  return LessDistance(lhs, rhs);
+  return CompareByTokensMatch(lhs, rhs) == -1;
 }
 
 bool PreRankerResult::CategoriesComparator::operator()(PreRankerResult const & lhs,
@@ -258,9 +256,12 @@ void FillDetails(FeatureType & ft, Result::Details & details)
   if (details.m_isInitialized)
     return;
 
-  details.m_airportIata = ft.GetMetadata(feature::Metadata::FMD_AIRPORT_IATA);
-  details.m_brand = ft.GetMetadata(feature::Metadata::FMD_BRAND);
-
+  std::string_view airportIata = ft.GetMetadata(feature::Metadata::FMD_AIRPORT_IATA);
+  
+  std::string brand {ft.GetMetadata(feature::Metadata::FMD_BRAND)};
+  if (!brand.empty())
+    brand = platform::GetLocalizedBrandName(brand);
+  
   /// @todo Avoid temporary string when OpeningHours (boost::spirit) will allow string_view.
   std::string const openHours(ft.GetMetadata(feature::Metadata::FMD_OPEN_HOURS));
   if (!openHours.empty())
@@ -283,17 +284,42 @@ void FillDetails(FeatureType & ft, Result::Details & details)
     }
   }
 
-  details.m_isHotel = ftypes::IsHotelChecker::Instance()(ft);
-  if (details.m_isHotel && strings::to_uint(ft.GetMetadata(feature::Metadata::FMD_STARS), details.m_stars))
-    details.m_stars = std::min(details.m_stars, osm::MapObject::kMaxStarsCount);
-  else
-    details.m_stars = 0;
+  feature::TypesHolder const typesHolder(ft);
 
-  auto const cuisines = feature::GetLocalizedCuisines(feature::TypesHolder(ft));
-  details.m_cuisine = strings::JoinStrings(cuisines, osm::MapObject::kFieldsSeparator);
+  uint8_t starsCount = 0;
+  bool const isHotel = ftypes::IsHotelChecker::Instance()(typesHolder);
+  if (isHotel && strings::to_uint(ft.GetMetadata(feature::Metadata::FMD_STARS), starsCount))
+    starsCount = std::min(starsCount, osm::MapObject::kMaxStarsCount);
+  std::string stars;
+  for (int i = 0; i < starsCount; ++i)
+    stars.append(osm::MapObject::kStarSymbol);
 
-  auto const roadShields = feature::GetRoadShieldsNames(ft.GetRoadNumber());
-  details.m_roadShields = strings::JoinStrings(roadShields, osm::MapObject::kFieldsSeparator);
+  auto const cuisines = feature::GetLocalizedCuisines(typesHolder);
+  auto const cuisine = strings::JoinStrings(cuisines, osm::MapObject::kFieldsSeparator);
+
+  auto const roadShields = ftypes::GetRoadShieldsNames(ft);
+  auto const roadShield = strings::JoinStrings(roadShields, osm::MapObject::kFieldsSeparator);
+
+  auto const fee = feature::GetLocalizedFeeType(typesHolder);
+    
+  std::string description;
+  
+  if (!stars.empty())
+    description.append(osm::MapObject::kFieldsSeparator).append(stars);
+  if (!airportIata.empty())
+    description.append(osm::MapObject::kFieldsSeparator).append(airportIata);
+  if (!roadShield.empty())
+    description.append(osm::MapObject::kFieldsSeparator).append(roadShield);
+  if (!brand.empty())
+    description.append(osm::MapObject::kFieldsSeparator).append(brand);
+  if (!cuisine.empty())
+    description.append(osm::MapObject::kFieldsSeparator).append(cuisine);
+  if (feature::HasToilets(typesHolder))
+    description.append(osm::MapObject::kFieldsSeparator).append(osm::MapObject::kToiletsSymbol);
+  if (!fee.empty())
+    description.append(osm::MapObject::kFieldsSeparator).append(fee);
+  
+  details.m_description = std::move(description);
 
   details.m_isInitialized = true;
 }

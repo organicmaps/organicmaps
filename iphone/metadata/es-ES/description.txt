@@ -1,37 +1,10 @@
-• Mapas detallados sin conexión con lugares que no existen en otros mapas
-• Rutas ciclistas, rutas de senderismo y de caminata
-• Curvas de nivel, perfiles de elevación, picos y pendientes
-• Navegación paso a paso a pie, en bicicleta y en coche con guía de voz
-• Búsqueda rápida sin conexión en el mapa y marcadores
-• Modo oscuro para proteger sus ojos
+Organic Maps es una aplicación de navegación GPS con privacidad, para conductores, excursionistas y ciclistas. La aplicación ofrece navegación con privacidad: sin seguimiento de ubicación, sin recopilación de datos y sin anuncios. La búsqueda, el enrutamiento y la navegación funcionan sin señal del móvil, lo que resulta ideal para viajar por rutas de senderismo lejanas o lugares con malas conexiones. Organic Maps utiliza los datos de OpenStreetMap, de origen colectivo, con colaboradores de todo el mundo. El proyecto está impulsado por la comunidad, el código es abierto y da prioridad al desarrollo y la colaboración de la comunidad.
 
-Organic Maps es puro y orgánico, hecho con amor:
+• No necesita la señal del móvil: busca y rastrea sin señal.
+• Uso eficiente de la batería - Reduce el consumo de batería
+• Búsqueda rápida - Encuentra las ubicaciones rápidamente
 
-• Respeta su privacidad
-• Ahorra batería
-• No hay cargos inesperados de datos móviles
-
-Organic Maps está libre de rastreadores y otras cosas malas:
-
+En Organic Maps, valoramos la privacidad:
+• No rastreamos la ubicación
+• Sin recopilación de datos
 • Sin anuncios
-• Sin rastreadores
-• Sin recogida de datos
-• Sin llamar a nuestros servidores
-• Sin registros molestos
-• Sin tutoriales obligatorios
-• Sin molesto correo basura
-• Sin notificaciones push
-• Sin crapware
-• Sin pesticidas
-
-En Organic Maps creemos que la privacidad es un derecho humano fundamental:
-
-• Organic Maps es un proyecto independiente impulsado por la comunidad
-• Es de código abierto
-• Los datos de los mapas están tomados de OpenStreetMap, también un proyecto comunitario
-• Protegemos su privacidad de las miradas indiscretas de las grandes tecnológicas
-• Manténgase a salvo esté donde esté
-
-Rechace la vigilancia, abrace su libertad y apoye a la comunidad.
-
-¡Pruebe Organic Maps!

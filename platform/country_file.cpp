@@ -1,7 +1,5 @@
 #include "platform/country_file.hpp"
 
-#include "platform/mwm_version.hpp"
-
 #include "base/assert.hpp"
 
 #include <sstream>
@@ -34,7 +32,7 @@ CountryFile::CountryFile(std::string name)
 }
 
 CountryFile::CountryFile(std::string name, MwmSize size, std::string sha1)
-: m_name(std::move(name)), m_mapSize(size), m_sha1(sha1)
+  : m_name(std::move(name)), m_mapSize(size), m_sha1(std::move(sha1))
 {
 }
 

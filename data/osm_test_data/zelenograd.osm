@@ -1,0 +1,59 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<osm version='0.6' generator='JOSM'>
+  <node id='253041038' timestamp='2023-08-22T04:46:19Z' uid='15215305' user='NorthCrab' visible='true' version='44' changeset='140208865' lat='55.9964233' lon='37.198534'>
+    <tag k='addr:country' v='RU' />
+    <tag k='addr:region' v='Москва' />
+    <tag k='int_name' v='Zelenograd' />
+    <tag k='name' v='Зеленоград' />
+    <tag k='name:ar' v='زيلينوغراد' />
+    <tag k='name:be' v='Зеленаград' />
+    <tag k='name:de' v='Selenograd' />
+    <tag k='name:en' v='Zelenograd' />
+    <tag k='name:et' v='Zelenograd' />
+    <tag k='name:fa' v='زلنوگراد' />
+    <tag k='name:fi' v='Zelenograd' />
+    <tag k='name:hr' v='Zelenograd' />
+    <tag k='name:ja' v='ゼレノグラード' />
+    <tag k='name:ko' v='젤레노그라드' />
+    <tag k='name:lt' v='Zelenogradas' />
+    <tag k='name:pl' v='Zielenograd' />
+    <tag k='name:ru' v='Зеленоград' />
+    <tag k='name:sr' v='Зеленград' />
+    <tag k='name:uk' v='Зеленоград' />
+    <tag k='name:zh' v='绿城' />
+    <tag k='name:zh-Hans' v='绿城' />
+    <tag k='name:zh-Hant' v='綠城' />
+    <tag k='official_name:zh' v='泽列诺格勒' />
+    <tag k='official_name:zh-Hans' v='泽列诺格勒' />
+    <tag k='official_name:zh-Hant' v='澤列諾格勒' />
+    <tag k='official_status' v='ru:город' />
+    <tag k='place' v='city' />
+    <tag k='population' v='223902' />
+    <tag k='wikidata' v='Q207695' />
+    <tag k='wikipedia' v='ru:Зеленоград' />
+  </node>
+  <node id='7196971532' timestamp='2022-03-16T14:18:03Z' uid='8923706' user='Elizen' visible='true' version='2' changeset='118554035' lat='55.9651301' lon='37.1930332' />
+  <node id='7196971533' timestamp='2022-03-16T14:18:03Z' uid='8923706' user='Elizen' visible='true' version='2' changeset='118554035' lat='55.9649413' lon='37.1930315' />
+  <node id='7196971534' timestamp='2022-03-16T14:18:03Z' uid='8923706' user='Elizen' visible='true' version='2' changeset='118554035' lat='55.96494' lon='37.1934717' />
+  <node id='7196971535' timestamp='2022-03-16T14:18:03Z' uid='8923706' user='Elizen' visible='true' version='2' changeset='118554035' lat='55.9651288' lon='37.1934735' />
+  <node id='9583052518' timestamp='2022-03-16T14:18:03Z' uid='8923706' user='Elizen' visible='true' version='1' changeset='118554035' lat='55.9651295' lon='37.1932534'>
+    <tag k='entrance' v='staircase' />
+  </node>
+  <way id='771005106' timestamp='2022-03-16T14:18:03Z' uid='8923706' user='Elizen' visible='true' version='2' changeset='118554035'>
+    <nd ref='7196971532' />
+    <nd ref='7196971533' />
+    <nd ref='7196971534' />
+    <nd ref='7196971535' />
+    <nd ref='9583052518' />
+    <nd ref='7196971532' />
+    <tag k='addr:housenumber' v='к2315Б' />
+    <tag k='addr:place' v='Зеленоград' />
+    <tag k='addr:postcode' v='124365' />
+    <tag k='building' v='apartments' />
+    <tag k='building:flats' v='126' />
+    <tag k='building:levels' v='17' />
+    <tag k='building:levels:underground' v='1' />
+    <tag k='energy_class' v='C' />
+    <tag k='start_date' v='2019-10-09' />
+  </way>
+</osm>

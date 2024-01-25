@@ -62,6 +62,7 @@ set(SRC
   drape_api_renderer.hpp
   drape_engine.cpp
   drape_engine.hpp
+  drape_engine_params.hpp
   drape_engine_safe_ptr.hpp
   drape_hints.hpp
   drape_notifier.cpp

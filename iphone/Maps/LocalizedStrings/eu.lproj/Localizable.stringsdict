@@ -20,7 +20,7 @@
       <key>NSStringFormatValueTypeKey</key>
       <string>d</string>
       <key>other</key>
-      <string>%d laster-marka</string>
+      <string>%d markagailu</string>
     </dict>
   </dict>
 
@@ -34,8 +34,10 @@
       <string>NSStringPluralRuleType</string>
       <key>NSStringFormatValueTypeKey</key>
       <string>d</string>
+      <key>one</key>
+      <string>fitxategi %d aurkitu da. Elkarrizketaren ondoren ikusiko duzu.</string>
       <key>other</key>
-      <string>%d files were found. You can see them after conversion.</string>
+      <string>%d fitxategi aurkitu dira. Elkarrizketaren ondoren ikusiko dituzu.</string>
     </dict>
   </dict>
 
@@ -49,8 +51,10 @@
       <string>NSStringPluralRuleType</string>
       <key>NSStringFormatValueTypeKey</key>
       <string>d</string>
+      <key>one</key>
+      <string>objektu %d</string>
       <key>other</key>
-      <string>%d objects</string>
+      <string>%d objektu</string>
     </dict>
   </dict>
 
@@ -64,8 +68,10 @@
       <string>NSStringPluralRuleType</string>
       <key>NSStringFormatValueTypeKey</key>
       <string>d</string>
+      <key>one</key>
+      <string>arrasto %d</string>
       <key>other</key>
-      <string>%d tracks</string>
+      <string>%d arrasto</string>
     </dict>
   </dict>
 </dict>

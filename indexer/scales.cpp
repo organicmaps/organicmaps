@@ -1,6 +1,7 @@
 #include "indexer/scales.hpp"
-#include "geometry/mercator.hpp"
 
+#include "indexer/feature_algo.hpp"
+#include "geometry/mercator.hpp"
 #include "base/math.hpp"
 
 #include <algorithm>
@@ -55,17 +56,40 @@ namespace scales
 
   double GetEpsilonForSimplify(int level)
   {
-    // Keep better geometries on highest zoom to allow scaling them deeper
+    // Keep better geometries on highest zoom to allow scaling them deeper.
+    // Effectively it leads to x26 precision difference from geom scale 2 to 3.
+    // Keep crude geometries for all other zooms,
+    // x4 precision difference from geom scale 0 to 1 and 1 to 2.
     if (level == GetUpperScale())
       return GetEpsilonImpl(level, 0.4);
-    // Keep crude geometries for all other zooms
     else
       return GetEpsilonImpl(level, 1.3);
   }
 
+  double GetEpsilonForHousenumbers(int level)
+  {
+    // Leads to housenumbers either not fitting into buildings on zl16.
+    ASSERT_LESS(level, GetPointHousenumbersScale(), ());
+    return GetEpsilonImpl(level, 30);
+  }
+
   bool IsGoodForLevel(int level, m2::RectD const & r)
   {
+    ASSERT(level >= 0 && level <= GetUpperScale(), (level));
     // assume that feature is always visible in upper scale
     return (level == GetUpperScale() || std::max(r.SizeX(), r.SizeY()) > GetEpsilonForLevel(level));
+  }
+
+  bool IsGoodOutlineForLevel(int level, Points const & poly)
+  {
+    // Areas and closed lines have the same first and last points.
+    // Hence the minimum number of outline points is 4.
+    if (poly.size() < 4)
+      return false;
+
+    m2::RectD r;
+    feature::CalcRect(poly, r);
+
+    return IsGoodForLevel(level, r);
   }
 } // namespace scales

@@ -66,6 +66,8 @@ public:
     return m_metadata == other.m_metadata;
   }
 
+  void Clear() { m_metadata.clear(); }
+
 protected:
   friend bool indexer::MetadataDeserializer::Get(uint32_t id, MetadataBase & meta);
 
@@ -123,10 +125,10 @@ public:
     FMD_DENOMINATION = 21,
     FMD_BUILDING_LEVELS = 22,
     FMD_TEST_ID = 23,
-    // FMD_SPONSORED_ID = 24,
-    // FMD_PRICE_RATE = 25,
-    // FMD_RATING = 26,
-    // FMD_BANNER_URL = 27,
+    FMD_CUSTOM_IDS = 24,
+    FMD_PRICE_RATES = 25,
+    FMD_RATINGS = 26,
+    FMD_EXTERNAL_URI = 27,
     FMD_LEVEL = 28,
     FMD_AIRPORT_IATA = 29,
     FMD_BRAND = 30,
@@ -145,8 +147,11 @@ public:
     FMD_JUNCTION_REF = 39,
     FMD_BUILDING_MIN_LEVEL = 40,
     FMD_WIKIMEDIA_COMMONS = 41,
+    FMD_CAPACITY = 42,
     FMD_COUNT
   };
+
+  enum ESource : uint8_t { SRC_KAYAK = 0 };
 
   /// Used to normalize tags like "contact:phone", "phone" and "contact:mobile" to a common metadata enum value.
   static bool TypeFromString(std::string_view osmTagKey, EType & outType);
@@ -169,6 +174,8 @@ public:
   static std::string ToWikiURL(std::string v);
   std::string GetWikiURL() const;
   static std::string ToWikimediaCommonsURL(std::string const & v);
+
+  void ClearPOIAttribs();
 };
 
 class AddressData : public MetadataBase
@@ -176,14 +183,25 @@ class AddressData : public MetadataBase
 public:
   enum class Type : uint8_t
   {
-    Street,
-    Postcode
+    Street, Place,
   };
 
-  void Add(Type type, std::string const & s)
+  // Store single value only.
+  void Set(Type type, std::string_view s)
   {
-    /// @todo Probably, we need to add separator here and store multiple values.
-    MetadataBase::Set(base::Underlying(type), s);
+    Set(type, std::string(s));
+  }
+  void Set(Type type, std::string s)
+  {
+    if (!s.empty())
+      MetadataBase::Set(base::Underlying(type), std::move(s));
+  }
+
+  void SetIfAbsent(Type type, std::string s)
+  {
+    uint8_t const ut = base::Underlying(type);
+    if (!s.empty() && !Has(ut))
+      MetadataBase::Set(ut, std::move(s));
   }
 
   std::string_view Get(Type type) const { return MetadataBase::Get(base::Underlying(type)); }

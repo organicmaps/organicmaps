@@ -12,9 +12,8 @@
 #include <memory>
 #include <random>
 
-using namespace std;
 
-namespace
+namespace multithread_mwm_test
 {
 using SourceT = FeaturesFetcher;
 
@@ -32,14 +31,15 @@ public:
       m2::RectD const r = GetRandomRect();
       m_scale = scales::GetScaleLevel(r);
 
-      m_src.ForEachFeature(
-          r,
-          [&](FeatureType & ft) {
-            // Force load feature.
-            // We check asserts here. There is no any other constrains here.
-            (void)ft.IsEmptyGeometry(m_scale);
-          },
-          m_scale);
+      m_src.ForEachFeature(r, [this](FeatureType & ft)
+      {
+        ft.ParseHeader2();
+        (void)ft.GetOuterGeometryStats();
+        (void)ft.GetOuterTrianglesStats();
+
+        // Force load feature. We check asserts here. There is no any other constrains here.
+        CHECK(!ft.IsEmptyGeometry(m_scale), (ft.GetID()));
+      }, m_scale);
     }
   }
 
@@ -47,7 +47,7 @@ private:
   // Get random rect inside m_src.
   m2::RectD GetRandomRect() const
   {
-    int const count = max(1, rand() % 50);
+    int const count = std::max(1, rand() % 50);
 
     int const x = rand() % count;
     int const y = rand() % count;
@@ -66,7 +66,7 @@ private:
   int m_scale = 0;
 };
 
-void RunTest(string const & file)
+void RunTest(std::string const & file)
 {
   SourceT src;
   src.InitClassificator();
@@ -88,13 +88,14 @@ void RunTest(string const & file)
   base::thread_pool::routine_simple::ThreadPool pool(kCount);
 
   for (size_t i = 0; i < kCount; ++i)
-    pool.Add(make_unique<FeaturesLoader>(src));
+    pool.Add(std::make_unique<FeaturesLoader>(src));
 
   pool.Join();
 }
-}  // namespace
 
 UNIT_TEST(Threading_ForEachFeature)
 {
   RunTest("minsk-pass");
 }
+
+} // namespace multithread_mwm_test

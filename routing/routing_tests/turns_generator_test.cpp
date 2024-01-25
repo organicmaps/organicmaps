@@ -108,6 +108,18 @@ UNIT_TEST(TestParseSingleLane)
   TEST(ParseSingleLane("left", ';', result), ());
   TEST_EQUAL(result.size(), 1, ());
   TEST_EQUAL(result[0], LaneWay::Left, ());
+
+  TEST(ParseSingleLane("left;", ';', result), ());
+  TSingleLane expected3 = {LaneWay::Left, LaneWay::None};
+  TEST_EQUAL(result, expected3, ());
+
+  TEST(ParseSingleLane(";", ';', result), ());
+  TSingleLane expected4 = {LaneWay::None, LaneWay::None};
+  TEST_EQUAL(result, expected4, ());
+
+  TEST(ParseSingleLane("", ';', result), ());
+  TSingleLane expected5 = {LaneWay::None};
+  TEST_EQUAL(result, expected5, ());
 }
 
 UNIT_TEST(TestParseLanes)
@@ -162,6 +174,17 @@ UNIT_TEST(TestParseLanes)
   vector<SingleLaneInfo> const expected7 = {
       {LaneWay::Left}, {LaneWay::Left}, {LaneWay::Through}, {LaneWay::Through}, {LaneWay::Right}};
   TEST_EQUAL(result, expected7, ());
+
+  TEST(ParseLanes("|||||slight_right", result), ());
+  vector<SingleLaneInfo> const expected8 = {
+    {LaneWay::None},
+    {LaneWay::None},
+    {LaneWay::None},
+    {LaneWay::None},
+    {LaneWay::None},
+    {LaneWay::SlightRight}
+  };
+  TEST_EQUAL(result, expected8, ());
 }
 
 UNIT_TEST(TestFixupTurns)
@@ -281,14 +304,18 @@ UNIT_TEST(TestAddingActiveLaneInformation)
   vector<turns::TurnItem> turns =
       {{1, CarDirection::GoStraight},
        {2, CarDirection::TurnLeft},
-       {3, CarDirection::ReachedYourDestination}};
+       {3, CarDirection::TurnRight},
+       {4, CarDirection::ReachedYourDestination}};
 
   turns[0].m_lanes.push_back({LaneWay::Left, LaneWay::Through});
   turns[0].m_lanes.push_back({LaneWay::Right});
 
   turns[1].m_lanes.push_back({LaneWay::SlightLeft});
   turns[1].m_lanes.push_back({LaneWay::Through});
-  turns[1].m_lanes.push_back({LaneWay::Through});
+  turns[1].m_lanes.push_back({LaneWay::None});
+
+  turns[2].m_lanes.push_back({LaneWay::Left, LaneWay::SharpLeft});
+  turns[2].m_lanes.push_back({LaneWay::None});
 
   vector<RouteSegment> routeSegments;
   RouteSegmentsFrom({}, {}, turns, {}, routeSegments);
@@ -299,7 +326,10 @@ UNIT_TEST(TestAddingActiveLaneInformation)
 
   TEST(routeSegments[1].GetTurn().m_lanes[0].m_isRecommended, ());
   TEST(!routeSegments[1].GetTurn().m_lanes[1].m_isRecommended, ());
-  TEST(!routeSegments[1].GetTurn().m_lanes[1].m_isRecommended, ());
+  TEST(!routeSegments[1].GetTurn().m_lanes[2].m_isRecommended, ());
+
+  TEST(!routeSegments[2].GetTurn().m_lanes[0].m_isRecommended, ());
+  TEST(routeSegments[2].GetTurn().m_lanes[1].m_isRecommended, ());
 }
 
 UNIT_TEST(TestGetRoundaboutDirection)

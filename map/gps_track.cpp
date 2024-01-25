@@ -41,7 +41,7 @@ GpsTrack::GpsTrack(string const & filePath, size_t maxItemCount, hours duration,
   , m_duration(duration)
   , m_needClear(false)
   , m_needSendSnapshop(false)
-  , m_filter(move(filter))
+  , m_filter(std::move(filter))
   , m_threadExit(false)
   , m_threadWakeup(false)
 {
@@ -327,7 +327,7 @@ void GpsTrack::NotifyCallback(pair<size_t, size_t> const & addedIds, pair<size_t
     if (toAdd.empty())
       return; // nothing to send
 
-    m_callback(move(toAdd), make_pair(kInvalidId, kInvalidId));
+    m_callback(std::move(toAdd), make_pair(kInvalidId, kInvalidId));
   }
   else
   {
@@ -348,6 +348,6 @@ void GpsTrack::NotifyCallback(pair<size_t, size_t> const & addedIds, pair<size_t
     if (toAdd.empty() && evictedIds.first == kInvalidId)
       return; // nothing to send
 
-    m_callback(move(toAdd), evictedIds);
+    m_callback(std::move(toAdd), evictedIds);
   }
 }

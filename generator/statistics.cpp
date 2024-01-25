@@ -58,9 +58,10 @@ namespace stats
 
       FeatureType::InnerGeomStat const innerStats = f.GetInnerStats();
 
-      m_info.m_inner[0].Add(innerStats.m_points);
-      m_info.m_inner[1].Add(innerStats.m_strips);
-      m_info.m_inner[2].Add(innerStats.m_size);
+      m_info.m_innerPoints.Add(innerStats.m_points);
+      m_info.m_innerFirstPoints.Add(innerStats.m_firstPoints);
+      m_info.m_innerStrips.Add(innerStats.m_strips);
+      m_info.m_innerSize.Add(innerStats.m_size);
 
       // Get size stats and load the best geometry.
       FeatureType::GeomStat const geom = f.GetOuterGeometryStats();
@@ -80,19 +81,30 @@ namespace stats
         {
           // If a feature has a more simplified version of current geometry.
           if (geom.m_elements[ind - 1] > 0)
-            m_info.m_byLineGeomCompared[ind].Add(geomSize, geomElems);
+            m_info.m_byLineGeomComparedS[ind].Add(geomSize, geomElems);
           if (trg.m_elements[ind - 1] > 0)
-            m_info.m_byAreaGeomCompared[ind].Add(trgSize, trgElems);
+            m_info.m_byAreaGeomComparedS[ind].Add(trgSize, trgElems);
         }
 
         if (ind < DataHeader::kMaxScalesCount - 1)
         {
-          // If feature's current geometry almost duplicates a more detailed one
-          // (has <geometryDupFactor less elements).
-          if (geomElems * m_info.m_geometryDupFactor > geom.m_elements[ind + 1])
-            m_info.m_byLineGeomDup[ind].Add(geomSize, geomElems);
-          if (trgElems * m_info.m_geometryDupFactor > trg.m_elements[ind + 1])
-            m_info.m_byAreaGeomDup[ind].Add(trgSize, trgElems);
+          // If a feature has a more detailed version of current geometry.
+          if (geom.m_elements[ind + 1] > 0)
+          {
+            m_info.m_byLineGeomComparedD[ind].Add(geomSize, geomElems);
+            // If feature's current geometry is very similar to a more detailed one
+            // (number of elements is <geomMinDiff less or <geomMinFactor times less).
+            if (geomElems + m_info.m_geomMinDiff > geom.m_elements[ind + 1] ||
+                geomElems * m_info.m_geomMinFactor > geom.m_elements[ind + 1])
+              m_info.m_byLineGeomDup[ind].Add(geomSize, geomElems);
+          }
+          if (trg.m_elements[ind + 1] > 0)
+          {
+            m_info.m_byAreaGeomComparedD[ind].Add(trgSize, trgElems);
+            if (trgElems + m_info.m_geomMinDiff > trg.m_elements[ind + 1] ||
+                trgElems * m_info.m_geomMinFactor > trg.m_elements[ind + 1])
+              m_info.m_byAreaGeomDup[ind].Add(trgSize, trgElems);
+          }
         }
       }
 
@@ -153,7 +165,8 @@ namespace stats
   {
     os << std::setw(prefixWidth) << prefix
        << ": size = " << std::setw(9) << info.m_size
-       << "; features = " << std::setw(7) << info.m_count;
+       << "; features = " << std::setw(7) << info.m_count
+       << "; bytes/feats = " << std::setw(6) << info.m_size / static_cast<double>(info.m_count);
 
     if (measurements)
     {
@@ -229,9 +242,10 @@ namespace stats
 
   void PrintStats(std::ostream & os, MapInfo & info)
   {
-    PrintInfo(os, "Feature headers", info.m_inner[2], 30);
-    PrintInfo(os, "incl. inner points", info.m_inner[0], 30);
-    PrintInfo(os, "incl. inner triangles (strips)", info.m_inner[1], 30);
+    PrintInfo(os, "Feature headers", info.m_innerSize, 30);
+    PrintInfo(os, "incl. inner points", info.m_innerPoints, 30);
+    PrintInfo(os, "incl. first/base outer points", info.m_innerFirstPoints, 30);
+    PrintInfo(os, "incl. inner triangles (strips)", info.m_innerStrips, 30);
 
     PrintTop<greater_size>(os, "Top SIZE by Geometry Type", info.m_byGeomType, 5, true);
     PrintTop<greater_size>(os, "Top SIZE by Classificator Type\n"
@@ -257,29 +271,14 @@ namespace stats
   }
 
   void PrintGeometryInfo(std::ostream & os, char const * prefix,
-                         double geometryDupFactor,GeomStats const & geomStats,
-                         GeomStats const & comparedStats, GeomStats const & dupStats)
+                         size_t geomMinDiff, double geomMinFactor,
+                         GeomStats const & geomStats, GeomStats const & comparedStatsS,
+                         GeomStats const & comparedStatsD, GeomStats const & dupStats)
   {
     for (size_t ind = 0; ind < DataHeader::kMaxScalesCount; ++ind)
     {
       GeomInfo const & info = geomStats[ind];
-      if (ind > 0)
-      {
-        GeomInfo const & compInfo = comparedStats[ind];
-        os << prefix << ind << "w/" << ind - 1
-           << ": size = " << std::setw(9) << compInfo.m_size
-           << ": elements = " << std::setw(9) << compInfo.m_elements
-           << "; feats w/" << prefix << ind - 1
-           << " = " << std::setw(7) << compInfo.m_count
-           << "; elems/feats = " << std::setw(5)
-           << compInfo.m_elements / static_cast<double>(compInfo.m_count)
-           << "; size factor = " << std::setw(4)
-           << compInfo.m_size / static_cast<double>(geomStats[ind - 1].m_size)
-           << "x; elems factor = " << std::setw(4)
-           << compInfo.m_elements / static_cast<double>(geomStats[ind - 1].m_elements)
-           << "x\n";
-      }
-      os << "   " << prefix << ind
+      os << "    " << prefix << ind
          << ": size = " << std::setw(9) << info.m_size
          << ": elements = " << std::setw(9) << info.m_elements
          << "; features = " << std::setw(7) << info.m_count
@@ -290,31 +289,55 @@ namespace stats
          << "\n";
     }
 
-    os << "Geometry almost duplicating (<" << geometryDupFactor
-       << "x less elements) a more detailed one\n";
+    os << "Geometry of features present on adjacent geom scales incl. very similar geometries\n"
+       << "(when number of elements is <" << geomMinDiff
+       << " less or <" << geomMinFactor << "x times less)\n";
     for (size_t ind = 0; ind < DataHeader::kMaxScalesCount - 1; ++ind)
     {
-      GeomInfo const & dupInfo = dupStats[ind];
-      os << prefix << ind << "~=" << ind + 1
-         << ": size = " << std::setw(9) << dupInfo.m_size
-         << ": elements = " << std::setw(9) << dupInfo.m_elements
+      GeomInfo const & compInfoD = comparedStatsD[ind],
+                       compInfoS = comparedStatsS[ind + 1],
+                       dupInfo = dupStats[ind];
+      CHECK_EQUAL(compInfoD.m_count, compInfoS.m_count, ());
+      os << prefix << ind << " vs " << prefix << ind + 1
+         << ": size difference = " << std::setw(4)
+         << compInfoS.m_size / static_cast<double>(compInfoD.m_size)
+         << "x; elems difference = " << std::setw(4)
+         << compInfoS.m_elements / static_cast<double>(compInfoD.m_elements)
+         << "x; features = " << std::setw(7) << compInfoD.m_count
+         << "\n";
+      os << "    " << prefix << ind
+         << ": size = " << std::setw(9) << compInfoD.m_size
+         << "; elements = " << std::setw(9) << compInfoD.m_elements
+         << "; elems/feats = " << std::setw(5)
+         << compInfoD.m_elements / static_cast<double>(compInfoD.m_count)
+         << "\n";
+      os << "    " << prefix << ind + 1
+         << ": size = " << std::setw(9) << compInfoS.m_size
+         << "; elements = " << std::setw(9) << compInfoS.m_elements
+         << "; elems/feats = " << std::setw(5)
+         << compInfoS.m_elements / static_cast<double>(compInfoS.m_count)
+         << "\n";
+      os << "    similar: size = " << std::setw(9) << dupInfo.m_size
+         << " (" << std::setw(2) << 100 * dupInfo.m_size / static_cast<double>(compInfoD.m_size)
+         << "%); elements = " << std::setw(9) << dupInfo.m_elements
          << "; features = " << std::setw(7) << dupInfo.m_count
          << "; elems/feats = " << std::setw(5)
          << dupInfo.m_elements / static_cast<double>(dupInfo.m_count)
-         << "; dups size % = " << std::setw(2)
-         << 100 * dupInfo.m_size / geomStats[ind].m_size << "%\n";
+         << "\n";
     }
   }
 
   void PrintOuterGeometryStats(std::ostream & os, MapInfo & info)
   {
-    os << std::fixed << std::setprecision(1) << "Outer LINE geometry\n";
-    PrintGeometryInfo(os, "geom", info.m_geometryDupFactor, info.m_byLineGeom,
-                      info.m_byLineGeomCompared, info.m_byLineGeomDup);
+    os << "Outer LINE geometry\n";
+    PrintGeometryInfo(os, "geom", info.m_geomMinDiff, info.m_geomMinFactor,
+                      info.m_byLineGeom, info.m_byLineGeomComparedS,
+                      info.m_byLineGeomComparedD, info.m_byLineGeomDup);
 
     os << "\nOuter AREA geometry\n";
-    PrintGeometryInfo(os, "trg", info.m_geometryDupFactor, info.m_byAreaGeom,
-                      info.m_byAreaGeomCompared, info.m_byAreaGeomDup);
+    PrintGeometryInfo(os, "trg", info.m_geomMinDiff, info.m_geomMinFactor,
+                      info.m_byAreaGeom, info.m_byAreaGeomComparedS,
+                      info.m_byAreaGeomComparedD, info.m_byAreaGeomDup);
     os << "\n";
   }
 }

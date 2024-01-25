@@ -4,8 +4,6 @@
 
 #include <limits>
 
-using namespace std;
-
 namespace
 {
 bool LEQ(size_t a1, size_t a2, size_t b1, size_t b2)
@@ -28,7 +26,7 @@ template <typename Values>
 void RadixSort(size_t numKeys, size_t const * keys, size_t numValues, Values const & values,
                size_t * resultKeys)
 {
-  vector<size_t> count(numValues, 0);
+  std::vector<size_t> count(numValues, 0);
   for (size_t i = 0; i < numKeys; ++i)
   {
     auto const value = values[keys[i]];
@@ -60,7 +58,7 @@ struct SkewWrapper
     return 0;
   }
 
-  size_t MaxValue() const { return static_cast<size_t>(numeric_limits<uint8_t>::max()) + 1; }
+  size_t MaxValue() const { return static_cast<size_t>(std::numeric_limits<uint8_t>::max()) + 1; }
 
   size_t const m_n;
   uint8_t const * const m_s;
@@ -96,7 +94,7 @@ Slice<Container> MakeSlice(Container const & c, size_t offset)
 template <typename S>
 void RawSkew(size_t n, size_t maxValue, S const & s, size_t * sa)
 {
-  size_t const kInvalidId = numeric_limits<size_t>::max();
+  size_t const kInvalidId = std::numeric_limits<size_t>::max();
 
   if (n == 0)
     return;
@@ -121,8 +119,8 @@ void RawSkew(size_t n, size_t maxValue, S const & s, size_t * sa)
   ASSERT_EQUAL(fake1, static_cast<uint32_t>(n % 3 == 1), ());
 
   // Generate positions of =(1|2) (mod 3) suffixes.
-  vector<size_t> s12(n02 + 3);
-  vector<size_t> sa12(n02 + 3);
+  std::vector<size_t> s12(n02 + 3);
+  std::vector<size_t> sa12(n02 + 3);
 
   // (n0 - n1) is needed in case when n == 0 (mod 3).  We need a fake
   // =1 (mod 3) suffix for proper sorting of =0 (mod 3) suffixes.
@@ -186,8 +184,8 @@ void RawSkew(size_t n, size_t maxValue, S const & s, size_t * sa)
   // in s12 are unique.
 
   // Need to do a stable sort for all =0 (mod 3) suffixes.
-  vector<size_t> s0(n0);
-  vector<size_t> sa0(n0);
+  std::vector<size_t> s0(n0);
+  std::vector<size_t> sa0(n0);
   for (size_t i = 0, j = 0; i < n02; ++i)
   {
     if (sa12[i] < n0)
@@ -247,7 +245,7 @@ void Skew(size_t n, uint8_t const * s, size_t * sa)
   RawSkew(n, wrapper.MaxValue(), wrapper, sa);
 }
 
-void Skew(string const & s, vector<size_t> & sa)
+void Skew(std::string const & s, std::vector<size_t> & sa)
 {
   auto const n = s.size();
   sa.assign(n, 0);

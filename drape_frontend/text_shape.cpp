@@ -427,6 +427,9 @@ void TextShape::DrawSubStringOutlined(ref_ptr<dp::GraphicsContext> context,
   batcher->InsertListOfStrip(context, state, make_ref(&provider), std::move(handle), 4);
 }
 
+// TODO: *Shape classes are concerned with drawing themselves. Its strange they decide/manipulate overlays' priorities
+// in the scene. It seems more logical to set priorities beforehand in the creators of *Shapes and pass on final values only.
+// Check if such a refactoring makes sense.
 uint64_t TextShape::GetOverlayPriority() const
 {
   // Set up maximum priority for shapes which created by user in the editor and in case of disabling
@@ -434,25 +437,17 @@ uint64_t TextShape::GetOverlayPriority() const
   if (m_params.m_createdByEditor || m_disableDisplacing)
     return dp::kPriorityMaskAll;
 
-  // Special displacement mode.
-  if (m_params.m_specialDisplacement == SpecialDisplacement::SpecialMode)
-    return dp::CalculateSpecialModePriority(m_params.m_specialPriority);
-
   if (m_params.m_specialDisplacement == SpecialDisplacement::SpecialModeUserMark)
     return dp::CalculateSpecialModeUserMarkPriority(m_params.m_specialPriority);
 
   if (m_params.m_specialDisplacement == SpecialDisplacement::UserMark)
     return dp::CalculateUserMarkPriority(m_params.m_minVisibleScale, m_params.m_specialPriority);
 
-  // Set up minimal priority for house numbers.
-  if (m_params.m_specialDisplacement == SpecialDisplacement::HouseNumber)
-    return 0;
-
   // Overlay priority for text shapes considers length of the primary text
   // (the more text length, the more priority) and index of text.
   // [6 bytes - standard overlay priority][1 byte - length][1 byte - text index].
   static uint64_t constexpr kMask = ~static_cast<uint64_t>(0xFFFF);
-  uint64_t priority = dp::CalculateOverlayPriority(m_params.m_minVisibleScale, m_params.m_rank, m_params.m_depth);
+  uint64_t priority = dp::CalculateOverlayPriority(m_params.m_rank, m_params.m_depth);
   priority &= kMask;
   priority |= (static_cast<uint8_t>(m_params.m_titleDecl.m_primaryText.size()) << 8);
   priority |= static_cast<uint8_t>(m_textIndex);

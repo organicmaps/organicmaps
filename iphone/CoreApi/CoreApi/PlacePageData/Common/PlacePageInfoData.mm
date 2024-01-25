@@ -5,6 +5,7 @@
 #import <CoreApi/StringUtils.h>
 
 #include "indexer/validate_and_format_contacts.hpp"
+#include "indexer/kayak.hpp"
 
 #include "map/place_page_info.hpp"
 
@@ -29,7 +30,6 @@ using namespace osm;
     using MetadataID = MapObject::MetadataID;
     rawData.ForEachMetadataReadable([&](MetadataID metaID, std::string const & value)
     {
-      /// @todo Show wikipedia, wikimedia_commons here?
       switch (metaID)
       {
         case MetadataID::FMD_OPEN_HOURS:
@@ -48,6 +48,16 @@ using namespace osm;
           break;
         }
         case MetadataID::FMD_WEBSITE: _website = ToNSString(value); break;
+        case MetadataID::FMD_EXTERNAL_URI:
+        {
+          NSString *countryIsoCode = [[NSLocale currentLocale] objectForKey:NSLocaleCountryCode] ?: @"US";
+          time_t firstDaySec = time_t([[NSDate date] timeIntervalSince1970]);
+          time_t lastDaySec = firstDaySec + 86400;
+          std::string kayakUrl = osm::GetKayakHotelURLFromURI([countryIsoCode UTF8String], value, firstDaySec, lastDaySec);
+          if (!kayakUrl.empty())
+            _kayak = ToNSString(kayakUrl);
+          break;
+        }
         case MetadataID::FMD_WIKIPEDIA: _wikipedia = ToNSString(value); break;
         case MetadataID::FMD_WIKIMEDIA_COMMONS: _wikimediaCommons = ToNSString(value); break;
         case MetadataID::FMD_EMAIL:
@@ -65,14 +75,21 @@ using namespace osm;
               ? NSLocalizedString(@"no_available", nil) : NSLocalizedString(@"yes_available", nil);
           break;
         case MetadataID::FMD_LEVEL: _level = ToNSString(value); break;
+        case MetadataID::FMD_CAPACITY: _capacity = [NSString stringWithFormat:NSLocalizedString(@"capacity", nil), ToNSString(value)]; break;
         default:
           break;
       }
     });
-
+    
+    _atm = rawData.HasAtm() ? NSLocalizedString(@"type.amenity.atm", nil) : nil;
+      
     _address = rawData.GetAddress().empty() ? nil : @(rawData.GetAddress().c_str());
-    _rawCoordinates = @(rawData.GetFormattedCoordinate(true).c_str());
-    _formattedCoordinates = @(rawData.GetFormattedCoordinate(false).c_str());
+    _coordFormats = @[@(rawData.GetFormattedCoordinate(place_page::CoordinatesFormat::LatLonDMS).c_str()),
+                      @(rawData.GetFormattedCoordinate(place_page::CoordinatesFormat::LatLonDecimal).c_str()),
+                      @(rawData.GetFormattedCoordinate(place_page::CoordinatesFormat::OLCFull).c_str()),
+                      @(rawData.GetFormattedCoordinate(place_page::CoordinatesFormat::OSMLink).c_str()),
+                      @(rawData.GetFormattedCoordinate(place_page::CoordinatesFormat::UTM).c_str()),
+                      @(rawData.GetFormattedCoordinate(place_page::CoordinatesFormat::MGRS).c_str())];
   }
   return self;
 }

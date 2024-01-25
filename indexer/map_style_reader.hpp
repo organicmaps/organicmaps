@@ -18,7 +18,7 @@ public:
 
   ReaderPtr<Reader> GetDrawingRulesReader() const;
 
-  ReaderPtr<Reader> GetResourceReader(std::string const & file, std::string const & density) const;
+  ReaderPtr<Reader> GetResourceReader(std::string const & file, std::string_view density) const;
   ReaderPtr<Reader> GetDefaultResourceReader(std::string const & file) const;
 
 private:

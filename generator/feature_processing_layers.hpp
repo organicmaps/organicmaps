@@ -1,30 +1,19 @@
 #pragma once
 
 #include "generator/affiliation.hpp"
-#include "generator/composite_id.hpp"
 #include "generator/feature_builder.hpp"
-#include "generator/feature_generator.hpp"
 #include "generator/features_processing_helpers.hpp"
 #include "generator/filter_world.hpp"
 #include "generator/processor_interface.hpp"
-#include "generator/world_map_generator.hpp"
 
 #include <functional>
 #include <memory>
-#include <sstream>
 #include <string>
 #include <unordered_set>
 
-class CoastlineFeaturesGenerator;
-
-namespace feature
-{
-struct GenerateInfo;
-}  // namespace feature
-
 namespace generator
 {
-class ComplexFeaturesMixer;
+
 // This is the base layer class. Inheriting from it allows you to create a chain of layers.
 class LayerBase : public std::enable_shared_from_this<LayerBase>
 {
@@ -36,9 +25,7 @@ public:
   virtual void Handle(feature::FeatureBuilder & fb);
 
   size_t GetChainSize() const;
-
-  void SetNext(std::shared_ptr<LayerBase> next);
-  std::shared_ptr<LayerBase> Add(std::shared_ptr<LayerBase> next);
+  void Add(std::shared_ptr<LayerBase> next);
 
 private:
   std::shared_ptr<LayerBase> m_next;
@@ -53,8 +40,6 @@ private:
 class RepresentationLayer : public LayerBase
 {
 public:
-  explicit RepresentationLayer(std::shared_ptr<ComplexFeaturesMixer> const & complexFeaturesMixer = nullptr);
-
   // LayerBase overrides:
   void Handle(feature::FeatureBuilder & fb) override;
 
@@ -65,7 +50,7 @@ public:
 private:
   void HandleArea(feature::FeatureBuilder & fb, FeatureBuilderParams const & params);
 
-  std::shared_ptr<ComplexFeaturesMixer> m_complexFeaturesMixer;
+  //std::shared_ptr<ComplexFeaturesMixer> m_complexFeaturesMixer;
 };
 
 // Responsibility of class PrepareFeatureLayer is the removal of unused types and names,
@@ -114,22 +99,23 @@ public:
   void Handle(feature::FeatureBuilder & fb) override;
 };
 
+/*
 class PreserializeLayer : public LayerBase
 {
 public:
   // LayerBase overrides:
   void Handle(feature::FeatureBuilder & fb) override;
 };
+*/
 
-template <class SerializePolicy = feature::serialization_policy::MaxAccuracy>
 class AffiliationsFeatureLayer : public LayerBase
 {
 public:
-  AffiliationsFeatureLayer(size_t bufferSize, std::shared_ptr<feature::AffiliationInterface> const & affiliation,
-                          std::shared_ptr<FeatureProcessorQueue> const & queue)
+  AffiliationsFeatureLayer(size_t bufferSize, AffiliationInterfacePtr affiliation,
+                          std::shared_ptr<FeatureProcessorQueue> queue)
     : m_bufferSize(bufferSize)
-    , m_affiliation(affiliation)
-    , m_queue(queue)
+    , m_affiliation(std::move(affiliation))
+    , m_queue(std::move(queue))
   {
     m_buffer.reserve(m_bufferSize);
   }
@@ -138,7 +124,7 @@ public:
   void Handle(feature::FeatureBuilder & fb) override
   {
     feature::FeatureBuilder::Buffer buffer;
-    SerializePolicy::Serialize(fb, buffer);
+    feature::serialization_policy::MaxAccuracy::Serialize(fb, buffer);
     m_buffer.emplace_back(std::move(buffer), m_affiliation->GetAffiliations(fb));
     if (m_buffer.size() >= m_bufferSize)
       AddBufferToQueue();
@@ -158,10 +144,10 @@ public:
 private:
   size_t const m_bufferSize;
   std::vector<ProcessedData> m_buffer;
-  std::shared_ptr<feature::AffiliationInterface> m_affiliation;
+  AffiliationInterfacePtr m_affiliation;
   std::shared_ptr<FeatureProcessorQueue> m_queue;
 };
-
+/*
 class ComplexFeaturesMixer
 {
 public:
@@ -179,4 +165,5 @@ private:
   std::unordered_set<CompositeId> const & m_hierarchyNodesSet;
   uint32_t const m_complexEntryType;
 };
+*/
 }  // namespace generator

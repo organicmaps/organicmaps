@@ -34,17 +34,6 @@ UIColor * convertColor(uint32_t colorARGB)
 }
 }  // namespace
 
-@interface MWMRouterTransitStepInfo ()
-
-@property(nonatomic, readwrite) MWMRouterTransitType type;
-@property(copy, nonatomic, readwrite) NSString * distance;
-@property(copy, nonatomic, readwrite) NSString * distanceUnits;
-@property(copy, nonatomic, readwrite) NSString * number;
-@property(nonatomic, readwrite) UIColor * color;
-@property(nonatomic, readwrite) NSInteger intermediateIndex;
-
-@end
-
 @implementation MWMRouterTransitStepInfo
 
 - (instancetype)initWithStepInfo:(TransitStepInfo const &)info

@@ -84,4 +84,8 @@
   return [self.manager getCategoryGroupType:self.categoryId];
 }
 
+- (BOOL)isHtmlDescription {
+  return [self.manager isHtmlDescription:self.categoryId];
+}
+
 @end

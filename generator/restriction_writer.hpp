@@ -24,20 +24,16 @@ public:
   static std::string const kNodeString;
   static std::string const kWayString;
 
-  RestrictionWriter(
-      std::string const & filename,
-      std::shared_ptr<generator::cache::IntermediateDataReaderInterface> const & cache);
+  RestrictionWriter(std::string const & filename, IDRInterfacePtr const & cache);
 
   // generator::CollectorInterface overrides:
-  std::shared_ptr<CollectorInterface> Clone(
-      std::shared_ptr<generator::cache::IntermediateDataReaderInterface> const & cache = {})
-      const override;
+  std::shared_ptr<CollectorInterface> Clone(IDRInterfacePtr const & cache = {}) const override;
 
   void CollectRelation(RelationElement const & relationElement) override;
   void Finish() override;
 
-  void Merge(generator::CollectorInterface const & collector) override;
-  void MergeInto(RestrictionWriter & collector) const override;
+  IMPLEMENT_COLLECTOR_IFACE(RestrictionWriter);
+  void MergeInto(RestrictionWriter & collector) const;
 
   static ViaType ConvertFromString(std::string const & str);
 
@@ -48,7 +44,7 @@ protected:
 
 private:
   std::ofstream m_stream;
-  std::shared_ptr<generator::cache::IntermediateDataReaderInterface> m_cache;
+  IDRInterfacePtr m_cache;
 };
 
 std::string DebugPrint(RestrictionWriter::ViaType const & type);

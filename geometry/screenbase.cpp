@@ -23,7 +23,7 @@ ScreenBase::ScreenBase()
   , m_Scale(0.1)
   , m_Angle(0.0)
   , m_3dFOV(kPerspectiveAngleFOV)
-  , m_3dNearZ(0.001)
+  , m_3dNearZ(0.1)
   , m_3dFarZ(0.0)
   , m_3dAngleX(0.0)
   , m_3dMaxAngleX(0.0)
@@ -128,15 +128,14 @@ void ScreenBase::SetAutoPerspective(bool isAutoPerspective)
 void ScreenBase::SetFromRects(m2::AnyRectD const & glbRect, m2::RectD const & pxRect)
 {
   m2::RectD const & lRect = glbRect.GetLocalRect();
-  ASSERT(!lRect.IsEmptyInterior(), (lRect));
+  ASSERT(lRect.IsValid(), (lRect));
   ASSERT(!pxRect.IsEmptyInterior(), (pxRect));
 
   double const hScale = lRect.SizeX() / pxRect.SizeX();
   double const vScale = lRect.SizeY() / pxRect.SizeY();
-
-  ASSERT_GREATER(hScale, 0.0, ());
-  ASSERT_GREATER(vScale, 0.0, ());
   m_Scale = std::max(hScale, vScale);
+  ASSERT_GREATER(m_Scale, 0.0, ());
+
   m_Angle = glbRect.Angle();
   m_Org = glbRect.GlobalCenter();
 

@@ -1,4 +1,10 @@
 #!/usr/bin/env python
+
+"""
+First lists tags used by Organic Maps
+Then, popular tags among selected keys (see find_popular_taginfo for list) which are not yet used by Organic Maps are listed
+"""
+
 import csv
 import drules_struct_pb2
 import os
@@ -81,7 +87,7 @@ def find_in_taginfo(cur, kv, seen):
 
 
 def find_popular_taginfo(cur, seen):
-    """Finds popular keys that have not been seen."""
+    """Finds popular values that have not been seen, among some popular tags."""
     RE_VALID = re.compile(r'^[a-z_]+$')
     keys = ('amenity', 'shop', 'craft', 'emergency', 'office', 'highway', 'railway', 'tourism', 'historic', 'leisure', 'man_made')
     cur.execute("select key, value, count_all from tags where key in ({}) and count_all > 1000 order by count_all desc".
@@ -115,6 +121,12 @@ if __name__ == '__main__':
     if len(sys.argv) < 2:
         print('Calculates tag usage and categories stats, suggesting new types.')
         print('Usage: {} <path_to_taginfo.db> [<path_to_omim_data>]'.format(sys.argv[0]))
+        print('To obtain taginfo files visit https://taginfo.openstreetmap.org/download')
+        print('On Linux you can obtain this files by following operations')
+        print('wget https://taginfo.openstreetmap.org/download/taginfo-db.db.bz2')
+        print('wget https://taginfo.openstreetmap.org/download/taginfo-wiki.db.bz2')
+        print('bzip2 -dk taginfo-wiki.db.bz2')
+        print('bzip2 -dk taginfo-db.db.bz2')
         sys.exit(1)
 
     data_path = sys.argv[2] if len(sys.argv) >= 3 else os.path.join(os.path.dirname(sys.argv[0]), '..', '..', '..', 'data')
@@ -155,7 +167,7 @@ if __name__ == '__main__':
 
     # Iterate over know classificator types
     w = csv.writer(sys.stdout)
-    w.writerow(('type', 'is editable', 'can add', 'drawn', 'icon', 'area', 'name drawn', 'usages in osm'))
+    w.writerow(('type', 'is editable', 'can add', 'drawn', 'icon', 'area', 'name drawn', 'usage count in osm', 'source'))
     no_editor = EditStat()
     no_drawn = DruleStat()
     seen = set()
@@ -181,7 +193,7 @@ if __name__ == '__main__':
     for row in find_popular_taginfo(cursor, seen):
         r = ['{}={}'.format(row[0], row[1])] + ['']*6 + [row[2]]
         if wcur is not None:
-            wcur.execute("select description from wikipages where key=? and value=? and lang in ('en', 'ru') order by lang desc", (row[0], row[1]))
+            wcur.execute("select description from wikipages where key=? and value=? and lang is 'en'", (row[0], row[1]))
             wrow = wcur.fetchone()
-            r.append('' if wrow is None or wrow[0] is None else wrow[0].encode('utf-8'))
+            r.append('' if wrow is None or wrow[0] is None else wrow[0])
         w.writerow(r)

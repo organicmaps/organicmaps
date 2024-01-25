@@ -10,6 +10,7 @@
 
 #include "indexer/classificator.hpp"
 #include "indexer/feature_impl.hpp"
+#include "indexer/ftypes_matcher.hpp"
 
 #include "platform/platform.hpp"
 
@@ -30,7 +31,7 @@
 
 namespace ftype
 {
-using std::function, std::string, std::vector;
+using std::string;
 
 namespace
 {
@@ -154,11 +155,16 @@ public:
   struct Rule
   {
     char const * m_key;
+    // Wildcard values:
     // * - take any values
     // ! - take only negative values
+    // !r  - take only negative values for Routing
     // ~ - take only positive values
+    // ~r - take only positive values for Routing
+    // Note that the matching logic here is different from the one used in classificator matching,
+    // see ParseMapCSS() and Matches() in generator/utils.cpp.
     char const * m_value;
-    function<Function> m_func;
+    std::function<Function> m_func;
   };
 
   template <typename Function = void()>
@@ -170,9 +176,14 @@ public:
       {
         if (e.m_key != rule.m_key)
           continue;
+
         bool take = false;
         if (rule.m_value[0] == '*')
           take = true;
+        else if (strncmp(rule.m_value, "!r", 2) == 0)
+          take = IsNegativeRouting(e.m_value);
+        else if (strncmp(rule.m_value, "~r", 2) == 0)
+          take = IsPositiveRouting(e.m_value);
         else if (rule.m_value[0] == '!')
           take = IsNegative(e.m_value);
         else if (rule.m_value[0] == '~')
@@ -185,10 +196,12 @@ public:
   }
 
 protected:
-  static void Call(function<void()> const & f, string &, string &) { f(); }
-  static void Call(function<void(string &, string &)> const & f, string & k, string & v)
+  static void Call(std::function<void()> const & f, string &, string &) { f(); }
+  static void Call(std::function<void(string &, string &)> const & f, string & k, string & v)
   {
     f(k, v);
+    k.clear();
+    v.clear();
   }
 
 private:
@@ -201,6 +214,25 @@ private:
     }
     return false;
   }
+  static bool IsNegativeRouting(string const & value)
+  {
+    for (char const * s : {"use_sidepath", "separate"})
+    {
+      if (value == s)
+        return true;
+    }
+    return IsNegative(value);
+  }
+  static bool IsPositiveRouting(string const & value)
+  {
+    // This values neither positive and neither negative.
+    for (char const * s : {"unknown", "dismount"})
+    {
+      if (value == s)
+        return false;
+    }
+    return !IsNegativeRouting(value);
+  }
 
   OsmElement * m_element;
 };
@@ -208,7 +240,7 @@ private:
 class CachedTypes
 {
 public:
-  enum class Type
+  enum Type
   {
     Entrance,
     Highway,
@@ -218,8 +250,10 @@ public:
     Lit,
     NoFoot,
     YesFoot,
+    NoSidewalk,   // no dedicated sidewalk, doesn't mean that foot is not allowed, just lower weight
     NoBicycle,
     YesBicycle,
+    NoCycleway,   // no dedicated cycleway, doesn't mean that bicycle is not allowed, just lower weight
     BicycleBidir,
     SurfacePavedGood,
     SurfacePavedBad,
@@ -228,6 +262,7 @@ public:
     HasParts,
     NoCar,
     YesCar,
+    InternetAny,
     Wlan,
     RailwayStation,
     SubwayStation,
@@ -237,6 +272,7 @@ public:
     Toll,
     BicycleOnedir,
     Ferry,
+    ShuttleTrain,
     Count
   };
 
@@ -244,37 +280,41 @@ public:
   {
     Classificator const & c = classif();
 
-    static std::map<Type, vector<string>> const kTypeToName = {
-        {Type::Entrance,           {"entrance"}},
-        {Type::Highway,            {"highway"}},
-        {Type::Address,            {"building", "address"}},
-        {Type::OneWay,             {"hwtag", "oneway"}},
-        {Type::Private,            {"hwtag", "private"}},
-        {Type::Lit,                {"hwtag", "lit"}},
-        {Type::NoFoot,             {"hwtag", "nofoot"}},
-        {Type::YesFoot,            {"hwtag", "yesfoot"}},
-        {Type::NoBicycle,          {"hwtag", "nobicycle"}},
-        {Type::YesBicycle,         {"hwtag", "yesbicycle"}},
-        {Type::BicycleBidir,       {"hwtag", "bidir_bicycle"}},
-        {Type::SurfacePavedGood,   {"psurface", "paved_good"}},
-        {Type::SurfacePavedBad,    {"psurface", "paved_bad"}},
-        {Type::SurfaceUnpavedGood, {"psurface", "unpaved_good"}},
-        {Type::SurfaceUnpavedBad,  {"psurface", "unpaved_bad"}},
-        {Type::HasParts,           {"building", "has_parts"}},
-        {Type::NoCar,              {"hwtag", "nocar"}},
-        {Type::YesCar,             {"hwtag", "yescar"}},
-        {Type::Wlan,               {"internet_access", "wlan"}},
-        {Type::RailwayStation,     {"railway", "station"}},
-        {Type::SubwayStation,      {"railway", "station", "subway"}},
-        {Type::WheelchairAny,      {"wheelchair"}},
-        {Type::WheelchairYes,      {"wheelchair", "yes"}},
-        {Type::BarrierGate,        {"barrier", "gate"}},
-        {Type::Toll,               {"hwtag", "toll"}},
-        {Type::BicycleOnedir,      {"hwtag", "onedir_bicycle"}},
-        {Type::Ferry,              {"route", "ferry"}},
+    static std::map<Type, std::vector<string>> const kTypeToName = {
+        {Entrance,           {"entrance"}},
+        {Highway,            {"highway"}},
+        {Address,            {"building", "address"}},
+        {OneWay,             {"hwtag", "oneway"}},
+        {Private,            {"hwtag", "private"}},
+        {Lit,                {"hwtag", "lit"}},
+        {NoFoot,             {"hwtag", "nofoot"}},
+        {YesFoot,            {"hwtag", "yesfoot"}},
+        {NoSidewalk,         {"hwtag", "nosidewalk"}},
+        {NoBicycle,          {"hwtag", "nobicycle"}},
+        {YesBicycle,         {"hwtag", "yesbicycle"}},
+        {NoCycleway,         {"hwtag", "nocycleway"}},
+        {BicycleBidir,       {"hwtag", "bidir_bicycle"}},
+        {SurfacePavedGood,   {"psurface", "paved_good"}},
+        {SurfacePavedBad,    {"psurface", "paved_bad"}},
+        {SurfaceUnpavedGood, {"psurface", "unpaved_good"}},
+        {SurfaceUnpavedBad,  {"psurface", "unpaved_bad"}},
+        {HasParts,           {"building", "has_parts"}},
+        {NoCar,              {"hwtag", "nocar"}},
+        {YesCar,             {"hwtag", "yescar"}},
+        {InternetAny,        {"internet_access"}},
+        {Wlan,               {"internet_access", "wlan"}},
+        {RailwayStation,     {"railway", "station"}},
+        {SubwayStation,      {"railway", "station", "subway"}},
+        {WheelchairAny,      {"wheelchair"}},
+        {WheelchairYes,      {"wheelchair", "yes"}},
+        {BarrierGate,        {"barrier", "gate"}},
+        {Toll,               {"hwtag", "toll"}},
+        {BicycleOnedir,      {"hwtag", "onedir_bicycle"}},
+        {Ferry,              {"route", "ferry"}},
+        {ShuttleTrain,       {"route", "shuttle_train"}},
     };
 
-    m_types.resize(static_cast<size_t>(Type::Count));
+    m_types.resize(static_cast<size_t>(Count));
     for (auto const & kv : kTypeToName)
       m_types[static_cast<size_t>(kv.first)] = c.GetTypeByPath(kv.second);
   }
@@ -287,47 +327,77 @@ public:
   bool IsHighway(uint32_t t) const
   {
     ftype::TruncValue(t, 1);
-    return t == Get(Type::Highway);
+    return t == Get(Highway);
   }
 
-  bool IsFerry(uint32_t t) const
+  bool IsTransporter(uint32_t t) const
   {
-    return t == Get(Type::Ferry);
+    // Ferry and shuttle have the same processing logic now.
+    return t == Get(Ferry) || t == Get(ShuttleTrain);
   }
 
   bool IsRailwayStation(uint32_t t) const
   {
-    return t == Get(Type::RailwayStation);
+    return t == Get(RailwayStation);
   }
 
   bool IsSubwayStation(uint32_t t) const
   {
     ftype::TruncValue(t, 3);
-    return t == Get(Type::SubwayStation);
+    return t == Get(SubwayStation);
   }
 
 private:
-  buffer_vector<uint32_t, static_cast<size_t>(Type::Count)> m_types;
+  buffer_vector<uint32_t, static_cast<size_t>(Count)> m_types;
 };
 
-void LeaveLongestTypes(vector<generator::TypeStrings> & matchedTypes)
+// If first 2 (1 for short types like "building") components of pre-matched types are the same,
+// then leave only the longest types (there could be a few of them). Equal arity types are kept.
+// - highway-primary-bridge is left while highway-primary is removed;
+// - building-garages is left while building is removed;
+// - amenity-parking-underground-fee is left while amenity-parking and amenity-parking-fee is removed;
+// - both amenity-charging_station-motorcar and amenity-charging_station-bicycle are left;
+void LeaveLongestTypes(std::vector<generator::TypeStrings> & matchedTypes)
 {
-  auto const less = [](auto const & lhs, auto const & rhs) { return lhs > rhs; };
-
-  auto const equals = [](auto const & lhs, auto const & rhs) {
-    if (rhs.size() > lhs.size())
-      return equal(lhs.begin(), lhs.end(), rhs.begin());
-    return equal(rhs.begin(), rhs.end(), lhs.begin());
+  auto const equalPrefix = [](auto const & lhs, auto const & rhs)
+  {
+    size_t const prefixSz = std::min(lhs.size(), rhs.size());
+    return equal(lhs.begin(), lhs.begin() + std::min(size_t(2), prefixSz), rhs.begin());
   };
 
-  base::SortUnique(matchedTypes, less, equals);
+  auto const isBetter = [&equalPrefix](auto const & lhs, auto const & rhs)
+  {
+    if (equalPrefix(lhs, rhs))
+    {
+      // Longest type is better.
+      if (lhs.size() != rhs.size())
+        return lhs.size() > rhs.size();
+    }
+
+    return lhs < rhs;
+  };
+
+  auto const isEqual = [&equalPrefix](auto const & lhs, auto const & rhs)
+  {
+    if (equalPrefix(lhs, rhs))
+    {
+      // Keep longest type only, so return equal is true.
+      if (lhs.size() != rhs.size())
+        return true;
+
+      return lhs == rhs;
+    }
+    return false;
+  };
+
+  base::SortUnique(matchedTypes, isBetter, isEqual);
 }
 
-void MatchTypes(OsmElement * p, FeatureBuilderParams & params, function<bool(uint32_t)> const & filterType)
+void MatchTypes(OsmElement * p, FeatureBuilderParams & params, TypesFilterFnT const & filterType)
 {
-  auto static const rules = generator::ParseMapCSS(GetPlatform().GetReader("mapcss-mapping.csv"));
+  auto static const rules = generator::ParseMapCSS(GetPlatform().GetReader(MAPCSS_MAPPING_FILE));
 
-  vector<generator::TypeStrings> matchedTypes;
+  std::vector<generator::TypeStrings> matchedTypes;
   for (auto const & [typeString, rule] : rules)
   {
     if (rule.Matches(p->m_tags))
@@ -336,16 +406,31 @@ void MatchTypes(OsmElement * p, FeatureBuilderParams & params, function<bool(uin
 
   LeaveLongestTypes(matchedTypes);
 
-  for (auto const & path : matchedTypes)
-  {
-    uint32_t const t = classif().GetTypeByPath(path);
+  auto const & cl = classif();
 
-    if (filterType(t))
-      params.AddType(t);
+  bool buswayAdded = false;
+  for (size_t i = 0; i < matchedTypes.size(); ++i)
+  {
+    auto const & path = matchedTypes[i];
+    uint32_t const type = cl.GetTypeByPath(path);
+    if (!filterType(type))
+      continue;
+
+    // "busway" and "service" can be matched together, keep busway only.
+    if (path[0] == "highway")
+    {
+      // busway goes before service, see LeaveLongestTypes.isBetter
+      if (path[1] == "busway")
+        buswayAdded = true;
+      else if (buswayAdded && path[1] == "service")
+        continue;
+    }
+
+    params.AddType(type);
   }
 }
 
-string MatchCity(OsmElement const * p)
+string MatchCity(ms::LatLon const & ll)
 {
   // needs to be in format {minLon, minLat, maxLon, maxLat}
   // Draw boundary around metro with http://bboxfinder.com (set to Lon/Lat)
@@ -404,76 +489,77 @@ string MatchCity(OsmElement const * p)
       {"kunming", {102.0983,24.3319,103.5969,25.7119}},
       {"kyoto", {135.619598, 34.874916, 135.878442, 35.113709}},
       {"lausanne", {6.583868,46.504301,6.720813,46.602578}},
-      {"lille", {2.789132,50.441626,3.329113,50.794609}},    
+      {"lille", {2.789132,50.441626,3.329113,50.794609}},
       {"lima", {-77.2750854492, -12.3279274859, -76.7999267578, -11.7988014362}},
       {"lisboa", {-9.42626953125, 38.548165423, -8.876953125, 38.9166815364}},
       {"london", {-0.4833984375, 51.3031452592, 0.2197265625, 51.6929902115}},
       {"la", {-118.944112, 32.806553, -117.644787, 34.822766}},
       {"lyon", {4.5741, 45.5842, 5.1603, 45.9393}},
       {"madrid", {-4.00451660156, 40.1536868578, -3.32885742188, 40.6222917831}},
-      {"malaga", {-5.611777,36.310352,-3.765967,37.282445}},    
-      {"manila", {120.936229,14.550825,121.026167,14.639547}},  
-      {"maracaibo", {-71.812942,10.570632,-71.581199,10.758897}},  
-      {"mashhad", {59.302159,36.13267,59.83225,36.530945}},  
+      {"malaga", {-5.611777,36.310352,-3.765967,37.282445}},
+      {"manila", {120.936229,14.550825,121.026167,14.639547}},
+      {"maracaibo", {-71.812942,10.570632,-71.581199,10.758897}},
+      {"mashhad", {59.302159,36.13267,59.83225,36.530945}},
       {"mecca", {39.663307, 21.274985, 40.056236, 21.564195}},
-      {"medellin", {-75.719423,6.162617,-75.473408,6.376421}}, 
+      {"medellin", {-75.719423,6.162617,-75.473408,6.376421}},
       {"mexico", {-99.3630981445, 19.2541083164, -98.879699707, 19.5960192403}},
       {"milan", {9.02252197266, 45.341528405, 9.35760498047, 45.5813674681}},
       {"minsk", {27.2845458984, 53.777934972, 27.8393554688, 54.0271334441}},
       {"montreal", {-73.995802, 45.398482, -73.474295, 45.70479}},
       {"moscow", {36.9964599609, 55.3962717136, 38.1884765625, 56.1118730004}},
       {"mumbai", {72.7514648437, 18.8803004445, 72.9862976074, 19.2878132403}},
-      {"munchen", {11.3433837891, 47.9981928195, 11.7965698242, 48.2530267576}},
-      {"nagoya", {136.791969,35.025951,137.060899,35.260229}}, 
+      {"munchen", {11.3433837891, 47.9981928195, 11.7965698242, 48.2730267576}},
+      {"nagoya", {136.791969,35.025951,137.060899,35.260229}},
       {"newyork", {-74.4104003906, 40.4134960497, -73.4600830078, 41.1869224229}},
       {"nnov", {43.6431884766, 56.1608472541, 44.208984375, 56.4245355509}},
       {"novosibirsk", {82.4578857422, 54.8513152597, 83.2983398438, 55.2540770671}},
       {"osaka", {134.813232422, 34.1981730963, 136.076660156, 35.119908571}},
       {"oslo", {10.3875732422, 59.7812868211, 10.9286499023, 60.0401604652}},
-      {"palma", {2.556669,39.503227,2.841284,39.670445}}, 
+      {"palma", {2.556669,39.503227,2.841284,39.670445}},
       {"panama", {-79.633827, 8.880788, -79.367367, 9.149179}},
       {"paris", {2.09014892578, 48.6637569323, 2.70538330078, 49.0414689141}},
       {"philadelphia", {-75.276761, 39.865446, -74.964493, 40.137768}},
+      {"porto", {-8.758979,41.095783,-8.540001,41.378495}},
       {"pyongyang", {125.48888, 38.780932, 126.12748, 39.298738}},
-      {"rennes", {-2.28897,47.934093,-1.283944,48.379636}}, 
+      {"rennes", {-2.28897,47.934093,-1.283944,48.379636}},
       {"rio", {-43.4873199463, -23.0348745407, -43.1405639648, -22.7134898498}},
       {"roma", {12.3348999023, 41.7672146942, 12.6397705078, 42.0105298189}},
       {"rotterdam", {3.940749, 51.842118, 4.601808, 52.004528}},
       {"samara", {50.001145, 53.070867, 50.434992, 53.339216}},
       {"santiago", {-71.015625, -33.8133843291, -70.3372192383, -33.1789392606}},
-      {"santo_domingo", {-70.029669,18.390645,-69.831571,18.573966}}, 
+      {"santo_domingo", {-70.029669,18.390645,-69.831571,18.573966}},
       {"saopaulo", {-46.9418334961, -23.8356009866, -46.2963867187, -23.3422558351}},
-      {"sapporo", {141.160343,42.945651,141.577136,43.243986}}, 
-      {"sendai", {140.469472,38.050849,141.260304,38.454699}}, 
+      {"sapporo", {141.160343,42.945651,141.577136,43.243986}},
+      {"sendai", {140.469472,38.050849,141.260304,38.454699}},
       {"seoul", {126.540527344, 37.3352243593, 127.23815918, 37.6838203267}},
       {"sf", {-122.72277832, 37.1690715771, -121.651611328, 38.0307856938}},
       {"shanghai", {119.849853516, 30.5291450367, 122.102050781, 32.1523618947}},
       {"shenzhen", {113.790893555, 22.459263801, 114.348449707, 22.9280416657}},
-      {"shiraz", {52.382254,29.498738,52.667513,29.840346}}, 
+      {"shiraz", {52.382254,29.498738,52.667513,29.840346}},
       {"singapore", {103.624420166, 1.21389843409, 104.019927979, 1.45278619819}},
       {"sofia", {23.195085, 42.574041, 23.503569, 42.835375}},
       {"spb", {29.70703125, 59.5231755354, 31.3110351562, 60.2725145948}},
       {"stockholm", {17.5726318359, 59.1336814082, 18.3966064453, 59.5565918857}},
       {"stuttgart", {9.0877532959, 48.7471343254, 9.29306030273, 48.8755544436}},
       {"sydney", {150.42755127, -34.3615762875, 151.424560547, -33.4543597895}},
-      {"tabriz", {46.18432,38.015584,46.4126,38.15366}}, 
+      {"tabriz", {46.18432,38.015584,46.4126,38.15366}},
       {"taipei", {121.368713379, 24.9312761454, 121.716156006, 25.1608229799}},
-      {"taoyuan", {110.8471,28.4085,111.6109,29.4019}}, 
+      {"taoyuan", {110.8471,28.4085,111.6109,29.4019}},
       {"tashkent", {69.12171, 41.163421, 69.476967, 41.398638}},
       {"tbilisi", {44.596922, 41.619315, 45.019694, 41.843421}},
-      {"tianjin", {116.7022,38.555,118.0587,40.252}}, 
+      {"tehran", {50.6575, 35.353216, 52.007904, 35.974672}},
+      {"tianjin", {116.7022, 38.555, 118.0587, 40.252}},
       {"tokyo", {139.240722656, 35.2186974963, 140.498657227, 36.2575628263}},
       {"valencia", {-0.432551, 39.27845, -0.272521, 39.566609}},
       {"vienna", {16.0894775391, 48.0633965378, 16.6387939453, 48.3525987075}},
       {"warszawa", {20.7202148438, 52.0322181041, 21.3024902344, 52.4091212523}},
       {"washington", {-77.4920654297, 38.5954071994, -76.6735839844, 39.2216149801}},
-      {"wuhan", {113.6925,29.972,115.0769,31.3622}}, 
+      {"wuhan", {113.6925,29.972,115.0769,31.3622}},
       {"yerevan", {44.359899, 40.065411, 44.645352, 40.26398}},
       {"yokohama", {139.464781, 35.312501, 139.776935, 35.592738}},
   };
 
-  m2::PointD const pt(p->m_lon, p->m_lat);
-
+  m2::PointD const pt(ll.m_lon, ll.m_lat);
   for (auto const & city : cities)
   {
     if (city.second.IsPointInside(pt))
@@ -486,8 +572,9 @@ string DetermineSurface(OsmElement * p)
 {
   string surface;
   string smoothness;
-  string surface_grade;
-  bool isHighway = false;
+  double surfaceGrade = 2; // default is "normal"
+  string highway;
+  string trackGrade;
 
   for (auto const & tag : p->m_tags)
   {
@@ -496,124 +583,187 @@ string DetermineSurface(OsmElement * p)
     else if (tag.m_key == "smoothness")
       smoothness = tag.m_value;
     else if (tag.m_key == "surface:grade")
-      surface_grade = tag.m_value;
+      (void)strings::to_double(tag.m_value, surfaceGrade);
+    else if (tag.m_key == "tracktype")
+      trackGrade = tag.m_value;
     else if (tag.m_key == "highway")
-      isHighway = true;
+      highway = tag.m_value;
     else if (tag.m_key == "4wd_only" && (tag.m_value == "yes" || tag.m_value == "recommended"))
       return "unpaved_bad";
   }
 
-  if (!isHighway || (surface.empty() && smoothness.empty()))
+  if (highway.empty() || (surface.empty() && smoothness.empty()))
     return {};
 
   // According to https://wiki.openstreetmap.org/wiki/Key:surface
   static base::StringIL pavedSurfaces = {
-      "asphalt",  "cobblestone", "chipseal", "concrete", "concrete:lanes", "concrete:plates",
+      "asphalt",  "cobblestone", "chipseal", "concrete",
       "metal", "paved", "paving_stones", "sett", "unhewn_cobblestone", "wood"
   };
 
   static base::StringIL badSurfaces = {
-      "cobblestone", "dirt", "earth", "grass", "gravel", "ground", "metal", "mud", "unpaved",
-      "pebblestone", "sand", "sett", "snow", "unhewn_cobblestone", "wood", "woodchips"
+      "cobblestone", "dirt", "earth", "grass", "gravel", "ground", "metal", "mud", "rock", "unpaved",
+      "pebblestone", "sand", "sett", "snow", "stepping_stones", "unhewn_cobblestone", "wood", "woodchips"
   };
 
-  static base::StringIL badSmoothness = {
-      "bad",           "very_bad",       "horrible",        "very_horrible", "impassable",
+  static base::StringIL veryBadSurfaces = {
+      "dirt", "earth", "grass", "ground", "mud", "rock", "sand", "snow",
+      "stepping_stones", "woodchips"
+  };
+
+  static base::StringIL veryBadSmoothness = {
+      "very_bad",       "horrible",        "very_horrible", "impassable",
       "robust_wheels", "high_clearance", "off_road_wheels", "rough"
   };
 
-  static base::StringIL goodSmoothness = { "excellent", "good" };
+  static base::StringIL midSmoothness = {
+      "unknown", "intermediate"
+  };
 
   auto const Has = [](base::StringIL const & il, string const & v)
   {
-    return base::IsExist(il, v);
+    bool res = false;
+    strings::Tokenize(v, ";:/", [&il, &res](std::string_view sv)
+    {
+      if (!res)
+        res = base::IsExist(il, sv);
+    });
+    return res;
   };
 
   bool isGood = true;
-  bool isPaved;
+  bool isPaved = true;
 
-  if (!surface.empty())
-    isPaved = Has(pavedSurfaces, surface);
+  // Check surface.
+  if (surface.empty())
+  {
+    CHECK(!smoothness.empty(), ());
+    // Extremely bad case.
+    if (Has(veryBadSmoothness, smoothness))
+      return "unpaved_bad";
+
+    // Tracks already have low speed for cars, but this is mostly for bicycle or pedestrian.
+    // If a track has mapped smoothness, obviously it is unpaved :)
+    if (highway == "track" && trackGrade != "grade1")
+      isPaved = false;
+  }
   else
-    isPaved = !smoothness.empty() && Has(goodSmoothness, smoothness);
+    isPaved = Has(pavedSurfaces, surface);
 
+  // Check smoothness.
   if (!smoothness.empty())
   {
-    if (smoothness == "intermediate" && !surface.empty())
-      isGood = !Has(badSurfaces, surface);
+    // Middle case has some heuristics.
+    /// @todo Actually, should implement separate surface and smoothness types.
+    if (Has(midSmoothness, smoothness))
+    {
+      if (isPaved)
+      {
+        if (highway == "motorway" || highway == "trunk")
+          return {};
+        else
+          isGood = false;
+      }
+      else
+        isGood = !Has(badSurfaces, surface);
+    }
     else
-      isGood = !Has(badSmoothness, smoothness);
-
-    /// @todo Hm, looks like some hack, but will not change it now ..
-    if (smoothness == "bad" && !isPaved)
-      isGood = true;
+      isGood = (smoothness != "bad") && !Has(veryBadSmoothness, smoothness);
   }
-  else if (surface_grade == "0" || surface_grade == "1")
+  else if (surfaceGrade < 2)
     isGood = false;
-  else if (surface_grade.empty() || surface_grade == "2")
-    isGood = surface.empty() || !Has(badSurfaces, surface);
+  else if (!surface.empty() && surfaceGrade < 3)
+    isGood = isPaved ? !Has(badSurfaces, surface) : !Has(veryBadSurfaces, surface);
 
   string psurface = isPaved ? "paved_" : "unpaved_";
   psurface += isGood ? "good" : "bad";
   return psurface;
 }
 
-void PreprocessElement(OsmElement * p)
+void PreprocessElement(OsmElement * p, CalculateOriginFnT const & calcOrg)
 {
   bool hasLayer = false;
   char const * layer = nullptr;
 
   bool isSubway = false;
+  bool isLightRail = false;
+  bool isPlatform = false;
+  bool isStopPosition = false;
   bool isBus = false;
   bool isTram = false;
+  bool isFunicular = false;
 
+  bool isCapital = false;
+
+  bool isMultipolygon = false;
+
+  /// @todo Rearrange processing code with accumulating tags for: PT, Surface, Cuisine, Artwork, Memorial, ...
+  /// Process in separate components (with unit-tests), like DetermineSurface.
   TagProcessor(p).ApplyRules({
       {"bridge", "yes", [&layer] { layer = "1"; }},
       {"tunnel", "yes", [&layer] { layer = "-1"; }},
       {"layer", "*", [&hasLayer] { hasLayer = true; }},
 
       {"railway", "subway_entrance", [&isSubway] { isSubway = true; }},
+      {"public_transport", "platform", [&isPlatform] { isPlatform = true; }},
+      {"public_transport", "stop_position", [&isStopPosition] { isStopPosition = true; }},
       {"bus", "yes", [&isBus] { isBus = true; }},
       {"trolleybus", "yes", [&isBus] { isBus = true; }},
       {"tram", "yes", [&isTram] { isTram = true; }},
+      {"funicular", "yes", [&isFunicular] { isFunicular = true; }},
 
-      /// @todo Unfortunatelly, it's not working in many cases (route=subway, transport=subway).
+      /// @todo Unfortunately, it's not working in many cases (route=subway, transport=subway).
       /// Actually, it's better to process subways after feature types assignment.
       {"station", "subway", [&isSubway] { isSubway = true; }},
+      {"station", "light_rail", [&isLightRail] { isLightRail = true; }},
+
+      {"capital", "yes", [&isCapital] { isCapital = true; }},
+
+      {"type", "multipolygon", [&isMultipolygon] { isMultipolygon = true; }},
   });
 
   if (!hasLayer && layer)
     p->AddTag("layer", layer);
 
-  // Tag 'city' is needed for correct selection of metro icons.
-  if (isSubway && p->m_type == OsmElement::EntityType::Node)
+  // Append tags for Node or Way. Relation logic may be too complex to make such a straightforward tagging.
+  if (p->m_type != OsmElement::EntityType::Relation)
   {
-    string const city = MatchCity(p);
-    if (!city.empty())
-      p->AddTag("city", city);
+    // Tag 'city' is needed for correct selection of metro icons.
+    if ((isSubway || isLightRail) && calcOrg)
+    {
+      auto const org = calcOrg(p);
+      if (org)
+      {
+        string const city = MatchCity(mercator::ToLatLon(*org));
+        if (!city.empty())
+          p->AddTag("city", city);
+      }
+    }
+
+    // Convert public_transport tags to the older schema.
+    if (isPlatform && isBus)
+      p->AddTag("highway", "bus_stop");
+
+    if (isStopPosition)
+    {
+      if (isTram)
+        p->AddTag("railway", "tram_stop");
+      if (isFunicular)
+      {
+        p->AddTag("railway", "station");
+        p->AddTag("station", "funicular");
+      }
+    }
+  }
+  else if (isMultipolygon)
+  {
+    p->AddTag("area", "yes");
   }
 
   p->AddTag("psurface", DetermineSurface(p));
 
-  // Convert public_transport tags to the older schema.
-  for (auto const & tag : p->m_tags)
+  p->UpdateTag("attraction", [](string & value)
   {
-    if (tag.m_key == "public_transport")
-    {
-      if (tag.m_value == "platform" && isBus)
-      {
-        if (p->m_type == OsmElement::EntityType::Node)
-          p->AddTag("highway", "bus_stop");
-      }
-      else if (tag.m_value == "stop_position" && isTram && p->m_type == OsmElement::EntityType::Node)
-      {
-        p->AddTag("railway", "tram_stop");
-      }
-      break;
-    }
-  }
-
-  p->UpdateTag("attraction", [](string & value) {
     // "specified" is a special value which means we have the "attraction" tag,
     // but its value is not "animal".
     if (!value.empty() && value != "animal")
@@ -626,7 +776,8 @@ void PreprocessElement(OsmElement * p)
   {
     strings::MakeLowerCaseInplace(cuisines);
     strings::SimpleTokenizer iter(cuisines, ",;");
-    auto const collapse = [](char c, string & str) {
+    auto const collapse = [](char c, string & str)
+    {
       auto const comparator = [c](char lhs, char rhs) { return lhs == rhs && lhs == c; };
       str.erase(unique(str.begin(), str.end(), comparator), str.end());
     };
@@ -684,63 +835,139 @@ void PreprocessElement(OsmElement * p)
     }
   }
 
-  // We replace a value of 'place' with a value of 'de: place' because most people regard
-  // places names as 'de: place' defines it.
-  // TODO(@m.andrianov): A better solution for the future is writing this rule in replaced_tags.txt
-  // file. But syntax for this isn't supported by relace tags mechanism.
-  auto const dePlace = p->GetTag("de:place");
-  if (!dePlace.empty())
+  class CountriesLoader
   {
-    p->UpdateTag("place", [&](auto & value) {
-      value = dePlace;
-    });
-  }
+    std::unique_ptr<storage::CountryInfoGetter> m_infoGetter;
+    std::optional<storage::CountryTree> m_countryTree;
+    std::array<storage::CountryId, 3> m_provinceToState;
 
-  // In Japan, South Korea and Turkey place=province means place=state.
-  auto static const infoGetter = storage::CountryInfoReader::CreateCountryInfoGetter(GetPlatform());
-  CHECK(infoGetter, ());
-  auto static const countryTree = storage::LoadCountriesFromFile(COUNTRIES_FILE);
-  CHECK(countryTree, ());
-  p->UpdateTag("place", [&](string & value) {
+  public:
+    // In this countries place=province means place=state.
+    CountriesLoader() : m_provinceToState{"Japan", "South Korea", "Turkey"}
+    {
+      m_infoGetter = storage::CountryInfoReader::CreateCountryInfoGetter(GetPlatform());
+      CHECK(m_infoGetter, ());
+      m_countryTree = storage::LoadCountriesFromFile(COUNTRIES_FILE);
+      CHECK(m_countryTree, ());
+    }
+
+    bool IsTransformToState(m2::PointD const & pt) const
+    {
+      auto const countryId = m_infoGetter->GetRegionCountryId(pt);
+      if (!countryId.empty())
+      {
+        auto const country = storage::GetTopmostParentFor(*m_countryTree, countryId);
+        return base::IsExist(m_provinceToState, country);
+      }
+
+      LOG(LWARNING, ("CountryId not found for (lat, lon):", mercator::ToLatLon(pt)));
+      return false;
+    }
+  };
+
+  static CountriesLoader s_countriesChecker;
+
+  auto const dePlace = p->GetTag("de:place");
+  p->UpdateTag("place", [&](string & value)
+  {
+    // 1. Replace a value of 'place' with a value of 'de:place' because most people regard
+    // places names as 'de:place' defines it.
+    if (!dePlace.empty())
+      value = dePlace;
+
+    // 2. Check valid capital. We support only place-city-capital-2 (not town, village, etc).
+    if (isCapital && !value.empty())
+      value = "city";
+
+    // 3. Replace 'province' with 'state'.
     if (value != "province")
       return;
 
-    std::array<storage::CountryId, 3> const provinceToStateCountries = {"Japan", "South Korea",
-                                                                        "Turkey"};
-    auto const pt = mercator::FromLatLon(p->m_lat, p->m_lon);
-    auto const countryId = infoGetter->GetRegionCountryId(pt);
-    auto const country = storage::GetTopmostParentFor(*countryTree, countryId);
-    if (base::FindIf(provinceToStateCountries, [&](auto const & c) { return c == country; }) !=
-        provinceToStateCountries.end())
-    {
+    CHECK(calcOrg, ());
+    auto const org = calcOrg(p);
+    if (org && s_countriesChecker.IsTransformToState(*org))
       value = "state";
-    }
   });
+
+  if (isCapital)
+    p->UpdateTag("capital", [&](string & value) { value = "2"; });
+}
+
+bool IsCarDesignatedHighway(uint32_t type)
+{
+  switch (ftypes::IsWayChecker::Instance().GetSearchRank(type))
+  {
+  case ftypes::IsWayChecker::Motorway:
+  case ftypes::IsWayChecker::Regular:
+  case ftypes::IsWayChecker::Minors:
+    return true;
+  default:
+    return false;
+  }
+}
+
+bool IsBicycleDesignatedHighway(uint32_t type)
+{
+  return ftypes::IsWayChecker::Instance().GetSearchRank(type) == ftypes::IsWayChecker::Cycleway;
+}
+
+bool IsPedestrianDesignatedHighway(uint32_t type)
+{
+  return ftypes::IsWayChecker::Instance().GetSearchRank(type) == ftypes::IsWayChecker::Pedestrian;
 }
 
 void PostprocessElement(OsmElement * p, FeatureBuilderParams & params)
 {
   static CachedTypes const types;
 
+  auto const AddParam = [&params](ftype::CachedTypes::Type type)
+  {
+    params.AddType(types.Get(type));
+  };
+
   if (!params.house.IsEmpty())
   {
-    // Delete "entrance" type for house number (use it only with refs).
-    // Add "address" type if we have house number but no valid types.
-    if (params.PopExactType(types.Get(CachedTypes::Type::Entrance)) ||
-        (params.m_types.size() == 1 && params.IsTypeExist(types.Get(CachedTypes::Type::WheelchairAny), 1)))
+    // Add "building-address" type if we have house number, but no "suitable" (building, POI, etc) types.
+    // A lot in Czech, Italy or others, with individual address points (house numbers).
+    bool hasSuitableType = false;
+    for (uint32_t t : params.m_types)
     {
-      params.name.Clear();
-      // If we have address (house name or number), we should assign valid type.
-      // There are a lot of features like this in the Czech Republic.
-      params.AddType(types.Get(CachedTypes::Type::Address));
+      /// @todo Make a function like HaveAddressLikeType ?
+      ftype::TruncValue(t, 1);
+      if (t != types.Get(CachedTypes::WheelchairAny) &&
+          t != types.Get(CachedTypes::InternetAny))
+      {
+        hasSuitableType = true;
+        break;
+      }
+    }
+
+    if (!hasSuitableType)
+    {
+      AddParam(CachedTypes::Address);
+
+      // https://github.com/organicmaps/organicmaps/issues/5803
+      std::string_view const disusedPrefix[] = {"disused:", "abandoned:", "was:"};
+      for (auto const & tag : p->Tags())
+      {
+        for (auto const & prefix : disusedPrefix)
+        {
+          if (strings::StartsWith(tag.m_key, prefix))
+          {
+            params.ClearPOIAttribs();
+            goto exit;
+          }
+        }
+      }
+      exit:;
     }
   }
 
   // Process yes/no tags.
   TagProcessor(p).ApplyRules({
       {"wheelchair", "designated",
-       [&params] { params.AddType(types.Get(CachedTypes::Type::WheelchairYes)); }},
-      {"wifi", "~", [&params] { params.AddType(types.Get(CachedTypes::Type::Wlan)); }},
+       [&AddParam] { AddParam(CachedTypes::WheelchairYes); }},
+      {"wifi", "~", [&AddParam] { AddParam(CachedTypes::Wlan); }},
   });
 
   bool highwayDone = false;
@@ -751,7 +978,14 @@ void PostprocessElement(OsmElement * p, FeatureBuilderParams & params)
   // Get a copy of source types, because we will modify params in the loop;
   FeatureBuilderParams::Types const vTypes = params.m_types;
 
-  for (uint32_t vType : vTypes)
+  // Defined in priority order:
+  // Foot attr is stronger than Sidewalk,
+  // Bicycle attr is stronger than Cycleway,
+  // MotorCar attr is stronger than MotorVehicle.
+  struct Flags { enum Type { Foot = 0, Sidewalk, Bicycle, Cycleway, MotorCar, MotorVehicle, Count }; };
+  int flags[Flags::Count] = {0}; // 1 for Yes, -1 for No, 0 for Undefined
+
+  for (uint32_t const vType : vTypes)
   {
     if (!highwayDone && types.IsHighway(vType))
     {
@@ -767,67 +1001,101 @@ void PostprocessElement(OsmElement * p, FeatureBuilderParams & params)
              params.SetReversedGeometry(true);
            }},
           {"oneway", "!", [&noOneway] { noOneway = true; }},
+// Unlike "roundabout", "circular" is not assumed to force oneway=yes
+// (https://wiki.openstreetmap.org/wiki/Tag:junction%3Dcircular), but!
+// There are a lot of junction=circular without oneway tag, which is a mapping error (run overpass under England).
+// And most of this junctions are assumed to be oneway.
+          {"junction", "circular", [&addOneway] { addOneway = true; }},
           {"junction", "roundabout", [&addOneway] { addOneway = true; }},
 
-          {"access", "private", [&params] { params.AddType(types.Get(CachedTypes::Type::Private)); }},
-          {"access", "!", [&params] { params.AddType(types.Get(CachedTypes::Type::Private)); }},
+          {"access", "private", [&AddParam] { AddParam(CachedTypes::Private); }},
+          {"access", "!", [&AddParam] { AddParam(CachedTypes::Private); }},
 
-          {"barrier", "gate", [&params] { params.AddType(types.Get(CachedTypes::Type::BarrierGate)); }},
+          {"barrier", "gate", [&AddParam] { AddParam(CachedTypes::BarrierGate); }},
 
-          {"lit", "~", [&params] { params.AddType(types.Get(CachedTypes::Type::Lit)); }},
-          {"toll", "~", [&params] { params.AddType(types.Get(CachedTypes::Type::Toll)); }},
+          {"lit", "~", [&AddParam] { AddParam(CachedTypes::Lit); }},
+          {"toll", "~", [&AddParam] { AddParam(CachedTypes::Toll); }},
 
-          {"foot", "!", [&params] { params.AddType(types.Get(CachedTypes::Type::NoFoot)); }},
-          {"foot", "use_sidepath", [&params] { params.AddType(types.Get(CachedTypes::Type::NoFoot)); }},
-          {"foot", "~", [&params] { params.AddType(types.Get(CachedTypes::Type::YesFoot)); }},
-          {"sidewalk", "~", [&params] { params.AddType(types.Get(CachedTypes::Type::YesFoot)); }},
+          {"foot", "!r", [&flags] { flags[Flags::Foot] = -1; }},
+          {"foot", "~r", [&flags] { flags[Flags::Foot] = 1; }},
+          {"sidewalk", "!r", [&flags] { flags[Flags::Sidewalk] = -1; }},
+          {"sidewalk", "~r", [&flags] { flags[Flags::Sidewalk] = 1; }},
+          {"sidewalk:both", "!r", [&flags] { flags[Flags::Sidewalk] = -1; }},
+          {"sidewalk:both", "~r", [&flags] { flags[Flags::Sidewalk] = 1; }},
+          /// @todo Process left && right == no ?
+          {"sidewalk:left", "~r", [&flags] { flags[Flags::Sidewalk] = 1; }},
+          {"sidewalk:right", "~r", [&flags] { flags[Flags::Sidewalk] = 1; }},
 
-          {"bicycle", "!", [&params] { params.AddType(types.Get(CachedTypes::Type::NoBicycle)); }},
-          {"bicycle", "use_sidepath", [&params] { params.AddType(types.Get(CachedTypes::Type::NoBicycle)); }},
-          {"bicycle", "~", [&params] { params.AddType(types.Get(CachedTypes::Type::YesBicycle)); }},
-          {"cycleway", "~", [&params] { params.AddType(types.Get(CachedTypes::Type::YesBicycle)); }},
-          {"cycleway:right", "~",
-           [&params] { params.AddType(types.Get(CachedTypes::Type::YesBicycle)); }},
-          {"cycleway:left", "~", [&params] { params.AddType(types.Get(CachedTypes::Type::YesBicycle)); }},
-          {"oneway:bicycle", "!",
-           [&params] { params.AddType(types.Get(CachedTypes::Type::BicycleBidir)); }},
-          {"oneway:bicycle", "~",
-           [&params] { params.AddType(types.Get(CachedTypes::Type::BicycleOnedir)); }},
-          {"cycleway", "opposite",
-           [&params] { params.AddType(types.Get(CachedTypes::Type::BicycleBidir)); }},
+          {"bicycle", "!r", [&flags] { flags[Flags::Bicycle] = -1; }},
+          {"bicycle", "~r", [&flags] { flags[Flags::Bicycle] = 1; }},
+          {"bicycle_road", "~r", [&flags] { flags[Flags::Bicycle] = 1; }},
+          {"cyclestreet", "~r", [&flags] { flags[Flags::Bicycle] = 1; }},
+          {"cycleway", "!r", [&flags] { flags[Flags::Cycleway] = -1; }},
+          {"cycleway", "~r", [&flags] { flags[Flags::Cycleway] = 1; }},
+          {"cycleway:both", "!r", [&flags] { flags[Flags::Cycleway] = -1; }},
+          {"cycleway:both", "~r", [&flags] { flags[Flags::Cycleway] = 1; }},
+          /// @todo Process left && right == no ?
+          {"cycleway:left", "~r", [&flags] { flags[Flags::Cycleway] = 1; }},
+          {"cycleway:right", "~r", [&flags] { flags[Flags::Cycleway] = 1; }},
+          {"oneway:bicycle", "!", [&AddParam] { AddParam(CachedTypes::BicycleBidir); }},
+          {"oneway:bicycle", "~", [&AddParam] { AddParam(CachedTypes::BicycleOnedir); }},
+          {"cycleway", "opposite", [&AddParam] { AddParam(CachedTypes::BicycleBidir); }},
 
-          {"motor_vehicle", "private",
-           [&params] { params.AddType(types.Get(CachedTypes::Type::NoCar)); }},
-          {"motor_vehicle", "!", [&params] { params.AddType(types.Get(CachedTypes::Type::NoCar)); }},
-          {"motor_vehicle", "yes", [&params] { params.AddType(types.Get(CachedTypes::Type::YesCar)); }},
-          {"motorcar", "private", [&params] { params.AddType(types.Get(CachedTypes::Type::NoCar)); }},
-          {"motorcar", "!", [&params] { params.AddType(types.Get(CachedTypes::Type::NoCar)); }},
-          {"motorcar", "yes", [&params] { params.AddType(types.Get(CachedTypes::Type::YesCar)); }},
+          // For YesCar process only strict =yes/designated.
+          {"motor_vehicle", "private", [&flags] { flags[Flags::MotorVehicle] = -1; }},
+          {"motor_vehicle", "!", [&flags] { flags[Flags::MotorVehicle] = -1; }},
+          {"motor_vehicle", "yes", [&flags] { flags[Flags::MotorVehicle] = 1; }},
+          {"motor_vehicle", "designated", [&flags] { flags[Flags::MotorVehicle] = 1; }},
+          {"motorcar", "private", [&flags] { flags[Flags::MotorCar] = -1; }},
+          {"motorcar", "!", [&flags] { flags[Flags::MotorCar] = -1; }},
+          {"motorcar", "yes", [&flags] { flags[Flags::MotorCar] = 1; }},
+          {"motorcar", "designated", [&flags] { flags[Flags::MotorCar] = 1; }},
       });
 
       if (addOneway && !noOneway)
-        params.AddType(types.Get(CachedTypes::Type::OneWay));
+        params.AddType(types.Get(CachedTypes::OneWay));
+
+      auto const ApplyFlag = [&flags, &AddParam](Flags::Type f, CachedTypes::Type yes,
+                                                 CachedTypes::Type no0, CachedTypes::Type no1,
+                                                 bool isDesignated)
+      {
+        if (flags[f] == 1 && !isDesignated)
+          AddParam(yes);
+        else if (flags[f] == -1)
+          AddParam(no0);
+        else if (flags[int(f) + 1] == 1 && !isDesignated)
+          AddParam(yes);
+        else if (flags[int(f) + 1] == -1)
+          AddParam(no1);
+      };
+
+      ApplyFlag(Flags::Foot, CachedTypes::YesFoot, CachedTypes::NoFoot, CachedTypes::NoSidewalk,
+                IsPedestrianDesignatedHighway(vType));
+      ApplyFlag(Flags::Bicycle, CachedTypes::YesBicycle, CachedTypes::NoBicycle, CachedTypes::NoCycleway,
+                IsBicycleDesignatedHighway(vType));
+      ApplyFlag(Flags::MotorCar, CachedTypes::YesCar, CachedTypes::NoCar, CachedTypes::NoCar,
+                IsCarDesignatedHighway(vType));
 
       highwayDone = true;
     }
 
-    if (!ferryDone && types.IsFerry(vType))
+    if (!ferryDone && types.IsTransporter(vType))
     {
       bool yesMotorFerry = false;
       bool noMotorFerry = false;
 
       TagProcessor(p).ApplyRules({
-          {"foot", "!", [&params] { params.AddType(types.Get(CachedTypes::Type::NoFoot)); }},
-          {"foot", "~", [&params] { params.AddType(types.Get(CachedTypes::Type::YesFoot)); }},
-          {"ferry", "footway", [&params] { params.AddType(types.Get(CachedTypes::Type::YesFoot)); }},
-          {"ferry", "pedestrian", [&params] { params.AddType(types.Get(CachedTypes::Type::YesFoot)); }},
+          {"foot", "!", [&AddParam] { AddParam(CachedTypes::NoFoot); }},
+          {"foot", "~", [&AddParam] { AddParam(CachedTypes::YesFoot); }},
+          {"ferry", "footway", [&AddParam] { AddParam(CachedTypes::YesFoot); }},
+          {"ferry", "pedestrian", [&AddParam] { AddParam(CachedTypes::YesFoot); }},
           {"ferry", "path", [&params] {
-             params.AddType(types.Get(CachedTypes::Type::YesFoot));
-             params.AddType(types.Get(CachedTypes::Type::YesBicycle));
+             params.AddType(types.Get(CachedTypes::YesFoot));
+             params.AddType(types.Get(CachedTypes::YesBicycle));
           }},
 
-          {"bicycle", "!", [&params] { params.AddType(types.Get(CachedTypes::Type::NoBicycle)); }},
-          {"bicycle", "~", [&params] { params.AddType(types.Get(CachedTypes::Type::YesBicycle)); }},
+          {"bicycle", "!", [&AddParam] { AddParam(CachedTypes::NoBicycle); }},
+          {"bicycle", "~", [&AddParam] { AddParam(CachedTypes::YesBicycle); }},
 
           // Check for explicit no-tag.
           {"motor_vehicle", "!", [&noMotorFerry] { noMotorFerry = true; }},
@@ -846,7 +1114,7 @@ void PostprocessElement(OsmElement * p, FeatureBuilderParams & params)
       });
 
       // Car routing for ferries should be explicitly defined.
-      params.AddType(types.Get(!noMotorFerry && yesMotorFerry ? CachedTypes::Type::YesCar : CachedTypes::Type::NoCar));
+      params.AddType(types.Get(!noMotorFerry && yesMotorFerry ? CachedTypes::YesCar : CachedTypes::NoCar));
 
       ferryDone = true;
     }
@@ -894,10 +1162,13 @@ void PostprocessElement(OsmElement * p, FeatureBuilderParams & params)
 }  // namespace
 
 void GetNameAndType(OsmElement * p, FeatureBuilderParams & params,
-                    function<bool(uint32_t)> const & filterType)
+                    TypesFilterFnT const & filterType, CalculateOriginFnT const & calcOrg)
 {
+  // At this point, some preprocessing could've been done to the tags already
+  // in TranslatorInterface::Preprocess(), e.g. converting tags according to replaced_tags.txt.
+
   // Stage1: Preprocess tags.
-  PreprocessElement(p);
+  PreprocessElement(p, calcOrg);
 
   // Stage2: Process feature name on all languages.
   NamesExtractor namesExtractor(params);
@@ -905,63 +1176,197 @@ void GetNameAndType(OsmElement * p, FeatureBuilderParams & params,
   namesExtractor.Finish();
 
   // Stage3: Process base feature tags.
-  TagProcessor(p).ApplyRules<void(string &, string &)>({
-      {"addr:housenumber", "*",
-       [&params](string & k, string & v) {
-         params.AddHouseName(v);
-         k.clear();
-         v.clear();
-       }},
-      {"addr:housename", "*",
-       [&params](string & k, string & v) {
-         params.AddHouseName(v);
-         k.clear();
-         v.clear();
-       }},
-      {"addr:street", "*",
-       [&params](string & k, string & v) {
-         params.AddStreet(v);
-         k.clear();
-         v.clear();
-       }},
-      {"addr:postcode", "*",
-       [&params](string & k, string & v) {
-         params.AddPostcode(v);
+  std::string houseName, houseNumber, conscriptionHN, streetHN, addrPostcode;
+  std::string addrCity, addrSuburb;
+  feature::AddressData addr;
+  TagProcessor(p).ApplyRules<void(string &, string &)>(
+  {
+      {"addr:housenumber", "*", [&houseNumber](string & k, string & v)
+      {
+        houseNumber = std::move(v);
       }},
-      {"population", "*",
-       [&params](string & k, string & v) {
-         // Get population rank.
-         uint64_t const population = generator::osm_element::GetPopulation(v);
-         if (population != 0)
-           params.rank = feature::PopulationToRank(population);
-       }},
-      {"ref", "*",
-       [&params](string & k, string & v) {
-         // Get reference (we process road numbers only).
-         params.ref = v;
-         k.clear();
-         v.clear();
-       }},
-      {"layer", "*",
-       [&params](string & /* k */, string & v) {
-         // Get layer.
-         if (params.layer == feature::LAYER_EMPTY)
-         {
-           // atoi error value (0) should match empty layer constant.
-           static_assert(feature::LAYER_EMPTY == 0);
-           params.layer = atoi(v.c_str());
-           params.layer = base::Clamp(params.layer, int8_t(feature::LAYER_LOW), int8_t(feature::LAYER_HIGH));
-         }
-       }},
+      {"addr:conscriptionnumber", "*", [&conscriptionHN](string & k, string & v)
+      {
+        conscriptionHN = std::move(v);
+      }},
+      {"addr:provisionalnumber", "*", [&conscriptionHN](string & k, string & v)
+      {
+        conscriptionHN = std::move(v);
+      }},
+      {"addr:streetnumber", "*", [&streetHN](string & k, string & v)
+      {
+        streetHN = std::move(v);
+      }},
+      {"contact:housenumber", "*", [&houseNumber](string & k, string & v)
+      {
+        if (houseNumber.empty())
+          houseNumber = std::move(v);
+      }},
+      {"addr:housename", "*", [&houseName](string & k, string & v)
+      {
+        houseName = std::move(v);
+      }},
+      {"addr:street", "*", [&addr](string & k, string & v)
+      {
+        addr.Set(feature::AddressData::Type::Street, std::move(v));
+      }},
+      {"contact:street", "*", [&addr](string & k, string & v)
+      {
+        addr.SetIfAbsent(feature::AddressData::Type::Street, std::move(v));
+      }},
+      {"addr:place", "*", [&addr](string & k, string & v)
+      {
+        addr.Set(feature::AddressData::Type::Place, std::move(v));
+      }},
+      {"addr:city", "*", [&addrCity](string & k, string & v)
+       {
+         addrCity = std::move(v);
+      }},
+      {"addr:suburb", "*", [&addrSuburb](string & k, string & v)
+      {
+        addrSuburb = std::move(v);
+      }},
+      {"addr:postcode", "*", [&addrPostcode](string & k, string & v)
+      {
+        addrPostcode = std::move(v);
+      }},
+      {"postal_code", "*", [&addrPostcode](string & k, string & v)
+      {
+        addrPostcode = std::move(v);
+      }},
+      {"contact:postcode", "*", [&addrPostcode](string & k, string & v)
+      {
+        if (addrPostcode.empty())
+          addrPostcode = std::move(v);
+      }},
+      {"population", "*", [&params](string & k, string & v)
+      {
+        // Get population rank.
+        uint64_t const population = generator::osm_element::GetPopulation(v);
+        if (population != 0)
+          params.rank = feature::PopulationToRank(population);
+      }},
+      {"ref", "*", [&params](string & k, string & v)
+      {
+        // Get reference; its used for selected types only, see FeatureBuilder::PreSerialize().
+        params.ref = std::move(v);
+      }},
+      {"layer", "*", [&params](string & k, string & v)
+      {
+        // Get layer.
+        if (params.layer == feature::LAYER_EMPTY)
+        {
+          // atoi error value (0) should match empty layer constant.
+          static_assert(feature::LAYER_EMPTY == 0);
+          params.layer = atoi(v.c_str());
+          params.layer = base::Clamp(params.layer, int8_t(feature::LAYER_LOW), int8_t(feature::LAYER_HIGH));
+        }
+      }},
   });
 
-  // Stage4: Match tags in classificator to find feature types.
+  // OSM consistency check with house numbers.
+  if (!conscriptionHN.empty() || !streetHN.empty())
+  {
+    // Simple validity check, trust housenumber tag in other cases.
+
+    char const * kHNLogTag = "HNLog";
+    if (!conscriptionHN.empty() && !streetHN.empty())
+    {
+      auto i = houseNumber.find('/');
+      if (i == std::string::npos)
+      {
+        LOG(LWARNING, (kHNLogTag, "Override housenumber for:", DebugPrintID(*p), houseNumber, conscriptionHN, streetHN));
+        houseNumber = conscriptionHN + "/" + streetHN;
+      }
+    }
+    else if (houseNumber.empty())
+    {
+      LOG(LWARNING, (kHNLogTag, "Assign housenumber for:", DebugPrintID(*p), houseNumber, conscriptionHN, streetHN));
+      houseNumber = conscriptionHN.empty() ? streetHN : conscriptionHN;
+    }
+
+    /// @todo Remove "ev." prefix from HN?
+  }
+
+  if (!houseNumber.empty() && addr.Empty())
+  {
+    if (!addrSuburb.empty())
+    {
+      // Treat addr:suburb as addr:place (https://overpass-turbo.eu/s/1Dlz)
+      addr.Set(feature::AddressData::Type::Place, std::move(addrSuburb));
+    }
+    else if (!addrCity.empty())
+    {
+      // Treat addr:city as addr:place
+      class CityBBox
+      {
+        std::vector<m2::RectD> m_rects;
+      public:
+        CityBBox()
+        {
+          // Зеленоград
+          m_rects.emplace_back(37.119113, 55.944925, 37.273608, 56.026874);
+
+          // Add new {lon, lat} city bboxes here.
+        }
+        bool IsInside(m2::PointD const & pt)
+        {
+          auto const ll = mercator::ToLatLon(pt);
+          for (auto const & r : m_rects)
+          {
+            if (r.IsPointInside({ll.m_lon, ll.m_lat}))
+              return true;
+          }
+          return false;
+        }
+      };
+
+      static CityBBox s_cityBBox;
+
+      CHECK(calcOrg, ());
+      auto const org = calcOrg(p);
+      if (org && s_cityBBox.IsInside(*org))
+        addr.Set(feature::AddressData::Type::Place, std::move(addrCity));
+    }
+  }
+
+  params.SetAddress(std::move(addr));
+  params.SetPostcode(std::move(addrPostcode));
+  params.SetHouseNumberAndHouseName(std::move(houseNumber), std::move(houseName));
+
+  // Fetch piste:name and piste:ref if there are no other name/ref values.
+  TagProcessor(p).ApplyRules<void(string &, string &)>(
+  {
+      {"piste:ref", "*", [&params](string & k, string & v)
+      {
+        if (params.ref.empty())
+          params.ref = std::move(v);
+      }},
+      {"piste:name", "*", [&params](string & k, string & v)
+      {
+        params.SetDefaultNameIfEmpty(std::move(v));
+      }},
+  });
+
+  // Stage4: Match tags to classificator feature types via mapcss-mapping.csv.
   MatchTypes(p, params, filterType);
 
   // Stage5: Postprocess feature types.
   PostprocessElement(p, params);
 
-  params.FinishAddingTypes();
+  {
+    std::string const typesString = params.PrintTypes();
+
+    if (params.RemoveInconsistentTypes())
+      LOG(LWARNING, ("Inconsistent types for:", DebugPrintID(*p), "Types:", typesString));
+
+    size_t const typesCount = params.m_types.size();
+    if (params.FinishAddingTypesEx() == FeatureParams::TYPES_EXCEED_MAX)
+      LOG(LWARNING, ("Exceeded types count for:", DebugPrintID(*p), "Types:", typesCount, typesString));
+
+    if (!params.house.IsEmpty() && !ftypes::IsAddressObjectChecker::Instance()(params.m_types))
+      LOG(LWARNING, ("Have house number for _non-address_:", DebugPrintID(*p), "Types:", typesString));
+  }
 
   // Stage6: Collect additional information about feature such as
   // hotel stars, opening hours, cuisine, ...

@@ -3,7 +3,6 @@
 #include "map/api_mark_point.hpp"
 #include "map/bookmark.hpp"
 #include "map/bookmark_manager.hpp"
-#include "map/caching_address_getter.hpp"
 #include "map/features_fetcher.hpp"
 #include "map/isolines_manager.hpp"
 #include "map/mwm_url.hpp"
@@ -47,6 +46,7 @@
 
 #include "platform/location.hpp"
 #include "platform/platform.hpp"
+#include "platform/distance.hpp"
 
 #include "routing/router.hpp"
 
@@ -210,7 +210,7 @@ protected:
   void InitTransliteration();
 
 public:
-  explicit Framework(FrameworkParams const & params = {});
+  explicit Framework(FrameworkParams const & params = {}, bool loadMaps = true);
   virtual ~Framework() override;
 
   df::DrapeApi & GetDrapeApi() { return m_drapeApi; }
@@ -218,6 +218,9 @@ public:
   /// \returns true if there're unsaved changes in map with |countryId| and false otherwise.
   /// \note It works for group and leaf node.
   bool HasUnsavedEdits(storage::CountryId const & countryId);
+
+  void LoadMapsSync();
+  void LoadMapsAsync(std::function<void()> && callback);
 
   /// Registers all local map files in internal indexes.
   void RegisterAllMaps();
@@ -327,6 +330,10 @@ public:
   bool HasPlacePageInfo() const { return m_currentPlacePageInfo.has_value(); }
   place_page::Info const & GetCurrentPlacePageInfo() const;
   place_page::Info & GetCurrentPlacePageInfo();
+  void BuildAndSetPlacePageInfo(place_page::BuildInfo const & buildInfo)
+  {
+    OnTapEvent(buildInfo);
+  }
 
   void InvalidateRendering();
   void EnableDebugRectRendering(bool enabled);
@@ -471,12 +478,12 @@ public:
   /// Calculate distance and direction to POI for the given position.
   /// @param[in]  point             POI's position;
   /// @param[in]  lat, lon, north   Current position and heading from north;
-  /// @param[out] distance          Formatted distance string;
+  /// @param[out] distance          Distance to point from (lat, lon);
   /// @param[out] azimut            Azimut to point from (lat, lon);
   /// @return true  If the POI is near the current position (distance < 25 km);
   bool GetDistanceAndAzimut(m2::PointD const & point,
                             double lat, double lon, double north,
-                            std::string & distance, double & azimut);
+                            platform::Distance & distance, double & azimut);
 
   /// @name Manipulating with model view
   m2::PointD PtoG(m2::PointD const & p) const { return m_currentModelView.PtoG(p); }
@@ -490,7 +497,8 @@ public:
   m2::PointD GetVisiblePixelCenter() const;
 
   m2::PointD const & GetViewportCenter() const;
-  void SetViewportCenter(m2::PointD const & pt, int zoomLevel = -1, bool isAnim = true);
+  void SetViewportCenter(m2::PointD const & pt, int zoomLevel = -1, bool isAnim = true,
+                         bool trackVisibleViewport = false);
 
   m2::RectD GetCurrentViewport() const;
   void SetVisibleViewport(m2::RectD const & rect);
@@ -504,7 +512,7 @@ public:
 
   void SetViewportListener(TViewportChangedFn const & fn);
 
-#if defined(OMIM_OS_MAC) || defined(OMIM_OS_LINUX)
+#if defined(OMIM_OS_DESKTOP)
   using TGraphicsReadyFn = df::DrapeEngine::GraphicsReadyHandler;
   void NotifyGraphicsReady(TGraphicsReadyFn const & fn, bool needInvalidate);
 #endif
@@ -533,6 +541,8 @@ public:
   /// factorY = 1.5 moves the map one and a half size up.
   void Move(double factorX, double factorY, bool isAnim);
 
+  void Scroll(double distanceX, double distanceY);
+
   void Rotate(double azimuth, bool isAnim);
 
   void TouchEvent(df::TouchEvent const & touch);
@@ -542,8 +552,15 @@ public:
   void RunFirstLaunchAnimation();
 
   /// Set correct viewport, parse API, show balloon.
-  bool ShowMapForURL(std::string const & url);
-  url_scheme::ParsedMapApi::ParsingResult ParseAndSetApiURL(std::string const & url);
+  void ExecuteMapApiRequest()
+  {
+    m_parsedMapApi.ExecuteMapApiRequest(*this);
+  }
+
+  url_scheme::ParsedMapApi::UrlType ParseAndSetApiURL(std::string const & url)
+  {
+    return m_parsedMapApi.SetUrlAndParse(url);
+  }
 
   struct ParsedRoutingData
   {
@@ -558,6 +575,7 @@ public:
   ParsedRoutingData GetParsedRoutingData() const;
   url_scheme::SearchRequest GetParsedSearchRequest() const;
   std::string const & GetParsedAppName() const;
+  std::string const & GetParsedBackUrl() const;
   ms::LatLon GetParsedCenterLatLon() const;
 
   using FeatureMatcher = std::function<bool(FeatureType & ft)>;
@@ -598,8 +616,7 @@ private:
   void FillDescription(FeatureType & ft, place_page::Info & info) const;
 
 public:
-  search::ReverseGeocoder::Address GetAddressAtPoint(m2::PointD const & pt,
-                                                     double distanceThresholdMeters = 0.5) const;
+  search::ReverseGeocoder::Address GetAddressAtPoint(m2::PointD const & pt) const;
 
   /// Get "best for the user" feature at given point even if it's invisible on the screen.
   /// Ignores coastlines and prefers buildings over other area features.
@@ -658,7 +675,6 @@ public:
   void Load3dMode(bool & allow3d, bool & allow3dBuildings);
 
   void SetLargeFontsSize(bool isLargeSize);
-  void SaveLargeFontsSize(bool isLargeSize);
   bool LoadLargeFontsSize();
 
   bool LoadAutoZoom();
@@ -683,6 +699,9 @@ public:
 
   bool LoadIsolinesEnabled();
   void SaveIsolinesEnabled(bool enabled);
+
+  bool LoadOutdoorsEnabled();
+  void SaveOutdoorsEnabled(bool enabled);
 
   dp::ApiVersion LoadPreferredGraphicsAPI();
   void SavePreferredGraphicsAPI(dp::ApiVersion apiVersion);
@@ -714,7 +733,6 @@ public:
                   std::string const & note);
 
 private:
-  CachingAddressGetter m_addressGetter;
   settings::UsageStats m_usageStats;
 
 public:

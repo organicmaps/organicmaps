@@ -4,5 +4,6 @@ typedef NS_CLOSED_ENUM(NSUInteger, MWMRouterTransitType) {
   MWMRouterTransitTypeSubway,
   MWMRouterTransitTypeTrain,
   MWMRouterTransitTypeLightRail,
-  MWMRouterTransitTypeMonorail
+  MWMRouterTransitTypeMonorail,
+  MWMRouterTransitTypeRuler
 };

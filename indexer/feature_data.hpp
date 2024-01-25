@@ -7,15 +7,10 @@
 #include "coding/string_utf8_multilang.hpp"
 #include "coding/value_opt_string.hpp"
 
-#include "geometry/point2d.hpp"
-
 #include <algorithm>
 #include <array>
-#include <cstdint>
-#include <iterator>
 #include <optional>
 #include <string>
-#include <utility>
 #include <vector>
 
 struct FeatureParamsBase;
@@ -41,7 +36,7 @@ namespace feature
     PointEx = 3U << 5  /// point feature (addinfo = house)
   };
 
-  static constexpr int kMaxTypesCount = HEADER_MASK_TYPE + 1;
+  static constexpr int kMaxTypesCount = HEADER_MASK_TYPE + 1; // 8, because there should be no features with 0 types
 
   enum Layer : int8_t
   {
@@ -83,8 +78,11 @@ namespace feature
     size_t Size() const { return m_size; }
     bool Empty() const { return (m_size == 0); }
 
-    auto cbegin() const { return m_types.cbegin(); }
-    auto cend() const { return m_types.cbegin() + m_size; }
+    uint32_t front() const
+    {
+      ASSERT(m_size > 0, ());
+      return m_types[0];
+    }
     auto begin() const { return m_types.cbegin(); }
     auto end() const { return m_types.cbegin() + m_size; }
     auto begin() { return m_types.begin(); }
@@ -116,7 +114,11 @@ namespace feature
 
     void Remove(uint32_t type);
 
-    /// Sort types by it's specification (more detailed type goes first).
+    /// Used in tests only to check UselessTypesChecker
+    /// (which is used in the generator to discard least important types if max types count is exceeded).
+    void SortByUseless();
+
+    /// Sort types by it's specification (more detailed type goes first). Should be used in client app.
     void SortBySpec();
 
     bool Equals(TypesHolder const & other) const;
@@ -147,6 +149,7 @@ struct FeatureParamsBase
   FeatureParamsBase() : layer(feature::LAYER_EMPTY), rank(0) {}
 
   void MakeZero();
+  bool SetDefaultNameIfEmpty(std::string const & s);
 
   bool operator == (FeatureParamsBase const & rhs) const;
 
@@ -219,13 +222,17 @@ struct FeatureParamsBase
 
 class FeatureParams : public FeatureParamsBase
 {
+  static char const * kHNLogTag;
+
 public:
   using Types = std::vector<uint32_t>;
 
   void ClearName();
 
   bool AddName(std::string_view lang, std::string_view s);
-  bool AddHouseName(std::string const & s);
+
+  static bool LooksLikeHouseNumber(std::string const & hn);
+  void SetHouseNumberAndHouseName(std::string houseNumber, std::string houseName);
   bool AddHouseNumber(std::string houseNumber);
 
   void SetGeomType(feature::GeomType t);
@@ -238,7 +245,12 @@ public:
   /// the special subway type for the correspondent city.
   void SetRwSubwayType(char const * cityName);
 
-  bool FinishAddingTypes();
+  enum TypesResult { TYPES_GOOD, TYPES_EMPTY, TYPES_EXCEED_MAX };
+  TypesResult FinishAddingTypesEx();
+  bool FinishAddingTypes() { return FinishAddingTypesEx() != TYPES_EMPTY; }
+
+  // For logging purpose.
+  std::string PrintTypes();
 
   void SetType(uint32_t t);
   bool PopAnyType(uint32_t & t);
@@ -246,7 +258,8 @@ public:
   bool IsTypeExist(uint32_t t) const;
   bool IsTypeExist(uint32_t comp, uint8_t level) const;
 
-  /// Find type that matches "comp" with "level" in classificator hierarchy.
+  /// @return Type that matches |comp| with |level| in classificator hierarchy.
+  ///   ftype::GetEmptyValue() if type not found.
   uint32_t FindType(uint32_t comp, uint8_t level) const;
 
   bool IsValid() const;
@@ -280,7 +293,10 @@ public:
     Base::Read(src, header);
   }
 
-  Types m_types = {};
+  /// @todo Make protected and update EditableMapObject code.
+  Types m_types;
+
+  friend std::string DebugPrint(FeatureParams const & p);
 
 private:
   using Base = FeatureParamsBase;
@@ -292,6 +308,7 @@ private:
   std::optional<feature::HeaderGeomType> m_geomType;
 };
 
+/// @todo Take out into generator library.
 class FeatureBuilderParams : public FeatureParams
 {
 public:
@@ -306,16 +323,31 @@ public:
     m_reversedGeometry = rhs.m_reversedGeometry;
   }
 
-  /// Used to store address to temporary TEMP_ADDR_FILE_TAG section.
-  void AddStreet(std::string s);
-  void AddPostcode(std::string const & s);
+  void MakeZero()
+  {
+    m_metadata.Clear();
+    m_addrTags.Clear();
+    FeatureParams::MakeZero();
+  }
 
-  feature::AddressData const & GetAddressData() const { return m_addrTags; }
+  /// @name Used to store address to temporary TEMP_ADDR_EXTENSION file.
+  /// @{
+  void SetAddress(feature::AddressData && addr) { m_addrTags = std::move(addr); }
+
+  void SetStreet(std::string s);
+  std::string_view GetStreet() const;
+
+  template <class TSink> void SerializeAddress(TSink & sink) const
+  {
+    m_addrTags.SerializeForMwmTmp(sink);
+  }
+  /// @}
+
+  void SetPostcode(std::string s);
+  std::string_view GetPostcode() const;
+
   feature::Metadata const & GetMetadata() const { return m_metadata; }
   feature::Metadata & GetMetadata() { return m_metadata; }
-
-  void SetMetadata(feature::Metadata && metadata) { m_metadata = std::move(metadata); }
-  void ClearMetadata() { SetMetadata({}); }
 
   template <class Sink>
   void Write(Sink & sink) const
@@ -336,11 +368,15 @@ public:
   bool GetReversedGeometry() const { return m_reversedGeometry; }
   void SetReversedGeometry(bool reversedGeometry) { m_reversedGeometry = reversedGeometry; }
 
+  /// @return true If any inconsistency was found here.
+  bool RemoveInconsistentTypes();
+
+  void ClearPOIAttribs();
+
+  friend std::string DebugPrint(FeatureBuilderParams const & p);
+
 private:
   bool m_reversedGeometry = false;
   feature::Metadata m_metadata;
   feature::AddressData m_addrTags;
 };
-
-std::string DebugPrint(FeatureParams const & p);
-std::string DebugPrint(FeatureBuilderParams const & p);

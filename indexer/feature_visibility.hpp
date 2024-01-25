@@ -43,7 +43,7 @@ namespace feature
   int GetMinDrawableScaleClassifOnly(TypesHolder const & types);
 
   /// @return [-1, -1] if range is not drawable
-  //@{
+  /// @{
   /// @name Get scale range when feature is visible.
   std::pair<int, int> GetDrawableScaleRange(uint32_t type);
   std::pair<int, int> GetDrawableScaleRange(TypesHolder const & types);
@@ -55,11 +55,13 @@ namespace feature
     RULE_CAPTION = 1,
     RULE_PATH_TEXT = 2,
     RULE_ANY_TEXT = RULE_CAPTION | RULE_PATH_TEXT,
-    RULE_SYMBOL = 4
+    RULE_SYMBOL = 4,
+
+    RULE_LINE = 8,
   };
 
   std::pair<int, int> GetDrawableScaleRangeForRules(TypesHolder const & types, int rules);
-  //@}
+  /// @}
 
   void GetDrawRule(TypesHolder const & types, int level, drule::KeysT & keys);
   void GetDrawRule(std::vector<uint32_t> const & types, int level, GeomType geomType, drule::KeysT & keys);

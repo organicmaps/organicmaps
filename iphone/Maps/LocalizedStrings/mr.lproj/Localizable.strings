@@ -32,7 +32,7 @@
 /* A text for current gps location point/arrow selected on the map */
 "core_my_position" = "माझे स्थान";
 
-/* Update maps later/Buy pro version later button text */
+/* Update maps later button text */
 "later" = "नंतर";
 
 /* View and button titles for accessibility, please also edit it in iphone/plist.txt */
@@ -71,13 +71,16 @@
 /* "Bookmark Lists" dialog title */
 "bookmark_sets" = "खूणपत्र याद्या";
 
-/* "Bookmarks" dialog title, please also edit it in iphone/plist.txt */
+/* Should be used in the bookmarks-only context, see bookmarks_and_tracks if tracks are also implied. */
 "bookmarks" = "खूणपत्रे";
+
+/* "Bookmarks and Tracks" dialog title, also sync it with iphone/plist.txt */
+"bookmarks_and_tracks" = "खूणपत्रे आणि ट्रॅक";
 
 /* Default bookmark list name */
 "core_my_places" = "माझी ठिकाणे";
 
-/* Editor title above street and house number */
+/* Editor title above street and house number, duplicates [type.building.address] in types_strings.txt */
 "address" = "पत्ता";
 
 /* Settings button in system menu */
@@ -106,6 +109,9 @@
 
 /* Search category for clothes/shoes/gifts/jewellery/sport shops; any changes should be duplicated in categories.txt @shopping! */
 "shopping" = "खरेदी";
+
+/* Search category for second_hand/charity/antique/auction shops; any changes should be duplicated in categories.txt @secondhand! */
+"secondhand" = "वापरलेले";
 
 /* Search category for places to stay; any changes should be duplicated in categories.txt @hotel! */
 "hotel" = "मुक्कामगृह";
@@ -184,6 +190,9 @@
 /* Share by email button text, also used in editor and About. */
 "email" = "ई-मेल";
 
+/* Text for message when used successfully copied something */
+"copied_to_clipboard" = "क्लिपबोर्डावर कॉपी केले: %@";
+
 /* place preview title */
 "info" = "माहिती";
 
@@ -211,20 +220,23 @@
 /* Settings «Map» category: «Night style» title */
 "pref_map_style_title" = "रात्र मोड";
 
-/* «Map style» entry value */
-"pref_map_style_default" = "बंद";
+/* Generic «Off» string */
+"off" = "बंद";
 
-/* «Map style» entry value */
-"pref_map_style_night" = "चालू";
+/* Generic «On» string */
+"on" = "चालू";
 
-/* «Map style» entry value */
-"pref_map_style_auto" = "स्वयं";
+/* Generic «Auto» string */
+"auto" = "स्वयं";
 
 /* Settings «Map» category: «Perspective view» title */
 "pref_map_3d_title" = "यथार्थ दृश्य";
 
 /* Settings «Map» category: «3D buildings» title */
 "pref_map_3d_buildings_title" = "त्रिमिती (3D) इमारती";
+
+/* A message in Settings/Preferences explaining why is it not possible to enable 3D buildings when max power saving mode is enabled */
+"pref_map_3d_buildings_disabled_summary" = "3D इमारती वीज बचत मोडमध्ये बंद केल्या आहेत";
 
 /* Settings «Route» category: «Tts enabled» title */
 "pref_tts_enable_title" = "ध्वनी सूचना";
@@ -271,7 +283,7 @@
 "telegram" = "Telegram";
 
 /* Text in menu */
-"matrix" = "[matrix]";
+"matrix" = "[Matrix]";
 
 /* Text in menu */
 "mastodon" = "Mastodon";
@@ -280,7 +292,7 @@
 "facebook" = "Facebook";
 
 /* Text in menu */
-"twitter" = "Twitter";
+"twitter" = "X (Twitter)";
 
 /* Text in menu */
 "instagram" = "Instagram";
@@ -500,7 +512,7 @@
 "routing_planning_error" = "मार्ग नियोजन अयशस्वी";
 
 /* Arrive routing message in navigation view */
-"routing_arrive" = "%s वाजता आगमन";
+"routing_arrive" = "%@ वाजता आगमन";
 
 /* Text for routing::RouterResultCode::FileTooOld dialog. */
 "dialog_routing_download_and_update_maps" = "मार्गाची गणना करण्यासाठी प्रक्षेपित वाटेवरील सर्व नकाशा डाउनलोड आणि अद्ययावत करा.";
@@ -756,19 +768,23 @@
 
 "location_services_disabled_2" = "२. स्थान टॅप करा";
 
-/* iOS Dialog for the case when the location permission is not granted */
+/* iOS Dialog for the case when the location permission is not granted; you might find the exact wording for your language here: https://support.apple.com/en-us/102647 (replace 'en-us' in URL with your language/region) */
 "location_services_disabled_3" = "३. \"ऍप वापरत असताना\" निवडा";
 
-"meter" = "m";
+/* abbreviation for meters */
+"m" = "m";
 
-"kilometer" = "किमी";
+/* abbreviation for kilometers */
+"km" = "किमी";
 
+/* abbreviation for kilometers per hour */
 "kilometers_per_hour" = "km/h";
 
-"mile" = "mi";
+/* abbreviation for mile(s) */
+"mi" = "mi";
 
 /* A unit of measure */
-"foot" = "फूट";
+"ft" = "फूट";
 
 "miles_per_hour" = "mph";
 
@@ -776,11 +792,18 @@
 
 "minute" = "मिनिट";
 
-"placepage_place_description" = "वर्णन";
-
 "placepage_more_button" = "अधिक";
 
 "book_button" = "पुस्तक";
+
+/* A referral link on the place page for some hotels */
+"more_on_kayak" = "फोटोपुनरावलोकनेबुकिंगबुकिंग";
+
+/* An explanation dialog shown when clicking on more_on_kayak link. */
+"dialog_kayak_disclaimer" = "या लिंकद्वारे प्रत्येक बुकिंगसाठी मिळणारा रेफरल बोनस ऑरगॅनिक नकाशांच्या विकासासाठी जातो.";
+
+/* A confirmation button text in the explanation dialog that opens hotel details page on Kayak website. */
+"dialog_kayak_button" = "कायाक वर तपशील";
 
 "placepage_call_button" = "फोन करा";
 
@@ -817,7 +840,7 @@
 
 "refresh" = "अद्ययावत करा";
 
-"placepage_add_place_button" = "नकाशावर एक ठिकाण जोडा";
+"placepage_add_place_button" = "OpenStreetMap मध्ये ठिकाण जोडा";
 
 /* Displayed when saving some edits to the map to warn against publishing personal data */
 "editor_share_to_all_dialog_title" = "तुम्ही ते सर्व वापरकर्त्यांना पाठवू इच्छिता?";
@@ -825,7 +848,7 @@
 /* Dialog before publishing the modifications to the public map. */
 "editor_share_to_all_dialog_message_1" = "आपण कोणतीही वैयक्तिक माहिती प्रविष्ट केला नाही याची खात्री करा.";
 
-"editor_share_to_all_dialog_message_2" = "OpenStreetMap editors will check the changes and get in contact with you if they have any questions.";
+"editor_share_to_all_dialog_message_2" = "OpenStreetMap editors will check the changes and contact you if they have any questions.";
 
 "navigation_stop_button" = "थांबा";
 
@@ -880,10 +903,6 @@
 /* "traffic" as in "road congestion" */
 "traffic_data_unavailable" = "वाहतूक माहिती उपलब्ध नाही";
 
-"on" = "चालू";
-
-"off" = "बंद";
-
 "transliteration_title" = "लॅटिनमध्ये (इंग्रजीची अक्षरे) लिप्यंतरण";
 
 /* Subway exits for public transport marks on the map */
@@ -922,11 +941,11 @@
 
 "downloader_hide_screen" = "पटल (स्क्रीन) लपवा";
 
-"downloader_percent" = "%s (%s पैकी %s)";
+"downloader_percent" = "%@ (%@ पैकी %@)";
 
-"downloader_process" = "%s डाउनलोड करत आहे…";
+"downloader_process" = "%@ डाउनलोड करत आहे…";
 
-"downloader_applying" = "%s लागू करत आहे…";
+"downloader_applying" = "%@ लागू करत आहे…";
 
 "bookmarks_error_message_share_general" = "ऍप त्रुटीमुळे सामायिक करण्यात अक्षम";
 
@@ -964,7 +983,7 @@
 
 "button_layer_subway" = "भुयारी मार्ग";
 
-"layers_title" = "नकाशा स्तर";
+"layers_title" = "नकाशा शैली आणि स्तर";
 
 "subway_data_unavailable" = "भुयारी नकाशा अनुपलब्ध आहे";
 
@@ -973,8 +992,6 @@
 "popular_place" = "लोकप्रिय";
 
 "export_file" = "फाइल निर्यात";
-
-"list_settings" = "यादी सेटिंग";
 
 "delete_list" = "यादी मिटवा";
 
@@ -988,11 +1005,11 @@
 
 "speedcams_alert_title" = "वेग कॅमेरे";
 
-"speedcam_option_auto" = "स्वयं";
+/* Generic «Always» string */
+"always" = "नेहमी";
 
-"speedcam_option_always" = "नेहमी";
-
-"speedcam_option_never" = "कधीच नाही";
+/* Generic «Never» string */
+"never" = "कधीच नाही";
 
 "place_description_title" = "ठिकाणाचे वर्णन";
 
@@ -1010,15 +1027,16 @@
 
 "driving_options_title" = "मार्गशोधी पर्याय";
 
-"driving_options_subheader" = "प्रत्येक मार्गावर टाळा";
+/* Recommended length for CarPlay and Android Auto is around 25-27 characters */
+"avoid_tolls" = "टोल रस्ते टाळा";
 
-"avoid_tolls" = "टोल मार्ग";
+/* Recommended length for CarPlay and Android Auto is around 25-27 characters */
+"avoid_unpaved" = "कच्चे मार्ग टाळा";
 
-"avoid_unpaved" = "कच्चे मार्ग";
+/* Recommended length for CarPlay and Android Auto is around 25-27 characters */
+"avoid_ferry" = "जल मार्ग टाळा";
 
-"avoid_ferry" = "जल मार्ग";
-
-"avoid_motorways" = "महामार्ग";
+"avoid_motorways" = "मोटरवे टाळा";
 
 "unable_to_calc_alert_title" = "मार्गाची गणना करण्यात अक्षम";
 
@@ -1033,12 +1051,6 @@
 "unpaved_road" = "कच्चे मार्ग";
 
 "ferry_crossing" = "जल मार्ग";
-
-"avoid_toll_roads_placepage" = "टोल मार्ग टाळा";
-
-"avoid_unpaved_roads_placepage" = "कच्चे मार्ग टाळा";
-
-"avoid_ferry_crossing_placepage" = "जल मार्ग टाळा";
 
 "trip_start" = "चल जाऊया";
 
@@ -1064,6 +1076,9 @@
 /* E.g. "WiFi:No" */
 "no_available" = "नाही";
 
+/* To indicate the capacity of car parkings, bicycle parkings, electric vehicle charging stations... */
+"capacity" = "क्षमता: %@";
+
 "trip_finished" = "तुम्ही पोचलात!";
 
 "keyboard_availability_alert" = "गाडी चालवताना कीबोर्ड उपलब्ध नसतो";
@@ -1086,25 +1101,13 @@
 
 "ok" = "ठीक आहे";
 
-"avoid_unpaved_carplay_1" = "कच्चा रस्ता नाही";
-
-"avoid_unpaved_carplay_2" = "कच्चा रस्ता टाळा";
-
-"avoid_ferry_carplay_1" = "नाव नाहीत";
-
-"avoid_ferry_carplay_2" = "नाव टाळा";
-
-"avoid_tolls_carplay_1" = "टोल रस्ता नाही";
-
-"avoid_tolls_carplay_2" = "टोल रस्ता टाळा";
-
 "speedcams_alert_title_carplay_1" = "वेगकॅमेरा";
 
 "speedcams_alert_title_carplay_2" = "गती चेतावणी";
 
 "download_map_carplay" = "कृपया तुमच्या उपकरणावर Organic Maps ऍप मध्ये नकाशे डाउनलोड करा";
 
-"carplay_roundabout_exit" = "%s बाहेर पडा";
+"carplay_roundabout_exit" = "%@ बाहेर पडा";
 
 /* max. 10 symbols, both iOS and Android */
 "sort" = "क्रमाने लावा…";
@@ -1210,7 +1213,7 @@
 "whats_new_auto_update_message" = "नकाशे अद्ययावत केल्याने वस्तूंची माहिती अद्यतनित राहते";
 
 /* Autoupdate dialog on start */
-"whats_new_auto_update_button_size" = "अद्ययावत करा (%s)";
+"whats_new_auto_update_button_size" = "अद्ययावत करा (%@)";
 
 /* Autoupdate dialog on start */
 "whats_new_auto_update_button_later" = "नंतर स्वतः अद्ययावत करा";
@@ -1234,10 +1237,22 @@
 "instagram_url" = "https://www.instagram.com/organicmaps.app";
 
 /* Translated Organic Maps site, add new translations here: https://github.com/organicmaps/organicmaps.github.io/tree/master/content */
-"translated_om_site_url" = "https://organicmaps.app/";
+"translated_om_site_url" = "https://organicmaps.app/mr/";
+
+/* Link to OSM wiki for Editor, Profile and About pages */
+"osm_wiki_about_url" = "https://wiki.openstreetmap.org/wiki/About_OpenStreetMap";
+
+/* Outdoors/hiking map style (activity) name in the Styles and Layers dialog */
+"button_layer_outdoor" = "गिर्यारोहण";
 
 
 /********** Types **********/
+
+"type.addr_interpolation" = "पत्ता/ब्लॉक";
+
+"type.addr_interpolation.even" = "पत्ता/ब्लॉक";
+
+"type.addr_interpolation.odd" = "पत्ता/ब्लॉक";
 
 "type.aerialway" = "हवाई मार्ग";
 
@@ -1309,9 +1324,17 @@
 
 "type.amenity.casino" = "जुगारगृह";
 
+"type.amenity.gambling" = "जुगार";
+
+"type.leisure.adult_gaming_centre" = "प्रौढ गेमिंग केंद्र";
+
+"type.leisure.amusement_arcade" = "आर्केड";
+
 "type.amenity.charging_station" = "चार्जिंग केंद्र";
 
-"type.amenity.charging_station.motorcar" = "चार्जिंग केंद्र";
+"type.amenity.charging_station.bicycle" = "सायकल चार्जिंग स्टेशन";
+
+"type.amenity.charging_station.motorcar" = "मोटार कार चार्जिंग स्टेशन";
 
 "type.amenity.childcare" = "बालवाडी";
 
@@ -1325,6 +1348,10 @@
 
 "type.amenity.community_centre" = "समुदाय केंद्र";
 
+"type.amenity.compressed_air" = "संकुचित हवा";
+
+"type.amenity.conference_centre" = "परिषद केंद्र";
+
 "type.amenity.courthouse" = "न्यायालय";
 
 "type.amenity.dentist" = "दंतवैद्य";
@@ -1334,6 +1361,10 @@
 "type.amenity.drinking_water" = "पिण्याचे पाणी";
 
 "type.amenity.driving_school" = "वाहनचालक शाळा";
+
+"type.amenity.exhibition_centre" = "प्रदर्शन केंद्र";
+
+"type.amenity.money_transfer" = "पैसे हस्तांतरण";
 
 "type.amenity.music_school" = "Music School";
 
@@ -1383,9 +1414,11 @@
 
 "type.amenity.parking" = "वाहनतळ";
 
-"type.amenity.parking.fee" = "Paid Parking";
+"type.amenity.parking.fee" = "वाहनतळ";
 
 "type.amenity.parking.multi.storey" = "Multi Storey Parking";
+
+"type.amenity.parking.multi.storey.fee" = "Multi Storey Parking";
 
 "type.amenity.parking.no.access" = "Private Parking";
 
@@ -1397,11 +1430,27 @@
 
 "type.amenity.parking.underground" = "Underground Parking";
 
-"type.amenity.parking_entrance" = "Parking entrance";
+"type.amenity.parking.underground.fee" = "Underground Parking";
 
-"type.amenity.parking_entrance.private" = "Parking entrance";
+"type.amenity.parking.underground.private" = "खाजगी भूमिगत पार्किंग";
 
-"type.amenity.parking_entrance.permissive" = "Parking entrance";
+"type.amenity.parking.street_side" = "स्ट्रीट साइड पार्किंग";
+
+"type.amenity.parking.street_side.fee" = "स्ट्रीट साइड पार्किंग";
+
+"type.amenity.parking.street_side.private" = "खाजगी रस्त्यावरील बाजूचे पार्किंग";
+
+"type.amenity.parking.lane" = "लेन पार्किंग";
+
+"type.amenity.parking.lane.fee" = "लेन पार्किंग";
+
+"type.amenity.parking.lane.private" = "खाजगी लेन पार्किंग";
+
+"type.amenity.parking_entrance" = "Parking Entrance";
+
+"type.amenity.parking_entrance.private" = "खाजगी पार्किंग प्रवेशद्वार";
+
+"type.amenity.parking_entrance.permissive" = "Parking Entrance";
 
 "type.amenity.parking_space" = "पार्किंगची जागा";
 
@@ -1422,6 +1471,10 @@
 "type.amenity.place_of_worship.buddhist" = "मंदिर";
 
 "type.amenity.place_of_worship.christian" = "चर्च";
+
+"type.amenity.place_of_worship.christian.mormon" = "चर्च ऑफ जिझस क्राइस्ट ऑफ लेटर डे सेंट्स";
+
+"type.amenity.place_of_worship.christian.jehovahs_witness" = "यहोवा साक्षींचे राज्य सभा";
 
 "type.amenity.place_of_worship.hindu" = "मंदिर";
 
@@ -1488,7 +1541,11 @@
 
 "type.amenity.shelter" = "निवारा";
 
+"type.amenity.public_bath" = "सार्वजनिक स्नान";
+
 "type.amenity.shower" = "अंघोळ";
+
+"type.amenity.stripclub" = "स्ट्रिपक्लब";
 
 "type.amenity.taxi" = "टॅक्सी";
 
@@ -1497,6 +1554,8 @@
 "type.amenity.theatre" = "नाट्यगृह";
 
 "type.amenity.toilets" = "शौचालय";
+
+"type.toilets.yes" = "शौचालय";
 
 "type.amenity.townhall" = "नगर भवन";
 
@@ -1526,6 +1585,8 @@
 
 "type.amenity.parcel_locker" = "पार्सल लॉकर";
 
+"type.amenity.vehicle_inspection" = "वाहन तपासणी";
+
 "type.amenity.vending_machine.fuel" = "इंधन विक्रीयंत्र";
 
 "type.amenity.veterinary" = "पशुवैद्यकीय डॉक्टर";
@@ -1536,7 +1597,7 @@
 
 "type.amenity.waste_transfer_station" = "कचरा हस्तांतरण केंद्र";
 
-"type.amenity.water_point" = "RV Water Point";
+"type.amenity.water_point" = "Water Tank Refill Point";
 
 "type.barrier" = "अडथळा";
 
@@ -1552,7 +1613,11 @@
 
 "type.barrier.cycle_barrier" = "सायकल अडथळा";
 
-"type.barrier.ditch" = "Moat";
+"type.waterway.ditch" = "ड्रेनेज खंदक";
+
+"type.natural.water.moat" = "Moat";
+
+"type.natural.water.wastewater" = "सांडपाणी";
 
 "type.barrier.entrance" = "प्रवेशद्वार";
 
@@ -1569,6 +1634,8 @@
 "type.barrier.retaining_wall" = "संधारक भिंत";
 
 "type.barrier.stile" = "Stile";
+
+"type.barrier.turnstile" = "टर्नस्टाइल";
 
 "type.barrier.swing_gate" = "झुलते दार";
 
@@ -1618,13 +1685,30 @@
 
 "type.boundary.national_park" = "राष्ट्रीय उद्यान";
 
+"type.boundary.protected_area" = "संरक्षित क्षेत्र";
+
+"type.boundary.protected_area.1" = "संरक्षित क्षेत्र";
+
+"type.boundary.protected_area.2" = "संरक्षित क्षेत्र";
+
+"type.boundary.protected_area.3" = "संरक्षित क्षेत्र";
+
+"type.boundary.protected_area.4" = "संरक्षित क्षेत्र";
+
+"type.boundary.protected_area.5" = "संरक्षित क्षेत्र";
+
+"type.boundary.protected_area.6" = "संरक्षित क्षेत्र";
+
 "type.building" = "इमारत";
 
-"type.building.address" = "इमारत";
-
-"type.building.garage" = "गराज";
+/* Duplicates [address] in strings.txt */
+"type.building.address" = "पत्ता";
 
 "type.building.has_parts" = "इमारत";
+
+"type.building_part" = "इमारत";
+
+"type.building.garage" = "गराज";
 
 "type.building.train_station" = "रेल्वे स्थानक";
 
@@ -1640,6 +1724,8 @@
 
 "type.craft.brewery" = "दारूभट्टी";
 
+"type.craft.caterer" = "केटरर";
+
 "type.craft.carpenter" = "सुतार";
 
 "type.craft.confectionery" = "हलवाई";
@@ -1650,16 +1736,24 @@
 
 "type.craft.gardener" = "माळी";
 
+"type.craft.grinding_mill" = "ग्राइंडिंग मिल";
+
 "type.craft.handicraft" = "हस्तकला";
 
 /* Heating, Ventilation, and Air Conditioning */
-"type.craft.hvac" = "HVAC";
+"type.craft.hvac" = "HVAC Shop";
+
+"type.craft.key_cutter" = "की कटिंग";
+
+"type.craft.locksmith" = "लॉकस्मिथ";
 
 "type.craft.metal_construction" = "धातू कामगार";
 
 "type.craft.painter" = "चित्रकार";
 
 "type.craft.photographer" = "छायाचित्रकार";
+
+"type.shop.camera" = "कॅमेरा शॉप";
 
 "type.craft.plumber" = "नळकामगार";
 
@@ -1791,7 +1885,7 @@
 
 "type.cuisine.noodles" = "नूडल्स";
 
-"type.cuisine.oriental" = "Far Eastern";
+"type.cuisine.oriental" = "East Asian";
 
 "type.cuisine.pancake" = "Pancake";
 
@@ -1845,6 +1939,8 @@
 
 "type.emergency" = "आणीबाणी";
 
+"type.emergency.assembly_point" = "आपत्कालीन विधानसभा पॉइंट";
+
 "type.emergency.defibrillator" = "कंपनरोधक";
 
 "type.emergency.fire_hydrant" = "अग्निशामक नळ";
@@ -1856,6 +1952,12 @@
 
 /* This is for main/primary entrances, for secondary entrances see type.entrance */
 "type.entrance.main" = "मुख्य प्रवेशद्वार";
+
+"type.entrance.exit" = "बाहेर पडा";
+
+"type.fee.yes" = "💲";
+
+"type.fee.no" = "विनामूल्य";
 
 "type.healthcare.laboratory" = "वैद्यकीय प्रयोगशाळा";
 
@@ -1894,6 +1996,12 @@
 
 "type.highway.busway" = "समर्पित बस रस्ता";
 
+/* These translations are used for all type.highway.*.bridge. */
+"type.highway.busway.bridge" = "पूल";
+
+/* These translations are used for all type.highway.*.tunnel. */
+"type.highway.busway.tunnel" = "बोगदा";
+
 "type.highway.bus_stop" = "बस थांबा";
 
 "type.highway.construction" = "बांधकामाधीन रस्ता";
@@ -1912,6 +2020,10 @@
 
 "type.highway.footway" = "पादचारी मार्ग";
 
+"type.highway.footway.sidewalk" = "फुटपाथ";
+
+"type.highway.footway.crossing" = "पादचारी ओलांडणे";
+
 "type.highway.footway.alpine_hiking" = "पथ";
 
 "type.highway.footway.area" = "पादचारी झोन";
@@ -1928,8 +2040,6 @@
 "type.highway.footway.hiking" = "पथ";
 
 "type.highway.footway.mountain_hiking" = "पथ";
-
-"type.highway.footway.permissive" = "पादचारी मार्ग";
 
 /* These translations are used for all type.highway.*.tunnel. */
 "type.highway.footway.tunnel" = "पादचारी बोगदा";
@@ -2032,6 +2142,9 @@
 
 /* These translations are used for all type.highway.*.bridge. */
 "type.highway.road.bridge" = "पूल";
+
+/* A bridge structure outline. */
+"type.man_made.bridge" = "पूल";
 
 /* These translations are used for all type.highway.*.tunnel. */
 "type.highway.road.tunnel" = "बोगदा";
@@ -2185,11 +2298,17 @@
 
 "type.historic" = "ऐतिहासिक";
 
+"type.historic.aircraft" = "ऐतिहासिक विमान";
+
+"type.historic.anchor" = "ऐतिहासिक अँकर";
+
 "type.historic.archaeological_site" = "पुरातत्व स्थळ";
 
 "type.historic.battlefield" = "रणांगण";
 
 "type.historic.boundary_stone" = "सीमेचा दगड";
+
+"type.historic.cannon" = "तोफ";
 
 "type.historic.castle" = "गढी";
 
@@ -2221,6 +2340,8 @@
 
 "type.historic.gallows" = "फाशी";
 
+"type.historic.locomotive" = "ऐतिहासिक लोकोमोटिव्ह";
+
 "type.historic.memorial" = "स्मारक";
 
 "type.historic.memorial.cross" = "मेमोरियल क्रॉस";
@@ -2233,7 +2354,11 @@
 
 "type.historic.memorial.stolperstein" = "अडथळा";
 
+"type.historic.stone" = "ऐतिहासिक दगड";
+
 "type.historic.memorial.war_memorial" = "युद्ध स्मारक";
+
+"type.historic.mine" = "ऐतिहासिक खाण";
 
 "type.historic.monument" = "स्मारक";
 
@@ -2243,11 +2368,15 @@
 
 "type.historic.ship" = "जहाज";
 
+"type.historic.tank" = "ऐतिहासिक टाकी";
+
 "type.historic.tomb" = "थडगे";
 
 "type.historic.wayside_cross" = "ख्रिश्चन क्रॉस";
 
 "type.historic.wayside_shrine" = "देवस्थान";
+
+"type.historic.wreck" = "जहाजाचा नाश";
 
 "type.hwtag" = "hwtag";
 
@@ -2281,6 +2410,8 @@
 
 "type.junction" = "जंक्शन";
 
+"type.junction.circular" = "गोलमार्ग";
+
 "type.junction.roundabout" = "गोलमार्ग";
 
 "type.landuse" = "भूमी उपयोग";
@@ -2312,6 +2443,8 @@
 "type.landuse.farmyard" = "Farmyard";
 
 "type.landuse.field" = "क्षेत्र";
+
+"type.landuse.flowerbed" = "फ्लॉवरबेड";
 
 "type.landuse.forest" = "वन";
 
@@ -2375,6 +2508,8 @@
 
 "type.leisure.golf_course" = "गोल्फचे मैदान";
 
+"type.leisure.hackerspace" = "हॅकरस्पेस";
+
 "type.leisure.ice_rink" = "हिम क्रीडा क्षेत्र";
 
 "type.leisure.landscape_reserve" = "Landscape Reserve";
@@ -2382,6 +2517,8 @@
 "type.leisure.marina" = "Marina";
 
 "type.leisure.nature_reserve" = "संरक्षित निसर्गक्षेत्र";
+
+"type.leisure.outdoor_seating" = "बाहेरची आसनव्यवस्था";
 
 "type.leisure.park" = "उद्यान";
 
@@ -2545,8 +2682,6 @@
 
 "type.natural.strait" = "सामुद्रधुनी";
 
-"type.natural.tree" = "झाड";
-
 "type.natural.tree_row" = "झाडाची रांग";
 
 "type.natural.vineyard" = "द्राक्षमळा";
@@ -2663,7 +2798,17 @@
 
 "type.power.minor_line" = "किरकोळ विद्युत तार";
 
-"type.power.pole" = "विद्युत मनोरा";
+"type.power.plant" = "वीज प्रकल्प";
+
+"type.power.plant.coal" = "कोळसा ऊर्जा प्रकल्प";
+
+"type.power.plant.gas" = "गॅस टर्बाइन पॉवर प्लांट";
+
+"type.power.plant.hydro" = "जलविद्युत प्रकल्प";
+
+"type.power.plant.solar" = "सौर ऊर्जा संयंत्र";
+
+"type.power.plant.wind" = "पवन ऊर्जा संयंत्र";
 
 "type.power.station" = "विद्युत घर";
 
@@ -2697,9 +2842,9 @@
 
 "type.railway.crossing" = "रेल्वे ओलांडणी";
 
-"type.railway.disused" = "Disused railway";
+"type.railway.disused" = "Disused Railway";
 
-"type.railway.funicular" = "हवाई रज्जुमार्ग";
+"type.railway.funicular" = "फ्युनिक्युलर";
 
 "type.railway.funicular.bridge" = "हवाई रज्जुमार्ग";
 
@@ -2737,29 +2882,64 @@
 
 "type.railway.rail" = "रेल्वे";
 
+"type.railway.rail.highspeed" = "हाय-स्पीड रेल्वे";
+
+"type.railway.rail.tourism" = "पर्यटन रेल्वे";
+
+"type.railway.rail.main" = "रेल्वे";
+
+/* Includes ordinary railway=rail w/o more specific usage= and service= tags. */
+"type.railway.rail.branch" = "दुय्यम रेल्वे";
+
+/* Non-passenger utility tracks: industrial, military, test. */
+"type.railway.rail.utility" = "उपयुक्तता रेल्वे";
+
+"type.railway.rail.spur" = "रेल्वे स्पर";
+
+/* Short service tracks: siding, yard, crossover. */
+"type.railway.rail.service" = "सहायक रेल्वे ट्रॅक";
+
 "type.railway.rail.bridge" = "रेल्वे";
 
-"type.railway.rail.motor_vehicle" = "रेल्वे";
+"type.railway.rail.highspeed.bridge" = "रेल्वे";
+
+"type.railway.rail.tourism.bridge" = "रेल्वे";
+
+"type.railway.rail.main.bridge" = "रेल्वे";
+
+"type.railway.rail.branch.bridge" = "रेल्वे";
+
+"type.railway.rail.utility.bridge" = "रेल्वे";
+
+"type.railway.rail.spur.bridge" = "रेल्वे";
+
+"type.railway.rail.service.bridge" = "रेल्वे";
 
 "type.railway.rail.tunnel" = "रेल्वे";
 
-"type.railway.razed" = "Razed Rail";
+"type.railway.rail.highspeed.tunnel" = "रेल्वे";
 
-"type.railway.siding" = "Siding Rail";
+"type.railway.rail.tourism.tunnel" = "रेल्वे";
 
-"type.railway.siding.bridge" = "Siding Rail Bridge";
+"type.railway.rail.main.tunnel" = "रेल्वे";
 
-"type.railway.siding.tunnel" = "Siding Rail Tunnel";
+"type.railway.rail.branch.tunnel" = "रेल्वे";
 
-"type.railway.spur" = "Spur Rail";
+"type.railway.rail.utility.tunnel" = "रेल्वे";
 
-"type.railway.spur.bridge" = "Spur Rail Bridge";
+"type.railway.rail.spur.tunnel" = "रेल्वे";
 
-"type.railway.spur.tunnel" = "Spur Rail Tunnel";
+"type.railway.rail.service.tunnel" = "रेल्वे";
 
 "type.railway.station" = "रेल्वे स्थानक";
 
+"type.railway.station.funicular" = "फ्युनिक्युलर";
+
 "type.railway.station.light_rail" = "रेल्वे स्थानक";
+
+"type.railway.station.light_rail.london" = "रेल्वे स्थानक";
+
+"type.railway.station.light_rail.porto" = "रेल्वे स्थानक";
 
 "type.railway.station.monorail" = "रेल्वे स्थानक";
 
@@ -2949,6 +3129,8 @@
 
 "type.railway.station.subway.shiraz" = "भुयारी मार्ग";
 
+"type.railway.station.subway.singapore" = "भुयारी मार्ग";
+
 "type.railway.station.subway.sofia" = "भुयारी मार्ग";
 
 "type.railway.station.subway.spb" = "भुयारी मार्ग";
@@ -2964,6 +3146,8 @@
 "type.railway.station.subway.tashkent" = "भुयारी मार्ग";
 
 "type.railway.station.subway.tbilisi" = "भुयारी मार्ग";
+
+"type.railway.station.subway.tehran" = "भुयारी मार्ग";
 
 "type.railway.station.subway.tianjin" = "भुयारी मार्ग";
 
@@ -3175,6 +3359,8 @@
 
 "type.railway.subway_entrance.shiraz" = "भुयारी प्रवेशद्वार";
 
+"type.railway.subway_entrance.singapore" = "भुयारी प्रवेशद्वार";
+
 "type.railway.subway_entrance.sofia" = "भुयारी प्रवेशद्वार";
 
 "type.railway.subway_entrance.spb" = "भुयारी प्रवेशद्वार";
@@ -3190,6 +3376,8 @@
 "type.railway.subway_entrance.tashkent" = "भुयारी प्रवेशद्वार";
 
 "type.railway.subway_entrance.tbilisi" = "भुयारी प्रवेशद्वार";
+
+"type.railway.subway_entrance.tehran" = "भुयारी प्रवेशद्वार";
 
 "type.railway.subway_entrance.tianjin" = "भुयारी प्रवेशद्वार";
 
@@ -3217,23 +3405,19 @@
 
 "type.railway.tram_stop" = "ट्राम थांबा";
 
-"type.railway.yard" = "रेल्वे आवार";
-
-"type.railway.yard.bridge" = "रेल्वे आवार";
-
-"type.railway.yard.tunnel" = "रेल्वे आवार";
-
 "type.route" = "मार्ग";
 
 "type.route.ferry" = "होडी";
 
-"type.route.shuttle_train" = "Shuttle Train";
+"type.route.shuttle_train" = "route-shuttle_train";
 
 "type.shop" = "दुकान";
 
 "type.shop.alcohol" = "दारूचे दुकान";
 
 "type.shop.bakery" = "बेकरी";
+
+"type.shop.bathroom_furnishing" = "स्नानगृह सामान";
 
 "type.shop.beauty" = "सौंदर्य प्रसाधनगृह";
 
@@ -3247,6 +3431,8 @@
 
 "type.shop.butcher" = "खाटीक";
 
+"type.shop.cannabis" = "गांजाचे दुकान";
+
 "type.shop.car" = "कार विक्रेता";
 
 "type.shop.car_parts" = "कारचे सुट्टे भाग";
@@ -3257,13 +3443,15 @@
 
 "type.shop.caravan" = "RV Dealership";
 
+"type.shop.carpet" = "कार्पेट्स";
+
 "type.shop.chemist" = "औषधालय";
 
-"type.shop.chocolate" = "दुकान";
+"type.shop.chocolate" = "चॉकलेट शॉप";
 
 "type.shop.clothes" = "कपड्याचे दुकान";
 
-"type.shop.coffee" = "दुकान";
+"type.shop.coffee" = "कॉफीचे दुकान";
 
 "type.shop.computer" = "संगणकाचे दुकान";
 
@@ -3271,11 +3459,13 @@
 
 "type.shop.convenience" = "सुविधा दुकान";
 
-"type.shop.copyshop" = "Copy Shop";
+"type.shop.copyshop" = "Copyshop";
 
 "type.shop.cosmetics" = "सौंदर्य(कॉस्मेटिक)";
 
-"type.shop.deli" = "Delicatessen Shop";
+"type.shop.curtain" = "पडदे";
+
+"type.shop.deli" = "Delicatessen";
 
 "type.shop.department_store" = "विभागीय भांडार";
 
@@ -3287,9 +3477,11 @@
 
 "type.shop.erotic" = "Erotic Shop";
 
-"type.shop.fabric" = "दुकान";
+"type.shop.fabric" = "फॅब्रिकचे दुकान";
 
 "type.shop.farm" = "Farm Food Shop";
+
+"type.shop.fashion_accessories" = "फॅशन अॅक्सेसरीज";
 
 "type.shop.florist" = "फुलवाला";
 
@@ -3299,19 +3491,25 @@
 
 "type.shop.garden_centre" = "बागकामाचे दुकान";
 
+"type.shop.gas" = "गॅसचे दुकान";
+
 "type.shop.gift" = "भेटवस्तूंचे दुकान";
 
 "type.shop.greengrocer" = "भाजीवाला";
 
-"type.shop.grocery" = "Grocery";
+"type.shop.grocery" = "Grocery Store";
 
 "type.shop.hairdresser" = "न्हावी";
 
-"type.shop.hardware" = "हार्डवेअर दुकान";
+"type.shop.hardware" = "Hardware Store";
 
 "type.shop.health_food" = "Health Food Shop";
 
-"type.shop.houseware" = "हार्डवेअर दुकान";
+"type.shop.herbalist" = "औषधी वनस्पतींचे दुकान";
+
+"type.shop.hifi" = "हायफाय ऑडिओ";
+
+"type.shop.houseware" = "Housewares Store";
 
 "type.shop.jewelry" = "दागिने";
 
@@ -3327,13 +3525,15 @@
 
 "type.shop.mobile_phone" = "मोबाईल";
 
-"type.shop.money_lender" = "दुकान";
+"type.shop.money_lender" = "सावकार";
 
 "type.shop.motorcycle" = "दुचाकी विक्रेता";
 
-"type.shop.music" = "दुकान";
+"type.shop.motorcycle_repair" = "मोटरसायकल दुरुस्ती";
 
-"type.shop.musical_instrument" = "दुकान";
+"type.shop.music" = "संगीताच दुकान";
+
+"type.shop.musical_instrument" = "वाद्याचे दुकान";
 
 "type.shop.newsagent" = "वृत्तपत्र विक्री";
 
@@ -3341,17 +3541,25 @@
 
 "type.shop.outdoor" = "भटकंतीचे साहित्य";
 
+"type.shop.outpost" = "पिकअप पॉइंट";
+
 "type.shop.pastry" = "बेकरी";
 
 "type.shop.pawnbroker" = "Pawnbroker";
 
 "type.shop.pet" = "पाळीव प्राण्यांचे दुकान";
 
+"type.shop.pet_grooming" = "पाळीव प्राणी ग्रूमिंग";
+
 "type.shop.photo" = "फोटोचे दुकान";
+
+"type.shop.rental" = "भाड्याचे दुकान";
+
+"type.shop.rental.bicycle" = "सायकल भाड्याचे दुकान";
 
 "type.shop.seafood" = "मासळी उपहारगृह";
 
-"type.shop.second_hand" = "Second Hand";
+"type.shop.second_hand" = "Second Hand Shop";
 
 "type.shop.shoes" = "चपलाचे दूकान";
 
@@ -3363,7 +3571,7 @@
 
 "type.shop.tattoo" = "गोंदणाचे(टॅटू) दुकान";
 
-"type.shop.tea" = "दुकान";
+"type.shop.tea" = "चहा दुकान";
 
 "type.shop.ticket" = "तिकीटघर";
 
@@ -3381,49 +3589,56 @@
 
 "type.shop.wine" = "वाईन विक्रेता";
 
-"type.shop.antiques" = "Antiques";
+"type.shop.agrarian" = "शेतीचे दुकान";
 
-"type.shop.art" = "Arts Shop";
+"type.shop.antiques" = "Antiques Shop";
 
-"type.shop.baby_goods" = "Baby Goods";
+"type.shop.appliance" = "उपकरणांचे दुकान";
 
-"type.shop.bag" = "Bags Store";
+/* maybe change to Art Gallery for en-US when supported */
+"type.shop.art" = "Artwork Shop";
+
+"type.shop.baby_goods" = "Baby Goods Shop";
+
+"type.shop.bag" = "Bag Shop";
+
+"type.shop.bed" = "पलंगाचे दुकान";
 
 "type.shop.boutique" = "Boutique";
 
 "type.shop.charity" = "Charity Shop";
 
-"type.shop.cheese" = "Cheese Store";
+"type.shop.cheese" = "Cheese Shop";
 
-"type.shop.craft" = "Arts and Crafts";
+"type.shop.craft" = "Craft Supplies Store";
 
-"type.shop.dairy" = "Dairy Products";
+"type.shop.dairy" = "Dairy Shop";
 
-"type.shop.electrical" = "Electrical Store";
+"type.shop.electrical" = "Electrical Supplies Store";
 
 "type.shop.fishing" = "Fishing Store";
 
-"type.shop.interior_decoration" = "Interior Decorations";
+"type.shop.interior_decoration" = "Interior Decorations Store";
 
 "type.shop.lottery" = "Lottery Tickets";
 
-"type.shop.medical_supply" = "Medical Supplies";
+"type.shop.medical_supply" = "Medical Supplies Store";
 
-"type.shop.nutrition_supplements" = "Nutrition Supplements";
+"type.shop.nutrition_supplements" = "Nutrition Supplement Store";
 
-"type.shop.paint" = "Paints";
+"type.shop.paint" = "Paint Shop";
 
-"type.shop.perfumery" = "Perfumery";
+"type.shop.perfumery" = "Perfume Shop";
 
-"type.shop.sewing" = "Sewing Supplies";
+"type.shop.sewing" = "Sewing Supplies Shop";
 
 "type.shop.storage_rental" = "Storage Rental";
 
-"type.shop.tobacco" = "Tobacco";
+"type.shop.tobacco" = "Smoke Shop";
 
-"type.shop.trade" = "Trades Supplies";
+"type.shop.trade" = "Trade Supplies";
 
-"type.shop.watches" = "Watches";
+"type.shop.watches" = "Watch Store";
 
 "type.shop.wholesale" = "Wholesale Store";
 
@@ -3494,11 +3709,13 @@
 
 "type.sport.badminton" = "Badminton";
 
-"type.sport.pelota" = "Basque pelota";
+"type.sport.pelota" = "Basque Pelota";
 
 "type.tourism" = "पर्यटन";
 
-"type.tourism.alpine_hut" = "Mountains Lodging";
+"type.tourism.aquarium" = "मत्स्यालय";
+
+"type.tourism.alpine_hut" = "Alpine Lodging";
 
 "type.tourism.apartment" = "सदनिका";
 
@@ -3542,6 +3759,8 @@
 
 "type.tourism.information.office" = "पर्यटन कार्यालय";
 
+"type.tourism.information.visitor_centre" = "अभ्यागत केंद्र";
+
 "type.tourism.motel" = "Motel";
 
 "type.tourism.museum" = "संग्रहालय";
@@ -3558,6 +3777,8 @@
 
 "type.tourism.zoo" = "प्राणीसंग्रहालय";
 
+"type.tourism.zoo.petting" = "पेटिंग प्राणीसंग्रहालय";
+
 "type.traffic_calming" = "Traffic Calming";
 
 "type.traffic_calming.bump" = "वाहतूक गतिरोधक";
@@ -3570,17 +3791,23 @@
 
 "type.waterway.canal.tunnel" = "कालवा";
 
+"type.waterway.fish_pass" = "मासे शिडी";
+
 "type.waterway.dam" = "धरण";
 
-"type.waterway.ditch" = "खंदक";
+"type.barrier.ditch" = "खंदक";
 
-"type.waterway.ditch.tunnel" = "खंदक";
+"type.natural.water.ditch" = "ड्रेनेज खंदक";
+
+"type.waterway.ditch.tunnel" = "कल्व्हर्ट";
 
 "type.waterway.dock" = "जलमार्ग गोद";
 
 "type.waterway.drain" = "नाला";
 
-"type.waterway.drain.tunnel" = "नाला";
+"type.natural.water.drain" = "नाला";
+
+"type.waterway.drain.tunnel" = "कल्व्हर्ट";
 
 "type.waterway.lock_gate" = "जलद्वार";
 
@@ -3620,26 +3847,48 @@
 
 "type.aerialway.t.bar" = "T-bar Lift";
 
-"type.piste_type" = "Piste Type";
-
 "type.piste_type.downhill" = "Downhill Ski Run";
+
+"type.piste_type.downhill.area" = "Downhill Ski Run";
 
 "type.piste_type.downhill.advanced" = "Downhill Ski Run";
 
+"type.piste_type.downhill.advanced.area" = "Downhill Ski Run";
+
 "type.piste_type.downhill.easy" = "Downhill Ski Run";
 
+"type.piste_type.downhill.easy.area" = "Downhill Ski Run";
+
 "type.piste_type.downhill.expert" = "Downhill Ski Run";
+
+"type.piste_type.downhill.expert.area" = "Downhill Ski Run";
 
 "type.piste_type.downhill.freeride" = "Downhill Ski Run";
 
 "type.piste_type.downhill.intermediate" = "Downhill Ski Run";
 
+"type.piste_type.downhill.intermediate.area" = "Downhill Ski Run";
+
 "type.piste_type.downhill.novice" = "Downhill Ski Run";
+
+"type.piste_type.downhill.novice.area" = "Downhill Ski Run";
 
 "type.piste_type.nordic" = "Nordic Ski Trail";
 
 "type.piste_type.sled" = "Sledding Piste";
 
-"type.building_part" = "इमारत";
+"type.piste_type.sled.area" = "Sledding Piste";
+
+"type.piste_type.snow_park" = "स्नो पार्क";
+
+"type.piste_type.hike" = "स्नो हायकिंग ट्रेल";
+
+"type.piste_type.connection" = "Piste कनेक्शन";
+
+"type.piste_type.skitour" = "Skitour ट्रेल";
 
 "type.amenity.events_venue" = "कार्यक्रमाचे ठिकाण";
+
+"type.shop.auction" = "लिलाव";
+
+"type.shop.collector" = "संग्रहणीय वस्तू";

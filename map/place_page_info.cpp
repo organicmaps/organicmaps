@@ -2,28 +2,26 @@
 
 #include "map/bookmark_helpers.hpp"
 
-#include "descriptions/loader.hpp"
-
-
-#include "editor/osm_editor.hpp"
-
-#include "indexer/feature_source.hpp"
 #include "indexer/feature_utils.hpp"
 #include "indexer/road_shields_parser.hpp"
 
+#include "platform/localization.hpp"
 #include "platform/measurement_utils.hpp"
 #include "platform/preferred_languages.hpp"
-#include "platform/localization.hpp"
+
+#include "geometry/mercator.hpp"
 
 #include "base/assert.hpp"
+
+#include "3party/open-location-code/openlocationcode.h"
 
 #include <sstream>
 
 namespace place_page
 {
-char const * const Info::kStarSymbol = "★";
-char const * const Info::kMountainSymbol = "▲";
-char const * const kWheelchairSymbol = u8"\u267F";
+static constexpr std::string_view kMountainSymbol= "▲";
+static constexpr std::string_view kWheelchairSymbol = "♿️";
+static constexpr std::string_view kAtmSymbol = "💳";
 
 bool Info::IsBookmark() const
 {
@@ -49,8 +47,6 @@ void Info::SetFromFeatureType(FeatureType & ft)
                                true /* allowTranslit */} , out);
   }
 
-  m_sortedTypes = m_types;
-  m_sortedTypes.SortBySpec();
   m_primaryFeatureName = out.GetPrimary();
   if (IsBookmark())
   {
@@ -149,19 +145,45 @@ std::string Info::FormatSubtitle(bool withType) const
   if (!op.empty())
     append(op);
 
+  // Brand.
+  auto const brand = GetMetadata(feature::Metadata::FMD_BRAND);
+  if (!brand.empty() && brand != op)
+  {
+    /// @todo May not work as expected because we store raw value from OSM,
+    /// while current localizations assume to have some string ids (like "mcdonalds").
+    auto const locBrand = platform::GetLocalizedBrandName(std::string(brand));
+
+    // Do not duplicate for commonly used titles like McDonald's, Starbucks, etc.
+    if (locBrand != m_uiTitle && locBrand != m_uiSecondaryTitle)
+      append(locBrand);
+  }
+
   // Elevation.
   auto const eleStr = GetElevationFormatted();
   if (!eleStr.empty())
-    append(kMountainSymbol + eleStr);
+    append(std::string{kMountainSymbol} + eleStr);
+    
+  // ATM
+  if (HasAtm())
+    append(kAtmSymbol);
 
   // Internet.
   if (HasWifi())
     append(m_localizedWifiString);
+    
+  // Toilets.
+  if (HasToilets())
+    append(kToiletsSymbol);
 
   // Wheelchair
   if (GetWheelchairType() == ftraits::WheelchairAvailability::Yes)
     append(kWheelchairSymbol);
 
+  // Fee.
+  auto const fee = GetLocalizedFeeType();
+  if (!fee.empty())
+    append(fee);
+    
   return result;
 }
 
@@ -282,15 +304,43 @@ std::string Info::FormatStars() const
 {
   std::string stars;
   for (int i = 0; i < GetStars(); ++i)
-    stars.append(kStarSymbol);
+    stars.append(MapObject::kStarSymbol);
   return stars;
 }
 
-std::string Info::GetFormattedCoordinate(bool isDMS) const
+std::string Info::GetFormattedCoordinate(CoordinatesFormat coordsFormat) const
 {
   auto const & ll = GetLatLon();
-  return isDMS ? measurement_utils::FormatLatLon(ll.m_lat, ll.m_lon, true)
-               : measurement_utils::FormatLatLonAsDMS(ll.m_lat, ll.m_lon, false, 2);
+  auto const lat = ll.m_lat;
+  auto const lon = ll.m_lon;
+  switch (coordsFormat)
+  {
+    default:
+    case CoordinatesFormat::LatLonDMS: // DMS, comma separated
+      return measurement_utils::FormatLatLonAsDMS(lat, lon, false /*withComma*/, 2);
+    case CoordinatesFormat::LatLonDecimal: // Decimal, comma separated
+      return measurement_utils::FormatLatLon(lat, lon, true /* withComma */);
+    case CoordinatesFormat::OLCFull: // Open location code, long format
+      return openlocationcode::Encode({lat, lon});
+    case CoordinatesFormat::OSMLink: // Link to osm.org
+      return measurement_utils::FormatOsmLink(lat, lon, 14);
+    case CoordinatesFormat::UTM:  // Universal Transverse Mercator
+    {
+      std::string utmCoords = utm_mgrs_utils::FormatUTM(lat, lon);
+      if (utmCoords.empty())
+        return "UTM: N/A";
+      else
+        return "UTM: " + utmCoords;
+    }
+    case CoordinatesFormat::MGRS: // Military Grid Reference System
+    {
+      std::string mgrsCoords = utm_mgrs_utils::FormatMGRS(lat, lon, 5);
+      if (mgrsCoords.empty())
+        return "MGRS: N/A";
+      else
+        return "MGRS: " + mgrsCoords;
+    }
+  }
 }
 
 void Info::SetRoadType(RoadWarningMarkType type, std::string const & localizedType, std::string const & distance)

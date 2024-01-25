@@ -350,12 +350,12 @@ UNIT_TEST(SpeedCameraNotification_AutoAlwaysMode_7)
 //                          We should here beep signal.
 UNIT_TEST(SpeedCameraNotification_AutoAlwaysMode_8)
 {
-  vector<SpeedCameraManagerMode> modes = {SpeedCameraManagerMode::Auto, SpeedCameraManagerMode::Always};
-  for (auto const mode : modes)
+  for (auto const mode : {SpeedCameraManagerMode::Auto, SpeedCameraManagerMode::Always})
   {
+    // On "Leningradskiy" from East to West direction.
     RoutingSession routingSession;
-    InitRoutingSession({55.67547, 37.52662} /* from */,
-                       {55.67052, 37.51893}   /* to   */,
+    InitRoutingSession({55.6755737, 37.5264126},  // from
+                       {55.67052, 37.51893},      // to
                        routingSession,
                        mode);
 

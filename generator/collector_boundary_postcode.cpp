@@ -3,100 +3,68 @@
 #include "generator/feature_builder.hpp"
 #include "generator/intermediate_data.hpp"
 
-#include "platform/platform.hpp"
-
-#include "coding/file_reader.hpp"
-#include "coding/internal/file_data.hpp"
 #include "coding/read_write_utils.hpp"
-#include "coding/reader.hpp"
 #include "coding/string_utf8_multilang.hpp"
 
-#include "base/assert.hpp"
-
 #include <algorithm>
-#include <iterator>
-
-using namespace feature;
 
 namespace generator
 {
-BoundaryPostcodeCollector::BoundaryPostcodeCollector(
-    std::string const & filename, std::shared_ptr<cache::IntermediateDataReaderInterface> const & cache)
+BoundaryPostcodeCollector::BoundaryPostcodeCollector(std::string const & filename, IDRInterfacePtr const & cache)
   : CollectorInterface(filename)
-  , m_writer(std::make_unique<FileWriter>(GetTmpFilename()))
   , m_cache(cache)
   , m_featureMakerSimple(cache)
 {
 }
 
-std::shared_ptr<CollectorInterface> BoundaryPostcodeCollector::Clone(
-    std::shared_ptr<cache::IntermediateDataReaderInterface> const & cache) const
+std::shared_ptr<CollectorInterface> BoundaryPostcodeCollector::Clone(IDRInterfacePtr const & cache) const
 {
   return std::make_shared<BoundaryPostcodeCollector>(GetFilename(), cache ? cache : m_cache);
 }
 
 void BoundaryPostcodeCollector::Collect(OsmElement const & el)
 {
-  if (el.m_type != OsmElement::EntityType::Relation)
+  /// @todo Add postal_code for highways processing (along a street).
+
+  // https://wiki.openstreetmap.org/wiki/Key:postal_code
+  if (el.m_type != OsmElement::EntityType::Relation || el.GetTag("type") != "boundary")
     return;
 
-  if (!el.HasTag("boundary", "postal_code"))
-    return;
-
-  auto const postcode = el.GetTag("postal_code");
+  auto postcode = el.GetTag("postal_code");
   if (postcode.empty())
+    postcode = el.GetTag("addr:postcode");
+
+  // Filter dummy tags like here: https://www.openstreetmap.org/relation/7444
+  if (postcode.empty() || postcode.find_first_of(";,") != std::string::npos)
     return;
 
+  /// @todo We don't override CollectFeature instead, because of FeatureMakerSimple?
   auto osmElementCopy = el;
   feature::FeatureBuilder feature;
   m_featureMakerSimple.Add(osmElementCopy);
 
   while (m_featureMakerSimple.GetNextFeature(feature))
   {
-    utils::WriteString(*m_writer, postcode);
-    rw::WriteVectorOfPOD(*m_writer, feature.GetOuterGeometry());
+    /// @todo Make move geometry?
+    if (feature.IsGeometryClosed())
+      m_data.emplace_back(postcode, feature.GetOuterGeometry());
   }
 }
-
-void BoundaryPostcodeCollector::Finish() { m_writer.reset(); }
 
 void BoundaryPostcodeCollector::Save()
 {
-  CHECK(!m_writer, ("Finish() has not been called."));
-  if (Platform::IsFileExistsByFullPath(GetTmpFilename()))
-    CHECK(base::CopyFileX(GetTmpFilename(), GetFilename()), ());
-}
+  std::sort(m_data.begin(), m_data.end());
 
-void BoundaryPostcodeCollector::OrderCollectedData()
-{
-  std::vector<std::pair<std::string, FeatureBuilder::PointSeq>> collectedData;
-  {
-    FileReader reader(GetFilename());
-    ReaderSource src(reader);
-    while (src.Size() > 0)
-    {
-      collectedData.push_back({});
-      utils::ReadString(src, collectedData.back().first);
-      rw::ReadVectorOfPOD(src, collectedData.back().second);
-    }
-  }
-  std::sort(std::begin(collectedData), std::end(collectedData));
   FileWriter writer(GetFilename());
-  for (auto const & p : collectedData)
+  for (auto const & p : m_data)
   {
     utils::WriteString(writer, p.first);
     rw::WriteVectorOfPOD(writer, p.second);
   }
 }
 
-void BoundaryPostcodeCollector::Merge(generator::CollectorInterface const & collector)
-{
-  collector.MergeInto(*this);
-}
-
 void BoundaryPostcodeCollector::MergeInto(BoundaryPostcodeCollector & collector) const
 {
-  CHECK(!m_writer || !collector.m_writer, ("Finish() has not been called."));
-  base::AppendFileToFile(GetTmpFilename(), collector.GetTmpFilename());
+  collector.m_data.insert(collector.m_data.end(), m_data.begin(), m_data.end());
 }
 }  // namespace generator

@@ -1,0 +1,8 @@
+• Android Auto
+• S'ha corregit un problema amb la pantalla que es desengegava intermitentment
+• Dades cartogràfiques de l'OpenStreetMap al 5 de gener
+• Millores en l'estil «Senderisme» i les pistes d'esquí
+• Traducció a l'àzeri
+• Correcció dels paràmetres de veu en castellà i portuguès
+
+…more details at omaps.org/news

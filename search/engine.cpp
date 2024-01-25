@@ -85,7 +85,7 @@ Engine::Engine(DataSource & dataSource, CategoriesHolder const & categories,
   : m_shutdown(false)
 {
   InitSuggestions doInit;
-  categories.ForEachName(bind<void>(ref(doInit), placeholders::_1));
+  categories.ForEachName(doInit);
   doInit.GetSuggests(m_suggests);
 
   m_contexts.resize(params.m_numThreads);
@@ -93,7 +93,7 @@ Engine::Engine(DataSource & dataSource, CategoriesHolder const & categories,
   {
     auto processor = make_unique<Processor>(dataSource, categories, m_suggests, infoGetter);
     processor->SetPreferredLocale(params.m_locale);
-    m_contexts[i].m_processor = move(processor);
+    m_contexts[i].m_processor = std::move(processor);
   }
 
   m_threads.reserve(params.m_numThreads);
@@ -253,7 +253,7 @@ void Engine::MainLoop(Context & context)
       // next free search thread.
       if (!m_messages.empty())
       {
-        context.m_messages.push(move(m_messages.front()));
+        context.m_messages.push(std::move(m_messages.front()));
         m_messages.pop();
       }
 
@@ -275,7 +275,7 @@ template <typename... Args>
 void Engine::PostMessage(Args &&... args)
 {
   lock_guard<mutex> lock(m_mu);
-  m_messages.emplace(forward<Args>(args)...);
+  m_messages.emplace(std::forward<Args>(args)...);
   m_cv.notify_one();
 }
 

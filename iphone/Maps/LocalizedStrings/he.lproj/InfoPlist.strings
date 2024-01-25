@@ -10,7 +10,7 @@
 "search" = "Search";
 
 /* Used in home screen quick actions. */
-"bookmarks" = "רשימות אתרים";
+"bookmarks_and_tracks" = "רשימות אתרים ונתיבים";
 
 /* Used in home screen quick actions. */
 "route" = "נתיב";

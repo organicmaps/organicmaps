@@ -32,7 +32,7 @@
 /* A text for current gps location point/arrow selected on the map */
 "core_my_position" = "Posisi Saya";
 
-/* Update maps later/Buy pro version later button text */
+/* Update maps later button text */
 "later" = "Nanti";
 
 /* View and button titles for accessibility, please also edit it in iphone/plist.txt */
@@ -71,13 +71,16 @@
 /* "Bookmark Lists" dialog title */
 "bookmark_sets" = "Set Penanda";
 
-/* "Bookmarks" dialog title, please also edit it in iphone/plist.txt */
+/* Should be used in the bookmarks-only context, see bookmarks_and_tracks if tracks are also implied. */
 "bookmarks" = "Penanda";
+
+/* "Bookmarks and Tracks" dialog title, also sync it with iphone/plist.txt */
+"bookmarks_and_tracks" = "Penanda dan jalur";
 
 /* Default bookmark list name */
 "core_my_places" = "Tempat-tempat Saya";
 
-/* Editor title above street and house number */
+/* Editor title above street and house number, duplicates [type.building.address] in types_strings.txt */
 "address" = "Alamat";
 
 /* Settings button in system menu */
@@ -106,6 +109,9 @@
 
 /* Search category for clothes/shoes/gifts/jewellery/sport shops; any changes should be duplicated in categories.txt @shopping! */
 "shopping" = "Berbelanja";
+
+/* Search category for second_hand/charity/antique/auction shops; any changes should be duplicated in categories.txt @secondhand! */
+"secondhand" = "Tangan kedua";
 
 /* Search category for places to stay; any changes should be duplicated in categories.txt @hotel! */
 "hotel" = "Hotel";
@@ -155,7 +161,7 @@
 /* Search category for RV facilities; any changes should be duplicated in categories.txt @rv! */
 "rv" = "Untuk RV";
 
-"share_bookmarks_email_body" = "Hello!\n\nAttached are my bookmarks from Organic Maps app. Please open them if you have Organic Maps installed. Or, if you don't, download the app for your iOS or Android device by following this link: https://omaps.app/get?kmz\n\nEnjoy traveling with Organic Maps!";
+"share_bookmarks_email_body" = "Hello!\n\nAttached are my bookmarks; please open them in Organic Maps. If you don't have it installed you can download it here: https://omaps.app/get?kmz\n\nEnjoy travelling with Organic Maps!";
 
 /* message title of loading file */
 "load_kmz_title" = "Memuat Penanda";
@@ -184,6 +190,9 @@
 /* Share by email button text, also used in editor and About. */
 "email" = "Surel";
 
+/* Text for message when used successfully copied something */
+"copied_to_clipboard" = "Telah Disalin ke Papan Klip: %@";
+
 /* place preview title */
 "info" = "Info";
 
@@ -211,20 +220,23 @@
 /* Settings «Map» category: «Night style» title */
 "pref_map_style_title" = "Mode Malam";
 
-/* «Map style» entry value */
-"pref_map_style_default" = "Tidak Aktif";
+/* Generic «Off» string */
+"off" = "Tidak Aktif";
 
-/* «Map style» entry value */
-"pref_map_style_night" = "Aktif";
+/* Generic «On» string */
+"on" = "Aktif";
 
-/* «Map style» entry value */
-"pref_map_style_auto" = "Otomatis";
+/* Generic «Auto» string */
+"auto" = "Otomatis";
 
 /* Settings «Map» category: «Perspective view» title */
 "pref_map_3d_title" = "Pandangan perspektif";
 
 /* Settings «Map» category: «3D buildings» title */
 "pref_map_3d_buildings_title" = "Bangunan 3D";
+
+/* A message in Settings/Preferences explaining why is it not possible to enable 3D buildings when max power saving mode is enabled */
+"pref_map_3d_buildings_disabled_summary" = "Bangunan 3D dimatikan dalam mode hemat daya";
 
 /* Settings «Route» category: «Tts enabled» title */
 "pref_tts_enable_title" = "Petunjuk Suara";
@@ -271,7 +283,7 @@
 "telegram" = "Telegram";
 
 /* Text in menu */
-"matrix" = "[matrix]";
+"matrix" = "[Matrix]";
 
 /* Text in menu */
 "mastodon" = "Mastodon";
@@ -280,7 +292,7 @@
 "facebook" = "Facebook";
 
 /* Text in menu */
-"twitter" = "Twitter";
+"twitter" = "X (Twitter)";
 
 /* Text in menu */
 "instagram" = "Instagram";
@@ -500,7 +512,7 @@
 "routing_planning_error" = "Sudah sampai di tujuan";
 
 /* Arrive routing message in navigation view */
-"routing_arrive" = "Kedatangan: %s";
+"routing_arrive" = "Kedatangan: %@";
 
 /* Text for routing::RouterResultCode::FileTooOld dialog. */
 "dialog_routing_download_and_update_maps" = "Untuk membuat rute, silakan unduh dan perbarui semua peta sepanjang rute.";
@@ -756,19 +768,23 @@
 
 "location_services_disabled_2" = "2. Ketuk Lokasi";
 
-/* iOS Dialog for the case when the location permission is not granted */
+/* iOS Dialog for the case when the location permission is not granted; you might find the exact wording for your language here: https://support.apple.com/en-us/102647 (replace 'en-us' in URL with your language/region) */
 "location_services_disabled_3" = "3. Pilih While Using the App";
 
-"meter" = "m";
+/* abbreviation for meters */
+"m" = "m";
 
-"kilometer" = "km";
+/* abbreviation for kilometers */
+"km" = "km";
 
+/* abbreviation for kilometers per hour */
 "kilometers_per_hour" = "km/j";
 
-"mile" = "mil";
+/* abbreviation for mile(s) */
+"mi" = "mil";
 
 /* A unit of measure */
-"foot" = "kaki";
+"ft" = "kaki";
 
 "miles_per_hour" = "mpj";
 
@@ -776,11 +792,18 @@
 
 "minute" = "mnt";
 
-"placepage_place_description" = "Deskripsi";
-
 "placepage_more_button" = "Lainnya";
 
 "book_button" = "Pesan";
+
+/* A referral link on the place page for some hotels */
+"more_on_kayak" = "Foto, ulasan, pemesanan";
+
+/* An explanation dialog shown when clicking on more_on_kayak link. */
+"dialog_kayak_disclaimer" = "Bonus rujukan yang diterima untuk setiap pemesanan melalui tautan ini digunakan untuk pengembangan Organic Maps.";
+
+/* A confirmation button text in the explanation dialog that opens hotel details page on Kayak website. */
+"dialog_kayak_button" = "Perincian di Kayak";
 
 "placepage_call_button" = "Hubungi";
 
@@ -817,7 +840,7 @@
 
 "refresh" = "Memperbarui";
 
-"placepage_add_place_button" = "Tambahkan tempat ke peta";
+"placepage_add_place_button" = "Menambahkan tempat ke OpenStreetMap";
 
 /* Displayed when saving some edits to the map to warn against publishing personal data */
 "editor_share_to_all_dialog_title" = "Apakah Anda ingin mengirimkannya ke semua pengguna?";
@@ -880,10 +903,6 @@
 /* "traffic" as in "road congestion" */
 "traffic_data_unavailable" = "Data lalu lintas tidak tersedia";
 
-"on" = "On";
-
-"off" = "Mati";
-
 "transliteration_title" = "Transliterasi ke dalam bahasa Latin";
 
 /* Subway exits for public transport marks on the map */
@@ -922,11 +941,11 @@
 
 "downloader_hide_screen" = "Sembunyikan Layar";
 
-"downloader_percent" = "%s (%s dari %s)";
+"downloader_percent" = "%@ (%@ dari %@)";
 
-"downloader_process" = "Mengunduh %s…";
+"downloader_process" = "Mengunduh %@…";
 
-"downloader_applying" = "Menerapkan %s…";
+"downloader_applying" = "Menerapkan %@…";
 
 "bookmarks_error_message_share_general" = "Tidak dapat berbagi karena kesalahan aplikasi";
 
@@ -964,7 +983,7 @@
 
 "button_layer_subway" = "Kereta bawah tanah";
 
-"layers_title" = "Lapisan peta";
+"layers_title" = "Gaya dan Lapisan Peta";
 
 "subway_data_unavailable" = "Peta bawah tanah tidak tersedia";
 
@@ -973,8 +992,6 @@
 "popular_place" = "Popular";
 
 "export_file" = "File ekspor";
-
-"list_settings" = "Pengaturan Daftar";
 
 "delete_list" = "Hapus Daftar";
 
@@ -988,11 +1005,11 @@
 
 "speedcams_alert_title" = "Kamera cepat";
 
-"speedcam_option_auto" = "Auto";
+/* Generic «Always» string */
+"always" = "Selalu";
 
-"speedcam_option_always" = "Selalu";
-
-"speedcam_option_never" = "Tidak pernah";
+/* Generic «Never» string */
+"never" = "Tidak pernah";
 
 "place_description_title" = "Deskripsi Tempat";
 
@@ -1010,15 +1027,16 @@
 
 "driving_options_title" = "Pilihan berkendara";
 
-"driving_options_subheader" = "Hindari di setiap rute";
+/* Recommended length for CarPlay and Android Auto is around 25-27 characters */
+"avoid_tolls" = "Hindari jalan tol";
 
-"avoid_tolls" = "Jalan tol";
+/* Recommended length for CarPlay and Android Auto is around 25-27 characters */
+"avoid_unpaved" = "Hindari jalan tanah";
 
-"avoid_unpaved" = "Jalan tanah";
+/* Recommended length for CarPlay and Android Auto is around 25-27 characters */
+"avoid_ferry" = "Hindari feri";
 
-"avoid_ferry" = "Penyeberangan kapal feri";
-
-"avoid_motorways" = "Jalur motor";
+"avoid_motorways" = "Hindari jalan raya";
 
 "unable_to_calc_alert_title" = "Tidak dapat menghitung rute";
 
@@ -1033,12 +1051,6 @@
 "unpaved_road" = "Jalan tanah";
 
 "ferry_crossing" = "Penyeberangan kapal feri";
-
-"avoid_toll_roads_placepage" = "Hindari jalan tol";
-
-"avoid_unpaved_roads_placepage" = "Hindari jalan tanah";
-
-"avoid_ferry_crossing_placepage" = "Hindari penyeberangan kapal feri";
 
 "trip_start" = "Ayo";
 
@@ -1064,6 +1076,9 @@
 /* E.g. "WiFi:No" */
 "no_available" = "Tidak";
 
+/* To indicate the capacity of car parkings, bicycle parkings, electric vehicle charging stations... */
+"capacity" = "Kapasitas: %@";
+
 "trip_finished" = "Anda telah tiba!";
 
 "keyboard_availability_alert" = "Papan ketik tidak tersedia saat berkendara";
@@ -1086,25 +1101,13 @@
 
 "ok" = "Oke";
 
-"avoid_unpaved_carplay_1" = "Jalan aspal";
-
-"avoid_unpaved_carplay_2" = "Hindari tanah";
-
-"avoid_ferry_carplay_1" = "Tanpa feri";
-
-"avoid_ferry_carplay_2" = "Hindari feri";
-
-"avoid_tolls_carplay_1" = "Tanpa tol";
-
-"avoid_tolls_carplay_2" = "Hindari tol";
-
 "speedcams_alert_title_carplay_1" = "Speedcam";
 
 "speedcams_alert_title_carplay_2" = "Info kecepatan";
 
 "download_map_carplay" = "Silakan unduh peta di apl Organic Maps pada perangkat Anda";
 
-"carplay_roundabout_exit" = "Jalan keluar ke %s";
+"carplay_roundabout_exit" = "Jalan keluar ke %@";
 
 /* max. 10 symbols, both iOS and Android */
 "sort" = "Urutkan…";
@@ -1210,7 +1213,7 @@
 "whats_new_auto_update_message" = "Memperbarui peta membuat informasi tentang objek tetap terkini";
 
 /* Autoupdate dialog on start */
-"whats_new_auto_update_button_size" = "Pembaruan (%s)";
+"whats_new_auto_update_button_size" = "Pembaruan (%@)";
 
 /* Autoupdate dialog on start */
 "whats_new_auto_update_button_later" = "Perbarui secara manual nanti";
@@ -1234,10 +1237,22 @@
 "instagram_url" = "https://www.instagram.com/organicmaps.app";
 
 /* Translated Organic Maps site, add new translations here: https://github.com/organicmaps/organicmaps.github.io/tree/master/content */
-"translated_om_site_url" = "https://organicmaps.app/";
+"translated_om_site_url" = "https://organicmaps.app/id/";
+
+/* Link to OSM wiki for Editor, Profile and About pages */
+"osm_wiki_about_url" = "https://wiki.openstreetmap.org/wiki/About_OpenStreetMap";
+
+/* Outdoors/hiking map style (activity) name in the Styles and Layers dialog */
+"button_layer_outdoor" = "Pendakian";
 
 
 /********** Types **********/
+
+"type.addr_interpolation" = "Alamat/Blokir";
+
+"type.addr_interpolation.even" = "Alamat/Blokir";
+
+"type.addr_interpolation.odd" = "Alamat/Blokir";
 
 "type.aerialway" = "Aerialway";
 
@@ -1309,9 +1324,17 @@
 
 "type.amenity.casino" = "Hiburan";
 
+"type.amenity.gambling" = "Berjudi";
+
+"type.leisure.adult_gaming_centre" = "Pusat Permainan Dewasa";
+
+"type.leisure.amusement_arcade" = "Arkade";
+
 "type.amenity.charging_station" = "Pusat Pengisian Daya";
 
-"type.amenity.charging_station.motorcar" = "Pusat Pengisian Daya";
+"type.amenity.charging_station.bicycle" = "Stasiun Pengisian Sepeda";
+
+"type.amenity.charging_station.motorcar" = "Stasiun Pengisian Mobil";
 
 "type.amenity.childcare" = "Penitipan Anak";
 
@@ -1325,6 +1348,10 @@
 
 "type.amenity.community_centre" = "Pusat komunitas";
 
+"type.amenity.compressed_air" = "Udara terkompresi";
+
+"type.amenity.conference_centre" = "Pusat konferensi";
+
 "type.amenity.courthouse" = "Gedung pengadilan";
 
 "type.amenity.dentist" = "Dokter gigi";
@@ -1334,6 +1361,10 @@
 "type.amenity.drinking_water" = "Air minum";
 
 "type.amenity.driving_school" = "Sekolah Mengemudi";
+
+"type.amenity.exhibition_centre" = "Pusat pameran";
+
+"type.amenity.money_transfer" = "Transfer uang";
 
 "type.amenity.music_school" = "Sekolah musik";
 
@@ -1373,7 +1404,7 @@
 
 "type.amenity.loading_dock" = "Dok pemuatan";
 
-"type.amenity.marketplace" = "Toko";
+"type.amenity.marketplace" = "Pasar";
 
 "type.amenity.motorcycle_parking" = "Tempat Parkir Sepeda Motor";
 
@@ -1383,9 +1414,11 @@
 
 "type.amenity.parking" = "Parkir";
 
-"type.amenity.parking.fee" = "Parkir Berbayar";
+"type.amenity.parking.fee" = "Parkir";
 
 "type.amenity.parking.multi.storey" = "Parkir Bertingkat";
+
+"type.amenity.parking.multi.storey.fee" = "Parkir Bertingkat";
 
 "type.amenity.parking.no.access" = "Parkir pribadi";
 
@@ -1397,9 +1430,25 @@
 
 "type.amenity.parking.underground" = "Parkir bawah tanah";
 
+"type.amenity.parking.underground.fee" = "Parkir bawah tanah";
+
+"type.amenity.parking.underground.private" = "Parkir bawah tanah pribadi";
+
+"type.amenity.parking.street_side" = "Parkir di tepi jalan";
+
+"type.amenity.parking.street_side.fee" = "Parkir di tepi jalan";
+
+"type.amenity.parking.street_side.private" = "Parkir sisi jalan pribadi";
+
+"type.amenity.parking.lane" = "Parkir jalur";
+
+"type.amenity.parking.lane.fee" = "Parkir jalur";
+
+"type.amenity.parking.lane.private" = "Parkir jalur pribadi";
+
 "type.amenity.parking_entrance" = "Pintu masuk parkir";
 
-"type.amenity.parking_entrance.private" = "Pintu masuk parkir";
+"type.amenity.parking_entrance.private" = "Pintu masuk parkir pribadi";
 
 "type.amenity.parking_entrance.permissive" = "Pintu masuk parkir";
 
@@ -1422,6 +1471,10 @@
 "type.amenity.place_of_worship.buddhist" = "Kuil";
 
 "type.amenity.place_of_worship.christian" = "Gereja";
+
+"type.amenity.place_of_worship.christian.mormon" = "Gereja Yesus Kristus dari Orang-Orang Suci Zaman Akhir";
+
+"type.amenity.place_of_worship.christian.jehovahs_witness" = "Aula Kerajaan Saksi-Saksi Yehuwa";
 
 "type.amenity.place_of_worship.hindu" = "Kuil";
 
@@ -1478,7 +1531,7 @@
 
 "type.recycling.green_waste" = "Green/Organic Waste";
 
-"type.recycling.cartons" = "Beverage Cartons";
+"type.recycling.cartons" = "Cartons";
 
 "type.amenity.restaurant" = "Restoran";
 
@@ -1488,7 +1541,11 @@
 
 "type.amenity.shelter" = "Tempat penampungan";
 
+"type.amenity.public_bath" = "Pemandian umum";
+
 "type.amenity.shower" = "Pancuran";
+
+"type.amenity.stripclub" = "Klub telanjang";
 
 "type.amenity.taxi" = "Taksi";
 
@@ -1497,6 +1554,8 @@
 "type.amenity.theatre" = "Teater";
 
 "type.amenity.toilets" = "Toilet";
+
+"type.toilets.yes" = "Toilet";
 
 "type.amenity.townhall" = "Balai kota";
 
@@ -1514,7 +1573,7 @@
 
 "type.amenity.vending_machine.food" = "Food Dispenser";
 
-"type.amenity.vending_machine.newspapers" = "Newspapers Dispenser";
+"type.amenity.vending_machine.newspapers" = "Newspaper Dispenser";
 
 "type.amenity.vending_machine.parking_tickets" = "Mesin pembayaran tiket parkir";
 
@@ -1526,7 +1585,9 @@
 
 "type.amenity.parcel_locker" = "Parcel Locker";
 
-"type.amenity.vending_machine.fuel" = "Fuel Dispenser";
+"type.amenity.vehicle_inspection" = "Pemeriksaan kendaraan";
+
+"type.amenity.vending_machine.fuel" = "Fuel Pump";
 
 "type.amenity.veterinary" = "Dokter Hewan";
 
@@ -1552,7 +1613,11 @@
 
 "type.barrier.cycle_barrier" = "Cycle Barrier";
 
-"type.barrier.ditch" = "Parit";
+"type.waterway.ditch" = "Parit saluran air";
+
+"type.natural.water.moat" = "Parit";
+
+"type.natural.water.wastewater" = "Air limbah";
 
 "type.barrier.entrance" = "Pintu masuk";
 
@@ -1569,6 +1634,8 @@
 "type.barrier.retaining_wall" = "Retaining Wall";
 
 "type.barrier.stile" = "Undakan";
+
+"type.barrier.turnstile" = "Pintu putar";
 
 "type.barrier.swing_gate" = "Polisi tidur";
 
@@ -1618,13 +1685,30 @@
 
 "type.boundary.national_park" = "Taman Nasional";
 
+"type.boundary.protected_area" = "Kawasan Lindung";
+
+"type.boundary.protected_area.1" = "Kawasan Lindung";
+
+"type.boundary.protected_area.2" = "Kawasan Lindung";
+
+"type.boundary.protected_area.3" = "Kawasan Lindung";
+
+"type.boundary.protected_area.4" = "Kawasan Lindung";
+
+"type.boundary.protected_area.5" = "Kawasan Lindung";
+
+"type.boundary.protected_area.6" = "Kawasan Lindung";
+
 "type.building" = "Gedung";
 
-"type.building.address" = "Gedung";
-
-"type.building.garage" = "Garasi";
+/* Duplicates [address] in strings.txt */
+"type.building.address" = "Alamat";
 
 "type.building.has_parts" = "Gedung";
+
+"type.building_part" = "Gedung";
+
+"type.building.garage" = "Garasi";
 
 "type.building.train_station" = "Rel kereta api";
 
@@ -1640,6 +1724,8 @@
 
 "type.craft.brewery" = "Toko minuman";
 
+"type.craft.caterer" = "Katering";
+
 "type.craft.carpenter" = "Tukang kayu";
 
 "type.craft.confectionery" = "Penganan";
@@ -1650,16 +1736,24 @@
 
 "type.craft.gardener" = "Tukang kebun";
 
+"type.craft.grinding_mill" = "Pabrik penggilingan";
+
 "type.craft.handicraft" = "Kriya";
 
 /* Heating, Ventilation, and Air Conditioning */
 "type.craft.hvac" = "HVAC";
+
+"type.craft.key_cutter" = "Pemotongan Kunci";
+
+"type.craft.locksmith" = "Tukang kunci";
 
 "type.craft.metal_construction" = "Tukang besi";
 
 "type.craft.painter" = "Tukang cat";
 
 "type.craft.photographer" = "Juru foto";
+
+"type.shop.camera" = "Toko Kamera";
 
 "type.craft.plumber" = "Tukang pipa";
 
@@ -1845,6 +1939,8 @@
 
 "type.emergency" = "Emergency";
 
+"type.emergency.assembly_point" = "Titik Berkumpul Darurat";
+
 "type.emergency.defibrillator" = "Defibrilator";
 
 "type.emergency.fire_hydrant" = "Keran Kebakaran";
@@ -1856,6 +1952,12 @@
 
 /* This is for main/primary entrances, for secondary entrances see type.entrance */
 "type.entrance.main" = "Pintu masuk utama";
+
+"type.entrance.exit" = "Keluar";
+
+"type.fee.yes" = "💲";
+
+"type.fee.no" = "Gratis";
 
 "type.healthcare.laboratory" = "Laboratorium medis";
 
@@ -1894,6 +1996,12 @@
 
 "type.highway.busway" = "Jalan khusus bus";
 
+/* These translations are used for all type.highway.*.bridge. */
+"type.highway.busway.bridge" = "Menjembatani";
+
+/* These translations are used for all type.highway.*.tunnel. */
+"type.highway.busway.tunnel" = "Terowongan";
+
 "type.highway.bus_stop" = "Halte bus";
 
 "type.highway.construction" = "Jalan sedang dibangun";
@@ -1912,6 +2020,10 @@
 
 "type.highway.footway" = "Jalur";
 
+"type.highway.footway.sidewalk" = "Trotoar";
+
+"type.highway.footway.crossing" = "Penyeberangan Pejalan Kaki";
+
 "type.highway.footway.alpine_hiking" = "Jalur";
 
 "type.highway.footway.area" = "Jalur";
@@ -1928,8 +2040,6 @@
 "type.highway.footway.hiking" = "Jalur";
 
 "type.highway.footway.mountain_hiking" = "Jalur";
-
-"type.highway.footway.permissive" = "Jalur";
 
 /* These translations are used for all type.highway.*.tunnel. */
 "type.highway.footway.tunnel" = "Terowongan";
@@ -2032,6 +2142,9 @@
 
 /* These translations are used for all type.highway.*.bridge. */
 "type.highway.road.bridge" = "Menjembatani";
+
+/* A bridge structure outline. */
+"type.man_made.bridge" = "Menjembatani";
 
 /* These translations are used for all type.highway.*.tunnel. */
 "type.highway.road.tunnel" = "Terowongan";
@@ -2185,11 +2298,17 @@
 
 "type.historic" = "Objek bersejarah";
 
+"type.historic.aircraft" = "Pesawat Bersejarah";
+
+"type.historic.anchor" = "Jangkar Bersejarah";
+
 "type.historic.archaeological_site" = "Situs arkeologi";
 
 "type.historic.battlefield" = "Medan Perang";
 
 "type.historic.boundary_stone" = "Batu pembatas";
+
+"type.historic.cannon" = "Meriam";
 
 "type.historic.castle" = "Kastel";
 
@@ -2221,6 +2340,8 @@
 
 "type.historic.gallows" = "Tiang gantungan";
 
+"type.historic.locomotive" = "Lokomotif Bersejarah";
+
 "type.historic.memorial" = "Tugu peringatan";
 
 "type.historic.memorial.cross" = "Salib peringatan";
@@ -2233,7 +2354,11 @@
 
 "type.historic.memorial.stolperstein" = "Stolperstein";
 
+"type.historic.stone" = "Batu Bersejarah";
+
 "type.historic.memorial.war_memorial" = "Tugu peringatan perang";
+
+"type.historic.mine" = "Tambang Bersejarah";
 
 "type.historic.monument" = "Monumen";
 
@@ -2243,11 +2368,15 @@
 
 "type.historic.ship" = "Pemandangan";
 
+"type.historic.tank" = "Tangki Bersejarah";
+
 "type.historic.tomb" = "Pemandangan";
 
 "type.historic.wayside_cross" = "Salib di pinggir jalan";
 
 "type.historic.wayside_shrine" = "Kuil di pinggir jalan";
+
+"type.historic.wreck" = "Kecelakaan kapal";
 
 "type.hwtag" = "hwtag";
 
@@ -2281,6 +2410,8 @@
 
 "type.junction" = "Junction";
 
+"type.junction.circular" = "Roundabout";
+
 "type.junction.roundabout" = "Roundabout";
 
 "type.landuse" = "Landuse";
@@ -2301,9 +2432,9 @@
 
 "type.landuse.commercial" = "Commercial Area";
 
-"type.landuse.construction" = "Construction";
+"type.landuse.construction" = "Construction Area";
 
-"type.landuse.education" = "Educational Facilities";
+"type.landuse.education" = "Educational Facility";
 
 "type.landuse.farm" = "Farm";
 
@@ -2312,6 +2443,8 @@
 "type.landuse.farmyard" = "Farmyard";
 
 "type.landuse.field" = "Field";
+
+"type.landuse.flowerbed" = "Hamparan bunga";
 
 "type.landuse.forest" = "Hutan";
 
@@ -2351,7 +2484,7 @@
 
 "type.landuse.retail" = "Retail Area";
 
-"type.landuse.salt_pond" = "Pond";
+"type.landuse.salt_pond" = "Salt Pond";
 
 "type.landuse.village_green" = "Land";
 
@@ -2375,6 +2508,8 @@
 
 "type.leisure.golf_course" = "Lapangan golf";
 
+"type.leisure.hackerspace" = "Hackerspace";
+
 "type.leisure.ice_rink" = "Ice Rink";
 
 "type.leisure.landscape_reserve" = "Landscape Reserve";
@@ -2382,6 +2517,8 @@
 "type.leisure.marina" = "Marina";
 
 "type.leisure.nature_reserve" = "Cagar Alam";
+
+"type.leisure.outdoor_seating" = "Tempat duduk di luar ruangan";
 
 "type.leisure.park" = "Taman";
 
@@ -2457,7 +2594,7 @@
 
 "type.man_made.tower.communication" = "Menara Komunikasi";
 
-"type.man_made.wastewater_plant" = "Wastewater treatment plant";
+"type.man_made.wastewater_plant" = "Wastewater Treatment Plant";
 
 "type.man_made.water_tap" = "Keran Air";
 
@@ -2544,8 +2681,6 @@
 "type.natural.spring" = "Mata air";
 
 "type.natural.strait" = "Selat";
-
-"type.natural.tree" = "Pohon";
 
 "type.natural.tree_row" = "Baris pohon";
 
@@ -2647,7 +2782,7 @@
 
 "type.power" = "Power";
 
-"type.power.generator" = "Generator";
+"type.power.generator" = "Power Generator";
 
 "type.power.generator.solar" = "Pembangkit surya";
 
@@ -2663,7 +2798,17 @@
 
 "type.power.minor_line" = "Minor Power Line";
 
-"type.power.pole" = "Menara listrik";
+"type.power.plant" = "Pembangkit listrik";
+
+"type.power.plant.coal" = "Pembangkit listrik batubara";
+
+"type.power.plant.gas" = "Pembangkit listrik turbin gas";
+
+"type.power.plant.hydro" = "Pembangkit listrik tenaga air";
+
+"type.power.plant.solar" = "Pembangkit listrik tenaga surya";
+
+"type.power.plant.wind" = "Pembangkit listrik tenaga angin";
 
 "type.power.station" = "Power Station";
 
@@ -2697,9 +2842,9 @@
 
 "type.railway.crossing" = "Railway Crossing";
 
-"type.railway.disused" = "Disused railway";
+"type.railway.disused" = "Disused Railway";
 
-"type.railway.funicular" = "Funicular";
+"type.railway.funicular" = "Kereta gantung";
 
 "type.railway.funicular.bridge" = "Funicular Bridge";
 
@@ -2737,29 +2882,64 @@
 
 "type.railway.rail" = "Kereta api";
 
-"type.railway.rail.bridge" = "Railway Bridge";
+"type.railway.rail.highspeed" = "Kereta api berkecepatan tinggi";
 
-"type.railway.rail.motor_vehicle" = "Railway";
+"type.railway.rail.tourism" = "Kereta api wisata";
 
-"type.railway.rail.tunnel" = "Railway Tunnel";
+"type.railway.rail.main" = "Kereta api";
 
-"type.railway.razed" = "Razed Rail";
+/* Includes ordinary railway=rail w/o more specific usage= and service= tags. */
+"type.railway.rail.branch" = "Kereta api sekunder";
 
-"type.railway.siding" = "Siding Rail";
+/* Non-passenger utility tracks: industrial, military, test. */
+"type.railway.rail.utility" = "Kereta api utilitas";
 
-"type.railway.siding.bridge" = "Siding Rail Bridge";
+"type.railway.rail.spur" = "Pacu kereta api";
 
-"type.railway.siding.tunnel" = "Siding Rail Tunnel";
+/* Short service tracks: siding, yard, crossover. */
+"type.railway.rail.service" = "Jalur rel bantu";
 
-"type.railway.spur" = "Spur Rail";
+"type.railway.rail.bridge" = "Jembatan kereta api";
 
-"type.railway.spur.bridge" = "Spur Rail Bridge";
+"type.railway.rail.highspeed.bridge" = "Jembatan kereta api";
 
-"type.railway.spur.tunnel" = "Spur Rail Tunnel";
+"type.railway.rail.tourism.bridge" = "Jembatan kereta api";
+
+"type.railway.rail.main.bridge" = "Jembatan kereta api";
+
+"type.railway.rail.branch.bridge" = "Jembatan kereta api";
+
+"type.railway.rail.utility.bridge" = "Jembatan kereta api";
+
+"type.railway.rail.spur.bridge" = "Jembatan kereta api";
+
+"type.railway.rail.service.bridge" = "Jembatan kereta api";
+
+"type.railway.rail.tunnel" = "Terowongan kereta api";
+
+"type.railway.rail.highspeed.tunnel" = "Terowongan kereta api";
+
+"type.railway.rail.tourism.tunnel" = "Terowongan kereta api";
+
+"type.railway.rail.main.tunnel" = "Terowongan kereta api";
+
+"type.railway.rail.branch.tunnel" = "Terowongan kereta api";
+
+"type.railway.rail.utility.tunnel" = "Terowongan kereta api";
+
+"type.railway.rail.spur.tunnel" = "Terowongan kereta api";
+
+"type.railway.rail.service.tunnel" = "Terowongan kereta api";
 
 "type.railway.station" = "Rel kereta api";
 
+"type.railway.station.funicular" = "Kereta gantung";
+
 "type.railway.station.light_rail" = "Rel kereta api";
+
+"type.railway.station.light_rail.london" = "Rel kereta api";
+
+"type.railway.station.light_rail.porto" = "Rel kereta api";
 
 "type.railway.station.monorail" = "Rel kereta api";
 
@@ -2949,6 +3129,8 @@
 
 "type.railway.station.subway.shiraz" = "Stasiun bawah tanah";
 
+"type.railway.station.subway.singapore" = "Stasiun bawah tanah";
+
 "type.railway.station.subway.sofia" = "Stasiun bawah tanah";
 
 "type.railway.station.subway.spb" = "Stasiun bawah tanah";
@@ -2964,6 +3146,8 @@
 "type.railway.station.subway.tashkent" = "Stasiun bawah tanah";
 
 "type.railway.station.subway.tbilisi" = "Stasiun bawah tanah";
+
+"type.railway.station.subway.tehran" = "Stasiun bawah tanah";
 
 "type.railway.station.subway.tianjin" = "Stasiun bawah tanah";
 
@@ -3175,6 +3359,8 @@
 
 "type.railway.subway_entrance.shiraz" = "Pintu masuk kereta bawah tanah";
 
+"type.railway.subway_entrance.singapore" = "Pintu masuk kereta bawah tanah";
+
 "type.railway.subway_entrance.sofia" = "Pintu masuk kereta bawah tanah";
 
 "type.railway.subway_entrance.spb" = "Pintu masuk kereta bawah tanah";
@@ -3190,6 +3376,8 @@
 "type.railway.subway_entrance.tashkent" = "Pintu masuk kereta bawah tanah";
 
 "type.railway.subway_entrance.tbilisi" = "Pintu masuk kereta bawah tanah";
+
+"type.railway.subway_entrance.tehran" = "Pintu masuk kereta bawah tanah";
 
 "type.railway.subway_entrance.tianjin" = "Pintu masuk kereta bawah tanah";
 
@@ -3217,23 +3405,19 @@
 
 "type.railway.tram_stop" = "Perhentian trem";
 
-"type.railway.yard" = "Railway Yard";
-
-"type.railway.yard.bridge" = "Railway Yard Bridge";
-
-"type.railway.yard.tunnel" = "Railway Yard Tunnel";
-
-"type.route" = "route";
+"type.route" = "Route";
 
 "type.route.ferry" = "Ferry";
 
-"type.route.shuttle_train" = "Shuttle Train";
+"type.route.shuttle_train" = "route-shuttle_train";
 
 "type.shop" = "Toko";
 
 "type.shop.alcohol" = "Toko alkohol";
 
 "type.shop.bakery" = "Toko roti";
+
+"type.shop.bathroom_furnishing" = "Perabot Kamar Mandi";
 
 "type.shop.beauty" = "Salon kecantikan";
 
@@ -3247,6 +3431,8 @@
 
 "type.shop.butcher" = "Tukang daging";
 
+"type.shop.cannabis" = "Toko ganja";
+
 "type.shop.car" = "Toko mobil";
 
 "type.shop.car_parts" = "Bagian mobil";
@@ -3257,13 +3443,15 @@
 
 "type.shop.caravan" = "RV Dealership";
 
+"type.shop.carpet" = "Karpet";
+
 "type.shop.chemist" = "Toko Bahan Kimia";
 
-"type.shop.chocolate" = "Toko";
+"type.shop.chocolate" = "Toko Cokelat";
 
 "type.shop.clothes" = "Toko baju";
 
-"type.shop.coffee" = "Toko";
+"type.shop.coffee" = "Toko kopi";
 
 "type.shop.computer" = "Toko komputer";
 
@@ -3274,6 +3462,8 @@
 "type.shop.copyshop" = "Fotokopi";
 
 "type.shop.cosmetics" = "Kosmetik";
+
+"type.shop.curtain" = "Tirai";
 
 "type.shop.deli" = "Toko Kue";
 
@@ -3287,9 +3477,11 @@
 
 "type.shop.erotic" = "Toko Erotik";
 
-"type.shop.fabric" = "Toko";
+"type.shop.fabric" = "Toko Kain";
 
 "type.shop.farm" = "Toko Makanan Pertanian";
+
+"type.shop.fashion_accessories" = "Aksesoris Fashion";
 
 "type.shop.florist" = "Tukang bunga";
 
@@ -3299,6 +3491,8 @@
 
 "type.shop.garden_centre" = "Penitipan anak";
 
+"type.shop.gas" = "Toko gas";
+
 "type.shop.gift" = "Toko hadiah";
 
 "type.shop.greengrocer" = "Penjual sayuran";
@@ -3307,15 +3501,19 @@
 
 "type.shop.hairdresser" = "Penata rambut";
 
-"type.shop.hardware" = "Toko perangkat keras";
+"type.shop.hardware" = "Hardware Store";
 
 "type.shop.health_food" = "Toko Makanan Kesehatan";
+
+"type.shop.herbalist" = "Toko jamu";
+
+"type.shop.hifi" = "Audio HI FI";
 
 "type.shop.houseware" = "Toko Peralatan Rumah Tangga";
 
 "type.shop.jewelry" = "Perhiasan";
 
-"type.shop.kiosk" = "Toko";
+"type.shop.kiosk" = "Kios";
 
 "type.shop.kitchen" = "Toko Dapur";
 
@@ -3327,13 +3525,15 @@
 
 "type.shop.mobile_phone" = "Toko telepon";
 
-"type.shop.money_lender" = "Toko";
+"type.shop.money_lender" = "Pemberi Pinjaman Uang";
 
 "type.shop.motorcycle" = "Toko Sepeda Motor";
 
-"type.shop.music" = "Toko";
+"type.shop.motorcycle_repair" = "Bengkel Sepeda Motor";
 
-"type.shop.musical_instrument" = "Toko";
+"type.shop.music" = "Toko musik";
+
+"type.shop.musical_instrument" = "Toko Alat Musik";
 
 "type.shop.newsagent" = "Kios Surat Kabar";
 
@@ -3341,13 +3541,21 @@
 
 "type.shop.outdoor" = "Peralatan Outdoor";
 
+"type.shop.outpost" = "Titik penjemputan";
+
 "type.shop.pastry" = "Kue-kue";
 
 "type.shop.pawnbroker" = "Rumah Gadai";
 
 "type.shop.pet" = "Toko hewan";
 
+"type.shop.pet_grooming" = "Perawatan Hewan Peliharaan";
+
 "type.shop.photo" = "Studio Foto";
+
+"type.shop.rental" = "Toko Sewa";
+
+"type.shop.rental.bicycle" = "Toko Penyewaan Sepeda";
 
 "type.shop.seafood" = "Penjual Ikan";
 
@@ -3363,7 +3571,7 @@
 
 "type.shop.tattoo" = "Tempat Tato";
 
-"type.shop.tea" = "Toko";
+"type.shop.tea" = "Toko teh";
 
 "type.shop.ticket" = "Tempat penjualan karcis";
 
@@ -3381,13 +3589,20 @@
 
 "type.shop.wine" = "Toko anggur";
 
+"type.shop.agrarian" = "Toko pertanian";
+
 "type.shop.antiques" = "Barang antik";
 
+"type.shop.appliance" = "Toko peralatan";
+
+/* maybe change to Art Gallery for en-US when supported */
 "type.shop.art" = "Toko Seni";
 
 "type.shop.baby_goods" = "Toko anak-anak";
 
 "type.shop.bag" = "Toko Tas";
+
+"type.shop.bed" = "Toko tempat tidur";
 
 "type.shop.boutique" = "Butik";
 
@@ -3498,6 +3713,8 @@
 
 "type.tourism" = "Tourism";
 
+"type.tourism.aquarium" = "Akuarium";
+
 "type.tourism.alpine_hut" = "Penginapan di pegunungan";
 
 "type.tourism.apartment" = "Apartemen";
@@ -3542,6 +3759,8 @@
 
 "type.tourism.information.office" = "Kantor wisata";
 
+"type.tourism.information.visitor_centre" = "Pusat Pengunjung";
+
 "type.tourism.motel" = "Motel";
 
 "type.tourism.museum" = "Museum";
@@ -3558,6 +3777,8 @@
 
 "type.tourism.zoo" = "Kebun binatang";
 
+"type.tourism.zoo.petting" = "Kebun Binatang";
+
 "type.traffic_calming" = "Traffic Calming";
 
 "type.traffic_calming.bump" = "Traffic Bump";
@@ -3570,17 +3791,23 @@
 
 "type.waterway.canal.tunnel" = "Kanal";
 
+"type.waterway.fish_pass" = "Tangga ikan";
+
 "type.waterway.dam" = "Dam";
 
-"type.waterway.ditch" = "Ditch";
+"type.barrier.ditch" = "Ditch";
 
-"type.waterway.ditch.tunnel" = "Ditch";
+"type.natural.water.ditch" = "Parit saluran air";
+
+"type.waterway.ditch.tunnel" = "Gorong-gorong";
 
 "type.waterway.dock" = "Waterway Dock";
 
 "type.waterway.drain" = "Drain";
 
-"type.waterway.drain.tunnel" = "Drain";
+"type.natural.water.drain" = "Drain";
+
+"type.waterway.drain.tunnel" = "Gorong-gorong";
 
 "type.waterway.lock_gate" = "Gerbang pengunci";
 
@@ -3620,26 +3847,48 @@
 
 "type.aerialway.t.bar" = "T-bar Lift";
 
-"type.piste_type" = "Piste Type";
-
 "type.piste_type.downhill" = "Downhill Ski Run";
+
+"type.piste_type.downhill.area" = "Downhill Ski Run";
 
 "type.piste_type.downhill.advanced" = "Downhill Ski Run";
 
+"type.piste_type.downhill.advanced.area" = "Downhill Ski Run";
+
 "type.piste_type.downhill.easy" = "Downhill Ski Run";
 
+"type.piste_type.downhill.easy.area" = "Downhill Ski Run";
+
 "type.piste_type.downhill.expert" = "Downhill Ski Run";
+
+"type.piste_type.downhill.expert.area" = "Downhill Ski Run";
 
 "type.piste_type.downhill.freeride" = "Downhill Ski Run";
 
 "type.piste_type.downhill.intermediate" = "Downhill Ski Run";
 
+"type.piste_type.downhill.intermediate.area" = "Downhill Ski Run";
+
 "type.piste_type.downhill.novice" = "Downhill Ski Run";
+
+"type.piste_type.downhill.novice.area" = "Downhill Ski Run";
 
 "type.piste_type.nordic" = "Nordic Ski Trail";
 
 "type.piste_type.sled" = "Sledding Piste";
 
-"type.building_part" = "Gedung";
+"type.piste_type.sled.area" = "Sledding Piste";
+
+"type.piste_type.snow_park" = "Snow Park";
+
+"type.piste_type.hike" = "Jalur Pendakian Salju";
+
+"type.piste_type.connection" = "Koneksi Piste";
+
+"type.piste_type.skitour" = "Jalur Skitour";
 
 "type.amenity.events_venue" = "Tempat acara";
+
+"type.shop.auction" = "Lelang";
+
+"type.shop.collector" = "Barang koleksi";

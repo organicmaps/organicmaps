@@ -116,11 +116,17 @@ void GetAllLocalFiles(vector<LocalCountryFile> & localFiles)
     file.SyncWithDisk();
 }
 
-shared_ptr<VehicleRouterComponents> CreateAllMapsComponents(VehicleType vehicleType)
+shared_ptr<VehicleRouterComponents>
+CreateAllMapsComponents(VehicleType vehicleType, std::set<std::string> const & skipMaps)
 {
   vector<LocalCountryFile> localFiles;
   GetAllLocalFiles(localFiles);
-  ASSERT(!localFiles.empty(), ());
+  base::EraseIf(localFiles, [&skipMaps](LocalCountryFile const & cf)
+  {
+    return skipMaps.count(cf.GetCountryName()) > 0;
+  });
+  TEST(!localFiles.empty(), ());
+
   return make_shared<VehicleRouterComponents>(localFiles, vehicleType);
 }
 
@@ -130,7 +136,7 @@ IRouterComponents & GetVehicleComponents(VehicleType vehicleType)
 
   auto it = kVehicleComponents.find(vehicleType);
   if (it == kVehicleComponents.end())
-    tie(it, ignore) = kVehicleComponents.emplace(vehicleType, CreateAllMapsComponents(vehicleType));
+    tie(it, ignore) = kVehicleComponents.emplace(vehicleType, CreateAllMapsComponents(vehicleType, {}));
 
   CHECK(it->second, ());
   return *(it->second);
@@ -154,7 +160,7 @@ TRouteResult CalculateRoute(IRouterComponents const & routerComponents,
 {
   RouterDelegate delegate;
   shared_ptr<Route> route = make_shared<Route>("mapsme", 0 /* route id */);
-  routerComponents.GetRouter().SetGuides(move(guides));
+  routerComponents.GetRouter().SetGuides(std::move(guides));
   RouterResultCode result = routerComponents.GetRouter().CalculateRoute(
       checkpoints, m2::PointD::Zero() /* startDirection */, false /* adjust */, delegate, *route);
   ASSERT(route, ());
@@ -226,7 +232,7 @@ void CalculateRouteAndTestRouteLength(IRouterComponents const & routerComponents
                                       m2::PointD const & startPoint,
                                       m2::PointD const & startDirection,
                                       m2::PointD const & finalPoint, double expectedRouteMeters,
-                                      double relativeError /* = 0.07 */)
+                                      double relativeError /* = 0.02 */)
 {
   TRouteResult routeResult =
       CalculateRoute(routerComponents, startPoint, startDirection, finalPoint);

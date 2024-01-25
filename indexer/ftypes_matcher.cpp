@@ -13,7 +13,7 @@
 #include <iterator>
 #include <map>
 #include <sstream>
-#include <unordered_map>
+
 
 namespace ftypes
 {
@@ -31,7 +31,6 @@ public:
     auto const & c = classif();
     m_map[c.GetTypeByPath({"route", "ferry"})] = ftypes::HighwayClass::Transported;
     m_map[c.GetTypeByPath({"route", "shuttle_train"})] = ftypes::HighwayClass::Transported;
-    m_map[c.GetTypeByPath({"railway", "rail"})] = ftypes::HighwayClass::Transported;
 
     m_map[c.GetTypeByPath({"highway", "motorway"})] = ftypes::HighwayClass::Trunk;
     m_map[c.GetTypeByPath({"highway", "motorway_link"})] = ftypes::HighwayClass::Trunk;
@@ -70,7 +69,7 @@ public:
   {
     auto const it = m_map.find(t);
     if (it == m_map.cend())
-      return ftypes::HighwayClass::Error;
+      return ftypes::HighwayClass::Undefined;
     return it->second;
   }
 };
@@ -80,7 +79,6 @@ char const * HighwayClassToString(ftypes::HighwayClass const cls)
   switch (cls)
   {
   case ftypes::HighwayClass::Undefined: return "Undefined";
-  case ftypes::HighwayClass::Error: return "Error";
   case ftypes::HighwayClass::Transported: return "Transported";
   case ftypes::HighwayClass::Trunk: return "Trunk";
   case ftypes::HighwayClass::Primary: return "Primary";
@@ -120,18 +118,17 @@ string DebugPrint(LocalityType const localityType)
 
 HighwayClass GetHighwayClass(feature::TypesHolder const & types)
 {
-  uint8_t constexpr kTruncLevel = 2;
   static HighwayClasses highwayClasses;
 
   for (auto t : types)
   {
-    ftype::TruncValue(t, kTruncLevel);
+    ftype::TruncValue(t, 2);
     HighwayClass const hc = highwayClasses.Get(t);
-    if (hc != HighwayClass::Error)
+    if (hc != HighwayClass::Undefined)
       return hc;
   }
 
-  return HighwayClass::Error;
+  return HighwayClass::Undefined;
 }
 
 uint32_t BaseChecker::PrepareToMatch(uint32_t type, uint8_t level)
@@ -142,7 +139,7 @@ uint32_t BaseChecker::PrepareToMatch(uint32_t type, uint8_t level)
 
 bool BaseChecker::IsMatched(uint32_t type) const
 {
-  return (find(m_types.begin(), m_types.end(), PrepareToMatch(type, m_level)) != m_types.end());
+  return base::IsExist(m_types, PrepareToMatch(type, m_level));
 }
 
 void BaseChecker::ForEachType(function<void(uint32_t)> const & fn) const
@@ -242,6 +239,12 @@ IsBicycleRentalChecker::IsBicycleRentalChecker()
 {
   Classificator const & c = classif();
   m_types.push_back(c.GetTypeByPath({"amenity", "bicycle_rental"}));
+}
+
+IsParkingChecker::IsParkingChecker() : BaseChecker(2 /* level */)
+{
+  Classificator const & c = classif();
+  m_types.push_back(c.GetTypeByPath({"amenity", "parking"}));
 }
 
 IsRecyclingCentreChecker::IsRecyclingCentreChecker() : BaseChecker(3 /* level */)
@@ -346,16 +349,17 @@ IsWayChecker::IsWayChecker()
       {"primary",       Regular},
       {"primary_link",  Regular},
       {"residential",   Residential},
-      {"road",          Outdoor},
+      {"road",          Minors},
       {"secondary",     Regular},
       {"secondary_link",Regular},
-      {"service",       Residential},
+      {"service",       Minors},
+      {"steps",         Pedestrian},
       {"tertiary",      Regular},
       {"tertiary_link", Regular},
       {"track",         Outdoor},
       {"trunk",         Motorway},
       {"trunk_link",    Motorway},
-      {"unclassified",  Outdoor},
+      {"unclassified",  Minors},
   };
 
   m_ranks.Reserve(std::size(types));
@@ -385,7 +389,9 @@ IsStreetOrSquareChecker::IsStreetOrSquareChecker()
 
 IsAddressObjectChecker::IsAddressObjectChecker() : BaseChecker(1 /* level */)
 {
-  auto const paths = {"building", "amenity", "shop", "tourism", "historic", "office", "craft"};
+  base::StringIL const paths = {
+    "building", "entrance", "amenity", "shop", "tourism", "historic", "office", "craft", "addr:interpolation"
+  };
 
   Classificator const & c = classif();
   for (auto const & p : paths)
@@ -411,6 +417,7 @@ IsOneWayChecker::IsOneWayChecker()
 IsRoundAboutChecker::IsRoundAboutChecker()
 {
   Classificator const & c = classif();
+  m_types.push_back(c.GetTypeByPath({"junction", "circular"}));
   m_types.push_back(c.GetTypeByPath({"junction", "roundabout"}));
 }
 
@@ -445,6 +452,11 @@ IsBuildingHasPartsChecker::IsBuildingHasPartsChecker() : BaseChecker(2 /* level 
 IsIsolineChecker::IsIsolineChecker() : BaseChecker(1 /* level */)
 {
   m_types.push_back(classif().GetTypeByPath({"isoline"}));
+}
+
+IsPisteChecker::IsPisteChecker() : BaseChecker(1 /* level */)
+{
+  m_types.push_back(classif().GetTypeByPath({"piste:type"}));
 }
 
 IsPoiChecker::IsPoiChecker() : BaseChecker(1 /* level */)
@@ -498,7 +510,8 @@ AttractionsChecker::AttractionsChecker() : BaseChecker(2 /* level */)
       {"leisure", "park"},
       {"leisure", "water_park"},
       {"man_made", "lighthouse"},
-      {"man_made", "tower"},
+      {"man_made", "windmill"},
+      //{"man_made", "tower"},
       {"natural", "beach"},
       {"natural", "cave_entrance"},
       {"natural", "geyser"},
@@ -562,18 +575,20 @@ IsPlaceChecker::IsPlaceChecker() : BaseChecker(1 /* level */)
   m_types.push_back(classif().GetTypeByPath({"place"}));
 }
 
-IsBridgeChecker::IsBridgeChecker() : BaseChecker(3 /* level */) {}
+IsBridgeOrTunnelChecker::IsBridgeOrTunnelChecker() : BaseChecker(3 /* level */) {}
 
-bool IsBridgeChecker::IsMatched(uint32_t type) const
+bool IsBridgeOrTunnelChecker::IsMatched(uint32_t type) const
 {
-  return IsTypeConformed(type, {"highway", "*", "bridge"});
-}
+  if (ftype::GetLevel(type) != 3)
+    return false;
 
-IsTunnelChecker::IsTunnelChecker() : BaseChecker(3 /* level */) {}
+  ClassifObject const * p = classif().GetRoot()->GetObject(ftype::GetValue(type, 0));
+  if (p->GetName() != "highway")
+    return false;
 
-bool IsTunnelChecker::IsMatched(uint32_t type) const
-{
-  return IsTypeConformed(type, {"highway", "*", "tunnel"});
+  p = p->GetObject(ftype::GetValue(type, 1));
+  p = p->GetObject(ftype::GetValue(type, 2));
+  return (p->GetName() == "bridge" || p->GetName() == "tunnel");
 }
 
 IsHotelChecker::IsHotelChecker()
@@ -698,11 +713,6 @@ IsWifiChecker::IsWifiChecker()
   m_types.push_back(classif().GetTypeByPath({"internet_access", "wlan"}));
 }
 
-IsShopChecker::IsShopChecker() : BaseChecker(1)
-{
-  m_types.push_back(classif().GetTypeByPath({"shop"}));
-}
-
 IsEatChecker::IsEatChecker()
 {
   // The order should be the same as in "enum class Type" declaration.
@@ -712,7 +722,9 @@ IsEatChecker::IsEatChecker()
                                   {"amenity", "restaurant"},
                                   {"amenity", "bar"},
                                   {"amenity", "pub"},
-                                  {"amenity", "biergarten"}};
+                                  {"amenity", "biergarten"},
+                                  {"amenity", "food_court"},
+  };
 
   Classificator const & c = classif();
 //  size_t i = 0;
@@ -746,6 +758,19 @@ IsRecyclingTypeChecker::IsRecyclingTypeChecker() : BaseChecker(1 /* level */)
   m_types.push_back(c.GetTypeByPath({"recycling"}));
 }
 
+IsFeeTypeChecker::IsFeeTypeChecker() : BaseChecker(1 /* level */)
+{
+  Classificator const & c = classif();
+  m_types.push_back(c.GetTypeByPath({"fee"}));
+}
+
+IsToiletsChecker::IsToiletsChecker() : BaseChecker(2 /* level */)
+{
+  Classificator const & c = classif();
+  m_types.push_back(c.GetTypeByPath({"amenity", "toilets"}));
+  m_types.push_back(c.GetTypeByPath({"toilets", "yes"}));
+}
+
 IsCityChecker::IsCityChecker()
 {
   m_types.push_back(classif().GetTypeByPath({"place", "city"}));
@@ -768,14 +793,29 @@ IsMotorwayJunctionChecker::IsMotorwayJunctionChecker()
   m_types.push_back(c.GetTypeByPath({"highway", "motorway_junction"}));
 }
 
-IsWayWithDurationChecker::IsWayWithDurationChecker() : BaseChecker(3 /* level */)
+IsWayWithDurationChecker::IsWayWithDurationChecker()
 {
   base::StringIL const types[] = {{"route", "ferry"},
-                                  {"railway", "rail", "motor_vehicle"},
                                   {"route", "shuttle_train"}};
   Classificator const & c = classif();
   for (auto const & e : types)
     m_types.push_back(c.GetTypeByPath(e));
+}
+
+LocalityType LocalityFromString(std::string_view place)
+{
+  if (place == "village" || place == "hamlet")
+    return LocalityType::Village;
+  if (place == "town")
+    return LocalityType::Town;
+  if (place == "city")
+    return LocalityType::City;
+  if (place == "state")
+    return LocalityType::State;
+  if (place == "country")
+    return LocalityType::Country;
+
+  return LocalityType::None;
 }
 
 IsLocalityChecker::IsLocalityChecker()
@@ -809,17 +849,6 @@ LocalityType IsLocalityChecker::GetType(uint32_t t) const
     if (t == m_types[j])
       return LocalityType::Village;
 
-  return LocalityType::None;
-}
-
-LocalityType IsLocalityChecker::GetType(feature::TypesHolder const & types) const
-{
-  for (uint32_t t : types)
-  {
-    LocalityType const type = GetType(t);
-    if (type != LocalityType::None)
-      return type;
-  }
   return LocalityType::None;
 }
 
@@ -873,24 +902,56 @@ IsRailwaySubwayEntranceChecker::IsRailwaySubwayEntranceChecker()
   m_types.push_back(c.GetTypeByPath({"railway", "subway_entrance"}));
 }
 
-uint64_t GetPopulation(FeatureType & ft)
+IsPlatformChecker::IsPlatformChecker()
 {
-  uint64_t population = ft.GetPopulation();
+  Classificator const & c = classif();
+  m_types.push_back(c.GetTypeByPath({"railway", "platform"}));
+  m_types.push_back(c.GetTypeByPath({"public_transport", "platform"}));
+}
 
-  if (population < 10)
+IsAddressInterpolChecker::IsAddressInterpolChecker() : BaseChecker(1 /* level */)
+{
+  Classificator const & c = classif();
+  m_types.push_back(c.GetTypeByPath({"addr:interpolation"}));
+  m_odd = c.GetTypeByPath({"addr:interpolation", "odd"});
+  m_even = c.GetTypeByPath({"addr:interpolation", "even"});
+}
+
+feature::InterpolType IsAddressInterpolChecker::GetInterpolType(FeatureType & ft) const
+{
+  for (uint32_t t : feature::TypesHolder(ft))
   {
-    switch (IsLocalityChecker::Instance().GetType(ft))
-    {
-    case LocalityType::Country: population = 500000; break;
-    case LocalityType::State: population = 100000; break;
-    case LocalityType::City: population = 50000; break;
-    case LocalityType::Town: population = 10000; break;
-    case LocalityType::Village: population = 100; break;
-    default: population = 0;
-    }
+    if (t == m_odd)
+      return feature::InterpolType::Odd;
+    if (t == m_even)
+      return feature::InterpolType::Even;
+
+    ftype::TruncValue(t, 1);
+    if (t == m_types[0])
+      return feature::InterpolType::Any;
   }
 
-  return population;
+  return feature::InterpolType::None;
+}
+
+
+uint64_t GetDefPopulation(LocalityType localityType)
+{
+  switch (localityType)
+  {
+  case LocalityType::Country: return 500000;
+  case LocalityType::State: return 100000;
+  case LocalityType::City: return 50000;
+  case LocalityType::Town: return 10000;
+  case LocalityType::Village: return 100;
+  default: return 0;
+  }
+}
+
+uint64_t GetPopulation(FeatureType & ft)
+{
+  uint64_t const p = ft.GetPopulation();
+  return (p < 10 ? GetDefPopulation(IsLocalityChecker::Instance().GetType(ft)) : p);
 }
 
 double GetRadiusByPopulation(uint64_t p)
@@ -920,26 +981,4 @@ uint64_t GetPopulationByRadius(double r)
   return base::SignedRound(pow(r / 550.0, 3.6));
 }
 
-bool IsTypeConformed(uint32_t type, base::StringIL const & path)
-{
-  ClassifObject const * p = classif().GetRoot();
-  ASSERT(p, ());
-
-  uint8_t val = 0, i = 0;
-  for (char const * s : path)
-  {
-    if (!ftype::GetValue(type, i, val))
-      return false;
-
-    p = p->GetObject(val);
-    if (p == 0)
-      return false;
-
-    if (p->GetName() != s && strcmp(s, "*") != 0)
-      return false;
-
-    ++i;
-  }
-  return true;
-}
 }  // namespace ftypes

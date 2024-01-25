@@ -4,11 +4,13 @@
 #include "indexer/feature_algo.hpp"
 #include "indexer/feature_utils.hpp"
 #include "indexer/ftypes_matcher.hpp"
+#include "indexer/road_shields_parser.hpp"
 
 #include "geometry/mercator.hpp"
 
 #include "platform/localization.hpp"
 #include "platform/measurement_utils.hpp"
+#include "platform/distance.hpp"
 
 #include "base/logging.hpp"
 #include "base/string_utils.hpp"
@@ -25,8 +27,6 @@ constexpr char const * kTerminal = "terminal";
 constexpr char const * kYes = "yes";
 constexpr char const * kNo = "no";
 }  // namespace
-
-char const * MapObject::kFieldsSeparator = " • ";
 
 string DebugPrint(osm::Internet internet)
 {
@@ -53,25 +53,26 @@ void MapObject::SetFromFeatureType(FeatureType & ft)
   {
     return !cl.IsTypeValid(t);
   });
-  // Actually, we can't select object on map with invalid (non-drawable type).
+  // Actually, we can't select object on map with invalid (non-drawable or deprecated) type.
+  // TODO: in android prod a user will see an "empty" PP if a spot is selected in old mwm
+  // where a deprecated feature was; and could crash if play with routing to it, bookmarking it..
+  // A desktop/qt prod segfaults when trying to select such spots.
   ASSERT(!m_types.Empty(), ());
 
   m_metadata = ft.GetMetadata();
   m_houseNumber = ft.GetHouseNumber();
-  m_roadNumber = ft.GetRoadNumber();
+  m_roadShields = ftypes::GetRoadShieldsNames(ft);
   m_featureID = ft.GetID();
   m_geomType = ft.GetGeomType();
+  m_layer = ft.GetLayer();
+
+  // TODO: BEST_GEOMETRY is likely needed for some special cases only,
+  // i.e. matching an edited OSM feature, in other cases like opening
+  // a place page WORST_GEOMETRY is going to be enough?
   if (m_geomType == feature::GeomType::Area)
-  {
-    m_triangles = ft.GetTrianglesAsPoints(FeatureType::BEST_GEOMETRY);
-  }
+    assign_range(m_triangles, ft.GetTrianglesAsPoints(FeatureType::BEST_GEOMETRY));
   else if (m_geomType == feature::GeomType::Line)
-  {
-    ft.ParseGeometry(FeatureType::BEST_GEOMETRY);
-    m_points.reserve(ft.GetPointsCount());
-    ft.ForEachPoint([this](m2::PointD const & p) { m_points.push_back(p); },
-                    FeatureType::BEST_GEOMETRY);
-  }
+    assign_range(m_points, ft.GetPoints(FeatureType::BEST_GEOMETRY));
 
 #ifdef DEBUG
   if (ftypes::IsWifiChecker::Instance()(ft))
@@ -111,7 +112,7 @@ string MapObject::GetLocalizedType() const
   feature::TypesHolder copy(m_types);
   copy.SortBySpec();
 
-  return platform::GetLocalizedTypeName(classif().GetReadableObjectName(*copy.begin()));
+  return platform::GetLocalizedTypeName(classif().GetReadableObjectName(copy.GetBestType()));
 }
 
 std::string_view MapObject::GetMetadata(MetadataID type) const
@@ -160,19 +161,29 @@ vector<string> MapObject::GetLocalizedRecyclingTypes() const
   return feature::GetLocalizedRecyclingTypes(m_types);
 }
 
+string MapObject::GetLocalizedFeeType() const
+{
+  return feature::GetLocalizedFeeType(m_types);
+}
+
+bool MapObject::HasAtm() const
+{
+  return feature::HasAtm(m_types);
+}
+
+bool MapObject::HasToilets() const
+{
+  return feature::HasToilets(m_types);
+}
+
 string MapObject::FormatCuisines() const
 {
   return strings::JoinStrings(GetLocalizedCuisines(), kFieldsSeparator);
 }
 
-vector<string> MapObject::GetRoadShields() const
-{
-  return feature::GetRoadShieldsNames(m_roadNumber);
-}
-
 string MapObject::FormatRoadShields() const
 {
-  return strings::JoinStrings(GetRoadShields(), kFieldsSeparator);
+  return strings::JoinStrings(m_roadShields, kFieldsSeparator);
 }
 
 int MapObject::GetStars() const
@@ -196,7 +207,7 @@ string MapObject::GetElevationFormatted() const
   {
     double value;
     if (strings::to_double(sv, value))
-      return measurement_utils::FormatAltitude(value);
+      return platform::Distance::CreateAltitudeFormatted(value).ToString();
     else
       LOG(LWARNING, ("Invalid elevation metadata:", sv));
   }

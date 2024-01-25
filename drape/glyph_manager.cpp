@@ -7,7 +7,6 @@
 #include "base/string_utils.hpp"
 #include "base/logging.hpp"
 #include "base/math.hpp"
-#include "base/timer.hpp"
 
 #include "3party/sdf_image/sdf_image.h"
 
@@ -31,10 +30,10 @@
 struct FreetypeError
 {
   int m_code;
-  char const * m_message;
+  char const * const m_message;
 };
 
-FreetypeError g_FT_Errors[] =
+FreetypeError constexpr g_FT_Errors[] =
 #include FT_ERRORS_H
 
 #ifdef DEBUG
@@ -63,7 +62,7 @@ FreetypeError g_FT_Errors[] =
 
 namespace dp
 {
-int constexpr kInvalidFont = -1;
+static int constexpr kInvalidFont = -1;
 
 template <typename ToDo>
 void ParseUniBlocks(std::string const & uniBlocksFile, ToDo toDo)
@@ -130,16 +129,16 @@ public:
     , m_fontFace(nullptr)
     , m_sdfScale(sdfScale)
   {
-    m_stream.base = 0;
+    m_stream.base = nullptr;
     m_stream.size = static_cast<unsigned long>(m_fontReader.Size());
     m_stream.pos = 0;
     m_stream.descriptor.pointer = &m_fontReader;
-    m_stream.pathname.pointer = 0;
+    m_stream.pathname.pointer = nullptr;
     m_stream.read = &Font::Read;
     m_stream.close = &Font::Close;
-    m_stream.memory = 0;
-    m_stream.cursor = 0;
-    m_stream.limit = 0;
+    m_stream.memory = nullptr;
+    m_stream.cursor = nullptr;
+    m_stream.limit = nullptr;
 
     FT_Open_Args args;
     args.flags = FT_OPEN_STREAM;
@@ -277,7 +276,7 @@ public:
 
   void MarkGlyphReady(strings::UniChar code, int fixedHeight)
   {
-    m_readyGlyphs.insert(std::make_pair(code, fixedHeight));
+    m_readyGlyphs.emplace(code, fixedHeight);
   }
 
   bool IsGlyphReady(strings::UniChar code, int fixedHeight) const
@@ -325,7 +324,7 @@ struct UnicodeBlock
     ASSERT_LESS(m_fontsWeight.size(), static_cast<size_t>(std::numeric_limits<int>::max()), ());
     for (size_t i = 0; i < m_fontsWeight.size(); ++i)
     {
-      int w = m_fontsWeight[i];
+      int const w = m_fontsWeight[i];
       if (w < upperBoundWeight && w > maxWeight)
       {
         maxWeight = w;
@@ -344,8 +343,6 @@ struct UnicodeBlock
 
 using TUniBlocks = std::vector<UnicodeBlock>;
 using TUniBlockIter = TUniBlocks::const_iterator;
-
-int const GlyphManager::kDynamicGlyphSize = -1;
 
 struct GlyphManager::Impl
 {
@@ -445,7 +442,7 @@ GlyphManager::GlyphManager(GlyphManager::Params const & params)
     }
 
     using TUpdateCoverInfoFn = std::function<void(UnicodeBlock const & uniBlock, CoverNode & node)>;
-    auto enumerateFn = [this, &coverInfo, &fontName] (TFontLst const & lst, TUpdateCoverInfoFn const & fn)
+    auto const enumerateFn = [this, &coverInfo, &fontName] (TFontLst const & lst, TUpdateCoverInfoFn const & fn)
     {
       for (auto const & b : lst)
       {
@@ -619,14 +616,14 @@ GlyphManager::Glyph GlyphManager::GenerateGlyph(Glyph const & glyph, uint32_t sd
       ASSERT(img.GetWidth() == glyph.m_image.m_width, ());
       ASSERT(img.GetHeight() == glyph.m_image.m_height, ());
 
-      size_t bufferSize = base::NextPowOf2(glyph.m_image.m_width * glyph.m_image.m_height);
+      size_t const bufferSize = base::NextPowOf2(glyph.m_image.m_width * glyph.m_image.m_height);
       resultGlyph.m_image.m_data = SharedBufferManager::instance().reserveSharedBuffer(bufferSize);
 
       img.GetData(*resultGlyph.m_image.m_data);
     }
     else
     {
-      size_t bufferSize = base::NextPowOf2(glyph.m_image.m_width * glyph.m_image.m_height);
+      size_t const bufferSize = base::NextPowOf2(glyph.m_image.m_width * glyph.m_image.m_height);
       resultGlyph.m_image.m_data = SharedBufferManager::instance().reserveSharedBuffer(bufferSize);
       resultGlyph.m_image.m_data->assign(glyph.m_image.m_data->begin(), glyph.m_image.m_data->end());
     }
@@ -666,7 +663,7 @@ bool GlyphManager::AreGlyphsReady(strings::UniString const & str, int fixedSize)
 GlyphManager::Glyph GlyphManager::GetInvalidGlyph(int fixedSize) const
 {
   strings::UniChar constexpr kInvalidGlyphCode = 0x9;
-  int const kFontId = 0;
+  int constexpr kFontId = 0;
 
   static bool s_inited = false;
   static Glyph s_glyph;

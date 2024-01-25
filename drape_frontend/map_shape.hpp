@@ -82,7 +82,7 @@ class MapShapeReadedMessage : public MapShapeMessage
 {
 public:
   MapShapeReadedMessage(TileKey const & key, TMapShapes && shapes)
-    : MapShapeMessage(key), m_shapes(move(shapes))
+    : MapShapeMessage(key), m_shapes(std::move(shapes))
   {}
 
   Type GetType() const override { return Type::MapShapeReaded; }
@@ -97,7 +97,7 @@ class OverlayMapShapeReadedMessage : public MapShapeReadedMessage
 {
 public:
   OverlayMapShapeReadedMessage(TileKey const & key, TMapShapes && shapes)
-    : MapShapeReadedMessage(key, move(shapes))
+    : MapShapeReadedMessage(key, std::move(shapes))
   {}
 
   Type GetType() const override { return Message::Type::OverlayMapShapeReaded; }

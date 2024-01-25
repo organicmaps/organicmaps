@@ -1,5 +1,7 @@
 #include "testing/testing.hpp"
 
+#include "generator/generator_tests_support/test_with_classificator.hpp"
+
 #include "generator/collector_boundary_postcode.hpp"
 #include "generator/generator_tests/common.hpp"
 #include "generator/osm_element.hpp"
@@ -10,19 +12,17 @@
 
 #include "geometry/point2d.hpp"
 
-#include "base/geo_object_id.hpp"
 #include "base/scope_guard.hpp"
 
-#include <cstdint>
 #include <memory>
 #include <string>
 #include <unordered_map>
-#include <utility>
 #include <vector>
 
 namespace collector_boundary_postcode_tests
 {
 using std::string, std::vector, std::unordered_map;
+using generator::tests_support::TestWithClassificator;
 
 static string const kDumpFileName = "dump.bin";
 
@@ -55,7 +55,6 @@ unordered_map<uint64_t, WayElement> const kWays = {
 
 class IntermediateDataReaderTest : public generator::cache::IntermediateDataReaderInterface
 {
-  // IntermediateDataReaderBase overrides:
   bool GetNode(uint64_t id, double & lat, double & lon) const override
   {
     auto const it = kNodes.find(id);
@@ -82,7 +81,7 @@ class IntermediateDataReaderTest : public generator::cache::IntermediateDataRead
 OsmElement MakePostcodeAreaRelation(uint64_t id, string postcode, uint64_t wayId)
 {
   auto postcodeAreaRelation =
-      generator_tests::MakeOsmElement(id, {{"boundary", "postal_code"}, {"postal_code", postcode}},
+      generator_tests::MakeOsmElement(id, {{"type", "boundary"}, {"boundary", "postal_code"}, {"postal_code", postcode}},
                                       OsmElement::EntityType::Relation);
   postcodeAreaRelation.AddMember(wayId, OsmElement::EntityType::Way, "outer");
   return postcodeAreaRelation;
@@ -157,7 +156,7 @@ void Check(string const & dumpFilename)
 }
 
 
-UNIT_TEST(CollectorBoundaryPostcode_1)
+UNIT_CLASS_TEST(TestWithClassificator, CollectorBoundaryPostcode_1)
 {
   SCOPE_GUARD(rmDump, std::bind(Platform::RemoveFileIfExists, cref(kDumpFileName)));
 
@@ -174,7 +173,7 @@ UNIT_TEST(CollectorBoundaryPostcode_1)
   Check(kDumpFileName);
 }
 
-UNIT_TEST(CollectorBoundaryPostcode_2)
+UNIT_CLASS_TEST(TestWithClassificator, CollectorBoundaryPostcode_2)
 {
   SCOPE_GUARD(rmDump, std::bind(Platform::RemoveFileIfExists, cref(kDumpFileName)));
 

@@ -11,7 +11,7 @@
 #include "base/logging.hpp"
 #include "base/timer.hpp"
 
-#include "gflags/gflags.h"
+#include <gflags/gflags.h>
 
 DEFINE_string(
     path_mapping, "",
@@ -31,7 +31,7 @@ Platform::FilesList GetGtfsFeedsInDirectory(std::string const & path)
 {
   Platform::FilesList res;
   Platform::TFilesWithType gtfsList;
-  Platform::GetFilesByType(path, Platform::FILE_TYPE_DIRECTORY, gtfsList);
+  Platform::GetFilesByType(path, Platform::EFileType::Directory, gtfsList);
 
   for (auto const & item : gtfsList)
   {
@@ -47,12 +47,12 @@ Platform::FilesList GetGtfsFeedsInDirectory(std::string const & path)
 void ExtendPath(std::string & path)
 {
   Platform::TFilesWithType csvFiles;
-  Platform::GetFilesByType(path, Platform::FILE_TYPE_REGULAR, csvFiles);
+  Platform::GetFilesByType(path, Platform::EFileType::Regular, csvFiles);
   if (!csvFiles.empty())
     return;
 
   Platform::TFilesWithType subdirs;
-  Platform::GetFilesByType(path, Platform::FILE_TYPE_DIRECTORY, subdirs);
+  Platform::GetFilesByType(path, Platform::EFileType::Directory, subdirs);
 
   // If there are more subdirectories then ".", ".." and directory with feed, the feed is most
   // likely corrupted.

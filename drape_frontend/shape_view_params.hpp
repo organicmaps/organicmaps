@@ -18,7 +18,7 @@
 
 namespace df
 {
-double const kShapeCoordScalar = 1000;
+double constexpr kShapeCoordScalar = 1000;
 int constexpr kBuildingOutlineSize = 16;
 uint32_t constexpr kStartUserMarkOverlayIndex = 1000;
 
@@ -35,10 +35,8 @@ struct CommonViewParams
 enum class SpecialDisplacement : uint8_t
 {
   None,
-  SpecialMode,
   UserMark,
   SpecialModeUserMark,
-  HouseNumber,
 };
 
 struct CommonOverlayViewParams : public CommonViewParams
@@ -76,7 +74,7 @@ struct AreaViewParams : CommonViewParams
   float m_posZ = 0.0f;
   bool m_is3D = false;
   bool m_hatching = false;
-  float m_baseGtoPScale = 1.0f;
+  double m_baseGtoPScale = 1.0;
 };
 
 struct LineViewParams : CommonViewParams
@@ -87,7 +85,7 @@ struct LineViewParams : CommonViewParams
   dp::LineCap m_cap;
   dp::LineJoin m_join;
   dp::PenPatternT m_pattern;
-  float m_baseGtoPScale = 1.0f;
+  double m_baseGtoPScale = 1.0;
   int m_zoomLevel = -1;
 };
 
@@ -107,16 +105,15 @@ struct PathTextViewParams : CommonOverlayViewParams
   dp::FontDecl m_textFont;
   std::string m_mainText;
   std::string m_auxText;
-  float m_baseGtoPScale = 1.0f;
+  double m_baseGtoPScale = 1.0;
 };
 
 struct PathSymbolViewParams : CommonViewParams
 {
-  FeatureID m_featureID;
   std::string m_symbolName;
   float m_offset = 0.0f;
   float m_step = 0.0f;
-  float m_baseGtoPScale = 1.0f;
+  double m_baseGtoPScale = 1.0;
 };
 
 struct ColoredSymbolViewParams : CommonOverlayViewParams

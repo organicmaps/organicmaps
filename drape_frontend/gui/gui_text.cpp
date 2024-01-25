@@ -306,9 +306,7 @@ ref_ptr<dp::Texture> MutableLabel::SetAlphabet(std::string const & alphabet,
                                                ref_ptr<dp::TextureManager> mng)
 {
   strings::UniString str = strings::MakeUniString(alphabet + ".");
-  std::sort(str.begin(), str.end());
-  strings::UniString::iterator it = std::unique(str.begin(), str.end());
-  str.resize(std::distance(str.begin(), it));
+  base::SortUnique(str);
 
   dp::TextureManager::TGlyphsBuffer buffer;
   mng->GetGlyphRegions(str, dp::GlyphManager::kDynamicGlyphSize, buffer);
@@ -549,7 +547,7 @@ void MutableLabelHandle::SetContent(std::string const & content)
 
 m2::PointF MutableLabelDrawer::Draw(ref_ptr<dp::GraphicsContext> context, Params const & params,
                                     ref_ptr<dp::TextureManager> mng,
-                                    dp::Batcher::TFlushFn const & flushFn)
+                                    dp::Batcher::TFlushFn && flushFn)
 {
   uint32_t vertexCount = dp::Batcher::VertexPerQuad * params.m_maxLength;
   uint32_t indexCount = dp::Batcher::IndexPerQuad * params.m_maxLength;
@@ -581,9 +579,9 @@ m2::PointF MutableLabelDrawer::Draw(ref_ptr<dp::GraphicsContext> context, Params
   {
     dp::Batcher batcher(indexCount, vertexCount);
     batcher.SetBatcherHash(static_cast<uint64_t>(df::BatcherBucket::Default));
-    dp::SessionGuard guard(context, batcher, flushFn);
+    dp::SessionGuard guard(context, batcher, std::move(flushFn));
     batcher.InsertListOfStrip(context, staticData.m_state, make_ref(&provider),
-                              move(handle), dp::Batcher::VertexPerQuad);
+                              std::move(handle), dp::Batcher::VertexPerQuad);
   }
 
   return staticData.m_maxPixelSize;

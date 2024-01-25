@@ -27,7 +27,6 @@ set(SRC
   newtype_test.cpp
   non_intersecting_intervals_tests.cpp
   observer_list_test.cpp
-  optional_lock_guard_tests.cpp
   range_iterator_test.cpp
   ref_counted_tests.cpp
   regexp_test.cpp
@@ -44,12 +43,16 @@ set(SRC
   thread_safe_queue_tests.cpp
   threaded_list_test.cpp
   threads_test.cpp
-  timegm_test.cpp
   timer_test.cpp
   uni_string_dfa_test.cpp
   visitor_tests.cpp
 )
 
-omim_add_test_no_platform_init(${PROJECT_NAME} ${SRC})
+# Windows does not have timegm function
+if(NOT WIN32)
+  list(APPEND SRC "timegm_test.cpp")
+endif()
+
+omim_add_test(${PROJECT_NAME} ${SRC} NO_PLATFORM_INIT)
 
 target_link_libraries(${PROJECT_NAME} base)

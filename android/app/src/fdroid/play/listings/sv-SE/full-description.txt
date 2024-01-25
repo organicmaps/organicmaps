@@ -1,0 +1,53 @@
+‣ Vår kostnadsfria app spårar dig inte, innehåller inga annonser och behöver ditt stöd.
+‣ Den förbättras ständigt av bidragsgivare och vårt lilla arbetslag, på vår fritid.
+‣ Om något är fel eller saknas i kartan kan du åtgärda det i <b>OpenStreetMap</b> och se dina ändringar i kommande kartuppdateringar.
+‣ Skriv till oss om navigering eller sökning inte fungerar. Vi svarar på <i>VARJE</i> e-postmeddelande, och vi kommer att åtgärda det så fort som möjligt!
+
+<b>Din återkoppling och ett femstjärnigt betyg är den bästa drivkraften för oss!</b>
+
+Huvudfunktioner:
+
+• Gratis, öppen källkod, inga annonser och ingen spårning
+• Detaljerade kartor utan internetuppkoppling med platser som inte finns på Google Maps, tack vare <b>OpenStreetMap</b>
+• Cykelvägar, vandringsleder och gångbanor
+• Konturlinjer, höjdprofiler, bergstoppar och lutningar
+• Röstvägledd navigering till fots, på cykel och EXPERIMENTELLT för bil
+• Snabb sökning utan internetuppkoppling
+• Bokmärken och import och export av inspelade rutter i formaten KML, KMZ och GPX
+• Mörkt läge för att skona ögonen
+
+Kollektivtrafik, flygfoton och andra käcka funktioner finns inte i Organic Maps <i>än</i>. Men med <i>din hjälp och ditt stöd</i> kan vi stegvis göra världen lite bättre.
+
+Organic Maps är <b>ren och organisk, gjord med kärlek</b>:
+
+• Blixtsnabbt gränssnitt och full funktionalitet utan internetuppkoppling
+• Respekterar din personliga integritet
+• Sparar på ditt batteri
+• Förhindrar oförutsedda mobildataavgifter
+• Användarvänlig och utan onödiga funktioner
+
+Fri från spårare och annat ont:
+
+• Ingen reklam
+• Ingen spårning
+• Ingen datainhämtning
+• Ingen telemetri
+• Inget jobbigt registreringskrav
+• Inga obligatoriska genomgångar
+• Ingen störig skräppost
+• Inga pushnotiser
+• Ingen skräpprogramvara
+• F̶r̶i̶ ̶f̶r̶å̶n̶ ̶b̶e̶k̶ä̶m̶p̶n̶i̶n̶g̶s̶m̶e̶d̶e̶l ̶ H̶e̶l̶t̶ ̶e̶k̶o̶l̶o̶g̶i̶s̶k̶ 100 % <i>Organic</i>!
+
+På Organic Maps anser vi att <b>personlig integritet är en grundläggande mänsklig rättighet</b>:
+
+• Organic Maps är ett oberoende och ideellt utvecklat och drivet projekt med öppen källkod
+• Vi skyddar dig från techjättarnas vakande ögon
+• Var säker oavsett var du befinner dig
+
+Appen innehåller inga spårare och endast absolut nödvändiga behörigheter enligt Exodus Privacy Report.
+
+Besök <b><i>organicmaps.app</i></b> för att läsa mer och få svar på de vanligaste frågorna. Du kan även kontakta oss på @OrganicMapsApp på Telegram.
+
+Vägra övervakning. Välkomna friheten.
+<b>Prova Organic Maps!</b>

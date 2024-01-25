@@ -161,18 +161,25 @@ NSArray<UIImage *> *imagesWithName(NSString *name) {
   } else if ([MWMMapOverlayManager isoLinesEnabled]) {
     btn.imageName = @"btn_isoMap_on";
     [self handleIsolinesState:[MWMMapOverlayManager isolinesState]];
+  } else if ([MWMMapOverlayManager outdoorEnabled]) {
+    btn.imageName = @"btn_isoMap_on";
   } else {
     btn.imageName = @"btn_layers";
   }
 }
 
 - (IBAction)buttonTouchUpInside {
-  if ([MWMMapOverlayManager trafficEnabled]) {
+  BOOL needsToDisableMapLayer =
+  [MWMMapOverlayManager trafficEnabled] ||
+  [MWMMapOverlayManager transitEnabled] ||
+  [MWMMapOverlayManager isoLinesEnabled] ||
+  [MWMMapOverlayManager outdoorEnabled];
+
+  if (needsToDisableMapLayer) {
     [MWMMapOverlayManager setTrafficEnabled:NO];
-  } else if ([MWMMapOverlayManager transitEnabled]) {
     [MWMMapOverlayManager setTransitEnabled:NO];
-  } else if ([MWMMapOverlayManager isoLinesEnabled]) {
     [MWMMapOverlayManager setIsoLinesEnabled:NO];
+    [MWMMapOverlayManager setOutdoorEnabled:NO];
   } else {
     MWMMapViewControlsManager.manager.menuState = MWMBottomMenuStateLayers;
   }
@@ -195,6 +202,9 @@ NSArray<UIImage *> *imagesWithName(NSString *name) {
   [self applyTheme];
 }
 - (void)onIsoLinesStateUpdated {
+  [self applyTheme];
+}
+- (void)onOutdoorStateUpdated {
   [self applyTheme];
 }
 

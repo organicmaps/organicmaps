@@ -27,76 +27,87 @@ namespace
 {
 uint32_t constexpr kInvalidOffset = numeric_limits<uint32_t>::max();
 
-// Get the index for geometry serialization.
+bool IsRealGeomOffset(uint32_t offset)
+{
+  return (offset != kInvalidOffset && offset != kGeomOffsetFallback);
+}
+
+// Get an index of inner geometry scale range.
 // @param[in]  scale:
 // -1 : index for the best geometry
 // -2 : index for the worst geometry
-// default : needed geometry
+// default : index for the request scale
 int GetScaleIndex(SharedLoadInfo const & loadInfo, int scale)
 {
   int const count = loadInfo.GetScalesCount();
-
-  // In case of WorldCoasts we should get correct last geometry.
-  int const lastScale = loadInfo.GetLastScale();
-  if (scale > lastScale)
-    scale = lastScale;
 
   switch (scale)
   {
   case FeatureType::WORST_GEOMETRY: return 0;
   case FeatureType::BEST_GEOMETRY: return count - 1;
   default:
+    // In case of WorldCoasts we should get correct last geometry.
+    int const lastScale = loadInfo.GetLastScale();
+    if (scale > lastScale)
+      scale = lastScale;
+
     for (int i = 0; i < count; ++i)
     {
       if (scale <= loadInfo.GetScale(i))
         return i;
     }
+    ASSERT(false, ("No suitable geometry scale range in the map file."));
     return -1;
   }
 }
 
+// Get an index of outer geometry scale range.
 int GetScaleIndex(SharedLoadInfo const & loadInfo, int scale,
                   FeatureType::GeometryOffsets const & offsets)
 {
-  int ind = -1;
-  int const count = static_cast<int>(offsets.size());
+  int const count = loadInfo.GetScalesCount();
+  ASSERT_EQUAL(count, static_cast<int>(offsets.size()), ());
 
-  // In case of WorldCoasts we should get correct last geometry.
-  int const lastScale = loadInfo.GetLastScale();
-  if (scale > lastScale)
-    scale = lastScale;
-
+  int ind = 0;
   switch (scale)
   {
   case FeatureType::BEST_GEOMETRY:
     // Choose the best existing geometry for the last visible scale.
     ind = count - 1;
-    while (ind >= 0 && offsets[ind] == kInvalidOffset)
+    while (ind >= 0 && !IsRealGeomOffset(offsets[ind]))
       --ind;
+    if (ind >= 0)
+      return ind;
     break;
 
   case FeatureType::WORST_GEOMETRY:
     // Choose the worst existing geometry for the first visible scale.
-    ind = 0;
-    while (ind < count && offsets[ind] == kInvalidOffset)
+    while (ind < count && !IsRealGeomOffset(offsets[ind]))
       ++ind;
+    if (ind < count)
+      return ind;
     break;
 
   default:
   {
-    int const n = loadInfo.GetScalesCount();
-    for (int i = 0; i < n; ++i)
-    {
-      if (scale <= loadInfo.GetScale(i))
-        return (offsets[i] != kInvalidOffset ? i : -1);
-    }
+    // In case of WorldCoasts we should get correct last geometry.
+    int const lastScale = loadInfo.GetLastScale();
+    if (scale > lastScale)
+      scale = lastScale;
+
+    // If there is no geometry for the requested scale (kHasGeoOffsetFlag) fallback to the next more detailed one.
+    while (ind < count && (scale > loadInfo.GetScale(ind) || offsets[ind] == kGeomOffsetFallback))
+      ++ind;
+
+    // Some WorldCoasts features have idx == 0 geometry only and its possible
+    // other features to be visible on e.g. idx == 1 only,
+    // but then they shouldn't be attempted to be drawn using other geom scales.
+    ASSERT_LESS(ind, count, ("No suitable geometry scale range in the map file."));
+    return (offsets[ind] != kInvalidOffset ? ind : -1);
   }
   }
 
-  if (ind >= 0 && ind < count)
-    return ind;
-
-  ASSERT(false, ("Feature should have any geometry ..."));
+  ASSERT(false, ("A feature doesn't have any geometry."));
   return -1;
 }
 
@@ -184,7 +195,7 @@ FeatureType::FeatureType(SharedLoadInfo const * loadInfo, vector<uint8_t> && buf
 {
   CHECK(m_loadInfo, ());
 
-  m_header = Header(m_data);
+  m_header = Header(m_data); // Parse the header and optional name/layer/addinfo.
 }
 
 std::unique_ptr<FeatureType> FeatureType::CreateFromMapObject(osm::MapObject const & emo)
@@ -206,13 +217,13 @@ std::unique_ptr<FeatureType> FeatureType::CreateFromMapObject(osm::MapObject con
     break;
   case feature::GeomType::Line:
     headerGeomType = HeaderGeomType::Line;
-    ft->m_points = FeatureType::Points(emo.GetPoints().begin(), emo.GetPoints().end());
+    assign_range(ft->m_points, emo.GetPoints());
     for (auto const & p : ft->m_points)
       ft->m_limitRect.Add(p);
     break;
   case feature::GeomType::Area:
     headerGeomType = HeaderGeomType::Area;
-    ft->m_triangles = FeatureType::Points(emo.GetTriangesAsPoints().begin(), emo.GetTriangesAsPoints().end());
+    assign_range(ft->m_triangles, emo.GetTriangesAsPoints());
     for (auto const & p : ft->m_triangles)
       ft->m_limitRect.Add(p);
     break;
@@ -252,7 +263,7 @@ feature::GeomType FeatureType::GetGeomType() const
   {
   case HeaderGeomType::Line: return GeomType::Line;
   case HeaderGeomType::Area: return GeomType::Area;
-  default: return GeomType::Point;
+  default: return GeomType::Point; // HeaderGeomType::Point/PointEx
   }
 }
 
@@ -318,12 +329,19 @@ m2::PointD FeatureType::GetCenter()
 int8_t FeatureType::GetLayer()
 {
   if ((m_header & feature::HEADER_MASK_HAS_LAYER) == 0)
-    return 0;
+    return feature::LAYER_EMPTY;
 
   ParseCommon();
   return m_params.layer;
 }
 
+// TODO: there is a room to store more information in Header2 (geometry header),
+// but it needs a mwm version change.
+// 1st bit - inner / outer flag
+// 4 more bits - inner points/triangles count or outer geom offsets mask
+//   (but actually its enough to store number of the first existing geom level only - 2 bits)
+// 3-5 more bits are spare
+// One of them could be used for a closed line flag to avoid storing identical first + last points.
 void FeatureType::ParseHeader2()
 {
   if (m_parsed.m_header2)
@@ -332,23 +350,21 @@ void FeatureType::ParseHeader2()
   CHECK(m_loadInfo, ());
   ParseCommon();
 
-  uint8_t ptsCount = 0, ptsMask = 0, trgCount = 0, trgMask = 0;
+  uint8_t elemsCount = 0, geomScalesMask = 0;
   BitSource bitSource(m_data.data() + m_offsets.m_header2);
   auto const headerGeomType = static_cast<HeaderGeomType>(Header(m_data) & HEADER_MASK_GEOMTYPE);
 
-  if (headerGeomType == HeaderGeomType::Line)
+  if (headerGeomType == HeaderGeomType::Line || headerGeomType == HeaderGeomType::Area)
   {
-    ptsCount = bitSource.Read(4);
-    if (ptsCount == 0)
-      ptsMask = bitSource.Read(4);
+    elemsCount = bitSource.Read(4);
+    // For outer geometry read the geom scales (offsets) mask.
+    // For inner geometry remaining 4 bits are not used.
+    if (elemsCount == 0)
+      geomScalesMask = bitSource.Read(4);
     else
-      ASSERT_GREATER(ptsCount, 1, ());
-  }
-  else if (headerGeomType == HeaderGeomType::Area)
-  {
-    trgCount = bitSource.Read(4);
-    if (trgCount == 0)
-      trgMask = bitSource.Read(4);
+    {
+      ASSERT(headerGeomType == HeaderGeomType::Area || elemsCount > 1, ());
+    }
   }
 
   ArrayByteSource src(bitSource.RoundPtr());
@@ -356,9 +372,14 @@ void FeatureType::ParseHeader2()
 
   if (headerGeomType == HeaderGeomType::Line)
   {
-    if (ptsCount > 0)
+    if (elemsCount > 0)
     {
-      int const count = ((ptsCount - 2) + 4 - 1) / 4;
+      // Inner geometry.
+      // Number of bytes in simplification mask:
+      // first and last points are never simplified/discarded,
+      // 2 bits are used per each other point, i.e.
+      // 3-6 pts - 1 byte, 7-10 pts - 2b, 11-14 pts - 3b.
+      int const count = ((elemsCount - 2) + 4 - 1) / 4;
       ASSERT_LESS(count, 4, ());
 
       for (int i = 0; i < count; ++i)
@@ -368,29 +389,34 @@ void FeatureType::ParseHeader2()
       }
 
       auto const * start = src.PtrUint8();
-      src = ArrayByteSource(serial::LoadInnerPath(start, ptsCount, cp, m_points));
+      src = ArrayByteSource(serial::LoadInnerPath(start, elemsCount, cp, m_points));
       // TODO: here and further m_innerStats is needed for stats calculation in generator_tool only
-      m_innerStats.m_points = static_cast<uint32_t>(src.PtrUint8() - start);
+      m_innerStats.m_points = CalcOffset(src, start);
     }
     else
     {
+      // Outer geometry: first (base) point is stored in the header still.
+      auto const * start = src.PtrUint8();
       m_points.emplace_back(serial::LoadPoint(src, cp));
-      ReadOffsets(*m_loadInfo, src, ptsMask, m_offsets.m_pts);
+      m_innerStats.m_firstPoints = CalcOffset(src, start);
+      ReadOffsets(*m_loadInfo, src, geomScalesMask, m_offsets.m_pts);
     }
   }
   else if (headerGeomType == HeaderGeomType::Area)
   {
-    if (trgCount > 0)
+    if (elemsCount > 0)
     {
-      trgCount += 2;
+      // Inner geometry (strips).
+      elemsCount += 2;
 
       auto const * start = src.PtrUint8();
-      src = ArrayByteSource(serial::LoadInnerTriangles(start, trgCount, cp, m_triangles));
+      src = ArrayByteSource(serial::LoadInnerTriangles(start, elemsCount, cp, m_triangles));
       m_innerStats.m_strips = CalcOffset(src, start);
     }
     else
     {
-      ReadOffsets(*m_loadInfo, src, trgMask, m_offsets.m_trg);
+      // Outer geometry.
+      ReadOffsets(*m_loadInfo, src, geomScalesMask, m_offsets.m_trg);
     }
   }
   // Size of the whole header incl. inner geometry / triangles.
@@ -431,7 +457,7 @@ void FeatureType::ParseGeometry(int scale)
       {
         ASSERT_EQUAL(pointsCount, 1, ());
 
-        // outer geometry
+        // Outer geometry.
         int const ind = GetScaleIndex(*m_loadInfo, scale, m_offsets.m_pts);
         if (ind != -1)
         {
@@ -445,19 +471,16 @@ void FeatureType::ParseGeometry(int scale)
       }
       else
       {
-        // filter inner geometry
-
-        FeatureType::Points points;
+        // Filter inner geometry according to points simplification mask.
+        PointsBufferT points;
         points.reserve(pointsCount);
 
-        int const scaleIndex = GetScaleIndex(*m_loadInfo, scale);
-        ASSERT_LESS(scaleIndex, m_loadInfo->GetScalesCount(), ());
-
+        int const ind = GetScaleIndex(*m_loadInfo, scale);
         points.emplace_back(m_points.front());
         for (size_t i = 1; i + 1 < pointsCount; ++i)
         {
-          // check for point visibility in needed scaleIndex
-          if (static_cast<int>((m_ptsSimpMask >> (2 * (i - 1))) & 0x3) <= scaleIndex)
+          // Check if the point is visible in the requested scale index.
+          if (static_cast<int>((m_ptsSimpMask >> (2 * (i - 1))) & 0x3) <= ind)
             points.emplace_back(m_points[i]);
         }
         points.emplace_back(m_points.back());
@@ -473,8 +496,7 @@ void FeatureType::ParseGeometry(int scale)
 
 FeatureType::GeomStat FeatureType::GetOuterGeometryStats()
 {
-  ASSERT(!m_parsed.m_points, ("Geometry had been parsed already!"));
-  CHECK(m_loadInfo, ());
+  CHECK(m_loadInfo && m_parsed.m_header2 && !m_parsed.m_points, ("Call geometry stats first and once!"));
   size_t const scalesCount = m_loadInfo->GetScalesCount();
   ASSERT_LESS_OR_EQUAL(scalesCount, DataHeader::kMaxScalesCount, ("MWM has too many geometry scales!"));
   FeatureType::GeomStat res;
@@ -488,12 +510,12 @@ FeatureType::GeomStat FeatureType::GetOuterGeometryStats()
       // Outer geometry present.
       ASSERT_EQUAL(pointsCount, 1, ());
 
-      FeatureType::Points points;
+      PointsBufferT points;
 
       for (size_t ind = 0; ind < scalesCount; ++ind)
       {
-        auto const scaleOffset = m_offsets.m_pts[ind];
-        if (scaleOffset != kInvalidOffset)
+        uint32_t const scaleOffset = m_offsets.m_pts[ind];
+        if (IsRealGeomOffset(scaleOffset))
         {
           points.clear();
           points.emplace_back(m_points.front());
@@ -533,7 +555,7 @@ void FeatureType::ParseTriangles(int scale)
     {
       if (m_triangles.empty())
       {
-        auto const ind = GetScaleIndex(*m_loadInfo, scale, m_offsets.m_trg);
+        int const ind = GetScaleIndex(*m_loadInfo, scale, m_offsets.m_trg);
         if (ind != -1)
         {
           ReaderSource<FilesContainerR::TReader> src(m_loadInfo->GetTrianglesReader(ind));
@@ -550,8 +572,7 @@ void FeatureType::ParseTriangles(int scale)
 
 FeatureType::GeomStat FeatureType::GetOuterTrianglesStats()
 {
-  ASSERT(!m_parsed.m_triangles, ("Triangles had been parsed already!"));
-  CHECK(m_loadInfo, ());
+  CHECK(m_loadInfo && m_parsed.m_header2 && !m_parsed.m_triangles, ("Call geometry stats first and once!"));
   int const scalesCount = m_loadInfo->GetScalesCount();
   ASSERT_LESS_OR_EQUAL(scalesCount, static_cast<int>(DataHeader::kMaxScalesCount), ("MWM has too many geometry scales!"));
   FeatureType::GeomStat res;
@@ -563,15 +584,16 @@ FeatureType::GeomStat FeatureType::GetOuterTrianglesStats()
     {
       for (int ind = 0; ind < scalesCount; ++ind)
       {
-        if (m_offsets.m_trg[ind] != kInvalidOffset)
+        uint32_t const scaleOffset = m_offsets.m_trg[ind];
+        if (IsRealGeomOffset(scaleOffset))
         {
           m_triangles.clear();
 
           ReaderSource<FilesContainerR::TReader> src(m_loadInfo->GetTrianglesReader(ind));
-          src.Skip(m_offsets.m_trg[ind]);
+          src.Skip(scaleOffset);
           serial::LoadOuterTriangles(src, m_loadInfo->GetGeometryCodingParams(ind), m_triangles);
 
-          res.m_sizes[ind] = static_cast<uint32_t>(src.Pos() - m_offsets.m_trg[ind]);
+          res.m_sizes[ind] = static_cast<uint32_t>(src.Pos() - scaleOffset);
           res.m_elements[ind] = m_triangles.size() / 3;
         }
       }
@@ -628,26 +650,12 @@ StringUtf8Multilang const & FeatureType::GetNames()
   return m_params.name;
 }
 
-string FeatureType::DebugString(int scale)
+std::string FeatureType::DebugString()
 {
-  ParseCommon();
+  ParseGeometryAndTriangles(FeatureType::BEST_GEOMETRY);
 
-  Classificator const & c = classif();
+  std::string res = DebugPrint(m_id) + " " + DebugPrint(GetGeomType());
 
-  string res = "Types";
-  uint32_t const count = GetTypesCount();
-  for (size_t i = 0; i < count; ++i)
-    res += (" : " + c.GetReadableObjectName(m_types[i]));
-  res += "\n";
-
-  auto const paramsStr = m_params.DebugString();
-  if (!paramsStr.empty())
-  {
-    res += paramsStr;
-    res += "\n";
-  }
-
-  ParseGeometryAndTriangles(scale);
   m2::PointD keyPoint;
   switch (GetGeomType())
   {
@@ -657,20 +665,13 @@ string FeatureType::DebugString(int scale)
 
   case GeomType::Line:
     if (m_points.empty())
-    {
-      ASSERT(scale != FeatureType::WORST_GEOMETRY && scale != FeatureType::BEST_GEOMETRY, (scale));
-      return res;
-    }
+      break;
     keyPoint = m_points.front();
     break;
 
   case GeomType::Area:
     if (m_triangles.empty())
-    {
-      ASSERT(scale != FeatureType::WORST_GEOMETRY && scale != FeatureType::BEST_GEOMETRY, (scale));
-      return res;
-    }
-
+      break;
     ASSERT_GREATER(m_triangles.size(), 2, ());
     keyPoint = (m_triangles[0] + m_triangles[1] + m_triangles[2]) / 3.0;
     break;
@@ -679,9 +680,21 @@ string FeatureType::DebugString(int scale)
     ASSERT(false, ());
     break;
   }
-
   // Print coordinates in (lat,lon) for better investigation capabilities.
-  res += "Key point: " + DebugPrint(keyPoint) + "; " + DebugPrint(mercator::ToLatLon(keyPoint));
+  res += ": " + DebugPrint(keyPoint) + "; " + DebugPrint(mercator::ToLatLon(keyPoint)) + "\n";
+
+  Classificator const & c = classif();
+
+  res += "Types";
+  uint32_t const count = GetTypesCount();
+  for (size_t i = 0; i < count; ++i)
+    res += (" : " + c.GetReadableObjectName(m_types[i]));
+  res += "\n";
+
+  auto const paramsStr = m_params.DebugString();
+  if (!paramsStr.empty())
+    res += paramsStr + "\n";
+
   return res;
 }
 
@@ -691,7 +704,7 @@ m2::RectD FeatureType::GetLimitRect(int scale)
 
   if (m_triangles.empty() && m_points.empty() && (GetGeomType() != GeomType::Point))
   {
-    ASSERT(false, ());
+    CHECK(false, (m_id));
 
     // This function is called during indexing, when we need
     // to check visibility according to feature sizes.
@@ -704,7 +717,6 @@ m2::RectD FeatureType::GetLimitRect(int scale)
 
 m2::RectD const & FeatureType::GetLimitRectChecked() const
 {
-  /// @todo Replace with ASSERTs later.
   CHECK(m_parsed.m_points && m_parsed.m_triangles, (m_id));
   CHECK(m_limitRect.IsValid(), (m_id));
   return m_limitRect;
@@ -735,23 +747,22 @@ m2::PointD const & FeatureType::GetPoint(size_t i) const
   return m_points[i];
 }
 
-vector<m2::PointD> FeatureType::GetTrianglesAsPoints(int scale)
+FeatureType::PointsBufferT const & FeatureType::GetPoints(int scale)
+{
+  ParseGeometry(scale);
+  return m_points;
+}
+
+FeatureType::PointsBufferT const & FeatureType::GetTrianglesAsPoints(int scale)
 {
   ParseTriangles(scale);
-  return {m_triangles.begin(), m_triangles.end()};
+  return m_triangles;
 }
 
 void FeatureType::ParseGeometryAndTriangles(int scale)
 {
   ParseGeometry(scale);
   ParseTriangles(scale);
-}
-
-std::pair<std::string_view, std::string_view> FeatureType::GetPreferredNames()
-{
-  feature::NameParamsOut out;
-  GetPreferredNames(false /* allowTranslit */, StringUtf8Multilang::GetLangIndex(languages::GetCurrentNorm()), out);
-  return { out.primary, out.secondary };
 }
 
 void FeatureType::GetPreferredNames(bool allowTranslit, int8_t deviceLang, feature::NameParamsOut & out)
@@ -805,7 +816,9 @@ string_view FeatureType::GetName(int8_t lang)
   // We don't store empty names. UPD: We do for coast features :)
   string_view name;
   if (m_params.name.GetString(lang, name))
+  {
     ASSERT(!name.empty() || m_id.m_mwmId.GetInfo()->GetType() == MwmInfo::COASTS, ());
+  }
 
   return name;
 }
@@ -818,7 +831,7 @@ uint8_t FeatureType::GetRank()
 
 uint64_t FeatureType::GetPopulation() { return feature::RankToPopulation(GetRank()); }
 
-string const & FeatureType::GetRoadNumber()
+string const & FeatureType::GetRef()
 {
   ParseCommon();
   return m_params.ref;

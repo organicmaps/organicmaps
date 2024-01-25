@@ -59,8 +59,7 @@ void AddElementToCache(cache::IntermediateDataWriter & cache, OsmElement && elem
   {
     // Store way.
     WayElement way(element.m_id);
-    for (uint64_t nd : element.Nodes())
-      way.m_nodes.push_back(nd);
+    way.m_nodes = std::move(element.NodesRef());
 
     if (way.IsValid())
       cache.AddWay(element.m_id, way);
@@ -70,7 +69,7 @@ void AddElementToCache(cache::IntermediateDataWriter & cache, OsmElement && elem
   {
     // store relation
     RelationElement relation;
-    for (auto & member : element.Members())
+    for (auto & member : element.MembersRef())
     {
       switch (member.m_type)
       {
@@ -88,7 +87,7 @@ void AddElementToCache(cache::IntermediateDataWriter & cache, OsmElement && elem
       }
     }
 
-    for (auto & tag : element.Tags())
+    for (auto & tag : element.TagsRef())
       relation.m_tags.emplace(std::move(tag.m_key), std::move(tag.m_value));
 
     if (relation.IsValid())
@@ -98,18 +97,6 @@ void AddElementToCache(cache::IntermediateDataWriter & cache, OsmElement && elem
   }
   default:
     break;
-  }
-}
-
-void BuildIntermediateDataFromXML(SourceReader & stream, cache::IntermediateDataWriter & cache,
-                                  TownsDumper & towns)
-{
-  ProcessorOsmElementsFromXml processorOsmElementsFromXml(stream);
-  OsmElement element;
-  while (processorOsmElementsFromXml.TryRead(element))
-  {
-    towns.CheckElement(element);
-    AddElementToCache(cache, std::move(element));
   }
 }
 
@@ -123,19 +110,6 @@ void ProcessOsmElementsFromXML(SourceReader & stream, std::function<void(OsmElem
     // It is safe to use `element` here as `Clear` will restore the state after the move.
     element.Clear();
   }
-}
-
-void BuildIntermediateDataFromO5M(SourceReader & stream, cache::IntermediateDataWriter & cache,
-                                  TownsDumper & towns)
-{
-  auto processor = [&](OsmElement && element) {
-    towns.CheckElement(element);
-    AddElementToCache(cache, std::move(element));
-  };
-
-  // Use only this function here, look into ProcessOsmElementsFromO5M
-  // for more details.
-  ProcessOsmElementsFromO5M(stream, processor);
 }
 
 void ProcessOsmElementsFromO5M(SourceReader & stream, std::function<void(OsmElement &&)> const & processor)
@@ -211,12 +185,16 @@ bool ProcessorOsmElementsFromO5M::TryRead(OsmElement & element)
   for (auto const & tag : entity.Tags())
     element.AddTag(tag.key, tag.value);
 
+  element.Validate();
   ++m_pos;
   return true;
 }
 
 ProcessorOsmElementsFromXml::ProcessorOsmElementsFromXml(SourceReader & stream)
-  : m_xmlSource([&, this](auto * element) { m_queue.emplace(*element); })
+  : m_xmlSource([&, this](OsmElement && e)
+    {
+      m_queue.emplace(std::move(e));
+    })
   , m_parser(stream, m_xmlSource)
 {
 }
@@ -228,12 +206,15 @@ bool ProcessorOsmElementsFromXml::TryReadFromQueue(OsmElement & element)
 
   element = m_queue.front();
   m_queue.pop();
+
+  element.Validate();
   return true;
 }
 
 bool ProcessorOsmElementsFromXml::TryRead(OsmElement & element)
 {
-  do {
+  do
+  {
     if (TryReadFromQueue(element))
       return true;
   } while (m_parser.Read());
@@ -255,13 +236,19 @@ bool GenerateIntermediateData(feature::GenerateInfo & info)
 
   LOG(LINFO, ("Data source:", info.m_osmFileName));
 
+  auto const processor = [&](OsmElement && element)
+  {
+    towns.CheckElement(element);
+    AddElementToCache(cache, std::move(element));
+  };
+
   switch (info.m_osmFileType)
   {
   case feature::GenerateInfo::OsmSourceType::XML:
-    BuildIntermediateDataFromXML(reader, cache, towns);
+    ProcessOsmElementsFromXML(reader, processor);
     break;
   case feature::GenerateInfo::OsmSourceType::O5M:
-    BuildIntermediateDataFromO5M(reader, cache, towns);
+    ProcessOsmElementsFromO5M(reader, processor);
     break;
   }
 

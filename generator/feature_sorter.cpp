@@ -7,22 +7,19 @@
 #include "generator/gen_mwm_info.hpp"
 #include "generator/geometry_holder.hpp"
 #include "generator/region_meta.hpp"
+#include "generator/search_index_builder.hpp"
 
 #include "routing/routing_helpers.hpp"
 
 #include "indexer/dat_section_header.hpp"
-#include "indexer/feature_algo.hpp"
 #include "indexer/feature_impl.hpp"
-#include "indexer/feature_processor.hpp"
 #include "indexer/scales.hpp"
 #include "indexer/scales_patch.hpp"
 
-#include "platform/country_file.hpp"
 #include "platform/mwm_version.hpp"
 #include "platform/platform.hpp"
 
 #include "coding/files_container.hpp"
-#include "coding/internal/file_data.hpp"
 #include "coding/point_coding.hpp"
 #include "coding/succinct_mapper.hpp"
 
@@ -38,18 +35,18 @@
 #include <memory>
 #include <vector>
 
+
 namespace feature
 {
+
 class FeaturesCollector2 : public FeaturesCollector
 {
 public:
-  static uint32_t constexpr kInvalidFeatureId = std::numeric_limits<uint32_t>::max();
-
   FeaturesCollector2(std::string const & name, feature::GenerateInfo const & info, DataHeader const & header,
                      RegionData const & regionData, uint32_t versionDate)
     : FeaturesCollector(info.GetTargetFileName(name, FEATURES_FILE_TAG))
     , m_filename(info.GetTargetFileName(name))
-    , m_boundaryPostcodesEnricher(info.GetIntermediateFileName(BOUNDARY_POSTCODE_TMP_FILENAME))
+    , m_boundaryPostcodesEnricher(info.GetIntermediateFileName(BOUNDARY_POSTCODES_FILENAME))
     , m_header(header)
     , m_regionData(regionData)
     , m_versionDate(versionDate)
@@ -61,7 +58,7 @@ public:
       m_trgFile.push_back(std::make_unique<TmpFile>(info.GetIntermediateFileName(name, TRIANGLE_FILE_TAG + postfix)));
     }
 
-    m_addrFile = std::make_unique<FileWriter>(info.GetIntermediateFileName(name + DATA_FILE_EXTENSION, TEMP_ADDR_FILENAME));
+    m_addrFile = std::make_unique<FileWriter>(info.GetIntermediateFileName(name + DATA_FILE_EXTENSION, TEMP_ADDR_EXTENSION));
   }
 
   void Finish() override
@@ -144,106 +141,169 @@ public:
     }
   }
 
-  void SetBounds(m2::RectD bounds) { m_bounds = bounds; }
+  void SetBounds(m2::RectD const & bounds) { m_bounds = bounds; }
 
-  uint32_t operator()(FeatureBuilder & fb)
+  void operator()(FeatureBuilder & fb)
   {
     GeometryHolder holder([this](int i) -> FileWriter & { return *m_geoFile[i]; },
                           [this](int i) -> FileWriter & { return *m_trgFile[i]; }, fb, m_header);
 
-    bool const isLine = fb.IsLine();
-    bool const isArea = fb.IsArea();
-
-    int const scalesStart = static_cast<int>(m_header.GetScalesCount()) - 1;
-    for (int i = scalesStart; i >= 0; --i)
+    if (!fb.IsPoint())
     {
-      int const level = m_header.GetScale(i);
-      if (fb.IsDrawableInRange(scales::PatchMinDrawableScale(i > 0 ? m_header.GetScale(i - 1) + 1 : 0),
-                               scales::PatchMaxDrawableScale(level)))
+      bool const isLine = fb.IsLine();
+      bool const isArea = fb.IsArea();
+      CHECK(!isLine || !isArea, (fb.GetMostGenericOsmId()));
+
+      m2::RectD const & rect = fb.GetLimitRect();
+      Polygons const & polys = fb.GetGeometry();
+      bool const isCoast = fb.IsCoastCell();
+
+      int const scalesStart = static_cast<int>(m_header.GetScalesCount()) - 1;
+      for (int i = scalesStart; i >= 0; --i)
       {
-        bool const isCoast = fb.IsCoastCell();
-        m2::RectD const rect = fb.GetLimitRect();
-
-        // Simplify and serialize geometry.
-        Points points;
-
-        // Do not change linear geometry for the upper scale.
-        if (isLine && i == scalesStart && IsCountry() && routing::IsRoad(fb.GetTypes()))
-          points = holder.GetSourcePoints();
-        else
-          SimplifyPoints(level, isCoast, rect, holder.GetSourcePoints(), points);
-
-        if (isLine)
-          holder.AddPoints(points, i);
-
-        if (isArea && holder.NeedProcessTriangles())
+        int level = m_header.GetScale(i);
+        /// @todo: Re-checks geom limit rect size via IsDrawableForIndexGeometryOnly()
+        /// which was already checked in CalculateMidPoints.
+        if (fb.IsDrawableInRange(scales::PatchMinDrawableScale(i > 0 ? m_header.GetScale(i - 1) + 1 : 0),
+                                 scales::PatchMaxDrawableScale(level)))
         {
-          // simplify and serialize triangles
-          bool const good = isCoast || IsGoodArea(points, level);
-
-          // At this point we don't need last point equal to first.
-          CHECK_GREATER(points.size(), 0, ());
-          points.pop_back();
-
-          Polygons const & polys = fb.GetGeometry();
-          if (polys.size() == 1 && good && holder.TryToMakeStrip(points))
-            continue;
-
-          Polygons simplified;
-          if (good)
+          // Increment zoom level for coastline polygons (check and simplification)
+          // for better visual quality in the first geometry batch or whole WorldCoasts.
+          /// @todo Probably, better to keep 3 zooms (skip trg0 with fallback to trg1)?
+          if (isCoast)
           {
-            simplified.push_back({});
-            simplified.back().swap(points);
+            if (level <= scales::GetUpperWorldScale())
+              ++level;
+            if (i == 0)
+              ++level;
           }
 
-          auto iH = polys.begin();
-          for (++iH; iH != polys.end(); ++iH)
+          // Simplify and serialize geometry.
+          // The same line simplification algo is used both for lines
+          // and areas. For the latter polygon's outline is simplified and
+          // tesselated afterwards. But e.g. simplifying a circle from 50
+          // to 10 points will not produce 5 times less triangles.
+          // Hence difference between numbers of triangles between trg0 and trg1
+          // is much higher than between trg1 and trg2.
+          Points points;
+
+          // Do not change linear geometry for the upper scale.
+          if (isLine && i == scalesStart && IsCountry() && routing::IsRoad(fb.GetTypes()))
+            points = holder.GetSourcePoints();
+          else if (isLine || holder.NeedProcessTriangles())
+            SimplifyPoints(level, isCoast, rect, holder.GetSourcePoints(), points);
+
+          if (isLine)
+            holder.AddPoints(points, i);
+
+          if (isArea && holder.NeedProcessTriangles())
           {
-            simplified.push_back({});
+            // Simplify and serialize triangles.
+            Polygons simplified;
 
-            SimplifyPoints(level, isCoast, rect, *iH, simplified.back());
-
-            // Increment level check for coastline polygons for the first scale level.
-            // This is used for better coastlines quality.
-            if (IsGoodArea(simplified.back(), (isCoast && i == 0) ? level + 1 : level))
+            bool const isGood = isCoast || scales::IsGoodOutlineForLevel(level, points);
+            if (isGood)
             {
-              // At this point we don't need last point equal to first.
-              CHECK_GREATER(simplified.back().size(), 0, ());
-              simplified.back().pop_back();
+              // A polygon's closed outline has 3 points and the 4th should be same as the first.
+              CHECK_GREATER_OR_EQUAL(points.size(), 4, ());
+              points.pop_back();
+
+              if (polys.size() == 1 && holder.TryToMakeStrip(points))
+              {
+                // No need to iterate lower zooms if we made a valid strip.
+                break;
+              }
+
+              simplified.push_back(std::move(points));
             }
             else
             {
-              // Remove small polygon.
-              simplified.pop_back();
+              LOG(LDEBUG, ("Area: too small or degenerate 1st (outer) polygon of", polys.size(),
+                           ", points count", points.size(), "at scale", i, DebugPrint(fb)));
+              continue;
             }
-          }
 
-          if (!simplified.empty())
-            holder.AddTriangles(simplified, i);
+            auto iH = polys.begin();
+            for (++iH; iH != polys.end(); ++iH)
+            {
+              points.clear();
+              SimplifyPoints(level, isCoast, rect, *iH, points);
+
+              if (scales::IsGoodOutlineForLevel(level, points))
+              {
+                // A polygon's closed outline has 3 points and the 4th should be same as the first.
+                CHECK_GREATER_OR_EQUAL(points.size(), 4, ());
+                points.pop_back();
+                simplified.push_back(std::move(points));
+              }
+              else
+              {
+                LOG(LDEBUG, ("Area: too small or degenerate 2nd+ (inner) polygon of", polys.size(),
+                             ", points count", points.size(), "at scale", i, DebugPrint(fb)));
+              }
+            }
+
+            if (!simplified.empty())
+              holder.AddTriangles(simplified, i);
+          }
         }
       }
     }
 
-    uint32_t featureId = kInvalidFeatureId;
+    // Override "alt_name" with synonym for Country or State for better search matching.
+    /// @todo Probably, we should store and index OSM's short_name tag.
+    if (indexer::SynonymsHolder::CanApply(fb.GetTypes()))
+    {
+      int8_t const langs[] = {
+        StringUtf8Multilang::kDefaultCode,
+        StringUtf8Multilang::kEnglishCode,
+        StringUtf8Multilang::kInternationalCode
+      };
+
+      bool added = false;
+      for (int8_t lang : langs)
+      {
+        m_synonyms.ForEach(std::string(fb.GetName(lang)), [&fb, &added](std::string const & synonym)
+        {
+          // Assign first synonym, skip others.
+          if (added)
+            return;
+
+          auto oldName = fb.GetName(StringUtf8Multilang::kAltNameCode);
+          if (!oldName.empty())
+            LOG(LWARNING, ("Replace", oldName, "with", synonym, "for", fb.GetMostGenericOsmId()));
+
+          fb.SetName(StringUtf8Multilang::kAltNameCode, synonym);
+          added = true;
+        });
+
+        if (added)
+          break;
+      }
+    }
+
     auto & buffer = holder.GetBuffer();
     if (fb.PreSerializeAndRemoveUselessNamesForMwm(buffer))
     {
       fb.SerializeForMwm(buffer, m_header.GetDefGeometryCodingParams());
 
-      featureId = WriteFeatureBase(buffer.m_buffer, fb);
+      uint32_t const featureId = WriteFeatureBase(buffer.m_buffer, fb);
 
-      fb.GetAddressData().SerializeForMwmTmp(*m_addrFile);
+      // Order is important here:
 
+      // 1. Update postcode info.
+      m_boundaryPostcodesEnricher.Enrich(fb);
+
+      // 2. Write address to a file (with possible updated postcode above).
+      fb.GetParams().SerializeAddress(*m_addrFile);
+
+      // 3. Save metadata.
       if (!fb.GetMetadata().Empty())
-      {
-        m_boundaryPostcodesEnricher.Enrich(fb);
         m_metadataBuilder.Put(featureId, fb.GetMetadata());
-      }
 
       if (fb.HasOsmIds())
         m_osm2ft.AddIds(generator::MakeCompositeId(fb), featureId);
     }
-    return featureId;
   }
 
 private:
@@ -259,32 +319,14 @@ private:
 
   using TmpFiles = std::vector<std::unique_ptr<TmpFile>>;
 
-  static bool IsGoodArea(Points const & poly, int level)
-  {
-    // Area has the same first and last points. That's why minimal number of points for
-    // area is 4.
-    if (poly.size() < 4)
-      return false;
-
-    m2::RectD r;
-    CalcRect(poly, r);
-
-    return scales::IsGoodForLevel(level, r);
-  }
-
   bool IsCountry() const { return m_header.GetType() == feature::DataHeader::MapType::Country; }
 
   static void SimplifyPoints(int level, bool isCoast, m2::RectD const & rect, Points const & in, Points & out)
   {
     if (isCoast)
-    {
-      DistanceToSegmentWithRectBounds fn(rect);
-      feature::SimplifyPoints(fn, level, in, out);
-    }
+      feature::SimplifyPoints(DistanceToSegmentWithRectBounds(rect), level, in, out);
     else
-    {
       feature::SimplifyPoints(m2::SquaredDistanceFromSegmentToPoint(), level, in, out);
-    }
   }
 
   std::string m_filename;
@@ -304,6 +346,8 @@ private:
 
   generator::OsmID2FeatureID m_osm2ft;
 
+  indexer::SynonymsHolder m_synonyms;
+
   DISALLOW_COPY_AND_MOVE(FeaturesCollector2);
 };
 
@@ -313,9 +357,11 @@ bool GenerateFinalFeatures(feature::GenerateInfo const & info, std::string const
   std::string const srcFilePath = info.GetTmpFileName(name);
   std::string const dataFilePath = info.GetTargetFileName(name);
 
+  LOG(LINFO, ("Calculating middle points"));
   // Store cellIds for middle points.
   CalculateMidPoints midPoints;
-  ForEachFeatureRawFormat(srcFilePath, [&midPoints](FeatureBuilder const & fb, uint64_t pos) {
+  ForEachFeatureRawFormat(srcFilePath, [&midPoints](FeatureBuilder const & fb, uint64_t pos)
+  {
     midPoints(fb, pos);
   });
 
@@ -348,8 +394,10 @@ bool GenerateFinalFeatures(feature::GenerateInfo const & info, std::string const
     try
     {
       // FeaturesCollector2 will create temporary file `dataFilePath + FEATURES_FILE_TAG`.
-      // We cannot remove it in ~FeaturesCollector2(), we need to remove it in SCOPE_GUARD.
+      // Can't remove file in ~FeaturesCollector2() because of using it in base class dtor logic.
       SCOPE_GUARD(_, [&]() { Platform::RemoveFileIfExists(info.GetTargetFileName(name, FEATURES_FILE_TAG)); });
+      LOG(LINFO, ("Simplifying and filtering geometry for all geom levels"));
+
       FeaturesCollector2 collector(name, info, header, regionData, info.m_versionDate);
       for (auto const & point : midPoints.GetVector())
       {
@@ -361,10 +409,14 @@ bool GenerateFinalFeatures(feature::GenerateInfo const & info, std::string const
         collector(fb);
       }
 
+      LOG(LINFO, ("Writing features' data to", dataFilePath));
+
       // Update bounds with the limit rect corresponding to region borders.
       // Bounds before update can be too big because of big invisible features like a
       // relation that contains an entire country's border.
       // Borders file may be unavailable when building test mwms.
+      /// @todo m_targetDir is a final MWM folder like 220702, so there is NO borders folder inside,
+      /// and the next function call always returns false.
       m2::RectD bordersRect;
       if (borders::GetBordersRect(info.m_targetDir, name, bordersRect))
         collector.SetBounds(bordersRect);

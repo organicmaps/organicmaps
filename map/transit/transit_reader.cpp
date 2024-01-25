@@ -9,7 +9,7 @@
 
 #include "indexer/data_source.hpp"
 #include "indexer/drawing_rules.hpp"
-#include "indexer/drules_include.hpp"
+#include "indexer/drules_include.hpp"   // needed despite of IDE warning
 #include "indexer/feature_algo.hpp"
 
 #include "coding/reader.hpp"
@@ -50,7 +50,7 @@ void ReadTransitTask::Init(uint64_t id, MwmSet::MwmId const & mwmId,
   else
   {
     m_loadSubset = true;
-    m_transitInfo = move(transitInfo);
+    m_transitInfo = std::move(transitInfo);
   }
   m_success = false;
 }
@@ -89,7 +89,7 @@ void ReadTransitTask::Do()
     FillItemsByIdMap(graphData.GetStops(), m_transitInfo->m_stopsSubway);
     for (auto const & stop : m_transitInfo->m_stopsSubway)
     {
-      if (stop.second.GetFeatureId() != routing::transit::kInvalidFeatureId)
+      if (stop.second.GetFeatureId() != kInvalidFeatureId)
       {
         auto const featureId = FeatureID(m_mwmId, stop.second.GetFeatureId());
         m_transitInfo->m_features[featureId] = {};
@@ -130,7 +130,7 @@ void ReadTransitTask::Do()
 
     for (auto const & stop : m_transitInfo->m_stopsPT)
     {
-      if (stop.second.GetFeatureId() != ::transit::experimental::kInvalidFeatureId)
+      if (stop.second.GetFeatureId() != kInvalidFeatureId)
       {
         auto const featureId = FeatureID(m_mwmId, stop.second.GetFeatureId());
         m_transitInfo->m_features[featureId] = {};
@@ -165,16 +165,10 @@ void ReadTransitTask::Do()
 
     if (featureInfo.m_isGate)
     {
-      df::Stylist stylist;
-      if (df::InitStylist(ft, 0, 19, false, stylist))
-      {
-        stylist.ForEachRule([&](df::Stylist::TRuleWrapper const & rule)
-        {
-          auto const * symRule = rule.m_rule->GetSymbol();
-          if (symRule != nullptr)
-            featureInfo.m_gateSymbolName = symRule->name();
-        });
-      }
+      //TODO(pastk): there should be a simpler way to just get a symbol name.
+      df::Stylist stylist(ft, 19, 0);
+      if (stylist.m_symbolRule != nullptr)
+        featureInfo.m_gateSymbolName = stylist.m_symbolRule->name();
     }
     featureInfo.m_point = feature::GetCenter(ft);
   }, features);
@@ -191,7 +185,7 @@ void ReadTransitTask::Reset()
 
 unique_ptr<TransitDisplayInfo> && ReadTransitTask::GetTransitInfo()
 {
-  return move(m_transitInfo);
+  return std::move(m_transitInfo);
 }
 
 void ReadTransitTask::FillLinesAndRoutes(::transit::experimental::TransitData const & transitData)
@@ -462,8 +456,8 @@ bool TransitReadManager::GetTransitDisplayInfo(TransitDisplayInfos & transitDisp
   {
     auto const & mwmId = mwmTransitPair.first;
     auto task = make_unique<ReadTransitTask>(m_dataSource, m_readFeaturesFn);
-    task->Init(groupId, mwmId, move(mwmTransitPair.second));
-    transitTasks[mwmId] = move(task);
+    task->Init(groupId, mwmId, std::move(mwmTransitPair.second));
+    transitTasks[mwmId] = std::move(task);
   }
 
   lock.lock();

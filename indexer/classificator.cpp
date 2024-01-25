@@ -3,12 +3,10 @@
 #include "indexer/tree_structure.hpp"
 
 #include "base/logging.hpp"
-#include "base/macros.hpp"
 #include "base/string_utils.hpp"
 
 #include <algorithm>
-#include <functional>
-#include <iterator>
+
 
 using std::string;
 
@@ -51,20 +49,25 @@ ClassifObject * ClassifObject::Find(string const & s)
 
 void ClassifObject::AddDrawRule(drule::Key const & k)
 {
-  auto i = lower_bound(m_drawRule.begin(), m_drawRule.end(), k.m_scale, less_scales());
-  for (; i != m_drawRule.end() && i->m_scale == k.m_scale; ++i)
+  auto i = std::lower_bound(m_drawRules.begin(), m_drawRules.end(), k.m_scale, less_scales());
+  for (; i != m_drawRules.end() && i->m_scale == k.m_scale; ++i)
     if (k == *i)
       return; // already exists
-  m_drawRule.insert(i, k);
+  m_drawRules.insert(i, k);
+
+  if (k.m_priority > m_maxOverlaysPriority &&
+      (k.m_type == drule::symbol || k.m_type == drule::caption ||
+       k.m_type == drule::shield || k.m_type == drule::pathtext))
+    m_maxOverlaysPriority = k.m_priority;
 }
 
 ClassifObjectPtr ClassifObject::BinaryFind(std::string_view const s) const
 {
-  auto const i = lower_bound(m_objs.begin(), m_objs.end(), s, LessName());
+  auto const i = std::lower_bound(m_objs.begin(), m_objs.end(), s, LessName());
   if ((i == m_objs.end()) || ((*i).m_name != s))
     return {nullptr, 0};
   else
-    return {&(*i), static_cast<size_t>(distance(m_objs.begin(), i))};
+    return {&(*i), static_cast<size_t>(std::distance(m_objs.begin(), i))};
 }
 
 void ClassifObject::LoadPolicy::Start(size_t i)
@@ -84,7 +87,7 @@ void ClassifObject::LoadPolicy::EndChilds()
 
 void ClassifObject::Sort()
 {
-  sort(m_drawRule.begin(), m_drawRule.end(), less_scales());
+  sort(m_drawRules.begin(), m_drawRules.end(), less_scales());
   sort(m_objs.begin(), m_objs.end(), LessName());
   for (auto & obj : m_objs)
     obj.Sort();
@@ -93,7 +96,7 @@ void ClassifObject::Sort()
 void ClassifObject::Swap(ClassifObject & r)
 {
   swap(m_name, r.m_name);
-  swap(m_drawRule, r.m_drawRule);
+  swap(m_drawRules, r.m_drawRules);
   swap(m_objs, r.m_objs);
   swap(m_visibility, r.m_visibility);
 }
@@ -179,14 +182,9 @@ namespace ftype
     set_value(type, cl+1, 1);
   }
 
-  bool GetValue(uint32_t type, uint8_t level, uint8_t & value)
+  uint8_t GetValue(uint32_t type, uint8_t level)
   {
-    if (level < get_control_level(type))
-    {
-      value = get_value(type, level);
-      return true;
-    }
-    return false;
+    return get_value(type, level);
   }
 
   void PopValue(uint32_t & type)
@@ -236,10 +234,12 @@ namespace
 
     void add_rule(int ft, iter_t i)
     {
+      // Define which drule types are applicable to which feature geom types.
       static const int visible[3][drule::count_of_rules] = {
+        //{ line, area, symbol, caption, circle, pathtext, waymarker, shield }, see drule::Key::rule_type_t
         { 0, 0, 1, 1, 1, 0, 0, 0 },   // fpoint
         { 1, 0, 0, 0, 0, 1, 0, 1 },   // fline
-        { 1, 1, 1, 1, 1, 0, 0, 0 }    // farea
+        { 0, 1, 1, 1, 1, 0, 0, 0 }    // farea (!!! different from IsDrawableLike(): here area feature can use point styles)
       };
 
       if (visible[ft][i->m_type] == 1)
@@ -254,7 +254,7 @@ namespace
 
     void find(int ft, int scale)
     {
-      auto i = lower_bound(m_rules.begin(), m_rules.end(), scale, less_scales());
+      auto i = std::lower_bound(m_rules.begin(), m_rules.end(), scale, less_scales());
       while (i != m_rules.end() && i->m_scale == scale)
         add_rule(ft, i++);
     }
@@ -270,7 +270,7 @@ void ClassifObject::GetSuitable(int scale, feature::GeomType gt, drule::KeysT & 
     return;
 
   // find rules for 'scale'
-  suitable_getter rulesGetter(m_drawRule, keys);
+  suitable_getter rulesGetter(m_drawRules, keys);
   rulesGetter.find(static_cast<int>(gt), scale);
 }
 
@@ -281,7 +281,7 @@ bool ClassifObject::IsDrawable(int scale) const
 
 bool ClassifObject::IsDrawableAny() const
 {
-  return (m_visibility != VisibleMask() && !m_drawRule.empty());
+  return (m_visibility != VisibleMask() && !m_drawRules.empty());
 }
 
 bool ClassifObject::IsDrawableLike(feature::GeomType gt, bool emptyName) const
@@ -292,13 +292,15 @@ bool ClassifObject::IsDrawableLike(feature::GeomType gt, bool emptyName) const
   if (!IsDrawableAny())
     return false;
 
+  // Define which feature geom types can use which drule types for rendering.
   static const int visible[3][drule::count_of_rules] = {
+    //{ line, area, symbol, caption, circle, pathtext, waymarker, shield }, see drule::Key::rule_type_t
     {0, 0, 1, 1, 1, 0, 0, 0},   // fpoint
     {1, 0, 0, 0, 0, 1, 0, 1},   // fline
-    {0, 1, 0, 0, 0, 0, 0, 0}    // farea (!!! key difference with GetSuitable !!!)
+    {0, 1, 0, 0, 0, 0, 0, 0}    // farea (!!! key difference with GetSuitable, see suitable_getter::add_rule())
   };
 
-  for (auto const & k : m_drawRule)
+  for (auto const & k : m_drawRules)
   {
     ASSERT_LESS(k.m_type, drule::count_of_rules, ());
 
@@ -391,7 +393,7 @@ uint32_t Classificator::GetTypeByPath(std::vector<std::string_view> const & path
   return type;
 }
 
-uint32_t Classificator::GetTypeByPath(std::initializer_list<char const *> const & lst) const
+uint32_t Classificator::GetTypeByPath(base::StringIL const & lst) const
 {
   uint32_t const type = GetTypeByPathImpl(lst.begin(), lst.end());
   ASSERT_NOT_EQUAL(type, INVALID_TYPE, (lst));
@@ -418,13 +420,10 @@ void Classificator::Clear()
 template <class ToDo> void Classificator::ForEachPathObject(uint32_t type, ToDo && toDo) const
 {
   ClassifObject const * p = &m_root;
-  uint8_t i = 0;
-
-  uint8_t v;
-  while (ftype::GetValue(type, i, v))
+  uint8_t const level = ftype::GetLevel(type);
+  for (uint8_t i = 0; i < level; ++i)
   {
-    ++i;
-    p = p->GetObject(v);
+    p = p->GetObject(ftype::GetValue(type, i));
     toDo(p);
   }
 }

@@ -5,6 +5,7 @@ set(SRC
   helpers.cpp
   helpers.hpp
   mwm_playground.cpp
+  towns_tests.cpp
 )
 
 omim_add_test(${PROJECT_NAME} ${SRC})

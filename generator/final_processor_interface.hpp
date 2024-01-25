@@ -7,8 +7,8 @@ namespace generator
 enum class FinalProcessorPriority : uint8_t
 {
   CountriesOrWorld = 1,
-  WorldCoasts = 2,
-  Complex = 3
+  WorldCoasts,
+  Places,
 };
 
 // Classes that inherit this interface implement the final stage of intermediate mwm processing.
@@ -20,14 +20,18 @@ enum class FinalProcessorPriority : uint8_t
 class FinalProcessorIntermediateMwmInterface
 {
 public:
-  explicit FinalProcessorIntermediateMwmInterface(FinalProcessorPriority priority);
+  explicit FinalProcessorIntermediateMwmInterface(FinalProcessorPriority priority)
+    : m_priority(priority)
+  {
+  }
   virtual ~FinalProcessorIntermediateMwmInterface() = default;
 
   virtual void Process() = 0;
 
-  bool operator<(FinalProcessorIntermediateMwmInterface const & other) const;
-  bool operator==(FinalProcessorIntermediateMwmInterface const & other) const;
-  bool operator!=(FinalProcessorIntermediateMwmInterface const & other) const;
+  bool operator<(FinalProcessorIntermediateMwmInterface const & other) const
+  {
+    return m_priority < other.m_priority;
+  }
 
 protected:
   FinalProcessorPriority m_priority;

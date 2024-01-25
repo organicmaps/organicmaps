@@ -10,7 +10,7 @@
 "search" = "Hledat";
 
 /* Used in home screen quick actions. */
-"bookmarks" = "Záložky";
+"bookmarks_and_tracks" = "Záložky a stopy";
 
 /* Used in home screen quick actions. */
 "route" = "Trasa";

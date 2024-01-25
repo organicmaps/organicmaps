@@ -8,16 +8,7 @@
 
 #include <vector>
 
-#ifdef __clang__
-#pragma clang diagnostic push
-#pragma clang diagnostic ignored "-Wdeprecated-declarations"
-#pragma clang diagnostic ignored "-Wcomma"
-#pragma clang diagnostic ignored "-Wshorten-64-to-32"
-#endif
-#include <boost/geometry.hpp>
-#ifdef __clang__
-#pragma clang diagnostic pop
-#endif
+#include "std/boost_geometry.hpp"
 #include <boost/geometry/geometries/adapted/boost_tuple.hpp>
 #include <boost/geometry/geometries/point_xy.hpp>
 #include <boost/geometry/geometries/polygon.hpp>

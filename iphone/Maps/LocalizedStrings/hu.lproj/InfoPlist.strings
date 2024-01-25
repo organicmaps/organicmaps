@@ -10,7 +10,7 @@
 "search" = "Keresés";
 
 /* Used in home screen quick actions. */
-"bookmarks" = "Könyvjelzők";
+"bookmarks_and_tracks" = "Könyvjelzők és nyomvonalak";
 
 /* Used in home screen quick actions. */
 "route" = "Útvonal";

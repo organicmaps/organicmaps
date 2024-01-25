@@ -11,7 +11,7 @@
     el = Μείνετε δεξιά.
     es = Manténgase a la derecha.
     eu = Mantendu eskuinera.
-    fa = به راست برانید.
+    fa = با زاویه کم به راست گردش کنید.
     fi = Pysy oikealla.
     fr = Serrez à droite.
     hi = दायीं ओर रहें
@@ -19,7 +19,7 @@
     hu = Jobbra tartson.
     id = Tetap di kanan.
     it = Rimani sulla destra.
-    ja = 右を維持してください。
+    ja = 右側を走行してください。
     ko = 오른쪽에 두기.
     mr = उजवीकडे ठेवा.
     nb = Hold til høyre.
@@ -41,7 +41,7 @@
 
   [make_a_right_turn]
     en = Turn right.
-    ar = انعطف يمينا.
+    ar = انعطف يميناً.
     be = Павярніце направа.
     ca = Gireu a a dreta.
     cs = Odbočte vpravo.
@@ -50,7 +50,7 @@
     el = Στρίψε δεξιά.
     es = Gire a la derecha.
     eu = Biratu eskuinera.
-    fa = به راست بپیچید.
+    fa = به راست گردش کنید.
     fi = Käänny oikealle.
     fr = Tournez à droite.
     hi = दायीं ओर मुड़ें।
@@ -58,7 +58,7 @@
     hu = Forduljon jobbra.
     id = Belok kanan.
     it = Gira a destra.
-    ja = 右に曲がります。
+    ja = 右折です。
     ko = 우회전하십시오.
     mr = उजवीकडे वळा.
     nb = Ta til høyre.
@@ -89,7 +89,7 @@
     el = Απότομα δεξιά.
     es = Gire bruscamente a la derecha.
     eu = Eman bira itxia eskuinera.
-    fa = منتها الیه سمت راست.
+    fa = با زاویه تند به راست گردش کنید.
     fi = Jyrkkä oikea.
     fr = À droite toute.
     hi = तीव्रता से दाएं मुड़े।
@@ -97,7 +97,7 @@
     hu = Kanyarodjon élesen jobbra.
     id = Belok tajam ke kanan.
     it = Svoltare a destra.
-    ja = 急に右折。
+    ja = 右に大きく曲がります。
     ko = 급우회전.
     mr = तीव्र उजवे वळण
     nb = Ta skarpt til høyre.
@@ -119,7 +119,7 @@
 
   [enter_the_roundabout]
     en = Enter the roundabout.
-    ar = اتجه إلى الطريق الدوار.
+    ar = ادخل الدوار.
     be = Павярніце на круг.
     ca = Entreu a la rotonda.
     cs = Vjeďte na kruhový objezd.
@@ -157,7 +157,7 @@
     zh-Hant = 進入環島。
 
   [leave_the_roundabout]
-    en = Exit from the roundabout.
+    en = Exit the roundabout.
     ar = اخرج من الدوار.
     be = Збочце з круга.
     ca = Sortiu de la rotonda.
@@ -169,18 +169,18 @@
     eu = Irten biribilgunetik.
     fa = از میدان خارج شوید.
     fi = Poistu liikenneympyrästä.
-    fr = Sortir du rond-point.
+    fr = Sortez du rond-point.
     hi = परिपथ से बाहर निकलें।
     hr = Napustite zaobilaznicu.
     hu = Hagyja el a körforgalmat.
     id = Keluar dari bundaran.
     it = Esci dalla rotonda.
-    ja = ロータリーから抜けてください。
+    ja = ロータリーを出ます。
     ko = 원형 교차로에서 나갑니다.
     mr = चौकातून बाहेर पडा.
     nb = Kjør ut av rundkjøringen.
     nl = Verlaat de rotonde.
-    pl = Zjazd z ronda.
+    pl = Zjedź z ronda.
     pt = Saia da rotunda.
     pt-BR = Saia da rotatória.
     ro = Ieșiți din sensul giratoriu.
@@ -206,7 +206,7 @@
     el = Μείνετε αριστερά.
     es = Manténgase a la izquierda.
     eu = Mantendu ezkerrean.
-    fa = به چپ برانید.
+    fa = با زاویه کم به چپ گردش کنید.
     fi = Pysy vasemmalla.
     fr = Serrez à gauche.
     hi = बायीं ओर रहें
@@ -214,7 +214,7 @@
     hu = Balra tartson.
     id = Tetap di kiri.
     it = Rimani sulla sinistra.
-    ja = 左を維持してください。
+    ja = 左側を走行してください。
     ko = 왼쪽에 두기.
     mr = डावीकडे ठेवा.
     nb = Hold til venstre.
@@ -236,7 +236,7 @@
 
   [make_a_left_turn]
     en = Turn left.
-    ar = انعطف يسارا.
+    ar = انعطف يساراً.
     be = Павярніце налева.
     ca = Gireu a l'esquerra.
     cs = Odbočte vlevo.
@@ -245,7 +245,7 @@
     el = Στρίψε αριστερά.
     es = Gire a la izquierda.
     eu = Biratu ezkerrera.
-    fa = به چپ بپیچید.
+    fa = به چپ گردش کنید.
     fi = Käänny vasemmalle.
     fr = Tournez à gauche.
     hi = बायीं ओर मुड़ें।
@@ -253,7 +253,7 @@
     hu = Forduljon balra.
     id = Belok kiri.
     it = Gira a sinistra.
-    ja = 左に曲がります。
+    ja = 左折です。
     ko = 좌회전하십시오.
     mr = डावीकडे वळा.
     nb = Ta til venstre.
@@ -284,7 +284,7 @@
     el = Απότομα αριστερά.
     es = Gire bruscamente a la izquierda.
     eu = Eman bira itxia ezkerrera.
-    fa = منتها الیه سمت چپ.
+    fa = با زاویه تند به چپ گردش کنید.
     fi = Jyrkkä vasen.
     fr = À gauche toute.
     hi = तीव्रता से बाएं मुड़े।
@@ -292,7 +292,7 @@
     hu = Kanyarodjon élesen balra.
     id = Belok tajam ke kiri.
     it = Svoltare a sinistra.
-    ja = 急に左折。
+    ja = 左に大きく曲がります。
     ko = 급좌회전.
     mr = तीव्र डावे वळण
     nb = Ta skarpt til venstre.
@@ -367,7 +367,7 @@
     fr = Continuez tout droit.
     hi = सीधे चलें।
     hr = Idite ravno.
-    hu = Hajtson előre.
+    hu = Haladjon tovább egyenesen.
     id = Lurus terus.
     it = Sempre dritto.
     ja = 直進です。
@@ -406,7 +406,7 @@
     fr = Sortie.
     hi = बाहर जाएं.
     hr = Izlaz.
-    hu = Kilépés.
+    hu = Hajtson ki!
     id = Keluar.
     it = Uscita.
     ja = 出口.
@@ -414,9 +414,9 @@
     mr = बाहेर पडा.
     nb = Ta avkjøringen.
     nl = Verlaat.
-    pl = Zjazd.
+    pl = Zjedź zjazdem.
     pt = Saia.
-    pt-BR = Saia.
+    pt-BR = Pegue a saída.
     ro = Ieșire.
     ru = Съезд.
     sk = Výjazd.
@@ -440,7 +440,7 @@
     el = Θα φτάσετε.
     es = Llegará a su destino.
     eu = Zure helmugara iritsiko zara.
-    fa = شما خواهید رسید.
+    fa = به مقصد خواهيد رسيد.
     fi = Olet perillä.
     fr = Vous arriverez.
     hi = गंतव्य स्थान
@@ -453,7 +453,7 @@
     mr = तुम्ही पोहोचाल.
     nb = Du ankommer.
     nl = Arriveert u.
-    pl = Dojedziesz.
+    pl = Dojedziesz do celu.
     pt = Chegará ao seu destino.
     pt-BR = Você chegará ao seu destino.
     ro = Veți sosi.
@@ -479,15 +479,15 @@
     el = Έχετε φτάσει.
     es = Ha llegado a su destino.
     eu = Helmugara iritsi zara.
-    fa = شما رسیده اید.
+    fa = به مقصد رسيديد.
     fi = Olet saapunut.
     fr = Vous êtes arrivé.
     hi = आप पहुंच गए हैं।
     hr = Stigli ste.
-    hu = Ön megérkezett.
+    hu = Megérkezett.
     id = Anda sudah sampai.
     it = Sei arrivato.
-    ja = 到着。
+    ja = 目的地に到着しました。
     ko = 도착했습니다.
     mr = तुम्ही पोहोचला आहात.
     nb = Du har ankommet.
@@ -509,7 +509,7 @@
 
   [in_50_meters]
     en = In fifty meters
-    ar = بعد خمسين مترًا
+    ar = بعد خمسين متراً
     be = Праз пяцьдзесят метраў
     ca = A cinquanta metres
     cs = Za padesát metrů
@@ -596,7 +596,7 @@
     el = Σε διακόσια μέτρα
     es = En doscientos metros
     eu = Berrehun metrora
-    fa = در دویست و پنجاه متری
+    fa = در دویست متری
     fi = Kahdensadan metrin päässä
     fr = Dans deux cents mètres
     hi = दो सौ मीटर में।
@@ -626,7 +626,7 @@
 
   [in_250_meters]
     en = In two hundred and fifty meters
-    ar = بعد مئتين وخمسين مترًا
+    ar = بعد مئتين وخمسين متراً
     be = Праз дзвесце пяцьдзесят метраў
     ca = A dos-cents cinquanta metres
     cs = Za dvě stě padesát metrů
@@ -1220,7 +1220,7 @@
     el = Πάρτε την πρώτη έξοδο.
     es = Tome la primera salida.
     eu = Hartu lehen irteera.
-    fa = اولین خروجی را داخل شوید
+    fa = اولین خروجی را داخل شوید.
     fi = Poistu ensimmäisestä liittymästä.
     fr = Prenez la première sortie.
     hi = पहला एग्जिट लें।
@@ -1235,7 +1235,7 @@
     nl = Neem de eerste afslag.
     pl = Zjedź pierwszym zjazdem.
     pt = Saia na primeira saída.
-    pt-BR = Saia na primeira saída.
+    pt-BR = Pegue a primeira saída.
     ro = Folosiți prima ieșire.
     ru = Сверните на первый съезд.
     sk = Opustite kruhový objazd na prvom výjazde.
@@ -1274,7 +1274,7 @@
     nl = Neem de tweede afslag.
     pl = Zjedź drugim zjazdem.
     pt = Saia na segunda saída.
-    pt-BR = Saia na segunda saída.
+    pt-BR = Pegue a segunda saída.
     ro = Folosiți a doua ieșire.
     ru = Сверните на второй съезд.
     sk = Opustite kruhový objazd na druhom výjazde.
@@ -1313,7 +1313,7 @@
     nl = Neem de derde afslag.
     pl = Zjedź trzecim zjazdem.
     pt = Saia na terceira saída.
-    pt-BR = Saia na terceira saída.
+    pt-BR = Pegue a terceira saída.
     ro = Folosiți a treia ieșire.
     ru = Сверните на третий съезд.
     sk = Opustite kruhový objazd na treťom výjazde.
@@ -1352,7 +1352,7 @@
     nl = Neem de vierde afslag.
     pl = Zjedź czwartym zjazdem.
     pt = Saia na quarta saída.
-    pt-BR = Saia na quarta saída.
+    pt-BR = Pegue a quarta saída.
     ro = Folosiți a patra ieșire.
     ru = Сверните на четвертый съезд.
     sk = Opustite kruhový objazd na štvrtom výjazde.
@@ -1381,7 +1381,7 @@
     fr = Prenez la cinquième sortie.
     hi = पाँचवाँ एग्जिट लें।
     hr = Izađite na petom izlazu.
-    hu = Hajtson ki a ötödik kijáratnál.
+    hu = Hajtson ki az ötödik kijáratnál.
     id = Ambil jalan keluar kelima.
     it = Prendi la quinta uscita.
     ja = 五番目の出口です。
@@ -1391,7 +1391,7 @@
     nl = Neem de vijfde afslag.
     pl = Zjedź piątym zjazdem.
     pt = Saia na quinta saída.
-    pt-BR = Saia na quinta saída.
+    pt-BR = Pegue a quinta saída.
     ro = Folosiți a cincea ieșire.
     ru = Сверните на пятый съезд.
     sk = Opustite kruhový objazd na piatom výjazde.
@@ -1430,7 +1430,7 @@
     nl = Neem de zesde afslag.
     pl = Zjedź szóstym zjazdem.
     pt = Saia na sexta saída.
-    pt-BR = Saia na sexta saída.
+    pt-BR = Pegue a sexta saída.
     ro = Folosiți a șasea ieșire.
     ru = Сверните на шестой съезд.
     sk = Opustite kruhový objazd na šiestom výjazde.
@@ -1469,7 +1469,7 @@
     nl = Neem de zevende afslag.
     pl = Zjedź siódmym zjazdem.
     pt = Saia na sétima saída.
-    pt-BR = Saia na sétima saída.
+    pt-BR = Pegue a sétima saída.
     ro = Folosiți a șaptea ieșire.
     ru = Сверните на седьмой съезд.
     sk = Opustite kruhový objazd na siedmom výjazde.
@@ -1508,7 +1508,7 @@
     nl = Neem de achtste afslag.
     pl = Zjedź ósmym zjazdem.
     pt = Saia na oitava saída.
-    pt-BR = Saia na oitava saída.
+    pt-BR = Pegue a oitava saída.
     ro = Folosiți a opta ieșire.
     ru = Сверните на восьмой съезд.
     sk = Opustite kruhový objazd na ôsmom výjazde.
@@ -1547,7 +1547,7 @@
     nl = Neem de negende afslag.
     pl = Zjedź dziewiątym zjazdem.
     pt = Saia na nona saída.
-    pt-BR = Saia na nona saída.
+    pt-BR = Pegue a nona saída.
     ro = Folosiți a noua ieșire.
     ru = Сверните на девятый съезд.
     sk = Opustite kruhový objazd na deviatom výjazde.
@@ -1576,7 +1576,7 @@
     fr = Prenez la dixième sortie.
     hi = दसवाँ एग्जिट लें।
     hr = Izađite na desetom izlazu.
-    hu = Hajtson ki a tízedik kijáratnál.
+    hu = Hajtson ki a tizedik kijáratnál.
     id = Ambil jalan keluar kesepuluh.
     it = Prendi la decima uscita.
     ja = 十番目の出口です。
@@ -1586,7 +1586,7 @@
     nl = Neem de tiende afslag.
     pl = Zjedź dziesiątym zjazdem.
     pt = Saia na décima saída.
-    pt-BR = Saia na décima saída.
+    pt-BR = Pegue a décima saída.
     ro = Folosiți a zecea ieșire.
     ru = Сверните на десятый съезд.
     sk = Opustite kruhový objazd na desiatom výjazde.
@@ -1625,7 +1625,7 @@
     nl = Neem de elfde afslag.
     pl = Zjedź jedenastym zjazdem.
     pt = Saia na décima primeira saída.
-    pt-BR = Saia na décima primeira saída.
+    pt-BR = Pegue a décima primeira saída.
     ro = Folosiți a unsprezecea ieșire.
     ru = Сверните на одиннадцатый съезд.
     sk = Opustite kruhový objazd na jedenástom výjazde.
@@ -2508,18 +2508,19 @@
     es = Cámara adelante
     eu = Kamera aurrera
     es-MX = Cámara próxima
-    fa = به دوربین نزدیک می شوید
+    fa = دوربین کنترل سرعت در نزدیکی
     fi = Edessä on kamera
     fr = Caméra devant
-    hu = Kamera elöl
+    hi = स्पीड कैमरा आगे
+    hu = Kamera következik
     id = Diawasi kamera
     it = Autovelox in prossimità
-    ja = この先にある自動速度違反取締装置
+    ja = この先に自動速度違反取締装置があります。
     ko = 전방에 카메라
     mr = पुढे कॅमेरा आहे
     nb = Kamera foran
     nl = Camera in zicht
-    pl = Kamera z przodu
+    pl = Fotoradar na drodze
     pt = Câmera à frente
     pt-BR = Radar à frente
     ro = Cameră frontală

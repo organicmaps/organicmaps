@@ -26,7 +26,8 @@ double constexpr kNotUsed = std::numeric_limits<double>::max();
 struct InOutCityFactor;
 struct InOutCitySpeedKMpH;
 
-// Each value is equal to the corresponding type index from types.txt.
+// Each value is equal to the corresponding 0-based type index from types.txt
+// (an ID from mapcss-mapping.csv minus 1).
 // The ascending order is strict. Check for static_cast<HighwayType> in vehicle_model.cpp
 enum class HighwayType : uint16_t
 {
@@ -55,7 +56,6 @@ enum class HighwayType : uint16_t
   RouteFerry = 259,
   HighwayTertiaryLink = 272,
   HighwayBusway = 858,    // reserve type here, but this type is not used for any routing by default
-  RailwayRailMotorVehicle = 994,
   RouteShuttleTrain = 1054,
 };
 
@@ -345,7 +345,6 @@ private:
   // HW type -> speed and factor.
   HighwayBasedInfo m_highwayBasedInfo;
   uint32_t m_onewayType;
-  uint32_t m_railwayVehicleType;  ///< The only 3-arity type
 
   // HW type -> allow pass through.
   base::SmallMap<uint32_t, bool> m_roadTypes;

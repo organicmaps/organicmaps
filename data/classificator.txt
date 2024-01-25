@@ -1,4 +1,8 @@
 world  +
+    addr:interpolation  +
+        even  -
+        odd  -
+        {}
     aerialway  +
         cable_car  -
         chair_lift  -
@@ -43,6 +47,7 @@ world  +
         car_wash  -
         casino  -
         charging_station  +
+            bicycle  -
             motorcar  -
             {}
         childcare  -
@@ -50,18 +55,22 @@ world  +
         clinic  -
         college  -
         community_centre  -
+        compressed_air  -
+        conference_centre  -
         courthouse  -
         dentist  -
         doctors  -
         drinking_water  -
         driving_school  -
         events_venue  -
+        exhibition_centre  -
         fast_food  -
         ferry_terminal  -
         fire_station  -
         food_court  -
         fountain  -
         fuel  -
+        gambling  -
         grave_yard  +
             christian  -
             {}
@@ -74,6 +83,7 @@ world  +
         library  -
         loading_dock  -
         marketplace  -
+        money_transfer  -
         motorcycle_parking  -
         music_school  -
         nightclub  -
@@ -81,12 +91,25 @@ world  +
         parcel_locker  -
         parking  +
             fee  -
-            multi-storey  -
+            lane  +
+                fee  -
+                private  -
+                {}
+            multi-storey  +
+                fee  -
+                {}
             no-access  -
             park_and_ride  -
             permissive  -
             private  -
-            underground  -
+            street_side  +
+                fee  -
+                private  -
+                {}
+            underground  +
+                fee  -
+                private  -
+                {}
             {}
         parking_entrance  +
             permissive  -
@@ -102,7 +125,10 @@ world  +
         pharmacy  -
         place_of_worship  +
             buddhist  -
-            christian  -
+            christian  +
+                jehovahs_witness  -
+                mormon  -
+                {}
             hindu  -
             jewish  -
             muslim  -
@@ -114,6 +140,7 @@ world  +
         post_office  -
         prison  -
         pub  -
+        public_bath  -
         public_bookcase  -
         recycling  +
             centre  -
@@ -124,12 +151,14 @@ world  +
         school  -
         shelter  -
         shower  -
+        stripclub  -
         taxi  -
         telephone  -
         theatre  -
         toilets  -
         townhall  -
         university  -
+        vehicle_inspection  -
         vending_machine  +
             cigarettes  -
             coffee  -
@@ -185,6 +214,7 @@ world  +
         stile  -
         swing_gate  -
         toll_booth  -
+        turnstile  -
         wall  -
         {}
     boundary  +
@@ -208,8 +238,15 @@ world  +
             state  -
             suburb  -
             {}
-        military  -
         national_park  -
+        protected_area  +
+            1  -
+            2  -
+            3  -
+            4  -
+            5  -
+            6  -
+            {}
         {}
     building  +
         address  -
@@ -227,12 +264,16 @@ world  +
         blacksmith  -
         brewery  -
         carpenter  -
+        caterer  -
         confectionery  -
         electrician  -
         electronics_repair  -
         gardener  -
+        grinding_mill  -
         handicraft  -
         hvac  -
+        key_cutter  -
+        locksmith  -
         metal_construction  -
         painter  -
         photographer  -
@@ -334,12 +375,18 @@ world  +
         spontaneous_camp  -
         {}
     emergency  +
+        assembly_point  -
         defibrillator  -
         fire_hydrant  -
         phone  -
         {}
     entrance  +
+        exit  -
         main  -
+        {}
+    fee  +
+        no  -
+        yes  -
         {}
     healthcare  +
         alternative  -
@@ -356,7 +403,6 @@ world  +
     highway  +
         bridleway  +
             bridge  -
-            permissive  -
             tunnel  -
             {}
         bus_stop  -
@@ -367,7 +413,6 @@ world  +
         construction  -
         cycleway  +
             bridge  -
-            permissive  -
             tunnel  -
             {}
         elevator  -
@@ -375,12 +420,13 @@ world  +
             alpine_hiking  -
             area  -
             bridge  -
+            crossing  -
             demanding_alpine_hiking  -
             demanding_mountain_hiking  -
             difficult_alpine_hiking  -
             hiking  -
             mountain_hiking  -
-            permissive  -
+            sidewalk  -
             tunnel  -
             {}
         ford  -
@@ -407,7 +453,6 @@ world  +
             hiking  -
             horse  -
             mountain_hiking  -
-            permissive  -
             tunnel  -
             {}
         pedestrian  +
@@ -445,7 +490,6 @@ world  +
         service  +
             area  -
             bridge  -
-            busway  -
             driveway  -
             parking_aisle  -
             tunnel  -
@@ -473,7 +517,6 @@ world  +
             grade4  -
             grade5  -
             no-access  -
-            permissive  -
             tunnel  -
             {}
         traffic_signals  -
@@ -494,9 +537,12 @@ world  +
         world_towns_level  -
         {}
     historic  +
+        aircraft  -
+        anchor  -
         archaeological_site  -
         battlefield  -
         boundary_stone  -
+        cannon  -
         castle  +
             castrum  -
             defensive  -
@@ -513,6 +559,7 @@ world  +
         citywalls  -
         fort  -
         gallows  -
+        locomotive  -
         memorial  +
             cross  -
             plaque  -
@@ -521,20 +568,26 @@ world  +
             stolperstein  -
             war_memorial  -
             {}
+        mine  -
         monument  -
         pillory  -
         ruins  -
         ship  -
+        stone  -
+        tank  -
         tomb  -
         wayside_cross  -
         wayside_shrine  -
+        wreck  -
         {}
     hwtag  +
         bidir_bicycle  -
         lit  -
         nobicycle  -
         nocar  -
+        nocycleway  -
         nofoot  -
+        nosidewalk  -
         onedir_bicycle  -
         oneway  -
         private  -
@@ -555,6 +608,7 @@ world  +
         zero  -
         {}
     junction  +
+        circular  -
         roundabout  -
         {}
     landuse  +
@@ -572,6 +626,7 @@ world  +
         farmland  -
         farmyard  -
         field  -
+        flowerbed  -
         forest  +
             coniferous  -
             deciduous  -
@@ -581,7 +636,9 @@ world  +
         grass  -
         greenfield  -
         greenhouse_horticulture  -
-        industrial  -
+        industrial  +
+            mine  -
+            {}
         landfill  -
         meadow  -
         military  +
@@ -599,6 +656,8 @@ world  +
         vineyard  -
         {}
     leisure  +
+        adult_gaming_centre  -
+        amusement_arcade  -
         beach_resort  -
         bowling_alley  -
         common  -
@@ -610,10 +669,12 @@ world  +
             residential  -
             {}
         golf_course  -
+        hackerspace  -
         ice_rink  -
         landscape_reserve  -
         marina  -
         nature_reserve  -
+        outdoor_seating  -
         park  +
             no-access  -
             permissive  -
@@ -637,6 +698,7 @@ world  +
         {}
     man_made  +
         breakwater  -
+        bridge  -
         cairn  -
         chimney  -
         cutline  -
@@ -692,17 +754,20 @@ world  +
         scrub  -
         spring  -
         strait  -
-        tree  -
         tree_row  -
         volcano  -
         water  +
             basin  -
+            ditch  -
+            drain  -
             lake  -
             lock  -
+            moat  -
             pond  -
             reservoir  -
             river  -
             tunnel  -
+            wastewater  -
             {}
         wetland  +
             bog  -
@@ -725,16 +790,33 @@ world  +
         yes  -
         {}
     piste:type  +
+        connection  -
         downhill  +
-            advanced  -
-            easy  -
-            expert  -
+            advanced  +
+                area  -
+                {}
+            area  -
+            easy  +
+                area  -
+                {}
+            expert  +
+                area  -
+                {}
             freeride  -
-            intermediate  -
-            novice  -
+            intermediate  +
+                area  -
+                {}
+            novice  +
+                area  -
+                {}
             {}
+        hike  -
         nordic  -
-        sled  -
+        skitour  -
+        sled  +
+            area  -
+            {}
+        snow_park  -
         {}
     place  +
         city  +
@@ -781,7 +863,13 @@ world  +
             {}
         line  -
         minor_line  -
-        pole  -
+        plant  +
+            coal  -
+            gas  -
+            hydro  -
+            solar  -
+            wind  -
+            {}
         station  -
         substation  -
         tower  -
@@ -827,21 +915,43 @@ world  +
             tunnel  -
             {}
         rail  +
+            branch  +
+                bridge  -
+                tunnel  -
+                {}
             bridge  -
-            motor_vehicle  -
+            highspeed  +
+                bridge  -
+                tunnel  -
+                {}
+            main  +
+                bridge  -
+                tunnel  -
+                {}
+            service  +
+                bridge  -
+                tunnel  -
+                {}
+            spur  +
+                bridge  -
+                tunnel  -
+                {}
+            tourism  +
+                bridge  -
+                tunnel  -
+                {}
             tunnel  -
-            {}
-        razed  -
-        siding  +
-            bridge  -
-            tunnel  -
-            {}
-        spur  +
-            bridge  -
-            tunnel  -
+            utility  +
+                bridge  -
+                tunnel  -
+                {}
             {}
         station  +
-            light_rail  -
+            funicular  -
+            light_rail  +
+                london  -
+                porto  -
+                {}
             monorail  -
             subway  +
                 adana  -
@@ -857,6 +967,7 @@ world  +
                 bengalore  -
                 berlin  -
                 bilbao  -
+                boston  -
                 brasilia  -
                 brescia  -
                 brussels  -
@@ -936,6 +1047,7 @@ world  +
                 sf  -
                 shanghai  -
                 shiraz  -
+                singapore  -
                 sofia  -
                 spb  -
                 stockholm  -
@@ -944,6 +1056,7 @@ world  +
                 taoyuan  -
                 tashkent  -
                 tbilisi  -
+                tehran  -
                 tianjin  -
                 tokyo  -
                 valencia  -
@@ -973,6 +1086,7 @@ world  +
             bengalore  -
             berlin  -
             bilbao  -
+            boston  -
             brasilia  -
             brescia  -
             brussels  -
@@ -1052,6 +1166,7 @@ world  +
             sf  -
             shanghai  -
             shiraz  -
+            singapore  -
             sofia  -
             spb  -
             stockholm  -
@@ -1060,6 +1175,7 @@ world  +
             taoyuan  -
             tashkent  -
             tbilisi  -
+            tehran  -
             tianjin  -
             tokyo  -
             valencia  -
@@ -1075,10 +1191,6 @@ world  +
             tunnel  -
             {}
         tram_stop  -
-        yard  +
-            bridge  -
-            tunnel  -
-            {}
         {}
     recycling  +
         batteries  -
@@ -1100,37 +1212,47 @@ world  +
         shuttle_train  -
         {}
     shop  +
+        agrarian  -
         alcohol  -
         antiques  -
+        appliance  -
         art  -
+        auction  -
         baby_goods  -
         bag  -
         bakery  -
+        bathroom_furnishing  -
         beauty  -
+        bed  -
         beverages  -
         bicycle  -
         bookmaker  -
         books  -
         boutique  -
         butcher  -
+        camera  -
+        cannabis  -
         car  -
         car_parts  -
         car_repair  +
             tyres  -
             {}
         caravan  -
+        carpet  -
         charity  -
         cheese  -
         chemist  -
         chocolate  -
         clothes  -
         coffee  -
+        collector  -
         computer  -
         confectionery  -
         convenience  -
         copyshop  -
         cosmetics  -
         craft  -
+        curtain  -
         dairy  -
         deli  -
         department_store  -
@@ -1141,17 +1263,21 @@ world  +
         erotic  -
         fabric  -
         farm  -
+        fashion_accessories  -
         fishing  -
         florist  -
         funeral_directors  -
         furniture  -
         garden_centre  -
+        gas  -
         gift  -
         greengrocer  -
         grocery  -
         hairdresser  -
         hardware  -
         health_food  -
+        herbalist  -
+        hifi  -
         houseware  -
         interior_decoration  -
         jewelry  -
@@ -1165,18 +1291,24 @@ world  +
         mobile_phone  -
         money_lender  -
         motorcycle  -
+        motorcycle_repair  -
         music  -
         musical_instrument  -
         newsagent  -
         nutrition_supplements  -
         optician  -
         outdoor  -
+        outpost  -
         paint  -
         pastry  -
         pawnbroker  -
         perfumery  -
         pet  -
+        pet_grooming  -
         photo  -
+        rental  +
+            bike  -
+            {}
         seafood  -
         second_hand  -
         sewing  -
@@ -1238,9 +1370,13 @@ world  +
         volleyball  -
         yoga  -
         {}
+    toilets  +
+        yes  -
+        {}
     tourism  +
         alpine_hut  -
         apartment  -
+        aquarium  -
         artwork  +
             architecture  -
             painting  -
@@ -1263,6 +1399,7 @@ world  +
             guidepost  -
             map  -
             office  -
+            visitor_centre  -
             {}
         motel  -
         museum  -
@@ -1271,7 +1408,9 @@ world  +
         theme_park  -
         viewpoint  -
         wilderness_hut  -
-        zoo  -
+        zoo  +
+            petting  -
+            {}
         {}
     traffic_calming  +
         bump  -
@@ -1287,6 +1426,9 @@ world  +
             {}
         dock  -
         drain  +
+            tunnel  -
+            {}
+        fish_pass  +
             tunnel  -
             {}
         lock_gate  -

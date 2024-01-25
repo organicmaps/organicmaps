@@ -2,14 +2,9 @@ project(opening_hours_integration_tests)
 
 set(SRC opening_hours_integration_tests.cpp)
 
-omim_add_executable(${PROJECT_NAME} ${SRC})
+omim_add_test(${PROJECT_NAME} ${SRC} BOOST_TEST)
 
 target_link_libraries(${PROJECT_NAME} opening_hours)
-# Silence boost::test warnings.
-target_compile_options(${PROJECT_NAME} PRIVATE
-  $<$<CXX_COMPILER_ID:AppleClang>:-Wno-deprecated-declarations>
-  $<$<CXX_COMPILER_ID:AppleClang>:-Wno-unused-but-set-variable>
-)
 
 if(${CMAKE_SYSTEM_NAME} MATCHES "Linux") 
   set(COPY_CMD cp -u)

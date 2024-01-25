@@ -1,30 +1,35 @@
 #import "DeepLinkParser.h"
 #include <CoreApi/Framework.h>
-#import "DeepLinkData.h"
 #import "DeepLinkSearchData.h"
-#import "DeeplinkUrlType.h"
+
+#import "map/mwm_url.hpp"
+
+static inline DeeplinkUrlType deeplinkUrlType(url_scheme::ParsedMapApi::UrlType type)
+{
+  switch (type)
+   {
+     case url_scheme::ParsedMapApi::UrlType::Incorrect: return DeeplinkUrlTypeIncorrect;
+     case url_scheme::ParsedMapApi::UrlType::Map: return DeeplinkUrlTypeMap;
+     case url_scheme::ParsedMapApi::UrlType::Route: return DeeplinkUrlTypeRoute;
+     case url_scheme::ParsedMapApi::UrlType::Search: return DeeplinkUrlTypeSearch;
+     case url_scheme::ParsedMapApi::UrlType::Crosshair: return DeeplinkUrlTypeCrosshair;
+   }
+}
 
 @implementation DeepLinkParser
 
-+ (id<IDeepLinkData>)parseAndSetApiURL:(NSURL *)url {
++ (DeeplinkUrlType)parseAndSetApiURL:(NSURL *)url {
   Framework &f = GetFramework();
-  url_scheme::ParsedMapApi::ParsingResult internalResult = f.ParseAndSetApiURL(url.absoluteString.UTF8String);
-  DeeplinkUrlType result = deeplinkUrlType(internalResult.m_type);
-
-  switch (result) {
-    case DeeplinkUrlTypeSearch:
-      return [[DeepLinkSearchData alloc] init:result success:internalResult.m_isSuccess];
-    default:
-      return [[DeepLinkData alloc] init:result success:internalResult.m_isSuccess];
-  }
+  return deeplinkUrlType(f.ParseAndSetApiURL(url.absoluteString.UTF8String));
 }
 
-+ (bool)showMapForUrl:(NSURL *)url {
-  return GetFramework().ShowMapForURL(url.absoluteString.UTF8String);
++ (void)executeMapApiRequest {
+  GetFramework().ExecuteMapApiRequest();
 }
 
 + (void)addBookmarksFile:(NSURL *)url {
-  GetFramework().AddBookmarksFile(url.relativePath.UTF8String, false /* isTemporaryFile */);
+  // iOS doesn't create temporary files on import at least in Safari and Files.
+  GetFramework().AddBookmarksFile(url.path.UTF8String, false /* isTemporaryFile */);
 }
 
 @end

@@ -72,18 +72,14 @@ NotificationManager NotificationManager::CreateNotificationManagerForTesting(
 }
 
 std::string NotificationManager::GenerateTurnText(uint32_t distanceUnits, uint8_t exitNum,
-    bool useThenInsteadOfDistance, TurnItem const & turn, measurement_utils::Units lengthUnits) const
+    bool useThenInsteadOfDistance, TurnItem const & turn) const
 {
-  if (turn.m_turn != CarDirection::None)
-  {
-    Notification const notification(distanceUnits, exitNum, useThenInsteadOfDistance, turn.m_turn,
-                                    lengthUnits);
-    return m_getTtsText.GetTurnNotification(notification);
-  }
+  auto const lengthUnits = m_settings.GetLengthUnits();
 
-  Notification const notification(distanceUnits, exitNum, useThenInsteadOfDistance,
-                                  turn.m_pedestrianTurn, lengthUnits);
-  return m_getTtsText.GetTurnNotification(notification);
+  if (turn.m_turn != CarDirection::None)
+    return m_getTtsText.GetTurnNotification({distanceUnits, exitNum, useThenInsteadOfDistance, turn.m_turn, lengthUnits});
+
+  return m_getTtsText.GetTurnNotification({distanceUnits, exitNum, useThenInsteadOfDistance, turn.m_pedestrianTurn, lengthUnits});
 }
 
 std::string NotificationManager::GenerateSpeedCameraText() const
@@ -129,8 +125,8 @@ void NotificationManager::GenerateTurnNotifications(std::vector<TurnItemDist> co
   }
 
   std::string secondNotification = GenerateTurnText(
-      distBetweenTurnsMeters, secondTurn.m_turnItem.m_exitNum,
-      true, secondTurn.m_turnItem, m_settings.GetLengthUnits());
+      m_settings.ConvertMetersToUnits(distBetweenTurnsMeters), secondTurn.m_turnItem.m_exitNum,
+      true /* useThenInsteadOfDistance */, secondTurn.m_turnItem);
   if (secondNotification.empty())
     return;
   turnNotifications.emplace_back(std::move(secondNotification));
@@ -174,8 +170,7 @@ std::string NotificationManager::GenerateFirstTurnSound(TurnItem const & turn,
           if (distToPronounceMeters < 0)
           {
             FastForwardFirstTurnNotification();
-            return std::string{};  // The current position is too close to the turn for the first
-                                   // notification.
+            return {};  // The current position is too close to the turn for the first notification.
           }
 
           // Pronouncing first turn sound notification.
@@ -185,8 +180,7 @@ std::string NotificationManager::GenerateFirstTurnSound(TurnItem const & turn,
               m_settings.RoundByPresetSoundedDistancesUnits(distToPronounceUnits);
           m_nextTurnNotificationProgress = PronouncedNotification::First;
           return GenerateTurnText(roundedDistToPronounceUnits, turn.m_exitNum,
-                                  false /* useThenInsteadOfDistance */, turn,
-                                  m_settings.GetLengthUnits());
+                                  false /* useThenInsteadOfDistance */, turn);
         }
       }
     }
@@ -197,7 +191,7 @@ std::string NotificationManager::GenerateFirstTurnSound(TurnItem const & turn,
       m_nextTurnNotificationProgress = PronouncedNotification::First;
       FastForwardFirstTurnNotification();
     }
-    return std::string{};
+    return {};
   }
 
   if (m_nextTurnNotificationProgress == PronouncedNotification::First &&
@@ -205,11 +199,9 @@ std::string NotificationManager::GenerateFirstTurnSound(TurnItem const & turn,
   {
     m_nextTurnNotificationProgress = PronouncedNotification::Second;
     FastForwardFirstTurnNotification();
-    return GenerateTurnText(0 /* distanceUnits */, turn.m_exitNum,
-                            false /* useThenInsteadOfDistance */, turn,
-                            m_settings.GetLengthUnits());
+    return GenerateTurnText(0 /* distMeters */, turn.m_exitNum, false /* useThenInsteadOfDistance */, turn);
   }
-  return std::string{};
+  return {};
 }
 
 void NotificationManager::Enable(bool enable)

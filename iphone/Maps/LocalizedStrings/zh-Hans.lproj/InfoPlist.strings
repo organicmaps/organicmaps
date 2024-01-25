@@ -10,7 +10,7 @@
 "search" = "搜索";
 
 /* Used in home screen quick actions. */
-"bookmarks" = "书签";
+"bookmarks_and_tracks" = "书签和轨迹";
 
 /* Used in home screen quick actions. */
 "route" = "路线";

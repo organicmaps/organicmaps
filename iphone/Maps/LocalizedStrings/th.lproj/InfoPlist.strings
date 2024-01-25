@@ -10,7 +10,7 @@
 "search" = "ค้นหา";
 
 /* Used in home screen quick actions. */
-"bookmarks" = "บุ๊กมาร์ก";
+"bookmarks_and_tracks" = "บุ๊กมาร์กและการติดตาม";
 
 /* Used in home screen quick actions. */
 "route" = "เส้นทาง";

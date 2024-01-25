@@ -39,11 +39,12 @@
 
 @glacier: #111111;
 @water: #002222;
+@water_bad: #00261e;
 @river: #062026;
 @wetland: #001919;
 @beach: #28281A;
 @barerock: #302A2A;
-@desert: #12114E;
+@desert: #191007;
 
 /*3.2 Vegetation*/
 
@@ -55,6 +56,7 @@
 @green4: #141C00;
 @green5: #141C00;
 @green6: #2F4000;
+@flowers: #141C00;
 
 /* 4.LANDUSE */
 /*4.1 Main landuse*/
@@ -67,7 +69,9 @@
 @sport: #21211B;
 @parking: #1F1B1B;
 @military: #B71C1C;
+@prison: #7f7f7f;
 @farmland: #151500;
+@farmyard: #212106;
 
 /*4.2 Aerodrome*/
 
@@ -100,9 +104,10 @@
 @primary_orange: #593323;
 @primary_orange_medium: #593323;
 @primary_orange_light: #593323;
-@secondary: #4B4643;
+@secondary: #573E33;
+@secondary_light: #573E33;
+@tertiary: #4F4A47;
 @residential: #4B4643;
-@unclassified: #4B4643;
 @pedestrian: #4D4744;
 @footway: #4B4643;
 @cycleway: #6E3D47;
@@ -126,24 +131,26 @@
 @secondary_tunnel_casing:  #000000;
 @tertiary_tunnel: #2B2827;
 @tertiary_tunnel_casing:  #000000;
-@unclassified_tunnel: #2B2827;
-@unclassified_tunnel_casing: #000000;
+@residential_tunnel: #2B2827;
+@residential_tunnel_casing: #000000;
 
 /* 5.4 Piste */
 
 @piste: #623D7F;
 @piste_novice:#5feb2e;
 @piste_easy: #0b27fb;
-@piste_intermadiate: #fc0e1b;
-@piste_expert: #333333;
+@piste_intermediate: #fc0e1b;
 @piste_advanced: #222222;
+@piste_expert: #333333;
+@piste_freeride: #EEA500;
 
 /* 5.5 Transport */
 
-@railway_light: #333333;
-@railway: #333333;
+@railway_light: #38303D;
+@railway: #44374A;
+@railway_tourism: #45372D;
 @railway_tunnel: #222222;
-@railway_dash: #111111;
+@railway_dash: #050505;
 @aerialway: #4E4E3D;
 @powerline: #333333;
 @tram: #5C5C51;
@@ -170,7 +177,7 @@
 @country_label: #444444;
 @state_label: #444444;
 @district_label: #555555;
-@housename: #555555;
+@housenumber: #505050;
 @building_label: #555555;
 @poi_label: #555555;
 @subway_label: #555555;
@@ -188,11 +195,11 @@
 @isoline1000: #496149;
 @isoline500: #496149;
 @isoline100: #496149;
-@isoline50: #567556;
-@isoline10: #567556;
+@isoline50: #496149;
+@isoline10: #496149;
 
 @label_isoline1000: #496149;
 @label_isoline500: #496149;
 @label_isoline100: #496149;
-@label_isoline50: #567556;
-@label_isoline10: #567556;
+@label_isoline50: #496149;
+@label_isoline10: #496149;

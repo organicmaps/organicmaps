@@ -1,3 +1,56 @@
+# This file is used to map OSM tags to OM classificator types.
+# OSM tags are preprocessed according to data/replaced_tags.txt before this mapping.
+#
+# Example row (mind the last semicolon!):
+#   highway|bus_stop;[highway=bus_stop];;name;int_name;22;
+# It contains:
+# - type name: "highway|bus_stop" ("|" is converted to "-" internally)
+# - mapcss selectors for tags: "[highway=bus_stop]", multiple selectors are separated with commas
+# - "x" for a deprecated type or an empty cell otherwise
+# - primary title tag (usually "name")
+# - secondary title tag (usually "int_name")
+# - type id, sequential starting from 1
+# - optional: a replacement type for a deprecated one
+# A "mandatory" mapcss selector like [fee?] or [fee] matches all tag values except [fee=no],
+# a "forbidden" selector like [!oneway] matches [oneway=no] only or absence of this tag.
+# If first 2 (1 for short types like "building") components of pre-matched types are the same,
+# then leave only the longest types (there could be a few of them). Equal arity types are kept.
+# - highway-primary-bridge is left while highway-primary is removed;
+# - building-garages is left while building is removed;
+# - amenity-parking-underground-fee is left while amenity-parking and amenity-parking-fee are removed;
+# - both amenity-charging_station-motorcar and amenity-charging_station-bicycle are left;
+#
+# A shorter format for the above example:
+#   highway|bus_stop;22;
+# It leaves only columns 1, 6 and 7.
+# Works only for simple one tag matching by replacing a "|" with a "=".
+# For deprecated types with no replacement put "x" into the last column.
+#
+# A deprecated type is not drawn, not searchable, etc. even when using old map files.
+# An example of a deprecated type:
+#   deprecated:railway|yard:06.2023;447;x
+# Note there is the old type name and the deprecation date added into a first column.
+# Usually we don't re-use deprecated type ids for at least a year
+# to avoid breaking experience for users with old maps but a new app version.
+# An example of a deprecated type with a replacement:
+#   deprecated:highway|unsurfaced|disused:05.2020;[highway=unsurfaced][disused?];x;name;int_name;838;highway|unclassified
+# or in the short format:
+#   deprecated:highway|unsurfaced|disused:05.2020;838;highway|unclassified
+#
+# First 127 ids are reserved for the most frequently occuring types (they're encoded in 1 byte only).
+#
+# Every time you edit this file add/amend unit tests for new/changed matching cases
+# in generator/generator_tests/osm_type_test.cpp, build and run the tests:
+#   ./tools/unix/build_omim.sh -r generator_tests && ../omim-build-release/generator_tests --filter="osm_type_test"
+#
+# A C++ parser implementation used by the generator is in generator/utils.cpp::ParseMapCSS().
+# A python parser implementation used to compile *.mapcss style files is in tools/kothic/src/libkomwm.py::komap_mapswithme().
+# The app doesn't use this file directly, it loads a data/types.txt
+# which is derived from this file during style files compilation.
+#
+# Types that don't have any style defined are discarded by the generator.
+# To prevent discarding, add them to the exceptions in indexer/feature_visibility.cpp::IsUsefulNondrawableType()
+
 building;[building];;addr:housenumber;name;1;
 highway|residential;2;
 highway|service;3;
@@ -11,20 +64,29 @@ power|tower;10;
 landuse|forest;[landuse=forest],[natural=wood];;name;int_name;11;
 landuse|grass;12;
 highway|secondary;13;
-natural|wood;14;landuse|forest
+# Main railway lines, ~1M usages.
+# Using service= together with usage=main is a mismapping, but people do it, so exclude explicitly.
+railway|rail|main;[railway=rail][usage=main][!highspeed][!service];;name;int_name;14;
 landuse|residential;15;
 highway|path;16;
 highway|bus_stop;17;
-natural|tree;18;
+# ~4M usages.
+highway|footway|sidewalk;[highway=footway][footway=sidewalk];;name;int_name;18;
 place|locality;19;
 natural|coastline;20;
 place|village;21;
-deprecated|deprecated;22;x
+# Service railway lines, ~1M usages. All service=siding/yard/crossover except =spur (see replaced_tags.txt).
+railway|rail|service;[railway=rail][service=service];;name;int_name;22;
 waterway|river;23;
 hwtag|oneway;24;
 hwtag|private;25;
 amenity|parking;26;
 highway|primary;27;
+# TODO: railway-rail was deprecated in June 2023 in favor of more detailed railway-rail-main/branch/etc.
+# But the type should be kept for some time to retain original styling and translations in older mwms
+# and to match some rare combinations like railway=rail usage/service=rare_unsupported_value,
+# later such "unsupported" combinations should be replaced with railway-rail-spur or -service.
+# TODO: add != matching support to handle "unsupported" values, e.g. [usage!=main].
 railway|rail;28;
 highway|service|parking_aisle;[highway=service][service=parking_aisle];;name;int_name;29;
 place|hamlet;30;
@@ -38,9 +100,9 @@ highway|cycleway;37;
 landuse|farm;38;
 amenity|place_of_worship;39;
 highway|track|grade1;[highway=track][tracktype=grade1];;name;int_name;40;
-deprecated|deprecated;41;x
+addr:interpolation|odd;41;
 highway|service|driveway;[highway=service][service=driveway];;name;int_name;42;
-deprecated|deprecated;43;x
+addr:interpolation|even;43;
 highway|motorway_link;44;
 waterway|stream|intermittent;[waterway=stream][intermittent=yes];;name;int_name;45;
 highway|track|grade4;[highway=track][tracktype=grade4];;name;int_name;46;
@@ -48,7 +110,8 @@ natural|water|pond;[natural=water][water=pond];;name;int_name;47;
 landuse|farmland;48;
 barrier|fence;49;
 natural|water|lake;[natural=water][water=lake];;name;int_name;50;
-power|pole;51;
+# ~3M usages. TODO: consolidate all other footway=link/etc. values into highway-footway-minor.
+highway|footway|crossing;[highway=footway][footway=crossing];;name;int_name;51;
 waterway|riverbank;52;
 highway|path|bicycle;[highway=path][bicycle?];;name;int_name;53;
 landuse|meadow;54;
@@ -62,7 +125,9 @@ amenity|restaurant;61;
 landuse|reservoir;62;
 highway|track|grade5;[highway=track][tracktype=grade5];;name;int_name;63;
 amenity|bench;64;
-deprecated|deprecated;65;x
+# Branch railway lines include ordinary railway=rail w/o any specific usage= or service=, ~500k usages.
+# Using service= together with usage=branch is a mismapping, but people do it, so exclude explicitly.
+railway|rail|branch;[railway=rail][usage=branch][!highspeed][!service],[railway=rail][!usage][!service][!highspeed];;name;int_name;65;
 highway|trunk;66;
 amenity|fuel;67;
 leisure|park;68;
@@ -70,7 +135,8 @@ leisure|pitch;69;
 highway|pedestrian;70;
 natural|scrub;71;
 highway|motorway|bridge;[highway=motorway][bridge?];;name;int_name;72;
-deprecated|deprecated;73;x
+# -spur doesn't include spurs w/ usage= (they're matched to -utility), ~400k usages.
+railway|rail|spur;[railway=rail][service=spur][!usage];;name;int_name;73;
 railway|level_crossing;74;
 landuse|industrial;75;
 barrier|wall;76;
@@ -79,7 +145,17 @@ place|town;78;
 power|line;[power=line][!location];;name;int_name;79;
 landuse|farmyard;80;
 highway|residential|bridge;[highway=residential][bridge?];;name;int_name;81;
-railway|rail|bridge;[railway=rail][bridge?];;name;int_name;82;
+# TODO: do not match this type, so that new railway-rail-main/branch/etc-bridge types are used,
+# but retain the old type for compatibility with old mwms for some time.
+# In the meantime railway=rail bridge=yes usage=rare_unsupported_value will be matched to railway-rail (not a bridge!).
+# Currently its impossible to make unsupported values fallback to railway-rail-bridge
+# same way unsupported values fallback to railway-rail, because railway-rail-bridge
+# is not a prefix of railway-rail-main|branch|etc-bridge.
+# Using a [dont=match] and falling back to just railway-rail seems like the best compromise for now.
+# When there is a != and | operators supports, we'll drop this workaround and match like
+# railway|rail|spur|bridge;...,[railway=rail][!service][usage?][usage!=main|branch|tourism|utility][bridge?];...
+# railway|rail|service|bridge;[railway=rail][service?][service!=spur][bridge?];...
+railway|rail|bridge;[railway=rail][bridge?][dont=match];;name;int_name;82;
 boundary|administrative|10;[boundary=administrative][admin_level=10];;name;int_name;83;
 boundary|administrative|6;[boundary=administrative][admin_level=6];;name;int_name;84;
 highway|secondary|bridge;[highway=secondary][bridge?];;name;int_name;85;
@@ -112,6 +188,7 @@ landuse|commercial;111;
 railway|station;112;
 highway|path|hiking;[highway=path][route=hiking],[highway=path][sac_scale=hiking];;name;int_name;113;
 amenity|hospital;114;
+# TODO: merge with "intermittent".
 waterway|stream|ephemeral;[waterway=stream][intermittent=ephemeral];;name;int_name;115;
 highway|trunk|bridge;[highway=trunk][bridge?];;name;int_name;116;
 amenity|post_office;117;
@@ -122,14 +199,14 @@ highway|motorway_junction;121;
 amenity|telephone;122;
 waterway|stream|tunnel;[waterway=stream][tunnel?];;name;int_name;123;
 tourism|information|guidepost;[tourism=information][information=guidepost];;name;int_name;124;
-amenity|parking|fee;[amenity=parking][fee?];;name;int_name;125;
+amenity|parking|fee;[amenity=parking][fee];;name;int_name;125;
 amenity|kindergarten;126;
 leisure|swimming_pool|private;[leisure=swimming_pool][access=private],[amenity=swimming_pool][access=private];;name;int_name;127;
 place|suburb;128;
 landuse|allotments;129;
 landuse|forest|coniferous;[landuse=forest][wood=coniferous],[landuse=forest][leaf_type=coniferous],[natural=wood][wood=coniferous],[natural=wood][leaf_type=coniferous];;name;int_name;130;
 landuse|forest|mixed;[landuse=forest][wood=mixed],[landuse=forest][leaf_type=mixed],[landuse=forest][leaf_cycle=mixed],[natural=wood][wood=mixed],[natural=wood][leaf_type=mixed],[natural=wood][leaf_cycle=mixed];;name;int_name;131;
-natural|wood|mixed;[natural=wood][wood=mixed],[natural=wood][leaf_type=mixed],[natural=wood][leaf_cycle=mixed];x;name;int_name;132;landuse|forest|mixed
+deprecated:natural|wood|mixed:01.2020;[natural=wood][wood=mixed],[natural=wood][leaf_type=mixed],[natural=wood][leaf_cycle=mixed];x;name;int_name;132;landuse|forest|mixed
 sport|tennis;133;
 landuse|vineyard;134;
 aeroway|taxiway;135;
@@ -138,9 +215,11 @@ leisure|garden|residential;[leisure=garden][garden:type=residential];;name;int_n
 amenity|fire_station;138;
 landuse|retail;139;
 leisure|nature_reserve;140;
-leisure|pitch|tennis;[leisure=pitch][sport=tennis];x;name;int_name;141;leisure|pitch
+deprecated:leisure|pitch|tennis:01.2020;[leisure=pitch][sport=tennis];x;name;int_name;141;leisure|pitch
 tourism|information;142;
 highway|motorway_link|bridge;[highway=motorway_link][bridge?];;name;int_name;143;
+# Usually there is something else in place of the old railway, e.g. highway=path,
+# but seems like its being used standalone still in which case usefull for e.g. hiking.
 railway|abandoned;144;
 amenity|parking|private;[amenity=parking][access=private];;name;int_name;145;
 boundary|administrative|7;[boundary=administrative][admin_level=7];;name;int_name;146;
@@ -150,7 +229,7 @@ natural|water|river;[natural=water][water=river];;name;int_name;149;
 railway|tram;150;
 amenity|toilets;151;
 natural|water|basin;[natural=water][water=basin];;name;int_name;152;
-highway|footway|permissive;[highway=footway][access=permissive],[highway=footway][foot=permissive];;name;int_name;153;
+deprecated:highway|footway|permissive:12.2023;[highway=footway][access=permissive],[highway=footway][foot=permissive];x;name;int_name;153;highway|footway
 leisure|picnic_table;154;
 landuse|construction;155;
 tourism|viewpoint;156;
@@ -169,7 +248,7 @@ highway|bridleway;168;
 natural|heath;169;
 landuse|basin;170;
 amenity|library;171;
-natural|wood|coniferous;[natural=wood][wood=coniferous],[natural=wood][leaf_type=coniferous];x;name;int_name;172;landuse|forest|coniferous
+deprecated:natural|wood|coniferous:01.2020;[natural=wood][wood=coniferous],[natural=wood][leaf_type=coniferous];x;name;int_name;172;landuse|forest|coniferous
 landuse|recreation_ground;173;
 landuse|village_green;174;
 amenity|drinking_water;175;
@@ -196,7 +275,7 @@ piste:type|nordic;195;
 natural|beach|gravel;[natural=beach][surface=gravel];;name;int_name;196;
 railway|crossing;197;
 boundary|national_park;198;
-natural|wood|deciduous;[natural=wood][wood=deciduous],[natural=wood][leaf_type=deciduous],[natural=wood][leaf_cycle=deciduous];x;name;int_name;199;landuse|forest|deciduous
+deprecated:natural|wood|deciduous:01.2020;[natural=wood][wood=deciduous],[natural=wood][leaf_type=deciduous],[natural=wood][leaf_cycle=deciduous];x;name;int_name;199;landuse|forest|deciduous
 waterway|dam;200;
 amenity|charging_station|motorcar;[amenity=charging_station][motorcar?];;name;int_name;201;
 leisure|golf_course;202;
@@ -209,7 +288,8 @@ railway|disused;208;
 aeroway|runway;209;
 railway|halt;210;
 man_made|mast;211;
-railway|rail|tunnel;[railway=rail][tunnel?];;name;int_name;212;
+# TODO: see the railway-rail-bridge comment.
+railway|rail|tunnel;[railway=rail][tunnel?][dont=match];;name;int_name;212;
 man_made|wastewater_plant;213;
 man_made|flagpole;214;
 place|county;215;
@@ -226,7 +306,7 @@ sport|baseball;225;
 highway|service|area;[highway=service][area?];;name;int_name;226;
 highway|residential|area;[highway=residential][area?];;name;int_name;227;
 amenity|bus_station;228;
-highway|track|permissive;[highway=track][access=permissive];;name;int_name;229;
+deprecated:highway|track|permissive:12.2023;[highway=track][access=permissive];x;name;int_name;229;highway|track
 waterway|drain|tunnel;[waterway=drain][tunnel?];;name;int_name;230;
 landuse|cemetery|christian;[landuse=cemetery][religion=christian];;name;int_name;231;
 highway|cycleway|tunnel;[highway=cycleway][tunnel?];;name;int_name;232;
@@ -237,13 +317,13 @@ amenity|recycling|centre;[amenity=recycling][recycling_type=centre];;name;int_na
 amenity|recycling;237;
 highway|residential|tunnel;[highway=residential][tunnel?];;name;int_name;238;
 aeroway|helipad;239;
-highway|path|permissive;[highway=path][access=permissive];;name;int_name;240;
+deprecated:highway|path|permissive:12.2023;[highway=path][access=permissive];x;name;int_name;240;highway|path
 place|islet;241;
 sport|basketball;242;
 amenity|cinema;243;
 amenity|theatre;244;
 sport|chess;245;
-railway|spur;246;
+deprecated:railway|spur:06.2023;246;x
 aerialway|station;247;
 landuse|brownfield;248;
 aeroway|apron;249;
@@ -252,10 +332,10 @@ amenity|grave_yard;251;
 waterway|canal|tunnel;[waterway=canal][tunnel?];;name;int_name;252;
 piste:type|downhill|easy;[piste:type=downhill][piste:difficulty=easy];;name;int_name;253;
 waterway|ditch|tunnel;[waterway=ditch][tunnel?];;name;int_name;254;
-deprecated|deprecated;255;x
+hwtag|nosidewalk;255;
 piste:type|downhill|intermediate;[piste:type=downhill][piste:difficulty=intermediate];;name;int_name;256;
 railway|subway_entrance;257;
-deprecated|deprecated;258;x
+amenity|charging_station|bicycle;[amenity=charging_station][bicycle?];;name;int_name;258;
 man_made|pipeline;[man_made=pipeline][!location];;name;int_name;259;
 route|ferry;260;
 highway|trunk_link|bridge;[highway=trunk_link][bridge?];;name;int_name;261;
@@ -295,6 +375,7 @@ place|farm;294;
 boundary|administrative|11;[boundary=administrative][admin_level=11];;name;int_name;295;
 waterway|weir;296;
 highway|secondary|tunnel;[highway=secondary][tunnel?];;name;int_name;297;
+# TODO: its a mismapping likely, if there is a bridge structure still, then it should be railway=disused.
 railway|abandoned|bridge;[railway=abandoned][bridge?];;name;int_name;298;
 man_made|lighthouse;299;
 highway|path|demanding_mountain_hiking;[highway=path][sac_scale=demanding_mountain_hiking];;name;int_name;300;
@@ -302,7 +383,7 @@ man_made|storage_tank;301;
 man_made|silo;302;
 power|generator;303;
 highway|pedestrian|bridge;[highway=pedestrian][bridge?];;name;int_name;304;
-man_made|pipeline|overground;[man_made=pipeline][location=overground];x;name;int_name;305;man_made|pipeline
+deprecated:man_made|pipeline|overground:02.2022;[man_made=pipeline][location=overground];x;name;int_name;305;man_made|pipeline
 natural|saddle;306;
 mountain_pass;[mountain_pass];;name;int_name;307;
 highway|raceway;308;
@@ -313,10 +394,11 @@ sport|equestrian;312;
 tourism|information|office;[tourism=information][information=office];;name;int_name;313;
 highway|footway|hiking;[highway=footway][sac_scale=hiking];;name;int_name;314;
 aeroway|gate;315;
+# TODO: railway=preserved is deprecated in OSM, recommended mapping is railway:preserved=yes + railway=*
 railway|preserved;316;
 highway|path|horse;[highway=path][horse?];;name;int_name;317;
 landuse|field;318;
-deprecated|deprecated;319;x
+hwtag|nocycleway;319;
 leisure|water_park;320;
 natural|wetland|bog;[natural=wetland][wetland=bog];;name;int_name;321;
 man_made|windmill;322;
@@ -326,7 +408,7 @@ amenity|grave_yard|christian;[amenity=grave_yard][religion=christian];;name;int_
 highway|trunk|tunnel;[highway=trunk][tunnel?];;name;int_name;326;
 highway|steps|tunnel;[highway=steps][tunnel?],[highway=steps][location=underground];;name;int_name;327;
 amenity|car_sharing;328;
-sport|football;329;sport|soccer
+deprecated:sport|football:10.2021;329;sport|soccer
 highway|steps|bridge;[highway=steps][bridge?];;name;int_name;330;
 highway|track|tunnel;[highway=track][tunnel?];;name;int_name;331;
 highway|pedestrian|tunnel;[highway=pedestrian][tunnel?],[highway=pedestrian][location=underground];;name;int_name;332;
@@ -335,11 +417,13 @@ sport|cricket;334;
 sport|bowls;335;
 highway|path|tunnel;[highway=path][tunnel?],[highway=path][location=underground];;name;int_name;336;
 man_made|breakwater;337;
-amenity|parking|permissive|fee;[amenity=parking][access=permissive][fee?];x;name;int_name;338;amenity|parking|permissive
-deprecated|deprecated;339;x
+deprecated:amenity|parking|permissive|fee:01.2020;[amenity=parking][access=permissive][fee?];x;name;int_name;338;amenity|parking|permissive
+# -utility includes all usage=industrial/military/test/science/freight (see replaced_tags.txt) incl. w/ service=spur, but not w/ other service= values.
+# TODO: add [key=value1|value2|etc] (and [key!=value1|value2|etc]) support to avoid referring to replaced_tags.txt.
+railway|rail|utility;[railway=rail][usage=utility][!service],[railway=rail][usage=utility][service=spur];;name;int_name;339;
 tourism|zoo;340;
 sport|gymnastics;341;
-deprecated|deprecated;342;x
+railway|rail|main|bridge;[railway=rail][usage=main][!highspeed][!service][bridge?];;name;int_name;342;
 railway|subway|bridge;[railway=subway][bridge?];;name;int_name;343;
 railway|light_rail|bridge;[railway=light_rail][bridge?];;name;int_name;344;
 aeroway|terminal;345;
@@ -348,43 +432,44 @@ piste:type|downhill|advanced;[piste:type=downhill][piste:difficulty=advanced];;n
 sport|shooting;348;
 place|country;349;
 highway|path|alpine_hiking;[highway=path][sac_scale=alpine_hiking];;name;int_name;350;
-deprecated|deprecated;351;x
+tourism|zoo|petting;[tourism=zoo][zoo=petting_zoo];;name;int_name;351;
 sport|scuba_diving;352;
-highway|cycleway|permissive;[highway=cycleway][access=permissive];;name;int_name;353;
+deprecated:highway|cycleway|permissive:12.2023;[highway=cycleway][access=permissive];x;name;int_name;353;highway|cycleway
 highway|unclassified|area;[highway=unclassified][area?];;name;int_name;354;
 natural|volcano;355;
-amenity|parking|underground|fee;[amenity=parking][location=underground][fee?],[amenity=parking][parking=underground][fee?];x;name;int_name;356;amenity|parking|underground
+amenity|parking|underground|fee;[amenity=parking][location=underground][fee],[amenity=parking][parking=underground][fee];;name;int_name;356;
 amenity|parking|underground;[amenity=parking][location=underground],[amenity=parking][parking=underground];;name;int_name;357;
-deprecated|deprecated;358;x
+amenity|parking|street_side;[amenity=parking][parking=street_side];;name;int_name;358;
 amenity|parking|multi-storey;[amenity=parking][parking=multi-storey];;name;int_name;359;
+# TODO: its being replaced by landuse-recreation_ground, merge in there.
 leisure|recreation_ground;360;
 highway|footway|mountain_hiking;[highway=footway][sac_scale=mountain_hiking];;name;int_name;361;
-highway|service|driveway|bridge;[highway=service][service=driveway][bridge?];x;name;int_name;362;highway|service|driveway
-amenity|parking|multi-storey|fee;[amenity=parking][parking=multi-storey][fee?];x;name;int_name;363;amenity|parking|multi-storey
+deprecated:highway|service|driveway|bridge:01.2020;[highway=service][service=driveway][bridge?];x;name;int_name;362;highway|service|driveway
+amenity|parking|multi-storey|fee;[amenity=parking][parking=multi-storey][fee];;name;int_name;363;
 sport|9pin;364;
 sport|10pin;365;
 piste:type|downhill|novice;[piste:type=downhill][piste:difficulty=novice];;name;int_name;366;
 railway|narrow_gauge|bridge;[railway=narrow_gauge][bridge?];;name;int_name;367;
-deprecated|deprecated;368;x
-deprecated|deprecated;369;x
-highway|bridleway|permissive;[highway=bridleway][access=permissive];;name;int_name;370;
+amenity|parking|lane;[amenity=parking][parking=lane];;name;int_name;368;
+railway|rail|main|tunnel;[railway=rail][usage=main][!highspeed][!service][tunnel?];;name;int_name;369;
+deprecated:highway|bridleway|permissive:12.2023;[highway=bridleway][access=permissive];x;name;int_name;370;highway|bridleway
 railway|construction;371;
-deprecated|deprecated;372;x
+railway|rail|branch|bridge;[railway=rail][usage=branch][!highspeed][!service][bridge?],[railway=rail][!usage][!service][!highspeed][bridge?];;name;int_name;372;
 landuse|greenhouse_horticulture;373;
-deprecated|deprecated;374;x
+railway|rail|branch|tunnel;[railway=rail][usage=branch][!highspeed][!service][tunnel?],[railway=rail][!usage][!service][!highspeed][tunnel?];;name;int_name;374;
 amenity|bureau_de_change;375;
-deprecated|deprecated;376;x
-deprecated|deprecated;377;x
+railway|rail|service|bridge;[railway=rail][service=service][bridge?];;name;int_name;376;
+railway|rail|service|tunnel;[railway=rail][service=service][tunnel?];;name;int_name;377;
 highway|bridleway|bridge;[highway=bridleway][bridge?];;name;int_name;378;
-highway|service|driveway|tunnel;[highway=service][service=driveway][tunnel?];x;name;int_name;379;highway|service|driveway
-deprecated|deprecated;380;x
+deprecated:highway|service|driveway|tunnel:01.2020;[highway=service][service=driveway][tunnel?];x;name;int_name;379;highway|service|driveway
+railway|rail|utility|bridge;[railway=rail][usage=utility][!service][bridge?],[railway=rail][usage=utility][service=spur][bridge?];;name;int_name;380;
 amenity|events_venue;381;
 railway|narrow_gauge|tunnel;[railway=narrow_gauge][tunnel?];;name;int_name;382;
 amenity|loading_dock;383;
 waterway|dock;384;
-deprecated|deprecated;385;x
-highway|service|driveway|area;[highway=service][service=driveway][area?];x;name;int_name;386;highway|service|driveway
-deprecated|deprecated;387;x
+railway|rail|utility|tunnel;[railway=rail][usage=utility][!service][tunnel?],[railway=rail][usage=utility][service=spur][tunnel?];;name;int_name;385;
+deprecated:highway|service|driveway|area:01.2020;[highway=service][service=driveway][area?];x;name;int_name;386;highway|service|driveway
+railway|rail|spur|bridge;[railway=rail][service=spur][!usage][bridge?];;name;int_name;387;
 place|city|capital;[place=city][capital?];;name;int_name;388;
 aerialway|cable_car;389;
 piste:type|downhill;390;
@@ -393,21 +478,22 @@ landuse|education;392;
 man_made|cairn;393;
 railway|preserved|bridge;[railway=preserved][bridge?];;name;int_name;394;
 highway|path|demanding_alpine_hiking;[highway=path][sac_scale=demanding_alpine_hiking];;name;int_name;395;
-deprecated|deprecated;396;x
+railway|rail|spur|tunnel;[railway=rail][service=spur][!usage][tunnel?];;name;int_name;396;
 highway|secondary_link|bridge;[highway=secondary_link][bridge?];;name;int_name;397;
 railway|tram|tunnel;[railway=tram][tunnel?];;name;int_name;398;
-deprecated|deprecated;399;x
+railway|rail|tourism;[railway=rail][usage=tourism][!service];;name;int_name;399;
+# TODO: its a mismapping likely, if there is a tunnel structure still, then it should be railway=disused.
 railway|abandoned|tunnel;[railway=abandoned][tunnel?];;name;int_name;400;
 area:highway|living_street;401;
 piste:type|sled;402;
 leisure|beach_resort;403;
 leisure|dog_park;404;
 aerialway|gondola;405;
-historic|museum;[historic=museum];x;name;int_name;406;tourism|museum
+deprecated:historic|museum:10.2021;[historic=museum];x;name;int_name;406;tourism|museum
 highway|living_street|bridge;[highway=living_street][bridge?];;name;int_name;407;
 leisure|track|area;[leisure=track][area?];;name;int_name;408;
 railway|monorail;409;
-deprecated|deprecated;410;x
+railway|rail|highspeed;[railway=rail][highspeed?][!service];;name;int_name;410;
 deprecated|deprecated;411;x
 leisure|park|private;[leisure=park][access=private];;name;int_name;412;
 healthcare|physiotherapist;413;
@@ -426,7 +512,7 @@ healthcare|podiatrist;425;
 healthcare|psychotherapist;426;
 highway|ford;427;
 area:highway|path;428;
-railway|siding;429;
+deprecated:railway|siding:06.2023;429;x
 highway|track|area;[highway=track][area?];;name;int_name;430;
 amenity|sanitary_dump_station;431;
 railway|funicular;432;
@@ -439,16 +525,16 @@ healthcare|speech_therapist;438;
 deprecated|deprecated;439;x
 deprecated|deprecated;440;x
 aerialway|t-bar;441;
-deprecated|deprecated;442;x
-deprecated|deprecated;443;x
+amenity|parking|lane|fee;[amenity=parking][parking=lane][fee];;name;int_name;442;
+amenity|parking|street_side|fee;[amenity=parking][parking=street_side][fee];;name;int_name;443;
 highway|path|difficult_alpine_hiking;[highway=path][sac_scale=difficult_alpine_hiking];;name;int_name;444;
 earthquake:damage|spontaneous_camp;445;
-deprecated|deprecated;446;x
-railway|yard;447;
-deprecated|deprecated;448;x
-natural|meadow;449;landuse|meadow
-deprecated|deprecated;450;x
-railway|razed;451;
+natural|water|drain;[natural=water][water=drain];;name;int_name;446;
+deprecated:railway|yard:06.2023;447;x
+natural|water|ditch;[natural=water][water=ditch];;name;int_name;448;
+natural|water|moat;[natural=water][water=moat];;name;int_name;449;
+natural|water|wastewater;[natural=water][water=wastewater];;name;int_name;450;
+deprecated:railway|razed:06.2023;451;x
 highway|footway|demanding_mountain_hiking;[highway=footway][sac_scale=demanding_mountain_hiking];;name;int_name;452;
 deprecated|deprecated;453;x
 deprecated|deprecated;454;x
@@ -460,7 +546,7 @@ deprecated|deprecated;459;x
 deprecated|deprecated;460;x
 sport|handball;461;
 boundary|administrative|city;[boundary=administrative][border_type=city];;name;int_name;462;
-piste:type|downhill|freeride;[piste:type=downhill][piste:difficulty=freeride];;name;int_name;463;
+piste:type|downhill|freeride;[piste:type=downhill][piste:difficulty=freeride],[piste:type=downhill][piste:grooming=backcountry][!piste:difficulty];;name;int_name;463;
 deprecated|deprecated;464;x
 deprecated|deprecated;465;x
 piste:type|downhill|expert;[piste:type=downhill][piste:difficulty=expert];;name;int_name;466;
@@ -478,12 +564,12 @@ aerialway|platter;477;
 deprecated|deprecated;478;x
 deprecated|deprecated;479;x
 railway|preserved|tunnel;[railway=preserved][tunnel?];;name;int_name;480;
-deprecated|deprecated;481;x
-deprecated|deprecated;482;x
-deprecated|deprecated;483;x
-deprecated|deprecated;484;x
-deprecated|deprecated;485;x
-deprecated|deprecated;486;x
+boundary|protected_area|1;[boundary=protected_area][protect_class=1],[boundary=protected_area][protect_class=1a],[boundary=protected_area][protect_class=1b];;name;int_name;481;
+boundary|protected_area|2;[boundary=protected_area][protect_class=2];;name;int_name;482;
+boundary|protected_area|3;[boundary=protected_area][protect_class=3];;name;int_name;483;
+boundary|protected_area|4;[boundary=protected_area][protect_class=4];;name;int_name;484;
+boundary|protected_area|5;[boundary=protected_area][protect_class=5];;name;int_name;485;
+boundary|protected_area|6;[boundary=protected_area][protect_class=6];;name;int_name;486;
 leisure|park|permissive;[leisure=park][access=permissive];;name;int_name;487;
 highway|bridleway|tunnel;[highway=bridleway][tunnel?];;name;int_name;488;
 highway|motorway_link|tunnel;[highway=motorway_link][tunnel?];;name;int_name;489;
@@ -491,22 +577,22 @@ deprecated|deprecated;490;x
 deprecated|deprecated;491;x
 deprecated|deprecated;492;x
 highway|tertiary_link|bridge;[highway=tertiary_link][bridge?];;name;int_name;493;
-deprecated|deprecated;494;x
+tourism|information|visitor_centre;[tourism=information][information=visitor_centre];;name;int_name;494;
 amenity|parking|park_and_ride;[amenity=parking][parking=park_and_ride];;name;int_name;495;
-deprecated|deprecated;496;x
-deprecated|deprecated;497;x
+waterway|fish_pass;496;
+waterway|fish_pass|tunnel;[waterway=fish_pass][tunnel?];;name;int_name;497;
 natural|water|lock;[natural=water][water=lock];;name;int_name;498;
-waterway|lock;499;waterway|canal
-deprecated|deprecated;500;x
-deprecated|deprecated;501;x
-deprecated|deprecated;502;x
+deprecated:waterway|lock:06.2022;499;waterway|canal
+fee|yes;[fee?];;name;int_name;500;
+fee|no;[fee=no];;name;int_name;501;
+toilets|yes;502;
 highway|trunk_link|tunnel;[highway=trunk_link][tunnel?];;name;int_name;503;
 deprecated|deprecated;504;x
 deprecated|deprecated;505;x
 deprecated|deprecated;506;x
 deprecated|deprecated;507;x
 deprecated|deprecated;508;x
-railway|spur|bridge;[railway=spur][bridge?];;name;int_name;509;
+deprecated:railway|spur|bridge:06.2023;509;x
 deprecated|deprecated;510;x
 deprecated|deprecated;511;x
 deprecated|deprecated;512;x
@@ -530,6 +616,7 @@ highway|footway|alpine_hiking;[highway=footway][sac_scale=alpine_hiking];;name;i
 deprecated|deprecated;530;x
 deprecated|deprecated;531;x
 deprecated|deprecated;532;x
+# TODO: deprecated, replaced by leisure=nature_reserve
 leisure|landscape_reserve;533;
 deprecated|deprecated;534;x
 deprecated|deprecated;535;x
@@ -538,8 +625,8 @@ deprecated|deprecated;537;x
 deprecated|deprecated;538;x
 railway|funicular|tunnel;[railway=funicular][tunnel?];;name;int_name;539;
 barrier|cycle_barrier;540;
-deprecated|deprecated;541;x
-amenity|speed_trap;542;highway|speed_camera
+addr:interpolation;[addr:interpolation];;addr:housenumber;name;541;
+deprecated:amenity|speed_trap:10.2021;542;highway|speed_camera
 area:highway|track;543;
 area:highway|primary;544;
 deprecated|deprecated;545;x
@@ -562,19 +649,19 @@ deprecated|deprecated;561;x
 deprecated|deprecated;562;x
 deprecated|deprecated;563;x
 natural|lake;564;natural|water|lake
-deprecated|deprecated;565;x
-deprecated|deprecated;566;x
-deprecated|deprecated;567;x
-deprecated|deprecated;568;x
-deprecated|deprecated;569;x
-deprecated|deprecated;570;x
+power|plant;565;
+power|plant|solar;[power=plant][plant:source=solar];;name;int_name;566;
+power|plant|hydro;[power=plant][plant:source=hydro];;name;int_name;567;
+power|plant|wind;[power=plant][plant:source=wind];;name;int_name;568;
+power|plant|gas;[power=plant][plant:source=gas];;name;int_name;569;
+power|plant|coal;[power=plant][plant:source=coal];;name;int_name;570;
 deprecated|deprecated;571;x
 deprecated|deprecated;572;x
 deprecated|deprecated;573;x
 deprecated|deprecated;574;x
 aerialway|rope_tow;575;
 natural|pond;576;natural|water|pond
-deprecated|deprecated;577;x
+railway|station|funicular;[railway=station][station=funicular];;name;int_name;577;
 highway|secondary_link|tunnel;[highway=secondary_link][tunnel?];;name;int_name;578;
 deprecated|deprecated;579;x
 deprecated|deprecated;580;x
@@ -602,18 +689,18 @@ place|continent;601;
 deprecated|deprecated;602;x
 deprecated|deprecated;603;x
 boundary|administrative|nation;[boundary=administrative][border_type=nation];;name;int_name;604;
-deprecated|deprecated;605;x
-deprecated|deprecated;606;x
-deprecated|deprecated;607;x
+piste:type|hike;605;
+piste:type|connection;606;
+piste:type|skitour;607;
 aerialway|magic_carpet;608;
-deprecated|deprecated;609;x
-deprecated|deprecated;610;x
-deprecated|deprecated;611;x
-deprecated|deprecated;612;x
-deprecated|deprecated;613;x
-deprecated|deprecated;614;x
-deprecated|deprecated;615;x
-deprecated|deprecated;616;x
+piste:type|downhill|novice|area;[piste:type=downhill][piste:difficulty=novice][area?];;;;609;
+piste:type|downhill|easy|area;[piste:type=downhill][piste:difficulty=easy][area?];;;;610;
+piste:type|downhill|intermediate|area;[piste:type=downhill][piste:difficulty=intermediate][area?];;;;611;
+piste:type|downhill|advanced|area;[piste:type=downhill][piste:difficulty=advanced][area?];;;;612;
+piste:type|downhill|expert|area;[piste:type=downhill][piste:difficulty=expert][area?];;;;613;
+piste:type|downhill|area;[piste:type=downhill][area?];;;;614;
+piste:type|sled|area;[piste:type=sled][area?];;;;615;
+piste:type|snow_park;616;
 deprecated|deprecated;617;x
 deprecated|deprecated;618;x
 aerialway|j-bar;619;
@@ -623,7 +710,7 @@ deprecated|deprecated;622;x
 deprecated|deprecated;623;x
 deprecated|deprecated;624;x
 deprecated|deprecated;625;x
-railway|siding|bridge;[railway=siding][bridge?];;name;int_name;626;
+deprecated:railway|siding|bridge:06.2023;626;x
 highway|footway|difficult_alpine_hiking;[highway=footway][sac_scale=difficult_alpine_hiking];;name;int_name;627;
 deprecated|deprecated;628;x
 deprecated|deprecated;629;x
@@ -648,7 +735,7 @@ deprecated|deprecated;647;x
 deprecated|deprecated;648;x
 deprecated|deprecated;649;x
 deprecated|deprecated;650;x
-railway|spur|tunnel;[railway=spur][tunnel?];;name;int_name;651;
+deprecated:railway|spur|tunnel:06.2023;651;x
 deprecated|deprecated;652;x
 deprecated|deprecated;653;x
 deprecated|deprecated;654;x
@@ -662,7 +749,7 @@ deprecated|deprecated;661;x
 deprecated|deprecated;662;x
 deprecated|deprecated;663;x
 deprecated|deprecated;664;x
-railway|yard|bridge;[railway=yard][bridge?];;name;int_name;665;
+deprecated|railway|yard|bridge:06.2023;665;x
 deprecated|deprecated;666;x
 deprecated|deprecated;667;x
 deprecated|deprecated;668;x
@@ -747,9 +834,9 @@ amenity|parking_entrance|permissive;[amenity=parking_entrance][access=permissive
 barrier|cattle_grid;747;
 barrier|ditch;748;
 barrier|kissing_gate;749;
-deprecated|deprecated;750;x
-deprecated|deprecated;751;x
-deprecated|deprecated;752;x
+barrier|turnstile;750;
+landuse|industrial|mine;[landuse=industrial][industrial=mine];;name;int_name;751;
+landuse|flowerbed;752;
 deprecated|deprecated;753;x
 deprecated|deprecated;754;x
 deprecated|deprecated;755;x
@@ -837,7 +924,7 @@ deprecated|deprecated;836;x
 deprecated|deprecated;837;x
 deprecated|deprecated;838;x
 landuse|military|danger_area;[landuse=military][military=danger_area][wikipedia?],[landuse=military][military=cordon][wikipedia?];;name;int_name;839;
-boundary|military;840;
+boundary|protected_area;840;
 deprecated|deprecated;841;x
 deprecated|deprecated;842;x
 deprecated|deprecated;843;x
@@ -849,22 +936,23 @@ deprecated|deprecated;848;x
 deprecated|deprecated;849;x
 deprecated|deprecated;850;x
 deprecated|deprecated;851;x
-deprecated|deprecated;852;x
-deprecated|deprecated;853;x
-deprecated|deprecated;854;x
-deprecated|deprecated;855;x
+railway|rail|highspeed|bridge;[railway=rail][highspeed?][!service][bridge?];;name;int_name;852;
+railway|rail|tourism|bridge;[railway=rail][usage=tourism][!service][bridge?];;name;int_name;853;
+railway|rail|highspeed|tunnel;[railway=rail][highspeed?][!service][tunnel?];;name;int_name;854;
+railway|rail|tourism|tunnel;[railway=rail][usage=tourism][!service][tunnel?];;name;int_name;855;
 mapswithme|grid;856;
-highway|service|busway;[highway=service][service=busway];;name;int_name;857;
-highway|busway;858;
+# service=bus/busway is deprecated in OSM
+deprecated:highway|service|busway:10.2023;[highway=service][service=busway];x;name;int_name;857;highway|busway
+highway|busway;[highway=busway],[highway=service][service=busway],[highway=service][service=bus];;name;int_name;858;
 highway|busway|bridge;[highway=busway][bridge?];;name;int_name;859;
 highway|busway|tunnel;[highway=busway][tunnel?];;name;int_name;860;
 natural|salt_pond;861;landuse|salt_pond
-deprecated|deprecated;862;x
-deprecated|deprecated;863;x
-railway|siding|tunnel;[railway=siding][tunnel?];;name;int_name;864;
-railway|yard|tunnel;[railway=yard][tunnel?];;name;int_name;865;
+amenity|conference_centre;862;
+amenity|exhibition_centre;863;
+deprecated:railway|siding|tunnel:06.2023;864;x
+deprecated:railway|yard|tunnel:06.2023;865;x
 area:highway|footway;866;
-deprecated|deprecated;867;x
+junction|circular;867;
 area:highway|residential;868;
 area:highway|secondary;869;
 area:highway|tertiary;870;
@@ -875,12 +963,13 @@ area:highway|unclassified;874;
 deprecated|deprecated;875;x
 deprecated|deprecated;876;x
 area:highway|cycleway;877;
-deprecated|deprecated;878;x
+entrance|exit;878;
 area:highway|motorway;879;
 area:highway|trunk;880;
-deprecated|deprecated;881;x
+man_made|bridge;881;
 entrance;[entrance];;ref;addr:flats;882;
 entrance|main;[entrance=main];;ref;addr:flats;883;
+shop|agrarian;884;
 tourism|artwork;885;
 railway|subway|red;[railway=subway][colour=red];x;name;int_name;886;railway|subway|tunnel
 railway|subway|blue;[railway=subway][colour=blue];x;name;int_name;887;railway|subway|tunnel
@@ -894,7 +983,7 @@ historic|memorial|war_memorial;[historic=memorial][memorial=war_memorial],[histo
 historic|memorial|cross;[historic=memorial][memorial=cross];;name;int_name;895;
 historic|gallows;[historic=gallows];;name;int_name;896;
 historic|pillory;[historic=pillory];;name;int_name;897;
-deprecated|deprecated;898;x
+amenity|money_transfer;898;
 deprecated|deprecated;899;x
 railway|subway|darkgreen;[railway=subway][colour=darkgreen];x;name;int_name;900;railway|subway|tunnel
 deprecated|deprecated;901;x
@@ -905,9 +994,9 @@ deprecated|deprecated;905;x
 railway|subway|lightgreen;[railway=subway][colour=lightgreen];x;name;int_name;906;railway|subway|tunnel
 deprecated|deprecated;907;x
 railway|subway|violet;[railway=subway][colour=violet];x;name;int_name;908;railway|subway|tunnel
-deprecated|deprecated;909;x
+shop|rental;909;
 railway|subway|grey;[railway=subway][colour=grey];x;name;int_name;910;railway|subway|tunnel
-deprecated|deprecated;911;x
+shop|rental|bike;[shop=rental][rental=bike];;name;int_name;911;
 historic|ship;912;
 shop|tobacco;913;
 shop|farm;914;
@@ -955,6 +1044,7 @@ shop|furniture;955;
 craft|winery;956;
 waterway|waterfall;957;
 craft|electronics_repair;958;
+shop|appliance;959;
 amenity|casino;960;
 amenity|brothel;961;
 place|neighbourhood;[place=neighbourhood],[place=quarter];;name;int_name;962;
@@ -989,8 +1079,8 @@ junction|roundabout;990;
 highway|speed_camera;991;
 shop|beauty;992;
 shop|sports;993;
-route|ferry|motor_vehicle;[route=ferry][motor_vehicle];x;name;int_name;994;route|ferry
-railway|rail|motor_vehicle;[railway=rail][motor_vehicle];;name;int_name;995;
+deprecated:route|ferry|motor_vehicle:09.2021;[route=ferry][motor_vehicle];x;name;int_name;994;route|ferry
+deprecated:railway|rail|motor_vehicle:06.2023;[railway=rail][motor_vehicle],[railway=rail][motorcar];x;name;int_name;995;railway|rail
 hwtag|nofoot;996;
 place|city|capital|2;[place=city][capital=2],[place=city][capital?][admin_level=2];;name;int_name;997;
 place|city|capital|3;[place=city][capital=3],[place=city][capital?][admin_level=3];;name;int_name;998;
@@ -1004,6 +1094,7 @@ place|city|capital|10;[place=city][capital=10],[place=city][capital?][admin_leve
 place|city|capital|11;[place=city][capital=11],[place=city][capital?][admin_level=11];;name;int_name;1006;
 hwtag|yesfoot;1007;
 public_transport|platform;1008;
+# Useless now, it is detected by the classifier, but has no any rules and isn't set as an exception.
 junction;[junction];;name;int_name;1009;
 aeroway|aerodrome|international;[aeroway=aerodrome][aerodrome=international],[aeroway=aerodrome][aerodrome:type=international];;name;int_name;1010;
 railway|station|light_rail;[railway=station][station=light_rail],[railway=station][transport=light_rail];;name;int_name;1011;
@@ -1050,7 +1141,7 @@ man_made|water_tower;1051;
 highway|world_level;1052;
 highway|world_towns_level;1053;
 building|train_station;1054;
-route|shuttle_train;1055;
+route|shuttle_train;[route=shuttle_train],[route=train][shuttle];;;;1055;
 shop|copyshop;1056;
 shop|photo;1057;
 shop|travel_agency;[shop=travel_agency],[office=travel_agent];;name;int_name;1058;
@@ -1216,9 +1307,9 @@ shop|craft;1217;
 shop|sewing;1218;
 railway|station|subway|warszawa;[railway=station][transport=subway][city=warszawa],[railway=station][station=subway][city=warszawa];;name;int_name;1219;
 railway|subway_entrance|warszawa;[railway=subway_entrance][city=warszawa];;name;int_name;1220;
-deprecated|deprecated;1221;x
-deprecated|deprecated;1222;x
-deprecated|deprecated;1223;x
+shop|bed;1221;
+shop|outpost;1222;
+shop|gas;1223;
 natural|desert;[natural=desert],[natural=sand][desert=erg];;name;int_name;1224;
 natural|water|tunnel;[natural=water][tunnel?];;name;int_name;1225;
 place|square;1226;
@@ -1497,7 +1588,7 @@ railway|subway_entrance|lausanne;[railway=subway_entrance][city=lausanne];;name;
 railway|subway_entrance|lille;[railway=subway_entrance][city=lille];;name;int_name;1499;
 railway|subway_entrance|lima;[railway=subway_entrance][city=lima];;name;int_name;1500;
 railway|subway_entrance|lisboa;[railway=subway_entrance][city=lisboa];;name;int_name;1501;
-deprecated|deprecated;1502;x
+railway|subway_entrance|tehran;[railway=subway_entrance][city=tehran];;name;int_name;1502;
 railway|subway_entrance|lyon;[railway=subway_entrance][city=lyon];;name;int_name;1503;
 railway|subway_entrance|malaga;[railway=subway_entrance][city=malaga];;name;int_name;1504;
 railway|subway_entrance|manila;[railway=subway_entrance][city=manila];;name;int_name;1505;
@@ -1546,3 +1637,50 @@ railway|subway_entrance|wuhan;[railway=subway_entrance][city=wuhan];;name;int_na
 railway|subway_entrance|yerevan;[railway=subway_entrance][city=yerevan];;name;int_name;1548;
 railway|subway_entrance|yokohama;[railway=subway_entrance][city=yokohama];;name;int_name;1549;
 railway|subway_entrance|bilbao;[railway=subway_entrance][city=bilbao];;name;int_name;1550;
+craft|key_cutter;1551;
+craft|locksmith;1552;
+shop|carpet;1553;
+shop|motorcycle_repair;1554;
+shop|pet_grooming;1555;
+shop|hifi;1556;
+shop|bathroom_furnishing;1557;
+shop|curtain;1558;
+shop|fashion_accessories;1559;
+shop|cannabis;1560;
+shop|herbalist;1561;
+shop|camera;1562;
+shop|auction;1563;
+shop|collector;1564;
+railway|station|subway|tehran;[railway=station][transport=subway][city=tehran],[railway=station][station=subway][city=tehran];;name;int_name;1565;
+amenity|stripclub;1566;
+tourism|aquarium;1567;
+emergency|assembly_point;1568;
+amenity|gambling;1569;
+leisure|adult_gaming_centre;1570;
+leisure|amusement_arcade;1571;
+amenity|place_of_worship|christian|mormon;[amenity=place_of_worship][religion=christian][denomination=mormon];;name;int_name;1572;
+amenity|public_bath;1573;
+amenity|vehicle_inspection;1574;
+historic|cannon;1575;
+historic|anchor;1576;
+historic|stone;1577;
+historic|aircraft;1578;
+historic|tank;1579;
+historic|mine;1580;
+historic|wreck;1581;
+historic|locomotive;1582;
+craft|caterer;1583;
+craft|grinding_mill;1584;
+leisure|outdoor_seating;1585;
+railway|station|light_rail|london;[railway=station][station=light_rail][city=london];;name;int_name;1586;
+railway|station|light_rail|porto;[railway=station][station=light_rail][city=porto];;name;int_name;1587;
+amenity|place_of_worship|christian|jehovahs_witness;[amenity=place_of_worship][religion=christian][denomination=jehovahs_witness];;name;int_name;1588;
+amenity|parking|underground|private;[amenity=parking][location=underground][access=private],[amenity=parking][parking=underground][access=private];;name;int_name;1589;
+amenity|parking|street_side|private;[amenity=parking][parking=street_side][access=private];;name;int_name;1590;
+amenity|parking|lane|private;[amenity=parking][parking=lane][access=private];;name;int_name;1591;
+amenity|compressed_air;1592;
+leisure|hackerspace;1593;
+railway|station|subway|singapore;[railway=station][transport=subway][city=singapore],[railway=station][station=subway][city=singapore];;name;int_name;1594;
+railway|subway_entrance|singapore;[railway=subway_entrance][city=singapore];;name;int_name;1595;
+railway|station|subway|boston;[railway=station][transport=subway][city=boston],[railway=station][station=subway][city=boston];;name;int_name;1596;
+railway|subway_entrance|boston;[railway=subway_entrance][city=boston];;name;int_name;1597;

@@ -1,25 +1,16 @@
 #include "qt/place_page_dialog.hpp"
 
-#include "map/place_page_info.hpp"
+#include "qt/qt_common/text_dialog.hpp"
 
-#include <string>
+#include "map/place_page_info.hpp"
 
 #include <QtWidgets/QDialogButtonBox>
 #include <QtWidgets/QGridLayout>
 #include <QtWidgets/QHBoxLayout>
 #include <QtWidgets/QLabel>
 #include <QtWidgets/QPushButton>
-#include <QtWidgets/QVBoxLayout>
 
-using namespace std;
-
-string GenerateStars(int count)
-{
-  string stars;
-  for (int i = 0; i < count; ++i)
-    stars.append("★");
-  return stars;
-}
+#include <string>
 
 PlacePageDialog::PlacePageDialog(QWidget * parent, place_page::Info const & info,
                                  search::ReverseGeocoder::Address const & address)
@@ -40,6 +31,7 @@ PlacePageDialog::PlacePageDialog(QWidget * parent, place_page::Info const & info
       label->setText(QString::fromStdString("<a href=\"" + value + "\">" + value + "</a>"));
     }
     grid->addWidget(label, row++, 1);
+    return label;
   };
 
   {
@@ -49,7 +41,8 @@ PlacePageDialog::PlacePageDialog(QWidget * parent, place_page::Info const & info
 
   addEntry("CountryId", info.GetCountryId());
 
-  if (auto const & title = info.GetTitle(); !title.empty())
+  auto const & title = info.GetTitle();
+  if (!title.empty())
     addEntry("Title", title);
 
   if (auto const & subTitle = info.GetSubtitle(); !subTitle.empty())
@@ -81,13 +74,38 @@ PlacePageDialog::PlacePageDialog(QWidget * parent, place_page::Info const & info
     addEntry("Raw Types", DebugPrint(info.GetTypes()));
   }
 
+  auto const layer = info.GetLayer();
+  if (layer != feature::LAYER_EMPTY)
+    addEntry("Layer", std::to_string(layer));
+
   using PropID = osm::MapObject::MetadataID;
 
   if (auto cuisines = info.FormatCuisines(); !cuisines.empty())
     addEntry(DebugPrint(PropID::FMD_CUISINE), cuisines);
 
-  if (auto const & descr = info.GetDescription(); !descr.empty())
-    addEntry("Description size", std::to_string(descr.size()));
+  QDialogButtonBox * dbb = new QDialogButtonBox();
+  QPushButton * closeButton = new QPushButton("Close");
+  closeButton->setDefault(true);
+  connect(closeButton, &QAbstractButton::clicked, this, &PlacePageDialog::OnClose);
+  dbb->addButton(closeButton, QDialogButtonBox::RejectRole);
+
+  if (info.ShouldShowEditPlace())
+  {
+    QPushButton * editButton = new QPushButton("Edit Place");
+    connect(editButton, &QAbstractButton::clicked, this, &PlacePageDialog::OnEdit);
+    dbb->addButton(editButton, QDialogButtonBox::AcceptRole);
+  }
+
+  if (auto const & descr = info.GetWikiDescription(); !descr.empty())
+  {
+    QPushButton * wikiButton = new QPushButton("Wiki Description");
+    connect(wikiButton, &QAbstractButton::clicked, this, [this, descr, title]()
+    {
+      auto textDialog = TextDialog(this, QString::fromStdString(descr), QString::fromStdString("Wikipedia: " + title));
+      textDialog.exec();
+    });
+    dbb->addButton(wikiButton, QDialogButtonBox::ActionRole);
+  }
 
   info.ForEachMetadataReadable([&addEntry](PropID id, std::string const & value)
   {
@@ -105,28 +123,18 @@ PlacePageDialog::PlacePageDialog(QWidget * parent, place_page::Info const & info
     case PropID::FMD_WIKIMEDIA_COMMONS:
       isLink = true;
       break;
+    default:
+      break;
     }
 
     addEntry(DebugPrint(id), value, isLink);
   });
 
-  QDialogButtonBox * dbb = new QDialogButtonBox();
-  QPushButton * closeButton = new QPushButton("Close");
-  closeButton->setDefault(true);
-  connect(closeButton, &QAbstractButton::clicked, this, &PlacePageDialog::OnClose);
-  dbb->addButton(closeButton, QDialogButtonBox::RejectRole);
-
-  if (info.ShouldShowEditPlace())
-  {
-    QPushButton * editButton = new QPushButton("Edit Place");
-    connect(editButton, &QAbstractButton::clicked, this, &PlacePageDialog::OnEdit);
-    dbb->addButton(editButton, QDialogButtonBox::AcceptRole);
-  }
   grid->addWidget(dbb);
   setLayout(grid);
 
-  string const title = string("Place Page") + (info.IsBookmark() ? " (bookmarked)" : "");
-  setWindowTitle(title.c_str());
+  auto const ppTitle = std::string("Place Page") + (info.IsBookmark() ? " (bookmarked)" : "");
+  setWindowTitle(ppTitle.c_str());
 }
 
 void PlacePageDialog::OnClose() { reject(); }

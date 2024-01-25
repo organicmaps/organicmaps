@@ -540,7 +540,7 @@ HighwayCategory IndexGraphStarter::GetHighwayCategory(Segment seg) const
   case HighwayType::HighwaySecondary: case HighwayType::HighwaySecondaryLink:
   case HighwayType::HighwayTertiary: case HighwayType::HighwayTertiaryLink:
     return HighwayCategory::Usual;
-  case HighwayType::RouteFerry: case HighwayType::RailwayRailMotorVehicle: case HighwayType::RouteShuttleTrain:
+  case HighwayType::RouteFerry: case HighwayType::RouteShuttleTrain:
     return HighwayCategory::Transit;
   default:
     return HighwayCategory::Minor;

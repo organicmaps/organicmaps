@@ -19,7 +19,7 @@ implementation on Android.
 
 - Disable Wi-Fi, disable Cellular Data, enable Location;
 - Get under a roof and away from the open sky and any windows;
-- Restart device, start the app, and wait 30 seconds until
+- Restart device, start the app, and wait 1 minute until
   "Continue detecting your current location?" appears;
 - Don't tap any buttons in the dialog - the search for a location
   should continue in the background until "Stop" is explicitly taped;
@@ -51,26 +51,29 @@ This test-case should work with the same behavior regardless of
 3. Google location dialog (positive case)
 
 - Use Google flavor and enable Google Play Location in the app settings;
-- Disable Wi-Fi, disable Cellular Data, disable Location;
-- Start the app and initiate location search by tapping on location button;
-- "For better experiences..." Google dialog should appear immediately;
-- Tap "Enable" in the dialog and it should enable Location in the system;
-- Location should start working as in (1) case.
+- Disable Location, but enable Cellular Data and/or Wi-Fi;
+- Start the app;
+- Check that location icon is crossed out immediately;
+- "To continue, turn on device location, which uses Google's location service"
+  Google dialog should appear;
+- Tap "OK" in the dialog;
+- Check that system location has been enabled;
+- The app will start searching for location as in (1) case.
 
 4. Google location dialog (negative case)
 
 - Try the same steps as in (3), but tap "No thanks" button in the dialog.
 - Check that location icon is crossed out immediately;
-- "For better experiences..." Google dialog should appear;
+- "To continue, turn on..." Google dialog should appear;
 - Tap "No thanks" button again;
-- Check that location icon is crossed out immediately;
+- Check that location icon is still crossed out;
 - Switch to some other app and back;
 - Check that location icon is still crossed out and
-  "For better experiences..." dialog doesn't appear automatically;
+  "To continue, turn on..." dialog doesn't appear automatically;
 - Kill the app and start it again;
 - Check that location icon is still crossed out and
-  "For better experiences..." dialog doesn't appear automatically;
-- Tap on location button - "For better experiences..." dialog
+  "To continue, turn on..." dialog doesn't appear automatically;
+- Tap on location button - "To continue, turn on device..." dialog
   should re-appear again.
 
 5. OM location dialog (negative case)
@@ -100,3 +103,12 @@ This test-case should work with the same behavior regardless of
   dialog should appear immediately, depending in Google Play Service
   availability;
 - Further taps on location button will lead to (4) or (5).
+
+7. Pending location mode
+
+- Disable Wi-Fi, disable cellular data, and enable location.
+- Move your phone away from the open sky and any windows to make sure that GPS can't be acquired.
+- If the location search hasn't already begun, press the location button to start it.
+- The location icon MUST be "locating" while searching for a GPS signal.
+- Press the location button multiple time - the icon MUST NOT change from the "locating" mode.
+- Touch, drag or try to zoom in and zoom out the map - the icon MUST NOT change from "locating" mode.

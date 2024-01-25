@@ -10,7 +10,7 @@
 "search" = "検索";
 
 /* Used in home screen quick actions. */
-"bookmarks" = "ブックマーク";
+"bookmarks_and_tracks" = "ブックマークとトラック";
 
 /* Used in home screen quick actions. */
 "route" = "経路";

@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+  xmlns:android="http://schemas.android.com/apk/res/android"
+  xmlns:app="http://schemas.android.com/apk/res-auto"
+  android:layout_width="match_parent"
+  android:layout_height="wrap_content"
+  android:orientation="vertical">
+  <androidx.constraintlayout.widget.ConstraintLayout
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="horizontal">
+    <TextView
+      android:id="@+id/layers_text"
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:layout_marginStart="@dimen/margin_base"
+      android:layout_marginTop="@dimen/margin_base"
+      android:text="@string/layers_title"
+      android:textAppearance="?fontHeadline6"
+      app:layout_constraintStart_toStartOf="parent"
+      app:layout_constraintTop_toTopOf="parent" />
+    <com.google.android.material.button.MaterialButton
+      android:id="@+id/close_button"
+      style="@style/Widget.MaterialComponents.Button.UnelevatedButton"
+      android:layout_width="@dimen/place_page_top_button"
+      android:layout_height="@dimen/place_page_top_button"
+      android:layout_marginEnd="@dimen/margin_half_plus"
+      android:layout_marginTop="@dimen/margin_half_plus"
+      android:background="?attr/selectableItemBackgroundBorderless"
+      android:contentDescription="@string/close"
+      app:icon="@drawable/ic_close"
+      app:iconGravity="textStart"
+      app:iconPadding="0dp"
+      app:iconSize="24dp"
+      app:iconTint="?iconTint"
+      app:layout_constraintEnd_toEndOf="parent"
+      app:layout_constraintTop_toTopOf="parent"
+      app:shapeAppearanceOverlay="@style/ShapeAppearanceOverlay.Button.Round" />
+  </androidx.constraintlayout.widget.ConstraintLayout>
+
+  <androidx.recyclerview.widget.RecyclerView
+    android:id="@+id/recycler"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginBottom="@dimen/margin_base"
+    android:minHeight="@dimen/toggle_map_layer_frame_height"
+    android:paddingStart="@dimen/margin_base"
+    android:paddingEnd="@dimen/margin_base" />
+</LinearLayout>

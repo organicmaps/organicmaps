@@ -1,17 +1,10 @@
 #pragma once
 
-#include "generator/feature_builder.hpp"
 #include "generator/feature_processing_layers.hpp"
 #include "generator/processor_interface.hpp"
 
 #include <memory>
 #include <string>
-#include <vector>
-
-namespace feature
-{
-struct GenerateInfo;
-}  // namespace feature
 
 namespace generator
 {
@@ -19,9 +12,7 @@ namespace generator
 class ProcessorCountry : public FeatureProcessorInterface
 {
 public:
-  explicit ProcessorCountry(std::shared_ptr<FeatureProcessorQueue> const & queue,
-                            std::string const & bordersPath, bool haveBordersForWholeWorld,
-                            std::shared_ptr<ComplexFeaturesMixer> const & complexFeaturesMixer);
+  ProcessorCountry(AffiliationInterfacePtr affiliations, std::shared_ptr<FeatureProcessorQueue> queue);
 
   // FeatureProcessorInterface overrides:
   std::shared_ptr<FeatureProcessorInterface> Clone() const override;
@@ -30,11 +21,12 @@ public:
   void Finish() override;
 
 private:
-  std::string m_bordersPath;
-  std::shared_ptr<AffiliationsFeatureLayer<>> m_affiliationsLayer;
+  AffiliationInterfacePtr m_affiliations;
   std::shared_ptr<FeatureProcessorQueue> m_queue;
+
+  std::shared_ptr<AffiliationsFeatureLayer> m_affiliationsLayer;
   std::shared_ptr<LayerBase> m_processingChain;
-  std::shared_ptr<ComplexFeaturesMixer> m_complexFeaturesMixer;
-  bool m_haveBordersForWholeWorld;
+  //std::shared_ptr<ComplexFeaturesMixer> m_complexFeaturesMixer;
 };
+
 }  // namespace generator

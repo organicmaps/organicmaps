@@ -16,7 +16,7 @@ struct UnicodeBlock;
 class GlyphManager
 {
 public:
-  static const int kDynamicGlyphSize;
+  static int constexpr kDynamicGlyphSize = -1;
 
   struct Params
   {

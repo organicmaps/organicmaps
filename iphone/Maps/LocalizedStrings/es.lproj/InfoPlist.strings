@@ -10,7 +10,7 @@
 "search" = "Buscar";
 
 /* Used in home screen quick actions. */
-"bookmarks" = "Marcadores";
+"bookmarks_and_tracks" = "Marcadores y rutas";
 
 /* Used in home screen quick actions. */
 "route" = "Ruta";

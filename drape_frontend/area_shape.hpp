@@ -24,7 +24,7 @@ struct BuildingOutline
 class AreaShape : public MapShape
 {
 public:
-  AreaShape(std::vector<m2::PointD> && triangleList, BuildingOutline && buildingOutline,
+  AreaShape(std::vector<m2::PointD> triangleList, BuildingOutline && buildingOutline,
             AreaViewParams const & params);
 
   void Draw(ref_ptr<dp::GraphicsContext> context, ref_ptr<dp::Batcher> batcher,

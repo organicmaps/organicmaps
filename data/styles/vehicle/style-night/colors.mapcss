@@ -39,11 +39,12 @@
 
 @glacier: #111111;
 @water: #002222;
+@water_bad: #00261e;
 @river: #062026;
 @wetland: #001919;
 @beach: #28281A;
 @barerock: #302A2A;
-@desert: #12114E;
+@desert: #191007;
 
 /*3.2 Vegetation*/
 
@@ -66,9 +67,11 @@
 @industrial: #0D0A0D;
 @sport: #070F0A;
 @military: #B71C1C;
+@prison: #7f7f7f;
 @parking: #191509;
 @parking_l: #1F190A;
 @farmland: #151500;
+@farmyard: #212106;
 
 /*4.2 Aerodrome*/
 
@@ -142,10 +145,11 @@
 
 /* 5.5 Transport */
 
-@railway_light: #333030;
-@railway: #171514;
+@railway_light: #2C2630;
+@railway: #3A2F40;
+@railway_tourism: #3D3128;
 @railway_tunnel: #222222;
-@railway_dash: #111111;
+@railway_dash: #050505;
 @aerialway: #4E4E3D;
 @tram: #5C5C51;
 @ferry: #2A4541;
@@ -173,7 +177,7 @@
 @country_label: #444444;
 @state_label: #444444;
 @district_label: #555555;
-@housename: #737373;
+@housenumber: #6C6C6C;
 @building_label: #737373;
 @poi_label: #666666;
 @subway_label: #555555;

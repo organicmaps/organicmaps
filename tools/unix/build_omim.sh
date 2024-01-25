@@ -5,7 +5,6 @@ set -eu
 OPT_DEBUG=
 OPT_RELEASE=
 OPT_CLEAN=
-OPT_SKIP_DESKTOP=
 OPT_DESIGNER=
 OPT_GCC=
 OPT_TARGET=
@@ -14,7 +13,7 @@ OPT_STANDALONE=
 OPT_COMPILE_DATABASE=
 OPT_LAUNCH_BINARY=
 OPT_NJOBS=
-while getopts ":cdrxstagjlpn:" opt; do
+while getopts ":cdrxtagjlpn:" opt; do
   case $opt in
     a) OPT_STANDALONE=1 ;;
     c) OPT_CLEAN=1 ;;
@@ -30,9 +29,6 @@ while getopts ":cdrxstagjlpn:" opt; do
       ;;
     p) OPT_PATH="$OPTARG" ;;
     r) OPT_RELEASE=1 ;;
-    s) OPT_SKIP_DESKTOP=1
-       CMAKE_CONFIG="${CMAKE_CONFIG:-} -DSKIP_DESKTOP=ON"
-      ;;
     t) OPT_DESIGNER=1 ;;
     *)
       echo "This tool builds Organic Maps"
@@ -40,32 +36,28 @@ while getopts ":cdrxstagjlpn:" opt; do
       echo
       echo "By default both debug and release versions are built in ../omim-build-<buildtype> dir."
       echo
-      echo -e "-d  Build debug version"
-      echo -e "-r  Build release version"
-      echo -e "-x  Use precompiled headers"
+      echo -e "-d  Build a debug version"
+      echo -e "-r  Build a release version"
+      echo -e "-x  Use pre-compiled headers"
       echo -e "-c  Clean before building"
-      echo -e "-s  Skip desktop app building"
-      echo -e "-t  Build designer tool (only for MacOS X platform)"
-      echo -e "-a  Build standalone desktop app (only for MacOS X platform)"
-      echo -e "-g  Force use GCC (only for MacOS X platform)"
+      echo -e "-t  Build Qt based designer tool (Linux/MacOS only)"
+      echo -e "-a  Build Qt based standalone desktop app (Linux/MacOS only)"
+      echo -e "-g  Force use GCC (Linux/MacOS only)"
       echo -e "-p  Directory for built binaries"
       echo -e "-n  Number of parallel processes"
       echo -e "-j  Generate compile_commands.json"
-      echo -e "-l  Launches built binary(ies), useful for tests"
+      echo -e "-l  Launches built binaries, useful for tests"
       exit 1
       ;;
   esac
 done
 
-[ -n "$OPT_DESIGNER" -a -n "$OPT_SKIP_DESKTOP" ] &&
-echo "Can't skip desktop and build designer tool simultaneously" &&
-exit 2
-
-[ -n "$OPT_STANDALONE" -a -n "$OPT_SKIP_DESKTOP" ] &&
-echo "Can't skip desktop and build standalone desktop app simultaneously" &&
-exit 2
-
 OPT_TARGET=${@:$OPTIND}
+
+CMAKE_CONFIG="${CMAKE_CONFIG:-} -U SKIP_QT_GUI"
+if [ "$OPT_TARGET" != "desktop" -a -z "$OPT_DESIGNER" -a -z "$OPT_STANDALONE" ]; then
+  CMAKE_CONFIG="${CMAKE_CONFIG:-} -DSKIP_QT_GUI=ON"
+fi
 
 # By default build everything
 if [ -z "$OPT_DEBUG$OPT_RELEASE" ]; then
@@ -98,16 +90,18 @@ if [ "$(uname -s)" == "Darwin" ]; then
     GCC="$(ls /usr/local/bin | grep '^gcc-[6-9][0-9]\?' -m 1)" || true
     GPP="$(ls /usr/local/bin | grep '^g++-[6-9][0-9]\?' -m 1)" || true
     [ -z "$GCC" -o -z "$GPP" ] \
-    && echo "Either gcc or g++ is not found. Note, minimal supported gcc version is 6." \
+    && echo "Either GCC or G++ is not found. (The minimum supported GCC version is 6)." \
     && exit 2
     CMAKE_CONFIG="${CMAKE_CONFIG:-} -DCMAKE_C_COMPILER=/usr/local/bin/$GCC \
                                     -DCMAKE_CXX_COMPILER=/usr/local/bin/$GPP"
   fi
+elif [ "$(uname -s)" == "Linux" ]; then
+  PROCESSES=$(nproc)
 else
   [ -n "$OPT_DESIGNER" ] \
-  && echo "Designer tool supported only on MacOS X platform" && exit 2
+  && echo "Designer tool is only supported on Linux or MacOS" && exit 2
   [ -n "$OPT_STANDALONE" ] \
-  && echo "Standalone desktop app supported only on MacOS X platform" && exit 2
+  && echo "Standalone desktop app is only supported on Linux or MacOS" && exit 2
   PROCESSES=$(nproc)
 fi
 
@@ -120,7 +114,7 @@ build()
   local MAKE_COMMAND=$(which ninja)
   local CMAKE_GENERATOR=
   if [ -z "$MAKE_COMMAND" ]; then
-    echo "Ninja is not found, using make instead"
+    echo "Ninja is not found, using Make instead"
     MAKE_COMMAND="make -j $PROCESSES"
   else
     CMAKE_GENERATOR=-GNinja
@@ -135,7 +129,6 @@ build()
   [ -d "$DIRNAME" -a -n "$OPT_CLEAN" ] && rm -r "$DIRNAME"
   if [ ! -d "$DIRNAME" ]; then
     mkdir -p "$DIRNAME"
-    ln -s "$OMIM_PATH/data" "$DIRNAME/data"
   fi
   cd "$DIRNAME"
   if [ -z "$OPT_DESIGNER" ]; then

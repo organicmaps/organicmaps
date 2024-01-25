@@ -55,7 +55,7 @@ bool ReadRegionDataImpl(std::string const & countryName, RegionData & data)
     }
     catch (Reader::Exception const & e)
     {
-      LOG(LWARNING, ("Error reading", LEAP_SPEEDS_FILE, ":", e.Msg()));
+      LOG(LERROR, ("Error reading", LEAP_SPEEDS_FILE, ":", e.Msg()));
       return false;
     }
     catch (base::Json::Exception const & e)
@@ -63,10 +63,6 @@ bool ReadRegionDataImpl(std::string const & countryName, RegionData & data)
       LOG(LERROR, ("Error parsing JSON in", LEAP_SPEEDS_FILE, ":", e.Msg()));
       return false;
     }
-  }
-  else
-  {
-    LOG(LWARNING, ("File", LEAP_SPEEDS_FILE, "not found."));
   }
 
   try
@@ -138,7 +134,7 @@ bool ReadRegionDataImpl(std::string const & countryName, RegionData & data)
   }
   catch (Reader::Exception const & e)
   {
-    LOG(LWARNING, ("Error reading", COUNTRIES_META_FILE, ":", e.Msg()));
+    LOG(LERROR, ("Error reading", COUNTRIES_META_FILE, ":", e.Msg()));
   }
   catch (base::Json::Exception const & e)
   {

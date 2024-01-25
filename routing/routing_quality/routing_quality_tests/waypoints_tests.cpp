@@ -34,6 +34,6 @@ UNIT_TEST(RoutingQuality_Sokol2Mayakovskaya)
     {55.79599, 37.54114}, {55.78142, 37.57364}, {55.77863, 37.57989}
   }};
 
-  TEST_EQUAL(CheckWaypoints(params, move(waypoints)), 0.0, ());
+  TEST_EQUAL(CheckWaypoints(params, std::move(waypoints)), 0.0, ());
 }
 }  // namespace waypoins_tests

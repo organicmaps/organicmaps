@@ -11,10 +11,11 @@
 
 #include <string>
 
-using namespace std;
 
 namespace search
 {
+using namespace std;
+
 /// Max distance from house to street where we do search matching
 /// even if there is no exact street written for this house.
 int constexpr kMaxApproxStreetDistanceM = 100;
@@ -26,6 +27,7 @@ FeaturesLayerMatcher::FeaturesLayerMatcher(DataSource const & dataSource,
   , m_reverseGeocoder(dataSource)
   , m_nearbyStreetsCache("FeatureToNearbyStreets")
   , m_matchingStreetsCache("BuildingToStreet")
+  , m_place2address("PlaceToAddresses")
   , m_loader(scales::GetUpperScale(), ReverseGeocoder::kLookupRadiusM)
   , m_cancellable(cancellable)
 {
@@ -50,63 +52,91 @@ void FeaturesLayerMatcher::OnQueryFinished()
 {
   m_nearbyStreetsCache.ClearIfNeeded();
   m_matchingStreetsCache.ClearIfNeeded();
+  m_place2address.ClearIfNeeded();
+
   m_loader.OnQueryFinished();
 }
 
-uint32_t FeaturesLayerMatcher::GetMatchingStreet(uint32_t houseId)
+std::vector<uint32_t> const & FeaturesLayerMatcher::GetPlaceAddrFeatures(
+    uint32_t placeId, std::function<CBV ()> const & fn)
 {
-  auto entry = m_matchingStreetsCache.Get(houseId);
-  if (!entry.second)
-    return entry.first;
+  ASSERT(fn, ());
 
-  auto feature = GetByIndex(houseId);
-  if (!feature)
-    return kInvalidId;
+  auto const res = m_place2address.Get(placeId);
+  if (res.second)
+  {
+    auto & value = m_context->m_value;
+    if (!value.m_house2place)
+      value.m_house2place = LoadHouseToPlaceTable(value);
 
-  return GetMatchingStreet(*feature);
+    fn().ForEach([&](uint32_t fid)
+    {
+      auto const r = value.m_house2place->Get(fid);
+      if (r && r->m_streetId == placeId)
+        res.first.push_back(fid);
+    });
+
+    ASSERT(base::IsSortedAndUnique(res.first.begin(), res.first.end()), ());
+  }
+  return res.first;
+}
+
+uint32_t FeaturesLayerMatcher::GetMatchingStreet(FeatureID const & houseId)
+{
+  std::unique_ptr<FeatureType> feature;
+  return GetMatchingStreetImpl(houseId, [&]()
+  {
+    feature = GetByIndex(houseId.m_index);
+    return feature.get();
+  });
+}
+
+uint32_t FeaturesLayerMatcher::GetMatchingStreet(FeatureType & feature)
+{
+  return GetMatchingStreetImpl(feature.GetID(), [&]()
+  {
+    return &feature;
+  });
 }
 
 FeaturesLayerMatcher::Streets const & FeaturesLayerMatcher::GetNearbyStreets(FeatureType & feature)
 {
-  static FeaturesLayerMatcher::Streets const kEmptyStreets;
-
   auto entry = m_nearbyStreetsCache.Get(feature.GetID().m_index);
   if (!entry.second)
     return entry.first;
 
-  auto & streets = entry.first;
-  m_reverseGeocoder.GetNearbyStreets(feature, streets);
-
-  return streets;
+  entry.first = m_reverseGeocoder.GetNearbyStreets(feature);
+  return entry.first;
 }
 
-uint32_t FeaturesLayerMatcher::GetMatchingStreet(FeatureType & houseFeature)
+template <class FeatureGetterT>
+uint32_t FeaturesLayerMatcher::GetMatchingStreetImpl(FeatureID const & id, FeatureGetterT && getter)
 {
   // Check if this feature is modified - the logic will be different.
   string streetName;
-  bool const edited =
-      osm::Editor::Instance().GetEditedFeatureStreet(houseFeature.GetID(), streetName);
+  bool const edited = osm::Editor::Instance().GetEditedFeatureStreet(id, streetName);
 
   // Check the cached result value.
-  auto entry = m_matchingStreetsCache.Get(houseFeature.GetID().m_index);
+  auto entry = m_matchingStreetsCache.Get(id.m_index);
   if (!edited && !entry.second)
     return entry.first;
 
   uint32_t & result = entry.first;
   result = kInvalidId;
 
+  FeatureType * pFeature = getter();
+  if (pFeature == nullptr)
+    return result;
+
   FeatureID streetId;
-  CHECK(m_context, ());
-  CHECK(m_context->m_handle.IsAlive(), (m_context->m_handle.GetId()));
-  CHECK(m_context->m_handle.GetId().IsAlive(), (m_context->m_handle.GetId()));
-  if (!edited && m_reverseGeocoder.GetStreetByHouse(houseFeature, streetId))
+  if (!edited && m_reverseGeocoder.GetOriginalStreetByHouse(*pFeature, streetId))
   {
     result = streetId.m_index;
     return result;
   }
 
   // Get nearby streets and calculate the resulting index.
-  auto const & streets = GetNearbyStreets(houseFeature);
+  auto const & streets = GetNearbyStreets(*pFeature);
 
   if (edited)
   {

@@ -61,9 +61,9 @@ public:
 
   enum EFileType
   {
-    FILE_TYPE_UNKNOWN = 0x1,
-    FILE_TYPE_REGULAR = 0x2,
-    FILE_TYPE_DIRECTORY = 0x4
+    Unknown = 0x1,
+    Regular = 0x2,
+    Directory = 0x4
   };
 
   enum class EConnectionType : uint8_t
@@ -210,7 +210,7 @@ public:
   /// @param directory directory path with slash at the end
   //@{
   /// @param ext files extension to find, like ".mwm".
-  static void GetFilesByExt(std::string const & directory, std::string const & ext,
+  static void GetFilesByExt(std::string const & directory, std::string_view ext,
                             FilesList & outFiles);
   static void GetFilesByRegExp(std::string const & directory, std::string const & regexp,
                                FilesList & outFiles);

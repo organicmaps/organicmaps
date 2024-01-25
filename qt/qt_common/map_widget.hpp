@@ -4,18 +4,17 @@
 #include "drape_frontend/gui/skin.hpp"
 #include "drape_frontend/user_event_stream.hpp"
 
-#include "search/reverse_geocoder.hpp"
-
 #include "qt/qt_common/qtoglcontextfactory.hpp"
 
-#include "indexer/feature.hpp"
+#include <QOpenGLWidget>
 
 #include <QtCore/QTimer>
-#include <QtWidgets/QOpenGLWidget>
 
 #include <memory>
 
 class Framework;
+class QGestureEvent;
+class QPinchGesture;
 class QMouseEvent;
 class QWidget;
 class ScreenBase;
@@ -23,9 +22,7 @@ class QOpenGLShaderProgram;
 class QOpenGLVertexArrayObject;
 class QOpenGLBuffer;
 
-namespace qt
-{
-namespace common
+namespace qt::common
 {
 class ScaleSlider;
 
@@ -34,12 +31,13 @@ class MapWidget : public QOpenGLWidget
   Q_OBJECT
 
 public:
-  MapWidget(Framework & framework, bool apiOpenGLES3, bool isScreenshotMode, QWidget * parent);
+  MapWidget(Framework & framework, bool isScreenshotMode, QWidget * parent);
   ~MapWidget() override;
 
   void BindHotkeys(QWidget & parent);
   void BindSlider(ScaleSlider & slider);
   void CreateEngine();
+  void grabGestures(const QList<Qt::GestureType> &gestures);
 
 signals:
   void OnContextMenuRequested(QPoint const & p);
@@ -84,6 +82,10 @@ protected:
   void paintGL() override;
   void resizeGL(int width, int height) override;
 
+  bool event(QEvent * event) override;
+  bool gestureEvent(QGestureEvent const * event);
+  void pinchTriggered(QPinchGesture const * gesture);
+
   void mouseDoubleClickEvent(QMouseEvent * e) override;
   void mousePressEvent(QMouseEvent * e) override;
   void mouseMoveEvent(QMouseEvent * e) override;
@@ -107,7 +109,4 @@ protected:
   std::unique_ptr<QOpenGLBuffer> m_vbo;
 };
 
-search::ReverseGeocoder::Address GetFeatureAddressInfo(Framework const & framework,
-                                                       FeatureType & ft);
-}  // namespace common
-}  // namespace qt
+} // namespace qt::common

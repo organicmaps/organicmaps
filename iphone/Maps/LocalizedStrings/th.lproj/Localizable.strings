@@ -32,7 +32,7 @@
 /* A text for current gps location point/arrow selected on the map */
 "core_my_position" = "ตำแหน่งของฉัน";
 
-/* Update maps later/Buy pro version later button text */
+/* Update maps later button text */
 "later" = "ภายหลัง";
 
 /* View and button titles for accessibility, please also edit it in iphone/plist.txt */
@@ -71,13 +71,16 @@
 /* "Bookmark Lists" dialog title */
 "bookmark_sets" = "ชุดของบุ๊กมาร์ก";
 
-/* "Bookmarks" dialog title, please also edit it in iphone/plist.txt */
+/* Should be used in the bookmarks-only context, see bookmarks_and_tracks if tracks are also implied. */
 "bookmarks" = "บุ๊กมาร์ก";
+
+/* "Bookmarks and Tracks" dialog title, also sync it with iphone/plist.txt */
+"bookmarks_and_tracks" = "บุ๊กมาร์กและการติดตาม";
 
 /* Default bookmark list name */
 "core_my_places" = "สถานที่ของฉัน";
 
-/* Editor title above street and house number */
+/* Editor title above street and house number, duplicates [type.building.address] in types_strings.txt */
 "address" = "ที่อยู่";
 
 /* Settings button in system menu */
@@ -106,6 +109,9 @@
 
 /* Search category for clothes/shoes/gifts/jewellery/sport shops; any changes should be duplicated in categories.txt @shopping! */
 "shopping" = "ช็อปปิง";
+
+/* Search category for second_hand/charity/antique/auction shops; any changes should be duplicated in categories.txt @secondhand! */
+"secondhand" = "มือสอง";
 
 /* Search category for places to stay; any changes should be duplicated in categories.txt @hotel! */
 "hotel" = "โรงแรม";
@@ -155,7 +161,7 @@
 /* Search category for RV facilities; any changes should be duplicated in categories.txt @rv! */
 "rv" = "สำหรับ RV";
 
-"share_bookmarks_email_body" = "Hello!\n\nAttached are my bookmarks from Organic Maps app. Please open them if you have Organic Maps installed. Or, if you don't, download the app for your iOS or Android device by following this link: https://omaps.app/get?kmz\n\nEnjoy traveling with Organic Maps!";
+"share_bookmarks_email_body" = "Hello!\n\nAttached are my bookmarks; please open them in Organic Maps. If you don't have it installed you can download it here: https://omaps.app/get?kmz\n\nEnjoy travelling with Organic Maps!";
 
 /* message title of loading file */
 "load_kmz_title" = "กำลังโหลดบุ๊กมาร์ก";
@@ -184,6 +190,9 @@
 /* Share by email button text, also used in editor and About. */
 "email" = "อีเมล";
 
+/* Text for message when used successfully copied something */
+"copied_to_clipboard" = "คัดลอกไปยังคลิปบอร์ด: %@";
+
 /* place preview title */
 "info" = "ข้อมูล";
 
@@ -211,20 +220,23 @@
 /* Settings «Map» category: «Night style» title */
 "pref_map_style_title" = "โหมดกลางคืน";
 
-/* «Map style» entry value */
-"pref_map_style_default" = "ปิด";
+/* Generic «Off» string */
+"off" = "ปิด";
 
-/* «Map style» entry value */
-"pref_map_style_night" = "เปิด";
+/* Generic «On» string */
+"on" = "เปิด";
 
-/* «Map style» entry value */
-"pref_map_style_auto" = "อัตโนมัติ";
+/* Generic «Auto» string */
+"auto" = "อัตโนมัติ";
 
 /* Settings «Map» category: «Perspective view» title */
 "pref_map_3d_title" = "มุมมองเพอร์สเปกทีฟ";
 
 /* Settings «Map» category: «3D buildings» title */
 "pref_map_3d_buildings_title" = "ตึก 3D";
+
+/* A message in Settings/Preferences explaining why is it not possible to enable 3D buildings when max power saving mode is enabled */
+"pref_map_3d_buildings_disabled_summary" = "สิ่งปลูกสร้าง 3 มิติจะปิดในโหมดประหยัดพลังงาน";
 
 /* Settings «Route» category: «Tts enabled» title */
 "pref_tts_enable_title" = "คำแนะนำด้วยเสียง";
@@ -271,7 +283,7 @@
 "telegram" = "Telegram";
 
 /* Text in menu */
-"matrix" = "[matrix]";
+"matrix" = "[Matrix]";
 
 /* Text in menu */
 "mastodon" = "Mastodon";
@@ -280,7 +292,7 @@
 "facebook" = "Facebook";
 
 /* Text in menu */
-"twitter" = "Twitter";
+"twitter" = "X (Twitter)";
 
 /* Text in menu */
 "instagram" = "Instagram";
@@ -500,7 +512,7 @@
 "routing_planning_error" = "การวางแผนเส้นทางล้มเหลว";
 
 /* Arrive routing message in navigation view */
-"routing_arrive" = "มาถึง: %s";
+"routing_arrive" = "มาถึง: %@";
 
 /* Text for routing::RouterResultCode::FileTooOld dialog. */
 "dialog_routing_download_and_update_maps" = "เพื่อสร้างเส้นทาง โปรดดาวน์โหลดและอัปเดตแผนที่ทั้งหมดตลอดเส้นทาง";
@@ -756,19 +768,23 @@
 
 "location_services_disabled_2" = "2. แตะตำแหน่งที่ตั้ง";
 
-/* iOS Dialog for the case when the location permission is not granted */
+/* iOS Dialog for the case when the location permission is not granted; you might find the exact wording for your language here: https://support.apple.com/en-us/102647 (replace 'en-us' in URL with your language/region) */
 "location_services_disabled_3" = "3. เลือกในขณะใช้แอป";
 
-"meter" = "ม.";
+/* abbreviation for meters */
+"m" = "ม.";
 
-"kilometer" = "กม.";
+/* abbreviation for kilometers */
+"km" = "กม.";
 
+/* abbreviation for kilometers per hour */
 "kilometers_per_hour" = "กม./ชม.";
 
-"mile" = "ไมล์";
+/* abbreviation for mile(s) */
+"mi" = "ไมล์";
 
 /* A unit of measure */
-"foot" = "ฟุต";
+"ft" = "ฟุต";
 
 "miles_per_hour" = "ไมล์/ชม.";
 
@@ -776,11 +792,18 @@
 
 "minute" = "น.";
 
-"placepage_place_description" = "คำอธิบาย";
-
 "placepage_more_button" = "เพิ่มเติม";
 
 "book_button" = "จอง";
+
+/* A referral link on the place page for some hotels */
+"more_on_kayak" = "รูปภาพ รีวิว การจอง";
+
+/* An explanation dialog shown when clicking on more_on_kayak link. */
+"dialog_kayak_disclaimer" = "โบนัสการแนะนำที่ได้รับสำหรับการจองแต่ละครั้งผ่านลิงก์นี้จะนำไปใช้ในการพัฒนาแผนที่ทั่วไป";
+
+/* A confirmation button text in the explanation dialog that opens hotel details page on Kayak website. */
+"dialog_kayak_button" = "รายละเอียดบน Kayak";
 
 "placepage_call_button" = "โทร";
 
@@ -817,7 +840,7 @@
 
 "refresh" = "อัปเดต";
 
-"placepage_add_place_button" = "เพิ่มสถานที่ไปยังแผนที่";
+"placepage_add_place_button" = "เพิ่มสถานที่ลงใน OpenStreetMap";
 
 /* Displayed when saving some edits to the map to warn against publishing personal data */
 "editor_share_to_all_dialog_title" = "คุณต้องการส่งมันให้ผู้ใช้ทั้งหมดหรือไม่?";
@@ -880,10 +903,6 @@
 /* "traffic" as in "road congestion" */
 "traffic_data_unavailable" = "ไม่มีข้อมูลการจราจร";
 
-"on" = "เปิด";
-
-"off" = "ปิด";
-
 "transliteration_title" = "การทับศัพท์เป็นภาษาละติน";
 
 /* Subway exits for public transport marks on the map */
@@ -922,11 +941,11 @@
 
 "downloader_hide_screen" = "ซ่อนหน้าจอ";
 
-"downloader_percent" = "%s (%s จาก %s)";
+"downloader_percent" = "%@ (%@ จาก %@)";
 
-"downloader_process" = "กำลังดาวน์โหลด %s…";
+"downloader_process" = "กำลังดาวน์โหลด %@…";
 
-"downloader_applying" = "กำลังนำ %s ไปใช้งาน…";
+"downloader_applying" = "กำลังนำ %@ ไปใช้งาน…";
 
 "bookmarks_error_message_share_general" = "ไม่สามารถแชร์ได้เนื่องจากเกิดข้อผิดพลาดในแอปพลิเคชัน";
 
@@ -964,7 +983,7 @@
 
 "button_layer_subway" = "รถไฟใต้ดิน";
 
-"layers_title" = "ชั้นแผนที่";
+"layers_title" = "รูปแบบและเลเยอร์ของแผนที่";
 
 "subway_data_unavailable" = "แผนที่รถไฟใต้ดินไม่พร้อมใช้งาน";
 
@@ -973,8 +992,6 @@
 "popular_place" = "Popular";
 
 "export_file" = "ส่งออกไฟล์";
-
-"list_settings" = "การตั้งค่ารายการ";
 
 "delete_list" = "ลบรายการ";
 
@@ -988,11 +1005,11 @@
 
 "speedcams_alert_title" = "กล้องตรวจจับความเร็ว";
 
-"speedcam_option_auto" = "อัตโนมัติ";
+/* Generic «Always» string */
+"always" = "ทุกครั้ง";
 
-"speedcam_option_always" = "ทุกครั้ง";
-
-"speedcam_option_never" = "ไม่ต้องเตือน";
+/* Generic «Never» string */
+"never" = "ไม่ต้องเตือน";
 
 "place_description_title" = "รายละเอียดของสถานที่";
 
@@ -1010,15 +1027,16 @@
 
 "driving_options_title" = "ทางเลือกเส้นทางขับขี่";
 
-"driving_options_subheader" = "หลีกเลี่ยงในทุกเส้นทาง";
+/* Recommended length for CarPlay and Android Auto is around 25-27 characters */
+"avoid_tolls" = "หลีกเลี่ยงถนนที่เก็บค่าผ่านทาง";
 
-"avoid_tolls" = "ถนนแบบเสียค่าผ่านทาง";
+/* Recommended length for CarPlay and Android Auto is around 25-27 characters */
+"avoid_unpaved" = "เลี่ยงถนนดินทั้งหมด";
 
-"avoid_unpaved" = "ถนนดิน";
+/* Recommended length for CarPlay and Android Auto is around 25-27 characters */
+"avoid_ferry" = "เลี่ยงการข้ามฟากด้วยเรือ";
 
-"avoid_ferry" = "เรือข้ามฟาก";
-
-"avoid_motorways" = "ทางด่วน";
+"avoid_motorways" = "หลีกเลี่ยงมอเตอร์เวย์";
 
 "unable_to_calc_alert_title" = "ไม่สามารถคำนวณเส้นทาง";
 
@@ -1033,12 +1051,6 @@
 "unpaved_road" = "ถนนดิน";
 
 "ferry_crossing" = "เรือข้ามฟาก";
-
-"avoid_toll_roads_placepage" = "เลี่ยงทางที่ต้องเสียเงินทั้งหมด";
-
-"avoid_unpaved_roads_placepage" = "เลี่ยงถนนดินทั้งหมด";
-
-"avoid_ferry_crossing_placepage" = "เลี่ยงการข้ามฟากด้วยเรือ";
 
 "trip_start" = "ไปกันเลย";
 
@@ -1064,6 +1076,9 @@
 /* E.g. "WiFi:No" */
 "no_available" = "ไม่ใช่";
 
+/* To indicate the capacity of car parkings, bicycle parkings, electric vehicle charging stations... */
+"capacity" = "ความจุ: %@";
+
 "trip_finished" = "คุณมาถึงแล้ว!";
 
 "keyboard_availability_alert" = "คีย์บอร์ดไม่สามารถใช้งานได้ขณะขับขี่";
@@ -1086,25 +1101,13 @@
 
 "ok" = "โอเค";
 
-"avoid_unpaved_carplay_1" = "ไม่มีลูกรัง";
-
-"avoid_unpaved_carplay_2" = "หลีกเลี่ยงทาง";
-
-"avoid_ferry_carplay_1" = "ไม่มีเรือ";
-
-"avoid_ferry_carplay_2" = "หลีกเลี่ยงเรือ";
-
-"avoid_tolls_carplay_1" = "ไม่มีค่าผ่าน";
-
-"avoid_tolls_carplay_2" = "เลี่ยงทางด่วน";
-
 "speedcams_alert_title_carplay_1" = "จับความเร็ว";
 
 "speedcams_alert_title_carplay_2" = "เตือนความเร็ว";
 
 "download_map_carplay" = "โปรดดาวน์โหลดแผนที่ในแอพฯ Organic Maps บนอุปกรณ์ของคุณ";
 
-"carplay_roundabout_exit" = "ทางออกที่ %s";
+"carplay_roundabout_exit" = "ทางออกที่ %@";
 
 /* max. 10 symbols, both iOS and Android */
 "sort" = "เรียง…";
@@ -1210,7 +1213,7 @@
 "whats_new_auto_update_message" = "การอัปเดตแผนที่จะคงข้อมูลเกี่ยวกับจุดหมายต่าง ๆ ให้ล่าสุดอยู่เสมอ";
 
 /* Autoupdate dialog on start */
-"whats_new_auto_update_button_size" = "อัปเดต (%s)";
+"whats_new_auto_update_button_size" = "อัปเดต (%@)";
 
 /* Autoupdate dialog on start */
 "whats_new_auto_update_button_later" = "อัปเดตด้วยตนเองภายหลัง";
@@ -1236,8 +1239,20 @@
 /* Translated Organic Maps site, add new translations here: https://github.com/organicmaps/organicmaps.github.io/tree/master/content */
 "translated_om_site_url" = "https://organicmaps.app/";
 
+/* Link to OSM wiki for Editor, Profile and About pages */
+"osm_wiki_about_url" = "https://wiki.openstreetmap.org/wiki/About_OpenStreetMap";
+
+/* Outdoors/hiking map style (activity) name in the Styles and Layers dialog */
+"button_layer_outdoor" = "การเดินป่า";
+
 
 /********** Types **********/
+
+"type.addr_interpolation" = "ที่อยู่/บล็อค";
+
+"type.addr_interpolation.even" = "ที่อยู่/บล็อค";
+
+"type.addr_interpolation.odd" = "ที่อยู่/บล็อค";
 
 "type.aerialway" = "Aerialway";
 
@@ -1309,9 +1324,17 @@
 
 "type.amenity.casino" = "คาสิโน";
 
+"type.amenity.gambling" = "การพนัน";
+
+"type.leisure.adult_gaming_centre" = "ศูนย์เกมสำหรับผู้ใหญ่";
+
+"type.leisure.amusement_arcade" = "อาเขต";
+
 "type.amenity.charging_station" = "สถานีชาร์จ";
 
-"type.amenity.charging_station.motorcar" = "สถานีชาร์จ";
+"type.amenity.charging_station.bicycle" = "สถานีชาร์จจักรยาน";
+
+"type.amenity.charging_station.motorcar" = "สถานีชาร์จรถยนต์";
 
 "type.amenity.childcare" = "สถานรับเลี้ยงเด็ก";
 
@@ -1325,6 +1348,10 @@
 
 "type.amenity.community_centre" = "ศูนย์ชุมชน";
 
+"type.amenity.compressed_air" = "อากาศอัด";
+
+"type.amenity.conference_centre" = "ศูนย์ประชุม";
+
 "type.amenity.courthouse" = "ศาล";
 
 "type.amenity.dentist" = "ทันตแพทย์";
@@ -1334,6 +1361,10 @@
 "type.amenity.drinking_water" = "น้ำดื่ม";
 
 "type.amenity.driving_school" = "โรงเรียนสอนขับรถ";
+
+"type.amenity.exhibition_centre" = "ศูนย์นิทรรศการ";
+
+"type.amenity.money_transfer" = "การโอนเงิน";
 
 "type.amenity.music_school" = "โรงเรียนดนตรี";
 
@@ -1383,9 +1414,11 @@
 
 "type.amenity.parking" = "ที่จอดรถ";
 
-"type.amenity.parking.fee" = "ที่จอดรถแบบเสียค่าบริการ";
+"type.amenity.parking.fee" = "ที่จอดรถ";
 
 "type.amenity.parking.multi.storey" = "ที่จอดรถหลายชั้น";
+
+"type.amenity.parking.multi.storey.fee" = "ที่จอดรถหลายชั้น";
 
 "type.amenity.parking.no.access" = "ที่จอดรถส่วนตัว";
 
@@ -1397,9 +1430,25 @@
 
 "type.amenity.parking.underground" = "ที่จอดรถใต้ดิน";
 
+"type.amenity.parking.underground.fee" = "ที่จอดรถใต้ดิน";
+
+"type.amenity.parking.underground.private" = "ที่จอดรถใต้ดินส่วนตัว";
+
+"type.amenity.parking.street_side" = "ที่จอดรถริมถนน";
+
+"type.amenity.parking.street_side.fee" = "ที่จอดรถริมถนน";
+
+"type.amenity.parking.street_side.private" = "ที่จอดรถริมถนนส่วนตัว";
+
+"type.amenity.parking.lane" = "ที่จอดรถเลน";
+
+"type.amenity.parking.lane.fee" = "ที่จอดรถเลน";
+
+"type.amenity.parking.lane.private" = "ที่จอดรถเลนส่วนตัว";
+
 "type.amenity.parking_entrance" = "ทางเข้าที่จอดรถ";
 
-"type.amenity.parking_entrance.private" = "ทางเข้าที่จอดรถ";
+"type.amenity.parking_entrance.private" = "ทางเข้าที่จอดรถส่วนตัว";
 
 "type.amenity.parking_entrance.permissive" = "ทางเข้าที่จอดรถ";
 
@@ -1422,6 +1471,10 @@
 "type.amenity.place_of_worship.buddhist" = "วัด";
 
 "type.amenity.place_of_worship.christian" = "โบสถ์";
+
+"type.amenity.place_of_worship.christian.mormon" = "โบสถ์พระเยซูคริสต์แห่งวิสุทธิชนยุคสุดท้าย";
+
+"type.amenity.place_of_worship.christian.jehovahs_witness" = "ห้องราชอาณาจักรของพยานเยโฮวา";
 
 "type.amenity.place_of_worship.hindu" = "วัด";
 
@@ -1478,7 +1531,7 @@
 
 "type.recycling.green_waste" = "Green/Organic Waste";
 
-"type.recycling.cartons" = "Beverage Cartons";
+"type.recycling.cartons" = "Cartons";
 
 "type.amenity.restaurant" = "ร้านอาหาร";
 
@@ -1488,7 +1541,11 @@
 
 "type.amenity.shelter" = "ที่อยู่อาศัย";
 
+"type.amenity.public_bath" = "ห้องอาบน้ำสาธารณะ";
+
 "type.amenity.shower" = "ฝักบัวอาบน้ำ";
+
+"type.amenity.stripclub" = "สตริปคลับ";
 
 "type.amenity.taxi" = "แท็กซี่";
 
@@ -1497,6 +1554,8 @@
 "type.amenity.theatre" = "โรงละคร";
 
 "type.amenity.toilets" = "ห้องน้ำ";
+
+"type.toilets.yes" = "ห้องน้ำ";
 
 "type.amenity.townhall" = "ศาลากลางจังหวัด";
 
@@ -1514,7 +1573,7 @@
 
 "type.amenity.vending_machine.food" = "Food Dispenser";
 
-"type.amenity.vending_machine.newspapers" = "Newspapers Dispenser";
+"type.amenity.vending_machine.newspapers" = "Newspaper Dispenser";
 
 "type.amenity.vending_machine.parking_tickets" = "เครื่องชำระค่าที่จอดรถอัตโนมัติ";
 
@@ -1526,7 +1585,9 @@
 
 "type.amenity.parcel_locker" = "Parcel Locker";
 
-"type.amenity.vending_machine.fuel" = "Fuel Dispenser";
+"type.amenity.vehicle_inspection" = "การตรวจสอบยานพาหนะ";
+
+"type.amenity.vending_machine.fuel" = "Fuel Pump";
 
 "type.amenity.veterinary" = "สัตวแพทย์";
 
@@ -1552,7 +1613,11 @@
 
 "type.barrier.cycle_barrier" = "Cycle Barrier";
 
-"type.barrier.ditch" = "คูเมือง";
+"type.waterway.ditch" = "คูระบายน้ำ";
+
+"type.natural.water.moat" = "คูเมือง";
+
+"type.natural.water.wastewater" = "น้ำเสีย";
 
 "type.barrier.entrance" = "ทางเข้า";
 
@@ -1569,6 +1634,8 @@
 "type.barrier.retaining_wall" = "Retaining Wall";
 
 "type.barrier.stile" = "บันไดข้าม";
+
+"type.barrier.turnstile" = "ประตูหมุน";
 
 "type.barrier.swing_gate" = "ไม้กั้น";
 
@@ -1618,13 +1685,30 @@
 
 "type.boundary.national_park" = "อุทยานแห่งชาติ";
 
+"type.boundary.protected_area" = "พื้นที่คุ้มครอง";
+
+"type.boundary.protected_area.1" = "พื้นที่คุ้มครอง";
+
+"type.boundary.protected_area.2" = "พื้นที่คุ้มครอง";
+
+"type.boundary.protected_area.3" = "พื้นที่คุ้มครอง";
+
+"type.boundary.protected_area.4" = "พื้นที่คุ้มครอง";
+
+"type.boundary.protected_area.5" = "พื้นที่คุ้มครอง";
+
+"type.boundary.protected_area.6" = "พื้นที่คุ้มครอง";
+
 "type.building" = "อาคาร";
 
-"type.building.address" = "อาคาร";
-
-"type.building.garage" = "อาคารจอดรถ";
+/* Duplicates [address] in strings.txt */
+"type.building.address" = "ที่อยู่";
 
 "type.building.has_parts" = "อาคาร";
+
+"type.building_part" = "อาคาร";
+
+"type.building.garage" = "อาคารจอดรถ";
 
 "type.building.train_station" = "สถานีรถไฟ";
 
@@ -1640,6 +1724,8 @@
 
 "type.craft.brewery" = "โรงเบียร์";
 
+"type.craft.caterer" = "พนักงานจัดเลี้ยง";
+
 "type.craft.carpenter" = "ช่างไม้";
 
 "type.craft.confectionery" = "ลูกกวาด";
@@ -1650,16 +1736,24 @@
 
 "type.craft.gardener" = "คนจัดสวน";
 
+"type.craft.grinding_mill" = "โรงบด";
+
 "type.craft.handicraft" = "หัตถกรรม";
 
 /* Heating, Ventilation, and Air Conditioning */
 "type.craft.hvac" = "ระบบปรับอากาศ";
+
+"type.craft.key_cutter" = "ตัดกุญแจ";
+
+"type.craft.locksmith" = "ช่างกุญแจ";
 
 "type.craft.metal_construction" = "ช่างเหล็ก";
 
 "type.craft.painter" = "ช่างทาสี";
 
 "type.craft.photographer" = "ช่างภาพ";
+
+"type.shop.camera" = "ร้านกล้อง";
 
 "type.craft.plumber" = "ช่างประปา";
 
@@ -1845,6 +1939,8 @@
 
 "type.emergency" = "Emergency";
 
+"type.emergency.assembly_point" = "จุดรวมพลฉุกเฉิน";
+
 "type.emergency.defibrillator" = "เครื่องกระตุ้นหัวใจ";
 
 "type.emergency.fire_hydrant" = "หัวจ่ายน้ำดับเพลิง";
@@ -1856,6 +1952,12 @@
 
 /* This is for main/primary entrances, for secondary entrances see type.entrance */
 "type.entrance.main" = "ทางเข้าหลัก";
+
+"type.entrance.exit" = "ทางออก";
+
+"type.fee.yes" = "💲";
+
+"type.fee.no" = "ฟรี";
 
 "type.healthcare.laboratory" = "ห้องปฏิบัติการทางการแพทย์";
 
@@ -1894,6 +1996,12 @@
 
 "type.highway.busway" = "ถนนทางเดินรถโดยเฉพาะ";
 
+/* These translations are used for all type.highway.*.bridge. */
+"type.highway.busway.bridge" = "สะพาน";
+
+/* These translations are used for all type.highway.*.tunnel. */
+"type.highway.busway.tunnel" = "อุโมงค์";
+
 "type.highway.bus_stop" = "ป้ายรถเมล์";
 
 "type.highway.construction" = "ทางกำลังอยู่ในการก่อสร้าง";
@@ -1912,6 +2020,10 @@
 
 "type.highway.footway" = "เส้นทาง";
 
+"type.highway.footway.sidewalk" = "ทางเท้า";
+
+"type.highway.footway.crossing" = "ทางม้าลาย";
+
 "type.highway.footway.alpine_hiking" = "เส้นทาง";
 
 "type.highway.footway.area" = "เส้นทาง";
@@ -1928,8 +2040,6 @@
 "type.highway.footway.hiking" = "เส้นทาง";
 
 "type.highway.footway.mountain_hiking" = "เส้นทาง";
-
-"type.highway.footway.permissive" = "เส้นทาง";
 
 /* These translations are used for all type.highway.*.tunnel. */
 "type.highway.footway.tunnel" = "อุโมงค์";
@@ -2032,6 +2142,9 @@
 
 /* These translations are used for all type.highway.*.bridge. */
 "type.highway.road.bridge" = "สะพาน";
+
+/* A bridge structure outline. */
+"type.man_made.bridge" = "สะพาน";
 
 /* These translations are used for all type.highway.*.tunnel. */
 "type.highway.road.tunnel" = "อุโมงค์";
@@ -2185,11 +2298,17 @@
 
 "type.historic" = "วัตถุประวัติศาสตร์";
 
+"type.historic.aircraft" = "เครื่องบินประวัติศาสตร์";
+
+"type.historic.anchor" = "ผู้ประกาศข่าวประวัติศาสตร์";
+
 "type.historic.archaeological_site" = "โบราณสถาน";
 
 "type.historic.battlefield" = "สนามรบ";
 
 "type.historic.boundary_stone" = "ขอบหิน";
+
+"type.historic.cannon" = "ปืนใหญ่";
 
 "type.historic.castle" = "ปราสาท";
 
@@ -2221,6 +2340,8 @@
 
 "type.historic.gallows" = "Gallows";
 
+"type.historic.locomotive" = "หัวรถจักรประวัติศาสตร์";
+
 "type.historic.memorial" = "ที่ระลึก";
 
 "type.historic.memorial.cross" = "อนุสรณ์สถานข้าม";
@@ -2233,7 +2354,11 @@
 
 "type.historic.memorial.stolperstein" = "อุปสรรค์";
 
+"type.historic.stone" = "หินประวัติศาสตร์";
+
 "type.historic.memorial.war_memorial" = "อนุสรณ์สถานสงคราม";
+
+"type.historic.mine" = "เหมืองประวัติศาสตร์";
 
 "type.historic.monument" = "อนุสาวรีย์";
 
@@ -2243,11 +2368,15 @@
 
 "type.historic.ship" = "สถานที่ท่องเที่ยว";
 
+"type.historic.tank" = "รถถังประวัติศาสตร์";
+
 "type.historic.tomb" = "สถานที่ท่องเที่ยว";
 
 "type.historic.wayside_cross" = "ทางข้าม";
 
 "type.historic.wayside_shrine" = "ศาลเจ้าข้างทาง";
+
+"type.historic.wreck" = "ซากเรืออัปปาง";
 
 "type.hwtag" = "hwtag";
 
@@ -2281,6 +2410,8 @@
 
 "type.junction" = "Junction";
 
+"type.junction.circular" = "Roundabout";
+
 "type.junction.roundabout" = "Roundabout";
 
 "type.landuse" = "Landuse";
@@ -2301,9 +2432,9 @@
 
 "type.landuse.commercial" = "Commercial Area";
 
-"type.landuse.construction" = "Construction";
+"type.landuse.construction" = "Construction Area";
 
-"type.landuse.education" = "Educational Facilities";
+"type.landuse.education" = "Educational Facility";
 
 "type.landuse.farm" = "Farm";
 
@@ -2312,6 +2443,8 @@
 "type.landuse.farmyard" = "Farmyard";
 
 "type.landuse.field" = "Field";
+
+"type.landuse.flowerbed" = "แปลงดอกไม้";
 
 "type.landuse.forest" = "ป่า";
 
@@ -2351,7 +2484,7 @@
 
 "type.landuse.retail" = "Retail Area";
 
-"type.landuse.salt_pond" = "Pond";
+"type.landuse.salt_pond" = "Salt Pond";
 
 "type.landuse.village_green" = "Land";
 
@@ -2375,6 +2508,8 @@
 
 "type.leisure.golf_course" = "สนามกอล์ฟ";
 
+"type.leisure.hackerspace" = "แฮกเกอร์สเปซ";
+
 "type.leisure.ice_rink" = "Ice Rink";
 
 "type.leisure.landscape_reserve" = "Landscape Reserve";
@@ -2382,6 +2517,8 @@
 "type.leisure.marina" = "Marina";
 
 "type.leisure.nature_reserve" = "เขตอนุรักษ์ธรรมชาติ";
+
+"type.leisure.outdoor_seating" = "ที่นั่งกลางแจ้ง";
 
 "type.leisure.park" = "สวนสาธารณะ";
 
@@ -2457,7 +2594,7 @@
 
 "type.man_made.tower.communication" = "หอสื่อสาร";
 
-"type.man_made.wastewater_plant" = "Wastewater treatment plant";
+"type.man_made.wastewater_plant" = "Wastewater Treatment Plant";
 
 "type.man_made.water_tap" = "ก๊อกน้ำ";
 
@@ -2544,8 +2681,6 @@
 "type.natural.spring" = "ฤดูใบไม้ผลิ";
 
 "type.natural.strait" = "ช่องแคบ";
-
-"type.natural.tree" = "ต้นไม้";
 
 "type.natural.tree_row" = "แถวต้นไม้";
 
@@ -2647,7 +2782,7 @@
 
 "type.power" = "Power";
 
-"type.power.generator" = "Generator";
+"type.power.generator" = "Power Generator";
 
 "type.power.generator.solar" = "เครื่องกำเนิดพลังงานแสงอาทิตย์";
 
@@ -2663,7 +2798,17 @@
 
 "type.power.minor_line" = "Minor Power Line";
 
-"type.power.pole" = "เสาไฟฟ้า";
+"type.power.plant" = "โรงไฟฟ้า";
+
+"type.power.plant.coal" = "โรงไฟฟ้าถ่านหิน";
+
+"type.power.plant.gas" = "โรงไฟฟ้ากังหันก๊าซ";
+
+"type.power.plant.hydro" = "โรงไฟฟ้าพลังน้ำ";
+
+"type.power.plant.solar" = "โรงไฟฟ้าพลังงานแสงอาทิตย์";
+
+"type.power.plant.wind" = "โรงไฟฟ้าพลังงานลม";
 
 "type.power.station" = "Power Station";
 
@@ -2697,9 +2842,9 @@
 
 "type.railway.crossing" = "Railway Crossing";
 
-"type.railway.disused" = "Disused railway";
+"type.railway.disused" = "Disused Railway";
 
-"type.railway.funicular" = "Funicular";
+"type.railway.funicular" = "รถกระเช้าไฟฟ้า";
 
 "type.railway.funicular.bridge" = "Funicular Bridge";
 
@@ -2737,29 +2882,64 @@
 
 "type.railway.rail" = "รถไฟ";
 
-"type.railway.rail.bridge" = "Railway Bridge";
+"type.railway.rail.highspeed" = "รถไฟความเร็วสูง";
 
-"type.railway.rail.motor_vehicle" = "Railway";
+"type.railway.rail.tourism" = "รถไฟท่องเที่ยว";
 
-"type.railway.rail.tunnel" = "Railway Tunnel";
+"type.railway.rail.main" = "รถไฟ";
 
-"type.railway.razed" = "Razed Rail";
+/* Includes ordinary railway=rail w/o more specific usage= and service= tags. */
+"type.railway.rail.branch" = "รถไฟสายรอง";
 
-"type.railway.siding" = "Siding Rail";
+/* Non-passenger utility tracks: industrial, military, test. */
+"type.railway.rail.utility" = "ยูทิลิตี้รถไฟ";
 
-"type.railway.siding.bridge" = "Siding Rail Bridge";
+"type.railway.rail.spur" = "เดือยรถไฟ";
 
-"type.railway.siding.tunnel" = "Siding Rail Tunnel";
+/* Short service tracks: siding, yard, crossover. */
+"type.railway.rail.service" = "รางรถไฟเสริม";
 
-"type.railway.spur" = "Spur Rail";
+"type.railway.rail.bridge" = "สะพานรถไฟ";
 
-"type.railway.spur.bridge" = "Spur Rail Bridge";
+"type.railway.rail.highspeed.bridge" = "สะพานรถไฟ";
 
-"type.railway.spur.tunnel" = "Spur Rail Tunnel";
+"type.railway.rail.tourism.bridge" = "สะพานรถไฟ";
+
+"type.railway.rail.main.bridge" = "สะพานรถไฟ";
+
+"type.railway.rail.branch.bridge" = "สะพานรถไฟ";
+
+"type.railway.rail.utility.bridge" = "สะพานรถไฟ";
+
+"type.railway.rail.spur.bridge" = "สะพานรถไฟ";
+
+"type.railway.rail.service.bridge" = "สะพานรถไฟ";
+
+"type.railway.rail.tunnel" = "อุโมงค์รถไฟ";
+
+"type.railway.rail.highspeed.tunnel" = "อุโมงค์รถไฟ";
+
+"type.railway.rail.tourism.tunnel" = "อุโมงค์รถไฟ";
+
+"type.railway.rail.main.tunnel" = "อุโมงค์รถไฟ";
+
+"type.railway.rail.branch.tunnel" = "อุโมงค์รถไฟ";
+
+"type.railway.rail.utility.tunnel" = "อุโมงค์รถไฟ";
+
+"type.railway.rail.spur.tunnel" = "อุโมงค์รถไฟ";
+
+"type.railway.rail.service.tunnel" = "อุโมงค์รถไฟ";
 
 "type.railway.station" = "สถานีรถไฟ";
 
+"type.railway.station.funicular" = "รถกระเช้าไฟฟ้า";
+
 "type.railway.station.light_rail" = "สถานีรถไฟ";
+
+"type.railway.station.light_rail.london" = "สถานีรถไฟ";
+
+"type.railway.station.light_rail.porto" = "สถานีรถไฟ";
 
 "type.railway.station.monorail" = "สถานีรถไฟ";
 
@@ -2949,6 +3129,8 @@
 
 "type.railway.station.subway.shiraz" = "รถไฟ";
 
+"type.railway.station.subway.singapore" = "รถไฟ";
+
 "type.railway.station.subway.sofia" = "รถไฟ";
 
 "type.railway.station.subway.spb" = "รถไฟ";
@@ -2964,6 +3146,8 @@
 "type.railway.station.subway.tashkent" = "รถไฟ";
 
 "type.railway.station.subway.tbilisi" = "รถไฟ";
+
+"type.railway.station.subway.tehran" = "รถไฟ";
 
 "type.railway.station.subway.tianjin" = "รถไฟ";
 
@@ -3175,6 +3359,8 @@
 
 "type.railway.subway_entrance.shiraz" = "ทางเข้ารถไฟใต้ดิน";
 
+"type.railway.subway_entrance.singapore" = "ทางเข้ารถไฟใต้ดิน";
+
 "type.railway.subway_entrance.sofia" = "ทางเข้ารถไฟใต้ดิน";
 
 "type.railway.subway_entrance.spb" = "ทางเข้ารถไฟใต้ดิน";
@@ -3190,6 +3376,8 @@
 "type.railway.subway_entrance.tashkent" = "ทางเข้ารถไฟใต้ดิน";
 
 "type.railway.subway_entrance.tbilisi" = "ทางเข้ารถไฟใต้ดิน";
+
+"type.railway.subway_entrance.tehran" = "ทางเข้ารถไฟใต้ดิน";
 
 "type.railway.subway_entrance.tianjin" = "ทางเข้ารถไฟใต้ดิน";
 
@@ -3217,23 +3405,19 @@
 
 "type.railway.tram_stop" = "ป้ายรถราง";
 
-"type.railway.yard" = "Railway Yard";
-
-"type.railway.yard.bridge" = "Railway Yard Bridge";
-
-"type.railway.yard.tunnel" = "Railway Yard Tunnel";
-
-"type.route" = "route";
+"type.route" = "Route";
 
 "type.route.ferry" = "Ferry";
 
-"type.route.shuttle_train" = "Shuttle Train";
+"type.route.shuttle_train" = "route-shuttle_train";
 
 "type.shop" = "ร้านค้า";
 
 "type.shop.alcohol" = "ร้านขายเหล้า";
 
 "type.shop.bakery" = "เบเกอรี่";
+
+"type.shop.bathroom_furnishing" = "ตกแต่งห้องน้ำ";
 
 "type.shop.beauty" = "ร้านเสริมสวย";
 
@@ -3247,6 +3431,8 @@
 
 "type.shop.butcher" = "ร้านขายเนื้อ";
 
+"type.shop.cannabis" = "ร้านขายกัญชา";
+
 "type.shop.car" = "ร้านค้ารถยนต์";
 
 "type.shop.car_parts" = "อะไหล่รถยนต์";
@@ -3257,13 +3443,15 @@
 
 "type.shop.caravan" = "RV Dealership";
 
+"type.shop.carpet" = "พรม";
+
 "type.shop.chemist" = "ร้านเคมีภัณฑ์";
 
-"type.shop.chocolate" = "ร้านค้า";
+"type.shop.chocolate" = "ร้านช็อกโกแลต";
 
 "type.shop.clothes" = "ร้านขายเสื้อผ้า";
 
-"type.shop.coffee" = "ร้านค้า";
+"type.shop.coffee" = "ร้านขายกาแฟ";
 
 "type.shop.computer" = "ร้านขายคอมพิวเตอร์";
 
@@ -3274,6 +3462,8 @@
 "type.shop.copyshop" = "ร้านถ่ายเอกสาร";
 
 "type.shop.cosmetics" = "เครื่องสำอาง";
+
+"type.shop.curtain" = "ผ้าม่าน";
 
 "type.shop.deli" = "ร้านขายอาหารสำเร็จรูป";
 
@@ -3287,9 +3477,11 @@
 
 "type.shop.erotic" = "ร้านเฉพาะผู้ใหญ่";
 
-"type.shop.fabric" = "ร้านค้า";
+"type.shop.fabric" = "ร้านผ้า";
 
 "type.shop.farm" = "ฟาร์มฟู้ดช็อป";
+
+"type.shop.fashion_accessories" = "เครื่องประดับแฟชั่น";
 
 "type.shop.florist" = "ร้านดอกไม้";
 
@@ -3298,6 +3490,8 @@
 "type.shop.furniture" = "ร้านเฟอร์นิเจอร์";
 
 "type.shop.garden_centre" = "สถานรับเลี้ยงเด็ก";
+
+"type.shop.gas" = "ร้านแก๊ส";
 
 "type.shop.gift" = "ร้านของขวัญ";
 
@@ -3310,6 +3504,10 @@
 "type.shop.hardware" = "ร้านฮาร์ดแวร์";
 
 "type.shop.health_food" = "ร้านอาหารเพื่อสุขภาพ";
+
+"type.shop.herbalist" = "ร้านสมุนไพร";
+
+"type.shop.hifi" = "เครื่องเสียงไฮไฟ";
 
 "type.shop.houseware" = "ร้านของใช้ในบ้าน";
 
@@ -3327,13 +3525,15 @@
 
 "type.shop.mobile_phone" = "ร้านขายโทรศัพท์มือถือ";
 
-"type.shop.money_lender" = "ร้านค้า";
+"type.shop.money_lender" = "ผู้ให้ยืมเงิน";
 
 "type.shop.motorcycle" = "ร้านรถมอเตอร์ไซค์";
 
-"type.shop.music" = "ร้านค้า";
+"type.shop.motorcycle_repair" = "ซ่อมรถจักรยานยนต์";
 
-"type.shop.musical_instrument" = "ร้านค้า";
+"type.shop.music" = "ร้านเพลง";
+
+"type.shop.musical_instrument" = "ร้านขายเครื่องดนตรี";
 
 "type.shop.newsagent" = "แผงขายหนังสือพิมพ์";
 
@@ -3341,13 +3541,21 @@
 
 "type.shop.outdoor" = "อุปกรณ์กลางแจ้ง";
 
+"type.shop.outpost" = "จุดรับของ";
+
 "type.shop.pastry" = "ขนมอบ";
 
 "type.shop.pawnbroker" = "ผู้รับจำนำ";
 
 "type.shop.pet" = "เพ็ทชอป";
 
+"type.shop.pet_grooming" = "กรูมมิ่งสัตว์เลี้ยง";
+
 "type.shop.photo" = "ร้านถ่ายภาพ";
+
+"type.shop.rental" = "ร้านเช่า";
+
+"type.shop.rental.bicycle" = "ร้านเช่าจักรยาน";
 
 "type.shop.seafood" = "ร้านขายปลา";
 
@@ -3363,7 +3571,7 @@
 
 "type.shop.tattoo" = "ร้านสัก";
 
-"type.shop.tea" = "ร้านค้า";
+"type.shop.tea" = "ร้านน้ำชา";
 
 "type.shop.ticket" = "จุดจำหน่ายตั๋ว";
 
@@ -3381,13 +3589,20 @@
 
 "type.shop.wine" = "ร้านขายไวน์";
 
+"type.shop.agrarian" = "ร้านเกษตร";
+
 "type.shop.antiques" = "ของเก่า";
 
+"type.shop.appliance" = "ร้านเครื่องใช้ไฟฟ้า";
+
+/* maybe change to Art Gallery for en-US when supported */
 "type.shop.art" = "ร้านศิลปะ";
 
 "type.shop.baby_goods" = "ร้านขายของสำหรับเด็ก";
 
 "type.shop.bag" = "ร้านกระเป๋า";
+
+"type.shop.bed" = "ร้านขายเตียง";
 
 "type.shop.boutique" = "บูติก";
 
@@ -3498,6 +3713,8 @@
 
 "type.tourism" = "Tourism";
 
+"type.tourism.aquarium" = "พิพิธภัณฑ์สัตว์น้ำ";
+
 "type.tourism.alpine_hut" = "ที่พักบนภูเขาโรงแรม";
 
 "type.tourism.apartment" = "อพาร์ตเมนต์";
@@ -3542,6 +3759,8 @@
 
 "type.tourism.information.office" = "ศูนย์บริการนักท่องเที่ยว";
 
+"type.tourism.information.visitor_centre" = "ศูนย์นักท่องเที่ยว";
+
 "type.tourism.motel" = "โมเทล";
 
 "type.tourism.museum" = "พิพิธภัณฑ์";
@@ -3558,6 +3777,8 @@
 
 "type.tourism.zoo" = "สวนสัตว์";
 
+"type.tourism.zoo.petting" = "สวนสัตว์ลูบคลำ";
+
 "type.traffic_calming" = "Traffic Calming";
 
 "type.traffic_calming.bump" = "Traffic Bump";
@@ -3570,17 +3791,23 @@
 
 "type.waterway.canal.tunnel" = "คลอง";
 
+"type.waterway.fish_pass" = "บันไดปลา";
+
 "type.waterway.dam" = "Dam";
 
-"type.waterway.ditch" = "Ditch";
+"type.barrier.ditch" = "Ditch";
 
-"type.waterway.ditch.tunnel" = "Ditch";
+"type.natural.water.ditch" = "คูระบายน้ำ";
+
+"type.waterway.ditch.tunnel" = "ท่อระบายน้ำ";
 
 "type.waterway.dock" = "Waterway Dock";
 
 "type.waterway.drain" = "Drain";
 
-"type.waterway.drain.tunnel" = "Drain";
+"type.natural.water.drain" = "Drain";
+
+"type.waterway.drain.tunnel" = "ท่อระบายน้ำ";
 
 "type.waterway.lock_gate" = "ประตูระบายน้ำ";
 
@@ -3620,26 +3847,48 @@
 
 "type.aerialway.t.bar" = "T-bar Lift";
 
-"type.piste_type" = "Piste Type";
-
 "type.piste_type.downhill" = "Downhill Ski Run";
+
+"type.piste_type.downhill.area" = "Downhill Ski Run";
 
 "type.piste_type.downhill.advanced" = "Downhill Ski Run";
 
+"type.piste_type.downhill.advanced.area" = "Downhill Ski Run";
+
 "type.piste_type.downhill.easy" = "Downhill Ski Run";
 
+"type.piste_type.downhill.easy.area" = "Downhill Ski Run";
+
 "type.piste_type.downhill.expert" = "Downhill Ski Run";
+
+"type.piste_type.downhill.expert.area" = "Downhill Ski Run";
 
 "type.piste_type.downhill.freeride" = "Downhill Ski Run";
 
 "type.piste_type.downhill.intermediate" = "Downhill Ski Run";
 
+"type.piste_type.downhill.intermediate.area" = "Downhill Ski Run";
+
 "type.piste_type.downhill.novice" = "Downhill Ski Run";
+
+"type.piste_type.downhill.novice.area" = "Downhill Ski Run";
 
 "type.piste_type.nordic" = "Nordic Ski Trail";
 
 "type.piste_type.sled" = "Sledding Piste";
 
-"type.building_part" = "อาคาร";
+"type.piste_type.sled.area" = "Sledding Piste";
+
+"type.piste_type.snow_park" = "สโนว์พาร์ค";
+
+"type.piste_type.hike" = "เส้นทางเดินป่าหิมะ";
+
+"type.piste_type.connection" = "การเชื่อมต่อทางสกี";
+
+"type.piste_type.skitour" = "เส้นทางสกีทัวร์";
 
 "type.amenity.events_venue" = "สถานที่จัดงาน";
+
+"type.shop.auction" = "ประมูล";
+
+"type.shop.collector" = "ของสะสม";

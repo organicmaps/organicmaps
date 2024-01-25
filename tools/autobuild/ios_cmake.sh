@@ -37,7 +37,7 @@ BuildCmake() {
     cd "$SHADOW_DIR"
     pwd
     echo "Launching cmake..."
-    CC=$CC CXX=$CXX cmake -r "$BUILD_TYPE" -DCMAKE_OSX_ARCHITECTURES=$ARCH -DSKIP_TESTS=TRUE -DSKIP_DESKTOP=TRUE -DSKIP_GTOOL=TRUE -DPLATFORM=$PLATFORM "$MY_PATH/../.."
+    CC=$CC CXX=$CXX cmake -r "$BUILD_TYPE" -DCMAKE_OSX_ARCHITECTURES=$ARCH -DSKIP_TESTS=TRUE -DSKIP_QT_GUI=TRUE -DSKIP_GTOOL=TRUE -DPLATFORM=$PLATFORM "$MY_PATH/../.."
 #    make clean > /dev/null || true
     make -j $(GetCPUCores) VERBOSE=1
   )

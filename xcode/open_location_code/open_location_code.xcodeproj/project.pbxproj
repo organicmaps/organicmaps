@@ -115,7 +115,9 @@
 		1D5F8AA4207616D300CAADFC /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
-				LastUpgradeCheck = 1410;
+				BuildIndependentTargetsInParallel = YES;
+				DefaultBuildSystemTypeForWorkspace = Latest;
+				LastUpgradeCheck = 1510;
 				TargetAttributes = {
 					1D5F8AAB207616D300CAADFC = {
 						CreatedOnToolsVersion = 9.2;

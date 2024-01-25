@@ -12,11 +12,11 @@
 #include <string>
 #include <vector>
 
+namespace beam_tests
+{
 using namespace base;
 using namespace std;
 
-namespace
-{
 template <template <typename, typename> class Beam>
 void Smoke()
 {
@@ -65,12 +65,11 @@ void Benchmark(string const & beamType, uint64_t const numResets, size_t const c
       beam.Add(i, dis(rng));
   }
 }
-}  // namespace
 
 UNIT_TEST(Beam_Smoke)
 {
-  Smoke<base::Beam>();
-  Smoke<base::HeapBeam>();
+  Smoke<Beam>();
+  Smoke<HeapBeam>();
 }
 
 UNIT_TEST(Beam_Benchmark)
@@ -81,7 +80,8 @@ UNIT_TEST(Beam_Benchmark)
   for (uint64_t numResets = 0; numResets < 1000; numResets += 200)
   {
     LOG(LINFO, ("Resets =", numResets, "Capacity =", kCapacity, "Total events =", kNumEvents));
-    Benchmark<base::Beam>("Vector-based", numResets, kCapacity, kNumEvents);
-    Benchmark<base::HeapBeam>("Heap-based", numResets, kCapacity, kNumEvents);
+    Benchmark<Beam>("Vector-based", numResets, kCapacity, kNumEvents);
+    Benchmark<HeapBeam>("Heap-based", numResets, kCapacity, kNumEvents);
   }
 }
+}  // namespace beam_tests

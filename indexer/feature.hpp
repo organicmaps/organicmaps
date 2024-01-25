@@ -8,8 +8,6 @@
 #include "base/macros.hpp"
 
 #include <array>
-#include <functional>
-#include <iterator>
 #include <string>
 #include <vector>
 
@@ -17,7 +15,11 @@ namespace feature
 {
 class SharedLoadInfo;
 struct NameParamsOut; // Include feature_utils.hpp when using
-}
+
+// "fallback" flag value (1 is taken to distinguish from the "normal" offset value),
+// which means geometry should be loaded from the next offset of the more detailed geom level.
+uint32_t constexpr kGeomOffsetFallback = 1;
+} // namespace feature
 
 namespace osm
 {
@@ -69,7 +71,12 @@ public:
 
   int8_t GetLayer();
 
-  std::vector<m2::PointD> GetTrianglesAsPoints(int scale);
+  // For better result this value should be greater than 17
+  // (number of points in inner triangle-strips).
+  using PointsBufferT = buffer_vector<m2::PointD, 32>;
+
+  PointsBufferT const & GetPoints(int scale);
+  PointsBufferT const & GetTrianglesAsPoints(int scale);
 
   void SetID(FeatureID id) { m_id = std::move(id); }
   FeatureID const & GetID() const { return m_id; }
@@ -109,6 +116,11 @@ public:
   }
 
   size_t GetPointsCount() const;
+  size_t GetTrgVerticesCount(int scale)
+  {
+    ParseTriangles(scale);
+    return m_triangles.size();
+  }
 
   m2::PointD const & GetPoint(size_t i) const;
 
@@ -133,14 +145,13 @@ public:
   }
   //@}
 
-  std::string DebugString(int scale);
+  // No DebugPrint(f) as it requires its parameter to be const, but a feature is lazy loaded.
+  std::string DebugString();
 
   std::string const & GetHouseNumber();
 
   /// @name Get names for feature.
   //@{
-  /// @return {primary, secondary} names
-  std::pair<std::string_view, std::string_view> GetPreferredNames();
   void GetPreferredNames(bool allowTranslit, int8_t deviceLang, feature::NameParamsOut & out);
 
   /// Get one most suitable name for user.
@@ -152,7 +163,7 @@ public:
 
   uint8_t GetRank();
   uint64_t GetPopulation();
-  std::string const & GetRoadNumber();
+  std::string const & GetRef();
 
   feature::Metadata const & GetMetadata();
 
@@ -164,7 +175,7 @@ public:
   //@{
   struct InnerGeomStat
   {
-    uint32_t m_points = 0, m_strips = 0, m_size = 0;
+    uint32_t m_points = 0, m_firstPoints = 0, m_strips = 0, m_size = 0;
   };
 
   InnerGeomStat GetInnerStats() const { return m_innerStats; }
@@ -228,11 +239,7 @@ private:
   m2::PointD m_center;
   m2::RectD m_limitRect;
 
-  // For better result this value should be greater than 17
-  // (number of points in inner triangle-strips).
-  static const size_t kStaticBufferSize = 32;
-  using Points = buffer_vector<m2::PointD, kStaticBufferSize>;
-  Points m_points, m_triangles;
+  PointsBufferT m_points, m_triangles;
   feature::Metadata m_metadata;
   indexer::MetadataDeserializer::MetaIds m_metaIds;
 

@@ -11,6 +11,7 @@ NS_ASSUME_NONNULL_BEGIN
 @property(nonatomic, readonly, nullable) NSString *phone;
 @property(nonatomic, readonly, nullable) NSURL *phoneUrl;
 @property(nonatomic, readonly, nullable) NSString *website;
+@property(nonatomic, readonly, nullable) NSString *kayak;
 @property(nonatomic, readonly, nullable) NSString *wikipedia;
 @property(nonatomic, readonly, nullable) NSString *wikimediaCommons;
 @property(nonatomic, readonly, nullable) NSString *facebook;
@@ -23,10 +24,11 @@ NS_ASSUME_NONNULL_BEGIN
 @property(nonatomic, readonly, nullable) NSString *cuisine;
 @property(nonatomic, readonly, nullable) NSString *ppOperator;
 @property(nonatomic, readonly, nullable) NSString *address;
-@property(nonatomic, readonly, nullable) NSString *rawCoordinates;
-@property(nonatomic, readonly, nullable) NSString *formattedCoordinates;
+@property(nonatomic, readonly, nullable) NSArray *coordFormats;
 @property(nonatomic, readonly, nullable) NSString *wifiAvailable;
 @property(nonatomic, readonly, nullable) NSString *level;
+@property(nonatomic, readonly, nullable) NSString *atm;
+@property(nonatomic, readonly, nullable) NSString *capacity;
 
 @end
 

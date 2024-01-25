@@ -102,8 +102,8 @@ TrafficMode::TrafficMode(std::string const & dataFileName, DataSource const & da
                          QObject * parent)
   : QAbstractTableModel(parent)
   , m_dataSource(dataSource)
-  , m_drawerDelegate(move(drawerDelegate))
-  , m_pointsDelegate(move(pointsDelegate))
+  , m_drawerDelegate(std::move(drawerDelegate))
+  , m_pointsDelegate(std::move(pointsDelegate))
 {
   // TODO(mgsergio): Collect stat how many segments of each kind were parsed.
   pugi::xml_document doc;
@@ -273,8 +273,8 @@ QVariant TrafficMode::headerData(int section, Qt::Orientation orientation,
 
 void TrafficMode::OnItemSelected(QItemSelection const & selected, QItemSelection const &)
 {
-  CHECK(!selected.empty(), ("The selection should not be empty. RTFM for qt5."));
-  CHECK(!m_segments.empty(), ("No segments are loaded, can't select."));
+  ASSERT(!selected.empty(), ());
+  ASSERT(!m_segments.empty(), ());
 
   auto const row = selected.front().top();
 

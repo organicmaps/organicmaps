@@ -1,4 +1,5 @@
 class PlacePageCommonLayout: NSObject, IPlacePageLayout {
+  
   private lazy var distanceFormatter: MKDistanceFormatter = {
     let formatter =  MKDistanceFormatter()
     formatter.unitStyle = .abbreviated
@@ -19,7 +20,11 @@ class PlacePageCommonLayout: NSObject, IPlacePageLayout {
 
   fileprivate var lastLocation: CLLocation?
 
-  lazy var viewControllers: [UIViewController] = {
+  lazy var headerViewControllers: [UIViewController] = {
+    [headerViewController, previewViewController]
+  }()
+
+  lazy var bodyViewControllers: [UIViewController] = {
     return configureViewControllers()
   }()
 
@@ -30,6 +35,10 @@ class PlacePageCommonLayout: NSObject, IPlacePageLayout {
   var navigationBar: UIViewController? {
     return placePageNavigationViewController
   }
+  
+  lazy var headerViewController: PlacePageHeaderViewController = {
+    PlacePageHeaderBuilder.build(data: placePageData.previewData, delegate: interactor, headerType: .flexible)
+  }()
 
   lazy var previewViewController: PlacePagePreviewViewController = {
     let vc = storyboard.instantiateViewController(ofType: PlacePagePreviewViewController.self)
@@ -75,10 +84,6 @@ class PlacePageCommonLayout: NSObject, IPlacePageLayout {
     return vc
   } ()
 
-  lazy var header: PlacePageHeaderViewController? = {
-    return PlacePageHeaderBuilder.build(data: placePageData.previewData, delegate: interactor, headerType: .flexible)
-  } ()
-
   lazy var placePageNavigationViewController: PlacePageHeaderViewController = {
     return PlacePageHeaderBuilder.build(data: placePageData.previewData, delegate: interactor, headerType: .fixed)
   } ()
@@ -91,7 +96,6 @@ class PlacePageCommonLayout: NSObject, IPlacePageLayout {
 
   private func configureViewControllers() -> [UIViewController] {
     var viewControllers = [UIViewController]()
-    viewControllers.append(previewViewController)
     viewControllers.append(wikiDescriptionViewController)
     if let wikiDescriptionHtml = placePageData.wikiDescriptionHtml {
       wikiDescriptionViewController.descriptionHtml = wikiDescriptionHtml
@@ -183,9 +187,9 @@ extension PlacePageCommonLayout {
       bookmarkViewController.bookmarkData = bookmarkData
       isBookmark = true
     }
-    if let title = placePageData.previewData.title {
+    if let title = placePageData.previewData.title, let headerViewController = headerViewControllers.compactMap({ $0 as? PlacePageHeaderViewController }).first {
       let secondaryTitle = placePageData.previewData.secondaryTitle
-      header?.setTitle(title, secondaryTitle: secondaryTitle)
+      headerViewController.setTitle(title, secondaryTitle: secondaryTitle)
       placePageNavigationViewController.setTitle(title, secondaryTitle: secondaryTitle)
     }
     self.presenter?.layoutIfNeeded()

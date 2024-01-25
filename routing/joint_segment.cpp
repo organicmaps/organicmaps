@@ -1,7 +1,5 @@
 #include "routing/joint_segment.hpp"
 
-#include "routing/fake_feature_ids.hpp"
-
 #include "base/assert.hpp"
 
 #include "std/boost_container_hash.hpp"
@@ -76,11 +74,11 @@ Segment JointSegment::GetSegment(bool start) const
 
 bool JointSegment::operator<(JointSegment const & rhs) const
 {
-  if (m_featureId != rhs.GetFeatureId())
-    return m_featureId < rhs.GetFeatureId();
+  if (m_featureId != rhs.m_featureId)
+    return m_featureId < rhs.m_featureId;
 
-  if (m_forward != rhs.IsForward())
-    return m_forward < rhs.IsForward();
+  if (m_forward != rhs.m_forward)
+    return m_forward < rhs.m_forward;
 
   if (m_startSegmentId != rhs.m_startSegmentId)
     return m_startSegmentId < rhs.m_startSegmentId;
@@ -88,7 +86,7 @@ bool JointSegment::operator<(JointSegment const & rhs) const
   if (m_endSegmentId != rhs.m_endSegmentId)
     return m_endSegmentId < rhs.m_endSegmentId;
 
-  return m_numMwmId < rhs.GetMwmId();
+  return m_numMwmId < rhs.m_numMwmId;
 }
 
 bool JointSegment::operator==(JointSegment const & rhs) const
@@ -96,11 +94,6 @@ bool JointSegment::operator==(JointSegment const & rhs) const
   return m_featureId == rhs.m_featureId && m_forward == rhs.m_forward &&
          m_startSegmentId == rhs.m_startSegmentId && m_endSegmentId == rhs.m_endSegmentId &&
          m_numMwmId == rhs.m_numMwmId;
-}
-
-bool JointSegment::operator!=(JointSegment const & rhs) const
-{
-  return !(*this == rhs);
 }
 
 std::string DebugPrint(JointSegment const & jointSegment)

@@ -24,6 +24,7 @@ set(SRC
   segment_tree_tests.cpp
   string_match_test.cpp
   text_index_tests.cpp
+  utm_mgrs_coords_match_test.cpp
 )
 
 omim_add_test(${PROJECT_NAME} ${SRC})

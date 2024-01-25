@@ -28,7 +28,7 @@ class MwmToMatchedTracksSerializer final
 {
 public:
   MwmToMatchedTracksSerializer(std::shared_ptr<routing::NumMwmIds> numMwmIds)
-    : m_numMwmIds(move(numMwmIds))
+    : m_numMwmIds(std::move(numMwmIds))
   {
   }
 

@@ -1,6 +1,7 @@
 #pragma once
 
-#include <cstdint>
+#include "coding/string_utf8_multilang.hpp"
+
 #include <deque>
 #include <functional>
 #include <istream>
@@ -39,8 +40,15 @@ public:
 
   std::set<std::string> const & GetKeys() const { return m_keys; }
 
-  void ForEachNameByKey(std::string const & key,
-                        std::function<void(Brand::Name const &)> const & toDo) const;
+  template <class FnT> void ForEachNameByKey(std::string const & key, FnT && fn) const
+  {
+    auto const it = m_keyToName.find(key);
+    if (it == m_keyToName.end())
+      return;
+
+    for (auto const & name : it->second->m_synonyms)
+      fn(name);
+  }
 
   void ForEachNameByKeyAndLang(std::string const & key, std::string const & lang,
                                std::function<void(std::string const &)> const & toDo) const;
@@ -55,4 +63,20 @@ private:
 
 std::string DebugPrint(BrandsHolder::Brand::Name const & name);
 BrandsHolder const & GetDefaultBrands();
+
+template <class FnT> void ForEachLocalizedBrands(std::string_view brand, FnT && fn)
+{
+  bool processed = false;
+  /// @todo Remove temporary string with the new cpp standard.
+  /// Localized brands are not working as expected now because we store raw names from OSM, not brand IDs.
+  GetDefaultBrands().ForEachNameByKey(std::string(brand), [&fn, &processed](auto const & name)
+  {
+    fn(name);
+    processed = true;
+  });
+
+  if (!processed)
+    fn(BrandsHolder::Brand::Name(brand, StringUtf8Multilang::kDefaultCode));
+}
+
 }  // namespace indexer

@@ -12,7 +12,7 @@
 #include <utility>
 #include <vector>
 
-#include "gflags/gflags.h"
+#include <gflags/gflags.h>
 
 DEFINE_uint64(threads, 0,
               "The number of threads. std::thread::hardware_concurrency() is used by default.");

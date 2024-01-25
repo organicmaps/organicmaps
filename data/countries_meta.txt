@@ -196,7 +196,7 @@
 },
 "Cyprus": {
  "driving": "l",
- "languages": ["tr"]
+ "languages": ["el", "tr"]
 },
 "Czech": {
  "languages": ["cs"]

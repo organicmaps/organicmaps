@@ -2,17 +2,15 @@
 
 #include "drape_frontend/apply_feature_functors.hpp"
 #include "drape_frontend/engine_context.hpp"
-#include "drape_frontend/line_shape.hpp"
 #include "drape_frontend/stylist.hpp"
 #include "drape_frontend/traffic_renderer.hpp"
 #include "drape_frontend/visual_params.hpp"
 
+#include "indexer/drawing_rules.hpp"
 #include "indexer/feature.hpp"
 #include "indexer/feature_algo.hpp"
 #include "indexer/feature_visibility.hpp"
 #include "indexer/ftypes_matcher.hpp"
-#include "indexer/map_style_reader.hpp"
-#include "indexer/road_shields_parser.hpp"
 #include "indexer/scales.hpp"
 
 #include "geometry/clipping.hpp"
@@ -35,7 +33,6 @@
 
 namespace df
 {
-using namespace std::placeholders;
 
 namespace
 {
@@ -159,25 +156,24 @@ void ExtractTrafficGeometry(FeatureType const & f, df::RoadClass const & roadCla
 }
 }  // namespace
 
-RuleDrawer::RuleDrawer(TDrawerCallback const & drawerFn,
-                       TCheckCancelledCallback const & checkCancelled,
+RuleDrawer::RuleDrawer(TCheckCancelledCallback const & checkCancelled,
                        TIsCountryLoadedByNameFn const & isLoadedFn,
-                       ref_ptr<EngineContext> engineContext)
-  : m_callback(drawerFn)
-  , m_checkCancelled(checkCancelled)
+                       ref_ptr<EngineContext> engineContext, int8_t deviceLang)
+  : m_checkCancelled(checkCancelled)
   , m_isLoadedFn(isLoadedFn)
   , m_context(engineContext)
   , m_customFeaturesContext(engineContext->GetCustomFeaturesContext().lock())
-  , m_wasCancelled(false)
+  , m_deviceLang(deviceLang)
 {
-  ASSERT(m_callback != nullptr, ());
   ASSERT(m_checkCancelled != nullptr, ());
 
-  m_globalRect = m_context->GetTileKey().GetGlobalRect();
+  auto const & tileKey = m_context->GetTileKey();
+  m_globalRect = tileKey.GetGlobalRect();
+  m_zoomLevel = tileKey.m_zoomLevel;
 
   auto & vparams = df::VisualParams::Instance();
   int32_t tileSize = vparams.GetTileSize();
-  m2::RectD const r = m_context->GetTileKey().GetGlobalRect(false /* clipByDataMaxZoom */);
+  m2::RectD const r = tileKey.GetGlobalRect(false /* clipByDataMaxZoom */);
   ScreenBase geometryConvertor;
   geometryConvertor.OnSize(0, 0, tileSize, tileSize);
   geometryConvertor.SetFromRect(m2::AnyRectD(r));
@@ -223,12 +219,9 @@ bool RuleDrawer::IsDiscardCustomFeature(FeatureID const & id) const
   return m_customFeaturesContext && m_customFeaturesContext->NeedDiscardGeometry(id);
 }
 
-bool RuleDrawer::CheckCoastlines(FeatureType & f, Stylist const & s)
+bool RuleDrawer::CheckCoastlines(FeatureType & f)
 {
-  int const zoomLevel = m_context->GetTileKey().m_zoomLevel;
-
-  if (s.m_isCoastline &&
-      zoomLevel > scales::GetUpperWorldScale() &&
+  if (m_zoomLevel > scales::GetUpperWorldScale() &&
       f.GetID().m_mwmId.GetInfo()->GetType() == MwmInfo::COASTS)
   {
     std::string_view const name = f.GetName(StringUtf8Multilang::kDefaultCode);
@@ -246,8 +239,7 @@ bool RuleDrawer::CheckCoastlines(FeatureType & f, Stylist const & s)
   return true;
 }
 
-void RuleDrawer::ProcessAreaStyle(FeatureType & f, Stylist const & s,
-                                  TInsertShapeFn const & insertShape, int & minVisibleScale)
+void RuleDrawer::ProcessAreaAndPointStyle(FeatureType & f, Stylist const & s, TInsertShapeFn const & insertShape)
 {
   bool isBuilding = false;
   bool is3dBuilding = false;
@@ -257,19 +249,17 @@ void RuleDrawer::ProcessAreaStyle(FeatureType & f, Stylist const & s,
     feature::TypesHolder const types(f);
     using namespace ftypes;
 
-    bool const hasParts = IsBuildingHasPartsChecker::Instance()(types);
+    bool const hasParts = IsBuildingHasPartsChecker::Instance()(types); // possible to do this checks beforehand in stylist?
     bool const isPart = IsBuildingPartChecker::Instance()(types);
 
     // Looks like nonsense, but there are some osm objects with types
     // highway-path-bridge and building (sic!) at the same time (pedestrian crossing).
     isBuilding = (isPart || IsBuildingChecker::Instance()(types)) &&
-                  !IsBridgeChecker::Instance()(types) && !IsTunnelChecker::Instance()(types);
+                  !IsBridgeOrTunnelChecker::Instance()(types);
 
     isBuildingOutline = isBuilding && hasParts && !isPart;
-    is3dBuilding = m_context->Is3dBuildingsEnabled() && (isBuilding && !isBuildingOutline);
+    is3dBuilding = isBuilding && !isBuildingOutline && m_context->Is3dBuildingsEnabled();
   }
-
-  int const zoomLevel = m_context->GetTileKey().m_zoomLevel;
 
   m2::PointD featureCenter;
 
@@ -279,7 +269,8 @@ void RuleDrawer::ProcessAreaStyle(FeatureType & f, Stylist const & s,
   {
     double const heightInMeters = GetBuildingHeightInMeters(f);
     double const minHeightInMeters = GetBuildingMinHeightInMeters(f);
-    featureCenter = feature::GetCenter(f, zoomLevel);
+    // Loads geometry of the feature.
+    featureCenter = feature::GetCenter(f, m_zoomLevel);
     double const lon = mercator::XToLon(featureCenter.x);
     double const lat = mercator::YToLat(featureCenter.y);
 
@@ -290,88 +281,76 @@ void RuleDrawer::ProcessAreaStyle(FeatureType & f, Stylist const & s,
     areaMinHeight = static_cast<float>((rectMercator.SizeX() + rectMercator.SizeY()) * 0.5);
   }
 
-  bool applyPointStyle = s.m_pointStyleExists;
+  bool applyPointStyle = s.m_symbolRule || s.m_captionRule || s.m_houseNumberRule;
   if (applyPointStyle)
   {
     if (!is3dBuilding)
-      featureCenter = feature::GetCenter(f, zoomLevel);
+    {
+      // Loads geometry of the feature.
+      featureCenter = feature::GetCenter(f, m_zoomLevel);
+    }
     applyPointStyle = m_globalRect.IsPointInside(featureCenter);
   }
 
-  if (applyPointStyle || is3dBuilding)
-    minVisibleScale = feature::GetMinDrawableScale(f);
+  bool const skipTriangles = isBuildingOutline && m_context->Is3dBuildingsEnabled();
+  if (!skipTriangles && isBuilding && f.GetTrgVerticesCount(m_zoomLevel) >= 10000)
+    isBuilding = false;
 
-  ApplyAreaFeature apply(m_context->GetTileKey(), insertShape, f.GetID(),
+  ApplyAreaFeature apply(m_context->GetTileKey(), insertShape, f,
                          m_currentScaleGtoP, isBuilding,
-                         m_context->Is3dBuildingsEnabled() && isBuildingOutline,
-                         areaMinHeight, areaHeight, minVisibleScale, f.GetRank(),
+                         areaMinHeight /* minPosZ */, areaHeight /* posZ */,
                          s.GetCaptionDescription());
-  f.ForEachTriangle(apply, zoomLevel);
-  if (applyPointStyle)
-    apply(featureCenter, true /* hasArea */);
 
-  if (CheckCancelled())
-    return;
-
-  s.ForEachRule(std::bind(&ApplyAreaFeature::ProcessAreaRule, &apply, _1));
+  if (!skipTriangles && (s.m_areaRule || s.m_hatchingRule))
+  {
+    f.ForEachTriangle(apply, m_zoomLevel);
+    if (apply.HasGeometry())
+      apply.ProcessAreaRules(s.m_areaRule, s.m_hatchingRule);
+  }
 
   /// @todo Can we put this check in the beginning of this function?
-  if (!IsDiscardCustomFeature(f.GetID()))
-    apply.Finish(m_context->GetTextureManager());
+  if (applyPointStyle && !IsDiscardCustomFeature(f.GetID()))
+  {
+    apply.ProcessPointRules(s.m_symbolRule, s.m_captionRule, s.m_houseNumberRule,
+                            featureCenter, m_context->GetTextureManager());
+  }
 }
 
-void RuleDrawer::ProcessLineStyle(FeatureType & f, Stylist const & s,
-                                  TInsertShapeFn const & insertShape, int & minVisibleScale)
+void RuleDrawer::ProcessLineStyle(FeatureType & f, Stylist const & s, TInsertShapeFn const & insertShape)
 {
-  int const zoomLevel = m_context->GetTileKey().m_zoomLevel;
-  bool const smooth = ftypes::IsIsolineChecker::Instance()(f);
-
-  ApplyLineFeatureGeometry applyGeom(m_context->GetTileKey(), insertShape, f.GetID(),
-                                     m_currentScaleGtoP, minVisibleScale, f.GetRank(),
-                                     f.GetPointsCount(), smooth);
-  f.ForEachPoint(applyGeom, zoomLevel);
-
-  if (CheckCancelled())
-    return;
+  ApplyLineFeatureGeometry applyGeom(m_context->GetTileKey(), insertShape, f, m_currentScaleGtoP);
+  f.ForEachPoint(applyGeom, m_zoomLevel);
 
   if (applyGeom.HasGeometry())
-    s.ForEachRule(std::bind(&ApplyLineFeatureGeometry::ProcessLineRule, &applyGeom, _1));
-  applyGeom.Finish();
+    applyGeom.ProcessLineRules(s.m_lineRules);
 
-  std::vector<m2::SharedSpline> clippedSplines;
-  bool needAdditional;
-  auto const metalineSpline = m_context->GetMetalineManager()->GetMetaline(f.GetID());
-  if (metalineSpline.IsNull())
+  if (s.m_pathtextRule || s.m_shieldRule)
   {
-    // There is no metaline for this feature.
-    needAdditional = true;
-    clippedSplines = applyGeom.GetClippedSplines();
-  }
-  else if (m_usedMetalines.find(metalineSpline.Get()) != m_usedMetalines.end())
-  {
-    // Metaline has been used already, skip additional generation.
-    needAdditional = false;
-  }
-  else
-  {
-    // Generate additional by metaline, mark metaline spline as used.
-    needAdditional = true;
-    clippedSplines = m2::ClipSplineByRect(m_context->GetTileKey().GetGlobalRect(),
-                                          metalineSpline);
-    m_usedMetalines.insert(metalineSpline.Get());
-  }
+    std::vector<m2::SharedSpline> clippedSplines;
 
-  if (needAdditional && !clippedSplines.empty())
-  {
-    ApplyLineFeatureAdditional applyAdditional(m_context->GetTileKey(), insertShape, f.GetID(),
-                                               m_currentScaleGtoP, minVisibleScale, f.GetRank(),
-                                               s.GetCaptionDescription(), clippedSplines);
-    s.ForEachRule(std::bind(&ApplyLineFeatureAdditional::ProcessLineRule, &applyAdditional, _1));
-    applyAdditional.Finish(m_context->GetTextureManager(), ftypes::GetRoadShields(f),
-                           m_generatedRoadShields);
+    auto const metalineSpline = m_context->GetMetalineManager()->GetMetaline(f.GetID());
+    if (metalineSpline.IsNull())
+    {
+      // There is no metaline for this feature.
+      clippedSplines = applyGeom.GetClippedSplines();
+    }
+    else if (m_usedMetalines.insert(metalineSpline.Get()).second)
+    {
+      // Generate additional by metaline, mark metaline spline as used.
+      clippedSplines = m2::ClipSplineByRect(m_globalRect, metalineSpline);
+    }
+
+    if (!clippedSplines.empty())
+    {
+      ApplyLineFeatureAdditional applyAdditional(m_context->GetTileKey(), insertShape, f, m_currentScaleGtoP,
+                                                 s.GetCaptionDescription(), std::move(clippedSplines));
+      applyAdditional.ProcessAdditionalLineRules(s.m_pathtextRule, s.m_shieldRule,
+                                                 m_context->GetTextureManager(), s.m_roadShields,
+                                                 m_generatedRoadShields);
+    }
   }
 
-  if (m_context->IsTrafficEnabled() && zoomLevel >= kRoadClass0ZoomLevel)
+  if (m_context->IsTrafficEnabled() && m_zoomLevel >= kRoadClass0ZoomLevel)
   {
     struct Checker
     {
@@ -394,46 +373,29 @@ void RuleDrawer::ProcessLineStyle(FeatureType & f, Stylist const & s,
     {
       auto const & classes = checkers[i].m_highwayClasses;
       if (find(classes.begin(), classes.end(), highwayClass) != classes.end() &&
-          zoomLevel >= checkers[i].m_zoomLevel)
+          m_zoomLevel >= checkers[i].m_zoomLevel)
       {
-        std::vector<m2::PointD> points;
-        points.reserve(f.GetPointsCount());
+        // Need reset, because (possible) simplified geometry was cached before.
         f.ResetGeometry();
-        f.ForEachPoint([&points](m2::PointD const & p) { points.emplace_back(p); },
-                       FeatureType::BEST_GEOMETRY);
-        ExtractTrafficGeometry(f, checkers[i].m_roadClass, m2::PolylineD(points), oneWay,
-                               zoomLevel, m_trafficScalePtoG, m_trafficGeometry);
+        std::vector<m2::PointD> points;
+        assign_range(points, f.GetPoints(FeatureType::BEST_GEOMETRY));
+
+        ExtractTrafficGeometry(f, checkers[i].m_roadClass, m2::PolylineD(std::move(points)), oneWay,
+                               m_zoomLevel, m_trafficScalePtoG, m_trafficGeometry);
         break;
       }
     }
   }
 }
 
-void RuleDrawer::ProcessPointStyle(FeatureType & f, Stylist const & s,
-                                   TInsertShapeFn const & insertShape, int & minVisibleScale)
+void RuleDrawer::ProcessPointStyle(FeatureType & f, Stylist const & s, TInsertShapeFn const & insertShape)
 {
   if (IsDiscardCustomFeature(f.GetID()))
     return;
 
-  int const zoomLevel = m_context->GetTileKey().m_zoomLevel;
-  bool const isSpeedCamera = ftypes::IsSpeedCamChecker::Instance()(f);
-  if (isSpeedCamera && !GetStyleReader().IsCarNavigationStyle())
-    return;
-
-  DepthLayer depthLayer = DepthLayer::OverlayLayer;
-  if (isSpeedCamera)
-    depthLayer = DepthLayer::NavigationLayer;
-
-  minVisibleScale = feature::GetMinDrawableScale(f);
-  ApplyPointFeature apply(m_context->GetTileKey(), insertShape, f.GetID(), minVisibleScale, f.GetRank(),
-                          s.GetCaptionDescription(), 0.0f /* posZ */, depthLayer);
-  f.ForEachPoint([&apply](m2::PointD const & pt) { apply(pt, false /* hasArea */); }, zoomLevel);
-
-  if (CheckCancelled())
-    return;
-
-  s.ForEachRule(std::bind(&ApplyPointFeature::ProcessPointRule, &apply, _1));
-  apply.Finish(m_context->GetTextureManager());
+  ApplyPointFeature apply(m_context->GetTileKey(), insertShape, f, s.GetCaptionDescription());
+  apply.ProcessPointRules(s.m_symbolRule, s.m_captionRule, s.m_houseNumberRule,
+                          f.GetCenter(), m_context->GetTextureManager());
 }
 
 void RuleDrawer::operator()(FeatureType & f)
@@ -441,59 +403,66 @@ void RuleDrawer::operator()(FeatureType & f)
   if (CheckCancelled())
     return;
 
-  if (!m_context->IsolinesEnabled() && ftypes::IsIsolineChecker::Instance()(f))
+  feature::TypesHolder const types(f);
+  if ((!m_context->IsolinesEnabled() && ftypes::IsIsolineChecker::Instance()(types)) ||
+      (!m_context->Is3dBuildingsEnabled() && ftypes::IsBuildingPartChecker::Instance()(types) &&
+       !ftypes::IsBuildingChecker::Instance()(types)))
     return;
 
-  Stylist s;
-  m_callback(f, s);
-
-  if (s.IsEmpty())
+  if (ftypes::IsCoastlineChecker::Instance()(types) && !CheckCoastlines(f))
     return;
 
-  if (!CheckCoastlines(f, s))
-    return;
+  Stylist const s(f, m_zoomLevel, m_deviceLang);
 
-  int const zoomLevel = m_context->GetTileKey().m_zoomLevel;
-
-  // FeatureType::GetLimitRect call invokes full geometry reading and decoding.
-  // That's why this code follows after all lightweight return options.
-  m2::RectD const limitRect = f.GetLimitRect(zoomLevel);
-  if (!m_globalRect.IsIntersect(limitRect))
+  // No drawing rules.
+  if (!s.m_symbolRule && !s.m_captionRule && !s.m_houseNumberRule &&
+      s.m_lineRules.empty() && !s.m_areaRule && !s.m_hatchingRule)
     return;
 
 #ifdef DEBUG
-  // Validate on feature styles
-  if (!s.m_areaStyleExists)
-  {
-    int checkFlag = s.m_pointStyleExists ? 1 : 0;
-    checkFlag += s.m_lineStyleExists ? 1 : 0;
-    ASSERT(checkFlag == 1, ());
-  }
+  // Validate mixing of feature styles.
+  bool const hasLine = !s.m_lineRules.empty();
+  bool const hasLineAdd = s.m_shieldRule || s.m_pathtextRule;
+  bool const hasPoint = s.m_symbolRule || s.m_captionRule || s.m_houseNumberRule;
+  bool const hasArea = s.m_areaRule || s.m_hatchingRule;
+
+  ASSERT(!((hasLine || hasLineAdd) && (hasPoint || hasArea)),
+         ("Line drules mixed with point/area ones", f.DebugString()));
+  ASSERT(!hasLineAdd || hasLine, ("Pathtext/shield without a line drule", f.DebugString()));
 #endif
 
-  /// @todo Call feature::GetMinDrawableScale() here.
-  int minVisibleScale = 0;
-  auto insertShape = [this, &minVisibleScale](drape_ptr<MapShape> && shape)
+  // FeatureType::GetLimitRect call invokes full geometry reading and decoding.
+  // That's why this code follows after all lightweight return options.
+  m2::RectD const limitRect = f.GetLimitRect(m_zoomLevel);
+  if (!m_globalRect.IsIntersect(limitRect))
+    return;
+
+  auto insertShape = [this](drape_ptr<MapShape> && shape)
   {
     size_t const index = shape->GetType();
     ASSERT_LESS(index, m_mapShapes.size(), ());
 
-    shape->SetFeatureMinZoom(minVisibleScale);
+    // TODO(pastk) : MinZoom was used for optimization in RenderGroup::UpdateCanBeDeletedStatus(), but is long time broken.
+    // See https://github.com/organicmaps/organicmaps/pull/5903 for details.
+    shape->SetFeatureMinZoom(0);
     m_mapShapes[index].push_back(std::move(shape));
   };
 
-  if (s.m_areaStyleExists)
+  feature::GeomType const geomType = f.GetGeomType();
+  if (geomType == feature::GeomType::Area)
   {
-    ProcessAreaStyle(f, s, insertShape, minVisibleScale);
+    ProcessAreaAndPointStyle(f, s, insertShape);
   }
-  else if (s.m_lineStyleExists)
+  else if (!s.m_lineRules.empty())
   {
-    ProcessLineStyle(f, s, insertShape, minVisibleScale);
+    ASSERT(geomType == feature::GeomType::Line, ());
+    ProcessLineStyle(f, s, insertShape);
   }
   else
   {
-    ASSERT(s.m_pointStyleExists, ());
-    ProcessPointStyle(f, s, insertShape, minVisibleScale);
+    ASSERT(s.m_symbolRule || s.m_captionRule || s.m_houseNumberRule, ());
+    ASSERT(geomType == feature::GeomType::Point, ());
+    ProcessPointStyle(f, s, insertShape);
   }
 
   if (CheckCancelled())
@@ -531,7 +500,7 @@ void RuleDrawer::DrawTileNet()
   p.m_baseGtoPScale = 1.0;
   p.m_cap = dp::ButtCap;
   p.m_color = dp::Color::Blue();
-  p.m_depth = 20000;
+  p.m_depth = dp::kMaxDepth;
   p.m_depthLayer = DepthLayer::GeometryLayer;
   p.m_width = 1;
   p.m_join = dp::RoundJoin;
@@ -546,7 +515,7 @@ void RuleDrawer::DrawTileNet()
   tp.m_markId = kml::kDebugMarkId;
   tp.m_tileCenter = m_globalRect.Center();
   tp.m_titleDecl.m_anchor = dp::Center;
-  tp.m_depth = 20000;
+  tp.m_depth = dp::kMaxDepth;
   tp.m_depthLayer = DepthLayer::OverlayLayer;
   tp.m_titleDecl.m_primaryText = key.Coord2String();
 

@@ -30,14 +30,23 @@
   auto &f = GetFramework();
 
   auto const style = f.GetMapStyle();
+  auto const isOutdoor = ^BOOL(MapStyle style) {
+    switch (style) {
+      case MapStyleOutdoorsClear:
+      case MapStyleOutdoorsDark:
+        return YES;
+      default:
+        return NO;
+    }
+  }(style);
   auto const newStyle = ^MapStyle(MWMTheme theme) {
     switch (theme) {
       case MWMThemeDay:
-        return MapStyleClear;
+        return isOutdoor ? MapStyleOutdoorsClear : MapStyleClear;
       case MWMThemeVehicleDay:
         return MapStyleVehicleClear;
       case MWMThemeNight:
-        return MapStyleDark;
+        return isOutdoor ? MapStyleOutdoorsDark : MapStyleDark;
       case MWMThemeVehicleNight:
         return MapStyleVehicleDark;
       case MWMThemeAuto:
@@ -101,6 +110,10 @@
 
 + (void)moveMap:(UIOffset)offset {
   GetFramework().Move(offset.horizontal, offset.vertical, true);
+}
+
++ (void)scrollMap:(double) distanceX :(double) distanceY {
+  GetFramework().Scroll(distanceX, distanceY);
 }
 
 + (void)deactivateMapSelection:(BOOL)notifyUI {

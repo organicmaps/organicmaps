@@ -4,7 +4,7 @@
 
 This project uses **Developer's Certificate of Origin (DCO)** instead of **Contributor License Agreement (CLA)**. It is often easier to get started contributing under a DCO than a CLA.
 
-When one is developing software for a company they need to have the company sign the Corporate CLA prior to submitting contributions. That means there is a step after the business decides to contribute where legal documents need to be signed and exchanged. Once this is done there are steps to associate people with those legal documents. All of this takes time. In some companies this process can take weeks or longer.
+When one is developing software for a company they need to have the company sign the Corporate CLA before contributing. That means there is a step after the business decides to contribute where legal documents need to be signed and exchanged. Once this is done there are steps to associate people with those legal documents. All of this takes time. In some companies this process can take weeks or longer.
 
 We wanted to make it simpler to contribute.
 

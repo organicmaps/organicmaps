@@ -10,7 +10,7 @@
 "search" = "검색하기";
 
 /* Used in home screen quick actions. */
-"bookmarks" = "북마크";
+"bookmarks_and_tracks" = "북마크 및 트랙";
 
 /* Used in home screen quick actions. */
 "route" = "경로";

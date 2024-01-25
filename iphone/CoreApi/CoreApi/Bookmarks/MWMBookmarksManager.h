@@ -47,6 +47,7 @@ NS_SWIFT_NAME(BookmarksManager)
 - (MWMBookmarkGroupType)getCategoryGroupType:(MWMMarkGroupID)groupId;
 - (nullable NSURL *)getCategoryImageUrl:(MWMMarkGroupID)groupId;
 - (BOOL)hasExtraInfo:(MWMMarkGroupID)groupId;
+- (BOOL)isHtmlDescription:(MWMMarkGroupID)groupId;
 
 - (MWMMarkGroupID)createCategoryWithName:(NSString *)name;
 - (void)setCategory:(MWMMarkGroupID)groupId name:(NSString *)name;

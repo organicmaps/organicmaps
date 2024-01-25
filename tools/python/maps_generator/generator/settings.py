@@ -49,7 +49,7 @@ class CfgReader:
         3. From default values.
 
     For using the option from system env you can build an option name as
-    MM__ + [SECTION_NAME] + _ + [VALUE_NAME].
+    MM__GEN__ + [SECTION_NAME] + _ + [VALUE_NAME].
     """
 
     def __init__(self, default_settings_path: AnyStr):
@@ -72,7 +72,6 @@ class CfgReader:
 
 
 DEFAULT_PLANET_URL = "https://planet.openstreetmap.org/pbf/planet-latest.osm.pbf"
-DEFAULT_PLANET_MD5_URL = md5_ext(DEFAULT_PLANET_URL)
 
 # Main section:
 # If DEBUG is True, a little special planet is downloaded.
@@ -106,7 +105,6 @@ LOG_FILE_PATH = os.path.join(MAIN_OUT_PATH, "generation.log")
 
 # External resources section:
 PLANET_URL = DEFAULT_PLANET_URL
-PLANET_MD5_URL = DEFAULT_PLANET_MD5_URL
 PLANET_COASTS_URL = ""
 UGC_URL = ""
 HOTELS_URL = ""
@@ -143,14 +141,6 @@ OSM_TOOLS_CC_FLAGS = [
 # Planet and coasts:
 PLANET_COASTS_GEOM_URL = os.path.join(PLANET_COASTS_URL, "latest_coasts.geom")
 PLANET_COASTS_RAWGEOM_URL = os.path.join(PLANET_COASTS_URL, "latest_coasts.rawgeom")
-
-if DEBUG:
-    PLANET_URL = "https://www.dropbox.com/s/m3ru5tnj8g9u4cz/planet-latest.o5m?raw=1"
-    PLANET_MD5_URL = (
-        "https://www.dropbox.com/s/8wdl2hy22jgisk5/planet-latest.o5m.md5?raw=1"
-    )
-    NODE_STORAGE = "map"
-    NEED_PLANET_UPDATE = False
 
 # Common:
 THREADS_COUNT = multiprocessing.cpu_count()
@@ -286,7 +276,7 @@ def init(default_settings_path: AnyStr):
     global ISOLINES_PATH
 
     PLANET_URL = cfg.get_opt_path("External", "PLANET_URL", PLANET_URL)
-    PLANET_MD5_URL = cfg.get_opt_path("External", "PLANET_MD5_URL", PLANET_MD5_URL)
+    PLANET_MD5_URL = cfg.get_opt_path("External", "PLANET_MD5_URL", md5_ext(PLANET_URL))
     PLANET_COASTS_URL = cfg.get_opt_path(
         "External", "PLANET_COASTS_URL", PLANET_COASTS_URL
     )

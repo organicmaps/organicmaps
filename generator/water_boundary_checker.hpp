@@ -1,4 +1,11 @@
 #pragma once
+#include "generator/feature_builder.hpp"
+
+#include "indexer/classificator.hpp"
+
+#include "geometry/region2d.hpp"
+#include "geometry/tree4d.hpp"
+
 
 class WaterBoundaryChecker
 {
@@ -14,20 +21,15 @@ class WaterBoundaryChecker
   size_t m_selectedPolygons = 0;
 
 public:
-  WaterBoundaryChecker(std::string const & rawGeometryFileName)
-  {
-    LoadWaterGeometry(rawGeometryFileName);
-  }
-
   ~WaterBoundaryChecker()
   {
-    LOG_SHORT(LINFO, ("Features checked:", m_totalFeatures, "borders checked:", m_totalBorders,
+    LOG(LINFO, ("Features checked:", m_totalFeatures, "borders checked:", m_totalBorders,
                 "borders skipped:", m_skippedBorders, "selected polygons:", m_selectedPolygons));
   }
 
   void LoadWaterGeometry(std::string const & rawGeometryFileName)
   {
-    LOG_SHORT(LINFO, ("Loading water geometry:", rawGeometryFileName));
+    LOG(LINFO, ("Loading water geometry:", rawGeometryFileName));
     FileReader reader(rawGeometryFileName);
     ReaderSource<FileReader> file(reader);
 
@@ -49,22 +51,21 @@ public:
 
         std::vector<m2::PointD> points(numPoints);
         file.Read(points.data(), sizeof(m2::PointD) * numPoints);
-        m_tree.Add(m2::RegionD(move(points)));
+        m_tree.Add(m2::RegionD(std::move(points)));
       }
     }
-    LOG_SHORT(LINFO, ("Load", total, "water geometries"));
+    LOG(LINFO, ("Load", total, "water geometries"));
   }
 
   bool IsBoundaries(feature::FeatureBuilder const & fb)
   {
     ++m_totalFeatures;
 
-    auto static const kBoundaryType = classif().GetTypeByPath({"boundary", "administrative"});
-    if (fb.FindType(kBoundaryType, 2) == ftype::GetEmptyValue())
+    static uint32_t const kBoundaryType = classif().GetTypeByPath({"boundary", "administrative"});
+    if (!fb.IsLine() || !fb.HasType(kBoundaryType, 2))
       return false;
 
     ++m_totalBorders;
-
     return true;
   }
 
@@ -75,18 +76,19 @@ public:
     Earth
   };
 
+  // TODO(pastk): boundaries along the coast are being "torn" into small pieces instead of being discarded completely.
+  // Likely it happens because an already simplified coastline is used, while boundary lines are not simplified yet.
+  // It causes these lines to intersect each other often.
+  // https://github.com/organicmaps/organicmaps/issues/6445
   void ProcessBoundary(feature::FeatureBuilder const & boundary, std::vector<feature::FeatureBuilder> & parts)
   {
-    auto const & line = boundary.GetGeometry().front();
-
     double constexpr kExtension = 0.01;
     ProcessState state = ProcessState::Initial;
 
     feature::FeatureBuilder::PointSeq points;
 
-    for (size_t i = 0; i < line.size(); ++i)
+    for (auto const & p : boundary.GetOuterGeometry())
     {
-      m2::PointD const & p = line[i];
       m2::RectD r(p.x - kExtension, p.y - kExtension, p.x + kExtension, p.y + kExtension);
       size_t hits = 0;
       m_tree.ForEachInRect(r, [&](m2::RegionD const & rgn)
@@ -132,9 +134,7 @@ public:
           if (points.size() > 1)
           {
             parts.push_back(boundary);
-            parts.back().ResetGeometry();
-            for (auto const & pt : points)
-              parts.back().AddPoint(pt);
+            parts.back().AssignPoints(std::move(points));
           }
           points.clear();
           state = ProcessState::Water;
@@ -151,9 +151,7 @@ public:
     if (points.size() > 1)
     {
       parts.push_back(boundary);
-      parts.back().ResetGeometry();
-      for (auto const & pt : points)
-        parts.back().AddPoint(pt);
+      parts.back().AssignPoints(std::move(points));
     }
 
     if (parts.empty())

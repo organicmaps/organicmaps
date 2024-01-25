@@ -22,6 +22,8 @@ endif()
 
 message(STATUS "Using compiler ${CMAKE_CXX_COMPILER_ID} ${CMAKE_CXX_COMPILER_VERSION}")
 
+option(COVERAGE_REPORT "Configure for coverage report" OFF)
+
 option(UNITY_DISABLE "Disable unity build" OFF)
 if (NOT UNITY_DISABLE AND NOT DEFINED ENV{UNITY_DISABLE})
   set(CMAKE_UNITY_BUILD ON)
@@ -58,6 +60,7 @@ set(OMIM_ROOT ${CMAKE_SOURCE_DIR})
 set(CMAKE_MODULE_PATH ${CMAKE_MODULE_PATH} "${OMIM_ROOT}/cmake")
 
 include(OmimHelpers)
+include(OmimTesting)
 
 if (CMAKE_SYSTEM_NAME MATCHES "Linux")
   set(LINUX_DETECTED TRUE)
@@ -131,7 +134,7 @@ option(USE_ASAN "Enable Address Sanitizer" OFF)
 option(USE_TSAN "Enable Thread Sanitizer" OFF)
 option(USE_LIBFUZZER "Enable LibFuzzer" OFF)
 option(PYBINDINGS "Create makefiles for building python bindings" OFF)
-option(SKIP_DESKTOP "Skip building of desktop application" OFF)
+option(SKIP_QT_GUI "Skip building of Qt GUI" OFF)
 # TODO: Fix mapshot, it doesn't work without our old FreeType hack.
 option(BUILD_MAPSHOT "Build mapshot tool" OFF)
 option(USE_PCH "Use precompiled headers" OFF)
@@ -208,7 +211,12 @@ if (PLATFORM_LINUX OR PLATFORM_ANDROID)
 endif()
 
 if (NOT SKIP_TESTS)
-  set(SKIP_TESTS FALSE)
+  enable_testing()
+  # Enables ctest -T memcheck with valgrind
+  include(CTest)
+  if (COVERAGE_REPORT)
+    include(OmimCoverage)
+  endif ()
 endif()
 
 if (NOT PYTHON_VERSION)
@@ -234,22 +242,14 @@ endif()
 
 if (NOT PLATFORM_IPHONE AND NOT PLATFORM_ANDROID)
   list(APPEND qt_components Core Network)
-  if (NOT SKIP_DESKTOP OR NOT SKIP_TESTS OR PYBINDINGS)
+  if (NOT SKIP_QT_GUI OR NOT SKIP_TESTS OR PYBINDINGS)
     list(APPEND qt_components Widgets)
   endif()
-  if (NOT SKIP_DESKTOP)
-    list(APPEND qt_components Gui Xml Svg)
+  if (NOT SKIP_QT_GUI)
+    list(APPEND qt_components Gui Xml Svg OpenGL OpenGLWidgets)
   endif()
-  if (DEFINED ENV{HOMEBREW_PREFIX})
-    set(HOMEBREW_PREFIX $ENV{HOMEBREW_PREFIX})
-  else()
-    set(HOMEBREW_PREFIX /opt/homebrew)
-  endif()
-  # PATHS are hard-coded hints where to look for qt5 in addition to other places.
-  find_package(Qt5 COMPONENTS REQUIRED ${qt_components} PATHS $ENV{QT_PATH} ${HOMEBREW_PREFIX}/opt/qt@5 /usr/local/opt/qt@5 /usr/lib/x86_64-linux-gnu/qt5)
-  if (Qt5_VERSION VERSION_LESS 5.5.0)
-    message(FATAL_ERROR "Minimum supported Qt5 version is 5.5")
-  endif()
+  # PATHS are hard-coded hints where to look for qt6 in addition to other places.
+  find_package(Qt6 COMPONENTS REQUIRED ${qt_components} PATHS $ENV{QT_PATH} /opt/homebrew/opt/qt@6 /usr/local/opt/qt@6 /usr/lib/x86_64-linux-gnu/qt6)
 endif()
 
 find_library(LIBZ NAMES z)
@@ -290,68 +290,21 @@ if (USE_PCH)
     ${OMIM_PCH_TARGET_NAME}
   )
 endif()
-# Include 3party dependencies.
 
-if (NOT WITH_SYSTEM_PROVIDED_3PARTY)
-  # Configure expat library.
-  # Suppress "Policy CMP0077 is not set: option() honors normal variables"
-  # for the expat options below.
-  set(CMAKE_POLICY_DEFAULT_CMP0077 NEW)
-  set(EXPAT_BUILD_TOOLS OFF)
-  set(EXPAT_BUILD_EXAMPLES OFF)
-  set(EXPAT_BUILD_TESTS OFF)
-  set(EXPAT_BUILD_DOCS OFF)
-  set(EXPAT_BUILD_PKGCONFIG OFF)
-  set(EXPAT_ENABLE_INSTALL OFF)
-  set(EXPAT_SHARED_LIBS OFF)
-  add_subdirectory(3party/expat/expat)
-
-  # Configure Jansson library.
-  set(JANSSON_BUILD_DOCS OFF)
-  set(JANSSON_BUILD_MAN OFF)
-  set(JANSSON_EXAMPLES OFF)
-  set(JANSSON_INSTALL OFF)
-  set(JANSSON_WITHOUT_TESTS ON)
-  add_subdirectory(3party/jansson/jansson/)
-  target_include_directories(jansson INTERFACE "${PROJECT_BINARY_DIR}/3party/jansson/jansson/include")
-
-  # Add pugixml library.
-  add_subdirectory(3party/pugixml)
-
-  # Add protobuf library.
-  add_subdirectory(${OMIM_ROOT}/3party/protobuf)
-endif()
-
-add_subdirectory(3party/agg)
-add_subdirectory(3party/bsdiff-courgette)
-
-add_subdirectory(3party/gflags)
-target_compile_options(gflags_nothreads_static PRIVATE $<$<CXX_COMPILER_ID:GNU>:-Wno-subobject-linkage>)
-# Not needed for the usual build process, but it fixes QtCreator editor,
-# that doesn't see gflags/gflags.h in binary dir (gflags has tricky cmake configuration).
-if (PLATFORM_DESKTOP)
-  include_directories("${PROJECT_BINARY_DIR}/3party/gflags/include")
-endif()
-
+# Should be on the root level, not in 3party, so tests can get these dependencies.
+# Should go before 3party as harfbuzz is using them.
 if (LINUX_DETECTED)
   find_package(ICU COMPONENTS uc i18n data REQUIRED)
   find_package(Freetype REQUIRED)
-else()
-  add_subdirectory(3party/freetype)
-  add_subdirectory(3party/icu)
 endif()
 
-add_subdirectory(3party/liboauthcpp)
-add_subdirectory(3party/minizip)
-add_subdirectory(3party/opening_hours)
-add_subdirectory(3party/sdf_image)
-add_subdirectory(3party/stb_image)
-add_subdirectory(3party/succinct)
-add_subdirectory(3party/open-location-code)
-add_subdirectory(3party/vulkan_wrapper)
+# Include 3party dependencies.
+add_subdirectory(3party)
 
-if (PLATFORM_DESKTOP)
-  add_subdirectory(3party/libtess2)
+# Not needed for the usual build process, but it fixes QtCreator editor,
+# that doesn't see gflags/gflags.h in binary dir (gflags has tricky cmake configuration).
+if (PLATFORM_DESKTOP AND NOT WITH_SYSTEM_PROVIDED_3PARTY)
+  include_directories("${PROJECT_BINARY_DIR}/3party/gflags/include")
 endif()
 
 find_package(Python3 COMPONENTS Interpreter)
@@ -396,7 +349,7 @@ if (PLATFORM_DESKTOP)
   omim_add_tool_subdirectory(topography_generator)
   add_subdirectory(track_analyzing)
   omim_add_tool_subdirectory(track_generator)
-  if (NOT SKIP_DESKTOP)
+  if (NOT SKIP_QT_GUI)
     add_subdirectory(qt)
     omim_add_tool_subdirectory(skin_generator)
   endif()
@@ -405,5 +358,5 @@ endif()
 omim_add_test_subdirectory(qt_tstfrm)
 
 if (PLATFORM_ANDROID)
-  add_subdirectory(android/jni)
+  add_subdirectory(android/app/src/main/cpp)
 endif()

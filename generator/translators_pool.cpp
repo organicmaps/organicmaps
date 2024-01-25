@@ -15,12 +15,13 @@ TranslatorsPool::TranslatorsPool(std::shared_ptr<TranslatorInterface> const & or
     m_translators.Push(original->Clone());
 }
 
-void TranslatorsPool::Emit(std::vector<OsmElement> elements)
+void TranslatorsPool::Emit(std::vector<OsmElement> && elements)
 {
   std::shared_ptr<TranslatorInterface> translator;
   m_translators.WaitAndPop(translator);
-  m_threadPool.SubmitWork([&, translator, elements{std::move(elements)}]() mutable {
-    for (auto & element : elements)
+  m_threadPool.SubmitWork([&, translator, elements = std::move(elements)]() mutable
+  {
+    for (auto const & element : elements)
       translator->Emit(element);
 
     m_translators.Push(translator);
@@ -49,7 +50,7 @@ bool TranslatorsPool::Finish()
     std::future<TranslatorPtr> right;
     queue.WaitAndPop(left);
     queue.WaitAndPop(right);
-    queue.Push(pool.Submit([left{move(left)}, right{move(right)}]() mutable {
+    queue.Push(pool.Submit([left{std::move(left)}, right{std::move(right)}]() mutable {
       auto leftTranslator = left.get();
       auto rigthTranslator = right.get();
       rigthTranslator->Finish();

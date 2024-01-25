@@ -4,7 +4,7 @@
 BasedOnStyle: Google
 IndentWidth: 2
 BreakBeforeBraces: Allman
-ColumnLimit: 100
+ColumnLimit: 120
 
 ---
 Language: Cpp
@@ -21,7 +21,7 @@ IndentCaseLabels: false
 NamespaceIndentation: None
 PointerAlignment: Middle
 SortIncludes: true
-Standard: Cpp11
+Standard: c++17
 IncludeBlocks: Regroup
 IncludeCategories:
 # Tests --------------------------------------------------------------------------------------------

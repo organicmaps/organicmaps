@@ -9,7 +9,7 @@ uniform mat4 u_pivotTransform;
 
 varying vec2 v_colorTexCoord;
 varying vec2 v_maskTexCoord;
-varying vec2 v_halfLength;
+//varying vec2 v_halfLength;
 
 void main()
 {
@@ -25,7 +25,7 @@ void main()
   float uOffset = min(length(vec4(kShapeCoordScalar, 0, 0, 0) * u_modelView) * a_maskTexCoord.x, 1.0);
   v_colorTexCoord = a_colorTexCoord;
   v_maskTexCoord = vec2(a_maskTexCoord.y + uOffset * a_maskTexCoord.z, a_maskTexCoord.w);
-  v_halfLength = vec2(sign(a_normal.z) * halfWidth, abs(a_normal.z));
+  //v_halfLength = vec2(sign(a_normal.z) * halfWidth, abs(a_normal.z));
   vec4 pos = vec4(transformedAxisPos, a_position.z, 1.0) * u_projection;
 
   gl_Position = applyPivotTransform(pos, u_pivotTransform, 0.0);

@@ -35,7 +35,7 @@ void FillRoadAccessBySample_1(RoadAccess & roadAccess)
       {RoadPoint(4 /* featureId */, 7 /* pointId */), RoadAccess::Type::Private},
   };
 
-  roadAccess.SetAccess(move(wayToAccess), move(pointToAccess));
+  roadAccess.SetAccess(std::move(wayToAccess), std::move(pointToAccess));
 }
 
 void FillRoadAccessBySample_2(RoadAccess & roadAccess)
@@ -50,7 +50,7 @@ void FillRoadAccessBySample_2(RoadAccess & roadAccess)
       {RoadPoint(4 /* featureId */, 0 /* pointId */), RoadAccess::Type::No},
   };
 
-  roadAccess.SetAccess(move(wayToAccess), move(pointToAccess));
+  roadAccess.SetAccess(std::move(wayToAccess), std::move(pointToAccess));
 }
 
 //void FillRoadAccessBySampleConditional_1(RoadAccess & roadAccess)
@@ -66,18 +66,18 @@ void FillRoadAccessBySample_2(RoadAccess & roadAccess)
 //  }
 //
 //  RoadAccess::Conditional conditional_1;
-//  conditional_1.Insert(RoadAccess::Type::No, move(openingHours[0]));
-//  conditional_1.Insert(RoadAccess::Type::Private, move(openingHours[1]));
+//  conditional_1.Insert(RoadAccess::Type::No, std::move(openingHours[0]));
+//  conditional_1.Insert(RoadAccess::Type::Private, std::move(openingHours[1]));
 //
 //  RoadAccess::Conditional conditional_2;
-//  conditional_2.Insert(RoadAccess::Type::Destination, move(openingHours[2]));
+//  conditional_2.Insert(RoadAccess::Type::Destination, std::move(openingHours[2]));
 //
 //  RoadAccess::Conditional conditional_3;
-//  conditional_3.Insert(RoadAccess::Type::No, move(openingHours[4]));
-//  conditional_3.Insert(RoadAccess::Type::Destination, move(openingHours[3]));
+//  conditional_3.Insert(RoadAccess::Type::No, std::move(openingHours[4]));
+//  conditional_3.Insert(RoadAccess::Type::Destination, std::move(openingHours[3]));
 //
 //  RoadAccess::Conditional conditional_4;
-//  conditional_4.Insert(RoadAccess::Type::Destination, move(openingHours[5]));
+//  conditional_4.Insert(RoadAccess::Type::Destination, std::move(openingHours[5]));
 //
 //  RoadAccess::WayToAccessConditional wayToAccessConditional = {{1 /* featureId */, conditional_1},
 //                                                               {2 /* featureId */, conditional_2}};
@@ -86,7 +86,7 @@ void FillRoadAccessBySample_2(RoadAccess & roadAccess)
 //      {RoadPoint(3 /* featureId */, 0 /* pointId */), conditional_3},
 //      {RoadPoint(4 /* featureId */, 7 /* pointId */), conditional_4}};
 //
-//  roadAccess.SetAccessConditional(move(wayToAccessConditional), move(pointToAccessConditional));
+//  roadAccess.SetAccessConditional(std::move(wayToAccessConditional), std::move(pointToAccessConditional));
 //}
 //
 //void FillRoadAccessBySampleConditional_2(RoadAccess & roadAccess)
@@ -102,18 +102,18 @@ void FillRoadAccessBySample_2(RoadAccess & roadAccess)
 //  }
 //
 //  RoadAccess::Conditional conditional_1;
-//  conditional_1.Insert(RoadAccess::Type::Private, move(openingHours[0]));
+//  conditional_1.Insert(RoadAccess::Type::Private, std::move(openingHours[0]));
 //
 //  RoadAccess::Conditional conditional_2;
-//  conditional_2.Insert(RoadAccess::Type::No, move(openingHours[1]));
-//  conditional_2.Insert(RoadAccess::Type::Private, move(openingHours[2]));
+//  conditional_2.Insert(RoadAccess::Type::No, std::move(openingHours[1]));
+//  conditional_2.Insert(RoadAccess::Type::Private, std::move(openingHours[2]));
 //
 //  RoadAccess::Conditional conditional_3;
-//  conditional_3.Insert(RoadAccess::Type::Destination, move(openingHours[3]));
+//  conditional_3.Insert(RoadAccess::Type::Destination, std::move(openingHours[3]));
 //
 //  RoadAccess::Conditional conditional_4;
-//  conditional_4.Insert(RoadAccess::Type::No, move(openingHours[4]));
-//  conditional_4.Insert(RoadAccess::Type::No, move(openingHours[5]));
+//  conditional_4.Insert(RoadAccess::Type::No, std::move(openingHours[4]));
+//  conditional_4.Insert(RoadAccess::Type::No, std::move(openingHours[5]));
 //
 //  RoadAccess::WayToAccessConditional wayToAccessConditional = {{1 /* featureId */, conditional_1},
 //                                                               {2 /* featureId */, conditional_2}};
@@ -122,7 +122,7 @@ void FillRoadAccessBySample_2(RoadAccess & roadAccess)
 //      {RoadPoint(3 /* featureId */, 10 /* pointId */), conditional_3},
 //      {RoadPoint(4 /* featureId */, 2 /* pointId */), conditional_4}};
 //
-//  roadAccess.SetAccessConditional(move(wayToAccessConditional), move(pointToAccessConditional));
+//  roadAccess.SetAccessConditional(std::move(wayToAccessConditional), std::move(pointToAccessConditional));
 //}
 
 class RoadAccessSerDesTest

@@ -16,6 +16,17 @@ namespace kml
 {
 using TimestampClock = std::chrono::system_clock;
 using Timestamp = std::chrono::time_point<TimestampClock>;
+class TimestampMillis : public Timestamp {
+public:
+  TimestampMillis() = default;
+  explicit TimestampMillis(Timestamp const & ts) : Timestamp{ts} {}
+  TimestampMillis & operator=(Timestamp const & ts)
+  {
+    if (this != &ts)
+      Timestamp::operator=(ts);
+    return *this;
+  }
+};
 
 using LocalizableString = std::unordered_map<int8_t, std::string>;
 using LocalizableStringSubIndex = std::map<int8_t, uint32_t>;
@@ -102,7 +113,7 @@ template <class T> bool IsEqual(std::vector<T> const & lhs, std::vector<T> const
 }
 
 struct BookmarkData;
-std::string GetPreferredBookmarkName(BookmarkData const & bmData, std::string const & languageOrig);
+std::string GetPreferredBookmarkName(BookmarkData const & bmData, std::string_view languageOrig);
 std::string GetPreferredBookmarkStr(LocalizableString const & name, std::string const & languageNorm);
 std::string GetPreferredBookmarkStr(LocalizableString const & name, feature::RegionData const & regionData,
                                     std::string const & languageNorm);

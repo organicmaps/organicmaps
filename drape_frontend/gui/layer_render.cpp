@@ -158,8 +158,8 @@ class ScaleFpsLabelHandle : public MutableLabelHandle
 {
   using TBase = MutableLabelHandle;
 public:
-  ScaleFpsLabelHandle(uint32_t id, ref_ptr<dp::TextureManager> textures, std::string const & apiLabel)
-    : TBase(id, dp::LeftBottom, m2::PointF::Zero(), textures)
+  ScaleFpsLabelHandle(uint32_t id, ref_ptr<dp::TextureManager> textures, std::string const & apiLabel, Position const & position)
+    : TBase(id, position.m_anchor, position.m_pixelPivot, textures)
     , m_apiLabel(apiLabel)
   {
     SetIsVisible(true);
@@ -183,10 +183,6 @@ public:
       SetContent(ss.str());
     }
 
-    auto const vs = static_cast<float>(df::VisualParams::Instance().GetVisualScale());
-    m2::PointF offset(10.0f * vs, 30.0f * vs);
-
-    SetPivot(glsl::ToVec2(m2::PointF(screen.PixelRect().LeftBottom()) + offset));
     return TBase::Update(screen);
   }
 
@@ -380,7 +376,7 @@ m2::PointF LayerCacher::CacheScaleFpsLabel(ref_ptr<dp::GraphicsContext> context,
   params.m_font = DrapeGui::GetGuiTextFont();
   params.m_pivot = position.m_pixelPivot;
   auto const apiVersion = context->GetApiVersion();
-  params.m_handleCreator = [textures, apiVersion](dp::Anchor, m2::PointF const &)
+  params.m_handleCreator = [textures, apiVersion, &position](dp::Anchor, m2::PointF const &)
   {
     std::string apiLabel;
     switch (apiVersion)
@@ -391,7 +387,7 @@ m2::PointF LayerCacher::CacheScaleFpsLabel(ref_ptr<dp::GraphicsContext> context,
     case dp::ApiVersion::Vulkan: apiLabel = "V"; break;
     case dp::ApiVersion::Invalid: CHECK(false, ("Invalid API version.")); break;
     }
-    return make_unique_dp<ScaleFpsLabelHandle>(EGuiHandle::GuiHandleScaleLabel, textures, apiLabel);
+    return make_unique_dp<ScaleFpsLabelHandle>(EGuiHandle::GuiHandleScaleLabel, textures, apiLabel, position);
   };
 
   drape_ptr<ShapeRenderer> scaleRenderer = make_unique_dp<ShapeRenderer>();

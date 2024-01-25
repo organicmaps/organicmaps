@@ -1,0 +1,10 @@
+Organic Maps este o aplicație de navigare GPS cu intimitate, pentru șoferi, drumeți și cicliști. Aplicația conține navigația cu intimitate - fără urmărire a locației, fără colectare date, și fără anunțuri. Căutarea, rutele și navigația operează fără semnal de telefon, ideal pentru călătorii pe cărări de drumeții lungi sau locații cu conexiuni slabe. Hărți Organic folosește datele OpenStreetMap adunate de contribuabili de pe tot globul. Proiectul e condus de comunitate, codul este sursă deschisă, și prioritizează dezvoltarea comunității și colaborarea.
+
+• Nu este necesar un semnal celular - Căutați și Rutați fără semnal
+• Utilizarea bateriei eficientă - Reducerea utilizării bateriei
+• Căutare rapidă - Găsiți locații rapid
+
+La Organic Maps, vă prețuim intimitatea dvs:
+• Fără urmărire a locației
+• Fără colectare date
+• Fără anunțuri

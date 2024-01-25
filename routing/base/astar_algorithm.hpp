@@ -28,7 +28,7 @@ namespace astar
 
 struct DefaultVisitor
 {
-  template <class State, class Vertex> void operator() (State const &, Vertex const &) const {};
+  template <class State, class Vertex> void operator() (State const &, Vertex const &) const {}
 };
 
 struct DefaultLengthChecker

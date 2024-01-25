@@ -3,10 +3,8 @@
 
 #include <vector>
 
-using namespace std;
-
-FileWriter::FileWriter(string const & fileName, FileWriter::Op op)
-  : m_pFileData(make_unique<base::FileData>(fileName, static_cast<base::FileData::Op>(op)))
+FileWriter::FileWriter(std::string const & fileName, FileWriter::Op op)
+  : m_pFileData(std::make_unique<base::FileData>(fileName, static_cast<base::FileData::Op>(op)))
 {
 }
 
@@ -31,7 +29,7 @@ void FileWriter::Write(void const * p, size_t size)
   m_pFileData->Write(p, size);
 }
 
-string const & FileWriter::GetName() const
+std::string const & FileWriter::GetName() const
 {
   return m_pFileData->GetName();
 }
@@ -46,7 +44,7 @@ void FileWriter::Flush() noexcept(false)
   m_pFileData->Flush();
 }
 
-void FileWriter::DeleteFileX(string const & fName)
+void FileWriter::DeleteFileX(std::string const & fName)
 {
   UNUSED_VALUE(base::DeleteFileX(fName));
 }

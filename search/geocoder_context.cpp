@@ -5,7 +5,6 @@
 #include "base/assert.hpp"
 #include "base/stl_helpers.hpp"
 
-using namespace std;
 
 namespace search
 {
@@ -39,6 +38,12 @@ BaseContext::TokenType BaseContext::FromRegionType(Region::Type type)
   case Region::TYPE_COUNT: return TOKEN_TYPE_COUNT;
   }
   UNREACHABLE();
+}
+
+size_t BaseContext::NumTokens() const
+{
+  ASSERT_EQUAL(m_tokens.size(), m_features.size(), ());
+  return m_tokens.size();
 }
 
 size_t BaseContext::SkipUsedTokens(size_t curToken) const
@@ -86,7 +91,7 @@ size_t BaseContext::NumUnusedTokenGroups() const
   return numGroups;
 }
 
-string ToString(BaseContext::TokenType type)
+std::string ToString(BaseContext::TokenType type)
 {
   switch (type)
   {
@@ -106,7 +111,7 @@ string ToString(BaseContext::TokenType type)
   UNREACHABLE();
 }
 
-string DebugPrint(BaseContext::TokenType type)
+std::string DebugPrint(BaseContext::TokenType type)
 {
   return ToString(type);
 }

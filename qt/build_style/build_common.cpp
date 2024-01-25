@@ -2,15 +2,17 @@
 
 #include "platform/platform.hpp"
 
+#include "base/file_name_utils.hpp"
+
 #include <QtCore/QCoreApplication>
 #include <QtCore/QDir>
 #include <QtCore/QFile>
 #include <QtCore/QProcess>
 #include <QtCore/QProcessEnvironment>
-#include <QtCore/QRegExp>
 
 #include <exception>
 #include <iomanip>  // std::quoted
+#include <regex>
 #include <string>
 
 QString ExecProcess(QString const & program, std::initializer_list<QString> args, QProcessEnvironment const * env)
@@ -23,7 +25,7 @@ QString ExecProcess(QString const & program, std::initializer_list<QString> args
   QProcess p;
   if (nullptr != env)
     p.setProcessEnvironment(*env);
-  
+
   p.start(program, qargs, QIODevice::ReadOnly);
   p.waitForFinished(-1);
 
@@ -111,11 +113,12 @@ QString GetExternalPath(QString const & name, QString const & primaryPath,
   // Special case for looking for in application folder.
   if (!QFileInfo::exists(path) && secondaryPath.isEmpty())
   {
-    QString const appPath = QCoreApplication::applicationDirPath();
-    QRegExp rx("(/[^/]*\\.app)", Qt::CaseInsensitive);
-    int i = rx.indexIn(appPath);
-    if (i >= 0)
-      path = JoinPathQt({appPath.left(i), name});
+    std::string const appPath = QCoreApplication::applicationDirPath().toStdString();
+
+    std::regex re("(/[^/]*\\.app)");
+    std::smatch m;
+    if (std::regex_search(appPath, m, re) && m.size() > 0)
+      path.fromStdString(base::JoinPath(m[0], name.toStdString()));
   }
   return path;
 }

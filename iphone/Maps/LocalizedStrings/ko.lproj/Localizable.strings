@@ -24,7 +24,7 @@
 "kilometres" = "킬로미터";
 
 /* Leave Review dialog - Review button */
-"leave_a_review" = "평 남기기";
+"leave_a_review" = "리뷰 남기기";
 
 /* Choose measurement on first launch alert - choose imperial system button */
 "miles" = "마일";
@@ -32,8 +32,8 @@
 /* A text for current gps location point/arrow selected on the map */
 "core_my_position" = "나의 위치";
 
-/* Update maps later/Buy pro version later button text */
-"later" = "후";
+/* Update maps later button text */
+"later" = "나중에";
 
 /* View and button titles for accessibility, please also edit it in iphone/plist.txt */
 "search" = "검색하기";
@@ -60,7 +60,7 @@
 "continue_download" = "계속";
 
 /* "Add new bookmark list" dialog title */
-"add_new_set" = "새로운 세트 추가";
+"add_new_set" = "새로운 목록 추가";
 
 /* Bookmark Color dialog title */
 "bookmark_color" = "색상 즐겨찾기에 추가";
@@ -71,13 +71,16 @@
 /* "Bookmark Lists" dialog title */
 "bookmark_sets" = "세트를 즐겨찾기에 추가";
 
-/* "Bookmarks" dialog title, please also edit it in iphone/plist.txt */
+/* Should be used in the bookmarks-only context, see bookmarks_and_tracks if tracks are also implied. */
 "bookmarks" = "북마크";
+
+/* "Bookmarks and Tracks" dialog title, also sync it with iphone/plist.txt */
+"bookmarks_and_tracks" = "북마크 및 트랙";
 
 /* Default bookmark list name */
 "core_my_places" = "내 장소";
 
-/* Editor title above street and house number */
+/* Editor title above street and house number, duplicates [type.building.address] in types_strings.txt */
 "address" = "주소";
 
 /* Settings button in system menu */
@@ -106,6 +109,9 @@
 
 /* Search category for clothes/shoes/gifts/jewellery/sport shops; any changes should be duplicated in categories.txt @shopping! */
 "shopping" = "쇼핑";
+
+/* Search category for second_hand/charity/antique/auction shops; any changes should be duplicated in categories.txt @secondhand! */
+"secondhand" = "중고";
 
 /* Search category for places to stay; any changes should be duplicated in categories.txt @hotel! */
 "hotel" = "호텔";
@@ -155,7 +161,7 @@
 /* Search category for RV facilities; any changes should be duplicated in categories.txt @rv! */
 "rv" = "RV용";
 
-"share_bookmarks_email_body" = "Hello!\n\nAttached are my bookmarks from Organic Maps app. Please open them if you have Organic Maps installed. Or, if you don't, download the app for your iOS or Android device by following this link: https://omaps.app/get?kmz\n\nEnjoy traveling with Organic Maps!";
+"share_bookmarks_email_body" = "Hello!\n\nAttached are my bookmarks; please open them in Organic Maps. If you don't have it installed you can download it here: https://omaps.app/get?kmz\n\nEnjoy travelling with Organic Maps!";
 
 /* message title of loading file */
 "load_kmz_title" = "즐겨찾기 로드";
@@ -184,6 +190,9 @@
 /* Share by email button text, also used in editor and About. */
 "email" = "이메일";
 
+/* Text for message when used successfully copied something */
+"copied_to_clipboard" = "클립보드에 복사됨: %@";
+
 /* place preview title */
 "info" = "정보";
 
@@ -211,20 +220,23 @@
 /* Settings «Map» category: «Night style» title */
 "pref_map_style_title" = "나이트 모드";
 
-/* «Map style» entry value */
-"pref_map_style_default" = "끄기";
+/* Generic «Off» string */
+"off" = "끄기";
 
-/* «Map style» entry value */
-"pref_map_style_night" = "켜기";
+/* Generic «On» string */
+"on" = "켜기";
 
-/* «Map style» entry value */
-"pref_map_style_auto" = "자동";
+/* Generic «Auto» string */
+"auto" = "자동";
 
 /* Settings «Map» category: «Perspective view» title */
 "pref_map_3d_title" = "원근 보기";
 
 /* Settings «Map» category: «3D buildings» title */
 "pref_map_3d_buildings_title" = "주변 건물 3D";
+
+/* A message in Settings/Preferences explaining why is it not possible to enable 3D buildings when max power saving mode is enabled */
+"pref_map_3d_buildings_disabled_summary" = "3D 빌딩은 절전 모드에서 꺼집니다.";
 
 /* Settings «Route» category: «Tts enabled» title */
 "pref_tts_enable_title" = "음성 지침";
@@ -271,7 +283,7 @@
 "telegram" = "Telegram";
 
 /* Text in menu */
-"matrix" = "[matrix]";
+"matrix" = "[Matrix]";
 
 /* Text in menu */
 "mastodon" = "Mastodon";
@@ -280,7 +292,7 @@
 "facebook" = "Facebook";
 
 /* Text in menu */
-"twitter" = "Twitter";
+"twitter" = "X (Twitter)";
 
 /* Text in menu */
 "instagram" = "Instagram";
@@ -500,7 +512,7 @@
 "routing_planning_error" = "경로 계획 실패";
 
 /* Arrive routing message in navigation view */
-"routing_arrive" = "도착: %s";
+"routing_arrive" = "도착: %@";
 
 /* Text for routing::RouterResultCode::FileTooOld dialog. */
 "dialog_routing_download_and_update_maps" = "경로를 만들려면, 경로를 따라 모든 지도를 다운로드하고 업데이트하십시오.";
@@ -756,19 +768,23 @@
 
 "location_services_disabled_2" = "2. 위치 누르기";
 
-/* iOS Dialog for the case when the location permission is not granted */
+/* iOS Dialog for the case when the location permission is not granted; you might find the exact wording for your language here: https://support.apple.com/en-us/102647 (replace 'en-us' in URL with your language/region) */
 "location_services_disabled_3" = "3. 앱 사용 중에 선택";
 
-"meter" = "m";
+/* abbreviation for meters */
+"m" = "m";
 
-"kilometer" = "km";
+/* abbreviation for kilometers */
+"km" = "km";
 
+/* abbreviation for kilometers per hour */
 "kilometers_per_hour" = "km/시";
 
-"mile" = "mi";
+/* abbreviation for mile(s) */
+"mi" = "mi";
 
 /* A unit of measure */
-"foot" = "풋";
+"ft" = "풋";
 
 "miles_per_hour" = "mph";
 
@@ -776,11 +792,18 @@
 
 "minute" = "min";
 
-"placepage_place_description" = "설명";
-
 "placepage_more_button" = "자세히";
 
 "book_button" = "예약";
+
+/* A referral link on the place page for some hotels */
+"more_on_kayak" = "사진, 리뷰, 예약";
+
+/* An explanation dialog shown when clicking on more_on_kayak link. */
+"dialog_kayak_disclaimer" = "이 링크를 통해 예약할 때마다 받는 추천 보너스는 오가닉맵 개발에 사용됩니다.";
+
+/* A confirmation button text in the explanation dialog that opens hotel details page on Kayak website. */
+"dialog_kayak_button" = "Kayak의 세부 정보";
 
 "placepage_call_button" = "전화";
 
@@ -817,7 +840,7 @@
 
 "refresh" = "최신 정보";
 
-"placepage_add_place_button" = "지도에 장소 추가";
+"placepage_add_place_button" = "오픈스트리트맵에 장소 추가";
 
 /* Displayed when saving some edits to the map to warn against publishing personal data */
 "editor_share_to_all_dialog_title" = "이를 모든 사용자에게 전송하시겠습니까?";
@@ -880,10 +903,6 @@
 /* "traffic" as in "road congestion" */
 "traffic_data_unavailable" = "교통 데이터를 사용할 수 없습니다";
 
-"on" = "켜기";
-
-"off" = "끄기";
-
 "transliteration_title" = "라틴어로 음역";
 
 /* Subway exits for public transport marks on the map */
@@ -922,11 +941,11 @@
 
 "downloader_hide_screen" = "화면 숨기기";
 
-"downloader_percent" = "%s(%s / %s)";
+"downloader_percent" = "%@(%@ / %@)";
 
-"downloader_process" = "%s 다운로드 중…";
+"downloader_process" = "%@ 다운로드 중…";
 
-"downloader_applying" = "%s 적용 중…";
+"downloader_applying" = "%@ 적용 중…";
 
 "bookmarks_error_message_share_general" = "애플리케이션 오류로 인해 공유할 수 없습니다";
 
@@ -964,7 +983,7 @@
 
 "button_layer_subway" = "지하철";
 
-"layers_title" = "맵 레이어";
+"layers_title" = "맵 스타일 및 레이어";
 
 "subway_data_unavailable" = "지하철 지도가 가용하지 않습니다.";
 
@@ -973,8 +992,6 @@
 "popular_place" = "Popular";
 
 "export_file" = "파일 내보내기";
-
-"list_settings" = "목록 세팅";
 
 "delete_list" = "리스트 삭제";
 
@@ -988,11 +1005,11 @@
 
 "speedcams_alert_title" = "속도 감시 카메라";
 
-"speedcam_option_auto" = "자동";
+/* Generic «Always» string */
+"always" = "항상";
 
-"speedcam_option_always" = "항상";
-
-"speedcam_option_never" = "안함";
+/* Generic «Never» string */
+"never" = "안함";
 
 "place_description_title" = "장소 묘사";
 
@@ -1010,15 +1027,16 @@
 
 "driving_options_title" = "운전 옵션";
 
-"driving_options_subheader" = "모든 길에서 피하기";
+/* Recommended length for CarPlay and Android Auto is around 25-27 characters */
+"avoid_tolls" = "유료 도로 피하기";
 
-"avoid_tolls" = "유로 도로";
+/* Recommended length for CarPlay and Android Auto is around 25-27 characters */
+"avoid_unpaved" = "비포장 도로 피하기";
 
-"avoid_unpaved" = "비포장 도로";
+/* Recommended length for CarPlay and Android Auto is around 25-27 characters */
+"avoid_ferry" = "여객선 횡단길 피하기";
 
-"avoid_ferry" = "여객선 교차로";
-
-"avoid_motorways" = "고속도로";
+"avoid_motorways" = "고속도로를 피하세요";
 
 "unable_to_calc_alert_title" = "루트를 계산할 수 없습니다";
 
@@ -1033,12 +1051,6 @@
 "unpaved_road" = "비포장 도로";
 
 "ferry_crossing" = "여객선 횡단길";
-
-"avoid_toll_roads_placepage" = "유료 도로 피하기";
-
-"avoid_unpaved_roads_placepage" = "비포장 도로 피하기";
-
-"avoid_ferry_crossing_placepage" = "여객선 횡단길 피하기";
 
 "trip_start" = "가자";
 
@@ -1064,6 +1076,9 @@
 /* E.g. "WiFi:No" */
 "no_available" = "아니오";
 
+/* To indicate the capacity of car parkings, bicycle parkings, electric vehicle charging stations... */
+"capacity" = "수용 인원: %@";
+
 "trip_finished" = "도착했습니다!";
 
 "keyboard_availability_alert" = "운전 중에는 키보드를 사용할 수 없습니다";
@@ -1086,25 +1101,13 @@
 
 "ok" = "OK";
 
-"avoid_unpaved_carplay_1" = "비포장 도로 없음";
-
-"avoid_unpaved_carplay_2" = "비포장 도로 없음";
-
-"avoid_ferry_carplay_1" = "여객선 없음";
-
-"avoid_ferry_carplay_2" = "여객선 없음";
-
-"avoid_tolls_carplay_1" = "유료 도로 없음";
-
-"avoid_tolls_carplay_2" = "유료 도로 없음";
-
 "speedcams_alert_title_carplay_1" = "속도단속 카메라";
 
 "speedcams_alert_title_carplay_2" = "속도단속 카메라";
 
 "download_map_carplay" = "Organic Maps 앱 안의 지도들을 디바이스에 다운로드하세요";
 
-"carplay_roundabout_exit" = "%s번 출구";
+"carplay_roundabout_exit" = "%@번 출구";
 
 /* max. 10 symbols, both iOS and Android */
 "sort" = "분류…";
@@ -1210,7 +1213,7 @@
 "whats_new_auto_update_message" = "지도를 업데이트하면 개체에 대한 정보가 최신 상태로 유지됩니다.";
 
 /* Autoupdate dialog on start */
-"whats_new_auto_update_button_size" = "업데이트(%s)";
+"whats_new_auto_update_button_size" = "업데이트(%@)";
 
 /* Autoupdate dialog on start */
 "whats_new_auto_update_button_later" = "나중에 수동으로 업데이트";
@@ -1236,8 +1239,20 @@
 /* Translated Organic Maps site, add new translations here: https://github.com/organicmaps/organicmaps.github.io/tree/master/content */
 "translated_om_site_url" = "https://organicmaps.app/";
 
+/* Link to OSM wiki for Editor, Profile and About pages */
+"osm_wiki_about_url" = "https://wiki.openstreetmap.org/wiki/Ko:OpenStreetMap_소개";
+
+/* Outdoors/hiking map style (activity) name in the Styles and Layers dialog */
+"button_layer_outdoor" = "하이킹";
+
 
 /********** Types **********/
+
+"type.addr_interpolation" = "주소/블록";
+
+"type.addr_interpolation.even" = "주소/블록";
+
+"type.addr_interpolation.odd" = "주소/블록";
 
 "type.aerialway" = "Aerialway";
 
@@ -1309,9 +1324,17 @@
 
 "type.amenity.casino" = "카지노";
 
+"type.amenity.gambling" = "도박";
+
+"type.leisure.adult_gaming_centre" = "성인 게임 센터";
+
+"type.leisure.amusement_arcade" = "아케이드";
+
 "type.amenity.charging_station" = "충전 역";
 
-"type.amenity.charging_station.motorcar" = "충전 역";
+"type.amenity.charging_station.bicycle" = "자전거 충전소";
+
+"type.amenity.charging_station.motorcar" = "자동차 충전소";
 
 "type.amenity.childcare" = "보육";
 
@@ -1325,6 +1348,10 @@
 
 "type.amenity.community_centre" = "커뮤니티센터";
 
+"type.amenity.compressed_air" = "압축 공기";
+
+"type.amenity.conference_centre" = "컨퍼런스 센터";
+
 "type.amenity.courthouse" = "법원";
 
 "type.amenity.dentist" = "치과";
@@ -1334,6 +1361,10 @@
 "type.amenity.drinking_water" = "음수대";
 
 "type.amenity.driving_school" = "운전학원";
+
+"type.amenity.exhibition_centre" = "전시 센터";
+
+"type.amenity.money_transfer" = "송금";
 
 "type.amenity.music_school" = "음악 학교";
 
@@ -1383,9 +1414,11 @@
 
 "type.amenity.parking" = "주차";
 
-"type.amenity.parking.fee" = "유료 주차장";
+"type.amenity.parking.fee" = "주차";
 
 "type.amenity.parking.multi.storey" = "다층 주차장";
+
+"type.amenity.parking.multi.storey.fee" = "다층 주차장";
 
 "type.amenity.parking.no.access" = "전용 주차장";
 
@@ -1397,9 +1430,25 @@
 
 "type.amenity.parking.underground" = "지하주차장";
 
+"type.amenity.parking.underground.fee" = "지하주차장";
+
+"type.amenity.parking.underground.private" = "전용 지하 주차장";
+
+"type.amenity.parking.street_side" = "노상 주차장";
+
+"type.amenity.parking.street_side.fee" = "노상 주차장";
+
+"type.amenity.parking.street_side.private" = "전용 노상 주차장";
+
+"type.amenity.parking.lane" = "차선 주차";
+
+"type.amenity.parking.lane.fee" = "차선 주차";
+
+"type.amenity.parking.lane.private" = "전용 차선 주차";
+
 "type.amenity.parking_entrance" = "주차장 입구";
 
-"type.amenity.parking_entrance.private" = "주차장 입구";
+"type.amenity.parking_entrance.private" = "전용 주차장 입구";
 
 "type.amenity.parking_entrance.permissive" = "주차장 입구";
 
@@ -1422,6 +1471,10 @@
 "type.amenity.place_of_worship.buddhist" = "불교 사원";
 
 "type.amenity.place_of_worship.christian" = "교회";
+
+"type.amenity.place_of_worship.christian.mormon" = "예수 그리스도 후기 성도 교회";
+
+"type.amenity.place_of_worship.christian.jehovahs_witness" = "예수 그리스도의 후기 성도 국회당";
 
 "type.amenity.place_of_worship.hindu" = "힌두교 사원";
 
@@ -1478,7 +1531,7 @@
 
 "type.recycling.green_waste" = "Green/Organic Waste";
 
-"type.recycling.cartons" = "Beverage Cartons";
+"type.recycling.cartons" = "Cartons";
 
 "type.amenity.restaurant" = "레스토랑";
 
@@ -1488,7 +1541,11 @@
 
 "type.amenity.shelter" = "대피소";
 
+"type.amenity.public_bath" = "대중목욕탕";
+
 "type.amenity.shower" = "샤워시설";
+
+"type.amenity.stripclub" = "스트립클럽";
 
 "type.amenity.taxi" = "택시";
 
@@ -1497,6 +1554,8 @@
 "type.amenity.theatre" = "연극";
 
 "type.amenity.toilets" = "화장실";
+
+"type.toilets.yes" = "화장실";
 
 "type.amenity.townhall" = "시청";
 
@@ -1514,7 +1573,7 @@
 
 "type.amenity.vending_machine.food" = "Food Dispenser";
 
-"type.amenity.vending_machine.newspapers" = "Newspapers Dispenser";
+"type.amenity.vending_machine.newspapers" = "Newspaper Dispenser";
 
 "type.amenity.vending_machine.parking_tickets" = "주차티켓판매기";
 
@@ -1526,7 +1585,9 @@
 
 "type.amenity.parcel_locker" = "Parcel Locker";
 
-"type.amenity.vending_machine.fuel" = "Fuel Dispenser";
+"type.amenity.vehicle_inspection" = "차량검사";
+
+"type.amenity.vending_machine.fuel" = "Fuel Pump";
 
 "type.amenity.veterinary" = "동물병원";
 
@@ -1552,7 +1613,11 @@
 
 "type.barrier.cycle_barrier" = "Cycle Barrier";
 
-"type.barrier.ditch" = "\"해자 외호\"";
+"type.waterway.ditch" = "배수구";
+
+"type.natural.water.moat" = "\"해자 외호\"";
+
+"type.natural.water.wastewater" = "폐수";
 
 "type.barrier.entrance" = "입구";
 
@@ -1569,6 +1634,8 @@
 "type.barrier.retaining_wall" = "Retaining Wall";
 
 "type.barrier.stile" = "디딤대";
+
+"type.barrier.turnstile" = "개찰구";
 
 "type.barrier.swing_gate" = "차량차단기";
 
@@ -1618,13 +1685,30 @@
 
 "type.boundary.national_park" = "국립 공원";
 
+"type.boundary.protected_area" = "보호구역";
+
+"type.boundary.protected_area.1" = "보호구역";
+
+"type.boundary.protected_area.2" = "보호구역";
+
+"type.boundary.protected_area.3" = "보호구역";
+
+"type.boundary.protected_area.4" = "보호구역";
+
+"type.boundary.protected_area.5" = "보호구역";
+
+"type.boundary.protected_area.6" = "보호구역";
+
 "type.building" = "건물";
 
-"type.building.address" = "건물";
-
-"type.building.garage" = "차고";
+/* Duplicates [address] in strings.txt */
+"type.building.address" = "주소";
 
 "type.building.has_parts" = "건물";
+
+"type.building_part" = "건물";
+
+"type.building.garage" = "차고";
 
 "type.building.train_station" = "기차역";
 
@@ -1640,6 +1724,8 @@
 
 "type.craft.brewery" = "양조장";
 
+"type.craft.caterer" = "케이터링 업체";
+
 "type.craft.carpenter" = "목수";
 
 "type.craft.confectionery" = "과자 장수";
@@ -1650,16 +1736,24 @@
 
 "type.craft.gardener" = "조경사";
 
+"type.craft.grinding_mill" = "그라인딩 밀";
+
 "type.craft.handicraft" = "수예";
 
 /* Heating, Ventilation, and Air Conditioning */
 "type.craft.hvac" = "냉난방기";
+
+"type.craft.key_cutter" = "키 커팅";
+
+"type.craft.locksmith" = "자물쇠 제조공";
 
 "type.craft.metal_construction" = "금속공";
 
 "type.craft.painter" = "페인트공";
 
 "type.craft.photographer" = "사진작가";
+
+"type.shop.camera" = "카메라 샵";
 
 "type.craft.plumber" = "배관공";
 
@@ -1845,6 +1939,8 @@
 
 "type.emergency" = "Emergency";
 
+"type.emergency.assembly_point" = "비상 집결지";
+
 "type.emergency.defibrillator" = "제세동기";
 
 "type.emergency.fire_hydrant" = "소화전";
@@ -1856,6 +1952,12 @@
 
 /* This is for main/primary entrances, for secondary entrances see type.entrance */
 "type.entrance.main" = "정문";
+
+"type.entrance.exit" = "종료";
+
+"type.fee.yes" = "💲";
+
+"type.fee.no" = "무료";
 
 "type.healthcare.laboratory" = "의료 연구실";
 
@@ -1894,6 +1996,12 @@
 
 "type.highway.busway" = "버스전용도로";
 
+/* These translations are used for all type.highway.*.bridge. */
+"type.highway.busway.bridge" = "다리";
+
+/* These translations are used for all type.highway.*.tunnel. */
+"type.highway.busway.tunnel" = "터널";
+
 "type.highway.bus_stop" = "버스 정류장";
 
 "type.highway.construction" = "공사 중 도로";
@@ -1912,6 +2020,10 @@
 
 "type.highway.footway" = "길";
 
+"type.highway.footway.sidewalk" = "보도";
+
+"type.highway.footway.crossing" = "횡단보도";
+
 "type.highway.footway.alpine_hiking" = "길";
 
 "type.highway.footway.area" = "길";
@@ -1928,8 +2040,6 @@
 "type.highway.footway.hiking" = "길";
 
 "type.highway.footway.mountain_hiking" = "길";
-
-"type.highway.footway.permissive" = "길";
 
 /* These translations are used for all type.highway.*.tunnel. */
 "type.highway.footway.tunnel" = "터널";
@@ -2032,6 +2142,9 @@
 
 /* These translations are used for all type.highway.*.bridge. */
 "type.highway.road.bridge" = "다리";
+
+/* A bridge structure outline. */
+"type.man_made.bridge" = "다리";
 
 /* These translations are used for all type.highway.*.tunnel. */
 "type.highway.road.tunnel" = "터널";
@@ -2185,11 +2298,17 @@
 
 "type.historic" = "역사적 물건";
 
+"type.historic.aircraft" = "\"역사적인 항공기\"";
+
+"type.historic.anchor" = "역사적인 앵커";
+
 "type.historic.archaeological_site" = "발굴";
 
 "type.historic.battlefield" = "전장터";
 
 "type.historic.boundary_stone" = "경계석";
+
+"type.historic.cannon" = "대포";
 
 "type.historic.castle" = "성";
 
@@ -2221,6 +2340,8 @@
 
 "type.historic.gallows" = "교수대";
 
+"type.historic.locomotive" = "역사적인 기관차";
+
 "type.historic.memorial" = "기념비";
 
 "type.historic.memorial.cross" = "기념 십자가";
@@ -2233,7 +2354,11 @@
 
 "type.historic.memorial.stolperstein" = "장애물";
 
+"type.historic.stone" = "역사적인 돌";
+
 "type.historic.memorial.war_memorial" = "전쟁기념관";
+
+"type.historic.mine" = "역사적인 광산";
 
 "type.historic.monument" = "기념탑";
 
@@ -2243,11 +2368,15 @@
 
 "type.historic.ship" = "배";
 
+"type.historic.tank" = "역사적인 탱크";
+
 "type.historic.tomb" = "무덤";
 
 "type.historic.wayside_cross" = "길가의 십자가";
 
 "type.historic.wayside_shrine" = "길가의 신사";
+
+"type.historic.wreck" = "난파선";
 
 "type.hwtag" = "hwtag";
 
@@ -2281,6 +2410,8 @@
 
 "type.junction" = "Junction";
 
+"type.junction.circular" = "Roundabout";
+
 "type.junction.roundabout" = "Roundabout";
 
 "type.landuse" = "Landuse";
@@ -2301,9 +2432,9 @@
 
 "type.landuse.commercial" = "Commercial Area";
 
-"type.landuse.construction" = "Construction";
+"type.landuse.construction" = "Construction Area";
 
-"type.landuse.education" = "Educational Facilities";
+"type.landuse.education" = "Educational Facility";
 
 "type.landuse.farm" = "Farm";
 
@@ -2312,6 +2443,8 @@
 "type.landuse.farmyard" = "Farmyard";
 
 "type.landuse.field" = "Field";
+
+"type.landuse.flowerbed" = "\"화단\"";
 
 "type.landuse.forest" = "숲";
 
@@ -2351,7 +2484,7 @@
 
 "type.landuse.retail" = "Retail Area";
 
-"type.landuse.salt_pond" = "Pond";
+"type.landuse.salt_pond" = "Salt Pond";
 
 "type.landuse.village_green" = "Land";
 
@@ -2375,6 +2508,8 @@
 
 "type.leisure.golf_course" = "골프장";
 
+"type.leisure.hackerspace" = "해커스 스페이스";
+
 "type.leisure.ice_rink" = "Ice Rink";
 
 "type.leisure.landscape_reserve" = "Landscape Reserve";
@@ -2382,6 +2517,8 @@
 "type.leisure.marina" = "Marina";
 
 "type.leisure.nature_reserve" = "천연보호구역";
+
+"type.leisure.outdoor_seating" = "야외 좌석";
 
 "type.leisure.park" = "공원";
 
@@ -2457,7 +2594,7 @@
 
 "type.man_made.tower.communication" = "커뮤니케이션 타워";
 
-"type.man_made.wastewater_plant" = "Wastewater treatment plant";
+"type.man_made.wastewater_plant" = "Wastewater Treatment Plant";
 
 "type.man_made.water_tap" = "수도꼭지";
 
@@ -2544,8 +2681,6 @@
 "type.natural.spring" = "샘";
 
 "type.natural.strait" = "해협";
-
-"type.natural.tree" = "나무";
 
 "type.natural.tree_row" = "나무 행";
 
@@ -2647,7 +2782,7 @@
 
 "type.power" = "Power";
 
-"type.power.generator" = "Generator";
+"type.power.generator" = "Power Generator";
 
 "type.power.generator.solar" = "태양열 발전기";
 
@@ -2663,7 +2798,17 @@
 
 "type.power.minor_line" = "Minor Power Line";
 
-"type.power.pole" = "전봇대";
+"type.power.plant" = "발전소";
+
+"type.power.plant.coal" = "석탄 발전소";
+
+"type.power.plant.gas" = "가스 터빈 발전소";
+
+"type.power.plant.hydro" = "수력 발전소";
+
+"type.power.plant.solar" = "태양광 발전소";
+
+"type.power.plant.wind" = "풍력 발전소";
 
 "type.power.station" = "Power Station";
 
@@ -2697,9 +2842,9 @@
 
 "type.railway.crossing" = "Railway Crossing";
 
-"type.railway.disused" = "Disused railway";
+"type.railway.disused" = "Disused Railway";
 
-"type.railway.funicular" = "Funicular";
+"type.railway.funicular" = "케이블카";
 
 "type.railway.funicular.bridge" = "Funicular Bridge";
 
@@ -2737,29 +2882,64 @@
 
 "type.railway.rail" = "철로";
 
-"type.railway.rail.bridge" = "Railway Bridge";
+"type.railway.rail.highspeed" = "고속 철도";
 
-"type.railway.rail.motor_vehicle" = "Railway";
+"type.railway.rail.tourism" = "관광 철도";
 
-"type.railway.rail.tunnel" = "Railway Tunnel";
+"type.railway.rail.main" = "철도";
 
-"type.railway.razed" = "Razed Rail";
+/* Includes ordinary railway=rail w/o more specific usage= and service= tags. */
+"type.railway.rail.branch" = "보조 철도";
 
-"type.railway.siding" = "Siding Rail";
+/* Non-passenger utility tracks: industrial, military, test. */
+"type.railway.rail.utility" = "유틸리티 철도";
 
-"type.railway.siding.bridge" = "Siding Rail Bridge";
+"type.railway.rail.spur" = "철도 박차";
 
-"type.railway.siding.tunnel" = "Siding Rail Tunnel";
+/* Short service tracks: siding, yard, crossover. */
+"type.railway.rail.service" = "보조 레일 트랙";
 
-"type.railway.spur" = "Spur Rail";
+"type.railway.rail.bridge" = "철도 교량";
 
-"type.railway.spur.bridge" = "Spur Rail Bridge";
+"type.railway.rail.highspeed.bridge" = "철도 교량";
 
-"type.railway.spur.tunnel" = "Spur Rail Tunnel";
+"type.railway.rail.tourism.bridge" = "철도 교량";
+
+"type.railway.rail.main.bridge" = "철도 교량";
+
+"type.railway.rail.branch.bridge" = "철도 교량";
+
+"type.railway.rail.utility.bridge" = "철도 교량";
+
+"type.railway.rail.spur.bridge" = "철도 교량";
+
+"type.railway.rail.service.bridge" = "철도 교량";
+
+"type.railway.rail.tunnel" = "철도 터널";
+
+"type.railway.rail.highspeed.tunnel" = "철도 터널";
+
+"type.railway.rail.tourism.tunnel" = "철도 터널";
+
+"type.railway.rail.main.tunnel" = "철도 터널";
+
+"type.railway.rail.branch.tunnel" = "철도 터널";
+
+"type.railway.rail.utility.tunnel" = "철도 터널";
+
+"type.railway.rail.spur.tunnel" = "철도 터널";
+
+"type.railway.rail.service.tunnel" = "철도 터널";
 
 "type.railway.station" = "기차역";
 
+"type.railway.station.funicular" = "케이블카";
+
 "type.railway.station.light_rail" = "기차역";
+
+"type.railway.station.light_rail.london" = "기차역";
+
+"type.railway.station.light_rail.porto" = "기차역";
 
 "type.railway.station.monorail" = "기차역";
 
@@ -2949,6 +3129,8 @@
 
 "type.railway.station.subway.shiraz" = "지하철";
 
+"type.railway.station.subway.singapore" = "지하철";
+
 "type.railway.station.subway.sofia" = "지하철";
 
 "type.railway.station.subway.spb" = "지하철";
@@ -2964,6 +3146,8 @@
 "type.railway.station.subway.tashkent" = "지하철";
 
 "type.railway.station.subway.tbilisi" = "지하철";
+
+"type.railway.station.subway.tehran" = "지하철";
 
 "type.railway.station.subway.tianjin" = "지하철";
 
@@ -3175,6 +3359,8 @@
 
 "type.railway.subway_entrance.shiraz" = "지하철 입구";
 
+"type.railway.subway_entrance.singapore" = "지하철 입구";
+
 "type.railway.subway_entrance.sofia" = "지하철 입구";
 
 "type.railway.subway_entrance.spb" = "지하철 입구";
@@ -3190,6 +3376,8 @@
 "type.railway.subway_entrance.tashkent" = "지하철 입구";
 
 "type.railway.subway_entrance.tbilisi" = "지하철 입구";
+
+"type.railway.subway_entrance.tehran" = "지하철 입구";
 
 "type.railway.subway_entrance.tianjin" = "지하철 입구";
 
@@ -3217,23 +3405,19 @@
 
 "type.railway.tram_stop" = "트램 정류장";
 
-"type.railway.yard" = "Railway Yard";
-
-"type.railway.yard.bridge" = "Railway Yard Bridge";
-
-"type.railway.yard.tunnel" = "Railway Yard Tunnel";
-
-"type.route" = "route";
+"type.route" = "Route";
 
 "type.route.ferry" = "Ferry";
 
-"type.route.shuttle_train" = "Shuttle Train";
+"type.route.shuttle_train" = "route-shuttle_train";
 
 "type.shop" = "가게";
 
 "type.shop.alcohol" = "주류 샵";
 
 "type.shop.bakery" = "베이커리";
+
+"type.shop.bathroom_furnishing" = "욕실 가구";
 
 "type.shop.beauty" = "미용실";
 
@@ -3247,6 +3431,8 @@
 
 "type.shop.butcher" = "정육점";
 
+"type.shop.cannabis" = "대마초 판매점";
+
 "type.shop.car" = "자동차 대리점";
 
 "type.shop.car_parts" = "차 부품 가게";
@@ -3257,13 +3443,15 @@
 
 "type.shop.caravan" = "RV Dealership";
 
+"type.shop.carpet" = "카펫";
+
 "type.shop.chemist" = "화학물질 가게";
 
-"type.shop.chocolate" = "가게";
+"type.shop.chocolate" = "초콜릿 가게";
 
 "type.shop.clothes" = "옷 가게";
 
-"type.shop.coffee" = "가게";
+"type.shop.coffee" = "커피숍";
 
 "type.shop.computer" = "컴퓨터 판매점";
 
@@ -3274,6 +3462,8 @@
 "type.shop.copyshop" = "복사가게";
 
 "type.shop.cosmetics" = "화장품";
+
+"type.shop.curtain" = "커튼";
 
 "type.shop.deli" = "델리카트슨 숍";
 
@@ -3287,9 +3477,11 @@
 
 "type.shop.erotic" = "성인용품 가게";
 
-"type.shop.fabric" = "가게";
+"type.shop.fabric" = "원단 가게";
 
 "type.shop.farm" = "\"농장 식품 가게\"";
+
+"type.shop.fashion_accessories" = "패션 악세사리";
 
 "type.shop.florist" = "꽃가게";
 
@@ -3299,6 +3491,8 @@
 
 "type.shop.garden_centre" = "식물 상점";
 
+"type.shop.gas" = "주유소";
+
 "type.shop.gift" = "선물 가게";
 
 "type.shop.greengrocer" = "청과상";
@@ -3307,9 +3501,13 @@
 
 "type.shop.hairdresser" = "이발사";
 
-"type.shop.hardware" = "철물점";
+"type.shop.hardware" = "Hardware Store";
 
 "type.shop.health_food" = "\"건강식품 가게\"";
+
+"type.shop.herbalist" = "허브 가게";
+
+"type.shop.hifi" = "하이파이 오디오";
 
 "type.shop.houseware" = "\"가정용품 가게\"";
 
@@ -3327,13 +3525,15 @@
 
 "type.shop.mobile_phone" = "휴대폰 대리점";
 
-"type.shop.money_lender" = "가게";
+"type.shop.money_lender" = "자금 대출 기관";
 
 "type.shop.motorcycle" = "오토바이 가게";
 
-"type.shop.music" = "가게";
+"type.shop.motorcycle_repair" = "오토바이 수리";
 
-"type.shop.musical_instrument" = "가게";
+"type.shop.music" = "음악 가게";
+
+"type.shop.musical_instrument" = "악기 판매점";
 
 "type.shop.newsagent" = "신문 가판대";
 
@@ -3341,13 +3541,21 @@
 
 "type.shop.outdoor" = "아웃도어 장비";
 
+"type.shop.outpost" = "픽업 장소";
+
 "type.shop.pastry" = "패스트리";
 
 "type.shop.pawnbroker" = "전당포";
 
 "type.shop.pet" = "펫샵";
 
+"type.shop.pet_grooming" = "애완동물 미용";
+
 "type.shop.photo" = "사진 가게";
+
+"type.shop.rental" = "렌탈샵";
+
+"type.shop.rental.bicycle" = "자전거 대여점";
 
 "type.shop.seafood" = "생선가게";
 
@@ -3363,7 +3571,7 @@
 
 "type.shop.tattoo" = "타투 가게";
 
-"type.shop.tea" = "가게";
+"type.shop.tea" = "차 가게";
 
 "type.shop.ticket" = "매표소";
 
@@ -3381,13 +3589,20 @@
 
 "type.shop.wine" = "와인 샵";
 
+"type.shop.agrarian" = "농산물 가게";
+
 "type.shop.antiques" = "고물";
 
+"type.shop.appliance" = "가전제품 매장";
+
+/* maybe change to Art Gallery for en-US when supported */
 "type.shop.art" = "아트샵";
 
 "type.shop.baby_goods" = "어린이 가게";
 
 "type.shop.bag" = "가방 판매점";
+
+"type.shop.bed" = "침대 가게";
 
 "type.shop.boutique" = "부티크";
 
@@ -3498,6 +3713,8 @@
 
 "type.tourism" = "Tourism";
 
+"type.tourism.aquarium" = "수족관";
+
 "type.tourism.alpine_hut" = "고산 오두막";
 
 "type.tourism.apartment" = "아파트";
@@ -3542,6 +3759,8 @@
 
 "type.tourism.information.office" = "관광정보센터";
 
+"type.tourism.information.visitor_centre" = "방문자 센터";
+
 "type.tourism.motel" = "모텔";
 
 "type.tourism.museum" = "박물관";
@@ -3558,6 +3777,8 @@
 
 "type.tourism.zoo" = "동물원";
 
+"type.tourism.zoo.petting" = "페팅 동물원";
+
 "type.traffic_calming" = "Traffic Calming";
 
 "type.traffic_calming.bump" = "Traffic Bump";
@@ -3570,17 +3791,23 @@
 
 "type.waterway.canal.tunnel" = "운하";
 
+"type.waterway.fish_pass" = "물고기 사다리";
+
 "type.waterway.dam" = "Dam";
 
-"type.waterway.ditch" = "Ditch";
+"type.barrier.ditch" = "Ditch";
 
-"type.waterway.ditch.tunnel" = "Ditch";
+"type.natural.water.ditch" = "배수구";
+
+"type.waterway.ditch.tunnel" = "암거";
 
 "type.waterway.dock" = "Waterway Dock";
 
 "type.waterway.drain" = "Drain";
 
-"type.waterway.drain.tunnel" = "Drain";
+"type.natural.water.drain" = "Drain";
+
+"type.waterway.drain.tunnel" = "암거";
 
 "type.waterway.lock_gate" = "수문";
 
@@ -3620,26 +3847,48 @@
 
 "type.aerialway.t.bar" = "T-bar Lift";
 
-"type.piste_type" = "Piste Type";
-
 "type.piste_type.downhill" = "Downhill Ski Run";
+
+"type.piste_type.downhill.area" = "Downhill Ski Run";
 
 "type.piste_type.downhill.advanced" = "Downhill Ski Run";
 
+"type.piste_type.downhill.advanced.area" = "Downhill Ski Run";
+
 "type.piste_type.downhill.easy" = "Downhill Ski Run";
 
+"type.piste_type.downhill.easy.area" = "Downhill Ski Run";
+
 "type.piste_type.downhill.expert" = "Downhill Ski Run";
+
+"type.piste_type.downhill.expert.area" = "Downhill Ski Run";
 
 "type.piste_type.downhill.freeride" = "Downhill Ski Run";
 
 "type.piste_type.downhill.intermediate" = "Downhill Ski Run";
 
+"type.piste_type.downhill.intermediate.area" = "Downhill Ski Run";
+
 "type.piste_type.downhill.novice" = "Downhill Ski Run";
+
+"type.piste_type.downhill.novice.area" = "Downhill Ski Run";
 
 "type.piste_type.nordic" = "Nordic Ski Trail";
 
 "type.piste_type.sled" = "Sledding Piste";
 
-"type.building_part" = "건물";
+"type.piste_type.sled.area" = "Sledding Piste";
+
+"type.piste_type.snow_park" = "스노우 파크";
+
+"type.piste_type.hike" = "스노우 하이킹 트레일";
+
+"type.piste_type.connection" = "피스트 연결";
+
+"type.piste_type.skitour" = "스키투어 트레일";
 
 "type.amenity.events_venue" = "행사장";
+
+"type.shop.auction" = "경매";
+
+"type.shop.collector" = "수집품";

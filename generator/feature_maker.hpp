@@ -1,47 +1,54 @@
 #pragma once
 
-#include "generator/feature_builder.hpp"
 #include "generator/feature_maker_base.hpp"
-#include "generator/intermediate_data.hpp"
+
 
 struct OsmElement;
 
 namespace generator
 {
-// Class FeatureMakerSimple is class FeatureMakerBase implementation for simple features building.
-// It is only trying to build a feature and does not filter features in any way,
-// except for bad geometry. This class is suitable for most cases.
+// FeatureMakerSimple is suitable for most cases for simple features.
+// It filters features for bad geometry only.
 class FeatureMakerSimple: public FeatureMakerBase
 {
 public:
   using FeatureMakerBase::FeatureMakerBase;
 
-  // FeatureMaker overrides:
+  /// @name FeatureMakerBase overrides:
+  /// @{
   std::shared_ptr<FeatureMakerBase> Clone() const override;
 
 protected:
-  // FeatureMaker overrides:
   void ParseParams(FeatureBuilderParams & params, OsmElement & element) const override;
 
-private:
-  // FeatureMaker overrides:
   bool BuildFromNode(OsmElement & element, FeatureBuilderParams const & params) override;
   bool BuildFromWay(OsmElement & element, FeatureBuilderParams const & params) override;
   bool BuildFromRelation(OsmElement & element, FeatureBuilderParams const & params) override;
+  /// @}
+
+  /// @return Any origin mercator point (prefer nodes) that belongs to \a e.
+  std::optional<m2::PointD> GetOrigin(OsmElement const & e) const;
+
+  /// @return Mercator point from intermediate cache storage.
+  std::optional<m2::PointD> ReadNode(uint64_t id) const;
 };
 
-// The difference between class FeatureMakerSimple and class FeatureMaker is that
-// class FeatureMaker processes the types more strictly.
+// FeatureMaker additionally filters the types using feature::IsUsefulType.
 class FeatureMaker : public FeatureMakerSimple
 {
 public:
-  using FeatureMakerSimple::FeatureMakerSimple;
+  explicit FeatureMaker(IDRInterfacePtr const & cache = {});
 
-  // FeatureMaker overrides:
+  /// @name FeatureMakerBase overrides:
+  /// @{
   std::shared_ptr<FeatureMakerBase> Clone() const override;
 
-private:
-  // FeatureMaker overrides:
+protected:
   void ParseParams(FeatureBuilderParams & params, OsmElement & element) const override;
+  bool BuildFromRelation(OsmElement & p, FeatureBuilderParams const & params) override;
+  /// @}
+
+private:
+  uint32_t m_placeClass;
 };
 }  // namespace generator

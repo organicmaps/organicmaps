@@ -3,6 +3,7 @@ final class TransportRoutePreviewStatus: SolidTouchView {
   @IBOutlet private weak var etaLabel: UILabel!
   @IBOutlet private weak var stepsCollectionView: TransportTransitStepsCollectionView!
   @IBOutlet private weak var stepsCollectionViewHeight: NSLayoutConstraint!
+  @IBOutlet private weak var stepsCollectionScrollView: UIScrollView?
 
   @objc weak var ownerView: UIView!
 
@@ -38,10 +39,20 @@ final class TransportRoutePreviewStatus: SolidTouchView {
     updateHeight()
   }
 
-  @objc func onNavigationInfoUpdated(_ info: MWMNavigationDashboardEntity) {
+  @objc func onNavigationInfoUpdated(_ info: MWMNavigationDashboardEntity, prependDistance: Bool) {
     navigationInfo = info
-    etaLabel.attributedText = info.estimate
+    if (prependDistance) {
+      let labelText = NSMutableAttributedString(string: NSLocalizedString("placepage_distance", comment: "") + ": ")
+      labelText.append(info.estimate)
+      etaLabel.attributedText = labelText
+    }
+    else {
+      etaLabel.attributedText = info.estimate
+    }
     stepsCollectionView.steps = info.transitSteps
+
+    stepsCollectionView.isHidden = info.transitSteps.isEmpty
+    stepsCollectionScrollView?.isHidden = info.transitSteps.isEmpty
   }
 
   private func updateHeight() {
@@ -50,6 +61,11 @@ final class TransportRoutePreviewStatus: SolidTouchView {
       self.animateConstraints(animations: {
         self.stepsCollectionViewHeight.constant = self.stepsCollectionView.contentSize.height
       })
+
+      if let sv = self.stepsCollectionScrollView {
+        let bottomOffset = CGPoint(x: 0, y: sv.contentSize.height - sv.bounds.size.height)
+        sv.setContentOffset(bottomOffset, animated: true)
+      }
     }
   }
 

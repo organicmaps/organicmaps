@@ -3,7 +3,6 @@
 #include "ge0/parser.hpp"
 
 #include "search/common.hpp"
-#include "search/cuisine_filter.hpp"
 #include "search/geometry_utils.hpp"
 #include "search/intermediate_result.hpp"
 #include "search/latlon_match.hpp"
@@ -11,9 +10,9 @@
 #include "search/postcode_points.hpp"
 #include "search/query_params.hpp"
 #include "search/ranking_utils.hpp"
-#include "search/search_index_values.hpp"
 #include "search/search_params.hpp"
 #include "search/utils.hpp"
+#include "search/utm_mgrs_coords_match.hpp"
 
 #include "storage/country_info_getter.hpp"
 #include "storage/storage_defines.hpp"
@@ -24,17 +23,14 @@
 #include "indexer/feature.hpp"
 #include "indexer/feature_algo.hpp"
 #include "indexer/feature_utils.hpp"
-#include "indexer/features_vector.hpp"
 #include "indexer/ftypes_matcher.hpp"
 #include "indexer/mwm_set.hpp"
 #include "indexer/postcodes_matcher.hpp"
 #include "indexer/search_delimiters.hpp"
 #include "indexer/search_string_utils.hpp"
-#include "indexer/trie_reader.hpp"
 
 #include "platform/preferred_languages.hpp"
 
-#include "coding/compressed_bit_vector.hpp"
 #include "coding/string_utf8_multilang.hpp"
 
 #include "geometry/latlon.hpp"
@@ -431,20 +427,34 @@ void Processor::SearchByFeatureId()
   vector<shared_ptr<MwmInfo>> infos;
   m_dataSource.GetMwmsInfo(infos);
 
+  auto const putFeature = [](FeaturesLoaderGuard & guard, uint32_t fid, auto const & fn)
+  {
+    // Feature can be deleted, so always check.
+    auto ft = guard.GetFeatureByIndex(fid);
+    if (ft)
+      fn(std::move(ft));
+  };
+
+  storage::CountryId mwmName;
+  uint32_t version;
+  uint32_t fid;
+
   // Case 0.
   {
     string s = query;
-    uint32_t fid;
     if (EatFid(s, fid))
-      EmitFeaturesByIndexFromAllMwms(infos, fid);
+    {
+      EmitResultsFromMwms(infos, [&putFeature, fid](FeaturesLoaderGuard & guard, auto const & fn)
+      {
+        if (fid < guard.GetNumFeatures())
+          putFeature(guard, fid, fn);
+      });
+    }
   }
 
   // Case 1.
   {
     string s = query;
-    storage::CountryId mwmName;
-    uint32_t fid;
-
     bool const parenPref = strings::EatPrefix(s, "(");
     bool const parenSuff = strings::EatSuffix(s, ")");
     if (parenPref == parenSuff &&
@@ -452,17 +462,17 @@ void Processor::SearchByFeatureId()
         strings::EatPrefix(s, ",") &&
         EatFid(s, fid))
     {
-      EmitFeatureIfExists(infos, mwmName, {} /* version */, fid);
+      EmitResultsFromMwms(infos, [&putFeature, &mwmName, fid](FeaturesLoaderGuard & guard, auto const & fn)
+      {
+        if (guard.GetCountryFileName() == mwmName && fid < guard.GetNumFeatures())
+          putFeature(guard, fid, fn);
+      });
     }
   }
 
   // Case 2.
   {
     string s = query;
-    storage::CountryId mwmName;
-    uint32_t version;
-    uint32_t fid;
-
     if (strings::EatPrefix(s, "{ MwmId [") &&
         EatMwmName(m_countriesTrie, s, mwmName) &&
         strings::EatPrefix(s, ", ") &&
@@ -471,9 +481,44 @@ void Processor::SearchByFeatureId()
         EatFid(s, fid) &&
         strings::EatPrefix(s, " }"))
     {
-      EmitFeatureIfExists(infos, mwmName, version, fid);
+      EmitResultsFromMwms(infos, [&putFeature, &mwmName, version, fid](FeaturesLoaderGuard & guard, auto const & fn)
+      {
+        if (guard.GetCountryFileName() == mwmName && guard.GetVersion() == version && fid < guard.GetNumFeatures())
+          putFeature(guard, fid, fn);
+      });
     }
   }
+}
+
+void Processor::EmitWithMetadata(feature::Metadata::EType type)
+{
+  std::vector<std::shared_ptr<MwmInfo>> infos;
+  m_dataSource.GetMwmsInfo(infos);
+  // less<MwmInfo*>
+  std::sort(infos.begin(), infos.end());
+
+  std::vector<FeatureID> ids;
+  m_dataSource.ForEachFeatureIDInRect([&ids](FeatureID id)
+  {
+    ids.push_back(std::move(id));
+  }, m_viewport, scales::GetUpperScale());
+
+  // The same, first criteria is less<MwmId> -> less<MwmInfo*>
+  std::sort(ids.begin(), ids.end());
+
+  size_t idx = 0;
+  EmitResultsFromMwms(infos, [type, &idx, &ids](FeaturesLoaderGuard & guard, auto const & fn)
+  {
+    for (; idx < ids.size() && ids[idx].m_mwmId == guard.GetId(); ++idx)
+    {
+      auto ft = guard.GetFeatureByIndex(ids[idx].m_index);
+      if (ft)
+      {
+        if (ft->HasMetadata(type))
+          fn(std::move(ft));
+      }
+    }
+  });
 }
 
 Locales Processor::GetCategoryLocales() const
@@ -554,9 +599,8 @@ void Processor::Search(SearchParams params)
 
     try
     {
-      if (!SearchCoordinates())
+      if (!SearchCoordinates() && !SearchDebug())
       {
-        SearchDebug();
         SearchPlusCode();
         SearchPostcode();
         if (viewportSearch)
@@ -597,26 +641,44 @@ void Processor::Search(SearchParams params)
     LOG(LWARNING, ("Search stopped by timeout"));
 }
 
-void Processor::SearchDebug()
+bool Processor::SearchDebug()
 {
 #ifdef DEBUG
   SearchByFeatureId();
+
+  if (m_query == "?euri")
+  {
+    EmitWithMetadata(feature::Metadata::FMD_EXTERNAL_URI);
+    return true;
+  }
 #endif
+  return false;
 }
 
 bool Processor::SearchCoordinates()
 {
   bool coords_found = false;
   buffer_vector<ms::LatLon, 3> results;
+  double lat, lon;
 
+  if (MatchLatLonDegree(m_query, lat, lon))
   {
-    double lat;
-    double lon;
-    if (MatchLatLonDegree(m_query, lat, lon))
-    {
-      coords_found = true;
-      results.emplace_back(lat, lon);
-    }
+    coords_found = true;
+    results.emplace_back(lat, lon);
+  }
+
+  auto ll = MatchUTMCoords(m_query);
+  if (ll)
+  {
+    coords_found = true;
+    results.emplace_back(ll->m_lat, ll->m_lon);
+  }
+
+  ll = MatchMGRSCoords(m_query);
+  if (ll)
+  {
+    coords_found = true;
+    results.emplace_back(ll->m_lat, ll->m_lon);
   }
 
   istringstream iss(m_query);
@@ -631,8 +693,8 @@ bool Processor::SearchCoordinates()
       results.emplace_back(r.m_lat, r.m_lon);
     }
 
-    geo::GeoURLInfo const info = m_geoUrlParser.Parse(token);
-    if (info.IsValid())
+    geo::GeoURLInfo info;
+    if (m_geoUrlParser.Parse(token, info))
     {
       coords_found = true;
       results.emplace_back(info.m_lat, info.m_lon);
@@ -844,7 +906,11 @@ void Processor::InitRanker(Geocoder::Params const & geocoderParams,
   params.m_batchSize = searchParams.m_batchSize;
   params.m_limit = searchParams.m_maxNumResults;
   params.m_pivot = GetPivotPoint(viewportSearch);
-  params.m_pivotRegion = GetPivotRegion();
+  {
+    storage::CountryInfo info;
+    m_infoGetter.GetRegionInfo(params.m_pivot, info);
+    params.m_pivotRegion = std::move(info.m_name);
+  }
 
   params.m_preferredTypes = m_preferredTypes;
   // Remove "secondary" category types from preferred.
@@ -873,63 +939,37 @@ void Processor::ClearCaches()
   m_viewport.MakeEmpty();
 }
 
-void Processor::EmitFeatureIfExists(vector<shared_ptr<MwmInfo>> const & infos,
-                                    storage::CountryId const & mwmName, optional<uint32_t> version,
-                                    uint32_t fid)
-{
-  for (auto const & info : infos)
-  {
-    if (info->GetCountryName() != mwmName)
-      continue;
-
-    if (version && version != info->GetVersion())
-      continue;
-
-    auto guard = make_unique<FeaturesLoaderGuard>(m_dataSource, MwmSet::MwmId(info));
-    if (fid >= guard->GetNumFeatures())
-      continue;
-    auto ft = guard->GetFeatureByIndex(fid);
-    if (!ft)
-      continue;
-
-    m_emitter.AddResultNoChecks(m_ranker.MakeResult(
-        RankerResult(*ft, guard->GetCountryFileName()),
-        true /* needAddress */, true /* needHighlighting */));
-    m_emitter.Emit();
-  }
-}
-
-void Processor::EmitFeaturesByIndexFromAllMwms(vector<shared_ptr<MwmInfo>> const & infos,
-                                               uint32_t fid)
+template <class FnT>
+void Processor::EmitResultsFromMwms(std::vector<std::shared_ptr<MwmInfo>> const & infos, FnT const & fn)
 {
   // Don't pay attention on possible overhead here, this function is used for debug purpose only.
-  vector<tuple<double, std::string, std::unique_ptr<FeatureType>>> results;
-  vector<unique_ptr<FeaturesLoaderGuard>> guards;
+  std::vector<std::tuple<double, std::string, std::unique_ptr<FeatureType>>> results;
+  std::vector<std::unique_ptr<FeaturesLoaderGuard>> guards;
 
   for (auto const & info : infos)
   {
-    auto guard = make_unique<FeaturesLoaderGuard>(m_dataSource, MwmSet::MwmId(info));
-    if (fid >= guard->GetNumFeatures())
-      continue;
-    auto ft = guard->GetFeatureByIndex(fid);
-    if (!ft)
-      continue;
+    auto guard = std::make_unique<FeaturesLoaderGuard>(m_dataSource, MwmSet::MwmId(info));
 
-    // Distance needed for sorting.
-    auto const center = feature::GetCenter(*ft, FeatureType::WORST_GEOMETRY);
-    double const dist = center.SquaredLength(m_viewport.Center());
-    results.emplace_back(dist, guard->GetCountryFileName(), move(ft));
-    guards.push_back(move(guard));
+    fn(*guard, [&](std::unique_ptr<FeatureType> ft)
+    {
+      // Distance needed for sorting.
+      auto const center = feature::GetCenter(*ft, FeatureType::WORST_GEOMETRY);
+      double const dist = center.SquaredLength(m_viewport.Center());
+      results.emplace_back(dist, guard->GetCountryFileName(), std::move(ft));
+    });
+
+    guards.push_back(std::move(guard));
   }
 
-  sort(results.begin(), results.end());
+  std::sort(results.begin(), results.end());
 
   for (auto const & [_, country, ft] : results)
   {
     m_emitter.AddResultNoChecks(m_ranker.MakeResult(RankerResult(*ft, country),
                                                     true /* needAddress */,
                                                     true /* needHighlighting */));
-    m_emitter.Emit();
   }
+
+  m_emitter.Emit();
 }
 }  // namespace search

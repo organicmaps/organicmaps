@@ -64,6 +64,7 @@ public:
     {
     }
   };
+  using Place = Street;
 
   struct Building : public Object
   {
@@ -118,11 +119,13 @@ public:
   /// @return Sorted by distance streets vector for the specified MwmId.
   /// Parameter |includeSquaresAndSuburbs| needed for backward compatibility:
   /// existing mwms operate on streets without squares and suburbs.
-  static void GetNearbyStreets(search::MwmContext & context, m2::PointD const & center,
-                               bool includeSquaresAndSuburbs, std::vector<Street> & streets);
-  void GetNearbyStreets(MwmSet::MwmId const & id, m2::PointD const & center,
-                        std::vector<Street> & streets) const;
-  void GetNearbyStreets(FeatureType & ft, std::vector<Street> & streets) const;
+  static std::vector<Street> GetNearbyStreets(
+      search::MwmContext & context, m2::PointD const & center, double radiusM = kLookupRadiusM);
+  std::vector<Street> GetNearbyStreets(MwmSet::MwmId const & id, m2::PointD const & center) const;
+  std::vector<Street> GetNearbyStreets(FeatureType & ft) const;
+
+  static std::vector<Place> GetNearbyPlaces(
+      search::MwmContext & context, m2::PointD const & center, double radiusM);
 
   /// @return feature street name.
   /// Returns empty string when there is no street the feature belongs to.
@@ -131,16 +134,23 @@ public:
   std::string GetOriginalFeatureStreetName(FeatureID const & fid) const;
   /// For |houseId| with street information sets |streetId| to FeatureID of street corresponding to
   /// |houseId| and returns true. Returs false otherwise.
-  bool GetStreetByHouse(FeatureType & house, FeatureID & streetId) const;
+  bool GetOriginalStreetByHouse(FeatureType & house, FeatureID & streetId) const;
 
   /// @return The nearest exact address where building has house number and valid street match.
   void GetNearbyAddress(m2::PointD const & center, Address & addr) const;
-  /// @return The nearest exact address where building is at most |maxDistanceM| far from |center|,
-  /// has house number and valid street match.
-  void GetNearbyAddress(m2::PointD const & center, double maxDistanceM, Address & addr) const;
-  /// @param addr (out) the exact address of a feature.
+
+  /// @param[in]  placeAsStreet Use house->place index same as streets to define address.
+  /// Looks like it should be always true, but keep a param for now.
+  /// @{
+  /// @param[out] addr  The nearest exact address where building is at most |maxDistanceM| far from |center|,
+  /// has house number and valid street (place) match.
+  void GetNearbyAddress(m2::PointD const & center, double maxDistanceM, Address & addr,
+                        bool placeAsStreet = false) const;
+  /// @param[out] addr  The exact address of a feature.
   /// @returns false if  can't extruct address or ft have no house number.
-  bool GetExactAddress(FeatureType & ft, Address & addr) const;
+  bool GetExactAddress(FeatureType & ft, Address & addr, bool placeAsStreet = false) const;
+  /// @}
+
   bool GetExactAddress(FeatureID const & fid, Address & addr) const;
 
   /// Returns the nearest region address where mwm or exact city is known.
@@ -155,17 +165,17 @@ private:
   class HouseTable
   {
   public:
-    explicit HouseTable(DataSource const & dataSource) : m_dataSource(dataSource) {}
+    explicit HouseTable(DataSource const & dataSource, bool placeAsStreet = false)
+      : m_dataSource(dataSource), m_placeAsStreet(placeAsStreet)
+    {
+    }
     std::optional<HouseToStreetTable::Result> Get(FeatureID const & fid);
 
   private:
     DataSource const & m_dataSource;
     MwmSet::MwmHandle m_handle;
+    bool m_placeAsStreet;
   };
-
-  /// Old data compatible method to retrieve nearby streets.
-  void GetNearbyStreetsWaysOnly(MwmSet::MwmId const & id, m2::PointD const & center,
-                                std::vector<Street> & streets) const;
 
   /// Ignores changes from editor if |ignoreEdits| is true.
   bool GetNearbyAddress(HouseTable & table, Building const & bld, bool ignoreEdits,

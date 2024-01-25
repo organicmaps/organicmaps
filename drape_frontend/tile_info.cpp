@@ -35,7 +35,7 @@ void TileInfo::ReadFeatureIndex(MapDataProvider const & model)
   if (!DoNeedReadIndex())
     return;
 
-  CheckCanceled();
+  ThrowIfCancelled();
 
   size_t const kAverageFeaturesCount = 256;
   m_featureInfo.reserve(kAverageFeaturesCount);
@@ -64,7 +64,7 @@ void TileInfo::ReadFeatures(MapDataProvider const & model)
   SCOPE_GUARD(ReleaseReadTile, std::bind(&EngineContext::EndReadTile, m_context.get()));
 
   ReadFeatureIndex(model);
-  CheckCanceled();
+  ThrowIfCancelled();
 
   m_context->GetMetalineManager()->Update(m_mwms);
 
@@ -72,9 +72,8 @@ void TileInfo::ReadFeatures(MapDataProvider const & model)
   {
     std::sort(m_featureInfo.begin(), m_featureInfo.end());
     auto const deviceLang = StringUtf8Multilang::GetLangIndex(languages::GetCurrentNorm());
-    RuleDrawer drawer(std::bind(&TileInfo::InitStylist, this, deviceLang, _1, _2),
-                      std::bind(&TileInfo::IsCancelled, this), model.m_isCountryLoadedByName,
-                      make_ref(m_context));
+    RuleDrawer drawer(std::bind(&TileInfo::IsCancelled, this), model.m_isCountryLoadedByName,
+                      make_ref(m_context), deviceLang);
     model.ReadFeatures(std::bind<void>(std::ref(drawer), _1), m_featureInfo);
 #ifdef DRAW_TILE_NET
     drawer.DrawTileNet();
@@ -90,27 +89,25 @@ void TileInfo::Cancel()
   m_isCanceled = true;
 }
 
+/*
+ * TODO: the following check throws an exception while IsCancelled() is used in most places to quit gracefully.
+ * Looks like the latter was added later, so maybe the throwing version is not needed anymore.
+ */
+void TileInfo::ThrowIfCancelled() const
+{
+  // The exception is handled in ReadMWMTask::Do().
+  if (m_isCanceled)
+    MYTHROW(ReadCanceledException, ());
+}
+
 bool TileInfo::IsCancelled() const
 {
   return m_isCanceled;
 }
 
-void TileInfo::InitStylist(int8_t deviceLang, FeatureType & f, Stylist & s)
-{
-  CheckCanceled();
-  df::InitStylist(f, deviceLang, m_context->GetTileKey().m_zoomLevel,
-                  m_context->Is3dBuildingsEnabled(), s);
-}
-
 bool TileInfo::DoNeedReadIndex() const
 {
   return m_featureInfo.empty();
-}
-
-void TileInfo::CheckCanceled() const
-{
-  if (m_isCanceled)
-    MYTHROW(ReadCanceledException, ());
 }
 
 int TileInfo::GetZoomLevel() const

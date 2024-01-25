@@ -6,6 +6,8 @@
 #include <string>
 #include <vector>
 
+namespace drules_selector_parser_test
+{
 using namespace drule;
 using namespace std;
 
@@ -144,47 +146,32 @@ UNIT_TEST(TestDruleSelectorInvalid)
     "!bad$name",
     "bad$name=1000",
   };
-  size_t const n = sizeof(badFormats) / sizeof(badFormats[0]);
 
-  for (size_t i = 0; i < n; ++i)
+  for (auto e : badFormats)
   {
-    SelectorExpression e;
-    TEST_EQUAL(false, ParseSelector(badFormats[i], e), ("string is", badFormats[i]));
+    SelectorExpression expr;
+    TEST_EQUAL(false, ParseSelector(e, expr), ("string is", e));
   }
 }
 
-UNIT_TEST(TestDruleParseSelectorValid1)
+UNIT_TEST(PopulationSelector_Smoke)
 {
-  auto selector = ParseSelector("population<1000");
-  TEST(selector != nullptr, ());
+  TEST(ParseSelector("population<1000"), ());
+  TEST(ParseSelector(vector<string>({"population>1000"})), ());
+  TEST(ParseSelector(vector<string>({"population>=1000","population<=1000000"})), ());
 }
 
-UNIT_TEST(TestDruleParseSelectorValid2)
+UNIT_TEST(NameSelector_Smoke)
 {
-  auto selector = ParseSelector(vector<string>({"population>1000"}));
-  TEST(selector != nullptr, ());
+  TEST(ParseSelector("name"), ());
+  TEST(ParseSelector("!name"), ());
 }
 
-UNIT_TEST(TestDruleParseSelectorValid3)
+UNIT_TEST(InvalidSelector_Smoke)
 {
-  auto selector = ParseSelector(vector<string>({"population>=1000","population<=1000000"}));
-  TEST(selector != nullptr, ());
+  TEST(!ParseSelector(""), ());
+  TEST(!ParseSelector(vector<string>({""})), ());
+  TEST(!ParseSelector(vector<string>({"population>=1000","population<=1000000", ""})), ());
 }
 
-UNIT_TEST(TestDruleParseSelectorInvalid1)
-{
-  auto selector = ParseSelector("");
-  TEST(selector == nullptr, ());
-}
-
-UNIT_TEST(TestDruleParseSelectorInvalid2)
-{
-  auto selector = ParseSelector(vector<string>({""}));
-  TEST(selector == nullptr, ());
-}
-
-UNIT_TEST(TestDruleParseSelectorInvalid3)
-{
-  auto selector = ParseSelector(vector<string>({"population>=1000","population<=1000000", ""}));
-  TEST(selector == nullptr, ());
-}
+} // namespace drules_selector_parser_test

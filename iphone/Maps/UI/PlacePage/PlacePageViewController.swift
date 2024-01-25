@@ -14,14 +14,25 @@ final class PlacePageScrollView: UIScrollView {
 }
 
 @objc final class PlacePageViewController: UIViewController {
+  
+  private enum Constants {
+    static let actionBarHeight: CGFloat = 50
+    static let additionalPreviewOffset: CGFloat = 80
+  }
+  
   @IBOutlet var scrollView: UIScrollView!
   @IBOutlet var stackView: UIStackView!
   @IBOutlet var actionBarContainerView: UIView!
   @IBOutlet var actionBarHeightConstraint: NSLayoutConstraint!
   @IBOutlet var panGesture: UIPanGestureRecognizer!
 
+  var headerStackView: UIStackView = {
+    let stackView = UIStackView()
+    stackView.axis = .vertical
+    stackView.distribution = .fill
+    return stackView
+  }()
   var presenter: PlacePagePresenterProtocol!
-
   var beginDragging = false
   var rootViewController: MapViewController {
     MapViewController.shared()!
@@ -33,19 +44,13 @@ final class PlacePageScrollView: UIScrollView {
   var isPreviewPlus: Bool = false
   private var isNavigationBarVisible = false
 
-  let kActionBarHeight: CGFloat = 50
-
   // MARK: - VC Lifecycle
 
   override func viewDidLoad() {
     super.viewDidLoad()
 
-    if let header = layout.header {
-      addHeader(header)
-    }
-    for viewController in layout.viewControllers {
-      addToStack(viewController)
-    }
+    layout.headerViewControllers.forEach({ addToHeader($0) })
+    layout.bodyViewControllers.forEach({ addToBody($0) })
 
     if let actionBar = layout.actionBar {
       hideActionBar(false)
@@ -69,11 +74,20 @@ final class PlacePageScrollView: UIScrollView {
     actionBarContainerView.layer.cornerRadius = 10
     actionBarContainerView.layer.masksToBounds = true
     actionBarContainerView.layer.maskedCorners = [.layerMinXMaxYCorner, .layerMaxXMaxYCorner]
+
+    // See https://github.com/organicmaps/organicmaps/issues/6917 for the details.
+    if #available(iOS 13.0, *), previousTraitCollection == nil {
+      scrollView.contentInset = alternativeSizeClass(iPhone: UIEdgeInsets(top: view.height, left: 0, bottom: 0, right: 0),
+                                                     iPad: UIEdgeInsets.zero)
+      scrollView.layoutIfNeeded()
+    }
   }
 
   override func viewDidLayoutSubviews() {
     super.viewDidLayoutSubviews()
-    if previousTraitCollection == nil {
+    if #available(iOS 13.0, *) {
+      // See https://github.com/organicmaps/organicmaps/issues/6917 for the details.
+    } else if previousTraitCollection == nil {
       scrollView.contentInset = alternativeSizeClass(iPhone: UIEdgeInsets(top: scrollView.height, left: 0, bottom: 0, right: 0),
                                                      iPad: UIEdgeInsets.zero)
       updateSteps()
@@ -108,8 +122,8 @@ final class PlacePageScrollView: UIScrollView {
   func updatePreviewOffset() {
     updateSteps()
     if !beginDragging {
-      let state = isPreviewPlus ? scrollSteps[2] : scrollSteps[1]
-      scrollTo(CGPoint(x: 0, y: state.offset))
+      let stateOffset = isPreviewPlus ? scrollSteps[2].offset : scrollSteps[1].offset + Constants.additionalPreviewOffset
+      scrollTo(CGPoint(x: 0, y: stateOffset))
     }
   }
 
@@ -190,19 +204,17 @@ extension PlacePageViewController: PlacePageViewProtocol {
   }
 
   func hideActionBar(_ value: Bool) {
-    actionBarHeightConstraint.constant = !value ? kActionBarHeight : 0
+    actionBarHeightConstraint.constant = !value ? Constants.actionBarHeight : .zero
   }
 
-  func addHeader(_ headerViewController: UIViewController) {
-    addToStack(headerViewController)
-    // TODO: workaround. Custom spacing isn't working if visibility of any arranged subview
-    // changes after setting custom spacing
-    DispatchQueue.main.async {
-      self.stackView.setCustomSpacing(0, after: headerViewController.view)
+  func addToHeader(_ headerViewController: UIViewController) {
+    if !stackView.arrangedSubviews.contains(headerStackView) {
+      stackView.addArrangedSubview(headerStackView)
     }
+    headerStackView.addArrangedSubview(headerViewController.view)
   }
 
-  func addToStack(_ viewController: UIViewController) {
+  func addToBody(_ viewController: UIViewController) {
     addChild(viewController)
     stackView.addArrangedSubview(viewController.view)
     viewController.didMove(toParent: self)

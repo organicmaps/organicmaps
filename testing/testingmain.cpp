@@ -159,8 +159,6 @@ int main(int argc, char * argv[])
 {
 #if defined(OMIM_UNIT_TEST_WITH_QT_EVENT_LOOP) && !defined(OMIM_OS_IPHONE)
   QAPP theApp(argc, argv);
-  // Pretty icons on HDPI displays.
-  QAPP::setAttribute(Qt::AA_UseHighDpiPixmaps);
   UNUSED_VALUE(theApp);
 #else
   UNUSED_VALUE(argc);
@@ -168,7 +166,7 @@ int main(int argc, char * argv[])
 #endif
 
   base::ScopedLogLevelChanger const infoLogLevel(LINFO);
-#if defined(OMIM_OS_MAC) || defined(OMIM_OS_LINUX) || defined(OMIM_OS_IPHONE)
+#if defined(OMIM_OS_DESKTOP) || defined(OMIM_OS_IPHONE)
   base::SetLogMessageFn(base::LogMessageTests);
 #endif
 

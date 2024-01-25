@@ -2,19 +2,19 @@
 
 #include "generator/feature_builder.hpp"
 
+#include "indexer/cell_id.hpp"
 #include "indexer/ftypes_matcher.hpp"
 
 #include "coding/point_coding.hpp"
 
 #include "geometry/region2d/binary_operators.hpp"
 
-#include "base/string_utils.hpp"
 #include "base/logging.hpp"
 
 #include <condition_variable>
 #include <functional>
 #include <thread>
-#include <utility>
+
 
 namespace coastlines_generator
 {
@@ -28,10 +28,21 @@ m2::RectD GetLimitRect(RegionT const & rgn)
   return m2::RectD(r.minX(), r.minY(), r.maxX(), r.maxY());
 }
 
-inline PointT D2I(m2::PointD const & p)
+PointT D2I(m2::PointD const & p)
 {
   m2::PointU const pu = PointDToPointU(p, kPointCoordBits);
   return PointT(static_cast<int32_t>(pu.x), static_cast<int32_t>(pu.y));
+}
+
+m2::RegionI CreateRegionI(std::vector<m2::PointD> const & poly)
+{
+  CHECK_GREATER(poly.size(), 2, ());
+  CHECK(poly.front().EqualDxDy(poly.back(), 1.0E-12), (poly.front(), poly.back()));
+
+  m2::RegionI rgn;
+  for (auto it = poly.begin() + 1; it != poly.end(); ++it)
+    rgn.AddPoint(D2I(*it));
+  return rgn;
 }
 
 class DoAddToTree : public FeatureEmitterIFace
@@ -83,7 +94,6 @@ class DoDifference
 {
   RectT m_src;
   std::vector<RegionT> m_res;
-  std::vector<m2::PointD> m_points;
 
 public:
   explicit DoDifference(RegionT const & rgn)
@@ -102,12 +112,6 @@ public:
       m2::IntersectRegions(m_res.front(), r, m_res);
   }
 
-  void operator()(PointT const & p)
-  {
-    m_points.push_back(PointUToPointD(
-        m2::PointU(static_cast<uint32_t>(p.x), static_cast<uint32_t>(p.y)), kPointCoordBits));
-  }
-
   size_t GetPointsCount() const
   {
     size_t count = 0;
@@ -120,10 +124,16 @@ public:
   {
     for (size_t i = 0; i < m_res.size(); ++i)
     {
-      m_points.clear();
-      m_points.reserve(m_res[i].Size() + 1);
-      m_res[i].ForEachPoint(std::ref(*this));
-      fb.AddPolygon(m_points);
+      std::vector<m2::PointD> points;
+      points.reserve(m_res[i].Size() + 1);
+
+      m_res[i].ForEachPoint([&points](PointT const & p)
+      {
+        points.push_back(PointUToPointD(
+            m2::PointU(static_cast<uint32_t>(p.x), static_cast<uint32_t>(p.y)), kPointCoordBits));
+      });
+
+      fb.AddPolygon(std::move(points));
     }
   }
 };
@@ -136,15 +146,15 @@ void CoastlineFeaturesGenerator::AddRegionToTree(feature::FeatureBuilder const &
 {
   ASSERT(fb.IsGeometryClosed(), ());
 
-  fb.ForEachPolygon([&](auto const & polygon) {
+  fb.ForEachPolygon([&](auto const & polygon)
+  {
     if (polygon.empty())
       return;
 
-    coastlines_generator::RegionT rgn;
-    for (auto it = std::next(std::cbegin(polygon)); it != std::cend(polygon); ++it)
-      rgn.AddPoint(coastlines_generator::D2I(*it));
+    using namespace coastlines_generator;
+    RegionT rgn = CreateRegionI(polygon);
+    auto const limitRect = GetLimitRect(rgn);
 
-    auto const limitRect = coastlines_generator::GetLimitRect(rgn);
     m_tree.Add(std::move(rgn), limitRect);
   });
 }
@@ -256,7 +266,7 @@ public:
     // thread main loop
     while (true)
     {
-      std::unique_lock<std::mutex> lock(m_ctx.mutexTasks);
+      std::unique_lock lock(m_ctx.mutexTasks);
       m_ctx.listCondVar.wait(lock, [&]{return (!m_ctx.listTasks.empty() || m_ctx.inWork == 0);});
       if (m_ctx.listTasks.empty())
         break;
@@ -281,30 +291,30 @@ public:
   }
 };
 
-void CoastlineFeaturesGenerator::GetFeatures(std::vector<feature::FeatureBuilder> & features)
+std::vector<feature::FeatureBuilder> CoastlineFeaturesGenerator::GetFeatures(size_t maxThreads)
 {
-  size_t const maxThreads = std::thread::hardware_concurrency();
-  CHECK_GREATER(maxThreads, 0, ("Not supported platform"));
+  uint32_t const coastType = ftypes::IsCoastlineChecker::Instance().GetCoastlineType();
 
+  std::vector<feature::FeatureBuilder> features;
   std::mutex featuresMutex;
-  RegionInCellSplitter::Process(
-      maxThreads, RegionInCellSplitter::kStartLevel, m_tree,
-      [&features, &featuresMutex](RegionInCellSplitter::TCell const & cell, coastlines_generator::DoDifference & cellData)
+
+  RegionInCellSplitter::Process(maxThreads, RegionInCellSplitter::kStartLevel, m_tree,
+      [&](RegionInCellSplitter::TCell const & cell, coastlines_generator::DoDifference & cellData)
       {
         feature::FeatureBuilder fb;
         fb.SetCoastCell(cell.ToInt64(RegionInCellSplitter::kHighLevel + 1));
 
         cellData.AssignGeometry(fb);
         fb.SetArea();
-        static auto const kCoastType = ftypes::IsCoastlineChecker::Instance().GetCoastlineType();
-        fb.AddType(kCoastType);
+        fb.AddType(coastType);
 
         // Should represent non-empty geometry
         CHECK_GREATER(fb.GetPolygonsCount(), 0, ());
         CHECK_GREATER_OR_EQUAL(fb.GetPointsCount(), 3, ());
 
-        // save result
-        std::lock_guard<std::mutex> lock(featuresMutex);
+        std::lock_guard lock(featuresMutex);
         features.emplace_back(std::move(fb));
       });
+
+  return features;
 }

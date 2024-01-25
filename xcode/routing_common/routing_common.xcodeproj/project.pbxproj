@@ -185,7 +185,9 @@
 		671E786A1E6A3BE200B2859B /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
-				LastUpgradeCheck = 1410;
+				BuildIndependentTargetsInParallel = YES;
+				DefaultBuildSystemTypeForWorkspace = Latest;
+				LastUpgradeCheck = 1510;
 				TargetAttributes = {
 					671E78711E6A3BE200B2859B = {
 						CreatedOnToolsVersion = 8.2.1;

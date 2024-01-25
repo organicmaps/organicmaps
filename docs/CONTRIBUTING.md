@@ -19,7 +19,7 @@ list of actions leading to a bug, a log file produced by the app.
 
 When using Organic Maps app on a device, use the built-in "Report a bug" option:
 on Android it creates a new e-mail with a log file attached. Your issue will be processed much
-faster if you send it to bugs@organicmaps.app. Enabling logs in Organic Maps settings on Android
+faster if you send it to <bugs@organicmaps.app>. Enabling logs in Organic Maps settings on Android
 before sending the bug report also helps us a lot with debugging.
 
 ### Feature Requests
@@ -34,7 +34,7 @@ See [translations instructions](TRANSLATIONS.md) for details.
 ### Map styling and icons
 
 We strive to have a functional, cohesive and pleasant to the eye map rendering style.
-There is always something to improve, add new map features, fine tune colors palette etc.
+There is always something to improve, adding new map features, fine tuning the colour palette etc.
 And every time we add a new map feature/POI we need a good and free-to-use icon.
 
 See [styles and icons instructions](STYLES.md) for details.
@@ -43,9 +43,11 @@ See [styles and icons instructions](STYLES.md) for details.
 
 Please follow instructions in [INSTALL.md](INSTALL.md) to set up your development environment
 and check the [developer's guidelines](#developers-guidelines).
-You will find a list of issues for new contributors [here](https://github.com/organicmaps/organicmaps/labels/Good%20first%20issue) to help you get started with simple tasks.
+You will find a list of issues for new contributors [here](https://github.com/organicmaps/organicmaps/labels/Good%20first%20issue) to help you get started with simple tasks. If you want to focus on the most important issues, please check our [Milestones](https://github.com/organicmaps/organicmaps/milestones).
 
-**Please do not ask for permission to work on the issue or to assign an issue to you**. We do not assign issues to first-time contributors. Any such comment notifies our contributors and the development team, and creates unnecessary noise that distracts us from the work.
+**Please do not ask for permission to work on the issue or to assign an issue to you**. We do not assign issues to first-time contributors. Any such comment notifies our contributors and the development team, and creates unnecessary noise that distracts us from the work. Just make a PR - and it will be reviewed.
+
+Reading everything in the [docs folder](./) of the repository is recommended.
 
 ## Submitting your changes
 

@@ -169,8 +169,7 @@ MetalinesBuilder::MetalinesBuilder(std::string const & filename)
 {
 }
 
-std::shared_ptr<generator::CollectorInterface> MetalinesBuilder::Clone(
-    std::shared_ptr<generator::cache::IntermediateDataReaderInterface> const &) const
+std::shared_ptr<generator::CollectorInterface> MetalinesBuilder::Clone(IDRInterfacePtr const &) const
 {
   return std::make_shared<MetalinesBuilder>(GetFilename());
 }
@@ -243,11 +242,6 @@ void MetalinesBuilder::OrderCollectedData()
     rw::WriteVectorOfPOD(writer, ways);
 }
 
-void MetalinesBuilder::Merge(generator::CollectorInterface const & collector)
-{
-  collector.MergeInto(*this);
-}
-
 void MetalinesBuilder::MergeInto(MetalinesBuilder & collector) const
 {
   CHECK(!m_writer || !collector.m_writer, ("Finish() has not been called."));
@@ -259,8 +253,7 @@ bool WriteMetalinesSection(std::string const & mwmPath, std::string const & meta
                            std::string const & osmIdsToFeatureIdsPath)
 {
   routing::OsmIdToFeatureIds osmIdToFeatureIds;
-  if (!routing::ParseWaysOsmIdToFeatureIdMapping(osmIdsToFeatureIdsPath, osmIdToFeatureIds))
-    return false;
+  routing::ParseWaysOsmIdToFeatureIdMapping(osmIdsToFeatureIdsPath, osmIdToFeatureIds);
 
   FileReader reader(metalinesPath);
   ReaderSource<FileReader> src(reader);

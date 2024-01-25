@@ -24,6 +24,7 @@ extern std::string const kRouteColor;
 extern std::string const kRouteOutlineColor;
 extern std::string const kRoutePedestrian;
 extern std::string const kRouteBicycle;
+extern std::string const kRouteRuler;
 extern std::string const kTransitStopInnerMarkerColor;
 
 class RouteRenderer final
@@ -98,6 +99,7 @@ public:
   void SetSubrouteVisibility(dp::DrapeID id, bool isVisible);
 
   bool HasTransitData() const;
+  bool IsRulerRoute() const;
   bool HasData() const;
   bool HasPreviewData() const;
 
@@ -115,7 +117,8 @@ private:
                          ScreenBase const & screen, FrameValues const & frameValues);
   void ClearPreviewHandles();
   CirclesPackHandle * GetPreviewHandle(size_t & index);
-  dp::Color GetMaskColor(RouteType routeType, double baseDistance, bool arrows) const;
+  dp::Color GetRouteMaskColor(RouteType routeType, double baseDistance) const;
+  dp::Color GetArrowMaskColor(RouteType routeType, double baseDistance) const;
 
   double m_distanceFromBegin;
   bool m_followingEnabled;

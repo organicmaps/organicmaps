@@ -35,6 +35,8 @@ DebugRectRenderer::DebugRectRenderer(ref_ptr<dp::GraphicsContext> context, ref_p
   , m_state(CreateRenderState(gpu::Program::DebugRect, DepthLayer::OverlayLayer))
 {
   m_state.SetDepthTestEnabled(false);
+  m_state.SetDrawAsLine(true);
+  m_state.SetLineWidth(1);
 }
 
 bool DebugRectRenderer::IsEnabled() const
@@ -62,9 +64,9 @@ void DebugRectRenderer::SetArrow(ref_ptr<dp::GraphicsContext> context, m2::Point
   m2::PointF const side = m2::PointF(-dir.y, dir.x);
   PixelPointToScreenSpace(screen, arrowStart, vertices);
   PixelPointToScreenSpace(screen, arrowEnd, vertices);
-  PixelPointToScreenSpace(screen, arrowEnd - dir * 20 + side * 10, vertices);
+  PixelPointToScreenSpace(screen, arrowEnd - dir * 12 + side * 3, vertices);
   PixelPointToScreenSpace(screen, arrowEnd, vertices);
-  PixelPointToScreenSpace(screen, arrowEnd - dir * 20 - side * 10, vertices);
+  PixelPointToScreenSpace(screen, arrowEnd - dir * 12 - side * 3, vertices);
 
   ASSERT_LESS_OR_EQUAL(m_currentArrowMesh, m_arrowMeshes.size(), ());
   if (m_currentArrowMesh == m_arrowMeshes.size())

@@ -4,8 +4,6 @@
 #include "map/user_mark.hpp"
 #include "map/track_mark.hpp"
 
-#include "ge0/geo_url_parser.hpp"
-#include "ge0/parser.hpp"
 #include "ge0/url_generator.hpp"
 
 #include "routing/index_router.hpp"
@@ -52,7 +50,6 @@
 #include "platform/preferred_languages.hpp"
 #include "platform/settings.hpp"
 
-#include "coding/endianness.hpp"
 #include "coding/point_coding.hpp"
 #include "coding/string_utf8_multilang.hpp"
 #include "coding/transliteration.hpp"
@@ -104,6 +101,7 @@ char const kAllowAutoZoom[] = "AutoZoom";
 char const kTrafficEnabledKey[] = "TrafficEnabled";
 char const kTransitSchemeEnabledKey[] = "TransitSchemeEnabled";
 char const kIsolinesEnabledKey[] = "IsolinesEnabled";
+char const kOutdoorsEnabledKey[] = "OutdoorsEnabled";
 char const kTrafficSimplifiedColorsKey[] = "TrafficSimplifiedColors";
 char const kLargeFontsSize[] = "LargeFontsSize";
 char const kTranslitMode[] = "TransliterationMode";
@@ -119,7 +117,7 @@ size_t constexpr kMaxTrafficCacheSizeBytes = 64 /* Mb */ * 1024 * 1024;
 // This is temporary solution while we don't have a good filter.
 bool ParseSetGpsTrackMinAccuracyCommand(string const & query)
 {
-  const char kGpsAccuracy[] = "?gpstrackaccuracy:";
+  char const kGpsAccuracy[] = "?gpstrackaccuracy:";
   if (!strings::StartsWith(query, kGpsAccuracy))
     return false;
 
@@ -272,7 +270,7 @@ void Framework::OnViewportChanged(ScreenBase const & screen)
     m_viewportChangedFn(screen);
 }
 
-Framework::Framework(FrameworkParams const & params)
+Framework::Framework(FrameworkParams const & params, bool loadMaps)
   : m_enabledDiffs(params.m_enableDiffs)
   , m_isRenderingEnabled(true)
   , m_transitManager(m_featuresFetcher.GetDataSource(),
@@ -296,8 +294,6 @@ Framework::Framework(FrameworkParams const & params)
   , m_popularityLoader(m_featuresFetcher.GetDataSource(), POPULARITY_RANKS_FILE_TAG)
   , m_descriptionsLoader(std::make_unique<descriptions::Loader>(m_featuresFetcher.GetDataSource()))
 {
-  CHECK(IsLittleEndian(), ("Only little-endian architectures are supported."));
-
   // Editor should be initialized from the main thread to set its ThreadChecker.
   // However, search calls editor upon initialization thus setting the lazy editor's ThreadChecker
   // to a wrong thread. So editor should be initialiazed before serach.
@@ -336,7 +332,7 @@ Framework::Framework(FrameworkParams const & params)
   LOG(LDEBUG, ("Country info getter initialized"));
 
   InitSearchAPI(params.m_numSearchAPIThreads);
-  LOG(LDEBUG, ("Search API initialized"));
+  LOG(LDEBUG, ("Search API initialized, part 1"));
 
   m_bmManager = make_unique<BookmarkManager>(BookmarkManager::Callbacks(
       [this]() -> StringsBundle const & { return m_stringsBundle; },
@@ -349,7 +345,6 @@ Framework::Framework(FrameworkParams const & params)
 
   m_bmManager->InitRegionAddressGetter(m_featuresFetcher.GetDataSource(), *m_infoGetter);
 
-  m_parsedMapApi.SetBookmarkManager(m_bmManager.get());
   m_routingManager.SetBookmarkManager(m_bmManager.get());
   m_searchMarks.SetBookmarkManager(m_bmManager.get());
 
@@ -361,29 +356,15 @@ Framework::Framework(FrameworkParams const & params)
 
   m_storage.SetDownloadingPolicy(&m_storageDownloadingPolicy);
   m_storage.SetStartDownloadingCallback([this]() { UpdatePlacePageInfoForCurrentSelection(); });
-  LOG(LDEBUG, ("Storage initialized"));
-
-  RegisterAllMaps();
-  LOG(LDEBUG, ("Maps initialized"));
-
-  // Perform real initialization after World was loaded.
-  GetSearchAPI().InitAfterWorldLoaded();
 
   m_routingManager.SetRouterImpl(RouterType::Vehicle);
 
   UpdateMinBuildingsTapZoom();
 
-  LOG(LDEBUG, ("Routing engine initialized"));
-
   LOG(LINFO, ("System languages:", languages::GetPreferred()));
 
   editor.SetDelegate(make_unique<search::EditorDelegate>(m_featuresFetcher.GetDataSource()));
   editor.SetInvalidateFn([this](){ InvalidateRect(GetCurrentViewport()); });
-  editor.LoadEdits();
-
-  m_featuresFetcher.GetDataSource().AddObserver(editor);
-
-  LOG(LDEBUG, ("Editor initialized"));
 
   m_trafficManager.SetCurrentDataVersion(m_storage.GetCurrentDataVersion());
   m_trafficManager.SetSimplifiedColorScheme(LoadTrafficSimplifiedColors());
@@ -394,8 +375,12 @@ Framework::Framework(FrameworkParams const & params)
   InitTransliteration();
   LOG(LDEBUG, ("Transliterators initialized"));
 
+  /// @todo No any real config loading here for now.
   GetPowerManager().Subscribe(this);
   GetPowerManager().Load();
+
+  if (loadMaps)
+    LoadMapsSync();
 }
 
 Framework::~Framework()
@@ -506,12 +491,50 @@ bool Framework::HasUnsavedEdits(storage::CountryId const & countryId)
   return hasUnsavedChanges;
 }
 
+// Small copy-paste with LoadMapsAsync, but I don't have a better solution.
+void Framework::LoadMapsSync()
+{
+  RegisterAllMaps();
+  LOG(LDEBUG, ("Maps initialized"));
+
+  GetSearchAPI().InitAfterWorldLoaded();
+  LOG(LDEBUG, ("Search API initialized, part 2, after World was loaded"));
+
+  osm::Editor & editor = osm::Editor::Instance();
+  editor.LoadEdits();
+  m_featuresFetcher.GetDataSource().AddObserver(editor);
+  LOG(LDEBUG, ("Editor initialized"));
+
+  GetStorage().RestoreDownloadQueue();
+}
+
+// Small copy-paste with LoadMapsSync, but I don't have a better solution.
+void Framework::LoadMapsAsync(std::function<void()> && callback)
+{
+  osm::Editor & editor = osm::Editor::Instance();
+  threads::SimpleThread([this, &editor, callback = std::move(callback)]()
+  {
+    RegisterAllMaps();
+    LOG(LDEBUG, ("Maps initialized"));
+
+    GetSearchAPI().InitAfterWorldLoaded();
+    LOG(LDEBUG, ("Search API initialized, part 2, after World was loaded"));
+
+    GetPlatform().RunTask(Platform::Thread::Gui, [this, &editor, callback = std::move(callback)]()
+    {
+      editor.LoadEdits();
+      m_featuresFetcher.GetDataSource().AddObserver(editor);
+      LOG(LDEBUG, ("Editor initialized"));
+
+      GetStorage().RestoreDownloadQueue();
+
+      callback();
+    });
+  }).detach();
+}
+
 void Framework::RegisterAllMaps()
 {
-  ASSERT(!m_storage.IsDownloadInProgress(),
-         ("Registering maps while map downloading leads to removing downloading maps from "
-          "ActiveMapsListener::m_items."));
-
   m_storage.RegisterAllLocalMaps(m_enabledDiffs);
 
   vector<shared_ptr<LocalCountryFile>> maps;
@@ -589,10 +612,13 @@ void Framework::FillTrackInfo(Track const & track, m2::PointD const & trackPoint
   info.SetMercator(trackPoint);
 }
 
-search::ReverseGeocoder::Address Framework::GetAddressAtPoint(m2::PointD const & pt,
-                                                              double distanceThresholdMeters) const
+search::ReverseGeocoder::Address Framework::GetAddressAtPoint(m2::PointD const & pt) const
 {
-  return m_addressGetter.GetAddressAtPoint(m_featuresFetcher.GetDataSource(), pt, distanceThresholdMeters);
+  search::ReverseGeocoder const coder(m_featuresFetcher.GetDataSource());
+  search::ReverseGeocoder::Address addr;
+  /// @todo Call exact address manually here?
+  coder.GetNearbyAddress(pt, 0.5 /* maxDistanceM */, addr, true /* placeAsStreet */);
+  return addr;
 }
 
 void Framework::FillFeatureInfo(FeatureID const & fid, place_page::Info & info) const
@@ -934,11 +960,11 @@ m2::PointD const & Framework::GetViewportCenter() const
   return m_currentModelView.GetOrg();
 }
 
-void Framework::SetViewportCenter(m2::PointD const & pt, int zoomLevel /* = -1 */,
-                                  bool isAnim /* = true */)
+void Framework::SetViewportCenter(m2::PointD const & pt, int zoomLevel /* = -1 */, bool isAnim /* = true */,
+                                  bool trackVisibleViewport /* = false */)
 {
   if (m_drapeEngine != nullptr)
-    m_drapeEngine->SetModelViewCenter(pt, zoomLevel, isAnim, false /* trackVisibleViewport */);
+    m_drapeEngine->SetModelViewCenter(pt, zoomLevel, isAnim, trackVisibleViewport);
 }
 
 m2::RectD Framework::GetCurrentViewport() const
@@ -988,7 +1014,7 @@ void Framework::SetViewportListener(TViewportChangedFn const & fn)
   m_viewportChangedFn = fn;
 }
 
-#if defined(OMIM_OS_MAC) || defined(OMIM_OS_LINUX)
+#if defined(OMIM_OS_DESKTOP)
 void Framework::NotifyGraphicsReady(TGraphicsReadyFn const & fn, bool needInvalidate)
 {
   if (m_drapeEngine != nullptr)
@@ -1049,6 +1075,12 @@ void Framework::Move(double factorX, double factorY, bool isAnim)
 {
   if (m_drapeEngine != nullptr)
     m_drapeEngine->Move(factorX, factorY, isAnim);
+}
+
+void Framework::Scroll(double distanceX, double distanceY)
+{
+  if (m_drapeEngine != nullptr)
+    m_drapeEngine->Scroll(distanceX, distanceY);
 }
 
 void Framework::Rotate(double azimuth, bool isAnim)
@@ -1279,7 +1311,8 @@ void Framework::SelectSearchResult(search::Result const & result, bool animation
   m_currentPlacePageInfo = BuildPlacePageInfo(info);
   if (m_currentPlacePageInfo)
   {
-    if (m_drapeEngine) {
+    if (m_drapeEngine)
+    {
       if (scale < 0)
         scale = GetFeatureViewportScale(m_currentPlacePageInfo->GetTypes());
       m2::PointD const center = m_currentPlacePageInfo->GetMercator();
@@ -1385,11 +1418,7 @@ void Framework::FillSearchResultsMarks(SearchResultsIterT beg, SearchResultsIter
     {
       auto const fID = r.GetFeatureID();
       mark->SetFoundFeature(fID);
-
-      if (r.m_details.m_isHotel)
-        mark->SetHotelType();
-      else
-        mark->SetFromType(r.GetFeatureType());
+      mark->SetFromType(r.GetFeatureType());
       mark->SetVisited(m_searchMarks.IsVisited(fID));
       mark->SetSelected(m_searchMarks.IsSelected(fID));
     }
@@ -1398,7 +1427,7 @@ void Framework::FillSearchResultsMarks(SearchResultsIterT beg, SearchResultsIter
 
 bool Framework::GetDistanceAndAzimut(m2::PointD const & point,
                                      double lat, double lon, double north,
-                                     string & distance, double & azimut)
+                                     platform::Distance & distance, double & azimut)
 {
 #ifdef FIXED_LOCATION
   m_fixedPos.GetLat(lat);
@@ -1409,7 +1438,7 @@ bool Framework::GetDistanceAndAzimut(m2::PointD const & point,
   double const d = ms::DistanceOnEarth(lat, lon, mercator::YToLat(point.y), mercator::XToLon(point.x));
 
   // Distance may be less than 1.0
-  distance = measurement_utils::FormatDistance(d);
+  distance = platform::Distance::CreateFormatted(d);
 
   // We calculate azimuth even when distance is very short (d ~ 0),
   // because return value has 2 states (near me or far from me).
@@ -1485,12 +1514,11 @@ void Framework::CreateDrapeEngine(ref_ptr<dp::GraphicsContextFactory> contextFac
       df::MapDataProvider(std::move(idReadFn), std::move(featureReadFn),
                           std::move(isCountryLoadedByNameFn), std::move(updateCurrentCountryFn)),
       params.m_hints, params.m_visualScale, fontsScaleFactor, std::move(params.m_widgetsInitInfo),
-      std::move(myPositionModeChangedFn), allow3dBuildings,
-      trafficEnabled, isolinesEnabled,
+      std::move(myPositionModeChangedFn), allow3dBuildings, trafficEnabled, isolinesEnabled,
       params.m_isChoosePositionMode, params.m_isChoosePositionMode, GetSelectedFeatureTriangles(),
       m_routingManager.IsRoutingActive() && m_routingManager.IsRoutingFollowing(),
-      isAutozoomEnabled, simplifiedTrafficColors, std::move(overlaysShowStatsFn),
-      std::move(onGraphicsContextInitialized));
+      isAutozoomEnabled, simplifiedTrafficColors, std::nullopt /* arrow3dCustomDecl */,
+      std::move(overlaysShowStatsFn), std::move(onGraphicsContextInitialized));
 
   m_drapeEngine = make_unique_dp<df::DrapeEngine>(std::move(p));
   m_drapeEngine->SetModelViewListener([this](ScreenBase const & screen)
@@ -1723,106 +1751,6 @@ void Framework::SetWidgetLayout(gui::TWidgetsLayoutInfo && layout)
   m_drapeEngine->SetWidgetLayout(std::move(layout));
 }
 
-bool Framework::ShowMapForURL(string const & url)
-{
-  m2::PointD point;
-  double scale = 0;
-  string name;
-  ApiMarkPoint const * apiMark = nullptr;
-
-  enum ResultT { FAILED, NEED_CLICK, NO_NEED_CLICK };
-  ResultT result = FAILED;
-
-  // It's an API request, parsed in parseAndSetApiURL and nativeParseAndSetApiUrl.
-  if (m_parsedMapApi.IsValid())
-  {
-    if (!m_parsedMapApi.GetViewportParams(point, scale))
-    {
-      point = {0, 0};
-      scale = 0;
-    }
-
-    apiMark = m_parsedMapApi.GetSinglePoint();
-    result = apiMark ? NEED_CLICK : NO_NEED_CLICK;
-  }
-  else if (strings::StartsWith(url, "om") || strings::StartsWith(url, "ge0"))
-  {
-    // Note that om scheme is used to encode both API and ge0 links.
-    ge0::Ge0Parser parser;
-    ge0::Ge0Parser::Result parseResult;
-
-    if (parser.Parse(url, parseResult))
-    {
-      point = mercator::FromLatLon(parseResult.m_lat, parseResult.m_lon);
-      scale = parseResult.m_zoomLevel;
-      name = std::move(parseResult.m_name);
-      result = NEED_CLICK;
-    }
-  }
-  else  // Actually, we can parse any geo url scheme with correct coordinates.
-  {
-    geo::GeoURLInfo const info = geo::UnifiedParser().Parse(url);
-    if (info.IsValid())
-    {
-      point = mercator::FromLatLon(info.m_lat, info.m_lon);
-      scale = info.m_zoom;
-      result = NEED_CLICK;
-    }
-  }
-
-  if (result != FAILED)
-  {
-    // Always hide current map selection.
-    DeactivateMapSelection(true /* notifyUI */);
-
-    // Set viewport and stop follow mode.
-    StopLocationFollow();
-
-    // ShowRect function interferes with ActivateMapSelection and we have strange behaviour as a result.
-    // Use more obvious SetModelViewCenter here.
-    if (m_drapeEngine)
-      m_drapeEngine->SetModelViewCenter(point, scale, true, true);
-
-    if (result != NO_NEED_CLICK)
-    {
-      place_page::BuildInfo info;
-      info.m_needAnimationOnSelection = false;
-      if (apiMark != nullptr)
-      {
-        info.m_mercator = apiMark->GetPivot();
-        info.m_userMarkId = apiMark->GetId();
-      }
-      else
-      {
-        info.m_mercator = point;
-      }
-
-      m_currentPlacePageInfo = BuildPlacePageInfo(info);
-      if (!name.empty())
-        m_currentPlacePageInfo->SetCustomName(name);
-      ActivateMapSelection();
-    }
-
-    return true;
-  }
-
-  return false;
-}
-
-url_scheme::ParsedMapApi::ParsingResult Framework::ParseAndSetApiURL(string const & url)
-{
-  using namespace url_scheme;
-
-  // Clear every current API-mark.
-  {
-    auto editSession = GetBookmarkManager().GetEditSession();
-    editSession.ClearGroup(UserMark::Type::API);
-    editSession.SetIsVisible(UserMark::Type::API, true);
-  }
-
-  return m_parsedMapApi.SetUrlAndParse(url);
-}
-
 Framework::ParsedRoutingData Framework::GetParsedRoutingData() const
 {
   return Framework::ParsedRoutingData(m_parsedMapApi.GetRoutePoints(),
@@ -1837,6 +1765,11 @@ url_scheme::SearchRequest Framework::GetParsedSearchRequest() const
 std::string const & Framework::GetParsedAppName() const
 {
   return m_parsedMapApi.GetAppName();
+}
+
+std::string const & Framework::GetParsedBackUrl() const
+{
+  return m_parsedMapApi.GetGlobalBackUrl();
 }
 
 ms::LatLon Framework::GetParsedCenterLatLon() const
@@ -2040,6 +1973,37 @@ void Framework::DeactivateHotelSearchMark()
 void Framework::OnTapEvent(place_page::BuildInfo const & buildInfo)
 {
   auto placePageInfo = BuildPlacePageInfo(buildInfo);
+  bool isRoutePoint = placePageInfo.has_value() && placePageInfo->IsRoutePoint();
+
+  if (m_routingManager.IsRoutingActive()
+      && m_routingManager.GetCurrentRouterType() == routing::RouterType::Ruler
+      && !buildInfo.m_isLongTap
+      && !isRoutePoint)
+  {
+    DeactivateMapSelection(true /* notifyUI */);
+
+    // Continue route to the point
+    RouteMarkData data;
+    data.m_title = placePageInfo ? placePageInfo->GetTitle() : std::string();
+    data.m_subTitle = std::string();
+    data.m_pointType = RouteMarkType::Finish;
+    data.m_intermediateIndex = m_routingManager.GetRoutePointsCount() - 1;
+    data.m_isMyPosition = false;
+
+    if (placePageInfo && placePageInfo->IsBookmark())
+      // Continue route to exact bookmark position.
+      data.m_position = placePageInfo->GetBookmarkData().m_point;
+    else
+      data.m_position = buildInfo.m_mercator;
+
+    m_routingManager.ContinueRouteToPoint(std::move(data));
+
+    // Refresh route
+    m_routingManager.RemoveRoute(false /* deactivateFollowing */);
+    m_routingManager.BuildRoute();
+
+    return;
+  }
 
   if (placePageInfo)
   {
@@ -2435,11 +2399,6 @@ void Framework::Load3dMode(bool & allow3d, bool & allow3dBuildings)
     allow3dBuildings = true;
 }
 
-void Framework::SaveLargeFontsSize(bool isLargeSize)
-{
-  settings::Set(kLargeFontsSize, isLargeSize);
-}
-
 bool Framework::LoadLargeFontsSize()
 {
   bool isLargeSize;
@@ -2450,6 +2409,8 @@ bool Framework::LoadLargeFontsSize()
 
 void Framework::SetLargeFontsSize(bool isLargeSize)
 {
+  settings::Set(kLargeFontsSize, isLargeSize);
+
   double const scaleFactor = isLargeSize ? kLargeFontsScaleFactor : 1.0;
 
   ASSERT(m_drapeEngine.get() != nullptr, ());
@@ -2532,6 +2493,19 @@ void Framework::SaveIsolinesEnabled(bool enabled)
   settings::Set(kIsolinesEnabledKey, enabled);
 }
 
+bool Framework::LoadOutdoorsEnabled()
+{
+  bool enabled;
+  if (!settings::Get(kOutdoorsEnabledKey, enabled))
+    enabled = false;
+  return enabled;
+}
+
+void Framework::SaveOutdoorsEnabled(bool enabled)
+{
+  settings::Set(kOutdoorsEnabledKey, enabled);
+}
+
 void Framework::EnableChoosePositionMode(bool enable, bool enableBounds, bool applyPosition,
                                          m2::PointD const & position)
 {
@@ -2578,15 +2552,25 @@ bool Framework::ParseDrapeDebugCommand(string const & query)
     desiredStyle = MapStyleDark;
   else if (query == "?light" || query == "mapstyle:light")
     desiredStyle = MapStyleClear;
-  else if (query == "?vdark" || query == "mapstyle:vehicle_dark")
-    desiredStyle = MapStyleVehicleDark;
   else if (query == "?vlight" || query == "mapstyle:vehicle_light")
     desiredStyle = MapStyleVehicleClear;
+  else if (query == "?vdark" || query == "mapstyle:vehicle_dark")
+    desiredStyle = MapStyleVehicleDark;
+  else if (query == "?olight" || query == "mapstyle:outdoors_light")
+    desiredStyle = MapStyleOutdoorsClear;
+  else if (query == "?odark" || query == "mapstyle:outdoors_dark")
+    desiredStyle = MapStyleOutdoorsDark;
 
   if (desiredStyle != MapStyleCount)
   {
 #if defined(OMIM_OS_ANDROID)
-    MarkMapStyle(desiredStyle);
+    if (m_drapeEngine->GetApiVersion() == dp::ApiVersion::Vulkan)
+    {
+      // See comment in android/jni/app/organicmaps/Framework.cpp Framework::MarkMapStyle().
+      SetMapStyle(desiredStyle);
+    }
+    else
+      MarkMapStyle(desiredStyle);
 #else
     SetMapStyle(desiredStyle);
 #endif
@@ -2785,8 +2769,7 @@ void SetStreet(search::ReverseGeocoder const & coder, DataSource const & dataSou
 {
   // Get exact feature's street address (if any) from mwm,
   // together with all nearby streets.
-  vector<search::ReverseGeocoder::Street> streets;
-  coder.GetNearbyStreets(ft, streets);
+  auto const streets = coder.GetNearbyStreets(ft);
 
   string street = coder.GetFeatureStreetName(ft);
 
@@ -2871,9 +2854,7 @@ bool Framework::CreateMapObject(m2::PointD const & mercator, uint32_t const feat
     return false;
 
   search::ReverseGeocoder const coder(m_featuresFetcher.GetDataSource());
-  vector<search::ReverseGeocoder::Street> streets;
-
-  coder.GetNearbyStreets(mwmId, mercator, streets);
+  auto const streets = coder.GetNearbyStreets(mwmId, mercator);
   emo.SetNearbyStreets(TakeSomeStreetsAndLocalize(streets, m_featuresFetcher.GetDataSource()));
 
   // TODO(mgsergio): Check emo is a poi. For now it is the only option.
@@ -3209,10 +3190,10 @@ void Framework::FillDescription(FeatureType & ft, place_page::Info & info) const
   auto const deviceLang = StringUtf8Multilang::GetLangIndex(languages::GetCurrentNorm());
   auto const langPriority = feature::GetDescriptionLangPriority(regionData, deviceLang);
 
-  std::string description = m_descriptionsLoader->GetDescription(ft.GetID(), langPriority);
-  if (!description.empty())
+  std::string wikiDescription = m_descriptionsLoader->GetWikiDescription(ft.GetID(), langPriority);
+  if (!wikiDescription.empty())
   {
-    info.SetDescription(std::move(description));
+    info.SetWikiDescription(std::move(wikiDescription));
     info.SetOpeningMode(m_routingManager.IsRoutingActive()
                         ? place_page::OpeningMode::Preview
                         : place_page::OpeningMode::PreviewPlus);

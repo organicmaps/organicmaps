@@ -16,9 +16,29 @@ final class AboutController: MWMViewController, UITableViewDataSource, UITableVi
     df.timeStyle = .none
     return String(format: L("data_version"), df.string(from:mapsDate), mapsVersionInt)
   }
+  
+  private var onDidAppearCompletionHandler: (() -> Void)?
+
+  init(onDidAppearCompletionHandler: (() -> Void)? = nil) {
+    self.onDidAppearCompletionHandler = onDidAppearCompletionHandler
+    super.init(nibName: nil, bundle: nil)
+  }
+
+  @available(*, unavailable)
+  required init?(coder: NSCoder) {
+    fatalError("init(coder:) has not been implemented")
+  }
 
   private func isDonateEnabled() -> Bool {
     return Settings.donateUrl() != nil
+  }
+  
+  override func viewDidAppear(_ animated: Bool) {
+    super.viewDidAppear(animated)
+    if let completionHandler = onDidAppearCompletionHandler {
+      completionHandler()
+      onDidAppearCompletionHandler = nil
+    }
   }
 
   override func loadView() {
@@ -201,7 +221,7 @@ final class AboutController: MWMViewController, UITableViewDataSource, UITableVi
         case 6: self.openUrl("https://facebook.com/OrganicMaps", inSafari: true)
         case 7: self.openUrl("https://twitter.com/OrganicMapsApp", inSafari: true)
         case 8: self.openUrl(L("instagram_url"), inSafari: true)
-        case 9: self.openUrl("https://wiki.openstreetmap.org/wiki/About_OpenStreetMap", inSafari: true)
+        case 9: self.openUrl(L("osm_wiki_about_url"), inSafari: true)
         default: fatalError("Invalid cell1 \(indexPath)")
       }
       // Third section.

@@ -14,13 +14,10 @@ std::shared_ptr<TranslatorInterface> TranslatorCollection::Clone() const
   return p;
 }
 
-void TranslatorCollection::Emit(OsmElement /* const */ & element)
+void TranslatorCollection::Emit(OsmElement const & element)
 {
   for (auto & t : m_collection)
-  {
-    OsmElement copy = element;
-    t->Emit(copy);
-  }
+    t->Emit(element);
 }
 
 void TranslatorCollection::Finish()
@@ -33,8 +30,6 @@ bool TranslatorCollection::Save()
 {
   return base::AllOf(m_collection, [](auto & t) { return t->Save(); });
 }
-
-void TranslatorCollection::Merge(TranslatorInterface const & other) { other.MergeInto(*this); }
 
 void TranslatorCollection::MergeInto(TranslatorCollection & other) const
 {

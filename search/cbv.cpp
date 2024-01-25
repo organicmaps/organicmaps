@@ -19,15 +19,15 @@ CBV const & CBV::GetFull()
   return fullCBV;
 }
 
-CBV::CBV(unique_ptr<coding::CompressedBitVector> p) : m_p(move(p)) {}
+CBV::CBV(unique_ptr<coding::CompressedBitVector> p) : m_p(std::move(p)) {}
 
-CBV::CBV(CBV && cbv) : m_p(move(cbv.m_p)), m_isFull(cbv.m_isFull) { cbv.m_isFull = false; }
+CBV::CBV(CBV && cbv) : m_p(std::move(cbv.m_p)), m_isFull(cbv.m_isFull) { cbv.m_isFull = false; }
 
 CBV::CBV(bool full) : m_isFull(full) {}
 
 CBV & CBV::operator=(unique_ptr<coding::CompressedBitVector> p)
 {
-  m_p = move(p);
+  m_p = std::move(p);
   m_isFull = false;
 
   return *this;
@@ -38,7 +38,7 @@ CBV & CBV::operator=(CBV && rhs)
   if (this == &rhs)
     return *this;
 
-  m_p = move(rhs.m_p);
+  m_p = std::move(rhs.m_p);
   m_isFull = rhs.m_isFull;
 
   rhs.m_isFull = false;
@@ -106,7 +106,7 @@ CBV CBV::Take(uint64_t n) const
       ASSERT(!groups.empty(), ());
       groups.back() = (static_cast<uint64_t>(1) << r) - 1;
     }
-    return CBV(coding::DenseCBV::BuildFromBitGroups(move(groups)));
+    return CBV(coding::DenseCBV::BuildFromBitGroups(std::move(groups)));
   }
 
   return CBV(m_p->LeaveFirstSetNBits(n));

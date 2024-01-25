@@ -196,7 +196,9 @@ void GLProgramParamsSetter::Apply(ref_ptr<dp::GraphicsContext> context,
   UniformsGuard guard(program, params);
 
   Parameter::CheckApply(guard, "u_transform", params.m_transform);
+  Parameter::CheckApply(guard, "u_normalTransform", params.m_normalTransform);
   Parameter::CheckApply(guard, "u_color", params.m_color);
+  Parameter::CheckApply(guard, "u_texCoordFlipping", params.m_texCoordFlipping);
 }
 
 void GLProgramParamsSetter::Apply(ref_ptr<dp::GraphicsContext> context,

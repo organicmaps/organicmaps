@@ -27,20 +27,6 @@ static bool g_isInited = false;
 #define ASSERT_INITED
 #endif
 
-double const VisualParams::kMdpiScale = 1.0;
-double const VisualParams::kHdpiScale = 1.5;
-double const VisualParams::kXhdpiScale = 2.0;
-double const VisualParams::k6plusScale = 2.4;
-double const VisualParams::kXxhdpiScale = 3.0;
-double const VisualParams::kXxxhdpiScale = 3.5;
-
-VisualParams::VisualParams()
-  : m_tileSize(0)
-  , m_visualScale(0.0)
-  , m_poiExtendScale(0.1) // found empirically
-  , m_fontScale(1.0)
-{}
-
 VisualParams & VisualParams::Instance()
 {
   static VisualParams vizParams;
@@ -49,11 +35,11 @@ VisualParams & VisualParams::Instance()
 
 void VisualParams::Init(double vs, uint32_t tileSize)
 {
+  ASSERT_LESS_OR_EQUAL(vs, kMaxVisualScale, ());
+
   VisualParams & vizParams = Instance();
   vizParams.m_tileSize = tileSize;
   vizParams.m_visualScale = vs;
-
-  LOG(LINFO, ("Visual scale =", vs, "; Tile size =", tileSize));
 
   // Here we set up glyphs rendering parameters separately for high-res and low-res screens.
   if (vs <= 1.0)
@@ -62,6 +48,8 @@ void VisualParams::Init(double vs, uint32_t tileSize)
     vizParams.m_glyphVisualParams = { 0.5f, 0.06f, 0.2f, 0.01f, 0.49f, 0.04f };
 
   RISE_INITED;
+
+  LOG(LINFO, ("Visual scale =", vs, "; Tile size =", tileSize, "; Resources =", GetResourcePostfix(vs)));
 }
 
 uint32_t VisualParams::GetGlyphSdfScale() const
@@ -91,12 +79,13 @@ double VisualParams::GetFontScale() const
 void VisualParams::SetFontScale(double fontScale)
 {
   ASSERT_INITED;
-  m_fontScale = fontScale;
+  m_fontScale = base::Clamp(fontScale, 0.5, 2.0);
 }
 
 void VisualParams::SetVisualScale(double visualScale)
 {
   ASSERT_INITED;
+  ASSERT_LESS_OR_EQUAL(visualScale, kMaxVisualScale, ());
   m_visualScale = visualScale;
 
   LOG(LINFO, ("Visual scale =", visualScale));
@@ -107,7 +96,9 @@ std::string const & VisualParams::GetResourcePostfix(double visualScale)
   ASSERT_INITED;
   static VisualScale postfixes[] =
   {
+    /// @todo Not used in mobile because of minimal visual scale (@see visual_scale.hpp)
     {"mdpi", kMdpiScale},
+
     {"hdpi", kHdpiScale},
     {"xhdpi", kXhdpiScale},
     {"6plus", k6plusScale},
@@ -183,10 +174,9 @@ VisualParams::GlyphVisualParams const & VisualParams::GetGlyphVisualParams() con
   return m_glyphVisualParams;
 }
 
-m2::RectD const & GetWorldRect()
+m2::RectD GetWorldRect()
 {
-  static m2::RectD const worldRect = mercator::Bounds::FullRect();
-  return worldRect;
+  return mercator::Bounds::FullRect();
 }
 
 int GetTileScaleBase(ScreenBase const & s, uint32_t tileSize)
@@ -213,6 +203,7 @@ int GetTileScaleBase(ScreenBase const & s)
 int GetTileScaleBase(m2::RectD const & r)
 {
   double const sz = std::max(r.SizeX(), r.SizeY());
+  ASSERT_GREATER(sz, 0., ("Rect should not be a point:", r));
   return std::max(1, base::SignedRound(std::log2(mercator::Bounds::kRangeX / sz)));
 }
 

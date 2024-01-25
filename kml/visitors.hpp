@@ -287,6 +287,11 @@ public:
     WriteVarUint(m_sink, ToSecondsSinceEpoch(t));
   }
 
+  void operator()(TimestampMillis const & t, char const * /* name */ = nullptr)
+  {
+    WriteVarUint(m_sink, ToSecondsSinceEpoch(t) * 1000);
+  }
+
   void operator()(double d, char const * /* name */ = nullptr)
   {
     auto const encoded = DoubleToUint32(d, kMinRating, kMaxRating, m_doubleBits);
@@ -374,9 +379,14 @@ public:
     WriteVarUint(m_sink, encoded);
   }
 
-  void operator()(Timestamp const & t, char const * name = nullptr)
+  void operator()(Timestamp const & t, char const * /* name */ = nullptr)
   {
     WriteVarUint(m_sink, ToSecondsSinceEpoch(t));
+  }
+
+  void operator()(TimestampMillis const & t, char const * /* name */ = nullptr)
+  {
+    WriteVarUint(m_sink, ToSecondsSinceEpoch(t) * 1000);
   }
 
   void operator()(PredefinedColor color, char const * /* name */ = nullptr)
@@ -493,6 +503,12 @@ public:
     t = FromSecondsSinceEpoch(v);
   }
 
+  void operator()(TimestampMillis & t, char const * /* name */ = nullptr)
+  {
+    auto const v = ReadVarUint<uint64_t, Source>(m_source);
+    t = FromSecondsSinceEpoch(v / 1000);
+  }
+
   void operator()(double & d, char const * /* name */ = nullptr)
   {
     auto const v = ReadVarUint<uint32_t, Source>(m_source);
@@ -588,6 +604,12 @@ public:
   {
     auto const v = ReadVarUint<uint64_t, Source>(m_source);
     t = FromSecondsSinceEpoch(v);
+  }
+
+  void operator()(TimestampMillis & t, char const * /* name */ = nullptr)
+  {
+    auto const v = ReadVarUint<uint64_t, Source>(m_source);
+    t = FromSecondsSinceEpoch(v / 1000);
   }
 
   void operator()(PredefinedColor & color, char const * /* name */ = nullptr)

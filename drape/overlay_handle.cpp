@@ -1,8 +1,9 @@
 #include "drape/overlay_handle.hpp"
 
 #include "base/macros.hpp"
-
 #include "base/internal/message.hpp"
+
+#include "indexer/drawing_rule_def.hpp"
 
 #include <algorithm>
 #include <sstream>
@@ -218,42 +219,25 @@ bool SquareHandle::IsBound() const { return m_isBound; }
 std::string SquareHandle::GetOverlayDebugInfo()
 {
   std::ostringstream out;
-  out << "POI Priority(" << std::hex << std::setw(16) << std::setfill('0') << GetPriority();
-  auto const mask = GetPriorityMask();
-  if (mask != dp::kPriorityMaskAll)
-    out << " mask " << std::setw(16) << mask;
-  out << ") " << std::dec << DebugPrint(GetOverlayID());
+  out << "POI Priority(" << std::hex << std::setw(16) << std::setfill('0') << GetPriority()
+      << ") " << std::dec << DebugPrint(GetOverlayID());
   return out.str();
 }
 #endif
 
-/// @param[in] minZoomLevel Minimum visible zoom level (less is better)
 /// @param[in] rank         Rank of the feature (bigger is better)
 /// @param[in] depth        Manual priority from styles (bigger is better)
-uint64_t CalculateOverlayPriority(int minZoomLevel, uint8_t rank, float depth)
+uint64_t CalculateOverlayPriority(uint8_t rank, float depth)
 {
-  ASSERT(0 <= depth && depth <= 100000, (depth));
-
-  // Even if minZoomLevel < 0 (-1 is not visible), we will get more consistent |minZoom| value (less is worse).
-  ASSERT_GREATER_OR_EQUAL(minZoomLevel, 0, ());
-  uint8_t const minZoom = 0xFF - static_cast<uint8_t>(minZoomLevel);
+  // Negative range is used for optional captions which are below all other overlays.
+  ASSERT(-drule::kOverlaysMaxPriority <= depth && depth < drule::kOverlaysMaxPriority, (depth));
+  depth += drule::kOverlaysMaxPriority;
 
   // Pack into uint64_t priority value (bigger is better).
-  // [1 byte - zoom][4 bytes - priority][1 byte - rank][2 bytes - 0xFFFF].
-  return (static_cast<uint64_t>(minZoom) << 56) |
-         (static_cast<uint64_t>(depth) << 24) |
+  // [1 byte - 0xFF][4 bytes - priority][1 byte - rank][2 bytes - 0xFFFF].
+  return (static_cast<uint64_t>(depth) << 24) |
          (static_cast<uint64_t>(rank) << 16) |
-         static_cast<uint64_t>(0xFFFF);
-}
-
-uint64_t CalculateSpecialModePriority(uint16_t specialPriority)
-{
-  // [5 bytes - 0xFFFFFFFFFF][1 byte - 0x00][2 bytes - special priority]
-  static uint64_t constexpr kMask = ~static_cast<uint64_t>(0xFFFFFF);
-  uint64_t priority = dp::kPriorityMaskAll;
-  priority &= kMask;
-  priority |= specialPriority;
-  return priority;
+         dp::kPriorityMaskZoomLevel;
 }
 
 uint64_t CalculateSpecialModeUserMarkPriority(uint16_t specialPriority)

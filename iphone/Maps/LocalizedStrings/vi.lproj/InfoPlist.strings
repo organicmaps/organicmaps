@@ -10,7 +10,7 @@
 "search" = "Tìm kiếm";
 
 /* Used in home screen quick actions. */
-"bookmarks" = "Đánh dấu";
+"bookmarks_and_tracks" = "Đánh dấu và dấu vết";
 
 /* Used in home screen quick actions. */
 "route" = "Tuyến đường";

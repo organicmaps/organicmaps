@@ -1,6 +1,9 @@
 name: iOS Check
 on:
   workflow_dispatch: # Manual trigger
+  push:
+    branches:
+      - master
   pull_request:
     paths-ignore:
       - .gitignore
@@ -18,6 +21,11 @@ on:
       - generator/**
       - iphone/metadata/**
       - packaging/**
+      - platform/*_android*
+      - platform/*_linux* 
+      - platform/*_mac* 
+      - platform/*qt* 
+      - platform/*_win* 
       - pyhelpers/**
       - qt*/**
       - skin_generator/**
@@ -27,8 +35,9 @@ on:
 jobs:
   ios-check:
     name: Build iOS
-    runs-on: macos-12
+    runs-on: macos-13
     env:
+      DEVELOPER_DIR: /Applications/Xcode_15.0.1.app/Contents/Developer
       LANG: en_US.UTF-8  # Fastlane complains that the terminal is using ASCII.
       LANGUAGE: en_US.UTF-8
       LC_ALL: en_US.UTF-8
@@ -36,9 +45,14 @@ jobs:
       fail-fast: false
       matrix:
         buildType: [Debug, Release]
+    # Cancels previous jobs if the same branch or PR was updated again.
+    concurrency:
+      group: ${{ github.workflow }}-${{ matrix.buildType }}-${{ github.event.pull_request.number || github.ref }}
+      cancel-in-progress: true
+
     steps:
       - name: Checkout sources
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
 
       - name: Parallel submodules checkout
         shell: bash
@@ -48,11 +62,17 @@ jobs:
         shell: bash
         run: ./configure.sh
 
+      - name: Configure ccache
+        uses: mikehardy/buildcache-action@v2.1.0
+        with:
+          cache_key: ${{ github.workflow }}-${{ matrix.buildType }}
+
       - name: Compile
         shell: bash
         # Check for compilation errors.
         run: |
           xcodebuild \
+            CC=clang CPLUSPLUS=clang++ LD=clang LDPLUSPLUS=clang++ \
             -workspace xcode/omim.xcworkspace \
             -scheme OMaps \
             -configuration ${{ matrix.buildType }} build \

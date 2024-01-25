@@ -97,6 +97,7 @@ UNIT_TEST(Url_Decode)
   TEST_EQUAL(UrlDecode(enc2), orig2, ());
   TEST_EQUAL(UrlDecode(enc3), orig3, ());
   TEST_EQUAL(UrlDecode(enc4), orig4, ());
+  TEST_EQUAL(UrlDecode("123+Main+St,+Seattle,+WA+98101"), "123 Main St, Seattle, WA 98101", ());
 }
 
 UNIT_TEST(Url_Invalid)

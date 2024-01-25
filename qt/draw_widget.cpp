@@ -36,7 +36,6 @@
 #include <QtGui/QGuiApplication>
 #include <QtGui/QMouseEvent>
 #include <QtWidgets/QApplication>
-#include <QtWidgets/QDesktopWidget>
 #include <QtWidgets/QDialogButtonBox>
 #include <QtWidgets/QMenu>
 
@@ -79,14 +78,14 @@ void DrawMwmBorder(df::DrapeApi & drapeApi, std::string const & mwmName,
 }
 }  // namespace
 
-DrawWidget::DrawWidget(Framework & framework, bool apiOpenGLES3, std::unique_ptr<ScreenshotParams> && screenshotParams,
+DrawWidget::DrawWidget(Framework & framework, std::unique_ptr<ScreenshotParams> && screenshotParams,
                        QWidget * parent)
-  : TBase(framework, apiOpenGLES3, screenshotParams != nullptr, parent)
+  : TBase(framework, screenshotParams != nullptr, parent)
   , m_rubberBand(nullptr)
   , m_emulatingLocation(false)
 {
-  qApp->installEventFilter(this);
   setFocusPolicy(Qt::StrongFocus);
+
   m_framework.SetPlacePageListeners([this]() { ShowPlacePage(); },
                                     {} /* onClose */, {} /* onUpdate */);
 
@@ -102,16 +101,25 @@ DrawWidget::DrawWidget(Framework & framework, bool apiOpenGLES3, std::unique_ptr
         if (RoutingSettings::TurnsEnabled())
           m_turnsVisualizer.Visualize(routingManager, drapeApi);
 
-        RoutingManager::DistanceAltitude da;
-        if (!routingManager.GetRouteAltitudesAndDistancesM(da))
-          return;
+        auto const routerType = routingManager.GetLastUsedRouter();
+        if (routerType == routing::RouterType::Pedestrian || routerType == routing::RouterType::Bicycle)
+        {
+          RoutingManager::DistanceAltitude da;
+          if (!routingManager.GetRouteAltitudesAndDistancesM(da))
+            return;
 
-        da.Simplify();
-        LOG(LDEBUG, ("Altitudes:", da));
+          for (int iter = 0; iter < 2; ++iter)
+          {
+            LOG(LINFO, ("Altitudes", iter == 0 ? "before" : "after", "simplify:"));
+            LOG_SHORT(LDEBUG, (da));
 
-        uint32_t totalAscent, totalDescent;
-        da.CalculateAscentDescent(totalAscent, totalDescent);
-        LOG(LINFO, ("Ascent:", totalAscent, "Descent:", totalDescent));
+            uint32_t totalAscent, totalDescent;
+            da.CalculateAscentDescent(totalAscent, totalDescent);
+            LOG_SHORT(LINFO, ("Ascent:", totalAscent, "Descent:", totalDescent));
+
+            da.Simplify();
+          }
+        }
       });
 
   routingManager.SetRouteRecommendationListener(
@@ -426,7 +434,7 @@ void DrawWidget::keyReleaseEvent(QKeyEvent * e)
 
 std::string DrawWidget::GetDistance(search::Result const & res) const
 {
-  std::string dist;
+  platform::Distance dist;
   if (auto const position = m_framework.GetCurrentPosition())
   {
     auto const ll = mercator::ToLatLon(*position);
@@ -434,7 +442,7 @@ std::string DrawWidget::GetDistance(search::Result const & res) const
     (void)m_framework.GetDistanceAndAzimut(res.GetFeatureCenter(), ll.m_lat, ll.m_lon, -1.0, dist,
                                            dummy);
   }
-  return dist;
+  return dist.ToString();
 }
 
 void DrawWidget::CreateFeature()
@@ -491,9 +499,9 @@ void DrawWidget::SubmitFakeLocationPoint(m2::PointD const & pt)
     routingManager.GetRouteFollowingInfo(loc);
     if (routingManager.GetCurrentRouterType() == routing::RouterType::Pedestrian)
     {
-      LOG(LDEBUG, ("Distance:", loc.m_distToTarget + loc.m_targetUnitsSuffix, "Time:", loc.m_time,
+      LOG(LDEBUG, ("Distance:", loc.m_distToTarget, "Time:", loc.m_time,
                    DebugPrint(loc.m_pedestrianTurn),
-                   "in", loc.m_distToTurn + loc.m_turnUnitsSuffix,
+                   "in", loc.m_distToTurn.ToString(),
                    loc.m_targetName.empty() ? "" : "to " + loc.m_targetName ));
     }
     else
@@ -502,9 +510,9 @@ void DrawWidget::SubmitFakeLocationPoint(m2::PointD const & pt)
       if (loc.m_speedLimitMps > 0)
         speed = "SpeedLimit: " + measurement_utils::FormatSpeedNumeric(loc.m_speedLimitMps, measurement_utils::Units::Metric);
 
-      LOG(LDEBUG, ("Distance:", loc.m_distToTarget + loc.m_targetUnitsSuffix, "Time:", loc.m_time, speed,
+      LOG(LDEBUG, ("Distance:", loc.m_distToTarget, "Time:", loc.m_time, speed,
                    GetTurnString(loc.m_turn), (loc.m_exitNum != 0 ? ":" + std::to_string(loc.m_exitNum) : ""),
-                   "in", loc.m_distToTurn + loc.m_turnUnitsSuffix,
+                   "in", loc.m_distToTurn.ToString(),
                    loc.m_targetName.empty() ? "" : "to " + loc.m_targetName ));
     }
   }
@@ -667,11 +675,6 @@ void DrawWidget::ShowPlacePage()
   m_framework.DeactivateMapSelection(false);
 }
 
-void DrawWidget::SetRouter(routing::RouterType routerType)
-{
-  m_framework.GetRoutingManager().SetRouter(routerType);
-}
-
 void DrawWidget::SetRuler(bool enabled)
 {
   if (!enabled)
@@ -680,35 +683,6 @@ void DrawWidget::SetRuler(bool enabled)
 }
 
 // static
-void DrawWidget::SetDefaultSurfaceFormat(bool apiOpenGLES3)
-{
-  QSurfaceFormat fmt;
-  fmt.setAlphaBufferSize(8);
-  fmt.setBlueBufferSize(8);
-  fmt.setGreenBufferSize(8);
-  fmt.setRedBufferSize(8);
-  fmt.setStencilBufferSize(0);
-  fmt.setSamples(0);
-  fmt.setSwapBehavior(QSurfaceFormat::DoubleBuffer);
-  fmt.setSwapInterval(1);
-  fmt.setDepthBufferSize(16);
-#ifdef ENABLE_OPENGL_DIAGNOSTICS
-  fmt.setOption(QSurfaceFormat::DebugContext);
-#endif
-  if (apiOpenGLES3)
-  {
-    fmt.setProfile(QSurfaceFormat::CoreProfile);
-    fmt.setVersion(3, 2);
-  }
-  else
-  {
-    fmt.setProfile(QSurfaceFormat::CompatibilityProfile);
-    fmt.setVersion(2, 1);
-  }
-  //fmt.setOption(QSurfaceFormat::DebugContext);
-  QSurfaceFormat::setDefaultFormat(fmt);
-}
-
 void DrawWidget::RefreshDrawingRules()
 {
   SetMapStyle(MapStyleClear);

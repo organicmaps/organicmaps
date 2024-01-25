@@ -117,17 +117,10 @@ bool TestMwmBuilder::Add(FeatureBuilder & fb)
     CHECK(strings::to_uint(metadata.Get(Metadata::FMD_TEST_ID), testId), ());
     m_boundariesTable.Append(testId, indexer::CityBoundary(fb.GetOuterGeometry()));
 
-    auto const center = fb.GetGeometryCenter();
-    fb.SetCenter(center);
+    fb.SetCenter(fb.GetGeometryCenter());
   }
 
-  if (!fb.PreSerializeAndRemoveUselessNamesForIntermediate())
-  {
-    LOG(LWARNING, ("Can't pre-serialize feature."));
-    return false;
-  }
-
-  if (!fb.RemoveInvalidTypes())
+  if (!fb.RemoveInvalidTypes() || !fb.PreSerializeAndRemoveUselessNamesForIntermediate())
   {
     LOG(LWARNING, ("No types."));
     return false;
@@ -186,7 +179,7 @@ void TestMwmBuilder::Finish()
           ("Can't build postcodes section."));
   }
 
-  UNUSED_VALUE(base::DeleteFileX(path + TEMP_ADDR_FILENAME));
+  UNUSED_VALUE(base::DeleteFileX(path + TEMP_ADDR_EXTENSION));
 
   if (m_type == DataHeader::MapType::World)
   {

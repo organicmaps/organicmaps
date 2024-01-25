@@ -1,5 +1,7 @@
-#include "search/search_quality/assessment_tool/main_model.hpp"
-#include "search/search_quality/assessment_tool/main_view.hpp"
+#include "main_model.hpp"
+#include "main_view.hpp"
+
+#include "qt/qt_common/helpers.hpp"
 
 #include "map/framework.hpp"
 
@@ -9,10 +11,9 @@
 
 #include "platform/platform.hpp"
 
-#include <QtGui/QScreen>
 #include <QtWidgets/QApplication>
 
-#include "gflags/gflags.h"
+#include <gflags/gflags.h>
 
 DEFINE_string(resources_path, "", "Path to resources directory");
 DEFINE_string(data_path, "", "Path to data directory");
@@ -34,8 +35,8 @@ int main(int argc, char ** argv)
 
   Q_INIT_RESOURCE(resources_common);
   QApplication app(argc, argv);
-  // Pretty icons on HDPI displays.
-  QApplication::setAttribute(Qt::AA_UseHighDpiPixmaps);
+
+  qt::common::SetDefaultSurfaceFormat(app.platformName());
 
   FrameworkParams params;
   CHECK_GREATER(FLAGS_num_threads, 0, ());

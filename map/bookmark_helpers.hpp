@@ -65,15 +65,17 @@ enum class BookmarkBaseType : uint16_t
   Count
 };
 
-extern std::string const kKmzExtension;
-extern std::string const kKmlExtension;
-extern std::string const kKmbExtension;
+std::string_view constexpr kKmzExtension = ".kmz";
+std::string_view constexpr kKmlExtension = ".kml";
+std::string_view constexpr kKmbExtension = ".kmb";
+std::string_view constexpr kGpxExtension = ".gpx";
 extern std::string const kDefaultBookmarksFileName;
 
 enum class KmlFileType
 {
   Text,
-  Binary
+  Binary,
+  Gpx
 };
 
 inline std::string DebugPrint(KmlFileType fileType)
@@ -82,6 +84,7 @@ inline std::string DebugPrint(KmlFileType fileType)
   {
   case KmlFileType::Text: return "Text";
   case KmlFileType::Binary: return "Binary";
+  case KmlFileType::Gpx: return "GPX";
   }
   UNREACHABLE();
 }
@@ -90,8 +93,9 @@ inline std::string DebugPrint(KmlFileType fileType)
 /// @{
 std::string GetBookmarksDirectory();
 std::string RemoveInvalidSymbols(std::string const & name);
-std::string GenerateUniqueFileName(const std::string & path, std::string name, std::string const & ext = kKmlExtension);
+std::string GenerateUniqueFileName(const std::string & path, std::string name, std::string_view ext = kKmlExtension);
 std::string GenerateValidAndUniqueFilePathForKML(std::string const & fileName);
+std::string GenerateValidAndUniqueFilePathForGPX(std::string const & fileName);
 /// @}
 
 /// @name SerDes helpers.
@@ -99,7 +103,12 @@ std::string GenerateValidAndUniqueFilePathForKML(std::string const & fileName);
 std::unique_ptr<kml::FileData> LoadKmlFile(std::string const & file, KmlFileType fileType);
 std::unique_ptr<kml::FileData> LoadKmlData(Reader const & reader, KmlFileType fileType);
 
-std::string GetKMLPath(std::string const & filePath);
+std::vector<std::string> GetKMLOrGPXFilesPathsToLoad(std::string const & filePath);
+std::vector<std::string> GetFilePathsToLoadFromKml(std::string const & filePath);
+std::vector<std::string> GetFilePathsToLoadFromGpx(std::string const & filePath);
+std::vector<std::string> GetFilePathsToLoadFromKmb(std::string const & filePath);
+std::vector<std::string> GetFilePathsToLoadFromKmz(std::string const & filePath);
+std::string GetLowercaseFileExt(std::string const & filePath);
 
 bool SaveKmlFileSafe(kml::FileData & kmlData, std::string const & file, KmlFileType fileType);
 bool SaveKmlData(kml::FileData & kmlData, Writer & writer, KmlFileType fileType);

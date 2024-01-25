@@ -1,6 +1,7 @@
 #include "testing/testing.hpp"
 
 #include "base/clustering_map.hpp"
+#include "base/internal/message.hpp"
 
 #include <algorithm>
 #include <sstream>
@@ -50,8 +51,8 @@ public:
     {
       ostringstream os;
       os << "Cluster [";
-      os << "keys: " << DebugPrint(cluster.m_keys) << ", ";
-      os << "values: " << DebugPrint(cluster.m_values);
+      os << "keys: " << ::DebugPrint(cluster.m_keys) << ", ";
+      os << "values: " << ::DebugPrint(cluster.m_values);
       os << "]";
       return os.str();
     }
@@ -63,7 +64,7 @@ public:
   template <typename V>
   void Append(Key const & key, V && value)
   {
-    m_m.Append(key, forward<V>(value));
+    m_m.Append(key, std::forward<V>(value));
   }
 
   void Union(Key const & u, Key const & v) { m_m.Union(u, v); }

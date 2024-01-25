@@ -26,7 +26,6 @@
 #include <QtGui/QIntValidator>
 #include <QtGui/QKeySequence>
 #include <QtWidgets/QApplication>
-#include <QtWidgets/QDesktopWidget>
 #include <QtWidgets/QDialog>
 #include <QtWidgets/QDialogButtonBox>
 #include <QtWidgets/QDockWidget>
@@ -286,7 +285,7 @@ void MainView::InitMenuBar()
 
   {
     m_initiateBackgroundSearch = new QAction(tr("Initiate background search"), this /* parent */);
-    m_initiateBackgroundSearch->setShortcut(Qt::CTRL | Qt::Key_I);
+    m_initiateBackgroundSearch->setShortcut(static_cast<int>(Qt::CTRL) | static_cast<int>(Qt::Key_I));
     m_initiateBackgroundSearch->setStatusTip(
         tr("Search in the background for the queries from a selected range"));
     m_initiateBackgroundSearch->setEnabled(false);
@@ -325,7 +324,7 @@ void MainView::InitMapWidget()
   widget->setLayout(layout);
 
   {
-    auto * mapWidget = new qt::common::MapWidget(m_framework, false /* apiOpenGLES3 */,
+    auto * mapWidget = new qt::common::MapWidget(m_framework,
                                                  false /* screenshotMode */, widget /* parent */);
     connect(mapWidget, &qt::common::MapWidget::OnContextMenuRequested,
             [this](QPoint const & p) { AddSelectedFeature(p); });

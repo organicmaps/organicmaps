@@ -66,7 +66,6 @@ char const * UserEventStream::DOUBLE_TAP_AND_HOLD = "DoubleTapAndHold";
 char const * UserEventStream::END_DOUBLE_TAP_AND_HOLD = "EndDoubleTapAndHold";
 #endif
 
-uint8_t constexpr TouchEvent::INVALID_MASKED_POINTER = 0xFF;
 
 void TouchEvent::SetFirstTouch(const Touch & touch)
 {
@@ -128,6 +127,17 @@ void TouchEvent::Swap()
   SetFirstMaskedPointer(swapIndex(GetFirstMaskedPointer()));
   SetSecondMaskedPointer(swapIndex(GetSecondMaskedPointer()));
 }
+
+std::string DebugPrint(Touch const & t)
+{
+  return DebugPrint(t.m_location) + "; " + std::to_string(t.m_id) + "; " + std::to_string(t.m_force);
+}
+
+std::string DebugPrint(TouchEvent const & e)
+{
+  return std::to_string(e.m_type) + "; { " + DebugPrint(e.m_touches[0]) + " }";
+}
+
 
 UserEventStream::UserEventStream()
   : m_state(STATE_EMPTY)
@@ -251,6 +261,13 @@ ScreenBase const & UserEventStream::ProcessEvents(bool & modelViewChanged, bool 
         breakAnim = OnNewVisibleViewport(viewportEvent);
       }
       break;
+    case UserEvent::EventType::Scroll:
+      {
+        ref_ptr<ScrollEvent> scrollEvent = make_ref(e);
+        breakAnim = OnScroll(scrollEvent);
+        TouchCancel(m_touches);
+      }
+      break;
 
     default:
       ASSERT(false, ());
@@ -350,7 +367,7 @@ bool UserEventStream::OnSetScale(ref_ptr<ScaleEvent> scaleEvent)
         m_listener->OnAnimatedScaleEnded();
     });
 
-    m_animationSystem.CombineAnimation(move(anim));
+    m_animationSystem.CombineAnimation(std::move(anim));
     return false;
   }
 
@@ -457,6 +474,23 @@ bool UserEventStream::OnNewVisibleViewport(ref_ptr<SetVisibleViewportEvent> view
   return false;
 }
 
+bool UserEventStream::OnScroll(ref_ptr<ScrollEvent> scrollEvent)
+{
+  double const distanceX = scrollEvent->GetDistanceX();
+  double const distanceY = scrollEvent->GetDistanceY();
+
+  ScreenBase screen;
+  GetTargetScreen(screen);
+  screen.Move(-distanceX, -distanceY);
+
+  ShrinkAndScaleInto(screen, df::GetWorldRect());
+
+  if (m_listener)
+    m_listener->OnScrolled({-distanceX, -distanceY});
+
+  return SetScreen(screen, false);
+}
+
 bool UserEventStream::SetAngle(double azimuth, bool isAnim, TAnimationCreator const & parallelAnimCreator)
 {
   ScreenBase screen;
@@ -534,12 +568,12 @@ bool UserEventStream::SetScreen(ScreenBase const & endScreen, bool isAnim,
         drape_ptr<ParallelAnimation> parallelAnim = make_unique_dp<ParallelAnimation>();
         parallelAnim->SetCustomType(kParallelLinearAnim);
         parallelAnim->AddAnimation(parallelAnimCreator(nullptr /* syncAnim */));
-        parallelAnim->AddAnimation(move(anim));
-        m_animationSystem.CombineAnimation(move(parallelAnim));
+        parallelAnim->AddAnimation(std::move(anim));
+        m_animationSystem.CombineAnimation(std::move(parallelAnim));
       }
       else
       {
-        m_animationSystem.CombineAnimation(move(anim));
+        m_animationSystem.CombineAnimation(std::move(anim));
       }
       return false;
     }
@@ -629,12 +663,12 @@ bool UserEventStream::SetFollowAndRotate(m2::PointD const & userPos, m2::PointD 
       parallelAnim->SetCustomType(kParallelFollowAnim);
       parallelAnim->AddAnimation(parallelAnimCreator(anim->GetType() == Animation::Type::MapFollow ? make_ref(anim)
                                                                                                    : nullptr));
-      parallelAnim->AddAnimation(move(anim));
-      m_animationSystem.CombineAnimation(move(parallelAnim));
+      parallelAnim->AddAnimation(std::move(anim));
+      m_animationSystem.CombineAnimation(std::move(parallelAnim));
     }
     else
     {
-      m_animationSystem.CombineAnimation(move(anim));
+      m_animationSystem.CombineAnimation(std::move(anim));
     }
     return false;
   }
@@ -1054,7 +1088,7 @@ bool UserEventStream::EndDrag(Touch const & t, bool cancelled)
   {
     drape_ptr<Animation> anim = m_scroller.CreateKineticAnimation(m_navigator.Screen());
     if (anim != nullptr)
-      m_animationSystem.CombineAnimation(move(anim));
+      m_animationSystem.CombineAnimation(std::move(anim));
     return false;
   }
 

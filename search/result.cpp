@@ -5,6 +5,8 @@
 
 #include "indexer/classificator.hpp"
 
+#include "platform/localization.hpp"
+
 #include "geometry/mercator.hpp"
 
 #include "base/string_utils.hpp"
@@ -26,18 +28,18 @@ void Result::FromFeature(FeatureID const & id, uint32_t featureType, Details con
 }
 
 Result::Result(string str, string && suggest)
-  : m_resultType(Type::PureSuggest), m_str(move(str)), m_suggestionStr(move(suggest))
+  : m_resultType(Type::PureSuggest), m_str(std::move(str)), m_suggestionStr(std::move(suggest))
 {
 }
 
 Result::Result(Result && res, string && suggest)
-  : m_id(move(res.m_id))
+  : m_id(std::move(res.m_id))
   , m_center(res.m_center)
-  , m_str(move(res.m_str))
-  , m_address(move(res.m_address))
+  , m_str(std::move(res.m_str))
+  , m_address(std::move(res.m_address))
   , m_featureType(res.m_featureType)
-  , m_suggestionStr(move(suggest))
-  , m_hightlightRanges(move(res.m_hightlightRanges))
+  , m_suggestionStr(std::move(suggest))
+  , m_hightlightRanges(std::move(res.m_hightlightRanges))
 {
   m_resultType = m_id.IsValid() ? Type::SuggestFromFeature : Type::PureSuggest;
 }
@@ -54,14 +56,26 @@ bool Result::HasPoint() const
 
 FeatureID const & Result::GetFeatureID() const
 {
-  ASSERT_EQUAL(m_resultType, Type::Feature, (m_resultType));
+  ASSERT_EQUAL(m_resultType, Type::Feature, ());
   return m_id;
 }
 
 uint32_t Result::GetFeatureType() const
 {
-  ASSERT_EQUAL(m_resultType, Type::Feature, (m_resultType));
+  ASSERT_EQUAL(m_resultType, Type::Feature, ());
   return m_featureType;
+}
+
+std::string Result::GetLocalizedFeatureType() const
+{
+  ASSERT_EQUAL(m_resultType, Type::Feature, ());
+  return platform::GetLocalizedTypeName(classif().GetReadableObjectName(m_featureType));
+}
+
+std::string Result::GetFeatureDescription() const
+{
+  ASSERT_EQUAL(m_resultType, Type::Feature, ());
+  return GetLocalizedFeatureType() + GetDescription();
 }
 
 m2::PointD Result::GetFeatureCenter() const
@@ -83,21 +97,36 @@ bool Result::IsEqualSuggest(Result const & r) const
 
 bool Result::IsEqualFeature(Result const & r) const
 {
-  if (m_resultType != r.m_resultType)
+  /// @todo Compare TruncValue(m_featureType) ?
+  if (m_resultType != r.m_resultType || m_featureType != r.m_featureType)
     return false;
 
   ASSERT_EQUAL(m_resultType, Result::Type::Feature, ());
-
   ASSERT(m_id.IsValid() && r.m_id.IsValid(), ());
+
+  /// @todo Investigate why it is happens here?
   if (m_id == r.m_id)
     return true;
 
-  // This function is used to filter duplicate results in cases:
-  // - emitted World.mwm and Country.mwm
-  // - after additional search in all mwm
-  // so it's suitable here to test for 500m
-  return m_str == r.m_str && m_address == r.m_address && m_featureType == r.m_featureType &&
-         PointDistance(m_center, r.m_center) < 500.0;
+  if (m_str != r.m_str)
+    return false;
+
+  if (m_id.IsWorld() != r.m_id.IsWorld())
+  {
+    // Filter logically duplicating results from World.mwm and Country.mwm (like cities).
+    return PointDistance(m_center, r.m_center) < 500.0;
+  }
+
+  // Filter stops (bus/tram), see BA_LasHeras test.
+  if (ftypes::IsPublicTransportStopChecker::Instance()(m_featureType))
+    return PointDistance(m_center, r.m_center) < 150.0;
+
+  // Filter same streets (with 'same logical street distance' threshold).
+  if (ftypes::IsWayChecker::Instance().GetSearchRank(m_featureType) != ftypes::IsWayChecker::Default)
+    return PointDistance(m_center, r.m_center) < 2000.0;
+
+  // Filter real duplicates when say area park is present in 2 MWMs, or OSM data duplicates.
+  return m_address == r.m_address && PointDistance(m_center, r.m_center) < 10.0;
 }
 
 void Result::AddHighlightRange(pair<uint16_t, uint16_t> const & range)
@@ -198,7 +227,7 @@ bool Results::AddResult(Result && result)
       if (result.IsEqualSuggest(*i))
         return false;
     }
-    InsertResult(it, move(result));
+    InsertResult(it, std::move(result));
   }
   else
   {
@@ -207,7 +236,7 @@ bool Results::AddResult(Result && result)
       if (result.IsEqualFeature(*it))
         return false;
     }
-    InsertResult(m_results.end(), move(result));
+    InsertResult(m_results.end(), std::move(result));
   }
 
   return true;
@@ -215,16 +244,7 @@ bool Results::AddResult(Result && result)
 
 void Results::AddResultNoChecks(Result && result)
 {
-  InsertResult(m_results.end(), move(result));
-}
-
-void Results::AddResultsNoChecks(ConstIter first, ConstIter last)
-{
-  while (first != last)
-  {
-    auto resultCopy = *first++;
-    AddResultNoChecks(move(resultCopy));
-  }
+  InsertResult(m_results.end(), std::move(result));
 }
 
 void Results::AddBookmarkResult(bookmarks::Result const & result)
@@ -267,7 +287,7 @@ void Results::InsertResult(vector<Result>::iterator where, Result && result)
   }
 
   result.SetPositionInResults(static_cast<int32_t>(distance(m_results.begin(), where)));
-  m_results.insert(where, move(result));
+  m_results.insert(where, std::move(result));
 }
 
 string DebugPrint(search::Results const & results)

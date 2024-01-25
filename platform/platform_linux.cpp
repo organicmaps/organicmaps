@@ -199,7 +199,7 @@ uint8_t Platform::GetBatteryLevel()
 
 void Platform::GetSystemFontNames(FilesList & res) const
 {
-  char const * fontsWhitelist[] = {
+  char constexpr const * const fontsWhitelist[] = {
     "Roboto-Medium.ttf",
     "Roboto-Regular.ttf",
     "DroidSansFallback.ttf",

@@ -146,7 +146,9 @@
 		47A13C5C24B4A86000027D4F /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
-				LastUpgradeCheck = 1410;
+				BuildIndependentTargetsInParallel = YES;
+				DefaultBuildSystemTypeForWorkspace = Latest;
+				LastUpgradeCheck = 1510;
 				ORGANIZATIONNAME = "Organic Maps";
 				TargetAttributes = {
 					47A13C6424B4A86000027D4F = {

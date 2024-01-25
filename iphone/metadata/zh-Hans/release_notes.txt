@@ -1,13 +1,39 @@
-• 截至 2 月 27 日的新 OpenStreetMap 数据
-• 修复了连接键盘时 iPad 上的锁定问题
-• 修复了不必要的双击路线按钮
-• 删除了重复的楼层和邮政编码字段
-• 为所有选定地点启用 OpenStreetMap 编辑注释
-• 修复并改进了搜索
-• 在搜索结果中对vegan菜品与vegetarian菜品做出区分
-• 修复了机场、土地使用、水道和孵化填充区域的样式
-• 添加了医疗保健专家类型如：替代医学、声学、献血、验光师、足科、心理治疗师、采样与核酸、言语治疗
-• 添加了通讯塔、太阳能、风能、天然气和水力发电机
-• 改进了阿拉伯语、挪威语、葡萄牙语和土耳其语的翻译
+• Copy place title, address, coordinates and other information using a long tap
+• CarPlay: support touch panning gestures
+• Add Notes section to the 'Add place to OpenStreetMap' screen
+• OpenStreetMap map data as of January 5
 
-在 omaps.app/news 关注我们的新闻
+Styles:
+• Added cairns, updated Singapore subway icon
+• Slightly increased contrast of lines on the World overview map
+• Make secondary roads a bit brighter than tertiary/etc.
+• Car navigation style: fixed some footways/paths/tracks being displayed too early as white dashed lines
+• Main style: fix color of footways with a sac_scale=* tag to be same as path
+• Fixed very thin lines (e.g. tram lines) having inconsistent transparency/contrast between different devices (driver•dependent)
+• Fix bookmarked children playground icon
+• remove labels and decrease visibility of footway crossings and sidewalks
+• tuned contrast of altitude contour lines
+• crisper looking lines (no edge blur)
+
+Outdoors style:
+• more contrast•looking paths, tracks, cutlines, rivers, ditches, railways, cycleways, fences, etc.
+• reduce visibility of small streams and canals
+• increase visibility of fences, walls and ditches
+• increase visibilities of bridle/cycle/foot•ways and steps, increase label sizes
+• make bridleways to be the same brown color as paths but with longer dashes
+
+Pistes improvements:
+• add snow parks and new piste types: skitour, winter hike, connection
+• color freeride pistes in yellow•orange, consider ungroomed downhill runs as freeride
+• better piste names and numbers/refs support
+• in Outdoors style: increase pistes visibilities and display detailed piste shapes (area fills)
+
+Other:
+• Display capacity of parkings, bicycle docks and charging stations when they're selected
+• Adjust shop, amenity, leisure ranking in the search
+
+Translations:
+• new Azebaijani language
+• updates to Chinese, Polish, Hebrew, Romanian
+
+…and more smaller fixes and improvements, check https://omaps.org/news for details!

@@ -63,7 +63,10 @@ bool SearchTestBase::ResultsMatch(vector<search::Result> const & results, Rules 
 bool SearchTestBase::OrderedResultsMatch(std::vector<Result> const & results, Rules const & rules)
 {
   if (results.size() != rules.size())
+  {
+    LOG(LWARNING, ("Unexpected results number:", results));
     return false;
+  }
 
   for (size_t i = 0; i < results.size(); ++i)
   {
@@ -74,13 +77,6 @@ bool SearchTestBase::OrderedResultsMatch(std::vector<Result> const & results, Ru
     }
   }
   return true;
-}
-
-bool SearchTestBase::ResultsMatch(SearchParams const & params, Rules const & rules)
-{
-  TestSearchRequest request(m_engine, params);
-  request.Run();
-  return ResultsMatch(request.Results(), rules);
 }
 
 bool SearchTestBase::IsResultMatches(search::Result const & result, Rule const & rule)
@@ -102,15 +98,7 @@ size_t SearchTestBase::GetResultsNumber(string const & query, string const & loc
   return request.Results().size();
 }
 
-unique_ptr<TestSearchRequest> SearchTestBase::MakeRequest(SearchParams const & params)
-{
-  auto request = make_unique<TestSearchRequest>(m_engine, params);
-  request->Run();
-  return request;
-}
-
-unique_ptr<TestSearchRequest> SearchTestBase::MakeRequest(
-    string const & query, string const & locale /* = "en" */)
+SearchParams SearchTestBase::GetDefaultSearchParams(string const & query, string const & locale /* = "en" */) const
 {
   SearchParams params;
   params.m_query = query;
@@ -119,7 +107,11 @@ unique_ptr<TestSearchRequest> SearchTestBase::MakeRequest(
   params.m_mode = Mode::Everywhere;
   params.m_needAddress = true;
   params.m_suggestsEnabled = false;
+  return params;
+}
 
+unique_ptr<TestSearchRequest> SearchTestBase::MakeRequest(SearchParams const & params)
+{
   auto request = make_unique<TestSearchRequest>(m_engine, params);
   request->Run();
   return request;

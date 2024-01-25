@@ -6,8 +6,6 @@
 
 #include "platform/settings.hpp"
 
-#include "base/logging.hpp"
-#include "base/macros.hpp"
 #include "base/string_utils.hpp"
 
 #include <QtWidgets/QComboBox>
@@ -85,7 +83,7 @@ void RoutingSettings::LoadSession(Framework & framework)
   {
     int routerType = DefaultRouterIndex();
     settings::TryGet(kRouterTypeCachedSettings, routerType);
-    framework.GetRoutingManager().SetRouterImpl(static_cast<routing::RouterType>(routerType));
+    framework.GetRoutingManager().SetRouter(static_cast<routing::RouterType>(routerType));
   }
   else
   {
@@ -133,6 +131,7 @@ RoutingSettings::RoutingSettings(QWidget * parent, Framework & framework)
     m_routerType->insertItem(static_cast<int>(RouterType::Pedestrian), "pedestrian");
     m_routerType->insertItem(static_cast<int>(RouterType::Bicycle), "bicycle");
     m_routerType->insertItem(static_cast<int>(RouterType::Transit), "transit");
+    m_routerType->insertItem(static_cast<int>(RouterType::Ruler), "ruler");
     form->addRow("Choose router:", m_routerType);
 
     m_showTurnsCheckbox = new QCheckBox({}, frame);
@@ -234,6 +233,6 @@ void RoutingSettings::ShowModal()
   }
 
   int const routerType = m_routerType->currentIndex();
-  m_framework.GetRoutingManager().SetRouterImpl(static_cast<routing::RouterType>(routerType));
+  m_framework.GetRoutingManager().SetRouter(static_cast<routing::RouterType>(routerType));
 }
 }  // namespace qt

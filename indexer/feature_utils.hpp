@@ -1,9 +1,5 @@
 #pragma once
 
-#include "geometry/rect2d.hpp"
-
-#include "base/base.hpp"
-
 #include <string>
 #include <vector>
 
@@ -12,6 +8,9 @@ class StringUtf8Multilang;
 
 namespace feature
 {
+  // Address house numbers interpolation.
+  enum class InterpolType { None, Odd, Even, Any };
+
   class TypesHolder;
   class RegionData;
 
@@ -127,6 +126,13 @@ namespace feature
   // Returns vector of recycling types localized by platform.
   std::vector<std::string> GetLocalizedRecyclingTypes(TypesHolder const & types);
 
-  // Returns names of feature road shields. Applicable for road features.
-  std::vector<std::string> GetRoadShieldsNames(std::string const & rawRoadNumber);
+  // Returns fee type localized by platform.
+  std::string GetLocalizedFeeType(TypesHolder const & types);
+
+  /// Returns true if feature has ATM type.
+  bool HasAtm(TypesHolder const & types);
+
+  /// Returns true if feature has Toilets type.
+  bool HasToilets(TypesHolder const & types);
+
 }  // namespace feature

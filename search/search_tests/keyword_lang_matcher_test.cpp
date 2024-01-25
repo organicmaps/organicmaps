@@ -35,7 +35,7 @@ KeywordLangMatcher CreateMatcher(string const & query)
     // langPriorities[3] is intentionally left empty.
 
     for (size_t i = 0; i < langPriorities.size(); ++i)
-      matcher.SetLanguages(i /* tier */, move(langPriorities[i]));
+      matcher.SetLanguages(i /* tier */, std::move(langPriorities[i]));
   }
 
   vector<strings::UniString> keywords;

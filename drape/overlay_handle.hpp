@@ -35,11 +35,8 @@ enum OverlayRank : uint8_t
 };
 
 uint64_t constexpr kPriorityMaskZoomLevel = 0xFF0000000000FFFF;
-uint64_t constexpr kPriorityMaskManual    = 0x00FFFFFFFF00FFFF;
-uint64_t constexpr kPriorityMaskRank      = 0x0000000000FFFFFF;
-uint64_t constexpr kPriorityMaskAll = kPriorityMaskZoomLevel |
-                                      kPriorityMaskManual |
-                                      kPriorityMaskRank;
+uint64_t constexpr kPriorityMaskAll = std::numeric_limits<uint64_t>::max();
+
 struct OverlayID
 {
   FeatureID m_featureId;
@@ -147,8 +144,6 @@ public:
   OverlayID const & GetOverlayID() const { return m_id; }
   uint64_t const & GetPriority() const { return m_priority; }
 
-  virtual uint64_t GetPriorityMask() const { return kPriorityMaskAll; }
-
   virtual bool IsBound() const { return false; }
   virtual bool HasLinearFeatureShape() const { return false; }
 
@@ -165,7 +160,16 @@ public:
   bool IsReady() const { return m_isReady; }
 
   void SetDisplayFlag(bool display) { m_displayFlag = display; }
-  bool GetDisplayFlag() const { return m_displayFlag; }
+  /// @todo displayFlag logic is effectively turned off now,
+  /// remove all the associated code from drape later if its not needed anymore.
+  // The displayFlag displacement logic supposedly should stabilize displacement
+  // chains and prevent "POI blinking" cases by remembering which POIs were visible
+  // on a previous iteration and giving them priority over "new" POIs.
+  // In reality it seems to be of very little (if any) benefit but causes major issues:
+  //  - minor POIs may displace major ones just because they were displayed previously;
+  //  - testing priority changes and debugging displacement becomes very hard as map browsing history
+  //    prevails over priorities, so displacement results are unpredictable.
+  bool GetDisplayFlag() const { return true; /* m_displayFlag; */ }
 
   void SetSpecialLayerOverlay(bool isSpecialLayerOverlay) { m_isSpecialLayerOverlay = isSpecialLayerOverlay; }
   bool IsSpecialLayerOverlay() const { return m_isSpecialLayerOverlay; }
@@ -256,8 +260,7 @@ private:
   bool m_isBound;
 };
 
-uint64_t CalculateOverlayPriority(int minZoomLevel, uint8_t rank, float depth);
-uint64_t CalculateSpecialModePriority(uint16_t specialPriority);
+uint64_t CalculateOverlayPriority(uint8_t rank, float depth);
 uint64_t CalculateSpecialModeUserMarkPriority(uint16_t specialPriority);
 uint64_t CalculateUserMarkPriority(int minZoomLevel, uint16_t specialPriority);
 }  // namespace dp

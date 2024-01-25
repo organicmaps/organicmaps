@@ -1,0 +1,12 @@
+{
+  "images" : [
+    {
+      "filename" : "ic_layer_outdoor_lake.svg",
+      "idiom" : "universal"
+    }
+  ],
+  "info" : {
+    "author" : "xcode",
+    "version" : 1
+  }
+}

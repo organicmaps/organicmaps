@@ -3,7 +3,6 @@
 #import "MWMAuthorizationCommon.h"
 #import "MWMButtonCell.h"
 #import "MWMCuisineEditorViewController.h"
-#import "MWMDropDown.h"
 #import "MWMEditorAddAdditionalNameTableViewCell.h"
 #import "MWMEditorAdditionalNameTableViewCell.h"
 #import "MWMEditorAdditionalNamesHeader.h"
@@ -238,7 +237,7 @@ void registerCellsForTableView(std::vector<MWMEditorCellID> const & cells, UITab
   case osm::Editor::SaveResult::NothingWasChanged:
     [self.navigationController popToRootViewControllerAnimated:YES];
     if (haveNote)
-      [self showDropDown];
+      [self showNotesQueuedToast];
     break;
   case osm::Editor::SaveResult::SavedSuccessfully:
     osm_auth_ios::AuthorizationSetNeedCheck(YES);
@@ -251,10 +250,9 @@ void registerCellsForTableView(std::vector<MWMEditorCellID> const & cells, UITab
   }
 }
 
-- (void)showDropDown
+- (void)showNotesQueuedToast
 {
-  MWMDropDown * dd = [[MWMDropDown alloc] initWithSuperview:[MapViewController sharedController].controlsView];
-  [dd showWithMessage:L(@"editor_edits_sent_message")];
+  [[MWMToast toastWithText:L(@"editor_edits_sent_message")] show];
 }
 
 #pragma mark - Headers
@@ -334,7 +332,7 @@ void registerCellsForTableView(std::vector<MWMEditorCellID> const & cells, UITab
     return mid == MetadataID::FMD_POSTCODE || mid == MetadataID::FMD_BUILDING_LEVELS;
   }), editableProperties.end());
   BOOL const isCreating = self.isCreating;
-  BOOL const showNotesToOSMEditors = !isCreating;
+  BOOL const showNotesToOSMEditors = YES;
 
   if (isNameEditable)
   {
@@ -525,7 +523,7 @@ void registerCellsForTableView(std::vector<MWMEditorCellID> const & cells, UITab
       osm::LocalizedName const & name = localizedNames[indexPath.row];
       [tCell configWithDelegate:self
                        langCode:name.m_code
-                       langName:@(name.m_langName)
+                       langName:ToNSString(name.m_langName)
                            name:@(name.m_name.c_str())
                    errorMessage:L(@"error_enter_correct_name")
                         isValid:isValid
@@ -546,7 +544,7 @@ void registerCellsForTableView(std::vector<MWMEditorCellID> const & cells, UITab
 
       [tCell configWithDelegate:self
                        langCode:langCode
-                       langName:@(StringUtf8Multilang::GetLangNameByCode(langCode))
+                       langName:ToNSString(StringUtf8Multilang::GetLangNameByCode(langCode))
                            name:@(name.c_str())
                    errorMessage:L(@"error_enter_correct_name")
                         isValid:isValid
@@ -972,7 +970,7 @@ void registerCellsForTableView(std::vector<MWMEditorCellID> const & cells, UITab
       GetFramework().CreateNote(self->m_mapObject, osm::Editor::NoteProblemType::PlaceDoesNotExist,
                                 additional);
       [self goBack];
-      [self showDropDown];
+      [self showNotesQueuedToast];
     }];
   };
 

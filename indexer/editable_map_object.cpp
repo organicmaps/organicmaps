@@ -12,7 +12,6 @@
 
 #include <algorithm>
 #include <cmath>
-#include <codecvt>
 #include <regex>
 #include <sstream>
 
@@ -265,10 +264,12 @@ vector<LocalizedStreet> const & EditableMapObject::GetNearbyStreets() const { re
 
 void EditableMapObject::ForEachMetadataItem(function<void(string_view tag, string_view value)> const & fn) const
 {
-  m_metadata.ForEach([&fn](feature::Metadata::EType type, std::string_view value)
+  m_metadata.ForEach([&fn](MetadataID type, std::string_view value)
   {
+    switch (type)
+    {
     // Multilang description may produce several tags with different values.
-    if (type == feature::Metadata::FMD_DESCRIPTION)
+    case MetadataID::FMD_DESCRIPTION:
     {
       auto const mlDescr = StringUtf8Multilang::FromBuffer(std::string(value));
       mlDescr.ForEach([&fn](int8_t code, string_view v)
@@ -276,12 +277,17 @@ void EditableMapObject::ForEachMetadataItem(function<void(string_view tag, strin
         if (code == StringUtf8Multilang::kDefaultCode)
           fn("description", v);
         else
-          fn(string("description:") + StringUtf8Multilang::GetLangByCode(code), v);
+          fn(string("description:").append(StringUtf8Multilang::GetLangByCode(code)), v);
       });
+      break;
     }
-    else
-    {
-      fn(ToString(type), value);
+    // Skip non-string values (they are not related to OSM anyway).
+    case MetadataID::FMD_CUSTOM_IDS:
+    case MetadataID::FMD_PRICE_RATES:
+    case MetadataID::FMD_RATINGS:
+    case MetadataID::FMD_EXTERNAL_URI:
+      break;
+    default: fn(ToString(type), value); break;
     }
   });
 }
@@ -409,7 +415,7 @@ void EditableMapObject::SetStreet(LocalizedStreet const & st) { m_street = st; }
 
 void EditableMapObject::SetNearbyStreets(vector<LocalizedStreet> && streets)
 {
-  m_nearbyStreets = move(streets);
+  m_nearbyStreets = std::move(streets);
 }
 
 void EditableMapObject::SetHouseNumber(string const & houseNumber)
@@ -478,7 +484,7 @@ bool EditableMapObject::UpdateMetadataValue(string_view key, string value)
   if (!feature::Metadata::TypeFromString(key, type))
     return false;
 
-  m_metadata.Set(type, std::move(value));
+  SetMetadata(type, std::move(value));
   return true;
 }
 
@@ -743,38 +749,30 @@ bool EditableMapObject::ValidateName(string const & name)
   if (name.empty())
     return true;
 
-  if (strings::IsASCIIString(name))
-  {
-    static auto const s_nameRegex = regex(R"(^[ A-Za-z0-9.,?!@°#$%&()\-\+\/\\\[\]:;"'`]+$)");
-    return regex_match(name, s_nameRegex);
-  }
+  static std::u32string_view constexpr excludedSymbols = U"^§><*=_±√•÷×¶";
 
-  std::wstring_convert<std::codecvt_utf8<char32_t>, char32_t> converter;
-
-  std::u32string u32name;
-  try
+  using Iter = utf8::unchecked::iterator<string::const_iterator>;
+  for (Iter it{name.cbegin()}; it != Iter{name.cend()}; ++it)
   {
-    u32name = converter.from_bytes(name);
-  }
-  catch (std::range_error const &)
-  {
-    // Cannot convert, for ex. it is possible for some emoji.
-    return false;
-  }
-
-  std::u32string const excludedSymbols = U"^~§><{}*=_±\n\t\r\v\f|√•÷×¶";
-
-  for (auto const ch : u32name)
-  {
+    auto const ch = *it;
+    // Exclude ASCII control characters.
+    if (ch <= 0x1F)
+      return false;
+    // Exclude {|}~ DEL and C1 control characters.
+    if (ch >= 0x7B && ch <= 0x9F)
+      return false;
     // Exclude arrows, mathematical symbols, borders, geometric shapes.
-    if (ch >= U'\U00002190' && ch <= U'\U00002BFF')
+    if (ch >= 0x2190 && ch <= 0x2BFF)
+      return false;
+    // Emoji modifiers https://en.wikipedia.org/wiki/Emoji#Emoji_versus_text_presentation
+    if (ch == 0xFE0E || ch == 0xFE0F)
       return false;
     // Exclude format controls, musical symbols, emoticons, ornamental and pictographs,
     // ancient and exotic alphabets.
-    if (ch >= U'\U0000FFF0' && ch <= U'\U0001F9FF')
+    if (ch >= 0xFFF0 && ch <= 0x1F9FF)
       return false;
 
-    if (find(excludedSymbols.cbegin(), excludedSymbols.cend(), ch) != excludedSymbols.cend())
+    if (excludedSymbols.find(ch) != std::u32string_view::npos)
       return false;
   }
   return true;

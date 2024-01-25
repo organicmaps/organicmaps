@@ -52,6 +52,8 @@ public:
 
   bool IsRenderingEnabled() const;
 
+  dp::ApiVersion GetApiVersion() const { return m_apiVersion; };
+
 protected:
   dp::ApiVersion m_apiVersion;
   ref_ptr<ThreadsCommutator> m_commutator;

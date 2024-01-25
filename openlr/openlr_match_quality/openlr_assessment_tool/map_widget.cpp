@@ -8,8 +8,8 @@
 
 namespace openlr
 {
-MapWidget::MapWidget(Framework & framework, bool apiOpenGLES3, QWidget * parent)
-  : Base(framework, apiOpenGLES3, false /* screenshotMode */, parent)
+MapWidget::MapWidget(Framework & framework, QWidget * parent)
+  : Base(framework, false /* screenshotMode */, parent)
 {
 }
 

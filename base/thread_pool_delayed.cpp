@@ -2,13 +2,7 @@
 
 #include <array>
 
-using namespace std;
-
-namespace base
-{
-namespace thread_pool
-{
-namespace delayed
+namespace base::thread_pool::delayed
 {
 namespace
 {
@@ -37,7 +31,7 @@ ThreadPool::~ThreadPool()
 
 TaskLoop::PushResult ThreadPool::Push(Task && t)
 {
-  return AddImmediate(move(t));
+  return AddImmediate(std::move(t));
 }
 
 TaskLoop::PushResult ThreadPool::Push(Task const & t)
@@ -47,7 +41,7 @@ TaskLoop::PushResult ThreadPool::Push(Task const & t)
 
 TaskLoop::PushResult ThreadPool::PushDelayed(Duration const & delay, Task && t)
 {
-  return AddDelayed(delay, move(t));
+  return AddDelayed(delay, std::move(t));
 }
 
 TaskLoop::PushResult ThreadPool::PushDelayed(Duration const & delay, Task const & t)
@@ -60,7 +54,7 @@ TaskLoop::PushResult ThreadPool::AddImmediate(T && task)
 {
   return AddTask([&]() {
     auto const newId = MakeNextId(m_immediateLastId, kImmediateMinId, kImmediateMaxId);
-    VERIFY(m_immediate.Emplace(newId, forward<T>(task)), ());
+    VERIFY(m_immediate.Emplace(newId, std::forward<T>(task)), ());
     m_immediateLastId = newId;
     return newId;
   });
@@ -72,7 +66,7 @@ TaskLoop::PushResult ThreadPool::AddDelayed(Duration const & delay, T && task)
   auto const when = Now() + delay;
   return AddTask([&]() {
     auto const newId = MakeNextId(m_delayedLastId, kDelayedMinId, kDelayedMaxId);
-    m_delayed.Add(newId, make_shared<DelayedTask>(newId, when, forward<T>(task)));
+    m_delayed.Add(newId, std::make_shared<DelayedTask>(newId, when, std::forward<T>(task)));
     m_delayedLastId = newId;
     return newId;
   });
@@ -81,7 +75,7 @@ TaskLoop::PushResult ThreadPool::AddDelayed(Duration const & delay, T && task)
 template <typename Add>
 TaskLoop::PushResult ThreadPool::AddTask(Add && add)
 {
-  lock_guard<mutex> lk(m_mu);
+  std::lock_guard lk(m_mu);
   if (m_shutdown)
     return {};
 
@@ -97,10 +91,10 @@ void ThreadPool::ProcessTasks()
 
   while (true)
   {
-    array<Task, QUEUE_TYPE_COUNT> tasks;
+    std::array<Task, QUEUE_TYPE_COUNT> tasks;
 
     {
-      unique_lock<mutex> lk(m_mu);
+      std::unique_lock lk(m_mu);
       if (!m_delayed.IsEmpty())
       {
         // We need to wait until the moment when the earliest delayed
@@ -146,13 +140,13 @@ void ThreadPool::ProcessTasks()
 
       if (canExecImmediate)
       {
-        tasks[QUEUE_TYPE_IMMEDIATE] = move(m_immediate.Front());
+        tasks[QUEUE_TYPE_IMMEDIATE] = std::move(m_immediate.Front());
         m_immediate.PopFront();
       }
 
       if (canExecDelayed)
       {
-        tasks[QUEUE_TYPE_DELAYED] = move(m_delayed.GetFirstValue()->m_task);
+        tasks[QUEUE_TYPE_DELAYED] = std::move(m_delayed.GetFirstValue()->m_task);
         m_delayed.RemoveValue(m_delayed.GetFirstValue());
       }
     }
@@ -176,7 +170,7 @@ void ThreadPool::ProcessTasks()
       if (now >= top.m_when)
         break;
       auto const delay = top.m_when - now;
-      this_thread::sleep_for(delay);
+      std::this_thread::sleep_for(delay);
     }
     ASSERT(Now() >= top.m_when, ());
     top.m_task();
@@ -187,7 +181,7 @@ void ThreadPool::ProcessTasks()
 
 bool ThreadPool::Cancel(TaskId id)
 {
-  lock_guard<mutex> lk(m_mu);
+  std::lock_guard lk(m_mu);
 
   if (m_shutdown || id == kNoId)
     return false;
@@ -214,7 +208,7 @@ bool ThreadPool::Cancel(TaskId id)
 
 bool ThreadPool::Shutdown(Exit e)
 {
-  lock_guard<mutex> lk(m_mu);
+  std::lock_guard lk(m_mu);
   if (m_shutdown)
     return false;
   m_shutdown = true;
@@ -237,9 +231,7 @@ void ThreadPool::ShutdownAndJoin()
 
 bool ThreadPool::IsShutDown()
 {
-  lock_guard<mutex> lk(m_mu);
+  std::lock_guard lk(m_mu);
   return m_shutdown;
 }
-}  // namespace delayed
-}  // namespace thread_pool
-}  // namespace base
+}  // namespace base::thread_pool::delayed

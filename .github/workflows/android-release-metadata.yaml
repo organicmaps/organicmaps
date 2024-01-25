@@ -2,6 +2,9 @@ name: Android Release Metadata
 on:
   workflow_dispatch: # Manual trigger
 
+env:
+  JAVA_HOME: /usr/lib/jvm/temurin-17-jdk-amd64  # Java 17 is required for Android Gradle 8 plugin
+
 jobs:
   android-release-metadata:
     name: Upload Google Play metadata
@@ -9,14 +12,14 @@ jobs:
     environment: production
     steps:
       - name: Checkout sources
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
 
       - name: Parallel submodules checkout
         shell: bash
         run: git submodule update --depth 1 --init --recursive --jobs=$(($(nproc) * 20))
 
       - name: Checkout screenshots
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
         with:
           repository: ${{ secrets.SCREENSHOTS_REPO }}
           ssh-key: ${{ secrets.SCREENSHOTS_SSH_KEY }}
@@ -24,7 +27,7 @@ jobs:
           path: screenshots
 
       - name: Checkout private keys
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
         with:
           repository: ${{ secrets.PRIVATE_REPO }}
           ssh-key: ${{ secrets.PRIVATE_SSH_KEY }}

@@ -46,6 +46,8 @@ public:
     }
     else
     {
+      CHECK(hwClass != ftypes::HighwayClass::Undefined, (edge));
+
       m_minHwClass = static_cast<ftypes::HighwayClass>(
           min(base::Underlying(m_minHwClass), base::Underlying(hwClass)));
       m_maxHwClass = static_cast<ftypes::HighwayClass>(
@@ -177,7 +179,7 @@ bool ScorePathsConnector::FindBestPath(vector<LocationReferencePoint> const & po
 
         auto const score = pathLenScore + GetScoreForUniformity(path) +
                            fromCandidates[fromInd].m_score + toCandidates[toInd].m_score;
-        result.emplace_back(score, move(path));
+        result.emplace_back(score, std::move(path));
       }
     }
 

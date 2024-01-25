@@ -6,7 +6,6 @@
 
 #include "base/macros.hpp"
 
-#include <cstdint>
 #include <map>
 #include <memory>
 #include <string>
@@ -20,13 +19,14 @@ class CachingRankTableLoader
 public:
   CachingRankTableLoader(DataSource const & dataSource, std::string const & sectionName);
 
+  /// @return 0 if there is no rank for feature.
   uint8_t Get(FeatureID const & featureId) const;
   void OnMwmDeregistered(platform::LocalCountryFile const & localFile);
 
 private:
   DataSource const & m_dataSource;
   std::string const m_sectionName;
-  mutable std::map<MwmSet::MwmId, std::unique_ptr<search::RankTable const> const> m_deserializers;
+  mutable std::map<MwmSet::MwmId, std::unique_ptr<search::RankTable>> m_deserializers;
 
   DISALLOW_COPY(CachingRankTableLoader);
 };

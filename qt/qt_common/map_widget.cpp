@@ -10,29 +10,28 @@
 #include "geometry/point2d.hpp"
 
 #include "base/assert.hpp"
+#include "base/logging.hpp"
 
 #include <functional>
 #include <string>
 
+#include <QGesture>
+#include <QOpenGLShaderProgram>
+#include <QOpenGLBuffer>
+#include <QOpenGLVertexArrayObject>
+
 #include <QtGui/QMouseEvent>
 #include <QtGui/QOpenGLFunctions>
-#include <QtGui/QOpenGLShaderProgram>
-#include <QtWidgets/QAction>
+#include <QtGui/QAction>
 #include <QtWidgets/QMenu>
 
-#include <QtGui/QOpenGLBuffer>
-#include <QtGui/QOpenGLVertexArrayObject>
-
-namespace qt
-{
-namespace common
+namespace qt::common
 {
 //#define ENABLE_AA_SWITCH
 
-MapWidget::MapWidget(Framework & framework, bool apiOpenGLES3, bool isScreenshotMode, QWidget * parent)
+MapWidget::MapWidget(Framework & framework, bool isScreenshotMode, QWidget * parent)
   : QOpenGLWidget(parent)
   , m_framework(framework)
-  , m_apiOpenGLES3(apiOpenGLES3)
   , m_screenshotMode(isScreenshotMode)
   , m_slider(nullptr)
   , m_sliderState(SliderState::Released)
@@ -40,11 +39,11 @@ MapWidget::MapWidget(Framework & framework, bool apiOpenGLES3, bool isScreenshot
   , m_contextFactory(nullptr)
 {
   setMouseTracking(true);
-  // Update widget contents each 30ms.
+  // Update widget's content frequency is 60 fps.
   m_updateTimer = std::make_unique<QTimer>(this);
   VERIFY(connect(m_updateTimer.get(), SIGNAL(timeout()), this, SLOT(update())), ());
   m_updateTimer->setSingleShot(false);
-  m_updateTimer->start(30);
+  m_updateTimer->start(1000 / 60);
 }
 
 MapWidget::~MapWidget()
@@ -62,12 +61,12 @@ void MapWidget::BindHotkeys(QWidget & parent)
       {Qt::Key_Equal, SLOT(ScalePlus())},
       {Qt::Key_Plus, SLOT(ScalePlus())},
       {Qt::Key_Minus, SLOT(ScaleMinus())},
-      {Qt::ALT + Qt::Key_Equal, SLOT(ScalePlusLight())},
-      {Qt::ALT + Qt::Key_Plus, SLOT(ScalePlusLight())},
-      {Qt::ALT + Qt::Key_Minus, SLOT(ScaleMinusLight())},
+      {static_cast<int>(Qt::ALT) + static_cast<int>(Qt::Key_Equal), SLOT(ScalePlusLight())},
+      {static_cast<int>(Qt::ALT) + static_cast<int>(Qt::Key_Plus), SLOT(ScalePlusLight())},
+      {static_cast<int>(Qt::ALT) + static_cast<int>(Qt::Key_Minus), SLOT(ScaleMinusLight())},
 #ifdef ENABLE_AA_SWITCH
-      {Qt::ALT + Qt::Key_A, SLOT(AntialiasingOn())},
-      {Qt::ALT + Qt::Key_S, SLOT(AntialiasingOff())},
+      {static_cast<int>(Qt::ALT) + static_cast<int>(Qt::Key_A), SLOT(AntialiasingOn())},
+      {static_cast<int>(Qt::ALT) + static_cast<int>(Qt::Key_S), SLOT(AntialiasingOff())},
 #endif
   };
 
@@ -105,7 +104,7 @@ void MapWidget::CreateEngine()
   m_skin->ForEach(
       [&p](gui::EWidget widget, gui::Position const & pos) { p.m_widgetsInitInfo[widget] = pos; });
 
-  p.m_widgetsInitInfo[gui::WIDGET_SCALE_FPS_LABEL] = gui::Position(dp::LeftBottom);
+  p.m_widgetsInitInfo[gui::WIDGET_SCALE_FPS_LABEL] = gui::Position(dp::LeftTop);
 
   m_framework.CreateDrapeEngine(make_ref(m_contextFactory), std::move(p));
   m_framework.SetViewportListener(std::bind(&MapWidget::OnViewportChanged, this, std::placeholders::_1));
@@ -152,7 +151,7 @@ void MapWidget::SliderReleased() { m_sliderState = SliderState::Released; }
 
 m2::PointD MapWidget::GetDevicePoint(QMouseEvent * e) const
 {
-  return m2::PointD(L2D(e->x()), L2D(e->y()));
+  return m2::PointD(L2D(e->position().x()), L2D(e->position().y()));
 }
 
 df::Touch MapWidget::GetTouch(QMouseEvent * e) const
@@ -204,9 +203,15 @@ void MapWidget::Build()
   std::string fragmentSrc;
   if (m_apiOpenGLES3)
   {
+#if defined(OMIM_OS_LINUX)
     vertexSrc =
         "\
-      #version 150 core\n \
+      #version 300 es\n \
+        #ifdef GL_FRAGMENT_PRECISION_HIGH\n\
+          precision highp float;\n\
+        #else\n\
+          precision mediump float;\n\
+        #endif\n\
       in vec4 a_position; \
       uniform vec2 u_samplerSize; \
       out vec2 v_texCoord; \
@@ -219,6 +224,35 @@ void MapWidget::Build()
 
     fragmentSrc =
         "\
+      #version 300 es\n \
+        #ifdef GL_FRAGMENT_PRECISION_HIGH\n\
+          precision highp float;\n\
+        #else\n\
+          precision mediump float;\n\
+        #endif\n\
+      uniform sampler2D u_sampler; \
+      in vec2 v_texCoord; \
+      out vec4 v_FragColor; \
+      \
+      void main() \
+      { \
+        v_FragColor = vec4(texture(u_sampler, v_texCoord).rgb, 1.0); \
+      }";
+#else
+    vertexSrc =
+        "\
+      #version 150 core\n \
+      in vec4 a_position; \
+      uniform vec2 u_samplerSize; \
+      out vec2 v_texCoord; \
+      \
+      void main() \
+      { \
+        v_texCoord = vec2(a_position.z * u_samplerSize.x, a_position.w * u_samplerSize.y); \
+        gl_Position = vec4(a_position.x, a_position.y, 0.0, 1.0);\
+      }";
+    fragmentSrc =
+        "\
       #version 150 core\n \
       uniform sampler2D u_sampler; \
       in vec2 v_texCoord; \
@@ -228,6 +262,8 @@ void MapWidget::Build()
       { \
         v_FragColor = vec4(texture(u_sampler, v_texCoord).rgb, 1.0); \
       }";
+#endif
+
   }
   else
   {
@@ -245,6 +281,13 @@ void MapWidget::Build()
 
     fragmentSrc =
         "\
+      #ifdef GL_ES\n\
+        #ifdef GL_FRAGMENT_PRECISION_HIGH\n\
+          precision highp float;\n\
+        #else\n\
+          precision mediump float;\n\
+        #endif\n\
+      #endif\n\
       uniform sampler2D u_sampler; \
       varying vec2 v_texCoord; \
       \
@@ -277,6 +320,17 @@ void MapWidget::Build()
   m_program->release();
   m_vao->release();
 }
+
+namespace
+{
+search::ReverseGeocoder::Address GetFeatureAddressInfo(Framework const & framework, FeatureType & ft)
+{
+  search::ReverseGeocoder const coder(framework.GetDataSource());
+  search::ReverseGeocoder::Address address;
+  coder.GetExactAddress(ft, address);
+  return address;
+}
+} // namespace
 
 void MapWidget::ShowInfoPopup(QMouseEvent * e, m2::PointD const & pt)
 {
@@ -337,6 +391,53 @@ void MapWidget::initializeGL()
   ASSERT(m_contextFactory == nullptr, ());
   if (!m_screenshotMode)
     m_ratio = devicePixelRatio();
+
+  m_apiOpenGLES3 = true;
+
+#if defined(OMIM_OS_LINUX)
+  {
+    QOpenGLFunctions * funcs = context()->functions();
+    LOG(LINFO, ("Vendor:", funcs->glGetString(GL_VENDOR),
+                "\nRenderer:", funcs->glGetString(GL_RENDERER),
+                "\nVersion:", funcs->glGetString(GL_VERSION),
+                "\nShading language version:\n",funcs->glGetString(GL_SHADING_LANGUAGE_VERSION),
+                "\nExtensions:", funcs->glGetString(GL_EXTENSIONS)));
+
+    if (!context()->isOpenGLES())
+    {
+      LOG(LCRITICAL, ("Context is not LibGLES! This shouldn't have happened."));
+    }
+
+    auto fmt = context()->format();
+    if (context()->format().version() < qMakePair(3, 0))
+    {
+      LOG(LINFO, ("OpenGL ES version is below 3.0, taking the OpenGL ES 2.0 path"));
+      m_apiOpenGLES3 = false;
+
+      constexpr const char* requiredExtensions[3] =
+        { "GL_EXT_map_buffer_range", "GL_OES_mapbuffer", "GL_OES_vertex_array_object" };
+      for (auto & requiredExtension : requiredExtensions)
+      {
+        if (context()->hasExtension(QByteArray::fromStdString(requiredExtension)))
+          LOG(LDEBUG, ("Found OpenGL ES 2.0 extension: ", requiredExtension));
+        else
+          LOG(LCRITICAL, ("A required OpenGL ES 2.0 extension is missing:", requiredExtension));
+      }
+      fmt.setProfile(QSurfaceFormat::CompatibilityProfile);
+      fmt.setVersion(2, 0);
+    }
+    else
+    {
+      LOG(LINFO, ("OpenGL version is at least 3.0, enabling GLSL '#version 300 es'"));
+      m_apiOpenGLES3 = true;
+      fmt.setVersion(3, 0);
+    }
+
+
+    QSurfaceFormat::setDefaultFormat(fmt);
+  }
+#endif
+
   m_contextFactory.reset(new QtOGLContextFactory(context()));
 
   emit BeforeEngineCreation();
@@ -436,7 +537,7 @@ void MapWidget::mouseReleaseEvent(QMouseEvent * e)
     return;
 
   if (e->button() == Qt::RightButton)
-    emit OnContextMenuRequested(e->globalPos());
+    emit OnContextMenuRequested(e->globalPosition().toPoint());
 
   QOpenGLWidget::mouseReleaseEvent(e);
   if (IsLeftButton(e))
@@ -449,17 +550,43 @@ void MapWidget::wheelEvent(QWheelEvent * e)
     return;
 
   QOpenGLWidget::wheelEvent(e);
-  m_framework.Scale(exp(e->delta() / 360.0), m2::PointD(L2D(e->x()), L2D(e->y())), false);
+
+  QPointF const pos = e->position();
+
+  double const factor = e->angleDelta().y() / 3.0 / 360.0;
+  // https://doc-snapshots.qt.io/qt6-dev/qwheelevent.html#angleDelta, angleDelta() returns in eighths of a degree.
+  /// @todo Here you can tune the speed of zooming.
+  m_framework.Scale(exp(factor), m2::PointD(L2D(pos.x()), L2D(pos.y())), false);
 }
 
-search::ReverseGeocoder::Address GetFeatureAddressInfo(Framework const & framework,
-                                                       FeatureType & ft)
+void MapWidget::grabGestures(QList<Qt::GestureType> const & gestures)
 {
-  search::ReverseGeocoder const coder(framework.GetDataSource());
-  search::ReverseGeocoder::Address address;
-  coder.GetExactAddress(ft, address);
-
-  return address;
+  for (Qt::GestureType gesture : gestures)
+    grabGesture(gesture);
 }
-}  // namespace common
-}  // namespace qt
+
+bool MapWidget::event(QEvent * event)
+{
+  if (event->type() == QEvent::Gesture)
+    return gestureEvent(dynamic_cast<QGestureEvent const *>(event));
+  return QWidget::event(event);
+}
+
+bool MapWidget::gestureEvent(QGestureEvent const * event)
+{
+  if (QGesture const * pinch = event->gesture(Qt::PinchGesture))
+    pinchTriggered(dynamic_cast<QPinchGesture const *>(pinch));
+  return true;
+}
+
+void MapWidget::pinchTriggered(QPinchGesture const * gesture)
+{
+  if (gesture->changeFlags() & QPinchGesture::ScaleFactorChanged)
+  {
+    auto const factor = gesture->totalScaleFactor();
+    if (factor != 1.0)
+      m_framework.Scale(factor > 1.0 ? Framework::SCALE_MAG : Framework::SCALE_MIN, true);
+  }
+}
+
+} // namespace qt::common

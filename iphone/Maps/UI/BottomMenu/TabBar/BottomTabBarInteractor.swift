@@ -1,7 +1,7 @@
 protocol BottomTabBarInteractorProtocol: AnyObject {
   func openSearch()
-  func openPoint2Point()
   func openHelp()
+  func openFaq()
   func openBookmarks()
   func openMenu()
 }
@@ -28,16 +28,17 @@ extension BottomTabBarInteractor: BottomTabBarInteractorProtocol {
       searchManager?.state = .hidden
     }
   }
-
-  func openPoint2Point() {
-    MWMRouter.enableAutoAddLastLocation(false)
-    // Is stopRouting really needed here?
-    MWMRouter.stopRouting()
-    controlsManager?.onRoutePrepare()
-  }
   
   func openHelp() {
     MapViewController.shared()?.navigationController?.pushViewController(AboutController(), animated: true)
+  }
+  
+  func openFaq() {
+    guard let navigationController = MapViewController.shared()?.navigationController else { return }
+    let aboutController = AboutController(onDidAppearCompletionHandler: {
+      navigationController.pushViewController(FaqController(), animated: true)
+    })
+    navigationController.pushViewController(aboutController, animated: true)
   }
   
   func openBookmarks() {

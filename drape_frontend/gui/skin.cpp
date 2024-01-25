@@ -24,7 +24,7 @@ bool IsAnchor(dp::Anchor anchor)
 }
 #endif
 
-dp::Anchor ParseValueAnchor(std::string const & value)
+dp::Anchor ParseValueAnchor(std::string_view value)
 {
   if (value == "center")
     return dp::Center;
@@ -37,7 +37,9 @@ dp::Anchor ParseValueAnchor(std::string const & value)
   if (value == "bottom")
     return dp::Bottom;
   else
+  {
     ASSERT(false, ());
+  }
 
   return dp::Center;
 }
@@ -51,11 +53,11 @@ dp::Anchor MergeAnchors(dp::Anchor src, dp::Anchor dst)
   return result;
 }
 
-float ParseFloat(std::string const & v)
+float ParseFloat(char const * v)
 {
-  double d = 0.0;
-  VERIFY(strings::to_double(v, d), ());
-  return static_cast<float>(d);
+  float f = 0.0f;
+  VERIFY(strings::to_float(v, f), ());
+  return f;
 }
 
 class ResolverParser
@@ -73,7 +75,7 @@ public:
     : m_element(Element::Empty)
   {}
 
-  void Parse(std::string const & attr, std::string const & value)
+  void Parse(std::string_view attr, char const * value)
   {
     ASSERT(m_element != Element::Empty, ());
 
@@ -94,7 +96,9 @@ public:
       else if (m_element == Element::Relative)
         m_resolver.AddRelative(ParseValueAnchor(value));
       else
+      {
         ASSERT(false, ());
+      }
     }
   }
 
@@ -125,7 +129,7 @@ public:
     : m_skin(skin)
   {}
 
-  bool Push(std::string const & element)
+  bool Push(std::string_view element)
   {
     if (!m_inElement)
     {
@@ -140,14 +144,18 @@ public:
       else if (element == "copyright")
         m_currentElement = WIDGET_COPYRIGHT;
       else
+      {
         ASSERT(false, ());
+      }
     }
     else if (!m_inConfiguration)
     {
       if (element == "portrait" || element == "landscape")
         m_inConfiguration = true;
       else
+      {
         ASSERT(false, ());
+      }
     }
     else
     {
@@ -158,13 +166,15 @@ public:
       else if (element == "offset")
         m_parser.SetElement(ResolverParser::Element::Offset);
       else
+      {
         ASSERT(false, ());
+      }
     }
 
     return true;
   }
 
-  void Pop(std::string const & element)
+  void Pop(std::string_view element)
   {
     if (element == "anchor" || element == "relative" || element == "offset")
       m_parser.SetElement(ResolverParser::Element::Empty);
@@ -187,7 +197,7 @@ public:
     }
   }
 
-  void AddAttr(std::string const & attribute, std::string const & value)
+  void AddAttr(std::string_view attribute, char const * value)
   {
     m_parser.Parse(attribute, value);
   }

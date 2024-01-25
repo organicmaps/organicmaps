@@ -2,31 +2,44 @@
 
 #include "generator/collector_interface.hpp"
 #include "generator/feature_builder.hpp"
-#include "generator/intermediate_elements.hpp"
 #include "generator/osm_element.hpp"
+#include "generator/way_nodes_mapper.hpp"
 
 #include "routing/road_access.hpp"
 #include "routing/vehicle_mask.hpp"
 
 #include <array>
-#include <cstdint>
 #include <map>
 #include <memory>
 #include <optional>
-#include <ostream>
 #include <set>
 #include <string>
 #include <unordered_map>
 #include <vector>
 
+namespace routing
+{
+class OsmWay2FeaturePoint;
 
-// The road accessibility information is collected in the same manner
-// as the restrictions are.
-// See generator/restriction_generator.hpp for details.
+template <class Sink> void Save(Sink & sink, RoadAccess::Type const & ac)
+{
+  WriteToSink(sink, static_cast<uint8_t>(ac));
+}
+
+template <class Source> void Load(Source & src, RoadAccess::Type & ac)
+{
+  uint8_t const res = ReadPrimitiveFromSource<uint8_t>(src);
+  CHECK_LESS(res, uint8_t(RoadAccess::Type::Count), ());
+  ac = static_cast<RoadAccess::Type>(res);
+}
+} // namspace routing
+
 namespace routing_builder
 {
 using RoadAccess = routing::RoadAccess;
 using VehicleType = routing::VehicleType;
+
+using RoadAccessByVehicleType = std::array<RoadAccess, static_cast<size_t>(VehicleType::Count)>;
 
 struct AccessConditional
 {
@@ -41,9 +54,37 @@ struct AccessConditional
     return std::tie(m_accessType, m_openingHours) == std::tie(rhs.m_accessType, rhs.m_openingHours);
   }
 
+  friend std::string DebugPrint(AccessConditional const & ac)
+  {
+    return "AccessConditional { " + DebugPrint(ac.m_accessType) + ", " + ac.m_openingHours + " }";
+  }
+
   RoadAccess::Type m_accessType = RoadAccess::Type::Count;
   std::string m_openingHours;
 };
+
+using ConditionalRAVectorT = std::vector<AccessConditional>;
+
+template <class Sink> void Save(Sink & sink, ConditionalRAVectorT const & ac)
+{
+  WriteToSink(sink, uint32_t(ac.size()));
+  for (auto const & e : ac)
+  {
+    Save(sink, e.m_accessType);
+    utils::WriteString(sink, e.m_openingHours);
+  }
+}
+
+template <class Source> void Load(Source & src, ConditionalRAVectorT & vec)
+{
+  uint32_t const count = ReadPrimitiveFromSource<uint32_t>(src);
+  vec.resize(count);
+  for (uint32_t i = 0; i < count; ++i)
+  {
+    Load(src, vec[i].m_accessType);
+    utils::ReadString(src, vec[i].m_openingHours);
+  }
+}
 
 class RoadAccessTagProcessor
 {
@@ -55,15 +96,13 @@ public:
 
   void Process(OsmElement const & elem);
   void ProcessConditional(OsmElement const & elem);
-  void WriteWayToAccess(std::ostream & stream);
-  void WriteWayToAccessConditional(std::ostream & stream);
-  void WriteBarrierTags(std::ostream & stream, uint64_t id, std::vector<uint64_t> const & points,
-                        bool ignoreBarrierWithoutAccess);
-  void Merge(RoadAccessTagProcessor const & roadAccessTagProcessor);
+
+  void SetIgnoreBarriers(OsmElement const & elem);
+  bool IsIgnoreBarriers(size_t wayIdx) const;
+
+  void MergeInto(RoadAccessTagProcessor & processor) const;
 
 private:
-  VehicleType m_vehicleType;
-
   std::vector<TagMapping const *> m_barrierMappings;
 
   // Order of tag mappings in m_tagMappings is from more to less specific.
@@ -74,59 +113,39 @@ private:
 
   // We decided to ignore some barriers without access on some type of highways
   // because we almost always do not need to add penalty for passes through such nodes.
-  std::optional<std::set<OsmElement::Tag>> m_hwIgnoreBarriersWithoutAccess;
+  std::set<OsmElement::Tag> const * m_highwaysToIgnoreWABarriers = nullptr;
+  std::vector<bool> m_ignoreWABarriers;
 
-  std::unordered_map<uint64_t, RoadAccess::Type> m_barriersWithoutAccessTag;
-  std::unordered_map<uint64_t, RoadAccess::Type> m_barriersWithAccessTag;
-  std::unordered_map<uint64_t, RoadAccess::Type> m_wayToAccess;
-  std::unordered_map<uint64_t, std::vector<AccessConditional>> m_wayToAccessConditional;
+public:
+  VehicleType m_vehicleType;
+
+  generator::WayNodesMapper<RoadAccess::Type> m_barriersWithoutAccessTag;
+  generator::WayNodesMapper<RoadAccess::Type> m_barriersWithAccessTag;
+  generator::WaysMapper<RoadAccess::Type> m_wayToAccess;
+  generator::WaysMapper<ConditionalRAVectorT> m_wayToAccessConditional;
 };
 
-class RoadAccessWriter : public generator::CollectorInterface
+class RoadAccessCollector : public generator::CollectorInterface
 {
 public:
-  explicit RoadAccessWriter(std::string const & filename);
+  RoadAccessCollector(std::string const & filename, IDRInterfacePtr cache);
 
-  // CollectorInterface overrides:
-  ~RoadAccessWriter() override;
-
-  std::shared_ptr<CollectorInterface> Clone(
-      std::shared_ptr<generator::cache::IntermediateDataReaderInterface> const &) const override;
+  std::shared_ptr<CollectorInterface> Clone(IDRInterfacePtr const & cache = {}) const override;
 
   void CollectFeature(feature::FeatureBuilder const & fb, OsmElement const & elem) override;
-  void Finish() override;
 
-  void Merge(generator::CollectorInterface const & collector) override;
-  void MergeInto(RoadAccessWriter & collector) const override;
+  IMPLEMENT_COLLECTOR_IFACE(RoadAccessCollector);
+  void MergeInto(RoadAccessCollector & collector) const;
 
 protected:
   void Save() override;
-  void OrderCollectedData() override;
 
 private:
-  std::string m_waysFilename;
-  std::unique_ptr<FileWriter> m_waysWriter;
+  IDRInterfacePtr m_cache;
+
   std::vector<RoadAccessTagProcessor> m_tagProcessors;
-};
 
-class RoadAccessCollector
-{
-public:
-  using RoadAccessByVehicleType = std::array<RoadAccess, static_cast<size_t>(VehicleType::Count)>;
-
-  RoadAccessCollector(std::string const & dataFilePath, std::string const & roadAccessPath,
-                      std::string const & osmIdsToFeatureIdsPath);
-
-  RoadAccessByVehicleType const & GetRoadAccessAllTypes() const
-  {
-    return m_roadAccessByVehicleType;
-  }
-
-  bool IsValid() const { return m_valid; }
-
-private:
-  RoadAccessByVehicleType m_roadAccessByVehicleType;
-  bool m_valid = true;
+  generator::WaysIDHolder m_roads;
 };
 
 class AccessConditionalTagParser
@@ -149,8 +168,11 @@ private:
   std::vector<RoadAccessTagProcessor::TagMapping> m_vehiclesToRoadAccess;
 };
 
+void ReadRoadAccess(std::string const & roadAccessPath, routing::OsmWay2FeaturePoint & way2feature,
+                    RoadAccessByVehicleType & roadAccessByVehicleType);
+
 // The generator tool's interface to writing the section with
 // road accessibility information for one mwm file.
 bool BuildRoadAccessInfo(std::string const & dataFilePath, std::string const & roadAccessPath,
-                         std::string const & osmIdsToFeatureIdsPath);
+                         routing::OsmWay2FeaturePoint & way2feature);
 }  // namespace routing_builder

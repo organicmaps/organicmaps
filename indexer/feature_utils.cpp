@@ -1,11 +1,9 @@
 #include "indexer/feature_utils.hpp"
 
 #include "indexer/classificator.hpp"
-#include "indexer/feature.hpp"
 #include "indexer/feature_data.hpp"
 #include "indexer/feature_visibility.hpp"
 #include "indexer/ftypes_matcher.hpp"
-#include "indexer/road_shields_parser.hpp"
 #include "indexer/scales.hpp"
 
 #include "platform/localization.hpp"
@@ -13,7 +11,6 @@
 #include "coding/string_utf8_multilang.hpp"
 #include "coding/transliteration.hpp"
 
-#include "base/base.hpp"
 #include "base/control_flow.hpp"
 
 #include <unordered_map>
@@ -129,6 +126,10 @@ vector<int8_t> MakeLanguagesPriorityList(int8_t deviceLang, bool preferDefault)
   if (preferDefault)
     langPriority.push_back(StrUtf8::kDefaultCode);
 
+  /// @DebugNote
+  // Add ru lang for descriptions/rendering tests.
+  //langPriority.push_back(StrUtf8::GetLangIndex("ru"));
+
   auto const similarLangs = GetSimilarLanguages(deviceLang);
   langPriority.insert(langPriority.cend(), similarLangs.cbegin(), similarLangs.cend());
   langPriority.insert(langPriority.cend(), {StrUtf8::kInternationalCode, StrUtf8::kEnglishCode});
@@ -205,22 +206,24 @@ class FeatureEstimator
 public:
   FeatureEstimator()
   {
-    m_TypeContinent   = GetType("place", "continent");
-    m_TypeCountry     = GetType("place", "country");
+    auto const & cl = classif();
 
-    m_TypeState       = GetType("place", "state");
-    m_TypeCounty[0]   = GetType("place", "region");
-    m_TypeCounty[1]   = GetType("place", "county");
+    m_TypeContinent   = cl.GetTypeByPath({"place", "continent"});
+    m_TypeCountry     = cl.GetTypeByPath({"place", "country"});
 
-    m_TypeCity        = GetType("place", "city");
-    m_TypeTown        = GetType("place", "town");
+    m_TypeState       = cl.GetTypeByPath({"place", "state"});
+    m_TypeCounty[0]   = cl.GetTypeByPath({"place", "region"});
+    m_TypeCounty[1]   = cl.GetTypeByPath({"place", "county"});
 
-    m_TypeVillage[0]  = GetType("place", "village");
-    m_TypeVillage[1]  = GetType("place", "suburb");
+    m_TypeCity        = cl.GetTypeByPath({"place", "city"});
+    m_TypeTown        = cl.GetTypeByPath({"place", "town"});
 
-    m_TypeSmallVillage[0]  = GetType("place", "hamlet");
-    m_TypeSmallVillage[1]  = GetType("place", "locality");
-    m_TypeSmallVillage[2]  = GetType("place", "farm");
+    m_TypeVillage[0]  = cl.GetTypeByPath({"place", "village"});
+    m_TypeVillage[1]  = cl.GetTypeByPath({"place", "suburb"});
+
+    m_TypeSmallVillage[0]  = cl.GetTypeByPath({"place", "hamlet"});
+    m_TypeSmallVillage[1]  = cl.GetTypeByPath({"place", "locality"});
+    m_TypeSmallVillage[2]  = cl.GetTypeByPath({"place", "farm"});
   }
 
   void CorrectScaleForVisibility(TypesHolder const & types, int & scale) const
@@ -253,7 +256,6 @@ public:
 private:
   static int GetDefaultScale() { return scales::GetUpperComfortScale(); }
 
-  // Returns width and height (lon and lat) for a given type.
   int GetScaleForType(uint32_t const type) const
   {
     if (type == m_TypeContinent)
@@ -282,17 +284,6 @@ private:
       return 14;
 
     return GetDefaultScale();
-  }
-
-  static uint32_t GetType(string const & s1,
-                          string const & s2 = string(),
-                          string const & s3 = string())
-  {
-    vector<string> path;
-    path.push_back(s1);
-    if (!s2.empty()) path.push_back(s2);
-    if (!s3.empty()) path.push_back(s3);
-    return classif().GetTypeByPath(path);
   }
 
   uint32_t m_TypeContinent;
@@ -437,11 +428,26 @@ vector<string> GetLocalizedRecyclingTypes(TypesHolder const & types)
   return GetLocalizedTypes(isRecyclingType, types);
 }
 
-vector<string> GetRoadShieldsNames(string const & rawRoadNumber)
+string GetLocalizedFeeType(TypesHolder const & types)
 {
-  vector<string> names;
-  for (auto && shield : ftypes::GetRoadShields(rawRoadNumber))
-    names.push_back(std::move(shield.m_name));
-  return names;
+  auto const & isFeeType = ftypes::IsFeeTypeChecker::Instance();
+  auto localized_types = GetLocalizedTypes(isFeeType, types);
+  ASSERT_LESS_OR_EQUAL ( localized_types.size(), 1, () );
+  if (localized_types.empty())
+    return "";
+  return localized_types[0];
 }
+
+bool HasAtm(TypesHolder const & types)
+{
+  auto const & isAtmType = ftypes::IsATMChecker::Instance();
+  return isAtmType(types);
+}
+
+bool HasToilets(TypesHolder const & types)
+{
+  auto const & isToiletsType = ftypes::IsToiletsChecker::Instance();
+  return isToiletsType(types);
+}
+
 } // namespace feature

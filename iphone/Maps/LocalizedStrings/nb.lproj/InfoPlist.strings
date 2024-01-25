@@ -10,7 +10,7 @@
 "search" = "Søk";
 
 /* Used in home screen quick actions. */
-"bookmarks" = "Bokmerker";
+"bookmarks_and_tracks" = "Bokmerker og ruter";
 
 /* Used in home screen quick actions. */
 "route" = "Rute";

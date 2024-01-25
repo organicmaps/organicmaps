@@ -8,17 +8,14 @@
 #include "drape/texture_manager.hpp"
 #include "drape/utils/vertex_decl.hpp"
 
-#include "indexer/map_style_reader.hpp"
-
 #include "base/buffer_vector.hpp"
-#include "base/logging.hpp"
 
 #include <algorithm>
 
 namespace df
 {
 
-AreaShape::AreaShape(std::vector<m2::PointD> && triangleList, BuildingOutline && buildingOutline,
+AreaShape::AreaShape(std::vector<m2::PointD> triangleList, BuildingOutline && buildingOutline,
                      AreaViewParams const & params)
   : m_vertexes(std::move(triangleList))
   , m_buildingOutline(std::move(buildingOutline))

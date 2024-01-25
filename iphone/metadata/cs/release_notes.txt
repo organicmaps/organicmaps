@@ -1,13 +1,39 @@
-- Nová data OpenStreetMap k 27. únoru
-- Opraveno zamrzání na iPadu při připojení klávesnice
-- Opraveno zbytečné dvojité kliknutí na tlačítko trasy
-- Odstraněny duplicitní buňky s patry a poštovními směrovacími čísly
-- Povoleny poznámky editoru OpenStreetMap pro všechna vybraná místa
-- Opraveno a vylepšeno vyhledávání
-- Rozdělení veganské a vegetariánské kuchyně ve vyhledávání
-- Opraveny styly pro letiště, landusy, vodní cesty a šrafování výplní oblastí
-- Přidáni zdravotničtí specialisté: alternativní, audiolog, darování krve, optometrista, podiatr, psychoterapeut, odběr vzorků, logoped_terapeut
-- Přidány komunikační věže a generátory solární, větrné, plynové a vodní energie
-- Vylepšeny překlady do arabštiny, norštiny, portugalštiny a turečtiny
+• Copy place title, address, coordinates and other information using a long tap
+• CarPlay: support touch panning gestures
+• Add Notes section to the 'Add place to OpenStreetMap' screen
+• OpenStreetMap map data as of January 5
 
-Sledujte naše novinky na adrese omaps.app/news
+Styles:
+• Added cairns, updated Singapore subway icon
+• Slightly increased contrast of lines on the World overview map
+• Make secondary roads a bit brighter than tertiary/etc.
+• Car navigation style: fixed some footways/paths/tracks being displayed too early as white dashed lines
+• Main style: fix color of footways with a sac_scale=* tag to be same as path
+• Fixed very thin lines (e.g. tram lines) having inconsistent transparency/contrast between different devices (driver•dependent)
+• Fix bookmarked children playground icon
+• remove labels and decrease visibility of footway crossings and sidewalks
+• tuned contrast of altitude contour lines
+• crisper looking lines (no edge blur)
+
+Outdoors style:
+• more contrast•looking paths, tracks, cutlines, rivers, ditches, railways, cycleways, fences, etc.
+• reduce visibility of small streams and canals
+• increase visibility of fences, walls and ditches
+• increase visibilities of bridle/cycle/foot•ways and steps, increase label sizes
+• make bridleways to be the same brown color as paths but with longer dashes
+
+Pistes improvements:
+• add snow parks and new piste types: skitour, winter hike, connection
+• color freeride pistes in yellow•orange, consider ungroomed downhill runs as freeride
+• better piste names and numbers/refs support
+• in Outdoors style: increase pistes visibilities and display detailed piste shapes (area fills)
+
+Other:
+• Display capacity of parkings, bicycle docks and charging stations when they're selected
+• Adjust shop, amenity, leisure ranking in the search
+
+Translations:
+• new Azebaijani language
+• updates to Chinese, Polish, Hebrew, Romanian
+
+…and more smaller fixes and improvements, check https://omaps.org/news for details!

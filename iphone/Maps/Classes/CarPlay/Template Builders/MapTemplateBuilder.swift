@@ -16,6 +16,11 @@ final class MapTemplateBuilder {
     case redirectRoute
     case endRoute
   }
+  
+  private enum Constants {
+    static let carPlayGuidanceBackgroundColor = UIColor(46, 100, 51, 1.0)
+  }
+  
   // MARK: - CPMapTemplate builders
   class func buildBaseTemplate(positionMode: MWMMyPositionMode) -> CPMapTemplate {
     let mapTemplate = CPMapTemplate()
@@ -100,6 +105,7 @@ final class MapTemplateBuilder {
       CarPlayService.shared.cancelCurrentTrip()
     }
     mapTemplate.trailingNavigationBarButtons = [endButton]
+    mapTemplate.guidanceBackgroundColor = Constants.carPlayGuidanceBackgroundColor
   }
   
   // MARK: - Conditional navigation buttons

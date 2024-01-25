@@ -221,7 +221,7 @@ class SegmentsDecoderV2
 {
 public:
   SegmentsDecoderV2(DataSource & dataSource, unique_ptr<CarModelFactory> cmf)
-    : m_dataSource(dataSource), m_graph(dataSource, move(cmf)), m_infoGetter(dataSource)
+    : m_dataSource(dataSource), m_graph(dataSource, std::move(cmf)), m_infoGetter(dataSource)
   {
   }
 
@@ -310,7 +310,7 @@ class SegmentsDecoderV3
 {
 public:
   SegmentsDecoderV3(DataSource & dataSource, unique_ptr<CarModelFactory> carModelFactory)
-      : m_dataSource(dataSource), m_graph(dataSource, move(carModelFactory)), m_infoGetter(dataSource)
+      : m_dataSource(dataSource), m_graph(dataSource, std::move(carModelFactory)), m_infoGetter(dataSource)
   {
   }
 

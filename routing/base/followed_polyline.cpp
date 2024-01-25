@@ -185,7 +185,7 @@ Iter FollowedPolyline::UpdateProjection(m2::RectD const & posRect)
 void FollowedPolyline::SetFakeSegmentIndexes(vector<size_t> && fakeSegmentIndexes)
 {
   ASSERT(is_sorted(fakeSegmentIndexes.cbegin(), fakeSegmentIndexes.cend()), ());
-  m_fakeSegmentIndexes = move(fakeSegmentIndexes);
+  m_fakeSegmentIndexes = std::move(fakeSegmentIndexes);
 }
 
 double FollowedPolyline::GetDistFromCurPointToRoutePointMerc() const

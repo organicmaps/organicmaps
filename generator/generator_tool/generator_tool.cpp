@@ -61,7 +61,7 @@
 #include <memory>
 #include <string>
 
-#include "gflags/gflags.h"
+#include <gflags/gflags.h>
 
 namespace
 {
@@ -132,8 +132,6 @@ DEFINE_bool(make_transit_cross_mwm, false, "Make section for cross mwm transit r
 DEFINE_bool(make_transit_cross_mwm_experimental, false,
             "Experimental parameter. If set the new version of transit cross-mwm section will be "
             "generated. Makes section for cross mwm transit routing.");
-DEFINE_bool(disable_cross_mwm_progress, false,
-            "Disable log of cross mwm section building progress.");
 DEFINE_string(srtm_path, "",
               "Path to srtm directory. If set, generates a section with altitude information "
               "about roads.");
@@ -172,8 +170,10 @@ DEFINE_string(us_postcodes_dataset, "", "Path to dataset with US postcodes.");
 // Printing stuff.
 DEFINE_bool(stats_general, false, "Print file and feature stats.");
 DEFINE_bool(stats_geometry, false, "Print outer geometry stats.");
-DEFINE_double(stats_geometry_dup_factor, 1.5, "Consider feature's geometry scale "
-              "duplicating a more detailed one if it has <dup_factor less elements.");
+DEFINE_uint64(stats_geom_min_diff, 5, "Consider feature's geometry scale "
+              "similar to a more detailed one if it has <min_diff less elements.");
+DEFINE_double(stats_geom_min_factor, 2.0f, "Consider feature's geometry scale "
+              "similar to a more detailed one if it has <min_factor times less elements.");
 DEFINE_bool(stats_types, false, "Print feature stats by type.");
 DEFINE_bool(dump_types, false, "Prints all types combinations and their total count.");
 DEFINE_bool(dump_prefixes, false, "Prints statistics on feature's' name prefixes.");
@@ -221,12 +221,11 @@ MAIN_WITH_ERROR_HANDLING([](int argc, char ** argv)
     pl.SetResourceDir(FLAGS_user_resource_path);
     pl.SetSettingsDir(FLAGS_user_resource_path);
   }
+  if (!FLAGS_data_path.empty())
+    pl.SetWritableDirForTests(FLAGS_data_path);
 
-  string const path =
-      FLAGS_data_path.empty() ? pl.WritableDir() : base::AddSlashIfNeeded(FLAGS_data_path);
-
-  // So that stray GetWritablePathForFile calls do not crash the generator.
-  pl.SetWritableDirForTests(path);
+  std::string const path = pl.WritableDir();
+  CHECK(!path.empty(), ("Set --data_path to use generator toolchain."));
 
   feature::GenerateInfo genInfo;
   genInfo.m_verbose = FLAGS_verbose;
@@ -335,8 +334,7 @@ MAIN_WITH_ERROR_HANDLING([](int argc, char ** argv)
   {
     string const & country = genInfo.m_bucketNames[i];
     string const dataFile = genInfo.GetTargetFileName(country, DATA_FILE_EXTENSION);
-    string const osmToFeatureFilename =
-        genInfo.GetTargetFileName(country) + OSM2FEATURE_FILE_EXTENSION;
+    string const osmToFeatureFilename = dataFile + OSM2FEATURE_FILE_EXTENSION;
 
     if (FLAGS_generate_geometry)
     {
@@ -431,7 +429,7 @@ MAIN_WITH_ERROR_HANDLING([](int argc, char ** argv)
       generator::OsmIdToBoundariesTable table;
       if (!generator::DeserializeBoundariesTable(FLAGS_cities_boundaries_data, table))
         LOG(LCRITICAL, ("Error deserializing boundaries table"));
-      if (!generator::BuildCitiesBoundaries(dataFile, osmToFeatureFilename, table))
+      if (!generator::BuildCitiesBoundaries(dataFile, table))
         LOG(LCRITICAL, ("Error generating cities boundaries."));
     }
 
@@ -459,17 +457,17 @@ MAIN_WITH_ERROR_HANDLING([](int argc, char ** argv)
 
     if (FLAGS_generate_cameras)
     {
-      if (routing::AreSpeedCamerasProhibited(platform::CountryFile(country)))
-      {
-        LOG(LINFO,
-            ("Cameras info is prohibited for", country, "and speedcams section is not generated."));
-      }
-      else
-      {
+//      if (routing::AreSpeedCamerasProhibited(platform::CountryFile(country)))
+//      {
+//        LOG(LINFO,
+//            ("Cameras info is prohibited for", country, "and speedcams section is not generated."));
+//      }
+//      else
+//      {
         string const camerasFilename = genInfo.GetIntermediateFileName(CAMERAS_TO_WAYS_FILENAME);
 
         BuildCamerasInfo(dataFile, camerasFilename, osmToFeatureFilename);
-      }
+//      }
     }
 
     if (country == WORLD_FILE_NAME && !FLAGS_world_roads_path.empty())
@@ -495,6 +493,15 @@ MAIN_WITH_ERROR_HANDLING([](int argc, char ** argv)
         return EXIT_FAILURE;
       }
 
+      // Order is important: city roads first, routing graph, maxspeeds then (to check inside/outside a city).
+      if (FLAGS_make_city_roads)
+      {
+        auto const boundariesPath = genInfo.GetIntermediateFileName(CITY_BOUNDARIES_COLLECTOR_FILENAME);
+        LOG(LINFO, ("Generating", CITY_ROADS_FILE_TAG, "for", dataFile, "using", boundariesPath));
+        if (!BuildCityRoads(dataFile, boundariesPath))
+          LOG(LCRITICAL, ("Generating city roads error."));
+      }
+
       string const restrictionsFilename = genInfo.GetIntermediateFileName(RESTRICTIONS_FILENAME);
       string const roadAccessFilename = genInfo.GetIntermediateFileName(ROAD_ACCESS_FILENAME);
 
@@ -502,9 +509,11 @@ MAIN_WITH_ERROR_HANDLING([](int argc, char ** argv)
       auto routingGraph = CreateIndexGraph(dataFile, country, *countryParentGetter);
       CHECK(routingGraph, ());
 
+      auto osm2feature = routing::CreateWay2FeatureMapper(dataFile, osmToFeatureFilename);
+
       /// @todo CHECK return result doesn't work now for some small countries like Somalie.
       if (!BuildRoadRestrictions(*routingGraph, dataFile, restrictionsFilename, osmToFeatureFilename) ||
-          !BuildRoadAccessInfo(dataFile, roadAccessFilename, osmToFeatureFilename))
+          !BuildRoadAccessInfo(dataFile, roadAccessFilename, *osm2feature))
       {
         LOG(LERROR, ("Routing build failed for", dataFile));
       }
@@ -517,18 +526,7 @@ MAIN_WITH_ERROR_HANDLING([](int argc, char ** argv)
       }
     }
 
-    if (FLAGS_make_city_roads)
-    {
-      CHECK(!FLAGS_cities_boundaries_data.empty(), ());
-      LOG(LINFO, ("Generating cities boundaries roads for", dataFile));
-      auto const boundariesPath =
-          genInfo.GetIntermediateFileName(ROUTING_CITY_BOUNDARIES_DUMP_FILENAME);
-      if (!BuildCityRoads(dataFile, boundariesPath))
-        LOG(LCRITICAL, ("Generating city roads error."));
-    }
-
-    if (FLAGS_make_cross_mwm || FLAGS_make_transit_cross_mwm ||
-        FLAGS_make_transit_cross_mwm_experimental)
+    if (FLAGS_make_cross_mwm || FLAGS_make_transit_cross_mwm || FLAGS_make_transit_cross_mwm_experimental)
     {
       if (!countryParentGetter)
       {
@@ -542,8 +540,7 @@ MAIN_WITH_ERROR_HANDLING([](int argc, char ** argv)
       if (FLAGS_make_cross_mwm)
       {
         BuildRoutingCrossMwmSection(path, dataFile, country, genInfo.m_intermediateDir,
-                                    *countryParentGetter, osmToFeatureFilename,
-                                    FLAGS_disable_cross_mwm_progress);
+                                    *countryParentGetter, osmToFeatureFilename);
       }
 
       if (FLAGS_make_transit_cross_mwm_experimental)
@@ -595,7 +592,8 @@ MAIN_WITH_ERROR_HANDLING([](int argc, char ** argv)
   {
     LOG(LINFO, ("Calculating statistics for", dataFile));
     auto file = OfstreamWithExceptions(genInfo.GetIntermediateFileName(FLAGS_output, STATS_EXTENSION));
-    stats::MapInfo info(FLAGS_stats_geometry_dup_factor);
+    file << std::fixed << std::setprecision(1);
+    stats::MapInfo info(FLAGS_stats_geom_min_diff, FLAGS_stats_geom_min_factor);
     stats::CalcStats(dataFile, info);
 
     if (FLAGS_stats_general)

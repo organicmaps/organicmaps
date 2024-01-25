@@ -2,11 +2,11 @@
 
 @interface MWMRouterTransitStepInfo : NSObject
 
-@property(nonatomic, readonly) MWMRouterTransitType type;
-@property(copy, nonatomic, readonly) NSString * distance;
-@property(copy, nonatomic, readonly) NSString * distanceUnits;
-@property(copy, nonatomic, readonly) NSString * number;
-@property(nonatomic, readonly) UIColor * color;
-@property(nonatomic, readonly) NSInteger intermediateIndex;
+@property(nonatomic, readwrite) MWMRouterTransitType type;
+@property(copy, nonatomic, readwrite) NSString * distance;
+@property(copy, nonatomic, readwrite) NSString * distanceUnits;
+@property(copy, nonatomic, readwrite) NSString * number;
+@property(nonatomic, readwrite) UIColor * color;
+@property(nonatomic, readwrite) NSInteger intermediateIndex;
 
 @end

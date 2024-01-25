@@ -32,14 +32,14 @@ struct IsolinesProfile
                                   visitor(m_simplificationZoom, "simplificationZoom"),
                                   visitor(m_medianFilterR, "medianFilterR"),
                                   visitor(m_gaussianFilterStDev, "gaussianFilterStDev"),
-                                  visitor(m_gaussianFilterRFactor, "gaussianFilterRFactor"));
+                                  visitor(m_gaussianFilterRFactor, "gaussianFilterRFactor"))
 };
 
 struct IsolinesProfilesCollection
 {
   std::map<std::string, IsolinesProfile> m_profiles;
 
-  DECLARE_VISITOR_AND_DEBUG_PRINT(IsolinesProfilesCollection, visitor(m_profiles, "profiles"));
+  DECLARE_VISITOR_AND_DEBUG_PRINT(IsolinesProfilesCollection, visitor(m_profiles, "profiles"))
 };
 
 struct TileCoord
@@ -56,7 +56,7 @@ struct TileCoord
   }
 
   DECLARE_VISITOR_AND_DEBUG_PRINT(TileCoord, visitor(m_bottomLat, "bottomLat"),
-                                   visitor(m_leftLon, "leftLon"));
+                                   visitor(m_leftLon, "leftLon"))
 };
 
 struct TileCoordHash
@@ -84,14 +84,14 @@ struct CountryIsolinesParams
 
   DECLARE_VISITOR_AND_DEBUG_PRINT(CountryIsolinesParams, visitor(m_profileName, "profileName"),
                                   visitor(m_tileCoordsSubset, "tileCoordsSubset"),
-                                  visitor(m_tilesAreBanned, "tilesAreBanned"));
+                                  visitor(m_tilesAreBanned, "tilesAreBanned"))
 };
 
 struct CountriesToGenerate
 {
   std::map<storage::CountryId, CountryIsolinesParams> m_countryParams;
 
-  DECLARE_VISITOR_AND_DEBUG_PRINT(CountriesToGenerate, visitor(m_countryParams, "countryParams"));
+  DECLARE_VISITOR_AND_DEBUG_PRINT(CountriesToGenerate, visitor(m_countryParams, "countryParams"))
 };
 
 template<typename DataType>

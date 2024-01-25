@@ -134,16 +134,16 @@ Retrieval::ExtendedFeatures SortFeaturesAndBuildResult(vector<uint64_t> && featu
   using Builder = coding::CompressedBitVectorBuilder;
   base::SortUnique(features);
   base::SortUnique(exactlyMatchedFeatures);
-  auto featuresCBV = CBV(Builder::FromBitPositions(move(features)));
-  auto exactlyMatchedFeaturesCBV = CBV(Builder::FromBitPositions(move(exactlyMatchedFeatures)));
-  return Retrieval::ExtendedFeatures(move(featuresCBV), move(exactlyMatchedFeaturesCBV));
+  auto featuresCBV = CBV(Builder::FromBitPositions(std::move(features)));
+  auto exactlyMatchedFeaturesCBV = CBV(Builder::FromBitPositions(std::move(exactlyMatchedFeatures)));
+  return Retrieval::ExtendedFeatures(std::move(featuresCBV), std::move(exactlyMatchedFeaturesCBV));
 }
 
 Retrieval::ExtendedFeatures SortFeaturesAndBuildResult(vector<uint64_t> && features)
 {
   using Builder = coding::CompressedBitVectorBuilder;
   base::SortUnique(features);
-  auto const featuresCBV = CBV(Builder::FromBitPositions(move(features)));
+  auto const featuresCBV = CBV(Builder::FromBitPositions(std::move(features)));
   return Retrieval::ExtendedFeatures(featuresCBV);
 }
 
@@ -266,7 +266,7 @@ Retrieval::ExtendedFeatures RetrieveAddressFeaturesImpl(Retrieval::TrieRoot<Valu
     }
   });
 
-  return SortFeaturesAndBuildResult(move(features), move(exactlyMatchedFeatures));
+  return SortFeaturesAndBuildResult(std::move(features), std::move(exactlyMatchedFeatures));
 }
 
 template <typename Value>
@@ -292,7 +292,7 @@ Retrieval::ExtendedFeatures RetrievePostcodeFeaturesImpl(Retrieval::TrieRoot<Val
       features.push_back(index);
   });
 
-  return SortFeaturesAndBuildResult(move(features));
+  return SortFeaturesAndBuildResult(std::move(features));
 }
 
 Retrieval::ExtendedFeatures RetrieveGeometryFeaturesImpl(MwmContext const & context,
@@ -316,7 +316,7 @@ Retrieval::ExtendedFeatures RetrieveGeometryFeaturesImpl(MwmContext const & cont
     if (rect.IsPointInside(center))
       features.push_back(index);
   });
-  return SortFeaturesAndBuildResult(move(features), move(exactlyMatchedFeatures));
+  return SortFeaturesAndBuildResult(std::move(features), std::move(exactlyMatchedFeatures));
 }
 
 template <typename T>
@@ -325,7 +325,7 @@ struct RetrieveAddressFeaturesAdaptor
   template <typename... Args>
   Retrieval::ExtendedFeatures operator()(Args &&... args)
   {
-    return RetrieveAddressFeaturesImpl<T>(forward<Args>(args)...);
+    return RetrieveAddressFeaturesImpl<T>(std::forward<Args>(args)...);
   }
 };
 
@@ -335,7 +335,7 @@ struct RetrievePostcodeFeaturesAdaptor
   template <typename... Args>
   Retrieval::ExtendedFeatures operator()(Args &&... args)
   {
-    return RetrievePostcodeFeaturesImpl<T>(forward<Args>(args)...);
+    return RetrievePostcodeFeaturesImpl<T>(std::forward<Args>(args)...);
   }
 };
 
@@ -414,6 +414,6 @@ Retrieval::ExtendedFeatures Retrieval::Retrieve(Args &&... args) const
 {
   R<Uint64IndexValue> r;
   ASSERT(m_root, ());
-  return r(*m_root, m_context, m_cancellable, forward<Args>(args)...);
+  return r(*m_root, m_context, m_cancellable, std::forward<Args>(args)...);
 }
 }  // namespace search

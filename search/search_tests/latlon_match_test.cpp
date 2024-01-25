@@ -4,10 +4,10 @@
 
 #include "base/math.hpp"
 
+namespace latlon_match_test
+{
 using namespace search;
 
-namespace
-{
 // We expect the results to be quite precise.
 double const kEps = 1e-12;
 
@@ -16,7 +16,7 @@ void TestAlmostEqual(double actual, double expected)
   TEST(base::AlmostEqualAbsOrRel(actual, expected, kEps), (actual, expected));
 }
 
-UNIT_TEST(LatLon_Degree_Match)
+UNIT_TEST(LatLon_Match_Smoke)
 {
   double lat, lon;
 
@@ -154,4 +154,11 @@ UNIT_TEST(LatLon_Degree_Match)
   TEST(!MatchLatLonDegree("N 33.217\' E 11* 10.113", lat, lon), ());
   TEST(!MatchLatLonDegree("N 51* 33.217 E 11* 10.113\"", lat, lon), ());
 }
-}  //  namespace
+
+UNIT_TEST(LatLon_Match_False)
+{
+  double lat, lon;
+  TEST(!MatchLatLonDegree("2 1st", lat, lon), ());
+}
+
+} // namespace latlon_match_test

@@ -50,7 +50,7 @@ source /opt/rh/devtoolset-7/enable
 echo | %{project_src}/configure.sh
 mkdir -p %{project_root}/build
 cd %{project_root}/build
-cmake3 %{project_src} -DSKIP_DESKTOP=ON
+cmake3 %{project_src} -DSKIP_QT_GUI=ON
 make %{?_smp_mflags} %{tool_name}
 
 %install

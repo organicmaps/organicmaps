@@ -32,7 +32,7 @@
 /* A text for current gps location point/arrow selected on the map */
 "core_my_position" = "My Position";
 
-/* Update maps later/Buy pro version later button text */
+/* Update maps later button text */
 "later" = "Later";
 
 /* View and button titles for accessibility, please also edit it in iphone/plist.txt */
@@ -60,7 +60,7 @@
 "continue_download" = "Continue";
 
 /* "Add new bookmark list" dialog title */
-"add_new_set" = "Add New List";
+"add_new_set" = "Add a New List";
 
 /* Bookmark Color dialog title */
 "bookmark_color" = "Bookmark Color";
@@ -71,14 +71,17 @@
 /* "Bookmark Lists" dialog title */
 "bookmark_sets" = "Bookmark Lists";
 
-/* "Bookmarks" dialog title, please also edit it in iphone/plist.txt */
+/* Should be used in the bookmarks-only context, see bookmarks_and_tracks if tracks are also implied. */
 "bookmarks" = "Bookmarks";
+
+/* "Bookmarks and Tracks" dialog title, also sync it with iphone/plist.txt */
+"bookmarks_and_tracks" = "Bookmarks and Tracks";
 
 /* Default bookmark list name */
 "core_my_places" = "My Places";
 
-/* Editor title above street and house number */
-"address" = "Address";
+/* Editor title above street and house number, duplicates [type.building.address] in types_strings.txt */
+"address" = "Anwani";
 
 /* Settings button in system menu */
 "settings" = "Settings";
@@ -106,6 +109,9 @@
 
 /* Search category for clothes/shoes/gifts/jewellery/sport shops; any changes should be duplicated in categories.txt @shopping! */
 "shopping" = "Manunuzi";
+
+/* Search category for second_hand/charity/antique/auction shops; any changes should be duplicated in categories.txt @secondhand! */
+"secondhand" = "Mtumba";
 
 /* Search category for places to stay; any changes should be duplicated in categories.txt @hotel! */
 "hotel" = "Hotel";
@@ -155,7 +161,7 @@
 /* Search category for RV facilities; any changes should be duplicated in categories.txt @rv! */
 "rv" = "Kwa RV";
 
-"share_bookmarks_email_body" = "Hello!\n\nAttached are my bookmarks from Organic Maps app. Please open them if you have Organic Maps installed. Or, if you don't, download the app for your iOS or Android device by following this link: https://omaps.app/get?kmz\n\nEnjoy traveling with Organic Maps!";
+"share_bookmarks_email_body" = "Hello!\n\nAttached are my bookmarks; please open them in Organic Maps. If you don't have it installed you can download it here: https://omaps.app/get?kmz\n\nEnjoy travelling with Organic Maps!";
 
 /* message title of loading file */
 "load_kmz_title" = "Loading Bookmarks";
@@ -184,6 +190,9 @@
 /* Share by email button text, also used in editor and About. */
 "email" = "Email";
 
+/* Text for message when used successfully copied something */
+"copied_to_clipboard" = "Copied to clipboard: %@";
+
 /* place preview title */
 "info" = "Info";
 
@@ -211,20 +220,23 @@
 /* Settings «Map» category: «Night style» title */
 "pref_map_style_title" = "Night Mode";
 
-/* «Map style» entry value */
-"pref_map_style_default" = "Off";
+/* Generic «Off» string */
+"off" = "Off";
 
-/* «Map style» entry value */
-"pref_map_style_night" = "On";
+/* Generic «On» string */
+"on" = "On";
 
-/* «Map style» entry value */
-"pref_map_style_auto" = "Auto";
+/* Generic «Auto» string */
+"auto" = "Auto";
 
 /* Settings «Map» category: «Perspective view» title */
 "pref_map_3d_title" = "Perspective view";
 
 /* Settings «Map» category: «3D buildings» title */
 "pref_map_3d_buildings_title" = "3D buildings";
+
+/* A message in Settings/Preferences explaining why is it not possible to enable 3D buildings when max power saving mode is enabled */
+"pref_map_3d_buildings_disabled_summary" = "Majengo ya 3D yamezimwa katika hali ya kuokoa nishati";
 
 /* Settings «Route» category: «Tts enabled» title */
 "pref_tts_enable_title" = "Voice Instructions";
@@ -271,7 +283,7 @@
 "telegram" = "Telegram";
 
 /* Text in menu */
-"matrix" = "[matrix]";
+"matrix" = "[Matrix]";
 
 /* Text in menu */
 "mastodon" = "Mastodon";
@@ -280,7 +292,7 @@
 "facebook" = "Facebook";
 
 /* Text in menu */
-"twitter" = "Twitter";
+"twitter" = "X (Twitter)";
 
 /* Text in menu */
 "instagram" = "Instagram";
@@ -313,10 +325,10 @@
 "report_a_bug" = "Report a bug";
 
 /* Alert text */
-"email_error_body" = "The email client has not been set up. Please configure it or use any other way to contact us at %@";
+"email_error_body" = "The email client has not been set up. Please configure it or contact us at %@";
 
 /* Alert title */
-"email_error_title" = "Mail sending error";
+"email_error_title" = "Error sending email";
 
 /* Settings item title */
 "pref_calibration_title" = "Compass calibration";
@@ -453,11 +465,11 @@
 
 "dialog_routing_download_files" = "Download required files";
 
-"dialog_routing_download_and_update_all" = "Download and update all map and routing information along the projected path to calculate route.";
+"dialog_routing_download_and_update_all" = "Download or update all maps along the projected path to calculate a route.";
 
 "dialog_routing_unable_locate_route" = "Unable to locate route";
 
-"dialog_routing_change_start_or_end" = "Please adjust your starting point or your destination.";
+"dialog_routing_change_start_or_end" = "Please adjust your starting point or destination.";
 
 "dialog_routing_change_start" = "Adjust starting point";
 
@@ -500,7 +512,7 @@
 "routing_planning_error" = "Route Planning Failed";
 
 /* Arrive routing message in navigation view */
-"routing_arrive" = "Arrival at %s";
+"routing_arrive" = "Arrival at %@";
 
 /* Text for routing::RouterResultCode::FileTooOld dialog. */
 "dialog_routing_download_and_update_maps" = "Download and update all map along the projected path to calculate route.";
@@ -515,7 +527,7 @@
 
 "search_history_title" = "Search History";
 
-"search_history_text" = "View recent searches.";
+"search_history_text" = "View your recent searches.";
 
 "clear_search" = "Clear Search History";
 
@@ -533,9 +545,9 @@
 
 "p2p_to_here" = "Route to";
 
-"p2p_only_from_current" = "Navigation is available only from your current location.";
+"p2p_only_from_current" = "Navigation is only available from your current location.";
 
-"p2p_reroute_from_current" = "Do you want us to plan a route from your current location?";
+"p2p_reroute_from_current" = "Do you want to plan a route from your current location?";
 
 "editor_time_add" = "Add Schedule";
 
@@ -562,13 +574,13 @@
 
 "editor_add_select_location" = "Location";
 
-"editor_done_dialog_1" = "You’ve changed the world map. Do not keep it to yourself! Tell your friends, and edit it together.";
+"editor_done_dialog_1" = "You’ve changed the world map! Don't keep it to yourself; tell your friends and edit it together.";
 
 "share_with_friends" = "Share with friends";
 
 "editor_report_problem_send_button" = "Send";
 
-"autodownload" = "Auto-download";
+"autodownload" = "Auto-download maps";
 
 /* Place Page opening hours text */
 "closed_now" = "Closed now";
@@ -608,7 +620,7 @@
 
 "invalid_username_or_password" = "Invalid username or password.";
 
-"login" = "Log In";
+"login" = "OpenStreetMap Login";
 
 "forgot_password" = "Forgot your password?";
 
@@ -654,7 +666,7 @@
 
 "please_note" = "Please note";
 
-"downloader_delete_map_dialog" = "All of your map edits will be deleted together with the map.";
+"downloader_delete_map_dialog" = "All of your map edits will be deleted with the map.";
 
 "downloader_update_maps" = "Update Maps";
 
@@ -662,7 +674,7 @@
 
 "migration_download_error_dialog" = "Download error";
 
-"common_check_internet_connection_dialog" = "Please check your settings and make sure your device is connected to the Internet.";
+"common_check_internet_connection_dialog" = "Please make sure your device is connected to the Internet.";
 
 "downloader_no_space_title" = "Not enough space";
 
@@ -692,7 +704,7 @@
 
 "message_invalid_feature_position" = "No object can be located here";
 
-"login_to_make_edits_visible" = "Log in to OpenStreetMap.org so other users can see the changes you have made.";
+"login_to_make_edits_visible" = "Log in to openstreetmap.org to publish your changes to the world.";
 
 /* Error dialog no space */
 "migration_no_space_message" = "To download, you need more space. Please delete any unnecessary data.";
@@ -724,7 +736,7 @@
 
 "editor_detailed_description_hint" = "Detailed comment";
 
-"editor_detailed_description" = "Your suggested map changes will be sent to the OpenStreetMap community. Describe any additional details that cannot be edited in Organic Maps.";
+"editor_detailed_description" = "Your suggested map changes will be sent to the OpenStreetMap community. Please describe any additional details that cannot be edited in Organic Maps.";
 
 "editor_more_about_osm" = "More about OpenStreetMap";
 
@@ -732,13 +744,13 @@
 
 "downloader_no_downloaded_maps_title" = "You haven't downloaded any maps";
 
-"downloader_no_downloaded_maps_message" = "Download maps to search for a location and use navigation offline.";
+"downloader_no_downloaded_maps_message" = "Download maps to search and navigate offline.";
 
 /* Error title that appears after certain time without location. */
-"current_location_unknown_title" = "Continue detecting your current location?";
+"current_location_unknown_title" = "Continue detecting your location?";
 
 /* Error that appears after certain time without location. */
-"current_location_unknown_message" = "Current location is unknown. Maybe you are in a building or in a tunnel.";
+"current_location_unknown_message" = "Current location is unknown. You may be in a building or tunnel.";
 
 "current_location_unknown_continue_button" = "Continue";
 
@@ -746,7 +758,7 @@
 
 "current_location_unknown_error_title" = "Current location is unknown.";
 
-"current_location_unknown_error_message" = "An error occurred while searching for your location. Check that your device is working properly and try again later.";
+"current_location_unknown_error_message" = "An error occurred while determining your location. Check that your device is working properly and try again later.";
 
 "location_services_disabled_header" = "Location services are disabled";
 
@@ -756,19 +768,23 @@
 
 "location_services_disabled_2" = "2. Tap Location";
 
-/* iOS Dialog for the case when the location permission is not granted */
+/* iOS Dialog for the case when the location permission is not granted; you might find the exact wording for your language here: https://support.apple.com/en-us/102647 (replace 'en-us' in URL with your language/region) */
 "location_services_disabled_3" = "3. Select While Using the App";
 
-"meter" = "m";
+/* abbreviation for meters */
+"m" = "m";
 
-"kilometer" = "km";
+/* abbreviation for kilometers */
+"km" = "km";
 
+/* abbreviation for kilometers per hour */
 "kilometers_per_hour" = "km/h";
 
-"mile" = "mi";
+/* abbreviation for mile(s) */
+"mi" = "mi";
 
 /* A unit of measure */
-"foot" = "ft";
+"ft" = "ft";
 
 "miles_per_hour" = "mph";
 
@@ -776,11 +792,18 @@
 
 "minute" = "min";
 
-"placepage_place_description" = "Description";
-
 "placepage_more_button" = "More";
 
 "book_button" = "Book";
+
+/* A referral link on the place page for some hotels */
+"more_on_kayak" = "Picha, hakiki, uhifadhi";
+
+/* An explanation dialog shown when clicking on more_on_kayak link. */
+"dialog_kayak_disclaimer" = "Bonasi ya rufaa inayopokelewa kwa kila nafasi uliyohifadhi kupitia kiungo hiki huenda kwenye uundaji wa ramani za kikaboni.";
+
+/* A confirmation button text in the explanation dialog that opens hotel details page on Kayak website. */
+"dialog_kayak_button" = "Maelezo kuhusu Kayak";
 
 "placepage_call_button" = "Call";
 
@@ -817,27 +840,27 @@
 
 "refresh" = "Update";
 
-"placepage_add_place_button" = "Add a place to the map";
+"placepage_add_place_button" = "Ongeza Mahali kwa OpenStreetMap";
 
 /* Displayed when saving some edits to the map to warn against publishing personal data */
 "editor_share_to_all_dialog_title" = "Do you want to send it to all users?";
 
 /* Dialog before publishing the modifications to the public map. */
-"editor_share_to_all_dialog_message_1" = "Make sure you did not enter any personal data.";
+"editor_share_to_all_dialog_message_1" = "Make sure you did not enter any private or personal data.";
 
 "editor_share_to_all_dialog_message_2" = "Wahariri wa OpenStreetMap watakagua mabadiliko na kuwasiliana nawe ikiwa wana maswali yoyote.";
 
 "navigation_stop_button" = "stop";
 
 /* iOS dialog for the case when recent track recording is on and the app comes back from background */
-"recent_track_background_dialog_title" = "Disable recording of your recently traveled route?";
+"recent_track_background_dialog_title" = "Disable recording of your recently travelled route?";
 
 "off_recent_track_background_button" = "Disable";
 
 /* For sharing via SMS and so on */
 "sharing_call_action_look" = "Check out";
 
-"recent_track_background_dialog_message" = "Organic Maps uses your geoposition in the background for recording your recently traveled route.";
+"recent_track_background_dialog_message" = "Organic Maps uses your location in the background to record your recently travelled route.";
 
 /* Text under the version number in the Help dialog. TODO: Synchronize other translations with English. */
 "about_description" = "Organic Maps ni programu huria na ya chanzo huria ya ramani za nje ya mtandao. Hakuna matangazo. Hakuna ufuatiliaji. Ukiona hitilafu kwenye ramani, tafadhali irekebishe katika OpenStreetMap. Mradi huu umeundwa na wapendaji katika wakati wetu wa bure, kwa hivyo tunahitaji maoni na usaidizi wako.";
@@ -864,7 +887,7 @@
 "mobile_data" = "Mobile Internet";
 
 /* NOTE to translators: please synchronize your translation with the English one. */
-"mobile_data_description" = "Mobile internet is required for map update notifications and for displaying detailed information about places and bookmarks.";
+"mobile_data_description" = "Mobile internet is required for map update notifications and uploading edits.";
 
 "mobile_data_option_never" = "Never Use";
 
@@ -872,17 +895,13 @@
 
 "traffic_update_maps_text" = "To display traffic data, maps must be updated.";
 
-"big_font" = "Increase font size on the map";
+"big_font" = "Increase size for map labels";
 
 /* "traffic" as in road congestion */
 "traffic_update_app_message" = "To display traffic data, the application must be updated.";
 
 /* "traffic" as in "road congestion" */
 "traffic_data_unavailable" = "Traffic data is not available";
-
-"on" = "Washa";
-
-"off" = "Zima";
 
 "transliteration_title" = "Tafsiri kwa lugha ya Kilatini";
 
@@ -922,11 +941,11 @@
 
 "downloader_hide_screen" = "Ficha skrini";
 
-"downloader_percent" = "%s (%s kati ya %s)";
+"downloader_percent" = "%@ (%@ kati ya %@)";
 
-"downloader_process" = "Inapakua %s…";
+"downloader_process" = "Inapakua %@…";
 
-"downloader_applying" = "Inatekeleza %s…";
+"downloader_applying" = "Inatekeleza %@…";
 
 "bookmarks_error_message_share_general" = "Haiwezekani kushiriki kutokana na hitilafu ya programu";
 
@@ -964,7 +983,7 @@
 
 "button_layer_subway" = "Njia ya chini";
 
-"layers_title" = "Tabaka za ramani";
+"layers_title" = "Mitindo ya Ramani na Tabaka";
 
 "subway_data_unavailable" = "Ramani ya njia ya chini haipatikani";
 
@@ -973,8 +992,6 @@
 "popular_place" = "Popular";
 
 "export_file" = "Tuma faili";
-
-"list_settings" = "Mipangilio ya Orodhesha";
 
 "delete_list" = "Futa Orodha";
 
@@ -988,11 +1005,11 @@
 
 "speedcams_alert_title" = "Kamera za mwendo-kasi";
 
-"speedcam_option_auto" = "Auto";
+/* Generic «Always» string */
+"always" = "Mara kwa Mara";
 
-"speedcam_option_always" = "Mara kwa Mara";
-
-"speedcam_option_never" = "Kamwe";
+/* Generic «Never» string */
+"never" = "Kamwe";
 
 "place_description_title" = "Maelezo ya Eneo";
 
@@ -1010,15 +1027,16 @@
 
 "driving_options_title" = "Machaguo ya njia";
 
-"driving_options_subheader" = "Epuka kwenye kila njia";
+/* Recommended length for CarPlay and Android Auto is around 25-27 characters */
+"avoid_tolls" = "Epuka barabara za ushuru";
 
-"avoid_tolls" = "Barabara za kulipia";
+/* Recommended length for CarPlay and Android Auto is around 25-27 characters */
+"avoid_unpaved" = "Epuka barabara za vumbi";
 
-"avoid_unpaved" = "Barabara za vumbi";
+/* Recommended length for CarPlay and Android Auto is around 25-27 characters */
+"avoid_ferry" = "Epuka vivuko vya feri";
 
-"avoid_ferry" = "Vivuko cha feri";
-
-"avoid_motorways" = "Barabara za mwendo kasi";
+"avoid_motorways" = "Epuka barabara";
 
 "unable_to_calc_alert_title" = "Haiwezi kukokotoa njia";
 
@@ -1033,12 +1051,6 @@
 "unpaved_road" = "Barabara ya vumbi";
 
 "ferry_crossing" = "Kivuko cha feri";
-
-"avoid_toll_roads_placepage" = "Epuka barabara za kulipia";
-
-"avoid_unpaved_roads_placepage" = "Epuka barabara za vumbi";
-
-"avoid_ferry_crossing_placepage" = "Epuka vivuko vya feri";
 
 "trip_start" = "Twende zetu";
 
@@ -1064,6 +1076,9 @@
 /* E.g. "WiFi:No" */
 "no_available" = "Hapana";
 
+/* To indicate the capacity of car parkings, bicycle parkings, electric vehicle charging stations... */
+"capacity" = "Uwezo: %@";
+
 "trip_finished" = "Umefika!";
 
 "keyboard_availability_alert" = "Mbao-bonye haipatikani wakati wa kuendesha gari";
@@ -1086,25 +1101,13 @@
 
 "ok" = "Sawa";
 
-"avoid_unpaved_carplay_1" = "Hamna za vum";
-
-"avoid_unpaved_carplay_2" = "Epuka za vumbi";
-
-"avoid_ferry_carplay_1" = "Hamna feri";
-
-"avoid_ferry_carplay_2" = "Epuka feri";
-
-"avoid_tolls_carplay_1" = "Hamna za ada";
-
-"avoid_tolls_carplay_2" = "Epuka njia-kodi";
-
 "speedcams_alert_title_carplay_1" = "Kam za kasi";
 
 "speedcams_alert_title_carplay_2" = "Onyo la kasi";
 
 "download_map_carplay" = "Tafadhali pakua ramani katika programu tumizi ya Organic Maps kwenye kifaa chako";
 
-"carplay_roundabout_exit" = "Kutoka kwa %s";
+"carplay_roundabout_exit" = "Kutoka kwa %@";
 
 /* max. 10 symbols, both iOS and Android */
 "sort" = "Ainisha…";
@@ -1210,7 +1213,7 @@
 "whats_new_auto_update_message" = "Kusasisha ramani kunaweka taarifa kuhusu vipengee ikiwa ya hivi sasa zaidi";
 
 /* Autoupdate dialog on start */
-"whats_new_auto_update_button_size" = "Sasisha (%s)";
+"whats_new_auto_update_button_size" = "Sasisha (%@)";
 
 /* Autoupdate dialog on start */
 "whats_new_auto_update_button_later" = "Sasisha mwenyewe baadaye";
@@ -1236,8 +1239,20 @@
 /* Translated Organic Maps site, add new translations here: https://github.com/organicmaps/organicmaps.github.io/tree/master/content */
 "translated_om_site_url" = "https://organicmaps.app/";
 
+/* Link to OSM wiki for Editor, Profile and About pages */
+"osm_wiki_about_url" = "https://wiki.openstreetmap.org/wiki/About_OpenStreetMap";
+
+/* Outdoors/hiking map style (activity) name in the Styles and Layers dialog */
+"button_layer_outdoor" = "Kutembea kwa miguu";
+
 
 /********** Types **********/
+
+"type.addr_interpolation" = "Anwani/Zuia";
+
+"type.addr_interpolation.even" = "Anwani/Zuia";
+
+"type.addr_interpolation.odd" = "Anwani/Zuia";
 
 "type.aerialway" = "Aerialway";
 
@@ -1309,9 +1324,17 @@
 
 "type.amenity.casino" = "Casino";
 
+"type.amenity.gambling" = "Kamari";
+
+"type.leisure.adult_gaming_centre" = "Kituo cha Michezo ya Watu Wazima";
+
+"type.leisure.amusement_arcade" = "Ukumbi wa michezo";
+
 "type.amenity.charging_station" = "Charging Station";
 
-"type.amenity.charging_station.motorcar" = "Charging Station";
+"type.amenity.charging_station.bicycle" = "Kituo cha Kuchaji Baiskeli";
+
+"type.amenity.charging_station.motorcar" = "Kituo cha Kuchaji Magari";
 
 "type.amenity.childcare" = "Nursery";
 
@@ -1325,6 +1348,10 @@
 
 "type.amenity.community_centre" = "Community Centre";
 
+"type.amenity.compressed_air" = "Air compressed";
+
+"type.amenity.conference_centre" = "Kituo cha Mikutano";
+
 "type.amenity.courthouse" = "Courthouse";
 
 "type.amenity.dentist" = "Dentist";
@@ -1334,6 +1361,10 @@
 "type.amenity.drinking_water" = "Drinking Water";
 
 "type.amenity.driving_school" = "Driving School";
+
+"type.amenity.exhibition_centre" = "Kituo cha Maonyesho";
+
+"type.amenity.money_transfer" = "Uhamisho wa pesa";
 
 "type.amenity.music_school" = "Shule ya Muziki";
 
@@ -1383,9 +1414,11 @@
 
 "type.amenity.parking" = "Maegesho";
 
-"type.amenity.parking.fee" = "Maegesho ya Kulipwa";
+"type.amenity.parking.fee" = "Maegesho";
 
 "type.amenity.parking.multi.storey" = "Maegesho ya Hifadhi nyingi";
+
+"type.amenity.parking.multi.storey.fee" = "Maegesho ya Hifadhi nyingi";
 
 "type.amenity.parking.no.access" = "Maegesho ya Kibinafsi";
 
@@ -1393,13 +1426,29 @@
 
 "type.amenity.parking.private" = "Maegesho ya Kibinafsi";
 
-"type.amenity.parking.park_and_ride" = "Parking";
+"type.amenity.parking.park_and_ride" = "Park And Ride Parking";
 
 "type.amenity.parking.underground" = "Maegesho ya chini ya ardhi";
 
+"type.amenity.parking.underground.fee" = "Maegesho ya chini ya ardhi";
+
+"type.amenity.parking.underground.private" = "Maegesho ya kibinafsi ya chini ya ardhi";
+
+"type.amenity.parking.street_side" = "Maegesho ya upande wa mtaa";
+
+"type.amenity.parking.street_side.fee" = "Maegesho ya upande wa mtaa";
+
+"type.amenity.parking.street_side.private" = "Maegesho ya upande wa mtaa wa kibinafsi";
+
+"type.amenity.parking.lane" = "Maegesho ya njia";
+
+"type.amenity.parking.lane.fee" = "Maegesho ya njia";
+
+"type.amenity.parking.lane.private" = "Maegesho ya njia ya kibinafsi";
+
 "type.amenity.parking_entrance" = "Mlango wa maegesho";
 
-"type.amenity.parking_entrance.private" = "Mlango wa maegesho";
+"type.amenity.parking_entrance.private" = "Mlango wa maegesho ya kibinafsi";
 
 "type.amenity.parking_entrance.permissive" = "Mlango wa maegesho";
 
@@ -1419,23 +1468,27 @@
 
 "type.amenity.place_of_worship" = "Place of Worship";
 
-"type.amenity.place_of_worship.buddhist" = "Temple";
+"type.amenity.place_of_worship.buddhist" = "Buddhist Temple";
 
 "type.amenity.place_of_worship.christian" = "Church";
 
-"type.amenity.place_of_worship.hindu" = "Temple";
+"type.amenity.place_of_worship.christian.mormon" = "Kanisa la Yesu Kristo la Watakatifu wa Siku za Mwisho";
+
+"type.amenity.place_of_worship.christian.jehovahs_witness" = "Ukumbi wa Ufalme wa Mashahidi wa Yehova";
+
+"type.amenity.place_of_worship.hindu" = "Hindu Temple";
 
 "type.amenity.place_of_worship.jewish" = "Synagogue";
 
 "type.amenity.place_of_worship.muslim" = "Mosque";
 
-"type.amenity.place_of_worship.shinto" = "Shrine";
+"type.amenity.place_of_worship.shinto" = "Shinto Shrine";
 
-"type.amenity.place_of_worship.taoist" = "Temple";
+"type.amenity.place_of_worship.taoist" = "Taoist Temple";
 
 "type.amenity.police" = "Police";
 
-"type.amenity.post_box" = "Post Box";
+"type.amenity.post_box" = "Mailbox";
 
 "type.amenity.post_office" = "Ofisi ya posta";
 
@@ -1478,7 +1531,7 @@
 
 "type.recycling.green_waste" = "Green/Organic Waste";
 
-"type.recycling.cartons" = "Beverage Cartons";
+"type.recycling.cartons" = "Cartons";
 
 "type.amenity.restaurant" = "Restaurant";
 
@@ -1488,15 +1541,21 @@
 
 "type.amenity.shelter" = "Shelter";
 
+"type.amenity.public_bath" = "Bafu ya Umma";
+
 "type.amenity.shower" = "Shower";
 
-"type.amenity.taxi" = "Taxi";
+"type.amenity.stripclub" = "Klabu ya Strip";
+
+"type.amenity.taxi" = "Taxi Stand";
 
 "type.amenity.telephone" = "Phone";
 
 "type.amenity.theatre" = "Theatre";
 
 "type.amenity.toilets" = "Toilet";
+
+"type.toilets.yes" = "Toilet";
 
 "type.amenity.townhall" = "Town Hall";
 
@@ -1514,9 +1573,9 @@
 
 "type.amenity.vending_machine.food" = "Food Dispenser";
 
-"type.amenity.vending_machine.newspapers" = "Newspapers Dispenser";
+"type.amenity.vending_machine.newspapers" = "Newspaper Dispenser";
 
-"type.amenity.vending_machine.parking_tickets" = "Parking Tickets";
+"type.amenity.vending_machine.parking_tickets" = "Parking Meter";
 
 "type.amenity.vending_machine.public_transport_tickets" = "Mashine ya kuuzia tiketi za usafiri wa umma";
 
@@ -1526,7 +1585,9 @@
 
 "type.amenity.parcel_locker" = "Parcel Locker";
 
-"type.amenity.vending_machine.fuel" = "Fuel Dispenser";
+"type.amenity.vehicle_inspection" = "Ukaguzi wa Gari";
+
+"type.amenity.vending_machine.fuel" = "Fuel Pump";
 
 "type.amenity.veterinary" = "Veterinary Doctor";
 
@@ -1536,13 +1597,13 @@
 
 "type.amenity.waste_transfer_station" = "Waste Transfer Station";
 
-"type.amenity.water_point" = "RV Water Point";
+"type.amenity.water_point" = "Water Tank Refill Point";
 
 "type.barrier" = "Barrier";
 
 "type.barrier.block" = "Block";
 
-"type.barrier.bollard" = "Pillar";
+"type.barrier.bollard" = "Bollard";
 
 "type.barrier.border_control" = "Border Control";
 
@@ -1552,7 +1613,11 @@
 
 "type.barrier.cycle_barrier" = "Cycle Barrier";
 
-"type.barrier.ditch" = "Moti";
+"type.waterway.ditch" = "Mfereji wa mifereji ya maji";
+
+"type.natural.water.moat" = "Moti";
+
+"type.natural.water.wastewater" = "Maji machafu";
 
 "type.barrier.entrance" = "Entrance";
 
@@ -1569,6 +1634,8 @@
 "type.barrier.retaining_wall" = "Retaining Wall";
 
 "type.barrier.stile" = "Stile";
+
+"type.barrier.turnstile" = "Turnstile";
 
 "type.barrier.swing_gate" = "Swing Gate";
 
@@ -1618,13 +1685,30 @@
 
 "type.boundary.national_park" = "Hifadhi ya taifa";
 
+"type.boundary.protected_area" = "Eneo Lindwa";
+
+"type.boundary.protected_area.1" = "Eneo Lindwa";
+
+"type.boundary.protected_area.2" = "Eneo Lindwa";
+
+"type.boundary.protected_area.3" = "Eneo Lindwa";
+
+"type.boundary.protected_area.4" = "Eneo Lindwa";
+
+"type.boundary.protected_area.5" = "Eneo Lindwa";
+
+"type.boundary.protected_area.6" = "Eneo Lindwa";
+
 "type.building" = "Building";
 
-"type.building.address" = "Building";
-
-"type.building.garage" = "Garage";
+/* Duplicates [address] in strings.txt */
+"type.building.address" = "Anwani";
 
 "type.building.has_parts" = "Building";
+
+"type.building_part" = "Building";
+
+"type.building.garage" = "Garage";
 
 "type.building.train_station" = "Train Station";
 
@@ -1640,6 +1724,8 @@
 
 "type.craft.brewery" = "Kiwanda cha pombe";
 
+"type.craft.caterer" = "Mpishi";
+
 "type.craft.carpenter" = "Seremala";
 
 "type.craft.confectionery" = "Confectioner";
@@ -1650,16 +1736,24 @@
 
 "type.craft.gardener" = "Mtunza bustani";
 
+"type.craft.grinding_mill" = "Kusaga kinu";
+
 "type.craft.handicraft" = "Kazi za mikono";
 
 /* Heating, Ventilation, and Air Conditioning */
 "type.craft.hvac" = "Kiyoyozi";
+
+"type.craft.key_cutter" = "Kukata Muhimu";
+
+"type.craft.locksmith" = "Fundi wa kufuli";
 
 "type.craft.metal_construction" = "Mfanyikazi wa chuma";
 
 "type.craft.painter" = "Mchoraji";
 
 "type.craft.photographer" = "Mpiga picha";
+
+"type.shop.camera" = "Duka la Kamera";
 
 "type.craft.plumber" = "Fundi bomba";
 
@@ -1791,7 +1885,7 @@
 
 "type.cuisine.noodles" = "Noodles";
 
-"type.cuisine.oriental" = "Far Eastern";
+"type.cuisine.oriental" = "East Asian";
 
 "type.cuisine.pancake" = "Pancake";
 
@@ -1845,6 +1939,8 @@
 
 "type.emergency" = "Emergency";
 
+"type.emergency.assembly_point" = "Sehemu ya Mkutano wa Dharura";
+
 "type.emergency.defibrillator" = "Defibrillator";
 
 "type.emergency.fire_hydrant" = "Fire Hydrant";
@@ -1856,6 +1952,12 @@
 
 /* This is for main/primary entrances, for secondary entrances see type.entrance */
 "type.entrance.main" = "Mlango Mkuu";
+
+"type.entrance.exit" = "Utgång";
+
+"type.fee.yes" = "💲";
+
+"type.fee.no" = "Bila";
 
 "type.healthcare.laboratory" = "Maabara ya Matibabu";
 
@@ -1894,6 +1996,12 @@
 
 "type.highway.busway" = "Barabara ya basi iliyotengwa";
 
+/* These translations are used for all type.highway.*.bridge. */
+"type.highway.busway.bridge" = "Daraja";
+
+/* These translations are used for all type.highway.*.tunnel. */
+"type.highway.busway.tunnel" = "Mtaro";
+
 "type.highway.bus_stop" = "Bus Stop";
 
 "type.highway.construction" = "Barabara inatengenezwa";
@@ -1912,6 +2020,10 @@
 
 "type.highway.footway" = "Foot Path";
 
+"type.highway.footway.sidewalk" = "Njia ya kando";
+
+"type.highway.footway.crossing" = "Kivuko cha Watembea kwa miguu";
+
 "type.highway.footway.alpine_hiking" = "Path";
 
 "type.highway.footway.area" = "Foot Path";
@@ -1928,8 +2040,6 @@
 "type.highway.footway.hiking" = "Path";
 
 "type.highway.footway.mountain_hiking" = "Path";
-
-"type.highway.footway.permissive" = "Foot Path";
 
 /* These translations are used for all type.highway.*.tunnel. */
 "type.highway.footway.tunnel" = "Mtaro";
@@ -2016,9 +2126,9 @@
 
 "type.highway.raceway" = "Racetrack";
 
-"type.highway.residential" = "Street";
+"type.highway.residential" = "Residential Street";
 
-"type.highway.residential.area" = "Street";
+"type.highway.residential.area" = "Residential Street";
 
 /* These translations are used for all type.highway.*.bridge. */
 "type.highway.residential.bridge" = "Daraja";
@@ -2032,6 +2142,9 @@
 
 /* These translations are used for all type.highway.*.bridge. */
 "type.highway.road.bridge" = "Daraja";
+
+/* A bridge structure outline. */
+"type.man_made.bridge" = "Daraja";
 
 /* These translations are used for all type.highway.*.tunnel. */
 "type.highway.road.tunnel" = "Mtaro";
@@ -2160,7 +2273,7 @@
 
 "type.area_highway.primary" = "Primary Road";
 
-"type.area_highway.residential" = "Street";
+"type.area_highway.residential" = "Residential Street";
 
 "type.area_highway.secondary" = "Secondary Road";
 
@@ -2185,11 +2298,17 @@
 
 "type.historic" = "Kitu cha kihistoria";
 
+"type.historic.aircraft" = "Ndege ya kihistoria";
+
+"type.historic.anchor" = "Nanga ya kihistoria";
+
 "type.historic.archaeological_site" = "Tovuti ya Akiolojia";
 
 "type.historic.battlefield" = "Uwanja wa vita";
 
 "type.historic.boundary_stone" = "Jiwe la mpaka";
+
+"type.historic.cannon" = "Kanuni";
 
 "type.historic.castle" = "Ngome";
 
@@ -2221,6 +2340,8 @@
 
 "type.historic.gallows" = "Kunyongea";
 
+"type.historic.locomotive" = "Locomotive ya kihistoria";
+
 "type.historic.memorial" = "Ukumbusho";
 
 "type.historic.memorial.cross" = "Msalaba wa kumbukumbu";
@@ -2233,7 +2354,11 @@
 
 "type.historic.memorial.stolperstein" = "Kikwazo";
 
+"type.historic.stone" = "Jiwe la Kihistoria";
+
 "type.historic.memorial.war_memorial" = "Kumbukumbu ya vita";
+
+"type.historic.mine" = "Mgodi wa Kihistoria";
 
 "type.historic.monument" = "Mnara";
 
@@ -2243,11 +2368,15 @@
 
 "type.historic.ship" = "Meli";
 
+"type.historic.tank" = "Tangi ya kihistoria";
+
 "type.historic.tomb" = "Kaburi";
 
 "type.historic.wayside_cross" = "Msalaba wa njiani";
 
 "type.historic.wayside_shrine" = "Kaburi la njia";
+
+"type.historic.wreck" = "Ajali ya meli";
 
 "type.hwtag" = "hwtag";
 
@@ -2281,6 +2410,8 @@
 
 "type.junction" = "Junction";
 
+"type.junction.circular" = "Roundabout";
+
 "type.junction.roundabout" = "Roundabout";
 
 "type.landuse" = "Landuse";
@@ -2301,9 +2432,9 @@
 
 "type.landuse.commercial" = "Commercial Area";
 
-"type.landuse.construction" = "Construction";
+"type.landuse.construction" = "Construction Area";
 
-"type.landuse.education" = "Educational Facilities";
+"type.landuse.education" = "Educational Facility";
 
 "type.landuse.farm" = "Farm";
 
@@ -2313,13 +2444,15 @@
 
 "type.landuse.field" = "Field";
 
+"type.landuse.flowerbed" = "Kitanda cha maua";
+
 "type.landuse.forest" = "Forest";
 
 "type.landuse.forest.coniferous" = "Coniferous Forest";
 
 "type.landuse.forest.deciduous" = "Deciduous Forest";
 
-"type.landuse.forest.mixed" = "Mixed Forest";
+"type.landuse.forest.mixed" = "Mixed-Leaf Forest";
 
 "type.landuse.garages" = "Garages";
 
@@ -2345,13 +2478,13 @@
 
 "type.landuse.recreation_ground" = "Recreation Ground";
 
-"type.landuse.reservoir" = "Water";
+"type.landuse.reservoir" = "Reservoir";
 
 "type.landuse.residential" = "Residential Area";
 
 "type.landuse.retail" = "Retail Area";
 
-"type.landuse.salt_pond" = "Pond";
+"type.landuse.salt_pond" = "Salt Pond";
 
 "type.landuse.village_green" = "Land";
 
@@ -2375,6 +2508,8 @@
 
 "type.leisure.golf_course" = "Golf Course";
 
+"type.leisure.hackerspace" = "Hackerspace";
+
 "type.leisure.ice_rink" = "Ice Rink";
 
 "type.leisure.landscape_reserve" = "Landscape Reserve";
@@ -2382,6 +2517,8 @@
 "type.leisure.marina" = "Marina";
 
 "type.leisure.nature_reserve" = "Hifadhi";
+
+"type.leisure.outdoor_seating" = "Viti vya nje";
 
 "type.leisure.park" = "Hifadhi";
 
@@ -2393,7 +2530,7 @@
 
 "type.leisure.picnic_table" = "Jedwali la Picnic";
 
-"type.leisure.pitch" = "Sports Ground";
+"type.leisure.pitch" = "Sport Pitch";
 
 "type.leisure.playground" = "Playground";
 
@@ -2429,7 +2566,7 @@
 
 "type.man_made.cairn" = "Cairn";
 
-"type.man_made.chimney" = "Factory Chimney";
+"type.man_made.chimney" = "Chimney";
 
 "type.man_made.cutline" = "Cutline";
 
@@ -2457,7 +2594,7 @@
 
 "type.man_made.tower.communication" = "Mnara wa Mawasiliano";
 
-"type.man_made.wastewater_plant" = "Wastewater treatment plant";
+"type.man_made.wastewater_plant" = "Wastewater Treatment Plant";
 
 "type.man_made.water_tap" = "Water Tap";
 
@@ -2544,8 +2681,6 @@
 "type.natural.spring" = "Chemchemi";
 
 "type.natural.strait" = "Mlango Bahari";
-
-"type.natural.tree" = "Mti";
 
 "type.natural.tree_row" = "Safu ya mti";
 
@@ -2647,7 +2782,7 @@
 
 "type.power" = "Power";
 
-"type.power.generator" = "Generator";
+"type.power.generator" = "Power Generator";
 
 "type.power.generator.solar" = "Jenereta ya jua";
 
@@ -2663,7 +2798,17 @@
 
 "type.power.minor_line" = "Minor Power Line";
 
-"type.power.pole" = "Power Tower";
+"type.power.plant" = "Kiwanda cha nguvu";
+
+"type.power.plant.coal" = "Kiwanda cha nguvu cha makaa ya mawe";
+
+"type.power.plant.gas" = "Kiwanda cha nguvu cha turbine ya gesi";
+
+"type.power.plant.hydro" = "Kiwanda cha umeme wa maji";
+
+"type.power.plant.solar" = "Kiwanda cha nishati ya jua";
+
+"type.power.plant.wind" = "Kiwanda cha nguvu cha upepo";
 
 "type.power.station" = "Power Station";
 
@@ -2697,7 +2842,7 @@
 
 "type.railway.crossing" = "Railway Crossing";
 
-"type.railway.disused" = "Disused railway";
+"type.railway.disused" = "Disused Railway";
 
 "type.railway.funicular" = "Funicular";
 
@@ -2705,7 +2850,7 @@
 
 "type.railway.funicular.tunnel" = "Funicular Tunnel";
 
-"type.railway.halt" = "Train Station";
+"type.railway.halt" = "Rail Halt";
 
 "type.railway.level_crossing" = "Tambuka Reli";
 
@@ -2737,251 +2882,290 @@
 
 "type.railway.rail" = "Njia ya Reli";
 
-"type.railway.rail.bridge" = "Railway Bridge";
+"type.railway.rail.highspeed" = "Reli ya mwendo wa kasi";
 
-"type.railway.rail.motor_vehicle" = "Railway";
+"type.railway.rail.tourism" = "Reli ya kitalii";
 
-"type.railway.rail.tunnel" = "Railway Tunnel";
+"type.railway.rail.main" = "Reli";
 
-"type.railway.razed" = "Razed Rail";
+/* Includes ordinary railway=rail w/o more specific usage= and service= tags. */
+"type.railway.rail.branch" = "Reli ya sekondari";
 
-"type.railway.siding" = "Siding Rail";
+/* Non-passenger utility tracks: industrial, military, test. */
+"type.railway.rail.utility" = "Utility railway";
 
-"type.railway.siding.bridge" = "Siding Rail Bridge";
+"type.railway.rail.spur" = "Railway spur";
 
-"type.railway.siding.tunnel" = "Siding Rail Tunnel";
+/* Short service tracks: siding, yard, crossover. */
+"type.railway.rail.service" = "Njia ya reli ya msaidizi";
 
-"type.railway.spur" = "Spur Rail";
+"type.railway.rail.bridge" = "Daraja la reli";
 
-"type.railway.spur.bridge" = "Spur Rail Bridge";
+"type.railway.rail.highspeed.bridge" = "Daraja la reli";
 
-"type.railway.spur.tunnel" = "Spur Rail Tunnel";
+"type.railway.rail.tourism.bridge" = "Daraja la reli";
+
+"type.railway.rail.main.bridge" = "Daraja la reli";
+
+"type.railway.rail.branch.bridge" = "Daraja la reli";
+
+"type.railway.rail.utility.bridge" = "Daraja la reli";
+
+"type.railway.rail.spur.bridge" = "Daraja la reli";
+
+"type.railway.rail.service.bridge" = "Daraja la reli";
+
+"type.railway.rail.tunnel" = "Njia ya reli";
+
+"type.railway.rail.highspeed.tunnel" = "Njia ya reli";
+
+"type.railway.rail.tourism.tunnel" = "Njia ya reli";
+
+"type.railway.rail.main.tunnel" = "Njia ya reli";
+
+"type.railway.rail.branch.tunnel" = "Njia ya reli";
+
+"type.railway.rail.utility.tunnel" = "Njia ya reli";
+
+"type.railway.rail.spur.tunnel" = "Njia ya reli";
+
+"type.railway.rail.service.tunnel" = "Njia ya reli";
 
 "type.railway.station" = "Train Station";
 
+"type.railway.station.funicular" = "Funicular";
+
 "type.railway.station.light_rail" = "Train Station";
+
+"type.railway.station.light_rail.london" = "Train Station";
+
+"type.railway.station.light_rail.porto" = "Train Station";
 
 "type.railway.station.monorail" = "Train Station";
 
-"type.railway.station.subway" = "Subway";
+"type.railway.station.subway" = "Subway Station";
 
-"type.railway.station.subway.adana" = "Subway";
+"type.railway.station.subway.adana" = "Subway Station";
 
-"type.railway.station.subway.algiers" = "Subway";
+"type.railway.station.subway.algiers" = "Subway Station";
 
-"type.railway.station.subway.almaty" = "Subway";
+"type.railway.station.subway.almaty" = "Subway Station";
 
-"type.railway.station.subway.amsterdam" = "Subway";
+"type.railway.station.subway.amsterdam" = "Subway Station";
 
-"type.railway.station.subway.ankara" = "Subway";
+"type.railway.station.subway.ankara" = "Subway Station";
 
-"type.railway.station.subway.athens" = "Subway";
+"type.railway.station.subway.athens" = "Subway Station";
 
-"type.railway.station.subway.baku" = "Subway";
+"type.railway.station.subway.baku" = "Subway Station";
 
-"type.railway.station.subway.bangkok" = "Subway";
+"type.railway.station.subway.bangkok" = "Subway Station";
 
-"type.railway.station.subway.barcelona" = "Subway";
+"type.railway.station.subway.barcelona" = "Subway Station";
 
-"type.railway.station.subway.beijing" = "Subway";
+"type.railway.station.subway.beijing" = "Subway Station";
 
-"type.railway.station.subway.bengalore" = "Subway";
+"type.railway.station.subway.bengalore" = "Subway Station";
 
-"type.railway.station.subway.berlin" = "Subway";
+"type.railway.station.subway.berlin" = "Subway Station";
 
-"type.railway.station.subway.bilbao" = "Subway";
+"type.railway.station.subway.bilbao" = "Subway Station";
 
-"type.railway.station.subway.brasilia" = "Subway";
+"type.railway.station.subway.brasilia" = "Subway Station";
 
-"type.railway.station.subway.brescia" = "Subway";
+"type.railway.station.subway.brescia" = "Subway Station";
 
-"type.railway.station.subway.brussels" = "Subway";
+"type.railway.station.subway.brussels" = "Subway Station";
 
-"type.railway.station.subway.bucharest" = "Subway";
+"type.railway.station.subway.bucharest" = "Subway Station";
 
-"type.railway.station.subway.budapest" = "Subway";
+"type.railway.station.subway.budapest" = "Subway Station";
 
-"type.railway.station.subway.buenos_aires" = "Subway";
+"type.railway.station.subway.buenos_aires" = "Subway Station";
 
-"type.railway.station.subway.bursa" = "Subway";
+"type.railway.station.subway.bursa" = "Subway Station";
 
-"type.railway.station.subway.cairo" = "Subway";
+"type.railway.station.subway.cairo" = "Subway Station";
 
-"type.railway.station.subway.caracas" = "Subway";
+"type.railway.station.subway.caracas" = "Subway Station";
 
-"type.railway.station.subway.catania" = "Subway";
+"type.railway.station.subway.catania" = "Subway Station";
 
-"type.railway.station.subway.changchun" = "Subway";
+"type.railway.station.subway.changchun" = "Subway Station";
 
-"type.railway.station.subway.chengdu" = "Subway";
+"type.railway.station.subway.chengdu" = "Subway Station";
 
-"type.railway.station.subway.chicago" = "Subway";
+"type.railway.station.subway.chicago" = "Subway Station";
 
-"type.railway.station.subway.chongqing" = "Subway";
+"type.railway.station.subway.chongqing" = "Subway Station";
 
-"type.railway.station.subway.dalian" = "Subway";
+"type.railway.station.subway.dalian" = "Subway Station";
 
-"type.railway.station.subway.delhi" = "Subway";
+"type.railway.station.subway.delhi" = "Subway Station";
 
-"type.railway.station.subway.dnepro" = "Subway";
+"type.railway.station.subway.dnepro" = "Subway Station";
 
-"type.railway.station.subway.dubai" = "Subway";
+"type.railway.station.subway.dubai" = "Subway Station";
 
-"type.railway.station.subway.ekb" = "Subway";
+"type.railway.station.subway.ekb" = "Subway Station";
 
-"type.railway.station.subway.fukuoka" = "Subway";
+"type.railway.station.subway.fukuoka" = "Subway Station";
 
-"type.railway.station.subway.glasgow" = "Subway";
+"type.railway.station.subway.glasgow" = "Subway Station";
 
-"type.railway.station.subway.guangzhou" = "Subway";
+"type.railway.station.subway.guangzhou" = "Subway Station";
 
-"type.railway.station.subway.hamburg" = "Subway";
+"type.railway.station.subway.hamburg" = "Subway Station";
 
-"type.railway.station.subway.helsinki" = "Subway";
+"type.railway.station.subway.helsinki" = "Subway Station";
 
-"type.railway.station.subway.hiroshima" = "Subway";
+"type.railway.station.subway.hiroshima" = "Subway Station";
 
-"type.railway.station.subway.isfahan" = "Subway";
+"type.railway.station.subway.isfahan" = "Subway Station";
 
-"type.railway.station.subway.istanbul" = "Subway";
+"type.railway.station.subway.istanbul" = "Subway Station";
 
-"type.railway.station.subway.izmir" = "Subway";
+"type.railway.station.subway.izmir" = "Subway Station";
 
-"type.railway.station.subway.kazan" = "Subway";
+"type.railway.station.subway.kazan" = "Subway Station";
 
-"type.railway.station.subway.kharkiv" = "Subway";
+"type.railway.station.subway.kharkiv" = "Subway Station";
 
-"type.railway.station.subway.kiev" = "Subway";
+"type.railway.station.subway.kiev" = "Subway Station";
 
-"type.railway.station.subway.kobe" = "Subway";
+"type.railway.station.subway.kobe" = "Subway Station";
 
-"type.railway.station.subway.kolkata" = "Subway";
+"type.railway.station.subway.kolkata" = "Subway Station";
 
-"type.railway.station.subway.kunming" = "Subway";
+"type.railway.station.subway.kunming" = "Subway Station";
 
-"type.railway.station.subway.kyoto" = "Subway";
+"type.railway.station.subway.kyoto" = "Subway Station";
 
-"type.railway.station.subway.la" = "Subway";
+"type.railway.station.subway.la" = "Subway Station";
 
-"type.railway.station.subway.lausanne" = "Subway";
+"type.railway.station.subway.lausanne" = "Subway Station";
 
-"type.railway.station.subway.lille" = "Subway";
+"type.railway.station.subway.lille" = "Subway Station";
 
-"type.railway.station.subway.lima" = "Subway";
+"type.railway.station.subway.lima" = "Subway Station";
 
-"type.railway.station.subway.lisboa" = "Subway";
+"type.railway.station.subway.lisboa" = "Subway Station";
 
-"type.railway.station.subway.london" = "Subway";
+"type.railway.station.subway.london" = "Subway Station";
 
-"type.railway.station.subway.lyon" = "Subway";
+"type.railway.station.subway.lyon" = "Subway Station";
 
-"type.railway.station.subway.madrid" = "Subway";
+"type.railway.station.subway.madrid" = "Subway Station";
 
-"type.railway.station.subway.malaga" = "Subway";
+"type.railway.station.subway.malaga" = "Subway Station";
 
-"type.railway.station.subway.manila" = "Subway";
+"type.railway.station.subway.manila" = "Subway Station";
 
-"type.railway.station.subway.maracaibo" = "Subway";
+"type.railway.station.subway.maracaibo" = "Subway Station";
 
-"type.railway.station.subway.mashhad" = "Subway";
+"type.railway.station.subway.mashhad" = "Subway Station";
 
-"type.railway.station.subway.mecca" = "Subway";
+"type.railway.station.subway.mecca" = "Subway Station";
 
-"type.railway.station.subway.medellin" = "Subway";
+"type.railway.station.subway.medellin" = "Subway Station";
 
-"type.railway.station.subway.mexico" = "Subway";
+"type.railway.station.subway.mexico" = "Subway Station";
 
-"type.railway.station.subway.milan" = "Subway";
+"type.railway.station.subway.milan" = "Subway Station";
 
-"type.railway.station.subway.minsk" = "Subway";
+"type.railway.station.subway.minsk" = "Subway Station";
 
-"type.railway.station.subway.montreal" = "Subway";
+"type.railway.station.subway.montreal" = "Subway Station";
 
-"type.railway.station.subway.moscow" = "Subway";
+"type.railway.station.subway.moscow" = "Subway Station";
 
-"type.railway.station.subway.munchen" = "Subway";
+"type.railway.station.subway.munchen" = "Subway Station";
 
-"type.railway.station.subway.nagoya" = "Subway";
+"type.railway.station.subway.nagoya" = "Subway Station";
 
-"type.railway.station.subway.newyork" = "Subway";
+"type.railway.station.subway.newyork" = "Subway Station";
 
-"type.railway.station.subway.nnov" = "Subway";
+"type.railway.station.subway.nnov" = "Subway Station";
 
-"type.railway.station.subway.novosibirsk" = "Subway";
+"type.railway.station.subway.novosibirsk" = "Subway Station";
 
-"type.railway.station.subway.osaka" = "Subway";
+"type.railway.station.subway.osaka" = "Subway Station";
 
-"type.railway.station.subway.oslo" = "Subway";
+"type.railway.station.subway.oslo" = "Subway Station";
 
-"type.railway.station.subway.palma" = "Subway";
+"type.railway.station.subway.palma" = "Subway Station";
 
-"type.railway.station.subway.panama" = "Subway";
+"type.railway.station.subway.panama" = "Subway Station";
 
-"type.railway.station.subway.paris" = "Subway";
+"type.railway.station.subway.paris" = "Subway Station";
 
-"type.railway.station.subway.philadelphia" = "Subway";
+"type.railway.station.subway.philadelphia" = "Subway Station";
 
-"type.railway.station.subway.pyongyang" = "Subway";
+"type.railway.station.subway.pyongyang" = "Subway Station";
 
-"type.railway.station.subway.rennes" = "Subway";
+"type.railway.station.subway.rennes" = "Subway Station";
 
-"type.railway.station.subway.rio" = "Subway";
+"type.railway.station.subway.rio" = "Subway Station";
 
-"type.railway.station.subway.roma" = "Subway";
+"type.railway.station.subway.roma" = "Subway Station";
 
-"type.railway.station.subway.rotterdam" = "Subway";
+"type.railway.station.subway.rotterdam" = "Subway Station";
 
-"type.railway.station.subway.samara" = "Subway";
+"type.railway.station.subway.samara" = "Subway Station";
 
-"type.railway.station.subway.santiago" = "Subway";
+"type.railway.station.subway.santiago" = "Subway Station";
 
-"type.railway.station.subway.santo_domingo" = "Subway";
+"type.railway.station.subway.santo_domingo" = "Subway Station";
 
-"type.railway.station.subway.saopaulo" = "Subway";
+"type.railway.station.subway.saopaulo" = "Subway Station";
 
-"type.railway.station.subway.sapporo" = "Subway";
+"type.railway.station.subway.sapporo" = "Subway Station";
 
-"type.railway.station.subway.sendai" = "Subway";
+"type.railway.station.subway.sendai" = "Subway Station";
 
-"type.railway.station.subway.sf" = "Subway";
+"type.railway.station.subway.sf" = "Subway Station";
 
-"type.railway.station.subway.shanghai" = "Subway";
+"type.railway.station.subway.shanghai" = "Subway Station";
 
-"type.railway.station.subway.shiraz" = "Subway";
+"type.railway.station.subway.shiraz" = "Subway Station";
 
-"type.railway.station.subway.sofia" = "Subway";
+"type.railway.station.subway.singapore" = "Subway Station";
 
-"type.railway.station.subway.spb" = "Subway";
+"type.railway.station.subway.sofia" = "Subway Station";
 
-"type.railway.station.subway.stockholm" = "Subway";
+"type.railway.station.subway.spb" = "Subway Station";
 
-"type.railway.station.subway.tabriz" = "Subway";
+"type.railway.station.subway.stockholm" = "Subway Station";
 
-"type.railway.station.subway.taipei" = "Subway";
+"type.railway.station.subway.tabriz" = "Subway Station";
 
-"type.railway.station.subway.taoyuan" = "Subway";
+"type.railway.station.subway.taipei" = "Subway Station";
 
-"type.railway.station.subway.tashkent" = "Subway";
+"type.railway.station.subway.taoyuan" = "Subway Station";
 
-"type.railway.station.subway.tbilisi" = "Subway";
+"type.railway.station.subway.tashkent" = "Subway Station";
 
-"type.railway.station.subway.tianjin" = "Subway";
+"type.railway.station.subway.tbilisi" = "Subway Station";
 
-"type.railway.station.subway.tokyo" = "Subway";
+"type.railway.station.subway.tehran" = "Subway Station";
 
-"type.railway.station.subway.valencia" = "Subway";
+"type.railway.station.subway.tianjin" = "Subway Station";
 
-"type.railway.station.subway.vienna" = "Subway";
+"type.railway.station.subway.tokyo" = "Subway Station";
 
-"type.railway.station.subway.warszawa" = "Subway";
+"type.railway.station.subway.valencia" = "Subway Station";
 
-"type.railway.station.subway.washington" = "Subway";
+"type.railway.station.subway.vienna" = "Subway Station";
 
-"type.railway.station.subway.wuhan" = "Subway";
+"type.railway.station.subway.warszawa" = "Subway Station";
 
-"type.railway.station.subway.yerevan" = "Subway";
+"type.railway.station.subway.washington" = "Subway Station";
 
-"type.railway.station.subway.yokohama" = "Subway";
+"type.railway.station.subway.wuhan" = "Subway Station";
+
+"type.railway.station.subway.yerevan" = "Subway Station";
+
+"type.railway.station.subway.yokohama" = "Subway Station";
 
 "type.railway.subway" = "Subway Line";
 
@@ -3175,6 +3359,8 @@
 
 "type.railway.subway_entrance.shiraz" = "Lango la kuingilia stesheni ya reli";
 
+"type.railway.subway_entrance.singapore" = "Lango la kuingilia stesheni ya reli";
+
 "type.railway.subway_entrance.sofia" = "Lango la kuingilia stesheni ya reli";
 
 "type.railway.subway_entrance.spb" = "Lango la kuingilia stesheni ya reli";
@@ -3190,6 +3376,8 @@
 "type.railway.subway_entrance.tashkent" = "Lango la kuingilia stesheni ya reli";
 
 "type.railway.subway_entrance.tbilisi" = "Lango la kuingilia stesheni ya reli";
+
+"type.railway.subway_entrance.tehran" = "Lango la kuingilia stesheni ya reli";
 
 "type.railway.subway_entrance.tianjin" = "Lango la kuingilia stesheni ya reli";
 
@@ -3217,23 +3405,19 @@
 
 "type.railway.tram_stop" = "Tram Stop";
 
-"type.railway.yard" = "Railway Yard";
-
-"type.railway.yard.bridge" = "Railway Yard Bridge";
-
-"type.railway.yard.tunnel" = "Railway Yard Tunnel";
-
-"type.route" = "route";
+"type.route" = "Route";
 
 "type.route.ferry" = "Ferry";
 
-"type.route.shuttle_train" = "Shuttle Train";
+"type.route.shuttle_train" = "route-shuttle_train";
 
 "type.shop" = "Shop";
 
-"type.shop.alcohol" = "Liquor Store";
+"type.shop.alcohol" = "Liquor Shop";
 
 "type.shop.bakery" = "Bakery";
+
+"type.shop.bathroom_furnishing" = "Vyombo vya Bafuni";
 
 "type.shop.beauty" = "Beauty Shop";
 
@@ -3245,45 +3429,51 @@
 
 "type.shop.books" = "Bookstore";
 
-"type.shop.butcher" = "Butcher’s";
+"type.shop.butcher" = "Butcher";
+
+"type.shop.cannabis" = "Duka la Bangi";
 
 "type.shop.car" = "Car Dealership";
 
-"type.shop.car_parts" = "Car Parts";
+"type.shop.car_parts" = "Car Parts Shop";
 
-"type.shop.car_repair" = "Car Repair Shop";
+"type.shop.car_repair" = "Car Repair Workshop";
 
 "type.shop.car_repair.tyres" = "Tyre Repair";
 
 "type.shop.caravan" = "RV Dealership";
 
-"type.shop.chemist" = "Chemist Shop";
+"type.shop.carpet" = "Mazulia";
+
+"type.shop.chemist" = "Chemist";
 
 "type.shop.chocolate" = "Chocolate Shop";
 
 "type.shop.clothes" = "Clothes Shop";
 
-"type.shop.coffee" = "Coffee Store";
+"type.shop.coffee" = "Coffee Shop";
 
 "type.shop.computer" = "Computer Store";
 
-"type.shop.confectionery" = "Sweets";
+"type.shop.confectionery" = "Candy Shop";
 
 "type.shop.convenience" = "Convenience Store";
 
-"type.shop.copyshop" = "Copy Shop";
+"type.shop.copyshop" = "Copyshop";
 
-"type.shop.cosmetics" = "Cosmetics";
+"type.shop.cosmetics" = "Cosmetics Shop";
+
+"type.shop.curtain" = "Mapazia";
 
 "type.shop.deli" = "Duka la Delicatessen";
 
 "type.shop.department_store" = "Department Store";
 
-"type.shop.doityourself" = "Hardware Store";
+"type.shop.doityourself" = "Home Improvement Store";
 
-"type.shop.dry_cleaning" = "Dry Cleaning";
+"type.shop.dry_cleaning" = "Dry Cleaner";
 
-"type.shop.electronics" = "Electronics";
+"type.shop.electronics" = "Electronics Shop";
 
 "type.shop.erotic" = "Erotic Shop";
 
@@ -3291,13 +3481,17 @@
 
 "type.shop.farm" = "Duka la Chakula cha shambani";
 
-"type.shop.florist" = "Florist’s";
+"type.shop.fashion_accessories" = "Vifaa vya Mtindo";
+
+"type.shop.florist" = "Florist";
 
 "type.shop.funeral_directors" = "Funeral Directors";
 
 "type.shop.furniture" = "Furniture Store";
 
-"type.shop.garden_centre" = "Garden Store";
+"type.shop.garden_centre" = "Garden Center";
+
+"type.shop.gas" = "Duka la gesi";
 
 "type.shop.gift" = "Gift Shop";
 
@@ -3311,9 +3505,13 @@
 
 "type.shop.health_food" = "Duka la Chakula cha Afya";
 
+"type.shop.herbalist" = "Duka la mimea";
+
+"type.shop.hifi" = "Sauti ya HiFi";
+
 "type.shop.houseware" = "Duka la Vifaa vya Nyumbani";
 
-"type.shop.jewelry" = "Jewelry";
+"type.shop.jewelry" = "Jewelry Store";
 
 "type.shop.kiosk" = "Kiosk";
 
@@ -3325,37 +3523,47 @@
 
 "type.shop.massage" = "Massage Salon";
 
-"type.shop.mobile_phone" = "Cell Phones";
+"type.shop.mobile_phone" = "Cell Phone Store";
 
 "type.shop.money_lender" = "Money Lender";
 
 "type.shop.motorcycle" = "Motorcycle Shop";
 
+"type.shop.motorcycle_repair" = "Ukarabati wa Pikipiki";
+
 "type.shop.music" = "Record Store";
 
-"type.shop.musical_instrument" = "Musical Instruments";
+"type.shop.musical_instrument" = "Musical Instrument Shop";
 
 "type.shop.newsagent" = "Newspaper Stand";
 
-"type.shop.optician" = "Optician’s";
+"type.shop.optician" = "Optician";
 
-"type.shop.outdoor" = "Outdoor Equipment";
+"type.shop.outdoor" = "Outdoor Equipment Shop";
+
+"type.shop.outpost" = "Sehemu ya kuchukua";
 
 "type.shop.pastry" = "Keki";
 
 "type.shop.pawnbroker" = "Pawnbroker";
 
-"type.shop.pet" = "Petshop";
+"type.shop.pet" = "Pet Store";
+
+"type.shop.pet_grooming" = "Utunzaji wa Kipenzi";
 
 "type.shop.photo" = "Photo Shop";
 
-"type.shop.seafood" = "Seafood Shop";
+"type.shop.rental" = "Duka la Kukodisha";
+
+"type.shop.rental.bicycle" = "Duka la Kukodisha Baiskeli";
+
+"type.shop.seafood" = "Fishmonger";
 
 "type.shop.second_hand" = "Duka la Mitumba";
 
-"type.shop.shoes" = "Shoe Store";
+"type.shop.shoes" = "Shoe Shop";
 
-"type.shop.sports" = "Sports Goods";
+"type.shop.sports" = "Sports Shop";
 
 "type.shop.stationery" = "Stationery Shop";
 
@@ -3363,7 +3571,7 @@
 
 "type.shop.tattoo" = "Tattoo Parlour";
 
-"type.shop.tea" = "Tea Store";
+"type.shop.tea" = "Tea Shop";
 
 "type.shop.ticket" = "Ticket Shop";
 
@@ -3381,13 +3589,20 @@
 
 "type.shop.wine" = "Wine Shop";
 
+"type.shop.agrarian" = "Duka la kilimo";
+
 "type.shop.antiques" = "Mambo ya kale";
 
+"type.shop.appliance" = "Duka la vifaa";
+
+/* maybe change to Art Gallery for en-US when supported */
 "type.shop.art" = "Duka la Sanaa";
 
 "type.shop.baby_goods" = "Duka la watoto";
 
 "type.shop.bag" = "Hifadhi ya Mifuko";
+
+"type.shop.bed" = "Duka la vitanda";
 
 "type.shop.boutique" = "Boutique";
 
@@ -3498,19 +3713,21 @@
 
 "type.tourism" = "Tourism";
 
-"type.tourism.alpine_hut" = "Mountains Lodging";
+"type.tourism.aquarium" = "Aquarium";
 
-"type.tourism.apartment" = "Apartments";
+"type.tourism.alpine_hut" = "Alpine Lodging";
+
+"type.tourism.apartment" = "Holiday Apartment";
 
 "type.tourism.artwork" = "Artwork";
 
-"type.tourism.artwork.architecture" = "Artwork";
+"type.tourism.artwork.architecture" = "Architectural Artwork";
 
-"type.tourism.artwork.painting" = "Artwork";
+"type.tourism.artwork.painting" = "Painting";
 
-"type.tourism.artwork.sculpture" = "Artwork";
+"type.tourism.artwork.sculpture" = "Sculpture";
 
-"type.tourism.artwork.statue" = "Artwork";
+"type.tourism.artwork.statue" = "Statue";
 
 "type.tourism.attraction" = "Attraction";
 
@@ -3518,13 +3735,13 @@
 
 "type.tourism.attraction.specified" = "Attraction";
 
-"type.tourism.camp_site" = "Camping";
+"type.tourism.camp_site" = "Campground";
 
 "type.tourism.caravan_site" = "RV Park";
 
 "type.tourism.chalet" = "Chalet";
 
-"type.tourism.gallery" = "Gallery";
+"type.tourism.gallery" = "Art Gallery";
 
 "type.tourism.guest_house" = "Guest House";
 
@@ -3542,6 +3759,8 @@
 
 "type.tourism.information.office" = "Ofisi ya watalii";
 
+"type.tourism.information.visitor_centre" = "Kituo cha Wageni";
+
 "type.tourism.motel" = "Motel";
 
 "type.tourism.museum" = "Museum";
@@ -3558,6 +3777,8 @@
 
 "type.tourism.zoo" = "Zoo";
 
+"type.tourism.zoo.petting" = "Kufuga Zoo";
+
 "type.traffic_calming" = "Traffic Calming";
 
 "type.traffic_calming.bump" = "Traffic Bump";
@@ -3568,19 +3789,25 @@
 
 "type.waterway.canal" = "Canal";
 
-"type.waterway.canal.tunnel" = "Canal";
+"type.waterway.canal.tunnel" = "Canal Tunnel";
+
+"type.waterway.fish_pass" = "Ngazi ya samaki";
 
 "type.waterway.dam" = "Dam";
 
-"type.waterway.ditch" = "Ditch";
+"type.barrier.ditch" = "Ditch";
 
-"type.waterway.ditch.tunnel" = "Ditch";
+"type.natural.water.ditch" = "Mfereji wa mifereji ya maji";
+
+"type.waterway.ditch.tunnel" = "Culvert";
 
 "type.waterway.dock" = "Waterway Dock";
 
 "type.waterway.drain" = "Drain";
 
-"type.waterway.drain.tunnel" = "Drain";
+"type.natural.water.drain" = "Drain";
+
+"type.waterway.drain.tunnel" = "Culvert";
 
 "type.waterway.lock_gate" = "Lock Gate";
 
@@ -3590,13 +3817,13 @@
 
 "type.waterway.riverbank" = "River";
 
-"type.waterway.stream" = "River";
+"type.waterway.stream" = "Stream";
 
-"type.waterway.stream.ephemeral" = "River";
+"type.waterway.stream.ephemeral" = "Ephemeral Stream";
 
-"type.waterway.stream.intermittent" = "River";
+"type.waterway.stream.intermittent" = "Intermittent Stream";
 
-"type.waterway.stream.tunnel" = "River";
+"type.waterway.stream.tunnel" = "Stream";
 
 "type.waterway.waterfall" = "Waterfall";
 
@@ -3620,26 +3847,48 @@
 
 "type.aerialway.t.bar" = "T-bar Lift";
 
-"type.piste_type" = "Piste Type";
-
 "type.piste_type.downhill" = "Downhill Ski Run";
+
+"type.piste_type.downhill.area" = "Downhill Ski Run";
 
 "type.piste_type.downhill.advanced" = "Downhill Ski Run";
 
+"type.piste_type.downhill.advanced.area" = "Downhill Ski Run";
+
 "type.piste_type.downhill.easy" = "Downhill Ski Run";
 
+"type.piste_type.downhill.easy.area" = "Downhill Ski Run";
+
 "type.piste_type.downhill.expert" = "Downhill Ski Run";
+
+"type.piste_type.downhill.expert.area" = "Downhill Ski Run";
 
 "type.piste_type.downhill.freeride" = "Downhill Ski Run";
 
 "type.piste_type.downhill.intermediate" = "Downhill Ski Run";
 
+"type.piste_type.downhill.intermediate.area" = "Downhill Ski Run";
+
 "type.piste_type.downhill.novice" = "Downhill Ski Run";
+
+"type.piste_type.downhill.novice.area" = "Downhill Ski Run";
 
 "type.piste_type.nordic" = "Nordic Ski Trail";
 
 "type.piste_type.sled" = "Sledding Piste";
 
-"type.building_part" = "Building";
+"type.piste_type.sled.area" = "Sledding Piste";
+
+"type.piste_type.snow_park" = "Hifadhi ya theluji";
+
+"type.piste_type.hike" = "Njia ya Kupanda theluji";
+
+"type.piste_type.connection" = "Uunganisho wa Piste";
+
+"type.piste_type.skitour" = "Njia ya Skitour";
 
 "type.amenity.events_venue" = "Ukumbi wa Matukio";
+
+"type.shop.auction" = "Mnada";
+
+"type.shop.collector" = "Mikusanyiko";

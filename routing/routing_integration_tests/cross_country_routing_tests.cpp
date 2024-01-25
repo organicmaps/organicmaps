@@ -12,8 +12,8 @@ UNIT_TEST(CrossCountry_Schengen_Borders_Austria_to_Austria_through_Germany)
 {
   integration::CalculateRouteAndTestRouteLength(
       integration::GetVehicleComponents(VehicleType::Car),
-      mercator::FromLatLon(53.83281, 32.47602) /* startPoint */, {0.0, 0.0} /* startDirection */,
-      mercator::FromLatLon(52.79681, 32.98167) /* finalPoint */, 194'678 /* expectedRouteMeters */);
+      mercator::FromLatLon(47.7707543, 13.0557409) /* startPoint */, {0.0, 0.0} /* startDirection */,
+      mercator::FromLatLon(47.6500734, 12.7291784) /* finalPoint */, 41126.6 /* expectedRouteMeters */);
 }
 
 // In this case the shortest way from Russian Federation, Smolensk Oblast to Russian Federation,
@@ -21,10 +21,25 @@ UNIT_TEST(CrossCountry_Schengen_Borders_Austria_to_Austria_through_Germany)
 // borders so the route runs through Belarus.
 UNIT_TEST(CrossCountry_EAEU_Borders_Russia_to_Russia_through_Belarus)
 {
+  /// @todo Uses tertiary instead of longer (7km) primary. Can't say fo sure is it ok or not, but looks good.
   integration::CalculateRouteAndTestRouteLength(
       integration::GetVehicleComponents(VehicleType::Car),
       mercator::FromLatLon(53.83281, 32.47602) /* startPoint */, {0.0, 0.0} /* startDirection */,
-      mercator::FromLatLon(52.79681, 32.98167) /* finalPoint */, 194'678 /* expectedRouteMeters */);
+      mercator::FromLatLon(52.79681, 32.98167) /* finalPoint */, 188'085 /* expectedRouteMeters */);
+}
+
+UNIT_TEST(Russia_UsePrimaryDetour_NotSecondaryTown)
+{
+  integration::CalculateRouteAndTestRouteLength(
+  integration::GetVehicleComponents(VehicleType::Car),
+  mercator::FromLatLon(50.215143, 39.4498585), {0.0, 0.0},
+  mercator::FromLatLon(49.9025281, 40.5213712), 123949);
+
+  /// @todo Should prefer trunk detour with maxspeed=90 than secondary with maxspeed=60.
+  integration::CalculateRouteAndTestRouteLength(
+  integration::GetVehicleComponents(VehicleType::Car),
+  mercator::FromLatLon(45.2849983, 38.2432247), {0.0, 0.0},
+  mercator::FromLatLon(45.237346, 38.0046459), 28534.8);
 }
 
 // In this case the shortest way from Belgorod oblast to Crimea is through Ukraine. But we add
@@ -34,15 +49,16 @@ UNIT_TEST(CrossCountry_EAEU_Borders_Russia_to_Russia_through_Belarus)
 UNIT_TEST(CrossCountry_Russia_Belgorod_Oblast_to_Crimea)
 {
   // This routes go via Russia only.
+  // Some subroutes are checked in Russia_PreferPrimary_NotSecondary.
   integration::CalculateRouteAndTestRouteLength(
       integration::GetVehicleComponents(VehicleType::Car),
       mercator::FromLatLon(50.39589, 38.83377) /* startPoint */, {0.0, 0.0} /* startDirection */,
-      mercator::FromLatLon(45.06336, 34.48566) /* finalPoint */, 1'150'000 /* expectedRouteMeters */);
+      mercator::FromLatLon(45.06336, 34.48566) /* finalPoint */, 1'177'200);
 
   integration::CalculateRouteAndTestRouteLength(
       integration::GetVehicleComponents(VehicleType::Car),
       mercator::FromLatLon(50.39589, 38.83377) /* startPoint */, {0.0, 0.0} /* startDirection */,
-      mercator::FromLatLon(45.1048391, 35.1297058) /* finalPoint */, 1'101'250 /* expectedRouteMeters */);
+      mercator::FromLatLon(45.1048391, 35.1297058) /* finalPoint */, 1'128'590);
 }
 
 // In this case the shortest way from Lithuania to Poland is through Russia, Kaliningrad Oblast. But

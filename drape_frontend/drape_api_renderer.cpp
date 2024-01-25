@@ -18,7 +18,7 @@ void DrapeApiRenderer::AddRenderProperties(
 
   size_t const startIndex = m_properties.size();
   m_properties.reserve(m_properties.size() + properties.size());
-  move(properties.begin(), properties.end(), std::back_inserter(m_properties));
+  std::move(properties.begin(), properties.end(), std::back_inserter(m_properties));
   for (size_t i = startIndex; i < m_properties.size(); i++)
   {
     for (auto const & bucket : m_properties[i]->m_buckets)

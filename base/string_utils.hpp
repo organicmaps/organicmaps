@@ -9,6 +9,7 @@
 #include <cerrno>
 #include <cstdint>
 #include <cstdlib>
+#include <iomanip>
 #include <iterator>
 #include <limits>
 #include <regex>
@@ -17,7 +18,7 @@
 #include <string_view>
 #include <type_traits>
 
-#include "3party/utfcpp/source/utf8/unchecked.h"
+#include <utf8cpp/utf8/unchecked.h>
 
 /// All methods work with strings in utf-8 format
 namespace strings
@@ -33,7 +34,7 @@ class UniString : public buffer_vector<UniChar, 32>
 public:
   using value_type = UniChar;
 
-  UniString() {}
+  UniString() = default;
   explicit UniString(size_t n) : BaseT(n) {}
   UniString(size_t n, UniChar c) { resize(n, c); }
 
@@ -126,6 +127,7 @@ bool EqualNoCase(std::string const & s1, std::string const & s2);
 
 UniString MakeUniString(std::string_view utf8s);
 std::string ToUtf8(UniString const & s);
+std::u16string ToUtf16(std::string_view utf8);
 bool IsASCIIString(std::string_view sv);
 bool IsASCIIDigit(UniChar c);
 template <class StringT> bool IsASCIINumeric(StringT const & str)
@@ -174,7 +176,7 @@ public:
     return UniString(m_start, m_end);
   }
 
-  operator bool() const { return m_start != m_finish; }
+  explicit operator bool() const { return m_start != m_finish; }
 
   TokenizeIterator & operator++()
   {
@@ -243,7 +245,7 @@ public:
     return std::string_view(baseI, std::distance(baseI, this->ToCharPtr(m_end)));
   }
 
-  operator bool() const { return !m_finished; }
+  explicit operator bool() const { return !m_finished; }
 
   TokenizeIterator & operator++()
   {
@@ -467,12 +469,6 @@ bool ToInteger(char const * start, T & result, int base = 10)
 [[nodiscard]] bool to_double(char const * s, double & d);
 [[nodiscard]] bool is_finite(double d);
 
-[[nodiscard]] inline bool is_number(std::string const & s)
-{
-  uint64_t dummy;
-  return to_uint64(s.c_str(), dummy);
-}
-
 [[nodiscard]] inline bool to_int(std::string const & s, int & i, int base = 10)
 {
   return to_int(s.c_str(), i, base);
@@ -535,12 +531,6 @@ inline bool to_double(std::string_view sv, double & d)
   /// @todo std::from_chars still not implemented?
   return to_double(std::string(sv), d);
 }
-
-inline bool is_number(std::string_view s)
-{
-  uint64_t i;
-  return impl::from_sv(s, i);
-}
 //@}
 
 
@@ -578,6 +568,17 @@ inline std::string to_string(uint64_t i) { return std::to_string(i); }
 std::string to_string_dac(double d, int dac);
 //@}
 
+// Get string with fixed width. Extra '0' are added at the begining to fit size.
+template <typename T, typename = std::enable_if_t<std::is_integral<T>::value>>
+std::string to_string_width(T l, int width)
+{
+  std::ostringstream ss;
+  if (l < 0)
+    ss << '-';
+  ss << std::setfill('0') << std::setw(width) << std::abs(l);
+  return ss.str();
+}
+
 template <typename IterT1, typename IterT2>
 bool StartsWith(IterT1 beg, IterT1 end, IterT2 begPrefix, IterT2 endPrefix)
 {
@@ -590,16 +591,12 @@ bool StartsWith(IterT1 beg, IterT1 end, IterT2 begPrefix, IterT2 endPrefix)
 }
 
 bool StartsWith(UniString const & s, UniString const & p);
-bool StartsWith(std::string const & s1, char const * s2);
-bool StartsWith(std::string const & s1, std::string_view s2);
+bool StartsWith(std::string_view s1, std::string_view s2);
 bool StartsWith(std::string const & s, std::string::value_type c);
-bool StartsWith(std::string const & s1, std::string const & s2);
 
 bool EndsWith(UniString const & s1, UniString const & s2);
-bool EndsWith(std::string const & s1, char const * s2);
-bool EndsWith(std::string const & s1, std::string_view s2);
+bool EndsWith(std::string_view s1, std::string_view s2);
 bool EndsWith(std::string const & s, std::string::value_type c);
-bool EndsWith(std::string const & s1, std::string const & s2);
 
 // If |s| starts with |prefix|, deletes it from |s| and returns true.
 // Otherwise, leaves |s| unmodified and returns false.

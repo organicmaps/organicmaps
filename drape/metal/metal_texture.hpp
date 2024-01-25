@@ -19,7 +19,7 @@ class MetalTexture : public HWTexture
 {
   using Base = HWTexture;
 public:
-  explicit MetalTexture(ref_ptr<MetalTextureAllocator> allocator);
+  explicit MetalTexture(ref_ptr<MetalTextureAllocator>) {}
 
   void Create(ref_ptr<dp::GraphicsContext> context, Params const & params, ref_ptr<void> data) override;
   void UploadData(ref_ptr<dp::GraphicsContext> context, uint32_t x, uint32_t y,
@@ -31,7 +31,6 @@ public:
   id<MTLTexture> GetTexture() const { return m_texture; }
   
 private:
-  ref_ptr<MetalTextureAllocator> m_allocator;
   id<MTLTexture> m_texture;
   bool m_isMutable = false;
 };

@@ -5,24 +5,14 @@
 #include "generator/osm_element.hpp"
 
 #include "coding/reader.hpp"
+#include "coding/read_write_utils.hpp"
 #include "coding/write_to_sink.hpp"
-#include "coding/writer.hpp"
 
-#include <cstdlib>
-#include <cstdint>
 #include <map>
 #include <memory>
 #include <string>
 #include <unordered_map>
 #include <vector>
-
-namespace generator
-{
-namespace cache
-{
-class IntermediateDataReaderInterface;
-}  // namespace cache
-}  // namespace generator
 
 namespace feature
 {
@@ -94,17 +84,15 @@ public:
   explicit MetalinesBuilder(std::string const & filename);
 
   // CollectorInterface overrides:
-  std::shared_ptr<CollectorInterface> Clone(
-      std::shared_ptr<generator::cache::IntermediateDataReaderInterface> const & = {})
-      const override;
+  std::shared_ptr<CollectorInterface> Clone(IDRInterfacePtr const & = {}) const override;
 
   /// Add a highway segment to the collection of metalines.
   void CollectFeature(FeatureBuilder const & feature, OsmElement const & element) override;
 
   void Finish() override;
 
-  void Merge(generator::CollectorInterface const & collector) override;
-  void MergeInto(MetalinesBuilder & collector) const override;
+  IMPLEMENT_COLLECTOR_IFACE(MetalinesBuilder);
+  void MergeInto(MetalinesBuilder & collector) const;
 
 protected:
   void Save() override;
@@ -117,4 +105,4 @@ private:
 // Read an intermediate file from MetalinesBuilder and convert it to an mwm section.
 bool WriteMetalinesSection(std::string const & mwmPath, std::string const & metalinesPath,
                            std::string const & osmIdsToFeatureIdsPath);
-}
+} // namespace feature

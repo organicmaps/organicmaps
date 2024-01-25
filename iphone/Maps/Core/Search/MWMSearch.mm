@@ -267,7 +267,7 @@ using Observers = NSHashTable<Observer>;
 - (void)setSearchCount:(NSInteger)searchCount {
   NSAssert((searchCount >= 0) && ((_searchCount == searchCount - 1) || (_searchCount == searchCount + 1)),
            @"Invalid search count update");
-  if (_searchCount == 0)
+  if (searchCount > 0)
     [self onSearchStarted];
   else if (searchCount == 0)
     [self onSearchCompleted];

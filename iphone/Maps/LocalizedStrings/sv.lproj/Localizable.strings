@@ -32,7 +32,7 @@
 /* A text for current gps location point/arrow selected on the map */
 "core_my_position" = "Min position";
 
-/* Update maps later/Buy pro version later button text */
+/* Update maps later button text */
 "later" = "Senare";
 
 /* View and button titles for accessibility, please also edit it in iphone/plist.txt */
@@ -71,13 +71,16 @@
 /* "Bookmark Lists" dialog title */
 "bookmark_sets" = "Bokmärkessamlingar";
 
-/* "Bookmarks" dialog title, please also edit it in iphone/plist.txt */
+/* Should be used in the bookmarks-only context, see bookmarks_and_tracks if tracks are also implied. */
 "bookmarks" = "Bokmärken";
+
+/* "Bookmarks and Tracks" dialog title, also sync it with iphone/plist.txt */
+"bookmarks_and_tracks" = "Bokmärken och rutter";
 
 /* Default bookmark list name */
 "core_my_places" = "Mina Platser";
 
-/* Editor title above street and house number */
+/* Editor title above street and house number, duplicates [type.building.address] in types_strings.txt */
 "address" = "Adress";
 
 /* Settings button in system menu */
@@ -106,6 +109,9 @@
 
 /* Search category for clothes/shoes/gifts/jewellery/sport shops; any changes should be duplicated in categories.txt @shopping! */
 "shopping" = "Shopping";
+
+/* Search category for second_hand/charity/antique/auction shops; any changes should be duplicated in categories.txt @secondhand! */
+"secondhand" = "Begagnad";
 
 /* Search category for places to stay; any changes should be duplicated in categories.txt @hotel! */
 "hotel" = "Hotell";
@@ -155,7 +161,7 @@
 /* Search category for RV facilities; any changes should be duplicated in categories.txt @rv! */
 "rv" = "För husbil";
 
-"share_bookmarks_email_body" = "Hello!\n\nAttached are my bookmarks from Organic Maps app. Please open them if you have Organic Maps installed. Or, if you don't, download the app for your iOS or Android device by following this link: https://omaps.app/get?kmz\n\nEnjoy traveling with Organic Maps!";
+"share_bookmarks_email_body" = "Hello!\n\nAttached are my bookmarks; please open them in Organic Maps. If you don't have it installed you can download it here: https://omaps.app/get?kmz\n\nEnjoy travelling with Organic Maps!";
 
 /* message title of loading file */
 "load_kmz_title" = "Läser in bokmärken";
@@ -184,6 +190,9 @@
 /* Share by email button text, also used in editor and About. */
 "email" = "E-post";
 
+/* Text for message when used successfully copied something */
+"copied_to_clipboard" = "Kopierat till urklippsbordet: %@";
+
 /* place preview title */
 "info" = "Info";
 
@@ -211,20 +220,23 @@
 /* Settings «Map» category: «Night style» title */
 "pref_map_style_title" = "Nattläge";
 
-/* «Map style» entry value */
-"pref_map_style_default" = "Av";
+/* Generic «Off» string */
+"off" = "Av";
 
-/* «Map style» entry value */
-"pref_map_style_night" = "På";
+/* Generic «On» string */
+"on" = "På";
 
-/* «Map style» entry value */
-"pref_map_style_auto" = "Auto";
+/* Generic «Auto» string */
+"auto" = "Auto";
 
 /* Settings «Map» category: «Perspective view» title */
 "pref_map_3d_title" = "Perspektivvy";
 
 /* Settings «Map» category: «3D buildings» title */
 "pref_map_3d_buildings_title" = "3D-byggnader";
+
+/* A message in Settings/Preferences explaining why is it not possible to enable 3D buildings when max power saving mode is enabled */
+"pref_map_3d_buildings_disabled_summary" = "3D-byggnader är avstängda i energisparläge";
 
 /* Settings «Route» category: «Tts enabled» title */
 "pref_tts_enable_title" = "Röstinstruktioner";
@@ -271,7 +283,7 @@
 "telegram" = "Telegram";
 
 /* Text in menu */
-"matrix" = "[matrix]";
+"matrix" = "[Matrix]";
 
 /* Text in menu */
 "mastodon" = "Mastodon";
@@ -280,7 +292,7 @@
 "facebook" = "Facebook";
 
 /* Text in menu */
-"twitter" = "Twitter";
+"twitter" = "X (Twitter)";
 
 /* Text in menu */
 "instagram" = "Instagram";
@@ -500,7 +512,7 @@
 "routing_planning_error" = "Ruttplanering misslyckades";
 
 /* Arrive routing message in navigation view */
-"routing_arrive" = "Ankomst: %s";
+"routing_arrive" = "Ankomst: %@";
 
 /* Text for routing::RouterResultCode::FileTooOld dialog. */
 "dialog_routing_download_and_update_maps" = "För att skapa en rutt, ladda ner och uppdatera alla kartor längs rutten.";
@@ -756,19 +768,23 @@
 
 "location_services_disabled_2" = "2. Tryck på Plats";
 
-/* iOS Dialog for the case when the location permission is not granted */
+/* iOS Dialog for the case when the location permission is not granted; you might find the exact wording for your language here: https://support.apple.com/en-us/102647 (replace 'en-us' in URL with your language/region) */
 "location_services_disabled_3" = "3. Välj Medan appen används";
 
-"meter" = "m";
+/* abbreviation for meters */
+"m" = "m";
 
-"kilometer" = "km";
+/* abbreviation for kilometers */
+"km" = "km";
 
+/* abbreviation for kilometers per hour */
 "kilometers_per_hour" = "km/h";
 
-"mile" = "mile";
+/* abbreviation for mile(s) */
+"mi" = "mile";
 
 /* A unit of measure */
-"foot" = "fot";
+"ft" = "fot";
 
 "miles_per_hour" = "mph";
 
@@ -776,11 +792,18 @@
 
 "minute" = "min";
 
-"placepage_place_description" = "Beskrivning";
-
 "placepage_more_button" = "Mer";
 
 "book_button" = "Boka";
+
+/* A referral link on the place page for some hotels */
+"more_on_kayak" = "Foton, recensioner, bokning";
+
+/* An explanation dialog shown when clicking on more_on_kayak link. */
+"dialog_kayak_disclaimer" = "Hänvisningsbonusen som erhålls för varje bokning via denna länk går till utvecklingen av Organic Maps.";
+
+/* A confirmation button text in the explanation dialog that opens hotel details page on Kayak website. */
+"dialog_kayak_button" = "Information på Kayak";
 
 "placepage_call_button" = "Ring";
 
@@ -817,7 +840,7 @@
 
 "refresh" = "Uppdatera";
 
-"placepage_add_place_button" = "Lägg till en plats på kartan";
+"placepage_add_place_button" = "Lägg till plats i OpenStreetMap";
 
 /* Displayed when saving some edits to the map to warn against publishing personal data */
 "editor_share_to_all_dialog_title" = "Vill du skicka det till alla användare?";
@@ -880,10 +903,6 @@
 /* "traffic" as in "road congestion" */
 "traffic_data_unavailable" = "Trafikdata är inte tillgänglig";
 
-"on" = "På";
-
-"off" = "Av";
-
 "transliteration_title" = "Transkribering till latin";
 
 /* Subway exits for public transport marks on the map */
@@ -922,11 +941,11 @@
 
 "downloader_hide_screen" = "Dölj skärm";
 
-"downloader_percent" = "%s (%s av %s)";
+"downloader_percent" = "%@ (%@ av %@)";
 
-"downloader_process" = "Ladda ned %s…";
+"downloader_process" = "Ladda ned %@…";
 
-"downloader_applying" = "Tillämpar %s…";
+"downloader_applying" = "Tillämpar %@…";
 
 "bookmarks_error_message_share_general" = "Kunde inte delas på grund av ett applikationsfel";
 
@@ -964,7 +983,7 @@
 
 "button_layer_subway" = "Tunnelbana";
 
-"layers_title" = "Kartlager";
+"layers_title" = "Kartstilar och lager";
 
 "subway_data_unavailable" = "Kartor över tunnelbana är otillgänglig";
 
@@ -974,11 +993,9 @@
 
 "export_file" = "Exportera fil";
 
-"list_settings" = "Listinställningar";
-
 "delete_list" = "Radera listan";
 
-"hide_from_map" = "Dölj från kort";
+"hide_from_map" = "Dölj från karta";
 
 "bookmark_list_description_hint" = "Lägg till en beskrivning (text eller html)";
 
@@ -988,11 +1005,11 @@
 
 "speedcams_alert_title" = "Hastighetskameror";
 
-"speedcam_option_auto" = "Auto";
+/* Generic «Always» string */
+"always" = "Alltid";
 
-"speedcam_option_always" = "Alltid";
-
-"speedcam_option_never" = "Aldrig";
+/* Generic «Never» string */
+"never" = "Aldrig";
 
 "place_description_title" = "Beskrivning av platsen";
 
@@ -1010,15 +1027,16 @@
 
 "driving_options_title" = "Omvägsinställningar";
 
-"driving_options_subheader" = "Undvik på varje rutten";
+/* Recommended length for CarPlay and Android Auto is around 25-27 characters */
+"avoid_tolls" = "Undvik avgiftsbelagda vägar";
 
-"avoid_tolls" = "Betalväg";
+/* Recommended length for CarPlay and Android Auto is around 25-27 characters */
+"avoid_unpaved" = "Undvik kärrvägar";
 
-"avoid_unpaved" = "Kärrväg";
+/* Recommended length for CarPlay and Android Auto is around 25-27 characters */
+"avoid_ferry" = "Undvik färjetrafik";
 
-"avoid_ferry" = "Färjetrafik";
-
-"avoid_motorways" = "Motorväg";
+"avoid_motorways" = "Undvik motorvägen";
 
 "unable_to_calc_alert_title" = "Det går inte att bygga ruttenen";
 
@@ -1033,12 +1051,6 @@
 "unpaved_road" = "Kärrvägen";
 
 "ferry_crossing" = "Färjetrafik";
-
-"avoid_toll_roads_placepage" = "Undvik betalvägar";
-
-"avoid_unpaved_roads_placepage" = "Undvik kärrvägar";
-
-"avoid_ferry_crossing_placepage" = "Undvik färjetrafik";
 
 "trip_start" = "Kom igen";
 
@@ -1064,6 +1076,9 @@
 /* E.g. "WiFi:No" */
 "no_available" = "Nej";
 
+/* To indicate the capacity of car parkings, bicycle parkings, electric vehicle charging stations... */
+"capacity" = "Kapacitet: %@";
+
 "trip_finished" = "Du är framme!";
 
 "keyboard_availability_alert" = "Tangentbordet är inte tillgängligt vid rörelsen";
@@ -1086,25 +1101,13 @@
 
 "ok" = "Ok";
 
-"avoid_unpaved_carplay_1" = "Utan kärrväg";
-
-"avoid_unpaved_carplay_2" = "Utan kärrvägar";
-
-"avoid_ferry_carplay_1" = "Utan färjor";
-
-"avoid_ferry_carplay_2" = "Utan färjor";
-
-"avoid_tolls_carplay_1" = "Utan betalda";
-
-"avoid_tolls_carplay_2" = "Utan betalda";
-
 "speedcams_alert_title_carplay_1" = "Kameror";
 
 "speedcams_alert_title_carplay_2" = "Info om kameror";
 
 "download_map_carplay" = "Ladda ner kartor i applikation Organic Maps på din enhet";
 
-"carplay_roundabout_exit" = "%s utgången";
+"carplay_roundabout_exit" = "%@ utgången";
 
 /* max. 10 symbols, both iOS and Android */
 "sort" = "Sortera…";
@@ -1193,7 +1196,7 @@
 
 "elevation_profile_maxaltitude" = "Max. höjd";
 
-"elevation_profile_difficulty" = "Komplexitet";
+"elevation_profile_difficulty" = "Svårighet";
 
 "elevation_profile_time" = "Tid:";
 
@@ -1210,7 +1213,7 @@
 "whats_new_auto_update_message" = "Uppdatering av kartor håller information om objekt uppdaterade";
 
 /* Autoupdate dialog on start */
-"whats_new_auto_update_button_size" = "Uppdatera (%s)";
+"whats_new_auto_update_button_size" = "Uppdatera (%@)";
 
 /* Autoupdate dialog on start */
 "whats_new_auto_update_button_later" = "Uppdatera senare manuellt";
@@ -1234,10 +1237,22 @@
 "instagram_url" = "https://www.instagram.com/organicmaps.app";
 
 /* Translated Organic Maps site, add new translations here: https://github.com/organicmaps/organicmaps.github.io/tree/master/content */
-"translated_om_site_url" = "https://organicmaps.app/";
+"translated_om_site_url" = "https://organicmaps.app/sv/";
+
+/* Link to OSM wiki for Editor, Profile and About pages */
+"osm_wiki_about_url" = "https://wiki.openstreetmap.org/wiki/About_OpenStreetMap";
+
+/* Outdoors/hiking map style (activity) name in the Styles and Layers dialog */
+"button_layer_outdoor" = "Vandring";
 
 
 /********** Types **********/
+
+"type.addr_interpolation" = "Adress/Block";
+
+"type.addr_interpolation.even" = "Adress/Block";
+
+"type.addr_interpolation.odd" = "Adress/Block";
 
 "type.aerialway" = "Aerialway";
 
@@ -1309,9 +1324,17 @@
 
 "type.amenity.casino" = "Kasino";
 
+"type.amenity.gambling" = "Spelande";
+
+"type.leisure.adult_gaming_centre" = "Spelcenter för vuxna";
+
+"type.leisure.amusement_arcade" = "Arkad";
+
 "type.amenity.charging_station" = "Laddstation";
 
-"type.amenity.charging_station.motorcar" = "Laddstation";
+"type.amenity.charging_station.bicycle" = "Laddningsstation för cykel";
+
+"type.amenity.charging_station.motorcar" = "Laddningsstation för bilar";
 
 "type.amenity.childcare" = "Barnomsorg";
 
@@ -1325,6 +1348,10 @@
 
 "type.amenity.community_centre" = "Stadshus";
 
+"type.amenity.compressed_air" = "Tryckluft";
+
+"type.amenity.conference_centre" = "Konferens Center";
+
 "type.amenity.courthouse" = "Domstol";
 
 "type.amenity.dentist" = "Tandläkare";
@@ -1334,6 +1361,10 @@
 "type.amenity.drinking_water" = "Dricksvatten";
 
 "type.amenity.driving_school" = "Körskola";
+
+"type.amenity.exhibition_centre" = "Mässa";
+
+"type.amenity.money_transfer" = "Pengaöverföring";
 
 "type.amenity.music_school" = "Musikskola";
 
@@ -1383,9 +1414,11 @@
 
 "type.amenity.parking" = "Parkering";
 
-"type.amenity.parking.fee" = "Betald parkering";
+"type.amenity.parking.fee" = "Parkering";
 
 "type.amenity.parking.multi.storey" = "Flervånings parkering";
+
+"type.amenity.parking.multi.storey.fee" = "Flervånings parkering";
 
 "type.amenity.parking.no.access" = "Privat parkering";
 
@@ -1397,9 +1430,25 @@
 
 "type.amenity.parking.underground" = "Underjordisk parkering";
 
+"type.amenity.parking.underground.fee" = "Underjordisk parkering";
+
+"type.amenity.parking.underground.private" = "Privat underjordisk parkering";
+
+"type.amenity.parking.street_side" = "Gata sida parkering";
+
+"type.amenity.parking.street_side.fee" = "Gata sida parkering";
+
+"type.amenity.parking.street_side.private" = "Privat gata sidoparkering";
+
+"type.amenity.parking.lane" = "Körfält parkering";
+
+"type.amenity.parking.lane.fee" = "Körfält parkering";
+
+"type.amenity.parking.lane.private" = "Privat körfält parkering";
+
 "type.amenity.parking_entrance" = "Parkering entré";
 
-"type.amenity.parking_entrance.private" = "Parkering entré";
+"type.amenity.parking_entrance.private" = "Privat parkeringsingång";
 
 "type.amenity.parking_entrance.permissive" = "Parkering entré";
 
@@ -1422,6 +1471,10 @@
 "type.amenity.place_of_worship.buddhist" = "Tempel";
 
 "type.amenity.place_of_worship.christian" = "Kyrka";
+
+"type.amenity.place_of_worship.christian.mormon" = "Jesu Kristi Kyrka av Sista Dagars Heliga";
+
+"type.amenity.place_of_worship.christian.jehovahs_witness" = "Jehovas vittnen Rikets sal";
 
 "type.amenity.place_of_worship.hindu" = "Tempel";
 
@@ -1478,7 +1531,7 @@
 
 "type.recycling.green_waste" = "Green/Organic Waste";
 
-"type.recycling.cartons" = "Beverage Cartons";
+"type.recycling.cartons" = "Cartons";
 
 "type.amenity.restaurant" = "Restaurang";
 
@@ -1486,17 +1539,23 @@
 
 "type.amenity.school" = "Skola";
 
-"type.amenity.shelter" = "Skyddsrum";
+"type.amenity.shelter" = "Vindskydd";
+
+"type.amenity.public_bath" = "Offentligt bad";
 
 "type.amenity.shower" = "Dusch";
 
-"type.amenity.taxi" = "Taxi";
+"type.amenity.stripclub" = "Stripklubb";
+
+"type.amenity.taxi" = "Taxi Stand";
 
 "type.amenity.telephone" = "Telefon";
 
 "type.amenity.theatre" = "Teater";
 
 "type.amenity.toilets" = "Toalett";
+
+"type.toilets.yes" = "Toalett";
 
 "type.amenity.townhall" = "Rådhus";
 
@@ -1514,7 +1573,7 @@
 
 "type.amenity.vending_machine.food" = "Food Dispenser";
 
-"type.amenity.vending_machine.newspapers" = "Newspapers Dispenser";
+"type.amenity.vending_machine.newspapers" = "Newspaper Dispenser";
 
 "type.amenity.vending_machine.parking_tickets" = "Parkeringsautomat";
 
@@ -1526,7 +1585,9 @@
 
 "type.amenity.parcel_locker" = "Parcel Locker";
 
-"type.amenity.vending_machine.fuel" = "Fuel Dispenser";
+"type.amenity.vehicle_inspection" = "Fordonsinspektion";
+
+"type.amenity.vending_machine.fuel" = "Fuel Pump";
 
 "type.amenity.veterinary" = "Veterinär";
 
@@ -1552,7 +1613,11 @@
 
 "type.barrier.cycle_barrier" = "Cycle Barrier";
 
-"type.barrier.ditch" = "Vallgrav";
+"type.waterway.ditch" = "Dräneringsdike";
+
+"type.natural.water.moat" = "Vallgrav";
+
+"type.natural.water.wastewater" = "Avloppsvatten";
 
 "type.barrier.entrance" = "Ingång";
 
@@ -1569,6 +1634,8 @@
 "type.barrier.retaining_wall" = "Retaining Wall";
 
 "type.barrier.stile" = "Stätta";
+
+"type.barrier.turnstile" = "Turnstile";
 
 "type.barrier.swing_gate" = "Bom";
 
@@ -1618,13 +1685,30 @@
 
 "type.boundary.national_park" = "Nationalpark";
 
+"type.boundary.protected_area" = "Skyddat område";
+
+"type.boundary.protected_area.1" = "Skyddat område";
+
+"type.boundary.protected_area.2" = "Skyddat område";
+
+"type.boundary.protected_area.3" = "Skyddat område";
+
+"type.boundary.protected_area.4" = "Skyddat område";
+
+"type.boundary.protected_area.5" = "Skyddat område";
+
+"type.boundary.protected_area.6" = "Skyddat område";
+
 "type.building" = "Byggnad";
 
-"type.building.address" = "Byggnad";
-
-"type.building.garage" = "Garage";
+/* Duplicates [address] in strings.txt */
+"type.building.address" = "Adress";
 
 "type.building.has_parts" = "Byggnad";
+
+"type.building_part" = "Byggnad";
+
+"type.building.garage" = "Garage";
 
 "type.building.train_station" = "Tågstation";
 
@@ -1640,6 +1724,8 @@
 
 "type.craft.brewery" = "Bryggeri";
 
+"type.craft.caterer" = "Cateringfirma";
+
 "type.craft.carpenter" = "Snickare";
 
 "type.craft.confectionery" = "Konditor";
@@ -1650,16 +1736,24 @@
 
 "type.craft.gardener" = "Trädgårdsmästare";
 
+"type.craft.grinding_mill" = "Kvarn för slipning";
+
 "type.craft.handicraft" = "Konsthantverk";
 
 /* Heating, Ventilation, and Air Conditioning */
 "type.craft.hvac" = "Vvs";
+
+"type.craft.key_cutter" = "Nyckelklippning";
+
+"type.craft.locksmith" = "Låssmed";
 
 "type.craft.metal_construction" = "Metallarbetare";
 
 "type.craft.painter" = "Målare";
 
 "type.craft.photographer" = "Fotograf";
+
+"type.shop.camera" = "Kameraaffär";
 
 "type.craft.plumber" = "Vvs-montör";
 
@@ -1845,6 +1939,8 @@
 
 "type.emergency" = "Emergency";
 
+"type.emergency.assembly_point" = "Nöduppsamlingsplats";
+
 "type.emergency.defibrillator" = "Defibrillator";
 
 "type.emergency.fire_hydrant" = "Brandpost";
@@ -1856,6 +1952,12 @@
 
 /* This is for main/primary entrances, for secondary entrances see type.entrance */
 "type.entrance.main" = "Huvudentré";
+
+"type.entrance.exit" = "Utgång";
+
+"type.fee.yes" = "💲";
+
+"type.fee.no" = "Gratis";
 
 "type.healthcare.laboratory" = "Medicinskt laboratorium";
 
@@ -1894,6 +1996,12 @@
 
 "type.highway.busway" = "Dedikerad bussväg";
 
+/* These translations are used for all type.highway.*.bridge. */
+"type.highway.busway.bridge" = "Bro";
+
+/* These translations are used for all type.highway.*.tunnel. */
+"type.highway.busway.tunnel" = "Tunnel";
+
 "type.highway.bus_stop" = "Busshållplats";
 
 "type.highway.construction" = "Väg under uppförande";
@@ -1912,6 +2020,10 @@
 
 "type.highway.footway" = "Gångväg";
 
+"type.highway.footway.sidewalk" = "Trottoar";
+
+"type.highway.footway.crossing" = "Övergångsställe för fotgängare";
+
 "type.highway.footway.alpine_hiking" = "Gångväg";
 
 "type.highway.footway.area" = "Gångväg";
@@ -1928,8 +2040,6 @@
 "type.highway.footway.hiking" = "Gångväg";
 
 "type.highway.footway.mountain_hiking" = "Gångväg";
-
-"type.highway.footway.permissive" = "Gångväg";
 
 /* These translations are used for all type.highway.*.tunnel. */
 "type.highway.footway.tunnel" = "Tunnel";
@@ -2032,6 +2142,9 @@
 
 /* These translations are used for all type.highway.*.bridge. */
 "type.highway.road.bridge" = "Bro";
+
+/* A bridge structure outline. */
+"type.man_made.bridge" = "Bro";
 
 /* These translations are used for all type.highway.*.tunnel. */
 "type.highway.road.tunnel" = "Tunnel";
@@ -2185,11 +2298,17 @@
 
 "type.historic" = "Historiskt objekt";
 
+"type.historic.aircraft" = "Historiska flygplan";
+
+"type.historic.anchor" = "Historiskt ankare";
+
 "type.historic.archaeological_site" = "Arkeologisk plats";
 
 "type.historic.battlefield" = "Stridsområde";
 
 "type.historic.boundary_stone" = "Gränsmärke";
+
+"type.historic.cannon" = "Kanon";
 
 "type.historic.castle" = "Borg";
 
@@ -2221,6 +2340,8 @@
 
 "type.historic.gallows" = "Galge";
 
+"type.historic.locomotive" = "Historiskt lok";
+
 "type.historic.memorial" = "Minnesmärke";
 
 "type.historic.memorial.cross" = "Kors till minne";
@@ -2233,7 +2354,11 @@
 
 "type.historic.memorial.stolperstein" = "Snubbelsten";
 
+"type.historic.stone" = "Historisk sten";
+
 "type.historic.memorial.war_memorial" = "Krigsmonument";
+
+"type.historic.mine" = "Historisk gruva";
 
 "type.historic.monument" = "Minnesmärke";
 
@@ -2243,11 +2368,15 @@
 
 "type.historic.ship" = "Fartyg";
 
+"type.historic.tank" = "Historisk tank";
+
 "type.historic.tomb" = "Grav";
 
 "type.historic.wayside_cross" = "Korset vid vägkanten";
 
 "type.historic.wayside_shrine" = "Helgedom vid vägkanten";
+
+"type.historic.wreck" = "Förlisning";
 
 "type.hwtag" = "hwtag";
 
@@ -2281,6 +2410,8 @@
 
 "type.junction" = "Junction";
 
+"type.junction.circular" = "Roundabout";
+
 "type.junction.roundabout" = "Roundabout";
 
 "type.landuse" = "Landuse";
@@ -2301,9 +2432,9 @@
 
 "type.landuse.commercial" = "Commercial Area";
 
-"type.landuse.construction" = "Construction";
+"type.landuse.construction" = "Construction Area";
 
-"type.landuse.education" = "Educational Facilities";
+"type.landuse.education" = "Educational Facility";
 
 "type.landuse.farm" = "Farm";
 
@@ -2312,6 +2443,8 @@
 "type.landuse.farmyard" = "Farmyard";
 
 "type.landuse.field" = "Field";
+
+"type.landuse.flowerbed" = "Rabatt";
 
 "type.landuse.forest" = "Skog";
 
@@ -2351,7 +2484,7 @@
 
 "type.landuse.retail" = "Retail Area";
 
-"type.landuse.salt_pond" = "Pond";
+"type.landuse.salt_pond" = "Salt Pond";
 
 "type.landuse.village_green" = "Land";
 
@@ -2375,6 +2508,8 @@
 
 "type.leisure.golf_course" = "Golfbana";
 
+"type.leisure.hackerspace" = "Hackerspace";
+
 "type.leisure.ice_rink" = "Ice Rink";
 
 "type.leisure.landscape_reserve" = "Landscape Reserve";
@@ -2382,6 +2517,8 @@
 "type.leisure.marina" = "Marina";
 
 "type.leisure.nature_reserve" = "Naturreservat";
+
+"type.leisure.outdoor_seating" = "Sittplatser utomhus";
 
 "type.leisure.park" = "Parken";
 
@@ -2457,7 +2594,7 @@
 
 "type.man_made.tower.communication" = "Kommunikationstorn";
 
-"type.man_made.wastewater_plant" = "Wastewater treatment plant";
+"type.man_made.wastewater_plant" = "Wastewater Treatment Plant";
 
 "type.man_made.water_tap" = "Vattenkran";
 
@@ -2544,8 +2681,6 @@
 "type.natural.spring" = "Vattenkälla";
 
 "type.natural.strait" = "Sund";
-
-"type.natural.tree" = "Träd";
 
 "type.natural.tree_row" = "Trädrad";
 
@@ -2647,7 +2782,7 @@
 
 "type.power" = "Power";
 
-"type.power.generator" = "Generator";
+"type.power.generator" = "Power Generator";
 
 "type.power.generator.solar" = "Solgenerator";
 
@@ -2663,7 +2798,17 @@
 
 "type.power.minor_line" = "Minor Power Line";
 
-"type.power.pole" = "Elstolpe";
+"type.power.plant" = "Kraftverk";
+
+"type.power.plant.coal" = "Kolkraftverk";
+
+"type.power.plant.gas" = "Gasturbinkraftverk";
+
+"type.power.plant.hydro" = "Vattenkraftverk";
+
+"type.power.plant.solar" = "Solkraftverk";
+
+"type.power.plant.wind" = "Vindkraftverk";
 
 "type.power.station" = "Power Station";
 
@@ -2697,9 +2842,9 @@
 
 "type.railway.crossing" = "Railway Crossing";
 
-"type.railway.disused" = "Disused railway";
+"type.railway.disused" = "Disused Railway";
 
-"type.railway.funicular" = "Funicular";
+"type.railway.funicular" = "Linbana";
 
 "type.railway.funicular.bridge" = "Funicular Bridge";
 
@@ -2737,29 +2882,64 @@
 
 "type.railway.rail" = "Järnväg";
 
-"type.railway.rail.bridge" = "Railway Bridge";
+"type.railway.rail.highspeed" = "Järnväg för höghastighetståg";
 
-"type.railway.rail.motor_vehicle" = "Railway";
+"type.railway.rail.tourism" = "Järnväg för turisttrafik";
 
-"type.railway.rail.tunnel" = "Railway Tunnel";
+"type.railway.rail.main" = "Järnväg";
 
-"type.railway.razed" = "Razed Rail";
+/* Includes ordinary railway=rail w/o more specific usage= and service= tags. */
+"type.railway.rail.branch" = "Sekundär järnväg";
 
-"type.railway.siding" = "Siding Rail";
+/* Non-passenger utility tracks: industrial, military, test. */
+"type.railway.rail.utility" = "Järnväg för allmännyttiga ändamål";
 
-"type.railway.siding.bridge" = "Siding Rail Bridge";
+"type.railway.rail.spur" = "Järnvägsspår";
 
-"type.railway.siding.tunnel" = "Siding Rail Tunnel";
+/* Short service tracks: siding, yard, crossover. */
+"type.railway.rail.service" = "Extra järnvägsspår";
 
-"type.railway.spur" = "Spur Rail";
+"type.railway.rail.bridge" = "Järnvägsbro";
 
-"type.railway.spur.bridge" = "Spur Rail Bridge";
+"type.railway.rail.highspeed.bridge" = "Järnvägsbro";
 
-"type.railway.spur.tunnel" = "Spur Rail Tunnel";
+"type.railway.rail.tourism.bridge" = "Järnvägsbro";
+
+"type.railway.rail.main.bridge" = "Järnvägsbro";
+
+"type.railway.rail.branch.bridge" = "Järnvägsbro";
+
+"type.railway.rail.utility.bridge" = "Järnvägsbro";
+
+"type.railway.rail.spur.bridge" = "Järnvägsbro";
+
+"type.railway.rail.service.bridge" = "Järnvägsbro";
+
+"type.railway.rail.tunnel" = "Järnvägstunnel";
+
+"type.railway.rail.highspeed.tunnel" = "Järnvägstunnel";
+
+"type.railway.rail.tourism.tunnel" = "Järnvägstunnel";
+
+"type.railway.rail.main.tunnel" = "Järnvägstunnel";
+
+"type.railway.rail.branch.tunnel" = "Järnvägstunnel";
+
+"type.railway.rail.utility.tunnel" = "Järnvägstunnel";
+
+"type.railway.rail.spur.tunnel" = "Järnvägstunnel";
+
+"type.railway.rail.service.tunnel" = "Järnvägstunnel";
 
 "type.railway.station" = "Tågstation";
 
+"type.railway.station.funicular" = "Linbana";
+
 "type.railway.station.light_rail" = "Tågstation";
+
+"type.railway.station.light_rail.london" = "Tågstation";
+
+"type.railway.station.light_rail.porto" = "Tågstation";
 
 "type.railway.station.monorail" = "Tågstation";
 
@@ -2949,6 +3129,8 @@
 
 "type.railway.station.subway.shiraz" = "Tunnelbana";
 
+"type.railway.station.subway.singapore" = "Tunnelbana";
+
 "type.railway.station.subway.sofia" = "Tunnelbana";
 
 "type.railway.station.subway.spb" = "Tunnelbana";
@@ -2964,6 +3146,8 @@
 "type.railway.station.subway.tashkent" = "Tunnelbana";
 
 "type.railway.station.subway.tbilisi" = "Tunnelbana";
+
+"type.railway.station.subway.tehran" = "Tunnelbana";
 
 "type.railway.station.subway.tianjin" = "Tunnelbana";
 
@@ -3175,6 +3359,8 @@
 
 "type.railway.subway_entrance.shiraz" = "Tunnelbana entré";
 
+"type.railway.subway_entrance.singapore" = "Tunnelbana entré";
+
 "type.railway.subway_entrance.sofia" = "Tunnelbana entré";
 
 "type.railway.subway_entrance.spb" = "Tunnelbana entré";
@@ -3190,6 +3376,8 @@
 "type.railway.subway_entrance.tashkent" = "Tunnelbana entré";
 
 "type.railway.subway_entrance.tbilisi" = "Tunnelbana entré";
+
+"type.railway.subway_entrance.tehran" = "Tunnelbana entré";
 
 "type.railway.subway_entrance.tianjin" = "Tunnelbana entré";
 
@@ -3217,23 +3405,19 @@
 
 "type.railway.tram_stop" = "Spårvagnshållplats";
 
-"type.railway.yard" = "Railway Yard";
-
-"type.railway.yard.bridge" = "Railway Yard Bridge";
-
-"type.railway.yard.tunnel" = "Railway Yard Tunnel";
-
-"type.route" = "route";
+"type.route" = "Route";
 
 "type.route.ferry" = "Ferry";
 
-"type.route.shuttle_train" = "Shuttle Train";
+"type.route.shuttle_train" = "route-shuttle_train";
 
 "type.shop" = "Butik";
 
 "type.shop.alcohol" = "Spritaffär";
 
 "type.shop.bakery" = "Bageri";
+
+"type.shop.bathroom_furnishing" = "Badrumsinredning";
 
 "type.shop.beauty" = "Skönhetssalong";
 
@@ -3247,6 +3431,8 @@
 
 "type.shop.butcher" = "Slaktare";
 
+"type.shop.cannabis" = "Cannabisbutik";
+
 "type.shop.car" = "Bilåterförsäljare";
 
 "type.shop.car_parts" = "Bildelar";
@@ -3257,13 +3443,15 @@
 
 "type.shop.caravan" = "RV Dealership";
 
+"type.shop.carpet" = "Mattor";
+
 "type.shop.chemist" = "Hushållskemikalier";
 
-"type.shop.chocolate" = "Butik";
+"type.shop.chocolate" = "Chokladbutik";
 
 "type.shop.clothes" = "Klädbutik";
 
-"type.shop.coffee" = "Butik";
+"type.shop.coffee" = "Kaffebutik";
 
 "type.shop.computer" = "Datorbutik";
 
@@ -3274,6 +3462,8 @@
 "type.shop.copyshop" = "Kopieringsbutik";
 
 "type.shop.cosmetics" = "Kosmetika";
+
+"type.shop.curtain" = "Gardiner";
 
 "type.shop.deli" = "Delikatessbutik";
 
@@ -3287,9 +3477,11 @@
 
 "type.shop.erotic" = "Erotisk butik";
 
-"type.shop.fabric" = "Butik";
+"type.shop.fabric" = "Tygbutik";
 
 "type.shop.farm" = "Gårdsmataffär";
+
+"type.shop.fashion_accessories" = "Modeaccessoarer";
 
 "type.shop.florist" = "Blomsteraffär";
 
@@ -3298,6 +3490,8 @@
 "type.shop.furniture" = "Möbelaffär";
 
 "type.shop.garden_centre" = "Plantskola";
+
+"type.shop.gas" = "Gasaffär";
 
 "type.shop.gift" = "Presentaffär";
 
@@ -3310,6 +3504,10 @@
 "type.shop.hardware" = "Järnaffär";
 
 "type.shop.health_food" = "Hälsokostbutik";
+
+"type.shop.herbalist" = "Örter butik";
+
+"type.shop.hifi" = "HiFi ljud";
 
 "type.shop.houseware" = "Husgerådsbutik";
 
@@ -3327,13 +3525,15 @@
 
 "type.shop.mobile_phone" = "Mobilbutik";
 
-"type.shop.money_lender" = "Butik";
+"type.shop.money_lender" = "Pengar långivare";
 
 "type.shop.motorcycle" = "Motorcykelaffär";
 
-"type.shop.music" = "Butik";
+"type.shop.motorcycle_repair" = "Motorcykel reparation";
 
-"type.shop.musical_instrument" = "Butik";
+"type.shop.music" = "Musikaffär";
+
+"type.shop.musical_instrument" = "Musikinstrumentbutik";
 
 "type.shop.newsagent" = "Tidningsstånd";
 
@@ -3341,13 +3541,21 @@
 
 "type.shop.outdoor" = "Fritidsutrustning";
 
+"type.shop.outpost" = "Mötesplats";
+
 "type.shop.pastry" = "Bakverk";
 
 "type.shop.pawnbroker" = "Pantbank";
 
 "type.shop.pet" = "Djuraffär";
 
+"type.shop.pet_grooming" = "Husdjursvård";
+
 "type.shop.photo" = "Fotoaffär";
+
+"type.shop.rental" = "Uthyrningsbutik";
+
+"type.shop.rental.bicycle" = "Cykeluthyrningsbutik";
 
 "type.shop.seafood" = "Fiskhandlare";
 
@@ -3363,7 +3571,7 @@
 
 "type.shop.tattoo" = "Tatuerare";
 
-"type.shop.tea" = "Butik";
+"type.shop.tea" = "Tebutik";
 
 "type.shop.ticket" = "Biljettkontor";
 
@@ -3381,13 +3589,20 @@
 
 "type.shop.wine" = "Vinhandel";
 
+"type.shop.agrarian" = "Lantbruksbutik";
+
 "type.shop.antiques" = "Antikviteter";
 
+"type.shop.appliance" = "Vitvarubutik";
+
+/* maybe change to Art Gallery for en-US when supported */
 "type.shop.art" = "Konstaffär";
 
 "type.shop.baby_goods" = "Barnbutik";
 
 "type.shop.bag" = "Väskor butik";
+
+"type.shop.bed" = "Sängbutik";
 
 "type.shop.boutique" = "Boutique";
 
@@ -3498,6 +3713,8 @@
 
 "type.tourism" = "Tourism";
 
+"type.tourism.aquarium" = "Akvarium";
+
 "type.tourism.alpine_hut" = "Bergsboende";
 
 "type.tourism.apartment" = "Lägenheter";
@@ -3518,7 +3735,7 @@
 
 "type.tourism.attraction.specified" = "Attraktion";
 
-"type.tourism.camp_site" = "Camping";
+"type.tourism.camp_site" = "Campground";
 
 "type.tourism.caravan_site" = "Husvagnsplats";
 
@@ -3542,6 +3759,8 @@
 
 "type.tourism.information.office" = "Turistcenter";
 
+"type.tourism.information.visitor_centre" = "Besökscentrum";
+
 "type.tourism.motel" = "Motell";
 
 "type.tourism.museum" = "Museum";
@@ -3558,6 +3777,8 @@
 
 "type.tourism.zoo" = "Zoo";
 
+"type.tourism.zoo.petting" = "Petting Zoo";
+
 "type.traffic_calming" = "Traffic Calming";
 
 "type.traffic_calming.bump" = "Traffic Bump";
@@ -3570,17 +3791,23 @@
 
 "type.waterway.canal.tunnel" = "Kanal";
 
+"type.waterway.fish_pass" = "Fiskstege";
+
 "type.waterway.dam" = "Dam";
 
-"type.waterway.ditch" = "Ditch";
+"type.barrier.ditch" = "Ditch";
 
-"type.waterway.ditch.tunnel" = "Ditch";
+"type.natural.water.ditch" = "Dräneringsdike";
+
+"type.waterway.ditch.tunnel" = "Kulvert";
 
 "type.waterway.dock" = "Waterway Dock";
 
 "type.waterway.drain" = "Drain";
 
-"type.waterway.drain.tunnel" = "Drain";
+"type.natural.water.drain" = "Drain";
+
+"type.waterway.drain.tunnel" = "Kulvert";
 
 "type.waterway.lock_gate" = "Slussport";
 
@@ -3620,26 +3847,48 @@
 
 "type.aerialway.t.bar" = "T-bar Lift";
 
-"type.piste_type" = "Piste Type";
-
 "type.piste_type.downhill" = "Downhill Ski Run";
+
+"type.piste_type.downhill.area" = "Downhill Ski Run";
 
 "type.piste_type.downhill.advanced" = "Downhill Ski Run";
 
+"type.piste_type.downhill.advanced.area" = "Downhill Ski Run";
+
 "type.piste_type.downhill.easy" = "Downhill Ski Run";
 
+"type.piste_type.downhill.easy.area" = "Downhill Ski Run";
+
 "type.piste_type.downhill.expert" = "Downhill Ski Run";
+
+"type.piste_type.downhill.expert.area" = "Downhill Ski Run";
 
 "type.piste_type.downhill.freeride" = "Downhill Ski Run";
 
 "type.piste_type.downhill.intermediate" = "Downhill Ski Run";
 
+"type.piste_type.downhill.intermediate.area" = "Downhill Ski Run";
+
 "type.piste_type.downhill.novice" = "Downhill Ski Run";
+
+"type.piste_type.downhill.novice.area" = "Downhill Ski Run";
 
 "type.piste_type.nordic" = "Nordic Ski Trail";
 
 "type.piste_type.sled" = "Sledding Piste";
 
-"type.building_part" = "Byggnad";
+"type.piste_type.sled.area" = "Sledding Piste";
+
+"type.piste_type.snow_park" = "Snöparken";
+
+"type.piste_type.hike" = "Vandringsled i snö";
+
+"type.piste_type.connection" = "Piste Anslutning";
+
+"type.piste_type.skitour" = "Skitourleden";
 
 "type.amenity.events_venue" = "Evenemangslokal";
+
+"type.shop.auction" = "Auktion";
+
+"type.shop.collector" = "Samlingsföremål";

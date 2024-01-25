@@ -5,22 +5,31 @@
 #include "generator/feature_helpers.hpp"
 #include "generator/tesselator.hpp"
 
-#include "geometry/parametrized_segment.hpp"
 #include "geometry/point2d.hpp"
 #include "geometry/polygon.hpp"
-#include "geometry/simplification.hpp"
 
 #include "indexer/classificator.hpp"
 #include "indexer/data_header.hpp"
+#include "indexer/feature.hpp"
 
-#include <cstdint>
 #include <functional>
-#include <limits>
 #include <list>
 #include <vector>
 
 namespace feature
 {
+// 4 bits are used to encode number of inner points/triangles
+// (and the "0" value is reserved to indicate use of outer geometry).
+// But actually 16 inner triangles are stored or just 14 inner points,
+// because a 3-byte points simplification mask doesn't allow more.
+size_t constexpr kMaxInnerGeometryElements = 14;
+
+// Minimum difference and times to a more detailed geometry to store a simplified geom scale.
+// A geom level is discarded as too similar to a more detailed one
+// when its' number of elements is <kGeomMinDiff less or <kGeomMinFactor times less.
+size_t constexpr kGeomMinDiff = 2;
+double constexpr kGeomMinFactor = 1.5f;
+
 class GeometryHolder
 {
 public:
@@ -28,53 +37,58 @@ public:
   using Points = std::vector<m2::PointD>;
   using Polygons = std::list<Points>;
 
-  // For FeatureType serialization maxNumTriangles should be less than numeric_limits<uint8_t>::max
-  // because FeatureType format uses uint8_t to encode the number of triangles.
   GeometryHolder(FileGetter geoFileGetter, FileGetter trgFileGetter, FeatureBuilder & fb,
-                 DataHeader const & header, size_t maxNumTriangles = 14)
+                 DataHeader const & header)
     : m_geoFileGetter(geoFileGetter)
     , m_trgFileGetter(trgFileGetter)
     , m_fb(fb)
     , m_ptsInner(true)
     , m_trgInner(true)
     , m_header(header)
-    , m_maxNumTriangles(maxNumTriangles)
   {
   }
 
-  GeometryHolder(FeatureBuilder & fb, DataHeader const & header,
-                 size_t maxNumTriangles = 14)
+  GeometryHolder(FeatureBuilder & fb, DataHeader const & header)
     : m_fb(fb)
     , m_ptsInner(true)
     , m_trgInner(true)
     , m_header(header)
-    , m_maxNumTriangles(maxNumTriangles)
   {
   }
-
-  void SetInner() { m_trgInner = true; }
 
   FeatureBuilder::SupportingData & GetBuffer() { return m_buffer; }
 
-  Points const & GetSourcePoints()
+  Points const & GetSourcePoints() const
   {
+    // For inner geometry lines keep simplifying the previous version to ensure points visibility is consistent.
     return !m_current.empty() ? m_current : m_fb.GetOuterGeometry();
   }
 
+  // Its important AddPoints is called sequentially from upper scales to lower.
   void AddPoints(Points const & points, int scaleIndex)
   {
-    if (m_ptsInner && points.size() <= m_maxNumTriangles)
+    if (m_ptsInner && points.size() <= kMaxInnerGeometryElements)
     {
-      if (m_buffer.m_innerPts.empty())
-        m_buffer.m_innerPts = points;
-      else
-        FillInnerPointsMask(points, scaleIndex);
+      // Inner geometry: store inside feature's header and keep
+      // a simplification mask for scale-specific visibility of each point.
+      FillInnerPoints(points, scaleIndex);
       m_current = points;
     }
     else
     {
       m_ptsInner = false;
-      WriteOuterPoints(points, scaleIndex);
+      if (m_ptsPrevCount == 0 ||
+          (points.size() + kGeomMinDiff <= m_ptsPrevCount && points.size() * kGeomMinFactor <= m_ptsPrevCount))
+      {
+        WriteOuterPoints(points, scaleIndex);
+        m_ptsPrevCount = points.size();
+      }
+      else
+      {
+        CHECK(m_buffer.m_ptsMask != 0, ("Some valid geometry should be present already"));
+        m_buffer.m_ptsMask |= (1 << scaleIndex);
+        m_buffer.m_ptsOffset.push_back(feature::kGeomOffsetFallback);
+      }
     }
   }
 
@@ -83,7 +97,7 @@ public:
   bool TryToMakeStrip(Points & points)
   {
     size_t const count = points.size();
-    if (!m_trgInner || (count >= 2 && count - 2 > m_maxNumTriangles))
+    if (!m_trgInner || (count >= 2 && count - 2 > kMaxInnerGeometryElements))
     {
       // too many points for strip
       m_trgInner = false;
@@ -108,12 +122,14 @@ public:
       // See IsPolygonCCW_DataSet tests for more details.
       // ASSERT(IsPolygonCCW(points.begin(), points.end()), (points));
       if (!IsPolygonCCW(points.begin(), points.end()))
+      {
+        // Usually, it is a bad polygon in OSM.
+        LOG(LWARNING, ("GeometryHolder: Degenerated polygon", m_fb.GetMostGenericOsmId()));
         return false;
+      }
     }
 
-    size_t const index = FindSingleStrip(
-        count, IsDiagonalVisibleFunctor<Points::const_iterator>(points.begin(), points.end()));
-
+    size_t const index = FindSingleStrip(count, IsDiagonalVisibleFunctor(points.begin(), points.end()));
     if (index == count)
     {
       // can't find strip
@@ -132,7 +148,25 @@ public:
     CHECK(m_buffer.m_innerTrg.empty(), ());
     m_trgInner = false;
 
-    WriteOuterTriangles(polys, scaleIndex);
+    size_t trgPointsCount = 0;
+    for (auto const & points : polys)
+      trgPointsCount += points.size();
+
+    if (m_trgPrevCount == 0 ||
+        (trgPointsCount + kGeomMinDiff <= m_trgPrevCount && trgPointsCount * kGeomMinFactor <= m_trgPrevCount))
+    {
+      if (WriteOuterTriangles(polys, scaleIndex))
+      {
+        // Assign only if geometry is valid (correctly tesselated and saved).
+        m_trgPrevCount = trgPointsCount;
+      }
+    }
+    else
+    {
+      CHECK(m_buffer.m_trgMask != 0, ("Some valid geometry should be present already"));
+      m_buffer.m_trgMask |= (1 << scaleIndex);
+      m_buffer.m_trgOffset.push_back(feature::kGeomOffsetFallback);
+    }
   }
 
 private:
@@ -159,19 +193,20 @@ private:
 
     auto cp = m_header.GetGeometryCodingParams(i);
 
-    // Optimization: Store first point once in header for outer linear features.
+    // Optimization: store the first point once in the header instead of duplicating it for each geom scale.
     cp.SetBasePoint(points[0]);
     // Can optimize here, but ... Make copy of vector.
     Points toSave(points.begin() + 1, points.end());
 
     m_buffer.m_ptsMask |= (1 << i);
     auto const pos = feature::CheckedFilePosCast(m_geoFileGetter(i));
+    CHECK(pos != feature::kGeomOffsetFallback, ());
     m_buffer.m_ptsOffset.push_back(pos);
 
     serial::SaveOuterPath(toSave, cp, m_geoFileGetter(i));
   }
 
-  void WriteOuterTriangles(Polygons const & polys, int i)
+  bool WriteOuterTriangles(Polygons const & polys, int i)
   {
     CHECK(m_trgFileGetter, ("m_trgFileGetter must be set to write outer triangles."));
 
@@ -179,8 +214,9 @@ private:
     tesselator::TrianglesInfo info;
     if (0 == tesselator::TesselateInterior(polys, info))
     {
-      LOG(LINFO, ("GeometryHolder: No triangles in", m_fb.GetMostGenericOsmId()));
-      return;
+      /// @todo Some examples here: https://github.com/organicmaps/organicmaps/issues/5607
+      LOG(LWARNING, ("GeometryHolder: No triangles for scale index", i, "in", m_fb.GetMostGenericOsmId()));
+      return false;
     }
 
     auto const cp = m_header.GetGeometryCodingParams(i);
@@ -217,18 +253,31 @@ private:
     // saving to file
     m_buffer.m_trgMask |= (1 << i);
     auto const pos = feature::CheckedFilePosCast(m_trgFileGetter(i));
+    CHECK(pos != feature::kGeomOffsetFallback, ());
     m_buffer.m_trgOffset.push_back(pos);
     saver.Save(m_trgFileGetter(i));
+
+    return true;
   }
 
-  void FillInnerPointsMask(Points const & points, uint32_t scaleIndex)
+  void FillInnerPoints(Points const & points, uint32_t scaleIndex)
   {
     auto const & src = m_buffer.m_innerPts;
-    CHECK(!src.empty(), ());
+
+    if (src.empty())
+    {
+      m_buffer.m_innerPts = points;
+      // Init the simplification mask to the scaleIndex.
+      // First and last points are present always, hence not stored in the mask.
+      for (size_t i = 1; i < points.size() - 1; ++i)
+        m_buffer.m_ptsSimpMask |= (scaleIndex << (2 * (i - 1)));
+      return;
+    }
 
     CHECK(feature::ArePointsEqual(src.front(), points.front()), ());
     CHECK(feature::ArePointsEqual(src.back(), points.back()), ());
 
+    uint32_t constexpr mask = 0x3;
     size_t j = 1;
     for (size_t i = 1; i < points.size() - 1; ++i)
     {
@@ -236,8 +285,7 @@ private:
       {
         if (feature::ArePointsEqual(src[j], points[i]))
         {
-          // set corresponding 2 bits for source point [j] to scaleIndex
-          uint32_t mask = 0x3;
+          // Update corresponding 2 bits for the source point [j] to the scaleIndex.
           m_buffer.m_ptsSimpMask &= ~(mask << (2 * (j - 1)));
           m_buffer.m_ptsSimpMask |= (scaleIndex << (2 * (j - 1)));
           break;
@@ -257,9 +305,8 @@ private:
 
   Points m_current;
   bool m_ptsInner, m_trgInner;
+  size_t m_ptsPrevCount = 0, m_trgPrevCount = 0;
 
   feature::DataHeader const & m_header;
-  // max triangles number to store in innerTriangles
-  size_t m_maxNumTriangles;
 };
 }  //  namespace feature

@@ -2,6 +2,8 @@
 #include "qt/mainwindow.hpp"
 #include "qt/screenshoter.hpp"
 
+#include "qt/qt_common/helpers.hpp"
+
 #include "map/framework.hpp"
 
 #include "platform/platform.hpp"
@@ -14,17 +16,14 @@
 
 #include "build_style/build_style.h"
 
-#include <cstdio>
-#include <cstdlib>
-#include <sstream>
-
-#include "gflags/gflags.h"
-
-#include <QtCore/QDir>
-#include <QtGui/QScreen>
 #include <QtWidgets/QMessageBox>
 #include <QtWidgets/QApplication>
 #include <QtWidgets/QFileDialog>
+
+#include <sstream>
+
+#include <gflags/gflags.h>
+
 
 DEFINE_string(data_path, "", "Path to data directory.");
 DEFINE_string(log_abort_level, base::ToString(base::GetDefaultLogAbortLevel()),
@@ -140,10 +139,14 @@ int main(int argc, char * argv[])
   UNUSED_VALUE(mainGuard);
 
   QApplication app(argc, argv);
-  // Pretty icons on HDPI displays.
-  QApplication::setAttribute(Qt::AA_UseHighDpiPixmaps);
-
   platform.SetupMeasurementSystem();
+
+
+#ifdef BUILD_DESIGNER
+    QApplication::setApplicationName("Organic Maps Designer");
+#else
+    QApplication::setApplicationName("Organic Maps");
+#endif
 
   // Display EULA if needed.
   char const * settingsEULA = "EulaAccepted";
@@ -155,7 +158,7 @@ int main(int argc, char * argv[])
       ReaderPtr<Reader> reader = platform.GetReader("copyright.html");
       reader.ReadAsString(buffer);
     }
-    qt::InfoDialog eulaDialog(qAppName(), buffer.c_str(), nullptr, {"Accept", "Decline"});
+    qt::InfoDialog eulaDialog(QCoreApplication::applicationName(), buffer.c_str(), nullptr, {"Accept", "Decline"});
     eulaAccepted = (eulaDialog.exec() == 1);
     settings::Set(settingsEULA, eulaAccepted);
   }
@@ -163,18 +166,7 @@ int main(int argc, char * argv[])
   int returnCode = -1;
   if (eulaAccepted)   // User has accepted EULA
   {
-    bool apiOpenGLES3 = false;
     std::unique_ptr<qt::ScreenshotParams> screenshotParams;
-
-#if defined(OMIM_OS_MAC)
-    apiOpenGLES3 = app.arguments().contains("es3", Qt::CaseInsensitive);
-#elif defined(OMIM_OS_LINUX)
-    // TODO: Implement proper runtime version detection in a separate commit
-    // Currently on Linux in a maximum ES2 scenario,
-    // the GL function pointers wouldn't be properly resolved anyway,
-    // so here at least a possibly successful path is chosen.
-    apiOpenGLES3 = true;
-#endif
 
     if (!FLAGS_lang.empty())
       (void)::setenv("LANGUAGE", FLAGS_lang.c_str(), 1);
@@ -207,7 +199,7 @@ int main(int argc, char * argv[])
         screenshotParams->m_dpiScale = FLAGS_dpi_scale;
     }
 
-    qt::MainWindow::SetDefaultSurfaceFormat(apiOpenGLES3);
+    qt::common::SetDefaultSurfaceFormat(app.platformName());
 
     FrameworkParams frameworkParams;
 
@@ -241,7 +233,7 @@ int main(int argc, char * argv[])
 #endif // BUILD_DESIGNER
 
     Framework framework(frameworkParams);
-    qt::MainWindow w(framework, apiOpenGLES3, std::move(screenshotParams),
+    qt::MainWindow w(framework, std::move(screenshotParams),
                      app.primaryScreen()->geometry()
 #ifdef BUILD_DESIGNER
                      , mapcssFilePath
@@ -270,6 +262,6 @@ int main(int argc, char * argv[])
   }
 #endif // BUILD_DESIGNER
 
-  LOG_SHORT(LINFO, ("OMaps finished with code", returnCode));
+  LOG_SHORT(LINFO, ("Organic Maps finished with code", returnCode));
   return returnCode;
 }

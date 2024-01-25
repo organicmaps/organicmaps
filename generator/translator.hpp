@@ -39,7 +39,7 @@ public:
   void SetFilter(std::shared_ptr<FilterInterface> const & filter);
 
   // TranslatorInterface overrides:
-  void Emit(OsmElement & element) override;
+  void Emit(OsmElement const & element) override;
   void Finish() override;
   bool Save() override;
 

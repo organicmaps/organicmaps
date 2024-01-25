@@ -32,7 +32,7 @@
 /* A text for current gps location point/arrow selected on the map */
 "core_my_position" = "مکان من";
 
-/* Update maps later/Buy pro version later button text */
+/* Update maps later button text */
 "later" = "بعداً";
 
 /* View and button titles for accessibility, please also edit it in iphone/plist.txt */
@@ -71,13 +71,16 @@
 /* "Bookmark Lists" dialog title */
 "bookmark_sets" = "Bookmark Lists";
 
-/* "Bookmarks" dialog title, please also edit it in iphone/plist.txt */
+/* Should be used in the bookmarks-only context, see bookmarks_and_tracks if tracks are also implied. */
 "bookmarks" = "نشانه‌ها";
+
+/* "Bookmarks and Tracks" dialog title, also sync it with iphone/plist.txt */
+"bookmarks_and_tracks" = "نشانه‌ها و مسیر";
 
 /* Default bookmark list name */
 "core_my_places" = "مکان من";
 
-/* Editor title above street and house number */
+/* Editor title above street and house number, duplicates [type.building.address] in types_strings.txt */
 "address" = "آدرس";
 
 /* Settings button in system menu */
@@ -106,6 +109,9 @@
 
 /* Search category for clothes/shoes/gifts/jewellery/sport shops; any changes should be duplicated in categories.txt @shopping! */
 "shopping" = "خرید کردن";
+
+/* Search category for second_hand/charity/antique/auction shops; any changes should be duplicated in categories.txt @secondhand! */
+"secondhand" = "دست دوم";
 
 /* Search category for places to stay; any changes should be duplicated in categories.txt @hotel! */
 "hotel" = "هتل";
@@ -155,7 +161,7 @@
 /* Search category for RV facilities; any changes should be duplicated in categories.txt @rv! */
 "rv" = "RV برای";
 
-"share_bookmarks_email_body" = "Hello!\n\nAttached are my bookmarks from Organic Maps app. Please open them if you have Organic Maps installed. Or, if you don't, download the app for your iOS or Android device by following this link: https://omaps.app/get?kmz\n\nEnjoy traveling with Organic Maps!";
+"share_bookmarks_email_body" = "Hello!\n\nAttached are my bookmarks; please open them in Organic Maps. If you don't have it installed you can download it here: https://omaps.app/get?kmz\n\nEnjoy travelling with Organic Maps!";
 
 /* message title of loading file */
 "load_kmz_title" = "در حال بارگیری نشانه‌ها";
@@ -184,6 +190,9 @@
 /* Share by email button text, also used in editor and About. */
 "email" = "ایمیل";
 
+/* Text for message when used successfully copied something */
+"copied_to_clipboard" = "کپی در کلیپ‌برد: %@";
+
 /* place preview title */
 "info" = "اطلاعات";
 
@@ -211,20 +220,23 @@
 /* Settings «Map» category: «Night style» title */
 "pref_map_style_title" = "حالت شب";
 
-/* «Map style» entry value */
-"pref_map_style_default" = "خاموش";
+/* Generic «Off» string */
+"off" = "خاموش";
 
-/* «Map style» entry value */
-"pref_map_style_night" = "روشن";
+/* Generic «On» string */
+"on" = "روشن";
 
-/* «Map style» entry value */
-"pref_map_style_auto" = "خودکار";
+/* Generic «Auto» string */
+"auto" = "خودکار";
 
 /* Settings «Map» category: «Perspective view» title */
 "pref_map_3d_title" = "نمای چشم انداز";
 
 /* Settings «Map» category: «3D buildings» title */
 "pref_map_3d_buildings_title" = "ساختمان‌های سه بعدی";
+
+/* A message in Settings/Preferences explaining why is it not possible to enable 3D buildings when max power saving mode is enabled */
+"pref_map_3d_buildings_disabled_summary" = "ساختمان های سه بعدی در حالت صرفه جویی در مصرف برق خاموش می شوند";
 
 /* Settings «Route» category: «Tts enabled» title */
 "pref_tts_enable_title" = "دستور العمل صوتی";
@@ -271,7 +283,7 @@
 "telegram" = "Telegram";
 
 /* Text in menu */
-"matrix" = "[matrix]";
+"matrix" = "[Matrix]";
 
 /* Text in menu */
 "mastodon" = "Mastodon";
@@ -280,7 +292,7 @@
 "facebook" = "Facebook";
 
 /* Text in menu */
-"twitter" = "Twitter";
+"twitter" = "X (Twitter)";
 
 /* Text in menu */
 "instagram" = "Instagram";
@@ -453,7 +465,7 @@
 
 "dialog_routing_download_files" = "دانلود فایل‌های مورد نیاز";
 
-"dialog_routing_download_and_update_all" = "Download and update all map and routing information along the projected path to calculate route.";
+"dialog_routing_download_and_update_all" = "Download or update all maps along the projected path to calculate a route.";
 
 "dialog_routing_unable_locate_route" = "ناتوان در تعیین مسیر";
 
@@ -500,7 +512,7 @@
 "routing_planning_error" = "برنامه ریزی مسیر ناموفق";
 
 /* Arrive routing message in navigation view */
-"routing_arrive" = "ورود به: %s";
+"routing_arrive" = "ورود به: %@";
 
 /* Text for routing::RouterResultCode::FileTooOld dialog. */
 "dialog_routing_download_and_update_maps" = "Download and update all map along the projected path to calculate route.";
@@ -756,19 +768,23 @@
 
 "location_services_disabled_2" = "2. Tap Location";
 
-/* iOS Dialog for the case when the location permission is not granted */
+/* iOS Dialog for the case when the location permission is not granted; you might find the exact wording for your language here: https://support.apple.com/en-us/102647 (replace 'en-us' in URL with your language/region) */
 "location_services_disabled_3" = "3. Select While Using the App";
 
-"meter" = "متر";
+/* abbreviation for meters */
+"m" = "متر";
 
-"kilometer" = "کیلومتر";
+/* abbreviation for kilometers */
+"km" = "کیلومتر";
 
+/* abbreviation for kilometers per hour */
 "kilometers_per_hour" = "کیلومتربرساعت (km/h)";
 
-"mile" = "مایل";
+/* abbreviation for mile(s) */
+"mi" = "مایل";
 
 /* A unit of measure */
-"foot" = "فوت";
+"ft" = "فوت";
 
 "miles_per_hour" = "مایل بر ساعت (mph)";
 
@@ -776,11 +792,18 @@
 
 "minute" = "دقیقه";
 
-"placepage_place_description" = "توضیحات";
-
 "placepage_more_button" = "بیشتر";
 
 "book_button" = "رزرو";
+
+/* A referral link on the place page for some hotels */
+"more_on_kayak" = "عکس ها، نظرات، رزرو";
+
+/* An explanation dialog shown when clicking on more_on_kayak link. */
+"dialog_kayak_disclaimer" = "پاداش ارجاعی دریافت شده برای هر رزرو از طریق این پیوند به سمت توسعه نقشه های ارگانیک می رود.";
+
+/* A confirmation button text in the explanation dialog that opens hotel details page on Kayak website. */
+"dialog_kayak_button" = "جزئیات در Kayak";
 
 "placepage_call_button" = "تماس";
 
@@ -817,7 +840,7 @@
 
 "refresh" = "بروزرسانی";
 
-"placepage_add_place_button" = "اضافه کردن یک مکان به نقشه";
+"placepage_add_place_button" = "مکان را به OpenStreetMap اضافه کنید";
 
 /* Displayed when saving some edits to the map to warn against publishing personal data */
 "editor_share_to_all_dialog_title" = "آیا می خواهید آن را برای دیگر کاربران ارسال کنید؟";
@@ -880,10 +903,6 @@
 /* "traffic" as in "road congestion" */
 "traffic_data_unavailable" = "اطلاعات ترافیکی موجود نیست";
 
-"on" = "روشن";
-
-"off" = "خاموش";
-
 "transliteration_title" = "ترجمه به لاتین";
 
 /* Subway exits for public transport marks on the map */
@@ -922,11 +941,11 @@
 
 "downloader_hide_screen" = "پنهان کردن صفحه";
 
-"downloader_percent" = "%s (%s از %s)";
+"downloader_percent" = "%@ (%@ از %@)";
 
-"downloader_process" = "در حال دانلود %s…";
+"downloader_process" = "در حال دانلود %@…";
 
-"downloader_applying" = "اعمال %s…";
+"downloader_applying" = "اعمال %@…";
 
 "bookmarks_error_message_share_general" = "با توجه به خطای برنامه، امکان اشتراک گذاری وجود ندارد";
 
@@ -964,7 +983,7 @@
 
 "button_layer_subway" = "مترو";
 
-"layers_title" = "لایه‌های نقشه";
+"layers_title" = "سبک ها و لایه های نقشه";
 
 "subway_data_unavailable" = "نقشه مترو موجود نیست";
 
@@ -973,8 +992,6 @@
 "popular_place" = "مشهور";
 
 "export_file" = "ارسال فایل";
-
-"list_settings" = "تنظیمات لیست";
 
 "delete_list" = "حذف لیست";
 
@@ -988,11 +1005,11 @@
 
 "speedcams_alert_title" = "دوربین‌های سرعت";
 
-"speedcam_option_auto" = "خودکار";
+/* Generic «Always» string */
+"always" = "همیشه";
 
-"speedcam_option_always" = "همیشه";
-
-"speedcam_option_never" = "هرگز";
+/* Generic «Never» string */
+"never" = "هرگز";
 
 "place_description_title" = "توضیحات محل";
 
@@ -1010,15 +1027,16 @@
 
 "driving_options_title" = "گزینه‌های رانندگی";
 
-"driving_options_subheader" = "اجتناب از تمامی مسیرها";
+/* Recommended length for CarPlay and Android Auto is around 25-27 characters */
+"avoid_tolls" = "از جاده های عوارضی خودداری کنید";
 
-"avoid_tolls" = "جاده‌های دارای عوارض";
+/* Recommended length for CarPlay and Android Auto is around 25-27 characters */
+"avoid_unpaved" = "اجتناب از جاده‌های آسفالت نشده";
 
-"avoid_unpaved" = "جاده‌های آسفالت نشده";
+/* Recommended length for CarPlay and Android Auto is around 25-27 characters */
+"avoid_ferry" = "اجتناب از گذرگاه‌های کشتی";
 
-"avoid_ferry" = "گذرگاه‌های جاده‌ای";
-
-"avoid_motorways" = "بزرگراه‌ها";
+"avoid_motorways" = "از بزرگراه دوری کنید";
 
 "unable_to_calc_alert_title" = "امکان محاسبه مسیر نیست";
 
@@ -1033,12 +1051,6 @@
 "unpaved_road" = "جاده آسفالت نشده";
 
 "ferry_crossing" = "گذرگاه جاده‌ای";
-
-"avoid_toll_roads_placepage" = "اجتناب از جاده‌های دارای عوارض";
-
-"avoid_unpaved_roads_placepage" = "اجتناب از جاده‌های آسفالت نشده";
-
-"avoid_ferry_crossing_placepage" = "اجتناب از گذرگاه‌های کشتی";
 
 "trip_start" = "برویم";
 
@@ -1064,6 +1076,9 @@
 /* E.g. "WiFi:No" */
 "no_available" = "خیر";
 
+/* To indicate the capacity of car parkings, bicycle parkings, electric vehicle charging stations... */
+"capacity" = "ظرفیت: %@";
+
 "trip_finished" = "شما به مقصد رسیدید!";
 
 "keyboard_availability_alert" = "صفحه کلید در هنگام رانندگی در دسترس نیست";
@@ -1086,25 +1101,13 @@
 
 "ok" = "موافقت کردن";
 
-"avoid_unpaved_carplay_1" = "بی جاده خاکی";
-
-"avoid_unpaved_carplay_2" = "پرهیز از خاکی";
-
-"avoid_ferry_carplay_1" = "بدون بزرگراه";
-
-"avoid_ferry_carplay_2" = "پرهیز از اتوبان";
-
-"avoid_tolls_carplay_1" = "بدون عوارضی";
-
-"avoid_tolls_carplay_2" = "اجتناب از عوارض";
-
 "speedcams_alert_title_carplay_1" = "دوربین سرعت";
 
 "speedcams_alert_title_carplay_2" = "هشدارهای سرعت";
 
 "download_map_carplay" = "لطفا نقشه‌ها را در نرم افزار Organic Maps روی دستگاه خود دانلود کنید";
 
-"carplay_roundabout_exit" = "خروجی %s";
+"carplay_roundabout_exit" = "خروجی %@";
 
 /* max. 10 symbols, both iOS and Android */
 "sort" = "مرتب سازی…";
@@ -1210,7 +1213,7 @@
 "whats_new_auto_update_message" = "بروزرسانی نقشه‌ها اطلاعات مربوط به اشیا را به روز نگه می دارد";
 
 /* Autoupdate dialog on start */
-"whats_new_auto_update_button_size" = "بروزرسانی (%s)";
+"whats_new_auto_update_button_size" = "بروزرسانی (%@)";
 
 /* Autoupdate dialog on start */
 "whats_new_auto_update_button_later" = "بعدا به صورت دستی به روزرسانی کنید";
@@ -1236,8 +1239,20 @@
 /* Translated Organic Maps site, add new translations here: https://github.com/organicmaps/organicmaps.github.io/tree/master/content */
 "translated_om_site_url" = "https://organicmaps.app/";
 
+/* Link to OSM wiki for Editor, Profile and About pages */
+"osm_wiki_about_url" = "https://wiki.openstreetmap.org/wiki/Fa:About_OpenStreetMap";
+
+/* Outdoors/hiking map style (activity) name in the Styles and Layers dialog */
+"button_layer_outdoor" = "پیاده روی";
+
 
 /********** Types **********/
+
+"type.addr_interpolation" = "آدرس/بلاک";
+
+"type.addr_interpolation.even" = "آدرس/بلاک";
+
+"type.addr_interpolation.odd" = "آدرس/بلاک";
 
 "type.aerialway" = "Aerialway";
 
@@ -1309,9 +1324,17 @@
 
 "type.amenity.casino" = "قمارخانه";
 
+"type.amenity.gambling" = "قمار";
+
+"type.leisure.adult_gaming_centre" = "مرکز بازی بزرگسالان";
+
+"type.leisure.amusement_arcade" = "گذرگاه طاقدار";
+
 "type.amenity.charging_station" = "ایستگاه شارژ";
 
-"type.amenity.charging_station.motorcar" = "ایستگاه شارژ";
+"type.amenity.charging_station.bicycle" = "ایستگاه شارژ دوچرخه";
+
+"type.amenity.charging_station.motorcar" = "ایستگاه شارژ موتور";
 
 "type.amenity.childcare" = "شیرخوارگاه";
 
@@ -1325,6 +1348,10 @@
 
 "type.amenity.community_centre" = "مرکزاجتماعی";
 
+"type.amenity.compressed_air" = "هوای فشرده";
+
+"type.amenity.conference_centre" = "مرکز کنفرانس";
+
 "type.amenity.courthouse" = "دادگاه";
 
 "type.amenity.dentist" = "دندان پزشکی";
@@ -1334,6 +1361,10 @@
 "type.amenity.drinking_water" = "اب اشامیدنی";
 
 "type.amenity.driving_school" = "اموزشگاه رانندگی";
+
+"type.amenity.exhibition_centre" = "مرکز نمایشگاه";
+
+"type.amenity.money_transfer" = "انتقال پول";
 
 "type.amenity.music_school" = "ﯽﻘﯿﺳﻮﻣ ﻩﺎﮕﺷﺯﻮﻣﺁ";
 
@@ -1383,9 +1414,11 @@
 
 "type.amenity.parking" = "پارکینگ";
 
-"type.amenity.parking.fee" = "ﯽﻟﻮﭘ ﮓﻨﯿﮐﺭﺎﭘ";
+"type.amenity.parking.fee" = "پارکینگ";
 
 "type.amenity.parking.multi.storey" = "ﻪﻘﺒﻃ ﺪﻨﭼ ﮓﻨﯿﮐﺭﺎﭘ";
+
+"type.amenity.parking.multi.storey.fee" = "ﻪﻘﺒﻃ ﺪﻨﭼ ﮓﻨﯿﮐﺭﺎﭘ";
 
 "type.amenity.parking.no.access" = "ﯽﺻﺎﺼﺘﺧﺍ ﮓﻨﯿﮐﺭﺎﭘ";
 
@@ -1397,9 +1430,25 @@
 
 "type.amenity.parking.underground" = "ﯽﻨﯿﻣﺯ ﺮﯾﺯ ﮓﻨﯿﮐﺭﺎﭘ";
 
+"type.amenity.parking.underground.fee" = "ﯽﻨﯿﻣﺯ ﺮﯾﺯ ﮓﻨﯿﮐﺭﺎﭘ";
+
+"type.amenity.parking.underground.private" = "پارکینگ زیرزمینی اختصاصی";
+
+"type.amenity.parking.street_side" = "پارکینگ کنار خیابان";
+
+"type.amenity.parking.street_side.fee" = "پارکینگ کنار خیابان";
+
+"type.amenity.parking.street_side.private" = "پارکینگ کنار خیابان خصوصی";
+
+"type.amenity.parking.lane" = "پارکینگ لاین";
+
+"type.amenity.parking.lane.fee" = "پارکینگ لاین";
+
+"type.amenity.parking.lane.private" = "پارکینگ لاین خصوصی";
+
 "type.amenity.parking_entrance" = "ﮓﻨﯿﮐﺭﺎﭘ ﯼﺩﻭﺭﻭ";
 
-"type.amenity.parking_entrance.private" = "ﮓﻨﯿﮐﺭﺎﭘ ﯼﺩﻭﺭﻭ";
+"type.amenity.parking_entrance.private" = "ورودی پارکینگ اختصاصی";
 
 "type.amenity.parking_entrance.permissive" = "ﮓﻨﯿﮐﺭﺎﭘ ﯼﺩﻭﺭﻭ";
 
@@ -1422,6 +1471,10 @@
 "type.amenity.place_of_worship.buddhist" = "گردشگری";
 
 "type.amenity.place_of_worship.christian" = "گردشگری";
+
+"type.amenity.place_of_worship.christian.mormon" = "کلیسای عیسی مسیح مقدسین آخرالزمان";
+
+"type.amenity.place_of_worship.christian.jehovahs_witness" = "سال مملکت شاهدان یهوه";
 
 "type.amenity.place_of_worship.hindu" = "گردشگری";
 
@@ -1478,7 +1531,7 @@
 
 "type.recycling.green_waste" = "Green/Organic Waste";
 
-"type.recycling.cartons" = "Beverage Cartons";
+"type.recycling.cartons" = "Cartons";
 
 "type.amenity.restaurant" = "غذا";
 
@@ -1488,7 +1541,11 @@
 
 "type.amenity.shelter" = "پناهگاه";
 
+"type.amenity.public_bath" = "حمام عمومی";
+
 "type.amenity.shower" = "حمام";
+
+"type.amenity.stripclub" = "باشگاه استریپ";
 
 "type.amenity.taxi" = "تاکسی";
 
@@ -1497,6 +1554,8 @@
 "type.amenity.theatre" = "سرگرمی";
 
 "type.amenity.toilets" = "دستشویی";
+
+"type.toilets.yes" = "دستشویی";
 
 "type.amenity.townhall" = "گردشگری";
 
@@ -1514,7 +1573,7 @@
 
 "type.amenity.vending_machine.food" = "Food Dispenser";
 
-"type.amenity.vending_machine.newspapers" = "Newspapers Dispenser";
+"type.amenity.vending_machine.newspapers" = "Newspaper Dispenser";
 
 "type.amenity.vending_machine.parking_tickets" = "پارکو متر";
 
@@ -1526,7 +1585,9 @@
 
 "type.amenity.parcel_locker" = "Parcel Locker";
 
-"type.amenity.vending_machine.fuel" = "Fuel Dispenser";
+"type.amenity.vehicle_inspection" = "بازرسی وسایل نقلیه";
+
+"type.amenity.vending_machine.fuel" = "Fuel Pump";
 
 "type.amenity.veterinary" = "دامپزشکی";
 
@@ -1552,7 +1613,11 @@
 
 "type.barrier.cycle_barrier" = "Cycle Barrier";
 
-"type.barrier.ditch" = "ﻕﺪﻨﺧ";
+"type.waterway.ditch" = "خندق زهکشی";
+
+"type.natural.water.moat" = "ﻕﺪﻨﺧ";
+
+"type.natural.water.wastewater" = "فاضلاب";
 
 "type.barrier.entrance" = "ورودی";
 
@@ -1569,6 +1634,8 @@
 "type.barrier.retaining_wall" = "Retaining Wall";
 
 "type.barrier.stile" = "پلکان";
+
+"type.barrier.turnstile" = "گردان";
 
 "type.barrier.swing_gate" = "اسانسور";
 
@@ -1618,13 +1685,30 @@
 
 "type.boundary.national_park" = "پارک ملی";
 
+"type.boundary.protected_area" = "منطقه حفاظت شده";
+
+"type.boundary.protected_area.1" = "منطقه حفاظت شده";
+
+"type.boundary.protected_area.2" = "منطقه حفاظت شده";
+
+"type.boundary.protected_area.3" = "منطقه حفاظت شده";
+
+"type.boundary.protected_area.4" = "منطقه حفاظت شده";
+
+"type.boundary.protected_area.5" = "منطقه حفاظت شده";
+
+"type.boundary.protected_area.6" = "منطقه حفاظت شده";
+
 "type.building" = "ساختمان";
 
-"type.building.address" = "ساختمان";
-
-"type.building.garage" = "گاراژ";
+/* Duplicates [address] in strings.txt */
+"type.building.address" = "آدرس";
 
 "type.building.has_parts" = "ساختمان";
+
+"type.building_part" = "ساختمان";
+
+"type.building.garage" = "گاراژ";
 
 "type.building.train_station" = "ایستگاه قطار";
 
@@ -1640,6 +1724,8 @@
 
 "type.craft.brewery" = "کارخانه ابجوسازی";
 
+"type.craft.caterer" = "پذیرایی";
+
 "type.craft.carpenter" = "نجار";
 
 "type.craft.confectionery" = "قنادی";
@@ -1650,16 +1736,24 @@
 
 "type.craft.gardener" = "باغبان";
 
+"type.craft.grinding_mill" = "آسیاب آسیاب";
+
 "type.craft.handicraft" = "صنایع دستی";
 
 /* Heating, Ventilation, and Air Conditioning */
 "type.craft.hvac" = "گرمایش و تهویه‌هوا";
+
+"type.craft.key_cutter" = "برش کلید";
+
+"type.craft.locksmith" = "قفل ساز";
 
 "type.craft.metal_construction" = "اهن کار";
 
 "type.craft.painter" = "نقاش";
 
 "type.craft.photographer" = "عکاس";
+
+"type.shop.camera" = "فروشگاه دوربین";
 
 "type.craft.plumber" = "لوله کش";
 
@@ -1791,7 +1885,7 @@
 
 "type.cuisine.noodles" = "Noodles";
 
-"type.cuisine.oriental" = "Far Eastern";
+"type.cuisine.oriental" = "East Asian";
 
 "type.cuisine.pancake" = "Pancake";
 
@@ -1845,6 +1939,8 @@
 
 "type.emergency" = "Emergency";
 
+"type.emergency.assembly_point" = "محل تجمع اضطراری";
+
 "type.emergency.defibrillator" = "دستگاه شوک";
 
 "type.emergency.fire_hydrant" = "شیر آتش‌نشانی";
@@ -1856,6 +1952,12 @@
 
 /* This is for main/primary entrances, for secondary entrances see type.entrance */
 "type.entrance.main" = "ﯽﻠﺻﺍ ﯼﺩﻭﺭﻭ";
+
+"type.entrance.exit" = "خارج شوید";
+
+"type.fee.yes" = "💲";
+
+"type.fee.no" = "رایگان";
 
 "type.healthcare.laboratory" = "ﯽﮑﺷﺰﭘ ﻩﺎﮕﺸﯾﺎﻣﺯﺁ";
 
@@ -1894,6 +1996,12 @@
 
 "type.highway.busway" = "ﺱﻮﺑﻮﺗﺍ ﯽﺻﺎﺼﺘﺧﺍ ﻩﺩﺎﺟ";
 
+/* These translations are used for all type.highway.*.bridge. */
+"type.highway.busway.bridge" = "پل";
+
+/* These translations are used for all type.highway.*.tunnel. */
+"type.highway.busway.tunnel" = "تونل";
+
 "type.highway.bus_stop" = "حمل و نقل";
 
 "type.highway.construction" = "جاده در دست ساخت است";
@@ -1912,6 +2020,10 @@
 
 "type.highway.footway" = "مسیر";
 
+"type.highway.footway.sidewalk" = "پیاده رو";
+
+"type.highway.footway.crossing" = "محل عبور عابر پیاده";
+
 "type.highway.footway.alpine_hiking" = "مسیر";
 
 "type.highway.footway.area" = "مسیر";
@@ -1928,8 +2040,6 @@
 "type.highway.footway.hiking" = "مسیر";
 
 "type.highway.footway.mountain_hiking" = "مسیر";
-
-"type.highway.footway.permissive" = "مسیر";
 
 /* These translations are used for all type.highway.*.tunnel. */
 "type.highway.footway.tunnel" = "تونل";
@@ -2032,6 +2142,9 @@
 
 /* These translations are used for all type.highway.*.bridge. */
 "type.highway.road.bridge" = "پل";
+
+/* A bridge structure outline. */
+"type.man_made.bridge" = "پل";
 
 /* These translations are used for all type.highway.*.tunnel. */
 "type.highway.road.tunnel" = "تونل";
@@ -2185,11 +2298,17 @@
 
 "type.historic" = "شیء تاریخی";
 
+"type.historic.aircraft" = "هواپیمای تاریخی";
+
+"type.historic.anchor" = "لنگر تاریخی";
+
 "type.historic.archaeological_site" = "گردشگری";
 
 "type.historic.battlefield" = "میدان جنگ";
 
 "type.historic.boundary_stone" = "نشانگر مرز";
+
+"type.historic.cannon" = "توپ";
 
 "type.historic.castle" = "قلعه";
 
@@ -2221,6 +2340,8 @@
 
 "type.historic.gallows" = "چوبه دار";
 
+"type.historic.locomotive" = "لوکوموتیو تاریخی";
+
 "type.historic.memorial" = "گردشگری";
 
 "type.historic.memorial.cross" = "صلیب یادبود";
@@ -2233,7 +2354,11 @@
 
 "type.historic.memorial.stolperstein" = "سنگ مانع";
 
+"type.historic.stone" = "سنگ تاریخی";
+
 "type.historic.memorial.war_memorial" = "رزم‌یاد";
+
+"type.historic.mine" = "معدن تاریخی";
 
 "type.historic.monument" = "گردشگری";
 
@@ -2243,11 +2368,15 @@
 
 "type.historic.ship" = "گردشگری";
 
+"type.historic.tank" = "تانک تاریخی";
+
 "type.historic.tomb" = "گردشگری";
 
 "type.historic.wayside_cross" = "صلیب کنار راه";
 
 "type.historic.wayside_shrine" = "حرم کنار راه";
+
+"type.historic.wreck" = "غرق کشتی";
 
 "type.hwtag" = "hwtag";
 
@@ -2281,6 +2410,8 @@
 
 "type.junction" = "Junction";
 
+"type.junction.circular" = "Roundabout";
+
 "type.junction.roundabout" = "Roundabout";
 
 "type.landuse" = "Landuse";
@@ -2301,9 +2432,9 @@
 
 "type.landuse.commercial" = "Commercial Area";
 
-"type.landuse.construction" = "Construction";
+"type.landuse.construction" = "Construction Area";
 
-"type.landuse.education" = "Educational Facilities";
+"type.landuse.education" = "Educational Facility";
 
 "type.landuse.farm" = "Farm";
 
@@ -2312,6 +2443,8 @@
 "type.landuse.farmyard" = "Farmyard";
 
 "type.landuse.field" = "Field";
+
+"type.landuse.flowerbed" = "باغچه";
 
 "type.landuse.forest" = "جنگل";
 
@@ -2351,7 +2484,7 @@
 
 "type.landuse.retail" = "Retail Area";
 
-"type.landuse.salt_pond" = "Pond";
+"type.landuse.salt_pond" = "Salt Pond";
 
 "type.landuse.village_green" = "Land";
 
@@ -2375,6 +2508,8 @@
 
 "type.leisure.golf_course" = "زمین گلف";
 
+"type.leisure.hackerspace" = "فضای هکرها";
+
 "type.leisure.ice_rink" = "Ice Rink";
 
 "type.leisure.landscape_reserve" = "Landscape Reserve";
@@ -2382,6 +2517,8 @@
 "type.leisure.marina" = "Marina";
 
 "type.leisure.nature_reserve" = "Nature Reserve";
+
+"type.leisure.outdoor_seating" = "نشستن در فضای باز";
 
 "type.leisure.park" = "پارک";
 
@@ -2429,7 +2566,7 @@
 
 "type.man_made.cairn" = "Cairn";
 
-"type.man_made.chimney" = "Factory Chimney";
+"type.man_made.chimney" = "Chimney";
 
 "type.man_made.cutline" = "Cutline";
 
@@ -2457,7 +2594,7 @@
 
 "type.man_made.tower.communication" = "برج ارتباطات";
 
-"type.man_made.wastewater_plant" = "Wastewater treatment plant";
+"type.man_made.wastewater_plant" = "Wastewater Treatment Plant";
 
 "type.man_made.water_tap" = "شیراب";
 
@@ -2544,8 +2681,6 @@
 "type.natural.spring" = "چشمه";
 
 "type.natural.strait" = "تنگه";
-
-"type.natural.tree" = "درخت";
 
 "type.natural.tree_row" = "ردیف درخت";
 
@@ -2647,7 +2782,7 @@
 
 "type.power" = "Power";
 
-"type.power.generator" = "Generator";
+"type.power.generator" = "Power Generator";
 
 "type.power.generator.solar" = "ژنراتور خورشیدی";
 
@@ -2663,7 +2798,17 @@
 
 "type.power.minor_line" = "Minor Power Line";
 
-"type.power.pole" = "برج قدرت";
+"type.power.plant" = "نیروگاه";
+
+"type.power.plant.coal" = "نیروگاه زغال سنگ";
+
+"type.power.plant.gas" = "نیروگاه توربین گاز";
+
+"type.power.plant.hydro" = "نیروگاه برق آبی";
+
+"type.power.plant.solar" = "نیروگاه خورشیدی";
+
+"type.power.plant.wind" = "نیروگاه بادی";
 
 "type.power.station" = "Power Station";
 
@@ -2697,9 +2842,9 @@
 
 "type.railway.crossing" = "Railway Crossing";
 
-"type.railway.disused" = "Disused railway";
+"type.railway.disused" = "Disused Railway";
 
-"type.railway.funicular" = "Funicular";
+"type.railway.funicular" = "فونیکولور";
 
 "type.railway.funicular.bridge" = "Funicular Bridge";
 
@@ -2737,29 +2882,64 @@
 
 "type.railway.rail" = "راه آهن";
 
-"type.railway.rail.bridge" = "Railway Bridge";
+"type.railway.rail.highspeed" = "راه آهن پرسرعت";
 
-"type.railway.rail.motor_vehicle" = "Railway";
+"type.railway.rail.tourism" = "راه آهن توریستی";
 
-"type.railway.rail.tunnel" = "Railway Tunnel";
+"type.railway.rail.main" = "راه آهن";
 
-"type.railway.razed" = "Razed Rail";
+/* Includes ordinary railway=rail w/o more specific usage= and service= tags. */
+"type.railway.rail.branch" = "راه آهن ثانویه";
 
-"type.railway.siding" = "Siding Rail";
+/* Non-passenger utility tracks: industrial, military, test. */
+"type.railway.rail.utility" = "راه آهن شهری";
 
-"type.railway.siding.bridge" = "Siding Rail Bridge";
+"type.railway.rail.spur" = "خار راه آهن";
 
-"type.railway.siding.tunnel" = "Siding Rail Tunnel";
+/* Short service tracks: siding, yard, crossover. */
+"type.railway.rail.service" = "ریل کمکی";
 
-"type.railway.spur" = "Spur Rail";
+"type.railway.rail.bridge" = "پل راه آهن";
 
-"type.railway.spur.bridge" = "Spur Rail Bridge";
+"type.railway.rail.highspeed.bridge" = "پل راه آهن";
 
-"type.railway.spur.tunnel" = "Spur Rail Tunnel";
+"type.railway.rail.tourism.bridge" = "پل راه آهن";
+
+"type.railway.rail.main.bridge" = "پل راه آهن";
+
+"type.railway.rail.branch.bridge" = "پل راه آهن";
+
+"type.railway.rail.utility.bridge" = "پل راه آهن";
+
+"type.railway.rail.spur.bridge" = "پل راه آهن";
+
+"type.railway.rail.service.bridge" = "پل راه آهن";
+
+"type.railway.rail.tunnel" = "تونل راه آهن";
+
+"type.railway.rail.highspeed.tunnel" = "تونل راه آهن";
+
+"type.railway.rail.tourism.tunnel" = "تونل راه آهن";
+
+"type.railway.rail.main.tunnel" = "تونل راه آهن";
+
+"type.railway.rail.branch.tunnel" = "تونل راه آهن";
+
+"type.railway.rail.utility.tunnel" = "تونل راه آهن";
+
+"type.railway.rail.spur.tunnel" = "تونل راه آهن";
+
+"type.railway.rail.service.tunnel" = "تونل راه آهن";
 
 "type.railway.station" = "ایستگاه قطار";
 
+"type.railway.station.funicular" = "فونیکولور";
+
 "type.railway.station.light_rail" = "ایستگاه قطار";
+
+"type.railway.station.light_rail.london" = "ایستگاه قطار";
+
+"type.railway.station.light_rail.porto" = "ایستگاه قطار";
 
 "type.railway.station.monorail" = "ایستگاه قطار";
 
@@ -2949,6 +3129,8 @@
 
 "type.railway.station.subway.shiraz" = "حمل و نقل";
 
+"type.railway.station.subway.singapore" = "حمل و نقل";
+
 "type.railway.station.subway.sofia" = "حمل و نقل";
 
 "type.railway.station.subway.spb" = "حمل و نقل";
@@ -2964,6 +3146,8 @@
 "type.railway.station.subway.tashkent" = "حمل و نقل";
 
 "type.railway.station.subway.tbilisi" = "حمل و نقل";
+
+"type.railway.station.subway.tehran" = "حمل و نقل";
 
 "type.railway.station.subway.tianjin" = "حمل و نقل";
 
@@ -3175,6 +3359,8 @@
 
 "type.railway.subway_entrance.shiraz" = "ورودی مترو";
 
+"type.railway.subway_entrance.singapore" = "ورودی مترو";
+
 "type.railway.subway_entrance.sofia" = "ورودی مترو";
 
 "type.railway.subway_entrance.spb" = "ورودی مترو";
@@ -3190,6 +3376,8 @@
 "type.railway.subway_entrance.tashkent" = "ورودی مترو";
 
 "type.railway.subway_entrance.tbilisi" = "ورودی مترو";
+
+"type.railway.subway_entrance.tehran" = "ورودی مترو";
 
 "type.railway.subway_entrance.tianjin" = "ورودی مترو";
 
@@ -3217,23 +3405,19 @@
 
 "type.railway.tram_stop" = "ایستگاه قطار";
 
-"type.railway.yard" = "Railway Yard";
-
-"type.railway.yard.bridge" = "Railway Yard Bridge";
-
-"type.railway.yard.tunnel" = "Railway Yard Tunnel";
-
-"type.route" = "route";
+"type.route" = "Route";
 
 "type.route.ferry" = "Ferry";
 
-"type.route.shuttle_train" = "Shuttle Train";
+"type.route.shuttle_train" = "route-shuttle_train";
 
 "type.shop" = "فروشگاه";
 
 "type.shop.alcohol" = "فروشگاه";
 
 "type.shop.bakery" = "فروشگاه";
+
+"type.shop.bathroom_furnishing" = "مبلمان حمام";
 
 "type.shop.beauty" = "سالن زیبایی";
 
@@ -3247,6 +3431,8 @@
 
 "type.shop.butcher" = "فروشگاه";
 
+"type.shop.cannabis" = "فروشگاه شاهدانه";
+
 "type.shop.car" = "فروشگاه";
 
 "type.shop.car_parts" = "فروشگاه";
@@ -3256,6 +3442,8 @@
 "type.shop.car_repair.tyres" = "اپاراتی";
 
 "type.shop.caravan" = "RV Dealership";
+
+"type.shop.carpet" = "فرش";
 
 "type.shop.chemist" = "فروشگاه";
 
@@ -3275,6 +3463,8 @@
 
 "type.shop.cosmetics" = "فروشگاه";
 
+"type.shop.curtain" = "پرده ها";
+
 "type.shop.deli" = "ﯽﺷﻭﺮﻓ ﻪﯾﺬﻏﺍ ﻩﺎﮕﺷﻭﺮﻓ";
 
 "type.shop.department_store" = "مرکز خرید";
@@ -3291,6 +3481,8 @@
 
 "type.shop.farm" = "ﻪﻋﺭﺰﻣ ﯽﯾﺍﺬﻏ ﺩﺍﻮﻣ ﻩﺎﮕﺷﻭﺮﻓ";
 
+"type.shop.fashion_accessories" = "لوازم جانبی مد";
+
 "type.shop.florist" = "فروشگاه";
 
 "type.shop.funeral_directors" = "مسئول تشییع جنازه";
@@ -3298,6 +3490,8 @@
 "type.shop.furniture" = "فروشگاه";
 
 "type.shop.garden_centre" = "فروشگاه";
+
+"type.shop.gas" = "فروشگاه گاز";
 
 "type.shop.gift" = "فروشگاه";
 
@@ -3310,6 +3504,10 @@
 "type.shop.hardware" = "ﺭﺍﺰﻓﺍ ﺖﺨﺳ ﻩﺎﮕﺷﻭﺮﻓ";
 
 "type.shop.health_food" = "ﯽﺘﺷﺍﺪﻬﺑ ﯽﯾﺍﺬﻏ ﺩﺍﻮﻣ ﻩﺎﮕﺷﻭﺮﻓ";
+
+"type.shop.herbalist" = "فروشگاه گیاهان دارویی";
+
+"type.shop.hifi" = "صوتی HiFi";
 
 "type.shop.houseware" = "ﯽﮕﻧﺎﺧ ﻡﺯﺍﻮﻟ ﻩﺎﮕﺷﻭﺮﻓ";
 
@@ -3331,6 +3529,8 @@
 
 "type.shop.motorcycle" = "فروشگاه";
 
+"type.shop.motorcycle_repair" = "تعمیر موتور سیکلت";
+
 "type.shop.music" = "فروشگاه";
 
 "type.shop.musical_instrument" = "فروشگاه";
@@ -3341,13 +3541,21 @@
 
 "type.shop.outdoor" = "فروشگاه";
 
+"type.shop.outpost" = "نقطه وانت";
+
 "type.shop.pastry" = "ﯽﻨﯾﺮﯿﺷ";
 
 "type.shop.pawnbroker" = "عتیقه فروشی";
 
 "type.shop.pet" = "فروشگاه";
 
+"type.shop.pet_grooming" = "نظافت حیوانات خانگی";
+
 "type.shop.photo" = "فروشگاه";
+
+"type.shop.rental" = "مغازه اجاره ای";
+
+"type.shop.rental.bicycle" = "مغازه اجاره دوچرخه";
 
 "type.shop.seafood" = "فروشگاه";
 
@@ -3381,13 +3589,20 @@
 
 "type.shop.wine" = "فروشگاه";
 
+"type.shop.agrarian" = "مغازه کشاورزی";
+
 "type.shop.antiques" = "ﺕﺎﺟ ﻪﻘﯿﺘﻋ";
 
+"type.shop.appliance" = "فروشگاه لوازم خانگی";
+
+/* maybe change to Art Gallery for en-US when supported */
 "type.shop.art" = "ﺮﻨﻫ ﻩﺎﮕﺷﻭﺮﻓ";
 
 "type.shop.baby_goods" = "ﻥﺎﮐﺩﻮﮐ ﻩﺎﮕﺷﻭﺮﻓ";
 
 "type.shop.bag" = "ﻒﯿﮐ ﻩﺎﮕﺷﻭﺮﻓ";
+
+"type.shop.bed" = "فروشگاه تخت";
 
 "type.shop.boutique" = "ﮏﯿﺗﻮﺑ";
 
@@ -3498,7 +3713,9 @@
 
 "type.tourism" = "Tourism";
 
-"type.tourism.alpine_hut" = "Mountains Lodging";
+"type.tourism.aquarium" = "آکواریوم";
+
+"type.tourism.alpine_hut" = "Alpine Lodging";
 
 "type.tourism.apartment" = "اپارتمان";
 
@@ -3542,6 +3759,8 @@
 
 "type.tourism.information.office" = "گردشگری";
 
+"type.tourism.information.visitor_centre" = "مرکز بازدیدکنندگان";
+
 "type.tourism.motel" = "هتل";
 
 "type.tourism.museum" = "گردشگری";
@@ -3558,6 +3777,8 @@
 
 "type.tourism.zoo" = "گردشگری";
 
+"type.tourism.zoo.petting" = "باغ وحش پتینگ";
+
 "type.traffic_calming" = "Traffic Calming";
 
 "type.traffic_calming.bump" = "Traffic Bump";
@@ -3570,17 +3791,23 @@
 
 "type.waterway.canal.tunnel" = "کانال اب";
 
+"type.waterway.fish_pass" = "نردبان ماهی";
+
 "type.waterway.dam" = "Dam";
 
-"type.waterway.ditch" = "Ditch";
+"type.barrier.ditch" = "Ditch";
 
-"type.waterway.ditch.tunnel" = "Ditch";
+"type.natural.water.ditch" = "خندق زهکشی";
+
+"type.waterway.ditch.tunnel" = "کولورت";
 
 "type.waterway.dock" = "Waterway Dock";
 
 "type.waterway.drain" = "Drain";
 
-"type.waterway.drain.tunnel" = "Drain";
+"type.natural.water.drain" = "Drain";
+
+"type.waterway.drain.tunnel" = "کولورت";
 
 "type.waterway.lock_gate" = "Lock Gate";
 
@@ -3620,26 +3847,48 @@
 
 "type.aerialway.t.bar" = "T-bar Lift";
 
-"type.piste_type" = "Piste Type";
-
 "type.piste_type.downhill" = "Downhill Ski Run";
+
+"type.piste_type.downhill.area" = "Downhill Ski Run";
 
 "type.piste_type.downhill.advanced" = "Downhill Ski Run";
 
+"type.piste_type.downhill.advanced.area" = "Downhill Ski Run";
+
 "type.piste_type.downhill.easy" = "Downhill Ski Run";
 
+"type.piste_type.downhill.easy.area" = "Downhill Ski Run";
+
 "type.piste_type.downhill.expert" = "Downhill Ski Run";
+
+"type.piste_type.downhill.expert.area" = "Downhill Ski Run";
 
 "type.piste_type.downhill.freeride" = "Downhill Ski Run";
 
 "type.piste_type.downhill.intermediate" = "Downhill Ski Run";
 
+"type.piste_type.downhill.intermediate.area" = "Downhill Ski Run";
+
 "type.piste_type.downhill.novice" = "Downhill Ski Run";
+
+"type.piste_type.downhill.novice.area" = "Downhill Ski Run";
 
 "type.piste_type.nordic" = "Nordic Ski Trail";
 
 "type.piste_type.sled" = "Sledding Piste";
 
-"type.building_part" = "ساختما";
+"type.piste_type.sled.area" = "Sledding Piste";
+
+"type.piste_type.snow_park" = "پارک برفی";
+
+"type.piste_type.hike" = "مسیر پیاده روی برفی";
+
+"type.piste_type.connection" = "اتصال پیست";
+
+"type.piste_type.skitour" = "مسیر اسکیتور";
 
 "type.amenity.events_venue" = "محل برگزاری رویدادها";
+
+"type.shop.auction" = "حراج";
+
+"type.shop.collector" = "کلکسیونی ها";

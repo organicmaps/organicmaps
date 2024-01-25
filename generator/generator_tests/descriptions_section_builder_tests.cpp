@@ -32,7 +32,7 @@ using namespace generator;
 class TestDescriptionSectionBuilder
 {
 public:
-  using PageT = std::pair<std::string, std::string>;
+  using PageT = std::pair<std::string_view, std::string_view>;
   struct WikiData
   {
     std::string m_url;
@@ -52,11 +52,11 @@ public:
     {
       auto const dir = DescriptionsCollector::MakePathForWikipedia(m_wikiDir, m.m_url);
       CHECK(Platform::MkDirRecursively(dir), ());
-      for (auto const & d : m.m_pages)
+      for (auto const & [lang, content] : m.m_pages)
       {
-        auto const file = base::JoinPath(dir, d.first + ".html");
+        auto const file = base::JoinPath(dir, std::string{lang} + ".html");
         std::ofstream stream(file);
-        stream << d.second;
+        stream << content;
       }
     }
 
@@ -188,9 +188,9 @@ private:
       toDo(kWikiData[i].m_url, static_cast<uint32_t>(i));
   }
 
-  static std::map<std::string, size_t> GetTestDataMapLang()
+  static std::map<std::string_view, size_t> GetTestDataMapLang()
   {
-    std::map<std::string, size_t> langs;
+    std::map<std::string_view, size_t> langs;
     for (auto const & m : kWikiData)
     {
       for (auto const & d : m.m_pages)
@@ -231,7 +231,7 @@ private:
     return size;
   }
 
-  static bool IsSupportedLang(std::string const & lang)
+  static bool IsSupportedLang(std::string_view lang)
   {
     return StringUtf8Multilang::GetLangIndex(lang) != StringUtf8Multilang::kUnsupportedLanguageCode;
   }
@@ -246,17 +246,17 @@ private:
 
   static bool CheckLangs(DescriptionsCollectionBuilderStat::LangStatistics const & stat)
   {
-    auto const langs =  GetTestDataMapLang();
+    auto const langs = GetTestDataMapLang();
     for (size_t code = 0; code < stat.size(); ++code)
     {
       if (stat[code] == 0)
         continue;
 
-      auto const strLang = StringUtf8Multilang::GetLangByCode(static_cast<int8_t>(code));
-      if (langs.count(strLang) == 0)
+      auto const svLang = StringUtf8Multilang::GetLangByCode(static_cast<int8_t>(code));
+      if (langs.count(svLang) == 0)
         return false;
 
-      if (langs.at(strLang) != stat[code])
+      if (langs.at(svLang) != stat[code])
         return false;
     }
 

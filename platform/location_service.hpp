@@ -29,4 +29,4 @@ public:
 
 } // namespace location
 
-extern "C" location::LocationService * CreateDesktopLocationService(location::LocationObserver & observer);
+std::unique_ptr<location::LocationService> CreateDesktopLocationService(location::LocationObserver & observer);

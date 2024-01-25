@@ -23,11 +23,7 @@ CamerasInfoCollector::CamerasInfoCollector(std::string const & dataFilePath,
                                            std::string const & osmIdsToFeatureIdsPath)
 {
   routing::OsmIdToFeatureIds osmIdToFeatureIds;
-  if (!routing::ParseWaysOsmIdToFeatureIdMapping(osmIdsToFeatureIdsPath, osmIdToFeatureIds))
-  {
-    LOG(LCRITICAL, ("An error happened while parsing feature id to osm ids mapping from file:",
-                    osmIdsToFeatureIdsPath));
-  }
+  routing::ParseWaysOsmIdToFeatureIdMapping(osmIdsToFeatureIdsPath, osmIdToFeatureIds);
 
   if (!ParseIntermediateInfo(camerasInfoPath, osmIdToFeatureIds))
     LOG(LCRITICAL, ("Unable to parse intermediate file(", camerasInfoPath, ") about cameras info"));
@@ -112,6 +108,9 @@ bool CamerasInfoCollector::ParseIntermediateInfo(
 
   while (src.Size() > 0)
   {
+    /// @todo Take out intermediate camera info serialization code.
+    /// Should be equal with CameraCollector::CameraInfo::Read.
+
     ReadPrimitiveFromSource(src, latInt);
     ReadPrimitiveFromSource(src, lonInt);
     lat = Uint32ToDouble(latInt, ms::LatLon::kMinLat, ms::LatLon::kMaxLat, kPointCoordBits);

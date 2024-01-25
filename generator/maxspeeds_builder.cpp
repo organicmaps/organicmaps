@@ -398,7 +398,7 @@ bool ParseMaxspeeds(string const & filePath, OsmIdToMaxspeed & osmIdToMaxspeed)
 }
 
 void BuildMaxspeedsSection(IndexGraph * graph, string const & dataPath,
-                           std::map<uint32_t, base::GeoObjectId> const & featureIdToOsmId,
+                           FeatureIdToOsmId const & featureIdToOsmId,
                            string const & maxspeedsFilename)
 {
   MaxspeedsMwmCollector collector(dataPath, featureIdToOsmId, graph);
@@ -410,8 +410,8 @@ void BuildMaxspeedsSection(IndexGraph * graph, string const & dataPath,
 void BuildMaxspeedsSection(IndexGraph * graph, string const & dataPath,
                            string const & osmToFeaturePath, string const & maxspeedsFilename)
 {
-  std::map<uint32_t, base::GeoObjectId> featureIdToOsmId;
-  CHECK(ParseWaysFeatureIdToOsmIdMapping(osmToFeaturePath, featureIdToOsmId), ());
+  FeatureIdToOsmId featureIdToOsmId;
+  ParseWaysFeatureIdToOsmIdMapping(osmToFeaturePath, featureIdToOsmId);
   BuildMaxspeedsSection(graph, dataPath, featureIdToOsmId, maxspeedsFilename);
 }
 }  // namespace routing_builder

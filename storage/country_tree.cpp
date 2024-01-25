@@ -107,7 +107,7 @@ public:
     ASSERT(!countryId.empty(), ());
     ASSERT_NOT_EQUAL(geoObjectId, 0, ());
     base::GeoObjectId id(geoObjectId);
-    m_mwmTopCityGeoIds.emplace(countryId, move(id));
+    m_mwmTopCityGeoIds.emplace(countryId, std::move(id));
   }
 
   void InsertTopCountryGeoIds(CountryId const & countryId,
@@ -116,7 +116,7 @@ public:
     ASSERT(!countryId.empty(), ());
     ASSERT(!geoObjectIds.empty(), ());
     vector<base::GeoObjectId> ids(geoObjectIds.cbegin(), geoObjectIds.cend());
-    m_mwmTopCountryGeoIds.emplace(countryId, move(ids));
+    m_mwmTopCountryGeoIds.emplace(countryId, std::move(ids));
   }
 
   OldMwmMapping GetMapping() const override { return m_idsMapping; }
@@ -137,7 +137,7 @@ public:
                                 CountryId const & /* parent */) override
   {
     CountryInfo info(id);
-    m_file2info[id] = move(info);
+    m_file2info[id] = std::move(info);
     return nullptr;
   }
 

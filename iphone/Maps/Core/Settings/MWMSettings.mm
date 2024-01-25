@@ -122,10 +122,7 @@ NSString * const kUDTrackWarningAlertWasShown = @"TrackWarningAlertWasShown";
 + (BOOL)largeFontSize { return GetFramework().LoadLargeFontsSize(); }
 + (void)setLargeFontSize:(BOOL)largeFontSize
 {
-  bool const isLargeSize = static_cast<bool>(largeFontSize);
-  auto & f = GetFramework();
-  f.SaveLargeFontsSize(isLargeSize);
-  f.SetLargeFontsSize(isLargeSize);
+  GetFramework().SetLargeFontsSize(static_cast<bool>(largeFontSize));
 }
 
 + (BOOL)transliteration { return GetFramework().LoadTransliteration(); }

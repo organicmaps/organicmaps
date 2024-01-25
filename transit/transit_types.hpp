@@ -1,5 +1,6 @@
 #pragma once
 
+#include "indexer/feature_decl.hpp"
 #include "indexer/scales.hpp"
 
 #include "geometry/point2d.hpp"
@@ -8,7 +9,6 @@
 #include "base/visitor.hpp"
 
 #include <algorithm>
-#include <cstdint>
 #include <limits>
 #include <string>
 #include <vector>
@@ -29,7 +29,6 @@ using Ranges = std::vector<std::vector<StopId>>;
 
 Anchor constexpr kInvalidAnchor = std::numeric_limits<Anchor>::max();
 std::string const kInvalidColor = std::string("");
-FeatureId constexpr kInvalidFeatureId = std::numeric_limits<FeatureId>::max();
 LineId constexpr kInvalidLineId = std::numeric_limits<LineId>::max();
 NetworkId constexpr kInvalidNetworkId = std::numeric_limits<NetworkId>::max();
 OsmId constexpr kInvalidOsmId = std::numeric_limits<OsmId>::max();
@@ -165,7 +164,7 @@ private:
   FeatureIdentifiers m_featureIdentifiers;
   TransferId m_transferId = kInvalidTransferId;
   std::vector<LineId> m_lineIds;
-  m2::PointD m_point;
+  m2::PointD m_point {0.0, 0.0};
   std::vector<TitleAnchor> m_titleAnchors;
 };
 NEWTYPE_SIMPLE_OUTPUT(Stop::WrappedStopId)

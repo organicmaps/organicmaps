@@ -1,6 +1,7 @@
 #include "indexer/road_shields_parser.hpp"
 
 #include "indexer/feature.hpp"
+#include "indexer/ftypes_matcher.hpp"
 
 #include "base/string_utils.hpp"
 
@@ -9,6 +10,15 @@
 #include <unordered_map>
 #include <utility>
 
+/*
+ * TODO : why all this parsing happens in the run-time? The most of it should be moved to the generator.
+ * E.g. now the ref contains
+ *    ee:national/8;e-road/E 67;ee:local/7841171
+ * where the latter part is not being used at all.
+ * The generator should produce just
+ *    x8;yE 67
+ * where x/y are one byte road shield type codes.
+ */
 
 namespace ftypes
 {
@@ -17,13 +27,15 @@ namespace
 
 uint32_t constexpr kMaxRoadShieldBytesSize = 8;
 
-std::array<std::string, 3> const kFederalCode = {{"US", "SR", "FSR"}};
+std::array<std::string, 2> const kFederalCode = {{"US", "FSR"}};
 
-std::array<std::string, 60> const kStatesCode = {{
+std::array<std::string, 61> const kStatesCode = {{
     "AL", "AK", "AZ", "AR", "CA", "CO", "CT", "DE", "DC", "FL", "GA", "HI", "ID", "IL", "IN",
     "IA", "KS", "KY", "LA", "ME", "MD", "MA", "MI", "MN", "MS", "MO", "MT", "NE", "NV", "NH",
     "NJ", "NM", "NY", "NC", "ND", "OH", "OK", "OR", "PA", "RI", "SC", "SD", "TN", "TX", "UT",
     "VT", "VA", "WA", "WV", "WI", "WY", "AS", "GU", "MP", "PR", "VI", "UM", "FM", "MH", "PW",
+
+    "SR",   // common prefix for State Road
 }};
 
 std::array<std::string, 13> const kModifiers = {{"alt", "alternate", "bus", "business", "bypass",
@@ -41,12 +53,14 @@ std::unordered_map<std::string, RoadShieldType> const kRoadNetworkShields = {
     {"bg:national", RoadShieldType::Generic_Green},
     {"bg:regional", RoadShieldType::Generic_Blue},
     {"by:national", RoadShieldType::Generic_Red},
-    {"by:regional", RoadShieldType::Generic_Red},
+    // https://github.com/organicmaps/organicmaps/issues/3083
+    //{"by:regional", RoadShieldType::Generic_Red},
     {"co:national", RoadShieldType::Generic_White},
     {"cz:national", RoadShieldType::Generic_Red},
     {"cz:regional", RoadShieldType::Generic_Blue},
-    {"ee:national", RoadShieldType::Generic_Red},
-    {"ee:regional", RoadShieldType::Generic_White},
+    // Estonia parser produces more specific shield types, incl. Generic_Orange.
+    //{"ee:national", RoadShieldType::Generic_Red},
+    //{"ee:regional", RoadShieldType::Generic_White},
     {"fr:a-road", RoadShieldType::Generic_Red},
     {"jp:national", RoadShieldType::Generic_Blue},
     {"jp:regional", RoadShieldType::Generic_Blue},
@@ -122,7 +136,17 @@ public:
       else
       {
         shield = ParseRoadShield(rawText.substr(slashPos + 1));
-        shield.m_type = FindNetworkShield(std::string(rawText.substr(0, slashPos)));
+        // TODO: use a network-based shield type override only if a parser couldn't make it
+        // more specific than country's default shield type.
+        // E.g. "94" is set to Generic_Orange by Estonia parser, but then
+        // is overriden by "ee:national" => Generic_Red.
+        // (can't override just RoadShieldType::Default, as e.g. Russia parser uses Generic_Blue as country default).
+        if (shield.m_type != RoadShieldType::Hidden)
+        {
+          RoadShieldType const networkType = FindNetworkShield(std::string(rawText.substr(0, slashPos)));
+          if (networkType != RoadShieldType::Default)
+            shield.m_type = networkType;
+        }
       }
       if (!shield.m_name.empty() && shield.m_type != RoadShieldType::Hidden)
       {
@@ -187,7 +211,7 @@ public:
     {
       additionalInfo = shieldParts[2];
       // Process cases like "US Loop 16".
-      if (!strings::is_number(shieldParts[1]) && strings::is_number(shieldParts[2]))
+      if (!strings::IsASCIINumeric(shieldParts[1]) && strings::IsASCIINumeric(shieldParts[2]))
       {
         roadNumber = shieldParts[2];
         additionalInfo = shieldParts[1];
@@ -228,6 +252,8 @@ private:
   RoadShieldType const m_type;
 };
 
+// Matches by a list of given substrings.
+// If several substrings are present, then the leftmost wins.
 class SimpleRoadShieldParser : public RoadShieldParser
 {
 public:
@@ -276,6 +302,11 @@ private:
   RoadShieldType const m_defaultType;
 };
 
+uint16_t constexpr kAnyHigherRoadNumber = std::numeric_limits<uint16_t>::max();
+
+// Matches by a list of numeric ranges (a first matching range is used).
+// Non-numbers and numbers out of any range are matched to RoadShieldType::Default.
+// Use kAnyHigherRoadNumber to match any number higher than a specified lower bound.
 class NumericRoadShieldParser : public RoadShieldParser
 {
 public:
@@ -309,7 +340,7 @@ public:
     {
       for (auto const & p : m_types)
       {
-        if (p.m_low <= ref && ref <= p.m_high)
+        if (p.m_low <= ref && (ref <= p.m_high || p.m_high == kAnyHigherRoadNumber))
           return RoadShield(p.m_type, rawText);
       }
     }
@@ -483,7 +514,7 @@ public:
                                                {40, 99, RoadShieldType::Generic_Orange},
                                                {100, 999, RoadShieldType::Generic_White},
                                                {1000, 9999, RoadShieldType::Generic_Blue},
-                                               {10000, 60000, RoadShieldType::Hidden}})
+                                               {10000, kAnyHigherRoadNumber, RoadShieldType::Hidden}})
   {
   }
 };
@@ -497,7 +528,7 @@ public:
                                                {92, 92, RoadShieldType::Generic_Red},
                                                {93, 95, RoadShieldType::Generic_Orange},
                                                {96, 999, RoadShieldType::Generic_White},
-                                               {1000, 60000, RoadShieldType::Hidden}})
+                                               {1000, kAnyHigherRoadNumber, RoadShieldType::Hidden}})
   {
   }
 };
@@ -559,7 +590,7 @@ public:
     if (shieldParts.size() >= 3)
     {
       additionalInfo = shieldParts[2];
-      if (!strings::is_number(shieldParts[1]) && strings::is_number(shieldParts[2]))
+      if (!strings::IsASCIINumeric(shieldParts[1]) && strings::IsASCIINumeric(shieldParts[2]))
       {
         roadNumber = shieldParts[2];
         additionalInfo = shieldParts[1];
@@ -567,7 +598,7 @@ public:
     }
 
     // Remove possible leading zero.
-    if (strings::is_number(roadNumber) && roadNumber[0] == '0')
+    if (strings::IsASCIINumeric(roadNumber) && roadNumber[0] == '0')
       roadNumber.erase(0);
 
     if (shieldParts[0] == "MEX")
@@ -580,21 +611,19 @@ public:
 
 RoadShieldsSetT GetRoadShields(FeatureType & f)
 {
-  std::string const roadNumber = f.GetRoadNumber();
-  if (roadNumber.empty())
+  auto const & ref = f.GetRef();
+  if (ref.empty())
     return {};
 
   // Find out country name.
   std::string mwmName = f.GetID().GetMwmName();
-
-  ASSERT_NOT_EQUAL(mwmName, FeatureID::kInvalidFileName,
-                   ("Use GetRoadShields(rawRoadNumber) for unknown mwms."));
+  ASSERT(!mwmName.empty(), (f.GetID()));
 
   auto const underlinePos = mwmName.find('_');
   if (underlinePos != std::string::npos)
     mwmName = mwmName.substr(0, underlinePos);
 
-  return GetRoadShields(mwmName, roadNumber);
+  return GetRoadShields(mwmName, ref);
 }
 
 RoadShieldsSetT GetRoadShields(std::string const & mwmName, std::string const & roadNumber)
@@ -638,8 +667,19 @@ RoadShieldsSetT GetRoadShields(std::string const & rawRoadNumber)
   if (rawRoadNumber.empty())
     return {};
 
-  return SimpleRoadShieldParser(rawRoadNumber, SimpleRoadShieldParser::ShieldTypes())
-      .GetRoadShields();
+  return SimpleRoadShieldParser(rawRoadNumber, SimpleRoadShieldParser::ShieldTypes()).GetRoadShields();
+}
+
+std::vector<std::string> GetRoadShieldsNames(FeatureType & ft)
+{
+  std::vector<std::string> names;
+  auto const & ref = ft.GetRef();
+  if (!ref.empty() && IsStreetOrSquareChecker::Instance()(ft))
+  {
+    for (auto && shield : GetRoadShields(ref))
+      names.push_back(std::move(shield.m_name));
+  }
+  return names;
 }
 
 std::string DebugPrint(RoadShieldType shieldType)

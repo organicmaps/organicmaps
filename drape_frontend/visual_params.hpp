@@ -14,16 +14,21 @@
 namespace df
 {
 double constexpr kBoundingBoxScale = 1.2;
+double constexpr kMaxVisualScale = 4.0;
 
 class VisualParams
 {
 public:
-  static double const kMdpiScale;
-  static double const kHdpiScale;
-  static double const kXhdpiScale;
-  static double const k6plusScale;
-  static double const kXxhdpiScale;
-  static double const kXxxhdpiScale;
+  static double constexpr kMdpiScale = 1.0;
+  static double constexpr kHdpiScale = 1.5;
+  static double constexpr kXhdpiScale = 2.0;
+  static double constexpr k6plusScale = 2.4;
+  static double constexpr kXxhdpiScale = 3.0;
+  static double constexpr kXxxhdpiScale = 3.5;
+
+  static_assert(kMdpiScale < kHdpiScale && kHdpiScale < kXhdpiScale &&
+                kXhdpiScale < k6plusScale && k6plusScale < kXxhdpiScale &&
+                kXxhdpiScale < kXxxhdpiScale && kXxxhdpiScale <= kMaxVisualScale);
 
   static void Init(double vs, uint32_t tileSize);
   static VisualParams & Instance();
@@ -63,18 +68,19 @@ public:
   void SetVisualScale(double visualScale);
 
 private:
-  VisualParams();
+  VisualParams() = default;
 
-  uint32_t m_tileSize;
-  double m_visualScale;
-  double m_poiExtendScale;
   GlyphVisualParams m_glyphVisualParams;
-  std::atomic<double> m_fontScale;
+
+  uint32_t m_tileSize = 0;
+  double m_visualScale = 0.0;
+  double m_poiExtendScale = 0.1; // Found empirically.
+  std::atomic<double> m_fontScale = 1.0;
 
   DISALLOW_COPY_AND_MOVE(VisualParams);
 };
 
-m2::RectD const & GetWorldRect();
+m2::RectD GetWorldRect();
 
 int GetTileScaleBase(ScreenBase const & s, uint32_t tileSize);
 int GetTileScaleBase(ScreenBase const & s);
@@ -117,10 +123,15 @@ public:
   ArrayView(ArrayView &&) = default;
 
   size_t size() const { return m_size; }
-  T operator[](size_t i) const
+  T const & operator[](size_t i) const
   {
     ASSERT_LESS(i, m_size, ());
     return m_arr[i];
+  }
+  T const & back() const
+  {
+    ASSERT_GREATER(m_size, 0, ());
+    return m_arr[m_size - 1];
   }
 };
 
@@ -128,10 +139,9 @@ template <class ArrayT> typename ArrayT::value_type
 InterpolateByZoomLevels(int index, float lerpCoef, ArrayT const & values)
 {
   ASSERT_GREATER_OR_EQUAL(index, 0, ());
-  ASSERT_GREATER(values.size(), scales::UPPER_STYLE_SCALE, ());
-  if (index < scales::UPPER_STYLE_SCALE)
+  if (index + 1 < static_cast<int>(values.size()))
     return values[index] + (values[index + 1] - values[index]) * lerpCoef;
-  return values[scales::UPPER_STYLE_SCALE];
+  return values.back();
 }
 
 double GetNormalizedZoomLevel(double screenScale, int minZoom = 1);

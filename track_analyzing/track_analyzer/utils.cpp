@@ -229,7 +229,7 @@ void ParseTracks(string const & logFile, shared_ptr<NumMwmIds> const & numMwmIds
   unique_ptr<m4::Tree<NumMwmId>> mwmTree = MakeNumMwmTree(*numMwmIds, *countryInfoGetter);
 
   LOG(LINFO, ("Parsing", logFile));
-  LogParser parser(numMwmIds, move(mwmTree), dataDir);
+  LogParser parser(numMwmIds, std::move(mwmTree), dataDir);
   parser.Parse(logFile, mwmToTracks);
 }
 

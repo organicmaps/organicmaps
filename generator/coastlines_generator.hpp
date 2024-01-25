@@ -2,8 +2,6 @@
 
 #include "generator/feature_merger.hpp"
 
-#include "indexer/cell_id.hpp"
-
 #include "geometry/tree4d.hpp"
 #include "geometry/region2d.hpp"
 
@@ -30,5 +28,11 @@ public:
   /// @return false if coasts are not merged and FLAG_fail_on_coasts is set
   bool Finish();
 
-  void GetFeatures(std::vector<feature::FeatureBuilder> & vecFb);
+  std::vector<feature::FeatureBuilder> GetFeatures(size_t maxThreads);
 };
+
+namespace coastlines_generator
+{
+/// @param[in]  poly  Closed polygon where poly.frotn() == poly.back() like in FeatureBuilder.
+m2::RegionI CreateRegionI(std::vector<m2::PointD> const & poly);
+} // namespace coastlines_generator

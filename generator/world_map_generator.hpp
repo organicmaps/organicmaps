@@ -3,10 +3,6 @@
 #include "generator/feature_maker_base.hpp"
 #include "generator/feature_merger.hpp"
 #include "generator/filter_world.hpp"
-#include "generator/generate_info.hpp"
-#include "generator/popular_places_section_builder.hpp"
-
-#include "search/utils.hpp"
 
 #include "indexer/classificator.hpp"
 #include "indexer/scales.hpp"
@@ -14,19 +10,14 @@
 #include "coding/point_coding.hpp"
 
 #include "geometry/polygon.hpp"
-#include "geometry/region2d.hpp"
-#include "geometry/tree4d.hpp"
 
 #include "base/logging.hpp"
 
 #include <algorithm>
-#include <cstdint>
 #include <map>
 #include <sstream>
 #include <string>
 #include <vector>
-
-#include "defines.hpp"
 
 #include "water_boundary_checker.hpp"
 
@@ -59,12 +50,30 @@ class WorldMapGenerator
       LOG_SHORT(LINFO, ("World types:", ss.str()));
     }
 
-    /// This function is called after merging linear features.
+    // This functor is called by m_merger after merging linear features.
     void operator()(feature::FeatureBuilder const & fb) override
     {
-      // do additional check for suitable size of feature
-      if (NeedPushToWorld(fb) &&
-          scales::IsGoodForLevel(scales::GetUpperWorldScale(), fb.GetLimitRect()))
+      static const uint32_t ferryType = classif().GetTypeByPath({"route", "ferry"});
+      static const uint32_t boundaryType = classif().GetTypeByPath({"boundary", "administrative"});
+      static const uint32_t highwayType = classif().GetTypeByPath({"highway"});
+
+      int thresholdLevel = scales::GetUpperWorldScale();
+      if (fb.HasType(ferryType) || fb.HasType(boundaryType, 2))
+      {
+        // Discard too short ferry and boundary lines
+        // (boundaries along the coast are being "torn" into small pieces
+        // by the coastline in WaterBoundaryChecker::ProcessBoundary()).
+        thresholdLevel = scales::GetUpperWorldScale() - 2;
+      }
+      else if (fb.HasType(highwayType, 1))
+      {
+        // Discard too short roads incl. V-like approaches to roundabouts / other roads
+        // and small roundabouts that were not merged into longer roads for some reason.
+        thresholdLevel = scales::GetUpperWorldScale() + 2;
+      }
+
+      // TODO(pastk): there seems to be two area size checks: here and in PushFeature().
+      if (scales::IsGoodForLevel(thresholdLevel, fb.GetLimitRect()))
         PushSure(fb);
     }
 
@@ -93,11 +102,12 @@ class WorldMapGenerator
   std::string m_popularPlacesFilename;
 
 public:
-  explicit WorldMapGenerator(std::string const & worldFilename, std::string const & rawGeometryFileName,
-                             std::string const & popularPlacesFilename)
+  /// @param[in]  coastGeomFilename     Can be empty if no need to cut borders by water.
+  /// @param[in]  popularPlacesFilename Can be empty if no need in popular places.
+  WorldMapGenerator(std::string const & worldFilename, std::string const & coastGeomFilename,
+                    std::string const & popularPlacesFilename)
     : m_worldBucket(worldFilename)
-    , m_merger(kPointCoordBits - (scales::GetUpperScale() - scales::GetUpperWorldScale()) / 2)
-    , m_boundaryChecker(rawGeometryFileName)
+    , m_merger(kFeatureSorterPointCoordBits - (scales::GetUpperScale() - scales::GetUpperWorldScale()) / 2)
     , m_popularPlacesFilename(popularPlacesFilename)
   {
     // Do not strip last types for given tags,
@@ -109,11 +119,18 @@ public:
     for (size_t i = 0; i < ARRAY_SIZE(arr1); ++i)
       m_typesCorrector.SetDontNormalizeType(arr1[i]);
 
-    char const * arr2[] = {"boundary", "administrative", "4", "state"};
-    m_typesCorrector.SetDontNormalizeType(arr2);
+    // Merge motorways into trunks.
+    // TODO : merge e.g. highway-trunk_link into highway-trunk?
+    char const * marr1[2] = {"highway", "motorway"},
+               * marr2[2] = {"highway", "trunk"};
+    m_typesCorrector.SetMappingTypes(marr1, marr2);
 
     if (popularPlacesFilename.empty())
-      LOG(LWARNING, ("popular_places_data option not set. Popular atractions will not be added to World.mwm"));
+      LOG(LWARNING, ("popular_places_data option not set. Popular attractions will not be added to World.mwm"));
+
+    // Can be empty in tests.
+    if (!coastGeomFilename.empty())
+      m_boundaryChecker.LoadWaterGeometry(coastGeomFilename);
   }
 
   void Process(feature::FeatureBuilder & fb)
@@ -127,25 +144,28 @@ public:
     if (!m_boundaryChecker.IsBoundaries(fb))
     {
       // Save original feature iff we need to force push it before PushFeature(fb) modifies fb.
-      auto originalFeature = forcePushToWorld ? fb : feature::FeatureBuilder();
+      feature::FeatureBuilder originalFeature;
+      if (forcePushToWorld)
+        originalFeature = fb;
 
-      if (PushFeature(fb) || !forcePushToWorld)
-        return;
+      if (!PushFeature(fb) && forcePushToWorld)
+      {
+        // We push Point with all the same tags, names and center instead of Line/Area,
+        // because we do not need geometry for invisible features (just search index and placepage
+        // data) and want to avoid size checks applied to areas.
+        if (!originalFeature.IsPoint())
+          generator::TransformToPoint(originalFeature);
 
-      // We push Point with all the same tags, names and center instead of GEOM_WAY/Area
-      // because we do not need geometry for invisible features (just search index and placepage
-      // data) and want to avoid size checks applied to areas.
-      if (originalFeature.GetGeomType() != feature::GeomType::Point)
-        generator::TransformToPoint(originalFeature);
-
-      m_worldBucket.PushSure(originalFeature);
-      return;
+        m_worldBucket.PushSure(originalFeature);
+      }
     }
-
-    std::vector<feature::FeatureBuilder> boundaryParts;
-    m_boundaryChecker.ProcessBoundary(fb, boundaryParts);
-    for (auto & f : boundaryParts)
-      PushFeature(f);
+    else
+    {
+      std::vector<feature::FeatureBuilder> boundaryParts;
+      m_boundaryChecker.ProcessBoundary(fb, boundaryParts);
+      for (auto & f : boundaryParts)
+        PushFeature(f);
+    }
   }
 
   bool PushFeature(feature::FeatureBuilder & fb)
@@ -161,10 +181,9 @@ public:
     }
     case feature::GeomType::Area:
     {
-      // This constant is set according to size statistics.
-      // Added approx 4Mb of data to the World.mwm
+      /// @todo Initial area threshold to push area objects into World.mwm
       auto const & geometry = fb.GetOuterGeometry();
-      if (GetPolygonArea(geometry.begin(), geometry.end()) < 0.01)
+      if (GetPolygonArea(geometry.begin(), geometry.end()) < 0.0025)
         return false;
     }
     default:
@@ -181,35 +200,4 @@ public:
   }
 
   void DoMerge() { m_merger.DoMerge(m_worldBucket); }
-};
-
-template <class FeatureOut>
-class SimpleCountryMapGenerator
-{
-public:
-  SimpleCountryMapGenerator(feature::GenerateInfo const & info) : m_bucket(info) {}
-
-  void operator()(feature::FeatureBuilder & fb)
-  {
-      m_bucket(fb);
-  }
-
-  FeatureOut & Parent() { return m_bucket; }
-
-private:
-  FeatureOut m_bucket;
-};
-
-template <class FeatureOut>
-class CountryMapGenerator : public SimpleCountryMapGenerator<FeatureOut>
-{
-public:
-  CountryMapGenerator(feature::GenerateInfo const & info) :
-    SimpleCountryMapGenerator<FeatureOut>(info) {}
-
-  void Process(feature::FeatureBuilder fb)
-  {
-    if (feature::PreprocessForCountryMap(fb))
-      SimpleCountryMapGenerator<FeatureOut>::operator()(fb);
-  }
 };

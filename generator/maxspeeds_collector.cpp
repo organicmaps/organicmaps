@@ -5,12 +5,13 @@
 
 #include "routing_common/maxspeed_conversion.hpp"
 
+#include "indexer/ftypes_matcher.hpp"
+
 #include "platform/platform.hpp"
 
 #include "coding/internal/file_data.hpp"
 
 #include "base/assert.hpp"
-#include "base/geo_object_id.hpp"
 #include "base/logging.hpp"
 #include "base/string_utils.hpp"
 
@@ -40,8 +41,7 @@ MaxspeedsCollector::MaxspeedsCollector(std::string const & filename)
   m_stream.open(GetTmpFilename());
 }
 
-std::shared_ptr<CollectorInterface> MaxspeedsCollector::Clone(
-    std::shared_ptr<cache::IntermediateDataReaderInterface> const &) const
+std::shared_ptr<CollectorInterface> MaxspeedsCollector::Clone(IDRInterfacePtr const &) const
 {
   return std::make_shared<MaxspeedsCollector>(GetFilename());
 }
@@ -124,18 +124,15 @@ void MaxspeedsCollector::Finish()
 
 void MaxspeedsCollector::Save()
 {
+  /// @todo Can keep calculated speeds in memory to avoid tmp files dumping and merging.
   CHECK(!m_stream.is_open(), ("Finish() has not been called."));
   LOG(LINFO, ("Saving maxspeed tag values to", GetFilename()));
+
   if (Platform::IsFileExistsByFullPath(GetTmpFilename()))
     CHECK(base::CopyFileX(GetTmpFilename(), GetFilename()), ());
 }
 
 void MaxspeedsCollector::OrderCollectedData() { OrderTextFileByLine(GetFilename()); }
-
-void MaxspeedsCollector::Merge(CollectorInterface const & collector)
-{
-  collector.MergeInto(*this);
-}
 
 void MaxspeedsCollector::MergeInto(MaxspeedsCollector & collector) const
 {

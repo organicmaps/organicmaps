@@ -164,6 +164,8 @@ set(SRC
   types_skipper.hpp
   utils.cpp
   utils.hpp
+  utm_mgrs_coords_match.cpp
+  utm_mgrs_coords_match.hpp
 )
 
 omim_add_library(${PROJECT_NAME} ${SRC})
@@ -176,8 +178,8 @@ target_link_libraries(${PROJECT_NAME}
 )
 
 if(PLATFORM_DESKTOP)
-  add_subdirectory(search_quality)
   add_subdirectory(search_tests_support)
+  add_subdirectory(search_quality)
 endif()
 
 omim_add_test_subdirectory(search_tests)

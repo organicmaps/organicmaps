@@ -1,13 +1,16 @@
 #pragma once
 
+#include "traffic/traffic_info.hpp"
+
 #include "drape_frontend/backend_renderer.hpp"
 #include "drape_frontend/color_constants.hpp"
 #include "drape_frontend/custom_features_context.hpp"
+#include "drape_frontend/drape_engine_params.hpp"
 #include "drape_frontend/drape_hints.hpp"
 #include "drape_frontend/frontend_renderer.hpp"
-#include "drape_frontend/route_shape.hpp"
 #include "drape_frontend/overlays_tracker.hpp"
 #include "drape_frontend/postprocess_renderer.hpp"
+#include "drape_frontend/route_shape.hpp"
 #include "drape_frontend/scenario_manager.hpp"
 #include "drape_frontend/selection_shape.hpp"
 #include "drape_frontend/threads_commutator.hpp"
@@ -16,8 +19,6 @@
 #include "drape/pointers.hpp"
 #include "drape/texture_manager.hpp"
 #include "drape/viewport.hpp"
-
-#include "traffic/traffic_info.hpp"
 
 #include "transit/transit_display_info.hpp"
 
@@ -51,24 +52,14 @@ class DrapeEngine
 public:
   struct Params
   {
-    Params(dp::ApiVersion apiVersion,
-           ref_ptr<dp::GraphicsContextFactory> factory,
-           dp::Viewport const & viewport,
-           MapDataProvider const & model,
-           Hints const & hints,
-           double vs,
-           double fontsScaleFactor,
-           gui::TWidgetsInitInfo && info,
-           location::TMyPositionModeChanged && myPositionModeChanged,
-           bool allow3dBuildings,
-           bool trafficEnabled,
-           bool isolinesEnabled,
-           bool blockTapEvents,
-           bool showChoosePositionMark,
-           std::vector<m2::TriangleD> && boundAreaTriangles,
-           bool isRoutingActive,
-           bool isAutozoomEnabled,
-           bool simplifiedTrafficColors,
+    Params(dp::ApiVersion apiVersion, ref_ptr<dp::GraphicsContextFactory> factory,
+           dp::Viewport const & viewport, MapDataProvider const & model, Hints const & hints,
+           double vs, double fontsScaleFactor, gui::TWidgetsInitInfo && info,
+           location::TMyPositionModeChanged && myPositionModeChanged, bool allow3dBuildings,
+           bool trafficEnabled, bool isolinesEnabled, bool blockTapEvents,
+           bool showChoosePositionMark, std::vector<m2::TriangleD> && boundAreaTriangles,
+           bool isRoutingActive, bool isAutozoomEnabled, bool simplifiedTrafficColors,
+           std::optional<Arrow3dCustomDecl> arrow3dCustomDecl,
            OverlaysShowStatsCallback && overlaysShowStatsCallback,
            OnGraphicsContextInitialized && onGraphicsContextInitialized)
       : m_apiVersion(apiVersion)
@@ -89,6 +80,7 @@ public:
       , m_isRoutingActive(isRoutingActive)
       , m_isAutozoomEnabled(isAutozoomEnabled)
       , m_simplifiedTrafficColors(simplifiedTrafficColors)
+      , m_arrow3dCustomDecl(std::move(arrow3dCustomDecl))
       , m_overlaysShowStatsCallback(std::move(overlaysShowStatsCallback))
       , m_onGraphicsContextInitialized(std::move(onGraphicsContextInitialized))
     {}
@@ -112,6 +104,7 @@ public:
     bool m_isRoutingActive;
     bool m_isAutozoomEnabled;
     bool m_simplifiedTrafficColors;
+    std::optional<Arrow3dCustomDecl> m_arrow3dCustomDecl;
     OverlaysShowStatsCallback m_overlaysShowStatsCallback;
     OnGraphicsContextInitialized m_onGraphicsContextInitialized;
   };
@@ -129,6 +122,7 @@ public:
   void AddTouchEvent(TouchEvent const & event);
   void Scale(double factor, m2::PointD const & pxPoint, bool isAnim);
   void Move(double factorX, double factorY, bool isAnim);
+  void Scroll(double distanceX, double distanceY);
   void Rotate(double azimuth, bool isAnim);
 
   void ScaleAndSetCenter(m2::PointD const & centerPt, double scaleFactor, bool isAnim,
@@ -144,7 +138,7 @@ public:
   using ModelViewChangedHandler = FrontendRenderer::ModelViewChangedHandler;
   void SetModelViewListener(ModelViewChangedHandler && fn);
 
-#if defined(OMIM_OS_MAC) || defined(OMIM_OS_LINUX)
+#if defined(OMIM_OS_DESKTOP)
   using GraphicsReadyHandler = FrontendRenderer::GraphicsReadyHandler;
   void NotifyGraphicsReady(GraphicsReadyHandler const & fn, bool needInvalidate);
 #endif
@@ -252,6 +246,10 @@ public:
   void UpdateMyPositionRoutingOffset(bool useDefault, int offsetY);
 
   location::EMyPositionMode GetMyPositionMode() const;
+
+  void SetCustomArrow3d(std::optional<Arrow3dCustomDecl> arrow3dCustomDecl);
+
+  dp::ApiVersion GetApiVersion() const { return m_frontend->GetApiVersion(); };
 
 private:
   void AddUserEvent(drape_ptr<UserEvent> && e);

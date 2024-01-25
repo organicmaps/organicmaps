@@ -44,28 +44,13 @@ public:
   // Search results details. Considered valid if GetResultType() == Type::Feature.
   struct Details
   {
-    // Valid only if not empty, used for restaurants.
-    std::string m_cuisine;
-
-    // Valid only if not empty, used for airport iata codes.
-    std::string m_airportIata;
-
-    // Valid only if not empty, used for brand name.
-    std::string m_brand;
-
-    // Valid only if not empty, used for roads.
-    std::string m_roadShields;
-
-    // Following fields are used for hotels only.
-    uint8_t m_stars = 0;
-    bool m_isHotel = false;
-
-    // Valid for any result.
     osm::YesNoUnknown m_isOpenNow = osm::Unknown;
 
     uint16_t m_minutesUntilOpen = 0;
 
     uint16_t m_minutesUntilClosed = 0;
+      
+    std::string m_description;
 
     bool m_isInitialized = false;
   };
@@ -89,16 +74,11 @@ public:
 
   std::string const & GetString() const { return m_str; }
   std::string const & GetAddress() const { return m_address; }
-  std::string const & GetCuisine() const { return m_details.m_cuisine; }
-  std::string const & GetAirportIata() const { return m_details.m_airportIata; }
-  std::string const & GetBrand() const { return m_details.m_brand; }
-  std::string const & GetRoadShields() const { return m_details.m_roadShields; }
-  bool IsHotel() const { return m_details.m_isHotel; }
+  std::string const & GetDescription() const { return m_details.m_description; }
 
   osm::YesNoUnknown IsOpenNow() const { return m_details.m_isOpenNow; }
   uint16_t GetMinutesUntilOpen() const { return m_details.m_minutesUntilOpen; }
   uint16_t GetMinutesUntilClosed() const { return m_details.m_minutesUntilClosed; }
-  int GetStarsCount() const { return m_details.m_stars; }
 
   bool IsSuggest() const;
   bool HasPoint() const;
@@ -109,6 +89,12 @@ public:
 
   // Precondition: GetResultType() == Type::Feature.
   uint32_t GetFeatureType() const;
+  
+  // Precondition: GetResultType() == Type::Feature.
+  std::string GetLocalizedFeatureType() const;
+  
+  // Precondition: GetResultType() == Type::Feature.
+  std::string GetFeatureDescription() const;
 
   // Center point of a feature.
   // Precondition: HasPoint() == true.
@@ -205,12 +191,12 @@ public:
     m_status = cancelled ? Status::EndedCancelled : Status::EndedNormal;
   }
 
+  // Used for results in the list.
   bool AddResult(Result && result);
 
-  // Fast version of AddResult() that doesn't do any checks for
-  // duplicates.
+  // Fast version of AddResult() that doesn't do any checks for duplicates.
+  // Used for results in the viewport.
   void AddResultNoChecks(Result && result);
-  void AddResultsNoChecks(ConstIter first, ConstIter last);
 
   void AddBookmarkResult(bookmarks::Result const & result);
 

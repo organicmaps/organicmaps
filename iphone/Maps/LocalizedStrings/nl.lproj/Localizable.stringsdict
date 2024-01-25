@@ -67,7 +67,7 @@
       <key>NSStringFormatValueTypeKey</key>
       <string>d</string>
       <key>other</key>
-      <string>%d routes</string>
+      <string>%d tracks</string>
     </dict>
   </dict>
 </dict>

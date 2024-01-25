@@ -3,14 +3,7 @@
 #include "search/dummy_rank_table.hpp"
 
 #include "indexer/data_source.hpp"
-#include "indexer/feature.hpp"
 
-#include "defines.hpp"
-
-namespace
-{
-uint8_t const kNoRank = 0;
-}  // namespace
 
 CachingRankTableLoader::CachingRankTableLoader(DataSource const & dataSource,
                                                std::string const & sectionName)
@@ -23,7 +16,7 @@ uint8_t CachingRankTableLoader::Get(FeatureID const & featureId) const
   auto const handle = m_dataSource.GetMwmHandleById(featureId.m_mwmId);
 
   if (!handle.IsAlive())
-    return kNoRank;
+    return search::RankTable::kNoRank;
 
   auto it = m_deserializers.find(featureId.m_mwmId);
 

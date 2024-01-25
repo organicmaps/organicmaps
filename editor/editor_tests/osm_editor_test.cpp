@@ -1352,7 +1352,7 @@ void EditorTest::LoadExistingEditsXml()
   });
 
   pugi::xml_document doc;
-  TEST(doc.load(data), ());
+  TEST(doc.load_string(data), ());
 
   auto memStorage = std::make_unique<editor::InMemoryStorage>();
   memStorage->Save(doc);

@@ -3,6 +3,8 @@
 #import "MWMCircularProgress.h"
 #import "SwiftBridge.h"
 
+static NSString * const kUDDidHighlightRouteToButton = @"kUDDidHighlightPoint2PointButton";
+
 NSString *titleForButton(MWMActionBarButtonType type, BOOL isSelected) {
   switch (type) {
     case MWMActionBarButtonTypeDownload:
@@ -29,11 +31,11 @@ NSString *titleForButton(MWMActionBarButtonType type, BOOL isSelected) {
     case MWMActionBarButtonTypeRouteRemoveStop:
       return L(@"placepage_remove_stop");
     case MWMActionBarButtonTypeAvoidToll:
-      return L(@"avoid_toll_roads_placepage");
+      return L(@"avoid_tolls");
     case MWMActionBarButtonTypeAvoidDirty:
-      return L(@"avoid_unpaved_roads_placepage");
+      return L(@"avoid_unpaved");
     case MWMActionBarButtonTypeAvoidFerry:
-      return L(@"avoid_ferry_crossing_placepage");
+      return L(@"avoid_ferry");
   }
 }
 
@@ -53,6 +55,8 @@ NSString *titleForButton(MWMActionBarButtonType type, BOOL isSelected) {
 - (void)configButton:(BOOL)isSelected enabled:(BOOL)isEnabled {
   self.label.text = titleForButton(self.type, isSelected);
   self.extraBackground.hidden = YES;
+  self.button.coloring = MWMButtonColoringBlack;
+  
   switch (self.type) {
     case MWMActionBarButtonTypeDownload: {
       if (self.mapDownloadProgress)
@@ -106,6 +110,8 @@ NSString *titleForButton(MWMActionBarButtonType type, BOOL isSelected) {
       break;
     case MWMActionBarButtonTypeRouteTo:
       [self.button setImage:[UIImage imageNamed:@"ic_route_to"] forState:UIControlStateNormal];
+      if ([self needsToHighlightRouteToButton])
+        self.button.coloring = MWMButtonColoringBlue;
       break;
     case MWMActionBarButtonTypeShare:
       [self.button setImage:[UIImage imageNamed:@"ic_menu_share"] forState:UIControlStateNormal];
@@ -129,6 +135,7 @@ NSString *titleForButton(MWMActionBarButtonType type, BOOL isSelected) {
       [self.button setImage:[UIImage imageNamed:@"ic_avoid_ferry"] forState:UIControlStateNormal];
       break;
   }
+  
   self.button.enabled = isEnabled;
 }
 
@@ -150,7 +157,9 @@ NSString *titleForButton(MWMActionBarButtonType type, BOOL isSelected) {
 - (IBAction)tap {
   if (self.type == MWMActionBarButtonTypeBookmark)
     [self setBookmarkSelected:!self.button.isSelected];
-
+  if (self.type == MWMActionBarButtonTypeRouteTo)
+    [self disableRouteToButtonHighlight];
+  
   [self.delegate tapOnButtonWithType:self.type];
 }
 
@@ -180,6 +189,18 @@ NSString *titleForButton(MWMActionBarButtonType type, BOOL isSelected) {
   UIImageView *animationIV = btn.imageView;
   animationIV.animationImages = animationImages;
   animationIV.animationRepeatCount = 1;
+}
+
+- (BOOL)needsToHighlightRouteToButton {
+  return ![NSUserDefaults.standardUserDefaults boolForKey:kUDDidHighlightRouteToButton];
+}
+
+- (void)disableRouteToButtonHighlight {
+  [NSUserDefaults.standardUserDefaults setBool:true forKey:kUDDidHighlightRouteToButton];
+}
+
+- (UIView *)hitTest:(CGPoint)point withEvent:(UIEvent *)event {
+  return [self pointInside:point withEvent:event] ? self.button : nil;
 }
 
 @end

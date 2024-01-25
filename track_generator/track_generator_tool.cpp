@@ -7,7 +7,7 @@
 
 #include <string>
 
-#include "gflags/gflags.h"
+#include <gflags/gflags.h>
 
 DEFINE_string(inputDir, "", "Path to kmls.");
 

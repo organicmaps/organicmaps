@@ -29,6 +29,8 @@ set(SRC
   complex/tree_node.hpp
   cuisines.cpp
   cuisines.hpp
+  custom_keyvalue.cpp
+  custom_keyvalue.hpp
   data_factory.cpp
   data_factory.hpp
   data_header.cpp
@@ -91,6 +93,8 @@ set(SRC
   interval_index_builder.hpp
   isolines_info.cpp
   isolines_info.hpp
+  kayak.cpp
+  kayak.hpp
   map_object.cpp
   map_object.hpp
   map_style.cpp

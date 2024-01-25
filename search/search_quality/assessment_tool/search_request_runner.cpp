@@ -18,8 +18,8 @@ SearchRequestRunner::SearchRequestRunner(Framework & framework, DataSource const
   : m_framework(framework)
   , m_dataSource(dataSource)
   , m_contexts(contexts)
-  , m_updateViewOnResults(move(updateViewOnResults))
-  , m_updateSampleSearchState(move(updateSampleSearchState))
+  , m_updateViewOnResults(std::move(updateViewOnResults))
+  , m_updateSampleSearchState(std::move(updateSampleSearchState))
 {
 }
 

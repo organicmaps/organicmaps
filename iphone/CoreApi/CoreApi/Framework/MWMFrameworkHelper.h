@@ -23,6 +23,7 @@ NS_SWIFT_NAME(FrameworkHelper)
 + (MWMMarkGroupID)invalidCategoryId;
 + (void)zoomMap:(MWMZoomMode)mode;
 + (void)moveMap:(UIOffset)offset;
++ (void)scrollMap:(double)distanceX :(double) distanceY;
 + (void)deactivateMapSelection:(BOOL)notifyUI NS_SWIFT_NAME(deactivateMapSelection(notifyUI:));
 + (void)switchMyPositionMode;
 + (void)stopLocationFollow;

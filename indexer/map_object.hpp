@@ -33,7 +33,9 @@ Internet InternetFromString(std::string_view inet);
 class MapObject
 {
 public:
-  static char const * kFieldsSeparator;
+  static constexpr std::string_view kFieldsSeparator = " • ";
+  static constexpr std::string_view kStarSymbol = "★";
+  static constexpr std::string_view kToiletsSymbol = "🚻";
   static constexpr uint8_t kMaxStarsCount = 7;
 
   void SetFromFeatureType(FeatureType & ft);
@@ -68,9 +70,13 @@ public:
       {
       case MetadataID::FMD_WIKIPEDIA: fn(id, feature::Metadata::ToWikiURL(value)); break;
       case MetadataID::FMD_WIKIMEDIA_COMMONS: fn(id, feature::Metadata::ToWikimediaCommonsURL(value)); break;
-      /// @todo Skip description for now, because it's not a valid UTF8 string.
+      /// @todo Clients should make separate processing of non-string values, skip for now.
       /// @see EditableMapObject::ForEachMetadataItem.
-      case MetadataID::FMD_DESCRIPTION: break;
+      case MetadataID::FMD_DESCRIPTION:
+      case MetadataID::FMD_CUSTOM_IDS:
+      case MetadataID::FMD_PRICE_RATES:
+      case MetadataID::FMD_RATINGS:
+        break;
       default: fn(id, value); break;
       }
     });
@@ -84,10 +90,11 @@ public:
   std::vector<std::string> GetRecyclingTypes() const;
   /// @returns translated recycling type(s).
   std::vector<std::string> GetLocalizedRecyclingTypes() const;
+  /// @returns translated fee type.
+  std::string GetLocalizedFeeType() const;
   /// @returns translated and formatted cuisines.
   std::string FormatCuisines() const;
 
-  std::vector<std::string> GetRoadShields() const;
   std::string FormatRoadShields() const;
 
   std::string_view GetOpeningHours() const;
@@ -95,12 +102,19 @@ public:
   int GetStars() const;
   ftraits::WheelchairAvailability GetWheelchairType() const;
 
+  /// @returns true if feature has ATM type.
+  bool HasAtm() const;
+
+  /// @returns true if feature has Toilets type.
+  bool HasToilets() const;
+
   /// @returns formatted elevation in feet or meters, or empty string.
   std::string GetElevationFormatted() const;
   /// @}
 
   bool IsPointType() const;
   feature::GeomType GetGeomType() const { return m_geomType; };
+  int8_t GetLayer() const { return m_layer; };
 
   /// @returns true if object is of building type.
   bool IsBuilding() const;
@@ -119,11 +133,12 @@ protected:
 
   StringUtf8Multilang m_name;
   std::string m_houseNumber;
-  std::string m_roadNumber;
+  std::vector<std::string> m_roadShields;
   feature::TypesHolder m_types;
   feature::Metadata m_metadata;
 
   feature::GeomType m_geomType = feature::GeomType::Undefined;
+  int8_t m_layer = feature::LAYER_EMPTY;
 };
 
 }  // namespace osm

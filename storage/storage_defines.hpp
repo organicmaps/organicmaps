@@ -82,7 +82,7 @@ struct StatusAndError
   {
   }
 
-  bool operator==(StatusAndError const & other)
+  bool operator==(StatusAndError const & other) const
   {
     return other.status == status && other.error == error;
   }

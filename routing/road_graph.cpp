@@ -151,7 +151,7 @@ IRoadGraph::RoadInfo::RoadInfo()
   : m_speedKMPH(0.0), m_bidirectional(false)
 {}
 IRoadGraph::RoadInfo::RoadInfo(RoadInfo && ri)
-  : m_junctions(move(ri.m_junctions))
+  : m_junctions(std::move(ri.m_junctions))
   , m_speedKMPH(ri.m_speedKMPH)
   , m_bidirectional(ri.m_bidirectional)
 {}

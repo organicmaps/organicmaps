@@ -28,7 +28,11 @@
 #define TRIANGLE_FILE_TAG "trg"
 #define INDEX_FILE_TAG "idx"
 #define SEARCH_INDEX_FILE_TAG "sdx"
-#define SEARCH_ADDRESS_FILE_TAG "addr"
+
+// Feature -> Street, do not rename for compatibility.
+#define FEATURE2STREET_FILE_TAG "addr"
+#define FEATURE2PLACE_FILE_TAG "ft2place"
+
 #define POSTCODE_POINTS_FILE_TAG "postcode_points"
 #define POSTCODES_FILE_TAG "postcodes"
 #define CITIES_BOUNDARIES_FILE_TAG "cities_boundaries"
@@ -85,25 +89,23 @@
 
 #define GPS_TRACK_FILENAME "gps_track.dat"
 #define RESTRICTIONS_FILENAME "restrictions.csv"
-#define ROAD_ACCESS_FILENAME "road_access.csv"
-#define ROAD_ACCESS_CONDITIONAL_EXT ".access_conditional"
+#define ROAD_ACCESS_FILENAME "road_access.bin"
 
-#define MINI_ROUNDABOUT_ROADS_EXTENSION ".mini_roundabouts_roads_ids"
 #define METALINES_FILENAME "metalines.bin"
 #define CAMERAS_TO_WAYS_FILENAME "cameras_to_ways.bin"
 #define MINI_ROUNDABOUTS_FILENAME "mini_roundabouts.bin"
+#define ADDR_INTERPOL_FILENAME "addr_interpol.bin"
 #define MAXSPEEDS_FILENAME "maxspeeds.csv"
-#define BOUNDARY_POSTCODE_TMP_FILENAME "boundary_postcode" DATA_FILE_EXTENSION_TMP
-#define CITIES_AREAS_TMP_FILENAME "cities_areas" DATA_FILE_EXTENSION_TMP
-#define ROUTING_CITY_BOUNDARIES_TMP_FILENAME "routing_city_boundaries" DATA_FILE_EXTENSION_TMP
-#define ROUTING_CITY_BOUNDARIES_DUMP_FILENAME "routing_city_boundaries.bin"
+#define BOUNDARY_POSTCODES_FILENAME "boundary_postcodes.bin"
+#define CITY_BOUNDARIES_COLLECTOR_FILENAME "city_boundaries_collector.bin"
 #define CROSS_MWM_OSM_WAYS_DIR "cross_mwm_osm_ways"
-#define TEMP_ADDR_FILENAME "tempaddr"
+#define TEMP_ADDR_EXTENSION ".tempaddr"
 
 #define TRAFFIC_FILE_EXTENSION ".traffic"
 
 #define SKIPPED_ELEMENTS_FILE "skipped_elements.json"
 
+#define MAPCSS_MAPPING_FILE "mapcss-mapping.csv"
 #define REPLACED_TAGS_FILE "replaced_tags.txt"
 #define MIXED_TAGS_FILE "mixed_tags.txt"
 #define MIXED_NODES_FILE "mixed_nodes.txt"

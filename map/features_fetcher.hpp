@@ -2,16 +2,11 @@
 
 #include "editor/editable_data_source.hpp"
 
-#include "indexer/data_header.hpp"
 #include "indexer/mwm_set.hpp"
 
-#include "geometry/point2d.hpp"
 #include "geometry/rect2d.hpp"
 
-#include "coding/buffer_reader.hpp"
 #include "coding/reader.hpp"
-
-#include "base/macros.hpp"
 
 #include <functional>
 #include <string>
@@ -37,8 +32,7 @@ public:
   }
 
   // Registers a new map.
-  std::pair<MwmSet::MwmId, MwmSet::RegResult> RegisterMap(
-      platform::LocalCountryFile const & localFile);
+  std::pair<MwmSet::MwmId, MwmSet::RegResult> RegisterMap(platform::LocalCountryFile const & localFile);
 
   // Deregisters a map denoted by file from internal records.
   bool DeregisterMap(platform::CountryFile const & countryFile);
@@ -52,16 +46,15 @@ public:
     return m_dataSource.IsLoaded(platform::CountryFile(std::string(countryFileName)));
   }
 
-  void ForEachFeature(m2::RectD const & rect, std::function<void(FeatureType &)> const & fn,
-                      int scale) const
+  void ForEachFeature(m2::RectD const & rect, std::function<void(FeatureType &)> const & fn, int scale) const
   {
     m_dataSource.ForEachInRect(fn, rect, scale);
   }
 
-  void ForEachFeatureID(m2::RectD const & rect, std::function<void(FeatureID const &)> const & fn,
-                        int scale) const
+  void ForEachFeatureID(m2::RectD const & rect, std::function<void(FeatureID const &)> const & fn, int scale) const
   {
-    m_dataSource.ForEachFeatureIDInRect(fn, rect, scale);
+    // Pass lightweight LowLevelsOnly mode, because rect is equal with pow 2 tiles.
+    m_dataSource.ForEachFeatureIDInRect(fn, rect, scale, covering::LowLevelsOnly);
   }
 
   template <class ToDo>

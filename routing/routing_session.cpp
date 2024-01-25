@@ -6,6 +6,7 @@
 #include "platform/location.hpp"
 #include "platform/measurement_utils.hpp"
 #include "platform/platform.hpp"
+#include "platform/distance.hpp"
 
 #include "geometry/angles.hpp"
 #include "geometry/mercator.hpp"
@@ -37,13 +38,9 @@ using namespace traffic;
 
 void FormatDistance(double dist, std::string & value, std::string & suffix)
 {
-  /// @todo Make better formatting of distance and units.
-  value = measurement_utils::FormatDistance(dist);
-
-  size_t const delim = value.find(' ');
-  ASSERT(delim != std::string::npos, ());
-  suffix = value.substr(delim + 1);
-  value.erase(delim);
+  platform::Distance d = platform::Distance::CreateFormatted(dist);
+  value = d.GetDistanceString();
+  suffix = d.GetUnitsString();
 }
 
 RoutingSession::RoutingSession()
@@ -389,17 +386,18 @@ void RoutingSession::GetRouteFollowingInfo(FollowingInfo & info) const
   if (!IsNavigable())
   {
     info = FollowingInfo();
-    FormatDistance(m_route->GetTotalDistanceMeters(), info.m_distToTarget, info.m_targetUnitsSuffix);
+    info.m_distToTarget = platform::Distance::CreateFormatted(m_route->GetTotalDistanceMeters());
     info.m_time = static_cast<int>(std::max(kMinimumETASec, m_route->GetCurrentTimeToEndSec()));
     return;
   }
 
-  FormatDistance(m_route->GetCurrentDistanceToEndMeters(), info.m_distToTarget, info.m_targetUnitsSuffix);
+  info.m_distToTarget =
+      platform::Distance::CreateFormatted(m_route->GetCurrentDistanceToEndMeters());
 
   double distanceToTurnMeters = 0.;
   turns::TurnItem turn;
   m_route->GetNearestTurn(distanceToTurnMeters, turn);
-  FormatDistance(distanceToTurnMeters, info.m_distToTurn, info.m_turnUnitsSuffix);
+  info.m_distToTurn = platform::Distance::CreateFormatted(distanceToTurnMeters);
   info.m_turn = turn.m_turn;
 
   SpeedInUnits speedLimit;
@@ -539,7 +537,7 @@ void RoutingSession::SetRouter(std::unique_ptr<IRouter> && router,
   CHECK_THREAD_CHECKER(m_threadChecker, ());
   ASSERT(m_router != nullptr, ());
   Reset();
-  m_router->SetRouter(move(router), move(finder));
+  m_router->SetRouter(std::move(router), std::move(finder));
 }
 
 void RoutingSession::MatchLocationToRoadGraph(location::GpsInfo & location)

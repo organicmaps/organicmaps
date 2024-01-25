@@ -5,10 +5,8 @@
 
 #include "geometry/point2d.hpp"
 
-#include <cstdint>
 #include <map>
 #include <memory>
-#include <utility>
 #include <vector>
 
 namespace generator
@@ -71,7 +69,7 @@ public:
       } while (true);
 
       if (points.size() > 2 && points.front() == points.back())
-        toDo(points, ids);
+        toDo(std::move(points), std::move(ids));
     }
   }
 

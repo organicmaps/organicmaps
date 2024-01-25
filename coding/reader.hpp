@@ -42,6 +42,11 @@ public:
   {
   }
 
+  explicit MemReaderTemplate(std::string_view data)
+    : m_pData{data.data()}, m_size{data.size()}
+  {
+  }
+
   uint64_t Size() const override { return m_size; }
 
   void Read(uint64_t pos, void * p, size_t size) const override

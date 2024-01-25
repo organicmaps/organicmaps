@@ -330,7 +330,7 @@ void FrontendRenderer::AcceptMessage(ref_ptr<Message> message)
 #endif
         m_trafficRenderer->OnGeometryReady(GetCurrentZoom());
 
-#if defined(OMIM_OS_MAC) || defined(OMIM_OS_LINUX)
+#if defined(OMIM_OS_DESKTOP)
         if (m_graphicsStage == GraphicsStage::WaitReady)
           m_graphicsStage = GraphicsStage::WaitRendering;
 #endif
@@ -413,7 +413,9 @@ void FrontendRenderer::AcceptMessage(ref_ptr<Message> message)
     {
       ref_ptr<MapShapesMessage> msg = message;
       CHECK(m_context != nullptr, ());
-      m_myPositionController->SetRenderShape(m_context, m_texMng, msg->AcceptShape());
+      m_texMng->ApplyInvalidatedStaticTextures();
+      m_myPositionController->SetRenderShape(m_context, m_texMng, msg->AcceptShape(),
+                                             msg->AcceptPeloadedArrow3dData());
       m_selectionShape = msg->AcceptSelection();
       if (m_selectObjectMessage != nullptr)
       {
@@ -868,11 +870,9 @@ void FrontendRenderer::AcceptMessage(ref_ptr<Message> message)
     {
       ref_ptr<EnableTransitSchemeMessage > msg = message;
       m_transitSchemeEnabled = msg->IsEnabled();
-#ifndef OMIM_OS_IPHONE_SIMULATOR
-      CHECK(m_context != nullptr, ());
-      m_postprocessRenderer->SetEffectEnabled(m_context, PostprocessRenderer::Effect::Antialiasing,
-                                              msg->IsEnabled() || m_isAntialiasingEnabled);
-#endif
+      // Enabling anti aliasing destroys performance on some Android devices
+      // Jagged lines on subway lines are only visible on low density screens
+      // so we don't enable it here
       if (!msg->IsEnabled())
         m_transitSchemeRenderer->ClearContextDependentResources(make_ref(m_overlayTree));
       break;
@@ -980,8 +980,7 @@ void FrontendRenderer::AcceptMessage(ref_ptr<Message> message)
   case Message::Type::SetPosteffectEnabled:
     {
       ref_ptr<SetPosteffectEnabledMessage> msg = message;
-      if (msg->GetEffect() == PostprocessRenderer::Effect::Antialiasing)
-        m_isAntialiasingEnabled = msg->IsEnabled();
+      // Enabling anti aliasing destroys performance on some Android devices
 #ifndef OMIM_OS_IPHONE_SIMULATOR
       CHECK(m_context != nullptr, ());
       m_postprocessRenderer->SetEffectEnabled(m_context, msg->GetEffect(), msg->IsEnabled());
@@ -1031,7 +1030,7 @@ void FrontendRenderer::AcceptMessage(ref_ptr<Message> message)
       break;
     }
 
-#if defined(OMIM_OS_MAC) || defined(OMIM_OS_LINUX)
+#if defined(OMIM_OS_DESKTOP)
   case Message::Type::NotifyGraphicsReady:
     {
       ref_ptr<NotifyGraphicsReadyMessage> msg = message;
@@ -1205,7 +1204,7 @@ void FrontendRenderer::AddToRenderGroup(dp::RenderState const & state,
   drape_ptr<TRenderGroup> group = make_unique_dp<TRenderGroup>(state, newTile);
   group->AddBucket(std::move(renderBucket));
 
-  layer.m_renderGroups.push_back(move(group));
+  layer.m_renderGroups.push_back(std::move(group));
   layer.m_isDirty = true;
 }
 
@@ -1434,10 +1433,11 @@ void FrontendRenderer::RenderScene(ScreenBase const & modelView, bool activeFram
     Render2dLayer(modelView);
     RenderUserMarksLayer(modelView, DepthLayer::UserLineLayer);
 
-    if (m_buildingsFramebuffer->IsSupported())
+    bool const hasTransitRouteData = HasTransitRouteData();
+    if (m_buildingsFramebuffer->IsSupported() && !m_routeRenderer->IsRulerRoute())
     {
       RenderTrafficLayer(modelView);
-      if (!HasTransitRouteData())
+      if (!hasTransitRouteData)
         RenderRouteLayer(modelView);
       Render3dLayer(modelView);
     }
@@ -1445,7 +1445,7 @@ void FrontendRenderer::RenderScene(ScreenBase const & modelView, bool activeFram
     {
       Render3dLayer(modelView);
       RenderTrafficLayer(modelView);
-      if (!HasTransitRouteData())
+      if (!hasTransitRouteData)
         RenderRouteLayer(modelView);
     }
 
@@ -1487,7 +1487,7 @@ void FrontendRenderer::RenderScene(ScreenBase const & modelView, bool activeFram
       }
     }
 
-    if (HasTransitRouteData())
+    if (hasTransitRouteData)
       RenderRouteLayer(modelView);
 
     {
@@ -1511,7 +1511,15 @@ void FrontendRenderer::RenderScene(ScreenBase const & modelView, bool activeFram
     return;
 
   if (IsValidCurrentZoom())
-    m_myPositionController->Render(m_context, make_ref(m_gpuProgramManager), modelView, GetCurrentZoom(), m_frameValues);
+  {
+    uint32_t clearBits = dp::ClearBits::DepthBit;
+    if (m_apiVersion == dp::ApiVersion::OpenGLES2 || m_apiVersion == dp::ApiVersion::OpenGLES3)
+      clearBits |= dp::ClearBits::StencilBit;
+    m_context->Clear(clearBits, dp::kClearBitsStoreAll);
+
+    m_myPositionController->Render(m_context, make_ref(m_gpuProgramManager), modelView,
+                                   GetCurrentZoom(), m_frameValues);
+  }
 
   if (m_guiRenderer && !m_screenshotMode)
   {
@@ -1519,7 +1527,7 @@ void FrontendRenderer::RenderScene(ScreenBase const & modelView, bool activeFram
                           modelView);
   }
 
-#if defined(OMIM_OS_MAC) || defined(OMIM_OS_LINUX)
+#if defined(OMIM_OS_DESKTOP)
   if (m_graphicsStage == GraphicsStage::WaitRendering)
     m_graphicsStage = GraphicsStage::Rendered;
 #endif
@@ -1590,21 +1598,6 @@ void FrontendRenderer::RenderOverlayLayer(ScreenBase const & modelView)
   BuildOverlayTree(modelView);
   for (drape_ptr<RenderGroup> & group : overlay.m_renderGroups)
     RenderSingleGroup(m_context, modelView, make_ref(group));
-
-  if (GetStyleReader().IsCarNavigationStyle())
-    RenderNavigationOverlayLayer(modelView);
-}
-
-void FrontendRenderer::RenderNavigationOverlayLayer(ScreenBase const & modelView)
-{
-  CHECK(m_context != nullptr, ());
-  DEBUG_LABEL(m_context, "Navigation Overlay Layer");
-  RenderLayer & navOverlayLayer = m_layers[static_cast<size_t>(DepthLayer::NavigationLayer)];
-  for (auto & group : navOverlayLayer.m_renderGroups)
-  {
-    if (group->HasOverlayHandles())
-      RenderSingleGroup(m_context, modelView, make_ref(group));
-  }
 }
 
 bool FrontendRenderer::HasTransitRouteData() const
@@ -1713,7 +1706,7 @@ void FrontendRenderer::RenderEmptyFrame()
     return;
 
   m_context->SetFramebuffer(nullptr /* default */);
-  auto const c = dp::Extract(drule::rules().GetBgColor(1 /* scale */), 255);
+  auto const c = dp::Color(drule::rules().GetBgColor(1 /* scale */), 255);
   m_context->SetClearColor(c);
   m_context->Clear(dp::ClearBits::ColorBit, dp::ClearBits::ColorBit /* storeBits */);
   m_context->ApplyFramebuffer("Empty frame");
@@ -1803,7 +1796,7 @@ void FrontendRenderer::RenderFrame()
   m_frameData.m_forceFullRedrawNextFrame = m_overlayTree->IsNeedUpdate();
   if (canSuspend)
   {
-#if defined(OMIM_OS_MAC) || defined(OMIM_OS_LINUX)
+#if defined(OMIM_OS_DESKTOP)
     EmitGraphicsReady();
 #endif
     // Process a message or wait for a message.
@@ -1865,7 +1858,6 @@ void FrontendRenderer::BuildOverlayTree(ScreenBase const & modelView)
 
   BeginUpdateOverlayTree(modelView);
   for (auto const layerId : {DepthLayer::OverlayLayer,
-                             DepthLayer::NavigationLayer,
                              DepthLayer::RoutingBottomMarkLayer,
                              DepthLayer::RoutingMarkLayer})
   {
@@ -1940,8 +1932,7 @@ void FrontendRenderer::RefreshBgColor()
 {
   auto const scale = std::min(df::GetDrawTileScale(m_userEventStream.GetCurrentScreen()),
                               scales::GetUpperStyleScale());
-  auto const color = drule::rules().GetBgColor(scale);
-  auto const c = dp::Extract(color, 255);
+  auto const c = dp::Color(drule::rules().GetBgColor(scale), 255);
 
   CHECK(m_context != nullptr, ());
   m_context->SetClearColor(c);
@@ -2076,6 +2067,11 @@ void FrontendRenderer::OnScaleStarted()
 void FrontendRenderer::OnRotated()
 {
   m_myPositionController->Rotated();
+}
+
+void FrontendRenderer::OnScrolled(m2::PointD const & distance)
+{
+  m_myPositionController->Scrolled(distance);
 }
 
 void FrontendRenderer::CorrectScalePoint(m2::PointD & pt) const
@@ -2565,7 +2561,7 @@ void FrontendRenderer::UpdateScene(ScreenBase const & modelView)
     uint32_t const kMaxGenerationRange = 5;
     TileKey const & key = group->GetTileKey();
 
-    return (group->IsOverlay() && key.m_zoomLevel > GetCurrentZoom()) ||
+    return (GetDepthLayer(group->GetState()) == DepthLayer::OverlayLayer && key.m_zoomLevel > GetCurrentZoom()) ||
            (m_maxGeneration - key.m_generation > kMaxGenerationRange) ||
            (group->IsUserMark() &&
             (m_maxUserMarksGeneration - key.m_userMarksGeneration > kMaxGenerationRange));
@@ -2593,7 +2589,7 @@ void FrontendRenderer::EmitModelViewChanged(ScreenBase const & modelView) const
   m_modelViewChangedHandler(modelView);
 }
 
-#if defined(OMIM_OS_MAC) || defined(OMIM_OS_LINUX)
+#if defined(OMIM_OS_DESKTOP)
 void FrontendRenderer::EmitGraphicsReady()
 {
   if (m_graphicsStage == GraphicsStage::Rendered)

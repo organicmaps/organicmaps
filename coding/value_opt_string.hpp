@@ -5,8 +5,6 @@
 #include "base/string_utils.hpp"
 #include "base/assert.hpp"
 
-#include <cstddef>
-#include <cstdint>
 #include <limits>
 #include <string>
 
@@ -15,33 +13,13 @@ class StringNumericOptimal
 public:
   bool operator==(StringNumericOptimal const & rhs) const
   {
-    if (m_s != rhs.m_s)
-    {
-      uint64_t n1, n2;
-      if (ToInt(n1) && rhs.ToInt(n2))
-        return n1 == n2;
-      return false;
-    }
-    return true;
+    return m_s == rhs.m_s;
   }
 
   void Set(std::string const & s)
   {
     CHECK(!s.empty(), ());
     m_s = s;
-  }
-
-  void Set(char const * p)
-  {
-    m_s = p;
-    CHECK(!m_s.empty(), ());
-  }
-
-  template <typename T>
-  void Set(T const & s)
-  {
-    m_s = strings::to_string(s);
-    CHECK(!m_s.empty(), ());
   }
 
   void Clear() { m_s.clear(); }
@@ -55,7 +33,7 @@ public:
   void Write(Sink & sink) const
   {
     uint64_t n;
-    if (ToInt(n))
+    if (ToInt(n) && (m_s.size() == 1 || m_s.front() != '0'))
       WriteVarUint(sink, ((n << 1) | 1));
     else
     {

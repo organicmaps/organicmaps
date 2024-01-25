@@ -39,7 +39,7 @@
 #include <string>
 #include <vector>
 
-#include "gflags/gflags.h"
+#include <gflags/gflags.h>
 
 using namespace search::search_quality;
 using namespace search::tests_support;
@@ -246,10 +246,10 @@ void CheckCompleteness(string const & path, DataSource & dataSource, TestSearchE
     ++totalQueries;
     try
     {
-      CompletenessQuery q(move(line));
+      CompletenessQuery q(std::move(line));
       q.m_request =
           make_unique<TestSearchRequest>(engine, q.m_query, locale, Mode::Everywhere, viewport);
-      queries.push_back(move(q));
+      queries.push_back(std::move(q));
     }
     catch (CompletenessQuery::MalformedQueryException & e)
     {

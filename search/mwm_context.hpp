@@ -1,6 +1,5 @@
 #pragma once
 
-#include "search/house_to_street_table.hpp"
 #include "search/lazy_centers_table.hpp"
 
 #include "editor/editable_feature_source.hpp"
@@ -107,8 +106,10 @@ public:
     return m_centers.Get(index, center);
   }
 
+  std::optional<uint32_t> GetStreet(uint32_t index) const;
+
   MwmSet::MwmHandle m_handle;
-  MwmValue const & m_value;
+  MwmValue & m_value;
 
 private:
   FeatureStatus GetEditedStatus(uint32_t index) const

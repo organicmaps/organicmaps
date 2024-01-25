@@ -94,6 +94,8 @@ public:
 
   void Rotated();
 
+  void Scrolled(m2::PointD const & distance);
+
   void ResetRoutingNotFollowTimer(bool blockTimer = false);
   void ResetBlockAutoZoomTimer();
 
@@ -102,7 +104,7 @@ public:
   void CorrectGlobalScalePoint(m2::PointD & pt) const;
 
   void SetRenderShape(ref_ptr<dp::GraphicsContext> context, ref_ptr<dp::TextureManager> texMng,
-                      drape_ptr<MyPosition> && shape);
+                      drape_ptr<MyPosition> && shape, Arrow3d::PreloadedData && preloadedData);
   void ResetRenderShape();
 
   void ActivateRouting(int zoomLevel, bool enableAutoZoom, bool isArrowGlued);

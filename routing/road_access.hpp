@@ -25,7 +25,7 @@ public:
     // Moving through the road is prohibited.
     No,
 
-    // Moving through the road requires a special permission.
+    // General public access is not allowed. Access is granted with individual permission only.
     Private,
 
     // No pass through the road is allowed; however, it can
@@ -37,7 +37,17 @@ public:
     Yes,
 
     // The number of different road types.
-    Count
+    Count,
+
+    /// @name Generator only, not serialized options.
+    /// @{
+    // https://github.com/organicmaps/organicmaps/issues/2600
+    // Open only to people who have obtained a permit granting them access, but permit is ordinarily granted.
+    Permit,
+    // https://github.com/organicmaps/organicmaps/issues/4442
+    // locked=yes, will be transformed into Private.
+    Locked,
+    /// @}
   };
 
   enum class Confidence
@@ -111,19 +121,28 @@ public:
   std::pair<Type, Confidence> GetAccessWithoutConditional(uint32_t featureId) const;
   std::pair<Type, Confidence> GetAccessWithoutConditional(RoadPoint const & point) const;
 
-  template <typename WayToAccess, typename PointToAccess>
-  void SetAccess(WayToAccess && wayToAccess, PointToAccess && pointToAccess)
+  void SetWayAccess(WayToAccess && access, WayToAccessConditional && condAccess)
   {
-    m_wayToAccess = std::forward<WayToAccess>(wayToAccess);
-    m_pointToAccess = std::forward<PointToAccess>(pointToAccess);
+    m_wayToAccess = std::move(access);
+    m_wayToAccessConditional = std::move(condAccess);
   }
 
-  template <typename WayConditional, typename PointConditional>
-  void SetAccessConditional(WayConditional && wayToAccessConditional,
-                            PointConditional && pointToAccessConditional)
+  void SetPointAccess(PointToAccess && access, PointToAccessConditional && condAccess)
   {
-    m_wayToAccessConditional = std::forward<WayConditional>(wayToAccessConditional);
-    m_pointToAccessConditional = std::forward<PointConditional>(pointToAccessConditional);
+    m_pointToAccess = std::move(access);
+    m_pointToAccessConditional = std::move(condAccess);
+  }
+
+  void SetAccess(WayToAccess && wayAccess, PointToAccess && pointAccess)
+  {
+    m_wayToAccess = std::move(wayAccess);
+    m_pointToAccess = std::move(pointAccess);
+  }
+
+  void SetAccessConditional(WayToAccessConditional && wayAccess, PointToAccessConditional && pointAccess)
+  {
+    m_wayToAccessConditional = std::move(wayAccess);
+    m_pointToAccessConditional = std::move(pointAccess);
   }
 
   bool operator==(RoadAccess const & rhs) const;

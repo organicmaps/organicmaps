@@ -42,6 +42,7 @@ class Fonts: IFonts {
   var bold34 = UIFont.systemFont(ofSize: 34, weight:UIFont.Weight.bold)
   var bold36 = UIFont.systemFont(ofSize: 36, weight:UIFont.Weight.bold)
   var bold48 = UIFont.systemFont(ofSize: 48, weight:UIFont.Weight.bold)
+  var header = UIFont.preferredFont(forTextStyle: .headline)
   var heavy17 = UIFont.systemFont(ofSize: 17, weight:UIFont.Weight.heavy)
   var heavy20 = UIFont.systemFont(ofSize: 20, weight:UIFont.Weight.heavy)
   var heavy32 = UIFont.systemFont(ofSize: 32, weight:UIFont.Weight.heavy)

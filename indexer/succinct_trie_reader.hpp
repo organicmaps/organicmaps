@@ -189,7 +189,7 @@ public:
       auto nxt = ret->GoToEdge(bit);
       if (!nxt)
         return nullptr;
-      ret = move(nxt);
+      ret = std::move(nxt);
     }
     return ret;
   }

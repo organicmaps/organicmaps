@@ -10,7 +10,7 @@
 "search" = "Search";
 
 /* Used in home screen quick actions. */
-"bookmarks" = "Закладкі";
+"bookmarks_and_tracks" = "Закладкі i cцежкі";
 
 /* Used in home screen quick actions. */
 "route" = "Маршрут";

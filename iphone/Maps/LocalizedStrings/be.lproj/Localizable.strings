@@ -7,10 +7,10 @@
 /********** Strings **********/
 
 /* Button text (should be short) */
-"cancel" = "Адмяніць";
+"cancel" = "Скасаваць";
 
 /* Button which interrupts country download */
-"cancel_download" = "Адмяніць спампоўку";
+"cancel_download" = "Скасаваць спампоўку";
 
 /* Button which deletes downloaded country */
 "delete" = "Выдаліць";
@@ -18,7 +18,7 @@
 "download_maps" = "Спампаваць мапы";
 
 /* Settings/Downloader - info for country which started downloading */
-"downloading" = "Спампоўваецца…";
+"downloading" = "Спампоўванне…";
 
 /* Choose measurement on first launch alert - choose metric system button */
 "kilometres" = "Кіламетры";
@@ -32,7 +32,7 @@
 /* A text for current gps location point/arrow selected on the map */
 "core_my_position" = "Маё месцазнаходжанне";
 
-/* Update maps later/Buy pro version later button text */
+/* Update maps later button text */
 "later" = "Потым";
 
 /* View and button titles for accessibility, please also edit it in iphone/plist.txt */
@@ -48,11 +48,11 @@
 "country_status_download_without_size" = "Спампаваць мапу";
 
 /* Message to display at the center of the screen when the country download has failed */
-"country_status_download_failed" = "Спампоўка не атрымалася";
+"country_status_download_failed" = "Памылка спампоўкі";
 
-"about_menu_title" = "Аб дадатку Organic Maps";
+"about_menu_title" = "Аб праграме Organic Maps";
 
-"close" = "Зачыніць";
+"close" = "Закрыць";
 
 "download" = "Спампаваць";
 
@@ -60,7 +60,7 @@
 "continue_download" = "Працягнуць";
 
 /* "Add new bookmark list" dialog title */
-"add_new_set" = "Дадаць новы спіс";
+"add_new_set" = "Дадаць спіс";
 
 /* Bookmark Color dialog title */
 "bookmark_color" = "Колер закладкі";
@@ -71,13 +71,16 @@
 /* "Bookmark Lists" dialog title */
 "bookmark_sets" = "Спісы закладак";
 
-/* "Bookmarks" dialog title, please also edit it in iphone/plist.txt */
+/* Should be used in the bookmarks-only context, see bookmarks_and_tracks if tracks are also implied. */
 "bookmarks" = "Закладкі";
+
+/* "Bookmarks and Tracks" dialog title, also sync it with iphone/plist.txt */
+"bookmarks_and_tracks" = "Закладкі i cцежкі";
 
 /* Default bookmark list name */
 "core_my_places" = "Мае месцы";
 
-/* Editor title above street and house number */
+/* Editor title above street and house number, duplicates [type.building.address] in types_strings.txt */
 "address" = "Адрас";
 
 /* Settings button in system menu */
@@ -99,13 +102,16 @@
 "transport" = "Транспарт";
 
 /* Search category for fuel stations; any changes should be duplicated in categories.txt @fuel! */
-"fuel" = "Запраўка";
+"fuel" = "АЗС";
 
 /* Search category for parking lots; any changes should be duplicated in categories.txt @parking! */
 "parking" = "Паркоўка";
 
 /* Search category for clothes/shoes/gifts/jewellery/sport shops; any changes should be duplicated in categories.txt @shopping! */
-"shopping" = "Закупы";
+"shopping" = "Шопінг";
+
+/* Search category for second_hand/charity/antique/auction shops; any changes should be duplicated in categories.txt @secondhand! */
+"secondhand" = "Сэканд-хэнд";
 
 /* Search category for places to stay; any changes should be duplicated in categories.txt @hotel! */
 "hotel" = "Гатэль";
@@ -132,7 +138,7 @@
 "pharmacy" = "Аптэка";
 
 /* Search category for hospitals; any changes should be duplicated in categories.txt @hospital! */
-"hospital" = "Лякарня";
+"hospital" = "Бальніца";
 
 /* Search category for toilets; any changes should be duplicated in categories.txt @toilet! */
 "toilet" = "Прыбіральня";
@@ -147,7 +153,7 @@
 "wifi" = "WiFi";
 
 /* Search category for recycling; any changes should be duplicated in categories.txt @recycling! */
-"recycling" = "Перапрацоўка";
+"recycling" = "Перапрацоўка адходаў";
 
 /* Search category for water; any changes should be duplicated in categories.txt @water! also used to sort bookmarks by type */
 "water" = "Вада";
@@ -155,19 +161,19 @@
 /* Search category for RV facilities; any changes should be duplicated in categories.txt @rv! */
 "rv" = "Для аўтадамоў";
 
-"share_bookmarks_email_body" = "Вітаю!\n\nУ далучаным файле мае закладкі з дататка Organic Maps. Калі ласка, адчыніце іх калі ў вас усталяваны Organic Maps. Калі не, спампуйце дадатак для вашай прылады iOS альбо Andriod па спасылцы: https://omaps.app/get?kmz\n\nПрыемных падарожжаў з Organic Maps!";
+"share_bookmarks_email_body" = "Вітаю!\n\nУ далучаным файле мае закладкі з праграмы Organic Maps. Калі ласка, адкрыйце іх, калі ў вас усталяваны Organic Maps. Калі не, спампуйце праграму для вашай прылады iOS альбо Andriod па спасылцы: https://omaps.app/get?kmz\n\nПрыемных падарожжаў з Organic Maps!";
 
 /* message title of loading file */
 "load_kmz_title" = "Загрузка закладак";
 
 /* Kmz file successful loading */
-"load_kmz_successful" = "Закладкі паспяхова загружаны! Вы можаце іх убачыць на мапе альбо ў захаваных закладках.";
+"load_kmz_successful" = "Закладкі паспяхова загружаны! Вы можаце іх убачыць на мапе або ў захаваных закладках.";
 
 /* Kml file loading failed */
-"load_kmz_failed" = "Не атрамалася запампаваць закладкі. Файл можа быць пашкоджаны альбо дэфектыўны.";
+"load_kmz_failed" = "Не ўдалося загрузіць закладкі. Файл можа быць пашкоджаны або няспраўны.";
 
 /* resource for context menu */
-"edit" = "Правіць";
+"edit" = "Рэдагаваць";
 
 /* Warning message when doing search around current position */
 "unknown_current_position" = "Ваша месцазнаходжанне пакуль не вызначана";
@@ -179,10 +185,13 @@
 "my_position_share_email_subject" = "Гэй, глядзі дзе я зараз на мапе Organic Maps!";
 
 /* Share button text which opens menu with more buttons, like Message, EMail, Facebook etc. */
-"share" = "Падзяліцца";
+"share" = "Абагуліць";
 
 /* Share by email button text, also used in editor and About. */
 "email" = "Электронная пошта";
+
+/* Text for message when used successfully copied something */
+"copied_to_clipboard" = "Скапіравана ў буфер абмену: %@";
 
 /* place preview title */
 "info" = "Інфармацыя";
@@ -194,37 +203,40 @@
 "version" = "Версія: %@";
 
 /* Data version in «About» screen, %@ is replaced by a local, human readable date. */
-"data_version" = "Дадзеныя OpenStreetMap: %@";
+"data_version" = "Даныя OpenStreetMap: %@";
 
 /* Title for tracks category in bookmarks manager */
-"tracks_title" = "Сцежкі";
+"tracks_title" = "Маршруты";
 
 /* Length of track in cell that describes route */
 "length" = "Даўжыня";
 
-"share_my_location" = "Падзяліцца месцазнаходжаннем";
+"share_my_location" = "Абагуліць маё месцазнаходжанне";
 
 "prefs_group_route" = "Навігацыя";
 
-"pref_zoom_title" = "Кнопкі маштаба";
+"pref_zoom_title" = "Кнопкі маштабавання";
 
 /* Settings «Map» category: «Night style» title */
 "pref_map_style_title" = "Начны рэжым";
 
-/* «Map style» entry value */
-"pref_map_style_default" = "Выключаны";
+/* Generic «Off» string */
+"off" = "Выключаны";
 
-/* «Map style» entry value */
-"pref_map_style_night" = "Уключаны";
+/* Generic «On» string */
+"on" = "Уключаны";
 
-/* «Map style» entry value */
-"pref_map_style_auto" = "Аўтаматычна";
+/* Generic «Auto» string */
+"auto" = "Аўтаматычна";
 
 /* Settings «Map» category: «Perspective view» title */
 "pref_map_3d_title" = "Перспектыўны выгляд";
 
 /* Settings «Map» category: «3D buildings» title */
 "pref_map_3d_buildings_title" = "3D будынкі";
+
+/* A message in Settings/Preferences explaining why is it not possible to enable 3D buildings when max power saving mode is enabled */
+"pref_map_3d_buildings_disabled_summary" = "У рэжыме энергазберажэння 3D-будынкі адключаны";
 
 /* Settings «Route» category: «Tts enabled» title */
 "pref_tts_enable_title" = "Галасавыя інструкцыі";
@@ -236,7 +248,7 @@
 "pref_tts_other_section_title" = "Іншы";
 
 /* Settings «Map» category: «Record track» title */
-"pref_track_record_title" = "Нядаўняя сцежка";
+"pref_track_record_title" = "Нядаўні маршрут";
 
 "pref_map_auto_zoom" = "Аўтаматычны маштаб";
 
@@ -252,7 +264,7 @@
 
 "duration_1_day" = "1 дзень";
 
-"recent_track_help_text" = "Гэтая функцыя дазваляе запісваць сцежку за некаторы прамежак часу і бачыць яе на мапе. Увага: уключэнне гэтай функцыі павялічвае выкарыстанне батарэі. Сцежка будзе аўтаматычка выдалена з мапы калі прамежак часу скончыцца.";
+"recent_track_help_text" = "Гэтая функцыя дазваляе запісваць пройдзены шлях за пэўны перыяд і бачыць яго на мапе. Увага: уключэнне гэтай функцыі павялічвае выкарыстанне батарэі. Запісаны маршрут будзе выдалены з карты па заканчэнні гэтага тэрміна.";
 
 "placepage_distance" = "Адлегласць";
 
@@ -271,7 +283,7 @@
 "telegram" = "Telegram";
 
 /* Text in menu */
-"matrix" = "[matrix]";
+"matrix" = "[Matrix]";
 
 /* Text in menu */
 "mastodon" = "Mastodon";
@@ -280,7 +292,7 @@
 "facebook" = "Facebook";
 
 /* Text in menu */
-"twitter" = "Twitter";
+"twitter" = "X (Twitter)";
 
 /* Text in menu */
 "instagram" = "Instagram";
@@ -292,7 +304,7 @@
 "openstreetmap" = "OpenStreetMap";
 
 /* Text in menu */
-"rate_the_app" = "Ацаніць дадатак";
+"rate_the_app" = "Ацаніць праграму";
 
 /* Text in menu */
 "help" = "Дапамога";
@@ -316,7 +328,7 @@
 "email_error_body" = "Паштовы кліент не наладжаны. Наладзьце яго альбо звяжыцеся з намі па адрасе %@ іншым чынам.";
 
 /* Alert title */
-"email_error_title" = "Памылка адпраўкі пошты";
+"email_error_title" = "Памылка пры адпраўцы пошты";
 
 /* Settings item title */
 "pref_calibration_title" = "Каліброўка компаса";
@@ -328,7 +340,7 @@
 "downloader_downloaded_subtitle" = "Спампаваныя";
 
 /* Downloaded maps category */
-"downloader_available_maps" = "Дасягальныя";
+"downloader_available_maps" = "Даступныя";
 
 /* Country queued for download */
 "downloader_queued" = "У чарзе";
@@ -340,7 +352,7 @@
 
 "downloader_download_all_button" = "Спампаваць усё";
 
-"downloader_downloading" = "Спампоўваецца:";
+"downloader_downloading" = "Спампоўванне:";
 
 "downloader_search_results" = "Знойдзена";
 
@@ -348,7 +360,7 @@
 "downloader_status_outdated" = "Абнавіць";
 
 /* Status of failed country in the list */
-"downloader_status_failed" = "Не атрымалася";
+"downloader_status_failed" = "Не ўдалося";
 
 /* Displayed in a dialog that appears when a user tries to delete a map while the app is in the follow route mode */
 "downloader_delete_map_while_routing_dialog" = "Каб выдаліць мапу, спыніце навігацыю.";
@@ -366,7 +378,7 @@
 "downloader_delete_map" = "Выдаліць мапу";
 
 /* Text for routing error dialog */
-"routing_download_maps_along" = "Спампаваць усе мапы на вашым шляху";
+"routing_download_maps_along" = "Спампаваць усе мапы на вашым маршруце";
 
 /* Text for routing error dialog */
 "routing_requires_all_map" = "Каб пракласці маршрут, трэба спампаваць і абнавіць усе мапы на на вашым шляху.";
@@ -429,7 +441,7 @@
 
 /********** Routing dialogs strings **********/
 
-"dialog_routing_disclaimer_title" = "Рухаючыся па маршруце, майце на ўвазе:";
+"dialog_routing_disclaimer_title" = "Падчас руху па маршруце памятайце:";
 
 "dialog_routing_disclaimer_priority" = "— Дарожныя абставіны, правілы дарожнага руху і дарожныя знакі заўсёды маюць прыярытэт над падказкамі навігацыі;";
 
@@ -437,27 +449,27 @@
 
 "dialog_routing_disclaimer_recommendations" = "— Прапанаваныя маршруты трэба ўспрымаць толькі як рэкамендацыі;";
 
-"dialog_routing_disclaimer_borders" = "— Будзьце ўважлівы з маршрутамі ў памежных зонах: маршруты пракладзеныя нашым дадаткам часамі могуць перасякаць мяжу ў недазволеных месцах.";
+"dialog_routing_disclaimer_borders" = "— Будзьце ўважлівы з маршрутамі ў памежных зонах: маршруты, пракладзеныя нашай праграмай, часам могуць перасякаць мяжу ў недазволеных месцах.";
 
 "dialog_routing_disclaimer_beware" = "Будзьце пільнымі і паводзьце сябе бяспечна на дарозе!";
 
 "dialog_routing_check_gps" = "Праверце сігнал GPS";
 
-"dialog_routing_error_location_not_found" = "Не атрымалася пракласци маршрут. Каардынаты GPS не вызначаны.";
+"dialog_routing_error_location_not_found" = "Не ўдалося пракласці маршрут. Каардынаты GPS не вызначаны.";
 
-"dialog_routing_location_turn_wifi" = "Калі ласка, праверце сігнал GPS. Для больш дакладнага вызначэння месцазнаходжання уключыце Wi-Fi.";
+"dialog_routing_location_turn_wifi" = "Калі ласка, праверце сігнал GPS. Для больш дакладнага вызначэння месцазнаходжання ўключыце Wi-Fi.";
 
 "dialog_routing_location_turn_on" = "Уключыць геалагацыю";
 
-"dialog_routing_location_unknown_turn_on" = "Не атрымалася вызначыць каардынаты GPS. Уключыце геалакацыю каб пракласці маршрут.";
+"dialog_routing_location_unknown_turn_on" = "Не атрымалася вызначыць каардынаты GPS. Уключыце геалакацыю, каб пракласці маршрут.";
 
 "dialog_routing_download_files" = "Спампуйце неабходныя файлы";
 
-"dialog_routing_download_and_update_all" = "Спампуйце і абнавіце усе мапы і дадзеныя навігацыі на планаваным шляху каб пракласці маршрут.";
+"dialog_routing_download_and_update_all" = "Спампуйце і абнавіце ўсе мапы і даныя навігацыі на шляху руху, каб пракласці маршрут.";
 
-"dialog_routing_unable_locate_route" = "Не атрымалася знайсці маршрут";
+"dialog_routing_unable_locate_route" = "Не ўдалося знайсці маршрут";
 
-"dialog_routing_change_start_or_end" = "Калі ласка, змяніце пункт адпраўлення альбо прызначэння.";
+"dialog_routing_change_start_or_end" = "Калі ласка, змяніце пункт адпраўлення або прызначэння.";
 
 "dialog_routing_change_start" = "Змяніце пункт адпраўлення";
 
@@ -477,15 +489,15 @@
 
 "dialog_routing_system_error" = "Памылка сістэмы";
 
-"dialog_routing_application_error" = "Не атрымалася пракласці маршрут з-за памылкі дадатка.";
+"dialog_routing_application_error" = "Не ўдалося пракласці маршрут з-за памылкі праграмы.";
 
 "dialog_routing_try_again" = "Паспрабуйце зноў";
 
 "not_now" = "Не зараз";
 
-"dialog_routing_download_and_build_cross_route" = "Спампаваць мапу і пракласці лепшы маршрут праз некалькі мапаў?";
+"dialog_routing_download_and_build_cross_route" = "Спампаваць мапу і пракласці лепшы маршрут праз некалькі мап?";
 
-"dialog_routing_download_cross_route" = "Спампаваць дадатковыя мапы, каб пракласці лепшы маршрут, каторы перасякае межы гэтай мапы.";
+"dialog_routing_download_cross_route" = "Спампаваць дадатковыя мапы, каб пракласці лепшы маршрут, які перасякае межы гэтай мапы.";
 
 
 /********** Strings for downloading map from search **********/
@@ -500,10 +512,10 @@
 "routing_planning_error" = "Памылка пракладання маршрута";
 
 /* Arrive routing message in navigation view */
-"routing_arrive" = "Прыбыццё а %s";
+"routing_arrive" = "Прыбыццё ў %@";
 
 /* Text for routing::RouterResultCode::FileTooOld dialog. */
-"dialog_routing_download_and_update_maps" = "Спампуйце і абнавіце ўсе мапы на шляху каб пракласці маршрут.";
+"dialog_routing_download_and_update_maps" = "Спампуйце і абнавіце ўсе мапы на шляху, каб пракласці маршрут.";
 
 "categories" = "Катэгорыі";
 
@@ -511,11 +523,11 @@
 
 "search_not_found" = "Нічога не знойдзена.";
 
-"search_not_found_query" = "Паспрабуйце змяніць умовы пошуку.";
+"search_not_found_query" = "Паспрабуйце змяніць крытэрыі пошуку.";
 
 "search_history_title" = "Гісторыя пошуку";
 
-"search_history_text" = "Праглядзець нядаўныя пошукі.";
+"search_history_text" = "Праглядзець свае апошнія пошукі.";
 
 "clear_search" = "Ачысціць гісторыю пошуку";
 
@@ -544,59 +556,59 @@
 /* Text for allday switch. */
 "editor_time_allday" = "Цэлы дзень (24 гадзіны)";
 
-"editor_time_open" = "Адчынена";
+"editor_time_open" = "Адкрыта";
 
-"editor_time_close" = "Зачынена";
+"editor_time_close" = "Закрыта";
 
-"editor_time_add_closed" = "Дадаць час, калі зачынена";
+"editor_time_add_closed" = "Дадаць час, калі закрыта";
 
 "editor_time_title" = "Час працы";
 
-"editor_time_advanced" = "Расшыраны рэжым";
+"editor_time_advanced" = "Пашыраны рэжым";
 
 "editor_time_simple" = "Просты рэжым";
 
-"editor_hours_closed" = "Час, калі зачынена";
+"editor_hours_closed" = "Час, калі закрыта";
 
 "editor_example_values" = "Прыклады значэнняў";
 
 "editor_add_select_location" = "Месцазнаходжанне";
 
-"editor_done_dialog_1" = "Вы змянілі мапу свету. Не прыхоўвайце гэта! Расскажыце сябрам і праўце разам.";
+"editor_done_dialog_1" = "Вы змянілі мапу свету. Не хавайце гэта! Расскажыце сябрам і рэдагуйце разам.";
 
-"share_with_friends" = "Падзяліцца з сябрамі";
+"share_with_friends" = "Абагуліць з сябрамі";
 
 "editor_report_problem_send_button" = "Адправіць";
 
-"autodownload" = "Аўтаматычная спампоўка";
+"autodownload" = "Аўтаматычнае спампоўванне";
 
 /* Place Page opening hours text */
-"closed_now" = "Зараз зачынена";
+"closed_now" = "Зараз закрыта";
 
 /* Place Page opening hours text */
 "daily" = "Штодзённа";
 
 "twentyfour_seven" = "24/7";
 
-"day_off_today" = "Сёння зачынена";
+"day_off_today" = "Сёння закрыта";
 
-"day_off" = "Зачынена";
+"day_off" = "Закрыта";
 
 "today" = "Сёння";
 
-"opens_tomorrow_at" = "Адкрыццё заўтра ў %@";
+"opens_tomorrow_at" = "Адкрыецца заўтра ў %@";
 
-"opens_dayoftheweek_at" = "Адкрыццё ў %1$@ у %2$@";
+"opens_dayoftheweek_at" = "Адкрываецца ў %1$@ у %2$@";
 
-"opens_at" = "Адкрыццё ў %@";
+"opens_at" = "Адкрываецца ў %@";
 
-"opens_in" = "Адчыняецца праз %@";
+"opens_in" = "Адкрываецца праз %@";
 
-"closes_at" = "Зачыняецца ў %@";
+"closes_at" = "Закрываецца ў %@";
 
-"closes_in" = "Зачыняецца праз %@";
+"closes_in" = "Закрываецца праз %@";
 
-"closed" = "Зачынена";
+"closed" = "Закрыта";
 
 "add_opening_hours" = "Дадаць часы працы";
 
@@ -646,7 +658,7 @@
 "select_cuisine" = "Выбраць кухню";
 
 /* login text field */
-"email_or_username" = "Email альбо імя карыстальніка";
+"email_or_username" = "Email або імя карыстальніка";
 
 "phone" = "Тэлефон";
 
@@ -666,11 +678,11 @@
 
 "downloader_no_space_title" = "Не хапае месца";
 
-"downloader_no_space_message" = "Выдаліце непатрэбныя дадзеныя";
+"downloader_no_space_message" = "Выдаліце непатрэбныя даныя";
 
 "editor_profile_changes" = "Правераныя змены";
 
-"editor_focus_map_on_location" = "Перацягніце мапу каб выбраць правільнае месцазнаходжанне аб'екта.";
+"editor_focus_map_on_location" = "Перацягніце мапу, каб выбраць правільнае месцазнаходжанне аб'екта.";
 
 "editor_add_select_category" = "Выбраць катэгорыю";
 
@@ -678,7 +690,7 @@
 
 "editor_add_select_category_all_subtitle" = "Усе катэгорыі";
 
-"editor_edit_place_title" = "Праўка";
+"editor_edit_place_title" = "Рэдагаванне";
 
 "editor_add_place_title" = "Даданне";
 
@@ -686,7 +698,7 @@
 
 "editor_edit_place_category_title" = "Катэгорыя";
 
-"whatsnew_editor_message_1" = "Стварайце на мапе новыя месцы і праўце існуючыя прама ў дататку.";
+"whatsnew_editor_message_1" = "Стварайце на мапе новыя месцы і рэдагуйце існуючыя прама ў праграме.";
 
 "dialog_incorrect_feature_position" = "Змяніце месцазнаходжанне";
 
@@ -695,7 +707,7 @@
 "login_to_make_edits_visible" = "Аўтарызуйцеся ў OpenStreetMap.org, каб іншыя карыстальнікі бачылі вашыя змены.";
 
 /* Error dialog no space */
-"migration_no_space_message" = "Каб спампаваць, трэба больш месца. Выдаліце непатрэбныя дадзеныя.";
+"migration_no_space_message" = "Каб спампаваць, трэба больш месца. Выдаліце непатрэбныя даныя.";
 
 "editor_sharing_title" = "Я палепшыў мапы Organic Maps";
 
@@ -704,9 +716,9 @@
 
 "download_over_mobile_header" = "Спампаваць праз мабільны інтэрнэт?";
 
-"download_over_mobile_message" = "Гэта можа быць даволі дорага з некаторымі тарыфнымі планамі альбо ў роўмінгу.";
+"download_over_mobile_message" = "Гэта можа быць даволі дорага з некаторымі тарыфнымі планамі або ў роўмінгу.";
 
-"error_enter_correct_house_number" = "Увядзіце нумар дома правільна";
+"error_enter_correct_house_number" = "Увядзіце правільны нумар дома";
 
 "editor_storey_number" = "Колькасць паверхаў (максімум %d)";
 
@@ -715,16 +727,16 @@
 
 "editor_zip_code" = "Паштовы індэкс";
 
-"error_enter_correct_zip_code" = "Увядзіце паштовы індэкс правільна";
+"error_enter_correct_zip_code" = "Увядзіце правільны паштовы індэкс";
 
 /* Place Page title for long tap */
 "core_placepage_unknown_place" = "Невядомае месца";
 
 "editor_other_info" = "Адправіць нататку рэдактарам OSM";
 
-"editor_detailed_description_hint" = "Падрабязны каментар";
+"editor_detailed_description_hint" = "Падрабязны каментарый";
 
-"editor_detailed_description" = "Запрапанаваныя вамі змены будуць дасланыя суполцы OpenStreetMap. Апішыце любыя іншыя падрабязнасці, каторыя нельга паправіць у Organic Maps.";
+"editor_detailed_description" = "Прапанаваныя вамі змены будуць дасланы суполцы OpenStreetMap. Апішыце любыя дадатковыя дэталі, якія нельга рэдагаваць у Organic Maps.";
 
 "editor_more_about_osm" = "Падрабязней пра OpenStreetMap";
 
@@ -738,7 +750,7 @@
 "current_location_unknown_title" = "Працягнуць вызначэнне месцазнаходжання?";
 
 /* Error that appears after certain time without location. */
-"current_location_unknown_message" = "Месцазнаходжанне невядома. Магчыма вы ў будынку альбо ў танэлі.";
+"current_location_unknown_message" = "Месцазнаходжанне невядома. Магчыма вы ў будынку або ў танэлі.";
 
 "current_location_unknown_continue_button" = "Працягнуць";
 
@@ -748,27 +760,31 @@
 
 "current_location_unknown_error_message" = "Адбылася памылка пры пошуку месцазнаходжання. Праверце, што ваша прылада працуе як трэба, і паспрабуйце зноў.";
 
-"location_services_disabled_header" = "Геалакацыя выключана";
+"location_services_disabled_header" = "Геалакацыя адключана";
 
 "location_services_disabled_message" = "Уключыце доступ да геалакацыі у наладах прылады.";
 
-"location_services_disabled_1" = "1. Адчыніце Налады";
+"location_services_disabled_1" = "1. Адкрыйце Налады";
 
 "location_services_disabled_2" = "2. Націсніце Геалакацыя";
 
-/* iOS Dialog for the case when the location permission is not granted */
-"location_services_disabled_3" = "3. Выберыце \"Падчас ужывання дадатку\"";
+/* iOS Dialog for the case when the location permission is not granted; you might find the exact wording for your language here: https://support.apple.com/en-us/102647 (replace 'en-us' in URL with your language/region) */
+"location_services_disabled_3" = "3. Выберыце \"Падчас выкарыстання праграмы\"";
 
-"meter" = "м";
+/* abbreviation for meters */
+"m" = "м";
 
-"kilometer" = "км";
+/* abbreviation for kilometers */
+"km" = "км";
 
+/* abbreviation for kilometers per hour */
 "kilometers_per_hour" = "км/г";
 
-"mile" = "міля";
+/* abbreviation for mile(s) */
+"mi" = "міля";
 
 /* A unit of measure */
-"foot" = "фут";
+"ft" = "фут";
 
 "miles_per_hour" = "міль/г";
 
@@ -776,15 +792,22 @@
 
 "minute" = "хв";
 
-"placepage_place_description" = "Апісанне";
-
 "placepage_more_button" = "Яшчэ";
 
 "book_button" = "Забраніраваць";
 
+/* A referral link on the place page for some hotels */
+"more_on_kayak" = "Фота, водгукі, браніраванне";
+
+/* An explanation dialog shown when clicking on more_on_kayak link. */
+"dialog_kayak_disclaimer" = "Рэферальны бонус, атрыманы за кожнае браніраванне па гэтай спасылцы, ідзе на распрацоўку Organic Maps.";
+
+/* A confirmation button text in the explanation dialog that opens hotel details page on Kayak website. */
+"dialog_kayak_button" = "Падрабязнасці на Kayak";
+
 "placepage_call_button" = "Патэлефанаваць";
 
-"placepage_edit_bookmark_button" = "Правіць закладку";
+"placepage_edit_bookmark_button" = "Рэдагаваць закладку";
 
 "placepage_bookmark_name_hint" = "Назва закладкі";
 
@@ -792,13 +815,13 @@
 
 "placepage_delete_bookmark_button" = "Выдаліць закладку";
 
-"editor_edits_sent_message" = "Запрапанаваныя вамі змены адпраўлены";
+"editor_edits_sent_message" = "Прапанаваныя вамі змены былі адпраўлены";
 
-"editor_comment_hint" = "Каментар…";
+"editor_comment_hint" = "Каментарый…";
 
-"editor_reset_edits_message" = "Скінуць усе лакальныя змены?";
+"editor_reset_edits_message" = "Адмовіцца ад усіх лакальных змен?";
 
-"editor_reset_edits_button" = "Скінуць";
+"editor_reset_edits_button" = "Адмовіцца";
 
 "editor_remove_place_message" = "Выдаліць даданае месца?";
 
@@ -809,21 +832,21 @@
 "text_more_button" = "…яшчэ";
 
 /* Phone number error message */
-"error_enter_correct_phone" = "Увядзіце нумар тэлефона правільна";
+"error_enter_correct_phone" = "Увядзіце правільны нумар тэлефона";
 
-"error_enter_correct_web" = "Увядзіце web-адрас правільна";
+"error_enter_correct_web" = "Увядзіце правільны вэб-адрас";
 
-"error_enter_correct_email" = "Увядзіце email правільна";
+"error_enter_correct_email" = "Увядзіце правільны адрас электронный пошты";
 
 "refresh" = "Абнавіць";
 
-"placepage_add_place_button" = "Дадаць месца на мапу";
+"placepage_add_place_button" = "Дадаць месца ў OpenStreetMap";
 
 /* Displayed when saving some edits to the map to warn against publishing personal data */
 "editor_share_to_all_dialog_title" = "Хочаце адправіць усім карыстальнікам?";
 
 /* Dialog before publishing the modifications to the public map. */
-"editor_share_to_all_dialog_message_1" = "Упэўніцеся, што вы не ўвялі ніякіх асабістых дадзеных.";
+"editor_share_to_all_dialog_message_1" = "Упэўніцеся, што вы не ўвялі ніякіх асабістых даных.";
 
 "editor_share_to_all_dialog_message_2" = "Рэдактары OpenStreetMap правераць змены і звяжуцца з вамі, калі ў іх узнікнуць пытанні.";
 
@@ -832,15 +855,15 @@
 /* iOS dialog for the case when recent track recording is on and the app comes back from background */
 "recent_track_background_dialog_title" = "Выключыць запіс вашага нядаўна пройдзенага маршрута?";
 
-"off_recent_track_background_button" = "Выключыць";
+"off_recent_track_background_button" = "Адключыць";
 
 /* For sharing via SMS and so on */
 "sharing_call_action_look" = "Паглядзі";
 
-"recent_track_background_dialog_message" = "Organic Maps ужывае вашу геалакацыю ў фонавым рэжыме каб запісваць ваш нядаўна пройдзены маршрут.";
+"recent_track_background_dialog_message" = "Organic Maps выкарыстоўвае вашу геалакацыю ў фонавым рэжыме, каб запісваць ваш нядаўна пройдзены маршрут.";
 
 /* Text under the version number in the Help dialog. TODO: Synchronize other translations with English. */
-"about_description" = "Organic Maps — гэта хуткія і бясплатныя мапы без рэкламы, якія працуюць без Інтэрнэту і не шпіёняць за вамі. Усе картаграфічныя дадзеныя бяруцца з OpenStreetMap.org, там вы зможаце самастойна выпраўляць памылкі і дадаваць новыя аб'екты. Organic Maps — гэта праект з адкрытым зыходным кодам, які ствараецца энтузіястамі ў вольны час. Будзем рады вашай падтрымцы і зваротнай сувязі!";
+"about_description" = "Organic Maps — гэта хуткія і бясплатныя мапы без рэкламы, якія працуюць без інтэрнэту і не шпіёняць за вамі. Усе картаграфічныя даныя бяруцца з OpenStreetMap.org, там вы зможаце самастойна выпраўляць памылкі і дадаваць новыя аб'екты. Organic Maps — гэта праект з адкрытым зыходным кодам, які ствараецца энтузіястамі ў вольны час. Будзем рады вашай падтрымцы і зваротнай сувязі!";
 
 "general_settings" = "Агульныя налады";
 
@@ -853,7 +876,7 @@
 /* A noun - a button name used to show search results in list form */
 "search_in_table" = "Спіс";
 
-"mobile_data_dialog" = "Ужываць мабільны інтэрнэт для паказу больш падрабязнай інфармацыі?";
+"mobile_data_dialog" = "Выкарыстоўваць мабільны інтэрнэт для паказу больш падрабязнай інфармацыі?";
 
 "mobile_data_option_always" = "Заўсёды";
 
@@ -875,23 +898,19 @@
 "big_font" = "Павялічыць шрыфт мапы";
 
 /* "traffic" as in road congestion */
-"traffic_update_app_message" = "Для паказу інфармацыі пра рух трэба абнавіць дадатак.";
+"traffic_update_app_message" = "Для паказу інфармацыі пра рух трэба абнавіць праграмы.";
 
 /* "traffic" as in "road congestion" */
 "traffic_data_unavailable" = "Інфармацыі пра рух няма";
-
-"on" = "Укл.";
-
-"off" = "Выкл.";
 
 "transliteration_title" = "Транслітарацыя лацінкай";
 
 /* Subway exits for public transport marks on the map */
 "core_exit" = "Выхад";
 
-"routing_add_start_point" = "Дадайце пункт адпраўлення каб пракласці маршрут";
+"routing_add_start_point" = "Дадайце пункт адпраўлення, каб пракласці маршрут";
 
-"routing_add_finish_point" = "Дадайце пункт прызначэння каб пракласці маршрут";
+"routing_add_finish_point" = "Дадайце пункт прызначэння, каб пракласці маршрут";
 
 "planning_route_manage_route" = "Кіраваць маршрутам";
 
@@ -909,7 +928,7 @@
 
 "core_entrance" = "Уваход";
 
-"error_enter_correct_name" = "Калі ласка, увядзіце назву правільна";
+"error_enter_correct_name" = "Калі ласка, увядзіце правільну назву";
 
 "bookmark_lists" = "Спісы";
 
@@ -922,17 +941,17 @@
 
 "downloader_hide_screen" = "Схаваць экран";
 
-"downloader_percent" = "%s (%s з %s)";
+"downloader_percent" = "%@ (%@ з %@)";
 
-"downloader_process" = "Спампоўка %s…";
+"downloader_process" = "Спампоўванне %@…";
 
-"downloader_applying" = "Застасаванне %s…";
+"downloader_applying" = "Прымяненне %@…";
 
-"bookmarks_error_message_share_general" = "Не атрымалася падзяліцца з-за памылкі дадатка";
+"bookmarks_error_message_share_general" = "Не атрымалася абагуліць з-за памылкі праграмы";
 
-"bookmarks_error_title_share_empty" = "Памылка пры спробе падзяліцца";
+"bookmarks_error_title_share_empty" = "Памылка пры спробе абагульвання";
 
-"bookmarks_error_message_share_empty" = "Нельга падзяліцца пустым спісам";
+"bookmarks_error_message_share_empty" = "Нельга абагуліць пусты спіс";
 
 "bookmarks_error_message_empty_list_name" = "Увядзіце назву спіса";
 
@@ -950,11 +969,11 @@
 
 "bookmarks_convert_error_message" = "Некаторыя файлы не ператварыліся.";
 
-"bookmarks_restore_title" = "Узнавіць гэтую версію?";
+"bookmarks_restore_title" = "Аднавіць гэтую версію?";
 
 "error_system_message" = "Адбылася невядомая памылка";
 
-"restore" = "Узнавіць";
+"restore" = "Аднавіць";
 
 "privacy_policy" = "Палітыка прыватнасці";
 
@@ -964,17 +983,15 @@
 
 "button_layer_subway" = "Метро";
 
-"layers_title" = "Слаі карты";
+"layers_title" = "Стылі і пласты карты";
 
-"subway_data_unavailable" = "Мапа метро недасягальная";
+"subway_data_unavailable" = "Мапа метро недаступная";
 
 "title_error_downloading_bookmarks" = "Адбылася памылка";
 
 "popular_place" = "Папулярнае";
 
 "export_file" = "Экспартаваць файл";
-
-"list_settings" = "Налады спіса";
 
 "delete_list" = "Выдаліць спіс";
 
@@ -988,11 +1005,11 @@
 
 "speedcams_alert_title" = "Камеры хуткасці";
 
-"speedcam_option_auto" = "Аўтаматычна";
+/* Generic «Always» string */
+"always" = "Заўсёды";
 
-"speedcam_option_always" = "Заўсёды";
-
-"speedcam_option_never" = "Ніколі";
+/* Generic «Never» string */
+"never" = "Ніколі";
 
 "place_description_title" = "Апісанне месца";
 
@@ -1000,7 +1017,7 @@
 
 "power_managment_title" = "Рэжым захавання энергіі";
 
-"power_managment_description" = "Калі ўключаны рэжым захавання энергіі, дадатак пачынае выключаць энергазатратныя функцыі ў залежнасці ад зарада батарэі";
+"power_managment_description" = "Калі ўключаны рэжым захавання энергіі, праграма пачынае выключаць энергазатратныя функцыі ў залежнасці ад зарада батарэі";
 
 "power_managment_setting_never" = "Ніколі";
 
@@ -1010,15 +1027,16 @@
 
 "driving_options_title" = "Налады пракладкі маршрута";
 
-"driving_options_subheader" = "Пазбягаць на кожным маршруце";
+/* Recommended length for CarPlay and Android Auto is around 25-27 characters */
+"avoid_tolls" = "Пазбягаць платныя дарогі";
 
-"avoid_tolls" = "Платныя дарогі";
+/* Recommended length for CarPlay and Android Auto is around 25-27 characters */
+"avoid_unpaved" = "Пазбягаць грунтавыя дарогі";
 
-"avoid_unpaved" = "Грунтовыя дарогі";
+/* Recommended length for CarPlay and Android Auto is around 25-27 characters */
+"avoid_ferry" = "Пазбягаць паромы";
 
-"avoid_ferry" = "Паромныя пераправы";
-
-"avoid_motorways" = "Аўтамагістралі";
+"avoid_motorways" = "Пазбягаць аўтамагістралі";
 
 "unable_to_calc_alert_title" = "Не атрымалася пракласці маршрут";
 
@@ -1033,12 +1051,6 @@
 "unpaved_road" = "Грунтовая дарога";
 
 "ferry_crossing" = "Паромная пераправа";
-
-"avoid_toll_roads_placepage" = "Пазбягаць платных дарог";
-
-"avoid_unpaved_roads_placepage" = "Пазбягаць грунтовых дарог";
-
-"avoid_ferry_crossing_placepage" = "Пазбягаць паромных перапраў";
 
 "trip_start" = "Паехалі";
 
@@ -1064,6 +1076,9 @@
 /* E.g. "WiFi:No" */
 "no_available" = "Няма";
 
+/* To indicate the capacity of car parkings, bicycle parkings, electric vehicle charging stations... */
+"capacity" = "Ёмістасць: %@";
+
 "trip_finished" = "Вы прыбылі!";
 
 "keyboard_availability_alert" = "Клавіятура недасягальная падчас язды";
@@ -1078,7 +1093,7 @@
 
 "dialog_routing_download_files_carplay" = "Каб пракласці маршрут, спампуйце мапы, каторых не хапае на вашай прыладзе";
 
-"dialog_routing_system_error_carplay" = "Адбылася памылка. Калі ласка, перазапусціце дадатак";
+"dialog_routing_system_error_carplay" = "Адбылася памылка. Калі ласка, перазапусціце праграму";
 
 "dialog_routing_rebuild_from_current_location_carplay" = "Маршрут будзе перапракладзены ад вашага цяперашняга месцазнаходжання";
 
@@ -1086,25 +1101,13 @@
 
 "ok" = "Ок";
 
-"avoid_unpaved_carplay_1" = "Без грунт.";
-
-"avoid_unpaved_carplay_2" = "Пазбягаць грунтовак";
-
-"avoid_ferry_carplay_1" = "Без паромаў";
-
-"avoid_ferry_carplay_2" = "Пазбягаць паромаў";
-
-"avoid_tolls_carplay_1" = "Без платных";
-
-"avoid_tolls_carplay_2" = "Пазбягаць платных";
-
 "speedcams_alert_title_carplay_1" = "Камеры";
 
 "speedcams_alert_title_carplay_2" = "Папяр. аб хуткасці";
 
-"download_map_carplay" = "Спампуйце мапы ў дадатку Organic Maps на вашай прыладзе";
+"download_map_carplay" = "Спампуйце мапы ў праграме Organic Maps на вашай прыладзе";
 
-"carplay_roundabout_exit" = "%s з'езд";
+"carplay_roundabout_exit" = "%@ з'езд";
 
 /* max. 10 symbols, both iOS and Android */
 "sort" = "Сартаваць…";
@@ -1210,7 +1213,7 @@
 "whats_new_auto_update_message" = "Абнаўленне мапаў падтрымлівае актуальнасць звестак пра аб’екты";
 
 /* Autoupdate dialog on start */
-"whats_new_auto_update_button_size" = "Абнавіць (%s)";
+"whats_new_auto_update_button_size" = "Абнавіць (%@)";
 
 /* Autoupdate dialog on start */
 "whats_new_auto_update_button_later" = "Абнавіць пазней уручную";
@@ -1236,8 +1239,20 @@
 /* Translated Organic Maps site, add new translations here: https://github.com/organicmaps/organicmaps.github.io/tree/master/content */
 "translated_om_site_url" = "https://organicmaps.app/ru/";
 
+/* Link to OSM wiki for Editor, Profile and About pages */
+"osm_wiki_about_url" = "https://wiki.openstreetmap.org/wiki/About_OpenStreetMap";
+
+/* Outdoors/hiking map style (activity) name in the Styles and Layers dialog */
+"button_layer_outdoor" = "Актыўны адпачынак";
+
 
 /********** Types **********/
+
+"type.addr_interpolation" = "Адрас/Блок";
+
+"type.addr_interpolation.even" = "Адрас/Блок";
+
+"type.addr_interpolation.odd" = "Адрас/Блок";
 
 "type.aerialway" = "Aerialway";
 
@@ -1273,7 +1288,7 @@
 
 "type.amenity" = "Amenity";
 
-"type.amenity.arts_centre" = "Art Center";
+"type.amenity.arts_centre" = "Arts Center";
 
 "type.amenity.atm" = "ATM";
 
@@ -1309,9 +1324,17 @@
 
 "type.amenity.casino" = "Casino";
 
+"type.amenity.gambling" = "Азартныя гульні";
+
+"type.leisure.adult_gaming_centre" = "Гульнявы цэнтр для дарослых";
+
+"type.leisure.amusement_arcade" = "Аркада";
+
 "type.amenity.charging_station" = "Charging Station";
 
-"type.amenity.charging_station.motorcar" = "Charging Station";
+"type.amenity.charging_station.bicycle" = "Станцыя для зарадкі ровараў";
+
+"type.amenity.charging_station.motorcar" = "Аўтамабільная зарадная станцыя";
 
 "type.amenity.childcare" = "Nursery";
 
@@ -1325,6 +1348,10 @@
 
 "type.amenity.community_centre" = "Community Centre";
 
+"type.amenity.compressed_air" = "Сціснутае паветра";
+
+"type.amenity.conference_centre" = "Канферэнц-цэнтр";
+
 "type.amenity.courthouse" = "Courthouse";
 
 "type.amenity.dentist" = "Dentist";
@@ -1334,6 +1361,10 @@
 "type.amenity.drinking_water" = "Drinking Water";
 
 "type.amenity.driving_school" = "Аўташкола";
+
+"type.amenity.exhibition_centre" = "Выставачны цэнтр";
+
+"type.amenity.money_transfer" = "Грашовыя пераводы";
 
 "type.amenity.music_school" = "Музычная школа";
 
@@ -1383,9 +1414,11 @@
 
 "type.amenity.parking" = "Паркоўка";
 
-"type.amenity.parking.fee" = "Платная паркоўка";
+"type.amenity.parking.fee" = "Паркоўка";
 
 "type.amenity.parking.multi.storey" = "Шматпавярховая паркоўка";
+
+"type.amenity.parking.multi.storey.fee" = "Шматпавярховая паркоўка";
 
 "type.amenity.parking.no.access" = "Прыватная паркоўка";
 
@@ -1393,13 +1426,29 @@
 
 "type.amenity.parking.private" = "Прыватная паркоўка";
 
-"type.amenity.parking.park_and_ride" = "Parking";
+"type.amenity.parking.park_and_ride" = "Park And Ride Parking";
 
 "type.amenity.parking.underground" = "Падземны паркінг";
 
+"type.amenity.parking.underground.fee" = "Падземны паркінг";
+
+"type.amenity.parking.underground.private" = "Прыватны падземны паркінг";
+
+"type.amenity.parking.street_side" = "Паркоўка з боку вуліцы";
+
+"type.amenity.parking.street_side.fee" = "Паркоўка з боку вуліцы";
+
+"type.amenity.parking.street_side.private" = "Прыватная паркоўка з боку вуліцы";
+
+"type.amenity.parking.lane" = "Завулак паркоўкі";
+
+"type.amenity.parking.lane.fee" = "Завулак паркоўкі";
+
+"type.amenity.parking.lane.private" = "Прыватная паркоўка";
+
 "type.amenity.parking_entrance" = "Уваход на паркоўку";
 
-"type.amenity.parking_entrance.private" = "Уваход на паркоўку";
+"type.amenity.parking_entrance.private" = "Уваход на прыватную паркоўку";
 
 "type.amenity.parking_entrance.permissive" = "Уваход на паркоўку";
 
@@ -1419,19 +1468,23 @@
 
 "type.amenity.place_of_worship" = "Place of Worship";
 
-"type.amenity.place_of_worship.buddhist" = "Temple";
+"type.amenity.place_of_worship.buddhist" = "Buddhist Temple";
 
 "type.amenity.place_of_worship.christian" = "Church";
 
-"type.amenity.place_of_worship.hindu" = "Temple";
+"type.amenity.place_of_worship.christian.mormon" = "Царква Ісуса Хрыста Святых апошніх дзён";
+
+"type.amenity.place_of_worship.christian.jehovahs_witness" = "Зала царства Сведкаў Іегавы";
+
+"type.amenity.place_of_worship.hindu" = "Hindu Temple";
 
 "type.amenity.place_of_worship.jewish" = "Synagogue";
 
 "type.amenity.place_of_worship.muslim" = "Mosque";
 
-"type.amenity.place_of_worship.shinto" = "Shrine";
+"type.amenity.place_of_worship.shinto" = "Shinto Shrine";
 
-"type.amenity.place_of_worship.taoist" = "Temple";
+"type.amenity.place_of_worship.taoist" = "Taoist Temple";
 
 "type.amenity.police" = "Police";
 
@@ -1488,15 +1541,21 @@
 
 "type.amenity.shelter" = "Shelter";
 
+"type.amenity.public_bath" = "Грамадская лазня";
+
 "type.amenity.shower" = "Shower";
 
-"type.amenity.taxi" = "Taxi";
+"type.amenity.stripclub" = "Стрыптыз-клуб";
+
+"type.amenity.taxi" = "Taxi Stand";
 
 "type.amenity.telephone" = "Phone";
 
 "type.amenity.theatre" = "Theatre";
 
 "type.amenity.toilets" = "Toilet";
+
+"type.toilets.yes" = "Toilet";
 
 "type.amenity.townhall" = "Адміністрацыя";
 
@@ -1526,6 +1585,8 @@
 
 "type.amenity.parcel_locker" = "Паштамат";
 
+"type.amenity.vehicle_inspection" = "Тэхагляд аўтамабіля";
+
 "type.amenity.vending_machine.fuel" = "Паліўная калонка";
 
 "type.amenity.veterinary" = "Veterinary Doctor";
@@ -1542,7 +1603,7 @@
 
 "type.barrier.block" = "Block";
 
-"type.barrier.bollard" = "Pillar";
+"type.barrier.bollard" = "Bollard";
 
 "type.barrier.border_control" = "Border Control";
 
@@ -1552,7 +1613,11 @@
 
 "type.barrier.cycle_barrier" = "Cycle Barrier";
 
-"type.barrier.ditch" = "Роў";
+"type.waterway.ditch" = "Дрэнажная канава";
+
+"type.natural.water.moat" = "Роў";
+
+"type.natural.water.wastewater" = "Сцёкавыя вады";
 
 "type.barrier.entrance" = "Entrance";
 
@@ -1569,6 +1634,8 @@
 "type.barrier.retaining_wall" = "Retaining Wall";
 
 "type.barrier.stile" = "Stile";
+
+"type.barrier.turnstile" = "Турнікет";
 
 "type.barrier.swing_gate" = "Шлагбаўм";
 
@@ -1618,13 +1685,30 @@
 
 "type.boundary.national_park" = "National Park";
 
+"type.boundary.protected_area" = "Запаведная зона";
+
+"type.boundary.protected_area.1" = "Запаведная зона";
+
+"type.boundary.protected_area.2" = "Запаведная зона";
+
+"type.boundary.protected_area.3" = "Запаведная зона";
+
+"type.boundary.protected_area.4" = "Запаведная зона";
+
+"type.boundary.protected_area.5" = "Запаведная зона";
+
+"type.boundary.protected_area.6" = "Запаведная зона";
+
 "type.building" = "Building";
 
-"type.building.address" = "Building";
-
-"type.building.garage" = "Garage";
+/* Duplicates [address] in strings.txt */
+"type.building.address" = "Адрас";
 
 "type.building.has_parts" = "Building";
+
+"type.building_part" = "Building";
+
+"type.building.garage" = "Garage";
 
 "type.building.train_station" = "Train Station";
 
@@ -1640,6 +1724,8 @@
 
 "type.craft.brewery" = "Крафтавы бровар";
 
+"type.craft.caterer" = "Кейтэрынг";
+
 "type.craft.carpenter" = "Цясляр";
 
 "type.craft.confectionery" = "Кандытар";
@@ -1650,16 +1736,24 @@
 
 "type.craft.gardener" = "Садоўнік";
 
+"type.craft.grinding_mill" = "Млын";
+
 "type.craft.handicraft" = "Рамесніцтва";
 
 /* Heating, Ventilation, and Air Conditioning */
 "type.craft.hvac" = "Ацяпленне, вентыляцыя і кандыцыянаванне";
+
+"type.craft.key_cutter" = "Выраб ключоў";
+
+"type.craft.locksmith" = "Слесар";
 
 "type.craft.metal_construction" = "Металаканструкцыі";
 
 "type.craft.painter" = "Мастак";
 
 "type.craft.photographer" = "Фатограф";
+
+"type.shop.camera" = "Крама фотаапаратаў";
 
 "type.craft.plumber" = "Вадаправодчык";
 
@@ -1791,7 +1885,7 @@
 
 "type.cuisine.noodles" = "Noodles";
 
-"type.cuisine.oriental" = "Far Eastern";
+"type.cuisine.oriental" = "East Asian";
 
 "type.cuisine.pancake" = "Pancake";
 
@@ -1845,6 +1939,8 @@
 
 "type.emergency" = "Emergency";
 
+"type.emergency.assembly_point" = "Аварыйны зборны пункт";
+
 "type.emergency.defibrillator" = "Дэфібрылятар";
 
 "type.emergency.fire_hydrant" = "Пажарны гідрант";
@@ -1856,6 +1952,12 @@
 
 /* This is for main/primary entrances, for secondary entrances see type.entrance */
 "type.entrance.main" = "Галоўны ўваход";
+
+"type.entrance.exit" = "Выхад";
+
+"type.fee.yes" = "💲";
+
+"type.fee.no" = "бясплатна";
 
 "type.healthcare.laboratory" = "Медыцынская лабараторыя";
 
@@ -1894,6 +1996,12 @@
 
 "type.highway.busway" = "Выдзеленая аўтобусная дарога";
 
+/* These translations are used for all type.highway.*.bridge. */
+"type.highway.busway.bridge" = "Мост";
+
+/* These translations are used for all type.highway.*.tunnel. */
+"type.highway.busway.tunnel" = "Тунэль";
+
 "type.highway.bus_stop" = "Bus Stop";
 
 "type.highway.construction" = "Road Under Construction";
@@ -1912,6 +2020,10 @@
 
 "type.highway.footway" = "Foot Path";
 
+"type.highway.footway.sidewalk" = "Тратуар";
+
+"type.highway.footway.crossing" = "Пешаходны пераход";
+
 "type.highway.footway.alpine_hiking" = "Path";
 
 "type.highway.footway.area" = "Foot Path";
@@ -1928,8 +2040,6 @@
 "type.highway.footway.hiking" = "Path";
 
 "type.highway.footway.mountain_hiking" = "Path";
-
-"type.highway.footway.permissive" = "Foot Path";
 
 /* These translations are used for all type.highway.*.tunnel. */
 "type.highway.footway.tunnel" = "Тунэль";
@@ -2016,9 +2126,9 @@
 
 "type.highway.raceway" = "Racetrack";
 
-"type.highway.residential" = "Street";
+"type.highway.residential" = "Residential Street";
 
-"type.highway.residential.area" = "Street";
+"type.highway.residential.area" = "Residential Street";
 
 /* These translations are used for all type.highway.*.bridge. */
 "type.highway.residential.bridge" = "Мост";
@@ -2032,6 +2142,9 @@
 
 /* These translations are used for all type.highway.*.bridge. */
 "type.highway.road.bridge" = "Мост";
+
+/* A bridge structure outline. */
+"type.man_made.bridge" = "Мост";
 
 /* These translations are used for all type.highway.*.tunnel. */
 "type.highway.road.tunnel" = "Тунэль";
@@ -2160,7 +2273,7 @@
 
 "type.area_highway.primary" = "Primary Road";
 
-"type.area_highway.residential" = "Street";
+"type.area_highway.residential" = "Residential Street";
 
 "type.area_highway.secondary" = "Secondary Road";
 
@@ -2185,11 +2298,17 @@
 
 "type.historic" = "Гістарычны аб'ект";
 
+"type.historic.aircraft" = "Гістарычныя самалёты";
+
+"type.historic.anchor" = "Гістарычны якар";
+
 "type.historic.archaeological_site" = "Археалагічны помнік";
 
 "type.historic.battlefield" = "Поле бітвы";
 
 "type.historic.boundary_stone" = "Межавы камень";
+
+"type.historic.cannon" = "Гармата";
 
 "type.historic.castle" = "Замак";
 
@@ -2221,6 +2340,8 @@
 
 "type.historic.gallows" = "Шыбеніца";
 
+"type.historic.locomotive" = "Гістарычны паравоз";
+
 "type.historic.memorial" = "Мемарыял";
 
 "type.historic.memorial.cross" = "Памятны крыж";
@@ -2233,7 +2354,11 @@
 
 "type.historic.memorial.stolperstein" = "Камяні спатыкнення";
 
+"type.historic.stone" = "Гістарычны камень";
+
 "type.historic.memorial.war_memorial" = "Ваенны мемарыял";
+
+"type.historic.mine" = "Гістарычная шахта";
 
 "type.historic.monument" = "Помнік";
 
@@ -2243,11 +2368,15 @@
 
 "type.historic.ship" = "Судна";
 
+"type.historic.tank" = "Гістарычны танк";
+
 "type.historic.tomb" = "Магіла";
 
 "type.historic.wayside_cross" = "Прыдарожны крыж";
 
 "type.historic.wayside_shrine" = "Прыдарожная святыня";
+
+"type.historic.wreck" = "Караблекрушэнне";
 
 "type.hwtag" = "hwtag";
 
@@ -2281,6 +2410,8 @@
 
 "type.junction" = "Junction";
 
+"type.junction.circular" = "Roundabout";
+
 "type.junction.roundabout" = "Roundabout";
 
 "type.landuse" = "Landuse";
@@ -2301,7 +2432,7 @@
 
 "type.landuse.commercial" = "Commercial Area";
 
-"type.landuse.construction" = "Construction";
+"type.landuse.construction" = "Construction Area";
 
 "type.landuse.education" = "Адукацыйныя ўстановы";
 
@@ -2313,17 +2444,19 @@
 
 "type.landuse.field" = "Field";
 
+"type.landuse.flowerbed" = "клумба";
+
 "type.landuse.forest" = "Forest";
 
 "type.landuse.forest.coniferous" = "Coniferous Forest";
 
 "type.landuse.forest.deciduous" = "Deciduous Forest";
 
-"type.landuse.forest.mixed" = "Mixed Forest";
+"type.landuse.forest.mixed" = "Mixed-Leaf Forest";
 
 "type.landuse.garages" = "Garages";
 
-"type.landuse.grass" = "Lawn";
+"type.landuse.grass" = "Grass";
 
 "type.landuse.greenfield" = "Greenfield";
 
@@ -2345,13 +2478,13 @@
 
 "type.landuse.recreation_ground" = "Recreation Ground";
 
-"type.landuse.reservoir" = "Water";
+"type.landuse.reservoir" = "Reservoir";
 
 "type.landuse.residential" = "Residential Area";
 
 "type.landuse.retail" = "Retail Area";
 
-"type.landuse.salt_pond" = "Pond";
+"type.landuse.salt_pond" = "Salt Pond";
 
 "type.landuse.village_green" = "Land";
 
@@ -2375,6 +2508,8 @@
 
 "type.leisure.golf_course" = "Golf Course";
 
+"type.leisure.hackerspace" = "Хакерская прастора";
+
 "type.leisure.ice_rink" = "Ice Rink";
 
 "type.leisure.landscape_reserve" = "Landscape Reserve";
@@ -2382,6 +2517,8 @@
 "type.leisure.marina" = "Прычал";
 
 "type.leisure.nature_reserve" = "Nature Reserve";
+
+"type.leisure.outdoor_seating" = "Месцы на адкрытым паветры";
 
 "type.leisure.park" = "Park";
 
@@ -2393,7 +2530,7 @@
 
 "type.leisure.picnic_table" = "Стол для пікніка";
 
-"type.leisure.pitch" = "Sports Ground";
+"type.leisure.pitch" = "Sport Pitch";
 
 "type.leisure.playground" = "Playground";
 
@@ -2429,7 +2566,7 @@
 
 "type.man_made.cairn" = "Cairn";
 
-"type.man_made.chimney" = "Factory Chimney";
+"type.man_made.chimney" = "Chimney";
 
 "type.man_made.cutline" = "Cutline";
 
@@ -2457,7 +2594,7 @@
 
 "type.man_made.tower.communication" = "Вежа сувязі";
 
-"type.man_made.wastewater_plant" = "Wastewater treatment plant";
+"type.man_made.wastewater_plant" = "Wastewater Treatment Plant";
 
 "type.man_made.water_tap" = "Water Tap";
 
@@ -2544,8 +2681,6 @@
 "type.natural.spring" = "Крыніца";
 
 "type.natural.strait" = "Праліў";
-
-"type.natural.tree" = "Дрэва";
 
 "type.natural.tree_row" = "Шэраг дрэў";
 
@@ -2647,7 +2782,7 @@
 
 "type.power" = "Power";
 
-"type.power.generator" = "Generator";
+"type.power.generator" = "Power Generator";
 
 "type.power.generator.solar" = "Сонечны генератар";
 
@@ -2663,7 +2798,17 @@
 
 "type.power.minor_line" = "Minor Power Line";
 
-"type.power.pole" = "Power Tower";
+"type.power.plant" = "Электрастанцыя";
+
+"type.power.plant.coal" = "Вугальная электрастанцыя";
+
+"type.power.plant.gas" = "Газатурбінная электрастанцыя";
+
+"type.power.plant.hydro" = "Гідраэлектрастанцыя";
+
+"type.power.plant.solar" = "Сонечная электрастанцыя";
+
+"type.power.plant.wind" = "Ветраэлектрастанцыя";
 
 "type.power.station" = "Power Station";
 
@@ -2697,15 +2842,15 @@
 
 "type.railway.crossing" = "Railway Crossing";
 
-"type.railway.disused" = "Disused railway";
+"type.railway.disused" = "Disused Railway";
 
-"type.railway.funicular" = "Funicular";
+"type.railway.funicular" = "Фунікулёр";
 
 "type.railway.funicular.bridge" = "Funicular Bridge";
 
 "type.railway.funicular.tunnel" = "Funicular Tunnel";
 
-"type.railway.halt" = "Train Station";
+"type.railway.halt" = "Rail Halt";
 
 "type.railway.level_crossing" = "Level Crossing";
 
@@ -2737,251 +2882,290 @@
 
 "type.railway.rail" = "Railway";
 
-"type.railway.rail.bridge" = "Railway Bridge";
+"type.railway.rail.highspeed" = "Хуткасная чыгунка";
 
-"type.railway.rail.motor_vehicle" = "Railway";
+"type.railway.rail.tourism" = "Турыстычная чыгунка";
 
-"type.railway.rail.tunnel" = "Railway Tunnel";
+"type.railway.rail.main" = "Чыгуначны";
 
-"type.railway.razed" = "Razed Rail";
+/* Includes ordinary railway=rail w/o more specific usage= and service= tags. */
+"type.railway.rail.branch" = "Другасная чыгунка";
 
-"type.railway.siding" = "Siding Rail";
+/* Non-passenger utility tracks: industrial, military, test. */
+"type.railway.rail.utility" = "Службова чыгунка";
 
-"type.railway.siding.bridge" = "Siding Rail Bridge";
+"type.railway.rail.spur" = "Чыгуначны шлях";
 
-"type.railway.siding.tunnel" = "Siding Rail Tunnel";
+/* Short service tracks: siding, yard, crossover. */
+"type.railway.rail.service" = "Дапаможны чыгуначны шлях";
 
-"type.railway.spur" = "Spur Rail";
+"type.railway.rail.bridge" = "Чыгуначны мост";
 
-"type.railway.spur.bridge" = "Spur Rail Bridge";
+"type.railway.rail.highspeed.bridge" = "Чыгуначны мост";
 
-"type.railway.spur.tunnel" = "Spur Rail Tunnel";
+"type.railway.rail.tourism.bridge" = "Чыгуначны мост";
+
+"type.railway.rail.main.bridge" = "Чыгуначны мост";
+
+"type.railway.rail.branch.bridge" = "Чыгуначны мост";
+
+"type.railway.rail.utility.bridge" = "Чыгуначны мост";
+
+"type.railway.rail.spur.bridge" = "Чыгуначны мост";
+
+"type.railway.rail.service.bridge" = "Чыгуначны мост";
+
+"type.railway.rail.tunnel" = "Чыгуначны тунэль";
+
+"type.railway.rail.highspeed.tunnel" = "Чыгуначны тунэль";
+
+"type.railway.rail.tourism.tunnel" = "Чыгуначны тунэль";
+
+"type.railway.rail.main.tunnel" = "Чыгуначны тунэль";
+
+"type.railway.rail.branch.tunnel" = "Чыгуначны тунэль";
+
+"type.railway.rail.utility.tunnel" = "Чыгуначны тунэль";
+
+"type.railway.rail.spur.tunnel" = "Чыгуначны тунэль";
+
+"type.railway.rail.service.tunnel" = "Чыгуначны тунэль";
 
 "type.railway.station" = "Train Station";
 
+"type.railway.station.funicular" = "Фунікулёр";
+
 "type.railway.station.light_rail" = "Train Station";
+
+"type.railway.station.light_rail.london" = "Train Station";
+
+"type.railway.station.light_rail.porto" = "Train Station";
 
 "type.railway.station.monorail" = "Train Station";
 
-"type.railway.station.subway" = "Subway";
+"type.railway.station.subway" = "Subway Station";
 
-"type.railway.station.subway.adana" = "Subway";
+"type.railway.station.subway.adana" = "Subway Station";
 
-"type.railway.station.subway.algiers" = "Subway";
+"type.railway.station.subway.algiers" = "Subway Station";
 
-"type.railway.station.subway.almaty" = "Subway";
+"type.railway.station.subway.almaty" = "Subway Station";
 
-"type.railway.station.subway.amsterdam" = "Subway";
+"type.railway.station.subway.amsterdam" = "Subway Station";
 
-"type.railway.station.subway.ankara" = "Subway";
+"type.railway.station.subway.ankara" = "Subway Station";
 
-"type.railway.station.subway.athens" = "Subway";
+"type.railway.station.subway.athens" = "Subway Station";
 
-"type.railway.station.subway.baku" = "Subway";
+"type.railway.station.subway.baku" = "Subway Station";
 
-"type.railway.station.subway.bangkok" = "Subway";
+"type.railway.station.subway.bangkok" = "Subway Station";
 
-"type.railway.station.subway.barcelona" = "Subway";
+"type.railway.station.subway.barcelona" = "Subway Station";
 
-"type.railway.station.subway.beijing" = "Subway";
+"type.railway.station.subway.beijing" = "Subway Station";
 
-"type.railway.station.subway.bengalore" = "Subway";
+"type.railway.station.subway.bengalore" = "Subway Station";
 
-"type.railway.station.subway.berlin" = "Subway";
+"type.railway.station.subway.berlin" = "Subway Station";
 
-"type.railway.station.subway.bilbao" = "Subway";
+"type.railway.station.subway.bilbao" = "Subway Station";
 
-"type.railway.station.subway.brasilia" = "Subway";
+"type.railway.station.subway.brasilia" = "Subway Station";
 
-"type.railway.station.subway.brescia" = "Subway";
+"type.railway.station.subway.brescia" = "Subway Station";
 
-"type.railway.station.subway.brussels" = "Subway";
+"type.railway.station.subway.brussels" = "Subway Station";
 
-"type.railway.station.subway.bucharest" = "Subway";
+"type.railway.station.subway.bucharest" = "Subway Station";
 
-"type.railway.station.subway.budapest" = "Subway";
+"type.railway.station.subway.budapest" = "Subway Station";
 
-"type.railway.station.subway.buenos_aires" = "Subway";
+"type.railway.station.subway.buenos_aires" = "Subway Station";
 
-"type.railway.station.subway.bursa" = "Subway";
+"type.railway.station.subway.bursa" = "Subway Station";
 
-"type.railway.station.subway.cairo" = "Subway";
+"type.railway.station.subway.cairo" = "Subway Station";
 
-"type.railway.station.subway.caracas" = "Subway";
+"type.railway.station.subway.caracas" = "Subway Station";
 
-"type.railway.station.subway.catania" = "Subway";
+"type.railway.station.subway.catania" = "Subway Station";
 
-"type.railway.station.subway.changchun" = "Subway";
+"type.railway.station.subway.changchun" = "Subway Station";
 
-"type.railway.station.subway.chengdu" = "Subway";
+"type.railway.station.subway.chengdu" = "Subway Station";
 
-"type.railway.station.subway.chicago" = "Subway";
+"type.railway.station.subway.chicago" = "Subway Station";
 
-"type.railway.station.subway.chongqing" = "Subway";
+"type.railway.station.subway.chongqing" = "Subway Station";
 
-"type.railway.station.subway.dalian" = "Subway";
+"type.railway.station.subway.dalian" = "Subway Station";
 
-"type.railway.station.subway.delhi" = "Subway";
+"type.railway.station.subway.delhi" = "Subway Station";
 
-"type.railway.station.subway.dnepro" = "Subway";
+"type.railway.station.subway.dnepro" = "Subway Station";
 
-"type.railway.station.subway.dubai" = "Subway";
+"type.railway.station.subway.dubai" = "Subway Station";
 
-"type.railway.station.subway.ekb" = "Subway";
+"type.railway.station.subway.ekb" = "Subway Station";
 
-"type.railway.station.subway.fukuoka" = "Subway";
+"type.railway.station.subway.fukuoka" = "Subway Station";
 
-"type.railway.station.subway.glasgow" = "Subway";
+"type.railway.station.subway.glasgow" = "Subway Station";
 
-"type.railway.station.subway.guangzhou" = "Subway";
+"type.railway.station.subway.guangzhou" = "Subway Station";
 
-"type.railway.station.subway.hamburg" = "Subway";
+"type.railway.station.subway.hamburg" = "Subway Station";
 
-"type.railway.station.subway.helsinki" = "Subway";
+"type.railway.station.subway.helsinki" = "Subway Station";
 
-"type.railway.station.subway.hiroshima" = "Subway";
+"type.railway.station.subway.hiroshima" = "Subway Station";
 
-"type.railway.station.subway.isfahan" = "Subway";
+"type.railway.station.subway.isfahan" = "Subway Station";
 
-"type.railway.station.subway.istanbul" = "Subway";
+"type.railway.station.subway.istanbul" = "Subway Station";
 
-"type.railway.station.subway.izmir" = "Subway";
+"type.railway.station.subway.izmir" = "Subway Station";
 
-"type.railway.station.subway.kazan" = "Subway";
+"type.railway.station.subway.kazan" = "Subway Station";
 
-"type.railway.station.subway.kharkiv" = "Subway";
+"type.railway.station.subway.kharkiv" = "Subway Station";
 
-"type.railway.station.subway.kiev" = "Subway";
+"type.railway.station.subway.kiev" = "Subway Station";
 
-"type.railway.station.subway.kobe" = "Subway";
+"type.railway.station.subway.kobe" = "Subway Station";
 
-"type.railway.station.subway.kolkata" = "Subway";
+"type.railway.station.subway.kolkata" = "Subway Station";
 
-"type.railway.station.subway.kunming" = "Subway";
+"type.railway.station.subway.kunming" = "Subway Station";
 
-"type.railway.station.subway.kyoto" = "Subway";
+"type.railway.station.subway.kyoto" = "Subway Station";
 
-"type.railway.station.subway.la" = "Subway";
+"type.railway.station.subway.la" = "Subway Station";
 
-"type.railway.station.subway.lausanne" = "Subway";
+"type.railway.station.subway.lausanne" = "Subway Station";
 
-"type.railway.station.subway.lille" = "Subway";
+"type.railway.station.subway.lille" = "Subway Station";
 
-"type.railway.station.subway.lima" = "Subway";
+"type.railway.station.subway.lima" = "Subway Station";
 
-"type.railway.station.subway.lisboa" = "Subway";
+"type.railway.station.subway.lisboa" = "Subway Station";
 
-"type.railway.station.subway.london" = "Subway";
+"type.railway.station.subway.london" = "Subway Station";
 
-"type.railway.station.subway.lyon" = "Subway";
+"type.railway.station.subway.lyon" = "Subway Station";
 
-"type.railway.station.subway.madrid" = "Subway";
+"type.railway.station.subway.madrid" = "Subway Station";
 
-"type.railway.station.subway.malaga" = "Subway";
+"type.railway.station.subway.malaga" = "Subway Station";
 
-"type.railway.station.subway.manila" = "Subway";
+"type.railway.station.subway.manila" = "Subway Station";
 
-"type.railway.station.subway.maracaibo" = "Subway";
+"type.railway.station.subway.maracaibo" = "Subway Station";
 
-"type.railway.station.subway.mashhad" = "Subway";
+"type.railway.station.subway.mashhad" = "Subway Station";
 
-"type.railway.station.subway.mecca" = "Subway";
+"type.railway.station.subway.mecca" = "Subway Station";
 
-"type.railway.station.subway.medellin" = "Subway";
+"type.railway.station.subway.medellin" = "Subway Station";
 
-"type.railway.station.subway.mexico" = "Subway";
+"type.railway.station.subway.mexico" = "Subway Station";
 
-"type.railway.station.subway.milan" = "Subway";
+"type.railway.station.subway.milan" = "Subway Station";
 
-"type.railway.station.subway.minsk" = "Subway";
+"type.railway.station.subway.minsk" = "Subway Station";
 
-"type.railway.station.subway.montreal" = "Subway";
+"type.railway.station.subway.montreal" = "Subway Station";
 
-"type.railway.station.subway.moscow" = "Subway";
+"type.railway.station.subway.moscow" = "Subway Station";
 
-"type.railway.station.subway.munchen" = "Subway";
+"type.railway.station.subway.munchen" = "Subway Station";
 
-"type.railway.station.subway.nagoya" = "Subway";
+"type.railway.station.subway.nagoya" = "Subway Station";
 
-"type.railway.station.subway.newyork" = "Subway";
+"type.railway.station.subway.newyork" = "Subway Station";
 
-"type.railway.station.subway.nnov" = "Subway";
+"type.railway.station.subway.nnov" = "Subway Station";
 
-"type.railway.station.subway.novosibirsk" = "Subway";
+"type.railway.station.subway.novosibirsk" = "Subway Station";
 
-"type.railway.station.subway.osaka" = "Subway";
+"type.railway.station.subway.osaka" = "Subway Station";
 
-"type.railway.station.subway.oslo" = "Subway";
+"type.railway.station.subway.oslo" = "Subway Station";
 
-"type.railway.station.subway.palma" = "Subway";
+"type.railway.station.subway.palma" = "Subway Station";
 
-"type.railway.station.subway.panama" = "Subway";
+"type.railway.station.subway.panama" = "Subway Station";
 
-"type.railway.station.subway.paris" = "Subway";
+"type.railway.station.subway.paris" = "Subway Station";
 
-"type.railway.station.subway.philadelphia" = "Subway";
+"type.railway.station.subway.philadelphia" = "Subway Station";
 
-"type.railway.station.subway.pyongyang" = "Subway";
+"type.railway.station.subway.pyongyang" = "Subway Station";
 
-"type.railway.station.subway.rennes" = "Subway";
+"type.railway.station.subway.rennes" = "Subway Station";
 
-"type.railway.station.subway.rio" = "Subway";
+"type.railway.station.subway.rio" = "Subway Station";
 
-"type.railway.station.subway.roma" = "Subway";
+"type.railway.station.subway.roma" = "Subway Station";
 
-"type.railway.station.subway.rotterdam" = "Subway";
+"type.railway.station.subway.rotterdam" = "Subway Station";
 
-"type.railway.station.subway.samara" = "Subway";
+"type.railway.station.subway.samara" = "Subway Station";
 
-"type.railway.station.subway.santiago" = "Subway";
+"type.railway.station.subway.santiago" = "Subway Station";
 
-"type.railway.station.subway.santo_domingo" = "Subway";
+"type.railway.station.subway.santo_domingo" = "Subway Station";
 
-"type.railway.station.subway.saopaulo" = "Subway";
+"type.railway.station.subway.saopaulo" = "Subway Station";
 
-"type.railway.station.subway.sapporo" = "Subway";
+"type.railway.station.subway.sapporo" = "Subway Station";
 
-"type.railway.station.subway.sendai" = "Subway";
+"type.railway.station.subway.sendai" = "Subway Station";
 
-"type.railway.station.subway.sf" = "Subway";
+"type.railway.station.subway.sf" = "Subway Station";
 
-"type.railway.station.subway.shanghai" = "Subway";
+"type.railway.station.subway.shanghai" = "Subway Station";
 
-"type.railway.station.subway.shiraz" = "Subway";
+"type.railway.station.subway.shiraz" = "Subway Station";
 
-"type.railway.station.subway.sofia" = "Subway";
+"type.railway.station.subway.singapore" = "Subway Station";
 
-"type.railway.station.subway.spb" = "Subway";
+"type.railway.station.subway.sofia" = "Subway Station";
 
-"type.railway.station.subway.stockholm" = "Subway";
+"type.railway.station.subway.spb" = "Subway Station";
 
-"type.railway.station.subway.tabriz" = "Subway";
+"type.railway.station.subway.stockholm" = "Subway Station";
 
-"type.railway.station.subway.taipei" = "Subway";
+"type.railway.station.subway.tabriz" = "Subway Station";
 
-"type.railway.station.subway.taoyuan" = "Subway";
+"type.railway.station.subway.taipei" = "Subway Station";
 
-"type.railway.station.subway.tashkent" = "Subway";
+"type.railway.station.subway.taoyuan" = "Subway Station";
 
-"type.railway.station.subway.tbilisi" = "Subway";
+"type.railway.station.subway.tashkent" = "Subway Station";
 
-"type.railway.station.subway.tianjin" = "Subway";
+"type.railway.station.subway.tbilisi" = "Subway Station";
 
-"type.railway.station.subway.tokyo" = "Subway";
+"type.railway.station.subway.tehran" = "Subway Station";
 
-"type.railway.station.subway.valencia" = "Subway";
+"type.railway.station.subway.tianjin" = "Subway Station";
 
-"type.railway.station.subway.vienna" = "Subway";
+"type.railway.station.subway.tokyo" = "Subway Station";
 
-"type.railway.station.subway.warszawa" = "Subway";
+"type.railway.station.subway.valencia" = "Subway Station";
 
-"type.railway.station.subway.washington" = "Subway";
+"type.railway.station.subway.vienna" = "Subway Station";
 
-"type.railway.station.subway.wuhan" = "Subway";
+"type.railway.station.subway.warszawa" = "Subway Station";
 
-"type.railway.station.subway.yerevan" = "Subway";
+"type.railway.station.subway.washington" = "Subway Station";
 
-"type.railway.station.subway.yokohama" = "Subway";
+"type.railway.station.subway.wuhan" = "Subway Station";
+
+"type.railway.station.subway.yerevan" = "Subway Station";
+
+"type.railway.station.subway.yokohama" = "Subway Station";
 
 "type.railway.subway" = "Subway Line";
 
@@ -3175,6 +3359,8 @@
 
 "type.railway.subway_entrance.shiraz" = "Subway Entrance";
 
+"type.railway.subway_entrance.singapore" = "Subway Entrance";
+
 "type.railway.subway_entrance.sofia" = "Subway Entrance";
 
 "type.railway.subway_entrance.spb" = "Subway Entrance";
@@ -3190,6 +3376,8 @@
 "type.railway.subway_entrance.tashkent" = "Subway Entrance";
 
 "type.railway.subway_entrance.tbilisi" = "Subway Entrance";
+
+"type.railway.subway_entrance.tehran" = "Subway Entrance";
 
 "type.railway.subway_entrance.tianjin" = "Subway Entrance";
 
@@ -3217,23 +3405,19 @@
 
 "type.railway.tram_stop" = "Tram Stop";
 
-"type.railway.yard" = "Railway Yard";
-
-"type.railway.yard.bridge" = "Railway Yard Bridge";
-
-"type.railway.yard.tunnel" = "Railway Yard Tunnel";
-
-"type.route" = "route";
+"type.route" = "Route";
 
 "type.route.ferry" = "Ferry";
 
-"type.route.shuttle_train" = "Shuttle Train";
+"type.route.shuttle_train" = "route-shuttle_train";
 
 "type.shop" = "Shop";
 
-"type.shop.alcohol" = "Liquor Store";
+"type.shop.alcohol" = "Liquor Shop";
 
 "type.shop.bakery" = "Bakery";
+
+"type.shop.bathroom_furnishing" = "Мэбля для ванных пакояў";
 
 "type.shop.beauty" = "Beauty Shop";
 
@@ -3245,19 +3429,23 @@
 
 "type.shop.books" = "Bookstore";
 
-"type.shop.butcher" = "Butcher’s";
+"type.shop.butcher" = "Butcher";
+
+"type.shop.cannabis" = "Крама канабіса";
 
 "type.shop.car" = "Car Dealership";
 
-"type.shop.car_parts" = "Car Parts";
+"type.shop.car_parts" = "Car Parts Shop";
 
-"type.shop.car_repair" = "Car Repair Shop";
+"type.shop.car_repair" = "Car Repair Workshop";
 
 "type.shop.car_repair.tyres" = "Tyre Repair";
 
 "type.shop.caravan" = "Продаж аўтадамоў";
 
-"type.shop.chemist" = "Chemist Shop";
+"type.shop.carpet" = "Дываны";
+
+"type.shop.chemist" = "Chemist";
 
 "type.shop.chocolate" = "Крама шакалада";
 
@@ -3267,23 +3455,25 @@
 
 "type.shop.computer" = "Computer Store";
 
-"type.shop.confectionery" = "Sweets";
+"type.shop.confectionery" = "Candy Shop";
 
 "type.shop.convenience" = "Convenience Store";
 
-"type.shop.copyshop" = "Copy Shop";
+"type.shop.copyshop" = "Copyshop";
 
 "type.shop.cosmetics" = "Касметыка";
+
+"type.shop.curtain" = "Шторы";
 
 "type.shop.deli" = "Дэлікатэсная крама";
 
 "type.shop.department_store" = "Department Store";
 
-"type.shop.doityourself" = "Hardware Store";
+"type.shop.doityourself" = "Home Improvement Store";
 
-"type.shop.dry_cleaning" = "Dry Cleaning";
+"type.shop.dry_cleaning" = "Dry Cleaner";
 
-"type.shop.electronics" = "Electronics";
+"type.shop.electronics" = "Electronics Shop";
 
 "type.shop.erotic" = "Erotic Shop";
 
@@ -3291,13 +3481,17 @@
 
 "type.shop.farm" = "Сельскагаспадарчыя прадукты";
 
-"type.shop.florist" = "Florist’s";
+"type.shop.fashion_accessories" = "Модныя аксэсуары";
+
+"type.shop.florist" = "Florist";
 
 "type.shop.funeral_directors" = "Рытуальныя паслугі";
 
 "type.shop.furniture" = "Furniture Store";
 
-"type.shop.garden_centre" = "Garden Store";
+"type.shop.garden_centre" = "Garden Center";
+
+"type.shop.gas" = "Газавая крама";
 
 "type.shop.gift" = "Gift Shop";
 
@@ -3311,9 +3505,13 @@
 
 "type.shop.health_food" = "Крама здаровай ежы";
 
-"type.shop.houseware" = "Крама посуду";
+"type.shop.herbalist" = "Магазін траў";
 
-"type.shop.jewelry" = "Jewelry";
+"type.shop.hifi" = "HiFi аўдыё";
+
+"type.shop.houseware" = "Бытавыя тавары";
+
+"type.shop.jewelry" = "Jewelry Store";
 
 "type.shop.kiosk" = "Kiosk";
 
@@ -3325,11 +3523,13 @@
 
 "type.shop.massage" = "Massage Salon";
 
-"type.shop.mobile_phone" = "Cell Phones";
+"type.shop.mobile_phone" = "Cell Phone Store";
 
 "type.shop.money_lender" = "Ліхвяр";
 
 "type.shop.motorcycle" = "Motorcycle Shop";
+
+"type.shop.motorcycle_repair" = "Рамонт матацыклаў";
 
 "type.shop.music" = "Музычная крама";
 
@@ -3337,25 +3537,33 @@
 
 "type.shop.newsagent" = "Newspaper Stand";
 
-"type.shop.optician" = "Optician’s";
+"type.shop.optician" = "Optician";
 
-"type.shop.outdoor" = "Outdoor Equipment";
+"type.shop.outdoor" = "Outdoor Equipment Shop";
+
+"type.shop.outpost" = "Пункт самавывазу";
 
 "type.shop.pastry" = "Кандытарскія вырабы";
 
 "type.shop.pawnbroker" = "Pawnbroker";
 
-"type.shop.pet" = "Petshop";
+"type.shop.pet" = "Pet Store";
+
+"type.shop.pet_grooming" = "Грумінг";
 
 "type.shop.photo" = "Photo Shop";
 
-"type.shop.seafood" = "Seafood Shop";
+"type.shop.rental" = "Пракат";
+
+"type.shop.rental.bicycle" = "Пракат ровараў";
+
+"type.shop.seafood" = "Fishmonger";
 
 "type.shop.second_hand" = "Крама сэканд-хэнд";
 
-"type.shop.shoes" = "Shoe Store";
+"type.shop.shoes" = "Shoe Shop";
 
-"type.shop.sports" = "Sports Goods";
+"type.shop.sports" = "Sports Shop";
 
 "type.shop.stationery" = "Stationery Shop";
 
@@ -3377,17 +3585,24 @@
 
 "type.shop.video" = "Video Shop";
 
-"type.shop.video_games" = "Video Games Shop";
+"type.shop.video_games" = "Video Game Shop";
 
 "type.shop.wine" = "Wine Shop";
 
+"type.shop.agrarian" = "Сельскагаспадарчы магазін";
+
 "type.shop.antiques" = "Антыкварыят";
 
+"type.shop.appliance" = "Крама бытавой тэхнікі";
+
+/* maybe change to Art Gallery for en-US when supported */
 "type.shop.art" = "Крама мастацтваў";
 
 "type.shop.baby_goods" = "Дзіцячая крама";
 
 "type.shop.bag" = "Крама сумак";
+
+"type.shop.bed" = "Крама ложкаў";
 
 "type.shop.boutique" = "Буцік";
 
@@ -3498,19 +3713,21 @@
 
 "type.tourism" = "Tourism";
 
-"type.tourism.alpine_hut" = "Mountains Lodging";
+"type.tourism.aquarium" = "Акварыум";
 
-"type.tourism.apartment" = "Apartments";
+"type.tourism.alpine_hut" = "Alpine Lodging";
+
+"type.tourism.apartment" = "Holiday Apartment";
 
 "type.tourism.artwork" = "Artwork";
 
-"type.tourism.artwork.architecture" = "Artwork";
+"type.tourism.artwork.architecture" = "Architectural Artwork";
 
-"type.tourism.artwork.painting" = "Artwork";
+"type.tourism.artwork.painting" = "Painting";
 
-"type.tourism.artwork.sculpture" = "Artwork";
+"type.tourism.artwork.sculpture" = "Sculpture";
 
-"type.tourism.artwork.statue" = "Artwork";
+"type.tourism.artwork.statue" = "Statue";
 
 "type.tourism.attraction" = "Attraction";
 
@@ -3518,13 +3735,13 @@
 
 "type.tourism.attraction.specified" = "Attraction";
 
-"type.tourism.camp_site" = "Camping";
+"type.tourism.camp_site" = "Campground";
 
 "type.tourism.caravan_site" = "Кемпінг для аўтадамоў";
 
 "type.tourism.chalet" = "Chalet";
 
-"type.tourism.gallery" = "Gallery";
+"type.tourism.gallery" = "Art Gallery";
 
 "type.tourism.guest_house" = "Guest House";
 
@@ -3542,6 +3759,8 @@
 
 "type.tourism.information.office" = "Турыстычны офіс";
 
+"type.tourism.information.visitor_centre" = "Цэнтр для наведвальнікаў";
+
 "type.tourism.motel" = "Motel";
 
 "type.tourism.museum" = "Museum";
@@ -3558,6 +3777,8 @@
 
 "type.tourism.zoo" = "Zoo";
 
+"type.tourism.zoo.petting" = "Хатні заапарк";
+
 "type.traffic_calming" = "Traffic Calming";
 
 "type.traffic_calming.bump" = "Traffic Bump";
@@ -3568,19 +3789,25 @@
 
 "type.waterway.canal" = "Canal";
 
-"type.waterway.canal.tunnel" = "Canal";
+"type.waterway.canal.tunnel" = "Canal Tunnel";
+
+"type.waterway.fish_pass" = "Рыбаход";
 
 "type.waterway.dam" = "Dam";
 
-"type.waterway.ditch" = "Ditch";
+"type.barrier.ditch" = "Ditch";
 
-"type.waterway.ditch.tunnel" = "Ditch";
+"type.natural.water.ditch" = "Дрэнажная канава";
+
+"type.waterway.ditch.tunnel" = "Водопропускная труба";
 
 "type.waterway.dock" = "Waterway Dock";
 
 "type.waterway.drain" = "Drain";
 
-"type.waterway.drain.tunnel" = "Drain";
+"type.natural.water.drain" = "Drain";
+
+"type.waterway.drain.tunnel" = "Водопропускная труба";
 
 "type.waterway.lock_gate" = "Lock Gate";
 
@@ -3620,26 +3847,48 @@
 
 "type.aerialway.t.bar" = "T-bar Lift";
 
-"type.piste_type" = "Piste Type";
-
 "type.piste_type.downhill" = "Downhill Ski Run";
+
+"type.piste_type.downhill.area" = "Downhill Ski Run";
 
 "type.piste_type.downhill.advanced" = "Downhill Ski Run";
 
+"type.piste_type.downhill.advanced.area" = "Downhill Ski Run";
+
 "type.piste_type.downhill.easy" = "Downhill Ski Run";
 
+"type.piste_type.downhill.easy.area" = "Downhill Ski Run";
+
 "type.piste_type.downhill.expert" = "Downhill Ski Run";
+
+"type.piste_type.downhill.expert.area" = "Downhill Ski Run";
 
 "type.piste_type.downhill.freeride" = "Downhill Ski Run";
 
 "type.piste_type.downhill.intermediate" = "Downhill Ski Run";
 
+"type.piste_type.downhill.intermediate.area" = "Downhill Ski Run";
+
 "type.piste_type.downhill.novice" = "Downhill Ski Run";
+
+"type.piste_type.downhill.novice.area" = "Downhill Ski Run";
 
 "type.piste_type.nordic" = "Nordic Ski Trail";
 
 "type.piste_type.sled" = "Sledding Piste";
 
-"type.building_part" = "Building";
+"type.piste_type.sled.area" = "Sledding Piste";
+
+"type.piste_type.snow_park" = "Снежны парк";
+
+"type.piste_type.hike" = "Снежная пешаходная сцежка";
+
+"type.piste_type.connection" = "Падключэнне да трас";
+
+"type.piste_type.skitour" = "Скітурная траса";
 
 "type.amenity.events_venue" = "Месца правядзення мерапрыемстваў";
+
+"type.shop.auction" = "Аўкцыён";
+
+"type.shop.collector" = "Калекцыйныя прадметы";

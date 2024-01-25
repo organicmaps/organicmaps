@@ -1,7 +1,6 @@
 #include "indexer/drules_selector.hpp"
 #include "indexer/drules_selector_parser.hpp"
 #include "indexer/ftypes_matcher.hpp"
-#include "indexer/scales.hpp"
 
 #include "geometry/mercator.hpp"
 
@@ -25,14 +24,14 @@ public:
 
   void Add(unique_ptr<ISelector> && selector)
   {
-    m_selectors.emplace_back(move(selector));
+    m_selectors.emplace_back(std::move(selector));
   }
 
   // ISelector overrides:
-  bool Test(FeatureType & ft) const override
+  bool Test(FeatureType & ft, int zoom) const override
   {
     for (auto const & selector : m_selectors)
-      if (!selector->Test(ft))
+      if (!selector->Test(ft, zoom))
         return false;
     return true;
   }
@@ -47,7 +46,7 @@ class Selector : public ISelector
 {
 public:
   // Signature of function which takes a property from a feature
-  typedef bool (*TGetFeatureTagValueFn)(FeatureType &, TType & value);
+  typedef bool (*TGetFeatureTagValueFn)(FeatureType &, int, TType & value);
 
   Selector(TGetFeatureTagValueFn fn, SelectorOperatorType op, TType const & value)
     : m_getFeatureValueFn(fn), m_evalFn(nullptr), m_value(value)
@@ -73,10 +72,10 @@ public:
   }
 
   // ISelector overrides:
-  bool Test(FeatureType & ft) const override
+  bool Test(FeatureType & ft, int zoom) const override
   {
     TType tagValue;
-    if (!m_getFeatureValueFn(ft, tagValue))
+    if (!m_getFeatureValueFn(ft, zoom, tagValue))
       return false;
     return (this->*m_evalFn)(tagValue);
   }
@@ -97,6 +96,29 @@ private:
   TGetFeatureTagValueFn m_getFeatureValueFn;
   TOperationFn m_evalFn;
   TType const m_value;
+};
+
+class HasSelector : public ISelector
+{
+public:
+  typedef bool (*THasFeatureTagValueFn)(FeatureType &, int);
+
+  HasSelector(THasFeatureTagValueFn fn, SelectorOperatorType op)
+  : m_hasFeatureValueFn(fn), m_testHas(op == SelectorOperatorIsSet)
+  {
+    ASSERT(op == SelectorOperatorIsSet || op == SelectorOperatorIsNotSet, ());
+    ASSERT(fn != nullptr, ());
+  }
+
+  // ISelector overrides:
+  bool Test(FeatureType & ft, int zoom) const override
+  {
+    return m_hasFeatureValueFn(ft, zoom) == m_testHas;
+  }
+
+private:
+  THasFeatureTagValueFn m_hasFeatureValueFn;
+  bool m_testHas;
 };
 
 /*
@@ -134,26 +156,25 @@ private:
 */
 
 // Feature tag value evaluator for tag 'population'
-bool GetPopulation(FeatureType & ft, uint64_t & population)
+bool GetPopulation(FeatureType & ft, int, uint64_t & population)
 {
   population = ftypes::GetPopulation(ft);
   return true;
 }
 
-// Feature tag value evaluator for tag 'name'
-bool GetName(FeatureType & ft, string & name)
+bool HasName(FeatureType & ft, int)
 {
-  name = ft.GetReadableName();
-  return true;
+  return ft.HasName();
 }
 
 // Feature tag value evaluator for tag 'bbox_area' (bounding box area in sq.meters)
-bool GetBoundingBoxArea(FeatureType & ft, double & sqM)
+bool GetBoundingBoxArea(FeatureType & ft, int zoom, double & sqM)
 {
   if (feature::GeomType::Area != ft.GetGeomType())
     return false;
 
-  sqM = mercator::AreaOnEarth(ft.GetLimitRect(scales::GetUpperScale()));
+  // https://github.com/organicmaps/organicmaps/issues/2840
+  sqM = mercator::AreaOnEarth(ft.GetLimitRect(zoom));
   return true;
 }
 }  // namespace
@@ -165,7 +186,7 @@ unique_ptr<ISelector> ParseSelector(string const & str)
   {
     // bad string format
     LOG(LDEBUG, ("Invalid selector format:", str));
-    return unique_ptr<ISelector>();
+    return {};
   }
 
   if (e.m_tag == "population")
@@ -175,13 +196,13 @@ unique_ptr<ISelector> ParseSelector(string const & str)
     {
       // bad string format
       LOG(LDEBUG, ("Invalid selector:", str));
-      return unique_ptr<ISelector>();
+      return {};
     }
     return make_unique<Selector<uint64_t>>(&GetPopulation, e.m_operator, value);
   }
   else if (e.m_tag == "name")
   {
-    return make_unique<Selector<string>>(&GetName, e.m_operator, e.m_value);
+    return make_unique<HasSelector>(&HasName, e.m_operator);
   }
   else if (e.m_tag == "bbox_area")
   {
@@ -190,7 +211,7 @@ unique_ptr<ISelector> ParseSelector(string const & str)
     {
       // bad string format
       LOG(LDEBUG, ("Invalid selector:", str));
-      return unique_ptr<ISelector>();
+      return {};
     }
     return make_unique<Selector<double>>(&GetBoundingBoxArea, e.m_operator, value);
   }
@@ -208,7 +229,7 @@ unique_ptr<ISelector> ParseSelector(string const & str)
 //  }
 
   LOG(LERROR, ("Unrecognized selector:", str));
-  return unique_ptr<ISelector>();
+  return {};
 }
 
 unique_ptr<ISelector> ParseSelector(vector<string> const & strs)
@@ -223,7 +244,7 @@ unique_ptr<ISelector> ParseSelector(vector<string> const & strs)
       LOG(LDEBUG, ("Invalid composite selector:", str));
       return unique_ptr<ISelector>();
     }
-    cs->Add(move(s));
+    cs->Add(std::move(s));
   }
 
   return unique_ptr<ISelector>(cs.release());

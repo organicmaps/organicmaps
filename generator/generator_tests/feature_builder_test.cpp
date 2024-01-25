@@ -8,6 +8,7 @@
 
 #include "indexer/data_header.hpp"
 #include "indexer/feature_visibility.hpp"
+#include "indexer/ftypes_matcher.hpp"
 
 #include "base/geo_object_id.hpp"
 
@@ -24,12 +25,8 @@ UNIT_CLASS_TEST(TestWithClassificator, FBuilder_ManyTypes)
   FeatureBuilder fb1;
   FeatureBuilderParams params;
 
-  char const * arr1[][1] = {
+  base::StringIL arr[] = {
     { "building" },
-  };
-  AddTypes(params, arr1);
-
-  char const * arr2[][2] = {
     { "place", "country" },
     { "place", "state" },
     /// @todo Can't realize is it deprecated or we forgot to add clear styles for it.
@@ -38,11 +35,10 @@ UNIT_CLASS_TEST(TestWithClassificator, FBuilder_ManyTypes)
     { "place", "city" },
     { "place", "town" },
   };
-  AddTypes(params, arr2);
+  AddTypes(params, arr);
 
   params.FinishAddingTypes();
-  params.AddHouseNumber("75");
-  params.AddHouseName("Best House");
+  params.SetHouseNumberAndHouseName("75", "Best House");
   params.AddName("default", "Name");
 
   fb1.SetParams(params);
@@ -68,7 +64,7 @@ UNIT_CLASS_TEST(TestWithClassificator, FBuilder_LineTypes)
   FeatureBuilder fb1;
   FeatureBuilderParams params;
 
-  char const * arr2[][2] = {
+  base::StringIL arr[] = {
     { "railway", "rail" },
     { "highway", "motorway" },
     { "hwtag", "oneway" },
@@ -76,12 +72,11 @@ UNIT_CLASS_TEST(TestWithClassificator, FBuilder_LineTypes)
     { "junction", "roundabout" },
   };
 
-  AddTypes(params, arr2);
+  AddTypes(params, arr);
   params.FinishAddingTypes();
   fb1.SetParams(params);
 
-  fb1.AddPoint(m2::PointD(0, 0));
-  fb1.AddPoint(m2::PointD(1, 1));
+  fb1.AssignPoints({ {0, 0}, {1, 1} });
   fb1.SetLinear();
 
   TEST(fb1.RemoveInvalidTypes(), ());
@@ -96,7 +91,9 @@ UNIT_CLASS_TEST(TestWithClassificator, FBuilder_LineTypes)
 
   TEST(fb2.IsValid(), (fb2));
   TEST_EQUAL(fb1, fb2, ());
+
   TEST_EQUAL(fb2.GetTypesCount(), 5, ());
+  ftypes::IsRoundAboutChecker::Instance()(fb2.GetTypes());
 }
 
 UNIT_CLASS_TEST(TestWithClassificator, FBuilder_Waterfall)
@@ -104,7 +101,7 @@ UNIT_CLASS_TEST(TestWithClassificator, FBuilder_Waterfall)
   FeatureBuilder fb1;
   FeatureBuilderParams params;
 
-  char const * arr[][2] = {{"waterway", "waterfall"}};
+  base::StringIL arr[] = {{"waterway", "waterfall"}};
   AddTypes(params, arr);
   TEST(params.FinishAddingTypes(), ());
 
@@ -171,10 +168,11 @@ UNIT_CLASS_TEST(TestWithClassificator, FBuilder_RemoveUselessNames)
 {
   FeatureBuilderParams params;
 
-  char const * arr3[][3] = { { "boundary", "administrative", "2" } };
-  AddTypes(params, arr3);
-  char const * arr2[][2] = { { "barrier", "fence" } };
-  AddTypes(params, arr2);
+  base::StringIL arr[] = {
+    { "boundary", "administrative", "2" },
+    { "barrier", "fence" }
+  };
+  AddTypes(params, arr);
   params.FinishAddingTypes();
 
   params.AddName("default", "Name");
@@ -183,8 +181,7 @@ UNIT_CLASS_TEST(TestWithClassificator, FBuilder_RemoveUselessNames)
   FeatureBuilder fb1;
   fb1.SetParams(params);
 
-  fb1.AddPoint(m2::PointD(0, 0));
-  fb1.AddPoint(m2::PointD(1, 1));
+  fb1.AssignPoints({ {0, 0}, {1, 1} });
   fb1.SetLinear();
 
   TEST(!fb1.GetName(0).empty(), ());
@@ -198,7 +195,7 @@ UNIT_CLASS_TEST(TestWithClassificator, FBuilder_RemoveUselessNames)
   TEST(fb1.IsValid(), (fb1));
 }
 
-UNIT_CLASS_TEST(TestWithClassificator, FeatureBuilderParams_Parsing)
+UNIT_CLASS_TEST(TestWithClassificator, FBuilder_HN)
 {
   FeatureBuilderParams params;
 
@@ -207,27 +204,26 @@ UNIT_CLASS_TEST(TestWithClassificator, FeatureBuilderParams_Parsing)
   TEST_EQUAL(params.house.Get(), "123", ());
 
   params.MakeZero();
-  TEST(params.AddHouseNumber("0000123"), ());
-  TEST_EQUAL(params.house.Get(), "123", ());
+  TEST(params.AddHouseNumber("00123"), ());
+  TEST_EQUAL(params.house.Get(), "00123", ());
 
   params.MakeZero();
-  TEST(params.AddHouseNumber("000000"), ());
+  TEST(params.AddHouseNumber("0"), ());
   TEST_EQUAL(params.house.Get(), "0", ());
 }
 
-UNIT_CLASS_TEST(TestWithClassificator, FeatureBuilder_SerializeLocalityObjectForBuildingPoint)
+UNIT_CLASS_TEST(TestWithClassificator, FBuilder_SerializeLocalityObjectForBuildingPoint)
 {
   FeatureBuilder fb;
   FeatureBuilderParams params;
 
-  char const * arr1[][1] = {
+  base::StringIL arr[] = {
     { "building" },
   };
-  AddTypes(params, arr1);
+  AddTypes(params, arr);
 
   params.FinishAddingTypes();
-  params.AddHouseNumber("75");
-  params.AddHouseName("Best House");
+  params.SetHouseNumberAndHouseName("75", "Best House");
   params.AddName("default", "Name");
 
   fb.AddOsmId(base::MakeOsmNode(1));
@@ -240,34 +236,73 @@ UNIT_CLASS_TEST(TestWithClassificator, FeatureBuilder_SerializeLocalityObjectFor
   feature::DataHeader header;
   header.SetGeometryCodingParams(serial::GeometryCodingParams());
   header.SetScales({scales::GetUpperScale()});
-  feature::GeometryHolder holder(fb, header, std::numeric_limits<uint32_t>::max() /* maxTrianglesNumber */);
+  feature::GeometryHolder holder(fb, header);
 
   auto & buffer = holder.GetBuffer();
   TEST(fb.PreSerializeAndRemoveUselessNamesForMwm(buffer), ());
-  fb.SerializeLocalityObject(serial::GeometryCodingParams(), buffer);
 }
 
-UNIT_CLASS_TEST(TestWithClassificator, FeatureBuilder_SerializeAccuratelyForIntermediate)
+UNIT_TEST(LooksLikeHouseNumber)
+{
+  TEST(FeatureParams::LooksLikeHouseNumber("1 bis"), ());
+  TEST(FeatureParams::LooksLikeHouseNumber("18-20"), ());
+
+  // Brno (Czech) has a lot of fancy samples.
+  TEST(FeatureParams::LooksLikeHouseNumber("ev.8"), ());
+  TEST(FeatureParams::LooksLikeHouseNumber("D"), ());
+  TEST(FeatureParams::LooksLikeHouseNumber("A5"), ());
+
+  TEST(!FeatureParams::LooksLikeHouseNumber("Building 2"), ());
+  TEST(!FeatureParams::LooksLikeHouseNumber("Unit 3"), ());
+}
+
+UNIT_CLASS_TEST(TestWithClassificator, FBuilder_HouseName)
+{
+  FeatureBuilder fb;
+  FeatureBuilderParams params;
+
+  base::StringIL arr[] = {{ "building" }};
+  AddTypes(params, arr);
+  params.FinishAddingTypes();
+
+  params.SetHouseNumberAndHouseName("", "St. Nicholas Lodge");
+
+  fb.SetParams(params);
+  fb.AssignArea({{0, 0}, {0, 1}, {1, 1}, {1, 0}, {0, 0}}, {});
+  fb.SetArea();
+
+  TEST(fb.RemoveInvalidTypes(), ());
+  TEST(fb.IsValid(), ());
+
+  TEST(fb.PreSerializeAndRemoveUselessNamesForIntermediate(), ());
+  TEST(fb.IsValid(), ());
+  TEST_EQUAL(fb.GetName(StringUtf8Multilang::kDefaultCode), "St. Nicholas Lodge", ());
+  TEST(fb.GetParams().house.IsEmpty(), ());
+}
+
+UNIT_CLASS_TEST(TestWithClassificator, FBuilder_SerializeAccuratelyForIntermediate)
 {
   FeatureBuilder fb1;
   FeatureBuilderParams params;
 
-  char const * arr2[][2] = {
+  base::StringIL arr[] = {
     { "railway", "rail" },
     { "highway", "motorway" },
     { "hwtag", "oneway" },
     { "psurface", "paved_good" },
-    { "junction", "roundabout" },
+    { "junction", "circular" },
   };
 
-  AddTypes(params, arr2);
+  AddTypes(params, arr);
   params.FinishAddingTypes();
   fb1.SetParams(params);
 
   auto const diff = 0.33333333334567;
+  std::vector<m2::PointD> points;
   for (size_t i = 0; i < 100; ++i)
-      fb1.AddPoint(m2::PointD(i + diff, i + 1 + diff));
+    points.push_back({ i + diff, i + 1 + diff });
 
+  fb1.AssignPoints(std::move(points));
   fb1.SetLinear();
 
   TEST(fb1.RemoveInvalidTypes(), ());
@@ -282,6 +317,9 @@ UNIT_CLASS_TEST(TestWithClassificator, FeatureBuilder_SerializeAccuratelyForInte
 
   TEST(fb2.IsValid(), (fb2));
   TEST(fb1.IsExactEq(fb2), ());
+
+  TEST_EQUAL(fb2.GetTypesCount(), 5, ());
+  ftypes::IsRoundAboutChecker::Instance()(fb2.GetTypes());
 }
 
 UNIT_CLASS_TEST(TestWithClassificator, FBuilder_RemoveUselessAltName)
@@ -292,7 +330,7 @@ UNIT_CLASS_TEST(TestWithClassificator, FBuilder_RemoveUselessAltName)
   {
     FeatureBuilderParams params;
 
-    char const * arr[][1] = {{"shop"}};
+    base::StringIL arr[] = {{"shop"}};
     AddTypes(params, arr);
     params.FinishAddingTypes();
 
@@ -318,7 +356,7 @@ UNIT_CLASS_TEST(TestWithClassificator, FBuilder_RemoveUselessAltName)
   {
     FeatureBuilderParams params;
 
-    char const * arr[][1] = {{"shop"}};
+    base::StringIL arr[] = {{"shop"}};
     AddTypes(params, arr);
     params.FinishAddingTypes();
 
@@ -342,4 +380,21 @@ UNIT_CLASS_TEST(TestWithClassificator, FBuilder_RemoveUselessAltName)
     TEST(fb.IsValid(), (fb));
   }
 }
+
+UNIT_CLASS_TEST(TestWithClassificator, FBuilder_RemoveInconsistentTypes)
+{
+  FeatureBuilderParams params;
+
+  base::StringIL arr[] = {
+    {"highway", "cycleway"}, {"hwtag", "onedir_bicycle"},
+    {"hwtag", "nobicycle"}, {"hwtag", "yesbicycle"}
+  };
+  AddTypes(params, arr);
+  TEST_EQUAL(params.m_types.size(), 4, ());
+
+  TEST(params.RemoveInconsistentTypes(), ());
+  TEST_EQUAL(params.m_types.size(), 3, ());
+  TEST(!params.IsTypeExist(classif().GetTypeByPath({"hwtag", "nobicycle"})), ());
+}
+
 }  // namespace feature_builder_test

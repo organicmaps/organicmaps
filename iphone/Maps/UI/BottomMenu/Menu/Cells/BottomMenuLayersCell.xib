@@ -1,16 +1,16 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="17701" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="22155" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
     <device id="ipad9_7" orientation="landscape" layout="fullscreen" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="17703"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="22131"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
         <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
-        <tableViewCell contentMode="scaleToFill" selectionStyle="none" indentationWidth="10" rowHeight="165" id="KGk-i7-Jjw" customClass="BottomMenuLayersCell" customModule="OMaps" customModuleProvider="target">
+        <tableViewCell contentMode="scaleToFill" selectionStyle="none" indentationWidth="10" rowHeight="165" id="KGk-i7-Jjw" customClass="BottomMenuLayersCell" customModule="Organic_Maps" customModuleProvider="target">
             <rect key="frame" x="0.0" y="0.0" width="340" height="165"/>
             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
             <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" ambiguous="YES" tableViewCell="KGk-i7-Jjw" id="H2p-sc-9uM">
@@ -20,8 +20,8 @@
                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="W1i-v6-zbz">
                         <rect key="frame" x="0.0" y="0.0" width="340" height="50"/>
                         <subviews>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Map Layers" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Vuk-dn-n2c">
-                                <rect key="frame" x="16" y="13" width="108" height="24"/>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Map Layers" textAlignment="natural" lineBreakMode="clip" baselineAdjustment="alignBaselines" minimumScaleFactor="0.5" adjustsLetterSpacingToFitWidth="YES" adjustsFontForContentSizeCategory="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Vuk-dn-n2c">
+                                <rect key="frame" x="116" y="13" width="108" height="24"/>
                                 <fontDescription key="fontDescription" type="boldSystem" pointSize="20"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
@@ -48,8 +48,10 @@
                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
                             <constraint firstAttribute="height" constant="50" id="00h-1i-skR"/>
+                            <constraint firstItem="2xW-dK-D9y" firstAttribute="leading" secondItem="Vuk-dn-n2c" secondAttribute="trailing" constant="8" id="4PG-Fm-yqS"/>
                             <constraint firstItem="Vuk-dn-n2c" firstAttribute="centerY" secondItem="W1i-v6-zbz" secondAttribute="centerY" id="4du-pr-7hv"/>
                             <constraint firstAttribute="height" constant="45" id="Ez1-s5-1EO"/>
+                            <constraint firstItem="Vuk-dn-n2c" firstAttribute="centerX" secondItem="W1i-v6-zbz" secondAttribute="centerX" id="XEG-CK-41Y"/>
                             <constraint firstItem="Vuk-dn-n2c" firstAttribute="leading" secondItem="W1i-v6-zbz" secondAttribute="leading" constant="16" id="kSJ-Wa-nYA"/>
                             <constraint firstAttribute="trailing" secondItem="2xW-dK-D9y" secondAttribute="trailing" constant="16" id="kae-50-2nG"/>
                             <constraint firstItem="2xW-dK-D9y" firstAttribute="centerY" secondItem="Vuk-dn-n2c" secondAttribute="centerY" id="wCu-O0-cz8"/>
@@ -58,6 +60,7 @@
                             <mask key="constraints">
                                 <exclude reference="00h-1i-skR"/>
                                 <exclude reference="Ez1-s5-1EO"/>
+                                <exclude reference="XEG-CK-41Y"/>
                             </mask>
                         </variation>
                         <variation key="heightClass=compact">
@@ -70,12 +73,36 @@
                                 <include reference="00h-1i-skR"/>
                             </mask>
                         </variation>
+                        <variation key="heightClass=regular-widthClass=regular">
+                            <mask key="constraints">
+                                <include reference="XEG-CK-41Y"/>
+                                <exclude reference="kSJ-Wa-nYA"/>
+                                <exclude reference="4PG-Fm-yqS"/>
+                            </mask>
+                        </variation>
                     </view>
                     <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" translatesAutoresizingMaskIntoConstraints="NO" id="sRd-zd-xSl">
                         <rect key="frame" x="16" y="58" width="308" height="64"/>
                         <subviews>
-                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="edA-Mo-3Vx" customClass="BottomMenuLayerButton" customModule="OMaps" customModuleProvider="target">
-                                <rect key="frame" x="0.0" y="0.0" width="154" height="64"/>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="g13-pK-Eig" userLabel="Outdoor Button" customClass="BottomMenuLayerButton" customModule="Organic_Maps" customModuleProvider="target">
+                                <rect key="frame" x="0.0" y="0.0" width="102.5" height="64"/>
+                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <userDefinedRuntimeAttributes>
+                                    <userDefinedRuntimeAttribute type="image" keyPath="image" value="btn_menu_outdoors"/>
+                                    <userDefinedRuntimeAttribute type="number" keyPath="spacing">
+                                        <real key="value" value="10"/>
+                                    </userDefinedRuntimeAttribute>
+                                    <userDefinedRuntimeAttribute type="number" keyPath="numberOfLines">
+                                        <integer key="value" value="2"/>
+                                    </userDefinedRuntimeAttribute>
+                                    <userDefinedRuntimeAttribute type="string" keyPath="localizedText" value="button_layer_outdoor"/>
+                                </userDefinedRuntimeAttributes>
+                                <connections>
+                                    <action selector="onOutdoorButton:" destination="KGk-i7-Jjw" eventType="touchUpInside" id="UQ2-jj-fPc"/>
+                                </connections>
+                            </view>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="edA-Mo-3Vx" customClass="BottomMenuLayerButton" customModule="Organic_Maps" customModuleProvider="target">
+                                <rect key="frame" x="102.5" y="0.0" width="103" height="64"/>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <userDefinedRuntimeAttributes>
                                     <userDefinedRuntimeAttribute type="image" keyPath="image" value="btn_menu_isomaps"/>
@@ -91,8 +118,8 @@
                                     <action selector="onIsoLinesButton:" destination="KGk-i7-Jjw" eventType="touchUpInside" id="3LS-C2-2Mc"/>
                                 </connections>
                             </view>
-                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="4US-fZ-cyg" customClass="BottomMenuLayerButton" customModule="OMaps" customModuleProvider="target">
-                                <rect key="frame" x="154" y="0.0" width="154" height="64"/>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="4US-fZ-cyg" customClass="BottomMenuLayerButton" customModule="Organic_Maps" customModuleProvider="target">
+                                <rect key="frame" x="205.5" y="0.0" width="102.5" height="64"/>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <userDefinedRuntimeAttributes>
                                     <userDefinedRuntimeAttribute type="image" keyPath="image" value="btn_menu_subway"/>
@@ -163,14 +190,16 @@
             </constraints>
             <connections>
                 <outlet property="isoLinesButton" destination="edA-Mo-3Vx" id="qoC-8w-EqY"/>
+                <outlet property="outdoorButton" destination="g13-pK-Eig" id="ib1-aw-Qv9"/>
                 <outlet property="subwayButton" destination="4US-fZ-cyg" id="eQB-HR-Wgl"/>
             </connections>
             <point key="canvasLocation" x="137.6953125" y="201.953125"/>
         </tableViewCell>
     </objects>
     <resources>
-        <image name="btn_menu_isomaps" width="50" height="50"/>
-        <image name="btn_menu_subway" width="50" height="50"/>
+        <image name="btn_menu_isomaps" width="151" height="151"/>
+        <image name="btn_menu_outdoors" width="151" height="151"/>
+        <image name="btn_menu_subway" width="151" height="151"/>
         <image name="ic_clear_24" width="20" height="20"/>
     </resources>
 </document>

@@ -14,16 +14,19 @@ public:
   static double constexpr kMaxLat = 90.0;
   static double constexpr kMinLon = -180.0;
   static double constexpr kMaxLon = 180.0;
+  static double constexpr kInvalid = -1000.0;
 
   // Default values are invalid.
-  double m_lat = kMinLon;
-  double m_lon = kMinLon;
+  double m_lat = kInvalid;
+  double m_lon = kInvalid;
 
   LatLon() = default;
   LatLon(double lat, double lon) : m_lat(lat), m_lon(lon) {}
 
+  static LatLon Invalid() { return LatLon(kInvalid, kInvalid); }
   static LatLon Zero() { return LatLon(0.0, 0.0); }
 
+  bool IsValid() const { return m_lat != kInvalid && m_lon != kInvalid; }
   bool operator==(ms::LatLon const & rhs) const;
   bool operator<(ms::LatLon const & rhs) const;
 

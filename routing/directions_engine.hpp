@@ -55,7 +55,7 @@ protected:
                                   RoutingSettings const & vehicleSettings, turns::TurnItem & turn) = 0;
   virtual void FixupTurns(std::vector<RouteSegment> & routeSegments) = 0;
   std::unique_ptr<FeatureType> GetFeature(FeatureID const & featureId);
-  void LoadPathAttributes(FeatureID const & featureId, LoadedPathSegment & pathSegment);
+  void LoadPathAttributes(FeatureID const & featureId, LoadedPathSegment & pathSegment, bool isForward);
   void GetSegmentRangeAndAdjacentEdges(IRoadGraph::EdgeListT const & outgoingEdges,
                                        Edge const & inEdge, uint32_t startSegId, uint32_t endSegId,
                                        SegmentRange & segmentRange,

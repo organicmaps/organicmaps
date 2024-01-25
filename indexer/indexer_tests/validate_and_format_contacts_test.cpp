@@ -124,11 +124,11 @@ UNIT_TEST(EditableMapObject_ValidateFacebookPage)
   TEST(osm::ValidateFacebookPage("OpenStreetMap"), ());
   TEST(osm::ValidateFacebookPage("some.good.page"), ());
   TEST(osm::ValidateFacebookPage("Quaama-Volunteer-Bushfire-Brigade-526790054021506"), ());
-  TEST(osm::ValidateFacebookPage(u8"Páter-Bonifác-Restaurant-Budapest-111001693867133"), ());
-  TEST(osm::ValidateFacebookPage(u8"MÊGÅ--CÄFË-3141592653589793"), ());
-  TEST(osm::ValidateFacebookPage(u8"ресторан"), ()); // Cyrillic
-  TEST(osm::ValidateFacebookPage(u8"საქართველო"), ()); // Georgian
-  TEST(osm::ValidateFacebookPage(u8"日本語"), ()); // Japanese
+  TEST(osm::ValidateFacebookPage("Páter-Bonifác-Restaurant-Budapest-111001693867133"), ());
+  TEST(osm::ValidateFacebookPage("MÊGÅ--CÄFË-3141592653589793"), ());
+  TEST(osm::ValidateFacebookPage("ресторан"), ()); // Cyrillic
+  TEST(osm::ValidateFacebookPage("საქართველო"), ()); // Georgian
+  TEST(osm::ValidateFacebookPage("日本語"), ()); // Japanese
   TEST(osm::ValidateFacebookPage("@tree-house-interiors"), ());
   TEST(osm::ValidateFacebookPage("allow_underscore-1234567890"), ());
   TEST(osm::ValidateFacebookPage("alexander.net"), ());

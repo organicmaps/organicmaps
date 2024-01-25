@@ -137,7 +137,7 @@ private:
   struct LineEvent
   {
     DECLARE_VISITOR_AND_DEBUG_PRINT(LineEvent, visitor(m_x, "x"), visitor(m_index, "index"),
-                                    visitor(m_priority, "priority"));
+                                    visitor(m_priority, "priority"))
     bool operator<(LineEvent const & rhs) const
     {
       if (m_x != rhs.m_x)

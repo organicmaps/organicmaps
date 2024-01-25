@@ -5,12 +5,10 @@
 
 #include <condition_variable>
 #include <functional>
-#include <mutex>
 #include <vector>
 
 namespace
 {
-  std::mutex g_mutex;
   const int TASK_COUNT = 10;
   class CanceledTask : public threads::IRoutine
   {

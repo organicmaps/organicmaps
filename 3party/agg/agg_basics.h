@@ -422,7 +422,7 @@ namespace agg
     inline bool is_close(unsigned c)
     {
         return (c & ~(path_flags_cw | path_flags_ccw)) ==
-               (path_cmd_end_poly | path_flags_close); 
+               (unsigned(path_cmd_end_poly) | path_flags_close);
     }
 
     //------------------------------------------------------------is_next_poly

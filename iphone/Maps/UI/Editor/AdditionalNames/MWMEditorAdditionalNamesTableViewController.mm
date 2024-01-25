@@ -1,6 +1,8 @@
 #import "MWMEditorAdditionalNamesTableViewController.h"
 #import "MWMTableViewCell.h"
 
+#import <CoreApi/StringUtils.h>
+
 @interface MWMEditorAdditionalNamesTableViewController ()
 
 @property (weak, nonatomic) id<MWMEditorAdditionalNamesProtocol> delegate;
@@ -34,7 +36,7 @@ additionalSkipLanguageCodes:(std::vector<NSInteger>)additionalSkipLanguageCodes
 - (void)viewWillAppear:(BOOL)animated
 {
   [super viewWillAppear:animated];
-  auto const getIndex = [](std::string const & lang) { return StringUtf8Multilang::GetLangIndex(lang); };
+  auto const getIndex = [](std::string_view lang) { return StringUtf8Multilang::GetLangIndex(lang); };
   StringUtf8Multilang::Languages const & supportedLanguages = StringUtf8Multilang::GetSupportedLanguages();
   m_languages.clear();
 
@@ -65,9 +67,9 @@ additionalSkipLanguageCodes:(std::vector<NSInteger>)additionalSkipLanguageCodes
 {
   MWMTableViewCell * cell = [tableView dequeueReusableCellWithIdentifier:@"ListCellIdentifier"];
   NSInteger const index = indexPath.row;
-  StringUtf8Multilang::Lang const & language = m_languages[index];
-  cell.textLabel.text = @(language.m_name.c_str());
-  cell.detailTextLabel.text = @(language.m_code.c_str());
+  StringUtf8Multilang::Lang const & lang = m_languages[index];
+  cell.textLabel.text = ToNSString(lang.m_name);
+  cell.detailTextLabel.text = ToNSString(lang.m_code);
   cell.accessoryType = UITableViewCellAccessoryNone;
   return cell;
 }

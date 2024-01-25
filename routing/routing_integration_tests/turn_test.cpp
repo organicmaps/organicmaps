@@ -177,14 +177,17 @@ UNIT_TEST(Russia_Moscow_NoTurnsOnMKAD_TurnTest)
   RouterResultCode const result = routeResult.second;
 
   TEST_EQUAL(result, RouterResultCode::NoError, ());
-  integration::TestTurnCount(route, 2 /* expectedTurnCount */);
+  integration::TestTurnCount(route, 3 /* expectedTurnCount */);
+  /// @todo 0-turn is dummy, https://www.openstreetmap.org/note/3937098
   integration::GetNthTurn(route, 1)
       .TestValid()
-      /// @todo Update with actual point later. Looks like there is a construction on that junction now.
-      //.TestPoint({37.68276, 67.14062})
+      .TestPoint(mercator::FromLatLon(55.5730008, 37.6792393))
       .TestDirection(CarDirection::ExitHighwayToRight);
+  integration::GetNthTurn(route, 2)
+      .TestValid()
+      .TestDirection(CarDirection::TurnSlightRight);
 
-  integration::TestRouteLength(route, 43233.7);
+  integration::TestRouteLength(route, 43228);
 }
 
 UNIT_TEST(Russia_Moscow_TTKVarshavskoeShosseOut_TurnTest)
@@ -796,9 +799,8 @@ UNIT_TEST(Russia_Moscow_LeninskyProsp_TurnTest)
   RouterResultCode const result = routeResult.second;
 
   TEST_EQUAL(result, RouterResultCode::NoError, ());
-  integration::TestTurnCount(route, 2 /* expectedTurnCount */);
-  integration::GetNthTurn(route, 0).TestValid().TestDirection(CarDirection::TurnRight);
-  integration::GetNthTurn(route, 1).TestValid().TestDirection(CarDirection::TurnLeft);
+  integration::TestTurnCount(route, 1 /* expectedTurnCount */);
+  integration::GetNthTurn(route, 0).TestValid().TestDirection(CarDirection::ExitHighwayToRight);
 }
 
 // Test on the route from TTK (primary) to a link.
@@ -1186,6 +1188,8 @@ UNIT_TEST(Russia_Moscow_OnlyUTurnTest1_TurnTest)
   RouterResultCode const result = routeResult.second;
 
   TEST_EQUAL(result, RouterResultCode::NoError, ());
+  integration::TestRouteLength(route, 2496.61);
+
   integration::TestTurnCount(route, 5 /* expectedTurnCount */);
   integration::GetNthTurn(route, 0).TestValid().TestDirection(CarDirection::TurnLeft);
   integration::GetNthTurn(route, 1).TestValid().TestDirection(CarDirection::TurnLeft);
@@ -1218,7 +1222,7 @@ UNIT_TEST(USA_California_Cupertino_TurnTestNextRoad)
 {
   TRouteResult const routeResult =
       integration::CalculateRoute(integration::GetVehicleComponents(VehicleType::Car),
-                                  mercator::FromLatLon(37.5028702, -122.3314908), {0., 0.},
+                                  mercator::FromLatLon(37.5018242, -122.3294851), {0., 0.},
                                   mercator::FromLatLon(37.5110368, -122.3317238));
 
   Route & route = *routeResult.first;
@@ -1293,6 +1297,20 @@ UNIT_TEST(Cyprus_A1_A5_TurnTestNextRoad)
   route.GetNextTurnStreetName(ri);
   TEST_EQUAL(ri.m_destination, "Larnaka; Kefinou; Airport", ());
   TEST_EQUAL(ri.m_destination_ref, "A5", ());
+}
+
+UNIT_TEST(Zurich_UseMainTurn)
+{
+  TRouteResult const routeResult =
+      integration::CalculateRoute(integration::GetVehicleComponents(VehicleType::Car),
+                                  mercator::FromLatLon(47.364832, 8.5656975), {0., 0.},
+                                  mercator::FromLatLon(47.3640678, 8.56567312));
+
+  Route const & route = *routeResult.first;
+  RouterResultCode const result = routeResult.second;
+  TEST_EQUAL(result, RouterResultCode::NoError, ());
+  integration::TestTurnCount(route, 1);
+  integration::TestRouteLength(route, 135.573);
 }
 
 namespace
@@ -1370,4 +1388,23 @@ UNIT_TEST(Israel_KeepMotorway)
   TestNoTurns(arr);
 }
 /// @}
+
+// https://github.com/organicmaps/organicmaps/issues/5468
+UNIT_TEST(UK_Junction_Circular)
+{
+  using namespace integration;
+  TRouteResult const routeResult = CalculateRoute(GetVehicleComponents(VehicleType::Car),
+                                                  mercator::FromLatLon(53.53692, -2.28832), {0., 0.},
+                                                  mercator::FromLatLon(53.54025, -2.28701));
+
+  Route const & route = *routeResult.first;
+  RouterResultCode const result = routeResult.second;
+  TEST_EQUAL(result, RouterResultCode::NoError, ());
+  TestRouteLength(route, 548.17);
+
+  TestTurnCount(route, 2);
+  GetNthTurn(route, 0).TestValid().TestDirection(CarDirection::EnterRoundAbout).TestRoundAboutExitNum(3);
+  GetNthTurn(route, 1).TestValid().TestDirection(CarDirection::LeaveRoundAbout);
+}
+
 } // namespace turn_test

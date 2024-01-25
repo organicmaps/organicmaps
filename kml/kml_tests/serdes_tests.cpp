@@ -793,9 +793,81 @@ UNIT_TEST(Kml_Deserialization_From_Bin_V6_And_V7)
   TEST_EQUAL(dataFromBinV6, dataFromBinV7, ());
 }
 
+
+UNIT_TEST(Kml_Deserialization_From_Bin_V7_And_V8)
+{
+  kml::FileData dataFromBinV7;
+  try
+  {
+    MemReader reader(kBinKmlV7.data(), kBinKmlV7.size());
+    kml::binary::DeserializerKml des(dataFromBinV7);
+    des.Deserialize(reader);
+  }
+  catch (kml::binary::DeserializerKml::DeserializeException const & exc)
+  {
+    TEST(false, ("Exception raised", exc.what()));
+  }
+
+  kml::FileData dataFromBinV8;
+  try
+  {
+    MemReader reader(kBinKmlV8.data(), kBinKmlV8.size());
+    kml::binary::DeserializerKml des(dataFromBinV8);
+    des.Deserialize(reader);
+  }
+  catch (kml::binary::DeserializerKml::DeserializeException const & exc)
+  {
+    TEST(false, ("Exception raised", exc.what()));
+  }
+
+  TEST_EQUAL(dataFromBinV7, dataFromBinV8, ());
+}
+
+UNIT_TEST(Kml_Deserialization_From_Bin_V8_And_V8MM)
+{
+  kml::FileData dataFromBinV8;
+  try
+  {
+    MemReader reader(kBinKmlV8.data(), kBinKmlV8.size());
+    kml::binary::DeserializerKml des(dataFromBinV8);
+    des.Deserialize(reader);
+  }
+  catch (kml::binary::DeserializerKml::DeserializeException const & exc)
+  {
+    TEST(false, ("Exception raised", exc.what()));
+  }
+
+  kml::FileData dataFromBinV8MM;
+  try
+  {
+    MemReader reader(kBinKmlV8MM.data(), kBinKmlV8MM.size());
+    kml::binary::DeserializerKml des(dataFromBinV8MM);
+    des.Deserialize(reader);
+  }
+  catch (kml::binary::DeserializerKml::DeserializeException const & exc)
+  {
+    TEST(false, ("Exception raised", exc.what()));
+  }
+
+  // Can't compare dataFromBinV8.m_categoryData and dataFromBinV8MM.m_categoryData directly
+  // because new format has less properties and different m_id. Compare some properties here:
+  TEST_EQUAL(dataFromBinV8.m_categoryData.m_name, dataFromBinV8MM.m_categoryData.m_name, ());
+  TEST_EQUAL(dataFromBinV8.m_categoryData.m_description, dataFromBinV8MM.m_categoryData.m_description, ());
+  TEST_EQUAL(dataFromBinV8.m_categoryData.m_annotation, dataFromBinV8MM.m_categoryData.m_annotation, ());
+  TEST_EQUAL(dataFromBinV8.m_categoryData.m_accessRules, dataFromBinV8MM.m_categoryData.m_accessRules, ());
+  TEST_EQUAL(dataFromBinV8.m_categoryData.m_visible, dataFromBinV8MM.m_categoryData.m_visible, ());
+  TEST_EQUAL(dataFromBinV8.m_categoryData.m_rating, dataFromBinV8MM.m_categoryData.m_rating, ());
+  TEST_EQUAL(dataFromBinV8.m_categoryData.m_reviewsNumber, dataFromBinV8MM.m_categoryData.m_reviewsNumber, ());
+  TEST_EQUAL(dataFromBinV8.m_categoryData.m_tags, dataFromBinV8MM.m_categoryData.m_tags, ());
+  TEST_EQUAL(dataFromBinV8.m_categoryData.m_properties, dataFromBinV8MM.m_categoryData.m_properties, ());
+
+  TEST_EQUAL(dataFromBinV8.m_bookmarksData, dataFromBinV8MM.m_bookmarksData, ());
+  TEST_EQUAL(dataFromBinV8.m_tracksData, dataFromBinV8MM.m_tracksData, ());
+}
+
 UNIT_TEST(Kml_Ver_2_3)
 {
-  char const * data = R"(<?xml version="1.0" encoding="UTF-8"?>
+  std::string_view constexpr data = R"(<?xml version="1.0" encoding="UTF-8"?>
     <kml xmlns="http://www.opengis.net/kml/2.2" version="2.3">
       <Placemark id="PM005">
         <Track>
@@ -859,7 +931,7 @@ UNIT_TEST(Kml_Ver_2_3)
   kml::FileData fData;
   try
   {
-    MemReader reader(data, strlen(data));
+    MemReader const reader(data);
     kml::DeserializerKml des(fData);
     des.Deserialize(reader);
   }
@@ -873,4 +945,88 @@ UNIT_TEST(Kml_Ver_2_3)
   TEST_EQUAL(lines.size(), 2, ());
   TEST_EQUAL(lines[0].size(), 7, ());
   TEST_EQUAL(lines[1].size(), 6, ());
+}
+
+UNIT_TEST(Kml_Placemark_contains_both_Bookmark_and_Track_data)
+{
+  std::string_view constexpr input = R"(<?xml version="1.0" encoding="UTF-8"?>
+<kml xmlns="http://www.opengis.net/kml/2.2">
+  <Placemark>
+    <MultiGeometry>
+      <Point>
+        <coordinates>28.968447783842,41.009030507129,0</coordinates>
+      </Point>
+      <LineString>
+        <coordinates>28.968447783842,41.009030507129,0 28.965858,41.018449,0</coordinates>
+      </LineString>
+    </MultiGeometry>
+  </Placemark>
+  <Placemark>
+  <MultiGeometry>
+    <LineString>
+      <coordinates>28.968447783842,41.009030507129,0 28.965858,41.018449,0</coordinates>
+    </LineString>
+    <Point>
+      <coordinates>28.968447783842,41.009030507129,0</coordinates>
+    </Point>
+  </MultiGeometry>
+</Placemark>
+</kml>
+  )";
+
+  kml::FileData fData;
+  try
+  {
+    MemReader const reader(input);
+    kml::DeserializerKml des(fData);
+    des.Deserialize(reader);
+  }
+  catch (kml::DeserializerKml::DeserializeException const & ex)
+  {
+    TEST(false, ("Exception raised", ex.Msg()));
+  }
+
+  TEST_EQUAL(fData.m_bookmarksData.size(), 2, ());
+  TEST_EQUAL(fData.m_tracksData.size(), 2, ());
+}
+
+// See https://github.com/organicmaps/organicmaps/issues/5800
+UNIT_TEST(Fix_Invisible_Color_Bug_In_Gpx_Tracks)
+{
+  std::string_view constexpr input = R"(<?xml version="1.0" encoding="UTF-8"?>
+<kml xmlns="http://earth.google.com/kml/2.2">
+<Document>
+  <name>2023-08-20 Malente Radtour</name>
+  <visibility>1</visibility>
+  <Placemark>
+    <name>2023-08-20 Malente Radtour</name>
+    <Style><LineStyle>
+      <color>01000000</color>
+      <width>3</width>
+    </LineStyle></Style>
+    <LineString><coordinates>10.565979,54.16597,26 10.565956,54.165997,26</coordinates></LineString>
+  </Placemark>
+  <Placemark>
+    <name>Test default colors and width</name>
+    <LineString><coordinates>10.465979,54.16597,26 10.465956,54.165997,26</coordinates></LineString>
+  </Placemark>
+</Document>
+</kml>
+  )";
+
+  kml::FileData fData;
+  try
+  {
+    kml::DeserializerKml(fData).Deserialize(MemReader(input));
+  }
+  catch (kml::DeserializerKml::DeserializeException const & ex)
+  {
+    TEST(false, ("Exception raised", ex.Msg()));
+  }
+
+  TEST_EQUAL(fData.m_tracksData.size(), 2, ());
+  TEST_EQUAL(fData.m_tracksData[0].m_layers.size(), 1, ());
+  auto const & layer = fData.m_tracksData[0].m_layers[0];
+  TEST_EQUAL(layer.m_color.m_rgba, kml::kDefaultTrackColor, ("Wrong transparency should be fixed"));
+  TEST_EQUAL(layer.m_lineWidth, 3, ());
 }

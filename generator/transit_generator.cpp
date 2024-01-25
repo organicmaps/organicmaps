@@ -157,7 +157,7 @@ void DeserializeFromJson(OsmIdToFeatureIdsMap const & mapping,
   Platform::EFileType fileType;
   Platform::EError const errCode = Platform::GetFileType(transitJsonPath, fileType);
   CHECK_EQUAL(errCode, Platform::EError::ERR_OK, ("Transit graph was not found:", transitJsonPath));
-  CHECK_EQUAL(fileType, Platform::EFileType::FILE_TYPE_REGULAR,
+  CHECK_EQUAL(fileType, Platform::EFileType::Regular,
               ("Transit graph was not found:", transitJsonPath));
 
   std::string jsonBuffer;

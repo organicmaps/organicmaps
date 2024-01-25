@@ -70,12 +70,12 @@ string DebugPrint(ErrorsMade const & errorsMade)
 
 namespace impl
 {
-ErrorsMade GetErrorsMade(QueryParams::Token const & token, strings::UniString const & text)
+ErrorsMade GetErrorsMade(QueryParams::Token const & token,
+                         strings::UniString const & text, LevenshteinDFA const & dfa)
 {
   if (token.AnyOfSynonyms([&text](strings::UniString const & s) { return text == s; }))
     return ErrorsMade(0);
 
-  auto const dfa = BuildLevenshteinDFA(text);
   auto it = dfa.Begin();
   strings::DFAMove(it, token.GetOriginal().begin(), token.GetOriginal().end());
   if (it.Accepts())
@@ -84,12 +84,12 @@ ErrorsMade GetErrorsMade(QueryParams::Token const & token, strings::UniString co
   return {};
 }
 
-ErrorsMade GetPrefixErrorsMade(QueryParams::Token const & token, strings::UniString const & text)
+ErrorsMade GetPrefixErrorsMade(QueryParams::Token const & token,
+                               strings::UniString const & text, LevenshteinDFA const & dfa)
 {
   if (token.AnyOfSynonyms([&text](strings::UniString const & s) { return StartsWith(text, s); }))
     return ErrorsMade(0);
 
-  auto const dfa = PrefixDFAModifier<LevenshteinDFA>(BuildLevenshteinDFA(text));
   auto it = dfa.Begin();
   strings::DFAMove(it, token.GetOriginal().begin(), token.GetOriginal().end());
   if (!it.Rejects())
@@ -112,9 +112,9 @@ bool IsStopWord(UniString const & s)
       // Don't want to put _full_ stopwords list, not to break current ranking.
       // Only 2-letters and the most common.
       char const * arr[] = {
-        "a", "s",         // English
+        "a", "s", "the",  // English
         "am", "im", "an", // German
-        "d", "de", "di", "da", "la", "le", // French, Spanish, Italian
+        "d", "da", "de", "di", "du", "la", "le", // French, Spanish, Italian
         "и", "я"          // Cyrillic
       };
       for (char const * s : arr)
@@ -127,13 +127,15 @@ bool IsStopWord(UniString const & s)
   return swChecker.Has(s);
 }
 
-void PrepareStringForMatching(string_view name, vector<strings::UniString> & tokens)
+TokensVector::TokensVector(string_view name)
 {
-  ForEachNormalizedToken(name, [&tokens](strings::UniString && token)
+  ForEachNormalizedToken(name, [this](strings::UniString && token)
   {
     if (!IsStopWord(token))
-      tokens.push_back(std::move(token));
+      m_tokens.push_back(std::move(token));
   });
+
+  Init();
 }
 
 string DebugPrint(NameScore const & score)
@@ -143,8 +145,9 @@ string DebugPrint(NameScore const & score)
   case NameScore::ZERO: return "Zero";
   case NameScore::SUBSTRING: return "Substring";
   case NameScore::PREFIX: return "Prefix";
-  case NameScore::FULL_MATCH: return "Full Match";
+  case NameScore::FIRST_MATCH: return "First Match";
   case NameScore::FULL_PREFIX: return "Full Prefix";
+  case NameScore::FULL_MATCH: return "Full Match";
   case NameScore::COUNT: return "Count";
   }
   return "Unknown";

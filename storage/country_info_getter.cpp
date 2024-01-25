@@ -254,8 +254,8 @@ void CountryInfoReader::ClearCachesImpl() const
 }
 
 template <typename Fn>
-std::result_of_t<Fn(std::vector<m2::RegionD>)> CountryInfoReader::WithRegion(size_t id,
-                                                                             Fn && fn) const
+std::invoke_result_t<Fn, std::vector<m2::RegionD>> CountryInfoReader::WithRegion(size_t id,
+                                                                                 Fn && fn) const
 {
   std::lock_guard<std::mutex> lock(m_cacheMutex);
 

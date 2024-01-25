@@ -95,7 +95,10 @@ double GetPedestrianClimbPenalty(EdgeEstimator::Purpose purpose, double tangent,
   if (altitudeM >= kMountainSicknessAltitudeM)
     return kMinPenalty + (10.0 + (altitudeM - kMountainSicknessAltitudeM) * 10.0 / 1500.0) * fabs(tangent) * impact;
 
-  if (purpose == EdgeEstimator::Purpose::Weight)
+  // Use magic constant from this table: https://en.wikipedia.org/wiki/Tobler's_hiking_function#Sample_values
+  // Tobler's returns unusually big values for bigger tangent.
+  // See Australia_Mountains_Downlhill test.
+  if (purpose == EdgeEstimator::Purpose::Weight || fabs(tangent) > 1.19)
   {
     tangent = fabs(tangent);
     // Some thoughts about gradient and foot walking: https://gre-kow.livejournal.com/26916.html
@@ -268,13 +271,12 @@ public:
 
   // EdgeEstimator overrides:
   double GetUTurnPenalty(Purpose /* purpose */) const override { return 0.0 /* seconds */; }
-  // Based on: https://confluence.mail.ru/display/MAPSME/Ferries
   double GetFerryLandingPenalty(Purpose purpose) const override
   {
     switch (purpose)
     {
-    case Purpose::Weight: return 20.0 * 60.0;  // seconds
-    case Purpose::ETA: return 8.0 * 60.0;      // seconds
+    case Purpose::Weight: return 10 * 60;   // seconds
+    case Purpose::ETA: return 8 * 60;       // seconds
     }
     UNREACHABLE();
   }
@@ -300,13 +302,12 @@ public:
 
   // EdgeEstimator overrides:
   double GetUTurnPenalty(Purpose /* purpose */) const override { return 20.0 /* seconds */; }
-  // Based on: https://confluence.mail.ru/display/MAPSME/Ferries
   double GetFerryLandingPenalty(Purpose purpose) const override
   {
     switch (purpose)
     {
-    case Purpose::Weight: return 20 * 60;  // seconds
-    case Purpose::ETA: return 8 * 60;      // seconds
+    case Purpose::Weight: return 10 * 60;   // seconds
+    case Purpose::ETA: return 8 * 60;       // seconds
     }
     UNREACHABLE();
   }
@@ -314,7 +315,7 @@ public:
   double CalcSegmentWeight(Segment const & segment, RoadGeometry const & road, Purpose purpose) const override
   {
     return CalcClimbSegment(purpose, segment, road,
-        [purpose](double speedMpS, double tangent, geometry::Altitude altitude)
+        [purpose, this](double speedMpS, double tangent, geometry::Altitude altitude)
         {
           auto const factor = GetBicycleClimbPenalty(purpose, tangent, altitude);
           ASSERT_GREATER(factor, 0.0, ());
@@ -344,7 +345,7 @@ public:
               speedMpS /= factor;
           }
 
-          return speedMpS;
+          return std::min(speedMpS, GetMaxWeightSpeedMpS());
         });
   }
 };
@@ -355,43 +356,35 @@ class CarEstimator final : public EdgeEstimator
 public:
   CarEstimator(DataSource * dataSourcePtr, std::shared_ptr<NumMwmIds> numMwmIds,
                shared_ptr<TrafficStash> trafficStash, double maxWeightSpeedKMpH,
-               SpeedKMpH const & offroadSpeedKMpH);
+               SpeedKMpH const & offroadSpeedKMpH)
+    : EdgeEstimator(maxWeightSpeedKMpH, offroadSpeedKMpH, dataSourcePtr, numMwmIds)
+    , m_trafficStash(std::move(trafficStash))
+  {
+  }
 
   // EdgeEstimator overrides:
   double CalcSegmentWeight(Segment const & segment, RoadGeometry const & road, Purpose purpose) const override;
-  double GetUTurnPenalty(Purpose /* purpose */) const override;
-  double GetFerryLandingPenalty(Purpose purpose) const override;
+  double GetUTurnPenalty(Purpose /* purpose */) const override
+  {
+    // Adds 2 minutes penalty for U-turn. The value is quite arbitrary
+    // and needs to be properly selected after a number of real-world
+    // experiments.
+    return 2 * 60;  // seconds
+  }
+
+  double GetFerryLandingPenalty(Purpose purpose) const override
+  {
+    switch (purpose)
+    {
+    case Purpose::Weight: return 20 * 60;   // seconds
+    case Purpose::ETA: return 20 * 60;      // seconds
+    }
+    UNREACHABLE();
+  }
 
 private:
   shared_ptr<TrafficStash> m_trafficStash;
 };
-
-CarEstimator::CarEstimator(DataSource * dataSourcePtr, std::shared_ptr<NumMwmIds> numMwmIds,
-                           shared_ptr<TrafficStash> trafficStash, double maxWeightSpeedKMpH,
-                           SpeedKMpH const & offroadSpeedKMpH)
-  : EdgeEstimator(maxWeightSpeedKMpH, offroadSpeedKMpH, dataSourcePtr, numMwmIds)
-  , m_trafficStash(std::move(trafficStash))
-{
-}
-
-double CarEstimator::GetUTurnPenalty(Purpose /* purpose */) const
-{
-  // Adds 2 minutes penalty for U-turn. The value is quite arbitrary
-  // and needs to be properly selected after a number of real-world
-  // experiments.
-  return 2 * 60;  // seconds
-}
-
-double CarEstimator::GetFerryLandingPenalty(Purpose purpose) const
-{
-  switch (purpose)
-  {
-  case Purpose::Weight: return 40 * 60;  // seconds
-  // Based on https://confluence.mail.ru/display/MAPSME/Ferries
-  case Purpose::ETA: return 20 * 60;  // seconds
-  }
-  UNREACHABLE();
-}
 
 double CarEstimator::CalcSegmentWeight(Segment const & segment, RoadGeometry const & road, Purpose purpose) const
 {

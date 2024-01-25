@@ -10,7 +10,7 @@
 "search" = "Search";
 
 /* Used in home screen quick actions. */
-"bookmarks" = "Järjehoidjad";
+"bookmarks_and_tracks" = "Järjehoidjad ja rajad";
 
 /* Used in home screen quick actions. */
 "route" = "Marsruut";

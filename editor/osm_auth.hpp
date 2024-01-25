@@ -58,7 +58,7 @@ public:
 
   /// The constructor. Simply stores a lot of strings in fields.
   OsmOAuth(std::string const & consumerKey, std::string const & consumerSecret,
-           std::string const & baseUrl, std::string const & apiUrl);
+           std::string baseUrl, std::string apiUrl);
 
   /// Should be used everywhere in production code instead of servers below.
   static OsmOAuth ServerAuth();

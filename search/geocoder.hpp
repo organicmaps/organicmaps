@@ -30,11 +30,9 @@
 #include "base/dfa_helpers.hpp"
 #include "base/levenshtein_dfa.hpp"
 
-#include <functional>
 #include <map>
 #include <memory>
 #include <optional>
-#include <string>
 #include <vector>
 
 class CategoriesHolder;
@@ -231,10 +229,13 @@ private:
 
   class CentersFilter
   {
-    buffer_vector<m2::PointD, 2> m_centers;
+    buffer_vector<m2::PointD, 4> m_centers;
+
   public:
     void Add(m2::PointD const & pt) { m_centers.push_back(pt); }
-    void ProcessStreets(std::vector<uint32_t> & streets, Geocoder & geocoder) const;
+
+    template <class FnT>
+    void ClusterizeStreets(std::vector<uint32_t> & streets, Geocoder const & geocoder, FnT && fn) const;
   };
 
   // Tries to do geocoding in a limited scope, assuming that knowledge
@@ -268,15 +269,16 @@ private:
   // pre-check to cut off unnecessary work.
   bool IsLayerSequenceSane(std::vector<FeaturesLayer> const & layers) const;
 
-  // Finds all paths through layers and emits reachable features from
-  // the lowest layer.
+  /// @returns kInvalidFeatureId in no matching found.
+  uint32_t MatchWorld2Country(FeatureID const & id) const;
+  // Finds all paths through layers and emits reachable features from the lowest layer.
   void FindPaths(BaseContext & ctx);
 
   void TraceResult(Tracer & tracer, BaseContext const & ctx, MwmSet::MwmId const & mwmId,
                    uint32_t ftId, Model::Type type, TokenRange const & tokenRange);
 
   // Forms result and feeds it to |m_preRanker|.
-  void EmitResult(BaseContext & ctx, MwmSet::MwmId const & mwmId, uint32_t ftId, Model::Type type,
+  void EmitResult(BaseContext & ctx, FeatureID const & id, Model::Type type,
                   TokenRange const & tokenRange, IntersectionResult const * geoParts,
                   bool allTokensUsed, bool exactMatch);
   void EmitResult(BaseContext & ctx, Region const & region, TokenRange const & tokenRange,

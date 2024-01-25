@@ -12,7 +12,7 @@
 #include <queue>
 #include <vector>
 
-#include "3party/utfcpp/source/utf8/unchecked.h"
+#include <utf8cpp/utf8/unchecked.h>
 
 namespace search
 {
@@ -27,15 +27,22 @@ std::vector<UniString> const kAllowedMisprints = {
     MakeUniString("gh"),
     MakeUniString("pf"),
     MakeUniString("vw"),
+
+    // Russian
     MakeUniString("ао"),
     MakeUniString("еиэ"),
     MakeUniString("шщ"),
+
+    // Spanish
+    MakeUniString("jh"),  // "Jose" <-> "Hose"
+    MakeUniString("fh"),  // "Hernández" <-> "Fernández"
 };
 
 std::pair<UniString, UniString> const kPreprocessReplacements[] = {
     {MakeUniString("пр-т"),  MakeUniString("проспект")},
     {MakeUniString("пр-д"),  MakeUniString("проезд")},
-    {MakeUniString("наб-я"), MakeUniString("набережная")}
+    {MakeUniString("наб-я"), MakeUniString("набережная")},
+    {MakeUniString("м-н"), MakeUniString("микрорайон")},
 };
 
 
@@ -124,6 +131,10 @@ UniString NormalizeAndSimplifyString(std::string_view s)
       c = 'a';
       uniString.insert(uniString.begin() + (i++) + 1, 'e');
       break;
+    case 0x2018:  // ‘
+    case 0x2019:  // ’
+      c = '\'';
+      break;
     case 0x2116:  // №
       c = '#';
       break;
@@ -143,10 +154,10 @@ UniString NormalizeAndSimplifyString(std::string_view s)
   });
 
   // Replace sequence of spaces with single one.
-  uniString.erase(std::unique(uniString.begin(), uniString.end(), [](UniChar l, UniChar r)
+  base::Unique(uniString, [](UniChar l, UniChar r)
   {
     return (l == r && l == ' ');
-  }), uniString.end());
+  });
 
   return uniString;
 
@@ -346,7 +357,7 @@ private:
       "ქუჩა",
 
       // German - Deutsch
-      "straße", "str",
+      "straße", "str", "platz", "pl",
 
       // Hungarian - Magyar
       "utca", "út",
@@ -488,4 +499,14 @@ void StreetTokensFilter::Put(UniString const & token, bool isPrefix, size_t tag)
 
   m_callback(token, tag);
 }
+
+String2StringMap const & GetDACHStreets()
+{
+  static String2StringMap res = {
+    { MakeUniString("strasse"), MakeUniString("str") },
+    { MakeUniString("platz"), MakeUniString("pl") },
+  };
+  return res;
+}
+
 }  // namespace search

@@ -18,23 +18,13 @@ namespace generator
 {
 // CrossMwmOsmWaysCollector ------------------------------------------------------------------------
 
-CrossMwmOsmWaysCollector::CrossMwmOsmWaysCollector(std::string intermediateDir,
-                                                   std::string const & targetDir,
-                                                   bool haveBordersForWholeWorld)
-  : m_intermediateDir(std::move(intermediateDir))
-{
-  m_affiliation =
-      std::make_shared<feature::CountriesFilesAffiliation>(targetDir, haveBordersForWholeWorld);
-}
-
 CrossMwmOsmWaysCollector::CrossMwmOsmWaysCollector(
-    std::string intermediateDir, std::shared_ptr<feature::CountriesFilesAffiliation> affiliation)
+    std::string intermediateDir, AffiliationInterfacePtr affiliation)
   : m_intermediateDir(std::move(intermediateDir)), m_affiliation(std::move(affiliation))
 {
 }
 
-std::shared_ptr<CollectorInterface> CrossMwmOsmWaysCollector::Clone(
-    std::shared_ptr<cache::IntermediateDataReaderInterface> const &) const
+std::shared_ptr<CollectorInterface> CrossMwmOsmWaysCollector::Clone(IDRInterfacePtr const &) const
 {
   return std::make_shared<CrossMwmOsmWaysCollector>(m_intermediateDir, m_affiliation);
 }
@@ -149,11 +139,6 @@ void CrossMwmOsmWaysCollector::OrderCollectedData()
   auto const & crossMwmOsmWaysDir = base::JoinPath(m_intermediateDir, CROSS_MWM_OSM_WAYS_DIR);
   for (auto const & item : m_mwmToCrossMwmOsmIds)
     OrderTextFileByLine(base::JoinPath(crossMwmOsmWaysDir, item.first));
-}
-
-void CrossMwmOsmWaysCollector::Merge(generator::CollectorInterface const & collector)
-{
-  collector.MergeInto(*this);
 }
 
 void CrossMwmOsmWaysCollector::MergeInto(CrossMwmOsmWaysCollector & collector) const

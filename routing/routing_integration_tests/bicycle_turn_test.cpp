@@ -199,7 +199,7 @@ UNIT_TEST(TurnsNearAltufievskoeShosseLongFakeSegmentTest)
   integration::GetNthTurn(route, 3).TestValid().TestDirection(CarDirection::TurnSlightLeft);
   integration::GetNthTurn(route, 4).TestValid().TestDirection(CarDirection::TurnLeft);
 
-  integration::TestRouteLength(route, 273.384);
+  integration::TestRouteLength(route, 268.783);
 }
 
 UNIT_TEST(TurnsNearMoscowRiverShortFakeSegmentTest)
@@ -214,10 +214,11 @@ UNIT_TEST(TurnsNearMoscowRiverShortFakeSegmentTest)
   TEST_EQUAL(result, RouterResultCode::NoError, ());
 
   // Closest snapping road is a footway on East, and there are 2 turns, obviously.
-  integration::TestTurnCount(route, 2 /* expectedTurnCount */);
+  integration::TestTurnCount(route, 3 /* expectedTurnCount */);
 
   integration::GetNthTurn(route, 0).TestValid().TestDirection(CarDirection::TurnRight);
   integration::GetNthTurn(route, 1).TestValid().TestDirection(CarDirection::TurnRight);
+  integration::GetNthTurn(route, 2).TestValid().TestDirection(CarDirection::TurnRight);
 
   integration::TestRouteLength(route, 401.2);
 }
@@ -234,23 +235,24 @@ UNIT_TEST(TurnsNearMKAD85kmShortFakeSegmentTest)
   RouterResultCode const result = routeResult.second;
   TEST_EQUAL(result, RouterResultCode::NoError, ());
 
-  TestRouteLength(route, 1700);
+  TestRouteLength(route, 1685.31);
 
-  TestTurnCount(route, 9);
+  TestTurnCount(route, 10);
   GetNthTurn(route, 0).TestValid().TestDirection(CarDirection::TurnRight);
-  GetNthTurn(route, 1).TestValid().TestDirection(CarDirection::GoStraight); // Fix after "small segment" below.
-  GetNthTurn(route, 2).TestValid().TestDirection(CarDirection::TurnRight);
-  GetNthTurn(route, 3).TestValid().TestDirection(CarDirection::EnterRoundAbout);
-  GetNthTurn(route, 4).TestValid().TestDirection(CarDirection::LeaveRoundAbout);
-  GetNthTurn(route, 5).TestValid().TestDirection(CarDirection::EnterRoundAbout);
-  GetNthTurn(route, 6).TestValid().TestDirection(CarDirection::LeaveRoundAbout);
-  GetNthTurn(route, 7).TestValid().TestDirection(CarDirection::TurnRight);
-  GetNthTurn(route, 8).TestValid().TestDirection(CarDirection::TurnLeft);
+  GetNthTurn(route, 1).TestValid().TestDirection(CarDirection::TurnSlightLeft);
+  GetNthTurn(route, 2).TestValid().TestDirection(CarDirection::TurnSlightLeft);
+  GetNthTurn(route, 3).TestValid().TestDirection(CarDirection::TurnRight);
+  GetNthTurn(route, 4).TestValid().TestDirection(CarDirection::EnterRoundAbout);
+  GetNthTurn(route, 5).TestValid().TestDirection(CarDirection::LeaveRoundAbout);
+  GetNthTurn(route, 6).TestValid().TestDirection(CarDirection::EnterRoundAbout);
+  GetNthTurn(route, 7).TestValid().TestDirection(CarDirection::LeaveRoundAbout);
+  GetNthTurn(route, 8).TestValid().TestDirection(CarDirection::TurnRight);
+  GetNthTurn(route, 9).TestValid().TestDirection(CarDirection::TurnLeft);
 
   /// @todo Should fix this small segment.
   CalculateRouteAndTestRouteLength(GetVehicleComponents(VehicleType::Bicycle),
-                                   mercator::FromLatLon(55.9164647, 37.5862981), {0.0, 0.0},
-                                   mercator::FromLatLon(55.9147746, 37.5852526), 200, 0.005);
+                                   mercator::FromLatLon(55.9164523, 37.5867809), {0.0, 0.0},
+                                   mercator::FromLatLon(55.914489, 37.5850912), 260.482, 0.005);
 }
 
 UNIT_TEST(TurnsNearKhladkombinatTest)

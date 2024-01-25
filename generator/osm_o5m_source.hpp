@@ -215,8 +215,8 @@ public:
         NextValue();
       }
 
-      bool operator==(Iterator const & iter) { return m_reader == iter.m_reader; }
-      bool operator!=(Iterator const & iter) { return !(*this == iter); }
+      bool operator==(Iterator const & iter) const { return m_reader == iter.m_reader; }
+      bool operator!=(Iterator const & iter) const { return !(*this == iter); }
 
       Iterator & operator++() { NextValue(); return *this; }
 
@@ -568,8 +568,8 @@ public:
       NextValue();
     }
 
-    bool operator==(Iterator const & iter) { return m_reader == iter.m_reader; }
-    bool operator!=(Iterator const & iter) { return !(*this == iter); }
+    bool operator==(Iterator const & iter) const { return m_reader == iter.m_reader; }
+    bool operator!=(Iterator const & iter) const { return !(*this == iter); }
     Iterator & operator++() { NextValue(); return *this; }
 
     void NextValue() { m_reader = m_reader->ReadEntity(&m_entity) ? m_reader : nullptr; }

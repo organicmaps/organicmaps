@@ -31,8 +31,9 @@ SpeedKMpH constexpr kSpeedOnFootwayKMpH = {5.0 /* weight */, 7.0 /* eta */};
 
 HighwayBasedSpeeds const kDefaultSpeeds = {
     // {highway class : InOutCitySpeedKMpH(in city(weight, eta), out city(weight eta))}
-    {HighwayType::HighwayTrunk, InOutCitySpeedKMpH(SpeedKMpH(3.0, 18.0))},
-    {HighwayType::HighwayTrunkLink, InOutCitySpeedKMpH(SpeedKMpH(3.0, 18.0))},
+    /// @see Russia_UseTrunk for Trunk weights.
+    {HighwayType::HighwayTrunk, InOutCitySpeedKMpH(SpeedKMpH(5.0, 18.0))},
+    {HighwayType::HighwayTrunkLink, InOutCitySpeedKMpH(SpeedKMpH(5.0, 18.0))},
     {HighwayType::HighwayPrimary, InOutCitySpeedKMpH(SpeedKMpH(10.0, 18.0), SpeedKMpH(14.0, 18.0))},
     {HighwayType::HighwayPrimaryLink, InOutCitySpeedKMpH(SpeedKMpH(10.0, 18.0), SpeedKMpH(14.0, 18.0))},
     {HighwayType::HighwaySecondary, InOutCitySpeedKMpH(SpeedKMpH(15.0, 18.0), SpeedKMpH(20.0, 18.0))},
@@ -166,11 +167,13 @@ VehicleModel::LimitsInitList UkraineOptions()
 }
 
 VehicleModel::SurfaceInitList const kBicycleSurface = {
-  // {{surfaceType, surfaceType}, {weightFactor, etaFactor}}
+  // {{surfaceType}, {weightFactor, etaFactor}}
   {{"psurface", "paved_good"}, {1.0, 1.0}},
   {{"psurface", "paved_bad"}, {0.8, 0.8}},
   {{"psurface", "unpaved_good"}, {1.0, 1.0}},
-  {{"psurface", "unpaved_bad"}, {0.3, 0.3}}
+  {{"psurface", "unpaved_bad"}, {0.3, 0.3}},
+  // no dedicated cycleway, doesn't mean that bicycle is not allowed, just lower weight
+  {{"hwtag", "nocycleway"}, {0.8, 0.8}},
 };
 }  // namespace bicycle_model
 

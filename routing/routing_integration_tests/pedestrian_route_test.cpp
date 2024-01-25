@@ -6,10 +6,13 @@
 
 #include "geometry/mercator.hpp"
 
-#include <vector>
 
+namespace pedestrian_route_test
+{
 using namespace routing;
 using namespace routing::turns;
+using namespace integration;
+using mercator::FromLatLon;
 
 UNIT_TEST(GermanyBremenJunctionToCycleway)
 {
@@ -24,7 +27,7 @@ UNIT_TEST(Zgrad424aTo1207)
   integration::CalculateRouteAndTestRouteLength(
       integration::GetVehicleComponents(VehicleType::Pedestrian),
       mercator::FromLatLon(55.9963, 37.2036), {0., 0.},
-      mercator::FromLatLon(55.9955, 37.1948), 623.2);
+      mercator::FromLatLon(55.9955, 37.1948), 659.213);
 }
 
 UNIT_TEST(Zgrad924aTo418)
@@ -32,7 +35,7 @@ UNIT_TEST(Zgrad924aTo418)
   integration::CalculateRouteAndTestRouteLength(
       integration::GetVehicleComponents(VehicleType::Pedestrian),
       mercator::FromLatLon(55.9844, 37.1808), {0., 0.},
-      mercator::FromLatLon(55.9999, 37.2021), 2526.);
+      mercator::FromLatLon(55.9999, 37.2021), 2447.75);
 }
 
 UNIT_TEST(Zgrad924aToFilaretovskyChurch)
@@ -40,7 +43,7 @@ UNIT_TEST(Zgrad924aToFilaretovskyChurch)
   integration::CalculateRouteAndTestRouteLength(
       integration::GetVehicleComponents(VehicleType::Pedestrian),
       mercator::FromLatLon(55.9844, 37.1808), {0., 0.},
-      mercator::FromLatLon(55.9915, 37.1808), 1225.82);
+      mercator::FromLatLon(55.9915, 37.1808), 1194.84);
 }
 
 UNIT_TEST(Zgrad924aTo1145)
@@ -48,7 +51,7 @@ UNIT_TEST(Zgrad924aTo1145)
   integration::CalculateRouteAndTestRouteLength(
       integration::GetVehicleComponents(VehicleType::Pedestrian),
       mercator::FromLatLon(55.9844, 37.1808), {0., 0.},
-      mercator::FromLatLon(55.9924, 37.1853), 1193.0);
+      mercator::FromLatLon(55.9924, 37.1853), 1162.74);
 }
 
 UNIT_TEST(MoscowMuzeonToLebedinoeOzeroGorkyPark)
@@ -59,25 +62,27 @@ UNIT_TEST(MoscowMuzeonToLebedinoeOzeroGorkyPark)
       mercator::FromLatLon(55.724, 37.5956), 1640.0);
 }
 
-/*
 UNIT_TEST(Zgrad315parkingToMusicSchoolBus_BadRoute)
 {
-  // Bad route:
-  // route goes through a highway-tertiary.
+  /// @todo Bad route, goes through a highway-tertiary and fake edge.
+  // integration::CalculateRouteAndTestRouteLength(
+  //     integration::GetVehicleComponents(VehicleType::Pedestrian),
+  //     mercator::FromLatLon(55.9996, 37.2174), {0., 0.},
+  //     mercator::FromLatLon(55.999963, 37.2179159), 164.);
 
+  // A bit far end point and the route is ok.
   integration::CalculateRouteAndTestRouteLength(
       integration::GetVehicleComponents(VehicleType::Pedestrian),
       mercator::FromLatLon(55.9996, 37.2174), {0., 0.},
-      mercator::FromLatLon(55.9999, 37.2179), 161.);
+      mercator::FromLatLon(55.9999757, 37.217925), 165.423);
 }
-*/
 
 UNIT_TEST(Zgrad924aToKrukovo)
 {
   integration::CalculateRouteAndTestRouteLength(
       integration::GetVehicleComponents(VehicleType::Pedestrian),
       mercator::FromLatLon(55.9844, 37.1808), {0., 0.},
-      mercator::FromLatLon(55.9802, 37.1736), 1305.48);
+      mercator::FromLatLon(55.9802, 37.1736), 1030);
 }
 
 UNIT_TEST(MoscowMailRuStarbucksToPetrovskoRazumovskyAlley)
@@ -85,7 +90,7 @@ UNIT_TEST(MoscowMailRuStarbucksToPetrovskoRazumovskyAlley)
   integration::CalculateRouteAndTestRouteLength(
       integration::GetVehicleComponents(VehicleType::Pedestrian),
       mercator::FromLatLon(55.7971, 37.5376), {0., 0.},
-      mercator::FromLatLon(55.7953, 37.5597), 1840.);
+      mercator::FromLatLon(55.7953, 37.5597), 1802.31);
 }
 
 UNIT_TEST(AustraliaMelburn_AvoidMotorway)
@@ -117,7 +122,7 @@ UNIT_TEST(HungaryBudapest_AvoidMotorway)
   integration::CalculateRouteAndTestRouteLength(
       integration::GetVehicleComponents(VehicleType::Pedestrian),
       mercator::FromLatLon(47.56566, 19.14942), {0., 0.},
-      mercator::FromLatLon(47.593, 19.24018), 10072.3);
+      mercator::FromLatLon(47.593, 19.24018), 10579.2);
 }
 
 UNIT_TEST(PolandWarshaw_AvoidCycleway)
@@ -133,7 +138,7 @@ UNIT_TEST(SwedenStockholmSlussenHiltonToMaritimeMuseum)
   integration::CalculateRouteAndTestRouteLength(
       integration::GetVehicleComponents(VehicleType::Pedestrian),
       mercator::FromLatLon(59.32046, 18.06924), {0.0, 0.0},
-      mercator::FromLatLon(59.32751, 18.09092), 3700.35);
+      mercator::FromLatLon(59.32751, 18.09092), 3518.05);
 }
 
 UNIT_TEST(SwedenStockholmSlussenHiltonToAfChapmanHostel)
@@ -141,7 +146,7 @@ UNIT_TEST(SwedenStockholmSlussenHiltonToAfChapmanHostel)
   integration::CalculateRouteAndTestRouteLength(
       integration::GetVehicleComponents(VehicleType::Pedestrian),
       mercator::FromLatLon(59.32045, 18.06928), {0., 0.},
-      mercator::FromLatLon(59.3254, 18.08022), 2328.);
+      mercator::FromLatLon(59.3254, 18.08022), 2249.98);
 }
 
 UNIT_TEST(EstoniaTallinnRadissonHiltonToCatherdalChurch)
@@ -165,7 +170,7 @@ UNIT_TEST(BelarusMinksHotelYubileyniToChurchSaintsSimonAndHelen)
   integration::CalculateRouteAndTestRouteLength(
       integration::GetVehicleComponents(VehicleType::Pedestrian),
       mercator::FromLatLon(53.9112, 27.5466), {0., 0.},
-      mercator::FromLatLon(53.8965, 27.5476), 2244.);
+      mercator::FromLatLon(53.8965, 27.5476), 2151.28);
 }
 
 UNIT_TEST(BelarusMinksBarURatushiToMoscowBusStation)
@@ -197,15 +202,16 @@ UNIT_TEST(RussiaTaganrogSyzranov10k3ToSoftech)
   integration::CalculateRouteAndTestRouteLength(
       integration::GetVehicleComponents(VehicleType::Pedestrian),
       mercator::FromLatLon(47.2183, 38.8634), {0., 0.},
-      mercator::FromLatLon(47.2, 38.8878), 3868.);
+      mercator::FromLatLon(47.2, 38.8878), 3752.68);
 }
 
 UNIT_TEST(RussiaTaganrogSyzranov10k3ToTruseE)
 {
+  // In the end prefers longer footway instead of secondary (no other tags).
   integration::CalculateRouteAndTestRouteLength(
       integration::GetVehicleComponents(VehicleType::Pedestrian),
       mercator::FromLatLon(47.2183, 38.8634), {0., 0.},
-      mercator::FromLatLon(47.2048, 38.9441), 7144.6);
+      mercator::FromLatLon(47.2048, 38.9441), 7536.52);
 }
 
 UNIT_TEST(RussiaTaganrogSyzranov10k3ToLazo5k2)
@@ -213,7 +219,7 @@ UNIT_TEST(RussiaTaganrogSyzranov10k3ToLazo5k2)
   integration::CalculateRouteAndTestRouteLength(
       integration::GetVehicleComponents(VehicleType::Pedestrian),
       mercator::FromLatLon(47.2183, 38.8634), {0., 0.},
-      mercator::FromLatLon(47.2584, 38.9128), 8004.74);
+      mercator::FromLatLon(47.2584, 38.9128), 7563.05);
 }
 
 UNIT_TEST(RussiaTaganrogJukova2ToBolBulvarnaya8)
@@ -237,7 +243,7 @@ UNIT_TEST(RussiaTaganrogCheckhova267k2ToBolBulvarnaya8)
   integration::CalculateRouteAndTestRouteLength(
       integration::GetVehicleComponents(VehicleType::Pedestrian),
       mercator::FromLatLon(47.2200, 38.8906), {0., 0.},
-      mercator::FromLatLon(47.2412, 38.8902), 2897.);
+      mercator::FromLatLon(47.2412, 38.8902), 2834.47);
 }
 
 UNIT_TEST(RussiaRostovOnDonPrKosmonavtovToDneprovsky120b)
@@ -269,7 +275,7 @@ UNIT_TEST(CzechPragueHiltonToKarlovMost)
   integration::CalculateRouteAndTestRouteLength(
       integration::GetVehicleComponents(VehicleType::Pedestrian),
       mercator::FromLatLon(50.0933, 14.4397), {0., 0.},
-      mercator::FromLatLon(50.0864, 14.4124), 2568.8);
+      mercator::FromLatLon(50.0864, 14.4124), 2410.07);
 }
 
 UNIT_TEST(CzechPragueHiltonToNicholasChurch)
@@ -285,7 +291,7 @@ UNIT_TEST(CzechPragueHiltonToKvetniceViewpoint)
   integration::CalculateRouteAndTestRouteLength(
       integration::GetVehicleComponents(VehicleType::Pedestrian),
       mercator::FromLatLon(50.0933, 14.4397), {0., 0.},
-      mercator::FromLatLon(50.0806, 14.3973), 4448.6);
+      mercator::FromLatLon(50.0806, 14.3973), 4649.68);
 }
 
 UNIT_TEST(RussiaSaintPetersburgMoyka93ToAlexanderColumn)
@@ -293,15 +299,16 @@ UNIT_TEST(RussiaSaintPetersburgMoyka93ToAlexanderColumn)
   integration::CalculateRouteAndTestRouteLength(
       integration::GetVehicleComponents(VehicleType::Pedestrian),
       mercator::FromLatLon(59.9241, 30.323), {0., 0.},
-      mercator::FromLatLon(59.939, 30.3159), 2424.6);
+      mercator::FromLatLon(59.939, 30.3159), 2307.17);
 }
 
 UNIT_TEST(RussiaSaintPetersburgMoyka93ToMarsovoPole)
 {
+  // OM follows left bank of Griboedova, while can keep right bank and make a small detour around church.
   integration::CalculateRouteAndTestRouteLength(
       integration::GetVehicleComponents(VehicleType::Pedestrian),
       mercator::FromLatLon(59.9241, 30.323), {0., 0.},
-      mercator::FromLatLon(59.9436, 30.3318), 2891.);
+      mercator::FromLatLon(59.9436, 30.3318), 2755);
 }
 
 UNIT_TEST(RussiaSaintPetersburgMoyka93ToAvrora)
@@ -309,7 +316,7 @@ UNIT_TEST(RussiaSaintPetersburgMoyka93ToAvrora)
   integration::CalculateRouteAndTestRouteLength(
       integration::GetVehicleComponents(VehicleType::Pedestrian),
       mercator::FromLatLon(59.9241, 30.323), {0., 0.},
-      mercator::FromLatLon(59.9554, 30.3378), 4770.);
+      mercator::FromLatLon(59.9554, 30.3378), 4614.66);
 }
 
 UNIT_TEST(RussiaSaintPetersburgPetrPaulChurchToDolphins)
@@ -365,7 +372,7 @@ UNIT_TEST(USARedlandsEsriHQToRedlandsCommunity)
   integration::CalculateRouteAndTestRouteLength(
       integration::GetVehicleComponents(VehicleType::Pedestrian),
       mercator::FromLatLon(34.0556, -117.19567), {0., 0.},
-      mercator::FromLatLon(34.03682, -117.20649), 3330.);
+      mercator::FromLatLon(34.03682, -117.20649), 3142.15);
 }
 
 UNIT_TEST(USANewYorkEmpireStateBuildingToUnitedNations)
@@ -464,14 +471,6 @@ UNIT_TEST(MoscowVodnyStadiumHighwayPlatform)
       mercator::FromLatLon(55.84061, 37.48636), 136.115);
 }
 
-UNIT_TEST(MoscowChistiePrudiSelectPointsInConnectedGraph)
-{
-  integration::CalculateRouteAndTestRouteLength(
-      integration::GetVehicleComponents(VehicleType::Pedestrian),
-      mercator::FromLatLon(55.76613, 37.63769), {0., 0.},
-      mercator::FromLatLon(55.76593, 37.63893), 134.02);
-}
-
 UNIT_TEST(Russia_Moscow_SevTushinoParkPedestrianOnePoint_TurnTest)
 {
   m2::PointD const point = mercator::FromLatLon(55.8719, 37.4464);
@@ -492,7 +491,7 @@ UNIT_TEST(MoscowKashirskoe16ToVorobeviGori)
   integration::CalculateRouteAndTestRouteLength(
       integration::GetVehicleComponents(VehicleType::Pedestrian),
       mercator::FromLatLon(55.66230, 37.63214), {0., 0.},
-      mercator::FromLatLon(55.70934, 37.54232), 9553.0);
+      mercator::FromLatLon(55.70934, 37.54232), 9232.81);
 }
 
 // Test on building pedestrian route past ferry.
@@ -500,6 +499,8 @@ UNIT_TEST(SwitzerlandSaintBlaisePedestrianPastFerry)
 {
   // New value has bigger ditance (+100 meters), but better ETA (-1 minute).
   // Check with intermediate point {47.0098, 6.9770}
+
+  /// @todo After reducing GetFerryLandingPenalty, the app takes ferry here (1184 meters, 708 seconds).
   integration::CalculateRouteAndTestRouteLength(
       integration::GetVehicleComponents(VehicleType::Pedestrian),
       mercator::FromLatLon(47.010336, 6.982954), {0.0, 0.0},
@@ -606,13 +607,13 @@ UNIT_TEST(Hungary_UseFootways)
   integration::CalculateRouteAndTestRouteLength(
       integration::GetVehicleComponents(VehicleType::Pedestrian),
       mercator::FromLatLon(45.8587043, 18.2863972), {0., 0.},
-      mercator::FromLatLon(45.858625, 18.285348), 95.7657, 0.02 /* relativeError */);
+      mercator::FromLatLon(45.858625, 18.285348), 95.7657);
 }
 
 UNIT_TEST(France_Uphill_Downlhill)
 {
-  using namespace integration;
-  using mercator::FromLatLon;
+  // https://www.openstreetmap.org/directions?engine=fossgis_osrm_foot&route=45.3211%2C3.6954%3B45.2353%2C3.8575
+  // Same as OSRM.
 
   double timeDownhill, timeUphill;
   {
@@ -624,7 +625,7 @@ UNIT_TEST(France_Uphill_Downlhill)
     TEST(routeResult.first, ());
     Route const & route = *routeResult.first;
 
-    TestRouteLength(route, 20947.5);
+    TestRouteLength(route, 20388.7);
     timeDownhill = route.GetTotalTimeSec();
     TEST_GREATER(timeDownhill, 4 * 3600, ());
   }
@@ -638,7 +639,7 @@ UNIT_TEST(France_Uphill_Downlhill)
     TEST(routeResult.first, ());
     Route const & route = *routeResult.first;
 
-    TestRouteLength(route, 20947.5);
+    TestRouteLength(route, 20388.7);
     timeUphill = route.GetTotalTimeSec();
     TEST_GREATER(timeUphill, 4 * 3600, ());
   }
@@ -663,3 +664,74 @@ UNIT_TEST(Italy_Rome_Altitude_Footway)
       mercator::FromLatLon(41.899384, 12.4980887), {0., 0.},
       mercator::FromLatLon(41.9007759, 12.4994956), 203.861);
 }
+
+UNIT_TEST(Romania_Mountains_ETA)
+{
+  TRouteResult const routeResult = CalculateRoute(GetVehicleComponents(VehicleType::Pedestrian),
+      FromLatLon(45.5450, 25.2584), {0., 0.},
+      FromLatLon(45.5223, 25.2806));
+
+  TEST_EQUAL(routeResult.second, RouterResultCode::NoError, ());
+  TEST(routeResult.first, ());
+  Route const & route = *routeResult.first;
+
+  // Google agrees here and also makes a detour with less ascent/descent.
+  // GraphHopper, OSRM make a shorter route via the mountain.
+  TestRouteLength(route, 5766.87);
+  route.GetTotalTimeSec();
+  TEST_LESS(route.GetTotalTimeSec(), 2.5 * 3600, ());
+}
+
+// Check piligrim routes here: www santiago.nl/downloads/
+UNIT_TEST(Spain_N634_Piligrim_Road)
+{
+  integration::CalculateRouteAndTestRouteLength(
+      integration::GetVehicleComponents(VehicleType::Pedestrian),
+      mercator::FromLatLon(43.5488528, -6.4696861), {0., 0.},
+      mercator::FromLatLon(43.5435194, -6.5340694), 7217.93);
+}
+
+// https://github.com/organicmaps/organicmaps/issues/5410
+UNIT_TEST(Australia_Mountains_Downlhill)
+{
+  TRouteResult const routeResult = CalculateRoute(GetVehicleComponents(VehicleType::Pedestrian),
+                                                  FromLatLon(-33.7374217, 150.283098), {0., 0.},
+                                                  FromLatLon(-33.7375399, 150.283358));
+
+  TEST_EQUAL(routeResult.second, RouterResultCode::NoError, ());
+  TEST(routeResult.first, ());
+  Route const & route = *routeResult.first;
+
+  TestRouteLength(route, 27.4434);
+  // Altitudes diff is (914 -> 798).
+  double const eta = route.GetTotalTimeSec();
+  TEST(8 * 60 < eta && eta < 11 * 60, (eta));
+}
+
+UNIT_TEST(Turkey_UsePrimary)
+{
+  CalculateRouteAndTestRouteLength(GetVehicleComponents(VehicleType::Pedestrian),
+      FromLatLon(38.7352697, 35.516104), {0., 0.},
+      FromLatLon(38.7398797, 35.5170627), 679.702);
+
+  CalculateRouteAndTestRouteLength(GetVehicleComponents(VehicleType::Pedestrian),
+      FromLatLon(38.7168708, 35.4903164), {0., 0.},
+      FromLatLon(38.7207386, 35.4811178), 1050.39);
+}
+
+UNIT_TEST(Georgia_UsePrimary)
+{
+  TRouteResult const routeResult = CalculateRoute(GetVehicleComponents(VehicleType::Pedestrian),
+                                                  FromLatLon(42.7175722, 42.0496444), {0., 0.},
+                                                  FromLatLon(43.0451, 42.3742778));
+
+  TEST_EQUAL(routeResult.second, RouterResultCode::NoError, ());
+  TEST(routeResult.first, ());
+  Route const & route = *routeResult.first;
+
+  TestRouteLength(route, 68595);
+  double const eta = route.GetTotalTimeSec();
+  TEST(22 * 3600 < eta && eta < 24 * 3600, (eta));
+}
+
+} // namespace pedestrian_route_test

@@ -256,7 +256,7 @@ std::pair<unique_ptr<IndexGraph>, string> BuildTwoCubeGraph()
                                               9, 9
                                               10, 10)";
 
-  return {BuildIndexGraph(move(loader), estimator, joints), osmIdsToFeatureIdsContent};
+  return {BuildIndexGraph(std::move(loader), estimator, joints), osmIdsToFeatureIdsContent};
 }
 
 UNIT_TEST(RestrictionGenerationTest_1)
@@ -274,7 +274,7 @@ UNIT_TEST(RestrictionGenerationTest_1)
   };
   vector<RestrictionUTurnForTests> expectedUTurn;
 
-  TestRestrictionBuilding(restrictionPath, osmIdsToFeatureIdsContent, move(indexGraph),
+  TestRestrictionBuilding(restrictionPath, osmIdsToFeatureIdsContent, std::move(indexGraph),
                           expectedNotUTurn, expectedUTurn);
 }
 
@@ -293,7 +293,7 @@ UNIT_TEST(RestrictionGenerationTest_2)
   };
   vector<RestrictionUTurnForTests> expectedUTurn;
 
-  TestRestrictionBuilding(restrictionPath, osmIdsToFeatureIdsContent, move(indexGraph),
+  TestRestrictionBuilding(restrictionPath, osmIdsToFeatureIdsContent, std::move(indexGraph),
                           expectedNotUTurn, expectedUTurn);
 }
 
@@ -314,7 +314,7 @@ UNIT_TEST(RestrictionGenerationTest_3)
   };
   vector<RestrictionUTurnForTests> expectedUTurn;
 
-  TestRestrictionBuilding(restrictionPath, osmIdsToFeatureIdsContent, move(indexGraph),
+  TestRestrictionBuilding(restrictionPath, osmIdsToFeatureIdsContent, std::move(indexGraph),
                           expectedNotUTurn, expectedUTurn);
 }
 
@@ -336,7 +336,7 @@ UNIT_TEST(RestrictionGenerationTest_BadConnection_1)
   };
   vector<RestrictionUTurnForTests> expectedUTurn;
 
-  TestRestrictionBuilding(restrictionPath, osmIdsToFeatureIdsContent, move(indexGraph),
+  TestRestrictionBuilding(restrictionPath, osmIdsToFeatureIdsContent, std::move(indexGraph),
                           expectedNotUTurn, expectedUTurn);
 }
 
@@ -358,7 +358,7 @@ UNIT_TEST(RestrictionGenerationTest_BadConnection_2)
   };
   vector<RestrictionUTurnForTests> expectedUTurn;
 
-  TestRestrictionBuilding(restrictionPath, osmIdsToFeatureIdsContent, move(indexGraph),
+  TestRestrictionBuilding(restrictionPath, osmIdsToFeatureIdsContent, std::move(indexGraph),
                           expectedNotUTurn, expectedUTurn);
 }
 
@@ -380,7 +380,7 @@ UNIT_TEST(RestrictionGenerationTest_WithUTurn_1)
     {Restriction::Type::OnlyUTurn, 6 /* featureId */, true /* viaIsFirstPoint */}
   };
 
-  TestRestrictionBuilding(restrictionPath, osmIdsToFeatureIdsContent, move(indexGraph),
+  TestRestrictionBuilding(restrictionPath, osmIdsToFeatureIdsContent, std::move(indexGraph),
                           expectedNotUTurn, expectedUTurn);
 }
 
@@ -410,7 +410,7 @@ UNIT_TEST(RestrictionGenerationTest_WithUTurn_2)
       {Restriction::Type::OnlyUTurn, 6 /* featureId */, false /* viaIsFirstPoint */}
   };
 
-  TestRestrictionBuilding(restrictionPath, osmIdsToFeatureIdsContent, move(indexGraph),
+  TestRestrictionBuilding(restrictionPath, osmIdsToFeatureIdsContent, std::move(indexGraph),
                           expectedNotUTurn, expectedUTurn);
 }
 
@@ -431,7 +431,7 @@ UNIT_TEST(RestrictionGenerationTest_WithUTurn_BadConnection_1)
   vector<Restriction> expectedNotUTurn;
   vector<RestrictionUTurnForTests> expectedUTurn;
 
-  TestRestrictionBuilding(restrictionPath, osmIdsToFeatureIdsContent, move(indexGraph),
+  TestRestrictionBuilding(restrictionPath, osmIdsToFeatureIdsContent, std::move(indexGraph),
                           expectedNotUTurn, expectedUTurn);
 }
 }  // namespace restriction_test

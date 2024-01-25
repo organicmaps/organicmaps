@@ -126,13 +126,6 @@ void RenderGroup::AddBucket(drape_ptr<dp::RenderBucket> && bucket)
   m_renderBuckets.push_back(std::move(bucket));
 }
 
-bool RenderGroup::IsOverlay() const
-{
-  auto const depthLayer = GetDepthLayer(m_state);
-  return (depthLayer == DepthLayer::OverlayLayer) ||
-         (depthLayer == DepthLayer::NavigationLayer && HasOverlayHandles());
-}
-
 bool RenderGroup::IsUserMark() const
 {
   auto const depthLayer = GetDepthLayer(m_state);
@@ -150,7 +143,7 @@ bool RenderGroup::UpdateCanBeDeletedStatus(bool canBeDeleted, int currentZoom, r
 
   for (size_t i = 0; i < m_renderBuckets.size(); )
   {
-    bool visibleBucket = !canBeDeleted && (m_renderBuckets[i]->GetMinZoom() <= currentZoom);
+    bool const visibleBucket = !canBeDeleted && (m_renderBuckets[i]->GetMinZoom() <= currentZoom);
     if (!visibleBucket)
     {
       m_renderBuckets[i]->RemoveOverlayHandles(tree);

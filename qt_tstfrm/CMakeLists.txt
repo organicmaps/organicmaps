@@ -7,13 +7,7 @@ set(SRC
 
 omim_add_library(${PROJECT_NAME} ${SRC})
 
-target_compile_options(${PROJECT_NAME}
-  PRIVATE
-    $<$<CXX_COMPILER_ID:AppleClang,Clang>:-Wno-shorten-64-to-32>
-    $<$<CXX_COMPILER_ID:AppleClang,Clang>:-Wno-deprecated-declarations>
-)
-
 target_link_libraries(${PROJECT_NAME}
-  Qt5::Core
-  Qt5::Widgets
+  Qt6::Core
+  Qt6::Widgets
 )

@@ -31,19 +31,26 @@ final class CarPlayService: NSObject {
   }
   var preparedToPreviewTrips: [CPTrip] = []
   var isUserPanMap: Bool = false
+  private var searchText = ""
 
   @objc func setup(window: CPWindow, interfaceController: CPInterfaceController) {
     isCarplayActivated = true
     self.window = window
     self.interfaceController = interfaceController
     self.interfaceController?.delegate = self
-    sessionConfiguration = CPSessionConfiguration(delegate: self)
+    let configuration = CPSessionConfiguration(delegate: self)
+    sessionConfiguration = configuration
     // Try to use the CarPlay unit's interface style.
     if #available(iOS 13.0, *) {
-      if sessionConfiguration?.contentStyle == .light {
+      switch configuration.contentStyle {
+      case .light:
+        rootTemplateStyle = .light
         window.overrideUserInterfaceStyle = .light
-      } else {
+      case .dark:
+        rootTemplateStyle = .dark
         window.overrideUserInterfaceStyle = .dark
+      default:
+        rootTemplateStyle = window.overrideUserInterfaceStyle == .light ? .light : .dark
       }
     }
     searchService = CarPlaySearchService()
@@ -97,6 +104,12 @@ final class CarPlayService: NSObject {
     }
     return .unspecified
   }
+  
+  private var rootTemplateStyle: CPTripEstimateStyle = .light {
+    didSet {
+      (interfaceController?.rootTemplate as? CPMapTemplate)?.tripEstimateStyle = rootTemplateStyle
+    }
+  }
 
   private func applyRootViewController() {
     guard let window = window else { return }
@@ -114,6 +127,7 @@ final class CarPlayService: NSObject {
   private func applyBaseRootTemplate() {
     let mapTemplate = MapTemplateBuilder.buildBaseTemplate(positionMode: currentPositionMode)
     mapTemplate.mapDelegate = self
+    mapTemplate.tripEstimateStyle = rootTemplateStyle
     interfaceController?.setRootTemplate(mapTemplate, animated: true)
     FrameworkHelper.rotateMap(0.0, animated: false)
   }
@@ -124,6 +138,7 @@ final class CarPlayService: NSObject {
     interfaceController?.setRootTemplate(mapTemplate, animated: true)
     router?.startNavigationSession(forTrip: trip, template: mapTemplate)
     if let estimates = createEstimates(routeInfo: routeInfo) {
+      mapTemplate.tripEstimateStyle = rootTemplateStyle
       mapTemplate.updateEstimates(estimates, for: trip)
     }
 
@@ -314,7 +329,9 @@ extension CarPlayService: CPSessionConfigurationDelegate {
   @available(iOS 13.0, *)
   func sessionConfiguration(_ sessionConfiguration: CPSessionConfiguration,
                             contentStyleChanged contentStyle: CPContentStyle) {
-    window?.overrideUserInterfaceStyle = contentStyle == .light ? .light : .dark
+    let isLight = contentStyle == .light
+    window?.overrideUserInterfaceStyle = isLight ? .light : .dark
+    rootTemplateStyle = isLight ? .light : .dark
   }
 }
 
@@ -356,6 +373,11 @@ extension CarPlayService: CPMapTemplateDelegate {
     if direction.contains(.right) { offset.horizontal -= offsetStep }
     FrameworkHelper.moveMap(offset)
     isUserPanMap = true
+  }
+
+  func mapTemplate(_ mapTemplate: CPMapTemplate, didUpdatePanGestureWithTranslation translation: CGPoint, velocity: CGPoint) {
+    let scaleFactor = self.carplayVC?.mapView?.contentScaleFactor ?? 1
+    FrameworkHelper.scrollMap(-scaleFactor * translation.x, -scaleFactor * translation.y);
   }
 
   func mapTemplate(_ mapTemplate: CPMapTemplate, startedTrip trip: CPTrip, using routeChoice: CPRouteChoice) {
@@ -464,12 +486,13 @@ extension CarPlayService: CPListTemplateDelegate {
 // MARK: - CPSearchTemplateDelegate implementation
 extension CarPlayService: CPSearchTemplateDelegate {
   func searchTemplate(_ searchTemplate: CPSearchTemplate, updatedSearchText searchText: String, completionHandler: @escaping ([CPListItem]) -> Void) {
+    self.searchText = searchText
     let locale = window?.textInputMode?.primaryLanguage ?? "en"
     guard let searchService = searchService else {
       completionHandler([])
       return
     }
-    searchService.searchText(searchText, forInputLocale: locale, completionHandler: { results in
+    searchService.searchText(self.searchText, forInputLocale: locale, completionHandler: { results in
       var items = [CPListItem]()
       for object in results {
         let item = CPListItem(text: object.title, detailText: object.address)
@@ -488,6 +511,18 @@ extension CarPlayService: CPSearchTemplateDelegate {
       preparePreviewForSearchResults(selectedRow: metadata.originalRow)
     }
     completionHandler()
+  }
+  
+  func searchTemplateSearchButtonPressed(_ searchTemplate: CPSearchTemplate) {
+    let locale = window?.textInputMode?.primaryLanguage ?? "en"
+    guard let searchService = searchService else {
+      return
+    }
+    searchService.searchText(searchText, forInputLocale: locale, completionHandler: { [weak self] results in
+      guard let self = self else { return }
+      let template = ListTemplateBuilder.buildListTemplate(for: .searchResults(results: results))
+      self.pushTemplate(template, animated: true)
+    })
   }
 }
 

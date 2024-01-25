@@ -50,21 +50,20 @@ protected:
   enum class Type
   {
     Point,
+    Line,
     Area,
     Unknown
   };
 
   TestFeature();
-  TestFeature(std::string const & name, std::string const & lang);
-  TestFeature(StringUtf8Multilang const & name);
-  TestFeature(m2::PointD const & center, std::string const & name, std::string const & lang);
-  TestFeature(m2::PointD const & center, StringUtf8Multilang const & name);
-  TestFeature(m2::RectD const & boundary, std::string const & name, std::string const & lang);
-  TestFeature(std::vector<m2::PointD> const & boundary, std::string const & name, std::string const & lang);
+  explicit TestFeature(StringUtf8Multilang name);
+  TestFeature(m2::PointD const & center, StringUtf8Multilang name);
+  TestFeature(m2::RectD const & boundary, StringUtf8Multilang name);
+  TestFeature(std::vector<m2::PointD> geometry, StringUtf8Multilang name, Type type);
 
   uint64_t const m_id;
   m2::PointD const m_center;
-  std::vector<m2::PointD> const m_boundary;
+  std::vector<m2::PointD> const m_geometry;
   Type const m_type;
   StringUtf8Multilang m_names;
   std::string m_postcode;
@@ -105,6 +104,13 @@ public:
   TestState(m2::PointD const & center, std::string const & name, std::string const & lang);
 };
 
+// A feature that is big enough for World.mwm but is not a locality.
+class TestSea : public TestPlace
+{
+public:
+  TestSea(m2::PointD const & center, std::string const & name, std::string const & lang);
+};
+
 class TestCity : public TestPlace
 {
   static uint32_t GetCityType();
@@ -118,6 +124,12 @@ class TestVillage : public TestPlace
 {
 public:
   TestVillage(m2::PointD const & center, std::string const & name, std::string const & lang, uint8_t rank);
+};
+
+class TestSuburb : public TestPlace
+{
+public:
+  TestSuburb(m2::PointD const & center, std::string const & name, std::string const & lang);
 };
 
 class TestStreet : public TestFeature
@@ -134,7 +146,6 @@ public:
   std::string ToDebugString() const override;
 
 private:
-  std::vector<m2::PointD> m_points;
   uint32_t m_highwayType;
   std::string m_roadNumber;
 };
@@ -203,13 +214,16 @@ public:
   void Serialize(feature::FeatureBuilder & fb) const override;
   std::string ToDebugString() const override;
 
-  void AddType(uint32_t type) { m_types.push_back(type); }
+  void SetType(uint32_t type) { m_type = type; }
+  void SetPlace(std::string_view place)
+  {
+    m_addr.Set(feature::AddressData::Type::Place, place);
+  }
 
 private:
-  std::string const m_houseNumber;
-  std::string const m_streetName;
-
-  std::vector<uint32_t> m_types;
+  std::string m_houseNumber;
+  feature::AddressData m_addr;
+  uint32_t m_type = 0;
 };
 
 class TestPark : public TestFeature
@@ -230,9 +244,6 @@ public:
   // TestFeature overrides:
   void Serialize(feature::FeatureBuilder & fb) const override;
   std::string ToDebugString() const override;
-
-private:
-  std::vector<m2::PointD> m_points;
 };
 
 std::string DebugPrint(TestFeature const & feature);

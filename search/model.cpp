@@ -15,24 +15,30 @@ using namespace std;
 TwoLevelPOIChecker::TwoLevelPOIChecker() : ftypes::BaseChecker(2 /* level */)
 {
   Classificator const & c = classif();
-  base::StringIL arr[] = {{"aeroway", "terminal"},
-                          {"aeroway", "gate"},
-                          {"building", "train_station"},
-                          {"emergency", "defibrillator"},
-                          {"emergency", "fire_hydrant"},
-                          {"emergency", "phone"},
-                          {"healthcare", "laboratory"},
-                          {"highway", "bus_stop"},
-                          {"highway", "ford"},
-                          {"highway", "raceway"},
-                          {"highway", "rest_area"},
-                          {"highway", "speed_camera"},
-                          {"natural", "beach"},
-                          {"natural", "geyser"},
-                          {"natural", "cave_entrance"},
-                          {"natural", "spring"},
-                          {"natural", "volcano"},
-                          {"waterway", "waterfall"}};
+  base::StringIL arr[] = {
+      {"aeroway", "terminal"},
+      {"aeroway", "gate"},
+      {"building", "train_station"},
+      {"emergency", "defibrillator"},
+      {"emergency", "fire_hydrant"},
+      {"emergency", "phone"},
+      {"highway", "bus_stop"},
+      {"highway", "elevator"},
+      {"highway", "ford"},
+      {"highway", "raceway"},
+      {"highway", "rest_area"},
+      {"highway", "services"},
+      {"highway", "speed_camera"},
+      {"man_made", "lighthouse"},
+      {"man_made", "water_tap"},
+      {"man_made", "water_well"},
+      {"natural", "beach"},
+      {"natural", "geyser"},
+      {"natural", "cave_entrance"},
+      {"natural", "spring"},
+      {"natural", "volcano"},
+      {"waterway", "waterfall"}
+  };
 
   for (auto const & path : arr)
     m_types.push_back(c.GetTypeByPath(path));
@@ -48,7 +54,9 @@ public:
   {
     Classificator const & c = classif();
 
-    auto paths = {"amenity", "historic", "office", "railway", "shop", "sport", "tourism", "craft"};
+    auto paths = {
+        "amenity", "healthcare", "historic", "office", "railway", "shop", "sport", "tourism", "craft"
+    };
     for (auto const & path : paths)
       m_types.push_back(c.GetTypeByPath({path}));
   }
@@ -111,7 +119,13 @@ public:
 
   bool operator()(FeatureType & ft) const
   {
-    return !ft.GetHouseNumber().empty() || IsBuildingChecker::Instance()(ft);
+    if (!ft.GetHouseNumber().empty())
+      return true;
+
+    if (ft.GetGeomType() == feature::GeomType::Line)
+      return IsAddressInterpolChecker::Instance()(ft);
+    else
+      return IsBuildingChecker::Instance()(ft);
   }
 };
 }  // namespace
@@ -141,7 +155,7 @@ Model::Type Model::GetType(FeatureType & feature) const
   case LocalityType::City:
   case LocalityType::Town: return TYPE_CITY;
   case LocalityType::Village: return TYPE_VILLAGE;
-  case LocalityType::Count: ASSERT(false, ());    // no break here
+  case LocalityType::Count: ASSERT(false, ()); [[fallthrough]];
   case LocalityType::None: return TYPE_UNCLASSIFIED;
   }
 

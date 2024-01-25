@@ -46,7 +46,6 @@ set(SRC
   fake_edges_container.hpp
   fake_ending.cpp
   fake_ending.hpp
-  fake_feature_ids.cpp
   fake_feature_ids.hpp
   fake_graph.cpp
   fake_graph.hpp
@@ -139,6 +138,8 @@ set(SRC
   routing_session.hpp
   routing_settings.cpp
   routing_settings.hpp
+  ruler_router.cpp
+  ruler_router.hpp
   segment.cpp
   segment.hpp
   segmented_route.cpp

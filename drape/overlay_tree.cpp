@@ -39,10 +39,8 @@ public:
 
     if (displayFlagLeft == displayFlagRight)
     {
-      uint64_t const mask = m_enableMask ? l->GetPriorityMask() & r->GetPriorityMask() :
-                            dp::kPriorityMaskAll;
-      uint64_t const priorityLeft = l->GetPriority() & mask;
-      uint64_t const priorityRight = r->GetPriority() & mask;
+      uint64_t const priorityLeft = l->GetPriority();
+      uint64_t const priorityRight = r->GetPriority();
       if (priorityLeft > priorityRight)
         return true;
 
@@ -67,14 +65,8 @@ public:
     bool const displayFlagRight = ((!m_enableMask || r->IsSpecialLayerOverlay()) ? true : r->GetDisplayFlag());
 
     if (displayFlagLeft == displayFlagRight)
-    {
-      uint64_t const mask = m_enableMask ? l->GetPriorityMask() & r->GetPriorityMask() :
-                            dp::kPriorityMaskAll;
-      uint64_t const priorityLeft = l->GetPriority() & mask;
-      uint64_t const priorityRight = r->GetPriority() & mask;
+      return l->GetPriority() == r->GetPriority();
 
-      return priorityLeft == priorityRight;
-    }
     return false;
   }
 

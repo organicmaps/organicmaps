@@ -25,11 +25,6 @@ namespace feature
 class FeatureBuilder;
 }  // namespace feature
 
-namespace cache
-{
-class IntermediateDataReaderInterface;
-}  // namespace cache
-
 namespace generator
 {
 // BuildingPartsCollector collects ids of building parts from relations.
@@ -50,19 +45,17 @@ public:
     std::vector<base::GeoObjectId> m_buildingParts;
   };
 
-  explicit BuildingPartsCollector(std::string const & filename,
-                                  std::shared_ptr<cache::IntermediateDataReaderInterface> const & cache);
+  explicit BuildingPartsCollector(std::string const & filename, IDRInterfacePtr const & cache);
 
   // CollectorInterface overrides:
-  std::shared_ptr<CollectorInterface> Clone(
-      std::shared_ptr<cache::IntermediateDataReaderInterface> const & cache) const override;
+  std::shared_ptr<CollectorInterface> Clone(IDRInterfacePtr const & cache) const override;
 
   void CollectFeature(feature::FeatureBuilder const & fb, OsmElement const &) override;
 
   void Finish() override;
 
-  void Merge(CollectorInterface const & collector) override;
-  void MergeInto(BuildingPartsCollector & collector) const override;
+  IMPLEMENT_COLLECTOR_IFACE(BuildingPartsCollector);
+  void MergeInto(BuildingPartsCollector & collector) const;
 
 protected:
   void Save() override;

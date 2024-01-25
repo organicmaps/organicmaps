@@ -66,11 +66,11 @@ public:
   struct Lang
   {
     /// OSM language code (e.g. for name:en it's "en" part).
-    std::string m_code;
+    std::string_view m_code;
     /// Native language name.
-    std::string m_name;
+    std::string_view m_name;
     /// Transliterators to latin ids.
-    std::vector<std::string> m_transliteratorsIds;
+    std::vector<std::string_view> m_transliteratorsIds;
   };
 
   static int8_t constexpr kUnsupportedLanguageCode = -1;
@@ -86,20 +86,26 @@ public:
   // "10".
   static int8_t constexpr kLangCodeMask = 0x3F;
   static_assert(kMaxSupportedLanguages == kLangCodeMask + 1);
-  static char constexpr kReservedLang[] = "reserved";
+  static std::string_view constexpr kReservedLang = "reserved";
 
   using Languages = buffer_vector<Lang, kMaxSupportedLanguages>;
 
   static Languages const & GetSupportedLanguages();
 
+  // These names require separate search/street processing.
+  static bool IsAltOrOldName(int8_t langCode)
+  {
+    return langCode == kAltNameCode || langCode == kOldNameCode;
+  }
+
   /// @returns kUnsupportedLanguageCode if language is not recognized.
   static int8_t GetLangIndex(std::string_view lang);
   /// @returns empty string if langCode is invalid.
-  static char const * GetLangByCode(int8_t langCode);
+  static std::string_view GetLangByCode(int8_t langCode);
   /// @returns empty string if langCode is invalid.
-  static char const * GetLangNameByCode(int8_t langCode);
-  /// @returns empty vector if langCode is invalid.
-  static std::vector<std::string> const & GetTransliteratorsIdsByCode(int8_t langCode);
+  static std::string_view GetLangNameByCode(int8_t langCode);
+  /// @returns nullptr if langCode is invalid.
+  static std::vector<std::string_view> const * GetTransliteratorsIdsByCode(int8_t langCode);
 
   inline bool operator==(StringUtf8Multilang const & rhs) const { return m_s == rhs.m_s; }
   inline bool operator!=(StringUtf8Multilang const & rhs) const { return !(*this == rhs); }

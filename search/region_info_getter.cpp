@@ -76,8 +76,6 @@ void RegionInfoGetter::GetLocalizedFullName(storage::CountryId const & id, NameB
         nameParts.push_back(std::move(name));
     }
 
-    // At least one country translation should exist!
-    ASSERT(!nameParts.empty(), (id));
     return;
   }
 

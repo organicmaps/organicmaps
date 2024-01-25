@@ -6,13 +6,15 @@
 #include "geometry/tree4d.hpp"
 
 #include "base/logging.hpp"
+#include "base/string_utils.hpp"
 
 #include <fstream>
 
-namespace
+
+double TownsDumper::GetDistanceThreshold()
 {
-uint64_t constexpr kTownsEqualityMeters = 500000;
-}  // namespace
+  return 500000;
+}
 
 void TownsDumper::FilterTowns()
 {
@@ -32,17 +34,20 @@ void TownsDumper::FilterTowns()
   LOG(LINFO, ("Capital's tree size =", resultTree.GetSize(), "; Town's vector size =", towns.size()));
   m_records.clear();
 
+  double const distanceThreshold = GetDistanceThreshold();
+
   while (!towns.empty())
   {
+    // Process from biggest to smallest population.
     auto const & top = towns.back();
     bool isUniq = true;
     resultTree.ForEachInRect(
-        mercator::RectByCenterXYAndSizeInMeters(mercator::FromLatLon(top.point), kTownsEqualityMeters),
-        [&top, &isUniq](Town const & candidate)
+        mercator::RectByCenterXYAndSizeInMeters(mercator::FromLatLon(top.point), distanceThreshold),
+        [&top, &isUniq, &distanceThreshold](Town const & candidate)
         {
           // The idea behind that is to collect all capitals and unique major cities in 500 km radius
           // for upgrading in World map visibility. See TOWNS_FILE usage.
-          if (ms::DistanceOnEarth(top.point, candidate.point) < kTownsEqualityMeters)
+          if (ms::DistanceOnEarth(top.point, candidate.point) < distanceThreshold)
             isUniq = false;
         });
 
@@ -77,13 +82,11 @@ void TownsDumper::CheckElement(OsmElement const & em)
     auto const & value = tag.m_value;
     if (key == "population")
     {
-      if (!strings::to_uint64(value, population))
-        continue;
+      UNUSED_VALUE(strings::to_uint64(value, population));
     }
     else if (key == "admin_level")
     {
-      if (!strings::to_int(value, admin_level))
-        continue;
+      UNUSED_VALUE(strings::to_int(value, admin_level));
     }
     else if (key == "capital" && value == "yes")
     {
@@ -106,6 +109,7 @@ void TownsDumper::CheckElement(OsmElement const & em)
 void TownsDumper::Dump(std::string const & filePath)
 {
   FilterTowns();
+
   ASSERT(!filePath.empty(), ());
   std::ofstream stream(filePath);
   stream.precision(9);

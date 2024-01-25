@@ -96,6 +96,7 @@ def step_preprocess(env: Env, **kwargs):
         env.gen_tool,
         out=env.get_subprocess_out(),
         err=env.get_subprocess_out(),
+        data_path=env.paths.data_path,
         intermediate_data_path=env.paths.intermediate_data_path,
         cache_path=env.paths.cache_path,
         osm_file_type="o5m",
@@ -108,8 +109,6 @@ def step_preprocess(env: Env, **kwargs):
 
 
 def step_features(env: Env, **kwargs):
-    if env.production:
-        kwargs.update({"add_ads": True})
     if any(x not in WORLDS_NAMES for x in env.countries):
         kwargs.update({"generate_packed_borders": True})
     if any(x == WORLD_NAME for x in env.countries):
@@ -379,7 +378,6 @@ def step_routing(env: Env, country: AnyStr, **kwargs):
         generate_maxspeed=True,
         make_city_roads=True,
         make_cross_mwm=True,
-        disable_cross_mwm_progress=True,
         generate_cameras=True,
         make_routing_index=True,
         generate_traffic_keys=True,

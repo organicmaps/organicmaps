@@ -68,6 +68,12 @@ struct TapInfo
   static m2::AnyRectD GetPreciseTapRect(m2::PointD const & mercator, double eps);
 };
 
+/*
+ * A FrontendRenderer holds several RenderLayers, one per each df::DepthLayer,
+ * a rendering order of the layers is set in RenderScene().
+ * Each RenderLayer contains several RenderGroups, one per each tile and RenderState.
+ * Each RenderGroup contains several RenderBuckets holding VertexArrayBuffers and optional OverlayHandles.
+ */
 class FrontendRenderer : public BaseRenderer,
                          public MyPositionController::Listener,
                          public UserEventStream::Listener
@@ -182,7 +188,6 @@ private:
   void PreRender3dLayer(ScreenBase const & modelView);
   void Render3dLayer(ScreenBase const & modelView);
   void RenderOverlayLayer(ScreenBase const & modelView);
-  void RenderNavigationOverlayLayer(ScreenBase const & modelView);
   void RenderUserMarksLayer(ScreenBase const & modelView, DepthLayer layerId);
   void RenderNonDisplaceableUserMarksLayer(ScreenBase const & modelView, DepthLayer layerId);
   void RenderTransitSchemeLayer(ScreenBase const & modelView);
@@ -201,7 +206,7 @@ private:
 
   void EmitModelViewChanged(ScreenBase const & modelView) const;
 
-#if defined(OMIM_OS_MAC) || defined(OMIM_OS_LINUX)
+#if defined(OMIM_OS_DESKTOP)
   void EmitGraphicsReady();
 #endif
 
@@ -222,6 +227,7 @@ private:
 
   void OnScaleStarted() override;
   void OnRotated() override;
+  void OnScrolled(m2::PointD const & distance) override;
   void CorrectScalePoint(m2::PointD & pt) const override;
   void CorrectScalePoint(m2::PointD & pt1, m2::PointD & pt2) const override;
   void CorrectGlobalScalePoint(m2::PointD & pt) const override;
@@ -398,7 +404,6 @@ private:
   bool m_forceUpdateScene;
   bool m_forceUpdateUserMarks;
 
-  bool m_isAntialiasingEnabled = false;
   drape_ptr<PostprocessRenderer> m_postprocessRenderer;
   std::vector<PostprocessRenderer::Effect> m_enabledOnStartEffects;
 
@@ -411,7 +416,7 @@ private:
   bool m_firstLaunchAnimationTriggered = false;
   bool m_firstLaunchAnimationInterrupted = false;
 
-#if defined(OMIM_OS_MAC) || defined(OMIM_OS_LINUX)
+#if defined(OMIM_OS_DESKTOP)
   GraphicsReadyHandler m_graphicsReadyFn;
 
   enum class GraphicsStage

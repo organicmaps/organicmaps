@@ -59,7 +59,7 @@ MERGED_FILE="$(mktemp)"
 cat "$STRINGS_PATH"/{strings,types_strings}.txt> "$MERGED_FILE"
 
 # TODO: Add validate-strings-file call to check for duplicates (and avoid Android build errors) when tags are properly set.
-"$TWINE" generate-all-localization-files --include translated --format android --untagged --tags android "$MERGED_FILE" "$OMIM_PATH/android/res/"
+"$TWINE" generate-all-localization-files --include translated --format android --untagged --tags android "$MERGED_FILE" "$OMIM_PATH/android/app/src/main/res/"
 "$TWINE" generate-all-localization-files --format apple --untagged --tags ios "$MERGED_FILE" "$OMIM_PATH/iphone/Maps/LocalizedStrings/"
 "$TWINE" generate-all-localization-files --format apple-plural --untagged --tags ios "$MERGED_FILE" "$OMIM_PATH/iphone/Maps/LocalizedStrings/"
 "$TWINE" generate-all-localization-files --format apple --file-name InfoPlist.strings "$OMIM_PATH/iphone/plist.txt" "$OMIM_PATH/iphone/Maps/LocalizedStrings/"
@@ -73,14 +73,16 @@ SUPPORTED_LOCALIZATIONS="supportedLocalizations="$(sed -nEe "s/ +([a-zA-Z]{2}(-[
 # Chinese locales should correspond to Android codes.
 SUPPORTED_LOCALIZATIONS=${SUPPORTED_LOCALIZATIONS/zh_Hans/zh}
 SUPPORTED_LOCALIZATIONS=${SUPPORTED_LOCALIZATIONS/zh_Hant/zh_HK,zh_MO,zh_TW}
+SUPPORTED_LOCALIZATIONS=${SUPPORTED_LOCALIZATIONS/he/iw}
+SUPPORTED_LOCALIZATIONS=${SUPPORTED_LOCALIZATIONS/id/in}
 GRADLE_PROPERTIES="$OMIM_PATH/android/gradle.properties"
 if [ "$SUPPORTED_LOCALIZATIONS" != "$(grep supportedLocalizations "$GRADLE_PROPERTIES")" ]; then
-  sed -i .bak 's/supportedLocalizations.*/'"$SUPPORTED_LOCALIZATIONS"'/' "$GRADLE_PROPERTIES"
+  sed -i.bak 's/supportedLocalizations.*/'"$SUPPORTED_LOCALIZATIONS"'/' "$GRADLE_PROPERTIES"
   rm "$GRADLE_PROPERTIES.bak"
 fi
 
 # Generate locales_config.xml to allow users change app's language on Android 13+
-LOCALES_CONFIG="$OMIM_PATH/android/res/xml/locales_config.xml"
+LOCALES_CONFIG="$OMIM_PATH/android/app/src/main/res/xml/locales_config.xml"
 SUPPORTED_LOCALIZATIONS=${SUPPORTED_LOCALIZATIONS/supportedLocalizations=/en,}
 SUPPORTED_LOCALIZATIONS=${SUPPORTED_LOCALIZATIONS/,en,/,}
 SUPPORTED_LOCALIZATIONS=${SUPPORTED_LOCALIZATIONS//_/-}

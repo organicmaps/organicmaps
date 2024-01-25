@@ -4,9 +4,8 @@
 
 #include "drape/pointers.hpp"
 
-#include "geometry/any_rect2d.hpp"
-
 #include <chrono>
+#include <deque>
 
 namespace df
 {
@@ -20,13 +19,15 @@ public:
   drape_ptr<Animation> CreateKineticAnimation(ScreenBase const & modelView);
 
 private:
-  m2::PointD GetDirection(ScreenBase const & modelView) const;
+  std::pair<m2::PointD, double> GetDirectionAndVelocity(ScreenBase const & modelView) const;
 
-  std::chrono::steady_clock::time_point m_lastTimestamp;
-  std::chrono::steady_clock::time_point m_updateTimestamp;
+  using ClockT = std::chrono::steady_clock;
+  static double GetDurationSeconds(ClockT::time_point const & t2, ClockT::time_point const & t1)
+  {
+    return std::chrono::duration_cast<std::chrono::duration<double>>(t2 - t1).count();
+  }
+
+  std::deque<std::pair<m2::PointD, ClockT::time_point>> m_points;
   bool m_isActive = false;
-  m2::AnyRectD m_lastRect;
-  m2::PointD m_updatePosition;
-  double m_instantVelocity = 0.0;
 };
 }  // namespace df

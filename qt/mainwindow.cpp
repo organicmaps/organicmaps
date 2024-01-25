@@ -35,7 +35,6 @@
 #endif // BUILD_DESIGNER
 
 #include <QtGui/QCloseEvent>
-#include <QtWidgets/QDesktopWidget>
 #include <QtWidgets/QDockWidget>
 #include <QtWidgets/QFileDialog>
 #include <QtWidgets/QHBoxLayout>
@@ -81,21 +80,27 @@ void FormatMapSize(uint64_t sizeInBytes, std::string & units, size_t & sizeToDow
   }
 }
 
+template <class T> T * CreateBlackControl(QString const & name)
+{
+  T * p = new T(name);
+  p->setStyleSheet("color: black;");
+  return p;
+}
+
 }  // namespace
 
 // Defined in osm_auth_dialog.cpp.
 extern char const * kTokenKeySetting;
 extern char const * kTokenSecretSetting;
 
-MainWindow::MainWindow(Framework & framework, bool apiOpenGLES3,
+MainWindow::MainWindow(Framework & framework,
                        std::unique_ptr<ScreenshotParams> && screenshotParams,
                        QRect const & screenGeometry
 #ifdef BUILD_DESIGNER
                        , QString const & mapcssFilePath
 #endif
                        )
-  : m_Docks{}
-  , m_locationService(CreateDesktopLocationService(*this))
+  : m_locationService(CreateDesktopLocationService(*this))
   , m_screenshotMode(screenshotParams != nullptr)
 #ifdef BUILD_DESIGNER
   , m_mapcssFilePath(mapcssFilePath)
@@ -115,7 +120,11 @@ MainWindow::MainWindow(Framework & framework, bool apiOpenGLES3,
 
   int const width = m_screenshotMode ? static_cast<int>(screenshotParams->m_width) : 0;
   int const height = m_screenshotMode ? static_cast<int>(screenshotParams->m_height) : 0;
-  m_pDrawWidget = new DrawWidget(framework, apiOpenGLES3, std::move(screenshotParams), this);
+  m_pDrawWidget = new DrawWidget(framework, std::move(screenshotParams), this);
+
+  QList<Qt::GestureType> gestures;
+  gestures << Qt::PinchGesture;
+  m_pDrawWidget->grabGestures(gestures);
 
   setCentralWidget(m_pDrawWidget);
 
@@ -131,7 +140,8 @@ MainWindow::MainWindow(Framework & framework, bool apiOpenGLES3,
   CreateNavigationBar();
   CreateSearchBarAndPanel();
 
-  QString caption = qAppName();
+  QString caption = QCoreApplication::applicationName();
+
 #ifdef BUILD_DESIGNER
   if (!m_mapcssFilePath.isEmpty())
     caption += QString(" - ") + m_mapcssFilePath;
@@ -194,7 +204,7 @@ MainWindow::MainWindow(Framework & framework, bool apiOpenGLES3,
 
     if (!text.empty())
     {
-      InfoDialog welcomeDlg(QString("Welcome to ") + qAppName(), text.c_str(),
+      InfoDialog welcomeDlg(QString("Welcome to ") + caption, text.c_str(),
                             this, QStringList(tr("Download Maps")));
       if (welcomeDlg.exec() == QDialog::Rejected)
         bShowUpdateDialog = false;
@@ -207,13 +217,14 @@ MainWindow::MainWindow(Framework & framework, bool apiOpenGLES3,
 #endif // NO_DOWNLOADER
 
   m_pDrawWidget->UpdateAfterSettingsChanged();
-  
+
   RoutingSettings::LoadSession(m_pDrawWidget->GetFramework());
 }
 
-#if defined(Q_WS_WIN)
-bool MainWindow::winEvent(MSG * msg, long * result)
+#if defined(OMIM_OS_WINDOWS)
+bool MainWindow::nativeEvent(QByteArray const & eventType, void * message, qintptr * result)
 {
+  MSG * msg = static_cast<MSG *>(message);
   if (msg->message == WM_SYSCOMMAND)
   {
     switch (msg->wParam)
@@ -228,7 +239,7 @@ bool MainWindow::winEvent(MSG * msg, long * result)
       return true;
     }
   }
-  return false;
+  return QMainWindow::nativeEvent(eventType, message, result);
 }
 #endif
 
@@ -364,12 +375,10 @@ void MainWindow::CreateNavigationBar()
 
     pToolBar->addSeparator();
 
-// #ifndef OMIM_OS_LINUX
     // add my position button with "checked" behavior
 
     m_pMyPositionAction = pToolBar->addAction(QIcon(":/navig64/location.png"), tr("My Position"), this, SLOT(OnMyPosition()));
     m_pMyPositionAction->setCheckable(true);
-// #endif
 
 #ifdef BUILD_DESIGNER
     // Add "Build style" button
@@ -448,17 +457,17 @@ Framework & MainWindow::GetFramework() const
 void MainWindow::CreateCountryStatusControls()
 {
   QHBoxLayout * mainLayout = new QHBoxLayout();
-  m_downloadButton = new QPushButton("Download");
+  m_downloadButton = CreateBlackControl<QPushButton>("Download");
   mainLayout->addWidget(m_downloadButton, 0, Qt::AlignHCenter);
   m_downloadButton->setVisible(false);
   connect(m_downloadButton, &QAbstractButton::released, this, &MainWindow::OnDownloadClicked);
 
-  m_retryButton = new QPushButton("Retry downloading");
+  m_retryButton = CreateBlackControl<QPushButton>("Retry downloading");
   mainLayout->addWidget(m_retryButton, 0, Qt::AlignHCenter);
   m_retryButton->setVisible(false);
   connect(m_retryButton, &QAbstractButton::released, this, &MainWindow::OnRetryDownloadClicked);
 
-  m_downloadingStatusLabel = new QLabel("Downloading");
+  m_downloadingStatusLabel = CreateBlackControl<QLabel>("Downloading");
   mainLayout->addWidget(m_downloadingStatusLabel, 0, Qt::AlignHCenter);
   m_downloadingStatusLabel->setVisible(false);
 
@@ -539,16 +548,22 @@ void MainWindow::OnLocationError(location::TLocationError errorCode)
 {
   switch (errorCode)
   {
-  case location::EDenied:
-    m_pMyPositionAction->setEnabled(false);
-    break;
+  case location::EDenied:  [[fallthrough]];
+  case location::ETimeout: [[fallthrough]];
+  case location::EUnknown:
+    {
+      if (m_pMyPositionAction != nullptr)
+        m_pMyPositionAction->setEnabled(false);
+      break;
+    }
 
   default:
     ASSERT(false, ("Not handled location notification:", errorCode));
     break;
   }
 
-  m_pDrawWidget->GetFramework().OnLocationError(errorCode);
+  if (m_pDrawWidget != nullptr)
+    m_pDrawWidget->GetFramework().OnLocationError(errorCode);
 }
 
 void MainWindow::OnLocationUpdated(location::GpsInfo const & info)
@@ -634,7 +649,7 @@ void MainWindow::OnUploadEditsMenuItem()
   {
     auto & editor = osm::Editor::Instance();
     if (editor.HaveMapEditsOrNotesToUpload())
-      editor.UploadChanges(key, secret, {{"created_by", "OMaps " OMIM_OS_NAME}});
+      editor.UploadChanges(key, secret, {{"created_by", "Organic Maps " OMIM_OS_NAME}});
   }
 }
 
@@ -648,11 +663,11 @@ void MainWindow::OnBeforeEngineCreation()
 
 void MainWindow::OnPreferences()
 {
-  PreferencesDialog dlg(this);
+  Framework & framework = m_pDrawWidget->GetFramework();
+  PreferencesDialog dlg(this, framework);
   dlg.exec();
 
-  m_pDrawWidget->GetFramework().SetupMeasurementSystem();
-  m_pDrawWidget->GetFramework().EnterForeground();
+  framework.EnterForeground();
 }
 
 #ifdef BUILD_DESIGNER
@@ -927,9 +942,4 @@ void MainWindow::OnBookmarksAction()
   m_pDrawWidget->update();
 }
 
-// static
-void MainWindow::SetDefaultSurfaceFormat(bool apiOpenGLES3)
-{
-  DrawWidget::SetDefaultSurfaceFormat(apiOpenGLES3);
-}
 }  // namespace qt

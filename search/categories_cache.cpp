@@ -7,8 +7,6 @@
 #include "indexer/ftypes_matcher.hpp"
 #include "indexer/search_string_utils.hpp"
 
-#include "base/assert.hpp"
-
 
 namespace search
 {
@@ -17,9 +15,6 @@ using namespace std;
 // CategoriesCache ---------------------------------------------------------------------------------
 CBV CategoriesCache::Get(MwmContext const & context)
 {
-  CHECK(context.m_handle.IsAlive(), ());
-  ASSERT(context.m_value.HasSearchIndex(), ());
-
   auto const id = context.m_handle.GetId();
   auto const it = m_cache.find(id);
   if (it != m_cache.cend())
@@ -32,9 +27,6 @@ CBV CategoriesCache::Get(MwmContext const & context)
 
 CBV CategoriesCache::Load(MwmContext const & context) const
 {
-  ASSERT(context.m_handle.IsAlive(), ());
-  ASSERT(context.m_value.HasSearchIndex(), ());
-
   auto const & c = classif();
 
   // Any DFA will do, since we only use requests's m_categories,

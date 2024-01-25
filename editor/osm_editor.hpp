@@ -28,17 +28,14 @@
 #include <utility>
 #include <vector>
 
-namespace editor
-{
-namespace testing
+namespace editor::testing
 {
 class EditorTest;
-}
-}
+}  // namespace editor::testing
 namespace editor
 {
 class XMLFeature;
-}
+}  // namespace editor
 
 namespace osm
 {
@@ -53,14 +50,14 @@ class Editor final : public MwmSet::Observer
 public:
   using FeatureTypeFn = std::function<void(FeatureType & ft)>;
   using InvalidateFn = std::function<void()>;
-  using ForEachFeaturesNearByFn =
-      std::function<void(FeatureTypeFn && fn, m2::PointD const & mercator)>;
+  using ForEachFeaturesNearByFn = std::function<void(FeatureTypeFn && fn, m2::PointD const & mercator)>;
+  using MwmId = MwmSet::MwmId;
 
   struct Delegate
   {
     virtual ~Delegate() = default;
 
-    virtual MwmSet::MwmId GetMwmIdByMapName(std::string const & name) const = 0;
+    virtual MwmId GetMwmIdByMapName(std::string const & name) const = 0;
     virtual std::unique_ptr<EditableMapObject> GetOriginalMapObject(FeatureID const & fid) const = 0;
     virtual std::string GetOriginalFeatureStreet(FeatureID const & fid) const = 0;
     virtual void ForEachFeatureAtPoint(FeatureTypeFn && fn, m2::PointD const & point) const = 0;
@@ -102,10 +99,7 @@ public:
 
   void SetDelegate(std::unique_ptr<Delegate> delegate) { m_delegate = std::move(delegate); }
 
-  void SetStorageForTesting(std::unique_ptr<editor::StorageBase> storage)
-  {
-    m_storage = std::move(storage);
-  }
+  void SetStorageForTesting(std::unique_ptr<editor::StorageBase> storage) { m_storage = std::move(storage); }
 
   void ResetNotes() { m_notes = editor::Notes::MakeNotes(); }
 
@@ -121,15 +115,14 @@ public:
   void OnMapRegistered(platform::LocalCountryFile const & localFile) override;
 
   using FeatureIndexFunctor = std::function<void(uint32_t)>;
-  void ForEachCreatedFeature(MwmSet::MwmId const & id, FeatureIndexFunctor const & f,
-                             m2::RectD const & rect, int scale) const;
+  void ForEachCreatedFeature(MwmId const & id, FeatureIndexFunctor const & f, m2::RectD const & rect, int scale) const;
 
   /// Easy way to check if a feature was deleted, modified, created or not changed at all.
-  FeatureStatus GetFeatureStatus(MwmSet::MwmId const & mwmId, uint32_t index) const;
+  FeatureStatus GetFeatureStatus(MwmId const & mwmId, uint32_t index) const;
   FeatureStatus GetFeatureStatus(FeatureID const & fid) const;
 
   /// @returns true if a feature was uploaded to osm.
-  bool IsFeatureUploaded(MwmSet::MwmId const & mwmId, uint32_t index) const;
+  bool IsFeatureUploaded(MwmId const & mwmId, uint32_t index) const;
 
   /// Marks feature as "deleted" from MwM file.
   void DeleteFeature(FeatureID const & fid);
@@ -142,8 +135,7 @@ public:
   bool GetEditedFeatureStreet(FeatureID const & fid, std::string & outFeatureStreet) const;
 
   /// @returns sorted features indices with specified status.
-  std::vector<uint32_t> GetFeaturesByStatus(MwmSet::MwmId const & mwmId,
-                                            FeatureStatus status) const;
+  std::vector<uint32_t> GetFeaturesByStatus(MwmId const & mwmId, FeatureStatus status) const;
 
   /// Editor checks internally if any feature params were actually edited.
   SaveResult SaveEditedFeature(EditableMapObject const & emo);
@@ -155,7 +147,7 @@ public:
   EditableProperties GetEditableProperties(FeatureType & feature) const;
 
   bool HaveMapEditsOrNotesToUpload() const;
-  bool HaveMapEditsToUpload(MwmSet::MwmId const & mwmId) const;
+  bool HaveMapEditsToUpload(MwmId const & mwmId) const;
 
   using ChangesetTags = std::map<std::string, std::string>;
   /// Tries to upload all local changes to OSM server in a separate thread.
@@ -166,18 +158,16 @@ public:
   // Editor should silently ignore all types in config which are unknown to him.
   NewFeatureCategories GetNewFeatureCategories() const;
 
-  bool CreatePoint(uint32_t type, m2::PointD const & mercator, MwmSet::MwmId const & id,
-                   EditableMapObject & outFeature) const;
+  bool CreatePoint(uint32_t type, m2::PointD const & mercator, MwmId const & id, EditableMapObject & outFeature) const;
 
-  void CreateNote(ms::LatLon const & latLon, FeatureID const & fid,
-                  feature::TypesHolder const & holder, std::string_view defaultName,
-                  NoteProblemType const type, std::string_view note);
+  void CreateNote(ms::LatLon const & latLon, FeatureID const & fid, feature::TypesHolder const & holder,
+                  std::string_view defaultName, NoteProblemType type, std::string_view note);
 
   Stats GetStats() const;
 
   // Don't use this function to determine if a feature in editor was created.
   // Use GetFeatureStatus(fid) instead. This function is used when a feature is
-  // not yet saved and we have to know if it was modified or created.
+  // not yet saved, and we have to know if it was modified or created.
   static bool IsCreatedFeature(FeatureID const & fid);
 
 private:
@@ -185,7 +175,7 @@ private:
   struct UploadInfo
   {
     time_t m_uploadAttemptTimestamp = base::INVALID_TIME_STAMP;
-    /// Is empty if upload has never occured or one of k* constants above otherwise.
+    /// Is empty if upload has never occurred or one of k* constants above otherwise.
     std::string m_uploadStatus;
     std::string m_uploadError;
   };
@@ -198,12 +188,12 @@ private:
     std::string m_street;
     time_t m_modificationTimestamp = base::INVALID_TIME_STAMP;
     time_t m_uploadAttemptTimestamp = base::INVALID_TIME_STAMP;
-    /// Is empty if upload has never occured or one of k* constants above otherwise.
+    /// Is empty if upload has never occurred or one of k* constants above otherwise.
     std::string m_uploadStatus;
     std::string m_uploadError;
   };
 
-  using FeaturesContainer = std::map<MwmSet::MwmId, std::map<uint32_t, FeatureTypeInfo>>;
+  using FeaturesContainer = std::map<MwmId, std::map<uint32_t, FeatureTypeInfo>>;
 
   /// @returns false if fails.
   bool Save(FeaturesContainer const & features) const;
@@ -216,38 +206,33 @@ private:
   bool MarkFeatureAsObsolete(FeatureID const & fid);
   bool RemoveFeature(FeatureID const & fid);
 
-  FeatureID GenerateNewFeatureId(FeaturesContainer const & features,
-                                 MwmSet::MwmId const & id) const;
+  FeatureID GenerateNewFeatureId(FeaturesContainer const & features, MwmId const & id) const;
   EditableProperties GetEditablePropertiesForTypes(feature::TypesHolder const & types) const;
 
   bool FillFeatureInfo(FeatureStatus status, editor::XMLFeature const & xml, FeatureID const & fid,
                        FeatureTypeInfo & fti) const;
   /// @returns pointer to m_features[id][index] if exists, nullptr otherwise.
-  FeatureTypeInfo const * GetFeatureTypeInfo(FeaturesContainer const & features,
-                                             MwmSet::MwmId const & mwmId, uint32_t index) const;
+  static FeatureTypeInfo const * GetFeatureTypeInfo(FeaturesContainer const & features, MwmId const & mwmId,
+                                                    uint32_t index);
   void SaveUploadedInformation(FeatureID const & fid, UploadInfo const & fromUploader);
 
-  void MarkFeatureWithStatus(FeaturesContainer & editableFeatures, FeatureID const & fid,
-                             FeatureStatus status);
+  void MarkFeatureWithStatus(FeaturesContainer & editableFeatures, FeatureID const & fid, FeatureStatus status);
 
   // These methods are just checked wrappers around Delegate.
-  MwmSet::MwmId GetMwmIdByMapName(std::string const & name);
+  MwmId GetMwmIdByMapName(std::string const & name);
   std::unique_ptr<EditableMapObject> GetOriginalMapObject(FeatureID const & fid) const;
   std::string GetOriginalFeatureStreet(FeatureID const & fid) const;
   void ForEachFeatureAtPoint(FeatureTypeFn && fn, m2::PointD const & point) const;
-  FeatureID GetFeatureIdByXmlFeature(FeaturesContainer const & features,
-                                     editor::XMLFeature const & xml, MwmSet::MwmId const & mwmId,
-                                     FeatureStatus status, bool needMigrate) const;
+  FeatureID GetFeatureIdByXmlFeature(FeaturesContainer const & features, editor::XMLFeature const & xml,
+                                     MwmId const & mwmId, FeatureStatus status, bool needMigrate) const;
   void LoadMwmEdits(FeaturesContainer & loadedFeatures, pugi::xml_node const & mwm,
-                    MwmSet::MwmId const & mwmId, bool needMigrate);
+                    MwmId const & mwmId, bool needMigrate);
 
-  bool HaveMapEditsToUpload(FeaturesContainer const & features) const;
+  static bool HaveMapEditsToUpload(FeaturesContainer const & features);
 
-  FeatureStatus GetFeatureStatusImpl(FeaturesContainer const & features,
-                                     MwmSet::MwmId const & mwmId, uint32_t index) const;
+  static FeatureStatus GetFeatureStatusImpl(FeaturesContainer const & features, MwmId const & mwmId, uint32_t index);
 
-  bool IsFeatureUploadedImpl(FeaturesContainer const & features, MwmSet::MwmId const & mwmId,
-                             uint32_t index) const;
+  static bool IsFeatureUploadedImpl(FeaturesContainer const & features, MwmId const & mwmId, uint32_t index);
 
   /// Deleted, edited and created features.
   base::AtomicSharedPtr<FeaturesContainer> m_features;
@@ -271,5 +256,5 @@ private:
   DECLARE_THREAD_CHECKER(MainThreadChecker);
 };  // class Editor
 
-std::string DebugPrint(Editor::SaveResult const saveResult);
+std::string DebugPrint(Editor::SaveResult saveResult);
 }  // namespace osm

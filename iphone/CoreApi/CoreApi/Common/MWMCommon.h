@@ -32,7 +32,7 @@ static inline BOOL isIOSVersionLessThan(NSUInteger version)
   return isIOSVersionLessThanString([NSString stringWithFormat:@"%@", @(version)]);
 }
 
-static inline BOOL isInterfaceRightToLeft()
+static inline BOOL isInterfaceRightToLeft(void)
 {
   return UIApplication.sharedApplication.userInterfaceLayoutDirection ==
          UIUserInterfaceLayoutDirectionRightToLeft;
@@ -50,7 +50,7 @@ static inline BOOL equalScreenDimensions(CGFloat left, CGFloat right)
   return fabs(left - right) < 0.5;
 }
 
-static inline CGFloat statusBarHeight()
+static inline CGFloat statusBarHeight(void)
 {
   CGSize const statusBarSize = UIApplication.sharedApplication.statusBarFrame.size;
   return MIN(statusBarSize.height, statusBarSize.width);

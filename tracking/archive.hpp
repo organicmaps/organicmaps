@@ -44,8 +44,6 @@ struct Restrictions
 
 struct Limits
 {
-  Limits() = delete;
-
   double m_minLat;
   double m_maxLat;
   double m_minLon;

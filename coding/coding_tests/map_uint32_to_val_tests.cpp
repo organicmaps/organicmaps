@@ -2,9 +2,9 @@
 
 #include "coding/map_uint32_to_val.hpp"
 #include "coding/reader.hpp"
+#include "coding/varint.hpp"
 #include "coding/writer.hpp"
 
-#include <cstdint>
 #include <utility>
 #include <vector>
 

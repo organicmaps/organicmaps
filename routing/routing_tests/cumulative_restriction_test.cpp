@@ -69,7 +69,7 @@ unique_ptr<SingleVehicleWorldGraph> BuildXYGraph()
 
   traffic::TrafficCache const trafficCache;
   shared_ptr<EdgeEstimator> estimator = CreateEstimatorForCar(trafficCache);
-  return BuildWorldGraph(move(loader), estimator, joints);
+  return BuildWorldGraph(std::move(loader), estimator, joints);
 }
 
 using Algorithm = AStarAlgorithm<Segment, SegmentEdge, RouteWeight>;
@@ -101,7 +101,7 @@ UNIT_CLASS_TEST(RestrictionTest, XYGraph_RestrictionF1F3Only)
   TestRestrictions(
       expectedGeom, Algorithm::Result::OK,
       MakeFakeEnding(1 /* featureId */, 0 /* segmentIdx */, m2::PointD(2, 0), *m_graph),
-      MakeFakeEnding(5, 0, m2::PointD(2, 3), *m_graph), move(restrictionsNo), *this);
+      MakeFakeEnding(5, 0, m2::PointD(2, 3), *m_graph), std::move(restrictionsNo), *this);
 }
 
 // Route through XY graph with one restriction (type only) from F3 to F5.
@@ -119,7 +119,7 @@ UNIT_CLASS_TEST(RestrictionTest, XYGraph_RestrictionF3F5Only)
   TestRestrictions(
       expectedGeom, Algorithm::Result::OK,
       MakeFakeEnding(1 /* featureId */, 0 /* segmentIdx */, m2::PointD(2, 0), *m_graph),
-      MakeFakeEnding(5, 0, m2::PointD(2, 3), *m_graph), move(restrictionsNo), *this);
+      MakeFakeEnding(5, 0, m2::PointD(2, 3), *m_graph), std::move(restrictionsNo), *this);
 }
 
 // Cumulative case. Route through XY graph with two restricitons (type only) applying
@@ -139,7 +139,7 @@ UNIT_CLASS_TEST(RestrictionTest, XYGraph_PermutationsF3F5OnlyF1F3Only)
   TestRestrictions(
       expectedGeom, Algorithm::Result::OK,
       MakeFakeEnding(1 /* featureId */, 0 /* segmentIdx */, m2::PointD(2, 0), *m_graph),
-      MakeFakeEnding(5, 0, m2::PointD(2, 3), *m_graph), move(restrictionsNo), *this);
+      MakeFakeEnding(5, 0, m2::PointD(2, 3), *m_graph), std::move(restrictionsNo), *this);
 }
 
 // Cumulative case. Route through XY graph with two restricitons (type only and type no) applying
@@ -162,7 +162,7 @@ UNIT_CLASS_TEST(RestrictionTest, XYGraph_PermutationsF3F5OnlyAndF0F2No)
   TestRestrictions(
       expectedGeom, Algorithm::Result::OK,
       MakeFakeEnding(1 /* featureId */, 0 /* segmentIdx */, m2::PointD(2, 0), *m_graph),
-      MakeFakeEnding(5, 0, m2::PointD(2, 3), *m_graph), move(restrictionsNo), *this);
+      MakeFakeEnding(5, 0, m2::PointD(2, 3), *m_graph), std::move(restrictionsNo), *this);
 }
 
 // Cumulative case. Trying to build route through XY graph with two restricitons applying
@@ -183,7 +183,7 @@ UNIT_CLASS_TEST(RestrictionTest, XYGraph_RestrictionF3F5OnlyAndF1F3No)
   TestRestrictions(
       {} /* expectedGeom */, Algorithm::Result::NoPath,
       MakeFakeEnding(1 /* featureId */, 0 /* segmentIdx */, m2::PointD(2, 0), *m_graph),
-      MakeFakeEnding(5, 0, m2::PointD(2, 3), *m_graph), move(restrictionsNo), *this);
+      MakeFakeEnding(5, 0, m2::PointD(2, 3), *m_graph), std::move(restrictionsNo), *this);
 }
 
 //                        Finish
@@ -246,7 +246,7 @@ unique_ptr<SingleVehicleWorldGraph> BuildXXGraph()
 
   traffic::TrafficCache const trafficCache;
   shared_ptr<EdgeEstimator> estimator = CreateEstimatorForCar(trafficCache);
-  return BuildWorldGraph(move(loader), estimator, joints);
+  return BuildWorldGraph(std::move(loader), estimator, joints);
 }
 
 
@@ -293,7 +293,7 @@ unique_ptr<SingleVehicleWorldGraph> BuildCubeGraph()
 
   traffic::TrafficCache const trafficCache;
   shared_ptr<EdgeEstimator> estimator = CreateEstimatorForCar(trafficCache);
-  return BuildWorldGraph(move(loader), estimator, joints);
+  return BuildWorldGraph(std::move(loader), estimator, joints);
 }
 
 // Route through XY graph without any restrictions.
@@ -305,7 +305,7 @@ UNIT_CLASS_TEST(RestrictionTest, XXGraph)
   TestRestrictions(
       expectedGeom, Algorithm::Result::OK,
       MakeFakeEnding(9 /* featureId */, 0 /* segmentIdx */, m2::PointD(2, -1), *m_graph),
-      MakeFakeEnding(6, 0, m2::PointD(3, 3), *m_graph), move(restrictions), *this);
+      MakeFakeEnding(6, 0, m2::PointD(3, 3), *m_graph), std::move(restrictions), *this);
 }
 
 // Cumulative case. Route through XX graph with two restricitons (type only) applying
@@ -325,7 +325,7 @@ UNIT_CLASS_TEST(RestrictionTest, XXGraph_PermutationsF1F3OnlyAndF3F6Only)
   TestRestrictions(
       expectedGeom, Algorithm::Result::OK,
       MakeFakeEnding(9 /* featureId */, 0 /* segmentIdx */, m2::PointD(2, -1), *m_graph),
-      MakeFakeEnding(6, 0, m2::PointD(3, 3), *m_graph), move(restrictionsNo), *this);
+      MakeFakeEnding(6, 0, m2::PointD(3, 3), *m_graph), std::move(restrictionsNo), *this);
 }
 
 // Route through XX graph with one restriciton (type no) from F1 to F3.
@@ -341,7 +341,7 @@ UNIT_CLASS_TEST(RestrictionTest, XXGraph_RestrictionF1F3No)
   TestRestrictions(
       expectedGeom, Algorithm::Result::OK,
       MakeFakeEnding(9 /* featureId */, 0 /* segmentIdx */, m2::PointD(2, -1), *m_graph),
-      MakeFakeEnding(6, 0, m2::PointD(3, 3), *m_graph), move(restrictionsNo), *this);
+      MakeFakeEnding(6, 0, m2::PointD(3, 3), *m_graph), std::move(restrictionsNo), *this);
 }
 
 // Cumulative case. Route through XX graph with four restricitons of different types applying
@@ -366,7 +366,7 @@ UNIT_CLASS_TEST(RestrictionTest, XXGraph_PermutationsF1F3NoF7F8OnlyF8F4OnlyF4F6O
   TestRestrictions(
       expectedGeom, Algorithm::Result::OK,
       MakeFakeEnding(9 /* featureId */, 0 /* segmentIdx */, m2::PointD(2, -1), *m_graph),
-      MakeFakeEnding(6, 0, m2::PointD(3, 3), *m_graph), move(restrictionsNo), *this);
+      MakeFakeEnding(6, 0, m2::PointD(3, 3), *m_graph), std::move(restrictionsNo), *this);
 }
 
 UNIT_CLASS_TEST(RestrictionTest, XXGraph_CheckOnlyRestriction)
@@ -380,7 +380,7 @@ UNIT_CLASS_TEST(RestrictionTest, XXGraph_CheckOnlyRestriction)
       expectedGeom, Algorithm::Result::OK,
       MakeFakeEnding(0 /* featureId */, 0 /* segmentIdx */, start, *m_graph),
       MakeFakeEnding(3 /* featureId */, 0 /* segmentIdx */, finish, *m_graph),
-      move(restrictionsNo), *this);
+      std::move(restrictionsNo), *this);
   };
 
   RestrictionVec restrictionsOnly = {
@@ -391,7 +391,7 @@ UNIT_CLASS_TEST(RestrictionTest, XXGraph_CheckOnlyRestriction)
                               restrictionsNo);
 
   // Check that without restrictions we can find path better.
-  test({start, {2, 0}, {1, 1}, {2, 2}, {3, 1}, finish}, move(restrictionsNo));
+  test({start, {2, 0}, {1, 1}, {2, 2}, {3, 1}, finish}, std::move(restrictionsNo));
   test({start, {2, 0}, {3, 0}, finish}, RestrictionVec());
 }
 }  // namespace cumulative_restriction_test

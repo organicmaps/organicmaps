@@ -165,19 +165,20 @@ UNIT_TEST(Street_PrefixMatch)
 //  TEST(TestStreetPrefixMatch("проезд"), ());
 //  TEST(!TestStreetPrefixMatch("проездд"), ());
 
-//  TEST(TestStreetPrefixMatchWithMisprints("пр"), ());
-//  TEST(!TestStreetPrefixMatch("пре"), ());
-//  TEST(!TestStreetPrefixMatchWithMisprints("пре"), ());
-//  TEST(!TestStreetPrefixMatch("преу"), ());
-//  TEST(TestStreetPrefixMatchWithMisprints("преу"), ());
-//  TEST(!TestStreetPrefixMatch("преул"), ());
-//  TEST(TestStreetPrefixMatchWithMisprints("преул"), ());
-//  TEST(!TestStreetPrefixMatch("преуло"), ());
-//  TEST(TestStreetPrefixMatchWithMisprints("преуло"), ());
-//  TEST(!TestStreetPrefixMatch("преулок"), ());
-//  TEST(TestStreetPrefixMatchWithMisprints("преулок"), ());
-//  TEST(!TestStreetPrefixMatch("преулак"), ());
-//  TEST(!TestStreetPrefixMatchWithMisprints("преулак"), ());
+  TEST(TestStreetPrefixMatchWithMisprints("ул"), ());
+  TEST(!TestStreetPrefixMatch("уле"), ());
+  TEST(!TestStreetPrefixMatchWithMisprints("уле"), ());
+  TEST(!TestStreetPrefixMatch("улец"), ());
+  TEST(TestStreetPrefixMatchWithMisprints("улец"), ());
+  TEST(!TestStreetPrefixMatch("улеца"), ());
+  TEST(TestStreetPrefixMatchWithMisprints("улеца"), ());
+
+  TEST(TestStreetPrefixMatchWithMisprints("roadx"), ());
+  TEST(!TestStreetPrefixMatchWithMisprints("roadxx"), ());
+
+  TEST(!TestStreetPrefixMatchWithMisprints("groad"), ());   // road, but no
+  TEST(TestStreetPrefixMatchWithMisprints("karre"), ());    // carrer
+  TEST(!TestStreetPrefixMatchWithMisprints("karrerx"), ());
 }
 
 UNIT_TEST(Street_TokensFilter)
@@ -279,6 +280,11 @@ UNIT_TEST(NormalizeAndSimplifyString_Numero)
   TEST_EQUAL(NormalizeAndSimplifyStringUtf8("Зона №51"), "зона #51", ());
   TEST_EQUAL(NormalizeAndSimplifyStringUtf8("Area № 51"), "area # 51", ());
   TEST_EQUAL(NormalizeAndSimplifyStringUtf8("Area #One"), "area #one", ());
+}
+
+UNIT_TEST(NormalizeAndSimplifyString_Apostrophe)
+{
+  TEST_EQUAL(NormalizeAndSimplifyStringUtf8("Pop’s"), "pop's", ());
 }
 
 } // namespace search_string_utils_test

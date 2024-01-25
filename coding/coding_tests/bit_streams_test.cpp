@@ -19,19 +19,19 @@ namespace
 {
 UNIT_TEST(BitStreams_Smoke)
 {
-  uniform_int_distribution<uint8_t> randomBytesDistribution(0, 255);
+  uniform_int_distribution<uint32_t> randomBytesDistribution(0, 255);
   mt19937 rng(0);
   vector<pair<uint8_t, uint32_t>> nums;
   for (size_t i = 0; i < 100; ++i)
   {
     uint32_t numBits = randomBytesDistribution(rng) % 8;
-    uint8_t num = randomBytesDistribution(rng) >> (CHAR_BIT - numBits);
+    uint8_t num = static_cast<uint8_t>(randomBytesDistribution(rng) >> (CHAR_BIT - numBits));
     nums.push_back(make_pair(num, numBits));
   }
   for (size_t i = 0; i < 100; ++i)
   {
     uint32_t numBits = 8;
-    uint8_t num = randomBytesDistribution(rng);
+    uint8_t num = static_cast<uint8_t>(randomBytesDistribution(rng));
     nums.push_back(make_pair(num, numBits));
   }
 
