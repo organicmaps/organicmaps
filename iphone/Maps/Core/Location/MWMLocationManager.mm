@@ -289,6 +289,12 @@ void setShowLocationAlert(BOOL needShow) {
       }];
     }
     break;
+  case MWMLocationStatusGPSIsOff:
+    if (needShowLocationAlert()) {
+      [[MWMAlertViewController activeAlertController] presentLocationServicesDisabledAlert];
+      setShowLocationAlert(NO);
+    }
+    break;
   }
 }
 

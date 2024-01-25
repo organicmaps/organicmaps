@@ -1,0 +1,12 @@
+{
+  "images" : [
+    {
+      "filename" : "instruction_switch.svg",
+      "idiom" : "universal"
+    }
+  ],
+  "info" : {
+    "author" : "xcode",
+    "version" : 1
+  }
+}
