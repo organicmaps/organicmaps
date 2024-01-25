@@ -771,6 +771,14 @@
 /* iOS Dialog for the case when the location permission is not granted; you might find the exact wording for your language here: https://support.apple.com/en-us/102647 (replace 'en-us' in URL with your language/region) */
 "location_services_disabled_3" = "3. 앱 사용 중에 선택";
 
+"location_services_disabled_on_device_2" = "2. 2. 개인정보 보호 선택";
+
+"location_services_disabled_on_device_3" = "3. 3. 위치 서비스 선택";
+
+"location_services_disabled_on_device_4" = "4. 위치 서비스 켜기";
+
+"location_services_disabled_on_device_additional_message" = "또는 위치 없이 오가닉 맵을 계속 사용하세요.";
+
 /* abbreviation for meters */
 "m" = "m";
 
