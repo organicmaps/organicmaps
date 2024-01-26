@@ -2682,7 +2682,9 @@ vi:Đường sắt leo núi
 zh-Hans:缆车
 zh-Hant:纜車
 
-railway-subway_entrance|railway-station-subway|@transport
+# Do not add subway_entrance here (pollute a map especially in NY).
+# ToDo: make enhanced subway station highlight with entrances.
+railway-station-subway|@transport
 en:3Subway|3tube|3metro|3underground|U+1F687
 ru:3Метро
 bg:3Метро|подземие
