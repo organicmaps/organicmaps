@@ -61,7 +61,8 @@ public class Metadata implements Parcelable
     FMD_BUILDING_MIN_LEVEL(40),
     FMD_WIKIMEDIA_COMMONS(41),
     FMD_CAPACITY(42),
-    FMD_WHEELCHAIR(43);
+    FMD_WHEELCHAIR(43),
+    FMD_LOCAL_REF(44);
     private final int mMetaType;
 
     MetadataType(int metadataType)
