@@ -42,7 +42,7 @@ double constexpr kErrorsMade = -0.4;
 double constexpr kMatchedFraction = 0.1876736;
 double constexpr kAllTokensUsed = 0.0478513;
 double constexpr kCommonTokens = -0.05;
-double constexpr kAltOldNameFactor = 0.7;   // fraction of the result rank
+double constexpr kAltOldName = -0.25;     // Some reasonable penalty like kErrorsMade.
 
 double constexpr kNameScore[] = {
  -0.05,   // Zero
@@ -349,8 +349,8 @@ double RankingInfo::GetLinearModelRank() const
 
     result += kCommonTokens * m_commonTokensFactor;
 
-    if (m_isAltOrOldName && result > 0)
-      result *= kAltOldNameFactor;
+    if (m_isAltOrOldName)
+      result += kAltOldName;
   }
   else
   {
