@@ -1032,11 +1032,23 @@ UNIT_CLASS_TEST(MwmTestsFixture, Pois_Rank)
     ms::LatLon const center(-34.58524, -58.42516);
     SetViewportAndLoadMaps(center);
 
-    // mix of amenity=pharmacy + shop=chemistry.
-    auto request = MakeRequest("farmacity");
-    auto const & results = request->Results();
-    TEST_GREATER(results.size(), kPopularPoiResultsCount, ());
-    TEST_LESS(SortedByDistance(Range(results, 0, kPopularPoiResultsCount), center).second, 2000, ());
+    {
+      // mix of amenity=pharmacy + shop=chemistry.
+      auto request = MakeRequest("farmacity");
+      auto const & results = request->Results();
+      TEST_GREATER(results.size(), kPopularPoiResultsCount, ());
+      TEST_LESS(SortedByDistance(Range(results, 0, kPopularPoiResultsCount), center).second, 2000, ());
+    }
+
+    {
+      auto request = MakeRequest("Malabia");
+      auto const & results = request->Results();
+      TEST_GREATER(results.size(), kPopularPoiResultsCount, ());
+
+      // alt_name="Malabia"
+      // name="Malabia XXX" - should take this name's rank
+      EqualClassifType(Range(results, 0, 1), GetClassifTypes({{"railway", "station", "subway"}}));
+    }
   }
 
   {
