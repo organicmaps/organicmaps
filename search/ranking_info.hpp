@@ -30,6 +30,9 @@ enum class PoiType : uint8_t
   // Attractions.
   Attraction,
 
+  // Factor for *pure category* matched result.
+  PureCategory,
+
   // All other POIs.
   General,
   // Service types: power lines and substations, barrier-fence, etc.

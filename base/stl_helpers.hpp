@@ -202,6 +202,13 @@ std::underlying_type_t<T> constexpr Underlying(T value)
   return static_cast<std::underlying_type_t<T>>(value);
 }
 
+// Short alias like Enum to Integral.
+template <typename T>
+std::underlying_type_t<T> constexpr E2I(T value)
+{
+  return Underlying(value);
+}
+
 // Use this if you want to make a functor whose first
 // argument is ignored and the rest are forwarded to |fn|.
 template <typename Fn>

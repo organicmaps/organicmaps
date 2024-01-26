@@ -1219,7 +1219,7 @@ UNIT_CLASS_TEST(ProcessorTest, FuzzyMatch)
   bar.SetTypes({{"amenity", "pub"}});
 
   TestPOI metro({5.0, 5.0}, "Liceu", "es");
-  metro.SetTypes({{"railway", "subway_entrance"}});
+  metro.SetTypes({{"railway", "station", "subway"}});
 
   BuildWorld([&](TestMwmBuilder & builder)
   {

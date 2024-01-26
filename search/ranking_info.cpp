@@ -29,14 +29,14 @@ double constexpr kCategoriesFalseCats = -1.0000000;
 double constexpr kDistanceToPivot = -0.48;
 double constexpr kWalkingDistanceM = 5000.0;
 
+double constexpr AbsPenaltyPerKm()
+{
+  return - kDistanceToPivot * 1000.0 / RankingInfo::kMaxDistMeters;
+}
+
 // This constant is very important and checked in Famous_Cities_Rank test.
 double constexpr kRank = 0.23;
 double constexpr kPopularity = 1.0000000;
-
-// Decreased this value:
-// - On the one hand, when search for "eat", we'd prefer category types, rather than "eat" name.
-// - On the other hand, when search for "subway", do we usually prefer famous fast food or metro?
-double constexpr kFalseCats = -0.01;
 
 double constexpr kErrorsMade = -0.4;
 double constexpr kMatchedFraction = 0.1876736;
@@ -52,7 +52,7 @@ double constexpr kNameScore[] = {
   0.018,  // Full Prefix
   0.02,   // Full Match
 };
-static_assert(std::size(kNameScore) == static_cast<size_t>(NameScore::COUNT));
+static_assert(std::size(kNameScore) == base::E2I(NameScore::COUNT));
 
 // 0-based factors from POIs, Streets, Buildings, since we don't have ratings or popularities now.
 double constexpr kType[] = {
@@ -67,7 +67,7 @@ double constexpr kType[] = {
   0.0233254,  // State
   0.1679389,  // Country
 };
-static_assert(std::size(kType) == static_cast<size_t>(Model::TYPE_COUNT));
+static_assert(std::size(kType) == Model::TYPE_COUNT);
 
 // 0-based factors from General.
 double constexpr kPoiType[] = {
@@ -77,10 +77,20 @@ double constexpr kPoiType[] = {
   0.01,       // Hotel
   0.01,       // Shop or Amenity
   0.01,       // Attraction
+  0.005,      // PureCategory
   0,          // General
  -0.01,       // Service
 };
-static_assert(std::size(kPoiType) == base::Underlying(PoiType::Count));
+static_assert(std::size(kPoiType) == base::E2I(PoiType::Count));
+
+// - When search for "eat", we'd prefer category types, rather than "eat" name.
+// - To _equalize_ "subway" search: Metro category should be equal with "Subway" fast food.
+// - See NY_Subway test.
+double constexpr kFalseCats =
+    kNameScore[base::E2I(NameScore::FULL_PREFIX)] - kNameScore[base::E2I(NameScore::FULL_MATCH)] +
+    kPoiType[base::E2I(PoiType::PureCategory)] - kPoiType[base::E2I(PoiType::Eat)]
+    + AbsPenaltyPerKm();   // a small 'plus diff' to keep fast food a little bit higher
+static_assert(kFalseCats < 0.0);
 
 double constexpr kStreetType[] = {
   0,          // Default
@@ -109,16 +119,15 @@ double TransformDistance(double distance)
   return std::min(distance, RankingInfo::kMaxDistMeters) / RankingInfo::kMaxDistMeters;
 }
 
-void PrintParse(ostringstream & oss, array<TokenRange, Model::TYPE_COUNT> const & ranges,
-                size_t numTokens)
+void PrintParse(ostringstream & oss, array<TokenRange, Model::TYPE_COUNT> const & ranges, size_t numTokens)
 {
-  vector<Model::Type> types(numTokens, Model::Type::TYPE_COUNT);
+  std::vector<Model::Type> types(numTokens, Model::TYPE_COUNT);
   for (size_t i = 0; i < ranges.size(); ++i)
   {
     for (size_t pos : ranges[i])
     {
       CHECK_LESS(pos, numTokens, ());
-      CHECK_EQUAL(types[pos], Model::Type::TYPE_COUNT, ());
+      CHECK_EQUAL(types[pos], Model::TYPE_COUNT, ());
       types[pos] = static_cast<Model::Type>(i);
     }
   }
@@ -326,23 +335,25 @@ double RankingInfo::GetLinearModelRank() const
     result += kDistanceToPivot * distanceToPivot;
     result += kRank * rank;
     result += kPopularity * popularity;
-    result += kFalseCats * (m_falseCats ? 1 : 0);
+    if (m_falseCats)
+      result += kFalseCats;
 
     ASSERT(m_type < Model::TYPE_COUNT, ());
     result += kType[GetTypeScore()];
 
     if (Model::IsPoi(m_type))
     {
-      CHECK_LESS(m_classifType.poi, PoiType::Count, ());
+      ASSERT_LESS(m_classifType.poi, PoiType::Count, ());
       result += kPoiType[base::Underlying(GetPoiTypeScore())];
     }
     else if (m_type == Model::TYPE_STREET)
     {
-      CHECK_LESS(m_classifType.street, StreetType::Count, ());
+      ASSERT_LESS(m_classifType.street, StreetType::Count, ());
       result += kStreetType[base::Underlying(m_classifType.street)];
     }
 
-    result += (m_allTokensUsed ? 1 : 0) * kAllTokensUsed;
+    if (m_allTokensUsed)
+      result += kAllTokensUsed;
 
     auto const nameRank = kNameScore[static_cast<size_t>(GetNameScore())] +
                           kErrorsMade * GetErrorsMadePerToken() +
@@ -359,8 +370,10 @@ double RankingInfo::GetLinearModelRank() const
     result += kCategoriesDistanceToPivot * distanceToPivot;
     result += kCategoriesRank * rank;
     result += kCategoriesPopularity * popularity;
-    result += kCategoriesFalseCats * (m_falseCats ? 1 : 0);
-    result += m_hasName * kHasName;
+    if (m_falseCats)
+      result += kCategoriesFalseCats;
+    if (m_hasName)
+      result += kHasName;
   }
 
   return result;
@@ -415,8 +428,8 @@ Model::Type RankingInfo::GetTypeScore() const
 
 PoiType RankingInfo::GetPoiTypeScore() const
 {
-  // Do not increment score for category-only-matched results or subways will be _always_ on top otherwise.
-  return (m_pureCats ? PoiType::General : m_classifType.poi);
+  // Equalize all *pure category* results to not distinguish different toilets (see NY_Subway, ToiletAirport test).
+  return (m_pureCats ? PoiType::PureCategory : m_classifType.poi);
 }
 
 PoiType GetPoiType(feature::TypesHolder const & th)
@@ -462,8 +475,9 @@ string DebugPrint(PoiType type)
   case PoiType::Hotel: return "Hotel";
   case PoiType::ShopOrAmenity: return "ShopOrAmenity";
   case PoiType::Attraction: return "Attraction";
-  case PoiType::Service: return "Service";
+  case PoiType::PureCategory: return "PureCategory";
   case PoiType::General: return "General";
+  case PoiType::Service: return "Service";
   case PoiType::Count: return "Count";
   }
   UNREACHABLE();
