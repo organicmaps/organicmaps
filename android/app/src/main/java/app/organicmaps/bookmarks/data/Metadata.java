@@ -60,7 +60,9 @@ public class Metadata implements Parcelable
     FMD_JUNCTION_REF(39),
     FMD_BUILDING_MIN_LEVEL(40),
     FMD_WIKIMEDIA_COMMONS(41),
-    FMD_CAPACITY(42);
+    FMD_CAPACITY(42),
+    FMD_LOCAL_REF(43);
+
     private final int mMetaType;
 
     MetadataType(int metadataType)

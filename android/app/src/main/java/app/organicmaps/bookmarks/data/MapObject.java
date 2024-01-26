@@ -204,6 +204,12 @@ public class MapObject implements PlacePageData
     return mTitle;
   }
 
+  @NonNull
+  public String getLocalRef()
+  {
+    return getMetadata(Metadata.MetadataType.FMD_LOCAL_REF);
+  }
+
   public void setTitle(@NonNull String title)
   {
     mTitle = title;

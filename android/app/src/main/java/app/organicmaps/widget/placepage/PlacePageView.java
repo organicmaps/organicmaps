@@ -376,8 +376,16 @@ public class PlacePageView extends Fragment implements View.OnClickListener,
 
   private void refreshPreview()
   {
-    UiUtils.setTextAndHideIfEmpty(mTvTitle, mMapObject.getTitle());
+    if (!mMapObject.getLocalRef().isEmpty()) //should check if bus stop, and check in core somehow instead of android
+    {
+      UiUtils.setTextAndHideIfEmpty(mTvTitle, mMapObject.getTitle() + " (Stop " + mMapObject.getLocalRef() + ")");
+    }
+    else
+    {
+      UiUtils.setTextAndHideIfEmpty(mTvTitle, mMapObject.getTitle());
+    }
     UiUtils.setTextAndHideIfEmpty(mTvSecondaryTitle, mMapObject.getSecondaryTitle());
+
     if (mToolbar != null)
       mToolbar.setTitle(mMapObject.getTitle());
     setTextAndColorizeSubtitle();
