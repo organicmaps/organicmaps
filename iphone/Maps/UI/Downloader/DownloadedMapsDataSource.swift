@@ -41,7 +41,7 @@ extension DownloadedMapsDataSource: IDownloaderDataSource {
 
   var title: String {
     guard let parentCountryId = parentCountryId else {
-      return ""  // Root Downloader dialog displays UISearchBar instead of title.
+      return L("download_maps")
     }
     return Storage.shared().name(forCountry: parentCountryId)
   }
