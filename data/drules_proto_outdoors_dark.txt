@@ -21999,7 +21999,7 @@ cont {
   element {
     scale: 11
     lines {
-      width: 0.7
+      width: 1.9
       color: 1718500679
       priority: 330
       join: BEVELJOIN
@@ -22009,7 +22009,7 @@ cont {
   element {
     scale: 12
     lines {
-      width: 0.8
+      width: 2.0
       color: 1299070279
       priority: 330
       join: BEVELJOIN
@@ -22019,7 +22019,7 @@ cont {
   element {
     scale: 13
     lines {
-      width: 1.1
+      width: 2.2
       color: 7224647
       priority: 330
       cap: BUTTCAP
@@ -22036,7 +22036,7 @@ cont {
   element {
     scale: 14
     lines {
-      width: 1.4
+      width: 2.5
       color: 7224647
       priority: 330
       cap: BUTTCAP
@@ -22053,7 +22053,7 @@ cont {
   element {
     scale: 15
     lines {
-      width: 1.6
+      width: 3.0
       color: 7224647
       priority: 330
       cap: BUTTCAP
@@ -22070,7 +22070,7 @@ cont {
   element {
     scale: 16
     lines {
-      width: 1.9
+      width: 3.5
       color: 7224647
       priority: 330
     }
@@ -22086,7 +22086,7 @@ cont {
   element {
     scale: 17
     lines {
-      width: 2.3
+      width: 4.0
       color: 7224647
       priority: 330
     }
@@ -22102,7 +22102,7 @@ cont {
   element {
     scale: 18
     lines {
-      width: 2.8
+      width: 5.0
       color: 7224647
       priority: 330
     }
@@ -22118,7 +22118,7 @@ cont {
   element {
     scale: 19
     lines {
-      width: 2.8
+      width: 5.0
       color: 7224647
       priority: 330
     }
@@ -22134,7 +22134,7 @@ cont {
   element {
     scale: 20
     lines {
-      width: 2.8
+      width: 5.0
       color: 7224647
       priority: 330
     }
@@ -22153,7 +22153,7 @@ cont {
   element {
     scale: 11
     lines {
-      width: 0.7
+      width: 1.9
       color: 1718500679
       priority: 330
       join: BEVELJOIN
@@ -22163,7 +22163,7 @@ cont {
   element {
     scale: 12
     lines {
-      width: 0.8
+      width: 2.0
       color: 1299070279
       priority: 330
       join: BEVELJOIN
@@ -22173,7 +22173,7 @@ cont {
   element {
     scale: 13
     lines {
-      width: 1.1
+      width: 2.2
       color: 7224647
       priority: 330
       cap: BUTTCAP
@@ -22190,7 +22190,7 @@ cont {
   element {
     scale: 14
     lines {
-      width: 1.4
+      width: 2.5
       color: 7224647
       priority: 330
       cap: BUTTCAP
@@ -22207,13 +22207,13 @@ cont {
   element {
     scale: 15
     lines {
-      width: 4.2
+      width: 7.0
       color: 858532890
       priority: 150
       cap: BUTTCAP
     }
     lines {
-      width: 1.6
+      width: 3.0
       color: 7224647
       priority: 330
       cap: BUTTCAP
@@ -22230,13 +22230,13 @@ cont {
   element {
     scale: 16
     lines {
-      width: 4.8
+      width: 8.0
       color: 858532890
       priority: 150
       cap: BUTTCAP
     }
     lines {
-      width: 1.9
+      width: 3.5
       color: 7224647
       priority: 330
     }
@@ -22252,19 +22252,19 @@ cont {
   element {
     scale: 17
     lines {
-      width: 7.6
+      width: 11.0
       color: 1297109072
       priority: 140
       cap: BUTTCAP
     }
     lines {
-      width: 6.6
+      width: 10.0
       color: 858532890
       priority: 150
       cap: BUTTCAP
     }
     lines {
-      width: 2.3
+      width: 4.0
       color: 7224647
       priority: 330
     }
@@ -22280,19 +22280,19 @@ cont {
   element {
     scale: 18
     lines {
-      width: 10.6
+      width: 15.0
       color: 1297109072
       priority: 140
       cap: BUTTCAP
     }
     lines {
-      width: 9.6
+      width: 14.0
       color: 858532890
       priority: 150
       cap: BUTTCAP
     }
     lines {
-      width: 2.8
+      width: 5.0
       color: 7224647
       priority: 330
     }
@@ -22308,19 +22308,19 @@ cont {
   element {
     scale: 19
     lines {
-      width: 11.6
+      width: 16.0
       color: 1297109072
       priority: 140
       cap: BUTTCAP
     }
     lines {
-      width: 10.6
+      width: 15.0
       color: 858532890
       priority: 150
       cap: BUTTCAP
     }
     lines {
-      width: 2.8
+      width: 5.0
       color: 7224647
       priority: 330
     }
@@ -22336,19 +22336,19 @@ cont {
   element {
     scale: 20
     lines {
-      width: 11.6
+      width: 16.0
       color: 1297109072
       priority: 140
       cap: BUTTCAP
     }
     lines {
-      width: 10.6
+      width: 15.0
       color: 858532890
       priority: 150
       cap: BUTTCAP
     }
     lines {
-      width: 2.8
+      width: 5.0
       color: 7224647
       priority: 330
     }
@@ -22367,7 +22367,7 @@ cont {
   element {
     scale: 11
     lines {
-      width: 0.7
+      width: 1.9
       color: 1718500679
       priority: 330
       join: BEVELJOIN
@@ -22377,7 +22377,7 @@ cont {
   element {
     scale: 12
     lines {
-      width: 0.8
+      width: 2.0
       color: 1299070279
       priority: 330
       join: BEVELJOIN
@@ -22387,7 +22387,7 @@ cont {
   element {
     scale: 13
     lines {
-      width: 1.1
+      width: 2.2
       color: 7224647
       priority: 330
       cap: BUTTCAP
@@ -22404,7 +22404,7 @@ cont {
   element {
     scale: 14
     lines {
-      width: 1.4
+      width: 2.5
       color: 7224647
       priority: 330
       cap: BUTTCAP
@@ -22421,7 +22421,7 @@ cont {
   element {
     scale: 15
     lines {
-      width: 1.6
+      width: 3.0
       color: 7224647
       priority: 330
       cap: BUTTCAP
@@ -22438,7 +22438,7 @@ cont {
   element {
     scale: 16
     lines {
-      width: 1.9
+      width: 3.5
       color: 7224647
       priority: 330
     }
@@ -22454,18 +22454,18 @@ cont {
   element {
     scale: 17
     lines {
-      width: 2.3
+      width: 4.0
       color: 7224647
       priority: 330
     }
     lines {
-      width: 6.6
+      width: 10.0
       color: 1294740506
       priority: 50
       cap: BUTTCAP
     }
     lines {
-      width: 7.6
+      width: 11.0
       color: 1297109072
       dashdot {
         dd: 2.0
@@ -22486,18 +22486,18 @@ cont {
   element {
     scale: 18
     lines {
-      width: 2.8
+      width: 5.0
       color: 7224647
       priority: 330
     }
     lines {
-      width: 9.6
+      width: 14.0
       color: 1294740506
       priority: 50
       cap: BUTTCAP
     }
     lines {
-      width: 10.6
+      width: 15.0
       color: 1297109072
       dashdot {
         dd: 2.0
@@ -22518,18 +22518,18 @@ cont {
   element {
     scale: 19
     lines {
-      width: 2.8
+      width: 5.0
       color: 7224647
       priority: 330
     }
     lines {
-      width: 10.6
+      width: 15.0
       color: 1294740506
       priority: 50
       cap: BUTTCAP
     }
     lines {
-      width: 11.6
+      width: 16.0
       color: 1297109072
       dashdot {
         dd: 2.0
@@ -22550,18 +22550,18 @@ cont {
   element {
     scale: 20
     lines {
-      width: 2.8
+      width: 5.0
       color: 7224647
       priority: 330
     }
     lines {
-      width: 10.6
+      width: 15.0
       color: 1294740506
       priority: 50
       cap: BUTTCAP
     }
     lines {
-      width: 11.6
+      width: 16.0
       color: 1297109072
       dashdot {
         dd: 2.0
@@ -47287,6 +47287,108 @@ cont {
         step: 74.0
         offset: 90.0
       }
+    }
+  }
+}
+cont {
+  name: "hwtag-yesbicycle"
+  element {
+    scale: 13
+    lines {
+      width: 4.5
+      color: 3010346311
+      dashdot {
+        dd: 12.0
+        dd: 6.0
+      }
+      priority: 330
+      cap: BUTTCAP
+    }
+  }
+  element {
+    scale: 14
+    lines {
+      width: 5.0
+      color: 3010346311
+      dashdot {
+        dd: 12.0
+        dd: 6.0
+      }
+      priority: 330
+      cap: BUTTCAP
+    }
+  }
+  element {
+    scale: 15
+    lines {
+      width: 6.0
+      color: 3010346311
+      dashdot {
+        dd: 12.0
+        dd: 6.0
+      }
+      priority: 330
+      cap: BUTTCAP
+    }
+  }
+  element {
+    scale: 16
+    lines {
+      width: 7.0
+      color: 3010346311
+      dashdot {
+        dd: 12.0
+        dd: 6.0
+      }
+      priority: 330
+    }
+  }
+  element {
+    scale: 17
+    lines {
+      width: 8.0
+      color: 3010346311
+      dashdot {
+        dd: 24.0
+        dd: 12.0
+      }
+      priority: 330
+    }
+  }
+  element {
+    scale: 18
+    lines {
+      width: 10.0
+      color: 3010346311
+      dashdot {
+        dd: 24.0
+        dd: 12.0
+      }
+      priority: 330
+    }
+  }
+  element {
+    scale: 19
+    lines {
+      width: 10.0
+      color: 3010346311
+      dashdot {
+        dd: 24.0
+        dd: 12.0
+      }
+      priority: 330
+    }
+  }
+  element {
+    scale: 20
+    lines {
+      width: 10.0
+      color: 3010346311
+      dashdot {
+        dd: 24.0
+        dd: 12.0
+      }
+      priority: 330
     }
   }
 }

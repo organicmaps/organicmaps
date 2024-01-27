@@ -46562,6 +46562,100 @@ cont {
   }
 }
 cont {
+  name: "hwtag-yesbicycle"
+  element {
+    scale: 13
+    lines {
+      width: 4.5
+      color: 3019868077
+      dashdot {
+        dd: 12.0
+        dd: 6.0
+      }
+      priority: 330
+      cap: BUTTCAP
+    }
+  }
+  element {
+    scale: 14
+    lines {
+      width: 4.5
+      color: 3019868077
+      dashdot {
+        dd: 12.0
+        dd: 6.0
+      }
+      priority: 330
+      cap: BUTTCAP
+    }
+  }
+  element {
+    scale: 15
+    lines {
+      width: 4.5
+      color: 3019868077
+      dashdot {
+        dd: 12.0
+        dd: 6.0
+      }
+      priority: 330
+      cap: BUTTCAP
+    }
+  }
+  element {
+    scale: 16
+    lines {
+      width: 4.5
+      color: 3019868077
+      dashdot {
+        dd: 12.0
+        dd: 6.0
+      }
+      priority: 330
+      cap: BUTTCAP
+    }
+  }
+  element {
+    scale: 17
+    lines {
+      width: 4.5
+      color: 3019868077
+      dashdot {
+        dd: 12.0
+        dd: 6.0
+      }
+      priority: 330
+      cap: BUTTCAP
+    }
+  }
+  element {
+    scale: 18
+    lines {
+      width: 4.5
+      color: 3019868077
+      dashdot {
+        dd: 12.0
+        dd: 6.0
+      }
+      priority: 330
+      cap: BUTTCAP
+    }
+  }
+  element {
+    scale: 19
+    lines {
+      width: 4.5
+      color: 3019868077
+      dashdot {
+        dd: 12.0
+        dd: 6.0
+      }
+      priority: 330
+      cap: BUTTCAP
+    }
+  }
+}
+cont {
   name: "isoline-step_10"
   element {
     scale: 15
