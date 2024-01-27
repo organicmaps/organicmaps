@@ -53,6 +53,7 @@ highway-steps                                       # line z12- (also has pathte
 highway-steps-bridge                                # line z12- (also has line::bridgeblack z17-, line::bridgewhite z15-, pathtext z13-)
 highway-steps-tunnel                                # line z12- (also has line::tunnelBackground z17-, line::tunnelCasing z17-, pathtext z13-)
 hwtag-oneway::arrows                                # line::arrows z15-
+hwtag-yesbicycle                                    # line z13-
 waterway-weir                                       # line z14- (also has pathtext z15-)
 === 330
 

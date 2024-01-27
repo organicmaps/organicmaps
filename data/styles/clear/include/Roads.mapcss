@@ -764,7 +764,6 @@ line|z16-[highway=pedestrian][bridge?]::bridgeblack,
 {casing-width-add: 0.6;}
 
 /* 8.4 Cycleway 13-22 ZOOM */
-
 line|z13[highway=cycleway]
 {width: 1;}
 line|z14[highway=cycleway]
