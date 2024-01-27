@@ -625,7 +625,7 @@ private:
     info.m_falseCats = categoriesInfo.IsFalseCategories();
   }
 
-  uint8_t NormalizeRank(uint8_t rank, Model::Type type, m2::PointD const & center,
+  uint16_t NormalizeRank(uint16_t rank, Model::Type type, m2::PointD const & center,
                         string const & country, bool isCapital, bool isRelaxed)
   {
     // Do not prioritize objects with population < 800. Same as RankToPopulation(rank) < 800, but faster.
@@ -642,7 +642,7 @@ private:
     {
       /// @todo Tried to reduce more (1.5), but important Famous_Cities_Rank test fails.
       if (isCapital || m_ranker.m_params.m_viewport.IsPointInside(center))
-        return base::Clamp(static_cast<int>(rank * 1.8), 0, 0xFF);
+        return rank * 1.8;
 
       storage::CountryInfo info;
       if (country.empty())
@@ -650,7 +650,7 @@ private:
       else
         m_infoGetter.GetRegionInfo(country, info);
       if (info.IsNotEmpty() && info.m_name == m_ranker.m_params.m_pivotRegion)
-        return base::Clamp(static_cast<int>(rank * 1.7), 0, 0xFF);
+        return rank * 1.7;
 
       // Fallthrough like "STATE" for cities without info.
     } [[fallthrough]];

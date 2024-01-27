@@ -106,8 +106,8 @@ struct RankingInfo : public StoredRankingInfo
   // Number of misprints.
   ErrorsMade m_errorsMade;
 
-  // Rank of the feature.
-  uint8_t m_rank = 0;
+  // Rank of the feature. Store uint16_t because of possible 'normalization'.
+  uint16_t m_rank = 0;
 
   // Popularity rank of the feature.
   uint8_t m_popularity = 0;

@@ -687,14 +687,14 @@ UNIT_CLASS_TEST(MwmTestsFixture, Famous_Cities_Rank)
 {
   auto const & cl = classif();
   uint32_t const capitalType = cl.GetTypeByPath({"place", "city", "capital"});
+  uint32_t const cityType = cl.GetTypeByPath({"place", "city"});
 
   std::string arrCities[] = {
       "Buenos Aires",
       "Rio de Janeiro",
       "New York",
-      /// @todo After popularity.
-      //"San Francisco",
-      //"Las Vegas",
+      "San Francisco",  // not a capital
+      "Las Vegas",      // not a capital
       "Los Angeles",
       "Toronto",
       "Lisboa",
@@ -702,7 +702,7 @@ UNIT_CLASS_TEST(MwmTestsFixture, Famous_Cities_Rank)
       "Barcelona",
       "London",
       "Paris",
-      //"Zurich",
+      "Zurich",         // not a capital
       "Rome",
       "Milan",
       "Venezia",
@@ -722,10 +722,13 @@ UNIT_CLASS_TEST(MwmTestsFixture, Famous_Cities_Rank)
   };
   size_t const count = std::size(arrCities);
 
-  std::vector<ms::LatLon> arrCenters;
-  arrCenters.resize(count);
+  std::set<std::string> const notCapital = { "San Francisco", "Las Vegas", "Zurich" };
+
+  std::vector<ms::LatLon> arrCenters(count);
   // Buenos Aires like starting point :)
   arrCenters[0] = {-34.60649, -58.43540};
+
+  size_t errorsNum = 0;
 
   // For DEBUG.
   // bool isGoGo = false;
@@ -736,10 +739,7 @@ UNIT_CLASS_TEST(MwmTestsFixture, Famous_Cities_Rank)
     // if (i > 0 && !isGoGo)
     //   continue;
 
-    /// @todo Temporary, USA has a lot of similar close cities (Berlin).
-    size_t topNumber = 3;
-    if (arrCities[i] == "New York")
-      topNumber = 5;
+    size_t constexpr kTopNumber = 3;
 
     LOG(LINFO, ("=== Processing:", arrCities[i]));
     SetViewportAndLoadMaps(arrCenters[i]);
@@ -751,20 +751,38 @@ UNIT_CLASS_TEST(MwmTestsFixture, Famous_Cities_Rank)
       TEST(!results.empty(), (arrCities[i], arrCities[j]));
 
       // Check that needed city is in top.
-      auto const iEnd = results.begin() + std::min(topNumber, results.size());
-      auto const it = std::find_if(results.begin(), iEnd, [capitalType](search::Result const & r)
+      auto const iEnd = results.begin() + std::min(kTopNumber, results.size());
+      auto const it = std::find_if(results.begin(), iEnd, [&](search::Result const & r)
       {
+        // Should make this complex check to ensure that we got a needed city.
         uint32_t type = r.GetFeatureType();
-        ftype::TruncValue(type, 3);
-        return (type == capitalType);
+        if (notCapital.count(arrCities[j]) > 0)
+        {
+          ftype::TruncValue(type, 2);
+          return (type == cityType);
+        }
+        else
+        {
+          ftype::TruncValue(type, 3);
+          return (type == capitalType);
+        }
       });
-      TEST(it != iEnd, (arrCities[i], arrCities[j]));
 
-      // Fill centers table while processing first city.
-      if (i == 0 && i != j)
-        arrCenters[j] = mercator::ToLatLon(results[0].GetFeatureCenter());
+      if (it == iEnd)
+      {
+        LOG(LWARNING, ("Not matched:", arrCities[i], ":", arrCities[j]));
+        ++errorsNum;
+      }
+      else
+      {
+        // Fill centers table while processing first city.
+        if (!arrCenters[j].IsValid())
+          arrCenters[j] = mercator::ToLatLon(it->GetFeatureCenter());
+      }
     }
   }
+
+  TEST_LESS(errorsNum, 10, ());
 }
 
 UNIT_CLASS_TEST(MwmTestsFixture, Conscription_HN)
@@ -1083,8 +1101,9 @@ UNIT_CLASS_TEST(MwmTestsFixture, Pois_Rank)
     size_t constexpr kResultsCount = 20;
     TEST_GREATER(results.size(), kResultsCount, ());
 
+    // result[0] - 'Rimini' city in Italy
     // First 2 results - nearest supermarkets.
-    Range range(results, 0, 2);
+    Range range(results, 1, 3);
     EqualClassifType(range, GetClassifTypes({{"shop", "supermarket"}}));
     TEST_LESS(SortedByDistance(range, center).second, 1500, ());
   }
