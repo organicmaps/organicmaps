@@ -34,9 +34,9 @@ double constexpr AbsPenaltyPerKm()
   return - kDistanceToPivot * 1000.0 / RankingInfo::kMaxDistMeters;
 }
 
-// This constant is very important and checked in Famous_Cities_Rank test.
+// These constants are very important and checked in Famous_Cities_Rank test.
 double constexpr kRank = 0.23;
-double constexpr kPopularity = 1.0000000;
+double constexpr kPopularity = 0.42;
 
 double constexpr kErrorsMade = -0.4;
 double constexpr kMatchedFraction = 0.1876736;
@@ -61,7 +61,7 @@ double constexpr kType[] = {
   0.007,      // Building, to compensate max(kStreetType), see Arbat_Address test.
   0,          // Street
   0,          // Suburb
- -0.02,       // Unclassified
+ -0.025,      // Unclassified
   0,          // Village
   0.01,       // City
   0.0233254,  // State
@@ -334,9 +334,12 @@ double RankingInfo::GetLinearModelRank() const
   {
     result += kDistanceToPivot * distanceToPivot;
     result += kRank * rank;
-    result += kPopularity * popularity;
     if (m_falseCats)
       result += kFalseCats;
+
+    /// @todo Make also for POIs?
+    if (Model::IsLocalityType(m_type))
+      result += kPopularity * popularity;
 
     ASSERT(m_type < Model::TYPE_COUNT, ());
     result += kType[GetTypeScore()];
