@@ -10,7 +10,7 @@
     android:id="@+id/downloader_progress_wheel"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="?clickableBackground"
+    android:background="@color/base_accent"
     wheel:wheelProgressColor="?colorAccent"
     wheel:wheelSecondaryColor="?dividerHorizontal"
     wheel:wheelThickness="@dimen/margin_eighth"/>
@@ -20,6 +20,6 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:scaleType="center"
-    android:background="?clickableBackground"
+    android:background="@color/base_accent"
     tools:src="@drawable/downloader_failed"/>
 </FrameLayout>
