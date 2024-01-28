@@ -14,7 +14,7 @@
     android:layout_height="?attr/actionBarSize"
     android:theme="@style/MwmWidget.ToolbarTheme">
 
-    <RelativeLayout
+    <androidx.constraintlayout.widget.ConstraintLayout
       android:id="@+id/toolbar_inner_layout"
       android:layout_gravity="end|center_vertical"
       android:layout_width="match_parent"
@@ -33,12 +33,13 @@
         android:layout_width="?actionBarSize"
         android:layout_height="?actionBarSize"
         android:layout_alignParentEnd="true"
-        android:layout_gravity="end|center_vertical"
         android:background="?selectableItemBackgroundBorderless"
         android:scaleType="centerInside"
-        app:srcCompat="@drawable/ic_done"/>
+        app:srcCompat="@drawable/ic_done"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent"/>
 
-    </RelativeLayout>
+    </androidx.constraintlayout.widget.ConstraintLayout>
 
   </androidx.appcompat.widget.Toolbar>
 

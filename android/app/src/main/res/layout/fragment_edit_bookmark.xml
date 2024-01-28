@@ -11,9 +11,6 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:theme="@style/MwmWidget.ToolbarTheme">
-    <RelativeLayout
-      android:layout_width="match_parent"
-      android:layout_height="?attr/actionBarSize">
       <ImageView
         app:tint="@color/image_view"
         android:id="@+id/save"
@@ -22,10 +19,9 @@
         android:layout_height="?actionBarSize"
         android:layout_alignParentEnd="true"
         android:background="?attr/selectableItemBackgroundBorderless"
-        android:layout_gravity="center_vertical"
+        android:layout_gravity="end|center_vertical"
         android:scaleType="centerInside"
         android:contentDescription="@string/save" />
-    </RelativeLayout>
   </androidx.appcompat.widget.Toolbar>
   <FrameLayout
     style="@style/MwmWidget.FrameLayout.Elevation"
