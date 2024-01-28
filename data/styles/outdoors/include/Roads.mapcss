@@ -181,39 +181,41 @@ line|z18-[highway=bridleway],
 
 
 line|z11-[hwtag=yesbicycle],
-{color: @cycleway; dashes: 12,6; opacity: 0.3;}
-line|z17-[hwtag=yesbicycle],
-{dashes: 24,12;}
+{color: @cycleway; opacity: 0.8;}
 
-line|z13-[hwtag=yesbicycle],
-{width: 4.5;}
+line|z11[hwtag=yesbicycle],
+{width: 0.4; dashes: 3.5,2;}
+line|z12[hwtag=yesbicycle],
+{width: 0.5; dashes: 3.5,2;}
+line|z13[hwtag=yesbicycle],
+{width: 0.6; dashes: 4,2.5;}
 line|z14[hwtag=yesbicycle],
-{width: 5;}
+{width: 0.7; dashes: 4,2.5;}
 line|z15[hwtag=yesbicycle],
-{width: 6;}
+{width: 0.8; dashes: 6,3.5;}
 line|z16[hwtag=yesbicycle],
-{width: 7;}
+{width: 0.9; dashes: 6,3.5;}
 line|z17[hwtag=yesbicycle],
-{width: 8;}
+{width: 1; dashes: 8,4.5;}
 line|z18-[hwtag=yesbicycle],
-{width: 10;}
+{width: 1.2; dashes: 8,4.5;}
 
 line|z11[highway=cycleway],
-{width: 1.9; opacity: 0.6;}
+{width: 1.7; opacity: 0.6;}
 line|z12[highway=cycleway],
-{width: 2.0; opacity: 0.7;}
+{width: 1.8; opacity: 0.7;}
 line|z13[highway=cycleway],
-{width: 2.2;}
+{width: 1.9;}
 line|z14[highway=cycleway],
-{width: 2.5;}
+{width: 2;}
 line|z15[highway=cycleway],
-{width: 3;}
+{width: 2.1;}
 line|z16[highway=cycleway],
-{width: 3.5;}
+{width: 2.5;}
 line|z17[highway=cycleway],
-{width: 4;}
+{width: 3;}
 line|z18-[highway=cycleway],
-{width: 5;}
+{width: 4;}
 
 
 /* Ski pistes */
