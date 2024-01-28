@@ -105,7 +105,7 @@ UNIT_TEST(Classificator_DrawingRules)
 {
   styles::RunForEveryMapStyle([](MapStyle style)
   {
-    if (style != MapStyle::MapStyleClear && style != MapStyle::MapStyleDark)
+    if (style != MapStyle::MapStyleDefaultLight && style != MapStyle::MapStyleDefaultDark)
       return;
 
     Classificator const & c = classif();

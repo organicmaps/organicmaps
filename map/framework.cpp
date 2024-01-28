@@ -2530,15 +2530,15 @@ bool Framework::ParseDrapeDebugCommand(string const & query)
 {
   MapStyle desiredStyle = MapStyleCount;
   if (query == "?dark" || query == "mapstyle:dark")
-    desiredStyle = MapStyleDark;
+    desiredStyle = MapStyleDefaultDark;
   else if (query == "?light" || query == "mapstyle:light")
-    desiredStyle = MapStyleClear;
+    desiredStyle = MapStyleDefaultLight;
   else if (query == "?vlight" || query == "mapstyle:vehicle_light")
-    desiredStyle = MapStyleVehicleClear;
+    desiredStyle = MapStyleVehicleLight;
   else if (query == "?vdark" || query == "mapstyle:vehicle_dark")
     desiredStyle = MapStyleVehicleDark;
   else if (query == "?olight" || query == "mapstyle:outdoors_light")
-    desiredStyle = MapStyleOutdoorsClear;
+    desiredStyle = MapStyleOutdoorsLight;
   else if (query == "?odark" || query == "mapstyle:outdoors_dark")
     desiredStyle = MapStyleOutdoorsDark;
 

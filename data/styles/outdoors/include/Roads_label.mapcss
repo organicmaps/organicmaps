@@ -1,5 +1,5 @@
 /* Keep here changes of the base map style file only. */
-@import("../../clear/include/Roads_label.mapcss");
+@import("../../default/include/Roads_label.mapcss");
 
 
 line|z13-[highway=track],
