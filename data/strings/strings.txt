@@ -27029,6 +27029,7 @@
     be = Спампаваць мапу света
     bg = Изтегляне на картата на света
     ca = Baixa el mapa mundial
+    cs = Stáhnout mapu světa
     de = Herunterladen der Weltkarte
     es = Descarga el mapa mundial
     et = Maailma kaardi allalaadimine
