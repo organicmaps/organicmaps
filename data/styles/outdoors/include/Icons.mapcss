@@ -1,5 +1,5 @@
 /* Keep here changes of the base map style file only. */
-@import("../../clear/include/Icons.mapcss");
+@import("../../default/include/Icons.mapcss");
 
 
 /* 2. NATURAL */

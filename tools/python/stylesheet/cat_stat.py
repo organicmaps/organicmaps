@@ -116,7 +116,7 @@ def b2t(b, text='yes'):
 
 
 if __name__ == '__main__':
-    DRULES_FILE_NAME = 'drules_proto_clear.bin'
+    DRULES_FILE_NAME = 'drules_proto_default_light.bin'
 
     if len(sys.argv) < 2:
         print('Calculates tag usage and categories stats, suggesting new types.')

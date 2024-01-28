@@ -12,8 +12,9 @@
 UNIT_TEST(CheckTrafficArrowTextures)
 {
   static std::vector<std::string> skinPaths = {"6plus", "mdpi", "hdpi", "xhdpi", "xxhdpi", "xxxhdpi"};
-  static std::vector<MapStyle> styles = {MapStyle::MapStyleClear, MapStyle::MapStyleDark,
-                                         MapStyle::MapStyleVehicleClear,
+  static std::vector<MapStyle> styles = {MapStyle::MapStyleDefaultLight,
+                                         MapStyle::MapStyleDefaultDark,
+                                         MapStyle::MapStyleVehicleLight,
                                          MapStyle::MapStyleVehicleDark};
 
   TestingGraphicsContext context;

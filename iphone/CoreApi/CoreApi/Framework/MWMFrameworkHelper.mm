@@ -32,7 +32,7 @@
   auto const style = f.GetMapStyle();
   auto const isOutdoor = ^BOOL(MapStyle style) {
     switch (style) {
-      case MapStyleOutdoorsClear:
+      case MapStyleOutdoorsLight:
       case MapStyleOutdoorsDark:
         return YES;
       default:
@@ -42,16 +42,16 @@
   auto const newStyle = ^MapStyle(MWMTheme theme) {
     switch (theme) {
       case MWMThemeDay:
-        return isOutdoor ? MapStyleOutdoorsClear : MapStyleClear;
+        return isOutdoor ? MapStyleOutdoorsLight : MapStyleDefaultLight;
       case MWMThemeVehicleDay:
-        return MapStyleVehicleClear;
+        return MapStyleVehicleLight;
       case MWMThemeNight:
-        return isOutdoor ? MapStyleOutdoorsDark : MapStyleDark;
+        return isOutdoor ? MapStyleOutdoorsDark : MapStyleDefaultDark;
       case MWMThemeVehicleNight:
         return MapStyleVehicleDark;
       case MWMThemeAuto:
         NSAssert(NO, @"Invalid theme");
-        return MapStyleClear;
+        return MapStyleDefaultLight;
     }
   }(theme);
 
