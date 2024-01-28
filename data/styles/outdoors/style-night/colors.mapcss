@@ -1,7 +1,7 @@
 /* Keep here changes of the base map style file only. */
-@import("../../clear/style-night/colors.mapcss");
+@import("../../default/dark/colors.mapcss");
 
-/* ~~~~ CONTENT OF COLORS-NIGHT ~~~~~
+/* ~~~~ CONTENT OF COLORS-DARK ~~~~~
 
 1.BASEMAP
 2.BOUNDARY

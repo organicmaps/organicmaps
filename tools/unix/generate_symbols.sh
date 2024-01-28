@@ -40,11 +40,11 @@ then
 fi
 
 # Helper function to build skin
-# Parameter $1 - style type (clear)
-# Parameter $2 - style name (dark, light, clear, ...)
+# Parameter $1 - style type (default)
+# Parameter $2 - style name (light, dark, ...)
 # Parameter $3 - resource name (mdpi, hdpi, ...)
 # Parameter $4 - symbol size
-# Parameter $5 - style suffix (none, _dark, _clear)
+# Parameter $5 - style suffix (none, _light, _dark)
 # Parameter $6 - symbols folder (symbols)
 # Parameter $7 - symbols suffix (none, -ad)
 function BuildSkin() {
@@ -58,7 +58,7 @@ function BuildSkin() {
 
   echo "Building skin for $styleName/$resourceName"
   # Set environment
-  STYLE_PATH="$DATA_PATH/styles/$styleType/style-$styleName"
+  STYLE_PATH="$DATA_PATH/styles/$styleType/$styleName"
   PNG_PATH="$STYLE_PATH/symbols$symbolsSuffix/png"
   rm -rf "$PNG_PATH" || true
   ln -s "$STYLE_PATH/$resourceName$symbolsSuffix" "$PNG_PATH"
@@ -70,7 +70,7 @@ function BuildSkin() {
 }
 
 # Cleanup
-cleanup=(resources-{{6plus,mdpi,hdpi,xhdpi,xxhdpi,xxxhdpi}{_dark,_clear}})
+cleanup=(resources-{{6plus,mdpi,hdpi,xhdpi,xxhdpi,xxxhdpi}{_dark,_light}})
 for item in ${cleanup[*]}
 do
   rm -rf "$DATA_PATH/$item" || true
@@ -79,29 +79,29 @@ done
 
 # Build styles
 
-BuildSkin clear  night mdpi    18 _dark symbols
-BuildSkin clear  night hdpi    27 _dark symbols
-BuildSkin clear  night xhdpi   36 _dark symbols
-BuildSkin clear  night xxhdpi  54 _dark symbols
-BuildSkin clear  night 6plus   54 _dark symbols
-BuildSkin clear  night xxxhdpi 64 _dark symbols
+BuildSkin default  dark mdpi    18 _dark symbols
+BuildSkin default  dark hdpi    27 _dark symbols
+BuildSkin default  dark xhdpi   36 _dark symbols
+BuildSkin default  dark xxhdpi  54 _dark symbols
+BuildSkin default  dark 6plus   54 _dark symbols
+BuildSkin default  dark xxxhdpi 64 _dark symbols
 
-BuildSkin clear  clear mdpi    18 _clear symbols
-BuildSkin clear  clear hdpi    27 _clear symbols
-BuildSkin clear  clear xhdpi   36 _clear symbols
-BuildSkin clear  clear xxhdpi  54 _clear symbols
-BuildSkin clear  clear 6plus   54 _clear symbols
-BuildSkin clear  clear xxxhdpi 64 _clear symbols
+BuildSkin default  light mdpi    18 _light symbols
+BuildSkin default  light hdpi    27 _light symbols
+BuildSkin default  light xhdpi   36 _light symbols
+BuildSkin default  light xxhdpi  54 _light symbols
+BuildSkin default  light 6plus   54 _light symbols
+BuildSkin default  light xxxhdpi 64 _light symbols
 
 rm -rf "$OMIM_PATH"/data/resources-{*}
 
 rm -rf "$OMIM_PATH"/data/resources-*_design
 
 for i in mdpi hdpi xhdpi xxhdpi xxxhdpi 6plus; do
-  optipng -zc9 -zm8 -zs0 -f0 "$OMIM_PATH"/data/resources-${i}_clear/symbols.png
+  optipng -zc9 -zm8 -zs0 -f0 "$OMIM_PATH"/data/resources-${i}_light/symbols.png
   optipng -zc9 -zm8 -zs0 -f0 "$OMIM_PATH"/data/resources-${i}_dark/symbols.png
 done
 
 for i in mdpi hdpi xhdpi xxhdpi xxxhdpi 6plus; do
-  cp -r "$OMIM_PATH"/data/resources-${i}_clear/ "$OMIM_PATH"/data/resources-${i}_design/
+  cp -r "$OMIM_PATH"/data/resources-${i}_light/ "$OMIM_PATH"/data/resources-${i}_design/
 done
