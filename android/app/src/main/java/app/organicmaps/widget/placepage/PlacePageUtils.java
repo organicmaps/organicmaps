@@ -84,7 +84,7 @@ public class PlacePageUtils
     KeyguardManager keyguardManager = (KeyguardManager) context.getSystemService(Context.KEYGUARD_SERVICE);
 
     //only show snackBar if device is locked or android sdk is earlier than TIRAMISU.
-    if (Build.VERSION.SDK_INT < Build.VERSION_CODES.TIRAMISU || Build.VERSION.SDK_INT > Build.VERSION_CODES.TIRAMISU && keyguardManager.isDeviceLocked())
+    if (Build.VERSION.SDK_INT < Build.VERSION_CODES.TIRAMISU || keyguardManager.isDeviceLocked())
     {
       Utils.showSnackbarAbove(frame.getRootView().findViewById(R.id.pp_buttons_layout), frame,
                               context.getString(R.string.copied_to_clipboard, text));
