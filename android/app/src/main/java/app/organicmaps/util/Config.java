@@ -228,6 +228,12 @@ public final class Config
     setBool(KEY_MISC_KAYAK_ACCEPTED);
   }
 
+  @SuppressWarnings("ConstantConditions") // BuildConfig
+  public static boolean isKayakReferralAllowed()
+  {
+    return !BuildConfig.FLAVOR.equals("fdroid");
+  }
+
   public static boolean isLocationRequested()
   {
     return getBool(KEY_MISC_LOCATION_REQUESTED);
@@ -357,7 +363,6 @@ public final class Config
     return url;
   }
 
-  @NonNull
   @SuppressWarnings("ConstantConditions") // BuildConfig
   public static boolean isOsmLoginEnabled(@NonNull Context context)
   {

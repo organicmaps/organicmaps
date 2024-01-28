@@ -445,9 +445,11 @@ public class Framework
    * @param uri `$HOTEL_NAME,-c$CITY_ID-h$HOTEL_ID` URI.
    * @param startDay the first day of planned stay.
    * @param lastDay the last day of planned stay.
+   * @param isReferral enable referral code to help the project.
    * @return a URL to Kayak's hotel page.
    */
   @Nullable
   public static native String nativeGetKayakHotelLink(@NonNull String countryIsoCode, @NonNull String uri,
-                                                      @NonNull Date firstDay, @NonNull Date lastDay);
+                                                      @NonNull Date firstDay, @NonNull Date lastDay,
+                                                      boolean isReferral);
 }
