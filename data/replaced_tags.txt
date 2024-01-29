@@ -149,8 +149,6 @@ artwork_type=bust : artwork_type=statue
 
 place=allotments : place=neighbourhood
 
-crossing=traffic_signals : highway=traffic_signals
-
 # Replace top tags from here https://taginfo.openstreetmap.org/search?q=recycling on the common ones.
 recycling:electrical_appliances=yes       : recycling:small_appliances=yes
 recycling:small_electrical_appliances=yes : recycling:small_appliances=yes
