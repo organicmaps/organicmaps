@@ -18,7 +18,6 @@ import java.util.ArrayList;
 
 public class PlacePhoneAdapter extends RecyclerView.Adapter<PlacePhoneAdapter.ViewHolder>
 {
-
   private ArrayList<String> mPhoneData = new ArrayList<>();
 
   public PlacePhoneAdapter() {}
