@@ -771,6 +771,14 @@
 /* iOS Dialog for the case when the location permission is not granted; you might find the exact wording for your language here: https://support.apple.com/en-us/102647 (replace 'en-us' in URL with your language/region) */
 "location_services_disabled_3" = "3. \"Tətbiqdən istifadə edərkən\" seçin";
 
+"location_services_disabled_on_device_2" = "2. Məxfilik seçin";
+
+"location_services_disabled_on_device_3" = "3. Məkan Xidmətləri seçin";
+
+"location_services_disabled_on_device_4" = "4. Məkan Xidmətlərini yandırın";
+
+"location_services_disabled_on_device_additional_message" = "Və ya Məkan olmadan Üzvi Xəritələrdən istifadə etməyə davam edin";
+
 /* abbreviation for meters */
 "m" = "m";
 

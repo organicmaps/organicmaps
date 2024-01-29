@@ -4873,7 +4873,7 @@ cont {
   element {
     scale: 17
     symbol {
-      name: "hospital-m"
+      name: "clinic-m"
       priority: 2000
       min_distance: 4
     }
@@ -4890,7 +4890,7 @@ cont {
   element {
     scale: 18
     symbol {
-      name: "hospital-m"
+      name: "clinic-m"
       priority: 2000
     }
     caption {
@@ -4906,7 +4906,7 @@ cont {
   element {
     scale: 19
     symbol {
-      name: "hospital-m"
+      name: "clinic-m"
       priority: 2000
     }
     caption {
@@ -4922,7 +4922,7 @@ cont {
   element {
     scale: 20
     symbol {
-      name: "hospital-m"
+      name: "clinic-m"
       priority: 2000
     }
     caption {
@@ -5445,7 +5445,7 @@ cont {
       priority: -1770
     }
     symbol {
-      name: "hospital-m"
+      name: "clinic-m"
       priority: 1600
       min_distance: 4
     }
@@ -5466,7 +5466,7 @@ cont {
       priority: -1770
     }
     symbol {
-      name: "hospital-m"
+      name: "clinic-m"
       priority: 1600
     }
     caption {
@@ -5486,7 +5486,7 @@ cont {
       priority: -1770
     }
     symbol {
-      name: "hospital-m"
+      name: "clinic-m"
       priority: 1600
     }
     caption {
@@ -5506,7 +5506,7 @@ cont {
       priority: -1770
     }
     symbol {
-      name: "hospital-m"
+      name: "clinic-m"
       priority: 1600
     }
     caption {

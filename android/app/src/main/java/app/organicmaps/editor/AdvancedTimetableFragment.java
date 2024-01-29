@@ -88,8 +88,8 @@ public class AdvancedTimetableFragment extends BaseMwmFragment
 
   private void setExampleDrawables(@DrawableRes int left, @DrawableRes int right)
   {
-    mExamplesTitle.setCompoundDrawablesRelativeWithIntrinsicBounds(Graphics.tint(requireActivity(), left, R.attr.colorAccent), null,
-                                                           Graphics.tint(requireActivity(), right, R.attr.colorAccent), null);
+    mExamplesTitle.setCompoundDrawablesRelativeWithIntrinsicBounds(Graphics.tint(requireActivity(), left, androidx.appcompat.R.attr.colorAccent), null,
+                                                           Graphics.tint(requireActivity(), right, androidx.appcompat.R.attr.colorAccent), null);
   }
 
   @Override

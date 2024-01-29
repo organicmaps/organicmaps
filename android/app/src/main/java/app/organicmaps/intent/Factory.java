@@ -54,9 +54,7 @@ public class Factory
       MwmApplication app = MwmApplication.from(activity);
       final File tempDir = new File(StorageUtils.getTempPath(app));
       final ContentResolver resolver = activity.getContentResolver();
-      ThreadPool.getStorage().execute(() -> {
-        BookmarkManager.INSTANCE.importBookmarksFile(resolver, uri, tempDir);
-      });
+      ThreadPool.getStorage().execute(() -> BookmarkManager.INSTANCE.importBookmarksFile(resolver, uri, tempDir));
       return false;
     }
   }

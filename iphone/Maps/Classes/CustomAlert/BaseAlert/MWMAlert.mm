@@ -31,6 +31,11 @@
 + (MWMAlert *)disabledLocationAlert {
   return [MWMDefaultAlert disabledLocationAlert];
 }
+
++ (MWMAlert *)locationServicesDisabledAlert {
+  return [LocationServicesDisabledAlert alert];
+}
+
 + (MWMAlert *)noWiFiAlertWithOkBlock:(MWMVoidBlock)okBlock andCancelBlock:(MWMVoidBlock)cancelBlock {
   return [MWMDefaultAlert noWiFiAlertWithOkBlock:okBlock andCancelBlock:cancelBlock];
 }

@@ -14,7 +14,7 @@
     android:id="@+id/image"
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
-    android:src="@drawable/ic_checkbox_add"
+    app:srcCompat="@drawable/ic_checkbox_add"
     app:tint="?colorAccent"/>
   <TextView
     android:id="@+id/text"

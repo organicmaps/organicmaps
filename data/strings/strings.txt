@@ -196,6 +196,7 @@
     fi = Lataa karttoja
     fr = Télécharger des cartes
     he = הורד מפות
+    hi = मानचित्र डाउनलोड करें
     hu = Térképek letöltése
     id = Unduh Peta
     it = Scarica mappe
@@ -329,6 +330,7 @@
     fi = Kilometrit
     fr = Kilomètres
     he = ק"מ
+    hi = किलोमीटर
     hu = Kilométer
     id = Kilometer
     it = Chilometri
@@ -349,7 +351,7 @@
     tr = Kilometre
     uk = Кілометри
     vi = Kilômét
-    zh-Hans = 千米
+    zh-Hans = 公里
     zh-Hant = 公里
 
   [leave_a_review]
@@ -451,6 +453,7 @@
     fi = Mailit
     fr = Miles
     he = מייל
+    hi = मील
     hu = Mérföld
     id = Mil
     it = Miglia
@@ -495,6 +498,7 @@
     fi = Sijaintini
     fr = Ma position
     he = המיקום שלי
+    hi = मेरा स्थान
     hu = Saját helyzet
     id = Posisi Saya
     it = La mia posizione
@@ -583,6 +587,7 @@
     fi = Haku
     fr = Recherche
     he = חיפוש
+    hi = खोज
     hu = Keresés
     id = Cari
     it = Cerca
@@ -715,6 +720,7 @@
     fi = Laitteen tai sovelluksen kaikki sijaintipalvelut ovat tällä hetkellä poissa käytöstä. Ota ne käyttöön Asetukset-valikossa.
     fr = Tous les services de localisation de cet appareil sont désactivés, ou ils le sont pour cette application. Veuillez les activer dans les paramètres.
     he = שרותי המיקום של מכשיר או ישום זה זה כבויים. יש להפעילם דרך "הגדרות" (Settings).
+    hi = वर्तमान में आपके पास इस डिवाइस या एप्लिकेशन के लिए सभी स्थान सेवाएँ अक्षम हैं। कृपया उन्हें सेटिंग्स में सक्षम करें।
     hu = Jelenleg az eszköz vagy alkalmazás helymeghatározási szolgáltatásai le vannak tiltva. Kérjük, engedélyezze őket a Beállításokban.
     id = Saat ini semua Layanan Lokasi untuk perangkat atau aplikasi ini non-aktif. Mohon aktifkan lewat Setelan.
     it = Attualmente tutti i servizi di localizzazione per questo dispositivo o applicazione sono disattivati. Si prega di abilitarli in Impostazioni.
@@ -1038,8 +1044,8 @@
     tr = • Reklam yok, takip yok, veri toplama yok
     uk = • Без реклами, без трекінгу, без стеження
     vi = • Không có quảng cáo, không theo dõi, không thu thập dữ liệu
-    zh-Hans = •没有广告，没有跟踪，没有数据收集
-    zh-Hant = •沒有廣告，沒有跟踪，沒有數據收集
+    zh-Hans = •没有广告，不会跟踪您，更不会收集您的数据
+    zh-Hant = •沒有廣告，不會跟踪您，更不會收集您的數據
 
   [about_proposition_2]
     tags = android
@@ -1125,8 +1131,8 @@
     tr = • Hızlı, minimalist ve hafif
     uk = • Швидкий, мінімалістичний, без зайвого сміття
     vi = • Nhanh chóng, tối giản, không có rác
-    zh-Hans = •快速，简约，没有垃圾
-    zh-Hant = •快速，簡約，沒有垃圾
+    zh-Hans = •快速，简约，不含垃圾软件
+    zh-Hant = •快速，簡約，不含垃圾軟體
 
   [about_developed_by_enthusiasts]
     tags = android
@@ -1234,6 +1240,7 @@
     fi = Sulje
     fr = Fermer
     he = סגור
+    hi = बंद करना
     hu = Bezár
     id = Tutup
     it = Chiudi
@@ -1320,6 +1327,7 @@
     fi = Lataa
     fr = Télécharger
     he = הורדה
+    hi = डाउन लोड करना
     hu = Letöltés
     id = Unduh
     it = Scarica
@@ -1450,6 +1458,7 @@
     fi = Ennen aloitusta laitteelle tulee ladata yleinen maailmankartta.\nSe tarvitsee yhteensä %@ tilaa.
     fr = Avant de commencer, permettez-nous de télécharger la carte générale du monde dans votre appareil.\n%@ de données sont nécessaires.
     he = תחילה, נוריד למכשירך מפה כללית של העולם.\nמפה זו דורשת נפח אחסון של %@.
+    hi = ऐप का उपयोग शुरू करने से पहले, कृपया अपने डिवाइस पर सामान्य विश्व मानचित्र डाउनलोड करें।\nयह %@ स्टोरेज का उपयोग करेगा।
     hu = Első használat előtt letöltjük a világtérképet.\n%@ tárolóhely szükséges.
     id = Sebelum Anda mulai izinkan kami mengunduh peta dunia secara umum ke perangkat Anda.\nHal ini memerlukan data %@.
     it = Prima di iniziare è necessario scaricare la mappa generale del mondo sul tuo dispositivo.\nLa dimensione del download è di %@.
@@ -1666,6 +1675,7 @@
     fi = Pysäytä
     fr = Pause
     he = הפסק
+    hi = विराम
     hu = Szünet
     id = Jeda
     it = Pausa
@@ -2059,6 +2069,7 @@
     fi = Paikkani
     fr = Mes endroits
     he = המקומות שלי
+    hi = मेरे स्थान
     hu = Saját helyeim
     id = Tempat-tempat Saya
     it = I miei luoghi
@@ -2103,6 +2114,7 @@
     fi = Nimi
     fr = Nom
     he = שם
+    hi = नाम
     hu = Név
     id = Nama
     it = Nome
@@ -2238,6 +2250,7 @@
     fi = Asetukset
     fr = Paramètres
     he = הגדרות
+    hi = समायोजन
     hu = Beállítások
     id = Pengaturan
     it = Impostazioni
@@ -2662,6 +2675,7 @@
     fi = Mittayksiköt
     fr = Unités de mesure
     he = יחידות  מדידה
+    hi = नाप की इकाइयां
     hu = Mértékegységek
     id = Unit Pengukuran
     it = Unità di misura
@@ -2727,8 +2741,8 @@
     tr = Mil veya kilometre seçimini yap
     uk = Використовувати милі чи кілометри
     vi = Chọn giữa dặm và kilômét
-    zh-Hans = 选择英里或公里
-    zh-Hant = 請選擇公里或英哩
+    zh-Hans = 选择公里或英里
+    zh-Hant = 選擇公里或英哩
 
 [[Search categories]]
 
@@ -2753,6 +2767,7 @@
     fi = Missä syödä
     fr = Un endroit pour manger
     he = איפה לאכול
+    hi = कहाँ खाना है
     hu = Hol lehet enni valamit
     id = Tempat makan
     it = Dove mangiare
@@ -2798,6 +2813,7 @@
     fi = Elintarvikkeet
     fr = Epiceries
     he = מצרכים
+    hi = किराने का सामान
     hu = Élelmiszerek
     id = Toserba
     it = Alimentari
@@ -2843,6 +2859,7 @@
     fi = Liikenne
     fr = Transport
     he = תחבורה
+    hi = सार्वजनिक परिवहन
     hu = Tömegközlekedés
     id = Transportasi
     it = Trasporto
@@ -2888,6 +2905,7 @@
     fi = Huoltoasema
     fr = Stations-service
     he = דלק
+    hi = गैस स्टेशन
     hu = Benzinkút
     id = Bahan bakar
     it = Benzinaio
@@ -2932,6 +2950,7 @@
     fi = Parkkipaikka
     fr = Stationnement
     he = חניה
+    hi = पार्किंग
     hu = Parkoló
     id = Parkir
     it = Parcheggio
@@ -2952,7 +2971,7 @@
     tr = Otopark
     uk = Парковка
     vi = đỗ xe
-    zh-Hans = 停车
+    zh-Hans = 停车场
     zh-Hant = 停車場
 
   [shopping]
@@ -2976,6 +2995,7 @@
     fi = Ostokset
     fr = Shopping
     he = קניות
+    hi = खरीदारी
     hu = Bevásárlás
     id = Berbelanja
     it = Negozi
@@ -3020,6 +3040,7 @@
     fi = Käytetyt tavarat
     fr = D'occasion
     he = יד שניה
+    hi = सेकंड हैंड
     hu = Second-hand
     id = Tangan kedua
     it = Di seconda mano
@@ -3064,6 +3085,7 @@
     fi = Hotelli
     fr = Hôtel
     he = בית מלון
+    hi = होटल
     hu = Szálloda
     id = Hotel
     it = Albergo
@@ -3108,6 +3130,7 @@
     fi = Nähtävyydet
     fr = Sites touristiques
     he = נקודות עיניין
+    hi = जगहें
     hu = Látnivalók
     id = Pemandangan
     it = Luoghi turistici
@@ -3128,7 +3151,7 @@
     tr = Görülecek yerler
     uk = Пам’ятні місця
     vi = Diểm tham quan
-    zh-Hans = 景点
+    zh-Hans = 旅游景点
     zh-Hant = 旅遊景點
 
   [entertainment]
@@ -3152,6 +3175,7 @@
     fi = Viihde
     fr = Divertissement
     he = בידור
+    hi = मनोरंजन
     hu = Szórakozás
     id = Hiburan
     it = Divertimento
@@ -3196,6 +3220,7 @@
     fi = Pankkiautomaatti
     fr = DAB
     he = כספומט
+    hi = एटीएम
     hu = Pénzautomata
     id = ATM
     it = Bancomat
@@ -3240,6 +3265,7 @@
     fi = Yöelämä
     fr = Vie nocturne
     he = חיי לילה
+    hi = रात्रि जीवन
     hu = Éjjeli élet
     id = Kehidupan Malam
     it = Vita notturna
@@ -3285,6 +3311,7 @@
     fi = Vapaa-aikaa lasten kanssa
     fr = Vacances en famille
     he = שעשועים
+    hi = पारिवारिक अवकाश
     hu = Családi kiruccanás
     id = Liburan keluarga
     it = Divertimento in famiglia
@@ -3330,6 +3357,7 @@
     fi = Pankki
     fr = Banque
     he = בנק
+    hi = बैंक
     hu = Bank
     id = Bank
     it = Banca
@@ -3374,6 +3402,7 @@
     fi = Apteekki
     fr = Pharmacie
     he = בית מרקחת
+    hi = दवाखाना
     hu = Gyógyszertár
     id = Apotek
     it = Farmacia
@@ -3418,6 +3447,7 @@
     fi = Sairaala
     fr = Hôpital
     he = בית חולים
+    hi = चिकित्सालय
     hu = Kórház
     id = Rumah sakit
     it = Ospedale
@@ -3463,6 +3493,7 @@
     fi = WC
     fr = Toilettes
     he = שירותים
+    hi = शौचालय
     hu = Mosdó
     id = Toilet
     it = Toilette
@@ -3507,6 +3538,7 @@
     fi = Posti
     fr = Poste
     he = דואר
+    hi = डाकघर
     hu = Posta
     id = Pos
     it = Posta
@@ -3551,6 +3583,7 @@
     fi = Poliisi
     fr = Police
     he = משטרה
+    hi = थाना
     hu = Rendőrség
     id = Polisi
     it = Polizia
@@ -3571,7 +3604,7 @@
     tr = Polis
     uk = Поліція
     vi = Cảnh sát
-    zh-Hans = 警察
+    zh-Hans = 警察局
     zh-Hant = 警察局
 
   [wifi]
@@ -3594,6 +3627,7 @@
     fa = وای فای
     fi = WiFi
     fr = WiFi
+    hi = वाईफ़ाई
     hu = WiFi
     id = WiFi
     it = Wi-Fi
@@ -3638,6 +3672,7 @@
     fi = Jätteiden kierrätys
     fr = Recyclage
     he = מיחזור
+    hi = पुनर्चक्रण
     hu = Újrahasznosítás
     id = Mendaur ulang
     it = Riciclo
@@ -3683,6 +3718,7 @@
     fi = Vesi
     fr = Eau
     he = מים
+    hi = जल
     hu = Víz
     id = Air
     it = Acqua
@@ -3728,6 +3764,7 @@
     fi = Karavaanaritilat
     fr = Aménagements pour camping-car
     he = עבור קרוואנים
+    hi = आरवी सुविधाएं
     hu = RV számára
     id = Untuk RV
     it = Per camper
@@ -4368,6 +4405,7 @@
     fi = Jaa
     fr = Partager
     he = שיתוף
+    hi = साझा करें
     hu = Megosztás
     id = Bagikan
     it = Condividi
@@ -4809,6 +4847,7 @@
     fi = Jaa sijaintini
     fr = Partager ma position
     he = שיתוף מיקום שלי
+    hi = मेरा स्थान साझा करें
     hu = Helyzetem megosztása
     id = Bagikan Lokasi Saya
     it = Condividi la mia posizione
@@ -4886,6 +4925,7 @@
     fi = Tietoja
     fr = Information
     he = מידע
+    hi = जानकारी
     hu = Információk
     it = Informazioni
     ja = 情報
@@ -4923,6 +4963,7 @@
     fi = Navigointi
     fr = Navigation
     he = ניווט
+    hi = मार्गदर्शन
     hu = Navigáció
     id = Navigasi
     it = Navigazione
@@ -5053,6 +5094,7 @@
     fi = Yötila
     fr = Mode nuit
     he = מצב לילה
+    hi = रात का मोड
     hu = Éjszakai üzemmód
     id = Mode Malam
     it = Modalità notturna
@@ -5363,6 +5405,7 @@
     fi = Ääniohjeistukset
     fr = Instructions vocales
     he = הנחיות קוליות
+    hi = ध्वनि निर्देश
     hu = Hangutasítások
     id = Petunjuk Suara
     it = Istruzioni vocali
@@ -5672,6 +5715,7 @@
     fi = Automaattinen zoomaus
     fr = Zoom automatique
     he = זום אוטומטי
+    hi = ऑटो ज़ूम
     hu = Automatikus nagyítás
     id = Perbesar otomatis
     it = Zoom automatico
@@ -6121,6 +6165,7 @@
     fi = Kotisivut
     fr = Site internet
     he = אתר
+    hi = वेबसाइट
     hu = Honlap
     id = Situs Web
     it = Sito web
@@ -6165,6 +6210,7 @@
     fi = Uutiset
     fr = Nouvelles
     he = חדשות
+    hi = समाचार
     hu = Újdonságok
     id = Berita
     it = Notizia
@@ -6186,7 +6232,7 @@
     uk = Новини
     vi = Tin tức
     zh-Hans = 新闻
-    zh-Hant = 消息
+    zh-Hant = 新聞
 
   [github]
     comment = Text in menu
@@ -6214,8 +6260,8 @@
     tags = android,ios
     en = Facebook
     ar = فيسبوك
-    zh-Hans = 脸书
-    zh-Hant = 臉書
+    zh-Hans = Facebook
+    zh-Hant = Facebook
 
   [twitter]
     comment = Text in menu
@@ -6333,8 +6379,8 @@
     tr = Uygulamayı değerlendir
     uk = Оцінити застосунок
     vi = Cho điểm ứng dụng
-    zh-Hans = 为该应用打分
-    zh-Hant = 為該應用程式評分
+    zh-Hans = 为我们评分
+    zh-Hant = 為我們評分
 
   [help]
     comment = Text in menu
@@ -6357,6 +6403,7 @@
     fi = Ohje
     fr = Aide
     he = עזרה
+    hi = सहायता
     hu = Segítség
     id = Bantuan
     it = Aiuto
@@ -6446,6 +6493,7 @@
     fi = Lahjoita
     fr = Faire un don
     he = לתרום
+    hi = दान देना
     hu = Adományozni
     id = Menyumbangkan
     it = Donare
@@ -6466,8 +6514,8 @@
     tr = Bağış yapın
     uk = Підтримати грошима
     vi = Quyên tặng
-    zh-Hans = 捐款
-    zh-Hant = 捐款
+    zh-Hans = 捐助我们
+    zh-Hant = 捐助我們
 
   [how_to_support_us]
     comment = Button in the main Help dialog
@@ -6490,6 +6538,7 @@
     fi = Tue projektia
     fr = Soutenir le projet
     he = תמכו בפרויקט
+    hi = परियोजना का समर्थन करें
     hu = Támogassa a projektet
     id = Mendukung proyek
     it = Sostieni il progetto
@@ -6579,6 +6628,7 @@
     fi = Ilmoita virheestä
     fr = Signaler un bug
     he = דווח על באג
+    hi = एक बग रिपोर्ट करो
     hu = Hiba jelentése
     id = Laporkan gangguan
     it = Segnala un errore
@@ -6599,8 +6649,8 @@
     tr = Hata bildir
     uk = Сповістити про помилку
     vi = Báo cáo lỗi
-    zh-Hans = 报告漏洞
-    zh-Hant = 報告錯誤
+    zh-Hans = 报告问题
+    zh-Hant = 報告問題
 
   [email_error_body]
     comment = Alert text
@@ -7517,8 +7567,8 @@
     tr = Tekrar dene
     uk = Повторити
     vi = Lặp lại
-    zh-Hans = 重复
-    zh-Hant = 重試
+    zh-Hans = 重新下载
+    zh-Hant = 重新下載
 
   [downloader_delete_map]
     comment = Item in context menu.
@@ -7897,6 +7947,7 @@
     fi = Ota sijaintipalvelut käyttöön
     fr = Veuillez activer les services de localisation
     he = יש להפעיל שירותי מיקום
+    hi = कृपया स्थान सेवाएँ सक्षम करें
     hu = Kérjük kapcsolja be a helyzetmeghatározó szolgáltatást
     id = Mohon aktifkan Layanan Lokasi
     it = Abilita i servizi di localizzazione
@@ -7940,6 +7991,7 @@
     fi = Tallenna
     fr = Sauvegarder
     he = שמור
+    hi = सहेजें
     hu = Mentés
     id = Simpan
     it = Salva
@@ -8003,7 +8055,7 @@
     tr = Açıklamalarınız (metin veya html)
     uk = Ваше описання (текст або html)
     vi = Mô tả của bạn (chữ hoặc html)
-    zh-Hans = 您的描述（文本或html）
+    zh-Hans = 您的描述（文本或 html）
     zh-Hant = 您的描述（文字或 html）
 
   [create]
@@ -8790,6 +8842,7 @@
     fi = Muista seuraavat asiat seuratessasi reittiä:
     fr = Lorsque vous suivez l'itinéraire, gardez à l'esprit les points suivants :
     he = בעת נסיעה לאורך המסלול, שים לב לדברים הבאים:
+    hi = मार्ग का अनुसरण करते समय कृपया ध्यान रखें:
     hu = Az útvonal követése során, kérjük, vegye figyelembe az alábbiakat:
     id = Saat mengikuti rute, harap diingat:
     it = Quando segui il percorso, ricorda che:
@@ -10386,6 +10439,7 @@
     fi = Luokat
     fr = Catégories
     he = קטגוריות
+    hi = श्रेणियाँ
     hu = Kategóriák
     id = Kategori
     it = Categorie
@@ -10429,6 +10483,7 @@
     fi = Historia
     fr = Historique
     he = היסטוריה
+    hi = इतिहास
     hu = Előzmények
     id = Riwayat
     it = Cronologia
@@ -10492,8 +10547,8 @@
     tr = Üzgünüz, hiç bir şey bulamadık.
     uk = На жаль, нічого не знайдено.
     vi = Xin lỗi, tôi không tìm thấy kết quả nào.
-    zh-Hans = 抱歉，没有找到任何东西。
-    zh-Hant = 很抱歉，找不到任何東西。
+    zh-Hans = 很抱歉，没有找到任何地点。
+    zh-Hant = 很抱歉，沒有找到任何地點。
 
   [search_not_found_query]
     tags = android,ios
@@ -10535,8 +10590,8 @@
     tr = Lütfen başka bir sorgu girin.
     uk = Спробуйте змінити запит.
     vi = Vui lòng thử câu hỏi khác.
-    zh-Hans = 请尝试其它查询。
-    zh-Hant = 請嘗試其他搜尋字詞。
+    zh-Hans = 请尝试搜索其它关键词。
+    zh-Hant = 請嘗試搜尋其它關鍵詞。
 
   [search_history_title]
     tags = android,ios
@@ -10578,7 +10633,7 @@
     tr = Arama Geçmişi
     uk = Історія пошуку
     vi = Lịch sử tìm kiếm
-    zh-Hans = 搜索历史
+    zh-Hans = 搜索历史记录
     zh-Hant = 搜尋歷史紀錄
 
   [search_history_text]
@@ -10644,6 +10699,7 @@
     fi = Poista hakuhistoria
     fr = Effacer l'historique de recherche
     he = נקה היסטוריית חיפוש
+    hi = स्पष्ट इतिहास की खोज
     hu = A keresési előzmények törlése
     id = Bersihkan riwayat pencarian
     it = Cancella сronologia ricerche
@@ -10664,7 +10720,7 @@
     tr = Arama Geçmişini Temizle
     uk = Очистити історію пошуку
     vi = Xóa Lịch sử Tìm kiếm
-    zh-Hans = 清除历史搜索
+    zh-Hans = 清除搜索记录
     zh-Hant = 清除搜尋記錄
 
   [read_in_wikipedia]
@@ -10682,6 +10738,7 @@
     fi = Wikipedia
     fr = Wikipédia
     he = ויקיפדיה
+    hi = विकिपीडिया
     it = Wikipedia
     ja = ウィキペディア
     lt = Vikipedija
@@ -10766,6 +10823,7 @@
     fi = Aloita
     fr = Démarrer
     he = צא לדרך
+    hi = जाएँ
     hu = Indítás
     id = Mulai
     it = Inizia
@@ -10809,6 +10867,7 @@
     fi = Lähtöpaikka
     fr = Depuis
     he = מסלול מכאן
+    hi = यहाँ से
     hu = Kiindulópont
     id = Dari
     it = Da
@@ -10830,7 +10889,7 @@
     uk = Звідси
     vi = Từ
     zh-Hans = 从这出发
-    zh-Hant = 從
+    zh-Hant = 從這出發
 
   [p2p_to_here]
     tags = android,ios
@@ -10852,6 +10911,7 @@
     fi = Reitin loppupiste
     fr = Itinéraire vers
     he = מסלול לכאן
+    hi = यहाँ तक
     hu = Célpont
     id = Rute ke
     it = A
@@ -10873,7 +10933,7 @@
     uk = Сюди
     vi = Tuyến đến
     zh-Hans = 到这去
-    zh-Hant = 路線終點
+    zh-Hant = 到這去
 
   [p2p_only_from_current]
     tags = android,ios
@@ -11370,6 +11430,7 @@
     fi = Aukioloajat
     fr = Heures d'ouverture
     he = שעות פתיחה
+    hi = काम करने के घंटे
     hu = Nyitvatartási idő
     id = Jam buka
     it = Orari di apertura
@@ -12362,6 +12423,7 @@
     nl = Opent morgen om %@
     pl = Otwarcie jutro o %@
     pt = Abre amanhã às %@
+    ro = Deschide mâine la %@
     ru = Откроется завтра в %@
     tr = Açılış yarın %@
     uk = Відкриття завтра о %@
@@ -12387,6 +12449,7 @@
     nl = Opent %1$@ om %2$@
     pl = Otwarcie %1$@ o %2$@
     pt = Abre %1$@ às %2$@
+    ro = Deschide %1$@ la %2$@
     ru = Открывается в %1$@ в %2$@
     tr = Açılış %1$@ %2$@
     uk = Відчиняється в %1$@ о %2$@
@@ -12413,6 +12476,7 @@
     nl = Opent om %@
     pl = Otwarcie o %@
     pt = Abre às %@
+    ro = Deschide la %@
     ru = Открывается в %@
     tr = Açılış %@
     uk = Відкриття о %@
@@ -12439,6 +12503,7 @@
     nl = Opent over %@
     pl = Otwarcie za %@
     pt-BR = Abre em %@
+    ro = Deschide în %@
     ru = Открывается через %@
     tr = %@ sonra açılıyor
     uk = Відкривається через %@
@@ -12465,6 +12530,7 @@
     nl = Sluit om %@
     pl = Zamknięcie o %@
     pt = Encerra às %@
+    ro = Închide la %@
     ru = Закрывается в %@
     tr = Kapanış %@
     uk = Закривається о %@
@@ -12491,6 +12557,7 @@
     nl = Sluit over %@
     pl = Zamknięcie za %@
     pt-BR = Fecha em %@
+    ro = Închide în %@
     ru = Закроется через %@
     tr = %@ sonra kapanıyor
     uk = Зачиняється через %@
@@ -13396,7 +13463,7 @@
     tr = Detaylar
     uk = Детальніше
     vi = Chi tiết
-    zh-Hans = 细节
+    zh-Hans = 详细信息
     zh-Hant = 詳細資訊
 
   [add_street]
@@ -14040,6 +14107,7 @@
     fi = Etsi kartta
     fr = Trouver la carte
     he = חפש מפה
+    hi = मानचित्र ढूंढें
     hu = Térkép keresése
     id = Temukan peta
     it = Trova la mappa
@@ -14574,7 +14642,7 @@
     sv = Lägger till
     th = กำลังเพิ่ม
     tr = Ekleme
-    uk = Додовання
+    uk = Додавання
     vi = Nhập
     zh-Hans = 添加中
     zh-Hant = 新增中
@@ -14791,8 +14859,8 @@
     tr = Kuruluş ekle
     uk = Додати організацію
     vi = Thêm tổ chức
-    zh-Hans = 添加组织
-    zh-Hant = 添加組織
+    zh-Hans = 将地点添加到 OpenStreetMap
+    zh-Hant = 將地點添加到 OpenStreetMap
 
   [whatsnew_editor_message_1]
     tags = ios
@@ -14942,6 +15010,7 @@
     fi = Kartografiset tiedot OpenStreetMapista vuodesta %@. Se on kuin Wikipedia, johon voit lisätä tai muokata paikkoja kaikille käyttäjille ympäri maailmaa.
     fr = Données cartographiques provenant d'OpenStreetMap en date du %@. OSM est comme Wikipedia pour les cartes, où vous pouvez ajouter ou modifier des lieux.
     he = נתונים קרטוגרפיים מ-OpenStreetMap נכון לתאריך %@. OSM זה כמו ויקיפדיה למפות, בו תוכלו להוסיף או לערוך מקומות לכל המשתמשים ברחבי העולם.
+    hi = %@ तक OpenStreetMap से कार्टोग्राफ़िक डेटा। OpenStreetMap मानचित्रों के लिए विकिपीडिया की तरह है, जहाँ आप दुनिया भर के उपयोगकर्ताओं के लिए स्थान जोड़ और संपादित कर सकते हैं।
     hu = Kartográfiai adatok az OpenStreetMap-ból a %@-től. Olyan, mint a Wikipedia, ahol a világ minden felhasználójának helyét hozzáadhatja vagy szerkesztheti.
     id = Data kartografi dari OpenStreetMap pada %@. Ini seperti Wikipedia di mana Anda dapat menambahkan atau mengedit tempat untuk semua pengguna di seluruh dunia.
     it = Dati cartografici da OpenStreetMap a partire dal %@. È come Wikipedia dove è possibile aggiungere o modificare luoghi per tutti gli utenti del mondo.
@@ -14962,8 +15031,8 @@
     tr = Harita verileri, %@ tarihine ait OpenStreetMap verilerinden alınmıştır. OpenStreetMap, Vikipedi'nin harita sürümü gibidir: dünyadaki tüm kullanıcılar için yer ekleyebilir veya düzenleyebilirsiniz.
     uk = Картографічні дані з OpenStreetMap станом на %@. Це як Вікіпедія, де ви можете додавати або редагувати місця для всіх користувачів у всьому світі.
     vi = Dữ liệu bản đồ từ OpenStreetMap kể từ %@. Nó giống như Wikipedia nơi bạn có thể thêm hoặc chỉnh sửa địa điểm cho tất cả người dùng trên toàn thế giới.
-    zh-Hans = 截至%@的OpenStreetMap的制图数据。就像Wikipedia一样，您可以为世界上所有用户添加或编辑位置。
-    zh-Hant = 截至%@的OpenStreetMap的製圖數據。就像Wikipedia一樣，您可以為世界上所有用戶添加或編輯位置。
+    zh-Hans = 截止到 %@ 的 OpenStreetMap 地图数据。就像维基百科一样，您可以为世界上所有用户添加或编辑位置。
+    zh-Hant = 截止到 %@ 的 OpenStreetMap 地圖數據。就像 Wikipedia 一樣，您可以為世界上所有用戶添加或編輯位置。
 
   [login_to_make_edits_visible]
     tags = android,ios
@@ -15222,8 +15291,8 @@
     tr = Bu işlem, bazı planlarda veya dolaşımda oldukça pahalı olabilir.
     uk = Це може бути задорого за деякими планами або за умовами роумінгу.
     vi = Như vậy sẽ rất đắt tiền với một số gói dữ liệu hoặc khi chuyển vùng.
-    zh-Hans = 用一些方案或漫游的话这可能相当昂贵。
-    zh-Hant = 用某些方案或漫遊的話這可能相當昂貴。
+    zh-Hans = 如果您使用移动数据或漫游来进行下载，将可能导致额外的费用。
+    zh-Hant = 如果您使用行動數據或漫遊來進行下載，將可能導致額外的費用。
 
   [error_enter_correct_house_number]
     tags = android,ios
@@ -15529,8 +15598,8 @@
     tr = OSM editörlerine bir not gönderin
     uk = Надіслати нотатку редакторам OSM
     vi = Gửi ghi chú cho ban biên tập OSM
-    zh-Hans = 给OSM编辑器发送标记
-    zh-Hant = 給OSM編輯器發送標記
+    zh-Hans = 给 OSM 社区发送标记
+    zh-Hant = 給 OSM 社區發送標記
 
   [editor_detailed_description_hint]
     tags = android,ios
@@ -15875,8 +15944,8 @@
     tr = Geçerli konum bilinmiyor. Muhtemelen bir bina veya tünelin içindesiniz.
     uk = Місцезнаходження не знайдено. Можливо, ви знаходитесь у приміщенні або тунелі.
     vi = Chưa biết địa điểm hiện tại. Có thể bạn đang ở trong một tòa nhà hoặc đường hầm.
-    zh-Hans = 当前位置未知，可能您在建筑内或隧道内。
-    zh-Hant = 目前位置未知，可能您在建築物內或隧道內。
+    zh-Hans = 我们无法确定您的当前位置，可能是因为您在建筑物内或隧道内。
+    zh-Hant = 我們無法確定您的當前位置，可能是因為您在建築物內或隧道內。
 
   [current_location_unknown_continue_button]
     tags = android,ios
@@ -16046,8 +16115,8 @@
     tr = Konumunuz aranırken bir hata oluştu. Cihazınızın düzgün çalışıp çalışmadığını kontrol edin ve daha sonra tekrar deneyin.
     uk = Під час пошуку місцезнаходження сталася невідома помилка. Перевірте працездатність пристрою та спробуйте відшукати місцеположення пізніше.
     vi = Có lỗi khi tìm kiếm địa điểm của bạn. Đảm bảo rằng thiết bị của bạn hoạt động tốt và thử lại sau.
-    zh-Hans = 搜索您的位置时发生错误。请检查您的设备是否工作正常，然后重试。
-    zh-Hant = 搜尋您的位置時發生錯誤。請檢查您的裝置是否正常運作，然後重試。
+    zh-Hans = 定位到您的当前位置时出错。请检查您的设备是否正常运作，然后再试一次。
+    zh-Hant = 定位到您的當前位置時出錯。請檢查您的裝置是否正常運作，然後再試一次。
 
   [location_services_disabled_header]
     tags = ios
@@ -16148,7 +16217,7 @@
     da = 1. Åbn Indstillinger
     de = 1. Einstellungen öffnen
     el = 1. Ανοίξτε τις ρυθμίσεις
-    es = 1. Abre los ajustes
+    es = 1. Abra Ajustes
     et = 1. Ava seaded
     eu = 1. Ireki ezarpenak
     fa = 1. بازکردن تنظیمات
@@ -16165,9 +16234,9 @@
     nb = 1. Åpne Innstillinger
     nl = 1. Instellingen openen
     pl = 1. Uruchom ustawienia
-    pt = 1. Abra as configurações
-    pt-BR = 1. Abra as configurações
-    ro = 1. Deschide setările
+    pt = 1. Abra a aplicação “Definições“
+    pt-BR = 1. Abra o aplicativo “Ajustes“
+    ro = 1. Deschide Configurări
     ru = 1. Откройте Настройки
     sk = 1. Otvorte Nastavenia
     sv = 1. Öppna inställningar
@@ -16191,7 +16260,7 @@
     da = 2. Tryk på Placering
     de = 2. Auf Standort tippen
     el = 2. Πατήστε τοποθεσία
-    es = 2. Pulsa "Ubicación"
+    es = 2. Pulse Localización
     et = 2. Puuduta "Asukoht"
     eu = 2. Sakatu "Kokapena"
     fi = 2. Valitse sijainti
@@ -16234,7 +16303,7 @@
     da = 3. Vælg Mens app'en bruges
     de = 3. Wählen Sie „Beim Verwenden der App“
     el = 3. Επιλέξτε ενώ χρησιμοποιείτε την εφαρμογή
-    es = 3. Seleccionar al usar la aplicación
+    es = 3. Seleccione Cuando se use la app
     et = 3. Vali "Rakenduse kasutamise ajal"
     eu = 3. Hautatu aplikazioa erabiltzean
     fi = 3. Valitse sovellusta käytettäessä
@@ -16250,8 +16319,8 @@
     nb = 3.Velg når appen er i bruk
     nl = 3. Selecteer Terwijl Je de App Gebruikt
     pl = 3. Zaznacz Podczas korzystania z aplikacji
-    pt = 3. Selecione "Durante a utilização da aplicação"
-    pt-BR = 3. Selecione "Durante uso do aplicativo"
+    pt = 3. Selecione “Durante a utilização da aplicação“
+    pt-BR = 3. Selecione “Durante uso do aplicativo“
     ro = 3. Alege „În timp ce folosești aplicația”
     ru = 3. Выберите «При использовании программы»
     sk = 3. Vyberte si počas používania aplikácie
@@ -16262,6 +16331,187 @@
     vi = 3. Chọn Khi Đang Dùng Ứng dụng
     zh-Hans = 3. 使用应用时选择
     zh-Hant = 3. 使用應用時選擇
+
+  [location_services_disabled_on_device_2]
+    tags = ios
+    en = 2. Select Privacy
+    af = 2. Kies Privaatheid
+    ar = 2. حدد الخصوصية
+    az = 2. Məxfilik seçin
+    be = 2. Абярыце Прыватнасць
+    bg = 2. Изберете Privacy
+    ca = 2. Seleccioneu Privadesa
+    cs = 2. Vyberte možnost Soukromí
+    da = 2. Vælg Privatliv
+    de = 2. Datenschutz auswählen
+    el = 2. Επιλέξτε Απόρρητο
+    es = 2. Seleccione Privacidad
+    et = 2. Valige Privaatsus
+    eu = 2. Hautatu Pribatutasuna
+    fa = 2. Privacy را انتخاب کنید
+    fi = 2. Valitse Tietosuoja
+    fr = 2. Sélectionne Privacy
+    he = 2. בחר פרטיות
+    hi = 2. गोपनीयता का चयन करें
+    hu = 2. Válassza az Adatvédelem
+    id = 2. Pilih Privasi
+    it = 2. Seleziona Privacy
+    ja = 2.プライバシーを選択する
+    ko = 2. 2. 개인정보 보호 선택
+    lt = 2. Pasirinkite Privatumas
+    mr = 2. गोपनीयता निवडा
+    nb = 2. Velg Personvern
+    nl = 2. Selecteer Privacy
+    pl = 2. Wybierz Prywatność
+    pt = 2. Selecione “Privacidade e segurança“
+    pt-BR = 2. Selecione “Privacidade e Segurança“
+    ro = 2. Selectează Intimitate și securitate
+    ru = 2. Выберите Конфидециальность
+    sk = 2. Vyberte položku Ochrana osobných údajov
+    sv = 2. Välj Sekretess
+    sw = 2. Chagua Faragha
+    th = 2. เลือกความเป็นส่วนตัว
+    tr = 2. Gizlilik'i seçin
+    uk = 2. Виберіть Конфіденційність
+    vi = 2. Chọn Quyền riêng tư
+    zh-Hans = 2. 选择隐私
+    zh-Hant = 2. 選擇隱私
+
+  [location_services_disabled_on_device_3]
+    tags = ios
+    en = 3. Select Location Services
+    af = 3. Kies Liggingdienste
+    ar = 3. حدد خدمات الموقع
+    az = 3. Məkan Xidmətləri seçin
+    be = 3. Выберыце Службы месцазнаходжання
+    bg = 3. Изберете Услуги за местоположение
+    ca = 3. Seleccioneu Serveis d'ubicació
+    cs = 3. Vyberte možnost Služby určování polohy
+    da = 3. Vælg Placeringstjenester
+    de = 3. Wähle Standortdienste
+    el = 3. Επιλέξτε Υπηρεσίες τοποθεσίας
+    es = 3. Seleccione Localización
+    et = 3. Valige Asukohateenused
+    eu = 3. Hautatu Kokapen zerbitzuak
+    fa = 3. Location Services را انتخاب کنید
+    fi = 3. Valitse Sijaintipalvelut
+    fr = 3. Sélectionne les services de localisation
+    he = 3. בחר שירותי מיקום
+    hi = 3. स्थान सेवाएँ चुनें
+    hu = 3. Válassza a Helymeghatározó szolgáltatások
+    id = 3. Pilih Layanan Lokasi
+    it = 3. Seleziona Servizi di localizzazione
+    ja = 3.位置情報サービスを選択する
+    ko = 3. 3. 위치 서비스 선택
+    lt = 3. Pasirinkite Vietos nustatymo paslaugos
+    mr = 3. स्थान सेवा निवडा
+    nb = 3. Velg Stedstjenester
+    nl = 3. Selecteer Locatiediensten
+    pl = 3. Wybierz Usługi lokalizacji
+    pt = 3. Selecione “Serviços de localização“
+    pt-BR = 3. Selecione “Serviços de Localização“
+    ro = 3. Selectează Servicii de localizare
+    ru = 3. Выберите Службы геолокации
+    sk = 3. Vyberte položku Služby určovania polohy
+    sv = 3. Välj Platstjänster
+    sw = 3. Chagua Huduma za Mahali
+    th = 3. เลือกบริการระบุตำแหน่ง
+    tr = 3. Konum Servisleri'ni seçin
+    uk = 3. Виберіть Служби визначення місцезнаходження
+    vi = 3. Chọn Dịch vụ định vị
+    zh-Hans = 3.选择位置服务
+    zh-Hant = 3. 選擇定位服務
+
+  [location_services_disabled_on_device_4]
+    tags = ios
+    en = 4. Turn on Location Services
+    af = 4. Skakel Liggingdienste aan
+    ar = 4. قم بتشغيل خدمات الموقع
+    az = 4. Məkan Xidmətlərini yandırın
+    be = 4. Уключыце Службы вызначэння месцазнаходжання
+    bg = 4. Включете услугите за местоположение
+    ca = 4. Activeu els serveis d'ubicació
+    cs = 4. Zapnutí služeb určování polohy
+    da = 4. Slå placeringstjenester til
+    de = 4. Standortdienste einschalten
+    el = 4. Ενεργοποιήστε τις Υπηρεσίες τοποθεσίας
+    es = 4. Active la Localización
+    et = 4. Lülitage sisse asukohateenused
+    eu = 4. Aktibatu Kokapen Zerbitzuak
+    fa = 4. Location Services را روشن کنید
+    fi = 4. Ota Sijaintipalvelut käyttöön
+    fr = 4. Active les services de localisation
+    he = 4. הפעל את שירותי המיקום
+    hi = 4. स्थान सेवाएँ चालू करें
+    hu = 4. Helymeghatározó szolgáltatások bekapcsolása
+    id = 4. Aktifkan Layanan Lokasi
+    it = 4. Attiva i servizi di localizzazione
+    ja = 4.位置情報サービスをオンにする
+    ko = 4. 위치 서비스 켜기
+    lt = 4. Įjunkite vietos nustatymo paslaugas
+    mr = 4. स्थान सेवा चालू करा
+    nb = 4. Slå på Stedstjenester
+    nl = 4. Locatiediensten inschakelen
+    pl = 4. Włącz usługi lokalizacji
+    pt = 4. Ative “Serviços de localização“
+    pt-BR = 4. Ative “Serviços de Localização“
+    ro = 4. Activează Servicii de localizare
+    ru = 4. Включите Службы геолокации
+    sk = 4. Zapnutie lokalizačných služieb
+    sv = 4. Aktivera platstjänster
+    sw = 4. Washa Huduma za Mahali
+    th = 4. เปิดบริการระบุตำแหน่ง
+    tr = 4. Konum Servislerini Açın
+    uk = 4. Увімкніть Служби визначення місцезнаходження
+    vi = 4. Bật Dịch vụ định vị
+    zh-Hans = 4.打开定位服务
+    zh-Hant = 4.開啟定位服務
+
+  [location_services_disabled_on_device_additional_message]
+    tags = ios
+    en = Or continue using Organic Maps without Location
+    af = Of gaan voort om Organic Maps sonder ligging te gebruik
+    ar = أو استمر في استخدام الخرائط العضوية بدون الموقع
+    az = Və ya Məkan olmadan Üzvi Xəritələrdən istifadə etməyə davam edin
+    be = Або працягвайце выкарыстоўваць Organic Maps без месцазнаходжання
+    bg = Или продължете да използвате Organic Maps без местоположение
+    ca = O continuar utilitzant Organic Maps sense ubicació
+    cs = Nebo pokračujte v používání aplikace Organic Maps bez polohy
+    da = Eller fortsæt med at bruge Organic Maps uden placering
+    de = Oder verwende Organic Maps weiterhin ohne Standort
+    el = Ή συνεχίστε να χρησιμοποιείτε τους Organic Maps χωρίς Τοποθεσία
+    es = O seguir utilizando Organic Maps sin localización
+    es-MX = O continuar usando Organic Maps sin Ubicación
+    et = Või jätkake Organic Maps kasutamist ilma asukohata
+    eu = Edo jarraitu kokapenik gabeko Organic Maps erabiltzen
+    fa = یا به استفاده از نقشه های ارگانیک بدون موقعیت مکانی ادامه دهید
+    fi = Tai jatka Organic Maps käyttöä ilman sijaintia
+    fr = Ou continuer à utiliser Organic Maps sans Location
+    he = או המשך להשתמש במפות אורגניות ללא מיקום
+    hi = या स्थान के बिना ऑर्गेनिक मानचित्र का उपयोग जारी रखें
+    hu = Vagy folytassa az Organic Maps használatát helymeghatározás nélkül
+    id = Atau lanjutkan menggunakan Organic Maps tanpa Lokasi
+    it = Oppure continua a utilizzare le Organic Maps senza la localizzazione
+    ja = または、位置情報なしでオーガニック・マップを使い続ける
+    ko = 또는 위치 없이 오가닉 맵을 계속 사용하세요.
+    lt = Arba toliau naudokite "Organic Maps" be vietos
+    mr = किंवा स्थानाशिवाय ऑरगॅनिक नकाशे वापरणे सुरू ठेवा
+    nb = Eller fortsett å bruke Organic Maps uten plassering
+    nl = Of blijf Organic Maps gebruiken zonder locatie
+    pl = Lub kontynuuj korzystanie z Organic Maps bez lokalizacji
+    pt = Ou continue a utilizar o Organic Maps sem localização
+    pt-BR = Ou continue usando o Organic Maps sem localização
+    ro = Sau continuă să folosești Organic Maps fără Locație
+    ru = Или продолжите использование Organic Maps без определения местоположения
+    sk = Alebo pokračujte v používaní Organic Maps bez polohy
+    sv = Eller fortsätt använda Organic Maps utan Plats
+    sw = Au endelea kutumia Organic Maps bila Mahali
+    th = หรือใช้แผนที่ทั่วไปโดยไม่มีตำแหน่งต่อไป
+    tr = Veya Konum olmadan Organic Maps kullanmaya devam edin
+    uk = Або продовжуйте використовувати Organic Maps без визначення місцезнаходження
+    vi = Hoặc tiếp tục sử dụng Bản đồ không phải trả tiền mà không có Vị trí
+    zh-Hans = 或继续使用 "有机地图 "而不定位
+    zh-Hant = 或繼續使用沒有位置的有機地圖
 
   [m]
     tags = android,ios
@@ -16283,6 +16533,7 @@
     fi = m
     fr = m
     he = מ׳
+    hi = मी
     hu = m
     id = m
     it = m
@@ -16326,6 +16577,7 @@
     fi = km
     fr = km
     he = ק״מ
+    hi = किमी
     hu = km
     id = km
     it = km
@@ -16535,6 +16787,7 @@
     fi = t
     fr = h
     he = ש׳
+    hi = घंटे
     hu = ó
     id = j
     ja = 時間
@@ -16546,6 +16799,7 @@
     pl = godz
     pt = h
     pt-BR = h
+    ro = h
     ru = ч
     sk = hod
     sv = h
@@ -16553,7 +16807,7 @@
     tr = sa
     uk = год
     vi = giờ
-    zh-Hans = 小時
+    zh-Hans = 小时
     zh-Hant = 小時
 
   [minute]
@@ -16575,6 +16829,7 @@
     fi = min
     fr = min
     he = ד׳
+    hi = मिनट
     hu = p
     id = mnt
     it = min
@@ -16595,7 +16850,7 @@
     tr = dk
     uk = хв
     vi = phút
-    zh-Hans = 分鐘
+    zh-Hans = 分钟
     zh-Hant = 分鐘
 
   [placepage_more_button]
@@ -17328,8 +17583,8 @@
     tr = Bu yer mevcut değil
     uk = Місце не існує
     vi = Địa điểm không tồn tại
-    zh-Hans = 位置不存在
-    zh-Hant = 位置不存在
+    zh-Hans = 该地点不存在
+    zh-Hant = 該地點不存在
 
   [delete_place_empty_comment_error]
     comment = Error message for "Place doesn't exist" dialog when comment is empty
@@ -18142,8 +18397,8 @@
     tr = Organic Maps, reklam ve izleyici içermeyen hızlı ve ücretsiz bir çevrimdışı harita uygulamasıdır. Haritalar kitle kaynaklı OpenStreetMap.org verilerine dayanmaktadır, böylece kendiniz harita hatalarını düzeltebilir ve haritaya yeni nesneler ekleyebilirsiniz. Organic Maps, teknoloji tutkunlarının boş zamanlarında oluşturduğu açık kaynaklı bir projedir. Geri bildirim ve desteğinize çok değer veriyoruz!
     uk = Organic Maps – це швидкі та безкоштовні карти, які не потребують доступу до Інтернету. Карти засновані на даних проекта OpenStreetMap.org, саме там Ви можете виправити помилки та додати відсутні дані. Реклама та збір особистої інформації відсутні. Organic Maps це проект з відкритим вихідним кодом, створюється ентузіастами у вільний час, тому нам потрібні Ваші відгуки та підтримка!
     vi = Organic Maps là một ứng dụng bản đồ ngoại tuyến mã nguồn mở và miễn phí. Không quảng cáo. Không theo dõi. Nếu bạn thấy lỗi trên bản đồ, hãy sửa lỗi đó trong OpenStreetMap. Dự án được tạo ra bởi những người đam mê trong thời gian rảnh của chúng tôi, vì vậy chúng tôi cần phản hồi và hỗ trợ của bạn.
-    zh-Hans = Organic Maps 是一款免费的开源离线地图应用程序。无广告。没有跟踪。如果您在地图上看到错误，请在 OpenStreetMap 中修复它。该项目由爱好者在我们的空闲时间创建，因此我们需要您的反馈和支持。
-    zh-Hant = Organic Maps 是一款免費的開源離線地圖 app。沒有廣告，不會追蹤。如果您在地圖上看到錯誤，請在 OpenStreetMap 中修復吧。這個專案由愛好者在我們的空閒時間創建，因此我們需要您的回饋和支援。
+    zh-Hans = Organic Maps 是一款免费的开源离线地图应用程序。无广告。不会跟踪您。如果您在地图上看到错误，请在 OpenStreetMap 中修复它。该项目由爱好者在我们的空闲时间创建，因此我们需要您的反馈和支持。
+    zh-Hant = Organic Maps 是一款免費的開源離線地圖 app。沒有廣告，不會追蹤您。如果您在地圖上看到錯誤，請在 OpenStreetMap 中修復吧。這個專案由愛好者在我們的空閒時間創建，因此我們需要您的回饋和支援。
 
   [general_settings]
     tags = ios
@@ -18165,6 +18420,7 @@
     fi = Yleiset asetukset
     fr = Paramètres généraux
     he = הגדרות כלליות
+    hi = सामान्य सेटिंग्स
     hu = Általános beállítások
     id = Setelan umum
     it = Impostazioni generali
@@ -18902,6 +19158,7 @@
     fi = Ota loki käyttöön
     fr = Activer le journal
     he = הפעל logging
+    hi = लॉगिंग करने देना
     hu = Naplózás engedélyezése
     id = Aktifkan pencatatan
     it = Abilita i registri
@@ -19520,6 +19777,7 @@
     fi = Lisää pysähdys
     fr = Ajouter un arrêt
     he = הוסף תחנה
+    hi = गंतव्य जोड़ें
     hu = Hozzáad megállót
     id = Tambah perhentian
     it = Aggiungi sosta
@@ -19876,6 +20134,7 @@
     fi = Luettelot
     fr = Listes
     he = רשימות
+    hi = सूचियों
     hu = Listák
     id = Daftar
     it = Elenchi
@@ -19922,6 +20181,7 @@
     fi = Piilota kaikki
     fr = Tout masquer
     he = הסתר הכל
+    hi = सभी को छिपाएं
     hu = Összes elrejtése
     id = Sembunyikan semua
     it = Nascondi tutto
@@ -20072,6 +20332,7 @@
     fi = Luo uusi luettelo
     fr = Créer une nouvelle liste
     he = צור רשימה חדשה
+    hi = एक नई सूची बनाएं
     hu = Új lista létrehozása
     id = Buat daftar baru
     it = Crea un nuovo elenco
@@ -20117,6 +20378,7 @@
     fi = Kirjanmerkkien ja reittien tuominen
     fr = Importer des signets et des parcours
     he = ייבוא סימניות ומסלולים
+    hi = बुकमार्क और सेटिंग्स आयात करें
     hu = Könyvjelzők és sávok importálása
     id = Impor penanda dan trek
     it = Importazione di segnalibri e tracce
@@ -22388,6 +22650,7 @@
     fi = Nopeuskamerat
     fr = Radars de vitesse
     he = מצלמות מהירות
+    hi = गति कैमरा
     hu = Sebességmérő kamerák
     id = Kamera cepat
     it = Autovelox
@@ -22871,12 +23134,12 @@
     af = Aktiveer hierdie opsie tydelik om ’n gedetailleerde diagnosestaat van u probleem op te neem en handmatig na ons te stuur d.m.v. die “Rapporteer ’n fout” in die Help-dialoog. Sulke state kan liggingsinligting bevat.
     ar = هذا الخيار يقوم ببدأ تسجيل سجلات التطبيق لإغراض التشخيصة. يمكن أن يكون مفيدًا لفريق الدعم الخاص بنا لحل المشاكل التي تواجهكم داخل التطبيق. قم بتفعيل هذا الخيار بشكل مؤقت فقط في حالة طلب الدعم من Organic Maps.
     az = Yardım dialoq qutusunda “Problemi bildir” istifadə etməklə probleminizlə bağlı ətraflı diaqnostik jurnalları qeyd etmək və bizə göndərmək üçün bu seçimi müvəqqəti aktivləşdirin. Qeydlərə məkan məlumatı daxil ola bilər
-    be = Опцыя ўключае запіс журнала падзей для мэтаў дыягностыкі. Гэта можа дапамагчы нашай камандзе вырашаць праблемы з праграмай. Уключайце гэтую опцыю часова, каб запісаць і паслаць нам дэталёвую інфармацыю, пра знойденую вамі праблему.
+    be = Опцыя ўключае запіс журнала падзей для мэтаў дыягностыкі. Гэта можа дапамагчы нашай камандзе вырашаць праблемы з праграмай. Уключайце гэтую опцыю часова, каб запісаць і паслаць нам дэталёвую інфармацыю пра знойденую вамі праблему праз кнопку "Паведаміць аб памылцы".
     bg = Тази настройка е разрешена, за да се записват действия за диагностични цели, които помагат на нашия екип да идентифицира проблеми с приложението. Временно активирайте тази настройка само за изпращане на подробна информация за проблема, който сте открили с приложението.
     ca = L'opció activa el registre amb finalitats de diagnòstic. Pot ser útil per al nostre equip per a identificar problemes amb l'aplicació. Activeu aquesta opció temporalment per a enregistgrar i enviar-nos informes detallats sobre el vostre problema.
     cs = Možnost zapne odesílání dat za diagnostickými účely. To nám pomáhá při řešení problémů s aplikací. Dočasně povolte pro nahrávání a odesílání logů našemu týmu o vašem problému.
     da = Indstillingen aktiverer logning til diagnostiske formål. Det kan være nyttigt for vores supportere, der fejlfinder problemer med appen. Aktiver kun denne mulighed på anmodning fra Organic Maps support.
-    de = Diese Option wird aktiviert, um Aktivitäten zwecks Diagnostik aufzuzeichnen. Das hilft unserem Team, Probleme mit der App zu erkennen. Aktivieren Sie diese Option nur auf Ersuchen des Organic Maps-Supports.
+    de = Diese Option wird aktiviert, um Aktivitäten zwecks Diagnostik aufzuzeichnen. Das hilft unserem Team, Probleme mit der App zu erkennen. Aktivieren Sie diese Option, reproduzieren Sie das Problem und senden Sie die Protokolle über die Schaltfläche "Fehler melden" an uns.
     el = Αυτή η λειτουργία είναι ενεργοποιημένη για την καταγραφή ενεργειών για διαγνωστικούς σκοπούς. Αυτό βοηθά την ομάδα να εντοπίζει προβλήματα με την εφαρμογή. Να ενεργοποιείτε τη λειτουργία μόνο κατόπιν αιτήματος της υποστήριξης του Organic Maps.
     es = Esta opción está habilitada para las acciones de registro con fines de diagnóstico. Esto ayuda a nuestro equipo a identificar problemas con la aplicación. Habilite la opción solo a petición del apoyo de Organic Maps.
     es-MX = Esta opción está habilitada para las acciones de registro con fines de diagnóstico. Esto ayuda a nuestro equipo a identificar problemas con la aplicación. Habilite la opción solo a petición del apoyo de Organic Maps.
@@ -22899,16 +23162,16 @@
     pt = Esta opção ativa o registo das ações para diagnóstico. Pode ser útil para os programadores descobrirem o problema na aplicação. Ative esta opção apenas a pedido dos programadores do Organic Maps.
     pt-BR = A opção ativa logging para realizar diagnósticos. Pode ser útil para nossa equipe de suporte que estão solucionando problemas com o aplicativo. Ative esta opção apenas ao ser solicitado pelo suporte do Organic Maps.
     ro = Opțiunea activează jurnalizarea în scopuri de diagnosticare. Aceasta poate fi utilă echipei noastre pentru a rezolva problemele cu aplicația. Activează temporar această opțiune pentru a înregistra și a ne trimite jurnale detaliate despre problema ta.
-    ru = Данная настройка включается для записи действий в целях диагностики, чтобы помочь нашей команде выявить проблемы с приложением. Временно включайте эту настройку только для отправки детальной информации о найденной вами проблеме в приложении.
+    ru = Данная настройка включается для записи действий в целях диагностики, чтобы помочь нашей команде выявить проблемы с приложением. Временно включайте эту настройку только для отправки детальной информации о найденной вами проблеме в приложении через кнопку "Сообщить о проблеме".
     sk = Táto možnosť zapína zaznamenávanie na diagnostické účely. Môže to byť užitočné pre našu technickú podporu, ktorá rieši problémy s aplikáciou. Povoliť túto možnosť iba na požiadanie podpory Organic Maps.
     sv = Denna funktion aktiveras för loggning av åtgärder för diagnostiska ändamål. Detta hjälper laget att identifiera problem med applikationen. Slå på funktionen endast på begäran av Organic Maps supporttjänst.
     sw = Chaguo huwasha data kwa madhumuni ya uchunguzi. Itakuwa muhimu kwa wafanyakazi wetu ambao wanatatua matatizo ya programu. Washa chaguo hili kwa maombi ya mhudumu wa Organic Maps tu.
     th = ออปชันเพื่อเปิดการบันทึกประวัติการทำงานเพื่อการวินิจฉัย ประวัติดังกล่าวอาจเป็นประโยชน์กับทีมงานช่วยเหลือของเราที่คอยจัดการกับปัญหาที่เจอระหว่างแอปทำงาน โปรดเปิดออปชันดังกล่าวจากการร้องข้อการสนับสนุนจาก Organic Maps เท่านั้น
     tr = Bu seçenek tanılama amacıyla günlüğe kaydetmeyi açar. Ekibimizin uygulamayla ilgili sorunları gidermesine yardımcı olabilir. Sorununuzla ilgili ayrıntılı günlükleri kaydetmek ve bize göndermek için bu seçeneği geçici olarak etkinleştirin.
-    uk = Дана опція вмикається для логування дій з метою діагностики. Це допомагає команді виявити проблеми з додатком. Тимчасово включайте цю настройку тільки для відправки детальної інформації про знайдену вами проблему в додатку.
+    uk = Дана опція вмикається для логування дій з метою діагностики. Це допомагає команді виявити проблеми з додатком. Тимчасово включайте цю настройку тільки для відправки детальної інформації про знайдену вами проблему в додатку через кнопку "Сповістити про помилку".
     vi = Tùy chọn này được kích hoạt để ghi nhật ký đăng nhập cho mục đích chẩn đoán. Điều này sẽ giúp nhóm chúng tôi làm rõ các vấn đề liên quan đến ứng dụng. Hãy bật tùy chọn này chỉ khi nào có yêu cầu hỗ trợ từ Organic Maps.
-    zh-Hans = 此选项启用以记录操作来进行诊断。这有助于团队识别应用程序的问题。请仅在Organic Maps支持请求时开启该选项。
-    zh-Hant = 此選項啟用以記錄操作來進行診斷。這有助於團隊辨別 app 的問題。請僅在Organic Maps支援請求時開啟該選項。
+    zh-Hans = 临时启用此选项，以便使用“报告错误”功能在帮助对话框中记录并手动发送有关您的问题的详细诊断日志给我们。日志可能包含位置信息。
+    zh-Hant = 暫時啟用此選項，以便使用「回報問題」功能在幫助對話框中記錄並手動發送詳細的診斷日誌給我們。日誌可能包含位置資訊。
 
   [access_rules_author_only]
     tags = android
@@ -23775,6 +24038,7 @@
     fi = Kyllä
     fr = Oui
     he = כן
+    hi = हॉं
     hu = Igen
     id = Ya
     it = Sì
@@ -23821,6 +24085,7 @@
     fi = Ei
     fr = Non
     he = לא
+    hi = नहीं
     hu = Nem
     id = Tidak
     it = No
@@ -25745,6 +26010,7 @@
     fi = Kaupat
     fr = Magasins
     he = חנויות
+    hi = दुकान
     hu = Üzletek
     id = Pusat perbelanjaan
     it = Negozi
@@ -26195,6 +26461,7 @@
     fi = Maasto
     fr = Terrain
     he = קווי מתאר
+    hi = रूप रेखा लाइंस
     hu = Domborzat
     id = Isometrik
     it = Terreno
@@ -26943,6 +27210,7 @@
     be = Спампаваць мапу света
     bg = Изтегляне на картата на света
     ca = Baixa el mapa mundial
+    cs = Stáhnout mapu světa
     de = Herunterladen der Weltkarte
     es = Descarga el mapa mundial
     et = Maailma kaardi allalaadimine
@@ -26950,6 +27218,7 @@
     fi = Lataa maailmankartta
     fr = Télécharger la carte du monde
     he = הורד את מפת העולם
+    hi = विश्व मानचित्र डाउनलोड करें
     it = Scarica la mappa del mondo
     ja = 世界地図をダウンロード
     lt = Atsisiųsti pasaulio žemėlapį
@@ -27602,8 +27871,8 @@
     tr = Harita verileri OpenStreetMap'ten
     uk = Картографічні дані з OpenStreetMap
     vi = Dữ liệu bản đồ từ OpenStreetMap
-    zh-Hans = 地图数据来自OpenStreetMap
-    zh-Hant = 來自 OpenStreetMap 的地圖數據
+    zh-Hans = 地图数据来自 OpenStreetMap
+    zh-Hant = 地圖數據來自 OpenStreetMap
 
   [telegram_url]
     comment = Telegram group url for the "?" About page

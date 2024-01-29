@@ -109,14 +109,7 @@ public class CuisineAdapter extends RecyclerView.Adapter<CuisineAdapter.ViewHold
       cuisine = itemView.findViewById(R.id.cuisine);
       selected = itemView.findViewById(R.id.selected);
       selected.setOnCheckedChangeListener(this);
-      itemView.setOnClickListener(new View.OnClickListener()
-      {
-        @Override
-        public void onClick(View v)
-        {
-          selected.toggle();
-        }
-      });
+      itemView.setOnClickListener(v -> selected.toggle());
     }
 
     public void bind(int position)

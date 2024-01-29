@@ -130,7 +130,7 @@ void ExtractLineParams(LineRuleProto const & lineRule, LineViewParams & params)
     int const count = dd.dd_size();
     params.m_pattern.reserve(count);
     for (int i = 0; i < count; ++i)
-      params.m_pattern.push_back(dp::PatternFloat2Pixel(std::max(dd.dd(i) * scale, 1.0)));
+      params.m_pattern.push_back(dp::PatternFloat2Pixel(dd.dd(i) * scale));
   }
 
   switch (lineRule.cap())

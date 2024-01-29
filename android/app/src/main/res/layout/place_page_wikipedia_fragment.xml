@@ -14,7 +14,7 @@
     <ImageView
       android:id="@+id/iv__place_wiki"
       style="@style/PlacePageMetadataIcon"
-      android:src="@drawable/ic_wiki"
+      app:srcCompat="@drawable/ic_wiki"
       app:tint="?colorAccent" />
     <TextView
       android:id="@+id/tv__place_wiki"

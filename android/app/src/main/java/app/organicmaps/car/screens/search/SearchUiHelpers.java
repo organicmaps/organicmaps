@@ -2,6 +2,7 @@ package app.organicmaps.car.screens.search;
 
 import android.text.SpannableStringBuilder;
 import android.text.Spanned;
+import android.text.TextUtils;
 
 import androidx.annotation.NonNull;
 import androidx.car.app.CarContext;
@@ -14,27 +15,30 @@ import app.organicmaps.car.util.Colors;
 import app.organicmaps.car.util.RoutingHelpers;
 import app.organicmaps.search.SearchResult;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public final class SearchUiHelpers
 {
-  @NonNull
-  public static CharSequence getOpeningHoursAndDistanceText(@NonNull CarContext carContext, @NonNull SearchResult searchResult)
-  {
-    final CharSequence openingHours = getOpeningHoursText(carContext, searchResult);
-    final CharSequence distance = getDistanceText(searchResult);
-
-    return getOpeningHoursAndDistanceText(openingHours, distance);
-  }
+  private static final String DELIMITER = " • ";
 
   @NonNull
-  public static CharSequence getOpeningHoursAndDistanceText(@NonNull CharSequence openingHours, @NonNull CharSequence distance)
+  public static CharSequence concatenateStrings(@NonNull CharSequence... data)
   {
     final SpannableStringBuilder result = new SpannableStringBuilder();
-    if (openingHours.length() != 0)
-      result.append(openingHours);
-    if (result.length() != 0 && distance.length() != 0)
-      result.append(" • ");
-    if (distance.length() != 0)
-      result.append(distance);
+    final List<CharSequence> strings = new ArrayList<>();
+    for (final CharSequence str : data)
+    {
+      if (!TextUtils.isEmpty(str))
+        strings.add(str);
+    }
+    final int size = strings.size();
+    for (int i = 0; i < size; i++)
+    {
+      result.append(strings.get(i));
+      if (i + 1 != size)
+        result.append(DELIMITER);
+    }
 
     return result;
   }

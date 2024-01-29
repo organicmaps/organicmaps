@@ -28,7 +28,7 @@ public class OperationStatus implements Parcelable
     mError = ParcelCompat.readParcelable(in, Error.class.getClassLoader(), Error.class);
   }
 
-  public static final Creator<OperationStatus> CREATOR = new Creator<OperationStatus>()
+  public static final Creator<OperationStatus> CREATOR = new Creator<>()
   {
     @Override
     public OperationStatus createFromParcel(Parcel in)

@@ -13,7 +13,6 @@ import androidx.annotation.NonNull;
 
 import app.organicmaps.bookmarks.data.FeatureId;
 import app.organicmaps.util.Distance;
-import app.organicmaps.util.Utils;
 
 /**
  * Class instances are created from native code.

@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<svg version="1.1" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" xmlns:cc="http://creativecommons.org/ns#" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
+<svg version="1.1" viewBox="0 0 24 24" width="18" height="18" xmlns="http://www.w3.org/2000/svg" xmlns:cc="http://creativecommons.org/ns#" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
  <g transform="scale(.5)">
   <circle class="cls-1" cx="24" cy="24" r="5" fill="#C15746"/>
   <path class="cls-1" d="m46 22h-8.1714l1.5854-1.5859a1.9998 1.9998 0 0 0-2.8281-2.8281l-5 5a1.9821 1.9821 0 0 0-0.3161 0.42724c-0.02106 0.03711-0.04 0.07349-0.05866 0.11158a1.9901 1.9901 0 0 0-0.16907 0.47485l-0.0038 0.01269a2.0036 2.0036 0 0 0-0.02612 0.51514c0.0026 0.04126 0.0066 0.0813 0.01178 0.12256a1.9877 1.9877 0 0 0 0.12738 0.51172l1e-3 0.0039 0.0086 0.01438a1.9895 1.9895 0 0 0 0.25958 0.43164c0.02869 0.03735 0.05719 0.073 0.08832 0.10815 0.02716 0.03052 0.04767 0.06495 0.077 0.09424l5 5a1.9998 1.9998 0 0 0 2.8281-2.8281l-1.5858-1.5859h8.1719a2 2 0 0 0 0-4z" fill="#C15746"/>

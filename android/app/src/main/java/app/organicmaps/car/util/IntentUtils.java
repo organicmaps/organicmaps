@@ -10,7 +10,6 @@ import androidx.car.app.ScreenManager;
 
 import app.organicmaps.Framework;
 import app.organicmaps.Map;
-import app.organicmaps.MwmActivity;
 import app.organicmaps.api.Const;
 import app.organicmaps.api.ParsedSearchRequest;
 import app.organicmaps.api.RequestType;
@@ -85,7 +84,6 @@ public final class IntentUtils
       return;
     case RequestType.CROSSHAIR:
       Logger.e(TAG, "Crosshair API is not supported by Android Auto: " + uri);
-      return;
     }
   }
 

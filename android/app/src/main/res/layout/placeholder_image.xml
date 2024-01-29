@@ -6,4 +6,4 @@
   android:layout_width="@dimen/placeholder_size"
   android:layout_height="@dimen/placeholder_size"
   android:layout_marginBottom="@dimen/margin_half_plus"
-  tools:src="@drawable/img_search_empty_history_light"/>
+  tools:src="@drawable/ic_search"/>

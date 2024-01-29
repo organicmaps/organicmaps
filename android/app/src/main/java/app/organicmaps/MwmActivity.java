@@ -70,7 +70,6 @@ import app.organicmaps.location.SensorHelper;
 import app.organicmaps.location.SensorListener;
 import app.organicmaps.maplayer.MapButtonsController;
 import app.organicmaps.maplayer.MapButtonsViewModel;
-import app.organicmaps.maplayer.Mode;
 import app.organicmaps.maplayer.ToggleMapLayerFragment;
 import app.organicmaps.maplayer.isolines.IsolinesManager;
 import app.organicmaps.maplayer.isolines.IsolinesState;
@@ -578,9 +577,7 @@ public class MwmActivity extends BaseMwmFragmentActivity
 
     mPointChooserToolbar = mPointChooser.findViewById(R.id.toolbar_point_chooser);
     UiUtils.showHomeUpButton(mPointChooserToolbar);
-    mPointChooserToolbar.setNavigationOnClickListener(v -> {
-      closePositionChooser();
-    });
+    mPointChooserToolbar.setNavigationOnClickListener(v -> closePositionChooser());
     mPointChooser.findViewById(R.id.done).setOnClickListener(
         v ->
         {
@@ -729,33 +726,23 @@ public class MwmActivity extends BaseMwmFragmentActivity
   {
     switch (button)
     {
-      case zoomIn:
-        Map.zoomIn();
-        break;
-      case zoomOut:
-        Map.zoomOut();
-        break;
-      case myPosition:
+      case zoomIn -> Map.zoomIn();
+      case zoomOut -> Map.zoomOut();
+      case myPosition ->
+      {
         Logger.i(LOCATION_TAG, "The location button pressed");
         // Calls onMyPositionModeChanged(mode + 1).
         LocationState.nativeSwitchToNextMode();
-        break;
-      case toggleMapLayer:
-        toggleMapLayerBottomSheet();
-        break;
-      case bookmarks:
-        showBookmarks();
-        break;
-      case search:
-        showSearch("");
-        break;
-      case menu:
+      }
+      case toggleMapLayer -> toggleMapLayerBottomSheet();
+      case bookmarks -> showBookmarks();
+      case search -> showSearch("");
+      case menu ->
+      {
         closeFloatingPanels();
         showBottomSheet(MAIN_MENU_ID);
-        break;
-      case help:
-        showHelp();
-        break;
+      }
+      case help -> showHelp();
     }
   }
 
@@ -1652,7 +1639,7 @@ public class MwmActivity extends BaseMwmFragmentActivity
 
   public void openKayakLink(@NonNull String url)
   {
-    if (Config.isKayakDisclaimerAccepted())
+    if (Config.isKayakDisclaimerAccepted() || !Config.isKayakReferralAllowed())
     {
       Utils.openUrl(this, url);
       return;

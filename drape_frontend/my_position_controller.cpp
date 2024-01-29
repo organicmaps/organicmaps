@@ -339,10 +339,11 @@ void MyPositionController::ResetRenderShape()
 
 void MyPositionController::NextMode(ScreenBase const & screen)
 {
-  // Skip switching to next mode while we are waiting for position.
+  // When the app is awaiting location (indicator is active) and the user presses on the indicator, location updates will be stopped and goes into NotFollowNoPosition state. The next press on the indicator will start location updates again.
   if (IsWaitingForLocation())
   {
     m_desiredInitMode = location::Follow;
+    ChangeMode(location::NotFollowNoPosition);
     return;
   }
 
@@ -670,10 +671,21 @@ void MyPositionController::StopLocationFollow()
 
 void MyPositionController::OnEnterForeground(double backgroundTime)
 {
-  if (backgroundTime >= kMaxTimeInBackgroundSec && m_mode == location::NotFollow)
+  // Handle the case when the app was in the background for a long time and the user is opening the app.
+  if (backgroundTime >= kMaxTimeInBackgroundSec)
   {
-    ChangeMode(m_isInRouting ? location::FollowAndRotate : location::Follow);
-    UpdateViewport(kDoNotChangeZoom);
+    // When location was active during previous session the app will try to follow the user.
+    if (m_mode == location::NotFollow)
+    {
+      ChangeMode(m_isInRouting ? location::FollowAndRotate : location::Follow);
+      UpdateViewport(kDoNotChangeZoom);
+    }
+    
+    // When location was stopped by the user manually app will try to find position but without following.
+    else if (m_mode == location::NotFollowNoPosition)
+    {
+      ChangeMode(location::PendingPosition);
+    }
   }
 }
 

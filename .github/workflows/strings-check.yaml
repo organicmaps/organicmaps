@@ -4,8 +4,11 @@ on:
   pull_request:
     paths:
       - .github/workflows/strings-check.yaml  # Run check on self change
+      - data/strings/strings.txt
+      - data/strings/types_strings.txt
+      - data/strings/sound.txt
       - data/countries_names.txt
-      - data/strings/*
+      - iphone/plist.txt
       - tools/python/strings_utils.py
 
 jobs:
@@ -19,8 +22,10 @@ jobs:
         with:
           python-version: '3'
 
-      - name: Validate strings.txt and types_strings.txt files
+      - name: Validate string files
         shell: bash
         run: |
-          ./tools/python/strings_utils.py --validate
-          ./tools/python/strings_utils.py --types-strings --validate
+          for f in data/strings/strings.txt data/strings/types_strings.txt data/strings/sound.txt data/countries_names.txt iphone/plist.txt; do
+            ./tools/python/strings_utils.py --validate $f -o
+          done;
+          git diff --exit-code

@@ -92,7 +92,7 @@ class TabAdapter extends FragmentPagerAdapter
     public void onTabSelected(TabLayout.Tab tab)
     {
       super.onTabSelected(tab);
-      Graphics.tint(mContext, tab.getIcon(), R.attr.colorAccent);
+      Graphics.tint(mContext, tab.getIcon(), androidx.appcompat.R.attr.colorAccent);
     }
 
     @Override

@@ -1903,7 +1903,7 @@ Java_app_organicmaps_Framework_nativeMemoryWarning(JNIEnv *, jclass)
 
 JNIEXPORT jstring JNICALL
 Java_app_organicmaps_Framework_nativeGetKayakHotelLink(JNIEnv * env, jclass, jstring countryIsoCode, jstring uri,
-                                                        jobject firstDay, jobject lastDay)
+                                                        jobject firstDay, jobject lastDay, jboolean isReferral)
 {
   static jmethodID dateGetTime = jni::GetMethodID(env, firstDay, "getTime", "()J");
   jlong firstDaySec = env->CallLongMethod(firstDay, dateGetTime) / 1000L;
@@ -1912,7 +1912,8 @@ Java_app_organicmaps_Framework_nativeGetKayakHotelLink(JNIEnv * env, jclass, jst
   string const url = osm::GetKayakHotelURLFromURI(jni::ToNativeString(env, countryIsoCode),
                                                   jni::ToNativeString(env, uri),
                                                   static_cast<time_t>(firstDaySec),
-                                                  static_cast<time_t>(lastDaySec));
+                                                  static_cast<time_t>(lastDaySec),
+                                                  isReferral);
   return url.empty() ? nullptr : jni::ToJavaString(env, url);
 }
 

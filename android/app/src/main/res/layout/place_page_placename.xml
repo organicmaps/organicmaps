@@ -2,6 +2,7 @@
 <RelativeLayout
   xmlns:android="http://schemas.android.com/apk/res/android"
   xmlns:tools="http://schemas.android.com/tools"
+  xmlns:app="http://schemas.android.com/apk/res-auto"
   android:id="@+id/ll__place_name"
   style="@style/PlacePageItemFrame"
   android:layout_width="match_parent"
@@ -13,7 +14,7 @@
     android:id="@+id/iv__place_name"
     style="@style/PlacePageMetadataIcon"
     android:layout_centerVertical="true"
-    android:src="@drawable/ic_address"/>
+    app:srcCompat="@drawable/ic_address"/>
 
   <Space
     android:id="@+id/anchor_center"

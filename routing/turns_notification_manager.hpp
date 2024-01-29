@@ -89,8 +89,7 @@ public:
 
 private:
   std::string GenerateTurnText(uint32_t distanceUnits, uint8_t exitNum,
-                               bool useThenInsteadOfDistance, TurnItem const & turn,
-                               measurement_utils::Units lengthUnits) const;
+                               bool useThenInsteadOfDistance, TurnItem const & turn) const;
 
   /// Generates turn sound notification for the nearest to the current position turn.
   std::string GenerateFirstTurnSound(TurnItem const & turn, double distanceToTurnMeters);

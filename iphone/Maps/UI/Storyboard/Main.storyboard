@@ -91,6 +91,7 @@
                                 </subviews>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <constraints>
+                                    <constraint firstItem="aVk-ab-LFJ" firstAttribute="bottom" secondItem="rL1-9E-4b7" secondAttribute="bottom" priority="100" id="LCC-5Q-3hb"/>
                                     <constraint firstItem="TdT-ia-GP9" firstAttribute="top" secondItem="rL1-9E-4b7" secondAttribute="top" priority="100" id="RAX-O7-Lnd"/>
                                     <constraint firstItem="awj-9E-eBS" firstAttribute="top" secondItem="rL1-9E-4b7" secondAttribute="top" priority="100" id="sdc-wL-91M"/>
                                     <constraint firstItem="FFY-Dy-Wou" firstAttribute="top" secondItem="rL1-9E-4b7" secondAttribute="top" priority="100" id="svT-Vi-vvC"/>
@@ -186,7 +187,6 @@
                             <constraint firstItem="awj-9E-eBS" firstAttribute="leading" secondItem="utd-Jy-pE5" secondAttribute="leading" id="Hfm-gb-37H"/>
                             <constraint firstItem="rbx-Oj-jeo" firstAttribute="top" secondItem="utd-Jy-pE5" secondAttribute="top" id="J0B-xe-sNj"/>
                             <constraint firstItem="jio-3T-E6G" firstAttribute="leading" secondItem="utd-Jy-pE5" secondAttribute="leading" id="K9r-P1-yFI"/>
-                            <constraint firstItem="aVk-ab-LFJ" firstAttribute="bottom" secondItem="rL1-9E-4b7" secondAttribute="bottom" priority="100" id="LCC-5Q-3hb"/>
                             <constraint firstItem="utd-Jy-pE5" firstAttribute="bottom" secondItem="at1-V1-pzl" secondAttribute="bottom" priority="750" constant="48" id="O8L-nd-nOa"/>
                             <constraint firstItem="utd-Jy-pE5" firstAttribute="bottom" secondItem="FFY-Dy-Wou" secondAttribute="bottom" priority="100" id="OE7-Qb-J0v"/>
                             <constraint firstItem="utd-Jy-pE5" firstAttribute="bottom" relation="greaterThanOrEqual" secondItem="awj-9E-eBS" secondAttribute="bottom" id="PFs-sL-oVA"/>
@@ -232,11 +232,11 @@
                             <mask key="constraints">
                                 <exclude reference="SDX-4J-Jz5"/>
                                 <exclude reference="TZk-MH-pMV"/>
-                                <exclude reference="u9s-KY-yCt"/>
                                 <exclude reference="veF-Rn-BEm"/>
-                                <exclude reference="W0l-NG-7lt"/>
+                                <exclude reference="u9s-KY-yCt"/>
                                 <exclude reference="K9r-P1-yFI"/>
                                 <exclude reference="SAj-bF-qrr"/>
+                                <exclude reference="W0l-NG-7lt"/>
                             </mask>
                         </variation>
                         <variation key="heightClass=compact">
@@ -274,11 +274,11 @@
                             <mask key="constraints">
                                 <exclude reference="9M9-8P-Hzb"/>
                                 <include reference="u9s-KY-yCt"/>
-                                <exclude reference="5Sh-l6-Icd"/>
+                                <exclude reference="t9l-Ud-h6j"/>
+                                <include reference="SAj-bF-qrr"/>
                                 <exclude reference="9rR-QQ-c1P"/>
                                 <include reference="W0l-NG-7lt"/>
-                                <include reference="SAj-bF-qrr"/>
-                                <exclude reference="t9l-Ud-h6j"/>
+                                <exclude reference="5Sh-l6-Icd"/>
                             </mask>
                         </variation>
                     </view>
@@ -910,12 +910,12 @@
                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <gestureRecognizers/>
                         <constraints>
-                            <constraint firstItem="CwW-x8-G3j" firstAttribute="top" secondItem="dlW-OQ-WMO" secondAttribute="top" id="5wV-Dv-sjS"/>
+                            <constraint firstItem="CwW-x8-G3j" firstAttribute="top" secondItem="XQZ-0V-SyR" secondAttribute="top" id="5wV-Dv-sjS"/>
                             <constraint firstAttribute="trailing" secondItem="CwW-x8-G3j" secondAttribute="trailing" id="6QL-v4-rNy"/>
                             <constraint firstItem="dlW-OQ-WMO" firstAttribute="bottom" secondItem="kXO-Oh-2vO" secondAttribute="bottom" id="8Tl-19-ReF"/>
                             <constraint firstItem="dlW-OQ-WMO" firstAttribute="trailing" secondItem="CDj-ol-HRP" secondAttribute="trailing" id="FLZ-Kr-4dV"/>
                             <constraint firstItem="kXO-Oh-2vO" firstAttribute="leading" secondItem="dlW-OQ-WMO" secondAttribute="leading" id="M0m-98-7Ev"/>
-                            <constraint firstItem="dlW-OQ-WMO" firstAttribute="bottom" secondItem="CwW-x8-G3j" secondAttribute="bottom" id="QPk-e4-hZs"/>
+                            <constraint firstAttribute="bottom" secondItem="CwW-x8-G3j" secondAttribute="bottom" id="QPk-e4-hZs"/>
                             <constraint firstItem="CwW-x8-G3j" firstAttribute="leading" secondItem="XQZ-0V-SyR" secondAttribute="leading" id="Wvb-0M-kQl"/>
                             <constraint firstItem="CwW-x8-G3j" firstAttribute="top" secondItem="kXO-Oh-2vO" secondAttribute="top" id="eFX-ON-3aD"/>
                             <constraint firstItem="CDj-ol-HRP" firstAttribute="leading" secondItem="dlW-OQ-WMO" secondAttribute="leading" id="mwH-aX-jCV"/>
@@ -1000,32 +1000,11 @@
                                             <constraint firstItem="87G-jh-N8H" firstAttribute="centerX" secondItem="dCZ-PN-2Ob" secondAttribute="centerX" id="fVd-53-cG8"/>
                                         </constraints>
                                     </view>
-                                    <button opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" adjustsImageWhenHighlighted="NO" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Moj-UK-oyl" userLabel="DownloadMaps" customClass="MWMButton">
-                                        <rect key="frame" x="87.666666666666686" y="875" width="240" height="44"/>
-                                        <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="0.0" colorSpace="custom" customColorSpace="sRGB"/>
-                                        <constraints>
-                                            <constraint firstAttribute="width" constant="240" id="49x-bx-JJj"/>
-                                            <constraint firstAttribute="height" constant="44" id="k3P-mC-aLM"/>
-                                        </constraints>
-                                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                        <state key="normal" image="ic_add_button">
-                                            <color key="titleShadowColor" red="0.5" green="0.5" blue="0.5" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                        </state>
-                                        <userDefinedRuntimeAttributes>
-                                            <userDefinedRuntimeAttribute type="string" keyPath="localizedText" value="download_maps"/>
-                                            <userDefinedRuntimeAttribute type="string" keyPath="styleName" value="FlatNormalButton:MWMWhite:regular17"/>
-                                        </userDefinedRuntimeAttributes>
-                                        <connections>
-                                            <action selector="downloadMaps" destination="3el-Zi-2E4" eventType="touchUpInside" id="gb5-gj-vlt"/>
-                                        </connections>
-                                    </button>
                                 </subviews>
                                 <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="0.0" colorSpace="custom" customColorSpace="sRGB"/>
                                 <constraints>
                                     <constraint firstAttribute="trailing" secondItem="dCZ-PN-2Ob" secondAttribute="trailing" constant="16" id="BYs-UF-Vjh"/>
-                                    <constraint firstAttribute="bottom" secondItem="Moj-UK-oyl" secondAttribute="bottom" constant="40" id="EVG-80-7WN"/>
-                                    <constraint firstItem="Moj-UK-oyl" firstAttribute="top" secondItem="dCZ-PN-2Ob" secondAttribute="bottom" priority="750" constant="20" id="cTp-l6-jN2"/>
-                                    <constraint firstItem="Moj-UK-oyl" firstAttribute="centerX" secondItem="Gmw-e3-n53" secondAttribute="centerX" id="fKa-wf-QRJ"/>
+                                    <constraint firstItem="dCZ-PN-2Ob" firstAttribute="centerY" secondItem="Gmw-e3-n53" secondAttribute="centerY" id="Wge-7N-3wQ"/>
                                     <constraint firstItem="dCZ-PN-2Ob" firstAttribute="top" secondItem="Gmw-e3-n53" secondAttribute="top" priority="750" id="hUO-LH-CzU"/>
                                     <constraint firstAttribute="height" priority="250" constant="600" id="jjc-ld-HW5"/>
                                     <constraint firstAttribute="width" priority="250" constant="520" id="mGE-u6-ksX"/>
@@ -1042,15 +1021,36 @@
                                     <outlet property="titleTopOffset" destination="qmt-I0-80b" id="07n-1j-oIq"/>
                                 </connections>
                             </view>
+                            <button opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" adjustsImageWhenHighlighted="NO" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Moj-UK-oyl" userLabel="DownloadMaps" customClass="MWMButton">
+                                <rect key="frame" x="287" y="304" width="240" height="44"/>
+                                <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="0.0" colorSpace="custom" customColorSpace="sRGB"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="240" id="49x-bx-JJj"/>
+                                    <constraint firstAttribute="height" constant="44" id="k3P-mC-aLM"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <state key="normal" image="ic_add_button">
+                                    <color key="titleShadowColor" red="0.5" green="0.5" blue="0.5" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                </state>
+                                <userDefinedRuntimeAttributes>
+                                    <userDefinedRuntimeAttribute type="string" keyPath="localizedText" value="download_maps"/>
+                                    <userDefinedRuntimeAttribute type="string" keyPath="styleName" value="FlatNormalButton:MWMWhite:regular17"/>
+                                </userDefinedRuntimeAttributes>
+                                <connections>
+                                    <action selector="downloadMaps" destination="3el-Zi-2E4" eventType="touchUpInside" id="gb5-gj-vlt"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="6lX-F6-61M"/>
                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
                             <constraint firstItem="Gmw-e3-n53" firstAttribute="width" relation="lessThanOrEqual" secondItem="4WP-vj-Alg" secondAttribute="width" id="IPr-ei-Pbl"/>
+                            <constraint firstItem="6lX-F6-61M" firstAttribute="bottom" secondItem="Moj-UK-oyl" secondAttribute="bottom" constant="40" id="N82-Wq-5WK"/>
                             <constraint firstItem="Gmw-e3-n53" firstAttribute="centerY" secondItem="4WP-vj-Alg" secondAttribute="centerY" priority="750" id="X4Z-4D-lqR"/>
                             <constraint firstItem="Gmw-e3-n53" firstAttribute="centerX" secondItem="6lX-F6-61M" secondAttribute="centerX" id="a7W-Hg-axW"/>
                             <constraint firstAttribute="topMargin" secondItem="Gmw-e3-n53" secondAttribute="top" id="aKd-EX-mvs"/>
                             <constraint firstAttribute="bottomMargin" relation="greaterThanOrEqual" secondItem="Gmw-e3-n53" secondAttribute="bottom" id="g7o-yu-JXZ"/>
+                            <constraint firstItem="Moj-UK-oyl" firstAttribute="centerX" secondItem="6lX-F6-61M" secondAttribute="centerX" id="kg7-SY-EXf"/>
                         </constraints>
                         <userDefinedRuntimeAttributes>
                             <userDefinedRuntimeAttribute type="string" keyPath="styleName" value="Background"/>

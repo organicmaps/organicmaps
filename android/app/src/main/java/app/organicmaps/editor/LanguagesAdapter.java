@@ -48,14 +48,7 @@ public class LanguagesAdapter extends RecyclerView.Adapter<LanguagesAdapter.Hold
     {
       super(itemView);
       name = (TextView) itemView;
-      itemView.setOnClickListener(new View.OnClickListener()
-      {
-        @Override
-        public void onClick(View v)
-        {
-          mFragment.onLanguageSelected(mLanguages[getBindingAdapterPosition()]);
-        }
-      });
+      itemView.setOnClickListener(v -> mFragment.onLanguageSelected(mLanguages[getBindingAdapterPosition()]));
     }
 
     public void bind(int position)

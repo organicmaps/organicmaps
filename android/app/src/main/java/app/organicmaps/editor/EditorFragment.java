@@ -576,19 +576,13 @@ public class EditorFragment extends BaseMwmFragment implements View.OnClickListe
 
     switch (Editor.nativeGetMapObjectStatus())
     {
-    case Editor.CREATED:
-      mReset.setText(R.string.editor_remove_place_button);
-      break;
-    case Editor.MODIFIED:
-      mReset.setText(R.string.editor_reset_edits_button);
-      break;
-    case Editor.UNTOUCHED:
-      mReset.setText(R.string.editor_place_doesnt_exist);
-      break;
-    case Editor.DELETED:
-      throw new IllegalStateException("Can't delete already deleted feature.");
-    case Editor.OBSOLETE:
-      throw new IllegalStateException("Obsolete objects cannot be reverted.");
+      case Editor.CREATED -> mReset.setText(R.string.editor_remove_place_button);
+      case Editor.MODIFIED -> mReset.setText(R.string.editor_reset_edits_button);
+      case Editor.UNTOUCHED -> mReset.setText(R.string.editor_place_doesnt_exist);
+      case Editor.DELETED ->
+          throw new IllegalStateException("Can't delete already deleted feature.");
+      case Editor.OBSOLETE ->
+          throw new IllegalStateException("Obsolete objects cannot be reverted.");
     }
   }
 
@@ -602,19 +596,13 @@ public class EditorFragment extends BaseMwmFragment implements View.OnClickListe
 
     switch (Editor.nativeGetMapObjectStatus())
     {
-    case Editor.CREATED:
-      rollback(Editor.CREATED);
-      break;
-    case Editor.MODIFIED:
-      rollback(Editor.MODIFIED);
-      break;
-    case Editor.UNTOUCHED:
-      placeDoesntExist();
-      break;
-    case Editor.DELETED:
-      throw new IllegalStateException("Can't delete already deleted feature.");
-    case Editor.OBSOLETE:
-      throw new IllegalStateException("Obsolete objects cannot be reverted.");
+      case Editor.CREATED -> rollback(Editor.CREATED);
+      case Editor.MODIFIED -> rollback(Editor.MODIFIED);
+      case Editor.UNTOUCHED -> placeDoesntExist();
+      case Editor.DELETED ->
+          throw new IllegalStateException("Can't delete already deleted feature.");
+      case Editor.OBSOLETE ->
+          throw new IllegalStateException("Obsolete objects cannot be reverted.");
     }
   }
 

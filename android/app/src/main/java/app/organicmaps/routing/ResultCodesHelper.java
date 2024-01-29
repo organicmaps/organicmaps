@@ -137,18 +137,17 @@ public class ResultCodesHelper
     if (missingCount <= 0)
       return false;
 
-    switch (resultCode)
+    return switch (resultCode)
     {
-      case INCONSISTENT_MWM_ROUTE:
-      case ROUTE_NOT_FOUND_REDRESS_ROUTE_ERROR:
-      case ROUTING_FILE_NOT_EXIST:
-      case NEED_MORE_MAPS:
-      case ROUTE_NOT_FOUND:
-      case FILE_TOO_OLD:
-        return true;
-    }
-
-    return false;
+      case INCONSISTENT_MWM_ROUTE,
+          ROUTE_NOT_FOUND_REDRESS_ROUTE_ERROR,
+          ROUTING_FILE_NOT_EXIST,
+          NEED_MORE_MAPS,
+          ROUTE_NOT_FOUND,
+          FILE_TOO_OLD ->
+          true;
+      default -> false;
+    };
   }
 
   public static boolean isMoreMapsNeeded(int resultCode)

@@ -63,14 +63,7 @@ public class RoutingPlanInplaceController extends RoutingPlanController
   {
     if (!checkFrameHeight())
     {
-      getFrame().post(new Runnable()
-      {
-        @Override
-        public void run()
-        {
-          animateFrame(show, completion);
-        }
-      });
+      getFrame().post(() -> animateFrame(show, completion));
       return null;
     }
 

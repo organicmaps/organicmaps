@@ -66,7 +66,7 @@ public class HoursMinutes implements Parcelable
     dest.writeByte((byte) (m24HourFormat ? 1 : 0));
   }
 
-  public static final Creator<HoursMinutes> CREATOR = new Creator<HoursMinutes>()
+  public static final Creator<HoursMinutes> CREATOR = new Creator<>()
   {
     @Override
     public HoursMinutes createFromParcel(Parcel in)

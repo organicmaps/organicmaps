@@ -3,7 +3,6 @@ package app.organicmaps.location;
 import static android.Manifest.permission.ACCESS_COARSE_LOCATION;
 import static android.Manifest.permission.ACCESS_FINE_LOCATION;
 
-import android.annotation.SuppressLint;
 import android.app.PendingIntent;
 import android.content.Context;
 import android.location.Location;
@@ -282,18 +281,13 @@ public class LocationHelper implements BaseLocationProvider.Listener
       return INTERVAL_NAVIGATION_MS;
 
     final int mode = Map.isEngineCreated() ? LocationState.getMode() : LocationState.NOT_FOLLOW_NO_POSITION;
-    switch (mode)
+    return switch (mode)
     {
-      case LocationState.PENDING_POSITION:
-      case LocationState.FOLLOW:
-      case LocationState.FOLLOW_AND_ROTATE:
-        return INTERVAL_FOLLOW_MS;
-      case LocationState.NOT_FOLLOW:
-      case LocationState.NOT_FOLLOW_NO_POSITION:
-        return INTERVAL_NOT_FOLLOW_MS;
-      default:
-        throw new IllegalArgumentException("Unsupported location mode: " + mode);
-    }
+      case LocationState.PENDING_POSITION, LocationState.FOLLOW, LocationState.FOLLOW_AND_ROTATE ->
+          INTERVAL_FOLLOW_MS;
+      case LocationState.NOT_FOLLOW, LocationState.NOT_FOLLOW_NO_POSITION -> INTERVAL_NOT_FOLLOW_MS;
+      default -> throw new IllegalArgumentException("Unsupported location mode: " + mode);
+    };
   }
 
   /**

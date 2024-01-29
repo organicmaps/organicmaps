@@ -86,6 +86,7 @@
     eu = Teleferikoa
     fi = Kabiinihissi
     fr = Téléphérique
+    hi = आकाशीय रज्जुमार्ग
     it = Teleferica
     ja = ロープウェイ
     mr = हवाई मार्ग
@@ -276,6 +277,7 @@
     fa = فرودگاه
     fi = Lentokenttä
     fr = Aéroport
+    hi = हवाई अड्डा
     hu = Repülőtér
     id = Bandar udara
     it = Aeroporto
@@ -313,6 +315,7 @@
     fa = فرودگاه
     fi = Kansainvälinen lentokenttä
     fr = Aéroport
+    hi = अंतर्राष्ट्रीय हवाई अड्डा
     hu = Repülőtér
     id = Bandar udara
     it = Aeroporto
@@ -426,6 +429,7 @@
     eu = Pista
     fi = Kiitorata
     fr = Piste d'aviation
+    hi = उड़ानपट्टी
     it = Pista di decollo/atterraggio
     ja = 滑走路
     mr = धावपट्टी
@@ -501,6 +505,7 @@
     fa = زیر ساخت
     fi = Infrastruktuurikohteet
     fr = Infrastructures
+    hi = सुख सुविधा
     hu = Infrastruktúra
     id = Ruang berfasilitas
     it = Struttura
@@ -541,6 +546,7 @@
     fa = مرکز هنری
     fi = Taidekeskus
     fr = Centre artistique
+    hi = कला केंद्र
     hu = Művészeti központ
     id = Pusat kesenian
     it = Centro artistico
@@ -577,6 +583,7 @@
     fa = خودپرداز
     fi = Pankkiautomaatti
     fr = GAB
+    hi = एटीएम
     hu = Pénzautomata
     it = Bancomat
     nb = Minibank
@@ -607,6 +614,7 @@
     fa = بانک
     fi = Pankki
     fr = Banque
+    hi = बैंक
     it = Banca
     ja = 銀行
     ko = 은행
@@ -636,6 +644,7 @@
     eu = Taberna
     fa = میکده
     fi = Baari
+    hi = मधुशाला
     hu = Bár
     it = Bar alcolico
     ja = 居酒屋
@@ -668,6 +677,7 @@
     fa = مکان پیک نیک
     fi = Piknikpaikat
     fr = Terrain de pique-nique
+    hi = बार्बीक्यू
     hu = Piknikező hely
     id = Lokasi piknik
     it = Grill pubblico
@@ -705,6 +715,7 @@
     fa = سَکو
     fi = Penkki
     fr = Banc
+    hi = बेंच
     hu = Pad
     id = Bangku panjang
     it = Panchina
@@ -744,6 +755,7 @@
     fa = پارکینگ دوچرخه
     fi = Polkupyöräpysäköinti
     fr = Parking à vélo
+    hi = साइकिल पार्किंग
     hu = Kerékpárparkoló
     id = Parkir Sepeda
     it = Parcheggio biciclette
@@ -781,6 +793,7 @@
     fa = مکان اجاره دوچرخه
     fi = Polkupyöränvuokraus
     fr = Location de vélos
+    hi = साइकिल किराए के लिए
     hu = Kerékpárkölcsönző
     id = Penyewaan Sepeda
     it = Noleggio biciclette
@@ -816,6 +829,7 @@
     fa = ایستگاه تعمیر دوچرخه
     fi = Polkupyörän korjausasema
     fr = Station de réparation de vélos
+    hi = साइकिल मरम्मत स्टेशन
     hu = Kerékpárjavító állomás
     it = Stazione di riparazione biciclette
     ja = 自転車修理ステーション
@@ -844,6 +858,7 @@
     es = Biergarten
     et = Õlleaed
     fa = غذا
+    hi = मदिरा उद्यान
     hu = Sörkert
     it = Biergarten
     ja = ビアガーデン
@@ -879,6 +894,7 @@
     fa = فاحشه خانه
     fi = Bordelli
     fr = Maison de prostitution
+    hi = वेश्यालय
     hu = Bordélyház
     id = Hiburan
     it = Bordello
@@ -916,6 +932,7 @@
     fa = صرافی
     fi = Rahanvaihto
     fr = Bureau de change
+    hi = विनिमय कार्यालय
     hu = Pénzváltó
     id = Pertukaran valuta
     it = Cambio valute
@@ -953,6 +970,7 @@
     fa = حمل و نقل
     fi = Linja-autoasema
     fr = Gare routière
+    hi = बस स्टेशन
     hu = Buszpályaudvar
     id = Stasiun bus
     it = Autostazione
@@ -990,6 +1008,7 @@
     fa = کافه
     fi = Kahvila
     fr = Café
+    hi = कॉफ़ीख़ाना
     hu = Kávézó
     id = Kafe
     it = Caffè
@@ -1027,6 +1046,7 @@
     fa = مکان اجاره ماشین
     fi = Autovuokraamo
     fr = Location de voitures
+    hi = किराए पर गाड़ियाँ
     hu = Gépkocsi-kölcsönző
     id = Rental mobil
     it = Noleggio automobili
@@ -1063,6 +1083,7 @@
     eu = Partekatu autoa
     fi = Autojen yhteiskäyttö
     fr = Station d'autopartage
+    hi = गाड़ी साँझा
     hu = Gépjármű megosztása
     id = Berbagi mobil
     it = Car sharing
@@ -1099,6 +1120,7 @@
     fa = کارواش
     fi = Autopesula
     fr = Station de lavage
+    hi = कार धुलाई
     hu = Autómosó
     id = Cuci Mobil
     it = Lavaggio auto
@@ -1135,6 +1157,7 @@
     fa = قمارخانه
     fi = Kasino
     fr = Casino
+    hi = कैसीनो
     hu = Kaszinó
     id = Hiburan
     it = Casinò
@@ -1292,6 +1315,7 @@
     fa = ایستگاه شارژ
     fi = Latausasema
     fr = Borne de recharge
+    hi = चार्जिंग स्टेशन
     hu = Töltő állomás
     id = Pusat Pengisian Daya
     it = Stazione di ricarica
@@ -1413,6 +1437,7 @@
     fa = شیرخوارگاه
     fi = Päivähoito
     fr = Garderie
+    hi = शिशु देखभाल
     hu = Bölcsőde
     id = Penitipan Anak
     it = Asilo
@@ -1450,6 +1475,7 @@
     fa = سرگرمی
     fi = Elokuvateatteri
     fr = Cinéma
+    hi = सिनेमा-घर
     hu = Mozi
     id = Bioskop
     it = Cinema
@@ -1490,6 +1516,7 @@
     fi = Keilarata
     fr = Salle de bowling
     he = גנילואב םלוא
+    hi = बोलिंग ऐली
     hu = Tekepálya
     id = Arena Bowling
     it = Sala da bowling
@@ -1528,6 +1555,7 @@
     fa = کلینیک
     fi = Klinikka
     fr = Clinique
+    hi = चिकित्सालय
     hu = Klinika
     id = Klinik
     it = Clinica
@@ -1565,6 +1593,7 @@
     fa = دانشگاه
     fi = Korkeakoulu
     fr = Enseignement post-secondaire
+    hi = महाविद्यालय
     hu = Kollégium
     id = Kampus
     it = Collegio
@@ -1602,6 +1631,7 @@
     fa = مرکزاجتماعی
     fi = Monitoimitalo
     fr = Salle polyvalente
+    hi = सामुदायिक केंद्र
     hu = Közösségi központ
     id = Pusat komunitas
     it = Centro ricreativo
@@ -1722,6 +1752,7 @@
     fa = دادگاه
     fi = Oikeustalo
     fr = Palais de justice
+    hi = न्यायालय
     hu = Bíróság
     id = Gedung pengadilan
     it = Tribunale
@@ -1759,6 +1790,7 @@
     fa = دندان پزشکی
     fi = Hammaslääkäri
     fr = Dentiste
+    hi = दाँतों का डॉक्टर
     hu = Fogorvos
     id = Dokter gigi
     it = Dentista
@@ -1795,6 +1827,7 @@
     fa = کلینیک
     fi = Lääkärin vastaanotto
     fr = Cabinet médical
+    hi = चिकित्सक
     hu = Rendelő
     id = Praktik dokter
     it = Studio medico
@@ -1831,6 +1864,7 @@
     fa = اب اشامیدنی
     fi = Juomavesi
     fr = Eau potable
+    hi = पीने का पानी
     hu = Ivóvíz
     id = Air minum
     it = Acqua potabile
@@ -1870,6 +1904,7 @@
     fa = اموزشگاه رانندگی
     fi = Autokoulu
     fr = Auto-école
+    hi = ड्राइविंग स्कूल
     hu = Autósiskola
     id = Sekolah Mengemudi
     it = Scuola guida
@@ -1995,6 +2030,7 @@
     fi = Musiikkikoulu
     fr = École de musique
     he = הקיזומל רפס תיב
+    hi = संगीत विद्यालय
     hu = Zeneiskola
     id = Sekolah musik
     it = Scuola di musica
@@ -2034,6 +2070,7 @@
     fi = Kielikoulu
     fr = École de langue
     he = תופשל רפס תיב
+    hi = भाषा का स्कूल
     hu = Nyelviskola
     id = Sekolah bahasa
     it = Scuola di lingue
@@ -2070,6 +2107,7 @@
     fa = سفارت
     fi = Suurlähetystö
     fr = Ambassade
+    hi = दूतावास
     hu = Nagykövetség
     id = Kedutaan
     it = Ambasciata
@@ -2107,6 +2145,7 @@
     fa = فست فود
     fi = Pikaruokala
     fr = Restauration rapide
+    hi = फास्ट फूड
     hu = Gyorsétterem
     id = Cepat saji
     it = Fast food
@@ -2144,6 +2183,7 @@
     fa = حمل و نقل
     fi = Lautta
     fr = Terminal de ferry
+    hi = नौका टर्मिनल
     hu = Komp
     id = Terminal
     it = Terminal traghetti
@@ -2182,6 +2222,7 @@
     fa = ایستگاه اتش نشانی
     fi = Paloasema
     fr = Caserne de pompiers
+    hi = दमकल केंद्र
     hu = Tűzoltóság
     id = Kantor pemadam kebakaran
     it = Squadra antincendio
@@ -2213,6 +2254,7 @@
     et = Toiduväljak
     eu = Jantokia
     fr = Aire de restauration
+    hi = फूड कोर्ट
     it = Area ristorazione
     ja = フードコート
     mr = जेवायचे ठिकाण
@@ -2239,6 +2281,7 @@
     fa = فواره
     fi = Suihkulähde
     fr = Fontaine
+    hi = झरना
     hu = Szökőkút
     id = Air mancur
     it = Fontana
@@ -2278,6 +2321,7 @@
     fa = سوخت
     fi = Huoltoasema
     fr = Station-service
+    hi = पेट्रोल पंप
     hu = Benzinkút
     id = Pompa bensin
     it = Stazione di rifornimento
@@ -2317,6 +2361,7 @@
     fa = قبرستان
     fi = Hautausmaa
     fr = Cimetière
+    hi = क़ब्रिस्तान
     hu = Temető
     id = Pemakaman
     it = Cimitero
@@ -2350,6 +2395,7 @@
     et = Kristlik surnuaed
     fi = Kristillinen hautausmaa
     fr = Cimetière chrétien
+    hi = ईसाई कब्रिस्तान
     it = Cimitero cristiano
     ja = キリスト教墓地
     mr = ख्रिश्चन स्मशानभूमी
@@ -2377,6 +2423,7 @@
     fa = بیمارستان
     fi = Sairaala
     fr = Hôpital
+    hi = चिकित्सालय
     hu = Kórház
     id = Rumahsakit
     it = Ospedale
@@ -2414,6 +2461,7 @@
     fa = شکارگاه
     fi = Metsästyspaikka
     fr = Mirador
+    hi = शिकार स्टैंड
     hu = Vadászles
     id = Lokasi berburu
     it = Torre di caccio
@@ -2451,6 +2499,7 @@
     fa = غذا
     fi = Jäätelökioski
     fr = Stand de crèmes glacées
+    hi = आइसक्रीम
     hu = Fagylaltárus
     id = Kios Es Krim
     it = Gelateria
@@ -2488,6 +2537,7 @@
     fa = کافی نت
     fi = Internetkahvila
     fr = Cybercafé
+    hi = इंटरनेट कैफे
     hu = Internet kávézó
     id = Kafe Internet
     it = Cybercaffè
@@ -2523,6 +2573,7 @@
     fa = مهدکودک
     fi = Päiväkoti
     fr = Crèche
+    hi = किंडरगार्टन
     hu = Óvoda
     id = Taman kanak-kanak
     it = Scuola materna
@@ -2560,6 +2611,7 @@
     fa = کتابخانه
     fi = Kirjasto
     fr = Bibliothèque
+    hi = पुस्तकालय
     hu = Könyvtár
     id = Perpustakaan
     it = Biblioteca
@@ -2640,6 +2692,7 @@
     fa = فروشگاه
     fi = Kauppatori
     fr = Marché
+    hi = बाजार
     hu = Piac
     id = Pasar
     it = Mercato
@@ -2678,6 +2731,7 @@
     fa = پارکینگ موتورسیکلت
     fi = Moottoripyörien pysäköinti
     fr = Parking moto
+    hi = मोटरसाइकिल पार्किंग
     hu = Motorbicikli parkoló
     id = Tempat Parkir Sepeda Motor
     it = Parcheggio moto
@@ -2715,6 +2769,7 @@
     fa = کلوپ شبانه
     fi = Yökerho
     fr = Discothèque
+    hi = नाइट क्लब
     hu = Éjszakai mulató
     id = Kelab malam
     it = Locale notturno
@@ -2752,6 +2807,7 @@
     fa = خانه سالمندان
     fi = Hoitokoti
     fr = Maison de retraite
+    hi = नर्सिंग होम
     hu = Idősek otthona
     id = Panti Jompo
     it = Casa di riposo
@@ -2793,6 +2849,7 @@
     fi = Parkkipaikka
     fr = Stationnement
     he = היָנָחֲ
+    hi = पार्किंग
     hu = Parkoló
     id = Parkir
     it = Parcheggio
@@ -2837,6 +2894,7 @@
     fi = Monikerroksinen pysäköinti
     fr = Stationnement à plusieurs étages
     he = תומוק בר הינח
+    hi = पार्किंग गैरेज
     hu = Többszintes parkoló
     id = Parkir Bertingkat
     it = Parcheggio multipiano
@@ -2887,6 +2945,7 @@
     fi = Yksityinen pysäköinti
     fr = Stationnement privé
     he = תיטרפ הינח
+    hi = निजी पार्किंग
     hu = Saját parkoló
     id = Parkir pribadi
     it = Parcheggio privato
@@ -2925,6 +2984,7 @@
     fa = پارکینگ
     fi = Liityntäpysäköinti
     fr = Parking relais
+    hi = पार्क करें और सवारी करें
     hu = Parkoló
     id = Parkir
     it = Parcheggio di interscambio
@@ -2966,6 +3026,7 @@
     fi = Maanalainen pysäköinti
     fr = Stationnement souterrain
     he = תיעקרק - תת הינח
+    hi = भूमिगत कार पार्क
     hu = Mélygarázs
     id = Parkir bawah tanah
     it = Parcheggio sotterraneo
@@ -3225,6 +3286,7 @@
     fi = Pysäköinnin sisäänkäynti
     fr = Entrée parking
     he = הינחל הסינכ
+    hi = पार्किंग प्रवेश द्वार
     hu = Parkoló bejárata
     id = Pintu masuk parkir
     it = Ingresso parcheggio
@@ -3307,6 +3369,7 @@
     fa = جای پارک
     fi = Parkkipaikka
     fr = Place de stationnement
+    hi = पार्किंग की जगह
     hu = Parkolóhely
     id = Tempat parkir
     it = Posteggio singolo
@@ -3357,6 +3420,7 @@
     fi = Vammaispysäköinti
     fr = Place de stationnement handicapé
     he = םיכנל הינח
+    hi = दिव्यांग पार्किंग स्थान
     hu = Mozgássérült parkolóhely
     id = Tempat parkir penyandang cacat
     it = Posto auto per disabili
@@ -3393,6 +3457,7 @@
     fa = دستگاه کارتخوان
     fi = Maksupääte
     fr = Terminal de paiement
+    hi = भुगतान टर्मिनल
     hu = Fizető terminál
     id = Terminal Pembayaran
     it = Terminale di pagamento
@@ -3430,6 +3495,7 @@
     fa = داروخانه
     fi = Apteekki
     fr = Pharmacie
+    hi = दवाखाना
     hu = Gyógyszertár
     id = Apotek
     it = Farmacia
@@ -3467,6 +3533,7 @@
     fa = گردشگری
     fi = Uskonnollinen kohde
     fr = Lieu de culte
+    hi = उपासनास्थल
     hu = Templom
     id = Tempat ibadah
     it = Luogo di culto
@@ -3503,6 +3570,7 @@
     eu = Tenplua
     fa = گردشگری
     fi = Buddhalainen temppeli
+    hi = बौद्ध मंदिर
     hu = Templom
     id = Kuil
     it = Tempio buddista
@@ -3540,6 +3608,7 @@
     fa = گردشگری
     fi = Kirkko
     fr = Église
+    hi = गिरजाघर
     hu = Templom
     id = Gereja
     it = Chiesa
@@ -3656,6 +3725,7 @@
     eu = Tenplua
     fa = گردشگری
     fi = Hindutemppeli
+    hi = मन्दिर
     hu = Templom
     id = Kuil
     it = Tempio induista
@@ -3692,6 +3762,7 @@
     eu = Sinagoga
     fa = گردشگری
     fi = Synagoga
+    hi = यहूदी मंदिर
     hu = Zsinagóga
     id = Sinagoge
     it = Sinagoga
@@ -3729,6 +3800,7 @@
     fa = گردشگری
     fi = Moskeija
     fr = Mosquée
+    hi = मस्जिद
     hu = Mecset
     id = Masjid
     it = Moschea
@@ -3766,6 +3838,7 @@
     fa = گردشگری
     fi = Šintopyhäkkö
     fr = Sanctuaire
+    hi = शिंतो मंदिर
     hu = Kegyhely
     id = Kuil
     it = Santuario shintoista
@@ -3803,6 +3876,7 @@
     fa = گردشگری
     fi = Taolainen temppeli
     fr = Temmple Taoïste
+    hi = ताओवादी मंदिर
     hu = Templom
     id = Kuil
     it = Tempio taoista
@@ -3839,6 +3913,7 @@
     eu = Polizia
     fa = کلانتری
     fi = Poliisi
+    hi = थाना
     hu = Rendőrség
     id = Polisi
     it = Polizia
@@ -3878,6 +3953,7 @@
     fa = صندوق پست
     fi = Postilaatikko
     fr = Boîte aux lettres
+    hi = पोस्ट बॉक्स
     hu = Levelesláda
     id = Kotak pos
     it = Casella postale
@@ -3916,6 +3992,7 @@
     fa = دفتر پست
     fi = Postitoimisto
     fr = Bureau de poste
+    hi = डाकघर
     hu = Posta
     id = Kantor pos
     it = Ufficio postale
@@ -3949,6 +4026,7 @@
     et = Vangla
     eu = Kartzela
     fi = Vankila
+    hi = कारागार
     it = Prigione
     ja = 刑務所
     mr = तुरुंग
@@ -3977,6 +4055,7 @@
     fa = میکده
     fi = Pubi
     fr = Pub
+    hi = सराय
     hu = Kocsma
     it = Taverna
     ja = バー
@@ -4010,6 +4089,7 @@
     eu = Liburu trukea
     fi = Kirjahylly
     fr = Microbibliothèque
+    hi = सार्वजनिक किताबों की अलमारी
     hu = Nyilvános könyvespolc
     id = Rak Buku
     it = Biblioteca di strada
@@ -4050,6 +4130,7 @@
     fa = مرکز بازیافت
     fi = Kierrätyskeskus
     fr = Centre de recyclage
+    hi = रीसाइक्लिंग सेंटर
     hu = Újrahasznosító központ
     id = TPA
     it = Centro di riciclaggio
@@ -4088,6 +4169,7 @@
     fa = ظرف بازیافت
     fi = Kierrätysjäteastia
     fr = Conteneur de recyclage
+    hi = रीसाइक्लिंग कंटेनर
     hu = Újrahasznosító tartály
     id = Wadah daur ulang
     it = Contenitore per materiali riciclabili
@@ -4537,6 +4619,7 @@
     eu = Jatetxea
     fa = غذا
     fi = Ravintola
+    hi = रेस्तरां
     hu = Étterem
     id = Restoran
     it = Ristorante
@@ -4592,6 +4675,7 @@
     fa = مدرسه
     fi = Koulu
     fr = École
+    hi = विद्यालय
     hu = Iskola
     id = Sekolah
     it = Scuola
@@ -4628,6 +4712,7 @@
     fa = پناهگاه
     fi = Katos
     fr = Abri
+    hi = आश्रय
     hu = Menedék
     id = Tempat penampungan
     it = Riparo
@@ -4705,6 +4790,7 @@
     fa = حمام
     fi = Suihku
     fr = Douche
+    hi = फुहारा
     hu = Tusoló
     id = Pancuran
     it = Doccia
@@ -4780,6 +4866,7 @@
     eu = Taxia
     fa = تاکسی
     fi = Taksi
+    hi = टैक्सी
     id = Taksi
     it = Taxi
     ja = タクシー
@@ -4812,6 +4899,7 @@
     fa = تلفن خانه
     fi = Puhelin
     fr = Téléphone
+    hi = टेलीफ़ोन
     hu = Telefon
     id = Telepon
     it = Telefono
@@ -4849,6 +4937,7 @@
     fa = سرگرمی
     fi = Teatteri
     fr = Théâtre
+    hi = रंगमंच
     hu = Színház
     id = Teater
     it = Teatro
@@ -4885,6 +4974,7 @@
     fa = دستشویی
     fi = WC
     fr = Toilettes
+    hi = शौचालय
     hu = Mosdó
     it = Servizi igienici
     ja = トイレ
@@ -4925,6 +5015,7 @@
     fa = گردشگری
     fi = Kaupungintalo
     fr = Mairie
+    hi = नगर भवन
     hu = Városháza
     id = Balai kota
     it = Municipio
@@ -4962,6 +5053,7 @@
     fa = دانشگاه
     fi = Yliopisto
     fr = Université
+    hi = विश्वविद्यालय
     hu = Egyetem
     id = Universitas
     it = Università
@@ -4995,6 +5087,7 @@
     eu = Makina saltzailea
     fi = Myyntiautomaatti
     fr = Distributeur automatique
+    hi = वितरक मशीन
     it = Distributore automatico
     ja = 自動販売機
     mr = विक्रीयंत्र
@@ -5023,6 +5116,7 @@
     fa = ماشین سیگار فروشی
     fi = Savukeautomaatti
     fr = Distributeur de cigarettes
+    hi = सिगरेट वितरक मशीन
     hu = Cigarettaautomata
     id = Mesin rokok
     it = Distributore automatico di sigarette
@@ -5056,6 +5150,7 @@
     eu = Kafea saltzeko makina
     fi = Kahviautomaatti
     fr = Distributeur de café
+    hi = कॉफ़ी वितरक
     it = Macchina del caffè
     mr = कॉफी विक्रीयंत्र
     nl = Koffieautomaat
@@ -5075,6 +5170,7 @@
     eu = Kondoiak saltzeko makina
     fi = Kondomiautomaatti
     fr = Distributeur de préservatifs
+    hi = कंडोम वितरक मशीन
     it = Distributore di profilattici
     mr = कंडोम विक्रीयंत्र
     nl = Condoomautomaat
@@ -5098,6 +5194,7 @@
     fa = ماشین فروش نوشیدنی
     fi = Juoma-automaatti
     fr = Distributeur de boissons
+    hi = पेय वितरक
     hu = Italautomata
     id = Mesin penjual minuman
     it = Distributore automatico di bibite
@@ -5131,6 +5228,7 @@
     eu = Janaria saltzeko makina
     fi = Ruoka-automaatti
     fr = Distributeur d'aliments
+    hi = खाद्य वितरक
     it = Distributore automatico di alimenti
     mr = अन्न विक्रीयंत्र
     nl = Etenswarenautomaat
@@ -5150,6 +5248,7 @@
     eu = Egunkariak saltzeko makina
     fi = Sanomalehtiautomaatti
     fr = Distributeur de journaux
+    hi = समाचार पत्र वितरक
     it = Distributore automatico di giornali
     mr = वृत्तपत्र विक्रीयंत्र
     nl = Krantenautomaat
@@ -5174,6 +5273,7 @@
     fa = پارکو متر
     fi = Pysäköintimaksuautomaatti
     fr = Horodateur
+    hi = पार्किंग टिकट
     hu = Parkolóautomata
     id = Mesin pembayaran tiket parkir
     it = Parcometro
@@ -5213,6 +5313,7 @@
     fa = دستگاه فروش خودکار بلیط های حمل و نقل عمومی
     fi = Julkisen liikenteen lippuautomaatti
     fr = Distributeur de billets de transport en commun
+    hi = टिकट मशीन
     hu = Automata jegykiadó tömegközlekedési eszközökhöz
     id = Mesin penjual otomatis tiket transportasi umum
     it = Biglietteria automatica del trasporto pubblico
@@ -5247,6 +5348,7 @@
     eu = Gozokiak saltzeko makina
     fi = Makeisautomaatti
     fr = Distributeur de bonbons
+    hi = मिठाई वितरक
     it = Distributore automatico di dolciumi
     mr = मिठाई विक्रीयंत्र
     nl = Snoepautomaat
@@ -5265,6 +5367,7 @@
     et = Ekskremendikottide automaat
     eu = Kaka poltsak saltzeko makina
     fr = Distributeur de sacs à excréments
+    hi = मलमूत्र थैली वितरक
     it = Distributore di sacchetti per escrementi
     mr = मलमूत्र पिशव्या विक्रीयंत्र
     nl = Hondenpoepzakjesdispenser
@@ -5286,6 +5389,7 @@
     eu = Paketeen aldagela
     fi = Pakettilokero
     fr = Consigne automatique pour colis
+    hi = पार्सल भंड़ार
     it = Punto di ritiro
     mr = पार्सल लॉकर
     nl = Pakketjeskluis
@@ -5349,6 +5453,7 @@
     et = Tankimisautomaat
     fi = Bensa-automaatti
     fr = Pompe à carburants
+    hi = ईंधन डिस्पेंसर
     it = Pompa di rifornimento
     mr = इंधन विक्रीयंत्र
     nl = Tankautomaat
@@ -5372,6 +5477,7 @@
     fa = دامپزشکی
     fi = Eläinlääkäri
     fr = Docteur vétérinaire
+    hi = पशु चिकित्सक
     hu = Állatorvos
     id = Dokter Hewan
     it = Veterinario
@@ -5410,6 +5516,7 @@
     fa = سطل زباله
     fi = Roskakori
     fr = Poubelle
+    hi = कूडेदान
     hu = Szemétkosár
     id = Kotak sampah
     it = Contenitore per rifiuti
@@ -5447,6 +5554,7 @@
     fa = زباله دانی
     fi = Roska
     fr = Déchets
+    hi = कचरे के डिब्बे
     hu = Szemét
     id = Sampah
     it = Cassonetto
@@ -5480,6 +5588,7 @@
     et = Jäätmete üleandmise jaam
     fi = Jätteiden vastaanottoasema
     fr = Station de transfert de déchets
+    hi = कचरा स्थानांतरण स्टेशन
     it = Centro trasferimento rifiuti
     mr = कचरा हस्तांतरण केंद्र
     nl = Overslagstation voor afval
@@ -6186,6 +6295,7 @@
     eu = Horma
     fi = Muuri
     fr = Mur
+    hi = दीवार
     it = Muro
     ja = 壁
     mr = भिंत
@@ -6547,6 +6657,7 @@
     fa = ساختمان
     fi = Rakennus
     fr = Bâtiment
+    hi = भवन
     hu = Épület
     id = Gedung
     it = Edificio
@@ -6668,6 +6779,7 @@
     fa = ایستگاه قطار
     fi = Rautatieasema
     fr = Gare ferroviaire
+    hi = रेलवे स्टेशन
     hu = Vonatmegálló
     id = Rel kereta api
     it = Stazione ferroviaria
@@ -6701,6 +6813,7 @@
     eu = Biltegia
     fi = Varasto
     fr = Entrepôt
+    hi = मालगोदाम
     it = Magazzino
     mr = वखार
     nl = Magazijn
@@ -6730,6 +6843,7 @@
     fi = Hauta
     fr = Tombe
     he = רבק
+    hi = कब्र
     hu = Sír
     id = Kuburan
     it = Tomba
@@ -6850,6 +6964,7 @@
     fi = Seppä
     fr = Forgeron
     he = נַפָּח
+    hi = लोहार
     hu = Kovácsműhely
     id = Pandai Besi
     it = Fabbro
@@ -6971,6 +7086,7 @@
     fi = Puuseppä
     fr = Charpentier
     he = נגר
+    hi = बढ़ई
     hu = Ács
     id = Tukang kayu
     it = Falegname
@@ -7213,6 +7329,7 @@
     fi = Käsityö
     fr = Artisanat
     he = אומנות
+    hi = हस्तशिल्प
     hu = Kézművesség
     id = Kriya
     it = Artigiano
@@ -7254,6 +7371,7 @@
     fi = LVI
     fr = Chauffage, ventilation et climatisation
     he = חימום, אוורור ומיזוג אוויר
+    hi = तापन, संवातन तथा वातानुकूलन
     hu = Hűtés-fűtés szerelő
     id = HVAC
     it = Impianti HVAC
@@ -7458,6 +7576,7 @@
     fi = Valokuvaaja
     fr = Photographe
     he = צלם
+    hi = फोटोग्राफर
     hu = Fényképész
     id = Juru foto
     it = Fotografo
@@ -7581,6 +7700,7 @@
     fi = Saha
     fr = Scierie
     he = מנסרה
+    hi = आरा मिल
     hu = Fűrészmalom
     id = Penggergajian kayu
     it = Segheria
@@ -7702,6 +7822,7 @@
     fi = Räätäli
     fr = Tailleur
     he = חייט
+    hi = दर्जी
     hu = Szabó
     id = Tukang jahit
     it = Sarto
@@ -7739,6 +7860,7 @@
     fi = Afrikkalainen keittiö
     fr = Cuisine africaine
     he = מטבח אפריקאי
+    hi = अफ्रीकी व्यंजन
     hu = Afrikai konyha
     id = Masakan afrika
     it = Cucina africana
@@ -7775,6 +7897,7 @@
     fi = Amerikkalainen keittiö
     fr = Cuisine américaine
     he = מטבח אמריקאי
+    hi = अमेरिकी व्यंजन
     hu = Amerikai konyha
     id = Masakan amerika
     it = Cucina americana
@@ -7811,6 +7934,7 @@
     fi = Arabialainen keittiö
     fr = Cuisine arabe
     he = מטבח ערבי
+    hi = अरब व्यंजन
     hu = Arab konyha
     id = Masakan arab
     it = Cucina araba
@@ -7847,6 +7971,7 @@
     fi = Argentiinalainen keittiö
     fr = Cuisine argentine
     he = מטבח ארגטינאי
+    hi = अर्जेंटीना के व्यंजन
     hu = Argentin konyha
     id = Masakan argentina
     it = Cucina argentina
@@ -7883,6 +8008,7 @@
     fi = Aasialainen keittiö
     fr = Cuisine asiatique
     he = מטבח אסיאתי
+    hi = एशियाई व्यंजन
     hu = Ázsiai és közel-keleti konyha
     id = Masakan asia
     it = Cucina asiatica
@@ -7919,6 +8045,7 @@
     fi = Itävaltalainen keittiö
     fr = Cuisine autrichienne
     he = מטבח אוסטרי
+    hi = ऑस्ट्रियाई व्यंजन
     hu = Osztrák konyha
     id = Masakan austria
     it = Cucina austriaca
@@ -7955,6 +8082,7 @@
     fi = Bagel
     fr = Bagel
     he = בייגל
+    hi = बैगल
     hu = Bagel
     id = Roti bagel
     it = Bagel
@@ -7991,6 +8119,7 @@
     fi = Balkanilainen keittiö
     fr = Cuisine des Balkans
     he = מטבח בלקני
+    hi = बाल्कन व्यंजन
     hu = Balkáni konyha
     id = Masakan balkan
     it = Cucina balcanica
@@ -8027,6 +8156,7 @@
     fi = Grilli
     fr = Barbecue
     he = ברביקיו
+    hi = बारबेक्यू
     hu = Grill
     id = Barbekyu
     it = Barbecue
@@ -8064,6 +8194,7 @@
     fi = Baijerilainen keittiö
     fr = Cuisine bavaroise
     he = מטבח של בוואריה
+    hi = बवेरियन व्यंजन
     hu = Bajor konyha
     id = Masakan bavaria
     it = Cucina bavarese
@@ -8136,6 +8267,7 @@
     fi = Brasilialainen keittiö
     fr = Cuisine brésilienne
     he = מטבח ברזילאי
+    hi = ब्राजील के व्यंजन
     hu = Brazil konyha
     id = Masakan brasil
     it = Cucina brasiliana
@@ -8172,6 +8304,7 @@
     fi = Aamiainen
     fr = Petit déjeuner
     he = ארוחת בוקר
+    hi = नाश्ता
     hu = Reggeli
     id = Sarapan
     it = Colazione
@@ -8203,10 +8336,13 @@
     et = Mullitee
     eu = Burbuila tea
     fi = Kuplatee
+    hi = बुलबुले वाली चाय
     it = Bubble tea
     ro = Ceai cu perle
     ru = Чай с шариками
     uk = Бульбашковий чай
+    zh-Hans = 珍珠奶茶
+    zh-Hant = 珍珠奶茶
 
   [type.cuisine.burger]
     en = Burger
@@ -8223,6 +8359,7 @@
     fi = Hampurilaiset
     fr = Hamburger
     he = המבורגר
+    hi = बर्गर
     hu = Hamburger
     id = Burger
     it = Hamburger
@@ -8296,6 +8433,7 @@
     fi = Kakku
     fr = Gâteau
     he = עוגה
+    hi = केक
     hu = Torta
     id = Kue
     it = Torte
@@ -8333,6 +8471,7 @@
     fi = Karibialainen keittiö
     fr = Cuisine des Caraïbes
     he = מטבח קריבי
+    hi = कैरेबियन व्यंजन
     hu = Karibi konyha
     id = Masakan karibia
     it = Cucina caraibica
@@ -8369,6 +8508,7 @@
     fi = Kana
     fr = Poulet
     he = עוף
+    hi = मुर्गा
     hu = Csirke
     id = Ayam
     it = Pollo
@@ -8406,6 +8546,7 @@
     fi = Kiinalainen keittiö
     fr = Cuisine chinoise
     he = מטבח סיני
+    hi = चीनी व्यंजन
     hu = Kínai konyha
     id = Masakan tionghoa
     it = Cucina cinese
@@ -8443,6 +8584,7 @@
     fi = Kahvi
     fr = Café
     he = הֶפָק
+    hi = कॉफ़ी
     hu = Kávé
     id = Kopi
     it = Caffè
@@ -8481,6 +8623,7 @@
     fi = Kreppi
     fr = Crêperie
     he = קרפ
+    hi = क्रेप
     hu = Francia palacsinta
     id = Kue dadar
     it = Crêpes
@@ -8517,6 +8660,7 @@
     fi = Kroatialainen keittiö
     fr = Cuisine croate
     he = מטבח קרואטי
+    hi = क्रोएशियाई व्यंजन
     hu = Horvát konyha
     id = Masakan kroasia
     it = Cucina croata
@@ -8553,6 +8697,7 @@
     fi = Curry
     fr = Curry
     he = קארי
+    hi = करी
     hu = Curry
     id = Kari
     it = Curry
@@ -8592,6 +8737,7 @@
     fi = Herkkukauppa
     fr = Charcuterie
     he = מעדנייה
+    hi = डेली
     hu = Csemege
     id = Toko makanan jadi
     it = Gastronomia
@@ -8628,6 +8774,7 @@
     fi = Lounaskahvila
     fr = Diner américain
     he = דיינר
+    hi = भोजन
     hu = Étkező
     id = Makan malam
     it = Ristorantino
@@ -8665,6 +8812,7 @@
     fi = Donitsi
     fr = Donuts
     he = דונאט
+    hi = डोनट
     hu = Fánk
     id = Donat
     it = Ciambelle
@@ -8701,6 +8849,7 @@
     fi = Etiopialainen keittiö
     fr = Cuisine éthiopienne
     he = מטבח אתיופי
+    hi = इथियोपियाई व्यंजन
     hu = Etióp konyha
     id = Masakan etiopia
     it = Cucina etiope
@@ -8737,6 +8886,7 @@
     fi = Filippiiniläinen keittiö
     fr = Cuisine philippine
     he = מטבח פיליפיני
+    hi = फिलिपिनो व्यंजन
     hu = Filippínó konyha
     id = Masakan filipina
     it = Cucina filippina
@@ -8773,6 +8923,7 @@
     fi = Hieno ravintola
     fr = Restaurant gastronomique
     he = אכילה במסעדות יוקרה
+    hi = ठीक भोजन
     hu = Exkluzív étterem
     id = Adiboga
     it = Ristorante elegante
@@ -8809,6 +8960,7 @@
     fi = Kala
     fr = Poisson
     he = דגים
+    hi = मछली
     hu = Hal
     id = Ikan
     it = Pesce
@@ -8842,6 +8994,7 @@
     et = Kala ja krõpsud
     eu = Arrain arrautza patatekin
     he = פיש אנד צ'יפס
+    hi = मछली और चिप्स
     hu = Hal és sültkrumpli
     id = Ikan dan kentang goreng
     it = Fish and Chips
@@ -8877,6 +9030,7 @@
     fi = Ranskalainen keittiö
     fr = Cuisine française
     he = מטבח צרפתי
+    hi = फ्रेंच रसोई
     hu = Francia konyha
     id = Masakan prancis
     it = Cucina francese
@@ -8913,6 +9067,7 @@
     fi = Uppopaistettu
     fr = Friterie
     he = פריטורה
+    hi = पकोड़े
     hu = Olajban sütött ételek
     id = Gorengan
     it = Fritture
@@ -8949,6 +9104,7 @@
     fi = Georgialainen keittiö
     fr = Cuisine géorgienne
     he = מטבח גיאורגי
+    hi = जॉर्जियाई रसोई
     hu = Grúz konyha
     id = Masakan georgia
     it = Cucina georgiana
@@ -8985,6 +9141,7 @@
     fi = Saksalainen keittiö
     fr = Cuisine allemande
     he = מטבח גרמני
+    hi = जर्मन व्यंजन
     hu = Német konyha
     id = Masakan jerman
     it = Cucina tedesca
@@ -9021,6 +9178,7 @@
     fi = Kreikkalainen keittiö
     fr = Cuisine grecque
     he = מטבח יווני
+    hi = ग्रीक व्यंजन
     hu = Görög konyha
     id = Masakan yunani
     it = Cucina greca
@@ -9057,6 +9215,7 @@
     fi = Grilli
     fr = Grill
     he = גריל
+    hi = ग्रिल
     hu = Grill
     id = Panggangan
     it = Cucina alla griglia
@@ -9128,6 +9287,7 @@
     fi = Hotdog
     fr = Hot-dog
     he = נקניקיה
+    hi = हॉट-डॉग
     hu = Hotdog
     id = Hotdog
     it = Hot dog
@@ -9164,6 +9324,7 @@
     fi = Unkarilainen keittiö
     fr = Cuisine hongroise
     he = מטבח הונגרי
+    hi = हंगेरियन व्यंजन
     hu = Magyar konyha
     id = Masakan hongaria
     it = Cucina ungherese
@@ -9200,6 +9361,7 @@
     fi = Jäätelö
     fr = Crème glacée
     he = גלידה
+    hi = आइसक्रीम
     hu = Jégkrém
     id = Es_krim
     it = Gelateria
@@ -9237,6 +9399,7 @@
     fi = Intialainen keittiö
     fr = Cuisine indienne
     he = מטבח הודי
+    hi = भारतीय क्विजिन
     hu = Indiai konyha
     id = Masakan india
     it = Cucina indiana
@@ -9274,6 +9437,7 @@
     fi = Indonesialainen keittiö
     fr = Cuisine indonésienne
     he = מטבח אינדונזי
+    hi = इंडोनेशियाई व्यंजन
     hu = Indonéz konyha
     id = Masakan indonesia
     it = Cucina indonesiana
@@ -9310,6 +9474,7 @@
     fi = Kansainvälinen keittiö
     fr = Cuisine internationale
     he = מטבח בינלאומי
+    hi = अंतरराष्ट्रीय व्यंजन
     hu = Nemzetközi konyha
     id = Masakan internasional
     it = Cucina internazionale
@@ -9347,6 +9512,7 @@
     fi = Irlantilainen keittiö
     fr = Cuisine irlandaise
     he = מטבח אירי
+    hi = आयरिश व्यंजन
     hu = Ír konyha
     id = Masakan irlandia
     it = Cucina irlandese
@@ -9383,6 +9549,7 @@
     fi = Italialainen keittiö
     fr = Cuisine italienne
     he = מטבח איטלקי
+    hi = इतालवी व्यंजन
     hu = Olasz konyha
     id = Masakan italia
     it = Cucina italiana
@@ -9420,6 +9587,7 @@
     fi = Italialainen, pizza
     fr = Pizza italienne
     he = מטבח איטלקי;פיצה
+    hi = पिज़्ज़ा
     hu = Olasz konyha, pizza
     id = Italia, pizza
     it = Cucina italiana, pizza
@@ -9457,6 +9625,7 @@
     fi = Japanilainen keittiö
     fr = Cuisine japonaise
     he = מטבח יפני
+    hi = जापानी भोजन
     hu = Japán konyha
     id = Masakan jepang
     it = Cucina giapponese
@@ -9494,6 +9663,7 @@
     fi = Kebab
     fr = Kebab
     he = קבב
+    hi = कबाब
     hu = Kebab
     id = Kebab
     it = Kebab
@@ -9530,6 +9700,7 @@
     fi = Korealainen keittiö
     fr = Cuisine coréenne
     he = מטבח קוריאני
+    hi = कोरियाई व्यंजन
     hu = Koreai konyha
     id = Korea
     it = Cucina coreana
@@ -9566,6 +9737,7 @@
     fi = Laosilainen keittiö
     fr = Cuisine laotienne
     he = מטבח לאו
+    hi = लाओ व्यंजन
     hu = Laoszi konyha
     id = Masakan laos
     it = Cucina laotiana
@@ -9602,6 +9774,7 @@
     fi = Libanonilainen keittiö
     fr = Cuisine libanaise
     he = מטבח לבנוני
+    hi = लेबनानी व्यंजन
     hu = Libanoni konyha
     id = Masakan lebanon
     it = Cucina libanese
@@ -9638,6 +9811,7 @@
     fi = Paikallinen keittiö
     fr = Cuisine locale
     he = מטבח מקומי
+    hi = स्थानीय भोजन
     hu = Helyi konyha
     id = Masakan lokal
     it = Cucina locale
@@ -9675,6 +9849,7 @@
     fi = Madagaskarilainen keittiö
     fr = Cuisine malgache
     he = מלגאסי
+    hi = मालागासी व्यंजन
     hu = Madagaszkári konyha
     id = Masakan madagaskar
     it = Cucina malgascia
@@ -9711,6 +9886,7 @@
     fi = Malesialainen keittiö
     fr = Cuisine malaisienne
     he = מטבח מלזי
+    hi = मलेशियाई व्यंजन
     hu = Maláj konyha
     id = Masakan malaysia
     it = Cucina malese
@@ -9747,6 +9923,7 @@
     fi = Välimeren keittiö
     fr = Cuisine méditerranéenne
     he = מטבח ים-תיכוני
+    hi = भूमध्य व्यंजन
     hu = Mediterrán konyha
     id = Masakan mediterania
     it = Cucina mediterranea
@@ -9783,6 +9960,7 @@
     fi = Meksikolainen keittiö
     fr = Cuisine mexicaine
     he = מטבח מקסיקני
+    hi = मैक्सिकन व्यंजन
     hu = Mexikói konyha
     id = Masakan meksiko
     it = Cucina messicana
@@ -9819,6 +9997,7 @@
     fi = Marokkolainen keittiö
     fr = Cuisine marocaine
     he = מטבח מרוקאי
+    hi = मोरक्कन व्यंजन
     hu = Marokkói konyha
     id = Masakan maroko
     it = Cucina marocchina
@@ -9855,6 +10034,7 @@
     fi = Nuudelit
     fr = Nouilles
     he = אטריות
+    hi = नूडल्स
     hu = Tészta
     id = Bakmi
     it = Noodles
@@ -9892,6 +10072,7 @@
     fi = Itämainen keittiö
     fr = Cuisine orientale
     he = מטבח מזרחי
+    hi = प्राच्य व्यंजन
     hu = Keleti konyha
     id = Masakan oriental
     it = Cucina orientale
@@ -9928,6 +10109,7 @@
     fi = Lettu
     fr = Crêpe
     he = פנקייק
+    hi = पैनकेक
     hu = Palacsinta
     id = Panekuk
     it = Pancake
@@ -9964,6 +10146,7 @@
     fi = Pasta
     fr = Pâtes
     he = פסטה
+    hi = पास्ता
     hu = Tészta
     id = Pasta
     it = Pasta
@@ -10001,6 +10184,7 @@
     fi = Persialainen keittiö
     fr = Cuisine persane
     he = מטבח פרסי
+    hi = फारसी व्यंजन
     hu = Perzsa konyha
     id = Masakan persia
     it = Cucina persiana
@@ -10037,6 +10221,7 @@
     fi = Perulainen keittiö
     fr = Cuisine péruvienne
     he = מטבח פרואני
+    hi = पेरू के व्यंजन
     hu = Perui konyha
     id = Masakan peru
     it = Cucina peruviana
@@ -10073,6 +10258,7 @@
     fi = Pizza
     fr = Pizza
     he = פיצה
+    hi = पिज़्ज़ा
     hu = Pizza
     id = Pizza
     it = Pizza
@@ -10110,6 +10296,7 @@
     fi = Puolalainen keittiö
     fr = Cuisine polonaise
     he = מטבח פולני
+    hi = पोलिश व्यंजन
     hu = Lengyel konyha
     id = Masakan polandia
     it = Cucina polacca
@@ -10146,6 +10333,7 @@
     fi = Portugalilainen keittiö
     fr = Cuisine portugaise
     he = מטבח פורטוגלי
+    hi = पुर्तगाली व्यंजन
     hu = Portugál konyha
     id = Masakan portugis
     it = Cucina portoghese
@@ -10218,6 +10406,7 @@
     fi = Alueellinen keittiö
     fr = Cuisine régionale
     he = מטבח אזורי
+    hi = क्षेत्रीय व्यंजन
     hu = Regionális konyha
     id = Masakan regional
     it = Cucina regionale
@@ -10255,6 +10444,7 @@
     fi = Venäläinen keittiö
     fr = Cuisine russe
     he = מטבח רוסי
+    hi = रूसी व्यंजन
     hu = Orosz konyha
     id = Masakan rusia
     it = Cucina russa
@@ -10291,6 +10481,7 @@
     fi = Voileipä
     fr = Sandwich
     he = סנדוויץ'
+    hi = सैंडविच
     hu = Szendvics
     id = Roti isi
     it = Panini
@@ -10328,6 +10519,7 @@
     fi = Makkara
     fr = Saucisse
     he = נקניק
+    hi = सॉसेज
     hu = Kolbász
     id = Sosis
     it = Salsicce
@@ -10365,6 +10557,7 @@
     fi = Suolaiset letut
     fr = Crêpes salées
     he = חביתיות טעימות
+    hi = दिलकश पेनकेक्स
     hu = Sós palacsinta
     id = Panekuk gurih
     it = Pancake salati
@@ -10401,6 +10594,7 @@
     fi = Meren elävät
     fr = Fruits de mer
     he = מאכלי ים
+    hi = समुद्री भोजन
     hu = Tenger gyümölcsei
     id = Hidangan laut
     it = Frutti di mare
@@ -10438,6 +10632,7 @@
     fi = Sobanuudeli
     fr = Soba
     he = אטריות סובה
+    hi = सोबा
     hu = Soba
     id = Soba
     it = Soba
@@ -10474,6 +10669,7 @@
     fi = Espanjalainen keittiö
     fr = Cuisine espagnole
     he = מטבח ספרדי
+    hi = स्पेनिश व्यंजन
     hu = Spanyol konyha
     id = Masakan spanyol
     it = Cucina spagnola
@@ -10510,6 +10706,7 @@
     fi = Pihviravintola
     fr = Grillades
     he = סטייקיה
+    hi = स्टेक (माँस का कबाब)
     hu = Steak ház
     id = Restoran_steik
     it = Bisteccheria
@@ -10546,6 +10743,7 @@
     fi = Sushi
     fr = Sushi
     he = סושי
+    hi = सुशी
     hu = Szusi
     id = Sushi
     it = Sushi
@@ -10582,6 +10780,7 @@
     fi = Tapas
     fr = Tapas
     he = טאפאס
+    hi = तापा
     hu = Tapas
     id = Kudapan spanyol
     it = Tapas
@@ -10618,6 +10817,7 @@
     fi = Tee
     fr = Thé
     he = תה
+    hi = चाय
     hu = Tea
     id = Teh
     it = Tè
@@ -10655,6 +10855,7 @@
     fi = Thaimaalainen keittiö
     fr = Cuisine thaï
     he = מטבח תאילנדי
+    hi = थाई पकवान
     hu = Thai konyha
     id = Masakan thailand
     it = Cucina tailandese
@@ -10691,6 +10892,7 @@
     fi = Turkkilainen keittiö
     fr = Cuisine turque
     he = מטבח תורכי
+    hi = तुर्की व्यंजन
     hu = Török konyha
     id = Masakan turki
     it = Cucina turca
@@ -10727,6 +10929,7 @@
     fi = Vegaanikeittiö
     fr = Cuisine végétalienne
     he = מטבח טבעוני
+    hi = शाकाहारी
     hu = Vegán konyha
     id = Masakan vegan
     it = Cucina vegana
@@ -10763,6 +10966,7 @@
     fi = Kasviskeittiö
     fr = Cuisine végétarienne
     he = מטבח צמחוני
+    hi = शाकाहारी
     hu = Vegetáriánus konyha
     id = Masakan vegetarian
     it = Cucina vegetariana
@@ -10800,6 +11004,7 @@
     fi = Vietnamilainen keittiö
     fr = Cuisine vietnamienne
     he = מטבח וייטנאמי
+    hi = वियतनामी व्यंजन
     hu = Vietnami konyha
     id = Masakan vietnam
     it = Cucina vietnamita
@@ -10897,6 +11102,7 @@
     fa = دستگاه شوک
     fi = Defibrillaattori
     fr = Défibrillateur
+    hi = डीफ़िब्रिलिएटर
     hu = Defibrillátor
     id = Defibrilator
     it = Defibrillatore
@@ -10934,6 +11140,7 @@
     fa = شیر آتش‌نشانی
     fi = Paloposti
     fr = Bouche d’incendie
+    hi = फ़ायर हाइड्रेंट
     hu = Tűzcsap
     id = Keran Kebakaran
     it = Idrante
@@ -10971,6 +11178,7 @@
     fa = تلفن اضطراری
     fi = Hätäpuhelin
     fr = Téléphone d'urgence
+    hi = आपातकालीन फ़ोन
     hu = Sürgősségi telefon
     id = Telepon darurat
     it = Telefono di emergenza
@@ -11009,6 +11217,7 @@
     fa = ورودی
     fi = Sisäänkäynti
     fr = Entrée
+    hi = प्रवेश द्वार
     hu = Bejárat
     id = Pintu masuk
     it = Ingresso
@@ -11180,6 +11389,7 @@
     fi = Lääketieteellinen laboratorio
     fr = Laboratoire médical
     he = תיאופר הדבעמ
+    hi = प्रयोगशाला
     hu = Orvosi laboratórium
     id = Laboratorium medis
     it = Laboratorio Medico
@@ -11221,6 +11431,7 @@
     fi = Fysioterapeutti
     fr = Physiothérapeute
     he = פיזיותרפיסט
+    hi = भौतिक चिकित्सा
     hu = Fizioterapeuta
     id = Fisioterapis
     it = Fisioterapista
@@ -11584,6 +11795,7 @@
     es = Carretera
     et = Maantee
     fi = Valtatie
+    hi = राजमार्ग
     it = Via
     ja = 道路
     mr = महामार्ग
@@ -11698,6 +11910,7 @@
     fa = حمل و نقل
     fi = Bussipysäkki
     fr = Arrêt de bus
+    hi = बस स्टॉप
     hu = Buszmegálló
     id = Halte bus
     it = Fermata dell'autobus
@@ -11736,6 +11949,7 @@
     fa = جاده در دست ساخت است
     fi = Rakenteilla oleva tie
     fr = Route en construction
+    hi = निर्माणाधीन सड़क
     hu = Útépítés
     id = Jalan sedang dibangun
     it = Strada in costruzione
@@ -11770,6 +11984,7 @@
     eu = Bizikletabidea
     fi = Pyörätie
     fr = Piste cyclable
+    hi = साइकिल मार्ग
     it = Pista ciclabile
     ja = 自転車道
     mr = सायकल वाट
@@ -11818,6 +12033,7 @@
     eu = Igogailua
     fi = Hissi
     fr = Ascenseur
+    hi = उत्थापक
     it = Ascensore
     mr = उद्वाहक(लिफ्ट)
     nl = Lift
@@ -11843,6 +12059,7 @@
     fa = مسیر
     fi = Polku
     fr = Chemin
+    hi = पैदलपथ
     hu = Ösvény
     id = Jalur
     it = Sentiero
@@ -12160,6 +12377,7 @@
     fa = جاده
     fi = Moottoritie
     fr = Autoroute
+    hi = राजमार्ग
     hu = Utca
     id = Jalan
     it = Autostrada
@@ -12225,6 +12443,7 @@
     fa = تقاطع
     fi = Poistumistie
     fr = Sortie
+    hi = राजमार्ग निकास
     hu = Kijárat
     id = Keluar
     ja = ジャンクション
@@ -12254,6 +12473,7 @@
     et = Kiirtee kaldtee
     fi = Mottoritieramppi
     fr = Bretelle d'autoroute
+    hi = फ्रीवे प्रवेश
     it = Svincolo autostradale
     mr = महामार्ग उतार
     nl = Snelwegoprit
@@ -12286,6 +12506,7 @@
     fa = مسیر
     fi = Polku
     fr = Chemin
+    hi = पथ
     hu = Ösvény
     id = Jalur
     it = Sentiero
@@ -12408,6 +12629,7 @@
     fa = جاده
     fi = Jalankulkutie
     fr = Rue piétonne
+    hi = पैदल यात्रीयों की सड़क
     hu = Utca
     id = Jalan
     it = Strada pedonale
@@ -12488,6 +12710,7 @@
     fa = جاده
     fi = Pääkatu
     fr = Rue
+    hi = प्राथमिक सड़क
     hu = Utca
     id = Jalan
     it = Strada
@@ -12553,6 +12776,7 @@
     fa = کانال
     fi = Kilparata
     fr = Circuit
+    hi = दौड़ का मैदान
     hu = Versenypálya
     id = Lintasan balap
     it = Pista
@@ -12675,6 +12899,7 @@
     fa = جاده
     fi = Katu
     fr = Rue
+    hi = सड़क
     hu = Utca
     id = Jalan
     it = Via
@@ -12802,6 +13027,7 @@
     fa = جاده
     fi = Katu
     fr = Rue
+    hi = माध्यमिक सड़क
     hu = Utca
     id = Jalan
     it = Strada
@@ -12871,6 +13097,7 @@
     fa = جاده
     fi = Huoltotie
     fr = Rue
+    hi = सर्विस रोड
     hu = Utca
     id = Jalan
     it = Via
@@ -12979,6 +13206,7 @@
     fa = دوربین سرعت سنج
     fi = Nopeusvalvontakamera
     fr = Radar de vitesse
+    hi = तेज़ गति कैमेरा
     hu = Traffipax
     id = Kamera Kecepatan
     it = Autovelox
@@ -13059,6 +13287,7 @@
     fa = جاده
     fi = Katu
     fr = Rue
+    hi = तृतीयक सड़क
     hu = Utca
     id = Jalan
     it = Via
@@ -13127,6 +13356,7 @@
     fa = جاده
     fi = Katu
     fr = Piste
+    hi = सड़क
     hu = Utca
     id = Jalan
     it = Via
@@ -13197,6 +13427,7 @@
     fa = چراغ راهنما
     fi = Liikennevalot
     fr = Feux de circulation
+    hi = ट्रैफिक लाइट
     hu = Közlekedési lámpák
     id = Lampu lalu lintas
     it = Semaforo
@@ -13234,6 +13465,7 @@
     fa = جاده
     fi = Päätie
     fr = Voie rapide
+    hi = प्रधान मार्ग
     hu = Utca
     id = Jalan
     it = Strada
@@ -13417,6 +13649,7 @@
     fi = Historiallinen esine
     fr = Objet historique
     he = חפץ היסטורי
+    hi = ऐतिहासिक वस्तु
     hu = Történelmi tárgy
     id = Objek bersejarah
     it = Oggetto storico
@@ -13541,6 +13774,7 @@
     fi = Arkeologinen kohde
     fr = Site archéologique
     he = אתר ארכיאולוגי
+    hi = पुरातत्व स्थल
     hu = Ásatás
     id = Situs arkeologi
     it = Sito archeologico
@@ -13581,6 +13815,7 @@
     fi = Taistelukenttä
     fr = Champ de bataille
     he = שדה קרב
+    hi = लड़ाई का मैदान
     hu = Csatatér
     id = Medan Perang
     it = Campo di battaglia
@@ -13621,6 +13856,7 @@
     fi = Rajamerkki
     fr = Borne frontière
     he = אבן גבול
+    hi = ऐतिहासिक सीमा का पत्थर
     hu = Határkő
     id = Batu pembatas
     it = Cippo di confine
@@ -13703,6 +13939,7 @@
     fi = Linna
     fr = Château fort
     he = טירה
+    hi = गढ़
     hu = Kastély
     id = Kastel
     it = Castello
@@ -13783,6 +14020,7 @@
     fi = Linnake
     fr = Château fort
     he = טירה
+    hi = गढ़
     hu = Kastély
     id = Kastel
     it = Castello
@@ -13863,6 +14101,7 @@
     fi = Linnoitus
     fr = Forteresse
     he = מִבצָר
+    hi = किले
     hu = Erődrendszer
     id = Benteng
     it = Fortezza
@@ -14023,6 +14262,7 @@
     fi = Palatsi
     fr = Palais
     he = ארמון
+    hi = महल
     hu = Palota
     id = Istana
     it = Palazzo
@@ -14183,6 +14423,7 @@
     fi = Kaupungin muuri
     fr = Mur de la ville
     he = חומת העיר
+    hi = शहर की दीवार
     hu = Városi fal
     id = Tembok Kota
     it = Muro della città
@@ -14224,6 +14465,7 @@
     fi = Linnake
     fr = Fort militaire
     he = מִבצָר
+    hi = किला
     hu = Fort
     id = Benteng
     it = Fortezza
@@ -14346,6 +14588,7 @@
     fi = Muistomerkki
     fr = Mémorial
     he = אתר הנצחה
+    hi = शहीद स्मारक
     hu = Emlékmű
     id = Tugu peringatan
     it = Memoriale
@@ -14427,6 +14670,7 @@
     fi = Muistolaatta
     fr = Plaque commémorative
     he = לוחית זיכרון
+    hi = स्मारक पट्टिका
     hu = Emlékmű
     id = Tugu peringatan
     it = Memoriale
@@ -14507,6 +14751,7 @@
     fi = Patsas
     fr = Mémorial
     he = פסל
+    hi = स्मारक प्रतिमा
     hu = Emlékmű
     id = Tugu peringatan
     it = Statua memoriale
@@ -14629,6 +14874,7 @@
     fi = Sotamuistomerkki
     fr = Monument aux morts
     he = אנדרטת מלחמה
+    hi = युद्ध स्मारक
     hu = Háborús emlékmű
     id = Tugu peringatan perang
     it = Monumento ai caduti
@@ -14711,6 +14957,7 @@
     fi = Monumentti
     fr = Monument
     he = מונומנט
+    hi = स्मारक
     hu = Műemlék
     id = Monumen
     it = Monumento
@@ -14790,6 +15037,7 @@
     fi = Rauniot
     fr = Ruines
     he = חורבות
+    hi = खँडहर
     hu = Romok
     id = Reruntuhan
     it = Rovine
@@ -14830,6 +15078,7 @@
     fi = Alus
     fr = Navire
     he = אונייה
+    hi = जलयान
     hu = Túrizmus
     id = Pemandangan
     it = Nave storica
@@ -14912,6 +15161,7 @@
     fi = Hautakammio
     fr = Tombe historique
     he = קֶבֶר
+    hi = मकबरे
     hu = Sír
     id = Pemandangan
     it = Tomba
@@ -14992,6 +15242,7 @@
     fi = Tienvarren pyhäkkö
     fr = Oratoire
     he = מקדש בצד הדרך
+    hi = रास्ते का तीर्थ
     hu = Útmenti szentély
     id = Kuil di pinggir jalan
     it = Edicola votiva
@@ -15104,6 +15355,7 @@
     es = Internet
     et = Internet
     fa = وای فای
+    hi = इंटरनेट उपलब्ध
     ja = インターネット
     ko = 인터넷
     mr = इंटरनेट
@@ -15126,6 +15378,7 @@
     es = Internet
     et = Internet
     fa = وای فای
+    hi = वाई-फाई उपलब्ध
     ja = インターネット
     ko = 인터넷
     mr = इंटरनेट
@@ -15170,6 +15423,7 @@
     eu = Biribilgunea
     fi = Liikenneympyrä
     fr = Rond-point
+    hi = गोल चक्कर
     it = Rotonda
     ja = ラウンドアバウト
     mr = गोलमार्ग
@@ -15195,6 +15449,7 @@
     et = Maakasutus
     fi = Maankäyttö
     fr = Utilisation du sol
+    hi = भूमि उपयोग
     ja = 土地利用
     mr = भूमी उपयोग
     nl = Landgebruik
@@ -15344,6 +15599,7 @@
     et = Kommertspiirkond
     fi = Kaupallinen alue
     fr = Zone commerciale
+    hi = वाणिज्य क्षेत्र
     it = Area commerciale
     ja = 商業用地
     mr = व्यावसायिक क्षेत्र
@@ -15405,6 +15661,7 @@
     es = Granja
     et = Talu
     fi = Maatila
+    hi = खेत
     ja = 農地
     mr = शेत
     nl = Boerderij
@@ -15485,6 +15742,7 @@
     et = Põld
     fi = Kenttä
     fr = Champ
+    hi = क्षेत्र
     mr = क्षेत्र
     nl = Veld
     pl = Pole
@@ -15551,6 +15809,7 @@
     fa = جنگل
     fi = Metsä
     fr = Forêt
+    hi = वन
     hu = Erdő
     id = Hutan
     it = Foresta
@@ -15662,6 +15921,7 @@
     fa = جنگل
     fi = Sekametsä
     fr = Forêt
+    hi = मिश्रित वन
     hu = Erdő
     id = Hutan
     it = Foresta mista
@@ -15721,6 +15981,7 @@
     fa = چمن زار
     fi = Ruohikko
     fr = Gazon
+    hi = घास
     hu = Gyep
     id = Lapangan rumput
     it = Prato erboso
@@ -16138,6 +16399,7 @@
     de = Freizeit
     es = Ocio
     et = Lõõgastus
+    hi = अवकाश
     it = Tempo libero
     ja = レジャー
     mr = अवकाश
@@ -16334,6 +16596,7 @@
     fa = گردشگری
     fi = Puutarha
     fr = Jardin
+    hi = बाग
     hu = Kert
     id = Situs arkeologi
     it = Giardino
@@ -16497,6 +16760,7 @@
     eu = Erreserbatutako lurraldea
     fi = Luonnonsuojelualue
     fr = Réserve naturelle
+    hi = संरक्षित प्रकृतिक्षेत्र
     hu = Védett terület
     id = Cagar Alam
     it = Riserva naturale
@@ -16576,6 +16840,7 @@
     fa = پارک
     fi = Puisto
     fr = Parc
+    hi = उद्यान
     hu = Park
     id = Taman
     it = Parco
@@ -16889,6 +17154,7 @@
     fa = سالن یوگا
     fi = Joogastudio
     fr = Yoga
+    hi = योग
     hu = Jógastúdió
     id = Studio Yoga
     it = Centro Yoga
@@ -16925,6 +17191,7 @@
     fa = استادیوم
     fi = Stadion
     fr = Stade
+    hi = क्रीडांगन
     hu = Stadion
     id = Stadion
     it = Stadio
@@ -17093,6 +17360,7 @@
     es = Rompeolas
     et = Lainemurdja
     fr = Brise-lames
+    hi = तरंगरोध
     it = Frangiflutti
     ja = 防波堤
     nl = Golfbreker
@@ -17110,6 +17378,7 @@
     az = Kurqan
     de = Steinmännchen
     et = Karjäär
+    hi = स्तूप
     ja = ケルン
     nl = Steengroeve
     pl = Kopiec
@@ -17133,6 +17402,7 @@
     eu = Fabrikako tximinia
     fi = Tehtaan piippu
     fr = Cheminée d'usine
+    hi = धुआँकश
     hu = Gyárkémény
     id = Cerobong asap pabrik
     it = Ciminiera industriale
@@ -17225,6 +17495,7 @@
     fa = گردشگری
     fi = Majakka
     fr = Phare
+    hi = प्रकाशस्तम्भ
     hu = Világítótorony
     id = Mercusuar
     it = Faro
@@ -17408,6 +17679,7 @@
     fa = برج
     fi = Torni
     fr = Tour
+    hi = बुर्ज
     hu = Torony
     id = Menara
     it = Torre
@@ -17480,6 +17752,7 @@
     es = Planta de tratamiento de aguas residuales
     et = Reoveepuhasti
     fr = Station d'épuration
+    hi = अपशिष्ट जलोपचार
     it = Impianto di trattamento delle acque reflue
     ja = 下水処理場
     mr = सांडपाणी संयंत्र(प्लांट)
@@ -17581,6 +17854,7 @@
     fa = چاه اب
     fi = Kaivo
     fr = Puits à eau
+    hi = कुआँ
     hu = Ivókút
     id = Sumur air
     it = Pozzo d'acqua
@@ -17618,6 +17892,7 @@
     fa = توربین بادی
     fi = Tuulimylly
     fr = Moulin à vent
+    hi = पवनचक्की
     hu = Szélmalom
     id = Kincir angin
     it = Mulino a vento
@@ -17723,6 +17998,7 @@
     es = Puerto de montaña
     et = Mäekuru
     fr = Col de montagne
+    hi = दर्रा
     it = Passo
     mr = डोंगरवाट
     nl = Bergpas
@@ -17748,6 +18024,7 @@
     fi = Luonto
     fr = Nature
     he = טבע
+    hi = प्रकृति
     hu = Természet
     id = Alam
     it = Natura
@@ -17828,6 +18105,7 @@
     fi = Lahti
     fr = Baie
     he = מפרץ
+    hi = खाड़ी
     hu = Öböl
     id = Teluk
     it = Baia
@@ -17868,6 +18146,7 @@
     fi = Ranta
     fr = Plage
     he = חוף חולי
+    hi = बालू तट
     hu = Strand
     id = Pantai
     it = Spiaggia
@@ -17908,6 +18187,7 @@
     fi = Hiekkainen ranta
     fr = Plage de sable
     he = חוף חולי
+    hi = बालू तट
     hu = Homokos part
     id = Pantai berpasir
     it = Spiaggia sabbiosa
@@ -17948,6 +18228,7 @@
     fi = Soraranta
     fr = Plage de gravier
     he = חוף חצץ
+    hi = बालू तट
     hu = Kavicsos strand
     id = Pantai Kerikil
     it = Spiaggia di ghiaia
@@ -17988,6 +18269,7 @@
     fi = Niemeke
     fr = Cap
     he = לשון יבשה
+    hi = रास
     hu = Hegytető
     id = Tanjung
     it = Capo
@@ -18028,6 +18310,7 @@
     fi = Luola
     fr = Grotte
     he = מערה
+    hi = गुफ़ा
     hu = Barlang
     id = Gua
     it = Grotta
@@ -18188,6 +18471,7 @@
     fi = Rannikko
     fr = Littoral
     he = חוף
+    hi = सागरतट
     hu = Tengerpart
     id = Pesisir
     it = Costa
@@ -18227,6 +18511,7 @@
     fi = Aavikko
     fr = Désert
     he = רבָּדמִ
+    hi = मरुस्थल
     hu = Sivatag
     id = Gurun
     it = Deserto
@@ -18258,6 +18543,7 @@
     fi = Geysir
     fr = Geyser
     he = גייזר
+    hi = प्राकृतिक गरम पानी का झरना
     hu = Gejzír
     id = Geiser
     it = Geyser
@@ -18300,6 +18586,7 @@
     fi = Jäätikkö
     fr = Glacier
     he = קרחון
+    hi = हिमानी
     hu = Gleccser
     id = Gletser
     it = Ghiacciaio
@@ -18341,6 +18628,7 @@
     fi = Nurmi
     fr = Pelouse
     he = ערבה
+    hi = घासभूमि
     hu = Füves puszta
     id = Padang rumput
     it = Prateria
@@ -18422,6 +18710,7 @@
     fi = Kuuma lähde
     fr = Source chaude
     he = מעיין חם
+    hi = गरम चश्मा
     hu = Melegvizű forrás
     id = Mata air panas
     it = Sorgente calda
@@ -18462,6 +18751,7 @@
     fi = Järvi
     fr = Lac
     he = אגם
+    hi = झील
     hu = Tó
     id = Danau
     it = Lago
@@ -18542,6 +18832,7 @@
     fi = Lampi
     fr = Étang
     he = בריכה
+    hi = तालाब
     hu = Tavacska
     id = Kolam
     it = Stagno
@@ -18662,6 +18953,7 @@
     fi = Joki
     fr = Rivière
     he = נהר
+    hi = नदी
     hu = Folyó
     id = Sungai
     it = Fiume
@@ -18702,6 +18994,7 @@
     fi = Maa
     fr = Terrain
     he = ארץ
+    hi = भूमि
     hu = Föld
     id = Daratan
     it = Terra
@@ -18742,6 +19035,7 @@
     fi = Niitty
     fr = Prairie
     he = אָחוּ
+    hi = घास का मैदान
     hu = Rét
     id = Padang rumput
     it = Prato
@@ -18782,6 +19076,7 @@
     fi = Hedelmänviljely
     fr = Verger
     he = פרדס
+    hi = फलोद्यान
     hu = Gyümölcsöskert
     id = Kebun
     it = Frutteto
@@ -18822,6 +19117,7 @@
     fi = Huippu
     fr = Sommet
     he = פסגה
+    hi = शिखर
     hu = Csúcs
     id = Puncak
     it = Monte
@@ -18943,6 +19239,7 @@
     fi = Tiheiköt
     fr = Fourré
     he = בתה
+    hi = झाड़ी
     hu = Cserjés
     id = Semak
     it = Boscaglia
@@ -18983,6 +19280,7 @@
     fi = Lähde
     fr = Source
     he = מעיין
+    hi = पानी का चश्मा
     hu = Forrás
     id = Mata air
     it = Sorgente
@@ -19024,6 +19322,7 @@
     fi = Salmi
     fr = Détroit
     he = מצר ים
+    hi = जलसंधि
     hu = Szoros
     id = Selat
     it = Stretto
@@ -19104,6 +19403,7 @@
     fi = Viinitila
     fr = Vignoble
     he = כרם
+    hi = द्राक्षाक्षेत्र
     hu = Szőlőskert
     id = Kebun anggur
     it = Vigneto
@@ -19144,6 +19444,7 @@
     fi = Tulivuori
     fr = Volcan
     he = הר געש
+    hi = ज्वालामुखी
     hu = Tűzhányó
     id = Gunung berapi
     it = Vulcano
@@ -19184,6 +19485,7 @@
     fi = Vesimuodostuma
     fr = Étendue d'eau
     he = גוף מים
+    hi = जल निकाय
     hu = Vizek
     id = Perairan
     it = Corpo d'acqua
@@ -19225,6 +19527,7 @@
     fi = Suoperäinen seutu
     fr = Zone humide
     he = ביצה
+    hi = आर्द्रभूमि
     hu = Vizes terület
     id = Area lahan basah
     it = Terreno paludoso
@@ -19305,6 +19608,7 @@
     fi = Marsh
     fr = Marais
     he = ביצת עשב
+    hi = कच्छभूमि
     hu = Mocsár
     id = Paya
     it = Palude
@@ -19359,6 +19663,7 @@
     fa = اداره
     fi = Toimisto
     fr = Bureau
+    hi = कार्यालय
     hu = Iroda
     id = Kantor
     it = Ufficio
@@ -19582,6 +19887,7 @@
     fa = دفتر سازمان خیریه
     fi = Valtioista riippumattoman järjestön toimisto
     fr = Bureau ONG
+    hi = अशासकीय संस्था
     hu = Civil szervezet irodája
     id = Kantor LSM
     it = Sede ONG
@@ -19681,6 +19987,7 @@
     fi = Kaupunki
     fr = Ville
     he = עיר
+    hi = शहर
     hu = Város
     id = Kota
     it = Città
@@ -19721,6 +20028,7 @@
     fi = Pääkaupunki
     fr = Capitale
     he = עיר בירה
+    hi = राजधानी
     hu = Főváros
     id = Ibu kota
     it = Capitale
@@ -19791,6 +20099,7 @@
     fi = Maanosa
     fr = Continent
     he = יבשת
+    hi = महाद्वीप
     hu = Kontinens
     id = Benua
     it = Continente
@@ -19831,6 +20140,7 @@
     fi = Maa
     fr = Pays
     he = ארץ
+    hi = देश
     hu = Ország
     id = Benua
     it = Paese
@@ -19871,6 +20181,7 @@
     fi = Lääni
     fr = Comté
     he = נפה
+    hi = काउण्टी
     hu = Kerület
     id = Kabupaten
     it = Contea
@@ -19952,6 +20263,7 @@
     fi = Pieni kylä
     fr = Hameau
     he = כְּפָר קָטָן
+    hi = गांव
     hu = Tanya
     id = Dusun
     it = Piccolo villaggio
@@ -19993,6 +20305,7 @@
     fi = Saari
     fr = Île
     he = אי
+    hi = द्वीप
     hu = Sziget
     id = Pulau
     it = Isola
@@ -20033,6 +20346,7 @@
     fi = Saari
     fr = Île
     he = איון
+    hi = द्वीपिका
     hu = Sziget
     id = Pulau
     it = Isola
@@ -20153,6 +20467,7 @@
     fi = Naapurusto
     fr = Quartier
     he = שכונה
+    hi = मुहल्ला
     hu = Szomszédság
     id = Lingkungan
     it = Quartiere
@@ -20194,6 +20509,7 @@
     fi = Valtameri
     fr = Océan
     he = אוקיינוס
+    hi = महासागर
     hu = Óceán
     id = Samudra
     it = Oceano
@@ -20274,6 +20590,7 @@
     fi = Meri
     fr = Mer
     he = ים
+    hi = समुद्र
     hu = Tenger
     id = Laut
     it = Mare
@@ -20314,6 +20631,7 @@
     fi = Tori
     fr = Place
     he = כיכר עירונית
+    hi = चौक
     hu = Tér
     id = Lapangan kota
     it = Piazza
@@ -20354,6 +20672,7 @@
     fi = Lääni
     fr = État
     he = מדינה פדרלית
+    hi = राज्य
     hu = Állam
     id = Negara bagian
     it = Provincia
@@ -20434,6 +20753,7 @@
     fi = Esikaupunki
     fr = Quartier
     he = פרוור
+    hi = उपनगर
     hu = Kerület
     id = Pinggiran kota
     it = Quartiere
@@ -20514,6 +20834,7 @@
     fi = Kylä
     fr = Village
     he = כפר
+    hi = गाँव
     hu = Falu
     id = Desa
     it = Villaggio
@@ -20981,6 +21302,7 @@
     de = Umspannwerk
     es = Estación eléctrica
     et = Elektrijaam
+    hi = बिजली घर
     ja = 変電所
     mr = विद्युत घर
     nl = Transformatorstation
@@ -21005,6 +21327,7 @@
     eu = Azpiestazioa
     fi = Muuntoasema
     fr = Poste électrique
+    hi = विद्युत उपकेंद्र
     hu = Kapcsolószekrény
     id = Stasiun bawah tanah
     it = Sottostazione elettrica
@@ -21042,6 +21365,7 @@
     fa = برج قدرت
     fi = Sähköpylväs
     fr = Pylône électrique
+    hi = संचरण स्तम्भ
     hu = Villanyoszlop
     id = Menara listrik
     it = Pilone elettrico
@@ -21124,6 +21448,7 @@
     es = Plataforma
     et = Platvorm
     fr = Quai de transport en commun
+    hi = रेलवे प्लेटफार्म
     ja = 公共交通機関のプラットホーム
     mr = फलाट
     nl = Platform
@@ -21142,6 +21467,7 @@
     es = Vía férrea
     et = Raudtee
     fr = Chemin de fer
+    hi = रेल
     it = Ferrovia
     ja = 鉄道
     mr = रेल्वे
@@ -21282,6 +21608,7 @@
     fi = Köysirata
     fr = Funiculaire
     he = רַכֶּבֶל
+    hi = रज्जुरेल
     hu = Funicular
     id = Kereta gantung
     it = Funicolare
@@ -21311,6 +21638,7 @@
     de = Standseilbahnbrücke
     et = Funikulöör
     fr = Funiculaire
+    hi = रज्जुरेल
     ja = ケーブルカー(橋)
     mr = हवाई रज्जुमार्ग
     nl = Kabelspoorbuur
@@ -21328,6 +21656,7 @@
     de = Standseilbahntunnel
     et = Funikulöör
     fr = Funiculaire
+    hi = रज्जुरेल
     ja = ケーブルカー(トンネル)
     mr = हवाई रज्जुमार्ग
     nl = Kabelspoortunnel
@@ -21452,6 +21781,7 @@
     fa = مونوریل
     fi = Monorail (kohorata)
     fr = Monorail
+    hi = एकरेल
     hu = Egysínű vasút
     id = Monorel
     it = Monorotaia
@@ -21482,6 +21812,7 @@
     de = Einschienenbahnbrücke
     et = Monorelss - sild
     fr = Monorail
+    hi = एकरेल
     ja = モノレール(橋)
     mr = एकरूळी
     nl = Monorail-brug
@@ -21501,6 +21832,7 @@
     de = Einschienenbahntunnel
     et = Monorelss - tunnel
     fr = Monorail
+    hi = एकरेल
     ja = モノレール(トンネル)
     mr = एकरूळी
     nl = Monorail-tunnel
@@ -21520,6 +21852,7 @@
     de = Schmalspurbahn
     es = Vía férrea de ancho estrecho
     et = Kitsarööpmeline raudtee
+    hi = छोटी रेल लाइन
     ja = 狭軌鉄道
     mr = अरुंदमापी रेल्वे
     nb = Smalsporet jernbane
@@ -21538,6 +21871,7 @@
     az = Dar Ölçü Dəmiryolu
     de = Schmalspurbahnbrücke
     et = Kitsarööpmelise raudtee sild
+    hi = छोटी रेल लाइन
     ja = 狭軌鉄道(橋)
     mr = अरुंदमापी रेल्वे
     nl = Smalspoorbrug
@@ -21555,6 +21889,7 @@
     az = Dar Ölçü Dəmiryolu
     de = Schmalspurbahntunnel
     et = Kitsarööpmelise raudtee tunnel
+    hi = छोटी रेल लाइन
     ja = ja = 狭軌鉄道(トンネル)
     mr = अरुंदमापी रेल्वे
     nl = Smalspoortunnel
@@ -21575,6 +21910,7 @@
     es = Plataforma de vía férrea
     et = Raudteeplatvorm
     fr = Quai de gare
+    hi = रेलवे प्लेटफार्म
     ja = プラットホーム
     mr = रेल्वे फलाट
     nb = Jernbaneplattform
@@ -22095,6 +22431,7 @@
     fa = ایستگاه قطار
     fi = Rautatieasema
     fr = Gare ferroviaire
+    hi = रेलवे स्टेशन
     hu = Vonatmegálló
     id = Rel kereta api
     it = Stazione ferroviaria
@@ -22525,6 +22862,7 @@
     es = Línea de metro
     et = Metrooliin
     fr = Ligne de métro
+    hi = भूमिगत रेल
     it = Binari della metrò
     mr = भुयारी मार्गिका
     nl = Metro
@@ -22542,6 +22880,7 @@
     de = U-Bahn-Brücke
     et = Metrooliin - sild
     fr = Voie de métro
+    hi = भूमिगत रेल
     mr = भुयारी मार्गिका
     nl = Metrobrug
     pt = Ponte de metro
@@ -22558,6 +22897,7 @@
     de = U-Bahn-Tunnel
     et = Metrooliin - tunnel
     fr = Voie de métro
+    hi = भूमिगत रेल
     mr = भुयारी मार्गिका
     nl = Metrotunnel
     pt = Túnel de metro
@@ -22949,6 +23289,7 @@
     es = Línea de tranvía
     et = Trammiliin
     fr = Voie de tramway
+    hi = ट्राम
     it = Binari del tram
     ja = トラム
     mr = ट्राम मार्गिका
@@ -22969,6 +23310,7 @@
     de = Straßenbahnbrücke
     et = Trammiliini sild
     fr = Voie de tramway
+    hi = ट्राम
     ja = トラム(橋)
     mr = ट्राम मार्गिका
     nl = Trambrug
@@ -22987,6 +23329,7 @@
     de = Straßenbahntunnel
     et = Trammiliini tunnel
     fr = Voie de tramway
+    hi = ट्राम
     ja = トラム(トンネル)
     mr = ट्राम मार्गिका
     nl = Tramtunnel
@@ -23128,6 +23471,7 @@
     fa = فروشگاه
     fi = Alkoholikauppa
     fr = Magasin de vins et spiritueux
+    hi = शराब की दुकान
     hu = Italbolt
     id = Toko alkohol
     it = Negozio di alcolici
@@ -23165,6 +23509,7 @@
     fa = فروشگاه
     fi = Leipomo
     fr = Boulangerie
+    hi = बेकरी
     hu = Pékség
     id = Toko roti
     it = Panetteria
@@ -23244,6 +23589,7 @@
     fa = سالن زیبایی
     fi = Kauneushoitola
     fr = Salon de beauté
+    hi = ब्यूटी सैलून
     hu = Szépségszalon
     id = Salon kecantikan
     it = Estetista
@@ -23282,6 +23628,7 @@
     fa = فروشگاه
     fi = Juomat
     fr = Boissons
+    hi = पेय पदार्थ
     hu = Italok
     id = Minuman
     it = Bibite
@@ -23319,6 +23666,7 @@
     fa = فروشگاه
     fi = Polkupyöräliike
     fr = Magasin de vélos
+    hi = साइकल की दुकान
     hu = Kerékpár üzlet
     id = Toko sepeda
     it = Negozio di biciclette
@@ -23354,6 +23702,7 @@
     eu = Apustu etxea
     fa = صحافی
     fi = Kustantaja
+    hi = सट्टा लगाने की जगह
     hu = Fogadóiroda
     id = Bandar judi
     it = Centro scommesse
@@ -23389,6 +23738,7 @@
     fa = فروشگاه
     fi = Kirjakauppa
     fr = Librairie
+    hi = किताबों की दुकान
     hu = Könyvesbolt
     id = Toko buku
     it = Libreria
@@ -23426,6 +23776,7 @@
     fa = فروشگاه
     fi = Lihakauppias
     fr = Boucherie
+    hi = कसाई
     hu = Hentes
     id = Tukang daging
     it = Macellaio
@@ -23505,6 +23856,7 @@
     fa = فروشگاه
     fi = Autokauppa
     fr = Concessionnaire automobile
+    hi = गाड़ी के विक्रेता
     hu = Gépkocsi bolt
     id = Toko mobil
     it = Concessionaria
@@ -23542,6 +23894,7 @@
     fa = فروشگاه
     fi = Auton osat
     fr = Pièces de voiture
+    hi = गाड़ी के पुर्जे
     hu = Autó alkatrészek
     id = Bagian mobil
     it = Ricambi auto
@@ -23580,6 +23933,7 @@
     fa = تعمیرگاه ماشین
     fi = Autokorjaamo
     fr = Réparation d'automobiles
+    hi = वाहन मरम्मत की दुकान
     hu = Gépkocsi szervíz
     id = Bengkel mobil
     it = Riparazione auto
@@ -23617,6 +23971,7 @@
     fa = اپاراتی
     fi = Rengashuolto
     fr = Réparation de pneus
+    hi = पहियों की मरम्मत
     hu = Gumiszerviz
     id = Tambal ban
     it = Gommista
@@ -23651,6 +24006,7 @@
     et = Haagiselamute müük
     fi = Matkailu- ja retkeilyautokauppias
     fr = Concessionnaire de caravanes et camping-cars
+    hi = कैंपर डीलर
     nl = Caravan en camper verkoper
     pl = Sklep z karawanami i kamperami
     ru = Продажа автодомов
@@ -23716,6 +24072,7 @@
     fa = فروشگاه
     fi = Kosmetiikkamyymälä
     fr = Droguerie
+    hi = दवा की दुकान
     hu = Drogéria
     id = Toko Bahan Kimia
     it = Negozio di detersivi
@@ -23754,6 +24111,7 @@
     fa = فروشگاه
     fi = Suklaakauppa
     fr = Chocolatier
+    hi = चॉकलेट की दुकान
     hu = Csokoládébolt
     id = Toko Cokelat
     it = Choccolateria
@@ -23791,6 +24149,7 @@
     fa = لباس فروشی
     fi = Vaatekauppa
     fr = Boutique de vêtements
+    hi = कपड़े की दुकान
     hu = Ruhabolt
     id = Toko baju
     it = Negozio di abbigliamento
@@ -23829,6 +24188,7 @@
     fa = فروشگاه
     fi = Kahvikauppa
     fr = Boutique de cafés
+    hi = कॉफी की दुकान
     hu = Kávébolt
     id = Toko kopi
     it = Negozio di caffè
@@ -23867,6 +24227,7 @@
     fa = فروشگاه
     fi = Tietokonekauppa
     fr = Magasin d'informatique
+    hi = कंप्यूटर की दुकान
     hu = Számítógép üzlet
     id = Toko komputer
     it = Negozio di computer
@@ -23905,6 +24266,7 @@
     fa = فروشگاه
     fi = Makeiskauppa
     fr = Confiserie
+    hi = हलवाई की दुकान
     hu = Cukrászüzlet
     id = Penganan
     it = Pasticceria
@@ -23943,6 +24305,7 @@
     fa = فروشگاه
     fi = Lähikauppa
     fr = Supérette
+    hi = सुविधा की दुकान
     hu = Csemegebolt
     id = Mini market
     it = Minimarket
@@ -23980,6 +24343,7 @@
     fa = فروشگاه چاپ و تکثیر
     fi = Painotalo
     fr = Boutique de photocopies
+    hi = फ़ोटोकॉपी की दुकान
     hu = Fénymásoló üzlet
     id = Fotokopi
     it = Copisteria
@@ -24017,6 +24381,7 @@
     fa = فروشگاه
     fi = Kosmetiikka
     fr = Produits de beauté
+    hi = सौंदर्य प्रसाधन की दुकान
     hu = Kozmetikum
     id = Kosmetik
     it = Cosmetici
@@ -24099,6 +24464,7 @@
     fi = Herkkukauppa
     fr = Épicerie fine
     he = תוינדעמ תונח
+    hi = मिठाई की दुकान
     hu = Csemegebolt
     id = Toko Kue
     it = Negozio di specialità gastronomiche
@@ -24136,6 +24502,7 @@
     fa = مرکز خرید
     fi = Tavaratalo
     fr = Grand magasin
+    hi = डिपार्टमेंट स्टोर
     hu = Áruház
     id = Toko serba ada
     it = Grandi magazzini
@@ -24174,6 +24541,7 @@
     fa = فروشگاه
     fi = Rautakauppa
     fr = Magasin de bricolage
+    hi = लौह वस्तुओं की दुकान
     hu = Vaskereskedés
     id = Toko perangkat keras
     it = Ferramenta
@@ -24211,6 +24579,7 @@
     fa = خشک شویی
     fi = Kuivapesula
     fr = Nettoyage à sec
+    hi = ड्राय वॉश
     hu = Ruhatisztító
     id = Cuci Kering
     it = Lavaggio a secco
@@ -24248,6 +24617,7 @@
     fa = فروشگاه
     fi = Elektroniikka
     fr = Magasin d'électroménager
+    hi = इलेक्ट्रॉनिक्स की दुकान
     hu = Elektronika
     id = Elektronik
     it = Negozio di elettronica
@@ -24285,6 +24655,7 @@
     fa = فروشگاه
     fi = Erotiikkaliike
     fr = Boutique érotique
+    hi = कामुक दुकान
     hu = Erotikus bolt
     id = Toko Erotik
     it = Sexy Shop
@@ -24321,6 +24692,7 @@
     fa = فروشگاه
     fi = Kangaskauppa
     fr = Magasin de tissus
+    hi = कपड़े की दुकान
     hu = Szövetbolt
     id = Toko Kain
     it = Merceria
@@ -24361,6 +24733,7 @@
     fi = Maatilaruokakauppa
     fr = Magasin d'alimentation à la ferme
     he = הווחל ןוזמ תונח
+    hi = खेती से उत्पन्न खाद्द की दुकान
     hu = Farm Food Shop
     id = Toko Makanan Pertanian
     it = Negozio di prodotti alimentari della fattoria
@@ -24440,6 +24813,7 @@
     fa = فروشگاه
     fi = Floristi
     fr = Fleuriste
+    hi = फूलवाले की दुकान
     hu = Virágos
     id = Tukang bunga
     it = Fiorista
@@ -24478,6 +24852,7 @@
     fa = مسئول تشییع جنازه
     fi = Hautaustoimisto
     fr = Pompes funèbres
+    hi = अंतिम संस्कार के निदेशक
     hu = Temetkezési vállalkozó
     id = Direktur Pemakaman
     it = Pompe funebri
@@ -24516,6 +24891,7 @@
     fa = فروشگاه
     fi = Huonekalukauppa
     fr = Magasin de meubles
+    hi = फर्नीचर की दुकान
     hu = Bútoráruház
     id = Toko mebel
     it = Negozio di mobili
@@ -24554,6 +24930,7 @@
     fa = فروشگاه
     fi = Taimitarha
     fr = Jardinerie
+    hi = बगीचे की सामग्री की दुकान
     hu = Faiskola
     id = Penitipan anak
     it = Vivaio
@@ -24633,6 +25010,7 @@
     fa = فروشگاه
     fi = Lahjatavaraliike
     fr = Boutique de souvenirs
+    hi = उपहार की दुकान
     hu = Ajándékbolt
     id = Toko hadiah
     it = Negozio di regali
@@ -24670,6 +25048,7 @@
     fa = فروشگاه
     fi = Vihanneskauppias
     fr = Primeur
+    hi = फल-सब्ज़ियों की दुकान
     hu = Zöldséges
     id = Penjual sayuran
     it = Fruttivendolo
@@ -24711,6 +25090,7 @@
     fi = Päivittäistavarakauppa
     fr = Épicerie
     he = תלֶוֹכּמַ
+    hi = किराने की दुकान
     hu = Élelmiszerbolt
     id = Kebutuhan sehari-hari
     it = Drogheria
@@ -24748,6 +25128,7 @@
     fa = ارایشگاه
     fi = Kampaamo
     fr = Coiffeur
+    hi = नाई
     hu = Fodrász
     id = Penata rambut
     it = Parrucchiera
@@ -24820,6 +25201,7 @@
     fi = Terveysruokakauppa
     fr = Magasin d'alimentation diététique
     he = תואירב ןוזמ תונח
+    hi = स्वस्थ भोजन की दुकान
     hu = Egészségügyi élelmiszerbolt
     id = Toko Makanan Kesehatan
     it = Negozio di alimenti naturali
@@ -24945,6 +25327,7 @@
     fi = Taloustavarakauppa
     fr = Magasin d'articles ménagers
     he = תיב ילכל תונח
+    hi = घरेलू सामान की दुकान
     hu = Háztartási bolt
     id = Toko Peralatan Rumah Tangga
     it = Negozio di casalinghi
@@ -24983,6 +25366,7 @@
     fa = طلا فروشی
     fi = Korukauppa
     fr = Bijouterie
+    hi = ज्वैलरी
     hu = Ékszer
     id = Perhiasan
     it = Gioielleria
@@ -25017,6 +25401,7 @@
     fa = دَکهِ
     fi = Kioski
     fr = Kiosque
+    hi = गुमटी
     hu = Trafik
     id = Kios
     it = Chiosco
@@ -25056,6 +25441,7 @@
     fi = Keittiökauppa
     fr = Magasin de cuisine
     he = םיחבטמ תונח
+    hi = रसोई की दुकान
     hu = Konyhabolt
     id = Toko Dapur
     it = Negozio di cucina
@@ -25094,6 +25480,7 @@
     fa = لباس شویی
     fi = Pesula
     fr = Laverie
+    hi = धोबी की दुकान
     hu = Mosoda
     id = Londri
     it = Lavanderia
@@ -25132,6 +25519,7 @@
     fa = فروشگاه
     fi = Ostoskeskus
     fr = Centre commercial
+    hi = शॉपिंग मॉल
     hu = A pláza
     it = Centro commerciale
     ja = モール
@@ -25168,6 +25556,7 @@
     fa = سالن ماساژ
     fi = Hierontahuone
     fr = Salon de massage
+    hi = मालिश घर
     hu = Masszázs szalon
     id = Tempat Pijat
     it = Centro massaggi
@@ -25244,6 +25633,7 @@
     fa = فروشگاه
     fi = Rahan lainaaja
     fr = Magasin
+    hi = हवलदार
     hu = Pénzkölcsönző
     id = Pemberi Pinjaman Uang
     it = Negozio
@@ -25281,6 +25671,7 @@
     fa = فروشگاه
     fi = Moottoripyöräliike
     fr = Magasin de motos
+    hi = मोटरसाइकिल की दुकान
     hu = Motorkerékpár üzlet
     id = Toko Sepeda Motor
     it = Negozio di moto
@@ -25362,6 +25753,7 @@
     fa = فروشگاه
     fi = Levykauppa
     fr = Disquaire
+    hi = रिकॉर्ड की दुकान
     hu = Lemezbolt
     id = Toko musik
     it = Negozio di Dischi
@@ -25400,6 +25792,7 @@
     fa = فروشگاه
     fi = Soittimien kauppa
     fr = Magasin d'instruments de musique
+    hi = संगीत वाद्ययंत्र
     hu = Hangszerbolt
     id = Toko Alat Musik
     it = Negozio di strumenti
@@ -25437,6 +25830,7 @@
     fa = فروشگاه
     fi = Lehtikioski
     fr = Kiosque à journaux
+    hi = अख़बार की दुकान
     hu = Újságárus
     id = Kios Surat Kabar
     it = Edicola
@@ -25474,6 +25868,7 @@
     fa = فروشگاه
     fi = Optikko
     fr = Opticien
+    hi = ऑप्टिशियन
     hu = Optika
     id = Toko kacamata
     it = Ottico
@@ -25511,6 +25906,7 @@
     fa = فروشگاه
     fi = Ulkoiluvarusteet
     fr = Matériel de loisirs de plein air
+    hi = बाहरी उपकरण
     hu = Túrafelszerelés
     id = Peralatan Outdoor
     it = Attrezzatura sportiva
@@ -25593,6 +25989,7 @@
     fi = Leivonnainen
     fr = Pâtisserie
     he = הפאמ
+    hi = पेस्ट्री का दुकान
     hu = Cukrászda
     id = Kue-kue
     it = Pasticcino
@@ -25630,6 +26027,7 @@
     fa = عتیقه فروشی
     fi = Panttilainaamo
     fr = Prêteur sur gages
+    hi = महाजन
     hu = Zálogház
     id = Rumah Gadai
     it = Pegni
@@ -25746,6 +26144,7 @@
     fa = فروشگاه
     fi = Valokuvakauppa
     fr = Matériel de photographie
+    hi = छायाचित्रण की दुकान
     hu = Fénykép üzlet
     id = Studio Foto
     it = Negozio di fotografia
@@ -25867,6 +26266,7 @@
     fa = فروشگاه
     fi = Kalakauppias
     fr = Poissonnier
+    hi = समुद्री भोजन की दुकान
     hu = Halüzlet
     id = Penjual Ikan
     it = Pescivendolo
@@ -25907,6 +26307,7 @@
     fi = Käytetyn tavaran liike
     fr = Boutique d'objets d'occasion
     he = היינש די תונח
+    hi = पुराने सामान की दुकान
     hu = Second Hand Store
     id = Toko Barang bekas
     it = Negozio di articoli usati
@@ -25944,6 +26345,7 @@
     fa = فروشگاه
     fi = Kenkäkauppa
     fr = Magasin de chaussures
+    hi = जूते की दुकान
     hu = Cipőbolt
     id = Toko sepatu
     it = Negozio di scarpe
@@ -25981,6 +26383,7 @@
     fa = فروشگاه
     fi = Urheilukauppa
     fr = Articles de sport
+    hi = खेल का सामान
     hu = Sporteszközök
     id = Barang olahraga
     it = Negozio sportivo
@@ -26018,6 +26421,7 @@
     fa = لوازم التحریر
     fi = Kirjoitustarvikekauppa
     fr = Papeterie
+    hi = लेखन सामग्री की दुकान
     hu = Írószer bolt
     id = Toko Alat Tulis
     it = Cartoleria
@@ -26054,6 +26458,7 @@
     fa = فروشگاه
     fi = Supermarketti
     fr = Supermarché
+    hi = सुपरमार्केट
     hu = Bevásárlóközpont
     it = Supermercato
     ja = スーパーマーケット
@@ -26088,6 +26493,7 @@
     fa = سالن خالکوبی
     fi = Tatuointiliike
     fr = Salon de tatouage
+    hi = टैटू पार्लर
     hu = Tetováló szalon
     id = Tempat Tato
     it = Studio tatuaggi
@@ -26126,6 +26532,7 @@
     fa = فروشگاه
     fi = Teekauppa
     fr = Boutique de thés
+    hi = चाय की दुकान
     hu = Tea bolt
     id = Toko teh
     it = Negozio di tè
@@ -26163,6 +26570,7 @@
     fa = فروشگاه
     fi = Lippumyymälä
     fr = Billetterie
+    hi = टिकट की दुकान
     hu = Jegyiroda
     id = Tempat penjualan karcis
     it = Biglietteria
@@ -26201,6 +26609,7 @@
     fa = فروشگاه
     fi = Lelukauppa
     fr = Magasin de jouets
+    hi = खिलौनों की दुकान
     hu = Játékbolt
     id = Toko mainan
     it = Negozio di giocattoli
@@ -26238,6 +26647,7 @@
     fa = اژانس مسافرتی
     fi = Matkatoimisto
     fr = Agence de voyages
+    hi = यात्रा एजेंसी
     hu = Utazási iroda
     id = Agen Perjalanan Wisata
     it = Agenzia viaggi
@@ -26275,6 +26685,7 @@
     fa = فروشگاه
     fi = Rengasliike
     fr = Magasin de pneus
+    hi = पहियों की दुकान
     hu = Gumi szaküzlet
     id = Toko Ban
     it = Gommista
@@ -26313,6 +26724,7 @@
     fa = فروشگاه
     fi = Halpakauppa
     fr = Bazar
+    hi = छोटी वस्तुओं की सस्ती दूकान
     hu = Vegyeskereskedés
     id = Toko Kelontong
     it = Negozio di accessori
@@ -26351,6 +26763,7 @@
     fa = فروشگاه رسانه‌های تصویری
     fi = Videokauppa
     fr = Boutique de vidéos
+    hi = वीडियो की दुकान
     hu = Videotéka
     id = Toko video
     it = Videoteca
@@ -26390,6 +26803,7 @@
     fa = فروشگاه بازی‌های رایانه‌ای
     fi = Videopelikauppa
     fr = Boutique de jeux vidéo
+    hi = वीडियो गेम की दुकान
     hu = Videojáték bolt
     id = Toko permainan video
     it = Negozio di videogiochi
@@ -26428,6 +26842,7 @@
     fa = فروشگاه
     fi = Alkoholimyymälä
     fr = Caviste
+    hi = शराब की दुकान
     hu = Szeszesital-üzlet
     id = Toko anggur
     it = Enoteca
@@ -26510,6 +26925,7 @@
     fi = Antiikkia
     fr = Antiquités
     he = תוֹקיתִעַ
+    hi = प्राचीन वस्तुओं की दुकान
     hu = Régiségek
     id = Barang antik
     it = Oggetti d'antiquariato
@@ -26593,6 +27009,7 @@
     fi = Taidekauppa
     fr = Boutique d'art
     he = תויונמוא תונח
+    hi = कला की दुकान
     hu = Művészeti Bolt
     id = Toko Seni
     it = Negozio d'arte
@@ -26633,6 +27050,7 @@
     fi = Lasten kauppa
     fr = Magasin de puériculture
     he = םידליל תונח
+    hi = बच्चों के सामान की दुकान
     hu = Bababolt
     id = Toko anak-anak
     it = Negozio per neonati
@@ -26673,6 +27091,7 @@
     fi = Laukkukauppa
     fr = Magasin de sacs
     he = םיקית תונח
+    hi = बैग की दुकान
     hu = Táskák bolt
     id = Toko Tas
     it = Negozio di borse
@@ -26755,6 +27174,7 @@
     fi = Boutique
     fr = Boutique
     he = קיטוב
+    hi = बूटिक
     hu = Butik
     id = Butik
     it = Boutique
@@ -26795,6 +27215,7 @@
     fi = Hyväntekeväisyysmyymälä
     fr = Magasin de charité
     he = הקדצ תונח
+    hi = दान की दुकान
     hu = Jótékonysági Bolt
     id = Toko Amal
     it = Negozio di beneficenza
@@ -26835,6 +27256,7 @@
     fi = Juustokauppa
     fr = Fromagerie
     he = תוניבג תונח
+    hi = पनीर
     hu = Sajtbolt
     id = Toko Keju
     it = Negozio di formaggi
@@ -26876,6 +27298,7 @@
     fi = Käsityöt
     fr = Matériel d'arts et de loisirs créatifs
     he = הריציו תונמוא
+    hi = शिल्पकर्म
     hu = Művészetek és kézművesség
     id = Seni dan kerajinan
     it = Arti e mestieri
@@ -26916,6 +27339,7 @@
     fi = Maitotuotteet
     fr = Crémerie
     he = בלח ירצומ
+    hi = दुग्ध कृषि
     hu = Tejtermékek
     id = Produk susu
     it = Latticini
@@ -26957,6 +27381,7 @@
     fi = Sähköliike
     fr = Magasin de fournitures et d'appareils électriques
     he = למשח תונח
+    hi = बिजली के सामान की दुकान
     hu = Elektronikai üzlet
     id = Toko elektronik
     it = Negozio di articoli elettrici
@@ -26998,6 +27423,7 @@
     fi = Kalastuskauppa
     fr = Magasin de pêche
     he = גייד תונח
+    hi = मछली पकड़ने की दुकान
     hu = Horgászbolt
     id = Toko Memancing
     it = Negozio di pesca
@@ -27039,6 +27465,7 @@
     fi = Sisustuskoristeet
     fr = Décorations intérieures
     he = םינפ יטושיק
+    hi = आंतरिक सजावट
     hu = Belső dekorációk
     id = Dekorasi Interior
     it = Decorazioni per interni
@@ -27079,6 +27506,7 @@
     fi = Lottoliput
     fr = Tickets de loterie
     he = הלרגה יסיטרכ
+    hi = लॉटरी टिकट
     hu = Lottózó
     id = Tiket Lotere
     it = Biglietti della lotteria
@@ -27120,6 +27548,7 @@
     fi = Lääketieteellisiä tarvikkeita
     fr = Materiel médical
     he = יאופר דויצ
+    hi = चिकित्सा की आपूर्ति
     hu = Orvosi eszközök
     id = Suplai medis
     it = Forniture mediche
@@ -27161,6 +27590,7 @@
     fi = Ravintolisät
     fr = Suppléments nutritionnels
     he = הנוזת יפסות
+    hi = पोषण की खुराक
     hu = Táplálékkiegészítők
     id = Suplemen Nutrisi
     it = Integratori Alimentari
@@ -27201,6 +27631,7 @@
     fi = Maalit
     fr = Magasin de peinture
     he = םיעבצ
+    hi = पेंट की दुकान
     hu = Festékek
     id = Cat
     it = Vernici
@@ -27241,6 +27672,7 @@
     fi = Hajuvedet
     fr = Parfumerie
     he = תמַשְׂבָּ
+    hi = सुगंध सामग्री की दुकान
     hu = Illatszerek
     id = Wewangian
     it = Profumeria
@@ -27281,6 +27713,7 @@
     fi = Ompelutarvikkeet
     fr = Mercerie
     he = הריפת דויצ
+    hi = सिलाई आपूर्ति की दुकान
     hu = Varrás kellékek
     id = Perlengkapan Jahit
     it = Forniture per il cucito
@@ -27321,6 +27754,7 @@
     fi = Varastoinnin vuokraus
     fr = Location de stockage
     he = ןוסחא תרכשה
+    hi = किराये के भंडारण गृह
     hu = Tárhely bérlés
     id = Sewa Penyimpanan
     it = Noleggio deposito
@@ -27362,6 +27796,7 @@
     fi = Tupakka
     fr = Bureau de tabac
     he = קבָּטַ
+    hi = तंबाकू की दुकान
     hu = Dohány
     id = Tembakau
     it = Tabaccheria
@@ -27402,6 +27837,7 @@
     fi = Kauppa tarvikkeita
     fr = Grossiste
     he = הקפסאב רחוס
+    hi = व्यापार की आपूर्ति
     hu = Kellékekkel kereskedik
     id = Perlengkapan Perdagangan
     it = Forniture commerciali
@@ -27443,6 +27879,7 @@
     fi = Kellot
     fr = Montres
     he = םינועש
+    hi = घड़ियाँ
     hu = Órák
     id = Jam tangan
     it = Orologeria
@@ -27484,6 +27921,7 @@
     fi = Tukkukauppa
     fr = Magasin de gros
     he = תיאנוטיס תונח
+    hi = थोक सामान की दुकान
     hu = Nagykereskedelmi üzlet
     id = Toko Grosir
     it = Negozio all'ingrosso
@@ -27524,6 +27962,7 @@
     fi = Urheilu
     fr = Sport
     he = ספורט
+    hi = खेल
     hu = Sport
     id = Olahraga
     it = Sport
@@ -27565,6 +28004,7 @@
     fi = Amerikkalainen jalkapallo
     fr = Football américain
     he = כדורגל אמריקאי
+    hi = अमेरिकी फ़ुटबॉल
     hu = Amerikai foci
     id = Sepak Bola Amerika
     it = Football americano
@@ -27607,6 +28047,7 @@
     fi = Jousiammunta
     fr = Tir à l'arc
     he = קַשׁתוּת
+    hi = धनुर्विद्या
     hu = Íjászat
     id = Panahan
     it = Tiro con l'arco
@@ -27646,6 +28087,7 @@
     fa = ورزش
     fi = Yleisurheilu
     fr = Athlétisme
+    hi = एथलेटिक्स
     hu = Atlétika
     id = Atletik
     it = Atletica leggera
@@ -27687,6 +28129,7 @@
     fi = Australialainen jalkapallo
     fr = Football australien
     he = פוטבול אוסטרלי
+    hi = ऑस्ट्रेलियाई फ़ुटबॉल
     hu = Ausztrál futball
     id = Sepak bola Australia
     it = Football australiano
@@ -27723,6 +28166,7 @@
     fi = Baseball
     fr = Base-ball
     he = בייסבול
+    hi = बेसबॉल
     hu = Baseball
     id = Baseball
     it = Baseball
@@ -27762,6 +28206,7 @@
     fa = بسکتبال
     fi = Koripallo
     fr = Basket-ball
+    hi = बास्केटबॉल
     hu = Kosárlabda
     id = Bola basket
     it = Pallacanestro
@@ -27803,6 +28248,7 @@
     fi = Rantalentopallo
     fr = Beach-volley
     he = כדורעף חופים
+    hi = बीच वॉलीबॉल
     hu = Strandröplabda
     id = Voli pantai
     it = Beach volley
@@ -27838,6 +28284,7 @@
     fi = Nurmikeilailu
     fr = Boulingrin
     he = כדורת דשא
+    hi = बाउल्स
     id = Boling lapangan
     it = Bowls
     ja = ローンボウルズ
@@ -27872,6 +28319,7 @@
     fi = Shakki
     fr = Échecs
     he = שחמט
+    hi = शतरंज
     hu = Sakk
     id = Catur
     it = Scacchi
@@ -27909,6 +28357,7 @@
     fi = Kriketti
     fr = Cricket
     he = קריקט
+    hi = क्रिकेट
     hu = Krikett
     id = Kriket
     it = Cricket
@@ -28026,6 +28475,7 @@
     fi = Golf
     fr = Golf
     he = גולף
+    hi = गॉल्फ़
     hu = Golf
     id = Golf
     it = Golf
@@ -28065,6 +28515,7 @@
     fi = Voimistelu
     fr = Gymnastique
     he = התעמלות
+    hi = जिम्नास्टिक्स
     hu = Gimnasztika
     id = Olahraga senam
     it = Ginnastica
@@ -28105,6 +28556,7 @@
     fi = Käsipallo
     fr = Handball
     he = כדוריד
+    hi = हैंडबॉल
     hu = Kézilabda
     id = Bola tangan
     it = Palla a mano
@@ -28229,6 +28681,7 @@
     fi = Ammunta
     fr = Tir sportif
     he = ירי ספורטיבי
+    hi = निशानेबाजी
     hu = Lövés
     id = Penembakan
     it = Tiro
@@ -28309,6 +28762,7 @@
     fi = Hiihto
     fr = Ski
     he = סקי
+    hi = स्कीबाज़ी
     hu = Síelés
     id = Bermain ski
     it = Sciare
@@ -28350,6 +28804,7 @@
     fi = Jalkapallo
     fr = Football
     he = כדורגל
+    hi = फुटबॉल
     hu = Futball
     id = Sepak bola
     it = Calcio
@@ -28431,6 +28886,7 @@
     fi = Pöytätennis
     fr = Tennis de table
     he = טניס שולחן
+    hi = टेबल टेनिस
     hu = Asztalitenisz
     id = Tenis meja
     it = Tennistavolo
@@ -28473,6 +28929,7 @@
     fi = Tenniskenttä
     fr = Court de tennis
     he = טֶנִיס
+    hi = टेनिस
     hu = Teniszpálya
     id = Lapangan tenis
     it = Campo da tennis
@@ -28514,6 +28971,7 @@
     fi = Lentopallo
     fr = Volley-ball
     he = כדורעף
+    hi = वालीबॉल
     hu = Röplabda
     id = Bola voli
     it = Pallavolo
@@ -28675,6 +29133,7 @@
     fi = Jääkiekko
     fr = Hockey sur glace
     he = חרק יקוה
+    hi = आइस हॉकी
     hu = Jéghoki
     id = Hoki es
     it = Hockey su ghiaccio
@@ -28714,6 +29173,7 @@
     fi = Maahockey
     fr = Hockey sur gazon
     he = הדש יקוה
+    hi = मैदानी हॉकी
     hu = Gyeplabda
     id = Hoki Lapangan
     it = Hockey su prato
@@ -28753,6 +29213,7 @@
     fi = Sulkapallo
     fr = Badminton
     he = תיצונ
+    hi = बैडमिंटन
     hu = Tollaslabda
     id = Bulu tangkis
     it = Badminton
@@ -28823,6 +29284,7 @@
     eu = Turismoa
     fi = Turismi
     fr = Tourisme
+    hi = पर्यटन
     it = Turismo
     ja = 観光
     mr = पर्यटन
@@ -28963,6 +29425,7 @@
     fa = گردشگری
     fi = Taideteos
     fr = Œuvre
+    hi = कलाकृति
     hu = Szobor
     id = Pariwisata
     it = Opera d'arte
@@ -29111,6 +29574,7 @@
     fa = گردشگری
     fi = Taideteos
     fr = Œuvre
+    hi = प्रतिमा
     hu = Szobor
     id = Pariwisata
     it = Statua
@@ -29147,6 +29611,7 @@
     eu = Erakarpen turistikoa
     fa = گردشگری
     fi = Nähtävyys
+    hi = पर्यटन स्थल
     hu = Látnivaló
     id = Atraksi
     it = Attrattiva
@@ -29375,6 +29840,7 @@
     fa = هتل
     fi = Hostelli
     fr = Auberge de jeunesse
+    hi = शयनागार
     it = Ostello
     ja = ホステル
     ko = 호스텔
@@ -29405,6 +29871,7 @@
     fa = هتل
     fi = Hotelli
     fr = Hôtel
+    hi = होटल
     hu = Szálloda
     it = Hotel
     ja = ホテル
@@ -29709,6 +30176,7 @@
     fa = گردشگری
     fi = Museo
     fr = Musée
+    hi = संग्रहालय
     hu = Múzeum
     it = Museo
     ja = 博物館
@@ -29922,6 +30390,7 @@
     et = Loomaaed
     fa = گردشگری
     fi = Eläintarha
+    hi = चिड़ियाघर
     hu = Állatkert
     id = Kebun binatang
     it = Giardino zoologico
@@ -30073,6 +30542,7 @@
     et = Kanal
     fa = کانال اب
     fi = Kanaali
+    hi = नहर
     hu = Csatorna
     id = Kanal
     it = Canale
@@ -30107,6 +30577,7 @@
     et = Kanal
     fa = کانال اب
     fi = Kanaali
+    hi = नहर
     hu = Csatorna
     id = Kanal
     it = Canale
@@ -30181,6 +30652,7 @@
     et = Tamm
     fi = Pato
     fr = Barrage
+    hi = बाँध
     it = Diga
     ja = ダム
     mr = धरण
@@ -30268,6 +30740,7 @@
     et = Veetee dokk
     fi = Telakka
     fr = Cale
+    hi = गोदी
     it = Darsena
     ja = ドック
     mr = जलमार्ग गोद
@@ -30357,6 +30830,7 @@
     fa = رودخانه
     fi = Joki
     fr = Rivière
+    hi = नदी
     hu = Folyó
     id = Sungai
     it = Fiume
@@ -30552,6 +31026,7 @@
     fa = گردشگری
     fi = Vesiputous
     fr = Cascade
+    hi = जलप्रपात
     hu = Vízesés
     id = Air terjun
     it = Cascata
@@ -30582,6 +31057,7 @@
     es = Presa
     et = Pais
     fr = Seuil
+    hi = बंधिका
     ja = 堰
     mr = अल्प धरण
     nl = Stuw
@@ -30602,6 +31078,7 @@
     et = Ratastool
     eu = Gurpil-aulkia
     fi = Rullatuoli
+    hi = पहियाकुर्सी
     it = Sedia a rotelle
     ja = 車椅子
     mr = चाकखुर्ची

@@ -717,27 +717,41 @@ void Processor::SearchPlusCode()
   string query(m_query);
   strings::Trim(query);
 
-  string code;
-
   if (openlocationcode::IsFull(query))
   {
-    code = query;
+    openlocationcode::CodeArea const area = openlocationcode::Decode(query);
+    m_emitter.AddResultNoChecks(
+            m_ranker.MakeResult(RankerResult(area.GetCenter().latitude, area.GetCenter().longitude),
+                                true /* needAddress */, false /* needHighlighting */));
   }
   else if (openlocationcode::IsShort(query))
   {
-    if (!m_position)
-      return;
-    ms::LatLon const latLon = mercator::ToLatLon(*m_position);
-    code = openlocationcode::RecoverNearest(query, {latLon.m_lat, latLon.m_lon});
+    string codeFromPos;
+
+    if (m_position)
+    {
+      ms::LatLon const latLonFromPos = mercator::ToLatLon(*m_position);
+      codeFromPos = openlocationcode::RecoverNearest(query, {latLonFromPos.m_lat, latLonFromPos.m_lon});
+      openlocationcode::CodeArea const areaFromPos = openlocationcode::Decode(codeFromPos);
+
+      m_emitter.AddResultNoChecks(
+              m_ranker.MakeResult(RankerResult(areaFromPos.GetCenter().latitude, areaFromPos.GetCenter().longitude),
+                                  true /* needAddress */, false /* needHighlighting */));
+    }
+
+    ms::LatLon const latLonFromView = mercator::ToLatLon(m_viewport.Center());
+    string codeFromView = openlocationcode::RecoverNearest(query, {latLonFromView.m_lat, latLonFromView.m_lon});
+
+    if (codeFromView != codeFromPos)
+    {
+      openlocationcode::CodeArea const areaFromView = openlocationcode::Decode(codeFromView);
+
+      m_emitter.AddResultNoChecks(
+              m_ranker.MakeResult(RankerResult(areaFromView.GetCenter().latitude, areaFromView.GetCenter().longitude),
+                              true /* needAddress */, false /* needHighlighting */));
+    }
   }
 
-  if (code.empty())
-    return;
-
-  openlocationcode::CodeArea const area = openlocationcode::Decode(code);
-  m_emitter.AddResultNoChecks(
-      m_ranker.MakeResult(RankerResult(area.GetCenter().latitude, area.GetCenter().longitude),
-                          true /* needAddress */, false /* needHighlighting */));
   m_emitter.Emit();
 }
 

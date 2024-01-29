@@ -120,7 +120,7 @@ public class PlacePageController extends Fragment implements
     mViewportMinHeight = res.getDimensionPixelSize(R.dimen.viewport_min_height);
     mButtonsHeight = (int) res.getDimension(R.dimen.place_page_buttons_height);
     mMaxButtons = res.getInteger(R.integer.pp_buttons_max);
-    mRoutingHeaderHeight = (int) res.getDimension(ThemeUtils.getResource(requireContext(), R.attr.actionBarSize));
+    mRoutingHeaderHeight = (int) res.getDimension(ThemeUtils.getResource(requireContext(), androidx.appcompat.R.attr.actionBarSize));
 
     mCoordinator = activity.findViewById(R.id.coordinator);
     mPlacePage = view.findViewById(R.id.placepage);
@@ -156,17 +156,13 @@ public class PlacePageController extends Fragment implements
   @NonNull
   private static PlacePageButtons.ButtonType toPlacePageButton(@NonNull RoadWarningMarkType type)
   {
-    switch (type)
+    return switch (type)
     {
-      case DIRTY:
-        return PlacePageButtons.ButtonType.ROUTE_AVOID_UNPAVED;
-      case FERRY:
-        return PlacePageButtons.ButtonType.ROUTE_AVOID_FERRY;
-      case TOLL:
-        return PlacePageButtons.ButtonType.ROUTE_AVOID_TOLL;
-      default:
-        throw new AssertionError("Unsupported road warning type: " + type);
-    }
+      case DIRTY -> PlacePageButtons.ButtonType.ROUTE_AVOID_UNPAVED;
+      case FERRY -> PlacePageButtons.ButtonType.ROUTE_AVOID_FERRY;
+      case TOLL -> PlacePageButtons.ButtonType.ROUTE_AVOID_TOLL;
+      default -> throw new AssertionError("Unsupported road warning type: " + type);
+    };
   }
 
   private void stopCustomPeekHeightAnimation()
@@ -363,42 +359,15 @@ public class PlacePageController extends Fragment implements
   {
     switch (item)
     {
-      case BOOKMARK_SAVE:
-      case BOOKMARK_DELETE:
-        onBookmarkBtnClicked();
-        break;
-
-      case BACK:
-        onBackBtnClicked();
-        break;
-
-      case ROUTE_FROM:
-        onRouteFromBtnClicked();
-        break;
-
-      case ROUTE_TO:
-        onRouteToBtnClicked();
-        break;
-
-      case ROUTE_ADD:
-        onRouteAddBtnClicked();
-        break;
-
-      case ROUTE_REMOVE:
-        onRouteRemoveBtnClicked();
-        break;
-
-      case ROUTE_AVOID_TOLL:
-        onAvoidTollBtnClicked();
-        break;
-
-      case ROUTE_AVOID_UNPAVED:
-        onAvoidUnpavedBtnClicked();
-        break;
-
-      case ROUTE_AVOID_FERRY:
-        onAvoidFerryBtnClicked();
-        break;
+      case BOOKMARK_SAVE, BOOKMARK_DELETE -> onBookmarkBtnClicked();
+      case BACK -> onBackBtnClicked();
+      case ROUTE_FROM -> onRouteFromBtnClicked();
+      case ROUTE_TO -> onRouteToBtnClicked();
+      case ROUTE_ADD -> onRouteAddBtnClicked();
+      case ROUTE_REMOVE -> onRouteRemoveBtnClicked();
+      case ROUTE_AVOID_TOLL -> onAvoidTollBtnClicked();
+      case ROUTE_AVOID_UNPAVED -> onAvoidUnpavedBtnClicked();
+      case ROUTE_AVOID_FERRY -> onAvoidFerryBtnClicked();
     }
   }
 

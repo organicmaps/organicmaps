@@ -57,7 +57,7 @@
           android:layout_height="@dimen/about_logo"
           android:layout_marginStart="@dimen/margin_base"
           android:contentDescription="@string/app_name"
-          android:src="@drawable/logo"
+          app:srcCompat="@drawable/logo"
           app:layout_constraintBottom_toBottomOf="parent"
           app:layout_constraintEnd_toEndOf="parent"
           app:layout_constraintHorizontal_bias="0.5"
@@ -131,7 +131,7 @@
           android:layout_gravity="center"
           android:layout_marginStart="@dimen/margin_base"
           android:contentDescription="@string/openstreetmap"
-          android:src="@drawable/ic_openstreetmap_color"
+          app:srcCompat="@drawable/ic_openstreetmap_color"
           app:layout_constraintBottom_toBottomOf="parent"
           app:layout_constraintStart_toStartOf="parent"
           app:layout_constraintTop_toTopOf="parent" />
