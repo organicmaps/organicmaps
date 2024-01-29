@@ -82,8 +82,11 @@ struct RankingInfo : public StoredRankingInfo
 
   void ToCSV(std::ostream & os) const;
 
-  // Returns rank calculated by a linear model, bigger is better.
-  double GetLinearModelRank() const;
+  /// @param[in]  viewportMode  True, and distance is not included into the final rank.
+  /// @return Rank calculated by a linear model, bigger is better.
+  double GetLinearModelRank(bool viewportMode = false) const;
+
+  static double GetLinearRankViewportThreshold();
 
   double GetErrorsMadePerToken() const;
 

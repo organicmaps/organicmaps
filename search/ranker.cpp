@@ -409,7 +409,7 @@ public:
       info.m_commonTokensFactor = min(3, std::max(0, count - int(info.m_tokenRanges[info.m_type].Size())));
     }
 
-    res.SetRankingInfo(info);
+    res.SetRankingInfo(info, m_isViewportMode);
     if (m_params.m_useDebugInfo)
       res.m_dbgInfo = std::make_shared<RankingInfo>(std::move(info));
 
@@ -779,17 +779,25 @@ void Ranker::UpdateResults(bool lastUpdate)
 
   if (m_params.m_viewportSearch)
   {
-    // Heuristics to filter partially matched category trash in the viewport.
-    // https://github.com/organicmaps/organicmaps/issues/5251
-    auto it = partition(m_tentativeResults.begin(), m_tentativeResults.end(),
-                        [](RankerResult const & r) { return !r.IsPartialCategory(); });
+    // https://github.com/organicmaps/organicmaps/issues/5566
+    /// @todo https://github.com/organicmaps/organicmaps/issues/5251 Should review later
+    // https://github.com/organicmaps/organicmaps/issues/4325
+    // https://github.com/organicmaps/organicmaps/issues/4190
+    // https://github.com/organicmaps/organicmaps/issues/3677
 
-    size_t const goodCount = distance(m_tentativeResults.begin(), it);
-    if (goodCount >= 10 || goodCount * 3 >= m_tentativeResults.size())
-      m_tentativeResults.erase(it, m_tentativeResults.end());
+    auto & resV = m_tentativeResults;
+    auto it = std::max_element(resV.begin(), resV.end(), base::LessBy(&RankerResult::GetLinearModelRank));
+    double const lowestAllowed = it->GetLinearModelRank() - RankingInfo::GetLinearRankViewportThreshold();
 
-    sort(m_tentativeResults.begin(), m_tentativeResults.end(),
-         base::LessBy(&RankerResult::GetDistanceToPivot));
+    it = std::partition(resV.begin(), resV.end(), [lowestAllowed](RankerResult const & r)
+    {
+      return r.GetLinearModelRank() >= lowestAllowed;
+    });
+    if (it != resV.end())
+    {
+      LOG(LDEBUG, ("Removed", std::distance(it, resV.end()), "viewport results."));
+      resV.erase(it, resV.end());
+    }
   }
   else
   {
