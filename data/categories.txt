@@ -918,16 +918,16 @@ fa:میکده|کاباره
 ca:Bar
 
 amenity-cafe|@eat
-en:3Cafe|3restaurant|U+2615|U+1F356|U+1F357|U+1F35A|U+1F35B|U+1F35C|U+1F35D|U+1F363|U+1F366|U+1F367|U+1F368|U+1F369|U+1F370|U+1F372|U+1F374|U+1F377|U+1F60B|U+1F375|bistro|lunch|coffee shop|coffee bar|coffee|canteen|cafeteria|dining room|place to eat|buffet
-ru:3Кафе|3ресторан|кофейня|столовая|кофе
-bg:3Кафе|3ресторант|кафене|столова|бюфет|заведение|ядене|храна
+en:3Cafe|3restaurant|U+2615|U+1F356|U+1F357|U+1F35A|U+1F35B|U+1F35C|U+1F35D|U+1F363|U+1F366|U+1F367|U+1F368|U+1F369|U+1F370|U+1F372|U+1F374|U+1F377|U+1F60B|U+1F375|coffee|cafeteria
+ru:3Кафе|3ресторан|кофейня|кофе
+bg:3Кафе|3ресторант|кафене
 ar:مقهى|مطعم|طعام|قهوة|كافتيريا
 cs:3Kavárna|restaurace|hospoda
 da:3Café|restaurant
 nl:3Tearoom|3brasserie|3café|3restaurant
 fi:2Kahvila
 fr:3Café|3restaurant|3resto
-de:3Café|3Restaurant|4Kaffee|6Kaffeehaus|Kaffeebar|4Bistro|Mittagessen|Kantine|Cafeteria|Esszimmer|Speiselokal|Buffet
+de:3Café|3Restaurant|4Kaffee|6Kaffeehaus|Kaffeebar|Cafeteria
 hi:3कॉफ़ीख़ाना
 hu:3Kávézó|3étterem|3élelmiszer
 id:3Kafe|3restoran
@@ -945,8 +945,8 @@ et:3Kohvik|3restoran
 eu:3Kafetegia|3Jatetxea
 sv:3Café|3restaurang
 th:3 คาเฟ่|ร้านอาหาร่
-tr:4Kafeterya|kafe|restoran|2Cafe|Bistro
-uk:3Кафе|3ресторан|2їжа|2їсти
+tr:4Kafeterya|kafe|restoran|2Cafe
+uk:3Кафе|3ресторан
 vi:Cà phê|quán ăn
 zh-Hans:1咖啡馆่|餐厅|食物
 zh-Hant:2咖啡廳|咖啡|3cafe|餐廳|飲食
@@ -995,16 +995,16 @@ fa:فست فود|غذای حاضری
 ca:Menjar ràpid
 
 amenity-restaurant|@eat
-en:3Restaurant|3cafe|U+1F356|U+1F357|U+1F35A|U+1F35B|U+1F35C|U+1F35D|U+1F363|U+1F366|U+1F367|U+1F368|U+1F369|U+1F370|U+1F372|U+1F374|U+1F377|U+1F60B|diner|place to eat|meals|lunch|dinner|eating house|buffet
-ru:3Ресторан|3кафе|кухня
-bg:3ресторант|3кафе|храна|кухня|обяд|вечеря|заведение|бюфет
+en:3Restaurant|3cafe|U+1F356|U+1F357|U+1F35A|U+1F35B|U+1F35C|U+1F35D|U+1F363|U+1F366|U+1F367|U+1F368|U+1F369|U+1F370|U+1F372|U+1F374|U+1F377|U+1F60B
+ru:3Ресторан|3кафе
+bg:3ресторант|3кафе
 ar:2مطعم|مقهى|طعام
 cs:3Restaurace|hospoda|kavárna
 da:3Restaurant|café
 nl:3Restaurant|3café
 fi:3Ravintola
 fr:3Restaurant|3café|3resto
-de:3Restaurant|3Café|4Gasthaus|Gaststube|Imbiss|6Speiselokal|Mahlzeiten|Mittagessen|Abendessen|Gastwirtschaft|Buffet
+de:3Restaurant|3Café|4Gasthaus|Gaststube|6Speiselokal|Gastwirtschaft
 hi:3रेस्तरां
 hu:3Étterem|3kávézó|3élelmiszer
 id:3Restoran|3kafe
