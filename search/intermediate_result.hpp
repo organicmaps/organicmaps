@@ -122,11 +122,10 @@ public:
   bool IsStreet() const;
 
   StoredRankingInfo const & GetRankingInfo() const { return m_info; }
-  void SetRankingInfo(RankingInfo const & info)
+  void SetRankingInfo(RankingInfo const & info, bool viewportMode)
   {
-    m_finalRank = info.GetLinearModelRank();
+    m_finalRank = info.GetLinearModelRank(viewportMode);
     m_info = info;
-    m_partialCategory = info.m_pureCats && !info.m_allTokensUsed;
   }
 
   FeatureID const & GetID() const { return m_id; }
@@ -139,7 +138,6 @@ public:
 
   double GetDistanceToPivot() const { return m_info.m_distanceToPivot; }
   double GetLinearModelRank() const { return m_finalRank; }
-  bool IsPartialCategory() const { return m_partialCategory; }
 
   bool GetCountryId(storage::CountryInfoGetter const & infoGetter, uint32_t ftype,
                     storage::CountryId & countryId) const;
@@ -181,7 +179,6 @@ private:
 
   StoredRankingInfo m_info;
   std::shared_ptr<RankingInfo> m_dbgInfo;   // used in debug logs and tests, nullptr in production
-  bool m_partialCategory;
 
   FeatureID m_id;
   double m_finalRank;

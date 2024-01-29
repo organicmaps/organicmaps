@@ -43,7 +43,10 @@ public:
       TEST_LESS(beg, end, ());
       TEST_GREATER_OR_EQUAL(v.size(), end, ());
     }
-    explicit Range(ResultsT const & v) : Range(v, 0, kTopPoiResultsCount) {}
+    explicit Range(ResultsT const & v, bool all = false)
+      : Range(v, 0, all ? v.size() : kTopPoiResultsCount)
+    {
+    }
 
     size_t size() const { return m_end - m_beg; }
     auto begin() const { return m_v.begin() + m_beg; }
@@ -1119,6 +1122,31 @@ UNIT_CLASS_TEST(MwmTestsFixture, Pois_Rank)
     TEST_GREATER(results.size(), kTopPoiResultsCount, ());
     EqualClassifType(Range(results, 0, 1), GetClassifTypes({{"leisure", "park"}}));
   }
+
+  // https://github.com/organicmaps/organicmaps/issues/4291
+  {
+    // Greenville, SC
+    ms::LatLon const center(34.8513533, -82.3984875);
+    SetViewportAndLoadMaps(center);
+
+    auto request = MakeRequest("Greenville Hospital");
+    auto const & results = request->Results();
+    TEST_GREATER(results.size(), kTopPoiResultsCount, ());
+
+    // - First is an airport.
+    // - Bus stops in the middle.
+    uint32_t const hospitalType = classif().GetTypeByPath({"amenity", "hospital"});
+    size_t count = 0;
+    for (size_t i = 0; i < kTopPoiResultsCount; ++i)
+    {
+      if (results[i].GetFeatureType() == hospitalType)
+      {
+        ++count;
+        TEST(results[i].GetString().find("Greenville") != std::string::npos, ());
+      }
+    }
+    TEST_GREATER_OR_EQUAL(count, 2, ());
+  }
 }
 
 // "San Francisco" is always an interesting query, because in Latin America there are:
@@ -1141,6 +1169,46 @@ UNIT_CLASS_TEST(MwmTestsFixture, San_Francisco)
 
     TEST_EQUAL(results[1].GetFeatureType(), cl.GetTypeByPath({"place", "city"}), ());
     TEST_LESS(GetDistanceM(results[1], center), 4.2E6, ());
+  }
+}
+
+UNIT_CLASS_TEST(MwmTestsFixture, Opfikon_Viewport)
+{
+  auto const & cl = classif();
+
+  // Opfikon, Zurich
+  ms::LatLon const center(47.42404, 8.5667463);
+  SetViewportAndLoadMaps(center);
+
+  auto params = GetDefaultSearchParams("ofikon");     // spelling error
+  params.m_mode = search::Mode::Viewport;
+  params.m_maxNumResults = search::SearchParams::kDefaultNumResultsInViewport;
+
+  {
+    params.m_viewport = { 8.5418196173686862238, 53.987953174041166449, 8.5900051973703153152, 54.022951994627547379 };
+
+    auto request = MakeRequest(params);
+    auto const & results = request->Results();
+    TEST_GREATER(results.size(), kPopularPoiResultsCount, ());
+
+    Range allRange(results, true /* all */);
+    // Top result by linear rank.
+    TEST_EQUAL(CountClassifType(allRange, cl.GetTypeByPath({"place", "town"})), 1, ());
+    // Important to check that we don't show alt_name matching in viewport.
+    TEST_EQUAL(CountClassifType(allRange, cl.GetTypeByPath({"shop"})), 1, ());
+
+    // Results with lowest rank.
+    TEST_EQUAL(CountClassifType(allRange, cl.GetTypeByPath({"barrier"})), 1, ());
+    TEST_EQUAL(CountClassifType(allRange, cl.GetTypeByPath({"power", "substation"})), 1, ());
+
+    // They are exist if there are no displacement (m_minDistanceOnMapBetweenResults == {0,0})
+    TEST_EQUAL(CountClassifType(allRange, cl.GetTypeByPath({"tourism"})), 2, ());
+
+    TEST_EQUAL(CountClassifType(allRange, cl.GetTypeByPath({"highway", "bus_stop"})), 3, ());
+    TEST_EQUAL(CountClassifType(allRange, cl.GetTypeByPath({"leisure"})), 3, ());
+
+    TEST_GREATER(CountClassifType(allRange, cl.GetTypeByPath({"highway"})), 8, ());
+    TEST_GREATER(CountClassifType(allRange, cl.GetTypeByPath({"amenity"})), 12, ());
   }
 }
 

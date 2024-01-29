@@ -42,7 +42,14 @@ double constexpr kErrorsMade = -0.4;
 double constexpr kMatchedFraction = 0.1876736;
 double constexpr kAllTokensUsed = 0.0478513;
 double constexpr kCommonTokens = -0.05;
-double constexpr kAltOldName = -0.25;     // Some reasonable penalty like kErrorsMade.
+double constexpr kAltOldName = -0.3;    // Some reasonable penalty like kErrorsMade.
+
+// Some thoughts about reasonable diff here:
+// - should be a bit less than fabs(kAltOldName) to filter non-obvious matching
+// - should be greater than fabs(kErrorsMade) / 2
+// - shoulbe be comparable with kRank to keep cities/towns
+double constexpr kViewportDiffThreshold = 0.29;
+static_assert(kViewportDiffThreshold < -kAltOldName && kViewportDiffThreshold > -kErrorsMade / 2);
 
 double constexpr kNameScore[] = {
  -0.05,   // Zero
@@ -348,7 +355,12 @@ void RankingInfo::ToCSV(ostream & os) const
   os << (m_hasName ? 1 : 0);
 }
 
-double RankingInfo::GetLinearModelRank() const
+double RankingInfo::GetLinearRankViewportThreshold()
+{
+  return kViewportDiffThreshold;
+}
+
+double RankingInfo::GetLinearModelRank(bool viewportMode /* = false */) const
 {
   double const distanceToPivot = TransformDistance(m_distanceToPivot);
   double const rank = static_cast<double>(m_rank) / numeric_limits<uint8_t>::max();
@@ -357,7 +369,9 @@ double RankingInfo::GetLinearModelRank() const
   double result = 0.0;
   if (!m_categorialRequest)
   {
-    result += kDistanceToPivot * distanceToPivot;
+    if (!viewportMode)
+      result += kDistanceToPivot * distanceToPivot;
+
     result += kRank * rank;
     if (m_falseCats)
       result += kFalseCats;
@@ -395,7 +409,9 @@ double RankingInfo::GetLinearModelRank() const
   }
   else
   {
-    result += kCategoriesDistanceToPivot * distanceToPivot;
+    if (!viewportMode)
+      result += kCategoriesDistanceToPivot * distanceToPivot;
+
     result += kCategoriesRank * rank;
     result += kCategoriesPopularity * popularity;
     if (m_falseCats)
