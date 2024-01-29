@@ -82,7 +82,7 @@ public class PlacePageUtils
     Utils.copyTextToClipboard(context, text);
 
     KeyguardManager keyguardManager = (KeyguardManager) context.getSystemService(Context.KEYGUARD_SERVICE);
-    //only show snackBar if device is locked or android sdk is earlier than TIRAMISU.
+    // Starting from API 33, the automatic system control that shows copied text is displayed.
     if (Build.VERSION.SDK_INT < Build.VERSION_CODES.TIRAMISU || keyguardManager.isDeviceLocked())
     {
       Utils.showSnackbarAbove(frame.getRootView().findViewById(R.id.pp_buttons_layout), frame,
