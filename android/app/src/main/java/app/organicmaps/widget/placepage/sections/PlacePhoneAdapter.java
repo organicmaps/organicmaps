@@ -1,5 +1,6 @@
 package app.organicmaps.widget.placepage.sections;
 
+import android.app.KeyguardManager;
 import android.content.Context;
 import android.os.Build;
 import android.text.TextUtils;
@@ -43,7 +44,7 @@ public class PlacePhoneAdapter extends RecyclerView.Adapter<PlacePhoneAdapter.Vi
   public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType)
   {
     return new ViewHolder(LayoutInflater.from(parent.getContext())
-        .inflate(R.layout.place_page_phone_item, parent, false));
+                                        .inflate(R.layout.place_page_phone_item, parent, false));
   }
 
   @Override
@@ -88,7 +89,10 @@ public class PlacePhoneAdapter extends RecyclerView.Adapter<PlacePhoneAdapter.Vi
       final String phoneNumber = mPhone.getText().toString();
       final Context ctx = view.getContext();
       Utils.copyTextToClipboard(ctx, phoneNumber);
-      if (Build.VERSION.SDK_INT < Build.VERSION_CODES.TIRAMISU)
+
+      KeyguardManager keyguardManager = (KeyguardManager) ctx.getSystemService(Context.KEYGUARD_SERVICE);
+      //only show snackBar if device is locked or android sdk is earlier than TIRAMISU.
+      if (Build.VERSION.SDK_INT < Build.VERSION_CODES.TIRAMISU || keyguardManager.isDeviceLocked())
       {
         Utils.showSnackbarAbove(view.getRootView().findViewById(R.id.pp_buttons_layout), view,
                                 ctx.getString(R.string.copied_to_clipboard, phoneNumber));

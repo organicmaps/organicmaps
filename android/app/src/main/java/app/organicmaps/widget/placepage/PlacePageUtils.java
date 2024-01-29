@@ -1,5 +1,6 @@
 package app.organicmaps.widget.placepage;
 
+import android.app.KeyguardManager;
 import android.content.Context;
 import android.os.Build;
 import android.view.Menu;
@@ -79,7 +80,10 @@ public class PlacePageUtils
   public static void copyToClipboard(Context context, View frame, String text)
   {
     Utils.copyTextToClipboard(context, text);
-    if (Build.VERSION.SDK_INT < Build.VERSION_CODES.TIRAMISU)
+
+    KeyguardManager keyguardManager = (KeyguardManager) context.getSystemService(Context.KEYGUARD_SERVICE);
+    //only show snackBar if device is locked or android sdk is earlier than TIRAMISU.
+    if (Build.VERSION.SDK_INT < Build.VERSION_CODES.TIRAMISU || keyguardManager.isDeviceLocked())
     {
       Utils.showSnackbarAbove(frame.getRootView().findViewById(R.id.pp_buttons_layout), frame,
                               context.getString(R.string.copied_to_clipboard, text));
