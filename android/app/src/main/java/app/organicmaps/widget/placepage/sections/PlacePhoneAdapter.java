@@ -18,6 +18,7 @@ import java.util.ArrayList;
 
 public class PlacePhoneAdapter extends RecyclerView.Adapter<PlacePhoneAdapter.ViewHolder>
 {
+
   private ArrayList<String> mPhoneData = new ArrayList<>();
 
   public PlacePhoneAdapter() {}
@@ -43,7 +44,7 @@ public class PlacePhoneAdapter extends RecyclerView.Adapter<PlacePhoneAdapter.Vi
   public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType)
   {
     return new ViewHolder(LayoutInflater.from(parent.getContext())
-                                        .inflate(R.layout.place_page_phone_item, parent, false));
+        .inflate(R.layout.place_page_phone_item, parent, false));
   }
 
   @Override
@@ -90,7 +91,6 @@ public class PlacePhoneAdapter extends RecyclerView.Adapter<PlacePhoneAdapter.Vi
       Utils.copyTextToClipboard(ctx, phoneNumber);
 
       KeyguardManager keyguardManager = (KeyguardManager) ctx.getSystemService(Context.KEYGUARD_SERVICE);
-      //only show snackBar if device is locked or android sdk is earlier than TIRAMISU.
       if (Build.VERSION.SDK_INT < Build.VERSION_CODES.TIRAMISU || keyguardManager.isDeviceLocked())
       {
         Utils.showSnackbarAbove(view.getRootView().findViewById(R.id.pp_buttons_layout), view,

@@ -140,7 +140,6 @@ public class PlacePageBookmarkFragment extends Fragment implements View.OnClickL
     Utils.copyTextToClipboard(ctx, notes);
 
     KeyguardManager keyguardManager = (KeyguardManager) ctx.getSystemService(Context.KEYGUARD_SERVICE);
-    //only show snackBar if device is locked or android sdk is earlier than TIRAMISU.
     if (Build.VERSION.SDK_INT < Build.VERSION_CODES.TIRAMISU || keyguardManager.isDeviceLocked())
     {
       Utils.showSnackbarAbove(mFrame.getRootView().findViewById(R.id.pp_buttons_layout), mFrame,
