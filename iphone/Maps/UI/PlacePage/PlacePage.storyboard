@@ -629,8 +629,8 @@
                                     <userDefinedRuntimeAttribute type="string" keyPath="coloring" value="MWMBlack"/>
                                 </userDefinedRuntimeAttributes>
                             </imageView>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" horizontalCompressionResistancePriority="250" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="8eU-Fj-XRv" customClass="CopyLabel" customModule="Organic_Maps" customModuleProvider="target">
-                                <rect key="frame" x="56" y="0.0" width="287" height="44"/>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" horizontalCompressionResistancePriority="250" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="8eU-Fj-XRv" customClass="CopyLabel" customModule="Organic_Maps" customModuleProvider="target">
+                                <rect key="frame" x="56" y="10" width="287" height="24"/>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <nil key="textColor"/>
@@ -655,15 +655,16 @@
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                         <gestureRecognizers/>
                         <constraints>
-                            <constraint firstAttribute="bottom" secondItem="l7d-ck-nSv" secondAttribute="bottom" id="AV5-Tu-LK4"/>
-                            <constraint firstAttribute="bottom" secondItem="8eU-Fj-XRv" secondAttribute="bottom" id="Cu6-uK-4Ox"/>
+                            <constraint firstItem="l7d-ck-nSv" firstAttribute="centerY" secondItem="oz0-2o-icQ" secondAttribute="centerY" id="6b5-ly-VY4"/>
+                            <constraint firstAttribute="bottom" relation="greaterThanOrEqual" secondItem="l7d-ck-nSv" secondAttribute="bottom" id="AV5-Tu-LK4"/>
+                            <constraint firstAttribute="bottom" secondItem="8eU-Fj-XRv" secondAttribute="bottom" constant="10" id="Cu6-uK-4Ox"/>
                             <constraint firstItem="onF-JL-5dZ" firstAttribute="leading" secondItem="8eU-Fj-XRv" secondAttribute="trailing" id="Y7d-Lw-sIv"/>
                             <constraint firstItem="l7d-ck-nSv" firstAttribute="leading" secondItem="oz0-2o-icQ" secondAttribute="leading" id="ZKa-Nx-mMv"/>
                             <constraint firstItem="8eU-Fj-XRv" firstAttribute="leading" secondItem="l7d-ck-nSv" secondAttribute="trailing" id="fPc-6Q-inb"/>
-                            <constraint firstItem="l7d-ck-nSv" firstAttribute="top" secondItem="oz0-2o-icQ" secondAttribute="top" id="mvH-dY-Evu"/>
+                            <constraint firstItem="l7d-ck-nSv" firstAttribute="top" relation="greaterThanOrEqual" secondItem="oz0-2o-icQ" secondAttribute="top" id="mvH-dY-Evu"/>
                             <constraint firstItem="xdh-hy-Bxo" firstAttribute="trailing" secondItem="onF-JL-5dZ" secondAttribute="trailing" constant="8" id="oIb-Tv-InY"/>
                             <constraint firstItem="onF-JL-5dZ" firstAttribute="centerY" secondItem="oz0-2o-icQ" secondAttribute="centerY" id="sxb-OB-j2b"/>
-                            <constraint firstItem="8eU-Fj-XRv" firstAttribute="top" secondItem="oz0-2o-icQ" secondAttribute="top" id="wix-sM-o7T"/>
+                            <constraint firstItem="8eU-Fj-XRv" firstAttribute="top" secondItem="oz0-2o-icQ" secondAttribute="top" constant="10" id="wix-sM-o7T"/>
                         </constraints>
                         <userDefinedRuntimeAttributes>
                             <userDefinedRuntimeAttribute type="string" keyPath="styleName" value="Background"/>
