@@ -43,10 +43,11 @@
       card_view:cardCornerRadius="2dp"
       card_view:cardElevation="4dp">
 
-      <RelativeLayout
+      <LinearLayout
         android:id="@+id/examples"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:orientation="vertical"
         android:animateLayoutChanges="true">
 
         <TextView
@@ -64,17 +65,15 @@
         <View
           android:layout_width="match_parent"
           android:layout_height="1dp"
-          android:layout_below="@id/tv__examples_title"
-          android:background="?dividerHorizontal"/>
+          android:background="?dividerHorizontal" />
 
         <WebView
           android:id="@+id/wv__examples"
           android:layout_width="match_parent"
           android:layout_height="wrap_content"
-          android:layout_below="@id/tv__examples_title"
           android:padding="@dimen/margin_base"/>
 
-      </RelativeLayout>
+      </LinearLayout>
 
     </androidx.cardview.widget.CardView>
 
