@@ -135,7 +135,7 @@ public class EditBookmarkFragment extends BaseMwmDialogFragment implements View.
     final ImageView imageView = toolbar.findViewById(R.id.save);
     imageView.setOnClickListener(v -> saveBookmark());
     UiUtils.showHomeUpButton(toolbar);
-    toolbar.setTitle(R.string.description);
+    toolbar.setTitle(R.string.placepage_edit_bookmark_button);
     toolbar.setNavigationOnClickListener(v -> dismiss());
   }
 
