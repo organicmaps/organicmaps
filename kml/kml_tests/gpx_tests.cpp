@@ -262,4 +262,11 @@ d5
   TEST_EQUAL("qqq", dataFromText.m_bookmarksData[4].m_description.at(kml::kDefaultLang), ());
 }
 
+UNIT_TEST(OpentracksColor)
+{
+  kml::FileData dataFromFile = loadGpxFromFile("gpx_test_data/opentracks_color.gpx");
+  uint32_t const expected = 0xC0C0C0FF;
+  TEST_EQUAL(expected, dataFromFile.m_tracksData[0].m_layers[0].m_color.m_rgba, ());
+}
+
 }  // namespace gpx_tests
