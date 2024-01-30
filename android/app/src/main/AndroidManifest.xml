@@ -150,6 +150,7 @@
         <data android:mimeType="application/vnd.google-earth.kmz"/>
         <data android:mimeType="application/gpx"/>
         <data android:mimeType="application/gpx+xml"/>
+        <data android:mimeType="application/vnd.google-earth.kmz+xml"/>
       </intent-filter>
 
       <intent-filter>
@@ -159,6 +160,7 @@
         <data android:mimeType="application/vnd.google-earth.kmz"/>
         <data android:mimeType="application/gpx"/>
         <data android:mimeType="application/gpx+xml"/>
+        <data android:mimeType="application/vnd.google-earth.kmz+xml"/>
       </intent-filter>
 
       <intent-filter>
