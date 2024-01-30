@@ -426,12 +426,10 @@ void RoutingSession::GetRouteFollowingInfo(FollowingInfo & info) const
   info.m_completionPercent = GetCompletionPercent();
 
   // Lane information and next street name.
+  info.m_displayedStreetName = info.m_targetName;
   info.m_lanes.clear();
   if (distanceToTurnMeters < kShowLanesMinDistInMeters || m_route->GetCurrentTimeToNearestTurnSec() < 60.0)
   {
-    // Always show next turn street name within a certain distance or a certain time before getting to it
-    info.m_displayedStreetName = info.m_targetName;
-
     // There are two nested loops below. Outer one is for lanes and inner one (ctor of
     // SingleLaneInfo) is
     // for each lane's directions. The size of turn.m_lanes is relatively small. Less than 10 in
@@ -439,16 +437,6 @@ void RoutingSession::GetRouteFollowingInfo(FollowingInfo & info) const
     info.m_lanes.reserve(turn.m_lanes.size());
     for (size_t j = 0; j < turn.m_lanes.size(); ++j)
       info.m_lanes.emplace_back(turn.m_lanes[j]);
-  }
-  else if (m_isLandscape)
-  {
-    // In landscape mode, don't show the next turn street name by default
-    info.m_displayedStreetName = "";
-  }
-  else
-  {
-    // In portrait mode, always show the next turn street name
-    info.m_displayedStreetName = info.m_targetName;
   }
 
   // Pedestrian info.
