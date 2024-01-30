@@ -728,12 +728,6 @@ void RoutingSession::SetTurnNotificationsUnits(measurement_utils::Units const un
   m_turnNotificationsMgr.SetLengthUnits(units);
 }
 
-void RoutingSession::SetIsLandscape(bool isLandscape)
-{
-  CHECK_THREAD_CHECKER(m_threadChecker, ());
-  m_isLandscape = isLandscape;
-}
-
 void RoutingSession::SetTurnNotificationsLocale(std::string const & locale)
 {
   CHECK_THREAD_CHECKER(m_threadChecker, ());
