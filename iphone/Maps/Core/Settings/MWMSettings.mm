@@ -92,6 +92,23 @@ NSString * const kUDTrackWarningAlertWasShown = @"TrackWarningAlertWasShown";
 {
   if ([self theme] == theme)
     return;
+  if (@available(iOS 13.0, *)) {
+    UIUserInterfaceStyle style;
+    switch (theme) {
+      case MWMThemeDay:
+      case MWMThemeVehicleDay:
+        style = UIUserInterfaceStyleLight;
+        break;
+      case MWMThemeNight:
+      case MWMThemeVehicleNight:
+        style = UIUserInterfaceStyleDark;
+        break;
+      case MWMThemeAuto:
+        style = UIUserInterfaceStyleUnspecified;
+        break;
+    }
+    UIApplication.sharedApplication.delegate.window.overrideUserInterfaceStyle = style;
+  }
   auto ud = NSUserDefaults.standardUserDefaults;
   [ud setInteger:theme forKey:kThemeMode];
   BOOL const autoOff = theme != MWMThemeAuto;

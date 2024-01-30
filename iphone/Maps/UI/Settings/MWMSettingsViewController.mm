@@ -162,23 +162,7 @@ using namespace power_management;
   [self.compassCalibrationCell configWithDelegate:self
                                             title:L(@"pref_calibration_title")
                                              isOn:[MWMSettings compassCalibrationEnabled]];
-}
 
-- (void)show3dBuildingsAlert:(UITapGestureRecognizer *)recognizer {
-  UIAlertController *alert =
-  [UIAlertController alertControllerWithTitle:L(@"pref_map_3d_buildings_title")
-                                      message:L(@"pref_map_3d_buildings_disabled_summary")
-                               preferredStyle:UIAlertControllerStyleAlert];
-
-  UIAlertAction *okButton = [UIAlertAction actionWithTitle:@"OK"
-                                                      style:UIAlertActionStyleDefault
-                                                    handler:nil];
-  [alert addAction:okButton];
-
-  [self presentViewController:alert animated:YES completion:nil];
-}
-
-- (void)configNavigationSection {
   NSString *nightMode = nil;
   switch ([MWMSettings theme]) {
     case MWMThemeVehicleDay:
@@ -196,7 +180,23 @@ using namespace power_management;
       break;
   }
   [self.nightModeCell configWithTitle:L(@"pref_map_style_title") info:nightMode];
+}
 
+- (void)show3dBuildingsAlert:(UITapGestureRecognizer *)recognizer {
+  UIAlertController *alert =
+  [UIAlertController alertControllerWithTitle:L(@"pref_map_3d_buildings_title")
+                                      message:L(@"pref_map_3d_buildings_disabled_summary")
+                               preferredStyle:UIAlertControllerStyleAlert];
+
+  UIAlertAction *okButton = [UIAlertAction actionWithTitle:@"OK"
+                                                      style:UIAlertActionStyleDefault
+                                                    handler:nil];
+  [alert addAction:okButton];
+
+  [self presentViewController:alert animated:YES completion:nil];
+}
+
+- (void)configNavigationSection {
   bool _ = true, on = true;
   auto &f = GetFramework();
   f.Load3dMode(on, _);

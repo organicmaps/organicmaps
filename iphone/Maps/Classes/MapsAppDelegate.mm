@@ -410,9 +410,6 @@ using namespace osm_auth_ios;
 - (void)application:(UIApplication *)application
   didConnectCarInterfaceController:(CPInterfaceController *)interfaceController
            toWindow:(CPWindow *)window API_AVAILABLE(ios(12.0)) {
-  if (@available(iOS 13.0, *)) {
-    window.overrideUserInterfaceStyle = UIUserInterfaceStyleUnspecified;
-  }
   [self.carplayService setupWithWindow:window interfaceController:interfaceController];
   [self updateAppearanceFromWindow:self.window toWindow:window isCarplayActivated:YES];
 }

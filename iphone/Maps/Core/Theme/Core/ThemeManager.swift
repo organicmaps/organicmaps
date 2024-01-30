@@ -4,19 +4,9 @@ final class ThemeManager: NSObject {
 
   private static let instance = ThemeManager()
   private weak var timer: Timer?
-  private var isDarkModeEnabled: Bool = false
-  private static let enableDarkModeBySystem = false
 
   private override init() {
     super.init()
-    if #available(iOS 13.0, *) {
-      MapsAppDelegate.theApp().window.overrideUserInterfaceStyle = .light
-    }
-  }
-
-  @objc static func setDarkModeEnabled(_ val: Bool) {
-    instance.isDarkModeEnabled = val
-    instance.update(theme: Settings.theme())
   }
 
   private func update(theme: MWMTheme) {
@@ -28,7 +18,8 @@ final class ThemeManager: NSObject {
       case .night: fallthrough
       case .vehicleNight: return isVehicleRouting ? .vehicleNight : .night
       case .auto:
-        if #available(iOS 13.0, *), ThemeManager.enableDarkModeBySystem {
+        if #available(iOS 13.0, *) {
+          let isDarkModeEnabled = UIScreen.main.traitCollection.userInterfaceStyle == .dark
           guard isVehicleRouting else { return isDarkModeEnabled ? .night : .day }
           return isDarkModeEnabled ? .vehicleNight : .vehicleDay
         } else {

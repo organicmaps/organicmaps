@@ -22,9 +22,7 @@
   self.navigationItem.leftBarButtonItem.tintColor = [UIColor whitePrimaryText];
   self.navigationItem.rightBarButtonItem.tintColor = [UIColor whitePrimaryText];
 
-  if (@available(iOS 13.0, *)) {
-    [MWMThemeManager setDarkModeEnabled: self.traitCollection.userInterfaceStyle == UIUserInterfaceStyleDark];
-  }
+  [MWMThemeManager invalidate];
 }
 
 - (void)navigationController:(UINavigationController *)navigationController
@@ -68,11 +66,8 @@
 - (void)traitCollectionDidChange:(UITraitCollection *)previousTraitCollection
 {
   [super traitCollectionDidChange: previousTraitCollection];
-  if (@available(iOS 13.0, *)) {
-    if (self.traitCollection.userInterfaceStyle != previousTraitCollection.userInterfaceStyle) {
-      [MWMThemeManager setDarkModeEnabled: self.traitCollection.userInterfaceStyle == UIUserInterfaceStyleDark];
-    }
-  }
+  // Update the app theme when the device appearance is changing.
+  [MWMThemeManager invalidate];
 }
 
 - (BOOL)shouldAutorotate
