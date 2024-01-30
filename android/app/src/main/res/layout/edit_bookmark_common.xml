@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout
+<androidx.constraintlayout.widget.ConstraintLayout
   xmlns:android="http://schemas.android.com/apk/res/android"
   xmlns:app="http://schemas.android.com/apk/res-auto"
   xmlns:tools="http://schemas.android.com/tools"
@@ -14,7 +14,8 @@
     android:layout_height="wrap_content"
     android:layout_marginStart="@dimen/margin_half"
     android:layout_marginEnd="@dimen/margin_half"
-    android:orientation="vertical">
+    android:orientation="vertical"
+    app:layout_constraintTop_toTopOf="parent">
     <com.google.android.material.textfield.TextInputLayout
       android:id="@+id/edit_bookmark_name_input"
       style="?fontBody1"
@@ -39,8 +40,9 @@
     android:id="@+id/rl__bookmark_set"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:layout_below="@id/ll__bookmark_name"
-    android:layout_marginStart="@dimen/margin_half_plus">
+    app:layout_constraintTop_toBottomOf="@+id/ll__bookmark_name"
+    android:layout_marginStart="@dimen/margin_half"
+    android:layout_marginEnd="@dimen/margin_half">
     <TextView
       android:id="@+id/tv__bookmark_set_title"
       android:layout_width="match_parent"
@@ -87,7 +89,8 @@
     android:layout_height="wrap_content"
     android:layout_below="@id/rl__bookmark_set"
     android:layout_margin="@dimen/margin_half"
-    android:textColorHint="?android:textColorSecondary">
+    android:textColorHint="?android:textColorSecondary"
+    app:layout_constraintTop_toBottomOf="@+id/rl__bookmark_set">
     <com.google.android.material.textfield.TextInputEditText
       android:id="@+id/et__description"
       style="@style/MwmWidget.PlacePage.EditText"
@@ -97,4 +100,4 @@
       android:hint="@string/edit_description_hint"
       android:inputType="textMultiLine" />
   </com.google.android.material.textfield.TextInputLayout>
-</RelativeLayout>
+</androidx.constraintlayout.widget.ConstraintLayout>
