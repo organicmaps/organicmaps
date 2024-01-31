@@ -496,22 +496,27 @@ AttractionsChecker::AttractionsChecker() : BaseChecker(2 /* level */)
       {"historic", "archaeological_site"},
       {"historic", "boundary_stone"},
       {"historic", "castle"},
+      {"historic", "city_gate"},
+      {"historic", "citywalls"},
       {"historic", "fort"},
+      {"historic", "gallows"},
       {"historic", "memorial"},
       {"historic", "monument"},
+      {"historic", "pillory"},
       {"historic", "ruins"},
       {"historic", "ship"},
       {"historic", "tomb"},
       {"historic", "wayside_cross"},
       {"historic", "wayside_shrine"},
       {"landuse", "cemetery"},
+      {"leisure", "beach_resort"},
       {"leisure", "garden"},
+      {"leisure", "marina"},
       {"leisure", "nature_reserve"},
       {"leisure", "park"},
       {"leisure", "water_park"},
       {"man_made", "lighthouse"},
       {"man_made", "windmill"},
-      //{"man_made", "tower"},
       {"natural", "beach"},
       {"natural", "cave_entrance"},
       {"natural", "geyser"},
@@ -520,6 +525,7 @@ AttractionsChecker::AttractionsChecker() : BaseChecker(2 /* level */)
       {"natural", "peak"},
       {"natural", "volcano"},
       {"place", "square"},
+      {"tourism", "aquarium"},
       {"tourism", "artwork"},
       {"tourism", "museum"},
       {"tourism", "gallery"},
@@ -531,10 +537,7 @@ AttractionsChecker::AttractionsChecker() : BaseChecker(2 /* level */)
   Classificator const & c = classif();
 
   for (auto const & e : primaryAttractionTypes)
-  {
-    auto const type = c.GetTypeByPath(e);
-    m_types.push_back(type);
-  }
+    m_types.push_back(c.GetTypeByPath(e));
   sort(m_types.begin(), m_types.end());
   m_additionalTypesStart = m_types.size();
 
@@ -545,10 +548,7 @@ AttractionsChecker::AttractionsChecker() : BaseChecker(2 /* level */)
   };
 
   for (auto const & e : additionalAttractionTypes)
-  {
-    auto const type = c.GetTypeByPath(e);
-    m_types.push_back(type);
-  }
+    m_types.push_back(c.GetTypeByPath(e));
   sort(m_types.begin() + m_additionalTypesStart, m_types.end());
 }
 

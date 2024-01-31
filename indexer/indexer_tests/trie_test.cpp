@@ -19,10 +19,10 @@
 
 #include <boost/utility/binary.hpp>
 
+namespace trie_test
+{
 using namespace std;
 
-namespace
-{
 struct ChildNodeInfo
 {
   ChildNodeInfo(bool isLeaf, uint32_t size, char const * edge) : m_isLeaf(isLeaf), m_size(size)
@@ -108,7 +108,6 @@ public:
 private:
   vector<Value> m_values;
 };
-}  //  namespace
 
 #define ZENC bits::ZigZagEncode
 #define MKSC(x) static_cast<signed char>(x)
@@ -223,3 +222,5 @@ UNIT_TEST(TrieBuilder_Build)
     }
   }
 }
+
+} // namespace trie_test
