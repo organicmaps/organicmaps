@@ -474,7 +474,8 @@ IsPoiChecker::IsPoiChecker() : BaseChecker(1 /* level */)
     "historic",
     "railway",
     "highway",
-    "aeroway"
+    "aeroway",
+    "healthcare",
   };
 
   for (auto const & type : poiTypes)
