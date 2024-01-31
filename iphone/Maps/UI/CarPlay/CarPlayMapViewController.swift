@@ -201,6 +201,7 @@ final class CarPlayMapViewController: MWMViewController {
 
   override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
     super.traitCollectionDidChange(previousTraitCollection)
+    // Triggers the map style updating when CarPlay's 'Appearance' setting is changed.
     ThemeManager.invalidate()
   }
 
