@@ -2801,12 +2801,12 @@
     az = Ərzaq mağazası
     be = Прадукты
     bg = Продукти
-    ca = Alimentació
+    ca = Queviures
     cs = Potraviny
     da = Dagligvarer
     de = Lebensmittel
     el = Παντοπωλεία
-    es = Alimentación
+    es = Provisiones
     et = Toidukaubad
     eu = Janari-denda
     fa = عطاری
@@ -2893,7 +2893,7 @@
     az = Yanacaq doldurma məntəqəsi
     be = АЗС
     bg = Гориво
-    ca = Gasolinera
+    ca = Benzinera
     cs = Čerpací stanice
     da = Benzin
     de = Tankstelle
@@ -28086,7 +28086,7 @@
     az = Siz Android Auto-a qoşulmusunuz
     be = Вы падключаны да Android Auto
     bg = Свързани сте с Android Auto
-    ca = Esteu connectat a Android Auto
+    ca = Us heu connectat a Android Auto
     cs = Jste připojeni ke službě Android Auto
     da = Du er forbundet til Android Auto
     de = Du bist mit Android Auto verbunden
