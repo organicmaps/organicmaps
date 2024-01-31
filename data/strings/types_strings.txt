@@ -16710,21 +16710,6 @@
     uk = Каток
     zh-Hans = 滑冰场
 
-  [type.leisure.landscape_reserve]
-    en = Landscape Reserve
-    af = Landskapreservaat
-    az = Landşaft Qoruğu
-    es = Reserva natural
-    et = Maastikukaitseala
-    ja = 自然保護区
-    nl = Landschapsreservaat
-    pl = Rezerwat krajobrazu
-    pt = Reserva natural
-    pt-BR = Reserva natural
-    ru = Ландшафтный заповедник
-    tr = Peyzaj Rezervi
-    uk = Ландшафтний заповідник
-
   [type.leisure.marina]
     en = Marina
     af = Jaghawe

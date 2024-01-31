@@ -158,7 +158,6 @@ public:
     base::StringIL const types[] = {
       {"leisure", "beach_resort"},
       {"leisure", "garden"},
-      {"leisure", "landscape_reserve"},
       {"leisure", "marina"},
       {"leisure", "nature_reserve"},
       {"leisure", "park"},

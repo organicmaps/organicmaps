@@ -616,8 +616,7 @@ highway|footway|alpine_hiking;[highway=footway][sac_scale=alpine_hiking];;name;i
 deprecated|deprecated;530;x
 deprecated|deprecated;531;x
 deprecated|deprecated;532;x
-# TODO: deprecated, replaced by leisure=nature_reserve
-leisure|landscape_reserve;533;
+deprecated:leisure|landscape_reserve:01.2024;533;leisure|nature_reserve
 deprecated|deprecated;534;x
 deprecated|deprecated;535;x
 boundary|administrative|state;[boundary=administrative][border_type=state];;name;int_name;536;

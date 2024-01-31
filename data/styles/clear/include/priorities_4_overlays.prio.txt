@@ -547,7 +547,6 @@ highway-motorway_junction                           # caption z15-
 leisure-beach_resort                                # icon z16- (also has caption(optional) z16-, area z10-)
 === 3300
 
-leisure-landscape_reserve                           # caption z17-
 natural-bare_rock                                   # caption z14- (also has area z12-)
 natural-bay                                         # caption z14-
 natural-beach                                       # caption z15- (also has area z10-)

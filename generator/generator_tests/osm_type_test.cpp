@@ -2485,7 +2485,6 @@ UNIT_CLASS_TEST(TestWithClassificator, OsmType_SimpleTypesSmoke)
     {"leisure", "garden"},
     {"leisure", "golf_course"},
     {"leisure", "ice_rink"},
-    {"leisure", "landscape_reserve"},
     {"leisure", "marina"},
     {"leisure", "nature_reserve"},
     {"leisure", "park"},
