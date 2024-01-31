@@ -55,13 +55,14 @@ public:
     Classificator const & c = classif();
 
     auto paths = {
-        "amenity", "healthcare", "historic", "office", "railway", "shop", "sport", "tourism", "craft"
+        "amenity",  "craft", "healthcare", "historic", "leisure", "office", "railway", "shop", "sport", "tourism",
     };
     for (auto const & path : paths)
       m_types.push_back(c.GetTypeByPath({path}));
   }
 };
 
+/// @todo Should be merged/replaced with ftypes::IsPoiChecker?
 class IsPoiChecker
 {
 public:
