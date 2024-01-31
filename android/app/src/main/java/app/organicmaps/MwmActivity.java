@@ -114,7 +114,6 @@ import static android.Manifest.permission.ACCESS_COARSE_LOCATION;
 import static android.Manifest.permission.ACCESS_FINE_LOCATION;
 import static android.Manifest.permission.POST_NOTIFICATIONS;
 import static android.content.pm.PackageManager.PERMISSION_GRANTED;
-import static app.organicmaps.SplashActivity.EXTRA_INITIAL_INTENT;
 import static app.organicmaps.location.LocationState.FOLLOW;
 import static app.organicmaps.location.LocationState.FOLLOW_AND_ROTATE;
 import static app.organicmaps.location.LocationState.LOCATION_TAG;
@@ -1003,10 +1002,6 @@ public class MwmActivity extends BaseMwmFragmentActivity
   @Override
   protected void onNewIntent(Intent intent)
   {
-    // {@link see BaseMwmFragmentActivity.onCreate()}
-    final Intent initialIntent = IntentCompat.getParcelableExtra(intent, EXTRA_INITIAL_INTENT, Intent.class);
-    if (initialIntent != null)
-      intent = initialIntent;
     setIntent(intent);
     super.onNewIntent(intent);
     if (isMapRendererActive())
