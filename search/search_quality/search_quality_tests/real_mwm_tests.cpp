@@ -319,8 +319,9 @@ UNIT_CLASS_TEST(MwmTestsFixture, Hamburg_Park)
   NameStartsWith(range, {"Heide Park", "Heide-Park"});
   TEST_LESS(SortedByDistance(range, center).first, 100000, ());
 
-  EqualClassifType(Range(results, 4, 6), GetClassifTypes({
+  EqualClassifType(Range(results, 4, 7), GetClassifTypes({
       {"highway", "service"},
+      {"railway", "halt"},
       {"highway", "bus_stop"},
   }));
 }

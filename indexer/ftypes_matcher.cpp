@@ -779,7 +779,11 @@ IsCapitalChecker::IsCapitalChecker() : BaseChecker(3 /* level */)
 IsPublicTransportStopChecker::IsPublicTransportStopChecker()
 {
   Classificator const & c = classif();
+  /// @todo Add bus station into _major_ class (like IsRailwayStationChecker)?
+  m_types.push_back(c.GetTypeByPath({"amenity", "bus_station"}));
+  m_types.push_back(c.GetTypeByPath({"amenity", "ferry_terminal"}));
   m_types.push_back(c.GetTypeByPath({"highway", "bus_stop"}));
+  m_types.push_back(c.GetTypeByPath({"railway", "halt"}));
   m_types.push_back(c.GetTypeByPath({"railway", "tram_stop"}));
 }
 
