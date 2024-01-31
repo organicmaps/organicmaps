@@ -194,17 +194,19 @@ public:
       // Amenity types are very fragmented, so take only most _interesting_ here.
       {"amenity", "bank"},
       {"amenity", "brothel"},
-      {"amenity", "car_rental"},
       {"amenity", "casino"},
       {"amenity", "cinema"},
       {"amenity", "clinic"},
       {"amenity", "hospital"},
+      {"amenity", "ice_cream"},
       {"amenity", "library"},
       {"amenity", "marketplace"},
       {"amenity", "nightclub"},
       {"amenity", "pharmacy"},
+      {"amenity", "police"},
       {"amenity", "post_office"},
       {"amenity", "stripclub"},
+      {"amenity", "taxi"},
       {"amenity", "theatre"},
     };
 
