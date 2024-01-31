@@ -1,7 +1,5 @@
 package app.organicmaps.intent;
 
-import static app.organicmaps.api.Const.EXTRA_PICK_POINT;
-
 import android.content.ContentResolver;
 import android.content.Intent;
 import android.net.Uri;
@@ -32,7 +30,7 @@ public class Factory
 {
   public static boolean isStartedForApiResult(@NonNull Intent intent)
   {
-    return intent.getBooleanExtra(EXTRA_PICK_POINT, false);
+    return (intent.getFlags() & Intent.FLAG_ACTIVITY_FORWARD_RESULT) != 0;
   }
 
   public static class KmzKmlProcessor implements IntentProcessor

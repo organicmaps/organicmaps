@@ -4,6 +4,7 @@ import static android.Manifest.permission.ACCESS_COARSE_LOCATION;
 import static android.Manifest.permission.ACCESS_FINE_LOCATION;
 
 import android.app.Activity;
+import android.content.ComponentName;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
@@ -28,12 +29,11 @@ import app.organicmaps.util.log.Logger;
 import com.google.android.material.dialog.MaterialAlertDialogBuilder;
 
 import java.io.IOException;
+import java.util.Objects;
 
 public class SplashActivity extends AppCompatActivity
 {
   private static final String TAG = SplashActivity.class.getSimpleName();
-  private static final String EXTRA_ACTIVITY_TO_START = "extra_activity_to_start";
-  public static final String EXTRA_INITIAL_INTENT = "extra_initial_intent";
 
   private static final long DELAY = 100;
 
@@ -42,24 +42,9 @@ public class SplashActivity extends AppCompatActivity
   @SuppressWarnings("NotNullFieldNotInitialized")
   @NonNull
   private ActivityResultLauncher<String[]> mPermissionRequest;
-  @NonNull
-  private ActivityResultLauncher<Intent> mApiRequest;
 
   @NonNull
   private final Runnable mInitCoreDelayedTask = this::init;
-
-  @NonNull
-  public static void start(@NonNull Context context,
-                           @Nullable Class<? extends Activity> activityToStart,
-                           @Nullable Intent initialIntent)
-  {
-    Intent intent = new Intent(context, SplashActivity.class);
-    if (activityToStart != null)
-      intent.putExtra(EXTRA_ACTIVITY_TO_START, activityToStart);
-    if (initialIntent != null)
-      intent.putExtra(EXTRA_INITIAL_INTENT, initialIntent);
-    context.startActivity(intent);
-  }
 
   @Override
   protected void onCreate(@Nullable Bundle savedInstanceState)
@@ -79,10 +64,6 @@ public class SplashActivity extends AppCompatActivity
     setContentView(R.layout.activity_splash);
     mPermissionRequest = registerForActivityResult(new ActivityResultContracts.RequestMultiplePermissions(),
         result -> Config.setLocationRequested());
-    mApiRequest = registerForActivityResult(new ActivityResultContracts.StartActivityForResult(), result -> {
-      setResult(result.getResultCode(), result.getData());
-      finish();
-    });
 
     if (DisplayManager.from(this).isCarDisplayUsed())
     {
@@ -123,8 +104,6 @@ public class SplashActivity extends AppCompatActivity
     super.onDestroy();
     mPermissionRequest.unregister();
     mPermissionRequest = null;
-    mApiRequest.unregister();
-    mApiRequest = null;
   }
 
   private void showFatalErrorDialog(@StringRes int titleId, @StringRes int messageId)
@@ -174,30 +153,13 @@ public class SplashActivity extends AppCompatActivity
       return;
     }
 
-    Intent input = getIntent();
-    Intent result = new Intent(this, DownloadResourcesLegacyActivity.class);
-    if (input != null)
-    {
-      if (input.hasExtra(EXTRA_ACTIVITY_TO_START))
-      {
-        result = new Intent(this,
-                            (Class<? extends Activity>) input.getSerializableExtra(EXTRA_ACTIVITY_TO_START));
-      }
-
-      Intent initialIntent = input.hasExtra(EXTRA_INITIAL_INTENT) ?
-                           IntentCompat.getParcelableExtra(input, EXTRA_INITIAL_INTENT, Intent.class) :
-                           input;
-      result.putExtra(EXTRA_INITIAL_INTENT, initialIntent);
-      if (Factory.isStartedForApiResult(initialIntent))
-      {
-        // Wait for the result from MwmActivity for API callers.
-        mApiRequest.launch(result);
-        return;
-      }
-    }
+    // Re-use original intent to retain all flags and payload.
+    // https://github.com/organicmaps/organicmaps/issues/6944
+    final Intent intent = Objects.requireNonNull(getIntent());
+    intent.setComponent(new ComponentName(this, DownloadResourcesLegacyActivity.class));
 
     Config.setFirstStartDialogSeen(this);
-    startActivity(result);
+    startActivity(intent);
     finish();
   }
 }
