@@ -246,8 +246,16 @@ public enum BookmarkManager
       tmpFile.delete();
     }
 
-    for (BookmarksLoadingListener listener : mListeners)
-      listener.onBookmarksFileLoaded(success);
+    if (success)
+    {
+      for (BookmarksLoadingListener listener : mListeners)
+        listener.onBookmarksFileImportSuccessful();
+    }
+    else
+    {
+      for (BookmarksLoadingListener listener : mListeners)
+        listener.onBookmarksFileImportFailed();
+    }
   }
 
   // Called from JNI.
@@ -426,11 +434,6 @@ public enum BookmarkManager
             filename = cursor.getString(columnIndex);
         }
       }
-      catch (Exception ex)
-      {
-        Logger.e(TAG, ex + " while querying " + uri);
-        ex.printStackTrace();
-      }
     }
 
     if (filename == null)
@@ -474,24 +477,36 @@ public enum BookmarkManager
   @WorkerThread
   public boolean importBookmarksFile(@NonNull ContentResolver resolver, @NonNull Uri uri, @NonNull File tempDir)
   {
-    final String filename = getBookmarksFilenameFromUri(resolver, uri);
-    if (filename == null)
-      return false;
-
-    Logger.w(TAG, "Downloading bookmarks file " + uri + " with file name " + filename);
-    final File tempFile = new File(tempDir, filename);
+    Logger.w(TAG, "Importing bookmarks from " + uri);
     try
     {
+      final String filename = getBookmarksFilenameFromUri(resolver, uri);
+      if (filename == null)
+      {
+        Logger.w(TAG, "Could not find a supported file type in " + uri);
+        UiThread.run(() -> {
+          for (BookmarksLoadingListener listener : mListeners)
+            listener.onBookmarksFileUnsupported(uri);
+        });
+        return false;
+      }
+
+      Logger.d(TAG, "Downloading bookmarks file from " + uri + " into " + filename);
+      final File tempFile = new File(tempDir, filename);
       StorageUtils.copyFile(resolver, uri, tempFile);
-    } catch (IOException e)
+      Logger.d(TAG, "Downloaded bookmarks file from " + uri + " into " + filename);
+      UiThread.run(() -> loadBookmarksFile(tempFile.getAbsolutePath(), true));
+      return true;
+    }
+    catch (IOException|SecurityException e)
     {
-      Logger.w(TAG, "Failed to download bookmarks file from " + uri, e);
+      Logger.e(TAG, "Could not download bookmarks file from " + uri, e);
+      UiThread.run(() -> {
+        for (BookmarksLoadingListener listener : mListeners)
+          listener.onBookmarksFileDownloadFailed(uri, e.toString());
+      });
       return false;
     }
-
-    UiThread.run(() -> loadBookmarksFile(tempFile.getAbsolutePath(), true));
-
-    return true;
   }
 
   @WorkerThread
@@ -902,7 +917,10 @@ public enum BookmarkManager
   {
     default void onBookmarksLoadingStarted() {}
     default void onBookmarksLoadingFinished() {}
-    default void onBookmarksFileLoaded(boolean success) {}
+    default void onBookmarksFileUnsupported(@NonNull Uri uri) {};
+    default void onBookmarksFileDownloadFailed(@NonNull Uri uri, @NonNull String string) {};
+    default void onBookmarksFileImportSuccessful() {};
+    default void onBookmarksFileImportFailed() {};
   }
 
   public interface BookmarksSortingListener

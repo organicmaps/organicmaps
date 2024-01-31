@@ -201,17 +201,14 @@ public class BookmarkCategoriesFragment extends BaseMwmRecyclerFragment<Bookmark
   }
 
   @Override
-  public void onBookmarksFileLoaded(boolean success)
+  public void onBookmarksFileImportFailed()
   {
     // TODO: Is there a way to display several failure notifications?
     // TODO: It would be helpful to see the file name that failed to import.
-    if (!success)
-    {
-      final View view = getView();
-      // TODO: how to get import button view to show snackbar above it?
-      if (view != null)
-        Utils.showSnackbar(requireActivity(), view, R.string.load_kmz_failed);
-    }
+    final View view = getView();
+    // TODO: how to get import button view to show snackbar above it?
+    if (view != null)
+      Utils.showSnackbar(requireActivity(), view, R.string.load_kmz_failed);
   }
 
   @Override

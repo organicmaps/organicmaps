@@ -125,7 +125,7 @@ public class HelpFragment extends BaseMwmFragment implements View.OnClickListene
     else if (id == R.id.faq)
       ((HelpActivity) requireActivity()).stackFragment(FaqFragment.class, getString(R.string.faq), null);
     else if (id == R.id.report)
-      Utils.sendBugReport(requireActivity(), "");
+      Utils.sendBugReport(requireActivity(), "", "");
     else if (id == R.id.support_us)
       Utils.openUrl(requireActivity(), getResources().getString(R.string.translated_om_site_url) + "support-us/");
     else if (id == R.id.donate)

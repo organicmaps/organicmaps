@@ -131,7 +131,7 @@ public class StoragePathFragment extends BaseSettingsFragment
           new MaterialAlertDialogBuilder(requireActivity(), R.style.MwmTheme_AlertDialog)
               .setTitle(R.string.move_maps_error)
               .setPositiveButton(R.string.report_a_bug,
-                  (dlg, which) -> Utils.sendBugReport(requireActivity(), "Error moving map files"))
+                  (dlg, which) -> Utils.sendBugReport(requireActivity(), "Error moving map files", ""))
               .show();
         }
         Framework.nativeChangeWritableDir(newPath);
