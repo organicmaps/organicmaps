@@ -549,7 +549,6 @@
 	<!-- Settings: "Send general feedback" button -->
 	<string name="feedback_general">Opinão geral</string>
 	<string name="prefs_languages_information">Utilizamos o sistema TTS (texto-para-voz) para instruções de voz. Muitos dispositivos do Android usam o TTS do Google, você pode baixá-lo ou atualizá-lo no Google Play (https://play.google.com/store/apps/details?id=com.google.android.tts)</string>
-	<string name="prefs_languages_information_off_link">Para obter mais informações, consulte este guia.</string>
 	<string name="transliteration_title">Transliteração para alfabeto latino</string>
 	<string name="learn_more">Saber mais</string>
 	<!-- Subway exits for public transport marks on the map -->
