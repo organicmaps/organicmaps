@@ -40,19 +40,6 @@ final class CarPlayService: NSObject {
     self.interfaceController?.delegate = self
     let configuration = CPSessionConfiguration(delegate: self)
     sessionConfiguration = configuration
-    // Try to use the CarPlay unit's interface style.
-    if #available(iOS 13.0, *) {
-      switch configuration.contentStyle {
-      case .light:
-        rootTemplateStyle = .light
-        window.overrideUserInterfaceStyle = .light
-      case .dark:
-        rootTemplateStyle = .dark
-        window.overrideUserInterfaceStyle = .dark
-      default:
-        rootTemplateStyle = window.overrideUserInterfaceStyle == .light ? .light : .dark
-      }
-    }
     searchService = CarPlaySearchService()
     let router = CarPlayRouter()
     router.addListener(self)
@@ -67,7 +54,9 @@ final class CarPlayService: NSObject {
       applyBaseRootTemplate()
       router.restoreTripPreviewOnCarplay(beforeRootTemplateDidAppear: true)
     }
-    ThemeManager.invalidate()
+    if #available(iOS 13.0, *) {
+      updateContentStyle(configuration.contentStyle)
+    }
     FrameworkHelper.updatePositionArrowOffset(false, offset: 5)
   }
 
@@ -100,11 +89,18 @@ final class CarPlayService: NSObject {
   @objc func interfaceStyle() -> UIUserInterfaceStyle {
     if let window = window,
       window.traitCollection.userInterfaceIdiom == .carPlay {
-      return window.traitCollection.userInterfaceStyle
+      return rootTemplateStyle == .dark ? .dark : .light
     }
     return .unspecified
   }
-  
+
+  @available(iOS 13.0, *)
+  private func updateContentStyle(_ contentStyle: CPContentStyle) {
+    rootTemplateStyle = contentStyle == .dark ? .dark : .light
+    // Update the current map style in accordance with the CarPLay content theme.
+    ThemeManager.invalidate()
+  }
+
   private var rootTemplateStyle: CPTripEstimateStyle = .light {
     didSet {
       (interfaceController?.rootTemplate as? CPMapTemplate)?.tripEstimateStyle = rootTemplateStyle
@@ -329,9 +325,8 @@ extension CarPlayService: CPSessionConfigurationDelegate {
   @available(iOS 13.0, *)
   func sessionConfiguration(_ sessionConfiguration: CPSessionConfiguration,
                             contentStyleChanged contentStyle: CPContentStyle) {
-    let isLight = contentStyle == .light
-    window?.overrideUserInterfaceStyle = isLight ? .light : .dark
-    rootTemplateStyle = isLight ? .light : .dark
+    // Handle the CarPlay content style changing triggered by the 'Always Show Dark Maps' toggle.
+    updateContentStyle(contentStyle)
   }
 }
 
