@@ -225,7 +225,6 @@ bool FeatureBuilder::PreSerialize()
            (ftypes::IsPostBoxChecker::Instance()(types) ||
             ftypes::IsRailwaySubwayEntranceChecker::Instance()(types) ||
             ftypes::IsEntranceChecker::Instance()(types) ||
-            ftypes::IsRailwayStationChecker::Instance()(types) ||
             ftypes::IsAerowayGateChecker::Instance()(types) ||
             ftypes::IsPlatformChecker::Instance()(types))))
       {
@@ -255,8 +254,7 @@ bool FeatureBuilder::PreSerialize()
     {
       auto const & types = GetTypes();
       if (m_params.name.IsEmpty() &&
-          (ftypes::IsRailwayStationChecker::Instance()(types) ||
-           ftypes::IsPlatformChecker::Instance()(types)))
+          (ftypes::IsPlatformChecker::Instance()(types)))
       {
         m_params.name.AddString(StringUtf8Multilang::kDefaultCode, m_params.ref);
       }
