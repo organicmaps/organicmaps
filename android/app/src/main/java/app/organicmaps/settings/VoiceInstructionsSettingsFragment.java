@@ -2,16 +2,18 @@ package app.organicmaps.settings;
 
 import android.content.Intent;
 import android.content.res.Configuration;
+import android.net.Uri;
 import android.os.Bundle;
 import android.speech.tts.TextToSpeech;
 import android.text.Spannable;
 import android.text.SpannableString;
-import android.text.style.ForegroundColorSpan;
+import android.text.method.LinkMovementMethod;
+import android.text.style.ClickableSpan;
 import android.view.View;
+import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import androidx.core.content.ContextCompat;
 import androidx.preference.ListPreference;
 import androidx.preference.Preference;
 import androidx.preference.SeekBarPreference;
@@ -45,10 +47,10 @@ public class VoiceInstructionsSettingsFragment extends BaseXmlSettingsFragment
   private SeekBarPreference mTtsVolume;
   @NonNull
   @SuppressWarnings("NotNullFieldNotInitialized")
-  private Preference mTtsLangInfo;
+  private Preference mTtsVoiceTest;
   @NonNull
   @SuppressWarnings("NotNullFieldNotInitialized")
-  private Preference mTtsVoiceTest;
+  private CustomPreference mTtsPrefSupport;
 
   private List<String> mTtsTestStringArray;
   private int mTestStringIndex;
@@ -65,12 +67,10 @@ public class VoiceInstructionsSettingsFragment extends BaseXmlSettingsFragment
       TtsPlayer.setEnabled(false);
       mTtsPrefLanguages.setEnabled(false);
       mTtsVolume.setEnabled(false);
-      mTtsLangInfo.setSummary(R.string.prefs_languages_information_off);
       mTtsVoiceTest.setEnabled(false);
       return true;
     }
 
-    mTtsLangInfo.setSummary(R.string.prefs_languages_information);
     mTtsVolume.setEnabled(true);
     mTtsVoiceTest.setEnabled(true);
 
@@ -114,7 +114,6 @@ public class VoiceInstructionsSettingsFragment extends BaseXmlSettingsFragment
 
     mTtsPrefEnabled = getPreference(getString(R.string.pref_tts_enabled));
     mTtsPrefLanguages = getPreference(getString(R.string.pref_tts_language));
-    mTtsLangInfo = getPreference(getString(R.string.pref_tts_info));
     mTtsVoiceTest = getPreference(getString(R.string.pref_tts_test_voice));
     mTtsVoiceTest.setOnPreferenceClickListener(pref -> {
       if (mTtsTestStringArray == null)
@@ -129,7 +128,7 @@ public class VoiceInstructionsSettingsFragment extends BaseXmlSettingsFragment
     });
 
     initVolume();
-    initTtsLangInfoLink();
+    initTtsSupportInfo();
     updateTts();
   }
 
@@ -191,15 +190,12 @@ public class VoiceInstructionsSettingsFragment extends BaseXmlSettingsFragment
       mTtsPrefLanguages.setSummary(null);
       mTtsVolume.setEnabled(false);
       mTtsVoiceTest.setEnabled(false);
-      mTtsLangInfo.setSummary(R.string.prefs_languages_information_off);
 
       enableListeners(true);
       return;
     }
 
     final boolean enabled = TtsPlayer.isEnabled();
-    mTtsLangInfo.setSummary(enabled ? R.string.prefs_languages_information
-        : R.string.prefs_languages_information_off);
 
     final CharSequence[] entries = new CharSequence[languages.size()];
     final CharSequence[] values = new CharSequence[languages.size()];
@@ -263,21 +259,35 @@ public class VoiceInstructionsSettingsFragment extends BaseXmlSettingsFragment
     TtsPlayer.INSTANCE.setVolume(volume);
   }
 
-  private void initTtsLangInfoLink()
+  private void initTtsSupportInfo()
   {
-    final Preference ttsLangInfoLink = getPreference(getString(R.string.pref_tts_info_link));
-    final String ttsLinkText = getString(R.string.prefs_languages_information_off_link);
-    final Spannable link = new SpannableString(ttsLinkText + "↗");
-    // Set link color.
-    link.setSpan(new ForegroundColorSpan(ContextCompat.getColor(requireContext(),
-            UiUtils.getStyledResourceId(requireContext(), androidx.appcompat.R.attr.colorAccent))),
-        0, ttsLinkText.length(), 0);
-    ttsLangInfoLink.setSummary(link);
+    // Init TTS Support link.
+    mTtsPrefSupport = getPreference(getString(R.string.pref_tts_support));
 
-    final String ttsInfoUrl = requireActivity().getString(R.string.tts_info_link);
-    ttsLangInfoLink.setOnPreferenceClickListener(preference -> {
-      Utils.openUrl(requireContext(), ttsInfoUrl);
-      return false;
+    mTtsPrefSupport.setOnBindTextViewListener(android.R.id.summary, textView -> {
+
+      textView.setMovementMethod(LinkMovementMethod.getInstance());
+
+      String ttsSupportGuideLink = getString(R.string.pref_tts_faq_link);
+      String summaryText = String.format(getString(R.string.pref_tts_support_info),
+              ttsSupportGuideLink);
+
+      Spannable summarySpan = new SpannableString(summaryText);
+
+      summarySpan.setSpan(new ClickableSpan() {
+                            @Override
+                            public void onClick(@NonNull View widget) {
+
+                              final String ttsFaqUrl = requireActivity().getString(R.string.tts_faq_url);
+
+                              Utils.openUri(requireContext(), Uri.parse(ttsFaqUrl));
+                            }
+                          },
+              summaryText.indexOf(ttsSupportGuideLink),
+              summaryText.indexOf(ttsSupportGuideLink) + ttsSupportGuideLink.length(),
+              0);
+
+      textView.setText(summarySpan, TextView.BufferType.SPANNABLE);
     });
   }
 }
