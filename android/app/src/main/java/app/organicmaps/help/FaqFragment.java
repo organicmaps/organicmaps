@@ -30,7 +30,7 @@ public class FaqFragment extends BaseMwmFragment
 
     private void reportBug()
     {
-      Utils.sendBugReport(requireActivity(), "");
+      Utils.sendBugReport(requireActivity(), "", "");
     }
 
     @Override

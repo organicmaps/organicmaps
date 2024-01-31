@@ -315,17 +315,16 @@ public class Utils
   /**
    * @param subject could be an empty string
    */
-  public static void sendBugReport(@NonNull Activity activity, @NonNull String subject)
+  public static void sendBugReport(@NonNull Activity activity, @NonNull String subject, @NonNull String body)
   {
     subject = "Organic Maps Bugreport" + (TextUtils.isEmpty(subject) ? "" : ": " + subject);
-    LogsManager.INSTANCE.zipLogs(new SupportInfoWithLogsCallback(activity, subject,
-                                                                 Constants.Email.SUPPORT));
+    LogsManager.INSTANCE.zipLogs(new SupportInfoWithLogsCallback(activity, subject, body, Constants.Email.SUPPORT));
   }
 
   // TODO: Don't send logs with general feedback, send system information only (version, device name, connectivity, etc.)
   public static void sendFeedback(@NonNull Activity activity)
   {
-    LogsManager.INSTANCE.zipLogs(new SupportInfoWithLogsCallback(activity, "Organic Maps Feedback",
+    LogsManager.INSTANCE.zipLogs(new SupportInfoWithLogsCallback(activity, "Organic Maps Feedback", "",
                                                                  Constants.Email.SUPPORT));
   }
 
@@ -670,13 +669,16 @@ public class Utils
     @NonNull
     private final String mSubject;
     @NonNull
+    private final String mBody;
+    @NonNull
     private final String mEmail;
 
     private SupportInfoWithLogsCallback(@NonNull Activity activity, @NonNull String subject,
-                                        @NonNull String email)
+                                        @NonNull String body, @NonNull String email)
     {
       mActivityRef = new WeakReference<>(activity);
       mSubject = subject;
+      mBody = body;
       mEmail = email;
     }
 
@@ -712,7 +714,7 @@ public class Utils
           intent.setType("message/rfc822");
         }
         // Do this so some email clients don't complain about empty body.
-        intent.putExtra(Intent.EXTRA_TEXT, "");
+        intent.putExtra(Intent.EXTRA_TEXT, mBody);
         try
         {
           activity.startActivity(intent);
