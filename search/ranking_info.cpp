@@ -77,6 +77,7 @@ double constexpr kPoiType[] = {
   0.01,       // Hotel
   0.01,       // Shop or Amenity
   0.01,       // Attraction
+  0.008,      // CarInfra
   0.005,      // PureCategory
   0,          // General
  -0.01,       // Service
@@ -217,6 +218,30 @@ public:
       {"amenity", "stripclub"},
       {"amenity", "taxi"},
       {"amenity", "theatre"},
+    };
+
+    Classificator const & c = classif();
+    for (auto const & e : types)
+      m_types.push_back(c.GetTypeByPath(e));
+  }
+};
+
+class IsCarInfra : public BaseTypesChecker
+{
+public:
+  IsCarInfra()
+  {
+    base::StringIL const types[] = {
+      {"amenity", "car_rental"},
+      {"amenity", "car_sharing"},
+      {"amenity", "car_wash"},
+      {"amenity", "charging_station"},
+      {"amenity", "fuel"},
+      // Do not add parking here, no need to rank them by name.
+      //{"amenity", "parking"},
+
+      {"highway", "rest_area"},
+      {"highway", "services"},
     };
 
     Classificator const & c = classif();
@@ -461,6 +486,10 @@ PoiType GetPoiType(feature::TypesHolder const & th)
   if (shopOrAmenityCheck(th))
     return PoiType::ShopOrAmenity;
 
+  static IsCarInfra const carInfra;
+  if (carInfra(th))
+    return PoiType::CarInfra;
+
   static IsServiceTypeChecker const serviceCheck;
   if (serviceCheck(th))
     return PoiType::Service;
@@ -478,6 +507,7 @@ string DebugPrint(PoiType type)
   case PoiType::Hotel: return "Hotel";
   case PoiType::ShopOrAmenity: return "ShopOrAmenity";
   case PoiType::Attraction: return "Attraction";
+  case PoiType::CarInfra: return "CarInfra";
   case PoiType::PureCategory: return "PureCategory";
   case PoiType::General: return "General";
   case PoiType::Service: return "Service";

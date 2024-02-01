@@ -29,6 +29,8 @@ enum class PoiType : uint8_t
   ShopOrAmenity,
   // Attractions.
   Attraction,
+  // Car Infra
+  CarInfra,
 
   // Factor for *pure category* matched result.
   PureCategory,
