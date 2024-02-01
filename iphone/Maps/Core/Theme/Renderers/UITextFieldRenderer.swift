@@ -26,6 +26,7 @@ class UITextFieldRenderer {
         control.layer.cornerCurve = .continuous
       }
     }
+    control.borderStyle = .none
     var placeholderAttributes = [NSAttributedString.Key : Any]()
     if let backgroundColor = style.backgroundColor {
       control.backgroundColor = backgroundColor

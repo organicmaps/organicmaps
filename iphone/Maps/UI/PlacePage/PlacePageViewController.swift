@@ -103,7 +103,8 @@ final class PlacePageScrollView: UIScrollView {
 
   override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
     super.traitCollectionDidChange(previousTraitCollection)
-    if self.previousTraitCollection != nil {
+    // Update layout when the device was rotated but skip when the appearance was changed.
+    if self.previousTraitCollection != nil, previousTraitCollection?.userInterfaceStyle == traitCollection.userInterfaceStyle {
       DispatchQueue.main.async {
         self.updateSteps()
         self.showLastStop()

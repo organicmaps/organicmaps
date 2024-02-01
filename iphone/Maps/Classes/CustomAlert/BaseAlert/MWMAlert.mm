@@ -266,4 +266,19 @@
   [super layoutSubviews];
 }
 
+- (void)traitCollectionDidChange:(UITraitCollection *)previousTraitCollection {
+  [super traitCollectionDidChange:previousTraitCollection];
+  if (self.traitCollection.userInterfaceStyle != previousTraitCollection.userInterfaceStyle) {
+    [self updateViewStyle:self];
+  }
+}
+
+- (void)updateViewStyle:(UIView *)view {
+  if (!view)
+    return;
+  for (UIView *subview in view.subviews)
+    [self updateViewStyle:subview];
+  [view applyTheme];
+}
+
 @end
