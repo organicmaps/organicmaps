@@ -88848,14 +88848,16 @@ cont {
     }
     caption {
       primary {
-        height: 10
-        color: 5592405
+        height: 13
+        color: 8947848
+        stroke_color: 856756480
         offset_y: 1
         is_optional: true
       }
       secondary {
         height: 11
         color: 8947848
+        stroke_color: 856756480
         offset_y: 1
         is_optional: true
       }
@@ -94005,14 +94007,16 @@ cont {
     }
     caption {
       primary {
-        height: 10
-        color: 5592405
+        height: 12
+        color: 8947848
+        stroke_color: 1118464
         offset_y: 1
         is_optional: true
       }
       secondary {
-        height: 9
-        color: 5592405
+        height: 10
+        color: 8947848
+        stroke_color: 1118464
         offset_y: 1
         is_optional: true
       }
@@ -104198,7 +104202,7 @@ cont {
       primary {
         height: 13
         color: 8947848
-        stroke_color: 856756480
+        stroke_color: 437326080
         offset_y: 1
         is_optional: true
       }
@@ -104222,7 +104226,7 @@ cont {
       primary {
         height: 13
         color: 8947848
-        stroke_color: 856756480
+        stroke_color: 437326080
         offset_y: 1
         is_optional: true
       }
@@ -104246,7 +104250,7 @@ cont {
       primary {
         height: 13
         color: 8947848
-        stroke_color: 856756480
+        stroke_color: 437326080
         offset_y: 1
         is_optional: true
       }
@@ -104270,7 +104274,7 @@ cont {
       primary {
         height: 13
         color: 8947848
-        stroke_color: 856756480
+        stroke_color: 437326080
         offset_y: 1
         is_optional: true
       }
