@@ -199,6 +199,11 @@ NSString *titleForButton(MWMActionBarButtonType type, BOOL isSelected) {
   [NSUserDefaults.standardUserDefaults setBool:true forKey:kUDDidHighlightRouteToButton];
 }
 
+- (void)traitCollectionDidChange:(UITraitCollection *)previousTraitCollection {
+  [super traitCollectionDidChange:previousTraitCollection];
+  [self.button setSelected:false];
+}
+
 - (UIView *)hitTest:(CGPoint)point withEvent:(UIEvent *)event {
   return [self pointInside:point withEvent:event] ? self.button : nil;
 }

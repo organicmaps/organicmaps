@@ -24,6 +24,7 @@ class InfoItemViewController: UIViewController {
         imageView?.styleName = "MWMBlue"
         infoLabel?.styleName = "linkBlueText"
       }
+      accessoryImage.styleName = "MWMBlack"
     }
   }
 
@@ -361,6 +362,7 @@ private extension UIView {
                     color: UIColor?,
                     insets: UIEdgeInsets) {
     let lineView = UIView()
+    lineView.styleName = "Divider"
     lineView.backgroundColor = color ?? .black
     lineView.isUserInteractionEnabled = false
     lineView.translatesAutoresizingMaskIntoConstraints = false

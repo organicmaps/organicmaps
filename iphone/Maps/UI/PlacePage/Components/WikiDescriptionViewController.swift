@@ -20,6 +20,12 @@ class WikiDescriptionViewController: UIViewController {
     updateDescription()
   }
 
+  override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
+    super.traitCollectionDidChange(previousTraitCollection)
+    guard traitCollection.userInterfaceStyle != previousTraitCollection?.userInterfaceStyle else { return }
+    updateDescription()
+  }
+
   private func updateDescription() {
     guard let descriptionHtml = descriptionHtml else { return }
 
