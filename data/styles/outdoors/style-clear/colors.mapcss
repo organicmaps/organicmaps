@@ -29,10 +29,10 @@
 
 /* 5.ROADS */
 
-/* 5.ROADS */
 /* 5.1 All roads */
 
 @construction: #ABAB9A;
+@cycleway: #5654FF;
 
 /* 5.5 Transport */
 

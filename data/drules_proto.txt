@@ -46562,6 +46562,135 @@ cont {
   }
 }
 cont {
+  name: "hwtag-yesbicycle"
+  element {
+    scale: 11
+    lines {
+      width: 0.4
+      color: 861295871
+      dashdot {
+        dd: 3.5
+        dd: 2.0
+      }
+      priority: 330
+      join: BEVELJOIN
+      cap: BUTTCAP
+    }
+  }
+  element {
+    scale: 12
+    lines {
+      width: 0.4
+      color: 861295871
+      dashdot {
+        dd: 3.5
+        dd: 2.0
+      }
+      priority: 330
+      join: BEVELJOIN
+      cap: BUTTCAP
+    }
+  }
+  element {
+    scale: 13
+    lines {
+      width: 0.4
+      color: 861295871
+      dashdot {
+        dd: 3.5
+        dd: 2.0
+      }
+      priority: 330
+      join: BEVELJOIN
+      cap: BUTTCAP
+    }
+  }
+  element {
+    scale: 14
+    lines {
+      width: 0.4
+      color: 861295871
+      dashdot {
+        dd: 3.5
+        dd: 2.0
+      }
+      priority: 330
+      join: BEVELJOIN
+      cap: BUTTCAP
+    }
+  }
+  element {
+    scale: 15
+    lines {
+      width: 0.4
+      color: 861295871
+      dashdot {
+        dd: 3.5
+        dd: 2.0
+      }
+      priority: 330
+      join: BEVELJOIN
+      cap: BUTTCAP
+    }
+  }
+  element {
+    scale: 16
+    lines {
+      width: 0.4
+      color: 861295871
+      dashdot {
+        dd: 3.5
+        dd: 2.0
+      }
+      priority: 330
+      join: BEVELJOIN
+      cap: BUTTCAP
+    }
+  }
+  element {
+    scale: 17
+    lines {
+      width: 0.4
+      color: 861295871
+      dashdot {
+        dd: 3.5
+        dd: 2.0
+      }
+      priority: 330
+      join: BEVELJOIN
+      cap: BUTTCAP
+    }
+  }
+  element {
+    scale: 18
+    lines {
+      width: 0.4
+      color: 861295871
+      dashdot {
+        dd: 3.5
+        dd: 2.0
+      }
+      priority: 330
+      join: BEVELJOIN
+      cap: BUTTCAP
+    }
+  }
+  element {
+    scale: 19
+    lines {
+      width: 0.4
+      color: 861295871
+      dashdot {
+        dd: 3.5
+        dd: 2.0
+      }
+      priority: 330
+      join: BEVELJOIN
+      cap: BUTTCAP
+    }
+  }
+}
+cont {
   name: "isoline-step_10"
   element {
     scale: 15
