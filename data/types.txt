@@ -530,7 +530,7 @@ mapswithme
 mapswithme
 mapswithme
 mapswithme
-*leisure|landscape_reserve
+leisure|nature_reserve
 mapswithme
 mapswithme
 *boundary|administrative|state

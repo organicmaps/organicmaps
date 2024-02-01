@@ -53325,53 +53325,6 @@ cont {
   }
 }
 cont {
-  name: "leisure-landscape_reserve"
-  element {
-    scale: 17
-    caption {
-      primary {
-        height: 10
-        color: 4473924
-        offset_y: 1
-      }
-      priority: 3250
-    }
-  }
-  element {
-    scale: 18
-    caption {
-      primary {
-        height: 10
-        color: 4473924
-        offset_y: 1
-      }
-      priority: 3250
-    }
-  }
-  element {
-    scale: 19
-    caption {
-      primary {
-        height: 10
-        color: 4473924
-        offset_y: 1
-      }
-      priority: 3250
-    }
-  }
-  element {
-    scale: 20
-    caption {
-      primary {
-        height: 10
-        color: 4473924
-        offset_y: 1
-      }
-      priority: 3250
-    }
-  }
-}
-cont {
   name: "leisure-marina"
   element {
     scale: 16

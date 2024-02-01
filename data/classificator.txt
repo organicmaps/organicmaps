@@ -671,7 +671,6 @@ world  +
         golf_course  -
         hackerspace  -
         ice_rink  -
-        landscape_reserve  -
         marina  -
         nature_reserve  -
         outdoor_seating  -
