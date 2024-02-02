@@ -115,11 +115,12 @@ ru:4Продукты|Еда
 ar:طعام|بقالية
 be:4Прадукты|Ежа
 bg:4Продукти|Храна
+ca:Queviures|Provisions
 cs:Potraviny|Jídlo
 da:Dagligvarer|Mad
 de:4Lebensmittel|Essen
 el:Παντοπωλεία|Φαγητό
-es:Alimentación|Productos|Comer
+es:Provisiones|Víveres|Abarrotes|Productos|Comer
 et:Toidukaubad
 eu:Produktuak|Jan
 fa:غذا|فروشگاه|عطاری
@@ -188,6 +189,7 @@ el:Συγκοινωνία
 he:תחבורה
 sk:Doprava
 fa:حمل و مواصلات
+ca:Transport
 
 # First keyword should match [fuel] definition in strings.txt!
 @fuel
@@ -229,6 +231,7 @@ he:גז
 sk:3Čerpacia stanica
 sw:Sheli
 fa:سوخت|بنزین|دیزل|گازوئیل
+ca:Benzinera
 
 # First keyword should match [parking] definition in strings.txt!
 @parking
@@ -269,6 +272,7 @@ el:Χώρος στάθμευσης
 he:חניה
 sk:4Parkovisko
 fa:پارکینگ
+ca:Aparcament
 
 # Generic only! _shop_ category, will be present in all! _shop_ types.
 @shop
@@ -310,6 +314,7 @@ uk:4Магазин|Крамниця
 vi:Cửa hàng
 zh-Hans:商店
 zh-Hant:1購物|店鋪|商店|雜貨店|便利商店
+ca:Botiga|Tenda
 
 # First keyword should match [shopping] definition in strings.txt!
 @shopping
@@ -351,6 +356,7 @@ uk:3Шопінг
 vi:Đi mua sắm
 zh-Hans:购物
 zh-Hant:購物
+ca:Compres
 
 # First keyword should match [hotel] definition in strings.txt!
 @hotel
@@ -391,6 +397,7 @@ el:4Ξενοδοχείο|Διαμονή|Ξενοδοχεία
 he:מלון|בתי
 sk:Hotel|Hotely
 fa:هتل|هتل ها
+ca:Hotel|Hotels
 
 # First keyword should match [tourism] definition in strings.txt!
 @tourism
@@ -431,6 +438,7 @@ el:4Αξιοθέατα
 he:נקודות עיניין
 sk:Pamätihodnosť
 fa:منظره|گردشگری
+ca:Turisme
 
 # First keyword should match [entertainment] definition in strings.txt!
 @entertainment
@@ -471,6 +479,7 @@ el:Ψυχαγωγία
 he:בידור
 sk:Zábava
 fa:سرگرمی
+ca:Entreteniment
 
 # First keyword should match [nightlife] definition in strings.txt!
 @nightlife
@@ -511,6 +520,7 @@ el:Νυχτερινή Ζωή
 sk:Nočný život
 sw:Shughuli za usiku
 fa:تفریحات شبانه
+ca:Vida nocturna
 
 # First keyword should match [children] definition in strings.txt!
 @children
@@ -551,6 +561,7 @@ el:Οικογενειακές Διακοπές
 sk:Rodinná dovolenka
 sw:Mapumziko ya familia
 fa:تعطیلات خانوادگی
+ca:Vacances familiars 
 
 # First keyword should match [atm] definition in strings.txt!
 @atm
@@ -592,6 +603,7 @@ he:כספומט
 sk:3Bankomat
 sw:Benki|fedha
 fa:خود پرداز
+ca:Caixer automàtic
 
 # First keyword should match [rv] definition in strings.txt!
 @rv
@@ -632,6 +644,7 @@ uk:Для автобудинків|5Автодім|5Автобудинок|5Тр
 vi:Đối với RV
 zh-Hans:房车用
 zh-Hant:房車用
+ca:Autocaravana
 
 amenity-atm|@atm
 en:money|U+1F3E7|U+1F4B2|U+1F4B3|U+1F4B4|U+1F4B5|U+1F4B6|U+1F4B7
@@ -668,6 +681,7 @@ zh-Hant:1atm|理財|錢|金錢
 el:χρήματα
 sk:sporiteľna|peniaze
 fa:دستگاه خودپرداز
+ca:diners
 
 # First keyword should match [bank] definition in strings.txt!
 @bank
@@ -708,6 +722,7 @@ he:בנק
 sk:3Banka
 sw:Benki|fedha
 fa:بانک
+ca:Banc
 
 # First keyword should match [secondhand] definition in strings.txt!
 @secondhand
@@ -784,6 +799,7 @@ zh-Hant:錢
 el:χρήματα
 sk:peniaze
 fa:بانک
+ca:diners
 
 # First keyword should match [recycling] definition in strings.txt!
 @recycling
@@ -823,6 +839,7 @@ sk:Recyklácia|Využitie odpadu|Recyklovateľné|Separovaný zber odpadu|Trieden
 zh-Hans:回收|废物利用|可回收物|垃圾分类收集|垃圾分类|再利用
 zh-Hant:回收|廢物利用|可回收物|垃圾分類收集|垃圾分類|再利用
 fa:بازیافت|مدیریت پسماند|مواد بازیافتنی|جمعآوری جداگانۀ زبالهها |تفکیک پسماند|بازمصرف
+ca:Reciclatge|Reciclatge de residus|Eliminació de residus|Materials reciclables|Recollida selectiva d’escombraries|Classificació de residus|Reutilització
 
 amenity-bureau_de_change
 en:3Currency Exchange|3exchange|money|U+1F4B1|U+1F4B2|U+1F4B4|U+1F4B5|U+1F4B6|U+1F4B7
@@ -859,6 +876,7 @@ zh-Hant:1匯率|理財|外幣|兌換|貨幣|換錢
 el:Συνάλλαγμα|ανταλλακτήριο|χρήματα
 sk:3Zmenáreň|peniaze
 fa:صرافی
+ca:Canvi de divises|diners
 
 amenity-bar|amenity-pub|@eat|@nightlife
 en:2Bar|2pub|beer|drink|U+1F37A|U+1F37B|U+1F376|tavern|bars and pubs|brew pub|cocktail lounge
@@ -897,6 +915,7 @@ el:Μπαρ|Παμπ|μπύρα|ποτό|φαγητό
 sk:2Bar|pohostinstvo|pivo|pitie|tekutiny
 sw:Baa|vinywaji
 fa:میکده|کاباره
+ca:Bar
 
 amenity-cafe|@eat
 en:3Cafe|3restaurant|U+2615|U+1F356|U+1F357|U+1F35A|U+1F35B|U+1F35C|U+1F35D|U+1F363|U+1F366|U+1F367|U+1F368|U+1F369|U+1F370|U+1F372|U+1F374|U+1F377|U+1F60B|U+1F375|bistro|lunch|coffee shop|coffee bar|coffee|canteen|cafeteria|dining room|place to eat|buffet
@@ -935,6 +954,7 @@ el:Καφετέρια|εστιατόριο|φαγητό
 sk:3Kaviareň|reštaurácia|pohostinstvo
 sw:Mgahawa|hoteli|chakula
 fa:کافه|قهوه فروشی|قهوه خانه
+ca:Cafè|Cafeteria
 
 amenity-fast_food|@eat
 en:4Fast Food|3restaurant|3cafe|takeaway|U+1F354|U+1F355|U+1F35F|U+1F363|U+1F366|U+1F367|U+1F368|U+1F369|U+1F370|U+1F372|U+1F374|food to go|junk food
@@ -972,6 +992,7 @@ zh-Hant:1速食店|麥當勞|肯德雞|漢堡王|頂呱呱|薯條|速食|用餐|
 el:Ταχυφαγίο|καφετέρια|φαγητό για το σπίτι|φαγητό
 sk:2Rýchle občerstvenie|4fastfood|3kaviareň|reštaurácia
 fa:فست فود|غذای حاضری
+ca:Menjar ràpid
 
 amenity-restaurant|@eat
 en:3Restaurant|3cafe|U+1F356|U+1F357|U+1F35A|U+1F35B|U+1F35C|U+1F35D|U+1F363|U+1F366|U+1F367|U+1F368|U+1F369|U+1F370|U+1F372|U+1F374|U+1F377|U+1F60B|diner|place to eat|meals|lunch|dinner|eating house|buffet
@@ -1010,6 +1031,7 @@ el:Εστιατόριο|καφετέρια|φαγητό
 sk:3Reštaurácia|pohostinstvo|kaviareň
 sw:Hoteli|restorenti|mgahawa|chakula
 fa:رستوران
+ca:Restaurant
 
 amenity-fuel|@fuel
 en:Gas Station|Petrol Station|3Filling Station|U+26FD
