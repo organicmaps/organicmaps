@@ -708,21 +708,21 @@
   <symbol maxX="462" maxY="1895" minX="394" minY="1854" name="subway-brussel-m"/>
   <symbol maxX="512" maxY="1894" minX="462" minY="1854" name="subway_entrance-london-s"/>
   <symbol maxX="552" maxY="1894" minX="512" minY="1854" name="subway-ubahn-s"/>
-  <symbol maxX="620" maxY="1894" minX="552" minY="1854" name="subway-taipei-s"/>
-  <symbol maxX="688" maxY="1894" minX="620" minY="1854" name="subway-sendai-s"/>
-  <symbol maxX="731" maxY="1894" minX="688" minY="1854" name="subway-seattle-s"/>
-  <symbol maxX="771" maxY="1894" minX="731" minY="1854" name="subway-rome-s"/>
-  <symbol maxX="835" maxY="1894" minX="771" minY="1854" name="subway-manila-s"/>
-  <symbol maxX="885" maxY="1894" minX="835" minY="1854" name="subway-london-s"/>
-  <symbol maxX="953" maxY="1894" minX="885" minY="1854" name="subway-haagse-s"/>
-  <symbol maxX="1021" maxY="1894" minX="953" minY="1854" name="subway-haagse-m"/>
-  <symbol maxX="1089" maxY="1894" minX="1021" minY="1854" name="subway-edmonton-s"/>
-  <symbol maxX="1146" maxY="1894" minX="1089" minY="1854" name="subway-bilbao-s"/>
-  <symbol maxX="1196" maxY="1894" minX="1146" minY="1854" name="light_rail-dlr-london-s"/>
-  <symbol maxX="1232" maxY="1890" minX="1196" minY="1854" name="transit_subway-s"/>
-  <symbol maxX="1264" maxY="1890" minX="1232" minY="1854" name="transit_monorail-s"/>
-  <symbol maxX="1296" maxY="1890" minX="1264" minY="1854" name="transit_light_rail-s"/>
-  <symbol maxX="1332" maxY="1890" minX="1296" minY="1854" name="subway-xs"/>
+  <symbol maxX="620" maxY="1894" minX="552" minY="1854" name="subway-sendai-s"/>
+  <symbol maxX="663" maxY="1894" minX="620" minY="1854" name="subway-seattle-s"/>
+  <symbol maxX="703" maxY="1894" minX="663" minY="1854" name="subway-rome-s"/>
+  <symbol maxX="767" maxY="1894" minX="703" minY="1854" name="subway-manila-s"/>
+  <symbol maxX="817" maxY="1894" minX="767" minY="1854" name="subway-london-s"/>
+  <symbol maxX="885" maxY="1894" minX="817" minY="1854" name="subway-haagse-s"/>
+  <symbol maxX="953" maxY="1894" minX="885" minY="1854" name="subway-haagse-m"/>
+  <symbol maxX="1021" maxY="1894" minX="953" minY="1854" name="subway-edmonton-s"/>
+  <symbol maxX="1078" maxY="1894" minX="1021" minY="1854" name="subway-bilbao-s"/>
+  <symbol maxX="1128" maxY="1894" minX="1078" minY="1854" name="light_rail-dlr-london-s"/>
+  <symbol maxX="1164" maxY="1890" minX="1128" minY="1854" name="transit_subway-s"/>
+  <symbol maxX="1196" maxY="1890" minX="1164" minY="1854" name="transit_monorail-s"/>
+  <symbol maxX="1228" maxY="1890" minX="1196" minY="1854" name="transit_light_rail-s"/>
+  <symbol maxX="1264" maxY="1890" minX="1228" minY="1854" name="subway-xs"/>
+  <symbol maxX="1332" maxY="1890" minX="1264" minY="1854" name="subway-taipei-m"/>
   <symbol maxX="1368" maxY="1890" minX="1332" minY="1854" name="subway-newyork-xs"/>
   <symbol maxX="1404" maxY="1890" minX="1368" minY="1854" name="star-l"/>
   <symbol maxX="1440" maxY="1890" minX="1404" minY="1854" name="speedcam-s"/>
@@ -737,34 +737,34 @@
   <symbol maxX="1775" maxY="1890" minX="1753" minY="1854" name="barrier-entrance-s"/>
   <symbol maxX="1843" maxY="1888" minX="1775" minY="1854" name="subway-edmonton-m"/>
   <symbol maxX="1883" maxY="1886" minX="1843" minY="1854" name="volcano-m"/>
-  <symbol maxX="1951" maxY="1886" minX="1883" minY="1854" name="subway-taipei-m"/>
-  <symbol maxX="2005" maxY="1886" minX="1951" minY="1854" name="subway-minsk-m"/>
-  <symbol maxX="64" maxY="1929" minX="0" minY="1897" name="subway-malaga-s"/>
-  <symbol maxX="132" maxY="1929" minX="64" minY="1897" name="subway-malaga-m"/>
-  <symbol maxX="182" maxY="1929" minX="132" minY="1897" name="subway-kolkata-s"/>
-  <symbol maxX="236" maxY="1929" minX="182" minY="1897" name="subway-kiev-s"/>
-  <symbol maxX="300" maxY="1929" minX="236" minY="1897" name="subway-baku-s"/>
-  <symbol maxX="332" maxY="1929" minX="300" minY="1897" name="star-m"/>
-  <symbol maxX="382" maxY="1929" minX="332" minY="1897" name="railway-crossing-m"/>
-  <symbol maxX="418" maxY="1929" minX="382" minY="1897" name="plaque"/>
-  <symbol maxX="486" maxY="1928" minX="418" minY="1897" name="subway-baku-m"/>
-  <symbol maxX="536" maxY="1926" minX="486" minY="1897" name="subway-minsk-s"/>
-  <symbol maxX="604" maxY="1926" minX="536" minY="1897" name="subway-chongqing-s"/>
-  <symbol maxX="633" maxY="1926" minX="604" minY="1897" name="star-s"/>
-  <symbol maxX="662" maxY="1922" minX="633" minY="1897" name="volcano-s"/>
-  <symbol maxX="730" maxY="1922" minX="662" minY="1897" name="subway-chongqing-m"/>
-  <symbol maxX="755" maxY="1922" minX="730" minY="1897" name="power-tower-m"/>
-  <symbol maxX="784" maxY="1922" minX="755" minY="1897" name="peakt-m"/>
-  <symbol maxX="820" maxY="1922" minX="784" minY="1897" name="cave-s"/>
-  <symbol maxX="881" maxY="1922" minX="820" minY="1897" name="arrow-m"/>
-  <symbol maxX="903" maxY="1919" minX="881" minY="1897" name="zero-icon"/>
-  <symbol maxX="925" maxY="1919" minX="903" minY="1897" name="peakt-s"/>
-  <symbol maxX="968" maxY="1919" minX="925" minY="1897" name="ford-m"/>
-  <symbol maxX="1000" maxY="1915" minX="968" minY="1897" name="mountain-pass-m"/>
-  <symbol maxX="1018" maxY="1915" minX="1000" minY="1897" name="mast-m"/>
-  <symbol maxX="1036" maxY="1915" minX="1018" minY="1897" name="dot-m"/>
-  <symbol maxX="1079" maxY="1915" minX="1036" minY="1897" name="arrow-s"/>
-  <symbol maxX="1101" maxY="1912" minX="1079" minY="1897" name="mountain-pass-s"/>
-  <symbol maxX="1130" maxY="1908" minX="1101" minY="1897" name="arrow-xs"/>
+  <symbol maxX="1937" maxY="1886" minX="1883" minY="1854" name="subway-minsk-m"/>
+  <symbol maxX="2001" maxY="1886" minX="1937" minY="1854" name="subway-malaga-s"/>
+  <symbol maxX="68" maxY="1929" minX="0" minY="1897" name="subway-malaga-m"/>
+  <symbol maxX="118" maxY="1929" minX="68" minY="1897" name="subway-kolkata-s"/>
+  <symbol maxX="172" maxY="1929" minX="118" minY="1897" name="subway-kiev-s"/>
+  <symbol maxX="236" maxY="1929" minX="172" minY="1897" name="subway-baku-s"/>
+  <symbol maxX="268" maxY="1929" minX="236" minY="1897" name="star-m"/>
+  <symbol maxX="318" maxY="1929" minX="268" minY="1897" name="railway-crossing-m"/>
+  <symbol maxX="354" maxY="1929" minX="318" minY="1897" name="plaque"/>
+  <symbol maxX="422" maxY="1928" minX="354" minY="1897" name="subway-baku-m"/>
+  <symbol maxX="476" maxY="1926" minX="422" minY="1897" name="subway-taipei-s"/>
+  <symbol maxX="526" maxY="1926" minX="476" minY="1897" name="subway-minsk-s"/>
+  <symbol maxX="594" maxY="1926" minX="526" minY="1897" name="subway-chongqing-s"/>
+  <symbol maxX="623" maxY="1926" minX="594" minY="1897" name="star-s"/>
+  <symbol maxX="652" maxY="1922" minX="623" minY="1897" name="volcano-s"/>
+  <symbol maxX="720" maxY="1922" minX="652" minY="1897" name="subway-chongqing-m"/>
+  <symbol maxX="745" maxY="1922" minX="720" minY="1897" name="power-tower-m"/>
+  <symbol maxX="774" maxY="1922" minX="745" minY="1897" name="peakt-m"/>
+  <symbol maxX="810" maxY="1922" minX="774" minY="1897" name="cave-s"/>
+  <symbol maxX="871" maxY="1922" minX="810" minY="1897" name="arrow-m"/>
+  <symbol maxX="893" maxY="1919" minX="871" minY="1897" name="zero-icon"/>
+  <symbol maxX="915" maxY="1919" minX="893" minY="1897" name="peakt-s"/>
+  <symbol maxX="958" maxY="1919" minX="915" minY="1897" name="ford-m"/>
+  <symbol maxX="990" maxY="1915" minX="958" minY="1897" name="mountain-pass-m"/>
+  <symbol maxX="1008" maxY="1915" minX="990" minY="1897" name="mast-m"/>
+  <symbol maxX="1026" maxY="1915" minX="1008" minY="1897" name="dot-m"/>
+  <symbol maxX="1069" maxY="1915" minX="1026" minY="1897" name="arrow-s"/>
+  <symbol maxX="1091" maxY="1912" minX="1069" minY="1897" name="mountain-pass-s"/>
+  <symbol maxX="1120" maxY="1908" minX="1091" minY="1897" name="arrow-xs"/>
  </file>
 </root>
