@@ -1,3 +1,5 @@
+#pragma once
+
 #include "platform/location_service.hpp"
 
 #include <QGeoPositionInfoSource>
