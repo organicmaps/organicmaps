@@ -109,11 +109,11 @@
 	<!-- Search category for cafes, bars, restaurants; any changes should be duplicated in categories.txt @eat! -->
 	<string name="eat">On menjar</string>
 	<!-- Search category for grocery stores; any changes should be duplicated in categories.txt @food! -->
-	<string name="food">Alimentació</string>
+	<string name="food">Queviures</string>
 	<!-- Search category for public transport; any changes should be duplicated in categories.txt @transport! -->
 	<string name="transport">Transport</string>
 	<!-- Search category for fuel stations; any changes should be duplicated in categories.txt @fuel! -->
-	<string name="fuel">Gasolinera</string>
+	<string name="fuel">Benzinera</string>
 	<!-- Search category for parking lots; any changes should be duplicated in categories.txt @parking! -->
 	<string name="parking">Aparcament</string>
 	<!-- Search category for clothes/shoes/gifts/jewellery/sport shops; any changes should be duplicated in categories.txt @shopping! -->
@@ -749,7 +749,7 @@
 	<!-- Text on the phone placeholder screen that maps are displayed on the car screen -->
 	<string name="aa_used_on_the_car_screen">Ara esteu utilitzant els Organic Maps a la pantalla del cotxe</string>
 	<!-- Displayed on the phone screen. Android Auto connected -->
-	<string name="aa_connected_title">Esteu connectat a Android Auto</string>
+	<string name="aa_connected_title">Us heu connectat a Android Auto</string>
 	<!-- Displayed on the phone screen. Button to display maps on the phone screen instead of a car -->
 	<string name="aa_continue_on_the_phone">Continueu al telèfon</string>
 	<!-- Displayed on the Android Auto screen. Button to display maps on the car screen instead of a phone. Must be no more than 18 symbols! -->

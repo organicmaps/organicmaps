@@ -96,7 +96,7 @@
 "eat" = "Dónde comer";
 
 /* Search category for grocery stores; any changes should be duplicated in categories.txt @food! */
-"food" = "Alimentación";
+"food" = "Provisiones";
 
 /* Search category for public transport; any changes should be duplicated in categories.txt @transport! */
 "transport" = "Transporte";
@@ -2519,8 +2519,6 @@
 "type.leisure.hackerspace" = "Hackerspace";
 
 "type.leisure.ice_rink" = "Pisa de patinaje";
-
-"type.leisure.landscape_reserve" = "Reserva natural";
 
 "type.leisure.marina" = "Marina";
 

@@ -96,13 +96,13 @@
 "eat" = "On menjar";
 
 /* Search category for grocery stores; any changes should be duplicated in categories.txt @food! */
-"food" = "Alimentació";
+"food" = "Queviures";
 
 /* Search category for public transport; any changes should be duplicated in categories.txt @transport! */
 "transport" = "Transport";
 
 /* Search category for fuel stations; any changes should be duplicated in categories.txt @fuel! */
-"fuel" = "Gasolinera";
+"fuel" = "Benzinera";
 
 /* Search category for parking lots; any changes should be duplicated in categories.txt @parking! */
 "parking" = "Aparcament";
@@ -2519,8 +2519,6 @@
 "type.leisure.hackerspace" = "Hackerspace";
 
 "type.leisure.ice_rink" = "Ice Rink";
-
-"type.leisure.landscape_reserve" = "Landscape Reserve";
 
 "type.leisure.marina" = "Marina";
 

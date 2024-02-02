@@ -117,7 +117,7 @@
 	<!-- Search category for cafes, bars, restaurants; any changes should be duplicated in categories.txt @eat! -->
 	<string name="eat">Dónde comer</string>
 	<!-- Search category for grocery stores; any changes should be duplicated in categories.txt @food! -->
-	<string name="food">Alimentación</string>
+	<string name="food">Provisiones</string>
 	<!-- Search category for public transport; any changes should be duplicated in categories.txt @transport! -->
 	<string name="transport">Transporte</string>
 	<!-- Search category for fuel stations; any changes should be duplicated in categories.txt @fuel! -->
@@ -1419,7 +1419,6 @@
 	<string name="type.leisure.garden.residential">Jardín residencial</string>
 	<string name="type.leisure.golf_course">Campo de golf</string>
 	<string name="type.leisure.ice_rink">Pisa de patinaje</string>
-	<string name="type.leisure.landscape_reserve">Reserva natural</string>
 	<string name="type.leisure.marina">Marina</string>
 	<string name="type.leisure.nature_reserve">Reserva natural</string>
 	<string name="type.leisure.outdoor_seating">Asientos al aire libre</string>
