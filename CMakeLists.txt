@@ -1,7 +1,7 @@
 cmake_minimum_required(VERSION 3.18)
 project(omim C CXX)
 
-set(CMAKE_CXX_STANDARD 17)
+set(CMAKE_CXX_STANDARD 20)
 set(CMAKE_C_STANDARD 11)
 # Our code does not rely on gnu extensions.
 set(CMAKE_CXX_EXTENSIONS OFF)
@@ -26,7 +26,7 @@ if (APPLE AND NOT ("${CMAKE_SYSTEM_NAME}" STREQUAL Android))
   set(CMAKE_OBJC_VISIBILITY_PRESET hidden)
   enable_language(OBJCXX)
   set(CMAKE_OBJCXX_EXTENSIONS OFF)
-  set(CMAKE_OBJCXX_STANDARD 17)
+  set(CMAKE_OBJCXX_STANDARD 20)
   set(CMAKE_OBJCXX_FLAGS -fobjc-arc)
   set(CMAKE_OBJCXX_VISIBILITY_PRESET hidden)
 endif()
@@ -166,9 +166,9 @@ if (NJOBS)
   set(CMAKE_JOB_POOL_PRECOMPILE_HEADER custom)
 endif()
 
-# GCC 8.1 is required to support <charconv> header inclusion in base/string_utils.hpp, otherwise 7.0 is sufficient
-if (CMAKE_CXX_COMPILER_ID MATCHES "GNU" AND CMAKE_CXX_COMPILER_VERSION VERSION_LESS 8.1)
-  message(FATAL_ERROR "Minimum supported g++ version is 8.1 yours is ${CMAKE_CXX_COMPILER_VERSION}")
+# GCC 8.1 is required to support <charconv> header inclusion in base/string_utils.hpp
+if (CMAKE_CXX_COMPILER_ID MATCHES "GNU" AND CMAKE_CXX_COMPILER_VERSION VERSION_LESS 10.0)
+  message(FATAL_ERROR "Minimum supported g++ version is 10.0, yours is ${CMAKE_CXX_COMPILER_VERSION}")
 endif()
 
 if (CMAKE_CXX_COMPILER_ID MATCHES "Clang")
