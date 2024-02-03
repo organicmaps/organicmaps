@@ -65,7 +65,7 @@ public abstract class DownloaderNotifier
         .setAutoCancel(true)
         .setCategory(NotificationCompat.CATEGORY_ERROR)
         .setVisibility(NotificationCompat.VISIBILITY_PUBLIC)
-        .setSmallIcon(R.drawable.ic_notification)
+        .setSmallIcon(R.drawable.ic_splash)
         .setColor(ContextCompat.getColor(context, R.color.notification))
         .setContentTitle(title)
         .setContentText(content)
