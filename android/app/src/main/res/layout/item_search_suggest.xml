@@ -4,5 +4,5 @@
           xmlns:tools="http://schemas.android.com/tools"
           style="@style/MwmWidget.TextView.Search"
           android:textColor="?colorAccent"
-          app:drawableStartCompat="@drawable/ic_search_suggest"
+          app:drawableStartCompat="@drawable/ic_search"
           tools:text="Some suggest title"/>

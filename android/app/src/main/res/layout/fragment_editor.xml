@@ -25,6 +25,7 @@
         android:padding="@dimen/margin_half_plus">
         <ImageView
           android:id="@+id/icon"
+          style="@style/MwmWidget.Editor.MetadataIcon"
           android:layout_width="wrap_content"
           android:layout_height="wrap_content"
           android:layout_centerVertical="true"
