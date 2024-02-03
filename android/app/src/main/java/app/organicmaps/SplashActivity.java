@@ -157,6 +157,9 @@ public class SplashActivity extends AppCompatActivity
     // https://github.com/organicmaps/organicmaps/issues/6944
     final Intent intent = Objects.requireNonNull(getIntent());
     intent.setComponent(new ComponentName(this, DownloadResourcesLegacyActivity.class));
+    // Flags like FLAG_ACTIVITY_NEW_TASK and FLAG_ACTIVITY_RESET_TASK_IF_NEEDED will break the cold start of the app.
+    // https://github.com/organicmaps/organicmaps/pull/7287
+    intent.setFlags(intent.getFlags() & (Intent.FLAG_ACTIVITY_FORWARD_RESULT | Intent.FLAG_GRANT_READ_URI_PERMISSION));
 
     Config.setFirstStartDialogSeen(this);
     startActivity(intent);
