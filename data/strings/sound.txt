@@ -29,7 +29,7 @@
     pt-BR = Mantenha-se à direita.
     ro = Păstrați la dreapta.
     ru = Держитесь правее.
-    sk = Uchovať napravo.
+    sk = Držte sa vpravo.
     sv = Håll höger.
     sw = Kaa kuria.
     th = ชิดขวาไว้
@@ -185,7 +185,7 @@
     pt-BR = Saia da rotatória.
     ro = Ieșiți din sensul giratoriu.
     ru = Сверните с кольца.
-    sk = Výjazd z kruhového objazdu.
+    sk = Opustite kruhový objazd.
     sv = Lämna rondellen.
     sw = Toka kwenye mzunguko wa barabara.
     th = ออกจากวงเวียน
@@ -224,7 +224,7 @@
     pt-BR = Mantenha-se à esquerda.
     ro = Păstrați la stânga.
     ru = Держитесь левее.
-    sk = Uchovať naľavo.
+    sk = Držte sa vľavo.
     sv = Håll vänster.
     sw = Kaa kushoto.
     th = ชิดซ้ายไว้
@@ -419,7 +419,7 @@
     pt-BR = Pegue a saída.
     ro = Ieșire.
     ru = Съезд.
-    sk = Výjazd.
+    sk = Použite výjazd.
     sv = Utgång.
     sw = Kuondoka.
     th = ทางออก.
@@ -458,7 +458,7 @@
     pt-BR = Você chegará ao seu destino.
     ro = Veți sosi.
     ru = Вы прибудете в пункт назначения.
-    sk = Dorazíte.
+    sk = Dorazíte do cieľa.
     sv = Är du framme.
     sw = Utawasili.
     th = คุณจะถึง
@@ -1238,7 +1238,7 @@
     pt-BR = Pegue a primeira saída.
     ro = Folosiți prima ieșire.
     ru = Сверните на первый съезд.
-    sk = Opustite kruhový objazd na prvom výjazde.
+    sk = Opustite kruhový objazd prvým výjazdom.
     sv = Ta första avfarten.
     sw = Ingia barabara ya kwanza ya kutoka.
     th = ออกทางออกที่หนึ่ง
@@ -1277,7 +1277,7 @@
     pt-BR = Pegue a segunda saída.
     ro = Folosiți a doua ieșire.
     ru = Сверните на второй съезд.
-    sk = Opustite kruhový objazd na druhom výjazde.
+    sk = Opustite kruhový objazd druhým výjazdom.
     sv = Ta andra avfarten.
     sw = Ingia barabara ya pili ya kutoka.
     th = ออกทางออกที่สอง
@@ -1316,7 +1316,7 @@
     pt-BR = Pegue a terceira saída.
     ro = Folosiți a treia ieșire.
     ru = Сверните на третий съезд.
-    sk = Opustite kruhový objazd na treťom výjazde.
+    sk = Opustite kruhový objazd tretím výjazdom.
     sv = Ta tredje avfarten.
     sw = Ingia barabara ya tatu ya kutoka.
     th = ออกทางออกที่สาม
@@ -1355,7 +1355,7 @@
     pt-BR = Pegue a quarta saída.
     ro = Folosiți a patra ieșire.
     ru = Сверните на четвертый съезд.
-    sk = Opustite kruhový objazd na štvrtom výjazde.
+    sk = Opustite kruhový objazd štvrtým výjazdom.
     sv = Ta fjärde avfarten.
     sw = Ingia barabara ya nne ya kutoka.
     th = ออกทางออกที่สี่
@@ -1394,7 +1394,7 @@
     pt-BR = Pegue a quinta saída.
     ro = Folosiți a cincea ieșire.
     ru = Сверните на пятый съезд.
-    sk = Opustite kruhový objazd na piatom výjazde.
+    sk = Opustite kruhový objazd piatym výjazdom.
     sv = Ta femte avfarten.
     sw = Ingia barabara ya tano ya kutoka.
     th = ออกทางออกที่ห้า
@@ -1433,7 +1433,7 @@
     pt-BR = Pegue a sexta saída.
     ro = Folosiți a șasea ieșire.
     ru = Сверните на шестой съезд.
-    sk = Opustite kruhový objazd na šiestom výjazde.
+    sk = Opustite kruhový objazd šiestym výjazdom.
     sv = Ta sjätte avfarten.
     sw = Ingia barabara ya sita ya kutoka.
     th = ออกทางออกที่หก
@@ -1472,7 +1472,7 @@
     pt-BR = Pegue a sétima saída.
     ro = Folosiți a șaptea ieșire.
     ru = Сверните на седьмой съезд.
-    sk = Opustite kruhový objazd na siedmom výjazde.
+    sk = Opustite kruhový objazd siedmym výjazdom.
     sv = Ta sjunde avfarten.
     sw = Ingia barabara ya saba ya kutoka.
     th = ออกทางออกที่เจ็ด
@@ -1511,7 +1511,7 @@
     pt-BR = Pegue a oitava saída.
     ro = Folosiți a opta ieșire.
     ru = Сверните на восьмой съезд.
-    sk = Opustite kruhový objazd na ôsmom výjazde.
+    sk = Opustite kruhový objazd ôsmym výjazdom.
     sv = Ta åttonde avfarten.
     sw = Ingia barabara ya nane ya kutoka.
     th = ออกทางออกที่แปด
@@ -1550,7 +1550,7 @@
     pt-BR = Pegue a nona saída.
     ro = Folosiți a noua ieșire.
     ru = Сверните на девятый съезд.
-    sk = Opustite kruhový objazd na deviatom výjazde.
+    sk = Opustite kruhový objazd deviatym výjazdom.
     sv = Ta nionde avfarten.
     sw = Ingia barabara ya tisa ya kutoka.
     th = ออกทางออกที่เก้า
@@ -1589,7 +1589,7 @@
     pt-BR = Pegue a décima saída.
     ro = Folosiți a zecea ieșire.
     ru = Сверните на десятый съезд.
-    sk = Opustite kruhový objazd na desiatom výjazde.
+    sk = Opustite kruhový objazd desiatym výjazdom.
     sv = Ta tionde avfarten.
     sw = Ingia barabara ya kumi ya kutoka.
     th = ออกทางออกที่สิบ
@@ -1628,7 +1628,7 @@
     pt-BR = Pegue a décima primeira saída.
     ro = Folosiți a unsprezecea ieșire.
     ru = Сверните на одиннадцатый съезд.
-    sk = Opustite kruhový objazd na jedenástom výjazde.
+    sk = Opustite kruhový objazd jedenástym výjazdom.
     sv = Ta elfte avfarten.
     sw = Ingia barabara ya kumi na moja ya kutoka.
     th = ออกทางออกที่สิบเอ็ด
@@ -2525,7 +2525,7 @@
     pt-BR = Radar à frente
     ro = Cameră frontală
     ru = Впереди камера
-    sk = Kamera vpredu
+    sk = Pozor, radar!
     sv = Kamera framför
     sw = Kamera Mbele
     th = มีกล้องอยู่ข้างหน้า
