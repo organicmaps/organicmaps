@@ -823,7 +823,7 @@
     pt-BR = Baixar mapa
     ro = Descarcă harta
     ru = Загрузить карту
-    sk = Stiahnite si Mapu
+    sk = Stiahnite si mapu
     sv = Ladda ner karta
     th = ดาวน์โหลดแผนที่
     tr = Haritayı İndir
@@ -995,7 +995,7 @@
     pt-BR = Grátis para todos, feito com amor
     ro = Gratuit pentru toată lumea, făcut cu dragoste
     ru = Бесплатно для всех, сделано с любовью
-    sk = Zadarmo pre každého, vyrobený s láskou
+    sk = Zadarmo pre každého, vyrobené s láskou
     sv = Gratis för alla, gjorda med kärlek
     sw = Bure kwa kila mtu, iliyotengenezwa na upendo
     th = ฟรีสำหรับทุกคนทำด้วยความรัก
@@ -1165,7 +1165,7 @@
     pt = Aplicativo de código aberto criado por entusiastas e voluntários.
     ro = Aplicație open-source creată de entuziaști și voluntari.
     ru = Приложение с открытым исходным кодом, созданное энтузиастами и волонтерами.
-    sk = Aplikácia s otvoreným zdrojovým kódom vytvorené nadšencami a dobrovoľníkmi.
+    sk = Aplikácia s otvoreným zdrojovým kódom vytvorená nadšencami a dobrovoľníkmi.
     sv = Open-källansökan skapad av entusiaster och frivilliga.
     sw = Maombi ya chanzo-wazi iliyoundwa na wanaovutia na wanaojitolea.
     th = แอปพลิเคชันโอเพนซอร์ซที่สร้างขึ้นโดยผู้ที่ชื่นชอบและอาสาสมัคร
@@ -3983,7 +3983,7 @@
     pt-BR = Favoritos carregados com sucesso! Você pode encontrá-los no mapa ou na tela de gestão dos favoritos.
     ro = Locuri preferate încărcate cu succes! Le poți găsi pe hartă sau în „Gestionare Locuri preferate”.
     ru = Метки успешно загружены! Вы можете увидеть их на карте или в ваших сохраненных метках.
-    sk = Záložky boli úspešne načítané! Môžete ich nájst na mape alebo na obrazovke Správca záložiek.
+    sk = Záložky boli úspešne načítané! Môžete ich nájsť na mape alebo na obrazovke Správca záložiek.
     sv = Bokmärkena lästes in! Du kan hitta dem på kartan eller i Bokmärkeshanteraren.
     th = โหลดบุ๊กมาร์กสำเร็จแล้ว! คุณสามารถหาพวกมันได้บนแผนที่หรือบนหน้าจอโปรแกรมจัดการบุ๊กมาร์ก
     tr = Yer İmleri başarılı bir şekilde yüklendi! Bunları Haritada veya Yer İmleri Yöneticisi ekranında bulabilirsiniz.
@@ -4420,7 +4420,7 @@
     pt-BR = Compartilhar
     ro = Trimite
     ru = Поделиться
-    sk = Zdielať
+    sk = Zdieľať
     sv = Dela
     th = แชร์
     tr = Paylaş
@@ -4552,7 +4552,7 @@
     pt-BR = Info
     ro = Info
     ru = Информация
-    sk = Viacej informácií
+    sk = Viac informácií
     sv = Info
     th = ข้อมูล
     tr = Bilgi
@@ -4818,7 +4818,7 @@
     pt-BR = Comprimento
     ro = Lungime
     ru = Длина
-    sk = Diaľka
+    sk = Dĺžka
     sv = Längd
     th = ระยะเวลา
     tr = Uzunluk
@@ -4862,7 +4862,7 @@
     pt-BR = Compartilhar a minha localização
     ro = Trimite poziția mea
     ru = Поделиться местоположением
-    sk = Zdielať moje umiestnenie
+    sk = Zdieľať moje umiestnenie
     sv = Dela Min Plats
     th = แชร์ตำแหน่งที่ตั้งของฉัน
     tr = Konumumu Paylaş
@@ -5021,7 +5021,7 @@
     pt-BR = Botões de zoom
     ro = Butoane zoom
     ru = Кнопки масштаба
-    sk = Tlačítka priblíženia/oddialenia
+    sk = Tlačidlá priblíženia/oddialenia
     sv = Zoom-knappar
     th = ปุ่มซูม
     tr = Yakınlaştırma butonları
@@ -6775,7 +6775,7 @@
     pt-BR = Calibração da bússola
     ro = Calibrare busolă
     ru = Калибровка компаса
-    sk = Compass kalibrácia
+    sk = Kalibrácia kompasu
     sv = Kompasskalibrering
     th = การปรับเทียบเข็มทิศ
     tr = Pusula kalibrasyonu
@@ -11013,6 +11013,7 @@
     ro = Vrei să planifici un traseu din poziția ta actuală?
     ru = Хотите перестроить маршрут от вашего местоположения?
     sk = Doriți să vă planificăm o rută având ca punct de pornire locația actuală?
+    sk = Máme naplánovať trasu z vašej súčasnej pozície?
     sv = Vill du att vi planerar en färdväg från din nuvarande plats?
     th = คุณต้องการให้เราาวงแผนเส้นทางจากสถานที่ตั้งปัจจุบันของคุณหรือไม่?
     tr = Mevcut konumunuzdan bir rota planlamamızı ister misiniz?
@@ -12811,7 +12812,7 @@
     pt-BR = Senha (mínimo de 8 caracteres)
     ro = Parola (minim 8 caractere)
     ru = Пароль (минимум 8 символов)
-    sk = Heslo (8 minimálne znakov)
+    sk = Heslo (minimálne 8 znakov)
     sv = Lösenord (minst 8 tecken)
     th = รหัสผ่าน (อย่างน้อย 8 ตัวอักษร)
     tr = Şifre (en az 8 karakter)
@@ -15415,7 +15416,7 @@
     pt-BR = O número de andares não pode ser maior que %d
     ro = Numărul de etaje nu trebuie să depășească %d
     ru = Количество этажей не должно превышать %d
-    sk = Upraviť s maximálne %d poschodiami
+    sk = Počet poschodí nesmie byť väčší ako %d
     sv = Redigera byggnaden med max %d våningar
     th = แก้ไขอาคารที่มีจำนวนชั้นมากกว่า %d
     tr = Kat sayısı %d'i geçmemelidir
@@ -15894,7 +15895,7 @@
     pt-BR = Continuar detectando sua localização atual?
     ro = Continui cu detectarea poziției tale actuale?
     ru = Продолжить поиск местоположения?
-    sk = Pokračovať v mazaní vašej súčasnej pozície?
+    sk = Pokračovať v zisťovaní vašej polohy?
     sv = Fortsätt detektera din nuvarande plats?
     th = ค้นหาที่ตั้งปัจจุบันต่อไปหรือไม่?
     tr = Geçerli konumunuz izlenmeye devam edilsin mi?
@@ -19394,7 +19395,7 @@
     pt-BR = Transliteração para alfabeto latino
     ro = Transcrie în alfabet latin
     ru = Латинская транслитерация
-    sk = Prepis do latinčiny
+    sk = Prepis do latinky
     sv = Transkribering till latin
     sw = Tafsiri kwa lugha ya Kilatini
     th = การทับศัพท์เป็นภาษาละติน
@@ -20058,7 +20059,7 @@
     pt-BR = Entrada
     ro = Intrare
     ru = Вход
-    sk = Vchod  | vjazd
+    sk = Vchod | vjazd
     sv = Ingång
     sw = Kiingilio
     th = ทางเข้า
@@ -21733,7 +21734,7 @@
     pt = Privacidade
     ro = Intimitate
     ru = Приватность
-    sk = Súkromia
+    sk = Súkromie
     sv = Zasebnost
     sw = Faragha
     th = ความเป็นส่วนตัว
@@ -21868,7 +21869,7 @@
     pt-BR = Tráfego
     ro = Trafic
     ru = Пробки
-    sk = Vyťaženie
+    sk = Dopravné informácie
     sv = Trafik
     sw = Trafiki
     th = การจราจร
@@ -22095,7 +22096,7 @@
     pt-BR = Para adicionar um favorito, toque no mapa e então toque no ícone de estrela
     ro = Pentru a adăuga un loc preferat, ține apăsat un loc pe hartă și după aceea atinge simbolul în formă de stea
     ru = Чтобы добавить метку, нажмите на место на карте, а затем на иконку звёздочки
-    sk = Pre pridanie záložky kliknite na miesto na mape a potom na ikonu hviezdy
+    sk = Pre pridanie záložky kliknite na miesto na mape a potom na ikonu hviezdičky
     sv = För att lägga till bokmärken, tryck på kartan och sedan på stjärnikonen
     sw = Ili kuongeza ramani, gusa mahali kwenye ramani na kisha gusa ikoni ya nyota
     th = เพื่อเพิ่มบุ๊กมาร์ก โปรดแตะที่สถานที่บนแผนที่ แล้วจากนั้นแตะที่ไอคอนรูปดาว
@@ -22350,7 +22351,7 @@
     pt-BR = Esconder do mapa
     ro = Ascunde de pe hartă
     ru = Скрыть с карты
-    sk = Skryť z mapy
+    sk = Nezobrazovať na mape
     sv = Dölj från karta
     sw = Ficha kwenye ramani
     th = ซ่อนจากแผนที่
@@ -22395,7 +22396,7 @@
     pt-BR = Acesso público
     ro = Acces public
     ru = Публичный доступ
-    sk = Verejný prístup
+    sk = Verejne prístupné
     sv = Allmänhetens åtkomst
     sw = Matumizi ya umma
     th = เข้าถึงได้โดยสาธารณะ
@@ -23253,7 +23254,7 @@
     pt-BR = Opções de direção
     ro = Opțiuni de ocolire
     ru = Настройки объезда
-    sk = Možnosti jazdy
+    sk = Možnosti trasy
     sv = Omvägsinställningar
     sw = Machaguo ya njia
     th = ทางเลือกเส้นทางขับขี่
@@ -23296,7 +23297,7 @@
     pt-BR = Evitar pedágios
     ro = Evitați drumurile cu taxă
     ru = Избегать платных дорог
-    sk = Vyhnite sa spoplatneným cestám
+    sk = Vyhnúť sa spoplatneným cestám
     sv = Undvik avgiftsbelagda vägar
     sw = Epuka barabara za ushuru
     th = หลีกเลี่ยงถนนที่เก็บค่าผ่านทาง
@@ -23429,7 +23430,7 @@
     pt-BR = Evitar rodovias
     ro = Evitați autostrăzile
     ru = Избегать автомагистрали
-    sk = Vyhnite sa diaľnici
+    sk = Vyhnúť sa diaľniciam
     sv = Undvik motorvägen
     sw = Epuka barabara
     th = หลีกเลี่ยงมอเตอร์เวย์
@@ -26611,7 +26612,7 @@
     pt-BR = Nível de dificuldade
     ro = Nivel de dificultate
     ru = Уровень сложности
-    sk = Level obtiažnosti
+    sk = Úroveň obtiažnosti
     sv = Svårighetsgrad
     sw = Usawa mgumu
     th = ระดับความยาก
@@ -26788,7 +26789,7 @@
     pt-BR = Subida
     ro = Urcare
     ru = Подъём
-    sk = Výstup
+    sk = Stúpanie
     sv = Stigning
     sw = Upandaji
     th = การขึ้น
@@ -26833,7 +26834,7 @@
     pt-BR = Descida
     ro = Coborâre
     ru = Спуск
-    sk = Zostup
+    sk = Klesanie
     sv = Backe
     sw = Ushukaji
     th = การลง
@@ -27821,7 +27822,7 @@
     pt-BR = Percurso
     ro = Traseu
     ru = Трек
-    sk = Šľapaj Stopy
+    sk = Trasa
     sv = Rutt
     th = ติดตาม
     tr = Yol Kaydı
