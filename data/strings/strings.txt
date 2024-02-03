@@ -5607,50 +5607,6 @@
     zh-Hans = 无法使用
     zh-Hant = 無法使用
 
-  [pref_tts_other_section_title]
-    comment = Title for "Other" section in TTS settings.
-    tags = ios
-    en = Other
-    af = Ander
-    ar = آخر
-    az = Digər
-    be = Іншы
-    bg = Друго
-    ca = Altres
-    cs = Ostatní
-    da = Andet
-    de = Weitere
-    el = Άλλα
-    es = Otros
-    et = Muu
-    eu = Beste batzuk
-    fa = بیشتر
-    fi = Muu
-    fr = Autre
-    he = אחר
-    hu = Egyéb
-    id = Lainnya
-    it = Altro
-    ja = その他
-    ko = 다른 언어
-    lt = Kita
-    mr = इतर
-    nb = Andre
-    nl = Andere
-    pl = Inny
-    pt = Outro
-    pt-BR = Outro
-    ro = Altceva
-    ru = Другой
-    sk = Iný
-    sv = Övrigt
-    th = อื่น ๆ
-    tr = Diğer
-    uk = Інша
-    vi = Khác
-    zh-Hans = 其他
-    zh-Hant = 其他
-
   [pref_track_record_title]
     comment = Settings «Map» category: «Record track» title
     tags = ios

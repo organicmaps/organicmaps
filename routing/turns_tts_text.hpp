@@ -27,7 +27,7 @@ public:
 
   /// \brief Sets a locale.
   /// @param locale is a string representation of locale. For example "en", "ru", "zh-Hant" and so on.
-  /// \note See sound/tts/languages.txt for the full list of available locales.
+  /// \note See platform/tts_languages.hpp for the full list of available locales.
   void SetLocale(std::string const & locale);
 
   /// @return current TTS locale. For example "en", "ru", "zh-Hant" and so on.

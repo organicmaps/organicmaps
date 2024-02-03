@@ -190,7 +190,7 @@ public:
   }
   /// \brief Sets a locale for TTS.
   /// \param locale is a string with locale code. For example "en", "ru", "zh-Hant" and so on.
-  /// \note See sound/tts/languages.txt for the full list of available locales.
+  /// \note See platform/tts_languages.hpp for the full list of available locales.
   void SetTurnNotificationsLocale(std::string const & locale)
   {
     m_routingSession.SetTurnNotificationsLocale(locale);

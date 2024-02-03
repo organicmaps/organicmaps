@@ -1,45 +1,18 @@
 #import <AVFoundation/AVFoundation.h>
 #import "MWMRouter.h"
-#import "MWMTextToSpeech+CPP.h"
 #import "SwiftBridge.h"
 
 #include "LocaleTranslator.h"
 
 #include <CoreApi/Framework.h>
 
-#include "platform/languages.hpp"
+#include "platform/tts_languages.hpp"
 
 using namespace locale_translator;
 
 namespace
 {
-NSString * const kUserDefaultsTTSLanguageBcp47 = @"UserDefaultsTTSLanguageBcp47";
 NSString * const kIsTTSEnabled = @"UserDefaultsNeedToEnableTTS";
-NSString * const kDefaultLanguage = @"en-US";
-
-std::vector<std::pair<std::string, std::string>> availableLanguages()
-{
-  NSArray<AVSpeechSynthesisVoice *> * voices = [AVSpeechSynthesisVoice speechVoices];
-  std::vector<std::pair<std::string, std::string>> native;
-  for (AVSpeechSynthesisVoice * v in voices)
-    native.emplace_back(make_pair(bcp47ToTwineLanguage(v.language), v.language.UTF8String));
-
-  using namespace routing::turns::sound;
-  std::vector<std::pair<std::string, std::string>> result;
-  for (auto const & p : kLanguageList)
-  {
-    for (std::pair<std::string, std::string> const & lang : native)
-    {
-      if (lang.first == p.first)
-      {
-        // Twine names are equal. Make a pair: bcp47 name, localized name.
-        result.emplace_back(make_pair(lang.second, p.second));
-        break;
-      }
-    }
-  }
-  return result;
-}
 
 using Observer = id<MWMTextToSpeechObserver>;
 using Observers = NSHashTable<Observer>;
@@ -47,7 +20,6 @@ using Observers = NSHashTable<Observer>;
 
 @interface MWMTextToSpeech ()<AVSpeechSynthesizerDelegate>
 {
-  std::vector<std::pair<std::string, std::string>> _availableLanguages;
 }
 
 @property(nonatomic) AVSpeechSynthesizer * speechSynthesizer;
@@ -78,25 +50,9 @@ using Observers = NSHashTable<Observer>;
 - (instancetype)initTTS {
   self = [super init];
   if (self) {
-    _availableLanguages = availableLanguages();
     _observers = [Observers weakObjectsHashTable];
 
-    NSString * saved = [[self class] savedLanguage];
-    NSString * preferedLanguageBcp47;
-    if (saved.length)
-      preferedLanguageBcp47 = saved;
-    else
-      preferedLanguageBcp47 = [AVSpeechSynthesisVoice currentLanguageCode];
-
-    std::pair<std::string, std::string> const lan =
-        std::make_pair(preferedLanguageBcp47.UTF8String,
-                       tts::translatedTwine(bcp47ToTwineLanguage(preferedLanguageBcp47)));
-
-    if (find(_availableLanguages.begin(), _availableLanguages.end(), lan) !=
-        _availableLanguages.end())
-      [self setNotificationsLocale:preferedLanguageBcp47];
-    else
-      [self setNotificationsLocale:kDefaultLanguage];
+    [NSUserDefaults.standardUserDefaults addObserver:self forKeyPath:@"ttsLanguage" options:NSKeyValueObservingOptionNew | NSKeyValueObservingOptionInitial context:nil];
 
     NSError * err = nil;
     if (![[AVAudioSession sharedInstance] setCategory:AVAudioSessionCategoryPlayback
@@ -117,15 +73,15 @@ using Observers = NSHashTable<Observer>;
                                        error:nil];
   self.speechSynthesizer.delegate = nil;
 }
-- (std::vector<std::pair<std::string, std::string>>)availableLanguages { return _availableLanguages; }
-- (void)setNotificationsLocale:(NSString *)locale {
-  NSUserDefaults * ud = NSUserDefaults.standardUserDefaults;
-  [ud setObject:locale forKey:kUserDefaultsTTSLanguageBcp47];
-  [ud synchronize];
-  [self createVoice:locale];
+
+- (void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary *)change context:(void *)context {
+  if ([keyPath isEqualToString:@"ttsLanguage"]) {
+    [self createVoice: NSUserDefaults.standardUserDefaults.ttsLanguage];
+  }
 }
 
 - (BOOL)isValid { return _speechSynthesizer != nil && _speechVoice != nil; }
++ (void)enableTTSForTheFirstTime { [[NSUserDefaults standardUserDefaults] registerDefaults:@{kIsTTSEnabled : @YES}]; }
 + (BOOL)isTTSEnabled { return [NSUserDefaults.standardUserDefaults boolForKey:kIsTTSEnabled]; }
 + (void)setTTSEnabled:(BOOL)enabled {
   if ([self isTTSEnabled] == enabled)
@@ -155,7 +111,7 @@ using Observers = NSHashTable<Observer>;
 
 - (BOOL)active { return [[self class] isTTSEnabled] && [MWMRouter areTurnNotificationsEnabled]; }
 + (NSString *)savedLanguage {
-  return [NSUserDefaults.standardUserDefaults stringForKey:kUserDefaultsTTSLanguageBcp47];
+  return NSUserDefaults.standardUserDefaults.ttsLanguage;
 }
 
 - (void)createVoice:(NSString *)locale {
@@ -164,7 +120,7 @@ using Observers = NSHashTable<Observer>;
     self.speechSynthesizer.delegate = self;
   }
 
-  NSMutableArray<NSString *> * candidateLocales = [@[ kDefaultLanguage, @"en-GB" ] mutableCopy];
+  NSMutableArray<NSString *> * candidateLocales = [@[ @"en-US", @"en-GB" ] mutableCopy];
 
   if (locale)
     [candidateLocales insertObject:locale atIndex:0];
@@ -284,20 +240,24 @@ using Observers = NSHashTable<Observer>;
   [[self tts].observers removeObject:observer];
 }
 
-@end
-
-namespace tts
-{
-std::string translatedTwine(std::string const & twine)
-{
-  auto const & list = routing::turns::sound::kLanguageList;
-  auto const it =
-      find_if(list.begin(), list.end(),
-              [&twine](std::pair<std::string, std::string> const & pair) { return pair.first == twine; });
-
-  if (it != list.end())
-    return it->second;
-  else
-    return "";
++ (NSArray<NSString *> *)ttsLanguages {
+  NSMutableArray<NSString *> *languages = [[NSMutableArray<NSString *> alloc] init];
+  for (AVSpeechSynthesisVoice *voice in AVSpeechSynthesisVoice.speechVoices) {
+    NSString *language = voice.language;
+    if (![languages containsObject: language] && [self isLanguageSupported: language]) {
+      [languages addObject: language];
+    }
+  }
+  return languages;
 }
-}  // namespace tts
+
++ (BOOL)isLanguageSupported:(NSString *)bcp47Identifier {
+  auto const & list = routing::turns::sound::ttsLanguageList;
+  auto const it = find_if(list.begin(), list.end(),
+                          [&bcp47Identifier](std::string const & twineIdentifier) {
+    return twineIdentifier == bcp47ToTwineLanguage(bcp47Identifier);
+  });
+  return it != list.end();
+}
+
+@end

@@ -3,6 +3,8 @@
 @interface MWMTextToSpeech : NSObject
 
 + (MWMTextToSpeech *)tts;
++ (void)enableTTSForTheFirstTime;
++ (NSArray<NSString *> *)ttsLanguages;
 + (BOOL)isTTSEnabled;
 + (void)setTTSEnabled:(BOOL)enabled;
 + (NSString *)savedLanguage;
@@ -13,7 +15,6 @@
 + (void)applicationDidBecomeActive;
 
 @property(nonatomic) BOOL active;
-- (void)setNotificationsLocale:(NSString *)locale;
 - (void)playTurnNotifications:(NSArray<NSString *> *)turnNotifications;
 - (void)playWarningSound;
 

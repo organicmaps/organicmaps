@@ -244,9 +244,6 @@
 /* Settings «Route» category: «Tts language» title */
 "pref_tts_language_title" = "Röstspråk";
 
-/* Title for "Other" section in TTS settings. */
-"pref_tts_other_section_title" = "Övrigt";
-
 /* Settings «Map» category: «Record track» title */
 "pref_track_record_title" = "Senaste resväg";
 

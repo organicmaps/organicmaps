@@ -123,7 +123,7 @@ using namespace osm_auth_ios;
   } else {
     [self incrementSessionCount];
   }
-  [self enableTTSForTheFirstTime];
+  [MWMTextToSpeech enableTTSForTheFirstTime];
 
   [[DeepLinkHandler shared] applicationDidFinishLaunching:launchOptions];
   // application:openUrl:options is called later for deep links if YES is returned.
@@ -343,13 +343,6 @@ using namespace osm_auth_ios;
 
 - (MWMCarPlayService *)carplayService {
   return [MWMCarPlayService shared];
-}
-
-#pragma mark - TTS
-
-- (void)enableTTSForTheFirstTime {
-  if (![MWMTextToSpeech savedLanguage].length)
-    [MWMTextToSpeech setTTSEnabled:YES];
 }
 
 #pragma mark - Standby

@@ -1,6 +1,5 @@
 #import "MWMSettingsViewController.h"
 #import "MWMAuthorizationCommon.h"
-#import "MWMTextToSpeech+CPP.h"
 #import "SwiftBridge.h"
 
 #import <CoreApi/CoreApi.h>
