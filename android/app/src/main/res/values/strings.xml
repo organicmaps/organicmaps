@@ -238,6 +238,10 @@
 	<string name="pref_tts_playing_test_voice">Check the volume or system Text-To-Speech settings if you don\'t hear the voice now.</string>
 	<!-- Settings «Route» category: «Tts unavailable» subtitle -->
 	<string name="pref_tts_unavailable">Not Available</string>
+	<!-- Text with TTS support information in the 'Voice Instructions' settings menu. -->
+	<string name="pref_tts_support_info">Organic Maps uses system TTS (Text-To-Speech) for voice instructions. For support on TTS installation or troubleshooting, please check the %s.</string>
+	<!-- Link string used at the end of the <pref_tts_support_info> string. -->
+	<string name="pref_tts_faq_link">TTS FAQs (Frequently Asked Questions)</string>
 	<string name="pref_map_auto_zoom">Auto zoom</string>
 	<string name="duration_disabled">Off</string>
 	<string name="duration_1_hour">1 hour</string>
@@ -597,7 +601,6 @@
 	<string name="feedback_general">General Feedback</string>
 	<string name="prefs_languages_information">We use system TTS for voice instructions. Many Android devices use Google TTS, you can download or update it from Google Play (https://play.google.com/store/apps/details?id=com.google.android.tts)</string>
 	<string name="prefs_languages_information_off">For some languages, you will need to install a speech synthesizer or an additional language pack from the app store (Google Play, Galaxy Store, App Gallery, FDroid).\nOpen your device\'s settings → Language and input → Speech → Text to speech output.\nHere you can manage settings for speech synthesis (for example, download language pack for offline use) and select another text-to-speech engine.</string>
-	<string name="prefs_languages_information_off_link">For more information please check this guide.</string>
 	<string name="transliteration_title">Transliteration into Latin alphabet</string>
 	<string name="learn_more">Learn more</string>
 	<!-- Subway exits for public transport marks on the map -->

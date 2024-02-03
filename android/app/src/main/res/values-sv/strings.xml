@@ -537,7 +537,6 @@
 	<string name="feedback_general">Allmän feedback</string>
 	<string name="prefs_languages_information">Vi använder TTS-system för röstinstruktioner. Flera Android-enheter använder Google TTS. Du kan ladda ned eller uppdatera det på Google Play (https://play.google.com/store/apps/details?id=com.google.android.tts)</string>
 	<string name="prefs_languages_information_off">För vissa språk måste du installera en annan talsyntes eller ett annat språkpaket från appbutiken (Google Play Market, Galaxy Store).\nÖppna inställningarna på enheten → Språk och inmatning → Tal → Text till tal-uppspelning.\nHär kan du hantera inställningarna för talsyntes (till exempel, ladda ned språkpaket för användning offline) och välja en annan text till tal-motor.</string>
-	<string name="prefs_languages_information_off_link">Kolla in den här guiden för mer information.</string>
 	<string name="transliteration_title">Transkribering till latin</string>
 	<string name="learn_more">Läs mer</string>
 	<!-- Subway exits for public transport marks on the map -->

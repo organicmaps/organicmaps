@@ -12,16 +12,7 @@
   <Preference
       android:key="@string/pref_tts_test_voice"
       android:title="@string/pref_tts_test_voice_title" />
-  <Preference
-      android:enabled="false"
-      android:key="@string/pref_tts_info"
-      android:persistent="false"
-      android:selectable="false"
-      android:summary="@string/prefs_languages_information" />
-  <Preference
-      android:enabled="true"
-      android:key="@string/pref_tts_info_link"
-      android:persistent="false"
-      android:selectable="true"
-      android:summary="@string/prefs_languages_information_off_link" />
+  <app.organicmaps.settings.CustomPreference
+      android:key="@string/pref_tts_support"
+      android:summary="@string/pref_tts_support_info" />
 </androidx.preference.PreferenceScreen>

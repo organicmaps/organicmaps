@@ -561,7 +561,6 @@
 	<string name="feedback_general">Opinió general</string>
 	<string name="prefs_languages_information">Usem el sistema de síntesi de veu per a les instruccions de veu. Molts aparells Android use el motor de síntesi de veu de Google, podeu baixar o actualitzar-lo des del Google Play (https://play.google.com/store/apps/details?id=com.google.android.tts)</string>
 	<string name="prefs_languages_information_off">Per a algunes llengües, haureu d\'instal·lar un sintetizador de veu o un paquet de llengua addicional des de la botiga d\'apliacions (Google Play, Galazy Store, FDroid).\nObriu la configuració de l\'aparell → Idioma i entrada → Veu → Sortidda de text a veu.\nAquí podeu gestionar la configuració de la síntesi de veu (per exemple, baixar un paquet de llengua per a ús sense connexió) i triar un altre motor de síntesi de veu.</string>
-	<string name="prefs_languages_information_off_link">Per a més informació, vegeu aquesta guia.</string>
 	<string name="transliteration_title">Translitertació a l\'alfabet llatí</string>
 	<string name="learn_more">Més informació</string>
 	<!-- Subway exits for public transport marks on the map -->

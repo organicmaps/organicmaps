@@ -557,7 +557,6 @@
 	<string name="feedback_general">一般反應</string>
 	<string name="prefs_languages_information">我們使用系統 TTS 提供語音指示。許多 Android 裝置使用 Google TTS，您可從 Google Play 下載或更新 (https://play.google.com/store/apps/details?id=com.google.android.tts)</string>
 	<string name="prefs_languages_information_off">對於某些語言，您將需要從 App 商店 (Google Play 商店, Galaxy Store) 安裝其他語音合成器或額外的語言套件。\n開啟您裝置的設定 → 語言與輸入 → 語音 → 文字轉換語音輸出。\n在這裡，您可以管理語音合成器的設定（例如，下載語言套件以供離線使用），並選取其他文字轉換語音引擎。</string>
-	<string name="prefs_languages_information_off_link">如需更多資訊，請參閱本指南。</string>
 	<string name="transliteration_title">音譯為拉丁文</string>
 	<string name="learn_more">瞭解更多資訊</string>
 	<!-- Subway exits for public transport marks on the map -->
