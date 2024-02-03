@@ -726,7 +726,7 @@
 	<string name="button_layer_outdoor">پیاده روی</string>
 	<!-- Text displayed when a webview or a browser are disabled, and external links can't be opened. -->
 	<string name="browser_not_available">مرورگر وب در دسترس نیست</string>
-	<string name="volume">صدا</string>
+	<string name="volume">میزان صدا</string>
 
 	<!-- SECTION: Types -->
 	<string name="type.addr_interpolation">آدرس/بلاک</string>

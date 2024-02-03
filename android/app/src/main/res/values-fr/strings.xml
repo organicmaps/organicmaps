@@ -757,9 +757,9 @@
 	<!-- Tip #00 -->
 	<string name="app_tip_00">Merci d\'utiliser nos cartes créées par la communauté !</string>
 	<!-- Text on the Android Auto placeholder screen that maps are displayed on the phone screen -->
-	<string name="aa_used_on_the_phone_screen">Vous utilisez maintenant Organic Maps sur l’écran du téléphone</string>
+	<string name="aa_used_on_the_phone_screen">Vous utilisez maintenant Organic Maps sur le téléphone</string>
 	<!-- Text on the phone placeholder screen that maps are displayed on the car screen -->
-	<string name="aa_used_on_the_car_screen">Vous utilisez maintenant Organic Maps sur l\'écran de la voiture</string>
+	<string name="aa_used_on_the_car_screen">Vous utilisez maintenant Organic Maps dans la voiture</string>
 	<!-- Displayed on the phone screen. Android Auto connected -->
 	<string name="aa_connected_title">Vous êtes connecté à Android Auto</string>
 	<!-- Displayed on the phone screen. Button to display maps on the phone screen instead of a car -->
