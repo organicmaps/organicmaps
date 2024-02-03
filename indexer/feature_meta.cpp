@@ -240,6 +240,7 @@ string ToString(Metadata::EType type)
   case Metadata::FMD_BUILDING_MIN_LEVEL: return "building:min_level";
   case Metadata::FMD_WIKIMEDIA_COMMONS: return "wikimedia_commons";
   case Metadata::FMD_CAPACITY: return "capacity";
+  case Metadata::FMD_WHEELCHAIR: return "wheelchair";
   case Metadata::FMD_COUNT: CHECK(false, ("FMD_COUNT can not be used as a type."));
   };
 
