@@ -174,6 +174,18 @@ vector<string> GetRawTypeSecond(ftypes::BaseChecker const & checker, TypesHolder
   return res;
 }
 
+vector<string> GetReadableTypes(ftypes::BaseChecker const & checker, TypesHolder const & types)
+{
+  auto const & c = classif();
+  vector<string> readable;
+  for (auto const t : types)
+  {
+    if (checker(t))
+      readable.push_back(c.GetReadableObjectName(t));
+  }
+  return readable;
+}
+
 vector<string> GetLocalizedTypes(ftypes::BaseChecker const & checker, TypesHolder const & types)
 {
   auto const & c = classif();
@@ -436,6 +448,16 @@ string GetLocalizedFeeType(TypesHolder const & types)
   if (localized_types.empty())
     return "";
   return localized_types[0];
+}
+
+string GetReadableWheelchairType(TypesHolder const & types)
+{
+  auto const & isWheelchairType = ftypes::IsWheelchairTypeChecker::Instance();
+  auto readableTypes = GetReadableTypes(isWheelchairType, types);
+  ASSERT_LESS_OR_EQUAL ( readableTypes.size(), 1, () );
+  if (readableTypes.empty())
+    return "";
+  return readableTypes[0];
 }
 
 bool HasAtm(TypesHolder const & types)

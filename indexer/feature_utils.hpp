@@ -129,6 +129,9 @@ namespace feature
   // Returns fee type localized by platform.
   std::string GetLocalizedFeeType(TypesHolder const & types);
 
+  // Returns readable wheelchair type.
+  std::string GetReadableWheelchairType(TypesHolder const & types);
+
   /// Returns true if feature has ATM type.
   bool HasAtm(TypesHolder const & types);
 

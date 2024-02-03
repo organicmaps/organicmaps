@@ -73,6 +73,9 @@ void MapObject::SetFromFeatureType(FeatureType & ft)
     assign_range(m_triangles, ft.GetTrianglesAsPoints(FeatureType::BEST_GEOMETRY));
   else if (m_geomType == feature::GeomType::Line)
     assign_range(m_points, ft.GetPoints(FeatureType::BEST_GEOMETRY));
+    
+  // Fill runtime metadata
+  m_metadata.Set(feature::Metadata::EType::FMD_WHEELCHAIR, feature::GetReadableWheelchairType(m_types));
 
 #ifdef DEBUG
   if (ftypes::IsWifiChecker::Instance()(ft))
