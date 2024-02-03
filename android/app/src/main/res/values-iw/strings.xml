@@ -764,7 +764,7 @@
 	<string name="browser_not_available">דפדפן אינטרנט אינו זמין</string>
 	<!-- Text displayed in a dialog when OSM authorization is disabled -->
 	<string name="osm_login_not_available">התחברות ל-OpenStreetMap לא אפשרית באופן זמני עקב הגבלות חדשות ב-Google Play 😾\nהצוות שלנו עובד על מנת לפתור את הבעיה. אנא התאזרו בסבלנות 🙏</string>
-	<string name="volume">עוצמת קול</string>
+	<string name="volume">כרך</string>
 
 	<!-- SECTION: Types -->
 	<string name="type.addr_interpolation">כתובת/חסימה</string>
