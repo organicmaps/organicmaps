@@ -11012,7 +11012,6 @@
     pt-BR = Deseja planejar uma rota a partir da sua localização atual?
     ro = Vrei să planifici un traseu din poziția ta actuală?
     ru = Хотите перестроить маршрут от вашего местоположения?
-    sk = Doriți să vă planificăm o rută având ca punct de pornire locația actuală?
     sk = Máme naplánovať trasu z vašej súčasnej pozície?
     sv = Vill du att vi planerar en färdväg från din nuvarande plats?
     th = คุณต้องการให้เราาวงแผนเส้นทางจากสถานที่ตั้งปัจจุบันของคุณหรือไม่?

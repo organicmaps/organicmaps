@@ -37,7 +37,7 @@
 	<string name="try_again">Skúsiť znova</string>
 	<string name="about_menu_title">O aplikácii Organic Maps</string>
 	<!-- Text in About screen -->
-	<string name="about_headline">Zadarmo pre každého, vyrobený s láskou</string>
+	<string name="about_headline">Zadarmo pre každého, vyrobené s láskou</string>
 	<!-- Text in About screen -->
 	<string name="about_proposition_1">• Žiadne reklamy, žiadne sledovanie, žiadny zber údajov</string>
 	<!-- Text in About screen -->
@@ -45,7 +45,7 @@
 	<!-- Text in About screen -->
 	<string name="about_proposition_3">• Rýchle, minimalistické, žiadne nevyžiadané</string>
 	<!-- Text in About screen -->
-	<string name="about_developed_by_enthusiasts">Aplikácia s otvoreným zdrojovým kódom vytvorené nadšencami a dobrovoľníkmi.</string>
+	<string name="about_developed_by_enthusiasts">Aplikácia s otvoreným zdrojovým kódom vytvorená nadšencami a dobrovoľníkmi.</string>
 	<!-- The button that opens system location settings -->
 	<string name="location_settings">Nastavenia polohy</string>
 	<string name="close">Zavrieť</string>
@@ -155,7 +155,7 @@
 	<!-- message title of loading file -->
 	<string name="load_kmz_title">Načítavanie záložiek</string>
 	<!-- Kmz file successful loading -->
-	<string name="load_kmz_successful">Záložky boli úspešne načítané! Môžete ich nájst na mape alebo na obrazovke Správca záložiek.</string>
+	<string name="load_kmz_successful">Záložky boli úspešne načítané! Môžete ich nájsť na mape alebo na obrazovke Správca záložiek.</string>
 	<!-- Kml file loading failed -->
 	<string name="load_kmz_failed">Načítavanie záložiek sa nepodarilo. Súbor môže byť poškodený alebo chybný.</string>
 	<!-- resource for context menu -->
@@ -175,7 +175,7 @@
 	<!-- Share my position using EMail, %1$@ is om:// and %2$@ is https://omaps.app link WITHOUT NAME -->
 	<string name="my_position_share_email">Ahoj,\n\nPráve som tu: %1$s. Stlačte jeden z týchto odkazov %2$s, %3$s a uvidíte toto miesto na mape.\n\nVďaka</string>
 	<!-- Share button text which opens menu with more buttons, like Message, EMail, Facebook etc. -->
-	<string name="share">Zdielať</string>
+	<string name="share">Zdieľať</string>
 	<!-- Share by email button text, also used in editor and About. -->
 	<string name="email">Email</string>
 	<!-- Text for message when used successfully copied something -->
@@ -189,10 +189,10 @@
 	<!-- Title for tracks category in bookmarks manager -->
 	<string name="tracks_title">Stopy</string>
 	<!-- Length of track in cell that describes route -->
-	<string name="length">Diaľka</string>
-	<string name="share_my_location">Zdielať moje umiestnenie</string>
+	<string name="length">Dĺžka</string>
+	<string name="share_my_location">Zdieľať moje umiestnenie</string>
 	<string name="prefs_group_route">Navigácia</string>
-	<string name="pref_zoom_title">Tlačítka priblíženia/oddialenia</string>
+	<string name="pref_zoom_title">Tlačidlá priblíženia/oddialenia</string>
 	<string name="pref_zoom_summary">Zobraziť na obrazovke</string>
 	<!-- Settings «Map» category: «Night style» title -->
 	<string name="pref_map_style_title">Nočný režim</string>
@@ -370,7 +370,7 @@
 	<string name="p2p_from_here">Cesta z</string>
 	<string name="p2p_to_here">Cesta do</string>
 	<string name="p2p_only_from_current">Navigácia je dostupná iba z vašej aktuálnej polohy.</string>
-	<string name="p2p_reroute_from_current">Doriți să vă planificăm o rută având ca punct de pornire locația actuală?</string>
+	<string name="p2p_reroute_from_current">Máme naplánovať trasu z vašej súčasnej pozície?</string>
 	<!-- Edit open hours/set time and minutes dialog -->
 	<string name="next_button">Nasledujúca</string>
 	<!-- Tab title in the Edit Opening Hours time picker -->
@@ -458,7 +458,7 @@
 	<string name="error_enter_correct_house_number">Zadajte správne číslo domu</string>
 	<string name="editor_storey_number">Počet poschodí (max %d)</string>
 	<!-- Error message in Editor when a user tries to set the number of floors for a building higher than %d floors -->
-	<string name="error_enter_correct_storey_number">Upraviť s maximálne %d poschodiami</string>
+	<string name="error_enter_correct_storey_number">Počet poschodí nesmie byť väčší ako %d</string>
 	<string name="editor_zip_code">PSČ</string>
 	<string name="error_enter_correct_zip_code">Zadajte správne PSČ</string>
 	<!-- Place Page title for long tap -->
@@ -471,7 +471,7 @@
 	<string name="downloader_no_downloaded_maps_title">Neprevzali ste žiadne mapy</string>
 	<string name="downloader_no_downloaded_maps_message">Prevziať mapy na nájdenie pozície a navigovanie off-line.</string>
 	<!-- Error title that appears after certain time without location. -->
-	<string name="current_location_unknown_title">Pokračovať v mazaní vašej súčasnej pozície?</string>
+	<string name="current_location_unknown_title">Pokračovať v zisťovaní vašej polohy?</string>
 	<!-- Error that appears after certain time without location. -->
 	<string name="current_location_unknown_message">Súčasná pozícia je neznáma. Možno sa nachádzate v budove alebo v tuneli.</string>
 	<string name="current_location_unknown_continue_button">Pokračovať</string>
@@ -538,7 +538,7 @@
 	<string name="prefs_languages_information">Na hlasové pokyny používame systém TTS. Mnohé zariadenia s Adroidom používajú Google TTS, ktorý si môžete stiahnuť alebo aktualizovať z obchodu Google Play (https://play.google.com/store/apps/details?id=com.google.android.tts)</string>
 	<string name="prefs_languages_information_off">Pre niektoré jazyky bude potrebné nainštalovať syntetizátor reči alebo balík doplnkového jazyka z obchodu s aplikáciami (Google Play, Galaxy Store, App Gallery, FDroid). Otvorte nastavenia zariadenia → Jazyk a vstup → Reč → Prevod textu na reč. Tu môžete spravovať nastavenia pre syntézu reči (napríklad stiahnuť jazykový balík pre použitie v režime offline) a vybrať iný jazyk.</string>
 	<string name="prefs_languages_information_off_link">Viac informácií nájdete v tomto návode.</string>
-	<string name="transliteration_title">Prepis do latinčiny</string>
+	<string name="transliteration_title">Prepis do latinky</string>
 	<string name="learn_more">Zistiť viac</string>
 	<!-- Subway exits for public transport marks on the map -->
 	<string name="core_exit">Ukončiť</string>
@@ -549,7 +549,7 @@
 	<string name="dialog_error_storage_title">Problém s prístupom k úložisku</string>
 	<string name="dialog_error_storage_message">Externý úložný priestor nie je dostupný, pravdepodobne je vytiahnutá alebo poškodená SD karta alebo je systém súborov určený iba na čítanie. Skontrolujte to, prosím, a kontaktujte nás na support\@organicmaps.app</string>
 	<string name="setting_emulate_bad_storage">Imitovať poškodené úložisko</string>
-	<string name="core_entrance">Vchod  | vjazd</string>
+	<string name="core_entrance">Vchod | vjazd</string>
 	<string name="error_enter_correct_name">Prosím, zadajte správne meno</string>
 	<string name="bookmark_lists">Zoznamy</string>
 	<!-- Do not display all bookmark lists on the map -->
@@ -584,19 +584,19 @@
 	  <item quantity="other">%d sledovania</item>
 	</plurals>
 	<!-- Settings privacy group in settings screen -->
-	<string name="privacy">Súkromia</string>
+	<string name="privacy">Súkromie</string>
 	<string name="privacy_policy">Zásady ochrany osobných údajov</string>
 	<string name="terms_of_use">Podmienky používania</string>
-	<string name="button_layer_traffic">Vyťaženie</string>
+	<string name="button_layer_traffic">Dopravné informácie</string>
 	<string name="button_layer_subway">Metro</string>
 	<string name="layers_title">Štýly a vrstvy mapy</string>
 	<string name="subway_data_unavailable">Mapa metra nie je dostupná</string>
 	<string name="bookmarks_empty_list_title">Tento zoznam je prázdny</string>
-	<string name="bookmarks_empty_list_message">Pre pridanie záložky kliknite na miesto na mape a potom na ikonu hviezdy</string>
+	<string name="bookmarks_empty_list_message">Pre pridanie záložky kliknite na miesto na mape a potom na ikonu hviezdičky</string>
 	<string name="category_desc_more">…viac</string>
 	<string name="export_file">Exportovať súbor</string>
 	<string name="delete_list">Vymazať zoznam</string>
-	<string name="public_access">Verejný prístup</string>
+	<string name="public_access">Verejne prístupné</string>
 	<string name="limited_access">Obmedzený prístup</string>
 	<string name="bookmark_list_description_hint">Zadajte popis (text alebo html)</string>
 	<string name="not_shared">Súkromné</string>
@@ -615,14 +615,14 @@
 	<string name="power_managment_setting_manual_max">Maximálna úspora batérie</string>
 	<string name="enable_logging_warning_message">Táto možnosť zapína zaznamenávanie na diagnostické účely. Môže to byť užitočné pre našu technickú podporu, ktorá rieši problémy s aplikáciou. Povoliť túto možnosť iba na požiadanie podpory Organic Maps.</string>
 	<string name="access_rules_author_only">Online úprava</string>
-	<string name="driving_options_title">Možnosti jazdy</string>
+	<string name="driving_options_title">Možnosti trasy</string>
 	<!-- Recommended length for CarPlay and Android Auto is around 25-27 characters -->
-	<string name="avoid_tolls">Vyhnite sa spoplatneným cestám</string>
+	<string name="avoid_tolls">Vyhnúť sa spoplatneným cestám</string>
 	<!-- Recommended length for CarPlay and Android Auto is around 25-27 characters -->
 	<string name="avoid_unpaved">Vyhnúť sa nespevneným cestám</string>
 	<!-- Recommended length for CarPlay and Android Auto is around 25-27 characters -->
 	<string name="avoid_ferry">Vyhnúť sa prechodom na trajekte</string>
-	<string name="avoid_motorways">Vyhnite sa diaľnici</string>
+	<string name="avoid_motorways">Vyhnúť sa diaľniciam</string>
 	<string name="unable_to_calc_alert_title">Nepodarilo sa vypočítať trasu</string>
 	<string name="unable_to_calc_alert_subtitle">Bohužiaľ sme nemohli nájsť trasu pravdepodobne z dôvodu definovaných možností. Zmeňte nastavenia a skúste to prosím znova</string>
 	<string name="define_to_avoid_btn">Definovať cesty, ktorým sa treba vyhnúť</string>
@@ -685,8 +685,8 @@
 	<string name="button_layer_isolines">Terén</string>
 	<string name="isolines_activation_error_dialog">Ak chcete aktivovať a používať topografickú vrstvu, aktualizujte alebo stiahnite mapu oblasti</string>
 	<string name="isolines_location_error_dialog">Topografická vrstva ešte nie je v tejto oblasti k dispozícii</string>
-	<string name="elevation_profile_ascent">Výstup</string>
-	<string name="elevation_profile_descent">Zostup</string>
+	<string name="elevation_profile_ascent">Stúpanie</string>
+	<string name="elevation_profile_descent">Klesanie</string>
 	<string name="elevation_profile_minaltitude">Min. nadmorská výška</string>
 	<string name="elevation_profile_maxaltitude">Max. nadmorská výška</string>
 	<string name="elevation_profile_difficulty">Obtiažnosť</string>
