@@ -17,6 +17,7 @@ import androidx.preference.Preference;
 import androidx.preference.SeekBarPreference;
 import androidx.preference.TwoStatePreference;
 
+import app.organicmaps.Framework;
 import app.organicmaps.R;
 import app.organicmaps.sound.LanguageData;
 import app.organicmaps.sound.TtsPlayer;
@@ -130,6 +131,7 @@ public class VoiceInstructionsSettingsFragment extends BaseXmlSettingsFragment
 
     initVolume();
     initTtsLangInfoLink();
+    initSpeedCamerasPrefs();
     updateTts();
   }
 
@@ -279,5 +281,27 @@ public class VoiceInstructionsSettingsFragment extends BaseXmlSettingsFragment
       Utils.openUrl(requireContext(), ttsInfoUrl);
       return false;
     });
+  }
+
+  private void initSpeedCamerasPrefs()
+  {
+    final ListPreference pref = getPreference(getString(R.string.pref_tts_speed_cameras));
+    pref.setSummary(pref.getEntry());
+    pref.setOnPreferenceChangeListener((preference, newValue) -> {
+      final String speedCamModeValue = (String) newValue;
+      final SettingsPrefsFragment.SpeedCameraMode newCamMode = SettingsPrefsFragment.SpeedCameraMode.valueOf(speedCamModeValue);
+      final CharSequence summary = pref.getEntries()[newCamMode.ordinal()];
+      pref.setSummary(summary);
+      if (pref.getValue().equals(newValue))
+        return true;
+
+      onSpeedCamerasPrefChanged(newCamMode);
+      return true;
+    });
+  }
+
+  private void onSpeedCamerasPrefChanged(@NonNull SettingsPrefsFragment.SpeedCameraMode newCamMode)
+  {
+    Framework.setSpeedCamerasMode(newCamMode);
   }
 }

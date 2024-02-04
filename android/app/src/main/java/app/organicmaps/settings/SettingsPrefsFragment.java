@@ -48,7 +48,6 @@ public class SettingsPrefsFragment extends BaseXmlSettingsFragment
     initMeasureUnitsPrefsCallbacks();
     initZoomPrefsCallbacks();
     initMapStylePrefsCallbacks();
-    initSpeedCamerasPrefs();
     initAutoDownloadPrefsCallbacks();
     initLargeFontSizePrefsCallbacks();
     initTransliterationPrefsCallbacks();
@@ -69,28 +68,6 @@ public class SettingsPrefsFragment extends BaseXmlSettingsFragment
   {
     final Preference pref = getPreference(getString(R.string.pref_tts_screen));
     pref.setSummary(Config.TTS.isEnabled() ? R.string.on : R.string.off);
-  }
-
-  private void initSpeedCamerasPrefs()
-  {
-    final ListPreference pref = getPreference(getString(R.string.pref_speed_cameras));
-    pref.setSummary(pref.getEntry());
-    pref.setOnPreferenceChangeListener((preference, newValue) -> {
-      final String speedCamModeValue = (String) newValue;
-      final SpeedCameraMode newCamMode = SpeedCameraMode.valueOf(speedCamModeValue);
-      final CharSequence summary = pref.getEntries()[newCamMode.ordinal()];
-      pref.setSummary(summary);
-      if (pref.getValue().equals(newValue))
-        return true;
-
-      onSpeedCamerasPrefChanged(newCamMode);
-      return true;
-    });
-  }
-
-  private void onSpeedCamerasPrefChanged(@NonNull SpeedCameraMode newCamMode)
-  {
-    Framework.setSpeedCamerasMode(newCamMode);
   }
 
   @Override

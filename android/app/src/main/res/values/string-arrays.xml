@@ -29,9 +29,9 @@
   </string-array>
 
   <string-array name="speed_cameras">
-    <item>@string/auto</item>
-    <item>@string/always</item>
-    <item>@string/never</item>
+    <item>@string/pref_tts_speedcams_auto</item>
+    <item>@string/pref_tts_speedcams_always</item>
+    <item>@string/pref_tts_speedcams_never</item>
   </string-array>
 
   <string-array name="speed_cameras_values" translatable="false">
