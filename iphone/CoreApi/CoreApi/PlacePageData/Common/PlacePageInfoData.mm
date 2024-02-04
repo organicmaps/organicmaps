@@ -4,6 +4,8 @@
 
 #import <CoreApi/StringUtils.h>
 
+#include "platform/localization.hpp"
+
 #include "indexer/validate_and_format_contacts.hpp"
 #include "indexer/kayak.hpp"
 
@@ -76,6 +78,7 @@ using namespace osm;
           break;
         case MetadataID::FMD_LEVEL: _level = ToNSString(value); break;
         case MetadataID::FMD_CAPACITY: _capacity = [NSString stringWithFormat:NSLocalizedString(@"capacity", nil), ToNSString(value)]; break;
+        case MetadataID::FMD_WHEELCHAIR: _wheelchair = ToNSString(platform::GetLocalizedTypeName(value)); break;
         default:
           break;
       }

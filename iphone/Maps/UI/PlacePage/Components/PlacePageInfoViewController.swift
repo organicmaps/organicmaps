@@ -95,6 +95,7 @@ class PlacePageInfoViewController: UIViewController {
   private var levelView: InfoItemViewController?
   private var coordinatesView: InfoItemViewController?
   private var capacityView: InfoItemViewController?
+  private var wheelchairView: InfoItemViewController?
 
   var placePageInfoData: PlacePageInfoData!
   weak var delegate: PlacePageInfoViewControllerDelegate?
@@ -197,6 +198,10 @@ class PlacePageInfoViewController: UIViewController {
       capacityView = createInfoItem(capacity, icon: UIImage(named: "ic_placepage_capacity"))
     }
 
+    if let wheelchair = placePageInfoData.wheelchair {
+      wheelchairView = createInfoItem(wheelchair, icon: UIImage(named: "ic_placepage_wheelchair"))
+    }
+    
     if let email = placePageInfoData.email {
       emailView = createInfoItem(email,
                                  icon: UIImage(named: "ic_placepage_email"),
