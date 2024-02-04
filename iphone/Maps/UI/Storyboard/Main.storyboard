@@ -898,9 +898,6 @@
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="CDj-ol-HRP">
                                 <rect key="frame" x="59" y="345" width="814" height="64"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                <constraints>
-                                    <constraint firstAttribute="height" constant="64" id="YoQ-gr-frN"/>
-                                </constraints>
                                 <userDefinedRuntimeAttributes>
                                     <userDefinedRuntimeAttribute type="string" keyPath="styleName" value="PressBackground"/>
                                 </userDefinedRuntimeAttributes>
@@ -912,15 +909,16 @@
                         <constraints>
                             <constraint firstItem="CwW-x8-G3j" firstAttribute="top" secondItem="XQZ-0V-SyR" secondAttribute="top" id="5wV-Dv-sjS"/>
                             <constraint firstAttribute="trailing" secondItem="CwW-x8-G3j" secondAttribute="trailing" id="6QL-v4-rNy"/>
-                            <constraint firstItem="dlW-OQ-WMO" firstAttribute="bottom" secondItem="kXO-Oh-2vO" secondAttribute="bottom" id="8Tl-19-ReF"/>
-                            <constraint firstItem="dlW-OQ-WMO" firstAttribute="trailing" secondItem="CDj-ol-HRP" secondAttribute="trailing" id="FLZ-Kr-4dV"/>
-                            <constraint firstItem="kXO-Oh-2vO" firstAttribute="leading" secondItem="dlW-OQ-WMO" secondAttribute="leading" id="M0m-98-7Ev"/>
+                            <constraint firstAttribute="bottom" secondItem="kXO-Oh-2vO" secondAttribute="bottom" id="8Tl-19-ReF"/>
+                            <constraint firstAttribute="trailing" secondItem="CDj-ol-HRP" secondAttribute="trailing" id="FLZ-Kr-4dV"/>
+                            <constraint firstItem="kXO-Oh-2vO" firstAttribute="leading" secondItem="XQZ-0V-SyR" secondAttribute="leading" id="M0m-98-7Ev"/>
                             <constraint firstAttribute="bottom" secondItem="CwW-x8-G3j" secondAttribute="bottom" id="QPk-e4-hZs"/>
                             <constraint firstItem="CwW-x8-G3j" firstAttribute="leading" secondItem="XQZ-0V-SyR" secondAttribute="leading" id="Wvb-0M-kQl"/>
                             <constraint firstItem="CwW-x8-G3j" firstAttribute="top" secondItem="kXO-Oh-2vO" secondAttribute="top" id="eFX-ON-3aD"/>
-                            <constraint firstItem="CDj-ol-HRP" firstAttribute="leading" secondItem="dlW-OQ-WMO" secondAttribute="leading" id="mwH-aX-jCV"/>
-                            <constraint firstItem="dlW-OQ-WMO" firstAttribute="bottom" secondItem="CDj-ol-HRP" secondAttribute="bottom" id="tp7-f9-Sw5"/>
-                            <constraint firstItem="dlW-OQ-WMO" firstAttribute="trailing" secondItem="kXO-Oh-2vO" secondAttribute="trailing" id="yMA-25-2pq"/>
+                            <constraint firstItem="CDj-ol-HRP" firstAttribute="top" secondItem="dlW-OQ-WMO" secondAttribute="bottom" constant="-64" id="j6X-Fl-XrE"/>
+                            <constraint firstItem="CDj-ol-HRP" firstAttribute="leading" secondItem="XQZ-0V-SyR" secondAttribute="leading" id="mwH-aX-jCV"/>
+                            <constraint firstAttribute="bottom" secondItem="CDj-ol-HRP" secondAttribute="bottom" id="tp7-f9-Sw5"/>
+                            <constraint firstAttribute="trailing" secondItem="kXO-Oh-2vO" secondAttribute="trailing" id="yMA-25-2pq"/>
                         </constraints>
                         <userDefinedRuntimeAttributes>
                             <userDefinedRuntimeAttribute type="string" keyPath="styleName" value="PressBackground"/>
