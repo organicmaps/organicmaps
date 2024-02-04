@@ -6,7 +6,6 @@
 
 #include "base/small_map.hpp"
 
-#include <array>
 #include <functional>
 #include <initializer_list>
 #include <limits>
@@ -205,13 +204,15 @@ class VehicleModelInterface
 public:
   virtual ~VehicleModelInterface() = default;
 
+  using FeatureTypes = feature::TypesHolder;
+
   /// @return Allowed weight and ETA speed in KMpH.
   /// 0 means that it's forbidden to move on this feature or it's not a road at all.
   /// Weight and ETA should be less than max model speed's values respectively.
   /// @param inCity is true if |f| lies in a city of town.
-  virtual SpeedKMpH GetSpeed(FeatureType & f, SpeedParams const & speedParams) const = 0;
+  virtual SpeedKMpH GetSpeed(FeatureTypes const & types, SpeedParams const & speedParams) const = 0;
 
-  virtual std::optional<HighwayType> GetHighwayType(FeatureType & f) const = 0;
+  virtual std::optional<HighwayType> GetHighwayType(FeatureTypes const & types) const = 0;
 
   /// @return Maximum model weight speed (km/h).
   /// All speeds which the model returns must be less or equal to this speed.
@@ -222,10 +223,10 @@ public:
   /// e.g. to connect start point to nearest feature.
   virtual SpeedKMpH const & GetOffroadSpeed() const = 0;
 
-  virtual bool IsOneWay(FeatureType & f) const = 0;
+  virtual bool IsOneWay(FeatureTypes const & types) const = 0;
 
   /// @returns true iff feature |f| can be used for routing with corresponding vehicle model.
-  virtual bool IsRoad(FeatureType & f) const = 0;
+  virtual bool IsRoad(FeatureTypes const & types) const = 0;
 
   /// @returns true iff feature |f| can be used for through passage with corresponding vehicle model.
   /// e.g. in Russia roads tagged "highway = service" are not allowed for through passage;
@@ -233,7 +234,7 @@ public:
   /// point of the route.
   /// Roads with additional types e.g. "path = ferry", "vehicle_type = yes" considered as allowed
   /// to pass through.
-  virtual bool IsPassThroughAllowed(FeatureType & f) const = 0;
+  virtual bool IsPassThroughAllowed(FeatureTypes const & types) const = 0;
 };
 
 class VehicleModelFactoryInterface
@@ -277,20 +278,19 @@ public:
   VehicleModel(Classificator const & classif, LimitsInitList const & featureTypeLimits,
                SurfaceInitList const & featureTypeSurface, HighwayBasedInfo const & info);
 
-  virtual SpeedKMpH GetTypeSpeed(feature::TypesHolder const & types, SpeedParams const & params) const = 0;
-
   /// @name VehicleModelInterface overrides.
   /// @{
-  SpeedKMpH GetSpeed(FeatureType & f, SpeedParams const & speedParams) const override
-  {
-    return GetTypeSpeed(feature::TypesHolder(f), speedParams);
-  }
-
-  std::optional<HighwayType> GetHighwayType(FeatureType & f) const override;
+  std::optional<HighwayType> GetHighwayType(FeatureTypes const & types) const override;
   double GetMaxWeightSpeed() const override;
-  bool IsOneWay(FeatureType & f) const override;
-  bool IsRoad(FeatureType & f) const override;
-  bool IsPassThroughAllowed(FeatureType & f) const override;
+
+  /// \returns true if |types| is a oneway feature.
+  /// \note According to OSM, tag "oneway" could have value "-1". That means it's a oneway feature
+  /// with reversed geometry. In that case at map generation the geometry of such features
+  /// is reversed (the order of points is changed) so in vehicle model all oneway feature
+  /// may be considered as features with forward geometry.
+  bool IsOneWay(FeatureTypes const & types) const override;
+  bool IsRoad(FeatureTypes const & types) const override;
+  bool IsPassThroughAllowed(FeatureTypes const & types) const override;
   /// @}
 
   // Made public to have simple access from unit tests.
@@ -313,20 +313,11 @@ public:
            (m_onewayType == rhs.m_onewayType);
   }
 
-  /// \returns true if |types| is a oneway feature.
-  /// \note According to OSM, tag "oneway" could have value "-1". That means it's a oneway feature
-  /// with reversed geometry. In that case at map generation the geometry of such features
-  /// is reversed (the order of points is changed) so in vehicle model all oneway feature
-  /// may be considered as features with forward geometry.
-  bool HasOneWayType(feature::TypesHolder const & types) const;
-
-  bool HasPassThroughType(feature::TypesHolder const & types) const;
-
 protected:
   uint32_t m_yesType, m_noType;
-  bool IsRoadImpl(feature::TypesHolder const & types) const;
+  bool IsRoadImpl(FeatureTypes const & types) const;
 
-  SpeedKMpH GetTypeSpeedImpl(feature::TypesHolder const & types, SpeedParams const & params, bool isCar) const;
+  SpeedKMpH GetTypeSpeedImpl(FeatureTypes const & types, SpeedParams const & params, bool isCar) const;
 
   void AddAdditionalRoadTypes(Classificator const & classif, AdditionalRoadsList const & roads);
 

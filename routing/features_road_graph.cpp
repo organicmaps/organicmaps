@@ -2,7 +2,6 @@
 
 #include "routing/data_source.hpp"
 #include "routing/nearest_edge_finder.hpp"
-#include "routing/route.hpp"
 #include "routing/routing_helpers.hpp"
 
 #include "routing_common/vehicle_model.hpp"
@@ -35,12 +34,12 @@ FeaturesRoadGraphBase::CrossCountryVehicleModel::CrossCountryVehicleModel(Vehicl
 
 SpeedKMpH FeaturesRoadGraphBase::CrossCountryVehicleModel::GetSpeed(FeatureType & f, SpeedParams const & speedParams) const
 {
-  return GetVehicleModel(f.GetID())->GetSpeed(f, speedParams);
+  return GetVehicleModel(f.GetID())->GetSpeed(FeatureTypes(f), speedParams);
 }
 
 std::optional<HighwayType> FeaturesRoadGraphBase::CrossCountryVehicleModel::GetHighwayType(FeatureType & f) const
 {
-  return GetVehicleModel(f.GetID())->GetHighwayType(f);
+  return GetVehicleModel(f.GetID())->GetHighwayType(FeatureTypes(f));
 }
 
 SpeedKMpH const & FeaturesRoadGraphBase::CrossCountryVehicleModel::GetOffroadSpeed() const
@@ -50,17 +49,17 @@ SpeedKMpH const & FeaturesRoadGraphBase::CrossCountryVehicleModel::GetOffroadSpe
 
 bool FeaturesRoadGraphBase::CrossCountryVehicleModel::IsOneWay(FeatureType & f) const
 {
-  return GetVehicleModel(f.GetID())->IsOneWay(f);
+  return GetVehicleModel(f.GetID())->IsOneWay(FeatureTypes(f));
 }
 
 bool FeaturesRoadGraphBase::CrossCountryVehicleModel::IsRoad(FeatureType & f) const
 {
-  return GetVehicleModel(f.GetID())->IsRoad(f);
+  return GetVehicleModel(f.GetID())->IsRoad(FeatureTypes(f));
 }
 
 bool FeaturesRoadGraphBase::CrossCountryVehicleModel::IsPassThroughAllowed(FeatureType & f) const
 {
-  return GetVehicleModel(f.GetID())->IsPassThroughAllowed(f);
+  return GetVehicleModel(f.GetID())->IsPassThroughAllowed(FeatureTypes(f));
 }
 
 VehicleModelInterface * FeaturesRoadGraphBase::CrossCountryVehicleModel::GetVehicleModel(FeatureID const & featureId) const

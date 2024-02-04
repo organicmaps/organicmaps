@@ -91,7 +91,7 @@ public:
   {
   }
 
-  SpeedKMpH GetTypeSpeed(feature::TypesHolder const & types, SpeedParams const & params) const override
+  SpeedKMpH GetSpeed(feature::TypesHolder const & types, SpeedParams const & params) const override
   {
     return GetTypeSpeedImpl(types, params, true /* isCar */);
   }
@@ -112,7 +112,7 @@ void CheckSpeedWithParams(initializer_list<uint32_t> const & types, SpeedParams 
   for (uint32_t t : types)
     h.Add(t);
 
-  TEST_EQUAL(model.GetTypeSpeed(h, params), expectedSpeed, ());
+  TEST_EQUAL(model.GetSpeed(h, params), expectedSpeed, ());
 }
 
 void CheckSpeed(initializer_list<uint32_t> const & types, InOutCitySpeedKMpH const & expectedSpeed)
@@ -130,7 +130,7 @@ void CheckOneWay(initializer_list<uint32_t> const & types, bool expectedValue)
   for (uint32_t t : types)
     h.Add(t);
 
-  TEST_EQUAL(model.HasOneWayType(h), expectedValue, ());
+  TEST_EQUAL(model.IsOneWay(h), expectedValue, ());
 }
 
 void CheckPassThroughAllowed(initializer_list<uint32_t> const & types, bool expectedValue)
@@ -140,7 +140,7 @@ void CheckPassThroughAllowed(initializer_list<uint32_t> const & types, bool expe
   for (uint32_t t : types)
     h.Add(t);
 
-  TEST_EQUAL(model.HasPassThroughType(h), expectedValue, ());
+  TEST_EQUAL(model.IsPassThroughAllowed(h), expectedValue, ());
 }
 
 
@@ -271,11 +271,11 @@ UNIT_CLASS_TEST(VehicleModelTest, CarModel_TrackVsGravelTertiary)
 
   {
     SpeedParams p2({measurement_utils::Units::Metric, 60, 60}, kInvalidSpeed, false /* inCity */);
-    TEST_LESS_SPEED(model.GetTypeSpeed(h1, p), model.GetTypeSpeed(h2, p2));
+    TEST_LESS_SPEED(model.GetSpeed(h1, p), model.GetSpeed(h2, p2));
   }
 
   {
-    TEST_LESS_SPEED(model.GetTypeSpeed(h1, p), model.GetTypeSpeed(h2, p));
+    TEST_LESS_SPEED(model.GetSpeed(h1, p), model.GetSpeed(h2, p));
   }
 }
 
@@ -295,8 +295,8 @@ UNIT_CLASS_TEST(VehicleModelTest, CarModel_Smoke)
   feature::TypesHolder h3;
   h3.Add(c.GetTypeByPath({"highway", "tertiary"}));
 
-  TEST_EQUAL(model.GetTypeSpeed(h1, p), model.GetTypeSpeed(h2, p), ());
-  TEST_LESS_SPEED(model.GetTypeSpeed(h3, p), model.GetTypeSpeed(h2, p));
+  TEST_EQUAL(model.GetSpeed(h1, p), model.GetSpeed(h2, p), ());
+  TEST_LESS_SPEED(model.GetSpeed(h3, p), model.GetSpeed(h2, p));
 }
 
 UNIT_CLASS_TEST(VehicleModelTest, BicycleModel_Smoke)
@@ -323,10 +323,10 @@ UNIT_CLASS_TEST(VehicleModelTest, BicycleModel_Smoke)
   h5.Add(secondary);
   h5.Add(c.GetTypeByPath({"hwtag", "nocycleway"}));
 
-  TEST_EQUAL(model.GetTypeSpeed(h1, p), model.GetTypeSpeed(h2, p), ());
-  TEST_LESS_SPEED(model.GetTypeSpeed(h3, p), model.GetTypeSpeed(h2, p));
-  TEST_LESS_SPEED(model.GetTypeSpeed(h4, p), model.GetTypeSpeed(h3, p));
-  TEST_LESS_SPEED(model.GetTypeSpeed(h5, p), model.GetTypeSpeed(h4, p));
+  TEST_EQUAL(model.GetSpeed(h1, p), model.GetSpeed(h2, p), ());
+  TEST_LESS_SPEED(model.GetSpeed(h3, p), model.GetSpeed(h2, p));
+  TEST_LESS_SPEED(model.GetSpeed(h4, p), model.GetSpeed(h3, p));
+  TEST_LESS_SPEED(model.GetSpeed(h5, p), model.GetSpeed(h4, p));
 }
 
 UNIT_CLASS_TEST(VehicleModelTest, PedestrianModel_Smoke)
@@ -346,8 +346,8 @@ UNIT_CLASS_TEST(VehicleModelTest, PedestrianModel_Smoke)
   h3.Add(residential);
   h3.Add(c.GetTypeByPath({"hwtag", "nosidewalk"}));
 
-  TEST_LESS_SPEED(model.GetTypeSpeed(h2, p), model.GetTypeSpeed(h1, p));
-  TEST_LESS_SPEED(model.GetTypeSpeed(h3, p), model.GetTypeSpeed(h2, p));
+  TEST_LESS_SPEED(model.GetSpeed(h2, p), model.GetSpeed(h1, p));
+  TEST_LESS_SPEED(model.GetSpeed(h3, p), model.GetSpeed(h2, p));
 }
 
 #undef TEST_LESS_SPEED

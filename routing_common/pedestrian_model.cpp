@@ -178,7 +178,7 @@ PedestrianModel::PedestrianModel(VehicleModel::LimitsInitList const & limits,
   m_maxModelSpeed = kMaxPedestrianSpeedKMpH;
 }
 
-SpeedKMpH PedestrianModel::GetTypeSpeed(feature::TypesHolder const & types, SpeedParams const & speedParams) const
+SpeedKMpH PedestrianModel::GetSpeed(FeatureTypes const & types, SpeedParams const & speedParams) const
 {
   return GetTypeSpeedImpl(types, speedParams, false /* isCar */);
 }
