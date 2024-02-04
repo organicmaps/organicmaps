@@ -67,10 +67,10 @@ public:
     // some speed depending of road type (0 <= speed <= maxSpeed).  For
     // tests purposes for all allowed features speed must be the same as
     // max speed.
-    routing::SpeedKMpH GetSpeed(FeatureType & f,
+    routing::SpeedKMpH GetSpeed(typename Model::FeatureTypes const & types,
                                 routing::SpeedParams const & speedParams) const override
     {
-      auto const speed = Model::GetSpeed(f, speedParams);
+      auto const speed = Model::GetSpeed(types, speedParams);
       if (speed.m_weight <= 0.0)
         return routing::SpeedKMpH();
 

@@ -12,7 +12,7 @@ public:
   explicit CarModel(LimitsInitList const & roadLimits);
 
   /// VehicleModelInterface overrides:
-  SpeedKMpH GetTypeSpeed(feature::TypesHolder const & types, SpeedParams const & speedParams) const override;
+  SpeedKMpH GetSpeed(FeatureTypes const & types, SpeedParams const & speedParams) const override;
   SpeedKMpH const & GetOffroadSpeed() const override;
 
   static CarModel const & AllLimitsInstance();
