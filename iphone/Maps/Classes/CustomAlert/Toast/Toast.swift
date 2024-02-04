@@ -39,11 +39,11 @@ final class Toast: NSObject {
     show(in: UIApplication.shared.keyWindow, alignment: .bottom)
   }
 
-  @objc func show(withAlignment alignment: Alignment) {
-    show(in: UIApplication.shared.keyWindow, alignment: alignment)
+  @objc func show(withAlignment alignment: Alignment, pinToSafeArea: Bool = true) {
+    show(in: UIApplication.shared.keyWindow, alignment: alignment, pinToSafeArea: pinToSafeArea)
   }
 
-  @objc func show(in view: UIView?, alignment: Alignment) {
+  @objc func show(in view: UIView?, alignment: Alignment, pinToSafeArea: Bool = true) {
     guard let view = view else { return }
     blurView.translatesAutoresizingMaskIntoConstraints = false
     view.addSubview(blurView)
@@ -58,14 +58,14 @@ final class Toast: NSObject {
     
     let topConstraint: NSLayoutConstraint
     if alignment == .bottom {
-      topConstraint = blurView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor, constant: -63)
+      topConstraint = blurView.bottomAnchor.constraint(equalTo: pinToSafeArea ? view.safeAreaLayoutGuide.bottomAnchor : view.bottomAnchor, constant: -63)
     } else {
-      topConstraint = blurView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 50)
+      topConstraint = blurView.topAnchor.constraint(equalTo: pinToSafeArea ? view.safeAreaLayoutGuide.topAnchor : view.topAnchor, constant: 50)
     }
     
     NSLayoutConstraint.activate([
       topConstraint,
-      blurView.centerXAnchor.constraint(equalTo: view.safeAreaLayoutGuide.centerXAnchor)
+      blurView.centerXAnchor.constraint(equalTo: pinToSafeArea ? view.safeAreaLayoutGuide.centerXAnchor : view.centerXAnchor)
     ])
 
     UIView.animate(withDuration: kDefaultAnimationDuration) {
