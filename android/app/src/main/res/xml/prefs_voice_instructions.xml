@@ -1,5 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.preference.PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
+<androidx.preference.PreferenceScreen
+  xmlns:android="http://schemas.android.com/apk/res/android"
+  xmlns:app="http://schemas.android.com/apk/res-auto">
+
   <SwitchPreferenceCompat
       android:key="@string/pref_tts_enabled"
       android:title="@string/pref_tts_enable_title" />
@@ -24,4 +27,11 @@
       android:persistent="false"
       android:selectable="true"
       android:summary="@string/prefs_languages_information_off_link" />
+  <ListPreference
+      android:key="@string/pref_tts_speed_cameras"
+      android:title="@string/speedcams_alert_title"
+      app:singleLineTitle="false"
+      android:entries="@array/speed_cameras"
+      android:entryValues="@array/speed_cameras_values"
+      android:defaultValue="@string/auto_enum_value" />
 </androidx.preference.PreferenceScreen>
