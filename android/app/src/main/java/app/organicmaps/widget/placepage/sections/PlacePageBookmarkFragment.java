@@ -1,5 +1,6 @@
 package app.organicmaps.widget.placepage.sections;
 
+import android.app.KeyguardManager;
 import android.content.Context;
 import android.os.Build;
 import android.os.Bundle;
@@ -137,7 +138,9 @@ public class PlacePageBookmarkFragment extends Fragment implements View.OnClickL
 
     final Context ctx = requireContext();
     Utils.copyTextToClipboard(ctx, notes);
-    if (Build.VERSION.SDK_INT < Build.VERSION_CODES.TIRAMISU)
+
+    KeyguardManager keyguardManager = (KeyguardManager) ctx.getSystemService(Context.KEYGUARD_SERVICE);
+    if (Build.VERSION.SDK_INT < Build.VERSION_CODES.TIRAMISU || keyguardManager.isDeviceLocked())
     {
       Utils.showSnackbarAbove(mFrame.getRootView().findViewById(R.id.pp_buttons_layout), mFrame,
                               ctx.getString(R.string.copied_to_clipboard, notes));
