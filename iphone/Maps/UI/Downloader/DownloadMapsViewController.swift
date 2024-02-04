@@ -48,7 +48,14 @@ class DownloadMapsViewController: MWMViewController {
     let view = Bundle.main.load(viewClass: DownloadAllView.self)?.first as! DownloadAllView
     view.delegate = self
     downloadAllViewContainer.addSubview(view)
-    view.alignToSuperview()
+    downloadAllViewContainer.addSeparator()
+    view.translatesAutoresizingMaskIntoConstraints = false
+    NSLayoutConstraint.activate([
+      view.leadingAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.leadingAnchor),
+      view.trailingAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.trailingAnchor),
+      view.topAnchor.constraint(equalTo: downloadAllViewContainer.topAnchor),
+      view.bottomAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.bottomAnchor),
+    ])
     return view
   }()
 
