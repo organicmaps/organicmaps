@@ -89,11 +89,11 @@ BookmarkManager::SharingResult GetFileForSharing(BookmarkManager::KMLDataCollect
   if (!SaveKmlFileSafe(*kmlToShare.second, filePath, KmlFileType::Text))
     return {{categoryId}, BookmarkManager::SharingResult::Code::FileError, "Bookmarks file does not exist."};
 
-  auto const tmpFilePath = base::JoinPath(GetPlatform().TmpDir(), fileName + std::string{kKmzExtension});
+  auto tmpFilePath = base::JoinPath(GetPlatform().TmpDir(), fileName + std::string{kKmzExtension});
   if (!CreateZipFromPathDeflatedAndDefaultCompression(filePath, tmpFilePath))
     return {{categoryId}, BookmarkManager::SharingResult::Code::ArchiveError, "Could not create archive."};
 
-  return {{categoryId}, tmpFilePath};
+  return {{categoryId}, std::move(tmpFilePath)};
 }
 
 std::string ToString(BookmarkManager::SortingType type)
@@ -2596,25 +2596,24 @@ void BookmarkManager::SaveBookmarks(kml::GroupIdCollection const & groupIdCollec
   });
 }
 
-void BookmarkManager::PrepareFileForSharing(kml::GroupIdCollection const & categoriesIds, SharingHandler && handler)
+void BookmarkManager::PrepareFileForSharing(kml::GroupIdCollection && categoriesIds, SharingHandler && handler)
 {
   CHECK_THREAD_CHECKER(m_threadChecker, ());
   ASSERT(handler, ());
   if (categoriesIds.size() == 1 && IsCategoryEmpty(categoriesIds.front()))
   {
-    handler(SharingResult(categoriesIds, SharingResult::Code::EmptyCategory));
+    handler(SharingResult(std::move(categoriesIds), SharingResult::Code::EmptyCategory));
     return;
   }
 
   auto collection = PrepareToSaveBookmarks(categoriesIds);
   if (!collection || collection->empty())
   {
-    handler(SharingResult(categoriesIds, SharingResult::Code::FileError));
+    handler(SharingResult(std::move(categoriesIds), SharingResult::Code::FileError));
     return;
   }
 
-  GetPlatform().RunTask(Platform::Thread::File,
-                        [collection = std::move(collection), handler = std::move(handler)]() mutable
+  GetPlatform().RunTask(Platform::Thread::File, [collection = std::move(collection), handler = std::move(handler)]() mutable
   {
     handler(GetFileForSharing(std::move(collection)));
   });

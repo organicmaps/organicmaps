@@ -30,9 +30,7 @@ public class BookmarkSharingResult
   @SuppressWarnings("unused")
   private final String mErrorString;
 
-  public BookmarkSharingResult(long[] categoriesIds, @Code int code,
-                                @NonNull String sharingPath,
-                                @NonNull String errorString)
+  public BookmarkSharingResult(long[] categoriesIds, @Code int code, @NonNull String sharingPath, @NonNull String errorString)
   {
     mCategoriesIds = categoriesIds;
     mCode = code;

@@ -577,8 +577,7 @@ static BookmarkManager::SortingType convertSortingTypeToCore(MWMBookmarksSorting
     {
     case BookmarkManager::SharingResult::Code::Success:
     {
-      self.shareCategoryURL = [NSURL fileURLWithPath:@(sharingResult.m_sharingPath.c_str())
-                                            isDirectory:NO];
+      self.shareCategoryURL = [NSURL fileURLWithPath:@(sharingResult.m_sharingPath.c_str()) isDirectory:NO];
       ASSERT(self.shareCategoryURL, ("Invalid share category url"));
       status = MWMBookmarksShareStatusSuccess;
       break;
@@ -593,7 +592,7 @@ static BookmarkManager::SortingType convertSortingTypeToCore(MWMBookmarksSorting
       status = MWMBookmarksShareStatusFileError;
       break;
     }
-    
+
     [self loopObservers:^(id<MWMBookmarksObserver> observer) {
       if ([observer respondsToSelector:@selector(onBookmarksCategoryFilePrepared:)])
         [observer onBookmarksCategoryFilePrepared:status];
@@ -611,7 +610,7 @@ static BookmarkManager::SortingType convertSortingTypeToCore(MWMBookmarksSorting
 {
   if (!self.shareCategoryURL)
     return;
-  
+
   base::DeleteFileX(self.shareCategoryURL.path.UTF8String);
   self.shareCategoryURL = nil;
 }
@@ -693,7 +692,7 @@ static BookmarkManager::SortingType convertSortingTypeToCore(MWMBookmarksSorting
     if (!track) {
         return;
     }
-    
+
     track->SetName(title.UTF8String);
 }
 

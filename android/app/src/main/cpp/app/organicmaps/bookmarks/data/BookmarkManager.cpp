@@ -15,6 +15,7 @@
 #include "base/macros.hpp"
 #include "base/string_utils.hpp"
 
+#include <limits>
 #include <utility>
 
 using namespace jni;
@@ -182,28 +183,22 @@ void OnAsyncLoadingFileError(JNIEnv * env, std::string const & fileName, bool is
 
 void OnPreparedFileForSharing(JNIEnv * env, BookmarkManager::SharingResult const & result)
 {
-  ASSERT(g_bookmarkManagerClass, ());
-  jobject bookmarkManagerInstance = env->GetStaticObjectField(g_bookmarkManagerClass,
-                                                              g_bookmarkManagerInstanceField);
+  static jclass const classBookmarkSharingResult = jni::GetGlobalClassRef(env, "app/organicmaps/bookmarks/data/BookmarkSharingResult");
+  // BookmarkSharingResult(long[] categoriesIds, @Code int code, @NonNull String sharingPath, @NonNull String errorString)
+  static jmethodID const ctorBookmarkSharingResult = jni::GetConstructorID(env, classBookmarkSharingResult, "([JILjava/lang/String;Ljava/lang/String;)V");
 
-  static jclass const classBookmarkSharingResult = jni::GetGlobalClassRef(env,
-    "app/organicmaps/bookmarks/data/BookmarkSharingResult");
-  // Java signature : BookmarkSharingResult(long[] categoriesIds, @Code int code,
-  //                                        @NonNull String sharingPath,
-  //                                        @NonNull String errorString)
-  static jmethodID const ctorBookmarkSharingResult = jni::GetConstructorID(env,
-    classBookmarkSharingResult, "([JILjava/lang/String;Ljava/lang/String;)V");
-
-  jsize const size = static_cast<jsize>(result.m_categoriesIds.size());
-  jni::ScopedLocalRef<jlongArray> categoriesIds(env, env->NewLongArray(size));
-  std::vector<jlong> tmp(result.m_categoriesIds.cbegin(), result.m_categoriesIds.cend());
-  env->SetLongArrayRegion(categoriesIds.get(), 0, size, tmp.data());
+  static_assert(sizeof(jlong) == sizeof(decltype(result.m_categoriesIds)::value_type));
+  jsize const categoriesIdsSize = static_cast<jsize>(result.m_categoriesIds.size());
+  jni::ScopedLocalRef<jlongArray> categoriesIds(env, env->NewLongArray(categoriesIdsSize));
+  env->SetLongArrayRegion(categoriesIds.get(), 0, categoriesIdsSize, reinterpret_cast<jlong const *>(result.m_categoriesIds.data()));
   jni::TScopedLocalRef const sharingPath(env, jni::ToJavaString(env, result.m_sharingPath));
   jni::TScopedLocalRef const errorString(env, jni::ToJavaString(env, result.m_errorString));
-  jni::TScopedLocalRef const sharingResult(env, env->NewObject(classBookmarkSharingResult,
-    ctorBookmarkSharingResult, categoriesIds.get(),
-    static_cast<jint>(result.m_code), sharingPath.get(), errorString.get()));
 
+  jni::TScopedLocalRef const sharingResult(env, env->NewObject(classBookmarkSharingResult, ctorBookmarkSharingResult,
+      categoriesIds.get(), static_cast<jint>(result.m_code), sharingPath.get(), errorString.get()));
+
+  ASSERT(g_bookmarkManagerClass, ());
+  jobject bookmarkManagerInstance = env->GetStaticObjectField(g_bookmarkManagerClass, g_bookmarkManagerInstanceField);
   env->CallVoidMethod(bookmarkManagerInstance, g_onPreparedFileForSharingMethod, sharingResult.get());
   jni::HandleJavaException(env);
 }
@@ -598,11 +593,10 @@ JNIEXPORT void JNICALL
 Java_app_organicmaps_bookmarks_data_BookmarkManager_nativePrepareFileForSharing(JNIEnv * env, jclass, jlongArray catIds)
 {
   auto const size = env->GetArrayLength(catIds);
-  std::vector<jlong> tmp(size);
-  env->GetLongArrayRegion(catIds, 0, size, &tmp[0]);
-  kml::GroupIdCollection catIdsVector(tmp.cbegin(), tmp.cend());
-  frm()->GetBookmarkManager().PrepareFileForSharing(catIdsVector,
-    [env](BookmarkManager::SharingResult const & result)
+  kml::GroupIdCollection catIdsVector(size);
+  static_assert(sizeof(jlong) == sizeof(decltype(catIdsVector)::value_type));
+  env->GetLongArrayRegion(catIds, 0, size, reinterpret_cast<jlong *>(catIdsVector.data()));
+  frm()->GetBookmarkManager().PrepareFileForSharing(std::move(catIdsVector), [env](BookmarkManager::SharingResult const & result)
   {
     OnPreparedFileForSharing(env, result);
   });

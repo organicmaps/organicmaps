@@ -316,21 +316,21 @@ public:
       FileError
     };
 
-    SharingResult(kml::GroupIdCollection const & categoriesIds, std::string const & sharingPath)
+    SharingResult(kml::GroupIdCollection && categoriesIds, std::string && sharingPath)
       : m_categoriesIds(categoriesIds)
       , m_code(Code::Success)
-      , m_sharingPath(sharingPath)
+      , m_sharingPath(std::move(sharingPath))
     {}
 
-    SharingResult(kml::GroupIdCollection const & categoriesIds, Code code)
-      : m_categoriesIds(categoriesIds)
+    SharingResult(kml::GroupIdCollection && categoriesIds, Code code)
+      : m_categoriesIds(std::move(categoriesIds))
       , m_code(code)
     {}
 
-    SharingResult(kml::GroupIdCollection const & categoriesIds, Code code, std::string const & errorString)
-      : m_categoriesIds(categoriesIds)
+    SharingResult(kml::GroupIdCollection && categoriesIds, Code code, std::string && errorString)
+      : m_categoriesIds(std::move(categoriesIds))
       , m_code(code)
-      , m_errorString(errorString)
+      , m_errorString(std::move(errorString))
     {}
 
     kml::MarkIdCollection m_categoriesIds;
@@ -340,7 +340,7 @@ public:
   };
 
   using SharingHandler = platform::SafeCallback<void(SharingResult const & result)>;
-  void PrepareFileForSharing(kml::GroupIdCollection const & categoriesIds, SharingHandler && handler);
+  void PrepareFileForSharing(kml::GroupIdCollection && categoriesIds, SharingHandler && handler);
 
   bool IsCategoryEmpty(kml::MarkGroupId categoryId) const;
 
