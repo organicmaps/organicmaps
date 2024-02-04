@@ -235,6 +235,12 @@ class GlobalStyleSheet: IStyleSheet {
       s.fontColorHighlighted = colors.linkBlueHighlighted
     }
 
+    theme.add(styleName: "FlatPrimaryTransButton") { (s) -> (Void) in
+      s.fontColor = colors.blackPrimaryText
+      s.backgroundColor = colors.clear
+      s.fontColorHighlighted = colors.linkBlueHighlighted
+    }
+
     theme.add(styleName: "FlatRedTransButton") { (s) -> (Void) in
       s.font = fonts.medium14
       s.fontColor = colors.red
