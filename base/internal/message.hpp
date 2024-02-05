@@ -27,6 +27,7 @@ template <typename T> inline std::string DebugPrint(T const & t);
 std::string DebugPrint(std::string const & t);
 inline std::string DebugPrint(char const * t);
 inline std::string DebugPrint(char t);
+inline std::string DebugPrint(char16_t t);
 
 template <typename U, typename V> inline std::string DebugPrint(std::pair<U, V> const & p);
 template <typename T> inline std::string DebugPrint(std::list<T> const & v);
@@ -70,6 +71,11 @@ inline std::string DebugPrint(std::u16string const & utf16)
 inline std::string DebugPrint(std::u16string_view utf16)
 {
   return internal::ToUtf8(utf16);
+}
+
+inline std::string DebugPrint(char16_t t)
+{
+  return DebugPrint(std::u16string_view(&t, 1));
 }
 
 inline std::string DebugPrint(char t)
