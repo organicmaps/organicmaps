@@ -1,8 +1,14 @@
-• Android Auto
-• Исправлена проблема с периодическим выключением экрана
-• Данные карты OpenStreetMap по состоянию на 5 января
-• Улучшены горнолыжные склоны и стиль для активного отдыха
-• Добавлена ​​максимальная вместимость для некоторых объектов
-• Добавлен азербайджанский перевод
+• Android Auto fixes
+• OpenStreetMap data as of February 2
+• Fixed Spanish and Portuguese TTS
+• Fixed KML, KMZ, GPX import crash
+• Fixed KMZ import from WhatsApp
+• Orange secondary roads
+• Hindi support
+• Restroom emoji for places with toilets
+• Display parking operator
+• Plus codes search shows results relative to position and to the screen center
+• Many map style fixes and improvements
+• Translation fixes
 
-…подробнее читайте на сайте omaps.org/ru/news
+…read more details at omaps.org/news
