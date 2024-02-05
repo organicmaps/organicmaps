@@ -125,8 +125,7 @@
       android:title="@string/pref_tts_enable_title"
       app:singleLineTitle="false"
       android:persistent="false"
-      android:order="4"
-      app:fragment="app.organicmaps.settings.VoiceInstructionsSettingsFragment">
+      android:order="4">
     </Preference>
     <ListPreference
       android:key="@string/pref_speed_cameras"
