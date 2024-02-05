@@ -1033,7 +1033,6 @@ public class MwmActivity extends BaseMwmFragmentActivity
     mNavigationController.refresh();
     refreshLightStatusBar();
 
-    LocationState.nativeSetLocationPendingTimeoutListener(this::onLocationPendingTimeout);
     SensorHelper.from(this).addListener(this);
   }
 
@@ -1058,7 +1057,6 @@ public class MwmActivity extends BaseMwmFragmentActivity
   {
     if (mOnmapDownloader != null)
       mOnmapDownloader.onPause();
-    LocationState.nativeRemoveLocationPendingTimeoutListener();
     SensorHelper.from(this).removeListener(this);
     dismissLocationErrorDialog();
     dismissAlertDialog();
@@ -1949,54 +1947,6 @@ public class MwmActivity extends BaseMwmFragmentActivity
       builder.setPositiveButton(R.string.location_settings, (dialog, which) -> startActivity(intent));
     }
     mLocationErrorDialog = builder.show();
-  }
-
-  /**
-   * Called by the core when location updates were not received after the 30 second deadline.
-   */
-  @UiThread
-  private void onLocationPendingTimeout()
-  {
-    // Sic: the callback can be called after the activity is destroyed because of being queued.
-    if (isDestroyed())
-    {
-      Logger.w(LOCATION_TAG, "Ignore late callback from core because activity is already destroyed");
-      return;
-    }
-
-    if (LocationState.getMode() == LocationState.NOT_FOLLOW_NO_POSITION)
-    {
-      Logger.d(LOCATION_TAG, "Don't show 'location timeout' error dialog in NOT_FOLLOW_NO_POSITION mode");
-      return;
-    }
-
-    Logger.d(LOCATION_TAG, "services = " + LocationUtils.areLocationServicesTurnedOn(this));
-
-    //
-    // For all cases below we don't stop location provider until user explicitly clicks "Stop" in the dialog.
-    //
-
-    if (mLocationErrorDialog != null && mLocationErrorDialog.isShowing())
-    {
-      Logger.d(LOCATION_TAG, "Don't show 'location timeout' error dialog because another dialog is in progress");
-      return;
-    }
-
-    mLocationErrorDialog = new MaterialAlertDialogBuilder(this, R.style.MwmTheme_AlertDialog)
-        .setTitle(R.string.current_location_unknown_title)
-        .setMessage(R.string.current_location_unknown_message)
-        .setOnDismissListener(dialog -> mLocationErrorDialog = null)
-        .setNegativeButton(R.string.current_location_unknown_stop_button, (dialog, which) ->
-        {
-          Logger.w(LOCATION_TAG, "Disabled by user");
-          // Calls onMyPositionModeChanged(NOT_FOLLOW_NO_POSITION).
-          LocationState.nativeOnLocationError(LocationState.ERROR_GPS_OFF);
-        })
-        .setPositiveButton(R.string.current_location_unknown_continue_button, (dialog, which) ->
-        {
-          // Do nothing - provider will continue to search location.
-        })
-        .show();
   }
 
   @Override
