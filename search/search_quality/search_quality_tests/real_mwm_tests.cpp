@@ -870,6 +870,8 @@ UNIT_CLASS_TEST(MwmTestsFixture, BA_SanMartin)
 
 UNIT_CLASS_TEST(MwmTestsFixture, Full_Address)
 {
+  /* Hm, these addreses have been changed.
+   * https://www.openstreetmap.org/#map=19/49.73635/19.59212
   {
     // Krakow
     ms::LatLon const center(50.061431, 19.9361584);
@@ -882,6 +884,7 @@ UNIT_CLASS_TEST(MwmTestsFixture, Full_Address)
     HasAddress(Range(results, 0, 3), "Armii Krajowej", "B-1");
     HasAddress(Range(results, 0, 3), "Armii Krajowej", "B-1A");
   }
+  */
 
   {
     // Regensburg (DE)
