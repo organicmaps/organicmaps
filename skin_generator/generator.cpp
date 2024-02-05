@@ -98,15 +98,15 @@ void SkinGenerator::ProcessSymbols(std::string const & svgDataDir,
           QSize symbolSize = symbolSizes[j];  // Size of the symbol in the PNG skin
           QSize size = svgSize * (symbolSize.width() / 18.0); // 18.0 is the size of the -m SVG files
 
-          // Fitting symbol into symbolSize, saving aspect ratio.
-          if (size.width() > symbolSize.width())
+          // Fitting symbol into 24x24 max size (mdpi resolution), saving aspect ratio.
+          if (size.width() > symbolSize.width() * 24.0 / 18.0)
           {
             auto const h = static_cast<float>(size.height()) * symbolSize.width() / size.width();
             size.setHeight(static_cast<int>(h));
             size.setWidth(symbolSize.width());
           }
 
-          if (size.height() > symbolSize.height())
+          if (size.height() > symbolSize.height() * 24.0 / 18.0)
           {
             auto const w = static_cast<float>(size.width()) * symbolSize.height() / size.height();
             size.setWidth(static_cast<int>(w));
