@@ -119,6 +119,9 @@ public:
   /// @returns true if object is of building type.
   bool IsBuilding() const;
 
+  /// @returns true if object is a public transport stop type.
+  bool IsPublicTransportStop() const;
+
   void AssignMetadata(feature::Metadata & dest) const { dest = m_metadata; }
 
 protected:
