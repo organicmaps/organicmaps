@@ -67,12 +67,25 @@ void Info::SetFromFeatureType(FeatureType & ft)
     m_uiSubtitle = FormatSubtitle(true /* withType */);
     m_uiAddress = m_address;
   }
-  else if (!m_primaryFeatureName.empty())
+  else if (IsPublicTransportStop())
   {
-    m_uiTitle = m_primaryFeatureName;
-    m_uiSecondaryTitle = out.secondary;
-    m_uiSubtitle = FormatSubtitle(true /* withType */);
-    m_uiAddress = m_address;
+    const std::string local_ref = std::string(GetMetadata(feature::Metadata::FMD_LOCAL_REF));
+
+    if (!local_ref.empty()) // has local ref
+    {
+      if (!m_primaryFeatureName.empty()) // has name and local_ref
+      {
+        m_uiTitle = m_primaryFeatureName + " (" + local_ref + ")";
+        m_uiSubtitle = FormatSubtitle(true /* withType */);
+      }
+      else // no name but has local_ref
+      {
+        m_uiTitle = GetLocalizedType() + " (" + local_ref + ")";
+        m_uiSubtitle = FormatSubtitle(false /* withType */);
+      }
+    }
+    else
+      SetStandardValues(out);
   }
   else if (IsBuilding())
   {
@@ -81,13 +94,27 @@ void Info::SetFromFeatureType(FeatureType & ft)
     m_uiSubtitle = FormatSubtitle(!isAddressEmpty /* withType */);
   }
   else
+    SetStandardValues(out);
+
+  // apply to all types after checks
+  m_hotelType = ftypes::IsHotelChecker::Instance().GetHotelType(ft);
+}
+
+void Info::SetStandardValues(feature::NameParamsOut out)
+{
+  if (!m_primaryFeatureName.empty())
+  {
+    m_uiTitle = m_primaryFeatureName;
+    m_uiSecondaryTitle = out.secondary;
+    m_uiSubtitle = FormatSubtitle(true /* withType */);
+    m_uiAddress = m_address;
+  }
+  else
   {
     m_uiTitle = GetLocalizedType();
     m_uiSubtitle = FormatSubtitle(false /* withType */);
     m_uiAddress = m_address;
   }
-
-  m_hotelType = ftypes::IsHotelChecker::Instance().GetHotelType(ft);
 }
 
 void Info::SetMercator(m2::PointD const & mercator)
