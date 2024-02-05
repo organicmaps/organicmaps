@@ -507,7 +507,7 @@ extension CarPlayService: CPSearchTemplateDelegate {
     }
     completionHandler()
   }
-  
+
   func searchTemplateSearchButtonPressed(_ searchTemplate: CPSearchTemplate) {
     let locale = window?.textInputMode?.primaryLanguage ?? "en"
     guard let searchService = searchService else {
@@ -586,9 +586,6 @@ extension CarPlayService: LocationModeListener {
     case .pendingPosition, .notFollowNoPosition:
       rootMapTemplate.leadingNavigationBarButtons = []
     }
-  }
-
-  func processMyPositionPendingTimeout() {
   }
 }
 

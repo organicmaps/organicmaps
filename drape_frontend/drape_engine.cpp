@@ -83,7 +83,6 @@ DrapeEngine::DrapeEngine(Params && params)
                                     std::bind(&DrapeEngine::ModelViewChanged, this, _1),
                                     std::bind(&DrapeEngine::TapEvent, this, _1),
                                     std::bind(&DrapeEngine::UserPositionChanged, this, _1, _2),
-                                    std::bind(&DrapeEngine::UserPositionPendingTimeout, this),
                                     make_ref(m_requestedTiles),
                                     std::move(params.m_overlaysShowStatsCallback),
                                     params.m_allow3dBuildings,
@@ -469,12 +468,6 @@ void DrapeEngine::UserPositionChanged(m2::PointD const & position, bool hasPosit
     m_userPositionChangedHandler(position, hasPosition);
 }
 
-void DrapeEngine::UserPositionPendingTimeout()
-{
-  if (m_userPositionPendingTimeoutHandler != nullptr)
-    m_userPositionPendingTimeoutHandler();
-}
-
 void DrapeEngine::ResizeImpl(int w, int h)
 {
   gui::DrapeGui::Instance().SetSurfaceSize(m2::PointF(w, h));
@@ -553,11 +546,6 @@ void DrapeEngine::SetTapEventInfoListener(TapEventInfoHandler && fn)
 void DrapeEngine::SetUserPositionListener(UserPositionChangedHandler && fn)
 {
   m_userPositionChangedHandler = std::move(fn);
-}
-
-void DrapeEngine::SetUserPositionPendingTimeoutListener(UserPositionPendingTimeoutHandler && fn)
-{
-  m_userPositionPendingTimeoutHandler = std::move(fn);
 }
 
 void DrapeEngine::SelectObject(SelectionShape::ESelectedObject obj, m2::PointD const & pt,

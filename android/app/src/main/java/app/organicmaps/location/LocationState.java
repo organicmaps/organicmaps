@@ -21,14 +21,6 @@ public final class LocationState
     void onMyPositionModeChanged(int newMode);
   }
 
-  // Used by JNI.
-  @Keep
-  @SuppressWarnings("unused")
-  public interface PendingTimeoutListener
-  {
-    void onLocationPendingTimeout();
-  }
-
   @Retention(RetentionPolicy.SOURCE)
   @IntDef({ PENDING_POSITION, NOT_FOLLOW_NO_POSITION, NOT_FOLLOW, FOLLOW, FOLLOW_AND_ROTATE})
   @interface Value {}
@@ -54,9 +46,6 @@ public final class LocationState
 
   public static native void nativeSetListener(@NonNull ModeChangeListener listener);
   public static native void nativeRemoveListener();
-
-  public static native void nativeSetLocationPendingTimeoutListener(@NonNull PendingTimeoutListener listener);
-  public static native void nativeRemoveLocationPendingTimeoutListener();
 
   public static native void nativeOnLocationError(int errorCode);
 
