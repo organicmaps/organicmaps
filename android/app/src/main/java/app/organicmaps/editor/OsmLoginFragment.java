@@ -1,7 +1,13 @@
 package app.organicmaps.editor;
 
+import android.accounts.Account;
+import android.accounts.AccountManager;
+import android.app.Activity;
+import android.app.PendingIntent;
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
+import android.util.Base64;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -9,11 +15,17 @@ import android.widget.Button;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
+import androidx.activity.result.ActivityResult;
+import androidx.activity.result.ActivityResultCallback;
+import androidx.activity.result.ActivityResultLauncher;
+import androidx.activity.result.IntentSenderRequest;
+import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.annotation.Size;
 
 import app.organicmaps.Framework;
+import app.organicmaps.MapFragment;
 import app.organicmaps.R;
 import app.organicmaps.base.BaseMwmToolbarFragment;
 import app.organicmaps.util.Config;
@@ -26,14 +38,72 @@ import app.organicmaps.util.concurrency.ThreadPool;
 import app.organicmaps.util.concurrency.UiThread;
 import com.google.android.material.dialog.MaterialAlertDialogBuilder;
 import com.google.android.material.textfield.TextInputEditText;
+import net.openid.appauth.AppAuthConfiguration;
+import net.openid.appauth.AuthState;
+import net.openid.appauth.AuthorizationException;
+import net.openid.appauth.AuthorizationRequest;
+import net.openid.appauth.AuthorizationResponse;
+import net.openid.appauth.AuthorizationService;
+import net.openid.appauth.AuthorizationServiceConfiguration;
+import net.openid.appauth.ClientAuthentication;
+import net.openid.appauth.ClientSecretBasic;
+import net.openid.appauth.ResponseTypeValues;
+import net.openid.appauth.TokenRequest;
+import net.openid.appauth.TokenResponse;
+
+import java.security.MessageDigest;
+import java.security.SecureRandom;
+import app.organicmaps.util.log.Logger;
 
 public class OsmLoginFragment extends BaseMwmToolbarFragment
 {
+  private static final String TAG = OsmLoginFragment.class.getSimpleName();
+
   private ProgressBar mProgress;
   private Button mLoginButton;
   private Button mLostPasswordButton;
   private TextInputEditText mLoginInput;
   private TextInputEditText mPasswordInput;
+
+  private AuthorizationService authorizationService;
+  private AuthState authState = new AuthState();
+
+  ActivityResultLauncher<IntentSenderRequest> openStreetMapAuthenticationWorkflow = registerForActivityResult(new ActivityResultContracts.StartIntentSenderForResult(), new ActivityResultCallback<ActivityResult>() {
+    @Override
+    public void onActivityResult(ActivityResult result) {
+      if (result.getResultCode() == Activity.RESULT_OK) {
+        Logger.d(TAG, String.valueOf(result.getData()));
+        AuthorizationResponse authResponse = AuthorizationResponse.fromIntent(result.getData());
+        AuthorizationException authException = AuthorizationException.fromIntent(result.getData());
+        authState = new AuthState(authResponse, authException);
+        if (authException != null) {
+          Logger.e(TAG, authException.toJsonString(), authException);
+        }
+        if (authResponse != null) {
+          TokenRequest tokenRequest = authResponse.createTokenExchangeRequest();
+          authorizationService.performTokenRequest(tokenRequest, new ClientSecretBasic("gbKl0toQNZAzoeaM1TECP26Q_AG7kx1KUx1pXRNumfY"), new AuthorizationService.TokenResponseCallback() {
+            @Override
+            public void onTokenRequestCompleted(@Nullable TokenResponse response, @Nullable AuthorizationException ex) {
+              if (ex != null) {
+                authState = new AuthState();
+                Logger.e(TAG, ex.toJsonString(), ex);
+              } else {
+                if (response != null) {
+                  authState.update(response, ex);
+
+                }
+              }
+
+              saveOpenStreetMapAuthState();
+              //setPreferencesState();
+            }
+          });
+        }
+
+      }
+
+    }
+  });
 
   @Nullable
   @Override
@@ -75,16 +145,48 @@ public class OsmLoginFragment extends BaseMwmToolbarFragment
   private void login()
   {
     InputUtils.hideKeyboard(mLoginInput);
-    final String username = mLoginInput.getText().toString();
-    final String password = mPasswordInput.getText().toString();
-    enableInput(false);
+    //final String username = mLoginInput.getText().toString();
+    //final String password = mPasswordInput.getText().toString();
+    //enableInput(false);
+
     UiUtils.show(mProgress);
     mLoginButton.setText("");
 
     ThreadPool.getWorker().execute(() -> {
-      final String[] auth = OsmOAuth.nativeAuthWithPassword(username, password);
-      final String username1 = auth == null ? null : OsmOAuth.nativeGetOsmUsername(auth[0], auth[1]);
-      UiThread.run(() -> processAuth(auth, username1));
+      //final String[] auth = OsmOAuth.nativeAuthWithPassword(username, password);
+      //final String username1 = auth == null ? null : OsmOAuth.nativeGetOsmUsername(auth[0], auth[1]);
+      //UiThread.run(() -> processAuth(auth, username1));
+
+      authorizationService = new AuthorizationService(requireContext(), new AppAuthConfiguration.Builder().build());
+
+      SecureRandom sr = new SecureRandom();
+      byte[] ba = new byte[64];
+      sr.nextBytes(ba);
+      String codeVerifier = android.util.Base64.encodeToString(ba, Base64.URL_SAFE | Base64.NO_PADDING | Base64.NO_WRAP);
+
+      try {
+        MessageDigest digest = MessageDigest.getInstance("SHA-256");
+        byte[] hash = digest.digest(codeVerifier.getBytes());
+        String codeChallenge = android.util.Base64.encodeToString(hash, Base64.URL_SAFE | Base64.NO_PADDING | Base64.NO_WRAP);
+
+        AuthorizationRequest.Builder requestBuilder = new AuthorizationRequest.Builder(
+            getAuthorizationServiceConfiguration(),
+            getOpenStreetMapClientID(),
+            ResponseTypeValues.CODE,
+            Uri.parse(getOpenStreetMapRedirect())
+        ).setCodeVerifier(codeVerifier, codeChallenge, "S256");
+
+        requestBuilder.setScopes(getOpenStreetMapClientScopes());
+        AuthorizationRequest authRequest = requestBuilder.build();
+        Intent authIntent = authorizationService.getAuthorizationRequestIntent(authRequest);
+        openStreetMapAuthenticationWorkflow.launch(new IntentSenderRequest.Builder(
+            PendingIntent.getActivity(getActivity(), 53, authIntent, PendingIntent.FLAG_IMMUTABLE))
+                                                       .setFillInIntent(authIntent)
+                                                       .build());
+
+      } catch (Exception e) {
+        Logger.e(TAG, e.getMessage(), e);
+      }
     });
   }
 
@@ -126,4 +228,32 @@ public class OsmLoginFragment extends BaseMwmToolbarFragment
       startActivity(new Intent(requireContext(), ProfileActivity.class));
     requireActivity().finish();
   }
+
+  public static AuthorizationServiceConfiguration getAuthorizationServiceConfiguration() {
+    return new AuthorizationServiceConfiguration(
+        Uri.parse("https://www.openstreetmap.org/oauth2/authorize"),
+        Uri.parse("https://www.openstreetmap.org/oauth2/token"),
+        null,
+        null
+    );
+
+  }
+
+  public static String getOpenStreetMapClientID() {
+    return "O7RwmIm9_R4NWcTbN-W3m4XE7bRwSusNvIheOn6kMP0";
+  }
+
+  public static String getOpenStreetMapRedirect() {
+    //Needs to match in androidmanifest.xml
+    return "om.oauth2://osm/callback";
+  }
+
+  public static String[] getOpenStreetMapClientScopes() {
+    return new String[]{"read_prefs", "write_api"};
+  }
+
+  void saveOpenStreetMapAuthState() {
+    Logger.w(TAG, "Auth state: "+authState.jsonSerializeString());
+  }
+
 }

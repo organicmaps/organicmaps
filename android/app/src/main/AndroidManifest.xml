@@ -407,6 +407,16 @@
         android:name="app.organicmaps.editor.OsmLoginActivity"
         android:parentActivityName="app.organicmaps.MwmActivity" />
 
+    <activity android:name="net.openid.appauth.RedirectUriReceiverActivity"
+      android:exported="true">
+      <intent-filter>
+        <action android:name="android.intent.action.VIEW"/>
+        <category android:name="android.intent.category.DEFAULT"/>
+        <category android:name="android.intent.category.BROWSABLE"/>
+        <data android:scheme="om.oauth2" android:host="osm" android:path="/callback"/>
+      </intent-filter>
+    </activity>
+
     <activity
       android:name="app.organicmaps.bookmarks.BookmarkCategorySettingsActivity"
       android:label="@string/edit"

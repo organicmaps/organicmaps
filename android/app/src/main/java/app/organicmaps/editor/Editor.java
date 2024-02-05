@@ -49,7 +49,7 @@ public final class Editor
   public static void uploadChanges(@NonNull Context context)
   {
     if (nativeHasSomethingToUpload() && OsmOAuth.isAuthorized(context))
-      nativeUploadChanges(OsmOAuth.getAuthToken(context), OsmOAuth.getAuthSecret(context),
+      nativeUploadChanges(OsmOAuth.getAuthToken(context), "SeCrEt",
                           BuildConfig.VERSION_NAME, BuildConfig.APPLICATION_ID);
   }
 

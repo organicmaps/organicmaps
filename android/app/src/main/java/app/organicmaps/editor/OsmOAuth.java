@@ -40,18 +40,12 @@ public final class OsmOAuth
 
   public static boolean isAuthorized(@NonNull Context context)
   {
-    return MwmApplication.prefs(context).contains(PREF_OSM_TOKEN) &&
-           MwmApplication.prefs(context).contains(PREF_OSM_SECRET);
+    return MwmApplication.prefs(context).contains(PREF_OSM_TOKEN);
   }
 
   public static String getAuthToken(@NonNull Context context)
   {
     return MwmApplication.prefs(context).getString(PREF_OSM_TOKEN, "");
-  }
-
-  public static String getAuthSecret(@NonNull Context context)
-  {
-    return MwmApplication.prefs(context).getString(PREF_OSM_SECRET, "");
   }
 
   public static String getUsername(@NonNull Context context)
@@ -64,7 +58,7 @@ public final class OsmOAuth
   {
     MwmApplication.prefs(context).edit()
                   .putString(PREF_OSM_TOKEN, token)
-                  .putString(PREF_OSM_SECRET, secret)
+                  //.putString(PREF_OSM_SECRET, secret)
                   .putString(PREF_OSM_USERNAME, username)
                   .apply();
   }
@@ -73,7 +67,7 @@ public final class OsmOAuth
   {
     MwmApplication.prefs(context).edit()
                   .remove(PREF_OSM_TOKEN)
-                  .remove(PREF_OSM_SECRET)
+                  //.remove(PREF_OSM_SECRET)
                   .remove(PREF_OSM_USERNAME)
                   .apply();
   }
@@ -137,7 +131,8 @@ public final class OsmOAuth
         return;
 
       final String token = getAuthToken(context);
-      final String secret = getAuthSecret(context);
+      //final String secret = getAuthSecret(context);
+      final String secret = "SeCrEt";
       editsCount[0] = OsmOAuth.nativeGetOsmChangesetsCount(token, secret);
     });
     final SharedPreferences prefs = MwmApplication.prefs(context);
