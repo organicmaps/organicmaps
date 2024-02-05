@@ -104,13 +104,21 @@ public class SettingsPrefsFragment extends BaseXmlSettingsFragment
   @Override
   public boolean onPreferenceTreeClick(Preference preference)
   {
-    if (preference.getKey() != null && preference.getKey().equals(getString(R.string.pref_osm_profile)))
+    final String key = preference.getKey();
+    if (key != null)
     {
-      startActivity(new Intent(requireActivity(), ProfileActivity.class));
-    }
-    else if (preference.getKey() != null && preference.getKey().equals(getString(R.string.pref_help)))
-    {
-      startActivity(new Intent(requireActivity(), HelpActivity.class));
+      if (key.equals(getString(R.string.pref_osm_profile)))
+      {
+        startActivity(new Intent(requireActivity(), ProfileActivity.class));
+      }
+      else if (key.equals(getString(R.string.pref_tts_screen)))
+      {
+        getSettingsActivity().stackFragment(VoiceInstructionsSettingsFragment.class, getString(R.string.pref_tts_enable_title), null);
+      }
+      else if (key.equals(getString(R.string.pref_help)))
+      {
+        startActivity(new Intent(requireActivity(), HelpActivity.class));
+      }
     }
     return super.onPreferenceTreeClick(preference);
   }
