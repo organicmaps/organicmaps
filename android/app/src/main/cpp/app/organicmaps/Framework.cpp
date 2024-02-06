@@ -1000,10 +1000,10 @@ Java_app_organicmaps_Framework_nativeFormatLatLon(JNIEnv * env, jclass, jdouble 
   }
 }
 
-JNIEXPORT jobject JNICALL
+JNIEXPORT jstring JNICALL
 Java_app_organicmaps_Framework_nativeFormatAltitude(JNIEnv * env, jclass, jdouble alt)
 {
-  return ToJavaDistance(env, platform::Distance::CreateAltitudeFormatted(alt));
+  return jni::ToJavaString(env, platform::Distance::FormatAltitude(alt));
 }
 
 JNIEXPORT jstring JNICALL

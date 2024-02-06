@@ -446,14 +446,10 @@ public class PlacePageView extends Fragment implements View.OnClickListener,
 
     final StringBuilder builder = new StringBuilder();
     if (l.hasAltitude())
-    {
-      double altitude = l.getAltitude();
-      builder.append(altitude >= 0 ? "▲" : "▼");
-      builder.append(Framework.nativeFormatAltitude(altitude).toString(requireContext()));
-    }
+      builder.append("▲").append(Framework.nativeFormatAltitude(l.getAltitude()));
     if (l.hasSpeed())
-      builder.append("   ")
-             .append(Framework.nativeFormatSpeed(l.getSpeed()));
+      builder.append("   ").append(Framework.nativeFormatSpeed(l.getSpeed()));
+
     UiUtils.setTextAndHideIfEmpty(mTvSubtitle, builder.toString());
 
     mMapObject.setLat(l.getLatitude());

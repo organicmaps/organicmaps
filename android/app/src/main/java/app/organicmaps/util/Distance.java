@@ -35,6 +35,7 @@ public final class Distance
     }
   }
 
+  /// @todo What is the difference with cpp: kNarrowNonBreakingSpace = "\u202F" ?
   private static final char NON_BREAKING_SPACE = '\u00A0';
 
   public final double mDistance;

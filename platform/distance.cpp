@@ -82,14 +82,16 @@ Distance Distance::CreateFormatted(double distanceInMeters)
   return Distance(distanceInMeters).ToPlatformUnitsFormatted();
 }
 
-Distance Distance::CreateAltitudeFormatted(double meters)
+std::string Distance::FormatAltitude(double meters)
 {
-  Distance elevation = Distance(meters).To(
+  Distance elevation = Distance(fabs(meters)).To(
       GetMeasurementUnits() == measurement_utils::Units::Metric ? Units::Meters : Units::Feet);
 
   ASSERT(elevation.IsLowUnits(), ());
   elevation.m_distance = WithPrecision(elevation.m_distance, 0);
-  return elevation;
+
+  auto res = elevation.ToString();
+  return meters < 0 ? "-" + res : res;
 }
 
 bool Distance::IsValid() const { return m_distance >= 0.0; }
@@ -207,4 +209,5 @@ std::string DebugPrint(Distance::Units units)
   default: UNREACHABLE();
   }
 }
+
 }  // namespace platform

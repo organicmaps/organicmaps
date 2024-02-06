@@ -184,7 +184,7 @@ public class Framework
 
   public static native String nativeFormatLatLon(double lat, double lon, int coordFormat);
 
-  public static native Distance nativeFormatAltitude(double alt);
+  public static native String nativeFormatAltitude(double alt);
 
   public static native String nativeFormatSpeed(double speed);
 
