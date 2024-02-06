@@ -165,6 +165,10 @@
 	<string name="load_kmz_successful">Järjehoidjad edukalt laetud! Leiad need kaardil või järjehoidjate halduri ekraanil.</string>
 	<!-- Kml file loading failed -->
 	<string name="load_kmz_failed">Järjehoidjate laadimine ebaõnnestus. Fail võib olla vigane.</string>
+	<!-- Failed to recognize the format of a bookmarks or tracks file. -->
+	<string name="unknown_file_type">Rakendus ei tunnista failitüüpi:\n%1$s</string>
+	<!-- Failed to open a bookmarks or tracks file in Organic Maps. -->
+	<string name="failed_to_open_file">Faili avamine ebaõnnestus %1$s\n\n%2$s</string>
 	<!-- resource for context menu -->
 	<string name="edit">Muuda</string>
 	<!-- Warning message when doing search around current position -->

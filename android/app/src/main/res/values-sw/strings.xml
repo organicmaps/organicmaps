@@ -40,6 +40,10 @@
 	<string name="water">Maji</string>
 	<!-- Search category for RV facilities; any changes should be duplicated in categories.txt @rv! -->
 	<string name="rv">Kwa RV</string>
+	<!-- Failed to recognize the format of a bookmarks or tracks file. -->
+	<string name="unknown_file_type">Aina ya faili haitambuliwi na programu:\n%1$s</string>
+	<!-- Failed to open a bookmarks or tracks file in Organic Maps. -->
+	<string name="failed_to_open_file">Imeshindwa kufungua faili %1$s\n\n%2$s</string>
 	<!-- Data version in «About» screen, %@ is replaced by a local, human readable date. -->
 	<string name="data_version">Data ya OpenStreetMap: %s</string>
 	<!-- Generic «Auto» string -->

@@ -158,6 +158,10 @@
 	<string name="load_kmz_successful">Bogmærkerne er indlæst! Du kan nu finde dem på kortet eller i Bogmærke Manager sektionen.</string>
 	<!-- Kml file loading failed -->
 	<string name="load_kmz_failed">Bogmærkerne kunne ikke indlæses. Fil kan være skadet eller defekte.</string>
+	<!-- Failed to recognize the format of a bookmarks or tracks file. -->
+	<string name="unknown_file_type">Filtypen genkendes ikke af appen:\n%1$s</string>
+	<!-- Failed to open a bookmarks or tracks file in Organic Maps. -->
+	<string name="failed_to_open_file">Kunne ikke åbne filen %1$s\n\n%2$s</string>
 	<!-- resource for context menu -->
 	<string name="edit">Rediger</string>
 	<!-- Warning message when doing search around current position -->

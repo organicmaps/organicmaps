@@ -171,6 +171,10 @@
 	<string name="load_kmz_successful">Wczytano zakładki! Można odnaleźć je na mapie lub na ekranie menedżera zakładek.</string>
 	<!-- Kml file loading failed -->
 	<string name="load_kmz_failed">Nieudane wczytywanie zakładek. Plik może być uszkodzony lub posiadać defekty.</string>
+	<!-- Failed to recognize the format of a bookmarks or tracks file. -->
+	<string name="unknown_file_type">Typ pliku nie jest rozpoznawany przez aplikację:\n%1$s</string>
+	<!-- Failed to open a bookmarks or tracks file in Organic Maps. -->
+	<string name="failed_to_open_file">Nie udało się otworzyć pliku %1$s\n\n%2$s</string>
 	<!-- resource for context menu -->
 	<string name="edit">Edytuj</string>
 	<!-- Warning message when doing search around current position -->

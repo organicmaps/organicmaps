@@ -158,6 +158,10 @@
 	<string name="load_kmz_successful">Đã tải điểm đánh dấu thành công! Bạn có thể tìm chúng trên bản đồ hoặc màn hình Trình quản lý Điểm đánh dấu.</string>
 	<!-- Kml file loading failed -->
 	<string name="load_kmz_failed">Không tải lên được điểm đánh dấu. Tập tin có thể bị hỏng hoặc lỗi.</string>
+	<!-- Failed to recognize the format of a bookmarks or tracks file. -->
+	<string name="unknown_file_type">Loại tệp không được ứng dụng nhận dạng:\n%1$s</string>
+	<!-- Failed to open a bookmarks or tracks file in Organic Maps. -->
+	<string name="failed_to_open_file">Không thể mở tập tin %1$s\n\n%2$s</string>
 	<!-- resource for context menu -->
 	<string name="edit">Sửa</string>
 	<!-- Warning message when doing search around current position -->

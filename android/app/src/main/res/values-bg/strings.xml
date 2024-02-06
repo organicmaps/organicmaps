@@ -161,6 +161,10 @@
 	<string name="load_kmz_successful">Отметките са заредени успешно! Можете да ги откриете на картата или при секцията с отметки.</string>
 	<!-- Kml file loading failed -->
 	<string name="load_kmz_failed">Качването на отметките се провали. Файлът може да бъде повреден или дефектен.</string>
+	<!-- Failed to recognize the format of a bookmarks or tracks file. -->
+	<string name="unknown_file_type">Типът на файла не се разпознава от приложението:\n%1$s</string>
+	<!-- Failed to open a bookmarks or tracks file in Organic Maps. -->
+	<string name="failed_to_open_file">Неуспешно отваряне на файл %1$s\n\n%2$s</string>
 	<!-- resource for context menu -->
 	<string name="edit">Редакция</string>
 	<!-- Warning message when doing search around current position -->

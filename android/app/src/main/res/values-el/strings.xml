@@ -159,6 +159,10 @@
 	<string name="load_kmz_successful">Τα αγαπημένα φορτώθηκαν με επιτυχία! Μπορείτε να τα βρείτε στο χάρτη ή στην οθόνη Διαχείριση αγαπημένων.</string>
 	<!-- Kml file loading failed -->
 	<string name="load_kmz_failed">Η μεταφόρτωση των αγαπημένων απέτυχε. Το αρχείο μπορεί να είναι κατεστραμμένο ή ελαττωματικό.</string>
+	<!-- Failed to recognize the format of a bookmarks or tracks file. -->
+	<string name="unknown_file_type">Ο τύπος αρχείου δεν αναγνωρίζεται από την εφαρμογή:\n%1$s</string>
+	<!-- Failed to open a bookmarks or tracks file in Organic Maps. -->
+	<string name="failed_to_open_file">Απέτυχε να ανοίξει αρχείο %1$s\n\n%2$s</string>
 	<!-- resource for context menu -->
 	<string name="edit">Επεξεργασία</string>
 	<!-- Warning message when doing search around current position -->

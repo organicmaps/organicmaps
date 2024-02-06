@@ -172,6 +172,10 @@
 	<string name="load_kmz_successful">बुकमार्क सफलतापूर्वक लोड हो गए! आप उन्हें मानचित्र पर या बुकमार्क प्रबंधक स्क्रीन पर पा सकते हैं।</string>
 	<!-- Kml file loading failed -->
 	<string name="load_kmz_failed">बुकमार्क लोड करने में विफल. फ़ाइल दूषित या दोषपूर्ण हो सकती है.</string>
+	<!-- Failed to recognize the format of a bookmarks or tracks file. -->
+	<string name="unknown_file_type">फ़ाइल प्रकार ऐप द्वारा पहचाना नहीं गया है:\n%1$s</string>
+	<!-- Failed to open a bookmarks or tracks file in Organic Maps. -->
+	<string name="failed_to_open_file">फ़ाइल खोलने में असफल %1$s\n\n%2$s</string>
 	<!-- resource for context menu -->
 	<string name="edit">संपादन करना</string>
 	<!-- Warning message when doing search around current position -->
