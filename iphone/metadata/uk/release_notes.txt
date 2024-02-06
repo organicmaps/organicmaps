@@ -1,49 +1,49 @@
-• OpenStreetMap data as of February 2
-• Removed unnecessary "Continue detecting your current location" dialog
-• Improved the look of search bars
-• Auto Light/Dark theme setting is synced with the system
-• Properly display a longer cuisines list
-• Fixed location services permissions request for the first app start
-• Restroom emoji for places with toilets
-• Display parking operator
-• More precise turn notifications for small distances
-• Fixed absent speed limit on some speed cameras
-• Plus codes search shows results relative to position and to the screen center
-• Fixed crash in search
-• Name editing for playgrounds
-• Parse mlat and mlon parameters from OSM urls
-• Edit Greek names for Cyprus
-• Hindi support
+• Оновлені дані карти OpenStreetMap станом на 2 лютого
+• Прибрали зайвий діалог "Продовжити пошук місцезнаходження?"
+• Покращено зовнішній вигляд пошукового рядку
+• Автоматичне перемикання світлої та темної теми синхронізоване із налаштуваннями системи
+• Коректне відображення довгих списків кухонь для закладів
+• Виправлення запиту на місцеположення для першого запуску
+• Іконка вбиральні для закладів з туалетом
+• Додано відображення операторів для парковок
+• Більш точні голосові підказки для невеликих відстаней
+• Виправлено відсутність обмеження швидкості для деяких камер контролю швидкості
+• Пошук за плюс-кодом відображає результати відносно до місцеположення та центру екрану
+• Виправлення падіння підчас пошуку
+• Редагування назв ігрових майданчиків
+• Читання параметрів mlat та mlon для посилань на OSM
+• Редагування грецьких назв для Кипру
+• Підтримка хінді
 
-Map styles:
-• Orange secondary roads
-• Wider and brighter white tertiary roads
-• Nicer looking on- and off-ramp road links joins
-• Raised visibility of secondary and tertiary road links
-• Less bright farmlands color
-• Smaller mountain passes/saddles icons
-• Reduced visibilities of mountain saddles (compared to passes)
-• New ford icon
-• Made hospital and clinic icons look different
-• Reduced visibility of light rail stations
-• Added Boston and updated Taipei subway icons
-• Fixed Delhi subway entrance icons, Minsk & Spb subway captions on detailed zoom
-• Increased font size of towns and suburbs labels and decreased for neighborhoods
-• Fixed bookmark icon for water parks
-• Adjust visibilities of many POIs
+Стиль мапи:
+• Помаранчевий колір для другорядних доріг
+• Більш широкі та яскраві третинні дороги
+• Кращий вигляд для заїздів та зʼїздів з шосе
+• Збільшена видимість сполучення другорядних та третинних доріг
+• Меньш яскравий колір для сільськогосподарських полів
+• Меньші іконки гірських перевалів та сідловин
+• Зменьшена видимість гірських сідловин (порівняно із перевалами)
+• Нова іконка броду через річку
+• Різні іконки для поліклінік та лікарень
+• Зменьшена видимість невеликих залізничних станцій
+• Оновлена іконка метро Тайбею, нова іконка метро Бостона
+• Виправлені іконки входів до метро в Делі та назви станцій в Мінську та Санкт-Петербурзі на близьких масштабах
+• Збільшено шрифт для назв невеличких міст та передмість, зменьшено для мікрорайонів
+• Виправлено іконку для міток аквапарків
+• Відкореговано видимість для багатьох POI
 
-Outdoors map style:
-• Increased 50m & 100m contour lines visibilities
-• Raised visibility of campsites, survey points, toilets, touristic information features
-• New power tower and flagpole/mast icons
-• Made bridleways to be the same brown color as paths
-• Increased contrast of footways on overview zooms
+Стиль для активного відпочиноку:
+• Збільшена видимість ліній висот для 50м та 100м
+• Збільшена видимість кемпінгів, геодезичних пунктів, туалетів, дошок з туристичною інформацією
+• Нові іконки опор ліній електропередач, флагштоків та щоглів
+• Шляхи для вершників мають такий самий колір як і пішоходні стежки
+• Збільшено контраст стежок на оглядових масштабах
 
-Car navigation map style:
-• Added toilets, convenience stores
-• Reduced visibilities of artwork features and subway station captions
-• Bigger roundabout exit number
+Стиль автомобільної навігації:
+• Додано туалети та міні-маркети
+• Зменьшена видимість творів мистецтва та назв станцій метро
+• Більші номери виїздів з кільцевої дороги
 
-Updated Catalan, Chinese, Czech, Finnish, French, Romanian, Slovak, Ukrainian translations
+Оновлено переклади каталанською, китайською, чеською, фінською, французькою, румунською, словацькою, українською мовами
 
-…and more fixes and improvements, check https://omaps.org/news for details!
+…та різні виправлення та покращення, шукайте подробиці за посиланням omaps.org/uk/news

@@ -1,14 +1,11 @@
-• Android Auto fixes
-• OpenStreetMap data as of February 2
-• Fixed Spanish and Portuguese TTS
-• Fixed KML, KMZ, GPX import crash
-• Fixed KMZ import from WhatsApp
-• Orange secondary roads
-• Hindi support
-• Restroom emoji for places with toilets
-• Display parking operator
-• Plus codes search shows results relative to position and to the screen center
-• Many map style fixes and improvements
-• Translation fixes
+• Покращення в роботі Android Auto
+• Дані карти OpenStreetMap станом на 2 лютого
+• Виправлення голосових підказок испанською та португальською
+• Виправлення падіння під час імпорту KML, KMZ, GPX файлів
+• Виправлення імпорту KMZ міток з WhatsApp
+• Помаранчевий колір для другорядних доріг
+• Іконка вбиральні для закладів з туалетом
+• Пошук за плюс-кодом відображає результати відносно до місцеположення та центру екрану
+• Багато покращень в стилях мапи та у пошуку
 
-…read more details at omaps.org/news
+…більше на omaps.org/uk/news

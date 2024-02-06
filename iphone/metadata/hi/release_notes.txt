@@ -1,22 +1,24 @@
 • OpenStreetMap data as of February 2
-• Removed unnecessary "Continue detecting your current location" dialog
-• Improved the look of search bars
+• Removed "Continue detecting your location?" dialog, now location search can be stopped by pressing the "rotating radar" location button
 • Auto Light/Dark theme setting is synced with the system
+• Improved the look of search bars
 • Properly display a longer cuisines list
 • Fixed location services permissions request for the first app start
+• Reduced the height of the top navigation bar with the next street name in it
 • Restroom emoji for places with toilets
 • Display parking operator
 • More precise turn notifications for small distances
 • Fixed absent speed limit on some speed cameras
 • Plus codes search shows results relative to position and to the screen center
 • Fixed crash in search
+• Better and more precise search on the map, more relevant search results in the list
 • Name editing for playgrounds
 • Parse mlat and mlon parameters from OSM urls
-• Edit Greek names for Cyprus
+• Allow editing Greek names for Cyprus
 • Hindi support
 
 Map styles:
-• Orange secondary roads
+• Orange color for secondary roads
 • Wider and brighter white tertiary roads
 • Nicer looking on- and off-ramp road links joins
 • Raised visibility of secondary and tertiary road links
