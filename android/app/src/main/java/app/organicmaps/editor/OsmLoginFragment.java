@@ -81,7 +81,7 @@ public class OsmLoginFragment extends BaseMwmToolbarFragment
         }
         if (authResponse != null) {
           TokenRequest tokenRequest = authResponse.createTokenExchangeRequest();
-          authorizationService.performTokenRequest(tokenRequest, new ClientSecretBasic("gbKl0toQNZAzoeaM1TECP26Q_AG7kx1KUx1pXRNumfY"), new AuthorizationService.TokenResponseCallback() {
+          authorizationService.performTokenRequest(tokenRequest, new ClientSecretBasic(getOpenStreetMapClientSecret()), new AuthorizationService.TokenResponseCallback() {
             @Override
             public void onTokenRequestCompleted(@Nullable TokenResponse response, @Nullable AuthorizationException ex) {
               if (ex != null) {
@@ -236,16 +236,22 @@ public class OsmLoginFragment extends BaseMwmToolbarFragment
         null,
         null
     );
-
   }
 
   public static String getOpenStreetMapClientID() {
-    return "O7RwmIm9_R4NWcTbN-W3m4XE7bRwSusNvIheOn6kMP0";
+    //return "O7RwmIm9_R4NWcTbN-W3m4XE7bRwSusNvIheOn6kMP0";
+    return "nw9bW3nZ-q99SXzgnH-dlED3ueDSmFPtxl33n3hDwFU";
+  }
+
+  public static String getOpenStreetMapClientSecret() {
+    //return "gbKl0toQNZAzoeaM1TECP26Q_AG7kx1KUx1pXRNumfY";
+    return "nIxwFx1NXIx9lKoNmb7lAoHd9ariGMf46PtU_YG558c";
   }
 
   public static String getOpenStreetMapRedirect() {
     //Needs to match in androidmanifest.xml
-    return "om.oauth2://osm/callback";
+    //return "om.oauth2://osm/callback";
+    return "om://oauth2/osm/callback";
   }
 
   public static String[] getOpenStreetMapClientScopes() {

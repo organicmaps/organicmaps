@@ -6,6 +6,7 @@ import static android.Manifest.permission.ACCESS_FINE_LOCATION;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 
 import androidx.activity.result.ActivityResultLauncher;
@@ -26,6 +27,7 @@ import app.organicmaps.util.ThemeUtils;
 import app.organicmaps.util.concurrency.UiThread;
 import app.organicmaps.util.log.Logger;
 import com.google.android.material.dialog.MaterialAlertDialogBuilder;
+import net.openid.appauth.AuthorizationManagementActivity;
 
 import java.io.IOException;
 
@@ -188,6 +190,14 @@ public class SplashActivity extends AppCompatActivity
                            IntentCompat.getParcelableExtra(input, EXTRA_INITIAL_INTENT, Intent.class) :
                            input;
       result.putExtra(EXTRA_INITIAL_INTENT, initialIntent);
+
+      Uri intentData = initialIntent.getData();
+      if (intentData != null && "oauth2".equals(intentData.getHost())) {
+        // Handle OAuth2 redirect. Don't need to initialize map
+        startActivity(AuthorizationManagementActivity.createResponseHandlingIntent(this, intentData));
+        return;
+      }
+
       if (Factory.isStartedForApiResult(initialIntent))
       {
         // Wait for the result from MwmActivity for API callers.
