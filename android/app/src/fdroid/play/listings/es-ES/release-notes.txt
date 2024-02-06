@@ -1,8 +1,14 @@
-• Android Auto
-• Se resolvió un problema con la pantalla que se apagaba intermitentemente
-• Datos cartográficos de OpenStreetMap al 5 de enero
-• Mejoras en el estilo «Senderismo» y las pistas de esquí
-• Traducción al azerí
-• Corrección de las configuraciones de voz en español y portugués
+• Android Auto fixes
+• OpenStreetMap data as of February 2
+• Fixed Spanish and Portuguese TTS
+• Fixed KML/KMZ/GPX import from WhatsApp, Telegram, OpenTracks and other apps
+• Orange colors for secondary roads
+• Pressing location button now stops location detection
+• Hindi support
+• Restroom emoji for places with toilets
+• Display parking operator
+• Improved Plus Codes search, and search on the map
+• Many map improvements
+• Translation fixes
 
-Para conocer más, vaya a omaps.org/es/news
+…read more details at omaps.org/news

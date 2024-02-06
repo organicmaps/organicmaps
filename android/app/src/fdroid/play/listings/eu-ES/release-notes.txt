@@ -1,9 +1,11 @@
-• Android Auto
-• Fixed issue with the screen intermittently turning off
-• OpenStreetMap map data as of January 5
-• Improved skiing pistes and Outdoors style
-• Added Max Capacity for places
-• Added Azerbaijani translations
-• Fixed Spanish and Portugal voice settings
+• Android Auton konponketak
+• Otsailaren 2ko OpenStreetMap datuak
+• Gaztelaniazko eta Portugaleko TTSen arazoa konpondu da
+• KML, KMZ, GPX inportazioaren hutsegitea konpondu da
+• Bigarren mailako errepide laranjak
+• Komuneko emojia komunak dituzten tokietarako
+• Aparkalekuaren operadorea bistaratzea
+• Plus codes bilaketak emaitzak erakusten ditu posizioari eta pantailaren erdiari dagokionez
+• Mapa estiloaren konponketa eta hobekuntza asko
 
-…more details at omaps.org/news
+… irakurri xehetasun gehiago omaps.org/news helbidean

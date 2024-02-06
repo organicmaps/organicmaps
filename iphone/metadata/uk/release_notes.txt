@@ -1,39 +1,49 @@
-• Copy place title, address, coordinates and other information using a long tap
-• CarPlay: support touch panning gestures
-• Add Notes section to the 'Add place to OpenStreetMap' screen
-• OpenStreetMap map data as of January 5
+• Оновлені дані карти OpenStreetMap станом на 2 лютого
+• Прибрали зайвий діалог "Продовжити пошук місцезнаходження?"
+• Покращено зовнішній вигляд пошукового рядку
+• Автоматичне перемикання світлої та темної теми синхронізоване із налаштуваннями системи
+• Коректне відображення довгих списків кухонь для закладів
+• Виправлення запиту на місцеположення для першого запуску
+• Іконка вбиральні для закладів з туалетом
+• Додано відображення операторів для парковок
+• Більш точні голосові підказки для невеликих відстаней
+• Виправлено відсутність обмеження швидкості для деяких камер контролю швидкості
+• Пошук за плюс-кодом відображає результати відносно до місцеположення та центру екрану
+• Виправлення падіння підчас пошуку
+• Редагування назв ігрових майданчиків
+• Читання параметрів mlat та mlon для посилань на OSM
+• Редагування грецьких назв для Кипру
+• Підтримка хінді
 
-Styles:
-• Added cairns, updated Singapore subway icon
-• Slightly increased contrast of lines on the World overview map
-• Make secondary roads a bit brighter than tertiary/etc.
-• Car navigation style: fixed some footways/paths/tracks being displayed too early as white dashed lines
-• Main style: fix color of footways with a sac_scale=* tag to be same as path
-• Fixed very thin lines (e.g. tram lines) having inconsistent transparency/contrast between different devices (driver•dependent)
-• Fix bookmarked children playground icon
-• remove labels and decrease visibility of footway crossings and sidewalks
-• tuned contrast of altitude contour lines
-• crisper looking lines (no edge blur)
+Стиль мапи:
+• Помаранчевий колір для другорядних доріг
+• Більш широкі та яскраві третинні дороги
+• Кращий вигляд для заїздів та зʼїздів з шосе
+• Збільшена видимість сполучення другорядних та третинних доріг
+• Меньш яскравий колір для сільськогосподарських полів
+• Меньші іконки гірських перевалів та сідловин
+• Зменьшена видимість гірських сідловин (порівняно із перевалами)
+• Нова іконка броду через річку
+• Різні іконки для поліклінік та лікарень
+• Зменьшена видимість невеликих залізничних станцій
+• Оновлена іконка метро Тайбею, нова іконка метро Бостона
+• Виправлені іконки входів до метро в Делі та назви станцій в Мінську та Санкт-Петербурзі на близьких масштабах
+• Збільшено шрифт для назв невеличких міст та передмість, зменьшено для мікрорайонів
+• Виправлено іконку для міток аквапарків
+• Відкореговано видимість для багатьох POI
 
-Outdoors style:
-• more contrast•looking paths, tracks, cutlines, rivers, ditches, railways, cycleways, fences, etc.
-• reduce visibility of small streams and canals
-• increase visibility of fences, walls and ditches
-• increase visibilities of bridle/cycle/foot•ways and steps, increase label sizes
-• make bridleways to be the same brown color as paths but with longer dashes
+Стиль для активного відпочиноку:
+• Збільшена видимість ліній висот для 50м та 100м
+• Збільшена видимість кемпінгів, геодезичних пунктів, туалетів, дошок з туристичною інформацією
+• Нові іконки опор ліній електропередач, флагштоків та щоглів
+• Шляхи для вершників мають такий самий колір як і пішоходні стежки
+• Збільшено контраст стежок на оглядових масштабах
 
-Pistes improvements:
-• add snow parks and new piste types: skitour, winter hike, connection
-• color freeride pistes in yellow•orange, consider ungroomed downhill runs as freeride
-• better piste names and numbers/refs support
-• in Outdoors style: increase pistes visibilities and display detailed piste shapes (area fills)
+Стиль автомобільної навігації:
+• Додано туалети та міні-маркети
+• Зменьшена видимість творів мистецтва та назв станцій метро
+• Більші номери виїздів з кільцевої дороги
 
-Other:
-• Display capacity of parkings, bicycle docks and charging stations when they're selected
-• Adjust shop, amenity, leisure ranking in the search
+Оновлено переклади каталанською, китайською, чеською, фінською, французькою, румунською, словацькою, українською мовами
 
-Translations:
-• new Azebaijani language
-• updates to Chinese, Polish, Hebrew, Romanian
-
-…and more smaller fixes and improvements, check https://omaps.org/news for details!
+…та різні виправлення та покращення, шукайте подробиці за посиланням omaps.org/uk/news

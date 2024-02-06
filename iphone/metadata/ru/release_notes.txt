@@ -1,39 +1,51 @@
-• Copy place title, address, coordinates and other information using a long tap
-• CarPlay: support touch panning gestures
-• Add Notes section to the 'Add place to OpenStreetMap' screen
-• OpenStreetMap map data as of January 5
+• Данные OpenStreetMap по состоянию на 2 февраля
+• Убран диалог "Продолжить определение местоположения?", теперь поиск местоположения можно остановить, нажав на кнопку определения местоположения "вращающийся радар"
+• Автоматическая настройка темы "Светлая/Тёмная" теперь синхронизирована с системой
+• Улучшен внешний вид панелей поиска
+• Корректное отображение более длинного списка кухонь
+• Исправлен запрос разрешений служб определения местоположения при первом запуске приложения
+• Уменьшена высота верхней навигационной панели с названием следующей улицы
+• Эмодзи для заведений с туалетами в результатах поиска и при выборе заведения
+• Отображение оператора парковки при её выборе
+• Более точные уведомления о поворотах на небольших расстояниях
+• Исправлено отсутствие ограничения скорости на некоторых камерах контроля скорости
+• Поиск по кодам Plus показывает результаты относительно позиции и центра экрана
+• Исправлен сбой в поиске
+• Улучшенный и более точный поиск на карте, более релевантные результаты поиска в списке
+• Редактирование имён для игровых площадок
+• Поиск "понимает" координаты объектов из ссылок OpenStreetMap
+• Разрешено редактировать греческие названия для Кипра
+• Поддержка Хинди
 
-Styles:
-• Added cairns, updated Singapore subway icon
-• Slightly increased contrast of lines on the World overview map
-• Make secondary roads a bit brighter than tertiary/etc.
-• Car navigation style: fixed some footways/paths/tracks being displayed too early as white dashed lines
-• Main style: fix color of footways with a sac_scale=* tag to be same as path
-• Fixed very thin lines (e.g. tram lines) having inconsistent transparency/contrast between different devices (driver•dependent)
-• Fix bookmarked children playground icon
-• remove labels and decrease visibility of footway crossings and sidewalks
-• tuned contrast of altitude contour lines
-• crisper looking lines (no edge blur)
+Стили карты:
+• Оранжевый цвет для второстепенных дорог
+• Более широкие и яркие белые третичные дороги
+• Улучшено отображение соединений второстепенных и третьестепенных дорог
+• Повышена видимость второстепенных и третичных дорог
+• Менее яркий цвет сельскохозяйственных угодий
+• Более мелкие значки горных перевалов/седловин
+• Уменьшена видимость горных седловин по сравнению с перевалами
+• Новая иконка брода
+• Иконки больниц и клиник теперь отличаются
+• Уменьшена видимость станций легкорельсового транспорта
+• Добавлены иконки метро Бостона и обновленного Тайбэя
+• Исправлены иконки входа в метро Дели, Минска и Спб
+• Увеличен размер шрифта подписей городов и пригородов, и уменьшен для районов
+• Исправлена иконка закладки для аквапарков
+• Настроена видимость многих объектов на карте
 
-Outdoors style:
-• more contrast•looking paths, tracks, cutlines, rivers, ditches, railways, cycleways, fences, etc.
-• reduce visibility of small streams and canals
-• increase visibility of fences, walls and ditches
-• increase visibilities of bridle/cycle/foot•ways and steps, increase label sizes
-• make bridleways to be the same brown color as paths but with longer dashes
+Стиль карты Outdoors:
+• Увеличена видимость 50- и 100-метровых контурных линий
+• Повышена видимость кемпингов, точек наблюдения, туалетов, объектов туристической информации
+• Новые значки электровышек и флагштоков/мачт
+• Коричневый цвет пешеходных дорожек стал таким же, как и у тропинок
+• Повышена контрастность пешеходных дорожек при увеличении масштаба обзора
 
-Pistes improvements:
-• add snow parks and new piste types: skitour, winter hike, connection
-• color freeride pistes in yellow•orange, consider ungroomed downhill runs as freeride
-• better piste names and numbers/refs support
-• in Outdoors style: increase pistes visibilities and display detailed piste shapes (area fills)
+Стиль карты для автомобильной навигации:
+• Добавлены туалеты, магазины
+• Уменьшена видимость художественных элементов и надписей станций метро
+• Увеличен номер съезда с кольцевой развязки
 
-Other:
-• Display capacity of parkings, bicycle docks and charging stations when they're selected
-• Adjust shop, amenity, leisure ranking in the search
+Обновлены каталонский, китайский, чешский, финский, французский, румынский, словацкий, украинский переводы.
 
-Translations:
-• new Azebaijani language
-• updates to Chinese, Polish, Hebrew, Romanian
-
-…and more smaller fixes and improvements, check https://omaps.org/news for details!
+…и еще больше исправлений и улучшений, подробнее на https://omaps.org/ru/news
