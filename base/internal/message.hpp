@@ -26,6 +26,7 @@ template <typename T> inline std::string DebugPrint(T const & t);
 
 std::string DebugPrint(std::string const & t);
 inline std::string DebugPrint(char const * t);
+inline std::string DebugPrint(char * t) { return DebugPrint(static_cast<char const *>(t)); }
 inline std::string DebugPrint(char t);
 
 template <typename U, typename V> inline std::string DebugPrint(std::pair<U, V> const & p);
@@ -57,6 +58,11 @@ inline std::string DebugPrint(char const * t)
   return {"NULL string pointer"};
 }
 
+inline std::string DebugPrint(char t)
+{
+  return {1, t};
+}
+
 namespace internal
 {
 std::string ToUtf8(std::u16string_view utf16);
@@ -70,21 +76,6 @@ inline std::string DebugPrint(std::u16string const & utf16)
 inline std::string DebugPrint(std::u16string_view utf16)
 {
   return internal::ToUtf8(utf16);
-}
-
-inline std::string DebugPrint(char t)
-{
-  return {1, t};
-}
-
-inline std::string DebugPrint(signed char t)
-{
-  return std::to_string(static_cast<int>(t));
-}
-
-inline std::string DebugPrint(unsigned char t)
-{
-  return std::to_string(static_cast<unsigned int>(t));
 }
 
 inline std::string DebugPrint(std::chrono::time_point<std::chrono::system_clock> const & ts)
@@ -132,7 +123,11 @@ std::string inline DebugPrint(std::nullopt_t const & p)
   return "nullopt";
 }
 
-template <typename T, size_t N> inline std::string DebugPrint(T (&arr) [N])
+// Avoid calling it for string literals.
+template <typename T, size_t N,
+         typename = std::enable_if_t<!std::is_same<typename std::remove_cv<T>::type, char>::value &&
+                                     !std::is_same<typename std::remove_cv<T>::type, char16_t>::value>>
+inline std::string DebugPrint(T (&arr) [N])
 {
   return DebugPrintSequence(arr, arr + N);
 }
