@@ -876,8 +876,8 @@ UNIT_TEST(UniStringToUtf8)
 UNIT_TEST(UniStringToUtf16)
 {
   std::string_view constexpr utf8sv = "Текст";
-  static char16_t constexpr utf16[] = u"Текст";
-  TEST_EQUAL(utf16, strings::ToUtf16(utf8sv), ());
+  static std::u16string_view constexpr utf16sv = u"Текст";
+  TEST_EQUAL(utf16sv, strings::ToUtf16(utf8sv), ());
 }
 
 UNIT_TEST(StartsWith)
