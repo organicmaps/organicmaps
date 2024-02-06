@@ -185,7 +185,7 @@ public class FloatingMarkerView extends RelativeLayout implements IMarker
   {
     mDistanceTextView.setText(R.string.elevation_profile_distance);
     mDistanceValueView.setText(StringUtils.nativeFormatDistance(entry.getX()).toString(mDistanceValueView.getContext()));
-    mAltitudeView.setText(Framework.nativeFormatAltitude(entry.getY()).toString(mAltitudeView.getContext()));
+    mAltitudeView.setText(Framework.nativeFormatAltitude(entry.getY()));
   }
 
   private void updateHorizontal(@NonNull Highlight highlight)

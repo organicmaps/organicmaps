@@ -31,10 +31,7 @@ public:
   Distance(double distance, Units units);
 
   static Distance CreateFormatted(double distanceInMeters);
-  /// Creates formatted distance in low units (to display altitude/elevation info).
-  /// \example CreateAltitudeFormatted(10000) -> 32808 ft
-  /// \warning GetFormattedDistance() will transform it to high units
-  static Distance CreateAltitudeFormatted(double meters);
+  static std::string FormatAltitude(double meters);
 
   bool IsValid() const;
 
@@ -66,4 +63,5 @@ private:
 };
 
 std::string DebugPrint(Distance::Units units);
+
 }  // namespace platform

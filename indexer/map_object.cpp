@@ -207,7 +207,7 @@ string MapObject::GetElevationFormatted() const
   {
     double value;
     if (strings::to_double(sv, value))
-      return platform::Distance::CreateAltitudeFormatted(value).ToString();
+      return platform::Distance::FormatAltitude(value);
     else
       LOG(LWARNING, ("Invalid elevation metadata:", sv));
   }

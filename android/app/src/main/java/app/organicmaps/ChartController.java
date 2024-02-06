@@ -176,8 +176,8 @@ public class ChartController implements OnChartValueSelectedListener,
     mChart.setData(data);
     mChart.animateX(CHART_ANIMATION_DURATION);
 
-    mMinAltitude.setText(Framework.nativeFormatAltitude(info.getMinAltitude()).toString(mContext));
-    mMaxAltitude.setText(Framework.nativeFormatAltitude(info.getMaxAltitude()).toString(mContext));
+    mMinAltitude.setText(Framework.nativeFormatAltitude(info.getMinAltitude()));
+    mMaxAltitude.setText(Framework.nativeFormatAltitude(info.getMaxAltitude()));
 
     highlightActivePointManually();
   }
