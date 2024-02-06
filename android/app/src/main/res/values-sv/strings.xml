@@ -156,6 +156,10 @@
 	<string name="load_kmz_successful">Bokmärkena lästes in! Du kan hitta dem på kartan eller i Bokmärkeshanteraren.</string>
 	<!-- Kml file loading failed -->
 	<string name="load_kmz_failed">Inläsningen av bokmärkena misslyckades. Filen kan vara skadad eller defekt.</string>
+	<!-- Failed to recognize the format of a bookmarks or tracks file. -->
+	<string name="unknown_file_type">Filtypen känns inte igen av appen:\n%1$s</string>
+	<!-- Failed to open a bookmarks or tracks file in Organic Maps. -->
+	<string name="failed_to_open_file">Det gick inte att öppna filen %1$s\n\n%2$s</string>
 	<!-- resource for context menu -->
 	<string name="edit">Redigera</string>
 	<!-- Warning message when doing search around current position -->

@@ -155,6 +155,10 @@
 	<string name="load_kmz_successful">نشانه‌ها با موفقیت بارگذاری شد!شما می توانید آنها را در نقشه یا بخش مدیریت نشانه‌ها بیابید</string>
 	<!-- Kml file loading failed -->
 	<string name="load_kmz_failed">بارگذاری نشانه‌ها با شکست مواجه شد.ممکن است فایل آسیب دیده یا معیوب باشد</string>
+	<!-- Failed to recognize the format of a bookmarks or tracks file. -->
+	<string name="unknown_file_type">نوع فایل توسط برنامه تشخیص داده نمی شود:\n%1$s</string>
+	<!-- Failed to open a bookmarks or tracks file in Organic Maps. -->
+	<string name="failed_to_open_file">فایل باز نشد %1$s\n\n%2$s</string>
 	<!-- resource for context menu -->
 	<string name="edit">ویرایش</string>
 	<!-- Warning message when doing search around current position -->

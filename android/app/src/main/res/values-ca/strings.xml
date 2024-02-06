@@ -165,6 +165,10 @@
 	<string name="load_kmz_successful">Els marcadors s\'han carregat correctament! Podeu trobar-los en el mapa o en la pantalla de gestió de marcadors.</string>
 	<!-- Kml file loading failed -->
 	<string name="load_kmz_failed">No s\'ha pogut carregar els marcadors. El fitxer pot ser malmès o defectuós.</string>
+	<!-- Failed to recognize the format of a bookmarks or tracks file. -->
+	<string name="unknown_file_type">L\'aplicació no reconeix el tipus de fitxer:\n%1$s</string>
+	<!-- Failed to open a bookmarks or tracks file in Organic Maps. -->
+	<string name="failed_to_open_file">No s\'ha pogut obrir el fitxer %1$s\n\n%2$s</string>
 	<!-- resource for context menu -->
 	<string name="edit">Edita</string>
 	<!-- Warning message when doing search around current position -->

@@ -171,6 +171,10 @@
 	<string name="load_kmz_successful">Bladwijzers succesvol geüpload! U vindt ze op de kaart of op het scherm van de Bladwijzerbeheerder.</string>
 	<!-- Kml file loading failed -->
 	<string name="load_kmz_failed">Bladwijzers uploaden is mislukt. Het bestand is mogelijk beschadigd of defect.</string>
+	<!-- Failed to recognize the format of a bookmarks or tracks file. -->
+	<string name="unknown_file_type">Het bestandstype wordt niet herkend door de app:\n%1$s</string>
+	<!-- Failed to open a bookmarks or tracks file in Organic Maps. -->
+	<string name="failed_to_open_file">Faalde om bestand te openen %1$s\n\n%2$s</string>
 	<!-- resource for context menu -->
 	<string name="edit">Wijzigen</string>
 	<!-- Warning message when doing search around current position -->

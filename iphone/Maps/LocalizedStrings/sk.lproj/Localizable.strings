@@ -173,7 +173,7 @@
 /* Search category for RV facilities; any changes should be duplicated in categories.txt @rv! */
 "rv" = "Pre RV";
 
-"share_bookmarks_email_body" = "Hello!\n\nAttached are my bookmarks; please open them in Organic Maps. If you don't have it installed you can download it here: https://omaps.app/get?kmz\n\nEnjoy travelling with Organic Maps!";
+"share_bookmarks_email_body" = "Ahoj!\n\nV prílohe sú moje záložky z aplikácie Organic Maps. Ak ju nemáš nainštalovanú, môžeš si ju stiahnuť tu: https://omaps.app/get?kmz\n\nPrajem šťastnú cestu s Organic Maps!";
 
 /* message title of loading file */
 "load_kmz_title" = "Načítavanie záložiek";
@@ -411,7 +411,7 @@
 "routing_download_maps_along" = "Stiahnite si mapy pozdĺž trasy";
 
 /* Text for routing error dialog */
-"routing_requires_all_map" = "In order to create a route, we need to download and update all the maps from your location to your destination.";
+"routing_requires_all_map" = "Aby bolo možné naplánovať cestu, je potrebné stiahnuť všetky mapy od vašej pozície po cieľové miesto.";
 
 /* bookmark button text */
 "bookmark" = "záložka";
@@ -562,7 +562,7 @@
 "clear_search" = "Vymazať históriu vyhľadávania";
 
 /* Place Page link to Wikipedia article (if map object has it). */
-"read_in_wikipedia" = "Wikipedia";
+"read_in_wikipedia" = "Wikipédia";
 
 /* Place Page link to Wikimedia Commons. */
 "wikimedia_commons" = "Wikimedia Commons";
@@ -622,21 +622,21 @@
 
 "day_off_today" = "Dnes deň voľna";
 
-"day_off" = "Deň voľna";
+"day_off" = "Zatvorené";
 
 "today" = "Dnes";
 
-"opens_tomorrow_at" = "Opens tomorrow at %@";
+"opens_tomorrow_at" = "Otvoria zajtra o %@";
 
-"opens_dayoftheweek_at" = "Opens %1$@ at %2$@";
+"opens_dayoftheweek_at" = "Otvoria v %1$@ o %2$@";
 
-"opens_at" = "Opens at %@";
+"opens_at" = "Otvárajú o %@";
 
-"opens_in" = "Opens in %@";
+"opens_in" = "Otvoria o %@";
 
-"closes_at" = "Closes at %@";
+"closes_at" = "Zatvárajú o %@";
 
-"closes_in" = "Closes in %@";
+"closes_in" = "Zatvoria o %@";
 
 "closed" = "Zatvorené";
 
@@ -1019,7 +1019,7 @@
 
 "title_error_downloading_bookmarks" = "Vyskytla sa chyba";
 
-"popular_place" = "Popular";
+"popular_place" = "Obľúbené";
 
 "export_file" = "Exportovať súbor";
 
@@ -1240,7 +1240,7 @@
 "whats_new_auto_update_title" = "Aktualizujte svoje stiahnuté mapy";
 
 /* Autoupdate dialog on start */
-"whats_new_auto_update_message" = "Vďaka aktualizácii máp budú informácie o objektoch na mape aktualizované";
+"whats_new_auto_update_message" = "Aktualizácia máp udržuje informácie o objektoch na mape aktuálne";
 
 /* Autoupdate dialog on start */
 "whats_new_auto_update_button_size" = "Aktualizovať (%@)";
@@ -1249,13 +1249,13 @@
 "whats_new_auto_update_button_later" = "Manuálne aktualizovať neskôr";
 
 /* Delete track button on track edit screen */
-"placepage_delete_track_button" = "Delete Track";
+"placepage_delete_track_button" = "Zmazať záznam trasy";
 
 /* Placeholder for track name input on track edit screen */
-"placepage_track_name_hint" = "Track Name";
+"placepage_track_name_hint" = "Názov trasy";
 
 /* move track or bookmark from the list button text */
-"move" = "Move";
+"move" = "Presunúť";
 
 /* edit track screen title */
 "track_title" = "Trasa";
@@ -1292,13 +1292,13 @@
 
 "type.aerialway" = "Aerialway";
 
-"type.aerialway.cable_car" = "Cable Car";
+"type.aerialway.cable_car" = "Lanovka";
 
-"type.aerialway.chair_lift" = "Chair Lift";
+"type.aerialway.chair_lift" = "Sedačková lanovka";
 
-"type.aerialway.drag_lift" = "Drag Lift";
+"type.aerialway.drag_lift" = "Vlek";
 
-"type.aerialway.gondola" = "Gondola";
+"type.aerialway.gondola" = "Kabínová lanovka";
 
 "type.aerialway.mixed_lift" = "Mixed Lift";
 
@@ -1541,9 +1541,9 @@
 
 "type.amenity.recycling.centre" = "Zberné suroviny";
 
-"type.amenity.recycling" = "Recyklačný odpad";
+"type.amenity.recycling" = "Recyklačný kontajner";
 
-"type.amenity.recycling.container" = "Recyklačný odpad";
+"type.amenity.recycling.container" = "Recyklačný kontajner";
 
 "type.recycling.batteries" = "Batérie";
 
@@ -1561,15 +1561,15 @@
 
 "type.recycling.small_appliances" = "Elektronický odpad";
 
-"type.recycling.cardboard" = "Cardboard";
+"type.recycling.cardboard" = "Kartóny";
 
-"type.recycling.cans" = "Cans";
+"type.recycling.cans" = "Plechovky";
 
-"type.recycling.shoes" = "Shoes";
+"type.recycling.shoes" = "Obuv";
 
-"type.recycling.green_waste" = "Green/Organic Waste";
+"type.recycling.green_waste" = "Biologický odpad";
 
-"type.recycling.cartons" = "Cartons";
+"type.recycling.cartons" = "Tetrapaky";
 
 "type.amenity.restaurant" = "Reštaurácia";
 
@@ -1599,17 +1599,17 @@
 
 "type.amenity.university" = "Univerzita";
 
-"type.amenity.vending_machine" = "Vending Machine";
+"type.amenity.vending_machine" = "Výdajný automat";
 
 "type.amenity.vending_machine.cigarettes" = "Automat na cigarety";
 
-"type.amenity.vending_machine.coffee" = "Coffee Dispenser";
+"type.amenity.vending_machine.coffee" = "Automat na kávu";
 
-"type.amenity.vending_machine.condoms" = "Condoms Dispenser";
+"type.amenity.vending_machine.condoms" = "Automat na kondómy";
 
 "type.amenity.vending_machine.drinks" = "Nápojový automat";
 
-"type.amenity.vending_machine.food" = "Food Dispenser";
+"type.amenity.vending_machine.food" = "Automat s potravinami";
 
 "type.amenity.vending_machine.newspapers" = "Newspaper Dispenser";
 
@@ -1621,7 +1621,7 @@
 
 "type.amenity.vending_machine.excrement_bags" = "Excrement Bags Dispenser";
 
-"type.amenity.parcel_locker" = "Parcel Locker";
+"type.amenity.parcel_locker" = "Balíkomat";
 
 "type.amenity.vehicle_inspection" = "Kontrola vozidla";
 
@@ -1645,7 +1645,7 @@
 
 "type.barrier.border_control" = "Hraničná kontrola";
 
-"type.barrier.chain" = "Chain";
+"type.barrier.chain" = "Reťaz";
 
 "type.barrier.city_wall" = "Mestský múr";
 
@@ -2632,7 +2632,7 @@
 
 "type.man_made.tower.communication" = "Komunikačná veža";
 
-"type.man_made.wastewater_plant" = "Wastewater Treatment Plant";
+"type.man_made.wastewater_plant" = "Čistička odpadových vôd";
 
 "type.man_made.water_tap" = "Vodovodný kohútik";
 
@@ -2642,7 +2642,7 @@
 
 "type.man_made.windmill" = "Veterný mlyn";
 
-"type.man_made.works" = "Industrial Works";
+"type.man_made.works" = "Továreň";
 
 "type.mapswithme" = "mapswithme";
 
@@ -2878,7 +2878,7 @@
 
 "type.railway.construction" = "Railway Construction";
 
-"type.railway.crossing" = "Railway Crossing";
+"type.railway.crossing" = "Železničné priecestie";
 
 "type.railway.disused" = "Disused Railway";
 
@@ -2890,7 +2890,7 @@
 
 "type.railway.halt" = "Železničná stanica";
 
-"type.railway.level_crossing" = "Križovanie úrovní";
+"type.railway.level_crossing" = "Železničné priecestie";
 
 "type.railway.light_rail" = "Light Rail";
 
@@ -2910,7 +2910,7 @@
 
 "type.railway.narrow_gauge.tunnel" = "Narrow Gauge Rail Tunnel";
 
-"type.railway.platform" = "Railway Platform";
+"type.railway.platform" = "Nástupište";
 
 "type.railway.preserved" = "Preserved Rail";
 
@@ -3479,7 +3479,7 @@
 
 "type.shop.car_repair.tyres" = "Pneuservis";
 
-"type.shop.caravan" = "RV Dealership";
+"type.shop.caravan" = "Predajňa autokarov";
 
 "type.shop.carpet" = "Koberce";
 
@@ -3495,7 +3495,7 @@
 
 "type.shop.confectionery" = "Cukrovinky";
 
-"type.shop.convenience" = "Príležitostné potreby";
+"type.shop.convenience" = "Zmiešaný tovar";
 
 "type.shop.copyshop" = "Kopírovacie služby";
 
@@ -3507,13 +3507,13 @@
 
 "type.shop.department_store" = "Obchodný dom";
 
-"type.shop.doityourself" = "Železiarstvo";
+"type.shop.doityourself" = "Obchod pre domácich majstrov";
 
 "type.shop.dry_cleaning" = "Čistiareň";
 
 "type.shop.electronics" = "Elektronika";
 
-"type.shop.erotic" = "Erotický obchod";
+"type.shop.erotic" = "Sex shop";
 
 "type.shop.fabric" = "Obchod s látkami";
 
@@ -3527,7 +3527,7 @@
 
 "type.shop.furniture" = "Nábytok";
 
-"type.shop.garden_centre" = "Škôlka";
+"type.shop.garden_centre" = "Záhradkárske potreby";
 
 "type.shop.gas" = "Obchod s plynom";
 
@@ -3539,7 +3539,7 @@
 
 "type.shop.hairdresser" = "Kaderníctvo";
 
-"type.shop.hardware" = "Hardware Store";
+"type.shop.hardware" = "Železiarstvo";
 
 "type.shop.health_food" = "Obchod so zdravou výživou";
 
@@ -3557,7 +3557,7 @@
 
 "type.shop.laundry" = "Práčovňa";
 
-"type.shop.mall" = "Mall";
+"type.shop.mall" = "Nákupné centrum";
 
 "type.shop.massage" = "Masážny salón";
 
@@ -3585,7 +3585,7 @@
 
 "type.shop.pawnbroker" = "Záložňa";
 
-"type.shop.pet" = "Obchod zo zvieratami";
+"type.shop.pet" = "Obchod so zvieratami";
 
 "type.shop.pet_grooming" = "Starostlivosť o domáce zvieratá";
 
@@ -3597,7 +3597,7 @@
 
 "type.shop.seafood" = "Obchodník s rybami";
 
-"type.shop.second_hand" = "Obchod z druhej ruky";
+"type.shop.second_hand" = "Second hand";
 
 "type.shop.shoes" = "Obuvníctvo";
 
@@ -3621,7 +3621,7 @@
 
 "type.shop.variety_store" = "Rozličný tovar";
 
-"type.shop.video" = "Predajňa s videami";
+"type.shop.video" = "Videopožičovňa";
 
 "type.shop.video_games" = "Predajňa s videohrami";
 
@@ -3789,7 +3789,7 @@
 
 "type.tourism.information" = "Infocentrum";
 
-"type.tourism.information.board" = "Informačné centrum";
+"type.tourism.information.board" = "Informačná tabuľa";
 
 "type.tourism.information.guidepost" = "Smerovník";
 
