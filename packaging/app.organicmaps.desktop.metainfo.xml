@@ -104,6 +104,54 @@
   </screenshots>
 
   <releases>
+   <release version="2024.02.06-11" date="2024-02-06">
+     <description>
+       <p>Highlights:</p>
+         <ul>
+           <li>New OSM maps data as of February 2, 2024</li>
+           <li>Restroom emoji for places with toilets</li>
+           <li>Display parking operator</li>
+           <li>More precise turn notifications for small distances</li>
+           <li>Fixed absent speed limit on some speed cameras</li>
+           <li>Plus codes search shows results relative to position and to the screen center</li>
+           <li>Fixed crash in search</li>
+           <li>Name editing for playgrounds</li>
+           <li>Parse mlat and mlon parameters from OSM urls</li>
+           <li>Allow editing Greek names for Cyprus</li>
+           <li>Hindi support</li>
+           <li>Better and more precise search on the map, more relevant search results in the list</li>
+         </ul>
+       <p>Styles:</p>
+         <ul>
+           <li>Orange color for secondary roads</li>
+           <li>Wider and brighter white tertiary roads</li>
+           <li>Nicer looking on- and off-ramp road links joins</li>
+           <li>Raised visibility of secondary and tertiary road links</li>
+           <li>Less bright farmlands color</li>
+           <li>Smaller mountain passes/saddles icons</li>
+           <li>Reduced visibilities of mountain saddles (compared to passes)</li>
+           <li>New ford icon</li>
+           <li>Made hospital and clinic icons look different</li>
+           <li>Reduced visibility of light rail stations</li>
+           <li>Added Boston and updated Taipei subway icons</li>
+           <li>Fixed Delhi subway entrance icons, Minsk &amp; Spb subway captions on detailed zoom</li>
+           <li>Increased font size of towns and suburbs labels and decreased for neighborhoods</li>
+           <li>Adjust visibilities of many POIs</li>
+         </ul>
+       <p>Outdoor Style:</p>
+         <ul>
+           <li>Increased 50m &amp; 100m contour lines visibilities</li>
+           <li>Raised visibility of campsites, survey points, toilets, touristic information features</li>
+           <li>New power tower and flagpole/mast icons</li>
+           <li>Made bridleways to be the same brown color as paths</li>
+           <li>Increased contrast of footways on overview zooms</li>
+         </ul>
+       <p>Translations:</p>
+         <ul>
+           <li>Updated Catalan, Chinese, Czech, Finnish, French, Romanian, Slovak, Ukrainian translations</li>
+         </ul>
+     </description>
+   </release>
    <release version="2024.01.09-5" date="2024-01-09">
      <description>
        <p>Highlights:</p>
