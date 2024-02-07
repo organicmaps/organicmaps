@@ -43,11 +43,11 @@ final class TransportRoutePreviewStatus: SolidTouchView {
     navigationInfo = info
     if (prependDistance) {
       let labelText = NSMutableAttributedString(string: NSLocalizedString("placepage_distance", comment: "") + ": ")
-      labelText.append(info.estimate)
+      labelText.append(info.estimate())
       etaLabel.attributedText = labelText
     }
     else {
-      etaLabel.attributedText = info.estimate
+      etaLabel.attributedText = info.estimate()
     }
     stepsCollectionView.steps = info.transitSteps
 
