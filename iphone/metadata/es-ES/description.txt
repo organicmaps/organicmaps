@@ -1,10 +1,39 @@
-Organic Maps es una aplicación de navegación GPS con privacidad, para conductores, excursionistas y ciclistas. La aplicación ofrece navegación con privacidad: sin seguimiento de ubicación, sin recopilación de datos y sin anuncios. La búsqueda, el enrutamiento y la navegación funcionan sin señal del móvil, lo que resulta ideal para viajar por rutas de senderismo lejanas o lugares con malas conexiones. Organic Maps utiliza los datos de OpenStreetMap, de origen colectivo, con colaboradores de todo el mundo. El proyecto está impulsado por la comunidad, el código es abierto y da prioridad al desarrollo y la colaboración de la comunidad.
+• Mapas sin conexión detallados con lugares que no existen en otros mapas
+• Rutas ciclistas, rutas de senderismo y senderos para caminar
+• Curvas de nivel, perfiles de elevación, picos y pendientes
+• Navegación paso a paso a pie, en bicicleta y en automóvil con guía de voz
+• Búsqueda rápida sin conexión
+• Marca todo lo que necesitas, te importa y comparte con KML, KMZ, GPX
+• Modo oscuro para proteger tus ojos
+• … ¡y muchas otras funciones!
 
-• No necesita la señal del móvil: busca y rastrea sin señal.
-• Uso eficiente de la batería - Reduce el consumo de batería
-• Búsqueda rápida - Encuentra las ubicaciones rápidamente
+Organic Maps es puro y orgánico, hecho con amor:
 
-En Organic Maps, valoramos la privacidad:
-• No rastreamos la ubicación
-• Sin recopilación de datos
+• Respeta tu privacidad
+• Ahorra batería
+• Sin cargos de datos móviles inesperados
+
+Organic Maps está libre de rastreadores y otras cosas malas:
+
 • Sin anuncios
+• Sin seguimiento
+• Sin recopilación de datos
+• Sin telemetria
+• Sin registros molestos
+• Sin tutoriales obligatorios
+• No hay spam molesto en el correo electrónico
+• Sin notificaciones automáticas
+• Sin basura
+• Nada de pesticidas
+
+En Organic Maps, creemos que la privacidad es un derecho humano fundamental:
+
+• Organic Maps es un proyecto independiente impulsado por la comunidad
+• Es de código abierto
+• Los datos de los mapas se toman de OpenStreetMap, también es un proyecto impulsado por la comunidad
+• Protegemos tu privacidad de las miradas indiscretas de las grandes empresas
+• Mantente seguro sin importar dónde te encuentres
+
+Rechaza la vigilancia, abraza tu libertad y apoya a la comunidad.
+
+¡Prueba los Organic Maps!
