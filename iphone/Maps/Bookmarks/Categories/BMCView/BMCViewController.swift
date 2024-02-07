@@ -36,6 +36,12 @@ final class BMCViewController: MWMViewController {
     super.viewDidLoad()
     view.styleName = "PressBackground"
     viewModel = BMCDefaultViewModel()
+    
+    let addButton = UIBarButtonItem(barButtonSystemItem: .add, target: self, action: #selector(addTapped))
+    navigationItem.rightBarButtonItem = addButton
+  }
+    @objc func addTapped() {
+    createNewCategory()
   }
 
   override func viewWillAppear(_ animated: Bool) {
