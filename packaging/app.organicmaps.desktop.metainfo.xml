@@ -3,7 +3,8 @@
   <id>app.organicmaps.desktop</id>
 
   <name>Organic Maps</name>
-  <summary>A free offline maps app for travelers, tourists, hikers, drivers and cyclists</summary>
+  <developer_name>The Organic Maps Community</developer_name>
+  <summary>Free offline maps for everyone</summary>
 
   <metadata_license>CC0-1.0</metadata_license>
   <project_license>Apache-2.0</project_license>
