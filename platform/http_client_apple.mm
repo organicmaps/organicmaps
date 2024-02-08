@@ -33,8 +33,51 @@ SOFTWARE.
 
 #include "base/logging.hpp"
 
+
+@interface RedirectDelegate : NSObject<NSURLSessionDataDelegate>
+
+@property(nonatomic) BOOL handleRedirects;
+
+- (instancetype)init:(BOOL)handleRedirects;
+
+- (void)        URLSession:(NSURLSession *)session
+                      task:(NSURLSessionTask *)task
+willPerformHTTPRedirection:(NSHTTPURLResponse *)response
+                newRequest:(NSURLRequest *)newRequest
+         completionHandler:(void (^)(NSURLRequest *))completionHandler;
+@end
+
+@implementation RedirectDelegate
+- (instancetype)init:(BOOL)handleRedirects
+{
+  self = [super init];
+  if (self)
+  {
+    _handleRedirects = handleRedirects;
+  }
+  
+  return self;
+}
+
+- (void)        URLSession:(NSURLSession *)session
+                      task:(NSURLSessionTask *)task
+willPerformHTTPRedirection:(NSHTTPURLResponse *)response
+                newRequest:(NSURLRequest *)newRequest
+         completionHandler:(void (^)(NSURLRequest *))completionHandler
+{
+    if (_handleRedirects && response.statusCode >= 300 && response.statusCode < 400) {
+        completionHandler(nil);
+    }
+    else {
+        completionHandler(newRequest);
+    }
+}
+@end
+
+
 @interface Connection : NSObject
 + (nullable NSData *)sendSynchronousRequest:(NSURLRequest *)request
+                            handleRedirects:(BOOL)handleRedirects
                           returningResponse:(NSURLResponse **)response
                                       error:(NSError **)error;
 @end
@@ -42,14 +85,16 @@ SOFTWARE.
 @implementation Connection
 
 + (NSData *)sendSynchronousRequest:(NSURLRequest *)request
+                   handleRedirects:(BOOL)handleRedirects
                  returningResponse:(NSURLResponse * __autoreleasing *)response
                              error:(NSError * __autoreleasing *)error
 {
   Connection * connection = [[Connection alloc] init];
-  return [connection sendSynchronousRequest:request returningResponse:response error:error];
+  return [connection sendSynchronousRequest:request handleRedirects: handleRedirects returningResponse:response error:error];
 }
 
 - (NSData *)sendSynchronousRequest:(NSURLRequest *)request
+                   handleRedirects:(BOOL)handleRedirects
                  returningResponse:(NSURLResponse * __autoreleasing *)response
                              error:(NSError * __autoreleasing *)error {
   __block NSData * resultData = nil;
@@ -58,10 +103,12 @@ SOFTWARE.
 
   dispatch_group_t group = dispatch_group_create();
   dispatch_group_enter(group);
+  
+  RedirectDelegate * delegate = [[RedirectDelegate alloc] init: handleRedirects];
 
   [[[HttpSessionManager sharedManager]
       dataTaskWithRequest:request
-                 delegate:nil
+                 delegate:delegate
         completionHandler:^(NSData * _Nullable data, NSURLResponse * _Nullable response,
                             NSError * _Nullable error) {
           resultData = data;
@@ -121,14 +168,19 @@ bool HttpClient::RunHttpRequest()
 
   NSHTTPURLResponse * response = nil;
   NSError * err = nil;
-  NSData * url_data = [Connection sendSynchronousRequest:request returningResponse:&response error:&err];
+  NSData * url_data = [Connection sendSynchronousRequest:request handleRedirects:m_handleRedirects returningResponse:&response error:&err];
 
   m_headers.clear();
 
   if (response)
   {
     m_errorCode = static_cast<int>(response.statusCode);
-    m_urlReceived = response.URL.absoluteString.UTF8String;
+
+    NSString * redirectUri = [response.allHeaderFields objectForKey:@"Location"];
+    if (redirectUri)
+      m_urlReceived = redirectUri.UTF8String;
+    else
+      m_urlReceived = response.URL.absoluteString.UTF8String;
 
     if (m_loadHeaders)
     {
