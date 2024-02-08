@@ -5,7 +5,6 @@
 #include <string>
 
 using osm::OsmOAuth;
-using osm::KeySecret;
 
 char const * kValidOsmUser = "OrganicMapsTestUser";
 char const * kValidOsmPassword = "12345678";
