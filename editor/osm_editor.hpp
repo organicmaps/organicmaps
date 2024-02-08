@@ -152,7 +152,7 @@ public:
   using ChangesetTags = std::map<std::string, std::string>;
   /// Tries to upload all local changes to OSM server in a separate thread.
   /// @param[in] tags should provide additional information about client to use in changeset.
-  void UploadChanges(std::string const & key, std::string const & secret, ChangesetTags tags,
+  void UploadChanges(std::string const & secret, ChangesetTags tags,
                      FinishUploadCallback callBack = FinishUploadCallback());
   // TODO(mgsergio): Test new types from new config but with old classificator (where these types are absent).
   // Editor should silently ignore all types in config which are unknown to him.
