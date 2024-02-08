@@ -2,7 +2,6 @@
 #import <CoreApi/MWMBookmarksManager.h>
 #import "EAGLView.h"
 #import "MWMAuthorizationCommon.h"
-#import "MWMAuthorizationWebViewLoginViewController.h"
 #import "MWMAutoupdateController.h"
 #import "MWMEditorViewController.h"
 #import "MWMFrameworkListener.h"
@@ -585,12 +584,6 @@ NSString *const kPP2BookmarkEditingSegue = @"PP2BookmarkEditing";
     MWMDownloadMapsViewController *dvc = segue.destinationViewController;
     NSNumber *mode = sender;
     dvc.mode = (MWMMapDownloaderMode)mode.integerValue;
-  } else if ([segue.identifier isEqualToString:kMap2FBLoginSegue]) {
-    MWMAuthorizationWebViewLoginViewController *dvc = segue.destinationViewController;
-    dvc.authType = MWMWebViewAuthorizationTypeFacebook;
-  } else if ([segue.identifier isEqualToString:kMap2GoogleLoginSegue]) {
-    MWMAuthorizationWebViewLoginViewController *dvc = segue.destinationViewController;
-    dvc.authType = MWMWebViewAuthorizationTypeGoogle;
   }
 }
 

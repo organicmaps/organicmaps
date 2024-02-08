@@ -11,6 +11,7 @@ namespace osm_auth_ios
 NSString * const kOSMRequestToken = @"OSMRequestToken";
 NSString * const kOSMRequestSecret = @"OSMRequestSecret";
 NSString * const kAuthNeedCheck = @"AuthNeedCheck";
+NSString * const kOSMAuthToken = @"OSMAuthToken";
 NSString * const kOSMUserName = @"UDOsmUserName";
 NSString * const kOSMChangesetsCount = @"OSMUserChangesetsCount";
 
@@ -33,11 +34,10 @@ BOOL LoadOsmUserPreferences(osm::UserPreferences & prefs)
   return success;
 }
 
-void AuthorizationStoreCredentials(osm::KeySecret const & keySecret)
+void AuthorizationStoreCredentials(std::string const & oauthToken)
 {
   NSUserDefaults * ud = NSUserDefaults.standardUserDefaults;
-  [ud setObject:@(keySecret.first.c_str()) forKey:kOSMRequestToken];
-  [ud setObject:@(keySecret.second.c_str()) forKey:kOSMRequestSecret];
+  [ud setObject:@(oauthToken.c_str()) forKey:kOSMAuthToken];
   osm::UserPreferences prefs;
   if (LoadOsmUserPreferences(prefs)) {
     [ud setObject:@(prefs.m_displayName.c_str()) forKey:kOSMUserName];
@@ -50,9 +50,8 @@ void AuthorizationStoreCredentials(osm::KeySecret const & keySecret)
 BOOL AuthorizationHaveCredentials()
 {
   NSUserDefaults * ud = NSUserDefaults.standardUserDefaults;
-  NSString * requestToken = [ud stringForKey:kOSMRequestToken];
-  NSString * requestSecret = [ud stringForKey:kOSMRequestSecret];
-  return requestToken.length && requestSecret.length;
+  NSString * oauthToken = [ud stringForKey:kOSMAuthToken];
+  return oauthToken.length;
 }
 
 void AuthorizationClearCredentials()
@@ -65,13 +64,12 @@ void AuthorizationClearCredentials()
   [ud synchronize];
 }
 
-osm::KeySecret AuthorizationGetCredentials()
+std::string const AuthorizationGetCredentials()
 {
   NSUserDefaults * ud = NSUserDefaults.standardUserDefaults;
-  NSString * requestToken = [ud stringForKey:kOSMRequestToken];
-  NSString * requestSecret = [ud stringForKey:kOSMRequestSecret];
-  if (requestToken && requestSecret)
-    return osm::KeySecret(requestToken.UTF8String, requestSecret.UTF8String);
+  NSString * oauthToken = [ud stringForKey:kOSMAuthToken];
+  if (oauthToken)
+    return std::string(oauthToken.UTF8String);
   return {};
 }
 

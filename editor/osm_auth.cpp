@@ -94,10 +94,11 @@ OsmOAuth OsmOAuth::ServerAuth(string const & oauthToken)
 OsmOAuth OsmOAuth::DevServerAuth()
 {
   constexpr char const * kOsmDevServer = "https://master.apis.dev.openstreetmap.org";
-  constexpr char const * kOsmDevClientId = "nw9bW3nZ-q99SXzgnH-dlED3ueDSmFPtxl33n3hDwFU";
-  constexpr char const * kOsmDevClientSecret = "nIxwFx1NXIx9lKoNmb7lAoHd9ariGMf46PtU_YG558c";
-  constexpr char const * kOsmDevScope = "read_prefs";
+  constexpr char const * kOsmDevClientId = "QSh_IksPC78W7EgRxSRDw_F8oulQghpL2QcTLHrP4z8";
+  constexpr char const * kOsmDevClientSecret = "NMU8BNkUGg_R0KhGtrrSJRREBbMBM2133Gi-cZWmVmc";
+  constexpr char const * kOsmDevScope = "read_prefs write_api write_notes";
   constexpr char const * kOsmDevRedirectUri = "om://oauth2/osm/callback";
+
   return {kOsmDevClientId, kOsmDevClientSecret, kOsmDevScope, kOsmDevRedirectUri, kOsmDevServer, kOsmDevServer};
 }
 // static
