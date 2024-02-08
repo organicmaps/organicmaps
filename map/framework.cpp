@@ -2636,12 +2636,12 @@ bool Framework::ParseDrapeDebugCommand(string const & query)
     SavePreferredGraphicsAPI(dp::ApiVersion::Vulkan);
     return true;
   }
-#endif
   if (query == "?gl")
   {
     SavePreferredGraphicsAPI(dp::ApiVersion::OpenGLES3);
     return true;
   }
+#endif
   return false;
 }
 
