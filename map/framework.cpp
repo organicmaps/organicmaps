@@ -691,7 +691,7 @@ void Framework::FillInfoFromFeatureType(FeatureType & ft, place_page::Info & inf
   bool const canEditOrAdd = featureStatus != FeatureStatus::Obsolete && CanEditMap() &&
                             isMapVersionEditable;
   info.SetCanEditOrAdd(canEditOrAdd);
-  info.SetPopularity(m_popularityLoader.Get(ft.GetID()));
+  //info.SetPopularity(m_popularityLoader.Get(ft.GetID()));
 
   // Fill countryId for place page info
   auto const & types = info.GetTypes();

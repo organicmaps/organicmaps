@@ -25,15 +25,15 @@ void InjectMetadata(JNIEnv * env, jclass const clazz, jobject const mapObject, o
   });
 }
 
-jobject CreatePopularity(JNIEnv * env, place_page::Info const & info)
-{
-  static jclass const popularityClass =
-    jni::GetGlobalClassRef(env, "app/organicmaps/search/Popularity");
-  static jmethodID const popularityConstructor =
-    jni::GetConstructorID(env, popularityClass, "(I)V");
-  auto const popularityValue = info.GetPopularity();
-  return env->NewObject(popularityClass, popularityConstructor, static_cast<jint>(popularityValue));
-}
+//jobject CreatePopularity(JNIEnv * env, place_page::Info const & info)
+//{
+//  static jclass const popularityClass =
+//    jni::GetGlobalClassRef(env, "app/organicmaps/search/Popularity");
+//  static jmethodID const popularityConstructor =
+//    jni::GetConstructorID(env, popularityClass, "(I)V");
+//  auto const popularityValue = info.GetPopularity();
+//  return env->NewObject(popularityClass, popularityConstructor, static_cast<jint>(popularityValue));
+//}
 
 jobject CreateMapObject(JNIEnv * env, place_page::Info const & info, int mapObjectType,
                         double lat, double lon, bool parseMeta, bool parseApi,
@@ -93,7 +93,7 @@ jobject CreateMapObject(JNIEnv * env, place_page::Info const & info, int mapObje
 jobject CreateBookmark(JNIEnv *env, const place_page::Info &info,
                        const jni::TScopedLocalObjectArrayRef &jrawTypes,
                        const jni::TScopedLocalRef &routingPointInfo,
-                       const jni::TScopedLocalRef &popularity)
+                       jobject const & popularity)
 {
   //public Bookmark(@NonNull FeatureId featureId, @IntRange(from = 0) long categoryId,
   //                @IntRange(from = 0) long bookmarkId, String title, @Nullable String secondaryTitle,
@@ -124,7 +124,7 @@ jobject CreateBookmark(JNIEnv *env, const place_page::Info &info,
   jobject mapObject = env->NewObject(
           g_bookmarkClazz, ctorId, jFeatureId.get(), static_cast<jlong>(categoryId),
           static_cast<jlong>(bookmarkId), jTitle.get(), jSecondaryTitle.get(), jSubtitle.get(),
-          jAddress.get(), routingPointInfo.get(), info.GetOpeningMode(), popularity.get(),
+          jAddress.get(), routingPointInfo.get(), info.GetOpeningMode(), popularity,
           jWikiDescription.get(), jrawTypes.get());
 
   if (info.HasMetadata())
@@ -184,7 +184,8 @@ jobject CreateMapObject(JNIEnv * env, place_page::Info const & info)
   if (info.IsRoutePoint())
     routingPointInfo.reset(CreateRoutePointInfo(env, info));
 
-  jni::TScopedLocalRef popularity(env, CreatePopularity(env, info));
+  //jni::TScopedLocalRef popularity(env, CreatePopularity(env, info));
+  jobject popularity = nullptr;
 
   if (info.IsBookmark())
   {
@@ -198,19 +199,19 @@ jobject CreateMapObject(JNIEnv * env, place_page::Info const & info)
   {
     return CreateMapObject(env, info, kMyPosition, ll.m_lat, ll.m_lon,
                            false /* parseMeta */, false /* parseApi */,
-                           routingPointInfo.get(), popularity.get(), jrawTypes.get());
+                           routingPointInfo.get(), popularity, jrawTypes.get());
   }
 
   if (info.HasApiUrl())
   {
     return CreateMapObject(env, info, kApiPoint, ll.m_lat, ll.m_lon,
                            true /* parseMeta */, true /* parseApi */,
-                           routingPointInfo.get(), popularity.get(), jrawTypes.get());
+                           routingPointInfo.get(), popularity, jrawTypes.get());
   }
 
   return CreateMapObject(env, info, kPoi, ll.m_lat, ll.m_lon,
                          true /* parseMeta */, false /* parseApi */,
-                         routingPointInfo.get(), popularity.get(), jrawTypes.get());
+                         routingPointInfo.get(), popularity, jrawTypes.get());
 }
 
 jobject CreateRoutePointInfo(JNIEnv * env, place_page::Info const & info)
