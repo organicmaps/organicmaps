@@ -52,6 +52,18 @@
 
 "about_menu_title" = "Organic Maps درباره‌ی";
 
+/* Text in About screen */
+"about_headline" = "رایگان برای همه ، ساخته شده با عشق";
+
+/* Text in About screen */
+"about_proposition_1" = "• بدون تبلیغات ، ردیابی ، جمع آوری داده ها";
+
+/* Text in About screen */
+"about_proposition_2" = "• بدون تخلیه باتری، آفلاین کار می کند";
+
+/* Text in About screen */
+"about_proposition_3" = "• سریع، مینیمالیستی، توسعه یافته توسط انجمن";
+
 "close" = "بستن";
 
 "download" = "دانلود";
@@ -200,7 +212,7 @@
 "done" = "انجام شد";
 
 /* Prints version number in About dialog */
-"version" = "ورژن: %@";
+"version" = "نسخه Organic Maps: %@";
 
 /* Data version in «About» screen, %@ is replaced by a local, human readable date. */
 "data_version" = "OpenStreetMap: %@ داده‌های";
@@ -321,6 +333,9 @@
 /* Button in the main menu */
 "donate" = "حمایت مالی";
 
+/* Tex label above the Donate button */
+"donate_description" = "کمک مالی کنید تا بهترین نقشه ها را با هم بسازید!";
+
 /* Button in the main Help dialog */
 "how_to_support_us" = "ﺪﯿﻨﮐ ﺖﯾﺎﻤﺣ ﻩﮊﻭﺮﭘ ﺯﺍ";
 
@@ -329,6 +344,15 @@
 
 /* Text in menu + Button in the main Help dialog */
 "report_a_bug" = "گزارش خطا";
+
+/* Button in the About screen */
+"report_incorrect_map_bug" = "داده های نقشه نادرست را گزارش یا اصلاح کنید";
+
+/* Button in the About screen */
+"volunteer" = "داوطلب شدن";
+
+/* "Social media" section header in the About screen */
+"follow_us" = "دنبال کنید و با ما تماس بگیرید:";
 
 /* Alert text */
 "email_error_body" = "کلاینت ایمیل شما پیکربندی نشده است.لطفا آن را پیکربندی کنید یا از طریق دیگر با ما تماس بگیرید %@";
@@ -710,6 +734,9 @@
 
 "message_invalid_feature_position" = "نمی توان شی ای در این مکان باشد";
 
+/* Text in About and OSM Login screens. First %@ is replaced by a local, human readable date. */
+"osm_presentation" = "داده های OpenStreetMap ایجاد شده توسط انجمن از %@. درباره نحوه ویرایش و به روز رسانی نقشه در OpenStreetMap.org بیشتر بیاموزید";
+
 "login_to_make_edits_visible" = "وارد شوید تا دیگر کاربران نیز بتوانند تغییرات ایجاد شده توسط شما را ببینند";
 
 /* Error dialog no space */
@@ -867,9 +894,6 @@
 "sharing_call_action_look" = "بررسی کنید";
 
 "recent_track_background_dialog_message" = "Organic Maps  از اطلاعات موقعیت مکانی شما در پس ضمینه برای ذخیره مسیر‌هایی که اخیرا سفر کرده اید استفاده می کند.";
-
-/* Text under the version number in the Help dialog. TODO: Synchronize other translations with English. */
-"about_description" = "Organic Maps یک برنامه نقشه آفلاین رایگان و منبع باز است. بدون تبلیغات بدون ردیابی اگر خطایی روی نقشه مشاهده کردید، لطفاً آن را در OpenStreetMap برطرف کنید. این پروژه توسط علاقه مندان در اوقات فراغت ما ایجاد می شود، بنابراین ما به بازخورد و پشتیبانی شما نیاز داریم.";
 
 "general_settings" = "تنظیمات عمومی";
 

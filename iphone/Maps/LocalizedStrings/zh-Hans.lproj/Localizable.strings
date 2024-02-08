@@ -52,6 +52,18 @@
 
 "about_menu_title" = "关于 Organic Maps";
 
+/* Text in About screen */
+"about_headline" = "对每个人都免费，用爱制成";
+
+/* Text in About screen */
+"about_proposition_1" = "•没有广告，不会跟踪您，更不会收集您的数据";
+
+/* Text in About screen */
+"about_proposition_2" = "• 无需耗费电池，可离线工作";
+
+/* Text in About screen */
+"about_proposition_3" = "• 快速、简约、由社区开发";
+
 "close" = "关闭";
 
 "download" = "下载";
@@ -200,7 +212,7 @@
 "done" = "完成";
 
 /* Prints version number in About dialog */
-"version" = "版本:%@";
+"version" = "Organic Maps 版本: %@";
 
 /* Data version in «About» screen, %@ is replaced by a local, human readable date. */
 "data_version" = "OpenStreetMap 数据：%@";
@@ -321,6 +333,9 @@
 /* Button in the main menu */
 "donate" = "捐助我们";
 
+/* Tex label above the Donate button */
+"donate_description" = "捐赠，共同打造最好的地图！";
+
 /* Button in the main Help dialog */
 "how_to_support_us" = "支持项目";
 
@@ -329,6 +344,15 @@
 
 /* Text in menu + Button in the main Help dialog */
 "report_a_bug" = "报告问题";
+
+/* Button in the About screen */
+"report_incorrect_map_bug" = "报告或修复错误的地图数据";
+
+/* Button in the About screen */
+"volunteer" = "志愿服务";
+
+/* "Social media" section header in the About screen */
+"follow_us" = "关注并联系我们：";
 
 /* Alert text */
 "email_error_body" = "电子邮件客户端尚未建立。请配置或使用任何其他方式与我们联系%@";
@@ -710,6 +734,9 @@
 
 "message_invalid_feature_position" = "对象无法设置在这里";
 
+/* Text in About and OSM Login screens. First %@ is replaced by a local, human readable date. */
+"osm_presentation" = "截至 %@ 的社区创建的 OpenStreetMap 数据。在OpenStreetMap.org网站上了解更多有关如何编辑和更新地图的信息。";
+
 "login_to_make_edits_visible" = "登录，让其他用户能看到您所作出的修改。";
 
 /* Error dialog no space */
@@ -867,9 +894,6 @@
 "sharing_call_action_look" = "来看看";
 
 "recent_track_background_dialog_message" = "Organic Maps使用背景中的地理位置记录您最近去过的路径。";
-
-/* Text under the version number in the Help dialog. TODO: Synchronize other translations with English. */
-"about_description" = "Organic Maps 是一款免费的开源离线地图应用程序。无广告。不会跟踪您。如果您在地图上看到错误，请在 OpenStreetMap 中修复它。该项目由爱好者在我们的空闲时间创建，因此我们需要您的反馈和支持。";
 
 "general_settings" = "常规设置";
 

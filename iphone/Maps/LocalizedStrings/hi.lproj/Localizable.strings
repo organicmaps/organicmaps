@@ -52,6 +52,18 @@
 
 "about_menu_title" = "Organic Maps के बारे में";
 
+/* Text in About screen */
+"about_headline" = "सभी के लिए मुफ़्त, प्यार से बनाया गया";
+
+/* Text in About screen */
+"about_proposition_1" = "• कोई विज्ञापन नहीं, कोई ट्रैकिंग नहीं, कोई डेटा संग्रह नहीं";
+
+/* Text in About screen */
+"about_proposition_2" = "• कोई बैटरी ख़त्म नहीं, ऑफ़लाइन काम करता है";
+
+/* Text in About screen */
+"about_proposition_3" = "• तेज़, न्यूनतम, समुदाय द्वारा विकसित";
+
 "close" = "बंद करना";
 
 "download" = "डाउन लोड करना";
@@ -200,7 +212,7 @@
 "done" = "हो गया";
 
 /* Prints version number in About dialog */
-"version" = "संस्करण: %@";
+"version" = "ऑर्गेनिकमैप्स संस्करण: %@";
 
 /* Data version in «About» screen, %@ is replaced by a local, human readable date. */
 "data_version" = "OpenStreetMap डेटा: %@";
@@ -321,6 +333,9 @@
 /* Button in the main menu */
 "donate" = "दान देना";
 
+/* Tex label above the Donate button */
+"donate_description" = "एक साथ सर्वोत्तम मानचित्र बनाने के लिए दान करें!";
+
 /* Button in the main Help dialog */
 "how_to_support_us" = "परियोजना का समर्थन करें";
 
@@ -329,6 +344,15 @@
 
 /* Text in menu + Button in the main Help dialog */
 "report_a_bug" = "एक बग रिपोर्ट करो";
+
+/* Button in the About screen */
+"report_incorrect_map_bug" = "गलत मानचित्र डेटा की रिपोर्ट करें या उसे ठीक करें";
+
+/* Button in the About screen */
+"volunteer" = "स्वयंसेवक";
+
+/* "Social media" section header in the About screen */
+"follow_us" = "फ़ॉलो करें और हमसे संपर्क करें:";
 
 /* Alert text */
 "email_error_body" = "The email client has not been set up. Please configure it or contact us at %@";
@@ -710,6 +734,9 @@
 
 "message_invalid_feature_position" = "No object can be located here";
 
+/* Text in About and OSM Login screens. First %@ is replaced by a local, human readable date. */
+"osm_presentation" = "समुदाय-निर्मित OpenStreetMap डेटा %@ तक। OpenStreetMap.org पर मानचित्र को संपादित और अपडेट करने के तरीके के बारे में और जानें";
+
 "login_to_make_edits_visible" = "अपने परिवर्तनों को दुनिया के सामने प्रकाशित करने के लिए openingstreetmap.org पर लॉग इन करें।";
 
 /* Error dialog no space */
@@ -867,9 +894,6 @@
 "sharing_call_action_look" = "Check out";
 
 "recent_track_background_dialog_message" = "Organic Maps uses your location in the background to record your recently travelled route.";
-
-/* Text under the version number in the Help dialog. TODO: Synchronize other translations with English. */
-"about_description" = "Organic Maps is a fast and free offline maps app without ads and tracking. Maps are based on crowd-sourced OpenStreetMap.org data, so you can fix mapping errors and add features there yourself. Organic Maps is an open-source project created by enthusiasts in their spare time. Your feedback and support are much appreciated!";
 
 "general_settings" = "सामान्य सेटिंग्स";
 

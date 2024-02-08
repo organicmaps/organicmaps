@@ -52,6 +52,18 @@
 
 "about_menu_title" = "Giới thiệu về Organic Maps";
 
+/* Text in About screen */
+"about_headline" = "Miễn phí cho mọi người, được làm bằng tình yêu";
+
+/* Text in About screen */
+"about_proposition_1" = "• Không có quảng cáo, không theo dõi, không thu thập dữ liệu";
+
+/* Text in About screen */
+"about_proposition_2" = "• Không hao pin, hoạt động offline";
+
+/* Text in About screen */
+"about_proposition_3" = "• Nhanh chóng, tối giản, được phát triển bởi cộng đồng";
+
 "close" = "Đóng";
 
 "download" = "Tải xuống";
@@ -200,7 +212,7 @@
 "done" = "Xong";
 
 /* Prints version number in About dialog */
-"version" = "Phiên bản: %@";
+"version" = "Phiên bản Organic Maps: %@";
 
 /* Data version in «About» screen, %@ is replaced by a local, human readable date. */
 "data_version" = "Dữ liệu OpenStreetMap: %@";
@@ -321,6 +333,9 @@
 /* Button in the main menu */
 "donate" = "Quyên tặng";
 
+/* Tex label above the Donate button */
+"donate_description" = "Hãy quyên góp để cùng nhau xây dựng những bản đồ tốt nhất!";
+
 /* Button in the main Help dialog */
 "how_to_support_us" = "Hỗ trợ dự án";
 
@@ -329,6 +344,15 @@
 
 /* Text in menu + Button in the main Help dialog */
 "report_a_bug" = "Báo cáo lỗi";
+
+/* Button in the About screen */
+"report_incorrect_map_bug" = "Báo cáo hoặc sửa dữ liệu bản đồ không chính xác";
+
+/* Button in the About screen */
+"volunteer" = "Tình nguyện";
+
+/* "Social media" section header in the About screen */
+"follow_us" = "Theo dõi và liên hệ với chúng tôi:";
 
 /* Alert text */
 "email_error_body" = "Trình khách email này chưa được thiết lập. Bạn vui lòng cấu hình nó hoặc sử dụng một cách khác để liên hệ với chúng tôi tại %@";
@@ -710,6 +734,9 @@
 
 "message_invalid_feature_position" = "Một đối tượng không thể đặt được ở đây";
 
+/* Text in About and OSM Login screens. First %@ is replaced by a local, human readable date. */
+"osm_presentation" = "Dữ liệu OpenStreetMap do cộng đồng tạo ra kể từ %@. Tìm hiểu thêm về cách chỉnh sửa và cập nhật bản đồ tại OpenStreetMap.org";
+
 "login_to_make_edits_visible" = "Đăng nhập để người dùng khác có thể nhìn thấy những thay đổi bạn đã thực hiện.";
 
 /* Error dialog no space */
@@ -867,9 +894,6 @@
 "sharing_call_action_look" = "Xem";
 
 "recent_track_background_dialog_message" = "Organic Maps sử dụng định vị của bạn trong ứng dụng chạy nền để ghi lại tuyến đường đã đi gần đây của bạn.";
-
-/* Text under the version number in the Help dialog. TODO: Synchronize other translations with English. */
-"about_description" = "Organic Maps là một ứng dụng bản đồ ngoại tuyến mã nguồn mở và miễn phí. Không quảng cáo. Không theo dõi. Nếu bạn thấy lỗi trên bản đồ, hãy sửa lỗi đó trong OpenStreetMap. Dự án được tạo ra bởi những người đam mê trong thời gian rảnh của chúng tôi, vì vậy chúng tôi cần phản hồi và hỗ trợ của bạn.";
 
 "general_settings" = "Thiết lập chung";
 

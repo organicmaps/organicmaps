@@ -52,6 +52,18 @@
 
 "about_menu_title" = "Organic Maps Haqqında";
 
+/* Text in About screen */
+"about_headline" = "Hər kəs üçün ödənişsiz və sevgi ilə hazırlanmış xəritə";
+
+/* Text in About screen */
+"about_proposition_1" = "• Reklam yoxdur, izləmə yoxdur, məlumatların toplanması yoxdur";
+
+/* Text in About screen */
+"about_proposition_2" = "• Batareyanın boşalması yoxdur, oflayn işləyir";
+
+/* Text in About screen */
+"about_proposition_3" = "• Sürətli, minimalist, icma tərəfindən hazırlanmışdır";
+
 "close" = "Yaxın";
 
 "download" = "Yüklə";
@@ -200,7 +212,7 @@
 "done" = "Bitdi";
 
 /* Prints version number in About dialog */
-"version" = "Versiya: %@";
+"version" = "Organic Maps versiyası: %@";
 
 /* Data version in «About» screen, %@ is replaced by a local, human readable date. */
 "data_version" = "OpenStreetMap datası: %@";
@@ -321,6 +333,9 @@
 /* Button in the main menu */
 "donate" = "Bağışlamaq";
 
+/* Tex label above the Donate button */
+"donate_description" = "Ən yaxşı xəritələri birlikdə qurmaq üçün ianə edin!";
+
 /* Button in the main Help dialog */
 "how_to_support_us" = "Bu layihəni dəstəkləyin";
 
@@ -329,6 +344,15 @@
 
 /* Text in menu + Button in the main Help dialog */
 "report_a_bug" = "Problemi bildirin";
+
+/* Button in the About screen */
+"report_incorrect_map_bug" = "Yanlış xəritə məlumatlarını bildirin və ya düzəldin";
+
+/* Button in the About screen */
+"volunteer" = "Könüllü olmaq";
+
+/* "Social media" section header in the About screen */
+"follow_us" = "İzləyin və bizimlə əlaqə saxlayın:";
 
 /* Alert text */
 "email_error_body" = "E-poçt müştəri xidməti hələ quraşdırılmayıb. Zəhmət olmasa e-poçt müştəri xidmətini konfiqurasiya edin və ya %@ vasitəsilə bizimlə əlaqə saxlayın.";
@@ -710,6 +734,9 @@
 
 "message_invalid_feature_position" = "Burada obyekti yerləşdirmək mümkün deyil";
 
+/* Text in About and OSM Login screens. First %@ is replaced by a local, human readable date. */
+"osm_presentation" = "%@ tarixinə icma tərəfindən yaradılmış OpenStreetMap datası. OpenStreetMap.org saytında xəritəni necə redaktə etmək və yeniləmək haqqında ətraflı məlumat əldə edin";
+
 "login_to_make_edits_visible" = "OpenStreetMap.org saytına daxil olun ki, digər istifadəçilər sizin etdiyiniz dəyişiklikləri görə bilsinlər.";
 
 /* Error dialog no space */
@@ -867,9 +894,6 @@
 "sharing_call_action_look" = "Yoxla";
 
 "recent_track_background_dialog_message" = "Organic Maps son səyahət etdiyiniz marşrutu qeyd etmək üçün arxa fonda geolokasiyadan istifadə edir.";
-
-/* Text under the version number in the Help dialog. TODO: Synchronize other translations with English. */
-"about_description" = "Organic Maps reklam və izləmə olmadan sürətli və pulsuz oflayn xəritə tətbiqidir. Xəritələr izdiham mənbəyi olan OpenStreetMap.org məlumatlarına əsaslanır, ona görə də siz xəritə səhvlərini düzəldə və xəritəyə yeni obyektlər əlavə edə bilərsiniz. Organic Maps texnologiya həvəskarları tərəfindən boş vaxtlarında yaratdığı açıq mənbəli layihədir. Biz sizin rəy və dəstəyinizi yüksək qiymətləndiririk!";
 
 "general_settings" = "Ümumi Parametrlər";
 

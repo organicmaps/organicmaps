@@ -52,6 +52,18 @@
 
 "about_menu_title" = "Organic Maps kohta";
 
+/* Text in About screen */
+"about_headline" = "Free for everyone, made with love";
+
+/* Text in About screen */
+"about_proposition_1" = "• No ads, no tracking, no data collection";
+
+/* Text in About screen */
+"about_proposition_2" = "• Ei tühjenda akut, töötab võrguühenduseta";
+
+/* Text in About screen */
+"about_proposition_3" = "• Kiire, minimalistlik, kogukonna poolt välja töötatud";
+
 "close" = "Sulge";
 
 "download" = "Lae alla";
@@ -200,7 +212,7 @@
 "done" = "Valmis";
 
 /* Prints version number in About dialog */
-"version" = "Versioon: %@";
+"version" = "Organic Maps versioon: %@";
 
 /* Data version in «About» screen, %@ is replaced by a local, human readable date. */
 "data_version" = "OpenStreetMap andmed: %@";
@@ -321,6 +333,9 @@
 /* Button in the main menu */
 "donate" = "Anneta";
 
+/* Tex label above the Donate button */
+"donate_description" = "Annetage, et ehitada koos parimaid kaarte!";
+
 /* Button in the main Help dialog */
 "how_to_support_us" = "Toetage projekti";
 
@@ -329,6 +344,15 @@
 
 /* Text in menu + Button in the main Help dialog */
 "report_a_bug" = "Teata veast";
+
+/* Button in the About screen */
+"report_incorrect_map_bug" = "Teatada või parandada ebaõigeid kaardiandmeid";
+
+/* Button in the About screen */
+"volunteer" = "Vabatahtlikuks";
+
+/* "Social media" section header in the About screen */
+"follow_us" = "Jälgi ja võta meiega ühendust:";
 
 /* Alert text */
 "email_error_body" = "E-posti klienti ei ole seadistatud. Palun seadistage see või kasutage mõnda muud võimalust meiega ühenduse võtmiseks aadressil %@";
@@ -710,6 +734,9 @@
 
 "message_invalid_feature_position" = "Ükski objekt ei saa siin asuda";
 
+/* Text in About and OSM Login screens. First %@ is replaced by a local, human readable date. */
+"osm_presentation" = "Ühenduse loodud OpenStreetMapi andmed alates %@. Lisateave selle kohta, kuidas kaarti redigeerida ja uuendada, on aadressil OpenStreetMap.org.";
+
 "login_to_make_edits_visible" = "Logi sisse OpenStreetMap.org keskkonda, et teised kasutajad näeksid Sinu tehtud muudatusi.";
 
 /* Error dialog no space */
@@ -867,9 +894,6 @@
 "sharing_call_action_look" = "Vaata järele";
 
 "recent_track_background_dialog_message" = "Organic Maps kasutab Sinu geograafilist asukohta taustal Sinu hiljuti läbitud teekonna salvestamiseks.";
-
-/* Text under the version number in the Help dialog. TODO: Synchronize other translations with English. */
-"about_description" = "Organic Maps on kiire ja tasuta võrguühenduseta kaartide rakendus ilma reklaamide ja jälgimiseta. Kaardid põhinevad vabatahtlike loodud OpenStreetMap.org-i andmetel, nii et saate kaardistamise vigu parandada ja ise funktsioone lisada. Organic Maps on avatud lähtekoodiga projekt, mille on loonud entusiastid oma vabast ajast. Teie tagasiside ja toetus on väga teretulnud!";
 
 "general_settings" = "Üldseaded";
 

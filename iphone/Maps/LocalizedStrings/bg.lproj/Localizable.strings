@@ -52,6 +52,18 @@
 
 "about_menu_title" = "Относно приложението";
 
+/* Text in About screen */
+"about_headline" = "Безплатно за всички, направени с любов";
+
+/* Text in About screen */
+"about_proposition_1" = "• Без реклами, без проследяване, без събиране на данни";
+
+/* Text in About screen */
+"about_proposition_2" = "• Без източване на батерията, работи офлайн";
+
+/* Text in About screen */
+"about_proposition_3" = "• Бързи, минималистични, разработен от общността";
+
 "close" = "Затваряне";
 
 "download" = "Изтегляне";
@@ -200,7 +212,7 @@
 "done" = "Готово";
 
 /* Prints version number in About dialog */
-"version" = "Версия: %@";
+"version" = "Версия на Organic Maps: %@";
 
 /* Data version in «About» screen, %@ is replaced by a local, human readable date. */
 "data_version" = "Данни на OpenStreetMap: %@";
@@ -321,6 +333,9 @@
 /* Button in the main menu */
 "donate" = "Дарете";
 
+/* Tex label above the Donate button */
+"donate_description" = "Дарете, за да създадем заедно най-добрите карти!";
+
 /* Button in the main Help dialog */
 "how_to_support_us" = "Подкрепете проекта";
 
@@ -329,6 +344,15 @@
 
 /* Text in menu + Button in the main Help dialog */
 "report_a_bug" = "Докладване на проблем";
+
+/* Button in the About screen */
+"report_incorrect_map_bug" = "Докладване или поправяне на неправилни данни на картата";
+
+/* Button in the About screen */
+"volunteer" = "За доброволчество";
+
+/* "Social media" section header in the About screen */
+"follow_us" = "Следвайте и се свържете с нас:";
 
 /* Alert text */
 "email_error_body" = "Имейл клиентът не е настроен. Моля, конфигурирайте го или използвайте друг начин, за да се свържете с нас на %@";
@@ -710,6 +734,9 @@
 
 "message_invalid_feature_position" = "Тук не може да бъде намерен обект";
 
+/* Text in About and OSM Login screens. First %@ is replaced by a local, human readable date. */
+"osm_presentation" = "Създадени от общността данни от OpenStreetMap към %@. Научете повече за това как да редактирате и актуализирате картата в OpenStreetMap.org";
+
 "login_to_make_edits_visible" = "Влезте в системата, за да могат другите потребители да видят направените от вас промени";
 
 /* Error dialog no space */
@@ -867,9 +894,6 @@
 "sharing_call_action_look" = "Виж";
 
 "recent_track_background_dialog_message" = "Organic Maps използва геопозицията ви във фонов режим за записване на последния ви маршрут.";
-
-/* Text under the version number in the Help dialog. TODO: Synchronize other translations with English. */
-"about_description" = "Organic Maps е безплатно приложение за офлайн карти с отворен код. Без реклами. Без проследяване. Ако видите грешка на картата, моля, поправете я в OpenStreetMap. Проектът е създаден от ентусиасти в свободното ни време, така че имаме нужда от вашата отзиви и подкрепа.";
 
 "general_settings" = "Общи настройки";
 

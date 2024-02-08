@@ -4,6 +4,10 @@
 <!-- Language: es-MX -->
 <resources>
 	<!-- SECTION: Strings -->
+	<!-- Text in About screen -->
+	<string name="about_proposition_2">• Sin consumo de batería, funciona sin conexión</string>
+	<!-- Text in About screen -->
+	<string name="about_proposition_3">• Rápido, minimalista, desarrollado por la comunidad.</string>
 	<!-- The button that opens system location settings -->
 	<string name="location_settings">Configuración de ubicación</string>
 	<!-- Editor title above street and house number, duplicates [type.building.address] in types_strings.txt -->
@@ -58,6 +62,8 @@
 	<string name="blue_gray">Gris azulado</string>
 
 	<!-- SECTION: Strings for downloading map from search -->
+	<!-- Text in About and OSM Login screens. First %@ is replaced by a local, human readable date. -->
+	<string name="osm_presentation">Datos de OpenStreetMap creados por la comunidad a partir de %s. Obtenga más información sobre cómo editar y actualizar el mapa en OpenStreetMap.org</string>
 	<string name="editor_other_info">Enviar nota a los editores de OSM</string>
 	<!-- A referral link on the place page for some hotels -->
 	<string name="more_on_kayak">Fotos, reseñas, reservas.</string>

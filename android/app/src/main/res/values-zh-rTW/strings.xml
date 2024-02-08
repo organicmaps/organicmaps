@@ -41,9 +41,9 @@
 	<!-- Text in About screen -->
 	<string name="about_proposition_1">•沒有廣告，不會跟踪您，更不會收集您的數據</string>
 	<!-- Text in About screen -->
-	<string name="about_proposition_2">• 節省電池電量，不使用後台數據</string>
+	<string name="about_proposition_2">• 無電池消耗，離線工作</string>
 	<!-- Text in About screen -->
-	<string name="about_proposition_3">•快速，簡約，不含垃圾軟體</string>
+	<string name="about_proposition_3">• 快速、簡約、由社區開發</string>
 	<!-- Text in About screen -->
 	<string name="about_developed_by_enthusiasts">由愛好者和志願者創建的開源應用程序。</string>
 	<!-- The button that opens system location settings -->
@@ -468,8 +468,8 @@
 	<string name="editor_report_problem_other_title">不同的問題</string>
 	<string name="placepage_add_business_button">將地點添加到 OpenStreetMap</string>
 	<string name="message_invalid_feature_position">物件無法設置在這裡</string>
-	<!-- Text in About and OSM Login screens. %@ is replaced by a local, human readable date. -->
-	<string name="osm_presentation">截止到 %s 的 OpenStreetMap 地圖數據。就像 Wikipedia 一樣，您可以為世界上所有用戶添加或編輯位置。</string>
+	<!-- Text in About and OSM Login screens. First %@ is replaced by a local, human readable date. -->
+	<string name="osm_presentation">截至 %s 的社群創建的 OpenStreetMap 資料。請訪問 OpenStreetMap.org 以了解有關如何編輯和更新地圖的更多信息</string>
 	<string name="login_to_make_edits_visible">登入來讓其他使用者能看到您所作出的修改。</string>
 	<!-- Downloaded 10 **of** 20 <- it is that "of" -->
 	<string name="downloader_of">%1$d個/共%2$d個</string>

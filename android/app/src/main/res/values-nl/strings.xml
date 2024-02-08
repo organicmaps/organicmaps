@@ -41,9 +41,9 @@
 	<!-- Text in About screen -->
 	<string name="about_proposition_1">• Geen advertenties, geen tracking, geen gegevensverzameling</string>
 	<!-- Text in About screen -->
-	<string name="about_proposition_2">• Spaart de batterij, gebruikt geen achtergrondgegevens</string>
+	<string name="about_proposition_2">• Geen batterijverlies, werkt offline</string>
 	<!-- Text in About screen -->
-	<string name="about_proposition_3">• Snel, minimalistisch, geen junk</string>
+	<string name="about_proposition_3">• Snel, minimalistisch, ontwikkeld door gemeenschap</string>
 	<!-- Text in About screen -->
 	<string name="about_developed_by_enthusiasts">Open-source applicatie gemaakt door enthousiastelingen en vrijwilligers.</string>
 	<!-- The button that opens system location settings -->
@@ -476,8 +476,8 @@
 	<string name="editor_report_problem_other_title">Een ander probleem</string>
 	<string name="placepage_add_business_button">Een organisatie toevoegen</string>
 	<string name="message_invalid_feature_position">Hier kan geen object worden geplaatst</string>
-	<!-- Text in About and OSM Login screens. %@ is replaced by a local, human readable date. -->
-	<string name="osm_presentation">Cartografische gegevens van OpenStreetMap per %s. OSM is als Wikipedia voor kaarten, waar je plaatsen kunt toevoegen of bewerken voor alle gebruikers over de hele wereld.</string>
+	<!-- Text in About and OSM Login screens. First %@ is replaced by a local, human readable date. -->
+	<string name="osm_presentation">Door de gemeenschap gemaakte OpenStreetMap-gegevens vanaf %s. Lees meer over hoe je de kaart kunt bewerken en bijwerken op OpenStreetMap.org</string>
 	<string name="login_to_make_edits_visible">Log in zodat andere gebruikers kunnen zien wat u hebt gewijzigd.</string>
 	<!-- Downloaded 10 **of** 20 <- it is that "of" -->
 	<string name="downloader_of">%1$d van %2$d</string>

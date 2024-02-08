@@ -52,6 +52,18 @@
 
 "about_menu_title" = "Organic Maps 정보";
 
+/* Text in About screen */
+"about_headline" = "사랑으로 만든 모든 사람에게 무료";
+
+/* Text in About screen */
+"about_proposition_1" = "• 광고 없음, 추적 없음, 데이터 수집 없음";
+
+/* Text in About screen */
+"about_proposition_2" = "• 배터리 소모 없음, 오프라인에서 작동";
+
+/* Text in About screen */
+"about_proposition_3" = "• 빠르고 미니멀한, 커뮤니티가 개발한";
+
 "close" = "닫기";
 
 "download" = "다운로드";
@@ -200,7 +212,7 @@
 "done" = "완료";
 
 /* Prints version number in About dialog */
-"version" = "버전: %@";
+"version" = "Organic Maps 버전: %@";
 
 /* Data version in «About» screen, %@ is replaced by a local, human readable date. */
 "data_version" = "OpenStreetMap 데이터: %@";
@@ -321,6 +333,9 @@
 /* Button in the main menu */
 "donate" = "기부";
 
+/* Tex label above the Donate button */
+"donate_description" = "기부하여 최고의 지도를 함께 만들어 보세요!";
+
 /* Button in the main Help dialog */
 "how_to_support_us" = "프로젝트 지원";
 
@@ -329,6 +344,15 @@
 
 /* Text in menu + Button in the main Help dialog */
 "report_a_bug" = "오류 신고";
+
+/* Button in the About screen */
+"report_incorrect_map_bug" = "잘못된 지도 데이터 신고 또는 수정";
+
+/* Button in the About screen */
+"volunteer" = "자원봉사에 참여하려면";
+
+/* "Social media" section header in the About screen */
+"follow_us" = "팔로우하고 문의하세요:";
 
 /* Alert text */
 "email_error_body" = "이메일 클라이언트가 설정되지 않았습니다. 이를 구성하거나 %@로 연락할 다른 방법을 사용하십시오.";
@@ -710,6 +734,9 @@
 
 "message_invalid_feature_position" = "목적지를 이곳에서 찾을 수 없습니다";
 
+/* Text in About and OSM Login screens. First %@ is replaced by a local, human readable date. */
+"osm_presentation" = "커뮤니티에서 만든 오픈스트리트맵 데이터(%@ 기준). 지도를 편집하고 업데이트하는 방법에 대한 자세한 내용은 OpenStreetMap.org에서 확인하세요.";
+
 "login_to_make_edits_visible" = "로그인하여 다른 사용자가 변경한 내용을 볼 수 있도록 하십시오.";
 
 /* Error dialog no space */
@@ -867,9 +894,6 @@
 "sharing_call_action_look" = "체크아웃";
 
 "recent_track_background_dialog_message" = "Organic Maps는 최근 여행한 경로를 녹음하기 위해 배경 화면에서 지역 위치 서비스를 사용합니다.";
-
-/* Text under the version number in the Help dialog. TODO: Synchronize other translations with English. */
-"about_description" = "Organic Maps는 무료 오픈 소스 오프라인 지도 애플리케이션입니다. 광고 없음. 추적이 없습니다. 지도에 오류가 표시되면 OpenStreetMap에서 수정하세요. 이 프로젝트는 여가 시간에 열광자들에 의해 만들어지므로 여러분의 피드백과 지원이 필요합니다.";
 
 "general_settings" = "일반 설정";
 

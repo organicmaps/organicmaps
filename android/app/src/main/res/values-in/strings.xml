@@ -43,9 +43,9 @@
 	<!-- Text in About screen -->
 	<string name="about_proposition_1">• Tidak ada iklan, tidak ada pelacakan, tidak ada pengumpulan data</string>
 	<!-- Text in About screen -->
-	<string name="about_proposition_2">• Menghemat baterai, tidak menggunakan data latar belakang</string>
+	<string name="about_proposition_2">• Tidak menguras baterai, bekerja secara offline</string>
 	<!-- Text in About screen -->
-	<string name="about_proposition_3">• Cepat, minimalis, tidak ada sampah</string>
+	<string name="about_proposition_3">• Cepat, minimalis, dikembangkan oleh komunitas</string>
 	<!-- Text in About screen -->
 	<string name="about_developed_by_enthusiasts">Aplikasi open-source yang dibuat oleh penggemar dan sukarelawan.</string>
 	<!-- The button that opens system location settings -->
@@ -456,8 +456,8 @@
 	<string name="editor_report_problem_other_title">Masalah yang berbeda</string>
 	<string name="placepage_add_business_button">Tambahkan organisasi</string>
 	<string name="message_invalid_feature_position">Objek tidak dapat diletakkan di sini</string>
-	<!-- Text in About and OSM Login screens. %@ is replaced by a local, human readable date. -->
-	<string name="osm_presentation">Data kartografi dari OpenStreetMap pada %s. Ini seperti Wikipedia di mana Anda dapat menambahkan atau mengedit tempat untuk semua pengguna di seluruh dunia.</string>
+	<!-- Text in About and OSM Login screens. First %@ is replaced by a local, human readable date. -->
+	<string name="osm_presentation">Data OpenStreetMap yang dibuat oleh komunitas pada tanggal %s. Pelajari lebih lanjut mengenai cara mengedit dan memperbarui peta di OpenStreetMap.org</string>
 	<string name="login_to_make_edits_visible">Masuk agar pengguna lain dapat melihat perubahan yang Anda buat.</string>
 	<!-- Downloaded 10 **of** 20 <- it is that "of" -->
 	<string name="downloader_of">%1$d dari %2$d</string>

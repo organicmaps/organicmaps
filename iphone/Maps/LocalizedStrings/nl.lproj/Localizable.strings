@@ -52,6 +52,18 @@
 
 "about_menu_title" = "Over Organic Maps";
 
+/* Text in About screen */
+"about_headline" = "Gratis voor iedereen, met liefde gemaakt";
+
+/* Text in About screen */
+"about_proposition_1" = "• Geen advertenties, geen tracking, geen gegevensverzameling";
+
+/* Text in About screen */
+"about_proposition_2" = "• Geen batterijverlies, werkt offline";
+
+/* Text in About screen */
+"about_proposition_3" = "• Snel, minimalistisch, ontwikkeld door gemeenschap";
+
 "close" = "Sluiten";
 
 "download" = "Downloaden";
@@ -200,7 +212,7 @@
 "done" = "Klaar";
 
 /* Prints version number in About dialog */
-"version" = "Versie: %@";
+"version" = "Organic Maps versie: %@";
 
 /* Data version in «About» screen, %@ is replaced by a local, human readable date. */
 "data_version" = "OpenStreetMap-gegevens: %@";
@@ -321,6 +333,9 @@
 /* Button in the main menu */
 "donate" = "Doneren";
 
+/* Tex label above the Donate button */
+"donate_description" = "Doneer om samen de beste kaarten te bouwen!";
+
 /* Button in the main Help dialog */
 "how_to_support_us" = "Steun het project";
 
@@ -329,6 +344,15 @@
 
 /* Text in menu + Button in the main Help dialog */
 "report_a_bug" = "Meld een fout";
+
+/* Button in the About screen */
+"report_incorrect_map_bug" = "Rapporteer of repareer onjuiste kaartgegevens";
+
+/* Button in the About screen */
+"volunteer" = "Vrijwilligerswerk";
+
+/* "Social media" section header in the About screen */
+"follow_us" = "Volg ons en neem contact met ons op:";
 
 /* Alert text */
 "email_error_body" = "De emailcliënt is niet ingesteld. Gelieve de cliënt te configureren of contact met ons op te nemen op %@";
@@ -710,6 +734,9 @@
 
 "message_invalid_feature_position" = "Hier kan geen object worden geplaatst";
 
+/* Text in About and OSM Login screens. First %@ is replaced by a local, human readable date. */
+"osm_presentation" = "Door de gemeenschap gemaakte OpenStreetMap-gegevens vanaf %@. Lees meer over hoe je de kaart kunt bewerken en bijwerken op OpenStreetMap.org";
+
 "login_to_make_edits_visible" = "Log in zodat andere gebruikers kunnen zien wat u hebt gewijzigd.";
 
 /* Error dialog no space */
@@ -867,9 +894,6 @@
 "sharing_call_action_look" = "Bekijk";
 
 "recent_track_background_dialog_message" = "Organic Maps gebruikt uw geografische positie op de achtergrond om uw onlangs afgelegde route vast te leggen.";
-
-/* Text under the version number in the Help dialog. TODO: Synchronize other translations with English. */
-"about_description" = "Organic Maps is een gratis en open-source offline kaartentoepassing. Geen advertenties. Geen volgen. Als je een fout op de kaart ziet, corrigeer deze dan in OpenStreetMap. Het project is gemaakt door enthousiastelingen in onze vrije tijd, dus we hebben uw feedback en ondersteuning nodig.";
 
 "general_settings" = "Algemene instellingen";
 

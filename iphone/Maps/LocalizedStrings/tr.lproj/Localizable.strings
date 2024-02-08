@@ -52,6 +52,18 @@
 
 "about_menu_title" = "Organic Maps Hakkında";
 
+/* Text in About screen */
+"about_headline" = "Sevgiyle yapılmış, herkes için ücretsiz harita";
+
+/* Text in About screen */
+"about_proposition_1" = "• Reklam yok, takip yok, veri toplama yok";
+
+/* Text in About screen */
+"about_proposition_2" = "• Pil tüketimi yok, çevrimdışı çalışıyor";
+
+/* Text in About screen */
+"about_proposition_3" = "• Hızlı, minimalist, topluluk tarafından geliştirildi";
+
 "close" = "Kapat";
 
 "download" = "İndir";
@@ -200,7 +212,7 @@
 "done" = "Bitti";
 
 /* Prints version number in About dialog */
-"version" = "Sürüm: %@";
+"version" = "Organic Maps sürüm: %@";
 
 /* Data version in «About» screen, %@ is replaced by a local, human readable date. */
 "data_version" = "OpenStreetMap verileri: %@";
@@ -321,6 +333,9 @@
 /* Button in the main menu */
 "donate" = "Bağış yapın";
 
+/* Tex label above the Donate button */
+"donate_description" = "Birlikte en iyi haritaları oluşturmak için bağış yapın!";
+
 /* Button in the main Help dialog */
 "how_to_support_us" = "Bu projeyi destekle";
 
@@ -329,6 +344,15 @@
 
 /* Text in menu + Button in the main Help dialog */
 "report_a_bug" = "Hata bildir";
+
+/* Button in the About screen */
+"report_incorrect_map_bug" = "Hatalı harita verilerini bildirin veya düzeltin";
+
+/* Button in the About screen */
+"volunteer" = "Gönüllü Olmak İçin";
+
+/* "Social media" section header in the About screen */
+"follow_us" = "Takip edin ve bizimle iletişime geçin:";
 
 /* Alert text */
 "email_error_body" = "E-posta istemcisi henüz kurulmamış. Lütfen e-posta istemcisini yapılandırın veya bize %@ adresinden ulaşmak için başka bir yöntem deneyin";
@@ -710,6 +734,9 @@
 
 "message_invalid_feature_position" = "Buraya bir nesne konumlandırılamıyor";
 
+/* Text in About and OSM Login screens. First %@ is replaced by a local, human readable date. */
+"osm_presentation" = "Topluluk tarafından oluşturulan OpenStreetMap verileri %@ itibariyle. OpenStreetMap.org adresinde haritanın nasıl düzenleneceği ve güncelleneceği hakkında daha fazla bilgi edinin";
+
 "login_to_make_edits_visible" = "Diğer kullanıcıların yaptığınız değişiklikleri görebilmesi için OpenStreetMap.org'da oturum açın.";
 
 /* Error dialog no space */
@@ -867,9 +894,6 @@
 "sharing_call_action_look" = "İncele";
 
 "recent_track_background_dialog_message" = "Organic Maps, en son seyahat ettiğiniz rotayı kaydetmek için arka planda coğrafi konumunuzu kullanır.";
-
-/* Text under the version number in the Help dialog. TODO: Synchronize other translations with English. */
-"about_description" = "Organic Maps, reklam ve izleyici içermeyen hızlı ve ücretsiz bir çevrimdışı harita uygulamasıdır. Haritalar kitle kaynaklı OpenStreetMap.org verilerine dayanmaktadır, böylece kendiniz harita hatalarını düzeltebilir ve haritaya yeni nesneler ekleyebilirsiniz. Organic Maps, teknoloji tutkunlarının boş zamanlarında oluşturduğu açık kaynaklı bir projedir. Geri bildirim ve desteğinize çok değer veriyoruz!";
 
 "general_settings" = "Genel ayarlar";
 

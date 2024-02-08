@@ -52,6 +52,18 @@
 
 "about_menu_title" = "Tentang Organic Maps";
 
+/* Text in About screen */
+"about_headline" = "Gratis untuk semua orang, dibuat dengan cinta";
+
+/* Text in About screen */
+"about_proposition_1" = "• Tidak ada iklan, tidak ada pelacakan, tidak ada pengumpulan data";
+
+/* Text in About screen */
+"about_proposition_2" = "• Tidak menguras baterai, bekerja secara offline";
+
+/* Text in About screen */
+"about_proposition_3" = "• Cepat, minimalis, dikembangkan oleh komunitas";
+
 "close" = "Tutup";
 
 "download" = "Unduh";
@@ -200,7 +212,7 @@
 "done" = "Selesai";
 
 /* Prints version number in About dialog */
-"version" = "Versi: %@";
+"version" = "Versi Organic Maps: %@";
 
 /* Data version in «About» screen, %@ is replaced by a local, human readable date. */
 "data_version" = "Data OpenStreetMap: %@";
@@ -321,6 +333,9 @@
 /* Button in the main menu */
 "donate" = "Menyumbangkan";
 
+/* Tex label above the Donate button */
+"donate_description" = "Donasi untuk membangun peta terbaik bersama-sama!";
+
 /* Button in the main Help dialog */
 "how_to_support_us" = "Mendukung proyek";
 
@@ -329,6 +344,15 @@
 
 /* Text in menu + Button in the main Help dialog */
 "report_a_bug" = "Laporkan gangguan";
+
+/* Button in the About screen */
+"report_incorrect_map_bug" = "Melaporkan atau memperbaiki data peta yang salah";
+
+/* Button in the About screen */
+"volunteer" = "Untuk Menjadi Relawan";
+
+/* "Social media" section header in the About screen */
+"follow_us" = "Ikuti dan hubungi kami:";
 
 /* Alert text */
 "email_error_body" = "Surel pelanggan belum diatur. Mohon konfigurasikan atau gunakan cara lain untuk menghubungi kami di %@";
@@ -710,6 +734,9 @@
 
 "message_invalid_feature_position" = "Objek tidak dapat diletakkan di sini";
 
+/* Text in About and OSM Login screens. First %@ is replaced by a local, human readable date. */
+"osm_presentation" = "Data OpenStreetMap yang dibuat oleh komunitas pada tanggal %@. Pelajari lebih lanjut mengenai cara mengedit dan memperbarui peta di OpenStreetMap.org";
+
 "login_to_make_edits_visible" = "Masuk agar pengguna lain dapat melihat perubahan yang Anda buat.";
 
 /* Error dialog no space */
@@ -867,9 +894,6 @@
 "sharing_call_action_look" = "Lihat";
 
 "recent_track_background_dialog_message" = "Organic Maps menggunakan geoposisi di latar belakang untuk merekam rute yang baru Anda lalui.";
-
-/* Text under the version number in the Help dialog. TODO: Synchronize other translations with English. */
-"about_description" = "Organic Maps adalah aplikasi peta offline sumber terbuka dan gratis. Tanpa iklan. Tidak ada pelacakan. Jika Anda melihat kesalahan pada peta, harap perbaiki di OpenStreetMap. Proyek ini dibuat oleh para penggemar di waktu luang kami, jadi kami membutuhkan masukan dan dukungan Anda.";
 
 "general_settings" = "Setelan umum";
 

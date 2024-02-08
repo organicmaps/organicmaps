@@ -9,9 +9,9 @@
 	<!-- Text in About screen -->
 	<string name="about_proposition_1">• Hakuna matangazo, hakuna ufuatiliaji, hakuna mkusanyiko wa data</string>
 	<!-- Text in About screen -->
-	<string name="about_proposition_2">• Huokoa betri, haitumii data ya usuli</string>
+	<string name="about_proposition_2">• Hakuna betri kuisha, inafanya kazi nje ya mtandao</string>
 	<!-- Text in About screen -->
-	<string name="about_proposition_3">• Haraka, minimalistic, hakuna taka</string>
+	<string name="about_proposition_3">• Haraka, minimalist, iliyotengenezwa na jumuiya</string>
 	<!-- Text in About screen -->
 	<string name="about_developed_by_enthusiasts">Maombi ya chanzo-wazi iliyoundwa na wanaovutia na wanaojitolea.</string>
 	<!-- The button that opens system location settings -->
@@ -86,8 +86,8 @@
 	<!-- SECTION: Strings for downloading map from search -->
 	<string name="login_osm">Ingia kwa OpenStreetMap</string>
 	<string name="level">Ghorofa</string>
-	<!-- Text in About and OSM Login screens. %@ is replaced by a local, human readable date. -->
-	<string name="osm_presentation">Takwimu za katuni kutoka kwa OpenStreetMap kama ya %s. Ni kama Wikipedia ambapo unaweza kuongeza au kuhariri maeneo kwa watumiaji wote ulimwenguni.</string>
+	<!-- Text in About and OSM Login screens. First %@ is replaced by a local, human readable date. -->
+	<string name="osm_presentation">Data ya OpenStreetMap iliyoundwa na jumuiya kufikia %s. Pata maelezo zaidi kuhusu jinsi ya kuhariri na kusasisha ramani katika OpenStreetMap.org</string>
 	<string name="editor_other_info">Tuma ujumbe kwenye vihariri vya OSM</string>
 	<!-- A referral link on the place page for some hotels -->
 	<string name="more_on_kayak">Picha, hakiki, uhifadhi</string>

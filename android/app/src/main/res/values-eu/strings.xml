@@ -41,9 +41,9 @@
 	<!-- Text in About screen -->
 	<string name="about_proposition_1">• Ez iragarkirik, ez jarraipenik, ez datu-bilketarik</string>
 	<!-- Text in About screen -->
-	<string name="about_proposition_2">• Bateria aurrezten du, ez du atzeko planoko daturik erabiltzen</string>
+	<string name="about_proposition_2">• Ez da bateria deskargatzen, konexiorik gabe funtzionatzen du</string>
 	<!-- Text in About screen -->
-	<string name="about_proposition_3">• Azkarra, minimalista, zaborrik gabe</string>
+	<string name="about_proposition_3">• Azkarra, minimalista, komunitateak garatua</string>
 	<!-- Text in About screen -->
 	<string name="about_developed_by_enthusiasts">Kode irekiko aplikazioa zaleek eta boluntarioek sortutakoa.</string>
 	<!-- The button that opens system location settings -->
@@ -478,8 +478,8 @@
 	<string name="editor_report_problem_other_title">Beste arazo bat</string>
 	<string name="placepage_add_business_button">Gehitu aktibitatea</string>
 	<string name="message_invalid_feature_position">Hemen ezin da objekturik jarri</string>
-	<!-- Text in About and OSM Login screens. %@ is replaced by a local, human readable date. -->
-	<string name="osm_presentation">OpenStreetMap-eko datu kartografikoak %s-tik aurrera. OSM mapen Wikipedia bezalakoa da, non mundu osoko erabiltzaile guztientzat lekuak gehitu edo edita ditzakezun</string>
+	<!-- Text in About and OSM Login screens. First %@ is replaced by a local, human readable date. -->
+	<string name="osm_presentation">Komunitateak sortutako OpenStreetMap datuak %s-tik aurrera. Lortu informazio gehiago mapa editatu eta eguneratzeari buruz OpenStreetMap.org helbidean</string>
 	<string name="login_to_make_edits_visible">Hasi saioa OpenStreetMapen beste erabiltzaileek zuk egindako aldaketak ikus ditzaten.</string>
 	<!-- Downloaded 10 **of** 20 <- it is that "of" -->
 	<string name="downloader_of">%1$d/%2$d</string>

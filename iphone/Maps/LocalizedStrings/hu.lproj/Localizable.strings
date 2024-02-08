@@ -52,6 +52,18 @@
 
 "about_menu_title" = "Az Organic Mapsről";
 
+/* Text in About screen */
+"about_headline" = "Ingyenes mindenkinek, szeretettel készítve";
+
+/* Text in About screen */
+"about_proposition_1" = "• Nincs hirdetés, nincs nyomon követés, nincs adatgyűjtés";
+
+/* Text in About screen */
+"about_proposition_2" = "• Nem merül le az akkumulátor, offline működik";
+
+/* Text in About screen */
+"about_proposition_3" = "• Gyors, minimalista, közösség által fejlesztett";
+
 "close" = "Bezár";
 
 "download" = "Letöltés";
@@ -200,7 +212,7 @@
 "done" = "Kész";
 
 /* Prints version number in About dialog */
-"version" = "Verzió: %@";
+"version" = "Organic Maps verzió: %@";
 
 /* Data version in «About» screen, %@ is replaced by a local, human readable date. */
 "data_version" = "OpenStreetMap adatok: %@";
@@ -321,6 +333,9 @@
 /* Button in the main menu */
 "donate" = "Adományozni";
 
+/* Tex label above the Donate button */
+"donate_description" = "Adományozz, hogy együtt építsük a legjobb térképeket!";
+
 /* Button in the main Help dialog */
 "how_to_support_us" = "Támogassa a projektet";
 
@@ -329,6 +344,15 @@
 
 /* Text in menu + Button in the main Help dialog */
 "report_a_bug" = "Hiba jelentése";
+
+/* Button in the About screen */
+"report_incorrect_map_bug" = "Hibás térképadatok jelentése vagy javítása";
+
+/* Button in the About screen */
+"volunteer" = "Önkéntesnek";
+
+/* "Social media" section header in the About screen */
+"follow_us" = "Kövessen és lépjen kapcsolatba velünk:";
 
 /* Alert text */
 "email_error_body" = "Az email kliens nincs beállítva. Kérjük, konfiguráld vagy próbálj meg valamilyen más módon kapcsolatba lépni velünk a %@ email címen keresztül.";
@@ -710,6 +734,9 @@
 
 "message_invalid_feature_position" = "Célpont áthelyezése ide nem lehetséges";
 
+/* Text in About and OSM Login screens. First %@ is replaced by a local, human readable date. */
+"osm_presentation" = "Közösség által létrehozott OpenStreetMap adatok %@-tól. Tudjon meg többet a térkép szerkesztéséről és frissítéséről az OpenStreetMap.org oldalon.";
+
 "login_to_make_edits_visible" = "Jelentkezz be, hogy más felhasználók is láthassák a változtatásaidat.";
 
 /* Error dialog no space */
@@ -867,9 +894,6 @@
 "sharing_call_action_look" = "Tekintse meg";
 
 "recent_track_background_dialog_message" = "A Organic Maps a geopozíciód használatával a háttérben rögzíti a legutóbb megtett utad.";
-
-/* Text under the version number in the Help dialog. TODO: Synchronize other translations with English. */
-"about_description" = "Az Organic Maps egy gyors és ingyenes offline térképalkalmazás hirdetések és nyomkövetés nélkül. A térképek az OpenStreetMap.org közösség által fenntartott adatain alapulnak, így a térképen megtalálható hibákat te is javíthatod, és adhatsz hozzá új helyeket. Az Organic Maps egy nyílt forráskódú projekt, amelyet lelkes fejlesztők hoztak létre szabadidejükben. Visszajelzéseidet és támogatásodat nagyra értékeljük!";
 
 "general_settings" = "Általános beállítások";
 

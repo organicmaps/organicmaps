@@ -52,6 +52,18 @@
 
 "about_menu_title" = "Про Organic Maps";
 
+/* Text in About screen */
+"about_headline" = "Безкоштовно для всіх, зроблене з любов'ю";
+
+/* Text in About screen */
+"about_proposition_1" = "• Без реклами, без трекінгу, без стеження";
+
+/* Text in About screen */
+"about_proposition_2" = "• Не розряджає батарею, працює в автономному режимі";
+
+/* Text in About screen */
+"about_proposition_3" = "• Швидкий, мінімалістичний, розроблений спільнотою";
+
 "close" = "Закрити";
 
 "download" = "Завантажити";
@@ -200,7 +212,7 @@
 "done" = "Готово";
 
 /* Prints version number in About dialog */
-"version" = "Версія: %@";
+"version" = "Версія Organic Maps: %@.";
 
 /* Data version in «About» screen, %@ is replaced by a local, human readable date. */
 "data_version" = "Дані OpenStreetMap: %@";
@@ -321,6 +333,9 @@
 /* Button in the main menu */
 "donate" = "Підтримати грошима";
 
+/* Tex label above the Donate button */
+"donate_description" = "Пожертвуйте, щоб разом створювати найкращі мапи!";
+
 /* Button in the main Help dialog */
 "how_to_support_us" = "Підтримайте проект";
 
@@ -329,6 +344,15 @@
 
 /* Text in menu + Button in the main Help dialog */
 "report_a_bug" = "Сповістити про помилку";
+
+/* Button in the About screen */
+"report_incorrect_map_bug" = "Повідомляйте або виправляйте невірні картографічні дані";
+
+/* Button in the About screen */
+"volunteer" = "Стати волонтером";
+
+/* "Social media" section header in the About screen */
+"follow_us" = "Підписуйтесь та зв'язуйтесь з нами:";
 
 /* Alert text */
 "email_error_body" = "Поштовий клієнт не налаштований. Налаштуйте його або скористайтеся іншими способами зв'язку. Наша адреса – %@.";
@@ -710,6 +734,9 @@
 
 "message_invalid_feature_position" = "Об'єкт не може перебувати в цьому місцезнаходженні";
 
+/* Text in About and OSM Login screens. First %@ is replaced by a local, human readable date. */
+"osm_presentation" = "Дані OpenStreetMap, створені спільнотою, станом на %@. Дізнайтеся більше про те, як редагувати та оновлювати мапу на OpenStreetMap.org";
+
 "login_to_make_edits_visible" = "Увійдіть у OpenStreetMap.org, щоб ваші зміни побачили інші користувачі.";
 
 /* Error dialog no space */
@@ -867,9 +894,6 @@
 "sharing_call_action_look" = "Подивись,";
 
 "recent_track_background_dialog_message" = "Organic Maps використовує вашу геопозицію у фоновому режимі для запису нещодавно пройденого шляху.";
-
-/* Text under the version number in the Help dialog. TODO: Synchronize other translations with English. */
-"about_description" = "Organic Maps – це швидкі та безкоштовні карти, які не потребують доступу до Інтернету. Карти засновані на даних проекта OpenStreetMap.org, саме там Ви можете виправити помилки та додати відсутні дані. Реклама та збір особистої інформації відсутні. Organic Maps це проект з відкритим вихідним кодом, створюється ентузіастами у вільний час, тому нам потрібні Ваші відгуки та підтримка!";
 
 "general_settings" = "Загальні налаштування";
 

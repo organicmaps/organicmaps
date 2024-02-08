@@ -44,9 +44,9 @@
 	<!-- Text in About screen -->
 	<string name="about_proposition_1">• कोई विज्ञापन नहीं, कोई ट्रैकिंग नहीं, कोई डेटा संग्रह नहीं</string>
 	<!-- Text in About screen -->
-	<string name="about_proposition_2">• कोई बैटरी ख़त्म नहीं, कोई पृष्ठभूमि डेटा नहीं</string>
+	<string name="about_proposition_2">• कोई बैटरी ख़त्म नहीं, ऑफ़लाइन काम करता है</string>
 	<!-- Text in About screen -->
-	<string name="about_proposition_3">• तेज़, न्यूनतम, कोई सॉफ़्टवेयर ब्लोट नहीं</string>
+	<string name="about_proposition_3">• तेज़, न्यूनतम, समुदाय द्वारा विकसित</string>
 	<!-- Text in About screen -->
 	<string name="about_developed_by_enthusiasts">उत्साही और स्वयंसेवकों द्वारा बनाया गया ओपन-सोर्स एप्लिकेशन।</string>
 	<!-- The button that opens system location settings -->
@@ -340,8 +340,8 @@
 	<string name="editor_add_place_title">जोड़ना</string>
 	<string name="editor_edit_place_name_hint">स्थान का नाम</string>
 	<string name="editor_edit_place_category_title">वर्ग</string>
-	<!-- Text in About and OSM Login screens. %@ is replaced by a local, human readable date. -->
-	<string name="osm_presentation">%s तक OpenStreetMap से कार्टोग्राफ़िक डेटा। OpenStreetMap मानचित्रों के लिए विकिपीडिया की तरह है, जहाँ आप दुनिया भर के उपयोगकर्ताओं के लिए स्थान जोड़ और संपादित कर सकते हैं।</string>
+	<!-- Text in About and OSM Login screens. First %@ is replaced by a local, human readable date. -->
+	<string name="osm_presentation">समुदाय-निर्मित OpenStreetMap डेटा %s तक। OpenStreetMap.org पर मानचित्र को संपादित और अपडेट करने के तरीके के बारे में और जानें</string>
 	<string name="login_to_make_edits_visible">अपने परिवर्तनों को दुनिया के सामने प्रकाशित करने के लिए openingstreetmap.org पर लॉग इन करें।</string>
 	<!-- Downloaded 10 **of** 20 <- it is that "of" -->
 	<string name="downloader_of">%2$d में से %1$d</string>

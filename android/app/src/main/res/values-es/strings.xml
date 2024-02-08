@@ -41,9 +41,9 @@
 	<!-- Text in About screen -->
 	<string name="about_proposition_1">• Sin anuncios, sin seguimiento, sin recopilación de datos</string>
 	<!-- Text in About screen -->
-	<string name="about_proposition_2">• Sin drenaje de la batería, sin datos de fondo</string>
+	<string name="about_proposition_2">• No consume batería, funciona sin conexión</string>
 	<!-- Text in About screen -->
-	<string name="about_proposition_3">• Rápido, minimalista, sin basura</string>
+	<string name="about_proposition_3">• Rápido, minimalista, desarrollado por la comunidad</string>
 	<!-- Text in About screen -->
 	<string name="about_developed_by_enthusiasts">Aplicación de código abierto creada por entusiastas y voluntarios.</string>
 	<!-- The button that opens system location settings -->
@@ -480,8 +480,8 @@
 	<string name="editor_report_problem_other_title">Un problema diferente</string>
 	<string name="placepage_add_business_button">Añadir organización</string>
 	<string name="message_invalid_feature_position">No se puede ubicar ningún objeto aquí</string>
-	<!-- Text in About and OSM Login screens. %@ is replaced by a local, human readable date. -->
-	<string name="osm_presentation">Datos cartográficos del OpenStreetMap a partir de %s. Es como Wikipedia donde puede agregar o editar lugares para todos los usuarios del mundo.</string>
+	<!-- Text in About and OSM Login screens. First %@ is replaced by a local, human readable date. -->
+	<string name="osm_presentation">Datos de OpenStreetMap creados por la comunidad a partir de %s. Más información sobre cómo editar y actualizar el mapa en OpenStreetMap.org</string>
 	<string name="login_to_make_edits_visible">Inicie sesión en OpenStreetMap.org para que otros usuarios puedan ver los cambios que haya efectuado.</string>
 	<!-- Downloaded 10 **of** 20 <- it is that "of" -->
 	<string name="downloader_of">%1$d de %2$d</string>

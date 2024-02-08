@@ -43,9 +43,9 @@
 	<!-- Text in About screen -->
 	<string name="about_proposition_1">• Reklam yok, takip yok, veri toplama yok</string>
 	<!-- Text in About screen -->
-	<string name="about_proposition_2">• Pilinizi tüketmez, arka planda veri alıp göndermez</string>
+	<string name="about_proposition_2">• Pil tüketimi yok, çevrimdışı çalışıyor</string>
 	<!-- Text in About screen -->
-	<string name="about_proposition_3">• Hızlı, minimalist ve hafif</string>
+	<string name="about_proposition_3">• Hızlı, minimalist, topluluk tarafından geliştirildi</string>
 	<!-- Text in About screen -->
 	<string name="about_developed_by_enthusiasts">Teknoloji tutkunları ve gönüllüler tarafından oluşturulan açık kaynaklı bir uygulama.</string>
 	<!-- The button that opens system location settings -->
@@ -480,8 +480,8 @@
 	<string name="editor_report_problem_other_title">Farklı bir sorun</string>
 	<string name="placepage_add_business_button">Kuruluş ekle</string>
 	<string name="message_invalid_feature_position">Buraya bir nesne konumlandırılamıyor</string>
-	<!-- Text in About and OSM Login screens. %@ is replaced by a local, human readable date. -->
-	<string name="osm_presentation">Harita verileri, %s tarihine ait OpenStreetMap verilerinden alınmıştır. OpenStreetMap, Vikipedi\'nin harita sürümü gibidir: dünyadaki tüm kullanıcılar için yer ekleyebilir veya düzenleyebilirsiniz.</string>
+	<!-- Text in About and OSM Login screens. First %@ is replaced by a local, human readable date. -->
+	<string name="osm_presentation">Topluluk tarafından oluşturulan OpenStreetMap verileri %s itibariyle. OpenStreetMap.org adresinde haritanın nasıl düzenleneceği ve güncelleneceği hakkında daha fazla bilgi edinin</string>
 	<string name="login_to_make_edits_visible">Diğer kullanıcıların yaptığınız değişiklikleri görebilmesi için OpenStreetMap.org\'da oturum açın.</string>
 	<!-- Downloaded 10 **of** 20 <- it is that "of" -->
 	<string name="downloader_of">%1$d/%2$d</string>

@@ -41,9 +41,9 @@
 	<!-- Text in About screen -->
 	<string name="about_proposition_1">• ללא מודעות, ללא מעקב, ללא איסוף נתונים</string>
 	<!-- Text in About screen -->
-	<string name="about_proposition_2">• חוסך בסוללה, אינו משתמש בנתוני רקע</string>
+	<string name="about_proposition_2">• אין ריקון סוללה, עובד במצב לא מקוון</string>
 	<!-- Text in About screen -->
-	<string name="about_proposition_3">• מהיר, מינימליסטי, ללא זבל</string>
+	<string name="about_proposition_3">• מהיר, מינימליסטי, שפותח על ידי הקהילה</string>
 	<!-- Text in About screen -->
 	<string name="about_developed_by_enthusiasts">אפליקציית קוד פתוח שנוצרה על ידי חובבים ומתנדבים.</string>
 	<!-- The button that opens system location settings -->
@@ -472,8 +472,8 @@
 	<string name="editor_report_problem_other_title">בעיה אחרת</string>
 	<string name="placepage_add_business_button">הוסף בית עסק</string>
 	<string name="message_invalid_feature_position">לא ניתן למקם כאן פריט</string>
-	<!-- Text in About and OSM Login screens. %@ is replaced by a local, human readable date. -->
-	<string name="osm_presentation">נתונים קרטוגרפיים מ-OpenStreetMap נכון לתאריך %s. OSM זה כמו ויקיפדיה למפות, בו תוכלו להוסיף או לערוך מקומות לכל המשתמשים ברחבי העולם.</string>
+	<!-- Text in About and OSM Login screens. First %@ is replaced by a local, human readable date. -->
+	<string name="osm_presentation">נתוני OpenStreetMap שנוצרו על ידי הקהילה החל מ-%s. למידע נוסף על איך לערוך ולעדכן את המפה ב-OpenStreetMap.org</string>
 	<string name="login_to_make_edits_visible">התחברו ל-openstreetmap.org כדי לפרסם את השינויים שלכם לעולם.</string>
 	<!-- Downloaded 10 **of** 20 <- it is that "of" -->
 	<string name="downloader_of">%1$d מתוך %2$d</string>
