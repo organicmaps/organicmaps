@@ -74,11 +74,11 @@ final class PlacePagePreviewViewController: UIViewController {
       }
     } else {
       let subtitleString = NSMutableAttributedString()
-      if placePagePreviewData.isPopular {
-        subtitleString.append(NSAttributedString(string: L("popular_place"),
-                                                 attributes: [.foregroundColor : UIColor.linkBlue(),
-                                                              .font : UIFont.regular14()]))
-      }
+//      if placePagePreviewData.isPopular {
+//        subtitleString.append(NSAttributedString(string: L("popular_place"),
+//                                                 attributes: [.foregroundColor : UIColor.linkBlue(),
+//                                                              .font : UIFont.regular14()]))
+//      }
 
       if let subtitle = placePagePreviewData.subtitle ?? placePagePreviewData.coordinates {
         subtitleString.append(NSAttributedString(string: !subtitleString.string.isEmpty ? " • " + subtitle : subtitle,

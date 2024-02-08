@@ -16,12 +16,8 @@
 
 #include "geometry/point2d.hpp"
 
-#include "platform/utm_mgrs_utils.hpp"
-
-#include <memory>
 #include <optional>
 #include <string>
-#include <utility>
 #include <vector>
 
 namespace place_page
@@ -214,8 +210,8 @@ public:
 
   std::optional<ftypes::IsHotelChecker::Type> GetHotelType() const { return m_hotelType; }
 
-  void SetPopularity(uint8_t popularity) { m_popularity = popularity; }
-  uint8_t GetPopularity() const { return m_popularity; }
+  // void SetPopularity(uint8_t popularity) { m_popularity = popularity; }
+  // uint8_t GetPopularity() const { return m_popularity; }
   std::string const & GetPrimaryFeatureName() const { return m_primaryFeatureName; }
 
   void SetSelectedObject(df::SelectionShape::ESelectedObject selectedObject) { m_selectedObject = selectedObject; }
@@ -287,7 +283,7 @@ private:
 
   std::optional<ftypes::IsHotelChecker::Type> m_hotelType;
 
-  uint8_t m_popularity = 0;
+  //uint8_t m_popularity = 0;
 
   std::string m_primaryFeatureName;
 

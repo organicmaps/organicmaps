@@ -72,8 +72,8 @@ public class MapObject implements PlacePageData
   private final RoutePointInfo mRoutePointInfo;
   @OpeningMode
   private final int mOpeningMode;
-  @NonNull
-  private final Popularity mPopularity;
+//  @NonNull
+//  private final Popularity mPopularity;
   @NonNull
   private final RoadWarningMarkType mRoadWarningMarkType;
   @NonNull
@@ -84,7 +84,7 @@ public class MapObject implements PlacePageData
   public MapObject(@NonNull FeatureId featureId, @MapObjectType int mapObjectType, String title,
                    @Nullable String secondaryTitle, String subtitle, String address,
                    double lat, double lon, String apiId, @Nullable RoutePointInfo routePointInfo,
-                   @OpeningMode int openingMode, @NonNull Popularity popularity, @NonNull String description,
+                   @OpeningMode int openingMode, Popularity popularity, @NonNull String description,
                    int roadWarningType, @Nullable String[] rawTypes)
   {
     this(featureId, mapObjectType, title, secondaryTitle,
@@ -96,7 +96,7 @@ public class MapObject implements PlacePageData
   public MapObject(@NonNull FeatureId featureId, @MapObjectType int mapObjectType,
                    String title, @Nullable String secondaryTitle, String subtitle, String address,
                    double lat, double lon, Metadata metadata, String apiId,
-                   @Nullable RoutePointInfo routePointInfo, @OpeningMode int openingMode, @NonNull Popularity popularity,
+                   @Nullable RoutePointInfo routePointInfo, @OpeningMode int openingMode, Popularity popularity,
                    @NonNull String description, int roadWarningType, @Nullable String[] rawTypes)
   {
     mFeatureId = featureId;
@@ -111,7 +111,7 @@ public class MapObject implements PlacePageData
     mApiId = apiId;
     mRoutePointInfo = routePointInfo;
     mOpeningMode = openingMode;
-    mPopularity = popularity;
+    //mPopularity = popularity;
     mDescription = description;
     mRoadWarningMarkType = RoadWarningMarkType.values()[roadWarningType];
     if (rawTypes != null)
@@ -387,7 +387,7 @@ public class MapObject implements PlacePageData
     dest.writeString(mApiId);
     dest.writeParcelable(mRoutePointInfo, 0);
     dest.writeInt(mOpeningMode);
-    dest.writeParcelable(mPopularity, 0);
+    //dest.writeParcelable(mPopularity, 0);
     dest.writeString(mDescription);
     dest.writeInt(getRoadWarningMarkType().ordinal());
     // All collections are deserialized AFTER non-collection and primitive type objects,

@@ -94,7 +94,7 @@ static PlacePageDataHotelType convertHotelType(std::optional<ftypes::IsHotelChec
     _coordinates = @(rawData.GetFormattedCoordinate(place_page::CoordinatesFormat::LatLonDMS).c_str());
     _address = rawData.GetAddress().empty() ? nil : @(rawData.GetAddress().c_str());
     _isMyPosition = rawData.IsMyPosition();
-    _isPopular = rawData.GetPopularity() > 0;
+    //_isPopular = rawData.GetPopularity() > 0;
     _schedule = convertOpeningHours(rawData.GetOpeningHours());
     _hotelType = convertHotelType(rawData.GetHotelType());
   }

@@ -8,6 +8,7 @@
 #include "platform/localization.hpp"
 #include "platform/measurement_utils.hpp"
 #include "platform/preferred_languages.hpp"
+#include "platform/utm_mgrs_utils.hpp"
 
 #include "geometry/mercator.hpp"
 
@@ -15,7 +16,6 @@
 
 #include "3party/open-location-code/openlocationcode.h"
 
-#include <sstream>
 
 namespace place_page
 {
@@ -189,7 +189,7 @@ std::string Info::FormatSubtitle(bool withType) const
   auto const eleStr = GetElevationFormatted();
   if (!eleStr.empty())
     append(std::string{kMountainSymbol} + eleStr);
-    
+
   // ATM
   if (HasAtm())
     append(kAtmSymbol);
@@ -197,7 +197,7 @@ std::string Info::FormatSubtitle(bool withType) const
   // Internet.
   if (HasWifi())
     append(m_localizedWifiString);
-    
+
   // Toilets.
   if (HasToilets())
     append(kToiletsSymbol);
@@ -210,7 +210,7 @@ std::string Info::FormatSubtitle(bool withType) const
   auto const fee = GetLocalizedFeeType();
   if (!fee.empty())
     append(fee);
-    
+
   return result;
 }
 
