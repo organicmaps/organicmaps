@@ -81,8 +81,8 @@ namespace platform
 {
 bool HttpClient::RunHttpRequest()
 {
-  NSMutableURLRequest * request = [NSMutableURLRequest requestWithURL:
-      static_cast<NSURL *>([NSURL URLWithString:@(m_urlRequested.c_str())])
+  NSURL * url = static_cast<NSURL *>([NSURL URLWithString:@(m_urlRequested.c_str())]);
+  NSMutableURLRequest * request = [NSMutableURLRequest requestWithURL: url
       cachePolicy:NSURLRequestReloadIgnoringLocalCacheData timeoutInterval:m_timeoutSec];
   // We handle cookies manually.
   request.HTTPShouldHandleCookies = NO;
