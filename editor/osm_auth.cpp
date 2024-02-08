@@ -34,6 +34,18 @@ string FindAuthenticityToken(string const & body)
   return end == string::npos ? string() : body.substr(start, end - start);
 }
 
+// Parse URL in format "{OSM_OAUTH2_REDIRECT_URI}?code=XXXX". Extract code value
+string FindOauthCode(string const & redirectUri)
+{
+  auto const url = url::Url::FromString(redirectUri);
+  string const * oauth2code = url.GetParamValue("code");
+
+  if(oauth2code == nullptr || oauth2code->empty())
+    return {};
+
+  return *oauth2code;
+}
+
 string FindAccessToken(string const & body)
 {
   // Extract access_token from JSON in format {"access_token":"...", "token_type":"Bearer", "scope":"read_prefs"}
@@ -124,7 +136,7 @@ OsmOAuth::SessionID OsmOAuth::FetchSessionId(string const & subUrl, string const
   if (!request.RunHttpRequest())
     MYTHROW(NetworkError, ("FetchSessionId Network error while connecting to", url));
   if (request.WasRedirected())
-    MYTHROW(UnexpectedRedirect, ("Redirected to", request.UrlReceived(), "from", url));
+    MYTHROW(UnexpectedRedirect, ("FetchSessionId Unexpected redirected to", request.UrlReceived(), "from", url));
   if (request.ErrorCode() != HTTP::OK)
     MYTHROW(FetchSessionIdError, (DebugPrint(request)));
 
@@ -214,18 +226,17 @@ string OsmOAuth::SendAuthRequest(string const & requestTokenKey, SessionID const
   request.SetBodyData(std::move(params), "application/x-www-form-urlencoded")
          .SetCookies(lastSid.m_cookies)
          //.SetRawHeader("Origin", m_baseUrl)
-         .SetHandleRedirects(false);
+         .SetHandleRedirects(true);
   if (!request.RunHttpRequest())
     MYTHROW(NetworkError, ("SendAuthRequest Network error while connecting to", request.UrlRequested()));
+  if (!request.WasRedirected())
+    MYTHROW(UnexpectedRedirect, ("Expected redirect for URL", request.UrlRequested()));
 
   // Recieved URL in format "{OSM_OAUTH2_REDIRECT_URI}?code=XXXX". Extract code value
-  string const callbackUrl = request.UrlReceived();
-  auto const url = url::Url::FromString(callbackUrl);
-  string const * oauth2code = url.GetParamValue("code");
-
-  if(oauth2code == nullptr || oauth2code->empty())
-    MYTHROW(NetworkError, ("SendAuthRequest Redirect url has no code parameter", request.UrlReceived()));
-  return *oauth2code;
+  string const oauthCode = FindOauthCode(request.UrlReceived());
+  if (oauthCode.empty())
+    MYTHROW(OsmOAuth::NetworkError, ("SendAuthRequest Redirect url has no 'code' parameter", request.UrlReceived()));
+  return oauthCode;
 }
 
 string OsmOAuth::FetchRequestToken(SessionID const & sid) const
@@ -239,18 +250,32 @@ string OsmOAuth::FetchRequestToken(SessionID const & sid) const
   });
   HttpClient request(requestTokenUrl + "?" + requestTokenQuery);
   request.SetCookies(sid.m_cookies)
-         .SetHandleRedirects(false);
+         .SetHandleRedirects(true);
 
   if (!request.RunHttpRequest())
     MYTHROW(NetworkError, ("FetchRequestToken Network error while connecting to", request.UrlRequested()));
-  if (request.ErrorCode() != HTTP::OK)
-    MYTHROW(FetchRequestTokenServerError, (DebugPrint(request)));
-  if (request.WasRedirected())
-    MYTHROW(UnexpectedRedirect, ("Redirected to", request.UrlReceived(), "from", request.UrlRequested()));
 
-  // Throws std::runtime_error.
-  string const authenticityToken = FindAuthenticityToken(request.ServerResponse());
-  return authenticityToken;
+  if (request.WasRedirected()) {
+    if (request.UrlReceived().find(m_oauth2params.m_redirectUri) != 0)
+      MYTHROW(OsmOAuth::NetworkError, ("FetchRequestToken Redirect url han unexpected prefix", request.UrlReceived()));
+
+    // User already accepted OAuth2 request.
+    // Recieved URL in format "{OSM_OAUTH2_REDIRECT_URI}?code=XXXX". Extract code value
+    string const oauthCode = FindOauthCode(request.UrlReceived());
+    if (oauthCode.empty())
+      MYTHROW(OsmOAuth::NetworkError, ("FetchRequestToken Redirect url has no 'code' parameter", request.UrlReceived()));
+    return oauthCode;
+  }
+  else {
+    if (request.ErrorCode() != HTTP::OK)
+      MYTHROW(FetchRequestTokenServerError, (DebugPrint(request)));
+
+    // Throws std::runtime_error.
+    string const authenticityToken = FindAuthenticityToken(request.ServerResponse());
+
+    // Accept OAuth2 request from server
+    return SendAuthRequest(authenticityToken, sid);
+  }
 }
 
 string OsmOAuth::FinishAuthorization(string const & oauth2code) const
@@ -282,8 +307,7 @@ string OsmOAuth::FinishAuthorization(string const & oauth2code) const
 string OsmOAuth::FetchAccessToken(SessionID const & sid) const
 {
   // Faking a button press for access rights.
-  string const requestToken = FetchRequestToken(sid);
-  string const oauth2code = SendAuthRequest(requestToken, sid);
+  string const oauth2code = FetchRequestToken(sid);
   LogoutUser(sid);
 
   // Got code, exchange it for the access token.
