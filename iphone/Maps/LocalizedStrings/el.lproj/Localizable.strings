@@ -52,6 +52,18 @@
 
 "about_menu_title" = "Σχετικά με το Organic Maps";
 
+/* Text in About screen */
+"about_headline" = "Δωρεάν για όλους, φτιαγμένα με αγάπη";
+
+/* Text in About screen */
+"about_proposition_1" = "• Δεν υπάρχουν διαφημίσεις, χωρίς παρακολούθηση, χωρίς συλλογή δεδομένων";
+
+/* Text in About screen */
+"about_proposition_2" = "• Δεν υπάρχει αποστράγγιση μπαταρίας, λειτουργεί εκτός σύνδεσης";
+
+/* Text in About screen */
+"about_proposition_3" = "• Γρήγορο, μινιμαλιστικό, αναπτυγμένο από την κοινότητα";
+
 "close" = "Κλείσιμο";
 
 "download" = "Λήψη";
@@ -200,7 +212,7 @@
 "done" = "Ολοκληρώθηκε";
 
 /* Prints version number in About dialog */
-"version" = "Έκδοση: %@";
+"version" = "Έκδοση Organic Maps: %@";
 
 /* Data version in «About» screen, %@ is replaced by a local, human readable date. */
 "data_version" = "Δεδομένα OpenStreetMap: %@";
@@ -321,6 +333,9 @@
 /* Button in the main menu */
 "donate" = "Προσφέρω";
 
+/* Tex label above the Donate button */
+"donate_description" = "Κάντε δωρεά για να φτιάξουμε μαζί τους καλύτερους χάρτες!";
+
 /* Button in the main Help dialog */
 "how_to_support_us" = "Υποστηρίξτε το έργο";
 
@@ -329,6 +344,15 @@
 
 /* Text in menu + Button in the main Help dialog */
 "report_a_bug" = "Αναφορά σφάλματος";
+
+/* Button in the About screen */
+"report_incorrect_map_bug" = "Αναφορά ή διόρθωση εσφαλμένων δεδομένων χάρτη";
+
+/* Button in the About screen */
+"volunteer" = "Για να γίνεις εθελοντής";
+
+/* "Social media" section header in the About screen */
+"follow_us" = "Ακολουθήστε και επικοινωνήστε μαζί μας:";
 
 /* Alert text */
 "email_error_body" = "Το πρόγραμμα-client ηλεκτρονικού ταχυδρομείου έχει δεν έχει ρυθμιστεί. Ρυθμίστε το ή χρησιμοποιήστε άλλο τρόπο να επικοινωνήσετε μαζί μας στη διεύθυνση %@";
@@ -710,6 +734,9 @@
 
 "message_invalid_feature_position" = "Δε μπορεί να εντοπιστεί αντικείμενο εδώ";
 
+/* Text in About and OSM Login screens. First %@ is replaced by a local, human readable date. */
+"osm_presentation" = "Δεδομένα OpenStreetMap που δημιουργήθηκαν από την κοινότητα από την %@. Μάθετε περισσότερα για τον τρόπο επεξεργασίας και ενημέρωσης του χάρτη στο OpenStreetMap.org";
+
 "login_to_make_edits_visible" = "Συνδεθείτε ώστε άλλοι χρήστες να μπορούν να δουν τις αλλαγές που έχετε κάνει";
 
 /* Error dialog no space */
@@ -867,9 +894,6 @@
 "sharing_call_action_look" = "Αναχώρηση";
 
 "recent_track_background_dialog_message" = "Το Organic Maps χρησιμοποιεί τη γεωγραφική σας τοποθεσία στο παρασκήνιο για την καταγραφή των πρόσφατων διαδρομών σας.";
-
-/* Text under the version number in the Help dialog. TODO: Synchronize other translations with English. */
-"about_description" = "Οι Organic Maps είναι μια δωρεάν και ανοιχτού κώδικα εφαρμογή χαρτών εκτός σύνδεσης. Χωρίς διαφημίσεις. Χωρίς εντοπισμό. Εάν δείτε κάποιο σφάλμα στον χάρτη, διορθώστε το στο OpenStreetMap. Το έργο δημιουργείται από λάτρεις στον ελεύθερο χρόνο μας, επομένως χρειαζόμαστε τα σχόλια και την υποστήριξή σας.";
 
 "general_settings" = "Γενικές ρυθμίσεις";
 

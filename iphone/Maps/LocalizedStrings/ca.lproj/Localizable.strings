@@ -52,6 +52,18 @@
 
 "about_menu_title" = "Quant a l'Organic Maps";
 
+/* Text in About screen */
+"about_headline" = "Free for everyone, made with love";
+
+/* Text in About screen */
+"about_proposition_1" = "• No ads, no tracking, no data collection";
+
+/* Text in About screen */
+"about_proposition_2" = "• Sense consum de bateria, funciona fora de línia";
+
+/* Text in About screen */
+"about_proposition_3" = "• Ràpid, minimalista, desenvolupat per la comunitat";
+
 "close" = "Tanca";
 
 "download" = "Baixa";
@@ -200,7 +212,7 @@
 "done" = "Fet";
 
 /* Prints version number in About dialog */
-"version" = "Versió: %@";
+"version" = "Versió d'Organic Maps: %@";
 
 /* Data version in «About» screen, %@ is replaced by a local, human readable date. */
 "data_version" = "Dades de l'OpenStreetMap: %@";
@@ -321,6 +333,9 @@
 /* Button in the main menu */
 "donate" = "Donatiu";
 
+/* Tex label above the Donate button */
+"donate_description" = "Fes una donació per construir els millors mapes junts!";
+
 /* Button in the main Help dialog */
 "how_to_support_us" = "Donar suport al projecte";
 
@@ -329,6 +344,15 @@
 
 /* Text in menu + Button in the main Help dialog */
 "report_a_bug" = "Informació d'errors";
+
+/* Button in the About screen */
+"report_incorrect_map_bug" = "Informa o corregeix dades de mapa incorrectes";
+
+/* Button in the About screen */
+"volunteer" = "Fer-se voluntari";
+
+/* "Social media" section header in the About screen */
+"follow_us" = "Segueix i contacta amb nosaltres:";
 
 /* Alert text */
 "email_error_body" = "No s'ha configurat cap client de correu electrònic. Configureu-lo o useu un altra via per contactar amb nosaltres a %@";
@@ -710,6 +734,9 @@
 
 "message_invalid_feature_position" = "No s'ha trobat cap objecte aquí";
 
+/* Text in About and OSM Login screens. First %@ is replaced by a local, human readable date. */
+"osm_presentation" = "Dades d'OpenStreetMap creades per la comunitat a partir de %@. Obteniu més informació sobre com editar i actualitzar el mapa a OpenStreetMap.org";
+
 "login_to_make_edits_visible" = "Inicieu sessió perquè altres usuaris puguin veure els canvis que heu fet";
 
 /* Error dialog no space */
@@ -867,9 +894,6 @@
 "sharing_call_action_look" = "Verifica";
 
 "recent_track_background_dialog_message" = "Organic Maps usa la vostra ubicaicó en segon pla per a enregistrar la ruta que heu fet recentment.";
-
-/* Text under the version number in the Help dialog. TODO: Synchronize other translations with English. */
-"about_description" = "Organic Maps és una aplicació de mapes sense connexió, ràpida, de codi lliure, gratuïta, sense anuncis ni seguiment. Els mapes es basen en les dades col·laboratives d'OpenStreetMap. Podeu corregir errors del mapa i afegir-hi característiques. L'Organic Maps és un projecte de codi obert creat per entusiastes en el seu temps lliure. Els vostres comentaris i suport són molt apreciats!";
 
 "general_settings" = "Configuració general";
 

@@ -52,6 +52,18 @@
 
 "about_menu_title" = "À propos de Organic Maps";
 
+/* Text in About screen */
+"about_headline" = "Gratuit pour tout le monde, fait avec amour";
+
+/* Text in About screen */
+"about_proposition_1" = "• Pas d'annonces, pas de suivi, pas de collecte de données";
+
+/* Text in About screen */
+"about_proposition_2" = "• Pas d'épuisement de la batterie, fonctionne hors ligne";
+
+/* Text in About screen */
+"about_proposition_3" = "• Rapide, minimaliste, développé par la communauté";
+
 "close" = "Fermer";
 
 "download" = "Télécharger";
@@ -200,7 +212,7 @@
 "done" = "Terminé";
 
 /* Prints version number in About dialog */
-"version" = "Version : %@";
+"version" = "Version d'Organic Maps : %@";
 
 /* Data version in «About» screen, %@ is replaced by a local, human readable date. */
 "data_version" = "Données OpenStreetMap : %@";
@@ -321,6 +333,9 @@
 /* Button in the main menu */
 "donate" = "Faire un don";
 
+/* Tex label above the Donate button */
+"donate_description" = "Fais un don pour construire ensemble les meilleures cartes !";
+
 /* Button in the main Help dialog */
 "how_to_support_us" = "Soutenir le projet";
 
@@ -329,6 +344,15 @@
 
 /* Text in menu + Button in the main Help dialog */
 "report_a_bug" = "Signaler un bug";
+
+/* Button in the About screen */
+"report_incorrect_map_bug" = "Signaler ou corriger des données cartographiques incorrectes";
+
+/* Button in the About screen */
+"volunteer" = "Se porter volontaire";
+
+/* "Social media" section header in the About screen */
+"follow_us" = "Suis et contacte-nous :";
 
 /* Alert text */
 "email_error_body" = "Le client de courriel n'a pas été configuré. Veuillez le configurer ou nous contacter à %@";
@@ -710,6 +734,9 @@
 
 "message_invalid_feature_position" = "Aucun objet ne peut être localisé ici";
 
+/* Text in About and OSM Login screens. First %@ is replaced by a local, human readable date. */
+"osm_presentation" = "Données OpenStreetMap créées par la communauté en date du %@. Pour en savoir plus sur la façon de modifier et de mettre à jour la carte, consulte le site OpenStreetMap.org.";
+
 "login_to_make_edits_visible" = "Connectez vous à votre compte openstreetmap.org pour que d'autres utilisateurs puissent voir vos changements.";
 
 /* Error dialog no space */
@@ -867,9 +894,6 @@
 "sharing_call_action_look" = "Consultez";
 
 "recent_track_background_dialog_message" = "Organic Maps utilise votre géolocalisation en arrière-plan pour enregistrer vos itinéraires récents.";
-
-/* Text under the version number in the Help dialog. TODO: Synchronize other translations with English. */
-"about_description" = "Organic Maps est une application de cartographie hors ligne gratuite et open source. Pas de pubs. Pas de localisation. Si vous voyez une erreur sur la carte, veuillez la corriger dans OpenStreetMap. Le projet est créé par des passionnés pendant notre temps libre, nous avons donc besoin de vos commentaires et de votre soutien.";
 
 "general_settings" = "Paramètres généraux";
 

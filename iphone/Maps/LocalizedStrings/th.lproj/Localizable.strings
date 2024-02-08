@@ -52,6 +52,18 @@
 
 "about_menu_title" = "เกี่ยวกับ Organic Maps";
 
+/* Text in About screen */
+"about_headline" = "ฟรีสำหรับทุกคนทำด้วยความรัก";
+
+/* Text in About screen */
+"about_proposition_1" = "• ไม่มีโฆษณาไม่มีการติดตามไม่มีการรวบรวมข้อมูล";
+
+/* Text in About screen */
+"about_proposition_2" = "• ไม่มีแบตเตอรี่หมด ทำงานแบบออฟไลน์";
+
+/* Text in About screen */
+"about_proposition_3" = "• รวดเร็ว เรียบง่าย พัฒนาโดยชุมชน";
+
 "close" = "ปิด";
 
 "download" = "ดาวน์โหลด";
@@ -200,7 +212,7 @@
 "done" = "เสร็จแล้ว";
 
 /* Prints version number in About dialog */
-"version" = "เวอร์ชัน: %@";
+"version" = "เวอร์ชัน Organic Maps: %@";
 
 /* Data version in «About» screen, %@ is replaced by a local, human readable date. */
 "data_version" = "ข้อมูล OpenStreetMap: %@";
@@ -321,6 +333,9 @@
 /* Button in the main menu */
 "donate" = "บริจาค";
 
+/* Tex label above the Donate button */
+"donate_description" = "บริจาคเพื่อสร้างแผนที่ที่ดีที่สุดด้วยกัน!";
+
 /* Button in the main Help dialog */
 "how_to_support_us" = "สนับสนุนโครงการ";
 
@@ -329,6 +344,15 @@
 
 /* Text in menu + Button in the main Help dialog */
 "report_a_bug" = "แจ้งข้อผิดพลาด";
+
+/* Button in the About screen */
+"report_incorrect_map_bug" = "รายงานหรือแก้ไขข้อมูลแผนที่ที่ไม่ถูกต้อง";
+
+/* Button in the About screen */
+"volunteer" = "อาสาสมัคร";
+
+/* "Social media" section header in the About screen */
+"follow_us" = "ติดตามและติดต่อเรา:";
 
 /* Alert text */
 "email_error_body" = "อีเมลลูกค้ายังไม่ได้รับการจัดตั้งขึ้น กรุณาตั้งค่าหรือใช้วิธีอื่นที่จะติดต่อเราที่ %@";
@@ -710,6 +734,9 @@
 
 "message_invalid_feature_position" = "ไม่สามารถตั้งวัตถุได้ที่นี่";
 
+/* Text in About and OSM Login screens. First %@ is replaced by a local, human readable date. */
+"osm_presentation" = "ข้อมูล OpenStreetMap ที่สร้างโดยชุมชน ณ %@ เรียนรู้เพิ่มเติมเกี่ยวกับวิธีแก้ไขและอัปเดตแผนที่ได้ที่ OpenStreetMap.org";
+
 "login_to_make_edits_visible" = "ล็อกอินเพื่อให้ผู้ใช้คนอื่นสามารถเห็นการเปลี่ยนแปลงของคุณได้";
 
 /* Error dialog no space */
@@ -867,9 +894,6 @@
 "sharing_call_action_look" = "ตรวจชม";
 
 "recent_track_background_dialog_message" = "Organic Maps ใช้ตำแหน่งทางภูมิศาสตร์ของคุณในพื้นหลังเพื่อบันทึกเส้นทางที่คุณเดินทางเมื่อเร็ว ๆ นี้";
-
-/* Text under the version number in the Help dialog. TODO: Synchronize other translations with English. */
-"about_description" = "Organic Maps เป็นแอปพลิเคชันแผนที่ออฟไลน์แบบโอเพนซอร์สฟรี ไม่มีโฆษณา ไม่มีการติดตาม. หากคุณเห็นข้อผิดพลาดบนแผนที่ โปรดแก้ไขใน OpenStreetMap โครงการนี้สร้างขึ้นโดยผู้ที่ชื่นชอบในเวลาว่าง เราจึงต้องการความคิดเห็นและการสนับสนุนจากคุณ";
 
 "general_settings" = "การตั้งค่าทั่วไป";
 

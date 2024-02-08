@@ -41,9 +41,9 @@
 	<!-- Text in About screen -->
 	<string name="about_proposition_1">• Inga annonser, ingen spårning, ingen datainsamling</string>
 	<!-- Text in About screen -->
-	<string name="about_proposition_2">• Sparar batteriet, använder inte bakgrundsdata</string>
+	<string name="about_proposition_2">• Ingen batteriförbrukning, fungerar offline</string>
 	<!-- Text in About screen -->
-	<string name="about_proposition_3">• Snabb, minimalistisk, inget skräp</string>
+	<string name="about_proposition_3">• Snabb, minimalistisk, utvecklad av gemenskapen</string>
 	<!-- Text in About screen -->
 	<string name="about_developed_by_enthusiasts">Open-källansökan skapad av entusiaster och frivilliga.</string>
 	<!-- The button that opens system location settings -->
@@ -452,8 +452,8 @@
 	<string name="editor_report_problem_other_title">Ett annat problem</string>
 	<string name="placepage_add_business_button">Lägg till organisation</string>
 	<string name="message_invalid_feature_position">Ett objekt kan inte placeras här</string>
-	<!-- Text in About and OSM Login screens. %@ is replaced by a local, human readable date. -->
-	<string name="osm_presentation">Kartografiska data från OpenStreetMap från och med %s. Det är som Wikipedia där du kan lägga till eller redigera platser för alla användare över hela världen.</string>
+	<!-- Text in About and OSM Login screens. First %@ is replaced by a local, human readable date. -->
+	<string name="osm_presentation">Gemenskapsskapade OpenStreetMap-data från och med %s. Läs mer om hur du redigerar och uppdaterar kartan på OpenStreetMap.org</string>
 	<string name="login_to_make_edits_visible">Logga in så att andra användare kan se de ändringar du gjort.</string>
 	<!-- Downloaded 10 **of** 20 <- it is that "of" -->
 	<string name="downloader_of">%1$d av %2$d</string>

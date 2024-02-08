@@ -41,9 +41,9 @@
 	<!-- Text in About screen -->
 	<string name="about_proposition_1">•広告、追跡なし、データ収集なし</string>
 	<!-- Text in About screen -->
-	<string name="about_proposition_2">• バッテリーを節約し、バックグラウンド データを使用しません</string>
+	<string name="about_proposition_2">• バッテリーの消耗がなく、オフラインで動作する</string>
 	<!-- Text in About screen -->
-	<string name="about_proposition_3">•速く、ミニマルな、ジャンクなし</string>
+	<string name="about_proposition_3">• 高速、ミニマリスト、コミュニティによる開発</string>
 	<!-- Text in About screen -->
 	<string name="about_developed_by_enthusiasts">愛好家とボランティアによって作成されたオープンソースアプリケーション。</string>
 	<!-- The button that opens system location settings -->
@@ -482,8 +482,8 @@
 	<string name="editor_report_problem_other_title">異なる問題</string>
 	<string name="placepage_add_business_button">ビジネスを追加</string>
 	<string name="message_invalid_feature_position">ここにはオブジェクトを配置できません</string>
-	<!-- Text in About and OSM Login screens. %@ is replaced by a local, human readable date. -->
-	<string name="osm_presentation">%sの時点でのOpenStreetMapからの地図作成データ。これは、世界中のすべてのユーザーの場所を追加または編集できるウィキペディアのようなものです。</string>
+	<!-- Text in About and OSM Login screens. First %@ is replaced by a local, human readable date. -->
+	<string name="osm_presentation">コミュニティが作成した OpenStreetMap のデータは OpenStreetMap.org までです。地図の編集や更新の方法については、%sを参照してください。</string>
 	<string name="login_to_make_edits_visible">他のユーザーにも変更が表示されるようにログインしてください。</string>
 	<!-- Downloaded 10 **of** 20 <- it is that "of" -->
 	<string name="downloader_of">%2$dのうち%1$d</string>

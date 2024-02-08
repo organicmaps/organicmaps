@@ -52,6 +52,18 @@
 
 "about_menu_title" = "Om Organic Maps";
 
+/* Text in About screen */
+"about_headline" = "Gratis för alla, gjorda med kärlek";
+
+/* Text in About screen */
+"about_proposition_1" = "• Inga annonser, ingen spårning, ingen datainsamling";
+
+/* Text in About screen */
+"about_proposition_2" = "• Ingen batteriförbrukning, fungerar offline";
+
+/* Text in About screen */
+"about_proposition_3" = "• Snabb, minimalistisk, utvecklad av gemenskapen";
+
 "close" = "Stäng";
 
 "download" = "Ladda ner";
@@ -200,7 +212,7 @@
 "done" = "Klar";
 
 /* Prints version number in About dialog */
-"version" = "Version: %@";
+"version" = "Organic Maps version: %@";
 
 /* Data version in «About» screen, %@ is replaced by a local, human readable date. */
 "data_version" = "OpenStreetMap-data: %@";
@@ -321,6 +333,9 @@
 /* Button in the main menu */
 "donate" = "Donera";
 
+/* Tex label above the Donate button */
+"donate_description" = "Donera för att bygga de bästa kartorna tillsammans!";
+
 /* Button in the main Help dialog */
 "how_to_support_us" = "Stöd projektet";
 
@@ -329,6 +344,15 @@
 
 /* Text in menu + Button in the main Help dialog */
 "report_a_bug" = "Rapportera en bugg";
+
+/* Button in the About screen */
+"report_incorrect_map_bug" = "Rapportera eller korrigera felaktiga kartdata";
+
+/* Button in the About screen */
+"volunteer" = "Att arbeta frivilligt";
+
+/* "Social media" section header in the About screen */
+"follow_us" = "Följ och kontakta oss:";
 
 /* Alert text */
 "email_error_body" = "Emailklienten har inte konfigurerats. Konfigurera den eller använd ett annat sätt att kontakta oss på %@";
@@ -710,6 +734,9 @@
 
 "message_invalid_feature_position" = "Ett objekt kan inte placeras här";
 
+/* Text in About and OSM Login screens. First %@ is replaced by a local, human readable date. */
+"osm_presentation" = "Gemenskapsskapade OpenStreetMap-data från och med %@. Läs mer om hur du redigerar och uppdaterar kartan på OpenStreetMap.org";
+
 "login_to_make_edits_visible" = "Logga in så att andra användare kan se de ändringar du gjort.";
 
 /* Error dialog no space */
@@ -867,9 +894,6 @@
 "sharing_call_action_look" = "Kolla in";
 
 "recent_track_background_dialog_message" = "Organic Maps använder din geografiska position i bakgrunden för att spela in din senaste resta rutt.";
-
-/* Text under the version number in the Help dialog. TODO: Synchronize other translations with English. */
-"about_description" = "Organic Maps är en gratis offlinekartapplikation med öppen källkod. Inga annonser. Ingen spårning. Om du ser ett fel på kartan, åtgärda det i OpenStreetMap. Projektet skapas av entusiaster på vår fritid, så vi behöver din feedback och support.";
 
 "general_settings" = "Allmänna inställningar";
 

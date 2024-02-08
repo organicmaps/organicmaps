@@ -52,6 +52,18 @@
 
 "about_menu_title" = "關於 Organic Maps";
 
+/* Text in About screen */
+"about_headline" = "對每個人都免費，用愛製成";
+
+/* Text in About screen */
+"about_proposition_1" = "•沒有廣告，不會跟踪您，更不會收集您的數據";
+
+/* Text in About screen */
+"about_proposition_2" = "• 無電池消耗，離線工作";
+
+/* Text in About screen */
+"about_proposition_3" = "• 快速、簡約、由社區開發";
+
 "close" = "關閉";
 
 "download" = "下載";
@@ -200,7 +212,7 @@
 "done" = "完成";
 
 /* Prints version number in About dialog */
-"version" = "版本： %@";
+"version" = "有機地圖版本：%@";
 
 /* Data version in «About» screen, %@ is replaced by a local, human readable date. */
 "data_version" = "OpenStreetMap 數據：%@";
@@ -321,6 +333,9 @@
 /* Button in the main menu */
 "donate" = "捐助我們";
 
+/* Tex label above the Donate button */
+"donate_description" = "捐款共同打造最好的地圖！";
+
 /* Button in the main Help dialog */
 "how_to_support_us" = "支持項目";
 
@@ -329,6 +344,15 @@
 
 /* Text in menu + Button in the main Help dialog */
 "report_a_bug" = "報告問題";
+
+/* Button in the About screen */
+"report_incorrect_map_bug" = "報告或修復不正確的地圖數據";
+
+/* Button in the About screen */
+"volunteer" = "志工服務";
+
+/* "Social media" section header in the About screen */
+"follow_us" = "關注並聯絡我們：";
 
 /* Alert text */
 "email_error_body" = "電子郵件客戶端尚未建立。請設定或使用任何其他方式與我們聯絡%@";
@@ -710,6 +734,9 @@
 
 "message_invalid_feature_position" = "物件無法設置在這裡";
 
+/* Text in About and OSM Login screens. First %@ is replaced by a local, human readable date. */
+"osm_presentation" = "截至 %@ 的社群創建的 OpenStreetMap 資料。請訪問 OpenStreetMap.org 以了解有關如何編輯和更新地圖的更多信息";
+
 "login_to_make_edits_visible" = "登入來讓其他使用者能看到您所作出的修改。";
 
 /* Error dialog no space */
@@ -867,9 +894,6 @@
 "sharing_call_action_look" = "看一看";
 
 "recent_track_background_dialog_message" = "Organic Maps使用背景中的地理位置記錄您最近去過的路徑。";
-
-/* Text under the version number in the Help dialog. TODO: Synchronize other translations with English. */
-"about_description" = "Organic Maps 是一款免費的開源離線地圖 app。沒有廣告，不會追蹤您。如果您在地圖上看到錯誤，請在 OpenStreetMap 中修復吧。這個專案由愛好者在我們的空閒時間創建，因此我們需要您的回饋和支援。";
 
 "general_settings" = "一般設定";
 

@@ -44,9 +44,9 @@
 	<!-- Text in About screen -->
 	<string name="about_proposition_1">• Без реклами, без проследяване, без събиране на данни</string>
 	<!-- Text in About screen -->
-	<string name="about_proposition_2">• Пести батерията, не използва фонови данни</string>
+	<string name="about_proposition_2">• Без източване на батерията, работи офлайн</string>
 	<!-- Text in About screen -->
-	<string name="about_proposition_3">• Бързи, минималистични, без боклуци</string>
+	<string name="about_proposition_3">• Бързи, минималистични, разработен от общността</string>
 	<!-- Text in About screen -->
 	<string name="about_developed_by_enthusiasts">Приложение с отворен код, създадено от ентусиасти и доброволци.</string>
 	<!-- The button that opens system location settings -->
@@ -446,8 +446,8 @@
 	<string name="editor_report_problem_other_title">Друг проблем</string>
 	<string name="placepage_add_business_button">Добавяне на бизнес</string>
 	<string name="message_invalid_feature_position">Тук не може да бъде намерен обект</string>
-	<!-- Text in About and OSM Login screens. %@ is replaced by a local, human readable date. -->
-	<string name="osm_presentation">Картографски данни от OpenStreetMap към %s. Това е като Wikipedia, където можете да добавяте или редактирате места за всички потребители по света.</string>
+	<!-- Text in About and OSM Login screens. First %@ is replaced by a local, human readable date. -->
+	<string name="osm_presentation">Създадени от общността данни от OpenStreetMap към %s. Научете повече за това как да редактирате и актуализирате картата в OpenStreetMap.org</string>
 	<string name="login_to_make_edits_visible">Влезте в системата, за да могат другите потребители да видят направените от вас промени</string>
 	<!-- Downloaded 10 **of** 20 <- it is that "of" -->
 	<string name="downloader_of">%1$d от %2$d</string>

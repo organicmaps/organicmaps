@@ -43,9 +43,9 @@
 	<!-- Text in About screen -->
 	<string name="about_proposition_1">• Reklam yoxdur, izləmə yoxdur, məlumatların toplanması yoxdur</string>
 	<!-- Text in About screen -->
-	<string name="about_proposition_2">• Batareyanı tükətmir, arxa fon məlumatmatları yoxdur</string>
+	<string name="about_proposition_2">• Batareyanın boşalması yoxdur, oflayn işləyir</string>
 	<!-- Text in About screen -->
-	<string name="about_proposition_3">• Sürətli, minimalist və yüngül</string>
+	<string name="about_proposition_3">• Sürətli, minimalist, icma tərəfindən hazırlanmışdır</string>
 	<!-- Text in About screen -->
 	<string name="about_developed_by_enthusiasts">Həvəskarlar və könüllülər tərəfindən yaradılan açıq mənbə proqramı.</string>
 	<!-- The button that opens system location settings -->
@@ -480,8 +480,8 @@
 	<string name="editor_report_problem_other_title">Fərqli problem</string>
 	<string name="placepage_add_business_button">Təşkilat əlavə edin</string>
 	<string name="message_invalid_feature_position">Burada obyekti yerləşdirmək mümkün deyil</string>
-	<!-- Text in About and OSM Login screens. %@ is replaced by a local, human readable date. -->
-	<string name="osm_presentation">Xəritə datası %s üçün OpenStreetMap məlumatından götürülmüşdür. OpenStreetMap Vikipediyanın xəritə versiyası kimidir: siz dünyanın istənilən yerində istifadəçilər üçün yerlər əlavə edə və ya redaktə edə bilərsiniz.</string>
+	<!-- Text in About and OSM Login screens. First %@ is replaced by a local, human readable date. -->
+	<string name="osm_presentation">%s tarixinə icma tərəfindən yaradılmış OpenStreetMap datası. OpenStreetMap.org saytında xəritəni necə redaktə etmək və yeniləmək haqqında ətraflı məlumat əldə edin</string>
 	<string name="login_to_make_edits_visible">OpenStreetMap.org saytına daxil olun ki, digər istifadəçilər sizin etdiyiniz dəyişiklikləri görə bilsinlər.</string>
 	<!-- Downloaded 10 **of** 20 <- it is that "of" -->
 	<string name="downloader_of">%1$d/%2$d</string>

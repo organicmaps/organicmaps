@@ -52,6 +52,18 @@
 
 "about_menu_title" = "Organic Mapsについて";
 
+/* Text in About screen */
+"about_headline" = "すべての人のために無料で、愛を込めて作られています";
+
+/* Text in About screen */
+"about_proposition_1" = "•広告、追跡なし、データ収集なし";
+
+/* Text in About screen */
+"about_proposition_2" = "• バッテリーの消耗がなく、オフラインで動作する";
+
+/* Text in About screen */
+"about_proposition_3" = "• 高速、ミニマリスト、コミュニティによる開発";
+
 "close" = "閉じる";
 
 "download" = "ダウンロード";
@@ -200,7 +212,7 @@
 "done" = "完了";
 
 /* Prints version number in About dialog */
-"version" = "バージョン： %@";
+"version" = "Organic Mapsバージョン: %@";
 
 /* Data version in «About» screen, %@ is replaced by a local, human readable date. */
 "data_version" = "OpenStreetMapデータ：%@";
@@ -321,6 +333,9 @@
 /* Button in the main menu */
 "donate" = "寄付";
 
+/* Tex label above the Donate button */
+"donate_description" = "寄付して最高の地図を一緒に作ろう！";
+
 /* Button in the main Help dialog */
 "how_to_support_us" = "プロジェクトを支援する";
 
@@ -329,6 +344,15 @@
 
 /* Text in menu + Button in the main Help dialog */
 "report_a_bug" = "バグを報告";
+
+/* Button in the About screen */
+"report_incorrect_map_bug" = "誤った地図データを報告または修正する";
+
+/* Button in the About screen */
+"volunteer" = "ボランティアに参加する";
+
+/* "Social media" section header in the About screen */
+"follow_us" = "フォローして連絡しよう：";
 
 /* Alert text */
 "email_error_body" = "メールアプリは設定されていません。設定するか、%@にご連絡ください。";
@@ -710,6 +734,9 @@
 
 "message_invalid_feature_position" = "ここにはオブジェクトを配置できません";
 
+/* Text in About and OSM Login screens. First %@ is replaced by a local, human readable date. */
+"osm_presentation" = "コミュニティが作成した OpenStreetMap のデータは OpenStreetMap.org までです。地図の編集や更新の方法については、%@を参照してください。";
+
 "login_to_make_edits_visible" = "他のユーザーにも変更が表示されるようにログインしてください。";
 
 /* Error dialog no space */
@@ -867,9 +894,6 @@
 "sharing_call_action_look" = "ご覧ください";
 
 "recent_track_background_dialog_message" = "Organic Mapsは、あなたの位置情報をバックグラウンドで使用して最近の走行ルートを記録します。";
-
-/* Text under the version number in the Help dialog. TODO: Synchronize other translations with English. */
-"about_description" = "Organic Mapsは、無料のオープンソースのオフラインマップアプリケーションです。広告なし。全く追跡しません。地図上にエラーが表示された場合は、OpenStreetMapで修正してください。プロジェクトは私たちの自由な時間に愛好家によって作成されているため、フィードバックとサポートが必要です。";
 
 "general_settings" = "一般設定";
 

@@ -41,9 +41,9 @@
 	<!-- Text in About screen -->
 	<string name="about_proposition_1">• Nincs hirdetés, nincs nyomon követés, nincs adatgyűjtés</string>
 	<!-- Text in About screen -->
-	<string name="about_proposition_2">• Kíméli az akkumulátort, nem használ háttéradatokat</string>
+	<string name="about_proposition_2">• Nem merül le az akkumulátor, offline működik</string>
 	<!-- Text in About screen -->
-	<string name="about_proposition_3">• Gyors, minimalista, nincs szemét</string>
+	<string name="about_proposition_3">• Gyors, minimalista, közösség által fejlesztett</string>
 	<!-- Text in About screen -->
 	<string name="about_developed_by_enthusiasts">A rajongók és az önkéntesek által létrehozott nyílt forráskódú alkalmazás.</string>
 	<!-- The button that opens system location settings -->
@@ -468,8 +468,8 @@
 	<string name="editor_report_problem_other_title">Különböző problémaDifferent problem</string>
 	<string name="placepage_add_business_button">Szervezet hozzáadása</string>
 	<string name="message_invalid_feature_position">Célpont áthelyezése ide nem lehetséges</string>
-	<!-- Text in About and OSM Login screens. %@ is replaced by a local, human readable date. -->
-	<string name="osm_presentation">Kartográfiai adatok az OpenStreetMap-ból a %s-től. Olyan, mint a Wikipedia, ahol a világ minden felhasználójának helyét hozzáadhatja vagy szerkesztheti.</string>
+	<!-- Text in About and OSM Login screens. First %@ is replaced by a local, human readable date. -->
+	<string name="osm_presentation">Közösség által létrehozott OpenStreetMap adatok %s-tól. Tudjon meg többet a térkép szerkesztéséről és frissítéséről az OpenStreetMap.org oldalon.</string>
 	<string name="login_to_make_edits_visible">Jelentkezz be, hogy más felhasználók is láthassák a változtatásaidat.</string>
 	<!-- Downloaded 10 **of** 20 <- it is that "of" -->
 	<string name="downloader_of">%1$d/%2$d</string>

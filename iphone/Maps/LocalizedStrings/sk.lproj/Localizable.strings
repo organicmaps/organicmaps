@@ -52,6 +52,18 @@
 
 "about_menu_title" = "O aplikácii Organic Maps";
 
+/* Text in About screen */
+"about_headline" = "Zadarmo pre každého, vyrobené s láskou";
+
+/* Text in About screen */
+"about_proposition_1" = "• Žiadne reklamy, žiadne sledovanie, žiadny zber údajov";
+
+/* Text in About screen */
+"about_proposition_2" = "• Žiadne vybíjanie batérie, funguje v režime offline";
+
+/* Text in About screen */
+"about_proposition_3" = "• Rýchly, minimalistický, vyvinutý komunitou";
+
 "close" = "Zavrieť";
 
 "download" = "Stiahnuť";
@@ -200,7 +212,7 @@
 "done" = "Hotovo";
 
 /* Prints version number in About dialog */
-"version" = "Verzia: %@";
+"version" = "Verzia Organic Maps: %@";
 
 /* Data version in «About» screen, %@ is replaced by a local, human readable date. */
 "data_version" = "Údaje OpenStreetMap: %@";
@@ -321,6 +333,9 @@
 /* Button in the main menu */
 "donate" = "Darovať";
 
+/* Tex label above the Donate button */
+"donate_description" = "Darujte, aby sme spoločne vytvorili tie najlepšie mapy!";
+
 /* Button in the main Help dialog */
 "how_to_support_us" = "Podporte projekt";
 
@@ -329,6 +344,15 @@
 
 /* Text in menu + Button in the main Help dialog */
 "report_a_bug" = "Nahlásiť chybu";
+
+/* Button in the About screen */
+"report_incorrect_map_bug" = "Nahlásenie alebo oprava nesprávnych údajov mapy";
+
+/* Button in the About screen */
+"volunteer" = "Dobrovoľníctvo";
+
+/* "Social media" section header in the About screen */
+"follow_us" = "Sledujte nás a kontaktujte nás:";
 
 /* Alert text */
 "email_error_body" = "Emailový klient nebol nastavený. Nakonfigurujte ho prosím alebo použite iný spôsob k tomu, abyste nás kontaktovali na %@";
@@ -710,6 +734,9 @@
 
 "message_invalid_feature_position" = "Objekt sa tu nedá umiestniť";
 
+/* Text in About and OSM Login screens. First %@ is replaced by a local, human readable date. */
+"osm_presentation" = "Údaje OpenStreetMap vytvorené komunitou od %@. Viac informácií o tom, ako upravovať a aktualizovať mapu, nájdete na stránke OpenStreetMap.org";
+
 "login_to_make_edits_visible" = "Prihláste sa, aby mohli ostatní užívatelia vidieť Vami vykonané zmeny.";
 
 /* Error dialog no space */
@@ -867,9 +894,6 @@
 "sharing_call_action_look" = "Pozrite si";
 
 "recent_track_background_dialog_message" = "Organic Maps používa vašu geopozíciu na pozadí pre zaznamenávanie vami nedávno precestovanej trasy.";
-
-/* Text under the version number in the Help dialog. TODO: Synchronize other translations with English. */
-"about_description" = "Organic Maps je bezplatná offline aplikácia máp s otvoreným zdrojom. Žiadne reklamy. Žiadne sledovanie. Ak na mape vidíte chybu, opravte ju v OpenStreetMap. Projekt vytvárajú nadšenci v našom voľnom čase, preto potrebujeme vašu spätnú väzbu a podporu.";
 
 "general_settings" = "Všeobecné nastavenia";
 

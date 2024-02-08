@@ -52,6 +52,18 @@
 
 "about_menu_title" = "Organic Maps-i buruz";
 
+/* Text in About screen */
+"about_headline" = "Denontzat doan, maitasunez egina";
+
+/* Text in About screen */
+"about_proposition_1" = "• Ez iragarkirik, ez jarraipenik, ez datu-bilketarik";
+
+/* Text in About screen */
+"about_proposition_2" = "• Ez da bateria deskargatzen, konexiorik gabe funtzionatzen du";
+
+/* Text in About screen */
+"about_proposition_3" = "• Azkarra, minimalista, komunitateak garatua";
+
 "close" = "Itxi";
 
 "download" = "Deskargatu";
@@ -200,7 +212,7 @@
 "done" = "Eginda";
 
 /* Prints version number in About dialog */
-"version" = "Bertsioa: %@";
+"version" = "Organic Maps bertsioa: %@";
 
 /* Data version in «About» screen, %@ is replaced by a local, human readable date. */
 "data_version" = "OpenStreetMap datuak: %@";
@@ -321,6 +333,9 @@
 /* Button in the main menu */
 "donate" = "Dohaintza eman";
 
+/* Tex label above the Donate button */
+"donate_description" = "Eman dohaintza elkarrekin mapa onenak eraikitzeko!";
+
 /* Button in the main Help dialog */
 "how_to_support_us" = "Proiektuari laguntza eman";
 
@@ -329,6 +344,15 @@
 
 /* Text in menu + Button in the main Help dialog */
 "report_a_bug" = "Errore baten berri eman";
+
+/* Button in the About screen */
+"report_incorrect_map_bug" = "Salatu edo konpondu maparen datu okerrak";
+
+/* Button in the About screen */
+"volunteer" = "Boluntario izateko";
+
+/* "Social media" section header in the About screen */
+"follow_us" = "Jarraitu eta jarri gurekin harremanetan:";
 
 /* Alert text */
 "email_error_body" = "Posta elektronikoko bezeroa ez da konfiguratu. Mesedez, konfigura ezazu edo erabili beste moduren bat gurekin harremanetan jartzeko %@ helbidean";
@@ -710,6 +734,9 @@
 
 "message_invalid_feature_position" = "Hemen ezin da objekturik jarri";
 
+/* Text in About and OSM Login screens. First %@ is replaced by a local, human readable date. */
+"osm_presentation" = "Komunitateak sortutako OpenStreetMap datuak %@-tik aurrera. Lortu informazio gehiago mapa editatu eta eguneratzeari buruz OpenStreetMap.org helbidean";
+
 "login_to_make_edits_visible" = "Hasi saioa OpenStreetMapen beste erabiltzaileek zuk egindako aldaketak ikus ditzaten.";
 
 /* Error dialog no space */
@@ -867,9 +894,6 @@
 "sharing_call_action_look" = "Egiaztatu";
 
 "recent_track_background_dialog_message" = "Organic Maps-ek zure geokokapena erabiltzen du atzeko planoan egindako azken ibilbidea erregistratzeko.";
-
-/* Text under the version number in the Help dialog. TODO: Synchronize other translations with English. */
-"about_description" = "Organic Maps lineaz kanpoko mapa aplikazio doako eta irekia da. Iragarkirik ez. Ez dago jarraipenik. Mapan errore bat ikusten baduzu, konpondu OpenStreetMap-en. Proiektua zaleek sortu dute haien aisialdian, beraz, zure iritzia eta laguntza behar dugu.";
 
 "general_settings" = "Ezarpen orokorrak";
 

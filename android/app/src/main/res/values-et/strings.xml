@@ -37,7 +37,9 @@
 	<string name="try_again">Proovi uuesti</string>
 	<string name="about_menu_title">Organic Maps kohta</string>
 	<!-- Text in About screen -->
-	<string name="about_proposition_2">• Säästab akut, ei kasuta taustaandmeid</string>
+	<string name="about_proposition_2">• Ei tühjenda akut, töötab võrguühenduseta</string>
+	<!-- Text in About screen -->
+	<string name="about_proposition_3">• Kiire, minimalistlik, kogukonna poolt välja töötatud</string>
 	<!-- The button that opens system location settings -->
 	<string name="location_settings">Asukoha seaded</string>
 	<string name="close">Sulge</string>
@@ -470,6 +472,8 @@
 	<string name="editor_report_problem_other_title">Erinev probleem</string>
 	<string name="placepage_add_business_button">Lisa ettevõte</string>
 	<string name="message_invalid_feature_position">Ükski objekt ei saa siin asuda</string>
+	<!-- Text in About and OSM Login screens. First %@ is replaced by a local, human readable date. -->
+	<string name="osm_presentation">Ühenduse loodud OpenStreetMapi andmed alates %s. Lisateave selle kohta, kuidas kaarti redigeerida ja uuendada, on aadressil OpenStreetMap.org.</string>
 	<string name="login_to_make_edits_visible">Logi sisse OpenStreetMap.org keskkonda, et teised kasutajad näeksid Sinu tehtud muudatusi.</string>
 	<!-- Downloaded 10 **of** 20 <- it is that "of" -->
 	<string name="downloader_of">%1$d/%2$d</string>

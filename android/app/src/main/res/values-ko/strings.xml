@@ -41,9 +41,9 @@
 	<!-- Text in About screen -->
 	<string name="about_proposition_1">• 광고 없음, 추적 없음, 데이터 수집 없음</string>
 	<!-- Text in About screen -->
-	<string name="about_proposition_2">• 배터리를 절약하고 백그라운드 데이터를 사용하지 않습니다.</string>
+	<string name="about_proposition_2">• 배터리 소모 없음, 오프라인에서 작동</string>
 	<!-- Text in About screen -->
-	<string name="about_proposition_3">• 빠르고 최소한의 정크가 없습니다</string>
+	<string name="about_proposition_3">• 빠르고 미니멀한, 커뮤니티가 개발한</string>
 	<!-- Text in About screen -->
 	<string name="about_developed_by_enthusiasts">애호가와 자원 봉사자가 만든 오픈 소스 응용 프로그램.</string>
 	<!-- The button that opens system location settings -->
@@ -454,8 +454,8 @@
 	<string name="editor_report_problem_other_title">다른 문제</string>
 	<string name="placepage_add_business_button">조직 추가</string>
 	<string name="message_invalid_feature_position">목적지를 이곳에서 찾을 수 없습니다</string>
-	<!-- Text in About and OSM Login screens. %@ is replaced by a local, human readable date. -->
-	<string name="osm_presentation">%s 기준 OpenStreetMap의지도 제작 데이터. 전 세계 모든 사용자의 장소를 추가하거나 편집 할 수있는 Wikipedia와 같습니다.</string>
+	<!-- Text in About and OSM Login screens. First %@ is replaced by a local, human readable date. -->
+	<string name="osm_presentation">커뮤니티에서 만든 오픈스트리트맵 데이터(%s 기준). 지도를 편집하고 업데이트하는 방법에 대한 자세한 내용은 OpenStreetMap.org에서 확인하세요.</string>
 	<string name="login_to_make_edits_visible">로그인하여 다른 사용자가 변경한 내용을 볼 수 있도록 하십시오.</string>
 	<!-- Downloaded 10 **of** 20 <- it is that "of" -->
 	<string name="downloader_of">%2$d중의 %1$d</string>

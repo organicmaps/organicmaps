@@ -44,9 +44,9 @@
 	<!-- Text in About screen -->
 	<string name="about_proposition_1">• Без рэкламы, без трэкінгу, без збору вашых даных</string>
 	<!-- Text in About screen -->
-	<string name="about_proposition_2">• Эканоміць батарэю, не выкарыстоўвае фонавыя даныя</string>
+	<string name="about_proposition_2">• Няма разрадкі батарэі, працуе ў аўтаномным рэжыме</string>
 	<!-- Text in About screen -->
-	<string name="about_proposition_3">• Хуткія, мінімалістычныя, без смецця</string>
+	<string name="about_proposition_3">• Хуткія, мінімалістычныя, распрацаваныя супольнасцю</string>
 	<!-- Text in About screen -->
 	<string name="about_developed_by_enthusiasts">Праграма з адкрытым зыходным кодам, створаная энтузіястамі і валанцёрамі.</string>
 	<!-- The button that opens system location settings -->
@@ -478,8 +478,8 @@
 	<string name="editor_report_problem_other_title">Іншая праблема</string>
 	<string name="placepage_add_business_button">Дадаць установу</string>
 	<string name="message_invalid_feature_position">Аб\'ект не можа знаходзіцца тут</string>
-	<!-- Text in About and OSM Login screens. %@ is replaced by a local, human readable date. -->
-	<string name="osm_presentation">Картаграфічныя даныя OpenStreetMap па стане на %s. Гэта як Вікіпедыя, дзе вы можаце дадаць або рэдагаваць месцы для ўсіх карыстальнікаў па ўсім свеце.</string>
+	<!-- Text in About and OSM Login screens. First %@ is replaced by a local, human readable date. -->
+	<string name="osm_presentation">Створаныя супольнасцю даныя OpenStreetMap па стане на %s. Даведайцеся больш пра тое, як рэдагаваць і абнаўляць карту на OpenStreetMap.org</string>
 	<string name="login_to_make_edits_visible">Аўтарызуйцеся ў OpenStreetMap.org, каб іншыя карыстальнікі бачылі вашыя змены.</string>
 	<!-- Downloaded 10 **of** 20 <- it is that "of" -->
 	<string name="downloader_of">%1$d з %2$d</string>

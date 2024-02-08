@@ -41,9 +41,9 @@
 	<!-- Text in About screen -->
 	<string name="about_proposition_1">• Fără reclame, fără urmărire, fără colectare de date</string>
 	<!-- Text in About screen -->
-	<string name="about_proposition_2">• Economisește bateria, nu utilizează date de fundal</string>
+	<string name="about_proposition_2">• Nu consumă baterie, funcționează offline</string>
 	<!-- Text in About screen -->
-	<string name="about_proposition_3">• Rapid, minimalist, fără gunoi</string>
+	<string name="about_proposition_3">• Rapid, minimalist, dezvoltat de comunitate</string>
 	<!-- Text in About screen -->
 	<string name="about_developed_by_enthusiasts">Aplicație open-source creată de entuziaști și voluntari.</string>
 	<!-- The button that opens system location settings -->
@@ -466,8 +466,8 @@
 	<string name="editor_report_problem_other_title">Altă problemă</string>
 	<string name="placepage_add_business_button">Adaugă o firmă</string>
 	<string name="message_invalid_feature_position">Niciun obiect nu poate fi poziționat aici</string>
-	<!-- Text in About and OSM Login screens. %@ is replaced by a local, human readable date. -->
-	<string name="osm_presentation">Date cartografice de la OpenStreetMap din %s. Este ca Wikipedia unde puteți adăuga sau edita locuri pentru toți utilizatorii din lume.</string>
+	<!-- Text in About and OSM Login screens. First %@ is replaced by a local, human readable date. -->
+	<string name="osm_presentation">Date OpenStreetMap create de comunitate la data de %s. Aflați mai multe despre cum să editați și să actualizați harta la OpenStreetMap.org</string>
 	<string name="login_to_make_edits_visible">Autentifică-te pentru ca modificările pe care le-ai făcut să poată fi văzute și de alți utilizatori.</string>
 	<!-- Downloaded 10 **of** 20 <- it is that "of" -->
 	<string name="downloader_of">%1$d din %2$d</string>

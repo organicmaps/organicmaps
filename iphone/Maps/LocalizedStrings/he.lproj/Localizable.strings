@@ -52,6 +52,18 @@
 
 "about_menu_title" = "אודות Organic Maps";
 
+/* Text in About screen */
+"about_headline" = "חינם לכולם, מיוצרים באהבה";
+
+/* Text in About screen */
+"about_proposition_1" = "• ללא מודעות, ללא מעקב, ללא איסוף נתונים";
+
+/* Text in About screen */
+"about_proposition_2" = "• אין ריקון סוללה, עובד במצב לא מקוון";
+
+/* Text in About screen */
+"about_proposition_3" = "• מהיר, מינימליסטי, שפותח על ידי הקהילה";
+
 "close" = "סגור";
 
 "download" = "הורדה";
@@ -200,7 +212,7 @@
 "done" = "בוצע";
 
 /* Prints version number in About dialog */
-"version" = "גירסה: %@";
+"version" = "גרסת מפות אורגניות: %@";
 
 /* Data version in «About» screen, %@ is replaced by a local, human readable date. */
 "data_version" = "נתוני OpenStreetMap: %@";
@@ -321,6 +333,9 @@
 /* Button in the main menu */
 "donate" = "לתרום";
 
+/* Tex label above the Donate button */
+"donate_description" = "תרמו כדי לבנות יחד את המפות הטובות ביותר!";
+
 /* Button in the main Help dialog */
 "how_to_support_us" = "תמכו בפרויקט";
 
@@ -329,6 +344,15 @@
 
 /* Text in menu + Button in the main Help dialog */
 "report_a_bug" = "דווח על באג";
+
+/* Button in the About screen */
+"report_incorrect_map_bug" = "דווח או תקן נתוני מפה שגויים";
+
+/* Button in the About screen */
+"volunteer" = "להתנדב";
+
+/* "Social media" section header in the About screen */
+"follow_us" = "עקבו ופנו אלינו:";
 
 /* Alert text */
 "email_error_body" = "יישום הדוא\"ל לא הוגדר. אנא הגדירו אותו או השתמשו בכל דרך אחרת על מנת ליצור עמנו קשר בכתובת %@";
@@ -710,6 +734,9 @@
 
 "message_invalid_feature_position" = "לא ניתן למקם כאן פריט";
 
+/* Text in About and OSM Login screens. First %@ is replaced by a local, human readable date. */
+"osm_presentation" = "נתוני OpenStreetMap שנוצרו על ידי הקהילה החל מ-%@. למידע נוסף על איך לערוך ולעדכן את המפה ב-OpenStreetMap.org";
+
 "login_to_make_edits_visible" = "התחברו ל-openstreetmap.org כדי לפרסם את השינויים שלכם לעולם.";
 
 /* Error dialog no space */
@@ -867,9 +894,6 @@
 "sharing_call_action_look" = "Check out";
 
 "recent_track_background_dialog_message" = "האפליקצייה Organic Maps משתמשת במיקום שלך ברקע כדי להקליט את המסלול האחרון שלך.";
-
-/* Text under the version number in the Help dialog. TODO: Synchronize other translations with English. */
-"about_description" = "Organic Maps היא אפליקציית מפות לא מקוונות מהירה, בחינם ובקוד פתוח, ללא פרסומות וללא מעקב. אם אתה רואה שגיאה במפה, אנא תקן אותה ב-OpenStreetMap. הפרויקט נוצר על ידי חובבים בזמננו הפנוי, אז אנו זקוקים למשוב ולתמיכה שלכם.";
 
 "general_settings" = "הגדרות כלליות";
 

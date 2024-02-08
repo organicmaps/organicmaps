@@ -41,9 +41,7 @@
 	<!-- Text in About screen -->
 	<string name="about_proposition_1">• Sem anúncios, rastreamento ou coleta de dados</string>
 	<!-- Text in About screen -->
-	<string name="about_proposition_2">• Baixo consumo de bateria, sem atualização em segundo plano</string>
-	<!-- Text in About screen -->
-	<string name="about_proposition_3">• Rápido, minimalista e sem recursos desnecessários</string>
+	<string name="about_proposition_2">• Sem consumo de bateria, funciona off-line</string>
 	<!-- The button that opens system location settings -->
 	<string name="location_settings">Configurações de localização</string>
 	<string name="close">Fechar</string>
@@ -456,8 +454,8 @@
 	<string name="editor_report_problem_other_title">Um problema diferente</string>
 	<string name="placepage_add_business_button">Adicionar uma empresa</string>
 	<string name="message_invalid_feature_position">Nenhum objeto pode ser posicionado aqui</string>
-	<!-- Text in About and OSM Login screens. %@ is replaced by a local, human readable date. -->
-	<string name="osm_presentation">Os dados do mapa são provenientes do OpenStreetMap do dia %s. O OSM é como a Wikipédia dos mapas, onde você pode adicionar ou editar lugares para todos os usuários do mundo.</string>
+	<!-- Text in About and OSM Login screens. First %@ is replaced by a local, human readable date. -->
+	<string name="osm_presentation">Dados do OpenStreetMap criados pela comunidade a partir de %s. Saiba mais sobre como editar e atualizar o mapa em OpenStreetMap.org</string>
 	<string name="login_to_make_edits_visible">Fazer login para que outros usuários vejam as mudanças que você fez.</string>
 	<!-- Downloaded 10 **of** 20 <- it is that "of" -->
 	<string name="downloader_of">%1$d de %2$d</string>
