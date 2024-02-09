@@ -47,7 +47,11 @@ void Info::SetFromFeatureType(FeatureType & ft)
                                true /* allowTranslit */} , out);
   }
 
+  bool emptyTitle = false;
+
   m_primaryFeatureName = out.GetPrimary();
+  m_uiAddress = m_address;
+
   if (IsBookmark())
   {
     m_uiTitle = GetBookmarkName();
@@ -63,58 +67,37 @@ void Info::SetFromFeatureType(FeatureType & ft)
 
     if (m_uiTitle != secondaryTitle)
       m_uiSecondaryTitle = std::move(secondaryTitle);
-
-    m_uiSubtitle = FormatSubtitle(true /* withType */);
-    m_uiAddress = m_address;
-  }
-  else if (IsPublicTransportStop())
-  {
-    const std::string local_ref = std::string(GetMetadata(feature::Metadata::FMD_LOCAL_REF));
-
-    if (!local_ref.empty()) // has local ref
-    {
-      if (!m_primaryFeatureName.empty()) // has name and local_ref
-      {
-        m_uiTitle = m_primaryFeatureName + " (" + local_ref + ")";
-        m_uiSubtitle = FormatSubtitle(true /* withType */);
-      }
-      else // no name but has local_ref
-      {
-        m_uiTitle = GetLocalizedType() + " (" + local_ref + ")";
-        m_uiSubtitle = FormatSubtitle(false /* withType */);
-      }
-    }
-    else
-      SetStandardValues(out);
   }
   else if (IsBuilding())
   {
-    bool const isAddressEmpty = m_address.empty();
-    m_uiTitle = isAddressEmpty ? GetLocalizedType() : m_address;
-    m_uiSubtitle = FormatSubtitle(!isAddressEmpty /* withType */);
+    emptyTitle = m_address.empty();
+    if (!emptyTitle)
+      m_uiTitle = m_address;
+    m_uiAddress.clear();    // already in main title
   }
   else
-    SetStandardValues(out);
+  {
+    emptyTitle = m_primaryFeatureName.empty();
+    if (!emptyTitle)
+      m_uiTitle = m_primaryFeatureName;
+  }
+
+  // Assign Feature's type if main title is empty.
+  if (emptyTitle)
+    m_uiTitle = GetLocalizedType();
+
+  // Append local_ref tag into main title.
+  if (IsPublicTransportStop())
+  {
+    auto const lRef = GetMetadata(feature::Metadata::FMD_LOCAL_REF);
+    if (!lRef.empty())
+      m_uiTitle.append(" (").append(lRef).append(")");
+  }
+
+  m_uiSubtitle = FormatSubtitle(!emptyTitle /* withType */);
 
   // apply to all types after checks
   m_hotelType = ftypes::IsHotelChecker::Instance().GetHotelType(ft);
-}
-
-void Info::SetStandardValues(feature::NameParamsOut out)
-{
-  if (!m_primaryFeatureName.empty())
-  {
-    m_uiTitle = m_primaryFeatureName;
-    m_uiSecondaryTitle = out.secondary;
-    m_uiSubtitle = FormatSubtitle(true /* withType */);
-    m_uiAddress = m_address;
-  }
-  else
-  {
-    m_uiTitle = GetLocalizedType();
-    m_uiSubtitle = FormatSubtitle(false /* withType */);
-    m_uiAddress = m_address;
-  }
 }
 
 void Info::SetMercator(m2::PointD const & mercator)

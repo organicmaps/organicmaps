@@ -142,7 +142,7 @@ public:
   void SetTitlesForBookmark();
   void SetCustomNames(std::string const & title, std::string const & subtitle);
   void SetCustomNameWithCoordinates(m2::PointD const & mercator, std::string const & name);
-  void SetAddress(std::string const & address) { m_address = address; }
+  void SetAddress(std::string && address) { m_address = std::move(address); }
   void SetCanEditOrAdd(bool canEditOrAdd) { m_canEditOrAdd = canEditOrAdd; }
   void SetLocalizedWifiString(std::string const & str) { m_localizedWifiString = str; }
 
@@ -205,7 +205,6 @@ public:
   void SetWikiDescription(std::string && description) { m_description = std::move(description); }
 
   void SetMercator(m2::PointD const & mercator);
-  void SetStandardValues(feature::NameParamsOut out);
   std::vector<std::string> GetRawTypes() const { return m_types.ToObjectNames(); }
 
   std::optional<ftypes::IsHotelChecker::Type> GetHotelType() const { return m_hotelType; }
