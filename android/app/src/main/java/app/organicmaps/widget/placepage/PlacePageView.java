@@ -234,7 +234,6 @@ public class PlacePageView extends Fragment implements View.OnClickListener,
     mWifi = mFrame.findViewById(R.id.ll__place_wifi);
     mTvWiFi = mFrame.findViewById(R.id.tv__place_wifi);
     mOperator = mFrame.findViewById(R.id.ll__place_operator);
-    mOperator.setOnClickListener(this);
     mTvOperator = mFrame.findViewById(R.id.tv__place_operator);
     mLevel = mFrame.findViewById(R.id.ll__place_level);
     mTvLevel = mFrame.findViewById(R.id.tv__place_level);
@@ -257,11 +256,6 @@ public class PlacePageView extends Fragment implements View.OnClickListener,
     mEditTopSpace = mFrame.findViewById(R.id.edit_top_space);
     latlon.setOnLongClickListener(this);
     address.setOnLongClickListener(this);
-    mOperator.setOnLongClickListener(this);
-    mLevel.setOnLongClickListener(this);
-    mAtm.setOnLongClickListener(this);
-    mCapacity.setOnLongClickListener(this);
-    mWheelchair.setOnLongClickListener(this);
 
     mDownloaderIcon = new DownloaderStatusIcon(mPreview.findViewById(R.id.downloader_status_frame));
 
