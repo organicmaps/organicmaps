@@ -31088,8 +31088,7 @@
     da = Begrænset tilgængelighed for kørestol
     de = Eingeschränkter Rollstuhlzugang
     el = Μερικώς εξοπλισμένο για άτομα με ειδικές ανάγκες
-    es = Parcialmente equipado para discapacitados
-    es-MX = Parcialmente equipado para discapacitados
+    es = Parcialmente accesible en silla de ruedas
     et = Piiratud ratastooliga ligipääs
     eu = Ezinduentzako partzialki hornitua
     fa = دسترسی محدود با صندلی چرخ دار
@@ -31127,8 +31126,7 @@
     da = Ingen tilgængelighed for kørestol
     de = Kein Rollstuhlzugang
     el = Δεν υπάρχει πρόβλεψη για άτομα με ειδικές ανάγκες
-    es = No equipado para discapacitados
-    es-MX = No equipado para discapacitados
+    es = No accesible en silla de ruedas
     et = Puudub ratastooliga ligipääs
     eu = Ezinduentzako ekipatuta ez dago
     fa = بدون دسترسی با صندلی چرخ دار
@@ -31166,8 +31164,7 @@
     da = Fuld tilgængelighed for kørestol
     de = Vollständiger Zugang für Rollstühle
     el = Εξοπλισμένο για άτομα με ειδικές ανάγκες
-    es = Equipado para discapacitados
-    es-MX = Equipado para discapacitados
+    es = Accesible en silla de ruedas
     et = Täielik ratastooli ligipääs
     eu = Ezinduentzako hornitua
     fa = دسترسی کامل با صندلی چرخ دار
