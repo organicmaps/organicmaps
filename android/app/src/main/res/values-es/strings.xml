@@ -2043,9 +2043,9 @@
 	<string name="type.waterway.waterfall">Cascada</string>
 	<string name="type.waterway.weir">Presa</string>
 	<string name="type.wheelchair">Silla de ruedas</string>
-	<string name="type.wheelchair.limited">Parcialmente equipado para discapacitados</string>
-	<string name="type.wheelchair.no">No equipado para discapacitados</string>
-	<string name="type.wheelchair.yes">Equipado para discapacitados</string>
+	<string name="type.wheelchair.limited">Parcialmente accesible en silla de ruedas</string>
+	<string name="type.wheelchair.no">No accesible en silla de ruedas</string>
+	<string name="type.wheelchair.yes">Accesible en silla de ruedas</string>
 	<string name="type.aerialway.j.bar">Telesilla barra en J</string>
 	<string name="type.aerialway.magic_carpet">Alfombra mágica</string>
 	<string name="type.aerialway.platter">Telesilla de disco</string>
