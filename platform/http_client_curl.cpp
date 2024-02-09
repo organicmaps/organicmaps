@@ -278,9 +278,9 @@ bool HttpClient::RunHttpRequest()
     if (m_outputFile.empty())
       m_serverResponse = ReadFileAsString(rfile);
   }
-  else
+  else if(m_handleRedirects == false)
   {
-    // Handle HTTP redirect.
+    // Follow HTTP redirect.
     // TODO(AlexZ): Should we check HTTP redirect code here?
     LOG(LDEBUG, ("HTTP redirect", m_errorCode, "to", m_urlReceived));
 
