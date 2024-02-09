@@ -47,7 +47,7 @@ node|z14-[natural=cape],
 area|z14-[natural=cape],
 node|z14-[place=islet],
 area|z14-[place=islet],
-{text: name;}
+{text: name; text-color: @district_label;}
 
 node|z1-2[place=continent]
 {font-size: 12;text-color: @country_label;max-width: 5;}
@@ -58,7 +58,7 @@ area|z9-[place=archipelago],
 */
 node|z9-[place=island],
 area|z9-[place=island],
-{font-size: 8;text-color: @district_label;}
+{font-size: 8;}
 
 /*
 node|z12-[place=archipelago],
@@ -66,7 +66,7 @@ area|z12-[place=archipelago],
 */
 node|z12-[place=island],
 area|z12-[place=island]
-{font-size: 9;text-color: @district_label;}
+{font-size: 9;}
 
 /*
 node|z14-[place=archipelago],
@@ -76,7 +76,7 @@ node|z14-[place=island],
 area|z14-[place=island],
 node|z14-[place=islet],
 area|z14-[place=islet],
-{font-size: 10;text-color: @district_label;}
+{font-size: 10;}
 
 /*
 node|z16-[place=archipelago],
@@ -86,7 +86,7 @@ node|z16-[place=island],
 area|z16-[place=island],
 node|z16-[place=islet],
 area|z16-[place=islet],
-{font-size: 8;text-color: @district_label;}
+{font-size: 12;}
 
 node|z14-[natural=cape],
 area|z14-[natural=cape]
