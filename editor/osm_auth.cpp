@@ -338,6 +338,7 @@ bool OsmOAuth::ResetPassword(string const & email) const
   HttpClient request(m_baseUrl + kForgotPasswordUrlPart);
   request.SetBodyData(std::move(params), "application/x-www-form-urlencoded");
   request.SetCookies(sid.m_cookies);
+  request.SetHandleRedirects(false);
 
   if (!request.RunHttpRequest())
     MYTHROW(NetworkError, ("ResetPassword Network error while connecting to", request.UrlRequested()));
