@@ -10,7 +10,6 @@
 #include "base/string_utils.hpp"
 
 #include <algorithm>
-#include <functional>
 #include <sstream>
 #include <vector>
 
@@ -212,9 +211,17 @@ void TypesHolder::SortBySpec()
     return cl.GetObject(type)->GetMaxOverlaysPriority();
   };
 
-  std::stable_sort(begin(), end(), [&getPriority](uint32_t t1, uint32_t t2)
+  auto const & checker = UselessTypesChecker::Instance();
+
+  std::stable_sort(begin(), end(), [&checker, &getPriority](uint32_t t1, uint32_t t2)
   {
-    return getPriority(t1) > getPriority(t2);
+    int const p1 = getPriority(t1);
+    int const p2 = getPriority(t2);
+    if (p1 != p2)
+      return p1 > p2;
+
+    // Score - less is better.
+    return checker.Score(t1) < checker.Score(t2);
   });
 }
 
