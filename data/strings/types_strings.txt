@@ -376,7 +376,7 @@
     nl = Gate
     pl = Wyjście lotniskowe
     pt = Porta de embarque
-    pt-BR = Porta de embarque
+    pt-BR = Portão de embarque
     ru = Выход на посадку
     tr = Geçit
     uk = Вихід на посадку
@@ -687,8 +687,8 @@
     nb = Rasteplass
     nl = Barbecueplaats
     pl = Pole piknikowe
-    pt = Grelhador público
-    pt-BR = Grelhador público
+    pt = Parque de merendas
+    pt-BR = Local de piquenique
     ro = Locații picnic
     ru = Место для пикника
     sk = Piknik
@@ -866,8 +866,8 @@
     nb = Uteservering
     nl = Biertuin
     pl = Ogródek piwny
-    pt = Jardim da cerveja
-    pt-BR = Jardim da cerveja
+    pt = Biergarten
+    pt-BR = Biergarten
     ro = Berărie
     ru = Пивная под открытым небом
     sk = Piváreň
@@ -1208,6 +1208,7 @@
     nl = Gokken
     pl = Hazard
     pt = Jogatina
+    pt-BR = Casa de jogos de azar
     ro = Jocuri de noroc
     ru = Играть в азартные игры
     sk = Hazardné hry
@@ -1248,6 +1249,7 @@
     nl = Gamingcentrum voor volwassenen
     pl = Centrum gier dla dorosłych
     pt = Centro de jogos para adultos
+    pt-BR = Centro de jogos para adultos
     ro = Centru de jocuri pentru adulți
     ru = Игровой центр для взрослых
     sk = Centrum hier pre dospelých
@@ -1287,7 +1289,8 @@
     nb = Arcade
     nl = Arcade
     pl = Arkada
-    pt = Videogames
+    pt = Salão de jogos
+    pt-BR = Fliperama
     ro = Arcadă
     ru = Аркада
     sk = Arcade
@@ -3699,6 +3702,7 @@
     nl = Koninkrijkszaal van Jehovah's Getuigen
     pl = Sala Królestwa Świadków Jehowy
     pt = Salão do Reino das Testemunhas de Jeová
+    pt-BR = Salão do Reino das Testemunhas de Jeová
     ro = Sala Împărăției Martorilor lui Iehova
     ru = Зала Царства Свидетелей Иеговы
     sk = Kráľovstvo Jehovových svedkov
@@ -4033,7 +4037,7 @@
     nl = Gevangenis
     pl = Więzienie
     pt = Prisão
-    pt-BR = Presidiário
+    pt-BR = Prisão
     ru = Тюрьма
     tr = Hapishane
     uk = В'язниця
@@ -4064,7 +4068,7 @@
     nl = Kroeg
     pl = Pub
     pt = Pub ou taberna
-    pt-BR = Pub ou buteco
+    pt-BR = Bar ou boteco
     ru = Паб
     sk = Pohostinstvo
     sv = Krog
@@ -27500,8 +27504,8 @@
     nb = Lotteribilletter
     nl = Loten
     pl = Kolektura
-    pt = Bilhete de loteria
-    pt-BR = Bilhete de loteria
+    pt = Lotaria
+    pt-BR = Lotérica
     ro = Bilete la loterie
     ru = Лотерейные билеты
     sk = Lístky do lotérie
