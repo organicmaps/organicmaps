@@ -3829,11 +3829,11 @@
 
 "type.wheelchair" = "Silla de ruedas";
 
-"type.wheelchair.limited" = "Parcialmente equipado para discapacitados";
+"type.wheelchair.limited" = "Parcialmente accesible en silla de ruedas";
 
-"type.wheelchair.no" = "No equipado para discapacitados";
+"type.wheelchair.no" = "No accesible en silla de ruedas";
 
-"type.wheelchair.yes" = "Equipado para discapacitados";
+"type.wheelchair.yes" = "Accesible en silla de ruedas";
 
 "type.aerialway.j.bar" = "Telesilla barra en J";
 
