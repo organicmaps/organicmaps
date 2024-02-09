@@ -111,7 +111,7 @@
   if ([taskInfo.delegate
        respondsToSelector:@selector(URLSession:task:willPerformHTTPRedirection:newRequest:completionHandler:)])
   {
-    dispatch_async(dispatch_get_main_queue(), ^{
+    dispatch_async(dispatch_get_current_queue(), ^{
       [taskInfo.delegate URLSession:session
                                 task:task
           willPerformHTTPRedirection:response
@@ -134,7 +134,7 @@
 
   if ([taskInfo.delegate respondsToSelector:@selector(URLSession:task:didCompleteWithError:)])
   {
-    dispatch_async(dispatch_get_main_queue(), ^{
+    dispatch_async(dispatch_get_current_queue(), ^{
       [taskInfo.delegate URLSession:session task:task didCompleteWithError:error];
     });
   }
@@ -149,7 +149,7 @@
   if ([taskInfo.delegate
           respondsToSelector:@selector(URLSession:dataTask:didReceiveResponse:completionHandler:)])
   {
-    dispatch_async(dispatch_get_main_queue(), ^{
+    dispatch_async(dispatch_get_current_queue(), ^{
       [taskInfo.delegate URLSession:session
                            dataTask:dataTask
                  didReceiveResponse:response
@@ -169,7 +169,7 @@
   DataTaskInfo * taskInfo = [self taskInfoForTask:dataTask];
   if ([taskInfo.delegate respondsToSelector:@selector(URLSession:dataTask:didReceiveData:)])
   {
-    dispatch_async(dispatch_get_main_queue(), ^{
+    dispatch_async(dispatch_get_current_queue(), ^{
       [taskInfo.delegate URLSession:session dataTask:dataTask didReceiveData:data];
     });
   }
