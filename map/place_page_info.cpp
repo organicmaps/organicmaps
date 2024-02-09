@@ -68,18 +68,21 @@ void Info::SetFromFeatureType(FeatureType & ft)
     if (m_uiTitle != secondaryTitle)
       m_uiSecondaryTitle = std::move(secondaryTitle);
   }
-  else if (IsBuilding())
+  else if (!m_primaryFeatureName.empty())
   {
-    emptyTitle = m_address.empty();
-    if (!emptyTitle)
-      m_uiTitle = m_address;
-    m_uiAddress.clear();    // already in main title
+    m_uiTitle = m_primaryFeatureName;
   }
   else
   {
-    emptyTitle = m_primaryFeatureName.empty();
-    if (!emptyTitle)
-      m_uiTitle = m_primaryFeatureName;
+    if (IsBuilding())
+    {
+      emptyTitle = m_address.empty();
+      if (!emptyTitle)
+        m_uiTitle = m_address;
+      m_uiAddress.clear();    // already in main title
+    }
+    else
+      emptyTitle = true;
   }
 
   // Assign Feature's type if main title is empty.
