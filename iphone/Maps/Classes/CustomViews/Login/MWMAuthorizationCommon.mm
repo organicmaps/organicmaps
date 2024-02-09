@@ -57,6 +57,7 @@ BOOL AuthorizationHaveCredentials()
 void AuthorizationClearCredentials()
 {
   NSUserDefaults * ud = NSUserDefaults.standardUserDefaults;
+  [ud removeObjectForKey:kOSMAuthToken];
   [ud removeObjectForKey:kOSMRequestToken];
   [ud removeObjectForKey:kOSMRequestSecret];
   [ud removeObjectForKey:kOSMUserName];
