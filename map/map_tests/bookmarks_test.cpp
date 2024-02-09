@@ -1,24 +1,25 @@
 #include "testing/testing.hpp"
 
+#include "map/bookmark_helpers.hpp"
+#include "map/framework.hpp"
+
 #include "drape_frontend/visual_params.hpp"
 
 #include "indexer/feature_utils.hpp"
 #include "indexer/mwm_set.hpp"
-
-#include "map/bookmark_helpers.hpp"
-#include "map/framework.hpp"
 
 #include "platform/platform.hpp"
 #include "platform/preferred_languages.hpp"
 
 #include "coding/internal/file_data.hpp"
 #include "coding/string_utf8_multilang.hpp"
+#include "coding/zip_reader.hpp"
 
 #include "base/file_name_utils.hpp"
 #include "base/scope_guard.hpp"
 
 #include <array>
-#include <cstring>    // strlen
+#include <cstring>  // strlen
 #include <map>
 #include <memory>
 #include <set>
@@ -1385,6 +1386,80 @@ UNIT_CLASS_TEST(Runner, Bookmarks_AutoSave)
 
   TEST(base::DeleteFileX(fileName), ());
   TEST(base::DeleteFileX(fileName2), ());
+}
+
+UNIT_CLASS_TEST(Runner, ExportAll)
+{
+  std::string const gpxFiles[] = {
+    GetPlatform().TestsDataPathForFile("gpx_test_data/route.gpx"),
+    GetPlatform().TestsDataPathForFile("gpx_test_data/points.gpx"),
+    GetPlatform().TestsDataPathForFile("gpx_test_data/Üφήが1.gpx"),
+    GetPlatform().TestsDataPathForFile("gpx_test_data/Üφήが2.gpx")};
+  BookmarkManager bmManager(BM_CALLBACKS);
+  bmManager.EnableTestMode(true);
+
+  BookmarkManager::KMLDataCollection kmlDataCollection;
+  for (auto const & file : gpxFiles)
+    kmlDataCollection.emplace_back(file, LoadKmlFile(file, KmlFileType::Gpx));
+
+  bmManager.CreateCategories(std::move(kmlDataCollection));
+  TEST_EQUAL(bmManager.GetBmGroupsIdList().size(), 4, ());
+
+  auto categories = bmManager.GetBmGroupsIdList();
+  auto checker = [](BookmarkManager::SharingResult const & result)
+  {
+    auto kmz = result.m_sharingPath;
+    ZipFileReader::FileList files;
+    ZipFileReader::FilesList(kmz, files);
+    TEST_EQUAL(files.size(), 5, ("5 files are expected in kmz"));
+    auto index = "doc.kml";
+    std::vector<std::string> expectedFiles = {"doc.kml", "files/new.kml", "files/Some random route.kml",
+                                               "files/OrganicMaps_1.kml", "files/OrganicMaps_2.kml"};
+    for (auto const & file : files)
+      TEST(std::find(expectedFiles.begin(), expectedFiles.end(), file.first) != expectedFiles.end(), ());
+    auto indexPath = base::JoinPath(GetPlatform().TmpDir(), index);
+    ZipFileReader::UnzipFile(kmz, index, indexPath);
+    std::string indexContent;
+    FileReader(indexPath).ReadAsString(indexContent);
+    std::string expectedIndexContent;
+    FileReader(GetPlatform().TestsDataPathForFile("kml_test_data/kmz_index.kml"))
+        .ReadAsString(expectedIndexContent);
+    TEST_EQUAL(expectedIndexContent, indexContent, ("Index content doesnt match expected value"));
+    auto tmpPath = base::JoinPath(GetPlatform().TmpDir(), "tmp.xml");
+    for (auto const & file : files)
+    {
+      base::DeleteFileX(tmpPath);
+      ZipFileReader::UnzipFile(kmz, file.first, tmpPath);
+    }
+    TEST(base::DeleteFileX(kmz), ());
+    TEST(base::DeleteFileX(indexPath), ());
+    TEST(base::DeleteFileX(tmpPath), ());
+  };
+  bmManager.PrepareFileForSharing(std::move(categories), checker);
+}
+
+UNIT_CLASS_TEST(Runner, ExportSingleUnicode)
+{
+  string file = GetPlatform().TestsDataPathForFile("gpx_test_data/Üφήが1.gpx");
+  BookmarkManager bmManager(BM_CALLBACKS);
+  bmManager.EnableTestMode(true);
+  BookmarkManager::KMLDataCollection kmlDataCollection;
+  kmlDataCollection.emplace_back(file, LoadKmlFile(file, KmlFileType::Gpx));
+  bmManager.CreateCategories(std::move(kmlDataCollection));
+  auto categories = bmManager.GetBmGroupsIdList();
+  auto checker = [](BookmarkManager::SharingResult const & result)
+  {
+    auto kmz = result.m_sharingPath;
+    ZipFileReader::FileList files;
+    ZipFileReader::FilesList(kmz, files);
+    TEST_EQUAL(1, files.size(), ());
+    TEST_EQUAL("OrganicMaps.kml", files.at(0).first, ());
+    auto tmpPath = base::JoinPath(GetPlatform().TmpDir(), "tmp.xml");
+    ZipFileReader::UnzipFile(kmz, files.at(0).first, tmpPath);
+    TEST(base::DeleteFileX(kmz), ());
+    TEST(base::DeleteFileX(tmpPath), ());
+  };
+  bmManager.PrepareFileForSharing(std::move(categories), checker);
 }
 
 UNIT_CLASS_TEST(Runner, Bookmarks_BrokenFile)

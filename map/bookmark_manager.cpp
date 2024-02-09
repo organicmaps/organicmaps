@@ -31,7 +31,6 @@
 #include <sstream>
 #include <unordered_map>
 
-
 namespace
 {
 std::string const kLastEditedBookmarkCategory = "LastBookmarkCategory";
@@ -74,12 +73,17 @@ public:
   m2::PointD m_globalCenter;
 };
 
-BookmarkManager::SharingResult GetFileForSharing(BookmarkManager::KMLDataCollectionPtr collection)
+std::string GetFileNameForExport(BookmarkManager::KMLDataCollectionPtr::element_type::value_type const & kmlToShare)
 {
-  auto const & kmlToShare = collection->front();
   std::string fileName = RemoveInvalidSymbols(kml::GetDefaultStr(kmlToShare.second->m_categoryData.m_name));
   if (fileName.empty())
     fileName = base::GetNameFromFullPathWithoutExt(kmlToShare.first);
+  return fileName;
+}
+
+BookmarkManager::SharingResult ExportSingleFile(BookmarkManager::KMLDataCollectionPtr::element_type::value_type const & kmlToShare)
+{
+  std::string fileName = GetFileNameForExport(kmlToShare);
 
   auto const filePath = base::JoinPath(GetPlatform().TmpDir(), fileName + std::string{kKmlExtension});
   SCOPE_GUARD(fileGuard, std::bind(&base::DeleteFileX, filePath));
@@ -90,11 +94,90 @@ BookmarkManager::SharingResult GetFileForSharing(BookmarkManager::KMLDataCollect
     return {{categoryId}, BookmarkManager::SharingResult::Code::FileError, "Bookmarks file does not exist."};
 
   auto tmpFilePath = base::JoinPath(GetPlatform().TmpDir(), fileName + std::string{kKmzExtension});
-  if (!CreateZipFromPathDeflatedAndDefaultCompression(filePath, tmpFilePath))
+
+  if (!CreateZipFromFiles({filePath}, tmpFilePath))
     return {{categoryId}, BookmarkManager::SharingResult::Code::ArchiveError, "Could not create archive."};
 
   return {{categoryId}, std::move(tmpFilePath)};
 }
+
+std::string BuildIndexFile(std::vector<std::string> const & filesForIndex)
+{
+  std::string const filePath = base::JoinPath(GetPlatform().TmpDir(), "doc.kml");
+  FileWriter fileWriter(filePath);
+  std::string content = "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n"
+      "<kml xmlns=\"http://earth.google.com/kml/2.0\">\n"
+      "<Document>\n"
+      "<name>Organic Maps Bookmarks and Tracks</name>\n";
+  for (auto const & fileName : filesForIndex)
+  {
+    content.append("<NetworkLink><name>");
+    content.append(base::GetNameFromFullPathWithoutExt(fileName));
+    content.append("</name><Link><href>");
+    content.append(fileName);
+    content.append("</href></Link></NetworkLink>\n");
+  }
+  content.append("</Document>\n"
+             "</kml>");
+  fileWriter.Write(content.c_str(), content.length());
+  return filePath;
+}
+
+BookmarkManager::SharingResult ExportMultipleFiles(BookmarkManager::KMLDataCollectionPtr collection)
+{
+  auto const kmzFileName = "OrganicMapsBackup_" + std::to_string(base::GenerateYYMMDD(time(nullptr)));
+  auto kmzFilePath = base::JoinPath(GetPlatform().TmpDir(), kmzFileName + std::string{kKmzExtension});
+  auto const filesDir = "files/";
+  kml::GroupIdCollection categoriesIds;
+  for (auto const & kmlToExport : *collection)
+    categoriesIds.push_back(kmlToExport.second->m_categoryData.m_id);
+  std::vector<std::string> filesInArchive;
+  std::vector<std::string> pathsForArchive;
+
+  SCOPE_GUARD(deleteFileGuard, [&pathsForArchive]()
+  {
+    for (auto const & path : pathsForArchive)
+      base::DeleteFileX(path);
+  });
+
+  int suffix = 1;
+  for (auto const & kmlToExport : *collection)
+  {
+    std::string fileName = base::FilenameWithoutExt(GetFileNameForExport(kmlToExport));
+    if (!strings::IsASCIIString(fileName))
+      fileName = "OrganicMaps_" + std::to_string(suffix++);
+    auto const kmlPath = base::JoinPath(GetPlatform().TmpDir(), fileName + std::string{kKmlExtension});
+    auto const filePathInArchive = filesDir + fileName + std::string{kKmlExtension};
+    if (!SaveKmlFileSafe(*kmlToExport.second, kmlPath, KmlFileType::Text))
+      continue;
+    pathsForArchive.push_back(kmlPath);
+    filesInArchive.push_back(filePathInArchive);
+  }
+  std::string indexFilePath;
+  try
+  {
+    indexFilePath = BuildIndexFile(filesInArchive);
+  }
+  catch (Writer::WriteException const & e)
+  {
+    LOG(LERROR, ("Error creating index file ", indexFilePath, " error ", e.Msg(), " cause ", e.what()));
+    return {std::move(categoriesIds), BookmarkManager::SharingResult::Code::ArchiveError, "Could not create archive."};
+  }
+  filesInArchive.insert(filesInArchive.begin(), "doc.kml");
+  pathsForArchive.insert(pathsForArchive.begin(), indexFilePath);
+  if (!CreateZipFromFiles(pathsForArchive, filesInArchive, kmzFilePath))
+    return {std::move(categoriesIds), BookmarkManager::SharingResult::Code::ArchiveError, "Could not create archive."};
+  return {std::move(categoriesIds), std::move(kmzFilePath)};
+}
+
+BookmarkManager::SharingResult GetFileForSharing(BookmarkManager::KMLDataCollectionPtr collection)
+{
+  if (collection->size() == 1)
+    return ExportSingleFile(collection->front());
+  else
+    return ExportMultipleFiles(collection);
+}
+
 
 std::string ToString(BookmarkManager::SortingType type)
 {
@@ -2613,10 +2696,16 @@ void BookmarkManager::PrepareFileForSharing(kml::GroupIdCollection && categories
     return;
   }
 
-  GetPlatform().RunTask(Platform::Thread::File, [collection = std::move(collection), handler = std::move(handler)]() mutable
+  if (m_testModeEnabled)
   {
     handler(GetFileForSharing(std::move(collection)));
-  });
+  }
+  else
+  {
+    GetPlatform().RunTask(Platform::Thread::File,
+                          [collection = std::move(collection), handler = std::move(handler)]() mutable
+                          { handler(GetFileForSharing(std::move(collection))); });
+  }
 }
 
 bool BookmarkManager::IsCategoryEmpty(kml::MarkGroupId categoryId) const

@@ -15,7 +15,7 @@ namespace
 {
 void CreateAndTestZip(std::string const & filePath, std::string const & zipPath)
 {
-  TEST(CreateZipFromPathDeflatedAndDefaultCompression(filePath, zipPath), ());
+  TEST(CreateZipFromFiles({filePath}, zipPath, CompressionLevel::DefaultCompression), ());
 
   ZipFileReader::FileList files;
   ZipFileReader::FilesList(zipPath, files);
@@ -34,6 +34,26 @@ void CreateAndTestZip(std::vector<std::string> const & files, std::string const 
                       CompressionLevel compression)
 {
   TEST(CreateZipFromFiles(files, zipPath, compression), ());
+
+  ZipFileReader::FileList fileList;
+  ZipFileReader::FilesList(zipPath, fileList);
+  std::string const unzippedFile = "unzipped.tmp";
+  for (size_t i = 0; i < files.size(); ++i)
+  {
+    TEST_EQUAL(fileList[i].second, FileReader(files[i]).Size(), ());
+
+    ZipFileReader::UnzipFile(zipPath, fileList[i].first, unzippedFile);
+
+    TEST(base::IsEqualFiles(files[i], unzippedFile), ());
+    TEST(base::DeleteFileX(unzippedFile), ());
+  }
+  TEST(base::DeleteFileX(zipPath), ());
+}
+
+void CreateAndTestZipWithFolder(std::vector<std::string> const & files, std::vector<std::string> const & filesInArchive, std::string const & zipPath,
+                      CompressionLevel compression)
+{
+  TEST(CreateZipFromFiles(files, filesInArchive, zipPath, compression), ());
 
   ZipFileReader::FileList fileList;
   ZipFileReader::FilesList(zipPath, fileList);
@@ -98,6 +118,26 @@ UNIT_TEST(CreateZip_MultipleFiles)
 
   for (auto compression : GetCompressionLevels())
     CreateAndTestZip(fileData, "testzip.zip", compression);
+}
+
+UNIT_TEST(CreateZip_MultipleFilesWithFolders)
+{
+  std::vector<std::string> const fileData{"testf1", "testfile2", "testfile3_longname.txt.xml.csv"};
+  std::vector<std::string> const fileInArchiveData{"testf1", "f2/testfile2", "f3/testfile3_longname.txt.xml.csv"};
+  SCOPE_GUARD(deleteFileGuard, [&fileData]()
+  {
+    for (auto const & file : fileData)
+      TEST(base::DeleteFileX(file), ());
+  });
+
+  for (auto const & name : fileData)
+  {
+    FileWriter f(name);
+    f.Write(name.c_str(), name.size());
+  }
+
+  for (auto compression : GetCompressionLevels())
+    CreateAndTestZipWithFolder(fileData, fileInArchiveData, "testzip.zip", compression);
 }
 
 UNIT_TEST(CreateZip_MultipleFilesSingleEmpty)
