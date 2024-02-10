@@ -25,6 +25,40 @@
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 */
 
+/*
+Generic POIs.
+Declare _before_ all concrete POIs to avoid styles overrides.
+*/
+
+node|z18-[tourism],
+area|z18-[tourism],
+node|z18-[office],
+area|z18-[office],
+node|z18-[craft],
+area|z18-[craft],
+node|z19-[amenity],
+area|z19-[amenity],
+{text: name; text-color: @poi_label; text-offset: 1;}
+
+node|z19-[amenity],
+area|z19-[amenity],
+{font-size: 10;}
+
+node|z18-[office],
+area|z18-[office],
+{icon-image: office-m.svg;}
+
+node|z18-[craft],
+area|z18-[craft],
+{icon-image: hand-m.svg;}
+
+node|z16-[shop],
+area|z16-[shop],
+{icon-min-distance: 10;}
+node|z18-[shop],
+area|z18-[shop],
+{icon-image: shop-m.svg;}
+
 /* 2. NATURAL */
 
 node|z10-[natural=volcano],
@@ -1054,38 +1088,18 @@ area|z18-[amenity=public_bookcase],
 node|z19-[power=substation],
 area|z19-[power=substation],
 node|z18-[man_made=survey_point],
+node|z19-[emergency=fire_hydrant],
+node|z19-[man_made=cairn],
+{text: name;text-color: @poi_label;text-offset: 1;font-size: 10;}
+
+/* TODO: all specific tourism/office/craft feature definitions atm rely on this to increase font size on z18- */
 node|z18-[tourism],
 area|z18-[tourism],
 node|z18-[office],
 area|z18-[office],
 node|z18-[craft],
 area|z18-[craft],
-node|z19-[amenity],
-area|z19-[amenity],
-node|z19-[emergency=fire_hydrant],
-node|z19-[man_made=cairn],
-{text: name;text-color: @poi_label;text-offset: 1;font-size: 10;}
-
-/* POI */
-
-node|z18-[tourism],
-area|z18-[tourism]
-{font-size: 11;text-offset: 1;}
-node|z18-[office],
-area|z18-[office]
-{icon-image: office-m.svg;font-size: 11;}
-
-node|z18-[craft],
-area|z18-[craft]
-{icon-image: hand-m.svg;font-size: 11;}
-
-/* Declare _before_ all concrete shops to avoid icons override */
-node|z16-[shop],
-area|z16-[shop],
-{icon-min-distance: 10;}
-node|z18-[shop],
-area|z18-[shop],
-{icon-image: shop-m.svg;}
+{font-size: 11;}
 
 /* 5.1 Hospital */
 
