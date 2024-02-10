@@ -47,6 +47,7 @@ using TrackIdSet = std::set<TrackId>;
 
 using GroupIdCollection = std::vector<MarkGroupId>;
 using GroupIdSet = std::set<MarkGroupId>;
+using GroupPathCollection = std::vector<std::string>;
 
 MarkGroupId constexpr kInvalidMarkGroupId = std::numeric_limits<MarkGroupId>::max();
 MarkId constexpr kInvalidMarkId = std::numeric_limits<MarkId>::max();

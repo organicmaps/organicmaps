@@ -26,6 +26,7 @@ public class BookmarkCategoriesAdapter extends BaseBookmarkCategoryAdapter<Recyc
   private final static int TYPE_CATEGORY_ITEM = 1;
   private final static int TYPE_ACTION_ADD = 2;
   private final static int TYPE_ACTION_IMPORT = 3;
+  private final static int TYPE_ACTION_EXPORT = 4;
   @Nullable
   private OnItemLongClickListener<BookmarkCategory> mLongClickListener;
   @Nullable
@@ -99,6 +100,15 @@ public class BookmarkCategoriesAdapter extends BaseBookmarkCategoryAdapter<Recyc
         });
         return new Holders.GeneralViewHolder(item);
       }
+      case TYPE_ACTION_EXPORT ->
+      {
+        View item = inflater.inflate(R.layout.item_bookmark_export, parent, false);
+        item.setOnClickListener(v -> {
+          if (mCategoryListCallback != null)
+            mCategoryListCallback.onExportButtonClick();
+        });
+        return new Holders.GeneralViewHolder(item);
+      }
       default -> throw new AssertionError("Invalid item type: " + viewType);
     }
   }
@@ -138,8 +148,14 @@ public class BookmarkCategoriesAdapter extends BaseBookmarkCategoryAdapter<Recyc
       case TYPE_ACTION_IMPORT ->
       {
         Holders.GeneralViewHolder generalViewHolder = (Holders.GeneralViewHolder) holder;
-        generalViewHolder.getImage().setImageResource(R.drawable.ic_checkbox_add);
+        generalViewHolder.getImage().setImageResource(R.drawable.ic_import);
         generalViewHolder.getText().setText(R.string.bookmarks_import);
+      }
+      case TYPE_ACTION_EXPORT ->
+      {
+        Holders.GeneralViewHolder generalViewHolder = (Holders.GeneralViewHolder) holder;
+        generalViewHolder.getImage().setImageResource(R.drawable.ic_export);
+        generalViewHolder.getText().setText(R.string.bookmarks_export);
       }
       default -> throw new AssertionError("Invalid item type: " + type);
     }
@@ -153,18 +169,22 @@ public class BookmarkCategoriesAdapter extends BaseBookmarkCategoryAdapter<Recyc
      * - TYPE_ACTION_HEADER   = 0
      * - TYPE_CATEGORY_ITEM 0 = 1
      * - TYPE_CATEGORY_ITEM n = n + 1
-     * - TYPE_ACTION_ADD      = count - 2
-     * - TYPE_ACTION_IMPORT   = count - 1
+     * - TYPE_ACTION_ADD      = count - 3
+     * - TYPE_ACTION_IMPORT   = count - 2
+     * - TYPE_ACTION_EXPORT   = count - 1
      */
 
     if (position == 0)
       return TYPE_ACTION_HEADER;
 
-    if (position == getItemCount() - 2)
+    if (position == getItemCount() - 3)
       return TYPE_ACTION_ADD;
 
-    if (position == getItemCount() - 1)
+    if (position == getItemCount() - 2)
       return TYPE_ACTION_IMPORT;
+
+    if (position == getItemCount() - 1)
+      return TYPE_ACTION_EXPORT;
 
     return TYPE_CATEGORY_ITEM;
   }
@@ -186,7 +206,7 @@ public class BookmarkCategoriesAdapter extends BaseBookmarkCategoryAdapter<Recyc
     int count = super.getItemCount();
     if (count == 0)
       return 0;
-    return 1 /* header */ + count + 1 /* add button */ + 1 /* import button */;
+    return 1 /* header */ + count + 1 /* add button */ + 1 /* import button */ + 1 /* export button */;
   }
 
   private class LongClickListener implements View.OnLongClickListener

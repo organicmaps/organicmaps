@@ -250,6 +250,12 @@ public class BookmarkCategoriesFragment extends BaseMwmRecyclerFragment<Bookmark
   }
 
   @Override
+  public void onExportButtonClick()
+  {
+    BookmarksSharingHelper.INSTANCE.prepareBookmarkCategoriesForSharing(requireActivity());
+  }
+
+  @Override
   public void onItemClick(@NonNull View v, @NonNull BookmarkCategory category)
   {
     mSelectedCategory = category;

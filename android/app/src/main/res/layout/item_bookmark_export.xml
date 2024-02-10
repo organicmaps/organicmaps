@@ -14,7 +14,7 @@
     android:id="@+id/image"
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
-    app:srcCompat="@drawable/ic_import"
+    app:srcCompat="@drawable/ic_export"
     app:tint="?colorAccent"/>
   <TextView
     android:id="@+id/text"
@@ -23,7 +23,7 @@
     android:layout_gravity="center_vertical"
     android:layout_marginStart="@dimen/margin_half"
     android:fontFamily="@string/robotoMedium"
-    android:text="@string/bookmarks_import"
+    android:text="@string/bookmarks_export"
     android:textAllCaps="true"
     android:textAppearance="@style/MwmTextAppearance.Body3"
     android:textColor="?colorAccent"/>

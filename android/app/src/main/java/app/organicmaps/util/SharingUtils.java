@@ -4,6 +4,8 @@ import android.content.ClipData;
 import android.content.Context;
 import android.content.Intent;
 import android.content.ComponentName;
+import android.content.pm.PackageManager;
+import android.content.pm.ResolveInfo;
 import android.location.Location;
 import android.net.Uri;
 import android.text.TextUtils;
@@ -14,6 +16,10 @@ import app.organicmaps.Framework;
 import app.organicmaps.R;
 import app.organicmaps.bookmarks.data.BookmarkInfo;
 import app.organicmaps.bookmarks.data.MapObject;
+
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 
 public class SharingUtils
 {
@@ -92,9 +98,11 @@ public class SharingUtils
     context.startActivity(Intent.createChooser(intent, context.getString(R.string.share)));
   }
 
-  public static void shareBookmarkFile(Context context, String fileName)
+  public static void shareBookmarkFile(Context context, String[] filenames)
   {
-    Intent intent = new Intent(Intent.ACTION_SEND);
+    if (filenames.length == 0)
+      throw new IllegalStateException("Empty filenames array");
+    Intent intent = new Intent(filenames.length == 1 ? Intent.ACTION_SEND : Intent.ACTION_SEND_MULTIPLE);
 
     final String subject = context.getString(R.string.share_bookmarks_email_subject);
     intent.putExtra(Intent.EXTRA_SUBJECT, subject);
@@ -102,23 +110,33 @@ public class SharingUtils
     final String text = context.getString(R.string.share_bookmarks_email_body);
     intent.putExtra(Intent.EXTRA_TEXT, text);
 
-    final Uri fileUri = StorageUtils.getUriForFilePath(context, fileName);
-    intent.putExtra(android.content.Intent.EXTRA_STREAM, fileUri);
-    // Properly set permissions for intent, see
-    // https://developer.android.com/reference/androidx/core/content/FileProvider#include-the-permission-in-an-intent
-    intent.setDataAndType(fileUri, KMZ_MIME_TYPE);
-    intent.setFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
-    if (android.os.Build.VERSION.SDK_INT <= android.os.Build.VERSION_CODES.LOLLIPOP_MR1) {
-      intent.setClipData(ClipData.newRawUri("", fileUri));
-      intent.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION | Intent.FLAG_GRANT_WRITE_URI_PERMISSION);
+    if (filenames.length == 1)
+    {
+      final Uri fileUri = StorageUtils.getUriForFilePath(context, filenames[0]);
+      intent.putExtra(android.content.Intent.EXTRA_STREAM, fileUri);
+      // Properly set permissions for intent, see
+      // https://developer.android.com/reference/androidx/core/content/FileProvider#include-the-permission-in-an-intent
+      intent.setDataAndType(fileUri, KMZ_MIME_TYPE);
+      if (android.os.Build.VERSION.SDK_INT <= android.os.Build.VERSION_CODES.LOLLIPOP_MR1)
+        intent.setClipData(ClipData.newRawUri("", fileUri));
     }
+    else
+    {
+      final ArrayList<Uri> uris = new ArrayList<>(filenames.length);
+      for (String filename : filenames)
+        uris.add(StorageUtils.getUriForFilePath(context, filename));
+      intent.putParcelableArrayListExtra(android.content.Intent.EXTRA_STREAM, uris);
+      intent.setType(KMZ_MIME_TYPE);
+    }
+
+    intent.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
 
     Intent chooser = Intent.createChooser(intent, context.getString(R.string.share));
 
     // Prevent sharing to ourselves (supported from API Level 24).
     if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.N)
     {
-      ComponentName[] excludeSelf = { new ComponentName(context, app.organicmaps.SplashActivity.class) };
+      ComponentName[] excludeSelf = {new ComponentName(context, app.organicmaps.SplashActivity.class)};
       chooser.putExtra(Intent.EXTRA_EXCLUDE_COMPONENTS, excludeSelf);
     }
 

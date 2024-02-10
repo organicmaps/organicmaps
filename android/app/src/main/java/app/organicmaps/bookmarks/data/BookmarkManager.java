@@ -494,6 +494,13 @@ public enum BookmarkManager
     return true;
   }
 
+  @WorkerThread
+  public void importBookmarksFiles(@NonNull ContentResolver resolver, @NonNull List<Uri> uris, @NonNull File tempDir)
+  {
+    for (Uri uri: uris)
+      importBookmarksFile(resolver, uri, tempDir);
+  }
+
   public boolean isAsyncBookmarksLoadingInProgress()
   {
     return nativeIsAsyncBookmarksLoadingInProgress();
@@ -557,6 +564,15 @@ public enum BookmarkManager
   public void setChildCategoriesVisibility(long catId, boolean visible)
   {
     nativeSetChildCategoriesVisibility(catId, visible);
+  }
+
+  public void prepareCategoriesForSharing()
+  {
+      final List<BookmarkCategory> categories = BookmarkManager.INSTANCE.getCategories();
+      long[] catIds = new long[categories.size()];
+      for (int i = 0; i < categories.size(); i++)
+          catIds[i] = categories.get(i).getId();
+      prepareCategoriesForSharing(catIds);
   }
 
   public void prepareCategoriesForSharing(long[] catIds)

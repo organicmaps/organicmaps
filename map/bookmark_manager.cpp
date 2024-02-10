@@ -76,24 +76,31 @@ public:
 
 BookmarkManager::SharingResult GetFileForSharing(BookmarkManager::KMLDataCollectionPtr collection)
 {
-  auto const & kmlToShare = collection->front();
-  std::string fileName = RemoveInvalidSymbols(kml::GetDefaultStr(kmlToShare.second->m_categoryData.m_name));
-  if (fileName.empty())
-    fileName = base::GetNameFromFullPathWithoutExt(kmlToShare.first);
+  kml::GroupIdCollection categoriesIds;
+  kml::GroupPathCollection categoriesPaths;
+  for (auto const & kmlToShare : *collection)
+  {
+    std::string fileName = RemoveInvalidSymbols(kml::GetDefaultStr(kmlToShare.second->m_categoryData.m_name));
+    if (fileName.empty())
+      fileName = base::GetNameFromFullPathWithoutExt(kmlToShare.first);
 
-  auto const filePath = base::JoinPath(GetPlatform().TmpDir(), fileName + std::string{kKmlExtension});
-  SCOPE_GUARD(fileGuard, std::bind(&base::DeleteFileX, filePath));
+    auto const filePath = base::JoinPath(GetPlatform().TmpDir(), fileName + std::string{kKmlExtension});
+    //SCOPE_GUARD(fileGuard, std::bind(&base::DeleteFileX, filePath));
 
-  auto const categoryId = kmlToShare.second->m_categoryData.m_id;
+    auto const categoryId = kmlToShare.second->m_categoryData.m_id;
 
-  if (!SaveKmlFileSafe(*kmlToShare.second, filePath, KmlFileType::Text))
-    return {{categoryId}, BookmarkManager::SharingResult::Code::FileError, "Bookmarks file does not exist."};
+    if (!SaveKmlFileSafe(*kmlToShare.second, filePath, KmlFileType::Text))
+      return {{categoryId}, BookmarkManager::SharingResult::Code::FileError, "Bookmarks file does not exist."};
 
-  auto tmpFilePath = base::JoinPath(GetPlatform().TmpDir(), fileName + std::string{kKmzExtension});
-  if (!CreateZipFromPathDeflatedAndDefaultCompression(filePath, tmpFilePath))
-    return {{categoryId}, BookmarkManager::SharingResult::Code::ArchiveError, "Could not create archive."};
+    auto tmpFilePath = base::JoinPath(GetPlatform().TmpDir(), fileName + std::string{kKmzExtension});
+    if (!CreateZipFromPathDeflatedAndDefaultCompression(filePath, tmpFilePath))
+      return {{categoryId}, BookmarkManager::SharingResult::Code::ArchiveError, "Could not create archive."};
 
-  return {{categoryId}, std::move(tmpFilePath)};
+    categoriesIds.push_back(categoryId);
+    categoriesPaths.push_back(tmpFilePath);
+  }
+
+  return {std::move(categoriesIds), std::move(categoriesPaths)};
 }
 
 std::string ToString(BookmarkManager::SortingType type)

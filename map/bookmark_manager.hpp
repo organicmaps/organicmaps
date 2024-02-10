@@ -316,10 +316,10 @@ public:
       FileError
     };
 
-    SharingResult(kml::GroupIdCollection && categoriesIds, std::string && sharingPath)
+    SharingResult(kml::GroupIdCollection && categoriesIds, kml::GroupPathCollection && categoriesPaths)
       : m_categoriesIds(categoriesIds)
+      , m_categoriesPaths(categoriesPaths)
       , m_code(Code::Success)
-      , m_sharingPath(std::move(sharingPath))
     {}
 
     SharingResult(kml::GroupIdCollection && categoriesIds, Code code)
@@ -333,9 +333,9 @@ public:
       , m_errorString(std::move(errorString))
     {}
 
-    kml::MarkIdCollection m_categoriesIds;
+    kml::GroupIdCollection m_categoriesIds;
+    kml::GroupPathCollection m_categoriesPaths;
     Code m_code;
-    std::string m_sharingPath;
     std::string m_errorString;
   };
 

@@ -15,7 +15,6 @@ import app.organicmaps.util.log.Logger;
 import com.google.android.material.dialog.MaterialAlertDialogBuilder;
 
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
 
 
@@ -32,6 +31,12 @@ public enum BookmarksSharingHelper
   {
     showProgressDialog(context);
     BookmarkManager.INSTANCE.prepareCategoriesForSharing(new long[]{catId});
+  }
+
+  public void prepareBookmarkCategoriesForSharing(@NonNull Activity context)
+  {
+    showProgressDialog(context);
+    BookmarkManager.INSTANCE.prepareCategoriesForSharing();
   }
 
   private void showProgressDialog(@NonNull Activity context)
@@ -53,7 +58,7 @@ public enum BookmarksSharingHelper
     switch (result.getCode())
     {
       case BookmarkSharingResult.SUCCESS ->
-          SharingUtils.shareBookmarkFile(context, result.getSharingPath());
+          SharingUtils.shareBookmarkFile(context, result.getCategoriesPaths());
       case BookmarkSharingResult.EMPTY_CATEGORY ->
           new MaterialAlertDialogBuilder(context, R.style.MwmTheme_AlertDialog)
               .setTitle(R.string.bookmarks_error_title_share_empty)

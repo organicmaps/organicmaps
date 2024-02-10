@@ -20429,6 +20429,51 @@
     zh-Hans = 导入书签和轨迹
     zh-Hant = 導入書籤和曲目
 
+  [bookmarks_export]
+    tags = android
+    comment = Bookmark categories screen, button that opens folder selection dialog to export KML/KMZ/GPX/KMB files
+    en = Export Bookmarks and Tracks
+    af = Voer boekmerke en snitte uit
+    ar = تصدير الإشارات المرجعية والمسارات
+    az = Əlfəcinləri və Parçaları ixrac edin
+    be = Экспартаваць закладкі і трэкі
+    bg = Експортиране на отметки и следи
+    ca = Exporta adreces d'interès i pistes
+    cs = Export záložek a stop
+    da = Eksport af bogmærker og spor
+    de = Lesezeichen und Tracks exportieren
+    el = Εξαγωγή σελιδοδεικτών και διαδρομών
+    es = Exportar marcadores y pistas
+    et = Ekspordi järjehoidjad ja lood
+    eu = Esportatu laster-markak eta ibilbideak
+    fa = صادرات نشانک ها و آهنگ ها
+    fi = Kirjanmerkkien ja raitojen vienti
+    fr = Exporter les signets et les pistes
+    he = ייצוא סימניות ורצועות
+    hi = बुकमार्क और ट्रैक निर्यात करें
+    hu = Könyvjelzők és sávok exportálása
+    id = Ekspor Penanda dan Trek
+    it = Esportazione di segnalibri e tracce
+    ja = ブックマークとトラックをエクスポートする
+    ko = 북마크 및 트랙 내보내기
+    lt = Eksportuoti žymes ir takelius
+    mr = बुकमार्क आणि ट्रॅक निर्यात करा
+    nb = Eksporter bokmerker og spor
+    nl = Bladwijzers en tracks exporteren
+    pl = Eksportuj zakładki i ścieżki
+    pt = Exportar marcadores e faixas
+    ro = Exportați marcajele și piesele
+    ru = Экспорт закладок и треков
+    sk = Exportovanie záložiek a stôp
+    sv = Exportera bokmärken och spår
+    sw = Hamisha Alamisho na Nyimbo
+    th = ส่งออกบุ๊กมาร์กและแทร็ก
+    tr = Yer İmlerini ve Parçaları Dışa Aktarma
+    uk = Експорт закладок і треків
+    vi = Xuất dấu trang và bản nhạc
+    zh-Hans = 导出书签和曲目
+    zh-Hant = 匯出書籤和曲目
+
   [downloader_hide_screen]
     tags = ios
     en = Hide Screen

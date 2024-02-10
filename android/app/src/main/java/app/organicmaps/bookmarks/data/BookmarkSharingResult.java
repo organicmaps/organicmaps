@@ -22,19 +22,19 @@ public class BookmarkSharingResult
   public static final int FILE_ERROR = 3;
 
   private final long[] mCategoriesIds;
+  private final String[] mCategoriesPaths;
   @Code
   private final int mCode;
-  @NonNull
-  private final String mSharingPath;
   @NonNull
   @SuppressWarnings("unused")
   private final String mErrorString;
 
-  public BookmarkSharingResult(long[] categoriesIds, @Code int code, @NonNull String sharingPath, @NonNull String errorString)
+  public BookmarkSharingResult(long[] categoriesIds, String[] categoriesPaths, @Code int code,
+                               @NonNull String errorString)
   {
     mCategoriesIds = categoriesIds;
+    mCategoriesPaths = categoriesPaths;
     mCode = code;
-    mSharingPath = sharingPath;
     mErrorString = errorString;
   }
 
@@ -43,15 +43,14 @@ public class BookmarkSharingResult
     return mCategoriesIds;
   }
 
+  public String[] getCategoriesPaths()
+  {
+    return mCategoriesPaths;
+  }
+
   public int getCode()
   {
     return mCode;
-  }
-
-  @NonNull
-  public String getSharingPath()
-  {
-    return mSharingPath;
   }
 
   @NonNull
