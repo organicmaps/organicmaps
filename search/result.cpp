@@ -67,10 +67,15 @@ uint32_t Result::GetFeatureType() const
   return m_featureType;
 }
 
+std::string GetLocalizedTypeName(uint32_t type)
+{
+  return platform::GetLocalizedTypeName(classif().GetReadableObjectName(type));
+}
+
 std::string Result::GetLocalizedFeatureType() const
 {
   ASSERT_EQUAL(m_resultType, Type::Feature, ());
-  return platform::GetLocalizedTypeName(classif().GetReadableObjectName(m_featureType));
+  return GetLocalizedTypeName(m_featureType);
 }
 
 std::string Result::GetFeatureDescription() const
@@ -85,7 +90,7 @@ std::string Result::GetFeatureDescription() const
     featureDescription += sv;
   };
   
-  append(GetLocalizedFeatureType());
+  append(GetLocalizedTypeName(m_featureType));
   
   if (!GetDescription().empty())
     append(GetDescription());
