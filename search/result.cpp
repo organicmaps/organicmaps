@@ -91,7 +91,8 @@ std::string Result::GetFeatureDescription() const
     featureDescription += sv;
   };
   
-  append(GetLocalizedTypeName(m_mainType));
+  if (!m_str.empty())
+    append(GetLocalizedTypeName(m_mainType));
   
   if (m_mainType != m_featureType && m_featureType != 0)
     append(GetLocalizedTypeName(m_featureType));
