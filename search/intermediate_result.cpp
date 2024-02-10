@@ -295,29 +295,29 @@ void FillDetails(FeatureType & ft, Result::Details & details)
     stars.append(osm::MapObject::kStarSymbol);
 
   auto const cuisines = feature::GetLocalizedCuisines(typesHolder);
-  auto const cuisine = strings::JoinStrings(cuisines, osm::MapObject::kFieldsSeparator);
+  auto const cuisine = strings::JoinStrings(cuisines, feature::kFieldsSeparator);
 
   auto const roadShields = ftypes::GetRoadShieldsNames(ft);
-  auto const roadShield = strings::JoinStrings(roadShields, osm::MapObject::kFieldsSeparator);
+  auto const roadShield = strings::JoinStrings(roadShields, feature::kFieldsSeparator);
 
   auto const fee = feature::GetLocalizedFeeType(typesHolder);
     
   std::string description;
   
   if (!stars.empty())
-    description.append(osm::MapObject::kFieldsSeparator).append(stars);
+    description.append(feature::kFieldsSeparator).append(stars);
   if (!airportIata.empty())
-    description.append(osm::MapObject::kFieldsSeparator).append(airportIata);
+    description.append(feature::kFieldsSeparator).append(airportIata);
   if (!roadShield.empty())
-    description.append(osm::MapObject::kFieldsSeparator).append(roadShield);
+    description.append(feature::kFieldsSeparator).append(roadShield);
   if (!brand.empty())
-    description.append(osm::MapObject::kFieldsSeparator).append(brand);
+    description.append(feature::kFieldsSeparator).append(brand);
   if (!cuisine.empty())
-    description.append(osm::MapObject::kFieldsSeparator).append(cuisine);
+    description.append(feature::kFieldsSeparator).append(cuisine);
   if (feature::HasToilets(typesHolder))
-    description.append(osm::MapObject::kFieldsSeparator).append(osm::MapObject::kToiletsSymbol);
+    description.append(feature::kFieldsSeparator).append(osm::MapObject::kToiletsSymbol);
   if (!fee.empty())
-    description.append(osm::MapObject::kFieldsSeparator).append(fee);
+    description.append(feature::kFieldsSeparator).append(fee);
   
   details.m_description = std::move(description);
 

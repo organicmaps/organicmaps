@@ -8,6 +8,8 @@ class StringUtf8Multilang;
 
 namespace feature
 {
+  static constexpr std::string_view kFieldsSeparator = " • ";
+
   // Address house numbers interpolation.
   enum class InterpolType { None, Odd, Even, Any };
 
