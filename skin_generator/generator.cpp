@@ -17,6 +17,10 @@ namespace tools
 {
 namespace
 {
+
+static constexpr double kLargeIconSize = 24.0;  // Size of the -l SVG icons
+static constexpr double kMediumIconSize = 18.0; // size of the -m SVG icons
+
 struct GreaterHeight
 {
   bool operator() (SkinGenerator::SymbolInfo const & left,
@@ -95,23 +99,23 @@ void SkinGenerator::ProcessSymbols(std::string const & svgDataDir,
         {
           QSize svgSize = m_svgRenderer.defaultSize(); // Size of the SVG file
 
-          QSize symbolSize = symbolSizes[j];  // Size of the symbol in the PNG skin
-          QSize size = svgSize * (symbolSize.width() / 18.0); // 18.0 is the size of the -m SVG files
-
-          // Fitting symbol into 24x24 max size (mdpi resolution), saving aspect ratio.
-          if (size.width() > symbolSize.width() * 24.0 / 18.0)
+          // Capping svg symbol to kLargeIconSize maximum, keeping aspect ratio
+          if (svgSize.width() > kLargeIconSize)
           {
-            auto const h = static_cast<float>(size.height()) * symbolSize.width() / size.width();
-            size.setHeight(static_cast<int>(h));
-            size.setWidth(symbolSize.width());
+            auto const h = static_cast<float>(svgSize.height()) * kLargeIconSize / svgSize.width();
+            svgSize.setHeight(static_cast<int>(h));
+            svgSize.setWidth(kLargeIconSize);
           }
 
-          if (size.height() > symbolSize.height() * 24.0 / 18.0)
+          if (svgSize.height() > kLargeIconSize)
           {
-            auto const w = static_cast<float>(size.width()) * symbolSize.height() / size.height();
-            size.setWidth(static_cast<int>(w));
-            size.setHeight(symbolSize.height());
+            auto const w = static_cast<float>(svgSize.width()) * kLargeIconSize / svgSize.height();
+            svgSize.setWidth(static_cast<int>(w));
+            svgSize.setHeight(kLargeIconSize);
           }
+
+          // Scale symbol to required size
+          QSize size = svgSize * (symbolSizes[j].width() / kMediumIconSize);
 
           page.m_symbols.emplace_back(size + QSize(4, 4), fullFileName, symbolID);
         }
