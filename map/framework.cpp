@@ -2666,7 +2666,7 @@ bool Framework::ParseEditorDebugCommand(search::SearchParams const & params)
 
       search::Result res(feature::GetCenter(*ft), string(ft->GetReadableName()));
       res.SetAddress(std::move(edit.second));
-      res.FromFeature(fid, feature::TypesHolder(*ft).GetBestType(), {});
+      res.FromFeature(fid, feature::TypesHolder(*ft).GetBestType(), 0, {});
 
       results.AddResultNoChecks(std::move(res));
     }
