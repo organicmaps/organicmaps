@@ -18,11 +18,12 @@ namespace search
 {
 using namespace std;
 
-void Result::FromFeature(FeatureID const & id, uint32_t featureType, Details const & details)
+void Result::FromFeature(FeatureID const & id, uint32_t mainType, uint32_t featureType, Details const & details)
 {
   m_id = id;
   ASSERT(m_id.IsValid(), ());
 
+  m_mainType = mainType;
   m_featureType = featureType;
   m_details = details;
   m_resultType = Type::Feature;
@@ -64,7 +65,7 @@ FeatureID const & Result::GetFeatureID() const
 uint32_t Result::GetFeatureType() const
 {
   ASSERT_EQUAL(m_resultType, Type::Feature, ());
-  return m_featureType;
+  return m_mainType;
 }
 
 std::string GetLocalizedTypeName(uint32_t type)
@@ -75,7 +76,7 @@ std::string GetLocalizedTypeName(uint32_t type)
 std::string Result::GetLocalizedFeatureType() const
 {
   ASSERT_EQUAL(m_resultType, Type::Feature, ());
-  return GetLocalizedTypeName(m_featureType);
+  return GetLocalizedTypeName(m_mainType);
 }
 
 std::string Result::GetFeatureDescription() const
@@ -90,7 +91,10 @@ std::string Result::GetFeatureDescription() const
     featureDescription += sv;
   };
   
-  append(GetLocalizedTypeName(m_featureType));
+  append(GetLocalizedTypeName(m_mainType));
+  
+  if (m_mainType != m_featureType && m_featureType != 0)
+    append(GetLocalizedTypeName(m_featureType));
   
   if (!GetDescription().empty())
     append(GetDescription());

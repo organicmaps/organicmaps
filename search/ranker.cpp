@@ -727,7 +727,7 @@ Result Ranker::MakeResult(RankerResult const & rankerResult, bool needAddress, b
   {
   case RankerResult::Type::Feature:
   case RankerResult::Type::Building:
-    res.FromFeature(rankerResult.GetID(), rankerResult.GetBestType(&m_params.m_preferredTypes), rankerResult.m_details);
+    res.FromFeature(rankerResult.GetID(), rankerResult.GetBestType(), rankerResult.GetBestType(&m_params.m_preferredTypes), rankerResult.m_details);
     break;
   case RankerResult::Type::LatLon: res.SetType(Result::Type::LatLon); break;
   case RankerResult::Type::Postcode: res.SetType(Result::Type::Postcode); break;

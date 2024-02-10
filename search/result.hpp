@@ -59,7 +59,7 @@ public:
   static auto constexpr kPopularityHighPriorityMinDistance = 50000.0;
 
   Result(m2::PointD const & pt, std::string const & name) : m_center(pt), m_str(name) {}
-  void FromFeature(FeatureID const & id, uint32_t featureType, Details const & details);
+  void FromFeature(FeatureID const & id, uint32_t mainType, uint32_t featureType, Details const & details);
 
   void SetAddress(std::string && address) { m_address = std::move(address); }
   void SetType(Result::Type type) { m_resultType = type; }
@@ -148,6 +148,7 @@ private:
   m2::PointD m_center;
   std::string m_str;
   std::string m_address;
+  uint32_t m_mainType = 0;
   uint32_t m_featureType = 0;
   std::string m_suggestionStr;
   buffer_vector<std::pair<uint16_t, uint16_t>, 4> m_hightlightRanges;
