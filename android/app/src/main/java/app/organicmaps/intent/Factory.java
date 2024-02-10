@@ -25,6 +25,8 @@ import app.organicmaps.util.StorageUtils;
 import app.organicmaps.util.concurrency.ThreadPool;
 
 import java.io.File;
+import java.util.Collections;
+import java.util.List;
 
 public class Factory
 {
@@ -39,20 +41,22 @@ public class Factory
     public boolean process(@NonNull Intent intent, @NonNull MwmActivity activity)
     {
       // See KML/KMZ/KMB intent filters in manifest.
-      final Uri uri;
+      final List<Uri> uris;
       if (Intent.ACTION_VIEW.equals(intent.getAction()))
-        uri = intent.getData();
+        uris = Collections.singletonList(intent.getData());
       else if (Intent.ACTION_SEND.equals(intent.getAction()))
-        uri = IntentCompat.getParcelableExtra(intent, Intent.EXTRA_STREAM, Uri.class);
+        uris = Collections.singletonList(IntentCompat.getParcelableExtra(intent, Intent.EXTRA_STREAM, Uri.class));
+      else if (Intent.ACTION_SEND_MULTIPLE.equals(intent.getAction()))
+        uris = intent.getParcelableArrayListExtra(Intent.EXTRA_STREAM);
       else
-        uri = null;
-      if (uri == null)
+        uris = null;
+      if (uris == null)
         return false;
 
       MwmApplication app = MwmApplication.from(activity);
       final File tempDir = new File(StorageUtils.getTempPath(app));
       final ContentResolver resolver = activity.getContentResolver();
-      ThreadPool.getStorage().execute(() -> BookmarkManager.INSTANCE.importBookmarksFile(resolver, uri, tempDir));
+      ThreadPool.getStorage().execute(() -> BookmarkManager.INSTANCE.importBookmarksFiles(resolver, uris, tempDir));
       return false;
     }
   }

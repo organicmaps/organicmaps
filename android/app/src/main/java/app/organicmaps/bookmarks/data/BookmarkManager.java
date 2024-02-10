@@ -494,6 +494,13 @@ public enum BookmarkManager
     return true;
   }
 
+  @WorkerThread
+  public void importBookmarksFiles(@NonNull ContentResolver resolver, @NonNull List<Uri> uris, @NonNull File tempDir)
+  {
+    for (Uri uri: uris)
+      importBookmarksFile(resolver, uri, tempDir);
+  }
+
   public boolean isAsyncBookmarksLoadingInProgress()
   {
     return nativeIsAsyncBookmarksLoadingInProgress();
