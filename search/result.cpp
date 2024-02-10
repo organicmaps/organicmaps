@@ -4,6 +4,7 @@
 #include "search/geometry_utils.hpp"
 
 #include "indexer/classificator.hpp"
+#include "indexer/feature_utils.hpp"
 
 #include "platform/localization.hpp"
 
@@ -75,7 +76,21 @@ std::string Result::GetLocalizedFeatureType() const
 std::string Result::GetFeatureDescription() const
 {
   ASSERT_EQUAL(m_resultType, Type::Feature, ());
-  return GetLocalizedFeatureType() + GetDescription();
+  std::string featureDescription;
+  
+  auto const append = [&featureDescription](std::string_view sv)
+  {
+    if (!featureDescription.empty())
+      featureDescription += feature::kFieldsSeparator;
+    featureDescription += sv;
+  };
+  
+  append(GetLocalizedFeatureType());
+  
+  if (!GetDescription().empty())
+    append(GetDescription());
+  
+  return featureDescription;
 }
 
 m2::PointD Result::GetFeatureCenter() const

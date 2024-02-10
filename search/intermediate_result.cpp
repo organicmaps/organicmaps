@@ -301,23 +301,24 @@ void FillDetails(FeatureType & ft, Result::Details & details)
   auto const roadShield = strings::JoinStrings(roadShields, feature::kFieldsSeparator);
 
   auto const fee = feature::GetLocalizedFeeType(typesHolder);
-    
+
   std::string description;
+
+  auto const append = [&description](std::string_view sv)
+  {
+    if (sv.empty())
+      return;
+    if (!description.empty())
+      description += feature::kFieldsSeparator;
+    description += sv;
+  };
   
-  if (!stars.empty())
-    description.append(feature::kFieldsSeparator).append(stars);
-  if (!airportIata.empty())
-    description.append(feature::kFieldsSeparator).append(airportIata);
-  if (!roadShield.empty())
-    description.append(feature::kFieldsSeparator).append(roadShield);
-  if (!brand.empty())
-    description.append(feature::kFieldsSeparator).append(brand);
-  if (!cuisine.empty())
-    description.append(feature::kFieldsSeparator).append(cuisine);
-  if (feature::HasToilets(typesHolder))
-    description.append(feature::kFieldsSeparator).append(osm::MapObject::kToiletsSymbol);
-  if (!fee.empty())
-    description.append(feature::kFieldsSeparator).append(fee);
+  append(stars);
+  append(airportIata);
+  append(roadShield);
+  append(brand);
+  append(cuisine);
+  append(fee);
   
   details.m_description = std::move(description);
 
