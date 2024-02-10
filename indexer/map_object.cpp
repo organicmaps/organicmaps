@@ -181,12 +181,12 @@ bool MapObject::HasToilets() const
 
 string MapObject::FormatCuisines() const
 {
-  return strings::JoinStrings(GetLocalizedCuisines(), kFieldsSeparator);
+  return strings::JoinStrings(GetLocalizedCuisines(), feature::kFieldsSeparator);
 }
 
 string MapObject::FormatRoadShields() const
 {
-  return strings::JoinStrings(m_roadShields, kFieldsSeparator);
+  return strings::JoinStrings(m_roadShields, feature::kFieldsSeparator);
 }
 
 int MapObject::GetStars() const

@@ -115,7 +115,7 @@ std::string Info::FormatSubtitle(bool withType) const
   auto const append = [&result](std::string_view sv)
   {
     if (!result.empty())
-      result += kFieldsSeparator;
+      result += feature::kFieldsSeparator;
     result += sv;
   };
 
@@ -226,7 +226,7 @@ void Info::SetTitlesForBookmark()
   subtitle.push_back(m_bookmarkCategoryName);
   if (!m_bookmarkData.m_featureTypes.empty())
     subtitle.push_back(GetLocalizedFeatureType(m_bookmarkData.m_featureTypes));
-  m_uiSubtitle = strings::JoinStrings(subtitle, kFieldsSeparator);
+  m_uiSubtitle = strings::JoinStrings(subtitle, feature::kFieldsSeparator);
 }
 
 void Info::SetCustomName(std::string const & name)
@@ -370,7 +370,7 @@ void Info::SetRoadType(FeatureType & ft, RoadWarningMarkType type, std::string c
   {
     if (!m_uiTitle.empty())
     {
-      m_uiTitle += kFieldsSeparator;
+      m_uiTitle += feature::kFieldsSeparator;
       m_uiTitle += str;
     }
     else
@@ -380,7 +380,7 @@ void Info::SetRoadType(FeatureType & ft, RoadWarningMarkType type, std::string c
   auto const addSubtitle = [this](std::string_view sv)
   {
     if (!m_uiSubtitle.empty())
-      m_uiSubtitle += kFieldsSeparator;
+      m_uiSubtitle += feature::kFieldsSeparator;
     m_uiSubtitle += sv;
   };
 
