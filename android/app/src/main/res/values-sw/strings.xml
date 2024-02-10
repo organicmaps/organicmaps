@@ -122,6 +122,8 @@
 	<string name="bookmarks_create_new_group">Unda orodha mpya</string>
 	<!-- Bookmark categories screen, button that opens folder selection dialog to import KML/KMZ/GPX/KMB files -->
 	<string name="bookmarks_import">Ingiza alamisho na nyimbo</string>
+	<!-- Bookmark categories screen, button that opens folder selection dialog to export KML/KMZ/GPX/KMB files -->
+	<string name="bookmarks_export">Hamisha Alamisho na Nyimbo</string>
 	<string name="bookmarks_error_message_share_general">Haiwezekani kushiriki kutokana na hitilafu ya programu</string>
 	<string name="bookmarks_error_title_share_empty">Hitilafu ya kushiriki</string>
 	<string name="bookmarks_error_message_share_empty">Haiwezekani kushiriki orodha tupu</string>

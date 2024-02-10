@@ -601,6 +601,8 @@
 	<string name="bookmarks_create_new_group">إنشاء قائمة جديدة</string>
 	<!-- Bookmark categories screen, button that opens folder selection dialog to import KML/KMZ/GPX/KMB files -->
 	<string name="bookmarks_import">استيراد الإشارات المرجعية والمسارات</string>
+	<!-- Bookmark categories screen, button that opens folder selection dialog to export KML/KMZ/GPX/KMB files -->
+	<string name="bookmarks_export">تصدير الإشارات المرجعية والمسارات</string>
 	<string name="bookmarks_error_message_share_general">تعذرت المشاركة بسبب خطأ في التطبيق</string>
 	<string name="bookmarks_error_title_share_empty">خطأ في المشاركة</string>
 	<string name="bookmarks_error_message_share_empty">لا يمكن مشاركة قائمة فارغة</string>

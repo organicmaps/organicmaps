@@ -573,6 +573,8 @@
 	<string name="bookmarks_create_new_group">創建新列表</string>
 	<!-- Bookmark categories screen, button that opens folder selection dialog to import KML/KMZ/GPX/KMB files -->
 	<string name="bookmarks_import">導入書籤和曲目</string>
+	<!-- Bookmark categories screen, button that opens folder selection dialog to export KML/KMZ/GPX/KMB files -->
+	<string name="bookmarks_export">匯出書籤和曲目</string>
 	<string name="bookmarks_error_message_share_general">由於 app 出錯而無法分享</string>
 	<string name="bookmarks_error_title_share_empty">分享錯誤</string>
 	<string name="bookmarks_error_message_share_empty">無法分享空的列表</string>

@@ -569,6 +569,8 @@
 	<string name="bookmarks_create_new_group">Új lista létrehozása</string>
 	<!-- Bookmark categories screen, button that opens folder selection dialog to import KML/KMZ/GPX/KMB files -->
 	<string name="bookmarks_import">Könyvjelzők és sávok importálása</string>
+	<!-- Bookmark categories screen, button that opens folder selection dialog to export KML/KMZ/GPX/KMB files -->
+	<string name="bookmarks_export">Könyvjelzők és sávok exportálása</string>
 	<string name="bookmarks_error_message_share_general">Nem lehet megosztani alkalmazáshiba miatt</string>
 	<string name="bookmarks_error_title_share_empty">Megosztási hiba</string>
 	<string name="bookmarks_error_message_share_empty">Üres lista nem osztható meg</string>

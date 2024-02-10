@@ -379,6 +379,8 @@
 	<string name="bookmarks_create_new_group">एक नई सूची बनाएं</string>
 	<!-- Bookmark categories screen, button that opens folder selection dialog to import KML/KMZ/GPX/KMB files -->
 	<string name="bookmarks_import">बुकमार्क और सेटिंग्स आयात करें</string>
+	<!-- Bookmark categories screen, button that opens folder selection dialog to export KML/KMZ/GPX/KMB files -->
+	<string name="bookmarks_export">बुकमार्क और ट्रैक निर्यात करें</string>
 	<string name="bookmarks_error_message_share_general">एप्लिकेशन त्रुटि के कारण साझा करने में असमर्थ</string>
 	<string name="bookmarks_error_title_empty_list_name">नाम खाली नहीं हो सकता</string>
 	<string name="bookmarks_error_message_empty_list_name">कृपया सूची का नाम दर्ज करें</string>

@@ -584,6 +584,8 @@
 	<string name="bookmarks_create_new_group">Neue Liste erstellen</string>
 	<!-- Bookmark categories screen, button that opens folder selection dialog to import KML/KMZ/GPX/KMB files -->
 	<string name="bookmarks_import">Lesezeichen und Tracks importieren</string>
+	<!-- Bookmark categories screen, button that opens folder selection dialog to export KML/KMZ/GPX/KMB files -->
+	<string name="bookmarks_export">Lesezeichen und Tracks exportieren</string>
 	<string name="bookmarks_error_message_share_general">Freigabe wegen eines Anwendungsfehlers nicht möglich</string>
 	<string name="bookmarks_error_title_share_empty">Fehler bei der Freigabe</string>
 	<string name="bookmarks_error_message_share_empty">Eine leere Liste kann nicht freigegeben werden</string>

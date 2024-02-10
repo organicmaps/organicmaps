@@ -562,6 +562,8 @@
 	<string name="bookmarks_create_new_group">Criar nova lista</string>
 	<!-- Bookmark categories screen, button that opens folder selection dialog to import KML/KMZ/GPX/KMB files -->
 	<string name="bookmarks_import">Importar favoritos e trilhas</string>
+	<!-- Bookmark categories screen, button that opens folder selection dialog to export KML/KMZ/GPX/KMB files -->
+	<string name="bookmarks_export">Exportar marcadores e faixas</string>
 	<string name="bookmarks_error_message_share_general">Não foi possível partilhar devido a um erro da aplicação</string>
 	<string name="bookmarks_error_title_share_empty">Erro ao partilhar</string>
 	<string name="bookmarks_error_message_share_empty">Não é possível partilhar uma lista vazia</string>

@@ -590,6 +590,8 @@
 	<string name="bookmarks_create_new_group">Créer une nouvelle liste</string>
 	<!-- Bookmark categories screen, button that opens folder selection dialog to import KML/KMZ/GPX/KMB files -->
 	<string name="bookmarks_import">Importer des signets et des parcours</string>
+	<!-- Bookmark categories screen, button that opens folder selection dialog to export KML/KMZ/GPX/KMB files -->
+	<string name="bookmarks_export">Exporter les signets et les pistes</string>
 	<string name="bookmarks_error_message_share_general">Impossible de partager en raison d\'une erreur d\'application</string>
 	<string name="bookmarks_error_title_share_empty">Erreur de partage</string>
 	<string name="bookmarks_error_message_share_empty">Impossible de partager une liste vide</string>

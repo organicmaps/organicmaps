@@ -588,6 +588,8 @@
 	<string name="bookmarks_create_new_group">Yeni siyahı yaradın</string>
 	<!-- Bookmark categories screen, button that opens folder selection dialog to import KML/KMZ/GPX/KMB files -->
 	<string name="bookmarks_import">Əlfəcinləri və fraqmentləri idxal edin</string>
+	<!-- Bookmark categories screen, button that opens folder selection dialog to export KML/KMZ/GPX/KMB files -->
+	<string name="bookmarks_export">Əlfəcinləri və Parçaları ixrac edin</string>
 	<string name="bookmarks_error_message_share_general">Tətbiq xətası səbəbindən paylaşmaq mümkün deyil</string>
 	<string name="bookmarks_error_title_share_empty">Paylaşım xətası</string>
 	<string name="bookmarks_error_message_share_empty">Boş siyahı paylaşıla bilməz</string>

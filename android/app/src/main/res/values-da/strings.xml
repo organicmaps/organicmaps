@@ -557,6 +557,8 @@
 	<string name="bookmarks_create_new_group">Opret ny liste</string>
 	<!-- Bookmark categories screen, button that opens folder selection dialog to import KML/KMZ/GPX/KMB files -->
 	<string name="bookmarks_import">Importer bogmærker og spor</string>
+	<!-- Bookmark categories screen, button that opens folder selection dialog to export KML/KMZ/GPX/KMB files -->
+	<string name="bookmarks_export">Eksport af bogmærker og spor</string>
 	<string name="bookmarks_error_message_share_general">Ikke i stand til at dele på grund af en programfejl</string>
 	<string name="bookmarks_error_title_share_empty">Delingsfejl</string>
 	<string name="bookmarks_error_message_share_empty">Kan ikke dele en tom liste</string>

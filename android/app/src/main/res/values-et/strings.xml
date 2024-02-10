@@ -576,6 +576,8 @@
 	<string name="bookmarks_create_new_group">Loo uus loetelu</string>
 	<!-- Bookmark categories screen, button that opens folder selection dialog to import KML/KMZ/GPX/KMB files -->
 	<string name="bookmarks_import">Importida järjehoidjaid ja lugusid</string>
+	<!-- Bookmark categories screen, button that opens folder selection dialog to export KML/KMZ/GPX/KMB files -->
+	<string name="bookmarks_export">Ekspordi järjehoidjad ja lood</string>
 	<string name="bookmarks_error_message_share_general">Rakenduse vea tõttu ei saanud jagada</string>
 	<string name="bookmarks_error_title_share_empty">Jagamise viga</string>
 	<string name="bookmarks_error_message_share_empty">Tühja loetelu ei saa jagada</string>

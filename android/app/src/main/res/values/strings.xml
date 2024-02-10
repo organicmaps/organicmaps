@@ -613,6 +613,8 @@
 	<string name="bookmarks_create_new_group">Create a new list</string>
 	<!-- Bookmark categories screen, button that opens folder selection dialog to import KML/KMZ/GPX/KMB files -->
 	<string name="bookmarks_import">Import Bookmarks and Tracks</string>
+	<!-- Bookmark categories screen, button that opens folder selection dialog to export KML/KMZ/GPX/KMB files -->
+	<string name="bookmarks_export">Export Bookmarks and Tracks</string>
 	<string name="bookmarks_error_message_share_general">Unable to share due to an application error</string>
 	<string name="bookmarks_error_title_share_empty">Sharing error</string>
 	<string name="bookmarks_error_message_share_empty">Cannot share an empty list</string>

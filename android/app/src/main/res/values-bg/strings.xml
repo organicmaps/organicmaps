@@ -543,6 +543,8 @@
 	<string name="bookmarks_create_new_group">Създаване на нов списък</string>
 	<!-- Bookmark categories screen, button that opens folder selection dialog to import KML/KMZ/GPX/KMB files -->
 	<string name="bookmarks_import">Импортиране на отметки и песни</string>
+	<!-- Bookmark categories screen, button that opens folder selection dialog to export KML/KMZ/GPX/KMB files -->
+	<string name="bookmarks_export">Експортиране на отметки и следи</string>
 	<string name="bookmarks_error_message_share_general">Не е възможно споделяне поради грешка в приложението</string>
 	<string name="bookmarks_error_title_share_empty">Грешка при споделяне</string>
 	<string name="bookmarks_error_message_share_empty">Не може да се споделя празен списък</string>

@@ -591,6 +591,8 @@
 	<string name="bookmarks_create_new_group">Создать новый список</string>
 	<!-- Bookmark categories screen, button that opens folder selection dialog to import KML/KMZ/GPX/KMB files -->
 	<string name="bookmarks_import">Импортировать метки и треки</string>
+	<!-- Bookmark categories screen, button that opens folder selection dialog to export KML/KMZ/GPX/KMB files -->
+	<string name="bookmarks_export">Экспорт закладок и треков</string>
 	<string name="bookmarks_error_message_share_general">Не удалось поделиться из-за ошибки приложения</string>
 	<string name="bookmarks_error_title_share_empty">Ошибка при попытке поделиться</string>
 	<string name="bookmarks_error_message_share_empty">Нельзя делиться пустыми списками</string>

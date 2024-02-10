@@ -572,6 +572,8 @@
 	<string name="bookmarks_create_new_group">Creează o listă nouă</string>
 	<!-- Bookmark categories screen, button that opens folder selection dialog to import KML/KMZ/GPX/KMB files -->
 	<string name="bookmarks_import">Importați marcaje și piese</string>
+	<!-- Bookmark categories screen, button that opens folder selection dialog to export KML/KMZ/GPX/KMB files -->
+	<string name="bookmarks_export">Exportați marcajele și piesele</string>
 	<string name="bookmarks_error_message_share_general">Nu poate fi trimis din cauza unei erori a aplicației</string>
 	<string name="bookmarks_error_title_share_empty">Eroare de trimitere</string>
 	<string name="bookmarks_error_message_share_empty">Nu poate fi trimisă o listă goală</string>

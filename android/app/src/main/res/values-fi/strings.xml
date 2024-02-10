@@ -590,6 +590,8 @@
 	<string name="bookmarks_create_new_group">Luo uusi luettelo</string>
 	<!-- Bookmark categories screen, button that opens folder selection dialog to import KML/KMZ/GPX/KMB files -->
 	<string name="bookmarks_import">Kirjanmerkkien ja reittien tuominen</string>
+	<!-- Bookmark categories screen, button that opens folder selection dialog to export KML/KMZ/GPX/KMB files -->
+	<string name="bookmarks_export">Kirjanmerkkien ja raitojen vienti</string>
 	<string name="bookmarks_error_message_share_general">Ei voitu jakaa sovellusvirheen vuoksi</string>
 	<string name="bookmarks_error_title_share_empty">Jakamisvirhe</string>
 	<string name="bookmarks_error_message_share_empty">Tyhjää luetteloa ei voi jakaa</string>
