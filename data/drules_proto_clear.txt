@@ -4058,8 +4058,8 @@ cont {
     }
     caption {
       primary {
-        height: 10
-        color: 4473924
+        height: 12
+        color: 2236962
         stroke_color: 452984831
         offset_y: 1
         is_optional: true
@@ -4082,8 +4082,8 @@ cont {
     }
     caption {
       primary {
-        height: 10
-        color: 4473924
+        height: 12
+        color: 2236962
         stroke_color: 452984831
         offset_y: 1
         is_optional: true
@@ -6004,8 +6004,8 @@ cont {
     }
     caption {
       primary {
-        height: 10
-        color: 4473924
+        height: 12
+        color: 2236962
         stroke_color: 1308622847
         offset_y: 1
         is_optional: true
@@ -6021,8 +6021,8 @@ cont {
     }
     caption {
       primary {
-        height: 10
-        color: 4473924
+        height: 12
+        color: 2236962
         stroke_color: 1308622847
         offset_y: 1
         is_optional: true
@@ -67290,7 +67290,7 @@ cont {
     scale: 16
     caption {
       primary {
-        height: 8
+        height: 12
         color: 8355711
       }
       priority: 7150
@@ -67300,7 +67300,7 @@ cont {
     scale: 17
     caption {
       primary {
-        height: 8
+        height: 12
         color: 8355711
       }
       priority: 7150
@@ -67310,7 +67310,7 @@ cont {
     scale: 18
     caption {
       primary {
-        height: 8
+        height: 12
         color: 8355711
       }
       priority: 7150
@@ -67320,7 +67320,7 @@ cont {
     scale: 19
     caption {
       primary {
-        height: 8
+        height: 12
         color: 8355711
       }
       priority: 7150
@@ -67330,7 +67330,7 @@ cont {
     scale: 20
     caption {
       primary {
-        height: 8
+        height: 12
         color: 8355711
       }
       priority: 7150
@@ -67403,7 +67403,7 @@ cont {
     }
     caption {
       primary {
-        height: 8
+        height: 12
         color: 8355711
       }
       priority: 4500
@@ -67417,7 +67417,7 @@ cont {
     }
     caption {
       primary {
-        height: 8
+        height: 12
         color: 8355711
       }
       priority: 4500
@@ -67431,7 +67431,7 @@ cont {
     }
     caption {
       primary {
-        height: 8
+        height: 12
         color: 8355711
       }
       priority: 4500
@@ -67445,7 +67445,7 @@ cont {
     }
     caption {
       primary {
-        height: 8
+        height: 12
         color: 8355711
       }
       priority: 4500
@@ -67459,7 +67459,7 @@ cont {
     }
     caption {
       primary {
-        height: 8
+        height: 12
         color: 8355711
       }
       priority: 4500
