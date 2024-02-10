@@ -11,11 +11,6 @@ platform :ios do
       # Fixes random Fastlane failures by manually importing Apple certificates.
       # See https://github.com/fastlane/fastlane/issues/20960#issuecomment-1621931850
       import_certificate(
-        certificate_path: 'keys/Apple/AppleWWDRCA.cer',
-        keychain_name: ENV['MATCH_KEYCHAIN_NAME'],
-        keychain_password: ENV['MATCH_KEYCHAIN_PASSWORD']
-      )
-      import_certificate(
         certificate_path: 'keys/Apple/AppleWWDRCAG2.cer',
         keychain_name: ENV['MATCH_KEYCHAIN_NAME'],
         keychain_password: ENV['MATCH_KEYCHAIN_PASSWORD']
