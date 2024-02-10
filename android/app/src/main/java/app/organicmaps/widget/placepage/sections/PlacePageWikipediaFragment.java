@@ -63,7 +63,7 @@ public class PlacePageWikipediaFragment extends Fragment implements Observer<Map
 
   private void showDescriptionScreen()
   {
-    PlaceDescriptionActivity.start(requireContext(), mMapObject.getDescription());
+    PlaceDescriptionActivity.start(requireContext(), mMapObject.getName(), mMapObject.getDescription());
   }
 
   private Spanned getShortDescription()
