@@ -605,6 +605,12 @@
 	<string name="place_description_title">รายละเอียดของสถานที่</string>
 	<!-- this text will be shown in application notification preferences opposite checkbox which enable/disable downloader notifications. Devices on Android 8+ are affected. -->
 	<string name="notification_channel_downloader">ตัวดาวน์โหลดแผนที่</string>
+	<!-- Speed camera settings menu option - Warn (about speedcams) if risk of exceeding speed limit -->
+	<string name="pref_tts_speedcams_auto">เตือนเกี่ยวกับกล้องตรวจจับความเร็วหากมีความเป็นได้ว่าจะขับเร็วเกิดกำหนด</string>
+	<!-- Speed camera settings menu option - Always warn (about speedcams) -->
+	<string name="pref_tts_speedcams_always">เตือนเกี่ยวกับกล้องตรวจจับความเร็วเสมอ</string>
+	<!-- Speed camera settings menu option - Never warn (about speedcams) -->
+	<string name="pref_tts_speedcams_never">ไม่เคยเตือนเกี่ยวกับกล้องตรวจจับความเร็ว</string>
 	<string name="power_managment_title">โหมดประหยัดพลังงาน</string>
 	<string name="power_managment_description">เมื่อโหมดอัตโนมัตินั้นถูกเลือก แอปพลิเคชันจะเริ่มหยุดการใช้พลังงานจากแบตเตอรีขึ้นอยู่กับจำนวนไฟในแบตเตอรีว่าเหลือเท่าไร</string>
 	<string name="power_managment_setting_never">ไม่ใช้</string>

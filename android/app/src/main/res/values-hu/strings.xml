@@ -618,6 +618,12 @@
 	<string name="place_description_title">A hely ismertetése</string>
 	<!-- this text will be shown in application notification preferences opposite checkbox which enable/disable downloader notifications. Devices on Android 8+ are affected. -->
 	<string name="notification_channel_downloader">Kártyák letöltése</string>
+	<!-- Speed camera settings menu option - Warn (about speedcams) if risk of exceeding speed limit -->
+	<string name="pref_tts_speedcams_auto">Figyelmeztetés ha van kockázat a sebesség korlátozás megsértéséről</string>
+	<!-- Speed camera settings menu option - Always warn (about speedcams) -->
+	<string name="pref_tts_speedcams_always">Mindig figyelmeztet</string>
+	<!-- Speed camera settings menu option - Never warn (about speedcams) -->
+	<string name="pref_tts_speedcams_never">Soha ne figyelmezet</string>
 	<string name="power_managment_title">Energiatakarékos mód</string>
 	<string name="power_managment_description">Amikor az automatikus mód van kiválasztva, az alkalmazás elkezdi kikapcsolni az akkumulátort merítő funkciókat a jelenlegi akkumulátor töltöttség alapján</string>
 	<string name="power_managment_setting_never">Soha</string>

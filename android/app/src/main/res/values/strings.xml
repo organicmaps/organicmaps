@@ -665,6 +665,12 @@
 	<string name="place_description_title">Place Description</string>
 	<!-- this text will be shown in application notification preferences opposite checkbox which enable/disable downloader notifications. Devices on Android 8+ are affected. -->
 	<string name="notification_channel_downloader">Map downloader</string>
+	<!-- Speed camera settings menu option - Warn (about speedcams) if risk of exceeding speed limit -->
+	<string name="pref_tts_speedcams_auto">Warn if there is a risk of exceeding the speed limit</string>
+	<!-- Speed camera settings menu option - Always warn (about speedcams) -->
+	<string name="pref_tts_speedcams_always">Always warn</string>
+	<!-- Speed camera settings menu option - Never warn (about speedcams) -->
+	<string name="pref_tts_speedcams_never">Never warn</string>
 	<string name="power_managment_title">Power saving mode</string>
 	<string name="power_managment_description">Try to reduce power usage at the expense of some functionality.</string>
 	<string name="power_managment_setting_never">Never</string>

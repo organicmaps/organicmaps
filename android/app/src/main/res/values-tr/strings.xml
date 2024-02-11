@@ -636,6 +636,12 @@
 	<string name="place_description_title">Yer Açıklaması</string>
 	<!-- this text will be shown in application notification preferences opposite checkbox which enable/disable downloader notifications. Devices on Android 8+ are affected. -->
 	<string name="notification_channel_downloader">Harita indirici</string>
+	<!-- Speed camera settings menu option - Warn (about speedcams) if risk of exceeding speed limit -->
+	<string name="pref_tts_speedcams_auto">Hız sınırını aşma riski varsa uyar</string>
+	<!-- Speed camera settings menu option - Always warn (about speedcams) -->
+	<string name="pref_tts_speedcams_always">Her zaman uyar</string>
+	<!-- Speed camera settings menu option - Never warn (about speedcams) -->
+	<string name="pref_tts_speedcams_never">Hiç bir zaman uyarma</string>
 	<string name="power_managment_title">Güç tasarrufu modu</string>
 	<string name="power_managment_description">Otomatik mod seçildiğinde, uygulama geçerli pil seviyesine bağlı olarak şarj harcayan özellikleri devre dışı bırakmaya başlar</string>
 	<string name="power_managment_setting_never">Asla</string>

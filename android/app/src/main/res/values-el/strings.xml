@@ -593,6 +593,12 @@
 	<string name="place_description_title">Περιγραφή μέρους</string>
 	<!-- this text will be shown in application notification preferences opposite checkbox which enable/disable downloader notifications. Devices on Android 8+ are affected. -->
 	<string name="notification_channel_downloader">Κατέβασμα χαρτών</string>
+	<!-- Speed camera settings menu option - Warn (about speedcams) if risk of exceeding speed limit -->
+	<string name="pref_tts_speedcams_auto">Να ειδοποιούμαι αν υπάρχει κίνδυνος να υπερβώ το όριο ταχύτητας</string>
+	<!-- Speed camera settings menu option - Always warn (about speedcams) -->
+	<string name="pref_tts_speedcams_always">Πάντα να ειδοποιούμαι</string>
+	<!-- Speed camera settings menu option - Never warn (about speedcams) -->
+	<string name="pref_tts_speedcams_never">Ποτέ να μην ειδοποιούμαι</string>
 	<string name="power_managment_title">Λειτουργία εξοικονόμησης ενέργειας</string>
 	<string name="power_managment_description">Εάν η λειτουργία εξοικονόμησης ενέργειας είναι ενεργοποιημένη, η εφαρμογή θα κλείνει τις λειτουργίες που καταναλώνουν ενέργεια ανάλογα με την τρέχουσα φόρτιση του τηλεφώνου</string>
 	<string name="power_managment_setting_never">Ποτέ</string>

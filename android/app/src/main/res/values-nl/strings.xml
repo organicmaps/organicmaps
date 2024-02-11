@@ -633,6 +633,12 @@
 	<string name="place_description_title">Plaatsbeschrijving</string>
 	<!-- this text will be shown in application notification preferences opposite checkbox which enable/disable downloader notifications. Devices on Android 8+ are affected. -->
 	<string name="notification_channel_downloader">Kaartdownloader</string>
+	<!-- Speed camera settings menu option - Warn (about speedcams) if risk of exceeding speed limit -->
+	<string name="pref_tts_speedcams_auto">Waarschuw als er een risico bestaat dat de snelheidslimiet wordt overschreden</string>
+	<!-- Speed camera settings menu option - Always warn (about speedcams) -->
+	<string name="pref_tts_speedcams_always">Waarschuw altijd</string>
+	<!-- Speed camera settings menu option - Never warn (about speedcams) -->
+	<string name="pref_tts_speedcams_never">Waarschuw nooit</string>
 	<string name="power_managment_title">Energiebesparende modus</string>
 	<string name="power_managment_description">Als de energiebesparende modus is ingeschakeld, schakelt de app de energieverbruikende functies uit afhankelijk van de huidige lading van de mobiele telefoon</string>
 	<string name="power_managment_setting_never">Nooit</string>
