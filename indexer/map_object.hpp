@@ -104,9 +104,6 @@ public:
 
   /// @returns true if feature has Toilets type.
   bool HasToilets() const;
-
-  /// @returns formatted elevation in feet or meters, or empty string.
-  std::string GetElevationFormatted() const;
   /// @}
 
   bool IsPointType() const;

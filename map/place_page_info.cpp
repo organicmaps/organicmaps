@@ -19,7 +19,6 @@
 
 namespace place_page
 {
-static constexpr std::string_view kMountainSymbol= "▲";
 static constexpr std::string_view kWheelchairSymbol = "♿️";
 static constexpr std::string_view kAtmSymbol = "💳";
 
@@ -172,9 +171,9 @@ std::string Info::FormatSubtitle(bool withType) const
   }
 
   // Elevation.
-  auto const eleStr = GetElevationFormatted();
+  auto const eleStr = feature::FormatElevation(GetMetadata(MetadataID::FMD_ELE));
   if (!eleStr.empty())
-    append(std::string{kMountainSymbol} + eleStr);
+    append(eleStr);
 
   // ATM
   if (HasAtm())

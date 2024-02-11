@@ -7,6 +7,7 @@
 #include "indexer/scales.hpp"
 
 #include "platform/localization.hpp"
+#include "platform/distance.hpp"
 
 #include "coding/string_utf8_multilang.hpp"
 #include "coding/transliteration.hpp"
@@ -316,6 +317,7 @@ FeatureEstimator const & GetFeatureEstimator()
 }  // namespace
 
 static constexpr std::string_view kStarSymbol = "★";
+static constexpr std::string_view kMountainSymbol= "▲";
 
 NameParamsIn::NameParamsIn(StringUtf8Multilang const & src_, RegionData const & regionData_,
                            std::string_view deviceLang_, bool allowTranslit_)
@@ -480,6 +482,19 @@ string FormatStars(uint8_t starsCount)
   for (int i = 0; i < starsCount && i < kMaxStarsCount; ++i)
     stars.append(kStarSymbol);
   return stars;
+}
+
+string FormatElevation(string_view elevation)
+{
+  if (!elevation.empty())
+  {
+    double value;
+    if (strings::to_double(elevation, value))
+        return std::string{kMountainSymbol} + platform::Distance::FormatAltitude(value);
+    else
+      LOG(LWARNING, ("Invalid elevation metadata:", elevation));
+  }
+  return {};
 }
 
 } // namespace feature
