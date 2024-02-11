@@ -322,7 +322,7 @@ android {
       zipAlignEnabled true
       signingConfig signingConfigs.debug
       resValue 'string', 'app_id', android.defaultConfig.applicationId + applicationIdSuffix
-      resValue 'string', 'app_name', project.ext.appName  + ' ' + '(Debug)'
+      resValue 'string', 'app_name', 'Debug Organic Maps'
       // Do not generate separate debug symbols for debug apps, because we don't distribute them.
       ndk.debugSymbolLevel = 'none'
 
@@ -365,7 +365,7 @@ android {
       proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
       matchingFallbacks = ['debug', 'release']
       resValue 'string', 'app_id', android.defaultConfig.applicationId + applicationIdSuffix
-      resValue 'string', 'app_name', project.ext.appName + ' ' + '(Beta)'
+      resValue 'string', 'app_name', 'Beta Organic Maps'
       // Full size symbols are too big for Google, 217mb aab vs 95mb.
       ndk.debugSymbolLevel = 'symbol_table'
 
