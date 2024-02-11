@@ -144,4 +144,7 @@ namespace feature
   /// @returns starsCount of ★ symbol.
   std::string FormatStars(uint8_t starsCount);
 
+  /// @returns formatted elevation with ▲ symbol and units.
+  std::string FormatElevation(std::string_view elevation);
+
 }  // namespace feature

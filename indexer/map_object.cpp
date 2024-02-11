@@ -203,20 +203,6 @@ int MapObject::GetStars() const
   return count;
 }
 
-string MapObject::GetElevationFormatted() const
-{
-  auto const sv = m_metadata.Get(MetadataID::FMD_ELE);
-  if (!sv.empty())
-  {
-    double value;
-    if (strings::to_double(sv, value))
-      return platform::Distance::FormatAltitude(value);
-    else
-      LOG(LWARNING, ("Invalid elevation metadata:", sv));
-  }
-  return {};
-}
-
 ftraits::WheelchairAvailability MapObject::GetWheelchairType() const
 {
   auto const opt = ftraits::Wheelchair::GetValue(m_types);
