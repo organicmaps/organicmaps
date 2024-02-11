@@ -545,10 +545,6 @@
 
 "p2p_to_here" = "מסלול לכאן";
 
-"p2p_only_from_current" = "ניווט זמין רק מהמיקום הנוכחי שלך.";
-
-"p2p_reroute_from_current" = "ברצונך לתכנן מסלול מהמיקום הנוכחי שלך?";
-
 "editor_time_add" = "הוסף לוח זמנים";
 
 "editor_time_delete" = "מחק לוח זמנים";
@@ -1095,7 +1091,7 @@
 
 "dialog_routing_system_error_carplay" = "אירעה שגיאה. נא להפעיל מחדש את האפליקציה";
 
-"dialog_routing_rebuild_from_current_location_carplay" = "המסלול ייבנה מחדש מהמיקום הנוכחי שלך";
+"dialog_routing_rebuild_from_current_location" = "המסלול ייבנה מחדש מהמיקום הנוכחי שלך";
 
 "dialog_routing_rebuild_for_vehicle_carplay" = "המסלול יומר למסלול נסיעה";
 

@@ -545,10 +545,6 @@
 
 "p2p_to_here" = "Itinéraire vers";
 
-"p2p_only_from_current" = "La navigation est uniquement disponible à partir de votre emplacement actuel.";
-
-"p2p_reroute_from_current" = "Souhaitez-vous que nous planifiions un itinéraire à partir de votre emplacement actuel ?";
-
 "editor_time_add" = "Ajouter un horaire d'ouverture";
 
 "editor_time_delete" = "Supprimer un horaire d'ouverture";
@@ -1095,7 +1091,7 @@
 
 "dialog_routing_system_error_carplay" = "Une erreur est survenue. Redémarrez l'application";
 
-"dialog_routing_rebuild_from_current_location_carplay" = "L'itinéraire sera reconstruit à partir de votre position actuelle";
+"dialog_routing_rebuild_from_current_location" = "L'itinéraire sera reconstruit à partir de votre position actuelle";
 
 "dialog_routing_rebuild_for_vehicle_carplay" = "L'itinéraire sera changé en mode Voiture";
 

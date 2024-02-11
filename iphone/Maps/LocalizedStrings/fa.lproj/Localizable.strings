@@ -545,10 +545,6 @@
 
 "p2p_to_here" = "مسیر به";
 
-"p2p_only_from_current" = "مسیر‌یابی فقط از موقعیت کنونی شما قابل انجام است.";
-
-"p2p_reroute_from_current" = "آیا می خواهید یک مسیر را از موقعیت فعلیتان برنامه ریزی کنیم؟";
-
 "editor_time_add" = "اضافه کردن برنامه ریزی";
 
 "editor_time_delete" = "حذف کردن برنامه ریزی";
@@ -1095,7 +1091,7 @@
 
 "dialog_routing_system_error_carplay" = "خطایی رخ داد. لطفاً برنامه را دوباره اجرا کنید";
 
-"dialog_routing_rebuild_from_current_location_carplay" = "مسیر از مکان فعلی شما بازسازی خواهد شد";
+"dialog_routing_rebuild_from_current_location" = "مسیر از مکان فعلی شما بازسازی خواهد شد";
 
 "dialog_routing_rebuild_for_vehicle_carplay" = "مسیر به مسیر خودرویی تغییر خواهد کرد";
 

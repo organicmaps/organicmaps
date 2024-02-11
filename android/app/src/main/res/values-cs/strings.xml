@@ -375,8 +375,6 @@
 	<string name="p2p_start">Start</string>
 	<string name="p2p_from_here">Trasa z</string>
 	<string name="p2p_to_here">Trasa do</string>
-	<string name="p2p_only_from_current">Navigovat lze pouze z současného umístění.</string>
-	<string name="p2p_reroute_from_current">Máme naplánovat trasu z vašeho současného umístění?</string>
 	<!-- Edit open hours/set time and minutes dialog -->
 	<string name="next_button">Další</string>
 	<!-- Tab title in the Edit Opening Hours time picker -->
@@ -644,6 +642,7 @@
 	<!-- To indicate the capacity of car parkings, bicycle parkings, electric vehicle charging stations... -->
 	<string name="capacity">Kapacita: %s</string>
 	<string name="trip_finished">Přijeli jste!</string>
+	<string name="dialog_routing_rebuild_from_current_location">Trasa bude přestavěna od vaší aktuální polohy</string>
 	<string name="ok">Ok</string>
 	<!-- max. 10 symbols, both iOS and Android -->
 	<string name="sort">Třídit…</string>

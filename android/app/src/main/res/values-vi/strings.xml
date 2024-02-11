@@ -371,8 +371,6 @@
 	<string name="p2p_start">Bắt đầu</string>
 	<string name="p2p_from_here">Từ</string>
 	<string name="p2p_to_here">Tuyến đến</string>
-	<string name="p2p_only_from_current">Chức năng tìm đường chỉ có sẵn từ vị trí hiện tại của bạn.</string>
-	<string name="p2p_reroute_from_current">Bạn có muốn chúng tôi vạch đường từ vị trí hiện tại của bạn không?</string>
 	<!-- Edit open hours/set time and minutes dialog -->
 	<string name="next_button">Tiếp theo</string>
 	<!-- Tab title in the Edit Opening Hours time picker -->
@@ -637,6 +635,7 @@
 	<!-- To indicate the capacity of car parkings, bicycle parkings, electric vehicle charging stations... -->
 	<string name="capacity">Công suất: %s</string>
 	<string name="trip_finished">Bạn đã tới nơi!</string>
+	<string name="dialog_routing_rebuild_from_current_location">Tuyến đường sẽ được tạo lại từ vị trí hiện tại của bạn</string>
 	<string name="ok">Ok</string>
 	<!-- max. 10 symbols, both iOS and Android -->
 	<string name="sort">Sắp xếp…</string>

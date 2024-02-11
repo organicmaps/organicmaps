@@ -395,8 +395,6 @@
 	<string name="p2p_start">Начать</string>
 	<string name="p2p_from_here">Отсюда</string>
 	<string name="p2p_to_here">Сюда</string>
-	<string name="p2p_only_from_current">Навигация возможна только из текущего местоположения.</string>
-	<string name="p2p_reroute_from_current">Хотите перестроить маршрут от вашего местоположения?</string>
 	<!-- Edit open hours/set time and minutes dialog -->
 	<string name="next_button">Далее</string>
 	<!-- Tab title in the Edit Opening Hours time picker -->
@@ -680,6 +678,7 @@
 	<!-- To indicate the capacity of car parkings, bicycle parkings, electric vehicle charging stations... -->
 	<string name="capacity">Вместимость: %s</string>
 	<string name="trip_finished">Вы прибыли!</string>
+	<string name="dialog_routing_rebuild_from_current_location">Маршрут будет перестроен от вашего текущего местоположения</string>
 	<string name="ok">Ок</string>
 	<!-- max. 10 symbols, both iOS and Android -->
 	<string name="sort">Сортировать…</string>

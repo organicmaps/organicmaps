@@ -384,8 +384,6 @@
 	<string name="p2p_start">開始</string>
 	<string name="p2p_from_here">從這出發</string>
 	<string name="p2p_to_here">到這去</string>
-	<string name="p2p_only_from_current">導航只能從您目前的位置開始。</string>
-	<string name="p2p_reroute_from_current">你是否想要規劃目前位置的路線？</string>
 	<!-- Edit open hours/set time and minutes dialog -->
 	<string name="next_button">下一頁</string>
 	<!-- Tab title in the Edit Opening Hours time picker -->
@@ -654,6 +652,7 @@
 	<!-- To indicate the capacity of car parkings, bicycle parkings, electric vehicle charging stations... -->
 	<string name="capacity">容量：%s</string>
 	<string name="trip_finished">您已經到達了!</string>
+	<string name="dialog_routing_rebuild_from_current_location">該路線將從您的當前位置重建</string>
 	<string name="ok">好</string>
 	<!-- max. 10 symbols, both iOS and Android -->
 	<string name="sort">分類……</string>

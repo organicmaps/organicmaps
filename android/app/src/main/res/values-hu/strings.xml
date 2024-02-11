@@ -385,8 +385,6 @@
 	<string name="p2p_start">Indítás</string>
 	<string name="p2p_from_here">Kiindulópont</string>
 	<string name="p2p_to_here">Célpont</string>
-	<string name="p2p_only_from_current">A navigáció csak a jelenlegi helyzetéből érhető el.</string>
-	<string name="p2p_reroute_from_current">Szeretne útvonaltervet készíttetni a jelenlegi pozíciójától?</string>
 	<!-- Edit open hours/set time and minutes dialog -->
 	<string name="next_button">Következő</string>
 	<!-- Tab title in the Edit Opening Hours time picker -->
@@ -651,6 +649,7 @@
 	<!-- To indicate the capacity of car parkings, bicycle parkings, electric vehicle charging stations... -->
 	<string name="capacity">Kapacitás: %s</string>
 	<string name="trip_finished">Megérkeztél!</string>
+	<string name="dialog_routing_rebuild_from_current_location">Az útvonal újra lesz tervezve a jelenlegi helyzetedről</string>
 	<string name="ok">Oké</string>
 	<!-- max. 10 symbols, both iOS and Android -->
 	<string name="sort">Rendezd…</string>

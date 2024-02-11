@@ -545,10 +545,6 @@
 
 "p2p_to_here" = "目的地";
 
-"p2p_only_from_current" = "ナビゲーションは現在位置からのみ利用できます。";
-
-"p2p_reroute_from_current" = "現在位置からのルートを作成しますか？";
-
 "editor_time_add" = "スケジュール追加";
 
 "editor_time_delete" = "スケジュール削除";
@@ -1095,7 +1091,7 @@
 
 "dialog_routing_system_error_carplay" = "エラーが発生しました。アプリを再起動してください";
 
-"dialog_routing_rebuild_from_current_location_carplay" = "ルートは現在位置から再計算されます";
+"dialog_routing_rebuild_from_current_location" = "ルートは現在位置から再計算されます";
 
 "dialog_routing_rebuild_for_vehicle_carplay" = "車ルートに変更されます";
 

@@ -545,10 +545,6 @@
 
 "p2p_to_here" = "Célpont";
 
-"p2p_only_from_current" = "A navigáció csak a jelenlegi helyzetéből érhető el.";
-
-"p2p_reroute_from_current" = "Szeretne útvonaltervet készíttetni a jelenlegi pozíciójától?";
-
 "editor_time_add" = "Időrend felvitele";
 
 "editor_time_delete" = "Időrend törlése";
@@ -1095,7 +1091,7 @@
 
 "dialog_routing_system_error_carplay" = "Hiba történt. Kérjük indítsd újra az alkalmazást";
 
-"dialog_routing_rebuild_from_current_location_carplay" = "Az útvonal újra lesz tervezve a jelenlegi helyzetedről";
+"dialog_routing_rebuild_from_current_location" = "Az útvonal újra lesz tervezve a jelenlegi helyzetedről";
 
 "dialog_routing_rebuild_for_vehicle_carplay" = "Az útvonal módosítva lesz egy autó számára";
 

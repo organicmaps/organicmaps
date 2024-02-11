@@ -361,8 +361,6 @@
 	<string name="p2p_start">Начало</string>
 	<string name="p2p_from_here">Маршрут от</string>
 	<string name="p2p_to_here">Маршрут към</string>
-	<string name="p2p_only_from_current">Навигацията е възможна само от текущото ви местоположение.</string>
-	<string name="p2p_reroute_from_current">Искате ли да планираме маршрут от текущото ви местоположение?</string>
 	<!-- Edit open hours/set time and minutes dialog -->
 	<string name="next_button">Напред</string>
 	<!-- Tab title in the Edit Opening Hours time picker -->

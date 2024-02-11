@@ -366,8 +366,6 @@
 	<string name="p2p_start">شروع</string>
 	<string name="p2p_from_here">مسیر از</string>
 	<string name="p2p_to_here">مسیر به</string>
-	<string name="p2p_only_from_current">مسیر‌یابی فقط از موقعیت کنونی شما قابل انجام است.</string>
-	<string name="p2p_reroute_from_current">آیا می خواهید یک مسیر را از موقعیت فعلیتان برنامه ریزی کنیم؟</string>
 	<!-- Edit open hours/set time and minutes dialog -->
 	<string name="next_button">بعدی</string>
 	<!-- Tab title in the Edit Opening Hours time picker -->
@@ -637,6 +635,7 @@
 	<!-- To indicate the capacity of car parkings, bicycle parkings, electric vehicle charging stations... -->
 	<string name="capacity">ظرفیت: %s</string>
 	<string name="trip_finished">شما به مقصد رسیدید!</string>
+	<string name="dialog_routing_rebuild_from_current_location">مسیر از مکان فعلی شما بازسازی خواهد شد</string>
 	<string name="ok">موافقت کردن</string>
 	<!-- max. 10 symbols, both iOS and Android -->
 	<string name="sort">مرتب سازی…</string>

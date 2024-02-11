@@ -545,10 +545,6 @@
 
 "p2p_to_here" = "Διαδρομή στο";
 
-"p2p_only_from_current" = "Η πλοήγηση είναι διαθέσιμη μόνο από την τρέχουσα τοποθεσία σας.";
-
-"p2p_reroute_from_current" = "Θέλετε να σχεδιάσουμε μια διαδρομή από την τρέχουσα θέση σας;";
-
 "editor_time_add" = "Προσθέσετε χρονοδιάγραμμα";
 
 "editor_time_delete" = "Διαγραφή χρονοδιαγράμματος";
@@ -1095,7 +1091,7 @@
 
 "dialog_routing_system_error_carplay" = "Παρουσιάστηκε σφάλμα. Κάντε επανεκκίνηση της εφαρμογής";
 
-"dialog_routing_rebuild_from_current_location_carplay" = "Η διαδρομή θα ξαναδημιουργηθεί από την τρέχουσα τοποθεσία σας";
+"dialog_routing_rebuild_from_current_location" = "Η διαδρομή θα ξαναδημιουργηθεί από την τρέχουσα τοποθεσία σας";
 
 "dialog_routing_rebuild_for_vehicle_carplay" = "Η διαδρομή θα αντικατασταθεί με τη διαδρομή με αυτοκίνητο";
 

@@ -545,10 +545,6 @@
 
 "p2p_to_here" = "Сюда";
 
-"p2p_only_from_current" = "Навигация возможна только из текущего местоположения.";
-
-"p2p_reroute_from_current" = "Хотите перестроить маршрут от вашего местоположения?";
-
 "editor_time_add" = "Добавить расписание";
 
 "editor_time_delete" = "Удалить расписание";
@@ -1095,7 +1091,7 @@
 
 "dialog_routing_system_error_carplay" = "Произошла ошибка. Перезапустите приложение";
 
-"dialog_routing_rebuild_from_current_location_carplay" = "Маршрут будет перестроен от вашего текущего местоположения";
+"dialog_routing_rebuild_from_current_location" = "Маршрут будет перестроен от вашего текущего местоположения";
 
 "dialog_routing_rebuild_for_vehicle_carplay" = "Маршрут будет изменен на автомобильный";
 

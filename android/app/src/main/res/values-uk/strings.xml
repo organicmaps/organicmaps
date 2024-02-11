@@ -395,8 +395,6 @@
 	<string name="p2p_start">Почати рух</string>
 	<string name="p2p_from_here">Звідси</string>
 	<string name="p2p_to_here">Сюди</string>
-	<string name="p2p_only_from_current">Маршрут можна прокласти лише з поточного місцезнаходження.</string>
-	<string name="p2p_reroute_from_current">Хочете спланувати маршрут із поточного місцезнаходження?</string>
 	<!-- Edit open hours/set time and minutes dialog -->
 	<string name="next_button">Далі</string>
 	<!-- Tab title in the Edit Opening Hours time picker -->
@@ -673,6 +671,7 @@
 	<!-- To indicate the capacity of car parkings, bicycle parkings, electric vehicle charging stations... -->
 	<string name="capacity">Місткість: %s</string>
 	<string name="trip_finished">Ви прибули!</string>
+	<string name="dialog_routing_rebuild_from_current_location">Маршрут буде перебудовано від вашого поточного місця розташування</string>
 	<string name="ok">Ок</string>
 	<!-- max. 10 symbols, both iOS and Android -->
 	<string name="sort">Сортувати</string>

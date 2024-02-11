@@ -545,10 +545,6 @@
 
 "p2p_to_here" = "Дасюль";
 
-"p2p_only_from_current" = "Навігацыя магчыма толькі ад цяперашняга месцазнаходжання.";
-
-"p2p_reroute_from_current" = "Хочаце перапракласці маршрут ад цяперашняга месцазнаходжання?";
-
 "editor_time_add" = "Дадаць расклад";
 
 "editor_time_delete" = "Выдаліць расклад";
@@ -1095,7 +1091,7 @@
 
 "dialog_routing_system_error_carplay" = "Адбылася памылка. Калі ласка, перазапусціце праграму";
 
-"dialog_routing_rebuild_from_current_location_carplay" = "Маршрут будзе перапракладзены ад вашага цяперашняга месцазнаходжання";
+"dialog_routing_rebuild_from_current_location" = "Маршрут будзе перапракладзены ад вашага цяперашняга месцазнаходжання";
 
 "dialog_routing_rebuild_for_vehicle_carplay" = "Маршрут будзе ператвораны ў аўтамабільны";
 

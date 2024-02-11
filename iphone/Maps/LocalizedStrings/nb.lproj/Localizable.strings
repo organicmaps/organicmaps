@@ -545,10 +545,6 @@
 
 "p2p_to_here" = "Rute til";
 
-"p2p_only_from_current" = "Navigering er kun tilgjengelig fra din nåværende beliggenhet.";
-
-"p2p_reroute_from_current" = "Vil du vi skal planlegge en rute fra din nåværende posisjon?";
-
 "editor_time_add" = "Legg til tidsrom";
 
 "editor_time_delete" = "Slett tidsrom";
@@ -1095,7 +1091,7 @@
 
 "dialog_routing_system_error_carplay" = "Feil oppstod. Vennligst restart appen";
 
-"dialog_routing_rebuild_from_current_location_carplay" = "Rute vil planlegges fra din nåværende posisjon";
+"dialog_routing_rebuild_from_current_location" = "Rute vil planlegges fra din nåværende posisjon";
 
 "dialog_routing_rebuild_for_vehicle_carplay" = "Rute vil oppdateres til kjørerute";
 

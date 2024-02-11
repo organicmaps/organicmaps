@@ -545,10 +545,6 @@
 
 "p2p_to_here" = "เส้นทางถึง";
 
-"p2p_only_from_current" = "สามารถใช้การนำทางได้เฉพาะจากตำแหน่งที่ตั้งปัจจุบันของคุณเท่านั้น";
-
-"p2p_reroute_from_current" = "คุณต้องการให้เราาวงแผนเส้นทางจากสถานที่ตั้งปัจจุบันของคุณหรือไม่?";
-
 "editor_time_add" = "เพิ่มวัน";
 
 "editor_time_delete" = "ลบวัน";
@@ -1095,7 +1091,7 @@
 
 "dialog_routing_system_error_carplay" = "พบข้อผิดพลาด โปรดปิดและเปิดแอปพลิเคชันใหม่อีกครั้ง";
 
-"dialog_routing_rebuild_from_current_location_carplay" = "เส้นทางจะถูกสร้างอีกครั้งจากตำแหน่งปัจจุบันของคุณ";
+"dialog_routing_rebuild_from_current_location" = "เส้นทางจะถูกสร้างอีกครั้งจากตำแหน่งปัจจุบันของคุณ";
 
 "dialog_routing_rebuild_for_vehicle_carplay" = "เส้นทางของรถยนต์อาจถูกปรับเปลี่ยน";
 

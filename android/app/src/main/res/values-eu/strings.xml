@@ -390,8 +390,6 @@
 	<string name="p2p_start">Hasi</string>
 	<string name="p2p_from_here">Hemendik</string>
 	<string name="p2p_to_here">Bidea hona</string>
-	<string name="p2p_only_from_current">Nabigazioa zure uneko kokapenetik soilik dago erabilgarri.</string>
-	<string name="p2p_reroute_from_current">Zure uneko kokapenetik ibilbide bat antolatzea nahi duzu?</string>
 	<!-- Edit open hours/set time and minutes dialog -->
 	<string name="next_button">Hurrengoa</string>
 	<!-- Tab title in the Edit Opening Hours time picker -->
@@ -671,6 +669,7 @@
 	<!-- To indicate the capacity of car parkings, bicycle parkings, electric vehicle charging stations... -->
 	<string name="capacity">Edukiera: %s</string>
 	<string name="trip_finished">Iritsi zara!</string>
+	<string name="dialog_routing_rebuild_from_current_location">Ibilbidea zure uneko kokapenetik birkalkulatuko da</string>
 	<string name="ok">Ados</string>
 	<!-- max. 10 symbols, both iOS and Android -->
 	<string name="sort">Ordenatu…</string>

@@ -545,10 +545,6 @@
 
 "p2p_to_here" = "Route to";
 
-"p2p_only_from_current" = "Navigation is only available from your current location.";
-
-"p2p_reroute_from_current" = "Do you want to plan a route from your current location?";
-
 "editor_time_add" = "Add Schedule";
 
 "editor_time_delete" = "Delete Schedule";
@@ -1095,7 +1091,7 @@
 
 "dialog_routing_system_error_carplay" = "An error occurred. Please restart the application";
 
-"dialog_routing_rebuild_from_current_location_carplay" = "The route will be rebuilt from your current location";
+"dialog_routing_rebuild_from_current_location" = "The route will be rebuilt from your current location";
 
 "dialog_routing_rebuild_for_vehicle_carplay" = "The route will be converted into an automobile one";
 

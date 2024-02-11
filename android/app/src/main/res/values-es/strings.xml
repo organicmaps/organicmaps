@@ -392,8 +392,6 @@
 	<string name="p2p_start">Empezar</string>
 	<string name="p2p_from_here">Ruta desde</string>
 	<string name="p2p_to_here">Ruta hacia</string>
-	<string name="p2p_only_from_current">La navegación solo está disponible desde su ubicación actual.</string>
-	<string name="p2p_reroute_from_current">¿Quiere que planeemos una ruta desde su ubicación actual?</string>
 	<!-- Edit open hours/set time and minutes dialog -->
 	<string name="next_button">Siguiente</string>
 	<!-- Tab title in the Edit Opening Hours time picker -->
@@ -673,6 +671,7 @@
 	<!-- To indicate the capacity of car parkings, bicycle parkings, electric vehicle charging stations... -->
 	<string name="capacity">Capacidad: %s</string>
 	<string name="trip_finished">¡Ya ha llegado!</string>
+	<string name="dialog_routing_rebuild_from_current_location">La ruta se reconstruirá desde su ubicación actual</string>
 	<string name="ok">Ok</string>
 	<!-- max. 10 symbols, both iOS and Android -->
 	<string name="sort">Ordenar…</string>

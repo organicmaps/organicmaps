@@ -545,10 +545,6 @@
 
 "p2p_to_here" = "Route naar";
 
-"p2p_only_from_current" = "Navigatie is uitsluitend beschikbaar vanuit uw huidige locatie.";
-
-"p2p_reroute_from_current" = "Wilt u een route plannen vanaf uw huidige locatie?";
-
 "editor_time_add" = "Schema toevoegen";
 
 "editor_time_delete" = "Schema verwijderen";
@@ -1095,7 +1091,7 @@
 
 "dialog_routing_system_error_carplay" = "Iets is fout gegaan. Start de app opnieuw";
 
-"dialog_routing_rebuild_from_current_location_carplay" = "De route wordt opnieuw berekend vanaf uw huidige locatie";
+"dialog_routing_rebuild_from_current_location" = "De route wordt opnieuw berekend vanaf uw huidige locatie";
 
 "dialog_routing_rebuild_for_vehicle_carplay" = "De route wordt veranderd naar een autoroute";
 

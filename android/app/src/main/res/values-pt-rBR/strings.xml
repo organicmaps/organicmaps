@@ -383,8 +383,6 @@
 	<string name="p2p_start">Iniciar</string>
 	<string name="p2p_from_here">De</string>
 	<string name="p2p_to_here">Para</string>
-	<string name="p2p_only_from_current">Só é possível navegar a partir da sua localização atual.</string>
-	<string name="p2p_reroute_from_current">Deseja planejar uma rota a partir da sua localização atual?</string>
 	<!-- Edit open hours/set time and minutes dialog -->
 	<string name="next_button">Próxima</string>
 	<string name="editor_time_add">Adicionar horário</string>
@@ -643,6 +641,7 @@
 	<!-- E.g. "WiFi:No" -->
 	<string name="no_available">Não</string>
 	<string name="trip_finished">Você chegou!</string>
+	<string name="dialog_routing_rebuild_from_current_location">A rota sera retraçada a partir de sua localização atual</string>
 	<string name="ok">Tudo bem</string>
 	<!-- max. 10 symbols, both iOS and Android -->
 	<string name="sort">Ordenar…</string>

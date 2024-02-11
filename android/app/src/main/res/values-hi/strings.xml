@@ -308,8 +308,6 @@
 	<string name="p2p_start">जाएँ</string>
 	<string name="p2p_from_here">यहाँ से</string>
 	<string name="p2p_to_here">यहाँ तक</string>
-	<string name="p2p_only_from_current">नेविगेशन केवल आपके वर्तमान स्थान से उपलब्ध है।</string>
-	<string name="p2p_reroute_from_current">क्या आप अपने वर्तमान स्थान से मार्ग की योजना बनाना चाहते हैं?</string>
 	<string name="editor_time_open">खुला</string>
 	<string name="editor_time_close">बंद</string>
 	<string name="editor_time_title">काम करने के घंटे</string>
@@ -425,6 +423,7 @@
 	<string name="no_available">नहीं</string>
 	<!-- To indicate the capacity of car parkings, bicycle parkings, electric vehicle charging stations... -->
 	<string name="capacity">क्षमता: %s</string>
+	<string name="dialog_routing_rebuild_from_current_location">मार्ग आपके वर्तमान स्थान से फिर से बनाया जाएगा</string>
 	<string name="ok">ठीक है</string>
 
 	<!-- SECTION: Bookmark types used for sorting -->

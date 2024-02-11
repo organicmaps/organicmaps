@@ -545,10 +545,6 @@
 
 "p2p_to_here" = "Tuyến đến";
 
-"p2p_only_from_current" = "Chức năng tìm đường chỉ có sẵn từ vị trí hiện tại của bạn.";
-
-"p2p_reroute_from_current" = "Bạn có muốn chúng tôi vạch đường từ vị trí hiện tại của bạn không?";
-
 "editor_time_add" = "Thêm lịch biểu";
 
 "editor_time_delete" = "Xóa lịch biểu";
@@ -1095,7 +1091,7 @@
 
 "dialog_routing_system_error_carplay" = "Đã xảy ra lỗi. Khởi động lại ứng dụng";
 
-"dialog_routing_rebuild_from_current_location_carplay" = "Tuyến đường sẽ được tạo lại từ vị trí hiện tại của bạn";
+"dialog_routing_rebuild_from_current_location" = "Tuyến đường sẽ được tạo lại từ vị trí hiện tại của bạn";
 
 "dialog_routing_rebuild_for_vehicle_carplay" = "Tuyến đường sẽ được thay đổi thành tuyến dành cho xe ô tô";
 

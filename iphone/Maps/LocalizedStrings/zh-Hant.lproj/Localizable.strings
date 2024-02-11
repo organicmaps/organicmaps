@@ -545,10 +545,6 @@
 
 "p2p_to_here" = "到這去";
 
-"p2p_only_from_current" = "導航只能從您目前的位置開始。";
-
-"p2p_reroute_from_current" = "你是否想要規劃目前位置的路線？";
-
 "editor_time_add" = "新增排程";
 
 "editor_time_delete" = "刪除排程";
@@ -1095,7 +1091,7 @@
 
 "dialog_routing_system_error_carplay" = "發生錯誤，請重新啟動 app";
 
-"dialog_routing_rebuild_from_current_location_carplay" = "該路線將從您的當前位置重建";
+"dialog_routing_rebuild_from_current_location" = "該路線將從您的當前位置重建";
 
 "dialog_routing_rebuild_for_vehicle_carplay" = "該路線將改為汽車（路線）";
 

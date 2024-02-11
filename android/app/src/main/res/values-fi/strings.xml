@@ -394,8 +394,6 @@
 	<string name="p2p_start">Aloita</string>
 	<string name="p2p_from_here">Lähtöpaikka</string>
 	<string name="p2p_to_here">Reitin loppupiste</string>
-	<string name="p2p_only_from_current">Navigointi onnistuu vain nykyisestä sijainnistasi.</string>
-	<string name="p2p_reroute_from_current">Haluatko valita vaihtoehtoisen reitin?</string>
 	<!-- Edit open hours/set time and minutes dialog -->
 	<string name="next_button">Seuraava</string>
 	<!-- Tab title in the Edit Opening Hours time picker -->
@@ -675,6 +673,7 @@
 	<!-- To indicate the capacity of car parkings, bicycle parkings, electric vehicle charging stations... -->
 	<string name="capacity">Kapasiteetti: %s</string>
 	<string name="trip_finished">Olet perillä!</string>
+	<string name="dialog_routing_rebuild_from_current_location">Reitti luodaan nykyisestä sijainnista</string>
 	<string name="ok">Ok</string>
 	<!-- max. 10 symbols, both iOS and Android -->
 	<string name="sort">Järjestä…</string>

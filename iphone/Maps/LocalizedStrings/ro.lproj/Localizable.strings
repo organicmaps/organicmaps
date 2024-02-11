@@ -545,10 +545,6 @@
 
 "p2p_to_here" = "La";
 
-"p2p_only_from_current" = "Navigația este disponibilă doar având ca punct de plecare poziția ta actuală.";
-
-"p2p_reroute_from_current" = "Vrei să planifici un traseu din poziția ta actuală?";
-
 "editor_time_add" = "Adaugă planificare";
 
 "editor_time_delete" = "Elimină planificarea";
@@ -1095,7 +1091,7 @@
 
 "dialog_routing_system_error_carplay" = "Eroare. Repornește aplicația.";
 
-"dialog_routing_rebuild_from_current_location_carplay" = "Traseul va fi refăcut de la locul în care te afli";
+"dialog_routing_rebuild_from_current_location" = "Traseul va fi refăcut de la locul în care te afli";
 
 "dialog_routing_rebuild_for_vehicle_carplay" = "Traseul va fi înlocuit cu unul pentru autovehicule";
 

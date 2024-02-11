@@ -545,10 +545,6 @@
 
 "p2p_to_here" = "Rutt till";
 
-"p2p_only_from_current" = "Navigering är endast tillgänglig från din aktuella plats.";
-
-"p2p_reroute_from_current" = "Vill du att vi planerar en färdväg från din nuvarande plats?";
-
 "editor_time_add" = "Lägg till schema";
 
 "editor_time_delete" = "Ta bort schema";
@@ -1095,7 +1091,7 @@
 
 "dialog_routing_system_error_carplay" = "Ett fel uppstod. Starta om appen";
 
-"dialog_routing_rebuild_from_current_location_carplay" = "Ruten kommer att byggas om från din nuvarande plats";
+"dialog_routing_rebuild_from_current_location" = "Ruten kommer att byggas om från din nuvarande plats";
 
 "dialog_routing_rebuild_for_vehicle_carplay" = "Ruten kommer att ändras till bil";
 

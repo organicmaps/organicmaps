@@ -545,10 +545,6 @@
 
 "p2p_to_here" = "Reitin loppupiste";
 
-"p2p_only_from_current" = "Navigointi onnistuu vain nykyisestä sijainnistasi.";
-
-"p2p_reroute_from_current" = "Haluatko valita vaihtoehtoisen reitin?";
-
 "editor_time_add" = "Lisää aikataulu";
 
 "editor_time_delete" = "Poista aikataulu";
@@ -1095,7 +1091,7 @@
 
 "dialog_routing_system_error_carplay" = "On tapahtunut virhe. Käynnistä sovellus uudelleen";
 
-"dialog_routing_rebuild_from_current_location_carplay" = "Reitti luodaan nykyisestä sijainnista";
+"dialog_routing_rebuild_from_current_location" = "Reitti luodaan nykyisestä sijainnista";
 
 "dialog_routing_rebuild_for_vehicle_carplay" = "Reitti muutetaan autoilijan reitiksi";
 

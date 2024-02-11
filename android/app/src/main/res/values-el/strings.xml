@@ -373,8 +373,6 @@
 	<string name="p2p_start">Έναρξη</string>
 	<string name="p2p_from_here">Διαδρομή από</string>
 	<string name="p2p_to_here">Διαδρομή στο</string>
-	<string name="p2p_only_from_current">Η πλοήγηση είναι διαθέσιμη μόνο από την τρέχουσα τοποθεσία σας.</string>
-	<string name="p2p_reroute_from_current">Θέλετε να σχεδιάσουμε μια διαδρομή από την τρέχουσα θέση σας;</string>
 	<!-- Edit open hours/set time and minutes dialog -->
 	<string name="next_button">Επόμενη</string>
 	<!-- Tab title in the Edit Opening Hours time picker -->
@@ -626,6 +624,7 @@
 	<!-- To indicate the capacity of car parkings, bicycle parkings, electric vehicle charging stations... -->
 	<string name="capacity">Χωρητικότητα: %s</string>
 	<string name="trip_finished">Έχετε φτάσει!</string>
+	<string name="dialog_routing_rebuild_from_current_location">Η διαδρομή θα ξαναδημιουργηθεί από την τρέχουσα τοποθεσία σας</string>
 	<string name="ok">Καλώς</string>
 	<!-- max. 10 symbols, both iOS and Android -->
 	<string name="sort">Ταξινόμηση</string>

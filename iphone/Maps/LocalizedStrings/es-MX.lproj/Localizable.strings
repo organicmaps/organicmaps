@@ -545,10 +545,6 @@
 
 "p2p_to_here" = "Ruta hacia";
 
-"p2p_only_from_current" = "La navegación solo está disponible desde su ubicación actual.";
-
-"p2p_reroute_from_current" = "¿Quiere que planeemos una ruta desde su ubicación actual?";
-
 "editor_time_add" = "Añadir horario";
 
 "editor_time_delete" = "Eliminar horario";
@@ -1095,7 +1091,7 @@
 
 "dialog_routing_system_error_carplay" = "Ocurrió un error. Reinicie la aplicación";
 
-"dialog_routing_rebuild_from_current_location_carplay" = "La ruta se reconstruirá desde su ubicación actual";
+"dialog_routing_rebuild_from_current_location" = "La ruta se reconstruirá desde su ubicación actual";
 
 "dialog_routing_rebuild_for_vehicle_carplay" = "La ruta se cambiará a en auto";
 

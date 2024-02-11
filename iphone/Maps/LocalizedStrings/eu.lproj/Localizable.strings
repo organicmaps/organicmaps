@@ -545,10 +545,6 @@
 
 "p2p_to_here" = "Bidea hona";
 
-"p2p_only_from_current" = "Nabigazioa zure uneko kokapenetik soilik dago erabilgarri.";
-
-"p2p_reroute_from_current" = "Zure uneko kokapenetik ibilbide bat antolatzea nahi duzu?";
-
 "editor_time_add" = "Gehitu ordutegia";
 
 "editor_time_delete" = "Ezabatu ordutegia";
@@ -1095,7 +1091,7 @@
 
 "dialog_routing_system_error_carplay" = "Akats bat gertatu da. Berrabiarazi aplikazioa";
 
-"dialog_routing_rebuild_from_current_location_carplay" = "Ibilbidea zure uneko kokapenetik birkalkulatuko da";
+"dialog_routing_rebuild_from_current_location" = "Ibilbidea zure uneko kokapenetik birkalkulatuko da";
 
 "dialog_routing_rebuild_for_vehicle_carplay" = "Ibilbidea auto modura aldatuko da";
 

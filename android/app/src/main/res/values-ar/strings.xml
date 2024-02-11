@@ -405,8 +405,6 @@
 	<string name="p2p_start">ابدأ</string>
 	<string name="p2p_from_here">الطريق من هنا</string>
 	<string name="p2p_to_here">الطريق إلى</string>
-	<string name="p2p_only_from_current">تتوفر الملاحة من خلال موقعك الحالي فقط.</string>
-	<string name="p2p_reroute_from_current">هل ترغب في أن نرسم مسار لك من موقعك الحالي؟</string>
 	<!-- Edit open hours/set time and minutes dialog -->
 	<string name="next_button">التالي</string>
 	<!-- Tab title in the Edit Opening Hours time picker -->
@@ -682,6 +680,7 @@
 	<!-- To indicate the capacity of car parkings, bicycle parkings, electric vehicle charging stations... -->
 	<string name="capacity">السعة: %s</string>
 	<string name="trip_finished">لقد وصلت!</string>
+	<string name="dialog_routing_rebuild_from_current_location">سيتم إعادة رسم الطريق من موقعك الحالي</string>
 	<string name="ok">موافق</string>
 	<!-- max. 10 symbols, both iOS and Android -->
 	<string name="sort">ترتيب…</string>

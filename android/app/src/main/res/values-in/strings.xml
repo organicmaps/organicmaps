@@ -373,8 +373,6 @@
 	<string name="p2p_start">Mulai</string>
 	<string name="p2p_from_here">Dari</string>
 	<string name="p2p_to_here">Rute ke</string>
-	<string name="p2p_only_from_current">Navigasi tersedia hanya dari lokasi Anda saat ini.</string>
-	<string name="p2p_reroute_from_current">Apakah Anda ingin kami merencanakan sebuah rute dari lokasi Anda saat ini?</string>
 	<!-- Edit open hours/set time and minutes dialog -->
 	<string name="next_button">Berikut</string>
 	<!-- Tab title in the Edit Opening Hours time picker -->
@@ -639,6 +637,7 @@
 	<!-- To indicate the capacity of car parkings, bicycle parkings, electric vehicle charging stations... -->
 	<string name="capacity">Kapasitas: %s</string>
 	<string name="trip_finished">Anda telah tiba!</string>
+	<string name="dialog_routing_rebuild_from_current_location">Rute akan dibuat ulang dari lokasi saat ini</string>
 	<string name="ok">Oke</string>
 	<!-- max. 10 symbols, both iOS and Android -->
 	<string name="sort">Urutkan…</string>

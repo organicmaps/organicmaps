@@ -545,10 +545,6 @@
 
 "p2p_to_here" = "Маршрут към";
 
-"p2p_only_from_current" = "Навигацията е възможна само от текущото ви местоположение.";
-
-"p2p_reroute_from_current" = "Искате ли да планираме маршрут от текущото ви местоположение?";
-
 "editor_time_add" = "Добавяне на график";
 
 "editor_time_delete" = "Изтриване на график";
@@ -1095,7 +1091,7 @@
 
 "dialog_routing_system_error_carplay" = "An error occurred. Please restart the application";
 
-"dialog_routing_rebuild_from_current_location_carplay" = "The route will be rebuilt from your current location";
+"dialog_routing_rebuild_from_current_location" = "The route will be rebuilt from your current location";
 
 "dialog_routing_rebuild_for_vehicle_carplay" = "The route will be converted into an automobile one";
 

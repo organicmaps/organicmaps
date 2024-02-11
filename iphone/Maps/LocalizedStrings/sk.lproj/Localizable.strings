@@ -545,10 +545,6 @@
 
 "p2p_to_here" = "Cesta do";
 
-"p2p_only_from_current" = "Navigácia je dostupná iba z vašej aktuálnej polohy.";
-
-"p2p_reroute_from_current" = "Máme naplánovať trasu z vašej súčasnej pozície?";
-
 "editor_time_add" = "Pridať rozvrh";
 
 "editor_time_delete" = "Zmazať rozvrh";
@@ -1095,7 +1091,7 @@
 
 "dialog_routing_system_error_carplay" = "Vyskytla sa chyba. Prosím reštartujte aplikáciu";
 
-"dialog_routing_rebuild_from_current_location_carplay" = "Trasa bude obnovená z vašej aktuálnej polohy";
+"dialog_routing_rebuild_from_current_location" = "Trasa bude obnovená z vašej aktuálnej polohy";
 
 "dialog_routing_rebuild_for_vehicle_carplay" = "Trasa bude upravená na jazdu autom";
 

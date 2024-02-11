@@ -384,8 +384,6 @@
 	<string name="p2p_start">צא לדרך</string>
 	<string name="p2p_from_here">מסלול מכאן</string>
 	<string name="p2p_to_here">מסלול לכאן</string>
-	<string name="p2p_only_from_current">ניווט זמין רק מהמיקום הנוכחי שלך.</string>
-	<string name="p2p_reroute_from_current">ברצונך לתכנן מסלול מהמיקום הנוכחי שלך?</string>
 	<!-- Edit open hours/set time and minutes dialog -->
 	<string name="next_button">הבא</string>
 	<!-- Tab title in the Edit Opening Hours time picker -->
@@ -664,6 +662,7 @@
 	<!-- To indicate the capacity of car parkings, bicycle parkings, electric vehicle charging stations... -->
 	<string name="capacity">קיבולת: %s</string>
 	<string name="trip_finished">הגעת!</string>
+	<string name="dialog_routing_rebuild_from_current_location">המסלול ייבנה מחדש מהמיקום הנוכחי שלך</string>
 	<string name="ok">אוקיי</string>
 	<!-- max. 10 symbols, both iOS and Android -->
 	<string name="sort">מיון…</string>

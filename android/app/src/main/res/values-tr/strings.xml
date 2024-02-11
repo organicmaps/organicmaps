@@ -392,8 +392,6 @@
 	<string name="p2p_start">Başla</string>
 	<string name="p2p_from_here">Başlangıç</string>
 	<string name="p2p_to_here">Varış yeri</string>
-	<string name="p2p_only_from_current">Navigasyon sadece şu anki konumunuzdan mevcut.</string>
-	<string name="p2p_reroute_from_current">Mevcut konumunuzdan bir rota planlamamızı ister misiniz?</string>
 	<!-- Edit open hours/set time and minutes dialog -->
 	<string name="next_button">Sonraki</string>
 	<!-- Tab title in the Edit Opening Hours time picker -->
@@ -669,6 +667,7 @@
 	<!-- To indicate the capacity of car parkings, bicycle parkings, electric vehicle charging stations... -->
 	<string name="capacity">Kapasite: %s</string>
 	<string name="trip_finished">Vardınız!</string>
+	<string name="dialog_routing_rebuild_from_current_location">Rota, mevcut konumunuzdan yeniden oluşturulacak</string>
 	<string name="ok">Tamam</string>
 	<!-- max. 10 symbols, both iOS and Android -->
 	<string name="sort">Sırala…</string>

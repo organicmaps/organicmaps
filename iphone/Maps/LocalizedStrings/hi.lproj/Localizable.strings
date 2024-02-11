@@ -545,10 +545,6 @@
 
 "p2p_to_here" = "यहाँ तक";
 
-"p2p_only_from_current" = "नेविगेशन केवल आपके वर्तमान स्थान से उपलब्ध है।";
-
-"p2p_reroute_from_current" = "क्या आप अपने वर्तमान स्थान से मार्ग की योजना बनाना चाहते हैं?";
-
 "editor_time_add" = "Add Schedule";
 
 "editor_time_delete" = "Delete Schedule";
@@ -1095,7 +1091,7 @@
 
 "dialog_routing_system_error_carplay" = "एक त्रुटि पाई गई। कृपया एप्लिकेशन पुनः प्रारंभ करें";
 
-"dialog_routing_rebuild_from_current_location_carplay" = "मार्ग आपके वर्तमान स्थान से फिर से बनाया जाएगा";
+"dialog_routing_rebuild_from_current_location" = "मार्ग आपके वर्तमान स्थान से फिर से बनाया जाएगा";
 
 "dialog_routing_rebuild_for_vehicle_carplay" = "मार्ग को ऑटोमोबाइल में परिवर्तित किया जाएगा";
 

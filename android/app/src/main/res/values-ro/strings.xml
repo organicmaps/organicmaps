@@ -378,8 +378,6 @@
 	<string name="p2p_start">Pornește</string>
 	<string name="p2p_from_here">De la</string>
 	<string name="p2p_to_here">La</string>
-	<string name="p2p_only_from_current">Navigația este disponibilă doar având ca punct de plecare poziția ta actuală.</string>
-	<string name="p2p_reroute_from_current">Vrei să planifici un traseu din poziția ta actuală?</string>
 	<!-- Edit open hours/set time and minutes dialog -->
 	<string name="next_button">Următorul</string>
 	<!-- Tab title in the Edit Opening Hours time picker -->
@@ -657,6 +655,7 @@
 	<!-- To indicate the capacity of car parkings, bicycle parkings, electric vehicle charging stations... -->
 	<string name="capacity">Capacitate: %s</string>
 	<string name="trip_finished">Ai ajuns!</string>
+	<string name="dialog_routing_rebuild_from_current_location">Traseul va fi refăcut de la locul în care te afli</string>
 	<string name="ok">Bine</string>
 	<!-- max. 10 symbols, both iOS and Android -->
 	<string name="sort">Sortare…</string>

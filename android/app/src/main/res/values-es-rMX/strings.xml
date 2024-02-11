@@ -147,6 +147,7 @@
 	<!-- E.g. "WiFi:No" -->
 	<string name="no_available">No</string>
 	<string name="trip_finished">¡Ya llegó!</string>
+	<string name="dialog_routing_rebuild_from_current_location">La ruta se reconstruirá desde su ubicación actual</string>
 	<string name="ok">Ok</string>
 	<!-- max. 10 symbols, both iOS and Android -->
 	<string name="sort">Ordenar…</string>

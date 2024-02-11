@@ -545,10 +545,6 @@
 
 "p2p_to_here" = "Rute til";
 
-"p2p_only_from_current" = "Navigation er kun tilgængelig fra din nuværende lokalitet.";
-
-"p2p_reroute_from_current" = "Ønsker du, at vi planlægger en rute fra din nuværende placering?";
-
 "editor_time_add" = "Tilføj tidsplan";
 
 "editor_time_delete" = "Slet tidsplan";
@@ -1095,7 +1091,7 @@
 
 "dialog_routing_system_error_carplay" = "Der opstod en fejl. Genstart programmet";
 
-"dialog_routing_rebuild_from_current_location_carplay" = "Rute vil blive beregnet igen, ud fra din nuværende position";
+"dialog_routing_rebuild_from_current_location" = "Rute vil blive beregnet igen, ud fra din nuværende position";
 
 "dialog_routing_rebuild_for_vehicle_carplay" = "Rute vil blive ændret til en kørselsrute";
 

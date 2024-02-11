@@ -545,10 +545,6 @@
 
 "p2p_to_here" = "Son dayanacaq";
 
-"p2p_only_from_current" = "Naviqasiya yalnız cari yerinizdən mümkündür.";
-
-"p2p_reroute_from_current" = "Hazırkı yerinizdən marşrut planlaşdırmağımızı istərdinizmi?";
-
 "editor_time_add" = "Plan əlavə edin";
 
 "editor_time_delete" = "Cədvəli silin";
@@ -1095,7 +1091,7 @@
 
 "dialog_routing_system_error_carplay" = "Xəta baş verdi. Zəhmət olmasa tətbiqi yenidən başladın";
 
-"dialog_routing_rebuild_from_current_location_carplay" = "Marşrut cari yerinizdən yenidən yaradılacaq";
+"dialog_routing_rebuild_from_current_location" = "Marşrut cari yerinizdən yenidən yaradılacaq";
 
 "dialog_routing_rebuild_for_vehicle_carplay" = "Marşrut sürücülük marşrutuna çevriləcək";
 

@@ -392,8 +392,6 @@
 	<string name="p2p_start">Başla</string>
 	<string name="p2p_from_here">Başlanğıc</string>
 	<string name="p2p_to_here">Son dayanacaq</string>
-	<string name="p2p_only_from_current">Naviqasiya yalnız cari yerinizdən mümkündür.</string>
-	<string name="p2p_reroute_from_current">Hazırkı yerinizdən marşrut planlaşdırmağımızı istərdinizmi?</string>
 	<!-- Edit open hours/set time and minutes dialog -->
 	<string name="next_button">Sonrakı</string>
 	<!-- Tab title in the Edit Opening Hours time picker -->
@@ -667,6 +665,7 @@
 	<!-- E.g. "WiFi:No" -->
 	<string name="no_available">Yox</string>
 	<string name="trip_finished">Sən gəldin!</string>
+	<string name="dialog_routing_rebuild_from_current_location">Marşrut cari yerinizdən yenidən yaradılacaq</string>
 	<string name="ok">Yaxşı</string>
 	<!-- max. 10 symbols, both iOS and Android -->
 	<string name="sort">Çeşid…</string>

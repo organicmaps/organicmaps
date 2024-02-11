@@ -373,8 +373,6 @@
 	<string name="p2p_start">เริ่มต้น</string>
 	<string name="p2p_from_here">จาก</string>
 	<string name="p2p_to_here">เส้นทางถึง</string>
-	<string name="p2p_only_from_current">สามารถใช้การนำทางได้เฉพาะจากตำแหน่งที่ตั้งปัจจุบันของคุณเท่านั้น</string>
-	<string name="p2p_reroute_from_current">คุณต้องการให้เราาวงแผนเส้นทางจากสถานที่ตั้งปัจจุบันของคุณหรือไม่?</string>
 	<!-- Edit open hours/set time and minutes dialog -->
 	<string name="next_button">ถัดไป</string>
 	<!-- Tab title in the Edit Opening Hours time picker -->
@@ -638,6 +636,7 @@
 	<!-- To indicate the capacity of car parkings, bicycle parkings, electric vehicle charging stations... -->
 	<string name="capacity">ความจุ: %s</string>
 	<string name="trip_finished">คุณมาถึงแล้ว!</string>
+	<string name="dialog_routing_rebuild_from_current_location">เส้นทางจะถูกสร้างอีกครั้งจากตำแหน่งปัจจุบันของคุณ</string>
 	<string name="ok">โอเค</string>
 	<!-- max. 10 symbols, both iOS and Android -->
 	<string name="sort">เรียง…</string>

@@ -394,8 +394,6 @@
 	<string name="p2p_start">開始</string>
 	<string name="p2p_from_here">出発地</string>
 	<string name="p2p_to_here">目的地</string>
-	<string name="p2p_only_from_current">ナビゲーションは現在位置からのみ利用できます。</string>
-	<string name="p2p_reroute_from_current">現在位置からのルートを作成しますか？</string>
 	<!-- Edit open hours/set time and minutes dialog -->
 	<string name="next_button">次へ</string>
 	<!-- Tab title in the Edit Opening Hours time picker -->
@@ -671,6 +669,7 @@
 	<!-- To indicate the capacity of car parkings, bicycle parkings, electric vehicle charging stations... -->
 	<string name="capacity">定員：%s</string>
 	<string name="trip_finished">到着しました!</string>
+	<string name="dialog_routing_rebuild_from_current_location">ルートは現在位置から再計算されます</string>
 	<string name="ok">OK</string>
 	<!-- max. 10 symbols, both iOS and Android -->
 	<string name="sort">並び替え中…</string>

@@ -382,8 +382,6 @@
 	<string name="p2p_start">Alusta</string>
 	<string name="p2p_from_here">Marsruut lähtekohast</string>
 	<string name="p2p_to_here">Marsruut sihtkohta</string>
-	<string name="p2p_only_from_current">Navigeerimine on saadaval ainult Sinu praegusest asukohast.</string>
-	<string name="p2p_reroute_from_current">Kas soovid, et planeeriksime marsruudi Sinu praegusest asukohast?</string>
 	<!-- Edit open hours/set time and minutes dialog -->
 	<string name="next_button">Järgmine</string>
 	<!-- Tab title in the Edit Opening Hours time picker -->
@@ -660,6 +658,7 @@
 	<!-- To indicate the capacity of car parkings, bicycle parkings, electric vehicle charging stations... -->
 	<string name="capacity">Mahutavus: %s</string>
 	<string name="trip_finished">Oled kohal!</string>
+	<string name="dialog_routing_rebuild_from_current_location">Marsruut luuakse uuesti sinu hetkeasukohast</string>
 	<string name="ok">Ok</string>
 	<!-- max. 10 symbols, both iOS and Android -->
 	<string name="sort">Sorteeri…</string>

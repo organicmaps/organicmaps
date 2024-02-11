@@ -364,8 +364,6 @@
 	<string name="p2p_start">सुरू करा</string>
 	<string name="p2p_from_here">पासून मार्ग</string>
 	<string name="p2p_to_here">पर्यंतचा मार्ग</string>
-	<string name="p2p_only_from_current">मार्गनिर्देशन फक्त तुमच्या वर्तमान स्थानावरून उपलब्ध आहे.</string>
-	<string name="p2p_reroute_from_current">तुमच्या वर्तमान स्थानापासून मार्ग नियोजन करायचे का?</string>
 	<!-- Edit open hours/set time and minutes dialog -->
 	<string name="next_button">पुढे</string>
 	<!-- Tab title in the Edit Opening Hours time picker -->
@@ -635,6 +633,7 @@
 	<!-- To indicate the capacity of car parkings, bicycle parkings, electric vehicle charging stations... -->
 	<string name="capacity">क्षमता: %s</string>
 	<string name="trip_finished">तुम्ही पोचलात!</string>
+	<string name="dialog_routing_rebuild_from_current_location">तुमच्या वर्तमान स्थानावरून मार्ग पुन्हा तयार केला जाईल</string>
 	<string name="ok">ठीक आहे</string>
 	<!-- max. 10 symbols, both iOS and Android -->
 	<string name="sort">क्रमाने लावा…</string>
