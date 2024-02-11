@@ -633,6 +633,12 @@
 	<string name="place_description_title">Апісанне месца</string>
 	<!-- this text will be shown in application notification preferences opposite checkbox which enable/disable downloader notifications. Devices on Android 8+ are affected. -->
 	<string name="notification_channel_downloader">Спампоўка мапаў</string>
+	<!-- Speed camera settings menu option - Warn (about speedcams) if risk of exceeding speed limit -->
+	<string name="pref_tts_speedcams_auto">Папярэджваць калі ёсць рызыка перавышэння дазволенай хуткасці</string>
+	<!-- Speed camera settings menu option - Always warn (about speedcams) -->
+	<string name="pref_tts_speedcams_always">Заўсёды папярэджваць</string>
+	<!-- Speed camera settings menu option - Never warn (about speedcams) -->
+	<string name="pref_tts_speedcams_never">Ніколі не папярэджваць</string>
 	<string name="power_managment_title">Рэжым захавання энергіі</string>
 	<string name="power_managment_description">Калі ўключаны рэжым захавання энергіі, праграма пачынае выключаць энергазатратныя функцыі ў залежнасці ад зарада батарэі</string>
 	<string name="power_managment_setting_never">Ніколі</string>
