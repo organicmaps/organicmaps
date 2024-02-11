@@ -241,6 +241,7 @@ android {
 
     web {
       dimension 'default'
+      applicationIdSuffix '.web'
       versionName = android.defaultConfig.versionName + '-Web'
       buildConfigField 'String', 'SUPPORT_MAIL', '"apk@organicmaps.app"'
     }
@@ -420,12 +421,12 @@ tasks.withType(JavaCompile) {
   options.compilerArgs << '-Xlint:unchecked' << '-Xlint:deprecation'
 }
 
-android.buildTypes.all { buildType ->
-  def suffix = applicationIdSuffix != null ? applicationIdSuffix : ""
-  def authorityValue = android.defaultConfig.applicationId + suffix + ".provider"
+android.applicationVariants.all { variant ->
+  def authorityValue = variant.applicationId + ".provider"
   def authority = "\"" + authorityValue + "\""
-  buildConfigField 'String', 'FILE_PROVIDER_AUTHORITY', authority
-  manifestPlaceholders += [FILE_PROVIDER_PLACEHOLDER : authorityValue]
+  variant.buildConfigField 'String', 'FILE_PROVIDER_AUTHORITY', authority
+  def flavor = variant.getMergedFlavor()
+  flavor.manifestPlaceholders += [FILE_PROVIDER_PLACEHOLDER : authorityValue]
 }
 
 task prepareGoogleReleaseListing {
