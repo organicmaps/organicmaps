@@ -4,24 +4,14 @@ buildscript {
     mavenCentral()
   }
   //
-  // The magic below is needed to disable Google Mobile Services (a.k.a GMS) and
-  // Google Firebase Services during the build time. Unfortunately, the only way
-  // to disable Gradle plugins is to add these hardcore switches to buildscript().
+  // The magic below is needed to disable Google Firebase Services during the build time.
+  // Unfortunately, the only way to disable Gradle plugins is to add these hardcore switches to buildscript().
   //
 
   // Detect flavors from the task name.
   def taskName = getGradle().getStartParameter().getTaskRequests().toString().toLowerCase()
   def isFdroid = taskName.contains('fdroid')
   def isBeta = taskName.contains('beta')
-
-  //
-  // Please add symlinks to google/java/app/organicmaps/location for each new gms-enabled flavor below:
-  // ```
-  // mkdir -p src/$flavor/java/app/organicmaps/
-  // ln -sf ../../../../google/java/app/organicmaps/location src/$flavor/java/app/organicmaps/
-  // ls -la src/$flavor/java/app/organicmaps/location/GoogleFusedLocationProvider.java
-  // ```
-  ext.googleMobileServicesEnabled = taskName.contains('google') || taskName.contains('huawei') || taskName.contains('web')
 
   // Firebase Crashlytics compile-time feature flag: -Pfirebase=true|false
   def googleFirebaseServicesFlag = findProperty('firebase')
@@ -34,15 +24,9 @@ buildscript {
   dependencies {
     classpath 'com.android.tools.build:gradle:8.2.1'
 
-    if (googleMobileServicesEnabled) {
-      println('Building with Google Mobile Services')
-      classpath 'com.google.gms:google-services:4.4.0'
-    } else {
-      println('Building without Google Services')
-    }
-
     if (googleFirebaseServicesEnabled) {
       println('Building with Google Firebase Services')
+      classpath 'com.google.gms:google-services:4.4.0'
       classpath 'com.google.firebase:firebase-crashlytics-gradle:2.9.9'
       classpath 'com.google.firebase:firebase-appdistribution-gradle:4.0.1'
     } else {
@@ -62,10 +46,8 @@ repositories {
 
 apply plugin: 'com.android.application'
 apply from: 'secure.properties'
-if (googleMobileServicesEnabled) {
-  apply plugin: 'com.google.gms.google-services'
-}
 if (googleFirebaseServicesEnabled) {
+  apply plugin: 'com.google.gms.google-services'
   apply plugin: 'com.google.firebase.crashlytics'
   apply plugin: 'com.google.firebase.appdistribution'
 }
@@ -372,10 +354,18 @@ android {
 }
 
 dependencies {
-  // Google Mobile Services
-  if (googleMobileServicesEnabled) {
-    implementation 'com.google.android.gms:play-services-location:21.0.1'
-  }
+  // Google Play Location Services
+  //
+  // Please add symlinks to google/java/app/organicmaps/location for each new gms-enabled flavor below:
+  // ```
+  // mkdir -p src/$flavor/java/app/organicmaps/
+  // ln -sf ../../../../google/java/app/organicmaps/location src/$flavor/java/app/organicmaps/
+  // ls -la src/$flavor/java/app/organicmaps/location/GoogleFusedLocationProvider.java
+  // ```
+  //
+  webImplementation 'com.google.android.gms:play-services-location:21.1.0'
+  googleImplementation 'com.google.android.gms:play-services-location:21.1.0'
+  huaweiImplementation 'com.google.android.gms:play-services-location:21.1.0'
 
   // Google Firebase Services
   if (googleFirebaseServicesEnabled) {
