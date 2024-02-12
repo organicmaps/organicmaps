@@ -7,7 +7,7 @@ final class TransportTransitPedestrian: TransportTransitCell {
 
   @IBOutlet private weak var background: UIView! {
     didSet {
-      background.layer.cornerRadius = Config.backgroundCornerRadius
+      background.layer.setCorner(radius: Config.backgroundCornerRadius)
       background.backgroundColor = Config.backgroundColor
     }
   }

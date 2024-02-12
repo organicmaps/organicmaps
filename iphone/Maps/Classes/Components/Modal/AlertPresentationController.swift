@@ -8,7 +8,7 @@ final class AlertPresentationController: DimmedModalPresentationController {
 
   override func presentationTransitionWillBegin() {
     super.presentationTransitionWillBegin()
-    presentedViewController.view.layer.cornerRadius = 12
+    presentedViewController.view.layer.setCorner(radius: 12)
     presentedViewController.view.clipsToBounds = true
     guard let containerView = containerView, let presentedView = presentedView else { return }
     containerView.addSubview(presentedView)

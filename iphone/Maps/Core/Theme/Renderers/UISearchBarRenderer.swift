@@ -27,7 +27,6 @@ class UISearchBarRenderer: UIViewRenderer {
     var searchTextField: UITextField?
     if #available(iOS 13, *) {
       searchTextField = control.searchTextField
-      control.searchTextField.layer.cornerCurve = .continuous
     }
     
     // Default search bar implementation adds the grey transparent image for background. This code removes it and updates the corner radius. This is not working on iPad designed for mac.
@@ -35,8 +34,7 @@ class UISearchBarRenderer: UIViewRenderer {
     } else {
       control.setSearchFieldBackgroundImage(UIImage(), for: .normal)
     }
-    
-    searchTextField?.layer.cornerRadius = 8
+    searchTextField?.layer.setCorner(radius: 8)
     searchTextField?.layer.masksToBounds = true
 
     // Placeholder color
