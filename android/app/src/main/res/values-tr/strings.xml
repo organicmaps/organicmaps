@@ -213,8 +213,12 @@
 	<string name="prefs_group_route">Navigasyon</string>
 	<string name="pref_zoom_title">Yakınlaştırma butonları</string>
 	<string name="pref_zoom_summary">Haritada göster</string>
-	<!-- Settings «Map» category: «Night style» title -->
-	<string name="pref_map_style_title">Gece Modu</string>
+	<!-- Settings «Map» category: «Appearance» title -->
+	<string name="pref_map_style_title">Görünüş</string>
+	<!-- Settings "Appearance" category: "Light" title, should be consistent with the pref_map_style_title translation. -->
+	<string name="pref_appearance_light">Açık</string>
+	<!-- Settings "Appearance" category: "Dark" title, should be consistent with the pref_map_style_title translation. -->
+	<string name="pref_appearance_dark">Koyu</string>
 	<!-- Generic «Off» string -->
 	<string name="off">Kapalı</string>
 	<!-- Generic «On» string -->

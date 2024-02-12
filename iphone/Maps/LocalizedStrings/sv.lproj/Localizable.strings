@@ -217,8 +217,14 @@
 
 "pref_zoom_title" = "Zoom-knappar";
 
-/* Settings «Map» category: «Night style» title */
-"pref_map_style_title" = "Nattläge";
+/* Settings «Map» category: «Appearance» title */
+"pref_map_style_title" = "Utseende";
+
+/* Settings "Appearance" category: "Light" title, should be consistent with the pref_map_style_title translation. */
+"pref_appearance_light" = "Ljust";
+
+/* Settings "Appearance" category: "Dark" title, should be consistent with the pref_map_style_title translation. */
+"pref_appearance_dark" = "Mörkt";
 
 /* Generic «Off» string */
 "off" = "Av";
