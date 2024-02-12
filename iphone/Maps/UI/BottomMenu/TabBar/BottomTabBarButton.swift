@@ -24,9 +24,6 @@ class BottomTabBarButtonRenderer {
     if let backgroundColor = style.backgroundColor {
       control.backgroundColor = backgroundColor
     }
-    if #available(iOS 13.0, *) {
-      control.layer.cornerCurve = .continuous
-    }
   }
 }
 

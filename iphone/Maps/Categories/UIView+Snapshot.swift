@@ -13,7 +13,7 @@ extension UIView {
       snapshot.layer.contents = contents
       snapshot.layer.bounds = layer.bounds
     }
-    snapshot.layer.cornerRadius = layer.cornerRadius
+    snapshot.layer.setCorner(radius: layer.cornerRadius)
     snapshot.layer.masksToBounds = layer.masksToBounds
     snapshot.contentMode = contentMode
     snapshot.transform = transform

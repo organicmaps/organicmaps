@@ -20,11 +20,8 @@ extension UITextField {
 class UITextFieldRenderer {
   class func render(_ control: UITextField, style: Style) {
     if let cornerRadius = style.cornerRadius {
-      control.layer.cornerRadius = cornerRadius
+      control.layer.setCorner(radius: cornerRadius)
       control.clipsToBounds = true
-      if #available(iOS 13.0, *) {
-        control.layer.cornerCurve = .continuous
-      }
     }
     control.borderStyle = .none
     var placeholderAttributes = [NSAttributedString.Key : Any]()

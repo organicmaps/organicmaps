@@ -13,6 +13,7 @@ final class BottomMenuLayerButton: VerticallyAlignedButton {
 
   override func layoutSubviews() {
     super.layoutSubviews()
+    imageView.layer.masksToBounds = true
     updateBadge()
   }
 
