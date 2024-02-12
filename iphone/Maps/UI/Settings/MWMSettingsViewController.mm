@@ -168,12 +168,12 @@ using namespace power_management;
     case MWMThemeVehicleDay:
       NSAssert(false, @"Invalid case");
     case MWMThemeDay:
-      nightMode = L(@"off");
+      nightMode = L(@"pref_appearance_light");
       break;
     case MWMThemeVehicleNight:
       NSAssert(false, @"Invalid case");
     case MWMThemeNight:
-      nightMode = L(@"on");
+      nightMode = L(@"pref_appearance_dark");
       break;
     case MWMThemeAuto:
       nightMode = L(@"auto");
