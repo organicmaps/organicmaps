@@ -217,8 +217,14 @@
 
 "pref_zoom_title" = "Tombol perbesaran";
 
-/* Settings «Map» category: «Night style» title */
-"pref_map_style_title" = "Mode Malam";
+/* Settings «Map» category: «Appearance» title */
+"pref_map_style_title" = "Tampilan";
+
+/* Settings "Appearance" category: "Light" title, should be consistent with the pref_map_style_title translation. */
+"pref_appearance_light" = "Terang";
+
+/* Settings "Appearance" category: "Dark" title, should be consistent with the pref_map_style_title translation. */
+"pref_appearance_dark" = "Gelap";
 
 /* Generic «Off» string */
 "off" = "Tidak Aktif";

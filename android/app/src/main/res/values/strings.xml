@@ -214,8 +214,12 @@
 	<string name="prefs_group_route">Navigation</string>
 	<string name="pref_zoom_title">Zoom buttons</string>
 	<string name="pref_zoom_summary">Display on the map</string>
-	<!-- Settings «Map» category: «Night style» title -->
-	<string name="pref_map_style_title">Night Mode</string>
+	<!-- Settings «Map» category: «Appearance» title -->
+	<string name="pref_map_style_title">Appearance</string>
+	<!-- Settings "Appearance" category: "Light" title, should be consistent with the pref_map_style_title translation. -->
+	<string name="pref_appearance_light">Light</string>
+	<!-- Settings "Appearance" category: "Dark" title, should be consistent with the pref_map_style_title translation. -->
+	<string name="pref_appearance_dark">Dark</string>
 	<!-- Generic «Off» string -->
 	<string name="off">Off</string>
 	<!-- Generic «On» string -->

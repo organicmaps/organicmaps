@@ -199,8 +199,12 @@
 	<string name="prefs_group_route">Navigare</string>
 	<string name="pref_zoom_title">Butoane zoom</string>
 	<string name="pref_zoom_summary">Arată pe hartă</string>
-	<!-- Settings «Map» category: «Night style» title -->
-	<string name="pref_map_style_title">Mod nocturn</string>
+	<!-- Settings «Map» category: «Appearance» title -->
+	<string name="pref_map_style_title">Aspect</string>
+	<!-- Settings "Appearance" category: "Light" title, should be consistent with the pref_map_style_title translation. -->
+	<string name="pref_appearance_light">Luminos</string>
+	<!-- Settings "Appearance" category: "Dark" title, should be consistent with the pref_map_style_title translation. -->
+	<string name="pref_appearance_dark">Întunecat</string>
 	<!-- Generic «Off» string -->
 	<string name="off">Oprit</string>
 	<!-- Generic «On» string -->

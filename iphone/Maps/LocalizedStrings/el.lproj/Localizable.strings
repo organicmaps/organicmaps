@@ -217,8 +217,14 @@
 
 "pref_zoom_title" = "Πλήκτρα μεγέθυνσης";
 
-/* Settings «Map» category: «Night style» title */
-"pref_map_style_title" = "Νυχτερινή λειτουργία";
+/* Settings «Map» category: «Appearance» title */
+"pref_map_style_title" = "Εμφάνιση";
+
+/* Settings "Appearance" category: "Light" title, should be consistent with the pref_map_style_title translation. */
+"pref_appearance_light" = "Ανοιχτόχρωμη";
+
+/* Settings "Appearance" category: "Dark" title, should be consistent with the pref_map_style_title translation. */
+"pref_appearance_dark" = "Σκουρόχρωμη";
 
 /* Generic «Off» string */
 "off" = "Απενεργ.";

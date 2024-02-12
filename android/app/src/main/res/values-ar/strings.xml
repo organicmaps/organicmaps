@@ -214,8 +214,12 @@
 	<string name="prefs_group_route">الملاحة</string>
 	<string name="pref_zoom_title">أزرار التكبير والتصغير</string>
 	<string name="pref_zoom_summary">عرض على الشاشة</string>
-	<!-- Settings «Map» category: «Night style» title -->
-	<string name="pref_map_style_title">الوضع الليلي</string>
+	<!-- Settings «Map» category: «Appearance» title -->
+	<string name="pref_map_style_title">المظهر</string>
+	<!-- Settings "Appearance" category: "Light" title, should be consistent with the pref_map_style_title translation. -->
+	<string name="pref_appearance_light">فاتح</string>
+	<!-- Settings "Appearance" category: "Dark" title, should be consistent with the pref_map_style_title translation. -->
+	<string name="pref_appearance_dark">داكن</string>
 	<!-- Generic «Off» string -->
 	<string name="off">تعطيل</string>
 	<!-- Generic «On» string -->

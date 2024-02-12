@@ -217,8 +217,14 @@
 
 "pref_zoom_title" = "Nagyítás/kicsinyítés gombok";
 
-/* Settings «Map» category: «Night style» title */
-"pref_map_style_title" = "Éjszakai üzemmód";
+/* Settings «Map» category: «Appearance» title */
+"pref_map_style_title" = "Megjelenés";
+
+/* Settings "Appearance" category: "Light" title, should be consistent with the pref_map_style_title translation. */
+"pref_appearance_light" = "Világos";
+
+/* Settings "Appearance" category: "Dark" title, should be consistent with the pref_map_style_title translation. */
+"pref_appearance_dark" = "Sötét";
 
 /* Generic «Off» string */
 "off" = "Ki";
