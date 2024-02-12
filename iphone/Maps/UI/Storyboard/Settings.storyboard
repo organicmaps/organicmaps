@@ -674,7 +674,7 @@
                                                     <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                     <nil key="highlightedColor"/>
                                                     <userDefinedRuntimeAttributes>
-                                                        <userDefinedRuntimeAttribute type="string" keyPath="localizedText" value="on"/>
+                                                        <userDefinedRuntimeAttribute type="string" keyPath="localizedText" value="pref_appearance_dark"/>
                                                     </userDefinedRuntimeAttributes>
                                                 </label>
                                             </subviews>
@@ -702,7 +702,7 @@
                                                     <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                     <nil key="highlightedColor"/>
                                                     <userDefinedRuntimeAttributes>
-                                                        <userDefinedRuntimeAttribute type="string" keyPath="localizedText" value="off"/>
+                                                        <userDefinedRuntimeAttribute type="string" keyPath="localizedText" value="pref_appearance_light"/>
                                                     </userDefinedRuntimeAttributes>
                                                 </label>
                                             </subviews>
