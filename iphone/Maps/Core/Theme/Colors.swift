@@ -1,7 +1,7 @@
 class DayColors: IColors {
   var clear = UIColor.clear
   var primaryDark = UIColor(24, 128, 68, alpha100)
-  var primary = UIColor(32, 152, 82, alpha100)
+  var primary = UIColor(0, 108, 53, alpha100)
   var secondary = UIColor(45, 137, 83, alpha100)
   // Light green color
   var primaryLight = UIColor(36, 180, 98, alpha100)
