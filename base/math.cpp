@@ -11,6 +11,7 @@ namespace base
 template <typename Float>
 bool AlmostEqualULPs(Float x, Float y, uint32_t maxULPs)
 {
+  std::cerr << "AlmostEqualULPs x=" << x << ", y=" << y << ", maxULPs=" << maxULPs << "\n";
   static_assert(std::is_floating_point<Float>::value, "");
   static_assert(std::numeric_limits<Float>::is_iec559, "");
 
@@ -42,6 +43,7 @@ bool AlmostEqualULPs(Float x, Float y, uint32_t maxULPs)
   else
     diff = UIntType(Abs(xInt)) + UIntType(Abs(yInt));
 
+  std::cerr << "maxulps diff: " << diff << "\n";
   return diff <= maxULPs;
 }
 

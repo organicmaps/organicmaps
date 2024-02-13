@@ -106,7 +106,7 @@ if (NOT CMAKE_BUILD_TYPE)
 endif()
 
 # Global compile options for all configurations.
-add_compile_options(-ffast-math)
+#add_compile_options(-ffast-math)
 
 # Built-in CMake configurations: Debug, Release, RelWithDebInfo, MinSizeRel
 if (${CMAKE_BUILD_TYPE} STREQUAL "Debug")

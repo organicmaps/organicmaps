@@ -63,7 +63,7 @@ jobs:
         run: ./configure.sh
 
       - name: Configure ccache
-        uses: mikehardy/buildcache-action@v2.1.0
+        uses: biodranik/buildcache-action@v2.1.0
         with:
           cache_key: ${{ github.workflow }}-${{ matrix.buildType }}
 
