@@ -42,7 +42,8 @@ area|z11-[boundary=national_park],
 node|z11-[boundary=protected_area],
 area|z11-[boundary=protected_area],
 node|z11-[leisure=nature_reserve],
-area|z11-[leisure=nature_reserve]
+area|z11-[leisure=nature_reserve],
+area|z13-[landuse=forest][name],
 {text: name;text-offset: 1;text-color: @park_label;text-halo-opacity: 0.8;text-halo-color: @label_halo_light;text-halo-radius:0.5;font-size: 10;}
 
 node|z10-12[natural=cave_entrance],
@@ -60,22 +61,28 @@ area|z10-12[boundary=national_park],
 node|z10-12[boundary=protected_area],
 area|z10-12[boundary=protected_area],
 node|z10-12[leisure=nature_reserve],
-area|z10-12[leisure=nature_reserve]
-{icon-image: nparkf-outline-s.svg;icon-min-distance: 20;}
+area|z10-12[leisure=nature_reserve],
+area|z12[landuse=forest][name],
+{icon-image: nparkf-outline-s.svg;}
 node|z13-[boundary=national_park],
 area|z13-[boundary=national_park],
 node|z13-[boundary=protected_area],
 area|z13-[boundary=protected_area],
 node|z13-[leisure=nature_reserve],
-area|z13-[leisure=nature_reserve]
+area|z13-[leisure=nature_reserve],
+area|z13-[landuse=forest][name],
 {icon-image: nparkf-outline-m.svg;font-size: 11;text-halo-opacity: 0.9;}
 node|z17-[boundary=national_park],
 area|z17-[boundary=national_park],
 node|z17-[boundary=protected_area],
 area|z17-[boundary=protected_area],
 node|z17-[leisure=nature_reserve],
-area|z17-[leisure=nature_reserve]
+area|z17-[leisure=nature_reserve],
+area|z17-[landuse=forest][name],
 {font-size: 12;}
+
+area|z12-[landuse=forest][!name],
+{}
 
 node|z10-12[waterway=waterfall],
 area|z10-12[waterway=waterfall],
