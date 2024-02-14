@@ -301,7 +301,7 @@ highway-secondary-tunnel                            # pathtext z10- (also has sh
 
 man_made-lighthouse                                 # icon z11- (also has caption(optional) z14-)
 natural-peak                                        # icon z10- (also has caption(optional) z11-)
-natural-volcano                                     # icon z10- (also has caption(optional) z10-)
+natural-volcano                                     # icon z10- (also has caption(optional) z13-)
 === 5400
 
 amenity-theatre                                     # icon z14- (also has caption(optional) z14-)
@@ -339,7 +339,7 @@ landuse-forest-mixed                                # icon z12- (also has captio
 
 natural-cave_entrance                               # icon z10- (also has caption(optional) z11-)
 natural-geyser                                      # icon z10- (also has caption(optional) z12-)
-natural-hot_spring                                  # icon z12- (also has caption(optional) z14-)
+natural-hot_spring                                  # icon z12- (also has caption(optional) z15-)
 natural-spring                                      # icon z12- (also has caption(optional) z14-)
 === 4650
 
@@ -683,7 +683,7 @@ waterway-weir                                       # pathtext z15- (also has li
 === 2900
 
 highway-ford                                        # icon z14- and pathtext z16- (also has line z13-)
-natural-rock                                        # icon z14-
+natural-rock                                        # icon z14- (also has caption(optional) z17-)
 === 2850
 
 highway-bridleway                                   # pathtext z13- (also has line z11-)
@@ -1412,7 +1412,7 @@ leisure-swimming_pool-private                       # icon z17- (also has captio
 
 # man_made-lighthouse                               # caption(optional) z14- (also has icon z11-)
 # natural-peak                                      # caption(optional) z11- (also has icon z10-)
-# natural-volcano                                   # caption(optional) z10- (also has icon z10-)
+# natural-volcano                                   # caption(optional) z13- (also has icon z10-)
 # === -4600
 
 # amenity-theatre                                   # caption(optional) z14- (also has icon z14-)
@@ -1449,7 +1449,7 @@ leisure-swimming_pool-private                       # icon z17- (also has captio
 
 # natural-cave_entrance                             # caption(optional) z11- (also has icon z10-)
 # natural-geyser                                    # caption(optional) z12- (also has icon z10-)
-# natural-hot_spring                                # caption(optional) z14- (also has icon z12-)
+# natural-hot_spring                                # caption(optional) z15- (also has icon z12-)
 # natural-spring                                    # caption(optional) z14- (also has icon z12-)
 # === -5350
 
@@ -1665,6 +1665,9 @@ leisure-swimming_pool-private                       # icon z17- (also has captio
 # man_made-water_well                               # caption(optional) z14- (also has icon z12-)
 # man_made-windmill                                 # caption(optional) z16- (also has icon z16-)
 # === -6950
+
+# natural-rock                                      # caption(optional) z17- (also has icon z14-)
+# === -7150
 
 # amenity-townhall                                  # caption(optional) z16- (also has icon z16-)
 # tourism-hotel                                     # caption(optional) z16- (also has icon z16-)
