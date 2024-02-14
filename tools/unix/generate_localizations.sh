@@ -38,7 +38,7 @@ TWINE_COMMIT="$(git -C $TWINE_SUBMODULE rev-parse HEAD)"
 TWINE_GEM="twine-$TWINE_COMMIT.gem"
 
 # If twine gem does not exist, then install it
-if [ ! -f "$GEM_PATH/$TWINE_GEM" ] || ! gem list -i twine; then
+if [ ! -f "$GEM_PATH/$TWINE_GEM" ]; then
   echo "Building & installing twine gem..."
   (
     cd "$TWINE_PATH" \
