@@ -15864,7 +15864,7 @@ cont {
     }
     caption {
       primary {
-        height: 10
+        height: 11
         color: 6967599
         stroke_color: 856032768
       }
@@ -15879,7 +15879,7 @@ cont {
     }
     caption {
       primary {
-        height: 10
+        height: 11
         color: 6967599
         stroke_color: 856032768
       }
@@ -15894,7 +15894,7 @@ cont {
     }
     caption {
       primary {
-        height: 10
+        height: 11
         color: 6967599
         stroke_color: 856032768
       }
@@ -15909,7 +15909,7 @@ cont {
     }
     caption {
       primary {
-        height: 10
+        height: 11
         color: 6967599
         stroke_color: 856032768
       }
@@ -16339,7 +16339,6 @@ cont {
     symbol {
       name: "nparkf-outline-s"
       priority: 6700
-      min_distance: 20
     }
   }
   element {
@@ -16373,7 +16372,7 @@ cont {
     symbol {
       name: "nparkf-outline-s"
       priority: 6700
-      min_distance: 20
+      min_distance: 12
     }
     caption {
       primary {
@@ -16417,6 +16416,7 @@ cont {
     symbol {
       name: "nparkf-outline-m"
       priority: 6700
+      min_distance: 12
     }
     caption {
       primary {
@@ -16563,7 +16563,6 @@ cont {
     symbol {
       name: "nparkf-outline-s"
       priority: 6700
-      min_distance: 20
     }
   }
   element {
@@ -16589,7 +16588,7 @@ cont {
     symbol {
       name: "nparkf-outline-s"
       priority: 6700
-      min_distance: 20
+      min_distance: 12
     }
     caption {
       primary {
@@ -16625,6 +16624,7 @@ cont {
     symbol {
       name: "nparkf-outline-m"
       priority: 6700
+      min_distance: 12
     }
     caption {
       primary {
@@ -16751,7 +16751,6 @@ cont {
     symbol {
       name: "nparkf-outline-s"
       priority: 6700
-      min_distance: 20
     }
   }
   element {
@@ -16785,7 +16784,7 @@ cont {
     symbol {
       name: "nparkf-outline-s"
       priority: 6700
-      min_distance: 20
+      min_distance: 12
     }
     caption {
       primary {
@@ -16829,6 +16828,7 @@ cont {
     symbol {
       name: "nparkf-outline-m"
       priority: 6700
+      min_distance: 12
     }
     caption {
       primary {
@@ -16975,7 +16975,6 @@ cont {
     symbol {
       name: "nparkf-outline-s"
       priority: 6700
-      min_distance: 20
     }
   }
   element {
@@ -17001,7 +17000,7 @@ cont {
     symbol {
       name: "nparkf-outline-s"
       priority: 6700
-      min_distance: 20
+      min_distance: 12
     }
     caption {
       primary {
@@ -17037,6 +17036,7 @@ cont {
     symbol {
       name: "nparkf-outline-m"
       priority: 6700
+      min_distance: 12
     }
     caption {
       primary {
@@ -17159,7 +17159,6 @@ cont {
     symbol {
       name: "nparkf-outline-s"
       priority: 6700
-      min_distance: 20
     }
   }
   element {
@@ -17185,7 +17184,7 @@ cont {
     symbol {
       name: "nparkf-outline-s"
       priority: 6700
-      min_distance: 20
+      min_distance: 12
     }
     caption {
       primary {
@@ -17221,6 +17220,7 @@ cont {
     symbol {
       name: "nparkf-outline-m"
       priority: 6700
+      min_distance: 12
     }
     caption {
       primary {
@@ -17343,7 +17343,6 @@ cont {
     symbol {
       name: "nparkf-outline-s"
       priority: 6700
-      min_distance: 20
     }
   }
   element {
@@ -17369,7 +17368,7 @@ cont {
     symbol {
       name: "nparkf-outline-s"
       priority: 6700
-      min_distance: 20
+      min_distance: 12
     }
     caption {
       primary {
@@ -17405,6 +17404,7 @@ cont {
     symbol {
       name: "nparkf-outline-m"
       priority: 6700
+      min_distance: 12
     }
     caption {
       primary {
@@ -17527,7 +17527,6 @@ cont {
     symbol {
       name: "nparkf-outline-s"
       priority: 6700
-      min_distance: 20
     }
   }
   element {
@@ -17553,7 +17552,7 @@ cont {
     symbol {
       name: "nparkf-outline-s"
       priority: 6700
-      min_distance: 20
+      min_distance: 12
     }
     caption {
       primary {
@@ -17589,6 +17588,7 @@ cont {
     symbol {
       name: "nparkf-outline-m"
       priority: 6700
+      min_distance: 12
     }
     caption {
       primary {
@@ -17711,7 +17711,6 @@ cont {
     symbol {
       name: "nparkf-outline-s"
       priority: 6700
-      min_distance: 20
     }
   }
   element {
@@ -17737,7 +17736,7 @@ cont {
     symbol {
       name: "nparkf-outline-s"
       priority: 6700
-      min_distance: 20
+      min_distance: 12
     }
     caption {
       primary {
@@ -17773,6 +17772,7 @@ cont {
     symbol {
       name: "nparkf-outline-m"
       priority: 6700
+      min_distance: 12
     }
     caption {
       primary {
@@ -49382,7 +49382,6 @@ cont {
     symbol {
       name: "nparkf-outline-s"
       priority: 4800
-      min_distance: 12
     }
     apply_if: "name"
   }
@@ -49401,15 +49400,14 @@ cont {
       priority: -1940
     }
     symbol {
-      name: "nparkf-outline-s"
+      name: "nparkf-outline-m"
       priority: 4800
-      min_distance: 12
     }
     caption {
       primary {
-        height: 10
+        height: 11
         color: 2836760
-        stroke_color: 856032768
+        stroke_color: 436602368
         offset_y: 1
         is_optional: true
       }
@@ -49432,7 +49430,7 @@ cont {
       priority: -1940
     }
     symbol {
-      name: "nparkf-outline-s"
+      name: "nparkf-outline-m"
       priority: 4800
       min_distance: 8
     }
@@ -49440,7 +49438,7 @@ cont {
       primary {
         height: 11
         color: 2836760
-        stroke_color: 856032768
+        stroke_color: 436602368
         offset_y: 1
         is_optional: true
       }
@@ -49469,7 +49467,7 @@ cont {
     }
     caption {
       primary {
-        height: 12
+        height: 11
         color: 2836760
         stroke_color: 436602368
         offset_y: 1
@@ -49500,7 +49498,7 @@ cont {
     }
     caption {
       primary {
-        height: 12
+        height: 11
         color: 2836760
         stroke_color: 436602368
         offset_y: 1
@@ -49715,7 +49713,6 @@ cont {
     symbol {
       name: "nparkf-outline-s"
       priority: 4800
-      min_distance: 12
     }
     apply_if: "name"
   }
@@ -49734,15 +49731,14 @@ cont {
       priority: -1940
     }
     symbol {
-      name: "nparkf-outline-s"
+      name: "nparkf-outline-m"
       priority: 4800
-      min_distance: 12
     }
     caption {
       primary {
-        height: 10
+        height: 11
         color: 2836760
-        stroke_color: 856032768
+        stroke_color: 436602368
         offset_y: 1
         is_optional: true
       }
@@ -49765,7 +49761,7 @@ cont {
       priority: -1940
     }
     symbol {
-      name: "nparkf-outline-s"
+      name: "nparkf-outline-m"
       priority: 4800
       min_distance: 8
     }
@@ -49773,7 +49769,7 @@ cont {
       primary {
         height: 11
         color: 2836760
-        stroke_color: 856032768
+        stroke_color: 436602368
         offset_y: 1
         is_optional: true
       }
@@ -49802,7 +49798,7 @@ cont {
     }
     caption {
       primary {
-        height: 12
+        height: 11
         color: 2836760
         stroke_color: 436602368
         offset_y: 1
@@ -49833,7 +49829,7 @@ cont {
     }
     caption {
       primary {
-        height: 12
+        height: 11
         color: 2836760
         stroke_color: 436602368
         offset_y: 1
@@ -50048,7 +50044,6 @@ cont {
     symbol {
       name: "nparkf-outline-s"
       priority: 4800
-      min_distance: 12
     }
     apply_if: "name"
   }
@@ -50067,15 +50062,14 @@ cont {
       priority: -1940
     }
     symbol {
-      name: "nparkf-outline-s"
+      name: "nparkf-outline-m"
       priority: 4800
-      min_distance: 12
     }
     caption {
       primary {
-        height: 10
+        height: 11
         color: 2836760
-        stroke_color: 856032768
+        stroke_color: 436602368
         offset_y: 1
         is_optional: true
       }
@@ -50098,7 +50092,7 @@ cont {
       priority: -1940
     }
     symbol {
-      name: "nparkf-outline-s"
+      name: "nparkf-outline-m"
       priority: 4800
       min_distance: 8
     }
@@ -50106,7 +50100,7 @@ cont {
       primary {
         height: 11
         color: 2836760
-        stroke_color: 856032768
+        stroke_color: 436602368
         offset_y: 1
         is_optional: true
       }
@@ -50135,7 +50129,7 @@ cont {
     }
     caption {
       primary {
-        height: 12
+        height: 11
         color: 2836760
         stroke_color: 436602368
         offset_y: 1
@@ -50166,7 +50160,7 @@ cont {
     }
     caption {
       primary {
-        height: 12
+        height: 11
         color: 2836760
         stroke_color: 436602368
         offset_y: 1
@@ -50381,7 +50375,6 @@ cont {
     symbol {
       name: "nparkf-outline-s"
       priority: 4800
-      min_distance: 12
     }
     apply_if: "name"
   }
@@ -50400,15 +50393,14 @@ cont {
       priority: -1940
     }
     symbol {
-      name: "nparkf-outline-s"
+      name: "nparkf-outline-m"
       priority: 4800
-      min_distance: 12
     }
     caption {
       primary {
-        height: 10
+        height: 11
         color: 2836760
-        stroke_color: 856032768
+        stroke_color: 436602368
         offset_y: 1
         is_optional: true
       }
@@ -50431,7 +50423,7 @@ cont {
       priority: -1940
     }
     symbol {
-      name: "nparkf-outline-s"
+      name: "nparkf-outline-m"
       priority: 4800
       min_distance: 8
     }
@@ -50439,7 +50431,7 @@ cont {
       primary {
         height: 11
         color: 2836760
-        stroke_color: 856032768
+        stroke_color: 436602368
         offset_y: 1
         is_optional: true
       }
@@ -50468,7 +50460,7 @@ cont {
     }
     caption {
       primary {
-        height: 12
+        height: 11
         color: 2836760
         stroke_color: 436602368
         offset_y: 1
@@ -50499,7 +50491,7 @@ cont {
     }
     caption {
       primary {
-        height: 12
+        height: 11
         color: 2836760
         stroke_color: 436602368
         offset_y: 1
@@ -53843,7 +53835,6 @@ cont {
     symbol {
       name: "nparkf-outline-s"
       priority: 6700
-      min_distance: 20
     }
   }
   element {
@@ -53877,7 +53868,7 @@ cont {
     symbol {
       name: "nparkf-outline-s"
       priority: 6700
-      min_distance: 20
+      min_distance: 12
     }
     caption {
       primary {
@@ -53921,6 +53912,7 @@ cont {
     symbol {
       name: "nparkf-outline-m"
       priority: 6700
+      min_distance: 12
     }
     caption {
       primary {
@@ -54067,7 +54059,6 @@ cont {
     symbol {
       name: "outdoor_seating-m"
       priority: 450
-      min_distance: 10
     }
   }
   element {
@@ -54075,7 +54066,6 @@ cont {
     symbol {
       name: "outdoor_seating-m"
       priority: 450
-      min_distance: 10
     }
   }
   element {
@@ -54083,7 +54073,6 @@ cont {
     symbol {
       name: "outdoor_seating-m"
       priority: 450
-      min_distance: 10
     }
   }
 }
@@ -55281,7 +55270,6 @@ cont {
     symbol {
       name: "picnic_table-m"
       priority: 1200
-      min_distance: 10
     }
     caption {
       primary {
@@ -55298,7 +55286,6 @@ cont {
     symbol {
       name: "picnic_table-m"
       priority: 1200
-      min_distance: 10
     }
     caption {
       primary {
@@ -55315,7 +55302,6 @@ cont {
     symbol {
       name: "picnic_table-m"
       priority: 1200
-      min_distance: 10
     }
     caption {
       primary {
@@ -55332,7 +55318,6 @@ cont {
     symbol {
       name: "picnic_table-m"
       priority: 1200
-      min_distance: 10
     }
     caption {
       primary {
@@ -55349,7 +55334,6 @@ cont {
     symbol {
       name: "picnic_table-m"
       priority: 1200
-      min_distance: 10
     }
     caption {
       primary {
@@ -59695,7 +59679,6 @@ cont {
     symbol {
       name: "geyser-m"
       priority: 4650
-      min_distance: 24
     }
     caption {
       primary {
@@ -59712,7 +59695,6 @@ cont {
     symbol {
       name: "geyser-m"
       priority: 4650
-      min_distance: 24
     }
     caption {
       primary {
@@ -59729,7 +59711,6 @@ cont {
     symbol {
       name: "geyser-m"
       priority: 4650
-      min_distance: 24
     }
     caption {
       primary {
@@ -59746,7 +59727,6 @@ cont {
     symbol {
       name: "geyser-m"
       priority: 4650
-      min_distance: 24
     }
     caption {
       primary {
@@ -59763,7 +59743,6 @@ cont {
     symbol {
       name: "geyser-m"
       priority: 4650
-      min_distance: 24
     }
     caption {
       primary {
@@ -59780,7 +59759,6 @@ cont {
     symbol {
       name: "geyser-m"
       priority: 4650
-      min_distance: 24
     }
     caption {
       primary {
@@ -59797,7 +59775,6 @@ cont {
     symbol {
       name: "geyser-m"
       priority: 4650
-      min_distance: 24
     }
     caption {
       primary {
@@ -60106,16 +60083,6 @@ cont {
     symbol {
       name: "drinking-water-s"
       priority: 4650
-      min_distance: 24
-    }
-    caption {
-      primary {
-        height: 10
-        color: 9211020
-        offset_y: 6
-        is_optional: true
-      }
-      priority: -5350
     }
   }
   element {
@@ -60123,7 +60090,6 @@ cont {
     symbol {
       name: "drinking-water-m"
       priority: 4650
-      min_distance: 24
     }
     caption {
       primary {
@@ -60140,7 +60106,6 @@ cont {
     symbol {
       name: "drinking-water-m"
       priority: 4650
-      min_distance: 24
     }
     caption {
       primary {
@@ -60157,7 +60122,6 @@ cont {
     symbol {
       name: "drinking-water-m"
       priority: 4650
-      min_distance: 24
     }
     caption {
       primary {
@@ -60174,7 +60138,6 @@ cont {
     symbol {
       name: "drinking-water-m"
       priority: 4650
-      min_distance: 24
     }
     caption {
       primary {
@@ -60191,7 +60154,6 @@ cont {
     symbol {
       name: "drinking-water-m"
       priority: 4650
-      min_distance: 24
     }
     caption {
       primary {
@@ -60208,7 +60170,6 @@ cont {
     symbol {
       name: "drinking-water-m"
       priority: 4650
-      min_distance: 24
     }
     caption {
       primary {
@@ -60621,12 +60582,30 @@ cont {
       name: "peakt-s"
       priority: 2850
     }
+    caption {
+      primary {
+        height: 12
+        color: 9211020
+        offset_y: 1
+        is_optional: true
+      }
+      priority: -7150
+    }
   }
   element {
     scale: 18
     symbol {
       name: "peakt-s"
       priority: 2850
+    }
+    caption {
+      primary {
+        height: 12
+        color: 9211020
+        offset_y: 1
+        is_optional: true
+      }
+      priority: -7150
     }
   }
   element {
@@ -60635,12 +60614,30 @@ cont {
       name: "peakt-s"
       priority: 2850
     }
+    caption {
+      primary {
+        height: 12
+        color: 9211020
+        offset_y: 1
+        is_optional: true
+      }
+      priority: -7150
+    }
   }
   element {
     scale: 20
     symbol {
       name: "peakt-s"
       priority: 2850
+    }
+    caption {
+      primary {
+        height: 12
+        color: 9211020
+        offset_y: 1
+        is_optional: true
+      }
+      priority: -7150
     }
   }
 }
@@ -60844,7 +60841,6 @@ cont {
     symbol {
       name: "drinking-water-s"
       priority: 4650
-      min_distance: 24
     }
     caption {
       primary {
@@ -60861,7 +60857,6 @@ cont {
     symbol {
       name: "drinking-water-m"
       priority: 4650
-      min_distance: 24
     }
     caption {
       primary {
@@ -60878,7 +60873,6 @@ cont {
     symbol {
       name: "drinking-water-m"
       priority: 4650
-      min_distance: 24
     }
     caption {
       primary {
@@ -60895,7 +60889,6 @@ cont {
     symbol {
       name: "drinking-water-m"
       priority: 4650
-      min_distance: 24
     }
     caption {
       primary {
@@ -60912,7 +60905,6 @@ cont {
     symbol {
       name: "drinking-water-m"
       priority: 4650
-      min_distance: 24
     }
     caption {
       primary {
@@ -60929,7 +60921,6 @@ cont {
     symbol {
       name: "drinking-water-m"
       priority: 4650
-      min_distance: 24
     }
     caption {
       primary {
@@ -60946,7 +60937,6 @@ cont {
     symbol {
       name: "drinking-water-m"
       priority: 4650
-      min_distance: 24
     }
     caption {
       primary {
@@ -61121,15 +61111,6 @@ cont {
       name: "volcano-s"
       priority: 5400
     }
-    caption {
-      primary {
-        height: 10
-        color: 9211020
-        offset_y: 1
-        is_optional: true
-      }
-      priority: -4600
-    }
   }
   element {
     scale: 11
@@ -61137,30 +61118,12 @@ cont {
       name: "volcano-s"
       priority: 5400
     }
-    caption {
-      primary {
-        height: 10
-        color: 9211020
-        offset_y: 1
-        is_optional: true
-      }
-      priority: -4600
-    }
   }
   element {
     scale: 12
     symbol {
       name: "volcano-s"
       priority: 5400
-    }
-    caption {
-      primary {
-        height: 10
-        color: 9211020
-        offset_y: 1
-        is_optional: true
-      }
-      priority: -4600
     }
   }
   element {
