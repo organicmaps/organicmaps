@@ -5167,7 +5167,7 @@
     fa = ظاهری
     fi = Ulkoasu
     fr = Apparence
-    he = צבעים
+    he = מראה
     hi = प्रकटन
     hu = Megjelenés
     id = Tampilan
