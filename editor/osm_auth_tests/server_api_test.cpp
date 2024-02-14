@@ -20,6 +20,10 @@ using namespace pugi;
 extern char const * kValidOsmUser;
 extern char const * kValidOsmPassword;
 
+#if defined(OMIM_OS_MAC)
+extern void runMainQueue(void func());
+#endif
+
 UNIT_TEST(OSM_ServerAPI_TestUserExists)
 {
   ServerApi06 api(OsmOAuth::DevServerAuth());
@@ -73,6 +77,10 @@ void DeleteOSMNodeIfExists(ServerApi06 const & api, uint64_t changeSetId, ms::La
 
 UNIT_TEST(OSM_ServerAPI_ChangesetAndNode)
 {
+#if defined(OMIM_OS_MAC)
+  runMainQueue([]() {
+#endif
+
   ms::LatLon const kOriginalLocation = RandomCoordinate();
   ms::LatLon const kModifiedLocation = RandomCoordinate();
 
@@ -128,14 +136,26 @@ UNIT_TEST(OSM_ServerAPI_ChangesetAndNode)
   // New changeset has new id.
   node.SetAttribute("changeset", strings::to_string(changeSetId));
   TEST_NO_THROW(api.DeleteElement(node), ());
+
+#if defined(OMIM_OS_MAC)
+  });
+#endif
 }
 
 UNIT_TEST(OSM_ServerAPI_Notes)
 {
+#if defined(OMIM_OS_MAC)
+  runMainQueue([]() {
+#endif
+
   ms::LatLon const pos = RandomCoordinate();
   ServerApi06 const api = CreateAPI();
   uint64_t id;
   TEST_NO_THROW(id = api.CreateNote(pos, "A test note"), ("Creating a note"));
   TEST_GREATER(id, 0, ("Note id should be a positive integer"));
   TEST_NO_THROW(api.CloseNote(id), ("Closing a note"));
+
+#if defined(OMIM_OS_MAC)
+  });
+#endif
 }
