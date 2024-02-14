@@ -218,7 +218,7 @@
 "pref_zoom_title" = "כפתורי זום";
 
 /* Settings «Map» category: «Appearance» title */
-"pref_map_style_title" = "צבעים";
+"pref_map_style_title" = "מראה";
 
 /* Settings "Appearance" category: "Light" title, should be consistent with the pref_map_style_title translation. */
 "pref_appearance_light" = "בהיר";
