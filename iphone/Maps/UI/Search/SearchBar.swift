@@ -34,6 +34,7 @@ final class SearchBar: SolidTouchView {
     updateLeftView()
     searchTextField.leftViewMode = UITextField.ViewMode.always
     searchTextField.leftView = UIView(frame: CGRect(x: 0, y: 0, width: 32, height: 32))
+    searchTextField.applyTheme()
   }
 
   private func updateLeftView() {
