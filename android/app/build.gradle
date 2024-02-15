@@ -258,7 +258,6 @@ android {
       jniDebuggable true           // Enable jni debug build
       zipAlignEnabled true
       signingConfig signingConfigs.debug
-      resValue 'string', 'app_id', android.defaultConfig.applicationId + applicationIdSuffix
       resValue 'string', 'app_name', 'Debug Organic Maps'
       // Do not generate separate debug symbols for debug apps, because we don't distribute them.
       ndk.debugSymbolLevel = 'none'
@@ -279,7 +278,6 @@ android {
       // Includes the default ProGuard rules files that are packaged with the Android Gradle plugin.
       // To learn more, go to the documentation section about R8 configuration files.
       proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
-      resValue 'string', 'app_id', android.defaultConfig.applicationId
       resValue 'string', 'app_name', project.ext.appName
       // Full size symbols are too big for Google, 217mb aab vs 95mb.
       ndk.debugSymbolLevel = 'symbol_table'
@@ -301,7 +299,6 @@ android {
       // To learn more, go to the documentation section about R8 configuration files.
       proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
       matchingFallbacks = ['debug', 'release']
-      resValue 'string', 'app_id', android.defaultConfig.applicationId + applicationIdSuffix
       resValue 'string', 'app_name', 'Beta Organic Maps'
       // Full size symbols are too big for Google, 217mb aab vs 95mb.
       ndk.debugSymbolLevel = 'symbol_table'
@@ -417,6 +414,7 @@ android.applicationVariants.all { variant ->
   variant.buildConfigField 'String', 'FILE_PROVIDER_AUTHORITY', authority
   def flavor = variant.getMergedFlavor()
   flavor.manifestPlaceholders += [FILE_PROVIDER_PLACEHOLDER : authorityValue]
+  variant.resValue 'string', 'app_id', variant.applicationId
 }
 
 task prepareGoogleReleaseListing {
