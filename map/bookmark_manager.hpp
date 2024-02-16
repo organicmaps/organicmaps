@@ -427,6 +427,7 @@ private:
 
     void OnAddLine(kml::TrackId lineId);
     void OnDeleteLine(kml::TrackId lineId);
+    void OnUpdateLine(kml::TrackId lineId);
 
     void OnAddGroup(kml::MarkGroupId groupId);
     void OnDeleteGroup(kml::MarkGroupId groupId);
@@ -454,6 +455,7 @@ private:
     kml::MarkIdSet const & GetUpdatedMarkIds() const override { return m_updatedMarks; }
     kml::TrackIdSet const & GetCreatedLineIds() const override { return m_createdLines; }
     kml::TrackIdSet const & GetRemovedLineIds() const override { return m_removedLines; }
+    kml::TrackIdSet const & GetUpdatedLineIds() const override { return m_updatedLines; }
     kml::GroupIdSet const & GetBecameVisibleGroupIds() const override { return m_becameVisibleGroups; }
     kml::GroupIdSet const & GetBecameInvisibleGroupIds() const override { return m_becameInvisibleGroups; }
     bool IsGroupVisible(kml::MarkGroupId groupId) const override;
@@ -481,6 +483,7 @@ private:
 
     kml::TrackIdSet m_createdLines;
     kml::TrackIdSet m_removedLines;
+    kml::TrackIdSet m_updatedLines;
 
     kml::GroupIdSet m_createdGroups;
     kml::GroupIdSet m_removedGroups;
