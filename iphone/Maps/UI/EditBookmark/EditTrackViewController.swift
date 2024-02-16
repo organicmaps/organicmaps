@@ -9,7 +9,7 @@ final class EditTrackViewController: MWMTableViewController {
   
   private enum InfoSectionRows: Int {
     case title
-    //case color // TODO: need to know which layer color should be changed in track
+    case color
     //case lineWidth // TODO: possible new section & ability - edit track line width
     case bookmarkGroup
     case count
@@ -21,7 +21,7 @@ final class EditTrackViewController: MWMTableViewController {
   private var trackTitle: String?
   private var trackGroupTitle: String?
   private var trackGroupId = FrameworkHelper.invalidCategoryId()
-  //private var trackColor: BookmarkColor // or add TrackColor type
+  private var trackColor: UIColor
 
   private let bookmarksManager = BookmarksManager.shared()
   
@@ -32,7 +32,7 @@ final class EditTrackViewController: MWMTableViewController {
     let track = bm.track(withId: trackId)
     
     trackTitle = track.trackName
-    //trackColor = ....
+    trackColor = track.trackColor
 
     let category = bm.category(forTrackId: trackId)
     trackGroupId = category.categoryId
@@ -85,12 +85,12 @@ final class EditTrackViewController: MWMTableViewController {
         let cell = tableView.dequeueReusableCell(cell: BookmarkTitleCell.self, indexPath: indexPath)
         cell.configure(name: trackTitle ?? "", delegate: self, hint: L("placepage_track_name_hint"))
         return cell
-//      case .color:
-//        let cell = tableView.dequeueDefaultCell(for: indexPath)
-//        cell.accessoryType = .disclosureIndicator
-//        cell.textLabel?.text = trackColor.title
-//        cell.imageView?.image = circleImageForColor(trackColor.color, frameSize: 28, diameter: 22, iconName: "ic_bm_none")
-//        return cell
+      case .color:
+        let cell = tableView.dequeueDefaultCell(for: indexPath)
+        cell.accessoryType = .disclosureIndicator
+        cell.textLabel?.text = L("change_color")
+        cell.imageView?.image = circleImageForColor(trackColor, frameSize: 28, diameter: 22)
+        return cell
       case .bookmarkGroup:
         let cell = tableView.dequeueDefaultCell(for: indexPath)
         cell.textLabel?.text = trackGroupTitle
@@ -111,11 +111,22 @@ final class EditTrackViewController: MWMTableViewController {
   }
   
   override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+    tableView.deselectRow(at: indexPath, animated: true)
     switch InfoSectionRows(rawValue: indexPath.row) {
-//    case .color:
-//      let colorViewController = BookmarkColorViewController(bookmarkColor: trackColor)
-//      colorViewController.delegate = self
-//      navigationController?.pushViewController(colorViewController, animated: true)
+    case .color:
+      if #available(iOS 14.0, *) {
+        let colorPickerController = UIColorPickerViewController()
+        colorPickerController.supportsAlpha = false
+        colorPickerController.delegate = self
+        colorPickerController.selectedColor = trackColor
+        present(colorPickerController, animated: true)
+      } else {
+        // For iOS < 14.0 when the color cannot be mapped to predefined it will not be selected in the table view.
+        let trackColor = BookmarkColor.bookmarkColor(from: trackColor) ?? .none
+        let colorViewController = BookmarkColorViewController(bookmarkColor: trackColor)
+        colorViewController.delegate = self
+        navigationController?.pushViewController(colorViewController, animated: true)
+      }
     case .bookmarkGroup:
       let groupViewController = SelectBookmarkGroupViewController(groupName: trackGroupTitle ?? "", groupId: trackGroupId)
       groupViewController.delegate = self
@@ -129,10 +140,15 @@ final class EditTrackViewController: MWMTableViewController {
   
   @objc private func onSave() {
     view.endEditing(true)
-    
-    BookmarksManager.shared().updateTrack(trackId, setGroupId: trackGroupId, title: trackTitle ?? "")
+    BookmarksManager.shared().updateTrack(trackId, setGroupId: trackGroupId, color: trackColor.sRGBColor, title: trackTitle ?? "")
     editingCompleted(true)
     goBack()
+  }
+
+  private func updateColor(_ color: UIColor) {
+    trackColor = color
+    tableView.reloadRows(at: [IndexPath(row: InfoSectionRows.color.rawValue, section: Sections.info.rawValue)],
+                         with: .none)
   }
 }
 
@@ -149,15 +165,16 @@ extension EditTrackViewController: MWMButtonCellDelegate {
   }
 }
 
-//extension EditTrackViewController: BookmarkColorViewControllerDelegate {
-//  func bookmarkColorViewController(_ viewController: BookmarkColorViewController, didSelect color: BookmarkColor) {
-//    goBack()
-//    trackColor = color
-//    tableView.reloadRows(at: [IndexPath(row: InfoSectionRows.color.rawValue, section: Sections.info.rawValue)],
-//                         with: .none)
-//  }
-//}
+// MARK: - BookmarkColorViewControllerDelegate
 
+extension EditTrackViewController: BookmarkColorViewControllerDelegate {
+  func bookmarkColorViewController(_ viewController: BookmarkColorViewController, didSelect bookmarkColor: BookmarkColor) {
+    goBack()
+    updateColor(bookmarkColor.color)
+  }
+}
+
+// MARK: - SelectBookmarkGroupViewControllerDelegate
 extension EditTrackViewController: SelectBookmarkGroupViewControllerDelegate {
   func bookmarkGroupViewController(_ viewController: SelectBookmarkGroupViewController,
                                    didSelect groupTitle: String,
@@ -167,5 +184,19 @@ extension EditTrackViewController: SelectBookmarkGroupViewControllerDelegate {
     trackGroupId = groupId
     tableView.reloadRows(at: [IndexPath(row: InfoSectionRows.bookmarkGroup.rawValue, section: Sections.info.rawValue)],
                          with: .none)
+  }
+}
+
+// MARK: - UIColorPickerViewControllerDelegate
+extension EditTrackViewController: UIColorPickerViewControllerDelegate {
+  @available(iOS 14.0, *)
+  func colorPickerViewControllerDidFinish(_ viewController: UIColorPickerViewController) {
+    updateColor(viewController.selectedColor)
+    dismiss(animated: true, completion: nil)
+  }
+
+  @available(iOS 14.0, *)
+  func colorPickerViewControllerDidSelectColor(_ viewController: UIColorPickerViewController) {
+    updateColor(viewController.selectedColor)
   }
 }

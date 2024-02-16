@@ -681,6 +681,7 @@ static BookmarkManager::SortingType convertSortingTypeToCore(MWMBookmarksSorting
 
 - (void)updateTrack:(MWMTrackID)trackId
          setGroupId:(MWMMarkGroupID)groupId
+              color:(UIColor *)color
               title:(NSString *)title {
     auto const currentGroupId = self.bm.GetTrack(trackId)->GetGroupId();
     auto editSession = self.bm.GetEditSession();
@@ -691,6 +692,13 @@ static BookmarkManager::SortingType convertSortingTypeToCore(MWMBookmarksSorting
     auto track = editSession.GetTrackForEdit(trackId);
     if (!track) {
         return;
+    }
+
+    auto const currentColor = track->GetColor(0);
+    auto const newColor = [MWMBookmarksManager getColorFromUIColor:color];
+
+    if (newColor != currentColor) {
+        track->SetColor(newColor);
     }
 
     track->SetName(title.UTF8String);
@@ -754,5 +762,23 @@ static BookmarkManager::SortingType convertSortingTypeToCore(MWMBookmarksSorting
   self.bm.SetElevationMyPositionChangedCallback(nullptr);
 }
 
++ (dp::Color)getColorFromUIColor:(UIColor *)color {
+  CGFloat fRed, fGreen, fBlue, fAlpha;
+  [color getRed:&fRed green:&fGreen blue:&fBlue alpha:&fAlpha];
+
+  const uint8_t red = [self convertColorComponentToHex:fRed];
+  const uint8_t green = [self convertColorComponentToHex:fGreen];
+  const uint8_t blue = [self convertColorComponentToHex:fBlue];
+  const uint8_t alpha = [self convertColorComponentToHex:fAlpha];
+
+  return dp::Color(red, green, blue, alpha);
+}
+
++ (uint8_t)convertColorComponentToHex:(CGFloat)color {
+  ASSERT_LESS_OR_EQUAL(color, 1.f, ("Extended sRGB color space is not supported"));
+  ASSERT_GREATER_OR_EQUAL(color, 0.f, ("Extended sRGB color space is not supported"));
+  static constexpr uint8_t kMaxChannelValue = 255;
+  return color * kMaxChannelValue;
+}
 
 @end
