@@ -240,7 +240,7 @@
     el = Η λήψη απέτυχε. Αγγίξτε για να προσπαθήσετε ξανά.
     es = Error durante la descarga. Pulse para intentarlo de nuevo.
     et = Allalaadimine ebaõnnestus. Puuduta uuesti proovimiseks.
-    eu = Errore bat gertatu da deskargatzean, hasi berriro
+    eu = Errore bat gertatu da deskargatzean. Klik egin berriz saiatzeko.
     fa = دانلود ناموفق بود. برای تلاش مجدد لمس کنید
     fi = Lataus epäonnistui, yritä uudelleen koskettamalla
     fr = Échec lors du téléchargement. Appuyer pour réessayer.
@@ -457,7 +457,7 @@
     el = Μίλια
     es = Millas
     et = Miilid
-    eu = Milia
+    eu = Miliak
     fa = مایل
     fi = Mailit
     fr = Miles
@@ -727,7 +727,7 @@
     el = Οι υπηρεσίες εντοπισμού τοποθεσίας είναι προς το παρόν απενεργοποιημένες σε αυτή τη συσκευή ή για αυτή την εφαρμογή. Ενεργοποιήστε τες από τις Ρυθμίσεις.
     es = No se puede acceder a los servicios de localización en este dispositivo o aplicación. Por favor, actívelos en los ajustes.
     et = Seadme või rakenduse kõik asukohateenused on praegu välja lülitatud. Luba need Seadetes.
-    eu = Ezin da kokapen-zerbitzuetara sartu. Mesedez, aktibatu ezarpenetan.
+    eu = Ezin da kokapen-zerbitzua atzitu. Mesedez, aktibatu ezarpenetan.
     fa = سرویس موقعیت مکانی شما غیر فعال است. لطفا جهت کارکرد صحیح نرم افزار آن را فعال کنید.
     fi = Laitteen tai sovelluksen kaikki sijaintipalvelut ovat tällä hetkellä poissa käytöstä. Ota ne käyttöön Asetukset-valikossa.
     fr = Tous les services de localisation de cet appareil sont désactivés, ou ils le sont pour cette application. Veuillez les activer dans les paramètres.
@@ -1173,7 +1173,7 @@
     de = Open-Source-Anwendung, entwickelt von Enthusiasten und Freiwilligen.
     el = Εφαρμογή ανοιχτού κώδικα που δημιουργήθηκε από θιασώτες και εθελοντές.
     es = Aplicación de código abierto creada por entusiastas y voluntarios.
-    eu = Kode irekiko aplikazioa zaleek eta boluntarioek sortutakoa.
+    eu = Zale eta bolondresek sortutako kode irekiko aplikazioa.
     fa = برنامه منبع باز ایجاد شده توسط علاقه مندان و داوطلبان.
     fi = Harrastajien ja vapaaehtoisten luoma avoimen lähdekoodin sovellus.
     fr = Application open source créée par des amateurs et des bénévoles.
@@ -1305,7 +1305,7 @@
     el = Η εφαρμογή απαιτεί OpenGL με επιτάχυνση υλικού. Δυστυχώς, η συσκευή σας δεν το υποστηρίζει.
     es = La aplicación requiere OpenGL acelerado por hardware. Lamentablemente, su dispositivo no es compatible.
     et = Rakendus vajab riistvaralist OpenGL tuge. Kahjuks Sinu seade ei ole toetatud.
-    eu = Aplikazioak hardwarez azeleratutako OpenGL behar du. Zoritxarrez, zure gailua ez da onartzen.
+    eu = Aplikazioak hardwarez azeleratutako OpenGL behar du. Zoritxarrez, zure gailuak ez du hau eskaintzen.
     fa = نیازمند است. متاسفانه دستگاه شما از آن پشتیبانی نمی‌کندOpenGLبرنامه برای اجرا به
     fi = Laitteistokiihdytetty OpenGL vaaditaan. Valitettavasti laitteesi ei ole tuettu.
     fr = L'accélération OpenGL matérielle est exigée. Malheureusement, votre appareil n'est pas pris en charge.
@@ -1482,7 +1482,7 @@
     el = Πριν ξεκινήσετε τη χρήση της εφαρμογής, επιτρέψτε μας να κατεβάσουμε το γενικό παγκόσμιο χάρτη στη συσκευή σας.\nΘα χρησιμοποιήσει %@ αποθηκευτικού χώρου.
     es = Antes de comenzar, permita que descarguemos en su dispositivo un mapamundi general.\nSe requieren %@ de almacenamiento.
     et = Ennem rakenduse kasutamise alustamist luba meil laadida seadmesse alla maailma üldkaart.\nSee kasutab %@ mälumahtu.
-    eu = Hasi baino lehen, utzi mundu-mapa orokor bat zure gailuan deskargatzen.\nDatuen %@ beharrezkoa da.
+    eu = Hasi aurretik deskargatu mesedez mundu-mapa orokorra zure gailura.\nMemorian %@ erabiliko ditu.
     fa = قبل از استفاده از اپلیکیشن, اجازه دهید تا ما نقشه جهانی را بر روی موبایل شما دانلود کنیم.\nمقدار %@ از حافظه شما اشغال می شود.
     fi = Ennen aloitusta laitteelle tulee ladata yleinen maailmankartta.\nSe tarvitsee yhteensä %@ tilaa.
     fr = Avant de commencer, permettez-nous de télécharger la carte générale du monde dans votre appareil.\n%@ de données sont nécessaires.
@@ -14580,7 +14580,7 @@
     el = Όλες οι αλλαγές που έχετε κάνει στο χάρτη θα διαγραφούν μαζί με το χάρτη.
     es = Todos los cambios en los mapas se borrarán junto con el mapa.
     et = Kõik Sinu kaardimuudatused kustutatakse koos kaardiga.
-    eu = Maparen aldaketa guztiak maparekin batera ezabatuko dira.
+    eu = Mapan egin dituzun aldaketa guztiak maparekin batera ezabatuko dira.
     fa = تمام ویرایش‌های که بر روی نقشه انجام داده اید به همراه نقشه حذف شد.
     fi = Kaikki karttaan tehdyt muutokset poistetaan kartan mukana.
     fr = Toutes vos modifications de la carte seront supprimées avec elle.
@@ -28659,7 +28659,7 @@
     el = Δεδομένα χάρτη από το OpenStreetMap
     es = Datos de mapas de OpenStreetMap
     et = OpenStreetMap kaardiandmed
-    eu = Maparen datuak OpenStreetMap-etik
+    eu = OpenStreetMap-eko mapa-datuak
     fa = OpenStreetMap داده‌های نقشه از
     fi = OpenStreetMapin karttatiedot
     fr = Données cartographiques d'OpenStreetMap
@@ -29204,7 +29204,7 @@
     es = Ahora usa Organic Maps en la pantalla del teléfono
     es-MX = Ahora usa Organic Maps en la pantalla del teléfono
     et = Nüüd kasutate telefoni ekraanil Organic Maps
-    eu = Organic Maps organikoak erabiltzen ari zara telefonoaren pantailan
+    eu = Organic Maps telefonoaren pantailan erabiltzen ari zara
     fa = اکنون در حال استفاده از نقشه های ارگانیک در صفحه گوشی هستید
     fi = Käytät nyt puhelimen näytöllä Organic Maps -palvelua.
     fr = Vous utilisez maintenant Organic Maps sur le téléphone
@@ -29249,7 +29249,7 @@
     es = Ahora usa Organic Maps en la pantalla del coche
     es-MX = Ahora usa Organic Maps en la pantalla del automóvil
     et = Nüüd kasutate auto ekraanil Organic Maps
-    eu = Organic Maps erabiltzen ari zara autoaren pantailan
+    eu = Organic Maps autoaren pantailan erabiltzen ari zara
     fa = اکنون از نقشه های ارگانیک در صفحه ماشین استفاده می کنید
     fi = Käytät nyt Organic Maps auton näytöllä
     fr = Vous utilisez maintenant Organic Maps dans la voiture
@@ -29564,7 +29564,7 @@
     el = Πεζοπορία
     es = Senderismo
     et = Matkamine
-    eu = Mendi ibilaldiak
+    eu = Landa-eremua
     fa = پیاده روی
     fi = Vaellus
     fr = Randonnée
