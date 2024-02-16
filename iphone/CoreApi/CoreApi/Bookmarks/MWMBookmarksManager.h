@@ -9,6 +9,7 @@
 @class MWMBookmarksSection;
 @class MWMCarPlayBookmarkObject;
 @class MWMTrack;
+@class UIColor;
 
 NS_ASSUME_NONNULL_BEGIN
 
@@ -105,6 +106,7 @@ NS_SWIFT_NAME(BookmarksManager)
 
 - (void)updateTrack:(MWMTrackID)trackId
          setGroupId:(MWMMarkGroupID)groupId
+              color:(UIColor *)color
               title:(NSString *)title;
 
 - (void)moveTrack:(MWMTrackID)trackId
