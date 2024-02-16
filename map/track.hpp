@@ -52,6 +52,7 @@ public:
   df::DepthLayer GetDepthLayer() const override;
   size_t GetLayerCount() const override;
   dp::Color GetColor(size_t layerIndex) const override;
+  void SetColor(dp::Color color);
   float GetWidth(size_t layerIndex) const override;
   float GetDepth(size_t layerIndex) const override;
   void ForEachGeometry(GeometryFnT && fn) const override;

@@ -392,6 +392,10 @@ Track * BookmarkManager::GetTrackForEdit(kml::TrackId trackId)
   if (it == m_tracks.end())
     return nullptr;
 
+  auto const groupId = it->second->GetGroupId();
+  if (groupId != kml::kInvalidTrackId)
+    m_changesTracker.OnUpdateLine(trackId);
+
   return it->second.get();
 }
 
@@ -2907,6 +2911,12 @@ void BookmarkManager::MarksChangesTracker::OnUpdateMark(kml::MarkId markId)
     m_updatedMarks.insert(markId);
 }
 
+void BookmarkManager::MarksChangesTracker::OnUpdateLine(kml::TrackId lineId)
+{
+  if (m_createdLines.find(lineId) == m_createdLines.end())
+    m_updatedLines.insert(lineId);
+}
+
 void BookmarkManager::MarksChangesTracker::InsertBookmark(kml::MarkId markId, kml::MarkGroupId catId,
                                                           GroupMarkIdSet & setToInsert, GroupMarkIdSet & setToErase)
 {
@@ -3073,6 +3083,19 @@ void BookmarkManager::MarksChangesTracker::AcceptDirtyItems()
   }
   m_updatedMarks.swap(dirtyMarks);
 
+  kml::TrackIdSet dirtyLines;
+  for (auto const lineId : m_updatedLines)
+  {
+    auto const line = m_bmManager->GetTrack(lineId);
+    if (line->IsDirty())
+    {
+      dirtyLines.insert(lineId);
+      m_updatedGroups.insert(line->GetGroupId());
+      line->ResetChanges();
+    }
+   }
+  m_updatedLines.swap(dirtyLines);
+
   for (auto const markId : m_createdMarks)
   {
     auto const mark = m_bmManager->GetMark(markId);
@@ -3118,6 +3141,7 @@ void BookmarkManager::MarksChangesTracker::ResetChanges()
 
   m_createdLines.clear();
   m_removedLines.clear();
+  m_updatedLines.clear();
 
   m_attachedBookmarks.clear();
   m_detachedBookmarks.clear();
@@ -3160,6 +3184,9 @@ void BookmarkManager::MarksChangesTracker::AddChanges(MarksChangesTracker const 
 
   for (auto const lineId : changes.m_removedLines)
     OnDeleteLine(lineId);
+
+  for (auto const lineId : changes.m_updatedLines)
+    OnUpdateLine(lineId);
 
   for (auto const & attachedInfo : changes.m_attachedBookmarks)
   {
