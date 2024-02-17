@@ -12,12 +12,12 @@
 
 /* ROADS */
 
-@trunk_orange_medium: #FF9140;
-@trunk_orange_light: #FF8742;
-@primary_orange:  #FF8726;
-@primary_orange_medium: #FFAD57;
-@primary_orange_light: #FFAD57;
-@secondary: #FFFFFF;
+@trunk0: #FF9140;
+@trunk1: #FF8742;
+@primary0:  #FF8726;
+@primary1: #FFAD57;
+@primary2: #FFAD57;
+@secondary0: #FFFFFF;
 @residential: #FCFCFC;
 @unclassified: #FCFCFC;
 @pedestrian: #FCFCFC;
@@ -36,8 +36,8 @@
 
 /* tunnels */
 
-@primary_tunnel_orange: #FCA462;
-@trunk_tunnel_orange: #FCA462;
+@primary_tunnel: #FCA462;
+@trunk_tunnel: #FCA462;
 @primary_tunnel_casing: #808080;
 @trunk_tunnel_casing: #808080;
 @secondary_tunnel: #FFFFFF;
@@ -98,10 +98,10 @@
 /* BUILDINGS */
 @housenumber: #65655E;
 @building_label: #61615A;
-@building: #D4D3CA;/*#C9C8BB;*/
-@building_dark: #C7C6BF;/*#C2C0B3;*/
-@building_border: #D4D3CA;
-@building_dark_border: #D4D3CA;
+@building0: #D4D3CA;/*#C9C8BB;*/
+@building1: #C7C6BF;/*#C2C0B3;*/
+@building_border0: #D4D3CA;
+@building_border1: #D4D3CA;
 
 /* LANDUSE */
 
