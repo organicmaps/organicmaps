@@ -383,8 +383,8 @@ UNIT_TEST(GermanyShuttleTrainTest)
 
   TEST(routeResult.first, ());
   Route const & route = *routeResult.first;
-  TestRouteLength(route, 44116.7);
-  TestRouteTime(route, 2529.63);
+  TestRouteLength(route, 44517.4);
+  TestRouteTime(route, 2619.62);
 }
 
 UNIT_TEST(TolyattiFeatureThatCrossSeveralMwmsTest)
