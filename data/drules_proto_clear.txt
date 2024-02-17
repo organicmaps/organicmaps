@@ -15460,6 +15460,174 @@ cont {
   }
 }
 cont {
+  name: "boundary-aboriginal_lands"
+  element {
+    scale: 10
+    area {
+      color: 3430108454
+      priority: 20
+    }
+    caption {
+      primary {
+        height: 10
+        color: 6967599
+        stroke_color: 872415231
+      }
+      priority: 6700
+    }
+  }
+  element {
+    scale: 11
+    area {
+      color: 3430108454
+      priority: 20
+    }
+    caption {
+      primary {
+        height: 10
+        color: 6967599
+        stroke_color: 872415231
+      }
+      priority: 6700
+    }
+  }
+  element {
+    scale: 12
+    area {
+      color: 3430108454
+      priority: 20
+    }
+    caption {
+      primary {
+        height: 10
+        color: 6967599
+        stroke_color: 872415231
+      }
+      priority: 6700
+    }
+  }
+  element {
+    scale: 13
+    area {
+      color: 3430108454
+      priority: 20
+    }
+    caption {
+      primary {
+        height: 10
+        color: 6967599
+        stroke_color: 872415231
+      }
+      priority: 6700
+    }
+  }
+  element {
+    scale: 14
+    area {
+      color: 3430108454
+      priority: 20
+    }
+    caption {
+      primary {
+        height: 10
+        color: 6967599
+        stroke_color: 872415231
+      }
+      priority: 6700
+    }
+  }
+  element {
+    scale: 15
+    area {
+      color: 3430108454
+      priority: 20
+    }
+    caption {
+      primary {
+        height: 10
+        color: 6967599
+        stroke_color: 872415231
+      }
+      priority: 6700
+    }
+  }
+  element {
+    scale: 16
+    area {
+      color: 3430108454
+      priority: 20
+    }
+    caption {
+      primary {
+        height: 10
+        color: 6967599
+        stroke_color: 872415231
+      }
+      priority: 6700
+    }
+  }
+  element {
+    scale: 17
+    area {
+      color: 3430108454
+      priority: 20
+    }
+    caption {
+      primary {
+        height: 10
+        color: 6967599
+        stroke_color: 872415231
+      }
+      priority: 6700
+    }
+  }
+  element {
+    scale: 18
+    area {
+      color: 3430108454
+      priority: 20
+    }
+    caption {
+      primary {
+        height: 10
+        color: 6967599
+        stroke_color: 872415231
+      }
+      priority: 6700
+    }
+  }
+  element {
+    scale: 19
+    area {
+      color: 3430108454
+      priority: 20
+    }
+    caption {
+      primary {
+        height: 10
+        color: 6967599
+        stroke_color: 872415231
+      }
+      priority: 6700
+    }
+  }
+  element {
+    scale: 20
+    area {
+      color: 3430108454
+      priority: 20
+    }
+    caption {
+      primary {
+        height: 10
+        color: 6967599
+        stroke_color: 872415231
+      }
+      priority: 6700
+    }
+  }
+}
+cont {
   name: "boundary-administrative-2"
   element {
     scale: 2

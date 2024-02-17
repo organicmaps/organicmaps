@@ -330,7 +330,7 @@ sport|soccer
 *highway|steps|bridge
 *highway|track|tunnel
 *highway|pedestrian|tunnel
-mapswithme
+*boundary|aboriginal_lands
 *sport|cricket
 *sport|bowls
 *highway|path|tunnel
