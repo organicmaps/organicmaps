@@ -1251,6 +1251,9 @@
 /* Outdoors/hiking map style (activity) name in the Styles and Layers dialog */
 "button_layer_outdoor" = "Matkamine";
 
+/* Text for the editing the Track's color button. */
+"change_color" = "Värvi muutmine";
+
 
 /********** Types **********/
 
