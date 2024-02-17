@@ -49,7 +49,7 @@ public:
     uint16_t m_minutesUntilOpen = 0;
 
     uint16_t m_minutesUntilClosed = 0;
-      
+
     std::string m_description;
 
     bool m_isInitialized = false;
@@ -89,10 +89,11 @@ public:
 
   // Precondition: GetResultType() == Type::Feature.
   uint32_t GetFeatureType() const;
-  
+  bool IsSameType(uint32_t type) const;
+
   // Precondition: GetResultType() == Type::Feature.
   std::string GetLocalizedFeatureType() const;
-  
+
   // Precondition: GetResultType() == Type::Feature.
   std::string GetFeatureDescription() const;
 
