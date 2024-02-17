@@ -854,7 +854,7 @@
 /* Dialog before publishing the modifications to the public map. */
 "editor_share_to_all_dialog_message_1" = "Asegúrate de que no has introducido ningún dato personal.";
 
-"editor_share_to_all_dialog_message_2" = "Los editores de OpenStreetMap comprobarán los cambios y se pondrán en contacto contigo si tienen alguna pregunta.";
+"editor_share_to_all_dialog_message_2" = "Los editores de OpenStreetMap comprobarán los cambios y se pondrán en contacto con usted si tienen alguna pregunta.";
 
 "navigation_stop_button" = "detener";
 
@@ -1474,7 +1474,7 @@
 
 "type.amenity.place_of_worship" = "Lugar de culto";
 
-"type.amenity.place_of_worship.buddhist" = "Templo";
+"type.amenity.place_of_worship.buddhist" = "Templo budista";
 
 "type.amenity.place_of_worship.christian" = "Iglesia";
 
@@ -1482,15 +1482,15 @@
 
 "type.amenity.place_of_worship.christian.jehovahs_witness" = "Salón del Reino de los Testigos de Jehová";
 
-"type.amenity.place_of_worship.hindu" = "Templo";
+"type.amenity.place_of_worship.hindu" = "Templo hindú";
 
 "type.amenity.place_of_worship.jewish" = "Sinagoga";
 
 "type.amenity.place_of_worship.muslim" = "Mezquita";
 
-"type.amenity.place_of_worship.shinto" = "Ermita";
+"type.amenity.place_of_worship.shinto" = "Santuario sintoísta";
 
-"type.amenity.place_of_worship.taoist" = "Templo";
+"type.amenity.place_of_worship.taoist" = "Templo taoísta";
 
 "type.amenity.police" = "Policía";
 
@@ -1643,7 +1643,7 @@
 
 "type.barrier.turnstile" = "Torniquete";
 
-"type.barrier.swing_gate" = "Barrera";
+"type.barrier.swing_gate" = "Barrera batiente";
 
 "type.barrier.toll_booth" = "Cabina de peaje";
 
@@ -2045,14 +2045,14 @@
 
 "type.highway.footway.hiking" = "Sendero";
 
-"type.highway.footway.mountain_hiking" = "Camino";
+"type.highway.footway.mountain_hiking" = "Sendero de montaña";
 
 /* These translations are used for all type.highway.*.tunnel. */
 "type.highway.footway.tunnel" = "Túnel";
 
 "type.highway.ford" = "Vado";
 
-"type.highway.living_street" = "Calle";
+"type.highway.living_street" = "Calle de prioridad peatonal";
 
 /* These translations are used for all type.highway.*.bridge. */
 "type.highway.living_street.bridge" = "Puente";
@@ -2060,7 +2060,7 @@
 /* These translations are used for all type.highway.*.tunnel. */
 "type.highway.living_street.tunnel" = "Túnel";
 
-"type.highway.motorway" = "Calle";
+"type.highway.motorway" = "Autopista";
 
 /* These translations are used for all type.highway.*.bridge. */
 "type.highway.motorway.bridge" = "Puente";
@@ -2070,7 +2070,7 @@
 
 "type.highway.motorway_junction" = "Salida";
 
-"type.highway.motorway_link" = "Calle";
+"type.highway.motorway_link" = "Autopista";
 
 /* These translations are used for all type.highway.*.bridge. */
 "type.highway.motorway_link.bridge" = "Puente";
@@ -2114,7 +2114,7 @@
 /* These translations are used for all type.highway.*.tunnel. */
 "type.highway.pedestrian.tunnel" = "Túnel";
 
-"type.highway.primary" = "Calle";
+"type.highway.primary" = "Carretera principal";
 
 /* These translations are used for all type.highway.*.bridge. */
 "type.highway.primary.bridge" = "Puente";
@@ -2122,7 +2122,7 @@
 /* These translations are used for all type.highway.*.tunnel. */
 "type.highway.primary.tunnel" = "Túnel";
 
-"type.highway.primary_link" = "Calle";
+"type.highway.primary_link" = "Carretera principal";
 
 /* These translations are used for all type.highway.*.bridge. */
 "type.highway.primary_link.bridge" = "Puente";
@@ -2132,9 +2132,9 @@
 
 "type.highway.raceway" = "Circuito";
 
-"type.highway.residential" = "Calle";
+"type.highway.residential" = "Calle residencial";
 
-"type.highway.residential.area" = "Calle";
+"type.highway.residential.area" = "Calle residencial";
 
 /* These translations are used for all type.highway.*.bridge. */
 "type.highway.residential.bridge" = "Puente";
@@ -2144,7 +2144,7 @@
 
 "type.highway.rest_area" = "Área de descanso";
 
-"type.highway.road" = "Calle";
+"type.highway.road" = "Carretera";
 
 /* These translations are used for all type.highway.*.bridge. */
 "type.highway.road.bridge" = "Puente";
@@ -2155,7 +2155,7 @@
 /* These translations are used for all type.highway.*.tunnel. */
 "type.highway.road.tunnel" = "Túnel";
 
-"type.highway.secondary" = "Calle";
+"type.highway.secondary" = "Carretera secundaria";
 
 /* These translations are used for all type.highway.*.bridge. */
 "type.highway.secondary.bridge" = "Puente";
@@ -2163,7 +2163,7 @@
 /* These translations are used for all type.highway.*.tunnel. */
 "type.highway.secondary.tunnel" = "Túnel";
 
-"type.highway.secondary_link" = "Calle";
+"type.highway.secondary_link" = "Carretera secundaria";
 
 /* These translations are used for all type.highway.*.bridge. */
 "type.highway.secondary_link.bridge" = "Puente";
@@ -2171,16 +2171,16 @@
 /* These translations are used for all type.highway.*.tunnel. */
 "type.highway.secondary_link.tunnel" = "Túnel";
 
-"type.highway.service" = "Calle";
+"type.highway.service" = "Vía de servicio";
 
-"type.highway.service.area" = "Calle";
+"type.highway.service.area" = "Vía de servicio";
 
 /* These translations are used for all type.highway.*.bridge. */
 "type.highway.service.bridge" = "Puente";
 
-"type.highway.service.driveway" = "Calle";
+"type.highway.service.driveway" = "Vía de servicio";
 
-"type.highway.service.parking_aisle" = "Calle";
+"type.highway.service.parking_aisle" = "Vía de servicio";
 
 /* These translations are used for all type.highway.*.tunnel. */
 "type.highway.service.tunnel" = "Túnel";
@@ -2197,7 +2197,7 @@
 /* These translations are used for all type.highway.*.tunnel. */
 "type.highway.steps.tunnel" = "Túnel";
 
-"type.highway.tertiary" = "Calle";
+"type.highway.tertiary" = "Carretera terciaria";
 
 /* These translations are used for all type.highway.*.bridge. */
 "type.highway.tertiary.bridge" = "Puente";
@@ -2205,7 +2205,7 @@
 /* These translations are used for all type.highway.*.tunnel. */
 "type.highway.tertiary.tunnel" = "Túnel";
 
-"type.highway.tertiary_link" = "Calle";
+"type.highway.tertiary_link" = "Carretera terciaria";
 
 /* These translations are used for all type.highway.*.bridge. */
 "type.highway.tertiary_link.bridge" = "Puente";
@@ -2239,7 +2239,7 @@
 
 "type.highway.traffic_signals" = "Semáforos";
 
-"type.highway.trunk" = "Calle";
+"type.highway.trunk" = "Vía rápida";
 
 /* These translations are used for all type.highway.*.bridge. */
 "type.highway.trunk.bridge" = "Puente";
@@ -2247,7 +2247,7 @@
 /* These translations are used for all type.highway.*.tunnel. */
 "type.highway.trunk.tunnel" = "Túnel";
 
-"type.highway.trunk_link" = "Calle";
+"type.highway.trunk_link" = "Vía rápida";
 
 /* These translations are used for all type.highway.*.bridge. */
 "type.highway.trunk_link.bridge" = "Puente";
@@ -2255,9 +2255,9 @@
 /* These translations are used for all type.highway.*.tunnel. */
 "type.highway.trunk_link.tunnel" = "Túnel";
 
-"type.highway.unclassified" = "Calle";
+"type.highway.unclassified" = "Carretera sin clasificar";
 
-"type.highway.unclassified.area" = "Calle";
+"type.highway.unclassified.area" = "Carretera sin clasificar";
 
 /* These translations are used for all type.highway.*.bridge. */
 "type.highway.unclassified.bridge" = "Puente";
@@ -2269,31 +2269,31 @@
 
 "type.area_highway.footway" = "Camino";
 
-"type.area_highway.living_street" = "Calle";
+"type.area_highway.living_street" = "Calle de prioridad peatonal";
 
-"type.area_highway.motorway" = "Calle";
+"type.area_highway.motorway" = "Autopista";
 
 "type.area_highway.path" = "Camino";
 
 "type.area_highway.pedestrian" = "Calle peatonal";
 
-"type.area_highway.primary" = "Calle";
+"type.area_highway.primary" = "Carretera principal";
 
-"type.area_highway.residential" = "Calle";
+"type.area_highway.residential" = "Calle residencial";
 
-"type.area_highway.secondary" = "Calle";
+"type.area_highway.secondary" = "Carretera secundaria";
 
-"type.area_highway.service" = "Calle";
+"type.area_highway.service" = "Vía de servicio";
 
-"type.area_highway.tertiary" = "Calle";
+"type.area_highway.tertiary" = "Carretera terciaria";
 
 "type.area_highway.steps" = "Escaleras";
 
 "type.area_highway.track" = "Pista";
 
-"type.area_highway.trunk" = "Calle";
+"type.area_highway.trunk" = "Vía rápida";
 
-"type.area_highway.unclassified" = "Calle";
+"type.area_highway.unclassified" = "Carretera sin clasificar";
 
 "type.highway.world_level" = "highway-world_level";
 
@@ -2320,7 +2320,7 @@
 
 "type.historic.castle.castrum" = "Castrum";
 
-"type.historic.castle.defensive" = "Castillo";
+"type.historic.castle.defensive" = "Castillo defensivo";
 
 "type.historic.castle.fortified_church" = "Iglesia fortificada";
 
@@ -2414,7 +2414,7 @@
 
 "type.internet_access.wlan" = "Internet";
 
-"type.junction" = "Junction";
+"type.junction" = "Cruce";
 
 "type.junction.circular" = "Rotonda";
 
@@ -2422,11 +2422,11 @@
 
 "type.landuse" = "Uso del suelo";
 
-"type.landuse.allotments" = "Allotments";
+"type.landuse.allotments" = "Huerto urbano";
 
 "type.landuse.basin" = "Cuenca";
 
-"type.landuse.brownfield" = "Brownfield";
+"type.landuse.brownfield" = "Solar abandonado";
 
 /* In most (European) countries, сemeteries are usually independent of places of worship (e.g. military cemeteries), while grave yards are usually the yard of a place of worship. */
 "type.landuse.cemetery" = "Cementerio";
@@ -2484,27 +2484,27 @@
 
 "type.landuse.recreation_ground" = "Área recreativa";
 
-"type.landuse.reservoir" = "Cuenca";
+"type.landuse.reservoir" = "Embalse";
 
 "type.landuse.residential" = "Zona residencial";
 
 "type.landuse.retail" = "Zona comercial";
 
-"type.landuse.salt_pond" = "Estanque";
+"type.landuse.salt_pond" = "Salina";
 
-"type.landuse.village_green" = "Land";
+"type.landuse.village_green" = "Espacio verde";
 
 "type.landuse.vineyard" = "Viñedo";
 
 "type.leisure" = "Ocio";
 
-"type.leisure.common" = "Public Land";
+"type.leisure.common" = "Zona pública";
 
 "type.leisure.dog_park" = "Lugar para pasear al perro";
 
 "type.leisure.fitness_centre" = "Centro de fitness";
 
-"type.leisure.fitness_station" = "Gimnasio";
+"type.leisure.fitness_station" = "Parque de fitness";
 
 "type.leisure.dance" = "Salón de baile";
 
@@ -2542,7 +2542,7 @@
 
 "type.leisure.sauna" = "Sauna";
 
-"type.leisure.slipway" = "Slipway";
+"type.leisure.slipway" = "Rampa de barcos";
 
 "type.leisure.sports_centre" = "Polideportivo";
 
@@ -2564,15 +2564,15 @@
 
 "type.leisure.beach_resort" = "Resort de playa";
 
-"type.man_made" = "Man Made";
+"type.man_made" = "Construcción artificial";
 
 "type.man_made.breakwater" = "Rompeolas";
 
-"type.man_made.cairn" = "Cairn";
+"type.man_made.cairn" = "Mojón";
 
 "type.man_made.chimney" = "Chimenea de fábrica";
 
-"type.man_made.cutline" = "Cutline";
+"type.man_made.cutline" = "Línea de corte forestal";
 
 "type.man_made.survey_point" = "Punto geodésico";
 
@@ -2676,7 +2676,7 @@
 
 "type.natural.peak" = "Cima";
 
-"type.natural.saddle" = "Silla de montaña";
+"type.natural.saddle" = "Collado";
 
 "type.natural.rock" = "Roca";
 
@@ -2700,7 +2700,7 @@
 
 "type.natural.wetland.marsh" = "Ciénaga";
 
-"type.noexit" = "Dead End";
+"type.noexit" = "Sin salida";
 
 "type.office" = "Oficina";
 
@@ -2716,7 +2716,7 @@
 
 "type.office.ngo" = "Sede de ONG";
 
-"type.office.telecommunication" = "Operadora de telefonía móvil";
+"type.office.telecommunication" = "Operadora de telefonía";
 
 "type.organic.only" = "Orgánico";
 
@@ -2750,7 +2750,7 @@
 
 "type.place.country" = "País";
 
-"type.place.county" = "Municipio";
+"type.place.county" = "Condado";
 
 "type.place.farm" = "Granja";
 
@@ -2858,7 +2858,7 @@
 
 "type.railway.level_crossing" = "Cruce de ferrocarril";
 
-"type.railway.light_rail" = "Light Rail";
+"type.railway.light_rail" = "Tren ligero";
 
 "type.railway.light_rail.bridge" = "Light Rail Bridge";
 
@@ -3173,9 +3173,9 @@
 
 "type.railway.subway" = "Línea de metro";
 
-"type.railway.subway.bridge" = "Subway Line Bridge";
+"type.railway.subway.bridge" = "Puente de metro";
 
-"type.railway.subway.tunnel" = "Subway Line Tunnel";
+"type.railway.subway.tunnel" = "Túnel de metro";
 
 "type.railway.subway_entrance" = "Entrada de metro";
 
@@ -3403,9 +3403,9 @@
 
 "type.railway.tram" = "Línea de tranvía";
 
-"type.railway.tram.bridge" = "Tram Line Bridge";
+"type.railway.tram.bridge" = "Puente de tranvía";
 
-"type.railway.tram.tunnel" = "Tram Line Tunnel";
+"type.railway.tram.tunnel" = "Túnel de tranvía";
 
 "type.railway.tram_stop" = "Parada de tranvía";
 
@@ -3473,7 +3473,7 @@
 
 "type.shop.department_store" = "Grandes almacenes";
 
-"type.shop.doityourself" = "Ferretería";
+"type.shop.doityourself" = "Tienda de bricolaje";
 
 "type.shop.dry_cleaning" = "Tintorería";
 
@@ -3505,11 +3505,11 @@
 
 "type.shop.hairdresser" = "Peluquería";
 
-"type.shop.hardware" = "Hardware Store";
+"type.shop.hardware" = "Ferretería";
 
 "type.shop.health_food" = "Tienda de comida saludable";
 
-"type.shop.herbalist" = "Tienda de hierbas";
+"type.shop.herbalist" = "Herbolario";
 
 "type.shop.hifi" = "Audio de alta fidelidad";
 
@@ -3612,7 +3612,7 @@
 
 "type.shop.charity" = "Tienda de caridad";
 
-"type.shop.cheese" = "Tienda de queso";
+"type.shop.cheese" = "Tienda de quesos";
 
 "type.shop.craft" = "Artes y manualidades";
 
