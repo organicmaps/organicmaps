@@ -23,6 +23,7 @@ IsHatchingTerritoryChecker::IsHatchingTerritoryChecker()
   m_type3end = m_types.size();
 
   base::StringIL const arr2[] = {
+    {"boundary", "aboriginal_lands"},
     {"leisure", "nature_reserve"},
     {"boundary", "national_park"},
     {"landuse", "military"},
