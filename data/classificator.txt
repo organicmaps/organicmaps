@@ -218,6 +218,7 @@ world  +
         wall  -
         {}
     boundary  +
+        aboriginal_lands  -
         administrative  +
             10  -
             11  -
