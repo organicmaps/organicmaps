@@ -412,7 +412,7 @@ deprecated:sport|football:10.2021;329;sport|soccer
 highway|steps|bridge;[highway=steps][bridge?];;name;int_name;330;
 highway|track|tunnel;[highway=track][tunnel?];;name;int_name;331;
 highway|pedestrian|tunnel;[highway=pedestrian][tunnel?],[highway=pedestrian][location=underground];;name;int_name;332;
-deprecated|deprecated;333;x
+boundary|aboriginal_lands;333;
 sport|cricket;334;
 sport|bowls;335;
 highway|path|tunnel;[highway=path][tunnel?],[highway=path][location=underground];;name;int_name;336;

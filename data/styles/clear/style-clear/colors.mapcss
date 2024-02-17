@@ -33,6 +33,7 @@
 
 @border_country: #63635C;
 @border_region: #73726B;
+@indigenous_lands: #734D26;
 
 /* 3.NATURAL */
 /* 3.1 Main natural */
@@ -180,6 +181,7 @@
 @building_label: #61615A;
 @poi_label: #444444;
 @subway_label: #333333;
+@indigenous_label: #6A512F;
 
 /* 6.4 Road labels */
 
