@@ -104,7 +104,7 @@ if (${CMAKE_BUILD_TYPE} STREQUAL "Debug")
   add_definitions(-DDEBUG -fno-omit-frame-pointer)
 elseif (${CMAKE_BUILD_TYPE} MATCHES "Rel")
   add_definitions(-DRELEASE)
-  add_compile_options(-Ofast)
+  add_compile_options(-Ofast)  # Also enables -ffast-math
 else()
   message(FATAL_ERROR "Unknown build type: " ${CMAKE_BUILD_TYPE})
 endif()
