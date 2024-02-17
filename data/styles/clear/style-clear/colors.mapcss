@@ -98,8 +98,6 @@
 /* 5.ROADS */
 /* 5.1 All roads */
 
-@trunk: #FF8800;
-@trunk_orange: #FF5919;
 @trunk_orange_medium: #FF7326;
 @trunk_orange_light: #FF7A26;
 @primary_orange:  #FF8726;
