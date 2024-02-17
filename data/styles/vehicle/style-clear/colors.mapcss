@@ -11,22 +11,7 @@
 
 
 /* ROADS */
-@trunk: #FF8800; /*#ED8800; #FF8800;*/
-@trunk_hard: #F7632C;
-@trunk_medium: #F86B39;
-@trunk_light: #F87C4A;
-@primary:  #E5B643;
 
-/* YELLOW ROADS BUNDLE  */
-@primary_yellow: #FCD767;
-@primary_yellow_case: #E5A643;
-@trunk_yellow: #FF8800;
-@trunk_yellow_case: #CD764C;
-
-/* ORANGE ROADS BUNDLE  */
-
-@trunk: #FF8800;
-@trunk_orange: #FF5919;
 @trunk_orange_medium: #FF9140;
 @trunk_orange_light: #FF8742;
 @primary_orange:  #FF8726;
@@ -52,9 +37,7 @@
 /* tunnels */
 
 @primary_tunnel_orange: #FCA462;
-@primary_tunnel_yellow: #FCD767;
 @trunk_tunnel_orange: #FCA462;
-@trunk_tunnel_yellow: #FF8800;
 @primary_tunnel_casing: #808080;
 @trunk_tunnel_casing: #808080;
 @secondary_tunnel: #FFFFFF;
