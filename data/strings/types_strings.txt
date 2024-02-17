@@ -6586,6 +6586,49 @@
     zh-Hans = 国家公园
     zh-Hant = 國家公園
 
+  [type.boundary.aboriginal_lands]
+    en = Indigenous Lands
+    af = Inheemse lande
+    ar = أراضي السكان الأصليين
+    az = Yerli torpaqlar
+    be = Тэрыторыі першабытнікаў
+    bg = Земи на коренното население
+    ca = Terres indígenes
+    cs = Domorodá území
+    da = Oprindelige lande
+    de = Indigene länder
+    el = Αυτόχθονες εκτάσεις
+    es = Tierras indígenas
+    et = Põlisrahvaste maad
+    eu = Lurralde autoktonoak
+    fa = سرزمین های بومی
+    fi = Alkuperäiskansojen maat
+    fr = Terres indigènes
+    he = ארצות ילידים
+    hi = स्वदेशी भूमि
+    hu = Bennszülött földek
+    id = Tanah adat
+    it = Terre indigene
+    ja = 先住民の土地
+    ko = 원주민 땅
+    lt = Vietinių gyventojų žemės
+    mr = स्वदेशी जमिनी
+    nb = Urfolksland
+    nl = Inheemse landen
+    pl = Rdzenne ziemie
+    pt = Terras indígenas
+    ro = Terenuri indigene
+    ru = Земли коренных народов
+    sk = Domorodé krajiny
+    sv = Ursprungsbefolkningens marker
+    sw = Ardhi za asilia
+    th = ดินแดนพื้นเมือง
+    tr = Yerli topraklar
+    uk = Землі корінних народів
+    vi = Đất bản địa
+    zh-Hans = 原住民土地
+    zh-Hant = 原住民土地
+
   [type.boundary.protected_area]
     en = Protected Area
     af = Beskermde gebied
