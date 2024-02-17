@@ -1691,6 +1691,8 @@
 
 "type.boundary.national_park" = "National park";
 
+"type.boundary.aboriginal_lands" = "Oprindelige lande";
+
 "type.boundary.protected_area" = "Beskyttet område";
 
 "type.boundary.protected_area.1" = "Beskyttet område";

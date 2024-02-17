@@ -905,6 +905,7 @@
 	<string name="type.barrier.swing_gate">Závora</string>
 	<string name="type.barrier.toll_booth">Mýtné</string>
 	<string name="type.boundary.national_park">Národní park</string>
+	<string name="type.boundary.aboriginal_lands">Domorodá území</string>
 	<string name="type.boundary.protected_area">Chráněné území</string>
 	<string name="type.boundary.protected_area.1">Chráněné území</string>
 	<string name="type.boundary.protected_area.2">Chráněné území</string>

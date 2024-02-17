@@ -994,6 +994,7 @@
 	<string name="type.boundary.administrative.state">Estatuko muga</string>
 	<string name="type.boundary.administrative.suburb">Auzoko muga</string>
 	<string name="type.boundary.national_park">Parke Nazionala</string>
+	<string name="type.boundary.aboriginal_lands">Lurralde autoktonoak</string>
 	<string name="type.boundary.protected_area">Babestutako Eremua</string>
 	<string name="type.boundary.protected_area.1">Babestutako Eremua</string>
 	<string name="type.boundary.protected_area.2">Babestutako Eremua</string>

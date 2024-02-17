@@ -894,6 +894,7 @@
 	<string name="type.barrier.swing_gate">ไม้กั้น</string>
 	<string name="type.barrier.toll_booth">ด่านเก็บเงิน</string>
 	<string name="type.boundary.national_park">อุทยานแห่งชาติ</string>
+	<string name="type.boundary.aboriginal_lands">ดินแดนพื้นเมือง</string>
 	<string name="type.boundary.protected_area">พื้นที่คุ้มครอง</string>
 	<string name="type.boundary.protected_area.1">พื้นที่คุ้มครอง</string>
 	<string name="type.boundary.protected_area.2">พื้นที่คุ้มครอง</string>

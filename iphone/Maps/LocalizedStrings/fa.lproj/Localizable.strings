@@ -1691,6 +1691,8 @@
 
 "type.boundary.national_park" = "پارک ملی";
 
+"type.boundary.aboriginal_lands" = "سرزمین های بومی";
+
 "type.boundary.protected_area" = "منطقه حفاظت شده";
 
 "type.boundary.protected_area.1" = "منطقه حفاظت شده";

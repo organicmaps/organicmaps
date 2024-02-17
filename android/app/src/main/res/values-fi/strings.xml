@@ -997,6 +997,7 @@
 	<string name="type.boundary.administrative.state">Osavaltion raja</string>
 	<string name="type.boundary.administrative.suburb">Esikaupunki</string>
 	<string name="type.boundary.national_park">Kansallispuisto</string>
+	<string name="type.boundary.aboriginal_lands">Alkuperäiskansojen maat</string>
 	<string name="type.boundary.protected_area">Suojeltu alue</string>
 	<string name="type.boundary.protected_area.1">Suojeltu alue</string>
 	<string name="type.boundary.protected_area.2">Suojeltu alue</string>

@@ -895,6 +895,7 @@
 	<string name="type.barrier.swing_gate">차량차단기</string>
 	<string name="type.barrier.toll_booth">톨게이트</string>
 	<string name="type.boundary.national_park">국립 공원</string>
+	<string name="type.boundary.aboriginal_lands">원주민 땅</string>
 	<string name="type.boundary.protected_area">보호구역</string>
 	<string name="type.boundary.protected_area.1">보호구역</string>
 	<string name="type.boundary.protected_area.2">보호구역</string>

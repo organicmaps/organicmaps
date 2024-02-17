@@ -1691,6 +1691,8 @@
 
 "type.boundary.national_park" = "국립 공원";
 
+"type.boundary.aboriginal_lands" = "원주민 땅";
+
 "type.boundary.protected_area" = "보호구역";
 
 "type.boundary.protected_area.1" = "보호구역";

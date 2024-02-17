@@ -937,6 +937,7 @@
 	<string name="type.boundary.administrative.state">राज्य सीमा</string>
 	<string name="type.boundary.administrative.suburb">उपनगर सीमा</string>
 	<string name="type.boundary.national_park">राष्ट्रीय उद्यान</string>
+	<string name="type.boundary.aboriginal_lands">स्वदेशी जमिनी</string>
 	<string name="type.boundary.protected_area">संरक्षित क्षेत्र</string>
 	<string name="type.boundary.protected_area.1">संरक्षित क्षेत्र</string>
 	<string name="type.boundary.protected_area.2">संरक्षित क्षेत्र</string>

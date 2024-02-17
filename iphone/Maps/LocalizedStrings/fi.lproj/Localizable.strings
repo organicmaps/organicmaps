@@ -1691,6 +1691,8 @@
 
 "type.boundary.national_park" = "Kansallispuisto";
 
+"type.boundary.aboriginal_lands" = "Alkuperäiskansojen maat";
+
 "type.boundary.protected_area" = "Suojeltu alue";
 
 "type.boundary.protected_area.1" = "Suojeltu alue";

@@ -1036,6 +1036,7 @@
 	<string name="type.boundary.administrative.state">State Boundary</string>
 	<string name="type.boundary.administrative.suburb">Suburb Boundary</string>
 	<string name="type.boundary.national_park">National Park</string>
+	<string name="type.boundary.aboriginal_lands">Indigenous Lands</string>
 	<string name="type.boundary.protected_area">Protected Area</string>
 	<string name="type.boundary.protected_area.1">Protected Area</string>
 	<string name="type.boundary.protected_area.2">Protected Area</string>

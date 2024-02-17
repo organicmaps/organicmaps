@@ -1009,6 +1009,7 @@
 	<string name="type.boundary.administrative.state">حدود محافظة</string>
 	<string name="type.boundary.administrative.suburb">حدود ضاحية</string>
 	<string name="type.boundary.national_park">منتزه وطني</string>
+	<string name="type.boundary.aboriginal_lands">أراضي السكان الأصليين</string>
 	<string name="type.boundary.protected_area">منطقة محمية</string>
 	<string name="type.boundary.protected_area.1">منطقة محمية</string>
 	<string name="type.boundary.protected_area.2">منطقة محمية</string>

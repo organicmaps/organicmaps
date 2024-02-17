@@ -865,6 +865,7 @@
 	<string name="type.barrier.lift_gate">Шлагбаўм</string>
 	<string name="type.barrier.turnstile">Турнікет</string>
 	<string name="type.barrier.swing_gate">Шлагбаўм</string>
+	<string name="type.boundary.aboriginal_lands">Тэрыторыі першабытнікаў</string>
 	<string name="type.boundary.protected_area">Запаведная зона</string>
 	<string name="type.boundary.protected_area.1">Запаведная зона</string>
 	<string name="type.boundary.protected_area.2">Запаведная зона</string>

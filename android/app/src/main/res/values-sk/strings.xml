@@ -891,6 +891,7 @@
 	<string name="type.barrier.swing_gate">Závora</string>
 	<string name="type.barrier.toll_booth">Mýtne</string>
 	<string name="type.boundary.national_park">Národný park</string>
+	<string name="type.boundary.aboriginal_lands">Domorodé krajiny</string>
 	<string name="type.boundary.protected_area">Chránené územie</string>
 	<string name="type.boundary.protected_area.1">Chránené územie</string>
 	<string name="type.boundary.protected_area.2">Chránené územie</string>

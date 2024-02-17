@@ -953,6 +953,7 @@
 	<string name="type.boundary.administrative.state">州省行政区域界线</string>
 	<string name="type.boundary.administrative.suburb">市郊行政区域界线</string>
 	<string name="type.boundary.national_park">国家公园</string>
+	<string name="type.boundary.aboriginal_lands">原住民土地</string>
 	<string name="type.boundary.protected_area">保护区</string>
 	<string name="type.boundary.protected_area.1">保护区</string>
 	<string name="type.boundary.protected_area.2">保护区</string>

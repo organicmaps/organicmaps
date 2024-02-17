@@ -1691,6 +1691,8 @@
 
 "type.boundary.national_park" = "Εθνικό πάρκο";
 
+"type.boundary.aboriginal_lands" = "Αυτόχθονες εκτάσεις";
+
 "type.boundary.protected_area" = "Προστατευόμενη Περιοχή";
 
 "type.boundary.protected_area.1" = "Προστατευόμενη Περιοχή";

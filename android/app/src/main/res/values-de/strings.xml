@@ -985,6 +985,7 @@
 	<string name="type.boundary.administrative.8">Verwaltungsgrenze</string>
 	<string name="type.boundary.administrative.9">Verwaltungsgrenze</string>
 	<string name="type.boundary.national_park">Nationalpark</string>
+	<string name="type.boundary.aboriginal_lands">Indigene länder</string>
 	<string name="type.boundary.protected_area">Geschützter Bereich</string>
 	<string name="type.boundary.protected_area.1">Geschützter Bereich</string>
 	<string name="type.boundary.protected_area.2">Geschützter Bereich</string>

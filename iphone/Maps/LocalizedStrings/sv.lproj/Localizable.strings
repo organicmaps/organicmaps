@@ -1691,6 +1691,8 @@
 
 "type.boundary.national_park" = "Nationalpark";
 
+"type.boundary.aboriginal_lands" = "Ursprungsbefolkningens marker";
+
 "type.boundary.protected_area" = "Skyddat område";
 
 "type.boundary.protected_area.1" = "Skyddat område";

@@ -997,6 +997,7 @@
 	<string name="type.boundary.administrative.state">Staatsgrens</string>
 	<string name="type.boundary.administrative.suburb">Buitenwijkgrens</string>
 	<string name="type.boundary.national_park">Nationaal park</string>
+	<string name="type.boundary.aboriginal_lands">Inheemse landen</string>
 	<string name="type.boundary.protected_area">Beschermd gebied</string>
 	<string name="type.boundary.protected_area.1">Beschermd gebied</string>
 	<string name="type.boundary.protected_area.2">Beschermd gebied</string>

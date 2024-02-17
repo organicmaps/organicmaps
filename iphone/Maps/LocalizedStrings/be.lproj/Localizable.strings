@@ -1691,6 +1691,8 @@
 
 "type.boundary.national_park" = "National Park";
 
+"type.boundary.aboriginal_lands" = "Тэрыторыі першабытнікаў";
+
 "type.boundary.protected_area" = "Запаведная зона";
 
 "type.boundary.protected_area.1" = "Запаведная зона";

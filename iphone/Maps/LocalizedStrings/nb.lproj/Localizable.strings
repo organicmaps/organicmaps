@@ -1691,6 +1691,8 @@
 
 "type.boundary.national_park" = "Nasjonalpark";
 
+"type.boundary.aboriginal_lands" = "Urfolksland";
+
 "type.boundary.protected_area" = "Vernet område";
 
 "type.boundary.protected_area.1" = "Vernet område";

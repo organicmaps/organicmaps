@@ -982,6 +982,7 @@
 	<string name="type.boundary.administrative.region">Confine regionale</string>
 	<string name="type.boundary.administrative.state">Confine statale</string>
 	<string name="type.boundary.national_park">Parco nazionale</string>
+	<string name="type.boundary.aboriginal_lands">Terre indigene</string>
 	<string name="type.boundary.protected_area">Area protetta</string>
 	<string name="type.boundary.protected_area.1">Area protetta</string>
 	<string name="type.boundary.protected_area.2">Area protetta</string>

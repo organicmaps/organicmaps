@@ -1691,6 +1691,8 @@
 
 "type.boundary.national_park" = "منتزه وطني";
 
+"type.boundary.aboriginal_lands" = "أراضي السكان الأصليين";
+
 "type.boundary.protected_area" = "منطقة محمية";
 
 "type.boundary.protected_area.1" = "منطقة محمية";

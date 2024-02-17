@@ -1691,6 +1691,8 @@
 
 "type.boundary.national_park" = "राष्ट्रीय उद्यान";
 
+"type.boundary.aboriginal_lands" = "स्वदेशी जमिनी";
+
 "type.boundary.protected_area" = "संरक्षित क्षेत्र";
 
 "type.boundary.protected_area.1" = "संरक्षित क्षेत्र";

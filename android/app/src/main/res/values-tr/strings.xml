@@ -1000,6 +1000,7 @@
 	<string name="type.boundary.administrative.state">Devlet Sınırı</string>
 	<string name="type.boundary.administrative.suburb">Mahalle Sınırı</string>
 	<string name="type.boundary.national_park">Ulusal Park</string>
+	<string name="type.boundary.aboriginal_lands">Yerli topraklar</string>
 	<string name="type.boundary.protected_area">Korunmuş bölge</string>
 	<string name="type.boundary.protected_area.1">Korunmuş bölge</string>
 	<string name="type.boundary.protected_area.2">Korunmuş bölge</string>
