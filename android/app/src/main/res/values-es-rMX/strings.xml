@@ -270,6 +270,7 @@
 	<string name="type.boundary.national_park">Parque nacional</string>
 	<!-- Duplicates [address] in strings.txt -->
 	<string name="type.building.address">Dirección</string>
+	<string name="type.cuisine.mexican">Cocina mexicana</string>
 	<string name="type.entrance.exit">Salida</string>
 
 	<!-- SECTION: Types: Roads -->
