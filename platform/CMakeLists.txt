@@ -73,7 +73,7 @@ else()
   set(QT_POSITIONING false)
 endif()
 
-if(${PLATFORM_IPHONE})
+if (PLATFORM_IPHONE)
   append(SRC
     background_downloader_ios.h
     background_downloader_ios.mm
