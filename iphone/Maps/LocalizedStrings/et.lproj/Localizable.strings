@@ -1691,6 +1691,8 @@
 
 "type.boundary.national_park" = "Rahvuspark";
 
+"type.boundary.aboriginal_lands" = "Põlisrahvaste maad";
+
 "type.boundary.protected_area" = "Kaitseala";
 
 "type.boundary.protected_area.1" = "Kaitseala";

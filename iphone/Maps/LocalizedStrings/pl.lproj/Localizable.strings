@@ -1691,6 +1691,8 @@
 
 "type.boundary.national_park" = "Park narodowy";
 
+"type.boundary.aboriginal_lands" = "Rdzenne ziemie";
+
 "type.boundary.protected_area" = "Strefa chroniona";
 
 "type.boundary.protected_area.1" = "Strefa chroniona";

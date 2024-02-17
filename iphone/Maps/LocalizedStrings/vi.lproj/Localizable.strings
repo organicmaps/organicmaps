@@ -1691,6 +1691,8 @@
 
 "type.boundary.national_park" = "Công viên quốc gia";
 
+"type.boundary.aboriginal_lands" = "Đất bản địa";
+
 "type.boundary.protected_area" = "Khu bảo tồn";
 
 "type.boundary.protected_area.1" = "Khu bảo tồn";

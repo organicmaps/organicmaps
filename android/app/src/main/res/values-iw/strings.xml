@@ -821,6 +821,7 @@
 	<string name="type.natural.water.moat">ןגֵמָ תלַעָתְ</string>
 	<string name="type.natural.water.wastewater">שפכים</string>
 	<string name="type.barrier.turnstile">קרוסלת</string>
+	<string name="type.boundary.aboriginal_lands">ארצות ילידים</string>
 	<string name="type.boundary.protected_area">אזור מוגן</string>
 	<string name="type.boundary.protected_area.1">אזור מוגן</string>
 	<string name="type.boundary.protected_area.2">אזור מוגן</string>

@@ -890,6 +890,7 @@
 	<string name="type.barrier.swing_gate">Bom</string>
 	<string name="type.barrier.toll_booth">Betalingsstation</string>
 	<string name="type.boundary.national_park">National park</string>
+	<string name="type.boundary.aboriginal_lands">Oprindelige lande</string>
 	<string name="type.boundary.protected_area">Beskyttet område</string>
 	<string name="type.boundary.protected_area.1">Beskyttet område</string>
 	<string name="type.boundary.protected_area.2">Beskyttet område</string>

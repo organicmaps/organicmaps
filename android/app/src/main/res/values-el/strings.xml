@@ -890,6 +890,7 @@
 	<string name="type.barrier.swing_gate">Ανυψούμενη μπάρα</string>
 	<string name="type.barrier.toll_booth">Σταθμός διοδίων</string>
 	<string name="type.boundary.national_park">Εθνικό πάρκο</string>
+	<string name="type.boundary.aboriginal_lands">Αυτόχθονες εκτάσεις</string>
 	<string name="type.boundary.protected_area">Προστατευόμενη Περιοχή</string>
 	<string name="type.boundary.protected_area.1">Προστατευόμενη Περιοχή</string>
 	<string name="type.boundary.protected_area.2">Προστατευόμενη Περιοχή</string>

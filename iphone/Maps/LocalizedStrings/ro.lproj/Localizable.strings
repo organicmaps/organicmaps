@@ -1691,6 +1691,8 @@
 
 "type.boundary.national_park" = "Parcul național";
 
+"type.boundary.aboriginal_lands" = "Terenuri indigene";
+
 "type.boundary.protected_area" = "Zonă protejată";
 
 "type.boundary.protected_area.1" = "Zonă protejată";

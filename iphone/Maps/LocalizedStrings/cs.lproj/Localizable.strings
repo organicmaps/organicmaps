@@ -1691,6 +1691,8 @@
 
 "type.boundary.national_park" = "Národní park";
 
+"type.boundary.aboriginal_lands" = "Domorodá území";
+
 "type.boundary.protected_area" = "Chráněné území";
 
 "type.boundary.protected_area.1" = "Chráněné území";

@@ -1691,6 +1691,8 @@
 
 "type.boundary.national_park" = "Nemzeti park";
 
+"type.boundary.aboriginal_lands" = "Bennszülött földek";
+
 "type.boundary.protected_area" = "Védett terület";
 
 "type.boundary.protected_area.1" = "Védett terület";

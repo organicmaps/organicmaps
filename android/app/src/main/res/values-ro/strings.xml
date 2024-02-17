@@ -914,6 +914,7 @@
 	<string name="type.barrier.swing_gate">Barieră cu braț</string>
 	<string name="type.barrier.toll_booth">Cabină de taxare</string>
 	<string name="type.boundary.national_park">Parcul național</string>
+	<string name="type.boundary.aboriginal_lands">Terenuri indigene</string>
 	<string name="type.boundary.protected_area">Zonă protejată</string>
 	<string name="type.boundary.protected_area.1">Zonă protejată</string>
 	<string name="type.boundary.protected_area.2">Zonă protejată</string>

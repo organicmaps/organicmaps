@@ -893,6 +893,7 @@
 	<string name="type.barrier.swing_gate">Bom</string>
 	<string name="type.barrier.toll_booth">Tullhus</string>
 	<string name="type.boundary.national_park">Nationalpark</string>
+	<string name="type.boundary.aboriginal_lands">Ursprungsbefolkningens marker</string>
 	<string name="type.boundary.protected_area">Skyddat område</string>
 	<string name="type.boundary.protected_area.1">Skyddat område</string>
 	<string name="type.boundary.protected_area.2">Skyddat område</string>

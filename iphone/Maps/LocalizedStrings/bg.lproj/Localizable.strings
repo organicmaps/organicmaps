@@ -1691,6 +1691,8 @@
 
 "type.boundary.national_park" = "National Park";
 
+"type.boundary.aboriginal_lands" = "Земи на коренното население";
+
 "type.boundary.protected_area" = "Защитена местност";
 
 "type.boundary.protected_area.1" = "Защитена местност";

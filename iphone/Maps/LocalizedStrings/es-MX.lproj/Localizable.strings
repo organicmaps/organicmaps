@@ -1615,7 +1615,7 @@
 
 "type.barrier.chain" = "Cadena";
 
-"type.barrier.city_wall" = "Muro de la ciudad";
+"type.barrier.city_wall" = "City Wall";
 
 "type.barrier.cycle_barrier" = "Barrera para bicicletas";
 
@@ -1690,6 +1690,8 @@
 "type.boundary.administrative.suburb" = "Frontera de suburbio";
 
 "type.boundary.national_park" = "Parque nacional";
+
+"type.boundary.aboriginal_lands" = "Tierras indígenas";
 
 "type.boundary.protected_area" = "Área protegida";
 
@@ -2037,15 +2039,15 @@
 /* These translations are used for all type.highway.*.bridge. */
 "type.highway.footway.bridge" = "Puente";
 
-"type.highway.footway.demanding_alpine_hiking" = "Camino";
+"type.highway.footway.demanding_alpine_hiking" = "Path";
 
-"type.highway.footway.demanding_mountain_hiking" = "Camino";
+"type.highway.footway.demanding_mountain_hiking" = "Path";
 
-"type.highway.footway.difficult_alpine_hiking" = "Camino";
+"type.highway.footway.difficult_alpine_hiking" = "Path";
 
 "type.highway.footway.hiking" = "Sendero";
 
-"type.highway.footway.mountain_hiking" = "Camino";
+"type.highway.footway.mountain_hiking" = "Path";
 
 /* These translations are used for all type.highway.*.tunnel. */
 "type.highway.footway.tunnel" = "Túnel";

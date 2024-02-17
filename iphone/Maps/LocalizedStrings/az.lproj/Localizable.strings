@@ -1691,6 +1691,8 @@
 
 "type.boundary.national_park" = "Milli park";
 
+"type.boundary.aboriginal_lands" = "Yerli torpaqlar";
+
 "type.boundary.protected_area" = "Qorunan ərazi";
 
 "type.boundary.protected_area.1" = "Qorunan ərazi";

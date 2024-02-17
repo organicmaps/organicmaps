@@ -952,6 +952,7 @@
 	<string name="type.boundary.administrative.state">Fronteira de estado</string>
 	<string name="type.boundary.administrative.suburb">Fronteira de subúrbio</string>
 	<string name="type.boundary.national_park">Parque nacional</string>
+	<string name="type.boundary.aboriginal_lands">Terras indígenas</string>
 	<string name="type.boundary.protected_area">Área protegida</string>
 	<string name="type.boundary.protected_area.1">Área protegida</string>
 	<string name="type.boundary.protected_area.2">Área protegida</string>

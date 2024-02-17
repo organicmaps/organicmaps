@@ -751,6 +751,7 @@
 	<string name="type.natural.water.moat">Ров</string>
 	<string name="type.natural.water.wastewater">Отпадъчни води</string>
 	<string name="type.barrier.turnstile">Турникет</string>
+	<string name="type.boundary.aboriginal_lands">Земи на коренното население</string>
 	<string name="type.boundary.protected_area">Защитена местност</string>
 	<string name="type.boundary.protected_area.1">Защитена местност</string>
 	<string name="type.boundary.protected_area.2">Защитена местност</string>

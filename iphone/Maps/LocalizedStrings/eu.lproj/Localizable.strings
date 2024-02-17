@@ -1691,6 +1691,8 @@
 
 "type.boundary.national_park" = "Parke Nazionala";
 
+"type.boundary.aboriginal_lands" = "Lurralde autoktonoak";
+
 "type.boundary.protected_area" = "Babestutako Eremua";
 
 "type.boundary.protected_area.1" = "Babestutako Eremua";

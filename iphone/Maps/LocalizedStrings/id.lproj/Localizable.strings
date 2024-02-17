@@ -1691,6 +1691,8 @@
 
 "type.boundary.national_park" = "Taman Nasional";
 
+"type.boundary.aboriginal_lands" = "Tanah adat";
+
 "type.boundary.protected_area" = "Kawasan Lindung";
 
 "type.boundary.protected_area.1" = "Kawasan Lindung";

@@ -944,6 +944,7 @@
 	<string name="type.barrier.swing_gate">Bom</string>
 	<string name="type.barrier.toll_booth">Bomstasjon</string>
 	<string name="type.boundary.national_park">Nasjonalpark</string>
+	<string name="type.boundary.aboriginal_lands">Urfolksland</string>
 	<string name="type.boundary.protected_area">Vernet område</string>
 	<string name="type.boundary.protected_area.1">Vernet område</string>
 	<string name="type.boundary.protected_area.2">Vernet område</string>

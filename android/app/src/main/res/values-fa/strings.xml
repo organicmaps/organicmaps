@@ -894,6 +894,7 @@
 	<string name="type.barrier.swing_gate">اسانسور</string>
 	<string name="type.barrier.toll_booth">گیشه عوارضی</string>
 	<string name="type.boundary.national_park">پارک ملی</string>
+	<string name="type.boundary.aboriginal_lands">سرزمین های بومی</string>
 	<string name="type.boundary.protected_area">منطقه حفاظت شده</string>
 	<string name="type.boundary.protected_area.1">منطقه حفاظت شده</string>
 	<string name="type.boundary.protected_area.2">منطقه حفاظت شده</string>

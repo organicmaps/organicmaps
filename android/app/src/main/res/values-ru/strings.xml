@@ -1014,6 +1014,7 @@
 	<string name="type.boundary.administrative.state">Граница штата</string>
 	<string name="type.boundary.administrative.suburb">Граница пригорода</string>
 	<string name="type.boundary.national_park">Национальный парк</string>
+	<string name="type.boundary.aboriginal_lands">Земли коренных народов</string>
 	<string name="type.boundary.protected_area">Заповедная зона</string>
 	<string name="type.boundary.protected_area.1">Заповедная зона</string>
 	<string name="type.boundary.protected_area.2">Заповедная зона</string>

@@ -891,6 +891,7 @@
 	<string name="type.barrier.swing_gate">Thanh Chắn</string>
 	<string name="type.barrier.toll_booth">Quầy Soát Vé</string>
 	<string name="type.boundary.national_park">Công viên quốc gia</string>
+	<string name="type.boundary.aboriginal_lands">Đất bản địa</string>
 	<string name="type.boundary.protected_area">Khu bảo tồn</string>
 	<string name="type.boundary.protected_area.1">Khu bảo tồn</string>
 	<string name="type.boundary.protected_area.2">Khu bảo tồn</string>

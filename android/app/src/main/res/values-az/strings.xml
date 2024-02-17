@@ -988,6 +988,7 @@
 	<string name="type.boundary.administrative.state">Dövlət sərhədi</string>
 	<string name="type.boundary.administrative.suburb">Qonşuluq sərhədi</string>
 	<string name="type.boundary.national_park">Milli park</string>
+	<string name="type.boundary.aboriginal_lands">Yerli torpaqlar</string>
 	<string name="type.boundary.protected_area">Qorunan ərazi</string>
 	<string name="type.boundary.protected_area.1">Qorunan ərazi</string>
 	<string name="type.boundary.protected_area.2">Qorunan ərazi</string>

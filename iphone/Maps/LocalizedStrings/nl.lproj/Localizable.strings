@@ -1691,6 +1691,8 @@
 
 "type.boundary.national_park" = "Nationaal park";
 
+"type.boundary.aboriginal_lands" = "Inheemse landen";
+
 "type.boundary.protected_area" = "Beschermd gebied";
 
 "type.boundary.protected_area.1" = "Beschermd gebied";

@@ -915,6 +915,7 @@
 	<string name="type.barrier.swing_gate">Sorompó</string>
 	<string name="type.barrier.toll_booth">Díjfizető kapu</string>
 	<string name="type.boundary.national_park">Nemzeti park</string>
+	<string name="type.boundary.aboriginal_lands">Bennszülött földek</string>
 	<string name="type.boundary.protected_area">Védett terület</string>
 	<string name="type.boundary.protected_area.1">Védett terület</string>
 	<string name="type.boundary.protected_area.2">Védett terület</string>

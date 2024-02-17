@@ -988,6 +988,7 @@
 	<string name="type.boundary.administrative.state">Osariigi piir</string>
 	<string name="type.boundary.administrative.suburb">Eeslinna piir</string>
 	<string name="type.boundary.national_park">Rahvuspark</string>
+	<string name="type.boundary.aboriginal_lands">Põlisrahvaste maad</string>
 	<string name="type.boundary.protected_area">Kaitseala</string>
 	<string name="type.boundary.protected_area.1">Kaitseala</string>
 	<string name="type.boundary.protected_area.2">Kaitseala</string>

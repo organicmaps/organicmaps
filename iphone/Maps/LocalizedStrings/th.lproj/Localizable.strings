@@ -1691,6 +1691,8 @@
 
 "type.boundary.national_park" = "อุทยานแห่งชาติ";
 
+"type.boundary.aboriginal_lands" = "ดินแดนพื้นเมือง";
+
 "type.boundary.protected_area" = "พื้นที่คุ้มครอง";
 
 "type.boundary.protected_area.1" = "พื้นที่คุ้มครอง";

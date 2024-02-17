@@ -1691,6 +1691,8 @@
 
 "type.boundary.national_park" = "Ulusal Park";
 
+"type.boundary.aboriginal_lands" = "Yerli topraklar";
+
 "type.boundary.protected_area" = "Korunmuş bölge";
 
 "type.boundary.protected_area.1" = "Korunmuş bölge";
