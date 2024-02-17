@@ -3,11 +3,8 @@
 #include "search/result.hpp"
 #include "search/search_quality/assessment_tool/helpers.hpp"
 
-#include "indexer/classificator.hpp"
-
 #include <memory>
 #include <utility>
-#include <vector>
 
 #include <QtWidgets/QHBoxLayout>
 #include <QtWidgets/QLabel>
@@ -26,7 +23,8 @@ QLabel * CreateLabel(QWidget & parent)
   return label;
 }
 
-void SetText(QLabel & label, string const & text) {
+void SetText(QLabel & label, string const & text)
+{
   if (text.empty())
   {
     label.hide();
@@ -44,10 +42,7 @@ string GetResultType(search::Sample::Result const & result)
 
 string GetResultType(search::Result const & result)
 {
-  if (result.GetResultType() == search::Result::Type::Feature)
-    return classif().GetReadableObjectName(result.GetFeatureType());
-
-  return "";
+  return (result.GetResultType() == search::Result::Type::Feature ? result.GetLocalizedFeatureType() : "");
 }
 }  // namespace
 
@@ -67,8 +62,7 @@ ResultView::ResultView(search::Result const & result, QWidget & parent)
 }
 
 ResultView::ResultView(search::Sample::Result const & result, QWidget & parent)
-  : ResultView(strings::ToUtf8(result.m_name), GetResultType(result), string() /* address */,
-               parent)
+  : ResultView(strings::ToUtf8(result.m_name), GetResultType(result), {} /* address */, parent)
 {
 }
 

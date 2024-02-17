@@ -81,19 +81,13 @@ public:
     return res;
   }
 
-  static bool EqualClassifType(uint32_t checkType, uint32_t ethalonType)
-  {
-    ftype::TruncValue(checkType, ftype::GetLevel(ethalonType));
-    return checkType == ethalonType;
-  }
-
   static void EqualClassifType(Range const & results, std::vector<uint32_t> const & types)
   {
     for (auto const & r : results)
     {
-      auto const it = std::find_if(types.begin(), types.end(), [type = r.GetFeatureType()](uint32_t inType)
+      auto const it = std::find_if(types.begin(), types.end(), [&r](uint32_t inType)
       {
-        return EqualClassifType(type, inType);
+        return r.IsSameType(inType);
       });
 
       TEST(it != types.end(), (r));
@@ -104,7 +98,7 @@ public:
   {
     return std::count_if(results.begin(), results.end(), [type](search::Result const & r)
     {
-      return EqualClassifType(r.GetFeatureType(), type);
+      return r.IsSameType(type);
     });
   }
 
@@ -140,7 +134,7 @@ public:
     bool found = false;
     for (auto const & r : results)
     {
-      if (r.GetResultType() == search::Result::Type::Feature && EqualClassifType(r.GetFeatureType(), type))
+      if (r.IsSameType(type))
       {
         auto const & addr = r.GetAddress();
         if ((street.empty() || addr.find(street) != std::string::npos) &&
@@ -440,9 +434,7 @@ UNIT_CLASS_TEST(MwmTestsFixture, Hilo_City)
   for (size_t i = 0; i < kResultsCount; ++i)
   {
     auto const & r = results[i];
-    if (r.GetResultType() == search::Result::Type::Feature &&
-        r.GetString() == "Hilo" &&
-        EqualClassifType(r.GetFeatureType(), cityType))
+    if (r.GetString() == "Hilo" && r.IsSameType(cityType))
     {
       found = true;
       break;
@@ -601,8 +593,7 @@ UNIT_CLASS_TEST(MwmTestsFixture, UTH_Airport)
   for (size_t i = 0; i < 10; ++i)
   {
     auto const & r = results[i];
-    if (r.GetResultType() == search::Result::Type::Feature &&
-        EqualClassifType(r.GetFeatureType(), aeroportType))
+    if (r.IsSameType(aeroportType))
     {
       found = true;
       break;

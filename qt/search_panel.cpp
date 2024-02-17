@@ -157,9 +157,8 @@ void SearchPanel::OnEverywhereSearchResults(uint64_t timestamp, search::Results 
 
     if (res.GetResultType() == search::Result::Type::Feature)
     {
-      std::string readableType = classif().GetReadableObjectName(res.GetFeatureType());
-      m_pTable->setItem(rowCount, 0, CreateItem(QString::fromStdString(readableType)));
-      m_pTable->setItem(rowCount, 3, CreateItem(m_pDrawWidget->GetDistance(res).c_str()));
+      m_pTable->setItem(rowCount, 0, CreateItem(QString::fromStdString(res.GetLocalizedFeatureType())));
+      m_pTable->setItem(rowCount, 3, CreateItem(QString::fromStdString(m_pDrawWidget->GetDistance(res))));
     }
   }
 

@@ -68,6 +68,18 @@ uint32_t Result::GetFeatureType() const
   return m_mainType;
 }
 
+bool Result::IsSameType(uint32_t type) const
+{
+  uint8_t const level = ftype::GetLevel(type);
+  for (uint32_t t : { m_mainType, m_matchedType })
+  {
+    ftype::TruncValue(t, level);
+    if (t == type)
+      return true;
+  }
+  return false;
+}
+
 std::string GetLocalizedTypeName(uint32_t type)
 {
   return platform::GetLocalizedTypeName(classif().GetReadableObjectName(type));
@@ -83,23 +95,23 @@ std::string Result::GetFeatureDescription() const
 {
   ASSERT_EQUAL(m_resultType, Type::Feature, ());
   std::string featureDescription;
-  
+
   auto const append = [&featureDescription](std::string_view sv)
   {
     if (!featureDescription.empty())
       featureDescription += feature::kFieldsSeparator;
     featureDescription += sv;
   };
-  
+
   if (!m_str.empty())
     append(GetLocalizedTypeName(m_mainType));
-  
+
   if (m_mainType != m_matchedType && m_matchedType != 0)
     append(GetLocalizedTypeName(m_matchedType));
-  
+
   if (!GetDescription().empty())
     append(GetDescription());
-  
+
   return featureDescription;
 }
 
