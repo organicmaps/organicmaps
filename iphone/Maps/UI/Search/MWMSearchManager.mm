@@ -88,6 +88,11 @@ const CGFloat kWidthForiPad = 320;
   [MWMSearch clear];
 }
 
+- (void)closeSearch {
+  [self.searchTextField endEditing:YES];
+  [self endSearch];
+}
+
 #pragma mark - Actions
 
 - (IBAction)textFieldDidEndEditing:(UITextField *)textField {
@@ -195,7 +200,7 @@ const CGFloat kWidthForiPad = 320;
 
 - (void)changeToHiddenState {
   self.routingTooltipSearch = MWMSearchManagerRoutingTooltipSearchNone;
-  [self endSearch];
+  [self closeSearch];
 
   MWMMapViewControlsManager *controlsManager = self.controlsManager;
   auto const navigationManagerState = [MWMNavigationDashboardManager sharedManager].state;
