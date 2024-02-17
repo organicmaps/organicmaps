@@ -90,21 +90,21 @@
 
 /* 4.4 Buildings */
 
-@building: #C9C8BB;
-@building_dark: #C2C0B3;
-@building_border: #A1A096;
-@building_dark_border: #9B9A8F;
+@building0: #C9C8BB;
+@building1: #C2C0B3;
+@building_border0: #A1A096;
+@building_border1: #9B9A8F;
 
 /* 5.ROADS */
 /* 5.1 All roads */
 
-@trunk_orange_medium: #FF7326;
-@trunk_orange_light: #FF7A26;
-@primary_orange:  #FF8726;
-@primary_orange_medium: #FF9440;
-@primary_orange_light: #FFA14C;
-@secondary: #FFB226;
-@secondary_light: #FFBF52;
+@trunk0: #FF7326;
+@trunk1: #FF7A26;
+@primary0:  #FF8726;
+@primary1: #FF9440;
+@primary2: #FFA14C;
+@secondary0: #FFB226;
+@secondary1: #FFBF52;
 @tertiary: #FFFFFF;
 @residential: #F8F8F8;
 @pedestrian: #F8F8F8;
@@ -122,9 +122,9 @@
 
 /* 5.3 Tunnels */
 
-@trunk_tunnel_orange: #FCA462;
+@trunk_tunnel: #FCA462;
 @trunk_tunnel_casing: #808080;
-@primary_tunnel_orange: #FCA462;
+@primary_tunnel: #FCA462;
 @primary_tunnel_casing: #808080;
 @secondary_tunnel: #FFFFFF;
 @secondary_tunnel_casing:  #808080;

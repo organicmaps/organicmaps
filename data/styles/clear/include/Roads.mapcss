@@ -53,7 +53,7 @@
 
 line|z6-9[highway=world_towns_level],
 line|z4-9[highway=world_level],
-{color: @trunk_orange_light;opacity: 1;}
+{color: @trunk1;opacity: 1;}
 
 line|z4[highway=world_level]
 {width: 0.5;}
@@ -75,14 +75,14 @@ line|z9[highway=world_level]
 
 line|z7-9[highway=trunk],
 line|z7-9[highway=motorway],
-{color: @trunk_orange_medium; opacity: 0.7;}
+{color: @trunk0; opacity: 0.7;}
 
 line|z10-[highway=trunk],
 line|z10-[highway=motorway],
-{color: @trunk_orange_light; opacity: 0.7;}
+{color: @trunk1; opacity: 0.7;}
 line|z10-[highway=motorway_link],
 line|z10-[highway=trunk_link],
-{color: @primary_orange; opacity: 0.7;}
+{color: @primary0; opacity: 0.7;}
 line|z13-14[highway=trunk],
 line|z13-14[highway=motorway],
 line|z14-15[highway=motorway_link],
@@ -187,12 +187,12 @@ line|z19-[highway=trunk_link]
 
 line|z12[highway=motorway][tunnel?],
 line|z12[highway=trunk][tunnel?]
-{color: @trunk_tunnel_orange; opacity: 0.7; casing-width: 0.5; casing-dashes: 2,2;}
+{color: @trunk_tunnel; opacity: 0.7; casing-width: 0.5; casing-dashes: 2,2;}
 line|z13-14[highway=motorway][tunnel?],
 line|z13-14[highway=trunk][tunnel?],
 line|z13-14[highway=motorway_link][tunnel?],
 line|z13-14[highway=trunk_link][tunnel?]
-{color: @trunk_tunnel_orange; opacity: 0.7; casing-dashes: 5,5;}
+{color: @trunk_tunnel; opacity: 0.7; casing-dashes: 5,5;}
 line|z15-[highway=motorway][tunnel?],
 line|z15-[highway=trunk][tunnel?],
 line|z15-[highway=motorway_link][tunnel?],
@@ -239,17 +239,17 @@ line|z18-[highway=trunk_link][bridge?]::bridgeblack
 /* 4.PRIMARY 8-22 ZOOM */
 
 line|z8-10[highway=primary],
-{color: @primary_orange; opacity: 0.7;}
+{color: @primary0; opacity: 0.7;}
 
 line|z11-12[highway=primary],
 line|z11-12[highway=primary_link]
-{color: @primary_orange_medium; opacity: 0.7;}
+{color: @primary1; opacity: 0.7;}
 line|z13-14[highway=primary],
 line|z13-14[highway=primary_link],
-{color: @primary_orange_medium; opacity: 0.85;}
+{color: @primary1; opacity: 0.85;}
 line|z15-[highway=primary],
 line|z15-[highway=primary_link],
-{color: @primary_orange_light; opacity: 1;}
+{color: @primary2; opacity: 1;}
 
 line|z14-[highway=primary][tunnel?],
 line|z14-[highway=primary_link][tunnel?]
@@ -311,7 +311,7 @@ line|z19-[highway=primary_link],
 
 line|z14[highway=primary][tunnel?],
 line|z14[highway=primary_link][tunnel?]
-{color: @primary_tunnel_orange; casing-dashes: 5,5; opacity: 0.7;}
+{color: @primary_tunnel; casing-dashes: 5,5; opacity: 0.7;}
 line|z15-[highway=primary][tunnel?],
 line|z15-[highway=primary_link][tunnel?]
 {casing-dashes: 5,5; opacity: 1;}
@@ -341,13 +341,13 @@ line|z18-[highway=primary_link][bridge?]::bridgeblack,
 /* 5.SECONDARY 10-22 ZOOM */
 
 line|z10-12[highway=secondary],
-{color: @secondary; opacity: 0.8;}
+{color: @secondary0; opacity: 0.8;}
 line|z13-14[highway=secondary],
 line|z13-14[highway=secondary_link],
-{color: @secondary_light; opacity: 0.9;}
+{color: @secondary1; opacity: 0.9;}
 line|z15-[highway=secondary],
 line|z15-[highway=secondary_link],
-{color: @secondary_light; opacity: 1;}
+{color: @secondary1; opacity: 1;}
 
 line|z16-[highway=secondary][tunnel?],
 line|z16-[highway=secondary_link][tunnel?]
