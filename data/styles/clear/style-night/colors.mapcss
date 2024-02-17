@@ -176,10 +176,10 @@
 @country_label: #444444;
 @state_label: #444444;
 @district_label: #555555;
-@housenumber: #505050;
-@building_label: #555555;
-@poi_label: #555555;
-@subway_label: #555555;
+@housenumber: #747474;
+@building_label: #767676;
+@poi_label: #8C8C8C;
+@subway_label: #9E9E9E;
 @indigenous_label: #6A512F;
 
 /* 6.4 Road labels */
