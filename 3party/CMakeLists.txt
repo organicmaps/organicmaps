@@ -42,7 +42,7 @@ endif()
 add_subdirectory(agg)
 add_subdirectory(bsdiff-courgette)
 
-if (NOT LINUX_DETECTED)
+if (NOT PLATFORM_LINUX)
   add_subdirectory(freetype)
   add_subdirectory(icu)
 endif()

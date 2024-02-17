@@ -62,31 +62,22 @@ set(CMAKE_MODULE_PATH ${CMAKE_MODULE_PATH} "${OMIM_ROOT}/cmake")
 include(OmimHelpers)
 include(OmimTesting)
 
-if (CMAKE_SYSTEM_NAME MATCHES "Linux")
-  set(LINUX_DETECTED TRUE)
-endif()
-
-if (CMAKE_SYSTEM_NAME MATCHES "Android")
-  set(ANDROID_DETECTED TRUE)
-  if ((${OS} MATCHES "mac"))
-    set(DARWIN TRUE)
-  endif()
-endif()
-
-
-omim_set_platform_var(PLATFORM_IPHONE "iphone-.*")
-omim_set_platform_var(PLATFORM_ANDROID "android-.*" ${ANDROID_DETECTED})
-omim_set_platform_var(PLATFORM_MAC "macx-.*" ${APPLE})
-omim_set_platform_var(PLATFORM_WIN "win32-.*" ${WIN32})
-omim_set_platform_var(PLATFORM_LINUX "linux-.*" ${LINUX_DETECTED})
-
-if (PLATFORM_LINUX OR PLATFORM_MAC OR PLATFORM_WIN)
-  set(PLATFORM_DESKTOP TRUE)
-else()
+set(PLATFORM_DESKTOP TRUE)
+if (CMAKE_SYSTEM_NAME STREQUAL "Linux")
+  set(PLATFORM_LINUX TRUE)
+elseif (CMAKE_SYSTEM_NAME STREQUAL "Darwin")
+  set(PLATFORM_MAC TRUE)
+elseif (CMAKE_SYSTEM_NAME STREQUAL "Windows")
+  set(PLATFORM_WIN TRUE)
+elseif (CMAKE_SYSTEM_NAME STREQUAL "Android")
+  set(PLATFORM_ANDROID TRUE)
   set(PLATFORM_DESKTOP FALSE)
+elseif (CMAKE_SYSTEM_NAME STREQUAL "iOS")
+  set(PLATFORM_IPHONE TRUE)
+  set(PLATFORM_DESKTOP FALSE)
+else()
+  message(FATAL_ERROR "Unsupported platform: ${CMAKE_SYSTEM_NAME}")
 endif()
-
-# End of setting the target platform
 
 # Sanitizer
 if (PLATFORM_DESKTOP)
@@ -293,7 +284,7 @@ endif()
 
 # Should be on the root level, not in 3party, so tests can get these dependencies.
 # Should go before 3party as harfbuzz is using them.
-if (LINUX_DETECTED)
+if (PLATFORM_LINUX)
   find_package(ICU COMPONENTS uc i18n data REQUIRED)
   find_package(Freetype REQUIRED)
 endif()
