@@ -110,13 +110,9 @@ public class PlacePageWikipediaFragment extends Fragment implements Observer<Map
     else
     {
       UiUtils.show(mWiki);
-      mWiki.setOnClickListener((v) -> {
-        if (!TextUtils.isEmpty(wikipediaLink))
-          Utils.openUrl(requireContext(), wikipediaLink);
-      });
+      mWiki.setOnClickListener((v) -> Utils.openUrl(requireContext(), wikipediaLink));
       mWiki.setOnLongClickListener((v) -> {
-        if (!TextUtils.isEmpty(wikipediaLink))
-          PlacePageUtils.copyToClipboard(requireContext(), mFrame, wikipediaLink);
+        PlacePageUtils.copyToClipboard(requireContext(), mFrame, wikipediaLink);
         return true;
       });
     }
