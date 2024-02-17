@@ -2983,7 +2983,7 @@
     da = Parkering
     de = P+R-Parkplatz
     el = Χώρος στάθμευσης
-    es = Aparcamiento
+    es = Aparcamiento disuasorio
     es-MX = Estacionamiento
     et = Parkimine
     eu = Aparkalekua
@@ -3571,7 +3571,7 @@
     da = Tempel
     de = Buddhistischer Tempel
     el = Ναός
-    es = Templo
+    es = Templo budista
     et = Tempel
     eu = Tenplua
     fa = گردشگری
@@ -3727,7 +3727,7 @@
     da = Tempel
     de = Hinduistischer Tempel
     el = Ναός
-    es = Templo
+    es = Templo hindú
     et = Tempel
     eu = Tenplua
     fa = گردشگری
@@ -3839,7 +3839,7 @@
     da = Helligdom
     de = Schrein
     el = Ιερό
-    es = Ermita
+    es = Santuario sintoísta
     et = Pühamu
     eu = Ermita
     fa = گردشگری
@@ -3877,7 +3877,7 @@
     da = Tempel
     de = Tempel
     el = Ναός
-    es = Templo
+    es = Templo taoísta
     et = Tempel
     eu = Tenplua
     fa = گردشگری
@@ -6071,6 +6071,7 @@
     ref = type.barrier.gate
     en = Kissing Gate
     af = Voetgangershek
+    es = Puerta peatonal
     et = Suudlemisvärav
     fr = Portillon à chicane mobile
     nl = Voetgangershek
@@ -6226,7 +6227,7 @@
     da = Bom
     de = Schranke
     el = Ανυψούμενη μπάρα
-    es = Barrera
+    es = Barrera batiente
     et = Tiibvärav
     eu = Hesia
     fa = اسانسور
@@ -10004,7 +10005,8 @@
     da = Mexicansk
     de = Mexikanisch
     el = Μεξικάνικη
-    es = Cocina mexicana
+    es = Cocina mejicana
+    es-MX = Cocina mexicana
     et = Mehhiko
     eu = Mexikoko sukaldea
     fi = Meksikolainen keittiö
@@ -11345,7 +11347,7 @@
     da = Udgang
     de = Ausfahrt
     el = Έξοδος
-    es = Salir
+    es = Salida
     es-MX = Salida
     et = Väljumine
     eu = Irten
@@ -12306,6 +12308,7 @@
   [type.highway.footway.mountain_hiking]
     ref = type.highway.path
     de = Bergwanderweg
+    es = Sendero de montaña
     et = Mägirada
     fi = Vuoristovaellus
     nl = Bergpad
@@ -12374,7 +12377,7 @@
     da = Gade
     de = Spielstraße
     el = Οδός
-    es = Calle
+    es = Calle de prioridad peatonal
     et = Elamupiirkonna tänav
     eu = Kalea
     fa = جاده
@@ -12421,7 +12424,7 @@
     da = Gade
     de = Autobahn
     el = Οδός
-    es = Calle
+    es = Autopista
     et = Kiirtee
     eu = Kalea
     fa = جاده
@@ -12455,6 +12458,7 @@
     en = Motorway Bridge
     af = Snelwegbrug
     de = Autobahnbrücke
+    es = Puente de autopista
     et = Mootorrataste sild
     fi = Moottoritiesilta
     it = Ponte autostradale
@@ -12469,6 +12473,7 @@
     en = Motorway Tunnel
     af = Snelwegtonnel
     de = Autobahntunnel
+    es = Túnel de autopista
     et = Kiirtee tunnel
     fi = Moottoritietunneli
     it = Tunnel autostradale
@@ -12520,6 +12525,7 @@
     af = Snelwegoprit
     az = Magistral yol enişi
     de = Autobahnauffahrt
+    es = Enlace de autopista
     et = Kiirtee kaldtee
     fi = Mottoritieramppi
     fr = Bretelle d'autoroute
@@ -12582,6 +12588,7 @@
   [type.highway.path.alpine_hiking]
     ref = type.highway.path
     de = Alpinwanderweg
+    es = Senderismo alpino
     et = Alpi matkarada
     fi = Alppivaellus
     nl = Alpine wandelpad
@@ -12595,6 +12602,7 @@
     ar = مسار للمشاة والدراجات معاً
     az = Velosiped və Gəzinti Yolu
     de = Radweg
+    es = Camino para bicicletas
     et = Jalgratta- ja jalgtee
     fi = Pyörä- ja jalkatie
     mr = सायकल आणि पाऊलवाट
@@ -12611,6 +12619,7 @@
   [type.highway.path.demanding_alpine_hiking]
     ref = type.highway.path
     de = Anspruchsvoller Alpinwanderweg
+    es = Senderismo alpino exigente
     et = Nõudlik alpi matkarada
     fi = Vaativa alppivaellus
     pt-BR = Caminho pedonal difícil
@@ -12618,6 +12627,7 @@
   [type.highway.path.demanding_mountain_hiking]
     ref = type.highway.path
     de = Anspruchsvoller Bergwanderweg
+    es = Senderismo de montaña exigente
     et = Nõudlik mägimatkarada
     fi = Vaativa vuoristovaellus
     pt-BR = Caminho pedonal difícil
@@ -12632,6 +12642,7 @@
   [type.highway.path.hiking]
     ref = type.highway.path
     de = Wanderweg
+    es = Sendero
     fi = Vaellus
     nl = Wandelpad
     pt-BR = Caminho pedonal
@@ -12642,6 +12653,7 @@
     af = Ruiterpad
     az = Atlı yolu
     de = Reitweg
+    es = Sendero de herradura
     et = Valjarada
     fi = Ratsastuspolku
     nl = Ruiterpad
@@ -12653,6 +12665,7 @@
   [type.highway.path.mountain_hiking]
     ref = type.highway.path
     de = Bergwanderweg
+    es = Sendero de montaña
     et = Mägitee
     fi = Vuoristovaellus
     nl = Bergpad
@@ -12754,7 +12767,7 @@
     da = Gade
     de = Hauptstraße
     el = Οδός
-    es = Calle
+    es = Carretera principal
     et = Esmane tee
     eu = Kalea
     fa = جاده
@@ -12789,6 +12802,7 @@
   [type.highway.primary.tunnel]
     ref = type.highway.road.tunnel
     de = Hauptstraßentunnel
+    es = Túnel de carretera principal
     et = Peatee tunnel
     pl = Tunel drogowy
     pt-BR = Túnel rodoviário
@@ -12797,6 +12811,7 @@
     ref = type.highway.primary
     en = Primary Road Ramp
     af = Primêrepadoprit
+    es = Enlace de carretera principal
     et = Esmase tee kaldtee
     mr = प्राथमिक मार्ग उतार
     pt-BR = Saída de rodovia
@@ -12858,7 +12873,7 @@
     da = Gade
     de = Wohnstraße
     el = Οδός
-    es = Calle
+    es = Calle residencial
     et = Tänav
     eu = Kalea
     fa = جاده
@@ -12895,6 +12910,7 @@
   [type.highway.residential.tunnel]
     ref = type.highway.road.tunnel
     de = Wohnstraßentunnel
+    es = Túnel de calle residencial
     et = Elamupirkonna tänava tunnel
     pt-BR = Túnel residencial
 
@@ -12943,7 +12959,7 @@
     da = Gade
     de = Straße
     el = Οδός
-    es = Calle
+    es = Carretera
     et = Maantee
     eu = Kalea
     fa = جاده
@@ -13071,7 +13087,7 @@
     da = Gade
     de = Straße
     el = Οδός
-    es = Calle
+    es = Carretera secundaria
     et = Teisene tee
     eu = Kalea
     fa = جاده
@@ -13106,6 +13122,7 @@
   [type.highway.secondary.tunnel]
     ref = type.highway.road.tunnel
     de = Straßentunnel
+    es = Túnel de carretera secundaria
     et = Tänava tunnel
     pl = Tunel drogowy
     pt-BR = Túnel rodoviário
@@ -13114,6 +13131,7 @@
     ref = type.highway.secondary
     en = Secondary Road Ramp
     af = Sekondêrepadoprit
+    es = Enlace de carretera secundaria
     et = Teisese tee kaldtee
     mr = दुय्यम मार्ग उतार
     pt-BR = Saída de rodovia
@@ -13141,7 +13159,7 @@
     da = Gade
     de = Zufahrtsweg
     el = Οδός
-    es = Calle
+    es = Vía de servicio
     et = Hooldustee
     eu = Kalea
     fa = جاده
@@ -13175,6 +13193,7 @@
 
   [type.highway.service.bridge]
     ref = type.highway.road.bridge
+    es = Puente de carretera de servicio
     et = Maanteesild
     pl = Most drogowy
 
@@ -13198,6 +13217,7 @@
     en = Parking Aisle
     af = Parkeergang
     az = Park dəhlizi
+    es = Pasillo de estacionamiento
     et = Parkla vahetee
     fi = Pysäköintikäytävä
     fr = Allée
@@ -13214,6 +13234,7 @@
   [type.highway.service.tunnel]
     ref = type.highway.road.tunnel
     de = Straßentunnel
+    es = Túnel de vía de servicio
     et = Tänava tunnel
     fi = Huoltotunneli
     pl = Tunel drogowy
@@ -13331,7 +13352,7 @@
     da = Gade
     de = Straße
     el = Οδός
-    es = Calle
+    es = Carretera terciaria
     et = Tänav
     eu = Kalea
     fa = جاده
@@ -13374,6 +13395,7 @@
     en = Tertiary Road Ramp
     af = Tersiêrepadoprit
     az = Üçüncü yol enişi
+    es = Enlace de carretera terciaria
     mr = तृतीयक मार्ग उतार
     pt-BR = Saída de rodovia
     ru = Съезд с дороги
@@ -13509,7 +13531,7 @@
     da = Gade
     de = Schnellstraße
     el = Οδός
-    es = Calle
+    es = Vía rápida
     et = Magistraaltee
     eu = Kalea
     fa = جاده
@@ -13550,6 +13572,7 @@
     ref = type.highway.trunk
     en = Trunk Road Ramp
     af = Hoofpadoprit
+    es = Enlace de vía rápida
     fi = Päätien ramppi
     mr = राष्ट्रीय महामार्ग उतार
     pt-BR = Saída de rodovia
@@ -13575,7 +13598,7 @@
     da = Gade
     de = Nebenstraße
     el = Οδός
-    es = Calle
+    es = Carretera sin clasificar
     et = Vähetähtis tee
     eu = Kalea
     fa = جاده
@@ -13612,6 +13635,7 @@
   [type.highway.unclassified.tunnel]
     ref = type.highway.road.tunnel
     de = Straßentunnel
+    es = Túnel de carretera sin clasificar
     pl = Tunel drogowy
     pt-BR = Túnel rodoviário
 
@@ -14063,7 +14087,7 @@
     da = Slot
     de = Burg
     el = Κάστρο
-    es = Castillo
+    es = Castillo defensivo
     et = Kindlus
     eu = Gaztelu
     fa = قلعه
@@ -15448,6 +15472,7 @@
     ar = تقاطع
     az = Qovşaq nöqtəsi
     de = Straßenknotenpunkt
+    es = Cruce
     et = Ristmik
     fi = Risteys
     it = Incrocio
@@ -15517,6 +15542,7 @@
     ar = حصص الحدائق
     az = Ayrılmalar
     de = Kleingarten
+    es = Huerto urbano
     et = Peenrad
     fi = Siirtolapuutarha
     fr = Jardins familiaux
@@ -15578,6 +15604,7 @@
     af = Natuurlike bruin
     az = Tərk edilmiş Sənaye Zonası
     de = Brachfläche
+    es = Solar abandonado
     et = Ehitusmaa
     fi = Tuhoalue
     fr = Friche industrielle
@@ -16313,7 +16340,7 @@
     da = Vand
     de = Wasserfläche
     el = Νερό
-    es = Cuenca
+    es = Embalse
     et = Vesi
     eu = Arroa
     fa = اب
@@ -16390,7 +16417,7 @@
     ar = ملّاحة
     az = Üzgüçülük hovuzu
     de = Saline
-    es = Estanque
+    es = Salina
     et = Tiik
     fi = Suolalampi
     fr = Marais salants
@@ -16410,6 +16437,7 @@
     af = Meent
     az = Torpaq
     de = Dorfplatz
+    es = Espacio verde
     et = Maa
     ja = 村の中心
     mr = जमीन
@@ -16468,6 +16496,7 @@
     af = Openbare grond
     az = İctimai domen
     de = öffentliche Grünfläche
+    es = Zona pública
     et = Avalik maa
     ja = レジャー(共有地)
     mr = सार्वजनिक जमीन
@@ -16564,7 +16593,7 @@
     da = Fitness-station
     de = Fitnessstation
     el = Γυμναστήριο
-    es = Gimnasio
+    es = Parque de fitness
     et = Välivõimla
     eu = Gimnasioa
     fa = پارک سلامت
@@ -16726,6 +16755,7 @@
     en = Hackerspace
     ar = هاكرزبيس
     be = Хакерская прастора
+    es = Espacio para hackers
     es-MX = Espacio hacker
     fa = فضای هکرها
     fi = Hacklab
@@ -17083,6 +17113,7 @@
     af = Sleephelling
     az = Xizək
     de = Bootsrampe
+    es = Rampa de barcos
     et = Elling
     fr = Cale de mise à l'eau
     it = Scivolo per navi
@@ -17375,6 +17406,7 @@
     af = Kunsmatige konstruksie
     az = İnsan istehsalı
     de = künstliche Anlage
+    es = Construcción artificial
     et = Inimese loodud
     it = Stabilimento balneare
     ja = 構造物
@@ -17412,6 +17444,7 @@
     af = Klipstapel
     az = Kurqan
     de = Steinmännchen
+    es = Mojón
     et = Karjäär
     hi = स्तूप
     ja = ケルン
@@ -17465,6 +17498,7 @@
     af = Kaplyn
     az = Kəsmə xətti
     de = Schneise
+    es = Línea de corte forestal
     et = Metsasiht
     fr = Layon
     ja = 森林の切れ目
@@ -18570,7 +18604,7 @@
     da = Gejser
     de = Geysir
     el = Θερμοπίδακας
-    es = Geiser
+    es = Géiser
     es-MX = Géiser
     et = Geiser
     eu = Geyser
@@ -19186,7 +19220,7 @@
     da = Bjergsadel
     de = Bergsattel
     el = Σέλα Βουνού
-    es = Silla de montaña
+    es = Collado
     et = Mäesadul
     eu = Mendiko jarlekua
     fa = زین کوه
@@ -19670,6 +19704,7 @@
     en = Dead End
     af = Doodloop
     az = Çıxılmaz
+    es = Sin salida
     et = Tupiktee
     fr = Voie sans issue
     it = Strada senza uscita
@@ -19956,7 +19991,7 @@
     da = Mobiloperatør
     de = Mobilfunkbetreiber
     el = Εταιρεία κινητής τηλεφωνίας
-    es = Operadora de telefonía móvil
+    es = Operadora de telefonía
     et = Telekommunikatsiooni ettevõte
     eu = Telefono mugikorren operadorea
     fa = اپراتور تلفن همراه
@@ -20209,7 +20244,7 @@
     da = Amt
     de = Kreis
     el = Δήμος
-    es = Municipio
+    es = Condado
     et = Maakond
     eu = Udalerria
     fa = بخش
@@ -21759,6 +21794,7 @@
     af = Smalspoor
     az = Yüngül dəmir yolu
     de = Stadtbahn
+    es = Tren ligero
     et = Kergrööbas
     it = Metropolitana
     ja = ライトレール
@@ -22913,6 +22949,7 @@
     af = Moltreinbrug
     az = Metro xətti
     de = U-Bahn-Brücke
+    es = Puente de metro
     et = Metrooliin - sild
     fr = Voie de métro
     hi = भूमिगत रेल
@@ -22930,6 +22967,7 @@
     af = Moltreintonnel
     az = Metro xətti
     de = U-Bahn-Tunnel
+    es = Túnel de metro
     et = Metrooliin - tunnel
     fr = Voie de métro
     hi = भूमिगत रेल
@@ -23343,6 +23381,7 @@
     af = Trembrug
     az = Tramvay xətti
     de = Straßenbahnbrücke
+    es = Puente de tranvía
     et = Trammiliini sild
     fr = Voie de tramway
     hi = ट्राम
@@ -23362,6 +23401,7 @@
     af = Tremtonnel
     az = Tramvay xətti
     de = Straßenbahntunnel
+    es = Túnel de tranvía
     et = Trammiliini tunnel
     fr = Voie de tramway
     hi = ट्राम
@@ -24570,7 +24610,7 @@
     da = Isenkræmmer
     de = Baumarkt
     el = Είδη κιγκαλερίας
-    es = Ferretería
+    es = Tienda de bricolaje
     et = Tööriistapood
     eu = Burdindegia
     fa = فروشگاه
@@ -25195,6 +25235,7 @@
     be = Будаўнічы магазін
     bg = Магазин за хардуер
     el = Κατάστημα υλικού
+    es = Ferretería
     et = Isetegemise tööriistad
     eu = Hardware denda
     fa = ﺭﺍﺰﻓﺍ ﺖﺨﺳ ﻩﺎﮕﺷﻭﺮﻓ
@@ -25271,7 +25312,7 @@
     da = Urtebutik
     de = Kräuterladen
     el = Κατάστημα με βότανα
-    es = Tienda de hierbas
+    es = Herbolario
     et = Maitsetaimede pood
     eu = Belar denda
     fa = فروشگاه گیاهان دارویی
@@ -27284,7 +27325,7 @@
     da = Ostebutik
     de = Käseladen
     el = Τυροκομείο
-    es = Tienda de queso
+    es = Tienda de quesos
     et = Juustupood
     eu = Gazta Denda
     fa = ﺮﯿﻨﭘ ﻩﺎﮕﺷﻭﺮﻓ
@@ -29674,6 +29715,7 @@
     en = Animal Enclosure
     af = Skerm vir diere
     az = Zoopark
+    es = Recinto de animales
     et = Loomade aedik
     it = Recinto
     ja = 動物
