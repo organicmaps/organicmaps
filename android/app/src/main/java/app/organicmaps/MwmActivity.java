@@ -74,6 +74,7 @@ import app.organicmaps.maplayer.ToggleMapLayerFragment;
 import app.organicmaps.maplayer.isolines.IsolinesManager;
 import app.organicmaps.maplayer.isolines.IsolinesState;
 import app.organicmaps.maplayer.subway.SubwayManager;
+import app.organicmaps.routing.JunctionInfo;
 import app.organicmaps.routing.NavigationController;
 import app.organicmaps.routing.NavigationService;
 import app.organicmaps.routing.RoutePointInfo;
@@ -1502,6 +1503,8 @@ public class MwmActivity extends BaseMwmFragmentActivity
   @Override
   public void onNavigationStarted()
   {
+    //final LocationHelper locationHelper = LocationHelper.from(this);
+    //locationHelper.startNavigationSimulation(Framework.nativeGetRouteJunctionPoints());
     closeFloatingToolbarsAndPanels(true);
     ThemeSwitcher.INSTANCE.restart(isMapRendererActive());
     mMapButtonsViewModel.setLayoutMode(MapButtonsController.LayoutMode.navigation);

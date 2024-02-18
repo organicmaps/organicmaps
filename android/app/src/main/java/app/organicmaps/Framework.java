@@ -12,9 +12,11 @@ import androidx.annotation.Size;
 import app.organicmaps.api.ParsedRoutingData;
 import app.organicmaps.api.ParsedSearchRequest;
 import app.organicmaps.api.RequestType;
+import app.organicmaps.api.RoutePoint;
 import app.organicmaps.bookmarks.data.DistanceAndAzimut;
 import app.organicmaps.bookmarks.data.FeatureId;
 import app.organicmaps.bookmarks.data.MapObject;
+import app.organicmaps.routing.JunctionInfo;
 import app.organicmaps.routing.RouteMarkData;
 import app.organicmaps.routing.RoutePointInfo;
 import app.organicmaps.routing.RoutingInfo;
@@ -273,6 +275,9 @@ public class Framework
 
   @Nullable
   public static native RoutingInfo nativeGetRouteFollowingInfo();
+
+  @Nullable
+  public static native JunctionInfo[] nativeGetRouteJunctionPoints();
 
   @Nullable
   public static native final int[] nativeGenerateRouteAltitudeChartBits(int width, int height, RouteAltitudeLimits routeAltitudeLimits);

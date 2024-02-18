@@ -1282,6 +1282,29 @@ Java_app_organicmaps_Framework_nativeGetRouteFollowingInfo(JNIEnv * env, jclass)
   return result;
 }
 
+JNIEXPORT jobjectArray JNICALL
+Java_app_organicmaps_Framework_nativeGetRouteJunctionPoints(JNIEnv * env, jclass)
+{
+  vector<m2::PointD> junctionPoints;
+  if (!frm()->GetRoutingManager().RoutingSession().GetRouteJunctionPoints(junctionPoints))
+  {
+    LOG(LWARNING, ("Can't get the route junction points"));
+    return nullptr;
+  }
+
+  static jclass const junctionClazz = jni::GetGlobalClassRef(env, "app/organicmaps/routing/JunctionInfo");
+  // Java signature : JunctionInfo(double lat, double lon)
+  static jmethodID const junctionConstructor = jni::GetConstructorID(env, junctionClazz, "(DD)V");
+
+  return jni::ToJavaArray(env, junctionClazz, junctionPoints,
+    [](JNIEnv * env, m2::PointD const & point)
+    {
+      return env->NewObject(junctionClazz, junctionConstructor,
+                            mercator::YToLat(point.y),
+                            mercator::XToLon(point.x));
+    });
+}
+
 JNIEXPORT jintArray JNICALL
 Java_app_organicmaps_Framework_nativeGenerateRouteAltitudeChartBits(JNIEnv * env, jclass, jint width, jint height, jobject routeAltitudeLimits)
 {
