@@ -82,8 +82,7 @@ void ParseUniBlocks(std::string const & uniBlocksFile, ToDo toDo)
   while (true)
   {
     std::string name;
-    strings::UniChar start;
-    strings::UniChar end;
+    uint32_t start, end;
     fin >> name >> std::hex >> start >> std::hex >> end;
     if (!fin)
       break;

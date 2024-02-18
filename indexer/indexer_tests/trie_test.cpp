@@ -33,12 +33,12 @@ struct ChildNodeInfo
 
   uint32_t Size() const { return m_size; }
   bool IsLeaf() const { return m_isLeaf; }
-  uint32_t const * GetEdge() const { return &m_edge[0]; }
+  trie::TrieChar const * GetEdge() const { return &m_edge[0]; }
   size_t GetEdgeSize() const { return m_edge.size(); }
 
   bool m_isLeaf;
   uint32_t m_size;
-  vector<uint32_t> m_edge;
+  vector<trie::TrieChar> m_edge;
 };
 
 // The SingleValueSerializer and ValueList classes are similar to
