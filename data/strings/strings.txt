@@ -11514,8 +11514,8 @@
     nb = Åpen
     nl = Open
     pl = Otwarte
-    pt = Aberto
-    pt-BR = Aberto
+    pt = Abre
+    pt-BR = Abre
     ro = Deschis
     ru = Открыто
     sk = Otvorené
@@ -11558,8 +11558,8 @@
     nb = Stengt
     nl = Gesloten
     pl = Zamknięte
-    pt = Fechado
-    pt-BR = Fechado
+    pt = Fecha
+    pt-BR = Fecha
     ro = Închis
     ru = Закрыто
     sk = Zatvorené
@@ -11602,7 +11602,7 @@
     nl = Sluitingstijden toevoegen
     pl = Dodaj godziny zamknięcia
     pt = Inserir horas de encerrrado
-    pt-BR = Inserir Horas Sem Funcionamento
+    pt-BR = Inserir horas sem funcionamento
     ro = Adaugă ore de închidere
     ru = Добавить перерыв
     sk = Pridať hodiny zatvorenia
@@ -11775,7 +11775,7 @@
     nl = Sluitingstijden
     pl = Godziny zamknięcia
     pt = Horas sem funcionamento
-    pt-BR = Horas Sem Funcionamento
+    pt-BR = Horas sem funcionamento
     ro = Ore de închidere
     ru = Перерыв
     sk = Hodiny zatvorenia
