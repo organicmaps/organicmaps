@@ -13,6 +13,7 @@ import androidx.lifecycle.DefaultLifecycleObserver;
 import androidx.lifecycle.LifecycleOwner;
 
 import app.organicmaps.Framework;
+import app.organicmaps.Map;
 import app.organicmaps.MwmApplication;
 import app.organicmaps.R;
 import app.organicmaps.bookmarks.data.MapObject;
@@ -25,14 +26,16 @@ import app.organicmaps.car.screens.RequestPermissionsScreen;
 import app.organicmaps.car.screens.base.BaseMapScreen;
 import app.organicmaps.car.screens.download.DownloadMapsScreenBuilder;
 import app.organicmaps.car.screens.download.DownloaderHelpers;
-import app.organicmaps.car.util.CarSensorsManager;
 import app.organicmaps.car.util.CurrentCountryChangedListener;
 import app.organicmaps.car.util.IntentUtils;
 import app.organicmaps.car.util.ThemeUtils;
 import app.organicmaps.display.DisplayChangedListener;
 import app.organicmaps.display.DisplayManager;
 import app.organicmaps.display.DisplayType;
+import app.organicmaps.location.LocationHelper;
 import app.organicmaps.location.LocationState;
+import app.organicmaps.location.SensorHelper;
+import app.organicmaps.location.SensorListener;
 import app.organicmaps.routing.RoutingController;
 import app.organicmaps.util.Config;
 import app.organicmaps.util.LocationUtils;
@@ -44,7 +47,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public final class CarAppSession extends Session implements DefaultLifecycleObserver,
-    LocationState.ModeChangeListener, DisplayChangedListener, Framework.PlacePageActivationListener
+    SensorListener, LocationState.ModeChangeListener, DisplayChangedListener, Framework.PlacePageActivationListener
 {
   private static final String TAG = CarAppSession.class.getSimpleName();
 
@@ -54,8 +57,6 @@ public final class CarAppSession extends Session implements DefaultLifecycleObse
   private final SurfaceRenderer mSurfaceRenderer;
   @NonNull
   private final ScreenManager mScreenManager;
-  @NonNull
-  private final CarSensorsManager mSensorsManager;
   @NonNull
   private final CurrentCountryChangedListener mCurrentCountryChangedListener;
   @SuppressWarnings("NotNullFieldNotInitialized")
@@ -69,7 +70,6 @@ public final class CarAppSession extends Session implements DefaultLifecycleObse
     mSessionInfo = sessionInfo;
     mSurfaceRenderer = new SurfaceRenderer(getCarContext(), getLifecycle());
     mScreenManager = getCarContext().getCarService(ScreenManager.class);
-    mSensorsManager = new CarSensorsManager(getCarContext());
     mCurrentCountryChangedListener = new CurrentCountryChangedListener();
   }
 
@@ -127,8 +127,9 @@ public final class CarAppSession extends Session implements DefaultLifecycleObse
       Framework.nativePlacePageActivationListener(this);
       mCurrentCountryChangedListener.onStart(getCarContext());
     }
-    if (LocationUtils.checkFineLocationPermission(getCarContext()))
-      mSensorsManager.onStart();
+    SensorHelper.from(getCarContext()).addListener(this);
+    if (LocationUtils.checkFineLocationPermission(getCarContext()) && !LocationHelper.from(getCarContext()).isActive())
+      LocationHelper.from(getCarContext()).start();
 
     if (mDisplayManager.isCarDisplayUsed())
     {
@@ -141,7 +142,7 @@ public final class CarAppSession extends Session implements DefaultLifecycleObse
   public void onStop(@NonNull LifecycleOwner owner)
   {
     Logger.d(TAG);
-    mSensorsManager.onStop();
+    SensorHelper.from(getCarContext()).removeListener(this);
     if (mDisplayManager.isCarDisplayUsed())
     {
       LocationState.nativeRemoveListener();
@@ -182,7 +183,7 @@ public final class CarAppSession extends Session implements DefaultLifecycleObse
       screensStack.add(new DownloadMapsScreenBuilder(getCarContext()).setDownloaderType(DownloadMapsScreenBuilder.DownloaderType.FirstLaunch).build());
 
     if (!LocationUtils.checkFineLocationPermission(getCarContext()))
-      screensStack.add(new RequestPermissionsScreen(getCarContext(), mSensorsManager::onStart));
+      screensStack.add(new RequestPermissionsScreen(getCarContext(), () -> LocationHelper.from(getCarContext()).start()));
 
     if (mDisplayManager.isDeviceDisplayUsed())
     {
@@ -203,6 +204,11 @@ public final class CarAppSession extends Session implements DefaultLifecycleObse
     final Screen screen = mScreenManager.getTop();
     if (screen instanceof BaseMapScreen)
       screen.invalidate();
+  }
+
+  public void onCompassUpdated(double north)
+  {
+    Map.onCompassUpdated(north, true);
   }
 
   @Override
