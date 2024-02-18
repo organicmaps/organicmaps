@@ -23,7 +23,7 @@
 /// All methods work with strings in utf-8 format
 namespace strings
 {
-using UniChar = uint32_t;
+using UniChar = char32_t;
 // typedef buffer_vector<UniChar, 32> UniString;
 
 /// Make new type, not typedef. Need to specialize DebugPrint.

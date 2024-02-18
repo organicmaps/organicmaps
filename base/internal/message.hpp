@@ -66,6 +66,7 @@ inline std::string DebugPrint(char t)
 namespace internal
 {
 std::string ToUtf8(std::u16string_view utf16);
+std::string ToUtf8(std::u32string_view utf32);
 }  // namespace internal
 
 inline std::string DebugPrint(std::u16string const & utf16)
@@ -76,6 +77,16 @@ inline std::string DebugPrint(std::u16string const & utf16)
 inline std::string DebugPrint(std::u16string_view utf16)
 {
   return internal::ToUtf8(utf16);
+}
+
+inline std::string DebugPrint(std::u32string const & utf32)
+{
+  return internal::ToUtf8(utf32);
+}
+
+inline std::string DebugPrint(std::u32string_view utf32)
+{
+  return internal::ToUtf8(utf32);
 }
 
 inline std::string DebugPrint(std::chrono::time_point<std::chrono::system_clock> const & ts)

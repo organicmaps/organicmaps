@@ -39,4 +39,11 @@ std::string ToUtf8(std::u16string_view utf16)
   utf8::unchecked::utf16to8(utf16.begin(), utf16.end(), utf8.begin());
   return utf8;
 }
+
+std::string ToUtf8(std::u32string_view utf32)
+{
+  std::string utf8;
+  utf8::unchecked::utf32to8(utf32.begin(), utf32.end(), utf8.begin());
+  return utf8;
+}
 }  // namespace internal

@@ -46,9 +46,10 @@ UNIT_TEST(LowerUniChar)
     if (!semicolon)
       continue;
 
-    std::istringstream stream((std::string(*semicolon)));
-    strings::UniChar uc;
+    std::istringstream stream{std::string{*semicolon}};
+    uint32_t uc;
     stream >> std::hex >> uc;
+    ASSERT(stream, ("Overflow"));
     ++semicolon;
 
     auto const type = *semicolon;
@@ -64,7 +65,7 @@ UNIT_TEST(LowerUniChar)
     {
       stream.clear();
       stream.str(std::string(*spacer));
-      strings::UniChar smallCode;
+      uint32_t smallCode;
       stream >> std::hex >> smallCode;
       us.push_back(smallCode);
       ++spacer;
