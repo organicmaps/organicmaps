@@ -573,13 +573,10 @@ MAIN_WITH_ERROR_HANDLING([](int argc, char ** argv)
 
     if (FLAGS_generate_popular_places)
     {
-      bool isOk = false;
       if (!FLAGS_wikipedia_pages.empty())
-        isOk = BuildPopularPlacesFromWikiDump(dataFile, FLAGS_wikipedia_pages, FLAGS_idToWikidata);
+        BuildPopularPlacesFromWikiDump(dataFile, FLAGS_wikipedia_pages, FLAGS_idToWikidata);
       else
-        isOk = BuildPopularPlacesFromDescriptions(dataFile);
-      if (!isOk)
-        LOG(LCRITICAL, ("Error generating popular places mwm section."));
+        BuildPopularPlacesFromDescriptions(dataFile);
     }
 
     if (FLAGS_generate_traffic_keys)

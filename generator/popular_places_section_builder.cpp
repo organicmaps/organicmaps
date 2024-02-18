@@ -98,7 +98,7 @@ PopularityIndex CalcRank(std::string const & str)
 
 } // namespace
 
-bool BuildPopularPlacesFromDescriptions(std::string const & mwmFile)
+void BuildPopularPlacesFromDescriptions(std::string const & mwmFile)
 {
   LOG(LINFO, ("Build Popular Places section"));
 
@@ -107,7 +107,10 @@ bool BuildPopularPlacesFromDescriptions(std::string const & mwmFile)
   auto handle = dataSource.GetHandle();
   auto const * value = handle.GetValue();
   if (!value->m_cont.IsExist(DESCRIPTIONS_FILE_TAG))
-    return false;
+  {
+    LOG(LWARNING, ("No descriptions section for", mwmFile));
+    return;
+  }
 
   auto readerPtr = value->m_cont.GetReader(DESCRIPTIONS_FILE_TAG);
   descriptions::Deserializer deserializer;
@@ -120,11 +123,9 @@ bool BuildPopularPlacesFromDescriptions(std::string const & mwmFile)
     auto const str = deserializer.Deserialize(*readerPtr.GetPtr(), featureId, langPriority);
     return str.empty() ? 0 : CalcRank(str);
   });
-
-  return true;
 }
 
-bool BuildPopularPlacesFromWikiDump(std::string const & mwmFile,
+void BuildPopularPlacesFromWikiDump(std::string const & mwmFile,
                                     std::string const & wikipediaDir, std::string const & idToWikidataPath)
 {
   LOG(LINFO, ("Build Popular Places section"));
@@ -148,7 +149,6 @@ bool BuildPopularPlacesFromWikiDump(std::string const & mwmFile,
 
     return 0;
   });
-  return true;
 }
 
 
