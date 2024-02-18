@@ -176,6 +176,5 @@
   <dimen name="about_logo">96dp</dimen>
 
   <!--About Fragment -->
-  <dimen name="about_max_textview_width">230dp</dimen>
   <dimen name="about_max_button_width">310dp</dimen>
 </resources>
