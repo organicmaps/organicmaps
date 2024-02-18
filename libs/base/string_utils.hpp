@@ -1,7 +1,6 @@
 #pragma once
 
 #include "base/buffer_vector.hpp"
-#include "base/checked_cast.hpp"
 
 #include <algorithm>
 #include <cerrno>
@@ -14,15 +13,12 @@
 #include <string>
 #include <string_view>
 #include <system_error>
-#include <type_traits>
 
 #include <utf8/unchecked.h>
 
-/// All methods work with strings in utf-8 format
 namespace strings
 {
 using UniChar = char32_t;
-// typedef buffer_vector<UniChar, 32> UniString;
 
 /// Make new type, not typedef. Need to specialize DebugPrint.
 class UniString : public buffer_vector<UniChar, 32>
@@ -34,23 +30,23 @@ public:
 
   using value_type = UniChar;
 
-  UniString() = default;
-  explicit UniString(size_t n) : BaseT(n) {}
-  UniString(size_t n, UniChar c) { resize(n, c); }
+  constexpr UniString() = default;
+  explicit constexpr UniString(size_t n) : BaseT(n) {}
+  constexpr UniString(size_t n, UniChar c) { resize(n, c); }
 
   template <typename Iter>
-  UniString(Iter b, Iter e) : BaseT(b, e)
+  constexpr UniString(Iter b, Iter e) : BaseT(b, e)
   {}
 
   bool IsEqualAscii(char const * s) const;
 
-  UniString & operator+=(UniString const & rhs)
+  constexpr UniString & operator+=(UniString const & rhs)
   {
     append(rhs);
     return *this;
   }
 
-  UniString operator+(UniString const & rhs) const
+  constexpr UniString operator+(UniString const & rhs) const
   {
     UniString result(*this);
     result += rhs;
@@ -58,7 +54,7 @@ public:
   }
 
   template <class Iter>
-  void Replace(iterator first, iterator last, Iter first2, Iter last2)
+  constexpr void Replace(iterator first, iterator last, Iter first2, Iter last2)
   {
     auto it = first;
     auto it2 = first2;
