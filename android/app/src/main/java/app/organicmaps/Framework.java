@@ -15,12 +15,12 @@ import app.organicmaps.api.RequestType;
 import app.organicmaps.bookmarks.data.DistanceAndAzimut;
 import app.organicmaps.bookmarks.data.FeatureId;
 import app.organicmaps.bookmarks.data.MapObject;
+import app.organicmaps.routing.JunctionInfo;
 import app.organicmaps.routing.RouteMarkData;
 import app.organicmaps.routing.RoutePointInfo;
 import app.organicmaps.routing.RoutingInfo;
 import app.organicmaps.routing.TransitRouteInfo;
 import app.organicmaps.settings.SettingsPrefsFragment;
-import app.organicmaps.util.Distance;
 import app.organicmaps.widget.placepage.PlacePageData;
 import app.organicmaps.util.Constants;
 
@@ -273,6 +273,9 @@ public class Framework
 
   @Nullable
   public static native RoutingInfo nativeGetRouteFollowingInfo();
+
+  @Nullable
+  public static native JunctionInfo[] nativeGetRouteJunctionPoints();
 
   @Nullable
   public static native final int[] nativeGenerateRouteAltitudeChartBits(int width, int height, RouteAltitudeLimits routeAltitudeLimits);

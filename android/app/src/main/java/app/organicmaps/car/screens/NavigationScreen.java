@@ -30,6 +30,7 @@ import app.organicmaps.car.util.ThemeUtils;
 import app.organicmaps.car.util.UiHelpers;
 import app.organicmaps.location.LocationHelper;
 import app.organicmaps.location.LocationListener;
+import app.organicmaps.routing.JunctionInfo;
 import app.organicmaps.routing.NavigationService;
 import app.organicmaps.routing.RoutingController;
 import app.organicmaps.routing.RoutingInfo;
@@ -91,6 +92,28 @@ public class NavigationScreen extends BaseMapScreen implements RoutingController
     LocationHelper.from(getCarContext()).removeListener(mLocationListener);
     mNavigationCancelled = true;
     mRoutingController.cancel();
+  }
+
+  /**
+   * To verify your app's navigation functionality when you submit it to the Google Play Store, your app must implement
+   * the NavigationManagerCallback.onAutoDriveEnabled callback. When this callback is called, your app must simulate
+   * navigation to the chosen destination when the user begins navigation. Your app can exit this mode whenever
+   * the lifecycle of the current Session reaches the Lifecycle.Event.ON_DESTROY state.
+   * <a href="https://developer.android.com/training/cars/apps/navigation#simulating-navigation">More info</a>
+   */
+  @Override
+  public void onAutoDriveEnabled()
+  {
+    Logger.i(TAG);
+    final JunctionInfo[] points = Framework.nativeGetRouteJunctionPoints();
+    if (points == null)
+    {
+      Logger.e(TAG, "Navigation has not started yet");
+      return;
+    }
+
+    final LocationHelper locationHelper = LocationHelper.from(getCarContext());
+    locationHelper.startNavigationSimulation(points);
   }
 
   @Override
