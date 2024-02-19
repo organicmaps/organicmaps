@@ -11514,8 +11514,7 @@
     nb = Åpen
     nl = Open
     pl = Otwarte
-    pt = Aberto
-    pt-BR = Aberto
+    pt = Abre
     ro = Deschis
     ru = Открыто
     sk = Otvorené
@@ -11558,8 +11557,7 @@
     nb = Stengt
     nl = Gesloten
     pl = Zamknięte
-    pt = Fechado
-    pt-BR = Fechado
+    pt = Fecha
     ro = Închis
     ru = Закрыто
     sk = Zatvorené
@@ -11602,7 +11600,7 @@
     nl = Sluitingstijden toevoegen
     pl = Dodaj godziny zamknięcia
     pt = Inserir horas de encerrrado
-    pt-BR = Inserir Horas Sem Funcionamento
+    pt-BR = Inserir horas sem funcionamento
     ro = Adaugă ore de închidere
     ru = Добавить перерыв
     sk = Pridať hodiny zatvorenia
@@ -11646,7 +11644,6 @@
     nl = Openingstijden
     pl = Godziny pracy
     pt = Horário de funcionamento
-    pt-BR = Horário de funcionamento
     ro = Ore de deschidere
     ru = Время работы
     sk = Otváracie hodiny
@@ -11689,7 +11686,6 @@
     nl = Geavanceerde modus
     pl = Tryb zaawansowany
     pt = Modo avançado
-    pt-BR = Modo avançado
     ro = Mod Avansat
     ru = Расширенный режим
     sk = Rozšírený režim
@@ -11732,7 +11728,6 @@
     nl = Eenvoudige modus
     pl = Tryb prosty
     pt = Modo simples
-    pt-BR = Modo simples
     ro = Mod simplu
     ru = Простой режим
     sk = Jednoduchý režim
@@ -11775,7 +11770,6 @@
     nl = Sluitingstijden
     pl = Godziny zamknięcia
     pt = Horas sem funcionamento
-    pt-BR = Horas Sem Funcionamento
     ro = Ore de închidere
     ru = Перерыв
     sk = Hodiny zatvorenia
@@ -11819,7 +11813,6 @@
     nl = Voorbeeldwaarden
     pl = Przykładowe wartości
     pt = Valores de exemplo
-    pt-BR = Valores de exemplo
     ro = Exemple
     ru = Примеры значений
     sk = Príklady hodnôt
@@ -11862,7 +11855,6 @@
     nl = Fout corrigeren
     pl = Popraw błąd
     pt = Corrigir erro
-    pt-BR = Corrigir erro
     ro = Corectare greșeală
     ru = Исправьте ошибку
     sk = Opraviť chybu
@@ -11906,7 +11898,6 @@
     nl = Locatie
     pl = Lokalizacja
     pt = Local
-    pt-BR = Local
     ro = Poziția
     ru = Местоположение
     sk = Poloha
