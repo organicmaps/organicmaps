@@ -650,33 +650,29 @@ static BookmarkManager::SortingType convertSortingTypeToCore(MWMBookmarksSorting
            description:(NSString *)description {
   auto const currentGroupId = self.bm.GetBookmark(bookmarkId)->GetGroupId();
   auto editSession = self.bm.GetEditSession();
-  if (groupId != kml::kInvalidMarkGroupId) {
+  if (groupId != kml::kInvalidMarkGroupId)
     editSession.MoveBookmark(bookmarkId, currentGroupId, groupId);
-  }
 
   auto bookmark = editSession.GetBookmarkForEdit(bookmarkId);
   if (!bookmark)
     return;
 
   auto kmlColor = convertBookmarkColor(color);
-  if (kmlColor != bookmark->GetColor()) {
+  if (kmlColor != bookmark->GetColor())
     self.bm.SetLastEditedBmColor(kmlColor);
-  }
 
   bookmark->SetColor(kmlColor);
   bookmark->SetDescription(description.UTF8String);
-  if (title.UTF8String != bookmark->GetPreferredName()) {
+  if (title.UTF8String != bookmark->GetPreferredName())
     bookmark->SetCustomName(title.UTF8String);
-  }
 }
 
 - (void)moveBookmark:(MWMMarkID)bookmarkId
            toGroupId:(MWMMarkGroupID)groupId {
     auto const currentGroupId = self.bm.GetBookmark(bookmarkId)->GetGroupId();
     auto editSession = self.bm.GetEditSession();
-    if (groupId != kml::kInvalidMarkGroupId) {
-        editSession.MoveBookmark(bookmarkId, currentGroupId, groupId);
-    }
+    if (groupId != kml::kInvalidMarkGroupId)
+      editSession.MoveBookmark(bookmarkId, currentGroupId, groupId);
 }
 
 - (void)updateTrack:(MWMTrackID)trackId
@@ -685,21 +681,18 @@ static BookmarkManager::SortingType convertSortingTypeToCore(MWMBookmarksSorting
               title:(NSString *)title {
     auto const currentGroupId = self.bm.GetTrack(trackId)->GetGroupId();
     auto editSession = self.bm.GetEditSession();
-    if (groupId != kml::kInvalidMarkGroupId) {
-        editSession.MoveTrack(trackId, currentGroupId, groupId);
-    }
+    if (groupId != kml::kInvalidMarkGroupId)
+      editSession.MoveTrack(trackId, currentGroupId, groupId);
 
     auto track = editSession.GetTrackForEdit(trackId);
-    if (!track) {
-        return;
-    }
+    if (!track)
+      return;
 
     auto const currentColor = track->GetColor(0);
     auto const newColor = [MWMBookmarksManager getColorFromUIColor:color];
 
-    if (newColor != currentColor) {
-        track->SetColor(newColor);
-    }
+    if (newColor != currentColor) 
+      track->SetColor(newColor);
 
     track->SetName(title.UTF8String);
 }
@@ -708,9 +701,8 @@ static BookmarkManager::SortingType convertSortingTypeToCore(MWMBookmarksSorting
         toGroupId:(MWMMarkGroupID)groupId {
     auto const currentGroupId = self.bm.GetTrack(trackId)->GetGroupId();
     auto editSession = self.bm.GetEditSession();
-    if (groupId != kml::kInvalidMarkGroupId) {
-        editSession.MoveTrack(trackId, currentGroupId, groupId);
-    }
+    if (groupId != kml::kInvalidMarkGroupId)
+      editSession.MoveTrack(trackId, currentGroupId, groupId);
 }
 
 - (void)setCategory:(MWMMarkGroupID)groupId authorType:(MWMBookmarkGroupAuthorType)author
