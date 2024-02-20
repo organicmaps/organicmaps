@@ -24,18 +24,20 @@
         layout="@layout/toolbar_search_controls"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_toStartOf="@+id/save"
-        tools:visibility="gone"/>
+        app:layout_constraintEnd_toStartOf="@id/save"
+        app:layout_constraintStart_toStartOf="parent"
+        android:layout_marginEnd="?actionBarSize"
+        tools:visibility="gone" />
 
       <ImageView
         app:tint="@color/image_view"
         android:id="@+id/save"
         android:layout_width="?actionBarSize"
         android:layout_height="?actionBarSize"
-        android:layout_alignParentEnd="true"
         android:background="?selectableItemBackgroundBorderless"
         android:scaleType="centerInside"
         app:srcCompat="@drawable/ic_done"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent"/>
 
