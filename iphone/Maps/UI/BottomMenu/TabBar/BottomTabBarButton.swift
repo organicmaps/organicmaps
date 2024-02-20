@@ -8,6 +8,10 @@ final class BottomTabBarButton: MWMButton {
       BottomTabBarButtonRenderer.render(self, style: style)
     }
   }
+
+  override func point(inside point: CGPoint, with event: UIEvent?) -> Bool {
+    return bounds.insetBy(dx: kExtendedTabBarTappableMargin, dy: kExtendedTabBarTappableMargin).contains(point)
+  }
 }
 
 class BottomTabBarButtonRenderer {
