@@ -1,7 +1,7 @@
 {
   "images" : [
     {
-      "filename" : "newspaper_white_24dp.svg",
+      "filename" : "ic_social_media_mail.pdf",
       "idiom" : "universal"
     }
   ],
@@ -10,7 +10,6 @@
     "version" : 1
   },
   "properties" : {
-    "preserves-vector-representation" : true,
-    "template-rendering-intent" : "template"
+    "template-rendering-intent" : "original"
   }
 }
