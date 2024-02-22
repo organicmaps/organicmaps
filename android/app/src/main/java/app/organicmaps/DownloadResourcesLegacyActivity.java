@@ -12,8 +12,6 @@ import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.TextView;
 
-import androidx.activity.result.ActivityResultLauncher;
-import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.annotation.CallSuper;
 import androidx.annotation.Keep;
 import androidx.annotation.NonNull;
@@ -24,7 +22,6 @@ import androidx.annotation.StyleRes;
 import app.organicmaps.base.BaseMwmFragmentActivity;
 import app.organicmaps.downloader.CountryItem;
 import app.organicmaps.downloader.MapManager;
-import app.organicmaps.intent.Factory;
 import app.organicmaps.location.LocationHelper;
 import app.organicmaps.location.LocationListener;
 import app.organicmaps.util.Config;
