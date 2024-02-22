@@ -48,15 +48,10 @@ class BottomPanel
     mFragment = fragment;
 
     mFab = frame.findViewById(R.id.fab);
-    mFab.setOnClickListener(new View.OnClickListener()
-    {
-      @Override
-      public void onClick(View v)
-      {
-        if (mFragment.getAdapter() != null )
-          mFragment.getAdapter().setAvailableMapsMode();
-        update();
-      }
+    mFab.setOnClickListener(v -> {
+      if (mFragment.getAdapter() != null )
+        mFragment.getAdapter().setAvailableMapsMode();
+      update();
     });
 
     mButton = frame.findViewById(R.id.action);

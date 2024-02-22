@@ -113,14 +113,9 @@ public final class HttpClient
         if (p.data != null)
         {
           connection.setFixedLengthStreamingMode(p.data.length);
-          final OutputStream os = connection.getOutputStream();
-          try
+          try (OutputStream os = connection.getOutputStream())
           {
             os.write(p.data);
-          }
-          finally
-          {
-            os.close();
           }
           Logger.d(TAG, "Sent " + p.httpMethod + " with content of size " + p.data.length);
         }

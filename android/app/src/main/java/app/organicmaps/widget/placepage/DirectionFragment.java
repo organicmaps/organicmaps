@@ -71,14 +71,10 @@ public class DirectionFragment extends BaseMwmDialogFragment
     mTvSubtitle = root.findViewById(R.id.tv__subtitle);
     mTvDistance = root.findViewById(R.id.tv__straight_distance);
 
-    UiUtils.waitLayout(mTvTitle, new ViewTreeObserver.OnGlobalLayoutListener() {
-      @Override
-      public void onGlobalLayout()
-      {
-        final int height = mTvTitle.getHeight();
-        final int lineHeight = mTvTitle.getLineHeight();
-        mTvTitle.setMaxLines(height / lineHeight);
-      }
+    UiUtils.waitLayout(mTvTitle, () -> {
+      final int height = mTvTitle.getHeight();
+      final int lineHeight = mTvTitle.getLineHeight();
+      mTvTitle.setMaxLines(height / lineHeight);
     });
   }
 

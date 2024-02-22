@@ -362,27 +362,22 @@ public class EditorFragment extends BaseMwmFragment implements View.OnClickListe
       return;
     }
     showAdditionalNames(true);
-    UiUtils.waitLayout(mNamesView, new ViewTreeObserver.OnGlobalLayoutListener()
-    {
-      @Override
-      public void onGlobalLayout()
-      {
-        LinearLayoutManager lm = (LinearLayoutManager) mNamesView.getLayoutManager();
-        int position = args.getInt(LAST_INDEX_OF_NAMES_ARRAY);
+    UiUtils.waitLayout(mNamesView, () -> {
+      LinearLayoutManager lm = (LinearLayoutManager) mNamesView.getLayoutManager();
+      int position = args.getInt(LAST_INDEX_OF_NAMES_ARRAY);
 
-        View nameItem = lm.findViewByPosition(position);
+      View nameItem = lm.findViewByPosition(position);
 
-        int cvNameTop = mCardName.getTop();
-        int nameItemTop = nameItem.getTop();
+      int cvNameTop = mCardName.getTop();
+      int nameItemTop = nameItem.getTop();
 
-        view.scrollTo(0, cvNameTop + nameItemTop);
+      view.scrollTo(0, cvNameTop + nameItemTop);
 
-        // TODO(mgsergio): Uncomment if focus and keyboard are required.
-        // TODO(mgsergio): Keyboard doesn't want to hide. Only pressing back button works.
-        // View nameItemInput = nameItem.findViewById(R.id.input);
-        // nameItemInput.requestFocus();
-        // InputUtils.showKeyboard(nameItemInput);
-      }
+      // TODO(mgsergio): Uncomment if focus and keyboard are required.
+      // TODO(mgsergio): Keyboard doesn't want to hide. Only pressing back button works.
+      // View nameItemInput = nameItem.findViewById(R.id.input);
+      // nameItemInput.requestFocus();
+      // InputUtils.showKeyboard(nameItemInput);
     });
   }
 

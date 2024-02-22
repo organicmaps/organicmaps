@@ -57,27 +57,17 @@ class SearchHistoryAdapter extends RecyclerView.Adapter<SearchHistoryAdapter.Vie
 
       case TYPE_CLEAR:
         res = new ViewHolder(LayoutInflater.from(viewGroup.getContext()).inflate(R.layout.item_search_clear_history, viewGroup, false));
-        res.mText.setOnClickListener(new View.OnClickListener()
-        {
-          @Override
-          public void onClick(View v)
-          {
-            SearchRecents.clear();
-            notifyDataSetChanged();
-          }
+        res.mText.setOnClickListener(v -> {
+          SearchRecents.clear();
+          notifyDataSetChanged();
         });
         break;
 
       case TYPE_MY_POSITION:
         res = new ViewHolder(LayoutInflater.from(viewGroup.getContext()).inflate(R.layout.item_search_my_position, viewGroup, false));
-        res.mText.setOnClickListener(new View.OnClickListener()
-        {
-          @Override
-          public void onClick(View v)
-          {
-            RoutingController.get().onPoiSelected(LocationHelper.from(viewGroup.getContext()).getMyPosition());
-            mSearchToolbarController.onUpClick();
-          }
+        res.mText.setOnClickListener(v -> {
+          RoutingController.get().onPoiSelected(LocationHelper.from(viewGroup.getContext()).getMyPosition());
+          mSearchToolbarController.onUpClick();
         });
         break;
 
