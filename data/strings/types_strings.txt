@@ -9651,6 +9651,13 @@
     vi = Ẩm thực nhật bản
     zh-Hans = 日本菜
     zh-Hant = 日本料理
+    
+  [type.cuisine.juice]
+    en = Juice
+    es = Zumo
+    zh-Hant = 果汁
+    zh = 蔬果汁
+
 
   [type.cuisine.kebab]
     en = Kebab

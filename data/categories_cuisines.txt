@@ -2189,6 +2189,12 @@ sk:Vegánske jedlá|Vegetariánske jedlá
 # he:מטבח יפני
 # sk:Japonská kuchyňa
 
+# cuisine-juice
+# en = Juice|Smoothies
+# es = Zumo
+# zh-Hans = 蔬果汁
+# zh-Hant = 果汁
+
 # cuisine-korean
 # en:Korean cuisine
 # ru:Корейская
