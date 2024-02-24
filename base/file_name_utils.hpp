@@ -17,7 +17,7 @@ std::string GetFileExtension(std::string const & name);
 /// Get file name from full path.
 void GetNameFromFullPath(std::string & name);
 
-std::string FileNameFromFullPath(std::string path);
+std::string_view FileNameFromFullPath(std::string_view path);
 
 /// Get file name from full path without extension.
 std::string GetNameFromFullPathWithoutExt(std::string path);

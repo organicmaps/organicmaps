@@ -271,7 +271,7 @@ int main(int argc, char ** argv)
 {
   gflags::SetUsageMessage("Reads GTFS feeds or subway transit.json, produces json with global ids for generator.");
   gflags::ParseCommandLineFlags(&argc, &argv, true);
-  auto const toolName = base::FileNameFromFullPath(argv[0]);
+  std::string const toolName {base::FileNameFromFullPath(argv[0])};
 
   if (FLAGS_path_gtfs_feeds.empty() && FLAGS_path_subway_json.empty())
   {

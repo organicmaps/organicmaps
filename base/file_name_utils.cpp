@@ -26,14 +26,17 @@ string GetFileExtension(string const & name)
 
 void GetNameFromFullPath(string & name)
 {
-  string::size_type const i = name.find_last_of("/\\");
+  auto const i = name.find_last_of("/\\");
   if (i != string::npos)
-    name = name.substr(i+1);
+    name = name.substr(i + 1);
 }
 
-std::string FileNameFromFullPath(std::string path)
+std::string_view FileNameFromFullPath(std::string_view path)
 {
-  GetNameFromFullPath(path);
+  auto const slashPos = path.find_last_of("/\\");
+  if (slashPos != string::npos)
+    return {path.data() + slashPos + 1, path.size() - slashPos - 1};
+
   return path;
 }
 

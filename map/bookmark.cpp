@@ -3,6 +3,7 @@
 
 #include "indexer/scales.hpp"
 
+#include "base/file_name_utils.hpp"
 #include "base/string_utils.hpp"
 
 #include <sstream>
@@ -365,6 +366,11 @@ void BookmarkCategory::SetCustomProperty(std::string const & key, std::string co
 std::string BookmarkCategory::GetName() const
 {
   return GetPreferredBookmarkStr(m_data.m_name);
+}
+
+std::string_view BookmarkCategory::GetFileNameWithoutPath() const
+{
+  return base::FileNameFromFullPath(m_file);
 }
 
 bool BookmarkCategory::HasElevationProfile() const

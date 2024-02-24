@@ -34,7 +34,7 @@ int main(int argc, char ** argv)
   gflags::SetUsageMessage(
       "Reads OSM file, generates text file with main cross-mwm roads for generator_tool.");
   gflags::ParseCommandLineFlags(&argc, &argv, true);
-  auto const toolName = base::FileNameFromFullPath(argv[0]);
+  std::string const toolName {base::FileNameFromFullPath(argv[0])};
 
   if (FLAGS_path_resources.empty() || !Platform::IsDirectory(FLAGS_path_resources) ||
       FLAGS_path_roads_file.empty() || FLAGS_path_res_file.empty())

@@ -80,7 +80,7 @@ bool CreateZipFromPathDeflatedAndDefaultCompression(std::string const & filePath
   zip::FileInfo zipInfo = {};
   CreateTMZip(zipInfo.tmz_date);
 
-  std::string fileName = base::FileNameFromFullPath(filePath);
+  std::string fileName {base::FileNameFromFullPath(filePath)};
   if (!strings::IsASCIIString(fileName))
     fileName = "OrganicMaps.kml";
 
