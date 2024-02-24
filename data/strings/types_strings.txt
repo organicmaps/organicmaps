@@ -547,7 +547,7 @@
     fi = Taidekeskus
     fr = Centre artistique
     hi = कला केंद्र
-    hu = Kézműves kellékek boltja
+    hu = Művészeti központ
     id = Pusat kesenian
     it = Centro artistico
     ja = 芸術センター
@@ -27288,7 +27288,7 @@
     fr = Matériel d'arts et de loisirs créatifs
     he = הריציו תונמוא
     hi = शिल्पकर्म
-    hu = Művészellátó
+    hu = Kézműves kellékek boltja
     id = Seni dan kerajinan
     it = Arti e mestieri
     ja = 美術工芸
