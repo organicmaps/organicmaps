@@ -73,7 +73,8 @@ enum class WheelchairAvailability
 {
   No,
   Yes,
-  Limited
+  Limited,
+  Unknown
 };
 
 inline std::string DebugPrint(WheelchairAvailability wheelchair)
@@ -83,6 +84,7 @@ inline std::string DebugPrint(WheelchairAvailability wheelchair)
   case WheelchairAvailability::No: return "No";
   case WheelchairAvailability::Yes: return "Yes";
   case WheelchairAvailability::Limited: return "Limited";
+  case WheelchairAvailability::Unknown: return "Unknown";
   }
   UNREACHABLE();
 }
