@@ -547,7 +547,7 @@
     fi = Taidekeskus
     fr = Centre artistique
     hi = कला केंद्र
-    hu = Művészeti központ
+    hu = Kézműves kellékek boltja
     id = Pusat kesenian
     it = Centro artistico
     ja = 芸術センター
@@ -1280,7 +1280,7 @@
     fi = Arcade
     fr = Salle de jeux d'arcade
     he = מִקמֶרֶת
-    hu = Játékautomata-sor
+    hu = Játékterem
     id = Arkade
     it = Arcade
     ja = アーケード
@@ -4174,7 +4174,7 @@
     fi = Kierrätysjäteastia
     fr = Conteneur de recyclage
     hi = रीसाइक्लिंग कंटेनर
-    hu = Újrahasznosító edény
+    hu = Újrahasznosító konténer
     id = Wadah daur ulang
     it = Contenitore per materiali riciclabili
     ja = リサイクルボックス
@@ -4835,7 +4835,7 @@
     fi = Stripclub
     fr = Club de strip-tease
     he = מועדון חשפנות
-    hu = Striptízklub
+    hu = Sztriptízbár
     id = Klub telanjang
     it = Stripclub
     ja = ストリップクラブ
@@ -20743,7 +20743,7 @@
     fr = Quartier
     he = פרוור
     hi = उपनगर
-    hu = Külváros
+    hu = Kertváros
     id = Pinggiran kota
     it = Quartiere
     ja = 区
@@ -23884,7 +23884,7 @@
     fi = Auton osat
     fr = Pièces de voiture
     hi = गाड़ी के पुर्जे
-    hu = Autóalkatrészek
+    hu = Autóalkatrész-bolt
     id = Bagian mobil
     it = Ricambi auto
     ja = 車両部品
@@ -24723,7 +24723,7 @@
     fr = Magasin d'alimentation à la ferme
     he = הווחל ןוזמ תונח
     hi = खेती से उत्पन्न खाद्द की दुकान
-    hu = Tanyasi bolt
+    hu = Termelői bolt
     id = Toko Makanan Pertanian
     it = Negozio di prodotti alimentari della fattoria
     ja = ファームフードショップ
@@ -26411,7 +26411,7 @@
     fi = Kirjoitustarvikekauppa
     fr = Papeterie
     hi = लेखन सामग्री की दुकान
-    hu = Papír-írószer
+    hu = Papír-írószer bolt
     id = Toko Alat Tulis
     it = Cartoleria
     ja = 文房具店
@@ -27455,7 +27455,7 @@
     fr = Décorations intérieures
     he = םינפ יטושיק
     hi = आंतरिक सजावट
-    hu = Belsőépítészeti dekorációk
+    hu = Lakberendezési áruház
     id = Dekorasi Interior
     it = Decorazioni per interni
     ja = 室内装飾
@@ -27703,7 +27703,7 @@
     fr = Mercerie
     he = הריפת דויצ
     hi = सिलाई आपूर्ति की दुकान
-    hu = Varrás kellékek boltja
+    hu = Varrókellékek boltja
     id = Perlengkapan Jahit
     it = Forniture per il cucito
     ja = ミシン用品
@@ -27827,7 +27827,7 @@
     fr = Grossiste
     he = הקפסאב רחוס
     hi = व्यापार की आपूर्ति
-    hu = Kellékek
+    hu = Kereskedelmi kellékek
     id = Perlengkapan Perdagangan
     it = Forniture commerciali
     ja = 貿易用品
