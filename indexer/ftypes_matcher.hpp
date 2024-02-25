@@ -476,14 +476,6 @@ public:
   DECLARE_CHECKER_INSTANCE(IsFeeTypeChecker);
 };
 
-class IsWheelchairTypeChecker : public BaseChecker
-{
-  IsWheelchairTypeChecker();
-
-public:
-  DECLARE_CHECKER_INSTANCE(IsWheelchairTypeChecker);
-};
-
 class IsToiletsChecker : public BaseChecker
 {
   IsToiletsChecker();

@@ -74,7 +74,6 @@ enum class WheelchairAvailability
   No,
   Yes,
   Limited,
-  Unknown
 };
 
 inline std::string DebugPrint(WheelchairAvailability wheelchair)
@@ -84,7 +83,6 @@ inline std::string DebugPrint(WheelchairAvailability wheelchair)
   case WheelchairAvailability::No: return "No";
   case WheelchairAvailability::Yes: return "Yes";
   case WheelchairAvailability::Limited: return "Limited";
-  case WheelchairAvailability::Unknown: return "Unknown";
   }
   UNREACHABLE();
 }
@@ -99,8 +97,7 @@ class Wheelchair : public TraitsBase<Wheelchair, WheelchairAvailability>
   {
     m_matcher.Append<TypesInitializer>({{"wheelchair", "no"}}, WheelchairAvailability::No);
     m_matcher.Append<TypesInitializer>({{"wheelchair", "yes"}}, WheelchairAvailability::Yes);
-    m_matcher.Append<TypesInitializer>({{"wheelchair", "limited"}},
-                                       WheelchairAvailability::Limited);
+    m_matcher.Append<TypesInitializer>({{"wheelchair", "limited"}}, WheelchairAvailability::Limited);
   }
 };
 
