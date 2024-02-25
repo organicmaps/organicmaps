@@ -8,6 +8,7 @@ import androidx.annotation.Nullable;
 import androidx.fragment.app.FragmentActivity;
 
 import app.organicmaps.R;
+import app.organicmaps.bookmarks.data.BookmarkCategory;
 import app.organicmaps.bookmarks.data.BookmarkManager;
 import app.organicmaps.bookmarks.data.BookmarkSharingResult;
 import app.organicmaps.util.SharingUtils;
@@ -73,5 +74,15 @@ public enum BookmarksSharingHelper
       }
       default -> throw new AssertionError("Unsupported bookmark sharing code: " + result.getCode());
     }
+  }
+
+  public void prepareBookmarkCategoriesForSharing(@NonNull Activity context)
+  {
+    showProgressDialog(context);
+    List<BookmarkCategory> categories = BookmarkManager.INSTANCE.getCategories();
+    long[] categoryIds = new long[categories.size()];
+    for (int i = 0; i < categories.size(); i++)
+      categoryIds[i] = categories.get(i).getId();
+    BookmarkManager.INSTANCE.prepareCategoriesForSharing(categoryIds);
   }
 }

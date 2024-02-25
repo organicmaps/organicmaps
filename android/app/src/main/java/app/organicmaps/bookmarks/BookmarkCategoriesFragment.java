@@ -256,6 +256,12 @@ public class BookmarkCategoriesFragment extends BaseMwmRecyclerFragment<Bookmark
     BookmarkListActivity.startForResult(this, category);
   }
 
+  @Override
+  public void onExportButtonClick()
+  {
+    BookmarksSharingHelper.INSTANCE.prepareBookmarkCategoriesForSharing(requireActivity());
+  }
+
   private void onShowActionSelected(@NonNull BookmarkCategory category)
   {
     BookmarkManager.INSTANCE.toggleCategoryVisibility(category);
