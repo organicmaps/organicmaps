@@ -410,7 +410,7 @@ UNIT_CLASS_TEST(TestWithClassificator, OsmType_Synonyms)
     TEST(params.IsTypeExist(GetType({"amenity", "restaurant"})), ());
     TEST(params.IsTypeExist(GetType({"tourism", "hotel"})), ());
     TEST(params.IsTypeExist(GetType({"toilets", "yes"})), ());
-    TEST(params.IsTypeExist(GetType({"amenity", "drinking_water"})), ());
+    TEST(params.IsTypeExist(GetType({"drinking_water", "yes"})), ());
   }
 
   // Duplicating test.
