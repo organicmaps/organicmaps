@@ -101,4 +101,24 @@ class Wheelchair : public TraitsBase<Wheelchair, WheelchairAvailability>
   }
 };
 
+enum class DrinkingWaterAvailability
+{
+  No,
+  Yes,
+};
+
+class DrinkingWater : public TraitsBase<DrinkingWater, DrinkingWaterAvailability>
+{
+  friend class TraitsBase;
+
+  using TypesInitializer = std::initializer_list<std::initializer_list<char const *>>;
+
+  DrinkingWater()
+  {
+    m_matcher.Append<TypesInitializer>({{"drinking_water", "no"}}, DrinkingWaterAvailability::No);
+    m_matcher.Append<TypesInitializer>({{"drinking_water", "yes"}}, DrinkingWaterAvailability::Yes);
+    m_matcher.Append<TypesInitializer>({{"amenity", "drinking_water"}}, DrinkingWaterAvailability::Yes);
+  }
+};
+
 }  // namespace ftraits
