@@ -775,6 +775,7 @@
 	<string name="type.amenity.dentist">Dokter gigi</string>
 	<string name="type.amenity.doctors">Praktik dokter</string>
 	<string name="type.amenity.drinking_water">Air minum</string>
+	<string name="type.drinking_water.yes">Air minum</string>
 	<string name="type.amenity.driving_school">Sekolah Mengemudi</string>
 	<string name="type.amenity.exhibition_centre">Pusat pameran</string>
 	<string name="type.amenity.money_transfer">Transfer uang</string>

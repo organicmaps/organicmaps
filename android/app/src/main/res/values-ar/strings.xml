@@ -845,6 +845,7 @@
 	<string name="type.amenity.dentist">طبيب أسنان</string>
 	<string name="type.amenity.doctors">طبيب</string>
 	<string name="type.amenity.drinking_water">مياه شرب</string>
+	<string name="type.drinking_water.yes">مياه شرب</string>
 	<string name="type.amenity.driving_school">مدرسة قيادة</string>
 	<string name="type.amenity.exhibition_centre">مركز المعرض</string>
 	<string name="type.amenity.money_transfer">تحويل المال</string>

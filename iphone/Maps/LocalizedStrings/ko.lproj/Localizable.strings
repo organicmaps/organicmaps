@@ -1366,6 +1366,8 @@
 
 "type.amenity.drinking_water" = "음수대";
 
+"type.drinking_water.yes" = "음수대";
+
 "type.amenity.driving_school" = "운전학원";
 
 "type.amenity.exhibition_centre" = "전시 센터";

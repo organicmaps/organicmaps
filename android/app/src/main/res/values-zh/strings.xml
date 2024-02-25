@@ -803,6 +803,7 @@
 	<string name="type.amenity.dentist">牙科医生</string>
 	<string name="type.amenity.doctors">医师办公室</string>
 	<string name="type.amenity.drinking_water">饮用水</string>
+	<string name="type.drinking_water.yes">饮用水</string>
 	<string name="type.amenity.driving_school">驾校</string>
 	<string name="type.amenity.exhibition_centre">展览中心</string>
 	<string name="type.amenity.money_transfer">汇款</string>

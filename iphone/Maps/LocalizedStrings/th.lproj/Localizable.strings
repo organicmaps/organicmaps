@@ -1366,6 +1366,8 @@
 
 "type.amenity.drinking_water" = "น้ำดื่ม";
 
+"type.drinking_water.yes" = "น้ำดื่ม";
+
 "type.amenity.driving_school" = "โรงเรียนสอนขับรถ";
 
 "type.amenity.exhibition_centre" = "ศูนย์นิทรรศการ";

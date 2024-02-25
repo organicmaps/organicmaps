@@ -809,6 +809,7 @@
 	<string name="type.amenity.dentist">牙醫</string>
 	<string name="type.amenity.doctors">醫師診間</string>
 	<string name="type.amenity.drinking_water">飲用水</string>
+	<string name="type.drinking_water.yes">飲用水</string>
 	<string name="type.amenity.driving_school">駕訓班</string>
 	<string name="type.amenity.exhibition_centre">展覽中心</string>
 	<string name="type.amenity.money_transfer">匯款</string>

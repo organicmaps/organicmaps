@@ -1366,6 +1366,8 @@
 
 "type.amenity.drinking_water" = "اب اشامیدنی";
 
+"type.drinking_water.yes" = "اب اشامیدنی";
+
 "type.amenity.driving_school" = "اموزشگاه رانندگی";
 
 "type.amenity.exhibition_centre" = "مرکز نمایشگاه";

@@ -1366,6 +1366,8 @@
 
 "type.amenity.drinking_water" = "Pitná voda";
 
+"type.drinking_water.yes" = "Pitná voda";
+
 "type.amenity.driving_school" = "Autoškola";
 
 "type.amenity.exhibition_centre" = "Výstaviště";

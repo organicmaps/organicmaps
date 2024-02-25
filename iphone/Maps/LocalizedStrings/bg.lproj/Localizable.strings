@@ -1366,6 +1366,8 @@
 
 "type.amenity.drinking_water" = "Drinking Water";
 
+"type.drinking_water.yes" = "Drinking Water";
+
 "type.amenity.driving_school" = "Автошкола";
 
 "type.amenity.exhibition_centre" = "Изложбен център";

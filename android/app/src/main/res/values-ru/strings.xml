@@ -850,6 +850,7 @@
 	<string name="type.amenity.dentist">Стоматология</string>
 	<string name="type.amenity.doctors">Врач</string>
 	<string name="type.amenity.drinking_water">Питьевая вода</string>
+	<string name="type.drinking_water.yes">Питьевая вода</string>
 	<string name="type.amenity.driving_school">Автошкола</string>
 	<string name="type.amenity.exhibition_centre">Выставочный центр</string>
 	<string name="type.amenity.money_transfer">Денежные переводы</string>

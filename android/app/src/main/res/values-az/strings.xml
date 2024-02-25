@@ -833,6 +833,7 @@
 	<string name="type.amenity.dentist">Diş həkimi</string>
 	<string name="type.amenity.doctors">Həkim</string>
 	<string name="type.amenity.drinking_water">İçməli su</string>
+	<string name="type.drinking_water.yes">İçməli su</string>
 	<string name="type.amenity.driving_school">Sürücülük Məktəbi</string>
 	<string name="type.amenity.exhibition_centre">Sərgi Mərkəzi</string>
 	<string name="type.amenity.money_transfer">Pul köçürməsi</string>

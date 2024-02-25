@@ -1366,6 +1366,8 @@
 
 "type.amenity.drinking_water" = "Woda pitna";
 
+"type.drinking_water.yes" = "Woda pitna";
+
 "type.amenity.driving_school" = "Szkoła nauki jazdy";
 
 "type.amenity.exhibition_centre" = "Centrum wystawiennicze";

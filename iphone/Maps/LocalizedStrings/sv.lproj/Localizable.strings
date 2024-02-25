@@ -1366,6 +1366,8 @@
 
 "type.amenity.drinking_water" = "Dricksvatten";
 
+"type.drinking_water.yes" = "Dricksvatten";
+
 "type.amenity.driving_school" = "Körskola";
 
 "type.amenity.exhibition_centre" = "Mässa";

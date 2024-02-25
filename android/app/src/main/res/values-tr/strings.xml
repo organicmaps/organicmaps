@@ -841,6 +841,7 @@
 	<string name="type.amenity.dentist">Dişçi</string>
 	<string name="type.amenity.doctors">Doktor</string>
 	<string name="type.amenity.drinking_water">İçme Suyu</string>
+	<string name="type.drinking_water.yes">İçme Suyu</string>
 	<string name="type.amenity.driving_school">Sürücü Kursu</string>
 	<string name="type.amenity.exhibition_centre">Sergi Merkezi</string>
 	<string name="type.amenity.money_transfer">Para Aktarımı</string>

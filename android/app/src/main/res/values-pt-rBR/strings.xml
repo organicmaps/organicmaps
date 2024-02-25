@@ -803,6 +803,7 @@
 	<string name="type.amenity.dentist">Dentista</string>
 	<string name="type.amenity.doctors">Consultório médico</string>
 	<string name="type.amenity.drinking_water">Água potável</string>
+	<string name="type.drinking_water.yes">Água potável</string>
 	<string name="type.amenity.driving_school">Autoescola</string>
 	<string name="type.amenity.money_transfer">Transferência de dinheiro</string>
 	<string name="type.office.diplomatic">Embaixada ou consulado</string>

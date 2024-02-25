@@ -505,6 +505,7 @@
 	<string name="type.amenity.dentist">दाँतों का डॉक्टर</string>
 	<string name="type.amenity.doctors">चिकित्सक</string>
 	<string name="type.amenity.drinking_water">पीने का पानी</string>
+	<string name="type.drinking_water.yes">पीने का पानी</string>
 	<string name="type.amenity.driving_school">ड्राइविंग स्कूल</string>
 	<string name="type.amenity.music_school">संगीत विद्यालय</string>
 	<string name="type.amenity.language_school">भाषा का स्कूल</string>

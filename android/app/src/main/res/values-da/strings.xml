@@ -777,6 +777,7 @@
 	<string name="type.amenity.dentist">Tandlæge</string>
 	<string name="type.amenity.doctors">Lægekontor</string>
 	<string name="type.amenity.drinking_water">Vand</string>
+	<string name="type.drinking_water.yes">Vand</string>
 	<string name="type.amenity.driving_school">Køreskole</string>
 	<string name="type.amenity.exhibition_centre">Udstillingscenter</string>
 	<string name="type.amenity.money_transfer">Pengeoverførsel</string>

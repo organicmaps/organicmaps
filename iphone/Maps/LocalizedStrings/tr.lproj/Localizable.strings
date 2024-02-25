@@ -1366,6 +1366,8 @@
 
 "type.amenity.drinking_water" = "İçme Suyu";
 
+"type.drinking_water.yes" = "İçme Suyu";
+
 "type.amenity.driving_school" = "Sürücü Kursu";
 
 "type.amenity.exhibition_centre" = "Sergi Merkezi";

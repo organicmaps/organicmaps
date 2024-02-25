@@ -1366,6 +1366,8 @@
 
 "type.amenity.drinking_water" = "Apă de băut";
 
+"type.drinking_water.yes" = "Apă de băut";
+
 "type.amenity.driving_school" = "Școală de șoferi";
 
 "type.amenity.exhibition_centre" = "Centru de expozitie";

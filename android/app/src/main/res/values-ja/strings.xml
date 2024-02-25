@@ -836,6 +836,7 @@
 	<string name="type.amenity.dentist">歯医者</string>
 	<string name="type.amenity.doctors">医院</string>
 	<string name="type.amenity.drinking_water">水飲み場</string>
+	<string name="type.drinking_water.yes">水飲み場</string>
 	<string name="type.amenity.driving_school">自動車教習所</string>
 	<string name="type.amenity.exhibition_centre">エキシビションセンター</string>
 	<string name="type.amenity.money_transfer">送金</string>

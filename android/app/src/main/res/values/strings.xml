@@ -890,6 +890,7 @@
 	<string name="type.amenity.dentist">Dentist</string>
 	<string name="type.amenity.doctors">Doctor</string>
 	<string name="type.amenity.drinking_water">Drinking Water</string>
+	<string name="type.drinking_water.yes">Drinking Water</string>
 	<string name="type.amenity.driving_school">Driving School</string>
 	<string name="type.amenity.exhibition_centre">Exhibition Center</string>
 	<string name="type.amenity.money_transfer">Money Transfer</string>

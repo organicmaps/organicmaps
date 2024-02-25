@@ -833,6 +833,7 @@
 	<string name="type.amenity.dentist">Dentista</string>
 	<string name="type.amenity.doctors">Kontsulta medikoa</string>
 	<string name="type.amenity.drinking_water">Ur edangarria</string>
+	<string name="type.drinking_water.yes">Ur edangarria</string>
 	<string name="type.amenity.driving_school">Autoeskola</string>
 	<string name="type.amenity.exhibition_centre">Erakusketa Zentroa</string>
 	<string name="type.amenity.money_transfer">Diru transferentzia</string>
