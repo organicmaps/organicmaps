@@ -734,8 +734,26 @@
 	<string name="enable_show_on_lock_screen_description">Când este activată, nu trebuie să deblochezi telefonul de fiecare dată când aplicația este în funcțiune.</string>
 	<!-- OpenStreetMap text on splash screen -->
 	<string name="splash_subtitle">Date cartografice din OpenStreetMap</string>
-	<!-- Tip #00 -->
+	<!-- App Tip #00 -->
 	<string name="app_tip_00">Vă mulțumim că utilizați hărțile create de comunitatea noastră!</string>
+	<!-- App tip #01 -->
+	<string name="app_tip_01">Cu donațiile și sprijinul dumneavoastră, putem crea cele mai bune hărți din lume!</string>
+	<!-- App tip #02 -->
+	<string name="app_tip_02">Îți place aplicația noastră? Vă rugăm să donați pentru a sprijini dezvoltarea! Nu-ți place încă? Vă rugăm să ne anunțați și vom remedia!</string>
+	<!-- App tip #03 -->
+	<string name="app_tip_03">Dacă cunoașteți un dezvoltator de software, îi puteți cere să implementeze o caracteristică de care aveți nevoie.</string>
+	<!-- App tip #04 -->
+	<string name="app_tip_04">Știți că puteți atinge lung orice loc de pe hartă pentru a-l selecta?</string>
+	<!-- App tip #05 -->
+	<string name="app_tip_05">Știți că vă puteți selecta locația curentă pe hartă?</string>
+	<!-- App tip #06 -->
+	<string name="app_tip_06">Puteți ajuta la traducerea aplicației noastre în limba dvs.</string>
+	<!-- App tip #07 -->
+	<string name="app_tip_07">Aplicația noastră este dezvoltată de câțiva entuziaști și de comunitate.</string>
+	<!-- App tip #08 -->
+	<string name="app_tip_08">Puteți remedia și îmbunătăți cu ușurință datele hărții.</string>
+	<!-- App tip #09 -->
+	<string name="app_tip_09">Scopul nostru principal este să construim hărți rapide, axate pe confidențialitate și ușor de utilizat, care să vă placă.</string>
 	<!-- Text on the Android Auto placeholder screen that maps are displayed on the phone screen -->
 	<string name="aa_used_on_the_phone_screen">Acum utilizați Organic Maps pe ecranul telefonului</string>
 	<!-- Text on the phone placeholder screen that maps are displayed on the car screen -->
@@ -759,6 +777,8 @@
 	<!-- Text displayed in a dialog when OSM authorization is disabled -->
 	<string name="osm_login_not_available">Autorizarea OpenStreetMap este temporar indisponibilă din cauza noilor restricții din Google Play 😾\nEchipa noastră lucrează pentru a rezolva această problemă. Vă rugăm să aveți răbdare 🙏</string>
 	<string name="volume">Volum</string>
+	<!-- Bookmark categories screen, button that opens share dialog to export all bookmarks and tracks -->
+	<string name="bookmarks_export">Exportați toate marcajele și piesele</string>
 
 	<!-- SECTION: Types -->
 	<string name="type.addr_interpolation">Adresă/Bloc</string>

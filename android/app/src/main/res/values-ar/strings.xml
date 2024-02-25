@@ -765,8 +765,26 @@
 	<string name="splash_subtitle">بيانات الخريطة من خريطة الشارع المفتوحة</string>
 	<!-- Link to OSM wiki for Editor, Profile and About pages -->
 	<string name="osm_wiki_about_url">https://wiki.openstreetmap.org/wiki/Ar:About_OpenStreetMap</string>
-	<!-- Tip #00 -->
+	<!-- App Tip #00 -->
 	<string name="app_tip_00">شكرًا لك على استخدام الخرائط التي أنشأها مجتمعنا!</string>
+	<!-- App tip #01 -->
+	<string name="app_tip_01">بتبرعاتكم ودعمكم، يمكننا إنشاء أفضل الخرائط في العالم!</string>
+	<!-- App tip #02 -->
+	<string name="app_tip_02">هل تحب التطبيق لدينا؟ يرجى التبرع لدعم التنمية! لا أحب ذلك حتى الآن؟ واسمحوا لنا أن نعرف، وسوف نقوم بإصلاحه!</string>
+	<!-- App tip #03 -->
+	<string name="app_tip_03">إذا كنت تعرف أحد مطوري البرامج، فيمكنك أن تطلب منه تنفيذ الميزة التي تحتاجها.</string>
+	<!-- App tip #04 -->
+	<string name="app_tip_04">هل تعلم أنه يمكنك النقر لفترة طويلة على أي مكان على الخريطة لتحديده؟</string>
+	<!-- App tip #05 -->
+	<string name="app_tip_05">هل تعلم أنه يمكنك تحديد موقعك الحالي على الخريطة؟</string>
+	<!-- App tip #06 -->
+	<string name="app_tip_06">يمكنك المساعدة في ترجمة تطبيقنا إلى لغتك.</string>
+	<!-- App tip #07 -->
+	<string name="app_tip_07">تم تطوير تطبيقنا من قبل عدد قليل من المتحمسين والمجتمع.</string>
+	<!-- App tip #08 -->
+	<string name="app_tip_08">يمكنك بسهولة إصلاح وتحسين بيانات الخريطة.</string>
+	<!-- App tip #09 -->
+	<string name="app_tip_09">هدفنا الرئيسي هو إنشاء خرائط سريعة وسهلة الاستخدام تركز على الخصوصية والتي ستعجبك.</string>
 	<!-- Text on the Android Auto placeholder screen that maps are displayed on the phone screen -->
 	<string name="aa_used_on_the_phone_screen">أنت الآن تستخدم الخرائط العضوية على شاشة الهاتف</string>
 	<!-- Text on the phone placeholder screen that maps are displayed on the car screen -->
@@ -788,6 +806,8 @@
 	<!-- Text displayed when a webview or a browser are disabled, and external links can't be opened. -->
 	<string name="browser_not_available">متصفح الويب غير متوفر</string>
 	<string name="volume">مستوى الصوت</string>
+	<!-- Bookmark categories screen, button that opens share dialog to export all bookmarks and tracks -->
+	<string name="bookmarks_export">تصدير كافة الإشارات المرجعية والمسارات</string>
 
 	<!-- SECTION: Types -->
 	<string name="type.addr_interpolation">العنوان / البلوك</string>

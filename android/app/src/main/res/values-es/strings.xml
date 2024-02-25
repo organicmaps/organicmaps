@@ -758,8 +758,26 @@
 	<string name="translated_om_site_url">https://organicmaps.app/es/</string>
 	<!-- Link to OSM wiki for Editor, Profile and About pages -->
 	<string name="osm_wiki_about_url">https://wiki.openstreetmap.org/wiki/ES:Acerca_de_OpenStreetMap</string>
-	<!-- Tip #00 -->
+	<!-- App Tip #00 -->
 	<string name="app_tip_00">¡Gracias por utilizar nuestros mapas creados por la comunidad!</string>
+	<!-- App tip #01 -->
+	<string name="app_tip_01">¡Con sus donaciones y apoyo, podemos crear los mejores mapas del mundo!</string>
+	<!-- App tip #02 -->
+	<string name="app_tip_02">¿Le gusta nuestra aplicación? ¡Por favor done para apoyar su desarrollo! ¿Todavía no le gusta? ¡Díganos por qué y lo arreglaremos!</string>
+	<!-- App tip #03 -->
+	<string name="app_tip_03">Si conoce a algún desarrollador o desarrolladora de software, le puede pedir que implemente alguna funcionalidad que usted necesite.</string>
+	<!-- App tip #04 -->
+	<string name="app_tip_04">¿Sabía que puede pulsar prolongadamente sobre cualquier lugar en el mapa para selecionarlo?</string>
+	<!-- App tip #05 -->
+	<string name="app_tip_05">¿Sabía que su ubicación actual en el mapa se puede seleccionar?</string>
+	<!-- App tip #06 -->
+	<string name="app_tip_06">Puede ayudar a traducir nuestra aplicación a su idioma.</string>
+	<!-- App tip #07 -->
+	<string name="app_tip_07">Nuestra aplicación está desarrollada por unos pocos entusiastas y la comunidad.</string>
+	<!-- App tip #08 -->
+	<string name="app_tip_08">Puede arreglar y mejorar fácilmente los datos del mapa.</string>
+	<!-- App tip #09 -->
+	<string name="app_tip_09">Nuestro principal objetivo es crear mapas rápidos, centrados en la privacidad y fáciles de utilizar que le encantarán.</string>
 	<!-- Text on the Android Auto placeholder screen that maps are displayed on the phone screen -->
 	<string name="aa_used_on_the_phone_screen">Ahora usa Organic Maps en la pantalla del teléfono</string>
 	<!-- Text on the phone placeholder screen that maps are displayed on the car screen -->
@@ -783,6 +801,8 @@
 	<!-- Text displayed in a dialog when OSM authorization is disabled -->
 	<string name="osm_login_not_available">La autorización de OpenStreetMap no está disponible temporalmente debido a nuevas restricciones en Google Play 😾🙏nNuestro equipo está trabajando para resolver este problema. Por favor, ten paciencia 🙏</string>
 	<string name="volume">Volumen</string>
+	<!-- Bookmark categories screen, button that opens share dialog to export all bookmarks and tracks -->
+	<string name="bookmarks_export">Exportar todos los Marcadores y Tracks</string>
 
 	<!-- SECTION: Types -->
 	<string name="type.addr_interpolation">Dirección/Bloque</string>

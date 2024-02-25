@@ -709,8 +709,26 @@
 	<string name="splash_subtitle">Data peta dari OpenStreetMap</string>
 	<!-- Translated Organic Maps site, add new translations here: https://github.com/organicmaps/organicmaps.github.io/tree/master/content -->
 	<string name="translated_om_site_url">https://organicmaps.app/id/</string>
-	<!-- Tip #00 -->
+	<!-- App Tip #00 -->
 	<string name="app_tip_00">Terima kasih telah menggunakan peta buatan komunitas kami!</string>
+	<!-- App tip #01 -->
+	<string name="app_tip_01">Dengan donasi dan dukungan Anda, kami dapat membuat peta terbaik di Dunia!</string>
+	<!-- App tip #02 -->
+	<string name="app_tip_02">Apakah Anda menyukai aplikasi kami? Silakan berdonasi untuk mendukung pengembangan! Belum menyukainya? Harap beri tahu kami, dan kami akan memperbaikinya!</string>
+	<!-- App tip #03 -->
+	<string name="app_tip_03">Jika Anda mengenal seorang pengembang perangkat lunak, Anda dapat memintanya untuk mengimplementasikan fitur yang Anda perlukan.</string>
+	<!-- App tip #04 -->
+	<string name="app_tip_04">Tahukah Anda bahwa Anda dapat mengetuk lama tempat mana pun di peta untuk memilihnya?</string>
+	<!-- App tip #05 -->
+	<string name="app_tip_05">Tahukah Anda bahwa Anda dapat memilih lokasi Anda saat ini di peta?</string>
+	<!-- App tip #06 -->
+	<string name="app_tip_06">Anda dapat membantu menerjemahkan aplikasi kami ke dalam bahasa Anda.</string>
+	<!-- App tip #07 -->
+	<string name="app_tip_07">Aplikasi kami dikembangkan oleh beberapa peminat dan komunitas.</string>
+	<!-- App tip #08 -->
+	<string name="app_tip_08">Anda dapat dengan mudah memperbaiki dan meningkatkan data peta.</string>
+	<!-- App tip #09 -->
+	<string name="app_tip_09">Tujuan utama kami adalah membuat peta yang cepat, berfokus pada privasi, dan mudah digunakan yang akan Anda sukai.</string>
 	<!-- Text on the Android Auto placeholder screen that maps are displayed on the phone screen -->
 	<string name="aa_used_on_the_phone_screen">Anda sekarang menggunakan Organic Maps pada layar ponsel</string>
 	<!-- Text on the phone placeholder screen that maps are displayed on the car screen -->
@@ -734,6 +752,8 @@
 	<!-- Text displayed in a dialog when OSM authorization is disabled -->
 	<string name="osm_login_not_available">Otorisasi OpenStreetMap untuk sementara tidak tersedia karena adanya pembatasan baru di Google Play 😾\nTim kami sedang bekerja untuk menyelesaikan masalah ini. Mohon bersabar 🙏</string>
 	<string name="volume">Volume</string>
+	<!-- Bookmark categories screen, button that opens share dialog to export all bookmarks and tracks -->
+	<string name="bookmarks_export">Mengekspor semua Penanda dan Trek</string>
 
 	<!-- SECTION: Types -->
 	<string name="type.addr_interpolation">Alamat/Blokir</string>

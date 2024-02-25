@@ -747,8 +747,26 @@
 	<string name="translated_om_site_url">https://organicmaps.app/ca/</string>
 	<!-- Link to OSM wiki for Editor, Profile and About pages -->
 	<string name="osm_wiki_about_url">https://wiki.openstreetmap.org/wiki/Ca:About</string>
-	<!-- Tip #00 -->
+	<!-- App Tip #00 -->
 	<string name="app_tip_00">Gràcies per utilitzar els nostres mapes creats per la comunitat!</string>
+	<!-- App tip #01 -->
+	<string name="app_tip_01">Amb les vostres donacions i suport, podem crear els millors mapes del món!</string>
+	<!-- App tip #02 -->
+	<string name="app_tip_02">Us agrada la nostra aplicació? Feu una donació per donar suport al desenvolupament! Encara no us agrada? Si us plau, feu-nos-ho saber i ho solucionarem!</string>
+	<!-- App tip #03 -->
+	<string name="app_tip_03">Si coneixeu un desenvolupador de programari, podeu demanar-li que implementi una funcionalitat que necessiteu.</string>
+	<!-- App tip #04 -->
+	<string name="app_tip_04">Sabíeu que podeu tocar llargament qualsevol lloc del mapa per seleccionar-lo?</string>
+	<!-- App tip #05 -->
+	<string name="app_tip_05">Sabíeu que podeu seleccionar la vostra ubicació actual al mapa?</string>
+	<!-- App tip #06 -->
+	<string name="app_tip_06">Podeu ajudar a traduir la nostra aplicació a la vostra llengua.</string>
+	<!-- App tip #07 -->
+	<string name="app_tip_07">La nostra aplicació està desenvolupada per uns quants entusiastes i la comunitat.</string>
+	<!-- App tip #08 -->
+	<string name="app_tip_08">Podeu corregir i millorar fàcilment les dades del mapa.</string>
+	<!-- App tip #09 -->
+	<string name="app_tip_09">El nostre objectiu principal és crear mapes ràpids, centrats en la privadesa i fàcils d\'utilitzar que us encantaran.</string>
 	<!-- Text on the Android Auto placeholder screen that maps are displayed on the phone screen -->
 	<string name="aa_used_on_the_phone_screen">Ara esteu utilitzant els Organic Maps a la pantalla del telèfon</string>
 	<!-- Text on the phone placeholder screen that maps are displayed on the car screen -->
@@ -770,6 +788,8 @@
 	<!-- Text displayed when a webview or a browser are disabled, and external links can't be opened. -->
 	<string name="browser_not_available">El navegador web no està disponible</string>
 	<string name="volume">Volum</string>
+	<!-- Bookmark categories screen, button that opens share dialog to export all bookmarks and tracks -->
+	<string name="bookmarks_export">Exporta totes les adreces d\'interès i pistes</string>
 
 	<!-- SECTION: Types -->
 	<string name="type.addr_interpolation">Adreça/Bloc</string>

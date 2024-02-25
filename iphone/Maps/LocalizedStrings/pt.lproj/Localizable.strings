@@ -562,9 +562,9 @@
 /* Text for allday switch. */
 "editor_time_allday" = "Todo o dia (24 horas)";
 
-"editor_time_open" = "Aberto";
+"editor_time_open" = "Abre";
 
-"editor_time_close" = "Fechado";
+"editor_time_close" = "Fecha";
 
 "editor_time_add_closed" = "Inserir horas de encerrrado";
 

@@ -267,8 +267,26 @@
 	<string name="enable_keep_screen_on_description">Ikiwashwa, skrini itakuwa imewashwa wakati wa kuonyesha ramani.</string>
 	<!-- OpenStreetMap text on splash screen -->
 	<string name="splash_subtitle">Data ya ramani kutoka OpenStreetMap</string>
-	<!-- Tip #00 -->
+	<!-- App Tip #00 -->
 	<string name="app_tip_00">Asante kwa kutumia ramani zetu zilizojengwa na jumuiya!</string>
+	<!-- App tip #01 -->
+	<string name="app_tip_01">Kwa michango na usaidizi wako, tunaweza kuunda ramani bora zaidi Duniani!</string>
+	<!-- App tip #02 -->
+	<string name="app_tip_02">Je, unapenda programu yetu? Tafadhali toa mchango ili kusaidia maendeleo! Je, huipendi bado? Tafadhali tujulishe, na tutarekebisha!</string>
+	<!-- App tip #03 -->
+	<string name="app_tip_03">Ikiwa unajua msanidi programu, unaweza kumwomba kutekeleza kipengele unachohitaji.</string>
+	<!-- App tip #04 -->
+	<string name="app_tip_04">Je, unajua kwamba unaweza kugonga kwa muda mrefu sehemu yoyote kwenye ramani ili kuichagua?</string>
+	<!-- App tip #05 -->
+	<string name="app_tip_05">Je, unajua kwamba unaweza kuchagua eneo lako la sasa kwenye ramani?</string>
+	<!-- App tip #06 -->
+	<string name="app_tip_06">Unaweza kusaidia kutafsiri programu yetu katika lugha yako.</string>
+	<!-- App tip #07 -->
+	<string name="app_tip_07">Programu yetu imeundwa na washiriki wachache na jamii.</string>
+	<!-- App tip #08 -->
+	<string name="app_tip_08">Unaweza kurekebisha na kuboresha data ya ramani kwa urahisi.</string>
+	<!-- App tip #09 -->
+	<string name="app_tip_09">Lengo letu kuu ni kujenga ramani za haraka, zinazozingatia faragha, na rahisi kutumia ambazo utapenda.</string>
 	<!-- Text on the Android Auto placeholder screen that maps are displayed on the phone screen -->
 	<string name="aa_used_on_the_phone_screen">Sasa unatumia ramani za kikaboni kwenye skrini ya simu</string>
 	<!-- Text on the phone placeholder screen that maps are displayed on the car screen -->
@@ -290,6 +308,8 @@
 	<!-- Text displayed when a webview or a browser are disabled, and external links can't be opened. -->
 	<string name="browser_not_available">Kivinjari cha wavuti hakipatikani</string>
 	<string name="volume">Kiwango</string>
+	<!-- Bookmark categories screen, button that opens share dialog to export all bookmarks and tracks -->
+	<string name="bookmarks_export">Hamisha Alamisho na Nyimbo zote</string>
 
 	<!-- SECTION: Types -->
 	<string name="type.addr_interpolation">Anwani/Zuia</string>

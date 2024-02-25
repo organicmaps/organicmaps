@@ -754,8 +754,26 @@
 	<string name="splash_subtitle">OpenStreetMapからの地図データ</string>
 	<!-- Link to OSM wiki for Editor, Profile and About pages -->
 	<string name="osm_wiki_about_url">https://wiki.openstreetmap.org/wiki/JA:参加する</string>
-	<!-- Tip #00 -->
+	<!-- App Tip #00 -->
 	<string name="app_tip_00">私たちのコミュニティが作った地図をご利用いただき、ありがとうございます！</string>
+	<!-- App tip #01 -->
+	<string name="app_tip_01">あなたの寄付とサポートがあれば、世界で最高の地図を作成できます。</string>
+	<!-- App tip #02 -->
+	<string name="app_tip_02">私たちのアプリは気に入っていますか? 開発をサポートするために寄付をお願いします！ まだ気に入らないですか？ お知らせください。修正させていただきます。</string>
+	<!-- App tip #03 -->
+	<string name="app_tip_03">ソフトウェア開発者を知っている場合は、必要な機能を実装するように依頼できます。</string>
+	<!-- App tip #04 -->
+	<string name="app_tip_04">地図上の任意の場所を長押しして選択できることをご存知ですか?</string>
+	<!-- App tip #05 -->
+	<string name="app_tip_05">地図上で現在地を選択できることをご存知ですか?</string>
+	<!-- App tip #06 -->
+	<string name="app_tip_06">私たちのアプリをあなたの言語に翻訳するのを手伝ってください。</string>
+	<!-- App tip #07 -->
+	<string name="app_tip_07">私たちのアプリは数人の愛好家とコミュニティによって開発されました。</string>
+	<!-- App tip #08 -->
+	<string name="app_tip_08">地図データを簡単に修正および改善できます。</string>
+	<!-- App tip #09 -->
+	<string name="app_tip_09">私たちの主な目標は、ユーザーに気に入っていただける、プライバシーを重視した使いやすいマップを高速に構築することです。</string>
 	<!-- Text on the Android Auto placeholder screen that maps are displayed on the phone screen -->
 	<string name="aa_used_on_the_phone_screen">端末の画面でOrganic Mapsを使用している</string>
 	<!-- Text on the phone placeholder screen that maps are displayed on the car screen -->
@@ -779,6 +797,8 @@
 	<!-- Text displayed in a dialog when OSM authorization is disabled -->
 	<string name="osm_login_not_available">GooglePlayの新しい制限のため、OpenStreetMapの認証が一時的に利用できない。しばらくお待ちください🙏。</string>
 	<string name="volume">音量</string>
+	<!-- Bookmark categories screen, button that opens share dialog to export all bookmarks and tracks -->
+	<string name="bookmarks_export">すべてのブックマークとトラックをエクスポートする</string>
 
 	<!-- SECTION: Types -->
 	<string name="type.addr_interpolation">アドレス/ブロック</string>

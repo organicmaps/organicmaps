@@ -707,8 +707,26 @@
 	<string name="splash_subtitle">Kartdata från OpenStreetMap</string>
 	<!-- Translated Organic Maps site, add new translations here: https://github.com/organicmaps/organicmaps.github.io/tree/master/content -->
 	<string name="translated_om_site_url">https://organicmaps.app/sv/</string>
-	<!-- Tip #00 -->
+	<!-- App Tip #00 -->
 	<string name="app_tip_00">Tack för att du använder våra gemenskapsbyggda kartor!</string>
+	<!-- App tip #01 -->
+	<string name="app_tip_01">Med dina donationer och stöd kan vi skapa de bästa kartorna i världen!</string>
+	<!-- App tip #02 -->
+	<string name="app_tip_02">Gillar du vår app? Vänligen donera för att stödja utvecklingen! Gillar du det inte ännu? Meddela oss, så fixar vi det!</string>
+	<!-- App tip #03 -->
+	<string name="app_tip_03">Om du känner en mjukvaruutvecklare kan du be honom eller henne att implementera en funktion som du behöver.</string>
+	<!-- App tip #04 -->
+	<string name="app_tip_04">Vet du att du kan trycka länge på vilken plats som helst på kartan för att välja den?</string>
+	<!-- App tip #05 -->
+	<string name="app_tip_05">Vet du att du kan välja din nuvarande plats på kartan?</string>
+	<!-- App tip #06 -->
+	<string name="app_tip_06">Du kan hjälpa till att översätta vår app till ditt språk.</string>
+	<!-- App tip #07 -->
+	<string name="app_tip_07">Vår app är utvecklad av ett fåtal entusiaster och samhället.</string>
+	<!-- App tip #08 -->
+	<string name="app_tip_08">Du kan enkelt fixa och förbättra kartdata.</string>
+	<!-- App tip #09 -->
+	<string name="app_tip_09">Vårt huvudmål är att bygga snabba, integritetsfokuserade, lättanvända kartor som du kommer att älska.</string>
 	<!-- Text on the Android Auto placeholder screen that maps are displayed on the phone screen -->
 	<string name="aa_used_on_the_phone_screen">Du använder nu Organic Maps på telefonens skärm</string>
 	<!-- Text on the phone placeholder screen that maps are displayed on the car screen -->
@@ -732,6 +750,8 @@
 	<!-- Text displayed in a dialog when OSM authorization is disabled -->
 	<string name="osm_login_not_available">OpenStreetMap-auktorisering är tillfälligt otillgänglig på grund av nya begränsningar i Google Play 😾\nVårt team arbetar med att lösa detta problem. Vänligen ha tålamod 🙏</string>
 	<string name="volume">Volym</string>
+	<!-- Bookmark categories screen, button that opens share dialog to export all bookmarks and tracks -->
+	<string name="bookmarks_export">Exportera alla bokmärken och spår</string>
 
 	<!-- SECTION: Types -->
 	<string name="type.addr_interpolation">Adress/Block</string>

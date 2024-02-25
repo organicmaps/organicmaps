@@ -759,8 +759,26 @@
 	<string name="translated_om_site_url">https://organicmaps.app/fr/</string>
 	<!-- Link to OSM wiki for Editor, Profile and About pages -->
 	<string name="osm_wiki_about_url">https://wiki.openstreetmap.org/wiki/FR:À_propos_d’OpenStreetMap</string>
-	<!-- Tip #00 -->
+	<!-- App Tip #00 -->
 	<string name="app_tip_00">Merci d\'utiliser nos cartes créées par la communauté !</string>
+	<!-- App tip #01 -->
+	<string name="app_tip_01">Avec vos dons et votre soutien, nous pouvons créer les meilleures cartes du monde !</string>
+	<!-- App tip #02 -->
+	<string name="app_tip_02">Aimez-vous notre application? Veuillez faire un don pour soutenir le développement ! Vous ne l\'aimez pas encore ? S\'il vous plaît laissez-nous savoir et nous y remédierons !</string>
+	<!-- App tip #03 -->
+	<string name="app_tip_03">Si vous connaissez un développeur de logiciels, vous pouvez lui demander d\'implémenter une fonctionnalité dont vous avez besoin.</string>
+	<!-- App tip #04 -->
+	<string name="app_tip_04">Savez-vous que vous pouvez appuyer longuement sur n\'importe quel endroit de la carte pour le sélectionner ?</string>
+	<!-- App tip #05 -->
+	<string name="app_tip_05">Savez-vous que vous pouvez sélectionner votre position actuelle sur la carte ?</string>
+	<!-- App tip #06 -->
+	<string name="app_tip_06">Vous pouvez nous aider à traduire notre application dans votre langue.</string>
+	<!-- App tip #07 -->
+	<string name="app_tip_07">Notre application est développée par quelques passionnés et la communauté.</string>
+	<!-- App tip #08 -->
+	<string name="app_tip_08">Vous pouvez facilement corriger et améliorer les données cartographiques.</string>
+	<!-- App tip #09 -->
+	<string name="app_tip_09">Notre objectif principal est de créer des cartes rapides, axées sur la confidentialité et faciles à utiliser que vous allez adorer.</string>
 	<!-- Text on the Android Auto placeholder screen that maps are displayed on the phone screen -->
 	<string name="aa_used_on_the_phone_screen">Vous utilisez maintenant Organic Maps sur le téléphone</string>
 	<!-- Text on the phone placeholder screen that maps are displayed on the car screen -->
@@ -784,6 +802,8 @@
 	<!-- Text displayed in a dialog when OSM authorization is disabled -->
 	<string name="osm_login_not_available">L\'authentification à OpenStreetMap est temporairement indisponible en raison de nouvelles restrictions de Google Play 😾\nNotre équipe travaille à la résolution de ce problème. Merci de faire preuve de patience 🙏</string>
 	<string name="volume">Volume</string>
+	<!-- Bookmark categories screen, button that opens share dialog to export all bookmarks and tracks -->
+	<string name="bookmarks_export">Exporter tous les signets et toutes les pistes</string>
 
 	<!-- SECTION: Types -->
 	<string name="type.addr_interpolation">Adresse/Bloc</string>
