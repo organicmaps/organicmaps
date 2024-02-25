@@ -184,6 +184,11 @@ std::string Info::FormatSubtitle(bool withType) const
   // Toilets.
   if (HasToilets())
     append(feature::kToiletsSymbol);
+    
+  // Drinking Water
+  auto const drinkingWater = feature::FormatDrinkingWater(GetTypes());
+  if (!drinkingWater.empty())
+    append(drinkingWater);
 
   // Wheelchair
   if (feature::GetWheelchairType(m_types) == ftraits::WheelchairAvailability::Yes)
