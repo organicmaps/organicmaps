@@ -1890,6 +1890,9 @@
     zh-Hans = 饮用水
     zh-Hant = 飲用水
 
+  [type.drinking_water.yes]
+    ref = type.amenity.drinking_water
+
   [type.amenity.driving_school]
     en = Driving School
     af = Ryskool

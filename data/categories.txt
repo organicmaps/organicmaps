@@ -9237,7 +9237,7 @@ zh-Hans:水
 zh-Hant:水
 mr:पाणी
 
-amenity-drinking_water|@water
+amenity-drinking_water|drinking_water-yes|@water
 en:4Drinking Water|3Potable Water|U+1F6B0
 ru:3Питьевая вода
 be:3Пітная вада
