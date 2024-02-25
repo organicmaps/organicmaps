@@ -1366,6 +1366,8 @@
 
 "type.amenity.drinking_water" = "Πόσιμο νερό";
 
+"type.drinking_water.yes" = "Πόσιμο νερό";
+
 "type.amenity.driving_school" = "Σχολή οδήγησης";
 
 "type.amenity.exhibition_centre" = "Εκθεσιακό Κέντρο";

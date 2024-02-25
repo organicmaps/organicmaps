@@ -1366,6 +1366,8 @@
 
 "type.amenity.drinking_water" = "Nước uống";
 
+"type.drinking_water.yes" = "Nước uống";
+
 "type.amenity.driving_school" = "Trường lái xe";
 
 "type.amenity.exhibition_centre" = "Trung tâm triển lãm";

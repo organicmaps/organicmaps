@@ -1366,6 +1366,8 @@
 
 "type.amenity.drinking_water" = "पीने का पानी";
 
+"type.drinking_water.yes" = "पीने का पानी";
+
 "type.amenity.driving_school" = "ड्राइविंग स्कूल";
 
 "type.amenity.exhibition_centre" = "Exhibition Center";

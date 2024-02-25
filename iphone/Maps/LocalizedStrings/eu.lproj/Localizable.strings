@@ -1366,6 +1366,8 @@
 
 "type.amenity.drinking_water" = "Ur edangarria";
 
+"type.drinking_water.yes" = "Ur edangarria";
+
 "type.amenity.driving_school" = "Autoeskola";
 
 "type.amenity.exhibition_centre" = "Erakusketa Zentroa";

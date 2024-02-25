@@ -1366,6 +1366,8 @@
 
 "type.amenity.drinking_water" = "Vand";
 
+"type.drinking_water.yes" = "Vand";
+
 "type.amenity.driving_school" = "Køreskole";
 
 "type.amenity.exhibition_centre" = "Udstillingscenter";

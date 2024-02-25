@@ -1366,6 +1366,8 @@
 
 "type.amenity.drinking_water" = "饮用水";
 
+"type.drinking_water.yes" = "饮用水";
+
 "type.amenity.driving_school" = "驾校";
 
 "type.amenity.exhibition_centre" = "展览中心";

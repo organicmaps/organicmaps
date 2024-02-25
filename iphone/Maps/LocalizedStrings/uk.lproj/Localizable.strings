@@ -1366,6 +1366,8 @@
 
 "type.amenity.drinking_water" = "Питна вода";
 
+"type.drinking_water.yes" = "Питна вода";
+
 "type.amenity.driving_school" = "Автошкола";
 
 "type.amenity.exhibition_centre" = "Виставковий центр";

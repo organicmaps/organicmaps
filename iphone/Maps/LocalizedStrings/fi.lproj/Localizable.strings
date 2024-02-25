@@ -1366,6 +1366,8 @@
 
 "type.amenity.drinking_water" = "Juomavesi";
 
+"type.drinking_water.yes" = "Juomavesi";
+
 "type.amenity.driving_school" = "Autokoulu";
 
 "type.amenity.exhibition_centre" = "Näyttelykeskus";

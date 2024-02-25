@@ -775,6 +775,7 @@
 	<string name="type.amenity.dentist">Tandläkare</string>
 	<string name="type.amenity.doctors">Läkarmottagning</string>
 	<string name="type.amenity.drinking_water">Dricksvatten</string>
+	<string name="type.drinking_water.yes">Dricksvatten</string>
 	<string name="type.amenity.driving_school">Körskola</string>
 	<string name="type.amenity.exhibition_centre">Mässa</string>
 	<string name="type.amenity.money_transfer">Pengaöverföring</string>

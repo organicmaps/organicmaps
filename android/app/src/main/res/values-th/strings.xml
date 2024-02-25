@@ -775,6 +775,7 @@
 	<string name="type.amenity.dentist">ทันตแพทย์</string>
 	<string name="type.amenity.doctors">ห้องแพทย์</string>
 	<string name="type.amenity.drinking_water">น้ำดื่ม</string>
+	<string name="type.drinking_water.yes">น้ำดื่ม</string>
 	<string name="type.amenity.driving_school">โรงเรียนสอนขับรถ</string>
 	<string name="type.amenity.exhibition_centre">ศูนย์นิทรรศการ</string>
 	<string name="type.amenity.money_transfer">การโอนเงิน</string>

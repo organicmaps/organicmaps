@@ -773,6 +773,7 @@
 	<string name="type.amenity.dentist">Nha sĩ</string>
 	<string name="type.amenity.doctors">Bác sĩ</string>
 	<string name="type.amenity.drinking_water">Nước uống</string>
+	<string name="type.drinking_water.yes">Nước uống</string>
 	<string name="type.amenity.driving_school">Trường lái xe</string>
 	<string name="type.amenity.exhibition_centre">Trung tâm triển lãm</string>
 	<string name="type.amenity.money_transfer">Chuyển tiền</string>

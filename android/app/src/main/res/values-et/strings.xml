@@ -824,6 +824,7 @@
 	<string name="type.amenity.dentist">Hambaarst</string>
 	<string name="type.amenity.doctors">Arst</string>
 	<string name="type.amenity.drinking_water">Joogivesi</string>
+	<string name="type.drinking_water.yes">Joogivesi</string>
 	<string name="type.amenity.driving_school">Autokool</string>
 	<string name="type.amenity.exhibition_centre">Näituste keskus</string>
 	<string name="type.amenity.money_transfer">Raha ülekanne</string>

@@ -1366,6 +1366,8 @@
 
 "type.amenity.drinking_water" = "水飲み場";
 
+"type.drinking_water.yes" = "水飲み場";
+
 "type.amenity.driving_school" = "自動車教習所";
 
 "type.amenity.exhibition_centre" = "エキシビションセンター";

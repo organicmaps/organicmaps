@@ -833,6 +833,7 @@
 	<string name="type.amenity.dentist">Zahnarzt</string>
 	<string name="type.amenity.doctors">Arztpraxis</string>
 	<string name="type.amenity.drinking_water">Trinkwasser</string>
+	<string name="type.drinking_water.yes">Trinkwasser</string>
 	<string name="type.amenity.driving_school">Fahrschule</string>
 	<string name="type.amenity.exhibition_centre">Ausstellungszentrum</string>
 	<string name="type.amenity.money_transfer">Geldtransfer</string>

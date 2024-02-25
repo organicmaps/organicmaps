@@ -776,6 +776,7 @@
 	<string name="type.amenity.dentist">دندان پزشکی</string>
 	<string name="type.amenity.doctors">کلینیک</string>
 	<string name="type.amenity.drinking_water">اب اشامیدنی</string>
+	<string name="type.drinking_water.yes">اب اشامیدنی</string>
 	<string name="type.amenity.driving_school">اموزشگاه رانندگی</string>
 	<string name="type.amenity.exhibition_centre">مرکز نمایشگاه</string>
 	<string name="type.amenity.money_transfer">انتقال پول</string>

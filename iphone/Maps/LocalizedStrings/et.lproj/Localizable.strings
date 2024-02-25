@@ -1366,6 +1366,8 @@
 
 "type.amenity.drinking_water" = "Joogivesi";
 
+"type.drinking_water.yes" = "Joogivesi";
+
 "type.amenity.driving_school" = "Autokool";
 
 "type.amenity.exhibition_centre" = "Näituste keskus";

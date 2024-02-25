@@ -1366,6 +1366,8 @@
 
 "type.amenity.drinking_water" = "Ivóvíz";
 
+"type.drinking_water.yes" = "Ivóvíz";
+
 "type.amenity.driving_school" = "Autósiskola";
 
 "type.amenity.exhibition_centre" = "Kiállítási Központ";

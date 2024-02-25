@@ -797,6 +797,7 @@
 	<string name="type.amenity.dentist">Fogorvos</string>
 	<string name="type.amenity.doctors">Rendelő</string>
 	<string name="type.amenity.drinking_water">Ivóvíz</string>
+	<string name="type.drinking_water.yes">Ivóvíz</string>
 	<string name="type.amenity.driving_school">Autósiskola</string>
 	<string name="type.amenity.exhibition_centre">Kiállítási Központ</string>
 	<string name="type.amenity.money_transfer">Pénz átutalás</string>
