@@ -29,69 +29,73 @@ UNIT_TEST(LowerUniChar)
 
   static char constexpr kFile[] = "./data/CaseFolding.test";
   std::ifstream file(kFile);
-  TEST(file.is_open(), (kFile));
+  TEST(file, (kFile));
 
   size_t fCount = 0, cCount = 0;
   std::unordered_map<strings::UniChar, strings::UniString> m;
   std::string line;
-  while (file.good())
+  while (file)
   {
     std::getline(file, line);
 
     // strip comments
-    size_t const sharp = line.find('#');
-    if (sharp != std::string::npos)
+    if (auto const sharp = line.find('#'); sharp != std::string::npos)
       line.erase(sharp);
     strings::SimpleTokenizer semicolon(line, ";");
     if (!semicolon)
       continue;
 
-    std::istringstream stream{std::string{*semicolon}};
-    uint32_t uc;
-    stream >> std::hex >> uc;
-    ASSERT(stream, ("Overflow"));
+    uint32_t uniChar;
+    {
+      std::string_view const hex = *semicolon;
+      auto const [_, ec] = std::from_chars(hex.begin(), hex.end(), uniChar, 16);
+      TEST(ec == std::errc{}, ());
+    }
     ++semicolon;
 
-    auto const type = *semicolon;
+    std::string_view const type = *semicolon;
     if (type == " S" || type == " T")
       continue;
     if (type != " C" && type != " F")
       continue;
     ++semicolon;
 
-    strings::UniString us;
+    strings::UniString lowerCaseChars;
     strings::SimpleTokenizer spacer(*semicolon, " ");
     while (spacer)
     {
-      stream.clear();
-      stream.str(std::string(*spacer));
-      uint32_t smallCode;
-      stream >> std::hex >> smallCode;
-      us.push_back(smallCode);
+      std::string_view const lowerCaseCharsSv = *spacer;
+      uint32_t lowerUniChar;
+      auto const [_, ec] = std::from_chars(lowerCaseCharsSv.begin(), lowerCaseCharsSv.end(), lowerUniChar, 16);
+      TEST(ec == std::errc{}, ());
+      lowerCaseChars.push_back(lowerUniChar);
       ++spacer;
     }
 
-    switch (us.size())
+    switch (lowerCaseChars.size())
     {
-    case 0: continue;
+    case 0:
+      TEST(false, ("No valid lower chars in line:", line));
+      break;
     case 1:
     {
-      m[uc] = us;
+      m[uniChar] = lowerCaseChars;
       ++cCount;
-      TEST_EQUAL(strings::LowerUniChar(uc), us[0], ());
+      TEST_EQUAL(strings::LowerUniChar(uniChar), lowerCaseChars[0], ());
       TEST_EQUAL(type, " C", ());
       break;
     }
     default:
     {
-      m[uc] = us;
+      m[uniChar] = lowerCaseChars;
       ++fCount;
       TEST_EQUAL(type, " F", ());
       break;
     }
     }
   }
-  LOG(LINFO, ("Loaded", cCount, "common foldings and", fCount, "full foldings"));
+  TEST_EQUAL(1022, cCount, ("Update the count after updating the test cases file"));
+  TEST_EQUAL(104, fCount, ("Update the count after updating the test cases file"));
 
   // full range unicode table test
   for (strings::UniChar c = 0; c < 0x11000; ++c)
