@@ -587,8 +587,8 @@ fee|yes;[fee?];;name;int_name;500;
 fee|no;[fee=no];;name;int_name;501;
 toilets|yes;502;
 highway|trunk_link|tunnel;[highway=trunk_link][tunnel?];;name;int_name;503;
-deprecated|deprecated;504;x
-deprecated|deprecated;505;x
+drinking_water|yes;504;
+drinking_water|no;505;
 deprecated|deprecated;506;x
 deprecated|deprecated;507;x
 deprecated|deprecated;508;x
