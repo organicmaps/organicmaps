@@ -372,6 +372,10 @@ world  +
         vegetarian  -
         vietnamese  -
         {}
+    drinking_water  +
+        no  -
+        yes  -
+        {}
     earthquake:damage  +
         spontaneous_camp  -
         {}
