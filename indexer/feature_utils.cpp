@@ -318,6 +318,8 @@ FeatureEstimator const & GetFeatureEstimator()
 
 static constexpr std::string_view kStarSymbol = "★";
 static constexpr std::string_view kMountainSymbol= "▲";
+static constexpr std::string_view kDrinkingWaterYes = "🚰";
+static constexpr std::string_view kDrinkingWaterNo = "🚱";
 
 NameParamsIn::NameParamsIn(StringUtf8Multilang const & src_, RegionData const & regionData_,
                            std::string_view deviceLang_, bool allowTranslit_)
@@ -487,6 +489,21 @@ bool HasToilets(TypesHolder const & types)
 {
   auto const & isToiletsType = ftypes::IsToiletsChecker::Instance();
   return isToiletsType(types);
+}
+
+string FormatDrinkingWater(TypesHolder const & types)
+{
+  auto const value = ftraits::DrinkingWater::GetValue(types);
+  if (!value.has_value())
+    return "";
+
+  switch (*value)
+  {
+    case ftraits::DrinkingWaterAvailability::No:
+      return std::string{kDrinkingWaterNo};
+    case ftraits::DrinkingWaterAvailability::Yes:
+      return std::string{kDrinkingWaterYes};
+  }
 }
 
 string FormatStars(uint8_t starsCount)
