@@ -430,6 +430,8 @@
 	<string name="forgot_password">Hai dimenticato la password?</string>
 	<string name="logout">Esci</string>
 	<string name="edit_place">Modifica il luogo</string>
+	<!-- A button in place page -->
+	<string name="open_in_another_app">Apri in un\'altra applicazione</string>
 	<string name="add_language">Aggiungi una lingua</string>
 	<string name="street">Via</string>
 	<!-- Editable House Number text field (in address block). -->

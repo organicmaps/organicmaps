@@ -435,6 +435,8 @@
 	<string name="forgot_password">Elfelejtett jelszó?</string>
 	<string name="logout">Kijelentkezés</string>
 	<string name="edit_place">Hely szerkesztése</string>
+	<!-- A button in place page -->
+	<string name="open_in_another_app">Megnyitás egy másik alkalmazásban</string>
 	<string name="add_language">Nyelv hozzáadása</string>
 	<string name="street">Utca</string>
 	<!-- Editable House Number text field (in address block). -->

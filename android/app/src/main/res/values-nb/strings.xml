@@ -444,6 +444,8 @@
 	<string name="forgot_password">Glemt passordet?</string>
 	<string name="logout">Logg ut</string>
 	<string name="edit_place">Rediger stedet</string>
+	<!-- A button in place page -->
+	<string name="open_in_another_app">Åpne i en annen app</string>
 	<string name="add_language">Legg til et språk</string>
 	<string name="street">Gate</string>
 	<!-- Editable House Number text field (in address block). -->

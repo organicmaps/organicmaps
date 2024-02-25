@@ -430,6 +430,8 @@
 	<string name="forgot_password">Ai uitat parola?</string>
 	<string name="logout">Deconectare</string>
 	<string name="edit_place">Modifică locul</string>
+	<!-- A button in place page -->
+	<string name="open_in_another_app">Deschideți în altă aplicație</string>
 	<string name="add_language">Adaugă o limbă</string>
 	<string name="street">Stradă</string>
 	<!-- Editable House Number text field (in address block). -->

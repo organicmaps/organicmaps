@@ -421,6 +421,8 @@
 	<string name="forgot_password">암호를 잊으 셨나요?</string>
 	<string name="logout">로그 아웃</string>
 	<string name="edit_place">장소 편집</string>
+	<!-- A button in place page -->
+	<string name="open_in_another_app">다른 앱에서 열기</string>
 	<string name="add_language">언어 추가</string>
 	<string name="street">거리</string>
 	<!-- Editable House Number text field (in address block). -->

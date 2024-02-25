@@ -436,6 +436,8 @@
 	<string name="forgot_password">שכחת סיסמה?</string>
 	<string name="logout">התנתק</string>
 	<string name="edit_place">ערוך מקום</string>
+	<!-- A button in place page -->
+	<string name="open_in_another_app">פתח באפליקציה אחרת</string>
 	<string name="add_language">הוסף שפה</string>
 	<string name="street">רחוב</string>
 	<!-- Editable House Number text field (in address block). -->

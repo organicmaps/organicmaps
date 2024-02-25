@@ -434,6 +434,8 @@
 	<string name="forgot_password">Unustasid oma salasõna?</string>
 	<string name="logout">Logi välja</string>
 	<string name="edit_place">Muuda kohta</string>
+	<!-- A button in place page -->
+	<string name="open_in_another_app">Avatud teises rakenduses</string>
 	<string name="add_language">Lisa keel</string>
 	<string name="street">Tänav</string>
 	<!-- Editable House Number text field (in address block). -->

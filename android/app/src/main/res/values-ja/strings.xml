@@ -446,6 +446,8 @@
 	<string name="forgot_password">パスワードをお忘れですか？</string>
 	<string name="logout">ログアウト</string>
 	<string name="edit_place">場所を編集</string>
+	<!-- A button in place page -->
+	<string name="open_in_another_app">別のアプリで開く</string>
 	<string name="add_language">言語を追加</string>
 	<string name="street">通り</string>
 	<!-- Editable House Number text field (in address block). -->

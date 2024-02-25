@@ -421,6 +421,8 @@
 	<string name="forgot_password">Quên mật khẩu?</string>
 	<string name="logout">Đăng xuất</string>
 	<string name="edit_place">Chỉnh sửa địa điểm</string>
+	<!-- A button in place page -->
+	<string name="open_in_another_app">Mở trong ứng dụng khác</string>
 	<string name="add_language">Thêm ngôn ngữ</string>
 	<string name="street">Đường</string>
 	<!-- Editable House Number text field (in address block). -->

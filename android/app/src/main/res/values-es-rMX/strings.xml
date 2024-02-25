@@ -58,6 +58,8 @@
 	<string name="blue_gray">Gris azulado</string>
 
 	<!-- SECTION: Strings for downloading map from search -->
+	<!-- A button in place page -->
+	<string name="open_in_another_app">Abrir en otra aplicación</string>
 	<string name="editor_other_info">Enviar nota a los editores de OSM</string>
 	<!-- A referral link on the place page for some hotels -->
 	<string name="more_on_kayak">Fotos, reseñas, reservas.</string>

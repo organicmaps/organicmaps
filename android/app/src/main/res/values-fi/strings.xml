@@ -446,6 +446,8 @@
 	<string name="forgot_password">Unohtuiko salasana?</string>
 	<string name="logout">Kirjaudu ulos</string>
 	<string name="edit_place">Muokkaa kohdetta</string>
+	<!-- A button in place page -->
+	<string name="open_in_another_app">Avaa toisessa sovelluksessa</string>
 	<string name="add_language">Lisää kieli</string>
 	<string name="street">Katu</string>
 	<!-- Editable House Number text field (in address block). -->

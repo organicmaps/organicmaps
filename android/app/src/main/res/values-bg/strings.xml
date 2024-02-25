@@ -411,6 +411,8 @@
 	<string name="forgot_password">Забравили сте паролата си?</string>
 	<string name="logout">Изход</string>
 	<string name="edit_place">Редакция на място</string>
+	<!-- A button in place page -->
+	<string name="open_in_another_app">Отваряне в друго приложение</string>
 	<string name="add_language">Добавяне на език</string>
 	<string name="street">Улица</string>
 	<!-- Editable House Number text field (in address block). -->

@@ -13455,6 +13455,52 @@
     zh-Hans = 编辑地点
     zh-Hant = 編輯地點
 
+  [open_in_another_app]
+    comment = A button in place page
+    tags = android
+    en = Open in another app
+    af = Maak in 'n ander toepassing oop
+    ar = افتح في تطبيق آخر
+    be = Адкрыць у іншай праграме
+    bg = Отваряне в друго приложение
+    ca = Obre en una altra aplicació
+    cs = Otevřít v jiné aplikaci
+    da = Åbn i en anden app
+    de = In einer anderen App öffnen
+    el = Άνοιγμα σε άλλη εφαρμογή
+    es = Abrir en otra app
+    es-MX = Abrir en otra aplicación
+    et = Avatud teises rakenduses
+    eu = Ireki beste aplikazio batean
+    fa = در برنامه دیگری باز کنید
+    fi = Avaa toisessa sovelluksessa
+    fr = Ouvrir dans une autre application
+    he = פתח באפליקציה אחרת
+    hi = किसी अन्य ऐप में खोलें
+    hu = Megnyitás egy másik alkalmazásban
+    id = Buka di aplikasi lain
+    it = Apri in un'altra applicazione
+    ja = 別のアプリで開く
+    ko = 다른 앱에서 열기
+    lt = Atidaryti kitoje programoje
+    mr = दुसऱ्या अॅपमध्ये उघडा
+    nb = Åpne i en annen app
+    nl = Openen in een andere app
+    pl = Otwórz w innej aplikacji
+    pt = Abrir noutra aplicação
+    pt-BR = Abrir em outro aplicativo
+    ro = Deschideți în altă aplicație
+    ru = Открыть в другом приложении
+    sk = Otvoriť v inej aplikácii
+    sv = Öppna i en annan app
+    sw = Fungua katika programu nyingine
+    th = เปิดในแอปอื่น
+    tr = Başka bir uygulamada aç
+    uk = Відкрити в іншій програмі
+    vi = Mở trong ứng dụng khác
+    zh-Hans = 在另一个应用程序中打开
+    zh-Hant = 在另一個應用程式中打開
+
   [place_name]
     tags = ios
     en = Place Name

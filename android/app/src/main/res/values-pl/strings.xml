@@ -444,6 +444,8 @@
 	<string name="forgot_password">Nie pamiętasz hasła?</string>
 	<string name="logout">Wyloguj</string>
 	<string name="edit_place">Edytuj miejsce</string>
+	<!-- A button in place page -->
+	<string name="open_in_another_app">Otwórz w innej aplikacji</string>
 	<string name="add_language">Dodaj język</string>
 	<string name="street">Ulica</string>
 	<!-- Editable House Number text field (in address block). -->

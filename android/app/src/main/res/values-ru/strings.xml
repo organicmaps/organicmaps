@@ -447,6 +447,8 @@
 	<string name="forgot_password">Забыли пароль?</string>
 	<string name="logout">Выйти</string>
 	<string name="edit_place">Редактировать место</string>
+	<!-- A button in place page -->
+	<string name="open_in_another_app">Открыть в другом приложении</string>
 	<string name="add_language">Добавить язык</string>
 	<string name="street">Улица</string>
 	<!-- Editable House Number text field (in address block). -->

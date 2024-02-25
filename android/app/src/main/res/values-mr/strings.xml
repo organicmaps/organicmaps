@@ -413,6 +413,8 @@
 	<string name="forgot_password">पासवर्ड विसरलात?</string>
 	<string name="logout">लॉग आऊट</string>
 	<string name="edit_place">ठिकाण संपादित करा</string>
+	<!-- A button in place page -->
+	<string name="open_in_another_app">दुसऱ्या अॅपमध्ये उघडा</string>
 	<string name="add_language">भाषा जोडा</string>
 	<string name="street">रस्ता</string>
 	<!-- Editable House Number text field (in address block). -->

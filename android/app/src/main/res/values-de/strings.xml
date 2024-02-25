@@ -440,6 +440,8 @@
 	<string name="forgot_password">Passwort vergessen?</string>
 	<string name="logout">Abmelden</string>
 	<string name="edit_place">Eintrag bearbeiten</string>
+	<!-- A button in place page -->
+	<string name="open_in_another_app">In einer anderen App öffnen</string>
 	<string name="add_language">Eine Sprache hinzufügen</string>
 	<string name="street">Straße</string>
 	<!-- Editable House Number text field (in address block). -->

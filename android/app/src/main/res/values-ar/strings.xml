@@ -457,6 +457,8 @@
 	<string name="forgot_password">هل نسيت كلمة المرور؟</string>
 	<string name="logout">تسجيل الخروج</string>
 	<string name="edit_place">تعديل المكان</string>
+	<!-- A button in place page -->
+	<string name="open_in_another_app">افتح في تطبيق آخر</string>
 	<string name="add_language">إضافة لغة</string>
 	<string name="street">الشارع</string>
 	<!-- Editable House Number text field (in address block). -->

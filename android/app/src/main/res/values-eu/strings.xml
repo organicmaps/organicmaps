@@ -442,6 +442,8 @@
 	<string name="forgot_password">Pasahitza ahaztu duzu?</string>
 	<string name="logout">Saioa itxi</string>
 	<string name="edit_place">Editatu tokia</string>
+	<!-- A button in place page -->
+	<string name="open_in_another_app">Ireki beste aplikazio batean</string>
 	<string name="add_language">Gehitu hizkuntza bat</string>
 	<string name="street">Kalea</string>
 	<!-- Editable House Number text field (in address block). -->

@@ -85,6 +85,8 @@
 
 	<!-- SECTION: Strings for downloading map from search -->
 	<string name="login_osm">Ingia kwa OpenStreetMap</string>
+	<!-- A button in place page -->
+	<string name="open_in_another_app">Fungua katika programu nyingine</string>
 	<string name="level">Ghorofa</string>
 	<!-- Text in About and OSM Login screens. %@ is replaced by a local, human readable date. -->
 	<string name="osm_presentation">Takwimu za katuni kutoka kwa OpenStreetMap kama ya %s. Ni kama Wikipedia ambapo unaweza kuongeza au kuhariri maeneo kwa watumiaji wote ulimwenguni.</string>

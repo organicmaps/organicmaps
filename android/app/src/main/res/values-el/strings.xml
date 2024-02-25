@@ -423,6 +423,8 @@
 	<string name="forgot_password">Ξαχάσατε τον κωδικό πρόσβασης;</string>
 	<string name="logout">Αποσύνδεση</string>
 	<string name="edit_place">Επεξεργασία μέρους</string>
+	<!-- A button in place page -->
+	<string name="open_in_another_app">Άνοιγμα σε άλλη εφαρμογή</string>
 	<string name="add_language">Προσθήκη γλώσσας</string>
 	<string name="street">Οδός</string>
 	<!-- Editable House Number text field (in address block). -->

@@ -443,6 +443,8 @@
 	<string name="forgot_password">Забылі пароль?</string>
 	<string name="logout">Выйсці</string>
 	<string name="edit_place">Правіць месца</string>
+	<!-- A button in place page -->
+	<string name="open_in_another_app">Адкрыць у іншай праграме</string>
 	<string name="add_language">Дадаць мову</string>
 	<string name="street">Вуліца</string>
 	<!-- Editable House Number text field (in address block). -->

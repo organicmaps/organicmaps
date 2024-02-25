@@ -419,6 +419,8 @@
 	<string name="forgot_password">Zabudli ste heslo?</string>
 	<string name="logout">Odhlásiť sa</string>
 	<string name="edit_place">Upraviť miesto</string>
+	<!-- A button in place page -->
+	<string name="open_in_another_app">Otvoriť v inej aplikácii</string>
 	<string name="add_language">Pridať jazyk</string>
 	<string name="street">Ulica</string>
 	<!-- Editable House Number text field (in address block). -->

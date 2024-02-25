@@ -469,6 +469,8 @@
 	<string name="forgot_password">Forgot your password?</string>
 	<string name="logout">Log Out</string>
 	<string name="edit_place">Edit Place</string>
+	<!-- A button in place page -->
+	<string name="open_in_another_app">Open in another app</string>
 	<string name="add_language">Add a language</string>
 	<string name="street">Street</string>
 	<!-- Editable House Number text field (in address block). -->

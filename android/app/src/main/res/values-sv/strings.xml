@@ -419,6 +419,8 @@
 	<string name="forgot_password">Glömt lösenord?</string>
 	<string name="logout">Logga ut</string>
 	<string name="edit_place">Ändra platsen</string>
+	<!-- A button in place page -->
+	<string name="open_in_another_app">Öppna i en annan app</string>
 	<string name="add_language">Lägg till ett språk</string>
 	<string name="street">Gata</string>
 	<!-- Editable House Number text field (in address block). -->

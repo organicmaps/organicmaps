@@ -431,6 +431,8 @@
 	<string name="forgot_password">忘记密码</string>
 	<string name="logout">登出</string>
 	<string name="edit_place">编辑地点</string>
+	<!-- A button in place page -->
+	<string name="open_in_another_app">在另一个应用程序中打开</string>
 	<string name="add_language">添加语言</string>
 	<string name="street">街道</string>
 	<!-- Editable House Number text field (in address block). -->

@@ -435,6 +435,8 @@
 	<string name="forgot_password">Heu oblidat la contrasenya?</string>
 	<string name="logout">Tanca la sessió</string>
 	<string name="edit_place">Edita el lloc</string>
+	<!-- A button in place page -->
+	<string name="open_in_another_app">Obre en una altra aplicació</string>
 	<string name="add_language">Afegeix una llengua</string>
 	<string name="street">Carrer</string>
 	<!-- Editable House Number text field (in address block). -->

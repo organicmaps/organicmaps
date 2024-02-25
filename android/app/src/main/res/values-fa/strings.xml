@@ -416,6 +416,8 @@
 	<string name="forgot_password">رمز عبور خود را فراموش کردید؟</string>
 	<string name="logout">خروج از حساب</string>
 	<string name="edit_place">ویرایش مکان</string>
+	<!-- A button in place page -->
+	<string name="open_in_another_app">در برنامه دیگری باز کنید</string>
 	<string name="add_language">افزودن یک زبان</string>
 	<string name="street">خیابان</string>
 	<!-- Editable House Number text field (in address block). -->

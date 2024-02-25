@@ -444,6 +444,8 @@
 	<string name="forgot_password">Şifreni mi unuttun?</string>
 	<string name="logout">Oturumu kapat</string>
 	<string name="edit_place">Yeri Düzenle</string>
+	<!-- A button in place page -->
+	<string name="open_in_another_app">Başka bir uygulamada aç</string>
 	<string name="add_language">Bir dil ekle</string>
 	<string name="street">Sokak</string>
 	<!-- Editable House Number text field (in address block). -->

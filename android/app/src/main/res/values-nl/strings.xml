@@ -440,6 +440,8 @@
 	<string name="forgot_password">Wachtwoord vergeten?</string>
 	<string name="logout">Uitloggen</string>
 	<string name="edit_place">De locatie bewerken</string>
+	<!-- A button in place page -->
+	<string name="open_in_another_app">Openen in een andere app</string>
 	<string name="add_language">Een taal toevoegen</string>
 	<string name="street">Straat</string>
 	<!-- Editable House Number text field (in address block). -->

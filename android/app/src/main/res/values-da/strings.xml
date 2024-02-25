@@ -421,6 +421,8 @@
 	<string name="forgot_password">Glemt adgangskode?</string>
 	<string name="logout">Log ud</string>
 	<string name="edit_place">Redigér stedet</string>
+	<!-- A button in place page -->
+	<string name="open_in_another_app">Åbn i en anden app</string>
 	<string name="add_language">Tilføj et sprog</string>
 	<string name="street">Gade</string>
 	<!-- Editable House Number text field (in address block). -->

@@ -423,6 +423,8 @@
 	<string name="forgot_password">Lupa kata sandi?</string>
 	<string name="logout">Keluar</string>
 	<string name="edit_place">Sunting tempat</string>
+	<!-- A button in place page -->
+	<string name="open_in_another_app">Buka di aplikasi lain</string>
 	<string name="add_language">Tambahkan bahasa</string>
 	<string name="street">Jalan</string>
 	<!-- Editable House Number text field (in address block). -->

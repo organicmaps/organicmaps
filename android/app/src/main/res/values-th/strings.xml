@@ -423,6 +423,8 @@
 	<string name="forgot_password">ลืมรหัสผ่าน?</string>
 	<string name="logout">ออกจากระบบ</string>
 	<string name="edit_place">แก้ไขสถานที่</string>
+	<!-- A button in place page -->
+	<string name="open_in_another_app">เปิดในแอปอื่น</string>
 	<string name="add_language">เพิ่มภาษา</string>
 	<string name="street">ถนน</string>
 	<!-- Editable House Number text field (in address block). -->
