@@ -765,12 +765,6 @@ IsFeeTypeChecker::IsFeeTypeChecker() : BaseChecker(1 /* level */)
   m_types.push_back(c.GetTypeByPath({"fee"}));
 }
 
-IsWheelchairTypeChecker::IsWheelchairTypeChecker() : BaseChecker(1 /* level */)
-{
-  Classificator const & c = classif();
-  m_types.push_back(c.GetTypeByPath({"wheelchair"}));
-}
-
 IsToiletsChecker::IsToiletsChecker() : BaseChecker(2 /* level */)
 {
   Classificator const & c = classif();

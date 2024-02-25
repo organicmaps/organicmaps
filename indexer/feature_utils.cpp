@@ -456,18 +456,25 @@ string GetLocalizedFeeType(TypesHolder const & types)
 
 string GetReadableWheelchairType(TypesHolder const & types)
 {
-  auto const & isWheelchairType = ftypes::IsWheelchairTypeChecker::Instance();
-  auto readableTypes = GetReadableTypes(isWheelchairType, types);
-  ASSERT_LESS_OR_EQUAL ( readableTypes.size(), 1, () );
-  if (readableTypes.empty())
-    return "";
-  return readableTypes[0];
+    auto const value = ftraits::Wheelchair::GetValue(types);
+    if (!value.has_value())
+      return "";
+
+    switch (*value)
+    {
+      case ftraits::WheelchairAvailability::No:
+        return "wheelchair-no";
+      case ftraits::WheelchairAvailability::Yes:
+        return "wheelchair-yes";
+      case ftraits::WheelchairAvailability::Limited:
+        return "wheelchair-limited";
+    }
+    UNREACHABLE();
 }
 
-ftraits::WheelchairAvailability GetWheelchairType(TypesHolder const & types)
+std::optional<ftraits::WheelchairAvailability> GetWheelchairType(TypesHolder const & types)
 {
-  auto const opt = ftraits::Wheelchair::GetValue(types);
-  return opt ? *opt : ftraits::WheelchairAvailability::Unknown;
+  return ftraits::Wheelchair::GetValue(types);
 }
 
 bool HasAtm(TypesHolder const & types)

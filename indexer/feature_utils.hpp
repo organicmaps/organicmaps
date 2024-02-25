@@ -155,7 +155,7 @@ namespace feature
   std::string GetReadableWheelchairType(TypesHolder const & types);
   
   /// @returns wheelchair availability.
-  ftraits::WheelchairAvailability GetWheelchairType(TypesHolder const & types);
+  std::optional<ftraits::WheelchairAvailability> GetWheelchairType(TypesHolder const & types);
 
   /// Returns true if feature has ATM type.
   bool HasAtm(TypesHolder const & types);
