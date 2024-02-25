@@ -501,8 +501,8 @@ waterway|canal
 *fee|no
 *toilets|yes
 *highway|trunk_link|tunnel
-mapswithme
-mapswithme
+*drinking_water|yes
+*drinking_water|no
 mapswithme
 mapswithme
 mapswithme
