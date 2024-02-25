@@ -395,16 +395,7 @@
 	<string name="editor_time_delete">Apagar horário</string>
 	<!-- Text for allday switch. -->
 	<string name="editor_time_allday">O dia todo (24 horas)</string>
-	<string name="editor_time_open">Aberto</string>
-	<string name="editor_time_close">Fechado</string>
-	<string name="editor_time_add_closed">Inserir Horas Sem Funcionamento</string>
-	<string name="editor_time_title">Horário de funcionamento</string>
-	<string name="editor_time_advanced">Modo avançado</string>
-	<string name="editor_time_simple">Modo simples</string>
-	<string name="editor_hours_closed">Horas Sem Funcionamento</string>
-	<string name="editor_example_values">Valores de exemplo</string>
-	<string name="editor_correct_mistake">Corrigir erro</string>
-	<string name="editor_add_select_location">Local</string>
+	<string name="editor_time_add_closed">Inserir horas sem funcionamento</string>
 	<string name="editor_report_problem_desription_1">Por favor, descreva o problema em detalhes para que a comunidade OpenStreetMap possa corrigir o erro.</string>
 	<string name="editor_report_problem_desription_2">Ou faça-o você mesmo em https://www.openstreetmap.org/</string>
 	<string name="editor_report_problem_send_button">Enviar</string>
@@ -726,8 +717,26 @@
 	<string name="splash_subtitle">Dados do mapa do OpenStreetMap</string>
 	<!-- Translated Organic Maps site, add new translations here: https://github.com/organicmaps/organicmaps.github.io/tree/master/content -->
 	<string name="translated_om_site_url">https://organicmaps.app/pt-BR/</string>
-	<!-- Tip #00 -->
+	<!-- App Tip #00 -->
 	<string name="app_tip_00">Obrigado por você usar nossos mapas criados pela comunidade!</string>
+	<!-- App tip #01 -->
+	<string name="app_tip_01">Com suas doações e apoio, podemos criar o melhor mapa do mundo!</string>
+	<!-- App tip #02 -->
+	<string name="app_tip_02">Você gosta do nosso aplicativo? Por favor, doe para apoiar o desenvolvimento! Ainda não gostou? Informe-nos e consertaremos isso!</string>
+	<!-- App tip #03 -->
+	<string name="app_tip_03">Se você conhece algum desenvolvedor de software, pode lhe pedir que implemente um recurso de que você precisa.</string>
+	<!-- App tip #04 -->
+	<string name="app_tip_04">Você sabia que pode tocar longamente em qualquer lugar do mapa para selecioná-lo?</string>
+	<!-- App tip #05 -->
+	<string name="app_tip_05">Você sabia que sua posição atual no mapa pode ser selecionada?</string>
+	<!-- App tip #06 -->
+	<string name="app_tip_06">Você pode ajudar a traduzir nosso aplicativo para o seu idioma.</string>
+	<!-- App tip #07 -->
+	<string name="app_tip_07">Nosso aplicativo foi desenvolvido por alguns entusiastas e pela comunidade.</string>
+	<!-- App tip #08 -->
+	<string name="app_tip_08">Você pode corrigir e melhorar facilmente os dados do mapa.</string>
+	<!-- App tip #09 -->
+	<string name="app_tip_09">Nosso principal objetivo é construir mapas rápidos, focados na privacidade e fáceis de usar que você vai adorar.</string>
 	<!-- Text on the Android Auto placeholder screen that maps are displayed on the phone screen -->
 	<string name="aa_used_on_the_phone_screen">Agora você está usando o Organic Maps na tela do telefone</string>
 	<!-- Text on the phone placeholder screen that maps are displayed on the car screen -->
@@ -748,6 +757,8 @@
 	<string name="browser_not_available">O navegador da Web não está disponível</string>
 	<!-- Text displayed in a dialog when OSM authorization is disabled -->
 	<string name="osm_login_not_available">A autorização do OpenStreetMap está temporariamente indisponível devido a novas restrições no Google Play 😾\nNossa equipe está trabalhando para resolver esse problema. Por favor, seja paciente 🙏</string>
+	<!-- Bookmark categories screen, button that opens share dialog to export all bookmarks and tracks -->
+	<string name="bookmarks_export">Exportar todos os favoritos e trilhas</string>
 
 	<!-- SECTION: Types -->
 	<string name="type.addr_interpolation">Endereço/Bloco</string>

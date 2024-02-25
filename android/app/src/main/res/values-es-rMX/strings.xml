@@ -225,6 +225,8 @@
 	<string name="aa_grant_permissions">Conceder permisos</string>
 	<!-- Text that will be displayed in the notification title when the app is connected to Android Auto. -->
 	<string name="aa_connected_to_car_notification_title">Conectado al automóvil</string>
+	<!-- Bookmark categories screen, button that opens share dialog to export all bookmarks and tracks -->
+	<string name="bookmarks_export">Exportar todos los marcadores y pistas</string>
 
 	<!-- SECTION: Types -->
 	<string name="type.amenity">Infraestructura</string>

@@ -719,8 +719,26 @@
 	<string name="splash_subtitle">Mapová data z OpenStreetMap</string>
 	<!-- Translated Organic Maps site, add new translations here: https://github.com/organicmaps/organicmaps.github.io/tree/master/content -->
 	<string name="translated_om_site_url">https://organicmaps.app/cs/</string>
-	<!-- Tip #00 -->
+	<!-- App Tip #00 -->
 	<string name="app_tip_00">Děkujeme, že používáte naše komunitní mapy!</string>
+	<!-- App tip #01 -->
+	<string name="app_tip_01">S vašimi dary a podporou můžeme vytvořit ty nejlepší mapy na světě!</string>
+	<!-- App tip #02 -->
+	<string name="app_tip_02">Líbí se vám naše aplikace? Přispějte prosím na podporu rozvoje! Ještě se ti to nelíbí? Dejte nám prosím vědět a my to napravíme!</string>
+	<!-- App tip #03 -->
+	<string name="app_tip_03">Pokud znáte vývojáře softwaru, můžete ho požádat, aby implementoval funkci, kterou potřebujete.</string>
+	<!-- App tip #04 -->
+	<string name="app_tip_04">Víte, že libovolné místo na mapě můžete vybrat dlouhým klepnutím?</string>
+	<!-- App tip #05 -->
+	<string name="app_tip_05">Víte, že si na mapě můžete vybrat svou aktuální polohu?</string>
+	<!-- App tip #06 -->
+	<string name="app_tip_06">Můžete pomoci přeložit naši aplikaci do vašeho jazyka.</string>
+	<!-- App tip #07 -->
+	<string name="app_tip_07">Naše aplikace je vyvinuta několika nadšenci a komunitou.</string>
+	<!-- App tip #08 -->
+	<string name="app_tip_08">Mapová data můžete snadno opravit a vylepšit.</string>
+	<!-- App tip #09 -->
+	<string name="app_tip_09">Naším hlavním cílem je vytvářet rychlé, na soukromí zaměřené a snadno použitelné mapy, které si zamilujete.</string>
 	<!-- Text on the Android Auto placeholder screen that maps are displayed on the phone screen -->
 	<string name="aa_used_on_the_phone_screen">Na obrazovce telefonu nyní používáte aplikaci Organic Maps</string>
 	<!-- Text on the phone placeholder screen that maps are displayed on the car screen -->
@@ -744,6 +762,8 @@
 	<!-- Text displayed in a dialog when OSM authorization is disabled -->
 	<string name="osm_login_not_available">Autorizace OpenStreetMap je dočasně nedostupná kvůli novým omezením v Google Play 😾\nNáš tým pracuje na vyřešení tohoto problému. Buďte prosím trpěliví 🙏</string>
 	<string name="volume">Hlasitost</string>
+	<!-- Bookmark categories screen, button that opens share dialog to export all bookmarks and tracks -->
+	<string name="bookmarks_export">Export všech záložek a stop</string>
 
 	<!-- SECTION: Types -->
 	<string name="type.addr_interpolation">Adresa/blok</string>

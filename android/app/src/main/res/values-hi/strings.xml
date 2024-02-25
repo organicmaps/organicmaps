@@ -446,8 +446,26 @@
 	<string name="enable_show_on_lock_screen_description">सक्षम होने पर, डिवाइस लॉक होने पर भी ऐप लॉकस्क्रीन पर काम करेगा।</string>
 	<!-- Translated Organic Maps site, add new translations here: https://github.com/organicmaps/organicmaps.github.io/tree/master/content -->
 	<string name="translated_om_site_url">https://organicmaps.app/hi/</string>
-	<!-- Tip #00 -->
+	<!-- App Tip #00 -->
 	<string name="app_tip_00">हमारे समुदाय-निर्मित मानचित्रों का उपयोग करने के लिए धन्यवाद!</string>
+	<!-- App tip #01 -->
+	<string name="app_tip_01">आपके दान और समर्थन से, हम दुनिया में सबसे अच्छे मानचित्र बना सकते हैं!</string>
+	<!-- App tip #02 -->
+	<string name="app_tip_02">क्या आपको हमारा ऐप पसंद है? कृपया विकास का समर्थन करने के लिए दान करें! अभी तक यह पसंद नहीं आया? कृपया हमें बताएं, और हम इसे ठीक कर देंगे!</string>
+	<!-- App tip #03 -->
+	<string name="app_tip_03">यदि आप किसी सॉफ़्टवेयर डेवलपर को जानते हैं, तो आप उससे वह सुविधा लागू करने के लिए कह सकते हैं जिसकी आपको आवश्यकता है।</string>
+	<!-- App tip #04 -->
+	<string name="app_tip_04">क्या आप जानते हैं कि आप मानचित्र पर किसी भी स्थान को चुनने के लिए उस पर देर तक टैप कर सकते हैं?</string>
+	<!-- App tip #05 -->
+	<string name="app_tip_05">क्या आप जानते हैं कि आप मानचित्र पर अपना वर्तमान स्थान चुन सकते हैं?</string>
+	<!-- App tip #06 -->
+	<string name="app_tip_06">आप हमारे ऐप को अपनी भाषा में अनुवाद करने में मदद कर सकते हैं।</string>
+	<!-- App tip #07 -->
+	<string name="app_tip_07">हमारा ऐप कुछ उत्साही लोगों और समुदाय द्वारा विकसित किया गया है।</string>
+	<!-- App tip #08 -->
+	<string name="app_tip_08">आप मानचित्र डेटा को आसानी से ठीक और सुधार सकते हैं।</string>
+	<!-- App tip #09 -->
+	<string name="app_tip_09">हमारा मुख्य लक्ष्य तेज़, गोपनीयता-केंद्रित, उपयोग में आसान मानचित्र बनाना है जो आपको पसंद आएंगे।</string>
 	<!-- Text on the Android Auto placeholder screen that maps are displayed on the phone screen -->
 	<string name="aa_used_on_the_phone_screen">अब आप फ़ोन स्क्रीन पर ऑर्गेनिक मानचित्र का उपयोग कर रहे हैं</string>
 	<!-- Text on the phone placeholder screen that maps are displayed on the car screen -->
@@ -469,6 +487,8 @@
 	<!-- Text displayed when a webview or a browser are disabled, and external links can't be opened. -->
 	<string name="browser_not_available">वेब ब्राउज़र उपलब्ध नहीं है</string>
 	<string name="volume">आवाज़</string>
+	<!-- Bookmark categories screen, button that opens share dialog to export all bookmarks and tracks -->
+	<string name="bookmarks_export">सभी बुकमार्क और ट्रैक निर्यात करें</string>
 
 	<!-- SECTION: Types -->
 	<string name="type.aerialway.cable_car">आकाशीय रज्जुमार्ग</string>

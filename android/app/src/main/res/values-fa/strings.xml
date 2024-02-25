@@ -709,8 +709,26 @@
 	<string name="telegram_url">https://t.me/OrganicMapsIR</string>
 	<!-- Link to OSM wiki for Editor, Profile and About pages -->
 	<string name="osm_wiki_about_url">https://wiki.openstreetmap.org/wiki/Fa:About_OpenStreetMap</string>
-	<!-- Tip #00 -->
+	<!-- App Tip #00 -->
 	<string name="app_tip_00">از شما برای استفاده از نقشه های ساخته شده توسط جامعه سپاسگزاریم!</string>
+	<!-- App tip #01 -->
+	<string name="app_tip_01">با کمک های مالی و حمایت شما، ما می توانیم بهترین نقشه های جهان را ایجاد کنیم!</string>
+	<!-- App tip #02 -->
+	<string name="app_tip_02">آیا برنامه ما را دوست دارید؟ لطفا برای حمایت از توسعه کمک مالی کنید! هنوز آن را دوست ندارید؟ لطفا به ما اطلاع دهید، و ما آن را تعمیر خواهیم کرد!</string>
+	<!-- App tip #03 -->
+	<string name="app_tip_03">اگر یک توسعه‌دهنده نرم‌افزار را می‌شناسید، می‌توانید از او بخواهید ویژگی مورد نیاز خود را پیاده‌سازی کند.</string>
+	<!-- App tip #04 -->
+	<string name="app_tip_04">آیا می‌دانید که می‌توانید روی هر مکانی روی نقشه ضربه طولانی بزنید تا آن را انتخاب کنید؟</string>
+	<!-- App tip #05 -->
+	<string name="app_tip_05">آیا می دانید که می توانید مکان فعلی خود را روی نقشه انتخاب کنید؟</string>
+	<!-- App tip #06 -->
+	<string name="app_tip_06">شما می توانید به ترجمه برنامه ما به زبان خود کمک کنید.</string>
+	<!-- App tip #07 -->
+	<string name="app_tip_07">برنامه ما توسط تعدادی از علاقه مندان و جامعه توسعه یافته است.</string>
+	<!-- App tip #08 -->
+	<string name="app_tip_08">شما به راحتی می توانید داده های نقشه را اصلاح و بهبود دهید.</string>
+	<!-- App tip #09 -->
+	<string name="app_tip_09">هدف اصلی ما ساختن نقشه هایی سریع، متمرکز بر حریم خصوصی و با کاربری آسان است که شما عاشق آن خواهید شد.</string>
 	<!-- Text on the Android Auto placeholder screen that maps are displayed on the phone screen -->
 	<string name="aa_used_on_the_phone_screen">اکنون در حال استفاده از نقشه های ارگانیک در صفحه گوشی هستید</string>
 	<!-- Text on the phone placeholder screen that maps are displayed on the car screen -->
@@ -732,6 +750,8 @@
 	<!-- Text displayed when a webview or a browser are disabled, and external links can't be opened. -->
 	<string name="browser_not_available">مرورگر وب در دسترس نیست</string>
 	<string name="volume">میزان صدا</string>
+	<!-- Bookmark categories screen, button that opens share dialog to export all bookmarks and tracks -->
+	<string name="bookmarks_export">همه نشانکu200cها و آهنگu200cها را صادر کنید</string>
 
 	<!-- SECTION: Types -->
 	<string name="type.addr_interpolation">آدرس/بلاک</string>
