@@ -1702,12 +1702,26 @@ area|z17-[power=station],
 node|z17-[power=plant],
 area|z17-[power=plant],
 /* Skip individual solar generators, because there are a lot of mapped panels */
-/* ToDo: Make separate wind generator icon? Because of a good landmark */
 node|z17-[power=generator][generator:source!=solar],
 area|z17-[power=generator][generator:source!=solar],
 node|z19-[power=substation],
 area|z19-[power=substation],
 {icon-image: power-m.svg;font-size: 11;}
+
+
+node|z15-[power=generator][generator:source=wind],
+area|z15-[power=generator][generator:source=wind],
+{icon-image: dot-m.svg;}
+node|z18-[power=generator][generator:source=wind],
+area|z18-[power=generator][generator:source=wind],
+{icon-image: wind_turbine-m.svg;text: name;text-color: @poi_label; text-offset: 1; font-size: 10;}
+
+node|z15-[power=plant][plant:source=wind],
+area|z15-[power=plant][plant:source=wind],
+{icon-image: power_plant_wind-m.svg;}
+node|z16-[power=plant][plant:source=wind],
+area|z16-[power=plant][plant:source=wind],
+{text: name;text-color: @poi_label; text-offset: 1; font-size: 10;}
 
 node|z17-[amenity=shower],
 area|z17-[amenity=shower]

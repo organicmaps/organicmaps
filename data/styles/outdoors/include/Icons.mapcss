@@ -318,6 +318,17 @@ node|z14-[highway=ford],
 node|z14-[power=tower],
 {icon-image: power-tower-m.svg;}
 
+node|z13-[power=generator][generator:source=wind],
+area|z13-[power=generator][generator:source=wind],
+{icon-image: dot-m.svg;}
+node|z16-[power=generator][generator:source=wind],
+area|z16-[power=generator][generator:source=wind],
+{icon-image: wind_turbine-m.svg;text: name;text-color: @poi_label; text-offset: 1; font-size: 10;}
+
+node|z13-[power=plant][plant:source=wind],
+area|z13-[power=plant][plant:source=wind],
+{icon-image: power_plant_wind-m.svg;}
+
 node|z12-[man_made=flagpole],
 node|z13-[man_made=mast],
 {icon-image: dot-m.svg;}
