@@ -21,6 +21,7 @@ import app.organicmaps.editor.ProfileActivity;
 import app.organicmaps.help.HelpActivity;
 import app.organicmaps.location.LocationHelper;
 import app.organicmaps.location.LocationProviderFactory;
+import app.organicmaps.routing.RoutingOptions;
 import app.organicmaps.util.Config;
 import app.organicmaps.util.NetworkPolicy;
 import app.organicmaps.util.PowerManagment;
@@ -70,12 +71,19 @@ public class SettingsPrefsFragment extends BaseXmlSettingsFragment
     pref.setSummary(Config.TTS.isEnabled() ? R.string.on : R.string.off);
   }
 
+  private void updateRoutingSettingsPrefsSummary()
+  {
+    final Preference pref = getPreference(getString(R.string.prefs_routing));
+    pref.setSummary(RoutingOptions.hasAnyOptions() ? R.string.on : R.string.off);
+  }
+
   @Override
   public void onResume()
   {
     super.onResume();
 
     updateVoiceInstructionsPrefsSummary();
+    updateRoutingSettingsPrefsSummary();
   }
 
   @Override
