@@ -199,11 +199,11 @@
 	<string name="prefs_group_route">Navegação</string>
 	<string name="pref_zoom_title">Botões de ampliação</string>
 	<string name="pref_zoom_summary">Mostrar no ecrã</string>
-	<!-- Settings «Map» category: «Appearance» title -->
-	<string name="pref_map_style_title">Apresentação</string>
-	<!-- Settings "Appearance" category: "Light" title, should be consistent with the pref_map_style_title translation. -->
+	<!-- Settings «Map» category: «Night style» title -->
+	<string name="pref_map_style_title">Modo noturno</string>
+	<!-- Settings "Appearance" category: "Light" title, should be consistent with the pref_appearance_title translation. -->
 	<string name="pref_appearance_light">Tons claros</string>
-	<!-- Settings "Appearance" category: "Dark" title, should be consistent with the pref_map_style_title translation. -->
+	<!-- Settings "Appearance" category: "Dark" title, should be consistent with the pref_appearance_title translation. -->
 	<string name="pref_appearance_dark">Tons escuros</string>
 	<!-- Generic «Off» string -->
 	<string name="off">Desligado</string>

@@ -218,12 +218,12 @@
 "pref_zoom_title" = "Böyütmə düymələri";
 
 /* Settings «Map» category: «Appearance» title */
-"pref_map_style_title" = "Görünüş";
+"pref_appearance_title" = "Görünüş";
 
-/* Settings "Appearance" category: "Light" title, should be consistent with the pref_map_style_title translation. */
+/* Settings "Appearance" category: "Light" title, should be consistent with the pref_appearance_title translation. */
 "pref_appearance_light" = "Parlaq";
 
-/* Settings "Appearance" category: "Dark" title, should be consistent with the pref_map_style_title translation. */
+/* Settings "Appearance" category: "Dark" title, should be consistent with the pref_appearance_title translation. */
 "pref_appearance_dark" = "Tünd";
 
 /* Generic «Off» string */

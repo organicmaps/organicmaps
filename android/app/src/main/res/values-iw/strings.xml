@@ -209,11 +209,11 @@
 	<string name="prefs_group_route">ניווט</string>
 	<string name="pref_zoom_title">כפתורי זום</string>
 	<string name="pref_zoom_summary">הצג על המסך</string>
-	<!-- Settings «Map» category: «Appearance» title -->
-	<string name="pref_map_style_title">מראה</string>
-	<!-- Settings "Appearance" category: "Light" title, should be consistent with the pref_map_style_title translation. -->
+	<!-- Settings «Map» category: «Night style» title -->
+	<string name="pref_map_style_title">מצב לילה</string>
+	<!-- Settings "Appearance" category: "Light" title, should be consistent with the pref_appearance_title translation. -->
 	<string name="pref_appearance_light">בהיר</string>
-	<!-- Settings "Appearance" category: "Dark" title, should be consistent with the pref_map_style_title translation. -->
+	<!-- Settings "Appearance" category: "Dark" title, should be consistent with the pref_appearance_title translation. -->
 	<string name="pref_appearance_dark">כהה</string>
 	<!-- Generic «Off» string -->
 	<string name="off">כבוי</string>

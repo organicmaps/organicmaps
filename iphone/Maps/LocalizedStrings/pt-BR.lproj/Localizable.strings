@@ -218,12 +218,12 @@
 "pref_zoom_title" = "Botões de zoom";
 
 /* Settings «Map» category: «Appearance» title */
-"pref_map_style_title" = "Aparência";
+"pref_appearance_title" = "Aparência";
 
-/* Settings "Appearance" category: "Light" title, should be consistent with the pref_map_style_title translation. */
+/* Settings "Appearance" category: "Light" title, should be consistent with the pref_appearance_title translation. */
 "pref_appearance_light" = "Clara";
 
-/* Settings "Appearance" category: "Dark" title, should be consistent with the pref_map_style_title translation. */
+/* Settings "Appearance" category: "Dark" title, should be consistent with the pref_appearance_title translation. */
 "pref_appearance_dark" = "Escura";
 
 /* Generic «Off» string */

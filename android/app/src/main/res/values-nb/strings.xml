@@ -213,11 +213,11 @@
 	<string name="prefs_group_route">Navigasjon</string>
 	<string name="pref_zoom_title">Zoom-knapper</string>
 	<string name="pref_zoom_summary">Vis på skjermen</string>
-	<!-- Settings «Map» category: «Appearance» title -->
-	<string name="pref_map_style_title">Utseende</string>
-	<!-- Settings "Appearance" category: "Light" title, should be consistent with the pref_map_style_title translation. -->
+	<!-- Settings «Map» category: «Night style» title -->
+	<string name="pref_map_style_title">Nattmodus</string>
+	<!-- Settings "Appearance" category: "Light" title, should be consistent with the pref_appearance_title translation. -->
 	<string name="pref_appearance_light">Lys</string>
-	<!-- Settings "Appearance" category: "Dark" title, should be consistent with the pref_map_style_title translation. -->
+	<!-- Settings "Appearance" category: "Dark" title, should be consistent with the pref_appearance_title translation. -->
 	<string name="pref_appearance_dark">Mørke</string>
 	<!-- Generic «Off» string -->
 	<string name="off">Av</string>

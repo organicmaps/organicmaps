@@ -218,12 +218,12 @@
 "pref_zoom_title" = "Butoane zoom";
 
 /* Settings «Map» category: «Appearance» title */
-"pref_map_style_title" = "Aspect";
+"pref_appearance_title" = "Aspect";
 
-/* Settings "Appearance" category: "Light" title, should be consistent with the pref_map_style_title translation. */
+/* Settings "Appearance" category: "Light" title, should be consistent with the pref_appearance_title translation. */
 "pref_appearance_light" = "Luminos";
 
-/* Settings "Appearance" category: "Dark" title, should be consistent with the pref_map_style_title translation. */
+/* Settings "Appearance" category: "Dark" title, should be consistent with the pref_appearance_title translation. */
 "pref_appearance_dark" = "Întunecat";
 
 /* Generic «Off» string */

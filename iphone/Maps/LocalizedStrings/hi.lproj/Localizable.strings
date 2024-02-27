@@ -218,12 +218,12 @@
 "pref_zoom_title" = "ज़ूम बटन";
 
 /* Settings «Map» category: «Appearance» title */
-"pref_map_style_title" = "प्रकटन";
+"pref_appearance_title" = "प्रकटन";
 
-/* Settings "Appearance" category: "Light" title, should be consistent with the pref_map_style_title translation. */
+/* Settings "Appearance" category: "Light" title, should be consistent with the pref_appearance_title translation. */
 "pref_appearance_light" = "हल्का";
 
-/* Settings "Appearance" category: "Dark" title, should be consistent with the pref_map_style_title translation. */
+/* Settings "Appearance" category: "Dark" title, should be consistent with the pref_appearance_title translation. */
 "pref_appearance_dark" = "गहरा";
 
 /* Generic «Off» string */
