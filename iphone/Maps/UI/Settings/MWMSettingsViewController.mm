@@ -179,7 +179,7 @@ using namespace power_management;
       nightMode = L(@"auto");
       break;
   }
-  [self.nightModeCell configWithTitle:L(@"pref_map_style_title") info:nightMode];
+  [self.nightModeCell configWithTitle:L(@"pref_appearance_title") info:nightMode];
 }
 
 - (void)show3dBuildingsAlert:(UITapGestureRecognizer *)recognizer {

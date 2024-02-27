@@ -16,7 +16,7 @@
 - (void)viewDidLoad
 {
   [super viewDidLoad];
-  self.title = L(@"pref_map_style_title");
+  self.title = L(@"pref_appearance_title");
   SettingsTableViewSelectableCell * selectedCell = nil;
   switch ([MWMSettings theme])
   {
