@@ -552,7 +552,7 @@ void MainWindow::OnLocationError(location::TLocationError errorCode)
   case location::ETimeout: [[fallthrough]];
   case location::EUnknown:
     {
-      if (m_pMyPositionAction != nullptr)
+      if (m_pDrawWidget && m_pMyPositionAction)
         m_pMyPositionAction->setEnabled(false);
       break;
     }
