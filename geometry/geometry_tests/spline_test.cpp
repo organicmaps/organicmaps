@@ -16,8 +16,12 @@ void TestPointDDir(PointD const & dst, PointD const & src)
 {
   double len1 = dst.Length();
   double len2 = src.Length();
+  std::cerr << "dst: " << DebugPrint(dst) << ", src: " << DebugPrint(src) << "\n";
   TEST_ALMOST_EQUAL_ULPS(dst.x/len1, src.x/len2, ());
-  TEST_ALMOST_EQUAL_ULPS(dst.y/len1, src.y/len2, ());
+  auto v1 = dst.y/len1;
+  auto v2 = src.y/len2;
+  std::cerr << "diff: " << fabs(v2 - v1) << "\n";
+  TEST_ALMOST_EQUAL_ULPS(v1, v2, ());
 }
 
 UNIT_TEST(SmoothedDirections)

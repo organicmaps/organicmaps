@@ -53,7 +53,6 @@ if (googleFirebaseServicesEnabled) {
 }
 apply plugin: 'com.github.triplet.play'
 apply plugin: 'ru.cian.huawei-publish-gradle-plugin'
-
 def run(cmd) {
   def stdout = new ByteArrayOutputStream()
   exec {
