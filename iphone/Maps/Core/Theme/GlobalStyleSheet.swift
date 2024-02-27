@@ -183,10 +183,16 @@ class GlobalStyleSheet: IStyleSheet {
       s.clip = true
     }
 
-    theme.add(styleName: "AlertViewTextField") { (s) -> (Void) in
+    theme.add(styleName: "AlertViewTextFieldContainer") { (s) -> (Void) in
       s.borderColor = colors.blackDividers
       s.borderWidth = 0.5
       s.backgroundColor = colors.white
+    }
+
+    theme.add(styleName: "AlertViewTextField") { (s) -> Void in
+      s.font = fonts.regular14
+      s.fontColor = colors.blackPrimaryText
+      s.tintColor = colors.blackSecondaryText
     }
 
     theme.add(styleName: "SearchStatusBarView") { (s) -> (Void) in
