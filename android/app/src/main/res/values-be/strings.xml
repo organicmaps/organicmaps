@@ -212,11 +212,11 @@
 	<string name="prefs_group_route">Навігацыя</string>
 	<string name="pref_zoom_title">Кнопкі маштабавання</string>
 	<string name="pref_zoom_summary">Паказаць на мапе</string>
-	<!-- Settings «Map» category: «Appearance» title -->
-	<string name="pref_map_style_title">Выгляд</string>
-	<!-- Settings "Appearance" category: "Light" title, should be consistent with the pref_map_style_title translation. -->
+	<!-- Settings «Map» category: «Night style» title -->
+	<string name="pref_map_style_title">Начны рэжым</string>
+	<!-- Settings "Appearance" category: "Light" title, should be consistent with the pref_appearance_title translation. -->
 	<string name="pref_appearance_light">Светлы</string>
-	<!-- Settings "Appearance" category: "Dark" title, should be consistent with the pref_map_style_title translation. -->
+	<!-- Settings "Appearance" category: "Dark" title, should be consistent with the pref_appearance_title translation. -->
 	<string name="pref_appearance_dark">Цемны</string>
 	<!-- Generic «Off» string -->
 	<string name="off">Выключаны</string>

@@ -218,12 +218,12 @@
 "pref_zoom_title" = "Tlačidlá priblíženia/oddialenia";
 
 /* Settings «Map» category: «Appearance» title */
-"pref_map_style_title" = "Vzhľad";
+"pref_appearance_title" = "Vzhľad";
 
-/* Settings "Appearance" category: "Light" title, should be consistent with the pref_map_style_title translation. */
+/* Settings "Appearance" category: "Light" title, should be consistent with the pref_appearance_title translation. */
 "pref_appearance_light" = "Svetlý";
 
-/* Settings "Appearance" category: "Dark" title, should be consistent with the pref_map_style_title translation. */
+/* Settings "Appearance" category: "Dark" title, should be consistent with the pref_appearance_title translation. */
 "pref_appearance_dark" = "Tmavý";
 
 /* Generic «Off» string */

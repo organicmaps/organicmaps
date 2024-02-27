@@ -198,11 +198,11 @@
 	<string name="prefs_group_route">Navigace</string>
 	<string name="pref_zoom_title">Tlačítka přiblížení/oddálení</string>
 	<string name="pref_zoom_summary">Zobrazit na obrazovce</string>
-	<!-- Settings «Map» category: «Appearance» title -->
-	<string name="pref_map_style_title">Vzhled</string>
-	<!-- Settings "Appearance" category: "Light" title, should be consistent with the pref_map_style_title translation. -->
+	<!-- Settings «Map» category: «Night style» title -->
+	<string name="pref_map_style_title">Noční režim</string>
+	<!-- Settings "Appearance" category: "Light" title, should be consistent with the pref_appearance_title translation. -->
 	<string name="pref_appearance_light">Světlý</string>
-	<!-- Settings "Appearance" category: "Dark" title, should be consistent with the pref_map_style_title translation. -->
+	<!-- Settings "Appearance" category: "Dark" title, should be consistent with the pref_appearance_title translation. -->
 	<string name="pref_appearance_dark">Tmavý</string>
 	<!-- Generic «Off» string -->
 	<string name="off">Vypnuto</string>
