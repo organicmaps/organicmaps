@@ -60,6 +60,7 @@ jobs:
               ninja-build \
               libgl1-mesa-dev \
               libglvnd-dev \
+              libharfbuzz-dev \
               qt6-base-dev \
               libqt6svg6-dev \
               qt6-positioning-dev \
@@ -128,6 +129,7 @@ jobs:
               ninja-build \
               libgl1-mesa-dev \
               libglvnd-dev \
+              libharfbuzz-dev \
               qt6-base-dev \
               libqt6svg6-dev \
               qt6-positioning-dev \

@@ -116,6 +116,7 @@ sudo apt update && sudo apt install -y \
     libfreetype-dev \
     libglvnd-dev \
     libgl1-mesa-dev \
+    libharfbuzz-dev \
     libicu-dev \
     libqt6svg6-dev \
     libqt6positioning6-plugins \
