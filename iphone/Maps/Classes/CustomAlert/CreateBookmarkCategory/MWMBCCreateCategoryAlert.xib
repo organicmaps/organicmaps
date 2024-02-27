@@ -62,7 +62,7 @@
                                 <constraint firstItem="xlp-ke-FxI" firstAttribute="height" secondItem="otE-Ct-TPM" secondAttribute="height" id="tj3-TS-dmp"/>
                             </constraints>
                             <userDefinedRuntimeAttributes>
-                                <userDefinedRuntimeAttribute type="string" keyPath="styleName" value="AlertViewTextField"/>
+                                <userDefinedRuntimeAttribute type="string" keyPath="styleName" value="AlertViewTextFieldContainer"/>
                             </userDefinedRuntimeAttributes>
                         </view>
                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="uxx-Di-f1Q" userLabel="hDivider">
