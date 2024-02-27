@@ -506,7 +506,7 @@
     fi = Infrastruktuurikohteet
     fr = Infrastructures
     hi = सुख सुविधा
-    hu = Infrastruktúra
+    hu = Szolgáltatás
     id = Ruang berfasilitas
     it = Struttura
     ja = アメニティー
@@ -584,7 +584,7 @@
     fi = Pankkiautomaatti
     fr = GAB
     hi = एटीएम
-    hu = Pénzautomata
+    hu = Bankautomata
     it = Bancomat
     nb = Minibank
     nl = Geldautomaat
@@ -678,7 +678,7 @@
     fi = Piknikpaikat
     fr = Terrain de pique-nique
     hi = बार्बीक्यू
-    hu = Piknikező hely
+    hu = Piknikezőhely
     id = Lokasi piknik
     it = Grill pubblico
     ja = ピクニック
@@ -1047,7 +1047,7 @@
     fi = Autovuokraamo
     fr = Location de voitures
     hi = किराए पर गाड़ियाँ
-    hu = Gépkocsi-kölcsönző
+    hu = Autókölcsönző
     id = Rental mobil
     it = Noleggio automobili
     ja = レンタカー
@@ -1084,7 +1084,7 @@
     fi = Autojen yhteiskäyttö
     fr = Station d'autopartage
     hi = गाड़ी साँझा
-    hu = Gépjármű megosztása
+    hu = Közösségi autóbérlés
     id = Berbagi mobil
     it = Car sharing
     ja = カーシェアリング
@@ -1280,7 +1280,7 @@
     fi = Arcade
     fr = Salle de jeux d'arcade
     he = מִקמֶרֶת
-    hu = Árkád
+    hu = Játékterem
     id = Arkade
     it = Arcade
     ja = アーケード
@@ -1319,7 +1319,7 @@
     fi = Latausasema
     fr = Borne de recharge
     hi = चार्जिंग स्टेशन
-    hu = Töltő állomás
+    hu = Töltőállomás
     id = Pusat Pengisian Daya
     it = Stazione di ricarica
     ja = 充電ステーション
@@ -1402,7 +1402,7 @@
     fi = Auton latausasema
     fr = Borne de recharge pour voiture
     he = תחנת טעינה למכוניות
-    hu = Autó töltőállomás
+    hu = Elektromos töltőállomás
     id = Stasiun Pengisian Mobil
     it = Stazione di ricarica per autoveicoli
     ja = 自動車充電ステーション
@@ -1597,7 +1597,7 @@
     fi = Korkeakoulu
     fr = Enseignement post-secondaire
     hi = महाविद्यालय
-    hu = Kollégium
+    hu = Főiskola
     id = Kampus
     it = Collegio
     ja = カレッジ
@@ -1717,7 +1717,7 @@
     fi = Konferenssikeskus
     fr = Centre de conférence
     he = מרכז כנסים
-    hu = Konferencia Központ
+    hu = Konferenciaközpont
     id = Pusat konferensi
     it = Centro conferenze
     ja = カンファレンスセンター
@@ -1992,7 +1992,7 @@
     fi = Rahansiirto
     fr = Transfert d'argent
     he = העברת כספים
-    hu = Pénz átutalás
+    hu = Pénzküldés
     id = Transfer uang
     it = Trasferimento di denaro
     ja = 送金
@@ -2657,7 +2657,7 @@
     fi = Lastauslaituri
     fr = Quai de chargement
     he = רציף טעינה
-    hu = Rakodó
+    hu = Rakodórámpa
     id = Dok pemuatan
     it = Bacino di carico
     ja = 発送センター
@@ -2949,7 +2949,7 @@
     fr = Stationnement privé
     he = תיטרפ הינח
     hi = निजी पार्किंग
-    hu = Saját parkoló
+    hu = Magánparkoló
     id = Parkir pribadi
     it = Parcheggio privato
     ja = 専用駐車場
@@ -2988,7 +2988,7 @@
     fi = Liityntäpysäköinti
     fr = Parking relais
     hi = पार्क करें और सवारी करें
-    hu = Parkoló
+    hu = P+R Parkoló
     id = Parkir
     it = Parcheggio di interscambio
     ja = 駐車場
@@ -3074,7 +3074,7 @@
     fr = Parking privé souterrain
     he = חניה תת קרקעית פרטית
     hi = निजी भूमिगत पार्किंग
-    hu = Privát földalatti parkoló
+    hu = Privát mélygarázs
     id = Parkir bawah tanah pribadi
     it = Parcheggio privato sotterraneo
     ja = 専用地下駐車場
@@ -3116,7 +3116,7 @@
     fi = Kadun puolella pysäköinti
     fr = Stationnement latéral sur voie
     he = חניה בצד הרחוב
-    hu = Utca oldali parkolás
+    hu = Utcai parkolás
     id = Parkir di tepi jalan
     it = Parcheggio laterale alla strada
     ja = 路上駐車
@@ -3160,7 +3160,7 @@
     fi = Yksityinen katu puolella pysäköinti
     fr = Stationnement latéral sur voie privée
     he = חניה פרטית בצד הרחוב
-    hu = Privát utca oldali parkolás
+    hu = Privát utcai parkolás
     id = Parkir sisi jalan pribadi
     it = Strada privata parcheggio laterale
     ja = プライベート・ストリート・サイド・パーキング
@@ -3330,7 +3330,7 @@
     fi = Yksityinen pysäköintialue sisäänkäynti
     fr = Entrée parking privé
     he = כניסה פרטית לחניה
-    hu = Privát parkoló bejárat
+    hu = Privát parkoló bejárata
     id = Pintu masuk parkir pribadi
     it = Ingresso al parcheggio privato
     ja = 専用駐車場入り口
@@ -3461,7 +3461,7 @@
     fi = Maksupääte
     fr = Terminal de paiement
     hi = भुगतान टर्मिनल
-    hu = Fizető terminál
+    hu = Fizetőterminál
     id = Terminal Pembayaran
     it = Terminale di pagamento
     ja = 決済端末
@@ -3730,7 +3730,7 @@
     fa = گردشگری
     fi = Hindutemppeli
     hi = मन्दिर
-    hu = Templom
+    hu = Hindu templom
     id = Kuil
     it = Tempio induista
     ja = ヒンドゥー教寺院
@@ -3843,7 +3843,7 @@
     fi = Šintopyhäkkö
     fr = Sanctuaire
     hi = शिंतो मंदिर
-    hu = Kegyhely
+    hu = Sinto szentély
     id = Kuil
     it = Santuario shintoista
     ja = 神社
@@ -3881,7 +3881,7 @@
     fi = Taolainen temppeli
     fr = Temmple Taoïste
     hi = ताओवादी मंदिर
-    hu = Templom
+    hu = Taoista templom
     id = Kuil
     it = Tempio taoista
     ja = 道教寺院
@@ -4174,7 +4174,7 @@
     fi = Kierrätysjäteastia
     fr = Conteneur de recyclage
     hi = रीसाइक्लिंग कंटेनर
-    hu = Újrahasznosító tartály
+    hu = Újrahasznosító konténer
     id = Wadah daur ulang
     it = Contenitore per materiali riciclabili
     ja = リサイクルボックス
@@ -4294,7 +4294,7 @@
     fa = بطریهای شیشهای
     fi = Lasipullot
     fr = Verre
-    hu = Üveg palackok
+    hu = Üvegpalackok
     id = Botol kaca
     it = Contenitori in vetro
     ja = ガラス瓶
@@ -4332,7 +4332,7 @@
     fa = پسماند کاغذ
     fi = Paperi
     fr = Papier usagé
-    hu = Papír hulladék
+    hu = Papírhulladék
     id = Limbah kertas
     it = Rifiuti in carta e cartone
     ja = 紙くず
@@ -4370,7 +4370,7 @@
     fa = پسماند پلاستیک
     fi = Muovi
     fr = Déchets plastiques
-    hu = Műanyag hulladék
+    hu = Műanyaghulladék
     id = Limbah plastik
     it = Rifiuti in plastica
     ja = プラスチックごみ
@@ -4835,7 +4835,7 @@
     fi = Stripclub
     fr = Club de strip-tease
     he = מועדון חשפנות
-    hu = Stripclub
+    hu = Sztriptízbár
     id = Klub telanjang
     it = Stripclub
     ja = ストリップクラブ
@@ -5318,7 +5318,7 @@
     fi = Julkisen liikenteen lippuautomaatti
     fr = Distributeur de billets de transport en commun
     hi = टिकट मशीन
-    hu = Automata jegykiadó tömegközlekedési eszközökhöz
+    hu = Jegyautomata tömegközlekedési eszközökhöz
     id = Mesin penjual otomatis tiket transportasi umum
     it = Biglietteria automatica del trasporto pubblico
     ja = 公共交通機関の券売機
@@ -5424,7 +5424,7 @@
     fi = Ajoneuvon tarkastus
     fr = Centre de contrôle technique
     he = לבדיקה טכנית
-    hu = Gépjármű átvizsgálás
+    hu = Járművek műszaki vizsgáztatása
     id = Pemeriksaan kendaraan
     it = Ispezione del veicolo
     ja = 車検
@@ -5521,7 +5521,7 @@
     fi = Roskakori
     fr = Poubelle
     hi = कूडेदान
-    hu = Szemétkosár
+    hu = Szemetes
     id = Kotak sampah
     it = Contenitore per rifiuti
     ja = ゴミ箱
@@ -6189,7 +6189,7 @@
     fi = Kääntöportti
     fr = Tourniquet
     he = קרוסלת
-    hu = Fordítókapu
+    hu = Forgókorlát
     id = Pintu putar
     it = Tornello
     ja = ターンスタイル
@@ -6784,7 +6784,7 @@
     fi = Rautatieasema
     fr = Gare ferroviaire
     hi = रेलवे स्टेशन
-    hu = Vonatmegálló
+    hu = Vasútállomás
     id = Rel kereta api
     it = Stazione ferroviaria
     ja = 鉄道駅
@@ -7622,7 +7622,7 @@
     fi = Kamerakauppa
     fr = Boutique d'appareils photo
     he = חנות מצלמות
-    hu = Fényképezőgép bolt
+    hu = Fotósbolt
     id = Toko Kamera
     it = Negozio di macchine fotografiche
     ja = カメラショップ
@@ -11307,7 +11307,7 @@
     fi = Ulos
     fr = Sortie
     he = יְצִיאָה
-    hu = Kilépés
+    hu = Kijárat
     id = Keluar
     it = Uscita
     ja = 終了する
@@ -12382,7 +12382,7 @@
     fi = Moottoritie
     fr = Autoroute
     hi = राजमार्ग
-    hu = Utca
+    hu = Autópálya
     id = Jalan
     it = Autostrada
     ja = ストリート
@@ -12634,7 +12634,7 @@
     fi = Jalankulkutie
     fr = Rue piétonne
     hi = पैदल यात्रीयों की सड़क
-    hu = Utca
+    hu = Sétálóutca
     id = Jalan
     it = Strada pedonale
     ja = ストリート
@@ -12904,7 +12904,7 @@
     fi = Katu
     fr = Rue
     hi = सड़क
-    hu = Utca
+    hu = Út
     id = Jalan
     it = Via
     ja = ストリート
@@ -13102,7 +13102,7 @@
     fi = Huoltotie
     fr = Rue
     hi = सर्विस रोड
-    hu = Utca
+    hu = Szervizút
     id = Jalan
     it = Via
     ja = ストリート
@@ -13248,7 +13248,7 @@
     fa = مسیر
     fi = Portaat
     fr = Escaliers
-    hu = Ösvény
+    hu = Lépcső
     id = Jalur
     it = Scale
     ja = 歩道
@@ -13432,7 +13432,7 @@
     fi = Liikennevalot
     fr = Feux de circulation
     hi = ट्रैफिक लाइट
-    hu = Közlekedési lámpák
+    hu = Közlekedési lámpa
     id = Lampu lalu lintas
     it = Semaforo
     ja = 交通信号
@@ -13470,7 +13470,7 @@
     fi = Päätie
     fr = Voie rapide
     hi = प्रधान मार्ग
-    hu = Utca
+    hu = Elsőrendű közlekedési út
     id = Jalan
     it = Strada
     ja = ストリート
@@ -13535,7 +13535,7 @@
     fa = جاده
     fi = Katu
     fr = Rue
-    hu = Utca
+    hu = Kis utca
     id = Jalan
     it = Via
     ja = ストリート
@@ -13984,7 +13984,7 @@
     fi = Roomalaisleiri
     fr = Camp romain
     he = קסטרום
-    hu = Castrum
+    hu = Római erődítmény
     id = Benteng Romawi
     it = Castra
     ja = カストラ
@@ -14065,7 +14065,7 @@
     fi = Linnoitettu kirkko
     fr = Église fortifiée
     he = כנסייה מבוצרת
-    hu = Erősített templom
+    hu = Erődített templom
     id = Gereja yang dibentengi
     it = Chiesa fortificata
     ja = 要塞化された教会
@@ -14106,7 +14106,7 @@
     fr = Forteresse
     he = מִבצָר
     hi = किले
-    hu = Erődrendszer
+    hu = Erőd
     id = Benteng
     it = Fortezza
     ja = 要塞
@@ -14307,7 +14307,7 @@
     fi = Japanilainen linna
     fr = Château japonais
     he = טירה יפנית
-    hu = Japán várkastélyai
+    hu = Japán várkastély
     id = Istana Jepang
     it = Castello giapponese
     ja = 日本の城
@@ -14387,7 +14387,7 @@
     fi = Kaupungin portti
     fr = Porte de ville
     he = שער העיר
-    hu = Városi kapu
+    hu = Városkapu
     id = Gerbang kota
     it = Porta cittadina
     ja = 城門
@@ -14428,7 +14428,7 @@
     fr = Mur de la ville
     he = חומת העיר
     hi = शहर की दीवार
-    hu = Városi fal
+    hu = Városfal
     id = Tembok Kota
     it = Muro della città
     ja = 城壁
@@ -14470,7 +14470,7 @@
     fr = Fort militaire
     he = מִבצָר
     hi = किला
-    hu = Fort
+    hu = Erőd
     id = Benteng
     it = Fortezza
     ja = 歴史的な要塞
@@ -14675,7 +14675,7 @@
     fr = Plaque commémorative
     he = לוחית זיכרון
     hi = स्मारक पट्टिका
-    hu = Emlékmű
+    hu = Emléktábla
     id = Tugu peringatan
     it = Memoriale
     ja = 銘板
@@ -14715,7 +14715,7 @@
     fi = Veistos
     fr = Sculpture
     he = פֶּסֶל
-    hu = Emlékmű
+    hu = Szobor
     id = Tugu peringatan
     it = Scultura
     ja = 彫刻
@@ -14756,7 +14756,7 @@
     fr = Mémorial
     he = פסל
     hi = स्मारक प्रतिमा
-    hu = Emlékmű
+    hu = Szobor
     id = Tugu peringatan
     it = Statua memoriale
     ja = 塑像
@@ -15083,7 +15083,7 @@
     fr = Navire
     he = אונייה
     hi = जलयान
-    hu = Túrizmus
+    hu = Turizmus
     id = Pemandangan
     it = Nave storica
     ja = 退役船
@@ -15287,7 +15287,7 @@
     fi = Haaksirikko
     fr = Naufrage
     he = לְנַפֵּץ
-    hu = Hajótörés
+    hu = Hajóroncs
     id = Kecelakaan kapal
     it = Naufragio
     ja = 難破船
@@ -15571,7 +15571,7 @@
     fa = حیاط کلیسا
     fi = Kirkon piha
     fr = Cour d'église
-    hu = Templomtér
+    hu = Templomkert
     id = Halaman gereja
     it = Sagrato della chiesa
     ja = キリスト教教会付属地
@@ -15774,7 +15774,7 @@
     fi = Kukkapenkki
     fr = Plate-bande
     he = מיטת פרחים
-    hu = Virágágy
+    hu = Virágágyás
     id = Hamparan bunga
     it = Aiuola
     ja = 花壇
@@ -15851,7 +15851,7 @@
     fa = جنگل
     fi = Havumetsä
     fr = Forêt de conifères
-    hu = Erdő
+    hu = Tűlevelű erdő
     id = Hutan
     it = Foresta di conifere
     ja = 森林
@@ -15888,7 +15888,7 @@
     fa = جنگل
     fi = Lehtimetsä
     fr = Forêt de feuillus
-    hu = Erdő
+    hu = Lombhullató erdő
     id = Hutan
     it = Foresta de cidua
     ja = 森林
@@ -16213,7 +16213,7 @@
     fa = محدوده راه آهن
     fi = Rautatierakennukset
     fr = Installations ferroviaires
-    hu = Vasúti helyiségek
+    hu = Vasúti terület
     id = Stasiun kereta api
     it = Impianti ferroviari
     ja = 鉄道施設
@@ -16273,7 +16273,7 @@
     fa = اب
     fi = Vesiallas
     fr = Bassin de retenue
-    hu = Víz
+    hu = Tározó
     id = Air
     it = Bacino
     ja = 貯水池
@@ -16524,7 +16524,7 @@
     fa = پارک سلامت
     fi = Kuntokeskus
     fr = Station de fitness
-    hu = Fitness állomás
+    hu = Fitneszállomás
     id = Stasiun Kebugaran
     it = Centro fitness
     ja = フィットネスステーション
@@ -16791,7 +16791,7 @@
     fi = Ulkona istuminen
     fr = Sièges extérieurs
     he = ישיבה בחוץ
-    hu = Kültéri ülőhelyek
+    hu = Kiülős helyek
     id = Tempat duduk di luar ruangan
     it = Posti a sedere all'aperto
     ja = 屋外席
@@ -16882,7 +16882,7 @@
     fi = Piknik-pöytä
     fr = Table de pique-nique
     he = קינקיפ ןחלוש
-    hu = Piknik asztal
+    hu = Piknikasztal
     id = Meja piknik
     it = Tavolo da picnic
     ja = ピクニック用のテーブル
@@ -18300,7 +18300,7 @@
     fr = Grotte
     he = מערה
     hi = गुफ़ा
-    hu = Barlang
+    hu = Barlangbejárat
     id = Gua
     it = Grotta
     ja = 洞窟
@@ -18380,7 +18380,7 @@
     fi = Kallio
     fr = Falaise
     he = צוּק
-    hu = Szikla
+    hu = Földtöltés
     id = Jurang
     it = Scogliera
     ja = 崖
@@ -18862,7 +18862,7 @@
     fi = Säiliö
     fr = Réservoir
     he = מאגר
-    hu = Rezervoár
+    hu = Víztározó
     id = Waduk
     it = Serbatoio
     ja = 貯水池
@@ -19147,7 +19147,7 @@
     fi = Vuoristo satula
     fr = Col de montagne
     he = אוכף הרים
-    hu = Hegyi nyereg
+    hu = Hegynyereg
     id = Pelana Gunung
     it = Sella
     ja = 鞍部
@@ -19187,7 +19187,7 @@
     fi = Kivi
     fr = Rocher
     he = סלע
-    hu = Kőzet
+    hu = Szikla
     id = Batu
     it = Roccia
     ja = 岩
@@ -19270,7 +19270,7 @@
     fr = Source
     he = מעיין
     hi = पानी का चश्मा
-    hu = Forrás
+    hu = Természetes forrás
     id = Mata air
     it = Sorgente
     ja = 泉
@@ -19352,7 +19352,7 @@
     fi = Puurivi
     fr = Rangée d'arbres
     he = שורת עצים
-    hu = Fa sor
+    hu = Fasor
     id = Baris pohon
     it = Fila di alberi
     ja = 並木
@@ -19434,7 +19434,7 @@
     fr = Volcan
     he = הר געש
     hi = ज्वालामुखी
-    hu = Tűzhányó
+    hu = Vulkán
     id = Gunung berapi
     it = Vulcano
     ja = 火山
@@ -19802,7 +19802,7 @@
     fa = دفتر بیمه
     fi = Vakuutuslaitos
     fr = Bureau d’assurance
-    hu = Biztosító iroda
+    hu = Biztosítóiroda
     id = Kantor Asuransi
     it = Ufficio assicurazioni
     ja = 保険会社
@@ -19916,7 +19916,7 @@
     fa = اپراتور تلفن همراه
     fi = Matkapuhelinoperaattori
     fr = Opérateur mobile
-    hu = Mobilüzemeltető
+    hu = Távközlési cég
     id = Operator seluler
     it = Operatore di telefonia mobile
     ja = 携帯電話事業者
@@ -20171,7 +20171,7 @@
     fr = Comté
     he = נפה
     hi = काउण्टी
-    hu = Kerület
+    hu = Megye
     id = Kabupaten
     it = Contea
     ja = 郡
@@ -20253,7 +20253,7 @@
     fr = Hameau
     he = כְּפָר קָטָן
     hi = गांव
-    hu = Tanya
+    hu = Falucska
     id = Dusun
     it = Piccolo villaggio
     ja = 村
@@ -20336,7 +20336,7 @@
     fr = Île
     he = איון
     hi = द्वीपिका
-    hu = Sziget
+    hu = Szigetecske
     id = Pulau
     it = Isola
     ja = 島
@@ -20376,7 +20376,7 @@
     fi = Erillinen asunto
     fr = Lieu-dit
     he = דירת מגורים מבודדת
-    hu = Elszigetelt lakás
+    hu = Elszigetelt lakóépület
     id = Tempat Tinggal Terisolasi
     it = Abitazione isolata
     ja = 小規模な村
@@ -20416,7 +20416,7 @@
     fi = Paikkakunta
     fr = Lieu-dit
     he = מקום
-    hu = Falu
+    hu = Körzet
     id = Wilayah
     it = Località
     ja = 地域
@@ -20457,7 +20457,7 @@
     fr = Quartier
     he = שכונה
     hi = मुहल्ला
-    hu = Szomszédság
+    hu = Városrész
     id = Lingkungan
     it = Quartiere
     ja = 地域
@@ -20743,7 +20743,7 @@
     fr = Quartier
     he = פרוור
     hi = उपनगर
-    hu = Kerület
+    hu = Kertváros
     id = Pinggiran kota
     it = Quartiere
     ja = 区
@@ -21317,7 +21317,7 @@
     fi = Muuntoasema
     fr = Poste électrique
     hi = विद्युत उपकेंद्र
-    hu = Kapcsolószekrény
+    hu = Alállomás
     id = Stasiun bawah tanah
     it = Sottostazione elettrica
     ja = 変電所
@@ -21598,7 +21598,7 @@
     fr = Funiculaire
     he = רַכֶּבֶל
     hi = रज्जुरेल
-    hu = Funicular
+    hu = Sikló
     id = Kereta gantung
     it = Funicolare
     ja = フニクラ
@@ -22421,7 +22421,7 @@
     fi = Rautatieasema
     fr = Gare ferroviaire
     hi = रेलवे स्टेशन
-    hu = Vonatmegálló
+    hu = Vasútállomás
     id = Rel kereta api
     it = Stazione ferroviaria
     ja = 鉄道駅
@@ -22485,7 +22485,7 @@
     fa = حمل و نقل
     fi = Metro
     fr = Station de métro
-    hu = Földalatti
+    hu = Metrómegálló
     id = Stasiun bawah tanah
     it = Stazione della metrò
     ja = 地下鉄
@@ -22912,7 +22912,7 @@
     fa = ورودی مترو
     fi = Metron sisäänkäynti
     fr = Entrée du métro
-    hu = Földalatti bejárat
+    hu = Metróbejárat
     id = Pintu masuk kereta bawah tanah
     it = Stazione metropolitana
     ja = 地下鉄入り口
@@ -23540,7 +23540,7 @@
     fi = Kylpyhuoneen kalusteet
     fr = Mobilier de salle de bain
     he = ריהוט חדר רחצה
-    hu = Fürdőszoba berendezési tárgyak
+    hu = Fürdőszobai bútorok
     id = Perabot Kamar Mandi
     it = Arredo Bagno
     ja = バスルームの備品
@@ -23656,7 +23656,7 @@
     fi = Polkupyöräliike
     fr = Magasin de vélos
     hi = साइकल की दुकान
-    hu = Kerékpár üzlet
+    hu = Kerékpárüzlet
     id = Toko sepeda
     it = Negozio di biciclette
     ja = 自転車屋
@@ -23807,7 +23807,7 @@
     fi = Kannabiskauppa
     fr = Magasin de cannabis
     he = חנות קנאביס
-    hu = Cannabis Store
+    hu = Kannabiszüzlet
     id = Toko ganja
     it = Negozio di cannabis
     ja = 大麻店
@@ -23846,7 +23846,7 @@
     fi = Autokauppa
     fr = Concessionnaire automobile
     hi = गाड़ी के विक्रेता
-    hu = Gépkocsi bolt
+    hu = Autókereskedés
     id = Toko mobil
     it = Concessionaria
     ja = カーディーラー
@@ -23884,7 +23884,7 @@
     fi = Auton osat
     fr = Pièces de voiture
     hi = गाड़ी के पुर्जे
-    hu = Autó alkatrészek
+    hu = Autóalkatrész-bolt
     id = Bagian mobil
     it = Ricambi auto
     ja = 車両部品
@@ -23923,7 +23923,7 @@
     fi = Autokorjaamo
     fr = Réparation d'automobiles
     hi = वाहन मरम्मत की दुकान
-    hu = Gépkocsi szervíz
+    hu = Autószerviz
     id = Bengkel mobil
     it = Riparazione auto
     ja = 自動車修理
@@ -24217,7 +24217,7 @@
     fi = Tietokonekauppa
     fr = Magasin d'informatique
     hi = कंप्यूटर की दुकान
-    hu = Számítógép üzlet
+    hu = Számítógépüzlet
     id = Toko komputer
     it = Negozio di computer
     ja = コンピュータショップ
@@ -24333,7 +24333,7 @@
     fi = Painotalo
     fr = Boutique de photocopies
     hi = फ़ोटोकॉपी की दुकान
-    hu = Fénymásoló üzlet
+    hu = Fénymásoló
     id = Fotokopi
     it = Copisteria
     ja = コピーショップ
@@ -24371,7 +24371,7 @@
     fi = Kosmetiikka
     fr = Produits de beauté
     hi = सौंदर्य प्रसाधन की दुकान
-    hu = Kozmetikum
+    hu = Kozmetikumok
     id = Kosmetik
     it = Cosmetici
     ja = 化粧品
@@ -24531,7 +24531,7 @@
     fi = Rautakauppa
     fr = Magasin de bricolage
     hi = लौह वस्तुओं की दुकान
-    hu = Vaskereskedés
+    hu = Barkácsáruház
     id = Toko perangkat keras
     it = Ferramenta
     ja = 工具店
@@ -24723,7 +24723,7 @@
     fr = Magasin d'alimentation à la ferme
     he = הווחל ןוזמ תונח
     hi = खेती से उत्पन्न खाद्द की दुकान
-    hu = Farm Food Shop
+    hu = Termelői bolt
     id = Toko Makanan Pertanian
     it = Negozio di prodotti alimentari della fattoria
     ja = ファームフードショップ
@@ -24764,7 +24764,7 @@
     fi = Muoti tarvikkeet
     fr = Boutique d'accessoires de mode
     he = אביזרי אופנה
-    hu = Divat kiegészítők
+    hu = Divatkiegészítők
     id = Aksesoris Fashion
     it = Accessori alla moda
     ja = ファッションアクセサリー
@@ -24920,7 +24920,7 @@
     fi = Taimitarha
     fr = Jardinerie
     hi = बगीचे की सामग्री की दुकान
-    hu = Faiskola
+    hu = Kertcentrum
     id = Penitipan anak
     it = Vivaio
     ja = ガーデンセンター
@@ -25191,7 +25191,7 @@
     fr = Magasin d'alimentation diététique
     he = תואירב ןוזמ תונח
     hi = स्वस्थ भोजन की दुकान
-    hu = Egészségügyi élelmiszerbolt
+    hu = Egészséges élelmiszerek boltja
     id = Toko Makanan Kesehatan
     it = Negozio di alimenti naturali
     ja = 健康食品店
@@ -25232,7 +25232,7 @@
     fi = Yrttikauppa
     fr = Herboristerie
     he = חנות עשבי תיבול
-    hu = Gyógynövény bolt
+    hu = Gyógynövénybolt
     id = Toko jamu
     it = Negozio di erbe
     ja = ハーブ店
@@ -25356,7 +25356,7 @@
     fi = Korukauppa
     fr = Bijouterie
     hi = ज्वैलरी
-    hu = Ékszer
+    hu = Ékszerüzlet
     id = Perhiasan
     it = Gioielleria
     ja = 宝石店
@@ -25431,7 +25431,7 @@
     fr = Magasin de cuisine
     he = םיחבטמ תונח
     hi = रसोई की दुकान
-    hu = Konyhabolt
+    hu = Konyhafelszerelési áruház
     id = Toko Dapur
     it = Negozio di cucina
     ja = キッチンストア
@@ -25509,7 +25509,7 @@
     fi = Ostoskeskus
     fr = Centre commercial
     hi = शॉपिंग मॉल
-    hu = A pláza
+    hu = Bevásárlóközpont
     it = Centro commerciale
     ja = モール
     ko = 몰
@@ -25546,7 +25546,7 @@
     fi = Hierontahuone
     fr = Salon de massage
     hi = मालिश घर
-    hu = Masszázs szalon
+    hu = Masszázsszalon
     id = Tempat Pijat
     it = Centro massaggi
     ja = マッサージ店
@@ -25702,7 +25702,7 @@
     fi = Moottoripyörän korjaus
     fr = Réparateur de moto
     he = תיקון אופנועים
-    hu = Motorkerékpár javítás
+    hu = Motorkerékpár-szerviz
     id = Bengkel Sepeda Motor
     it = Riparazione moto
     ja = オートバイの修理
@@ -26095,7 +26095,7 @@
     fi = Lemmikkieläinten hoito
     fr = Salon de toilettage
     he = טיפוח חיות מחמד
-    hu = Kisállat ápolás
+    hu = Kisállatápolás
     id = Perawatan Hewan Peliharaan
     it = Toelettatura per animali domestici
     ja = ペットグルーミング
@@ -26134,7 +26134,7 @@
     fi = Valokuvakauppa
     fr = Matériel de photographie
     hi = छायाचित्रण की दुकान
-    hu = Fénykép üzlet
+    hu = Fotóüzlet
     id = Studio Foto
     it = Negozio di fotografia
     ja = 写真屋
@@ -26256,7 +26256,7 @@
     fi = Kalakauppias
     fr = Poissonnier
     hi = समुद्री भोजन की दुकान
-    hu = Halüzlet
+    hu = Halkereskedő
     id = Penjual Ikan
     it = Pescivendolo
     ja = 魚屋
@@ -26297,7 +26297,7 @@
     fr = Boutique d'objets d'occasion
     he = היינש די תונח
     hi = पुराने सामान की दुकान
-    hu = Second Hand Store
+    hu = Bizományi áruház
     id = Toko Barang bekas
     it = Negozio di articoli usati
     ja = 古物商
@@ -26411,7 +26411,7 @@
     fi = Kirjoitustarvikekauppa
     fr = Papeterie
     hi = लेखन सामग्री की दुकान
-    hu = Írószer bolt
+    hu = Papír-írószer bolt
     id = Toko Alat Tulis
     it = Cartoleria
     ja = 文房具店
@@ -26448,7 +26448,7 @@
     fi = Supermarketti
     fr = Supermarché
     hi = सुपरमार्केट
-    hu = Bevásárlóközpont
+    hu = Szupermarket
     it = Supermercato
     ja = スーパーマーケット
     ko = 슈퍼마켓
@@ -26483,7 +26483,7 @@
     fi = Tatuointiliike
     fr = Salon de tatouage
     hi = टैटू पार्लर
-    hu = Tetováló szalon
+    hu = Tetoválószalon
     id = Tempat Tato
     it = Studio tatuaggi
     ja = タトゥースタジオ
@@ -26522,7 +26522,7 @@
     fi = Teekauppa
     fr = Boutique de thés
     hi = चाय की दुकान
-    hu = Tea bolt
+    hu = Teabolt
     id = Toko teh
     it = Negozio di tè
     ja = 茶販売店
@@ -26675,7 +26675,7 @@
     fi = Rengasliike
     fr = Magasin de pneus
     hi = पहियों की दुकान
-    hu = Gumi szaküzlet
+    hu = Gumiszaküzlet
     id = Toko Ban
     it = Gommista
     ja = タイヤ専門店
@@ -26793,7 +26793,7 @@
     fi = Videopelikauppa
     fr = Boutique de jeux vidéo
     hi = वीडियो गेम की दुकान
-    hu = Videojáték bolt
+    hu = Videojáték-bolt
     id = Toko permainan video
     it = Negozio di videogiochi
     ja = ゲームショップ
@@ -26956,7 +26956,7 @@
     fi = Kodinkoneet kauppa
     fr = Magasin d'électroménager
     he = חנות מוצרי חשמל
-    hu = Készülék bolt
+    hu = Háztartási készülékek boltja
     id = Toko peralatan
     it = Negozio di elettrodomestici
     ja = 家電店
@@ -26999,7 +26999,7 @@
     fr = Boutique d'art
     he = תויונמוא תונח
     hi = कला की दुकान
-    hu = Művészeti Bolt
+    hu = Művészeti alkotások boltja
     id = Toko Seni
     it = Negozio d'arte
     ja = アートショップ
@@ -27081,7 +27081,7 @@
     fr = Magasin de sacs
     he = םיקית תונח
     hi = बैग की दुकान
-    hu = Táskák bolt
+    hu = Táskabolt
     id = Toko Tas
     it = Negozio di borse
     ja = バッグストア
@@ -27205,7 +27205,7 @@
     fr = Magasin de charité
     he = הקדצ תונח
     hi = दान की दुकान
-    hu = Jótékonysági Bolt
+    hu = Jótékonysági bolt
     id = Toko Amal
     it = Negozio di beneficenza
     ja = チャリティーショップ
@@ -27288,7 +27288,7 @@
     fr = Matériel d'arts et de loisirs créatifs
     he = הריציו תונמוא
     hi = शिल्पकर्म
-    hu = Művészetek és kézművesség
+    hu = Kézműves kellékek boltja
     id = Seni dan kerajinan
     it = Arti e mestieri
     ja = 美術工芸
@@ -27455,7 +27455,7 @@
     fr = Décorations intérieures
     he = םינפ יטושיק
     hi = आंतरिक सजावट
-    hu = Belső dekorációk
+    hu = Lakberendezési áruház
     id = Dekorasi Interior
     it = Decorazioni per interni
     ja = 室内装飾
@@ -27621,7 +27621,7 @@
     fr = Magasin de peinture
     he = םיעבצ
     hi = पेंट की दुकान
-    hu = Festékek
+    hu = Festékbolt
     id = Cat
     it = Vernici
     ja = 塗料
@@ -27662,7 +27662,7 @@
     fr = Parfumerie
     he = תמַשְׂבָּ
     hi = सुगंध सामग्री की दुकान
-    hu = Illatszerek
+    hu = Illatszerbolt
     id = Wewangian
     it = Profumeria
     ja = 香水
@@ -27703,7 +27703,7 @@
     fr = Mercerie
     he = הריפת דויצ
     hi = सिलाई आपूर्ति की दुकान
-    hu = Varrás kellékek
+    hu = Varrókellékek boltja
     id = Perlengkapan Jahit
     it = Forniture per il cucito
     ja = ミシン用品
@@ -27786,7 +27786,7 @@
     fr = Bureau de tabac
     he = קבָּטַ
     hi = तंबाकू की दुकान
-    hu = Dohány
+    hu = Dohánybolt
     id = Tembakau
     it = Tabaccheria
     ja = タバコ
@@ -27827,7 +27827,7 @@
     fr = Grossiste
     he = הקפסאב רחוס
     hi = व्यापार की आपूर्ति
-    hu = Kellékekkel kereskedik
+    hu = Kereskedelmi kellékek
     id = Perlengkapan Perdagangan
     it = Forniture commerciali
     ja = 貿易用品
@@ -27869,7 +27869,7 @@
     fr = Montres
     he = םינועש
     hi = घड़ियाँ
-    hu = Órák
+    hu = Órabolt
     id = Jam tangan
     it = Orologeria
     ja = 時計
