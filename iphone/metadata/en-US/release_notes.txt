@@ -1,3 +1,5 @@
+• Fixed several crashes
+
 • OpenStreetMap data as of February 2
 • Removed "Continue detecting your location?" dialog, now location search can be stopped by pressing the "rotating radar" location button
 • Auto Light/Dark theme setting is synced with the system
