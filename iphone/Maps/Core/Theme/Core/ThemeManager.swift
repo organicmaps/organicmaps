@@ -10,6 +10,10 @@ final class ThemeManager: NSObject {
   }
 
   private func update(theme: MWMTheme) {
+    if #available(iOS 13.0, *) {
+      updateSystemUserInterfaceStyle(theme)
+    }
+
     let actualTheme: MWMTheme = { theme in
       let isVehicleRouting = MWMRouter.isRoutingActive() && (MWMRouter.type() == .vehicle)
       switch theme {
@@ -63,6 +67,22 @@ final class ThemeManager: NSObject {
 
   @objc static func invalidate() {
     instance.update(theme: Settings.theme())
+  }
+
+  @available(iOS 13.0, *)
+  private func updateSystemUserInterfaceStyle(_ theme: MWMTheme) {
+    let userInterfaceStyle: UIUserInterfaceStyle = { theme in
+      switch theme {
+      case .day: fallthrough
+      case .vehicleDay: return .light
+      case .night: fallthrough
+      case .vehicleNight: return .dark
+      case .auto: return .unspecified
+      @unknown default:
+        fatalError()
+      }
+    }(theme)
+    UIApplication.shared.delegate?.window??.overrideUserInterfaceStyle = userInterfaceStyle
   }
 
   @available(iOS, deprecated:13.0)
