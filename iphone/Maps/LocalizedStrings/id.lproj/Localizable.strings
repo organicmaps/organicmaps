@@ -1251,6 +1251,9 @@
 /* Outdoors/hiking map style (activity) name in the Styles and Layers dialog */
 "button_layer_outdoor" = "Pendakian";
 
+/* Bookmark categories screen, button that opens share dialog to export all bookmarks and tracks */
+"bookmarks_export" = "Mengekspor semua Penanda dan Trek";
+
 /* Text for the editing the Track's color button. */
 "change_color" = "Mengubah warna";
 
