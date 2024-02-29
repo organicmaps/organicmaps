@@ -33,8 +33,8 @@
 		3404F490202898CC0090E401 /* BMCModels.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3404F48F202898CC0090E401 /* BMCModels.swift */; };
 		3404F4992028A20D0090E401 /* BMCCategoryCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3404F4972028A20D0090E401 /* BMCCategoryCell.swift */; };
 		3404F49A2028A20D0090E401 /* BMCCategoryCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3404F4982028A20D0090E401 /* BMCCategoryCell.xib */; };
-		3404F49D2028A2430090E401 /* BMCActionsCreateCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3404F49B2028A2430090E401 /* BMCActionsCreateCell.swift */; };
-		3404F49E2028A2430090E401 /* BMCActionsCreateCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3404F49C2028A2430090E401 /* BMCActionsCreateCell.xib */; };
+		3404F49D2028A2430090E401 /* BMCActionsCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3404F49B2028A2430090E401 /* BMCActionsCell.swift */; };
+		3404F49E2028A2430090E401 /* BMCActionsCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3404F49C2028A2430090E401 /* BMCActionsCell.xib */; };
 		3406FA161C6E0C3300E9FAD2 /* MWMMapDownloadDialog.mm in Sources */ = {isa = PBXBuildFile; fileRef = 3406FA141C6E0C3300E9FAD2 /* MWMMapDownloadDialog.mm */; };
 		3406FA191C6E0D8F00E9FAD2 /* MWMMapDownloadDialog.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3406FA171C6E0D8F00E9FAD2 /* MWMMapDownloadDialog.xib */; };
 		340708651F2905A500029ECC /* NavigationInfoArea.swift in Sources */ = {isa = PBXBuildFile; fileRef = 340708631F2905A500029ECC /* NavigationInfoArea.swift */; };
@@ -741,8 +741,8 @@
 		3404F48F202898CC0090E401 /* BMCModels.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BMCModels.swift; sourceTree = "<group>"; };
 		3404F4972028A20D0090E401 /* BMCCategoryCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BMCCategoryCell.swift; sourceTree = "<group>"; };
 		3404F4982028A20D0090E401 /* BMCCategoryCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = BMCCategoryCell.xib; sourceTree = "<group>"; };
-		3404F49B2028A2430090E401 /* BMCActionsCreateCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BMCActionsCreateCell.swift; sourceTree = "<group>"; };
-		3404F49C2028A2430090E401 /* BMCActionsCreateCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = BMCActionsCreateCell.xib; sourceTree = "<group>"; };
+		3404F49B2028A2430090E401 /* BMCActionsCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BMCActionsCell.swift; sourceTree = "<group>"; };
+		3404F49C2028A2430090E401 /* BMCActionsCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = BMCActionsCell.xib; sourceTree = "<group>"; };
 		340537621BBED98600D452C6 /* MWMMapViewControlsCommon.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = MWMMapViewControlsCommon.h; path = APIBar/MWMMapViewControlsCommon.h; sourceTree = "<group>"; };
 		3406FA131C6E0C3300E9FAD2 /* MWMMapDownloadDialog.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MWMMapDownloadDialog.h; sourceTree = "<group>"; };
 		3406FA141C6E0C3300E9FAD2 /* MWMMapDownloadDialog.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = MWMMapDownloadDialog.mm; sourceTree = "<group>"; };
@@ -2019,8 +2019,8 @@
 		343D7B6D202AF4CA007D56A8 /* Actions */ = {
 			isa = PBXGroup;
 			children = (
-				3404F49B2028A2430090E401 /* BMCActionsCreateCell.swift */,
-				3404F49C2028A2430090E401 /* BMCActionsCreateCell.xib */,
+				3404F49B2028A2430090E401 /* BMCActionsCell.swift */,
+				3404F49C2028A2430090E401 /* BMCActionsCell.xib */,
 			);
 			path = Actions;
 			sourceTree = "<group>";
@@ -3867,7 +3867,7 @@
 				6741A9981BF340DE002C974C /* resources-xhdpi_clear in Resources */,
 				6741A9611BF340DE002C974C /* resources-xhdpi_dark in Resources */,
 				6741A94D1BF340DE002C974C /* resources-xxhdpi_clear in Resources */,
-				3404F49E2028A2430090E401 /* BMCActionsCreateCell.xib in Resources */,
+				3404F49E2028A2430090E401 /* BMCActionsCell.xib in Resources */,
 				6741A9551BF340DE002C974C /* resources-xxhdpi_dark in Resources */,
 				340E1EF51E2F614400CE49BF /* SearchFilters.storyboard in Resources */,
 				340E1EF81E2F614400CE49BF /* Settings.storyboard in Resources */,
@@ -3950,7 +3950,7 @@
 				F6E2FED01E097BA00083EBEC /* MWMSearchFilterViewController.mm in Sources */,
 				34D3B01B1E389D05004100F9 /* MWMButtonCell.m in Sources */,
 				337F98B421D3C9F200C8AC27 /* SearchHistoryViewController.swift in Sources */,
-				3404F49D2028A2430090E401 /* BMCActionsCreateCell.swift in Sources */,
+				3404F49D2028A2430090E401 /* BMCActionsCell.swift in Sources */,
 				F6E2FD8F1E097BA00083EBEC /* MWMNoMapsViewController.mm in Sources */,
 				993DF12C23F6BDB100AC231A /* Theme.swift in Sources */,
 				47CA68D8250044C500671019 /* BookmarksListRouter.swift in Sources */,
