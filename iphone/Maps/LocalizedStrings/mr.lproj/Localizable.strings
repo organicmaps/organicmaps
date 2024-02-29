@@ -1251,6 +1251,9 @@
 /* Outdoors/hiking map style (activity) name in the Styles and Layers dialog */
 "button_layer_outdoor" = "गिर्यारोहण";
 
+/* Bookmark categories screen, button that opens share dialog to export all bookmarks and tracks */
+"bookmarks_export" = "सर्व बुकमार्क आणि ट्रॅक निर्यात करा";
+
 /* Text for the editing the Track's color button. */
 "change_color" = "रंग बदला";
 

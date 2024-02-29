@@ -1251,6 +1251,9 @@
 /* Outdoors/hiking map style (activity) name in the Styles and Layers dialog */
 "button_layer_outdoor" = "Escursioni";
 
+/* Bookmark categories screen, button that opens share dialog to export all bookmarks and tracks */
+"bookmarks_export" = "Esporta tutti i segnalibri e le tracce";
+
 /* Text for the editing the Track's color button. */
 "change_color" = "Cambia colore";
 

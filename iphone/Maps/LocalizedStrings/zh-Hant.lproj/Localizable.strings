@@ -1251,6 +1251,9 @@
 /* Outdoors/hiking map style (activity) name in the Styles and Layers dialog */
 "button_layer_outdoor" = "遠足";
 
+/* Bookmark categories screen, button that opens share dialog to export all bookmarks and tracks */
+"bookmarks_export" = "匯出所有書籤和曲目";
+
 /* Text for the editing the Track's color button. */
 "change_color" = "換顏色";
 

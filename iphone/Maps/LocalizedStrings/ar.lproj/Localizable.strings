@@ -1251,6 +1251,9 @@
 /* Outdoors/hiking map style (activity) name in the Styles and Layers dialog */
 "button_layer_outdoor" = "جولة على الأقدام";
 
+/* Bookmark categories screen, button that opens share dialog to export all bookmarks and tracks */
+"bookmarks_export" = "تصدير كافة الإشارات المرجعية والمسارات";
+
 /* Text for the editing the Track's color button. */
 "change_color" = "غير اللون";
 

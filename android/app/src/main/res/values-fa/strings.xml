@@ -751,7 +751,7 @@
 	<string name="browser_not_available">مرورگر وب در دسترس نیست</string>
 	<string name="volume">میزان صدا</string>
 	<!-- Bookmark categories screen, button that opens share dialog to export all bookmarks and tracks -->
-	<string name="bookmarks_export">همه نشانکu200cها و آهنگu200cها را صادر کنید</string>
+	<string name="bookmarks_export">صادر کردن همه نشان‌ها و مسیرها</string>
 
 	<!-- SECTION: Types -->
 	<string name="type.addr_interpolation">آدرس/بلاک</string>
