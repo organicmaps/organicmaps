@@ -2712,6 +2712,13 @@ void BookmarkManager::PrepareFileForSharing(kml::GroupIdCollection && categories
   }
 }
 
+void BookmarkManager::PrepareAllFilesForSharing(SharingHandler && handler)
+{
+  CHECK_THREAD_CHECKER(m_threadChecker, ());
+  ASSERT(handler, ());
+  PrepareFileForSharing(decltype(m_bmGroupsIdList){m_bmGroupsIdList}, std::move(handler));
+}
+
 bool BookmarkManager::IsCategoryEmpty(kml::MarkGroupId categoryId) const
 {
   CHECK_THREAD_CHECKER(m_threadChecker, ());
