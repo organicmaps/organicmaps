@@ -77,12 +77,26 @@ final class BMCViewController: MWMViewController {
     viewModel.shareCategoryFile(at: index) {
       switch $0 {
       case let .success(url):
-        let shareController = ActivityViewController.share(for: url,
-                                                              message: L("share_bookmarks_email_body"))
+        let shareController = ActivityViewController.share(for: url, message: L("share_bookmarks_email_body"))
         { [weak self] _, _, _, _ in
           self?.viewModel?.finishShareCategory()
         }
         shareController?.present(inParentViewController: self, anchorView: anchor)
+      case let .error(title, text):
+        MWMAlertViewController.activeAlert().presentInfoAlert(title, text: text)
+      }
+    }
+  }
+
+  private func shareAllCategories() {
+    viewModel.shareAllCategories {
+      switch $0 {
+      case let .success(url):
+        let shareController = ActivityViewController.share(for: url, message: L("share_bookmarks_email_body"))
+        { [weak self] _, _, _, _ in
+          self?.viewModel?.finishShareCategory()
+        }
+        shareController?.present(inParentViewController: self, anchorView: nil)
       case let .error(title, text):
         MWMAlertViewController.activeAlert().presentInfoAlert(title, text: text)
       }
@@ -255,6 +269,7 @@ extension BMCViewController: UITableViewDelegate {
     case .actions:
       switch viewModel.action(at: indexPath.row) {
       case .create: createNewCategory()
+      case .exportAll: shareAllCategories()
       }
     default:
       assertionFailure()
