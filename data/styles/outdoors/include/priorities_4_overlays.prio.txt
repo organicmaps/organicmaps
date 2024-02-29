@@ -260,18 +260,18 @@ route-ferry                                         # pathtext z10- (also has li
 
 highway-motorway_link                               # pathtext z10- (also has shield::shield z10-, line z10-)
 highway-motorway_link-bridge                        # pathtext z10- (also has shield::shield z10-, line z10-, line::bridgeblack z14-, line::bridgewhite z14-)
-highway-motorway_link-tunnel                        # pathtext z10- (also has shield::shield z10-, line z10-, line(casing) z12-)
+highway-motorway_link-tunnel                        # pathtext z10- (also has shield::shield z10-, line z10-, line(casing) z13-)
 highway-trunk_link                                  # pathtext z10- (also has shield::shield z10-, line z10-)
 highway-trunk_link-bridge                           # pathtext z10- (also has shield::shield z10-, line z10-, line::bridgeblack z14-, line::bridgewhite z14-)
-highway-trunk_link-tunnel                           # pathtext z10- (also has shield::shield z10-, line z10-, line(casing) z12-)
+highway-trunk_link-tunnel                           # pathtext z10- (also has shield::shield z10-, line z10-, line(casing) z13-)
 === 6150
 
 highway-motorway_link::shield                       # shield::shield z10- (also has pathtext z10-, line z10-)
 highway-motorway_link-bridge::shield                # shield::shield z10- (also has pathtext z10-, line z10-, line::bridgeblack z14-, line::bridgewhite z14-)
-highway-motorway_link-tunnel::shield                # shield::shield z10- (also has pathtext z10-, line z10-, line(casing) z12-)
+highway-motorway_link-tunnel::shield                # shield::shield z10- (also has pathtext z10-, line z10-, line(casing) z13-)
 highway-trunk_link::shield                          # shield::shield z10- (also has pathtext z10-, line z10-)
 highway-trunk_link-bridge::shield                   # shield::shield z10- (also has pathtext z10-, line z10-, line::bridgeblack z14-, line::bridgewhite z14-)
-highway-trunk_link-tunnel::shield                   # shield::shield z10- (also has pathtext z10-, line z10-, line(casing) z12-)
+highway-trunk_link-tunnel::shield                   # shield::shield z10- (also has pathtext z10-, line z10-, line(casing) z13-)
 === 6140
 
 highway-primary_link                                # pathtext z11- (also has shield::shield z11-, line z11-)
