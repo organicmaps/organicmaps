@@ -5,8 +5,8 @@ final class BMCActionsCell: MWMTableViewCell {
 
   private var model: BMCAction! {
     didSet {
-      actionImage.image = #imageLiteral(resourceName: "ic24PxAddCopy")
-      actionTitle.text = L("bookmarks_create_new_group")
+      actionImage.image = model.image
+      actionTitle.text = model.title
     }
   }
 

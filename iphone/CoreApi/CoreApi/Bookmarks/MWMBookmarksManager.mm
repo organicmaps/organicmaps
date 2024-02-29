@@ -572,9 +572,23 @@ static BookmarkManager::SortingType convertSortingTypeToCore(MWMBookmarksSorting
 {
   self.bm.PrepareFileForSharing({groupId}, [self](auto sharingResult)
   {
-    MWMBookmarksShareStatus status;
-    switch (sharingResult.m_code)
-    {
+    [self handleSharingResult:sharingResult];
+  });
+}
+
+- (void)shareAllCategories
+{
+  self.bm.PrepareAllFilesForSharing([self](auto sharingResult)
+  {
+    [self handleSharingResult:sharingResult];
+  });
+}
+
+- (void)handleSharingResult:(BookmarkManager::SharingResult)sharingResult
+{
+  MWMBookmarksShareStatus status;
+  switch (sharingResult.m_code)
+  {
     case BookmarkManager::SharingResult::Code::Success:
     {
       self.shareCategoryURL = [NSURL fileURLWithPath:@(sharingResult.m_sharingPath.c_str()) isDirectory:NO];
@@ -591,13 +605,12 @@ static BookmarkManager::SortingType convertSortingTypeToCore(MWMBookmarksSorting
     case BookmarkManager::SharingResult::Code::FileError:
       status = MWMBookmarksShareStatusFileError;
       break;
-    }
+  }
 
-    [self loopObservers:^(id<MWMBookmarksObserver> observer) {
-      if ([observer respondsToSelector:@selector(onBookmarksCategoryFilePrepared:)])
-        [observer onBookmarksCategoryFilePrepared:status];
-    }];
-  });
+  [self loopObservers:^(id<MWMBookmarksObserver> observer) {
+    if ([observer respondsToSelector:@selector(onBookmarksCategoryFilePrepared:)])
+      [observer onBookmarksCategoryFilePrepared:status];
+  }];
 }
 
 - (NSURL *)shareCategoryURL
