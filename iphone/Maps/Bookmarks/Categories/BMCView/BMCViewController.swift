@@ -12,7 +12,7 @@ final class BMCViewController: MWMViewController {
     didSet {
       let cells = [
         BMCCategoryCell.self,
-        BMCActionsCreateCell.self,
+        BMCActionsCell.self,
         BMCNotificationsCell.self,
       ]
       tableView.registerNibs(cells)
@@ -198,7 +198,7 @@ extension BMCViewController: UITableViewDataSource {
       return dequeCell(BMCCategoryCell.self).config(category: viewModel.category(at: indexPath.row),
                                                     delegate: self)
     case .actions:
-      return dequeCell(BMCActionsCreateCell.self).config(model: viewModel.action(at: indexPath.row))
+      return dequeCell(BMCActionsCell.self).config(model: viewModel.action(at: indexPath.row))
     case .notifications:
       return dequeCell(BMCNotificationsCell.self)
     }
