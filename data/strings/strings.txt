@@ -29237,7 +29237,7 @@
     zh-Hant = 音量
 
   [bookmarks_export]
-    tags = android
+    tags = android,ios
     comment = Bookmark categories screen, button that opens share dialog to export all bookmarks and tracks
     en = Export all Bookmarks and Tracks
     af = Voer alle boekmerke en snitte uit
@@ -29254,7 +29254,7 @@
     es-MX = Exportar todos los marcadores y pistas
     et = Ekspordi kõik järjehoidjad ja lood
     eu = Esportatu Laster-marka eta Pista guztiak
-    fa = همه نشانکu200cها و آهنگu200cها را صادر کنید
+    fa = صادر کردن همه نشان‌ها و مسیرها
     fi = Vie kaikki kirjanmerkit ja kappaleet
     fr = Exporter tous les signets et toutes les pistes
     he = ייצא את כל הסימניות והרצועות
