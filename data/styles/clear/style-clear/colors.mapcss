@@ -126,7 +126,7 @@
 @trunk_tunnel_casing: #808080;
 @primary_tunnel: #FCA462;
 @primary_tunnel_casing: #808080;
-@secondary_tunnel: #FFFFFF;
+@secondary_tunnel: #FFBF52;
 @secondary_tunnel_casing:  #808080;
 @tertiary_tunnel: #FFFFFF;
 @tertiary_tunnel_casing:  #808080;

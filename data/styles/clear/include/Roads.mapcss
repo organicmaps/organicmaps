@@ -94,11 +94,6 @@ line|z16-[highway=motorway_link],
 line|z16-[highway=trunk_link],
 {opacity: 1;}
 
-line|z12-[highway=motorway][tunnel?],
-line|z12-[highway=trunk][tunnel?],
-line|z12-[highway=motorway_link][tunnel?],
-line|z12-[highway=trunk_link][tunnel?],
-{casing-width: 1; casing-linecap: butt; casing-color: @trunk_tunnel_casing; casing-opacity: 0.7;}
 line|z13-[highway=motorway][bridge?]::bridgewhite,
 line|z13-[highway=trunk][bridge?]::bridgewhite,
 line|z14-[highway=motorway_link][bridge?]::bridgewhite,
@@ -185,19 +180,25 @@ line|z19-[highway=trunk_link]
 
 /* 3.2 Trunk & Motorway tunnel 12-22 ZOOM */
 
+line|z12-[highway=motorway][tunnel?],
+line|z12-[highway=trunk][tunnel?],
+line|z13-[highway=motorway_link][tunnel?],
+line|z13-[highway=trunk_link][tunnel?],
+{color: @trunk_tunnel; casing-linecap: butt; casing-color: @trunk_tunnel_casing; casing-opacity: 0.7;}
+
 line|z12[highway=motorway][tunnel?],
-line|z12[highway=trunk][tunnel?]
-{color: @trunk_tunnel; opacity: 0.7; casing-width: 0.5; casing-dashes: 2,2;}
+line|z12[highway=trunk][tunnel?],
+{opacity: 0.9; casing-width: 0.5; casing-dashes: 2,2;}
 line|z13-14[highway=motorway][tunnel?],
 line|z13-14[highway=trunk][tunnel?],
 line|z13-14[highway=motorway_link][tunnel?],
-line|z13-14[highway=trunk_link][tunnel?]
-{color: @trunk_tunnel; opacity: 0.7; casing-dashes: 5,5;}
+line|z13-14[highway=trunk_link][tunnel?],
+{opacity: 0.8; casing-width: 0.8; casing-dashes: 4,4;}
 line|z15-[highway=motorway][tunnel?],
 line|z15-[highway=trunk][tunnel?],
 line|z15-[highway=motorway_link][tunnel?],
-line|z15-[highway=trunk_link][tunnel?]
-{casing-dashes: 5,5; opacity: 1;}
+line|z15-[highway=trunk_link][tunnel?],
+{opacity: 0.7; casing-width: 1; casing-dashes: 5,5;}
 
 /* 3.3 Trunk & Motorway bridge 13-22 ZOOM */
 
@@ -251,9 +252,6 @@ line|z15-[highway=primary],
 line|z15-[highway=primary_link],
 {color: @primary2; opacity: 1;}
 
-line|z14-[highway=primary][tunnel?],
-line|z14-[highway=primary_link][tunnel?]
-{casing-width: 1;casing-linecap: butt;casing-color: @primary_tunnel_casing;casing-opacity: 0.7;}
 line|z14-[highway=primary][bridge?]::bridgewhite,
 line|z14-[highway=primary_link][bridge?]::bridgewhite,
 {casing-linecap: butt;casing-color:@bridge_background;casing-opacity: 0.8;}
@@ -309,12 +307,16 @@ line|z19-[highway=primary_link],
 
 /* 4.2 Primary tunnel 14-22 ZOOM */
 
+line|z14-[highway=primary][tunnel?],
+line|z14-[highway=primary_link][tunnel?],
+{color: @primary_tunnel; casing-linecap: butt; casing-color: @primary_tunnel_casing; casing-opacity: 0.7;}
+
 line|z14[highway=primary][tunnel?],
-line|z14[highway=primary_link][tunnel?]
-{color: @primary_tunnel; casing-dashes: 5,5; opacity: 0.7;}
+line|z14[highway=primary_link][tunnel?],
+{opacity: 0.8; casing-width: 0.8; casing-dashes: 4,4;}
 line|z15-[highway=primary][tunnel?],
-line|z15-[highway=primary_link][tunnel?]
-{casing-dashes: 5,5; opacity: 1;}
+line|z15-[highway=primary_link][tunnel?],
+{opacity: 0.7; casing-width: 1; casing-dashes: 5,5;}
 
 /* 4.3 Primary bridge 14-22 ZOOM */
 
@@ -349,9 +351,6 @@ line|z15-[highway=secondary],
 line|z15-[highway=secondary_link],
 {color: @secondary1; opacity: 1;}
 
-line|z16-[highway=secondary][tunnel?],
-line|z16-[highway=secondary_link][tunnel?]
-{casing-width: 1;casing-linecap: butt;casing-color: @secondary_tunnel_casing;casing-opacity: 0.7;}
 line|z14-[highway=secondary][bridge?]::bridgewhite,
 line|z14-[highway=secondary_link][bridge?]::bridgewhite,
 {casing-linecap: butt;casing-color:@bridge_background;casing-opacity: 0.8;}
@@ -399,12 +398,9 @@ line|z19-[highway=secondary_link],
 
 /* 5.2 Secondary tunnel 16-22 ZOOM */
 
-line|z16-17[highway=secondary][tunnel?],
-line|z16-17[highway=secondary_link][tunnel?]
-{casing-dashes: 5,5; opacity: 1;}
-line|z18-[highway=secondary][tunnel?],
-line|z18-[highway=secondary_link][tunnel?]
-{color: @secondary_tunnel;casing-dashes: 5,5; opacity: 1;}
+line|z16-[highway=secondary][tunnel?],
+line|z16-[highway=secondary_link][tunnel?],
+{opacity: 0.7; casing-width: 1; casing-dashes: 5,5; color: @secondary_tunnel; casing-linecap: butt; casing-color: @secondary_tunnel_casing; casing-opacity: 0.7;}
 
 /* 5.3 Secondary bridge 14-22 ZOOM */
 
@@ -443,10 +439,6 @@ line|z16-[highway=unclassified],
 line|z17-[highway=tertiary_link],
 {opacity: 1;}
 
-line|z16-[highway=tertiary][tunnel?],
-line|z16-[highway=tertiary_link][tunnel?],
-line|z16-[highway=unclassified][tunnel?],
-{color: @tertiary_tunnel;casing-width: 1;casing-linecap: butt;casing-color: @tertiary_tunnel_casing;casing-opacity: 0.7;}
 line|z14-[highway=tertiary][bridge?]::bridgewhite,
 line|z14-[highway=tertiary_link][bridge?]::bridgewhite
 line|z14-[highway=unclassified][bridge?]::bridgewhite,
@@ -501,14 +493,10 @@ line|z19-[highway=tertiary_link],
 
 /* 6.2 Tertiary & Unclassified tunnel 16-22 ZOOM */
 
-line|z16[highway=tertiary][tunnel?],
-line|z16[highway=tertiary_link][tunnel?],
-line|z16[highway=unclassified][tunnel?],
-{casing-dashes: 5,5; opacity: 0.8;}
-line|z17-[highway=tertiary][tunnel?],
-line|z17-[highway=tertiary_link][tunnel?],
-line|z17-[highway=unclassified][tunnel?],
-{casing-dashes: 5,5; opacity: 1;}
+line|z16-[highway=tertiary][tunnel?],
+line|z16-[highway=tertiary_link][tunnel?],
+line|z16-[highway=unclassified][tunnel?],
+{opacity: 0.7; casing-width: 1; casing-dashes: 5,5; color: @tertiary_tunnel; casing-linecap: butt; casing-color: @tertiary_tunnel_casing; casing-opacity: 0.7;}
 
 /* 6.3 Tertiary & Unclassified bridge 14-22 ZOOM */
 
@@ -553,9 +541,6 @@ line|z17-[highway=road],
 line|z17-[highway=living_street],
 {opacity: 1;}
 
-line|z16-[highway=residential][tunnel?],
-line|z16-[highway=living_street][tunnel?],
-{color: @residential_tunnel; casing-width: 1; casing-linecap: butt; casing-color: @residential_tunnel_casing; casing-opacity: 0.7;}
 line|z14-[highway=residential][bridge?]::bridgewhite,
 {casing-linecap: butt;casing-color:@bridge_background;casing-opacity: 0.8;}
 line|z14-[highway=residential][bridge?]::bridgeblack,
@@ -600,7 +585,7 @@ line|z19-[highway=living_street]
 
 line|z16-[highway=residential][tunnel?],
 line|z16-[highway=living_street][tunnel?],
-{casing-dashes: 5,5;}
+{opacity: 0.7; casing-width: 1; casing-dashes: 5,5; color: @residential_tunnel; casing-linecap: butt; casing-color: @residential_tunnel_casing; casing-opacity: 0.7;}
 
 /* 7.3 Residential, Road, Street bridge 14-22 ZOOM */
 
@@ -695,8 +680,6 @@ line|z14-[highway=footway][sac_scale],
 {color: @path;opacity: 0.6;}
 line|z14-[piste:type=hike],
 {color: @piste; opacity: 0.4;}
-line|z16-[highway=pedestrian][tunnel?]
-{color: @residential_tunnel; casing-width: 1; casing-linecap: butt; casing-color: @residential_tunnel_casing; casing-opacity: 0.7;}
 line|z17-[highway=footway][tunnel?]::tunnelBackground,
 line|z17-[highway=cycleway][tunnel?]::tunnelBackground,
 line|z17-[highway=path][tunnel?]::tunnelBackground,
@@ -742,8 +725,8 @@ line|z19-[highway=ford]
 
 /* 8.2 Pedestrian & ford tunnel 16-22 ZOOM */
 
-line|z16-[highway=pedestrian][tunnel?]
-{casing-dashes: 5,5;}
+line|z16-[highway=pedestrian][tunnel?],
+{opacity: 0.7; casing-width: 1; casing-dashes: 5,5; color: @residential_tunnel; casing-linecap: butt; casing-color: @residential_tunnel_casing; casing-opacity: 0.7;}
 
 /* 8.3 Pedestrian & other brige 13-22 ZOOM */
 
