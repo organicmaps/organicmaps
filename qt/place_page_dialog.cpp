@@ -126,15 +126,7 @@ PlacePageDialog::PlacePageDialog(QWidget * parent, place_page::Info const & info
     // Description
     if (auto description = info.GetWikiDescription(); !description.empty())
     {
-      auto descriptionShort = getShortDescription(description);
-
-      QLabel * value = new QLabel(QString::fromStdString(descriptionShort));
-      value->setWordWrap(true);
-      value->setMinimumWidth(short_description_minimum_width);
-
-      data->addWidget(value, row++, 0, 1, 2);
-
-      QPushButton * wikiButton = new QPushButton("More...", value);
+      QPushButton * wikiButton = new QPushButton("Wikipedia Description");
       wikiButton->setAutoDefault(false);
       connect(wikiButton, &QAbstractButton::clicked, this, [this, description, title]()
       {
