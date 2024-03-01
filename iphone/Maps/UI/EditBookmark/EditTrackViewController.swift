@@ -114,19 +114,7 @@ final class EditTrackViewController: MWMTableViewController {
     tableView.deselectRow(at: indexPath, animated: true)
     switch InfoSectionRows(rawValue: indexPath.row) {
     case .color:
-      if #available(iOS 14.0, *) {
-        let colorPickerController = UIColorPickerViewController()
-        colorPickerController.supportsAlpha = false
-        colorPickerController.delegate = self
-        colorPickerController.selectedColor = trackColor
-        present(colorPickerController, animated: true)
-      } else {
-        // For iOS < 14.0 when the color cannot be mapped to predefined it will not be selected in the table view.
-        let trackColor = BookmarkColor.bookmarkColor(from: trackColor) ?? .none
-        let colorViewController = BookmarkColorViewController(bookmarkColor: trackColor)
-        colorViewController.delegate = self
-        navigationController?.pushViewController(colorViewController, animated: true)
-      }
+      openColorPicker()
     case .bookmarkGroup:
       let groupViewController = SelectBookmarkGroupViewController(groupName: trackGroupTitle ?? "", groupId: trackGroupId)
       groupViewController.delegate = self
@@ -150,6 +138,13 @@ final class EditTrackViewController: MWMTableViewController {
     tableView.reloadRows(at: [IndexPath(row: InfoSectionRows.color.rawValue, section: Sections.info.rawValue)],
                          with: .none)
   }
+
+  @objc private func openColorPicker() {
+    ColorPicker.shared.present(from: self, pickerType: .defaultColorPicker(trackColor), completionHandler: { [weak self] color in
+      self?.updateColor(color)
+    })
+  }
+
 }
 
 extension EditTrackViewController: BookmarkTitleCellDelegate {

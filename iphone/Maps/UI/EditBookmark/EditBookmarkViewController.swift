@@ -139,11 +139,10 @@ final class EditBookmarkViewController: MWMTableViewController {
   }
 
   override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+    tableView.deselectRow(at: indexPath, animated: true)
     switch InfoSectionRows(rawValue: indexPath.row) {
     case .color:
-      let colorViewController = BookmarkColorViewController(bookmarkColor: bookmarkColor)
-      colorViewController.delegate = self
-      navigationController?.pushViewController(colorViewController, animated: true)
+      openColorPicker()
     case .bookmarkGroup:
       let groupViewController = SelectBookmarkGroupViewController(groupName: bookmarkGroupTitle ?? "", groupId: bookmarkGroupId)
       groupViewController.delegate = self
@@ -170,6 +169,15 @@ final class EditBookmarkViewController: MWMTableViewController {
     editingCompleted?(true)
     goBack()
   }
+
+  @objc private func openColorPicker() {
+    ColorPicker.shared.present(from: self, pickerType: .bookmarkColorPicker(bookmarkColor), completionHandler: { [weak self] color in
+      self?.bookmarkColor = BookmarkColor.bookmarkColor(from: color)
+      self?.tableView.reloadRows(at: [IndexPath(row: InfoSectionRows.color.rawValue, section: Sections.info.rawValue)],
+                           with: .none)
+    })
+  }
+
 }
 
 extension EditBookmarkViewController: BookmarkTitleCellDelegate {

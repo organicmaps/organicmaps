@@ -680,6 +680,21 @@ static BookmarkManager::SortingType convertSortingTypeToCore(MWMBookmarksSorting
     bookmark->SetCustomName(title.UTF8String);
 }
 
+- (void)updateBookmark:(MWMMarkID)bookmarkId
+              setColor:(MWMBookmarkColor)color {
+  auto editSession = self.bm.GetEditSession();
+
+  auto bookmark = editSession.GetBookmarkForEdit(bookmarkId);
+  if (!bookmark)
+    return;
+
+  auto kmlColor = convertBookmarkColor(color);
+  if (kmlColor != bookmark->GetColor())
+    self.bm.SetLastEditedBmColor(kmlColor);
+
+  bookmark->SetColor(kmlColor);
+}
+
 - (void)moveBookmark:(MWMMarkID)bookmarkId
            toGroupId:(MWMMarkGroupID)groupId {
     auto const currentGroupId = self.bm.GetBookmark(bookmarkId)->GetGroupId();
@@ -708,6 +723,21 @@ static BookmarkManager::SortingType convertSortingTypeToCore(MWMBookmarksSorting
       track->SetColor(newColor);
 
     track->SetName(title.UTF8String);
+}
+
+- (void)updateTrack:(MWMTrackID)trackId
+              setColor:(UIColor *)color {
+    auto editSession = self.bm.GetEditSession();
+
+    auto track = editSession.GetTrackForEdit(trackId);
+    if (!track)
+      return;
+
+    auto const currentColor = track->GetColor(0);
+    auto const newColor = [MWMBookmarksManager getColorFromUIColor:color];
+
+    if (newColor != currentColor)
+      track->SetColor(newColor);
 }
 
 - (void)moveTrack:(MWMTrackID)trackId
