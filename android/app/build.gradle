@@ -334,6 +334,8 @@ android {
   }
 
   compileOptions {
+    coreLibraryDesugaringEnabled true
+
     sourceCompatibility JavaVersion.VERSION_17
     targetCompatibility JavaVersion.VERSION_17
   }
@@ -352,6 +354,8 @@ android {
 }
 
 dependencies {
+  coreLibraryDesugaring 'com.android.tools:desugar_jdk_libs:2.0.4'
+
   // Google Play Location Services
   //
   // Please add symlinks to google/java/app/organicmaps/location for each new gms-enabled flavor below:
