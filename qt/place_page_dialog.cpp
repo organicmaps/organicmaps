@@ -113,22 +113,19 @@ PlacePageDialog::PlacePageDialog(QWidget * parent, place_page::Info const & info
       addEntry("Bookmark", "Yes");
     }
 
-    // Description
 
+    // Wikipedia fragment
+    if (auto const & wikipedia = info.GetMetadata(feature::Metadata::EType::FMD_WIKIPEDIA); !wikipedia.empty()){
+      QLabel * name = new QLabel("Wikipedia");
+      name->setOpenExternalLinks(true);
+      name->setTextInteractionFlags(Qt::TextBrowserInteraction);
+      name->setText(QString::fromStdString("<a href=\"" + feature::Metadata::ToWikiURL(std::string(wikipedia)) + "\">Wikipedia</a>"));
+      data->addWidget(name, row++, 0);
+    }
+
+    // Description
     if (auto description = info.GetWikiDescription(); !description.empty())
     {
-      // Wikipedia fragment
-
-      QLabel * name = new QLabel("Wikipedia");
-      auto const & wikipedia = info.GetMetadata(feature::Metadata::EType::FMD_WIKIPEDIA);
-      if (!wikipedia.empty()){
-        name->setOpenExternalLinks(true);
-        name->setTextInteractionFlags(Qt::TextBrowserInteraction);
-        name->setText(QString::fromStdString("<a href=\"" + feature::Metadata::ToWikiURL(std::string(wikipedia)) + "\">Wikipedia</a>"));
-      }
-
-      data->addWidget(name, row++, 0);
-
       auto descriptionShort = getShortDescription(description);
 
       QLabel * value = new QLabel(QString::fromStdString(descriptionShort));
