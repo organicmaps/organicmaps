@@ -330,25 +330,26 @@ PlacePageDialog::PlacePageDialog(QWidget * parent, place_page::Info const & info
 
       info.ForEachMetadataReadable([&addEntry](PropID id, std::string const & value)
       {
-        bool isLink = false;
         switch (id)
-        {
+        { // SKIP those that are already listed in the non-advanced (non-developer) mode
         case PropID::FMD_EMAIL:
-        case PropID::FMD_WEBSITE:
         case PropID::FMD_CONTACT_FACEBOOK:
         case PropID::FMD_CONTACT_INSTAGRAM:
         case PropID::FMD_CONTACT_TWITTER:
         case PropID::FMD_CONTACT_VK:
         case PropID::FMD_CONTACT_LINE:
+        case PropID::FMD_LEVEL:
+        case PropID::FMD_OPERATOR:
+        case PropID::FMD_PHONE_NUMBER:
+        case PropID::FMD_WEBSITE:
         case PropID::FMD_WIKIPEDIA:
         case PropID::FMD_WIKIMEDIA_COMMONS:
-          isLink = true;
           break;
         default:
+          addEntry(DebugPrint(id), value, false);
           break;
         }
 
-        addEntry(DebugPrint(id), value, isLink);
       });
     }
 
