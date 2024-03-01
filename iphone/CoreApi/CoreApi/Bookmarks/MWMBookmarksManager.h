@@ -102,6 +102,9 @@ NS_SWIFT_NAME(BookmarksManager)
                  color:(MWMBookmarkColor)color
            description:(NSString *)description;
 
+- (void)updateBookmark:(MWMMarkID)bookmarkId
+              setColor:(MWMBookmarkColor)color;
+
 - (void)moveBookmark:(MWMMarkID)bookmarkId
            toGroupId:(MWMMarkGroupID)groupId;
 
@@ -109,6 +112,9 @@ NS_SWIFT_NAME(BookmarksManager)
          setGroupId:(MWMMarkGroupID)groupId
               color:(UIColor *)color
               title:(NSString *)title;
+
+- (void)updateTrack:(MWMTrackID)trackId
+           setColor:(UIColor *)color;
 
 - (void)moveTrack:(MWMTrackID)trackId
         toGroupId:(MWMMarkGroupID)groupId;

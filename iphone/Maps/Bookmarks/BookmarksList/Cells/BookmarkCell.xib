@@ -17,8 +17,9 @@
                 <rect key="frame" x="0.0" y="0.0" width="320" height="64"/>
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
-                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="center" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="J5x-wl-wyb">
+                    <imageView clipsSubviews="YES" contentMode="center" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="J5x-wl-wyb">
                         <rect key="frame" x="0.0" y="0.0" width="56" height="64"/>
+                        <gestureRecognizers/>
                         <constraints>
                             <constraint firstAttribute="width" constant="56" id="cgW-tP-nDZ"/>
                         </constraints>
@@ -56,6 +57,7 @@
                 </constraints>
             </tableViewCellContentView>
             <viewLayoutGuide key="safeArea" id="njF-e1-oar"/>
+            <gestureRecognizers/>
             <connections>
                 <outlet property="bookmarkImageView" destination="J5x-wl-wyb" id="JIb-pt-prZ"/>
                 <outlet property="bookmarkSubtitleLabel" destination="CTi-lg-1FN" id="5IW-bp-l8N"/>

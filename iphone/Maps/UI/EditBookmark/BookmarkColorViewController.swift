@@ -22,6 +22,11 @@ final class BookmarkColorViewController: MWMTableViewController {
   override func viewDidLoad() {
     super.viewDidLoad()
     title = L("change_color")
+    navigationItem.leftBarButtonItem = UIBarButtonItem(barButtonSystemItem: .cancel, target: self, action: #selector(cancelButtonDidTap))
+  }
+
+  @objc private func cancelButtonDidTap() {
+    dismiss(animated: true, completion: nil)
   }
 
   override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
