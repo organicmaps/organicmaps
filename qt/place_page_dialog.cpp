@@ -242,13 +242,11 @@ PlacePageDialog::PlacePageDialog(QWidget * parent, place_page::Info const & info
     }
 
     if (auto wikimedia_commons = info.GetMetadata(feature::Metadata::EType::FMD_WIKIMEDIA_COMMONS); !wikimedia_commons.empty()){
-      data->addWidget(new QLabel("Wikimedia Commons"), row, 0);
-
       QLabel * value = new QLabel(QString::fromStdString("<a href='" + feature::Metadata::ToWikimediaCommonsURL(std::string(wikimedia_commons)) + "'>Wikimedia Commons</a>"));
       value->setOpenExternalLinks(true);
       value->setTextInteractionFlags(Qt::TextBrowserInteraction);
 
-      data->addWidget(value, row++, 1);
+      data->addWidget(value, row++, 0);
     }
 
     // Level fragment
