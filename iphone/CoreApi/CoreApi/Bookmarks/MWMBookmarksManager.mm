@@ -17,7 +17,7 @@
 
 #include <utility>
 
-static kml::PredefinedColor convertBookmarkColor(MWMBookmarkColor bookmarkColor) {
+static kml::PredefinedColor kmlColorFromBookmarkColor(MWMBookmarkColor bookmarkColor) {
   switch (bookmarkColor) {
     case MWMBookmarkColorNone:
       return kml::PredefinedColor::None;
@@ -192,7 +192,7 @@ static BookmarkManager::SortingType convertSortingTypeToCore(MWMBookmarksSorting
 
 - (BOOL)isCategoryNotEmpty:(MWMMarkGroupID)groupId {
   return self.bm.HasBmCategory(groupId) &&
-         (self.bm.GetUserMarkIds(groupId).size() + self.bm.GetTrackIds(groupId).size());
+  (self.bm.GetUserMarkIds(groupId).size() + self.bm.GetTrackIds(groupId).size());
 }
 
 - (void)prepareForSearch:(MWMMarkGroupID)groupId {
@@ -288,8 +288,8 @@ static BookmarkManager::SortingType convertSortingTypeToCore(MWMBookmarksSorting
 }
 
 - (BOOL)isHtmlDescription:(MWMMarkGroupID)groupId {
-    auto const description = GetPreferredBookmarkStr(self.bm.GetCategoryData(groupId).m_description);
-    return strings::IsHTML(description);
+  auto const description = GetPreferredBookmarkStr(self.bm.GetCategoryData(groupId).m_description);
+  return strings::IsHTML(description);
 }
 
 - (MWMMarkGroupID)createCategoryWithName:(NSString *)name
@@ -461,30 +461,30 @@ static BookmarkManager::SortingType convertSortingTypeToCore(MWMBookmarksSorting
 }
 
 - (void)deleteTrack:(MWMTrackID)trackId {
-    self.bm.GetEditSession().DeleteTrack(trackId);
+  self.bm.GetEditSession().DeleteTrack(trackId);
 }
 
 - (MWMBookmark *)bookmarkWithId:(MWMMarkID)bookmarkId {
-    return [[MWMBookmark alloc] initWithMarkId:bookmarkId bookmarkData:self.bm.GetBookmark(bookmarkId)];
+  return [[MWMBookmark alloc] initWithMarkId:bookmarkId bookmarkData:self.bm.GetBookmark(bookmarkId)];
 }
 
 - (MWMTrack *)trackWithId:(MWMTrackID)trackId {
-    return [[MWMTrack alloc] initWithTrackId:trackId trackData:self.bm.GetTrack(trackId)];
+  return [[MWMTrack alloc] initWithTrackId:trackId trackData:self.bm.GetTrack(trackId)];
 }
 
 - (MWMBookmarkGroup *)categoryForBookmarkId:(MWMMarkID)bookmarkId {
-    auto const groupId = self.bm.GetBookmark(bookmarkId)->GetGroupId();
-    return [self categoryWithId:groupId];
+  auto const groupId = self.bm.GetBookmark(bookmarkId)->GetGroupId();
+  return [self categoryWithId:groupId];
 }
 
 - (MWMBookmarkGroup *)categoryForTrackId:(MWMTrackID)trackId {
-    auto const groupId = self.bm.GetTrack(trackId)->GetGroupId();
-    return [self categoryWithId:groupId];
+  auto const groupId = self.bm.GetTrack(trackId)->GetGroupId();
+  return [self categoryWithId:groupId];
 }
 
 - (NSString *)descriptionForBookmarkId:(MWMMarkID)bookmarkId {
-    auto const description = self.bm.GetBookmark(bookmarkId)->GetDescription();
-    return [NSString stringWithUTF8String:description.c_str()];
+  auto const description = self.bm.GetBookmark(bookmarkId)->GetDescription();
+  return [NSString stringWithUTF8String:description.c_str()];
 }
 
 - (NSArray<MWMBookmark *> *)bookmarksForGroup:(MWMMarkGroupID)groupId {
@@ -613,14 +613,12 @@ static BookmarkManager::SortingType convertSortingTypeToCore(MWMBookmarksSorting
   }];
 }
 
-- (NSURL *)shareCategoryURL
-{
+- (NSURL *)shareCategoryURL {
   NSAssert(_shareCategoryURL != nil, @"Invalid share category url");
   return _shareCategoryURL;
 }
 
-- (void)finishShareCategory
-{
+- (void)finishShareCategory {
   if (!self.shareCategoryURL)
     return;
 
@@ -630,20 +628,17 @@ static BookmarkManager::SortingType convertSortingTypeToCore(MWMBookmarksSorting
 
 #pragma mark - Notifications
 
-- (void)setNotificationsEnabled:(BOOL)enabled
-{
+- (void)setNotificationsEnabled:(BOOL)enabled {
   self.bm.SetNotificationsEnabled(enabled);
 }
 
-- (BOOL)areNotificationsEnabled
-{
+- (BOOL)areNotificationsEnabled {
   return self.bm.AreNotificationsEnabled();
 }
 
 #pragma mark - Catalog
 
-- (NSArray<MWMBookmarkGroup *> *)userCategories
-{
+- (NSArray<MWMBookmarkGroup *> *)userCategories {
   auto const & list = self.bm.GetBmGroupsIdList();
   NSMutableArray<MWMBookmarkGroup *> * result = [[NSMutableArray alloc] initWithCapacity:list.size()];
 
@@ -661,16 +656,16 @@ static BookmarkManager::SortingType convertSortingTypeToCore(MWMBookmarksSorting
                  title:(NSString *)title
                  color:(MWMBookmarkColor)color
            description:(NSString *)description {
+  ASSERT_NOT_EQUAL(groupId, kml::kInvalidMarkGroupId, ());
   auto const currentGroupId = self.bm.GetBookmark(bookmarkId)->GetGroupId();
   auto editSession = self.bm.GetEditSession();
-  if (groupId != kml::kInvalidMarkGroupId)
+  if (currentGroupId != groupId)
     editSession.MoveBookmark(bookmarkId, currentGroupId, groupId);
 
   auto bookmark = editSession.GetBookmarkForEdit(bookmarkId);
-  if (!bookmark)
-    return;
+  ASSERT(bookmark, ("Invalid bookmark id:", bookmarkId));
 
-  auto kmlColor = convertBookmarkColor(color);
+  auto kmlColor = kmlColorFromBookmarkColor(color);
   if (kmlColor != bookmark->GetColor())
     self.bm.SetLastEditedBmColor(kmlColor);
 
@@ -680,72 +675,70 @@ static BookmarkManager::SortingType convertSortingTypeToCore(MWMBookmarksSorting
     bookmark->SetCustomName(title.UTF8String);
 }
 
-- (void)updateBookmark:(MWMMarkID)bookmarkId
-              setColor:(MWMBookmarkColor)color {
+- (void)updateBookmark:(MWMMarkID)bookmarkId setColor:(MWMBookmarkColor)color {
   auto editSession = self.bm.GetEditSession();
 
   auto bookmark = editSession.GetBookmarkForEdit(bookmarkId);
-  if (!bookmark)
-    return;
+  ASSERT(bookmark, ("Invalid bookmark id:", bookmarkId));
 
-  auto kmlColor = convertBookmarkColor(color);
+  auto kmlColor = kmlColorFromBookmarkColor(color);
   if (kmlColor != bookmark->GetColor())
     self.bm.SetLastEditedBmColor(kmlColor);
 
   bookmark->SetColor(kmlColor);
 }
 
-- (void)moveBookmark:(MWMMarkID)bookmarkId
-           toGroupId:(MWMMarkGroupID)groupId {
-    auto const currentGroupId = self.bm.GetBookmark(bookmarkId)->GetGroupId();
+- (void)moveBookmark:(MWMMarkID)bookmarkId toGroupId:(MWMMarkGroupID)groupId {
+  ASSERT_NOT_EQUAL(groupId, kml::kInvalidMarkGroupId, ());
+  auto const currentGroupId = self.bm.GetBookmark(bookmarkId)->GetGroupId();
+  if (currentGroupId != groupId) {
     auto editSession = self.bm.GetEditSession();
-    if (groupId != kml::kInvalidMarkGroupId)
-      editSession.MoveBookmark(bookmarkId, currentGroupId, groupId);
+    editSession.MoveBookmark(bookmarkId, currentGroupId, groupId);
+  }
 }
 
 - (void)updateTrack:(MWMTrackID)trackId
          setGroupId:(MWMMarkGroupID)groupId
               color:(UIColor *)color
               title:(NSString *)title {
-    auto const currentGroupId = self.bm.GetTrack(trackId)->GetGroupId();
-    auto editSession = self.bm.GetEditSession();
-    if (groupId != kml::kInvalidMarkGroupId)
-      editSession.MoveTrack(trackId, currentGroupId, groupId);
+  ASSERT_NOT_EQUAL(groupId, kml::kInvalidMarkGroupId, ());
+  auto const currentGroupId = self.bm.GetTrack(trackId)->GetGroupId();
+  auto editSession = self.bm.GetEditSession();
+  if (currentGroupId != groupId)
+    editSession.MoveTrack(trackId, currentGroupId, groupId);
 
-    auto track = editSession.GetTrackForEdit(trackId);
-    if (!track)
-      return;
+  auto track = editSession.GetTrackForEdit(trackId);
+  ASSERT(track, ("Invalid track id:", trackId));
 
-    auto const currentColor = track->GetColor(0);
-    auto const newColor = [MWMBookmarksManager getColorFromUIColor:color];
+  auto const currentColor = track->GetColor(0);
+  auto const newColor = [MWMBookmarksManager getColorFromUIColor:color];
 
-    if (newColor != currentColor) 
-      track->SetColor(newColor);
+  if (newColor != currentColor)
+    track->SetColor(newColor);
 
-    track->SetName(title.UTF8String);
+  track->SetName(title.UTF8String);
 }
 
-- (void)updateTrack:(MWMTrackID)trackId
-              setColor:(UIColor *)color {
-    auto editSession = self.bm.GetEditSession();
+- (void)updateTrack:(MWMTrackID)trackId setColor:(UIColor *)color {
+  auto editSession = self.bm.GetEditSession();
 
-    auto track = editSession.GetTrackForEdit(trackId);
-    if (!track)
-      return;
+  auto track = editSession.GetTrackForEdit(trackId);
+  ASSERT(track, ("Invalid track id:", trackId));
 
-    auto const currentColor = track->GetColor(0);
-    auto const newColor = [MWMBookmarksManager getColorFromUIColor:color];
+  auto const currentColor = track->GetColor(0);
+  auto const newColor = [MWMBookmarksManager getColorFromUIColor:color];
 
-    if (newColor != currentColor)
-      track->SetColor(newColor);
+  if (newColor != currentColor)
+    track->SetColor(newColor);
 }
 
-- (void)moveTrack:(MWMTrackID)trackId
-        toGroupId:(MWMMarkGroupID)groupId {
-    auto const currentGroupId = self.bm.GetTrack(trackId)->GetGroupId();
+- (void)moveTrack:(MWMTrackID)trackId toGroupId:(MWMMarkGroupID)groupId {
+  ASSERT_NOT_EQUAL(groupId, kml::kInvalidMarkGroupId, ());
+  auto const currentGroupId = self.bm.GetTrack(trackId)->GetGroupId();
+  if (currentGroupId != groupId) {
     auto editSession = self.bm.GetEditSession();
-    if (groupId != kml::kInvalidMarkGroupId)
-      editSession.MoveTrack(trackId, currentGroupId, groupId);
+    editSession.MoveTrack(trackId, currentGroupId, groupId);
+  }
 }
 
 - (void)setCategory:(MWMMarkGroupID)groupId authorType:(MWMBookmarkGroupAuthorType)author
