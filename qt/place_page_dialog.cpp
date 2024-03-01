@@ -126,6 +126,7 @@ PlacePageDialog::PlacePageDialog(QWidget * parent, place_page::Info const & info
       data->addWidget(value, row++, 0, 1, 2);
 
       QPushButton * wikiButton = new QPushButton("More...", value);
+      wikiButton->setAutoDefault(false);
       connect(wikiButton, &QAbstractButton::clicked, this, [this, description, title]()
       {
         auto textDialog = TextDialog(this, QString::fromStdString(description), QString::fromStdString("Wikipedia: " + title));
