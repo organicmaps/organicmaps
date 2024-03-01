@@ -21,6 +21,18 @@
 const int place_page_description_max_length = 500;
 const int short_description_minimum_width = 390;
 
+namespace {
+  std::string stripSchemeFromURI(std::string const & input) {
+    std::string result = input;
+    if (size(input) > 8 && ("https://" == input.substr(0, 8))) {
+      result = result.substr(8, size(input));
+    } else if (size(input) > 7 && ("http://" == input.substr(0, 7))) {
+      result = result.substr(7, size(input));
+    }
+    return result;
+  }
+}
+
 class QHLine : public QFrame
 {
 public:
@@ -101,7 +113,7 @@ PlacePageDialog::PlacePageDialog(QWidget * parent, place_page::Info const & info
     }
 
     // Description
-    
+
     if (auto description = info.GetWikiDescription(); !description.empty())
     {
       // Wikipedia fragment
@@ -140,7 +152,7 @@ PlacePageDialog::PlacePageDialog(QWidget * parent, place_page::Info const & info
     if (auto openingHours = info.GetOpeningHours(); !openingHours.empty())
       addEntry("Opening hours", std::string(openingHours));
 
-    // Cuisine fragment    
+    // Cuisine fragment
     if (auto cuisines = info.FormatCuisines(); !cuisines.empty())
       addEntry("Cuisine", cuisines);
 
@@ -153,7 +165,7 @@ PlacePageDialog::PlacePageDialog(QWidget * parent, place_page::Info const & info
 
       QLabel * value = new QLabel(QString::fromStdString("<a href='tel:" + std::string(phoneNumber) + "'>" + std::string(phoneNumber) + "</a>"));
       value->setOpenExternalLinks(true);
-      
+
       data->addWidget(value, row++, 1);
     }
 
@@ -168,14 +180,14 @@ PlacePageDialog::PlacePageDialog(QWidget * parent, place_page::Info const & info
 
     // Links fragment
     if (auto website = info.GetMetadata(feature::Metadata::EType::FMD_WEBSITE); !website.empty())
-      addEntry("Website", std::string(website), true);    
+      addEntry("Website", stripSchemeFromURI(std::string(website)), true);
 
     if (auto email = info.GetMetadata(feature::Metadata::EType::FMD_EMAIL); !email.empty()){
       data->addWidget(new QLabel("Email"), row, 0);
 
       QLabel * value = new QLabel(QString::fromStdString("<a href='mailto:" + std::string(email) + "'>" + std::string(email) + "</a>"));
       value->setOpenExternalLinks(true);
-      
+
       data->addWidget(value, row++, 1);
     }
 
@@ -282,7 +294,7 @@ PlacePageDialog::PlacePageDialog(QWidget * parent, place_page::Info const & info
       {
         label->setOpenExternalLinks(true);
         label->setTextInteractionFlags(Qt::TextBrowserInteraction);
-        label->setText(QString::fromStdString("<a href=\"" + value + "\">" + value + "</a>"));
+        label->setText(QString::fromStdString("<a href=\"" + value + "\">" + stripSchemeFromURI(value) + "</a>"));
       }
       grid->addWidget(label, row++, 1);
       return label;
