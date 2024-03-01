@@ -126,8 +126,7 @@ PlacePageDialog::PlacePageDialog(QWidget * parent, place_page::Info const & info
         name->setText(QString::fromStdString("<a href=\"" + feature::Metadata::ToWikiURL(std::string(wikipedia)) + "\">Wikipedia</a>"));
       }
 
-      data->addWidget(new QLabel("Wikipedia"), row, 0);
-      data->addWidget(name, row++, 1);
+      data->addWidget(name, row++, 0);
 
       auto descriptionShort = getShortDescription(description);
 
