@@ -116,9 +116,7 @@ final class EditTrackViewController: MWMTableViewController {
     case .color:
       openColorPicker()
     case .bookmarkGroup:
-      let groupViewController = SelectBookmarkGroupViewController(groupName: trackGroupTitle ?? "", groupId: trackGroupId)
-      groupViewController.delegate = self
-      navigationController?.pushViewController(groupViewController, animated: true)
+      openGroupPicker()
     default:
       break
     }
@@ -145,6 +143,12 @@ final class EditTrackViewController: MWMTableViewController {
     })
   }
 
+  private func openGroupPicker() {
+    let groupViewController = SelectBookmarkGroupViewController(groupName: trackGroupTitle ?? "", groupId: trackGroupId)
+    groupViewController.delegate = self
+    let navigationController = UINavigationController(rootViewController: groupViewController)
+    present(navigationController, animated: true, completion: nil)
+  }
 }
 
 extension EditTrackViewController: BookmarkTitleCellDelegate {
@@ -164,7 +168,7 @@ extension EditTrackViewController: MWMButtonCellDelegate {
 
 extension EditTrackViewController: BookmarkColorViewControllerDelegate {
   func bookmarkColorViewController(_ viewController: BookmarkColorViewController, didSelect bookmarkColor: BookmarkColor) {
-    goBack()
+    viewController.dismiss(animated: true)
     updateColor(bookmarkColor.color)
   }
 }
@@ -174,24 +178,10 @@ extension EditTrackViewController: SelectBookmarkGroupViewControllerDelegate {
   func bookmarkGroupViewController(_ viewController: SelectBookmarkGroupViewController,
                                    didSelect groupTitle: String,
                                    groupId: MWMMarkGroupID) {
-    goBack()
+    viewController.dismiss(animated: true)
     trackGroupTitle = groupTitle
     trackGroupId = groupId
     tableView.reloadRows(at: [IndexPath(row: InfoSectionRows.bookmarkGroup.rawValue, section: Sections.info.rawValue)],
                          with: .none)
-  }
-}
-
-// MARK: - UIColorPickerViewControllerDelegate
-extension EditTrackViewController: UIColorPickerViewControllerDelegate {
-  @available(iOS 14.0, *)
-  func colorPickerViewControllerDidFinish(_ viewController: UIColorPickerViewController) {
-    updateColor(viewController.selectedColor)
-    dismiss(animated: true, completion: nil)
-  }
-
-  @available(iOS 14.0, *)
-  func colorPickerViewControllerDidSelectColor(_ viewController: UIColorPickerViewController) {
-    updateColor(viewController.selectedColor)
   }
 }

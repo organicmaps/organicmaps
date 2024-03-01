@@ -371,8 +371,7 @@ extension BookmarksListPresenter: SelectBookmarkGroupViewControllerDelegate {
                                      didSelect groupTitle: String,
                                      groupId: MWMMarkGroupID) {
 
-      let nc = viewController.navigationController
-      defer { nc?.popViewController(animated: true) }
+      defer { viewController.dismiss(animated: true) }
 
       guard groupId != bookmarkGroup.categoryId else { return }
       
@@ -392,7 +391,9 @@ extension BookmarksListPresenter: SelectBookmarkGroupViewControllerDelegate {
       } else {
         // if there are no bookmarks or tracks in current group no need to show this group
         // e.g. popping view controller 2 times
-        nc?.popViewController(animated: false)
+        if let rootNavigationController = viewController.presentingViewController as? UINavigationController {
+          rootNavigationController.popViewController(animated: false)
+        }
       }
     }
 }
