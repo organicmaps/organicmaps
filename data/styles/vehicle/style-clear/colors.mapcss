@@ -171,7 +171,6 @@
 /* ROADS LABELS */
 @primary_road_label: #2E2E2E;
 @secondary_road_label: #333333;
-@road_label_halo: #FFFFFF;
 @shield_text: #000000;
 @shield_text_halo: #000000;
 @shield: #FFFFFF;
