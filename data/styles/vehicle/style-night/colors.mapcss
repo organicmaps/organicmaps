@@ -161,7 +161,7 @@
 @label_medium: #8C8C8C;
 @label_light: #666666;
 @label_halo_medium: #111100;
-@label_halo_light: #111100;
+@label_halo_light: #060600;
 
 /* 6.2 Natural labels */
 
@@ -184,7 +184,6 @@
 
 /* 6.4 Road labels */
 
-@road_label_halo: #000000;
 @shield_text: #303030;
 @shield_text_halo: #000000;
 @shield: #999999;

@@ -185,7 +185,6 @@
 
 /* 6.4 Road labels */
 
-@road_label_halo: #FFFFFF;
 @shield_text: #000000;
 @shield_text_halo: #000000;
 @shield: #FFFFFF;
