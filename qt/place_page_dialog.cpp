@@ -4,6 +4,7 @@
 
 #include "map/place_page_info.hpp"
 #include "indexer/validate_and_format_contacts.hpp"
+#include "platform/settings.hpp"
 
 #include <QtWidgets/QDialogButtonBox>
 #include <QtWidgets/QGridLayout>
@@ -271,7 +272,8 @@ PlacePageDialog::PlacePageDialog(QWidget * parent, place_page::Info const & info
   }
 
   // Advanced
-#ifdef DEBUG
+  bool developerMode;
+  if (settings::Get(settings::kDeveloperMode, developerMode) && developerMode)
   {
     {
       QHLine * line = new QHLine();
@@ -352,7 +354,6 @@ PlacePageDialog::PlacePageDialog(QWidget * parent, place_page::Info const & info
 
     layout->addLayout(grid);
   }
-#endif
 
   {
     QHLine * line = new QHLine();

@@ -148,6 +148,17 @@ int main(int argc, char * argv[])
     QApplication::setApplicationName("Organic Maps");
 #endif
 
+
+#ifdef DEBUG
+  bool developerMode = true;
+#else
+  bool developerMode = false;
+#endif
+  if (!settings::Get(settings::kDeveloperMode, developerMode))
+  {
+    settings::Set(settings::kDeveloperMode, developerMode);
+  }
+
   // Display EULA if needed.
   char const * settingsEULA = "EulaAccepted";
   bool eulaAccepted = false;
