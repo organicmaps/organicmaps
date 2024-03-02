@@ -96,6 +96,7 @@
     pt = Teleférico
     pt-BR = Teleférico
     ru = Канатная дорога
+    sk = Lanovka
     tr = Teleferik
     uk = Канатна дорога
     zh-Hans = 缆车
@@ -122,6 +123,7 @@
     pt = Telecadeira
     pt-BR = Telecadeira
     ru = Кресельная канатная дорога
+    sk = Sedačková lanovka
     tr = Telesiyej
     uk = Канатна дорога
     zh-Hans = 登山吊椅
@@ -147,6 +149,7 @@
     pt = Telesquis
     pt-BR = Telesquis
     ru = Бугельная канатная дорога
+    sk = Vlek
     tr = Teleferik hattı
     uk = Канатна дорога
     zh-Hans = 缆车要素
@@ -173,6 +176,7 @@
     pt = Telecabine
     pt-BR = Telecabine
     ru = Канатная дорога
+    sk = Kabínová lanovka
     tr = Teleferik
     uk = Канатна дорога
     zh-Hans = 循环式索道
@@ -4190,7 +4194,7 @@
     pt-BR = Contêiner de reciclagem
     ro = Containere pentru reciclare
     ru = Контейнер для вторсырья
-    sk = Recyklačný odpad
+    sk = Recyklačný kontajner
     sv = Behållare för återvinningsbart avfall
     th = บรรจุภัณฑ์รีไซเคิล
     tr = Atık Toplama Merkezi
@@ -4528,6 +4532,7 @@
     pl = Karton
     pt-BR = Papelão
     ru = Картон
+    sk = Kartóny
     tr = Karton
     uk = Картон
 
@@ -4549,6 +4554,7 @@
     pl = Puszki
     pt-BR = Latas
     ru = Жестяные и алюминиевые банки
+    sk = Plechovky
     tr = Teneke ve alüminyum kutular
     uk = Бляшані та алюмінієві банки
 
@@ -4570,6 +4576,7 @@
     pl = Buty
     pt-BR = Sapatos
     ru = Обувь
+    sk = Obuv
     tr = Ayakkabılar
     uk = Взуття
 
@@ -4590,6 +4597,7 @@
     pl = Odpady zielone
     pt-BR = Lixo verde/orgânico
     ru = Органика / Пищевые отходы
+    sk = Biologický odpad
     tr = Yeşil/Organik Atık
     uk = Органіка / Харчові відходи
 
@@ -4611,6 +4619,7 @@
     pl = Kartony po napojach
     pt-BR = Caixa de bebidas
     ru = Тетрапак и аналоги
+    sk = Tetrapaky
     tr = İçecek Kartonları
     uk = Тетрапак та аналоги
 
@@ -5103,6 +5112,7 @@
     pt = Máquina de venda automática
     pt-BR = Máquina de venda automática
     ru = Торговый автомат
+    sk = Výdajný automat
     tr = Otomat
     uk = Торговий автомат
     zh-Hans = 自动售货机
@@ -5164,6 +5174,7 @@
     pl = Automat z kawą
     pt-BR = Máquina de café
     ru = Кофейный автомат
+    sk = Automat na kávu
     uk = Кавовий автомат
 
   [type.amenity.vending_machine.condoms]
@@ -5184,6 +5195,7 @@
     pl = Automat z prezerwatywami
     pt-BR = Máquina de venda de preservativos
     ru = Автомат с презервативами
+    sk = Automat na kondómy
     uk = Автомат з презервативами
 
   [type.amenity.vending_machine.drinks]
@@ -5242,6 +5254,7 @@
     pl = Automat z jedzeniem
     pt-BR = Máquina de venda de comidas
     ru = Автомат с едой
+    sk = Automat s potravinami
     uk = Автомат з їжею
 
   [type.amenity.vending_machine.newspapers]
@@ -5404,6 +5417,7 @@
     pt = Cacifo
     pt-BR = Armário de encomendas
     ru = Почтомат
+    sk = Balíkomat
     tr = Kilitlenebilen Kutu Dolaplar
     uk = Поштомат
     zh-Hans = 包裹储物柜
@@ -5796,6 +5810,7 @@
     nl = Ketting
     pl = Łańcuch
     ru = Цепь
+    sk = Reťaz
     tr = Zincir
     uk = Ланцюг
 
@@ -17830,6 +17845,7 @@
     pt = Estação de tratamento de águas residuais
     pt-BR = Estação de tratamento de esgoto
     ru = Очистные сооружения
+    sk = Čistička odpadových vôd
     tr = Atıksu Tesisi
     uk = Очистні споруди
     zh-Hans = 污水处理厂
@@ -17999,6 +18015,7 @@
     pt = Fábrica
     pt-BR = Fábrica
     ru = Промышленное производство
+    sk = Továreň
     tr = Sanayi İşleri
     uk = Промислове виробництво
     zh-Hans = 工厂
@@ -21637,6 +21654,7 @@
     pt = Passagem pedestre
     pt-BR = Passagem pedestre
     ru = Пешеходный переход
+    sk = Železničné priecestie
     tr = Demiryolu Geçişi
     uk = Пішохідний перехід
 
@@ -21779,7 +21797,7 @@
     pt-BR = Passagem em nível
     ro = Trecere feroviară
     ru = Железнодорожный переезд
-    sk = Križovanie úrovní
+    sk = Železničné priecestie
     sv = Järnvägskorsning
     sw = Tambuka Reli
     th = ทางรถไฟตัดผ่านถนน
@@ -21990,6 +22008,7 @@
     pt = Plataforma ferroviária
     pt-BR = Plataforma ferroviária
     ru = Железнодорожная платформа
+    sk = Nástupište
     tr = Demiryolu Platformu
     uk = Залізнична платформа
     zh-Hans = 火车站台
@@ -24085,6 +24104,7 @@
     nl = Caravan en camper verkoper
     pl = Sklep z karawanami i kamperami
     ru = Продажа автодомов
+    sk = Predajňa autokarov
     tr = Karavan Bayiliği
     uk = Продаж автобудинків
     zh-Hans = 房车经销商
@@ -24394,7 +24414,7 @@
     pt-BR = Loja de conveniência
     ro = Magazin mixt
     ru = Продуктовый магазин
-    sk = Príležitostné potreby
+    sk = Zmiešaný tovar
     sv = Närbutik
     th = ร้านสะดวกซื้อ
     tr = Bakkal
@@ -24630,7 +24650,7 @@
     pt-BR = Loja de ferramentas e materiais de bricolagem
     ro = Magazin de bricolaj
     ru = Хозяйственный
-    sk = Železiarstvo
+    sk = Obchod pre domácich majstrov
     sv = Järnhandel
     th = ร้านขายฮาร์ดแวร์
     tr = Hırdavatçı
@@ -24743,7 +24763,7 @@
     pt-BR = Loja de artigos eróticos
     ro = Magazin erotic
     ru = Секс-шоп
-    sk = Erotický obchod
+    sk = Sex shop
     sv = Erotisk butik
     th = ร้านเฉพาะผู้ใหญ่
     tr = Erotik Ürünler Mağazası
@@ -25019,7 +25039,7 @@
     pt-BR = Loja de jardinagem ou viveiro
     ro = Pepinieră
     ru = Садовые товары
-    sk = Škôlka
+    sk = Záhradkárske potreby
     sv = Plantskola
     th = สถานรับเลี้ยงเด็ก
     tr = Bahçe Mağazası
@@ -25251,6 +25271,7 @@
     pt-BR = Loja de ferragens
     ro = Magazin de hardware
     ru = Хозяйственный магазин
+    sk = Železiarstvo
     sv = Järnaffär
     sw = Duka la vifaa
     th = ร้านฮาร์ดแวร์
@@ -25608,7 +25629,7 @@
     pt-BR = Shopping center
     ro = Mall
     ru = Торговый центр
-    sk = Mall
+    sk = Nákupné centrum
     sv = Galleria
     th = เดอะมอลล์
     tr = Alışveriş Merkezi
@@ -26154,7 +26175,7 @@
     pt-BR = Loja de animais de estimação
     ro = Pet shop
     ru = Зоотовары
-    sk = Obchod zo zvieratami
+    sk = Obchod so zvieratami
     sv = Djuraffär
     th = เพ็ทชอป
     tr = Evcil Hayvan Mağazası
@@ -26396,7 +26417,7 @@
     pt-BR = Loja de segunda mão
     ro = Magazin second-hand
     ru = Секонд-хенд магазин
-    sk = Obchod z druhej ruky
+    sk = Second hand
     sv = Andrahandsaffär
     sw = Duka la Mitumba
     th = ร้านขายของมือสอง
@@ -26853,7 +26874,7 @@
     pt-BR = Videolocadora
     ro = Magazin video
     ru = Магазин видео
-    sk = Predajňa s videami
+    sk = Videopožičovňa
     sv = Video butik
     sw = Duka la Video
     th = ร้านขายดีวีดี
@@ -30039,7 +30060,7 @@
     pt = Painel de informações
     ro = Panou de informații
     ru = Информационный щит
-    sk = Informačné centrum
+    sk = Informačná tabuľa
     sv = Informationstavla
     sw = Bodi ya habari
     th = บอร์ดประชาสัมพันธ์
