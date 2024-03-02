@@ -2397,7 +2397,7 @@
     pt-BR = Selecione o local para onde os mapas devem ser baixados
     ro = Alege locul în care vrei să fie descărcate hărțile.
     ru = Выберите место, где будут храниться загруженные карты
-    sk = Vyberte miesto, kam by mali byť mapy sťahované
+    sk = Vyberte miesto, kam sa majú sťahovať mapy
     sv = Välj en plats dit kartor ska laddas ner
     th = เลือกสถานที่ที่ต้องการดาวน์โหลดใช้แผนที่
     tr = Haritaların indirileceği yeri seçin
@@ -2475,6 +2475,7 @@
     pl = Wewnętrzna pamięć prywatna
     pt-BR = Armazenamento interno privado
     ru = Внутренний скрытый накопитель
+    sk = Interné privátne úložisko
     tr = Dahili özel depolama
     uk = Внутрішнє приватне сховище
 
@@ -2503,6 +2504,7 @@
     pl = Wewnętrzna pamięć współdzielona
     pt-BR = Armazenamento interno compartilhado
     ru = Внутренний общий накопитель
+    sk = Interné zdieľané úložisko
     tr = Dahili paylaşılan depolama
     uk = Внутрішнє спільне сховище
 
@@ -2531,6 +2533,7 @@
     pl = Karta SD
     pt-BR = Cartão SD
     ru = SD-карта
+    sk = SD karta
     tr = SD kart
     uk = SD-карта
 
@@ -2559,6 +2562,7 @@
     pl = Zewnętrzna pamięć współdzielona
     pt-BR = Armazenamento externo compartilhado
     ru = Внешний общий накопитель
+    sk = Externé zdieľané úložisko
     tr = Harici paylaşılan depolama
     uk = Зовнiшне спільне сховище
 
@@ -2587,6 +2591,7 @@
     pl = %1$@ wolne z %2$@
     pt-BR = %1$@ livre de %2$@
     ru = %1$@ свободно из %2$@
+    sk = Voľných %1$@ z %2$@
     tr = %2$@'ın %1$@'ı boş
     uk = %1$@ вільно з %2$@
 
@@ -2659,6 +2664,7 @@
     pl = Błąd przenoszenia plików map
     pt-BR = Erro ao mover arquivos de mapas
     ru = Ошибка перемещения файлов карт
+    sk = Chyba pri presune mapových súborov
     tr = Harita dosyalarını taşıma hatası
     uk = Помилка переміщення файлів карти
 
@@ -3956,6 +3962,7 @@
     pt-BR = Olá!\n\nSegue em anexo meus favoritos do app Organic Maps. Se tiver instalado o Organic Maps, pode abri-los agora. Caso não tenha, baixe o app para o seu dispositivo iOS ou Android via o link https://omaps.app/get?kmz\n\nDisfrute viajar com o Organic Maps!
     ro = Bună!\n\nȚi-am atașat locurile mele preferate din aplicația Organic Maps. Deschide-le dacă ai instalată Organic Maps. Dacă nu, o poți descărca pentru iOS sau Android de aici: https://organicmaps.app/
     ru = Здравствуйте!\n\nВ прикрепленном файле мои метки из офлайновых карт Organic Maps. Для того чтобы открыть этот файл, вам потребуется приложение Organic Maps, которое можно установить по ссылке: https://omaps.app/get?kmz\n\nСпасибо!
+    sk = Ahoj!\n\nV prílohe sú moje záložky z aplikácie Organic Maps. Ak ju nemáš nainštalovanú, môžeš si ju stiahnuť tu: https://omaps.app/get?kmz\n\nPrajem šťastnú cestu s Organic Maps!
     tr = Merhaba!\n\nEktekiler benim Organic Maps yer imlerim. Eğer Organic Maps'i yüklediyseniz lütfen ektekileri açın. Eğer yüklemediyseniz, bu bağlantıyı takip ederek iOS ve Android cihazınız için uygulamayı yükleyebilirsiniz: https://omaps.app/get?kmz\n\nOrganic Maps ile seyahat etmenin keyfini çıkarın!
     uk = Привіт!\n\nДодаю мої закладки; відкрийте їх у Organic Maps. Якщо застосунок не встановлено, ви можете завантажити його тут: https://omaps.app/get?kmz\n\nНасолоджуйтесь подорожами з Organic Maps!
     zh-Hant = 你好！\n\n附件為 Organic Maps app 的書籤，如果你有安裝 Organic Maps 則直接開啟，如果沒有的話，請先在 iOS 或是 Android 裝置，從下面連結下載：https://omaps.app/get?kmz\n\n旅行時用上 Organic Maps!
@@ -4977,6 +4984,7 @@
     pt-BR = Configurações gerais
     ro = Opțiuni generale
     ru = Общие настройки
+    sk = Všeobecné nastavenia
     tr = Genel ayarlar
     uk = Загальні налаштування
     zh-Hans = 常规设置
@@ -5014,6 +5022,7 @@
     pt-BR = Informação
     ro = Informații
     ru = Информация
+    sk = Informácie
     tr = Bilgi
     uk = Інформація
     zh-Hans = 信息
@@ -8260,6 +8269,7 @@
     pt-BR = Para criar uma rota é necessário baixar e atualizar todos os mapas desde sua localização atual até o destino.
     ro = Pentru a crea un traseu, este necesar ca toate hărțile de la poziția ta până la destinație să fie descărcate și actualizate.
     ru = Для создания маршрута необходимо загрузить и обновить все карты на пути следования.
+    sk = Aby bolo možné naplánovať cestu, je potrebné stiahnuť všetky mapy od vašej pozície po cieľové miesto.
     sv = Att kunna skapa en navigeringsväg kräver att alla kartorna från din plats till din destination är nerladdade och uppdaterade.
     th = การสร้างเส้นทางจำเป็นต้องใช้แผนที่จากสถานที่ตั้งของคุณไปยังปลายทางที่มีการดาวน์โหลดและอัปเดต
     tr = Rota oluşturabilmemiz için bulunduğunuz yerden hedefinize kadar olan tüm haritaları indirmemiz ve güncellememiz gerekiyor.
@@ -11183,6 +11193,7 @@
     pt-BR = Wikipédia
     ro = Wikipedia
     ru = Википедия
+    sk = Wikipédia
     tr = Vikipedi
     uk = Вікіпедія
     zh-Hans = 维基百科
@@ -12784,7 +12795,7 @@
     pt-BR = Fechado
     ro = Închis
     ru = Закрыто
-    sk = Deň voľna
+    sk = Zatvorené
     sv = Stängt
     th = ปิด
     tr = Kapalı
@@ -12859,6 +12870,7 @@
     pt = Abre amanhã às %@
     ro = Deschide mâine la %@
     ru = Откроется завтра в %@
+    sk = Otvoria zajtra o %@
     tr = Açılış yarın %@
     uk = Відкриття завтра о %@
 
@@ -12885,6 +12897,7 @@
     pt = Abre %1$@ às %2$@
     ro = Deschide %1$@ la %2$@
     ru = Открывается в %1$@ в %2$@
+    sk = Otvoria v %1$@ o %2$@
     tr = Açılış %1$@ %2$@
     uk = Відчиняється в %1$@ о %2$@
 
@@ -12912,6 +12925,7 @@
     pt = Abre às %@
     ro = Deschide la %@
     ru = Открывается в %@
+    sk = Otvárajú o %@
     tr = Açılış %@
     uk = Відкриття о %@
 
@@ -12939,6 +12953,7 @@
     pt-BR = Abre em %@
     ro = Deschide în %@
     ru = Открывается через %@
+    sk = Otvoria o %@
     tr = %@ sonra açılıyor
     uk = Відкривається через %@
 
@@ -12967,6 +12982,7 @@
     pt = Encerra às %@
     ro = Închide la %@
     ru = Закрывается в %@
+    sk = Zatvárajú o %@
     tr = Kapanış %@
     uk = Закривається о %@
 
@@ -12995,6 +13011,7 @@
     pt-BR = Fecha em %@
     ro = Închide în %@
     ru = Закроется через %@
+    sk = Zatvoria o %@
     tr = %@ sonra kapanıyor
     uk = Зачиняється через %@
 
@@ -13985,6 +14002,7 @@
     pt-BR = Por favor, digite o nome da rua
     ro = Introdu numele străzii
     ru = Введите название улицы
+    sk = Zadajte názov ulice
     tr = Lütfen bir sokak adı girin
     uk = Введіть назву вулиці
 
@@ -14313,6 +14331,7 @@
     pl = Dodaj numer telefonu
     ro = Adaugă un număr
     ru = Добавить телефон
+    sk = Pridať telefónne číslo
     tr = Telefon Ekle
     zh-Hans = 新增电话号码
     zh-Hant = 新增電話號碼
@@ -17948,6 +17967,7 @@
     pt-BR = Por favor, explica o motivo pelo qual você está retirando o local
     ro = Indică motivul pentru care ai eliminat locul
     ru = Пожалуйста, укажите причину удаления
+    sk = Prosím, uveďte prečo chcete zmazať toto miesto
     tr = Lütfen bu yerin silinmesinin nedenini belirtin
     uk = Будь ласка, вкажіть причину видалення
 
@@ -18147,6 +18167,7 @@
     pl = Wprowadź poprawny link, nazwę konta lub nazwę strony na Facebooku
     ro = Introdu o adresă web, un cont sau un nume de pagină Facebook valabil
     ru = Введите корректный веб-адрес Facebook страницы или имя пользователя
+    sk = Zadajte platnú facebookovú adresu, účet alebo názov stránky
     tr = Geçerli bir Facebook web adresi, hesap veya sayfa adı girin
     uk = Введіть вірну веб-адресу Facebook сторінки або і'мя користувача
     zh-Hant = 輸入有效臉書網址、帳號或粉絲頁名稱
@@ -18174,6 +18195,7 @@
     pl = Wprowadź poprawny link lub nazwę konta na Instagramie
     ro = Introdu o adresă web sau un nume de cont Instagram valabil
     ru = Введите корректный веб-адрес Instagram страницы или имя пользователя
+    sk = Zadajte platné používateľské meno alebo webovú adresu pre Instagram
     tr = Geçerli bir İnstagram web adresi veya hesap adı girin
     uk = Введіть вірну веб-адресу Instagram сторінки або і'мя користувача
     zh-Hant = 輸入有效 Instagram 網址或帳號名稱
@@ -18201,6 +18223,7 @@
     pl = Wprowadź poprawny adres lub nazwę konta na Twitterze
     ro = Introdu o adresă web sau un nume de utilizator Twitter valabil
     ru = Введите корректный веб-адрес Twitter страницы или имя пользователя
+    sk = Zadajte platné používateľské meno alebo adresu pre Twitter/X
     tr = Geçerli bir Twitter web adresi veya kullanıcı adı girin
     uk = Введіть вірну веб-адресу Twitter сторінки або і'мя користувача
     zh-Hant = 輸入有效推特網址或使用者名稱
@@ -18227,6 +18250,7 @@
     pl = Wprowadź poprawny adres lub nazwę konta na VK
     ro = Introdu o adresă web sau un nume de cont VK valabil
     ru = Введите корректный веб-адрес VK страницы или имя пользователя
+    sk = Zadajte platné používateľské meno alebo adresu pre VK
     tr = Geçerli bir VK web adresi veya hesap adı girin
     uk = Введіть вірну веб-адресу VK сторінки або і'мя користувача
     zh-Hant = 輸入有效 VK 網益止或帳號名稱
@@ -18254,6 +18278,7 @@
     pl = Wpisz prawidłowy url LINE lub LINE ID
     ro = Introdu o adresă web LINE valabilă sau un ID LINE
     ru = Введите корректный веб-адрес LINE страницы или LINE ID
+    sk = Zadajte platné LINE ID alebo webovú adresu
     tr = Geçerli bir LINE web adresi veya LINE ID'si girin
     uk = Введіть вірну веб-адресу LINE сторінки або LINE ID
 
@@ -22538,6 +22563,7 @@
     pt-BR = Popular
     ro = Populare
     ru = Популярно
+    sk = Obľúbené
     tr = Popüler
     zh-Hant = 受歡迎的
 
@@ -23622,7 +23648,7 @@
     pt-BR = A opção ativa logging para realizar diagnósticos. Pode ser útil para nossa equipe de suporte que estão solucionando problemas com o aplicativo. Ative esta opção apenas ao ser solicitado pelo suporte do Organic Maps.
     ro = Opțiunea activează jurnalizarea în scopuri de diagnosticare. Aceasta poate fi utilă echipei noastre pentru a rezolva problemele cu aplicația. Activează temporar această opțiune pentru a înregistra și a ne trimite jurnale detaliate despre problema ta.
     ru = Данная настройка включается для записи действий в целях диагностики, чтобы помочь нашей команде выявить проблемы с приложением. Временно включайте эту настройку только для отправки детальной информации о найденной вами проблеме в приложении через кнопку "Сообщить о проблеме".
-    sk = Táto možnosť zapína zaznamenávanie na diagnostické účely. Môže to byť užitočné pre našu technickú podporu, ktorá rieši problémy s aplikáciou. Povoliť túto možnosť iba na požiadanie podpory Organic Maps.
+    sk = Týmto zapnete záznamenávanie diagnostických informácií, ktoré môžete poslať našej technickej podpore v prípade problémov s aplikáciou. Záznam môže obsahovať údaje o vašej polohe.
     sv = Denna funktion aktiveras för loggning av åtgärder för diagnostiska ändamål. Detta hjälper laget att identifiera problem med applikationen. Slå på funktionen endast på begäran av Organic Maps supporttjänst.
     sw = Chaguo huwasha data kwa madhumuni ya uchunguzi. Itakuwa muhimu kwa wafanyakazi wetu ambao wanatatua matatizo ya programu. Washa chaguo hili kwa maombi ya mhudumu wa Organic Maps tu.
     th = ออปชันเพื่อเปิดการบันทึกประวัติการทำงานเพื่อการวินิจฉัย ประวัติดังกล่าวอาจเป็นประโยชน์กับทีมงานช่วยเหลือของเราที่คอยจัดการกับปัญหาที่เจอระหว่างแอปทำงาน โปรดเปิดออปชันดังกล่าวจากการร้องข้อการสนับสนุนจาก Organic Maps เท่านั้น
@@ -27710,6 +27736,7 @@
     pt-BR = Baixar mapa mundial
     ro = Descarcă harta lumii
     ru = Скачать карту мира
+    sk = Stiahnuť mapu sveta
     tr = Dünya haritasını indir
     uk = Завантажити карту світу
     zh-Hans = 下载世界地图
@@ -27738,6 +27765,7 @@
     pl = Nie udało się stworzyć folderu i przenieść plików do pamięci wewnętrznej lub karty SD
     pt-BR = Não foi possível criar a pasta e mover os arquivos à memória interna ou sdcard do dispositivo
     ru = Не могу создать папку и переместить файлы на устройстве
+    sk = Nepodarilo sa vytvoriť priečinok a presunúť súbory do internej pamäte alebo na SD kartu
     tr = Dahili aygıtın belleğinde veya SD kartta klasör oluşturulamıyor ve dosyalar taşınamıyor
     uk = Неможливо створити папку та перемістити файли до внутрішньої памʼяті або SD карти
 
@@ -27795,6 +27823,7 @@
     pt-BR = Falha na coneção
     ro = Eroare de conectare
     ru = Ошибка подключения
+    sk = Chyba spojenia
     tr = Bağlantı hatası
     uk = Помилка підключення
 
@@ -27825,6 +27854,7 @@
     pt-BR = Desconecte o cabo USB
     ro = Deconectează cablul USB
     ru = Отсоедините USB кабель
+    sk = Odpojte USB kábel
     tr = USB kablosunu çıkarın
     uk = Від'єднайте кабель USB
     zh-Hant = 拔除 USB 線
@@ -27863,7 +27893,7 @@
     pt-BR = Manter a tela ligada
     ro = Păstrați ecranul pornit
     ru = Держи экран включенным
-    sk = Ponechajte obrazovku zapnutú
+    sk = Nechať obrazovku zapnutú
     sv = Håll skärmen på
     sw = Washa skrini
     th = เปิดหน้าจอไว้
@@ -27947,6 +27977,7 @@
     pt-BR = Mostrar na tela de bloqueio
     ro = Arată pe ecranul de blocare
     ru = Показывать на экране блокировки
+    sk = Zobraziť na uzamknutej obrazovke
     tr = Kilit ekranında göster
     uk = Показувати на заблокованому екрані
     zh-Hans = 在锁屏上显示
@@ -27981,6 +28012,7 @@
     pt-BR = Quando ativado, você não precisará debloquear seu dispositivo toda vez que o aplicativo estiver funcionando
     ro = Când este activată, nu trebuie să deblochezi telefonul de fiecare dată când aplicația este în funcțiune.
     ru = Если эта функция включена, вам не нужно каждый раз разблокировать устройство во время работы приложения.
+    sk = Ak je táto funkcia zapnutá, aplikácia bude aktívna aj keď je zariadenie uzamknuté
     tr = Etkinleştirildiğinde, uygulama çalışırken her seferinde cihazınızın kilidini açmanıza gerek kalmaz.
     uk = Якщо ввімкнено, вам не потрібно щоразу розблоковувати пристрій під час роботи програми.
     zh-Hans = 启用后，即使设备已锁定，应用程序仍将在锁屏上运行。
@@ -28072,7 +28104,7 @@
     pt-BR = A atualização de mapas mantém as informações sobre objetos atualizadas
     ro = Actualizarea hărților menține actualizate informațiile despre obiecte
     ru = Обновление карт поддерживает информацию об объектах в актуальном состоянии
-    sk = Vďaka aktualizácii máp budú informácie o objektoch na mape aktualizované
+    sk = Aktualizácia máp udržuje informácie o objektoch na mape aktuálne
     sv = Uppdatering av kartor håller information om objekt uppdaterade
     sw = Kusasisha ramani kunaweka taarifa kuhusu vipengee ikiwa ya hivi sasa zaidi
     th = การอัปเดตแผนที่จะคงข้อมูลเกี่ยวกับจุดหมายต่าง ๆ ให้ล่าสุดอยู่เสมอ
@@ -28204,6 +28236,7 @@
     pt-BR = Apagar rota
     ro = Elimină traseul
     ru = Удалить трек
+    sk = Zmazať záznam trasy
     tr = Kaydı Sil
     uk = Видалити трек
     zh-Hant = 刪除路徑
@@ -28234,6 +28267,7 @@
     pt-BR = Nome da rota
     ro = Numele traseului
     ru = Название трека
+    sk = Názov trasy
     tr = Yol Kaydı Adı
     uk = Назва треку
     zh-Hant = 路徑名稱
@@ -28264,6 +28298,7 @@
     pt-BR = Mover
     ro = Mută
     ru = Переместить
+    sk = Presunúť
     tr = Taşı
     uk = Перемістити
     zh-Hant = 移動
