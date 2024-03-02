@@ -1,3 +1,4 @@
+• Fixed several crashes
 • Android Auto fixes
 • OpenStreetMap data as of February 2
 • Fixed Spanish and Portuguese TTS
@@ -8,7 +9,6 @@
 • Restroom emoji for places with toilets
 • Display parking operator
 • Improved Plus Codes search, and search on the map
-• Many map improvements
 • Translation fixes
 
 …read more details at omaps.org/news
