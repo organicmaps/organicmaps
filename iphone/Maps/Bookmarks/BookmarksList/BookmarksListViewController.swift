@@ -161,6 +161,11 @@ extension BookmarksListViewController: UITableViewDelegate {
     }
     return UISwipeActionsConfiguration(actions: [deleteAction, editAction])
   }
+
+  func tableView(_ tableView: UITableView, accessoryButtonTappedForRowWith indexPath: IndexPath) {
+    guard let section = sections?[indexPath.section] else { fatalError() }
+    presenter.editItem(in: section, at: indexPath.row)
+  }
 }
 
 extension BookmarksListViewController: UISearchBarDelegate {
