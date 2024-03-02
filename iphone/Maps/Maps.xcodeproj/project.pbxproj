@@ -233,10 +233,8 @@
 		47CA68D62500448D00671019 /* BookmarksListInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 47CA68D52500448D00671019 /* BookmarksListInteractor.swift */; };
 		47CA68D8250044C500671019 /* BookmarksListRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 47CA68D7250044C500671019 /* BookmarksListRouter.swift */; };
 		47CA68DA2500469400671019 /* BookmarksListBuilder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 47CA68D92500469400671019 /* BookmarksListBuilder.swift */; };
-		47CA68F1250B54AF00671019 /* BookmarkCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 47CA68EF250B54AE00671019 /* BookmarkCell.swift */; };
-		47CA68F2250B54AF00671019 /* BookmarkCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 47CA68F0250B54AE00671019 /* BookmarkCell.xib */; };
-		47CA68F5250B550C00671019 /* TrackCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 47CA68F3250B550C00671019 /* TrackCell.swift */; };
-		47CA68F6250B550C00671019 /* TrackCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 47CA68F4250B550C00671019 /* TrackCell.xib */; };
+		47CA68F1250B54AF00671019 /* BookmarksListCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 47CA68EF250B54AE00671019 /* BookmarksListCell.swift */; };
+		47CA68F2250B54AF00671019 /* BookmarksListCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 47CA68F0250B54AE00671019 /* BookmarksListCell.xib */; };
 		47CA68F8250F8AB700671019 /* BookmarksListSectionHeader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 47CA68F7250F8AB600671019 /* BookmarksListSectionHeader.swift */; };
 		47CA68FA250F8AD100671019 /* BookmarksListSectionHeader.xib in Resources */ = {isa = PBXBuildFile; fileRef = 47CA68F9250F8AD100671019 /* BookmarksListSectionHeader.xib */; };
 		47CA68FC250F99E500671019 /* BookmarksListCellStrategy.swift in Sources */ = {isa = PBXBuildFile; fileRef = 47CA68FB250F99E500671019 /* BookmarksListCellStrategy.swift */; };
@@ -1111,10 +1109,8 @@
 		47CA68D52500448D00671019 /* BookmarksListInteractor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BookmarksListInteractor.swift; sourceTree = "<group>"; };
 		47CA68D7250044C500671019 /* BookmarksListRouter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BookmarksListRouter.swift; sourceTree = "<group>"; };
 		47CA68D92500469400671019 /* BookmarksListBuilder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BookmarksListBuilder.swift; sourceTree = "<group>"; };
-		47CA68EF250B54AE00671019 /* BookmarkCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BookmarkCell.swift; sourceTree = "<group>"; };
-		47CA68F0250B54AE00671019 /* BookmarkCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = BookmarkCell.xib; sourceTree = "<group>"; };
-		47CA68F3250B550C00671019 /* TrackCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TrackCell.swift; sourceTree = "<group>"; };
-		47CA68F4250B550C00671019 /* TrackCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = TrackCell.xib; sourceTree = "<group>"; };
+		47CA68EF250B54AE00671019 /* BookmarksListCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BookmarksListCell.swift; sourceTree = "<group>"; };
+		47CA68F0250B54AE00671019 /* BookmarksListCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = BookmarksListCell.xib; sourceTree = "<group>"; };
 		47CA68F7250F8AB600671019 /* BookmarksListSectionHeader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BookmarksListSectionHeader.swift; sourceTree = "<group>"; };
 		47CA68F9250F8AD100671019 /* BookmarksListSectionHeader.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = BookmarksListSectionHeader.xib; sourceTree = "<group>"; };
 		47CA68FB250F99E500671019 /* BookmarksListCellStrategy.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BookmarksListCellStrategy.swift; sourceTree = "<group>"; };
@@ -2531,10 +2527,8 @@
 			isa = PBXGroup;
 			children = (
 				47CA68FB250F99E500671019 /* BookmarksListCellStrategy.swift */,
-				47CA68EF250B54AE00671019 /* BookmarkCell.swift */,
-				47CA68F0250B54AE00671019 /* BookmarkCell.xib */,
-				47CA68F3250B550C00671019 /* TrackCell.swift */,
-				47CA68F4250B550C00671019 /* TrackCell.xib */,
+				47CA68EF250B54AE00671019 /* BookmarksListCell.swift */,
+				47CA68F0250B54AE00671019 /* BookmarksListCell.xib */,
 				47CA68F7250F8AB600671019 /* BookmarksListSectionHeader.swift */,
 				47CA68F9250F8AD100671019 /* BookmarksListSectionHeader.xib */,
 				4761BE28252D3DB900EE2DE4 /* SubgroupCell.swift */,
@@ -3874,10 +3868,9 @@
 				F6E2FDFB1E097BA00083EBEC /* MWMOpeningHoursAllDayTableViewCell.xib in Resources */,
 				FA637ED529A500BE00D8921A /* drules_proto_outdoors_dark.bin in Resources */,
 				4554B6EC1E55F0EF0084017F /* drules_proto_vehicle_clear.bin in Resources */,
-				47CA68F2250B54AF00671019 /* BookmarkCell.xib in Resources */,
+				47CA68F2250B54AF00671019 /* BookmarksListCell.xib in Resources */,
 				337F98A321D37B5800C8AC27 /* SearchHistoryViewController.xib in Resources */,
 				F6E2FE761E097BA00083EBEC /* MWMOpeningHoursCell.xib in Resources */,
-				47CA68F6250B550C00671019 /* TrackCell.xib in Resources */,
 				34AB66351FC5AA330078E451 /* RouteManagerCell.xib in Resources */,
 				F6E2FE011E097BA00083EBEC /* MWMOpeningHoursClosedSpanTableViewCell.xib in Resources */,
 				F6E2FE071E097BA00083EBEC /* MWMOpeningHoursDaysSelectorTableViewCell.xib in Resources */,
@@ -4266,7 +4259,6 @@
 				34F5E0D41E3F254800B1C415 /* UIView+Hierarchy.swift in Sources */,
 				6741AA0B1BF340DE002C974C /* MWMMapViewControlsManager.mm in Sources */,
 				F6E2FED91E097BA00083EBEC /* MWMSearchContentView.m in Sources */,
-				47CA68F5250B550C00671019 /* TrackCell.swift in Sources */,
 				EDFDFB4C2B722C9C0013A44C /* InfoTableViewCell.swift in Sources */,
 				47CA68F8250F8AB700671019 /* BookmarksListSectionHeader.swift in Sources */,
 				F6BD1D211CA412920047B8E8 /* MWMOsmAuthAlert.mm in Sources */,
@@ -4307,7 +4299,7 @@
 				EDC3573B2B7B5029001AE9CA /* CALayer+SetCorner.swift in Sources */,
 				47E3C7332111F4D8008B3B27 /* CoverVerticalDismissalAnimator.swift in Sources */,
 				471AB99423ABA3BD00F56D49 /* SearchMapsDataSource.swift in Sources */,
-				47CA68F1250B54AF00671019 /* BookmarkCell.swift in Sources */,
+				47CA68F1250B54AF00671019 /* BookmarksListCell.swift in Sources */,
 				471A7BC02481C82500A0D4C1 /* BookmarkTitleCell.swift in Sources */,
 				47F67D1521CAB21B0069754E /* MWMImageCoder.m in Sources */,
 				34AB66861FC5AA330078E451 /* MWMNavigationInfoView.mm in Sources */,

@@ -1,7 +1,6 @@
 final class BookmarksListCellStrategy {
   private enum CellId {
-    static let track = "TrackCell"
-    static let bookmark = "BookmarkCell"
+    static let listItem = "BookmarksListCell"
     static let subgroup = "SubgroupCell"
     static let sectionHeader = "SectionHeader"
   }
@@ -13,8 +12,7 @@ final class BookmarksListCellStrategy {
   var cellVisibilityHandler: VisibilityHandlerClosure?
 
   func registerCells(_ tableView: UITableView) {
-    tableView.register(UINib(nibName: "BookmarkCell", bundle: nil), forCellReuseIdentifier: CellId.bookmark)
-    tableView.register(UINib(nibName: "TrackCell", bundle: nil), forCellReuseIdentifier: CellId.track)
+    tableView.register(UINib(nibName: "BookmarksListCell", bundle: nil), forCellReuseIdentifier: CellId.listItem)
     tableView.register(UINib(nibName: "SubgroupCell", bundle: nil), forCellReuseIdentifier: CellId.subgroup)
     tableView.register(UINib(nibName: "BookmarksListSectionHeader", bundle: nil),
                        forHeaderFooterViewReuseIdentifier: CellId.sectionHeader)
@@ -26,12 +24,12 @@ final class BookmarksListCellStrategy {
     switch viewModel {
     case let bookmarksSection as IBookmarksSectionViewModel:
       let bookmark = bookmarksSection.bookmarks[indexPath.row]
-      let cell = tableView.dequeueReusableCell(withIdentifier: CellId.bookmark, for: indexPath) as! BookmarkCell
+      let cell = tableView.dequeueReusableCell(withIdentifier: CellId.listItem, for: indexPath) as! BookmarksListCell
       cell.config(bookmark)
       return cell
     case let tracksSection as ITracksSectionViewModel:
       let track = tracksSection.tracks[indexPath.row]
-      let cell = tableView.dequeueReusableCell(withIdentifier: CellId.track, for: indexPath) as! TrackCell
+      let cell = tableView.dequeueReusableCell(withIdentifier: CellId.listItem, for: indexPath) as! BookmarksListCell
       cell.config(track)
       return cell
     case let subgroupsSection as ISubgroupsSectionViewModel:
