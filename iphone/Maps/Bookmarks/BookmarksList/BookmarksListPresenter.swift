@@ -419,9 +419,9 @@ extension ISubgroupsSectionViewModel {
   var canEdit: Bool { false }
 }
 
-fileprivate struct BookmarkViewModel: IBookmarkViewModel {
+fileprivate struct BookmarkViewModel: IBookmarksListItemViewModel {
   let bookmarkId: MWMMarkID
-  let bookmarkName: String
+  let name: String
   let subtitle: String
   var image: UIImage {
     bookmarkColor.image(bookmarkIconName)
@@ -433,7 +433,7 @@ fileprivate struct BookmarkViewModel: IBookmarkViewModel {
 
   init(_ bookmark: Bookmark, formattedDistance: String?, colorDidTap: (() -> Void)?) {
     bookmarkId = bookmark.bookmarkId
-    bookmarkName = bookmark.bookmarkName
+    name = bookmark.bookmarkName
     bookmarkColor = bookmark.bookmarkColor
     bookmarkIconName = bookmark.bookmarkIconName
     subtitle = [formattedDistance, bookmark.bookmarkType].compactMap { $0 }.joined(separator: " • ")
@@ -441,9 +441,9 @@ fileprivate struct BookmarkViewModel: IBookmarkViewModel {
   }
 }
 
-fileprivate struct TrackViewModel: ITrackViewModel {
+fileprivate struct TrackViewModel: IBookmarksListItemViewModel {
   let trackId: MWMTrackID
-  let trackName: String
+  let name: String
   let subtitle: String
   var image: UIImage {
     circleImageForColor(trackColor, frameSize: 22)
@@ -454,7 +454,7 @@ fileprivate struct TrackViewModel: ITrackViewModel {
 
   init(_ track: Track, formattedDistance: String, colorDidTap: (() -> Void)?) {
     trackId = track.trackId
-    trackName = track.trackName
+    name = track.trackName
     subtitle = "\(L("length")) \(formattedDistance)"
     trackColor = track.trackColor
     colorDidTapAction = colorDidTap
@@ -479,18 +479,18 @@ fileprivate struct SubgroupViewModel: ISubgroupViewModel {
 
 fileprivate struct BookmarksSectionViewModel: IBookmarksSectionViewModel {
   let sectionTitle: String
-  let bookmarks: [IBookmarkViewModel]
+  let bookmarks: [IBookmarksListItemViewModel]
 
-  init(title: String, bookmarks: [IBookmarkViewModel]) {
+  init(title: String, bookmarks: [IBookmarksListItemViewModel]) {
     sectionTitle = title
     self.bookmarks = bookmarks
   }
 }
 
 fileprivate struct TracksSectionViewModel: ITracksSectionViewModel {
-  let tracks: [ITrackViewModel]
+  let tracks: [IBookmarksListItemViewModel]
 
-  init(tracks: [ITrackViewModel]) {
+  init(tracks: [IBookmarksListItemViewModel]) {
     self.tracks = tracks
   }
 }
