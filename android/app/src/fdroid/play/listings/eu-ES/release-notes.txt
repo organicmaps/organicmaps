@@ -1,11 +1,8 @@
-• Android Auton konponketak
-• Otsailaren 2ko OpenStreetMap datuak
-• Gaztelaniazko eta Portugaleko TTSen arazoa konpondu da
-• KML, KMZ, GPX inportazioaren hutsegitea konpondu da
-• Bigarren mailako errepide laranjak
-• Komuneko emojia komunak dituzten tokietarako
-• Aparkalekuaren operadorea bistaratzea
-• Plus codes bilaketak emaitzak erakusten ditu posizioari eta pantailaren erdiari dagokionez
-• Mapa estiloaren konponketa eta hobekuntza asko
+• OpenStreetMap data as of February 28
+• Export all bookmarks as a single KMZ file
+• Fixed several crashes
+• "Routing options enabled" is no longer displayed when using ruler
+• Included wheelchair accessibility information on place pages
+• Added recycling and elevation information to search result descriptions
 
-… irakurri xehetasun gehiago omaps.org/news helbidean
+…read more details at omaps.org/news

@@ -1,51 +1,12 @@
-• OpenStreetMap data as of February 2
-• Removed "Continue detecting your location?" dialog, now location search can be stopped by pressing the "rotating radar" location button
-• Auto Light/Dark theme setting is synced with the system
-• Improved the look of search bars
-• Properly display a longer cuisines list
-• Fixed location services permissions request for the first app start
-• Reduced the height of the top navigation bar with the next street name in it
-• Restroom emoji for places with toilets
-• Display parking operator
-• More precise turn notifications for small distances
-• Fixed absent speed limit on some speed cameras
-• Plus codes search shows results relative to position and to the screen center
-• Fixed crash in search
-• Better and more precise search on the map, more relevant search results in the list
-• Name editing for playgrounds
-• Parse mlat and mlon parameters from OSM urls
-• Allow editing Greek names for Cyprus
-• Hindi support
+• Dades de l’OpenStreetMap al 28 de febrer
+• Exportació de totes les adreces d’interès en un únic fitxer KMZ
+• Es permet canviar el color de la ruta
+• Pantalla «Quant a» redissenyada
+• Diverses fallades han estat corregides
+• S’ha actualitzat el color principal de l’aplicació
+• Els paràmetres «Mode nocturn» han canviat a «Aspecte»
+• Ja no es mostra «Opcions d’encaminament activades» quan s’usa el regle
+• Les pàgines dels llocs inclouen informació d’accessibilitat amb cadira de rodes
+• Les descripcions als resultats de la cerca tenen informació de reciclatge i elevació
 
-Map styles:
-• Orange color for secondary roads
-• Wider and brighter white tertiary roads
-• Nicer looking on- and off-ramp road links joins
-• Raised visibility of secondary and tertiary road links
-• Less bright farmlands color
-• Smaller mountain passes/saddles icons
-• Reduced visibilities of mountain saddles (compared to passes)
-• New ford icon
-• Made hospital and clinic icons look different
-• Reduced visibility of light rail stations
-• Added Boston and updated Taipei subway icons
-• Fixed Delhi subway entrance icons, Minsk & Spb subway captions on detailed zoom
-• Increased font size of towns and suburbs labels and decreased for neighborhoods
-• Fixed bookmark icon for water parks
-• Adjust visibilities of many POIs
-
-Outdoors map style:
-• Increased 50m & 100m contour lines visibilities
-• Raised visibility of campsites, survey points, toilets, touristic information features
-• New power tower and flagpole/mast icons
-• Made bridleways to be the same brown color as paths
-• Increased contrast of footways on overview zooms
-
-Car navigation map style:
-• Added toilets, convenience stores
-• Reduced visibilities of artwork features and subway station captions
-• Bigger roundabout exit number
-
-Updated Catalan, Chinese, Czech, Finnish, French, Romanian, Slovak, Ukrainian translations
-
-…and more fixes and improvements, check https://omaps.org/news for details!
+… entre altres correccions i millores. Visiteu https://omaps.org/news per a assabentar-vos-en!
