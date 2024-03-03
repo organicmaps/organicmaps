@@ -1,12 +1,8 @@
-• Выпраўленні Android Auto
-• Дадзеныя OpenStreetMap па стане на 2 лютага
-• Выпраўлены імпарт KML/KMZ/GPX з WhatsApp, Telegram, OpenTracks і іншых прыкладанняў
-• Аранжавыя колеры для другарадных дарог
-• Націск кнопкі вызначэння месцазнаходжання спыняе вызначэнне месцазнаходжання
-• Падтрымка хіндзі
-• Эмодзі для ўстаноў з туалетамі
-• Адлюстраванне аператара паркоўкі
-• Палепшаны пошук у спісе і на карце
-• Мноства паляпшэнняў стыляў карты
+• OpenStreetMap data as of February 28
+• Export all bookmarks as a single KMZ file
+• Fixed several crashes
+• "Routing options enabled" is no longer displayed when using ruler
+• Included wheelchair accessibility information on place pages
+• Added recycling and elevation information to search result descriptions
 
-…падрабязней чытайце на omaps.org/news
+…read more details at omaps.org/news

@@ -1,14 +1,8 @@
-• Android Auto fixes
-• OpenStreetMap data as of February 2
-• Fixed Spanish and Portuguese TTS
-• Fixed KML/KMZ/GPX import from WhatsApp, Telegram, OpenTracks and other apps
-• Orange colors for secondary roads
-• Pressing location button now stops location detection
-• Hindi support
-• Restroom emoji for places with toilets
-• Display parking operator
-• Improved Plus Codes search, and search on the map
-• Many map improvements
-• Translation fixes
+• OpenStreetMap data as of February 28
+• Export (backup) and import all bookmarks as a single KMZ file
+• Fixed several crashes
+• "Routing options enabled" is no longer displayed when using ruler
+• Included wheelchair accessibility information on place pages
+• Added recycling and elevation information to search result descriptions
 
 …read more details at omaps.org/news
