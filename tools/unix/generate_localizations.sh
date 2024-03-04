@@ -1,9 +1,7 @@
 #!/bin/bash
 set -euxo pipefail
 
-OMIM_PATH="$(dirname "$0")/../.."
-
-# Use correct ruby version from homebrew for MacOS
+# Use ruby from brew on Mac OS X, because system ruby is outdated/broken/will be removed in future releases.
 case $OSTYPE in
   darwin*)
     if [ -x /usr/local/opt/ruby/bin/ruby ]; then
@@ -21,9 +19,9 @@ case $OSTYPE in
     fi ;;
 esac
 
+OMIM_PATH="$(dirname "$0")/../.."
 TWINE_SUBMODULE=tools/twine
 TWINE_PATH="$OMIM_PATH/$TWINE_SUBMODULE"
-GEM_PATH="$OMIM_PATH/$TWINE_SUBMODULE/gem"
 
 if [ ! -e "$TWINE_PATH/twine" ]; then
   echo "You need to have twine submodule present to run this script"
@@ -31,14 +29,10 @@ if [ ! -e "$TWINE_PATH/twine" ]; then
   exit 1
 fi
 
-# Always run gem install to use the latest version
-gem install twine --install-dir $GEM_PATH
-
 TWINE_COMMIT="$(git -C $TWINE_SUBMODULE rev-parse HEAD)"
 TWINE_GEM="twine-$TWINE_COMMIT.gem"
 
-# If twine gem does not exist, then install it
-if [ ! -f "$GEM_PATH/$TWINE_GEM" ]; then
+if [ ! -f "$TWINE_PATH/$TWINE_GEM" ]; then
   echo "Building & installing twine gem..."
   (
     cd "$TWINE_PATH" \
@@ -58,7 +52,14 @@ CLEAN_STRINGS="$OMIM_PATH/tools/python/clean_strings_txt.py"
 "$CLEAN_STRINGS" --validate
 
 # Generate android/iphone/jquery localization files from strings files.
-TWINE="$(gem contents twine | grep -m 1 bin/twine)"
+TWINE="$(gem contents --show-install-dir twine)/bin/twine"
+if [[ $TWINE == *".om/bin/twine" ]]; then
+  echo "Using the correctly patched submodule version of Twine"
+else
+  echo "Looks like you have a non-patched version of twine, try to uninstall it with '[sudo] gem uninstall twine'"
+  exit 1
+fi
+
 STRINGS_PATH="$OMIM_PATH/data/strings"
 
 MERGED_FILE="$(mktemp)"
