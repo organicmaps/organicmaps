@@ -61,7 +61,7 @@ def exec_shell(test, *flags):
 
 def grep_ios():
     logging.info("Grepping iOS...")
-    grep = "grep -r -I 'L(\|localizedText\|localizedPlaceholder\|NSLocalizedString(' {0}/iphone/*".format(
+    grep = "grep -r -I 'L(\\|localizedText\\|localizedPlaceholder\\|NSLocalizedString(' {0}/iphone/*".format(
         OMIM_ROOT)
     ret = exec_shell(grep)
     ret = filter_ios_grep(ret)
