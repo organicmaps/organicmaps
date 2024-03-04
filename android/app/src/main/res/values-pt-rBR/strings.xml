@@ -761,6 +761,10 @@
 	<string name="osm_login_not_available">A autorização do OpenStreetMap está temporariamente indisponível devido a novas restrições no Google Play 😾\nNossa equipe está trabalhando para resolver esse problema. Por favor, seja paciente 🙏</string>
 	<!-- Bookmark categories screen, button that opens share dialog to export all bookmarks and tracks -->
 	<string name="bookmarks_export">Exportar todos os favoritos e trilhas</string>
+	<!-- button in (app) TTS settings, to open the system TTS settings. -->
+	<string name="pref_tts_open_system_settings">Configurações do sistema de síntese de fala</string>
+	<!-- toast displayed when pressing the "Speech synthesis system settings" button, and the system settings aren't found. -->
+	<string name="pref_tts_no_system_tts">As configurações do Speech Synthesis não foram encontradas. Você tem certeza de que seu dispositivo é compatível?</string>
 
 	<!-- SECTION: Types -->
 	<string name="type.addr_interpolation">Endereço/Bloco</string>

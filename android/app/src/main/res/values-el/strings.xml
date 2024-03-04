@@ -745,6 +745,10 @@
 	<string name="volume">Ένταση ήχου</string>
 	<!-- Bookmark categories screen, button that opens share dialog to export all bookmarks and tracks -->
 	<string name="bookmarks_export">Εξαγωγή όλων των σελιδοδεικτών και των διαδρομών</string>
+	<!-- button in (app) TTS settings, to open the system TTS settings. -->
+	<string name="pref_tts_open_system_settings">Ρυθμίσεις συστήματος σύνθεσης ομιλίας</string>
+	<!-- toast displayed when pressing the "Speech synthesis system settings" button, and the system settings aren't found. -->
+	<string name="pref_tts_no_system_tts">Δεν βρέθηκαν οι ρυθμίσεις σύνθεσης ομιλίας, είστε σίγουροι ότι η συσκευή σας την υποστηρίζει;</string>
 
 	<!-- SECTION: Types -->
 	<string name="type.addr_interpolation">Διεύθυνση/Μπλοκ</string>

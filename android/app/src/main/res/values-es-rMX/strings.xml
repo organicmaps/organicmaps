@@ -235,6 +235,10 @@
 	<string name="aa_connected_to_car_notification_title">Conectado al automóvil</string>
 	<!-- Bookmark categories screen, button that opens share dialog to export all bookmarks and tracks -->
 	<string name="bookmarks_export">Exportar todos los marcadores y pistas</string>
+	<!-- button in (app) TTS settings, to open the system TTS settings. -->
+	<string name="pref_tts_open_system_settings">Configuración de síntesis de voz del sistema</string>
+	<!-- toast displayed when pressing the "Speech synthesis system settings" button, and the system settings aren't found. -->
+	<string name="pref_tts_no_system_tts">No se encontraron las configuraciones de síntesis de voz. ¿Está seguro de que su dispositivo la admite?</string>
 
 	<!-- SECTION: Types -->
 	<string name="type.amenity">Infraestructura</string>
