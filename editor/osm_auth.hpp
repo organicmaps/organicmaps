@@ -80,7 +80,7 @@ public:
   /// @returns false if Google credentials are invalid.
   bool AuthorizeGoogle(std::string const & googleToken);
   /// @returns false if email has not been registered on a server.
-  bool ResetPassword(std::string const & email) const;
+  //bool ResetPassword(std::string const & email) const;
 
   /// Throws in case of network errors.
   /// @param[method] The API method, must start with a forward slash.
