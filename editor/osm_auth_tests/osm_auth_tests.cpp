@@ -67,7 +67,7 @@ UNIT_TEST(OSM_Auth_ForgotPassword)
   TEST_NO_THROW(result = auth.ResetPassword(kForgotPasswordEmail), ());
   TEST_EQUAL(result, true, ("Correct email"));
   TEST_NO_THROW(result = auth.ResetPassword("not@registered.email"), ());
-  TEST_EQUAL(result, false, ("Incorrect email"));
+  TEST_EQUAL(result, true, ("Server responses OK even if email is incorrect"));
 
 
 #if defined(OMIM_OS_MAC)
