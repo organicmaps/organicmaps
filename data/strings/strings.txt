@@ -15446,7 +15446,7 @@
   [osm_presentation]
     comment = Text in About and OSM Login screens. First %@ is replaced by a local, human readable date.
     tags = android,ios
-    en = Community-created OpenStreetMap data as of %@. Learn more about about how to edit and update the map at OpenStreetMap.org
+    en = Community-created OpenStreetMap data as of %@. Learn more about how to edit and update the map at OpenStreetMap.org
     af = Gemeenskap-geskepte OpenStreetMap-data vanaf %@. Kom meer te wete oor hoe om die kaart te redigeer en op te dateer by OpenStreetMap.org
     ar = بيانات OpenStreetMap التي أنشأها المجتمع اعتبارًا من %@. تعرف على المزيد حول كيفية تعديل الخريطة وتحديثها على OpenStreetMap.org
     az = %@ tarixinə icma tərəfindən yaradılmış OpenStreetMap datası. OpenStreetMap.org saytında xəritəni necə redaktə etmək və yeniləmək haqqında ətraflı məlumat əldə edin
