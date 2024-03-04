@@ -803,6 +803,10 @@
 	<string name="volume">Volumen</string>
 	<!-- Bookmark categories screen, button that opens share dialog to export all bookmarks and tracks -->
 	<string name="bookmarks_export">Exportar todos los Marcadores y Tracks</string>
+	<!-- button in (app) TTS settings, to open the system TTS settings. -->
+	<string name="pref_tts_open_system_settings">Ajustes del sistema de síntesis de voz</string>
+	<!-- toast displayed when pressing the "Speech synthesis system settings" button, and the system settings aren't found. -->
+	<string name="pref_tts_no_system_tts">No se ha encontrado la configuración de Síntesis de Voz, ¿estás seguro de que tu dispositivo la admite?</string>
 
 	<!-- SECTION: Types -->
 	<string name="type.addr_interpolation">Dirección/Bloque</string>

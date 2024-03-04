@@ -772,6 +772,10 @@
 	<string name="volume">Hangerő</string>
 	<!-- Bookmark categories screen, button that opens share dialog to export all bookmarks and tracks -->
 	<string name="bookmarks_export">Az összes könyvjelző és sáv exportálása</string>
+	<!-- button in (app) TTS settings, to open the system TTS settings. -->
+	<string name="pref_tts_open_system_settings">Beszédszintetizáló rendszer beállításai</string>
+	<!-- toast displayed when pressing the "Speech synthesis system settings" button, and the system settings aren't found. -->
+	<string name="pref_tts_no_system_tts">A beszédszintézis beállításait nem találtuk, biztos, hogy a készülék támogatja?</string>
 
 	<!-- SECTION: Types -->
 	<string name="type.addr_interpolation">Cím/blokk</string>

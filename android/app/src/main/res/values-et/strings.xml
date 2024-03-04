@@ -790,6 +790,10 @@
 	<string name="volume">Helitugevus</string>
 	<!-- Bookmark categories screen, button that opens share dialog to export all bookmarks and tracks -->
 	<string name="bookmarks_export">Ekspordi kõik järjehoidjad ja lood</string>
+	<!-- button in (app) TTS settings, to open the system TTS settings. -->
+	<string name="pref_tts_open_system_settings">Kõnesünteesi süsteemi seaded</string>
+	<!-- toast displayed when pressing the "Speech synthesis system settings" button, and the system settings aren't found. -->
+	<string name="pref_tts_no_system_tts">Kõnesünteesi seadeid ei leitud, kas olete kindel, et teie seade toetab seda?</string>
 
 	<!-- SECTION: Types -->
 	<string name="type.addr_interpolation">Aadress/plokk</string>

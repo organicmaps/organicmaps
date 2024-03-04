@@ -799,6 +799,10 @@
 	<string name="volume">Lautstärke</string>
 	<!-- Bookmark categories screen, button that opens share dialog to export all bookmarks and tracks -->
 	<string name="bookmarks_export">Alle Lesezeichen und Tracks exportieren</string>
+	<!-- button in (app) TTS settings, to open the system TTS settings. -->
+	<string name="pref_tts_open_system_settings">Einstellungen des Sprachsynthesesystems</string>
+	<!-- toast displayed when pressing the "Speech synthesis system settings" button, and the system settings aren't found. -->
+	<string name="pref_tts_no_system_tts">Die Einstellungen für die Sprachsynthese wurden nicht gefunden. Bist du sicher, dass dein Gerät sie unterstützt?</string>
 
 	<!-- SECTION: Types -->
 	<string name="type.addr_interpolation">Adresse/Block</string>

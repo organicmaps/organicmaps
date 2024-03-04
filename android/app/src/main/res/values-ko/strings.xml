@@ -751,6 +751,10 @@
 	<string name="volume">볼륨</string>
 	<!-- Bookmark categories screen, button that opens share dialog to export all bookmarks and tracks -->
 	<string name="bookmarks_export">모든 북마크 및 트랙 내보내기</string>
+	<!-- button in (app) TTS settings, to open the system TTS settings. -->
+	<string name="pref_tts_open_system_settings">음성 합성 시스템 설정</string>
+	<!-- toast displayed when pressing the "Speech synthesis system settings" button, and the system settings aren't found. -->
+	<string name="pref_tts_no_system_tts">음성 합성 설정을 찾을 수 없었는데, 기기에서 이를 지원하는 것이 맞나요?</string>
 
 	<!-- SECTION: Types -->
 	<string name="type.addr_interpolation">주소/블록</string>
