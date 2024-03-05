@@ -126,7 +126,7 @@ final class EditTrackViewController: MWMTableViewController {
   
   @objc private func onSave() {
     view.endEditing(true)
-    BookmarksManager.shared().updateTrack(trackId, setGroupId: trackGroupId, color: trackColor.sRGBColor, title: trackTitle ?? "")
+    BookmarksManager.shared().updateTrack(trackId, setGroupId: trackGroupId, color: trackColor, title: trackTitle ?? "")
     editingCompleted(true)
     goBack()
   }
