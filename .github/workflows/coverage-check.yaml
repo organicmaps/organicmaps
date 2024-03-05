@@ -7,6 +7,23 @@ on:
       - synchronize
       - labeled
       - unlabeled
+    paths-ignore:
+      - .gitignore
+      - CONTRIBUTORS
+      - LICENSE
+      - NOTICE
+      - README.md
+      - docs/**
+      - packaging/**
+      - platform/*apple*
+      - platform/*_android*
+      - platform/*_ios*
+      - platform/*_mac*
+      - platform/*_win*
+      - pyhelpers/**
+      - tools/**
+      - '!tools/python/test_server/**'
+      - xcode/**
 
 # Cancels previous jobs if the same branch or PR was updated again.
 concurrency:
