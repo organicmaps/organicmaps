@@ -105,6 +105,28 @@
   </screenshots>
 
   <releases>
+   <release version="2024.03.05-4" date="2024-03-05">
+     <description>
+       <p>Highlights:</p>
+         <ul>
+           <li>New OSM maps data as of February 28, 2024</li>
+           <li>Export all bookmarks as a single KMZ file</li>
+         </ul>
+       <p>Linux Desktop:</p>
+         <ul>
+           <li>Fixed occasinal crash when there was no location service available</li>
+         </ul>
+       <p>Styles:</p>
+         <ul>
+           <li>Fixed small fonts on detailed zooms</li>
+           <li>Improved dark style visibility</li>
+         </ul>
+       <p>Translations:</p>
+         <ul>
+           <li>Updated Brazilian Portugues, Hebrew, Hungarian and Spanish and Mexican Spanish translations</li>
+         </ul>
+     </description>
+   </release>
    <release version="2024.02.06-11" date="2024-02-06">
      <description>
        <p>Highlights:</p>
