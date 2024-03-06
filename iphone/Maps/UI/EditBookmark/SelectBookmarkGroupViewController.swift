@@ -16,7 +16,7 @@ final class SelectBookmarkGroupViewController: MWMTableViewController {
   weak var delegate: SelectBookmarkGroupViewControllerDelegate?
   private let groupName: String
   private let groupId: MWMMarkGroupID
-  private let bookmarkGroups = BookmarksManager.shared().userCategories()
+  private let bookmarkGroups = BookmarksManager.shared().sortedUserCategories()
 
   init(groupName: String, groupId: MWMMarkGroupID) {
     self.groupName = groupName
