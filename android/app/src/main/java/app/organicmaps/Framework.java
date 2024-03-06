@@ -28,6 +28,7 @@ import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.time.Instant;
 import java.util.Date;
 import java.util.Locale;
 
@@ -453,6 +454,6 @@ public class Framework
    */
   @Nullable
   public static native String nativeGetKayakHotelLink(@NonNull String countryIsoCode, @NonNull String uri,
-                                                      @NonNull Date firstDay, @NonNull Date lastDay,
+                                                      @NonNull Instant firstDay, @NonNull Instant lastDay,
                                                       boolean isReferral);
 }

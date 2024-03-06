@@ -1928,9 +1928,9 @@ JNIEXPORT jstring JNICALL
 Java_app_organicmaps_Framework_nativeGetKayakHotelLink(JNIEnv * env, jclass, jstring countryIsoCode, jstring uri,
                                                         jobject firstDay, jobject lastDay, jboolean isReferral)
 {
-  static jmethodID dateGetTime = jni::GetMethodID(env, firstDay, "getTime", "()J");
-  jlong firstDaySec = env->CallLongMethod(firstDay, dateGetTime) / 1000L;
-  jlong lastDaySec = env->CallLongMethod(lastDay, dateGetTime) / 1000L;
+  static jmethodID instantGetEpochSecond = jni::GetMethodID(env, firstDay, "getEpochSecond", "()J");
+  jlong firstDaySec = env->CallLongMethod(firstDay, instantGetEpochSecond);
+  jlong lastDaySec = env->CallLongMethod(lastDay, instantGetEpochSecond);
 
   string const url = osm::GetKayakHotelURLFromURI(jni::ToNativeString(env, countryIsoCode),
                                                   jni::ToNativeString(env, uri),

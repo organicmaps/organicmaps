@@ -22,7 +22,7 @@ import app.organicmaps.util.Utils;
 import app.organicmaps.util.concurrency.UiThread;
 import app.organicmaps.util.log.Logger;
 
-import java.util.Calendar;
+import java.time.LocalTime;
 import java.util.concurrent.TimeUnit;
 
 
@@ -918,9 +918,7 @@ public class RoutingController
 
   static String formatArrivalTime(int seconds)
   {
-    Calendar current = Calendar.getInstance();
-    current.set(Calendar.SECOND, 0);
-    current.add(Calendar.SECOND, seconds);
-    return StringUtils.formatUsingUsLocale("%d:%02d", current.get(Calendar.HOUR_OF_DAY), current.get(Calendar.MINUTE));
+    final LocalTime time = LocalTime.now().withSecond(seconds);
+    return StringUtils.formatUsingUsLocale("%d:%02d", time.getHour(), time.getMinute());
   }
 }

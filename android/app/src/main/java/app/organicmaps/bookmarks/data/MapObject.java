@@ -18,9 +18,10 @@ import app.organicmaps.widget.placepage.PlacePageData;
 
 import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
+import java.time.Instant;
+import java.time.temporal.ChronoUnit;
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.Date;
 import java.util.List;
 import java.util.Objects;
 
@@ -287,8 +288,8 @@ public class MapObject implements PlacePageData
     final String uri = getMetadata(Metadata.MetadataType.FMD_EXTERNAL_URI);
     if (TextUtils.isEmpty(uri))
       return "";
-    final Date firstDay = new Date();
-    final Date lastDay = new Date(firstDay.getTime() + (1000 * 60 * 60 * 24));
+    final Instant firstDay = Instant.now();
+    final Instant lastDay = firstDay.plus(1, ChronoUnit.DAYS);
     final boolean isReferral = Config.isKayakReferralAllowed();
     final String res = Framework.nativeGetKayakHotelLink(Utils.getCountryCode(), uri, firstDay, lastDay, isReferral);
     return res == null ? "" : res;
