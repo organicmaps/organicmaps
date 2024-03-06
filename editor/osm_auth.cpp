@@ -4,11 +4,7 @@
 
 #include "coding/url.hpp"
 
-#include "base/assert.hpp"
 #include "base/string_utils.hpp"
-
-#include <map>
-#include <utility>
 
 #include "private.h"
 

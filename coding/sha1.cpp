@@ -1,7 +1,7 @@
 #include "coding/sha1.hpp"
 
 #include "coding/internal/file_data.hpp"
-#include "coding/file_reader.hpp"
+#include "coding/reader.hpp"
 
 #include "base/assert.hpp"
 #include "base/logging.hpp"
