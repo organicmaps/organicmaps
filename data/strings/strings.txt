@@ -372,7 +372,7 @@
     ca = Deixa un comentari
     cs = Zpětná vazba
     da = Lav en bedømmelse
-    de = Bericht abgeben
+    de = Bewertung abgeben
     el = Αφήστε μια κριτική
     es = Escribir una opinión
     et = Jäta arvamus
@@ -723,7 +723,7 @@
     ca = Teniu tots els serveis de geolocalització d'aquest aparell desactivats. Activeu-los a la configuració.
     cs = Aktuálně máte všechny možnosti pro určování polohy vypnuté. Prosím, povolte je v Nastavení.
     da = Du har alle lokationstjenester for denne enhed eller applikation slukket. Slå dem venligst til i Indstillinger.
-    de = Ortungsdienste sind für dieses Gerät oder die App deaktiviert. Bitte aktivieren Sie diese in den Einstellungen.
+    de = Standortdienste sind für dieses Gerät oder App deaktiviert. Bitte aktivieren Sie diese in den Einstellungen.
     el = Οι υπηρεσίες εντοπισμού τοποθεσίας είναι προς το παρόν απενεργοποιημένες σε αυτή τη συσκευή ή για αυτή την εφαρμογή. Ενεργοποιήστε τες από τις Ρυθμίσεις.
     es = No se puede acceder a los servicios de localización en este dispositivo o aplicación. Por favor, actívelos en los ajustes.
     et = Seadme või rakenduse kõik asukohateenused on praegu välja lülitatud. Luba need Seadetes.
@@ -1078,7 +1078,7 @@
     ca = • Sense consum de bateria, funciona fora de línia
     cs = • Žádné vybíjení baterie, funguje offline
     da = • Intet batteridræn, fungerer offline
-    de = • Kein Datenverbrauch, funktioniert offline
+    de = • Minimaler Batterieverbrauch, funktioniert offline
     el = • Δεν εξαντλεί τη μπαταρία, λειτουργεί εκτός σύνδεσης
     es = • No consume batería, funciona sin conexión
     es-MX = • Sin consumo de batería, funciona sin conexión
@@ -1125,7 +1125,7 @@
     ca = • Ràpid, minimalista, desenvolupat per la comunitat
     cs = • Rychlé, minimalistické, vyvinutý komunitou
     da = • Hurtig, minimalistisk, udviklet af fællesskabet
-    de = • Schnell, minimalistisch, von der Gemeinschaft entwickelt
+    de = • Schnell, minimalistisch, von der Community entwickelt
     el = • Γρήγορο, μινιμαλιστικό, αναπτυγμένο από την κοινότητα
     es = • Rápido, minimalista, desarrollado por la comunidad
     es-MX = • Rápido, minimalista, desarrollado por la comunidad.
@@ -1170,7 +1170,7 @@
     bg = Приложение с отворен код, създадено от ентусиасти и доброволци.
     cs = Otevřená aplikace vytvořená nadšenci a dobrovolníky.
     da = Open source-applikation oprettet af entusiaster og frivillige.
-    de = Open-Source-Anwendung von Enthusiasten und Freiwilligen.
+    de = Open-Source-Anwendung, entwickelt von Enthusiasten und Freiwilligen.
     el = Εφαρμογή ανοιχτού κώδικα που δημιουργήθηκε από θιασώτες και εθελοντές.
     es = Aplicación de código abierto creada por entusiastas y voluntarios.
     eu = Kode irekiko aplikazioa zaleek eta boluntarioek sortutakoa.
@@ -1834,7 +1834,7 @@
     ca = Afegeix una llista nova
     cs = Přidat novou skupinu záložek
     da = Tilføj nyt sæt
-    de = Neue Gruppe hinzufügen
+    de = Neue Liste hinzufügen
     el = Δημιουργία νέας λίστας
     es = Agregar un grupo nuevo
     et = Lisa uus loetelu
@@ -1925,7 +1925,7 @@
     ca = Nom de la llista de marcadors
     cs = Název záložky
     da = Indstil bogmærkenavn
-    de = Name des Lesezeichens
+    de = Name der Lesezeichenliste
     el = Όνομα λίστας αγαπημένων
     es = Nombre del grupo de marcadores
     et = Järjehoidjate loetelu nimi
@@ -1968,7 +1968,7 @@
     ca = Llistes de marcadors
     cs = Skupiny záložek
     da = Bogmærk sæt
-    de = Lesezeichenmappe
+    de = Lesezeichenliste
     el = Λίστα αγαπημένων
     es = Grupos de marcadores
     et = Järjehoidjate loetelud
@@ -2418,7 +2418,7 @@
     ca = Mapes baixats
     cs = Mapy
     da = Kort
-    de = Karten
+    de = Heruntergeladene Karten
     el = Κατεβασμένοι Χάρτες
     es = Mapas descargados
     et = Kaardid
@@ -3913,7 +3913,7 @@
     ca = Marcadors d'Organic Maps compartits
     cs = Sdílené záložky Organic Maps
     da = Organic Maps bogmærker er blevet delt med dig
-    de = Organic Maps-Lesezeichen mit Ihnen geteilt
+    de = Organic Maps Lesezeichen wurden mit Ihnen geteilt
     el = Κοινοποιήθηκαν τα αγαπημένα από το Organic Maps σε εσάς
     es = Marcadores de Organic Maps compartidos con usted
     et = Organic Maps järjehoidjaid jagati Sinuga
@@ -5231,7 +5231,7 @@
     ca = Mostra'ls al mapa
     cs = Zobrazit na obrazovce
     da = Vis på skærmen
-    de = Auf dem Bildschirm anzeigen
+    de = Auf der Karte anzeigen
     el = Εμφάνιση στο χάρτη
     es = Visualización en la pantalla
     et = Kuva kaardil
@@ -6791,7 +6791,7 @@
     ca = Preguntes més freqüents
     cs = Otázky a odpovědi
     da = Spørgsmål og svar
-    de = Fragen und Antworten
+    de = Häufige Fragen und Antworten
     el = Συχνές ερωτήσεις
     es = Preguntas frecuentes
     et = Korduma kippuvad küsimused
@@ -7020,7 +7020,7 @@
     ca = Informació d'errors
     cs = Nahlásit chybu
     da = Rapportér fejl
-    de = Fehler melden
+    de = App-Fehler melden
     el = Αναφορά σφάλματος
     es = Informar de un fallo
     et = Teata veast
@@ -7112,7 +7112,7 @@
     ca = Fer-se voluntari
     cs = Dobrovolnictví
     da = At melde sig som frivillig
-    de = Für Freiwillige
+    de = Freiwillig helfen
     el = Γίνετε εθελοντής
     es = Voluntariado
     es-MX = Para ser voluntario
@@ -7158,7 +7158,7 @@
     ca = Segueix i contacta amb nosaltres:
     cs = Sledujte nás a kontaktujte nás:
     da = Følg og kontakt os:
-    de = Folge uns und kontaktiere uns:
+    de = Folge und kontaktiere uns:
     el = Ακολουθήστε και επικοινωνήστε μαζί μας:
     es = Síguenos y ponte en contacto con nosotros:
     es-MX = Síguenos y contáctanos:
@@ -7205,7 +7205,7 @@
     ca = No s'ha configurat cap client de correu electrònic. Configureu-lo o useu un altra via per contactar amb nosaltres a %@
     cs = Emailový klient nebyl ještě nakonfigurován. Nastavte ho, prosím, nebo použijte jiný způsob k našemu kontaktování na %@
     da = Emailklienten er ikke blevet sat op. Venligst konfigurér den eller brug en anden måde til at kontakte os på %@
-    de = Der Email-Client ist noch nicht eingerichtet worden. Konfigurieren Sie ihn bitte oder nutzen Sie eine andere Möglichkeit, uns unter %@ zu erreichen.
+    de = Der Email-Client ist noch nicht eingerichtet worden. Konfigurieren Sie ihn bitte oder nutzen Sie eine andere Möglichkeit oder kontaktieren Sie uns unter %@
     el = Το πρόγραμμα ηλεκτρονικού ταχυδρομείου δεν έχει ρυθμιστεί. Ρυθμίστε το ή χρησιμοποιήστε άλλο τρόπο να επικοινωνήσετε μαζί μας στη διεύθυνση %@
     es = No se ha configurado el cliente de correo electrónico. Por favor, configúrelo o utilice alguna otra forma de ponerse en contacto con nosotros en %@
     et = E-posti klienti ei ole seadistatud. Palun seadistage see või kasutage mõnda muud võimalust meiega ühenduse võtmiseks aadressil %@
@@ -7954,7 +7954,7 @@
     ca = Per a esborrar el mapa, abans atureu la navegació.
     cs = Chcete-li odstranit mapu, pak prosím zastavte navigaci.
     da = For at slette kortet skal du stoppe navigeringen.
-    de = Zum Löschen der Karte bitte Navigation unterbrechen.
+    de = Zum Löschen der Karte bitte die Navigation unterbrechen.
     el = Για να διαγράψετε το χάρτη, σταματήστε την πλοήγηση.
     es = Para eliminar el mapa, por favor, detenga la navegación.
     et = Kaardi kustutamiseks palun lõpeta navigeerimine.
@@ -8264,7 +8264,7 @@
     ca = Determineu ràpidament la vostra ubicació aproximada mitjançant Bluetooth, WiFi o xarxa mòbil
     cs = Rychlé určení přibližné polohy pomocí Bluetooth, WiFi nebo mobilní sítě
     da = Find hurtigt din omtrentlige position via Bluetooth, WiFi eller mobilnetværk
-    de = Bestimme schnell deinen ungefähren Standort über Bluetooth, WiFi oder das mobile Netzwerk
+    de = Ermitteln Sie schnell Ihren ungefähren Standort über Bluetooth, WLAN oder das Mobilfunknetz
     el = Προσδιορίστε γρήγορα την κατά προσέγγιση τοποθεσία σας μέσω Bluetooth, WiFi ή δικτύου κινητής τηλεφωνίας
     es = Determina rápidamente tu ubicación aproximada mediante Bluetooth, WiFi o red móvil
     es-MX = Determine rápidamente su ubicación aproximada mediante Bluetooth, WiFi o red móvil
@@ -8401,7 +8401,7 @@
     ca = No hi ha prou espai
     cs = Nedostatek místa
     da = Ikke nok plads
-    de = Nicht genug Speicherplatz
+    de = Nicht genügend Speicherplatz
     el = Δεν υπάρχει αρκετός χώρος
     es = No hay suficiente espacio
     et = Ei ole piisavalt ruumi
@@ -8489,7 +8489,7 @@
     ca = Activeu els serveis de geolocalització
     cs = Prosím, povolte Služby určování polohy
     da = Aktiver venligst lokationstjenester
-    de = Aktivieren Sie bitte Ortungsdienste
+    de = Bitte aktivieren Sie die Standortdienste
     el = Ενεργοποιήστε τις υπηρεσίες εντοπισμού τοποθεσίας
     es = Por favor, active los servicios de localización
     et = Palun luba asukohateenused
@@ -9429,7 +9429,7 @@
     ca = — Les condicions de la carretera, les normes de trànsit i els senyals de circulació sempre tenen prioritat sobre les indicacions de navegació;
     cs = • Situace na silnici, dopravní předpisy a dopravní značení mají vždy prioritu před pokyny navigace.
     da = — Vejforhold, færdselsregler og skiltning skal prioriteres højere end anvisningerne fra navigationsappen;
-    de = – Straßenverhältnisse, die Verkehrsordnung und Straßenschilder haben stets Vorrang vor Navigationsanweisungen;
+    de = – Zustand der Straßen, die Verkehrsordnung und Straßenschilder haben stets Vorrang vor Navigationsanweisungen;
     el = — Οι οδικές συνθήκες, ο κώδικας οδικής κυκλοφορίας και οι σημάνσεις στο δρόμο έχουν πάντα μεγαλύτερη προτεραιότητα από τις συμβουλές πλοήγησης,
     es = — Las condiciones de la ruta, las reglas de tráfico y las señales de carretera siempre tienen prioridad sobre las sugerencias de navegación;
     et = - Teeolud, liikluseeskirjad ja liiklusmärgid omavad alati prioriteeti navigeerimisjuhiste üle;
@@ -9780,7 +9780,7 @@
     ca = Activa els serveis de geolocalització
     cs = Povolit služby určování polohy
     da = Slå lokaliseringstjenester til
-    de = Ortungsdienste aktivieren
+    de = Standortdienste aktivieren
     el = Ενεργοποιήστε τις υπηρεσίες εντοπισμού τοποθεσίας
     es = Activar servicios de ubicación
     et = Luba asukoha teenused
@@ -9823,7 +9823,7 @@
     ca = No s'han pogut trobar les coordenaes GPS actuals. Activeu els serveis de geolocalització per a calcular la ruta.
     cs = Aktuální souřadnice GPS se nepodařilo zjistit. Pro výpočet trasy povolte služby určování polohy.
     da = Det lykkedes ikke at finde de aktuelle GPS-koordinater. Slå lokaliseringstjenester til for at beregne en rute.
-    de = Aktuelle GPS-Koordinaten können nicht ermittelt werden. Aktivieren Sie Ortungsdienste, um die Route zu berechnen.
+    de = Aktuelle GPS-Koordinaten können nicht ermittelt werden. Aktivieren Sie Standortdiensten, um die Route zu berechnen.
     el = Δεν είναι δυνατός ο εντοπισμός των τρεχουσών συντεταγμένων GPS. Ενεργοποιήστε τις υπηρεσίες εντοπισμού τοποθεσίας για τον υπολογισμό της διαδρομής.
     es = No se pueden encontrar las coordenadas del GPS. Active los servicios de ubicación para calcular la ruta.
     et = Ei suuda praeguseid GPS koordinaate määrata. Marsruudi arvutamiseks luba asukoha teenused.
@@ -9910,7 +9910,7 @@
     ca = Baixeu i actualitzeu tots els mapes i informació de rutes del trajecte per a calcular-ne la ruta.
     cs = Stáhnout a aktualizovat všechny mapy a data tras pro výpočet trasy podél navrhované cesty.
     da = Download og opdatér alle kort og ruteoplysninger for at beregne en rute.
-    de = Laden Sie alle Karten- und Routeninformationen für den geplanten Weg herunter und aktualisieren Sie sie, um die Route zu berechnen.
+    de = Laden Sie alle Karten- und Routeninformationen für den geplanten Weg herunter oder aktualisieren Sie sie, um die Route zu berechnen.
     el = Κατεβάσετε ή ενημερώστε όλους τους χάρτες για όλο το μήκος της προβαλλόμενης διαδρομής ώστε να γίνει ο υπολογισμός της.
     es = Descargue y actualice toda la información de mapas y rutas junto con el trayecto proyectado para calcular la ruta.
     et = Marsruudi arvutamiseks lae alla ja värskenda kogu kavandatud teekonna kaart ja marsruuditeave.
@@ -10171,7 +10171,7 @@
     ca = Indiqueu un punt inicial més proper a una via.
     cs = Zvolte výchozí bod blíže k silnici.
     da = Angiv et startpunkt, der ligger tættere på en vej.
-    de = Bitte wählen Sie einen Startpunkt in der Nähe einer Straße aus.
+    de = Bitte wählen Sie einen Startpunkt, der näher an einer Straße liegt.
     el = Επιλέξτε σημείο εκκίνησης πιο κοντά σε κάποιο δρόμο.
     es = Seleccione un punto de inicio cercano a una carretera.
     et = Palun vali alguspunkt teele lähemal.
@@ -10301,7 +10301,7 @@
     ca = Indiqueu un punt de destinació més proper a una via.
     cs = Vyberte cílový bod blíže k silnici.
     da = Angiv en destination, der ligger tættere på en vej.
-    de = Bitte wählen Sie einen Zielort in der Nähe einer Straße aus.
+    de = Bitte wählen Sie einen Zielort, der näher an einer Straße liegt.
     el = Επιλέξτε ένα σημείο προορισμού πιο κοντά σε κάποιο δρόμο.
     es = Seleccione un punto de destino cercano a una carretera.
     et = Palun vali sihtkoht teele lähemal.
@@ -10648,7 +10648,7 @@
     ca = Baixeu mapes addicionals per a crear una ruta millor que creua els límits d'aquest mapa.
     cs = Stáhnout mapu a vytvořit optimálnější trasu, která překračuje hranice této mapy.
     da = Download kortet for at planlægge en mere optimal rute, der strækker sig ud over dette korts grænser.
-    de = Laden Sie die Karte herunter, um eine bessere Route zu erstellen, die den Rand dieser Karte überschreitet.
+    de = Laden Sie zusätzliche Karten herunter, um eine bessere Route zu erstellen, die die Grenzen dieser Karte überschreitet.
     el = Κατεβάστε επιπλέον χάρτες για να δημιουργηθεί μια καλύτερη διαδρομή που διασχίζει τα όρια αυτού του χάρτη.
     es = Descargue mapas adicionales para crear una ruta mejor que cruce los límites de este mapa.
     et = Lae alla täiendavad kaardid, et luua parem, selle kaardi piire ületav marsruut.
@@ -12253,7 +12253,7 @@
     ca = Ubicació
     cs = Umístění
     da = Sted
-    de = Position
+    de = Standort
     el = Τοποθεσία
     es = Ubicación
     et = Asukoht
@@ -12382,7 +12382,7 @@
     ca = Descriviu el problema detalladament perquè la comunitat d'OpenStreetMap pugui corregir l'error.
     cs = Popište prosím detailně problém, aby vám komunita OpenStreetMap mohla pomoct opravit chybu.
     da = Beskriv problemet i detaljer, så OpenStreetMap-fællesskabet kan løse fejlen.
-    de = Bitte beschreiben Sie das Problem detailliert, damit die OpenStreetMap-Gemeinschaft den Fehler beheben kann.
+    de = Bitte beschreiben Sie das Problem detailliert, damit die OpenStreetMap-Community den Fehler korrigieren kann.
     el = Περιγράψτε το πρόβλημα αναλυτικά ώστε η κοινότητα του OpenStreetMap να το διορθώσει.
     es = Por favor, describa el problema en detalle para que la comunidad de OpenStreetMap pueda corregir el error.
     et = Palun kirjelda probleemi üksikasjalikult, et OpenStreetMap kommuun saaks selle parandada.
@@ -12817,7 +12817,7 @@
     ca = 24/7
     cs = Nonstop
     da = Dag og nat
-    de = Tag und Nacht
+    de = 24/7
     el = 24/7
     es = 24/7
     et = 24/7
@@ -13210,7 +13210,7 @@
     ca = Afegeix horari d'obertura
     cs = Přidat otevírací dobu
     da = Tilføj arbejdstid
-    de = Geschäftszeiten hinzufügen
+    de = Öffnungszeiten hinzufügen
     el = Προσθέστε ώρες λειτουργίας
     es = Añadir horarios de apertura
     et = Lisa tööaeg
@@ -13341,7 +13341,7 @@
     ca = Registre a OpenStreetMap
     cs = Registrace
     da = Tilmeld dig
-    de = Registrieren
+    de = Bei OpenStretMap registrieren
     el = Εγγραφή στο OpenStreetMap
     es = Registrarse en OpenStreetMap
     et = Registreeru
@@ -13471,7 +13471,7 @@
     ca = Inicia sessió
     cs = Přihlásit se
     da = Log ind
-    de = Anmelden
+    de = Bei OpenStreetMap anmelden
     el = Σύνδεση
     es = Iniciar sesión
     et = Logi sisse
@@ -15619,7 +15619,7 @@
     ca = Dades d'OpenStreetMap creades per la comunitat a partir de %@. Obteniu més informació sobre com editar i actualitzar el mapa a OpenStreetMap.org
     cs = Data OpenStreetMap vytvořená komunitou ke dni %@. Další informace o tom, jak upravovat a aktualizovat mapu, najdete na stránkách OpenStreetMap.org.
     da = Fællesskabsskabte OpenStreetMap-data fra %@. Få mere at vide om, hvordan du redigerer og opdaterer kortet på OpenStreetMap.org
-    de = Von der Gemeinschaft erstellte OpenStreetMap-Daten (Stand: %@). Erfahre mehr darüber, wie du die Karte bearbeiten und aktualisieren kannst unter OpenStreetMap.org
+    de = Von der Community erstellte OpenStreetMap-Daten (Stand: %@). Erfahre mehr darüber, wie du die Karte bearbeiten und aktualisieren kannst unter OpenStreetMap.org
     el = Δεδομένα OpenStreetMap που δημιουργήθηκαν από την κοινότητα στις %@. Μάθετε περισσότερα για τον τρόπο επεξεργασίας και ενημέρωσης του χάρτη στο OpenStreetMap.org
     es = Datos de OpenStreetMap creados por la comunidad a partir de %@. Más información sobre cómo editar y actualizar el mapa en OpenStreetMap.org
     es-MX = Datos de OpenStreetMap creados por la comunidad a partir de %@. Obtenga más información sobre cómo editar y actualizar el mapa en OpenStreetMap.org
@@ -15665,7 +15665,7 @@
     ca = Inicieu sessió perquè altres usuaris puguin veure els canvis que heu fet
     cs = Přihlaste se, aby ostatní uživatelé mohli vidět změny, které jste provedli.
     da = Log på så andre brugere kan se ændringerne som du har foretaget.
-    de = Melden Sie sich an, damit andere Benutzer Ihre Änderungen sehen können.
+    de = Melden Sie sich bei openstreetmap.org an, um Ihre Änderungen weltweit zu veröffentlichen.
     el = Συνδεθείτε ώστε άλλοι χρήστες να μπορούν να δουν τις αλλαγές που έχετε κάνει
     es = Inicie sesión en OpenStreetMap.org para que otros usuarios puedan ver los cambios que haya efectuado.
     et = Logi sisse OpenStreetMap.org keskkonda, et teised kasutajad näeksid Sinu tehtud muudatusi.
@@ -16191,7 +16191,7 @@
     ca = Envia una ota als editors d'OSM
     cs = Odeslat poznámku editorům OSM
     da = Send en besked til OSM-redaktører
-    de = Notiz an OSM-Redakteure senden
+    de = Notiz an Freiwillige von OpenStreetMap senden
     el = Σημείωμα στους συντάκτες του OSM
     es = Enviar nota a los editores de OSM
     es-MX = Enviar nota a los editores de OSM
@@ -16369,7 +16369,7 @@
     ca = Propietari
     cs = Operátor
     da = Bruger
-    de = Betreiber oder Eigentümer
+    de = Eigentümer
     el = Ιδιοκτήτης
     es = Operador
     et = Omanik
@@ -16413,7 +16413,7 @@
     ca = No heu baixat cap mapa
     cs = Nemáte stažené žádné mapy
     da = Du har ikke hentet alle kort
-    de = Keine Karten geladen
+    de = Keine Karten heruntergeladen
     el = Δεν έχετε κατεβάσει χάρτες
     es = No ha descargado ningún mapa
     et = Sa ei ole kaarte alla laadinud
@@ -16456,7 +16456,7 @@
     ca = Baixeu mapes per a cercar una ubicacio i usar la navegació sense connexió.
     cs = Stáhněte si mapy a hledejte cestu a její cíl, i když jste offline.
     da = Download kort for at finde position og navigere offline.
-    de = Laden Sie die für die Suche nach Orten erforderlichen Karten und verwenden Sie die Navigation offline.
+    de = Laden Sie Karten für die Offline-Suche und Navigation herunter.
     el = Κατεβάστε χάρτες για να αναζητήσετε μια τοποθεσία και να χρησιμοποιήσετε την πλοήγησης χωρίς σύνδεση.
     es = Descargue mapas para encontrar la ubicación y navegar sin conexión.
     et = Lae alla kaardid asukoha otsimiseks ja võrguühenduseta navigeerimise kasutamiseks.
@@ -16499,7 +16499,7 @@
     ca = Es desconeix la ubicació actual.
     cs = Současná poloha nezjištěna.
     da = Aktuel position er ukendt.
-    de = Standort nicht gefunden.
+    de = Aktueller Standort unbekannt
     el = Η τρέχουσα τοποθεσία είναι άγνωστη.
     es = La ubicación actual es desconocida.
     et = Hetkeasukoht on teadmata.
@@ -16585,7 +16585,7 @@
     ca = Els serveis de geolocalització estan desactivats
     cs = Určení polohy je zakázáno
     da = Placeringsservices er slået fra
-    de = Standort-Identifizierung ist deaktiviert
+    de = Standortdienste sind deaktiviert
     el = Οι υπηρεσίες εντοπισμού τοποθεσίας είναι απενεργοποιημένες
     es = La identificación de la ubicación está desactivada
     et = Asukohateenused on keelatud
@@ -17455,7 +17455,7 @@
     ca = La bonificació de referència rebuda per cada reserva a través d'aquest enllaç es destina al desenvolupament de Organic Maps.
     cs = Bonus za každou rezervaci provedenou prostřednictvím tohoto odkazu je určen na rozvoj služby Organic Maps.
     da = Henvisningsbonussen, der modtages for hver booking via dette link, går til udviklingen af Organic Maps.
-    de = Der empfehlungsbonus, den wir für jede buchung über diesen link erhalten, fließt in die entwicklung von Organic Maps.
+    de = Der Empfehlungsbonus, den wir für jede Buchung über diesen Link erhalten, fließt in die Entwicklung von Organic Maps.
     el = Το μπόνους παραπομπής που λαμβάνετε για κάθε κράτηση μέσω αυτού του συνδέσμου πηγαίνει στην ανάπτυξη του Organic Maps.
     es = La bonificación por recomendación recibida por cada reserva a través de este enlace se destina al desarrollo de Organic Maps.
     es-MX = El bono de recomendación recibido por cada reserva a través de este enlace se destina al desarrollo de Organic Maps.
@@ -17544,7 +17544,7 @@
     ca = Truca-hi
     cs = Volat
     da = Ring
-    de = Anruf
+    de = Anrufen
     el = Κλήση
     es = Llamar
     et = Helista
@@ -17672,7 +17672,7 @@
     ca = Notes personals
     cs = Vlastní poznámka
     da = Personlige notater
-    de = Anmerkung
+    de = Persönliche Notizen
     el = Προσωπικές σημειώσεις
     es = Notas personales
     et = Isiklikud märkmed
@@ -17844,7 +17844,7 @@
     ca = Voleu descartar tots els canvis locals?
     cs = Vymazat všechny místní změny?
     da = Nulstil alle lokale ændringer?
-    de = Alle lokalen Korrekturen verwerfen
+    de = Alle lokalen Korrekturen verwerfen?
     el = Απόρριψη όλων των τοπικών αλλαγών;
     es = ¿Restablecer todos los cambios locales?
     et = Loobu kõigist kohalikest muudatustest?
@@ -18451,7 +18451,7 @@
     ca = Afegeix un lloc a OpenStreetMap
     cs = Přidat místo do OpenStreetMap
     da = Tilføj sted til OpenStreetMap
-    de = Einen Ort zu OpenStreetMap hinzufügen
+    de = Ort zu OpenStreetMap hinzufügen
     el = Προσθήκη τοποθεσίας στο OpenStreetMap
     es = Añadir lugar a OpenStreetMap
     es-MX = Agregar lugar a OpenStreetMap
@@ -18542,7 +18542,7 @@
     ca = Assegureu-vos que no heu introduït cap dada personal.
     cs = Ujistěte se, že jste nezadali žádná osobní data.
     da = Sørg for at du ikke indtastede personlige oplysninger.
-    de = Stellen Sie sicher, dass Sie keine persönlichen Daten eingegeben haben.
+    de = Stellen Sie sicher, dass Sie keine persönlichen oder privaten Daten eingegeben haben.
     el = Βεβαιωθείτε ότι δεν έχετε εισάγει προσωπικά δεδομένα.
     es = Asegúrate de que no has introducido ningún dato personal.
     et = Palun kontrolli, et Sa ei sisestanud isiklikke andmeid.
@@ -18585,7 +18585,7 @@
     ca = Revisarem els canvis. Si tenim cap pregunta contactem amb vós via correu electrònic.
     cs = Redaktoři OpenStreetMap zkontrolují změny a budou vás kontaktovat, pokud budou mít nějaké dotazy.
     da = OpenStreetMap-redaktører vil tjekke ændringerne og kontakte dig, hvis de har spørgsmål.
-    de = OpenStreetMap-Redakteure werden die Änderungen prüfen und sich bei Fragen mit Ihnen in Verbindung setzen.
+    de = Freiwillige von OpenStreetMap werden die Änderungen prüfen und sich bei Fragen mit Ihnen in Verbindung setzen.
     el = Οι συντάκτες του OpenStreetMap θα ελέγξουν τις αλλαγές και θα επικοινωνήσουν μαζί σας εάν έχουν απορίες.
     es = Los editores de OpenStreetMap comprobarán los cambios y se pondrán en contacto con usted si tienen alguna pregunta.
     et = OpenStreetMap muutjad kontrollivad muudatused üle ja võtavad küsimuste korral Sinuga ühendust.
@@ -19242,7 +19242,7 @@
     ca = Es necessita Internet mòbil per a les notifiacions d'actualitzacions del mapa i per a mostrar informació detallada dels llocs i marcadors.
     cs = K zobrazení podrobných informací o místech, jako jsou fotografie, ceny a recenze je třeba mobilní internet.
     da = Mobile internet er nødvendigt til visning af detaljerede oplysninger om steder, såsom fotos, priser og anmeldelser.
-    de = Es wird mobiles Internet benötigt, um über Kartenaktualisierungen informiert zu werden und genauere Informationen über Orte anzuzeigen.
+    de = Für Benachrichtigungen über Kartenaktualisierungen und das Hochladen von Änderungen ist eine mobile Internetverbindung erforderlich.
     el = Απαιτείται πρόσβαση στο ίντερνετ μέσω δικτύου κινητής για την εμφάνιση αναλυτικών πληροφοριών για τις τοποθεσίες, όπως φωτογραφίες, τιμές και κριτικές.
     es = Se necesita Internet móvil para mostrar información detallada de los lugares, como fotografías, precios y reseñas.
     et = Mobiilne internet on vajalik kaardi värskendamise märguannete jaoks ning kohtade ja järjehoidjate üksikasjaliku teabe kuvamiseks.
@@ -20761,7 +20761,7 @@
     ca = Amaga-ho tot
     cs = Skrýt vše
     da = Skjul alle
-    de = Alle verbergen
+    de = Alle ausblenden
     el = Απόκρυψη όλων
     es = Ocultar todo
     es-MX = Ocultar todo
@@ -21005,7 +21005,7 @@
     ca = Oculta la pantalla
     cs = Skrýt obrazovku
     da = Skjul skærm
-    de = Bildschirm verbergen
+    de = Bildschirm ausblenden
     el = Απόκρυψη οθόνης
     es = Ocultar pantalla
     es-MX = Ocultar pantalla
@@ -21187,7 +21187,7 @@
     ca = No s'ha pogut compartir a causa d'un error de l'aplicació
     cs = Nelze sdílet kvůli chybě aplikace
     da = Ikke i stand til at dele på grund af en programfejl
-    de = Freigabe wegen eines Anwendungsfehlers nicht möglich
+    de = Teilen wegen eines Anwendungsfehlers nicht möglich
     el = Αδυναμία κοινοποίησης λόγω σφάλματος εφαρμογής
     es = No se puede compartir debido a un error de la aplicación
     es-MX = No se puede compartir debido a un error de la aplicación
@@ -21233,7 +21233,7 @@
     ca = Error al compartir
     cs = Chyba sdílení
     da = Delingsfejl
-    de = Fehler bei der Freigabe
+    de = Fehler beim Teilen
     el = Σφάλμα κατά την κοινοποίηση
     es = Error al compartir
     es-MX = Error al compartir
@@ -21279,7 +21279,7 @@
     ca = No es pot compartir una llista buida
     cs = Nelze sdílet s prázdným seznamem
     da = Kan ikke dele en tom liste
-    de = Eine leere Liste kann nicht freigegeben werden
+    de = Eine leere Liste kann nicht geteilt werden
     el = Δεν είναι δυνατή η κοινή χρήση μιας κενής λίστας
     es = No se puede compartir una lista vacía
     es-MX = No se puede compartir una lista vacía
@@ -22460,7 +22460,7 @@
     ca = Trànsit
     cs = Zácpy
     da = Trafik
-    de = Staus
+    de = Verkehr
     el = Κίνηση
     es = Tráfico
     es-MX = Tráfico
@@ -23127,7 +23127,7 @@
     ca = Privat
     cs = Osobní účet
     da = Privat
-    de = Persönlich
+    de = Privat
     el = Ιδιωτικό
     es = Privado
     es-MX = Privado
@@ -24176,7 +24176,7 @@
     ca = Definiu les vies a evitar
     cs = Definovat silnice, kterým se vyhnout
     da = Definer veje du vil undgå
-    de = Umwege einstellen
+    de = Routenbeschränkung einstellen
     el = Ορισμός δρόμων προς αποφυγή
     es = Defina las carreteras a evitar
     es-MX = Configurar rutas de desvío
@@ -25588,7 +25588,7 @@
     ca = Ordenació predeterminada
     cs = Třídit ve výchozím nastavení
     da = Sortér (std)
-    de = Default Sortierung
+    de = Nach Voreinstellung sortieren
     el = Ταξινόμηση κατά προεπιλογή
     es = Ordenar por defecto
     es-MX = Ordenar por defecto
@@ -25632,7 +25632,7 @@
     ca = Ordena per tipus
     cs = Třídit dle typu
     da = Sort (type)
-    de = Sortierung nach Kategorien
+    de = Nach Kategorien sortieren
     el = Ταξινόμηση ανά τύπο
     es = Ordenar por tipo
     es-MX = Ordenar por tipo
@@ -25676,7 +25676,7 @@
     ca = Ordena per distància
     cs = Třídit dle vzdálenosti
     da = Sort (Afs)
-    de = Sortieren nach Entfernung
+    de = Nach Entfernung sortieren
     el = Ταξινόμηση κατά απόσταση
     es = Ordenar por distancia
     es-MX = Ordenar por distancia
@@ -25720,7 +25720,7 @@
     ca = Ordena per data
     cs = Třídit dle data
     da = Sort (dato)
-    de = Sortieren nach Datum
+    de = Nach Datum sortieren
     el = Ταξινόμηση κατά ημερομηνία
     es = Ordenar por fecha
     es-MX = Ordenar por fecha
@@ -25857,7 +25857,7 @@
     ca = Per tipus
     cs = Podle typu
     da = Efter type
-    de = Nach Kategorie
+    de = Nach Typ
     el = Κατά τύπο
     es = Por tipo
     es-MX = Por tipo
@@ -26215,7 +26215,7 @@
     ca = Prop meu
     cs = Blízko mě
     da = I nærheden
-    de = In der Nähe
+    de = In meiner Nähe
     el = Δίπλα μου
     es = Cerca de mí
     es-MX = Cerca a mí
@@ -26968,7 +26968,7 @@
     ca = Llocs de culte
     cs = Posvátná místa
     da = Religiøse steder
-    de = Religiöse Stätten
+    de = Religiöse Orte
     el = Χώροι Λατρείας
     es = Lugares sagrados
     es-MX = Sitios religiosos
@@ -27198,7 +27198,7 @@
     ca = Corbes de nivell
     cs = Terén
     da = Terræn
-    de = Gelände
+    de = Höhelinien
     el = Υψομετρικά
     es = Alturas
     es-MX = Alturas
@@ -27826,7 +27826,7 @@
     ca = Aproplieu el mapa per a explorar les isolínies
     cs = Přiblížit pro prozkoumání izolinií
     da = Zoom ind for at udforske isolinjekort
-    de = Karte vergrößern, um Höhenlinien sichtbar zu machen
+    de = Karte vergrößern, um Höhelinien sichtbar zu machen
     el = Μεγεθύνετε για να δείτε περιγράμματα
     es = Amplíe el mapa para ver las isolíneas
     es-MX = Amplíe el mapa para ver las isolíneas
@@ -28532,7 +28532,7 @@
     az = Hərəkət edin
     be = Перамясціць
     ca = Mou
-    de = verschieben
+    de = Verschieben
     el = Μετακίνηση
     es = Mover
     et = Teisalda
@@ -28724,7 +28724,7 @@
     ca = Gràcies per utilitzar els nostres mapes creats per la comunitat!
     cs = Děkujeme, že používáte naše komunitní mapy!
     da = Tak, fordi du bruger vores community-byggede kort!
-    de = Danke, dass du unsere von der Gemeinschaft erstellten Karten benutzt!
+    de = Danke, dass du unsere von der Community erstellten Karten benutzt!
     el = Σας ευχαριστούμε που χρησιμοποιείτε τους χάρτες μας που δημιουργήθηκαν από την κοινότητα!
     es = ¡Gracias por utilizar nuestros mapas creados por la comunidad!
     et = Aitäh, et kasutate meie kogukonna koostatud kaarte!
@@ -29068,7 +29068,7 @@
     ca = Podeu corregir i millorar fàcilment les dades del mapa.
     cs = Mapová data můžete snadno opravit a vylepšit.
     da = Du kan nemt rette og forbedre kortdataene.
-    de = Sie können die Kartendaten einfach reparieren und verbessern.
+    de = Sie können die Kartendaten einfach korrigieren und verbessern.
     el = Μπορείτε εύκολα να διορθώσετε και να βελτιώσετε τα δεδομένα χάρτη.
     es = Puede arreglar y mejorar fácilmente los datos del mapa.
     et = Saate hõlpsasti kaardiandmeid parandada ja täiustada.
@@ -29290,7 +29290,7 @@
     ca = Continueu al telèfon
     cs = Pokračujte v telefonu
     da = Fortsæt i telefonen
-    de = Weiter auf Telefon
+    de = Weiter am Telefon
     el = Συνέχεια στο κινητό
     es = Continuar en el teléfono
     es-MX = Continuar en el teléfono
