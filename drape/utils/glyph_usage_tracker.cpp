@@ -16,14 +16,14 @@ std::string GlyphUsageTracker::GlyphUsageStatistic::ToString() const
   ss << " Invalid glyphs count = " << m_invalidGlyphs.size() << "\n";
   ss << " Invalid glyphs: { ";
   for (auto const & it : m_invalidGlyphs)
-    ss << it.first << "(" << it.second << ") ";
+    ss << std::hex << static_cast<uint32_t>(it.first) << std::dec << "(" << it.second << ") ";
   ss << "}\n";
 
   ss << " Unexpected glyphs count = " << m_unexpectedGlyphs.size() << "\n";
   ss << " Unexpected glyphs: {\n";
   for (auto const & it : m_unexpectedGlyphs)
   {
-    ss << "   glyph = " << it.first << ", unique usages = " << it.second.m_counter
+    ss << "   glyph = " << std::hex << static_cast<uint32_t>(it.first) << std::dec << ", unique usages = " << it.second.m_counter
        << ", group = " << it.second.m_group << ", expected groups = { ";
 
     for (auto const & gr : it.second.m_expectedGroups)

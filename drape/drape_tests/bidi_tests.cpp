@@ -32,11 +32,11 @@ UNIT_TEST(Bidi_Print)
   {
     auto const s = strings::MakeUniString(utf8);
     for (auto const ucp : s)
-      std::cout << std::hex << ucp << ", ";
+      std::cout << std::hex << static_cast<uint32_t>(ucp) << ", ";
 
     std::cout << std::endl;
     for (auto const ucp : bidi::log2vis(s))
-      std::cout << std::hex << ucp << ", ";
+      std::cout << std::hex << static_cast<uint32_t>(ucp) << ", ";
 
     std::cout << std::endl;
   };

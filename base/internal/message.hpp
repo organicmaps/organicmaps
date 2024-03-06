@@ -28,6 +28,7 @@ std::string DebugPrint(std::string const & t);
 inline std::string DebugPrint(char const * t);
 inline std::string DebugPrint(char * t) { return DebugPrint(static_cast<char const *>(t)); }
 inline std::string DebugPrint(char t);
+inline std::string DebugPrint(char32_t t);
 
 /// @name We are going step-by-step to C++20. Use UTF8 string literals instead.
 /// @{
@@ -95,6 +96,13 @@ inline std::string DebugPrint(std::u32string const & utf32)
 inline std::string DebugPrint(std::u32string_view utf32)
 {
   return internal::ToUtf8(utf32);
+}
+
+inline std::string DebugPrint(char32_t t)
+{
+  std::ostringstream out;
+  out << std::hex << static_cast<uint32_t>(t);
+  return out.str();
 }
 
 inline std::string DebugPrint(std::chrono::time_point<std::chrono::system_clock> const & ts)
