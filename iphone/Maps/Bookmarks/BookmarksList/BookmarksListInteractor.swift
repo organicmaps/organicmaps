@@ -163,7 +163,7 @@ extension BookmarksListInteractor: IBookmarksListInteractor {
   }
 
   func canDeleteGroup() -> Bool {
-    bookmarksManager.userCategories().count > 1
+    bookmarksManager.sortedUserCategories().count > 1
   }
 
   func exportFile(_ completion: @escaping (URL?, ExportFileStatus) -> Void) {

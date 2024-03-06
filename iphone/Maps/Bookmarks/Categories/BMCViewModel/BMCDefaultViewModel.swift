@@ -36,7 +36,7 @@ final class BMCDefaultViewModel: NSObject {
   }
 
   private func setCategories() {
-    categories = manager.userCategories()
+    categories = manager.sortedUserCategories()
   }
 
   private func setActions() {

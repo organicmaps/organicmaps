@@ -73,7 +73,7 @@ final class ListTemplateBuilder {
   
   private class func obtainCategories(template: CPListTemplate) {
     let bookmarkManager = BookmarksManager.shared()
-    let categories = bookmarkManager.userCategories()
+    let categories = bookmarkManager.sortedUserCategories()
     let items: [CPListItem] = categories.compactMap({ category in
       if category.bookmarksCount == 0 { return nil }
       let placesString = category.placesCountTitle()
