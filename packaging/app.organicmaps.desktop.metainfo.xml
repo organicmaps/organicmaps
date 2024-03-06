@@ -364,7 +364,6 @@
            <li>Updated road surface factors for car routing profile</li>
            <li>Better pedestrian routing in Turkey and Georgia</li>
            <li>Fixed cross-region routing when "avoid …" options are enabled</li>
-           <li></li>
          </ul>
        <p>Search:</p>
          <ul>
@@ -780,7 +779,6 @@
    <release version="2022.06.18-2" date="2022-06-18">
      <description>
        <ul>
-         <li></li>
          <li>New OSM data as of June 13, 2022</li>
          <li>Cross-region and other routing fixes</li>
          <li>Nicer fences, city walls, paths/tracks, waterfalls, fountains, and drinking_water</li>
