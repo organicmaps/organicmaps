@@ -2207,7 +2207,25 @@ void BookmarkManager::UpdateBmGroupIdList()
   CHECK_THREAD_CHECKER(m_threadChecker, ());
   size_t const count = m_categories.size();
 
-  // All this routine to get sorted list by last modified time.
+  using PairT = std::pair<kml::MarkGroupId, BookmarkCategory const *>;
+  std::vector<PairT> vec;
+  vec.reserve(count);
+  for (auto const & [markGroupId, categoryPtr] : m_categories)
+    vec.emplace_back(markGroupId, categoryPtr.get());
+
+  m_bmGroupsIdList.clear();
+  m_bmGroupsIdList.resize(count);
+  for (size_t i = 0; i < count; ++i)
+    m_bmGroupsIdList[i] = vec[i].first;
+}
+
+std::vector<kml::MarkGroupId> BookmarkManager::GetSortedBmGroupIdList() const
+{
+  CHECK_THREAD_CHECKER(m_threadChecker, ());
+
+  std::vector<kml::MarkGroupId> sortedList;
+  size_t const count = m_categories.size();
+  sortedList.reserve(count);
 
   using PairT = std::pair<kml::MarkGroupId, BookmarkCategory const *>;
   std::vector<PairT> vec;
@@ -2220,10 +2238,10 @@ void BookmarkManager::UpdateBmGroupIdList()
     return lhs.second->GetLastModifiedTime() > rhs.second->GetLastModifiedTime();
   });
 
-  m_bmGroupsIdList.clear();
-  m_bmGroupsIdList.resize(count);
   for (size_t i = 0; i < count; ++i)
-    m_bmGroupsIdList[i] = vec[i].first;
+    sortedList.push_back(vec[i].first);
+
+  return sortedList;
 }
 
 kml::MarkGroupId BookmarkManager::CreateBookmarkCategory(kml::CategoryData && data, bool autoSave /* = true */)
