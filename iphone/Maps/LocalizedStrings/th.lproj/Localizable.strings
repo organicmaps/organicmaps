@@ -1074,7 +1074,7 @@
 
 "define_to_avoid_btn" = "กำหนดถนนที่ต้องการเลี่ยง";
 
-"change_driving_options_btn" = "เปิดใช้การค้นหาเส้นทางขับขี่แล้ว";
+"change_driving_options_btn_no_plural" = "เปิดใช้การค้นหาเส้นทางขับขี่แล้ว";
 
 "toll_road" = "ถนนแบบเสียค่าผ่านทาง";
 

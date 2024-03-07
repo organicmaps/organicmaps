@@ -1074,7 +1074,7 @@
 
 "define_to_avoid_btn" = "Fafanua njia za kuziepuka";
 
-"change_driving_options_btn" = "Machaguo ya njia yamewezeshwa";
+"change_driving_options_btn_no_plural" = "Machaguo ya njia yamewezeshwa";
 
 "toll_road" = "Barabara ya kulipia";
 

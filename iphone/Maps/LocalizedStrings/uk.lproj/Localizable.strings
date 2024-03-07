@@ -1074,7 +1074,7 @@
 
 "define_to_avoid_btn" = "Налаштувати шляхи об’їзду";
 
-"change_driving_options_btn" = "Увімкнено налаштування об’їзду";
+"change_driving_options_btn_no_plural" = "Увімкнено налаштування об’їзду";
 
 "toll_road" = "Платна дорога";
 

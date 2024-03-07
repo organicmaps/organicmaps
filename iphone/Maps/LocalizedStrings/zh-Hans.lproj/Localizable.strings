@@ -1074,7 +1074,7 @@
 
 "define_to_avoid_btn" = "设置绕行路径";
 
-"change_driving_options_btn" = "绕行设置已开启";
+"change_driving_options_btn_no_plural" = "绕行设置已开启";
 
 "toll_road" = "收费公路";
 

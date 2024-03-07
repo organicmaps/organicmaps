@@ -663,7 +663,10 @@
 	<string name="unable_to_calc_alert_title">Marsruudi arvutamine ei õnnestu</string>
 	<string name="unable_to_calc_alert_subtitle">Kahjuks ei leidnud me marsruuti tõenäoliselt teie valitud võimaluste tõttu. Muutke seadeid ja proovige uuesti.</string>
 	<string name="define_to_avoid_btn">Määra välditavad teed</string>
-	<string name="change_driving_options_btn">Marsruutimise valikud lubatud</string>
+	<plurals name="change_driving_options_btn">
+	  <item quantity="one">%d marsruutimisvõimalus on lubatud</item>
+	  <item quantity="other">%d marsruutimisvõimalust on lubatud</item>
+	</plurals>
 	<string name="toll_road">Tasuline tee</string>
 	<string name="unpaved_road">Katteta tee</string>
 	<string name="ferry_crossing">Praamiületus</string>
@@ -798,6 +801,10 @@
 	<string name="pref_tts_open_system_settings">Kõnesünteesi süsteemi seaded</string>
 	<!-- toast displayed when pressing the "Speech synthesis system settings" button, and the system settings aren't found. -->
 	<string name="pref_tts_no_system_tts">Kõnesünteesi seadeid ei leitud, kas olete kindel, et teie seade toetab seda?</string>
+	<!-- generic string showing "1 enabled" etc. use %d for the value. -->
+	<string name="n_enabled">%d lubatud</string>
+	<!-- generic string meaning "there is none of this option". -->
+	<string name="none">Puudub</string>
 
 	<!-- SECTION: Types -->
 	<string name="type.addr_interpolation">Aadress/plokk</string>

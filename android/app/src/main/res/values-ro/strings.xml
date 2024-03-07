@@ -656,7 +656,10 @@
 	<string name="unable_to_calc_alert_title">Nu poate fi creat un traseu</string>
 	<string name="unable_to_calc_alert_subtitle">Din păcate, nu putem elabora un traseu cu opțiunile alese. Modifică-le și încearcă din nou.</string>
 	<string name="define_to_avoid_btn">Stabilește drumurile de evitat</string>
-	<string name="change_driving_options_btn">Opțiuni de ocolire activate</string>
+	<plurals name="change_driving_options_btn">
+	  <item quantity="one">%d opțiune de rutare activată</item>
+	  <item quantity="other">%d opțiuni de rutare activate</item>
+	</plurals>
 	<string name="toll_road">Drum cu plată</string>
 	<string name="unpaved_road">Drum neasfaltat</string>
 	<string name="ferry_crossing">Trecere cu bac</string>
@@ -787,6 +790,10 @@
 	<string name="pref_tts_open_system_settings">Setări ale sistemului de sinteză vocală</string>
 	<!-- toast displayed when pressing the "Speech synthesis system settings" button, and the system settings aren't found. -->
 	<string name="pref_tts_no_system_tts">Nu au fost găsite setările de sinteză vocală, sunteți sigur că dispozitivul dvs. le acceptă?</string>
+	<!-- generic string showing "1 enabled" etc. use %d for the value. -->
+	<string name="n_enabled">%d activat</string>
+	<!-- generic string meaning "there is none of this option". -->
+	<string name="none">Nici unul</string>
 
 	<!-- SECTION: Types -->
 	<string name="type.addr_interpolation">Adresă/Bloc</string>

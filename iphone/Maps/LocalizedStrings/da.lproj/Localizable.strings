@@ -1074,7 +1074,7 @@
 
 "define_to_avoid_btn" = "Definer veje du vil undgå";
 
-"change_driving_options_btn" = "Køre muligheder aktiveret";
+"change_driving_options_btn_no_plural" = "Køre muligheder aktiveret";
 
 "toll_road" = "Betalingsvej";
 

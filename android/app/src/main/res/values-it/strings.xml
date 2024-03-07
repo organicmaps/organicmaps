@@ -655,7 +655,10 @@
 	<string name="unable_to_calc_alert_title">Impossibile elaborare il percorso</string>
 	<string name="unable_to_calc_alert_subtitle">Purtroppo non siamo riusciti a trovare un percorso, probabilmente a causa delle opzioni che hai scelto. Si prega di cambiare le impostazioni e riprovare.</string>
 	<string name="define_to_avoid_btn">Definire le strade da evitare</string>
-	<string name="change_driving_options_btn">Opzioni di deviazione abilitate</string>
+	<plurals name="change_driving_options_btn">
+	  <item quantity="one">%d opzione di routing abilitata</item>
+	  <item quantity="other">%d opzioni di routing abilitate</item>
+	</plurals>
 	<string name="toll_road">Strada a pedaggio</string>
 	<string name="unpaved_road">Strada non asfaltata</string>
 	<string name="ferry_crossing">Traghetto</string>
@@ -790,6 +793,10 @@
 	<string name="pref_tts_open_system_settings">Impostazioni del sistema di sintesi vocale</string>
 	<!-- toast displayed when pressing the "Speech synthesis system settings" button, and the system settings aren't found. -->
 	<string name="pref_tts_no_system_tts">Le impostazioni della sintesi vocale non sono state trovate, sei sicuro che il tuo dispositivo le supporti?</string>
+	<!-- generic string showing "1 enabled" etc. use %d for the value. -->
+	<string name="n_enabled">%d abilitato</string>
+	<!-- generic string meaning "there is none of this option". -->
+	<string name="none">Nessuno</string>
 
 	<!-- SECTION: Types -->
 	<string name="type.addr_interpolation">Indirizzo/Blocco</string>

@@ -1074,7 +1074,7 @@
 
 "define_to_avoid_btn" = "Définissez les routes à éviter";
 
-"change_driving_options_btn" = "Paramètres d'itinéraire activés";
+"change_driving_options_btn_no_plural" = "Paramètres d'itinéraire activés";
 
 "toll_road" = "Route à péage";
 

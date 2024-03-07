@@ -670,7 +670,10 @@
 	<string name="unable_to_calc_alert_title">Ezin da ibilbidea proposatu</string>
 	<string name="unable_to_calc_alert_subtitle">Zoritxarrez, ezin izan dugu aukeratutako aukerekin ibilbiderik proposatu. Aldatu ezarpenak eta saiatu berriro</string>
 	<string name="define_to_avoid_btn">Zehaztu saihestu beharreko bideak</string>
-	<string name="change_driving_options_btn">Bideratze aukerak gaituta</string>
+	<plurals name="change_driving_options_btn">
+	  <item quantity="one">%d bideratze aukera gaituta</item>
+	  <item quantity="other">%d bideratze aukera gaituta</item>
+	</plurals>
 	<string name="toll_road">Ordainpeko errepidea</string>
 	<string name="unpaved_road">Asfaltatu gabeko errepidea</string>
 	<string name="ferry_crossing">Ferry zeharkaldia</string>
@@ -805,6 +808,10 @@
 	<string name="pref_tts_open_system_settings">Sistemaren ahots-sintesiaren ezarpenak</string>
 	<!-- toast displayed when pressing the "Speech synthesis system settings" button, and the system settings aren't found. -->
 	<string name="pref_tts_no_system_tts">Ahots-sintesiaren ezarpenak ez dira aurkitu. Ziur zure gailuak onartzen duela?</string>
+	<!-- generic string showing "1 enabled" etc. use %d for the value. -->
+	<string name="n_enabled">%d gaituta</string>
+	<!-- generic string meaning "there is none of this option". -->
+	<string name="none">Bat ere ez</string>
 
 	<!-- SECTION: Types -->
 	<string name="type.addr_interpolation">Helbidea/Blokea</string>

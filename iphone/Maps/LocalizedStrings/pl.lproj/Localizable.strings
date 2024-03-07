@@ -1074,7 +1074,7 @@
 
 "define_to_avoid_btn" = "Dostosuj ścieżkę objazdu";
 
-"change_driving_options_btn" = "Ustawienia objazdu są włączone";
+"change_driving_options_btn_no_plural" = "Ustawienia objazdu są włączone";
 
 "toll_road" = "Droga płatna";
 

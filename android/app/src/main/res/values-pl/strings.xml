@@ -670,7 +670,10 @@
 	<string name="unable_to_calc_alert_title">Brak możliwości zbudowania trasy</string>
 	<string name="unable_to_calc_alert_subtitle">Wyznaczanie trasy nie powiodło się. Przyczyną mogą być ustawienia nawigacji lub niekompletne dane OpenStreetMap. Zmień ustawienia i spróbuj ponownie</string>
 	<string name="define_to_avoid_btn">Dostosuj ścieżkę objazdu</string>
-	<string name="change_driving_options_btn">Ustawienia objazdu są włączone</string>
+	<plurals name="change_driving_options_btn">
+	  <item quantity="one">%d włączona opcja routingu</item>
+	  <item quantity="other">%d włączone opcje routingu</item>
+	</plurals>
 	<string name="toll_road">Droga płatna</string>
 	<string name="unpaved_road">Droga gruntowa</string>
 	<string name="ferry_crossing">Przeprawa promowa</string>
@@ -809,6 +812,10 @@
 	<string name="pref_tts_open_system_settings">Ustawienia systemu syntezy mowy</string>
 	<!-- toast displayed when pressing the "Speech synthesis system settings" button, and the system settings aren't found. -->
 	<string name="pref_tts_no_system_tts">Nie znaleziono ustawień syntezy mowy, czy Twoje urządzenie na pewno je obsługuje?</string>
+	<!-- generic string showing "1 enabled" etc. use %d for the value. -->
+	<string name="n_enabled">%d włączony</string>
+	<!-- generic string meaning "there is none of this option". -->
+	<string name="none">Brak</string>
 
 	<!-- SECTION: Types -->
 	<string name="type.addr_interpolation">Adres/Blok</string>

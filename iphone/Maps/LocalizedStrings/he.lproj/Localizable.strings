@@ -1074,7 +1074,7 @@
 
 "define_to_avoid_btn" = "הגדר כבישים להימנע מהם";
 
-"change_driving_options_btn" = "אפשרויות מסלול מופעלות";
+"change_driving_options_btn_no_plural" = "אפשרויות מסלול מופעלות";
 
 "toll_road" = "כביש אגרה";
 

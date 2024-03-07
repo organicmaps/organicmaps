@@ -636,7 +636,10 @@
 	<string name="unable_to_calc_alert_title">Không thể tạo tuyến đường</string>
 	<string name="unable_to_calc_alert_subtitle">Rất tiếc, chúng không thể tạo tuyến đường với những tùy chọn đã chọn. Hãy thay đổi thiết lập và thử lại</string>
 	<string name="define_to_avoid_btn">Thiết lập đường đi vòng</string>
-	<string name="change_driving_options_btn">Thiết lập đường đi tránh đã được bật</string>
+	<plurals name="change_driving_options_btn">
+	  <item quantity="one">Đã bật %d tùy chọn định tuyến</item>
+	  <item quantity="other">Đã bật %d tùy chọn định tuyến</item>
+	</plurals>
 	<string name="toll_road">Đường trả phí</string>
 	<string name="unpaved_road">Đường đất</string>
 	<string name="ferry_crossing">Bến phà</string>
@@ -756,6 +759,10 @@
 	<string name="pref_tts_open_system_settings">Cài đặt tổng hợp giọng nói của hệ thống</string>
 	<!-- toast displayed when pressing the "Speech synthesis system settings" button, and the system settings aren't found. -->
 	<string name="pref_tts_no_system_tts">Không tìm thấy cài đặt Tổng hợp giọng nói, bạn có chắc thiết bị của mình hỗ trợ nó không?</string>
+	<!-- generic string showing "1 enabled" etc. use %d for the value. -->
+	<string name="n_enabled">%d đã được kích hoạt</string>
+	<!-- generic string meaning "there is none of this option". -->
+	<string name="none">Không có</string>
 
 	<!-- SECTION: Types -->
 	<string name="type.addr_interpolation">Địa chỉ/Khối</string>

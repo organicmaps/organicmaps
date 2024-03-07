@@ -198,7 +198,10 @@
 	<string name="unable_to_calc_alert_title">Haiwezi kukokotoa njia</string>
 	<string name="unable_to_calc_alert_subtitle">Bahati mbaya hatukuweza kupata njia labda kwa sababu ya machaguo msingi. Tafadhali badili mipangilio na jaribu tena</string>
 	<string name="define_to_avoid_btn">Fafanua njia za kuziepuka</string>
-	<string name="change_driving_options_btn">Machaguo ya njia yamewezeshwa</string>
+	<plurals name="change_driving_options_btn">
+	  <item quantity="one">Chaguo %d la uelekezaji limewashwa</item>
+	  <item quantity="other">Chaguo %d za uelekezaji zimewashwa</item>
+	</plurals>
 	<string name="toll_road">Barabara ya kulipia</string>
 	<string name="unpaved_road">Barabara ya vumbi</string>
 	<string name="ferry_crossing">Kivuko cha feri</string>
@@ -318,6 +321,10 @@
 	<string name="pref_tts_open_system_settings">Mipangilio ya usanisi wa hotuba ya mfumo</string>
 	<!-- toast displayed when pressing the "Speech synthesis system settings" button, and the system settings aren't found. -->
 	<string name="pref_tts_no_system_tts">Mipangilio ya Usanisi wa Matamshi haikupatikana, una uhakika kuwa kifaa chako kinaitumia?</string>
+	<!-- generic string showing "1 enabled" etc. use %d for the value. -->
+	<string name="n_enabled">%d imewezeshwa</string>
+	<!-- generic string meaning "there is none of this option". -->
+	<string name="none">Hakuna</string>
 
 	<!-- SECTION: Types -->
 	<string name="type.addr_interpolation">Anwani/Zuia</string>

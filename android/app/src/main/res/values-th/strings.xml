@@ -637,7 +637,10 @@
 	<string name="unable_to_calc_alert_title">ไม่สามารถคำนวณเส้นทาง</string>
 	<string name="unable_to_calc_alert_subtitle">ขออภัย เราไม่สามารถค้นหาเส้นทาง โดยสาเหตุอาจมาจากทางเลือกที่คุณกำหนดไว้ โปรดเปลี่ยนการตั้งค่าทางเลือกและลองใหม่อีกครั้ง</string>
 	<string name="define_to_avoid_btn">กำหนดถนนที่ต้องการเลี่ยง</string>
-	<string name="change_driving_options_btn">เปิดใช้การค้นหาเส้นทางขับขี่แล้ว</string>
+	<plurals name="change_driving_options_btn">
+	  <item quantity="one">เปิดใช้งานตัวเลือกการกำหนดเส้นทาง %d รายการ</item>
+	  <item quantity="other">เปิดใช้งานตัวเลือกการกำหนดเส้นทาง %d รายการ</item>
+	</plurals>
 	<string name="toll_road">ถนนแบบเสียค่าผ่านทาง</string>
 	<string name="unpaved_road">ถนนดิน</string>
 	<string name="ferry_crossing">เรือข้ามฟาก</string>
@@ -757,6 +760,10 @@
 	<string name="pref_tts_open_system_settings">การตั้งค่าการสังเคราะห์เสียงพูดของระบบ</string>
 	<!-- toast displayed when pressing the "Speech synthesis system settings" button, and the system settings aren't found. -->
 	<string name="pref_tts_no_system_tts">ไม่พบการตั้งค่าการสังเคราะห์เสียง คุณแน่ใจหรือไม่ว่าอุปกรณ์ของคุณรองรับ</string>
+	<!-- generic string showing "1 enabled" etc. use %d for the value. -->
+	<string name="n_enabled">เปิดใช้งานแล้ว %d รายการ</string>
+	<!-- generic string meaning "there is none of this option". -->
+	<string name="none">ไม่มี</string>
 
 	<!-- SECTION: Types -->
 	<string name="type.addr_interpolation">ที่อยู่/บล็อค</string>

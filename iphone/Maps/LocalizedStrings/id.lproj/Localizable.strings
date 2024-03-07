@@ -1074,7 +1074,7 @@
 
 "define_to_avoid_btn" = "Tentukan jalan yang dihindari";
 
-"change_driving_options_btn" = "Opsi perutean diaktifkan";
+"change_driving_options_btn_no_plural" = "Opsi perutean diaktifkan";
 
 "toll_road" = "Jalan tol";
 

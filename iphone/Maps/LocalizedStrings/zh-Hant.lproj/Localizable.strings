@@ -1074,7 +1074,7 @@
 
 "define_to_avoid_btn" = "設定繞行路徑";
 
-"change_driving_options_btn" = "繞行設定已開啟";
+"change_driving_options_btn_no_plural" = "繞行設定已開啟";
 
 "toll_road" = "收費公路";
 

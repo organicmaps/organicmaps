@@ -636,7 +636,10 @@
 	<string name="unable_to_calc_alert_title">Det går inte att bygga ruttenen</string>
 	<string name="unable_to_calc_alert_subtitle">Tyvärr kunde vi inte bygga en rutt med de valda alternativen. Ändra inställningar och försök igen</string>
 	<string name="define_to_avoid_btn">Anpassa omvägsbana</string>
-	<string name="change_driving_options_btn">Omvägsinställningar aktiverade</string>
+	<plurals name="change_driving_options_btn">
+	  <item quantity="one">%d routningsalternativ aktiverat</item>
+	  <item quantity="other">%d routningsalternativ aktiverade</item>
+	</plurals>
 	<string name="toll_road">Betalvägen</string>
 	<string name="unpaved_road">Kärrvägen</string>
 	<string name="ferry_crossing">Färjetrafik</string>
@@ -760,6 +763,10 @@
 	<string name="pref_tts_open_system_settings">Inställningar för talsyntes</string>
 	<!-- toast displayed when pressing the "Speech synthesis system settings" button, and the system settings aren't found. -->
 	<string name="pref_tts_no_system_tts">Inställningar för talsyntes hittades inte, är du säker på att din enhet stöder det?</string>
+	<!-- generic string showing "1 enabled" etc. use %d for the value. -->
+	<string name="n_enabled">%d aktiverad</string>
+	<!-- generic string meaning "there is none of this option". -->
+	<string name="none">Ingen</string>
 
 	<!-- SECTION: Types -->
 	<string name="type.addr_interpolation">Adress/Block</string>

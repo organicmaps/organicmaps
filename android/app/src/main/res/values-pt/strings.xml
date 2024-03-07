@@ -646,7 +646,10 @@
 	<string name="unable_to_calc_alert_title">Não foi possível calcular a rota</string>
 	<string name="unable_to_calc_alert_subtitle">Infelizmente não foi possível criar o percurso com as opções selecionadas. Altere as opções e tente novamente</string>
 	<string name="define_to_avoid_btn">Definir as estradas a evitar</string>
-	<string name="change_driving_options_btn">Configurações de direção ativadas</string>
+	<plurals name="change_driving_options_btn">
+	  <item quantity="one">%d opção de encaminhamento activada</item>
+	  <item quantity="other">%d opções de encaminhamento activadas</item>
+	</plurals>
 	<string name="toll_road">Estrada com portagem</string>
 	<string name="unpaved_road">Estrada não pavimentada</string>
 	<string name="ferry_crossing">Ferry</string>
@@ -773,6 +776,10 @@
 	<string name="pref_tts_open_system_settings">Definições do sistema de síntese de voz</string>
 	<!-- toast displayed when pressing the "Speech synthesis system settings" button, and the system settings aren't found. -->
 	<string name="pref_tts_no_system_tts">Não foram encontradas definições de síntese de voz. Tens a certeza de que o teu dispositivo é compatível?</string>
+	<!-- generic string showing "1 enabled" etc. use %d for the value. -->
+	<string name="n_enabled">%d habilitado</string>
+	<!-- generic string meaning "there is none of this option". -->
+	<string name="none">Não tens</string>
 
 	<!-- SECTION: Types -->
 	<string name="type.addr_interpolation">Endereço/Bloco</string>

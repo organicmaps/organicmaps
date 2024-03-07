@@ -1074,7 +1074,7 @@
 
 "define_to_avoid_btn" = "Definir as estradas a serem evitadas";
 
-"change_driving_options_btn" = "Opções de direção ativadas";
+"change_driving_options_btn_no_plural" = "Opções de direção ativadas";
 
 "toll_road" = "Pedágio";
 

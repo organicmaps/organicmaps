@@ -1074,7 +1074,7 @@
 
 "define_to_avoid_btn" = "Definovat silnice, kterým se vyhnout";
 
-"change_driving_options_btn" = "Možnosti trasy aktivní";
+"change_driving_options_btn_no_plural" = "Možnosti trasy aktivní";
 
 "toll_road" = "Silnice s mýtným";
 

@@ -1074,7 +1074,7 @@
 
 "define_to_avoid_btn" = "Definire le strade da evitare";
 
-"change_driving_options_btn" = "Opzioni di deviazione abilitate";
+"change_driving_options_btn_no_plural" = "Opzioni di deviazione abilitate";
 
 "toll_road" = "Strada a pedaggio";
 

@@ -635,7 +635,10 @@
 	<string name="unable_to_calc_alert_title">루트를 계산할 수 없습니다</string>
 	<string name="unable_to_calc_alert_subtitle">아쉽게도 귀하가 정의한 옵션으로는 루트를 찾을 수가 없습니다. 설정을 바꾸신다음 다시 시도해주세요</string>
 	<string name="define_to_avoid_btn">피할 도로 정의하기</string>
-	<string name="change_driving_options_btn">운전 옵션이 가능합니다</string>
+	<plurals name="change_driving_options_btn">
+	  <item quantity="one">라우팅 옵션 %d개 사용</item>
+	  <item quantity="other">%d가지 라우팅 옵션 활성화</item>
+	</plurals>
 	<string name="toll_road">유료 도로</string>
 	<string name="unpaved_road">비포장 도로</string>
 	<string name="ferry_crossing">여객선 횡단길</string>
@@ -759,6 +762,10 @@
 	<string name="pref_tts_open_system_settings">음성 합성 시스템 설정</string>
 	<!-- toast displayed when pressing the "Speech synthesis system settings" button, and the system settings aren't found. -->
 	<string name="pref_tts_no_system_tts">음성 합성 설정을 찾을 수 없었는데, 기기에서 이를 지원하는 것이 맞나요?</string>
+	<!-- generic string showing "1 enabled" etc. use %d for the value. -->
+	<string name="n_enabled">%d 활성화됨</string>
+	<!-- generic string meaning "there is none of this option". -->
+	<string name="none">없음</string>
 
 	<!-- SECTION: Types -->
 	<string name="type.addr_interpolation">주소/블록</string>

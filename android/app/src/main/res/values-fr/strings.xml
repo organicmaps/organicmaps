@@ -673,7 +673,10 @@
 	<string name="unable_to_calc_alert_title">Impossible de calculer l\'itinéraire</string>
 	<string name="unable_to_calc_alert_subtitle">Malheureusement, nous n\'avons pas pu créer l\'itinéraire avec les options sélectionnées. Modifiez les paramètres et réessayez</string>
 	<string name="define_to_avoid_btn">Définissez les routes à éviter</string>
-	<string name="change_driving_options_btn">Paramètres d\'itinéraire activés</string>
+	<plurals name="change_driving_options_btn">
+	  <item quantity="one">%d option de routage activée</item>
+	  <item quantity="other">%d options de routage activées</item>
+	</plurals>
 	<string name="toll_road">Route à péage</string>
 	<string name="unpaved_road">Routes non revêtues</string>
 	<string name="ferry_crossing">Traversées en ferry</string>
@@ -812,6 +815,10 @@
 	<string name="pref_tts_open_system_settings">Paramètres du système de synthèse vocale</string>
 	<!-- toast displayed when pressing the "Speech synthesis system settings" button, and the system settings aren't found. -->
 	<string name="pref_tts_no_system_tts">Les paramètres de la synthèse vocale n\'ont pas été trouvés, es-tu sûr que ton appareil la prend en charge ?</string>
+	<!-- generic string showing "1 enabled" etc. use %d for the value. -->
+	<string name="n_enabled">%d activé</string>
+	<!-- generic string meaning "there is none of this option". -->
+	<string name="none">Aucun</string>
 
 	<!-- SECTION: Types -->
 	<string name="type.addr_interpolation">Adresse/Bloc</string>

@@ -663,7 +663,10 @@
 	<string name="unable_to_calc_alert_title">לא ניתן לחשב מסלול</string>
 	<string name="unable_to_calc_alert_subtitle">לא נמצא מסלול. ייתכן כי זה נגרם מאפשרויות המסלול שלך או ממידע לא שלם של OpenStreetMap. נא לשנות אפשרויות מסלול ולנסות שנית.</string>
 	<string name="define_to_avoid_btn">הגדר כבישים להימנע מהם</string>
-	<string name="change_driving_options_btn">אפשרויות מסלול מופעלות</string>
+	<plurals name="change_driving_options_btn">
+	  <item quantity="one">%d אפשרות ניתוב אחת מופעלת</item>
+	  <item quantity="other">%d אפשרויות ניתוב מופעלות</item>
+	</plurals>
 	<string name="toll_road">כביש אגרה</string>
 	<string name="unpaved_road">דרך לא סלולה</string>
 	<string name="ferry_crossing">מעבורת</string>
@@ -798,6 +801,10 @@
 	<string name="pref_tts_open_system_settings">הגדרות סינתזת דיבור במערכת</string>
 	<!-- toast displayed when pressing the "Speech synthesis system settings" button, and the system settings aren't found. -->
 	<string name="pref_tts_no_system_tts">הגדרות סינתזת דיבור לא נמצאו, האם אתה בטוח שהמכשיר שלך תומך בזה?</string>
+	<!-- generic string showing "1 enabled" etc. use %d for the value. -->
+	<string name="n_enabled">%d מופעל</string>
+	<!-- generic string meaning "there is none of this option". -->
+	<string name="none">אף אחד</string>
 
 	<!-- SECTION: Types -->
 	<string name="type.addr_interpolation">כתובת/חסימה</string>

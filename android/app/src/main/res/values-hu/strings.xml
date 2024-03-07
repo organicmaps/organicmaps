@@ -650,7 +650,10 @@
 	<string name="unable_to_calc_alert_title">Nem lehet útvonalat számítani</string>
 	<string name="unable_to_calc_alert_subtitle">Sajnos nem találunk útvonalat, valószínűleg az általad meghatározott lehetőségek miatt. Kérjük változtass a beállításokon és próbáld újra</string>
 	<string name="define_to_avoid_btn">Elkerülendő utak meghatározása</string>
-	<string name="change_driving_options_btn">Útvonaltervezési lehetőségek bekapcsolva</string>
+	<plurals name="change_driving_options_btn">
+	  <item quantity="one">%d útválasztási opció engedélyezve</item>
+	  <item quantity="other">%d útválasztási lehetőség engedélyezve</item>
+	</plurals>
 	<string name="toll_road">Díjköteles utak</string>
 	<string name="unpaved_road">Burkolatlan utak</string>
 	<string name="ferry_crossing">Kompátkelők</string>
@@ -780,6 +783,10 @@
 	<string name="pref_tts_open_system_settings">Beszédszintetizáló rendszer beállításai</string>
 	<!-- toast displayed when pressing the "Speech synthesis system settings" button, and the system settings aren't found. -->
 	<string name="pref_tts_no_system_tts">A beszédszintézis beállításait nem találtuk, biztos, hogy a készülék támogatja?</string>
+	<!-- generic string showing "1 enabled" etc. use %d for the value. -->
+	<string name="n_enabled">%d engedélyezve</string>
+	<!-- generic string meaning "there is none of this option". -->
+	<string name="none">Nincs</string>
 
 	<!-- SECTION: Types -->
 	<string name="type.addr_interpolation">Cím/blokk</string>

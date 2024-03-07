@@ -1074,7 +1074,7 @@
 
 "define_to_avoid_btn" = "Configurar rutas de desvío";
 
-"change_driving_options_btn" = "Ajustes de desvío habilitados";
+"change_driving_options_btn_no_plural" = "Ajustes de desvío habilitados";
 
 "toll_road" = "Carretera de peaje";
 

@@ -1074,7 +1074,7 @@
 
 "define_to_avoid_btn" = "Määra välditavad teed";
 
-"change_driving_options_btn" = "Marsruutimise valikud lubatud";
+"change_driving_options_btn_no_plural" = "Marsruutimise valikud lubatud";
 
 "toll_road" = "Tasuline tee";
 

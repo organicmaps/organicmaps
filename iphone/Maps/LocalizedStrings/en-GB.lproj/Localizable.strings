@@ -1074,7 +1074,7 @@
 
 "define_to_avoid_btn" = "Define roads to avoid";
 
-"change_driving_options_btn" = "Routing options enabled";
+"change_driving_options_btn_no_plural" = "Routing options enabled";
 
 "toll_road" = "Toll road";
 

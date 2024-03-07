@@ -1074,7 +1074,7 @@
 
 "define_to_avoid_btn" = "Zehaztu saihestu beharreko bideak";
 
-"change_driving_options_btn" = "Bideratze aukerak gaituta";
+"change_driving_options_btn_no_plural" = "Bideratze aukerak gaituta";
 
 "toll_road" = "Ordainpeko errepidea";
 

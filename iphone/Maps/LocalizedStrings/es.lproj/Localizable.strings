@@ -1074,7 +1074,7 @@
 
 "define_to_avoid_btn" = "Defina las carreteras a evitar";
 
-"change_driving_options_btn" = "Opciones de enrutamiento habilitadas";
+"change_driving_options_btn_no_plural" = "Opciones de enrutamiento habilitadas";
 
 "toll_road" = "Carretera con pago de peaje";
 

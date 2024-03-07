@@ -1074,7 +1074,7 @@
 
 "define_to_avoid_btn" = "Stabilește drumurile de evitat";
 
-"change_driving_options_btn" = "Opțiuni de ocolire activate";
+"change_driving_options_btn_no_plural" = "Opțiuni de ocolire activate";
 
 "toll_road" = "Drum cu plată";
 

@@ -1074,7 +1074,7 @@
 
 "define_to_avoid_btn" = "Definir as estradas a evitar";
 
-"change_driving_options_btn" = "Configurações de direção ativadas";
+"change_driving_options_btn_no_plural" = "Configurações de direção ativadas";
 
 "toll_road" = "Estrada com portagem";
 

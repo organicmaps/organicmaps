@@ -1074,7 +1074,7 @@
 
 "define_to_avoid_btn" = "Определяне пътищата, които да се избягват";
 
-"change_driving_options_btn" = "Разрешени опции за маршрутизиране";
+"change_driving_options_btn_no_plural" = "Разрешени опции за маршрутизиране";
 
 "toll_road" = "Toll road";
 

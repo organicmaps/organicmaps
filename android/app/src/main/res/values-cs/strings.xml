@@ -643,7 +643,10 @@
 	<string name="unable_to_calc_alert_title">Nelze vypočítat trasu</string>
 	<string name="unable_to_calc_alert_subtitle">Bohužel jsme nemohli nalézt trasu pravděpodobně kvůli vámi definovaným možnostem. Změňte prosím nastavení a zkuste to znovu</string>
 	<string name="define_to_avoid_btn">Definovat silnice, kterým se vyhnout</string>
-	<string name="change_driving_options_btn">Možnosti trasy aktivní</string>
+	<plurals name="change_driving_options_btn">
+	  <item quantity="one">%d povolená možnost směrování</item>
+	  <item quantity="other">Povoleny %d možnosti směrování</item>
+	</plurals>
 	<string name="toll_road">Silnice s mýtným</string>
 	<string name="unpaved_road">Nezpevněná silnice</string>
 	<string name="ferry_crossing">Přejezd trajektů</string>
@@ -772,6 +775,10 @@
 	<string name="pref_tts_open_system_settings">Nastavení systému syntézy řeči</string>
 	<!-- toast displayed when pressing the "Speech synthesis system settings" button, and the system settings aren't found. -->
 	<string name="pref_tts_no_system_tts">Nastavení syntézy řeči nebylo nalezeno, jste si jisti, že jej vaše zařízení podporuje?</string>
+	<!-- generic string showing "1 enabled" etc. use %d for the value. -->
+	<string name="n_enabled">%d povoleno</string>
+	<!-- generic string meaning "there is none of this option". -->
+	<string name="none">Žádné</string>
 
 	<!-- SECTION: Types -->
 	<string name="type.addr_interpolation">Adresa/blok</string>

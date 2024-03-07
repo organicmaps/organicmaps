@@ -665,7 +665,10 @@
 	<string name="unable_to_calc_alert_title">Kan route niet opbouwen</string>
 	<string name="unable_to_calc_alert_subtitle">Helaas konden we geen route opbouwen met de gekozen opties. Wijzig de instellingen en probeer het opnieuw</string>
 	<string name="define_to_avoid_btn">Omwegen configureren</string>
-	<string name="change_driving_options_btn">Omweginstellingen ingeschakeld</string>
+	<plurals name="change_driving_options_btn">
+	  <item quantity="one">%d routeringsoptie ingeschakeld</item>
+	  <item quantity="other">%d routeringsopties ingeschakeld</item>
+	</plurals>
 	<string name="toll_road">Tolweg</string>
 	<string name="unpaved_road">Aardeweg</string>
 	<string name="ferry_crossing">Ferry</string>
@@ -804,6 +807,10 @@
 	<string name="pref_tts_open_system_settings">Instellingen spraaksynthesesysteem</string>
 	<!-- toast displayed when pressing the "Speech synthesis system settings" button, and the system settings aren't found. -->
 	<string name="pref_tts_no_system_tts">Instellingen voor spraaksynthese zijn niet gevonden, weet je zeker dat je apparaat dit ondersteunt?</string>
+	<!-- generic string showing "1 enabled" etc. use %d for the value. -->
+	<string name="n_enabled">%d ingeschakeld</string>
+	<!-- generic string meaning "there is none of this option". -->
+	<string name="none">Geen</string>
 
 	<!-- SECTION: Types -->
 	<string name="type.addr_interpolation">Adres/blok</string>

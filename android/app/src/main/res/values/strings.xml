@@ -697,7 +697,10 @@
 	<string name="unable_to_calc_alert_title">Unable to calculate route</string>
 	<string name="unable_to_calc_alert_subtitle">A route could not be found. This may be caused by your routing options or incomplete OpenStreetMap data. Please change your routing options and retry.</string>
 	<string name="define_to_avoid_btn">Define roads to avoid</string>
-	<string name="change_driving_options_btn">Routing options enabled</string>
+	<plurals name="change_driving_options_btn">
+	  <item quantity="one">%d routing option enabled</item>
+	  <item quantity="other">%d routing options enabled</item>
+	</plurals>
 	<string name="toll_road">Toll road</string>
 	<string name="unpaved_road">Unpaved road</string>
 	<string name="ferry_crossing">Ferry crossing</string>
@@ -842,6 +845,10 @@
 	<string name="pref_tts_open_system_settings">Speech synthesis system settings</string>
 	<!-- toast displayed when pressing the "Speech synthesis system settings" button, and the system settings aren't found. -->
 	<string name="pref_tts_no_system_tts">Speech Synthesis settings were not found, are you sure your device supports it?</string>
+	<!-- generic string showing "1 enabled" etc. use %d for the value. -->
+	<string name="n_enabled">%d enabled</string>
+	<!-- generic string meaning "there is none of this option". -->
+	<string name="none">None</string>
 
 	<!-- SECTION: Types -->
 	<string name="type.addr_interpolation">Address/Block</string>

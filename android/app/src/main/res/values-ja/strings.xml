@@ -670,7 +670,10 @@
 	<string name="unable_to_calc_alert_title">ルートを計算できません</string>
 	<string name="unable_to_calc_alert_subtitle">ルートが計算できませんでした。 これは、経路オプションまたは不完全な OpenStreetMap データが原因である可能性があります。 経路オプションを変更して再試行してください。</string>
 	<string name="define_to_avoid_btn">迂回ルートを設定する</string>
-	<string name="change_driving_options_btn">経路オプションは有効になっています</string>
+	<plurals name="change_driving_options_btn">
+	  <item quantity="one">%d ルーティングオプションが有効</item>
+	  <item quantity="other">%dつのルーティングオプションが有効</item>
+	</plurals>
 	<string name="toll_road">有料道路</string>
 	<string name="unpaved_road">未舗装道路</string>
 	<string name="ferry_crossing">フェリー</string>
@@ -807,6 +810,10 @@
 	<string name="pref_tts_open_system_settings">音声合成システムの設定</string>
 	<!-- toast displayed when pressing the "Speech synthesis system settings" button, and the system settings aren't found. -->
 	<string name="pref_tts_no_system_tts">音声合成の設定が見つからなかった。</string>
+	<!-- generic string showing "1 enabled" etc. use %d for the value. -->
+	<string name="n_enabled">%d回使用可能</string>
+	<!-- generic string meaning "there is none of this option". -->
+	<string name="none">なし</string>
 
 	<!-- SECTION: Types -->
 	<string name="type.addr_interpolation">アドレス/ブロック</string>

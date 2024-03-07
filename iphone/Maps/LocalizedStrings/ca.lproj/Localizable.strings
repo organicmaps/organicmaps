@@ -1074,7 +1074,7 @@
 
 "define_to_avoid_btn" = "Definiu les vies a evitar";
 
-"change_driving_options_btn" = "Paràmetres de ruta activats";
+"change_driving_options_btn_no_plural" = "Paràmetres de ruta activats";
 
 "toll_road" = "Via de peatge";
 

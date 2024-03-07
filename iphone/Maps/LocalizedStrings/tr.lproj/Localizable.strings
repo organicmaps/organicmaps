@@ -1074,7 +1074,7 @@
 
 "define_to_avoid_btn" = "Kaçınılması gereken yolları tanımlayın";
 
-"change_driving_options_btn" = "Sürüş seçenekleri etkinleştirildi";
+"change_driving_options_btn_no_plural" = "Sürüş seçenekleri etkinleştirildi";
 
 "toll_road" = "Paralı yol";
 

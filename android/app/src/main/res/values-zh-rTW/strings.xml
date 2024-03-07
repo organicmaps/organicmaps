@@ -653,7 +653,10 @@
 	<string name="unable_to_calc_alert_title">無法規劃路線</string>
 	<string name="unable_to_calc_alert_subtitle">很遺憾，我們無法使用所選選項規劃路線。請更改設定，然後重試</string>
 	<string name="define_to_avoid_btn">設定繞行路徑</string>
-	<string name="change_driving_options_btn">繞行設定已開啟</string>
+	<plurals name="change_driving_options_btn">
+	  <item quantity="one">啟用 %d 個路由選項</item>
+	  <item quantity="other">啟用 %d 個路由選項</item>
+	</plurals>
 	<string name="toll_road">收費公路</string>
 	<string name="unpaved_road">土路</string>
 	<string name="ferry_crossing">渡輪</string>
@@ -780,6 +783,10 @@
 	<string name="pref_tts_open_system_settings">系統語音合成設定</string>
 	<!-- toast displayed when pressing the "Speech synthesis system settings" button, and the system settings aren't found. -->
 	<string name="pref_tts_no_system_tts">未找到語音合成設置，您確定您的設備支援它嗎？</string>
+	<!-- generic string showing "1 enabled" etc. use %d for the value. -->
+	<string name="n_enabled">%d 已啟用</string>
+	<!-- generic string meaning "there is none of this option". -->
+	<string name="none">沒有任何</string>
 
 	<!-- SECTION: Types -->
 	<string name="type.addr_interpolation">地址/區塊</string>

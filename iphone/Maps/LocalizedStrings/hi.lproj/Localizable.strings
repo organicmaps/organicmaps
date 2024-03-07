@@ -1074,7 +1074,7 @@
 
 "define_to_avoid_btn" = "बचने के लिए सड़कों को परिभाषित करें";
 
-"change_driving_options_btn" = "Routing options enabled";
+"change_driving_options_btn_no_plural" = "Routing options enabled";
 
 "toll_road" = "Toll road";
 

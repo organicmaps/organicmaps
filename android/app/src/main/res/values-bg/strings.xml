@@ -626,7 +626,10 @@
 	<string name="unable_to_calc_alert_title">Не е възможнос изчисляване на маршрут</string>
 	<string name="unable_to_calc_alert_subtitle">За съжаление не успяхме да намерим маршрут, вероятно поради избраните от вас параметри. Моля, променете настройките и опитайте отново.</string>
 	<string name="define_to_avoid_btn">Определяне пътищата, които да се избягват</string>
-	<string name="change_driving_options_btn">Разрешени опции за маршрутизиране</string>
+	<plurals name="change_driving_options_btn">
+	  <item quantity="one">%d активирана опция за маршрутизиране</item>
+	  <item quantity="other">Разрешени са %d опции за маршрутизиране</item>
+	</plurals>
 	<!-- A generic "Yes" button in dialogs -->
 	<string name="yes">Да</string>
 	<!-- A generic "No" button in dialogs -->
@@ -727,6 +730,10 @@
 	<string name="pref_tts_open_system_settings">Настройки на системата за синтез на реч</string>
 	<!-- toast displayed when pressing the "Speech synthesis system settings" button, and the system settings aren't found. -->
 	<string name="pref_tts_no_system_tts">Настройките за синтез на речта не бяха открити, сигурни ли сте, че устройството ви ги поддържа?</string>
+	<!-- generic string showing "1 enabled" etc. use %d for the value. -->
+	<string name="n_enabled">%d разрешен</string>
+	<!-- generic string meaning "there is none of this option". -->
+	<string name="none">Няма</string>
 
 	<!-- SECTION: Types -->
 	<string name="type.addr_interpolation">Адрес/Блок</string>

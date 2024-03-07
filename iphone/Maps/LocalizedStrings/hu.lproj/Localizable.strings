@@ -1074,7 +1074,7 @@
 
 "define_to_avoid_btn" = "Elkerülendő utak meghatározása";
 
-"change_driving_options_btn" = "Útvonaltervezési lehetőségek bekapcsolva";
+"change_driving_options_btn_no_plural" = "Útvonaltervezési lehetőségek bekapcsolva";
 
 "toll_road" = "Díjköteles utak";
 

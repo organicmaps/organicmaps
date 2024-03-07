@@ -423,6 +423,10 @@
 	<string name="avoid_ferry">नौकाओं से बचें</string>
 	<string name="avoid_motorways">फ़्रीवेज़ से बचें</string>
 	<string name="define_to_avoid_btn">बचने के लिए सड़कों को परिभाषित करें</string>
+	<plurals name="change_driving_options_btn">
+	  <item quantity="one">%d रूटिंग विकल्प सक्षम</item>
+	  <item quantity="other">%d रूटिंग विकल्प सक्षम</item>
+	</plurals>
 	<!-- A generic "Yes" button in dialogs -->
 	<string name="yes">हॉं</string>
 	<!-- A generic "No" button in dialogs -->
@@ -497,6 +501,10 @@
 	<string name="pref_tts_open_system_settings">सिस्टम वाक् संश्लेषण सेटिंग्स</string>
 	<!-- toast displayed when pressing the "Speech synthesis system settings" button, and the system settings aren't found. -->
 	<string name="pref_tts_no_system_tts">स्पीच सिंथेसिस सेटिंग्स नहीं मिलीं, क्या आप सुनिश्चित हैं कि आपका डिवाइस इसका समर्थन करता है?</string>
+	<!-- generic string showing "1 enabled" etc. use %d for the value. -->
+	<string name="n_enabled">%d सक्षम</string>
+	<!-- generic string meaning "there is none of this option". -->
+	<string name="none">कोई नहीं</string>
 
 	<!-- SECTION: Types -->
 	<string name="type.aerialway.cable_car">आकाशीय रज्जुमार्ग</string>

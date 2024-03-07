@@ -1074,7 +1074,7 @@
 
 "define_to_avoid_btn" = "Qarşısını almaq üçün yolları müəyyənləşdirin";
 
-"change_driving_options_btn" = "Sürmə seçimləri aktiv edildi";
+"change_driving_options_btn_no_plural" = "Sürmə seçimləri aktiv edildi";
 
 "toll_road" = "Ücrətli yol";
 

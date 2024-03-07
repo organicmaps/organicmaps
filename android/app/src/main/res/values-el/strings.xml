@@ -625,7 +625,10 @@
 	<string name="unable_to_calc_alert_title">Δεν είναι δυνατή η δημιουργία διαδρομής</string>
 	<string name="unable_to_calc_alert_subtitle">Δυστυχώς, δεν μπορούσαμε να δημιουργήσουμε μια διαδρομή με τις καθορισμένες επιλογές. Αλλάξτε τις ρυθμίσεις και δοκιμάστε πάλι</string>
 	<string name="define_to_avoid_btn">Ρύθμιση της διαδρομής παράκαμψης</string>
-	<string name="change_driving_options_btn">Ρυθμίσεις δραστηριοποιούνται</string>
+	<plurals name="change_driving_options_btn">
+	  <item quantity="one">%d επιλογή δρομολόγησης ενεργοποιημένη</item>
+	  <item quantity="other">%d επιλογές δρομολόγησης ενεργοποιημένες</item>
+	</plurals>
 	<string name="toll_road">Δρόμος με διόδια</string>
 	<string name="unpaved_road">Χωματόδρομος</string>
 	<string name="ferry_crossing">Πορθμείο</string>
@@ -749,6 +752,10 @@
 	<string name="pref_tts_open_system_settings">Ρυθμίσεις συστήματος σύνθεσης ομιλίας</string>
 	<!-- toast displayed when pressing the "Speech synthesis system settings" button, and the system settings aren't found. -->
 	<string name="pref_tts_no_system_tts">Δεν βρέθηκαν οι ρυθμίσεις σύνθεσης ομιλίας, είστε σίγουροι ότι η συσκευή σας την υποστηρίζει;</string>
+	<!-- generic string showing "1 enabled" etc. use %d for the value. -->
+	<string name="n_enabled">%d ενεργοποιημένο</string>
+	<!-- generic string meaning "there is none of this option". -->
+	<string name="none">Κανένα</string>
 
 	<!-- SECTION: Types -->
 	<string name="type.addr_interpolation">Διεύθυνση/Μπλοκ</string>

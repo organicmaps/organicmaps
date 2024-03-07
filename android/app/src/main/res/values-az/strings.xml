@@ -668,7 +668,10 @@
 	<string name="unable_to_calc_alert_title">Marşrutu hesablamaq mümkün deyil</string>
 	<string name="unable_to_calc_alert_subtitle">Təəssüf ki, seçdiyiniz seçimlərə görə marşrut tapa bilmədik. Seçimləri dəyişdirin və yenidən cəhd edin</string>
 	<string name="define_to_avoid_btn">Qarşısını almaq üçün yolları müəyyənləşdirin</string>
-	<string name="change_driving_options_btn">Sürmə seçimləri aktiv edildi</string>
+	<plurals name="change_driving_options_btn">
+	  <item quantity="one">%d marşrutlaşdırma seçimi aktiv edildi</item>
+	  <item quantity="other">%d marşrut seçimi aktiv edildi</item>
+	</plurals>
 	<string name="toll_road">Ücrətli yol</string>
 	<string name="unpaved_road">Asfaltsız yol</string>
 	<string name="ferry_crossing">Bərə keçidi</string>
@@ -785,6 +788,10 @@
 	<string name="pref_tts_open_system_settings">Sistem nitq sintezi parametrləri</string>
 	<!-- toast displayed when pressing the "Speech synthesis system settings" button, and the system settings aren't found. -->
 	<string name="pref_tts_no_system_tts">Nitq sintezi parametrləri tapılmadı, cihazınızın bunu dəstəklədiyinə əminsiniz?</string>
+	<!-- generic string showing "1 enabled" etc. use %d for the value. -->
+	<string name="n_enabled">%d aktivdir</string>
+	<!-- generic string meaning "there is none of this option". -->
+	<string name="none">Heç biri</string>
 
 	<!-- SECTION: Types -->
 	<string name="type.addr_interpolation">Ünvan/Blok</string>

@@ -1074,7 +1074,7 @@
 
 "define_to_avoid_btn" = "टाळण्याचे मार्ग निवडा";
 
-"change_driving_options_btn" = "मार्गशोधी पर्याय चालू केले";
+"change_driving_options_btn_no_plural" = "मार्गशोधी पर्याय चालू केले";
 
 "toll_road" = "टोल मार्ग";
 

@@ -638,7 +638,10 @@
 	<string name="unable_to_calc_alert_title">मार्गाची गणना करण्यात अक्षम</string>
 	<string name="unable_to_calc_alert_subtitle">दुर्दैवाने, आम्ही मार्ग शोधू शकलो नाही. ह्याचे कारण कदाचित तुम्ही निवडलेले पर्याय असावे. कृपया सेटिंग बदला आणि पुन्हा प्रयत्न करा.</string>
 	<string name="define_to_avoid_btn">टाळण्याचे मार्ग निवडा</string>
-	<string name="change_driving_options_btn">मार्गशोधी पर्याय चालू केले</string>
+	<plurals name="change_driving_options_btn">
+	  <item quantity="one">%d राउटिंग पर्याय सक्षम</item>
+	  <item quantity="other">%d राउटिंग पर्याय सक्षम केले</item>
+	</plurals>
 	<string name="toll_road">टोल मार्ग</string>
 	<string name="unpaved_road">कच्चे मार्ग</string>
 	<string name="ferry_crossing">जल मार्ग</string>
@@ -771,6 +774,10 @@
 	<string name="pref_tts_open_system_settings">सिस्टम स्पीच सिंथेसिस सेटिंग्ज</string>
 	<!-- toast displayed when pressing the "Speech synthesis system settings" button, and the system settings aren't found. -->
 	<string name="pref_tts_no_system_tts">स्पीच सिंथेसिस सेटिंग्ज आढळल्या नाहीत, तुमची खात्री आहे की तुमचे डिव्हाइस त्यास समर्थन देते?</string>
+	<!-- generic string showing "1 enabled" etc. use %d for the value. -->
+	<string name="n_enabled">%d सक्षम</string>
+	<!-- generic string meaning "there is none of this option". -->
+	<string name="none">काहीही नाही</string>
 
 	<!-- SECTION: Types -->
 	<string name="type.addr_interpolation">पत्ता/ब्लॉक</string>

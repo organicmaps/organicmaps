@@ -665,7 +665,10 @@
 	<string name="unable_to_calc_alert_title">No s\'ha pogut calcular la ruta</string>
 	<string name="unable_to_calc_alert_subtitle">Malauradament, no hem pogut trobar cap ruta. Probablement per les opcions que heu triat. Canvieu-les i torneu a intentar-ho.</string>
 	<string name="define_to_avoid_btn">Definiu les vies a evitar</string>
-	<string name="change_driving_options_btn">Paràmetres de ruta activats</string>
+	<plurals name="change_driving_options_btn">
+	  <item quantity="one">%d opció d\'encaminament activada</item>
+	  <item quantity="other">%d opcions d\'encaminament habilitades</item>
+	</plurals>
 	<string name="toll_road">Via de peatge</string>
 	<string name="unpaved_road">Via sense pavimentar</string>
 	<string name="ferry_crossing">Ferris</string>
@@ -802,6 +805,10 @@
 	<string name="pref_tts_open_system_settings">Configuració de la síntesi de veu del sistema</string>
 	<!-- toast displayed when pressing the "Speech synthesis system settings" button, and the system settings aren't found. -->
 	<string name="pref_tts_no_system_tts">No s\'ha trobat la configuració de la síntesi de veu, esteu segur que el vostre dispositiu l\'admet?</string>
+	<!-- generic string showing "1 enabled" etc. use %d for the value. -->
+	<string name="n_enabled">%d habilitat</string>
+	<!-- generic string meaning "there is none of this option". -->
+	<string name="none">Cap</string>
 
 	<!-- SECTION: Types -->
 	<string name="type.addr_interpolation">Adreça/Bloc</string>

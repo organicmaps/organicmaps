@@ -1074,7 +1074,7 @@
 
 "define_to_avoid_btn" = "迂回ルートを設定する";
 
-"change_driving_options_btn" = "経路オプションは有効になっています";
+"change_driving_options_btn_no_plural" = "経路オプションは有効になっています";
 
 "toll_road" = "有料道路";
 

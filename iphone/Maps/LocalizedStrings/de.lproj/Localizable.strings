@@ -1074,7 +1074,7 @@
 
 "define_to_avoid_btn" = "Umwege einstellen";
 
-"change_driving_options_btn" = "Routenbeschränkungen aktiv";
+"change_driving_options_btn_no_plural" = "Routenbeschränkungen aktiv";
 
 "toll_road" = "Mautstraße";
 

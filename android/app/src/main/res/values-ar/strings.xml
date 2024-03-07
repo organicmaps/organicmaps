@@ -681,7 +681,10 @@
 	<string name="unable_to_calc_alert_title">لا يمكن حساب الطريق</string>
 	<string name="unable_to_calc_alert_subtitle">نأسف، لم نعثر على الطريق ربما بسبب الخيارات التي قمت بتحديدها. يرجى تغيير الإعدادات والمحاولة مجددًا</string>
 	<string name="define_to_avoid_btn">حدد الطرق التي يجب تجنبها</string>
-	<string name="change_driving_options_btn">تم تفعيل خيارات رسم الطريق</string>
+	<plurals name="change_driving_options_btn">
+	  <item quantity="one">%d تم تمكين خيار توجيه واحد</item>
+	  <item quantity="other">%d تم تمكين خيارين للتوجيه</item>
+	</plurals>
 	<string name="toll_road">طريق برسوم مرور</string>
 	<string name="unpaved_road">طريق غير معبد</string>
 	<string name="ferry_crossing">استخدام عبّارة</string>
@@ -816,6 +819,10 @@
 	<string name="pref_tts_open_system_settings">إعدادات تركيب الكلام النظام</string>
 	<!-- toast displayed when pressing the "Speech synthesis system settings" button, and the system settings aren't found. -->
 	<string name="pref_tts_no_system_tts">لم يتم العثور على إعدادات تركيب الكلام، هل أنت متأكد من أن جهازك يدعمها؟</string>
+	<!-- generic string showing "1 enabled" etc. use %d for the value. -->
+	<string name="n_enabled">%d ممكّن</string>
+	<!-- generic string meaning "there is none of this option". -->
+	<string name="none">لا أحد</string>
 
 	<!-- SECTION: Types -->
 	<string name="type.addr_interpolation">العنوان / البلوك</string>

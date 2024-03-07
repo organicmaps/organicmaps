@@ -633,7 +633,10 @@
 	<string name="unable_to_calc_alert_title">Incapaz de calcular rota</string>
 	<string name="unable_to_calc_alert_subtitle">Infelizmente, não conseguimos encontrar uma rota, provavelmente por causa das opções escolhidas. Por favor, altere as configurações e tente novamente</string>
 	<string name="define_to_avoid_btn">Definir as estradas a serem evitadas</string>
-	<string name="change_driving_options_btn">Opções de direção ativadas</string>
+	<plurals name="change_driving_options_btn">
+	  <item quantity="one">%d opção de roteamento ativada</item>
+	  <item quantity="other">%d opções de roteamento ativadas</item>
+	</plurals>
 	<string name="toll_road">Pedágio</string>
 	<string name="unpaved_road">Pista não pavimentada</string>
 	<string name="ferry_crossing">Balsa</string>
@@ -765,6 +768,8 @@
 	<string name="pref_tts_open_system_settings">Configurações do sistema de síntese de fala</string>
 	<!-- toast displayed when pressing the "Speech synthesis system settings" button, and the system settings aren't found. -->
 	<string name="pref_tts_no_system_tts">As configurações do Speech Synthesis não foram encontradas. Você tem certeza de que seu dispositivo é compatível?</string>
+	<!-- generic string meaning "there is none of this option". -->
+	<string name="none">Nenhum</string>
 
 	<!-- SECTION: Types -->
 	<string name="type.addr_interpolation">Endereço/Bloco</string>

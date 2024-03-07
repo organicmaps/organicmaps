@@ -1074,7 +1074,7 @@
 
 "define_to_avoid_btn" = "حدد الطرق التي يجب تجنبها";
 
-"change_driving_options_btn" = "تم تفعيل خيارات رسم الطريق";
+"change_driving_options_btn_no_plural" = "تم تفعيل خيارات رسم الطريق";
 
 "toll_road" = "طريق برسوم مرور";
 

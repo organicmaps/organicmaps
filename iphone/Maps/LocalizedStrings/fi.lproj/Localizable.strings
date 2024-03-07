@@ -1074,7 +1074,7 @@
 
 "define_to_avoid_btn" = "Määritä vältettävät tiet";
 
-"change_driving_options_btn" = "Reititysvalinnat ovat päällä";
+"change_driving_options_btn_no_plural" = "Reititysvalinnat ovat päällä";
 
 "toll_road" = "Maksullinen tie";
 
