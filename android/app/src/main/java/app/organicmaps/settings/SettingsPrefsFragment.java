@@ -74,7 +74,12 @@ public class SettingsPrefsFragment extends BaseXmlSettingsFragment
   private void updateRoutingSettingsPrefsSummary()
   {
     final Preference pref = getPreference(getString(R.string.prefs_routing));
-    pref.setSummary(RoutingOptions.hasAnyOptions() ? R.string.on : R.string.off);
+    int count = RoutingOptions.getEnabledOptionsCount();
+
+    if(count > 0)
+      pref.setSummary(String.format(getString(R.string.n_enabled), count));
+    else
+      pref.setSummary(getString(R.string.none));
   }
 
   @Override

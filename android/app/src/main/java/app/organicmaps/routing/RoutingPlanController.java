@@ -306,11 +306,16 @@ public class RoutingPlanController extends ToolbarController
   {
     mDrivingOptionsBtnContainer.addOnLayoutChangeListener(mDriverOptionsLayoutListener);
     UiUtils.show(mDrivingOptionsBtnContainer);
-    boolean hasAnyOptions = RoutingOptions.hasAnyOptions() && !isRulerType();
-    UiUtils.showIf(hasAnyOptions, mDrivingOptionsImage);
-    TextView title = mDrivingOptionsBtnContainer.findViewById(R.id.driving_options_btn_title);
-    title.setText(hasAnyOptions ? R.string.change_driving_options_btn
-                                : R.string.define_to_avoid_btn);
+    int getEnabledOptionsCount = RoutingOptions.getEnabledOptionsCount();
+    boolean hasAnyOptions = getEnabledOptionsCount > 0;
+
+    if (hasAnyOptions && !isRulerType())
+    {
+      UiUtils.show(mDrivingOptionsImage);
+      TextView title = mDrivingOptionsBtnContainer.findViewById(R.id.driving_options_btn_title);
+      String titleText = requireActivity().getResources().getQuantityString(R.plurals.change_driving_options_btn, getEnabledOptionsCount);
+      title.setText(String.format(titleText, getEnabledOptionsCount));
+    }
   }
 
   public void hideDrivingOptionsView()

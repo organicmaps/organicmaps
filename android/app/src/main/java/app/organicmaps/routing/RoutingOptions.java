@@ -38,6 +38,17 @@ public class RoutingOptions
     return false;
   }
 
+  public static int getEnabledOptionsCount()
+  {
+    int count = 0;
+    for (RoadType each : RoadType.values())
+    {
+      if (hasOption(each))
+        count += 1;
+    }
+    return count;
+  }
+
   @NonNull
   public static Set<RoadType> getActiveRoadTypes()
   {
