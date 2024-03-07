@@ -88,7 +88,7 @@ final class BMCViewController: MWMViewController {
     }
   }
 
-  private func shareAllCategories() {
+  private func shareAllCategories(anchor: UIView?) {
     viewModel.shareAllCategories {
       switch $0 {
       case let .success(url):
@@ -96,7 +96,7 @@ final class BMCViewController: MWMViewController {
         { [weak self] _, _, _, _ in
           self?.viewModel?.finishShareCategory()
         }
-        shareController?.present(inParentViewController: self, anchorView: nil)
+        shareController?.present(inParentViewController: self, anchorView: anchor)
       case let .error(title, text):
         MWMAlertViewController.activeAlert().presentInfoAlert(title, text: text)
       }
@@ -269,7 +269,7 @@ extension BMCViewController: UITableViewDelegate {
     case .actions:
       switch viewModel.action(at: indexPath.row) {
       case .create: createNewCategory()
-      case .exportAll: shareAllCategories()
+      case .exportAll: shareAllCategories(anchor: tableView.cellForRow(at: indexPath))
       }
     default:
       assertionFailure()
