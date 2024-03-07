@@ -24158,8 +24158,53 @@
     zh-Hans = 设置绕行路径
     zh-Hant = 設定繞行路徑
 
+  [change_driving_options_btn_no_plural]
+    tags = ios
+    en = Routing options enabled
+    af = Ompadinstellings is geaktiveer
+    ar = تم تفعيل خيارات رسم الطريق
+    az = Sürmə seçimləri aktiv edildi
+    be = Налады пракладкі маршрута ўключаны
+    bg = Разрешени опции за маршрутизиране
+    ca = Paràmetres de ruta activats
+    cs = Možnosti trasy aktivní
+    da = Køre muligheder aktiveret
+    de = Routenbeschränkungen aktiv
+    el = Ρυθμίσεις δραστηριοποιούνται
+    es = Opciones de enrutamiento habilitadas
+    es-MX = Ajustes de desvío habilitados
+    et = Marsruutimise valikud lubatud
+    eu = Bideratze aukerak gaituta
+    fa = گزینه‌های مسیریابی فعال شد
+    fi = Reititysvalinnat ovat päällä
+    fr = Paramètres d'itinéraire activés
+    he = אפשרויות מסלול מופעלות
+    hu = Útvonaltervezési lehetőségek bekapcsolva
+    id = Opsi perutean diaktifkan
+    it = Opzioni di deviazione abilitate
+    ja = 経路オプションは有効になっています
+    ko = 운전 옵션이 가능합니다
+    lt = Maršruto pasirinkimo parinktys įjungtos
+    mr = मार्गशोधी पर्याय चालू केले
+    nb = Kjørealternativer aktivert
+    nl = Omweginstellingen ingeschakeld
+    pl = Ustawienia objazdu są włączone
+    pt = Configurações de direção ativadas
+    pt-BR = Opções de direção ativadas
+    ro = Opțiuni de ocolire activate
+    ru = Настройки объезда включены
+    sk = Možnosti trasy povolené
+    sv = Omvägsinställningar aktiverade
+    sw = Machaguo ya njia yamewezeshwa
+    th = เปิดใช้การค้นหาเส้นทางขับขี่แล้ว
+    tr = Sürüş seçenekleri etkinleştirildi
+    uk = Увімкнено налаштування об’їзду
+    vi = Thiết lập đường đi tránh đã được bật
+    zh-Hans = 绕行设置已开启
+    zh-Hant = 繞行設定已開啟
+
   [change_driving_options_btn]
-    tags = android,ios
+    tags = android
     en:one = %d routing option enabled
     en:other = %d routing options enabled
     af:one = %d roete-opsie geaktiveer

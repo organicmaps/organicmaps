@@ -186,7 +186,7 @@ static CGFloat const kDrivingOptionsHeight = 48;
   } else if (state == MWMDrivingOptionsStateChange) {
     [self.drivingOptionsButton setImage:[UIImage imageNamed:@"ic_options_warning"]
                                forState:UIControlStateNormal];
-    [self.drivingOptionsButton setTitle:L(@"change_driving_options_btn").uppercaseString
+    [self.drivingOptionsButton setTitle:L(@"change_driving_options_btn_no_plural").uppercaseString
                                forState:UIControlStateNormal];
   }
 }
