@@ -3,8 +3,6 @@
 #include "drape_frontend/visual_params.hpp"
 
 #include "drape/bidi.hpp"
-#include "drape/glsl_func.hpp"
-#include "drape/overlay_handle.hpp"
 
 #include <algorithm>
 #include <iterator>
@@ -161,7 +159,7 @@ void SplitText(strings::UniString & visText, buffer_vector<size_t, 2> & delimInd
     // split string on 2 parts
     if (iNext != visText.end())
     {
-      ASSERT_NOT_EQUAL(iNext, visText.begin(), ());
+      ASSERT(iNext != visText.begin(), ());
       TIter delimSymbol = iNext;
       TIter secondPart = iNext + 1;
 

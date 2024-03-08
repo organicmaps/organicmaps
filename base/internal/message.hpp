@@ -29,6 +29,14 @@ inline std::string DebugPrint(char const * t);
 inline std::string DebugPrint(char * t) { return DebugPrint(static_cast<char const *>(t)); }
 inline std::string DebugPrint(char t);
 
+/// @name We are going step-by-step to C++20. Use UTF8 string literals instead.
+/// @{
+std::string DebugPrint(char16_t const * t) = delete;
+std::string DebugPrint(char16_t * t) = delete;
+std::string DebugPrint(char32_t const * t) = delete;
+std::string DebugPrint(char32_t * t) = delete;
+/// @}
+
 template <typename U, typename V> inline std::string DebugPrint(std::pair<U, V> const & p);
 template <typename T> inline std::string DebugPrint(std::list<T> const & v);
 template <typename T> inline std::string DebugPrint(std::vector<T> const & v);
@@ -137,7 +145,8 @@ std::string inline DebugPrint(std::nullopt_t const & p)
 // Avoid calling it for string literals.
 template <typename T, size_t N,
          typename = std::enable_if_t<!std::is_same<typename std::remove_cv<T>::type, char>::value &&
-                                     !std::is_same<typename std::remove_cv<T>::type, char16_t>::value>>
+                                     !std::is_same<typename std::remove_cv<T>::type, char16_t>::value &&
+                                     !std::is_same<typename std::remove_cv<T>::type, char32_t>::value>>
 inline std::string DebugPrint(T (&arr) [N])
 {
   return DebugPrintSequence(arr, arr + N);
