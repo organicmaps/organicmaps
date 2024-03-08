@@ -2,6 +2,7 @@ buildscript {
   repositories {
     google()
     mavenCentral()
+    maven { url 'https://developer.huawei.com/repo/' }
   }
   //
   // The magic below is needed to disable Google Firebase Services during the build time.
@@ -11,6 +12,7 @@ buildscript {
   // Detect flavors from the task name.
   def taskName = getGradle().getStartParameter().getTaskRequests().toString().toLowerCase()
   def isFdroid = taskName.contains('fdroid')
+  def isHuawei = taskName.contains('huawei')
   def isBeta = taskName.contains('beta')
 
   // Firebase Crashlytics compile-time feature flag: -Pfirebase=true|false
@@ -20,6 +22,8 @@ buildscript {
   ext.googleFirebaseServicesEnabled = googleFirebaseServicesFlag != null ?
       googleFirebaseServicesFlag == '' || googleFirebaseServicesFlag.toBoolean() :
       googleFirebaseServicesDefault
+
+  ext.huaweiAppGalleryConnectEnabled = isHuawei
 
   dependencies {
     classpath 'com.android.tools.build:gradle:8.2.1'
@@ -33,6 +37,18 @@ buildscript {
       println('Building without Google Firebase Services')
     }
 
+    if (huaweiAppGalleryConnectEnabled) {
+      println('Building with Huawei AppGallery Connect SDK')
+      classpath 'com.huawei.agconnect:agcp:1.9.1.301'
+    } else {
+      println('Building without Huawei AppGallery Connect SDK')
+    }
+
+    // Add the Android Gradle plugin configuration, where {version} needs to be replaced with the actual Gradle plugin version, for example, 7.3.1.
+    classpath 'com.android.tools.build:gradle:{version}'
+    // Add the AppGallery Connect plugin configuration. Please refer to AppGallery Connect Plugin Dependency to select a proper plugin version.
+    classpath 'com.huawei.agconnect:agcp:1.9.1.301'
+
     classpath('com.github.triplet.gradle:play-publisher:3.8.6')
     classpath('ru.cian:huawei-publish-gradle-plugin:1.4.0')
   }
@@ -42,6 +58,7 @@ repositories {
   google()
   mavenCentral()
   maven { url 'https://www.jitpack.io' } // MPAndroidChart
+  maven { url 'https://developer.huawei.com/repo/' }
 }
 
 apply plugin: 'com.android.application'
@@ -51,6 +68,7 @@ if (googleFirebaseServicesEnabled) {
   apply plugin: 'com.google.firebase.crashlytics'
   apply plugin: 'com.google.firebase.appdistribution'
 }
+
 apply plugin: 'com.github.triplet.play'
 apply plugin: 'ru.cian.huawei-publish-gradle-plugin'
 
@@ -368,6 +386,7 @@ dependencies {
   webImplementation 'com.google.android.gms:play-services-location:21.1.0'
   googleImplementation 'com.google.android.gms:play-services-location:21.1.0'
   huaweiImplementation 'com.google.android.gms:play-services-location:21.1.0'
+  huaweiImplementation 'com.huawei.agconnect:agconnect-crash-native:1.9.1.301'
 
   // Google Firebase Services
   if (googleFirebaseServicesEnabled) {
@@ -453,6 +472,16 @@ play {
   defaultToAppBundles.set(true)
   releaseStatus.set(ReleaseStatus.IN_PROGRESS)
   serviceAccountCredentials.set(file('google-play.json'))
+}
+
+if (huaweiAppGalleryConnectEnabled) {
+  apply plugin: 'com.huawei.agconnect'
+  /*
+  agcp{
+    mappingUpload = true
+    debug = false
+  }
+   */
 }
 
 huaweiPublish {
