@@ -22,7 +22,7 @@ buildscript {
       googleFirebaseServicesDefault
 
   dependencies {
-    classpath 'com.android.tools.build:gradle:8.2.1'
+    classpath 'com.android.tools.build:gradle:8.3.0'
 
     if (googleFirebaseServicesEnabled) {
       println('Building with Google Firebase Services')
@@ -365,14 +365,14 @@ dependencies {
   // ls -la src/$flavor/java/app/organicmaps/location/GoogleFusedLocationProvider.java
   // ```
   //
-  webImplementation 'com.google.android.gms:play-services-location:21.1.0'
-  googleImplementation 'com.google.android.gms:play-services-location:21.1.0'
-  huaweiImplementation 'com.google.android.gms:play-services-location:21.1.0'
+  webImplementation 'com.google.android.gms:play-services-location:21.2.0'
+  googleImplementation 'com.google.android.gms:play-services-location:21.2.0'
+  huaweiImplementation 'com.google.android.gms:play-services-location:21.2.0'
 
   // Google Firebase Services
   if (googleFirebaseServicesEnabled) {
     // Import the BoM for the Firebase platform
-    implementation platform('com.google.firebase:firebase-bom:32.7.1')
+    implementation platform('com.google.firebase:firebase-bom:32.7.4')
     // Add the dependencies for the Crashlytics and Analytics libraries
     // When using the BoM, you don't specify versions in Firebase library dependencies
     implementation 'com.google.firebase:firebase-crashlytics'
@@ -402,9 +402,11 @@ dependencies {
   implementation 'net.jcip:jcip-annotations:1.0'
 
   // Test Dependencies
-  testImplementation 'junit:junit:4.13.2'
-  testImplementation 'org.mockito:mockito-core:5.8.0'
-  testImplementation 'org.mockito:mockito-inline:5.2.0'
+  androidTestImplementation 'androidx.test:core:1.5.0'
+  androidTestImplementation 'androidx.test.ext:junit:1.1.5'
+  androidTestImplementation 'junit:junit:4.13.2'
+  androidTestImplementation 'org.mockito:mockito-core:5.8.0'
+  androidTestImplementation 'org.mockito:mockito-inline:5.2.0'
 }
 
 tasks.withType(JavaCompile) {
