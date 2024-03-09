@@ -687,7 +687,7 @@
 
 "select_cuisine" = "Mətbəx seçin";
 
-/* login text field */
+/* OSM login text field hint */
 "email_or_username" = "E-poçt və ya istifadəçi adı";
 
 "phone" = "Telefon";

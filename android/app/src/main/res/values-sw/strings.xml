@@ -89,6 +89,8 @@
 
 	<!-- SECTION: Strings for downloading map from search -->
 	<string name="login_osm">Ingia kwa OpenStreetMap</string>
+	<!-- OSM Login text field hint, used only for Google Play -->
+	<string name="username">Jina la mtumiaji</string>
 	<string name="level">Ghorofa</string>
 	<!-- Text in About and OSM Login screens. First %@ is replaced by a local, human readable date. -->
 	<string name="osm_presentation">Data ya OpenStreetMap iliyoundwa na jumuiya kufikia %s. Pata maelezo zaidi kuhusu jinsi ya kuhariri na kusasisha ramani katika OpenStreetMap.org</string>

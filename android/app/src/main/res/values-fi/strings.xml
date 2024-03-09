@@ -464,7 +464,9 @@
 	<string name="postal_code">Postinumero</string>
 	<string name="cuisine">Ruokalaji</string>
 	<string name="select_cuisine">Valitse ruokalaji</string>
-	<!-- login text field -->
+	<!-- OSM Login text field hint, used only for Google Play -->
+	<string name="username">Käyttäjätunnus</string>
+	<!-- OSM login text field hint -->
 	<string name="email_or_username">Sähköposti tai käyttäjätunnus</string>
 	<string name="editor_add_phone">Lisää puhelinnumero</string>
 	<string name="level">Kerros</string>
@@ -800,8 +802,6 @@
 	<string name="button_layer_outdoor">Vaellus</string>
 	<!-- Text displayed when a webview or a browser are disabled, and external links can't be opened. -->
 	<string name="browser_not_available">Verkkoselain ei ole käytettävissä</string>
-	<!-- Text displayed in a dialog when OSM authorization is disabled -->
-	<string name="osm_login_not_available">OpenStreetMap-valtuutus ei ole tilapäisesti käytettävissä Google Playn uusien rajoitusten vuoksi 😾\nTiimimme työskentelee tämän ongelman ratkaisemiseksi. Ole kärsivällinen 🙏</string>
 	<string name="volume">Äänenvoimakkuus</string>
 	<!-- Bookmark categories screen, button that opens share dialog to export all bookmarks and tracks -->
 	<string name="bookmarks_export">Vie kaikki kirjanmerkit ja kappaleet</string>

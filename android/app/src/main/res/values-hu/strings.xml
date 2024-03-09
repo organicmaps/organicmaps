@@ -451,7 +451,9 @@
 	<string name="postal_code">Irányítószám</string>
 	<string name="cuisine">Konyha</string>
 	<string name="select_cuisine">Válassz Konyhát</string>
-	<!-- login text field -->
+	<!-- OSM Login text field hint, used only for Google Play -->
+	<string name="username">Felhasználónév</string>
+	<!-- OSM login text field hint -->
 	<string name="email_or_username">Email vagy felhasználónév</string>
 	<string name="level">Szint</string>
 	<string name="downloader_delete_map_dialog">A térképekkel együtt minden rajtuk végzett módosítás is törlésre kerül.</string>
@@ -771,8 +773,6 @@
 	<string name="button_layer_outdoor">Túrázás</string>
 	<!-- Text displayed when a webview or a browser are disabled, and external links can't be opened. -->
 	<string name="browser_not_available">A webböngésző nem elérhető</string>
-	<!-- Text displayed in a dialog when OSM authorization is disabled -->
-	<string name="osm_login_not_available">Az OpenStreetMap-es hitelesítés átmenetileg nem elérhető a Google Play új korlátozásai miatt 😾\nCsapatunk dolgozik a probléma megoldásán. Kérjük, legyen türelemmel 🙏</string>
 	<string name="volume">Hangerő</string>
 	<!-- Bookmark categories screen, button that opens share dialog to export all bookmarks and tracks -->
 	<string name="bookmarks_export">Az összes könyvjelző és sáv exportálása</string>

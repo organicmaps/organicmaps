@@ -687,7 +687,7 @@
 
 "select_cuisine" = "Vali köök";
 
-/* login text field */
+/* OSM login text field hint */
 "email_or_username" = "E-post või kasutajanimi";
 
 "phone" = "Telefon";

@@ -447,7 +447,9 @@
 	<string name="postal_code">邮政编码</string>
 	<string name="cuisine">菜肴</string>
 	<string name="select_cuisine">选择菜肴</string>
-	<!-- login text field -->
+	<!-- OSM Login text field hint, used only for Google Play -->
+	<string name="username">用户名</string>
+	<!-- OSM login text field hint -->
 	<string name="email_or_username">邮箱或用户名</string>
 	<string name="editor_add_phone">新增电话号码</string>
 	<string name="level">楼层</string>
@@ -764,8 +766,6 @@
 	<string name="button_layer_outdoor">徒步旅行</string>
 	<!-- Text displayed when a webview or a browser are disabled, and external links can't be opened. -->
 	<string name="browser_not_available">网络浏览器不可用</string>
-	<!-- Text displayed in a dialog when OSM authorization is disabled -->
-	<string name="osm_login_not_available">由于 Google Play 的新限制，OpenStreetMap 授权暂时不可用 😾n我们的团队正在努力解决这个问题。请耐心等待 🙏</string>
 	<string name="volume">音量</string>
 	<!-- Bookmark categories screen, button that opens share dialog to export all bookmarks and tracks -->
 	<string name="bookmarks_export">导出所有书签和曲目</string>

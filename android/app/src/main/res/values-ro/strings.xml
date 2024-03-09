@@ -448,7 +448,9 @@
 	<string name="postal_code">Cod poștal</string>
 	<string name="cuisine">Bucătărie</string>
 	<string name="select_cuisine">Alege bucătăria</string>
-	<!-- login text field -->
+	<!-- OSM Login text field hint, used only for Google Play -->
+	<string name="username">Nume utilizator</string>
+	<!-- OSM login text field hint -->
 	<string name="email_or_username">E-mail sau nume de utilizator</string>
 	<string name="editor_add_phone">Adaugă un număr</string>
 	<string name="level">Etaj</string>
@@ -778,8 +780,6 @@
 	<string name="button_layer_outdoor">Drumeție</string>
 	<!-- Text displayed when a webview or a browser are disabled, and external links can't be opened. -->
 	<string name="browser_not_available">Browserul web nu este disponibil</string>
-	<!-- Text displayed in a dialog when OSM authorization is disabled -->
-	<string name="osm_login_not_available">Autorizarea OpenStreetMap este temporar indisponibilă din cauza noilor restricții din Google Play 😾\nEchipa noastră lucrează pentru a rezolva această problemă. Vă rugăm să aveți răbdare 🙏</string>
 	<string name="volume">Volum</string>
 	<!-- Bookmark categories screen, button that opens share dialog to export all bookmarks and tracks -->
 	<string name="bookmarks_export">Exportați toate marcajele și piesele</string>
