@@ -29905,7 +29905,7 @@
     fr = Maison d'hôtes
     hu = Vendégház
     id = Wisma tamu
-    it = Casa degli Ospiti
+    it = Guest house
     ja = ゲストハウス
     ko = 게스트하우스
     mr = अतिथीगृह
