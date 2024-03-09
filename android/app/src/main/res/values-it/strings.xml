@@ -444,7 +444,9 @@
 	<string name="postal_code">Codice postale</string>
 	<string name="cuisine">Cucina</string>
 	<string name="select_cuisine">Seleziona la cucina</string>
-	<!-- login text field -->
+	<!-- OSM Login text field hint, used only for Google Play -->
+	<string name="username">Nome utente</string>
+	<!-- OSM login text field hint -->
 	<string name="email_or_username">E-mail o nome utente</string>
 	<string name="editor_add_phone">Aggiungi numero</string>
 	<string name="level">Piano</string>
@@ -777,8 +779,6 @@
 	<string name="button_layer_outdoor">Escursioni</string>
 	<!-- Text displayed when a webview or a browser are disabled, and external links can't be opened. -->
 	<string name="browser_not_available">Il browser web non è disponibile</string>
-	<!-- Text displayed in a dialog when OSM authorization is disabled -->
-	<string name="osm_login_not_available">L\'autorizzazione di OpenStreetMap è temporaneamente non disponibile a causa delle nuove restrizioni di Google Play 😾\nIl nostro team sta lavorando per risolvere questoproblema. Ti preghiamo di essere paziente 🙏</string>
 	<string name="volume">Volume</string>
 	<!-- Bookmark categories screen, button that opens share dialog to export all bookmarks and tracks -->
 	<string name="bookmarks_export">Esporta tutti i segnalibri e le tracce</string>

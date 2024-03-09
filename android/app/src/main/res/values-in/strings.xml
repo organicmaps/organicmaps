@@ -435,7 +435,9 @@
 	<string name="postal_code">Kode Pos</string>
 	<string name="cuisine">Masakan</string>
 	<string name="select_cuisine">Pilih Masakan</string>
-	<!-- login text field -->
+	<!-- OSM Login text field hint, used only for Google Play -->
+	<string name="username">Nama pengguna</string>
+	<!-- OSM login text field hint -->
 	<string name="email_or_username">Surel atau nama pengguna</string>
 	<string name="level">Tingkat</string>
 	<string name="downloader_delete_map_dialog">Semua perubahan peta akan dihapus bersama dengan peta.</string>
@@ -749,8 +751,6 @@
 	<string name="button_layer_outdoor">Pendakian</string>
 	<!-- Text displayed when a webview or a browser are disabled, and external links can't be opened. -->
 	<string name="browser_not_available">Browser web tidak tersedia</string>
-	<!-- Text displayed in a dialog when OSM authorization is disabled -->
-	<string name="osm_login_not_available">Otorisasi OpenStreetMap untuk sementara tidak tersedia karena adanya pembatasan baru di Google Play 😾\nTim kami sedang bekerja untuk menyelesaikan masalah ini. Mohon bersabar 🙏</string>
 	<string name="volume">Volume</string>
 	<!-- Bookmark categories screen, button that opens share dialog to export all bookmarks and tracks -->
 	<string name="bookmarks_export">Mengekspor semua Penanda dan Trek</string>

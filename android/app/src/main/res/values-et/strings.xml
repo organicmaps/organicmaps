@@ -450,7 +450,9 @@
 	<string name="postal_code">Postiindeks</string>
 	<string name="cuisine">Köök</string>
 	<string name="select_cuisine">Vali köök</string>
-	<!-- login text field -->
+	<!-- OSM Login text field hint, used only for Google Play -->
+	<string name="username">Kasutajanimi</string>
+	<!-- OSM login text field hint -->
 	<string name="email_or_username">E-post või kasutajanimi</string>
 	<string name="editor_add_phone">Lisa telefon</string>
 	<string name="level">Korrus</string>
@@ -785,8 +787,6 @@
 	<string name="button_layer_outdoor">Matkamine</string>
 	<!-- Text displayed when a webview or a browser are disabled, and external links can't be opened. -->
 	<string name="browser_not_available">Veebibrauser ei ole saadaval</string>
-	<!-- Text displayed in a dialog when OSM authorization is disabled -->
-	<string name="osm_login_not_available">OpenStreetMapi autoriseerimine on ajutiselt kättesaamatu Google Play uute piirangute tõttu 😾\nMeie meeskond töötab selle probleemi lahendamise kallal. Palun olge kannatlik 🙏</string>
 	<string name="volume">Helitugevus</string>
 	<!-- Bookmark categories screen, button that opens share dialog to export all bookmarks and tracks -->
 	<string name="bookmarks_export">Ekspordi kõik järjehoidjad ja lood</string>

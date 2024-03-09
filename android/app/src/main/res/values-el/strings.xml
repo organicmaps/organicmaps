@@ -436,7 +436,9 @@
 	<string name="choose_street">Επιλέξτε μια οδό</string>
 	<string name="cuisine">Κουζίνα</string>
 	<string name="select_cuisine">Επιλέξτε κουζίνα</string>
-	<!-- login text field -->
+	<!-- OSM Login text field hint, used only for Google Play -->
+	<string name="username">Όνομα χρήστη</string>
+	<!-- OSM login text field hint -->
 	<string name="email_or_username">Email ή όνομα χρήστη</string>
 	<string name="level">Όροφος</string>
 	<string name="downloader_delete_map_dialog">Όλες οι αλλαγές που έχετε κάνει στο χάρτη θα διαγραφούν μαζί με το χάρτη.</string>
@@ -736,8 +738,6 @@
 	<string name="button_layer_outdoor">Πεζοπορία</string>
 	<!-- Text displayed when a webview or a browser are disabled, and external links can't be opened. -->
 	<string name="browser_not_available">Το πρόγραμμα περιήγησης στο Web δεν είναι διαθέσιμο</string>
-	<!-- Text displayed in a dialog when OSM authorization is disabled -->
-	<string name="osm_login_not_available">Η εξουσιοδότηση του OpenStreetMap δεν είναι προσωρινά διαθέσιμη λόγω νέων περιορισμών στο Google Play 😾\nΗ ομάδα μας εργάζεται για την επίλυση αυτού του προβλήματος. Παρακαλούμε να είστε υπομονετικοί 🙏</string>
 	<string name="volume">Ένταση ήχου</string>
 	<!-- Bookmark categories screen, button that opens share dialog to export all bookmarks and tracks -->
 	<string name="bookmarks_export">Εξαγωγή όλων των σελιδοδεικτών και των διαδρομών</string>

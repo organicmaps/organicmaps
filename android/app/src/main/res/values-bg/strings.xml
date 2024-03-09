@@ -425,7 +425,9 @@
 	<string name="postal_code">Пощенски код</string>
 	<string name="cuisine">Кухня</string>
 	<string name="select_cuisine">Избор на кухня</string>
-	<!-- login text field -->
+	<!-- OSM Login text field hint, used only for Google Play -->
+	<string name="username">Потребителско име</string>
+	<!-- OSM login text field hint -->
 	<string name="email_or_username">Имейл или потребителско име</string>
 	<string name="level">Етаж</string>
 	<string name="downloader_delete_map_dialog">Всички ваши редакции на картата ще бъдат изтрити заедно с нея.</string>
@@ -714,8 +716,6 @@
 	<string name="button_layer_outdoor">Активен отдих</string>
 	<!-- Text displayed when a webview or a browser are disabled, and external links can't be opened. -->
 	<string name="browser_not_available">Уеб браузърът не е наличен</string>
-	<!-- Text displayed in a dialog when OSM authorization is disabled -->
-	<string name="osm_login_not_available">Оторизацията на OpenStreetMap е временно недостъпна поради нови ограничения в Google Play 😾\nНашият екип работи по разрешаването на този проблем. Моля, бъдете търпеливи 🙏</string>
 	<string name="volume">Сила на звука</string>
 	<!-- Bookmark categories screen, button that opens share dialog to export all bookmarks and tracks -->
 	<string name="bookmarks_export">Експортиране на всички отметки и следи</string>

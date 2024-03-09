@@ -431,7 +431,9 @@
 	<string name="postal_code">PSČ</string>
 	<string name="cuisine">Kuchyňa</string>
 	<string name="select_cuisine">Vyberte si kuchyňu</string>
-	<!-- login text field -->
+	<!-- OSM Login text field hint, used only for Google Play -->
+	<string name="username">Používateľské meno</string>
+	<!-- OSM login text field hint -->
 	<string name="email_or_username">Email alebo používateľské meno</string>
 	<string name="level">Podlaha</string>
 	<string name="downloader_delete_map_dialog">Všetky zmeny týkajúce sa mapy budú vymazané spolu s mapou.</string>
@@ -744,8 +746,6 @@
 	<string name="button_layer_outdoor">Turistika</string>
 	<!-- Text displayed when a webview or a browser are disabled, and external links can't be opened. -->
 	<string name="browser_not_available">Webový prehliadač nie je k dispozícii</string>
-	<!-- Text displayed in a dialog when OSM authorization is disabled -->
-	<string name="osm_login_not_available">Autorizácia OpenStreetMap je dočasne nedostupná kvôli novým obmedzeniam v Google Play 😾\nNáš tím pracuje na vyriešení tohto problému. Buďte prosím trpezliví 🙏</string>
 	<string name="volume">Hlasitosť</string>
 	<!-- Bookmark categories screen, button that opens share dialog to export all bookmarks and tracks -->
 	<string name="bookmarks_export">Export všetkých záložiek a stôp</string>
