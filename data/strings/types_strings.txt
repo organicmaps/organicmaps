@@ -12242,7 +12242,7 @@
   [type.highway.footway.alpine_hiking]
     ref = type.highway.path
     de = Alpinwanderweg
-    es = Senderismo alpino
+    es = Camino de senderismo alpino
     et = Alpi matkarada
     nl = Alpine wandelpad
     pl = Ścieżka wspinaczkowa
@@ -12603,7 +12603,7 @@
   [type.highway.path.alpine_hiking]
     ref = type.highway.path
     de = Alpinwanderweg
-    es = Senderismo alpino
+    es = Camino de senderismo alpino
     et = Alpi matkarada
     fi = Alppivaellus
     nl = Alpine wandelpad
@@ -12634,7 +12634,7 @@
   [type.highway.path.demanding_alpine_hiking]
     ref = type.highway.path
     de = Anspruchsvoller Alpinwanderweg
-    es = Senderismo alpino exigente
+    es = Camino de senderismo alpino exigente
     et = Nõudlik alpi matkarada
     fi = Vaativa alppivaellus
     pt-BR = Caminho pedonal difícil
@@ -12642,7 +12642,7 @@
   [type.highway.path.demanding_mountain_hiking]
     ref = type.highway.path
     de = Anspruchsvoller Bergwanderweg
-    es = Senderismo de montaña exigente
+    es = Camino de senderismo de montaña exigente
     et = Nõudlik mägimatkarada
     fi = Vaativa vuoristovaellus
     pt-BR = Caminho pedonal difícil
@@ -13546,7 +13546,7 @@
     da = Gade
     de = Schnellstraße
     el = Οδός
-    es = Vía rápida
+    es = Vía troncal
     et = Magistraaltee
     eu = Kalea
     fa = جاده
@@ -13587,7 +13587,7 @@
     ref = type.highway.trunk
     en = Trunk Road Ramp
     af = Hoofpadoprit
-    es = Enlace de vía rápida
+    es = Enlace de vía troncal
     fi = Päätien ramppi
     mr = राष्ट्रीय महामार्ग उतार
     pt-BR = Saída de rodovia
@@ -17421,7 +17421,7 @@
     af = Kunsmatige konstruksie
     az = İnsan istehsalı
     de = künstliche Anlage
-    es = Construcción artificial
+    es = Construcción
     et = Inimese loodud
     it = Stabilimento balneare
     ja = 構造物
@@ -31578,7 +31578,7 @@
     da = Vandresti i sne
     de = Schneewanderweg
     el = Μονοπάτι πεζοπορίας χιονιού
-    es = Senderismo en la nieve
+    es = Ruta de senderismo en la nieve
     es-MX = Ruta de senderismo en la nieve
     et = Lumi matkarada
     eu = Elurretako Mendi Ibilbidea
