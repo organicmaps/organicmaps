@@ -29307,40 +29307,6 @@
     zh-Hans = 网络浏览器不可用
     zh-Hant = 網路瀏覽器不可用
 
-  [osm_login_not_available]
-    comment = Text displayed in a dialog when OSM authorization is disabled
-    tags = android
-    en = OpenStreetMap authorization is temporary unavailable due to new restrictions in Google Play 😾\nOur team is working to resolve this issue. Please be patient 🙏
-    en-GB = OpenStreetMap authorization is temporary unavailable due to new restrictions in Google Play 😾\nOur team is working to resolve this issue. Please be patient 🙏
-    bg = Оторизацията на OpenStreetMap е временно недостъпна поради нови ограничения в Google Play 😾\nНашият екип работи по разрешаването на този проблем. Моля, бъдете търпеливи 🙏
-    cs = Autorizace OpenStreetMap je dočasně nedostupná kvůli novým omezením v Google Play 😾\nNáš tým pracuje na vyřešení tohoto problému. Buďte prosím trpěliví 🙏
-    da = OpenStreetMap-godkendelse er midlertidigt utilgængelig på grund af nye begrænsninger i Google Play 😾\nVores team arbejder på at løse dette problem. Vær venligst tålmo$ig 🙏
-    de = Die OpenStreetMap-Autorisierung ist aufgrund neuer Einschränkungen in Google Play vorübergehend nicht verfügbar 😾\nUnser Team arbeitet daran, dieses Problem zu beheben. Bitte habe etwas Geduld 🙏
-    el = Η εξουσιοδότηση του OpenStreetMap δεν είναι προσωρινά διαθέσιμη λόγω νέων περιορισμών στο Google Play 😾\nΗ ομάδα μας εργάζεται για την επίλυση αυτού του προβλήματος. Παρακαλούμε να είστε υπομονετικοί 🙏
-    es = La autorización de OpenStreetMap no está disponible temporalmente debido a nuevas restricciones en Google Play 😾🙏nNuestro equipo está trabajando para resolver este problema. Por favor, ten paciencia 🙏
-    et = OpenStreetMapi autoriseerimine on ajutiselt kättesaamatu Google Play uute piirangute tõttu 😾\nMeie meeskond töötab selle probleemi lahendamise kallal. Palun olge kannatlik 🙏
-    fi = OpenStreetMap-valtuutus ei ole tilapäisesti käytettävissä Google Playn uusien rajoitusten vuoksi 😾\nTiimimme työskentelee tämän ongelman ratkaisemiseksi. Ole kärsivällinen 🙏
-    fr = L'authentification à OpenStreetMap est temporairement indisponible en raison de nouvelles restrictions de Google Play 😾\nNotre équipe travaille à la résolution de ce problème. Merci de faire preuve de patience 🙏
-    he = התחברות ל-OpenStreetMap לא אפשרית באופן זמני עקב הגבלות חדשות ב-Google Play 😾\nהצוות שלנו עובד על מנת לפתור את הבעיה. אנא התאזרו בסבלנות 🙏
-    hu = Az OpenStreetMap-es hitelesítés átmenetileg nem elérhető a Google Play új korlátozásai miatt 😾\nCsapatunk dolgozik a probléma megoldásán. Kérjük, legyen türelemmel 🙏
-    id = Otorisasi OpenStreetMap untuk sementara tidak tersedia karena adanya pembatasan baru di Google Play 😾\nTim kami sedang bekerja untuk menyelesaikan masalah ini. Mohon bersabar 🙏
-    it = L'autorizzazione di OpenStreetMap è temporaneamente non disponibile a causa delle nuove restrizioni di Google Play 😾\nIl nostro team sta lavorando per risolvere questoproblema. Ti preghiamo di essere paziente 🙏
-    ja = GooglePlayの新しい制限のため、OpenStreetMapの認証が一時的に利用できない。しばらくお待ちください🙏。
-    ko = 구글플레이의 새로운 제한 사항으로 인해 일시적으로 오픈스트리트맵 인증을 사용할 수 없습니다 😾\n팀에서 이 문제를 해결하기 위해 노력하고 있습니다. 잠시만 기다려주세요 🙏
-    lt = "OpenStreetMap" autorizacija laikinai neprieinama dėl naujų "Google Play" apribojimų 😾\nMūsų komanda dirba, kad išspręstų šią problemą. Prašome būti kantriais 🙏
-    nb = OpenStreetMap-autorisasjon er midlertidig utilgjengelig på grunn av nye restriksjoner i Google Play 😾\nVårt team jobber med å løse dette problemet. Vennligst vær tålmodig 🙏
-    nl = OpenStreetMap-autorisatie is tijdelijk niet beschikbaar vanwege nieuwe beperkingen in Google Play 😾 Ons team werkt eraan om dit probleem op te lossen. Even geduld 🙏
-    pl = Autoryzacja OpenStreetMap jest tymczasowo niedostępna z powodu nowych ograniczeń w Google Play 😾\nNasz zespół pracuje nad rozwiązaniem tego problemu. Prosimy o cierpliwość 🙏
-    pt = A autorização do OpenStreetMap está temporariamente indisponível devido a novas restrições no Google Play 😾\nA nossa equipa está a trabalhar para resolver este problema. Por favor, sê paciente 🙏
-    pt-BR = A autorização do OpenStreetMap está temporariamente indisponível devido a novas restrições no Google Play 😾\nNossa equipe está trabalhando para resolver esse problema. Por favor, seja paciente 🙏
-    ro = Autorizarea OpenStreetMap este temporar indisponibilă din cauza noilor restricții din Google Play 😾\nEchipa noastră lucrează pentru a rezolva această problemă. Vă rugăm să aveți răbdare 🙏
-    ru = Авторизация OpenStreetMap временно недоступна из-за новых ограничений в Google Play 😾\nНаша команда работает над решением этой проблемы. Пожалуйста, будьте терпеливы 🙏
-    sk = Autorizácia OpenStreetMap je dočasne nedostupná kvôli novým obmedzeniam v Google Play 😾\nNáš tím pracuje na vyriešení tohto problému. Buďte prosím trpezliví 🙏
-    sv = OpenStreetMap-auktorisering är tillfälligt otillgänglig på grund av nya begränsningar i Google Play 😾\nVårt team arbetar med att lösa detta problem. Vänligen ha tålamod 🙏
-    tr = Google Play'deki yeni kısıtlamalar nedeniyle OpenStreetMap yetkilendirmesi geçici olarak kullanılamıyor 😾\nEkibimiz bu sorunu çözmek için çalışıyor. Lütfen sabırlı olun 🙏
-    uk = Авторизація на OpenStreetMap тимчасово недоступна через нові обмеження в Google Play 😾\nНаша команда працює над вирішенням цієї проблеми. Будь ласка, наберіться терпіння 🙏
-    zh-Hans = 由于 Google Play 的新限制，OpenStreetMap 授权暂时不可用 😾n我们的团队正在努力解决这个问题。请耐心等待 🙏
-
   [volume]
     tags = android
     en = Volume
