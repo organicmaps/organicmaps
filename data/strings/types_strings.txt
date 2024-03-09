@@ -10029,8 +10029,7 @@
     da = Mexicansk
     de = Mexikanisch
     el = Μεξικάνικη
-    es = Cocina mejicana
-    es-MX = Cocina mexicana
+    es = Cocina mexicana
     et = Mehhiko
     eu = Mexikoko sukaldea
     fi = Meksikolainen keittiö
