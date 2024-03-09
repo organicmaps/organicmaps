@@ -687,7 +687,7 @@
 
 "select_cuisine" = "Pilih Masakan";
 
-/* login text field */
+/* OSM login text field hint */
 "email_or_username" = "Surel atau nama pengguna";
 
 "phone" = "Telepon";

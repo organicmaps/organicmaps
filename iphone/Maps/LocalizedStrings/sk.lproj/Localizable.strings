@@ -687,7 +687,7 @@
 
 "select_cuisine" = "Vyberte si kuchyňu";
 
-/* login text field */
+/* OSM login text field hint */
 "email_or_username" = "Email alebo používateľské meno";
 
 "phone" = "Telefón";

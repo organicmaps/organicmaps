@@ -460,7 +460,9 @@
 	<string name="postal_code">Posta kodea</string>
 	<string name="cuisine">Sukaldea</string>
 	<string name="select_cuisine">Aukeratu sukaldea</string>
-	<!-- login text field -->
+	<!-- OSM Login text field hint, used only for Google Play -->
+	<string name="username">Erabiltzaile izena</string>
+	<!-- OSM login text field hint -->
 	<string name="email_or_username">Posta elektronikoa edo erabiltzailea</string>
 	<string name="editor_add_phone">Gehitu telefonoa</string>
 	<string name="level">Solairua</string>

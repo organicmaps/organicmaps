@@ -462,7 +462,9 @@
 	<string name="postal_code">Posta kodu</string>
 	<string name="cuisine">Mutfak</string>
 	<string name="select_cuisine">Mutfak Seç</string>
-	<!-- login text field -->
+	<!-- OSM Login text field hint, used only for Google Play -->
+	<string name="username">Kullanıcı Adı</string>
+	<!-- OSM login text field hint -->
 	<string name="email_or_username">E-posta veya kullanıcı adı</string>
 	<string name="editor_add_phone">Telefon Ekle</string>
 	<string name="level">Zemin</string>
@@ -802,8 +804,6 @@
 	<string name="button_layer_outdoor">Yürüyüş</string>
 	<!-- Text displayed when a webview or a browser are disabled, and external links can't be opened. -->
 	<string name="browser_not_available">Web tarayıcısı mevcut değil</string>
-	<!-- Text displayed in a dialog when OSM authorization is disabled -->
-	<string name="osm_login_not_available">Google Play\'deki yeni kısıtlamalar nedeniyle OpenStreetMap yetkilendirmesi geçici olarak kullanılamıyor 😾\nEkibimiz bu sorunu çözmek için çalışıyor. Lütfen sabırlı olun 🙏</string>
 	<string name="volume">Ses</string>
 	<!-- Bookmark categories screen, button that opens share dialog to export all bookmarks and tracks -->
 	<string name="bookmarks_export">Tüm Yer İmlerini ve Parçaları Dışa Aktar</string>

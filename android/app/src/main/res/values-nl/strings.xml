@@ -458,7 +458,9 @@
 	<string name="postal_code">Postcode</string>
 	<string name="cuisine">Keuken</string>
 	<string name="select_cuisine">Selecteer Keuken</string>
-	<!-- login text field -->
+	<!-- OSM Login text field hint, used only for Google Play -->
+	<string name="username">Gebruikersnaam</string>
+	<!-- OSM login text field hint -->
 	<string name="email_or_username">Emailadres of gebruikersnaam</string>
 	<string name="editor_add_phone">Telefoonnummer toevoegen</string>
 	<string name="level">Etage</string>
@@ -795,8 +797,6 @@
 	<string name="button_layer_outdoor">Wandelen</string>
 	<!-- Text displayed when a webview or a browser are disabled, and external links can't be opened. -->
 	<string name="browser_not_available">Webbrowser is niet beschikbaar</string>
-	<!-- Text displayed in a dialog when OSM authorization is disabled -->
-	<string name="osm_login_not_available">OpenStreetMap-autorisatie is tijdelijk niet beschikbaar vanwege nieuwe beperkingen in Google Play 😾 Ons team werkt eraan om dit probleem op te lossen. Even geduld 🙏</string>
 	<string name="volume">Volume</string>
 	<!-- Bookmark categories screen, button that opens share dialog to export all bookmarks and tracks -->
 	<string name="bookmarks_export">Alle bladwijzers en tracks exporteren</string>

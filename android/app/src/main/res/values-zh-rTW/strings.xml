@@ -450,7 +450,9 @@
 	<string name="postal_code">郵遞區號</string>
 	<string name="cuisine">料理</string>
 	<string name="select_cuisine">選擇料理</string>
-	<!-- login text field -->
+	<!-- OSM Login text field hint, used only for Google Play -->
+	<string name="username">使用者名稱</string>
+	<!-- OSM login text field hint -->
 	<string name="email_or_username">電子郵件或使用者名稱</string>
 	<string name="editor_add_phone">新增電話號碼</string>
 	<string name="level">樓層</string>

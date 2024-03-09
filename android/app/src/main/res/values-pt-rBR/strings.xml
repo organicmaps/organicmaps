@@ -438,7 +438,9 @@
 	<string name="postal_code">CEP</string>
 	<string name="cuisine">Culinária</string>
 	<string name="select_cuisine">Selecione a culinária</string>
-	<!-- login text field -->
+	<!-- OSM Login text field hint, used only for Google Play -->
+	<string name="username">Nome de usuário</string>
+	<!-- OSM login text field hint -->
 	<string name="email_or_username">Email ou nome de usuário</string>
 	<string name="downloader_delete_map_dialog">Todas as edições no mapa serão excluídas juntamente com o mapa.</string>
 	<string name="downloader_update_maps">Atualizar mapas</string>
@@ -757,8 +759,6 @@
 	<string name="aa_connected_to_car_notification_title">Conectado ao carro</string>
 	<!-- Text displayed when a webview or a browser are disabled, and external links can't be opened. -->
 	<string name="browser_not_available">O navegador da Web não está disponível</string>
-	<!-- Text displayed in a dialog when OSM authorization is disabled -->
-	<string name="osm_login_not_available">A autorização do OpenStreetMap está temporariamente indisponível devido a novas restrições no Google Play 😾\nNossa equipe está trabalhando para resolver esse problema. Por favor, seja paciente 🙏</string>
 	<!-- Bookmark categories screen, button that opens share dialog to export all bookmarks and tracks -->
 	<string name="bookmarks_export">Exportar todos os favoritos e trilhas</string>
 	<!-- button in (app) TTS settings, to open the system TTS settings. -->

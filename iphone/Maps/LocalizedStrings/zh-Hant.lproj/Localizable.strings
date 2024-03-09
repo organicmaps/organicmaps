@@ -687,7 +687,7 @@
 
 "select_cuisine" = "選擇料理";
 
-/* login text field */
+/* OSM login text field hint */
 "email_or_username" = "電子郵件或使用者名稱";
 
 "phone" = "電話";

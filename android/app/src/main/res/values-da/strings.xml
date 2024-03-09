@@ -439,7 +439,9 @@
 	<string name="postal_code">Postnummer</string>
 	<string name="cuisine">Køkken</string>
 	<string name="select_cuisine">Vælg køkken</string>
-	<!-- login text field -->
+	<!-- OSM Login text field hint, used only for Google Play -->
+	<string name="username">Brugernavn</string>
+	<!-- OSM login text field hint -->
 	<string name="email_or_username">Email eller brugernavn</string>
 	<string name="level">Etage</string>
 	<string name="downloader_delete_map_dialog">Alle kortændringer vil blive slettet sammen med kortet.</string>
@@ -753,8 +755,6 @@
 	<string name="button_layer_outdoor">Vandring</string>
 	<!-- Text displayed when a webview or a browser are disabled, and external links can't be opened. -->
 	<string name="browser_not_available">Webbrowser er ikke tilgængelig</string>
-	<!-- Text displayed in a dialog when OSM authorization is disabled -->
-	<string name="osm_login_not_available">OpenStreetMap-godkendelse er midlertidigt utilgængelig på grund af nye begrænsninger i Google Play 😾\nVores team arbejder på at løse dette problem. Vær venligst tålmo$ig 🙏</string>
 	<string name="volume">Lydstyrke</string>
 	<!-- Bookmark categories screen, button that opens share dialog to export all bookmarks and tracks -->
 	<string name="bookmarks_export">Eksporter alle bogmærker og spor</string>
