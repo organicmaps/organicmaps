@@ -175,18 +175,6 @@ vector<string> GetRawTypeSecond(ftypes::BaseChecker const & checker, TypesHolder
   return res;
 }
 
-vector<string> GetReadableTypes(ftypes::BaseChecker const & checker, TypesHolder const & types)
-{
-  auto const & c = classif();
-  vector<string> readable;
-  for (auto const t : types)
-  {
-    if (checker(t))
-      readable.push_back(c.GetReadableObjectName(t));
-  }
-  return readable;
-}
-
 vector<string> GetLocalizedTypes(ftypes::BaseChecker const & checker, TypesHolder const & types)
 {
   auto const & c = classif();
