@@ -937,7 +937,7 @@
     zh-Hant = 再試一次
 
   [about_menu_title]
-    tags = android,ios
+    tags = android
     en = About Organic Maps
     af = Oor Organic Maps
     ar = حول Organic Maps
@@ -1869,7 +1869,7 @@
 
   [bookmark_color]
     comment = Bookmark Color dialog title
-    tags = android,ios
+    tags = android
     en = Bookmark Color
     en-GB = Bookmark Colour
     af = Boekmerkkleur
@@ -4823,7 +4823,7 @@
 
   [data_version]
     comment = Data version in «About» screen, %@ is replaced by a local, human readable date.
-    tags = android,ios
+    tags = android
     en = OpenStreetMap data: %@
     af = OpenStreetMap-data: %@
     ar = بيانات خريطة الشارع المفتوحة: %@
@@ -5344,7 +5344,7 @@
 
   [pref_appearance_light]
     comment = Settings "Appearance" category: "Light" title, should be consistent with the pref_appearance_title translation.
-    tags = android,ios
+    tags = ios
     en = Light
     ar = فاتح
     az = Parlaq
@@ -5388,7 +5388,7 @@
 
   [pref_appearance_dark]
     comment = Settings "Appearance" category: "Dark" title, should be consistent with the pref_appearance_title translation.
-    tags = android,ios
+    tags = ios
     en = Dark
     ar = داكن
     az = Tünd
@@ -14313,52 +14313,6 @@
     zh-Hans = 选择菜肴
     zh-Hant = 選擇料理
 
-  [username]
-    comment = OSM Login text field hint, used only for Google Play
-    tags = android
-    en = Username
-    af = Gebruikersnaam
-    ar = اسم المستخدم
-    az = İstifadəçi adı
-    be = Імя карыстальніка
-    bg = Потребителско име
-    ca = Nom d'usuari
-    cs = Uživatelské jméno
-    da = Brugernavn
-    de = Benutzername
-    el = Όνομα χρήστη
-    es = Nombre de usuario
-    et = Kasutajanimi
-    eu = Erabiltzaile izena
-    fa = نام کاربری
-    fi = Käyttäjätunnus
-    fr = Nom d'utilisateur
-    he = שם משתמש
-    hi = उपयोगकर्ता नाम
-    hu = Felhasználónév
-    id = Nama pengguna
-    it = Nome utente
-    ja = ユーザー名
-    ko = 사용자 이름
-    lt = Vartotojo vardas
-    mr = वापरकर्तानाव
-    nb = Brukernavn
-    nl = Gebruikersnaam
-    pl = Nazwa użytkownika
-    pt = Nome de utilizador
-    pt-BR = Nome de usuário
-    ro = Nume utilizator
-    ru = Имя пользователя
-    sk = Používateľské meno
-    sv = Användarnamn
-    sw = Jina la mtumiaji
-    th = ชื่อผู้ใช้
-    tr = Kullanıcı Adı
-    uk = Ім'я користувача
-    vi = tên tài khoản
-    zh-Hans = 用户名
-    zh-Hant = 使用者名稱
-
   [email_or_username]
     comment = OSM login text field hint
     tags = android,ios
@@ -16483,7 +16437,7 @@
     zh-Hant = 下載地圖來尋找位置和離線瀏覽。
 
   [stop]
-    tags = android,ios
+    tags = ios
     en = Stop
     af = Stop
     ar = إيقاف
@@ -23158,7 +23112,7 @@
 
   [always]
     comment = Generic «Always» string
-    tags = android,ios
+    tags = ios
     en = Always
     af = Altyd
     ar = مفعل دائماً
@@ -23205,7 +23159,7 @@
 
   [never]
     comment = Generic «Never» string
-    tags = android,ios
+    tags = ios
     en = Never
     af = Nooit
     ar = معطل دائماً
@@ -24759,6 +24713,7 @@
 
   [capacity]
     comment = To indicate the capacity of car parkings, bicycle parkings, electric vehicle charging stations...
+    tags = android,ios
     en = Capacity: %@
     af = Kapasiteit: %@
     ar = السعة: %@
