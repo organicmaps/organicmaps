@@ -103,7 +103,7 @@ willPerformHTTPRedirection:(NSHTTPURLResponse *)response
 
   dispatch_group_t group = dispatch_group_create();
   dispatch_group_enter(group);
-  
+
   RedirectDelegate * delegate = [[RedirectDelegate alloc] init: handleRedirects];
 
   [[[HttpSessionManager sharedManager]
