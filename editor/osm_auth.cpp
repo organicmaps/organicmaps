@@ -243,9 +243,9 @@ string OsmOAuth::FetchRequestToken(SessionID const & sid) const
 {
   string const requestTokenUrl = m_baseUrl + "/oauth2/authorize";
   string const requestTokenQuery =  BuildPostRequest({
-      {"client_id", OSM_OAUTH2_CLIENT_ID},
-      {"redirect_uri", OSM_OAUTH2_REDIRECT_URI},
-      {"scope", OSM_OAUTH2_SCOPE},
+      {"client_id", m_oauth2params.m_clientId},
+      {"redirect_uri", m_oauth2params.m_redirectUri},
+      {"scope", m_oauth2params.m_scope},
       {"response_type", "code"}
   });
   HttpClient request(requestTokenUrl + "?" + requestTokenQuery);
@@ -283,10 +283,10 @@ string OsmOAuth::FinishAuthorization(string const & oauth2code) const
   auto params = BuildPostRequest({
       {"grant_type", "authorization_code"},
       {"code", oauth2code},
-      {"client_id", OSM_OAUTH2_CLIENT_ID},
-      {"client_secret", OSM_OAUTH2_CLIENT_SECRET},
-      {"redirect_uri", OSM_OAUTH2_REDIRECT_URI},
-      {"scope", OSM_OAUTH2_SCOPE},
+      {"client_id", m_oauth2params.m_clientId},
+      {"client_secret", m_oauth2params.m_clientSecret},
+      {"redirect_uri", m_oauth2params.m_redirectUri},
+      {"scope", m_oauth2params.m_scope},
   });
 
   HttpClient request(m_baseUrl + "/oauth2/token");
