@@ -5,12 +5,6 @@ set(SRC
   server_api_test.cpp
 )
 
-if (PLATFORM_MAC)
-  append(SRC
-    macos_helper.mm
-  )
-endif()
-
-omim_add_test(${PROJECT_NAME} ${SRC} REQUIRE_QT)
+omim_add_test(${PROJECT_NAME} ${SRC})
 
 target_link_libraries(${PROJECT_NAME} editor)
