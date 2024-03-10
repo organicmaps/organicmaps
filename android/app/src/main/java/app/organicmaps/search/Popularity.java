@@ -49,7 +49,7 @@ public class Popularity implements Parcelable
     this.mType = Type.values()[tmpMPopularity];
   }
 
-  public static final Creator<Popularity> CREATOR = new Creator<Popularity>()
+  public static final Creator<Popularity> CREATOR = new Creator<>()
   {
     @Override
     public Popularity createFromParcel(Parcel source)

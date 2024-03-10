@@ -52,6 +52,18 @@
 
 "about_menu_title" = "Om Organic Maps";
 
+/* Text in About screen */
+"about_headline" = "Gratis for alle, lavet med kærlighed";
+
+/* Text in About screen */
+"about_proposition_1" = "• Ingen annoncer, ingen sporing, ingen dataindsamling";
+
+/* Text in About screen */
+"about_proposition_2" = "• Intet batteridræn, fungerer offline";
+
+/* Text in About screen */
+"about_proposition_3" = "• Hurtig, minimalistisk, udviklet af fællesskabet";
+
 "close" = "Luk";
 
 "download" = "Download";
@@ -80,7 +92,7 @@
 /* Default bookmark list name */
 "core_my_places" = "Mine Steder";
 
-/* Editor title above street and house number */
+/* Editor title above street and house number, duplicates [type.building.address] in types_strings.txt */
 "address" = "Adresse";
 
 /* Settings button in system menu */
@@ -200,7 +212,7 @@
 "done" = "Færdig";
 
 /* Prints version number in About dialog */
-"version" = "Version: %@";
+"version" = "Organic Maps version: %@";
 
 /* Data version in «About» screen, %@ is replaced by a local, human readable date. */
 "data_version" = "OpenStreetMap-data: %@";
@@ -217,8 +229,14 @@
 
 "pref_zoom_title" = "Zoom knapper";
 
-/* Settings «Map» category: «Night style» title */
-"pref_map_style_title" = "Nattilstand";
+/* Settings «Map» category: «Appearance» title */
+"pref_appearance_title" = "Udseende";
+
+/* Settings "Appearance" category: "Light" title, should be consistent with the pref_appearance_title translation. */
+"pref_appearance_light" = "Lys";
+
+/* Settings "Appearance" category: "Dark" title, should be consistent with the pref_appearance_title translation. */
+"pref_appearance_dark" = "Mørk";
 
 /* Generic «Off» string */
 "off" = "Fra";
@@ -315,6 +333,9 @@
 /* Button in the main menu */
 "donate" = "Doner";
 
+/* Tex label above the Donate button */
+"donate_description" = "Donér for at bygge de bedste kort sammen!";
+
 /* Button in the main Help dialog */
 "how_to_support_us" = "Støt projektet";
 
@@ -323,6 +344,15 @@
 
 /* Text in menu + Button in the main Help dialog */
 "report_a_bug" = "Rapportér fejl";
+
+/* Button in the About screen */
+"report_incorrect_map_bug" = "Rapporter eller ret forkerte kortdata";
+
+/* Button in the About screen */
+"volunteer" = "At melde sig som frivillig";
+
+/* "Social media" section header in the About screen */
+"follow_us" = "Følg og kontakt os:";
 
 /* Alert text */
 "email_error_body" = "Emailklienten er ikke blevet sat op. Venligst konfigurér den eller brug en anden måde til at kontakte os på %@";
@@ -704,6 +734,9 @@
 
 "message_invalid_feature_position" = "Et objekt kan ikke placeres her";
 
+/* Text in About and OSM Login screens. First %@ is replaced by a local, human readable date. */
+"osm_presentation" = "Fællesskabsskabte OpenStreetMap-data fra %@. Få mere at vide om, hvordan du redigerer og opdaterer kortet på OpenStreetMap.org";
+
 "login_to_make_edits_visible" = "Log på så andre brugere kan se ændringerne som du har foretaget.";
 
 /* Error dialog no space */
@@ -746,15 +779,7 @@
 
 "downloader_no_downloaded_maps_message" = "Download kort for at finde position og navigere offline.";
 
-/* Error title that appears after certain time without location. */
-"current_location_unknown_title" = "Fortsæt med at registrere din aktuelle position?";
-
-/* Error that appears after certain time without location. */
-"current_location_unknown_message" = "Aktuel placering er ukendt. Måske er du i en bygning eller i en tunnel.";
-
-"current_location_unknown_continue_button" = "Fortsæt";
-
-"current_location_unknown_stop_button" = "Stop";
+"stop" = "Stop";
 
 "current_location_unknown_error_title" = "Aktuel position er ukendt.";
 
@@ -768,15 +793,27 @@
 
 "location_services_disabled_2" = "2. Tryk på Placering";
 
-/* iOS Dialog for the case when the location permission is not granted */
+/* iOS Dialog for the case when the location permission is not granted; you might find the exact wording for your language here: https://support.apple.com/en-us/102647 (replace 'en-us' in URL with your language/region) */
 "location_services_disabled_3" = "3. Vælg Mens app'en bruges";
 
+"location_services_disabled_on_device_2" = "2. Vælg Privatliv";
+
+"location_services_disabled_on_device_3" = "3. Vælg Placeringstjenester";
+
+"location_services_disabled_on_device_4" = "4. Slå placeringstjenester til";
+
+"location_services_disabled_on_device_additional_message" = "Eller fortsæt med at bruge Organic Maps uden placering";
+
+/* abbreviation for meters */
 "m" = "m";
 
+/* abbreviation for kilometers */
 "km" = "km";
 
+/* abbreviation for kilometers per hour */
 "kilometers_per_hour" = "km/t";
 
+/* abbreviation for mile(s) */
 "mi" = "mil";
 
 /* A unit of measure */
@@ -857,9 +894,6 @@
 "sharing_call_action_look" = "Tjek";
 
 "recent_track_background_dialog_message" = "Organic Maps anvender din geoposition i baggrunden til at gemme din seneste rejserute.";
-
-/* Text under the version number in the Help dialog. TODO: Synchronize other translations with English. */
-"about_description" = "Organic Maps er en gratis og open source offline kortapplikation. Ingen annoncer. Ingen sporing. Hvis du ser en fejl på kortet, skal du rette den i OpenStreetMap. Projektet er skabt af entusiaster i vores fritid, så vi har brug for din feedback og support.";
 
 "general_settings" = "Generelle indstillinger";
 
@@ -1072,6 +1106,9 @@
 /* E.g. "WiFi:No" */
 "no_available" = "Nej";
 
+/* To indicate the capacity of car parkings, bicycle parkings, electric vehicle charging stations... */
+"capacity" = "Kapacitet: %@";
+
 "trip_finished" = "Du er ankommet!";
 
 "keyboard_availability_alert" = "Keyboard er ikke tilgængelig under kørsel";
@@ -1238,6 +1275,12 @@
 /* Outdoors/hiking map style (activity) name in the Styles and Layers dialog */
 "button_layer_outdoor" = "Vandring";
 
+/* Bookmark categories screen, button that opens share dialog to export all bookmarks and tracks */
+"bookmarks_export" = "Eksporter alle bogmærker og spor";
+
+/* Text for the editing the Track's color button. */
+"change_color" = "Skift farve";
+
 
 /********** Types **********/
 
@@ -1352,6 +1395,8 @@
 "type.amenity.doctors" = "Lægekontor";
 
 "type.amenity.drinking_water" = "Vand";
+
+"type.drinking_water.yes" = "Vand";
 
 "type.amenity.driving_school" = "Køreskole";
 
@@ -1548,6 +1593,8 @@
 
 "type.amenity.toilets" = "Toilet";
 
+"type.toilets.yes" = "Toilet";
+
 "type.amenity.townhall" = "Rådhus";
 
 "type.amenity.university" = "Universitet";
@@ -1676,6 +1723,8 @@
 
 "type.boundary.national_park" = "National park";
 
+"type.boundary.aboriginal_lands" = "Oprindelige lande";
+
 "type.boundary.protected_area" = "Beskyttet område";
 
 "type.boundary.protected_area.1" = "Beskyttet område";
@@ -1692,7 +1741,8 @@
 
 "type.building" = "Bygning";
 
-"type.building.address" = "Bygning";
+/* Duplicates [address] in strings.txt */
+"type.building.address" = "Adresse";
 
 "type.building.has_parts" = "Bygning";
 
@@ -2501,8 +2551,6 @@
 "type.leisure.hackerspace" = "Hackerspace";
 
 "type.leisure.ice_rink" = "Ice Rink";
-
-"type.leisure.landscape_reserve" = "Landscape Reserve";
 
 "type.leisure.marina" = "Marina";
 
@@ -3837,25 +3885,45 @@
 
 "type.aerialway.t.bar" = "T-bar Lift";
 
-"type.piste_type" = "Piste Type";
-
 "type.piste_type.downhill" = "Downhill Ski Run";
+
+"type.piste_type.downhill.area" = "Downhill Ski Run";
 
 "type.piste_type.downhill.advanced" = "Downhill Ski Run";
 
+"type.piste_type.downhill.advanced.area" = "Downhill Ski Run";
+
 "type.piste_type.downhill.easy" = "Downhill Ski Run";
 
+"type.piste_type.downhill.easy.area" = "Downhill Ski Run";
+
 "type.piste_type.downhill.expert" = "Downhill Ski Run";
+
+"type.piste_type.downhill.expert.area" = "Downhill Ski Run";
 
 "type.piste_type.downhill.freeride" = "Downhill Ski Run";
 
 "type.piste_type.downhill.intermediate" = "Downhill Ski Run";
 
+"type.piste_type.downhill.intermediate.area" = "Downhill Ski Run";
+
 "type.piste_type.downhill.novice" = "Downhill Ski Run";
+
+"type.piste_type.downhill.novice.area" = "Downhill Ski Run";
 
 "type.piste_type.nordic" = "Nordic Ski Trail";
 
 "type.piste_type.sled" = "Sledding Piste";
+
+"type.piste_type.sled.area" = "Sledding Piste";
+
+"type.piste_type.snow_park" = "Snow Park";
+
+"type.piste_type.hike" = "Vandresti i sne";
+
+"type.piste_type.connection" = "Pisteforbindelse";
+
+"type.piste_type.skitour" = "Skitour Trail";
 
 "type.amenity.events_venue" = "Sted for arrangementer";
 

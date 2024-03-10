@@ -108,16 +108,15 @@ bool NoCameraFound(RoutingSession & routingSession)
 // Mode: Auto/Always
 // ____Notification___|___beep____|_____(exceed speed limit here) Impact camera zone_____|
 // Expected: Beep signal.
+/* Camera was (temporary) removed from OSM.
 UNIT_TEST(SpeedCameraNotification_AutoAlwaysMode_1)
 {
   vector<SpeedCameraManagerMode> modes = {SpeedCameraManagerMode::Auto, SpeedCameraManagerMode::Always};
   for (auto const mode : modes)
   {
     RoutingSession routingSession;
-    InitRoutingSession({55.67931, 37.53268} /* from */,
-                       {55.68764, 37.54508} /* to   */,
-                       routingSession,
-                       mode);
+    InitRoutingSession({55.67931, 37.53268}, {55.68764, 37.54508},
+                       routingSession, mode);
 
     {
       double const speedKmPH = 100.0;
@@ -128,6 +127,7 @@ UNIT_TEST(SpeedCameraNotification_AutoAlwaysMode_1)
     }
   }
 }
+*/
 
 // Mode: Auto/Always
 // ____Notification___|___beep____|_____(exceed speed limit here) Impact camera zone_____|

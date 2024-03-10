@@ -12,7 +12,7 @@
     android:layout_height="wrap_content"
     android:layout_marginEnd="@dimen/margin_base"
     android:layout_marginTop="@dimen/margin_quarter"
-    android:src="@drawable/ic_operating_hours"
+    app:srcCompat="@drawable/ic_operating_hours"
     app:tint="?iconTint"/>
 
   <TextView

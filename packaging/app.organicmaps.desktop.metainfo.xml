@@ -3,11 +3,11 @@
   <id>app.organicmaps.desktop</id>
 
   <name>Organic Maps</name>
-  <summary>A free offline maps app for travelers, tourists, hikers, and cyclists based on top of crowd-sourced OpenStreetMap data and curated with love by MapsWithMe (Maps.Me) founders</summary>
+  <developer_name>The Organic Maps Community</developer_name>
+  <summary>Free offline maps for everyone</summary>
 
   <metadata_license>CC0-1.0</metadata_license>
   <project_license>Apache-2.0</project_license>
-
 
   <supports>
     <control>pointing</control>
@@ -20,7 +20,7 @@
   <description>
     <p>
       Organic Maps is a free Android &amp; iOS offline maps app for travelers,
-      tourists, hikers, and cyclists.
+      tourists, hikers, drivers and cyclists.
       It uses crowd-sourced OpenStreetMap data and is developed with love by
       <em>MapsWithMe</em> (<em>MapsMe</em>) founders and our community.
       No ads, no tracking, no data collection, no crapware.
@@ -33,57 +33,49 @@
       for mobile devices yet.
       Organic Maps is the ultimate companion app for travelers, tourists,
       hikers, and cyclists:
-      <ul>
-        <li>
-          Detailed offline maps with places that don&apos;t exist on other maps,
-          thanks to OpenStreetMap
-        </li>
-        <li>Cycling routes, hiking trails, and walking paths</li>
-        <li>Contour lines, elevation profiles, peaks, and slopes</li>
-        <li>Turn-by-turn walking, cycling, and car navigation with voice guidance</li>
-        <li>Fast offline search on the map</li>
-        <li>Bookmarks and tracks export and import in KML, KMZ, GPX formats</li>
-        <li>Dark Mode to protect your eyes</li>
-        <li>Countries and regions don&apos;t take a lot of space</li>
-        <li>Free and open-source</li>
-      </ul>
     </p>
+    <ul>
+      <li>
+        Detailed offline maps with places that don&apos;t exist on other maps,
+        thanks to OpenStreetMap
+      </li>
+      <li>Cycling routes, hiking trails, and walking paths</li>
+      <li>Contour lines, elevation profiles, peaks, and slopes</li>
+      <li>Turn-by-turn walking, cycling, and car navigation with voice guidance</li>
+      <li>Fast offline search on the map</li>
+      <li>Bookmarks and tracks export and import in KML, KMZ, GPX formats</li>
+      <li>Dark Mode to protect your eyes</li>
+      <li>Countries and regions don&apos;t take a lot of space</li>
+      <li>Free and open-source</li>
+    </ul>
     <p>## Why Organic?</p>
-    <p>
-      Organic Maps is pure and organic, made with love:
-      <ul>
-        <li>Respects your privacy</li>
-        <li>Saves your battery</li>
-        <li>No unexpected mobile data charges</li>
-      </ul>
-    </p>
-    <p>
-      Organic Maps app is free from trackers and other bad stuff:
-      <ul>
-        <li>No ads</li>
-        <li>No tracking</li>
-        <li>No data collection</li>
-        <li>No phoning home</li>
-        <li>No annoying registration</li>
-        <li>No mandatory tutorials</li>
-        <li>No noisy email spam</li>
-        <li>No push notifications</li>
-        <li>No crapware</li>
-        <li><del>No pesticides</del> Purely organic!</li>
-      </ul>
-    </p>
+    <p>Organic Maps is pure and organic, made with love:</p>
+    <ul>
+      <li>Respects your privacy</li>
+      <li>Saves your battery</li>
+      <li>No unexpected mobile data charges</li>
+    </ul>
+    <p>Organic Maps app is free from trackers and other bad stuff:</p>
+    <ul>
+      <li>No ads</li>
+      <li>No tracking</li>
+      <li>No data collection</li>
+      <li>No phoning home</li>
+      <li>No annoying registration</li>
+      <li>No mandatory tutorials</li>
+      <li>No noisy email spam</li>
+      <li>No push notifications</li>
+      <li>No crapware</li>
+      <li>N̶o̶ ̶p̶e̶s̶t̶i̶c̶i̶d̶e̶s̶  Purely organic!</li>
+    </ul>
     <p>The application is verified by Exodus Privacy Project.</p>
-    <p>
-      Organic Maps doesn&apos;t request excessive permissions to spy on you.
-    </p>
-    <p>
-      At Organic Maps, we believe that privacy is a fundamental human right:
-      <ul>
-        <li>Organic Maps is an indie community-driven open-source project</li>
-        <li>We protect your privacy from Big Tech&apos;s prying eyes</li>
-        <li>Stay safe no matter wherever you are</li>
-      </ul>
-    </p>
+    <p>Organic Maps doesn&apos;t request excessive permissions to spy on you.</p>
+    <p>At Organic Maps, we believe that privacy is a fundamental human right:</p>
+    <ul>
+      <li>Organic Maps is an indie community-driven open-source project</li>
+      <li>We protect your privacy from Big Tech&apos;s prying eyes</li>
+      <li>Stay safe no matter wherever you are</li>
+    </ul>
     <p>
       Reject surveillance - embrace your freedom.
       <em>Give Organic Maps a try!</em>
@@ -113,6 +105,127 @@
   </screenshots>
 
   <releases>
+   <release version="2024.03.05-4" date="2024-03-05">
+     <description>
+       <p>Highlights:</p>
+         <ul>
+           <li>New OSM maps data as of February 28, 2024</li>
+           <li>Export all bookmarks as a single KMZ file</li>
+         </ul>
+       <p>Linux Desktop:</p>
+         <ul>
+           <li>Fixed occasinal crash when there was no location service available</li>
+         </ul>
+       <p>Styles:</p>
+         <ul>
+           <li>Fixed small fonts on detailed zooms</li>
+           <li>Improved dark style visibility</li>
+         </ul>
+       <p>Translations:</p>
+         <ul>
+           <li>Updated Brazilian Portugues, Hebrew, Hungarian and Spanish and Mexican Spanish translations</li>
+         </ul>
+     </description>
+   </release>
+   <release version="2024.02.06-11" date="2024-02-06">
+     <description>
+       <p>Highlights:</p>
+         <ul>
+           <li>New OSM maps data as of February 2, 2024</li>
+           <li>Restroom emoji for places with toilets</li>
+           <li>Display parking operator</li>
+           <li>More precise turn notifications for small distances</li>
+           <li>Fixed absent speed limit on some speed cameras</li>
+           <li>Plus codes search shows results relative to position and to the screen center</li>
+           <li>Fixed crash in search</li>
+           <li>Name editing for playgrounds</li>
+           <li>Parse mlat and mlon parameters from OSM urls</li>
+           <li>Allow editing Greek names for Cyprus</li>
+           <li>Hindi support</li>
+           <li>Better and more precise search on the map, more relevant search results in the list</li>
+         </ul>
+       <p>Styles:</p>
+         <ul>
+           <li>Orange color for secondary roads</li>
+           <li>Wider and brighter white tertiary roads</li>
+           <li>Nicer looking on- and off-ramp road links joins</li>
+           <li>Raised visibility of secondary and tertiary road links</li>
+           <li>Less bright farmlands color</li>
+           <li>Smaller mountain passes/saddles icons</li>
+           <li>Reduced visibilities of mountain saddles (compared to passes)</li>
+           <li>New ford icon</li>
+           <li>Made hospital and clinic icons look different</li>
+           <li>Reduced visibility of light rail stations</li>
+           <li>Added Boston and updated Taipei subway icons</li>
+           <li>Fixed Delhi subway entrance icons, Minsk &amp; Spb subway captions on detailed zoom</li>
+           <li>Increased font size of towns and suburbs labels and decreased for neighborhoods</li>
+           <li>Adjust visibilities of many POIs</li>
+         </ul>
+       <p>Outdoor Style:</p>
+         <ul>
+           <li>Increased 50m &amp; 100m contour lines visibilities</li>
+           <li>Raised visibility of campsites, survey points, toilets, touristic information features</li>
+           <li>New power tower and flagpole/mast icons</li>
+           <li>Made bridleways to be the same brown color as paths</li>
+           <li>Increased contrast of footways on overview zooms</li>
+         </ul>
+       <p>Translations:</p>
+         <ul>
+           <li>Updated Catalan, Chinese, Czech, Finnish, French, Romanian, Slovak, Ukrainian translations</li>
+         </ul>
+     </description>
+   </release>
+   <release version="2024.01.09-5" date="2024-01-09">
+     <description>
+       <p>Highlights:</p>
+         <ul>
+           <li>New OSM maps data as of January 5, 2024</li>
+           <li>Added Max Capacity for places</li>
+         </ul>
+       <p>Styles:</p>
+         <ul>
+           <li>Added Cairns, updated Singapore subway icon</li>
+           <li>Slightly increased contrast of lines on the World overview map</li>
+           <li>Make secondary roads a bit brighter than tertiary/etc.</li>
+           <li>Car navigation style: fixed some footways/paths/tracks being displayed too early as white dashed lines</li>
+           <li>Main style: fix color of footways with a sac_scale=* tag to be same as path</li>
+           <li>Fixed very thin lines (e.g. tram lines) having inconsistent transparency/contrast between different devices (driver-dependent)</li>
+           <li>Fix bookmarked children playground icon</li>
+           <li>Remove labels and decrease visibility of footway crossings and sidewalks</li>
+           <li>Tuned contrast of altitude contour lines</li>
+           <li>Crisper looking lines (no edge blur)</li>
+         </ul>
+       <p>Outdoor Style:</p>
+         <ul>
+           <li>More contrast-looking paths, tracks, cutlines, rivers, ditches, railways, cycleways, fences, etc.</li>
+           <li>Reduce visibility of small streams and canals</li>
+           <li>Increase visibility of fences, walls and ditches</li>
+           <li>Increase visibilities of bridle/cycle/foot-ways and steps, increase label sizes</li>
+           <li>Make bridleways' dashes longer</li>
+         </ul>
+       <p>Pistes improvements:</p>
+         <ul>
+           <li>Add snow parks and new piste types: skitour, winter hike, connection</li>
+           <li>Color freeride pistes in yellow-orange, consider ungroomed downhill runs as freeride</li>
+           <li>Better piste names and numbers/refs support</li>
+           <li>In Outdoors style: increase pistes visibilities and display detailed piste shapes (area fills)</li>
+         </ul>
+       <p>Other:</p>
+         <ul>
+           <li>Display capacity of parkings, bicycle docks and charging stations when they're selected</li>
+           <li>Adjust shop, amenity, leisure ranking in search</li>
+         </ul>
+       <p>Linux Desktop:</p>
+         <ul>
+           <li>Set screen update frequency to 60fps</li>
+         </ul>
+       <p>Translations:</p>
+         <ul>
+           <li>New Azerbaijani language</li>
+           <li>Updates to Chinese, Polish, Hebrew, Romanian</li>
+         </ul>
+     </description>
+   </release>
    <release version="2023.12.20-4" date="2023-12-20">
      <description>
        <p>Highlights:</p>
@@ -251,7 +364,6 @@
            <li>Updated road surface factors for car routing profile</li>
            <li>Better pedestrian routing in Turkey and Georgia</li>
            <li>Fixed cross-region routing when "avoid …" options are enabled</li>
-           <li></li>
          </ul>
        <p>Search:</p>
          <ul>
@@ -667,7 +779,6 @@
    <release version="2022.06.18-2" date="2022-06-18">
      <description>
        <ul>
-         <li></li>
          <li>New OSM data as of June 13, 2022</li>
          <li>Cross-region and other routing fixes</li>
          <li>Nicer fences, city walls, paths/tracks, waterfalls, fountains, and drinking_water</li>

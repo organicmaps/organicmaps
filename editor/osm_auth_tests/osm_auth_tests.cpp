@@ -36,6 +36,7 @@ UNIT_TEST(OSM_Auth_Login)
   TEST_NOT_EQUAL(perm.second.find("write_api"), std::string::npos, ("can write to api"));
 }
 
+/*
 UNIT_TEST(OSM_Auth_ForgotPassword)
 {
   OsmOAuth auth = OsmOAuth::DevServerAuth();
@@ -45,3 +46,4 @@ UNIT_TEST(OSM_Auth_ForgotPassword)
   TEST_NO_THROW(result = auth.ResetPassword("not@registered.email"), ());
   TEST_EQUAL(result, false, ("Incorrect email"));
 }
+*/

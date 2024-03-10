@@ -3,7 +3,9 @@ package app.organicmaps.widget.placepage;
 import android.content.Context;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
+import android.text.Editable;
 import android.text.TextUtils;
+import android.text.TextWatcher;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -14,6 +16,8 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.widget.Toolbar;
 import androidx.core.view.ViewCompat;
+import androidx.core.view.WindowCompat;
+import androidx.core.view.WindowInsetsCompat;
 import androidx.fragment.app.FragmentFactory;
 import androidx.fragment.app.FragmentManager;
 
@@ -26,8 +30,10 @@ import app.organicmaps.bookmarks.data.BookmarkInfo;
 import app.organicmaps.bookmarks.data.BookmarkManager;
 import app.organicmaps.bookmarks.data.Icon;
 import app.organicmaps.util.Graphics;
+import app.organicmaps.util.InputUtils;
 import app.organicmaps.util.UiUtils;
 import com.google.android.material.textfield.TextInputEditText;
+import com.google.android.material.textfield.TextInputLayout;
 
 import java.util.List;
 
@@ -38,6 +44,8 @@ public class EditBookmarkFragment extends BaseMwmDialogFragment implements View.
 
   private TextInputEditText mEtDescription;
   private TextInputEditText mEtName;
+  @NonNull
+  private TextInputLayout clearNameBtn;
   private TextView mTvBookmarkGroup;
   private ImageView mIvColor;
   private BookmarkCategory mBookmarkCategory;
@@ -94,6 +102,22 @@ public class EditBookmarkFragment extends BaseMwmDialogFragment implements View.
     if (mBookmark != null)
       mIcon = mBookmark.getIcon();
     mEtName = view.findViewById(R.id.et__bookmark_name);
+    clearNameBtn = view.findViewById(R.id.edit_bookmark_name_input);
+    clearNameBtn.setEndIconOnClickListener(v -> clearAndFocus(mEtName));
+    mEtName.addTextChangedListener(new TextWatcher()
+    {
+      @Override
+      public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {}
+
+      @Override
+      public void onTextChanged(CharSequence charSequence, int i, int i1, int i2)
+      {
+        clearNameBtn.setEndIconVisible(charSequence.length() > 0);
+      }
+
+      @Override
+      public void afterTextChanged(Editable editable) {}
+    });
     mEtDescription = view.findViewById(R.id.et__description);
     mTvBookmarkGroup = view.findViewById(R.id.tv__bookmark_set);
     mTvBookmarkGroup.setOnClickListener(this);
@@ -101,6 +125,22 @@ public class EditBookmarkFragment extends BaseMwmDialogFragment implements View.
     mIvColor.setOnClickListener(this);
     refreshBookmark();
     initToolbar(view);
+  }
+
+  @Override
+  public void onStart()
+  {
+    super.onStart();
+
+    // Focus name and show keyboard for "Unknown Place" bookmarks
+    if (mBookmark != null && mBookmark.getName().equals(getString(R.string.core_placepage_unknown_place)))
+    {
+      mEtName.requestFocus();
+      mEtName.selectAll();
+      // Recommended way of showing the keyboard on activity start
+      // https://developer.android.com/develop/ui/views/touch-and-input/keyboard-input/visibility#ShowReliably
+      WindowCompat.getInsetsController(requireActivity().getWindow(), mEtName).show(WindowInsetsCompat.Type.ime());
+    }
   }
 
   private void initToolbar(View view)
@@ -111,24 +151,10 @@ public class EditBookmarkFragment extends BaseMwmDialogFragment implements View.
       return windowInsets;
     });
     final ImageView imageView = toolbar.findViewById(R.id.save);
-    imageView.setOnClickListener(new View.OnClickListener()
-    {
-      @Override
-      public void onClick(View v)
-      {
-        saveBookmark();
-      }
-    });
+    imageView.setOnClickListener(v -> saveBookmark());
     UiUtils.showHomeUpButton(toolbar);
-    toolbar.setTitle(R.string.description);
-    toolbar.setNavigationOnClickListener(new View.OnClickListener()
-    {
-      @Override
-      public void onClick(View v)
-      {
-        dismiss();
-      }
-    });
+    toolbar.setTitle(R.string.placepage_edit_bookmark_button);
+    toolbar.setNavigationOnClickListener(v -> dismiss());
   }
 
   private void saveBookmark()
@@ -251,5 +277,11 @@ public class EditBookmarkFragment extends BaseMwmDialogFragment implements View.
   public void setEditBookmarkListener(@Nullable EditBookmarkListener listener)
   {
     mListener = listener;
+  }
+  private void clearAndFocus(TextView textView)
+  {
+    textView.getEditableText().clear();
+    textView.requestFocus();
+    InputUtils.showKeyboard(textView);
   }
 }

@@ -1,8 +1,8 @@
-Karácsonyi és újévi ajándékokkal várunk az Organic Maps közösségétől:
-• Kültéri térképstílus, ami ideális túrázáshoz, biciklizéshez és a természet felfedezéséhez
-• Címkeresési javítások számos országban
-• Írja be a "Síelés" szót, hogy síterepet találjon
-• OpenStreetMap.org térképek 13.12.2023-tól
-• Egyes hoteleknél már megtekinthetőek azok értékeléseik, fényképeik és árazásuk. Minden anyagi támogatás és hotelfoglalás az Organic Maps további fejlesztését segíti!
+• OpenStreetMap data as of February 28
+• Export all bookmarks as a single KMZ file
+• Fixed several crashes
+• "Routing options enabled" is no longer displayed when using ruler
+• Included wheelchair accessibility information on place pages
+• Added recycling and elevation information to search result descriptions
 
-omaps.org/hu/news
+…read more details at omaps.org/news

@@ -164,7 +164,7 @@ private:
   FeatureIdentifiers m_featureIdentifiers;
   TransferId m_transferId = kInvalidTransferId;
   std::vector<LineId> m_lineIds;
-  m2::PointD m_point;
+  m2::PointD m_point {0.0, 0.0};
   std::vector<TitleAnchor> m_titleAnchors;
 };
 NEWTYPE_SIMPLE_OUTPUT(Stop::WrappedStopId)

@@ -71,14 +71,9 @@ abstract class BaseRoutingErrorDialogFragment extends BaseMwmDialogFragment
     super.onStart();
 
     AlertDialog dlg = (AlertDialog) getDialog();
-    dlg.getButton(DialogInterface.BUTTON_NEGATIVE).setOnClickListener(new View.OnClickListener()
-    {
-      @Override
-      public void onClick(View v)
-      {
-        mCancelled = true;
-        dismiss();
-      }
+    dlg.getButton(DialogInterface.BUTTON_NEGATIVE).setOnClickListener(v -> {
+      mCancelled = true;
+      dismiss();
     });
   }
 
@@ -133,16 +128,11 @@ abstract class BaseRoutingErrorDialogFragment extends BaseMwmDialogFragment
     listView.setAdapter(buildAdapter());
     listView.setChildDivider(new ColorDrawable(getResources().getColor(android.R.color.transparent)));
 
-    UiUtils.waitLayout(listView, new ViewTreeObserver.OnGlobalLayoutListener()
-    {
-      @Override
-      public void onGlobalLayout()
-      {
-        final int width = listView.getWidth();
-        final int indicatorWidth = UiUtils.dimen(requireContext(), R.dimen.margin_quadruple);
-        listView.setIndicatorBounds(width - indicatorWidth, width);
-        listView.setIndicatorBoundsRelative(width - indicatorWidth, width);
-      }
+    UiUtils.waitLayout(listView, () -> {
+      final int width = listView.getWidth();
+      final int indicatorWidth = UiUtils.dimen(requireContext(), R.dimen.margin_quadruple);
+      listView.setIndicatorBounds(width - indicatorWidth, width);
+      listView.setIndicatorBoundsRelative(width - indicatorWidth, width);
     });
 
     return countriesView;

@@ -32,15 +32,30 @@ void SweepNearbyResults(m2::PointD const & eps, unordered_set<FeatureID> const &
   for (size_t i = 0; i < results.size(); ++i)
   {
     auto const & p = results[i].GetInfo().m_center;
-    uint8_t const rank = results[i].GetInfo().m_rank;
-    uint8_t const popularity = results[i].GetInfo().m_popularity;
-    uint8_t const exactMatch = results[i].GetInfo().m_exactMatch ? 1 : 0;
+
+    uint8_t const rank = results[i].GetInfo().m_rank > 0 ? 1 : 0;
+    uint8_t const popularity = results[i].GetInfo().m_popularity > 0 ? 1 : 0;
+    // Confused with previous priority logic: max{rank, prevCount, popularity, exactMatch}.
+    // How can we compare rank/popularity and exactMatch, which is 1 only :)
+    // The new logic aggregates:
+    // - exactMatch (6) like the main criteria
+    // - prevCount (3)
+    // - (1) for rank and popularity
+    // E.g. 6 > 3 + 1 + 1
+    /// @todo Can update 'rank' and 'popularity' in future, but still 'exactMatch' should be on top.
+    /// @todo m_exactMatch flag is not enough here.
+    /// We can store exact errors number and name's lang (alt or old names have less priority).
+    /// Example: 'Migrolino' with alt name displaces fuel 'SOCAR Opfikon' when searching "Opfikon":
+    /// - https://www.openstreetmap.org/way/207760005
+    /// - https://www.openstreetmap.org/way/207760004
+    uint8_t const exactMatch = results[i].GetInfo().m_exactMatch ? 6 : 0;
+
     // We prefer result which passed the filter even if it has lower rank / popularity / exactMatch.
     //uint8_t const filterPassed = results[i].GetInfo().m_refusedByFilter ? 0 : 2;
     // We prefer result from prevEmit over result with better filterPassed because otherwise we have
     // lots of blinking results.
     uint8_t const prevCount = prevEmit.count(results[i].GetId()) == 0 ? 0 : 3;
-    uint8_t const priority = max({rank, prevCount, popularity, exactMatch}) + 2 /*filterPassed*/;
+    uint8_t const priority = exactMatch + prevCount + rank + popularity /* + filterPassed */;
     sweeper.Add(p.x, p.y, i, priority);
   }
 

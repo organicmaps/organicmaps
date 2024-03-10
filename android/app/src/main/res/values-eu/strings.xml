@@ -41,9 +41,9 @@
 	<!-- Text in About screen -->
 	<string name="about_proposition_1">• Ez iragarkirik, ez jarraipenik, ez datu-bilketarik</string>
 	<!-- Text in About screen -->
-	<string name="about_proposition_2">• Bateria aurrezten du, ez du atzeko planoko daturik erabiltzen</string>
+	<string name="about_proposition_2">• Ez da bateria deskargatzen, konexiorik gabe funtzionatzen du</string>
 	<!-- Text in About screen -->
-	<string name="about_proposition_3">• Azkarra, minimalista, zaborrik gabe</string>
+	<string name="about_proposition_3">• Azkarra, minimalista, komunitateak garatua</string>
 	<!-- Text in About screen -->
 	<string name="about_developed_by_enthusiasts">Kode irekiko aplikazioa zaleek eta boluntarioek sortutakoa.</string>
 	<!-- The button that opens system location settings -->
@@ -80,7 +80,7 @@
 	<string name="core_my_places">Nire tokiak</string>
 	<!-- Add bookmark dialog - bookmark name -->
 	<string name="name">Izena</string>
-	<!-- Editor title above street and house number -->
+	<!-- Editor title above street and house number, duplicates [type.building.address] in types_strings.txt -->
 	<string name="address">Helbidea</string>
 	<!-- Add Bookmark dialog/Bookmark list; Bookmarks dialog/Bookmark list cell. -->
 	<string name="list">Zerrenda</string>
@@ -106,7 +106,7 @@
 	<string name="move_maps">Mapak mugitu?</string>
 	<!-- Error moving map files from one storage to another -->
 	<string name="move_maps_error">Ezin izan dira mapak mugitu</string>
-	<!-- Ask to wait user several minutes (some long process in modal dialog). -->
+	<!-- Ask user to wait several minutes (some long process in modal dialog). -->
 	<string name="wait_several_minutes">Honek minutu batzuk iraun ditzake.\n Itxaron mesedez…</string>
 	<!-- Measurement units title in settings activity -->
 	<string name="measurement_units">Neurketa unitateak</string>
@@ -171,6 +171,10 @@
 	<string name="load_kmz_successful">Markagailuak behar bezala kargatu dira! Mapan edo markagailuak kudeatzeko pantailan aurki ditzakezu.</string>
 	<!-- Kml file loading failed -->
 	<string name="load_kmz_failed">Ezin izan dira markagailuak kargatu. Fitxategia hondatuta edo akastuna izan daiteke.</string>
+	<!-- Failed to recognize the format of a bookmarks or tracks file. -->
+	<string name="unknown_file_type">Aplikazioak ez du fitxategi mota ezagutzen:\n%1$s</string>
+	<!-- Failed to open a bookmarks or tracks file in Organic Maps. -->
+	<string name="failed_to_open_file">Ezin izan da fitxategia ireki %1$s\n\n%2$s</string>
 	<!-- resource for context menu -->
 	<string name="edit">Editatu</string>
 	<!-- Warning message when doing search around current position -->
@@ -213,6 +217,10 @@
 	<string name="pref_zoom_summary">Erakutsi mapan</string>
 	<!-- Settings «Map» category: «Night style» title -->
 	<string name="pref_map_style_title">Gaueko modua</string>
+	<!-- Settings "Appearance" category: "Light" title, should be consistent with the pref_appearance_title translation. -->
+	<string name="pref_appearance_light">Argi</string>
+	<!-- Settings "Appearance" category: "Dark" title, should be consistent with the pref_appearance_title translation. -->
+	<string name="pref_appearance_dark">Iluna</string>
 	<!-- Generic «Off» string -->
 	<string name="off">Desgaituta</string>
 	<!-- Generic «On» string -->
@@ -474,8 +482,8 @@
 	<string name="editor_report_problem_other_title">Beste arazo bat</string>
 	<string name="placepage_add_business_button">Gehitu aktibitatea</string>
 	<string name="message_invalid_feature_position">Hemen ezin da objekturik jarri</string>
-	<!-- Text in About and OSM Login screens. %@ is replaced by a local, human readable date. -->
-	<string name="osm_presentation">OpenStreetMap-eko datu kartografikoak %s-tik aurrera. OSM mapen Wikipedia bezalakoa da, non mundu osoko erabiltzaile guztientzat lekuak gehitu edo edita ditzakezun</string>
+	<!-- Text in About and OSM Login screens. First %@ is replaced by a local, human readable date. -->
+	<string name="osm_presentation">Komunitateak sortutako OpenStreetMap datuak %s-tik aurrera. Lortu informazio gehiago mapa editatu eta eguneratzeari buruz OpenStreetMap.org helbidean</string>
 	<string name="login_to_make_edits_visible">Hasi saioa OpenStreetMapen beste erabiltzaileek zuk egindako aldaketak ikus ditzaten.</string>
 	<!-- Downloaded 10 **of** 20 <- it is that "of" -->
 	<string name="downloader_of">%1$d/%2$d</string>
@@ -496,15 +504,14 @@
 	<string name="editor_operator">Eragilea</string>
 	<string name="downloader_no_downloaded_maps_title">Ez duzu maparik deskargatu</string>
 	<string name="downloader_no_downloaded_maps_message">Deskargatu mapak kokapena aurkitzeko eta lineaz kanpo nabigatzeko.</string>
-	<!-- Error title that appears after certain time without location. -->
-	<string name="current_location_unknown_title">Zure uneko kokapena detektatzen jarraitu nahi duzu?</string>
-	<!-- Error that appears after certain time without location. -->
-	<string name="current_location_unknown_message">Uneko kokapena ezezaguna da. Agian eraikin batean edo tunel batean zaudelako.</string>
-	<string name="current_location_unknown_continue_button">Jarraitu</string>
-	<string name="current_location_unknown_stop_button">Gelditu</string>
+	<string name="stop">Gelditu</string>
+	<!-- abbreviation for meters -->
 	<string name="m">m</string>
+	<!-- abbreviation for kilometers -->
 	<string name="km">km</string>
+	<!-- abbreviation for kilometers per hour -->
 	<string name="kilometers_per_hour">km/h</string>
+	<!-- abbreviation for mile(s) -->
 	<string name="mi">mi</string>
 	<!-- A unit of measure -->
 	<string name="ft">oin</string>
@@ -639,6 +646,12 @@
 	<string name="place_description_title">Tokiaren deskribapena</string>
 	<!-- this text will be shown in application notification preferences opposite checkbox which enable/disable downloader notifications. Devices on Android 8+ are affected. -->
 	<string name="notification_channel_downloader">Deskargatu mapak</string>
+	<!-- Speed camera settings menu option - Warn (about speedcams) if risk of exceeding speed limit -->
+	<string name="pref_tts_speedcams_auto">Ohartarazten du abiadura muga gainditzeko arriskua badago</string>
+	<!-- Speed camera settings menu option - Always warn (about speedcams) -->
+	<string name="pref_tts_speedcams_always">Beti abisatu</string>
+	<!-- Speed camera settings menu option - Never warn (about speedcams) -->
+	<string name="pref_tts_speedcams_never">Inoiz ez abisatu</string>
 	<string name="power_managment_title">Energia aurrezteko modua</string>
 	<string name="power_managment_description">Energia aurrezteko modua aktibatuta badago, aplikazioak energia kontsumitzen duten funtzioak itzaliko ditu, telefonoaren uneko kargaren arabera.</string>
 	<string name="power_managment_setting_never">Inoiz ez</string>
@@ -669,6 +682,8 @@
 	<string name="yes_available">Bai</string>
 	<!-- E.g. "WiFi:No" -->
 	<string name="no_available">Ez</string>
+	<!-- To indicate the capacity of car parkings, bicycle parkings, electric vehicle charging stations... -->
+	<string name="capacity">Edukiera: %s</string>
 	<string name="trip_finished">Iritsi zara!</string>
 	<string name="ok">Ados</string>
 	<!-- max. 10 symbols, both iOS and Android -->
@@ -743,8 +758,26 @@
 	<string name="splash_subtitle">Maparen datuak OpenStreetMap-etik</string>
 	<!-- Translated Organic Maps site, add new translations here: https://github.com/organicmaps/organicmaps.github.io/tree/master/content -->
 	<string name="translated_om_site_url">https://organicmaps.app/eu/</string>
-	<!-- Tip #00 -->
+	<!-- App Tip #00 -->
 	<string name="app_tip_00">Eskerrik asko gure komunitateak eraikitako mapak erabiltzeagatik!</string>
+	<!-- App tip #01 -->
+	<string name="app_tip_01">Zure dohaintza eta laguntzarekin, Munduko mapa onenak sor ditzakegu!</string>
+	<!-- App tip #02 -->
+	<string name="app_tip_02">Gure aplikazioa gustatzen zaizu? Mesedez, eman dohaintza garapena laguntzeko! Oraindik ez al zaizu gustatzen? Mesedez, jakinarazi iezaguzu, eta konponduko dugu!</string>
+	<!-- App tip #03 -->
+	<string name="app_tip_03">Software garatzaile bat ezagutzen baduzu, behar duzun funtzio bat ezartzeko eska diezaiokezu.</string>
+	<!-- App tip #04 -->
+	<string name="app_tip_04">Ba al dakizu mapako edozein toki luze sakatu dezakezula hura hautatzeko?</string>
+	<!-- App tip #05 -->
+	<string name="app_tip_05">Ba al dakizu zure uneko kokapena mapan hauta dezakezula?</string>
+	<!-- App tip #06 -->
+	<string name="app_tip_06">Gure aplikazioa zure hizkuntzara itzultzen lagun dezakezu.</string>
+	<!-- App tip #07 -->
+	<string name="app_tip_07">Gure aplikazioa zale gutxi batzuek eta komunitateak garatzen dute.</string>
+	<!-- App tip #08 -->
+	<string name="app_tip_08">Maparen datuak erraz konpondu eta hobetu ditzakezu.</string>
+	<!-- App tip #09 -->
+	<string name="app_tip_09">Gure helburu nagusia maite dituzun mapa azkarrak, pribatutasunari begira eta erabilerrazak sortzea da.</string>
 	<!-- Text on the Android Auto placeholder screen that maps are displayed on the phone screen -->
 	<string name="aa_used_on_the_phone_screen">Organic Maps organikoak erabiltzen ari zara telefonoaren pantailan</string>
 	<!-- Text on the phone placeholder screen that maps are displayed on the car screen -->
@@ -763,6 +796,15 @@
 	<string name="aa_connected_to_car_notification_title">Kotxearekin konektatuta</string>
 	<!-- Outdoors/hiking map style (activity) name in the Styles and Layers dialog -->
 	<string name="button_layer_outdoor">Mendi ibilaldiak</string>
+	<!-- Text displayed when a webview or a browser are disabled, and external links can't be opened. -->
+	<string name="browser_not_available">Web arakatzailea ez dago erabilgarri</string>
+	<string name="volume">Bolumena</string>
+	<!-- Bookmark categories screen, button that opens share dialog to export all bookmarks and tracks -->
+	<string name="bookmarks_export">Esportatu Laster-marka eta Pista guztiak</string>
+	<!-- button in (app) TTS settings, to open the system TTS settings. -->
+	<string name="pref_tts_open_system_settings">Sistemaren ahots-sintesiaren ezarpenak</string>
+	<!-- toast displayed when pressing the "Speech synthesis system settings" button, and the system settings aren't found. -->
+	<string name="pref_tts_no_system_tts">Ahots-sintesiaren ezarpenak ez dira aurkitu. Ziur zure gailuak onartzen duela?</string>
 
 	<!-- SECTION: Types -->
 	<string name="type.addr_interpolation">Helbidea/Blokea</string>
@@ -819,6 +861,7 @@
 	<string name="type.amenity.dentist">Dentista</string>
 	<string name="type.amenity.doctors">Kontsulta medikoa</string>
 	<string name="type.amenity.drinking_water">Ur edangarria</string>
+	<string name="type.drinking_water.yes">Ur edangarria</string>
 	<string name="type.amenity.driving_school">Autoeskola</string>
 	<string name="type.amenity.exhibition_centre">Erakusketa Zentroa</string>
 	<string name="type.amenity.money_transfer">Diru transferentzia</string>
@@ -917,6 +960,7 @@
 	<string name="type.amenity.telephone">Telefonoa</string>
 	<string name="type.amenity.theatre">Antzerkia</string>
 	<string name="type.amenity.toilets">Komuna</string>
+	<string name="type.toilets.yes">Komuna</string>
 	<string name="type.amenity.townhall">Udaletxea</string>
 	<string name="type.amenity.university">Unibertsitatea</string>
 	<string name="type.amenity.vending_machine">Makina saltzailea</string>
@@ -979,6 +1023,7 @@
 	<string name="type.boundary.administrative.state">Estatuko muga</string>
 	<string name="type.boundary.administrative.suburb">Auzoko muga</string>
 	<string name="type.boundary.national_park">Parke Nazionala</string>
+	<string name="type.boundary.aboriginal_lands">Lurralde autoktonoak</string>
 	<string name="type.boundary.protected_area">Babestutako Eremua</string>
 	<string name="type.boundary.protected_area.1">Babestutako Eremua</string>
 	<string name="type.boundary.protected_area.2">Babestutako Eremua</string>
@@ -987,7 +1032,8 @@
 	<string name="type.boundary.protected_area.5">Babestutako Eremua</string>
 	<string name="type.boundary.protected_area.6">Babestutako Eremua</string>
 	<string name="type.building">Eraikin</string>
-	<string name="type.building.address">Eraikin</string>
+	<!-- Duplicates [address] in strings.txt -->
+	<string name="type.building.address">Helbidea</string>
 	<string name="type.building.has_parts">Eraikin</string>
 	<string name="type.building_part">Eraikin</string>
 	<string name="type.building.garage">Garajea</string>
@@ -1947,6 +1993,10 @@
 	<string name="type.wheelchair.limited">Ezinduentzako partzialki hornitua</string>
 	<string name="type.wheelchair.no">Ezinduentzako ekipatuta ez dago</string>
 	<string name="type.wheelchair.yes">Ezinduentzako hornitua</string>
+	<string name="type.piste_type.snow_park">Elur parkea</string>
+	<string name="type.piste_type.hike">Elurretako Mendi Ibilbidea</string>
+	<string name="type.piste_type.connection">Pista Konexioa</string>
+	<string name="type.piste_type.skitour">Skitour Ibilbidea</string>
 	<string name="type.amenity.events_venue">Ekitaldien Lekua</string>
 	<string name="type.shop.auction">Enkantea</string>
 	<string name="type.shop.collector">Bildumagarriak</string>

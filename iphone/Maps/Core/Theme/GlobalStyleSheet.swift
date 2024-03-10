@@ -30,8 +30,9 @@ class GlobalStyleSheet: IStyleSheet {
     theme.add(styleName: "SearchBar") { (s) -> (Void) in
       s.backgroundColor = colors.white
       s.barTintColor = colors.primary
-      s.tintColor = UIColor.white
-      s.fontColor = colors.blackSecondaryText
+      s.fontColor = colors.blackPrimaryText
+      s.fontColorDetailed = UIColor.white
+      s.tintColor = colors.blackSecondaryText
     }
 
     theme.add(styleName: "NavigationBar") { (s) -> (Void) in
@@ -182,10 +183,16 @@ class GlobalStyleSheet: IStyleSheet {
       s.clip = true
     }
 
-    theme.add(styleName: "AlertViewTextField") { (s) -> (Void) in
+    theme.add(styleName: "AlertViewTextFieldContainer") { (s) -> (Void) in
       s.borderColor = colors.blackDividers
       s.borderWidth = 0.5
       s.backgroundColor = colors.white
+    }
+
+    theme.add(styleName: "AlertViewTextField") { (s) -> Void in
+      s.font = fonts.regular14
+      s.fontColor = colors.blackPrimaryText
+      s.tintColor = colors.blackSecondaryText
     }
 
     theme.add(styleName: "SearchStatusBarView") { (s) -> (Void) in
@@ -230,6 +237,12 @@ class GlobalStyleSheet: IStyleSheet {
     theme.add(styleName: "FlatGrayTransButton") { (s) -> (Void) in
       s.font = fonts.medium14
       s.fontColor = colors.blackSecondaryText
+      s.backgroundColor = colors.clear
+      s.fontColorHighlighted = colors.linkBlueHighlighted
+    }
+
+    theme.add(styleName: "FlatPrimaryTransButton") { (s) -> (Void) in
+      s.fontColor = colors.blackPrimaryText
       s.backgroundColor = colors.clear
       s.fontColorHighlighted = colors.linkBlueHighlighted
     }

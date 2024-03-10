@@ -37,15 +37,15 @@
 	<string name="try_again">Skúsiť znova</string>
 	<string name="about_menu_title">O aplikácii Organic Maps</string>
 	<!-- Text in About screen -->
-	<string name="about_headline">Zadarmo pre každého, vyrobený s láskou</string>
+	<string name="about_headline">Zadarmo pre každého, vyrobené s láskou</string>
 	<!-- Text in About screen -->
 	<string name="about_proposition_1">• Žiadne reklamy, žiadne sledovanie, žiadny zber údajov</string>
 	<!-- Text in About screen -->
-	<string name="about_proposition_2">• Šetrí batériu, nepoužíva dáta na pozadí</string>
+	<string name="about_proposition_2">• Žiadne vybíjanie batérie, funguje v režime offline</string>
 	<!-- Text in About screen -->
-	<string name="about_proposition_3">• Rýchle, minimalistické, žiadne nevyžiadané</string>
+	<string name="about_proposition_3">• Rýchly, minimalistický, vyvinutý komunitou</string>
 	<!-- Text in About screen -->
-	<string name="about_developed_by_enthusiasts">Aplikácia s otvoreným zdrojovým kódom vytvorené nadšencami a dobrovoľníkmi.</string>
+	<string name="about_developed_by_enthusiasts">Aplikácia s otvoreným zdrojovým kódom vytvorená nadšencami a dobrovoľníkmi.</string>
 	<!-- The button that opens system location settings -->
 	<string name="location_settings">Nastavenia polohy</string>
 	<string name="close">Zavrieť</string>
@@ -80,7 +80,7 @@
 	<string name="core_my_places">Moje miesta</string>
 	<!-- Add bookmark dialog - bookmark name -->
 	<string name="name">Názov</string>
-	<!-- Editor title above street and house number -->
+	<!-- Editor title above street and house number, duplicates [type.building.address] in types_strings.txt -->
 	<string name="address">Adresa</string>
 	<!-- Add Bookmark dialog/Bookmark list; Bookmarks dialog/Bookmark list cell. -->
 	<string name="list">Zoznam</string>
@@ -89,12 +89,24 @@
 	<!-- Header of settings activity where user defines storage path -->
 	<string name="maps_storage">Uložiť mapy do</string>
 	<!-- Detailed description of Maps Storage settings button -->
-	<string name="maps_storage_summary">Vyberte miesto, kam by mali byť mapy sťahované</string>
+	<string name="maps_storage_summary">Vyberte miesto, kam sa majú sťahovať mapy</string>
 	<!-- E.g. "Downloaded maps: 500Mb" in Maps Storage settings -->
 	<string name="maps_storage_downloaded">Mapy</string>
+	<!-- Internal storage type in Maps Storage settings (not accessible by the user) -->
+	<string name="maps_storage_internal">Interné privátne úložisko</string>
+	<!-- Shared storage type in Maps Storage settings (a primary storage usually) -->
+	<string name="maps_storage_shared">Interné zdieľané úložisko</string>
+	<!-- Removable external storage type in Maps Storage settings, e.g. an SD card -->
+	<string name="maps_storage_removable">SD karta</string>
+	<!-- Generic external storage type in Maps Storage settings -->
+	<string name="maps_storage_external">Externé zdieľané úložisko</string>
+	<!-- Free space out of total storage size in Maps Storage settings, e.g. "300 MB free of 2 GB" -->
+	<string name="maps_storage_free_size">Voľných %1$s z %2$s</string>
 	<!-- Question dialog for transferring maps from one storage to another -->
 	<string name="move_maps">Presunúť mapy?</string>
-	<!-- Ask to wait user several minutes (some long process in modal dialog). -->
+	<!-- Error moving map files from one storage to another -->
+	<string name="move_maps_error">Chyba pri presune mapových súborov</string>
+	<!-- Ask user to wait several minutes (some long process in modal dialog). -->
 	<string name="wait_several_minutes">Táto akcia môže trvať niekoľko minút.\nProsím čakajte…</string>
 	<!-- Measurement units title in settings activity -->
 	<string name="measurement_units">Meracie jednotky</string>
@@ -152,12 +164,17 @@
 	<string name="description">Poznámky</string>
 	<!-- Email Subject when sharing bookmark list -->
 	<string name="share_bookmarks_email_subject">Zdielané záložky Organic Maps</string>
+	<string name="share_bookmarks_email_body">Ahoj!\n\nV prílohe sú moje záložky z aplikácie Organic Maps. Ak ju nemáš nainštalovanú, môžeš si ju stiahnuť tu: https://omaps.app/get?kmz\n\nPrajem šťastnú cestu s Organic Maps!</string>
 	<!-- message title of loading file -->
 	<string name="load_kmz_title">Načítavanie záložiek</string>
 	<!-- Kmz file successful loading -->
-	<string name="load_kmz_successful">Záložky boli úspešne načítané! Môžete ich nájst na mape alebo na obrazovke Správca záložiek.</string>
+	<string name="load_kmz_successful">Záložky boli úspešne načítané! Môžete ich nájsť na mape alebo na obrazovke Správca záložiek.</string>
 	<!-- Kml file loading failed -->
 	<string name="load_kmz_failed">Načítavanie záložiek sa nepodarilo. Súbor môže byť poškodený alebo chybný.</string>
+	<!-- Failed to recognize the format of a bookmarks or tracks file. -->
+	<string name="unknown_file_type">Aplikácia nerozpoznáva typ súboru:\n%1$s</string>
+	<!-- Failed to open a bookmarks or tracks file in Organic Maps. -->
+	<string name="failed_to_open_file">Nepodarilo sa otvoriť súbor %1$s\n\n%2$s</string>
 	<!-- resource for context menu -->
 	<string name="edit">Upraviť</string>
 	<!-- Warning message when doing search around current position -->
@@ -175,7 +192,7 @@
 	<!-- Share my position using EMail, %1$@ is om:// and %2$@ is https://omaps.app link WITHOUT NAME -->
 	<string name="my_position_share_email">Ahoj,\n\nPráve som tu: %1$s. Stlačte jeden z týchto odkazov %2$s, %3$s a uvidíte toto miesto na mape.\n\nVďaka</string>
 	<!-- Share button text which opens menu with more buttons, like Message, EMail, Facebook etc. -->
-	<string name="share">Zdielať</string>
+	<string name="share">Zdieľať</string>
 	<!-- Share by email button text, also used in editor and About. -->
 	<string name="email">Email</string>
 	<!-- Text for message when used successfully copied something -->
@@ -189,13 +206,21 @@
 	<!-- Title for tracks category in bookmarks manager -->
 	<string name="tracks_title">Stopy</string>
 	<!-- Length of track in cell that describes route -->
-	<string name="length">Diaľka</string>
-	<string name="share_my_location">Zdielať moje umiestnenie</string>
+	<string name="length">Dĺžka</string>
+	<string name="share_my_location">Zdieľať moje umiestnenie</string>
+	<!-- Settings general group in settings screen -->
+	<string name="prefs_group_general">Všeobecné nastavenia</string>
+	<!-- Settings information group in settings screen -->
+	<string name="prefs_group_information">Informácie</string>
 	<string name="prefs_group_route">Navigácia</string>
-	<string name="pref_zoom_title">Tlačítka priblíženia/oddialenia</string>
+	<string name="pref_zoom_title">Tlačidlá priblíženia/oddialenia</string>
 	<string name="pref_zoom_summary">Zobraziť na obrazovke</string>
 	<!-- Settings «Map» category: «Night style» title -->
 	<string name="pref_map_style_title">Nočný režim</string>
+	<!-- Settings "Appearance" category: "Light" title, should be consistent with the pref_appearance_title translation. -->
+	<string name="pref_appearance_light">Svetlý</string>
+	<!-- Settings "Appearance" category: "Dark" title, should be consistent with the pref_appearance_title translation. -->
+	<string name="pref_appearance_dark">Tmavý</string>
 	<!-- Generic «Off» string -->
 	<string name="off">Vypnúť</string>
 	<!-- Generic «On» string -->
@@ -283,6 +308,8 @@
 	<!-- Text for routing error dialog -->
 	<string name="routing_download_maps_along">Stiahnite si mapy pozdĺž trasy</string>
 	<!-- Text for routing error dialog -->
+	<string name="routing_requires_all_map">Aby bolo možné naplánovať cestu, je potrebné stiahnuť všetky mapy od vašej pozície po cieľové miesto.</string>
+	<!-- Text for routing error dialog -->
 	<string name="routing_not_enough_space">Nedostatok miesta</string>
 	<!-- location service disabled -->
 	<string name="enable_location_services">Prosím, povoľte Služby určovania polohy</string>
@@ -365,12 +392,14 @@
 	<string name="search_history_title">História vyhľadávania</string>
 	<string name="search_history_text">Rýchlo pristupujte k nedávnym hľadaným výrazom.</string>
 	<string name="clear_search">Vymazať históriu vyhľadávania</string>
+	<!-- Place Page link to Wikipedia article (if map object has it). -->
+	<string name="read_in_wikipedia">Wikipédia</string>
 	<string name="p2p_your_location">Vaša poloha</string>
 	<string name="p2p_start">Štart</string>
 	<string name="p2p_from_here">Cesta z</string>
 	<string name="p2p_to_here">Cesta do</string>
 	<string name="p2p_only_from_current">Navigácia je dostupná iba z vašej aktuálnej polohy.</string>
-	<string name="p2p_reroute_from_current">Doriți să vă planificăm o rută având ca punct de pornire locația actuală?</string>
+	<string name="p2p_reroute_from_current">Máme naplánovať trasu z vašej súčasnej pozície?</string>
 	<!-- Edit open hours/set time and minutes dialog -->
 	<string name="next_button">Nasledujúca</string>
 	<!-- Tab title in the Edit Opening Hours time picker -->
@@ -403,8 +432,10 @@
 	<string name="daily">Denne</string>
 	<string name="twentyfour_seven">Deň a noc</string>
 	<string name="day_off_today">Dnes deň voľna</string>
-	<string name="day_off">Deň voľna</string>
+	<string name="day_off">Zatvorené</string>
 	<string name="today">Dnes</string>
+	<string name="opens_in">Otvoria o %s</string>
+	<string name="closes_in">Zatvoria o %s</string>
 	<string name="closed">Zatvorené</string>
 	<string name="edit_opening_hours">Upraviť otváracie hodiny</string>
 	<string name="no_osm_account">Nemáte účet v OpenStreetMap?</string>
@@ -422,6 +453,8 @@
 	<string name="details">Podrobnosti</string>
 	<!-- Text field to enter non-existing street name, below list of known streets around -->
 	<string name="add_street">Pridať ulicu</string>
+	<!-- Error to display when a new street name is not entered in the New street dialog -->
+	<string name="empty_street_name_error">Zadajte názov ulice</string>
 	<string name="choose_language">Vybrať jazyk</string>
 	<string name="choose_street">Vybrať ulicu</string>
 	<string name="postal_code">PSČ</string>
@@ -429,6 +462,7 @@
 	<string name="select_cuisine">Vyberte si kuchyňu</string>
 	<!-- login text field -->
 	<string name="email_or_username">Email alebo používateľské meno</string>
+	<string name="editor_add_phone">Pridať telefónne číslo</string>
 	<string name="level">Podlaha</string>
 	<string name="downloader_delete_map_dialog">Všetky zmeny týkajúce sa mapy budú vymazané spolu s mapou.</string>
 	<string name="downloader_update_maps">Aktualizovať mapy</string>
@@ -448,8 +482,8 @@
 	<string name="editor_report_problem_other_title">Iný problém</string>
 	<string name="placepage_add_business_button">Pridať organizáciu</string>
 	<string name="message_invalid_feature_position">Objekt sa tu nedá umiestniť</string>
-	<!-- Text in About and OSM Login screens. %@ is replaced by a local, human readable date. -->
-	<string name="osm_presentation">Kartografické údaje z OpenStreetMap od %s. Je to ako Wikipedia, kde môžete pridať alebo upravovať miesta pre všetkých používateľov po celom svete.</string>
+	<!-- Text in About and OSM Login screens. First %@ is replaced by a local, human readable date. -->
+	<string name="osm_presentation">Údaje OpenStreetMap vytvorené komunitou od %s. Viac informácií o tom, ako upravovať a aktualizovať mapu, nájdete na stránke OpenStreetMap.org</string>
 	<string name="login_to_make_edits_visible">Prihláste sa, aby mohli ostatní užívatelia vidieť Vami vykonané zmeny.</string>
 	<!-- Downloaded 10 **of** 20 <- it is that "of" -->
 	<string name="downloader_of">%1$d z %2$d</string>
@@ -458,7 +492,7 @@
 	<string name="error_enter_correct_house_number">Zadajte správne číslo domu</string>
 	<string name="editor_storey_number">Počet poschodí (max %d)</string>
 	<!-- Error message in Editor when a user tries to set the number of floors for a building higher than %d floors -->
-	<string name="error_enter_correct_storey_number">Upraviť s maximálne %d poschodiami</string>
+	<string name="error_enter_correct_storey_number">Počet poschodí nesmie byť väčší ako %d</string>
 	<string name="editor_zip_code">PSČ</string>
 	<string name="error_enter_correct_zip_code">Zadajte správne PSČ</string>
 	<!-- Place Page title for long tap -->
@@ -470,15 +504,14 @@
 	<string name="editor_operator">Prevádzkovateľ</string>
 	<string name="downloader_no_downloaded_maps_title">Neprevzali ste žiadne mapy</string>
 	<string name="downloader_no_downloaded_maps_message">Prevziať mapy na nájdenie pozície a navigovanie off-line.</string>
-	<!-- Error title that appears after certain time without location. -->
-	<string name="current_location_unknown_title">Pokračovať v mazaní vašej súčasnej pozície?</string>
-	<!-- Error that appears after certain time without location. -->
-	<string name="current_location_unknown_message">Súčasná pozícia je neznáma. Možno sa nachádzate v budove alebo v tuneli.</string>
-	<string name="current_location_unknown_continue_button">Pokračovať</string>
-	<string name="current_location_unknown_stop_button">Zastaviť</string>
+	<string name="stop">Zastaviť</string>
+	<!-- abbreviation for meters -->
 	<string name="m">m</string>
+	<!-- abbreviation for kilometers -->
 	<string name="km">km</string>
+	<!-- abbreviation for kilometers per hour -->
 	<string name="kilometers_per_hour">km/h</string>
+	<!-- abbreviation for mile(s) -->
 	<string name="mi">mi</string>
 	<!-- A unit of measure -->
 	<string name="ft">stopa</string>
@@ -499,10 +532,17 @@
 	<string name="editor_remove_place_message">Odstrániť pridané miesto?</string>
 	<string name="editor_remove_place_button">Odstrániť</string>
 	<string name="editor_place_doesnt_exist">Miesto neexistuje</string>
+	<!-- Error message for "Place doesn't exist" dialog when comment is empty -->
+	<string name="delete_place_empty_comment_error">Prosím, uveďte prečo chcete zmazať toto miesto</string>
 	<!-- Phone number error message -->
 	<string name="error_enter_correct_phone">Zadajte správne telefónne číslo</string>
 	<string name="error_enter_correct_web">Zadajte platnú webovú adresu</string>
 	<string name="error_enter_correct_email">Zadajte platný email</string>
+	<string name="error_enter_correct_facebook_page">Zadajte platnú facebookovú adresu, účet alebo názov stránky</string>
+	<string name="error_enter_correct_instagram_page">Zadajte platné používateľské meno alebo webovú adresu pre Instagram</string>
+	<string name="error_enter_correct_twitter_page">Zadajte platné používateľské meno alebo adresu pre Twitter/X</string>
+	<string name="error_enter_correct_vk_page">Zadajte platné používateľské meno alebo adresu pre VK</string>
+	<string name="error_enter_correct_line_page">Zadajte platné LINE ID alebo webovú adresu</string>
 	<string name="placepage_add_place_button">Pridať miesto do OpenStreetMap</string>
 	<!-- Displayed when saving some edits to the map to warn against publishing personal data -->
 	<string name="editor_share_to_all_dialog_title">Odoslať všetkým používateľom?</string>
@@ -534,7 +574,7 @@
 	<string name="prefs_languages_information">Na hlasové pokyny používame systém TTS. Mnohé zariadenia s Adroidom používajú Google TTS, ktorý si môžete stiahnuť alebo aktualizovať z obchodu Google Play (https://play.google.com/store/apps/details?id=com.google.android.tts)</string>
 	<string name="prefs_languages_information_off">Pre niektoré jazyky bude potrebné nainštalovať syntetizátor reči alebo balík doplnkového jazyka z obchodu s aplikáciami (Google Play, Galaxy Store, App Gallery, FDroid). Otvorte nastavenia zariadenia → Jazyk a vstup → Reč → Prevod textu na reč. Tu môžete spravovať nastavenia pre syntézu reči (napríklad stiahnuť jazykový balík pre použitie v režime offline) a vybrať iný jazyk.</string>
 	<string name="prefs_languages_information_off_link">Viac informácií nájdete v tomto návode.</string>
-	<string name="transliteration_title">Prepis do latinčiny</string>
+	<string name="transliteration_title">Prepis do latinky</string>
 	<string name="learn_more">Zistiť viac</string>
 	<!-- Subway exits for public transport marks on the map -->
 	<string name="core_exit">Ukončiť</string>
@@ -545,7 +585,7 @@
 	<string name="dialog_error_storage_title">Problém s prístupom k úložisku</string>
 	<string name="dialog_error_storage_message">Externý úložný priestor nie je dostupný, pravdepodobne je vytiahnutá alebo poškodená SD karta alebo je systém súborov určený iba na čítanie. Skontrolujte to, prosím, a kontaktujte nás na support\@organicmaps.app</string>
 	<string name="setting_emulate_bad_storage">Imitovať poškodené úložisko</string>
-	<string name="core_entrance">Vchod  | vjazd</string>
+	<string name="core_entrance">Vchod | vjazd</string>
 	<string name="error_enter_correct_name">Prosím, zadajte správne meno</string>
 	<string name="bookmark_lists">Zoznamy</string>
 	<!-- Do not display all bookmark lists on the map -->
@@ -580,19 +620,19 @@
 	  <item quantity="other">%d sledovania</item>
 	</plurals>
 	<!-- Settings privacy group in settings screen -->
-	<string name="privacy">Súkromia</string>
+	<string name="privacy">Súkromie</string>
 	<string name="privacy_policy">Zásady ochrany osobných údajov</string>
 	<string name="terms_of_use">Podmienky používania</string>
-	<string name="button_layer_traffic">Vyťaženie</string>
+	<string name="button_layer_traffic">Dopravné informácie</string>
 	<string name="button_layer_subway">Metro</string>
 	<string name="layers_title">Štýly a vrstvy mapy</string>
 	<string name="subway_data_unavailable">Mapa metra nie je dostupná</string>
 	<string name="bookmarks_empty_list_title">Tento zoznam je prázdny</string>
-	<string name="bookmarks_empty_list_message">Pre pridanie záložky kliknite na miesto na mape a potom na ikonu hviezdy</string>
+	<string name="bookmarks_empty_list_message">Pre pridanie záložky kliknite na miesto na mape a potom na ikonu hviezdičky</string>
 	<string name="category_desc_more">…viac</string>
 	<string name="export_file">Exportovať súbor</string>
 	<string name="delete_list">Vymazať zoznam</string>
-	<string name="public_access">Verejný prístup</string>
+	<string name="public_access">Verejne prístupné</string>
 	<string name="limited_access">Obmedzený prístup</string>
 	<string name="bookmark_list_description_hint">Zadajte popis (text alebo html)</string>
 	<string name="not_shared">Súkromné</string>
@@ -604,21 +644,27 @@
 	<string name="place_description_title">Popis miesta</string>
 	<!-- this text will be shown in application notification preferences opposite checkbox which enable/disable downloader notifications. Devices on Android 8+ are affected. -->
 	<string name="notification_channel_downloader">Sťahovač máp</string>
+	<!-- Speed camera settings menu option - Warn (about speedcams) if risk of exceeding speed limit -->
+	<string name="pref_tts_speedcams_auto">Upozornenie ak existuje riziko prekročenia rýchlostného limitu</string>
+	<!-- Speed camera settings menu option - Always warn (about speedcams) -->
+	<string name="pref_tts_speedcams_always">Vždy upozorniť</string>
+	<!-- Speed camera settings menu option - Never warn (about speedcams) -->
+	<string name="pref_tts_speedcams_never">Nikdy neupozorňovať</string>
 	<string name="power_managment_title">Úsporný režim</string>
 	<string name="power_managment_description">Keď je zvolený automatický režim, aplikácia začne vypínať funkcie, ktoré vybíjajú batériu v závislosti od aktuálnej úrovne nabitia batérie</string>
 	<string name="power_managment_setting_never">Nikdy</string>
 	<string name="power_managment_setting_auto">Automaticky</string>
 	<string name="power_managment_setting_manual_max">Maximálna úspora batérie</string>
-	<string name="enable_logging_warning_message">Táto možnosť zapína zaznamenávanie na diagnostické účely. Môže to byť užitočné pre našu technickú podporu, ktorá rieši problémy s aplikáciou. Povoliť túto možnosť iba na požiadanie podpory Organic Maps.</string>
+	<string name="enable_logging_warning_message">Týmto zapnete záznamenávanie diagnostických informácií, ktoré môžete poslať našej technickej podpore v prípade problémov s aplikáciou. Záznam môže obsahovať údaje o vašej polohe.</string>
 	<string name="access_rules_author_only">Online úprava</string>
-	<string name="driving_options_title">Možnosti jazdy</string>
+	<string name="driving_options_title">Možnosti trasy</string>
 	<!-- Recommended length for CarPlay and Android Auto is around 25-27 characters -->
-	<string name="avoid_tolls">Vyhnite sa spoplatneným cestám</string>
+	<string name="avoid_tolls">Vyhnúť sa spoplatneným cestám</string>
 	<!-- Recommended length for CarPlay and Android Auto is around 25-27 characters -->
 	<string name="avoid_unpaved">Vyhnúť sa nespevneným cestám</string>
 	<!-- Recommended length for CarPlay and Android Auto is around 25-27 characters -->
 	<string name="avoid_ferry">Vyhnúť sa prechodom na trajekte</string>
-	<string name="avoid_motorways">Vyhnite sa diaľnici</string>
+	<string name="avoid_motorways">Vyhnúť sa diaľniciam</string>
 	<string name="unable_to_calc_alert_title">Nepodarilo sa vypočítať trasu</string>
 	<string name="unable_to_calc_alert_subtitle">Bohužiaľ sme nemohli nájsť trasu pravdepodobne z dôvodu definovaných možností. Zmeňte nastavenia a skúste to prosím znova</string>
 	<string name="define_to_avoid_btn">Definovať cesty, ktorým sa treba vyhnúť</string>
@@ -634,6 +680,8 @@
 	<string name="yes_available">Áno</string>
 	<!-- E.g. "WiFi:No" -->
 	<string name="no_available">Nie</string>
+	<!-- To indicate the capacity of car parkings, bicycle parkings, electric vehicle charging stations... -->
+	<string name="capacity">Kapacita: %s</string>
 	<string name="trip_finished">Prišli ste do cieľa!</string>
 	<string name="ok">Ok</string>
 	<!-- max. 10 symbols, both iOS and Android -->
@@ -679,8 +727,8 @@
 	<string name="button_layer_isolines">Terén</string>
 	<string name="isolines_activation_error_dialog">Ak chcete aktivovať a používať topografickú vrstvu, aktualizujte alebo stiahnite mapu oblasti</string>
 	<string name="isolines_location_error_dialog">Topografická vrstva ešte nie je v tejto oblasti k dispozícii</string>
-	<string name="elevation_profile_ascent">Výstup</string>
-	<string name="elevation_profile_descent">Zostup</string>
+	<string name="elevation_profile_ascent">Stúpanie</string>
+	<string name="elevation_profile_descent">Klesanie</string>
 	<string name="elevation_profile_minaltitude">Min. nadmorská výška</string>
 	<string name="elevation_profile_maxaltitude">Max. nadmorská výška</string>
 	<string name="elevation_profile_difficulty">Obtiažnosť</string>
@@ -688,13 +736,42 @@
 	<string name="elevation_profile_time">Čas:</string>
 	<string name="isolines_toast_zooms_1_10">Priblížením preskúmajte izočiary</string>
 	<string name="downloader_loading_ios">Sťahovanie</string>
-	<string name="enable_keep_screen_on">Ponechajte obrazovku zapnutú</string>
+	<string name="download_map_title">Stiahnuť mapu sveta</string>
+	<!-- Used in DownloadResources startup screen -->
+	<string name="disk_error">Nepodarilo sa vytvoriť priečinok a presunúť súbory do internej pamäte alebo na SD kartu</string>
+	<!-- Used in DownloadResources startup screen -->
+	<string name="connection_failure">Chyba spojenia</string>
+	<!-- Used in DownloadResources startup screen -->
+	<string name="disconnect_usb_cable_title">Odpojte USB kábel</string>
+	<string name="enable_keep_screen_on">Nechať obrazovku zapnutú</string>
 	<!-- Description in preferences -->
 	<string name="enable_keep_screen_on_description">Ak je táto funkcia zapnutá, obrazovka bude pri zobrazovaní mapy vždy zapnutá.</string>
+	<!-- A preference title; keep short! -->
+	<string name="enable_show_on_lock_screen">Zobraziť na uzamknutej obrazovke</string>
+	<!-- Description in preferences -->
+	<string name="enable_show_on_lock_screen_description">Ak je táto funkcia zapnutá, aplikácia bude aktívna aj keď je zariadenie uzamknuté</string>
 	<!-- OpenStreetMap text on splash screen -->
 	<string name="splash_subtitle">Mapové údaje z OpenStreetMap</string>
-	<!-- Tip #00 -->
+	<!-- App Tip #00 -->
 	<string name="app_tip_00">Ďakujeme, že používate naše mapy vytvorené komunitou!</string>
+	<!-- App tip #01 -->
+	<string name="app_tip_01">S vašimi darmi a podporou môžeme vytvoriť tie najlepšie mapy na svete!</string>
+	<!-- App tip #02 -->
+	<string name="app_tip_02">Páči sa vám naša aplikácia? Prosím, prispejte na podporu rozvoja! Ešte sa ti to nepáči? Dajte nám vedieť a my to napravíme!</string>
+	<!-- App tip #03 -->
+	<string name="app_tip_03">Ak poznáte vývojára softvéru, môžete ho požiadať, aby implementoval funkciu, ktorú potrebujete.</string>
+	<!-- App tip #04 -->
+	<string name="app_tip_04">Viete, že na ľubovoľné miesto na mape ho môžete vybrať dlhým klepnutím?</string>
+	<!-- App tip #05 -->
+	<string name="app_tip_05">Viete, že si môžete vybrať svoju aktuálnu polohu na mape?</string>
+	<!-- App tip #06 -->
+	<string name="app_tip_06">Môžete pomôcť preložiť našu aplikáciu do vášho jazyka.</string>
+	<!-- App tip #07 -->
+	<string name="app_tip_07">Naša aplikácia je vyvinutá niekoľkými nadšencami a komunitou.</string>
+	<!-- App tip #08 -->
+	<string name="app_tip_08">Mapové údaje môžete jednoducho opraviť a vylepšiť.</string>
+	<!-- App tip #09 -->
+	<string name="app_tip_09">Naším hlavným cieľom je vytvárať rýchle, na súkromie, ľahko použiteľné mapy, ktoré si zamilujete.</string>
 	<!-- Text on the Android Auto placeholder screen that maps are displayed on the phone screen -->
 	<string name="aa_used_on_the_phone_screen">Na obrazovke telefónu teraz používate službu Organic Maps</string>
 	<!-- Text on the phone placeholder screen that maps are displayed on the car screen -->
@@ -713,11 +790,26 @@
 	<string name="aa_connected_to_car_notification_title">Pripojenie k vozidlu</string>
 	<!-- Outdoors/hiking map style (activity) name in the Styles and Layers dialog -->
 	<string name="button_layer_outdoor">Turistika</string>
+	<!-- Text displayed when a webview or a browser are disabled, and external links can't be opened. -->
+	<string name="browser_not_available">Webový prehliadač nie je k dispozícii</string>
+	<!-- Text displayed in a dialog when OSM authorization is disabled -->
+	<string name="osm_login_not_available">Autorizácia OpenStreetMap je dočasne nedostupná kvôli novým obmedzeniam v Google Play 😾\nNáš tím pracuje na vyriešení tohto problému. Buďte prosím trpezliví 🙏</string>
+	<string name="volume">Hlasitosť</string>
+	<!-- Bookmark categories screen, button that opens share dialog to export all bookmarks and tracks -->
+	<string name="bookmarks_export">Export všetkých záložiek a stôp</string>
+	<!-- button in (app) TTS settings, to open the system TTS settings. -->
+	<string name="pref_tts_open_system_settings">Nastavenia systému syntézy reči</string>
+	<!-- toast displayed when pressing the "Speech synthesis system settings" button, and the system settings aren't found. -->
+	<string name="pref_tts_no_system_tts">Nastavenia syntézy reči neboli nájdené, ste si istí, že ich vaše zariadenie podporuje?</string>
 
 	<!-- SECTION: Types -->
 	<string name="type.addr_interpolation">Adresa/blok</string>
 	<string name="type.addr_interpolation.even">Adresa/blok</string>
 	<string name="type.addr_interpolation.odd">Adresa/blok</string>
+	<string name="type.aerialway.cable_car">Lanovka</string>
+	<string name="type.aerialway.chair_lift">Sedačková lanovka</string>
+	<string name="type.aerialway.drag_lift">Vlek</string>
+	<string name="type.aerialway.gondola">Kabínová lanovka</string>
 	<string name="type.aerialway.station">Lanovka</string>
 	<string name="type.aeroway.aerodrome">Letisko</string>
 	<string name="type.aeroway.aerodrome.international">Letisko</string>
@@ -757,6 +849,7 @@
 	<string name="type.amenity.dentist">Zubár</string>
 	<string name="type.amenity.doctors">Ambulancia</string>
 	<string name="type.amenity.drinking_water">Pitná voda</string>
+	<string name="type.drinking_water.yes">Pitná voda</string>
 	<string name="type.amenity.driving_school">Autoškola</string>
 	<string name="type.amenity.exhibition_centre">Výstavisko</string>
 	<string name="type.amenity.money_transfer">Prevod peňazí</string>
@@ -828,8 +921,8 @@
 
 	<!-- SECTION: Types: Recycling -->
 	<string name="type.amenity.recycling.centre">Zberné suroviny</string>
-	<string name="type.amenity.recycling">Recyklačný odpad</string>
-	<string name="type.amenity.recycling.container">Recyklačný odpad</string>
+	<string name="type.amenity.recycling">Recyklačný kontajner</string>
+	<string name="type.amenity.recycling.container">Recyklačný kontajner</string>
 	<string name="type.recycling.batteries">Batérie</string>
 	<string name="type.recycling.clothes">Staré oblečenie</string>
 	<string name="type.recycling.glass_bottles">Sklenené fľaše</string>
@@ -838,6 +931,11 @@
 	<string name="type.recycling.plastic_bottles">Plastové fľaše</string>
 	<string name="type.recycling.scrap_metal">Kovový šrot</string>
 	<string name="type.recycling.small_appliances">Elektronický odpad</string>
+	<string name="type.recycling.cardboard">Kartóny</string>
+	<string name="type.recycling.cans">Plechovky</string>
+	<string name="type.recycling.shoes">Obuv</string>
+	<string name="type.recycling.green_waste">Biologický odpad</string>
+	<string name="type.recycling.cartons">Tetrapaky</string>
 	<string name="type.amenity.restaurant">Reštaurácia</string>
 	<string name="type.amenity.school">Škola</string>
 	<string name="type.amenity.shelter">Prístrešok</string>
@@ -847,12 +945,18 @@
 	<string name="type.amenity.telephone">Telefón</string>
 	<string name="type.amenity.theatre">Divadlo</string>
 	<string name="type.amenity.toilets">Záchody</string>
+	<string name="type.toilets.yes">Záchody</string>
 	<string name="type.amenity.townhall">Radnica</string>
 	<string name="type.amenity.university">Univerzita</string>
+	<string name="type.amenity.vending_machine">Výdajný automat</string>
 	<string name="type.amenity.vending_machine.cigarettes">Automat na cigarety</string>
+	<string name="type.amenity.vending_machine.coffee">Automat na kávu</string>
+	<string name="type.amenity.vending_machine.condoms">Automat na kondómy</string>
 	<string name="type.amenity.vending_machine.drinks">Nápojový automat</string>
+	<string name="type.amenity.vending_machine.food">Automat s potravinami</string>
 	<string name="type.amenity.vending_machine.parking_tickets">Automat na výdaj parkovacích lístkov</string>
 	<string name="type.amenity.vending_machine.public_transport_tickets">Predajný automat na lístky verejnej dopravy</string>
+	<string name="type.amenity.parcel_locker">Balíkomat</string>
 	<string name="type.amenity.vehicle_inspection">Kontrola vozidla</string>
 	<string name="type.amenity.veterinary">Veterinár</string>
 	<string name="type.amenity.waste_basket">Odpadkový kôš</string>
@@ -861,6 +965,7 @@
 	<string name="type.barrier.block">Blok</string>
 	<string name="type.barrier.bollard">Pilier</string>
 	<string name="type.barrier.border_control">Hraničná kontrola</string>
+	<string name="type.barrier.chain">Reťaz</string>
 	<string name="type.barrier.city_wall">Mestský múr</string>
 	<string name="type.waterway.ditch">Drenážna priekopa</string>
 	<string name="type.natural.water.moat">Priekopa</string>
@@ -874,6 +979,7 @@
 	<string name="type.barrier.swing_gate">Závora</string>
 	<string name="type.barrier.toll_booth">Mýtne</string>
 	<string name="type.boundary.national_park">Národný park</string>
+	<string name="type.boundary.aboriginal_lands">Domorodé krajiny</string>
 	<string name="type.boundary.protected_area">Chránené územie</string>
 	<string name="type.boundary.protected_area.1">Chránené územie</string>
 	<string name="type.boundary.protected_area.2">Chránené územie</string>
@@ -882,7 +988,8 @@
 	<string name="type.boundary.protected_area.5">Chránené územie</string>
 	<string name="type.boundary.protected_area.6">Chránené územie</string>
 	<string name="type.building">Budova</string>
-	<string name="type.building.address">Budova</string>
+	<!-- Duplicates [address] in strings.txt -->
+	<string name="type.building.address">Adresa</string>
 	<string name="type.building.has_parts">Budova</string>
 	<string name="type.building_part">Budova</string>
 	<string name="type.building.garage">Garáž</string>
@@ -1277,10 +1384,12 @@
 	<string name="type.man_made.surveillance">Bezpečnostná kamera</string>
 	<string name="type.man_made.tower">Veža</string>
 	<string name="type.man_made.tower.communication">Komunikačná veža</string>
+	<string name="type.man_made.wastewater_plant">Čistička odpadových vôd</string>
 	<string name="type.man_made.water_tap">Vodovodný kohútik</string>
 	<string name="type.man_made.water_tower">Vodojem</string>
 	<string name="type.man_made.water_well">Studňa</string>
 	<string name="type.man_made.windmill">Veterný mlyn</string>
+	<string name="type.man_made.works">Továreň</string>
 	<string name="type.natural">Príroda</string>
 	<string name="type.natural.bare_rock">Holá skala</string>
 	<string name="type.natural.bay">Záliv</string>
@@ -1371,10 +1480,12 @@
 	<string name="type.power.plant.wind">Veterná elektráreň</string>
 	<string name="type.power.substation">Rozvodňa</string>
 	<string name="type.power.tower">Stĺp elektrického vedenia</string>
+	<string name="type.railway.crossing">Železničné priecestie</string>
 	<string name="type.railway.funicular">Lanovka</string>
 	<string name="type.railway.halt">Železničná stanica</string>
-	<string name="type.railway.level_crossing">Križovanie úrovní</string>
+	<string name="type.railway.level_crossing">Železničné priecestie</string>
 	<string name="type.railway.monorail">Jednokoľajnicová dráha</string>
+	<string name="type.railway.platform">Nástupište</string>
 	<string name="type.railway.rail">Železnica</string>
 	<string name="type.railway.rail.highspeed">Vysokorýchlostná železnica</string>
 	<string name="type.railway.rail.tourism">Turistická železnica</string>
@@ -1648,6 +1759,7 @@
 	<string name="type.shop.car_parts">Autodiely</string>
 	<string name="type.shop.car_repair">Autoservis</string>
 	<string name="type.shop.car_repair.tyres">Pneuservis</string>
+	<string name="type.shop.caravan">Predajňa autokarov</string>
 	<string name="type.shop.carpet">Koberce</string>
 	<string name="type.shop.chemist">Drogéria</string>
 	<string name="type.shop.chocolate">Obchod s čokoládou</string>
@@ -1655,28 +1767,29 @@
 	<string name="type.shop.coffee">Obchod s kávou</string>
 	<string name="type.shop.computer">Obchod s výpočtovou technikou</string>
 	<string name="type.shop.confectionery">Cukrovinky</string>
-	<string name="type.shop.convenience">Príležitostné potreby</string>
+	<string name="type.shop.convenience">Zmiešaný tovar</string>
 	<string name="type.shop.copyshop">Kopírovacie služby</string>
 	<string name="type.shop.cosmetics">Kozmetika</string>
 	<string name="type.shop.curtain">Záclony</string>
 	<string name="type.shop.deli">Predajňa lahôdok</string>
 	<string name="type.shop.department_store">Obchodný dom</string>
-	<string name="type.shop.doityourself">Železiarstvo</string>
+	<string name="type.shop.doityourself">Obchod pre domácich majstrov</string>
 	<string name="type.shop.dry_cleaning">Čistiareň</string>
 	<string name="type.shop.electronics">Elektronika</string>
-	<string name="type.shop.erotic">Erotický obchod</string>
+	<string name="type.shop.erotic">Sex shop</string>
 	<string name="type.shop.fabric">Obchod s látkami</string>
 	<string name="type.shop.farm">Obchod s farmárskymi potravinami</string>
 	<string name="type.shop.fashion_accessories">Módne doplnky</string>
 	<string name="type.shop.florist">Kvety</string>
 	<string name="type.shop.funeral_directors">Pohrebníctvo</string>
 	<string name="type.shop.furniture">Nábytok</string>
-	<string name="type.shop.garden_centre">Škôlka</string>
+	<string name="type.shop.garden_centre">Záhradkárske potreby</string>
 	<string name="type.shop.gas">Obchod s plynom</string>
 	<string name="type.shop.gift">Darčeky</string>
 	<string name="type.shop.greengrocer">Zelovoc</string>
 	<string name="type.shop.grocery">Potraviny</string>
 	<string name="type.shop.hairdresser">Kaderníctvo</string>
+	<string name="type.shop.hardware">Železiarstvo</string>
 	<string name="type.shop.health_food">Obchod so zdravou výživou</string>
 	<string name="type.shop.herbalist">Obchod s bylinkami</string>
 	<string name="type.shop.hifi">HiFi audio</string>
@@ -1684,7 +1797,7 @@
 	<string name="type.shop.jewelry">Klenotníctvo</string>
 	<string name="type.shop.kitchen">Kuchynský obchod</string>
 	<string name="type.shop.laundry">Práčovňa</string>
-	<string name="type.shop.mall">Mall</string>
+	<string name="type.shop.mall">Nákupné centrum</string>
 	<string name="type.shop.massage">Masážny salón</string>
 	<string name="type.shop.mobile_phone">Mobilné telefóny</string>
 	<string name="type.shop.money_lender">Veriteľ peňazí</string>
@@ -1698,13 +1811,13 @@
 	<string name="type.shop.outpost">Miesto odberu</string>
 	<string name="type.shop.pastry">Pečivo</string>
 	<string name="type.shop.pawnbroker">Záložňa</string>
-	<string name="type.shop.pet">Obchod zo zvieratami</string>
+	<string name="type.shop.pet">Obchod so zvieratami</string>
 	<string name="type.shop.pet_grooming">Starostlivosť o domáce zvieratá</string>
 	<string name="type.shop.photo">Fotografické služby</string>
 	<string name="type.shop.rental">Požičovňa</string>
 	<string name="type.shop.rental.bicycle">Požičovňa bicyklov</string>
 	<string name="type.shop.seafood">Obchodník s rybami</string>
-	<string name="type.shop.second_hand">Obchod z druhej ruky</string>
+	<string name="type.shop.second_hand">Second hand</string>
 	<string name="type.shop.shoes">Obuvníctvo</string>
 	<string name="type.shop.sports">Športové potreby</string>
 	<string name="type.shop.stationery">Papiernictvo</string>
@@ -1715,7 +1828,7 @@
 	<string name="type.shop.travel_agency">Cestovná kancelária</string>
 	<string name="type.shop.tyres">Obchod s pneumatikami</string>
 	<string name="type.shop.variety_store">Rozličný tovar</string>
-	<string name="type.shop.video">Predajňa s videami</string>
+	<string name="type.shop.video">Videopožičovňa</string>
 	<string name="type.shop.video_games">Predajňa s videohrami</string>
 	<string name="type.shop.wine">Vinotéka</string>
 	<string name="type.shop.agrarian">Poľnohospodársky obchod</string>
@@ -1793,7 +1906,7 @@
 	<string name="type.tourism.gallery">Pamätihodnosť</string>
 	<string name="type.tourism.guest_house">Penzión</string>
 	<string name="type.tourism.information">Infocentrum</string>
-	<string name="type.tourism.information.board">Informačné centrum</string>
+	<string name="type.tourism.information.board">Informačná tabuľa</string>
 	<string name="type.tourism.information.guidepost">Smerovník</string>
 	<string name="type.tourism.information.map">Turistická mapa</string>
 	<string name="type.tourism.information.office">Turistické informačné centrum</string>
@@ -1824,6 +1937,10 @@
 	<string name="type.wheelchair.limited">Obmedzený bezbariérový prístup</string>
 	<string name="type.wheelchair.no">Žiaden bezbariérový prístup</string>
 	<string name="type.wheelchair.yes">Úplný bezbariérový prístup</string>
+	<string name="type.piste_type.snow_park">Snow Park</string>
+	<string name="type.piste_type.hike">Snehová turistická trasa</string>
+	<string name="type.piste_type.connection">Pripojenie na zjazdovku</string>
+	<string name="type.piste_type.skitour">Trasa Skitour</string>
 	<string name="type.amenity.events_venue">Miesto konania podujatí</string>
 	<string name="type.shop.auction">Aukcia</string>
 	<string name="type.shop.collector">Zberateľské predmety</string>

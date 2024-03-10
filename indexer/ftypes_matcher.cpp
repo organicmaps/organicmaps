@@ -241,6 +241,12 @@ IsBicycleRentalChecker::IsBicycleRentalChecker()
   m_types.push_back(c.GetTypeByPath({"amenity", "bicycle_rental"}));
 }
 
+IsParkingChecker::IsParkingChecker() : BaseChecker(2 /* level */)
+{
+  Classificator const & c = classif();
+  m_types.push_back(c.GetTypeByPath({"amenity", "parking"}));
+}
+
 IsRecyclingCentreChecker::IsRecyclingCentreChecker() : BaseChecker(3 /* level */)
 {
   Classificator const & c = classif();
@@ -448,6 +454,11 @@ IsIsolineChecker::IsIsolineChecker() : BaseChecker(1 /* level */)
   m_types.push_back(classif().GetTypeByPath({"isoline"}));
 }
 
+IsPisteChecker::IsPisteChecker() : BaseChecker(1 /* level */)
+{
+  m_types.push_back(classif().GetTypeByPath({"piste:type"}));
+}
+
 IsPoiChecker::IsPoiChecker() : BaseChecker(1 /* level */)
 {
   string_view const poiTypes[] = {
@@ -463,7 +474,8 @@ IsPoiChecker::IsPoiChecker() : BaseChecker(1 /* level */)
     "historic",
     "railway",
     "highway",
-    "aeroway"
+    "aeroway",
+    "healthcare",
   };
 
   for (auto const & type : poiTypes)
@@ -485,22 +497,27 @@ AttractionsChecker::AttractionsChecker() : BaseChecker(2 /* level */)
       {"historic", "archaeological_site"},
       {"historic", "boundary_stone"},
       {"historic", "castle"},
+      {"historic", "city_gate"},
+      {"historic", "citywalls"},
       {"historic", "fort"},
+      {"historic", "gallows"},
       {"historic", "memorial"},
       {"historic", "monument"},
+      {"historic", "pillory"},
       {"historic", "ruins"},
       {"historic", "ship"},
       {"historic", "tomb"},
       {"historic", "wayside_cross"},
       {"historic", "wayside_shrine"},
       {"landuse", "cemetery"},
+      {"leisure", "beach_resort"},
       {"leisure", "garden"},
+      {"leisure", "marina"},
       {"leisure", "nature_reserve"},
       {"leisure", "park"},
       {"leisure", "water_park"},
       {"man_made", "lighthouse"},
       {"man_made", "windmill"},
-      //{"man_made", "tower"},
       {"natural", "beach"},
       {"natural", "cave_entrance"},
       {"natural", "geyser"},
@@ -509,6 +526,7 @@ AttractionsChecker::AttractionsChecker() : BaseChecker(2 /* level */)
       {"natural", "peak"},
       {"natural", "volcano"},
       {"place", "square"},
+      {"tourism", "aquarium"},
       {"tourism", "artwork"},
       {"tourism", "museum"},
       {"tourism", "gallery"},
@@ -520,10 +538,7 @@ AttractionsChecker::AttractionsChecker() : BaseChecker(2 /* level */)
   Classificator const & c = classif();
 
   for (auto const & e : primaryAttractionTypes)
-  {
-    auto const type = c.GetTypeByPath(e);
-    m_types.push_back(type);
-  }
+    m_types.push_back(c.GetTypeByPath(e));
   sort(m_types.begin(), m_types.end());
   m_additionalTypesStart = m_types.size();
 
@@ -534,10 +549,7 @@ AttractionsChecker::AttractionsChecker() : BaseChecker(2 /* level */)
   };
 
   for (auto const & e : additionalAttractionTypes)
-  {
-    auto const type = c.GetTypeByPath(e);
-    m_types.push_back(type);
-  }
+    m_types.push_back(c.GetTypeByPath(e));
   sort(m_types.begin() + m_additionalTypesStart, m_types.end());
 }
 
@@ -753,9 +765,11 @@ IsFeeTypeChecker::IsFeeTypeChecker() : BaseChecker(1 /* level */)
   m_types.push_back(c.GetTypeByPath({"fee"}));
 }
 
-IsCityChecker::IsCityChecker()
+IsToiletsChecker::IsToiletsChecker() : BaseChecker(2 /* level */)
 {
-  m_types.push_back(classif().GetTypeByPath({"place", "city"}));
+  Classificator const & c = classif();
+  m_types.push_back(c.GetTypeByPath({"amenity", "toilets"}));
+  m_types.push_back(c.GetTypeByPath({"toilets", "yes"}));
 }
 
 IsCapitalChecker::IsCapitalChecker() : BaseChecker(3 /* level */)
@@ -765,23 +779,25 @@ IsCapitalChecker::IsCapitalChecker() : BaseChecker(3 /* level */)
 
 IsPublicTransportStopChecker::IsPublicTransportStopChecker()
 {
-  m_types.push_back(classif().GetTypeByPath({"highway", "bus_stop"}));
-  m_types.push_back(classif().GetTypeByPath({"railway", "tram_stop"}));
+  Classificator const & c = classif();
+  /// @todo Add bus station into _major_ class (like IsRailwayStationChecker)?
+  m_types.push_back(c.GetTypeByPath({"amenity", "bus_station"}));
+  m_types.push_back(c.GetTypeByPath({"amenity", "ferry_terminal"}));
+  m_types.push_back(c.GetTypeByPath({"highway", "bus_stop"}));
+  m_types.push_back(c.GetTypeByPath({"railway", "halt"}));
+  m_types.push_back(c.GetTypeByPath({"railway", "tram_stop"}));
 }
 
 IsMotorwayJunctionChecker::IsMotorwayJunctionChecker()
 {
-  Classificator const & c = classif();
-  m_types.push_back(c.GetTypeByPath({"highway", "motorway_junction"}));
+  m_types.push_back(classif().GetTypeByPath({"highway", "motorway_junction"}));
 }
 
 IsWayWithDurationChecker::IsWayWithDurationChecker()
 {
-  base::StringIL const types[] = {{"route", "ferry"},
-                                  {"route", "shuttle_train"}};
   Classificator const & c = classif();
-  for (auto const & e : types)
-    m_types.push_back(c.GetTypeByPath(e));
+  m_types.push_back(c.GetTypeByPath({"route", "ferry"}));
+  m_types.push_back(c.GetTypeByPath({"route", "shuttle_train"}));
 }
 
 LocalityType LocalityFromString(std::string_view place)

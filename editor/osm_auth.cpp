@@ -4,11 +4,7 @@
 
 #include "coding/url.hpp"
 
-#include "base/assert.hpp"
 #include "base/string_utils.hpp"
-
-#include <map>
-#include <utility>
 
 #include "private.h"
 
@@ -322,6 +318,8 @@ OsmOAuth::UrlRequestToken OsmOAuth::GetGoogleOAuthURL() const
   return {url, requestToken};
 }
 
+/// @todo OSM API to reset password has changed and should be updated
+/*
 bool OsmOAuth::ResetPassword(string const & email) const
 {
   string const kForgotPasswordUrlPart = "/user/forgot-password";
@@ -345,6 +343,7 @@ bool OsmOAuth::ResetPassword(string const & email) const
     return true;
   return false;
 }
+*/
 
 OsmOAuth::Response OsmOAuth::Request(string const & method, string const & httpMethod, string const & body) const
 {

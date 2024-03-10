@@ -13,7 +13,6 @@
 #include "base/assert.hpp"
 #include "base/string_utils.hpp"
 
-#include <algorithm>
 #include <string>
 
 namespace routing
@@ -168,11 +167,12 @@ void RoadGeometry::Load(VehicleModelInterface const & vehicleModel, FeatureType 
   size_t const count = feature.GetPointsCount();
   CHECK(altitudes == nullptr || altitudes->size() == count, ());
 
-  m_highwayType = vehicleModel.GetHighwayType(feature);
+  feature::TypesHolder types(feature);
+  m_highwayType = vehicleModel.GetHighwayType(types);
 
-  m_valid = vehicleModel.IsRoad(feature);
-  m_isOneWay = vehicleModel.IsOneWay(feature);
-  m_isPassThroughAllowed = vehicleModel.IsPassThroughAllowed(feature);
+  m_valid = vehicleModel.IsRoad(types);
+  m_isOneWay = vehicleModel.IsOneWay(types);
+  m_isPassThroughAllowed = vehicleModel.IsPassThroughAllowed(types);
 
   uint32_t const fID = feature.GetID().m_index;
   m_inCity = attrs.m_cityRoads.IsCityRoad(fID);
@@ -181,11 +181,10 @@ void RoadGeometry::Load(VehicleModelInterface const & vehicleModel, FeatureType 
                      m_highwayType ? attrs.m_maxSpeeds.GetDefaultSpeed(m_inCity, *m_highwayType) : kInvalidSpeed,
                      m_inCity);
   params.m_forward = true;
-  m_forwardSpeed = vehicleModel.GetSpeed(feature, params);
+  m_forwardSpeed = vehicleModel.GetSpeed(types, params);
   params.m_forward = false;
-  m_backwardSpeed = vehicleModel.GetSpeed(feature, params);
+  m_backwardSpeed = vehicleModel.GetSpeed(types, params);
 
-  feature::TypesHolder types(feature);
   auto const & optionsClassfier = RoutingOptionsClassifier::Instance();
   for (uint32_t type : types)
   {

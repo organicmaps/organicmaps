@@ -191,6 +191,7 @@ class StageMwm(Stage):
             WORLD_NAME: [
                 StageIndex,
                 StageCitiesIdsWorld,
+                StagePopularityWorld,
                 StagePrepareRoutingWorld,
                 StageRoutingWorld,
                 StageMwmStatistics,
@@ -201,10 +202,11 @@ class StageMwm(Stage):
         mwm_stages = [
             StageIndex,
             StageUgc,
-            StagePopularity,
             StageSrtm,
             StageIsolinesInfo,
             StageDescriptions,
+            # call after descriptions
+            StagePopularity,
             StageRouting,
             StageRoutingTransit,
             StageMwmDiffs,
@@ -270,10 +272,14 @@ class StageUgc(Stage):
 
 
 @country_stage
-@production_only
 class StagePopularity(Stage):
     def apply(self, env: Env, country, **kwargs):
         steps.step_popularity(env, country, **kwargs)
+
+@country_stage
+class StagePopularityWorld(Stage):
+    def apply(self, env: Env, country, **kwargs):
+        steps.step_popularity_world(env, country, **kwargs)
 
 
 @country_stage

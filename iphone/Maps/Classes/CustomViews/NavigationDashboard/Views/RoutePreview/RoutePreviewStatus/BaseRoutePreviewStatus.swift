@@ -92,6 +92,7 @@ final class BaseRoutePreviewStatus: SolidTouchView {
     super.traitCollectionDidChange(previousTraitCollection)
     updateManageRouteVisibility()
     updateHeight()
+    updateResultsLabel()
   }
 
   private func updateManageRouteVisibility() {
@@ -140,7 +141,7 @@ final class BaseRoutePreviewStatus: SolidTouchView {
   private func updateResultsLabel() {
     guard let info = navigationInfo else { return }
 
-    if let result = info.estimate.mutableCopy() as? NSMutableAttributedString {
+    if let result = info.estimate().mutableCopy() as? NSMutableAttributedString {
       if let elevation = self.elevation {
         result.append(MWMNavigationDashboardEntity.estimateDot())
         result.append(elevation)

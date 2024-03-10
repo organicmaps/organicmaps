@@ -52,6 +52,18 @@
 
 "about_menu_title" = "About Organic Maps";
 
+/* Text in About screen */
+"about_headline" = "Bure kwa kila mtu, iliyotengenezwa na upendo";
+
+/* Text in About screen */
+"about_proposition_1" = "• Hakuna matangazo, hakuna ufuatiliaji, hakuna mkusanyiko wa data";
+
+/* Text in About screen */
+"about_proposition_2" = "• Hakuna betri kuisha, inafanya kazi nje ya mtandao";
+
+/* Text in About screen */
+"about_proposition_3" = "• Haraka, minimalist, iliyotengenezwa na jumuiya";
+
 "close" = "Close";
 
 "download" = "Download";
@@ -80,8 +92,8 @@
 /* Default bookmark list name */
 "core_my_places" = "My Places";
 
-/* Editor title above street and house number */
-"address" = "Address";
+/* Editor title above street and house number, duplicates [type.building.address] in types_strings.txt */
+"address" = "Anwani";
 
 /* Settings button in system menu */
 "settings" = "Settings";
@@ -200,7 +212,7 @@
 "done" = "Done";
 
 /* Prints version number in About dialog */
-"version" = "Toleo: %@";
+"version" = "Toleo la Organic Maps: %@";
 
 /* Data version in «About» screen, %@ is replaced by a local, human readable date. */
 "data_version" = "Data ya OpenStreetMap: %@";
@@ -217,8 +229,14 @@
 
 "pref_zoom_title" = "Zoom buttons";
 
-/* Settings «Map» category: «Night style» title */
-"pref_map_style_title" = "Night Mode";
+/* Settings «Map» category: «Appearance» title */
+"pref_appearance_title" = "Appearance";
+
+/* Settings "Appearance" category: "Light" title, should be consistent with the pref_appearance_title translation. */
+"pref_appearance_light" = "Light";
+
+/* Settings "Appearance" category: "Dark" title, should be consistent with the pref_appearance_title translation. */
+"pref_appearance_dark" = "Dark";
 
 /* Generic «Off» string */
 "off" = "Off";
@@ -315,6 +333,9 @@
 /* Button in the main menu */
 "donate" = "Changia";
 
+/* Tex label above the Donate button */
+"donate_description" = "Changia ili kuunda ramani bora pamoja!";
+
 /* Button in the main Help dialog */
 "how_to_support_us" = "Saidia mradi";
 
@@ -323,6 +344,15 @@
 
 /* Text in menu + Button in the main Help dialog */
 "report_a_bug" = "Report a bug";
+
+/* Button in the About screen */
+"report_incorrect_map_bug" = "Ripoti au urekebishe data isiyo sahihi ya ramani";
+
+/* Button in the About screen */
+"volunteer" = "Kujitolea";
+
+/* "Social media" section header in the About screen */
+"follow_us" = "Fuata na uwasiliane nasi:";
 
 /* Alert text */
 "email_error_body" = "The email client has not been set up. Please configure it or contact us at %@";
@@ -704,6 +734,9 @@
 
 "message_invalid_feature_position" = "No object can be located here";
 
+/* Text in About and OSM Login screens. First %@ is replaced by a local, human readable date. */
+"osm_presentation" = "Data ya OpenStreetMap iliyoundwa na jumuiya kufikia %@. Pata maelezo zaidi kuhusu jinsi ya kuhariri na kusasisha ramani katika OpenStreetMap.org";
+
 "login_to_make_edits_visible" = "Log in to openstreetmap.org to publish your changes to the world.";
 
 /* Error dialog no space */
@@ -746,15 +779,7 @@
 
 "downloader_no_downloaded_maps_message" = "Download maps to search and navigate offline.";
 
-/* Error title that appears after certain time without location. */
-"current_location_unknown_title" = "Continue detecting your location?";
-
-/* Error that appears after certain time without location. */
-"current_location_unknown_message" = "Current location is unknown. You may be in a building or tunnel.";
-
-"current_location_unknown_continue_button" = "Continue";
-
-"current_location_unknown_stop_button" = "Stop";
+"stop" = "Stop";
 
 "current_location_unknown_error_title" = "Current location is unknown.";
 
@@ -768,15 +793,27 @@
 
 "location_services_disabled_2" = "2. Tap Location";
 
-/* iOS Dialog for the case when the location permission is not granted */
+/* iOS Dialog for the case when the location permission is not granted; you might find the exact wording for your language here: https://support.apple.com/en-us/102647 (replace 'en-us' in URL with your language/region) */
 "location_services_disabled_3" = "3. Select While Using the App";
 
+"location_services_disabled_on_device_2" = "2. Chagua Faragha";
+
+"location_services_disabled_on_device_3" = "3. Chagua Huduma za Mahali";
+
+"location_services_disabled_on_device_4" = "4. Washa Huduma za Mahali";
+
+"location_services_disabled_on_device_additional_message" = "Au endelea kutumia Organic Maps bila Mahali";
+
+/* abbreviation for meters */
 "m" = "m";
 
+/* abbreviation for kilometers */
 "km" = "km";
 
+/* abbreviation for kilometers per hour */
 "kilometers_per_hour" = "km/h";
 
+/* abbreviation for mile(s) */
 "mi" = "mi";
 
 /* A unit of measure */
@@ -857,9 +894,6 @@
 "sharing_call_action_look" = "Check out";
 
 "recent_track_background_dialog_message" = "Organic Maps uses your location in the background to record your recently travelled route.";
-
-/* Text under the version number in the Help dialog. TODO: Synchronize other translations with English. */
-"about_description" = "Organic Maps ni programu huria na ya chanzo huria ya ramani za nje ya mtandao. Hakuna matangazo. Hakuna ufuatiliaji. Ukiona hitilafu kwenye ramani, tafadhali irekebishe katika OpenStreetMap. Mradi huu umeundwa na wapendaji katika wakati wetu wa bure, kwa hivyo tunahitaji maoni na usaidizi wako.";
 
 "general_settings" = "General settings";
 
@@ -1072,6 +1106,9 @@
 /* E.g. "WiFi:No" */
 "no_available" = "Hapana";
 
+/* To indicate the capacity of car parkings, bicycle parkings, electric vehicle charging stations... */
+"capacity" = "Uwezo: %@";
+
 "trip_finished" = "Umefika!";
 
 "keyboard_availability_alert" = "Mbao-bonye haipatikani wakati wa kuendesha gari";
@@ -1238,6 +1275,12 @@
 /* Outdoors/hiking map style (activity) name in the Styles and Layers dialog */
 "button_layer_outdoor" = "Kutembea kwa miguu";
 
+/* Bookmark categories screen, button that opens share dialog to export all bookmarks and tracks */
+"bookmarks_export" = "Hamisha Alamisho na Nyimbo zote";
+
+/* Text for the editing the Track's color button. */
+"change_color" = "Badilisha rangi";
+
 
 /********** Types **********/
 
@@ -1352,6 +1395,8 @@
 "type.amenity.doctors" = "Doctor";
 
 "type.amenity.drinking_water" = "Drinking Water";
+
+"type.drinking_water.yes" = "Drinking Water";
 
 "type.amenity.driving_school" = "Driving School";
 
@@ -1548,6 +1593,8 @@
 
 "type.amenity.toilets" = "Toilet";
 
+"type.toilets.yes" = "Toilet";
+
 "type.amenity.townhall" = "Town Hall";
 
 "type.amenity.university" = "University";
@@ -1676,6 +1723,8 @@
 
 "type.boundary.national_park" = "Hifadhi ya taifa";
 
+"type.boundary.aboriginal_lands" = "Ardhi za asilia";
+
 "type.boundary.protected_area" = "Eneo Lindwa";
 
 "type.boundary.protected_area.1" = "Eneo Lindwa";
@@ -1692,7 +1741,8 @@
 
 "type.building" = "Building";
 
-"type.building.address" = "Building";
+/* Duplicates [address] in strings.txt */
+"type.building.address" = "Anwani";
 
 "type.building.has_parts" = "Building";
 
@@ -2501,8 +2551,6 @@
 "type.leisure.hackerspace" = "Hackerspace";
 
 "type.leisure.ice_rink" = "Ice Rink";
-
-"type.leisure.landscape_reserve" = "Landscape Reserve";
 
 "type.leisure.marina" = "Marina";
 
@@ -3837,25 +3885,45 @@
 
 "type.aerialway.t.bar" = "T-bar Lift";
 
-"type.piste_type" = "Piste Type";
-
 "type.piste_type.downhill" = "Downhill Ski Run";
+
+"type.piste_type.downhill.area" = "Downhill Ski Run";
 
 "type.piste_type.downhill.advanced" = "Downhill Ski Run";
 
+"type.piste_type.downhill.advanced.area" = "Downhill Ski Run";
+
 "type.piste_type.downhill.easy" = "Downhill Ski Run";
 
+"type.piste_type.downhill.easy.area" = "Downhill Ski Run";
+
 "type.piste_type.downhill.expert" = "Downhill Ski Run";
+
+"type.piste_type.downhill.expert.area" = "Downhill Ski Run";
 
 "type.piste_type.downhill.freeride" = "Downhill Ski Run";
 
 "type.piste_type.downhill.intermediate" = "Downhill Ski Run";
 
+"type.piste_type.downhill.intermediate.area" = "Downhill Ski Run";
+
 "type.piste_type.downhill.novice" = "Downhill Ski Run";
+
+"type.piste_type.downhill.novice.area" = "Downhill Ski Run";
 
 "type.piste_type.nordic" = "Nordic Ski Trail";
 
 "type.piste_type.sled" = "Sledding Piste";
+
+"type.piste_type.sled.area" = "Sledding Piste";
+
+"type.piste_type.snow_park" = "Hifadhi ya theluji";
+
+"type.piste_type.hike" = "Njia ya Kupanda theluji";
+
+"type.piste_type.connection" = "Uunganisho wa Piste";
+
+"type.piste_type.skitour" = "Njia ya Skitour";
 
 "type.amenity.events_venue" = "Ukumbi wa Matukio";
 

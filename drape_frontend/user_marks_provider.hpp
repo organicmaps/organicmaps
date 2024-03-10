@@ -135,6 +135,7 @@ public:
   virtual kml::MarkIdSet const & GetUpdatedMarkIds() const = 0;
   virtual kml::TrackIdSet const & GetCreatedLineIds() const = 0;
   virtual kml::TrackIdSet const & GetRemovedLineIds() const = 0;
+  virtual kml::TrackIdSet const & GetUpdatedLineIds() const = 0;
   /// Never store UserPointMark reference.
   virtual UserPointMark const * GetUserPointMark(kml::MarkId markId) const = 0;
   /// Never store UserLineMark reference.

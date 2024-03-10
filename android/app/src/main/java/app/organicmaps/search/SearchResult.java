@@ -13,7 +13,6 @@ import androidx.annotation.NonNull;
 
 import app.organicmaps.bookmarks.data.FeatureId;
 import app.organicmaps.util.Distance;
-import app.organicmaps.util.Utils;
 
 /**
  * Class instances are created from native code.
@@ -41,34 +40,26 @@ public class SearchResult
   public static class Description
   {
     public final FeatureId featureId;
-    public final String featureType;
+    public final String localizedFeatureType;
     public final String region;
     public final Distance distance;
-    public final String cuisine;
-    public final String brand;
-    public final String airportIata;
-    public final String roadShields;
 
-    public final String fee;
+    public final String description;
+
     public final int openNow;
     public final int minutesUntilOpen;
     public final int minutesUntilClosed;
     public final boolean hasPopularityHigherPriority;
 
     public Description(FeatureId featureId, String featureType, String region, Distance distance,
-                       String cuisine, String brand, String airportIata, String roadShields,
-                       String fee, int openNow, int minutesUntilOpen, int minutesUntilClosed,
+                       String description, int openNow, int minutesUntilOpen, int minutesUntilClosed,
                        boolean hasPopularityHigherPriority)
     {
       this.featureId = featureId;
-      this.featureType = featureType;
+      this.localizedFeatureType = featureType;
       this.region = region;
       this.distance = distance;
-      this.cuisine = cuisine;
-      this.brand = brand;
-      this.airportIata = airportIata;
-      this.roadShields = roadShields;
-      this.fee = fee;
+      this.description = description;
       this.openNow = openNow;
       this.minutesUntilOpen = minutesUntilOpen;
       this.minutesUntilClosed = minutesUntilClosed;
@@ -87,8 +78,6 @@ public class SearchResult
   // Consecutive pairs of indexes (each pair contains : start index, length), specifying highlighted matches of original query in result
   public final int[] highlightRanges;
 
-  public final int stars;
-  public final boolean isHotel;
   @NonNull
   private final Popularity mPopularity;
 
@@ -98,8 +87,6 @@ public class SearchResult
     this.suggestion = suggestion;
     this.lat = lat;
     this.lon = lon;
-    this.stars = 0;
-    this.isHotel = false;
     this.description = null;
     // Looks like a hack, but it's fine. Otherwise, should make one more ctor and JNI code bloat.
     if (lat == 0 && lon == 0)
@@ -111,12 +98,10 @@ public class SearchResult
   }
 
   public SearchResult(String name, Description description, double lat, double lon, int[] highlightRanges,
-                      boolean isHotel, int stars, @NonNull Popularity popularity)
+                      @NonNull Popularity popularity)
   {
     this.type = TYPE_RESULT;
     this.name = name;
-    this.stars = stars;
-    this.isHotel = isHotel;
     mPopularity = popularity;
     this.suggestion = null;
     this.lat = lat;
@@ -129,13 +114,8 @@ public class SearchResult
   public String getTitle(@NonNull Context context)
   {
     String title = name;
-    if (TextUtils.isEmpty(title))
-    {
-      title = description != null
-          ? Utils.getLocalizedFeatureType(context, description.featureType)
-          : "";
-    }
-
+    if (TextUtils.isEmpty(title) && description != null)
+      title = description.localizedFeatureType;
     return title;
   }
 
@@ -160,36 +140,5 @@ public class SearchResult
     }
 
     return builder;
-  }
-
-  // FIXME: Better format based on result type
-  @NonNull
-  public CharSequence getFormattedDescription(@NonNull Context context)
-  {
-    final String localizedType = Utils.getLocalizedFeatureType(context, description.featureType);
-    final SpannableStringBuilder res = new SpannableStringBuilder(localizedType);
-    final SpannableStringBuilder tail = new SpannableStringBuilder();
-
-    if (!TextUtils.isEmpty(description.airportIata))
-      tail.append(" • ").append(description.airportIata);
-    else if (!TextUtils.isEmpty(description.roadShields))
-      tail.append(" • ").append(description.roadShields);
-    else
-    {
-      if (!TextUtils.isEmpty(description.brand))
-        tail.append(" • ").append(Utils.getLocalizedBrand(context, description.brand));
-      if (!TextUtils.isEmpty(description.cuisine))
-        tail.append(" • ").append(description.cuisine);
-    }
-
-    if (!TextUtils.isEmpty(description.fee))
-      tail.append(" • ").append(description.fee);
-
-    if (isHotel && stars != 0)
-      tail.append(" • ").append("★★★★★★★".substring(0, Math.min(7, stars)));
-
-    res.append(tail);
-
-    return res;
   }
 }

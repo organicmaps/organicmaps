@@ -41,9 +41,9 @@
 	<!-- Text in About screen -->
 	<string name="about_proposition_1">• Không có quảng cáo, không theo dõi, không thu thập dữ liệu</string>
 	<!-- Text in About screen -->
-	<string name="about_proposition_2">• Tiết kiệm pin, không sử dụng dữ liệu nền</string>
+	<string name="about_proposition_2">• Không hao pin, hoạt động offline</string>
 	<!-- Text in About screen -->
-	<string name="about_proposition_3">• Nhanh chóng, tối giản, không có rác</string>
+	<string name="about_proposition_3">• Nhanh chóng, tối giản, được phát triển bởi cộng đồng</string>
 	<!-- Text in About screen -->
 	<string name="about_developed_by_enthusiasts">Ứng dụng nguồn mở được tạo bởi những người đam mê và tình nguyện viên.</string>
 	<!-- The button that opens system location settings -->
@@ -80,7 +80,7 @@
 	<string name="core_my_places">Các Địa chỉ của Tôi</string>
 	<!-- Add bookmark dialog - bookmark name -->
 	<string name="name">Tên</string>
-	<!-- Editor title above street and house number -->
+	<!-- Editor title above street and house number, duplicates [type.building.address] in types_strings.txt -->
 	<string name="address">Địa chỉ</string>
 	<!-- Add Bookmark dialog/Bookmark list; Bookmarks dialog/Bookmark list cell. -->
 	<string name="list">Danh sách</string>
@@ -94,7 +94,7 @@
 	<string name="maps_storage_downloaded">Bản đồ</string>
 	<!-- Question dialog for transferring maps from one storage to another -->
 	<string name="move_maps">Di chuyển bản đồ?</string>
-	<!-- Ask to wait user several minutes (some long process in modal dialog). -->
+	<!-- Ask user to wait several minutes (some long process in modal dialog). -->
 	<string name="wait_several_minutes">Việc này có thể mất vài phút.\nVui lòng đợi…</string>
 	<!-- Measurement units title in settings activity -->
 	<string name="measurement_units">Đơn vị đo</string>
@@ -158,6 +158,10 @@
 	<string name="load_kmz_successful">Đã tải điểm đánh dấu thành công! Bạn có thể tìm chúng trên bản đồ hoặc màn hình Trình quản lý Điểm đánh dấu.</string>
 	<!-- Kml file loading failed -->
 	<string name="load_kmz_failed">Không tải lên được điểm đánh dấu. Tập tin có thể bị hỏng hoặc lỗi.</string>
+	<!-- Failed to recognize the format of a bookmarks or tracks file. -->
+	<string name="unknown_file_type">Loại tệp không được ứng dụng nhận dạng:\n%1$s</string>
+	<!-- Failed to open a bookmarks or tracks file in Organic Maps. -->
+	<string name="failed_to_open_file">Không thể mở tập tin %1$s\n\n%2$s</string>
 	<!-- resource for context menu -->
 	<string name="edit">Sửa</string>
 	<!-- Warning message when doing search around current position -->
@@ -196,6 +200,10 @@
 	<string name="pref_zoom_summary">Hiển thị trên màn hình</string>
 	<!-- Settings «Map» category: «Night style» title -->
 	<string name="pref_map_style_title">Chế độ ban đêm</string>
+	<!-- Settings "Appearance" category: "Light" title, should be consistent with the pref_appearance_title translation. -->
+	<string name="pref_appearance_light">Sáng</string>
+	<!-- Settings "Appearance" category: "Dark" title, should be consistent with the pref_appearance_title translation. -->
+	<string name="pref_appearance_dark">Tối</string>
 	<!-- Generic «Off» string -->
 	<string name="off">Tắt</string>
 	<!-- Generic «On» string -->
@@ -450,8 +458,8 @@
 	<string name="editor_report_problem_other_title">Một vấn đề khác</string>
 	<string name="placepage_add_business_button">Thêm tổ chức</string>
 	<string name="message_invalid_feature_position">Một đối tượng không thể đặt được ở đây</string>
-	<!-- Text in About and OSM Login screens. %@ is replaced by a local, human readable date. -->
-	<string name="osm_presentation">Dữ liệu bản đồ từ OpenStreetMap kể từ %s. Nó giống như Wikipedia nơi bạn có thể thêm hoặc chỉnh sửa địa điểm cho tất cả người dùng trên toàn thế giới.</string>
+	<!-- Text in About and OSM Login screens. First %@ is replaced by a local, human readable date. -->
+	<string name="osm_presentation">Dữ liệu OpenStreetMap do cộng đồng tạo ra kể từ %s. Tìm hiểu thêm về cách chỉnh sửa và cập nhật bản đồ tại OpenStreetMap.org</string>
 	<string name="login_to_make_edits_visible">Đăng nhập để người dùng khác có thể nhìn thấy những thay đổi bạn đã thực hiện.</string>
 	<!-- Downloaded 10 **of** 20 <- it is that "of" -->
 	<string name="downloader_of">%1$d trên %2$d</string>
@@ -472,15 +480,14 @@
 	<string name="editor_operator">Đơn vị điều hành</string>
 	<string name="downloader_no_downloaded_maps_title">Bạn chưa tải về bất kỳ bản đồ nào</string>
 	<string name="downloader_no_downloaded_maps_message">Tải về bản đồ để tìm địa điểm và định hướng ngoại tuyến.</string>
-	<!-- Error title that appears after certain time without location. -->
-	<string name="current_location_unknown_title">Tiếp tục phát hiện địa điểm hiện tại của bạn?</string>
-	<!-- Error that appears after certain time without location. -->
-	<string name="current_location_unknown_message">Chưa biết địa điểm hiện tại. Có thể bạn đang ở trong một tòa nhà hoặc đường hầm.</string>
-	<string name="current_location_unknown_continue_button">Tiếp tục</string>
-	<string name="current_location_unknown_stop_button">Dừng</string>
+	<string name="stop">Dừng</string>
+	<!-- abbreviation for meters -->
 	<string name="m">m</string>
+	<!-- abbreviation for kilometers -->
 	<string name="km">km</string>
+	<!-- abbreviation for kilometers per hour -->
 	<string name="kilometers_per_hour">km/giờ</string>
+	<!-- abbreviation for mile(s) -->
 	<string name="mi">dặm</string>
 	<!-- A unit of measure -->
 	<string name="ft">ft</string>
@@ -605,6 +612,12 @@
 	<string name="place_description_title">Mô tả Địa điểm</string>
 	<!-- this text will be shown in application notification preferences opposite checkbox which enable/disable downloader notifications. Devices on Android 8+ are affected. -->
 	<string name="notification_channel_downloader">Trình tải xuống bản đồ</string>
+	<!-- Speed camera settings menu option - Warn (about speedcams) if risk of exceeding speed limit -->
+	<string name="pref_tts_speedcams_auto">Cảnh báo nếu có nguy cơ vượt quá giới hạn tốc độ</string>
+	<!-- Speed camera settings menu option - Always warn (about speedcams) -->
+	<string name="pref_tts_speedcams_always">Luôn cảnh báo</string>
+	<!-- Speed camera settings menu option - Never warn (about speedcams) -->
+	<string name="pref_tts_speedcams_never">Không bao giờ cảnh báo</string>
 	<string name="power_managment_title">Chế độ tiết kiệm năng lượng</string>
 	<string name="power_managment_description">Nếu chế độ tiết kiệm năng lượng được bật, ứng dụng sẽ tắt các chức năng tiêu thụ năng lượng tùy thuộc vào mức pin hiện tại của điện thoại</string>
 	<string name="power_managment_setting_never">Không bao giờ</string>
@@ -635,6 +648,8 @@
 	<string name="yes_available">Có</string>
 	<!-- E.g. "WiFi:No" -->
 	<string name="no_available">Không</string>
+	<!-- To indicate the capacity of car parkings, bicycle parkings, electric vehicle charging stations... -->
+	<string name="capacity">Công suất: %s</string>
 	<string name="trip_finished">Bạn đã tới nơi!</string>
 	<string name="ok">Ok</string>
 	<!-- max. 10 symbols, both iOS and Android -->
@@ -694,8 +709,26 @@
 	<string name="enable_keep_screen_on_description">Khi được bật, màn hình sẽ luôn sáng khi hiển thị bản đồ.</string>
 	<!-- OpenStreetMap text on splash screen -->
 	<string name="splash_subtitle">Dữ liệu bản đồ từ OpenStreetMap</string>
-	<!-- Tip #00 -->
+	<!-- App Tip #00 -->
 	<string name="app_tip_00">Cảm ơn bạn đã sử dụng bản đồ do cộng đồng xây dựng của chúng tôi!</string>
+	<!-- App tip #01 -->
+	<string name="app_tip_01">Với sự đóng góp và hỗ trợ của bạn, chúng tôi có thể tạo ra những bản đồ tốt nhất trên Thế giới!</string>
+	<!-- App tip #02 -->
+	<string name="app_tip_02">Bạn có thích ứng dụng của chúng tôi không? Hãy quyên góp để hỗ trợ sự phát triển! Bạn chưa thích nó? Vui lòng cho chúng tôi biết và chúng tôi sẽ khắc phục nó!</string>
+	<!-- App tip #03 -->
+	<string name="app_tip_03">Nếu bạn biết một nhà phát triển phần mềm, bạn có thể yêu cầu họ triển khai một tính năng mà bạn cần.</string>
+	<!-- App tip #04 -->
+	<string name="app_tip_04">Bạn có biết rằng bạn có thể nhấn và giữ bất kỳ địa điểm nào trên bản đồ để chọn địa điểm đó không?</string>
+	<!-- App tip #05 -->
+	<string name="app_tip_05">Bạn có biết rằng bạn có thể chọn vị trí hiện tại của mình trên bản đồ không?</string>
+	<!-- App tip #06 -->
+	<string name="app_tip_06">Bạn có thể giúp dịch ứng dụng của chúng tôi sang ngôn ngữ của bạn.</string>
+	<!-- App tip #07 -->
+	<string name="app_tip_07">Ứng dụng của chúng tôi được phát triển bởi một số người đam mê và cộng đồng.</string>
+	<!-- App tip #08 -->
+	<string name="app_tip_08">Bạn có thể dễ dàng sửa chữa và cải thiện dữ liệu bản đồ.</string>
+	<!-- App tip #09 -->
+	<string name="app_tip_09">Mục tiêu chính của chúng tôi là xây dựng các bản đồ nhanh chóng, tập trung vào quyền riêng tư, dễ sử dụng mà bạn sẽ yêu thích.</string>
 	<!-- Text on the Android Auto placeholder screen that maps are displayed on the phone screen -->
 	<string name="aa_used_on_the_phone_screen">Bạn hiện đang sử dụng bản đồ không phải trả tiền trên màn hình điện thoại</string>
 	<!-- Text on the phone placeholder screen that maps are displayed on the car screen -->
@@ -714,6 +747,15 @@
 	<string name="aa_connected_to_car_notification_title">Đã kết nối với ô tô</string>
 	<!-- Outdoors/hiking map style (activity) name in the Styles and Layers dialog -->
 	<string name="button_layer_outdoor">Đi bộ đường dài</string>
+	<!-- Text displayed when a webview or a browser are disabled, and external links can't be opened. -->
+	<string name="browser_not_available">Trình duyệt web không khả dụng</string>
+	<string name="volume">Âm lượng</string>
+	<!-- Bookmark categories screen, button that opens share dialog to export all bookmarks and tracks -->
+	<string name="bookmarks_export">Xuất tất cả Dấu trang và Bản nhạc</string>
+	<!-- button in (app) TTS settings, to open the system TTS settings. -->
+	<string name="pref_tts_open_system_settings">Cài đặt tổng hợp giọng nói của hệ thống</string>
+	<!-- toast displayed when pressing the "Speech synthesis system settings" button, and the system settings aren't found. -->
+	<string name="pref_tts_no_system_tts">Không tìm thấy cài đặt Tổng hợp giọng nói, bạn có chắc thiết bị của mình hỗ trợ nó không?</string>
 
 	<!-- SECTION: Types -->
 	<string name="type.addr_interpolation">Địa chỉ/Khối</string>
@@ -759,6 +801,7 @@
 	<string name="type.amenity.dentist">Nha sĩ</string>
 	<string name="type.amenity.doctors">Bác sĩ</string>
 	<string name="type.amenity.drinking_water">Nước uống</string>
+	<string name="type.drinking_water.yes">Nước uống</string>
 	<string name="type.amenity.driving_school">Trường lái xe</string>
 	<string name="type.amenity.exhibition_centre">Trung tâm triển lãm</string>
 	<string name="type.amenity.money_transfer">Chuyển tiền</string>
@@ -849,6 +892,7 @@
 	<string name="type.amenity.telephone">Điện thoại</string>
 	<string name="type.amenity.theatre">Điểm trú ẩn</string>
 	<string name="type.amenity.toilets">Nhà vệ sinh</string>
+	<string name="type.toilets.yes">Nhà vệ sinh</string>
 	<string name="type.amenity.townhall">Trung tâm thành phố</string>
 	<string name="type.amenity.university">Nhà hát</string>
 	<string name="type.amenity.vending_machine.cigarettes">Máy bán thuốc lá</string>
@@ -876,6 +920,7 @@
 	<string name="type.barrier.swing_gate">Thanh Chắn</string>
 	<string name="type.barrier.toll_booth">Quầy Soát Vé</string>
 	<string name="type.boundary.national_park">Công viên quốc gia</string>
+	<string name="type.boundary.aboriginal_lands">Đất bản địa</string>
 	<string name="type.boundary.protected_area">Khu bảo tồn</string>
 	<string name="type.boundary.protected_area.1">Khu bảo tồn</string>
 	<string name="type.boundary.protected_area.2">Khu bảo tồn</string>
@@ -884,7 +929,8 @@
 	<string name="type.boundary.protected_area.5">Khu bảo tồn</string>
 	<string name="type.boundary.protected_area.6">Khu bảo tồn</string>
 	<string name="type.building">Tòa nhà</string>
-	<string name="type.building.address">Tòa nhà</string>
+	<!-- Duplicates [address] in strings.txt -->
+	<string name="type.building.address">Địa chỉ</string>
 	<string name="type.building.has_parts">Tòa nhà</string>
 	<string name="type.building_part">Tòa nhà</string>
 	<string name="type.building.garage">Gara</string>
@@ -1836,6 +1882,10 @@
 	<string name="type.wheelchair.limited">Được trang bị một phần cho người khuyết tật</string>
 	<string name="type.wheelchair.no">Không trang bị cho người khuyết tật</string>
 	<string name="type.wheelchair.yes">Được trang bị cho người khuyết tật</string>
+	<string name="type.piste_type.snow_park">Công viên tuyết</string>
+	<string name="type.piste_type.hike">Đường mòn đi bộ trên tuyết</string>
+	<string name="type.piste_type.connection">Kết nối đường trượt tuyết</string>
+	<string name="type.piste_type.skitour">Đường mòn Skitour</string>
 	<string name="type.amenity.events_venue">Địa điểm tổ chức sự kiện</string>
 	<string name="type.shop.auction">Bán đấu giá</string>
 	<string name="type.shop.collector">Đồ sưu tầm</string>

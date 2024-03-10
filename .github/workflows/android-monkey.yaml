@@ -2,7 +2,7 @@ name: Android Monkey
 on:
   workflow_dispatch: # Manual trigger
   schedule:
-    - cron:  '0 5 * * *' # Once per day at 05:00 UTC
+    - cron:  '0 5 * * 0' # Once per week at 05:00 UTC
 
 env:
   JAVA_HOME: /usr/lib/jvm/temurin-17-jdk-amd64  # Java 17 is required for Android Gradle 8 plugin
@@ -13,7 +13,7 @@ jobs:
     name: Check preconditions
     steps:
       - name: Checkout sources
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
         with:
           fetch-depth: 1000 # fetch month or so
 

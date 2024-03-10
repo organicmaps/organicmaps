@@ -612,6 +612,9 @@ UNIT_TEST(Hungary_UseFootways)
 
 UNIT_TEST(France_Uphill_Downlhill)
 {
+  // https://www.openstreetmap.org/directions?engine=fossgis_osrm_foot&route=45.3211%2C3.6954%3B45.2353%2C3.8575
+  // Same as OSRM.
+
   double timeDownhill, timeUphill;
   {
     TRouteResult const routeResult = CalculateRoute(GetVehicleComponents(VehicleType::Pedestrian),
@@ -622,7 +625,7 @@ UNIT_TEST(France_Uphill_Downlhill)
     TEST(routeResult.first, ());
     Route const & route = *routeResult.first;
 
-    TestRouteLength(route, 20947.5);
+    TestRouteLength(route, 20388.7);
     timeDownhill = route.GetTotalTimeSec();
     TEST_GREATER(timeDownhill, 4 * 3600, ());
   }
@@ -636,7 +639,7 @@ UNIT_TEST(France_Uphill_Downlhill)
     TEST(routeResult.first, ());
     Route const & route = *routeResult.first;
 
-    TestRouteLength(route, 20947.5);
+    TestRouteLength(route, 20388.7);
     timeUphill = route.GetTotalTimeSec();
     TEST_GREATER(timeUphill, 4 * 3600, ());
   }

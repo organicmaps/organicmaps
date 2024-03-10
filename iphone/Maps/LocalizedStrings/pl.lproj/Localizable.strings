@@ -52,6 +52,18 @@
 
 "about_menu_title" = "O aplikacji Organic Maps";
 
+/* Text in About screen */
+"about_headline" = "Darmowa dla wszystkich, wykonana z miłością";
+
+/* Text in About screen */
+"about_proposition_1" = "• Bez reklam, bez śledzenia, bez gromadzenia danych";
+
+/* Text in About screen */
+"about_proposition_2" = "• Nie zużywa baterii, działa w trybie offline";
+
+/* Text in About screen */
+"about_proposition_3" = "• Szybki, minimalistyczny, opracowany przez społeczność";
+
 "close" = "Zamknij";
 
 "download" = "Pobierz";
@@ -80,7 +92,7 @@
 /* Default bookmark list name */
 "core_my_places" = "Moje miejsca";
 
-/* Editor title above street and house number */
+/* Editor title above street and house number, duplicates [type.building.address] in types_strings.txt */
 "address" = "Adres";
 
 /* Settings button in system menu */
@@ -200,7 +212,7 @@
 "done" = "Gotowe";
 
 /* Prints version number in About dialog */
-"version" = "Wersja: %@";
+"version" = "Wersja Organic Maps: %@";
 
 /* Data version in «About» screen, %@ is replaced by a local, human readable date. */
 "data_version" = "Dane OpenStreetMap: %@";
@@ -217,8 +229,14 @@
 
 "pref_zoom_title" = "Przyciski przybliżania";
 
-/* Settings «Map» category: «Night style» title */
-"pref_map_style_title" = "Tryb nocny";
+/* Settings «Map» category: «Appearance» title */
+"pref_appearance_title" = "Wygląd";
+
+/* Settings "Appearance" category: "Light" title, should be consistent with the pref_appearance_title translation. */
+"pref_appearance_light" = "Jasny";
+
+/* Settings "Appearance" category: "Dark" title, should be consistent with the pref_appearance_title translation. */
+"pref_appearance_dark" = "Ciemny";
 
 /* Generic «Off» string */
 "off" = "Wyłączony";
@@ -315,6 +333,9 @@
 /* Button in the main menu */
 "donate" = "Wspomóż";
 
+/* Tex label above the Donate button */
+"donate_description" = "Przekaż darowiznę, aby wspólnie tworzyć najlepsze mapy!";
+
 /* Button in the main Help dialog */
 "how_to_support_us" = "Wesprzyj projekt";
 
@@ -323,6 +344,15 @@
 
 /* Text in menu + Button in the main Help dialog */
 "report_a_bug" = "Zgłoś błąd";
+
+/* Button in the About screen */
+"report_incorrect_map_bug" = "Zgłoś lub napraw nieprawidłowe dane mapy";
+
+/* Button in the About screen */
+"volunteer" = "Wolontariusz";
+
+/* "Social media" section header in the About screen */
+"follow_us" = "Śledź nas i skontaktuj się z nami:";
 
 /* Alert text */
 "email_error_body" = "Klient pocztowy nie został skonfigurowany. Proszę skonfigurować go, bądź skorzystać z innych opcji, aby się z nami skontaktować na %@";
@@ -704,6 +734,9 @@
 
 "message_invalid_feature_position" = "Obiekt nie może znajdować się tutaj";
 
+/* Text in About and OSM Login screens. First %@ is replaced by a local, human readable date. */
+"osm_presentation" = "Dane OpenStreetMap stworzone przez społeczność na dzień %@. Dowiedz się więcej o tym, jak edytować i aktualizować mapę na stronie OpenStreetMap.org";
+
 "login_to_make_edits_visible" = "Zaloguj się, by inni użytkownicy mogli zobaczyć Twoje zmiany.";
 
 /* Error dialog no space */
@@ -746,15 +779,7 @@
 
 "downloader_no_downloaded_maps_message" = "Aby znajdować miejsca i nawigować bez połączenia z internetem, musisz pobrać mapy.";
 
-/* Error title that appears after certain time without location. */
-"current_location_unknown_title" = "Kontynuować wykrywanie bieżącej lokalizacji?";
-
-/* Error that appears after certain time without location. */
-"current_location_unknown_message" = "Aktualna lokalizacja jest nieznana. Może znajdujesz się w budynku lub tunelu.";
-
-"current_location_unknown_continue_button" = "Kontynuuj";
-
-"current_location_unknown_stop_button" = "Stop";
+"stop" = "Stop";
 
 "current_location_unknown_error_title" = "Aktualna lokalizacja jest nieznana.";
 
@@ -768,15 +793,27 @@
 
 "location_services_disabled_2" = "2. Dotknij „Lokalizacja”";
 
-/* iOS Dialog for the case when the location permission is not granted */
+/* iOS Dialog for the case when the location permission is not granted; you might find the exact wording for your language here: https://support.apple.com/en-us/102647 (replace 'en-us' in URL with your language/region) */
 "location_services_disabled_3" = "3. Zaznacz Podczas korzystania z aplikacji";
 
+"location_services_disabled_on_device_2" = "2. Wybierz Prywatność";
+
+"location_services_disabled_on_device_3" = "3. Wybierz Usługi lokalizacji";
+
+"location_services_disabled_on_device_4" = "4. Włącz usługi lokalizacji";
+
+"location_services_disabled_on_device_additional_message" = "Lub kontynuuj korzystanie z Organic Maps bez lokalizacji";
+
+/* abbreviation for meters */
 "m" = "m";
 
+/* abbreviation for kilometers */
 "km" = "km";
 
+/* abbreviation for kilometers per hour */
 "kilometers_per_hour" = "km/h";
 
+/* abbreviation for mile(s) */
 "mi" = "mi";
 
 /* A unit of measure */
@@ -857,9 +894,6 @@
 "sharing_call_action_look" = "Sprawdź";
 
 "recent_track_background_dialog_message" = "Organic Maps używa w tle geolokalizacji w celu rejestrowania niedawno przebytej trasy.";
-
-/* Text under the version number in the Help dialog. TODO: Synchronize other translations with English. */
-"about_description" = "Organic Maps to bezpłatna aplikacja do map offline typu open source. Bez reklam. Bez śledzenia. Jeśli zobaczysz błąd na mapie, popraw go w OpenStreetMap. Projekt jest tworzony przez entuzjastów w czasie wolnym, dlatego potrzebujemy Twojej opinii i wsparcia.";
 
 "general_settings" = "Ustawienia ogólne";
 
@@ -1072,6 +1106,9 @@
 /* E.g. "WiFi:No" */
 "no_available" = "Nie";
 
+/* To indicate the capacity of car parkings, bicycle parkings, electric vehicle charging stations... */
+"capacity" = "Pojemność: %@";
+
 "trip_finished" = "Jesteś na miejscu!";
 
 "keyboard_availability_alert" = "Klawiatura nie jest dostępna podczas ruchu";
@@ -1238,6 +1275,12 @@
 /* Outdoors/hiking map style (activity) name in the Styles and Layers dialog */
 "button_layer_outdoor" = "Turystyka piesza";
 
+/* Bookmark categories screen, button that opens share dialog to export all bookmarks and tracks */
+"bookmarks_export" = "Eksportuj wszystkie zakładki i ścieżki";
+
+/* Text for the editing the Track's color button. */
+"change_color" = "Zmień kolor";
+
 
 /********** Types **********/
 
@@ -1352,6 +1395,8 @@
 "type.amenity.doctors" = "Lekarz";
 
 "type.amenity.drinking_water" = "Woda pitna";
+
+"type.drinking_water.yes" = "Woda pitna";
 
 "type.amenity.driving_school" = "Szkoła nauki jazdy";
 
@@ -1548,6 +1593,8 @@
 
 "type.amenity.toilets" = "Toaleta";
 
+"type.toilets.yes" = "Toaleta";
+
 "type.amenity.townhall" = "Ratusz";
 
 "type.amenity.university" = "Uniwersytet";
@@ -1676,6 +1723,8 @@
 
 "type.boundary.national_park" = "Park narodowy";
 
+"type.boundary.aboriginal_lands" = "Rdzenne ziemie";
+
 "type.boundary.protected_area" = "Strefa chroniona";
 
 "type.boundary.protected_area.1" = "Strefa chroniona";
@@ -1692,7 +1741,8 @@
 
 "type.building" = "Budynek";
 
-"type.building.address" = "Budynek";
+/* Duplicates [address] in strings.txt */
+"type.building.address" = "Adres";
 
 "type.building.has_parts" = "Budynek";
 
@@ -2501,8 +2551,6 @@
 "type.leisure.hackerspace" = "Hackerspace";
 
 "type.leisure.ice_rink" = "Lodowisko";
-
-"type.leisure.landscape_reserve" = "Rezerwat krajobrazu";
 
 "type.leisure.marina" = "Marina";
 
@@ -3837,25 +3885,45 @@
 
 "type.aerialway.t.bar" = "T-bar Lift";
 
-"type.piste_type" = "Piste Type";
-
 "type.piste_type.downhill" = "Downhill Ski Run";
+
+"type.piste_type.downhill.area" = "Downhill Ski Run";
 
 "type.piste_type.downhill.advanced" = "Downhill Ski Run";
 
+"type.piste_type.downhill.advanced.area" = "Downhill Ski Run";
+
 "type.piste_type.downhill.easy" = "Downhill Ski Run";
 
+"type.piste_type.downhill.easy.area" = "Downhill Ski Run";
+
 "type.piste_type.downhill.expert" = "Downhill Ski Run";
+
+"type.piste_type.downhill.expert.area" = "Downhill Ski Run";
 
 "type.piste_type.downhill.freeride" = "Downhill Ski Run";
 
 "type.piste_type.downhill.intermediate" = "Downhill Ski Run";
 
+"type.piste_type.downhill.intermediate.area" = "Downhill Ski Run";
+
 "type.piste_type.downhill.novice" = "Downhill Ski Run";
+
+"type.piste_type.downhill.novice.area" = "Downhill Ski Run";
 
 "type.piste_type.nordic" = "Nordic Ski Trail";
 
 "type.piste_type.sled" = "Sledding Piste";
+
+"type.piste_type.sled.area" = "Sledding Piste";
+
+"type.piste_type.snow_park" = "Snow Park";
+
+"type.piste_type.hike" = "Śnieżny szlak turystyczny";
+
+"type.piste_type.connection" = "Piste Connection";
+
+"type.piste_type.skitour" = "Szlak Skitour";
 
 "type.amenity.events_venue" = "Sala bankietowa";
 

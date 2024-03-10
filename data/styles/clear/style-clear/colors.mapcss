@@ -33,6 +33,7 @@
 
 @border_country: #63635C;
 @border_region: #73726B;
+@indigenous_lands: #734D26;
 
 /* 3.NATURAL */
 /* 3.1 Main natural */
@@ -70,7 +71,7 @@
 @parking: #F2F2BC;
 @military: #E53935;
 @prison: #727272;
-@farmland: #EBE4A5;
+@farmland: #E4DEAD;
 @farmyard: #E5D6AC;
 
 /*4.2 Aerodrome*/
@@ -89,24 +90,23 @@
 
 /* 4.4 Buildings */
 
-@building: #C9C8BB;
-@building_dark: #C2C0B3;
-@building_border: #A1A096;
-@building_dark_border: #9B9A8F;
+@building0: #C9C8BB;
+@building1: #C2C0B3;
+@building_border0: #A1A096;
+@building_border1: #9B9A8F;
 
 /* 5.ROADS */
 /* 5.1 All roads */
 
-@trunk: #FF8800;
-@trunk_orange: #FF5919;
-@trunk_orange_medium: #FF7326;
-@trunk_orange_light: #FF7A26;
-@primary_orange:  #FF8726;
-@primary_orange_medium: #FF9440;
-@primary_orange_light: #FFA14C;
-@secondary: #FFFFFF;
+@trunk0: #FF7326;
+@trunk1: #FF7A26;
+@primary0:  #FF8726;
+@primary1: #FF9440;
+@primary2: #FFA14C;
+@secondary0: #FFB226;
+@secondary1: #FFBF52;
+@tertiary: #FFFFFF;
 @residential: #F8F8F8;
-@unclassified: #F8F8F8;
 @pedestrian: #F8F8F8;
 @footway: #F8F8F8;
 @cycleway: #FF87AD;
@@ -122,25 +122,26 @@
 
 /* 5.3 Tunnels */
 
-@trunk_tunnel_orange: #FCA462;
+@trunk_tunnel: #FCA462;
 @trunk_tunnel_casing: #808080;
-@primary_tunnel_orange: #FCA462;
+@primary_tunnel: #FCA462;
 @primary_tunnel_casing: #808080;
-@secondary_tunnel: #FFFFFF;
+@secondary_tunnel: #FFBF52;
 @secondary_tunnel_casing:  #808080;
 @tertiary_tunnel: #FFFFFF;
 @tertiary_tunnel_casing:  #808080;
-@unclassified_tunnel: #FFFFFF;
-@unclassified_tunnel_casing: #808080;
+@residential_tunnel: #FFFFFF;
+@residential_tunnel_casing: #808080;
 
 /* 5.4 Piste */
 
 @piste: #C47AFF;
 @piste_novice:#5feb2e;
 @piste_easy: #0b27fb;
-@piste_intermadiate: #fc0e1b;
-@piste_expert: #220625;
+@piste_intermediate: #fc0e1b;
 @piste_advanced: #0a0a0d;
+@piste_expert: #220625;
+@piste_freeride: #EEA500;
 
 /* 5.5 Transport */
 
@@ -178,10 +179,10 @@
 @building_label: #61615A;
 @poi_label: #444444;
 @subway_label: #333333;
+@indigenous_label: #6A512F;
 
 /* 6.4 Road labels */
 
-@road_label_halo: #FFFFFF;
 @shield_text: #000000;
 @shield_text_halo: #000000;
 @shield: #FFFFFF;

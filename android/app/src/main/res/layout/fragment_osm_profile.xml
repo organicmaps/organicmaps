@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout
   xmlns:android="http://schemas.android.com/apk/res/android"
+  xmlns:app="http://schemas.android.com/apk/res-auto"
   xmlns:tools="http://schemas.android.com/tools"
   android:layout_width="match_parent"
   android:layout_height="match_parent"
@@ -21,7 +22,7 @@
       android:layout_gravity="end|center_vertical"
       android:background="?selectableItemBackgroundBorderless"
       android:scaleType="center"
-      android:src="@drawable/ic_logout"
+      app:srcCompat="@drawable/ic_logout"
       android:contentDescription="@string/logout" />
   </androidx.appcompat.widget.Toolbar>
 
@@ -84,7 +85,7 @@
 
         </LinearLayout>
       </LinearLayout>
-      <RelativeLayout
+      <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_weight="1"
@@ -101,7 +102,8 @@
           android:text="@string/history"
           android:textAppearance="@style/MwmTextAppearance.Body4"
           android:textColor="?colorAccent"
-          android:textSize="@dimen/text_size_body_1" />
+          android:textSize="@dimen/text_size_body_1"
+          app:layout_constraintTop_toTopOf="parent"/>
         <TextView
           android:id="@+id/about_osm"
           android:layout_width="match_parent"
@@ -114,8 +116,11 @@
           android:text="@string/editor_more_about_osm"
           android:textAppearance="@style/MwmTextAppearance.Body4"
           android:textColor="?colorAccent"
-          android:textSize="@dimen/text_size_body_4" />
-      </RelativeLayout>
+          android:textSize="@dimen/text_size_body_4"
+          app:layout_constraintBottom_toBottomOf="parent"
+          app:layout_constraintTop_toBottomOf="@+id/osm_history"
+          app:layout_constraintVertical_bias="1" />
+      </androidx.constraintlayout.widget.ConstraintLayout>
     </LinearLayout>
   </ScrollView>
 </LinearLayout>

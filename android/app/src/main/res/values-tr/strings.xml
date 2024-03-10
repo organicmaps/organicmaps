@@ -43,9 +43,9 @@
 	<!-- Text in About screen -->
 	<string name="about_proposition_1">• Reklam yok, takip yok, veri toplama yok</string>
 	<!-- Text in About screen -->
-	<string name="about_proposition_2">• Pilinizi tüketmez, arka planda veri alıp göndermez</string>
+	<string name="about_proposition_2">• Pil tüketimi yok, çevrimdışı çalışıyor</string>
 	<!-- Text in About screen -->
-	<string name="about_proposition_3">• Hızlı, minimalist ve hafif</string>
+	<string name="about_proposition_3">• Hızlı, minimalist, topluluk tarafından geliştirildi</string>
 	<!-- Text in About screen -->
 	<string name="about_developed_by_enthusiasts">Teknoloji tutkunları ve gönüllüler tarafından oluşturulan açık kaynaklı bir uygulama.</string>
 	<!-- The button that opens system location settings -->
@@ -82,7 +82,7 @@
 	<string name="core_my_places">Yerlerim</string>
 	<!-- Add bookmark dialog - bookmark name -->
 	<string name="name">Adı</string>
-	<!-- Editor title above street and house number -->
+	<!-- Editor title above street and house number, duplicates [type.building.address] in types_strings.txt -->
 	<string name="address">Adres</string>
 	<!-- Add Bookmark dialog/Bookmark list; Bookmarks dialog/Bookmark list cell. -->
 	<string name="list">Liste</string>
@@ -108,7 +108,7 @@
 	<string name="move_maps">Haritalar taşınsın mı?</string>
 	<!-- Error moving map files from one storage to another -->
 	<string name="move_maps_error">Harita dosyalarını taşıma hatası</string>
-	<!-- Ask to wait user several minutes (some long process in modal dialog). -->
+	<!-- Ask user to wait several minutes (some long process in modal dialog). -->
 	<string name="wait_several_minutes">Bu işlem birkaç dakika sürebilir.\nLütfen bekleyin…</string>
 	<!-- Measurement units title in settings activity -->
 	<string name="measurement_units">Ölçü birimleri</string>
@@ -173,6 +173,10 @@
 	<string name="load_kmz_successful">Yer İmleri başarılı bir şekilde yüklendi! Bunları Haritada veya Yer İmleri Yöneticisi ekranında bulabilirsiniz.</string>
 	<!-- Kml file loading failed -->
 	<string name="load_kmz_failed">Yer İmlerini yükleme işlemi başarısız oldu. Dosya bozuk veya hatalı olabilir.</string>
+	<!-- Failed to recognize the format of a bookmarks or tracks file. -->
+	<string name="unknown_file_type">Dosya türü uygulama tarafından tanınmıyor:\n%1$s</string>
+	<!-- Failed to open a bookmarks or tracks file in Organic Maps. -->
+	<string name="failed_to_open_file">Dosya açılamadı %1$s\n\n%2$s</string>
 	<!-- resource for context menu -->
 	<string name="edit">Düzenle</string>
 	<!-- Warning message when doing search around current position -->
@@ -215,6 +219,10 @@
 	<string name="pref_zoom_summary">Haritada göster</string>
 	<!-- Settings «Map» category: «Night style» title -->
 	<string name="pref_map_style_title">Gece Modu</string>
+	<!-- Settings "Appearance" category: "Light" title, should be consistent with the pref_appearance_title translation. -->
+	<string name="pref_appearance_light">Açık</string>
+	<!-- Settings "Appearance" category: "Dark" title, should be consistent with the pref_appearance_title translation. -->
+	<string name="pref_appearance_dark">Koyu</string>
 	<!-- Generic «Off» string -->
 	<string name="off">Kapalı</string>
 	<!-- Generic «On» string -->
@@ -476,8 +484,8 @@
 	<string name="editor_report_problem_other_title">Farklı bir sorun</string>
 	<string name="placepage_add_business_button">Kuruluş ekle</string>
 	<string name="message_invalid_feature_position">Buraya bir nesne konumlandırılamıyor</string>
-	<!-- Text in About and OSM Login screens. %@ is replaced by a local, human readable date. -->
-	<string name="osm_presentation">Harita verileri, %s tarihine ait OpenStreetMap verilerinden alınmıştır. OpenStreetMap, Vikipedi\'nin harita sürümü gibidir: dünyadaki tüm kullanıcılar için yer ekleyebilir veya düzenleyebilirsiniz.</string>
+	<!-- Text in About and OSM Login screens. First %@ is replaced by a local, human readable date. -->
+	<string name="osm_presentation">Topluluk tarafından oluşturulan OpenStreetMap verileri %s itibariyle. OpenStreetMap.org adresinde haritanın nasıl düzenleneceği ve güncelleneceği hakkında daha fazla bilgi edinin</string>
 	<string name="login_to_make_edits_visible">Diğer kullanıcıların yaptığınız değişiklikleri görebilmesi için OpenStreetMap.org\'da oturum açın.</string>
 	<!-- Downloaded 10 **of** 20 <- it is that "of" -->
 	<string name="downloader_of">%1$d/%2$d</string>
@@ -498,15 +506,14 @@
 	<string name="editor_operator">İşletmeci</string>
 	<string name="downloader_no_downloaded_maps_title">Hiç harita indirmediniz</string>
 	<string name="downloader_no_downloaded_maps_message">Çevrimdışı olarak adres bulmak ve gezinmek için haritaları indirin.</string>
-	<!-- Error title that appears after certain time without location. -->
-	<string name="current_location_unknown_title">Geçerli konumunuz izlenmeye devam edilsin mi?</string>
-	<!-- Error that appears after certain time without location. -->
-	<string name="current_location_unknown_message">Geçerli konum bilinmiyor. Muhtemelen bir bina veya tünelin içindesiniz.</string>
-	<string name="current_location_unknown_continue_button">Devam</string>
-	<string name="current_location_unknown_stop_button">Dur</string>
+	<string name="stop">Dur</string>
+	<!-- abbreviation for meters -->
 	<string name="m">m</string>
+	<!-- abbreviation for kilometers -->
 	<string name="km">km</string>
+	<!-- abbreviation for kilometers per hour -->
 	<string name="kilometers_per_hour">km/s</string>
+	<!-- abbreviation for mile(s) -->
 	<string name="mi">mil</string>
 	<!-- A unit of measure -->
 	<string name="ft">fit</string>
@@ -637,6 +644,12 @@
 	<string name="place_description_title">Yer Açıklaması</string>
 	<!-- this text will be shown in application notification preferences opposite checkbox which enable/disable downloader notifications. Devices on Android 8+ are affected. -->
 	<string name="notification_channel_downloader">Harita indirici</string>
+	<!-- Speed camera settings menu option - Warn (about speedcams) if risk of exceeding speed limit -->
+	<string name="pref_tts_speedcams_auto">Hız sınırını aşma riski varsa uyar</string>
+	<!-- Speed camera settings menu option - Always warn (about speedcams) -->
+	<string name="pref_tts_speedcams_always">Her zaman uyar</string>
+	<!-- Speed camera settings menu option - Never warn (about speedcams) -->
+	<string name="pref_tts_speedcams_never">Hiç bir zaman uyarma</string>
 	<string name="power_managment_title">Güç tasarrufu modu</string>
 	<string name="power_managment_description">Otomatik mod seçildiğinde, uygulama geçerli pil seviyesine bağlı olarak şarj harcayan özellikleri devre dışı bırakmaya başlar</string>
 	<string name="power_managment_setting_never">Asla</string>
@@ -667,6 +680,8 @@
 	<string name="yes_available">Var</string>
 	<!-- E.g. "WiFi:No" -->
 	<string name="no_available">Yok</string>
+	<!-- To indicate the capacity of car parkings, bicycle parkings, electric vehicle charging stations... -->
+	<string name="capacity">Kapasite: %s</string>
 	<string name="trip_finished">Vardınız!</string>
 	<string name="ok">Tamam</string>
 	<!-- max. 10 symbols, both iOS and Android -->
@@ -747,8 +762,26 @@
 	<string name="translated_om_site_url">https://organicmaps.app/tr/</string>
 	<!-- Link to OSM wiki for Editor, Profile and About pages -->
 	<string name="osm_wiki_about_url">https://wiki.openstreetmap.org/wiki/Tr:About</string>
-	<!-- Tip #00 -->
+	<!-- App Tip #00 -->
 	<string name="app_tip_00">Topluluk tarafından oluşturulan haritalarımızı kullandığınız için teşekkür ederiz!</string>
+	<!-- App tip #01 -->
+	<string name="app_tip_01">Bağışlarınız ve desteğinizle dünyanın en iyi haritalarını yaratabiliriz!</string>
+	<!-- App tip #02 -->
+	<string name="app_tip_02">Uygulamamızı beğendiniz mi? Gelişimi desteklemek için lütfen bağış yapın! Henüz beğenmedin mi? Lütfen bize bildirin, düzelteceğiz!</string>
+	<!-- App tip #03 -->
+	<string name="app_tip_03">Bir yazılım geliştirici tanıyorsanız, ondan ihtiyacınız olan bir özelliği uygulamasını isteyebilirsiniz.</string>
+	<!-- App tip #04 -->
+	<string name="app_tip_04">Haritadaki herhangi bir yeri seçmek için uzun süre dokunabileceğinizi biliyor musunuz?</string>
+	<!-- App tip #05 -->
+	<string name="app_tip_05">Haritada mevcut konumunuzu seçebileceğinizi biliyor musunuz?</string>
+	<!-- App tip #06 -->
+	<string name="app_tip_06">Uygulamamızın kendi dilinize çevrilmesine yardımcı olabilirsiniz.</string>
+	<!-- App tip #07 -->
+	<string name="app_tip_07">Uygulamamız birkaç meraklı ve topluluk tarafından geliştirilmiştir.</string>
+	<!-- App tip #08 -->
+	<string name="app_tip_08">Harita verilerini kolayca düzeltebilir ve iyileştirebilirsiniz.</string>
+	<!-- App tip #09 -->
+	<string name="app_tip_09">Temel amacımız hızlı, gizlilik odaklı, kullanımı kolay, seveceğiniz haritalar oluşturmaktır.</string>
 	<!-- Text on the Android Auto placeholder screen that maps are displayed on the phone screen -->
 	<string name="aa_used_on_the_phone_screen">Artık telefon ekranında Organic Maps kullanıyorsunuz</string>
 	<!-- Text on the phone placeholder screen that maps are displayed on the car screen -->
@@ -767,6 +800,17 @@
 	<string name="aa_connected_to_car_notification_title">Arabaya bağlı</string>
 	<!-- Outdoors/hiking map style (activity) name in the Styles and Layers dialog -->
 	<string name="button_layer_outdoor">Yürüyüş</string>
+	<!-- Text displayed when a webview or a browser are disabled, and external links can't be opened. -->
+	<string name="browser_not_available">Web tarayıcısı mevcut değil</string>
+	<!-- Text displayed in a dialog when OSM authorization is disabled -->
+	<string name="osm_login_not_available">Google Play\'deki yeni kısıtlamalar nedeniyle OpenStreetMap yetkilendirmesi geçici olarak kullanılamıyor 😾\nEkibimiz bu sorunu çözmek için çalışıyor. Lütfen sabırlı olun 🙏</string>
+	<string name="volume">Ses</string>
+	<!-- Bookmark categories screen, button that opens share dialog to export all bookmarks and tracks -->
+	<string name="bookmarks_export">Tüm Yer İmlerini ve Parçaları Dışa Aktar</string>
+	<!-- button in (app) TTS settings, to open the system TTS settings. -->
+	<string name="pref_tts_open_system_settings">Konuşma sentezleme sistemi ayarları</string>
+	<!-- toast displayed when pressing the "Speech synthesis system settings" button, and the system settings aren't found. -->
+	<string name="pref_tts_no_system_tts">Konuşma Sentezi ayarları bulunamadı, cihazınızın bunu desteklediğinden emin misiniz?</string>
 
 	<!-- SECTION: Types -->
 	<string name="type.addr_interpolation">Adres/Blok</string>
@@ -825,6 +869,7 @@
 	<string name="type.amenity.dentist">Dişçi</string>
 	<string name="type.amenity.doctors">Doktor</string>
 	<string name="type.amenity.drinking_water">İçme Suyu</string>
+	<string name="type.drinking_water.yes">İçme Suyu</string>
 	<string name="type.amenity.driving_school">Sürücü Kursu</string>
 	<string name="type.amenity.exhibition_centre">Sergi Merkezi</string>
 	<string name="type.amenity.money_transfer">Para Aktarımı</string>
@@ -924,6 +969,7 @@
 	<string name="type.amenity.telephone">Telefon</string>
 	<string name="type.amenity.theatre">Tiyatro</string>
 	<string name="type.amenity.toilets">Tuvalet</string>
+	<string name="type.toilets.yes">Tuvalet</string>
 	<string name="type.amenity.townhall">Belediye Binası</string>
 	<string name="type.amenity.university">Üniversite</string>
 	<string name="type.amenity.vending_machine">Otomat</string>
@@ -983,6 +1029,7 @@
 	<string name="type.boundary.administrative.state">Devlet Sınırı</string>
 	<string name="type.boundary.administrative.suburb">Mahalle Sınırı</string>
 	<string name="type.boundary.national_park">Ulusal Park</string>
+	<string name="type.boundary.aboriginal_lands">Yerli topraklar</string>
 	<string name="type.boundary.protected_area">Korunmuş bölge</string>
 	<string name="type.boundary.protected_area.1">Korunmuş bölge</string>
 	<string name="type.boundary.protected_area.2">Korunmuş bölge</string>
@@ -991,7 +1038,8 @@
 	<string name="type.boundary.protected_area.5">Korunmuş bölge</string>
 	<string name="type.boundary.protected_area.6">Korunmuş bölge</string>
 	<string name="type.building">Bina</string>
-	<string name="type.building.address">Bina</string>
+	<!-- Duplicates [address] in strings.txt -->
+	<string name="type.building.address">Adres</string>
 	<string name="type.building.has_parts">Bina</string>
 	<string name="type.building_part">Bina</string>
 	<string name="type.building.garage">Garaj</string>
@@ -1404,7 +1452,6 @@
 	<string name="type.leisure.garden.residential">Konut Bahçesi</string>
 	<string name="type.leisure.golf_course">Golf Sahası</string>
 	<string name="type.leisure.ice_rink">Buz Pateni Pisti</string>
-	<string name="type.leisure.landscape_reserve">Peyzaj Rezervi</string>
 	<string name="type.leisure.marina">Liman</string>
 	<string name="type.leisure.nature_reserve">Doğal Koruma Alanı</string>
 	<string name="type.leisure.outdoor_seating">Dış mekan oturma</string>
@@ -2062,16 +2109,26 @@
 	<string name="type.aerialway.platter">Tabak Asansörü</string>
 	<string name="type.aerialway.rope_tow">Çekme Halatı</string>
 	<string name="type.aerialway.t.bar">Kayakçı teleferiği</string>
-	<string name="type.piste_type">Kayakçı Taşıyıcı</string>
 	<string name="type.piste_type.downhill">Yokuş Aşağı Kayak Pisti</string>
+	<string name="type.piste_type.downhill.area">Yokuş Aşağı Kayak Pisti</string>
 	<string name="type.piste_type.downhill.advanced">Gelişmiş kayak pisti</string>
+	<string name="type.piste_type.downhill.advanced.area">Gelişmiş kayak pisti</string>
 	<string name="type.piste_type.downhill.easy">Basit kayak pisti</string>
+	<string name="type.piste_type.downhill.easy.area">Basit kayak pisti</string>
 	<string name="type.piste_type.downhill.expert">Uzmanlar için kayak pisti</string>
+	<string name="type.piste_type.downhill.expert.area">Uzmanlar için kayak pisti</string>
 	<string name="type.piste_type.downhill.freeride">Serbest sürüş kayak pisti</string>
 	<string name="type.piste_type.downhill.intermediate">Orta zorlukta kayak pisti</string>
+	<string name="type.piste_type.downhill.intermediate.area">Orta zorlukta kayak pisti</string>
 	<string name="type.piste_type.downhill.novice">Yeni başlayanlar için kayak pisti</string>
+	<string name="type.piste_type.downhill.novice.area">Yeni başlayanlar için kayak pisti</string>
 	<string name="type.piste_type.nordic">İskandinav Kayak Pisti</string>
 	<string name="type.piste_type.sled">Kızak Pisti</string>
+	<string name="type.piste_type.sled.area">Kızak Pisti</string>
+	<string name="type.piste_type.snow_park">Kar Parkı</string>
+	<string name="type.piste_type.hike">Kar Yürüyüş Parkuru</string>
+	<string name="type.piste_type.connection">Pist Bağlantısı</string>
+	<string name="type.piste_type.skitour">Skitour Parkuru</string>
 	<string name="type.amenity.events_venue">Etkinlik mekanı</string>
 	<string name="type.shop.auction">Müzayede</string>
 	<string name="type.shop.collector">Koleksiyon eşyaları</string>

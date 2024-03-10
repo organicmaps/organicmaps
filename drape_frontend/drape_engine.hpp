@@ -138,7 +138,7 @@ public:
   using ModelViewChangedHandler = FrontendRenderer::ModelViewChangedHandler;
   void SetModelViewListener(ModelViewChangedHandler && fn);
 
-#if defined(OMIM_OS_MAC) || defined(OMIM_OS_LINUX)
+#if defined(OMIM_OS_DESKTOP)
   using GraphicsReadyHandler = FrontendRenderer::GraphicsReadyHandler;
   void NotifyGraphicsReady(GraphicsReadyHandler const & fn, bool needInvalidate);
 #endif
@@ -164,8 +164,6 @@ public:
   void SetTapEventInfoListener(TapEventInfoHandler && fn);
   using UserPositionChangedHandler = FrontendRenderer::UserPositionChangedHandler;
   void SetUserPositionListener(UserPositionChangedHandler && fn);
-  using UserPositionPendingTimeoutHandler = FrontendRenderer::UserPositionPendingTimeoutHandler;
-  void SetUserPositionPendingTimeoutListener(UserPositionPendingTimeoutHandler && fn);
 
   void SelectObject(SelectionShape::ESelectedObject obj, m2::PointD const & pt,
                     FeatureID const & featureID, bool isAnim, bool isGeometrySelectionAllowed,
@@ -258,7 +256,6 @@ private:
   void MyPositionModeChanged(location::EMyPositionMode mode, bool routingActive);
   void TapEvent(TapInfo const & tapInfo);
   void UserPositionChanged(m2::PointD const & position, bool hasPosition);
-  void UserPositionPendingTimeout();
 
   void ResizeImpl(int w, int h);
   void RecacheGui(bool needResetOldGui);
@@ -282,7 +279,6 @@ private:
   ModelViewChangedHandler m_modelViewChangedHandler;
   TapEventInfoHandler m_tapEventInfoHandler;
   UserPositionChangedHandler m_userPositionChangedHandler;
-  UserPositionPendingTimeoutHandler m_userPositionPendingTimeoutHandler;
 
   gui::TWidgetsInitInfo m_widgetsInfo;
   gui::TWidgetsLayoutInfo m_widgetsLayout;

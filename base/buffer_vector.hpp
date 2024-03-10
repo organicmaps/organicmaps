@@ -363,7 +363,7 @@ public:
 
       m_size += n;
       T * writableWhere = &m_static[0] + pos;
-      ASSERT_EQUAL(where, writableWhere, ());
+      ASSERT(where == writableWhere, ());
       while (beg != end)
         *(writableWhere++) = *(beg++);
     }

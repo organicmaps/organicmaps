@@ -14,8 +14,11 @@ class PlacePageHeaderViewController: UIViewController {
   @IBOutlet private var expandView: UIView!
   @IBOutlet private var shadowView: UIView!
   @IBOutlet private var grabberView: UIView!
-    
-    override func viewDidLoad() {
+
+  private var titleText: String?
+  private var secondaryText: String?
+
+  override func viewDidLoad() {
     super.viewDidLoad()
     presenter?.configure()
     let tap = UITapGestureRecognizer(target: self, action: #selector(onExpandPressed(sender:)))
@@ -32,6 +35,12 @@ class PlacePageHeaderViewController: UIViewController {
 
   @IBAction private func onCloseButtonPressed(_ sender: Any) {
     presenter?.onClosePress()
+  }
+
+  override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
+    super.traitCollectionDidChange(previousTraitCollection)
+    guard traitCollection.userInterfaceStyle != previousTraitCollection?.userInterfaceStyle else { return }
+    setTitle(titleText, secondaryTitle: secondaryText)
   }
 }
 
@@ -55,6 +64,8 @@ extension PlacePageHeaderViewController: PlacePageHeaderViewProtocol {
   }
 
   func setTitle(_ title: String?, secondaryTitle: String?) {
+    titleText = title
+    secondaryText = secondaryTitle
     // XCode 13 is not smart enough to detect that title is used below, and requires explicit unwrapped variable.
     guard let unwrappedTitle = title else {
       titleLabel?.attributedText = nil

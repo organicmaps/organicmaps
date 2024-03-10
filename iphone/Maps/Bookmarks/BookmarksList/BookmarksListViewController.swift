@@ -7,11 +7,11 @@ final class BookmarksListViewController: MWMViewController {
   private var canEdit = false
 
   @IBOutlet private var tableView: UITableView!
-  @IBOutlet private var searchBar: UISearchBar!
   @IBOutlet private var toolBar: UIToolbar!
   @IBOutlet private var sortToolbarItem: UIBarButtonItem!
   @IBOutlet private var moreToolbarItem: UIBarButtonItem!
-
+  private let searchController = UISearchController(searchResultsController: nil)
+  
   private lazy var infoViewController: BookmarksListInfoViewController = {
     let infoViewController = BookmarksListInfoViewController()
     infoViewController.delegate = self
@@ -30,7 +30,16 @@ final class BookmarksListViewController: MWMViewController {
     sortToolbarItem.setTitleTextAttributes(toolbarItemAttributes, for: .normal)
     moreToolbarItem.setTitleTextAttributes(toolbarItemAttributes, for: .normal)
     sortToolbarItem.title = L("sort")
-    searchBar.placeholder = L("search_in_the_list")
+    
+    extendedLayoutIncludesOpaqueBars = true
+    searchController.searchBar.placeholder = L("search_in_the_list")
+    searchController.obscuresBackgroundDuringPresentation = false
+    searchController.hidesNavigationBarDuringPresentation = alternativeSizeClass(iPhone: true, iPad: false)
+    searchController.searchBar.delegate = self
+    searchController.searchBar.applyTheme()
+    navigationItem.searchController = searchController
+    navigationItem.hidesSearchBarWhenScrolling = false
+    
     cellStrategy.registerCells(tableView)
     cellStrategy.cellCheckHandler = { [weak self] (viewModel, index, checked) in
       self?.presenter.checkItem(in: viewModel, at: index, checked: checked)
@@ -152,18 +161,21 @@ extension BookmarksListViewController: UITableViewDelegate {
     }
     return UISwipeActionsConfiguration(actions: [deleteAction, editAction])
   }
+
+  func tableView(_ tableView: UITableView, accessoryButtonTappedForRowWith indexPath: IndexPath) {
+    guard let section = sections?[indexPath.section] else { fatalError() }
+    presenter.editItem(in: section, at: indexPath.row)
+  }
 }
 
 extension BookmarksListViewController: UISearchBarDelegate {
   func searchBarTextDidBeginEditing(_ searchBar: UISearchBar) {
     searchBar.setShowsCancelButton(true, animated: true)
-    navigationController?.setNavigationBarHidden(true, animated: true)
     presenter.activateSearch()
   }
 
   func searchBarTextDidEndEditing(_ searchBar: UISearchBar) {
     searchBar.setShowsCancelButton(false, animated: true)
-    navigationController?.setNavigationBarHidden(false, animated: true)
     presenter.deactivateSearch()
   }
 
@@ -214,6 +226,10 @@ extension BookmarksListViewController: IBookmarksListView {
     actionSheet.addAction(UIAlertAction(title: L("cancel"), style: .cancel, handler: nil))
     actionSheet.popoverPresentationController?.barButtonItem = sortToolbarItem
     present(actionSheet, animated: true)
+  }
+
+  func showColorPicker(with pickerType: ColorPickerType, _ completionHandler: ((UIColor) -> Void)?) {
+    ColorPicker.shared.present(from: self, pickerType: pickerType, completionHandler: completionHandler)
   }
 
   func enableEditing(_ enable: Bool) {

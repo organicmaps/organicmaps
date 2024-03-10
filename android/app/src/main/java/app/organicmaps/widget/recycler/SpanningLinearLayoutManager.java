@@ -68,7 +68,7 @@ public class SpanningLinearLayoutManager extends LinearLayoutManager
 
   private int getHorizontalSpace()
   {
-    return getWidth() - getPaddingRight() - getPaddingLeft();
+    return getWidth() - getPaddingEnd() - getPaddingStart();
   }
 
   private int getVerticalSpace()

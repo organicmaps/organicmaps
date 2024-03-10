@@ -53,7 +53,15 @@ public:
     }
 
     if (m_entries.size() == m_capacity)
+    {
+      if (it == std::prev(m_entries.end()))
+      {
+        m_entries.back() = Entry(key, value);
+        return;
+      }
+
       m_entries.pop_back();
+    }
 
     m_entries.insert(it, Entry(key, value));
   }

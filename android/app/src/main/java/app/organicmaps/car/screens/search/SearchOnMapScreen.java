@@ -1,5 +1,7 @@
 package app.organicmaps.car.screens.search;
 
+import android.text.TextUtils;
+
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.car.app.CarContext;
@@ -88,12 +90,12 @@ public class SearchOnMapScreen extends BaseMapScreen implements NativeSearchList
     {
       final String title = result.getTitle(getCarContext());
       builder.setTitle(title);
-      builder.addText(result.getFormattedDescription(getCarContext()));
+      builder.addText(result.description.description);
 
       final CharSequence openingHours = SearchUiHelpers.getOpeningHoursText(getCarContext(), result);
       final CharSequence distance = SearchUiHelpers.getDistanceText(result);
-      final CharSequence openingHoursAndDistanceText = SearchUiHelpers.getOpeningHoursAndDistanceText(openingHours, distance);
-      if (openingHoursAndDistanceText.length() != 0)
+      final CharSequence openingHoursAndDistanceText = SearchUiHelpers.concatenateStrings(openingHours, distance);
+      if (!TextUtils.isEmpty(openingHoursAndDistanceText))
         builder.addText(openingHoursAndDistanceText);
       if (distance.length() == 0)
       {

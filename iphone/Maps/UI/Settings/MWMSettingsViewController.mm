@@ -52,12 +52,12 @@ using namespace power_management;
 }
 
 - (void)configProfileSection {
-  NSString *userName = osm_auth_ios::OSMUserName();
+  NSString * userName = osm_auth_ios::OSMUserName();
   [self.profileCell configWithTitle:L(@"profile") info:userName.length != 0 ? userName : @""];
 }
 
 - (void)configCommonSection {
-  NSString *units = nil;
+  NSString * units = nil;
   switch ([MWMSettings measurementUnits]) {
     case MWMUnitsMetric:
       units = L(@"kilometres");
@@ -76,8 +76,8 @@ using namespace power_management;
   {
     self.is3dCell.isEnabled = false;
     [self.is3dCell configWithDelegate:self title:L(@"pref_map_3d_buildings_title") isOn:false];
-    UITapGestureRecognizer* tapRecogniser = [[UITapGestureRecognizer alloc] initWithTarget:self
-                                                            action:@selector(show3dBuildingsAlert:)];
+    UITapGestureRecognizer * tapRecogniser = [[UITapGestureRecognizer alloc] initWithTarget:self
+                                                                                     action:@selector(show3dBuildingsAlert:)];
 
     self.is3dCell.gestureRecognizers = @[tapRecogniser];
   }
@@ -92,7 +92,7 @@ using namespace power_management;
                                       title:L(@"autodownload")
                                        isOn:[MWMSettings autoDownloadEnabled]];
 
-  NSString *mobileInternet = nil;
+  NSString * mobileInternet = nil;
   switch ([MWMNetworkPolicy sharedPolicy].permission) {
     case MWMNetworkPolicyPermissionAlways:
       mobileInternet = L(@"mobile_data_option_always");
@@ -108,7 +108,7 @@ using namespace power_management;
   }
   [self.mobileInternetCell configWithTitle:L(@"mobile_data") info:mobileInternet];
 
-  NSString *powerManagement = nil;
+  NSString * powerManagement = nil;
   switch (GetFramework().GetPowerManager().GetScheme()) {
     case Scheme::None:
       break;
@@ -126,7 +126,7 @@ using namespace power_management;
   }
   [self.powerManagementCell configWithTitle:L(@"power_managment_title") info:powerManagement];
 
-  NSString *recentTrack = nil;
+  NSString * recentTrack = nil;
   if (!GpsTracker::Instance().IsEnabled()) {
     recentTrack = L(@"duration_disabled");
   } else {
@@ -162,15 +162,33 @@ using namespace power_management;
   [self.compassCalibrationCell configWithDelegate:self
                                             title:L(@"pref_calibration_title")
                                              isOn:[MWMSettings compassCalibrationEnabled]];
+
+  NSString * nightMode = nil;
+  switch ([MWMSettings theme]) {
+    case MWMThemeVehicleDay:
+      NSAssert(false, @"Invalid case");
+    case MWMThemeDay:
+      nightMode = L(@"pref_appearance_light");
+      break;
+    case MWMThemeVehicleNight:
+      NSAssert(false, @"Invalid case");
+    case MWMThemeNight:
+      nightMode = L(@"pref_appearance_dark");
+      break;
+    case MWMThemeAuto:
+      nightMode = L(@"auto");
+      break;
+  }
+  [self.nightModeCell configWithTitle:L(@"pref_appearance_title") info:nightMode];
 }
 
 - (void)show3dBuildingsAlert:(UITapGestureRecognizer *)recognizer {
-  UIAlertController *alert =
-  [UIAlertController alertControllerWithTitle:L(@"pref_map_3d_buildings_title")
+  UIAlertController * alert =
+    [UIAlertController alertControllerWithTitle:L(@"pref_map_3d_buildings_title")
                                       message:L(@"pref_map_3d_buildings_disabled_summary")
                                preferredStyle:UIAlertControllerStyleAlert];
 
-  UIAlertAction *okButton = [UIAlertAction actionWithTitle:@"OK"
+  UIAlertAction * okButton = [UIAlertAction actionWithTitle:@"OK"
                                                       style:UIAlertActionStyleDefault
                                                     handler:nil];
   [alert addAction:okButton];
@@ -179,24 +197,6 @@ using namespace power_management;
 }
 
 - (void)configNavigationSection {
-  NSString *nightMode = nil;
-  switch ([MWMSettings theme]) {
-    case MWMThemeVehicleDay:
-      NSAssert(false, @"Invalid case");
-    case MWMThemeDay:
-      nightMode = L(@"off");
-      break;
-    case MWMThemeVehicleNight:
-      NSAssert(false, @"Invalid case");
-    case MWMThemeNight:
-      nightMode = L(@"on");
-      break;
-    case MWMThemeAuto:
-      nightMode = L(@"auto");
-      break;
-  }
-  [self.nightModeCell configWithTitle:L(@"pref_map_style_title") info:nightMode];
-
   bool _ = true, on = true;
   auto &f = GetFramework();
   f.Load3dMode(on, _);
@@ -204,7 +204,7 @@ using namespace power_management;
 
   [self.autoZoomCell configWithDelegate:self title:L(@"pref_map_auto_zoom") isOn:GetFramework().LoadAutoZoom()];
 
-  NSString *ttsEnabledString = [MWMTextToSpeech isTTSEnabled] ? L(@"on") : L(@"off");
+  NSString * ttsEnabledString = [MWMTextToSpeech isTTSEnabled] ? L(@"on") : L(@"off");
   [self.voiceInstructionsCell configWithTitle:L(@"pref_tts_enable_title") info:ttsEnabledString];
   [self.drivingOptionsCell configWithTitle:L(@"driving_options_title") info:@""];
 }

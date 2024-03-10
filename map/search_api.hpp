@@ -1,6 +1,5 @@
 #pragma once
 
-#include "map/bookmark.hpp"
 #include "map/bookmark_helpers.hpp"
 #include "map/everywhere_search_callback.hpp"
 #include "map/search_product_info.hpp"
@@ -17,14 +16,10 @@
 #include "geometry/point2d.hpp"
 #include "geometry/rect2d.hpp"
 
-#include <cstddef>
-#include <cstdint>
 #include <functional>
 #include <memory>
 #include <optional>
-#include <string>
 #include <unordered_set>
-#include <utility>
 #include <vector>
 
 class DataSource;
@@ -63,7 +58,7 @@ public:
 
     virtual bool ParseSearchQueryCommand(search::SearchParams const & /* params */) { return false; }
 
-    virtual m2::PointD GetMinDistanceBetweenResults() const { return {}; }
+    virtual m2::PointD GetMinDistanceBetweenResults() const { return {0, 0}; }
 
     virtual search::ProductInfo GetProductInfo(search::Result const & result) const { return {}; }
   };

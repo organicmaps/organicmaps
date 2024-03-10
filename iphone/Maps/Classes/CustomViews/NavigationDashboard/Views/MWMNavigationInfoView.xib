@@ -125,12 +125,12 @@
                     </accessibility>
                     <constraints>
                         <constraint firstAttribute="bottom" secondItem="WID-Um-Va6" secondAttribute="bottom" id="5ox-Cb-hJc"/>
-                        <constraint firstItem="ShI-bz-5g8" firstAttribute="top" secondItem="YYv-pG-Wkw" secondAttribute="top" constant="24" id="KK1-dA-hII"/>
+                        <constraint firstItem="ShI-bz-5g8" firstAttribute="top" secondItem="YYv-pG-Wkw" secondAttribute="top" id="KK1-dA-hII"/>
                         <constraint firstAttribute="trailing" secondItem="WID-Um-Va6" secondAttribute="trailing" constant="-100" id="f4N-aC-XO3"/>
                         <constraint firstItem="ShI-bz-5g8" firstAttribute="leading" secondItem="YYv-pG-Wkw" secondAttribute="leading" priority="300" constant="112" id="nVP-3U-KG2"/>
                         <constraint firstItem="WID-Um-Va6" firstAttribute="leading" secondItem="YYv-pG-Wkw" secondAttribute="leading" constant="-100" id="s8Q-4n-55U"/>
                         <constraint firstItem="WID-Um-Va6" firstAttribute="top" secondItem="YYv-pG-Wkw" secondAttribute="top" constant="-100" id="spZ-F3-yP2"/>
-                        <constraint firstAttribute="bottom" secondItem="ShI-bz-5g8" secondAttribute="bottom" constant="12" id="w0r-Ip-f9E"/>
+                        <constraint firstAttribute="bottom" secondItem="ShI-bz-5g8" secondAttribute="bottom" constant="10" id="w0r-Ip-f9E"/>
                     </constraints>
                 </view>
                 <view hidden="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Aa6-N8-acP" userLabel="Turns" customClass="NavigationTurnsView" customModule="Organic_Maps" customModuleProvider="target">
@@ -406,6 +406,7 @@
                 <outlet property="secondTurnImageView" destination="CKi-sy-dNO" id="A29-2z-4oh"/>
                 <outlet property="secondTurnView" destination="8Zu-Ff-6p2" id="yEK-rY-S50"/>
                 <outlet property="streetNameLabel" destination="ShI-bz-5g8" id="eZd-Es-g0l"/>
+                <outlet property="streetNameTopOffsetConstraint" destination="KK1-dA-hII" id="d2I-37-Guw"/>
                 <outlet property="streetNameView" destination="YYv-pG-Wkw" id="gbk-SH-idq"/>
                 <outlet property="streetNameViewHideOffset" destination="xMz-Tm-KEn" id="Lwv-ep-zvo"/>
                 <outlet property="toastView" destination="Tzc-l6-Vvt" id="gTw-kd-UAJ"/>

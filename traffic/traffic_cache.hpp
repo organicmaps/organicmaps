@@ -15,7 +15,7 @@ using AllMwmTrafficInfo = std::map<MwmSet::MwmId, std::shared_ptr<const traffic:
 class TrafficCache
 {
 public:
-  TrafficCache() : m_trafficColoring() {}
+  TrafficCache() = default;
   virtual ~TrafficCache() = default;
 
   virtual void CopyTraffic(AllMwmTrafficInfo & trafficColoring) const;
@@ -26,7 +26,7 @@ protected:
   void Clear();
 
 private:
-  std::mutex m_mutex;
+  mutable std::mutex m_mutex;
   AllMwmTrafficInfo m_trafficColoring;
 };
 }  // namespace traffic

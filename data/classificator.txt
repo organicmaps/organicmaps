@@ -218,6 +218,7 @@ world  +
         wall  -
         {}
     boundary  +
+        aboriginal_lands  -
         administrative  +
             10  -
             11  -
@@ -371,6 +372,10 @@ world  +
         vegetarian  -
         vietnamese  -
         {}
+    drinking_water  +
+        no  -
+        yes  -
+        {}
     earthquake:damage  +
         spontaneous_camp  -
         {}
@@ -403,7 +408,6 @@ world  +
     highway  +
         bridleway  +
             bridge  -
-            permissive  -
             tunnel  -
             {}
         bus_stop  -
@@ -414,7 +418,6 @@ world  +
         construction  -
         cycleway  +
             bridge  -
-            permissive  -
             tunnel  -
             {}
         elevator  -
@@ -455,7 +458,6 @@ world  +
             hiking  -
             horse  -
             mountain_hiking  -
-            permissive  -
             tunnel  -
             {}
         pedestrian  +
@@ -520,7 +522,6 @@ world  +
             grade4  -
             grade5  -
             no-access  -
-            permissive  -
             tunnel  -
             {}
         traffic_signals  -
@@ -675,7 +676,6 @@ world  +
         golf_course  -
         hackerspace  -
         ice_rink  -
-        landscape_reserve  -
         marina  -
         nature_reserve  -
         outdoor_seating  -
@@ -794,16 +794,33 @@ world  +
         yes  -
         {}
     piste:type  +
+        connection  -
         downhill  +
-            advanced  -
-            easy  -
-            expert  -
+            advanced  +
+                area  -
+                {}
+            area  -
+            easy  +
+                area  -
+                {}
+            expert  +
+                area  -
+                {}
             freeride  -
-            intermediate  -
-            novice  -
+            intermediate  +
+                area  -
+                {}
+            novice  +
+                area  -
+                {}
             {}
+        hike  -
         nordic  -
-        sled  -
+        skitour  -
+        sled  +
+            area  -
+            {}
+        snow_park  -
         {}
     place  +
         city  +
@@ -954,6 +971,7 @@ world  +
                 bengalore  -
                 berlin  -
                 bilbao  -
+                boston  -
                 brasilia  -
                 brescia  -
                 brussels  -
@@ -1072,6 +1090,7 @@ world  +
             bengalore  -
             berlin  -
             bilbao  -
+            boston  -
             brasilia  -
             brescia  -
             brussels  -
@@ -1354,6 +1373,9 @@ world  +
         tennis  -
         volleyball  -
         yoga  -
+        {}
+    toilets  +
+        yes  -
         {}
     tourism  +
         alpine_hut  -

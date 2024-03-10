@@ -52,6 +52,18 @@
 
 "about_menu_title" = "Organic Maps-i buruz";
 
+/* Text in About screen */
+"about_headline" = "Denontzat doan, maitasunez egina";
+
+/* Text in About screen */
+"about_proposition_1" = "• Ez iragarkirik, ez jarraipenik, ez datu-bilketarik";
+
+/* Text in About screen */
+"about_proposition_2" = "• Ez da bateria deskargatzen, konexiorik gabe funtzionatzen du";
+
+/* Text in About screen */
+"about_proposition_3" = "• Azkarra, minimalista, komunitateak garatua";
+
 "close" = "Itxi";
 
 "download" = "Deskargatu";
@@ -80,7 +92,7 @@
 /* Default bookmark list name */
 "core_my_places" = "Nire tokiak";
 
-/* Editor title above street and house number */
+/* Editor title above street and house number, duplicates [type.building.address] in types_strings.txt */
 "address" = "Helbidea";
 
 /* Settings button in system menu */
@@ -200,7 +212,7 @@
 "done" = "Eginda";
 
 /* Prints version number in About dialog */
-"version" = "Bertsioa: %@";
+"version" = "Organic Maps bertsioa: %@";
 
 /* Data version in «About» screen, %@ is replaced by a local, human readable date. */
 "data_version" = "OpenStreetMap datuak: %@";
@@ -217,8 +229,14 @@
 
 "pref_zoom_title" = "Zoom botoiak";
 
-/* Settings «Map» category: «Night style» title */
-"pref_map_style_title" = "Gaueko modua";
+/* Settings «Map» category: «Appearance» title */
+"pref_appearance_title" = "Itxura";
+
+/* Settings "Appearance" category: "Light" title, should be consistent with the pref_appearance_title translation. */
+"pref_appearance_light" = "Argi";
+
+/* Settings "Appearance" category: "Dark" title, should be consistent with the pref_appearance_title translation. */
+"pref_appearance_dark" = "Iluna";
 
 /* Generic «Off» string */
 "off" = "Desgaituta";
@@ -315,6 +333,9 @@
 /* Button in the main menu */
 "donate" = "Dohaintza eman";
 
+/* Tex label above the Donate button */
+"donate_description" = "Eman dohaintza elkarrekin mapa onenak eraikitzeko!";
+
 /* Button in the main Help dialog */
 "how_to_support_us" = "Proiektuari laguntza eman";
 
@@ -323,6 +344,15 @@
 
 /* Text in menu + Button in the main Help dialog */
 "report_a_bug" = "Errore baten berri eman";
+
+/* Button in the About screen */
+"report_incorrect_map_bug" = "Salatu edo konpondu maparen datu okerrak";
+
+/* Button in the About screen */
+"volunteer" = "Boluntario izateko";
+
+/* "Social media" section header in the About screen */
+"follow_us" = "Jarraitu eta jarri gurekin harremanetan:";
 
 /* Alert text */
 "email_error_body" = "Posta elektronikoko bezeroa ez da konfiguratu. Mesedez, konfigura ezazu edo erabili beste moduren bat gurekin harremanetan jartzeko %@ helbidean";
@@ -704,6 +734,9 @@
 
 "message_invalid_feature_position" = "Hemen ezin da objekturik jarri";
 
+/* Text in About and OSM Login screens. First %@ is replaced by a local, human readable date. */
+"osm_presentation" = "Komunitateak sortutako OpenStreetMap datuak %@-tik aurrera. Lortu informazio gehiago mapa editatu eta eguneratzeari buruz OpenStreetMap.org helbidean";
+
 "login_to_make_edits_visible" = "Hasi saioa OpenStreetMapen beste erabiltzaileek zuk egindako aldaketak ikus ditzaten.";
 
 /* Error dialog no space */
@@ -746,15 +779,7 @@
 
 "downloader_no_downloaded_maps_message" = "Deskargatu mapak kokapena aurkitzeko eta lineaz kanpo nabigatzeko.";
 
-/* Error title that appears after certain time without location. */
-"current_location_unknown_title" = "Zure uneko kokapena detektatzen jarraitu nahi duzu?";
-
-/* Error that appears after certain time without location. */
-"current_location_unknown_message" = "Uneko kokapena ezezaguna da. Agian eraikin batean edo tunel batean zaudelako.";
-
-"current_location_unknown_continue_button" = "Jarraitu";
-
-"current_location_unknown_stop_button" = "Gelditu";
+"stop" = "Gelditu";
 
 "current_location_unknown_error_title" = "Uneko kokapena ezezaguna da.";
 
@@ -768,15 +793,27 @@
 
 "location_services_disabled_2" = "2. Sakatu \"Kokapena\"";
 
-/* iOS Dialog for the case when the location permission is not granted */
+/* iOS Dialog for the case when the location permission is not granted; you might find the exact wording for your language here: https://support.apple.com/en-us/102647 (replace 'en-us' in URL with your language/region) */
 "location_services_disabled_3" = "3. Hautatu aplikazioa erabiltzean";
 
+"location_services_disabled_on_device_2" = "2. Hautatu Pribatutasuna";
+
+"location_services_disabled_on_device_3" = "3. Hautatu Kokapen zerbitzuak";
+
+"location_services_disabled_on_device_4" = "4. Aktibatu Kokapen Zerbitzuak";
+
+"location_services_disabled_on_device_additional_message" = "Edo jarraitu kokapenik gabeko Organic Maps erabiltzen";
+
+/* abbreviation for meters */
 "m" = "m";
 
+/* abbreviation for kilometers */
 "km" = "km";
 
+/* abbreviation for kilometers per hour */
 "kilometers_per_hour" = "km/h";
 
+/* abbreviation for mile(s) */
 "mi" = "mi";
 
 /* A unit of measure */
@@ -857,9 +894,6 @@
 "sharing_call_action_look" = "Egiaztatu";
 
 "recent_track_background_dialog_message" = "Organic Maps-ek zure geokokapena erabiltzen du atzeko planoan egindako azken ibilbidea erregistratzeko.";
-
-/* Text under the version number in the Help dialog. TODO: Synchronize other translations with English. */
-"about_description" = "Organic Maps lineaz kanpoko mapa aplikazio doako eta irekia da. Iragarkirik ez. Ez dago jarraipenik. Mapan errore bat ikusten baduzu, konpondu OpenStreetMap-en. Proiektua zaleek sortu dute haien aisialdian, beraz, zure iritzia eta laguntza behar dugu.";
 
 "general_settings" = "Ezarpen orokorrak";
 
@@ -1072,6 +1106,9 @@
 /* E.g. "WiFi:No" */
 "no_available" = "Ez";
 
+/* To indicate the capacity of car parkings, bicycle parkings, electric vehicle charging stations... */
+"capacity" = "Edukiera: %@";
+
 "trip_finished" = "Iritsi zara!";
 
 "keyboard_availability_alert" = "Teklatua ez dago erabilgarri mugimenduan zehar";
@@ -1238,6 +1275,12 @@
 /* Outdoors/hiking map style (activity) name in the Styles and Layers dialog */
 "button_layer_outdoor" = "Mendi ibilaldiak";
 
+/* Bookmark categories screen, button that opens share dialog to export all bookmarks and tracks */
+"bookmarks_export" = "Esportatu Laster-marka eta Pista guztiak";
+
+/* Text for the editing the Track's color button. */
+"change_color" = "Kolorea aldatu";
+
 
 /********** Types **********/
 
@@ -1352,6 +1395,8 @@
 "type.amenity.doctors" = "Kontsulta medikoa";
 
 "type.amenity.drinking_water" = "Ur edangarria";
+
+"type.drinking_water.yes" = "Ur edangarria";
 
 "type.amenity.driving_school" = "Autoeskola";
 
@@ -1548,6 +1593,8 @@
 
 "type.amenity.toilets" = "Komuna";
 
+"type.toilets.yes" = "Komuna";
+
 "type.amenity.townhall" = "Udaletxea";
 
 "type.amenity.university" = "Unibertsitatea";
@@ -1676,6 +1723,8 @@
 
 "type.boundary.national_park" = "Parke Nazionala";
 
+"type.boundary.aboriginal_lands" = "Lurralde autoktonoak";
+
 "type.boundary.protected_area" = "Babestutako Eremua";
 
 "type.boundary.protected_area.1" = "Babestutako Eremua";
@@ -1692,7 +1741,8 @@
 
 "type.building" = "Eraikin";
 
-"type.building.address" = "Eraikin";
+/* Duplicates [address] in strings.txt */
+"type.building.address" = "Helbidea";
 
 "type.building.has_parts" = "Eraikin";
 
@@ -2501,8 +2551,6 @@
 "type.leisure.hackerspace" = "Hackerspace";
 
 "type.leisure.ice_rink" = "Ice Rink";
-
-"type.leisure.landscape_reserve" = "Landscape Reserve";
 
 "type.leisure.marina" = "Marina";
 
@@ -3837,25 +3885,45 @@
 
 "type.aerialway.t.bar" = "T-bar Lift";
 
-"type.piste_type" = "Piste Type";
-
 "type.piste_type.downhill" = "Downhill Ski Run";
+
+"type.piste_type.downhill.area" = "Downhill Ski Run";
 
 "type.piste_type.downhill.advanced" = "Downhill Ski Run";
 
+"type.piste_type.downhill.advanced.area" = "Downhill Ski Run";
+
 "type.piste_type.downhill.easy" = "Downhill Ski Run";
 
+"type.piste_type.downhill.easy.area" = "Downhill Ski Run";
+
 "type.piste_type.downhill.expert" = "Downhill Ski Run";
+
+"type.piste_type.downhill.expert.area" = "Downhill Ski Run";
 
 "type.piste_type.downhill.freeride" = "Downhill Ski Run";
 
 "type.piste_type.downhill.intermediate" = "Downhill Ski Run";
 
+"type.piste_type.downhill.intermediate.area" = "Downhill Ski Run";
+
 "type.piste_type.downhill.novice" = "Downhill Ski Run";
+
+"type.piste_type.downhill.novice.area" = "Downhill Ski Run";
 
 "type.piste_type.nordic" = "Nordic Ski Trail";
 
 "type.piste_type.sled" = "Sledding Piste";
+
+"type.piste_type.sled.area" = "Sledding Piste";
+
+"type.piste_type.snow_park" = "Elur parkea";
+
+"type.piste_type.hike" = "Elurretako Mendi Ibilbidea";
+
+"type.piste_type.connection" = "Pista Konexioa";
+
+"type.piste_type.skitour" = "Skitour Ibilbidea";
 
 "type.amenity.events_venue" = "Ekitaldien Lekua";
 

@@ -138,6 +138,25 @@ line|z19-[natural=cliff],
 line|z19-[natural=earth_bank],
 {width: 14.3; dashes: 6,8.5,12,2.3; opacity: 0.8;}
 
+
+/* Ski pistes */
+
+area|z13-[piste:type=downhill][area],
+area|z13-[piste:type=sled][area],
+area|z13-[piste:type=snow_park],
+{fill-color: @piste; fill-opacity: 0.15;}
+
+area|z13-[piste:type=downhill][piste:difficulty=novice][area],
+{fill-color: @piste_novice; fill-opacity: 0.25;}
+area|z13-[piste:type=downhill][piste:difficulty=easy][area],
+{fill-color: @piste_easy;}
+area|z13-[piste:type=downhill][piste:difficulty=intermediate][area],
+{fill-color: @piste_intermediate;}
+area|z13-[piste:type=downhill][piste:difficulty=advanced][area],
+{fill-color: @piste_advanced;}
+area|z13-[piste:type=downhill][piste:difficulty=expert][area],
+{fill-color: @piste_expert;}
+
 /* 9. ISOLINES */
 
 line|z10-[isoline=step_1000],
@@ -145,21 +164,22 @@ line|z10-[isoline=step_1000],
 line|z10-[isoline=step_500],
 {color: @isoline500;}
 
-line|z12-[isoline=step_100],
+line|z11-[isoline=step_100],
 {color: @isoline100;}
 
-line|z14-[isoline=step_50],
+line|z13-[isoline=step_50],
 line|z15-[isoline=zero],
 {color: @isoline50;}
 
 line|z15-[isoline=step_10],
 {color: @isoline10;}
 
-
 line|z10-11[isoline=step_1000],
 {width: 0.8; opacity: 0.45;}
 line|z10-11[isoline=step_500],
 {width: 0.8; opacity: 0.25;}
+line|z11[isoline=step_100],
+{width: 0.6; opacity: 0.15;}
 
 line|z12-13[isoline=step_1000],
 {width: 1.0; opacity: 0.45;}
@@ -167,6 +187,8 @@ line|z12-13[isoline=step_500],
 {width: 0.8; opacity: 0.35;}
 line|z12-13[isoline=step_100],
 {width: 0.8; opacity: 0.25;}
+line|z13[isoline=step_50],
+{width: 0.6; opacity: 0.15;}
 
 line|z14-[isoline=step_1000],
 {width: 1.2; opacity: 0.5;}

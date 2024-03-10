@@ -225,7 +225,6 @@ bool FeatureBuilder::PreSerialize()
            (ftypes::IsPostBoxChecker::Instance()(types) ||
             ftypes::IsRailwaySubwayEntranceChecker::Instance()(types) ||
             ftypes::IsEntranceChecker::Instance()(types) ||
-            ftypes::IsRailwayStationChecker::Instance()(types) ||
             ftypes::IsAerowayGateChecker::Instance()(types) ||
             ftypes::IsPlatformChecker::Instance()(types))))
       {
@@ -238,8 +237,9 @@ bool FeatureBuilder::PreSerialize()
 
   case GeomType::Line:
   {
-    // Ref is used for road's number or house number's range.
-    if (!routing::IsRoad(GetTypes()) && !ftypes::IsAddressInterpolChecker::Instance()(GetTypes()))
+    // Refs are used for road and piste numbers and house number ranges.
+    if (!routing::IsRoad(GetTypes()) && !ftypes::IsAddressInterpolChecker::Instance()(GetTypes()) &&
+        !ftypes::IsPisteChecker::Instance()(GetTypes()))
       m_params.ref.clear();
 
     m_params.rank = 0;
@@ -254,8 +254,7 @@ bool FeatureBuilder::PreSerialize()
     {
       auto const & types = GetTypes();
       if (m_params.name.IsEmpty() &&
-          (ftypes::IsRailwayStationChecker::Instance()(types) ||
-           ftypes::IsPlatformChecker::Instance()(types)))
+          (ftypes::IsPlatformChecker::Instance()(types)))
       {
         m_params.name.AddString(StringUtf8Multilang::kDefaultCode, m_params.ref);
       }

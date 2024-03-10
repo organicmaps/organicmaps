@@ -221,9 +221,10 @@ MainWindow::MainWindow(Framework & framework,
   RoutingSettings::LoadSession(m_pDrawWidget->GetFramework());
 }
 
-#if defined(Q_WS_WIN)
-bool MainWindow::winEvent(MSG * msg, long * result)
+#if defined(OMIM_OS_WINDOWS)
+bool MainWindow::nativeEvent(QByteArray const & eventType, void * message, qintptr * result)
 {
+  MSG * msg = static_cast<MSG *>(message);
   if (msg->message == WM_SYSCOMMAND)
   {
     switch (msg->wParam)
@@ -238,7 +239,7 @@ bool MainWindow::winEvent(MSG * msg, long * result)
       return true;
     }
   }
-  return false;
+  return QMainWindow::nativeEvent(eventType, message, result);
 }
 #endif
 
@@ -551,7 +552,7 @@ void MainWindow::OnLocationError(location::TLocationError errorCode)
   case location::ETimeout: [[fallthrough]];
   case location::EUnknown:
     {
-      if (m_pMyPositionAction != nullptr)
+      if (m_pDrawWidget && m_pMyPositionAction)
         m_pMyPositionAction->setEnabled(false);
       break;
     }

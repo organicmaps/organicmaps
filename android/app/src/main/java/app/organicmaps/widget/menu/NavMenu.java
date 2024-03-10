@@ -14,15 +14,13 @@ import app.organicmaps.R;
 import app.organicmaps.location.LocationHelper;
 import app.organicmaps.routing.RoutingInfo;
 import app.organicmaps.sound.TtsPlayer;
-import app.organicmaps.widget.FlatProgressView;
 import app.organicmaps.util.Graphics;
 import app.organicmaps.util.StringUtils;
 import app.organicmaps.util.UiUtils;
+import com.google.android.material.progressindicator.LinearProgressIndicator;
 
-import java.text.DateFormat;
-import java.text.SimpleDateFormat;
-import java.util.Calendar;
-import java.util.Locale;
+import java.time.LocalTime;
+import java.time.format.DateTimeFormatter;
 import java.util.concurrent.TimeUnit;
 
 public class NavMenu
@@ -42,7 +40,7 @@ public class NavMenu
   private final TextView mTimeEstimate;
   private final TextView mDistanceValue;
   private final TextView mDistanceUnits;
-  private final FlatProgressView mRouteProgress;
+  private final LinearProgressIndicator mRouteProgress;
 
   private final AppCompatActivity mActivity;
   private final NavMenuListener mNavMenuListener;
@@ -169,7 +167,7 @@ public class NavMenu
   public void refreshTts()
   {
     mTts.setImageDrawable(TtsPlayer.isEnabled() ? Graphics.tint(mActivity, R.drawable.ic_voice_on,
-        R.attr.colorAccent)
+        androidx.appcompat.R.attr.colorAccent)
         : Graphics.tint(mActivity, R.drawable.ic_voice_off));
   }
 
@@ -199,16 +197,11 @@ public class NavMenu
 
   private void updateTimeEstimate(int seconds)
   {
-    final Calendar currentTime = Calendar.getInstance();
-    currentTime.add(Calendar.SECOND, seconds);
-    DateFormat timeFormat;
-    if (android.text.format.DateFormat.is24HourFormat(mTimeMinuteValue.getContext()))
-      timeFormat = new SimpleDateFormat("HH:mm", Locale.getDefault());
-    else
-      timeFormat = new SimpleDateFormat("h:mm aa", Locale.getDefault());
-    mTimeEstimate.setText(timeFormat.format(currentTime.getTime()));
+    final String format = android.text.format.DateFormat.is24HourFormat(mTimeMinuteValue.getContext())
+            ? "HH:mm" : "h:mm aa";
+    final LocalTime localTime = LocalTime.now().plusSeconds(seconds);
+    mTimeEstimate.setText(localTime.format(DateTimeFormatter.ofPattern(format)));
   }
-
 
   private void updateSpeedView(@NonNull RoutingInfo info)
   {
@@ -229,7 +222,7 @@ public class NavMenu
     updateTime(info.totalTimeInSeconds);
     mDistanceValue.setText(info.distToTarget.mDistanceStr);
     mDistanceUnits.setText(info.distToTarget.getUnitsStr(mActivity.getApplicationContext()));
-    mRouteProgress.setProgress((int) info.completionPercent);
+    mRouteProgress.setProgressCompat((int) info.completionPercent, true);
   }
 
   public interface NavMenuListener

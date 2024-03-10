@@ -37,14 +37,9 @@ public class RoutingPlanInplaceController extends RoutingPlanController
     if (show)
       UiUtils.show(getFrame());
 
-    mAnimator = animateFrame(show, new Runnable()
-    {
-      @Override
-      public void run()
-      {
-        if (!show)
-          UiUtils.hide(getFrame());
-      }
+    mAnimator = animateFrame(show, () -> {
+      if (!show)
+        UiUtils.hide(getFrame());
     });
   }
 
@@ -63,14 +58,7 @@ public class RoutingPlanInplaceController extends RoutingPlanController
   {
     if (!checkFrameHeight())
     {
-      getFrame().post(new Runnable()
-      {
-        @Override
-        public void run()
-        {
-          animateFrame(show, completion);
-        }
-      });
+      getFrame().post(() -> animateFrame(show, completion));
       return null;
     }
 
@@ -78,14 +66,7 @@ public class RoutingPlanInplaceController extends RoutingPlanController
 
     ValueAnimator animator =
         ValueAnimator.ofFloat(show ? -getFrame().getHeight() : 0, show ? 0 : -getFrame().getHeight());
-    animator.addUpdateListener(new ValueAnimator.AnimatorUpdateListener()
-    {
-      @Override
-      public void onAnimationUpdate(ValueAnimator animation)
-      {
-        getFrame().setTranslationY((Float) animation.getAnimatedValue());
-      }
-    });
+    animator.addUpdateListener(animation -> getFrame().setTranslationY((Float) animation.getAnimatedValue()));
     animator.addListener(new UiUtils.SimpleAnimatorListener()
     {
       @Override

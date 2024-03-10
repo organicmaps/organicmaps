@@ -57,7 +57,11 @@ public class RoutingErrorDialogFragment extends BaseRoutingErrorDialogFragment
   {
     if (mNeedMoreMaps && mCancelled) {
       mCancelled = false;
-      RoutingController.get().cancel();
+
+      /// @todo Actually, should cancel if there is no valid route only.
+      // I didn't realize how to distinguish NEED_MORE_MAPS but valid route is present.
+      // Should refactor RoutingController states.
+      //RoutingController.get().cancel();
     }
 
     super.onDismiss(dialog);
@@ -113,14 +117,7 @@ public class RoutingErrorDialogFragment extends BaseRoutingErrorDialogFragment
     if (button == null)
       return;
 
-    button.setOnClickListener(new View.OnClickListener()
-    {
-      @Override
-      public void onClick(View v)
-      {
-        startDownload();
-      }
-    });
+    button.setOnClickListener(v -> startDownload());
   }
 
   @Override

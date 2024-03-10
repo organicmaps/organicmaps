@@ -52,6 +52,18 @@
 
 "about_menu_title" = "Про Organic Maps";
 
+/* Text in About screen */
+"about_headline" = "Безкоштовно для всіх, зроблене з любов'ю";
+
+/* Text in About screen */
+"about_proposition_1" = "• Без реклами, без трекінгу, без стеження";
+
+/* Text in About screen */
+"about_proposition_2" = "• Не розряджає батарею, працює в автономному режимі";
+
+/* Text in About screen */
+"about_proposition_3" = "• Швидкий, мінімалістичний, розроблений спільнотою";
+
 "close" = "Закрити";
 
 "download" = "Завантажити";
@@ -80,7 +92,7 @@
 /* Default bookmark list name */
 "core_my_places" = "Мої Мітки";
 
-/* Editor title above street and house number */
+/* Editor title above street and house number, duplicates [type.building.address] in types_strings.txt */
 "address" = "Адреса";
 
 /* Settings button in system menu */
@@ -200,7 +212,7 @@
 "done" = "Готово";
 
 /* Prints version number in About dialog */
-"version" = "Версія: %@";
+"version" = "Версія Organic Maps: %@.";
 
 /* Data version in «About» screen, %@ is replaced by a local, human readable date. */
 "data_version" = "Дані OpenStreetMap: %@";
@@ -217,8 +229,14 @@
 
 "pref_zoom_title" = "Кнопки трансфокації";
 
-/* Settings «Map» category: «Night style» title */
-"pref_map_style_title" = "Нічний режим";
+/* Settings «Map» category: «Appearance» title */
+"pref_appearance_title" = "Вигляд";
+
+/* Settings "Appearance" category: "Light" title, should be consistent with the pref_appearance_title translation. */
+"pref_appearance_light" = "Світлий";
+
+/* Settings "Appearance" category: "Dark" title, should be consistent with the pref_appearance_title translation. */
+"pref_appearance_dark" = "Темний";
 
 /* Generic «Off» string */
 "off" = "Вимкнуто";
@@ -315,6 +333,9 @@
 /* Button in the main menu */
 "donate" = "Підтримати грошима";
 
+/* Tex label above the Donate button */
+"donate_description" = "Пожертвуйте, щоб разом створювати найкращі мапи!";
+
 /* Button in the main Help dialog */
 "how_to_support_us" = "Підтримайте проект";
 
@@ -323,6 +344,15 @@
 
 /* Text in menu + Button in the main Help dialog */
 "report_a_bug" = "Сповістити про помилку";
+
+/* Button in the About screen */
+"report_incorrect_map_bug" = "Повідомляйте або виправляйте невірні картографічні дані";
+
+/* Button in the About screen */
+"volunteer" = "Стати волонтером";
+
+/* "Social media" section header in the About screen */
+"follow_us" = "Підписуйтесь та зв'язуйтесь з нами:";
 
 /* Alert text */
 "email_error_body" = "Поштовий клієнт не налаштований. Налаштуйте його або скористайтеся іншими способами зв'язку. Наша адреса – %@.";
@@ -692,7 +722,7 @@
 
 "editor_edit_place_title" = "Редагування";
 
-"editor_add_place_title" = "Додовання";
+"editor_add_place_title" = "Додавання";
 
 "editor_edit_place_name_hint" = "Назва місця";
 
@@ -703,6 +733,9 @@
 "dialog_incorrect_feature_position" = "Змініть розташування";
 
 "message_invalid_feature_position" = "Об'єкт не може перебувати в цьому місцезнаходженні";
+
+/* Text in About and OSM Login screens. First %@ is replaced by a local, human readable date. */
+"osm_presentation" = "Дані OpenStreetMap, створені спільнотою, станом на %@. Дізнайтеся більше про те, як редагувати та оновлювати мапу на OpenStreetMap.org";
 
 "login_to_make_edits_visible" = "Увійдіть у OpenStreetMap.org, щоб ваші зміни побачили інші користувачі.";
 
@@ -746,15 +779,7 @@
 
 "downloader_no_downloaded_maps_message" = "Завантажте необхідні мапи, щоб знаходити місця та користуватися навігацією без iнтернету.";
 
-/* Error title that appears after certain time without location. */
-"current_location_unknown_title" = "Продовжити пошук місцезнаходження?";
-
-/* Error that appears after certain time without location. */
-"current_location_unknown_message" = "Місцезнаходження не знайдено. Можливо, ви знаходитесь у приміщенні або тунелі.";
-
-"current_location_unknown_continue_button" = "Продовжити";
-
-"current_location_unknown_stop_button" = "Зупинити";
+"stop" = "Зупинити";
 
 "current_location_unknown_error_title" = "Місцезнаходження не знайдено.";
 
@@ -768,15 +793,27 @@
 
 "location_services_disabled_2" = "2. Клацніть «Місцезнаходження»";
 
-/* iOS Dialog for the case when the location permission is not granted */
+/* iOS Dialog for the case when the location permission is not granted; you might find the exact wording for your language here: https://support.apple.com/en-us/102647 (replace 'en-us' in URL with your language/region) */
 "location_services_disabled_3" = "3. Оберіть \"Під час роботи програми\"";
 
+"location_services_disabled_on_device_2" = "2. Виберіть Конфіденційність";
+
+"location_services_disabled_on_device_3" = "3. Виберіть Служби визначення місцезнаходження";
+
+"location_services_disabled_on_device_4" = "4. Увімкніть Служби визначення місцезнаходження";
+
+"location_services_disabled_on_device_additional_message" = "Або продовжуйте використовувати Organic Maps без визначення місцезнаходження";
+
+/* abbreviation for meters */
 "m" = "м";
 
+/* abbreviation for kilometers */
 "km" = "км";
 
+/* abbreviation for kilometers per hour */
 "kilometers_per_hour" = "км/год";
 
+/* abbreviation for mile(s) */
 "mi" = "ми";
 
 /* A unit of measure */
@@ -857,9 +894,6 @@
 "sharing_call_action_look" = "Подивись,";
 
 "recent_track_background_dialog_message" = "Organic Maps використовує вашу геопозицію у фоновому режимі для запису нещодавно пройденого шляху.";
-
-/* Text under the version number in the Help dialog. TODO: Synchronize other translations with English. */
-"about_description" = "Organic Maps – це швидкі та безкоштовні карти, які не потребують доступу до Інтернету. Карти засновані на даних проекта OpenStreetMap.org, саме там Ви можете виправити помилки та додати відсутні дані. Реклама та збір особистої інформації відсутні. Organic Maps це проект з відкритим вихідним кодом, створюється ентузіастами у вільний час, тому нам потрібні Ваші відгуки та підтримка!";
 
 "general_settings" = "Загальні налаштування";
 
@@ -1072,6 +1106,9 @@
 /* E.g. "WiFi:No" */
 "no_available" = "Ні";
 
+/* To indicate the capacity of car parkings, bicycle parkings, electric vehicle charging stations... */
+"capacity" = "Місткість: %@";
+
 "trip_finished" = "Ви прибули!";
 
 "keyboard_availability_alert" = "Клавіатура недоступна під час руху";
@@ -1238,6 +1275,12 @@
 /* Outdoors/hiking map style (activity) name in the Styles and Layers dialog */
 "button_layer_outdoor" = "Активний відпочинок";
 
+/* Bookmark categories screen, button that opens share dialog to export all bookmarks and tracks */
+"bookmarks_export" = "Експортувати всі мітки та маршрути";
+
+/* Text for the editing the Track's color button. */
+"change_color" = "Змінити колір";
+
 
 /********** Types **********/
 
@@ -1352,6 +1395,8 @@
 "type.amenity.doctors" = "Лікар";
 
 "type.amenity.drinking_water" = "Питна вода";
+
+"type.drinking_water.yes" = "Питна вода";
 
 "type.amenity.driving_school" = "Автошкола";
 
@@ -1548,6 +1593,8 @@
 
 "type.amenity.toilets" = "Туалет";
 
+"type.toilets.yes" = "Туалет";
+
 "type.amenity.townhall" = "Адміністрація";
 
 "type.amenity.university" = "Університет";
@@ -1676,6 +1723,8 @@
 
 "type.boundary.national_park" = "Національний парк";
 
+"type.boundary.aboriginal_lands" = "Землі корінних народів";
+
 "type.boundary.protected_area" = "Заповідна зона";
 
 "type.boundary.protected_area.1" = "Заповідна зона";
@@ -1692,7 +1741,8 @@
 
 "type.building" = "Будівля";
 
-"type.building.address" = "Будівля";
+/* Duplicates [address] in strings.txt */
+"type.building.address" = "Адреса";
 
 "type.building.has_parts" = "Будівля";
 
@@ -2501,8 +2551,6 @@
 "type.leisure.hackerspace" = "Hackerspace";
 
 "type.leisure.ice_rink" = "Каток";
-
-"type.leisure.landscape_reserve" = "Ландшафтний заповідник";
 
 "type.leisure.marina" = "Пристань";
 
@@ -3837,25 +3885,45 @@
 
 "type.aerialway.t.bar" = "Бугельний витяг";
 
-"type.piste_type" = "Тип траси";
-
 "type.piste_type.downhill" = "Гірськолижна траса";
+
+"type.piste_type.downhill.area" = "Гірськолижна траса";
 
 "type.piste_type.downhill.advanced" = "Доповнена гірськолижна траса";
 
+"type.piste_type.downhill.advanced.area" = "Доповнена гірськолижна траса";
+
 "type.piste_type.downhill.easy" = "Легка гірськолижна траса";
 
+"type.piste_type.downhill.easy.area" = "Легка гірськолижна траса";
+
 "type.piste_type.downhill.expert" = "Гірськолижна траса для експертів";
+
+"type.piste_type.downhill.expert.area" = "Гірськолижна траса для експертів";
 
 "type.piste_type.downhill.freeride" = "Гірськолижна траса вільного спуска";
 
 "type.piste_type.downhill.intermediate" = "Гірськолижна траса середнього рівня";
 
+"type.piste_type.downhill.intermediate.area" = "Гірськолижна траса середнього рівня";
+
 "type.piste_type.downhill.novice" = "Гірськолижна траса для новеньких";
+
+"type.piste_type.downhill.novice.area" = "Гірськолижна траса для новеньких";
 
 "type.piste_type.nordic" = "Лижня";
 
 "type.piste_type.sled" = "Траса для санок";
+
+"type.piste_type.sled.area" = "Траса для санок";
+
+"type.piste_type.snow_park" = "Сніговий парк";
+
+"type.piste_type.hike" = "Зимова стежка";
+
+"type.piste_type.connection" = "З'єднання з трасою";
+
+"type.piste_type.skitour" = "Маршрут для скітуру";
 
 "type.amenity.events_venue" = "Місце проведення подій";
 

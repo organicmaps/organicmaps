@@ -401,10 +401,6 @@
                                             <outlet property="title" destination="Xqo-QZ-3fd" id="W1h-0a-CQ2"/>
                                         </connections>
                                     </tableViewCell>
-                                </cells>
-                            </tableViewSection>
-                            <tableViewSection headerTitle="НАВИГАЦИЯ" id="E4E-hs-9xW">
-                                <cells>
                                     <tableViewCell contentMode="scaleToFill" selectionStyle="default" accessoryType="disclosureIndicator" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="SettingsTableViewLinkCell" id="QNt-XC-xma" customClass="SettingsTableViewLinkCell" customModule="Organic_Maps" customModuleProvider="target">
                                         <rect key="frame" x="0.0" y="578" width="414" height="44"/>
                                         <autoresizingMask key="autoresizingMask"/>
@@ -440,6 +436,10 @@
                                             <outlet property="title" destination="q7P-cj-3tZ" id="3sG-Xy-G0r"/>
                                         </connections>
                                     </tableViewCell>
+                                </cells>
+                            </tableViewSection>
+                            <tableViewSection headerTitle="НАВИГАЦИЯ" id="E4E-hs-9xW">
+                                <cells>
                                     <tableViewCell contentMode="scaleToFill" selectionStyle="none" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="SettingsTableViewSwitchCell" id="X5R-fv-yd7" customClass="SettingsTableViewSwitchCell" customModule="Organic_Maps" customModuleProvider="target">
                                         <rect key="frame" x="0.0" y="622" width="414" height="44"/>
                                         <autoresizingMask key="autoresizingMask"/>
@@ -674,7 +674,7 @@
                                                     <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                     <nil key="highlightedColor"/>
                                                     <userDefinedRuntimeAttributes>
-                                                        <userDefinedRuntimeAttribute type="string" keyPath="localizedText" value="on"/>
+                                                        <userDefinedRuntimeAttribute type="string" keyPath="localizedText" value="pref_appearance_dark"/>
                                                     </userDefinedRuntimeAttributes>
                                                 </label>
                                             </subviews>
@@ -702,7 +702,7 @@
                                                     <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                     <nil key="highlightedColor"/>
                                                     <userDefinedRuntimeAttributes>
-                                                        <userDefinedRuntimeAttribute type="string" keyPath="localizedText" value="off"/>
+                                                        <userDefinedRuntimeAttribute type="string" keyPath="localizedText" value="pref_appearance_light"/>
                                                     </userDefinedRuntimeAttributes>
                                                 </label>
                                             </subviews>

@@ -1,8 +1,8 @@
-Cadeaux de Noël et du Nouvel An de la part de la communauté Organic Maps :
-• Style de carte plein air pour la randonnée, le vélo et explorer la nature
-• Recherche d'adresses dans villages sans rues
-• Tapez "ski" pour trouver des pistes de ski alpin et de ski nordique
-• Nouvelles données OpenStreetMap du 13 décembre
-• Consultez les photos, les commentaires et les prix de certains hôtels. Tous vos dons et réservations contribuent au développement d'Organic Maps !
+• OpenStreetMap data as of February 28
+• Export all bookmarks as a single KMZ file
+• Fixed several crashes
+• "Routing options enabled" is no longer displayed when using ruler
+• Included wheelchair accessibility information on place pages
+• Added recycling and elevation information to search result descriptions
 
-omaps.org/fr/news
+…read more details at omaps.org/news

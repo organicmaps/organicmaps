@@ -40,7 +40,7 @@ final class BMCDefaultViewModel: NSObject {
   }
 
   private func setActions() {
-    actions = [.create]
+    actions = [.create, .exportAll]
   }
 
   private func setNotifications() {
@@ -141,6 +141,11 @@ extension BMCDefaultViewModel {
     let category = categories[index]
     onPreparedToShareCategory = handler
     manager.shareCategory(category.categoryId)
+  }
+
+  func shareAllCategories(handler: @escaping OnPreparedToShareHandler) {
+    onPreparedToShareCategory = handler
+    manager.shareAllCategories()
   }
 
   func finishShareCategory() {

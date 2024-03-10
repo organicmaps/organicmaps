@@ -56,14 +56,14 @@ landuse-cemetery-christian                          # area z14- (also has icon z
 highway-pedestrian-area                             # area z14- (also has line z13-, pathtext z14-)
 === 170
 
-highway-footway-area                                # area z14- (also has line z15-, pathtext z15-)
+highway-footway-area                                # area z14- (also has line z11-, pathtext z13-)
 leisure-track-area                                  # area z15- (also has caption z16-)
 === 160
 
 aeroway-terminal                                    # area z14- (also has caption z15-)
 === 150
 
-leisure-golf_course                                 # area z12- (also has icon z17-, caption(optional) z17-)
+leisure-golf_course                                 # area z12- (also has icon z15-, caption(optional) z17-)
 === 140
 
 landuse-flowerbed                                   # area z16-

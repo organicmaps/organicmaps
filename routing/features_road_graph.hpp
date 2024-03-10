@@ -32,19 +32,21 @@ protected:
   using VehicleModelFactoryPtrT = std::shared_ptr<VehicleModelFactoryInterface>;
 
 private:
-  class CrossCountryVehicleModel : public VehicleModelInterface
+  class CrossCountryVehicleModel
   {
+    using FeatureTypes = VehicleModelInterface::FeatureTypes;
+
   public:
     explicit CrossCountryVehicleModel(VehicleModelFactoryPtrT modelFactory);
 
     // VehicleModelInterface overrides:
-    SpeedKMpH GetSpeed(FeatureType & f, SpeedParams const & speedParams) const override;
-    std::optional<HighwayType> GetHighwayType(FeatureType & f) const override;
-    double GetMaxWeightSpeed() const override { return m_maxSpeed; }
-    SpeedKMpH const & GetOffroadSpeed() const override;
-    bool IsOneWay(FeatureType & f) const override;
-    bool IsRoad(FeatureType & f) const override;
-    bool IsPassThroughAllowed(FeatureType & f) const override;
+    SpeedKMpH GetSpeed(FeatureType & f, SpeedParams const & speedParams) const;
+    std::optional<HighwayType> GetHighwayType(FeatureType & f) const;
+    double GetMaxWeightSpeed() const { return m_maxSpeed; }
+    SpeedKMpH const & GetOffroadSpeed() const;
+    bool IsOneWay(FeatureType & f) const;
+    bool IsRoad(FeatureType & f) const;
+    bool IsPassThroughAllowed(FeatureType & f) const;
 
     void Clear();
 

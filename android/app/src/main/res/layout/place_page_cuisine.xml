@@ -14,7 +14,7 @@
     android:layout_height="wrap_content"
     android:layout_marginEnd="@dimen/margin_base"
     app:tint="?iconTint"
-    android:src="@drawable/ic_cuisine"/>
+    app:srcCompat="@drawable/ic_cuisine"/>
 
   <TextView
     android:id="@+id/tv__place_cuisine"

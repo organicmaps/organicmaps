@@ -32,7 +32,6 @@
 atm=yes : amenity=atm
 bench=yes : amenity=bench
 shelter=yes : amenity=shelter
-toilets=yes : amenity=toilets
 restaurant=yes : amenity=restaurant
 ice_cream=yes : amenity=ice_cream
 
@@ -57,8 +56,7 @@ ford=yes : highway=ford
 barrier=jersey_barrier : barrier=block
 barrier=sliding_gate : barrier=gate
 
-drinkable=yes : amenity=drinking_water
-drinking_water=yes : amenity=drinking_water
+drinkable=yes : drinking_water=yes
 water_point=yes : amenity=water_point
 waterway=water_point : amenity=water_point
 sanitary_dump_station=yes : amenity=sanitary_dump_station

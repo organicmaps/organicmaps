@@ -43,9 +43,9 @@
 	<!-- Text in About screen -->
 	<string name="about_proposition_1">• ไม่มีโฆษณาไม่มีการติดตามไม่มีการรวบรวมข้อมูล</string>
 	<!-- Text in About screen -->
-	<string name="about_proposition_2">• ประหยัดแบตเตอรี่ ไม่ใช้ข้อมูลพื้นหลัง</string>
+	<string name="about_proposition_2">• ไม่มีแบตเตอรี่หมด ทำงานแบบออฟไลน์</string>
 	<!-- Text in About screen -->
-	<string name="about_proposition_3">•เร็วเรียบง่ายไม่มีขยะ</string>
+	<string name="about_proposition_3">• รวดเร็ว เรียบง่าย พัฒนาโดยชุมชน</string>
 	<!-- Text in About screen -->
 	<string name="about_developed_by_enthusiasts">แอปพลิเคชันโอเพนซอร์ซที่สร้างขึ้นโดยผู้ที่ชื่นชอบและอาสาสมัคร</string>
 	<!-- The button that opens system location settings -->
@@ -82,7 +82,7 @@
 	<string name="core_my_places">สถานที่ของฉัน</string>
 	<!-- Add bookmark dialog - bookmark name -->
 	<string name="name">ชื่อ</string>
-	<!-- Editor title above street and house number -->
+	<!-- Editor title above street and house number, duplicates [type.building.address] in types_strings.txt -->
 	<string name="address">ที่อยู่</string>
 	<!-- Add Bookmark dialog/Bookmark list; Bookmarks dialog/Bookmark list cell. -->
 	<string name="list">รายการ</string>
@@ -96,7 +96,7 @@
 	<string name="maps_storage_downloaded">แผนที่</string>
 	<!-- Question dialog for transferring maps from one storage to another -->
 	<string name="move_maps">ลบแผนที่?</string>
-	<!-- Ask to wait user several minutes (some long process in modal dialog). -->
+	<!-- Ask user to wait several minutes (some long process in modal dialog). -->
 	<string name="wait_several_minutes">นี่อาจจะใช้เวลาสองสามนาที\nโปรดรอ…</string>
 	<!-- Measurement units title in settings activity -->
 	<string name="measurement_units">หน่วยการวัด</string>
@@ -160,6 +160,10 @@
 	<string name="load_kmz_successful">โหลดบุ๊กมาร์กสำเร็จแล้ว! คุณสามารถหาพวกมันได้บนแผนที่หรือบนหน้าจอโปรแกรมจัดการบุ๊กมาร์ก</string>
 	<!-- Kml file loading failed -->
 	<string name="load_kmz_failed">การอัปโหลดล้มเหลว ไฟล์อาจเสียหายหรือมีข้อบกพร่อง</string>
+	<!-- Failed to recognize the format of a bookmarks or tracks file. -->
+	<string name="unknown_file_type">แอปไม่รู้จักประเภทไฟล์:\n%1$s</string>
+	<!-- Failed to open a bookmarks or tracks file in Organic Maps. -->
+	<string name="failed_to_open_file">ไม่สามารถเปิดไฟล์ได้ %1$s\n\n%2$s</string>
 	<!-- resource for context menu -->
 	<string name="edit">แก้ไข</string>
 	<!-- Warning message when doing search around current position -->
@@ -198,6 +202,10 @@
 	<string name="pref_zoom_summary">แสดงบนหน้าจอ</string>
 	<!-- Settings «Map» category: «Night style» title -->
 	<string name="pref_map_style_title">โหมดกลางคืน</string>
+	<!-- Settings "Appearance" category: "Light" title, should be consistent with the pref_appearance_title translation. -->
+	<string name="pref_appearance_light">สว่าง</string>
+	<!-- Settings "Appearance" category: "Dark" title, should be consistent with the pref_appearance_title translation. -->
+	<string name="pref_appearance_dark">มืด</string>
 	<!-- Generic «Off» string -->
 	<string name="off">ปิด</string>
 	<!-- Generic «On» string -->
@@ -452,8 +460,8 @@
 	<string name="editor_report_problem_other_title">ปัญหาอีกอย่างหนึ่ง</string>
 	<string name="placepage_add_business_button">เพิ่มองค์กร</string>
 	<string name="message_invalid_feature_position">ไม่สามารถตั้งวัตถุได้ที่นี่</string>
-	<!-- Text in About and OSM Login screens. %@ is replaced by a local, human readable date. -->
-	<string name="osm_presentation">ข้อมูลการทำแผนที่จาก OpenStreetMap ณ ปี %sมันเป็นเหมือนวิกิพีเดียที่คุณสามารถเพิ่มหรือแก้ไขสถานที่สำหรับผู้ใช้ทุกคนทั่วโลก</string>
+	<!-- Text in About and OSM Login screens. First %@ is replaced by a local, human readable date. -->
+	<string name="osm_presentation">ข้อมูล OpenStreetMap ที่สร้างโดยชุมชน ณ %s เรียนรู้เพิ่มเติมเกี่ยวกับวิธีแก้ไขและอัปเดตแผนที่ได้ที่ OpenStreetMap.org</string>
 	<string name="login_to_make_edits_visible">ล็อกอินเพื่อให้ผู้ใช้คนอื่นสามารถเห็นการเปลี่ยนแปลงของคุณได้</string>
 	<!-- Downloaded 10 **of** 20 <- it is that "of" -->
 	<string name="downloader_of">%1$d จาก %2$d</string>
@@ -474,15 +482,14 @@
 	<string name="editor_operator">เจ้าของ</string>
 	<string name="downloader_no_downloaded_maps_title">คุณยังไม่ได้ดาวน์โหลดแผนที่</string>
 	<string name="downloader_no_downloaded_maps_message">ดาวน์โหลดแผนที่เพื่อค้นหาสถานที่ และนำทางแบบออฟไลน์</string>
-	<!-- Error title that appears after certain time without location. -->
-	<string name="current_location_unknown_title">ค้นหาที่ตั้งปัจจุบันต่อไปหรือไม่?</string>
-	<!-- Error that appears after certain time without location. -->
-	<string name="current_location_unknown_message">ไม่ทราบชื่อสถานที่ปัจจุบัน คุณอาจจะอยู่ในอาคาร หรือ ในอุโมงค์</string>
-	<string name="current_location_unknown_continue_button">ดำเนินการต่อ</string>
-	<string name="current_location_unknown_stop_button">หยุด</string>
+	<string name="stop">หยุด</string>
+	<!-- abbreviation for meters -->
 	<string name="m">ม.</string>
+	<!-- abbreviation for kilometers -->
 	<string name="km">กม.</string>
+	<!-- abbreviation for kilometers per hour -->
 	<string name="kilometers_per_hour">กม./ชม.</string>
+	<!-- abbreviation for mile(s) -->
 	<string name="mi">ไมล์</string>
 	<!-- A unit of measure -->
 	<string name="ft">ฟุต</string>
@@ -606,6 +613,12 @@
 	<string name="place_description_title">รายละเอียดของสถานที่</string>
 	<!-- this text will be shown in application notification preferences opposite checkbox which enable/disable downloader notifications. Devices on Android 8+ are affected. -->
 	<string name="notification_channel_downloader">ตัวดาวน์โหลดแผนที่</string>
+	<!-- Speed camera settings menu option - Warn (about speedcams) if risk of exceeding speed limit -->
+	<string name="pref_tts_speedcams_auto">เตือนเกี่ยวกับกล้องตรวจจับความเร็วหากมีความเป็นได้ว่าจะขับเร็วเกิดกำหนด</string>
+	<!-- Speed camera settings menu option - Always warn (about speedcams) -->
+	<string name="pref_tts_speedcams_always">เตือนเกี่ยวกับกล้องตรวจจับความเร็วเสมอ</string>
+	<!-- Speed camera settings menu option - Never warn (about speedcams) -->
+	<string name="pref_tts_speedcams_never">ไม่เคยเตือนเกี่ยวกับกล้องตรวจจับความเร็ว</string>
 	<string name="power_managment_title">โหมดประหยัดพลังงาน</string>
 	<string name="power_managment_description">เมื่อโหมดอัตโนมัตินั้นถูกเลือก แอปพลิเคชันจะเริ่มหยุดการใช้พลังงานจากแบตเตอรีขึ้นอยู่กับจำนวนไฟในแบตเตอรีว่าเหลือเท่าไร</string>
 	<string name="power_managment_setting_never">ไม่ใช้</string>
@@ -636,6 +649,8 @@
 	<string name="yes_available">ใช่</string>
 	<!-- E.g. "WiFi:No" -->
 	<string name="no_available">ไม่ใช่</string>
+	<!-- To indicate the capacity of car parkings, bicycle parkings, electric vehicle charging stations... -->
+	<string name="capacity">ความจุ: %s</string>
 	<string name="trip_finished">คุณมาถึงแล้ว!</string>
 	<string name="ok">โอเค</string>
 	<!-- max. 10 symbols, both iOS and Android -->
@@ -695,8 +710,26 @@
 	<string name="enable_keep_screen_on_description">เมื่อเปิดใช้งาน หน้าจอจะเปิดอยู่เสมอเมื่อแสดงแผนที่</string>
 	<!-- OpenStreetMap text on splash screen -->
 	<string name="splash_subtitle">ข้อมูลแผนที่จาก OpenStreetMap</string>
-	<!-- Tip #00 -->
+	<!-- App Tip #00 -->
 	<string name="app_tip_00">ขอขอบคุณที่ใช้แผนที่ที่สร้างโดยชุมชนของเรา!</string>
+	<!-- App tip #01 -->
+	<string name="app_tip_01">ด้วยการบริจาคและการสนับสนุนของคุณ เราสามารถสร้างแผนที่ที่ดีที่สุดในโลกได้!</string>
+	<!-- App tip #02 -->
+	<string name="app_tip_02">คุณชอบแอพของเราหรือไม่? กรุณาบริจาคเพื่อสนับสนุนการพัฒนา! ยังไม่ชอบมันเหรอ? โปรดแจ้งให้เราทราบ และเราจะแก้ไขมัน!</string>
+	<!-- App tip #03 -->
+	<string name="app_tip_03">หากคุณรู้จักนักพัฒนาซอฟต์แวร์ คุณสามารถขอให้เขาหรือเธอใช้คุณลักษณะที่คุณต้องการได้</string>
+	<!-- App tip #04 -->
+	<string name="app_tip_04">คุณรู้ไหมว่าคุณสามารถแตะสถานที่ใดก็ได้บนแผนที่ค้างไว้เพื่อเลือกได้</string>
+	<!-- App tip #05 -->
+	<string name="app_tip_05">คุณรู้หรือไม่ว่าคุณสามารถเลือกตำแหน่งปัจจุบันของคุณบนแผนที่ได้?</string>
+	<!-- App tip #06 -->
+	<string name="app_tip_06">คุณสามารถช่วยแปลแอปของเราเป็นภาษาของคุณได้</string>
+	<!-- App tip #07 -->
+	<string name="app_tip_07">แอพของเราได้รับการพัฒนาโดยผู้ที่ชื่นชอบและชุมชนบางส่วน</string>
+	<!-- App tip #08 -->
+	<string name="app_tip_08">คุณสามารถแก้ไขและปรับปรุงข้อมูลแผนที่ได้อย่างง่ายดาย</string>
+	<!-- App tip #09 -->
+	<string name="app_tip_09">เป้าหมายหลักของเราคือการสร้างแผนที่ที่รวดเร็ว เน้นความเป็นส่วนตัว และใช้งานง่ายที่คุณจะหลงรัก</string>
 	<!-- Text on the Android Auto placeholder screen that maps are displayed on the phone screen -->
 	<string name="aa_used_on_the_phone_screen">ขณะนี้คุณกำลังใช้แผนที่ทั่วไปบนหน้าจอโทรศัพท์</string>
 	<!-- Text on the phone placeholder screen that maps are displayed on the car screen -->
@@ -715,6 +748,15 @@
 	<string name="aa_connected_to_car_notification_title">เชื่อมต่อกับรถยนต์</string>
 	<!-- Outdoors/hiking map style (activity) name in the Styles and Layers dialog -->
 	<string name="button_layer_outdoor">การเดินป่า</string>
+	<!-- Text displayed when a webview or a browser are disabled, and external links can't be opened. -->
+	<string name="browser_not_available">เว็บเบราว์เซอร์ไม่พร้อมใช้งาน</string>
+	<string name="volume">ระดับเสียง</string>
+	<!-- Bookmark categories screen, button that opens share dialog to export all bookmarks and tracks -->
+	<string name="bookmarks_export">ส่งออกบุ๊กมาร์กและแทร็กทั้งหมด</string>
+	<!-- button in (app) TTS settings, to open the system TTS settings. -->
+	<string name="pref_tts_open_system_settings">การตั้งค่าการสังเคราะห์เสียงพูดของระบบ</string>
+	<!-- toast displayed when pressing the "Speech synthesis system settings" button, and the system settings aren't found. -->
+	<string name="pref_tts_no_system_tts">ไม่พบการตั้งค่าการสังเคราะห์เสียง คุณแน่ใจหรือไม่ว่าอุปกรณ์ของคุณรองรับ</string>
 
 	<!-- SECTION: Types -->
 	<string name="type.addr_interpolation">ที่อยู่/บล็อค</string>
@@ -761,6 +803,7 @@
 	<string name="type.amenity.dentist">ทันตแพทย์</string>
 	<string name="type.amenity.doctors">ห้องแพทย์</string>
 	<string name="type.amenity.drinking_water">น้ำดื่ม</string>
+	<string name="type.drinking_water.yes">น้ำดื่ม</string>
 	<string name="type.amenity.driving_school">โรงเรียนสอนขับรถ</string>
 	<string name="type.amenity.exhibition_centre">ศูนย์นิทรรศการ</string>
 	<string name="type.amenity.money_transfer">การโอนเงิน</string>
@@ -852,6 +895,7 @@
 	<string name="type.amenity.telephone">โทรศัพท์</string>
 	<string name="type.amenity.theatre">โรงละคร</string>
 	<string name="type.amenity.toilets">ห้องน้ำ</string>
+	<string name="type.toilets.yes">ห้องน้ำ</string>
 	<string name="type.amenity.townhall">ศาลากลางจังหวัด</string>
 	<string name="type.amenity.university">มหาวิทยาลัย</string>
 	<string name="type.amenity.vending_machine.cigarettes">เครื่องขายบุหรี่</string>
@@ -879,6 +923,7 @@
 	<string name="type.barrier.swing_gate">ไม้กั้น</string>
 	<string name="type.barrier.toll_booth">ด่านเก็บเงิน</string>
 	<string name="type.boundary.national_park">อุทยานแห่งชาติ</string>
+	<string name="type.boundary.aboriginal_lands">ดินแดนพื้นเมือง</string>
 	<string name="type.boundary.protected_area">พื้นที่คุ้มครอง</string>
 	<string name="type.boundary.protected_area.1">พื้นที่คุ้มครอง</string>
 	<string name="type.boundary.protected_area.2">พื้นที่คุ้มครอง</string>
@@ -887,7 +932,8 @@
 	<string name="type.boundary.protected_area.5">พื้นที่คุ้มครอง</string>
 	<string name="type.boundary.protected_area.6">พื้นที่คุ้มครอง</string>
 	<string name="type.building">อาคาร</string>
-	<string name="type.building.address">อาคาร</string>
+	<!-- Duplicates [address] in strings.txt -->
+	<string name="type.building.address">ที่อยู่</string>
 	<string name="type.building.has_parts">อาคาร</string>
 	<string name="type.building_part">อาคาร</string>
 	<string name="type.building.garage">อาคารจอดรถ</string>
@@ -1839,6 +1885,10 @@
 	<string name="type.wheelchair.limited">พื้นที่จำกัดการใช้รถเข็นสำหรับผู้ป่วย/ผู้สูงอายุ</string>
 	<string name="type.wheelchair.no">พื้นที่ไม่สามารถใช้รถเข็นสำหรับผู้ป่วย/ผู้สูงอายุ</string>
 	<string name="type.wheelchair.yes">พื้นใช้รถเข็นสำหรับผู้ป่วย/ผู้สูงอายุได้</string>
+	<string name="type.piste_type.snow_park">สโนว์พาร์ค</string>
+	<string name="type.piste_type.hike">เส้นทางเดินป่าหิมะ</string>
+	<string name="type.piste_type.connection">การเชื่อมต่อทางสกี</string>
+	<string name="type.piste_type.skitour">เส้นทางสกีทัวร์</string>
 	<string name="type.amenity.events_venue">สถานที่จัดงาน</string>
 	<string name="type.shop.auction">ประมูล</string>
 	<string name="type.shop.collector">ของสะสม</string>

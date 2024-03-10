@@ -167,7 +167,15 @@ private:
       {{"shop", "toys"},             SearchMarkType::ShopToys},
       {{"tourism", "theme_park"},    SearchMarkType::ThemePark},
       {{"leisure", "water_park"},    SearchMarkType::WaterPark},
-      {{"tourism", "zoo"},           SearchMarkType::Zoo}
+      {{"tourism", "zoo"},           SearchMarkType::Zoo},
+      {{"tourism", "hotel"},         SearchMarkType::Hotel},
+      {{"tourism", "apartment"},     SearchMarkType::Hotel},
+      {{"tourism", "camp_site"},     SearchMarkType::Hotel},
+      {{"tourism", "chalet"},        SearchMarkType::Hotel},
+      {{"tourism", "guest_house"},   SearchMarkType::Hotel},
+      {{"tourism", "hostel"},        SearchMarkType::Hotel},
+      {{"tourism", "motel"},         SearchMarkType::Hotel},
+      {{"tourism", "resort"},        SearchMarkType::Hotel}
     };
 
     m_searchMarkTypes.reserve(table.size());
@@ -269,11 +277,6 @@ void SearchMarkPoint::SetMatchedName(std::string const & name)
 void SearchMarkPoint::SetFromType(uint32_t type)
 {
   SetAttributeValue(m_type, GetSearchMarkType(type));
-}
-
-void SearchMarkPoint::SetHotelType()
-{
-  SetAttributeValue(m_type, SearchMarkType::Hotel);
 }
 
 void SearchMarkPoint::SetNotFoundType()

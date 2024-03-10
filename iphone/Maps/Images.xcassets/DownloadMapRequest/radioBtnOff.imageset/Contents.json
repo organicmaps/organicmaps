@@ -1,24 +1,13 @@
 {
   "images" : [
     {
-      "idiom" : "universal",
-      "filename" : "radioBtnOff.png",
-      "scale" : "1x"
-    },
-    {
-      "idiom" : "universal",
-      "filename" : "radioBtnOff@2x.png",
-      "scale" : "2x"
-    },
-    {
-      "idiom" : "universal",
-      "filename" : "radioBtnOff@3x.png",
-      "scale" : "3x"
+      "filename" : "radioBtnOff.svg",
+      "idiom" : "universal"
     }
   ],
   "info" : {
-    "version" : 1,
-    "author" : "xcode"
+    "author" : "xcode",
+    "version" : 1
   },
   "properties" : {
     "template-rendering-intent" : "template"

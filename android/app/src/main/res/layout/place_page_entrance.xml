@@ -4,11 +4,12 @@
   style="@style/PlacePageItemFrame"
   xmlns:android="http://schemas.android.com/apk/res/android"
   xmlns:tools="http://schemas.android.com/tools"
+  xmlns:app="http://schemas.android.com/apk/res-auto"
   tools:background="#40FF0000"
   tools:visibility="visible">
   <ImageView
     style="@style/PlacePageMetadataIcon"
-    android:src="@drawable/ic_entrance"/>
+    app:srcCompat="@drawable/ic_entrance"/>
 
   <TextView
     android:id="@+id/tv__place_entrance"

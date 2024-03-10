@@ -44,9 +44,9 @@
 	<!-- Text in About screen -->
 	<string name="about_proposition_1">• Без рэкламы, без трэкінгу, без збору вашых даных</string>
 	<!-- Text in About screen -->
-	<string name="about_proposition_2">• Эканоміць батарэю, не выкарыстоўвае фонавыя даныя</string>
+	<string name="about_proposition_2">• Няма разрадкі батарэі, працуе ў аўтаномным рэжыме</string>
 	<!-- Text in About screen -->
-	<string name="about_proposition_3">• Хуткія, мінімалістычныя, без смецця</string>
+	<string name="about_proposition_3">• Хуткія, мінімалістычныя, распрацаваныя супольнасцю</string>
 	<!-- Text in About screen -->
 	<string name="about_developed_by_enthusiasts">Праграма з адкрытым зыходным кодам, створаная энтузіястамі і валанцёрамі.</string>
 	<!-- The button that opens system location settings -->
@@ -83,7 +83,7 @@
 	<string name="core_my_places">Мае месцы</string>
 	<!-- Add bookmark dialog - bookmark name -->
 	<string name="name">Назва</string>
-	<!-- Editor title above street and house number -->
+	<!-- Editor title above street and house number, duplicates [type.building.address] in types_strings.txt -->
 	<string name="address">Адрас</string>
 	<!-- Add Bookmark dialog/Bookmark list; Bookmarks dialog/Bookmark list cell. -->
 	<string name="list">Спіс</string>
@@ -107,7 +107,7 @@
 	<string name="maps_storage_free_size">%1$s вольна з %2$s</string>
 	<!-- Question dialog for transferring maps from one storage to another -->
 	<string name="move_maps">Перамясціць мапы?</string>
-	<!-- Ask to wait user several minutes (some long process in modal dialog). -->
+	<!-- Ask user to wait several minutes (some long process in modal dialog). -->
 	<string name="wait_several_minutes">Гэта можа заняць некальмі хвілін.\nКалі ласка, пачакайце…</string>
 	<!-- Measurement units title in settings activity -->
 	<string name="measurement_units">Адзінкі вымярэння</string>
@@ -172,6 +172,10 @@
 	<string name="load_kmz_successful">Закладкі паспяхова загружаны! Вы можаце іх убачыць на мапе або ў захаваных закладках.</string>
 	<!-- Kml file loading failed -->
 	<string name="load_kmz_failed">Не ўдалося загрузіць закладкі. Файл можа быць пашкоджаны або няспраўны.</string>
+	<!-- Failed to recognize the format of a bookmarks or tracks file. -->
+	<string name="unknown_file_type">Прыкладанне не распазнае тып файла:\n%1$s</string>
+	<!-- Failed to open a bookmarks or tracks file in Organic Maps. -->
+	<string name="failed_to_open_file">Не ўдалося адкрыць файл %1$s\n\n%2$s</string>
 	<!-- resource for context menu -->
 	<string name="edit">Рэдагаваць</string>
 	<!-- Warning message when doing search around current position -->
@@ -214,6 +218,10 @@
 	<string name="pref_zoom_summary">Паказаць на мапе</string>
 	<!-- Settings «Map» category: «Night style» title -->
 	<string name="pref_map_style_title">Начны рэжым</string>
+	<!-- Settings "Appearance" category: "Light" title, should be consistent with the pref_appearance_title translation. -->
+	<string name="pref_appearance_light">Светлы</string>
+	<!-- Settings "Appearance" category: "Dark" title, should be consistent with the pref_appearance_title translation. -->
+	<string name="pref_appearance_dark">Цемны</string>
 	<!-- Generic «Off» string -->
 	<string name="off">Выключаны</string>
 	<!-- Generic «On» string -->
@@ -474,8 +482,8 @@
 	<string name="editor_report_problem_other_title">Іншая праблема</string>
 	<string name="placepage_add_business_button">Дадаць установу</string>
 	<string name="message_invalid_feature_position">Аб\'ект не можа знаходзіцца тут</string>
-	<!-- Text in About and OSM Login screens. %@ is replaced by a local, human readable date. -->
-	<string name="osm_presentation">Картаграфічныя даныя OpenStreetMap па стане на %s. Гэта як Вікіпедыя, дзе вы можаце дадаць або рэдагаваць месцы для ўсіх карыстальнікаў па ўсім свеце.</string>
+	<!-- Text in About and OSM Login screens. First %@ is replaced by a local, human readable date. -->
+	<string name="osm_presentation">Створаныя супольнасцю даныя OpenStreetMap па стане на %s. Даведайцеся больш пра тое, як рэдагаваць і абнаўляць карту на OpenStreetMap.org</string>
 	<string name="login_to_make_edits_visible">Аўтарызуйцеся ў OpenStreetMap.org, каб іншыя карыстальнікі бачылі вашыя змены.</string>
 	<!-- Downloaded 10 **of** 20 <- it is that "of" -->
 	<string name="downloader_of">%1$d з %2$d</string>
@@ -496,15 +504,14 @@
 	<string name="editor_operator">Уладальнік</string>
 	<string name="downloader_no_downloaded_maps_title">Вы не спампавалі ніводнай мапы</string>
 	<string name="downloader_no_downloaded_maps_message">Спампуйце мапы, каб шукаць месцы і карыстацца навігацыяй без інтэрнэту.</string>
-	<!-- Error title that appears after certain time without location. -->
-	<string name="current_location_unknown_title">Працягнуць вызначэнне месцазнаходжання?</string>
-	<!-- Error that appears after certain time without location. -->
-	<string name="current_location_unknown_message">Месцазнаходжанне невядома. Магчыма вы ў будынку або ў танэлі.</string>
-	<string name="current_location_unknown_continue_button">Працягнуць</string>
-	<string name="current_location_unknown_stop_button">Спыніць</string>
+	<string name="stop">Спыніць</string>
+	<!-- abbreviation for meters -->
 	<string name="m">м</string>
+	<!-- abbreviation for kilometers -->
 	<string name="km">км</string>
+	<!-- abbreviation for kilometers per hour -->
 	<string name="kilometers_per_hour">км/г</string>
+	<!-- abbreviation for mile(s) -->
 	<string name="mi">міля</string>
 	<!-- A unit of measure -->
 	<string name="ft">фут</string>
@@ -634,12 +641,18 @@
 	<string name="place_description_title">Апісанне месца</string>
 	<!-- this text will be shown in application notification preferences opposite checkbox which enable/disable downloader notifications. Devices on Android 8+ are affected. -->
 	<string name="notification_channel_downloader">Спампоўка мапаў</string>
+	<!-- Speed camera settings menu option - Warn (about speedcams) if risk of exceeding speed limit -->
+	<string name="pref_tts_speedcams_auto">Папярэджваць калі ёсць рызыка перавышэння дазволенай хуткасці</string>
+	<!-- Speed camera settings menu option - Always warn (about speedcams) -->
+	<string name="pref_tts_speedcams_always">Заўсёды папярэджваць</string>
+	<!-- Speed camera settings menu option - Never warn (about speedcams) -->
+	<string name="pref_tts_speedcams_never">Ніколі не папярэджваць</string>
 	<string name="power_managment_title">Рэжым захавання энергіі</string>
 	<string name="power_managment_description">Калі ўключаны рэжым захавання энергіі, праграма пачынае выключаць энергазатратныя функцыі ў залежнасці ад зарада батарэі</string>
 	<string name="power_managment_setting_never">Ніколі</string>
 	<string name="power_managment_setting_auto">Аўтаматычна</string>
 	<string name="power_managment_setting_manual_max">Максімальнае захаванне энергіі</string>
-	<string name="enable_logging_warning_message">Опцыя ўключае запіс журнала падзей для мэтаў дыягностыкі. Гэта можа дапамагчы нашай камандзе вырашаць праблемы з праграмай. Уключайце гэтую опцыю часова, каб запісаць і паслаць нам дэталёвую інфармацыю, пра знойденую вамі праблему.</string>
+	<string name="enable_logging_warning_message">Опцыя ўключае запіс журнала падзей для мэтаў дыягностыкі. Гэта можа дапамагчы нашай камандзе вырашаць праблемы з праграмай. Уключайце гэтую опцыю часова, каб запісаць і паслаць нам дэталёвую інфармацыю пра знойденую вамі праблему праз кнопку \"Паведаміць аб памылцы\".</string>
 	<string name="access_rules_author_only">Рэдагаванне анлайн</string>
 	<string name="driving_options_title">Налады пракладкі маршрута</string>
 	<!-- Recommended length for CarPlay and Android Auto is around 25-27 characters -->
@@ -664,6 +677,8 @@
 	<string name="yes_available">Ёсць</string>
 	<!-- E.g. "WiFi:No" -->
 	<string name="no_available">Няма</string>
+	<!-- To indicate the capacity of car parkings, bicycle parkings, electric vehicle charging stations... -->
+	<string name="capacity">Ёмістасць: %s</string>
 	<string name="trip_finished">Вы прыбылі!</string>
 	<string name="ok">Ок</string>
 	<!-- max. 10 symbols, both iOS and Android -->
@@ -736,8 +751,26 @@
 	<string name="telegram_url">https://t.me/OrganicMapsRu</string>
 	<!-- Translated Organic Maps site, add new translations here: https://github.com/organicmaps/organicmaps.github.io/tree/master/content -->
 	<string name="translated_om_site_url">https://organicmaps.app/ru/</string>
-	<!-- Tip #00 -->
+	<!-- App Tip #00 -->
 	<string name="app_tip_00">Дзякуй за выкарыстанне нашых карт, створаных супольнасцю!</string>
+	<!-- App tip #01 -->
+	<string name="app_tip_01">Дзякуючы вашым ахвяраванням і падтрымцы мы можам стварыць лепшыя мапы у свеце!</string>
+	<!-- App tip #02 -->
+	<string name="app_tip_02">Вам падабаецца наша прылада? Калі ласка, ахвяруйце, каб падтрымаць развіццё! Яшчэ не падабаецца? Калі ласка, напішыце, чаму, і мы гэта выправім!</string>
+	<!-- App tip #03 -->
+	<string name="app_tip_03">Калі вы ведаеце распрацоўшчыка праграмнага забеспячэння, вы можаце папрасіць яго рэалізаваць неабходную вам функцыю.</string>
+	<!-- App tip #04 -->
+	<string name="app_tip_04">Любое месца на карце можна абраць, калі патрымаць там палец на працягу секунды.</string>
+	<!-- App tip #05 -->
+	<string name="app_tip_05">А вы ведалі, што сваё месцазнаходжанне на мапе можна абраць?</string>
+	<!-- App tip #06 -->
+	<string name="app_tip_06">Вы можаце дапамагчы перакласці нашу прыладу на вашу мову.</string>
+	<!-- App tip #07 -->
+	<string name="app_tip_07">Наша прылада распрацавана некалькімі энтузіястамі і супольнасцю.</string>
+	<!-- App tip #08 -->
+	<string name="app_tip_08">Вы можаце лёгка выправіць і палепшыць дадзеныя карты.</string>
+	<!-- App tip #09 -->
+	<string name="app_tip_09">Наша галоўная мэта - ствараць хуткія, арыентаваныя на прыватнасць і простыя ў выкарыстанні карты, якія вам спадабаюцца.</string>
 	<!-- Text on the Android Auto placeholder screen that maps are displayed on the phone screen -->
 	<string name="aa_used_on_the_phone_screen">Вы выкарыстоўваеце Organic Maps на экране тэлефона</string>
 	<!-- Text on the phone placeholder screen that maps are displayed on the car screen -->
@@ -756,6 +789,15 @@
 	<string name="aa_connected_to_car_notification_title">Падключаны да аўтамабіля</string>
 	<!-- Outdoors/hiking map style (activity) name in the Styles and Layers dialog -->
 	<string name="button_layer_outdoor">Актыўны адпачынак</string>
+	<!-- Text displayed when a webview or a browser are disabled, and external links can't be opened. -->
+	<string name="browser_not_available">Вэб-браўзер недаступны</string>
+	<string name="volume">Гучнасць</string>
+	<!-- Bookmark categories screen, button that opens share dialog to export all bookmarks and tracks -->
+	<string name="bookmarks_export">Экспартаваць усе закладкі і трэкі</string>
+	<!-- button in (app) TTS settings, to open the system TTS settings. -->
+	<string name="pref_tts_open_system_settings">Сістэмныя наладкі сінтэзу маўлення</string>
+	<!-- toast displayed when pressing the "Speech synthesis system settings" button, and the system settings aren't found. -->
+	<string name="pref_tts_no_system_tts">Налады сінтэзу маўлення не знойдзены. Вы ўпэўнены, што ваша прылада падтрымлівае гэта?</string>
 
 	<!-- SECTION: Types -->
 	<string name="type.addr_interpolation">Адрас/Блок</string>
@@ -851,6 +893,7 @@
 	<string name="type.barrier.lift_gate">Шлагбаўм</string>
 	<string name="type.barrier.turnstile">Турнікет</string>
 	<string name="type.barrier.swing_gate">Шлагбаўм</string>
+	<string name="type.boundary.aboriginal_lands">Тэрыторыі першабытнікаў</string>
 	<string name="type.boundary.protected_area">Запаведная зона</string>
 	<string name="type.boundary.protected_area.1">Запаведная зона</string>
 	<string name="type.boundary.protected_area.2">Запаведная зона</string>
@@ -858,6 +901,8 @@
 	<string name="type.boundary.protected_area.4">Запаведная зона</string>
 	<string name="type.boundary.protected_area.5">Запаведная зона</string>
 	<string name="type.boundary.protected_area.6">Запаведная зона</string>
+	<!-- Duplicates [address] in strings.txt -->
+	<string name="type.building.address">Адрас</string>
 	<string name="type.cemetery.grave">Магіла</string>
 	<string name="type.craft">Рамяство</string>
 	<string name="type.craft.beekeeper">Пчаляр</string>
@@ -1294,6 +1339,10 @@
 	<string name="type.waterway.stream.ephemeral">Рака</string>
 	<string name="type.waterway.stream.intermittent">Рака</string>
 	<string name="type.waterway.stream.tunnel">Рака</string>
+	<string name="type.piste_type.snow_park">Снежны парк</string>
+	<string name="type.piste_type.hike">Снежная пешаходная сцежка</string>
+	<string name="type.piste_type.connection">Падключэнне да трас</string>
+	<string name="type.piste_type.skitour">Скітурная траса</string>
 	<string name="type.amenity.events_venue">Месца правядзення мерапрыемстваў</string>
 	<string name="type.shop.auction">Аўкцыён</string>
 	<string name="type.shop.collector">Калекцыйныя прадметы</string>

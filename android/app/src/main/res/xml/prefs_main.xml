@@ -120,51 +120,16 @@
       android:title="@string/pref_map_auto_zoom"
       app:singleLineTitle="false"
       android:order="3"/>
-    <androidx.preference.PreferenceScreen
+    <Preference
       android:key="@string/pref_tts_screen"
       android:title="@string/pref_tts_enable_title"
       app:singleLineTitle="false"
       android:persistent="false"
       android:order="4">
-      <SwitchPreferenceCompat
-        android:key="@string/pref_tts_enabled"
-        android:title="@string/pref_tts_enable_title"
-        app:singleLineTitle="false"
-        android:order="1"/>
-      <ListPreference
-        android:key="@string/pref_tts_language"
-        android:title="@string/pref_tts_language_title"
-        app:singleLineTitle="false"
-        android:order="2"/>
-      <Preference
-        android:key="@string/pref_tts_test_voice"
-        android:title="@string/pref_tts_test_voice_title"
-        android:order="3"/>
-      <Preference
-        android:key="@string/pref_tts_info"
-        android:selectable="false"
-        android:persistent="false"
-        android:enabled="false"
-        android:summary="@string/prefs_languages_information"
-        android:order="4"/>
-      <Preference
-        android:key="@string/pref_tts_info_link"
-        android:selectable="true"
-        android:persistent="false"
-        android:enabled="true"
-        android:summary="@string/prefs_languages_information_off_link"
-        android:order="5"/>
-    </androidx.preference.PreferenceScreen>
-    <ListPreference
-      android:key="@string/pref_speed_cameras"
-      android:title="@string/speedcams_alert_title"
-      app:singleLineTitle="false"
-      android:entries="@array/speed_cameras"
-      android:entryValues="@array/speed_cameras_values"
-      android:defaultValue="@string/auto_enum_value"
-      android:order="5"/>
+    </Preference>
     <PreferenceScreen
-      android:order="6"
+      android:key="@string/prefs_routing"
+      android:order="5"
       android:title="@string/driving_options_title">
       <intent
         android:targetClass="app.organicmaps.settings.DrivingOptionsActivity"

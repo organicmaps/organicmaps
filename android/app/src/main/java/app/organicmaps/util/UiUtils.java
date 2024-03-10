@@ -195,7 +195,7 @@ public final class UiUtils
 
   public static void showHomeUpButton(Toolbar toolbar)
   {
-    toolbar.setNavigationIcon(ThemeUtils.getResource(toolbar.getContext(), R.attr.homeAsUpIndicator));
+    toolbar.setNavigationIcon(ThemeUtils.getResource(toolbar.getContext(), androidx.appcompat.R.attr.homeAsUpIndicator));
   }
 
   public static boolean isTablet(@NonNull Context context)
@@ -283,8 +283,8 @@ public final class UiUtils
   public static void setViewInsetsPaddingBottom(View view, WindowInsetsCompat windowInsets)
   {
     final Insets systemInsets = windowInsets.getInsets(WindowInsetsCompat.Type.systemBars());
-    view.setPadding(view.getPaddingLeft(), view.getPaddingTop(),
-                    view.getPaddingRight(), systemInsets.bottom);
+    view.setPaddingRelative(view.getPaddingStart(), view.getPaddingTop(),
+                    view.getPaddingEnd(), systemInsets.bottom);
   }
 
   public static void setViewInsetsPaddingNoBottom(View view, WindowInsetsCompat windowInsets)

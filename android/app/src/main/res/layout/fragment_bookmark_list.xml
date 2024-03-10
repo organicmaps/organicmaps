@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout
+<FrameLayout
   xmlns:android="http://schemas.android.com/apk/res/android"
   xmlns:tools="http://schemas.android.com/tools"
   xmlns:app="http://schemas.android.com/apk/res-auto"
@@ -45,4 +45,4 @@
       android:visibility="gone"
       tools:visibility="visible" />
   </androidx.coordinatorlayout.widget.CoordinatorLayout>
-</RelativeLayout>
+</FrameLayout>

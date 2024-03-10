@@ -1,8 +1,8 @@
-Новогодние и рождественские подарки от сообщества Organic Maps:
-• Новый стиль карты "Активный отдых" для приключений на природе
-• Наберите "лыжи" в поиске, чтобы покататься
-• Поиск адресов деревень в Австрии, Чехии, Германии, Польше, Словакии
-• Данные карты OpenStreetMap по состоянию на 13 декабря
-• У некоторых отелей можно посмотреть фотографии, отзывы и цены. Все ваши пожертвования и бронирования способствуют развитию Organic Maps!
+• OpenStreetMap data as of February 28
+• Export all bookmarks as a single KMZ file
+• Fixed several crashes
+• "Routing options enabled" is no longer displayed when using ruler
+• Included wheelchair accessibility information on place pages
+• Added recycling and elevation information to search result descriptions
 
-…подробнее на omaps.org/ru/news
+…read more details at omaps.org/news

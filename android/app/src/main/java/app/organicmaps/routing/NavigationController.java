@@ -56,7 +56,7 @@ public class NavigationController implements TrafficManager.TrafficCallback,
   {
     ViewCompat.setOnApplyWindowInsetsListener(topFrame.findViewById(R.id.nav_next_turn_container), (view, windowInsets) -> {
       view.setPadding(windowInsets.getInsets(WindowInsetsCompat.Type.systemBars()).left, view.getPaddingTop(),
-                      view.getPaddingRight(), view.getPaddingBottom());
+                      view.getPaddingEnd(), view.getPaddingBottom());
       return windowInsets;
     });
   }
@@ -102,7 +102,7 @@ public class NavigationController implements TrafficManager.TrafficCallback,
     ViewCompat.setOnApplyWindowInsetsListener(mStreetFrame, (v, windowInsets) -> {
       UiUtils.setViewInsetsPaddingNoBottom(v, windowInsets);
       nextTurnContainer.setPadding(windowInsets.getInsets(WindowInsetsCompat.Type.systemBars()).left, nextTurnContainer.getPaddingTop(),
-                                   nextTurnContainer.getPaddingRight(), nextTurnContainer.getPaddingBottom());
+                                   nextTurnContainer.getPaddingEnd(), nextTurnContainer.getPaddingBottom());
       navigationBarBackground.getLayoutParams().height = windowInsets.getInsets(WindowInsetsCompat.Type.systemBars()).bottom;
       // The gesture navigation bar stays at the bottom in landscape
       // We need to add a background only above the nav menu

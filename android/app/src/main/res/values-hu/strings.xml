@@ -41,9 +41,9 @@
 	<!-- Text in About screen -->
 	<string name="about_proposition_1">• Nincs hirdetés, nincs nyomon követés, nincs adatgyűjtés</string>
 	<!-- Text in About screen -->
-	<string name="about_proposition_2">• Kíméli az akkumulátort, nem használ háttéradatokat</string>
+	<string name="about_proposition_2">• Nem merül le az akkumulátor, offline működik</string>
 	<!-- Text in About screen -->
-	<string name="about_proposition_3">• Gyors, minimalista, nincs szemét</string>
+	<string name="about_proposition_3">• Gyors, minimalista, közösség által fejlesztett</string>
 	<!-- Text in About screen -->
 	<string name="about_developed_by_enthusiasts">A rajongók és az önkéntesek által létrehozott nyílt forráskódú alkalmazás.</string>
 	<!-- The button that opens system location settings -->
@@ -80,7 +80,7 @@
 	<string name="core_my_places">Saját helyeim</string>
 	<!-- Add bookmark dialog - bookmark name -->
 	<string name="name">Név</string>
-	<!-- Editor title above street and house number -->
+	<!-- Editor title above street and house number, duplicates [type.building.address] in types_strings.txt -->
 	<string name="address">Cím</string>
 	<!-- Add Bookmark dialog/Bookmark list; Bookmarks dialog/Bookmark list cell. -->
 	<string name="list">Lista</string>
@@ -106,7 +106,7 @@
 	<string name="move_maps">Áthelyezzük a térképfájlokat?</string>
 	<!-- Error moving map files from one storage to another -->
 	<string name="move_maps_error">Hiba történt a térképfájlok áthelyezése közben</string>
-	<!-- Ask to wait user several minutes (some long process in modal dialog). -->
+	<!-- Ask user to wait several minutes (some long process in modal dialog). -->
 	<string name="wait_several_minutes">Ez több percig is eltarthat.\nKérjük várjon…</string>
 	<!-- Measurement units title in settings activity -->
 	<string name="measurement_units">Mértékegységek</string>
@@ -170,6 +170,10 @@
 	<string name="load_kmz_successful">Könyvjelzők letöltése sikeres! Megtalálja őket a térképen vagy a Könyvjelzők kezelése menüben.</string>
 	<!-- Kml file loading failed -->
 	<string name="load_kmz_failed">Könyvjelzők feltöltése sikertelen. A fájl sérült lehet.</string>
+	<!-- Failed to recognize the format of a bookmarks or tracks file. -->
+	<string name="unknown_file_type">Az alkalmazás nem ismeri fel a fájltípust:\n%1$s</string>
+	<!-- Failed to open a bookmarks or tracks file in Organic Maps. -->
+	<string name="failed_to_open_file">Nem sikerült megnyitni a fájlt %1$s\n\n%2$s</string>
 	<!-- resource for context menu -->
 	<string name="edit">Szerkeszt</string>
 	<!-- Warning message when doing search around current position -->
@@ -210,6 +214,10 @@
 	<string name="pref_zoom_summary">Mutassa a kijelzőn</string>
 	<!-- Settings «Map» category: «Night style» title -->
 	<string name="pref_map_style_title">Éjszakai üzemmód</string>
+	<!-- Settings "Appearance" category: "Light" title, should be consistent with the pref_appearance_title translation. -->
+	<string name="pref_appearance_light">Világos</string>
+	<!-- Settings "Appearance" category: "Dark" title, should be consistent with the pref_appearance_title translation. -->
+	<string name="pref_appearance_dark">Sötét</string>
 	<!-- Generic «Off» string -->
 	<string name="off">Ki</string>
 	<!-- Generic «On» string -->
@@ -464,8 +472,8 @@
 	<string name="editor_report_problem_other_title">Különböző problémaDifferent problem</string>
 	<string name="placepage_add_business_button">Szervezet hozzáadása</string>
 	<string name="message_invalid_feature_position">Célpont áthelyezése ide nem lehetséges</string>
-	<!-- Text in About and OSM Login screens. %@ is replaced by a local, human readable date. -->
-	<string name="osm_presentation">Kartográfiai adatok az OpenStreetMap-ból a %s-től. Olyan, mint a Wikipedia, ahol a világ minden felhasználójának helyét hozzáadhatja vagy szerkesztheti.</string>
+	<!-- Text in About and OSM Login screens. First %@ is replaced by a local, human readable date. -->
+	<string name="osm_presentation">Közösség által létrehozott OpenStreetMap adatok %s-tól. Tudjon meg többet a térkép szerkesztéséről és frissítéséről az OpenStreetMap.org oldalon.</string>
 	<string name="login_to_make_edits_visible">Jelentkezz be, hogy más felhasználók is láthassák a változtatásaidat.</string>
 	<!-- Downloaded 10 **of** 20 <- it is that "of" -->
 	<string name="downloader_of">%1$d/%2$d</string>
@@ -486,15 +494,14 @@
 	<string name="editor_operator">Üzemeltető</string>
 	<string name="downloader_no_downloaded_maps_title">Még nem töltött le térképet</string>
 	<string name="downloader_no_downloaded_maps_message">Töltse le a szükséges térképeket, hogy megtalálja a helyet és internet nélkül is navigálhasson.</string>
-	<!-- Error title that appears after certain time without location. -->
-	<string name="current_location_unknown_title">Folytatja tartózkodási helyének keresését?</string>
-	<!-- Error that appears after certain time without location. -->
-	<string name="current_location_unknown_message">Tartózkodási helye ismeretlen. Lehet, hogy épületben vagy alagútban tartózkodik.</string>
-	<string name="current_location_unknown_continue_button">Folytatás</string>
-	<string name="current_location_unknown_stop_button">Leállítás</string>
+	<string name="stop">Leállítás</string>
+	<!-- abbreviation for meters -->
 	<string name="m">m</string>
+	<!-- abbreviation for kilometers -->
 	<string name="km">km</string>
+	<!-- abbreviation for kilometers per hour -->
 	<string name="kilometers_per_hour">km/h</string>
+	<!-- abbreviation for mile(s) -->
 	<string name="mi">mf</string>
 	<!-- A unit of measure -->
 	<string name="ft">ft</string>
@@ -619,6 +626,12 @@
 	<string name="place_description_title">A hely ismertetése</string>
 	<!-- this text will be shown in application notification preferences opposite checkbox which enable/disable downloader notifications. Devices on Android 8+ are affected. -->
 	<string name="notification_channel_downloader">Kártyák letöltése</string>
+	<!-- Speed camera settings menu option - Warn (about speedcams) if risk of exceeding speed limit -->
+	<string name="pref_tts_speedcams_auto">Figyelmeztetés ha van kockázat a sebesség korlátozás megsértéséről</string>
+	<!-- Speed camera settings menu option - Always warn (about speedcams) -->
+	<string name="pref_tts_speedcams_always">Mindig figyelmeztet</string>
+	<!-- Speed camera settings menu option - Never warn (about speedcams) -->
+	<string name="pref_tts_speedcams_never">Soha ne figyelmezet</string>
 	<string name="power_managment_title">Energiatakarékos mód</string>
 	<string name="power_managment_description">Amikor az automatikus mód van kiválasztva, az alkalmazás elkezdi kikapcsolni az akkumulátort merítő funkciókat a jelenlegi akkumulátor töltöttség alapján</string>
 	<string name="power_managment_setting_never">Soha</string>
@@ -649,6 +662,8 @@
 	<string name="yes_available">Igen</string>
 	<!-- E.g. "WiFi:No" -->
 	<string name="no_available">Nem</string>
+	<!-- To indicate the capacity of car parkings, bicycle parkings, electric vehicle charging stations... -->
+	<string name="capacity">Kapacitás: %s</string>
 	<string name="trip_finished">Megérkeztél!</string>
 	<string name="ok">Oké</string>
 	<!-- max. 10 symbols, both iOS and Android -->
@@ -716,8 +731,26 @@
 	<string name="translated_om_site_url">https://organicmaps.app/hu/</string>
 	<!-- Link to OSM wiki for Editor, Profile and About pages -->
 	<string name="osm_wiki_about_url">https://wiki.openstreetmap.org/wiki/Hu:Névjegy</string>
-	<!-- Tip #00 -->
+	<!-- App Tip #00 -->
 	<string name="app_tip_00">Köszönjük, hogy használja a közösség által készített térképeinket!</string>
+	<!-- App tip #01 -->
+	<string name="app_tip_01">Adományaival és támogatásával létrehozhatjuk a világ legjobb térképes alkalmazását!</string>
+	<!-- App tip #02 -->
+	<string name="app_tip_02">Tetszik az alkalmazásunk? Kérjük, adományozzon a fejlesztés támogatása érdekében! Még nem tetszik? Kérjük, jelezze felénk miért, és mi megoldjuk!</string>
+	<!-- App tip #03 -->
+	<string name="app_tip_03">Ha ismer egy szoftverfejlesztőt, megkérheti őt egy olyan funkció megvalósítására, amelyre szüksége van.</string>
+	<!-- App tip #04 -->
+	<string name="app_tip_04">Tudja, hogy a térkép bármely pontjára hosszan koppintva kiválaszthatja azt?</string>
+	<!-- App tip #05 -->
+	<string name="app_tip_05">Tudja, hogy kijelölheti pozícióját a térképen?</string>
+	<!-- App tip #06 -->
+	<string name="app_tip_06">Ön is segíthet alkalmazásunkat lefordítani a nyelvére.</string>
+	<!-- App tip #07 -->
+	<string name="app_tip_07">Alkalmazásunkat néhány közreműködő és a közösség fejlesztette ki.</string>
+	<!-- App tip #08 -->
+	<string name="app_tip_08">Könnyedén javíthatja a térképadatokat.</string>
+	<!-- App tip #09 -->
+	<string name="app_tip_09">Fő célunk az, hogy gyors, az adatvédelemre fókuszáló, könnyen használható térképeket készítsünk, amelyeket szeretni fog.</string>
 	<!-- Text on the Android Auto placeholder screen that maps are displayed on the phone screen -->
 	<string name="aa_used_on_the_phone_screen">Ön most az Organic Maps használja a telefon képernyőjén</string>
 	<!-- Text on the phone placeholder screen that maps are displayed on the car screen -->
@@ -736,6 +769,17 @@
 	<string name="aa_connected_to_car_notification_title">Autóhoz csatlakoztatva</string>
 	<!-- Outdoors/hiking map style (activity) name in the Styles and Layers dialog -->
 	<string name="button_layer_outdoor">Túrázás</string>
+	<!-- Text displayed when a webview or a browser are disabled, and external links can't be opened. -->
+	<string name="browser_not_available">A webböngésző nem elérhető</string>
+	<!-- Text displayed in a dialog when OSM authorization is disabled -->
+	<string name="osm_login_not_available">Az OpenStreetMap-es hitelesítés átmenetileg nem elérhető a Google Play új korlátozásai miatt 😾\nCsapatunk dolgozik a probléma megoldásán. Kérjük, legyen türelemmel 🙏</string>
+	<string name="volume">Hangerő</string>
+	<!-- Bookmark categories screen, button that opens share dialog to export all bookmarks and tracks -->
+	<string name="bookmarks_export">Az összes könyvjelző és sáv exportálása</string>
+	<!-- button in (app) TTS settings, to open the system TTS settings. -->
+	<string name="pref_tts_open_system_settings">Beszédszintetizáló rendszer beállításai</string>
+	<!-- toast displayed when pressing the "Speech synthesis system settings" button, and the system settings aren't found. -->
+	<string name="pref_tts_no_system_tts">A beszédszintézis beállításait nem találtuk, biztos, hogy a készülék támogatja?</string>
 
 	<!-- SECTION: Types -->
 	<string name="type.addr_interpolation">Cím/blokk</string>
@@ -745,11 +789,11 @@
 	<string name="type.aeroway.aerodrome">Repülőtér</string>
 	<string name="type.aeroway.aerodrome.international">Repülőtér</string>
 	<string name="type.aeroway.helipad">Helikopterleszálló</string>
-	<string name="type.amenity">Infrastruktúra</string>
+	<string name="type.amenity">Szolgáltatás</string>
 	<string name="type.amenity.arts_centre">Művészeti központ</string>
-	<string name="type.amenity.atm">Pénzautomata</string>
+	<string name="type.amenity.atm">Bankautomata</string>
 	<string name="type.amenity.bar">Bár</string>
-	<string name="type.amenity.bbq">Piknikező hely</string>
+	<string name="type.amenity.bbq">Piknikezőhely</string>
 	<string name="type.amenity.bench">Pad</string>
 	<string name="type.amenity.bicycle_parking">Kerékpárparkoló</string>
 	<string name="type.amenity.bicycle_rental">Kerékpárkölcsönző</string>
@@ -759,31 +803,32 @@
 	<string name="type.amenity.bureau_de_change">Pénzváltó</string>
 	<string name="type.amenity.bus_station">Buszpályaudvar</string>
 	<string name="type.amenity.cafe">Kávézó</string>
-	<string name="type.amenity.car_rental">Gépkocsi-kölcsönző</string>
-	<string name="type.amenity.car_sharing">Gépjármű megosztása</string>
+	<string name="type.amenity.car_rental">Autókölcsönző</string>
+	<string name="type.amenity.car_sharing">Közösségi autóbérlés</string>
 	<string name="type.amenity.car_wash">Autómosó</string>
 	<string name="type.amenity.casino">Kaszinó</string>
 	<string name="type.amenity.gambling">Szerencsejáték</string>
 	<string name="type.leisure.adult_gaming_centre">Felnőtt Játékközpont</string>
-	<string name="type.leisure.amusement_arcade">Árkád</string>
-	<string name="type.amenity.charging_station">Töltő állomás</string>
+	<string name="type.leisure.amusement_arcade">Játékterem</string>
+	<string name="type.amenity.charging_station">Töltőállomás</string>
 	<string name="type.amenity.charging_station.bicycle">Kerékpártöltő állomás</string>
-	<string name="type.amenity.charging_station.motorcar">Autó töltőállomás</string>
+	<string name="type.amenity.charging_station.motorcar">Elektromos töltőállomás</string>
 	<string name="type.amenity.childcare">Bölcsőde</string>
 	<string name="type.amenity.cinema">Mozi</string>
 	<string name="type.leisure.bowling_alley">Tekepálya</string>
 	<string name="type.amenity.clinic">Klinika</string>
-	<string name="type.amenity.college">Kollégium</string>
+	<string name="type.amenity.college">Főiskola</string>
 	<string name="type.amenity.community_centre">Közösségi központ</string>
 	<string name="type.amenity.compressed_air">Sűrített levegő</string>
-	<string name="type.amenity.conference_centre">Konferencia Központ</string>
+	<string name="type.amenity.conference_centre">Konferenciaközpont</string>
 	<string name="type.amenity.courthouse">Bíróság</string>
 	<string name="type.amenity.dentist">Fogorvos</string>
 	<string name="type.amenity.doctors">Rendelő</string>
 	<string name="type.amenity.drinking_water">Ivóvíz</string>
+	<string name="type.drinking_water.yes">Ivóvíz</string>
 	<string name="type.amenity.driving_school">Autósiskola</string>
 	<string name="type.amenity.exhibition_centre">Kiállítási Központ</string>
-	<string name="type.amenity.money_transfer">Pénz átutalás</string>
+	<string name="type.amenity.money_transfer">Pénzküldés</string>
 	<string name="type.amenity.music_school">Zeneiskola</string>
 	<string name="type.amenity.language_school">Nyelviskola</string>
 	<string name="type.office.diplomatic">Nagykövetség</string>
@@ -802,7 +847,7 @@
 	<string name="type.amenity.internet_cafe">Internet kávézó</string>
 	<string name="type.amenity.kindergarten">Óvoda</string>
 	<string name="type.amenity.library">Könyvtár</string>
-	<string name="type.amenity.loading_dock">Rakodó</string>
+	<string name="type.amenity.loading_dock">Rakodórámpa</string>
 	<string name="type.amenity.marketplace">Piac</string>
 	<string name="type.amenity.motorcycle_parking">Motorbicikli parkoló</string>
 	<string name="type.amenity.nightclub">Éjszakai mulató</string>
@@ -811,39 +856,39 @@
 	<string name="type.amenity.parking.fee">Parkoló</string>
 	<string name="type.amenity.parking.multi.storey">Többszintes parkoló</string>
 	<string name="type.amenity.parking.multi.storey.fee">Többszintes parkoló</string>
-	<string name="type.amenity.parking.no.access">Saját parkoló</string>
-	<string name="type.amenity.parking.permissive">Saját parkoló</string>
-	<string name="type.amenity.parking.private">Saját parkoló</string>
-	<string name="type.amenity.parking.park_and_ride">Parkoló</string>
+	<string name="type.amenity.parking.no.access">Magánparkoló</string>
+	<string name="type.amenity.parking.permissive">Magánparkoló</string>
+	<string name="type.amenity.parking.private">Magánparkoló</string>
+	<string name="type.amenity.parking.park_and_ride">P+R Parkoló</string>
 	<string name="type.amenity.parking.underground">Mélygarázs</string>
 	<string name="type.amenity.parking.underground.fee">Mélygarázs</string>
-	<string name="type.amenity.parking.underground.private">Privát földalatti parkoló</string>
-	<string name="type.amenity.parking.street_side">Utca oldali parkolás</string>
-	<string name="type.amenity.parking.street_side.fee">Utca oldali parkolás</string>
-	<string name="type.amenity.parking.street_side.private">Privát utca oldali parkolás</string>
+	<string name="type.amenity.parking.underground.private">Privát mélygarázs</string>
+	<string name="type.amenity.parking.street_side">Utcai parkolás</string>
+	<string name="type.amenity.parking.street_side.fee">Utcai parkolás</string>
+	<string name="type.amenity.parking.street_side.private">Privát utcai parkolás</string>
 	<string name="type.amenity.parking.lane">Sávos parkolás</string>
 	<string name="type.amenity.parking.lane.fee">Sávos parkolás</string>
 	<string name="type.amenity.parking.lane.private">Privát sávos parkolás</string>
 	<string name="type.amenity.parking_entrance">Parkoló bejárata</string>
-	<string name="type.amenity.parking_entrance.private">Privát parkoló bejárat</string>
+	<string name="type.amenity.parking_entrance.private">Privát parkoló bejárata</string>
 	<string name="type.amenity.parking_entrance.permissive">Parkoló bejárata</string>
 	<string name="type.amenity.parking_space">Parkolóhely</string>
 	<string name="type.amenity.parking_space.permissive">Parkolóhely</string>
 	<string name="type.amenity.parking_space.private">Parkolóhely</string>
 	<string name="type.amenity.parking_space.underground">Parkolóhely</string>
 	<string name="type.amenity.parking_space.disabled">Mozgássérült parkolóhely</string>
-	<string name="type.amenity.payment_terminal">Fizető terminál</string>
+	<string name="type.amenity.payment_terminal">Fizetőterminál</string>
 	<string name="type.amenity.pharmacy">Gyógyszertár</string>
 	<string name="type.amenity.place_of_worship">Templom</string>
 	<string name="type.amenity.place_of_worship.buddhist">Templom</string>
 	<string name="type.amenity.place_of_worship.christian">Templom</string>
 	<string name="type.amenity.place_of_worship.christian.mormon">Utolsó Napok Szentjeinek Jézus Krisztus Egyháza</string>
 	<string name="type.amenity.place_of_worship.christian.jehovahs_witness">Jehova Tanúinak Királysága terem</string>
-	<string name="type.amenity.place_of_worship.hindu">Templom</string>
+	<string name="type.amenity.place_of_worship.hindu">Hindu templom</string>
 	<string name="type.amenity.place_of_worship.jewish">Zsinagóga</string>
 	<string name="type.amenity.place_of_worship.muslim">Mecset</string>
-	<string name="type.amenity.place_of_worship.shinto">Kegyhely</string>
-	<string name="type.amenity.place_of_worship.taoist">Templom</string>
+	<string name="type.amenity.place_of_worship.shinto">Sinto szentély</string>
+	<string name="type.amenity.place_of_worship.taoist">Taoista templom</string>
 	<string name="type.amenity.police">Rendőrség</string>
 	<string name="type.amenity.post_box">Levelesláda</string>
 	<string name="type.amenity.post_office">Posta</string>
@@ -852,13 +897,13 @@
 
 	<!-- SECTION: Types: Recycling -->
 	<string name="type.amenity.recycling.centre">Újrahasznosító központ</string>
-	<string name="type.amenity.recycling">Újrahasznosító tartály</string>
-	<string name="type.amenity.recycling.container">Újrahasznosító tartály</string>
+	<string name="type.amenity.recycling">Újrahasznosító konténer</string>
+	<string name="type.amenity.recycling.container">Újrahasznosító konténer</string>
 	<string name="type.recycling.batteries">Elemek</string>
 	<string name="type.recycling.clothes">Régi ruhák</string>
-	<string name="type.recycling.glass_bottles">Üveg palackok</string>
-	<string name="type.recycling.paper">Papír hulladék</string>
-	<string name="type.recycling.plastic">Műanyag hulladék</string>
+	<string name="type.recycling.glass_bottles">Üvegpalackok</string>
+	<string name="type.recycling.paper">Papírhulladék</string>
+	<string name="type.recycling.plastic">Műanyaghulladék</string>
 	<string name="type.recycling.plastic_bottles">Műanyag palackok</string>
 	<string name="type.recycling.scrap_metal">Fémhulladék</string>
 	<string name="type.recycling.small_appliances">Elektromos hulladék</string>
@@ -867,25 +912,26 @@
 	<string name="type.amenity.shelter">Menedék</string>
 	<string name="type.amenity.public_bath">Közfürdő</string>
 	<string name="type.amenity.shower">Tusoló</string>
-	<string name="type.amenity.stripclub">Stripclub</string>
+	<string name="type.amenity.stripclub">Sztriptízbár</string>
 	<string name="type.amenity.telephone">Telefon</string>
 	<string name="type.amenity.theatre">Színház</string>
 	<string name="type.amenity.toilets">Mosdó</string>
+	<string name="type.toilets.yes">Mosdó</string>
 	<string name="type.amenity.townhall">Városháza</string>
 	<string name="type.amenity.university">Egyetem</string>
 	<string name="type.amenity.vending_machine.cigarettes">Cigarettaautomata</string>
 	<string name="type.amenity.vending_machine.drinks">Italautomata</string>
 	<string name="type.amenity.vending_machine.parking_tickets">Parkolóautomata</string>
-	<string name="type.amenity.vending_machine.public_transport_tickets">Automata jegykiadó tömegközlekedési eszközökhöz</string>
-	<string name="type.amenity.vehicle_inspection">Gépjármű átvizsgálás</string>
+	<string name="type.amenity.vending_machine.public_transport_tickets">Jegyautomata tömegközlekedési eszközökhöz</string>
+	<string name="type.amenity.vehicle_inspection">Járművek műszaki vizsgáztatása</string>
 	<string name="type.amenity.veterinary">Állatorvos</string>
-	<string name="type.amenity.waste_basket">Szemétkosár</string>
+	<string name="type.amenity.waste_basket">Szemetes</string>
 	<string name="type.amenity.waste_disposal">Szemét</string>
 	<string name="type.amenity.water_point">Vízvételi pont</string>
 	<string name="type.barrier.block">Blokk</string>
 	<string name="type.barrier.bollard">Oszlop</string>
 	<string name="type.barrier.border_control">Határállomás</string>
-	<string name="type.barrier.city_wall">Városi fal</string>
+	<string name="type.barrier.city_wall">Városfal</string>
 	<string name="type.waterway.ditch">Árok</string>
 	<string name="type.natural.water.moat">Várárok</string>
 	<string name="type.natural.water.wastewater">Szennyvíz</string>
@@ -894,10 +940,11 @@
 	<string name="type.barrier.kissing_gate">Kapu</string>
 	<string name="type.barrier.lift_gate">Sorompó</string>
 	<string name="type.barrier.stile">Átjáró</string>
-	<string name="type.barrier.turnstile">Fordítókapu</string>
+	<string name="type.barrier.turnstile">Forgókorlát</string>
 	<string name="type.barrier.swing_gate">Sorompó</string>
 	<string name="type.barrier.toll_booth">Díjfizető kapu</string>
 	<string name="type.boundary.national_park">Nemzeti park</string>
+	<string name="type.boundary.aboriginal_lands">Bennszülött földek</string>
 	<string name="type.boundary.protected_area">Védett terület</string>
 	<string name="type.boundary.protected_area.1">Védett terület</string>
 	<string name="type.boundary.protected_area.2">Védett terület</string>
@@ -906,11 +953,12 @@
 	<string name="type.boundary.protected_area.5">Védett terület</string>
 	<string name="type.boundary.protected_area.6">Védett terület</string>
 	<string name="type.building">Épület</string>
-	<string name="type.building.address">Épület</string>
+	<!-- Duplicates [address] in strings.txt -->
+	<string name="type.building.address">Cím</string>
 	<string name="type.building.has_parts">Épület</string>
 	<string name="type.building_part">Épület</string>
 	<string name="type.building.garage">Garázs</string>
-	<string name="type.building.train_station">Vonatmegálló</string>
+	<string name="type.building.train_station">Vasútállomás</string>
 	<string name="type.cemetery.grave">Sír</string>
 	<string name="type.craft">Kézművesség</string>
 	<string name="type.craft.beekeeper">Méhész</string>
@@ -931,7 +979,7 @@
 	<string name="type.craft.metal_construction">Lakatos</string>
 	<string name="type.craft.painter">Festő</string>
 	<string name="type.craft.photographer">Fényképész</string>
-	<string name="type.shop.camera">Fényképezőgép bolt</string>
+	<string name="type.shop.camera">Fotósbolt</string>
 	<string name="type.craft.plumber">Vízvezeték-szerelő</string>
 	<string name="type.craft.sawmill">Fűrészmalom</string>
 	<string name="type.craft.shoemaker">Cipész</string>
@@ -1030,7 +1078,7 @@
 	<string name="type.entrance">Bejárat</string>
 	<!-- This is for main/primary entrances, for secondary entrances see type.entrance -->
 	<string name="type.entrance.main">Főbejárat</string>
-	<string name="type.entrance.exit">Kilépés</string>
+	<string name="type.entrance.exit">Kijárat</string>
 	<string name="type.fee.no">Ingyenes</string>
 	<string name="type.healthcare.laboratory">Orvosi laboratórium</string>
 	<string name="type.healthcare.physiotherapist">Fizioterapeuta</string>
@@ -1079,13 +1127,13 @@
 	<string name="type.highway.living_street.bridge">Híd</string>
 	<!-- These translations are used for all type.highway.*.tunnel. -->
 	<string name="type.highway.living_street.tunnel">Alagút</string>
-	<string name="type.highway.motorway">Utca</string>
+	<string name="type.highway.motorway">Autópálya</string>
 	<!-- These translations are used for all type.highway.*.bridge. -->
 	<string name="type.highway.motorway.bridge">Híd</string>
 	<!-- These translations are used for all type.highway.*.tunnel. -->
 	<string name="type.highway.motorway.tunnel">Alagút</string>
 	<string name="type.highway.motorway_junction">Kijárat</string>
-	<string name="type.highway.motorway_link">Utca</string>
+	<string name="type.highway.motorway_link">Autópálya</string>
 	<!-- These translations are used for all type.highway.*.bridge. -->
 	<string name="type.highway.motorway_link.bridge">Híd</string>
 	<!-- These translations are used for all type.highway.*.tunnel. -->
@@ -1104,8 +1152,8 @@
 	<string name="type.highway.path.permissive">Ösvény</string>
 	<!-- These translations are used for all type.highway.*.tunnel. -->
 	<string name="type.highway.path.tunnel">Alagút</string>
-	<string name="type.highway.pedestrian">Utca</string>
-	<string name="type.highway.pedestrian.area">Utca</string>
+	<string name="type.highway.pedestrian">Sétálóutca</string>
+	<string name="type.highway.pedestrian.area">Sétálóutca</string>
 	<!-- These translations are used for all type.highway.*.bridge. -->
 	<string name="type.highway.pedestrian.bridge">Híd</string>
 	<!-- These translations are used for all type.highway.*.tunnel. -->
@@ -1128,7 +1176,7 @@
 	<!-- These translations are used for all type.highway.*.tunnel. -->
 	<string name="type.highway.residential.tunnel">Alagút</string>
 	<string name="type.highway.rest_area">Pihenőzóna</string>
-	<string name="type.highway.road">Utca</string>
+	<string name="type.highway.road">Út</string>
 	<!-- These translations are used for all type.highway.*.bridge. -->
 	<string name="type.highway.road.bridge">Híd</string>
 	<!-- A bridge structure outline. -->
@@ -1145,16 +1193,16 @@
 	<string name="type.highway.secondary_link.bridge">Híd</string>
 	<!-- These translations are used for all type.highway.*.tunnel. -->
 	<string name="type.highway.secondary_link.tunnel">Alagút</string>
-	<string name="type.highway.service">Utca</string>
-	<string name="type.highway.service.area">Utca</string>
+	<string name="type.highway.service">Szervizút</string>
+	<string name="type.highway.service.area">Szervizút</string>
 	<!-- These translations are used for all type.highway.*.bridge. -->
 	<string name="type.highway.service.bridge">Híd</string>
-	<string name="type.highway.service.driveway">Utca</string>
-	<string name="type.highway.service.parking_aisle">Utca</string>
+	<string name="type.highway.service.driveway">Szervizút</string>
+	<string name="type.highway.service.parking_aisle">Szervizút</string>
 	<!-- These translations are used for all type.highway.*.tunnel. -->
 	<string name="type.highway.service.tunnel">Alagút</string>
 	<string name="type.highway.speed_camera">Traffipax</string>
-	<string name="type.highway.steps">Ösvény</string>
+	<string name="type.highway.steps">Lépcső</string>
 	<!-- These translations are used for all type.highway.*.bridge. -->
 	<string name="type.highway.steps.bridge">Híd</string>
 	<!-- These translations are used for all type.highway.*.tunnel. -->
@@ -1182,37 +1230,37 @@
 	<string name="type.highway.track.permissive">Utca</string>
 	<!-- These translations are used for all type.highway.*.tunnel. -->
 	<string name="type.highway.track.tunnel">Alagút</string>
-	<string name="type.highway.traffic_signals">Közlekedési lámpák</string>
-	<string name="type.highway.trunk">Utca</string>
+	<string name="type.highway.traffic_signals">Közlekedési lámpa</string>
+	<string name="type.highway.trunk">Elsőrendű közlekedési út</string>
 	<!-- These translations are used for all type.highway.*.bridge. -->
 	<string name="type.highway.trunk.bridge">Híd</string>
 	<!-- These translations are used for all type.highway.*.tunnel. -->
 	<string name="type.highway.trunk.tunnel">Alagút</string>
-	<string name="type.highway.trunk_link">Utca</string>
+	<string name="type.highway.trunk_link">Elsőrendű közlekedési út</string>
 	<!-- These translations are used for all type.highway.*.bridge. -->
 	<string name="type.highway.trunk_link.bridge">Híd</string>
 	<!-- These translations are used for all type.highway.*.tunnel. -->
 	<string name="type.highway.trunk_link.tunnel">Alagút</string>
-	<string name="type.highway.unclassified">Utca</string>
-	<string name="type.highway.unclassified.area">Utca</string>
+	<string name="type.highway.unclassified">Kis utca</string>
+	<string name="type.highway.unclassified.area">Kis utca</string>
 	<!-- These translations are used for all type.highway.*.bridge. -->
 	<string name="type.highway.unclassified.bridge">Híd</string>
 	<!-- These translations are used for all type.highway.*.tunnel. -->
 	<string name="type.highway.unclassified.tunnel">Alagút</string>
 	<string name="type.area_highway.footway">Ösvény</string>
 	<string name="type.area_highway.living_street">Utca</string>
-	<string name="type.area_highway.motorway">Utca</string>
+	<string name="type.area_highway.motorway">Autópálya</string>
 	<string name="type.area_highway.path">Ösvény</string>
-	<string name="type.area_highway.pedestrian">Utca</string>
+	<string name="type.area_highway.pedestrian">Sétálóutca</string>
 	<string name="type.area_highway.primary">Utca</string>
 	<string name="type.area_highway.residential">Utca</string>
 	<string name="type.area_highway.secondary">Utca</string>
-	<string name="type.area_highway.service">Utca</string>
+	<string name="type.area_highway.service">Szervizút</string>
 	<string name="type.area_highway.tertiary">Utca</string>
-	<string name="type.area_highway.steps">Ösvény</string>
+	<string name="type.area_highway.steps">Lépcső</string>
 	<string name="type.area_highway.track">Utca</string>
-	<string name="type.area_highway.trunk">Utca</string>
-	<string name="type.area_highway.unclassified">Utca</string>
+	<string name="type.area_highway.trunk">Elsőrendű közlekedési út</string>
+	<string name="type.area_highway.unclassified">Kis utca</string>
 
 	<!-- SECTION: Types: Historic -->
 	<string name="type.historic">Történelmi tárgy</string>
@@ -1223,26 +1271,26 @@
 	<string name="type.historic.boundary_stone">Határkő</string>
 	<string name="type.historic.cannon">Ágyú</string>
 	<string name="type.historic.castle">Kastély</string>
-	<string name="type.historic.castle.castrum">Castrum</string>
+	<string name="type.historic.castle.castrum">Római erődítmény</string>
 	<string name="type.historic.castle.defensive">Kastély</string>
-	<string name="type.historic.castle.fortified_church">Erősített templom</string>
-	<string name="type.historic.castle.fortress">Erődrendszer</string>
+	<string name="type.historic.castle.fortified_church">Erődített templom</string>
+	<string name="type.historic.castle.fortress">Erőd</string>
 	<string name="type.historic.castle.hillfort">Földvár</string>
 	<string name="type.historic.castle.kremlin">Kreml</string>
 	<string name="type.historic.castle.manor">Udvarház</string>
 	<string name="type.historic.castle.palace">Palota</string>
-	<string name="type.historic.castle.shiro">Japán várkastélyai</string>
+	<string name="type.historic.castle.shiro">Japán várkastély</string>
 	<string name="type.historic.castle.stately">Kastély</string>
-	<string name="type.historic.city_gate">Városi kapu</string>
-	<string name="type.historic.citywalls">Városi fal</string>
-	<string name="type.historic.fort">Fort</string>
+	<string name="type.historic.city_gate">Városkapu</string>
+	<string name="type.historic.citywalls">Városfal</string>
+	<string name="type.historic.fort">Erőd</string>
 	<string name="type.historic.gallows">Akasztófa</string>
 	<string name="type.historic.locomotive">Történelmi mozdony</string>
 	<string name="type.historic.memorial">Emlékmű</string>
 	<string name="type.historic.memorial.cross">Emlékkereszt</string>
-	<string name="type.historic.memorial.plaque">Emlékmű</string>
-	<string name="type.historic.memorial.sculpture">Emlékmű</string>
-	<string name="type.historic.memorial.statue">Emlékmű</string>
+	<string name="type.historic.memorial.plaque">Emléktábla</string>
+	<string name="type.historic.memorial.sculpture">Szobor</string>
+	<string name="type.historic.memorial.statue">Szobor</string>
 	<string name="type.historic.memorial.stolperstein">Botlatókő</string>
 	<string name="type.historic.stone">Történelmi kő</string>
 	<string name="type.historic.memorial.war_memorial">Háborús emlékmű</string>
@@ -1250,42 +1298,42 @@
 	<string name="type.historic.monument">Műemlék</string>
 	<string name="type.historic.pillory">Pellengér</string>
 	<string name="type.historic.ruins">Romok</string>
-	<string name="type.historic.ship">Túrizmus</string>
+	<string name="type.historic.ship">Turizmus</string>
 	<string name="type.historic.tank">Történelmi Tank</string>
 	<string name="type.historic.tomb">Sír</string>
 	<string name="type.historic.wayside_cross">Útszéli kereszt</string>
 	<string name="type.historic.wayside_shrine">Útmenti szentély</string>
-	<string name="type.historic.wreck">Hajótörés</string>
+	<string name="type.historic.wreck">Hajóroncs</string>
 	<string name="type.landuse.basin">Vízgyűjtő</string>
 	<!-- In most (European) countries, сemeteries are usually independent of places of worship (e.g. military cemeteries), while grave yards are usually the yard of a place of worship. -->
 	<string name="type.landuse.cemetery">Temető</string>
 	<!-- In most (European) countries, сemeteries are usually independent of places of worship (e.g. military cemeteries), while grave yards are usually the yard of a place of worship. -->
 	<string name="type.landuse.cemetery.christian">Temető</string>
-	<string name="type.landuse.churchyard">Templomtér</string>
+	<string name="type.landuse.churchyard">Templomkert</string>
 	<string name="type.landuse.farmland">Termőföld</string>
-	<string name="type.landuse.flowerbed">Virágágy</string>
+	<string name="type.landuse.flowerbed">Virágágyás</string>
 	<string name="type.landuse.forest">Erdő</string>
-	<string name="type.landuse.forest.coniferous">Erdő</string>
-	<string name="type.landuse.forest.deciduous">Erdő</string>
+	<string name="type.landuse.forest.coniferous">Tűlevelű erdő</string>
+	<string name="type.landuse.forest.deciduous">Lombhullató erdő</string>
 	<string name="type.landuse.forest.mixed">Erdő</string>
 	<string name="type.landuse.grass">Gyep</string>
 	<string name="type.landuse.landfill">Hulladéklerakó</string>
-	<string name="type.landuse.railway">Vasúti helyiségek</string>
-	<string name="type.landuse.reservoir">Víz</string>
+	<string name="type.landuse.railway">Vasúti terület</string>
+	<string name="type.landuse.reservoir">Tározó</string>
 	<string name="type.leisure.dog_park">Kutyás terület</string>
 	<string name="type.leisure.fitness_centre">Fitnesz-terem</string>
-	<string name="type.leisure.fitness_station">Fitness állomás</string>
+	<string name="type.leisure.fitness_station">Fitneszállomás</string>
 	<string name="type.leisure.dance">Táncterem</string>
 	<string name="type.leisure.garden">Kert</string>
 	<string name="type.leisure.garden.residential">Kert</string>
 	<string name="type.leisure.golf_course">Golfpálya</string>
 	<string name="type.leisure.nature_reserve">Védett terület</string>
-	<string name="type.leisure.outdoor_seating">Kültéri ülőhelyek</string>
+	<string name="type.leisure.outdoor_seating">Kiülős helyek</string>
 	<string name="type.leisure.park">Park</string>
 	<string name="type.leisure.park.no.access">Park</string>
 	<string name="type.leisure.park.permissive">Park</string>
 	<string name="type.leisure.park.private">Park</string>
-	<string name="type.leisure.picnic_table">Piknik asztal</string>
+	<string name="type.leisure.picnic_table">Piknikasztal</string>
 	<string name="type.leisure.pitch">Sportpálya</string>
 	<string name="type.leisure.playground">Játszótér</string>
 	<string name="type.leisure.sauna">Szauna</string>
@@ -1312,9 +1360,9 @@
 	<string name="type.natural.beach.sand">Homokos part</string>
 	<string name="type.natural.beach.gravel">Kavicsos strand</string>
 	<string name="type.natural.cape">Hegytető</string>
-	<string name="type.natural.cave_entrance">Barlang</string>
+	<string name="type.natural.cave_entrance">Barlangbejárat</string>
 	<string name="type.natural.cliff">Szikla</string>
-	<string name="type.natural.earth_bank">Szikla</string>
+	<string name="type.natural.earth_bank">Földtöltés</string>
 	<string name="type.man_made.embankment">Töltés</string>
 	<string name="type.natural.coastline">Tengerpart</string>
 	<string name="type.natural.desert">Sivatag</string>
@@ -1326,21 +1374,21 @@
 	<string name="type.natural.water.lake">Tó</string>
 	<string name="type.natural.water.lock">Zsilipkamra</string>
 	<string name="type.natural.water.pond">Tavacska</string>
-	<string name="type.natural.water.reservoir">Rezervoár</string>
+	<string name="type.natural.water.reservoir">Víztározó</string>
 	<string name="type.natural.water.basin">Vízgyűjtő</string>
 	<string name="type.natural.water.river">Folyó</string>
 	<string name="type.natural.land">Föld</string>
 	<string name="type.natural.meadow">Rét</string>
 	<string name="type.natural.orchard">Gyümölcsöskert</string>
 	<string name="type.natural.peak">Csúcs</string>
-	<string name="type.natural.saddle">Hegyi nyereg</string>
-	<string name="type.natural.rock">Kőzet</string>
+	<string name="type.natural.saddle">Hegynyereg</string>
+	<string name="type.natural.rock">Szikla</string>
 	<string name="type.natural.scrub">Cserjés</string>
-	<string name="type.natural.spring">Forrás</string>
+	<string name="type.natural.spring">Természetes forrás</string>
 	<string name="type.natural.strait">Szoros</string>
-	<string name="type.natural.tree_row">Fa sor</string>
+	<string name="type.natural.tree_row">Fasor</string>
 	<string name="type.natural.vineyard">Szőlőskert</string>
-	<string name="type.natural.volcano">Tűzhányó</string>
+	<string name="type.natural.volcano">Vulkán</string>
 	<string name="type.natural.water">Vizek</string>
 	<string name="type.natural.wetland">Vizes terület</string>
 	<string name="type.natural.wetland.bog">Láp</string>
@@ -1349,10 +1397,10 @@
 	<string name="type.office.company">Vállalati iroda</string>
 	<string name="type.office.estate_agent">Ingatlanügynök</string>
 	<string name="type.office.government">Állami iroda</string>
-	<string name="type.office.insurance">Biztosító iroda</string>
+	<string name="type.office.insurance">Biztosítóiroda</string>
 	<string name="type.office.lawyer">Ügyvédi iroda</string>
 	<string name="type.office.ngo">Civil szervezet irodája</string>
-	<string name="type.office.telecommunication">Mobilüzemeltető</string>
+	<string name="type.office.telecommunication">Távközlési cég</string>
 	<string name="type.place.city">Város</string>
 	<string name="type.place.city.capital">Főváros</string>
 	<string name="type.place.city.capital.10">Város</string>
@@ -1367,21 +1415,21 @@
 	<string name="type.place.city.capital.9">Város</string>
 	<string name="type.place.continent">Kontinens</string>
 	<string name="type.place.country">Ország</string>
-	<string name="type.place.county">Kerület</string>
+	<string name="type.place.county">Megye</string>
 	<string name="type.place.farm">Tanya</string>
-	<string name="type.place.hamlet">Tanya</string>
+	<string name="type.place.hamlet">Falucska</string>
 	<string name="type.place.island">Sziget</string>
-	<string name="type.place.islet">Sziget</string>
-	<string name="type.place.isolated_dwelling">Elszigetelt lakás</string>
-	<string name="type.place.locality">Falu</string>
-	<string name="type.place.neighbourhood">Szomszédság</string>
+	<string name="type.place.islet">Szigetecske</string>
+	<string name="type.place.isolated_dwelling">Elszigetelt lakóépület</string>
+	<string name="type.place.locality">Körzet</string>
+	<string name="type.place.neighbourhood">Városrész</string>
 	<string name="type.place.ocean">Óceán</string>
 	<string name="type.place.region">Régió</string>
 	<string name="type.place.sea">Tenger</string>
 	<string name="type.place.square">Tér</string>
 	<string name="type.place.state">Állam</string>
 	<string name="type.place.state.USA">Állam</string>
-	<string name="type.place.suburb">Kerület</string>
+	<string name="type.place.suburb">Kertváros</string>
 	<string name="type.place.town">Város</string>
 	<string name="type.place.village">Falu</string>
 	<string name="type.power.generator.solar">Napelemes generátor</string>
@@ -1394,10 +1442,10 @@
 	<string name="type.power.plant.hydro">Vízerőmű</string>
 	<string name="type.power.plant.solar">Naperőmű</string>
 	<string name="type.power.plant.wind">Szélerőmű</string>
-	<string name="type.power.substation">Kapcsolószekrény</string>
+	<string name="type.power.substation">Alállomás</string>
 	<string name="type.power.tower">Villanyoszlop</string>
-	<string name="type.railway.funicular">Funicular</string>
-	<string name="type.railway.halt">Vonatmegálló</string>
+	<string name="type.railway.funicular">Sikló</string>
+	<string name="type.railway.halt">Vasútállomás</string>
 	<string name="type.railway.level_crossing">Vasúti átjáró</string>
 	<string name="type.railway.monorail">Egysínű vasút</string>
 	<string name="type.railway.rail">Vasút</string>
@@ -1427,296 +1475,296 @@
 	<string name="type.railway.rail.utility.tunnel">Vasúti alagút</string>
 	<string name="type.railway.rail.spur.tunnel">Vasúti alagút</string>
 	<string name="type.railway.rail.service.tunnel">Vasúti alagút</string>
-	<string name="type.railway.station">Vonatmegálló</string>
-	<string name="type.railway.station.funicular">Funicular</string>
-	<string name="type.railway.station.light_rail">Vonatmegálló</string>
-	<string name="type.railway.station.light_rail.london">Vonatmegálló</string>
-	<string name="type.railway.station.light_rail.porto">Vonatmegálló</string>
-	<string name="type.railway.station.monorail">Vonatmegálló</string>
-	<string name="type.railway.station.subway">Földalatti</string>
-	<string name="type.railway.station.subway.adana">Földalatti</string>
-	<string name="type.railway.station.subway.algiers">Földalatti</string>
-	<string name="type.railway.station.subway.almaty">Földalatti</string>
-	<string name="type.railway.station.subway.amsterdam">Földalatti</string>
-	<string name="type.railway.station.subway.ankara">Földalatti</string>
-	<string name="type.railway.station.subway.athens">Földalatti</string>
-	<string name="type.railway.station.subway.baku">Földalatti</string>
-	<string name="type.railway.station.subway.bangkok">Földalatti</string>
-	<string name="type.railway.station.subway.barcelona">Földalatti</string>
-	<string name="type.railway.station.subway.beijing">Földalatti</string>
-	<string name="type.railway.station.subway.bengalore">Földalatti</string>
-	<string name="type.railway.station.subway.berlin">Földalatti</string>
-	<string name="type.railway.station.subway.bilbao">Földalatti</string>
-	<string name="type.railway.station.subway.brasilia">Földalatti</string>
-	<string name="type.railway.station.subway.brescia">Földalatti</string>
-	<string name="type.railway.station.subway.brussels">Földalatti</string>
-	<string name="type.railway.station.subway.bucharest">Földalatti</string>
-	<string name="type.railway.station.subway.budapest">Földalatti</string>
-	<string name="type.railway.station.subway.buenos_aires">Földalatti</string>
-	<string name="type.railway.station.subway.bursa">Földalatti</string>
-	<string name="type.railway.station.subway.cairo">Földalatti</string>
-	<string name="type.railway.station.subway.caracas">Földalatti</string>
-	<string name="type.railway.station.subway.catania">Földalatti</string>
-	<string name="type.railway.station.subway.changchun">Földalatti</string>
-	<string name="type.railway.station.subway.chengdu">Földalatti</string>
-	<string name="type.railway.station.subway.chicago">Földalatti</string>
-	<string name="type.railway.station.subway.chongqing">Földalatti</string>
-	<string name="type.railway.station.subway.dalian">Földalatti</string>
-	<string name="type.railway.station.subway.delhi">Földalatti</string>
-	<string name="type.railway.station.subway.dnepro">Földalatti</string>
-	<string name="type.railway.station.subway.dubai">Földalatti</string>
-	<string name="type.railway.station.subway.ekb">Földalatti</string>
-	<string name="type.railway.station.subway.fukuoka">Földalatti</string>
-	<string name="type.railway.station.subway.glasgow">Földalatti</string>
-	<string name="type.railway.station.subway.guangzhou">Földalatti</string>
-	<string name="type.railway.station.subway.hamburg">Földalatti</string>
-	<string name="type.railway.station.subway.helsinki">Földalatti</string>
-	<string name="type.railway.station.subway.hiroshima">Földalatti</string>
-	<string name="type.railway.station.subway.isfahan">Földalatti</string>
-	<string name="type.railway.station.subway.istanbul">Földalatti</string>
-	<string name="type.railway.station.subway.izmir">Földalatti</string>
-	<string name="type.railway.station.subway.kazan">Földalatti</string>
-	<string name="type.railway.station.subway.kharkiv">Földalatti</string>
-	<string name="type.railway.station.subway.kiev">Földalatti</string>
-	<string name="type.railway.station.subway.kobe">Földalatti</string>
-	<string name="type.railway.station.subway.kolkata">Földalatti</string>
-	<string name="type.railway.station.subway.kunming">Földalatti</string>
-	<string name="type.railway.station.subway.kyoto">Földalatti</string>
-	<string name="type.railway.station.subway.la">Földalatti</string>
-	<string name="type.railway.station.subway.lausanne">Földalatti</string>
-	<string name="type.railway.station.subway.lille">Földalatti</string>
-	<string name="type.railway.station.subway.lima">Földalatti</string>
-	<string name="type.railway.station.subway.lisboa">Földalatti</string>
-	<string name="type.railway.station.subway.london">Földalatti</string>
-	<string name="type.railway.station.subway.lyon">Földalatti</string>
-	<string name="type.railway.station.subway.madrid">Földalatti</string>
-	<string name="type.railway.station.subway.malaga">Földalatti</string>
-	<string name="type.railway.station.subway.manila">Földalatti</string>
-	<string name="type.railway.station.subway.maracaibo">Földalatti</string>
-	<string name="type.railway.station.subway.mashhad">Földalatti</string>
-	<string name="type.railway.station.subway.mecca">Földalatti</string>
-	<string name="type.railway.station.subway.medellin">Földalatti</string>
-	<string name="type.railway.station.subway.mexico">Földalatti</string>
-	<string name="type.railway.station.subway.milan">Földalatti</string>
-	<string name="type.railway.station.subway.minsk">Földalatti</string>
-	<string name="type.railway.station.subway.montreal">Földalatti</string>
-	<string name="type.railway.station.subway.moscow">Földalatti</string>
-	<string name="type.railway.station.subway.munchen">Földalatti</string>
-	<string name="type.railway.station.subway.nagoya">Földalatti</string>
-	<string name="type.railway.station.subway.newyork">Földalatti</string>
-	<string name="type.railway.station.subway.nnov">Földalatti</string>
-	<string name="type.railway.station.subway.novosibirsk">Földalatti</string>
-	<string name="type.railway.station.subway.osaka">Földalatti</string>
-	<string name="type.railway.station.subway.oslo">Földalatti</string>
-	<string name="type.railway.station.subway.palma">Földalatti</string>
-	<string name="type.railway.station.subway.panama">Földalatti</string>
-	<string name="type.railway.station.subway.paris">Földalatti</string>
-	<string name="type.railway.station.subway.philadelphia">Földalatti</string>
-	<string name="type.railway.station.subway.pyongyang">Földalatti</string>
-	<string name="type.railway.station.subway.rennes">Földalatti</string>
-	<string name="type.railway.station.subway.rio">Földalatti</string>
-	<string name="type.railway.station.subway.roma">Földalatti</string>
-	<string name="type.railway.station.subway.rotterdam">Földalatti</string>
-	<string name="type.railway.station.subway.samara">Földalatti</string>
-	<string name="type.railway.station.subway.santiago">Földalatti</string>
-	<string name="type.railway.station.subway.santo_domingo">Földalatti</string>
-	<string name="type.railway.station.subway.saopaulo">Földalatti</string>
-	<string name="type.railway.station.subway.sapporo">Földalatti</string>
-	<string name="type.railway.station.subway.sendai">Földalatti</string>
-	<string name="type.railway.station.subway.sf">Földalatti</string>
-	<string name="type.railway.station.subway.shanghai">Földalatti</string>
-	<string name="type.railway.station.subway.shiraz">Földalatti</string>
-	<string name="type.railway.station.subway.singapore">Földalatti</string>
-	<string name="type.railway.station.subway.sofia">Földalatti</string>
-	<string name="type.railway.station.subway.spb">Földalatti</string>
-	<string name="type.railway.station.subway.stockholm">Földalatti</string>
-	<string name="type.railway.station.subway.tabriz">Földalatti</string>
-	<string name="type.railway.station.subway.taipei">Földalatti</string>
-	<string name="type.railway.station.subway.taoyuan">Földalatti</string>
-	<string name="type.railway.station.subway.tashkent">Földalatti</string>
-	<string name="type.railway.station.subway.tbilisi">Földalatti</string>
-	<string name="type.railway.station.subway.tehran">Földalatti</string>
-	<string name="type.railway.station.subway.tianjin">Földalatti</string>
-	<string name="type.railway.station.subway.tokyo">Földalatti</string>
-	<string name="type.railway.station.subway.valencia">Földalatti</string>
-	<string name="type.railway.station.subway.vienna">Földalatti</string>
-	<string name="type.railway.station.subway.warszawa">Földalatti</string>
-	<string name="type.railway.station.subway.washington">Földalatti</string>
-	<string name="type.railway.station.subway.wuhan">Földalatti</string>
-	<string name="type.railway.station.subway.yerevan">Földalatti</string>
-	<string name="type.railway.station.subway.yokohama">Földalatti</string>
-	<string name="type.railway.subway_entrance">Földalatti bejárat</string>
-	<string name="type.railway.subway_entrance.adana">Földalatti bejárat</string>
-	<string name="type.railway.subway_entrance.algiers">Földalatti bejárat</string>
-	<string name="type.railway.subway_entrance.almaty">Földalatti bejárat</string>
-	<string name="type.railway.subway_entrance.amsterdam">Földalatti bejárat</string>
-	<string name="type.railway.subway_entrance.ankara">Földalatti bejárat</string>
-	<string name="type.railway.subway_entrance.athens">Földalatti bejárat</string>
-	<string name="type.railway.subway_entrance.baku">Földalatti bejárat</string>
-	<string name="type.railway.subway_entrance.bangkok">Földalatti bejárat</string>
-	<string name="type.railway.subway_entrance.barcelona">Földalatti bejárat</string>
-	<string name="type.railway.subway_entrance.beijing">Földalatti bejárat</string>
-	<string name="type.railway.subway_entrance.bengalore">Földalatti bejárat</string>
-	<string name="type.railway.subway_entrance.berlin">Földalatti bejárat</string>
-	<string name="type.railway.subway_entrance.bilbao">Földalatti bejárat</string>
-	<string name="type.railway.subway_entrance.brasilia">Földalatti bejárat</string>
-	<string name="type.railway.subway_entrance.brescia">Földalatti bejárat</string>
-	<string name="type.railway.subway_entrance.brussels">Földalatti bejárat</string>
-	<string name="type.railway.subway_entrance.bucharest">Földalatti bejárat</string>
-	<string name="type.railway.subway_entrance.budapest">Földalatti bejárat</string>
-	<string name="type.railway.subway_entrance.buenos_aires">Földalatti bejárat</string>
-	<string name="type.railway.subway_entrance.bursa">Földalatti bejárat</string>
-	<string name="type.railway.subway_entrance.cairo">Földalatti bejárat</string>
-	<string name="type.railway.subway_entrance.caracas">Földalatti bejárat</string>
-	<string name="type.railway.subway_entrance.catania">Földalatti bejárat</string>
-	<string name="type.railway.subway_entrance.changchun">Földalatti bejárat</string>
-	<string name="type.railway.subway_entrance.chengdu">Földalatti bejárat</string>
-	<string name="type.railway.subway_entrance.chicago">Földalatti bejárat</string>
-	<string name="type.railway.subway_entrance.chongqing">Földalatti bejárat</string>
-	<string name="type.railway.subway_entrance.dalian">Földalatti bejárat</string>
-	<string name="type.railway.subway_entrance.delhi">Földalatti bejárat</string>
-	<string name="type.railway.subway_entrance.dnepro">Földalatti bejárat</string>
-	<string name="type.railway.subway_entrance.dubai">Földalatti bejárat</string>
-	<string name="type.railway.subway_entrance.ekb">Földalatti bejárat</string>
-	<string name="type.railway.subway_entrance.fukuoka">Földalatti bejárat</string>
-	<string name="type.railway.subway_entrance.glasgow">Földalatti bejárat</string>
-	<string name="type.railway.subway_entrance.guangzhou">Földalatti bejárat</string>
-	<string name="type.railway.subway_entrance.hamburg">Földalatti bejárat</string>
-	<string name="type.railway.subway_entrance.helsinki">Földalatti bejárat</string>
-	<string name="type.railway.subway_entrance.hiroshima">Földalatti bejárat</string>
-	<string name="type.railway.subway_entrance.isfahan">Földalatti bejárat</string>
-	<string name="type.railway.subway_entrance.istanbul">Földalatti bejárat</string>
-	<string name="type.railway.subway_entrance.izmir">Földalatti bejárat</string>
-	<string name="type.railway.subway_entrance.kazan">Földalatti bejárat</string>
-	<string name="type.railway.subway_entrance.kharkiv">Földalatti bejárat</string>
-	<string name="type.railway.subway_entrance.kiev">Földalatti bejárat</string>
-	<string name="type.railway.subway_entrance.kobe">Földalatti bejárat</string>
-	<string name="type.railway.subway_entrance.kolkata">Földalatti bejárat</string>
-	<string name="type.railway.subway_entrance.kunming">Földalatti bejárat</string>
-	<string name="type.railway.subway_entrance.kyoto">Földalatti bejárat</string>
-	<string name="type.railway.subway_entrance.la">Földalatti bejárat</string>
-	<string name="type.railway.subway_entrance.lausanne">Földalatti bejárat</string>
-	<string name="type.railway.subway_entrance.lille">Földalatti bejárat</string>
-	<string name="type.railway.subway_entrance.lima">Földalatti bejárat</string>
-	<string name="type.railway.subway_entrance.lisboa">Földalatti bejárat</string>
-	<string name="type.railway.subway_entrance.london">Földalatti bejárat</string>
-	<string name="type.railway.subway_entrance.lyon">Földalatti bejárat</string>
-	<string name="type.railway.subway_entrance.madrid">Földalatti bejárat</string>
-	<string name="type.railway.subway_entrance.malaga">Földalatti bejárat</string>
-	<string name="type.railway.subway_entrance.manila">Földalatti bejárat</string>
-	<string name="type.railway.subway_entrance.maracaibo">Földalatti bejárat</string>
-	<string name="type.railway.subway_entrance.mashhad">Földalatti bejárat</string>
-	<string name="type.railway.subway_entrance.mecca">Földalatti bejárat</string>
-	<string name="type.railway.subway_entrance.medellin">Földalatti bejárat</string>
-	<string name="type.railway.subway_entrance.mexico">Földalatti bejárat</string>
-	<string name="type.railway.subway_entrance.milan">Földalatti bejárat</string>
-	<string name="type.railway.subway_entrance.minsk">Földalatti bejárat</string>
-	<string name="type.railway.subway_entrance.montreal">Földalatti bejárat</string>
-	<string name="type.railway.subway_entrance.moscow">Földalatti bejárat</string>
-	<string name="type.railway.subway_entrance.munchen">Földalatti bejárat</string>
-	<string name="type.railway.subway_entrance.nagoya">Földalatti bejárat</string>
-	<string name="type.railway.subway_entrance.newyork">Földalatti bejárat</string>
-	<string name="type.railway.subway_entrance.nnov">Földalatti bejárat</string>
-	<string name="type.railway.subway_entrance.novosibirsk">Földalatti bejárat</string>
-	<string name="type.railway.subway_entrance.osaka">Földalatti bejárat</string>
-	<string name="type.railway.subway_entrance.oslo">Földalatti bejárat</string>
-	<string name="type.railway.subway_entrance.palma">Földalatti bejárat</string>
-	<string name="type.railway.subway_entrance.panama">Földalatti bejárat</string>
-	<string name="type.railway.subway_entrance.paris">Földalatti bejárat</string>
-	<string name="type.railway.subway_entrance.philadelphia">Földalatti bejárat</string>
-	<string name="type.railway.subway_entrance.pyongyang">Földalatti bejárat</string>
-	<string name="type.railway.subway_entrance.rennes">Földalatti bejárat</string>
-	<string name="type.railway.subway_entrance.rio">Földalatti bejárat</string>
-	<string name="type.railway.subway_entrance.roma">Földalatti bejárat</string>
-	<string name="type.railway.subway_entrance.rotterdam">Földalatti bejárat</string>
-	<string name="type.railway.subway_entrance.samara">Földalatti bejárat</string>
-	<string name="type.railway.subway_entrance.santiago">Földalatti bejárat</string>
-	<string name="type.railway.subway_entrance.santo_domingo">Földalatti bejárat</string>
-	<string name="type.railway.subway_entrance.saopaulo">Földalatti bejárat</string>
-	<string name="type.railway.subway_entrance.sapporo">Földalatti bejárat</string>
-	<string name="type.railway.subway_entrance.sendai">Földalatti bejárat</string>
-	<string name="type.railway.subway_entrance.sf">Földalatti bejárat</string>
-	<string name="type.railway.subway_entrance.shanghai">Földalatti bejárat</string>
-	<string name="type.railway.subway_entrance.shiraz">Földalatti bejárat</string>
-	<string name="type.railway.subway_entrance.singapore">Földalatti bejárat</string>
-	<string name="type.railway.subway_entrance.sofia">Földalatti bejárat</string>
-	<string name="type.railway.subway_entrance.spb">Földalatti bejárat</string>
-	<string name="type.railway.subway_entrance.stockholm">Földalatti bejárat</string>
-	<string name="type.railway.subway_entrance.tabriz">Földalatti bejárat</string>
-	<string name="type.railway.subway_entrance.taipei">Földalatti bejárat</string>
-	<string name="type.railway.subway_entrance.taoyuan">Földalatti bejárat</string>
-	<string name="type.railway.subway_entrance.tashkent">Földalatti bejárat</string>
-	<string name="type.railway.subway_entrance.tbilisi">Földalatti bejárat</string>
-	<string name="type.railway.subway_entrance.tehran">Földalatti bejárat</string>
-	<string name="type.railway.subway_entrance.tianjin">Földalatti bejárat</string>
-	<string name="type.railway.subway_entrance.tokyo">Földalatti bejárat</string>
-	<string name="type.railway.subway_entrance.valencia">Földalatti bejárat</string>
-	<string name="type.railway.subway_entrance.vienna">Földalatti bejárat</string>
-	<string name="type.railway.subway_entrance.warszawa">Földalatti bejárat</string>
-	<string name="type.railway.subway_entrance.washington">Földalatti bejárat</string>
-	<string name="type.railway.subway_entrance.wuhan">Földalatti bejárat</string>
-	<string name="type.railway.subway_entrance.yerevan">Földalatti bejárat</string>
-	<string name="type.railway.subway_entrance.yokohama">Földalatti bejárat</string>
+	<string name="type.railway.station">Vasútállomás</string>
+	<string name="type.railway.station.funicular">Sikló</string>
+	<string name="type.railway.station.light_rail">Vasútállomás</string>
+	<string name="type.railway.station.light_rail.london">Vasútállomás</string>
+	<string name="type.railway.station.light_rail.porto">Vasútállomás</string>
+	<string name="type.railway.station.monorail">Vasútállomás</string>
+	<string name="type.railway.station.subway">Metrómegálló</string>
+	<string name="type.railway.station.subway.adana">Metrómegálló</string>
+	<string name="type.railway.station.subway.algiers">Metrómegálló</string>
+	<string name="type.railway.station.subway.almaty">Metrómegálló</string>
+	<string name="type.railway.station.subway.amsterdam">Metrómegálló</string>
+	<string name="type.railway.station.subway.ankara">Metrómegálló</string>
+	<string name="type.railway.station.subway.athens">Metrómegálló</string>
+	<string name="type.railway.station.subway.baku">Metrómegálló</string>
+	<string name="type.railway.station.subway.bangkok">Metrómegálló</string>
+	<string name="type.railway.station.subway.barcelona">Metrómegálló</string>
+	<string name="type.railway.station.subway.beijing">Metrómegálló</string>
+	<string name="type.railway.station.subway.bengalore">Metrómegálló</string>
+	<string name="type.railway.station.subway.berlin">Metrómegálló</string>
+	<string name="type.railway.station.subway.bilbao">Metrómegálló</string>
+	<string name="type.railway.station.subway.brasilia">Metrómegálló</string>
+	<string name="type.railway.station.subway.brescia">Metrómegálló</string>
+	<string name="type.railway.station.subway.brussels">Metrómegálló</string>
+	<string name="type.railway.station.subway.bucharest">Metrómegálló</string>
+	<string name="type.railway.station.subway.budapest">Metrómegálló</string>
+	<string name="type.railway.station.subway.buenos_aires">Metrómegálló</string>
+	<string name="type.railway.station.subway.bursa">Metrómegálló</string>
+	<string name="type.railway.station.subway.cairo">Metrómegálló</string>
+	<string name="type.railway.station.subway.caracas">Metrómegálló</string>
+	<string name="type.railway.station.subway.catania">Metrómegálló</string>
+	<string name="type.railway.station.subway.changchun">Metrómegálló</string>
+	<string name="type.railway.station.subway.chengdu">Metrómegálló</string>
+	<string name="type.railway.station.subway.chicago">Metrómegálló</string>
+	<string name="type.railway.station.subway.chongqing">Metrómegálló</string>
+	<string name="type.railway.station.subway.dalian">Metrómegálló</string>
+	<string name="type.railway.station.subway.delhi">Metrómegálló</string>
+	<string name="type.railway.station.subway.dnepro">Metrómegálló</string>
+	<string name="type.railway.station.subway.dubai">Metrómegálló</string>
+	<string name="type.railway.station.subway.ekb">Metrómegálló</string>
+	<string name="type.railway.station.subway.fukuoka">Metrómegálló</string>
+	<string name="type.railway.station.subway.glasgow">Metrómegálló</string>
+	<string name="type.railway.station.subway.guangzhou">Metrómegálló</string>
+	<string name="type.railway.station.subway.hamburg">Metrómegálló</string>
+	<string name="type.railway.station.subway.helsinki">Metrómegálló</string>
+	<string name="type.railway.station.subway.hiroshima">Metrómegálló</string>
+	<string name="type.railway.station.subway.isfahan">Metrómegálló</string>
+	<string name="type.railway.station.subway.istanbul">Metrómegálló</string>
+	<string name="type.railway.station.subway.izmir">Metrómegálló</string>
+	<string name="type.railway.station.subway.kazan">Metrómegálló</string>
+	<string name="type.railway.station.subway.kharkiv">Metrómegálló</string>
+	<string name="type.railway.station.subway.kiev">Metrómegálló</string>
+	<string name="type.railway.station.subway.kobe">Metrómegálló</string>
+	<string name="type.railway.station.subway.kolkata">Metrómegálló</string>
+	<string name="type.railway.station.subway.kunming">Metrómegálló</string>
+	<string name="type.railway.station.subway.kyoto">Metrómegálló</string>
+	<string name="type.railway.station.subway.la">Metrómegálló</string>
+	<string name="type.railway.station.subway.lausanne">Metrómegálló</string>
+	<string name="type.railway.station.subway.lille">Metrómegálló</string>
+	<string name="type.railway.station.subway.lima">Metrómegálló</string>
+	<string name="type.railway.station.subway.lisboa">Metrómegálló</string>
+	<string name="type.railway.station.subway.london">Metrómegálló</string>
+	<string name="type.railway.station.subway.lyon">Metrómegálló</string>
+	<string name="type.railway.station.subway.madrid">Metrómegálló</string>
+	<string name="type.railway.station.subway.malaga">Metrómegálló</string>
+	<string name="type.railway.station.subway.manila">Metrómegálló</string>
+	<string name="type.railway.station.subway.maracaibo">Metrómegálló</string>
+	<string name="type.railway.station.subway.mashhad">Metrómegálló</string>
+	<string name="type.railway.station.subway.mecca">Metrómegálló</string>
+	<string name="type.railway.station.subway.medellin">Metrómegálló</string>
+	<string name="type.railway.station.subway.mexico">Metrómegálló</string>
+	<string name="type.railway.station.subway.milan">Metrómegálló</string>
+	<string name="type.railway.station.subway.minsk">Metrómegálló</string>
+	<string name="type.railway.station.subway.montreal">Metrómegálló</string>
+	<string name="type.railway.station.subway.moscow">Metrómegálló</string>
+	<string name="type.railway.station.subway.munchen">Metrómegálló</string>
+	<string name="type.railway.station.subway.nagoya">Metrómegálló</string>
+	<string name="type.railway.station.subway.newyork">Metrómegálló</string>
+	<string name="type.railway.station.subway.nnov">Metrómegálló</string>
+	<string name="type.railway.station.subway.novosibirsk">Metrómegálló</string>
+	<string name="type.railway.station.subway.osaka">Metrómegálló</string>
+	<string name="type.railway.station.subway.oslo">Metrómegálló</string>
+	<string name="type.railway.station.subway.palma">Metrómegálló</string>
+	<string name="type.railway.station.subway.panama">Metrómegálló</string>
+	<string name="type.railway.station.subway.paris">Metrómegálló</string>
+	<string name="type.railway.station.subway.philadelphia">Metrómegálló</string>
+	<string name="type.railway.station.subway.pyongyang">Metrómegálló</string>
+	<string name="type.railway.station.subway.rennes">Metrómegálló</string>
+	<string name="type.railway.station.subway.rio">Metrómegálló</string>
+	<string name="type.railway.station.subway.roma">Metrómegálló</string>
+	<string name="type.railway.station.subway.rotterdam">Metrómegálló</string>
+	<string name="type.railway.station.subway.samara">Metrómegálló</string>
+	<string name="type.railway.station.subway.santiago">Metrómegálló</string>
+	<string name="type.railway.station.subway.santo_domingo">Metrómegálló</string>
+	<string name="type.railway.station.subway.saopaulo">Metrómegálló</string>
+	<string name="type.railway.station.subway.sapporo">Metrómegálló</string>
+	<string name="type.railway.station.subway.sendai">Metrómegálló</string>
+	<string name="type.railway.station.subway.sf">Metrómegálló</string>
+	<string name="type.railway.station.subway.shanghai">Metrómegálló</string>
+	<string name="type.railway.station.subway.shiraz">Metrómegálló</string>
+	<string name="type.railway.station.subway.singapore">Metrómegálló</string>
+	<string name="type.railway.station.subway.sofia">Metrómegálló</string>
+	<string name="type.railway.station.subway.spb">Metrómegálló</string>
+	<string name="type.railway.station.subway.stockholm">Metrómegálló</string>
+	<string name="type.railway.station.subway.tabriz">Metrómegálló</string>
+	<string name="type.railway.station.subway.taipei">Metrómegálló</string>
+	<string name="type.railway.station.subway.taoyuan">Metrómegálló</string>
+	<string name="type.railway.station.subway.tashkent">Metrómegálló</string>
+	<string name="type.railway.station.subway.tbilisi">Metrómegálló</string>
+	<string name="type.railway.station.subway.tehran">Metrómegálló</string>
+	<string name="type.railway.station.subway.tianjin">Metrómegálló</string>
+	<string name="type.railway.station.subway.tokyo">Metrómegálló</string>
+	<string name="type.railway.station.subway.valencia">Metrómegálló</string>
+	<string name="type.railway.station.subway.vienna">Metrómegálló</string>
+	<string name="type.railway.station.subway.warszawa">Metrómegálló</string>
+	<string name="type.railway.station.subway.washington">Metrómegálló</string>
+	<string name="type.railway.station.subway.wuhan">Metrómegálló</string>
+	<string name="type.railway.station.subway.yerevan">Metrómegálló</string>
+	<string name="type.railway.station.subway.yokohama">Metrómegálló</string>
+	<string name="type.railway.subway_entrance">Metróbejárat</string>
+	<string name="type.railway.subway_entrance.adana">Metróbejárat</string>
+	<string name="type.railway.subway_entrance.algiers">Metróbejárat</string>
+	<string name="type.railway.subway_entrance.almaty">Metróbejárat</string>
+	<string name="type.railway.subway_entrance.amsterdam">Metróbejárat</string>
+	<string name="type.railway.subway_entrance.ankara">Metróbejárat</string>
+	<string name="type.railway.subway_entrance.athens">Metróbejárat</string>
+	<string name="type.railway.subway_entrance.baku">Metróbejárat</string>
+	<string name="type.railway.subway_entrance.bangkok">Metróbejárat</string>
+	<string name="type.railway.subway_entrance.barcelona">Metróbejárat</string>
+	<string name="type.railway.subway_entrance.beijing">Metróbejárat</string>
+	<string name="type.railway.subway_entrance.bengalore">Metróbejárat</string>
+	<string name="type.railway.subway_entrance.berlin">Metróbejárat</string>
+	<string name="type.railway.subway_entrance.bilbao">Metróbejárat</string>
+	<string name="type.railway.subway_entrance.brasilia">Metróbejárat</string>
+	<string name="type.railway.subway_entrance.brescia">Metróbejárat</string>
+	<string name="type.railway.subway_entrance.brussels">Metróbejárat</string>
+	<string name="type.railway.subway_entrance.bucharest">Metróbejárat</string>
+	<string name="type.railway.subway_entrance.budapest">Metróbejárat</string>
+	<string name="type.railway.subway_entrance.buenos_aires">Metróbejárat</string>
+	<string name="type.railway.subway_entrance.bursa">Metróbejárat</string>
+	<string name="type.railway.subway_entrance.cairo">Metróbejárat</string>
+	<string name="type.railway.subway_entrance.caracas">Metróbejárat</string>
+	<string name="type.railway.subway_entrance.catania">Metróbejárat</string>
+	<string name="type.railway.subway_entrance.changchun">Metróbejárat</string>
+	<string name="type.railway.subway_entrance.chengdu">Metróbejárat</string>
+	<string name="type.railway.subway_entrance.chicago">Metróbejárat</string>
+	<string name="type.railway.subway_entrance.chongqing">Metróbejárat</string>
+	<string name="type.railway.subway_entrance.dalian">Metróbejárat</string>
+	<string name="type.railway.subway_entrance.delhi">Metróbejárat</string>
+	<string name="type.railway.subway_entrance.dnepro">Metróbejárat</string>
+	<string name="type.railway.subway_entrance.dubai">Metróbejárat</string>
+	<string name="type.railway.subway_entrance.ekb">Metróbejárat</string>
+	<string name="type.railway.subway_entrance.fukuoka">Metróbejárat</string>
+	<string name="type.railway.subway_entrance.glasgow">Metróbejárat</string>
+	<string name="type.railway.subway_entrance.guangzhou">Metróbejárat</string>
+	<string name="type.railway.subway_entrance.hamburg">Metróbejárat</string>
+	<string name="type.railway.subway_entrance.helsinki">Metróbejárat</string>
+	<string name="type.railway.subway_entrance.hiroshima">Metróbejárat</string>
+	<string name="type.railway.subway_entrance.isfahan">Metróbejárat</string>
+	<string name="type.railway.subway_entrance.istanbul">Metróbejárat</string>
+	<string name="type.railway.subway_entrance.izmir">Metróbejárat</string>
+	<string name="type.railway.subway_entrance.kazan">Metróbejárat</string>
+	<string name="type.railway.subway_entrance.kharkiv">Metróbejárat</string>
+	<string name="type.railway.subway_entrance.kiev">Metróbejárat</string>
+	<string name="type.railway.subway_entrance.kobe">Metróbejárat</string>
+	<string name="type.railway.subway_entrance.kolkata">Metróbejárat</string>
+	<string name="type.railway.subway_entrance.kunming">Metróbejárat</string>
+	<string name="type.railway.subway_entrance.kyoto">Metróbejárat</string>
+	<string name="type.railway.subway_entrance.la">Metróbejárat</string>
+	<string name="type.railway.subway_entrance.lausanne">Metróbejárat</string>
+	<string name="type.railway.subway_entrance.lille">Metróbejárat</string>
+	<string name="type.railway.subway_entrance.lima">Metróbejárat</string>
+	<string name="type.railway.subway_entrance.lisboa">Metróbejárat</string>
+	<string name="type.railway.subway_entrance.london">Metróbejárat</string>
+	<string name="type.railway.subway_entrance.lyon">Metróbejárat</string>
+	<string name="type.railway.subway_entrance.madrid">Metróbejárat</string>
+	<string name="type.railway.subway_entrance.malaga">Metróbejárat</string>
+	<string name="type.railway.subway_entrance.manila">Metróbejárat</string>
+	<string name="type.railway.subway_entrance.maracaibo">Metróbejárat</string>
+	<string name="type.railway.subway_entrance.mashhad">Metróbejárat</string>
+	<string name="type.railway.subway_entrance.mecca">Metróbejárat</string>
+	<string name="type.railway.subway_entrance.medellin">Metróbejárat</string>
+	<string name="type.railway.subway_entrance.mexico">Metróbejárat</string>
+	<string name="type.railway.subway_entrance.milan">Metróbejárat</string>
+	<string name="type.railway.subway_entrance.minsk">Metróbejárat</string>
+	<string name="type.railway.subway_entrance.montreal">Metróbejárat</string>
+	<string name="type.railway.subway_entrance.moscow">Metróbejárat</string>
+	<string name="type.railway.subway_entrance.munchen">Metróbejárat</string>
+	<string name="type.railway.subway_entrance.nagoya">Metróbejárat</string>
+	<string name="type.railway.subway_entrance.newyork">Metróbejárat</string>
+	<string name="type.railway.subway_entrance.nnov">Metróbejárat</string>
+	<string name="type.railway.subway_entrance.novosibirsk">Metróbejárat</string>
+	<string name="type.railway.subway_entrance.osaka">Metróbejárat</string>
+	<string name="type.railway.subway_entrance.oslo">Metróbejárat</string>
+	<string name="type.railway.subway_entrance.palma">Metróbejárat</string>
+	<string name="type.railway.subway_entrance.panama">Metróbejárat</string>
+	<string name="type.railway.subway_entrance.paris">Metróbejárat</string>
+	<string name="type.railway.subway_entrance.philadelphia">Metróbejárat</string>
+	<string name="type.railway.subway_entrance.pyongyang">Metróbejárat</string>
+	<string name="type.railway.subway_entrance.rennes">Metróbejárat</string>
+	<string name="type.railway.subway_entrance.rio">Metróbejárat</string>
+	<string name="type.railway.subway_entrance.roma">Metróbejárat</string>
+	<string name="type.railway.subway_entrance.rotterdam">Metróbejárat</string>
+	<string name="type.railway.subway_entrance.samara">Metróbejárat</string>
+	<string name="type.railway.subway_entrance.santiago">Metróbejárat</string>
+	<string name="type.railway.subway_entrance.santo_domingo">Metróbejárat</string>
+	<string name="type.railway.subway_entrance.saopaulo">Metróbejárat</string>
+	<string name="type.railway.subway_entrance.sapporo">Metróbejárat</string>
+	<string name="type.railway.subway_entrance.sendai">Metróbejárat</string>
+	<string name="type.railway.subway_entrance.sf">Metróbejárat</string>
+	<string name="type.railway.subway_entrance.shanghai">Metróbejárat</string>
+	<string name="type.railway.subway_entrance.shiraz">Metróbejárat</string>
+	<string name="type.railway.subway_entrance.singapore">Metróbejárat</string>
+	<string name="type.railway.subway_entrance.sofia">Metróbejárat</string>
+	<string name="type.railway.subway_entrance.spb">Metróbejárat</string>
+	<string name="type.railway.subway_entrance.stockholm">Metróbejárat</string>
+	<string name="type.railway.subway_entrance.tabriz">Metróbejárat</string>
+	<string name="type.railway.subway_entrance.taipei">Metróbejárat</string>
+	<string name="type.railway.subway_entrance.taoyuan">Metróbejárat</string>
+	<string name="type.railway.subway_entrance.tashkent">Metróbejárat</string>
+	<string name="type.railway.subway_entrance.tbilisi">Metróbejárat</string>
+	<string name="type.railway.subway_entrance.tehran">Metróbejárat</string>
+	<string name="type.railway.subway_entrance.tianjin">Metróbejárat</string>
+	<string name="type.railway.subway_entrance.tokyo">Metróbejárat</string>
+	<string name="type.railway.subway_entrance.valencia">Metróbejárat</string>
+	<string name="type.railway.subway_entrance.vienna">Metróbejárat</string>
+	<string name="type.railway.subway_entrance.warszawa">Metróbejárat</string>
+	<string name="type.railway.subway_entrance.washington">Metróbejárat</string>
+	<string name="type.railway.subway_entrance.wuhan">Metróbejárat</string>
+	<string name="type.railway.subway_entrance.yerevan">Metróbejárat</string>
+	<string name="type.railway.subway_entrance.yokohama">Metróbejárat</string>
 	<string name="type.railway.tram_stop">Villamosmegálló</string>
 	<string name="type.shop">Bolt</string>
 	<string name="type.shop.alcohol">Italbolt</string>
 	<string name="type.shop.bakery">Pékség</string>
-	<string name="type.shop.bathroom_furnishing">Fürdőszoba berendezési tárgyak</string>
+	<string name="type.shop.bathroom_furnishing">Fürdőszobai bútorok</string>
 	<string name="type.shop.beauty">Szépségszalon</string>
 	<string name="type.shop.beverages">Italok</string>
-	<string name="type.shop.bicycle">Kerékpár üzlet</string>
+	<string name="type.shop.bicycle">Kerékpárüzlet</string>
 	<string name="type.shop.bookmaker">Fogadóiroda</string>
 	<string name="type.shop.books">Könyvesbolt</string>
 	<string name="type.shop.butcher">Hentes</string>
-	<string name="type.shop.cannabis">Cannabis Store</string>
-	<string name="type.shop.car">Gépkocsi bolt</string>
-	<string name="type.shop.car_parts">Autó alkatrészek</string>
-	<string name="type.shop.car_repair">Gépkocsi szervíz</string>
+	<string name="type.shop.cannabis">Kannabiszüzlet</string>
+	<string name="type.shop.car">Autókereskedés</string>
+	<string name="type.shop.car_parts">Autóalkatrész-bolt</string>
+	<string name="type.shop.car_repair">Autószerviz</string>
 	<string name="type.shop.car_repair.tyres">Gumiszerviz</string>
 	<string name="type.shop.carpet">Szőnyegek</string>
 	<string name="type.shop.chemist">Drogéria</string>
 	<string name="type.shop.chocolate">Csokoládébolt</string>
 	<string name="type.shop.clothes">Ruhabolt</string>
 	<string name="type.shop.coffee">Kávébolt</string>
-	<string name="type.shop.computer">Számítógép üzlet</string>
+	<string name="type.shop.computer">Számítógépüzlet</string>
 	<string name="type.shop.confectionery">Cukrászüzlet</string>
 	<string name="type.shop.convenience">Csemegebolt</string>
-	<string name="type.shop.copyshop">Fénymásoló üzlet</string>
-	<string name="type.shop.cosmetics">Kozmetikum</string>
+	<string name="type.shop.copyshop">Fénymásoló</string>
+	<string name="type.shop.cosmetics">Kozmetikumok</string>
 	<string name="type.shop.curtain">Függönyök</string>
 	<string name="type.shop.deli">Csemegebolt</string>
 	<string name="type.shop.department_store">Áruház</string>
-	<string name="type.shop.doityourself">Vaskereskedés</string>
+	<string name="type.shop.doityourself">Barkácsáruház</string>
 	<string name="type.shop.dry_cleaning">Ruhatisztító</string>
 	<string name="type.shop.electronics">Elektronika</string>
 	<string name="type.shop.erotic">Erotikus bolt</string>
 	<string name="type.shop.fabric">Szövetbolt</string>
-	<string name="type.shop.farm">Farm Food Shop</string>
-	<string name="type.shop.fashion_accessories">Divat kiegészítők</string>
+	<string name="type.shop.farm">Termelői bolt</string>
+	<string name="type.shop.fashion_accessories">Divatkiegészítők</string>
 	<string name="type.shop.florist">Virágos</string>
 	<string name="type.shop.funeral_directors">Temetkezési vállalkozó</string>
 	<string name="type.shop.furniture">Bútoráruház</string>
-	<string name="type.shop.garden_centre">Faiskola</string>
+	<string name="type.shop.garden_centre">Kertcentrum</string>
 	<string name="type.shop.gas">Gázbolt</string>
 	<string name="type.shop.gift">Ajándékbolt</string>
 	<string name="type.shop.greengrocer">Zöldséges</string>
 	<string name="type.shop.grocery">Élelmiszerbolt</string>
 	<string name="type.shop.hairdresser">Fodrász</string>
 	<string name="type.shop.hardware">Barkácsüzlet</string>
-	<string name="type.shop.health_food">Egészségügyi élelmiszerbolt</string>
-	<string name="type.shop.herbalist">Gyógynövény bolt</string>
+	<string name="type.shop.health_food">Egészséges élelmiszerek boltja</string>
+	<string name="type.shop.herbalist">Gyógynövénybolt</string>
 	<string name="type.shop.hifi">HiFi Audio</string>
 	<string name="type.shop.houseware">Háztartási bolt</string>
-	<string name="type.shop.jewelry">Ékszer</string>
+	<string name="type.shop.jewelry">Ékszerüzlet</string>
 	<string name="type.shop.kiosk">Trafik</string>
-	<string name="type.shop.kitchen">Konyhabolt</string>
+	<string name="type.shop.kitchen">Konyhafelszerelési áruház</string>
 	<string name="type.shop.laundry">Mosoda</string>
-	<string name="type.shop.mall">A pláza</string>
-	<string name="type.shop.massage">Masszázs szalon</string>
+	<string name="type.shop.mall">Bevásárlóközpont</string>
+	<string name="type.shop.massage">Masszázsszalon</string>
 	<string name="type.shop.mobile_phone">Mobiltelefon üzlet</string>
 	<string name="type.shop.money_lender">Pénzkölcsönző</string>
 	<string name="type.shop.motorcycle">Motorkerékpár üzlet</string>
-	<string name="type.shop.motorcycle_repair">Motorkerékpár javítás</string>
+	<string name="type.shop.motorcycle_repair">Motorkerékpár-szerviz</string>
 	<string name="type.shop.music">Lemezbolt</string>
 	<string name="type.shop.musical_instrument">Hangszerbolt</string>
 	<string name="type.shop.newsagent">Újságárus</string>
@@ -1726,52 +1774,52 @@
 	<string name="type.shop.pastry">Cukrászda</string>
 	<string name="type.shop.pawnbroker">Zálogház</string>
 	<string name="type.shop.pet">Házikedvenc-üzlet</string>
-	<string name="type.shop.pet_grooming">Kisállat ápolás</string>
-	<string name="type.shop.photo">Fénykép üzlet</string>
+	<string name="type.shop.pet_grooming">Kisállatápolás</string>
+	<string name="type.shop.photo">Fotóüzlet</string>
 	<string name="type.shop.rental">Kölcsönző</string>
 	<string name="type.shop.rental.bicycle">Kerékpárkölcsönző</string>
-	<string name="type.shop.seafood">Halüzlet</string>
-	<string name="type.shop.second_hand">Second Hand Store</string>
+	<string name="type.shop.seafood">Halkereskedő</string>
+	<string name="type.shop.second_hand">Bizományi áruház</string>
 	<string name="type.shop.shoes">Cipőbolt</string>
 	<string name="type.shop.sports">Sporteszközök</string>
-	<string name="type.shop.stationery">Írószer bolt</string>
-	<string name="type.shop.supermarket">Bevásárlóközpont</string>
-	<string name="type.shop.tattoo">Tetováló szalon</string>
-	<string name="type.shop.tea">Tea bolt</string>
+	<string name="type.shop.stationery">Papír-írószer bolt</string>
+	<string name="type.shop.supermarket">Szupermarket</string>
+	<string name="type.shop.tattoo">Tetoválószalon</string>
+	<string name="type.shop.tea">Teabolt</string>
 	<string name="type.shop.ticket">Jegyiroda</string>
 	<string name="type.shop.toys">Játékbolt</string>
 	<string name="type.shop.travel_agency">Utazási iroda</string>
-	<string name="type.shop.tyres">Gumi szaküzlet</string>
+	<string name="type.shop.tyres">Gumiszaküzlet</string>
 	<string name="type.shop.variety_store">Vegyeskereskedés</string>
 	<string name="type.shop.video">Videotéka</string>
-	<string name="type.shop.video_games">Videojáték bolt</string>
+	<string name="type.shop.video_games">Videojáték-bolt</string>
 	<string name="type.shop.wine">Szeszesital-üzlet</string>
 	<string name="type.shop.agrarian">Mezőgazdasági bolt</string>
 	<string name="type.shop.antiques">Régiségek</string>
-	<string name="type.shop.appliance">Készülék bolt</string>
+	<string name="type.shop.appliance">Háztartási készülékek boltja</string>
 	<!-- maybe change to Art Gallery for en-US when supported -->
-	<string name="type.shop.art">Művészeti Bolt</string>
+	<string name="type.shop.art">Művészeti alkotások boltja</string>
 	<string name="type.shop.baby_goods">Bababolt</string>
-	<string name="type.shop.bag">Táskák bolt</string>
+	<string name="type.shop.bag">Táskabolt</string>
 	<string name="type.shop.bed">Ágyak boltja</string>
 	<string name="type.shop.boutique">Butik</string>
-	<string name="type.shop.charity">Jótékonysági Bolt</string>
+	<string name="type.shop.charity">Jótékonysági bolt</string>
 	<string name="type.shop.cheese">Sajtbolt</string>
-	<string name="type.shop.craft">Művészetek és kézművesség</string>
+	<string name="type.shop.craft">Kézműves kellékek boltja</string>
 	<string name="type.shop.dairy">Tejtermékek</string>
 	<string name="type.shop.electrical">Elektronikai üzlet</string>
 	<string name="type.shop.fishing">Horgászbolt</string>
-	<string name="type.shop.interior_decoration">Belső dekorációk</string>
+	<string name="type.shop.interior_decoration">Lakberendezési áruház</string>
 	<string name="type.shop.lottery">Lottózó</string>
 	<string name="type.shop.medical_supply">Orvosi eszközök</string>
 	<string name="type.shop.nutrition_supplements">Táplálékkiegészítők</string>
-	<string name="type.shop.paint">Festékek</string>
-	<string name="type.shop.perfumery">Illatszerek</string>
-	<string name="type.shop.sewing">Varrás kellékek</string>
+	<string name="type.shop.paint">Festékbolt</string>
+	<string name="type.shop.perfumery">Illatszerbolt</string>
+	<string name="type.shop.sewing">Varrókellékek boltja</string>
 	<string name="type.shop.storage_rental">Tárhely bérlés</string>
-	<string name="type.shop.tobacco">Dohány</string>
-	<string name="type.shop.trade">Kellékekkel kereskedik</string>
-	<string name="type.shop.watches">Órák</string>
+	<string name="type.shop.tobacco">Dohánybolt</string>
+	<string name="type.shop.trade">Kereskedelmi kellékek</string>
+	<string name="type.shop.watches">Órabolt</string>
 	<string name="type.shop.wholesale">Nagykereskedelmi üzlet</string>
 	<string name="type.sport">Sport</string>
 	<string name="type.sport.american_football">Amerikai foci</string>
@@ -1856,6 +1904,10 @@
 	<string name="type.wheelchair.limited">Korlátozottan akadálymentesített</string>
 	<string name="type.wheelchair.no">Nem akadálymentesített</string>
 	<string name="type.wheelchair.yes">Teljesen akadálymentesített</string>
+	<string name="type.piste_type.snow_park">Snow Park</string>
+	<string name="type.piste_type.hike">Hó túraútvonal</string>
+	<string name="type.piste_type.connection">Pálya kapcsolat</string>
+	<string name="type.piste_type.skitour">Skitúra ösvény</string>
 	<string name="type.amenity.events_venue">Rendezvények helyszíne</string>
 	<string name="type.shop.auction">Aukció</string>
 	<string name="type.shop.collector">Gyűjthető tárgyak</string>

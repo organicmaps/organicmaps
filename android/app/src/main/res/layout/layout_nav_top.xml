@@ -6,7 +6,6 @@
   android:id="@+id/nav_top_frame"
   android:layout_width="match_parent"
   android:layout_height="match_parent"
-  android:layoutDirection="ltr"
   tools:background="#20FF0000"
   tools:showIn="@layout/layout_nav">
   <FrameLayout
@@ -39,7 +38,7 @@
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
     app:layout_constraintTop_toBottomOf="@id/street_frame"
-    app:layout_constraintLeft_toLeftOf="parent"
+    app:layout_constraintStart_toStartOf="parent"
     android:layout_marginTop="-40dp"
     android:clickable="true"
     android:elevation="@dimen/nav_elevation">

@@ -1,25 +1,5 @@
 include(OmimConfig)
 
-# Function for setting target platform:
-function(omim_set_platform_var PLATFORM_VAR pattern)
-  set(${PLATFORM_VAR} FALSE PARENT_SCOPE)
-
-  if (NOT PLATFORM)
-    if (${ARGN})
-      list(GET ARGN 0 default_case)
-      if (${default_case})
-        set(${PLATFORM_VAR} TRUE PARENT_SCOPE)
-        message("Setting ${PLATFORM_VAR} to true")
-      endif()
-    endif()
-  else()
-    message("Platform: ${PLATFORM}")
-    if (${PLATFORM} MATCHES ${pattern})
-      set(${PLATFORM_VAR} TRUE PARENT_SCOPE)
-    endif()
-  endif()
-endfunction()
-
 # Functions for using in subdirectories
 function(omim_add_executable executable)
   add_executable(${executable} ${ARGN})

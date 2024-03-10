@@ -44,9 +44,9 @@
 	<!-- Text in About screen -->
 	<string name="about_proposition_1">• لا إعلانات ، لا تتبع ، لا جمع البيانات</string>
 	<!-- Text in About screen -->
-	<string name="about_proposition_2">• يحفظ البطارية ، لا يستخدم بيانات الخلفية</string>
+	<string name="about_proposition_2">• لا يوجد استنزاف للبطارية، يعمل دون اتصال بالإنترنت</string>
 	<!-- Text in About screen -->
-	<string name="about_proposition_3">• سريع ، الحد الأدنى ، لا خردة</string>
+	<string name="about_proposition_3">• سريع وبسيط، تم تطويره بواسطة المجتمع</string>
 	<!-- Text in About screen -->
 	<string name="about_developed_by_enthusiasts">تطبيق مفتوح المصدر الذي أنشأه المتحمسون والمتطوعون.</string>
 	<!-- The button that opens system location settings -->
@@ -83,7 +83,7 @@
 	<string name="core_my_places">أماكني</string>
 	<!-- Add bookmark dialog - bookmark name -->
 	<string name="name">الاسم</string>
-	<!-- Editor title above street and house number -->
+	<!-- Editor title above street and house number, duplicates [type.building.address] in types_strings.txt -->
 	<string name="address">العنوان</string>
 	<!-- Add Bookmark dialog/Bookmark list; Bookmarks dialog/Bookmark list cell. -->
 	<string name="list">قائمة</string>
@@ -109,7 +109,7 @@
 	<string name="move_maps">هل تريد نقل الخرائط؟</string>
 	<!-- Error moving map files from one storage to another -->
 	<string name="move_maps_error">فشلت عملية نقل ملفات الخرائط</string>
-	<!-- Ask to wait user several minutes (some long process in modal dialog). -->
+	<!-- Ask user to wait several minutes (some long process in modal dialog). -->
 	<string name="wait_several_minutes">يمكن أن تستغرق هذه العملية عدة دقائق.\nالرجاء الانتظار…</string>
 	<!-- Measurement units title in settings activity -->
 	<string name="measurement_units">وحدات القياس</string>
@@ -174,6 +174,10 @@
 	<string name="load_kmz_successful">تم تحميل الإشارات المرجعية بنجاح! يمكنك العثور عليها على الخريطة أو على شاشة إدارة الإشارات المرجعية.</string>
 	<!-- Kml file loading failed -->
 	<string name="load_kmz_failed">فشلت عملية تحميل الإشارات المرجعية. قد يكون الملف تالف أو غير صالح.</string>
+	<!-- Failed to recognize the format of a bookmarks or tracks file. -->
+	<string name="unknown_file_type">لم يتعرف التطبيق على نوع الملف:\n%1$s</string>
+	<!-- Failed to open a bookmarks or tracks file in Organic Maps. -->
+	<string name="failed_to_open_file">فشل فتح ملف  %1$s\n\n%2$s</string>
 	<!-- resource for context menu -->
 	<string name="edit">تعديل</string>
 	<!-- Warning message when doing search around current position -->
@@ -216,6 +220,10 @@
 	<string name="pref_zoom_summary">عرض على الشاشة</string>
 	<!-- Settings «Map» category: «Night style» title -->
 	<string name="pref_map_style_title">الوضع الليلي</string>
+	<!-- Settings "Appearance" category: "Light" title, should be consistent with the pref_appearance_title translation. -->
+	<string name="pref_appearance_light">فاتح</string>
+	<!-- Settings "Appearance" category: "Dark" title, should be consistent with the pref_appearance_title translation. -->
+	<string name="pref_appearance_dark">داكن</string>
 	<!-- Generic «Off» string -->
 	<string name="off">تعطيل</string>
 	<!-- Generic «On» string -->
@@ -489,8 +497,8 @@
 	<string name="editor_report_problem_other_title">مشكلة أخرى</string>
 	<string name="placepage_add_business_button">إضافة مؤسسة</string>
 	<string name="message_invalid_feature_position">لا يمكن تحديد موقع الكائن هنا</string>
-	<!-- Text in About and OSM Login screens. %@ is replaced by a local, human readable date. -->
-	<string name="osm_presentation">بيانات رسم الخرائط من OpenStreetMap اعتبارًا من %s. إنه مثل ويكيبيديا حيث يمكنك إضافة أو تحرير أماكن لجميع المستخدمين في جميع أنحاء العالم.</string>
+	<!-- Text in About and OSM Login screens. First %@ is replaced by a local, human readable date. -->
+	<string name="osm_presentation">بيانات OpenStreetMap التي أنشأها المجتمع اعتبارًا من %s. تعرف على المزيد حول كيفية تعديل الخريطة وتحديثها على OpenStreetMap.org</string>
 	<string name="login_to_make_edits_visible">قم بتسجيل الدخول حتى يتمكن باقي المستخدمين من رؤية التغييرات التي قمت بها.</string>
 	<!-- Downloaded 10 **of** 20 <- it is that "of" -->
 	<string name="downloader_of">%1$d من%2$d</string>
@@ -511,15 +519,14 @@
 	<string name="editor_operator">المالك</string>
 	<string name="downloader_no_downloaded_maps_title">لم تقم بتنزيل أية خرائط</string>
 	<string name="downloader_no_downloaded_maps_message">قم بتنزيل خرائط للبحث عن مكان واستخدام الملاحة بدون اتصال بالإنترنت.</string>
-	<!-- Error title that appears after certain time without location. -->
-	<string name="current_location_unknown_title">هل تريد متابعة اكتشاف موقعك الحالي؟</string>
-	<!-- Error that appears after certain time without location. -->
-	<string name="current_location_unknown_message">الموقع الحالي غير معروف. ربما تتواجد داخل مبنى أو نفق.</string>
-	<string name="current_location_unknown_continue_button">الاستمرار</string>
-	<string name="current_location_unknown_stop_button">إيقاف</string>
+	<string name="stop">إيقاف</string>
+	<!-- abbreviation for meters -->
 	<string name="m">متر</string>
+	<!-- abbreviation for kilometers -->
 	<string name="km">كم</string>
+	<!-- abbreviation for kilometers per hour -->
 	<string name="kilometers_per_hour">كم/ساعة</string>
+	<!-- abbreviation for mile(s) -->
 	<string name="mi">ميل</string>
 	<!-- A unit of measure -->
 	<string name="ft">قدم</string>
@@ -650,6 +657,12 @@
 	<string name="place_description_title">وصف المكان</string>
 	<!-- this text will be shown in application notification preferences opposite checkbox which enable/disable downloader notifications. Devices on Android 8+ are affected. -->
 	<string name="notification_channel_downloader">مُنزّل الخريطة</string>
+	<!-- Speed camera settings menu option - Warn (about speedcams) if risk of exceeding speed limit -->
+	<string name="pref_tts_speedcams_auto">حذرني  إذا هناك احتمالية تجاوز الحد الأقصى للسرعة</string>
+	<!-- Speed camera settings menu option - Always warn (about speedcams) -->
+	<string name="pref_tts_speedcams_always">حذرني دائما من</string>
+	<!-- Speed camera settings menu option - Never warn (about speedcams) -->
+	<string name="pref_tts_speedcams_never">لا تحذرني من أبداً</string>
 	<string name="power_managment_title">وضع توفير الطاقة</string>
 	<string name="power_managment_description">عندما يتم اختيار الوضع التلقائي، يبدأ التطبيق بتعطيل الخصائص التي تستهلك البطارية بناءً على مستوى شحن البطارية الحالي</string>
 	<string name="power_managment_setting_never">أبدًا</string>
@@ -680,6 +693,8 @@
 	<string name="yes_available">نعم</string>
 	<!-- E.g. "WiFi:No" -->
 	<string name="no_available">لا</string>
+	<!-- To indicate the capacity of car parkings, bicycle parkings, electric vehicle charging stations... -->
+	<string name="capacity">السعة: %s</string>
 	<string name="trip_finished">لقد وصلت!</string>
 	<string name="ok">موافق</string>
 	<!-- max. 10 symbols, both iOS and Android -->
@@ -754,8 +769,26 @@
 	<string name="splash_subtitle">بيانات الخريطة من خريطة الشارع المفتوحة</string>
 	<!-- Link to OSM wiki for Editor, Profile and About pages -->
 	<string name="osm_wiki_about_url">https://wiki.openstreetmap.org/wiki/Ar:About_OpenStreetMap</string>
-	<!-- Tip #00 -->
+	<!-- App Tip #00 -->
 	<string name="app_tip_00">شكرًا لك على استخدام الخرائط التي أنشأها مجتمعنا!</string>
+	<!-- App tip #01 -->
+	<string name="app_tip_01">بتبرعاتكم ودعمكم، يمكننا إنشاء أفضل الخرائط في العالم!</string>
+	<!-- App tip #02 -->
+	<string name="app_tip_02">هل تحب التطبيق لدينا؟ يرجى التبرع لدعم التنمية! لا أحب ذلك حتى الآن؟ واسمحوا لنا أن نعرف، وسوف نقوم بإصلاحه!</string>
+	<!-- App tip #03 -->
+	<string name="app_tip_03">إذا كنت تعرف أحد مطوري البرامج، فيمكنك أن تطلب منه تنفيذ الميزة التي تحتاجها.</string>
+	<!-- App tip #04 -->
+	<string name="app_tip_04">هل تعلم أنه يمكنك النقر لفترة طويلة على أي مكان على الخريطة لتحديده؟</string>
+	<!-- App tip #05 -->
+	<string name="app_tip_05">هل تعلم أنه يمكنك تحديد موقعك الحالي على الخريطة؟</string>
+	<!-- App tip #06 -->
+	<string name="app_tip_06">يمكنك المساعدة في ترجمة تطبيقنا إلى لغتك.</string>
+	<!-- App tip #07 -->
+	<string name="app_tip_07">تم تطوير تطبيقنا من قبل عدد قليل من المتحمسين والمجتمع.</string>
+	<!-- App tip #08 -->
+	<string name="app_tip_08">يمكنك بسهولة إصلاح وتحسين بيانات الخريطة.</string>
+	<!-- App tip #09 -->
+	<string name="app_tip_09">هدفنا الرئيسي هو إنشاء خرائط سريعة وسهلة الاستخدام تركز على الخصوصية والتي ستعجبك.</string>
 	<!-- Text on the Android Auto placeholder screen that maps are displayed on the phone screen -->
 	<string name="aa_used_on_the_phone_screen">أنت الآن تستخدم الخرائط العضوية على شاشة الهاتف</string>
 	<!-- Text on the phone placeholder screen that maps are displayed on the car screen -->
@@ -774,6 +807,15 @@
 	<string name="aa_connected_to_car_notification_title">متصل بالسيارة</string>
 	<!-- Outdoors/hiking map style (activity) name in the Styles and Layers dialog -->
 	<string name="button_layer_outdoor">جولة على الأقدام</string>
+	<!-- Text displayed when a webview or a browser are disabled, and external links can't be opened. -->
+	<string name="browser_not_available">متصفح الويب غير متوفر</string>
+	<string name="volume">مستوى الصوت</string>
+	<!-- Bookmark categories screen, button that opens share dialog to export all bookmarks and tracks -->
+	<string name="bookmarks_export">تصدير كافة الإشارات المرجعية والمسارات</string>
+	<!-- button in (app) TTS settings, to open the system TTS settings. -->
+	<string name="pref_tts_open_system_settings">إعدادات تركيب الكلام النظام</string>
+	<!-- toast displayed when pressing the "Speech synthesis system settings" button, and the system settings aren't found. -->
+	<string name="pref_tts_no_system_tts">لم يتم العثور على إعدادات تركيب الكلام، هل أنت متأكد من أن جهازك يدعمها؟</string>
 
 	<!-- SECTION: Types -->
 	<string name="type.addr_interpolation">العنوان / البلوك</string>
@@ -831,6 +873,7 @@
 	<string name="type.amenity.dentist">طبيب أسنان</string>
 	<string name="type.amenity.doctors">طبيب</string>
 	<string name="type.amenity.drinking_water">مياه شرب</string>
+	<string name="type.drinking_water.yes">مياه شرب</string>
 	<string name="type.amenity.driving_school">مدرسة قيادة</string>
 	<string name="type.amenity.exhibition_centre">مركز المعرض</string>
 	<string name="type.amenity.money_transfer">تحويل المال</string>
@@ -930,6 +973,7 @@
 	<string name="type.amenity.telephone">هاتف</string>
 	<string name="type.amenity.theatre">مسرح</string>
 	<string name="type.amenity.toilets">مرحاض</string>
+	<string name="type.toilets.yes">مرحاض</string>
 	<string name="type.amenity.townhall">مبنى البلدية</string>
 	<string name="type.amenity.university">جامعة</string>
 	<string name="type.amenity.vending_machine">آلة البيع الذاتي</string>
@@ -994,6 +1038,7 @@
 	<string name="type.boundary.administrative.state">حدود محافظة</string>
 	<string name="type.boundary.administrative.suburb">حدود ضاحية</string>
 	<string name="type.boundary.national_park">منتزه وطني</string>
+	<string name="type.boundary.aboriginal_lands">أراضي السكان الأصليين</string>
 	<string name="type.boundary.protected_area">منطقة محمية</string>
 	<string name="type.boundary.protected_area.1">منطقة محمية</string>
 	<string name="type.boundary.protected_area.2">منطقة محمية</string>
@@ -1002,7 +1047,8 @@
 	<string name="type.boundary.protected_area.5">منطقة محمية</string>
 	<string name="type.boundary.protected_area.6">منطقة محمية</string>
 	<string name="type.building">مبنى</string>
-	<string name="type.building.address">مبنى</string>
+	<!-- Duplicates [address] in strings.txt -->
+	<string name="type.building.address">العنوان</string>
 	<string name="type.building.has_parts">مبنى</string>
 	<string name="type.building_part">مبنى</string>
 	<string name="type.building.garage">مرآب</string>
@@ -2007,6 +2053,10 @@
 	<string name="type.wheelchair.limited">دعم محدود للكراسي المتحركة</string>
 	<string name="type.wheelchair.no">لا دعم للكراسي المتحركة</string>
 	<string name="type.wheelchair.yes">دعم كامل للكراسي المتحركة</string>
+	<string name="type.piste_type.snow_park">حديقة الثلج</string>
+	<string name="type.piste_type.hike">مسار المشي على الجليد</string>
+	<string name="type.piste_type.connection">اتصال الزحلقة</string>
+	<string name="type.piste_type.skitour">مسار سكيتور</string>
 	<string name="type.amenity.events_venue">مكان الأحداث</string>
 	<string name="type.shop.auction">مزاد علني</string>
 	<string name="type.shop.collector">مقتنيات</string>

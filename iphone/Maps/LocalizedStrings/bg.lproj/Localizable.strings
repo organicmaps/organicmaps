@@ -52,6 +52,18 @@
 
 "about_menu_title" = "Относно приложението";
 
+/* Text in About screen */
+"about_headline" = "Безплатно за всички, направени с любов";
+
+/* Text in About screen */
+"about_proposition_1" = "• Без реклами, без проследяване, без събиране на данни";
+
+/* Text in About screen */
+"about_proposition_2" = "• Без източване на батерията, работи офлайн";
+
+/* Text in About screen */
+"about_proposition_3" = "• Бързи, минималистични, разработен от общността";
+
 "close" = "Затваряне";
 
 "download" = "Изтегляне";
@@ -80,7 +92,7 @@
 /* Default bookmark list name */
 "core_my_places" = "Мои места";
 
-/* Editor title above street and house number */
+/* Editor title above street and house number, duplicates [type.building.address] in types_strings.txt */
 "address" = "Адрес";
 
 /* Settings button in system menu */
@@ -200,7 +212,7 @@
 "done" = "Готово";
 
 /* Prints version number in About dialog */
-"version" = "Версия: %@";
+"version" = "Версия на Organic Maps: %@";
 
 /* Data version in «About» screen, %@ is replaced by a local, human readable date. */
 "data_version" = "Данни на OpenStreetMap: %@";
@@ -217,8 +229,14 @@
 
 "pref_zoom_title" = "Мащабни бутони";
 
-/* Settings «Map» category: «Night style» title */
-"pref_map_style_title" = "Нощен режим";
+/* Settings «Map» category: «Appearance» title */
+"pref_appearance_title" = "Изглед";
+
+/* Settings "Appearance" category: "Light" title, should be consistent with the pref_appearance_title translation. */
+"pref_appearance_light" = "Светъл";
+
+/* Settings "Appearance" category: "Dark" title, should be consistent with the pref_appearance_title translation. */
+"pref_appearance_dark" = "Тъмен";
 
 /* Generic «Off» string */
 "off" = "Изключен";
@@ -315,6 +333,9 @@
 /* Button in the main menu */
 "donate" = "Дарете";
 
+/* Tex label above the Donate button */
+"donate_description" = "Дарете, за да създадем заедно най-добрите карти!";
+
 /* Button in the main Help dialog */
 "how_to_support_us" = "Подкрепете проекта";
 
@@ -323,6 +344,15 @@
 
 /* Text in menu + Button in the main Help dialog */
 "report_a_bug" = "Докладване на проблем";
+
+/* Button in the About screen */
+"report_incorrect_map_bug" = "Докладване или поправяне на неправилни данни на картата";
+
+/* Button in the About screen */
+"volunteer" = "За доброволчество";
+
+/* "Social media" section header in the About screen */
+"follow_us" = "Следвайте и се свържете с нас:";
 
 /* Alert text */
 "email_error_body" = "Имейл клиентът не е настроен. Моля, конфигурирайте го или използвайте друг начин, за да се свържете с нас на %@";
@@ -704,6 +734,9 @@
 
 "message_invalid_feature_position" = "Тук не може да бъде намерен обект";
 
+/* Text in About and OSM Login screens. First %@ is replaced by a local, human readable date. */
+"osm_presentation" = "Създадени от общността данни от OpenStreetMap към %@. Научете повече за това как да редактирате и актуализирате картата в OpenStreetMap.org";
+
 "login_to_make_edits_visible" = "Влезте в системата, за да могат другите потребители да видят направените от вас промени";
 
 /* Error dialog no space */
@@ -746,15 +779,7 @@
 
 "downloader_no_downloaded_maps_message" = "Изтеглете картите, от които се нуждаете, за да намирате места и да навигирате без интернет.";
 
-/* Error title that appears after certain time without location. */
-"current_location_unknown_title" = "Да продължаваме ли да ви засичаме местоположението?";
-
-/* Error that appears after certain time without location. */
-"current_location_unknown_message" = "Настоящото местоположение е неизвестно. Може би се намирате в сграда или тунел.";
-
-"current_location_unknown_continue_button" = "Продължаване";
-
-"current_location_unknown_stop_button" = "Стоп";
+"stop" = "Стоп";
 
 "current_location_unknown_error_title" = "Настоящото местоположение е неизвестно.";
 
@@ -768,15 +793,27 @@
 
 "location_services_disabled_2" = "2. Натискане на Местоположение";
 
-/* iOS Dialog for the case when the location permission is not granted */
+/* iOS Dialog for the case when the location permission is not granted; you might find the exact wording for your language here: https://support.apple.com/en-us/102647 (replace 'en-us' in URL with your language/region) */
 "location_services_disabled_3" = "3. Избиране на Докато приложението се използва";
 
+"location_services_disabled_on_device_2" = "2. Изберете Privacy";
+
+"location_services_disabled_on_device_3" = "3. Изберете Услуги за местоположение";
+
+"location_services_disabled_on_device_4" = "4. Включете услугите за местоположение";
+
+"location_services_disabled_on_device_additional_message" = "Или продължете да използвате Organic Maps без местоположение";
+
+/* abbreviation for meters */
 "m" = "м";
 
+/* abbreviation for kilometers */
 "km" = "км";
 
+/* abbreviation for kilometers per hour */
 "kilometers_per_hour" = "km/h";
 
+/* abbreviation for mile(s) */
 "mi" = "ми";
 
 /* A unit of measure */
@@ -857,9 +894,6 @@
 "sharing_call_action_look" = "Виж";
 
 "recent_track_background_dialog_message" = "Organic Maps използва геопозицията ви във фонов режим за записване на последния ви маршрут.";
-
-/* Text under the version number in the Help dialog. TODO: Synchronize other translations with English. */
-"about_description" = "Organic Maps е безплатно приложение за офлайн карти с отворен код. Без реклами. Без проследяване. Ако видите грешка на картата, моля, поправете я в OpenStreetMap. Проектът е създаден от ентусиасти в свободното ни време, така че имаме нужда от вашата отзиви и подкрепа.";
 
 "general_settings" = "Общи настройки";
 
@@ -1072,6 +1106,9 @@
 /* E.g. "WiFi:No" */
 "no_available" = "Не";
 
+/* To indicate the capacity of car parkings, bicycle parkings, electric vehicle charging stations... */
+"capacity" = "Капацитет: %@";
+
 "trip_finished" = "You have arrived!";
 
 "keyboard_availability_alert" = "Keyboard is not available while driving";
@@ -1151,9 +1188,9 @@
 
 "shops" = "Shops";
 
-"parkings" = "Parkings";
+"parkings" = "Parking";
 
-"fuel_places" = "Gas stations";
+"fuel_places" = "Gas Stations";
 
 "medicine" = "Medicine";
 
@@ -1237,6 +1274,12 @@
 
 /* Outdoors/hiking map style (activity) name in the Styles and Layers dialog */
 "button_layer_outdoor" = "Активен отдих";
+
+/* Bookmark categories screen, button that opens share dialog to export all bookmarks and tracks */
+"bookmarks_export" = "Експортиране на всички отметки и следи";
+
+/* Text for the editing the Track's color button. */
+"change_color" = "Промяна на цвета";
 
 
 /********** Types **********/
@@ -1352,6 +1395,8 @@
 "type.amenity.doctors" = "Doctor";
 
 "type.amenity.drinking_water" = "Drinking Water";
+
+"type.drinking_water.yes" = "Drinking Water";
 
 "type.amenity.driving_school" = "Автошкола";
 
@@ -1548,6 +1593,8 @@
 
 "type.amenity.toilets" = "Toilet";
 
+"type.toilets.yes" = "Toilet";
+
 "type.amenity.townhall" = "Town Hall";
 
 "type.amenity.university" = "University";
@@ -1676,6 +1723,8 @@
 
 "type.boundary.national_park" = "National Park";
 
+"type.boundary.aboriginal_lands" = "Земи на коренното население";
+
 "type.boundary.protected_area" = "Защитена местност";
 
 "type.boundary.protected_area.1" = "Защитена местност";
@@ -1692,7 +1741,8 @@
 
 "type.building" = "Building";
 
-"type.building.address" = "Building";
+/* Duplicates [address] in strings.txt */
+"type.building.address" = "Адрес";
 
 "type.building.has_parts" = "Building";
 
@@ -2501,8 +2551,6 @@
 "type.leisure.hackerspace" = "Hackerspace";
 
 "type.leisure.ice_rink" = "Ice Rink";
-
-"type.leisure.landscape_reserve" = "Landscape Reserve";
 
 "type.leisure.marina" = "Marina";
 
@@ -3837,25 +3885,45 @@
 
 "type.aerialway.t.bar" = "T-bar Lift";
 
-"type.piste_type" = "Piste Type";
-
 "type.piste_type.downhill" = "Downhill Ski Run";
+
+"type.piste_type.downhill.area" = "Downhill Ski Run";
 
 "type.piste_type.downhill.advanced" = "Downhill Ski Run";
 
+"type.piste_type.downhill.advanced.area" = "Downhill Ski Run";
+
 "type.piste_type.downhill.easy" = "Downhill Ski Run";
 
+"type.piste_type.downhill.easy.area" = "Downhill Ski Run";
+
 "type.piste_type.downhill.expert" = "Downhill Ski Run";
+
+"type.piste_type.downhill.expert.area" = "Downhill Ski Run";
 
 "type.piste_type.downhill.freeride" = "Downhill Ski Run";
 
 "type.piste_type.downhill.intermediate" = "Downhill Ski Run";
 
+"type.piste_type.downhill.intermediate.area" = "Downhill Ski Run";
+
 "type.piste_type.downhill.novice" = "Downhill Ski Run";
+
+"type.piste_type.downhill.novice.area" = "Downhill Ski Run";
 
 "type.piste_type.nordic" = "Nordic Ski Trail";
 
 "type.piste_type.sled" = "Sledding Piste";
+
+"type.piste_type.sled.area" = "Sledding Piste";
+
+"type.piste_type.snow_park" = "Снежен парк";
+
+"type.piste_type.hike" = "Зимна пътека";
+
+"type.piste_type.connection" = "Свързване на пистите";
+
+"type.piste_type.skitour" = "Маршрут за скитуринг";
 
 "type.amenity.events_venue" = "Място за провеждане на събития";
 

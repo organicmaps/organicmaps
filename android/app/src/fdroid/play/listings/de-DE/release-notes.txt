@@ -1,8 +1,8 @@
-Weihnachtsgeschenke aus unserer Community:
-• Outdoor-Kartenstil zum Wandern, Radfahren und Erkunden der Natur
-• Suche nach Adressen in einigen Dörfern und kleineren Ortschaften
-• Geben Sie "Skifahren" ein, um Abfahrtspisten und nordische Pisten zu finden
-• OpenStreetMap-Kartendaten, Stand: 13. Dezember
-• Prüfen Sie Fotos, Bewertungen und Preise für einige Hotels. Alle Ihre Spenden und Buchungen tragen zur Entwicklung von Organic Maps bei!
+• OpenStreetMap data as of February 28
+• Export all bookmarks as a single KMZ file
+• Fixed several crashes
+• "Routing options enabled" is no longer displayed when using ruler
+• Included wheelchair accessibility information on place pages
+• Added recycling and elevation information to search result descriptions
 
-…mehr Details omaps.org/de/news
+…read more details at omaps.org/news

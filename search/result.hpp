@@ -44,30 +44,13 @@ public:
   // Search results details. Considered valid if GetResultType() == Type::Feature.
   struct Details
   {
-    // Valid only if not empty, used for restaurants.
-    std::string m_cuisine;
-
-    // Valid only if not empty, used for airport iata codes.
-    std::string m_airportIata;
-
-    // Valid only if not empty, used for brand name.
-    std::string m_brand;
-
-    // Valid only if not empty, used for roads.
-    std::string m_roadShields;
-
-    // Following fields are used for hotels only.
-    uint8_t m_stars = 0;
-    bool m_isHotel = false;
-
-    // Valid for any result.
     osm::YesNoUnknown m_isOpenNow = osm::Unknown;
 
     uint16_t m_minutesUntilOpen = 0;
 
     uint16_t m_minutesUntilClosed = 0;
-      
-    std::string m_fee;
+
+    std::string m_description;
 
     bool m_isInitialized = false;
   };
@@ -76,7 +59,7 @@ public:
   static auto constexpr kPopularityHighPriorityMinDistance = 50000.0;
 
   Result(m2::PointD const & pt, std::string const & name) : m_center(pt), m_str(name) {}
-  void FromFeature(FeatureID const & id, uint32_t featureType, Details const & details);
+  void FromFeature(FeatureID const & id, uint32_t mainType, uint32_t matchedType, Details const & details);
 
   void SetAddress(std::string && address) { m_address = std::move(address); }
   void SetType(Result::Type type) { m_resultType = type; }
@@ -91,17 +74,11 @@ public:
 
   std::string const & GetString() const { return m_str; }
   std::string const & GetAddress() const { return m_address; }
-  std::string const & GetCuisine() const { return m_details.m_cuisine; }
-  std::string const & GetAirportIata() const { return m_details.m_airportIata; }
-  std::string const & GetBrand() const { return m_details.m_brand; }
-  std::string const & GetRoadShields() const { return m_details.m_roadShields; }
-  std::string const & GetFee() const { return m_details.m_fee; }
-  bool IsHotel() const { return m_details.m_isHotel; }
+  std::string const & GetDescription() const { return m_details.m_description; }
 
   osm::YesNoUnknown IsOpenNow() const { return m_details.m_isOpenNow; }
   uint16_t GetMinutesUntilOpen() const { return m_details.m_minutesUntilOpen; }
   uint16_t GetMinutesUntilClosed() const { return m_details.m_minutesUntilClosed; }
-  int GetStarsCount() const { return m_details.m_stars; }
 
   bool IsSuggest() const;
   bool HasPoint() const;
@@ -112,6 +89,13 @@ public:
 
   // Precondition: GetResultType() == Type::Feature.
   uint32_t GetFeatureType() const;
+  bool IsSameType(uint32_t type) const;
+
+  // Precondition: GetResultType() == Type::Feature.
+  std::string GetLocalizedFeatureType() const;
+
+  // Precondition: GetResultType() == Type::Feature.
+  std::string GetFeatureDescription() const;
 
   // Center point of a feature.
   // Precondition: HasPoint() == true.
@@ -165,7 +149,8 @@ private:
   m2::PointD m_center;
   std::string m_str;
   std::string m_address;
-  uint32_t m_featureType = 0;
+  uint32_t m_mainType = 0;
+  uint32_t m_matchedType = 0;
   std::string m_suggestionStr;
   buffer_vector<std::pair<uint16_t, uint16_t>, 4> m_hightlightRanges;
 

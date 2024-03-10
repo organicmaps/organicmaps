@@ -131,7 +131,7 @@ void GpxParser::ParseColor(std::string const & value)
   m_color = kml::ToRGBA(colorBytes[0], colorBytes[1], colorBytes[2], (char)255);
 }
 
-// https://osmand.net/docs/technical/osmand-file-formats/osmand-gpx/ - "#AARRGGBB" or "#RRGGBB"
+// https://osmand.net/docs/technical/osmand-file-formats/osmand-gpx/. Supported colors: #AARRGGBB/#RRGGBB/AARRGGBB/RRGGBB
 void GpxParser::ParseOsmandColor(std::string const & value)
 {
   if (value.empty())
@@ -139,7 +139,10 @@ void GpxParser::ParseOsmandColor(std::string const & value)
     LOG(LWARNING, ("Empty color value"));
     return;
   }
-  auto const colorBytes = FromHex(value.substr(1, value.size() - 1));
+  std::string_view colorStr = value;
+  if (colorStr.at(0) == '#')
+    colorStr = colorStr.substr(1, colorStr.size() - 1);
+  auto const colorBytes = FromHex(colorStr);
   uint32_t color;
   switch (colorBytes.size())
   {

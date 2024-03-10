@@ -40,7 +40,7 @@ public class ParcelablePointD implements Parcelable
     this.y = y;
   }
 
-  public static final Parcelable.Creator<ParcelablePointD> CREATOR = new Parcelable.Creator<ParcelablePointD>()
+  public static final Parcelable.Creator<ParcelablePointD> CREATOR = new Parcelable.Creator<>()
   {
     public ParcelablePointD createFromParcel(Parcel in)
     {

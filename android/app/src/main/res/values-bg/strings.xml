@@ -44,9 +44,9 @@
 	<!-- Text in About screen -->
 	<string name="about_proposition_1">• Без реклами, без проследяване, без събиране на данни</string>
 	<!-- Text in About screen -->
-	<string name="about_proposition_2">• Пести батерията, не използва фонови данни</string>
+	<string name="about_proposition_2">• Без източване на батерията, работи офлайн</string>
 	<!-- Text in About screen -->
-	<string name="about_proposition_3">• Бързи, минималистични, без боклуци</string>
+	<string name="about_proposition_3">• Бързи, минималистични, разработен от общността</string>
 	<!-- Text in About screen -->
 	<string name="about_developed_by_enthusiasts">Приложение с отворен код, създадено от ентусиасти и доброволци.</string>
 	<!-- The button that opens system location settings -->
@@ -83,7 +83,7 @@
 	<string name="core_my_places">Мои места</string>
 	<!-- Add bookmark dialog - bookmark name -->
 	<string name="name">Име</string>
-	<!-- Editor title above street and house number -->
+	<!-- Editor title above street and house number, duplicates [type.building.address] in types_strings.txt -->
 	<string name="address">Адрес</string>
 	<!-- Add Bookmark dialog/Bookmark list; Bookmarks dialog/Bookmark list cell. -->
 	<string name="list">Списък</string>
@@ -97,7 +97,7 @@
 	<string name="maps_storage_downloaded">Карти</string>
 	<!-- Question dialog for transferring maps from one storage to another -->
 	<string name="move_maps">Преместване на карти?</string>
-	<!-- Ask to wait user several minutes (some long process in modal dialog). -->
+	<!-- Ask user to wait several minutes (some long process in modal dialog). -->
 	<string name="wait_several_minutes">Това може да отнеме няколко минути.\nМоля изчакайте…</string>
 	<!-- Measurement units title in settings activity -->
 	<string name="measurement_units">Мерни единици</string>
@@ -161,6 +161,10 @@
 	<string name="load_kmz_successful">Отметките са заредени успешно! Можете да ги откриете на картата или при секцията с отметки.</string>
 	<!-- Kml file loading failed -->
 	<string name="load_kmz_failed">Качването на отметките се провали. Файлът може да бъде повреден или дефектен.</string>
+	<!-- Failed to recognize the format of a bookmarks or tracks file. -->
+	<string name="unknown_file_type">Типът на файла не се разпознава от приложението:\n%1$s</string>
+	<!-- Failed to open a bookmarks or tracks file in Organic Maps. -->
+	<string name="failed_to_open_file">Неуспешно отваряне на файл %1$s\n\n%2$s</string>
 	<!-- resource for context menu -->
 	<string name="edit">Редакция</string>
 	<!-- Warning message when doing search around current position -->
@@ -203,6 +207,10 @@
 	<string name="pref_zoom_summary">Показване на картата</string>
 	<!-- Settings «Map» category: «Night style» title -->
 	<string name="pref_map_style_title">Нощен режим</string>
+	<!-- Settings "Appearance" category: "Light" title, should be consistent with the pref_appearance_title translation. -->
+	<string name="pref_appearance_light">Светъл</string>
+	<!-- Settings "Appearance" category: "Dark" title, should be consistent with the pref_appearance_title translation. -->
+	<string name="pref_appearance_dark">Тъмен</string>
 	<!-- Generic «Off» string -->
 	<string name="off">Изключен</string>
 	<!-- Generic «On» string -->
@@ -442,8 +450,8 @@
 	<string name="editor_report_problem_other_title">Друг проблем</string>
 	<string name="placepage_add_business_button">Добавяне на бизнес</string>
 	<string name="message_invalid_feature_position">Тук не може да бъде намерен обект</string>
-	<!-- Text in About and OSM Login screens. %@ is replaced by a local, human readable date. -->
-	<string name="osm_presentation">Картографски данни от OpenStreetMap към %s. Това е като Wikipedia, където можете да добавяте или редактирате места за всички потребители по света.</string>
+	<!-- Text in About and OSM Login screens. First %@ is replaced by a local, human readable date. -->
+	<string name="osm_presentation">Създадени от общността данни от OpenStreetMap към %s. Научете повече за това как да редактирате и актуализирате картата в OpenStreetMap.org</string>
 	<string name="login_to_make_edits_visible">Влезте в системата, за да могат другите потребители да видят направените от вас промени</string>
 	<!-- Downloaded 10 **of** 20 <- it is that "of" -->
 	<string name="downloader_of">%1$d от %2$d</string>
@@ -464,14 +472,12 @@
 	<string name="editor_operator">Собственик</string>
 	<string name="downloader_no_downloaded_maps_title">Не сте изтеглили никакви карти</string>
 	<string name="downloader_no_downloaded_maps_message">Изтеглете картите, от които се нуждаете, за да намирате места и да навигирате без интернет.</string>
-	<!-- Error title that appears after certain time without location. -->
-	<string name="current_location_unknown_title">Да продължаваме ли да ви засичаме местоположението?</string>
-	<!-- Error that appears after certain time without location. -->
-	<string name="current_location_unknown_message">Настоящото местоположение е неизвестно. Може би се намирате в сграда или тунел.</string>
-	<string name="current_location_unknown_continue_button">Продължаване</string>
-	<string name="current_location_unknown_stop_button">Стоп</string>
+	<string name="stop">Стоп</string>
+	<!-- abbreviation for meters -->
 	<string name="m">м</string>
+	<!-- abbreviation for kilometers -->
 	<string name="km">км</string>
+	<!-- abbreviation for mile(s) -->
 	<string name="mi">ми</string>
 	<!-- A unit of measure -->
 	<string name="ft">фут</string>
@@ -596,6 +602,12 @@
 	<string name="place_description_title">Описание на мястото</string>
 	<!-- this text will be shown in application notification preferences opposite checkbox which enable/disable downloader notifications. Devices on Android 8+ are affected. -->
 	<string name="notification_channel_downloader">Изтегляне на карти</string>
+	<!-- Speed camera settings menu option - Warn (about speedcams) if risk of exceeding speed limit -->
+	<string name="pref_tts_speedcams_auto">Предупреждава ако има риск от превишаване на ограничението на скоростта</string>
+	<!-- Speed camera settings menu option - Always warn (about speedcams) -->
+	<string name="pref_tts_speedcams_always">Винаги се продупреждава</string>
+	<!-- Speed camera settings menu option - Never warn (about speedcams) -->
+	<string name="pref_tts_speedcams_never">Никога не се предупреждава</string>
 	<string name="power_managment_title">Режим пестене на енергия</string>
 	<string name="power_managment_description">Ако е активиран режима пестене на енергия, приложението ще деактивира функциите, консумиращи енергия, в зависимост от текущия заряд на телефона.</string>
 	<string name="power_managment_setting_never">Никога</string>
@@ -623,6 +635,8 @@
 	<string name="yes_available">Да</string>
 	<!-- E.g. "WiFi:No" -->
 	<string name="no_available">Не</string>
+	<!-- To indicate the capacity of car parkings, bicycle parkings, electric vehicle charging stations... -->
+	<string name="capacity">Капацитет: %s</string>
 	<string name="ok">Ок</string>
 	<!-- max. 10 symbols, both iOS and Android -->
 	<string name="sort">Сортиране…</string>
@@ -664,8 +678,26 @@
 	<string name="enable_keep_screen_on_description">Когато е разрешено, екранът винаги ще бъде включен при показване на картата.</string>
 	<!-- OpenStreetMap text on splash screen -->
 	<string name="splash_subtitle">Картографски данни от OpenStreetMap</string>
-	<!-- Tip #00 -->
+	<!-- App Tip #00 -->
 	<string name="app_tip_00">Благодарим ви, че използвате нашите карти, създадени от общността!</string>
+	<!-- App tip #01 -->
+	<string name="app_tip_01">С вашите дарения и подкрепа можем да създадем най-добрите карти в света!</string>
+	<!-- App tip #02 -->
+	<string name="app_tip_02">Харесвате ли нашето приложение? Моля, дарете, за да подкрепите развитието! Все още не ви харесва? Моля, уведомете ни и ние ще го поправим!</string>
+	<!-- App tip #03 -->
+	<string name="app_tip_03">Ако познавате разработчик на софтуер, можете да го помолите да внедри функция, от която се нуждаете.</string>
+	<!-- App tip #04 -->
+	<string name="app_tip_04">Знаете ли, че можете да докоснете продължително всяко място на картата, за да го изберете?</string>
+	<!-- App tip #05 -->
+	<string name="app_tip_05">Знаете ли, че можете да изберете текущото си местоположение на картата?</string>
+	<!-- App tip #06 -->
+	<string name="app_tip_06">Можете да помогнете за превода на нашето приложение на вашия език.</string>
+	<!-- App tip #07 -->
+	<string name="app_tip_07">Нашето приложение е разработено от няколко ентусиасти и общността.</string>
+	<!-- App tip #08 -->
+	<string name="app_tip_08">Можете лесно да коригирате и подобрите картографските данни.</string>
+	<!-- App tip #09 -->
+	<string name="app_tip_09">Нашата основна цел е да създаваме бързи, фокусирани върху поверителността, лесни за използване карти, които ще харесате.</string>
 	<!-- Text on the Android Auto placeholder screen that maps are displayed on the phone screen -->
 	<string name="aa_used_on_the_phone_screen">Вече използвате Organic Maps на екрана на телефона</string>
 	<!-- Text on the phone placeholder screen that maps are displayed on the car screen -->
@@ -684,6 +716,17 @@
 	<string name="aa_connected_to_car_notification_title">Свързан с автомобил</string>
 	<!-- Outdoors/hiking map style (activity) name in the Styles and Layers dialog -->
 	<string name="button_layer_outdoor">Активен отдих</string>
+	<!-- Text displayed when a webview or a browser are disabled, and external links can't be opened. -->
+	<string name="browser_not_available">Уеб браузърът не е наличен</string>
+	<!-- Text displayed in a dialog when OSM authorization is disabled -->
+	<string name="osm_login_not_available">Оторизацията на OpenStreetMap е временно недостъпна поради нови ограничения в Google Play 😾\nНашият екип работи по разрешаването на този проблем. Моля, бъдете търпеливи 🙏</string>
+	<string name="volume">Сила на звука</string>
+	<!-- Bookmark categories screen, button that opens share dialog to export all bookmarks and tracks -->
+	<string name="bookmarks_export">Експортиране на всички отметки и следи</string>
+	<!-- button in (app) TTS settings, to open the system TTS settings. -->
+	<string name="pref_tts_open_system_settings">Настройки на системата за синтез на реч</string>
+	<!-- toast displayed when pressing the "Speech synthesis system settings" button, and the system settings aren't found. -->
+	<string name="pref_tts_no_system_tts">Настройките за синтез на речта не бяха открити, сигурни ли сте, че устройството ви ги поддържа?</string>
 
 	<!-- SECTION: Types -->
 	<string name="type.addr_interpolation">Адрес/Блок</string>
@@ -736,6 +779,7 @@
 	<string name="type.natural.water.moat">Ров</string>
 	<string name="type.natural.water.wastewater">Отпадъчни води</string>
 	<string name="type.barrier.turnstile">Турникет</string>
+	<string name="type.boundary.aboriginal_lands">Земи на коренното население</string>
 	<string name="type.boundary.protected_area">Защитена местност</string>
 	<string name="type.boundary.protected_area.1">Защитена местност</string>
 	<string name="type.boundary.protected_area.2">Защитена местност</string>
@@ -743,6 +787,8 @@
 	<string name="type.boundary.protected_area.4">Защитена местност</string>
 	<string name="type.boundary.protected_area.5">Защитена местност</string>
 	<string name="type.boundary.protected_area.6">Защитена местност</string>
+	<!-- Duplicates [address] in strings.txt -->
+	<string name="type.building.address">Адрес</string>
 	<string name="type.cemetery.grave">Гроб</string>
 	<string name="type.craft">Занаяти</string>
 	<string name="type.craft.beekeeper">Пчелар</string>
@@ -1129,6 +1175,10 @@
 	<string name="type.natural.water.ditch">Отводнителна канавка</string>
 	<string name="type.waterway.ditch.tunnel">водосток</string>
 	<string name="type.waterway.drain.tunnel">водосток</string>
+	<string name="type.piste_type.snow_park">Снежен парк</string>
+	<string name="type.piste_type.hike">Зимна пътека</string>
+	<string name="type.piste_type.connection">Свързване на пистите</string>
+	<string name="type.piste_type.skitour">Маршрут за скитуринг</string>
 	<string name="type.amenity.events_venue">Място за провеждане на събития</string>
 	<string name="type.shop.auction">Търг</string>
 	<string name="type.shop.collector">Колекционерски стоки</string>

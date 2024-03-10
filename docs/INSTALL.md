@@ -379,7 +379,7 @@ Install Android SDK and NDK:
 - Select "Android 14.0 ("Upside Down Cake") / API Level 34" SDK.
 - Switch to "SDK Tools" tab.
 - Check "Show Package Details" checkbox.
-- Select "NDK (Side by side)" version **26.1.10909125**.
+- Select "NDK (Side by side)" version **26.2.11394342**.
 - Select "CMake" version **3.22.1**.
 - Click "Apply" and wait for downloads and installation to finish.
 - In the left pane menu select "Appearance & Behavior > System Settings > Memory Settings".
@@ -565,7 +565,7 @@ You can install
 [Android SDK](https://developer.android.com/sdk/index.html) and
 [NDK](https://developer.android.com/tools/sdk/ndk/index.html) without
 Android Studio. Please make sure that SDK for API Level 33,
-NDK version **26.1.10909125** and CMake version **3.22.1** are installed.
+NDK version **26.2.11394342** and CMake version **3.22.1** are installed.
 
 If you are low on RAM, disk space or traffic there are ways to reduce system requirements:
 - exclude the `cpp` folder from indexing. If you do not make any work on the C++ code, this will greatly improve the start-up performance and the ram usage of Android Studio. Click on the `Project` tab on the left, find the `cpp` folder (should be next to the `java` folder), right click on it and select `Mark Directory as` -> `Excluded` (red folder icon). Then restart Android Studio.
@@ -612,7 +612,12 @@ Reconfigure the project to use your developer signing keys:
 - Open `xcode/omim.xcworkspace` in Xcode.
 - Click on "Maps" project.
 - Open "Signing & Capabilities" tab.
-- Choose your team and your signing certificate.
+- Choose a unique bundle identifier (not app.organicmaps.debug) and your team.
+- Select "Automatically manage signing".
+
+If you want to run Organic Maps on a real device, you have to remove the CarPlay entitlement. Open `iphone/Maps/OMaps-Debug.entitlements`
+and remove the `com.apple.developer.carplay-maps` entry. Now you can sign your app again in the "Signing & Capabilities" tab. Testing CarPlay
+on a real device requires [requesting entitlements from Apple](https://developer.apple.com/documentation/carplay/requesting_carplay_entitlements).
 
 ### Building and running
 

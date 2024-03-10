@@ -52,6 +52,18 @@
 
 "about_menu_title" = "Om Organic Maps";
 
+/* Text in About screen */
+"about_headline" = "Gratis för alla, gjorda med kärlek";
+
+/* Text in About screen */
+"about_proposition_1" = "• Inga annonser, ingen spårning, ingen datainsamling";
+
+/* Text in About screen */
+"about_proposition_2" = "• Ingen batteriförbrukning, fungerar offline";
+
+/* Text in About screen */
+"about_proposition_3" = "• Snabb, minimalistisk, utvecklad av gemenskapen";
+
 "close" = "Stäng";
 
 "download" = "Ladda ner";
@@ -80,7 +92,7 @@
 /* Default bookmark list name */
 "core_my_places" = "Mina Platser";
 
-/* Editor title above street and house number */
+/* Editor title above street and house number, duplicates [type.building.address] in types_strings.txt */
 "address" = "Adress";
 
 /* Settings button in system menu */
@@ -200,7 +212,7 @@
 "done" = "Klar";
 
 /* Prints version number in About dialog */
-"version" = "Version: %@";
+"version" = "Organic Maps version: %@";
 
 /* Data version in «About» screen, %@ is replaced by a local, human readable date. */
 "data_version" = "OpenStreetMap-data: %@";
@@ -217,8 +229,14 @@
 
 "pref_zoom_title" = "Zoom-knappar";
 
-/* Settings «Map» category: «Night style» title */
-"pref_map_style_title" = "Nattläge";
+/* Settings «Map» category: «Appearance» title */
+"pref_appearance_title" = "Utseende";
+
+/* Settings "Appearance" category: "Light" title, should be consistent with the pref_appearance_title translation. */
+"pref_appearance_light" = "Ljust";
+
+/* Settings "Appearance" category: "Dark" title, should be consistent with the pref_appearance_title translation. */
+"pref_appearance_dark" = "Mörkt";
 
 /* Generic «Off» string */
 "off" = "Av";
@@ -315,6 +333,9 @@
 /* Button in the main menu */
 "donate" = "Donera";
 
+/* Tex label above the Donate button */
+"donate_description" = "Donera för att bygga de bästa kartorna tillsammans!";
+
 /* Button in the main Help dialog */
 "how_to_support_us" = "Stöd projektet";
 
@@ -323,6 +344,15 @@
 
 /* Text in menu + Button in the main Help dialog */
 "report_a_bug" = "Rapportera en bugg";
+
+/* Button in the About screen */
+"report_incorrect_map_bug" = "Rapportera eller korrigera felaktiga kartdata";
+
+/* Button in the About screen */
+"volunteer" = "Att arbeta frivilligt";
+
+/* "Social media" section header in the About screen */
+"follow_us" = "Följ och kontakta oss:";
 
 /* Alert text */
 "email_error_body" = "Emailklienten har inte konfigurerats. Konfigurera den eller använd ett annat sätt att kontakta oss på %@";
@@ -704,6 +734,9 @@
 
 "message_invalid_feature_position" = "Ett objekt kan inte placeras här";
 
+/* Text in About and OSM Login screens. First %@ is replaced by a local, human readable date. */
+"osm_presentation" = "Gemenskapsskapade OpenStreetMap-data från och med %@. Läs mer om hur du redigerar och uppdaterar kartan på OpenStreetMap.org";
+
 "login_to_make_edits_visible" = "Logga in så att andra användare kan se de ändringar du gjort.";
 
 /* Error dialog no space */
@@ -746,15 +779,7 @@
 
 "downloader_no_downloaded_maps_message" = "Ladda ner kartor för att hitta platsen och navigera offline.";
 
-/* Error title that appears after certain time without location. */
-"current_location_unknown_title" = "Fortsätt detektera din nuvarande plats?";
-
-/* Error that appears after certain time without location. */
-"current_location_unknown_message" = "Nuvarande plats okänd. Du kanske är i en byggnad eller tunnel.";
-
-"current_location_unknown_continue_button" = "Fortsätt";
-
-"current_location_unknown_stop_button" = "Stopp";
+"stop" = "Stopp";
 
 "current_location_unknown_error_title" = "Den nuvarande platsen är okänd.";
 
@@ -768,15 +793,27 @@
 
 "location_services_disabled_2" = "2. Tryck på Plats";
 
-/* iOS Dialog for the case when the location permission is not granted */
+/* iOS Dialog for the case when the location permission is not granted; you might find the exact wording for your language here: https://support.apple.com/en-us/102647 (replace 'en-us' in URL with your language/region) */
 "location_services_disabled_3" = "3. Välj Medan appen används";
 
+"location_services_disabled_on_device_2" = "2. Välj Sekretess";
+
+"location_services_disabled_on_device_3" = "3. Välj Platstjänster";
+
+"location_services_disabled_on_device_4" = "4. Aktivera platstjänster";
+
+"location_services_disabled_on_device_additional_message" = "Eller fortsätt använda Organic Maps utan Plats";
+
+/* abbreviation for meters */
 "m" = "m";
 
+/* abbreviation for kilometers */
 "km" = "km";
 
+/* abbreviation for kilometers per hour */
 "kilometers_per_hour" = "km/h";
 
+/* abbreviation for mile(s) */
 "mi" = "mile";
 
 /* A unit of measure */
@@ -857,9 +894,6 @@
 "sharing_call_action_look" = "Kolla in";
 
 "recent_track_background_dialog_message" = "Organic Maps använder din geografiska position i bakgrunden för att spela in din senaste resta rutt.";
-
-/* Text under the version number in the Help dialog. TODO: Synchronize other translations with English. */
-"about_description" = "Organic Maps är en gratis offlinekartapplikation med öppen källkod. Inga annonser. Ingen spårning. Om du ser ett fel på kartan, åtgärda det i OpenStreetMap. Projektet skapas av entusiaster på vår fritid, så vi behöver din feedback och support.";
 
 "general_settings" = "Allmänna inställningar";
 
@@ -1072,6 +1106,9 @@
 /* E.g. "WiFi:No" */
 "no_available" = "Nej";
 
+/* To indicate the capacity of car parkings, bicycle parkings, electric vehicle charging stations... */
+"capacity" = "Kapacitet: %@";
+
 "trip_finished" = "Du är framme!";
 
 "keyboard_availability_alert" = "Tangentbordet är inte tillgängligt vid rörelsen";
@@ -1238,6 +1275,12 @@
 /* Outdoors/hiking map style (activity) name in the Styles and Layers dialog */
 "button_layer_outdoor" = "Vandring";
 
+/* Bookmark categories screen, button that opens share dialog to export all bookmarks and tracks */
+"bookmarks_export" = "Exportera alla bokmärken och spår";
+
+/* Text for the editing the Track's color button. */
+"change_color" = "Ändra färg";
+
 
 /********** Types **********/
 
@@ -1352,6 +1395,8 @@
 "type.amenity.doctors" = "Läkarmottagning";
 
 "type.amenity.drinking_water" = "Dricksvatten";
+
+"type.drinking_water.yes" = "Dricksvatten";
 
 "type.amenity.driving_school" = "Körskola";
 
@@ -1548,6 +1593,8 @@
 
 "type.amenity.toilets" = "Toalett";
 
+"type.toilets.yes" = "Toalett";
+
 "type.amenity.townhall" = "Rådhus";
 
 "type.amenity.university" = "Universitet";
@@ -1676,6 +1723,8 @@
 
 "type.boundary.national_park" = "Nationalpark";
 
+"type.boundary.aboriginal_lands" = "Ursprungsbefolkningens marker";
+
 "type.boundary.protected_area" = "Skyddat område";
 
 "type.boundary.protected_area.1" = "Skyddat område";
@@ -1692,7 +1741,8 @@
 
 "type.building" = "Byggnad";
 
-"type.building.address" = "Byggnad";
+/* Duplicates [address] in strings.txt */
+"type.building.address" = "Adress";
 
 "type.building.has_parts" = "Byggnad";
 
@@ -2501,8 +2551,6 @@
 "type.leisure.hackerspace" = "Hackerspace";
 
 "type.leisure.ice_rink" = "Ice Rink";
-
-"type.leisure.landscape_reserve" = "Landscape Reserve";
 
 "type.leisure.marina" = "Marina";
 
@@ -3837,25 +3885,45 @@
 
 "type.aerialway.t.bar" = "T-bar Lift";
 
-"type.piste_type" = "Piste Type";
-
 "type.piste_type.downhill" = "Downhill Ski Run";
+
+"type.piste_type.downhill.area" = "Downhill Ski Run";
 
 "type.piste_type.downhill.advanced" = "Downhill Ski Run";
 
+"type.piste_type.downhill.advanced.area" = "Downhill Ski Run";
+
 "type.piste_type.downhill.easy" = "Downhill Ski Run";
 
+"type.piste_type.downhill.easy.area" = "Downhill Ski Run";
+
 "type.piste_type.downhill.expert" = "Downhill Ski Run";
+
+"type.piste_type.downhill.expert.area" = "Downhill Ski Run";
 
 "type.piste_type.downhill.freeride" = "Downhill Ski Run";
 
 "type.piste_type.downhill.intermediate" = "Downhill Ski Run";
 
+"type.piste_type.downhill.intermediate.area" = "Downhill Ski Run";
+
 "type.piste_type.downhill.novice" = "Downhill Ski Run";
+
+"type.piste_type.downhill.novice.area" = "Downhill Ski Run";
 
 "type.piste_type.nordic" = "Nordic Ski Trail";
 
 "type.piste_type.sled" = "Sledding Piste";
+
+"type.piste_type.sled.area" = "Sledding Piste";
+
+"type.piste_type.snow_park" = "Snöparken";
+
+"type.piste_type.hike" = "Vandringsled i snö";
+
+"type.piste_type.connection" = "Piste Anslutning";
+
+"type.piste_type.skitour" = "Skitourleden";
 
 "type.amenity.events_venue" = "Evenemangslokal";
 

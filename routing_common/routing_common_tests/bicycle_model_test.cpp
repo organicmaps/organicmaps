@@ -36,7 +36,7 @@ UNIT_CLASS_TEST(BicycleModelTest, Turkey)
   holder.Add(cl.GetTypeByPath({"highway", "footway", "tunnel"}));
 
   TEST(model->HasRoadType(holder), ());
-  TEST_EQUAL(model->GetTypeSpeed(holder, DefaultSpeedParams()), BicycleModel::DismountSpeed(), ());
+  TEST_EQUAL(model->GetSpeed(holder, DefaultSpeedParams()), BicycleModel::DismountSpeed(), ());
 }
 
 } // namespace bicycle_model_test

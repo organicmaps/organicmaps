@@ -32,7 +32,6 @@ public:
   public:
     virtual ~Listener() = default;
     virtual void PositionChanged(m2::PointD const & position, bool hasPosition) = 0;
-    virtual void PositionPendingTimeout() = 0;
     // Show map with center in "center" point and current zoom.
     virtual void ChangeModelView(m2::PointD const & center, int zoomLevel,
                                  TAnimationCreator const & parallelAnimCreator) = 0;
@@ -159,7 +158,6 @@ private:
   bool AlmostCurrentPosition(m2::PointD const & pos) const;
   bool AlmostCurrentAzimut(double azimut) const;
 
-  void CheckIsWaitingForLocation();
   void CheckNotFollowRouting();
   void CheckBlockAutoZoom();
   void CheckUpdateLocation();
@@ -193,8 +191,6 @@ private:
   double m_autoScale3d;
 
   base::Timer m_lastGPSBearingTimer;
-  base::Timer m_pendingTimer;
-  bool m_pendingStarted;
   base::Timer m_routingNotFollowTimer;
   bool m_blockRoutingNotFollowTimer = false;
   base::Timer m_blockAutoZoomTimer;
@@ -218,7 +214,6 @@ private:
   bool m_positionIsObsolete;
   bool m_needBlockAutoZoom;
 
-  uint64_t m_locationWaitingNotifyId;
   uint64_t m_routingNotFollowNotifyId;
   uint64_t m_blockAutoZoomNotifyId;
   uint64_t m_updateLocationNotifyId;

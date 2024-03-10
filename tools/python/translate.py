@@ -16,6 +16,7 @@ TRANS_CMD = 'trans'
 # List of Google Translate target languages: https://cloud.google.com/translate/docs/languages
 GOOGLE_TARGET_LANGUAGES = [
   'af',
+  'az',
   'ar',
   'be',
   'ca',
@@ -100,6 +101,15 @@ def google_translate(text, source_language):
     print(lang + ' = ' + line)
   return translations
 
+def google_translate_one(text, source_language, target_language):
+  fromTo = source_language.lower() + ':' + target_language.lower()
+  res = subprocess.run([TRANS_CMD, '-b', '-no-bidi', fromTo, text], text=True, capture_output=True)
+  if res.returncode != 0:
+    print(f'Error running {TRANS_CMD} program:')
+    print(res.stderr)
+    exit(1)
+  return res.stdout.splitlines()[0]
+
 def deepl_translate_one(text, source_language, target_language):
   url = 'https://api-free.deepl.com/v2/translate'
   payload = {
@@ -113,6 +123,14 @@ def deepl_translate_one(text, source_language, target_language):
   response = requests.request('POST', url, headers=headers, data=payload)
   json = response.json()
   return json['translations'][0]['text']
+
+def translate_one(text, source_language, target_language):
+  if target_language in DEEPL_TARGET_LANGUAGES:
+    return deepl_translate_one(text, source_language, target_language)
+  elif target_language in GOOGLE_TARGET_LANGUAGES:
+    return google_translate_one(text, source_language, target_language)
+  else:
+    raise ValueError(f'Unsupported target language {target_language}')
 
 def deepl_translate(text, source_language):
   translations = {}

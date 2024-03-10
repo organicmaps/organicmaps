@@ -52,6 +52,18 @@
 
 "about_menu_title" = "เกี่ยวกับ Organic Maps";
 
+/* Text in About screen */
+"about_headline" = "ฟรีสำหรับทุกคนทำด้วยความรัก";
+
+/* Text in About screen */
+"about_proposition_1" = "• ไม่มีโฆษณาไม่มีการติดตามไม่มีการรวบรวมข้อมูล";
+
+/* Text in About screen */
+"about_proposition_2" = "• ไม่มีแบตเตอรี่หมด ทำงานแบบออฟไลน์";
+
+/* Text in About screen */
+"about_proposition_3" = "• รวดเร็ว เรียบง่าย พัฒนาโดยชุมชน";
+
 "close" = "ปิด";
 
 "download" = "ดาวน์โหลด";
@@ -80,7 +92,7 @@
 /* Default bookmark list name */
 "core_my_places" = "สถานที่ของฉัน";
 
-/* Editor title above street and house number */
+/* Editor title above street and house number, duplicates [type.building.address] in types_strings.txt */
 "address" = "ที่อยู่";
 
 /* Settings button in system menu */
@@ -200,7 +212,7 @@
 "done" = "เสร็จแล้ว";
 
 /* Prints version number in About dialog */
-"version" = "เวอร์ชัน: %@";
+"version" = "เวอร์ชัน Organic Maps: %@";
 
 /* Data version in «About» screen, %@ is replaced by a local, human readable date. */
 "data_version" = "ข้อมูล OpenStreetMap: %@";
@@ -217,8 +229,14 @@
 
 "pref_zoom_title" = "ปุ่มซูม";
 
-/* Settings «Map» category: «Night style» title */
-"pref_map_style_title" = "โหมดกลางคืน";
+/* Settings «Map» category: «Appearance» title */
+"pref_appearance_title" = "รูปแบบ";
+
+/* Settings "Appearance" category: "Light" title, should be consistent with the pref_appearance_title translation. */
+"pref_appearance_light" = "สว่าง";
+
+/* Settings "Appearance" category: "Dark" title, should be consistent with the pref_appearance_title translation. */
+"pref_appearance_dark" = "มืด";
 
 /* Generic «Off» string */
 "off" = "ปิด";
@@ -315,6 +333,9 @@
 /* Button in the main menu */
 "donate" = "บริจาค";
 
+/* Tex label above the Donate button */
+"donate_description" = "บริจาคเพื่อสร้างแผนที่ที่ดีที่สุดด้วยกัน!";
+
 /* Button in the main Help dialog */
 "how_to_support_us" = "สนับสนุนโครงการ";
 
@@ -323,6 +344,15 @@
 
 /* Text in menu + Button in the main Help dialog */
 "report_a_bug" = "แจ้งข้อผิดพลาด";
+
+/* Button in the About screen */
+"report_incorrect_map_bug" = "รายงานหรือแก้ไขข้อมูลแผนที่ที่ไม่ถูกต้อง";
+
+/* Button in the About screen */
+"volunteer" = "อาสาสมัคร";
+
+/* "Social media" section header in the About screen */
+"follow_us" = "ติดตามและติดต่อเรา:";
 
 /* Alert text */
 "email_error_body" = "อีเมลลูกค้ายังไม่ได้รับการจัดตั้งขึ้น กรุณาตั้งค่าหรือใช้วิธีอื่นที่จะติดต่อเราที่ %@";
@@ -704,6 +734,9 @@
 
 "message_invalid_feature_position" = "ไม่สามารถตั้งวัตถุได้ที่นี่";
 
+/* Text in About and OSM Login screens. First %@ is replaced by a local, human readable date. */
+"osm_presentation" = "ข้อมูล OpenStreetMap ที่สร้างโดยชุมชน ณ %@ เรียนรู้เพิ่มเติมเกี่ยวกับวิธีแก้ไขและอัปเดตแผนที่ได้ที่ OpenStreetMap.org";
+
 "login_to_make_edits_visible" = "ล็อกอินเพื่อให้ผู้ใช้คนอื่นสามารถเห็นการเปลี่ยนแปลงของคุณได้";
 
 /* Error dialog no space */
@@ -746,15 +779,7 @@
 
 "downloader_no_downloaded_maps_message" = "ดาวน์โหลดแผนที่เพื่อค้นหาสถานที่ และนำทางแบบออฟไลน์";
 
-/* Error title that appears after certain time without location. */
-"current_location_unknown_title" = "ค้นหาที่ตั้งปัจจุบันต่อไปหรือไม่?";
-
-/* Error that appears after certain time without location. */
-"current_location_unknown_message" = "ไม่ทราบชื่อสถานที่ปัจจุบัน คุณอาจจะอยู่ในอาคาร หรือ ในอุโมงค์";
-
-"current_location_unknown_continue_button" = "ดำเนินการต่อ";
-
-"current_location_unknown_stop_button" = "หยุด";
+"stop" = "หยุด";
 
 "current_location_unknown_error_title" = "ไม่ทราบชื่อของที่ตั้งปัจจุบัน";
 
@@ -768,15 +793,27 @@
 
 "location_services_disabled_2" = "2. แตะตำแหน่งที่ตั้ง";
 
-/* iOS Dialog for the case when the location permission is not granted */
+/* iOS Dialog for the case when the location permission is not granted; you might find the exact wording for your language here: https://support.apple.com/en-us/102647 (replace 'en-us' in URL with your language/region) */
 "location_services_disabled_3" = "3. เลือกในขณะใช้แอป";
 
+"location_services_disabled_on_device_2" = "2. เลือกความเป็นส่วนตัว";
+
+"location_services_disabled_on_device_3" = "3. เลือกบริการระบุตำแหน่ง";
+
+"location_services_disabled_on_device_4" = "4. เปิดบริการระบุตำแหน่ง";
+
+"location_services_disabled_on_device_additional_message" = "หรือใช้แผนที่ทั่วไปโดยไม่มีตำแหน่งต่อไป";
+
+/* abbreviation for meters */
 "m" = "ม.";
 
+/* abbreviation for kilometers */
 "km" = "กม.";
 
+/* abbreviation for kilometers per hour */
 "kilometers_per_hour" = "กม./ชม.";
 
+/* abbreviation for mile(s) */
 "mi" = "ไมล์";
 
 /* A unit of measure */
@@ -857,9 +894,6 @@
 "sharing_call_action_look" = "ตรวจชม";
 
 "recent_track_background_dialog_message" = "Organic Maps ใช้ตำแหน่งทางภูมิศาสตร์ของคุณในพื้นหลังเพื่อบันทึกเส้นทางที่คุณเดินทางเมื่อเร็ว ๆ นี้";
-
-/* Text under the version number in the Help dialog. TODO: Synchronize other translations with English. */
-"about_description" = "Organic Maps เป็นแอปพลิเคชันแผนที่ออฟไลน์แบบโอเพนซอร์สฟรี ไม่มีโฆษณา ไม่มีการติดตาม. หากคุณเห็นข้อผิดพลาดบนแผนที่ โปรดแก้ไขใน OpenStreetMap โครงการนี้สร้างขึ้นโดยผู้ที่ชื่นชอบในเวลาว่าง เราจึงต้องการความคิดเห็นและการสนับสนุนจากคุณ";
 
 "general_settings" = "การตั้งค่าทั่วไป";
 
@@ -1072,6 +1106,9 @@
 /* E.g. "WiFi:No" */
 "no_available" = "ไม่ใช่";
 
+/* To indicate the capacity of car parkings, bicycle parkings, electric vehicle charging stations... */
+"capacity" = "ความจุ: %@";
+
 "trip_finished" = "คุณมาถึงแล้ว!";
 
 "keyboard_availability_alert" = "คีย์บอร์ดไม่สามารถใช้งานได้ขณะขับขี่";
@@ -1238,6 +1275,12 @@
 /* Outdoors/hiking map style (activity) name in the Styles and Layers dialog */
 "button_layer_outdoor" = "การเดินป่า";
 
+/* Bookmark categories screen, button that opens share dialog to export all bookmarks and tracks */
+"bookmarks_export" = "ส่งออกบุ๊กมาร์กและแทร็กทั้งหมด";
+
+/* Text for the editing the Track's color button. */
+"change_color" = "เปลี่ยนสี";
+
 
 /********** Types **********/
 
@@ -1352,6 +1395,8 @@
 "type.amenity.doctors" = "ห้องแพทย์";
 
 "type.amenity.drinking_water" = "น้ำดื่ม";
+
+"type.drinking_water.yes" = "น้ำดื่ม";
 
 "type.amenity.driving_school" = "โรงเรียนสอนขับรถ";
 
@@ -1548,6 +1593,8 @@
 
 "type.amenity.toilets" = "ห้องน้ำ";
 
+"type.toilets.yes" = "ห้องน้ำ";
+
 "type.amenity.townhall" = "ศาลากลางจังหวัด";
 
 "type.amenity.university" = "มหาวิทยาลัย";
@@ -1676,6 +1723,8 @@
 
 "type.boundary.national_park" = "อุทยานแห่งชาติ";
 
+"type.boundary.aboriginal_lands" = "ดินแดนพื้นเมือง";
+
 "type.boundary.protected_area" = "พื้นที่คุ้มครอง";
 
 "type.boundary.protected_area.1" = "พื้นที่คุ้มครอง";
@@ -1692,7 +1741,8 @@
 
 "type.building" = "อาคาร";
 
-"type.building.address" = "อาคาร";
+/* Duplicates [address] in strings.txt */
+"type.building.address" = "ที่อยู่";
 
 "type.building.has_parts" = "อาคาร";
 
@@ -2501,8 +2551,6 @@
 "type.leisure.hackerspace" = "แฮกเกอร์สเปซ";
 
 "type.leisure.ice_rink" = "Ice Rink";
-
-"type.leisure.landscape_reserve" = "Landscape Reserve";
 
 "type.leisure.marina" = "Marina";
 
@@ -3837,25 +3885,45 @@
 
 "type.aerialway.t.bar" = "T-bar Lift";
 
-"type.piste_type" = "Piste Type";
-
 "type.piste_type.downhill" = "Downhill Ski Run";
+
+"type.piste_type.downhill.area" = "Downhill Ski Run";
 
 "type.piste_type.downhill.advanced" = "Downhill Ski Run";
 
+"type.piste_type.downhill.advanced.area" = "Downhill Ski Run";
+
 "type.piste_type.downhill.easy" = "Downhill Ski Run";
 
+"type.piste_type.downhill.easy.area" = "Downhill Ski Run";
+
 "type.piste_type.downhill.expert" = "Downhill Ski Run";
+
+"type.piste_type.downhill.expert.area" = "Downhill Ski Run";
 
 "type.piste_type.downhill.freeride" = "Downhill Ski Run";
 
 "type.piste_type.downhill.intermediate" = "Downhill Ski Run";
 
+"type.piste_type.downhill.intermediate.area" = "Downhill Ski Run";
+
 "type.piste_type.downhill.novice" = "Downhill Ski Run";
+
+"type.piste_type.downhill.novice.area" = "Downhill Ski Run";
 
 "type.piste_type.nordic" = "Nordic Ski Trail";
 
 "type.piste_type.sled" = "Sledding Piste";
+
+"type.piste_type.sled.area" = "Sledding Piste";
+
+"type.piste_type.snow_park" = "สโนว์พาร์ค";
+
+"type.piste_type.hike" = "เส้นทางเดินป่าหิมะ";
+
+"type.piste_type.connection" = "การเชื่อมต่อทางสกี";
+
+"type.piste_type.skitour" = "เส้นทางสกีทัวร์";
 
 "type.amenity.events_venue" = "สถานที่จัดงาน";
 

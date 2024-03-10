@@ -41,9 +41,9 @@
 	<!-- Text in About screen -->
 	<string name="about_proposition_1">• Geen advertenties, geen tracking, geen gegevensverzameling</string>
 	<!-- Text in About screen -->
-	<string name="about_proposition_2">• Spaart de batterij, gebruikt geen achtergrondgegevens</string>
+	<string name="about_proposition_2">• Geen batterijverlies, werkt offline</string>
 	<!-- Text in About screen -->
-	<string name="about_proposition_3">• Snel, minimalistisch, geen junk</string>
+	<string name="about_proposition_3">• Snel, minimalistisch, ontwikkeld door gemeenschap</string>
 	<!-- Text in About screen -->
 	<string name="about_developed_by_enthusiasts">Open-source applicatie gemaakt door enthousiastelingen en vrijwilligers.</string>
 	<!-- The button that opens system location settings -->
@@ -80,7 +80,7 @@
 	<string name="core_my_places">Mijn plaatsen</string>
 	<!-- Add bookmark dialog - bookmark name -->
 	<string name="name">Naam</string>
-	<!-- Editor title above street and house number -->
+	<!-- Editor title above street and house number, duplicates [type.building.address] in types_strings.txt -->
 	<string name="address">Adres</string>
 	<!-- Add Bookmark dialog/Bookmark list; Bookmarks dialog/Bookmark list cell. -->
 	<string name="list">Lijst</string>
@@ -106,7 +106,7 @@
 	<string name="move_maps">Kaarten verplaatsen?</string>
 	<!-- Error moving map files from one storage to another -->
 	<string name="move_maps_error">Fout bij het verplaatsen van kaartbestanden</string>
-	<!-- Ask to wait user several minutes (some long process in modal dialog). -->
+	<!-- Ask user to wait several minutes (some long process in modal dialog). -->
 	<string name="wait_several_minutes">Dit kan enkele minuten duren.\nEven geduld…</string>
 	<!-- Measurement units title in settings activity -->
 	<string name="measurement_units">Afstandseenheid</string>
@@ -171,6 +171,10 @@
 	<string name="load_kmz_successful">Bladwijzers succesvol geüpload! U vindt ze op de kaart of op het scherm van de Bladwijzerbeheerder.</string>
 	<!-- Kml file loading failed -->
 	<string name="load_kmz_failed">Bladwijzers uploaden is mislukt. Het bestand is mogelijk beschadigd of defect.</string>
+	<!-- Failed to recognize the format of a bookmarks or tracks file. -->
+	<string name="unknown_file_type">Het bestandstype wordt niet herkend door de app:\n%1$s</string>
+	<!-- Failed to open a bookmarks or tracks file in Organic Maps. -->
+	<string name="failed_to_open_file">Faalde om bestand te openen %1$s\n\n%2$s</string>
 	<!-- resource for context menu -->
 	<string name="edit">Wijzigen</string>
 	<!-- Warning message when doing search around current position -->
@@ -213,6 +217,10 @@
 	<string name="pref_zoom_summary">Weergave op het scherm</string>
 	<!-- Settings «Map» category: «Night style» title -->
 	<string name="pref_map_style_title">Nachtmodus</string>
+	<!-- Settings "Appearance" category: "Light" title, should be consistent with the pref_appearance_title translation. -->
+	<string name="pref_appearance_light">Licht</string>
+	<!-- Settings "Appearance" category: "Dark" title, should be consistent with the pref_appearance_title translation. -->
+	<string name="pref_appearance_dark">Donker</string>
 	<!-- Generic «Off» string -->
 	<string name="off">Uit</string>
 	<!-- Generic «On» string -->
@@ -472,8 +480,8 @@
 	<string name="editor_report_problem_other_title">Een ander probleem</string>
 	<string name="placepage_add_business_button">Een organisatie toevoegen</string>
 	<string name="message_invalid_feature_position">Hier kan geen object worden geplaatst</string>
-	<!-- Text in About and OSM Login screens. %@ is replaced by a local, human readable date. -->
-	<string name="osm_presentation">Cartografische gegevens van OpenStreetMap per %s. OSM is als Wikipedia voor kaarten, waar je plaatsen kunt toevoegen of bewerken voor alle gebruikers over de hele wereld.</string>
+	<!-- Text in About and OSM Login screens. First %@ is replaced by a local, human readable date. -->
+	<string name="osm_presentation">Door de gemeenschap gemaakte OpenStreetMap-gegevens vanaf %s. Lees meer over hoe je de kaart kunt bewerken en bijwerken op OpenStreetMap.org</string>
 	<string name="login_to_make_edits_visible">Log in zodat andere gebruikers kunnen zien wat u hebt gewijzigd.</string>
 	<!-- Downloaded 10 **of** 20 <- it is that "of" -->
 	<string name="downloader_of">%1$d van %2$d</string>
@@ -494,15 +502,14 @@
 	<string name="editor_operator">Uitvoerder</string>
 	<string name="downloader_no_downloaded_maps_title">U hebt geen kaarten gedownload</string>
 	<string name="downloader_no_downloaded_maps_message">Download kaarten om een locatie te zoeken en offline te navigeren.</string>
-	<!-- Error title that appears after certain time without location. -->
-	<string name="current_location_unknown_title">Doorgaan met het detecteren van uw huidige locatie?</string>
-	<!-- Error that appears after certain time without location. -->
-	<string name="current_location_unknown_message">Huidige locatie is onbekend. Misschien bevindt u zich in een gebouw of tunnel.</string>
-	<string name="current_location_unknown_continue_button">Doorgaan</string>
-	<string name="current_location_unknown_stop_button">Stoppen</string>
+	<string name="stop">Stoppen</string>
+	<!-- abbreviation for meters -->
 	<string name="m">m</string>
+	<!-- abbreviation for kilometers -->
 	<string name="km">km</string>
+	<!-- abbreviation for kilometers per hour -->
 	<string name="kilometers_per_hour">km/h</string>
+	<!-- abbreviation for mile(s) -->
 	<string name="mi">mijl</string>
 	<!-- A unit of measure -->
 	<string name="ft">voet</string>
@@ -634,6 +641,12 @@
 	<string name="place_description_title">Plaatsbeschrijving</string>
 	<!-- this text will be shown in application notification preferences opposite checkbox which enable/disable downloader notifications. Devices on Android 8+ are affected. -->
 	<string name="notification_channel_downloader">Kaartdownloader</string>
+	<!-- Speed camera settings menu option - Warn (about speedcams) if risk of exceeding speed limit -->
+	<string name="pref_tts_speedcams_auto">Waarschuw als er een risico bestaat dat de snelheidslimiet wordt overschreden</string>
+	<!-- Speed camera settings menu option - Always warn (about speedcams) -->
+	<string name="pref_tts_speedcams_always">Waarschuw altijd</string>
+	<!-- Speed camera settings menu option - Never warn (about speedcams) -->
+	<string name="pref_tts_speedcams_never">Waarschuw nooit</string>
 	<string name="power_managment_title">Energiebesparende modus</string>
 	<string name="power_managment_description">Als de energiebesparende modus is ingeschakeld, schakelt de app de energieverbruikende functies uit afhankelijk van de huidige lading van de mobiele telefoon</string>
 	<string name="power_managment_setting_never">Nooit</string>
@@ -664,6 +677,8 @@
 	<string name="yes_available">Ja</string>
 	<!-- E.g. "WiFi:No" -->
 	<string name="no_available">Nee</string>
+	<!-- To indicate the capacity of car parkings, bicycle parkings, electric vehicle charging stations... -->
+	<string name="capacity">Capaciteit: %s</string>
 	<string name="trip_finished">U bent aangekomen!</string>
 	<string name="ok">Goed</string>
 	<!-- max. 10 symbols, both iOS and Android -->
@@ -740,8 +755,26 @@
 	<string name="translated_om_site_url">https://organicmaps.app/nl/</string>
 	<!-- Link to OSM wiki for Editor, Profile and About pages -->
 	<string name="osm_wiki_about_url">https://wiki.openstreetmap.org/wiki/NL:Wat_is_OpenStreetMap%3F</string>
-	<!-- Tip #00 -->
+	<!-- App Tip #00 -->
 	<string name="app_tip_00">Bedankt voor het gebruik van onze door de community gemaakte kaarten!</string>
+	<!-- App tip #01 -->
+	<string name="app_tip_01">Met uw donaties en steun kunnen we de beste kaarten ter wereld maken!</string>
+	<!-- App tip #02 -->
+	<string name="app_tip_02">Vind je onze app leuk? Doneer alsjeblieft om de ontwikkeling te ondersteunen! Vind je het nog niet leuk? Laat het ons weten, dan lossen we het op!</string>
+	<!-- App tip #03 -->
+	<string name="app_tip_03">Als u een softwareontwikkelaar kent, kunt u hem of haar vragen een functie te implementeren die u nodig heeft.</string>
+	<!-- App tip #04 -->
+	<string name="app_tip_04">Wist u dat u op elke plaats op de kaart lang kunt tikken om deze te selecteren?</string>
+	<!-- App tip #05 -->
+	<string name="app_tip_05">Wist u dat u uw huidige locatie op de kaart kunt selecteren?</string>
+	<!-- App tip #06 -->
+	<string name="app_tip_06">U kunt helpen onze app in uw taal te vertalen.</string>
+	<!-- App tip #07 -->
+	<string name="app_tip_07">Onze app is ontwikkeld door een paar enthousiastelingen en de community.</string>
+	<!-- App tip #08 -->
+	<string name="app_tip_08">U kunt de kaartgegevens eenvoudig corrigeren en verbeteren.</string>
+	<!-- App tip #09 -->
+	<string name="app_tip_09">Ons belangrijkste doel is om snelle, op privacy gerichte, gebruiksvriendelijke kaarten te maken waar u dol op zult zijn.</string>
 	<!-- Text on the Android Auto placeholder screen that maps are displayed on the phone screen -->
 	<string name="aa_used_on_the_phone_screen">Je gebruikt nu Organic Maps op het telefoonscherm</string>
 	<!-- Text on the phone placeholder screen that maps are displayed on the car screen -->
@@ -760,6 +793,17 @@
 	<string name="aa_connected_to_car_notification_title">Verbonden met auto</string>
 	<!-- Outdoors/hiking map style (activity) name in the Styles and Layers dialog -->
 	<string name="button_layer_outdoor">Wandelen</string>
+	<!-- Text displayed when a webview or a browser are disabled, and external links can't be opened. -->
+	<string name="browser_not_available">Webbrowser is niet beschikbaar</string>
+	<!-- Text displayed in a dialog when OSM authorization is disabled -->
+	<string name="osm_login_not_available">OpenStreetMap-autorisatie is tijdelijk niet beschikbaar vanwege nieuwe beperkingen in Google Play 😾 Ons team werkt eraan om dit probleem op te lossen. Even geduld 🙏</string>
+	<string name="volume">Volume</string>
+	<!-- Bookmark categories screen, button that opens share dialog to export all bookmarks and tracks -->
+	<string name="bookmarks_export">Alle bladwijzers en tracks exporteren</string>
+	<!-- button in (app) TTS settings, to open the system TTS settings. -->
+	<string name="pref_tts_open_system_settings">Instellingen spraaksynthesesysteem</string>
+	<!-- toast displayed when pressing the "Speech synthesis system settings" button, and the system settings aren't found. -->
+	<string name="pref_tts_no_system_tts">Instellingen voor spraaksynthese zijn niet gevonden, weet je zeker dat je apparaat dit ondersteunt?</string>
 
 	<!-- SECTION: Types -->
 	<string name="type.addr_interpolation">Adres/blok</string>
@@ -818,6 +862,7 @@
 	<string name="type.amenity.dentist">Tandarts</string>
 	<string name="type.amenity.doctors">Huisartsenpost</string>
 	<string name="type.amenity.drinking_water">Drinkwater</string>
+	<string name="type.drinking_water.yes">Drinkwater</string>
 	<string name="type.amenity.driving_school">Rijschool</string>
 	<string name="type.amenity.exhibition_centre">Expositiecentrum</string>
 	<string name="type.amenity.money_transfer">Overschrijving</string>
@@ -916,6 +961,7 @@
 	<string name="type.amenity.telephone">Telefoon</string>
 	<string name="type.amenity.theatre">Theater</string>
 	<string name="type.amenity.toilets">Toiletten</string>
+	<string name="type.toilets.yes">Toiletten</string>
 	<string name="type.amenity.townhall">Gemeentehuis</string>
 	<string name="type.amenity.university">Universiteit</string>
 	<string name="type.amenity.vending_machine">Automaat</string>
@@ -980,6 +1026,7 @@
 	<string name="type.boundary.administrative.state">Staatsgrens</string>
 	<string name="type.boundary.administrative.suburb">Buitenwijkgrens</string>
 	<string name="type.boundary.national_park">Nationaal park</string>
+	<string name="type.boundary.aboriginal_lands">Inheemse landen</string>
 	<string name="type.boundary.protected_area">Beschermd gebied</string>
 	<string name="type.boundary.protected_area.1">Beschermd gebied</string>
 	<string name="type.boundary.protected_area.2">Beschermd gebied</string>
@@ -988,7 +1035,8 @@
 	<string name="type.boundary.protected_area.5">Beschermd gebied</string>
 	<string name="type.boundary.protected_area.6">Beschermd gebied</string>
 	<string name="type.building">Gebouw</string>
-	<string name="type.building.address">Gebouw</string>
+	<!-- Duplicates [address] in strings.txt -->
+	<string name="type.building.address">Adres</string>
 	<string name="type.building.has_parts">Gebouw</string>
 	<string name="type.building_part">Gebouw</string>
 	<string name="type.building.garage">Garage</string>
@@ -1398,7 +1446,6 @@
 	<string name="type.leisure.garden.residential">Tuin</string>
 	<string name="type.leisure.golf_course">Golfbaan</string>
 	<string name="type.leisure.ice_rink">Schaatsbaan</string>
-	<string name="type.leisure.landscape_reserve">Landschapsreservaat</string>
 	<string name="type.leisure.marina">Jachthaven</string>
 	<string name="type.leisure.nature_reserve">Natuurreservaat</string>
 	<string name="type.leisure.outdoor_seating">Zitplaatsen buiten</string>
@@ -2063,16 +2110,26 @@
 	<string name="type.aerialway.platter">Sleeplift</string>
 	<string name="type.aerialway.rope_tow">Touwlift</string>
 	<string name="type.aerialway.t.bar">Sleeplift (T-beugel)</string>
-	<string name="type.piste_type">Pistesoort</string>
 	<string name="type.piste_type.downhill">Ski-afdaling</string>
+	<string name="type.piste_type.downhill.area">Ski-afdaling</string>
 	<string name="type.piste_type.downhill.advanced">Moeilijke afdaling</string>
+	<string name="type.piste_type.downhill.advanced.area">Moeilijke afdaling</string>
 	<string name="type.piste_type.downhill.easy">Makkelijke afdaling</string>
+	<string name="type.piste_type.downhill.easy.area">Makkelijke afdaling</string>
 	<string name="type.piste_type.downhill.expert">Afdaling voor experts</string>
+	<string name="type.piste_type.downhill.expert.area">Afdaling voor experts</string>
 	<string name="type.piste_type.downhill.freeride">Ski-afdaling</string>
 	<string name="type.piste_type.downhill.intermediate">Gemiddelde afdaling</string>
+	<string name="type.piste_type.downhill.intermediate.area">Gemiddelde afdaling</string>
 	<string name="type.piste_type.downhill.novice">Beginnersafdaling</string>
+	<string name="type.piste_type.downhill.novice.area">Beginnersafdaling</string>
 	<string name="type.piste_type.nordic">Langlaufroute</string>
 	<string name="type.piste_type.sled">Sleebaan</string>
+	<string name="type.piste_type.sled.area">Sleebaan</string>
+	<string name="type.piste_type.snow_park">Sneeuwpark</string>
+	<string name="type.piste_type.hike">Sneeuwwandelpad</string>
+	<string name="type.piste_type.connection">Pisteverbinding</string>
+	<string name="type.piste_type.skitour">Skitourspoor</string>
 	<string name="type.amenity.events_venue">Evenementenlocatie</string>
 	<string name="type.shop.auction">Veiling</string>
 	<string name="type.shop.collector">Verzamelobjecten</string>

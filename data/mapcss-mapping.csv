@@ -229,7 +229,7 @@ natural|water|river;[natural=water][water=river];;name;int_name;149;
 railway|tram;150;
 amenity|toilets;151;
 natural|water|basin;[natural=water][water=basin];;name;int_name;152;
-deprecated:highway|footway|permissive:11.2023;[highway=footway][access=permissive],[highway=footway][foot=permissive];x;name;int_name;153;highway|footway
+deprecated:highway|footway|permissive:12.2023;[highway=footway][access=permissive],[highway=footway][foot=permissive];x;name;int_name;153;highway|footway
 leisure|picnic_table;154;
 landuse|construction;155;
 tourism|viewpoint;156;
@@ -306,7 +306,7 @@ sport|baseball;225;
 highway|service|area;[highway=service][area?];;name;int_name;226;
 highway|residential|area;[highway=residential][area?];;name;int_name;227;
 amenity|bus_station;228;
-highway|track|permissive;[highway=track][access=permissive];;name;int_name;229;
+deprecated:highway|track|permissive:12.2023;[highway=track][access=permissive];x;name;int_name;229;highway|track
 waterway|drain|tunnel;[waterway=drain][tunnel?];;name;int_name;230;
 landuse|cemetery|christian;[landuse=cemetery][religion=christian];;name;int_name;231;
 highway|cycleway|tunnel;[highway=cycleway][tunnel?];;name;int_name;232;
@@ -317,7 +317,7 @@ amenity|recycling|centre;[amenity=recycling][recycling_type=centre];;name;int_na
 amenity|recycling;237;
 highway|residential|tunnel;[highway=residential][tunnel?];;name;int_name;238;
 aeroway|helipad;239;
-highway|path|permissive;[highway=path][access=permissive];;name;int_name;240;
+deprecated:highway|path|permissive:12.2023;[highway=path][access=permissive];x;name;int_name;240;highway|path
 place|islet;241;
 sport|basketball;242;
 amenity|cinema;243;
@@ -412,7 +412,7 @@ deprecated:sport|football:10.2021;329;sport|soccer
 highway|steps|bridge;[highway=steps][bridge?];;name;int_name;330;
 highway|track|tunnel;[highway=track][tunnel?];;name;int_name;331;
 highway|pedestrian|tunnel;[highway=pedestrian][tunnel?],[highway=pedestrian][location=underground];;name;int_name;332;
-deprecated|deprecated;333;x
+boundary|aboriginal_lands;333;
 sport|cricket;334;
 sport|bowls;335;
 highway|path|tunnel;[highway=path][tunnel?],[highway=path][location=underground];;name;int_name;336;
@@ -434,7 +434,7 @@ place|country;349;
 highway|path|alpine_hiking;[highway=path][sac_scale=alpine_hiking];;name;int_name;350;
 tourism|zoo|petting;[tourism=zoo][zoo=petting_zoo];;name;int_name;351;
 sport|scuba_diving;352;
-highway|cycleway|permissive;[highway=cycleway][access=permissive];;name;int_name;353;
+deprecated:highway|cycleway|permissive:12.2023;[highway=cycleway][access=permissive];x;name;int_name;353;highway|cycleway
 highway|unclassified|area;[highway=unclassified][area?];;name;int_name;354;
 natural|volcano;355;
 amenity|parking|underground|fee;[amenity=parking][location=underground][fee],[amenity=parking][parking=underground][fee];;name;int_name;356;
@@ -452,7 +452,7 @@ piste:type|downhill|novice;[piste:type=downhill][piste:difficulty=novice];;name;
 railway|narrow_gauge|bridge;[railway=narrow_gauge][bridge?];;name;int_name;367;
 amenity|parking|lane;[amenity=parking][parking=lane];;name;int_name;368;
 railway|rail|main|tunnel;[railway=rail][usage=main][!highspeed][!service][tunnel?];;name;int_name;369;
-highway|bridleway|permissive;[highway=bridleway][access=permissive];;name;int_name;370;
+deprecated:highway|bridleway|permissive:12.2023;[highway=bridleway][access=permissive];x;name;int_name;370;highway|bridleway
 railway|construction;371;
 railway|rail|branch|bridge;[railway=rail][usage=branch][!highspeed][!service][bridge?],[railway=rail][!usage][!service][!highspeed][bridge?];;name;int_name;372;
 landuse|greenhouse_horticulture;373;
@@ -546,7 +546,7 @@ deprecated|deprecated;459;x
 deprecated|deprecated;460;x
 sport|handball;461;
 boundary|administrative|city;[boundary=administrative][border_type=city];;name;int_name;462;
-piste:type|downhill|freeride;[piste:type=downhill][piste:difficulty=freeride];;name;int_name;463;
+piste:type|downhill|freeride;[piste:type=downhill][piste:difficulty=freeride],[piste:type=downhill][piste:grooming=backcountry][!piste:difficulty];;name;int_name;463;
 deprecated|deprecated;464;x
 deprecated|deprecated;465;x
 piste:type|downhill|expert;[piste:type=downhill][piste:difficulty=expert];;name;int_name;466;
@@ -585,10 +585,10 @@ natural|water|lock;[natural=water][water=lock];;name;int_name;498;
 deprecated:waterway|lock:06.2022;499;waterway|canal
 fee|yes;[fee?];;name;int_name;500;
 fee|no;[fee=no];;name;int_name;501;
-deprecated|deprecated;502;x
+toilets|yes;502;
 highway|trunk_link|tunnel;[highway=trunk_link][tunnel?];;name;int_name;503;
-deprecated|deprecated;504;x
-deprecated|deprecated;505;x
+drinking_water|yes;504;
+drinking_water|no;505;
 deprecated|deprecated;506;x
 deprecated|deprecated;507;x
 deprecated|deprecated;508;x
@@ -616,8 +616,7 @@ highway|footway|alpine_hiking;[highway=footway][sac_scale=alpine_hiking];;name;i
 deprecated|deprecated;530;x
 deprecated|deprecated;531;x
 deprecated|deprecated;532;x
-# TODO: deprecated, replaced by leisure=nature_reserve
-leisure|landscape_reserve;533;
+deprecated:leisure|landscape_reserve:01.2024;533;leisure|nature_reserve
 deprecated|deprecated;534;x
 deprecated|deprecated;535;x
 boundary|administrative|state;[boundary=administrative][border_type=state];;name;int_name;536;
@@ -689,18 +688,18 @@ place|continent;601;
 deprecated|deprecated;602;x
 deprecated|deprecated;603;x
 boundary|administrative|nation;[boundary=administrative][border_type=nation];;name;int_name;604;
-deprecated|deprecated;605;x
-deprecated|deprecated;606;x
-deprecated|deprecated;607;x
+piste:type|hike;605;
+piste:type|connection;606;
+piste:type|skitour;607;
 aerialway|magic_carpet;608;
-deprecated|deprecated;609;x
-deprecated|deprecated;610;x
-deprecated|deprecated;611;x
-deprecated|deprecated;612;x
-deprecated|deprecated;613;x
-deprecated|deprecated;614;x
-deprecated|deprecated;615;x
-deprecated|deprecated;616;x
+piste:type|downhill|novice|area;[piste:type=downhill][piste:difficulty=novice][area?];;;;609;
+piste:type|downhill|easy|area;[piste:type=downhill][piste:difficulty=easy][area?];;;;610;
+piste:type|downhill|intermediate|area;[piste:type=downhill][piste:difficulty=intermediate][area?];;;;611;
+piste:type|downhill|advanced|area;[piste:type=downhill][piste:difficulty=advanced][area?];;;;612;
+piste:type|downhill|expert|area;[piste:type=downhill][piste:difficulty=expert][area?];;;;613;
+piste:type|downhill|area;[piste:type=downhill][area?];;;;614;
+piste:type|sled|area;[piste:type=sled][area?];;;;615;
+piste:type|snow_park;616;
 deprecated|deprecated;617;x
 deprecated|deprecated;618;x
 aerialway|j-bar;619;
@@ -1682,3 +1681,5 @@ amenity|compressed_air;1592;
 leisure|hackerspace;1593;
 railway|station|subway|singapore;[railway=station][transport=subway][city=singapore],[railway=station][station=subway][city=singapore];;name;int_name;1594;
 railway|subway_entrance|singapore;[railway=subway_entrance][city=singapore];;name;int_name;1595;
+railway|station|subway|boston;[railway=station][transport=subway][city=boston],[railway=station][station=subway][city=boston];;name;int_name;1596;
+railway|subway_entrance|boston;[railway=subway_entrance][city=boston];;name;int_name;1597;

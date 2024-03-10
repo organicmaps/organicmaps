@@ -44,7 +44,7 @@
 
   <dimen name="place_page_width">320dp</dimen>
   <dimen name="place_page_buttons_height">56dp</dimen>
-  <dimen name="place_page_top_button">36dp</dimen>
+  <dimen name="place_page_top_button">40dp</dimen>
 
   <dimen name="downloader_status_size">40dp</dimen>
   <dimen name="search_progress_size">32dp</dimen>
@@ -176,6 +176,5 @@
   <dimen name="about_logo">96dp</dimen>
 
   <!--About Fragment -->
-  <dimen name="about_max_textview_width">230dp</dimen>
   <dimen name="about_max_button_width">310dp</dimen>
 </resources>

@@ -15,7 +15,7 @@ Főbb jellemzők:
 • Könyvjelzők exportálása és importálása KML, KMZ, GPX formátumban
 • Sötét üzemmód a szem védelméért.
 
-Az Organic Mapsben <i>még</i> nincsenek olyan menő funkciók, mint az Android Auto, tömegközlekedés és műholdas térkép. De az Ön <i>segítségével és támogatásával</i>, lépésről lépésre jobbá tehetjük a világot.
+Az Organic Mapsben <i>még</i> nincsenek olyan menő funkciók, tömegközlekedés és műholdas térkép. De az Ön <i>segítségével és támogatásával</i>, lépésről lépésre jobbá tehetjük a világot.
 
 Az Organic Maps <b>tiszta és organikus, szeretettel készült</b>:
 

@@ -42,9 +42,9 @@
 	<!-- Text in About screen -->
 	<string name="about_proposition_1">• Δεν υπάρχουν διαφημίσεις, χωρίς παρακολούθηση, χωρίς συλλογή δεδομένων</string>
 	<!-- Text in About screen -->
-	<string name="about_proposition_2">• Εξοικονομεί μπαταρία, δεν χρησιμοποιεί δεδομένα παρασκηνίου</string>
+	<string name="about_proposition_2">• Δεν υπάρχει αποστράγγιση μπαταρίας, λειτουργεί εκτός σύνδεσης</string>
 	<!-- Text in About screen -->
-	<string name="about_proposition_3">• Γρήγορη, μινιμαλιστική, χωρίς σκουπίδια</string>
+	<string name="about_proposition_3">• Γρήγορο, μινιμαλιστικό, αναπτυγμένο από την κοινότητα</string>
 	<!-- Text in About screen -->
 	<string name="about_developed_by_enthusiasts">Εφαρμογή ανοιχτού κώδικα που δημιουργήθηκε από ενθουσιώδες και εθελοντές.</string>
 	<!-- The button that opens system location settings -->
@@ -81,7 +81,7 @@
 	<string name="core_my_places">Οι τοποθεσίες μου</string>
 	<!-- Add bookmark dialog - bookmark name -->
 	<string name="name">Όνομα</string>
-	<!-- Editor title above street and house number -->
+	<!-- Editor title above street and house number, duplicates [type.building.address] in types_strings.txt -->
 	<string name="address">Διεύθυνση</string>
 	<!-- Add Bookmark dialog/Bookmark list; Bookmarks dialog/Bookmark list cell. -->
 	<string name="list">Λίστα</string>
@@ -95,7 +95,7 @@
 	<string name="maps_storage_downloaded">Χάρτες</string>
 	<!-- Question dialog for transferring maps from one storage to another -->
 	<string name="move_maps">Να γίνει μετακίνηση χαρτών;</string>
-	<!-- Ask to wait user several minutes (some long process in modal dialog). -->
+	<!-- Ask user to wait several minutes (some long process in modal dialog). -->
 	<string name="wait_several_minutes">Αυτό μπορεί να διαρκέσει αρκετά λεπτά. \nΠαρακαλώ περιμένετε…</string>
 	<!-- Measurement units title in settings activity -->
 	<string name="measurement_units">Μονάδες μέτρησης</string>
@@ -159,6 +159,10 @@
 	<string name="load_kmz_successful">Τα αγαπημένα φορτώθηκαν με επιτυχία! Μπορείτε να τα βρείτε στο χάρτη ή στην οθόνη Διαχείριση αγαπημένων.</string>
 	<!-- Kml file loading failed -->
 	<string name="load_kmz_failed">Η μεταφόρτωση των αγαπημένων απέτυχε. Το αρχείο μπορεί να είναι κατεστραμμένο ή ελαττωματικό.</string>
+	<!-- Failed to recognize the format of a bookmarks or tracks file. -->
+	<string name="unknown_file_type">Ο τύπος αρχείου δεν αναγνωρίζεται από την εφαρμογή:\n%1$s</string>
+	<!-- Failed to open a bookmarks or tracks file in Organic Maps. -->
+	<string name="failed_to_open_file">Απέτυχε να ανοίξει αρχείο %1$s\n\n%2$s</string>
 	<!-- resource for context menu -->
 	<string name="edit">Επεξεργασία</string>
 	<!-- Warning message when doing search around current position -->
@@ -197,6 +201,10 @@
 	<string name="pref_zoom_summary">Εμφάνιση στο χάρτη</string>
 	<!-- Settings «Map» category: «Night style» title -->
 	<string name="pref_map_style_title">Νυχτερινή λειτουργία</string>
+	<!-- Settings "Appearance" category: "Light" title, should be consistent with the pref_appearance_title translation. -->
+	<string name="pref_appearance_light">Ανοιχτόχρωμη</string>
+	<!-- Settings "Appearance" category: "Dark" title, should be consistent with the pref_appearance_title translation. -->
+	<string name="pref_appearance_dark">Σκουρόχρωμη</string>
 	<!-- Generic «Off» string -->
 	<string name="off">Απενεργ.</string>
 	<!-- Generic «On» string -->
@@ -453,8 +461,8 @@
 	<string name="editor_report_problem_other_title">Διαφορετικό πρόβλημα</string>
 	<string name="placepage_add_business_button">Προσθήκη επιχείρησης</string>
 	<string name="message_invalid_feature_position">Δε μπορεί να εντοπιστεί αντικείμενο εδώ</string>
-	<!-- Text in About and OSM Login screens. %@ is replaced by a local, human readable date. -->
-	<string name="osm_presentation">Χαρτογραφικά δεδομένα από το OpenStreetMap από το %s. Είναι σαν τη Wikipedia όπου μπορείτε να προσθέσετε ή να επεξεργαστείτε θέσεις για όλους τους χρήστες του κόσμου.</string>
+	<!-- Text in About and OSM Login screens. First %@ is replaced by a local, human readable date. -->
+	<string name="osm_presentation">Δεδομένα OpenStreetMap που δημιουργήθηκαν από την κοινότητα από την %s. Μάθετε περισσότερα για τον τρόπο επεξεργασίας και ενημέρωσης του χάρτη στο OpenStreetMap.org</string>
 	<string name="login_to_make_edits_visible">Συνδεθείτε ώστε άλλοι χρήστες να μπορούν να δουν τις αλλαγές που έχετε κάνει</string>
 	<!-- Downloaded 10 **of** 20 <- it is that "of" -->
 	<string name="downloader_of">%1$d από %2$d</string>
@@ -475,12 +483,7 @@
 	<string name="editor_operator">Ιδιοκτήτης</string>
 	<string name="downloader_no_downloaded_maps_title">Δεν έχετε κατεβάσει χάρτες</string>
 	<string name="downloader_no_downloaded_maps_message">Κατεβάστε χάρτες για να αναζητήσετε μια τοποθεσία και να χρησιμοποιήσετε την πλοήγησης χωρίς σύνδεση.</string>
-	<!-- Error title that appears after certain time without location. -->
-	<string name="current_location_unknown_title">Να συνεχίσει να ανιχνεύεται η τρέχουσα θέση σας;</string>
-	<!-- Error that appears after certain time without location. -->
-	<string name="current_location_unknown_message">Η τρέχουσα τοποθεσία είναι άγνωστη. Ίσως είστε σε ένα κτίριο ή σε μια σήραγγα.</string>
-	<string name="current_location_unknown_continue_button">Συνέχεια</string>
-	<string name="current_location_unknown_stop_button">Στοπ</string>
+	<string name="stop">Στοπ</string>
 	<string name="placepage_more_button">Περισσότερα</string>
 	<!-- A referral link on the place page for some hotels -->
 	<string name="more_on_kayak">Φωτογραφίες, κριτικές, κράτηση</string>
@@ -598,6 +601,12 @@
 	<string name="place_description_title">Περιγραφή μέρους</string>
 	<!-- this text will be shown in application notification preferences opposite checkbox which enable/disable downloader notifications. Devices on Android 8+ are affected. -->
 	<string name="notification_channel_downloader">Κατέβασμα χαρτών</string>
+	<!-- Speed camera settings menu option - Warn (about speedcams) if risk of exceeding speed limit -->
+	<string name="pref_tts_speedcams_auto">Να ειδοποιούμαι αν υπάρχει κίνδυνος να υπερβώ το όριο ταχύτητας</string>
+	<!-- Speed camera settings menu option - Always warn (about speedcams) -->
+	<string name="pref_tts_speedcams_always">Πάντα να ειδοποιούμαι</string>
+	<!-- Speed camera settings menu option - Never warn (about speedcams) -->
+	<string name="pref_tts_speedcams_never">Ποτέ να μην ειδοποιούμαι</string>
 	<string name="power_managment_title">Λειτουργία εξοικονόμησης ενέργειας</string>
 	<string name="power_managment_description">Εάν η λειτουργία εξοικονόμησης ενέργειας είναι ενεργοποιημένη, η εφαρμογή θα κλείνει τις λειτουργίες που καταναλώνουν ενέργεια ανάλογα με την τρέχουσα φόρτιση του τηλεφώνου</string>
 	<string name="power_managment_setting_never">Ποτέ</string>
@@ -628,6 +637,8 @@
 	<string name="yes_available">Ναι</string>
 	<!-- E.g. "WiFi:No" -->
 	<string name="no_available">Όχι</string>
+	<!-- To indicate the capacity of car parkings, bicycle parkings, electric vehicle charging stations... -->
+	<string name="capacity">Χωρητικότητα: %s</string>
 	<string name="trip_finished">Έχετε φτάσει!</string>
 	<string name="ok">Καλώς</string>
 	<!-- max. 10 symbols, both iOS and Android -->
@@ -689,8 +700,26 @@
 	<string name="splash_subtitle">Δεδομένα χάρτη από το OpenStreetMap</string>
 	<!-- Link to OSM wiki for Editor, Profile and About pages -->
 	<string name="osm_wiki_about_url">https://wiki.openstreetmap.org/wiki/El:About_OpenStreetMap</string>
-	<!-- Tip #00 -->
+	<!-- App Tip #00 -->
 	<string name="app_tip_00">Σας ευχαριστούμε που χρησιμοποιείτε τους χάρτες μας που δημιουργήθηκαν από την κοινότητα!</string>
+	<!-- App tip #01 -->
+	<string name="app_tip_01">Με τις δωρεές και την υποστήριξή σας, μπορούμε να δημιουργήσουμε τους καλύτερους χάρτες στον κόσμο!</string>
+	<!-- App tip #02 -->
+	<string name="app_tip_02">Σας αρέσει η εφαρμογή μας; Παρακαλούμε δωρίστε για να υποστηρίξετε την ανάπτυξη! Δεν σας αρέσει ακόμα; Ενημερώστε μας και θα το διορθώσουμε!</string>
+	<!-- App tip #03 -->
+	<string name="app_tip_03">Εάν γνωρίζετε έναν προγραμματιστή λογισμικού, μπορείτε να του ζητήσετε να εφαρμόσει μια δυνατότητα που χρειάζεστε.</string>
+	<!-- App tip #04 -->
+	<string name="app_tip_04">Γνωρίζετε ότι μπορείτε να πατήσετε παρατεταμένα οποιοδήποτε μέρος στο χάρτη για να το επιλέξετε;</string>
+	<!-- App tip #05 -->
+	<string name="app_tip_05">Γνωρίζετε ότι μπορείτε να επιλέξετε την τρέχουσα τοποθεσία σας στο χάρτη;</string>
+	<!-- App tip #06 -->
+	<string name="app_tip_06">Μπορείτε να βοηθήσετε στη μετάφραση της εφαρμογής μας στη γλώσσα σας.</string>
+	<!-- App tip #07 -->
+	<string name="app_tip_07">Η εφαρμογή μας έχει αναπτυχθεί από λίγους ενθουσιώδεις και την κοινότητα.</string>
+	<!-- App tip #08 -->
+	<string name="app_tip_08">Μπορείτε εύκολα να διορθώσετε και να βελτιώσετε τα δεδομένα χάρτη.</string>
+	<!-- App tip #09 -->
+	<string name="app_tip_09">Ο κύριος στόχος μας είναι να δημιουργήσουμε γρήγορους, εστιασμένους στο απόρρητο, εύχρηστους χάρτες που θα λατρέψετε.</string>
 	<!-- Text on the Android Auto placeholder screen that maps are displayed on the phone screen -->
 	<string name="aa_used_on_the_phone_screen">Τώρα χρησιμοποιείτε τους Organic Maps στην οθόνη του τηλεφώνου</string>
 	<!-- Text on the phone placeholder screen that maps are displayed on the car screen -->
@@ -709,6 +738,17 @@
 	<string name="aa_connected_to_car_notification_title">Συνδεδεμένο με το αυτοκίνητο</string>
 	<!-- Outdoors/hiking map style (activity) name in the Styles and Layers dialog -->
 	<string name="button_layer_outdoor">Πεζοπορία</string>
+	<!-- Text displayed when a webview or a browser are disabled, and external links can't be opened. -->
+	<string name="browser_not_available">Το πρόγραμμα περιήγησης στο Web δεν είναι διαθέσιμο</string>
+	<!-- Text displayed in a dialog when OSM authorization is disabled -->
+	<string name="osm_login_not_available">Η εξουσιοδότηση του OpenStreetMap δεν είναι προσωρινά διαθέσιμη λόγω νέων περιορισμών στο Google Play 😾\nΗ ομάδα μας εργάζεται για την επίλυση αυτού του προβλήματος. Παρακαλούμε να είστε υπομονετικοί 🙏</string>
+	<string name="volume">Ένταση ήχου</string>
+	<!-- Bookmark categories screen, button that opens share dialog to export all bookmarks and tracks -->
+	<string name="bookmarks_export">Εξαγωγή όλων των σελιδοδεικτών και των διαδρομών</string>
+	<!-- button in (app) TTS settings, to open the system TTS settings. -->
+	<string name="pref_tts_open_system_settings">Ρυθμίσεις συστήματος σύνθεσης ομιλίας</string>
+	<!-- toast displayed when pressing the "Speech synthesis system settings" button, and the system settings aren't found. -->
+	<string name="pref_tts_no_system_tts">Δεν βρέθηκαν οι ρυθμίσεις σύνθεσης ομιλίας, είστε σίγουροι ότι η συσκευή σας την υποστηρίζει;</string>
 
 	<!-- SECTION: Types -->
 	<string name="type.addr_interpolation">Διεύθυνση/Μπλοκ</string>
@@ -759,6 +799,7 @@
 	<string name="type.amenity.dentist">Οδοντίατρος</string>
 	<string name="type.amenity.doctors">Γιατροί</string>
 	<string name="type.amenity.drinking_water">Πόσιμο νερό</string>
+	<string name="type.drinking_water.yes">Πόσιμο νερό</string>
 	<string name="type.amenity.driving_school">Σχολή οδήγησης</string>
 	<string name="type.amenity.exhibition_centre">Εκθεσιακό Κέντρο</string>
 	<string name="type.amenity.money_transfer">Μεταφορά χρημάτων</string>
@@ -850,6 +891,7 @@
 	<string name="type.amenity.telephone">Τηλέφωνο</string>
 	<string name="type.amenity.theatre">Θέατρο</string>
 	<string name="type.amenity.toilets">Τουαλέτα</string>
+	<string name="type.toilets.yes">Τουαλέτα</string>
 	<string name="type.amenity.townhall">Δημαρχείο</string>
 	<string name="type.amenity.university">Πανεπιστήμιο</string>
 	<string name="type.amenity.vending_machine.cigarettes">Αυτόματος πωλητής τσιγάρων</string>
@@ -877,6 +919,7 @@
 	<string name="type.barrier.swing_gate">Ανυψούμενη μπάρα</string>
 	<string name="type.barrier.toll_booth">Σταθμός διοδίων</string>
 	<string name="type.boundary.national_park">Εθνικό πάρκο</string>
+	<string name="type.boundary.aboriginal_lands">Αυτόχθονες εκτάσεις</string>
 	<string name="type.boundary.protected_area">Προστατευόμενη Περιοχή</string>
 	<string name="type.boundary.protected_area.1">Προστατευόμενη Περιοχή</string>
 	<string name="type.boundary.protected_area.2">Προστατευόμενη Περιοχή</string>
@@ -885,7 +928,8 @@
 	<string name="type.boundary.protected_area.5">Προστατευόμενη Περιοχή</string>
 	<string name="type.boundary.protected_area.6">Προστατευόμενη Περιοχή</string>
 	<string name="type.building">Κτίριο</string>
-	<string name="type.building.address">Κτίριο</string>
+	<!-- Duplicates [address] in strings.txt -->
+	<string name="type.building.address">Διεύθυνση</string>
 	<string name="type.building.has_parts">Κτίριο</string>
 	<string name="type.building_part">Κτίριο</string>
 	<string name="type.building.garage">Γκαράζ</string>
@@ -1840,6 +1884,10 @@
 	<string name="type.wheelchair.limited">Μερικώς εξοπλισμένο για άτομα με ειδικές ανάγκες</string>
 	<string name="type.wheelchair.no">Δεν υπάρχει πρόβλεψη για άτομα με ειδικές ανάγκες</string>
 	<string name="type.wheelchair.yes">Εξοπλισμένο για άτομα με ειδικές ανάγκες</string>
+	<string name="type.piste_type.snow_park">Snow Park</string>
+	<string name="type.piste_type.hike">Μονοπάτι πεζοπορίας χιονιού</string>
+	<string name="type.piste_type.connection">Σύνδεση πίστας</string>
+	<string name="type.piste_type.skitour">Μονοπάτι Skitour</string>
 	<string name="type.amenity.events_venue">Κέντρο εκδηλώσεων</string>
 	<string name="type.shop.auction">Δημοπρασία</string>
 	<string name="type.shop.collector">Συλλεκτικά αντικείμενα</string>

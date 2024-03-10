@@ -3,6 +3,7 @@
 #include "indexer/feature_data.hpp"
 #include "indexer/feature_decl.hpp"
 #include "indexer/feature_meta.hpp"
+#include "indexer/feature_utils.hpp"
 #include "indexer/ftraits.hpp"
 
 #include "geometry/latlon.hpp"
@@ -16,26 +17,9 @@ namespace osm
 {
 class EditableMapObject;
 
-/// OSM internet_access tag values.
-enum class Internet
-{
-  Unknown,  //!< Internet state is unknown (default).
-  Wlan,     //!< Wireless Internet access is present.
-  Terminal, //!< A computer with internet service.
-  Wired,    //!< Wired Internet access is present.
-  Yes,      //!< Unspecified Internet access is available.
-  No        //!< There is definitely no any Internet access.
-};
-std::string DebugPrint(Internet internet);
-/// @param[in]  inet  Should be lowercase like in DebugPrint.
-Internet InternetFromString(std::string_view inet);
-
 class MapObject
 {
 public:
-  static char const * kFieldsSeparator;
-  static constexpr uint8_t kMaxStarsCount = 7;
-
   void SetFromFeatureType(FeatureType & ft);
 
   FeatureID const & GetID() const;
@@ -96,15 +80,14 @@ public:
   std::string FormatRoadShields() const;
 
   std::string_view GetOpeningHours() const;
-  Internet GetInternet() const;
+  feature::Internet GetInternet() const;
   int GetStars() const;
-  ftraits::WheelchairAvailability GetWheelchairType() const;
 
   /// @returns true if feature has ATM type.
   bool HasAtm() const;
 
-  /// @returns formatted elevation in feet or meters, or empty string.
-  std::string GetElevationFormatted() const;
+  /// @returns true if feature has Toilets type.
+  bool HasToilets() const;
   /// @}
 
   bool IsPointType() const;
@@ -113,6 +96,9 @@ public:
 
   /// @returns true if object is of building type.
   bool IsBuilding() const;
+
+  /// @returns true if object is a public transport stop type.
+  bool IsPublicTransportStop() const;
 
   void AssignMetadata(feature::Metadata & dest) const { dest = m_metadata; }
 

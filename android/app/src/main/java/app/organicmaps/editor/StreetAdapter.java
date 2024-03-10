@@ -97,14 +97,9 @@ public class StreetAdapter extends RecyclerView.Adapter<StreetAdapter.BaseViewHo
       streetLoc = itemView.findViewById(R.id.street_localized);
       selected = itemView.findViewById(R.id.selected);
       itemView.setOnClickListener(this);
-      selected.setOnClickListener(new View.OnClickListener()
-      {
-        @Override
-        public void onClick(View v)
-        {
-          selected.toggle();
-          StreetViewHolder.this.onClick(selected);
-        }
+      selected.setOnClickListener(v -> {
+        selected.toggle();
+        StreetViewHolder.this.onClick(selected);
       });
     }
 
@@ -130,14 +125,7 @@ public class StreetAdapter extends RecyclerView.Adapter<StreetAdapter.BaseViewHo
     public AddViewHolder(View itemView)
     {
       super(itemView);
-      itemView.setOnClickListener(new View.OnClickListener()
-      {
-        @Override
-        public void onClick(View v)
-        {
-          addStreet();
-        }
-      });
+      itemView.setOnClickListener(v -> addStreet());
     }
   }
 }

@@ -4,22 +4,16 @@ final class ThemeManager: NSObject {
 
   private static let instance = ThemeManager()
   private weak var timer: Timer?
-  private var isDarkModeEnabled: Bool = false
-  private static let enableDarkModeBySystem = false
 
   private override init() {
     super.init()
-    if #available(iOS 13.0, *) {
-      MapsAppDelegate.theApp().window.overrideUserInterfaceStyle = .light
-    }
-  }
-
-  @objc static func setDarkModeEnabled(_ val: Bool) {
-    instance.isDarkModeEnabled = val
-    instance.update(theme: Settings.theme())
   }
 
   private func update(theme: MWMTheme) {
+    if #available(iOS 13.0, *) {
+      updateSystemUserInterfaceStyle(theme)
+    }
+
     let actualTheme: MWMTheme = { theme in
       let isVehicleRouting = MWMRouter.isRoutingActive() && (MWMRouter.type() == .vehicle)
       switch theme {
@@ -28,7 +22,8 @@ final class ThemeManager: NSObject {
       case .night: fallthrough
       case .vehicleNight: return isVehicleRouting ? .vehicleNight : .night
       case .auto:
-        if #available(iOS 13.0, *), ThemeManager.enableDarkModeBySystem {
+        if #available(iOS 13.0, *) {
+          let isDarkModeEnabled = UIScreen.main.traitCollection.userInterfaceStyle == .dark
           guard isVehicleRouting else { return isDarkModeEnabled ? .night : .day }
           return isDarkModeEnabled ? .vehicleNight : .vehicleDay
         } else {
@@ -72,6 +67,22 @@ final class ThemeManager: NSObject {
 
   @objc static func invalidate() {
     instance.update(theme: Settings.theme())
+  }
+
+  @available(iOS 13.0, *)
+  private func updateSystemUserInterfaceStyle(_ theme: MWMTheme) {
+    let userInterfaceStyle: UIUserInterfaceStyle = { theme in
+      switch theme {
+      case .day: fallthrough
+      case .vehicleDay: return .light
+      case .night: fallthrough
+      case .vehicleNight: return .dark
+      case .auto: return .unspecified
+      @unknown default:
+        fatalError()
+      }
+    }(theme)
+    UIApplication.shared.delegate?.window??.overrideUserInterfaceStyle = userInterfaceStyle
   }
 
   @available(iOS, deprecated:13.0)

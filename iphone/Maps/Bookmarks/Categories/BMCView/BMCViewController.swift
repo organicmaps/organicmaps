@@ -12,7 +12,7 @@ final class BMCViewController: MWMViewController {
     didSet {
       let cells = [
         BMCCategoryCell.self,
-        BMCActionsCreateCell.self,
+        BMCActionsCell.self,
         BMCNotificationsCell.self,
       ]
       tableView.registerNibs(cells)
@@ -34,6 +34,7 @@ final class BMCViewController: MWMViewController {
 
   override func viewDidLoad() {
     super.viewDidLoad()
+    view.styleName = "PressBackground"
     viewModel = BMCDefaultViewModel()
   }
 
@@ -76,8 +77,22 @@ final class BMCViewController: MWMViewController {
     viewModel.shareCategoryFile(at: index) {
       switch $0 {
       case let .success(url):
-        let shareController = ActivityViewController.share(for: url,
-                                                              message: L("share_bookmarks_email_body"))
+        let shareController = ActivityViewController.share(for: url, message: L("share_bookmarks_email_body"))
+        { [weak self] _, _, _, _ in
+          self?.viewModel?.finishShareCategory()
+        }
+        shareController?.present(inParentViewController: self, anchorView: anchor)
+      case let .error(title, text):
+        MWMAlertViewController.activeAlert().presentInfoAlert(title, text: text)
+      }
+    }
+  }
+
+  private func shareAllCategories(anchor: UIView?) {
+    viewModel.shareAllCategories {
+      switch $0 {
+      case let .success(url):
+        let shareController = ActivityViewController.share(for: url, message: L("share_bookmarks_email_body"))
         { [weak self] _, _, _, _ in
           self?.viewModel?.finishShareCategory()
         }
@@ -197,7 +212,7 @@ extension BMCViewController: UITableViewDataSource {
       return dequeCell(BMCCategoryCell.self).config(category: viewModel.category(at: indexPath.row),
                                                     delegate: self)
     case .actions:
-      return dequeCell(BMCActionsCreateCell.self).config(model: viewModel.action(at: indexPath.row))
+      return dequeCell(BMCActionsCell.self).config(model: viewModel.action(at: indexPath.row))
     case .notifications:
       return dequeCell(BMCNotificationsCell.self)
     }
@@ -254,6 +269,7 @@ extension BMCViewController: UITableViewDelegate {
     case .actions:
       switch viewModel.action(at: indexPath.row) {
       case .create: createNewCategory()
+      case .exportAll: shareAllCategories(anchor: tableView.cellForRow(at: indexPath))
       }
     default:
       assertionFailure()

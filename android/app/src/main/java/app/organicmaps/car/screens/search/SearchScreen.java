@@ -1,5 +1,7 @@
 package app.organicmaps.car.screens.search;
 
+import android.text.TextUtils;
+
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.car.app.CarContext;
@@ -134,11 +136,16 @@ public class SearchScreen extends BaseMapScreen implements SearchTemplate.Search
     if (result.type == SearchResult.TYPE_RESULT)
     {
       final String title = result.getTitle(getCarContext());
+      final CharSequence description = SearchUiHelpers.concatenateStrings(
+          SearchUiHelpers.getDistanceText(result),
+          result.description.description,
+          SearchUiHelpers.getOpeningHoursText(getCarContext(), result));
+      final String region = result.description.region;
       builder.setTitle(title);
-      builder.addText(result.getFormattedDescription(getCarContext()));
-      final CharSequence openingHoursAndDistance = SearchUiHelpers.getOpeningHoursAndDistanceText(getCarContext(), result);
-      if (openingHoursAndDistance.length() != 0)
-        builder.addText(openingHoursAndDistance);
+      if (!TextUtils.isEmpty(description))
+        builder.addText(description);
+      if (!TextUtils.isEmpty(region))
+        builder.addText(region);
       builder.setOnClickListener(() -> {
         SearchRecents.add(title, getCarContext());
         SearchEngine.INSTANCE.cancel();

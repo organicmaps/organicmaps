@@ -83,7 +83,6 @@ public:
   using GraphicsReadyHandler = std::function<void()>;
   using TapEventInfoHandler = std::function<void(TapInfo const &)>;
   using UserPositionChangedHandler = std::function<void(m2::PointD const & pt, bool hasPosition)>;
-  using UserPositionPendingTimeoutHandler = std::function<void()>;
 
   struct Params : BaseRenderer::Params
   {
@@ -92,7 +91,6 @@ public:
            MyPositionController::Params && myPositionParams, dp::Viewport viewport,
            ModelViewChangedHandler && modelViewChangedHandler, TapEventInfoHandler && tapEventHandler,
            UserPositionChangedHandler && positionChangedHandler,
-           UserPositionPendingTimeoutHandler && userPositionPendingTimeoutHandler,
            ref_ptr<RequestedTiles> requestedTiles,
            OverlaysShowStatsCallback && overlaysShowStatsCallback,
            bool allow3dBuildings, bool trafficEnabled, bool blockTapEvents,
@@ -104,7 +102,6 @@ public:
       , m_modelViewChangedHandler(std::move(modelViewChangedHandler))
       , m_tapEventHandler(std::move(tapEventHandler))
       , m_positionChangedHandler(std::move(positionChangedHandler))
-      , m_userPositionPendingTimeoutHandler(std::move(userPositionPendingTimeoutHandler))
       , m_requestedTiles(requestedTiles)
       , m_overlaysShowStatsCallback(std::move(overlaysShowStatsCallback))
       , m_allow3dBuildings(allow3dBuildings)
@@ -118,7 +115,6 @@ public:
     ModelViewChangedHandler m_modelViewChangedHandler;
     TapEventInfoHandler m_tapEventHandler;
     UserPositionChangedHandler m_positionChangedHandler;
-    UserPositionPendingTimeoutHandler m_userPositionPendingTimeoutHandler;
     ref_ptr<RequestedTiles> m_requestedTiles;
     OverlaysShowStatsCallback m_overlaysShowStatsCallback;
     bool m_allow3dBuildings;
@@ -136,7 +132,6 @@ public:
 
   // MyPositionController::Listener
   void PositionChanged(m2::PointD const & position, bool hasPosition) override;
-  void PositionPendingTimeout() override;
   void ChangeModelView(m2::PointD const & center, int zoomLevel,
                        TAnimationCreator const & parallelAnimCreator) override;
   void ChangeModelView(double azimuth, TAnimationCreator const & parallelAnimCreator) override;
@@ -206,7 +201,7 @@ private:
 
   void EmitModelViewChanged(ScreenBase const & modelView) const;
 
-#if defined(OMIM_OS_MAC) || defined(OMIM_OS_LINUX)
+#if defined(OMIM_OS_DESKTOP)
   void EmitGraphicsReady();
 #endif
 
@@ -342,7 +337,6 @@ private:
   ModelViewChangedHandler m_modelViewChangedHandler;
   TapEventInfoHandler m_tapEventInfoHandler;
   UserPositionChangedHandler m_userPositionChangedHandler;
-  UserPositionPendingTimeoutHandler m_userPositionPendingTimeoutHandler;
 
   ScreenBase m_lastReadedModelView;
   TTilesCollection m_notFinishedTiles;
@@ -416,7 +410,7 @@ private:
   bool m_firstLaunchAnimationTriggered = false;
   bool m_firstLaunchAnimationInterrupted = false;
 
-#if defined(OMIM_OS_MAC) || defined(OMIM_OS_LINUX)
+#if defined(OMIM_OS_DESKTOP)
   GraphicsReadyHandler m_graphicsReadyFn;
 
   enum class GraphicsStage

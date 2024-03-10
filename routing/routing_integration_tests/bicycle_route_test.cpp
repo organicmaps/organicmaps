@@ -300,4 +300,13 @@ UNIT_TEST(IgnoreCycleBarrier_WithoutAccess)
                                    mercator::FromLatLon(51.3576973, -2.31416085), 11131.6);
 }
 
+// https://github.com/organicmaps/organicmaps/issues/7257
+UNIT_TEST(AvoidConstruction)
+{
+  // Will not work when the bridge will be finished.
+  CalculateRouteAndTestRouteLength(GetVehicleComponents(VehicleType::Bicycle),
+                                   mercator::FromLatLon(-27.4724942, 153.030171), {0.0, 0.0},
+                                   mercator::FromLatLon(-27.4706626, 153.035428), 2989.28);
+}
+
 } // namespace bicycle_route_test

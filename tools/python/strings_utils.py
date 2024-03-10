@@ -332,6 +332,12 @@ class StringsTxt:
 
         if target_file is None:
             target_file = self.strings_path
+        if target_file.endswith('countries_names.txt'):
+            section_padding = 0 * " "
+            key_padding = 2 * " "
+        else:
+            section_padding = 2 * " "
+            key_padding = 4 * " "
         with open(target_file, "w", encoding='utf-8') as outfile:
             for key in self.keys_in_order:
                 # TODO: sort definitions and sections too?
@@ -345,24 +351,24 @@ class StringsTxt:
                         before_block = "\n"
                     continue
 
-                outfile.write("{0}  {1}\n".format(before_block, key))
+                outfile.write("{0}{1}{2}\n".format(before_block, section_padding, key))
                 before_block = "\n"
 
                 ref_tran = {}
                 if key in self.comments_tags_refs:
                     for k, v in self.comments_tags_refs[key].items():
-                        outfile.write("    {0} = {1}\n".format(k, v))
+                        outfile.write("{0}{1} = {2}\n".format(key_padding, k, v))
                         if not keep_resolved and k == "ref":
                             ref_tran = self.translations.get("[{0}]".format(v))
 
-                self._write_translations_for_langs(outfile, sorted_langs, tran, ref_tran)
+                self._write_translations_for_langs(outfile, sorted_langs, tran, ref_tran, key_padding)
 
-    def _write_translations_for_langs(self, outfile, langs, tran, ref_tran):
+    def _write_translations_for_langs(self, outfile, langs, tran, ref_tran, key_padding):
         for lang in langs:
             # don't output translation if it's duplicated in referenced definition
             if lang in tran and tran[lang] != ref_tran.get(lang):
-                outfile.write("    {0} = {1}\n".format(
-                    lang, tran[lang].replace("...", "…")
+                outfile.write("{0}{1} = {2}\n".format(
+                    key_padding, lang, tran[lang].replace("...", "…")
                 ))
 
     def _compare_blocks(self, key_1, key_2):
@@ -484,6 +490,15 @@ class StringsTxt:
         self.print_strings_with_wrong_placeholders(langs=args.langs)
         return not self.validation_errors
 
+    def translate(self, source_language, target_language):
+        from translate import translate_one
+        self._print_header(f"Translating from {source_language} to {target_language}...")
+        for key, source in self.translations_by_language[source_language].items():
+            if key in self.translations_by_language[target_language]:
+                continue
+            translation = translate_one(source, source_language, target_language)
+            print(f'{source} -> {translation}')
+            self.add_translation(translation, key, target_language)
 
 def find_project_root():
     my_path = abspath(__file__)
@@ -585,6 +600,14 @@ def get_args():
         before punctuation, etc; exit with error if not valid"""
     )
 
+    parser.add_argument(
+        "-tr", "--translate",
+        nargs=2,
+        dest="translate",
+        metavar=('source_lang', 'target_lang'),
+        help="""translate SOURCE_LANG into TARGET_LANG"""
+    )
+
     return parser.parse_args()
 
 
@@ -629,6 +652,11 @@ if __name__ == "__main__":
             # print in red color
             print("\n\033[0;31mThe file is not valid, terminating\033[0m")
             sys.exit(1)
+
+    if args.translate:
+        if not args.output:
+            args.output = True
+        strings.translate(args.translate[0], args.translate[1])
 
     if args.output:
         if args.output == True:

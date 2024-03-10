@@ -1,6 +1,5 @@
 #pragma once
 
-#include "drape/drape_global.hpp"
 #include "drape/pointers.hpp"
 #include "drape/texture.hpp"
 #include "drape/dynamic_texture.hpp"
@@ -12,8 +11,7 @@
 
 #include <map>
 #include <mutex>
-#include <string>
-#include <utility>
+
 
 namespace dp
 {
@@ -22,9 +20,11 @@ uint32_t constexpr kMaxStipplePenLength = 512;  /// @todo Should be equal with k
 // Based on ./data/patterns.txt, the most of patterns have 2 entries (4 entries for triangles pattern).
 using PenPatternT = buffer_vector<uint16_t, 2>;
 
-inline constexpr uint16_t PatternFloat2Pixel(double d)
+inline uint16_t PatternFloat2Pixel(double d)
 {
-  return static_cast<uint16_t>(std::round(d));
+  auto const px = static_cast<uint16_t>(std::round(d));
+  //ASSERT(px > 0, (d));
+  return px > 0 ? px : 1;
 }
 
 inline bool IsTrianglePattern(PenPatternT const & p)

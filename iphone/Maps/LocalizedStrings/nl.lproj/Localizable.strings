@@ -52,6 +52,18 @@
 
 "about_menu_title" = "Over Organic Maps";
 
+/* Text in About screen */
+"about_headline" = "Gratis voor iedereen, met liefde gemaakt";
+
+/* Text in About screen */
+"about_proposition_1" = "• Geen advertenties, geen tracking, geen gegevensverzameling";
+
+/* Text in About screen */
+"about_proposition_2" = "• Geen batterijverlies, werkt offline";
+
+/* Text in About screen */
+"about_proposition_3" = "• Snel, minimalistisch, ontwikkeld door gemeenschap";
+
 "close" = "Sluiten";
 
 "download" = "Downloaden";
@@ -80,7 +92,7 @@
 /* Default bookmark list name */
 "core_my_places" = "Mijn plaatsen";
 
-/* Editor title above street and house number */
+/* Editor title above street and house number, duplicates [type.building.address] in types_strings.txt */
 "address" = "Adres";
 
 /* Settings button in system menu */
@@ -200,7 +212,7 @@
 "done" = "Klaar";
 
 /* Prints version number in About dialog */
-"version" = "Versie: %@";
+"version" = "Organic Maps versie: %@";
 
 /* Data version in «About» screen, %@ is replaced by a local, human readable date. */
 "data_version" = "OpenStreetMap-gegevens: %@";
@@ -217,8 +229,14 @@
 
 "pref_zoom_title" = "Zoomknoppen";
 
-/* Settings «Map» category: «Night style» title */
-"pref_map_style_title" = "Nachtmodus";
+/* Settings «Map» category: «Appearance» title */
+"pref_appearance_title" = "Weergave";
+
+/* Settings "Appearance" category: "Light" title, should be consistent with the pref_appearance_title translation. */
+"pref_appearance_light" = "Licht";
+
+/* Settings "Appearance" category: "Dark" title, should be consistent with the pref_appearance_title translation. */
+"pref_appearance_dark" = "Donker";
 
 /* Generic «Off» string */
 "off" = "Uit";
@@ -315,6 +333,9 @@
 /* Button in the main menu */
 "donate" = "Doneren";
 
+/* Tex label above the Donate button */
+"donate_description" = "Doneer om samen de beste kaarten te bouwen!";
+
 /* Button in the main Help dialog */
 "how_to_support_us" = "Steun het project";
 
@@ -323,6 +344,15 @@
 
 /* Text in menu + Button in the main Help dialog */
 "report_a_bug" = "Meld een fout";
+
+/* Button in the About screen */
+"report_incorrect_map_bug" = "Rapporteer of repareer onjuiste kaartgegevens";
+
+/* Button in the About screen */
+"volunteer" = "Vrijwilligerswerk";
+
+/* "Social media" section header in the About screen */
+"follow_us" = "Volg ons en neem contact met ons op:";
 
 /* Alert text */
 "email_error_body" = "De emailcliënt is niet ingesteld. Gelieve de cliënt te configureren of contact met ons op te nemen op %@";
@@ -704,6 +734,9 @@
 
 "message_invalid_feature_position" = "Hier kan geen object worden geplaatst";
 
+/* Text in About and OSM Login screens. First %@ is replaced by a local, human readable date. */
+"osm_presentation" = "Door de gemeenschap gemaakte OpenStreetMap-gegevens vanaf %@. Lees meer over hoe je de kaart kunt bewerken en bijwerken op OpenStreetMap.org";
+
 "login_to_make_edits_visible" = "Log in zodat andere gebruikers kunnen zien wat u hebt gewijzigd.";
 
 /* Error dialog no space */
@@ -746,15 +779,7 @@
 
 "downloader_no_downloaded_maps_message" = "Download kaarten om een locatie te zoeken en offline te navigeren.";
 
-/* Error title that appears after certain time without location. */
-"current_location_unknown_title" = "Doorgaan met het detecteren van uw huidige locatie?";
-
-/* Error that appears after certain time without location. */
-"current_location_unknown_message" = "Huidige locatie is onbekend. Misschien bevindt u zich in een gebouw of tunnel.";
-
-"current_location_unknown_continue_button" = "Doorgaan";
-
-"current_location_unknown_stop_button" = "Stoppen";
+"stop" = "Stoppen";
 
 "current_location_unknown_error_title" = "Huidige locatie is onbekend.";
 
@@ -768,15 +793,27 @@
 
 "location_services_disabled_2" = "2. Tik op locatie";
 
-/* iOS Dialog for the case when the location permission is not granted */
+/* iOS Dialog for the case when the location permission is not granted; you might find the exact wording for your language here: https://support.apple.com/en-us/102647 (replace 'en-us' in URL with your language/region) */
 "location_services_disabled_3" = "3. Selecteer Terwijl Je de App Gebruikt";
 
+"location_services_disabled_on_device_2" = "2. Selecteer Privacy";
+
+"location_services_disabled_on_device_3" = "3. Selecteer Locatiediensten";
+
+"location_services_disabled_on_device_4" = "4. Locatiediensten inschakelen";
+
+"location_services_disabled_on_device_additional_message" = "Of blijf Organic Maps gebruiken zonder locatie";
+
+/* abbreviation for meters */
 "m" = "m";
 
+/* abbreviation for kilometers */
 "km" = "km";
 
+/* abbreviation for kilometers per hour */
 "kilometers_per_hour" = "km/h";
 
+/* abbreviation for mile(s) */
 "mi" = "mijl";
 
 /* A unit of measure */
@@ -857,9 +894,6 @@
 "sharing_call_action_look" = "Bekijk";
 
 "recent_track_background_dialog_message" = "Organic Maps gebruikt uw geografische positie op de achtergrond om uw onlangs afgelegde route vast te leggen.";
-
-/* Text under the version number in the Help dialog. TODO: Synchronize other translations with English. */
-"about_description" = "Organic Maps is een gratis en open-source offline kaartentoepassing. Geen advertenties. Geen volgen. Als je een fout op de kaart ziet, corrigeer deze dan in OpenStreetMap. Het project is gemaakt door enthousiastelingen in onze vrije tijd, dus we hebben uw feedback en ondersteuning nodig.";
 
 "general_settings" = "Algemene instellingen";
 
@@ -1072,6 +1106,9 @@
 /* E.g. "WiFi:No" */
 "no_available" = "Nee";
 
+/* To indicate the capacity of car parkings, bicycle parkings, electric vehicle charging stations... */
+"capacity" = "Capaciteit: %@";
+
 "trip_finished" = "U bent aangekomen!";
 
 "keyboard_availability_alert" = "Toetsenbord is niet beschikbaar tijdens het rijden";
@@ -1238,6 +1275,12 @@
 /* Outdoors/hiking map style (activity) name in the Styles and Layers dialog */
 "button_layer_outdoor" = "Wandelen";
 
+/* Bookmark categories screen, button that opens share dialog to export all bookmarks and tracks */
+"bookmarks_export" = "Alle bladwijzers en tracks exporteren";
+
+/* Text for the editing the Track's color button. */
+"change_color" = "Kleur veranderen";
+
 
 /********** Types **********/
 
@@ -1352,6 +1395,8 @@
 "type.amenity.doctors" = "Huisartsenpost";
 
 "type.amenity.drinking_water" = "Drinkwater";
+
+"type.drinking_water.yes" = "Drinkwater";
 
 "type.amenity.driving_school" = "Rijschool";
 
@@ -1548,6 +1593,8 @@
 
 "type.amenity.toilets" = "Toiletten";
 
+"type.toilets.yes" = "Toiletten";
+
 "type.amenity.townhall" = "Gemeentehuis";
 
 "type.amenity.university" = "Universiteit";
@@ -1676,6 +1723,8 @@
 
 "type.boundary.national_park" = "Nationaal park";
 
+"type.boundary.aboriginal_lands" = "Inheemse landen";
+
 "type.boundary.protected_area" = "Beschermd gebied";
 
 "type.boundary.protected_area.1" = "Beschermd gebied";
@@ -1692,7 +1741,8 @@
 
 "type.building" = "Gebouw";
 
-"type.building.address" = "Gebouw";
+/* Duplicates [address] in strings.txt */
+"type.building.address" = "Adres";
 
 "type.building.has_parts" = "Gebouw";
 
@@ -2501,8 +2551,6 @@
 "type.leisure.hackerspace" = "Hackerspace";
 
 "type.leisure.ice_rink" = "Schaatsbaan";
-
-"type.leisure.landscape_reserve" = "Landschapsreservaat";
 
 "type.leisure.marina" = "Jachthaven";
 
@@ -3837,25 +3885,45 @@
 
 "type.aerialway.t.bar" = "Sleeplift (T-beugel)";
 
-"type.piste_type" = "Pistesoort";
-
 "type.piste_type.downhill" = "Ski-afdaling";
+
+"type.piste_type.downhill.area" = "Ski-afdaling";
 
 "type.piste_type.downhill.advanced" = "Moeilijke afdaling";
 
+"type.piste_type.downhill.advanced.area" = "Moeilijke afdaling";
+
 "type.piste_type.downhill.easy" = "Makkelijke afdaling";
 
+"type.piste_type.downhill.easy.area" = "Makkelijke afdaling";
+
 "type.piste_type.downhill.expert" = "Afdaling voor experts";
+
+"type.piste_type.downhill.expert.area" = "Afdaling voor experts";
 
 "type.piste_type.downhill.freeride" = "Ski-afdaling";
 
 "type.piste_type.downhill.intermediate" = "Gemiddelde afdaling";
 
+"type.piste_type.downhill.intermediate.area" = "Gemiddelde afdaling";
+
 "type.piste_type.downhill.novice" = "Beginnersafdaling";
+
+"type.piste_type.downhill.novice.area" = "Beginnersafdaling";
 
 "type.piste_type.nordic" = "Langlaufroute";
 
 "type.piste_type.sled" = "Sleebaan";
+
+"type.piste_type.sled.area" = "Sleebaan";
+
+"type.piste_type.snow_park" = "Sneeuwpark";
+
+"type.piste_type.hike" = "Sneeuwwandelpad";
+
+"type.piste_type.connection" = "Pisteverbinding";
+
+"type.piste_type.skitour" = "Skitourspoor";
 
 "type.amenity.events_venue" = "Evenementenlocatie";
 

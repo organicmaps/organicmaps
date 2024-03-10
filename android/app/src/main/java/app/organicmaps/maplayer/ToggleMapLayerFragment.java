@@ -16,13 +16,16 @@ import app.organicmaps.R;
 import app.organicmaps.maplayer.isolines.IsolinesManager;
 import app.organicmaps.util.SharedPropertiesUtils;
 import app.organicmaps.util.Utils;
+import app.organicmaps.util.bottomsheet.MenuBottomSheetFragment;
 import app.organicmaps.widget.recycler.SpanningLinearLayoutManager;
+import com.google.android.material.button.MaterialButton;
 
 import java.util.ArrayList;
 import java.util.List;
 
 public class ToggleMapLayerFragment extends Fragment
 {
+  private static final String LAYERS_MENU_ID = "LAYERS_MENU_BOTTOM_SHEET";
   @Nullable
   private LayersAdapter mAdapter;
   private MapButtonsViewModel mMapButtonsViewModel;
@@ -34,6 +37,8 @@ public class ToggleMapLayerFragment extends Fragment
     View mRoot = inflater.inflate(R.layout.fragment_toggle_map_layer, container, false);
 
     mMapButtonsViewModel = new ViewModelProvider(requireActivity()).get(MapButtonsViewModel.class);
+    MaterialButton mCloseButton = mRoot.findViewById(R.id.close_button);
+    mCloseButton.setOnClickListener(view -> closeLayerBottomSheet());
 
     initRecycler(mRoot);
     return mRoot;
@@ -71,5 +76,13 @@ public class ToggleMapLayerFragment extends Fragment
     mAdapter.notifyDataSetChanged();
     if (IsolinesManager.from(context).shouldShowNotification())
       Utils.showSnackbar(context, v.getRootView(), R.string.isolines_toast_zooms_1_10);
+  }
+
+  private void closeLayerBottomSheet()
+  {
+    MenuBottomSheetFragment bottomSheet =
+        (MenuBottomSheetFragment) requireActivity().getSupportFragmentManager().findFragmentByTag(LAYERS_MENU_ID);
+    if (bottomSheet != null)
+      bottomSheet.dismiss();
   }
 }

@@ -1,5 +1,7 @@
 package app.organicmaps.car.util;
 
+import android.app.PendingIntent;
+import android.content.ComponentName;
 import android.content.Intent;
 import android.net.Uri;
 
@@ -7,10 +9,10 @@ import androidx.annotation.NonNull;
 import androidx.car.app.CarContext;
 import androidx.car.app.Screen;
 import androidx.car.app.ScreenManager;
+import androidx.car.app.notification.CarPendingIntent;
 
 import app.organicmaps.Framework;
 import app.organicmaps.Map;
-import app.organicmaps.MwmActivity;
 import app.organicmaps.api.Const;
 import app.organicmaps.api.ParsedSearchRequest;
 import app.organicmaps.api.RequestType;
@@ -37,6 +39,15 @@ public final class IntentUtils
       IntentUtils.processNavigationIntent(carContext, surfaceRenderer, intent);
     else if (Intent.ACTION_VIEW.equals(action))
       processViewIntent(carContext, intent);
+  }
+
+  @NonNull
+  public static PendingIntent createSearchIntent(@NonNull CarContext context, @NonNull String query)
+  {
+    final String uri = "geo:0,0?q=" + query.replace(" ", "+");
+    final ComponentName component = new ComponentName(context, CarAppService.class);
+    final Intent intent = new Intent().setComponent(component).setData(Uri.parse(uri));
+    return CarPendingIntent.getCarApp(context, 0, intent, 0);
   }
 
   // https://developer.android.com/reference/androidx/car/app/CarContext#startCarApp(android.content.Intent)
@@ -85,7 +96,6 @@ public final class IntentUtils
       return;
     case RequestType.CROSSHAIR:
       Logger.e(TAG, "Crosshair API is not supported by Android Auto: " + uri);
-      return;
     }
   }
 

@@ -2,6 +2,7 @@ package app.organicmaps.sound;
 
 import android.content.Context;
 import android.content.res.Resources;
+import android.os.Bundle;
 import android.os.Handler;
 import android.os.Looper;
 import android.speech.tts.TextToSpeech;
@@ -48,6 +49,8 @@ public enum TtsPlayer
   private boolean mInitializing;
   private AudioFocusManager mAudioFocusManager;
 
+  private final Bundle mParams = new Bundle();
+
   private final Handler delayHandler = new Handler(Looper.getMainLooper());
 
   @SuppressWarnings("NotNullFieldNotInitialized")
@@ -89,7 +92,7 @@ public enum TtsPlayer
     {
       mTts.setLanguage(lang.locale);
       nativeSetTurnNotificationsLocale(lang.internalCode);
-      Config.setTtsLanguage(lang.internalCode);
+      Config.TTS.setLanguage(lang.internalCode);
 
       return true;
     }
@@ -126,7 +129,7 @@ public enum TtsPlayer
 
   public static @Nullable LanguageData getSelectedLanguage(List<LanguageData> langs)
   {
-    return findSupportedLanguage(Config.getTtsLanguage(), langs);
+    return findSupportedLanguage(Config.TTS.getLanguage(), langs);
   }
 
   private void lockDown()
@@ -149,7 +152,7 @@ public enum TtsPlayer
     mTts = new TextToSpeech(context, status -> UiThread.run(() -> {
       if (status == TextToSpeech.ERROR)
       {
-        Logger.e(TAG, "Failed to initialize TextToSpeach");
+        Logger.e(TAG, "Failed to initialize TextToSpeech");
         lockDown();
         mInitializing = false;
         return;
@@ -180,6 +183,7 @@ public enum TtsPlayer
         }
       });
       mAudioFocusManager = new AudioFocusManager(context);
+      mParams.putFloat(TextToSpeech.Engine.KEY_PARAM_VOLUME, Config.TTS.getVolume());
       mInitializing = false;
     }));
   }
@@ -191,14 +195,14 @@ public enum TtsPlayer
 
   public void speak(String textToSpeak)
   {
-    if (Config.isTtsEnabled())
+    if (Config.TTS.isEnabled())
       try
       {
         boolean isMusicActive = mAudioFocusManager.requestAudioFocus();
         if (isMusicActive)
-          delayHandler.postDelayed(() -> mTts.speak(textToSpeak, TextToSpeech.QUEUE_ADD, null, textToSpeak), TTS_SPEAK_DELAY_MILLIS);
+          delayHandler.postDelayed(() -> mTts.speak(textToSpeak, TextToSpeech.QUEUE_ADD, mParams, textToSpeak), TTS_SPEAK_DELAY_MILLIS);
         else
-          mTts.speak(textToSpeak, TextToSpeech.QUEUE_ADD, null, textToSpeak);
+          mTts.speak(textToSpeak, TextToSpeech.QUEUE_ADD, mParams, textToSpeak);
       }
       catch (IllegalArgumentException e)
       {
@@ -234,8 +238,19 @@ public enum TtsPlayer
 
   public static void setEnabled(boolean enabled)
   {
-    Config.setTtsEnabled(enabled);
+    Config.TTS.setEnabled(enabled);
     nativeEnableTurnNotifications(enabled);
+  }
+
+  public float getVolume()
+  {
+    return Config.TTS.getVolume();
+  }
+
+  public void setVolume(final float volume)
+  {
+    mParams.putFloat(TextToSpeech.Engine.KEY_PARAM_VOLUME, volume);
+    Config.TTS.setVolume(volume);
   }
 
   private boolean getUsableLanguages(List<LanguageData> outList)
@@ -284,7 +299,7 @@ public enum TtsPlayer
     if (res == null || !res.downloaded)
     {
       // Default locale can not be used too
-      Config.setTtsEnabled(false);
+      Config.TTS.setEnabled(false);
       return null;
     }
 
@@ -300,7 +315,7 @@ public enum TtsPlayer
     LanguageData lang = refreshLanguagesInternal(res);
     setLanguage(lang);
 
-    setEnabled(Config.isTtsEnabled());
+    setEnabled(Config.TTS.isEnabled());
     return res;
   }
 

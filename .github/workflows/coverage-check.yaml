@@ -7,6 +7,23 @@ on:
       - synchronize
       - labeled
       - unlabeled
+    paths-ignore:
+      - .gitignore
+      - CONTRIBUTORS
+      - LICENSE
+      - NOTICE
+      - README.md
+      - docs/**
+      - packaging/**
+      - platform/*apple*
+      - platform/*_android*
+      - platform/*_ios*
+      - platform/*_mac*
+      - platform/*_win*
+      - pyhelpers/**
+      - tools/**
+      - '!tools/python/test_server/**'
+      - xcode/**
 
 # Cancels previous jobs if the same branch or PR was updated again.
 concurrency:
@@ -137,7 +154,7 @@ jobs:
         run: zip -r coverage_report.zip html/
 
       - name: Upload artifact
-        uses: actions/upload-artifact@v2
+        uses: actions/upload-artifact@v4
         with:
           name: coverage-report
           path: build/coverage_report/coverage_report.zip

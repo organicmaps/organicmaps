@@ -13,7 +13,7 @@
   <ImageView
     android:id="@+id/iv__place_phone"
     style="@style/PlacePageMetadataIcon"
-    android:src="@drawable/ic_phone"
+    app:srcCompat="@drawable/ic_phone"
     app:tint="?colorAccent"/>
 
   <TextView

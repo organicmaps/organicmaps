@@ -52,6 +52,18 @@
 
 "about_menu_title" = "Despre Organic Maps";
 
+/* Text in About screen */
+"about_headline" = "Gratuit pentru toată lumea, făcut cu dragoste";
+
+/* Text in About screen */
+"about_proposition_1" = "• Fără reclame, fără urmărire, fără colectare de date";
+
+/* Text in About screen */
+"about_proposition_2" = "• Nu consumă baterie, funcționează offline";
+
+/* Text in About screen */
+"about_proposition_3" = "• Rapid, minimalist, dezvoltat de comunitate";
+
 "close" = "Închide";
 
 "download" = "Descarcă";
@@ -80,7 +92,7 @@
 /* Default bookmark list name */
 "core_my_places" = "Locurile mele";
 
-/* Editor title above street and house number */
+/* Editor title above street and house number, duplicates [type.building.address] in types_strings.txt */
 "address" = "Adresă";
 
 /* Settings button in system menu */
@@ -200,7 +212,7 @@
 "done" = "Gata";
 
 /* Prints version number in About dialog */
-"version" = "Versiune: %@";
+"version" = "Versiunea Organic Maps: %@";
 
 /* Data version in «About» screen, %@ is replaced by a local, human readable date. */
 "data_version" = "Date OpenStreetMap: %@";
@@ -217,8 +229,14 @@
 
 "pref_zoom_title" = "Butoane zoom";
 
-/* Settings «Map» category: «Night style» title */
-"pref_map_style_title" = "Mod nocturn";
+/* Settings «Map» category: «Appearance» title */
+"pref_appearance_title" = "Aspect";
+
+/* Settings "Appearance" category: "Light" title, should be consistent with the pref_appearance_title translation. */
+"pref_appearance_light" = "Luminos";
+
+/* Settings "Appearance" category: "Dark" title, should be consistent with the pref_appearance_title translation. */
+"pref_appearance_dark" = "Întunecat";
 
 /* Generic «Off» string */
 "off" = "Oprit";
@@ -315,6 +333,9 @@
 /* Button in the main menu */
 "donate" = "Donează";
 
+/* Tex label above the Donate button */
+"donate_description" = "Donează pentru a construi împreună cele mai bune hărți!";
+
 /* Button in the main Help dialog */
 "how_to_support_us" = "Susține proiectul";
 
@@ -323,6 +344,15 @@
 
 /* Text in menu + Button in the main Help dialog */
 "report_a_bug" = "Raportează o eroare";
+
+/* Button in the About screen */
+"report_incorrect_map_bug" = "Raportați sau remediați datele incorecte de pe hartă";
+
+/* Button in the About screen */
+"volunteer" = "Pentru a fi voluntar";
+
+/* "Social media" section header in the About screen */
+"follow_us" = "Urmăriți-ne și contactați-ne:";
 
 /* Alert text */
 "email_error_body" = "Aplicația de email nu a fost stabilită. Stabilește-o sau utilizează alt mod de a ne contacta la %@.";
@@ -596,17 +626,17 @@
 
 "today" = "Azi";
 
-"opens_tomorrow_at" = "Opens tomorrow at %@";
+"opens_tomorrow_at" = "Deschide mâine la %@";
 
-"opens_dayoftheweek_at" = "Opens %1$@ at %2$@";
+"opens_dayoftheweek_at" = "Deschide %1$@ la %2$@";
 
-"opens_at" = "Opens at %@";
+"opens_at" = "Deschide la %@";
 
-"opens_in" = "Opens in %@";
+"opens_in" = "Deschide în %@";
 
-"closes_at" = "Closes at %@";
+"closes_at" = "Închide la %@";
 
-"closes_in" = "Closes in %@";
+"closes_in" = "Închide în %@";
 
 "closed" = "Închis";
 
@@ -704,6 +734,9 @@
 
 "message_invalid_feature_position" = "Niciun obiect nu poate fi poziționat aici";
 
+/* Text in About and OSM Login screens. First %@ is replaced by a local, human readable date. */
+"osm_presentation" = "Date OpenStreetMap create de comunitate la data de %@. Aflați mai multe despre cum să editați și să actualizați harta la OpenStreetMap.org";
+
 "login_to_make_edits_visible" = "Autentifică-te pentru ca modificările pe care le-ai făcut să poată fi văzute și de alți utilizatori.";
 
 /* Error dialog no space */
@@ -746,15 +779,7 @@
 
 "downloader_no_downloaded_maps_message" = "Descarcă hărți pentru a căuta un loc și a naviga fără conectare la internet.";
 
-/* Error title that appears after certain time without location. */
-"current_location_unknown_title" = "Continui cu detectarea poziției tale actuale?";
-
-/* Error that appears after certain time without location. */
-"current_location_unknown_message" = "Poziția actuală este necunoscută. Poate te afli într-o clădire sau un tunel.";
-
-"current_location_unknown_continue_button" = "Continuă";
-
-"current_location_unknown_stop_button" = "Oprește";
+"stop" = "Oprește";
 
 "current_location_unknown_error_title" = "Poziția actuală este necunoscută.";
 
@@ -764,19 +789,31 @@
 
 "location_services_disabled_message" = "Activează accesul la geolocalizare din setările dispozitivului";
 
-"location_services_disabled_1" = "1. Deschide setările";
+"location_services_disabled_1" = "1. Deschide Configurări";
 
 "location_services_disabled_2" = "2. Apasă pe Localizare";
 
-/* iOS Dialog for the case when the location permission is not granted */
+/* iOS Dialog for the case when the location permission is not granted; you might find the exact wording for your language here: https://support.apple.com/en-us/102647 (replace 'en-us' in URL with your language/region) */
 "location_services_disabled_3" = "3. Alege „În timp ce folosești aplicația”";
 
+"location_services_disabled_on_device_2" = "2. Selectează Intimitate și securitate";
+
+"location_services_disabled_on_device_3" = "3. Selectează Servicii de localizare";
+
+"location_services_disabled_on_device_4" = "4. Activează Servicii de localizare";
+
+"location_services_disabled_on_device_additional_message" = "Sau continuă să folosești Organic Maps fără Locație";
+
+/* abbreviation for meters */
 "m" = "m";
 
+/* abbreviation for kilometers */
 "km" = "km";
 
+/* abbreviation for kilometers per hour */
 "kilometers_per_hour" = "km/h";
 
+/* abbreviation for mile(s) */
 "mi" = "mi";
 
 /* A unit of measure */
@@ -857,9 +894,6 @@
 "sharing_call_action_look" = "Verifică";
 
 "recent_track_background_dialog_message" = "Organic Maps folosește poziția ta geografică pentru a înregistra cel mai recent traseu urmat.";
-
-/* Text under the version number in the Help dialog. TODO: Synchronize other translations with English. */
-"about_description" = "Organic Maps este o aplicație rapidă și gratuită fără reclame și urmărire. Hărțile sunt bazate pe datele OpenStreetMap.org oferite de utilizatori, de aceea chiar și tu poți corecta erorile și adăuga obiecte noi pe hartă. Organic Maps este un proiect creat de entuziaști în timpul lor liber. Părerea și sprijinul tău sunt foarte importante pentru noi.";
 
 "general_settings" = "Opțiuni generale";
 
@@ -1072,6 +1106,9 @@
 /* E.g. "WiFi:No" */
 "no_available" = "Nu";
 
+/* To indicate the capacity of car parkings, bicycle parkings, electric vehicle charging stations... */
+"capacity" = "Capacitate: %@";
+
 "trip_finished" = "Ai ajuns!";
 
 "keyboard_availability_alert" = "Tastatura nu poate fi folosită cât timp conduci";
@@ -1238,6 +1275,12 @@
 /* Outdoors/hiking map style (activity) name in the Styles and Layers dialog */
 "button_layer_outdoor" = "Drumeție";
 
+/* Bookmark categories screen, button that opens share dialog to export all bookmarks and tracks */
+"bookmarks_export" = "Exportați toate marcajele și piesele";
+
+/* Text for the editing the Track's color button. */
+"change_color" = "Schimbă culoarea";
+
 
 /********** Types **********/
 
@@ -1352,6 +1395,8 @@
 "type.amenity.doctors" = "Doctor";
 
 "type.amenity.drinking_water" = "Apă de băut";
+
+"type.drinking_water.yes" = "Apă de băut";
 
 "type.amenity.driving_school" = "Școală de șoferi";
 
@@ -1548,6 +1593,8 @@
 
 "type.amenity.toilets" = "Toaletă";
 
+"type.toilets.yes" = "Toaletă";
+
 "type.amenity.townhall" = "Primărie";
 
 "type.amenity.university" = "Universitate";
@@ -1676,6 +1723,8 @@
 
 "type.boundary.national_park" = "Parcul național";
 
+"type.boundary.aboriginal_lands" = "Terenuri indigene";
+
 "type.boundary.protected_area" = "Zonă protejată";
 
 "type.boundary.protected_area.1" = "Zonă protejată";
@@ -1692,7 +1741,8 @@
 
 "type.building" = "Clădire";
 
-"type.building.address" = "Clădire";
+/* Duplicates [address] in strings.txt */
+"type.building.address" = "Adresă";
 
 "type.building.has_parts" = "Clădire";
 
@@ -2501,8 +2551,6 @@
 "type.leisure.hackerspace" = "Hackerspace";
 
 "type.leisure.ice_rink" = "Ice Rink";
-
-"type.leisure.landscape_reserve" = "Landscape Reserve";
 
 "type.leisure.marina" = "Marina";
 
@@ -3837,25 +3885,45 @@
 
 "type.aerialway.t.bar" = "T-bar Lift";
 
-"type.piste_type" = "Piste Type";
-
 "type.piste_type.downhill" = "Downhill Ski Run";
+
+"type.piste_type.downhill.area" = "Downhill Ski Run";
 
 "type.piste_type.downhill.advanced" = "Downhill Ski Run";
 
+"type.piste_type.downhill.advanced.area" = "Downhill Ski Run";
+
 "type.piste_type.downhill.easy" = "Downhill Ski Run";
 
+"type.piste_type.downhill.easy.area" = "Downhill Ski Run";
+
 "type.piste_type.downhill.expert" = "Downhill Ski Run";
+
+"type.piste_type.downhill.expert.area" = "Downhill Ski Run";
 
 "type.piste_type.downhill.freeride" = "Downhill Ski Run";
 
 "type.piste_type.downhill.intermediate" = "Downhill Ski Run";
 
+"type.piste_type.downhill.intermediate.area" = "Downhill Ski Run";
+
 "type.piste_type.downhill.novice" = "Downhill Ski Run";
+
+"type.piste_type.downhill.novice.area" = "Downhill Ski Run";
 
 "type.piste_type.nordic" = "Nordic Ski Trail";
 
 "type.piste_type.sled" = "Sledding Piste";
+
+"type.piste_type.sled.area" = "Sledding Piste";
+
+"type.piste_type.snow_park" = "Snow Park";
+
+"type.piste_type.hike" = "Zăpadă Hiking Trail";
+
+"type.piste_type.connection" = "Conexiune Piste";
+
+"type.piste_type.skitour" = "Traseul Skitour";
 
 "type.amenity.events_venue" = "Locul de desfășurare a evenimentelor";
 

@@ -3,11 +3,33 @@
 #include <string>
 #include <vector>
 
+#include "indexer/ftraits.hpp"
+
 struct FeatureID;
 class StringUtf8Multilang;
 
 namespace feature
 {
+  static constexpr uint8_t kMaxStarsCount = 7;
+  static constexpr std::string_view kFieldsSeparator = " • ";
+  static constexpr std::string_view kToiletsSymbol = "🚻";
+  static constexpr std::string_view kAtmSymbol = "💳";
+  static constexpr std::string_view kWheelchairSymbol = "♿️";
+
+  /// OSM internet_access tag values.
+  enum class Internet
+  {
+    Unknown,  //!< Internet state is unknown (default).
+    Wlan,     //!< Wireless Internet access is present.
+    Terminal, //!< A computer with internet service.
+    Wired,    //!< Wired Internet access is present.
+    Yes,      //!< Unspecified Internet access is available.
+    No        //!< There is definitely no any Internet access.
+  };
+  std::string DebugPrint(Internet internet);
+  /// @param[in]  inet  Should be lowercase like in DebugPrint.
+  Internet InternetFromString(std::string_view inet);
+
   // Address house numbers interpolation.
   enum class InterpolType { None, Odd, Even, Any };
 
@@ -129,7 +151,25 @@ namespace feature
   // Returns fee type localized by platform.
   std::string GetLocalizedFeeType(TypesHolder const & types);
 
+  // Returns readable wheelchair type.
+  std::string GetReadableWheelchairType(TypesHolder const & types);
+  
+  /// @returns wheelchair availability.
+  std::optional<ftraits::WheelchairAvailability> GetWheelchairType(TypesHolder const & types);
+
   /// Returns true if feature has ATM type.
   bool HasAtm(TypesHolder const & types);
+
+  /// Returns true if feature has Toilets type.
+  bool HasToilets(TypesHolder const & types);
+
+  /// @returns formatted drinking water type.
+  std::string FormatDrinkingWater(TypesHolder const & types);
+
+  /// @returns starsCount of ★ symbol.
+  std::string FormatStars(uint8_t starsCount);
+
+  /// @returns formatted elevation with ▲ symbol and units.
+  std::string FormatElevation(std::string_view elevation);
 
 }  // namespace feature

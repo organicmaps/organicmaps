@@ -330,13 +330,13 @@ private:
     char const * affics[] =
     {
       // Russian - Русский
-      "улица", "ул",
+      "улица", "ул", "проспект",
 
       // English - English
       "street", "st", "road", "rd", "drive", "dr", "lane", "ln", "avenue", "av", "ave",
 
       // Belarusian - Беларуская мова
-      "вуліца", "вул",
+      "вуліца", "вул", "праспект",
 
       // Arabic
       "شارع",
@@ -345,13 +345,13 @@ private:
       "փողոց",
 
       // Catalan language (Barcelona, Valencia, ...)
-      "carrer",
+      "carrer", "avinguda",
 
       // Croatian - Hrvatski
       "ulica",  // Also common used transcription from RU
 
       // French - Français
-      "rue",
+      "rue", "avenue",
 
       // Georgia
       "ქუჩა",
@@ -366,7 +366,7 @@ private:
       "jalan",
 
       // Italian - Italiano
-      "via",
+      "via", "viale", "piazza",
 
       /// @todo Also expect that this synonyms should be in categories.txt list, but we dont support lt, lv langs now.
       /// @{
@@ -383,13 +383,13 @@ private:
       "strada",
 
       // Spanish - Español
-      "calle", "avenida",
+      "calle", "avenida", "plaza",
 
       // Turkish - Türkçe
       "sokağı", "sokak", "sk",
 
       // Ukrainian - Українська
-      "вулиця", "вул",
+      "вулиця", "вул", "проспект",
 
       // Vietnamese - Tiếng Việt
       "đường",

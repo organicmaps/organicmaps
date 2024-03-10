@@ -7,7 +7,6 @@ import static android.content.pm.PackageManager.PERMISSION_GRANTED;
 
 import android.annotation.SuppressLint;
 import android.app.ForegroundServiceStartNotAllowedException;
-import android.app.Notification;
 import android.app.NotificationManager;
 import android.app.PendingIntent;
 import android.app.Service;
@@ -145,7 +144,7 @@ public class NavigationService extends Service implements LocationListener
         .setOngoing(true)
         .setShowWhen(false)
         .setOnlyAlertOnce(true)
-        .setSmallIcon(R.drawable.ic_notification)
+        .setSmallIcon(R.drawable.ic_splash)
         .setContentIntent(pendingIntent)
         .setColorized(isColorizedSupported())
         .setColor(ContextCompat.getColor(context, R.color.notification));

@@ -44,9 +44,9 @@
 	<!-- Text in About screen -->
 	<string name="about_proposition_1">• No ads, no tracking, no data collection</string>
 	<!-- Text in About screen -->
-	<string name="about_proposition_2">• No battery drain, no background data</string>
+	<string name="about_proposition_2">• No battery drain, works offline</string>
 	<!-- Text in About screen -->
-	<string name="about_proposition_3">• Fast, minimalist, no software bloat</string>
+	<string name="about_proposition_3">• Fast, minimalist, developed by community</string>
 	<!-- Text in About screen -->
 	<string name="about_developed_by_enthusiasts">Open-source application created by enthusiasts and volunteers.</string>
 	<!-- The button that opens system location settings -->
@@ -83,7 +83,7 @@
 	<string name="core_my_places">My Places</string>
 	<!-- Add bookmark dialog - bookmark name -->
 	<string name="name">Name</string>
-	<!-- Editor title above street and house number -->
+	<!-- Editor title above street and house number, duplicates [type.building.address] in types_strings.txt -->
 	<string name="address">Address</string>
 	<!-- Add Bookmark dialog/Bookmark list; Bookmarks dialog/Bookmark list cell. -->
 	<string name="list">List</string>
@@ -109,7 +109,7 @@
 	<string name="move_maps">Move maps?</string>
 	<!-- Error moving map files from one storage to another -->
 	<string name="move_maps_error">Error moving map files</string>
-	<!-- Ask to wait user several minutes (some long process in modal dialog). -->
+	<!-- Ask user to wait several minutes (some long process in modal dialog). -->
 	<string name="wait_several_minutes">This can take several minutes.\nPlease wait…</string>
 	<!-- Measurement units title in settings activity -->
 	<string name="measurement_units">Measurement units</string>
@@ -174,6 +174,10 @@
 	<string name="load_kmz_successful">Bookmarks loaded successfully! You can find them on the map or on the Bookmarks Manager screen.</string>
 	<!-- Kml file loading failed -->
 	<string name="load_kmz_failed">Failed to load bookmarks. The file may be corrupted or defective.</string>
+	<!-- Failed to recognize the format of a bookmarks or tracks file. -->
+	<string name="unknown_file_type">The file type is not recognized by the app:\n%1$s</string>
+	<!-- Failed to open a bookmarks or tracks file in Organic Maps. -->
+	<string name="failed_to_open_file">Failed to open file %1$s\n\n%2$s</string>
 	<!-- resource for context menu -->
 	<string name="edit">Edit</string>
 	<!-- Warning message when doing search around current position -->
@@ -216,6 +220,10 @@
 	<string name="pref_zoom_summary">Display on the map</string>
 	<!-- Settings «Map» category: «Night style» title -->
 	<string name="pref_map_style_title">Night Mode</string>
+	<!-- Settings "Appearance" category: "Light" title, should be consistent with the pref_appearance_title translation. -->
+	<string name="pref_appearance_light">Light</string>
+	<!-- Settings "Appearance" category: "Dark" title, should be consistent with the pref_appearance_title translation. -->
+	<string name="pref_appearance_dark">Dark</string>
 	<!-- Generic «Off» string -->
 	<string name="off">Off</string>
 	<!-- Generic «On» string -->
@@ -501,8 +509,8 @@
 	<string name="editor_report_problem_other_title">Different problem</string>
 	<string name="placepage_add_business_button">Add business</string>
 	<string name="message_invalid_feature_position">No object can be located here</string>
-	<!-- Text in About and OSM Login screens. %@ is replaced by a local, human readable date. -->
-	<string name="osm_presentation">Cartographic data from OpenStreetMap as of %s. OSM is like Wikipedia for maps, where you can add and edit places for users around the world.</string>
+	<!-- Text in About and OSM Login screens. First %@ is replaced by a local, human readable date. -->
+	<string name="osm_presentation">Community-created OpenStreetMap data as of %s. Learn more about how to edit and update the map at OpenStreetMap.org</string>
 	<string name="login_to_make_edits_visible">Log in to openstreetmap.org to publish your changes to the world.</string>
 	<!-- Downloaded 10 **of** 20 <- it is that "of" -->
 	<string name="downloader_of">%1$d of %2$d</string>
@@ -523,15 +531,14 @@
 	<string name="editor_operator">Owner</string>
 	<string name="downloader_no_downloaded_maps_title">You haven\'t downloaded any maps</string>
 	<string name="downloader_no_downloaded_maps_message">Download maps to search and navigate offline.</string>
-	<!-- Error title that appears after certain time without location. -->
-	<string name="current_location_unknown_title">Continue detecting your location?</string>
-	<!-- Error that appears after certain time without location. -->
-	<string name="current_location_unknown_message">Current location is unknown. You may be in a building or tunnel.</string>
-	<string name="current_location_unknown_continue_button">Continue</string>
-	<string name="current_location_unknown_stop_button">Stop</string>
+	<string name="stop">Stop</string>
+	<!-- abbreviation for meters -->
 	<string name="m">m</string>
+	<!-- abbreviation for kilometers -->
 	<string name="km">km</string>
+	<!-- abbreviation for kilometers per hour -->
 	<string name="kilometers_per_hour">km/h</string>
+	<!-- abbreviation for mile(s) -->
 	<string name="mi">mi</string>
 	<!-- A unit of measure -->
 	<string name="ft">ft</string>
@@ -666,6 +673,12 @@
 	<string name="place_description_title">Place Description</string>
 	<!-- this text will be shown in application notification preferences opposite checkbox which enable/disable downloader notifications. Devices on Android 8+ are affected. -->
 	<string name="notification_channel_downloader">Map downloader</string>
+	<!-- Speed camera settings menu option - Warn (about speedcams) if risk of exceeding speed limit -->
+	<string name="pref_tts_speedcams_auto">Warn if there is a risk of exceeding the speed limit</string>
+	<!-- Speed camera settings menu option - Always warn (about speedcams) -->
+	<string name="pref_tts_speedcams_always">Always warn</string>
+	<!-- Speed camera settings menu option - Never warn (about speedcams) -->
+	<string name="pref_tts_speedcams_never">Never warn</string>
 	<string name="power_managment_title">Power saving mode</string>
 	<string name="power_managment_description">Try to reduce power usage at the expense of some functionality.</string>
 	<string name="power_managment_setting_never">Never</string>
@@ -696,6 +709,8 @@
 	<string name="yes_available">Yes</string>
 	<!-- E.g. "WiFi:No" -->
 	<string name="no_available">No</string>
+	<!-- To indicate the capacity of car parkings, bicycle parkings, electric vehicle charging stations... -->
+	<string name="capacity">Capacity: %s</string>
 	<string name="trip_finished">You have arrived!</string>
 	<string name="ok">OK</string>
 	<!-- max. 10 symbols, both iOS and Android -->
@@ -729,8 +744,8 @@
 	<string name="buildings">Buildings</string>
 	<string name="money">Money</string>
 	<string name="shops">Shops</string>
-	<string name="parkings">Parkings</string>
-	<string name="fuel_places">Gas stations</string>
+	<string name="parkings">Parking</string>
+	<string name="fuel_places">Gas Stations</string>
 	<string name="medicine">Medicine</string>
 	<string name="search_in_the_list">Search in the list</string>
 	<string name="religious_places">Religious places</string>
@@ -778,8 +793,26 @@
 	<string name="osm_wiki_about_url">https://wiki.openstreetmap.org/wiki/About_OpenStreetMap</string>
 	<!-- A number of bookmarks and a number of tracks, separated by comma, like: 1 bookmark, 5 tracks -->
 	<string name="comma_separated_pair">%1$s, %2$s</string>
-	<!-- Tip #00 -->
+	<!-- App Tip #00 -->
 	<string name="app_tip_00">Thank you for using our community-built maps!</string>
+	<!-- App tip #01 -->
+	<string name="app_tip_01">With your donations and support, we can create the best maps in the World!</string>
+	<!-- App tip #02 -->
+	<string name="app_tip_02">Do you like our app? Please donate to support the development! Don\'t like it yet? Please let us know why, and we will fix it!</string>
+	<!-- App tip #03 -->
+	<string name="app_tip_03">If you know a software developer, you can ask him or her to implement a feature that you need.</string>
+	<!-- App tip #04 -->
+	<string name="app_tip_04">Do you know that you can long-tap any place on the map to select it?</string>
+	<!-- App tip #05 -->
+	<string name="app_tip_05">Did you know that your current location on the map can be selected?</string>
+	<!-- App tip #06 -->
+	<string name="app_tip_06">You can help to translate our app into your language.</string>
+	<!-- App tip #07 -->
+	<string name="app_tip_07">Our app is developed by a few enthusiasts and the community.</string>
+	<!-- App tip #08 -->
+	<string name="app_tip_08">You can easily fix and improve the map data.</string>
+	<!-- App tip #09 -->
+	<string name="app_tip_09">Our main goal is to build fast, privacy-focused, easy-to-use maps that you will love.</string>
 	<!-- Text on the Android Auto placeholder screen that maps are displayed on the phone screen -->
 	<string name="aa_used_on_the_phone_screen">You are now using Organic Maps on the phone screen</string>
 	<!-- Text on the phone placeholder screen that maps are displayed on the car screen -->
@@ -798,6 +831,17 @@
 	<string name="aa_connected_to_car_notification_title">Connected to car</string>
 	<!-- Outdoors/hiking map style (activity) name in the Styles and Layers dialog -->
 	<string name="button_layer_outdoor">Outdoors</string>
+	<!-- Text displayed when a webview or a browser are disabled, and external links can't be opened. -->
+	<string name="browser_not_available">Web browser is not available</string>
+	<!-- Text displayed in a dialog when OSM authorization is disabled -->
+	<string name="osm_login_not_available">OpenStreetMap authorization is temporary unavailable due to new restrictions in Google Play 😾\nOur team is working to resolve this issue. Please be patient 🙏</string>
+	<string name="volume">Volume</string>
+	<!-- Bookmark categories screen, button that opens share dialog to export all bookmarks and tracks -->
+	<string name="bookmarks_export">Export all Bookmarks and Tracks</string>
+	<!-- button in (app) TTS settings, to open the system TTS settings. -->
+	<string name="pref_tts_open_system_settings">Speech synthesis system settings</string>
+	<!-- toast displayed when pressing the "Speech synthesis system settings" button, and the system settings aren't found. -->
+	<string name="pref_tts_no_system_tts">Speech Synthesis settings were not found, are you sure your device supports it?</string>
 
 	<!-- SECTION: Types -->
 	<string name="type.addr_interpolation">Address/Block</string>
@@ -856,6 +900,7 @@
 	<string name="type.amenity.dentist">Dentist</string>
 	<string name="type.amenity.doctors">Doctor</string>
 	<string name="type.amenity.drinking_water">Drinking Water</string>
+	<string name="type.drinking_water.yes">Drinking Water</string>
 	<string name="type.amenity.driving_school">Driving School</string>
 	<string name="type.amenity.exhibition_centre">Exhibition Center</string>
 	<string name="type.amenity.money_transfer">Money Transfer</string>
@@ -955,6 +1000,7 @@
 	<string name="type.amenity.telephone">Phone</string>
 	<string name="type.amenity.theatre">Theatre</string>
 	<string name="type.amenity.toilets">Toilet</string>
+	<string name="type.toilets.yes">Toilet</string>
 	<string name="type.amenity.townhall">Town Hall</string>
 	<string name="type.amenity.university">University</string>
 	<string name="type.amenity.vending_machine">Vending Machine</string>
@@ -1019,6 +1065,7 @@
 	<string name="type.boundary.administrative.state">State Boundary</string>
 	<string name="type.boundary.administrative.suburb">Suburb Boundary</string>
 	<string name="type.boundary.national_park">National Park</string>
+	<string name="type.boundary.aboriginal_lands">Indigenous Lands</string>
 	<string name="type.boundary.protected_area">Protected Area</string>
 	<string name="type.boundary.protected_area.1">Protected Area</string>
 	<string name="type.boundary.protected_area.2">Protected Area</string>
@@ -1027,7 +1074,8 @@
 	<string name="type.boundary.protected_area.5">Protected Area</string>
 	<string name="type.boundary.protected_area.6">Protected Area</string>
 	<string name="type.building">Building</string>
-	<string name="type.building.address">Building</string>
+	<!-- Duplicates [address] in strings.txt -->
+	<string name="type.building.address">Address</string>
 	<string name="type.building.has_parts">Building</string>
 	<string name="type.building_part">Building</string>
 	<string name="type.building.garage">Garage</string>
@@ -1459,7 +1507,6 @@
 	<string name="type.leisure.golf_course">Golf Course</string>
 	<string name="type.leisure.hackerspace">Hackerspace</string>
 	<string name="type.leisure.ice_rink">Ice Rink</string>
-	<string name="type.leisure.landscape_reserve">Landscape Reserve</string>
 	<string name="type.leisure.marina">Marina</string>
 	<string name="type.leisure.nature_reserve">Nature Reserve</string>
 	<string name="type.leisure.outdoor_seating">Outdoor Seating</string>
@@ -2129,16 +2176,26 @@
 	<string name="type.aerialway.platter">Platter Lift</string>
 	<string name="type.aerialway.rope_tow">Rope Tow</string>
 	<string name="type.aerialway.t.bar">T-bar Lift</string>
-	<string name="type.piste_type">Piste Type</string>
 	<string name="type.piste_type.downhill">Downhill Ski Run</string>
+	<string name="type.piste_type.downhill.area">Downhill Ski Run</string>
 	<string name="type.piste_type.downhill.advanced">Advanced Downhill Ski Run</string>
+	<string name="type.piste_type.downhill.advanced.area">Advanced Downhill Ski Run</string>
 	<string name="type.piste_type.downhill.easy">Easy Downhill Ski Run</string>
+	<string name="type.piste_type.downhill.easy.area">Easy Downhill Ski Run</string>
 	<string name="type.piste_type.downhill.expert">Expert Downhill Ski Run</string>
-	<string name="type.piste_type.downhill.freeride">Downhill Ski Run</string>
+	<string name="type.piste_type.downhill.expert.area">Expert Downhill Ski Run</string>
+	<string name="type.piste_type.downhill.freeride">Freeride Downhill Ski Run</string>
 	<string name="type.piste_type.downhill.intermediate">Intermediate Downhill Ski Run</string>
+	<string name="type.piste_type.downhill.intermediate.area">Intermediate Downhill Ski Run</string>
 	<string name="type.piste_type.downhill.novice">Novice Downhill Ski Run</string>
+	<string name="type.piste_type.downhill.novice.area">Novice Downhill Ski Run</string>
 	<string name="type.piste_type.nordic">Nordic Ski Trail</string>
 	<string name="type.piste_type.sled">Sledding Piste</string>
+	<string name="type.piste_type.sled.area">Sledding Piste</string>
+	<string name="type.piste_type.snow_park">Snow Park</string>
+	<string name="type.piste_type.hike">Snow Hiking Trail</string>
+	<string name="type.piste_type.connection">Piste Connection</string>
+	<string name="type.piste_type.skitour">Skitour Trail</string>
 	<string name="type.amenity.events_venue">Events Venue</string>
 	<string name="type.shop.auction">Auction</string>
 	<string name="type.shop.collector">Collectables</string>

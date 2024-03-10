@@ -4,18 +4,16 @@
 
 #include "base/math.hpp"
 
-#include <iostream>
+#include <optional>
 
 namespace utm_mgrs_coords_match_test
 {
-using namespace search;
-
-// We expect the results to be quite precise.
-double const kEps = 1e-5;
-
-void TestAlmostEqual(std::optional<ms::LatLon> maybeLatLon, double expectedLat, double expectedLon)
+void TestAlmostEqual(std::optional<ms::LatLon> const & maybeLatLon, double expectedLat, double expectedLon)
 {
-  TEST(maybeLatLon.has_value(), ());
+  TEST(maybeLatLon, ());
+
+  // We expect the results to be quite precise.
+  static double constexpr kEps = 1e-5;
 
   auto const actualLat = maybeLatLon->m_lat;
   TEST(base::AlmostEqualAbsOrRel(actualLat, expectedLat, kEps), ("Lat is not close", actualLat, expectedLat));
@@ -26,9 +24,14 @@ void TestAlmostEqual(std::optional<ms::LatLon> maybeLatLon, double expectedLat, 
 
 UNIT_TEST(MatchUTMCoords)
 {
+  using search::MatchUTMCoords;
+
+  TEST(!MatchUTMCoords("  "), ());
+
   // Extra spaces shouldn't break format
-  TEST(MatchUTMCoords("15 N  500000 4649776").has_value(), ());
-  TEST(MatchUTMCoords("15 N  500000  4649776").has_value(), ());
+  TEST(MatchUTMCoords("15 N  500000 4649776"), ());
+  TEST(MatchUTMCoords("15 N  500000  4649776"), ());
+  TEST(MatchUTMCoords("15 N  500000  4649776"), ());
 
   TestAlmostEqual(MatchUTMCoords("15N 500000 4649776"), 42.0, -93.0);
   TestAlmostEqual(MatchUTMCoords("15 N 500000 4649776"), 42.0, -93.0);
@@ -40,75 +43,81 @@ UNIT_TEST(MatchUTMCoords)
 
 UNIT_TEST(MatchUTMCoords_False)
 {
-  TEST(!MatchUTMCoords("2 1st").has_value(), ());
-  TEST(!MatchUTMCoords("15N5000004649776").has_value(), ());
+  using search::MatchUTMCoords;
+
+  TEST(!MatchUTMCoords("2 1st"), ());
+  TEST(!MatchUTMCoords("15N5000004649776"), ());
 
   // Wrong zone number (first two digits)
-  TEST(!MatchUTMCoords("0X 476594 9328501").has_value(), ());
-  TEST(!MatchUTMCoords("0 X 476594 9328501").has_value(), ());
-  TEST(!MatchUTMCoords("61N 294409 5628898").has_value(), ());
-  TEST(!MatchUTMCoords("61 N 294409 5628898").has_value(), ());
+  TEST(!MatchUTMCoords("0X 476594 9328501"), ());
+  TEST(!MatchUTMCoords("0 X 476594 9328501"), ());
+  TEST(!MatchUTMCoords("61N 294409 5628898"), ());
+  TEST(!MatchUTMCoords("61 N 294409 5628898"), ());
 
   // Wrong zone letter
-  TEST(!MatchUTMCoords("25I 500000 4649776").has_value(), ());
-  TEST(!MatchUTMCoords("25 I 500000 4649776").has_value(), ());
-  TEST(!MatchUTMCoords("25O 500000 4649776").has_value(), ());
-  TEST(!MatchUTMCoords("25 O 500000 4649776").has_value(), ());
-  TEST(!MatchUTMCoords("5A 500000 4649776").has_value(), ());
-  TEST(!MatchUTMCoords("5 A 500000 4649776").has_value(), ());
-  TEST(!MatchUTMCoords("7B 500000 4649776").has_value(), ());
-  TEST(!MatchUTMCoords("7 B 500000 4649776").has_value(), ());
+  TEST(!MatchUTMCoords("25I 500000 4649776"), ());
+  TEST(!MatchUTMCoords("25 I 500000 4649776"), ());
+  TEST(!MatchUTMCoords("25O 500000 4649776"), ());
+  TEST(!MatchUTMCoords("25 O 500000 4649776"), ());
+  TEST(!MatchUTMCoords("5A 500000 4649776"), ());
+  TEST(!MatchUTMCoords("5 A 500000 4649776"), ());
+  TEST(!MatchUTMCoords("7B 500000 4649776"), ());
+  TEST(!MatchUTMCoords("7 B 500000 4649776"), ());
 
   // easting out of range (must be between 100,000 m and 999,999 m)
-  TEST(!MatchUTMCoords("19S 999 6360877").has_value(), ());
-  TEST(!MatchUTMCoords("19S 99999 6360877").has_value(), ());
-  TEST(!MatchUTMCoords("19S 1000000 6360877").has_value(), ());
-  TEST(!MatchUTMCoords("19S 2000000 6360877").has_value(), ());
+  TEST(!MatchUTMCoords("19S 999 6360877"), ());
+  TEST(!MatchUTMCoords("19S 99999 6360877"), ());
+  TEST(!MatchUTMCoords("19S 1000000 6360877"), ());
+  TEST(!MatchUTMCoords("19S 2000000 6360877"), ());
 
   // northing out of range (must be between 0 m and 10,000,000 m)
-  TEST(!MatchUTMCoords("30N 476594 10000001").has_value(), ());
-  TEST(!MatchUTMCoords("30N 476594 20000000").has_value(), ());
+  TEST(!MatchUTMCoords("30N 476594 10000001"), ());
+  TEST(!MatchUTMCoords("30N 476594 20000000"), ());
 }
 
 UNIT_TEST(MatchMGRSCoords_parsing)
 {
-  TEST(MatchMGRSCoords("30N YF 67993 00000").has_value(), ());
-  TEST(MatchMGRSCoords("30N YF 67993 00000 ").has_value(), ());
-  TEST(MatchMGRSCoords("30N YF 67993  00000 ").has_value(), ());
-  TEST(MatchMGRSCoords("30N YF  67993  00000 ").has_value(), ());
-  TEST(MatchMGRSCoords("30NYF 67993 00000").has_value(), ());
-  TEST(MatchMGRSCoords("30NYF 67993 00000 ").has_value(), ());
-  TEST(MatchMGRSCoords("30NYF 67993  00000 ").has_value(), ());
-  TEST(MatchMGRSCoords("30NYF67993 00000").has_value(), ());
-  TEST(MatchMGRSCoords("30NYF67993 00000 ").has_value(), ());
-  TEST(MatchMGRSCoords("30NYF67993  00000 ").has_value(), ());
-  TEST(MatchMGRSCoords("30NYF6799300000").has_value(), ());
-  TEST(MatchMGRSCoords("30NYF6799300000 ").has_value(), ());
+  using search::MatchMGRSCoords;
+
+  TEST(MatchMGRSCoords("30N YF 67993 00000"), ());
+  TEST(MatchMGRSCoords("30N YF 67993 00000 "), ());
+  TEST(MatchMGRSCoords("30N YF 67993  00000 "), ());
+  TEST(MatchMGRSCoords("30N YF  67993  00000 "), ());
+  TEST(MatchMGRSCoords("30NYF 67993 00000"), ());
+  TEST(MatchMGRSCoords("30NYF 67993 00000 "), ());
+  TEST(MatchMGRSCoords("30NYF 67993  00000 "), ());
+  TEST(MatchMGRSCoords("30NYF67993 00000"), ());
+  TEST(MatchMGRSCoords("30NYF67993 00000 "), ());
+  TEST(MatchMGRSCoords("30NYF67993  00000 "), ());
+  TEST(MatchMGRSCoords("30NYF6799300000"), ());
+  TEST(MatchMGRSCoords("30NYF6799300000 "), ());
 
   // Wrong number of digits
-  TEST(!MatchMGRSCoords("30NYF 679930000 ").has_value(), ());
-  TEST(!MatchMGRSCoords("30NYF 679930000").has_value(), ());
+  TEST(!MatchMGRSCoords("30NYF 679930000 "), ());
+  TEST(!MatchMGRSCoords("30NYF 679930000"), ());
 
-  TEST(!MatchMGRSCoords("30N YF 693 23020").has_value(), ());
-  TEST(!MatchMGRSCoords("30N YF 693 23 ").has_value(), ());
+  TEST(!MatchMGRSCoords("30N YF 693 23020"), ());
+  TEST(!MatchMGRSCoords("30N YF 693 23 "), ());
 
   // Invalid zone
-  TEST(!MatchMGRSCoords("30 FF 693 230").has_value(), ());
-  TEST(!MatchMGRSCoords("30A YF 693 230").has_value(), ());
-  TEST(!MatchMGRSCoords("30Z YF 693 230").has_value(), ());
-  TEST(!MatchMGRSCoords("30Z F 693 230").has_value(), ());
-  TEST(!MatchMGRSCoords("30Z 3F 693 230").has_value(), ());
-  TEST(!MatchMGRSCoords("30Z K? 693 230").has_value(), ());
-  TEST(!MatchMGRSCoords("30Z IB 693 230").has_value(), ());
-  TEST(!MatchMGRSCoords("30Z DO 693 230").has_value(), ());
+  TEST(!MatchMGRSCoords("30 FF 693 230"), ());
+  TEST(!MatchMGRSCoords("30A YF 693 230"), ());
+  TEST(!MatchMGRSCoords("30Z YF 693 230"), ());
+  TEST(!MatchMGRSCoords("30Z F 693 230"), ());
+  TEST(!MatchMGRSCoords("30Z 3F 693 230"), ());
+  TEST(!MatchMGRSCoords("30Z K? 693 230"), ());
+  TEST(!MatchMGRSCoords("30Z IB 693 230"), ());
+  TEST(!MatchMGRSCoords("30Z DO 693 230"), ());
 
   // Wrong easting or northing
-  TEST(!MatchMGRSCoords("30NYF 679_3 00000").has_value(), ());
-  TEST(!MatchMGRSCoords("30NYF 6930&000").has_value(), ());
+  TEST(!MatchMGRSCoords("30NYF 679_3 00000"), ());
+  TEST(!MatchMGRSCoords("30NYF 6930&000"), ());
 }
 
 UNIT_TEST(MatchMGRSCoords_convert)
 {
+  using search::MatchMGRSCoords;
+
   TestAlmostEqual(MatchMGRSCoords("30N YF 67993 00000"), 0.000000, -0.592330);
   TestAlmostEqual(MatchMGRSCoords("31N BA 00000 00000"), 0.000000, 0.304980);
   TestAlmostEqual(MatchMGRSCoords("32R LR 00000 00000"), 27.107980, 6.982490);
@@ -150,7 +159,6 @@ UNIT_TEST(MatchMGRSCoords_convert)
   TestAlmostEqual(MatchMGRSCoords("24P YV 49519 98153"), 13.541120, -36.694510);
   TestAlmostEqual(MatchMGRSCoords("31K BA 64726 02675"), -18.051740, 0.777360);
   TestAlmostEqual(MatchMGRSCoords("31N BA 32007 00000"), 0.000000, 0.592330);
-
 }
 
 } // namespace utm_mgrs_coords_match_test

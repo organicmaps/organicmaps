@@ -55,19 +55,14 @@ public class ChooseBookmarkCategoryAdapter extends BaseBookmarkCategoryAdapter<C
 
     final SingleChoiceHolder holder = new SingleChoiceHolder(view);
 
-    view.setOnClickListener(new View.OnClickListener()
-    {
-      @Override
-      public void onClick(View v)
-      {
-        if (mListener == null)
-          return;
+    view.setOnClickListener(v -> {
+      if (mListener == null)
+        return;
 
-        if (holder.getItemViewType() == VIEW_TYPE_ADD_NEW)
-          mListener.onCategoryCreate();
-        else
-          mListener.onCategorySet(holder.getBindingAdapterPosition());
-      }
+      if (holder.getItemViewType() == VIEW_TYPE_ADD_NEW)
+        mListener.onCategoryCreate();
+      else
+        mListener.onCategorySet(holder.getBindingAdapterPosition());
     });
 
     return holder;

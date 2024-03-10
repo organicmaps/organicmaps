@@ -83,7 +83,6 @@ DrapeEngine::DrapeEngine(Params && params)
                                     std::bind(&DrapeEngine::ModelViewChanged, this, _1),
                                     std::bind(&DrapeEngine::TapEvent, this, _1),
                                     std::bind(&DrapeEngine::UserPositionChanged, this, _1, _2),
-                                    std::bind(&DrapeEngine::UserPositionPendingTimeout, this),
                                     make_ref(m_requestedTiles),
                                     std::move(params.m_overlaysShowStatsCallback),
                                     params.m_allow3dBuildings,
@@ -341,7 +340,7 @@ void DrapeEngine::UpdateUserMarks(UserMarksProvider * provider, bool firstTime)
                nullptr /* filter */, *removedIdCollection);
 
     collectRenderData(provider->GetCreatedMarkIds(), provider->GetCreatedLineIds(), groupFilter);
-    collectRenderData(provider->GetUpdatedMarkIds(), {} /* lineIds */, groupFilter);
+    collectRenderData(provider->GetUpdatedMarkIds(), provider->GetUpdatedLineIds(), groupFilter);
 
     for (auto const groupId : provider->GetBecameVisibleGroupIds())
     {
@@ -469,12 +468,6 @@ void DrapeEngine::UserPositionChanged(m2::PointD const & position, bool hasPosit
     m_userPositionChangedHandler(position, hasPosition);
 }
 
-void DrapeEngine::UserPositionPendingTimeout()
-{
-  if (m_userPositionPendingTimeoutHandler != nullptr)
-    m_userPositionPendingTimeoutHandler();
-}
-
 void DrapeEngine::ResizeImpl(int w, int h)
 {
   gui::DrapeGui::Instance().SetSurfaceSize(m2::PointF(w, h));
@@ -536,7 +529,7 @@ void DrapeEngine::SetModelViewListener(ModelViewChangedHandler && fn)
   m_modelViewChangedHandler = std::move(fn);
 }
 
-#if defined(OMIM_OS_MAC) || defined(OMIM_OS_LINUX)
+#if defined(OMIM_OS_DESKTOP)
 void DrapeEngine::NotifyGraphicsReady(GraphicsReadyHandler const & fn, bool needInvalidate)
 {
   m_threadCommutator->PostMessage(ThreadsCommutator::ResourceUploadThread,
@@ -553,11 +546,6 @@ void DrapeEngine::SetTapEventInfoListener(TapEventInfoHandler && fn)
 void DrapeEngine::SetUserPositionListener(UserPositionChangedHandler && fn)
 {
   m_userPositionChangedHandler = std::move(fn);
-}
-
-void DrapeEngine::SetUserPositionPendingTimeoutListener(UserPositionPendingTimeoutHandler && fn)
-{
-  m_userPositionPendingTimeoutHandler = std::move(fn);
 }
 
 void DrapeEngine::SelectObject(SelectionShape::ESelectedObject obj, m2::PointD const & pt,

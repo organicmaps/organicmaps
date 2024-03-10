@@ -8,6 +8,10 @@ final class BottomTabBarButton: MWMButton {
       BottomTabBarButtonRenderer.render(self, style: style)
     }
   }
+
+  override func point(inside point: CGPoint, with event: UIEvent?) -> Bool {
+    return bounds.insetBy(dx: kExtendedTabBarTappableMargin, dy: kExtendedTabBarTappableMargin).contains(point)
+  }
 }
 
 class BottomTabBarButtonRenderer {
@@ -23,9 +27,6 @@ class BottomTabBarButtonRenderer {
     }
     if let backgroundColor = style.backgroundColor {
       control.backgroundColor = backgroundColor
-    }
-    if #available(iOS 13.0, *) {
-      control.layer.cornerCurve = .continuous
     }
   }
 }

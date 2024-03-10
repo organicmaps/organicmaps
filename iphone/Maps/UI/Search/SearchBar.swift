@@ -29,17 +29,12 @@ final class SearchBar: SolidTouchView {
     }
   }
 
-  private lazy var dateFormatter: DateFormatter = {
-    let formatter = DateFormatter()
-    formatter.setLocalizedDateFormatFromTemplate("EEE, MMMd")
-    return formatter
-  }()
-
   override func awakeFromNib() {
     super.awakeFromNib()
     updateLeftView()
     searchTextField.leftViewMode = UITextField.ViewMode.always
     searchTextField.leftView = UIView(frame: CGRect(x: 0, y: 0, width: 32, height: 32))
+    searchTextField.applyTheme()
   }
 
   private func updateLeftView() {

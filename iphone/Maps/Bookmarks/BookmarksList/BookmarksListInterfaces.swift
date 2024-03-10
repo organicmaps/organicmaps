@@ -14,11 +14,11 @@ protocol IBookmarksListSectionViewModel {
 }
 
 protocol IBookmarksSectionViewModel: IBookmarksListSectionViewModel {
-  var bookmarks: [IBookmarkViewModel] { get }
+  var bookmarks: [IBookmarksListItemViewModel] { get }
 }
 
 protocol ITracksSectionViewModel: IBookmarksListSectionViewModel {
-  var tracks: [ITrackViewModel] { get }
+  var tracks: [IBookmarksListItemViewModel] { get }
 }
 
 protocol ISubgroupsSectionViewModel: IBookmarksListSectionViewModel {
@@ -26,16 +26,11 @@ protocol ISubgroupsSectionViewModel: IBookmarksListSectionViewModel {
   var type: BookmarkGroupType { get }
 }
 
-protocol IBookmarkViewModel {
-  var bookmarkName: String { get }
+protocol IBookmarksListItemViewModel {
+  var name: String { get }
   var subtitle: String { get }
   var image: UIImage { get }
-}
-
-protocol ITrackViewModel {
-  var trackName: String { get }
-  var subtitle: String { get }
-  var image: UIImage { get }
+  var colorDidTapAction: (() -> Void)? { get }
 }
 
 protocol ISubgroupViewModel {
@@ -57,6 +52,7 @@ protocol IBookmarksListView: AnyObject {
   func setSections(_ sections: [IBookmarksListSectionViewModel])
   func setMoreItemTitle(_ itemTitle: String)
   func showMenu(_ items: [IBookmarksListMenuItem])
+  func showColorPicker(with pickerType: ColorPickerType, _ completion: ((UIColor) -> Void)?)
   func enableEditing(_ enable: Bool)
   func share(_ url: URL, completion: @escaping () -> Void)
   func showError(title: String, message: String)

@@ -1,6 +1,9 @@
 import Foundation
 
-extension BookmarkColor {
+extension BookmarkColor: CaseIterable {
+  public static var allCases: [BookmarkColor] =  [.red, .pink, .purple, .deepPurple, .blue, .lightBlue, .cyan, .teal, .green,
+                                                  .lime, .yellow, .orange, .deepOrange, .brown, .gray, .blueGray]
+
   var title: String {
     localizedTitleForBookmarkColor(self)
   }
@@ -19,6 +22,10 @@ extension BookmarkColor {
 
   func image(_ iconName: String) -> UIImage {
     circleImageForColor(color, frameSize: 22, iconName: iconName)
+  }
+
+  static func bookmarkColor(from color: UIColor) -> BookmarkColor? {
+    allCases.first(where: { uiColorForBookmarkColor($0) == color })
   }
 }
 

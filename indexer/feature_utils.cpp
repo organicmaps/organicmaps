@@ -7,6 +7,7 @@
 #include "indexer/scales.hpp"
 
 #include "platform/localization.hpp"
+#include "platform/distance.hpp"
 
 #include "coding/string_utf8_multilang.hpp"
 #include "coding/transliteration.hpp"
@@ -303,6 +304,11 @@ FeatureEstimator const & GetFeatureEstimator()
 }
 }  // namespace
 
+static constexpr std::string_view kStarSymbol = "★";
+static constexpr std::string_view kMountainSymbol= "▲";
+static constexpr std::string_view kDrinkingWaterYes = "🚰";
+static constexpr std::string_view kDrinkingWaterNo = "🚱";
+
 NameParamsIn::NameParamsIn(StringUtf8Multilang const & src_, RegionData const & regionData_,
                            std::string_view deviceLang_, bool allowTranslit_)
   : NameParamsIn(src_, regionData_, StringUtf8Multilang::GetLangIndex(deviceLang_), allowTranslit_)
@@ -434,14 +440,116 @@ string GetLocalizedFeeType(TypesHolder const & types)
   auto localized_types = GetLocalizedTypes(isFeeType, types);
   ASSERT_LESS_OR_EQUAL ( localized_types.size(), 1, () );
   if (localized_types.empty())
-      return "";
+    return "";
   return localized_types[0];
+}
+
+string GetReadableWheelchairType(TypesHolder const & types)
+{
+    auto const value = ftraits::Wheelchair::GetValue(types);
+    if (!value.has_value())
+      return "";
+
+    switch (*value)
+    {
+      case ftraits::WheelchairAvailability::No:
+        return "wheelchair-no";
+      case ftraits::WheelchairAvailability::Yes:
+        return "wheelchair-yes";
+      case ftraits::WheelchairAvailability::Limited:
+        return "wheelchair-limited";
+    }
+    UNREACHABLE();
+}
+
+std::optional<ftraits::WheelchairAvailability> GetWheelchairType(TypesHolder const & types)
+{
+  return ftraits::Wheelchair::GetValue(types);
 }
 
 bool HasAtm(TypesHolder const & types)
 {
-    auto const & isAtmType = ftypes::IsATMChecker::Instance();
-    return isAtmType(types);
+  auto const & isAtmType = ftypes::IsATMChecker::Instance();
+  return isAtmType(types);
+}
+
+bool HasToilets(TypesHolder const & types)
+{
+  auto const & isToiletsType = ftypes::IsToiletsChecker::Instance();
+  return isToiletsType(types);
+}
+
+string FormatDrinkingWater(TypesHolder const & types)
+{
+  auto const value = ftraits::DrinkingWater::GetValue(types);
+  if (!value.has_value())
+    return "";
+
+  switch (*value)
+  {
+    case ftraits::DrinkingWaterAvailability::No:
+      return std::string{kDrinkingWaterNo};
+    case ftraits::DrinkingWaterAvailability::Yes:
+      return std::string{kDrinkingWaterYes};
+  }
+}
+
+string FormatStars(uint8_t starsCount)
+{
+  std::string stars;
+  for (int i = 0; i < starsCount && i < kMaxStarsCount; ++i)
+    stars.append(kStarSymbol);
+  return stars;
+}
+
+string FormatElevation(string_view elevation)
+{
+  if (!elevation.empty())
+  {
+    double value;
+    if (strings::to_double(elevation, value))
+        return std::string{kMountainSymbol} + platform::Distance::FormatAltitude(value);
+    else
+      LOG(LWARNING, ("Invalid elevation metadata:", elevation));
+  }
+  return {};
+}
+
+constexpr char const * kWlan = "wlan";
+constexpr char const * kWired = "wired";
+constexpr char const * kTerminal = "terminal";
+constexpr char const * kYes = "yes";
+constexpr char const * kNo = "no";
+
+string DebugPrint(Internet internet)
+{
+  switch (internet)
+  {
+  case Internet::No: return kNo;
+  case Internet::Yes: return kYes;
+  case Internet::Wlan: return kWlan;
+  case Internet::Wired: return kWired;
+  case Internet::Terminal: return kTerminal;
+  case Internet::Unknown: break;
+  }
+  return {};
+}
+
+Internet InternetFromString(std::string_view inet)
+{
+  if (inet.empty())
+    return Internet::Unknown;
+  if (inet.find(kWlan) != string::npos)
+    return Internet::Wlan;
+  if (inet.find(kWired) != string::npos)
+    return Internet::Wired;
+  if (inet.find(kTerminal) != string::npos)
+    return Internet::Terminal;
+  if (inet == kYes)
+    return Internet::Yes;
+  if (inet == kNo)
+    return Internet::No;
+  return Internet::Unknown;
 }
 
 } // namespace feature

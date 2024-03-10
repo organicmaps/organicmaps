@@ -33,6 +33,7 @@
 
 @border_country: #555555;
 @border_region: #666666;
+@indigenous_lands: #734D26;
 
 /* 3.NATURAL */
 /* 3.1 Main natural */
@@ -89,24 +90,23 @@
 
 /* 4.4 Buildings */
 
-@building: #2A2A2A;
-@building_dark: #3B3B3B;
-@building_border: #303030;
-@building_dark_border: #474747;
+@building0: #3B3B3B;
+@building1: #424242;
+@building_border0: #616161;
+@building_border1: #696969;
 
 /* 5.ROADS */
 /* 5.1 All roads */
 
-@trunk: #372400;
-@trunk_orange: #49291B;
-@trunk_orange_medium: #49291B;
-@trunk_orange_light: #49291B;
-@primary_orange: #593323;
-@primary_orange_medium: #593323;
-@primary_orange_light: #593323;
-@secondary: #4B4643;
+@trunk0: #49291B;
+@trunk1: #49291B;
+@primary0: #593323;
+@primary1: #593323;
+@primary2: #593323;
+@secondary0: #573E33;
+@secondary1: #573E33;
+@tertiary: #4F4A47;
 @residential: #4B4643;
-@unclassified: #4B4643;
 @pedestrian: #4D4744;
 @footway: #4B4643;
 @cycleway: #6E3D47;
@@ -122,25 +122,26 @@
 
 /* 5.3 Tunnels */
 
-@trunk_tunnel_orange: #381F14;
+@trunk_tunnel: #381F14;
 @trunk_tunnel_casing: #000000;
-@primary_tunnel_orange: #4C2A1B;
+@primary_tunnel: #4C2A1B;
 @primary_tunnel_casing: #000000;
-@secondary_tunnel: #2B2827;
+@secondary_tunnel: #573E33;
 @secondary_tunnel_casing:  #000000;
 @tertiary_tunnel: #2B2827;
 @tertiary_tunnel_casing:  #000000;
-@unclassified_tunnel: #2B2827;
-@unclassified_tunnel_casing: #000000;
+@residential_tunnel: #2B2827;
+@residential_tunnel_casing: #000000;
 
 /* 5.4 Piste */
 
 @piste: #623D7F;
 @piste_novice:#5feb2e;
 @piste_easy: #0b27fb;
-@piste_intermadiate: #fc0e1b;
-@piste_expert: #333333;
+@piste_intermediate: #fc0e1b;
 @piste_advanced: #222222;
+@piste_expert: #333333;
+@piste_freeride: #EEA500;
 
 /* 5.5 Transport */
 
@@ -161,7 +162,7 @@
 @label_medium: #777777;
 @label_light: #666666;
 @label_halo_medium: #111100;
-@label_halo_light: #111100;
+@label_halo_light: #060600;
 
 /* 6.2 Natural labels */
 
@@ -175,14 +176,14 @@
 @country_label: #444444;
 @state_label: #444444;
 @district_label: #555555;
-@housenumber: #505050;
-@building_label: #555555;
-@poi_label: #555555;
-@subway_label: #555555;
+@housenumber: #747474;
+@building_label: #767676;
+@poi_label: #8C8C8C;
+@subway_label: #9E9E9E;
+@indigenous_label: #6A512F;
 
 /* 6.4 Road labels */
 
-@road_label_halo: #000000;
 @shield_text: #b2b2b2;
 @shield_text_halo: #000000;
 @shield: #000000;

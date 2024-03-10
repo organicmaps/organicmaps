@@ -41,9 +41,9 @@
 	<!-- Text in About screen -->
 	<string name="about_proposition_1">• Ingen annoncer, ingen sporing, ingen dataindsamling</string>
 	<!-- Text in About screen -->
-	<string name="about_proposition_2">• Sparer batteriet, bruger ikke baggrundsdata</string>
+	<string name="about_proposition_2">• Intet batteridræn, fungerer offline</string>
 	<!-- Text in About screen -->
-	<string name="about_proposition_3">• Hurtig, minimalistisk, intet skrammel</string>
+	<string name="about_proposition_3">• Hurtig, minimalistisk, udviklet af fællesskabet</string>
 	<!-- Text in About screen -->
 	<string name="about_developed_by_enthusiasts">Open source-applikation oprettet af entusiaster og frivillige.</string>
 	<!-- The button that opens system location settings -->
@@ -80,7 +80,7 @@
 	<string name="core_my_places">Mine Steder</string>
 	<!-- Add bookmark dialog - bookmark name -->
 	<string name="name">Navn</string>
-	<!-- Editor title above street and house number -->
+	<!-- Editor title above street and house number, duplicates [type.building.address] in types_strings.txt -->
 	<string name="address">Adresse</string>
 	<!-- Add Bookmark dialog/Bookmark list; Bookmarks dialog/Bookmark list cell. -->
 	<string name="list">Liste</string>
@@ -94,7 +94,7 @@
 	<string name="maps_storage_downloaded">Kort</string>
 	<!-- Question dialog for transferring maps from one storage to another -->
 	<string name="move_maps">Flyt kort?</string>
-	<!-- Ask to wait user several minutes (some long process in modal dialog). -->
+	<!-- Ask user to wait several minutes (some long process in modal dialog). -->
 	<string name="wait_several_minutes">Dette kan tage flere minutter.\nVent venligst…</string>
 	<!-- Measurement units title in settings activity -->
 	<string name="measurement_units">Måleenhed</string>
@@ -158,6 +158,10 @@
 	<string name="load_kmz_successful">Bogmærkerne er indlæst! Du kan nu finde dem på kortet eller i Bogmærke Manager sektionen.</string>
 	<!-- Kml file loading failed -->
 	<string name="load_kmz_failed">Bogmærkerne kunne ikke indlæses. Fil kan være skadet eller defekte.</string>
+	<!-- Failed to recognize the format of a bookmarks or tracks file. -->
+	<string name="unknown_file_type">Filtypen genkendes ikke af appen:\n%1$s</string>
+	<!-- Failed to open a bookmarks or tracks file in Organic Maps. -->
+	<string name="failed_to_open_file">Kunne ikke åbne filen %1$s\n\n%2$s</string>
 	<!-- resource for context menu -->
 	<string name="edit">Rediger</string>
 	<!-- Warning message when doing search around current position -->
@@ -196,6 +200,10 @@
 	<string name="pref_zoom_summary">Vis på skærmen</string>
 	<!-- Settings «Map» category: «Night style» title -->
 	<string name="pref_map_style_title">Nattilstand</string>
+	<!-- Settings "Appearance" category: "Light" title, should be consistent with the pref_appearance_title translation. -->
+	<string name="pref_appearance_light">Lys</string>
+	<!-- Settings "Appearance" category: "Dark" title, should be consistent with the pref_appearance_title translation. -->
+	<string name="pref_appearance_dark">Mørk</string>
 	<!-- Generic «Off» string -->
 	<string name="off">Fra</string>
 	<!-- Generic «On» string -->
@@ -452,8 +460,8 @@
 	<string name="editor_report_problem_other_title">Et anderledes problem</string>
 	<string name="placepage_add_business_button">Tilføj organisationen</string>
 	<string name="message_invalid_feature_position">Et objekt kan ikke placeres her</string>
-	<!-- Text in About and OSM Login screens. %@ is replaced by a local, human readable date. -->
-	<string name="osm_presentation">Kartografiske data fra OpenStreetMap fra %s. Det er som Wikipedia, hvor du kan tilføje eller redigere steder for alle brugere over hele verden.</string>
+	<!-- Text in About and OSM Login screens. First %@ is replaced by a local, human readable date. -->
+	<string name="osm_presentation">Fællesskabsskabte OpenStreetMap-data fra %s. Få mere at vide om, hvordan du redigerer og opdaterer kortet på OpenStreetMap.org</string>
 	<string name="login_to_make_edits_visible">Log på så andre brugere kan se ændringerne som du har foretaget.</string>
 	<!-- Downloaded 10 **of** 20 <- it is that "of" -->
 	<string name="downloader_of">%1$d af %2$d</string>
@@ -474,15 +482,14 @@
 	<string name="editor_operator">Bruger</string>
 	<string name="downloader_no_downloaded_maps_title">Du har ikke hentet alle kort</string>
 	<string name="downloader_no_downloaded_maps_message">Download kort for at finde position og navigere offline.</string>
-	<!-- Error title that appears after certain time without location. -->
-	<string name="current_location_unknown_title">Fortsæt med at registrere din aktuelle position?</string>
-	<!-- Error that appears after certain time without location. -->
-	<string name="current_location_unknown_message">Aktuel placering er ukendt. Måske er du i en bygning eller i en tunnel.</string>
-	<string name="current_location_unknown_continue_button">Fortsæt</string>
-	<string name="current_location_unknown_stop_button">Stop</string>
+	<string name="stop">Stop</string>
+	<!-- abbreviation for meters -->
 	<string name="m">m</string>
+	<!-- abbreviation for kilometers -->
 	<string name="km">km</string>
+	<!-- abbreviation for kilometers per hour -->
 	<string name="kilometers_per_hour">km/t</string>
+	<!-- abbreviation for mile(s) -->
 	<string name="mi">mil</string>
 	<!-- A unit of measure -->
 	<string name="ft">fod</string>
@@ -607,6 +614,12 @@
 	<string name="place_description_title">Beskrivelse af sted</string>
 	<!-- this text will be shown in application notification preferences opposite checkbox which enable/disable downloader notifications. Devices on Android 8+ are affected. -->
 	<string name="notification_channel_downloader">Korthenter</string>
+	<!-- Speed camera settings menu option - Warn (about speedcams) if risk of exceeding speed limit -->
+	<string name="pref_tts_speedcams_auto">Advar hvis der er en risiko for, at hastighedsgrænsen overskrides</string>
+	<!-- Speed camera settings menu option - Always warn (about speedcams) -->
+	<string name="pref_tts_speedcams_always">Advar altid</string>
+	<!-- Speed camera settings menu option - Never warn (about speedcams) -->
+	<string name="pref_tts_speedcams_never">Advar aldrig</string>
 	<string name="power_managment_title">Strømsparetilstand</string>
 	<string name="power_managment_description">Når automatisk tilstand er valgt, begynder applikationen at deaktivere funktioner, med højt batteri-strømforbrug, afhængigt af det aktuelle batteriniveau</string>
 	<string name="power_managment_setting_never">Aldrig</string>
@@ -637,6 +650,8 @@
 	<string name="yes_available">Ja</string>
 	<!-- E.g. "WiFi:No" -->
 	<string name="no_available">Nej</string>
+	<!-- To indicate the capacity of car parkings, bicycle parkings, electric vehicle charging stations... -->
+	<string name="capacity">Kapacitet: %s</string>
 	<string name="trip_finished">Du er ankommet!</string>
 	<string name="ok">Ok</string>
 	<!-- max. 10 symbols, both iOS and Android -->
@@ -698,8 +713,26 @@
 	<string name="splash_subtitle">Kortdata fra OpenStreetMap</string>
 	<!-- Link to OSM wiki for Editor, Profile and About pages -->
 	<string name="osm_wiki_about_url">https://wiki.openstreetmap.org/wiki/Da:Om_OpenStreetMap</string>
-	<!-- Tip #00 -->
+	<!-- App Tip #00 -->
 	<string name="app_tip_00">Tak, fordi du bruger vores community-byggede kort!</string>
+	<!-- App tip #01 -->
+	<string name="app_tip_01">Med dine donationer og støtte kan vi skabe de bedste kort i verden!</string>
+	<!-- App tip #02 -->
+	<string name="app_tip_02">Kan du lide vores app? Donér venligst for at støtte udviklingen! Kan du ikke lide det endnu? Fortæl os det, så ordner vi det!</string>
+	<!-- App tip #03 -->
+	<string name="app_tip_03">Hvis du kender en softwareudvikler, kan du bede ham eller hende om at implementere en funktion, som du har brug for.</string>
+	<!-- App tip #04 -->
+	<string name="app_tip_04">Ved du, at du kan trykke længe på et hvilket som helst sted på kortet for at vælge det?</string>
+	<!-- App tip #05 -->
+	<string name="app_tip_05">Ved du, at du kan vælge din nuværende placering på kortet?</string>
+	<!-- App tip #06 -->
+	<string name="app_tip_06">Du kan hjælpe med at oversætte vores app til dit sprog.</string>
+	<!-- App tip #07 -->
+	<string name="app_tip_07">Vores app er udviklet af nogle få entusiaster og samfundet.</string>
+	<!-- App tip #08 -->
+	<string name="app_tip_08">Du kan nemt rette og forbedre kortdataene.</string>
+	<!-- App tip #09 -->
+	<string name="app_tip_09">Vores hovedmål er at bygge hurtige, privatlivsfokuserede, brugervenlige kort, som du vil elske.</string>
 	<!-- Text on the Android Auto placeholder screen that maps are displayed on the phone screen -->
 	<string name="aa_used_on_the_phone_screen">Du bruger nu Organic Maps på telefonens skærm.</string>
 	<!-- Text on the phone placeholder screen that maps are displayed on the car screen -->
@@ -718,6 +751,17 @@
 	<string name="aa_connected_to_car_notification_title">Forbundet til bilen</string>
 	<!-- Outdoors/hiking map style (activity) name in the Styles and Layers dialog -->
 	<string name="button_layer_outdoor">Vandring</string>
+	<!-- Text displayed when a webview or a browser are disabled, and external links can't be opened. -->
+	<string name="browser_not_available">Webbrowser er ikke tilgængelig</string>
+	<!-- Text displayed in a dialog when OSM authorization is disabled -->
+	<string name="osm_login_not_available">OpenStreetMap-godkendelse er midlertidigt utilgængelig på grund af nye begrænsninger i Google Play 😾\nVores team arbejder på at løse dette problem. Vær venligst tålmo$ig 🙏</string>
+	<string name="volume">Lydstyrke</string>
+	<!-- Bookmark categories screen, button that opens share dialog to export all bookmarks and tracks -->
+	<string name="bookmarks_export">Eksporter alle bogmærker og spor</string>
+	<!-- button in (app) TTS settings, to open the system TTS settings. -->
+	<string name="pref_tts_open_system_settings">Indstillinger for talesyntese-system</string>
+	<!-- toast displayed when pressing the "Speech synthesis system settings" button, and the system settings aren't found. -->
+	<string name="pref_tts_no_system_tts">Indstillingerne for talesyntese blev ikke fundet, er du sikker på, at din enhed understøtter det?</string>
 
 	<!-- SECTION: Types -->
 	<string name="type.addr_interpolation">Adresse/blok</string>
@@ -761,6 +805,7 @@
 	<string name="type.amenity.dentist">Tandlæge</string>
 	<string name="type.amenity.doctors">Lægekontor</string>
 	<string name="type.amenity.drinking_water">Vand</string>
+	<string name="type.drinking_water.yes">Vand</string>
 	<string name="type.amenity.driving_school">Køreskole</string>
 	<string name="type.amenity.exhibition_centre">Udstillingscenter</string>
 	<string name="type.amenity.money_transfer">Pengeoverførsel</string>
@@ -874,6 +919,7 @@
 	<string name="type.barrier.swing_gate">Bom</string>
 	<string name="type.barrier.toll_booth">Betalingsstation</string>
 	<string name="type.boundary.national_park">National park</string>
+	<string name="type.boundary.aboriginal_lands">Oprindelige lande</string>
 	<string name="type.boundary.protected_area">Beskyttet område</string>
 	<string name="type.boundary.protected_area.1">Beskyttet område</string>
 	<string name="type.boundary.protected_area.2">Beskyttet område</string>
@@ -882,7 +928,8 @@
 	<string name="type.boundary.protected_area.5">Beskyttet område</string>
 	<string name="type.boundary.protected_area.6">Beskyttet område</string>
 	<string name="type.building">Bygning</string>
-	<string name="type.building.address">Bygning</string>
+	<!-- Duplicates [address] in strings.txt -->
+	<string name="type.building.address">Adresse</string>
 	<string name="type.building.has_parts">Bygning</string>
 	<string name="type.building_part">Bygning</string>
 	<string name="type.building.train_station">Togstation</string>
@@ -1820,6 +1867,10 @@
 	<string name="type.wheelchair.limited">Begrænset tilgængelighed for kørestol</string>
 	<string name="type.wheelchair.no">Ingen tilgængelighed for kørestol</string>
 	<string name="type.wheelchair.yes">Fuld tilgængelighed for kørestol</string>
+	<string name="type.piste_type.snow_park">Snow Park</string>
+	<string name="type.piste_type.hike">Vandresti i sne</string>
+	<string name="type.piste_type.connection">Pisteforbindelse</string>
+	<string name="type.piste_type.skitour">Skitour Trail</string>
 	<string name="type.amenity.events_venue">Sted for arrangementer</string>
 	<string name="type.shop.auction">Auktion</string>
 	<string name="type.shop.collector">Samlerobjekter</string>

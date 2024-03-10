@@ -1248,7 +1248,7 @@ void GetNameAndType(OsmElement * p, FeatureBuilderParams & params,
       }},
       {"ref", "*", [&params](string & k, string & v)
       {
-        // Get reference (we process road numbers only).
+        // Get reference; its used for selected types only, see FeatureBuilder::PreSerialize().
         params.ref = std::move(v);
       }},
       {"layer", "*", [&params](string & k, string & v)
@@ -1333,6 +1333,20 @@ void GetNameAndType(OsmElement * p, FeatureBuilderParams & params,
   params.SetAddress(std::move(addr));
   params.SetPostcode(std::move(addrPostcode));
   params.SetHouseNumberAndHouseName(std::move(houseNumber), std::move(houseName));
+
+  // Fetch piste:name and piste:ref if there are no other name/ref values.
+  TagProcessor(p).ApplyRules<void(string &, string &)>(
+  {
+      {"piste:ref", "*", [&params](string & k, string & v)
+      {
+        if (params.ref.empty())
+          params.ref = std::move(v);
+      }},
+      {"piste:name", "*", [&params](string & k, string & v)
+      {
+        params.SetDefaultNameIfEmpty(std::move(v));
+      }},
+  });
 
   // Stage4: Match tags to classificator feature types via mapcss-mapping.csv.
   MatchTypes(p, params, filterType);

@@ -14,6 +14,7 @@ namespace feature { class TypesHolder; }
 
 namespace search
 {
+/// @note The order is important here (less is better)
 enum class PoiType : uint8_t
 {
   // Railway/subway stations, airports.
@@ -28,10 +29,17 @@ enum class PoiType : uint8_t
   ShopOrAmenity,
   // Attractions.
   Attraction,
-  // Service types: power lines and substations, barrier-fence, etc.
-  Service,
+  // Car Infra
+  CarInfra,
+
+  // Factor for *pure category* matched result.
+  PureCategory,
+
   // All other POIs.
   General,
+  // Service types: power lines and substations, barrier-fence, etc.
+  Service,
+
   Count
 };
 
@@ -74,8 +82,11 @@ struct RankingInfo : public StoredRankingInfo
 
   void ToCSV(std::ostream & os) const;
 
-  // Returns rank calculated by a linear model, bigger is better.
-  double GetLinearModelRank() const;
+  /// @param[in]  viewportMode  True, and distance is not included into the final rank.
+  /// @return Rank calculated by a linear model, bigger is better.
+  double GetLinearModelRank(bool viewportMode = false) const;
+
+  static double GetLinearRankViewportThreshold();
 
   double GetErrorsMadePerToken() const;
 
@@ -100,8 +111,8 @@ struct RankingInfo : public StoredRankingInfo
   // Number of misprints.
   ErrorsMade m_errorsMade;
 
-  // Rank of the feature.
-  uint8_t m_rank = 0;
+  // Rank of the feature. Store uint16_t because of possible 'normalization'.
+  uint16_t m_rank = 0;
 
   // Popularity rank of the feature.
   uint8_t m_popularity = 0;

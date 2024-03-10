@@ -86,7 +86,7 @@ void ClipTriangleByRect(m2::RectD const & rect, m2::PointD const & p1, m2::Point
     return;
   }
 
-  double constexpr kEps = 1e-8;
+  static constexpr double kEps = 1e-8;
   std::vector<m2::PointD> polygon;
   auto const addPolygonPoint = [&polygon](m2::PointD const & pt)
   {
@@ -147,7 +147,6 @@ void ClipPathByRectImpl(m2::RectD const & rect, std::vector<m2::PointD> const & 
   int code1 = 0;
   int code2 = 0;
   m2::SharedSpline s;
-  s.Reset(new m2::Spline(sz));
 
   for (size_t i = 0; i < sz - 1; i++)
   {
@@ -164,7 +163,7 @@ void ClipPathByRectImpl(m2::RectD const & rect, std::vector<m2::PointD> const & 
       if (code2 != 0 || i + 2 == sz)
       {
         if (s->GetSize() > 1)
-            fn(std::move(s));
+          fn(std::move(s));
         s.Reset(nullptr);
       }
     }

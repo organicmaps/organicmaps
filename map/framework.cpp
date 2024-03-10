@@ -206,11 +206,6 @@ void Framework::SetMyPositionModeListener(TMyPositionModeChanged && fn)
   m_myPositionListener = std::move(fn);
 }
 
-void Framework::SetMyPositionPendingTimeoutListener(df::DrapeEngine::UserPositionPendingTimeoutHandler && fn)
-{
-  m_myPositionPendingTimeoutListener = std::move(fn);
-}
-
 EMyPositionMode Framework::GetMyPositionMode() const
 {
   return m_drapeEngine ? m_drapeEngine->GetMyPositionMode() : PendingPosition;
@@ -696,7 +691,7 @@ void Framework::FillInfoFromFeatureType(FeatureType & ft, place_page::Info & inf
   bool const canEditOrAdd = featureStatus != FeatureStatus::Obsolete && CanEditMap() &&
                             isMapVersionEditable;
   info.SetCanEditOrAdd(canEditOrAdd);
-  info.SetPopularity(m_popularityLoader.Get(ft.GetID()));
+  //info.SetPopularity(m_popularityLoader.Get(ft.GetID()));
 
   // Fill countryId for place page info
   auto const & types = info.GetTypes();
@@ -1014,7 +1009,7 @@ void Framework::SetViewportListener(TViewportChangedFn const & fn)
   m_viewportChangedFn = fn;
 }
 
-#if defined(OMIM_OS_MAC) || defined(OMIM_OS_LINUX)
+#if defined(OMIM_OS_DESKTOP)
 void Framework::NotifyGraphicsReady(TGraphicsReadyFn const & fn, bool needInvalidate)
 {
   if (m_drapeEngine != nullptr)
@@ -1418,11 +1413,7 @@ void Framework::FillSearchResultsMarks(SearchResultsIterT beg, SearchResultsIter
     {
       auto const fID = r.GetFeatureID();
       mark->SetFoundFeature(fID);
-
-      if (r.m_details.m_isHotel)
-        mark->SetHotelType();
-      else
-        mark->SetFromType(r.GetFeatureType());
+      mark->SetFromType(r.GetFeatureType());
       mark->SetVisited(m_searchMarks.IsVisited(fID));
       mark->SetSelected(m_searchMarks.IsSelected(fID));
     }
@@ -1541,14 +1532,6 @@ void Framework::CreateDrapeEngine(ref_ptr<dp::GraphicsContextFactory> contextFac
     GetPlatform().RunTask(Platform::Thread::Gui, [this, position, hasPosition]()
     {
       OnUserPositionChanged(position, hasPosition);
-    });
-  });
-  m_drapeEngine->SetUserPositionPendingTimeoutListener([this]()
-  {
-    GetPlatform().RunTask(Platform::Thread::Gui, [this]()
-    {
-      if (m_myPositionPendingTimeoutListener)
-        m_myPositionPendingTimeoutListener();
     });
   });
 
@@ -2653,12 +2636,12 @@ bool Framework::ParseDrapeDebugCommand(string const & query)
     SavePreferredGraphicsAPI(dp::ApiVersion::Vulkan);
     return true;
   }
-#endif
   if (query == "?gl")
   {
     SavePreferredGraphicsAPI(dp::ApiVersion::OpenGLES3);
     return true;
   }
+#endif
   return false;
 }
 
@@ -2683,7 +2666,7 @@ bool Framework::ParseEditorDebugCommand(search::SearchParams const & params)
 
       search::Result res(feature::GetCenter(*ft), string(ft->GetReadableName()));
       res.SetAddress(std::move(edit.second));
-      res.FromFeature(fid, feature::TypesHolder(*ft).GetBestType(), {});
+      res.FromFeature(fid, feature::TypesHolder(*ft).GetBestType(), 0, {});
 
       results.AddResultNoChecks(std::move(res));
     }

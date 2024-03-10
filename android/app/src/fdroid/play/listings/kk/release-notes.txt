@@ -1,8 +1,8 @@
-Christmas & New Year gifts for you from Organic Maps community:
-• Outdoors map style for hiking, cycling, and exploring the Nature
-• Search for village addresses without streets in Austria, Czechia, Germany, Poland, Slovakia
-• Type "skiing" to find downhill & Nordic pistes
-• OpenStreetMap map data as of December 13
-• Check photos, reviews, and prices for some hotels. All your donations and bookings contribute to the development of Organic Maps!
+• OpenStreetMap data as of February 28
+• Export all bookmarks as a single KMZ file
+• Fixed several crashes
+• "Routing options enabled" is no longer displayed when using ruler
+• Included wheelchair accessibility information on place pages
+• Added recycling and elevation information to search result descriptions
 
-…more details at omaps.org/news
+…read more details at omaps.org/news

@@ -50,7 +50,7 @@ public class FeatureCategory implements Parcelable
     dest.writeString(mLocalizedTypeName);
   }
 
-  public static final Creator<FeatureCategory> CREATOR = new Creator<FeatureCategory>()
+  public static final Creator<FeatureCategory> CREATOR = new Creator<>()
   {
     @Override
     public FeatureCategory createFromParcel(Parcel source)

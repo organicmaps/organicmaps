@@ -52,6 +52,18 @@
 
 "about_menu_title" = "Аб праграме Organic Maps";
 
+/* Text in About screen */
+"about_headline" = "Бясплатна для ўсіх, зроблена з любоўю";
+
+/* Text in About screen */
+"about_proposition_1" = "• Без рэкламы, без трэкінгу, без збору вашых даных";
+
+/* Text in About screen */
+"about_proposition_2" = "• Няма разрадкі батарэі, працуе ў аўтаномным рэжыме";
+
+/* Text in About screen */
+"about_proposition_3" = "• Хуткія, мінімалістычныя, распрацаваныя супольнасцю";
+
 "close" = "Закрыць";
 
 "download" = "Спампаваць";
@@ -80,7 +92,7 @@
 /* Default bookmark list name */
 "core_my_places" = "Мае месцы";
 
-/* Editor title above street and house number */
+/* Editor title above street and house number, duplicates [type.building.address] in types_strings.txt */
 "address" = "Адрас";
 
 /* Settings button in system menu */
@@ -200,7 +212,7 @@
 "done" = "Гатова";
 
 /* Prints version number in About dialog */
-"version" = "Версія: %@";
+"version" = "Версія Organic Maps: %@";
 
 /* Data version in «About» screen, %@ is replaced by a local, human readable date. */
 "data_version" = "Даныя OpenStreetMap: %@";
@@ -217,8 +229,14 @@
 
 "pref_zoom_title" = "Кнопкі маштабавання";
 
-/* Settings «Map» category: «Night style» title */
-"pref_map_style_title" = "Начны рэжым";
+/* Settings «Map» category: «Appearance» title */
+"pref_appearance_title" = "Выгляд";
+
+/* Settings "Appearance" category: "Light" title, should be consistent with the pref_appearance_title translation. */
+"pref_appearance_light" = "Светлы";
+
+/* Settings "Appearance" category: "Dark" title, should be consistent with the pref_appearance_title translation. */
+"pref_appearance_dark" = "Цемны";
 
 /* Generic «Off» string */
 "off" = "Выключаны";
@@ -315,6 +333,9 @@
 /* Button in the main menu */
 "donate" = "Падтрымаць грашыма";
 
+/* Tex label above the Donate button */
+"donate_description" = "Падтрымайць, каб разам ствараць лепшыя карты!";
+
 /* Button in the main Help dialog */
 "how_to_support_us" = "Падтрымаць праект";
 
@@ -323,6 +344,15 @@
 
 /* Text in menu + Button in the main Help dialog */
 "report_a_bug" = "Паведаміць аб памылцы";
+
+/* Button in the About screen */
+"report_incorrect_map_bug" = "Паведаміць або выправіць няправільныя дадзеныя на мапе";
+
+/* Button in the About screen */
+"volunteer" = "Стаць валанцёрам";
+
+/* "Social media" section header in the About screen */
+"follow_us" = "Падпісвайцеся і пішыце нам:";
 
 /* Alert text */
 "email_error_body" = "Паштовы кліент не наладжаны. Наладзьце яго альбо звяжыцеся з намі па адрасе %@ іншым чынам.";
@@ -704,6 +734,9 @@
 
 "message_invalid_feature_position" = "Аб'ект не можа знаходзіцца тут";
 
+/* Text in About and OSM Login screens. First %@ is replaced by a local, human readable date. */
+"osm_presentation" = "Створаныя супольнасцю даныя OpenStreetMap па стане на %@. Даведайцеся больш пра тое, як рэдагаваць і абнаўляць карту на OpenStreetMap.org";
+
 "login_to_make_edits_visible" = "Аўтарызуйцеся ў OpenStreetMap.org, каб іншыя карыстальнікі бачылі вашыя змены.";
 
 /* Error dialog no space */
@@ -746,15 +779,7 @@
 
 "downloader_no_downloaded_maps_message" = "Спампуйце мапы, каб шукаць месцы і карыстацца навігацыяй без інтэрнэту.";
 
-/* Error title that appears after certain time without location. */
-"current_location_unknown_title" = "Працягнуць вызначэнне месцазнаходжання?";
-
-/* Error that appears after certain time without location. */
-"current_location_unknown_message" = "Месцазнаходжанне невядома. Магчыма вы ў будынку або ў танэлі.";
-
-"current_location_unknown_continue_button" = "Працягнуць";
-
-"current_location_unknown_stop_button" = "Спыніць";
+"stop" = "Спыніць";
 
 "current_location_unknown_error_title" = "Месцазнаходжанне невядома.";
 
@@ -768,15 +793,27 @@
 
 "location_services_disabled_2" = "2. Націсніце Геалакацыя";
 
-/* iOS Dialog for the case when the location permission is not granted */
+/* iOS Dialog for the case when the location permission is not granted; you might find the exact wording for your language here: https://support.apple.com/en-us/102647 (replace 'en-us' in URL with your language/region) */
 "location_services_disabled_3" = "3. Выберыце \"Падчас выкарыстання праграмы\"";
 
+"location_services_disabled_on_device_2" = "2. Абярыце Прыватнасць";
+
+"location_services_disabled_on_device_3" = "3. Выберыце Службы месцазнаходжання";
+
+"location_services_disabled_on_device_4" = "4. Уключыце Службы вызначэння месцазнаходжання";
+
+"location_services_disabled_on_device_additional_message" = "Або працягвайце выкарыстоўваць Organic Maps без месцазнаходжання";
+
+/* abbreviation for meters */
 "m" = "м";
 
+/* abbreviation for kilometers */
 "km" = "км";
 
+/* abbreviation for kilometers per hour */
 "kilometers_per_hour" = "км/г";
 
+/* abbreviation for mile(s) */
 "mi" = "міля";
 
 /* A unit of measure */
@@ -857,9 +894,6 @@
 "sharing_call_action_look" = "Паглядзі";
 
 "recent_track_background_dialog_message" = "Organic Maps выкарыстоўвае вашу геалакацыю ў фонавым рэжыме, каб запісваць ваш нядаўна пройдзены маршрут.";
-
-/* Text under the version number in the Help dialog. TODO: Synchronize other translations with English. */
-"about_description" = "Organic Maps — гэта хуткія і бясплатныя мапы без рэкламы, якія працуюць без інтэрнэту і не шпіёняць за вамі. Усе картаграфічныя даныя бяруцца з OpenStreetMap.org, там вы зможаце самастойна выпраўляць памылкі і дадаваць новыя аб'екты. Organic Maps — гэта праект з адкрытым зыходным кодам, які ствараецца энтузіястамі ў вольны час. Будзем рады вашай падтрымцы і зваротнай сувязі!";
 
 "general_settings" = "Агульныя налады";
 
@@ -1072,6 +1106,9 @@
 /* E.g. "WiFi:No" */
 "no_available" = "Няма";
 
+/* To indicate the capacity of car parkings, bicycle parkings, electric vehicle charging stations... */
+"capacity" = "Ёмістасць: %@";
+
 "trip_finished" = "Вы прыбылі!";
 
 "keyboard_availability_alert" = "Клавіятура недасягальная падчас язды";
@@ -1238,6 +1275,12 @@
 /* Outdoors/hiking map style (activity) name in the Styles and Layers dialog */
 "button_layer_outdoor" = "Актыўны адпачынак";
 
+/* Bookmark categories screen, button that opens share dialog to export all bookmarks and tracks */
+"bookmarks_export" = "Экспартаваць усе закладкі і трэкі";
+
+/* Text for the editing the Track's color button. */
+"change_color" = "Змяніць колер";
+
 
 /********** Types **********/
 
@@ -1352,6 +1395,8 @@
 "type.amenity.doctors" = "Doctor";
 
 "type.amenity.drinking_water" = "Drinking Water";
+
+"type.drinking_water.yes" = "Drinking Water";
 
 "type.amenity.driving_school" = "Аўташкола";
 
@@ -1548,6 +1593,8 @@
 
 "type.amenity.toilets" = "Toilet";
 
+"type.toilets.yes" = "Toilet";
+
 "type.amenity.townhall" = "Адміністрацыя";
 
 "type.amenity.university" = "University";
@@ -1676,6 +1723,8 @@
 
 "type.boundary.national_park" = "National Park";
 
+"type.boundary.aboriginal_lands" = "Тэрыторыі першабытнікаў";
+
 "type.boundary.protected_area" = "Запаведная зона";
 
 "type.boundary.protected_area.1" = "Запаведная зона";
@@ -1692,7 +1741,8 @@
 
 "type.building" = "Building";
 
-"type.building.address" = "Building";
+/* Duplicates [address] in strings.txt */
+"type.building.address" = "Адрас";
 
 "type.building.has_parts" = "Building";
 
@@ -2501,8 +2551,6 @@
 "type.leisure.hackerspace" = "Хакерская прастора";
 
 "type.leisure.ice_rink" = "Ice Rink";
-
-"type.leisure.landscape_reserve" = "Landscape Reserve";
 
 "type.leisure.marina" = "Прычал";
 
@@ -3837,25 +3885,45 @@
 
 "type.aerialway.t.bar" = "T-bar Lift";
 
-"type.piste_type" = "Piste Type";
-
 "type.piste_type.downhill" = "Downhill Ski Run";
+
+"type.piste_type.downhill.area" = "Downhill Ski Run";
 
 "type.piste_type.downhill.advanced" = "Downhill Ski Run";
 
+"type.piste_type.downhill.advanced.area" = "Downhill Ski Run";
+
 "type.piste_type.downhill.easy" = "Downhill Ski Run";
 
+"type.piste_type.downhill.easy.area" = "Downhill Ski Run";
+
 "type.piste_type.downhill.expert" = "Downhill Ski Run";
+
+"type.piste_type.downhill.expert.area" = "Downhill Ski Run";
 
 "type.piste_type.downhill.freeride" = "Downhill Ski Run";
 
 "type.piste_type.downhill.intermediate" = "Downhill Ski Run";
 
+"type.piste_type.downhill.intermediate.area" = "Downhill Ski Run";
+
 "type.piste_type.downhill.novice" = "Downhill Ski Run";
+
+"type.piste_type.downhill.novice.area" = "Downhill Ski Run";
 
 "type.piste_type.nordic" = "Nordic Ski Trail";
 
 "type.piste_type.sled" = "Sledding Piste";
+
+"type.piste_type.sled.area" = "Sledding Piste";
+
+"type.piste_type.snow_park" = "Снежны парк";
+
+"type.piste_type.hike" = "Снежная пешаходная сцежка";
+
+"type.piste_type.connection" = "Падключэнне да трас";
+
+"type.piste_type.skitour" = "Скітурная траса";
 
 "type.amenity.events_venue" = "Месца правядзення мерапрыемстваў";
 

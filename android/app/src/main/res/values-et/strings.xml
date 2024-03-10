@@ -37,7 +37,9 @@
 	<string name="try_again">Proovi uuesti</string>
 	<string name="about_menu_title">Organic Maps kohta</string>
 	<!-- Text in About screen -->
-	<string name="about_proposition_2">• Säästab akut, ei kasuta taustaandmeid</string>
+	<string name="about_proposition_2">• Ei tühjenda akut, töötab võrguühenduseta</string>
+	<!-- Text in About screen -->
+	<string name="about_proposition_3">• Kiire, minimalistlik, kogukonna poolt välja töötatud</string>
 	<!-- The button that opens system location settings -->
 	<string name="location_settings">Asukoha seaded</string>
 	<string name="close">Sulge</string>
@@ -72,7 +74,7 @@
 	<string name="core_my_places">Minu kohad</string>
 	<!-- Add bookmark dialog - bookmark name -->
 	<string name="name">Nimi</string>
-	<!-- Editor title above street and house number -->
+	<!-- Editor title above street and house number, duplicates [type.building.address] in types_strings.txt -->
 	<string name="address">Aadress</string>
 	<!-- Add Bookmark dialog/Bookmark list; Bookmarks dialog/Bookmark list cell. -->
 	<string name="list">Loetelu</string>
@@ -98,7 +100,7 @@
 	<string name="move_maps">Teisaldada kaardid?</string>
 	<!-- Error moving map files from one storage to another -->
 	<string name="move_maps_error">Kaardipaanide teisaldamine ebaõnnestus</string>
-	<!-- Ask to wait user several minutes (some long process in modal dialog). -->
+	<!-- Ask user to wait several minutes (some long process in modal dialog). -->
 	<string name="wait_several_minutes">See võib võtta mitu minutit.\nPalun oota…</string>
 	<!-- Measurement units title in settings activity -->
 	<string name="measurement_units">Mõõtühikud</string>
@@ -163,6 +165,10 @@
 	<string name="load_kmz_successful">Järjehoidjad edukalt laetud! Leiad need kaardil või järjehoidjate halduri ekraanil.</string>
 	<!-- Kml file loading failed -->
 	<string name="load_kmz_failed">Järjehoidjate laadimine ebaõnnestus. Fail võib olla vigane.</string>
+	<!-- Failed to recognize the format of a bookmarks or tracks file. -->
+	<string name="unknown_file_type">Rakendus ei tunnista failitüüpi:\n%1$s</string>
+	<!-- Failed to open a bookmarks or tracks file in Organic Maps. -->
+	<string name="failed_to_open_file">Faili avamine ebaõnnestus %1$s\n\n%2$s</string>
 	<!-- resource for context menu -->
 	<string name="edit">Muuda</string>
 	<!-- Warning message when doing search around current position -->
@@ -205,6 +211,10 @@
 	<string name="pref_zoom_summary">Kuva kaardil</string>
 	<!-- Settings «Map» category: «Night style» title -->
 	<string name="pref_map_style_title">Öörežiim</string>
+	<!-- Settings "Appearance" category: "Light" title, should be consistent with the pref_appearance_title translation. -->
+	<string name="pref_appearance_light">Valgus</string>
+	<!-- Settings "Appearance" category: "Dark" title, should be consistent with the pref_appearance_title translation. -->
+	<string name="pref_appearance_dark">Tume</string>
 	<!-- Generic «Off» string -->
 	<string name="off">Väljas</string>
 	<!-- Generic «On» string -->
@@ -466,6 +476,8 @@
 	<string name="editor_report_problem_other_title">Erinev probleem</string>
 	<string name="placepage_add_business_button">Lisa ettevõte</string>
 	<string name="message_invalid_feature_position">Ükski objekt ei saa siin asuda</string>
+	<!-- Text in About and OSM Login screens. First %@ is replaced by a local, human readable date. -->
+	<string name="osm_presentation">Ühenduse loodud OpenStreetMapi andmed alates %s. Lisateave selle kohta, kuidas kaarti redigeerida ja uuendada, on aadressil OpenStreetMap.org.</string>
 	<string name="login_to_make_edits_visible">Logi sisse OpenStreetMap.org keskkonda, et teised kasutajad näeksid Sinu tehtud muudatusi.</string>
 	<!-- Downloaded 10 **of** 20 <- it is that "of" -->
 	<string name="downloader_of">%1$d/%2$d</string>
@@ -486,15 +498,14 @@
 	<string name="editor_operator">Omanik</string>
 	<string name="downloader_no_downloaded_maps_title">Sa ei ole kaarte alla laadinud</string>
 	<string name="downloader_no_downloaded_maps_message">Lae alla kaardid asukoha otsimiseks ja võrguühenduseta navigeerimise kasutamiseks.</string>
-	<!-- Error title that appears after certain time without location. -->
-	<string name="current_location_unknown_title">Jätka oma hetkeasukoha määramist?</string>
-	<!-- Error that appears after certain time without location. -->
-	<string name="current_location_unknown_message">Hetkeasukoht on teadmata. Võib-olla oled hoones sees või tunnelis.</string>
-	<string name="current_location_unknown_continue_button">Jätka</string>
-	<string name="current_location_unknown_stop_button">Lõpeta</string>
+	<string name="stop">Lõpeta</string>
+	<!-- abbreviation for meters -->
 	<string name="m">m</string>
+	<!-- abbreviation for kilometers -->
 	<string name="km">km</string>
+	<!-- abbreviation for kilometers per hour -->
 	<string name="kilometers_per_hour">km/h</string>
+	<!-- abbreviation for mile(s) -->
 	<string name="mi">mi</string>
 	<!-- A unit of measure -->
 	<string name="ft">jalga</string>
@@ -628,6 +639,12 @@
 	<string name="place_description_title">Koha kirjeldus</string>
 	<!-- this text will be shown in application notification preferences opposite checkbox which enable/disable downloader notifications. Devices on Android 8+ are affected. -->
 	<string name="notification_channel_downloader">Kaartide allalaadija</string>
+	<!-- Speed camera settings menu option - Warn (about speedcams) if risk of exceeding speed limit -->
+	<string name="pref_tts_speedcams_auto">Hoiatused kui on oht ületada piirkiirust</string>
+	<!-- Speed camera settings menu option - Always warn (about speedcams) -->
+	<string name="pref_tts_speedcams_always">Hoiata alati eest</string>
+	<!-- Speed camera settings menu option - Never warn (about speedcams) -->
+	<string name="pref_tts_speedcams_never">Ära kunagi hoiata eest</string>
 	<string name="power_managment_title">Energiasäästlik režiim</string>
 	<string name="power_managment_description">Kui on valitud automaatrežiim, hakkab rakendus aku tühjendamise funktsioone olenevalt praegusest aku laetuse tasemest keelama</string>
 	<string name="power_managment_setting_never">Mitte kunagi</string>
@@ -658,6 +675,8 @@
 	<string name="yes_available">Jah</string>
 	<!-- E.g. "WiFi:No" -->
 	<string name="no_available">Ei</string>
+	<!-- To indicate the capacity of car parkings, bicycle parkings, electric vehicle charging stations... -->
+	<string name="capacity">Mahutavus: %s</string>
 	<string name="trip_finished">Oled kohal!</string>
 	<string name="ok">Ok</string>
 	<!-- max. 10 symbols, both iOS and Android -->
@@ -730,8 +749,26 @@
 	<string name="enable_show_on_lock_screen_description">Kui lubatud, ei pea te seadet iga kord avama, kui rakendus töötab.</string>
 	<!-- OpenStreetMap text on splash screen -->
 	<string name="splash_subtitle">OpenStreetMap kaardiandmed</string>
-	<!-- Tip #00 -->
+	<!-- App Tip #00 -->
 	<string name="app_tip_00">Aitäh, et kasutate meie kogukonna koostatud kaarte!</string>
+	<!-- App tip #01 -->
+	<string name="app_tip_01">Teie annetuste ja toetusega saame luua maailma parimaid kaarte!</string>
+	<!-- App tip #02 -->
+	<string name="app_tip_02">Kas teile meeldib meie rakendus? Palun annetage arengu toetamiseks! Ei meeldi veel? Palun andke meile teada ja me parandame selle!</string>
+	<!-- App tip #03 -->
+	<string name="app_tip_03">Kui teate mõnda tarkvaraarendajat, võite paluda tal rakendada teile vajalik funktsioon.</string>
+	<!-- App tip #04 -->
+	<string name="app_tip_04">Kas teate, et saate selle valimiseks pikalt puudutada mis tahes kohta kaardil?</string>
+	<!-- App tip #05 -->
+	<string name="app_tip_05">Kas tead, et saad kaardil valida oma praeguse asukoha?</string>
+	<!-- App tip #06 -->
+	<string name="app_tip_06">Saate aidata meie rakendust oma keelde tõlkida.</string>
+	<!-- App tip #07 -->
+	<string name="app_tip_07">Meie rakenduse on välja töötanud mõned entusiastid ja kogukond.</string>
+	<!-- App tip #08 -->
+	<string name="app_tip_08">Saate hõlpsasti kaardiandmeid parandada ja täiustada.</string>
+	<!-- App tip #09 -->
+	<string name="app_tip_09">Meie põhieesmärk on luua kiireid, privaatsusele keskenduvaid ja hõlpsasti kasutatavaid kaarte, mis teile meeldivad.</string>
 	<!-- Text on the Android Auto placeholder screen that maps are displayed on the phone screen -->
 	<string name="aa_used_on_the_phone_screen">Nüüd kasutate telefoni ekraanil Organic Maps</string>
 	<!-- Text on the phone placeholder screen that maps are displayed on the car screen -->
@@ -750,6 +787,17 @@
 	<string name="aa_connected_to_car_notification_title">Ühendatud autoga</string>
 	<!-- Outdoors/hiking map style (activity) name in the Styles and Layers dialog -->
 	<string name="button_layer_outdoor">Matkamine</string>
+	<!-- Text displayed when a webview or a browser are disabled, and external links can't be opened. -->
+	<string name="browser_not_available">Veebibrauser ei ole saadaval</string>
+	<!-- Text displayed in a dialog when OSM authorization is disabled -->
+	<string name="osm_login_not_available">OpenStreetMapi autoriseerimine on ajutiselt kättesaamatu Google Play uute piirangute tõttu 😾\nMeie meeskond töötab selle probleemi lahendamise kallal. Palun olge kannatlik 🙏</string>
+	<string name="volume">Helitugevus</string>
+	<!-- Bookmark categories screen, button that opens share dialog to export all bookmarks and tracks -->
+	<string name="bookmarks_export">Ekspordi kõik järjehoidjad ja lood</string>
+	<!-- button in (app) TTS settings, to open the system TTS settings. -->
+	<string name="pref_tts_open_system_settings">Kõnesünteesi süsteemi seaded</string>
+	<!-- toast displayed when pressing the "Speech synthesis system settings" button, and the system settings aren't found. -->
+	<string name="pref_tts_no_system_tts">Kõnesünteesi seadeid ei leitud, kas olete kindel, et teie seade toetab seda?</string>
 
 	<!-- SECTION: Types -->
 	<string name="type.addr_interpolation">Aadress/plokk</string>
@@ -808,6 +856,7 @@
 	<string name="type.amenity.dentist">Hambaarst</string>
 	<string name="type.amenity.doctors">Arst</string>
 	<string name="type.amenity.drinking_water">Joogivesi</string>
+	<string name="type.drinking_water.yes">Joogivesi</string>
 	<string name="type.amenity.driving_school">Autokool</string>
 	<string name="type.amenity.exhibition_centre">Näituste keskus</string>
 	<string name="type.amenity.money_transfer">Raha ülekanne</string>
@@ -907,6 +956,7 @@
 	<string name="type.amenity.telephone">Telefon</string>
 	<string name="type.amenity.theatre">Teater</string>
 	<string name="type.amenity.toilets">Tualett</string>
+	<string name="type.toilets.yes">Tualett</string>
 	<string name="type.amenity.townhall">Raekoda</string>
 	<string name="type.amenity.university">Ülikool</string>
 	<string name="type.amenity.vending_machine">Müügiautomaat</string>
@@ -971,6 +1021,7 @@
 	<string name="type.boundary.administrative.state">Osariigi piir</string>
 	<string name="type.boundary.administrative.suburb">Eeslinna piir</string>
 	<string name="type.boundary.national_park">Rahvuspark</string>
+	<string name="type.boundary.aboriginal_lands">Põlisrahvaste maad</string>
 	<string name="type.boundary.protected_area">Kaitseala</string>
 	<string name="type.boundary.protected_area.1">Kaitseala</string>
 	<string name="type.boundary.protected_area.2">Kaitseala</string>
@@ -979,7 +1030,8 @@
 	<string name="type.boundary.protected_area.5">Kaitseala</string>
 	<string name="type.boundary.protected_area.6">Kaitseala</string>
 	<string name="type.building">Hoone</string>
-	<string name="type.building.address">Hoone</string>
+	<!-- Duplicates [address] in strings.txt -->
+	<string name="type.building.address">Aadress</string>
 	<string name="type.building.has_parts">Hoone</string>
 	<string name="type.building_part">Hoone</string>
 	<string name="type.building.garage">Garaaž</string>
@@ -1394,7 +1446,6 @@
 	<string name="type.leisure.garden.residential">Elamu aed</string>
 	<string name="type.leisure.golf_course">Golfirada</string>
 	<string name="type.leisure.ice_rink">Liuväli</string>
-	<string name="type.leisure.landscape_reserve">Maastikukaitseala</string>
 	<string name="type.leisure.marina">Marina</string>
 	<string name="type.leisure.nature_reserve">Looduskaitseala</string>
 	<string name="type.leisure.outdoor_seating">Istekohad õues</string>
@@ -2057,16 +2108,26 @@
 	<string name="type.aerialway.platter">Plaatlift</string>
 	<string name="type.aerialway.rope_tow">Köislift</string>
 	<string name="type.aerialway.t.bar">Ankurlift</string>
-	<string name="type.piste_type">Punkti liik</string>
 	<string name="type.piste_type.downhill">Mäesuusarada</string>
+	<string name="type.piste_type.downhill.area">Mäesuusarada</string>
 	<string name="type.piste_type.downhill.advanced">Raske laskumine</string>
+	<string name="type.piste_type.downhill.advanced.area">Raske laskumine</string>
 	<string name="type.piste_type.downhill.easy">Kerge laskumine</string>
+	<string name="type.piste_type.downhill.easy.area">Kerge laskumine</string>
 	<string name="type.piste_type.downhill.expert">Professionaalne laskumine</string>
+	<string name="type.piste_type.downhill.expert.area">Professionaalne laskumine</string>
 	<string name="type.piste_type.downhill.freeride">Tasuta mäesuusatamine</string>
 	<string name="type.piste_type.downhill.intermediate">Keskmise raskusastmega laskumine</string>
+	<string name="type.piste_type.downhill.intermediate.area">Keskmise raskusastmega laskumine</string>
 	<string name="type.piste_type.downhill.novice">Algajasõbralik laskumine</string>
+	<string name="type.piste_type.downhill.novice.area">Algajasõbralik laskumine</string>
 	<string name="type.piste_type.nordic">Murdmaa suusarada</string>
 	<string name="type.piste_type.sled">Kelgurada</string>
+	<string name="type.piste_type.sled.area">Kelgurada</string>
+	<string name="type.piste_type.snow_park">Snow Park</string>
+	<string name="type.piste_type.hike">Lumi matkarada</string>
+	<string name="type.piste_type.connection">Piste ühendus</string>
+	<string name="type.piste_type.skitour">Skituuri rada</string>
 	<string name="type.amenity.events_venue">Ürituste toimumiskoht</string>
 	<string name="type.shop.auction">Oksjon</string>
 	<string name="type.shop.collector">Kollektsioneeritavad esemed</string>

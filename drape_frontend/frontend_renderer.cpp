@@ -170,7 +170,6 @@ FrontendRenderer::FrontendRenderer(Params && params)
   , m_modelViewChangedHandler(std::move(params.m_modelViewChangedHandler))
   , m_tapEventInfoHandler(std::move(params.m_tapEventHandler))
   , m_userPositionChangedHandler(std::move(params.m_positionChangedHandler))
-  , m_userPositionPendingTimeoutHandler(std::move(params.m_userPositionPendingTimeoutHandler))
   , m_requestedTiles(params.m_requestedTiles)
   , m_maxGeneration(0)
   , m_maxUserMarksGeneration(0)
@@ -194,7 +193,6 @@ FrontendRenderer::FrontendRenderer(Params && params)
   ASSERT(m_modelViewChangedHandler, ());
   ASSERT(m_tapEventInfoHandler, ());
   ASSERT(m_userPositionChangedHandler, ());
-  ASSERT(m_userPositionPendingTimeoutHandler, ());
 
   m_gpsTrackRenderer = make_unique_dp<GpsTrackRenderer>([this](uint32_t pointsCount)
   {
@@ -330,7 +328,7 @@ void FrontendRenderer::AcceptMessage(ref_ptr<Message> message)
 #endif
         m_trafficRenderer->OnGeometryReady(GetCurrentZoom());
 
-#if defined(OMIM_OS_MAC) || defined(OMIM_OS_LINUX)
+#if defined(OMIM_OS_DESKTOP)
         if (m_graphicsStage == GraphicsStage::WaitReady)
           m_graphicsStage = GraphicsStage::WaitRendering;
 #endif
@@ -1030,7 +1028,7 @@ void FrontendRenderer::AcceptMessage(ref_ptr<Message> message)
       break;
     }
 
-#if defined(OMIM_OS_MAC) || defined(OMIM_OS_LINUX)
+#if defined(OMIM_OS_DESKTOP)
   case Message::Type::NotifyGraphicsReady:
     {
       ref_ptr<NotifyGraphicsReadyMessage> msg = message;
@@ -1527,7 +1525,7 @@ void FrontendRenderer::RenderScene(ScreenBase const & modelView, bool activeFram
                           modelView);
   }
 
-#if defined(OMIM_OS_MAC) || defined(OMIM_OS_LINUX)
+#if defined(OMIM_OS_DESKTOP)
   if (m_graphicsStage == GraphicsStage::WaitRendering)
     m_graphicsStage = GraphicsStage::Rendered;
 #endif
@@ -1796,7 +1794,7 @@ void FrontendRenderer::RenderFrame()
   m_frameData.m_forceFullRedrawNextFrame = m_overlayTree->IsNeedUpdate();
   if (canSuspend)
   {
-#if defined(OMIM_OS_MAC) || defined(OMIM_OS_LINUX)
+#if defined(OMIM_OS_DESKTOP)
     EmitGraphicsReady();
 #endif
     // Process a message or wait for a message.
@@ -2482,11 +2480,6 @@ void FrontendRenderer::PositionChanged(m2::PointD const & position, bool hasPosi
   m_userPositionChangedHandler(position, hasPosition);
 }
 
-void FrontendRenderer::PositionPendingTimeout()
-{
-  m_userPositionPendingTimeoutHandler();
-}
-
 void FrontendRenderer::ChangeModelView(m2::PointD const & center, int zoomLevel,
                                        TAnimationCreator const & parallelAnimCreator)
 {
@@ -2589,7 +2582,7 @@ void FrontendRenderer::EmitModelViewChanged(ScreenBase const & modelView) const
   m_modelViewChangedHandler(modelView);
 }
 
-#if defined(OMIM_OS_MAC) || defined(OMIM_OS_LINUX)
+#if defined(OMIM_OS_DESKTOP)
 void FrontendRenderer::EmitGraphicsReady()
 {
   if (m_graphicsStage == GraphicsStage::Rendered)

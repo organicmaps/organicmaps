@@ -41,9 +41,9 @@
 	<!-- Text in About screen -->
 	<string name="about_proposition_1">• Bez reklam, bez śledzenia, bez gromadzenia danych</string>
 	<!-- Text in About screen -->
-	<string name="about_proposition_2">• Bez drenażu baterii, brak danych w tle</string>
+	<string name="about_proposition_2">• Nie zużywa baterii, działa w trybie offline</string>
 	<!-- Text in About screen -->
-	<string name="about_proposition_3">• Szybka, minimalistyczna, bez śmieci</string>
+	<string name="about_proposition_3">• Szybki, minimalistyczny, opracowany przez społeczność</string>
 	<!-- Text in About screen -->
 	<string name="about_developed_by_enthusiasts">Aplikacja typu open source stworzona przez entuzjastów i wolontariuszy.</string>
 	<!-- The button that opens system location settings -->
@@ -80,7 +80,7 @@
 	<string name="core_my_places">Moje miejsca</string>
 	<!-- Add bookmark dialog - bookmark name -->
 	<string name="name">Nazwa</string>
-	<!-- Editor title above street and house number -->
+	<!-- Editor title above street and house number, duplicates [type.building.address] in types_strings.txt -->
 	<string name="address">Adres</string>
 	<!-- Add Bookmark dialog/Bookmark list; Bookmarks dialog/Bookmark list cell. -->
 	<string name="list">Lista</string>
@@ -106,7 +106,7 @@
 	<string name="move_maps">Przenieść mapy?</string>
 	<!-- Error moving map files from one storage to another -->
 	<string name="move_maps_error">Błąd przenoszenia plików map</string>
-	<!-- Ask to wait user several minutes (some long process in modal dialog). -->
+	<!-- Ask user to wait several minutes (some long process in modal dialog). -->
 	<string name="wait_several_minutes">To może zająć kilka minut.\nProszę czekać…</string>
 	<!-- Measurement units title in settings activity -->
 	<string name="measurement_units">Jednostki miary</string>
@@ -171,6 +171,10 @@
 	<string name="load_kmz_successful">Wczytano zakładki! Można odnaleźć je na mapie lub na ekranie menedżera zakładek.</string>
 	<!-- Kml file loading failed -->
 	<string name="load_kmz_failed">Nieudane wczytywanie zakładek. Plik może być uszkodzony lub posiadać defekty.</string>
+	<!-- Failed to recognize the format of a bookmarks or tracks file. -->
+	<string name="unknown_file_type">Typ pliku nie jest rozpoznawany przez aplikację:\n%1$s</string>
+	<!-- Failed to open a bookmarks or tracks file in Organic Maps. -->
+	<string name="failed_to_open_file">Nie udało się otworzyć pliku %1$s\n\n%2$s</string>
 	<!-- resource for context menu -->
 	<string name="edit">Edytuj</string>
 	<!-- Warning message when doing search around current position -->
@@ -213,6 +217,10 @@
 	<string name="pref_zoom_summary">Wyświetla na ekranie</string>
 	<!-- Settings «Map» category: «Night style» title -->
 	<string name="pref_map_style_title">Tryb nocny</string>
+	<!-- Settings "Appearance" category: "Light" title, should be consistent with the pref_appearance_title translation. -->
+	<string name="pref_appearance_light">Jasny</string>
+	<!-- Settings "Appearance" category: "Dark" title, should be consistent with the pref_appearance_title translation. -->
+	<string name="pref_appearance_dark">Ciemny</string>
 	<!-- Generic «Off» string -->
 	<string name="off">Wyłączony</string>
 	<!-- Generic «On» string -->
@@ -476,8 +484,8 @@
 	<string name="editor_report_problem_other_title">Inny problem</string>
 	<string name="placepage_add_business_button">Dodaj organizację</string>
 	<string name="message_invalid_feature_position">Obiekt nie może znajdować się tutaj</string>
-	<!-- Text in About and OSM Login screens. %@ is replaced by a local, human readable date. -->
-	<string name="osm_presentation">Dane kartograficzne z OpenStreetMap na dzień %s. To jest jak Wikipedia, gdzie możesz dodawać lub edytować miejsca dla wszystkich użytkowników na całym świecie.</string>
+	<!-- Text in About and OSM Login screens. First %@ is replaced by a local, human readable date. -->
+	<string name="osm_presentation">Dane OpenStreetMap stworzone przez społeczność na dzień %s. Dowiedz się więcej o tym, jak edytować i aktualizować mapę na stronie OpenStreetMap.org</string>
 	<string name="login_to_make_edits_visible">Zaloguj się, by inni użytkownicy mogli zobaczyć Twoje zmiany.</string>
 	<!-- Downloaded 10 **of** 20 <- it is that "of" -->
 	<string name="downloader_of">%1$d z %2$d</string>
@@ -498,15 +506,14 @@
 	<string name="editor_operator">Operator</string>
 	<string name="downloader_no_downloaded_maps_title">Nie pobrano żadnych map</string>
 	<string name="downloader_no_downloaded_maps_message">Aby znajdować miejsca i nawigować bez połączenia z internetem, musisz pobrać mapy.</string>
-	<!-- Error title that appears after certain time without location. -->
-	<string name="current_location_unknown_title">Kontynuować wykrywanie bieżącej lokalizacji?</string>
-	<!-- Error that appears after certain time without location. -->
-	<string name="current_location_unknown_message">Aktualna lokalizacja jest nieznana. Może znajdujesz się w budynku lub tunelu.</string>
-	<string name="current_location_unknown_continue_button">Kontynuuj</string>
-	<string name="current_location_unknown_stop_button">Stop</string>
+	<string name="stop">Stop</string>
+	<!-- abbreviation for meters -->
 	<string name="m">m</string>
+	<!-- abbreviation for kilometers -->
 	<string name="km">km</string>
+	<!-- abbreviation for kilometers per hour -->
 	<string name="kilometers_per_hour">km/h</string>
+	<!-- abbreviation for mile(s) -->
 	<string name="mi">mi</string>
 	<!-- A unit of measure -->
 	<string name="ft">ft</string>
@@ -639,6 +646,12 @@
 	<string name="place_description_title">Opis miejsca</string>
 	<!-- this text will be shown in application notification preferences opposite checkbox which enable/disable downloader notifications. Devices on Android 8+ are affected. -->
 	<string name="notification_channel_downloader">Pobieranie map</string>
+	<!-- Speed camera settings menu option - Warn (about speedcams) if risk of exceeding speed limit -->
+	<string name="pref_tts_speedcams_auto">Ostrzegaj jeśli istnieje ryzyko przekroczenia ograniczenia prędkości</string>
+	<!-- Speed camera settings menu option - Always warn (about speedcams) -->
+	<string name="pref_tts_speedcams_always">Zawsze ostrzegaj</string>
+	<!-- Speed camera settings menu option - Never warn (about speedcams) -->
+	<string name="pref_tts_speedcams_never">Nigdy nie ostrzegaj</string>
 	<string name="power_managment_title">Tryb oszczędzania energii</string>
 	<string name="power_managment_description">Jeśli jest włączony tryb oszczędzania energii, wtedy aplikacja wyłączy funkcje energochłonne, zależnie od bieżącego poziomu załadowania telefonu</string>
 	<string name="power_managment_setting_never">Nigdy</string>
@@ -669,6 +682,8 @@
 	<string name="yes_available">Tak</string>
 	<!-- E.g. "WiFi:No" -->
 	<string name="no_available">Nie</string>
+	<!-- To indicate the capacity of car parkings, bicycle parkings, electric vehicle charging stations... -->
+	<string name="capacity">Pojemność: %s</string>
 	<string name="trip_finished">Jesteś na miejscu!</string>
 	<string name="ok">Ok</string>
 	<!-- max. 10 symbols, both iOS and Android -->
@@ -745,8 +760,26 @@
 	<string name="translated_om_site_url">https://organicmaps.app/pl/</string>
 	<!-- Link to OSM wiki for Editor, Profile and About pages -->
 	<string name="osm_wiki_about_url">https://wiki.openstreetmap.org/wiki/Pl:Wstęp</string>
-	<!-- Tip #00 -->
+	<!-- App Tip #00 -->
 	<string name="app_tip_00">Dziękujemy za korzystanie z naszych map stworzonych przez społeczność!</string>
+	<!-- App tip #01 -->
+	<string name="app_tip_01">Dzięki Twoim darowiznom i wsparciu możemy tworzyć najlepsze mapy na świecie!</string>
+	<!-- App tip #02 -->
+	<string name="app_tip_02">Czy podoba Ci się nasza aplikacja? Przekaż darowiznę, aby wesprzeć rozwój! Jeszcze ci się to nie podoba? Daj nam znać, a my to naprawimy!</string>
+	<!-- App tip #03 -->
+	<string name="app_tip_03">Jeśli znasz programistę, możesz poprosić go o wdrożenie potrzebnej funkcji.</string>
+	<!-- App tip #04 -->
+	<string name="app_tip_04">Czy wiesz, że możesz długo dotknąć dowolnego miejsca na mapie, aby je wybrać?</string>
+	<!-- App tip #05 -->
+	<string name="app_tip_05">Czy wiesz, że możesz wybrać swoją aktualną lokalizację na mapie?</string>
+	<!-- App tip #06 -->
+	<string name="app_tip_06">Możesz pomóc w tłumaczeniu naszej aplikacji na swój język.</string>
+	<!-- App tip #07 -->
+	<string name="app_tip_07">Nasza aplikacja jest rozwijana przez kilku entuzjastów i społeczność.</string>
+	<!-- App tip #08 -->
+	<string name="app_tip_08">Możesz łatwo naprawić i ulepszyć dane mapy.</string>
+	<!-- App tip #09 -->
+	<string name="app_tip_09">Naszym głównym celem jest tworzenie szybkich, zapewniających prywatność i łatwych w użyciu map, które pokochasz.</string>
 	<!-- Text on the Android Auto placeholder screen that maps are displayed on the phone screen -->
 	<string name="aa_used_on_the_phone_screen">Korzystasz teraz z Organic Maps na ekranie telefonu</string>
 	<!-- Text on the phone placeholder screen that maps are displayed on the car screen -->
@@ -765,6 +798,17 @@
 	<string name="aa_connected_to_car_notification_title">Podłączono do samochodu</string>
 	<!-- Outdoors/hiking map style (activity) name in the Styles and Layers dialog -->
 	<string name="button_layer_outdoor">Turystyka piesza</string>
+	<!-- Text displayed when a webview or a browser are disabled, and external links can't be opened. -->
+	<string name="browser_not_available">Przeglądarka internetowa jest niedostępna</string>
+	<!-- Text displayed in a dialog when OSM authorization is disabled -->
+	<string name="osm_login_not_available">Autoryzacja OpenStreetMap jest tymczasowo niedostępna z powodu nowych ograniczeń w Google Play 😾\nNasz zespół pracuje nad rozwiązaniem tego problemu. Prosimy o cierpliwość 🙏</string>
+	<string name="volume">Głośność</string>
+	<!-- Bookmark categories screen, button that opens share dialog to export all bookmarks and tracks -->
+	<string name="bookmarks_export">Eksportuj wszystkie zakładki i ścieżki</string>
+	<!-- button in (app) TTS settings, to open the system TTS settings. -->
+	<string name="pref_tts_open_system_settings">Ustawienia systemu syntezy mowy</string>
+	<!-- toast displayed when pressing the "Speech synthesis system settings" button, and the system settings aren't found. -->
+	<string name="pref_tts_no_system_tts">Nie znaleziono ustawień syntezy mowy, czy Twoje urządzenie na pewno je obsługuje?</string>
 
 	<!-- SECTION: Types -->
 	<string name="type.addr_interpolation">Adres/Blok</string>
@@ -823,6 +867,7 @@
 	<string name="type.amenity.dentist">Dentysta</string>
 	<string name="type.amenity.doctors">Lekarz</string>
 	<string name="type.amenity.drinking_water">Woda pitna</string>
+	<string name="type.drinking_water.yes">Woda pitna</string>
 	<string name="type.amenity.driving_school">Szkoła nauki jazdy</string>
 	<string name="type.amenity.exhibition_centre">Centrum wystawiennicze</string>
 	<string name="type.amenity.money_transfer">Transfer pieniędzy</string>
@@ -922,6 +967,7 @@
 	<string name="type.amenity.telephone">Telefon</string>
 	<string name="type.amenity.theatre">Teatr</string>
 	<string name="type.amenity.toilets">Toaleta</string>
+	<string name="type.toilets.yes">Toaleta</string>
 	<string name="type.amenity.townhall">Ratusz</string>
 	<string name="type.amenity.university">Uniwersytet</string>
 	<string name="type.amenity.vending_machine">Automat sprzedający</string>
@@ -985,6 +1031,7 @@
 	<string name="type.boundary.administrative.state">Granica województwa</string>
 	<string name="type.boundary.administrative.suburb">Granica przedmieść</string>
 	<string name="type.boundary.national_park">Park narodowy</string>
+	<string name="type.boundary.aboriginal_lands">Rdzenne ziemie</string>
 	<string name="type.boundary.protected_area">Strefa chroniona</string>
 	<string name="type.boundary.protected_area.1">Strefa chroniona</string>
 	<string name="type.boundary.protected_area.2">Strefa chroniona</string>
@@ -993,7 +1040,8 @@
 	<string name="type.boundary.protected_area.5">Strefa chroniona</string>
 	<string name="type.boundary.protected_area.6">Strefa chroniona</string>
 	<string name="type.building">Budynek</string>
-	<string name="type.building.address">Budynek</string>
+	<!-- Duplicates [address] in strings.txt -->
+	<string name="type.building.address">Adres</string>
 	<string name="type.building.has_parts">Budynek</string>
 	<string name="type.building_part">Budynek</string>
 	<string name="type.building.garage">Garaż</string>
@@ -1403,7 +1451,6 @@
 	<string name="type.leisure.garden.residential">Ogród przydomowy</string>
 	<string name="type.leisure.golf_course">Kurs golfowy</string>
 	<string name="type.leisure.ice_rink">Lodowisko</string>
-	<string name="type.leisure.landscape_reserve">Rezerwat krajobrazu</string>
 	<string name="type.leisure.nature_reserve">Rezerwat przyrody</string>
 	<string name="type.leisure.outdoor_seating">Siedzenia zewnętrzne</string>
 	<string name="type.leisure.park">Park</string>
@@ -2027,6 +2074,10 @@
 	<string name="type.wheelchair.limited">Częściowo wyposażono dla osób niepełnosprawnych</string>
 	<string name="type.wheelchair.no">Nie wyposażono dla osób niepełnosprawnych</string>
 	<string name="type.wheelchair.yes">Wyposażono dla osób niepełnosprawnych</string>
+	<string name="type.piste_type.snow_park">Snow Park</string>
+	<string name="type.piste_type.hike">Śnieżny szlak turystyczny</string>
+	<string name="type.piste_type.connection">Piste Connection</string>
+	<string name="type.piste_type.skitour">Szlak Skitour</string>
 	<string name="type.amenity.events_venue">Sala bankietowa</string>
 	<string name="type.shop.auction">Dom aukcyjny</string>
 	<string name="type.shop.collector">Przedmioty kolekcjonerskie</string>

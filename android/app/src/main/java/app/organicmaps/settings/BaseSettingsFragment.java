@@ -24,7 +24,7 @@ abstract class BaseSettingsFragment extends BaseMwmFragment
     View parent = (View)mFrame.getParent();
     if (parent != null)
     {
-      mSavedPaddings.set(parent.getPaddingLeft(), parent.getPaddingTop(), parent.getPaddingRight(), parent.getPaddingBottom());
+      mSavedPaddings.set(parent.getPaddingStart(), parent.getPaddingTop(), parent.getPaddingEnd(), parent.getPaddingBottom());
     }
   }
 
@@ -33,7 +33,7 @@ abstract class BaseSettingsFragment extends BaseMwmFragment
     View parent = (View)mFrame.getParent();
     if (parent != null)
     {
-      parent.setPadding(mSavedPaddings.left, mSavedPaddings.top, mSavedPaddings.right, mSavedPaddings.bottom);
+      parent.setPaddingRelative(mSavedPaddings.left, mSavedPaddings.top, mSavedPaddings.right, mSavedPaddings.bottom);
     }
   }
 

@@ -5,13 +5,12 @@ import android.os.Parcelable;
 
 import androidx.annotation.IntRange;
 import androidx.annotation.Keep;
+import androidx.annotation.NonNull;
 
 import app.organicmaps.util.StringUtils;
 
-import java.text.SimpleDateFormat;
-import java.util.Calendar;
-import java.util.GregorianCalendar;
-import java.util.Locale;
+import java.time.LocalTime;
+import java.time.format.DateTimeFormatter;
 
 // Called from JNI.
 @Keep
@@ -37,19 +36,15 @@ public class HoursMinutes implements Parcelable
     m24HourFormat = in.readByte() != 0;
   }
 
+  @NonNull
   @Override
   public String toString()
   {
     if (m24HourFormat)
       return StringUtils.formatUsingUsLocale("%02d:%02d", hours, minutes);
 
-    Calendar calendar = new GregorianCalendar();
-    calendar.set(Calendar.HOUR_OF_DAY, (int)hours);
-    calendar.set(Calendar.MINUTE, (int)minutes);
-
-    SimpleDateFormat fmt12 = new SimpleDateFormat("hh:mm a", Locale.getDefault());
-
-    return fmt12.format(calendar.getTime());
+    final LocalTime localTime = LocalTime.of((int) hours, (int) minutes);
+    return localTime.format(DateTimeFormatter.ofPattern("hh:mm a"));
   }
 
   @Override
@@ -66,7 +61,7 @@ public class HoursMinutes implements Parcelable
     dest.writeByte((byte) (m24HourFormat ? 1 : 0));
   }
 
-  public static final Creator<HoursMinutes> CREATOR = new Creator<HoursMinutes>()
+  public static final Creator<HoursMinutes> CREATOR = new Creator<>()
   {
     @Override
     public HoursMinutes createFromParcel(Parcel in)

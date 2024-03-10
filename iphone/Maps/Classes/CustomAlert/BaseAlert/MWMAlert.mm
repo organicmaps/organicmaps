@@ -31,6 +31,11 @@
 + (MWMAlert *)disabledLocationAlert {
   return [MWMDefaultAlert disabledLocationAlert];
 }
+
++ (MWMAlert *)locationServicesDisabledAlert {
+  return [LocationServicesDisabledAlert alert];
+}
+
 + (MWMAlert *)noWiFiAlertWithOkBlock:(MWMVoidBlock)okBlock andCancelBlock:(MWMVoidBlock)cancelBlock {
   return [MWMDefaultAlert noWiFiAlertWithOkBlock:okBlock andCancelBlock:cancelBlock];
 }
@@ -259,6 +264,21 @@
   [super layoutSubviews];
   self.frame = self.superview.bounds;
   [super layoutSubviews];
+}
+
+- (void)traitCollectionDidChange:(UITraitCollection *)previousTraitCollection {
+  [super traitCollectionDidChange:previousTraitCollection];
+  if (self.traitCollection.userInterfaceStyle != previousTraitCollection.userInterfaceStyle) {
+    [self updateViewStyle:self];
+  }
+}
+
+- (void)updateViewStyle:(UIView *)view {
+  if (!view)
+    return;
+  for (UIView *subview in view.subviews)
+    [self updateViewStyle:subview];
+  [view applyTheme];
 }
 
 @end

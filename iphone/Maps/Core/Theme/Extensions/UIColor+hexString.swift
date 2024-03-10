@@ -38,4 +38,9 @@ extension UIColor {
       return color
     }
   }
+
+  var sRGBColor: UIColor {
+    let cgColorInRGB = cgColor.converted(to: CGColorSpace(name: CGColorSpace.sRGB)!, intent: .defaultIntent, options: nil)!
+    return UIColor(cgColor: cgColorInRGB)
+  }
 }

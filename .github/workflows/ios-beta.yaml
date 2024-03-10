@@ -20,10 +20,10 @@ on:
       - generator/**
       - packaging/**
       - platform/*_android*
-      - platform/*_linux* 
-      - platform/*_mac* 
-      - platform/*qt* 
-      - platform/*_win* 
+      - platform/*_linux*
+      - platform/*_mac*
+      - platform/*qt*
+      - platform/*_win*
       - pyhelpers/**
       - qt*/**
       - skin_generator/**
@@ -33,9 +33,9 @@ on:
 jobs:
   ios-beta:
     name: Apple TestFlight
-    runs-on: macos-13
+    runs-on: macos-14
     env:
-      DEVELOPER_DIR: /Applications/Xcode_15.0.1.app/Contents/Developer
+      DEVELOPER_DIR: /Applications/Xcode_15.2.app/Contents/Developer
       LANG: en_US.UTF-8  # Fastlane complains that the terminal is using ASCII.
       LANGUAGE: en_US.UTF-8
       LC_ALL: en_US.UTF-8
@@ -67,14 +67,14 @@ jobs:
 
       - name: Compile and upload to TestFlight
         run: |
-          echo "IOS_VERSION=$(tools/unix/version.sh ios_version)-$(tools/unix/version.sh ios_build)" >> "$GITHUB_ENV"
+          echo "IOS_VERSION=$(../tools/unix/version.sh ios_version)-$(../tools/unix/version.sh ios_build)" >> "$GITHUB_ENV"
           ./fastlane.sh upload_testflight
         env:
           APPSTORE_CERTIFICATE_PASSWORD: '${{ secrets.APPSTORE_CERTIFICATE_PASSWORD }}'
         working-directory: xcode
 
       - name: Upload ipa and DSYMs artifacts
-        uses: actions/upload-artifact@v3
+        uses: actions/upload-artifact@v4
         with:
           name: ipa and DSYM archive ${{ env.IOS_VERSION }}
           path: xcode/build/*

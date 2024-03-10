@@ -169,7 +169,6 @@ protected:
   bool m_enabledDiffs;
 
   location::TMyPositionModeChanged m_myPositionListener;
-  df::DrapeEngine::UserPositionPendingTimeoutHandler m_myPositionPendingTimeoutListener;
 
   std::unique_ptr<BookmarkManager> m_bmManager;
 
@@ -381,7 +380,6 @@ public:
   void SwitchMyPositionNextMode();
   /// Should be set before Drape initialization. Guarantees that fn is called in main thread context.
   void SetMyPositionModeListener(location::TMyPositionModeChanged && fn);
-  void SetMyPositionPendingTimeoutListener(df::DrapeEngine::UserPositionPendingTimeoutHandler && fn);
 
   location::EMyPositionMode GetMyPositionMode() const;
 
@@ -512,7 +510,7 @@ public:
 
   void SetViewportListener(TViewportChangedFn const & fn);
 
-#if defined(OMIM_OS_MAC) || defined(OMIM_OS_LINUX)
+#if defined(OMIM_OS_DESKTOP)
   using TGraphicsReadyFn = df::DrapeEngine::GraphicsReadyHandler;
   void NotifyGraphicsReady(TGraphicsReadyFn const & fn, bool needInvalidate);
 #endif

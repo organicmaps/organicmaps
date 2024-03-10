@@ -21,9 +21,11 @@
         android:orientation="horizontal">
 
         <LinearLayout
-          android:layout_width="wrap_content"
+          android:id="@+id/linearLayout1"
+          android:layout_width="0dp"
           android:layout_height="wrap_content"
           android:orientation="vertical"
+          android:layout_marginEnd="@dimen/margin_base"
           app:layout_constraintBottom_toBottomOf="parent"
           app:layout_constraintEnd_toStartOf="@+id/imageView3"
           app:layout_constraintStart_toStartOf="parent"
@@ -41,9 +43,8 @@
             tools:text="2021.10.15-15-Google" />
 
           <TextView
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:maxWidth="@dimen/about_max_textview_width"
             android:text="@string/about_headline"
             android:textAlignment="center"
             android:textAppearance="@style/MwmTextAppearance.Headline"
@@ -55,33 +56,38 @@
           android:id="@+id/imageView3"
           android:layout_width="@dimen/about_logo"
           android:layout_height="@dimen/about_logo"
-          android:layout_marginStart="@dimen/margin_base"
           android:contentDescription="@string/app_name"
-          android:src="@drawable/logo"
+          app:srcCompat="@drawable/logo"
           app:layout_constraintBottom_toBottomOf="parent"
-          app:layout_constraintEnd_toEndOf="parent"
+          app:layout_constraintEnd_toStartOf="@+id/linearLayout2"
           app:layout_constraintHorizontal_bias="0.5"
-          app:layout_constraintStart_toStartOf="parent"
+          app:layout_constraintStart_toEndOf="@+id/linearLayout1"
           app:layout_constraintTop_toTopOf="parent"
           app:tint="?attr/colorLogo" />
 
         <LinearLayout
           android:id="@+id/linearLayout2"
-          android:layout_width="wrap_content"
+          android:layout_width="0dp"
           android:layout_height="wrap_content"
           android:layout_marginTop="@dimen/margin_half"
+          android:layout_marginStart="@dimen/margin_base"
           android:orientation="vertical"
+          android:gravity="start"
           app:layout_constraintBottom_toBottomOf="parent"
           app:layout_constraintEnd_toEndOf="parent"
           app:layout_constraintStart_toEndOf="@+id/imageView3"
           app:layout_constraintTop_toTopOf="parent"
           app:layout_constraintVertical_bias="0.5">
+          <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            android:layout_gravity="center">
 
           <TextView
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
             android:layout_marginBottom="@dimen/margin_half"
-            android:maxWidth="@dimen/about_max_textview_width"
             android:text="@string/about_proposition_1"
             android:textAppearance="@style/MwmTextAppearance.Body1"
             android:textColor="?android:textColorPrimary" />
@@ -90,7 +96,6 @@
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
             android:layout_marginBottom="@dimen/margin_half"
-            android:maxWidth="@dimen/about_max_textview_width"
             android:text="@string/about_proposition_2"
             android:textAppearance="@style/MwmTextAppearance.Body1"
             android:textColor="?android:textColorPrimary" />
@@ -99,10 +104,10 @@
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
             android:layout_marginBottom="@dimen/margin_half"
-            android:maxWidth="@dimen/about_max_textview_width"
             android:text="@string/about_proposition_3"
             android:textAppearance="@style/MwmTextAppearance.Body1"
             android:textColor="?android:textColorPrimary" />
+          </LinearLayout>
         </LinearLayout>
       </androidx.constraintlayout.widget.ConstraintLayout>
 
@@ -131,7 +136,7 @@
           android:layout_gravity="center"
           android:layout_marginStart="@dimen/margin_base"
           android:contentDescription="@string/openstreetmap"
-          android:src="@drawable/ic_openstreetmap_color"
+          app:srcCompat="@drawable/ic_openstreetmap_color"
           app:layout_constraintBottom_toBottomOf="parent"
           app:layout_constraintStart_toStartOf="parent"
           app:layout_constraintTop_toTopOf="parent" />
@@ -161,12 +166,14 @@
         <Button
           android:id="@+id/donate"
           style="@style/MwmWidget.Button.Accent"
-          android:layout_width="@dimen/about_max_button_width"
+          android:layout_width="0dp"
           android:layout_height="wrap_content"
           android:fontFamily="@string/robotoMedium"
           android:padding="@dimen/margin_quarter"
           android:text="@string/donate"
           android:textAlignment="center"
+          android:layout_marginStart="@dimen/margin_base_plus"
+          android:layout_marginEnd="@dimen/margin_base_plus"
           app:layout_constraintBottom_toBottomOf="parent"
           app:layout_constraintEnd_toStartOf="@+id/report"
           app:layout_constraintHorizontal_bias="0.5"
@@ -176,13 +183,14 @@
         <Button
           android:id="@+id/report"
           style="@style/MwmWidget.Button"
-          android:layout_width="@dimen/about_max_button_width"
+          android:layout_width="0dp"
           android:layout_height="wrap_content"
           android:background="@color/light_gray"
           android:fontFamily="@string/robotoMedium"
           android:text="@string/report_a_bug"
           android:textAlignment="center"
           android:textColor="@color/text_dark"
+          android:layout_marginEnd="@dimen/margin_base_plus"
           app:layout_constraintBottom_toBottomOf="parent"
           app:layout_constraintEnd_toEndOf="parent"
           app:layout_constraintHorizontal_bias="0.5"

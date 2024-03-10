@@ -45,7 +45,12 @@ final class BookmarksListPresenter {
     interactor.resetSort()
     var sections: [IBookmarksListSectionViewModel] = []
     let tracks = bookmarkGroup.tracks.map { track in
-      TrackViewModel(track, formattedDistance: formatDistance(Double(track.trackLengthMeters)))
+      TrackViewModel(track, formattedDistance: formatDistance(Double(track.trackLengthMeters)), colorDidTap: {
+        self.view.showColorPicker(with: .defaultColorPicker(track.trackColor)) { color in
+          BookmarksManager.shared().updateTrack(track.trackId, setColor: color)
+          self.reload()
+        }
+      })
     }
     if !tracks.isEmpty {
       sections.append(TracksSectionViewModel(tracks: tracks))
@@ -70,16 +75,22 @@ final class BookmarksListPresenter {
 
   private func mapBookmarks(_ bookmarks: [Bookmark]) -> [BookmarkViewModel] {
     let location = LocationManager.lastLocation()
-    return bookmarks.map {
+    return bookmarks.map { bookmark in
       let formattedDistance: String?
       if let location = location {
-        let distance = location.distance(from: CLLocation(latitude: $0.locationCoordinate.latitude,
-                                                          longitude: $0.locationCoordinate.longitude))
+        let distance = location.distance(from: CLLocation(latitude: bookmark.locationCoordinate.latitude,
+                                                          longitude: bookmark.locationCoordinate.longitude))
         formattedDistance = formatDistance(distance)
       } else {
         formattedDistance = nil
       }
-      return BookmarkViewModel($0, formattedDistance: formattedDistance)
+      return BookmarkViewModel(bookmark, formattedDistance: formattedDistance, colorDidTap: { [weak self] in
+        self?.view.showColorPicker(with: .bookmarkColorPicker(bookmark.bookmarkColor)) { color in
+          guard let bookmarkColor = BookmarkColor.bookmarkColor(from: color) else { return }
+          BookmarksManager.shared().updateBookmark(bookmark.bookmarkId, setColor: bookmarkColor)
+          self?.reload()
+        }
+      })
     }
   }
 
@@ -163,7 +174,12 @@ final class BookmarksListPresenter {
         }
         if let tracks = bookmarksSection.tracks, let self = self {
           return TracksSectionViewModel(tracks: tracks.map { track in
-            TrackViewModel(track, formattedDistance: self.formatDistance(Double(track.trackLengthMeters)))
+            TrackViewModel(track, formattedDistance: self.formatDistance(Double(track.trackLengthMeters)), colorDidTap: {
+              self.view.showColorPicker(with: .defaultColorPicker(track.trackColor)) { color in
+                BookmarksManager.shared().updateTrack(track.trackId, setColor: color)
+                self.reload()
+              }
+            })
           })
         }
         fatalError()
@@ -355,8 +371,7 @@ extension BookmarksListPresenter: SelectBookmarkGroupViewControllerDelegate {
                                      didSelect groupTitle: String,
                                      groupId: MWMMarkGroupID) {
 
-      let nc = viewController.navigationController
-      defer { nc?.popViewController(animated: true) }
+      defer { viewController.dismiss(animated: true) }
 
       guard groupId != bookmarkGroup.categoryId else { return }
       
@@ -376,7 +391,9 @@ extension BookmarksListPresenter: SelectBookmarkGroupViewControllerDelegate {
       } else {
         // if there are no bookmarks or tracks in current group no need to show this group
         // e.g. popping view controller 2 times
-        nc?.popViewController(animated: false)
+        if let rootNavigationController = viewController.presentingViewController as? UINavigationController {
+          rootNavigationController.popViewController(animated: false)
+        }
       }
     }
 }
@@ -402,41 +419,45 @@ extension ISubgroupsSectionViewModel {
   var canEdit: Bool { false }
 }
 
-fileprivate struct BookmarkViewModel: IBookmarkViewModel {
+fileprivate struct BookmarkViewModel: IBookmarksListItemViewModel {
   let bookmarkId: MWMMarkID
-  let bookmarkName: String
+  let name: String
   let subtitle: String
   var image: UIImage {
     bookmarkColor.image(bookmarkIconName)
   }
+  var colorDidTapAction: (() -> Void)?
 
   private let bookmarkColor: BookmarkColor
   private let bookmarkIconName: String
 
-  init(_ bookmark: Bookmark, formattedDistance: String?) {
+  init(_ bookmark: Bookmark, formattedDistance: String?, colorDidTap: (() -> Void)?) {
     bookmarkId = bookmark.bookmarkId
-    bookmarkName = bookmark.bookmarkName
+    name = bookmark.bookmarkName
     bookmarkColor = bookmark.bookmarkColor
     bookmarkIconName = bookmark.bookmarkIconName
     subtitle = [formattedDistance, bookmark.bookmarkType].compactMap { $0 }.joined(separator: " • ")
+    colorDidTapAction = colorDidTap
   }
 }
 
-fileprivate struct TrackViewModel: ITrackViewModel {
+fileprivate struct TrackViewModel: IBookmarksListItemViewModel {
   let trackId: MWMTrackID
-  let trackName: String
+  let name: String
   let subtitle: String
   var image: UIImage {
     circleImageForColor(trackColor, frameSize: 22)
   }
+  var colorDidTapAction: (() -> Void)?
 
   private let trackColor: UIColor
 
-  init(_ track: Track, formattedDistance: String) {
+  init(_ track: Track, formattedDistance: String, colorDidTap: (() -> Void)?) {
     trackId = track.trackId
-    trackName = track.trackName
+    name = track.trackName
     subtitle = "\(L("length")) \(formattedDistance)"
     trackColor = track.trackColor
+    colorDidTapAction = colorDidTap
   }
 }
 
@@ -458,18 +479,18 @@ fileprivate struct SubgroupViewModel: ISubgroupViewModel {
 
 fileprivate struct BookmarksSectionViewModel: IBookmarksSectionViewModel {
   let sectionTitle: String
-  let bookmarks: [IBookmarkViewModel]
+  let bookmarks: [IBookmarksListItemViewModel]
 
-  init(title: String, bookmarks: [IBookmarkViewModel]) {
+  init(title: String, bookmarks: [IBookmarksListItemViewModel]) {
     sectionTitle = title
     self.bookmarks = bookmarks
   }
 }
 
 fileprivate struct TracksSectionViewModel: ITracksSectionViewModel {
-  let tracks: [ITrackViewModel]
+  let tracks: [IBookmarksListItemViewModel]
 
-  init(tracks: [ITrackViewModel]) {
+  init(tracks: [IBookmarksListItemViewModel]) {
     self.tracks = tracks
   }
 }

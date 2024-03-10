@@ -411,7 +411,7 @@ line|z15-[man_made=breakwater],
 
 line|z15-[waterway=dam],
 line|z15-[waterway=weir],
-{width: 2; color: @building_dark; opacity: 0.4;}
+{width: 2; color: @building1; opacity: 0.4;}
 
 line|z16[man_made=pier],
 line|z16[man_made=breakwater],
@@ -453,13 +453,13 @@ line|z19-[man_made=cutline],
 
 area|z15[building],
 area|z15[waterway=dam],
-{fill-color: @building;fill-opacity: 0.65;casing-width: 1;casing-color: @building_border;}
+{fill-color: @building0;fill-opacity: 0.65;casing-width: 1;casing-color: @building_border0;}
 
 area|z14-[aeroway=terminal],
 area|z16-[building],
 area|z16-[building:part],
 area|z16-[waterway=dam],
-{fill-color: @building;fill-opacity: 0.55;casing-width: 1;casing-color: @building_border;}
+{fill-color: @building0;fill-opacity: 0.55;casing-width: 1;casing-color: @building_border0;}
 
 
 /* 8.3 Barriers, cliffs */
@@ -489,13 +489,13 @@ line|z19-[barrier=hedge],
 
 line|z15-[barrier=city_wall],
 line|z15-[historic=citywalls],
-{color: @building_dark; width: 2; opacity: 0.7;}
+{color: @building1; width: 2; opacity: 0.7;}
 line|z16[barrier=city_wall],
 line|z16[historic=citywalls],
 {width: 2.8;}
 line|z17-[barrier=city_wall],
 line|z17-[historic=citywalls],
-{color: @building; width: 4.5; dashes: 3,3,1.5,3;}
+{color: @building0; width: 4.5; dashes: 3,3,1.5,3;}
 line|z18[barrier=city_wall],
 line|z18[historic=citywalls],
 {width: 5.9; dashes: 4,4,1.9,4;}
@@ -529,6 +529,6 @@ line|z18-[barrier=retaining_wall],
 
 
 line|z17-[man_made=embankment],
-{color: @building_dark; width: 3.5; dashes: 4,2,2,1.5; opacity: 0.6;}
+{color: @building1; width: 3.5; dashes: 4,2,2,1.5; opacity: 0.6;}
 line|z18-[man_made=embankment],
 {width: 5; dashes: 6,3,3,2;}

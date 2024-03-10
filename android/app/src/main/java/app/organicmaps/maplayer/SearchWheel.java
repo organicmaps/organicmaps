@@ -222,7 +222,7 @@ public class SearchWheel implements View.OnClickListener
                                                  searchOption == null ?
                                                  R.drawable.ic_routing_search_off :
                                                  searchOption.mDrawableOff,
-                                                 R.attr.colorAccent));
+                                                 androidx.appcompat.R.attr.colorAccent));
   }
 
   @Override

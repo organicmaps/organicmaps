@@ -4,6 +4,8 @@
 
 #import <CoreApi/StringUtils.h>
 
+#include "platform/localization.hpp"
+
 #include "indexer/validate_and_format_contacts.hpp"
 #include "indexer/kayak.hpp"
 
@@ -71,10 +73,12 @@ using namespace osm;
         case MetadataID::FMD_CONTACT_LINE: _line = ToNSString(value); break;
         case MetadataID::FMD_OPERATOR: _ppOperator = ToNSString(value); break;
         case MetadataID::FMD_INTERNET:
-          _wifiAvailable = (rawData.GetInternet() == osm::Internet::No)
+          _wifiAvailable = (rawData.GetInternet() == feature::Internet::No)
               ? NSLocalizedString(@"no_available", nil) : NSLocalizedString(@"yes_available", nil);
           break;
         case MetadataID::FMD_LEVEL: _level = ToNSString(value); break;
+        case MetadataID::FMD_CAPACITY: _capacity = [NSString stringWithFormat:NSLocalizedString(@"capacity", nil), ToNSString(value)]; break;
+        case MetadataID::FMD_WHEELCHAIR: _wheelchair = ToNSString(platform::GetLocalizedTypeName(value)); break;
         default:
           break;
       }

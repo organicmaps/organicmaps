@@ -52,6 +52,18 @@
 
 "about_menu_title" = "Tentang Organic Maps";
 
+/* Text in About screen */
+"about_headline" = "Gratis untuk semua orang, dibuat dengan cinta";
+
+/* Text in About screen */
+"about_proposition_1" = "• Tidak ada iklan, tidak ada pelacakan, tidak ada pengumpulan data";
+
+/* Text in About screen */
+"about_proposition_2" = "• Tidak menguras baterai, bekerja secara offline";
+
+/* Text in About screen */
+"about_proposition_3" = "• Cepat, minimalis, dikembangkan oleh komunitas";
+
 "close" = "Tutup";
 
 "download" = "Unduh";
@@ -80,7 +92,7 @@
 /* Default bookmark list name */
 "core_my_places" = "Tempat-tempat Saya";
 
-/* Editor title above street and house number */
+/* Editor title above street and house number, duplicates [type.building.address] in types_strings.txt */
 "address" = "Alamat";
 
 /* Settings button in system menu */
@@ -200,7 +212,7 @@
 "done" = "Selesai";
 
 /* Prints version number in About dialog */
-"version" = "Versi: %@";
+"version" = "Versi Organic Maps: %@";
 
 /* Data version in «About» screen, %@ is replaced by a local, human readable date. */
 "data_version" = "Data OpenStreetMap: %@";
@@ -217,8 +229,14 @@
 
 "pref_zoom_title" = "Tombol perbesaran";
 
-/* Settings «Map» category: «Night style» title */
-"pref_map_style_title" = "Mode Malam";
+/* Settings «Map» category: «Appearance» title */
+"pref_appearance_title" = "Tampilan";
+
+/* Settings "Appearance" category: "Light" title, should be consistent with the pref_appearance_title translation. */
+"pref_appearance_light" = "Terang";
+
+/* Settings "Appearance" category: "Dark" title, should be consistent with the pref_appearance_title translation. */
+"pref_appearance_dark" = "Gelap";
 
 /* Generic «Off» string */
 "off" = "Tidak Aktif";
@@ -315,6 +333,9 @@
 /* Button in the main menu */
 "donate" = "Menyumbangkan";
 
+/* Tex label above the Donate button */
+"donate_description" = "Donasi untuk membangun peta terbaik bersama-sama!";
+
 /* Button in the main Help dialog */
 "how_to_support_us" = "Mendukung proyek";
 
@@ -323,6 +344,15 @@
 
 /* Text in menu + Button in the main Help dialog */
 "report_a_bug" = "Laporkan gangguan";
+
+/* Button in the About screen */
+"report_incorrect_map_bug" = "Melaporkan atau memperbaiki data peta yang salah";
+
+/* Button in the About screen */
+"volunteer" = "Untuk Menjadi Relawan";
+
+/* "Social media" section header in the About screen */
+"follow_us" = "Ikuti dan hubungi kami:";
 
 /* Alert text */
 "email_error_body" = "Surel pelanggan belum diatur. Mohon konfigurasikan atau gunakan cara lain untuk menghubungi kami di %@";
@@ -704,6 +734,9 @@
 
 "message_invalid_feature_position" = "Objek tidak dapat diletakkan di sini";
 
+/* Text in About and OSM Login screens. First %@ is replaced by a local, human readable date. */
+"osm_presentation" = "Data OpenStreetMap yang dibuat oleh komunitas pada tanggal %@. Pelajari lebih lanjut mengenai cara mengedit dan memperbarui peta di OpenStreetMap.org";
+
 "login_to_make_edits_visible" = "Masuk agar pengguna lain dapat melihat perubahan yang Anda buat.";
 
 /* Error dialog no space */
@@ -746,15 +779,7 @@
 
 "downloader_no_downloaded_maps_message" = "Unduh peta untuk menemukan lokasi dan bernavigasi secara offline.";
 
-/* Error title that appears after certain time without location. */
-"current_location_unknown_title" = "Terus mendeteksi lokasi Anda saat ini?";
-
-/* Error that appears after certain time without location. */
-"current_location_unknown_message" = "Lokasi saat ini tidak diketahui. Anda mungkin berada dalam bangunan atau terowongan.";
-
-"current_location_unknown_continue_button" = "Lanjutkan";
-
-"current_location_unknown_stop_button" = "Berhenti";
+"stop" = "Berhenti";
 
 "current_location_unknown_error_title" = "Lokasi saat ini tidak diketahui.";
 
@@ -768,15 +793,27 @@
 
 "location_services_disabled_2" = "2. Ketuk Lokasi";
 
-/* iOS Dialog for the case when the location permission is not granted */
+/* iOS Dialog for the case when the location permission is not granted; you might find the exact wording for your language here: https://support.apple.com/en-us/102647 (replace 'en-us' in URL with your language/region) */
 "location_services_disabled_3" = "3. Pilih While Using the App";
 
+"location_services_disabled_on_device_2" = "2. Pilih Privasi";
+
+"location_services_disabled_on_device_3" = "3. Pilih Layanan Lokasi";
+
+"location_services_disabled_on_device_4" = "4. Aktifkan Layanan Lokasi";
+
+"location_services_disabled_on_device_additional_message" = "Atau lanjutkan menggunakan Organic Maps tanpa Lokasi";
+
+/* abbreviation for meters */
 "m" = "m";
 
+/* abbreviation for kilometers */
 "km" = "km";
 
+/* abbreviation for kilometers per hour */
 "kilometers_per_hour" = "km/j";
 
+/* abbreviation for mile(s) */
 "mi" = "mil";
 
 /* A unit of measure */
@@ -857,9 +894,6 @@
 "sharing_call_action_look" = "Lihat";
 
 "recent_track_background_dialog_message" = "Organic Maps menggunakan geoposisi di latar belakang untuk merekam rute yang baru Anda lalui.";
-
-/* Text under the version number in the Help dialog. TODO: Synchronize other translations with English. */
-"about_description" = "Organic Maps adalah aplikasi peta offline sumber terbuka dan gratis. Tanpa iklan. Tidak ada pelacakan. Jika Anda melihat kesalahan pada peta, harap perbaiki di OpenStreetMap. Proyek ini dibuat oleh para penggemar di waktu luang kami, jadi kami membutuhkan masukan dan dukungan Anda.";
 
 "general_settings" = "Setelan umum";
 
@@ -1072,6 +1106,9 @@
 /* E.g. "WiFi:No" */
 "no_available" = "Tidak";
 
+/* To indicate the capacity of car parkings, bicycle parkings, electric vehicle charging stations... */
+"capacity" = "Kapasitas: %@";
+
 "trip_finished" = "Anda telah tiba!";
 
 "keyboard_availability_alert" = "Papan ketik tidak tersedia saat berkendara";
@@ -1238,6 +1275,12 @@
 /* Outdoors/hiking map style (activity) name in the Styles and Layers dialog */
 "button_layer_outdoor" = "Pendakian";
 
+/* Bookmark categories screen, button that opens share dialog to export all bookmarks and tracks */
+"bookmarks_export" = "Mengekspor semua Penanda dan Trek";
+
+/* Text for the editing the Track's color button. */
+"change_color" = "Mengubah warna";
+
 
 /********** Types **********/
 
@@ -1352,6 +1395,8 @@
 "type.amenity.doctors" = "Praktik dokter";
 
 "type.amenity.drinking_water" = "Air minum";
+
+"type.drinking_water.yes" = "Air minum";
 
 "type.amenity.driving_school" = "Sekolah Mengemudi";
 
@@ -1548,6 +1593,8 @@
 
 "type.amenity.toilets" = "Toilet";
 
+"type.toilets.yes" = "Toilet";
+
 "type.amenity.townhall" = "Balai kota";
 
 "type.amenity.university" = "Universitas";
@@ -1676,6 +1723,8 @@
 
 "type.boundary.national_park" = "Taman Nasional";
 
+"type.boundary.aboriginal_lands" = "Tanah adat";
+
 "type.boundary.protected_area" = "Kawasan Lindung";
 
 "type.boundary.protected_area.1" = "Kawasan Lindung";
@@ -1692,7 +1741,8 @@
 
 "type.building" = "Gedung";
 
-"type.building.address" = "Gedung";
+/* Duplicates [address] in strings.txt */
+"type.building.address" = "Alamat";
 
 "type.building.has_parts" = "Gedung";
 
@@ -2501,8 +2551,6 @@
 "type.leisure.hackerspace" = "Hackerspace";
 
 "type.leisure.ice_rink" = "Ice Rink";
-
-"type.leisure.landscape_reserve" = "Landscape Reserve";
 
 "type.leisure.marina" = "Marina";
 
@@ -3837,25 +3885,45 @@
 
 "type.aerialway.t.bar" = "T-bar Lift";
 
-"type.piste_type" = "Piste Type";
-
 "type.piste_type.downhill" = "Downhill Ski Run";
+
+"type.piste_type.downhill.area" = "Downhill Ski Run";
 
 "type.piste_type.downhill.advanced" = "Downhill Ski Run";
 
+"type.piste_type.downhill.advanced.area" = "Downhill Ski Run";
+
 "type.piste_type.downhill.easy" = "Downhill Ski Run";
 
+"type.piste_type.downhill.easy.area" = "Downhill Ski Run";
+
 "type.piste_type.downhill.expert" = "Downhill Ski Run";
+
+"type.piste_type.downhill.expert.area" = "Downhill Ski Run";
 
 "type.piste_type.downhill.freeride" = "Downhill Ski Run";
 
 "type.piste_type.downhill.intermediate" = "Downhill Ski Run";
 
+"type.piste_type.downhill.intermediate.area" = "Downhill Ski Run";
+
 "type.piste_type.downhill.novice" = "Downhill Ski Run";
+
+"type.piste_type.downhill.novice.area" = "Downhill Ski Run";
 
 "type.piste_type.nordic" = "Nordic Ski Trail";
 
 "type.piste_type.sled" = "Sledding Piste";
+
+"type.piste_type.sled.area" = "Sledding Piste";
+
+"type.piste_type.snow_park" = "Snow Park";
+
+"type.piste_type.hike" = "Jalur Pendakian Salju";
+
+"type.piste_type.connection" = "Koneksi Piste";
+
+"type.piste_type.skitour" = "Jalur Skitour";
 
 "type.amenity.events_venue" = "Tempat acara";
 

@@ -11,12 +11,12 @@
 
 namespace trie
 {
-using TrieChar = uint32_t;
+using TrieChar = char32_t;
 
 // 95 is a good value for the default baseChar, since both small and capital latin letters
 // are less than +/- 32 from it and thus can fit into supershort edge.
 // However 0 is used because the first byte is actually language id.
-uint32_t constexpr kDefaultChar = 0;
+TrieChar constexpr kDefaultChar = 0;
 
 template <typename ValueList>
 struct Iterator

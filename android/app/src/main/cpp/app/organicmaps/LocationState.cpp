@@ -16,13 +16,6 @@ static void LocationStateModeChanged(location::EMyPositionMode mode,
                       "onMyPositionModeChanged", "(I)V"), static_cast<jint>(mode));
 }
 
-static void LocationPendingTimeout(std::shared_ptr<jobject> const & listener)
-{
-  JNIEnv * env = jni::GetEnv();
-  env->CallVoidMethod(*listener, jni::GetMethodID(env, *listener.get(),
-                      "onLocationPendingTimeout", "()V"));
-}
-
 //  public static void nativeSwitchToNextMode();
 JNIEXPORT void JNICALL
 Java_app_organicmaps_location_LocationState_nativeSwitchToNextMode(JNIEnv * env, jclass clazz)
@@ -57,23 +50,6 @@ Java_app_organicmaps_location_LocationState_nativeRemoveListener(JNIEnv * env, j
 {
   ASSERT(g_framework, ());
   g_framework->SetMyPositionModeListener(location::TMyPositionModeChanged());
-}
-
-JNIEXPORT void JNICALL
-Java_app_organicmaps_location_LocationState_nativeSetLocationPendingTimeoutListener(
-  JNIEnv * env, jclass clazz, jobject listener)
-{
-  ASSERT(g_framework, ());
-  g_framework->NativeFramework()->SetMyPositionPendingTimeoutListener(
-    std::bind(&LocationPendingTimeout, jni::make_global_ref(listener)));
-}
-
-JNIEXPORT void JNICALL
-Java_app_organicmaps_location_LocationState_nativeRemoveLocationPendingTimeoutListener(
-  JNIEnv * env, jclass)
-{
-  ASSERT(g_framework, ());
-  g_framework->NativeFramework()->SetMyPositionPendingTimeoutListener(nullptr);
 }
 
 JNIEXPORT void JNICALL

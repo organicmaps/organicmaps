@@ -284,6 +284,7 @@
     <item name="tabGravity">fill</item>
     <item name="tabBackground">?colorPrimary</item>
     <item name="tabIndicatorColor">@color/white_primary</item>
+    <item name="tabRippleColor">@android:color/transparent</item>
     <item name="tabSelectedTextColor">@color/white_primary</item>
   </style>
 

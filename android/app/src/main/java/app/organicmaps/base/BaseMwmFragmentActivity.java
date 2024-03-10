@@ -1,7 +1,6 @@
 package app.organicmaps.base;
 
-import static app.organicmaps.SplashActivity.EXTRA_INITIAL_INTENT;
-
+import android.content.ComponentName;
 import android.content.Context;
 import android.content.Intent;
 import android.media.AudioManager;
@@ -14,7 +13,6 @@ import androidx.annotation.Nullable;
 import androidx.annotation.StyleRes;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
-import androidx.core.content.IntentCompat;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentFactory;
 import androidx.fragment.app.FragmentManager;
@@ -27,6 +25,8 @@ import app.organicmaps.util.RtlUtils;
 import app.organicmaps.util.ThemeUtils;
 import app.organicmaps.util.concurrency.UiThread;
 import app.organicmaps.util.log.Logger;
+
+import java.util.Objects;
 
 public abstract class BaseMwmFragmentActivity extends AppCompatActivity
 {
@@ -65,20 +65,12 @@ public abstract class BaseMwmFragmentActivity extends AppCompatActivity
     mThemeName = Config.getCurrentUiTheme(getApplicationContext());
     setTheme(getThemeResourceId(mThemeName));
     RtlUtils.manageRtl(this);
-    // An intent that was skipped due to core wasn't initialized has to be used
-    // as a target intent for this activity, otherwise all input extras will be lost
-    // in a splash activity loop.
-    final Intent intent = getIntent();
-    if (intent != null)
-    {
-      final Intent initialIntent = IntentCompat.getParcelableExtra(intent, EXTRA_INITIAL_INTENT, Intent.class);
-      if (initialIntent != null)
-        setIntent(initialIntent);
-    }
-
     if (!MwmApplication.from(this).arePlatformAndCoreInitialized())
     {
-      goToSplashScreen(getIntent());
+      final Intent intent = Objects.requireNonNull(getIntent());
+      intent.setComponent(new ComponentName(this, SplashActivity.class));
+      startActivity(intent);
+      finish();
       return;
     }
 
@@ -259,11 +251,5 @@ public abstract class BaseMwmFragmentActivity extends AppCompatActivity
   protected int getFragmentContentResId()
   {
     return android.R.id.content;
-  }
-
-  private void goToSplashScreen(@Nullable Intent initialIntent)
-  {
-    SplashActivity.start(this, getClass(), initialIntent);
-    finish();
   }
 }

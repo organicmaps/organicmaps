@@ -19,12 +19,10 @@
 #include "coding/zlib.hpp"
 
 #include "base/assert.hpp"
-#include "base/bits.hpp"
 #include "base/logging.hpp"
 #include "base/string_utils.hpp"
 
 #include <algorithm>
-#include <limits>
 #include <sstream>
 #include <string>
 
@@ -32,10 +30,10 @@
 #include "private.h"
 
 
-using namespace std;
-
 namespace traffic
 {
+using namespace std;
+
 namespace
 {
 bool ReadRemoteFile(string const & url, vector<uint8_t> & contents, int & errorCode)
@@ -177,13 +175,15 @@ SpeedGroup TrafficInfo::GetSpeedGroup(RoadSegmentId const & id) const
 void TrafficInfo::ExtractTrafficKeys(string const & mwmPath, vector<RoadSegmentId> & result)
 {
   result.clear();
-  feature::ForEachFeature(mwmPath, [&](FeatureType & ft, uint32_t const fid) {
-    if (!routing::CarModel::AllLimitsInstance().IsRoad(ft))
+  feature::ForEachFeature(mwmPath, [&](FeatureType & ft, uint32_t const fid)
+  {
+    feature::TypesHolder const types(ft);
+    if (!routing::CarModel::AllLimitsInstance().IsRoad(types))
       return;
 
     ft.ParseGeometry(FeatureType::BEST_GEOMETRY);
     auto const numPoints = static_cast<uint16_t>(ft.GetPointsCount());
-    uint8_t const numDirs = routing::CarModel::AllLimitsInstance().IsOneWay(ft) ? 1 : 2;
+    uint8_t const numDirs = routing::CarModel::AllLimitsInstance().IsOneWay(types) ? 1 : 2;
     for (uint16_t i = 0; i + 1 < numPoints; ++i)
     {
       for (uint8_t dir = 0; dir < numDirs; ++dir)

@@ -1,5 +1,7 @@
 #include "testing/testing.hpp"
 
+#include "search/utils.hpp"
+
 #include "indexer/classificator.hpp"
 #include "indexer/classificator_loader.hpp"
 #include "indexer/ftypes_matcher.hpp"
@@ -150,15 +152,17 @@ UNIT_TEST(IsAttractionsChecker)
   Classificator const & c = classif();
   auto const & checker = ftypes::AttractionsChecker::Instance();
 
-  base::StringIL const types[] = {
-    {"amenity", "grave_yard"},
-    {"historic", "ruins"},
-    {"waterway", "waterfall"},
+  auto const isTourismInfo = [ethalon = c.GetTypeByPath({"tourism", "information"})](uint32_t t)
+  {
+    ftype::TruncValue(t, 2);
+    return t == ethalon;
   };
-  for (auto const & t : types)
-    TEST(checker(c.GetTypeByPath(t)), ());
 
-  TEST(!checker(c.GetTypeByPath({"route", "shuttle_train"})), ());
+  for (uint32_t const t : search::GetCategoryTypes("sights", "en", GetDefaultCategories()))
+  {
+    if (!isTourismInfo(t))
+      TEST(checker(t), (c.GetFullObjectName(t)));
+  }
 }
 
 UNIT_TEST(IsMotorwayJunctionChecker)
@@ -168,4 +172,5 @@ UNIT_TEST(IsMotorwayJunctionChecker)
   TEST(ftypes::IsMotorwayJunctionChecker::Instance()(GetMotorwayJunctionType()), ());
   TEST(!ftypes::IsMotorwayJunctionChecker::Instance()(GetStreetTypes()), ());
 }
+
 } // namespacce checker_test

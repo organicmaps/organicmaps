@@ -18,7 +18,7 @@ RankTable::Version DummyRankTable::GetVersion() const
   return RankTable::VERSION_COUNT;
 }
 
-void DummyRankTable::Serialize(Writer & /* writer */, bool /* preserveHostEndianness */)
+void DummyRankTable::Serialize(Writer &)
 {
   NOTIMPLEMENTED();
 }

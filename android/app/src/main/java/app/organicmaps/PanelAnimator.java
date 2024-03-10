@@ -75,7 +75,7 @@ class PanelAnimator
     mAnimationTrackListeners.finishIterate();
 
     ValueAnimator animator = ValueAnimator.ofFloat(-mWidth, 0.0f);
-    animator.addUpdateListener(animation -> track(animation));
+    animator.addUpdateListener(this::track);
     animator.addListener(new UiUtils.SimpleAnimatorListener()
     {
       @Override
@@ -106,7 +106,7 @@ class PanelAnimator
     mAnimationTrackListeners.finishIterate();
 
     ValueAnimator animator = ValueAnimator.ofFloat(0.0f, -mWidth);
-    animator.addUpdateListener(animation -> track(animation));
+    animator.addUpdateListener(this::track);
     animator.addListener(new UiUtils.SimpleAnimatorListener()
     {
       @Override

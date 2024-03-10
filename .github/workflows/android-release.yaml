@@ -116,7 +116,7 @@ jobs:
 
       - name: Set up SDK
         shell: bash
-        run: (cd tools/android; ./set_up_android.py --sdk $ANDROID_SDK_ROOT)
+        run: echo "sdk.dir=$ANDROID_SDK_ROOT" > android/local.properties
 
       - name: Compile and upload to Google Play
         shell: bash

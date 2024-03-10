@@ -19,7 +19,7 @@ using namespace std;
 namespace
 {
 double constexpr kOnEndToleranceM = 10.0;
-double constexpr kSteetNameLinkMeters = 400.;
+double constexpr kSteetNameLinkMeters = 400.0;
 }  //  namespace
 
 std::string DebugPrint(RouteSegment::RoadNameInfo const & rni)
@@ -36,6 +36,12 @@ std::string DebugPrint(RouteSegment::RoadNameInfo const & rni)
   return out.str();
 }
 
+std::string DebugPrint(RouteSegment::SpeedCamera const & rhs)
+{
+  return "SpeedCamera{ " + std::to_string(rhs.m_coef) + ", " + std::to_string(int(rhs.m_maxSpeedKmPH)) + " }";
+}
+
+
 Route::Route(string const & router, vector<m2::PointD> const & points, uint64_t routeId,
              string const & name)
   : m_router(router)
@@ -44,11 +50,6 @@ Route::Route(string const & router, vector<m2::PointD> const & points, uint64_t 
   , m_poly(points.begin(), points.end())
   , m_routeId(routeId)
 {
-} // namespace
-
-std::string DebugPrint(RouteSegment::SpeedCamera const & rhs)
-{
-  return "SpeedCamera{ " + std::to_string(rhs.m_coef) + ", " + std::to_string(int(rhs.m_maxSpeedKmPH)) + " }";
 }
 
 void Route::AddAbsentCountry(string const & name)
