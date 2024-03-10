@@ -44,6 +44,20 @@ public final class OsmOAuth
     return MwmApplication.prefs(context).contains(PREF_OSM_OAUTH2_TOKEN);
   }
 
+  public static boolean containsOAuth1Credentials(@NonNull Context context)
+  {
+    SharedPreferences prefs = MwmApplication.prefs(context);
+    return prefs.contains(PREF_OSM_TOKEN) && prefs.contains(PREF_OSM_SECRET);
+  }
+
+  public static void clearOAuth1Credentials(@NonNull Context context)
+  {
+    MwmApplication.prefs(context).edit()
+            .remove(PREF_OSM_TOKEN)
+            .remove(PREF_OSM_SECRET)
+            .apply();
+  }
+
   public static String getAuthToken(@NonNull Context context)
   {
     return MwmApplication.prefs(context).getString(PREF_OSM_OAUTH2_TOKEN, "");
