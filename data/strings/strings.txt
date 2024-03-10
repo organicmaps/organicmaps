@@ -20350,6 +20350,18 @@
     zh-Hans = 糟糕，出错了。请尝试重新登录。
     zh-Hant = 噢，發生錯誤。請嘗試再次登入。
 
+  [alert_reauth_title]
+    tags = android
+    en = OpenStreetMap.org authentication
+    ru = Авторизация через OpenStreetMap.org
+    uk = Авторизація через OpenStreetMap.org
+
+  [alert_reauth_message]
+    tags = android
+    en = Please re-login to OpenStreetMap.org from settings menu in order to save map edits
+    ru = Пожалуйста повторно введите логин и пароль аккаунта OpenStreetMap.org в настройках приложения чтобы публиковать редактирования карты
+    uk = Будь ласка увійдіть у свій OpenStreetMap.org акаунт в налаштуваннях застосунку щоб мати можливість публікувати зміни до мапи
+
   [dialog_error_storage_title]
     tags = android
     en = Storage access problem

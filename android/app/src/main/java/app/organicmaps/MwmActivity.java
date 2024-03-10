@@ -1,5 +1,13 @@
 package app.organicmaps;
 
+import static android.Manifest.permission.ACCESS_COARSE_LOCATION;
+import static android.Manifest.permission.ACCESS_FINE_LOCATION;
+import static android.Manifest.permission.POST_NOTIFICATIONS;
+import static android.content.pm.PackageManager.PERMISSION_GRANTED;
+import static app.organicmaps.location.LocationState.FOLLOW;
+import static app.organicmaps.location.LocationState.FOLLOW_AND_ROTATE;
+import static app.organicmaps.location.LocationState.LOCATION_TAG;
+
 import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.app.Dialog;
@@ -39,6 +47,11 @@ import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 import androidx.lifecycle.ViewModelProvider;
 
+import com.google.android.material.dialog.MaterialAlertDialogBuilder;
+
+import java.util.ArrayList;
+import java.util.Objects;
+
 import app.organicmaps.Framework.PlacePageActivationListener;
 import app.organicmaps.api.Const;
 import app.organicmaps.base.BaseMwmFragmentActivity;
@@ -58,6 +71,7 @@ import app.organicmaps.editor.Editor;
 import app.organicmaps.editor.EditorActivity;
 import app.organicmaps.editor.EditorHostFragment;
 import app.organicmaps.editor.FeatureCategoryActivity;
+import app.organicmaps.editor.OsmOAuth;
 import app.organicmaps.editor.ReportFragment;
 import app.organicmaps.help.HelpActivity;
 import app.organicmaps.intent.Factory;
@@ -104,18 +118,6 @@ import app.organicmaps.widget.menu.MainMenu;
 import app.organicmaps.widget.placepage.PlacePageController;
 import app.organicmaps.widget.placepage.PlacePageData;
 import app.organicmaps.widget.placepage.PlacePageViewModel;
-import com.google.android.material.dialog.MaterialAlertDialogBuilder;
-
-import java.util.ArrayList;
-import java.util.Objects;
-
-import static android.Manifest.permission.ACCESS_COARSE_LOCATION;
-import static android.Manifest.permission.ACCESS_FINE_LOCATION;
-import static android.Manifest.permission.POST_NOTIFICATIONS;
-import static android.content.pm.PackageManager.PERMISSION_GRANTED;
-import static app.organicmaps.location.LocationState.FOLLOW;
-import static app.organicmaps.location.LocationState.FOLLOW_AND_ROTATE;
-import static app.organicmaps.location.LocationState.LOCATION_TAG;
 
 public class MwmActivity extends BaseMwmFragmentActivity
     implements PlacePageActivationListener,
@@ -250,6 +252,7 @@ public class MwmActivity extends BaseMwmFragmentActivity
       RoutingController.get().restoreRoute();
 
     processIntent();
+    migrateOAuthCredentials();
   }
 
   /**
@@ -301,6 +304,25 @@ public class MwmActivity extends BaseMwmFragmentActivity
     {
       if (ip.process(intent, this))
         break;
+    }
+  }
+
+  private void migrateOAuthCredentials()
+  {
+    if (OsmOAuth.containsOAuth1Credentials(this))
+    {
+      // Remove old OAuth v1 secrets
+      OsmOAuth.clearOAuth1Credentials(this);
+      EditorHostFragment.clearNoobAlertFlag(this);
+
+      // Notify user to re-login
+      dismissAlertDialog();
+      mAlertDialog = new MaterialAlertDialogBuilder(this, R.style.MwmTheme_AlertDialog)
+              .setTitle(R.string.alert_reauth_title)
+              .setMessage(R.string.alert_reauth_message)
+              .setPositiveButton(R.string.ok, null)
+              .setOnDismissListener(dialog -> mAlertDialog = null)
+              .show();
     }
   }
 
