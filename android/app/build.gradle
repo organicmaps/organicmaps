@@ -100,7 +100,7 @@ android {
   // All properties are read from gradle.properties file
   compileSdk propCompileSdkVersion.toInteger()
 
-  ndkVersion '26.1.10909125'
+  ndkVersion '26.2.11394342'
 
   defaultConfig {
     // Default package name is taken from the manifest and should be app.organicmaps
@@ -402,11 +402,10 @@ dependencies {
   implementation 'net.jcip:jcip-annotations:1.0'
 
   // Test Dependencies
-  androidTestImplementation 'androidx.test:core:1.5.0'
   androidTestImplementation 'androidx.test.ext:junit:1.1.5'
-  androidTestImplementation 'junit:junit:4.13.2'
-  androidTestImplementation 'org.mockito:mockito-core:5.8.0'
-  androidTestImplementation 'org.mockito:mockito-inline:5.2.0'
+  testImplementation 'junit:junit:4.13.2'
+  testImplementation 'org.mockito:mockito-core:5.8.0'
+  testImplementation 'org.mockito:mockito-inline:5.2.0'
 }
 
 tasks.withType(JavaCompile) {
