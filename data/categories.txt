@@ -7648,7 +7648,7 @@ fr:Maison d'hôtes|chambre d'hôtes
 de:Gästehaus|Wohnheim|Unterkunft|Herberge
 hu:Vendégház|panzió
 id:Wisma tamu
-it:Guest house|albergo|ostello
+it:Guest house|albergo|ostello|pensione|affittacamere
 ja:1ゲストハウス|ホステル|民宿
 ko:호스텔|게스트하우스
 nb:Gjestehus
