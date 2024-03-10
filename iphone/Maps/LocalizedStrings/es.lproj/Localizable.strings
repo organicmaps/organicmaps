@@ -2064,7 +2064,7 @@
 
 "type.highway.footway.crossing" = "Paso de peatones";
 
-"type.highway.footway.alpine_hiking" = "Senderismo alpino";
+"type.highway.footway.alpine_hiking" = "Camino de senderismo alpino";
 
 "type.highway.footway.area" = "Zona peatonal";
 
@@ -2114,16 +2114,16 @@
 
 "type.highway.path" = "Camino";
 
-"type.highway.path.alpine_hiking" = "Senderismo alpino";
+"type.highway.path.alpine_hiking" = "Camino de senderismo alpino";
 
 "type.highway.path.bicycle" = "Camino para bicicletas";
 
 /* These translations are used for all type.highway.*.bridge. */
 "type.highway.path.bridge" = "Puente";
 
-"type.highway.path.demanding_alpine_hiking" = "Senderismo alpino exigente";
+"type.highway.path.demanding_alpine_hiking" = "Camino de senderismo alpino exigente";
 
-"type.highway.path.demanding_mountain_hiking" = "Senderismo de montaña exigente";
+"type.highway.path.demanding_mountain_hiking" = "Camino de senderismo de montaña exigente";
 
 "type.highway.path.difficult_alpine_hiking" = "Camino";
 
@@ -2273,7 +2273,7 @@
 
 "type.highway.traffic_signals" = "Semáforos";
 
-"type.highway.trunk" = "Vía rápida";
+"type.highway.trunk" = "Vía troncal";
 
 /* These translations are used for all type.highway.*.bridge. */
 "type.highway.trunk.bridge" = "Puente";
@@ -2281,7 +2281,7 @@
 /* These translations are used for all type.highway.*.tunnel. */
 "type.highway.trunk.tunnel" = "Túnel";
 
-"type.highway.trunk_link" = "Enlace de vía rápida";
+"type.highway.trunk_link" = "Enlace de vía troncal";
 
 /* These translations are used for all type.highway.*.bridge. */
 "type.highway.trunk_link.bridge" = "Puente";
@@ -2325,7 +2325,7 @@
 
 "type.area_highway.track" = "Pista";
 
-"type.area_highway.trunk" = "Vía rápida";
+"type.area_highway.trunk" = "Vía troncal";
 
 "type.area_highway.unclassified" = "Carretera sin clasificar";
 
@@ -2598,7 +2598,7 @@
 
 "type.leisure.beach_resort" = "Resort de playa";
 
-"type.man_made" = "Construcción artificial";
+"type.man_made" = "Construcción";
 
 "type.man_made.breakwater" = "Rompeolas";
 
@@ -3919,7 +3919,7 @@
 
 "type.piste_type.snow_park" = "Parque de nieve";
 
-"type.piste_type.hike" = "Senderismo en la nieve";
+"type.piste_type.hike" = "Ruta de senderismo en la nieve";
 
 "type.piste_type.connection" = "Conexión de pistas";
 

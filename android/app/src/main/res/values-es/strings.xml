@@ -1209,7 +1209,7 @@
 	<string name="type.highway.footway">Camino</string>
 	<string name="type.highway.footway.sidewalk">Acera</string>
 	<string name="type.highway.footway.crossing">Paso de peatones</string>
-	<string name="type.highway.footway.alpine_hiking">Senderismo alpino</string>
+	<string name="type.highway.footway.alpine_hiking">Camino de senderismo alpino</string>
 	<string name="type.highway.footway.area">Zona peatonal</string>
 	<!-- These translations are used for all type.highway.*.bridge. -->
 	<string name="type.highway.footway.bridge">Puente peatonal</string>
@@ -1238,12 +1238,12 @@
 	<!-- These translations are used for all type.highway.*.tunnel. -->
 	<string name="type.highway.motorway_link.tunnel">Túnel</string>
 	<string name="type.highway.path">Camino</string>
-	<string name="type.highway.path.alpine_hiking">Senderismo alpino</string>
+	<string name="type.highway.path.alpine_hiking">Camino de senderismo alpino</string>
 	<string name="type.highway.path.bicycle">Camino para bicicletas</string>
 	<!-- These translations are used for all type.highway.*.bridge. -->
 	<string name="type.highway.path.bridge">Puente</string>
-	<string name="type.highway.path.demanding_alpine_hiking">Senderismo alpino exigente</string>
-	<string name="type.highway.path.demanding_mountain_hiking">Senderismo de montaña exigente</string>
+	<string name="type.highway.path.demanding_alpine_hiking">Camino de senderismo alpino exigente</string>
+	<string name="type.highway.path.demanding_mountain_hiking">Camino de senderismo de montaña exigente</string>
 	<string name="type.highway.path.difficult_alpine_hiking">Camino</string>
 	<string name="type.highway.path.hiking">Sendero</string>
 	<string name="type.highway.path.horse">Sendero de herradura</string>
@@ -1331,12 +1331,12 @@
 	<!-- These translations are used for all type.highway.*.tunnel. -->
 	<string name="type.highway.track.tunnel">Túnel</string>
 	<string name="type.highway.traffic_signals">Semáforos</string>
-	<string name="type.highway.trunk">Vía rápida</string>
+	<string name="type.highway.trunk">Vía troncal</string>
 	<!-- These translations are used for all type.highway.*.bridge. -->
 	<string name="type.highway.trunk.bridge">Puente</string>
 	<!-- These translations are used for all type.highway.*.tunnel. -->
 	<string name="type.highway.trunk.tunnel">Túnel</string>
-	<string name="type.highway.trunk_link">Enlace de vía rápida</string>
+	<string name="type.highway.trunk_link">Enlace de vía troncal</string>
 	<!-- These translations are used for all type.highway.*.bridge. -->
 	<string name="type.highway.trunk_link.bridge">Puente</string>
 	<!-- These translations are used for all type.highway.*.tunnel. -->
@@ -1360,7 +1360,7 @@
 	<string name="type.area_highway.tertiary">Carretera terciaria</string>
 	<string name="type.area_highway.steps">Escaleras</string>
 	<string name="type.area_highway.track">Pista</string>
-	<string name="type.area_highway.trunk">Vía rápida</string>
+	<string name="type.area_highway.trunk">Vía troncal</string>
 	<string name="type.area_highway.unclassified">Carretera sin clasificar</string>
 
 	<!-- SECTION: Types: Historic -->
@@ -1483,7 +1483,7 @@
 	<string name="type.leisure.track.area">Pista deportiva</string>
 	<string name="type.leisure.water_park">Parque acuático</string>
 	<string name="type.leisure.beach_resort">Resort de playa</string>
-	<string name="type.man_made">Construcción artificial</string>
+	<string name="type.man_made">Construcción</string>
 	<string name="type.man_made.breakwater">Rompeolas</string>
 	<string name="type.man_made.cairn">Mojón</string>
 	<string name="type.man_made.chimney">Chimenea de fábrica</string>
@@ -2125,7 +2125,7 @@
 	<string name="type.piste_type.sled">Pista para trineos</string>
 	<string name="type.piste_type.sled.area">Pista para trineos</string>
 	<string name="type.piste_type.snow_park">Parque de nieve</string>
-	<string name="type.piste_type.hike">Senderismo en la nieve</string>
+	<string name="type.piste_type.hike">Ruta de senderismo en la nieve</string>
 	<string name="type.piste_type.connection">Conexión de pistas</string>
 	<string name="type.piste_type.skitour">Sendero Skitour</string>
 	<string name="type.amenity.events_venue">Lugar para eventos</string>

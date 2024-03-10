@@ -2064,7 +2064,7 @@
 
 "type.highway.footway.crossing" = "Cruce peatonal";
 
-"type.highway.footway.alpine_hiking" = "Senderismo alpino";
+"type.highway.footway.alpine_hiking" = "Camino de senderismo alpino";
 
 "type.highway.footway.area" = "Camino";
 
@@ -2273,7 +2273,7 @@
 
 "type.highway.traffic_signals" = "Semáforos";
 
-"type.highway.trunk" = "Vía rápida";
+"type.highway.trunk" = "Vía troncal";
 
 /* These translations are used for all type.highway.*.bridge. */
 "type.highway.trunk.bridge" = "Puente";
@@ -2281,7 +2281,7 @@
 /* These translations are used for all type.highway.*.tunnel. */
 "type.highway.trunk.tunnel" = "Túnel";
 
-"type.highway.trunk_link" = "Vía rápida";
+"type.highway.trunk_link" = "Vía troncal";
 
 /* These translations are used for all type.highway.*.bridge. */
 "type.highway.trunk_link.bridge" = "Puente";
@@ -2325,7 +2325,7 @@
 
 "type.area_highway.track" = "Pista";
 
-"type.area_highway.trunk" = "Vía rápida";
+"type.area_highway.trunk" = "Vía troncal";
 
 "type.area_highway.unclassified" = "Carretera sin clasificar";
 
@@ -2598,7 +2598,7 @@
 
 "type.leisure.beach_resort" = "Resort de playa";
 
-"type.man_made" = "Construcción artificial";
+"type.man_made" = "Construcción";
 
 "type.man_made.breakwater" = "Rompeolas";
 
