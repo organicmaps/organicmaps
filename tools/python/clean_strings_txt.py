@@ -79,6 +79,8 @@ def grep_android():
     ret.update(android_grep_wrapper(grep, ANDROID_JAVA_PLURAL_RE))
     grep = "grep -r -I '@string/' {0}/android/app/src/main/res".format(OMIM_ROOT)
     ret.update(android_grep_wrapper(grep, ANDROID_XML_RE))
+    grep = "grep -r -I '@string/' {0}/android/app/src/google/res".format(OMIM_ROOT)
+    ret.update(android_grep_wrapper(grep, ANDROID_XML_RE))
     grep = "grep -r -I '@string/' {0}/android/app/src/main/AndroidManifest.xml".format(
         OMIM_ROOT)
     ret.update(android_grep_wrapper(grep, ANDROID_XML_RE))
