@@ -606,6 +606,8 @@
 	<string name="routing_add_finish_point">Add a destination to plan a route</string>
 	<string name="placepage_remove_stop">Remove</string>
 	<string name="placepage_add_stop">Add Stop</string>
+	<string name="alert_reauth_title">Login to OpenStreetMap</string>
+	<string name="alert_reauth_message">Please re-login to OpenStreetMap to automatically upload all your map edits.\n<a href="https://github.com/organicmaps/organicmaps/issues/6144">Learn more…</a></string>
 	<string name="dialog_error_storage_title">Storage access problem</string>
 	<string name="dialog_error_storage_message">External storage is not accessible. The SD Card may have been removed, damaged, or the file system is read-only. Please, check your SD Card or contact us at support\@organicmaps.app</string>
 	<string name="setting_emulate_bad_storage">Emulate bad storage</string>
