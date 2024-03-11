@@ -91,7 +91,7 @@ NS_SWIFT_NAME(BookmarksManager)
 - (void)setNotificationsEnabled:(BOOL)enabled;
 - (BOOL)areNotificationsEnabled;
 
-- (NSArray<MWMBookmarkGroup *> *)userCategories;
+- (NSArray<MWMBookmarkGroup *> *)sortedUserCategories;
 - (MWMBookmarkGroup *)categoryWithId:(MWMMarkGroupID)groupId;
 - (MWMBookmarkGroup *)categoryForBookmarkId:(MWMMarkID)bookmarkId;
 - (MWMBookmarkGroup *)categoryForTrackId:(MWMTrackID)trackId;
