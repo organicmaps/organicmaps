@@ -278,6 +278,7 @@ public:
 
   kml::GroupIdCollection const & GetBmGroupsIdList() const { return m_bmGroupsIdList; }
   kml::GroupIdCollection GetSortedBmGroupIdList() const;
+  uint16_t GetBmGroupsCount() const { return m_bmGroupsIdList.size(); };
   bool HasBmCategory(kml::MarkGroupId groupId) const;
   kml::MarkGroupId LastEditedBMCategory();
   kml::PredefinedColor LastEditedBMColor() const;
