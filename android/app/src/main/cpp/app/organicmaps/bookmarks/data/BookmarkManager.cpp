@@ -642,6 +642,16 @@ Java_app_organicmaps_bookmarks_data_BookmarkManager_nativeGetBookmarkCategories(
   return MakeCategories(env, ids);
 }
 
+JNIEXPORT jint JNICALL
+Java_app_organicmaps_bookmarks_data_BookmarkManager_nativeGetBookmarkCategoriesCount(JNIEnv *env,
+                                                                                jobject)
+{
+   auto const & bm = frm()->GetBookmarkManager();
+   auto const count = bm.GetBmGroupsCount();
+
+   return static_cast<jint>(count);
+}
+
 JNIEXPORT jobjectArray JNICALL
 Java_app_organicmaps_bookmarks_data_BookmarkManager_nativeGetChildrenCategories(JNIEnv *env,
                                                                                     jobject,
