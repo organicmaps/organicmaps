@@ -41052,7 +41052,7 @@
   zh-Hant = 基洛夫格勒州
 
 [Ukraine_Kyiv Oblast]
-  en = Kiev Oblast
+  en = Kyiv Oblast
   ar = كييف أوبلاست
   az = Kiyev vilayəti
   ca = Província de Kíiv
