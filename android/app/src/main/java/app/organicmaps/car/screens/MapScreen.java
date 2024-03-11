@@ -3,6 +3,7 @@ package app.organicmaps.car.screens;
 import androidx.annotation.NonNull;
 import androidx.car.app.CarContext;
 import androidx.car.app.model.Action;
+import androidx.car.app.model.ActionStrip;
 import androidx.car.app.model.CarIcon;
 import androidx.car.app.model.Header;
 import androidx.car.app.model.Item;
@@ -35,7 +36,7 @@ public class MapScreen extends BaseMapScreen
     final MapTemplate.Builder builder = new MapTemplate.Builder();
     builder.setHeader(createHeader());
     builder.setMapController(UiHelpers.createMapController(getCarContext(), getSurfaceRenderer()));
-    builder.setActionStrip(UiHelpers.createSettingsActionStrip(this, getSurfaceRenderer()));
+    builder.setActionStrip(createActionStrip());
     builder.setItemList(createList());
     return builder.build();
   }
@@ -46,6 +47,19 @@ public class MapScreen extends BaseMapScreen
     final Header.Builder builder = new Header.Builder();
     builder.setStartHeaderAction(new Action.Builder(Action.APP_ICON).build());
     builder.setTitle(getCarContext().getString(R.string.app_name));
+    return builder.build();
+  }
+
+  @NonNull
+  private ActionStrip createActionStrip()
+  {
+    final Action.Builder freeDriveScreenBuilder = new Action.Builder();
+    freeDriveScreenBuilder.setIcon(new CarIcon.Builder(IconCompat.createWithResource(getCarContext(), R.drawable.ic_steering_wheel)).build());
+    freeDriveScreenBuilder.setOnClickListener(() -> getScreenManager().push(new FreeDriveScreen(getCarContext(), getSurfaceRenderer())));
+
+    final ActionStrip.Builder builder = new ActionStrip.Builder();
+    builder.addAction(freeDriveScreenBuilder.build());
+    builder.addAction(UiHelpers.createSettingsAction(this, getSurfaceRenderer()));
     return builder.build();
   }
 
