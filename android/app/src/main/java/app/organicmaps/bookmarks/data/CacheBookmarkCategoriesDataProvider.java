@@ -29,6 +29,12 @@ class CacheBookmarkCategoriesDataProvider implements BookmarkCategoriesDataProvi
     return BookmarkManager.INSTANCE.getBookmarkCategoriesCache().getCategories();
   }
 
+  @Override
+  public int getCategoriesCount()
+  {
+    return BookmarkManager.INSTANCE.nativeGetBookmarkCategoriesCount();
+  }
+
   @NonNull
   @Override
   public List<BookmarkCategory> getChildrenCategories(long parentId)

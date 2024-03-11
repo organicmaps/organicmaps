@@ -526,6 +526,10 @@ public enum BookmarkManager
   {
     return mCurrentDataProvider.getCategories();
   }
+  public int getCategoriesCount()
+  {
+    return mCurrentDataProvider.getCategoriesCount();
+  }
 
   @NonNull
   BookmarkCategoriesCache getBookmarkCategoriesCache()
@@ -627,6 +631,7 @@ public enum BookmarkManager
   native BookmarkCategory nativeGetBookmarkCategory(long catId);
   @NonNull
   native BookmarkCategory[] nativeGetBookmarkCategories();
+  native int nativeGetBookmarkCategoriesCount();
   @NonNull
   native BookmarkCategory[] nativeGetChildrenCategories(long catId);
 

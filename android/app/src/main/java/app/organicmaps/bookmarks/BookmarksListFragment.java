@@ -517,7 +517,7 @@ public class BookmarksListFragment extends BaseMwmRecyclerFragment<ConcatAdapter
 
   private boolean isLastOwnedCategory()
   {
-    return BookmarkManager.INSTANCE.getCategories().size() == 1;
+    return BookmarkManager.INSTANCE.getCategoriesCount() == 1;
   }
 
   private void updateSortingProgressBar()
