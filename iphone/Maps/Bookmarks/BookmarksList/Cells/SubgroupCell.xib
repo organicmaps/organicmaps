@@ -23,8 +23,8 @@
                             <constraint firstAttribute="width" constant="56" id="aar-GM-DaJ"/>
                         </constraints>
                         <userDefinedRuntimeAttributes>
-                            <userDefinedRuntimeAttribute type="image" keyPath="offImage" value="radioBtnOff"/>
-                            <userDefinedRuntimeAttribute type="image" keyPath="onImage" value="radioBtnOn"/>
+                            <userDefinedRuntimeAttribute type="image" keyPath="offImage" value="ic_eye_off"/>
+                            <userDefinedRuntimeAttribute type="image" keyPath="onImage" value="ic_eye_on"/>
                         </userDefinedRuntimeAttributes>
                         <connections>
                             <action selector="onCheck:" destination="KGk-i7-Jjw" eventType="valueChanged" id="xp2-kL-Hgu"/>
@@ -81,7 +81,7 @@
     </objects>
     <resources>
         <image name="ic_disclosure" width="24" height="24"/>
-        <image name="radioBtnOff" width="22" height="22"/>
-        <image name="radioBtnOn" width="22" height="22"/>
+        <image name="ic_eye_off" width="24" height="24"/>
+        <image name="ic_eye_on" width="24" height="24"/>
     </resources>
 </document>
