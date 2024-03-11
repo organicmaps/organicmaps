@@ -637,7 +637,7 @@ Java_app_organicmaps_bookmarks_data_BookmarkManager_nativeGetBookmarkCategories(
   jobject)
 {
   auto const & bm = frm()->GetBookmarkManager();
-  auto const & ids = bm.GetBmGroupsIdList();
+  auto const & ids = bm.GetSortedBmGroupIdList();
 
   return MakeCategories(env, ids);
 }
