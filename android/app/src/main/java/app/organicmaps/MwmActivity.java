@@ -1,25 +1,20 @@
 package app.organicmaps;
 
-import static android.Manifest.permission.ACCESS_COARSE_LOCATION;
-import static android.Manifest.permission.ACCESS_FINE_LOCATION;
-import static android.Manifest.permission.POST_NOTIFICATIONS;
-import static android.content.pm.PackageManager.PERMISSION_GRANTED;
-import static app.organicmaps.location.LocationState.FOLLOW;
-import static app.organicmaps.location.LocationState.FOLLOW_AND_ROTATE;
-import static app.organicmaps.location.LocationState.LOCATION_TAG;
-
 import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.app.Dialog;
 import android.app.PendingIntent;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.res.Configuration;
 import android.location.Location;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
+import android.text.Html;
 import android.text.TextUtils;
+import android.text.method.LinkMovementMethod;
 import android.view.KeyEvent;
 import android.view.MotionEvent;
 import android.view.View;
@@ -46,12 +41,6 @@ import androidx.fragment.app.FragmentFactory;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 import androidx.lifecycle.ViewModelProvider;
-
-import com.google.android.material.dialog.MaterialAlertDialogBuilder;
-
-import java.util.ArrayList;
-import java.util.Objects;
-
 import app.organicmaps.Framework.PlacePageActivationListener;
 import app.organicmaps.api.Const;
 import app.organicmaps.base.BaseMwmFragmentActivity;
@@ -71,6 +60,7 @@ import app.organicmaps.editor.Editor;
 import app.organicmaps.editor.EditorActivity;
 import app.organicmaps.editor.EditorHostFragment;
 import app.organicmaps.editor.FeatureCategoryActivity;
+import app.organicmaps.editor.OsmLoginActivity;
 import app.organicmaps.editor.OsmOAuth;
 import app.organicmaps.editor.ReportFragment;
 import app.organicmaps.help.HelpActivity;
@@ -118,6 +108,18 @@ import app.organicmaps.widget.menu.MainMenu;
 import app.organicmaps.widget.placepage.PlacePageController;
 import app.organicmaps.widget.placepage.PlacePageData;
 import app.organicmaps.widget.placepage.PlacePageViewModel;
+import com.google.android.material.dialog.MaterialAlertDialogBuilder;
+
+import java.util.ArrayList;
+import java.util.Objects;
+
+import static android.Manifest.permission.ACCESS_COARSE_LOCATION;
+import static android.Manifest.permission.ACCESS_FINE_LOCATION;
+import static android.Manifest.permission.POST_NOTIFICATIONS;
+import static android.content.pm.PackageManager.PERMISSION_GRANTED;
+import static app.organicmaps.location.LocationState.FOLLOW;
+import static app.organicmaps.location.LocationState.FOLLOW_AND_ROTATE;
+import static app.organicmaps.location.LocationState.LOCATION_TAG;
 
 public class MwmActivity extends BaseMwmFragmentActivity
     implements PlacePageActivationListener,
@@ -317,10 +319,23 @@ public class MwmActivity extends BaseMwmFragmentActivity
 
       // Notify user to re-login
       dismissAlertDialog();
+      final DialogInterface.OnClickListener navigateToLoginHandler = (DialogInterface dialog, int which) -> {
+        startActivity(new Intent(MwmActivity.this, OsmLoginActivity.class));
+      };
+
+      final int marginBase = getResources().getDimensionPixelSize(R.dimen.margin_base);
+      final float textSize = getResources().getDimension(R.dimen.line_spacing_extra_1);
+      final TextView text = new TextView(this);
+      text.setText(getText(R.string.alert_reauth_message));
+      text.setPadding(marginBase, marginBase, marginBase, marginBase);
+      text.setTextSize(textSize);
+      text.setMovementMethod(LinkMovementMethod.getInstance());
+
       mAlertDialog = new MaterialAlertDialogBuilder(this, R.style.MwmTheme_AlertDialog)
               .setTitle(R.string.alert_reauth_title)
-              .setMessage(R.string.alert_reauth_message)
-              .setPositiveButton(R.string.ok, null)
+              .setView(text)
+              .setPositiveButton(R.string.login, navigateToLoginHandler)
+              .setNegativeButton(R.string.cancel, null)
               .setOnDismissListener(dialog -> mAlertDialog = null)
               .show();
     }

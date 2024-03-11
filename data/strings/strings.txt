@@ -20352,15 +20352,15 @@
 
   [alert_reauth_title]
     tags = android
-    en = OpenStreetMap.org authentication
-    ru = Авторизация через OpenStreetMap.org
-    uk = Авторизація через OpenStreetMap.org
+    en = Login to OpenStreetMap
+    ru = Войдите в OpenStreetMap.org
+    uk = Увійдить в OpenStreetMap.org
 
   [alert_reauth_message]
     tags = android
-    en = Please re-login to OpenStreetMap.org from settings menu in order to save map edits
-    ru = Пожалуйста повторно введите логин и пароль аккаунта OpenStreetMap.org в настройках приложения чтобы публиковать редактирования карты
-    uk = Будь ласка увійдіть у свій OpenStreetMap.org акаунт в налаштуваннях застосунку щоб мати можливість публікувати зміни до мапи
+    en = Please re-login to OpenStreetMap to automatically upload all your map edits.\n<a href="https://github.com/organicmaps/organicmaps/issues/6144">Learn more…</a>
+    ru = Пожалуйста повторно войдите в аккаунта OpenStreetMap.org чтобы публиковать изменения карты.\n<a href="https://github.com/organicmaps/organicmaps/issues/6144">Подробности…</a>
+    uk = Будь ласка увійдіть у свій OpenStreetMap.org акаунт щоб автоматично публікувати зміни до мапи.\n<a href="https://github.com/organicmaps/organicmaps/issues/6144">Подробиці…</a>
 
   [dialog_error_storage_title]
     tags = android
