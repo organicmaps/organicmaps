@@ -641,6 +641,10 @@ static BookmarkManager::SortingType convertSortingTypeToCore(MWMBookmarksSorting
   return [[MWMBookmarkGroup alloc] initWithCategoryId:groupId bookmarksManager:self];
 }
 
+- (size_t)userCategoriesCount {
+  return self.bm.GetBmGroupsCount();
+}
+
 - (void)updateBookmark:(MWMMarkID)bookmarkId
             setGroupId:(MWMMarkGroupID)groupId
                  title:(NSString *)title
