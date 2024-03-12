@@ -1,14 +1,24 @@
 @objc
 final class SettingsTableViewSelectableCell: MWMTableViewCell {
-  @IBOutlet fileprivate weak var title: UILabel!
 
   override func awakeFromNib() {
     super.awakeFromNib()
-    self.styleName = "Background"
-    self.title.styleName = "regular17:blackPrimaryText"
+    setupCell()
+  }
+
+  override func applyTheme() {
+    super.applyTheme()
+    textLabel?.applyTheme()
+  }
+
+  private func setupCell() {
+    styleName = "Background"
+    textLabel?.styleName = "regular17:blackPrimaryText"
+    textLabel?.numberOfLines = 0
+    textLabel?.lineBreakMode = .byWordWrapping
   }
 
   @objc func config(title: String) {
-    self.title.text = title
+    textLabel?.text = title
   }
 }

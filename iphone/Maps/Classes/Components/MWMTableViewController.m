@@ -5,6 +5,7 @@
 #import "MWMTableViewController.h"
 #import "SwiftBridge.h"
 
+static CGFloat const kMaxEstimatedTableViewCellHeight = 100.0;
 
 @interface MWMTableViewController ()
 
@@ -27,6 +28,14 @@
 - (void)tableView:(UITableView *)tableView willDisplayFooterView:(UIView *)view forSection:(NSInteger)section
 {
   [self fixHeaderAndFooterFontsInDarkMode:view];
+}
+
+- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
+  return UITableViewAutomaticDimension;
+}
+
+- (CGFloat)tableView:(UITableView *)tableView estimatedHeightForRowAtIndexPath:(NSIndexPath *)indexPath {
+  return kMaxEstimatedTableViewCellHeight;
 }
 
 // Fix table section header font color for all tables, including Setting and Route Options.
