@@ -625,16 +625,13 @@ Java_app_organicmaps_bookmarks_data_BookmarkManager_nativeAreNotificationsEnable
 }
 
 JNIEXPORT jobject JNICALL
-Java_app_organicmaps_bookmarks_data_BookmarkManager_nativeGetBookmarkCategory(JNIEnv *env,
-                                                                                  jobject,
-                                                                                  jlong id)
+Java_app_organicmaps_bookmarks_data_BookmarkManager_nativeGetBookmarkCategory(JNIEnv *env, jobject, jlong id)
 {
   return MakeCategory(env, static_cast<kml::MarkGroupId>(id));
 }
 
 JNIEXPORT jobjectArray JNICALL
-Java_app_organicmaps_bookmarks_data_BookmarkManager_nativeGetBookmarkCategories(JNIEnv *env,
-  jobject)
+Java_app_organicmaps_bookmarks_data_BookmarkManager_nativeGetBookmarkCategories(JNIEnv *env, jobject)
 {
   auto const & bm = frm()->GetBookmarkManager();
   auto const & ids = bm.GetSortedBmGroupIdList();
@@ -643,8 +640,7 @@ Java_app_organicmaps_bookmarks_data_BookmarkManager_nativeGetBookmarkCategories(
 }
 
 JNIEXPORT jint JNICALL
-Java_app_organicmaps_bookmarks_data_BookmarkManager_nativeGetBookmarkCategoriesCount(JNIEnv *env,
-                                                                                jobject)
+Java_app_organicmaps_bookmarks_data_BookmarkManager_nativeGetBookmarkCategoriesCount(JNIEnv *env, jobject)
 {
    auto const & bm = frm()->GetBookmarkManager();
    auto const count = bm.GetBmGroupsCount();
@@ -653,9 +649,7 @@ Java_app_organicmaps_bookmarks_data_BookmarkManager_nativeGetBookmarkCategoriesC
 }
 
 JNIEXPORT jobjectArray JNICALL
-Java_app_organicmaps_bookmarks_data_BookmarkManager_nativeGetChildrenCategories(JNIEnv *env,
-                                                                                    jobject,
-                                                                                    jlong parentId)
+Java_app_organicmaps_bookmarks_data_BookmarkManager_nativeGetChildrenCategories(JNIEnv *env, jobject, jlong parentId)
 {
   auto const & bm = frm()->GetBookmarkManager();
   auto const ids = bm.GetChildrenCategories(static_cast<kml::MarkGroupId>(parentId));
