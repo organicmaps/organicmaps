@@ -1078,7 +1078,7 @@
     ca = • Sense consum de bateria, funciona fora de línia
     cs = • Žádné vybíjení baterie, funguje offline
     da = • Intet batteridræn, fungerer offline
-    de = • Kein Batterieverbrauch, funktioniert offline
+    de = • Kein Datenverbrauch, funktioniert offline
     el = • Δεν υπάρχει αποστράγγιση μπαταρίας, λειτουργεί εκτός σύνδεσης
     es = • No consume batería, funciona sin conexión
     es-MX = • Sin consumo de batería, funciona sin conexión
