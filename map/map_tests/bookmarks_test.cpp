@@ -1034,7 +1034,7 @@ UNIT_CLASS_TEST(Runner, Bookmarks_SpecialXMLNames)
                                  LoadKmlData(MemReader(kmlString3, strlen(kmlString3)), KmlFileType::Text));
   bmManager.CreateCategories(std::move(kmlDataCollection1));
 
-  auto const & groupIds = bmManager.GetUnsortedBmGroupsIdList();
+  auto const & groupIds = bmManager.GetSortedBmGroupIdList();
   TEST_EQUAL(groupIds.size(), 1, ());
 
   auto const catId = groupIds.front();
@@ -1067,8 +1067,8 @@ UNIT_CLASS_TEST(Runner, Bookmarks_SpecialXMLNames)
   bmManager.CreateCategories(std::move(kmlDataCollection3));
 
   TEST_EQUAL(bmManager.GetBmGroupsCount(), 2, ());
-  auto const catId2 = bmManager.GetUnsortedBmGroupsIdList().back();
-  auto const catId3 = bmManager.GetUnsortedBmGroupsIdList().front();
+  auto const catId2 = bmManager.GetSortedBmGroupIdList().back();
+  auto const catId3 = bmManager.GetSortedBmGroupIdList().front();
 
   TEST_EQUAL(bmManager.GetUserMarkIds(catId2).size(), 1, ());
   TEST_EQUAL(bmManager.GetCategoryName(catId2), expectedName, ());
