@@ -1285,7 +1285,7 @@ fr:Épicerie
 hi:3किराने की दुकान
 ru:Бакалея
 tr:Market
-es:Tienda de comestibles|Almacén|Provisiòn
+es:Tienda de comestibles|Almacén|Provisión
 
 shop-health_food|@food|@shop
 en:Health food
