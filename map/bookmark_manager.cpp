@@ -1842,7 +1842,7 @@ void BookmarkManager::LoadMetadata()
 void BookmarkManager::ClearCategories()
 {
   CHECK_THREAD_CHECKER(m_threadChecker, ());
-  for (auto groupId : m_bmGroupsIdList)
+  for (auto groupId : m_unsortedBmGroupsIdList)
   {
     ClearGroup(groupId);
     m_changesTracker.OnDeleteGroup(groupId);
@@ -1850,7 +1850,7 @@ void BookmarkManager::ClearCategories()
 
   m_compilations.clear();
   m_categories.clear();
-  m_bmGroupsIdList.clear();
+  m_unsortedBmGroupsIdList.clear();
 
   m_bookmarks.clear();
   m_tracks.clear();
@@ -2213,10 +2213,10 @@ void BookmarkManager::UpdateBmGroupIdList()
   for (auto const & [markGroupId, categoryPtr] : m_categories)
     vec.emplace_back(markGroupId, categoryPtr.get());
 
-  m_bmGroupsIdList.clear();
-  m_bmGroupsIdList.resize(count);
+  m_unsortedBmGroupsIdList.clear();
+  m_unsortedBmGroupsIdList.resize(count);
   for (size_t i = 0; i < count; ++i)
-    m_bmGroupsIdList[i] = vec[i].first;
+    m_unsortedBmGroupsIdList[i] = vec[i].first;
 }
 
 std::vector<kml::MarkGroupId> BookmarkManager::GetSortedBmGroupIdList() const
@@ -2734,7 +2734,7 @@ void BookmarkManager::PrepareAllFilesForSharing(SharingHandler && handler)
 {
   CHECK_THREAD_CHECKER(m_threadChecker, ());
   ASSERT(handler, ());
-  PrepareFileForSharing(decltype(m_bmGroupsIdList){m_bmGroupsIdList}, std::move(handler));
+  PrepareFileForSharing(decltype(m_unsortedBmGroupsIdList){m_unsortedBmGroupsIdList}, std::move(handler));
 }
 
 bool BookmarkManager::IsCategoryEmpty(kml::MarkGroupId categoryId) const
@@ -2877,7 +2877,7 @@ void BookmarkManager::FilterInvalidTracks(kml::TrackIdCollection & tracks) const
 
 kml::GroupIdSet BookmarkManager::MarksChangesTracker::GetAllGroupIds() const
 {
-  auto const & groupIds = m_bmManager->GetBmGroupsIdList();
+  auto const & groupIds = m_bmManager->GetUnsortedBmGroupsIdList();
   kml::GroupIdSet resultingSet(groupIds.begin(), groupIds.end());
 
   static_assert(UserMark::BOOKMARK == 0);
