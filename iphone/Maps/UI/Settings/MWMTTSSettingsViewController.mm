@@ -132,9 +132,9 @@ struct CamerasCellStrategy : BaseCellStategy
     NSString * title = nil;
     switch (static_cast<SpeedCameraManagerMode>(indexPath.row))
     {
-    case SpeedCameraManagerMode::Auto: title = L(@"auto"); break;
-    case SpeedCameraManagerMode::Always: title = L(@"always"); break;
-    case SpeedCameraManagerMode::Never: title = L(@"never"); break;
+    case SpeedCameraManagerMode::Auto: title = L(@"pref_tts_speedcams_auto"); break;
+    case SpeedCameraManagerMode::Always: title = L(@"pref_tts_speedcams_always"); break;
+    case SpeedCameraManagerMode::Never: title = L(@"pref_tts_speedcams_never"); break;
     case SpeedCameraManagerMode::MaxValue: CHECK(false, ()); return nil;
     }
 
@@ -161,7 +161,7 @@ struct CamerasCellStrategy : BaseCellStategy
 
   NSString * TitleForHeader() const override { return L(@"speedcams_alert_title"); }
 
-  NSString * TitleForFooter() const override { return L(@"speedcams_notice_message"); }
+  NSString * TitleForFooter() const override { return nil; }
 
   void SelectCell(UITableView * tableView, NSIndexPath * indexPath,
                   MWMTTSSettingsViewController * /* controller */) override
