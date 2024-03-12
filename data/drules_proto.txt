@@ -37713,6 +37713,16 @@ cont {
   }
 }
 cont {
+  name: "highway-traffic_signals"
+  element {
+    scale: 19
+    symbol {
+      name: "traffic_signals"
+      priority: 3165
+    }
+  }
+}
+cont {
   name: "highway-trunk"
   element {
     scale: 6
