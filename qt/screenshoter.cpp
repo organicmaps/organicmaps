@@ -201,14 +201,14 @@ void Screenshoter::ProcessNextKml()
 
   auto & bookmarkManager = m_framework.GetBookmarkManager();
   auto es = bookmarkManager.GetEditSession();
-  auto const idList = bookmarkManager.GetBmGroupsIdList();
+  auto const idList = bookmarkManager.GetUnsortedBmGroupsIdList();
   for (auto catId : idList)
     es.DeleteBmCategory(catId);
 
   bookmarkManager.CreateCategories(std::move(collection));
 
   ChangeState(State::WaitPosition);
-  auto const newCatId = bookmarkManager.GetBmGroupsIdList().front();
+  auto const newCatId = bookmarkManager.GetUnsortedBmGroupsIdList().front();
   m_framework.ShowBookmarkCategory(newCatId, false);
   WaitPosition();
 }

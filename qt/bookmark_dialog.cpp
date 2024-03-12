@@ -268,7 +268,7 @@ void BookmarkDialog::FillTree()
 
   if (!bm.IsAsyncLoadingInProgress())
   {
-    for (auto catId : bm.GetBmGroupsIdList())
+    for (auto catId : bm.GetUnsortedBmGroupsIdList())
     {
       auto categoryItem = CreateTreeItem(bm.GetCategoryName(catId), categoriesItem);
       m_categories[categoryItem] = catId;
