@@ -668,7 +668,7 @@ pl:pieniądze
 pt:dinheiro|U+1F3E7|U+1F4B2|U+1F4B3|U+1F4B4|U+1F4B5|U+1F4B6|U+1F4B7
 pt-BR:dinheiro|U+1F3E7|U+1F4B2|U+1F4B3|U+1F4B4|U+1F4B5|U+1F4B6|U+1F4B7
 ro:bani
-es:dinero|efectivo
+es:dinero|efectivo|cajero
 et:Raha
 eu:3dirua
 sv:pengar
