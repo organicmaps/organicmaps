@@ -583,8 +583,8 @@
 	<string name="routing_add_finish_point">Вкажіть кінцеву точку для побудови маршруту</string>
 	<string name="placepage_remove_stop">Видалити</string>
 	<string name="placepage_add_stop">Додати зупинку</string>
-	<string name="alert_reauth_title">Увійдить в OpenStreetMap.org</string>
-	<string name="alert_reauth_message">Будь ласка увійдіть у свій OpenStreetMap.org акаунт щоб автоматично публікувати зміни до мапи.\n<a href="https://github.com/organicmaps/organicmaps/issues/6144">Подробиці…</a></string>
+	<string name="alert_reauth_title">Увійдить в OpenStreetMap</string>
+	<string name="alert_reauth_message">Будь ласка увійдіть в акаунт OpenStreetMap.org, щоб автоматично публікувати зміни до мапи. Подробиці за <a href="https://github.com/organicmaps/organicmaps/issues/6144">посиланням</a>.</string>
 	<string name="dialog_error_storage_title">Не вдалося отримати доступ до сховища</string>
 	<string name="dialog_error_storage_message">Зовнішнє сховище не доступно. Ймовірно, SD-картку пам\'яті було вилучено, пошкоджено, або система файлів доступна тільки для читання. Будь ласка, перевірте та зв\'яжіться з нами, написавши на адресу електронну пошту support\@organicmaps.app</string>
 	<string name="setting_emulate_bad_storage">Емулювати проблемне сховище</string>

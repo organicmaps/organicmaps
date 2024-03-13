@@ -432,7 +432,7 @@
 	<string name="edit_opening_hours">עריכת שעות פעילות</string>
 	<string name="no_osm_account">אין לך חשבון OpenStreetMap?</string>
 	<string name="register_at_openstreetmap">הירשם ב-OpenStreetMap</string>
-	<string name="login">כניסה ל-OpenStreetMap</string>
+	<string name="login">כניסה</string>
 	<string name="login_osm">היכנס ל-OpenStreetMap</string>
 	<string name="password">סיסמה</string>
 	<string name="forgot_password">שכחת סיסמה?</string>

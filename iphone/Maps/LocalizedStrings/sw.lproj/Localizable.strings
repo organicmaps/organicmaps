@@ -627,7 +627,7 @@
 
 "invalid_username_or_password" = "Invalid username or password.";
 
-"login" = "OpenStreetMap Login";
+"login" = "Login";
 
 "forgot_password" = "Forgot your password?";
 
