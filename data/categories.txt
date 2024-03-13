@@ -15142,7 +15142,7 @@ cs:Místo konání akcí
 da:Sted for arrangementer
 de:Veranstaltungszentrum
 el:Κέντρο εκδηλώσεων
-es:Lugar de los eventos|Salón de fiestas
+es:Lugar de eventos|Salón de fiestas |Centro de eventos
 et:Ürituste toimumiskoht
 eu:Ekitaldien Lekua
 fa:محل برگزاری رویدادها
