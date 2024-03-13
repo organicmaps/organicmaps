@@ -2408,7 +2408,7 @@ pl:Salon samochodowy|samochody
 pt:Loja de carros|3Stande|4concessionária|2veículos
 pt-BR:Loja de carros|4concessionária|veículos
 ro:Magazin auto
-es:Venta de coches|Venta de autos|Automotora|Automotores|5Concesionaria
+es:Venta de coches|Venta de autos|Automotora|Automotores|5Concesionaria|Concesionario
 et:Autopood
 eu:Autoen salmenta
 sv:Bilåterförsäljare
