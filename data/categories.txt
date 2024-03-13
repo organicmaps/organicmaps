@@ -15764,7 +15764,7 @@ cs:Barvy
 da:Maling
 de:Farben
 el:Βαφές
-es:Pinturas|Punturería
+es:Pinturas|Pinturería
 et:Värvid
 eu:Margoak
 fa:ﺪﻨﮐ ﯽﻣ ﮓﻧﺭ
