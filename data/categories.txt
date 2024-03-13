@@ -14371,7 +14371,7 @@ cs:Obchod s erotickými pomůckami
 da:4Erotisk butik
 de:Erotikladen|3Sexshop|4Erotikshop
 el:Κατάστημα ερωτικών ειδών
-es:3Sex Shop|Boutique erótica
+es:3Sex Shop|Boutique erótica|Tienda erótica
 et:3Erootikapood
 eu:3Sex Shop
 fi:4Erotiikkaliike
