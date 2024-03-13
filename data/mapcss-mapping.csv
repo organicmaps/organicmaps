@@ -1686,5 +1686,3 @@ railway|subway_entrance|boston;[railway=subway_entrance][city=boston];;name;int_
 smoking|no;1598;
 smoking|outside;1599;
 smoking|yes;1600;
-smoking|isolated;1601;
-smoking|separated;1602;

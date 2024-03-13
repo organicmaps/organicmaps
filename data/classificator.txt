@@ -1337,10 +1337,8 @@ world  +
         wine  -
         {}
     smoking  +
-        isolated  -
         no  -
         outside  -
-        separated  -
         yes  -
         {}
     sport  +
