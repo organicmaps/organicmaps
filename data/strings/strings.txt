@@ -23207,7 +23207,7 @@
   [pref_tts_speedcams_auto]
     comment = Speed camera settings menu option - Warn (about speedcams) if risk of exceeding speed limit
     tags = android,ios
-    en = Warn if there is a risk of exceeding the speed limit
+    en = Warn when exceeding the speed limit
     af = Waarsku indien daar ’n risiko is dat die grens oorskry word
     ar = حذرني  إذا هناك احتمالية تجاوز الحد الأقصى للسرعة
     az = Sürət həddini aşmaq riski varsa, xəbərdarlıq edin
@@ -24577,6 +24577,7 @@
 
   [capacity]
     comment = To indicate the capacity of car parkings, bicycle parkings, electric vehicle charging stations...
+    tags = android,ios
     en = Capacity: %@
     af = Kapasiteit: %@
     ar = السعة: %@
