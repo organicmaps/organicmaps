@@ -510,7 +510,6 @@
 	<string name="editor_operator">Opérateur</string>
 	<string name="downloader_no_downloaded_maps_title">Vous n\'avez téléchargé aucune carte</string>
 	<string name="downloader_no_downloaded_maps_message">Téléchargez des cartes pour rechercher un lieu et utiliser la navigation hors ligne</string>
-	<string name="stop">Arrêter</string>
 	<!-- abbreviation for meters -->
 	<string name="m">m</string>
 	<!-- abbreviation for kilometers -->
@@ -644,10 +643,6 @@
 	<string name="bookmark_list_description_hint">Tapez une description (texte ou html)</string>
 	<string name="not_shared">Privé</string>
 	<string name="speedcams_alert_title">Radars de vitesse</string>
-	<!-- Generic «Always» string -->
-	<string name="always">Toujours</string>
-	<!-- Generic «Never» string -->
-	<string name="never">Jamais</string>
 	<string name="place_description_title">Description d\'endroit</string>
 	<!-- this text will be shown in application notification preferences opposite checkbox which enable/disable downloader notifications. Devices on Android 8+ are affected. -->
 	<string name="notification_channel_downloader">Téléchargeur carte</string>

@@ -510,7 +510,6 @@
 	<string name="editor_operator">オペレーター</string>
 	<string name="downloader_no_downloaded_maps_title">マップをダウンロードしていません</string>
 	<string name="downloader_no_downloaded_maps_message">ロケーションの検索とオフラインナビゲートのためにマップをダウンロードしてください。</string>
-	<string name="stop">止める</string>
 	<!-- abbreviation for meters -->
 	<string name="m">m</string>
 	<!-- abbreviation for kilometers -->
@@ -641,10 +640,6 @@
 	<string name="bookmark_list_description_hint">説明(テキストまたはhtml)を記入してください</string>
 	<string name="not_shared">非公開</string>
 	<string name="speedcams_alert_title">自動速度違反取締装置</string>
-	<!-- Generic «Always» string -->
-	<string name="always">常時</string>
-	<!-- Generic «Never» string -->
-	<string name="never">無効</string>
 	<string name="place_description_title">場所の説明</string>
 	<!-- this text will be shown in application notification preferences opposite checkbox which enable/disable downloader notifications. Devices on Android 8+ are affected. -->
 	<string name="notification_channel_downloader">マップダウンローダー</string>

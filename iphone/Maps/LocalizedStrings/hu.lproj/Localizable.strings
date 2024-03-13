@@ -779,8 +779,6 @@
 
 "downloader_no_downloaded_maps_message" = "Töltse le a szükséges térképeket, hogy megtalálja a helyet és internet nélkül is navigálhasson.";
 
-"stop" = "Leállítás";
-
 "current_location_unknown_error_title" = "Current location is unknown.";
 
 "current_location_unknown_error_message" = "Hiba történt tartózkodási helye keresésekor. Ellenőrizze készüléke működését és próbálkozzon újra.";
@@ -1035,15 +1033,16 @@
 
 "speedcams_alert_title" = "Sebességmérő kamerák";
 
-/* Generic «Always» string */
-"always" = "Mindig";
-
-/* Generic «Never» string */
-"never" = "Soha";
-
 "place_description_title" = "A hely ismertetése";
 
-"speedcams_notice_message" = "Automatikus - Figyelmeztetés a sebesség kamerákról, ha van kockázat a sebesség korlátozás megsértéséről\nMindig - Mindig figyelmeztet a kamerákról\nSoha - Soha ne figyelmezet a kamerákról";
+/* Speed camera settings menu option - Warn (about speedcams) if risk of exceeding speed limit */
+"pref_tts_speedcams_auto" = "Figyelmeztetés ha van kockázat a sebesség korlátozás megsértéséről";
+
+/* Speed camera settings menu option - Always warn (about speedcams) */
+"pref_tts_speedcams_always" = "Mindig figyelmeztet";
+
+/* Speed camera settings menu option - Never warn (about speedcams) */
+"pref_tts_speedcams_never" = "Soha ne figyelmezet";
 
 "power_managment_title" = "Energiatakarékos mód";
 

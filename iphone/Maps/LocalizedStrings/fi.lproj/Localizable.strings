@@ -779,8 +779,6 @@
 
 "downloader_no_downloaded_maps_message" = "Lataa karttoja löytääksesi paikkoja ja navigoidaksesi offline-tilassa.";
 
-"stop" = "Pysäytä";
-
 "current_location_unknown_error_title" = "Nykyinen sijainti on tuntematon.";
 
 "current_location_unknown_error_message" = "Tapahtui virhe määritettäessä sijaintiasi. Tarkista laitteesi ja yritä myöhemmin uudelleen.";
@@ -1035,15 +1033,16 @@
 
 "speedcams_alert_title" = "Nopeuskamerat";
 
-/* Generic «Always» string */
-"always" = "Aina";
-
-/* Generic «Never» string */
-"never" = "Ei koskaan";
-
 "place_description_title" = "Paikan kuvaus";
 
-"speedcams_notice_message" = "Auto - Varoita nopeuskameroista, jos tuntuu siltä, että nopeusrajan ylitys on mahdollista\nAina - Varoita kameroista aina\nEi koskaan - älä koskaan varoita kameroista";
+/* Speed camera settings menu option - Warn (about speedcams) if risk of exceeding speed limit */
+"pref_tts_speedcams_auto" = "Varoita jos tuntuu siltä, että nopeusrajan ylitys on mahdollista";
+
+/* Speed camera settings menu option - Always warn (about speedcams) */
+"pref_tts_speedcams_always" = "Varoita aina";
+
+/* Speed camera settings menu option - Never warn (about speedcams) */
+"pref_tts_speedcams_never" = "Älä koskaan varoita";
 
 "power_managment_title" = "Virransäästötila";
 

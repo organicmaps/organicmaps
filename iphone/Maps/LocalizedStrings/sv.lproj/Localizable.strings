@@ -779,8 +779,6 @@
 
 "downloader_no_downloaded_maps_message" = "Ladda ner kartor för att hitta platsen och navigera offline.";
 
-"stop" = "Stopp";
-
 "current_location_unknown_error_title" = "Den nuvarande platsen är okänd.";
 
 "current_location_unknown_error_message" = "Ett fel inträffade vid sökning efter din plats. Kontrollera att din enhet fungerar och försök igen senare.";
@@ -1035,15 +1033,16 @@
 
 "speedcams_alert_title" = "Hastighetskameror";
 
-/* Generic «Always» string */
-"always" = "Alltid";
-
-/* Generic «Never» string */
-"never" = "Aldrig";
-
 "place_description_title" = "Beskrivning av platsen";
 
-"speedcams_notice_message" = "Auto - Varna om fartkameror om det finns risk att överskrida hastighetsgränsen\nAlltid - Varna alltid om kameror\nAldrig - Varna aldrig om kameror";
+/* Speed camera settings menu option - Warn (about speedcams) if risk of exceeding speed limit */
+"pref_tts_speedcams_auto" = "Varna om det finns risk att överskrida hastighetsgränsen";
+
+/* Speed camera settings menu option - Always warn (about speedcams) */
+"pref_tts_speedcams_always" = "Varna alltid";
+
+/* Speed camera settings menu option - Never warn (about speedcams) */
+"pref_tts_speedcams_never" = "Varna aldrig";
 
 "power_managment_title" = "Energisparläge";
 

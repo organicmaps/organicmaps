@@ -779,8 +779,6 @@
 
 "downloader_no_downloaded_maps_message" = "Aby znajdować miejsca i nawigować bez połączenia z internetem, musisz pobrać mapy.";
 
-"stop" = "Stop";
-
 "current_location_unknown_error_title" = "Aktualna lokalizacja jest nieznana.";
 
 "current_location_unknown_error_message" = "Podczas szukania twojej lokalizacji wystąpił błąd. Sprawdź czy twoje urządzenie działa poprawnie i spróbuj ponownie później.";
@@ -1035,15 +1033,16 @@
 
 "speedcams_alert_title" = "Fotoradary";
 
-/* Generic «Always» string */
-"always" = "Zawsze";
-
-/* Generic «Never» string */
-"never" = "Nigdy";
-
 "place_description_title" = "Opis miejsca";
 
-"speedcams_notice_message" = "Automatycznie – Ostrzegaj o fotoradarach, jeśli istnieje ryzyko przekroczenia ograniczenia prędkości\nZawsze – Zawsze ostrzegaj o fotoradarach\nNigdy – Nigdy nie ostrzegaj o fotoradarach";
+/* Speed camera settings menu option - Warn (about speedcams) if risk of exceeding speed limit */
+"pref_tts_speedcams_auto" = "Ostrzegaj jeśli istnieje ryzyko przekroczenia ograniczenia prędkości";
+
+/* Speed camera settings menu option - Always warn (about speedcams) */
+"pref_tts_speedcams_always" = "Zawsze ostrzegaj";
+
+/* Speed camera settings menu option - Never warn (about speedcams) */
+"pref_tts_speedcams_never" = "Nigdy nie ostrzegaj";
 
 "power_managment_title" = "Tryb oszczędzania energii";
 

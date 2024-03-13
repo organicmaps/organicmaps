@@ -496,7 +496,6 @@
 	<string name="editor_operator">Üzemeltető</string>
 	<string name="downloader_no_downloaded_maps_title">Még nem töltött le térképet</string>
 	<string name="downloader_no_downloaded_maps_message">Töltse le a szükséges térképeket, hogy megtalálja a helyet és internet nélkül is navigálhasson.</string>
-	<string name="stop">Leállítás</string>
 	<!-- abbreviation for meters -->
 	<string name="m">m</string>
 	<!-- abbreviation for kilometers -->
@@ -621,10 +620,6 @@
 	<string name="bookmark_list_description_hint">Leírás hozzáadása (szöveg vagy html)</string>
 	<string name="not_shared">Privát</string>
 	<string name="speedcams_alert_title">Sebességmérő kamerák</string>
-	<!-- Generic «Always» string -->
-	<string name="always">Mindig</string>
-	<!-- Generic «Never» string -->
-	<string name="never">Soha</string>
 	<string name="place_description_title">A hely ismertetése</string>
 	<!-- this text will be shown in application notification preferences opposite checkbox which enable/disable downloader notifications. Devices on Android 8+ are affected. -->
 	<string name="notification_channel_downloader">Kártyák letöltése</string>

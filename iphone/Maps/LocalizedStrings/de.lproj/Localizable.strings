@@ -779,8 +779,6 @@
 
 "downloader_no_downloaded_maps_message" = "Laden Sie die für die Suche nach Orten erforderlichen Karten und verwenden Sie die Navigation offline.";
 
-"stop" = "Anhalten";
-
 "current_location_unknown_error_title" = "Standort nicht gefunden.";
 
 "current_location_unknown_error_message" = "Bei der Standortsuche ist ein unbekannter Fehler aufgetreten. Prüfen Sie die Funktionstüchtigkeit Ihres Geräts und versuchen Sie es etwas später erneut.";
@@ -1035,15 +1033,16 @@
 
 "speedcams_alert_title" = "Blitzer";
 
-/* Generic «Always» string */
-"always" = "Immer";
-
-/* Generic «Never» string */
-"never" = "Niemals";
-
 "place_description_title" = "Ortsbeschreibung";
 
-"speedcams_notice_message" = "Auto - Vor Blitzern warnen, wenn die Gefahr einer Geschwindigkeitsüberschreitung besteht\nImmer - Immer vor Blitzern warnen\nNiemals - Niemals vor Blitzern warnen";
+/* Speed camera settings menu option - Warn (about speedcams) if risk of exceeding speed limit */
+"pref_tts_speedcams_auto" = "Warnen wenn die Gefahr einer Geschwindigkeitsüberschreitung besteht";
+
+/* Speed camera settings menu option - Always warn (about speedcams) */
+"pref_tts_speedcams_always" = "Immer warnen";
+
+/* Speed camera settings menu option - Never warn (about speedcams) */
+"pref_tts_speedcams_never" = "Niemals warnen";
 
 "power_managment_title" = "Stromsparmodus";
 

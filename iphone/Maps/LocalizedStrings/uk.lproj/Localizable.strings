@@ -779,8 +779,6 @@
 
 "downloader_no_downloaded_maps_message" = "Завантажте необхідні мапи, щоб знаходити місця та користуватися навігацією без iнтернету.";
 
-"stop" = "Зупинити";
-
 "current_location_unknown_error_title" = "Місцезнаходження не знайдено.";
 
 "current_location_unknown_error_message" = "Під час пошуку місцезнаходження сталася невідома помилка. Перевірте працездатність пристрою та спробуйте відшукати місцеположення пізніше.";
@@ -1035,15 +1033,16 @@
 
 "speedcams_alert_title" = "Камери швидкості";
 
-/* Generic «Always» string */
-"always" = "Завжди";
-
-/* Generic «Never» string */
-"never" = "Ніколи";
-
 "place_description_title" = "Опис місця";
 
-"speedcams_notice_message" = "Авто - Попереджати про камери швидкості, якщо є ризик перевищення швидкісного ліміту\nЗавжди - Завжди попереджати про камери\nНіколи - Ніколи не попереджати про камери";
+/* Speed camera settings menu option - Warn (about speedcams) if risk of exceeding speed limit */
+"pref_tts_speedcams_auto" = "Попереджати при перевищенні швидкості";
+
+/* Speed camera settings menu option - Always warn (about speedcams) */
+"pref_tts_speedcams_always" = "Завжди попереджати";
+
+/* Speed camera settings menu option - Never warn (about speedcams) */
+"pref_tts_speedcams_never" = "Ніколи не попереджати";
 
 "power_managment_title" = "Режим енергозбереження";
 

@@ -779,8 +779,6 @@
 
 "downloader_no_downloaded_maps_message" = "Lae alla kaardid asukoha otsimiseks ja võrguühenduseta navigeerimise kasutamiseks.";
 
-"stop" = "Lõpeta";
-
 "current_location_unknown_error_title" = "Hetkeasukoht on teadmata.";
 
 "current_location_unknown_error_message" = "Teie asukoha otsimisel ilmnes viga. Kontrollige, kas teie seade töötab korralikult ja proovige hiljem uuesti.";
@@ -1035,15 +1033,16 @@
 
 "speedcams_alert_title" = "Kiiruskaamerad";
 
-/* Generic «Always» string */
-"always" = "Alati";
-
-/* Generic «Never» string */
-"never" = "Mitte kunagi";
-
 "place_description_title" = "Koha kirjeldus";
 
-"speedcams_notice_message" = "Automaatne - kiiruskaamerate hoiatused, kui on oht ületada piirkiirust\nAlati - hoiata alati kiiruskaamerate eest\nMitte kunagi - ära kunagi hoiata kiiruskaamerate eest";
+/* Speed camera settings menu option - Warn (about speedcams) if risk of exceeding speed limit */
+"pref_tts_speedcams_auto" = "Hoiatused kui on oht ületada piirkiirust";
+
+/* Speed camera settings menu option - Always warn (about speedcams) */
+"pref_tts_speedcams_always" = "Hoiata alati eest";
+
+/* Speed camera settings menu option - Never warn (about speedcams) */
+"pref_tts_speedcams_never" = "Ära kunagi hoiata eest";
 
 "power_managment_title" = "Energiasäästlik režiim";
 

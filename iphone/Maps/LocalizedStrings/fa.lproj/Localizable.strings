@@ -779,8 +779,6 @@
 
 "downloader_no_downloaded_maps_message" = "برای جست وجو یک مکان و استفاده از قابلیت ناوبری، نقشه‌ها را دانلود کنید.";
 
-"stop" = "توقف";
-
 "current_location_unknown_error_title" = "مکان فعلیتان ناشناس است.";
 
 "current_location_unknown_error_message" = "خطایی در هنگام جست وجوی مکان شمارخ داده است.بررسی کنیید دستگاهتان به درستی کار می کند و دوباره تلاش کنید.";
@@ -1035,15 +1033,16 @@
 
 "speedcams_alert_title" = "دوربین‌های سرعت";
 
-/* Generic «Always» string */
-"always" = "همیشه";
-
-/* Generic «Never» string */
-"never" = "هرگز";
-
 "place_description_title" = "توضیحات محل";
 
-"speedcams_notice_message" = "خودکار- در صورتی که خطر تجاوز از سرعت مجاز وجود داشت، نسبت به دوربین‌های کنترل سرعت هشدار دهد\nهمیشه-همیشه درباره دوربین‌های کنترل سرعت هشدار دهد\nهرگز-هرگز درباره دوربین‌های کنترل سرعت هشدار ندهد";
+/* Speed camera settings menu option - Warn (about speedcams) if risk of exceeding speed limit */
+"pref_tts_speedcams_auto" = "در صورتی که خطر تجاوز از سرعت مجاز وجود داشت، نسبت هشدار دهد";
+
+/* Speed camera settings menu option - Always warn (about speedcams) */
+"pref_tts_speedcams_always" = "همیشه هشدار دهد";
+
+/* Speed camera settings menu option - Never warn (about speedcams) */
+"pref_tts_speedcams_never" = "هرگز  هشدار ندهد";
 
 "power_managment_title" = "حالت ذخیره انرژی";
 

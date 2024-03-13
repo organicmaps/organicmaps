@@ -521,7 +521,6 @@
 	<string name="editor_operator">المالك</string>
 	<string name="downloader_no_downloaded_maps_title">لم تقم بتنزيل أية خرائط</string>
 	<string name="downloader_no_downloaded_maps_message">قم بتنزيل خرائط للبحث عن مكان واستخدام الملاحة بدون اتصال بالإنترنت.</string>
-	<string name="stop">إيقاف</string>
 	<!-- abbreviation for meters -->
 	<string name="m">متر</string>
 	<!-- abbreviation for kilometers -->
@@ -652,10 +651,6 @@
 	<string name="bookmark_list_description_hint">اكتب وصفًا (نص أو html)</string>
 	<string name="not_shared">خاص</string>
 	<string name="speedcams_alert_title">تحذيرات كاميرات السرعة</string>
-	<!-- Generic «Always» string -->
-	<string name="always">مفعل دائماً</string>
-	<!-- Generic «Never» string -->
-	<string name="never">معطل دائماً</string>
 	<string name="place_description_title">وصف المكان</string>
 	<!-- this text will be shown in application notification preferences opposite checkbox which enable/disable downloader notifications. Devices on Android 8+ are affected. -->
 	<string name="notification_channel_downloader">مُنزّل الخريطة</string>

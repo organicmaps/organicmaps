@@ -779,8 +779,6 @@
 
 "downloader_no_downloaded_maps_message" = "قم بتنزيل خرائط للبحث عن مكان واستخدام الملاحة بدون اتصال بالإنترنت.";
 
-"stop" = "إيقاف";
-
 "current_location_unknown_error_title" = "الموقع الحالي غير معروف.";
 
 "current_location_unknown_error_message" = "حدث خطأ أثناء البحث عن موقعك. تأكد من أن جهازك يعمل بشكل صحيح وأعد المحاولة لاحقًا.";
@@ -1035,15 +1033,16 @@
 
 "speedcams_alert_title" = "تحذيرات كاميرات السرعة";
 
-/* Generic «Always» string */
-"always" = "مفعل دائماً";
-
-/* Generic «Never» string */
-"never" = "معطل دائماً";
-
 "place_description_title" = "وصف المكان";
 
-"speedcams_notice_message" = "تلقائياً - حذرني عن كاميرات السرعة إذا هناك احتمالية تجاوز الحد الأقصى للسرعة\nمفعل دائماً - حذرني دائما من كاميرات السرعة \n معطل دائماً - لا تحذرني من كاميرات السرعة أبداً";
+/* Speed camera settings menu option - Warn (about speedcams) if risk of exceeding speed limit */
+"pref_tts_speedcams_auto" = "حذرني  إذا هناك احتمالية تجاوز الحد الأقصى للسرعة";
+
+/* Speed camera settings menu option - Always warn (about speedcams) */
+"pref_tts_speedcams_always" = "حذرني دائما من";
+
+/* Speed camera settings menu option - Never warn (about speedcams) */
+"pref_tts_speedcams_never" = "لا تحذرني من أبداً";
 
 "power_managment_title" = "وضع توفير الطاقة";
 

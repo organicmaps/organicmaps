@@ -779,8 +779,6 @@
 
 "downloader_no_downloaded_maps_message" = "Prevziať mapy na nájdenie pozície a navigovanie off-line.";
 
-"stop" = "Zastaviť";
-
 "current_location_unknown_error_title" = "Súčasná pozícia je neznáma.";
 
 "current_location_unknown_error_message" = "Počas vyhľadávania vašej pozície došlo k chybe. Skontrolujte, či zariadenie pracuje správne a skúste to znova.";
@@ -1035,15 +1033,16 @@
 
 "speedcams_alert_title" = "Rýchlostné kamery";
 
-/* Generic «Always» string */
-"always" = "Vždy";
-
-/* Generic «Never» string */
-"never" = "Nikdy";
-
 "place_description_title" = "Popis miesta";
 
-"speedcams_notice_message" = "Automaticky - Upozornenie na rýchlostné kamery, ak existuje riziko prekročenia rýchlostného limitu\nVždy - Vždy upozorniť na rýchlostné kamery\nNikdy - Nikdy neupozorňovať na rýchlostné kamery";
+/* Speed camera settings menu option - Warn (about speedcams) if risk of exceeding speed limit */
+"pref_tts_speedcams_auto" = "Upozornenie ak existuje riziko prekročenia rýchlostného limitu";
+
+/* Speed camera settings menu option - Always warn (about speedcams) */
+"pref_tts_speedcams_always" = "Vždy upozorniť";
+
+/* Speed camera settings menu option - Never warn (about speedcams) */
+"pref_tts_speedcams_never" = "Nikdy neupozorňovať";
 
 "power_managment_title" = "Úsporný režim";
 

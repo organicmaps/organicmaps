@@ -779,8 +779,6 @@
 
 "downloader_no_downloaded_maps_message" = "Загрузите необходимые карты, чтобы находить места и пользоваться навигацией без интернета.";
 
-"stop" = "Стоп";
-
 "current_location_unknown_error_title" = "Местоположение не найдено.";
 
 "current_location_unknown_error_message" = "При поиске местоположения произошла неизвестная ошибка. Проверьте работоспособность устройства и попробуйте найти местоположение позднее.";
@@ -1035,15 +1033,16 @@
 
 "speedcams_alert_title" = "Камеры скорости";
 
-/* Generic «Always» string */
-"always" = "Всегда";
-
-/* Generic «Never» string */
-"never" = "Никогда";
-
 "place_description_title" = "Описание места";
 
-"speedcams_notice_message" = "Авто - Предупреждать о камерах скорости, если есть риск превышения скоростного лимита\nВсегда - Всегда предупреждать о камерах\nНикогда - Никогда не предупреждать о камерах";
+/* Speed camera settings menu option - Warn (about speedcams) if risk of exceeding speed limit */
+"pref_tts_speedcams_auto" = "Предупреждать при превышении скорости";
+
+/* Speed camera settings menu option - Always warn (about speedcams) */
+"pref_tts_speedcams_always" = "Всегда предупреждать";
+
+/* Speed camera settings menu option - Never warn (about speedcams) */
+"pref_tts_speedcams_never" = "Никогда не предупреждать";
 
 "power_managment_title" = "Режим энергосбережения";
 

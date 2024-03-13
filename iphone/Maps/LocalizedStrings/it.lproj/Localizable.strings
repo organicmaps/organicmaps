@@ -779,8 +779,6 @@
 
 "downloader_no_downloaded_maps_message" = "Scarica mappe per trovare un luogo e navigare offline.";
 
-"stop" = "Ferma";
-
 "current_location_unknown_error_title" = "La posizione attuale è sconosciuta.";
 
 "current_location_unknown_error_message" = "Si è verificato un errore durante la ricerca della tua posizione. Controlla che il tuo dispositivo funzioni correttamente e riprova più tardi.";
@@ -1035,15 +1033,16 @@
 
 "speedcams_alert_title" = "Autovelox";
 
-/* Generic «Always» string */
-"always" = "Sempre";
-
-/* Generic «Never» string */
-"never" = "Mai";
-
 "place_description_title" = "Descrizione luogo";
 
-"speedcams_notice_message" = "Auto - Avvisare di autovelox in caso di rischio eccesso velocità\nSempre - Avvisare sempre di autovelox\nMai - Non avvisare mai di autovelox";
+/* Speed camera settings menu option - Warn (about speedcams) if risk of exceeding speed limit */
+"pref_tts_speedcams_auto" = "Avvisare in caso di rischio eccesso velocità";
+
+/* Speed camera settings menu option - Always warn (about speedcams) */
+"pref_tts_speedcams_always" = "Avvisare sempre";
+
+/* Speed camera settings menu option - Never warn (about speedcams) */
+"pref_tts_speedcams_never" = "Non avvisare mai";
 
 "power_managment_title" = "Risparmio energetico";
 
@@ -3781,7 +3780,7 @@
 
 "type.tourism.gallery" = "Galleria";
 
-"type.tourism.guest_house" = "Casa degli Ospiti";
+"type.tourism.guest_house" = "Affittacamere";
 
 "type.tourism.hostel" = "Ostello";
 

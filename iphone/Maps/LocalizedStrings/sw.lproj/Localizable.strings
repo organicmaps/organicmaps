@@ -779,8 +779,6 @@
 
 "downloader_no_downloaded_maps_message" = "Download maps to search and navigate offline.";
 
-"stop" = "Stop";
-
 "current_location_unknown_error_title" = "Current location is unknown.";
 
 "current_location_unknown_error_message" = "An error occurred while determining your location. Check that your device is working properly and try again later.";
@@ -1035,15 +1033,16 @@
 
 "speedcams_alert_title" = "Kamera za mwendo-kasi";
 
-/* Generic «Always» string */
-"always" = "Mara kwa Mara";
-
-/* Generic «Never» string */
-"never" = "Kamwe";
-
 "place_description_title" = "Maelezo ya Eneo";
 
-"speedcams_notice_message" = "Auto - Onyo la kuhusu kamera ya mwendo-kasi iwapo kuna hatari yoyote ya kuzidi ukomo wa mwendo-kasi\nMara kwa Mara - Daima onya kuhusu kamera za mwendo-kasi\nKamwe - Kamwe usionye kuhusu kamera za mwendo-kasi";
+/* Speed camera settings menu option - Warn (about speedcams) if risk of exceeding speed limit */
+"pref_tts_speedcams_auto" = "Onyo iwapo kuna hatari yoyote ya kuzidi ukomo wa mwendo-kasi";
+
+/* Speed camera settings menu option - Always warn (about speedcams) */
+"pref_tts_speedcams_always" = "Daima onya";
+
+/* Speed camera settings menu option - Never warn (about speedcams) */
+"pref_tts_speedcams_never" = "Kamwe usionye";
 
 "power_managment_title" = "Mtindo wa kuokoa nishati";
 

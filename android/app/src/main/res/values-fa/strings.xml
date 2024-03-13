@@ -479,7 +479,6 @@
 	<string name="editor_operator">مالک</string>
 	<string name="downloader_no_downloaded_maps_title">شما هیچ نقشه دانلود شده ای ندارید</string>
 	<string name="downloader_no_downloaded_maps_message">برای جست وجو یک مکان و استفاده از قابلیت ناوبری، نقشه‌ها را دانلود کنید.</string>
-	<string name="stop">توقف</string>
 	<!-- abbreviation for meters -->
 	<string name="m">متر</string>
 	<!-- abbreviation for kilometers -->
@@ -607,10 +606,6 @@
 	<string name="bookmark_list_description_hint">یک توضیح (متن یا html) تایپ نمایید</string>
 	<string name="not_shared">خصوصی</string>
 	<string name="speedcams_alert_title">دوربین‌های سرعت</string>
-	<!-- Generic «Always» string -->
-	<string name="always">همیشه</string>
-	<!-- Generic «Never» string -->
-	<string name="never">هرگز</string>
 	<string name="place_description_title">توضیحات محل</string>
 	<!-- this text will be shown in application notification preferences opposite checkbox which enable/disable downloader notifications. Devices on Android 8+ are affected. -->
 	<string name="notification_channel_downloader">دانلود کننده نقشه</string>

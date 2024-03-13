@@ -779,8 +779,6 @@
 
 "downloader_no_downloaded_maps_message" = "Download kort for at finde position og navigere offline.";
 
-"stop" = "Stop";
-
 "current_location_unknown_error_title" = "Aktuel position er ukendt.";
 
 "current_location_unknown_error_message" = "Der opstod en fejl under søgning efter din position. Kontrollér at din enhed fungerer korrekt, og prøv igen senere.";
@@ -1035,15 +1033,16 @@
 
 "speedcams_alert_title" = "Fartkameraer";
 
-/* Generic «Always» string */
-"always" = "Altid";
-
-/* Generic «Never» string */
-"never" = "Aldrig";
-
 "place_description_title" = "Beskrivelse af sted";
 
-"speedcams_notice_message" = "Auto - Advar om fartkameraer, hvis der er en risiko for, at hastighedsgrænsen overskrides\nAltid - Advar altid om fartkameraer\nAldrig - Advar aldrig om fartkameraer";
+/* Speed camera settings menu option - Warn (about speedcams) if risk of exceeding speed limit */
+"pref_tts_speedcams_auto" = "Advar hvis der er en risiko for, at hastighedsgrænsen overskrides";
+
+/* Speed camera settings menu option - Always warn (about speedcams) */
+"pref_tts_speedcams_always" = "Advar altid";
+
+/* Speed camera settings menu option - Never warn (about speedcams) */
+"pref_tts_speedcams_never" = "Advar aldrig";
 
 "power_managment_title" = "Strømsparetilstand";
 

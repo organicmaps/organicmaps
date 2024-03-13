@@ -484,7 +484,6 @@
 	<string name="editor_operator">เจ้าของ</string>
 	<string name="downloader_no_downloaded_maps_title">คุณยังไม่ได้ดาวน์โหลดแผนที่</string>
 	<string name="downloader_no_downloaded_maps_message">ดาวน์โหลดแผนที่เพื่อค้นหาสถานที่ และนำทางแบบออฟไลน์</string>
-	<string name="stop">หยุด</string>
 	<!-- abbreviation for meters -->
 	<string name="m">ม.</string>
 	<!-- abbreviation for kilometers -->
@@ -608,10 +607,6 @@
 	<string name="bookmark_list_description_hint">พิมพ์รายละเอียด (ข้อความหรือ html)</string>
 	<string name="not_shared">ส่วนตัว</string>
 	<string name="speedcams_alert_title">กล้องตรวจจับความเร็ว</string>
-	<!-- Generic «Always» string -->
-	<string name="always">ทุกครั้ง</string>
-	<!-- Generic «Never» string -->
-	<string name="never">ไม่ต้องเตือน</string>
 	<string name="place_description_title">รายละเอียดของสถานที่</string>
 	<!-- this text will be shown in application notification preferences opposite checkbox which enable/disable downloader notifications. Devices on Android 8+ are affected. -->
 	<string name="notification_channel_downloader">ตัวดาวน์โหลดแผนที่</string>

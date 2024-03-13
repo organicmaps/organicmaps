@@ -779,8 +779,6 @@
 
 "downloader_no_downloaded_maps_message" = "Κατεβάστε χάρτες για να αναζητήσετε μια τοποθεσία και να χρησιμοποιήσετε την πλοήγησης χωρίς σύνδεση.";
 
-"stop" = "Στοπ";
-
 "current_location_unknown_error_title" = "Η τρέχουσα τοποθεσία είναι άγνωστη.";
 
 "current_location_unknown_error_message" = "Παρουσιάστηκε σφάλμα κατά την αναζήτηση της τοποθεσίας σας. Ελέγξτε αν η συσκευή σας λειτουργεί κανονικά και δοκιμάστε ξανά αργότερα.";
@@ -1035,15 +1033,16 @@
 
 "speedcams_alert_title" = "Κάμερες Ταχύτητας";
 
-/* Generic «Always» string */
-"always" = "Πάντα";
-
-/* Generic «Never» string */
-"never" = "Ποτέ";
-
 "place_description_title" = "Περιγραφή μέρους";
 
-"speedcams_notice_message" = "Αυτόματο- Να ειδοποιούμαι για κάμερες αν υπάρχει κίνδυνος να υπερβώ το όριο ταχύτητας\nΠάντα- Πάντα να ειδοποιούμαι για κάμερες\nΠοτέ- Ποτέ να μην ειδοποιούμαι για κάμερες";
+/* Speed camera settings menu option - Warn (about speedcams) if risk of exceeding speed limit */
+"pref_tts_speedcams_auto" = "Να ειδοποιούμαι αν υπάρχει κίνδυνος να υπερβώ το όριο ταχύτητας";
+
+/* Speed camera settings menu option - Always warn (about speedcams) */
+"pref_tts_speedcams_always" = "Πάντα να ειδοποιούμαι";
+
+/* Speed camera settings menu option - Never warn (about speedcams) */
+"pref_tts_speedcams_never" = "Ποτέ να μην ειδοποιούμαι";
 
 "power_managment_title" = "Λειτουργία εξοικονόμησης ενέργειας";
 

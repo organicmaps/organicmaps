@@ -169,10 +169,6 @@
 	<string name="bookmark_list_description_hint">Andika maelezo (maneno au html)</string>
 	<string name="not_shared">Faragha</string>
 	<string name="speedcams_alert_title">Kamera za mwendo-kasi</string>
-	<!-- Generic «Always» string -->
-	<string name="always">Mara kwa Mara</string>
-	<!-- Generic «Never» string -->
-	<string name="never">Kamwe</string>
 	<string name="place_description_title">Maelezo ya Eneo</string>
 	<!-- this text will be shown in application notification preferences opposite checkbox which enable/disable downloader notifications. Devices on Android 8+ are affected. -->
 	<string name="notification_channel_downloader">Kipakua Ramani</string>
