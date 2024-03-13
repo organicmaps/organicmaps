@@ -216,7 +216,7 @@ pl:4Stacja paliw|3Benzyna|4Paliwo
 pt:3Combustível
 pt-BR:Combustível
 ro:4Benzinărie|Benzină|Gaz
-es:3Gasolinera|4Estación de servicio|3gasoil|3diesel|3nafta|4combustible|bencina|3gasolina
+es:3Gasolinera|Estación de servicio|gasoil|diesel|nafta|combustible|bencina|gasolina
 et:Tankla
 eu:3Gasolindegia
 sv:3Bensin
