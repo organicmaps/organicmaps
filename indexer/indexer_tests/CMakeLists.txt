@@ -33,6 +33,7 @@ set(SRC
   road_shields_parser_tests.cpp
   scale_index_reading_tests.cpp
   search_string_utils_test.cpp
+  smoking_tests.cpp
   sort_and_merge_intervals_test.cpp
   string_slice_tests.cpp
   succinct_trie_test.cpp

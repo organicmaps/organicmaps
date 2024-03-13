@@ -157,6 +157,12 @@ namespace feature
   /// @returns wheelchair availability.
   std::optional<ftraits::WheelchairAvailability> GetWheelchairType(TypesHolder const & types);
 
+  // Returns readable smoking type.
+  std::string GetReadableSmokingType(TypesHolder const & types);
+
+  /// @returns smoking availability.
+  std::optional<ftraits::SmokingAvailability> GetSmokingType(TypesHolder const & types);
+
   /// Returns true if feature has ATM type.
   bool HasAtm(TypesHolder const & types);
 

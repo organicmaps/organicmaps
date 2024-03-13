@@ -52,6 +52,7 @@ void MapObject::SetFromFeatureType(FeatureType & ft)
     
   // Fill runtime metadata
   m_metadata.Set(feature::Metadata::EType::FMD_WHEELCHAIR, feature::GetReadableWheelchairType(m_types));
+  m_metadata.Set(feature::Metadata::EType::FMD_SMOKING, feature::GetReadableSmokingType(m_types));
 
 #ifdef DEBUG
   if (ftypes::IsWifiChecker::Instance()(ft))

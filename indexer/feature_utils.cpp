@@ -467,6 +467,33 @@ std::optional<ftraits::WheelchairAvailability> GetWheelchairType(TypesHolder con
   return ftraits::Wheelchair::GetValue(types);
 }
 
+string GetReadableSmokingType(TypesHolder const & types)
+{
+    auto const value = ftraits::Smoking::GetValue(types);
+    if (!value.has_value())
+      return "";
+
+    switch (*value)
+    {
+      case ftraits::SmokingAvailability::No:
+        return "smoking-no";
+      case ftraits::SmokingAvailability::Yes:
+        return "smoking-yes";
+      case ftraits::SmokingAvailability::Outside:
+        return "smoking-outside";
+      case ftraits::SmokingAvailability::Separated:
+        return "smoking-separated";
+      case ftraits::SmokingAvailability::Isolated:
+        return "smoking-isolated";
+    }
+    UNREACHABLE();
+}
+
+std::optional<ftraits::SmokingAvailability> GetSmokingType(TypesHolder const & types)
+{
+  return ftraits::Smoking::GetValue(types);
+}
+
 bool HasAtm(TypesHolder const & types)
 {
   auto const & isAtmType = ftypes::IsATMChecker::Instance();

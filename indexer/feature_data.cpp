@@ -135,6 +135,7 @@ private:
         {"recycling"},
         {"area:highway"},
         {"fee"},
+        {"smoking"},
     };
 
     Classificator const & c = classif();
@@ -564,6 +565,7 @@ public:
       {{"hwtag", "nobicycle"}, {"hwtag", "onedir_bicycle"}},
       {{"hwtag", "bidir_bicycle"}, {"hwtag", "onedir_bicycle"}},
       {{"wheelchair", "yes"}, {"wheelchair", "no"}},
+      {{"smoking", "yes"}, {"smoking", "no"}},
     };
 
     auto const & cl = classif();

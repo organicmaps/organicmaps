@@ -63,6 +63,7 @@ public class Metadata implements Parcelable
     FMD_CAPACITY(42),
     FMD_WHEELCHAIR(43),
     FMD_LOCAL_REF(44);
+    FMD_SMOKING(45);
     private final int mMetaType;
 
     MetadataType(int metadataType)

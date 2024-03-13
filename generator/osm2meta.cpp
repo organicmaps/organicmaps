@@ -541,6 +541,7 @@ void MetadataTagProcessor::operator()(std::string const & k, std::string const &
   case Metadata::FMD_RATINGS:
   case Metadata::FMD_EXTERNAL_URI:
   case Metadata::FMD_WHEELCHAIR:
+  case Metadata::FMD_SMOKING:
   case Metadata::FMD_COUNT: CHECK(false, (mdType, "should not be parsed from OSM."));
   }
 

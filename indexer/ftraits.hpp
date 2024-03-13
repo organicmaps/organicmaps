@@ -101,6 +101,45 @@ class Wheelchair : public TraitsBase<Wheelchair, WheelchairAvailability>
   }
 };
 
+enum class SmokingAvailability
+{
+  No,
+  Yes,
+  Outside,
+  Separated,
+  Isolated,
+};
+
+inline std::string DebugPrint(SmokingAvailability smoking)
+{
+  switch (smoking)
+  {
+  case SmokingAvailability::No: return "No";
+  case SmokingAvailability::Yes: return "Yes";
+  case SmokingAvailability::Outside: return "Outside";
+  case SmokingAvailability::Separated: return "Separated";
+  case SmokingAvailability::Isolated: return "Isolated";
+  }
+  UNREACHABLE();
+}
+
+class Smoking : public TraitsBase<Smoking, SmokingAvailability>
+{
+  friend class TraitsBase;
+
+  using TypesInitializer = std::initializer_list<std::initializer_list<char const *>>;
+
+  Smoking()
+  {
+    m_matcher.Append<TypesInitializer>({{"smoking", "no"}}, SmokingAvailability::No);
+    m_matcher.Append<TypesInitializer>({{"smoking", "yes"}}, SmokingAvailability::Yes);
+    m_matcher.Append<TypesInitializer>({{"smoking", "dedicated"}}, SmokingAvailability::Yes);
+    m_matcher.Append<TypesInitializer>({{"smoking", "outside"}}, SmokingAvailability::Outside);
+    m_matcher.Append<TypesInitializer>({{"smoking", "separated"}}, SmokingAvailability::Separated);
+    m_matcher.Append<TypesInitializer>({{"smoking", "isolated"}}, SmokingAvailability::Isolated);
+  }
+};
+
 enum class DrinkingWaterAvailability
 {
   No,
