@@ -12474,6 +12474,46 @@ tr:4kilitli dolap|4kitli dolap|kasa
 uk:3Поштомат|5Отримання посилок
 mr:पार्सल लॉकर
 
+shop-outpost
+en:4Pickup Point|4Parcel Pickup
+ar:نقطة الالتقاط
+be:Пункт самавывазу
+bg:Точка на вземане
+ca:Punt de recollida
+cs:Místo vyzvednutí
+da:Afhentningssted
+de:Abholpunkt
+el:Σημείο παραλαβής
+es:Punto de recogida
+et:Vastuvõtupunkt
+eu:Jasotzeko puntua
+fa:نقطه وانت
+fi:Noutopiste
+fr:Point de retrait
+he:נקודת איסוף
+hu:Felvevő pont
+id:Titik penjemputan
+it:Punto di raccolta
+ja:集荷場
+ko:픽업 장소
+mr:पिकअप पॉइंट
+nb:Hentested
+nl:Ophaalpunt
+pl:Punkt odbioru
+pt:Ponto de coleta
+pt-BR:Ponto de coleta
+ro:Punct de ridicare
+ru:Пункт выдачи заказов|5Получение посылок|4Выдача заказов
+sk:Miesto odberu
+sv:Mötesplats
+sw:Sehemu ya kuchukua
+th:จุดรับของ
+tr:Alım Noktası
+uk:Пункт самовивозу
+vi:Điểm đón
+zh-Hans:自提点
+zh-Hant:接送的地點
+
 amenity-vending_machine-fuel|@category_fuel
 en:Fuel Dispenser|Gas Pump
 be:Паліўная калонка|бензакалонка|палівараздатачная калонка
