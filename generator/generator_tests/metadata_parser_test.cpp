@@ -664,15 +664,15 @@ UNIT_TEST(Metadata_ValidateAndFormat_smoking)
   md.Drop(Metadata::FMD_SMOKING);
 
   p("smoking", "dedicated");
-  TEST_EQUAL(md.Get(Metadata::FMD_SMOKING), "yes", ());
+  TEST_EQUAL(md.Get(Metadata::FMD_SMOKING), "dedicated", ());
   md.Drop(Metadata::FMD_SMOKING);
 
   p("smoking", "separated");
-  TEST_EQUAL(md.Get(Metadata::FMD_SMOKING), "yes", ());
+  TEST_EQUAL(md.Get(Metadata::FMD_SMOKING), "separated", ());
   md.Drop(Metadata::FMD_SMOKING);
 
   p("smoking", "isolated");
-  TEST_EQUAL(md.Get(Metadata::FMD_SMOKING), "yes", ());
+  TEST_EQUAL(md.Get(Metadata::FMD_SMOKING), "isolated", ());
   md.Drop(Metadata::FMD_SMOKING);
 
   p("smoking", "invalid_value");

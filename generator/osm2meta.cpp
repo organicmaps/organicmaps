@@ -340,11 +340,8 @@ std::string MetadataTagProcessorImpl::ValidateAndFormat_local_ref(std::string co
 std::string MetadataTagProcessorImpl::ValidateAndFormat_smoking(std::string v)
 {
   strings::AsciiToLower(v);
-  if (v == "outside" || v == "yes" || v == "no")
+  if (v == "outside" || v == "yes" || v == "no" || v == "separated" || v == "isolated" || v == "dedicated")
     return v;
-  // Process additional top tags.
-  if (v == "separated" || v == "isolated" || v == "dedicated")
-    return "yes";
   return {};
 }
 

@@ -1336,11 +1336,6 @@ world  +
         wholesale  -
         wine  -
         {}
-    smoking  +
-        no  -
-        outside  -
-        yes  -
-        {}
     sport  +
         10pin  -
         9pin  -

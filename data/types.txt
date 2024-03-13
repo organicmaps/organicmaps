@@ -1595,8 +1595,3 @@ amenity|recycling|container
 *railway|subway_entrance|singapore
 *railway|station|subway|boston
 *railway|subway_entrance|boston
-*smoking|no
-*smoking|outside
-*smoking|yes
-*smoking|isolated
-*smoking|separated
