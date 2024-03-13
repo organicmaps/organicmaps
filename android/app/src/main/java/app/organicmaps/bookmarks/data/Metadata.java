@@ -62,7 +62,7 @@ public class Metadata implements Parcelable
     FMD_WIKIMEDIA_COMMONS(41),
     FMD_CAPACITY(42),
     FMD_WHEELCHAIR(43),
-    FMD_LOCAL_REF(44);
+    FMD_LOCAL_REF(44),
     FMD_SMOKING(45);
     private final int mMetaType;
 
