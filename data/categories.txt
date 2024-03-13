@@ -14258,7 +14258,7 @@ cs:Posilovna
 da:3Fitness-station
 de:3Fitnessstation
 el:Γυμναστήριο
-es:Gimnasio|Aparatos de gimnasia|Aparatos de ejercicio
+es:Aparatos de gimnasia|Aparatos de ejercicio|Estación de ejercicios
 et:Välivõimla
 eu:Gimnasioa
 fi:Kuntokeskus
