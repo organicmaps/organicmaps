@@ -13444,7 +13444,7 @@
 
   [login]
     tags = android,ios
-    en = OpenStreetMap Login
+    en = Login
     af = OpenStreetMap-aantekening
     ar = تسجيل الدخول
     az = Daxil ol
@@ -13461,7 +13461,7 @@
     fa = ورود
     fi = Kirjaudu sisään
     fr = Connexion
-    he = כניסה ל-OpenStreetMap
+    he = כניסה
     hu = Bejelentkezés
     id = Masuk
     it = Accedi
@@ -20353,14 +20353,14 @@
   [alert_reauth_title]
     tags = android
     en = Login to OpenStreetMap
-    ru = Войдите в OpenStreetMap.org
-    uk = Увійдить в OpenStreetMap.org
+    ru = Войдите в OpenStreetMap
+    uk = Увійдить в OpenStreetMap
 
   [alert_reauth_message]
     tags = android
-    en = Please re-login to OpenStreetMap to automatically upload all your map edits.\n<a href="https://github.com/organicmaps/organicmaps/issues/6144">Learn more…</a>
-    ru = Пожалуйста повторно войдите в аккаунта OpenStreetMap.org чтобы публиковать изменения карты.\n<a href="https://github.com/organicmaps/organicmaps/issues/6144">Подробности…</a>
-    uk = Будь ласка увійдіть у свій OpenStreetMap.org акаунт щоб автоматично публікувати зміни до мапи.\n<a href="https://github.com/organicmaps/organicmaps/issues/6144">Подробиці…</a>
+    en = Please login to OpenStreetMap to automatically upload all your map edits. Learn more <a href="https://github.com/organicmaps/organicmaps/issues/6144">here</a>.
+    ru = Пожалуйста войдите в аккаунт OpenStreetMap.org, чтобы публиковать ваши изменения карты. Подробности по <a href="https://github.com/organicmaps/organicmaps/issues/6144">ссылке</a>.
+    uk = Будь ласка увійдіть в акаунт OpenStreetMap.org, щоб автоматично публікувати зміни до мапи. Подробиці за <a href="https://github.com/organicmaps/organicmaps/issues/6144">посиланням</a>.
 
   [dialog_error_storage_title]
     tags = android
