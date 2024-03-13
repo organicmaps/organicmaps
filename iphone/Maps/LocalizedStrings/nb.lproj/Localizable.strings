@@ -779,8 +779,6 @@
 
 "downloader_no_downloaded_maps_message" = "Last ned kart for å finne plasseringen og navigere frakoblet.";
 
-"stop" = "Stopp";
-
 "current_location_unknown_error_title" = "Gjeldende plassering er ukjent.";
 
 "current_location_unknown_error_message" = "Det oppstod en feil under søking etter plasseringen din. Kontroller at plasseringen din virker som den skal, og prøv på nytt senere.";
@@ -1035,15 +1033,16 @@
 
 "speedcams_alert_title" = "Fartskamera";
 
-/* Generic «Always» string */
-"always" = "Alltid";
-
-/* Generic «Never» string */
-"never" = "Aldri";
-
 "place_description_title" = "Plasser beskrivelse";
 
-"speedcams_notice_message" = "Auto - Advarsel om fartskamera hvis det er fare for å overskride fartsgrensen\nAlltid - Advar alltid om farskameraer\nAldri - Advar aldri om fartskameraer";
+/* Speed camera settings menu option - Warn (about speedcams) if risk of exceeding speed limit */
+"pref_tts_speedcams_auto" = "Advarsel hvis det er fare for å overskride fartsgrensen";
+
+/* Speed camera settings menu option - Always warn (about speedcams) */
+"pref_tts_speedcams_always" = "Advar alltid";
+
+/* Speed camera settings menu option - Never warn (about speedcams) */
+"pref_tts_speedcams_never" = "Advar aldri";
 
 "power_managment_title" = "Strømsparemodus";
 

@@ -493,7 +493,6 @@
 	<string name="editor_operator">运营者</string>
 	<string name="downloader_no_downloaded_maps_title">您尚未下载任何地图</string>
 	<string name="downloader_no_downloaded_maps_message">下载地图来查找位置和离线浏览</string>
-	<string name="stop">停止</string>
 	<!-- abbreviation for meters -->
 	<string name="m">米</string>
 	<!-- abbreviation for kilometers -->
@@ -617,10 +616,6 @@
 	<string name="bookmark_list_description_hint">请添加说明（文字或html）</string>
 	<string name="not_shared">私人</string>
 	<string name="speedcams_alert_title">高速摄像机</string>
-	<!-- Generic «Always» string -->
-	<string name="always">总是</string>
-	<!-- Generic «Never» string -->
-	<string name="never">从不</string>
 	<string name="place_description_title">地点说明</string>
 	<!-- this text will be shown in application notification preferences opposite checkbox which enable/disable downloader notifications. Devices on Android 8+ are affected. -->
 	<string name="notification_channel_downloader">加载地图</string>

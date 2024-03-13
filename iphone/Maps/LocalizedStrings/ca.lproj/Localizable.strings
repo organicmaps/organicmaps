@@ -779,8 +779,6 @@
 
 "downloader_no_downloaded_maps_message" = "Baixeu mapes per a cercar una ubicacio i usar la navegació sense connexió.";
 
-"stop" = "Atura't";
-
 "current_location_unknown_error_title" = "Es desconeix la ubicació actual.";
 
 "current_location_unknown_error_message" = "S'ha produït un error en cercar la vostra ubicació. Comproveu que l'aparel funciona correctament i torneu-ho a intentar.";
@@ -1035,15 +1033,16 @@
 
 "speedcams_alert_title" = "Radars";
 
-/* Generic «Always» string */
-"always" = "Sempre";
-
-/* Generic «Never» string */
-"never" = "Mai";
-
 "place_description_title" = "Descripció del lloc";
 
-"speedcams_notice_message" = "Automàtic - Avisa dels radars si hi ha risc d'excedir el límit de velocitat\n Sempre - Sempre avisa dels radars\nMai - No avisa mai sobre els radars";
+/* Speed camera settings menu option - Warn (about speedcams) if risk of exceeding speed limit */
+"pref_tts_speedcams_auto" = "Avisa si hi ha risc d'excedir el límit de velocitat";
+
+/* Speed camera settings menu option - Always warn (about speedcams) */
+"pref_tts_speedcams_always" = "Sempre avisa";
+
+/* Speed camera settings menu option - Never warn (about speedcams) */
+"pref_tts_speedcams_never" = "No n'avisis mai";
 
 "power_managment_title" = "Mode d'estalvi d'energia";
 

@@ -506,7 +506,6 @@
 	<string name="editor_operator">Prevádzkovateľ</string>
 	<string name="downloader_no_downloaded_maps_title">Neprevzali ste žiadne mapy</string>
 	<string name="downloader_no_downloaded_maps_message">Prevziať mapy na nájdenie pozície a navigovanie off-line.</string>
-	<string name="stop">Zastaviť</string>
 	<!-- abbreviation for meters -->
 	<string name="m">m</string>
 	<!-- abbreviation for kilometers -->
@@ -639,10 +638,6 @@
 	<string name="bookmark_list_description_hint">Zadajte popis (text alebo html)</string>
 	<string name="not_shared">Súkromné</string>
 	<string name="speedcams_alert_title">Rýchlostné kamery</string>
-	<!-- Generic «Always» string -->
-	<string name="always">Vždy</string>
-	<!-- Generic «Never» string -->
-	<string name="never">Nikdy</string>
 	<string name="place_description_title">Popis miesta</string>
 	<!-- this text will be shown in application notification preferences opposite checkbox which enable/disable downloader notifications. Devices on Android 8+ are affected. -->
 	<string name="notification_channel_downloader">Sťahovač máp</string>

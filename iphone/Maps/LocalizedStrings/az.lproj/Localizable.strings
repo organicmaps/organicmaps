@@ -779,8 +779,6 @@
 
 "downloader_no_downloaded_maps_message" = "Ünvanları tapmaq və oflayn naviqasiya etmək üçün xəritələri endirin.";
 
-"stop" = "Dayan";
-
 "current_location_unknown_error_title" = "Cari yer məlum deyil.";
 
 "current_location_unknown_error_message" = "Məkanınızı axtararkən xəta baş verdi. Cihazınızın düzgün işlədiyini yoxlayın və sonra yenidən cəhd edin.";
@@ -1035,15 +1033,16 @@
 
 "speedcams_alert_title" = "Sürət kameraları";
 
-/* Generic «Always» string */
-"always" = "Həmişə";
-
-/* Generic «Never» string */
-"never" = "Heç vaxt";
-
 "place_description_title" = "Məkan Təsviri";
 
-"speedcams_notice_message" = "Avtomatik - Sürət həddini aşmaq riski varsa, sürət kameraları barədə xəbərdarlıq edin\nHəmişə sürət kameraları haqqında xəbərdar edin\nHeç sürət kameraları haqqında xəbərdar etməyin";
+/* Speed camera settings menu option - Warn (about speedcams) if risk of exceeding speed limit */
+"pref_tts_speedcams_auto" = "Sürət həddini aşmaq riski varsa, xəbərdarlıq edin";
+
+/* Speed camera settings menu option - Always warn (about speedcams) */
+"pref_tts_speedcams_always" = "Həmişə xəbərdar edin";
+
+/* Speed camera settings menu option - Never warn (about speedcams) */
+"pref_tts_speedcams_never" = "Heç xəbərdar etməyin";
 
 "power_managment_title" = "Enerji qənaət rejimi";
 

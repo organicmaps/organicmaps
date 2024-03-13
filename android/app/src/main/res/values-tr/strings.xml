@@ -508,7 +508,6 @@
 	<string name="editor_operator">İşletmeci</string>
 	<string name="downloader_no_downloaded_maps_title">Hiç harita indirmediniz</string>
 	<string name="downloader_no_downloaded_maps_message">Çevrimdışı olarak adres bulmak ve gezinmek için haritaları indirin.</string>
-	<string name="stop">Dur</string>
 	<!-- abbreviation for meters -->
 	<string name="m">m</string>
 	<!-- abbreviation for kilometers -->
@@ -639,10 +638,6 @@
 	<string name="bookmark_list_description_hint">Bir açıklama yazın (metin veya html)</string>
 	<string name="not_shared">Gizli</string>
 	<string name="speedcams_alert_title">Hız kameraları</string>
-	<!-- Generic «Always» string -->
-	<string name="always">Her zaman</string>
-	<!-- Generic «Never» string -->
-	<string name="never">Asla</string>
 	<string name="place_description_title">Yer Açıklaması</string>
 	<!-- this text will be shown in application notification preferences opposite checkbox which enable/disable downloader notifications. Devices on Android 8+ are affected. -->
 	<string name="notification_channel_downloader">Harita indirici</string>

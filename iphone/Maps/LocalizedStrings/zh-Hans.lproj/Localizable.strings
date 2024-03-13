@@ -779,8 +779,6 @@
 
 "downloader_no_downloaded_maps_message" = "下载地图来查找位置和离线浏览";
 
-"stop" = "停止";
-
 "current_location_unknown_error_title" = "当前位置未知";
 
 "current_location_unknown_error_message" = "定位到您的当前位置时出错。请检查您的设备是否正常运作，然后再试一次。";
@@ -1035,15 +1033,16 @@
 
 "speedcams_alert_title" = "高速摄像机";
 
-/* Generic «Always» string */
-"always" = "总是";
-
-/* Generic «Never» string */
-"never" = "从不";
-
 "place_description_title" = "地点说明";
 
-"speedcams_notice_message" = "自动 - 如果存在超出速度限制的风险，则对速度摄像头发出警告\n总是 - 始终提醒摄像头\n从不 - 永远不会对摄像头发出警告";
+/* Speed camera settings menu option - Warn (about speedcams) if risk of exceeding speed limit */
+"pref_tts_speedcams_auto" = "如果存在超出速度限制的风险，则对速度摄像头发出警告";
+
+/* Speed camera settings menu option - Always warn (about speedcams) */
+"pref_tts_speedcams_always" = "始终提醒摄像头";
+
+/* Speed camera settings menu option - Never warn (about speedcams) */
+"pref_tts_speedcams_never" = "永远不会对摄像头发出警告";
 
 "power_managment_title" = "省电模式";
 

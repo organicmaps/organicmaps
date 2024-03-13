@@ -779,8 +779,6 @@
 
 "downloader_no_downloaded_maps_message" = "下載地圖來尋找位置和離線瀏覽。";
 
-"stop" = "停止";
-
 "current_location_unknown_error_title" = "目前位置未知。";
 
 "current_location_unknown_error_message" = "定位到您的當前位置時出錯。請檢查您的裝置是否正常運作，然後再試一次。";
@@ -1035,15 +1033,16 @@
 
 "speedcams_alert_title" = "超速照相機";
 
-/* Generic «Always» string */
-"always" = "總是";
-
-/* Generic «Never» string */
-"never" = "從不";
-
 "place_description_title" = "地點說明";
 
-"speedcams_notice_message" = "自動 - 如果存在超出速度限制的風險，則對速度照相機發出警告\n總是 - 始終提醒照相機\n從不 - 永遠不會對照相機發出警告";
+/* Speed camera settings menu option - Warn (about speedcams) if risk of exceeding speed limit */
+"pref_tts_speedcams_auto" = "如果存在超出速度限制的風險，則對速度照相機發出警告";
+
+/* Speed camera settings menu option - Always warn (about speedcams) */
+"pref_tts_speedcams_always" = "始終提醒照相機";
+
+/* Speed camera settings menu option - Never warn (about speedcams) */
+"pref_tts_speedcams_never" = "永遠不會對照相機發出警告";
 
 "power_managment_title" = "省電模式";
 

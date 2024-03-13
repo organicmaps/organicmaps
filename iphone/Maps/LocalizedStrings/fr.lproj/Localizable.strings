@@ -779,8 +779,6 @@
 
 "downloader_no_downloaded_maps_message" = "Téléchargez des cartes pour rechercher un lieu et utiliser la navigation hors ligne";
 
-"stop" = "Arrêter";
-
 "current_location_unknown_error_title" = "L'emplacement actuel est inconnu.";
 
 "current_location_unknown_error_message" = "Une erreur est survenue lors de la recherche de votre emplacement. Vérifiez que le périphérique fonctionne correctement et réessayez ultérieurement";
@@ -1035,15 +1033,16 @@
 
 "speedcams_alert_title" = "Radars de vitesse";
 
-/* Generic «Always» string */
-"always" = "Toujours";
-
-/* Generic «Never» string */
-"never" = "Jamais";
-
 "place_description_title" = "Description d'endroit";
 
-"speedcams_notice_message" = "Auto - Alerte sur les radars en cas de risque de dépassement de la limite de vitesse\nToujours - Toujours avertir des radars\nJamais - Jamais avertir à propos des radars";
+/* Speed camera settings menu option - Warn (about speedcams) if risk of exceeding speed limit */
+"pref_tts_speedcams_auto" = "Alerte sonore en cas de risque de dépassement de la limite de vitesse";
+
+/* Speed camera settings menu option - Always warn (about speedcams) */
+"pref_tts_speedcams_always" = "Toujours avertir";
+
+/* Speed camera settings menu option - Never warn (about speedcams) */
+"pref_tts_speedcams_never" = "Jamais avertir";
 
 "power_managment_title" = "Mode économie d'énergie";
 

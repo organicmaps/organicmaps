@@ -506,7 +506,6 @@
 	<string name="editor_operator">Eragilea</string>
 	<string name="downloader_no_downloaded_maps_title">Ez duzu maparik deskargatu</string>
 	<string name="downloader_no_downloaded_maps_message">Deskargatu mapak kokapena aurkitzeko eta lineaz kanpo nabigatzeko.</string>
-	<string name="stop">Gelditu</string>
 	<!-- abbreviation for meters -->
 	<string name="m">m</string>
 	<!-- abbreviation for kilometers -->
@@ -641,10 +640,6 @@
 	<string name="bookmark_list_description_hint">Gehitu deskribapen bat (testua edo html)</string>
 	<string name="not_shared">Pribatua</string>
 	<string name="speedcams_alert_title">Abiadura kamerak</string>
-	<!-- Generic «Always» string -->
-	<string name="always">Beti</string>
-	<!-- Generic «Never» string -->
-	<string name="never">Inoiz ez</string>
 	<string name="place_description_title">Tokiaren deskribapena</string>
 	<!-- this text will be shown in application notification preferences opposite checkbox which enable/disable downloader notifications. Devices on Android 8+ are affected. -->
 	<string name="notification_channel_downloader">Deskargatu mapak</string>

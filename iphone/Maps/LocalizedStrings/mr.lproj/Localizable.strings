@@ -779,8 +779,6 @@
 
 "downloader_no_downloaded_maps_message" = "स्थान शोधण्यासाठी नकाशे डाउनलोड करा आणि ऑफलाइन मार्गनिर्देशन वापरा.";
 
-"stop" = "थांबा";
-
 "current_location_unknown_error_title" = "वर्तमान स्थान अज्ञात आहे.";
 
 "current_location_unknown_error_message" = "तुमचे स्थान शोधत असताना एक त्रुटी आढळली. तुमचे उपकरण योग्यरितीने काम करत असल्याचे तपासा आणि नंतर पुन्हा प्रयत्न करा.";
@@ -1035,15 +1033,16 @@
 
 "speedcams_alert_title" = "वेग कॅमेरे";
 
-/* Generic «Always» string */
-"always" = "नेहमी";
-
-/* Generic «Never» string */
-"never" = "कधीच नाही";
-
 "place_description_title" = "ठिकाणाचे वर्णन";
 
-"speedcams_notice_message" = "स्वयं - वेगमर्यादा ओलांडण्याचा धोका असल्यास वेगकॅमबद्दल चेतावणी द्या\nनेहमी - नेहमी वेगकॅमबद्दल चेतावणी द्या\nकधीही नाही - वेगकॅमबद्दल कधीही चेतावणी देऊ नका";
+/* Speed camera settings menu option - Warn (about speedcams) if risk of exceeding speed limit */
+"pref_tts_speedcams_auto" = "वेगमर्यादा ओलांडण्याचा धोका असल्यास चेतावणी द्या";
+
+/* Speed camera settings menu option - Always warn (about speedcams) */
+"pref_tts_speedcams_always" = "नेहमी चेतावणी द्या";
+
+/* Speed camera settings menu option - Never warn (about speedcams) */
+"pref_tts_speedcams_never" = "कधीही चेतावणी देऊ नका";
 
 "power_managment_title" = "ऊर्जा बचत मोड";
 

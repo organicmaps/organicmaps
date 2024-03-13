@@ -482,7 +482,6 @@
 	<string name="editor_operator">소유자</string>
 	<string name="downloader_no_downloaded_maps_title">지도를 다운로드하지 않았습니다</string>
 	<string name="downloader_no_downloaded_maps_message">오프라인으로 위치를 검색하려면 지도를 다운로드하세요.</string>
-	<string name="stop">중지</string>
 	<!-- abbreviation for meters -->
 	<string name="m">m</string>
 	<!-- abbreviation for kilometers -->
@@ -606,10 +605,6 @@
 	<string name="bookmark_list_description_hint">묘사를 적으세요 (글자 혹은 html)</string>
 	<string name="not_shared">개인</string>
 	<string name="speedcams_alert_title">속도 감시 카메라</string>
-	<!-- Generic «Always» string -->
-	<string name="always">항상</string>
-	<!-- Generic «Never» string -->
-	<string name="never">안함</string>
 	<string name="place_description_title">장소 묘사</string>
 	<!-- this text will be shown in application notification preferences opposite checkbox which enable/disable downloader notifications. Devices on Android 8+ are affected. -->
 	<string name="notification_channel_downloader">맵 다운로더</string>

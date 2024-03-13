@@ -779,8 +779,6 @@
 
 "downloader_no_downloaded_maps_message" = "Unduh peta untuk menemukan lokasi dan bernavigasi secara offline.";
 
-"stop" = "Berhenti";
-
 "current_location_unknown_error_title" = "Lokasi saat ini tidak diketahui.";
 
 "current_location_unknown_error_message" = "Terjadi kesalahan saat mencari lokasi Anda. Periksa apakah perangkat Anda bekerja dengan benar dan coba lagi nanti.";
@@ -1035,15 +1033,16 @@
 
 "speedcams_alert_title" = "Kamera cepat";
 
-/* Generic «Always» string */
-"always" = "Selalu";
-
-/* Generic «Never» string */
-"never" = "Tidak pernah";
-
 "place_description_title" = "Deskripsi Tempat";
 
-"speedcams_notice_message" = "Auto - Peringatkan tentang kamera kecepatan saat terdapat risiko melebihi batas kecepatan\nSelalu - Selalu peringatkan tentang kamera kecepatan\nTidak pernah - Jangan pernah peringatkan tentang kamera kecepatan";
+/* Speed camera settings menu option - Warn (about speedcams) if risk of exceeding speed limit */
+"pref_tts_speedcams_auto" = "Peringatkan saat terdapat risiko melebihi batas kecepatan";
+
+/* Speed camera settings menu option - Always warn (about speedcams) */
+"pref_tts_speedcams_always" = "Selalu peringatkan";
+
+/* Speed camera settings menu option - Never warn (about speedcams) */
+"pref_tts_speedcams_never" = "Jangan pernah peringatkan";
 
 "power_managment_title" = "Mode hemat daya";
 

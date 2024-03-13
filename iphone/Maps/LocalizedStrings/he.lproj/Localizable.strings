@@ -779,8 +779,6 @@
 
 "downloader_no_downloaded_maps_message" = "הורד מפה כדי לחפש ולנווט ללא חיבור לאינטרנט.";
 
-"stop" = "הפסק";
-
 "current_location_unknown_error_title" = "המיקום הנוכחי לא ידוע.";
 
 "current_location_unknown_error_message" = "אירעה שגיאה בעת איתור המיקום שלך. יש לוודא שהמכשיר שלך פועל כראוי ולנסות שנית מאוחר יותר.";
@@ -1035,15 +1033,16 @@
 
 "speedcams_alert_title" = "מצלמות מהירות";
 
-/* Generic «Always» string */
-"always" = "תמיד";
-
-/* Generic «Never» string */
-"never" = "אף פעם";
-
 "place_description_title" = "תיאור מיקום";
 
-"speedcams_notice_message" = "אוטומטי - הזהר מפני מצלמות מהירות אם יש חשש להפרזה במהירות\nתמיד - הזהר מפני מצלמות מהירות תמיד\nאף פעם - אל תזהיר מפני מצלמות מהירות אף פעם";
+/* Speed camera settings menu option - Warn (about speedcams) if risk of exceeding speed limit */
+"pref_tts_speedcams_auto" = "הזהר אם יש חשש להפרזה במהירות";
+
+/* Speed camera settings menu option - Always warn (about speedcams) */
+"pref_tts_speedcams_always" = "הזהר  תמיד";
+
+/* Speed camera settings menu option - Never warn (about speedcams) */
+"pref_tts_speedcams_never" = "אל תזהיר אף פעם";
 
 "power_managment_title" = "מצב חיסכון בסוללה";
 

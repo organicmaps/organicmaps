@@ -485,7 +485,6 @@
 	<string name="editor_operator">Ιδιοκτήτης</string>
 	<string name="downloader_no_downloaded_maps_title">Δεν έχετε κατεβάσει χάρτες</string>
 	<string name="downloader_no_downloaded_maps_message">Κατεβάστε χάρτες για να αναζητήσετε μια τοποθεσία και να χρησιμοποιήσετε την πλοήγησης χωρίς σύνδεση.</string>
-	<string name="stop">Στοπ</string>
 	<string name="placepage_more_button">Περισσότερα</string>
 	<!-- A referral link on the place page for some hotels -->
 	<string name="more_on_kayak">Φωτογραφίες, κριτικές, κράτηση</string>
@@ -596,10 +595,6 @@
 	<string name="bookmark_list_description_hint">Πληκτρολογήστε μια περιγραφή (κείμενο ή html)</string>
 	<string name="not_shared">Προσωπικός</string>
 	<string name="speedcams_alert_title">Κάμερες Ταχύτητας</string>
-	<!-- Generic «Always» string -->
-	<string name="always">Πάντα</string>
-	<!-- Generic «Never» string -->
-	<string name="never">Ποτέ</string>
 	<string name="place_description_title">Περιγραφή μέρους</string>
 	<!-- this text will be shown in application notification preferences opposite checkbox which enable/disable downloader notifications. Devices on Android 8+ are affected. -->
 	<string name="notification_channel_downloader">Κατέβασμα χαρτών</string>

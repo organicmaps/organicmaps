@@ -779,8 +779,6 @@
 
 "downloader_no_downloaded_maps_message" = "오프라인으로 위치를 검색하려면 지도를 다운로드하세요.";
 
-"stop" = "중지";
-
 "current_location_unknown_error_title" = "현재 위치를 알 수 없습니다.";
 
 "current_location_unknown_error_message" = "위치 검색 중 오류가 발생했습니다. 장치가 올바르게 작동되는지 확인하고 다시 시도하세요.";
@@ -1035,15 +1033,16 @@
 
 "speedcams_alert_title" = "속도 감시 카메라";
 
-/* Generic «Always» string */
-"always" = "항상";
-
-/* Generic «Never» string */
-"never" = "안함";
-
 "place_description_title" = "장소 묘사";
 
-"speedcams_notice_message" = "자동 - 속도 제한 초과 위험이 있을때 스피드캠에 대해 경고하기\n항상 - 스피드캠에 대해 항상 경고하기\n절대 아님 - 스피드캠에 대해 경고하지 않기";
+/* Speed camera settings menu option - Warn (about speedcams) if risk of exceeding speed limit */
+"pref_tts_speedcams_auto" = "속도 제한 초과 위험이 있을때 경고하기";
+
+/* Speed camera settings menu option - Always warn (about speedcams) */
+"pref_tts_speedcams_always" = "항상 경고하기";
+
+/* Speed camera settings menu option - Never warn (about speedcams) */
+"pref_tts_speedcams_never" = "경고하지 않기";
 
 "power_managment_title" = "전력 절약 모드";
 

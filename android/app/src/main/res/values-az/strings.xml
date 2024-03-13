@@ -508,7 +508,6 @@
 	<string name="editor_operator">Sahibi</string>
 	<string name="downloader_no_downloaded_maps_title">Siz heç bir xəritə endirməmisiniz</string>
 	<string name="downloader_no_downloaded_maps_message">Ünvanları tapmaq və oflayn naviqasiya etmək üçün xəritələri endirin.</string>
-	<string name="stop">Dayan</string>
 	<!-- abbreviation for meters -->
 	<string name="m">m</string>
 	<!-- abbreviation for kilometers -->
@@ -639,10 +638,6 @@
 	<string name="bookmark_list_description_hint">Təsvir yazın (mətn və ya html)</string>
 	<string name="not_shared">Gizli</string>
 	<string name="speedcams_alert_title">Sürət kameraları</string>
-	<!-- Generic «Always» string -->
-	<string name="always">Həmişə</string>
-	<!-- Generic «Never» string -->
-	<string name="never">Heç vaxt</string>
 	<string name="place_description_title">Məkan Təsviri</string>
 	<!-- this text will be shown in application notification preferences opposite checkbox which enable/disable downloader notifications. Devices on Android 8+ are affected. -->
 	<string name="notification_channel_downloader">Xəritə yükləyicisi</string>

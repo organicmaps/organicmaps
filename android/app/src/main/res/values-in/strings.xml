@@ -484,7 +484,6 @@
 	<string name="editor_operator">Pemilik</string>
 	<string name="downloader_no_downloaded_maps_title">Tidak ada peta apa pun yang diunduh</string>
 	<string name="downloader_no_downloaded_maps_message">Unduh peta untuk menemukan lokasi dan bernavigasi secara offline.</string>
-	<string name="stop">Berhenti</string>
 	<!-- abbreviation for meters -->
 	<string name="m">m</string>
 	<!-- abbreviation for kilometers -->
@@ -609,10 +608,6 @@
 	<string name="bookmark_list_description_hint">Ketikkan deskripsi (teks atau html)</string>
 	<string name="not_shared">Pribadi</string>
 	<string name="speedcams_alert_title">Kamera cepat</string>
-	<!-- Generic «Always» string -->
-	<string name="always">Selalu</string>
-	<!-- Generic «Never» string -->
-	<string name="never">Tidak pernah</string>
 	<string name="place_description_title">Deskripsi Tempat</string>
 	<!-- this text will be shown in application notification preferences opposite checkbox which enable/disable downloader notifications. Devices on Android 8+ are affected. -->
 	<string name="notification_channel_downloader">Pengunduh peta</string>

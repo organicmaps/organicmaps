@@ -500,7 +500,6 @@
 	<string name="editor_operator">בעלים</string>
 	<string name="downloader_no_downloaded_maps_title">לא הורדת אף מפה</string>
 	<string name="downloader_no_downloaded_maps_message">הורד מפה כדי לחפש ולנווט ללא חיבור לאינטרנט.</string>
-	<string name="stop">הפסק</string>
 	<!-- abbreviation for meters -->
 	<string name="m">מ׳</string>
 	<!-- abbreviation for kilometers -->
@@ -634,10 +633,6 @@
 	<string name="bookmark_list_description_hint">הזן תיאור (טקסט או HTML)</string>
 	<string name="not_shared">פרטי</string>
 	<string name="speedcams_alert_title">מצלמות מהירות</string>
-	<!-- Generic «Always» string -->
-	<string name="always">תמיד</string>
-	<!-- Generic «Never» string -->
-	<string name="never">אף פעם</string>
 	<string name="place_description_title">תיאור מיקום</string>
 	<!-- this text will be shown in application notification preferences opposite checkbox which enable/disable downloader notifications. Devices on Android 8+ are affected. -->
 	<string name="notification_channel_downloader">מוריד המפות</string>

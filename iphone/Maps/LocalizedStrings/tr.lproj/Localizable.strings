@@ -779,8 +779,6 @@
 
 "downloader_no_downloaded_maps_message" = "Çevrimdışı olarak adres bulmak ve gezinmek için haritaları indirin.";
 
-"stop" = "Dur";
-
 "current_location_unknown_error_title" = "Geçerli konum bilinmiyor.";
 
 "current_location_unknown_error_message" = "Konumunuz aranırken bir hata oluştu. Cihazınızın düzgün çalışıp çalışmadığını kontrol edin ve daha sonra tekrar deneyin.";
@@ -1035,15 +1033,16 @@
 
 "speedcams_alert_title" = "Hız kameraları";
 
-/* Generic «Always» string */
-"always" = "Her zaman";
-
-/* Generic «Never» string */
-"never" = "Asla";
-
 "place_description_title" = "Yer Açıklaması";
 
-"speedcams_notice_message" = "Otomatik - Hız sınırını aşma riski varsa hız kameraları hakkında uyar\nHer zaman - Hız kameraları hakkında her zaman uyar\nAsla - Hız kameraları hakkında hiç bir zaman uyarma";
+/* Speed camera settings menu option - Warn (about speedcams) if risk of exceeding speed limit */
+"pref_tts_speedcams_auto" = "Hız sınırını aşma riski varsa uyar";
+
+/* Speed camera settings menu option - Always warn (about speedcams) */
+"pref_tts_speedcams_always" = "Her zaman uyar";
+
+/* Speed camera settings menu option - Never warn (about speedcams) */
+"pref_tts_speedcams_never" = "Hiç bir zaman uyarma";
 
 "power_managment_title" = "Güç tasarrufu modu";
 

@@ -779,8 +779,6 @@
 
 "downloader_no_downloaded_maps_message" = "ロケーションの検索とオフラインナビゲートのためにマップをダウンロードしてください。";
 
-"stop" = "止める";
-
 "current_location_unknown_error_title" = "現在地は不明です。";
 
 "current_location_unknown_error_message" = "現在地の検索中にエラーが発生しました。 デバイスが正常に動作していることを確認して、もう一度お試しください。";
@@ -1035,15 +1033,16 @@
 
 "speedcams_alert_title" = "自動速度違反取締装置";
 
-/* Generic «Always» string */
-"always" = "常時";
-
-/* Generic «Never» string */
-"never" = "無効";
-
 "place_description_title" = "場所の説明";
 
-"speedcams_notice_message" = "自動－速度制限超過の危険性がある場合には、自動速度違反取締装置について警告します\n常時－自動速度違反取締装置について常に警告します\n無効－自動速度違反取締装置を警告しません";
+/* Speed camera settings menu option - Warn (about speedcams) if risk of exceeding speed limit */
+"pref_tts_speedcams_auto" = "速度制限超過の危険性がある場合には、自動速度違反取締装置について警告します";
+
+/* Speed camera settings menu option - Always warn (about speedcams) */
+"pref_tts_speedcams_always" = "自動速度違反取締装置について常に警告します";
+
+/* Speed camera settings menu option - Never warn (about speedcams) */
+"pref_tts_speedcams_never" = "自動速度違反取締装置を警告しません";
 
 "power_managment_title" = "電力節約モード";
 

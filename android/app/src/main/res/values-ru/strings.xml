@@ -511,7 +511,6 @@
 	<string name="editor_operator">Владелец</string>
 	<string name="downloader_no_downloaded_maps_title">У вас нет загруженных карт</string>
 	<string name="downloader_no_downloaded_maps_message">Загрузите необходимые карты, чтобы находить места и пользоваться навигацией без интернета.</string>
-	<string name="stop">Стоп</string>
 	<!-- abbreviation for meters -->
 	<string name="m">м</string>
 	<!-- abbreviation for kilometers -->
@@ -650,15 +649,11 @@
 	<string name="bookmark_list_description_hint">Добавьте описание (текст или html)</string>
 	<string name="not_shared">Личный</string>
 	<string name="speedcams_alert_title">Камеры скорости</string>
-	<!-- Generic «Always» string -->
-	<string name="always">Всегда</string>
-	<!-- Generic «Never» string -->
-	<string name="never">Никогда</string>
 	<string name="place_description_title">Описание места</string>
 	<!-- this text will be shown in application notification preferences opposite checkbox which enable/disable downloader notifications. Devices on Android 8+ are affected. -->
 	<string name="notification_channel_downloader">Загрузка карт</string>
 	<!-- Speed camera settings menu option - Warn (about speedcams) if risk of exceeding speed limit -->
-	<string name="pref_tts_speedcams_auto">Предупреждать если есть риск превышения скоростного лимита</string>
+	<string name="pref_tts_speedcams_auto">Предупреждать при превышении скорости</string>
 	<!-- Speed camera settings menu option - Always warn (about speedcams) -->
 	<string name="pref_tts_speedcams_always">Всегда предупреждать</string>
 	<!-- Speed camera settings menu option - Never warn (about speedcams) -->

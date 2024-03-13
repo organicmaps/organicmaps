@@ -779,8 +779,6 @@
 
 "downloader_no_downloaded_maps_message" = "Download kaarten om een locatie te zoeken en offline te navigeren.";
 
-"stop" = "Stoppen";
-
 "current_location_unknown_error_title" = "Huidige locatie is onbekend.";
 
 "current_location_unknown_error_message" = "Er is een fout opgetreden tijdens het zoeken naar uw locatie. Controleer of uw apparaat goed werkt en probeer het later opnieuw.";
@@ -1035,15 +1033,16 @@
 
 "speedcams_alert_title" = "Snelheidscamera's";
 
-/* Generic «Always» string */
-"always" = "Altijd";
-
-/* Generic «Never» string */
-"never" = "Nooit";
-
 "place_description_title" = "Plaatsbeschrijving";
 
-"speedcams_notice_message" = "Auto - Waarschuw voor speedcams als er een risico bestaat dat de snelheidslimiet wordt overschreden\nAltijd - Waarschuw altijd voor flitspalen\nNooit - Waarschuw nooit over flitspalen";
+/* Speed camera settings menu option - Warn (about speedcams) if risk of exceeding speed limit */
+"pref_tts_speedcams_auto" = "Waarschuw als er een risico bestaat dat de snelheidslimiet wordt overschreden";
+
+/* Speed camera settings menu option - Always warn (about speedcams) */
+"pref_tts_speedcams_always" = "Waarschuw altijd";
+
+/* Speed camera settings menu option - Never warn (about speedcams) */
+"pref_tts_speedcams_never" = "Waarschuw nooit";
 
 "power_managment_title" = "Energiebesparende modus";
 

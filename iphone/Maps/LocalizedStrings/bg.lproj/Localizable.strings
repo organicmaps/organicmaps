@@ -779,8 +779,6 @@
 
 "downloader_no_downloaded_maps_message" = "Изтеглете картите, от които се нуждаете, за да намирате места и да навигирате без интернет.";
 
-"stop" = "Стоп";
-
 "current_location_unknown_error_title" = "Настоящото местоположение е неизвестно.";
 
 "current_location_unknown_error_message" = "Възникна грешка при търсенето на вашето местоположение. Проверете дали устройството ви работи правилно и опитайте отново по-късно.";
@@ -1035,15 +1033,16 @@
 
 "speedcams_alert_title" = "Камери за скорост";
 
-/* Generic «Always» string */
-"always" = "Винаги";
-
-/* Generic «Never» string */
-"never" = "Никога";
-
 "place_description_title" = "Описание на мястото";
 
-"speedcams_notice_message" = "Автоматично - Предупреждава се при камери за скорост, ако има риск от превишаване на ограничението на скоростта\nВинаги - Винаги се продупреждава при камери за скорост\nНикога - Никога не се предупреждава при камери за скорост";
+/* Speed camera settings menu option - Warn (about speedcams) if risk of exceeding speed limit */
+"pref_tts_speedcams_auto" = "Предупреждава ако има риск от превишаване на ограничението на скоростта";
+
+/* Speed camera settings menu option - Always warn (about speedcams) */
+"pref_tts_speedcams_always" = "Винаги се продупреждава";
+
+/* Speed camera settings menu option - Never warn (about speedcams) */
+"pref_tts_speedcams_never" = "Никога не се предупреждава";
 
 "power_managment_title" = "Режим пестене на енергия";
 

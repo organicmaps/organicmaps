@@ -779,8 +779,6 @@
 
 "downloader_no_downloaded_maps_message" = "Descarcă hărți pentru a căuta un loc și a naviga fără conectare la internet.";
 
-"stop" = "Oprește";
-
 "current_location_unknown_error_title" = "Poziția actuală este necunoscută.";
 
 "current_location_unknown_error_message" = "S-a produs o eroare la căutarea poziției tale. Verifică dacă dispozitivul funcționează corect și încearcă din nou.";
@@ -1035,15 +1033,16 @@
 
 "speedcams_alert_title" = "Radare";
 
-/* Generic «Always» string */
-"always" = "Mereu";
-
-/* Generic «Never» string */
-"never" = "Niciodată";
-
 "place_description_title" = "Descrierea locului";
 
-"speedcams_notice_message" = "Auto - Avertizează cu privire la radare dacă există riscul depășirii limitei de viteză\nMereu - Avertizează mereu cu privire la radare\nNiciodată - Nu avertiza niciodată cu privire la radare";
+/* Speed camera settings menu option - Warn (about speedcams) if risk of exceeding speed limit */
+"pref_tts_speedcams_auto" = "Avertizează dacă există riscul depășirii limitei de viteză";
+
+/* Speed camera settings menu option - Always warn (about speedcams) */
+"pref_tts_speedcams_always" = "Avertizează mereu";
+
+/* Speed camera settings menu option - Never warn (about speedcams) */
+"pref_tts_speedcams_never" = "Nu avertiza niciodată";
 
 "power_managment_title" = "Economisire a energiei";
 

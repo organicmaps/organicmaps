@@ -510,7 +510,6 @@
 	<string name="editor_operator">Власник</string>
 	<string name="downloader_no_downloaded_maps_title">Ви не маєте завантажених мап</string>
 	<string name="downloader_no_downloaded_maps_message">Завантажте необхідні мапи, щоб знаходити місця та користуватися навігацією без iнтернету.</string>
-	<string name="stop">Зупинити</string>
 	<!-- abbreviation for meters -->
 	<string name="m">м</string>
 	<!-- abbreviation for kilometers -->
@@ -643,15 +642,11 @@
 	<string name="bookmark_list_description_hint">Додайте опис (текст чи html)</string>
 	<string name="not_shared">Особистий</string>
 	<string name="speedcams_alert_title">Камери швидкості</string>
-	<!-- Generic «Always» string -->
-	<string name="always">Завжди</string>
-	<!-- Generic «Never» string -->
-	<string name="never">Ніколи</string>
 	<string name="place_description_title">Опис місця</string>
 	<!-- this text will be shown in application notification preferences opposite checkbox which enable/disable downloader notifications. Devices on Android 8+ are affected. -->
 	<string name="notification_channel_downloader">Завантаження мап</string>
 	<!-- Speed camera settings menu option - Warn (about speedcams) if risk of exceeding speed limit -->
-	<string name="pref_tts_speedcams_auto">Попереджати якщо є ризик перевищення швидкісного ліміту</string>
+	<string name="pref_tts_speedcams_auto">Попереджати при перевищенні швидкості</string>
 	<!-- Speed camera settings menu option - Always warn (about speedcams) -->
 	<string name="pref_tts_speedcams_always">Завжди попереджати</string>
 	<!-- Speed camera settings menu option - Never warn (about speedcams) -->

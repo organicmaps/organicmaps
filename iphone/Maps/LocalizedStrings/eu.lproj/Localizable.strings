@@ -779,8 +779,6 @@
 
 "downloader_no_downloaded_maps_message" = "Deskargatu mapak kokapena aurkitzeko eta lineaz kanpo nabigatzeko.";
 
-"stop" = "Gelditu";
-
 "current_location_unknown_error_title" = "Uneko kokapena ezezaguna da.";
 
 "current_location_unknown_error_message" = "Errore bat gertatu da zure kokapena bilatzean. Egiaztatu gailua behar bezala dabilela eta saiatu berriro geroago.";
@@ -1035,15 +1033,16 @@
 
 "speedcams_alert_title" = "Abiadura kamerak";
 
-/* Generic «Always» string */
-"always" = "Beti";
-
-/* Generic «Never» string */
-"never" = "Inoiz ez";
-
 "place_description_title" = "Tokiaren deskribapena";
 
-"speedcams_notice_message" = "Automatikoa - abiadura-kamerei buruz ohartarazten du abiadura muga gainditzeko arriskua badago\nBeti - beti abisatu kamerei buruz\nInoiz - inoiz ez abisatu kamerei buruz";
+/* Speed camera settings menu option - Warn (about speedcams) if risk of exceeding speed limit */
+"pref_tts_speedcams_auto" = "Ohartarazten du abiadura muga gainditzeko arriskua badago";
+
+/* Speed camera settings menu option - Always warn (about speedcams) */
+"pref_tts_speedcams_always" = "Beti abisatu";
+
+/* Speed camera settings menu option - Never warn (about speedcams) */
+"pref_tts_speedcams_never" = "Inoiz ez abisatu";
 
 "power_managment_title" = "Energia aurrezteko modua";
 
