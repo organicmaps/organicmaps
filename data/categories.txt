@@ -8712,7 +8712,7 @@ cs:Skateboarding
 da:Skateboarding
 de:Skateboarding
 el:Σκέιτμπορντινγκ
-es:Monopatinaje|Skate
+es:Monopatinaje|Skate|patineta
 et:Rulasõit
 eu:Skateboarding
 fa:اسکیت‌بردینگ
