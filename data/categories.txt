@@ -4469,7 +4469,7 @@ pl:Wynajem samochodów|samochód|auto|Wynajem
 pt:Aluguer de automóveis|3carro|3automóvel|3aluguer|3rent-a-car
 pt-BR:Aluguel de automóveis|carro|aluguel
 ro:Închiriere mașini
-es:3Coche de alquiler|alquiler|rentadora|alquiladora
+es:3Coche de alquiler|alquiler|rentadora|alquiladora|alquiler de coches|alquiler de autos|alquiler de carros
 et:4Autorent
 eu:3Autoa alokairua|alokairua
 sv:3Biluthyrning|bilpool|bil|uthyrning|delning
