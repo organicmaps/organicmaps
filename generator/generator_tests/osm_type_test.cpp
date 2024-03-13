@@ -2719,11 +2719,6 @@ UNIT_CLASS_TEST(TestWithClassificator, OsmType_SimpleTypesSmoke)
     {"wheelchair", "limited"},
     {"wheelchair", "no"},
     {"wheelchair", "yes"},
-    {"smoking", "no"},
-    {"smoking", "outside"},
-    {"smoking", "yes"},
-    {"smoking", "isolated"},
-    {"smoking", "separated"},
   };
 
   using SV = std::string_view;

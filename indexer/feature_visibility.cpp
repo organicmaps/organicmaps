@@ -199,7 +199,6 @@ namespace
       cl.GetTypeByPath({"wheelchair"}),
       cl.GetTypeByPath({"cuisine"}),
       cl.GetTypeByPath({"fee"}),
-      cl.GetTypeByPath({"smoking"}),
     };
     return base::IsExist(arrTypes, type);
   }

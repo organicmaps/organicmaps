@@ -641,3 +641,41 @@ UNIT_TEST(Metadata_ValidateAndFormat_building_levels)
   TEST_EQUAL(tp.ValidateAndFormat_building_levels("2.51"), "2.5", ());
   TEST_EQUAL(tp.ValidateAndFormat_building_levels("250"), "", ("Too many levels."));
 }
+
+UNIT_TEST(Metadata_ValidateAndFormat_smoking)
+{
+  FeatureBuilderParams params;
+  MetadataTagProcessor p(params);
+  Metadata & md = params.GetMetadata();
+
+  p("smoking", "");
+  TEST(md.Empty(), ());
+
+  p("smoking", "yes");
+  TEST_EQUAL(md.Get(Metadata::FMD_SMOKING), "yes", ());
+  md.Drop(Metadata::FMD_SMOKING);
+
+  p("smoking", "outside");
+  TEST_EQUAL(md.Get(Metadata::FMD_SMOKING), "outside", ());
+  md.Drop(Metadata::FMD_SMOKING);
+
+  p("smoking", "no");
+  TEST_EQUAL(md.Get(Metadata::FMD_SMOKING), "no", ());
+  md.Drop(Metadata::FMD_SMOKING);
+
+  p("smoking", "dedicated");
+  TEST_EQUAL(md.Get(Metadata::FMD_SMOKING), "yes", ());
+  md.Drop(Metadata::FMD_SMOKING);
+
+  p("smoking", "separated");
+  TEST_EQUAL(md.Get(Metadata::FMD_SMOKING), "yes", ());
+  md.Drop(Metadata::FMD_SMOKING);
+
+  p("smoking", "isolated");
+  TEST_EQUAL(md.Get(Metadata::FMD_SMOKING), "yes", ());
+  md.Drop(Metadata::FMD_SMOKING);
+
+  p("smoking", "invalid_value");
+  TEST(md.Empty(), ());
+}
+

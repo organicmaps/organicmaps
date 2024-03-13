@@ -246,7 +246,6 @@ string ToString(Metadata::EType type)
   case Metadata::FMD_CAPACITY: return "capacity";
   case Metadata::FMD_WHEELCHAIR: return "wheelchair";
   case Metadata::FMD_LOCAL_REF: return "local_ref";
-  case Metadata::FMD_SMOKING: return "smoking";
   case Metadata::FMD_COUNT: CHECK(false, ("FMD_COUNT can not be used as a type."));
   };
 
