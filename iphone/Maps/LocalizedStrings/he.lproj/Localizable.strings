@@ -653,7 +653,7 @@
 
 "invalid_username_or_password" = "שם משתמש או סיסמה לא תקינים.";
 
-"login" = "כניסה ל-OpenStreetMap";
+"login" = "כניסה";
 
 "forgot_password" = "שכחת סיסמה?";
 

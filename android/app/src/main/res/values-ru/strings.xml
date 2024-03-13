@@ -590,8 +590,8 @@
 	<string name="routing_add_finish_point">Добавьте конечную точку, чтобы построить маршрут</string>
 	<string name="placepage_remove_stop">Удалить</string>
 	<string name="placepage_add_stop">Заехать</string>
-	<string name="alert_reauth_title">Войдите в OpenStreetMap.org</string>
-	<string name="alert_reauth_message">Пожалуйста повторно войдите в аккаунта OpenStreetMap.org чтобы публиковать изменения карты.\n<a href="https://github.com/organicmaps/organicmaps/issues/6144">Подробности…</a></string>
+	<string name="alert_reauth_title">Войдите в OpenStreetMap</string>
+	<string name="alert_reauth_message">Пожалуйста войдите в аккаунт OpenStreetMap.org, чтобы публиковать ваши изменения карты. Подробности по <a href="https://github.com/organicmaps/organicmaps/issues/6144">ссылке</a>.</string>
 	<string name="dialog_error_storage_title">Проблема с доступом к хранилищу</string>
 	<string name="dialog_error_storage_message">Внешняя память устройства недоступна, возможно SD карта была удалена, повреждена или файловая система доступна только для чтения. Проверьте это и свяжитесь, пожалуйста, с нами support\@organicmaps.app</string>
 	<string name="setting_emulate_bad_storage">Эмуляция ошибки с внешней памятью</string>
