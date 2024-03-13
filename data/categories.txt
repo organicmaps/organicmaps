@@ -1975,7 +1975,7 @@ pl:4Supermarket|zakupy
 pt:3Supermercado|Hipermercado
 pt-BR:3Supermercado|mercado
 ro:3Supermarket
-es:3Supermercado|Supermarket
+es:3Supermercado|Supermarket|automercado
 et:3Supermarket
 eu:3Supermerkatua
 sv:3Stormarknad|dagligvaruhandel
