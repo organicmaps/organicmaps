@@ -11905,7 +11905,7 @@ pl:Wulkanizacja
 pt:Reparação de pneus|Recauchutagem
 pt-BR:Borracheiro|borracharia|pneus
 ro:Vulcanizare
-es:Reparación de neumáticos|Gomerìa|Vulcanizadora
+es:Reparación de neumáticos|Gomería|Vulcanizadora
 et:Rehviparandus
 eu:Pneumatikoen konponketa
 sv:Däckverkstad
