@@ -24,35 +24,35 @@
       style="@style/MwmWidget.MapButton.Search"
       android:layout_gravity="center_vertical"
       android:layout_marginStart="50dp"
-      android:contentDescription="@string/fuel"
+      android:contentDescription="@string/category_fuel"
       app:srcCompat="@drawable/ic_routing_fuel_on" />
     <com.google.android.material.floatingactionbutton.FloatingActionButton
       android:id="@+id/search_parking"
       style="@style/MwmWidget.MapButton.Search"
       android:layout_gravity="center_vertical"
       android:layout_marginStart="@dimen/margin_half"
-      android:contentDescription="@string/parkings"
+      android:contentDescription="@string/category_parking"
       app:srcCompat="@drawable/ic_routing_parking_on" />
     <com.google.android.material.floatingactionbutton.FloatingActionButton
       android:id="@+id/search_eat"
       style="@style/MwmWidget.MapButton.Search"
       android:layout_gravity="center_vertical"
       android:layout_marginStart="@dimen/margin_half"
-      android:contentDescription="@string/eat"
+      android:contentDescription="@string/category_eat"
       app:srcCompat="@drawable/ic_routing_eat_on" />
     <com.google.android.material.floatingactionbutton.FloatingActionButton
       android:id="@+id/search_food"
       style="@style/MwmWidget.MapButton.Search"
       android:layout_gravity="center_vertical"
       android:layout_marginStart="@dimen/margin_half"
-      android:contentDescription="@string/shopping"
+      android:contentDescription="@string/category_shopping"
       app:srcCompat="@drawable/ic_routing_food_on" />
     <com.google.android.material.floatingactionbutton.FloatingActionButton
       android:id="@+id/search_atm"
       style="@style/MwmWidget.MapButton.Search"
       android:layout_gravity="center_vertical"
       android:layout_marginStart="@dimen/margin_half"
-      android:contentDescription="@string/atm"
+      android:contentDescription="@string/category_atm"
       app:srcCompat="@drawable/ic_routing_atm_on" />
   </LinearLayout>
 </RelativeLayout>
