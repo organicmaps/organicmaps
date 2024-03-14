@@ -457,6 +457,13 @@ public enum BookmarkManager
         return filename;
     }
 
+    // Samsung browser adds .xml extension to downloaded gpx files.
+    // Duplicate files have " (1).xml", " (2).xml" suffixes added.
+    final String gpxExt = ".gpx";
+    final int gpxStart = lowerCaseFilename.lastIndexOf(gpxExt);
+    if (gpxStart != -1)
+      return filename.substring(0, gpxStart + gpxExt.length());
+
     // Try get guess extension from the mime type.
     final String mime = resolver.getType(uri);
     if (mime != null)
