@@ -112,7 +112,7 @@
   <style name="MwmTheme.DialogFragment.Fullscreen.Night" parent="Theme.AppCompat">
     <item name="colorPrimary">@color/bg_primary_night</item>
     <item name="android:colorPrimaryDark">?statusBar</item>
-    <item name="colorAccent">@color/base_accent_night</item>
+    <item name="colorAccent">@color/bg_night_primary</item>
     <item name="clickableBackground">?selectableItemBackground</item>
     <item name="colorControlNormal">@color/text_dark_hint</item>
     <item name="android:windowIsFloating">false</item>
@@ -157,10 +157,10 @@
 
   <style name="MwmTheme.Downloader">
     <item name="status_done">@drawable/ic_downloader_done</item>
-    <item name="status_downloadable">@drawable/ic_downloader_download</item>
+    <item name="status_downloadable">@drawable/ic_downloader_download2</item>
     <item name="status_failed">@drawable/downloader_failed</item>
     <item name="status_updatable">@drawable/downloader_update</item>
-    <item name="status_folder">@drawable/ic_downloader_folder</item>
+    <item name="status_folder">@drawable/ic_downloader_folder2</item>
     <item name="status_folder_done">@drawable/ic_downloader_folder_done</item>
   </style>
 

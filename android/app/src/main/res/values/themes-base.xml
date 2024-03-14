@@ -12,6 +12,7 @@
     <item name="android:textColorPrimary">@color/text_dark</item>
     <item name="android:textColorPrimaryInverse">@color/text_light</item>
     <item name="android:textColorSecondary">@color/text_dark_subtitle</item>
+    <item name="bottom_sheet_icon_color">@color/bg_primary</item>
     <item name="android:windowBackground">?windowBackgroundForced</item>
     <item name="android:colorPrimaryDark">@color/bg_primary_dark</item>
     <item name="android:windowSoftInputMode">stateUnspecified|adjustPan</item>
@@ -33,10 +34,10 @@
     <item name="colorBtnHighlight">@color/white_38</item>
     <item name="panel">@color/bg_panel</item>
     <item name="colorLogo">@color/bg_primary</item>
-    <item name="iconTint">@color/black_54</item>
     <item name="iconTintDisabled">@color/black_12</item>
     <item name="iconTintActive">@color/yellow</item>
     <item name="iconTintLight">@color/icon_tint_light</item>
+    <item name="iconTint">@color/bg_primary</item>
 
     <item name="secondary">@color/text_dark_hint</item>
     <item name="dividerHorizontal">@color/divider</item>
@@ -145,6 +146,7 @@
     <item name="android:textColorPrimary">@color/text_light</item>
     <item name="android:textColorPrimaryInverse">@color/text_dark</item>
     <item name="android:textColorSecondary">@color/text_light_subtitle</item>
+    <item name="bottom_sheet_icon_color">@color/bg_night_primary</item>
     <item name="android:windowBackground">?windowBackgroundForced</item>
     <item name="android:colorPrimaryDark">@color/bg_primary_dark_night</item>
     <item name="android:windowSoftInputMode">stateUnspecified|adjustPan</item>
@@ -162,15 +164,15 @@
     <item name="fullscreenDialogTheme">@style/MwmTheme.DialogFragment.Fullscreen.Night</item>
     <item name="colorPrimary">@color/bg_primary_night</item>
     <item name="colorControlNormal">?secondary</item>
-    <item name="colorAccent">@color/base_accent_night</item>
+    <item name="colorAccent">@color/bg_night_primary</item>
     <item name="colorAccentTransparent">@color/base_accent_transparent</item>
     <item name="colorBtnHighlight">@color/white_24</item>
     <item name="panel">@color/bg_panel_night</item>
     <item name="colorLogo">@color/white_primary</item>
-    <item name="iconTint">@color/white_secondary</item>
+    <item name="iconTint">@color/bg_night_primary</item>
     <item name="iconTintDisabled">@color/white_12</item>
     <item name="iconTintActive">@color/yellow</item>
-    <item name="iconTintLight">@color/icon_tint_light_night</item>
+    <item name="iconTintLight">@color/bg_night_primary_light</item>
 
     <item name="secondary">@color/text_light_hint</item>
     <item name="dividerHorizontal">@color/divider_night</item>
@@ -180,14 +182,14 @@
 
     <item name="navNextTurnFrame">@drawable/bg_nav_next_turn_night</item>
     <item name="navNextNextTurnFrame">@drawable/bg_nav_next_next_turn_night</item>
-    <item name="navLanesCardBackgroundColor">@color/base_accent_night</item>
+    <item name="navLanesCardBackgroundColor">@color/bg_night_primary</item>
 
     <item name="buttonBackground">@drawable/button_night</item>
     <item name="buttonTextColor">@color/button_text_night</item>
     <item name="buttonTextColorDisabled">@color/button_text_disabled_night</item>
-    <item name="buttonDialogTextColor">@color/base_accent_night</item>
+    <item name="buttonDialogTextColor">@color/bg_night_primary</item>
 
-    <item name="accentButtonBackground">@drawable/button_accent_night</item>
+    <item name="accentButtonBackground">@color/bg_night_primary</item>
     <item name="accentButtonTextColor">@color/button_accent_text_night</item>
     <!-- TODO: remove accentButtonTextColorDisabled attribute and use everywhere
                accentButtonTextColor selector -->
@@ -197,7 +199,7 @@
     <item name="redButtonTextColor">@color/button_red_text</item>
     <item name="redButtonTextColorDisabled">@color/button_red_text_disabled</item>
 
-    <item name="primaryButtonBackground">@drawable/button_accent</item>
+    <item name="primaryButtonBackground">@drawable/button_accent_night</item>
 
     <item name="menuBackground">@color/bg_menu_night</item>
 

@@ -19,7 +19,7 @@
     android:id="@+id/downloader_status"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:scaleType="center"
+    android:scaleType="fitCenter"
     android:background="?clickableBackground"
     tools:src="@drawable/downloader_failed"/>
 </FrameLayout>
