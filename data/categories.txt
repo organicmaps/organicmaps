@@ -5654,7 +5654,7 @@ pl:4Przedszkole|dzieci|zerówka
 pt:Jardim de infância|Jardim infantil|escola infantil|pré-escola
 pt-BR:Jardim de infância|escola infantil|pré-escola
 ro:Grădiniță
-es:Guardería|Prescolar|Jardín de infantes|Maternal
+es:Guardería|Prescolar|Preescolar|Jardín de infantes|Maternal
 et:Lasteaed|päevahoid|eelkool
 eu:Haurtzaindegia
 sv:Förskola|dagis
