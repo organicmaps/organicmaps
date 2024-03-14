@@ -1178,7 +1178,7 @@ power-plant-coal                                    # icon z17-
 power-plant-gas                                     # icon z17-
 power-plant-hydro                                   # icon z17-
 power-plant-solar                                   # icon z17-
-power-plant-wind                                    # icon z17-
+power-plant-wind                                    # icon z13- (also has caption(optional) z16-)
 power-station                                       # icon z17- (also has caption(optional) z17-)
 === 230
 
@@ -1219,7 +1219,7 @@ leisure-track-area                                  # caption z16- (also has are
 power-generator                                     # icon z17-
 power-generator-gas                                 # icon z17-
 power-generator-hydro                               # icon z17-
-power-generator-wind                                # icon z17-
+power-generator-wind                                # icon z13- (also has caption(optional) z16-)
 === 120
 
 amenity-parking-lane-private                        # icon z19- (also has caption(optional) z19-, area z17-)
@@ -2048,6 +2048,10 @@ leisure-swimming_pool-private                       # icon z17- (also has captio
 # amenity-parking_entrance-permissive               # caption(optional) z19- (also has icon z17-)
 # === -9750
 
+# power-plant-wind                                  # caption(optional) z16- (also has icon z13-)
+# power-station                                     # caption(optional) z17- (also has icon z17-)
+# === -9770
+
 # barrier-entrance                                  # caption(optional) z16- (also has icon z16-)
 # entrance-main                                     # caption(optional) z18- (also has icon z18-)
 # === -9780
@@ -2072,7 +2076,7 @@ leisure-swimming_pool-private                       # icon z17- (also has captio
 # landuse-industrial-mine                           # caption(optional) z15- (also has icon z15-, area z15-)
 # landuse-landfill                                  # caption(optional) z15- (also has icon z15-, area z15-)
 # landuse-quarry                                    # caption(optional) z15- (also has icon z15-, area z15-)
-# power-station                                     # caption(optional) z17- (also has icon z17-)
+# power-generator-wind                              # caption(optional) z16- (also has icon z13-)
 # === -9880
 
 # amenity-parking-lane-private                      # caption(optional) z19- (also has icon z19-, area z17-)

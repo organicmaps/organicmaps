@@ -69120,31 +69120,72 @@ cont {
 cont {
   name: "power-generator-wind"
   element {
+    scale: 15
+    symbol {
+      name: "dot-m"
+      priority: 120
+    }
+  }
+  element {
+    scale: 16
+    symbol {
+      name: "dot-m"
+      priority: 120
+    }
+  }
+  element {
     scale: 17
     symbol {
-      name: "power-m"
+      name: "dot-m"
       priority: 120
     }
   }
   element {
     scale: 18
     symbol {
-      name: "power-m"
+      name: "wind_turbine-m"
       priority: 120
+    }
+    caption {
+      primary {
+        height: 10
+        color: 4473924
+        offset_y: 1
+        is_optional: true
+      }
+      priority: -9880
     }
   }
   element {
     scale: 19
     symbol {
-      name: "power-m"
+      name: "wind_turbine-m"
       priority: 120
+    }
+    caption {
+      primary {
+        height: 10
+        color: 4473924
+        offset_y: 1
+        is_optional: true
+      }
+      priority: -9880
     }
   }
   element {
     scale: 20
     symbol {
-      name: "power-m"
+      name: "wind_turbine-m"
       priority: 120
+    }
+    caption {
+      primary {
+        height: 10
+        color: 4473924
+        offset_y: 1
+        is_optional: true
+      }
+      priority: -9880
     }
   }
 }
@@ -69191,28 +69232,28 @@ cont {
     scale: 17
     symbol {
       name: "power-m"
-      priority: 120
+      priority: 230
     }
   }
   element {
     scale: 18
     symbol {
       name: "power-m"
-      priority: 120
+      priority: 230
     }
   }
   element {
     scale: 19
     symbol {
       name: "power-m"
-      priority: 120
+      priority: 230
     }
   }
   element {
     scale: 20
     symbol {
       name: "power-m"
-      priority: 120
+      priority: 230
     }
   }
 }
@@ -69222,28 +69263,28 @@ cont {
     scale: 17
     symbol {
       name: "power-m"
-      priority: 120
+      priority: 230
     }
   }
   element {
     scale: 18
     symbol {
       name: "power-m"
-      priority: 120
+      priority: 230
     }
   }
   element {
     scale: 19
     symbol {
       name: "power-m"
-      priority: 120
+      priority: 230
     }
   }
   element {
     scale: 20
     symbol {
       name: "power-m"
-      priority: 120
+      priority: 230
     }
   }
 }
@@ -69253,28 +69294,28 @@ cont {
     scale: 17
     symbol {
       name: "power-m"
-      priority: 120
+      priority: 230
     }
   }
   element {
     scale: 18
     symbol {
       name: "power-m"
-      priority: 120
+      priority: 230
     }
   }
   element {
     scale: 19
     symbol {
       name: "power-m"
-      priority: 120
+      priority: 230
     }
   }
   element {
     scale: 20
     symbol {
       name: "power-m"
-      priority: 120
+      priority: 230
     }
   }
 }
@@ -69284,28 +69325,28 @@ cont {
     scale: 17
     symbol {
       name: "power-m"
-      priority: 120
+      priority: 230
     }
   }
   element {
     scale: 18
     symbol {
       name: "power-m"
-      priority: 120
+      priority: 230
     }
   }
   element {
     scale: 19
     symbol {
       name: "power-m"
-      priority: 120
+      priority: 230
     }
   }
   element {
     scale: 20
     symbol {
       name: "power-m"
-      priority: 120
+      priority: 230
     }
   }
 }
@@ -69315,59 +69356,118 @@ cont {
     scale: 17
     symbol {
       name: "power-m"
-      priority: 120
+      priority: 230
     }
   }
   element {
     scale: 18
     symbol {
       name: "power-m"
-      priority: 120
+      priority: 230
     }
   }
   element {
     scale: 19
     symbol {
       name: "power-m"
-      priority: 120
+      priority: 230
     }
   }
   element {
     scale: 20
     symbol {
       name: "power-m"
-      priority: 120
+      priority: 230
     }
   }
 }
 cont {
   name: "power-plant-wind"
   element {
+    scale: 15
+    symbol {
+      name: "power_plant_wind-m"
+      priority: 230
+    }
+  }
+  element {
+    scale: 16
+    symbol {
+      name: "power_plant_wind-m"
+      priority: 230
+    }
+    caption {
+      primary {
+        height: 10
+        color: 4473924
+        offset_y: 1
+        is_optional: true
+      }
+      priority: -9770
+    }
+  }
+  element {
     scale: 17
     symbol {
-      name: "power-m"
-      priority: 120
+      name: "power_plant_wind-m"
+      priority: 230
+    }
+    caption {
+      primary {
+        height: 10
+        color: 4473924
+        offset_y: 1
+        is_optional: true
+      }
+      priority: -9770
     }
   }
   element {
     scale: 18
     symbol {
-      name: "power-m"
-      priority: 120
+      name: "power_plant_wind-m"
+      priority: 230
+    }
+    caption {
+      primary {
+        height: 10
+        color: 4473924
+        offset_y: 1
+        is_optional: true
+      }
+      priority: -9770
     }
   }
   element {
     scale: 19
     symbol {
-      name: "power-m"
-      priority: 120
+      name: "power_plant_wind-m"
+      priority: 230
+    }
+    caption {
+      primary {
+        height: 10
+        color: 4473924
+        offset_y: 1
+        is_optional: true
+      }
+      priority: -9770
     }
   }
   element {
     scale: 20
     symbol {
-      name: "power-m"
-      priority: 120
+      name: "power_plant_wind-m"
+      priority: 230
+    }
+    caption {
+      primary {
+        height: 10
+        color: 4473924
+        offset_y: 1
+        is_optional: true
+      }
+      priority: -9770
     }
   }
 }
@@ -69377,7 +69477,7 @@ cont {
     scale: 17
     symbol {
       name: "power-m"
-      priority: 120
+      priority: 230
     }
     caption {
       primary {
@@ -69386,14 +69486,14 @@ cont {
         offset_y: 1
         is_optional: true
       }
-      priority: -9880
+      priority: -9770
     }
   }
   element {
     scale: 18
     symbol {
       name: "power-m"
-      priority: 120
+      priority: 230
     }
     caption {
       primary {
@@ -69402,14 +69502,14 @@ cont {
         offset_y: 1
         is_optional: true
       }
-      priority: -9880
+      priority: -9770
     }
   }
   element {
     scale: 19
     symbol {
       name: "power-m"
-      priority: 120
+      priority: 230
     }
     caption {
       primary {
@@ -69418,14 +69518,14 @@ cont {
         offset_y: 1
         is_optional: true
       }
-      priority: -9880
+      priority: -9770
     }
   }
   element {
     scale: 20
     symbol {
       name: "power-m"
-      priority: 120
+      priority: 230
     }
     caption {
       primary {
@@ -69434,7 +69534,7 @@ cont {
         offset_y: 1
         is_optional: true
       }
-      priority: -9880
+      priority: -9770
     }
   }
 }
