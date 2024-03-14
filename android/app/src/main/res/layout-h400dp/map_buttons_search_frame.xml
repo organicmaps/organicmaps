@@ -25,14 +25,14 @@
       android:layout_centerHorizontal="true"
       android:layout_marginStart="@dimen/margin_half_plus"
       android:layout_marginTop="@dimen/margin_half"
-      android:contentDescription="@string/fuel"
+      android:contentDescription="@string/category_fuel"
       app:srcCompat="@drawable/ic_routing_fuel_on" />
     <com.google.android.material.floatingactionbutton.FloatingActionButton
       android:id="@+id/search_parking"
       style="@style/MwmWidget.MapButton.Search"
       android:layout_marginTop="@dimen/margin_base_plus"
       android:layout_toEndOf="@id/search_fuel"
-      android:contentDescription="@string/parkings"
+      android:contentDescription="@string/category_parking"
       app:srcCompat="@drawable/ic_routing_parking_on" />
     <com.google.android.material.floatingactionbutton.FloatingActionButton
       android:id="@+id/search_eat"
@@ -40,7 +40,7 @@
       android:layout_alignParentEnd="true"
       android:layout_centerVertical="true"
       android:layout_marginEnd="@dimen/margin_half"
-      android:contentDescription="@string/eat"
+      android:contentDescription="@string/category_eat"
       app:srcCompat="@drawable/ic_routing_eat_on" />
     <com.google.android.material.floatingactionbutton.FloatingActionButton
       android:id="@+id/search_food"
@@ -48,7 +48,7 @@
       android:layout_alignParentBottom="true"
       android:layout_marginBottom="@dimen/margin_base_plus"
       android:layout_toEndOf="@id/search_fuel"
-      android:contentDescription="@string/shopping"
+      android:contentDescription="@string/category_shopping"
       app:srcCompat="@drawable/ic_routing_food_on" />
     <com.google.android.material.floatingactionbutton.FloatingActionButton
       android:id="@+id/search_atm"
@@ -57,7 +57,7 @@
       android:layout_centerHorizontal="true"
       android:layout_marginStart="@dimen/margin_half_plus"
       android:layout_marginBottom="@dimen/margin_half"
-      android:contentDescription="@string/atm"
+      android:contentDescription="@string/category_atm"
       app:srcCompat="@drawable/ic_routing_atm_on" />
   </RelativeLayout>
 </RelativeLayout>

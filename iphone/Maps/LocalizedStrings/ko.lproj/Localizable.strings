@@ -105,73 +105,76 @@
 /********** Search categories **********/
 
 /* Search category for cafes, bars, restaurants; any changes should be duplicated in categories.txt @eat! */
-"eat" = "어디서먹을까";
+"category_eat" = "어디서먹을까";
 
 /* Search category for grocery stores; any changes should be duplicated in categories.txt @food! */
-"food" = "식료품들";
+"category_food" = "식료품들";
 
 /* Search category for public transport; any changes should be duplicated in categories.txt @transport! */
-"transport" = "수송";
+"category_transport" = "수송";
 
 /* Search category for fuel stations; any changes should be duplicated in categories.txt @fuel! */
-"fuel" = "연료";
+"category_fuel" = "연료";
 
 /* Search category for parking lots; any changes should be duplicated in categories.txt @parking! */
-"parking" = "주차";
+"category_parking" = "주차";
 
 /* Search category for clothes/shoes/gifts/jewellery/sport shops; any changes should be duplicated in categories.txt @shopping! */
-"shopping" = "쇼핑";
+"category_shopping" = "쇼핑";
 
 /* Search category for second_hand/charity/antique/auction shops; any changes should be duplicated in categories.txt @secondhand! */
-"secondhand" = "중고";
+"category_secondhand" = "중고";
 
 /* Search category for places to stay; any changes should be duplicated in categories.txt @hotel! */
-"hotel" = "호텔";
+"category_hotel" = "호텔";
 
 /* Search category sight seeings and touristic attractions; any changes should be duplicated in categories.txt @tourism! */
-"tourism" = "관광";
+"category_tourism" = "관광";
 
 /* Search category for entertainment; any changes should be duplicated in categories.txt @entertainment! */
-"entertainment" = "엔터테인먼트";
+"category_entertainment" = "엔터테인먼트";
 
 /* Search category for ATMs; any changes should be duplicated in categories.txt @atm! */
-"atm" = "ATM";
+"category_atm" = "ATM";
 
 /* Search category for nightclubs/bars; any changes should be duplicated in categories.txt @nightlife! */
-"nightlife" = "유흥";
+"category_nightlife" = "유흥";
 
 /* Search category for water park/disneyland/playground/toys store; any changes should be duplicated in categories.txt @children! */
-"children" = "가족 기념일";
+"category_children" = "가족 기념일";
 
 /* Search category for banks; any changes should be duplicated in categories.txt @bank! */
-"bank" = "은행";
+"category_bank" = "은행";
 
 /* Search category for pharmacies; any changes should be duplicated in categories.txt @pharmacy! */
-"pharmacy" = "약국";
+"category_pharmacy" = "약국";
 
 /* Search category for hospitals; any changes should be duplicated in categories.txt @hospital! */
-"hospital" = "병원";
+"category_hospital" = "병원";
 
 /* Search category for toilets; any changes should be duplicated in categories.txt @toilet! */
-"toilet" = "화장실";
+"category_toilet" = "화장실";
 
 /* Search category for post offices; any changes should be duplicated in categories.txt @post! */
-"post" = "우편";
+"category_post" = "우편";
 
 /* Search category for police; any changes should be duplicated in categories.txt @police! */
-"police" = "치안대";
+"category_police" = "치안대";
 
 /* Search category for WiFi access; any changes should be duplicated in categories.txt @wifi! */
-"wifi" = "WiFi 인터넷";
+"category_wifi" = "WiFi 인터넷";
 
 /* Search category for recycling; any changes should be duplicated in categories.txt @recycling! */
-"recycling" = "재활용";
+"category_recycling" = "재활용";
 
 /* Search category for water; any changes should be duplicated in categories.txt @water! also used to sort bookmarks by type */
-"water" = "물";
+"category_water" = "물";
 
 /* Search category for RV facilities; any changes should be duplicated in categories.txt @rv! */
-"rv" = "RV용";
+"category_rv" = "RV용";
+
+
+/********** Other translations **********/
 
 "share_bookmarks_email_body" = "Hello!\n\nAttached are my bookmarks; please open them in Organic Maps. If you don't have it installed you can download it here: https://omaps.app/get?kmz\n\nEnjoy travelling with Organic Maps!";
 

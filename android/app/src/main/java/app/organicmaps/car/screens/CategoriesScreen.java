@@ -46,13 +46,13 @@ public class CategoriesScreen extends BaseMapScreen
 
   // TODO (AndrewShkrob): discuss categories and their priority for this list
   private static final List<CategoryData> CATEGORIES = Arrays.asList(
-      new CategoryData(R.string.fuel, R.drawable.ic_category_fuel, R.drawable.ic_category_fuel_night),
-      new CategoryData(R.string.parking, R.drawable.ic_category_parking, R.drawable.ic_category_parking_night),
-      new CategoryData(R.string.eat, R.drawable.ic_category_eat, R.drawable.ic_category_eat_night),
-      new CategoryData(R.string.food, R.drawable.ic_category_food, R.drawable.ic_category_food_night),
-      new CategoryData(R.string.hotel, R.drawable.ic_category_hotel, R.drawable.ic_category_hotel_night),
-      new CategoryData(R.string.toilet, R.drawable.ic_category_toilet, R.drawable.ic_category_toilet_night),
-      new CategoryData(R.string.rv, R.drawable.ic_category_rv, R.drawable.ic_category_rv_night)
+      new CategoryData(R.string.category_fuel, R.drawable.ic_category_fuel, R.drawable.ic_category_fuel_night),
+      new CategoryData(R.string.category_parking, R.drawable.ic_category_parking, R.drawable.ic_category_parking_night),
+      new CategoryData(R.string.category_eat, R.drawable.ic_category_eat, R.drawable.ic_category_eat_night),
+      new CategoryData(R.string.category_food, R.drawable.ic_category_food, R.drawable.ic_category_food_night),
+      new CategoryData(R.string.category_hotel, R.drawable.ic_category_hotel, R.drawable.ic_category_hotel_night),
+      new CategoryData(R.string.category_toilet, R.drawable.ic_category_toilet, R.drawable.ic_category_toilet_night),
+      new CategoryData(R.string.category_rv, R.drawable.ic_category_rv, R.drawable.ic_category_rv_night)
   );
 
   private final int MAX_CATEGORIES_SIZE;

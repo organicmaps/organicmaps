@@ -105,73 +105,76 @@
 /********** Search categories **********/
 
 /* Search category for cafes, bars, restaurants; any changes should be duplicated in categories.txt @eat! */
-"eat" = "在哪兒吃";
+"category_eat" = "在哪兒吃";
 
 /* Search category for grocery stores; any changes should be duplicated in categories.txt @food! */
-"food" = "食物";
+"category_food" = "食物";
 
 /* Search category for public transport; any changes should be duplicated in categories.txt @transport! */
-"transport" = "運輸";
+"category_transport" = "運輸";
 
 /* Search category for fuel stations; any changes should be duplicated in categories.txt @fuel! */
-"fuel" = "加油站";
+"category_fuel" = "加油站";
 
 /* Search category for parking lots; any changes should be duplicated in categories.txt @parking! */
-"parking" = "停車場";
+"category_parking" = "停車場";
 
 /* Search category for clothes/shoes/gifts/jewellery/sport shops; any changes should be duplicated in categories.txt @shopping! */
-"shopping" = "購物";
+"category_shopping" = "購物";
 
 /* Search category for second_hand/charity/antique/auction shops; any changes should be duplicated in categories.txt @secondhand! */
-"secondhand" = "二手";
+"category_secondhand" = "二手";
 
 /* Search category for places to stay; any changes should be duplicated in categories.txt @hotel! */
-"hotel" = "旅館";
+"category_hotel" = "旅館";
 
 /* Search category sight seeings and touristic attractions; any changes should be duplicated in categories.txt @tourism! */
-"tourism" = "旅遊景點";
+"category_tourism" = "旅遊景點";
 
 /* Search category for entertainment; any changes should be duplicated in categories.txt @entertainment! */
-"entertainment" = "娛樂";
+"category_entertainment" = "娛樂";
 
 /* Search category for ATMs; any changes should be duplicated in categories.txt @atm! */
-"atm" = "自動櫃員機";
+"category_atm" = "自動櫃員機";
 
 /* Search category for nightclubs/bars; any changes should be duplicated in categories.txt @nightlife! */
-"nightlife" = "夜生活";
+"category_nightlife" = "夜生活";
 
 /* Search category for water park/disneyland/playground/toys store; any changes should be duplicated in categories.txt @children! */
-"children" = "親子休閒";
+"category_children" = "親子休閒";
 
 /* Search category for banks; any changes should be duplicated in categories.txt @bank! */
-"bank" = "銀行";
+"category_bank" = "銀行";
 
 /* Search category for pharmacies; any changes should be duplicated in categories.txt @pharmacy! */
-"pharmacy" = "藥局";
+"category_pharmacy" = "藥局";
 
 /* Search category for hospitals; any changes should be duplicated in categories.txt @hospital! */
-"hospital" = "醫院";
+"category_hospital" = "醫院";
 
 /* Search category for toilets; any changes should be duplicated in categories.txt @toilet! */
-"toilet" = "廁所";
+"category_toilet" = "廁所";
 
 /* Search category for post offices; any changes should be duplicated in categories.txt @post! */
-"post" = "郵局";
+"category_post" = "郵局";
 
 /* Search category for police; any changes should be duplicated in categories.txt @police! */
-"police" = "警察局";
+"category_police" = "警察局";
 
 /* Search category for WiFi access; any changes should be duplicated in categories.txt @wifi! */
-"wifi" = "無線網路";
+"category_wifi" = "無線網路";
 
 /* Search category for recycling; any changes should be duplicated in categories.txt @recycling! */
-"recycling" = "回收";
+"category_recycling" = "回收";
 
 /* Search category for water; any changes should be duplicated in categories.txt @water! also used to sort bookmarks by type */
-"water" = "水";
+"category_water" = "水";
 
 /* Search category for RV facilities; any changes should be duplicated in categories.txt @rv! */
-"rv" = "房車用";
+"category_rv" = "房車用";
+
+
+/********** Other translations **********/
 
 "share_bookmarks_email_body" = "你好！\n\n附件為 Organic Maps app 的書籤，如果你有安裝 Organic Maps 則直接開啟，如果沒有的話，請先在 iOS 或是 Android 裝置，從下面連結下載：https://omaps.app/get?kmz\n\n旅行時用上 Organic Maps!";
 

@@ -1,15 +1,15 @@
-# Category @groups allow to apply same set of search terms to different categories.
-# The @groups should be defined before being referenced in categories.
+# Category @category_groups allow to apply same set of search terms to different categories.
+# The @category_groups should be defined before being referenced in categories.
 # In the example below a "groceries" will result in POIs of both shop-greengrocers and
 # shop-supermarket categories, while a "fruit" search will result in shop-greengrocers only.
 # ---
-# @food
+# @category_food
 # en:Food|groceries
 #
-# shop-greengrocers|@food
+# shop-greengrocers|@category_food
 # en:Greengrocer|vegetables|fruit|
 #
-# shop-supermarket|@food
+# shop-supermarket|@category_food
 # en:Supermarket
 # ---
 #
@@ -55,20 +55,20 @@
 # For Russian (Ukraine, Belarus) languages:
 # Удобно перечислять _короткие_ существительные в именительном и родительном падеже, например:
 # ---
-# shop-wine|@shop
+# shop-wine|@category_shop
 # ru:Вино|вина
 # ---
 # Тогда будет работать поиск "магазин вина"
 # Для _длинных существительных_ (пускай длиной >= 6) этого можно не делать,
 # потому что там будет работать обработка ошибок (1 или 2), например:
-# shop-furniture|@shop
+# shop-furniture|@category_shop
 # ru:Мебель
 # ---
 # Запрос "магазин мебели" так же заматчится (1 ошибка).
 
 
-# First keyword should match [eat] definition in strings.txt!
-@eat
+# First keyword should match [category_eat] definition in strings.txt!
+@category_eat
 en:Where to eat|eat|Food
 ru:Где поесть|Поесть|Еда|кушать|покушать
 be:Дзе паесці|паесці|ежа
@@ -108,8 +108,8 @@ sk:Kde sa najesť|Jedlo
 sw:Sehemu ya kula
 fa:غذا|کجا غذا بخوریم
 
-# First keyword should match [food] definition in strings.txt!
-@food
+# First keyword should match [category_food] definition in strings.txt!
+@category_food
 en:4Grocery|Groceries|Food
 ru:4Продукты|Еда
 ar:طعام|بقالية
@@ -150,8 +150,8 @@ vi:Cửa hàng tạp hóa|ẩm thực
 zh-Hans:食品|食物|商店
 zh-Hant:食物|飲食|購物
 
-# First keyword should match [transport] definition in strings.txt!
-@transport
+# First keyword should match [category_transport] definition in strings.txt!
+@category_transport
 en:5Transport
 ru:5Транспорт
 be:5Транспарт
@@ -191,8 +191,8 @@ sk:Doprava
 fa:حمل و مواصلات
 ca:Transport
 
-# First keyword should match [fuel] definition in strings.txt!
-@fuel
+# First keyword should match [category_fuel] definition in strings.txt!
+@category_fuel
 en:2Gas|Gasoline|3Petrol|4Diesel|3Fuel
 ru:3бензин|3дизель|4топливо|газ
 be:3бензін|3дызель|4паліва|газ
@@ -233,8 +233,8 @@ sw:Sheli
 fa:سوخت|بنزین|دیزل|گازوئیل
 ca:Benzinera
 
-# First keyword should match [parking] definition in strings.txt!
-@parking
+# First keyword should match [category_parking] definition in strings.txt!
+@category_parking
 en:4Parking
 ru:4Парковка
 be:4Паркоўка
@@ -275,7 +275,7 @@ fa:پارکینگ
 ca:Aparcament
 
 # Generic only! _shop_ category, will be present in all! _shop_ types.
-@shop
+@category_shop
 en:Shop|Store|U+1F3EA|U+1F3EC
 ru:4Магазин
 ar:متجر
@@ -316,8 +316,8 @@ zh-Hans:商店
 zh-Hant:1購物|店鋪|商店|雜貨店|便利商店
 ca:Botiga|Tenda
 
-# First keyword should match [shopping] definition in strings.txt!
-@shopping
+# First keyword should match [category_shopping] definition in strings.txt!
+@category_shopping
 en:4Shopping
 ru:3Шоппинг|4Покупки
 ar:تسوق
@@ -358,8 +358,8 @@ zh-Hans:购物
 zh-Hant:購物
 ca:Compres
 
-# First keyword should match [hotel] definition in strings.txt!
-@hotel
+# First keyword should match [category_hotel] definition in strings.txt!
+@category_hotel
 en:Hotel|hotels
 ru:4Гостиница|отель|отели
 be:4Гатэль|гатэлі
@@ -399,8 +399,8 @@ sk:Hotel|Hotely
 fa:هتل|هتل ها
 ca:Hotel|Hotels
 
-# First keyword should match [tourism] definition in strings.txt!
-@tourism
+# First keyword should match [category_tourism] definition in strings.txt!
+@category_tourism
 en:3Sights|3Attractions|3Tourism
 ru:4Достопримечательности|3Туризм
 be:4Славутасці|4турызм
@@ -440,8 +440,8 @@ sk:Pamätihodnosť
 fa:منظره|گردشگری
 ca:Turisme
 
-# First keyword should match [entertainment] definition in strings.txt!
-@entertainment
+# First keyword should match [category_entertainment] definition in strings.txt!
+@category_entertainment
 en:Entertainment
 ru:Развлечения
 be:Забавы
@@ -481,8 +481,8 @@ sk:Zábava
 fa:سرگرمی
 ca:Entreteniment
 
-# First keyword should match [nightlife] definition in strings.txt!
-@nightlife
+# First keyword should match [category_nightlife] definition in strings.txt!
+@category_nightlife
 en:Nightlife
 ru:Ночная жизнь|С друзьями|Вечер с друзьями|потусить
 be:Начное жыццё|патусіць
@@ -522,8 +522,8 @@ sw:Shughuli za usiku
 fa:تفریحات شبانه
 ca:Vida nocturna
 
-# First keyword should match [children] definition in strings.txt!
-@children
+# First keyword should match [category_children] definition in strings.txt!
+@category_children
 en:Family holiday
 ru:Отдых с детьми
 be:Сямейны адпачынак
@@ -561,10 +561,10 @@ el:Οικογενειακές Διακοπές
 sk:Rodinná dovolenka
 sw:Mapumziko ya familia
 fa:تعطیلات خانوادگی
-ca:Vacances familiars 
+ca:Vacances familiars
 
-# First keyword should match [atm] definition in strings.txt!
-@atm
+# First keyword should match [category_atm] definition in strings.txt!
+@category_atm
 en:ATM|Cash machine
 ru:3Банкомат
 be:3Банкамат
@@ -605,8 +605,8 @@ sw:Benki|fedha
 fa:خود پرداز
 ca:Caixer automàtic
 
-# First keyword should match [rv] definition in strings.txt!
-@rv
+# First keyword should match [category_rv] definition in strings.txt!
+@category_rv
 en:2RV Facilities|4Caravan|Vanlife|5Campervan|5Motorhome
 ar:منشآت للمنازل المتنقلة
 be:Для аўтадамоў|5Аўтадом|5Трэйлер|5Караван|Дом на колах
@@ -646,7 +646,7 @@ zh-Hans:房车用
 zh-Hant:房車用
 ca:Autocaravana
 
-amenity-atm|@atm
+amenity-atm|@category_atm
 en:money|U+1F3E7|U+1F4B2|U+1F4B3|U+1F4B4|U+1F4B5|U+1F4B6|U+1F4B7
 ru:деньги
 bg:пари
@@ -683,8 +683,8 @@ sk:sporiteľna|peniaze
 fa:دستگاه خودپرداز
 ca:diners
 
-# First keyword should match [bank] definition in strings.txt!
-@bank
+# First keyword should match [category_bank] definition in strings.txt!
+@category_bank
 en:3Bank
 ru:3Банк
 be:3Банк
@@ -724,8 +724,8 @@ sw:Benki|fedha
 fa:بانک
 ca:Banc
 
-# First keyword should match [secondhand] definition in strings.txt!
-@secondhand
+# First keyword should match [category_secondhand] definition in strings.txt!
+@category_secondhand
 en:4Second Hand
 ar:اليد الثانية
 be:4Сэканд-хэнд
@@ -765,7 +765,7 @@ vi:Đồ cũ
 zh-Hans:二手货
 zh-Hant:二手
 
-amenity-bank|@bank
+amenity-bank|@category_bank
 en:money|U+1F3E6|U+1F4B0|U+1F4B2|U+1F4B3|U+1F4B4|U+1F4B5|U+1F4B6|U+1F4B7
 ru:деньги
 bg:пари
@@ -801,8 +801,8 @@ sk:peniaze
 fa:بانک
 ca:diners
 
-# First keyword should match [recycling] definition in strings.txt!
-@recycling
+# First keyword should match [category_recycling] definition in strings.txt!
+@category_recycling
 en:4Recycling|Waste utilization|Waste disposal|Recyclables|Separate garbage collection|Waste sorting|Reuse
 ru:Переработка|5Переработка отходов|Утилизация отходов|5Приём вторсырья|5Сдать вторсырьё|4Сбор вторсырья|5Раздельный сбор мусора|Сортировка мусора|Повторное использование|Утиль|Ресайклинг|Рециклинг|Вторичное сырьё
 be:Перапрацоўка|5Перапрацоўка адходаў|Утылізацыя адходаў|5Прыём другаснай сыравіны|5Здаць другсыравіну|Паасобны збор смецця|Сартаванне смецця|Паўторнае выкарыстанне|Утыль
@@ -878,7 +878,7 @@ sk:3Zmenáreň|peniaze
 fa:صرافی
 ca:Canvi de divises|diners
 
-amenity-bar|amenity-pub|@eat|@nightlife
+amenity-bar|amenity-pub|@category_eat|@category_nightlife
 en:2Bar|2pub|beer|drink|U+1F37A|U+1F37B|U+1F376|tavern|bars and pubs|brew pub|cocktail lounge
 ru:2Бар|2паб|пиво|выпить|пивной ресторан|пивбар|крафт|коктейль бар|пивная|коктейли|алкоголь|алкогольные напитки
 bg:2Бар|кръчма|бира|питие|напитка|таверна|коктейл|пиво|алкохол
@@ -917,7 +917,7 @@ sw:Baa|vinywaji
 fa:میکده|کاباره
 ca:Bar
 
-amenity-cafe|@eat
+amenity-cafe|@category_eat
 en:3Cafe|3restaurant|U+2615|U+1F356|U+1F357|U+1F35A|U+1F35B|U+1F35C|U+1F35D|U+1F363|U+1F366|U+1F367|U+1F368|U+1F369|U+1F370|U+1F372|U+1F374|U+1F377|U+1F60B|U+1F375|coffee|cafeteria
 ru:3Кафе|3ресторан|кофейня|кофе
 bg:3Кафе|3ресторант|кафене
@@ -956,7 +956,7 @@ sw:Mgahawa|hoteli|chakula
 fa:کافه|قهوه فروشی|قهوه خانه
 ca:Cafè|Cafeteria
 
-amenity-fast_food|@eat
+amenity-fast_food|@category_eat
 en:4Fast Food|3restaurant|3cafe|takeaway|U+1F354|U+1F355|U+1F35F|U+1F363|U+1F366|U+1F367|U+1F368|U+1F369|U+1F370|U+1F372|U+1F374|food to go|junk food
 ru:3Фастфуд|3ресторан|3кафе|закусочная|быстрое питание|снеки|перекусить|экспресс-питание
 bg:Бързо хранене|Фастфууд|кафе|храна|за вкъщи|ресторант|закусвалня
@@ -994,7 +994,7 @@ sk:2Rýchle občerstvenie|4fastfood|3kaviareň|reštaurácia
 fa:فست فود|غذای حاضری
 ca:Menjar ràpid
 
-amenity-restaurant|@eat
+amenity-restaurant|@category_eat
 en:3Restaurant|3cafe|U+1F356|U+1F357|U+1F35A|U+1F35B|U+1F35C|U+1F35D|U+1F363|U+1F366|U+1F367|U+1F368|U+1F369|U+1F370|U+1F372|U+1F374|U+1F377|U+1F60B
 ru:3Ресторан|3кафе
 bg:3ресторант|3кафе
@@ -1033,7 +1033,7 @@ sw:Hoteli|restorenti|mgahawa|chakula
 fa:رستوران
 ca:Restaurant
 
-amenity-fuel|@fuel
+amenity-fuel|@category_fuel
 en:Gas Station|Petrol Station|3Filling Station|U+26FD
 ru:азс|агзс|агнкс|бензоколонка|бензозаправка|4автозаправка|3заправка
 be:азс|агзс|агнкс|бензакалонка|бензазапраўка|4аўтазапраўка|3запраўка
@@ -1068,7 +1068,7 @@ sk:3Benzínová pumpa
 sw:mafuta
 fa:جایگاه سوخت
 
-shop-bakery|shop-pastry|@eat|@food|@shop
+shop-bakery|shop-pastry|@category_eat|@category_food|@category_shop
 en:3Bakery|U+1F35E
 ru:3Булочная|3пекарня
 be:3Булачная|3Пякарня
@@ -1107,14 +1107,14 @@ sk:3Pekáreň
 sw:Kituo cha kuwoka mikate
 fa:نانوایی
 
-shop|@shop
+shop|@category_shop
 
-shop-cannabis|@shop
+shop-cannabis|@category_shop
 en:Cannabis
 nl:Coffeeshop
 tr:4Kenevir|4Esrar
 
-shop-cosmetics|@shopping|@shop
+shop-cosmetics|@category_shopping|@category_shop
 en:4Cosmetics|4Beauty Care|makeup
 ru:4Косметика
 be:4Касметыка
@@ -1154,7 +1154,7 @@ sk:4Kozmetika
 sw:Vipodozi
 fa:لوازم ارایشی بهداشتی
 
-shop-convenience|@food|@shop
+shop-convenience|@category_food|@category_shop
 en:4Convenience|mini-mart|mini-market|superette
 ru:4Продуктовый|продуктовая лавка|4гастроном|мини-маркет
 ar:متجر صغير
@@ -1193,7 +1193,7 @@ sk:Príležitostné potreby
 sw:Duka
 fa:بقالی
 
-shop-deli|@food|@shop
+shop-deli|@category_food|@category_shop
 en:4Delicatessen
 ar:أطعمة مبردة
 be:Дэлікатэсы
@@ -1230,7 +1230,7 @@ vi:Món ăn ngon
 zh-Hans:熟食店
 zh-Hant:熟食店
 
-shop-farm|@food|@shop
+shop-farm|@category_food|@category_shop
 en:Farm food
 de:4Hofladen|4Bauernhofladen
 et:Talutoit
@@ -1239,7 +1239,7 @@ hi:3खेती से उत्पन्न खाद्द की दुक�
 ru:Фермерская еда
 tr:Çiftlik gıdaları
 
-shop-garden_centre|@shop
+shop-garden_centre|@category_shop
 en:4Garden Centre|U+1F3E1
 en-US:4Garden Center
 ru:3Садовые товары
@@ -1276,7 +1276,7 @@ el:Κατάστημα ειδών κήπου|κατάστημα
 sk:Škôlka|materská škôlka
 fa:فروشگاه تجهیزات باغبانی
 
-shop-grocery|@food|@shop
+shop-grocery|@category_food|@category_shop
 en:Grocery
 et:Toidukaubad
 fr:Épicerie
@@ -1284,7 +1284,7 @@ hi:3किराने की दुकान
 ru:Бакалея
 tr:Market
 
-shop-health_food|@food|@shop
+shop-health_food|@category_food|@category_shop
 en:Health food
 de:4Reformhaus|5Naturkostladen|4Bioladen
 et:Tervisetoit
@@ -1293,7 +1293,7 @@ hi:4स्वस्थ भोजन की दुकान|4हेल्थ फ�
 ru:Здоровая еда
 tr:Sağlıklı Gıda
 
-shop-mobile_phone|@shop
+shop-mobile_phone|@category_shop
 en:4Cell Phones|4Mobile Phones|6smartphones|electronics store|U+1F4F1|U+1F4F2
 ru:4Сотовые телефоны|4Мобильные телефоны|5телефоны|5смартфоны|электроника|салон связи
 bg:4Мобилни телефони|Мобифони|Телефони|електроника|смартфони
@@ -1330,7 +1330,7 @@ sk:Mobilné telefóny
 sw:Duka la simu
 fa:موبایل فروشی
 
-shop-florist|@shop
+shop-florist|@category_shop
 en:4Florist|U+1F337|U+1F338|U+1F339|U+1F33A|U+1F33B|U+1F33C|U+1F490|U+1F33E|4flowers|flower shop|floral shop|floral arrangements|same day flowers|bouquet
 ru:4Цветочный|4цветы|цветов|флорист|букет|цветочный салон
 ar:متجر زهور|متجر
@@ -1368,7 +1368,7 @@ el:Ανθοπωλείο|κατάστημα
 sk:4Kvety|kvetinárstvo
 fa:گل فروشی
 
-shop-butcher|@food|@shop
+shop-butcher|@category_food|@category_shop
 en:4Butcher|U+1F356|U+1F357
 ru:Мясо|Мясной|мяса|Мясная лавка
 ar:جزار|جزارة|متجر لحوم|متجر
@@ -1406,7 +1406,7 @@ el:Κρεοπωλείο|κατάστημα
 sk:Mäsiar
 fa:قصابی
 
-shop-furniture|@shop
+shop-furniture|@category_shop
 en:4Furniture
 ru:4Мебель
 ar:معرض أثاث|أثاث|متجر
@@ -1444,7 +1444,7 @@ el:Κατάστημα επίπλων|κατάστημα
 sk:Nábytok
 fa:فروشگاه لوازم خانگی
 
-shop-kitchen|@shop
+shop-kitchen|@category_shop
 en:Kitchen|Kitchen Studio
 ar:متجر مطابخ
 be:Кухні|кухань
@@ -1483,7 +1483,7 @@ vi:Cửa hàng nhà bếp
 zh-Hans:厨房用品店
 zh-Hant:廚房用品店
 
-shop-alcohol|@food|@shop
+shop-alcohol|@category_food|@category_shop
 en:4liquor|4alcohol|U+1F377
 en-GB:Off licence|liquor
 en-AU:Bottleshop|liquor
@@ -1522,7 +1522,7 @@ el:Κάβα|ποτά|κατάστημα
 sk:Liehoviny|4alkohol
 fa:مشروب فروشی
 
-shop-books|@shop
+shop-books|@category_shop
 en:Bookstore|bookshop|3books|U+1F4D6|U+1F4DA|U+1F4D9|U+1F4D8|U+1F4D7|U+1F4D5
 ru:Книжный|3книги
 bg:3Книжарница|книги
@@ -1560,7 +1560,7 @@ el:Βιβλιοπωλείο|κατάστημα
 sk:Kníhkupectvo
 fa:کتاب فروشی
 
-shop-shoes|@shopping|@shop
+shop-shoes|@category_shopping|@category_shop
 en:Shoe|U+1F461|U+1F460|U+1F462|U+1F45E|U+1F45F|3shoes|4footwear
 ru:3обувь|обуви|обувной
 ar:متجر أحذية|متجر
@@ -1600,7 +1600,7 @@ fa:کفش فروشی
 
 # Defines _consumer electronics_. Should differ from shop-electrical.
 
-shop-electronics|@shop
+shop-electronics|@category_shop
 en:4Electronics|U+1F4F1|U+1F4BB|U+23F0|U+1F4F7|U+1F4F9|U+1F3A5|U+1F4FA|U+1F4FB|U+1F4DF|U+1F4DE|U+260E|U+1F4E0|U+1F4BD|U+1F4BE|U+1F4BF|U+1F4C0|U+1F4FC|U+1F50B|U+1F4E1
 ru:Электротехника|4Электроника
 be:Электратэхніка|4Электроніка
@@ -1638,7 +1638,7 @@ el:Ηλεκτρονικά|κατάστημα
 sk:4Elektronika
 fa:فروشگاه تجهیزات الکترونیکی
 
-shop-hardware|shop-doityourself|@shop
+shop-hardware|shop-doityourself|@category_shop
 en:4Hardware|DIY|U+1F529|U+1F528
 ru:3Хозяйственный|Строительный|Стройтовары|Хозтовары
 ar:متجر عدد وأدوات|أدوات|عدة|متجر
@@ -1676,7 +1676,7 @@ el:Είδη κιγκαλερίας|DIY|Κάν'το μόνος σου|κατάσ�
 sk:Železiarstvo|Náradie
 fa:فروشگاه ابزار و یراق
 
-shop-houseware|@shop
+shop-houseware|@category_shop
 en:4Houseware
 be:4Пасуда|4Бытавыя тавары
 de:4Haushaltswaren
@@ -1717,7 +1717,7 @@ vi:Hàng gia dụng
 zh-Hans:家庭用品
 zh-Hant:家庭用品
 
-shop-jewelry|@shopping|@shop
+shop-jewelry|@category_shopping|@category_shop
 en:4Jewellery|U+1F48D
 en-US:4Jewelry
 ru:4Ювелирный|бижутерия
@@ -1755,7 +1755,7 @@ el:Κοσμηματοπωλείο|κατάστημα
 sk:Klenotníctvo
 fa:طلا فروشی|جواهرفروشی
 
-shop-optician|@shop
+shop-optician|@category_shop
 en:4Optician|U+1F453
 en-AU:Optometrist|4Optician
 ru:4Оптика|очки
@@ -1794,7 +1794,7 @@ el:Κατάστημα οπτικών
 sk:4Optika
 fa:عینک فروشی
 
-shop-gift|@shopping|@shop
+shop-gift|@category_shopping|@category_shop
 en:Gift|U+1F381|souvenir|4souvenirs|3gifts|presents
 ru:4cувениры|4подарки|сувенирный
 ar:متجر هدايا|متجر
@@ -1871,7 +1871,7 @@ sk:Kozmetický salón
 sw:Uzuri saluni
 fa:سالن زیبایی
 
-shop-greengrocer|@food|@shop
+shop-greengrocer|@category_food|@category_shop
 en:4Greengrocer|U+1F345|U+1F346|U+1F33D|U+1F360|U+1F348|U+1F347|U+1F349|U+1F34A|U+1F34C|U+1F34D|U+1F34E|U+1F34F|U+1F350|U+1F351|U+1F353
 ru:3Овощи|овощей|3Фрукты|фруктов
 ar:متجر خضروات وفواكه|خضار|فاكهة|متجر
@@ -1909,7 +1909,7 @@ el:Μανάβικο|οπωροπωλείο|παντοπωλείο|κατάστη
 sk:Zelovoc
 fa:میوه فروشی
 
-shop-sports|@shopping|@shop
+shop-sports|@category_shopping|@category_shop
 en:4Sports Goods|U+1F3BF|U+1F3A3|U+1F3C2|U+1F6B4|U+26BD|U+1F3C0|U+1F3C8|U+26BE|U+1F3BE|U+1F3C9|U+26F3
 ru:4Спорттовары|Спортивный|Товары для спорта
 ar:أدوات رياضية|رياضة|متجر
@@ -1947,7 +1947,7 @@ el:Αθλητικά είδη|κατάστημα
 sk:4Športové potreby
 fa:فروشگاه لوازم ورزشی
 
-shop-supermarket|@food|@shop
+shop-supermarket|@category_food|@category_shop
 en:3Supermarket
 ru:3Супермаркет|3универсам|3гипермаркет|4гастроном
 ar:سوبر ماركت|بقالة|متجر
@@ -1986,7 +1986,7 @@ sk:3Supermarket
 sw:Supamaketi
 fa:سوپر مارکت
 
-shop-mall|@shopping|@shop
+shop-mall|@category_shopping|@category_shop
 en:Mall|Gallery|shopping arcade|entertainment center|retail
 en-GB:entertainment centre|shopping arcade|retail
 ru:4Торговый центр|торговый комплекс|трц|трк|тц|развлекательный центр|молл
@@ -2027,7 +2027,7 @@ sk:Mall
 sw:Ununuzi maduka
 fa:مرکز خرید
 
-shop-department_store|@shopping|@shop
+shop-department_store|@category_shopping|@category_shop
 en:4Department
 ru:4Универмаг|молл|торговый комплекс|универсам
 ar:متجر شامل|مركز تجاري
@@ -2065,7 +2065,7 @@ el:Πολυκατάστημα|κατάστημα
 sk:Obchodný dom
 fa:مرکز خرید|پاساژ
 
-shop-beverages|@food|@shop
+shop-beverages|@category_food|@category_shop
 en:4Beverages|4drinks|U+1F379
 ru:4Напитки|3соки|соков
 be:4Напоі|3сокі|сакаў
@@ -2103,7 +2103,7 @@ el:Οινοπνευματώδη|ποτά|κατάστημα
 sk:4Nápoje
 fa:نوشیدنی فروشی
 
-shop-computer|@shop
+shop-computer|@category_shop
 en:4Computer|U+1F4BB
 ru:Компьютерный|4компьютеры
 bg:Компютърен магазин|4компютри|електроника
@@ -2140,7 +2140,7 @@ el:Κατάστημα πληροφορικής
 sk:Obchod s výpočtovou technikou
 fa:فروشگاه کامپیوتر
 
-shop-confectionery|craft-confectionery|@food|@shop
+shop-confectionery|craft-confectionery|@category_food|@category_shop
 en:4Sweets|4confectionery|candies|candy|U+1F36C|U+1F36D|cake|sweetshop|tuck|pastry
 en-AU:Lollies|Candy
 ru:4Кондитерская|кондитерские изделия|сладости|торты|десерты|пирожные
@@ -2215,7 +2215,7 @@ el:Άπλυτα|κατάστημα με πλυντήρια ρούχων
 sk:4Práčovňa
 fa:لباس شویی
 
-shop-toys|@children|@shop
+shop-toys|@category_children|@category_shop
 en:Toy|toyshop|kids|toys|kids toys
 ru:3игрушки|игрушек|игрушечный
 ar:متجر ألعاب|متجر
@@ -2253,7 +2253,7 @@ el:Κατάστημα παιχνιδιών|κατάστημα
 sk:Hračkárstvo
 fa:اسباب بازی فروشی
 
-amenity-marketplace|@food
+amenity-marketplace|@category_food
 en:3Marketplace|market
 ru:3Рынок|базар
 bg:3Пазар
@@ -2328,7 +2328,7 @@ vi:Chuyển tiền
 zh-Hans:汇款
 zh-Hant:匯款
 
-shop-clothes|@shopping|@shop
+shop-clothes|@category_shopping|@category_shop
 en:3Clothes|U+1F45A|U+1F457|U+1F456|U+1F455|clothing|wear
 ru:3Одежда|одежды
 bg:3Дрехи|магазин за дрехи
@@ -2366,7 +2366,7 @@ sk:Oblečenie
 sw:Duka la nguo|nguo
 fa:لباس فروشی|بوتیک
 
-shop-caravan|@rv|@shop
+shop-caravan|@category_rv|@category_shop
 en:2RV dealership|4Caravan dealership|Motorhome dealership
 be:Аўтадом|Продаж аўтадамоў
 de:5Wohnmobilhändler|5Wohnwagenhändler
@@ -2378,7 +2378,7 @@ ru:Автодом|Продажа автодомов
 tr:Karavan galerisi
 uk:Продаж автобудинків
 
-shop-car|@shop
+shop-car|@category_shop
 en:3Car Dealership|Auto Dealer|U+1F697|U+1F698|U+1F699
 en-GB:3Car Dealership|Car showroom
 en-AU:3Car Dealership|Car showroom
@@ -2419,7 +2419,7 @@ sk:Predajňa áut
 sw:Yadi|duka la gari|gari
 fa:فروشگاه خودرو
 
-shop-bicycle|@shop
+shop-bicycle|@category_shop
 en:4Bicycle|Bike|cycles|bikes|U+1F6B2|U+1F6B4|U+1F6B5
 ru:4Веломагазин|велосипеды
 ar:متجر دراجات|متجر
@@ -2494,7 +2494,7 @@ sk:3Kiosk
 sw:3Kioski
 fa:دَکهِ|کیوسک
 
-highway-bus_stop|@transport
+highway-bus_stop|@category_transport
 en:2Bus Stop|bus|stop|U+1F68C|U+1F68F|U+1F68E|U+1F690
 ru:4Остановка|5автобус|4троллейбус
 bg:4автобусна спирка|4спирка|тролейбус
@@ -2532,7 +2532,7 @@ sk:4Autobusová zastávka|autobus|2bus|4zastávka|stanica
 sw:Kituo cha basi|basi|usafiri
 fa:ایستگاه اتوبوس
 
-railway-tram_stop|@transport
+railway-tram_stop|@category_transport
 en:3Tram Stop|tram|stop|U+1F683
 ru:4Остановка|4трамвай
 bg:4трамвайна спирка|4спирка
@@ -2567,7 +2567,7 @@ el:Στάση τραμ|τραμ|στάση|μεταφορές
 sk:4Električková zastávka|električka|4zastávka|stanica
 fa:ایستگاه قطار|ایستگاه تراموا
 
-amenity-bus_station|@transport
+amenity-bus_station|@category_transport
 en:2Bus Station|bus|U+1F68C|U+1F68F|U+1F68D
 ru:5Автовокзал|5Автостанция|5автобус|4остановка
 bg:4Автобусна спирка|автобуси|4автобусна станция
@@ -2605,7 +2605,7 @@ sk:4Autobusové nástupište|4zastávka|bus
 sw:Stendi ya basi|basi|stendi|usafiri
 fa:ایستگاه اتوبوس
 
-railway-station|railway-halt|building-train_station|@transport
+railway-station|railway-halt|building-train_station|@category_transport
 en:3Train Station|trainstation|4railway|railroad|4station|U+1F684|U+1F685|U+1F689|U+1F682|U+1F686|U+1F688|U+1F68A|U+1F68B
 ru:3Ж/д станция|Ж/д вокзал|3поезд|3станция
 bg:ЖП|влак|спирка|станция
@@ -2684,7 +2684,7 @@ zh-Hant:纜車
 
 # Do not add subway_entrance here (pollute a map especially in NY).
 # ToDo: make enhanced subway station highlight with entrances.
-railway-station-subway|@transport
+railway-station-subway|@category_transport
 en:3Subway|3tube|3metro|3underground|U+1F687
 ru:3Метро
 bg:3Метро|подземие
@@ -2721,7 +2721,7 @@ sk:3Metro|podzemná doprava
 sw:Reli ya chini
 fa:ایستگاه مترو
 
-amenity-ferry_terminal|@transport
+amenity-ferry_terminal|@category_transport
 en:3Ferry|terminal|U+1F6A2|U+1F6A4|U+2693
 ru:3Паром
 bg:4ферибот
@@ -2759,7 +2759,7 @@ sk:3Trajekt
 sw:Bandali|kivuko
 fa:ترمینال کِشتی
 
-amenity-taxi|@transport
+amenity-taxi|@category_transport
 en:3Taxi|Taxi Stand|Taxi Rank|U+1F695|U+1F696
 ru:3Такси
 bg:3такси|шофьор
@@ -2836,7 +2836,7 @@ sk:3Radnica|3pamiatka
 sw:Ukumbi|utalii
 fa:شهرداری
 
-tourism-attraction|@tourism
+tourism-attraction|@category_tourism
 en:4Attraction|U+1F3A0|U+1F3A1|U+1F3A2|U+1F3AA
 ru:5Достопримечательность
 bg:Забележителност
@@ -2874,7 +2874,7 @@ sk:3Atrakcia|3pamiatka|3zaujímavosť
 sw:Kivutio|utalii
 fa:جاذبه گردشگری
 
-tourism-artwork|@tourism
+tourism-artwork|@category_tourism
 en:3Artwork|U+1F3A8
 ru:4Произведение искусства|3скульптура
 bg:Изкуство|произведение|галерия|художник
@@ -2912,7 +2912,7 @@ sk:3Umelecké diela
 sw:Kazi ya kisanaa|utalii
 fa:اثارهنری
 
-tourism-viewpoint|@tourism
+tourism-viewpoint|@category_tourism
 en:4Viewpoint|Vista
 ru:4Обзорная площадка
 bg:пейзаж|гледка|забележителност
@@ -3321,7 +3321,7 @@ el:Ναός|τόπος λατρείας|αξιοθέατα
 sk:Chrám|svätyňa|posvätné miesto
 fa:معبد طاوی
 
-tourism-museum|@tourism
+tourism-museum|@category_tourism
 en:2Museum|U+1F3A8|3exhibition|3gallery
 ru:2Музей|3выставка|выставочный зал|экспозиция|3галерея
 bg:3Музей|3експозиция|3галерия
@@ -3359,7 +3359,7 @@ sk:2Múzeum
 sw:Makumbusho|kivutio|utalii
 fa:موزه
 
-waterway-waterfall|@tourism
+waterway-waterfall|@category_tourism
 en:2Waterfall
 ru:2Водопад
 bg:2Водопад
@@ -3397,7 +3397,7 @@ sk:2Vodopád
 sw:Maporomoko ya maji
 fa:ابشار
 
-historic-archaeological_site|@tourism
+historic-archaeological_site|@category_tourism
 en:4Archaeological Site
 ar:موقع أثري|أماكن جذابة|سياحة|مناظر
 be:3Археалагічны помнік
@@ -3515,7 +3515,7 @@ vi:Đá ranh giới
 zh-Hans:界碑
 zh-Hant:界碑
 
-historic-castle|@tourism
+historic-castle|@category_tourism
 en:4Castle|4Palace|4Fortress|U+1F3EF|U+1F3F0|U+1F451|U+1F478|Hillfort|Kremlin|Manor house
 ar:قلعة|سياحة|أماكن جذابة|مناظر|كاسترا|الكنيسة المحصنة|حصون التلال|كرملين|قصر مالك العزبة|قصر|شاتو
 be:Замак|Каструм|Крэпасць|Гарадзішча|Крэмль|Сядзіба|Палац
@@ -3554,7 +3554,7 @@ vi:Pháo đài|Lâu đài|Pháo đài La mã|Nhà thờ kiên cố|Trang viên|C
 zh-Hans:城堡|古罗马兵营|坚固的教堂|要塞|丘堡|克里姆林|庄园大屋|宮殿|法式城堡
 zh-Hant:城堡|堡|古蹟|歷史|古羅馬兵營|堅固的教堂|要塞|丘堡|克里姆林|莊園大屋|宮殿|法式城堡
 
-historic-city_gate|@tourism
+historic-city_gate|@category_tourism
 en:City gate
 ar:بوابة مدينة
 be:Гарадская брама
@@ -3592,7 +3592,7 @@ vi:Cổng thành
 zh-Hans:城门
 zh-Hant:城門
 
-historic-citywalls|@tourism
+historic-citywalls|@category_tourism
 en:City Wall
 ar:جدار المدينة
 be:Гарадскі вал
@@ -3630,7 +3630,7 @@ vi:Tường thành
 zh-Hans:城墙
 zh-Hant:城牆
 
-historic-fort|@tourism
+historic-fort|@category_tourism
 en:Fort
 ar:قلعة
 be:Форт
@@ -3668,7 +3668,7 @@ vi:Pháo đài
 zh-Hans:历史要塞
 zh-Hant:歷史要塞
 
-historic-gallows|@tourism
+historic-gallows|@category_tourism
 en:Gallows
 ar:مشنقة
 be:Шыбеніца
@@ -3705,7 +3705,7 @@ vi:Giá treo cổ
 zh-Hans:绞架
 zh-Hant:絞架
 
-historic-memorial|@tourism
+historic-memorial|@category_tourism
 en:4Memorial|monument|U+1F5FC|U+1F5FD|U+1F5FF
 ar:نصب تذكاري|معالم|آثار|أماكن جذابة|سياحة
 be:Мемарыял
@@ -3822,7 +3822,7 @@ vi:Đài tưởng niệm
 zh-Hans:纪念牌匾
 zh-Hant:紀念牌匾
 
-historic-memorial-sculpture|@tourism
+historic-memorial-sculpture|@category_tourism
 en:Sculpture
 ar:منحوتة تذكارية
 be:Скульптура
@@ -3860,7 +3860,7 @@ vi:Đài tưởng niệm
 zh-Hans:雕塑
 zh-Hant:雕塑
 
-historic-memorial-statue|@tourism
+historic-memorial-statue|@category_tourism
 en:Statue
 ar:تمثال تذكاري
 be:Статуя
@@ -3937,7 +3937,7 @@ vi:Vấp ngã
 zh-Hans:绊脚石
 zh-Hant:絆腳石
 
-historic-memorial-war_memorial|@tourism
+historic-memorial-war_memorial|@category_tourism
 en:War memorial
 ar:نصب حرب
 be:Ваенны мемарыял
@@ -3976,7 +3976,7 @@ vi:Đài tưởng niệm chiến tranh
 zh-Hans:战争纪念建筑
 zh-Hant:戰爭紀念建築
 
-historic-monument|@tourism
+historic-monument|@category_tourism
 en:4Monument|U+1F5FD|U+1F5FF
 ar:صرح|معالم|سياحة|مناظر
 be:4Помнік
@@ -4015,7 +4015,7 @@ vi:Tượng đài
 zh-Hans:纪念碑|景点
 zh-Hant:1紀念碑|紀念塔|紀念館|旅遊景點
 
-historic-pillory|@tourism
+historic-pillory|@category_tourism
 en:Pillory
 ar:مشهرة
 be:Пазорны слуп
@@ -4053,7 +4053,7 @@ vi:Thuốc viên
 zh-Hans:刑柱
 zh-Hant:刑柱
 
-historic-ruins|@tourism
+historic-ruins|@category_tourism
 en:3Ruins|U+1F5FF
 ar:آثار|أماكن جذابة|مناظر|سياحة
 be:Руіны
@@ -4092,7 +4092,7 @@ vi:Phế tích
 zh-Hans:废墟|景点
 zh-Hant:1廢墟|古蹟|遺址|旅遊景點
 
-historic-ship|@tourism
+historic-ship|@category_tourism
 en:Ship|boat
 ar:سفينة تاريخية
 be:Судна
@@ -4131,7 +4131,7 @@ zh-Hans:历史船
 zh-Hant:歷史船
 
 
-historic-tomb|@tourism
+historic-tomb|@category_tourism
 en:Tomb|grave|memorial
 ar:قبر
 be:Склеп|магіла
@@ -4170,7 +4170,7 @@ vi:Diểm tham quan
 zh-Hans:陵墓
 zh-Hant:陵墓
 
-historic-wayside_cross|@tourism
+historic-wayside_cross|@category_tourism
 en:Wayside cross
 ar:صليب مسيحي
 be:Прыдарожны крыж
@@ -4208,7 +4208,7 @@ vi:Đường chéo
 zh-Hans:路旁十字架
 zh-Hant:路旁十字架
 
-historic-wayside_shrine|@tourism
+historic-wayside_shrine|@category_tourism
 en:Wayside shrine
 ar:ضريح
 be:Прыдарожная святыня
@@ -4480,7 +4480,7 @@ sk:3Autopožičovňa|požičovňa áut
 sw:Kodi ya gari|gari|kodi
 fa:مکان اجاره ماشین
 
-amenity-cinema|@entertainment
+amenity-cinema|@category_entertainment
 en:3Cinema|U+1F3A6|U+1F3AC
 ru:Кинотеатр|3кино
 bg:3Кино|кинотеатър|филм|прожекция
@@ -4518,7 +4518,7 @@ sk:3Kino
 sw:4Sinema|burudani
 fa:سینما
 
-leisure-bowling_alley|@entertainment
+leisure-bowling_alley|@category_entertainment
 en:4Bowling Alley
 ar:ﺞﻨﻴﻟﻮﺑ ﺔﻟﺎﺻ
 be:Боўлінг
@@ -4559,7 +4559,7 @@ vi:Sân chơi bowling
 zh-Hans:保龄球馆
 zh-Hant:保齡球館
 
-amenity-theatre|@entertainment
+amenity-theatre|@category_entertainment
 en:4Theatre|U+1F3AD
 en-US:4Theater
 ru:3Театр
@@ -4598,7 +4598,7 @@ sk:3Divadlo
 sw:Thieta|burudani|maonyesho
 fa:تئاتر
 
-amenity-nightclub|@entertainment|@nightlife
+amenity-nightclub|@category_entertainment|@category_nightlife
 en:3Nightclub|night club|4disco|dance|U+1F378|U+1F379|U+1F46F|U+1F483|club|nightspot|night bar
 ru:3Ночной клуб|4дискотека|ночной бар|диско|танцы
 bg:3Нощен клуб|4Дискотека|нощен бар|танци
@@ -4672,7 +4672,7 @@ sk:Nevestinec|verejný dom
 sw:Danguro
 fa:فاحشه خانه|جنده خانه
 
-@gambling
+@category_gambling
 en:Gambling
 ar:القمار
 be:Азартныя гульні
@@ -4711,7 +4711,7 @@ vi:Bài bạc
 zh-Hans:赌博
 zh-Hant:賭博
 
-amenity-gambling|@gambling
+amenity-gambling|@category_gambling
 en:Gambling
 ar:القمار
 be:Азартныя гульні
@@ -4750,7 +4750,7 @@ vi:Bài bạc
 zh-Hans:赌博
 zh-Hant:賭博
 
-amenity-casino|@entertainment|@nightlife|@gambling
+amenity-casino|@category_entertainment|@category_nightlife|@category_gambling
 en:Casino|U+1F3B0|U+1F3B2|U+1F3B4
 ru:Казино
 bg:Казино|хазарт|машинки
@@ -4785,7 +4785,7 @@ sk:Kasíno
 sw:Kasino|burudani
 fa:قمارخانه|کازینو
 
-leisure-adult_gaming_centre|@gambling
+leisure-adult_gaming_centre|@category_gambling
 en:Adult Gaming Centre
 ar:مركز ألعاب الكبار
 be:Гульнявы цэнтр для дарослых
@@ -4824,7 +4824,7 @@ vi:Trung tâm trò chơi dành cho người lớn
 zh-Hans:成人游戏中心
 zh-Hant:成人遊戲中心
 
-leisure-amusement_arcade|@entertainment
+leisure-amusement_arcade|@category_entertainment
 en:Arcade|U+1F47E|U+1F579|U+1F3AE
 ar:ممر
 be:Аркада
@@ -5054,7 +5054,7 @@ zh-Hans:殡仪馆
 zh-Hant:葬儀社
 
 # First keyword should match [hospital] definition in strings.txt!
-@hospital
+@category_hospital
 en:4Hospital
 ru:4Больница
 be:4Бальніца
@@ -5093,7 +5093,7 @@ sk:4Nemocnica
 sw:4Hospitali
 fa:بیمارستان
 
-amenity-hospital|@hospital
+amenity-hospital|@category_hospital
 en:Hospital|clinic|3doctor|U+1F691|U+1F3E5|U+1F489|U+1F48A|medical center|health services|4first aid
 ru:4госпиталь|врач|4доктор|медицинский центр|медицинские услуги|медпомощь|медицинская помощь|лечебница|4первая помощь
 bg:клиника|4доктор|медик|медицински център|лекар|помощ|бърза помощ|
@@ -5123,7 +5123,7 @@ sk:klinika|pohotovosť|zdravotnícke zariadenie|3lekár|4doktor
 sw:zahanati|daktari
 fa:درمانگاه
 
-amenity-clinic|@hospital
+amenity-clinic|@category_hospital
 en:4Clinic|hospital|3doctor|U+1F3E5|U+1F489|diagnostics|health services
 ru:5Поликлиника|клиника|врач|4доктор|медицинское обслуживание|амбулаторное лечение|диагностика
 bg:5Поликлиника|клиника|лекар|диагностика|4доктор|амбулаторно лечение|медик
@@ -5159,7 +5159,7 @@ el:Κλινική|νοσοκομείο|γιατρός
 sk:5Poliklinika|nemocnica|zdravotné stredisko
 fa:کلینیک|مطب
 
-amenity-doctors|@hospital
+amenity-doctors|@category_hospital
 en:4Doctor|clinic|U+1F489|U+1F3E5|U+1F691
 ru:Врач|4доктор|больница|клиника|поликлиника
 bg:4Доктор|болница|клиника|поликлиника
@@ -5702,7 +5702,7 @@ sk:3Knižnica
 sw:Maktaba
 fa:کتابخانه
 
-amenity-parking|amenity-parking_entrance|@parking
+amenity-parking|amenity-parking_entrance|@category_parking
 en:U+1F697|U+1F17F|U+1F698|U+1F699
 ru:Автостоянка
 be:Аўтастаянка
@@ -5730,7 +5730,7 @@ fa:پارکینگ
 el:Στάθμευση
 
 # First keyword should match [pharmacy] definition in strings.txt!
-@pharmacy
+@category_pharmacy
 en:3Pharmacy
 ru:3Аптека
 be:3Аптэка
@@ -5770,7 +5770,7 @@ sk:3Lekáreň
 sw:Duka la dawa
 fa:داروخانه
 
-amenity-pharmacy|@pharmacy
+amenity-pharmacy|@category_pharmacy
 en:4Drugstore|apothecary|4dispensary|U+1F489|U+1F48A
 en-GB:4Chemist|pharmacist
 en-AU:4Chemist|pharmacist
@@ -5799,7 +5799,7 @@ el:φαρμακείο|φαρμακοποιός|χορήγηση φαρμάκων
 fa:داروخانه
 
 # First keyword should match [post] definition in strings.txt!
-@post
+@category_post
 en:3Post
 ru:3Почта
 be:3Пошта
@@ -5838,7 +5838,7 @@ sk:3Pošta
 sw:3Posta
 fa:پست
 
-amenity-post_box|@post
+amenity-post_box|@category_post
 en:3Post Box|Postbox|4Mailbox|Drop Box|U+2709|U+1F4E8|U+1F4E9|U+1F4EA|U+1F4EB|U+1F4EE|U+1F4EC|U+1F4ED
 ru:3Почтовый ящик
 be:3Паштовая скрыня
@@ -5877,7 +5877,7 @@ sk:3Poštová schránka|3schránka
 sw:Sanduku la posta
 fa:صندوق پست
 
-amenity-post_office|@post
+amenity-post_office|@category_post
 en:3Post Office|U+2709|U+1F3E3|U+1F4E8|U+1F4E9|U+1F3E4|U+1F4EF
 ru:3Почтовое отделение
 be:3Паштовае аддзяленне
@@ -5983,7 +5983,7 @@ sk:Odpadky|kôš
 fa:زباله دانی
 mr:कचरापेटी
 
-amenity-recycling-centre|@recycling
+amenity-recycling-centre|@category_recycling
 en:4Recycling Centre|U+1F6AE|U+267B
 en-US:4Recycling Center|U+1F6AE|U+267B
 be:5Пункт прыёму другаснай сыравіны
@@ -6022,7 +6022,7 @@ el:Κέντρο ανακύκλωσης
 sk:Zberné suroviny
 fa:مرکز بازیافت
 
-amenity-recycling-container|amenity-recycling|@recycling
+amenity-recycling-container|amenity-recycling|@category_recycling
 en:4Recycling Container|U+1F6AE|U+267B
 ru:Контейнер для вторсырья
 be:Кантэйнер для другаснай сыравіны
@@ -6061,7 +6061,7 @@ zh-Hans:回收箱
 zh-Hant:回收箱
 fa:ظرف بازیافت
 
-recycling-batteries|@recycling
+recycling-batteries|@category_recycling
 en:4Recycling of Batteries|Household Batteries Disposal|4Batteries Disposal|Batteries Recycling
 ru:5Приём батареек|Утилизация батареек|5Переработка батареек|5Сдать батарейки|4Сбор батареек|5Батарейки
 ar:ﺕﺎﻳﺭﺎﻄﺑ
@@ -6100,7 +6100,7 @@ vi:Ắc quy
 zh-Hans:电池
 zh-Hant:電池
 
-recycling-clothes|@recycling
+recycling-clothes|@category_recycling
 en:4Recycling of Clothes|Clothes Recycling|Textile Recycling|Donate Clothes|Clothes Collection Bin
 ru:5Приём одежды|Старая одежда|Сдать ненужные вещи|Сдать вещи|5Сдать одежду
 be:5Прыём адзення|Старае адзенне|Здаць непатрэбныя рэчы|Здаць рэчы|5Здаць адзенне
@@ -6138,7 +6138,7 @@ zh-Hans:旧衣物|回收旧衣物
 zh-Hant:舊衣物|回收舊衣物
 fa:بازیافت لباسهای قدیمی|لباسهای قدیمی
 
-recycling-glass_bottles|@recycling
+recycling-glass_bottles|@category_recycling
 en:4Recycling of Glass Bottles|4Glass Bottles Recycling|Glass Waste
 ru:5Приём стеклотары|Приём стекла|5Переработка стекла|5Сдать cтеклотару|Сдать бутылки|4Сбор стеклотары|5Стеклотара|Стеклобой|Стеклянные бутылки
 be:5Прыём шклатары|Прыём шкла|5Перапрацоўка шкла|5Здаць шклатару|Здаць бутэлькі|4Збор шклотары|5Шклатара|Шклабало|Шкляныя бутэлькі
@@ -6176,7 +6176,7 @@ zh-Hans:玻璃瓶
 zh-Hant:玻璃瓶
 fa:بطریهای شیشهای
 
-recycling-paper|@recycling
+recycling-paper|@category_recycling
 en:4Recycling of Paper|4Paper Recycling|Paper Waste
 ru:5Приём бумаги|Приём макулатуры|5Переработка бумаги|5Сдать бумагу|Сдать макулатуру|4Сбор бумаги|Сбор макулатуры|5Макулатура
 be:5Прыём паперы|Прыём макулатуры|5Перапрацоўка паперы|5Здаць паперу|Здаць макулатуру|4Збор паперы|Збор макулатуры|5Макулатура
@@ -6214,7 +6214,7 @@ zh-Hans:废纸
 zh-Hant:廢紙
 fa:پسماند کاغذ
 
-recycling-plastic|@recycling
+recycling-plastic|@category_recycling
 en:4Recycling of Plastic|5Plastic Recycling|Plastic Waste
 ru:5Приём пластика|5Переработка пластика|5Сдать пластик|4Сбор пластика|5Пластик
 be:5Прыём пластыка|5Перапрацоўка пластыка|5Здаць пластык|4Збор пластыка|5Пластык
@@ -6252,7 +6252,7 @@ zh-Hans:废塑料
 zh-Hant:廢塑料
 fa:پسماند پلاستیک
 
-recycling-plastic_bottles|@recycling
+recycling-plastic_bottles|@category_recycling
 en:4Recycling of Plastic Bottles|5Plastic Bottles Recycling
 ru:5Приём пластиковых бутылок|5Переработка пластиковых бутылок|5Сдать пластиковые бутылки|4Сбор пластиковых бутылок|5Пластиковые бутылки
 be:5Прыём пластыкавых бутэлек|5Перапрацоўка пластыкавых бутэлек|5Здаць пластыкавыя бутэлькі|4Збор пластыкавых бутэлек|5Пластыкавыя бутэлькі
@@ -6290,7 +6290,7 @@ zh-Hans:塑料瓶
 zh-Hant:塑料瓶
 fa:بطریهای پلاستیک
 
-recycling-scrap_metal|@recycling
+recycling-scrap_metal|@category_recycling
 en:4Recycling of Scrap Metal|4Scrap Metal Recycling
 ru:5Приём металлолома|5Переработка металлолома|Утилизация металлолома|5Сдать металлолом|4Сбор металлолома|5Металлолом
 be:5Прыём металалому|5Перапрацоўка металалому|Утылізацыя металалому|5Здаць металалом|4Збор металалому|5Металалом
@@ -6328,7 +6328,7 @@ zh-Hans:废金属
 zh-Hant:廢金屬
 fa:ضایعات فلزی
 
-recycling-small_appliances|@recycling
+recycling-small_appliances|@category_recycling
 en:4Recycling of Electronics|Electronics Recycling|3E-Waste|Appliances Recycling
 ru:5Приём электроники|5Переработка электроники|Утилизация электроники|5Сдать электронику|4Сбор электроники|Электроотходы
 be:5Прыём электронікі|5Перапрацоўка электронікі|Утылізацыя электронікі|5Здаць электроніку|4Збор электронікі|Электраадходы
@@ -6366,7 +6366,7 @@ zh-Hans:电子垃圾
 zh-Hant:電子垃圾
 fa:پسماند الکترونیکی
 
-recycling-cardboard|@recycling
+recycling-cardboard|@category_recycling
 en:4Recycling of Cardboard|5Cardboard Recycling|Cardboard Waste
 ru:5Приём картона|Приём макулатуры|5Переработка картона|5Сдать картон|Сдать макулатуру|4Сбор картона|Сбор макулатуры|5Макулатура
 be:5Прыём кардона|Прыём макулатуры|5Перапрацоўка кардона|5Здаць кардон|Здаць макулатуру|4Збор кардона|Збор макулатуры|5Макулатура
@@ -6375,7 +6375,7 @@ uk:5Прийом картону|Прийом макулатури|5Переро�
 mr:पुठ्ठा भंगारवाला
 et:Lainepapi taaskasutus
 
-recycling-cans|@recycling
+recycling-cans|@category_recycling
 en:4Recycling of Cans|4Cans Recycling|4Aluminium Cans Recycling|3Tin Cans Recycling
 ru:5Приём жестяных и алюминиевых банок|5Переработка жестяных и алюминиевых банок|5Сдать жестяные и алюминиевые банки|4Сбор жестяных и алюминиевых банок|6Консервные банки|5Жестяные банки|5Алюминиевые банки|Пивные банки
 be:5Прыём бляшаных і алюмініевых слоікаў|5Перапрацоўка бляшаных і алюмініевых слоікаў|5Здаць бляшаныя і алюмініевыя банкі|4Збор бляшаных і алюмініевых слоікаў|6Кансервовыя банкі|5Бляшаныя банкі|5Алюмініевыя банкі|Піўныя банкі
@@ -6384,7 +6384,7 @@ uk:5Прийом жерстяних та алюмінієвих банок|5Пе
 mr:कॅन भंगारवाला
 et:Purkide taaskasutus
 
-recycling-shoes|@recycling
+recycling-shoes|@category_recycling
 en:4Recycling of Shoes|Shoes Recycling|Donate Shoes
 be:5Прыём абутку|Стары абутак|5Здаць абутак
 ru:5Приём обуви|Старая обувь|5Сдать обувь
@@ -6393,7 +6393,7 @@ uk:5Прийом взуття|Старе взуття|5Здати взуття
 mr:शूज भंगारवाला
 et:Jalanõude taaskasutus
 
-recycling-green_waste|@recycling
+recycling-green_waste|@category_recycling
 en:4Recycling of Green Waste|5Organic Waste Recycling|5Green Waste Recycling|Food Waste|Garden Waste
 be:5Прыём арганічных адходаў|Прыём харчовых адходаў|5Здаць арганічныя адходы|4Збор арганічных адходаў|Збор харчовых адходаў|5Харчовыя адходы|6Садовыя адходы
 ru:5Приём органических отходов|Приём пищевых отходов|5Сдать органические отходы|4Сбор органических отходов|Сбор пищевых отходов|5Пищевые отходы|6Садовые отходы
@@ -6402,7 +6402,7 @@ uk:5Прийом органічних відходів|Прийом харчов
 mr:हिरव्या कचऱ्याचे पुनर्वापर
 et:Rohejäätmete taaskasutus
 
-recycling-cartons|@recycling
+recycling-cartons|@category_recycling
 en:4Recycling of Bewerage Cartons|5Cartons Recycling|5Bewerage Cartons Recycling
 be:5Прыём тетрапака|5Здаць тетрапак|4Збор тетрапака|5Тетрапак
 ru:5Приём тетрапака|5Сдать тетрапак|4Сбор тетрапака|5Тетрапак
@@ -6410,7 +6410,7 @@ tr:5Karton Kutu Geri Dönüşümü|4Tetrapak|içecek kutusu geri dönüşümü
 uk:5Прийом тетрапака|5Здати тетрапак|4Збір тетрапака|5Тетрапак
 et:Tetrapakkide taaskasutus
 
-amenity-sanitary_dump_station|@rv
+amenity-sanitary_dump_station|@category_rv
 en:2RV Dump Station|5Holding Tank Dump Station|4Dump Station|sanitary dump station|sewage|RV waste|5motorhome dump station|5camper dump station|4caravan dump station
 be:4Зліў нечыстотаў для аўтадамоў|сліў прыбіральні|сліў для туалета|нечыстоты|каналізація
 de:3VE-Station|4Entsorgungsstation|4Versorgungsstation|2RV Dump
@@ -6577,7 +6577,7 @@ fa:تلفن خانه
 mr:फोन
 
 # First keyword should match [toilet] definition in strings.txt!
-@toilet
+@category_toilet
 en:3Toilet
 ru:3Туалет|4уборная
 be:4Прыбіральня|3Туалет
@@ -6616,7 +6616,7 @@ sw:Choo
 fa:دستشویی|توالت
 mr:शौचालय
 
-amenity-toilets|toilets-yes|@toilet
+amenity-toilets|toilets-yes|@category_toilet
 en:wc|5restroom|4bathroom|loo|lavatory|U+1F6BD|U+1F6BE|U+1F4A9|U+1F6BB|U+1F6B9|U+1F6BA
 bg:тоалетна|ВЦ
 ar:مرحاض|مرحاض
@@ -7527,7 +7527,7 @@ sw:Mbuga
 fa:پارک
 mr:उद्यान|पार्क
 
-tourism-aquarium|@tourism
+tourism-aquarium|@category_tourism
 en:Aquarium
 ar:حوض سمك
 be:Акварыум
@@ -7566,7 +7566,7 @@ vi:Bể nuôi cá
 zh-Hans:水族馆
 zh-Hant:水族館
 
-tourism-hostel|@hotel
+tourism-hostel|@category_hotel
 en:3Hostel|motel|U+1F3E8|backpack|backpacking
 ru:3Хостел|мотель|гостевой дом|мини отель
 bg:3Хостел|мотел|раница|поход
@@ -7604,7 +7604,7 @@ sw:Bweni
 fa:مسافر خانه
 mr:छात्रालय|वसतिगृहात|हॉस्टेल
 
-tourism-hotel|@hotel
+tourism-hotel|@category_hotel
 en:motel|U+1F3E8|U+1F62A|U+1F634|tourist court
 ru:2отель
 bg:мотел|туризъм|хотел
@@ -7635,7 +7635,7 @@ sk:ubytovňa|motel
 sw:Hoteli
 fa:هتل
 
-tourism-guest_house|@hotel
+tourism-guest_house|@category_hotel
 en:4Guest House|hostel|U+1F3E8
 ru:5Гостевой дом|отель|хостел|база отдыха
 bg:гости|къща|хостел|отдих|туризъм
@@ -7672,7 +7672,7 @@ sw:Gesti
 fa:مهمان خانه
 mr:अतिथीगृह
 
-tourism-motel|@hotel
+tourism-motel|@category_hotel
 en:3Motel|hostel|U+1F3E8
 ru:3Мотель|хостел
 bg:мотел|гостилница|хостел|туризъм
@@ -7707,7 +7707,7 @@ el:Μοτέλ|ξενοδοχείο|ξενώνας
 sk:3Motel|penzión|hostel|ubytovňa
 fa:مُتل
 
-tourism-alpine_hut|@hotel
+tourism-alpine_hut|@category_hotel
 en:Mountains Lodging|hotel|hostel|alpine hut|U+1F3E8|camp
 ru:Горный отель|отель|горный отдых|турбаза|база отдыха
 bg:хотел|база|отдих|туризъм
@@ -7856,7 +7856,7 @@ sw:Kiwanja cha michezo
 fa:استادیوم
 mr:स्टेडियम
 
-leisure-playground|@children
+leisure-playground|@category_children
 en:4Playground
 ru:4Детская площадка
 bg:4Детска площадка|игрище
@@ -9049,7 +9049,7 @@ fa:ساختمان
 mr:इमारत|बिल्डिंग|वाडा
 
 # First keyword should match [police] definition in strings.txt!
-@police
+@category_police
 en:4Police
 ru:4Полиция|милиция
 be:4Паліцыя
@@ -9088,7 +9088,7 @@ sw:4Polisi
 fa:پلیس
 mr:पोलीस
 
-amenity-police|@police
+amenity-police|@category_police
 en:U+1F693|U+1F46E|U+1F694|U+1F482|U+1F6A8
 bg:милиция
 ar:الشرطة
@@ -9198,7 +9198,7 @@ mr:खाडी
 # A search for "Drinking/Potable water" shall result in amenity=drinking_water only.
 #
 # First keyword should match [water] definition in strings.txt!
-@water
+@category_water
 en:3Water|water source
 ru:3Вода|источник воды
 be:3Вада|крыніца
@@ -9237,7 +9237,7 @@ zh-Hans:水
 zh-Hant:水
 mr:पाणी
 
-amenity-drinking_water|drinking_water-yes|@water
+amenity-drinking_water|drinking_water-yes|@category_water
 en:4Drinking Water|3Potable Water|U+1F6B0
 ru:3Питьевая вода
 be:3Пітная вада
@@ -9276,7 +9276,7 @@ sw:4Maji ya kunywa
 fa:اب اشامیدنی
 mr:पिण्याचे पाणी
 
-natural-hot_spring|@water
+natural-hot_spring|@category_water
 en:3Hot Spring
 ar:ربيع حار
 be:4Гарачая крыніца|4Геатэрмальная крыніца
@@ -9315,7 +9315,7 @@ vi:Suối nóng
 zh-Hans:温泉
 zh-Hant:溫泉
 
-natural-spring|@water
+natural-spring|@category_water
 en:3Spring
 ru:4Родник|ключ|источник
 be:4Крыніца
@@ -9354,7 +9354,7 @@ sw:Chemchemi
 fa:چشمه
 mr:वसंत ऋतू
 
-man_made-water_well|@water
+man_made-water_well|@category_water
 en:Water Well
 ru:4Колодец|скважина
 be:4Калодзеж|студня
@@ -9392,7 +9392,7 @@ sk:Studňa
 fa:چاه اب
 mr:पाण्याची विहीर
 
-amenity-water_point|@water|@rv
+amenity-water_point|@category_water|@category_rv
 en:2RV Water Point|water for rv|water for campervan|water for caravan
 ru:Заправка водой|вода для трейлера|вода для дома на колёсах|вода для автодома
 be:Запраўка вадой|вада для каравану|вада для аўтадома
@@ -9430,7 +9430,7 @@ zh-Hans:取水点
 zh-Hant:飲水站
 fa:شیر آب قابل شرب
 
-man_made-water_tap|@water
+man_made-water_tap|@category_water
 en:Water Tap
 ru:5Водопроводный кран
 be:5Вадаправодны кран
@@ -9473,7 +9473,7 @@ mr:पाण्याचा नळ
 #
 # Bigger bodies of water like lakes, ponds, rivers etc. should not be included in "water" search
 # as they are quite big and obvious terrain features on the map anyway.
-@waterbody
+@category_waterbody
 en:Water body|water surface
 be:Вадаём
 ru:Водоём
@@ -9506,10 +9506,10 @@ zh-Hans:水體
 zh-Hant:水體
 mr:पाणवठा
 
-natural-water|@waterbody
+natural-water|@category_waterbody
 
 # Do not add the "water" search term
-natural-water-basin|landuse-basin|@waterbody
+natural-water-basin|landuse-basin|@category_waterbody
 en:Basin
 be:Рэзервуар
 ru:Резервуар
@@ -9551,7 +9551,7 @@ zh-Hant:水庫|盆地
 mr:कुंड|द्रोणी|खोरे|बेसिन
 
 # Do not add the "water" search term
-natural-water-pond|@waterbody
+natural-water-pond|@category_waterbody
 en:Pond
 ru:Пруд
 be:5Сажалка
@@ -9591,7 +9591,7 @@ fa:تالاب
 mr:तलाव
 
 # Do not add the "water" search term
-natural-water-lake|@waterbody
+natural-water-lake|@category_waterbody
 en:Lake
 ru:Озеро
 be:Возера
@@ -9631,7 +9631,7 @@ fa:دریاچه
 mr:सरोवर|लेक
 
 # Do not add the "water" search term
-natural-water-reservoir|landuse-reservoir|@waterbody
+natural-water-reservoir|landuse-reservoir|@category_waterbody
 en:5Reservoir
 ru:5Водохранилище
 be:5Вадасховішча
@@ -9786,7 +9786,7 @@ sw:Fundi wa gari
 fa:تعمیرگاه ماشین
 mr:कार दुरुस्तीचे दुकान|गॅरेज|गराज
 
-tourism-camp_site|@hotel
+tourism-camp_site|@category_hotel
 en:4Camping|campsite|campground|4tent spot|U+26FA
 ru:4Кемпинг|5палаточный лагерь|лагерь|стоянка
 bg:4Къмпинг
@@ -9823,7 +9823,7 @@ sw:Kambi
 fa:محل چادر زنی
 mr:शिबीर|कॅम्पिंग
 
-tourism-caravan_site|@rv||@hotel
+tourism-caravan_site|@category_rv||@category_hotel
 en:2RV Park|4Caravan Site|RV site|U+1F69A|U+26FA|U+1F69B
 ru:4Автокемпинг|4кемпинг для автодомов|4стоянка для автодомов
 be:4Аўтакемпінг|4кемпінг для аўтадамоў|4стаянка для аўтадамоў
@@ -11013,7 +11013,7 @@ fa:اقیانوس
 mr:महासागर
 
 # First keyword should match [wifi] definition in strings.txt!
-@wifi
+@category_wifi
 en:WiFi|Wi-Fi
 ru:WiFi|Wi-Fi
 be:WiFi|Wi-Fi
@@ -11051,7 +11051,7 @@ sw:WiFi|Wi-Fi
 fa:وای فای
 mr:WiFi|Wi-Fi
 
-internet_access|internet_access-wlan|@wifi
+internet_access|internet_access-wlan|@category_wifi
 en:3Internet|U+1F4F6
 ru:3Интернет|вайфай
 bg:3Интернет|уайфай|мрежа
@@ -11293,7 +11293,7 @@ sk:4Kopírovacie služby|Tlačiarne
 fa:فروشگاه چاپ و تکثیر
 mr:कॉपी शॉप|झेरॉक्स
 
-shop-photo|@shop
+shop-photo|@category_shop
 en:4Photo|frames
 ru:4Фототовары|4фотоцентр
 ar:محل صور|إطارات|محل
@@ -11330,7 +11330,7 @@ el:Φωτογραφείο|πλαίσια|κατάστημα
 sk:4Fotografické služby|Rámovanie
 mr:फोटो शॉप|फोटो स्टुडिओ
 
-shop-camera|@shop
+shop-camera|@category_shop
 en:3Camera
 ar:متجر الكاميرا
 be:Фотаапараты
@@ -11407,7 +11407,7 @@ sk:Cestovná kancelária|Zájazdy
 fa:اژانس مسافرتی
 mr:ट्रॅव्हल एजन्सी
 
-shop-outdoor|@shop
+shop-outdoor|@category_shop
 en:4Outdoor Equipment|trekking|hiking|climbing|camping
 ru:Снаряжение|3Туристический
 ar:معدات خارجية|ترحال|تسلق|تخييم|محل
@@ -11482,7 +11482,7 @@ sk:Čistiareň|čistenie
 fa:خشک شویی
 mr:धुलाईघर|ड्रायक्लीन
 
-shop-tyres|@shop
+shop-tyres|@category_shop
 en:3Tyre|tyres
 en-US:3Tire|tires
 ru:3Шины|4Покрышки|шин
@@ -11595,7 +11595,7 @@ sk:4Veterinár
 fa:دامپزشکی
 mr:पशुवैद्यकीय डॉक्टर|प्राण्यांचा डॉक्टर
 
-@charging_station
+@category_charging_station
 en:4Charging Station|charging
 ru:4Зарядная станция|зарядка|электрозарядка|зарядить
 be:4Зарадная станцыя|зарадка|электразарадка|зарадзіць
@@ -11633,14 +11633,14 @@ sk:Dobíjacia stanica|dobíjanie
 fa:ایستگاه شارژ
 mr:चार्जिंग स्टेशन|प्रभाराक केंद्र
 
-amenity-charging_station|@charging_station
+amenity-charging_station|@category_charging_station
 
-amenity-charging_station-bicycle|@charging_station
+amenity-charging_station-bicycle|@category_charging_station
 en:4Bicycle Charging|4Bike Charging
 ru:4Велозарядка
 tr:4Bisiklet Şarj Etme
 
-amenity-charging_station-motorcar|@charging_station
+amenity-charging_station-motorcar|@category_charging_station
 en:4Motorcar Charging|3Car Charging|Charger
 ru:4Автозарядка
 tr:4Otomobil Şarj Cihazı|4Araba Şarj Cihazı|4Araç Şarj Cihazı|3Trugo|4TOGG Şarj
@@ -11912,7 +11912,7 @@ sk:4Pneuservis
 fa:اپاراتی|پنچرگیری
 mr:टायर दुरुस्ती
 
-shop-chemist|@shop
+shop-chemist|@category_shop
 en:4Chemist|Pharmacist
 ru:4Бытовая химия
 bg:4Битова химия
@@ -11950,7 +11950,7 @@ sw:Duka la Kemikali na Dawa za Nyumbani
 fa:فروشگاه مواد شیمیایی
 mr:औषधालय|केमिस्ट दुकान
 
-shop-pet|@shop
+shop-pet|@category_shop
 en:3Pet
 ru:Зоотовары|3зоомагазин
 bg:домашни любимци
@@ -11986,7 +11986,7 @@ sk:Obchod zo zvieratami
 fa:فروشگاه حیوانات خانگی
 mr:पाळीव प्राण्यांचे दुकान
 
-tourism-zoo|@tourism|@children
+tourism-zoo|@category_tourism|@category_children
 en:2Zoo
 ru:2Зоопарк
 bg:3Зоопарк|Зоологическа градина
@@ -12025,7 +12025,7 @@ sw:Zoo
 fa:باغ وحش
 mr:प्राणीसंग्रहालय
 
-tourism-information-office|@tourism
+tourism-information-office|@category_tourism
 en:4Tourist Office
 ru:3Туристический офис|туристическая информация
 bg:3Туристически офис|туризъм|информация
@@ -12061,7 +12061,7 @@ sk:3Turistické informačné centrum
 fa:دفتر گردشگری
 mr:पर्यटन कार्यालय
 
-tourism-information-visitor_centre|@tourism
+tourism-information-visitor_centre|@category_tourism
 en:3Visitor Centre
 ar:مركز الزوار
 be:Цэнтр для наведвальнікаў
@@ -12320,7 +12320,7 @@ sk:Nápojový automat
 fa:ماشین فروش نوشیدنی
 mr:पेय विक्रीयंत्र
 
-amenity-vending_machine-food|@food
+amenity-vending_machine-food|@category_food
 en:4Food Dispenser|Food|Snacks
 be:Аўтамат з ежай|5перакус|4снэкі
 de:5Essensautomat|9Lebensmittelautomat|Snacks|Knabbereien|Nahrungsmittelautomat
@@ -12335,7 +12335,7 @@ tr:Otomat|Yiyecek dispenseri|atıştırmalık
 uk:Автомат з їжею|5перекус|4снекі
 mr:अन्न विक्रीयंत्र
 
-amenity-vending_machine-parking_tickets|@parking
+amenity-vending_machine-parking_tickets|@category_parking
 en:4Parking Tickets|3Pay and Display|Parkomat|Parking Meter
 ru:4Паркомат|Оплата парковки
 ar:ماكينة دفع تذاكر الموقف
@@ -12373,7 +12373,7 @@ zh-Hans:停车场付费机
 zh-Hant:違規停車罰單繳費機
 mr:पार्किंग तिकिटे
 
-amenity-vending_machine-public_transport_tickets|@transport
+amenity-vending_machine-public_transport_tickets|@category_transport
 en:Ticket Machine|Transport Tickets|Tickets
 ar:آلة بيع تذاكر النقل العام
 be:Автомат по продаже билетов
@@ -12454,7 +12454,7 @@ tr:5Dışkı torbası dispenseri
 uk:5Мішки для екскрементів|Какашки|5Пакети для какашок
 mr:मलमूत्र पिशव्या विक्रीयंत्र
 
-amenity-parcel_locker|@post
+amenity-parcel_locker|@category_post
 en:4Parcel Locker|4Parcel Pickup
 be:3Паштамат|5Атрыманне пасылак
 de:5Paketstation|Paket Abholstation|Paket SB|Paket Versandstation
@@ -12466,7 +12466,7 @@ tr:4kilitli dolap|4kitli dolap|kasa
 uk:3Поштомат|5Отримання посилок
 mr:पार्सल लॉकर
 
-amenity-vending_machine-fuel|@fuel
+amenity-vending_machine-fuel|@category_fuel
 en:Fuel Dispenser|Gas Pump
 be:Паліўная калонка|бензакалонка|палівараздатачная калонка
 de:Zapfsäule|Tankautomat
@@ -12641,7 +12641,7 @@ sk:Veža
 fa:برج
 mr:मनोरा|टॉवर
 
-shop-bookmaker|@gambling
+shop-bookmaker|@category_gambling
 en:Bookmaker
 ru:Букмекерская контора|букмекер
 bg:Букмейкър|офис|кантора|пункт
@@ -12677,7 +12677,7 @@ el:Πράκτορας στοιχημάτων|Προποτζίδικο
 sk:Stávková kancelária
 fa:صحافی
 
-shop-seafood|@food|@shop
+shop-seafood|@category_food|@category_shop
 en:4Seafood|4fish market|fish|shellfish|marine
 en-GB:Fishmonger
 ru:Рыбный|рыба|5морепродукты|рыбная лавка
@@ -12716,7 +12716,7 @@ sk:Obchodník s rybami
 fa:فروشگاه غذای دریایی
 mr:सीफूड शॉप
 
-shop-second_hand|@shopping|@shop|@secondhand
+shop-second_hand|@category_shopping|@category_shop|@category_secondhand
 en:Thrift|Flea market
 ar:متجر بضائع مستعملة
 bg:Магазин втора употреба
@@ -12751,7 +12751,7 @@ vi:Cửa hàng bán đồ đã qua sử dụng
 zh-Hans:二手店
 zh-Hant:二手店
 
-shop-charity|@shop|@secondhand
+shop-charity|@category_shop|@category_secondhand
 en:4Charity
 ar:متجر خيري
 be:Дабрачынная
@@ -12828,7 +12828,7 @@ sk:Pokladnica
 fa:بلیط فروشی
 mr:तिकीट दुकान
 
-shop-wine|@food|@shop
+shop-wine|@category_food|@category_shop
 en:4Wine|Winery
 ru:4Винный|вино|вина
 ar:متجر مشروبات روحية
@@ -12866,7 +12866,7 @@ sk:4Vinotéka
 fa:مشروب فروشی
 mr:वाईन शॉप
 
-shop-car_parts|@shop
+shop-car_parts|@category_shop
 en:3Car Parts|4Auto Parts
 ru:Автомобильные запчасти|4Автозапчасти|4запчасти
 bg:Автомобил|части|4авточасти
@@ -12905,7 +12905,7 @@ sw:Vipuri vya magari
 fa:لوازم یدکی
 mr:कारचे भाग|गाडीचे स्पेर पार्ट
 
-tourism-chalet|@hotel
+tourism-chalet|@category_hotel
 en:4Chalet|5holiday cottage|vacation home
 ru:3Шале|коттедж|дом отдыха
 bg:Хижа|3Шале|туризъм
@@ -13118,7 +13118,7 @@ sk:4Hraničná kontrola
 fa:کنترل مرزی
 mr:सीमा नियंत्रण
 
-leisure-water_park|@tourism|@children
+leisure-water_park|@category_tourism|@category_children
 en:Water Park|3aqua park
 ru:3Аквапарк
 bg:3Аквапарк
@@ -13594,7 +13594,7 @@ sk:Štúdio jogy
 fa:سالن یوگا
 mr:योग स्टुडिओ|योगासन केंद्र
 
-tourism-apartment|@hotel
+tourism-apartment|@category_hotel
 en:5Apartments
 ru:5Апартаменты|апарт-отель
 bg:5Апартаменти|туризъм
@@ -13631,7 +13631,7 @@ fa:اپارتمان|سوئیت
 mr:सदनिका|फ्लॅट|अपार्टमेंट
 
 # [tourism=resort] is deprecated
-tourism-resort|@hotel
+tourism-resort|@category_hotel
 en:Resort
 ru:Дом отдыха
 bg:Курорт
@@ -13667,7 +13667,7 @@ sk:Rezort
 fa:تفریحگاه
 mr:रिसॉर्ट
 
-amenity-biergarten|@eat|@nightlife
+amenity-biergarten|@category_eat|@category_nightlife
 en:5Biergarten
 ru:Пивная под открытым небом
 bg:5Бирария
@@ -13933,7 +13933,7 @@ zh-Hant:機車停車格
 fa:پارکینگ موتورسیکلت
 mr:दुचाकी पार्किंग
 
-amenity-parking_space-disabled|@parking
+amenity-parking_space-disabled|@category_parking
 en:Disabled Parking Space
 ar:ﺔﺻﺎﺨﻟﺍ ﺕﺎﺟﺎﻴﺘﺣﻻ﻿ﺍ ﻱﻭﺬﻟ ﺕﺍﺭﺎﻴﺴﻟﺍ ﻑﻮﻗﻮﻟ ﻦﻛﺎﻣﺃ
 be:Паркоўка для інвалідаў
@@ -14354,7 +14354,7 @@ zh-Hant:非政府組織辦公室
 fa:دفتر سازمان خیریه
 mr:अशासकीय संस्था|NGO
 
-shop-erotic|@shop
+shop-erotic|@category_shop
 en:4Erotic|4Adult|3Sex
 ru:4Секс-шоп|5Интимный
 bg:4Секс-шоп|Еротика|4Еротичен
@@ -14429,7 +14429,7 @@ zh-Hant:按摩館
 fa:سالن ماساژ
 mr:मालिशवाला|मसाज सलून
 
-shop-motorcycle|@shop
+shop-motorcycle|@category_shop
 en:4Motorcycle
 ru:4мотоциклы
 bg:4Мотоциклети|мотори
@@ -14582,7 +14582,7 @@ zh-Hans:典当行
 zh-Hant:當舖
 fa:عتیقه فروشی
 
-shop-stationery|@shop
+shop-stationery|@category_shop
 en:5Stationery
 ru:4Канцтовары|Канцелярский|Канцелярские товары
 bg:Магазин за канцеларски материали
@@ -14658,7 +14658,7 @@ zh-Hant:刺青店
 fa:سالن خالکوبی
 mr:टॅटू पार्लर
 
-shop-variety_store|@shopping|@shop
+shop-variety_store|@category_shopping|@category_shop
 en:Variety
 ru:Мелочи|полезные мелочи
 bg:Магазин за разнообразни стоки
@@ -14696,7 +14696,7 @@ zh-Hant:雜貨店
 fa:خرازی
 mr:विविध वास्तूचे दुकान|व्हरायटी स्टोअर
 
-shop-video|@shop
+shop-video|@category_shop
 en:4Video|3DVD
 ru:Видео|4Видеопрокат
 bg:4Видео
@@ -14735,7 +14735,7 @@ zh-Hant:視頻商城
 fa:فروشگاه رسانه‌های تصویری
 mr:व्हिडिओ दुकान
 
-shop-video_games|@shop
+shop-video_games|@category_shop
 en:Video games|4videogames|video games|videogames|U+1F47E|U+1F579|U+1F3AE
 ru:4видеоигры|4компьютерные игры
 bg:4Видеоигри|игри|магазин за видеоигри
@@ -14774,7 +14774,7 @@ zh-Hant:電子遊戲商城
 fa:فروشگاه بازی‌های رایانه‌ای
 mr:व्हिडिओ गेमचे दुकान
 
-tourism-wilderness_hut|@hotel
+tourism-wilderness_hut|@category_hotel
 en:4Wilderness Hut|5backcountry hut|hut
 ru:Хижина в лесу|3хижина
 bg:Хижа в дивата природа|3Хижа|Хижа в гората|Кабина|къща
@@ -14810,7 +14810,7 @@ zh-Hans:荒野小屋
 zh-Hant:山屋
 fa:کلبه‌ی صحرایی
 
-tourism-gallery|@tourism
+tourism-gallery|@category_tourism
 en:3Gallery|museum
 ru:3Галерея|музей|картины|картинная галерея
 bg:3Галерия|музей|изложба|картини
@@ -14830,7 +14830,7 @@ tr:3Galeri|müze
 fa:گالری|موزه
 mr:वीथि
 
-tourism-theme_park|@tourism|@children
+tourism-theme_park|@category_tourism|@category_children
 en:Theme park|Amusement park
 ru:Парк развлечений|Парк аттракционов|Тематический парк
 bg:Увеселителен парк
@@ -14850,7 +14850,7 @@ ro:Parc de distracții
 tr:Tema parkı|Eğlence parkı
 mr:थीम पार्क
 
-boundary-national_park|@tourism
+boundary-national_park|@category_tourism
 en:National Park
 ru:Национальный парк|заповедник|заказник
 bg:Национален парк
@@ -14887,7 +14887,7 @@ zh-Hant:國家公園
 fa:پارک ملی
 mr:राष्ट्रीय उद्यान
 
-leisure-nature_reserve|@tourism
+leisure-nature_reserve|@category_tourism
 en:Nature reserve
 ru:Заповедник|заказник
 bg:Природен парк|Резерват
@@ -14998,7 +14998,7 @@ zh-Hans:间歇泉
 zh-Hant:間歇泉
 fa:چشمه آب گرم
 
-natural-glacier|@tourism
+natural-glacier|@category_tourism
 en:Glacier
 ru:Ледник
 bg:Ледник
@@ -15163,7 +15163,7 @@ vi:Địa điểm tổ chức sự kiện
 zh-Hans:活动场所
 zh-Hant:活動場所
 
-shop-chocolate|@food|@shop
+shop-chocolate|@category_food|@category_shop
 en:Chocolate
 be:Шакалад
 de:4Schokoladengeschäft
@@ -15180,7 +15180,7 @@ pt-BR:Loja de chocolates
 ru:Шоколад
 tr:Çikolata mağazası
 
-shop-coffee|@food|@shop
+shop-coffee|@category_food|@category_shop
 en:Cofee
 be:Кава
 de:6Kaffeegeschäft
@@ -15196,7 +15196,7 @@ pt-BR:Loja de café
 ru:Кофе
 tr:Kahve mağazası
 
-shop-fabric|@shop
+shop-fabric|@category_shop
 en:Fabric
 de:4Textilgeschäft|Stoffgeschäft|Stoffladen|Stoffe
 et:Kangapood
@@ -15220,7 +15220,7 @@ pt-BR:Prestamista
 ru:Ростовщик
 tr:Tefeci
 
-shop-music|@shop
+shop-music|@category_shop
 en:Record|vinyl|Music
 be:Музыка
 de:5Musikgeschäft|5Plattenladen
@@ -15238,7 +15238,7 @@ pt-BR:Loja de música
 ru:Музыка
 tr:Plak mağazası
 
-shop-musical_instrument|@shop
+shop-musical_instrument|@category_shop
 en:Musical instruments
 be:Музычныя інструменты
 de:5Musikinstrumenteladen|Musikhaus
@@ -15255,7 +15255,7 @@ pt-BR:Loja de instrumentos musicais
 ru:Музыкальные инструменты
 tr:Enstrüman Mağazası
 
-shop-tea|@shop
+shop-tea|@category_shop
 en:Tea
 be:Гарбата
 es:Tienda de té
@@ -15274,7 +15274,7 @@ ru:Чай|чая
 tr:Çay mağazası
 zh-Hans:茶叶商店
 
-shop-antiques|@shopping|@shop|@secondhand
+shop-antiques|@category_shopping|@category_shop|@category_secondhand
 en:Antiques
 ar:التحف
 be:Антыкварыят
@@ -15313,7 +15313,7 @@ vi:Đồ cổ
 zh-Hans:古董
 zh-Hant:古董
 
-shop-art|@shopping|@shop
+shop-art|@category_shopping|@category_shop
 en:Arts
 ar:متجر الفنون
 be:Мастацтва|мастацтваў
@@ -15352,7 +15352,7 @@ vi:Cửa hàng nghệ thuật
 zh-Hans:艺术商店
 zh-Hant:藝術商店
 
-shop-baby_goods|@children|@shop
+shop-baby_goods|@category_children|@category_shop
 en:Baby Goods
 ar:متجر الأطفال
 be:Дзіцячая
@@ -15391,7 +15391,7 @@ vi:Cửa hàng trẻ em
 zh-Hans:儿童商店
 zh-Hant:兒童商店
 
-shop-bag|@shopping|@shop
+shop-bag|@category_shopping|@category_shop
 en:Bags
 ar:متجر الحقائب
 be:Крама сумак
@@ -15430,7 +15430,7 @@ vi:Cửa hàng túi xách
 zh-Hans:箱包店
 zh-Hant:箱包店
 
-shop-cheese|@food
+shop-cheese|@category_food
 en:Cheese
 ar:متجر جبن
 be:Сыр|Сырны
@@ -15469,7 +15469,7 @@ vi:Cửa hàng pho mát
 zh-Hans:奶酪店
 zh-Hant:奶酪店c
 
-shop-dairy|@food|@shop
+shop-dairy|@category_food|@category_shop
 en:Dairy Products
 ar:متجر الألبان
 be:Малако|Малочныя прадукты
@@ -15510,7 +15510,7 @@ zh-Hant:乳製品
 
 # Defines _electrical supplies_. Should differ from shop-electronics.
 
-shop-electrical|@shop
+shop-electrical|@category_shop
 en:Electrical|U+1F50B|U+1F50C|U+1F4A1|U+1F526
 ar:متجر البضع الكهربائية
 be:4Электроніка
@@ -15549,7 +15549,7 @@ vi:Cửa hàng điện tử
 zh-Hans:电器商城
 zh-Hant:電器商城
 
-shop-fishing|@shop
+shop-fishing|@category_shop
 en:Fishing
 ar:متجر صيد
 be:Рыбалоўны
@@ -15588,7 +15588,7 @@ vi:Cửa hàng câu cá
 zh-Hans:钓鱼店
 zh-Hant:釣魚店
 
-shop-interior_decoration|@shop
+shop-interior_decoration|@category_shop
 en:Interior Decorations
 ar:محل ديكورات داخلية
 be:Ўпрыгажэнні інтэр'еру
@@ -15627,7 +15627,7 @@ vi:Đồ trang trí nội thất
 zh-Hans:室内装饰
 zh-Hant:室內裝飾
 
-shop-lottery|@gambling
+shop-lottery|@category_gambling
 en:Lottery Tickets
 ar:ﺐﻴﺼﻧﺎﻴﻟﺍ ﺮﻛﺍﺬﺗ
 be:Латарэя|Латарэйныя білеты
@@ -15666,7 +15666,7 @@ vi:Vé xổ số kiến thiết
 zh-Hans:彩票
 zh-Hant:彩票
 
-shop-medical_supply|@shop
+shop-medical_supply|@category_shop
 en:Medical Supplies
 ar:ﺔﻴﺒﻄﻟﺍ ﺕﺍﺩﺍﺪﻣﻹﺍ
 be:Медыцынскія прыналежнасці
@@ -15705,7 +15705,7 @@ vi:Vật tư y tế
 zh-Hans:医疗用品
 zh-Hant:醫療用品
 
-shop-nutrition_supplements|@shop
+shop-nutrition_supplements|@category_shop
 en:Nutrition Supplements
 ar:محل مكملات غذائية
 be:Харчовыя дабаўкі
@@ -15744,7 +15744,7 @@ vi:Bổ sung dinh dưỡng
 zh-Hans:营养补充剂
 zh-Hant:營養補充劑
 
-shop-paint|@shop
+shop-paint|@category_shop
 en:Paints
 ar:ﺕﺎﻧﺎﻫﺪﻟﺍ
 be:Фарбы
@@ -15783,7 +15783,7 @@ vi:Sơn
 zh-Hans:油漆
 zh-Hant:油漆
 
-shop-perfumery|@shopping|@shop
+shop-perfumery|@category_shopping|@category_shop
 en:Perfumery
 ar:العطور
 be:Парфум|Парфумерыя
@@ -15822,7 +15822,7 @@ vi:Nước hoa
 zh-Hans:香水
 zh-Hant:香水
 
-shop-sewing|@shop
+shop-sewing|@category_shop
 en:3Sewing Supplies|4Haberdashery
 ar:معدات الخياطة
 be:Швейныя прыналежнасці
@@ -15900,7 +15900,7 @@ vi:Cho thuê kho lưu trữ
 zh-Hans:存储租赁
 zh-Hant:存儲租賃
 
-shop-tobacco|@shop
+shop-tobacco|@category_shop
 en:Tobacco
 ar:تبغ
 be:Тытунь
@@ -15939,7 +15939,7 @@ vi:Thuốc lá
 zh-Hans:烟草
 zh-Hant:煙草
 
-shop-trade|@shop
+shop-trade|@category_shop
 en:Trades Supplies
 ar:ﺔﻳﺭﺎﺠﺘﻟﺍ ﺕﺍﺪﻳﺭﻮﺘﻟﺍ
 be:Гандлёвая прыналежнасць
@@ -15978,7 +15978,7 @@ vi:Nguồn cung cấp Giao dịch
 zh-Hans:贸易用品
 zh-Hant:貿易用品
 
-shop-watches|@shopping|@shop
+shop-watches|@category_shopping|@category_shop
 en:Watches
 ar:ساعات
 be:Гадзіннік
@@ -16017,7 +16017,7 @@ vi:Xem
 zh-Hans:手表
 zh-Hant:手錶
 
-shop-wholesale|@shop
+shop-wholesale|@category_shop
 en:Wholesale
 ar:متجر مواد بالجملة
 be:Аптовая
@@ -16113,7 +16113,7 @@ vi:Nhà máy điện
 zh-Hans:发电厂
 zh-Hant:發電廠
 
-shop-auction|@secondhand
+shop-auction|@category_secondhand
 en:4Auction|Auctioneer|Auction House
 ar:مزاد علني
 be:Аўкцыён
@@ -16152,7 +16152,7 @@ vi:Bán đấu giá
 zh-Hans:拍卖会
 zh-Hant:拍賣
 
-shop-collector|@shopping|@secondhand
+shop-collector|@category_shopping|@category_secondhand
 en:Collector
 ar:جامع
 be:Калекцыянер

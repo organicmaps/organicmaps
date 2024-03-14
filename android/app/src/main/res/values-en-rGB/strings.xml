@@ -13,7 +13,9 @@
 
 	<!-- SECTION: Search categories -->
 	<!-- Search category for fuel stations; any changes should be duplicated in categories.txt @fuel! -->
-	<string name="fuel">Petrol</string>
+	<string name="category_fuel">Petrol</string>
+
+	<!-- SECTION: Other translations -->
 	<!-- gray color -->
 	<string name="gray">Grey</string>
 	<!-- blue gray color -->

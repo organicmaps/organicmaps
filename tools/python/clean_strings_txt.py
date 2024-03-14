@@ -32,16 +32,12 @@ ANDROID_XML_RE = re.compile(r'@string/(.*?)\W')
 
 IOS_CANDIDATES_RE = re.compile(r'(.*?):[^L\(]@"([a-z0-9_]*?)"')
 
-HARDCODED_CATEGORIES = None
+HARDCODED_CATEGORIES = []
 
 HARDCODED_STRINGS = [
     # titleForBookmarkColor
     "red", "blue", "purple", "yellow", "pink", "brown", "green", "orange", "deep_purple", "light_blue",
     "cyan", "teal", "lime", "deep_orange", "gray", "blue_gray",
-    # Used in About in iphone/Maps/UI/Help/AboutController.swift
-    "news", "faq", "report_a_bug", "how_to_support_us", "rate_the_app",
-    "telegram", "github", "website", "email", "matrix", "mastodon", "facebook", "twitter", "instagram", "openstreetmap",
-    "privacy_policy", "terms_of_use", "copyright",
 ]
 
 
@@ -113,6 +109,7 @@ def grep_ios_candidates():
 
 
 def get_hardcoded():
+    "search/displayed_categories.cpp"
     ret = parenthesize(HARDCODED_CATEGORIES)
     ret.update(parenthesize(HARDCODED_STRINGS))
     logging.info("Hardcoded colors and categories: {0}".format(len(ret)))
@@ -235,14 +232,6 @@ def get_args():
         "-r", "--root",
         dest="omim_root", default=find_omim(),
         help="Path to the root of the OMIM project"
-    )
-
-    parser.add_argument(
-        "-ct", "--categories",
-        dest="hardcoded_categories",
-        default="{0}/data/hardcoded_categories.txt".format(find_omim()),
-        help="""Path to the list of the categories that are displayed in the
-        interface, but are not taken from strings.txt"""
     )
 
     return parser.prog, parser.parse_args()
@@ -382,10 +371,11 @@ def find_omim():
     return omim_path
 
 
-def read_hardcoded_categories(a_path):
-    logging.info("Loading harcoded categories from: {0}".format(a_path))
-    with open(a_path) as infile:
-        return [s.strip() for s in infile if s]
+def read_hardcoded_categories():
+    categoriestxt = OMIM_ROOT + "/data/categories.txt"
+    logging.info(f"Retrieving search categories from: {categoriestxt}")
+    with open(categoriestxt) as infile:
+        return [s.strip().lstrip('@') for s in infile if s.startswith("@category_")]
 
 
 if __name__ == "__main__":
@@ -394,11 +384,8 @@ if __name__ == "__main__":
 
     OMIM_ROOT = args.omim_root
 
-    # TODO: switch to a single source of hardcoded categories,
-    # see https://github.com/organicmaps/organicmaps/issues/1795
-    HARDCODED_CATEGORIES = read_hardcoded_categories(
-        args.hardcoded_categories
-    )
+    HARDCODED_CATEGORIES = read_hardcoded_categories()
+    logging.info(f"Loaded categories: {HARDCODED_CATEGORIES}")
 
     args.langs = set(args.langs) if args.langs else None
 

@@ -40,11 +40,11 @@ std::map<NavigationSearchState, NSString *> const kSearchStateButtonImageNames{
   {NavigationSearchState::MinimizedATM, @"ic_routing_atm_off"}};
 
 std::map<NavigationSearchState, NSString *> const kSearchButtonRequest{
-  {NavigationSearchState::MinimizedGas, L(@"fuel")},
-  {NavigationSearchState::MinimizedParking, L(@"parking")},
-  {NavigationSearchState::MinimizedEat, L(@"eat")},
-  {NavigationSearchState::MinimizedFood, L(@"food")},
-  {NavigationSearchState::MinimizedATM, L(@"atm")}};
+  {NavigationSearchState::MinimizedGas, L(@"category_fuel")},
+  {NavigationSearchState::MinimizedParking, L(@"category_parking")},
+  {NavigationSearchState::MinimizedEat, L(@"category_eat")},
+  {NavigationSearchState::MinimizedFood, L(@"category_food")},
+  {NavigationSearchState::MinimizedATM, L(@"category_atm")}};
 
 BOOL defaultOrientation(CGSize const &size) {
   CGSize const &mapViewSize = [MapViewController sharedController].view.frame.size;
