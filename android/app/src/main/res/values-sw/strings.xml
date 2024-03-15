@@ -22,23 +22,23 @@
 	<string name="maps_storage">Hifadhi ramani kwenye</string>
 
 	<!-- SECTION: Search categories -->
-	<!-- Search category for cafes, bars, restaurants; any changes should be duplicated in categories.txt @eat! -->
+	<!-- Search category for cafes, bars, restaurants; any changes should be duplicated in categories.txt @category_eat! -->
 	<string name="category_eat">Sehemu ya kula</string>
-	<!-- Search category for grocery stores; any changes should be duplicated in categories.txt @food! -->
+	<!-- Search category for grocery stores; any changes should be duplicated in categories.txt @category_food! -->
 	<string name="category_food">Migahawani</string>
-	<!-- Search category for clothes/shoes/gifts/jewellery/sport shops; any changes should be duplicated in categories.txt @shopping! -->
+	<!-- Search category for malls/clothes/shoes/gifts/jewellery/sport shops; any changes should be duplicated in categories.txt @category_shopping! -->
 	<string name="category_shopping">Manunuzi</string>
-	<!-- Search category for second_hand/charity/antique/auction shops; any changes should be duplicated in categories.txt @secondhand! -->
+	<!-- Search category for second_hand/charity/antique/auction shops; any changes should be duplicated in categories.txt @category_secondhand! -->
 	<string name="category_secondhand">Mtumba</string>
-	<!-- Search category for nightclubs/bars; any changes should be duplicated in categories.txt @nightlife! -->
+	<!-- Search category for nightclubs/bars; any changes should be duplicated in categories.txt @category_nightlife! -->
 	<string name="category_nightlife">Shughuli za usiku</string>
-	<!-- Search category for water park/disneyland/playground/toys store; any changes should be duplicated in categories.txt @children! -->
+	<!-- Search category for water park/disneyland/playground/toys store; any changes should be duplicated in categories.txt @category_children! -->
 	<string name="category_children">Mapumziko ya familia</string>
-	<!-- Search category for hospitals; any changes should be duplicated in categories.txt @hospital! -->
+	<!-- Search category for hospitals; any changes should be duplicated in categories.txt @category_hospital! -->
 	<string name="category_hospital">Hospitali</string>
-	<!-- Search category for water; any changes should be duplicated in categories.txt @water! also used to sort bookmarks by type -->
+	<!-- Search category for water; any changes should be duplicated in categories.txt @category_water! also used to sort bookmarks by type -->
 	<string name="category_water">Maji</string>
-	<!-- Search category for RV facilities; any changes should be duplicated in categories.txt @rv! -->
+	<!-- Search category for RV facilities; any changes should be duplicated in categories.txt @category_rv! -->
 	<string name="category_rv">Kwa RV</string>
 
 	<!-- SECTION: Other translations -->

@@ -14,9 +14,9 @@
 	<string name="address">Dirección</string>
 
 	<!-- SECTION: Search categories -->
-	<!-- Search category for recycling; any changes should be duplicated in categories.txt @recycling! -->
+	<!-- Search category for recycling; any changes should be duplicated in categories.txt @category_recycling! -->
 	<string name="category_recycling">Reciclaje</string>
-	<!-- Search category for water; any changes should be duplicated in categories.txt @water! also used to sort bookmarks by type -->
+	<!-- Search category for water; any changes should be duplicated in categories.txt @category_water! also used to sort bookmarks by type -->
 	<string name="category_water">Agua</string>
 
 	<!-- SECTION: Other translations -->
