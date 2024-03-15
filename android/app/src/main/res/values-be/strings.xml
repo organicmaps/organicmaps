@@ -1034,10 +1034,12 @@
 	<string name="type.highway.track.bridge">Мост</string>
 	<!-- These translations are used for all type.highway.*.tunnel. -->
 	<string name="type.highway.track.tunnel">Тунэль</string>
+	<string name="type.highway.trunk">Аўтамагістраль</string>
 	<!-- These translations are used for all type.highway.*.bridge. -->
 	<string name="type.highway.trunk.bridge">Мост</string>
 	<!-- These translations are used for all type.highway.*.tunnel. -->
 	<string name="type.highway.trunk.tunnel">Тунэль</string>
+	<string name="type.highway.trunk_link">З\'езд з аўтамагістралі</string>
 	<!-- These translations are used for all type.highway.*.bridge. -->
 	<string name="type.highway.trunk_link.bridge">Мост</string>
 	<!-- These translations are used for all type.highway.*.tunnel. -->
@@ -1046,6 +1048,7 @@
 	<string name="type.highway.unclassified.bridge">Мост</string>
 	<!-- These translations are used for all type.highway.*.tunnel. -->
 	<string name="type.highway.unclassified.tunnel">Тунэль</string>
+	<string name="type.area_highway.trunk">Аўтамагістраль</string>
 
 	<!-- SECTION: Types: Historic -->
 	<string name="type.historic">Гістарычны аб\'ект</string>
