@@ -175,6 +175,9 @@ tools/python/routing/etc/*.ini
 /node_modules/
 /package-lock.json
 
+# Visual Studio
+.vs
+
 # VS Code
 .vscode
 
