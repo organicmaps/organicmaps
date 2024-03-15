@@ -1337,12 +1337,12 @@
 	<!-- These translations are used for all type.highway.*.tunnel. -->
 	<string name="type.highway.track.tunnel">Тоннель</string>
 	<string name="type.highway.traffic_signals">Светофор</string>
-	<string name="type.highway.trunk">Автомагистраль</string>
+	<string name="type.highway.trunk">Трасса</string>
 	<!-- These translations are used for all type.highway.*.bridge. -->
 	<string name="type.highway.trunk.bridge">Мост</string>
 	<!-- These translations are used for all type.highway.*.tunnel. -->
 	<string name="type.highway.trunk.tunnel">Тоннель</string>
-	<string name="type.highway.trunk_link">Съезд с автомагистрали</string>
+	<string name="type.highway.trunk_link">Съезд с трассы</string>
 	<!-- These translations are used for all type.highway.*.bridge. -->
 	<string name="type.highway.trunk_link.bridge">Мост</string>
 	<!-- These translations are used for all type.highway.*.tunnel. -->
@@ -1366,7 +1366,7 @@
 	<string name="type.area_highway.tertiary">Дорога</string>
 	<string name="type.area_highway.steps">Лестница</string>
 	<string name="type.area_highway.track">Грунтовка</string>
-	<string name="type.area_highway.trunk">Автомагистраль</string>
+	<string name="type.area_highway.trunk">Трасса</string>
 	<string name="type.area_highway.unclassified">Небольшая дорога</string>
 
 	<!-- SECTION: Types: Historic -->

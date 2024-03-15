@@ -1323,12 +1323,12 @@
 	<!-- These translations are used for all type.highway.*.tunnel. -->
 	<string name="type.highway.track.tunnel">Тунель</string>
 	<string name="type.highway.traffic_signals">Світлофор</string>
-	<string name="type.highway.trunk">Автомагістраль</string>
+	<string name="type.highway.trunk">Траса</string>
 	<!-- These translations are used for all type.highway.*.bridge. -->
 	<string name="type.highway.trunk.bridge">Міст</string>
 	<!-- These translations are used for all type.highway.*.tunnel. -->
 	<string name="type.highway.trunk.tunnel">Тунель</string>
-	<string name="type.highway.trunk_link">З\'їзд із автомагістралі</string>
+	<string name="type.highway.trunk_link">З\'їзд з траси</string>
 	<!-- These translations are used for all type.highway.*.bridge. -->
 	<string name="type.highway.trunk_link.bridge">Міст</string>
 	<!-- These translations are used for all type.highway.*.tunnel. -->
@@ -1352,7 +1352,7 @@
 	<string name="type.area_highway.tertiary">Дорога</string>
 	<string name="type.area_highway.steps">Сходи</string>
 	<string name="type.area_highway.track">Ґрунтівка</string>
-	<string name="type.area_highway.trunk">Автомагістраль</string>
+	<string name="type.area_highway.trunk">Траса</string>
 	<string name="type.area_highway.unclassified">Невелика дорога</string>
 
 	<!-- SECTION: Types: Historic -->
