@@ -13542,7 +13542,7 @@
     af = Hoofpad
     ar = شارع وطني
     az = Dövlət şossesi
-    be = Аўтамагістраль
+    be = Траса
     bg = Автомагистрала
     cs = Ulice
     da = Gade
@@ -13567,12 +13567,12 @@
     pt = Via rápida
     pt-BR = Via expressa
     ro = Stradă
-    ru = Автомагистраль
+    ru = Трасса
     sk = Ulica
     sv = Gata
     th = ถนน
     tr = Devlet Yolu
-    uk = Автомагістраль
+    uk = Траса
     vi = Phố
     zh-Hans = 干线道路
     zh-Hant = 主幹道
@@ -13589,14 +13589,14 @@
     ref = type.highway.trunk
     en = Trunk Road Ramp
     af = Hoofpadoprit
-    be = З'езд з аўтамагістралі
+    be = З'езд з трасы
     bg = Изход от магистрала
     es = Enlace de vía troncal
     fi = Päätien ramppi
     mr = राष्ट्रीय महामार्ग उतार
     pt-BR = Saída de rodovia
-    ru = Съезд с автомагистрали
-    uk = З'їзд із автомагістралі
+    ru = Съезд с трассы
+    uk = З'їзд з траси
     zh-Hans = 干线道路连接路
     zh-Hant = 主幹道連接路
 
