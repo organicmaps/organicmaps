@@ -2207,16 +2207,11 @@ void BookmarkManager::UpdateBmGroupIdList()
   CHECK_THREAD_CHECKER(m_threadChecker, ());
   size_t const count = m_categories.size();
 
-  using PairT = std::pair<kml::MarkGroupId, BookmarkCategory const *>;
-  std::vector<PairT> vec;
-  vec.reserve(count);
-  for (auto const & [markGroupId, categoryPtr] : m_categories)
-    vec.emplace_back(markGroupId, categoryPtr.get());
-
   m_unsortedBmGroupsIdList.clear();
   m_unsortedBmGroupsIdList.resize(count);
-  for (size_t i = 0; i < count; ++i)
-    m_unsortedBmGroupsIdList[i] = vec[i].first;
+  size_t i {0};
+  for (auto const & [markGroupId, _] : m_categories)
+    m_unsortedBmGroupsIdList[i++] = markGroupId;
 }
 
 std::vector<kml::MarkGroupId> BookmarkManager::GetSortedBmGroupIdList() const
