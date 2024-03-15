@@ -3,6 +3,7 @@
 #include "qt/qt_common/text_dialog.hpp"
 
 #include "map/place_page_info.hpp"
+#include "map/routing_mark.hpp"
 
 #include <QtWidgets/QDialogButtonBox>
 #include <QtWidgets/QGridLayout>
@@ -84,15 +85,46 @@ PlacePageDialog::PlacePageDialog(QWidget * parent, place_page::Info const & info
     addEntry(DebugPrint(PropID::FMD_CUISINE), cuisines);
 
   QDialogButtonBox * dbb = new QDialogButtonBox();
+
+  QPushButton * fromButton = new QPushButton("Route From");
+  fromButton->setIcon(QIcon(":/navig64/point-start.png"));
+  connect(fromButton, &QAbstractButton::clicked, this, [this]
+  {
+    done(RouteFrom);
+  });
+  dbb->addButton(fromButton, QDialogButtonBox::ActionRole);
+
+  QPushButton * addStopButton = new QPushButton("Add Stop");
+  addStopButton->setIcon(QIcon(":/navig64/point-intermediate.png"));
+  connect(addStopButton, &QAbstractButton::clicked, this, [this]
+  {
+    done(AddStop);
+  });
+  dbb->addButton(addStopButton, QDialogButtonBox::ActionRole);
+
+  QPushButton * routeToButton = new QPushButton("Route To");
+  routeToButton->setIcon(QIcon(":/navig64/point-finish.png"));
+  connect(routeToButton, &QAbstractButton::clicked, this, [this]
+  {
+    done(RouteTo);
+  });
+  dbb->addButton(routeToButton, QDialogButtonBox::ActionRole);
+
   QPushButton * closeButton = new QPushButton("Close");
   closeButton->setDefault(true);
-  connect(closeButton, &QAbstractButton::clicked, this, &PlacePageDialog::OnClose);
+  connect(closeButton, &QAbstractButton::clicked, this, [this]
+  {
+    done(Close);
+  });
   dbb->addButton(closeButton, QDialogButtonBox::RejectRole);
 
   if (info.ShouldShowEditPlace())
   {
     QPushButton * editButton = new QPushButton("Edit Place");
-    connect(editButton, &QAbstractButton::clicked, this, &PlacePageDialog::OnEdit);
+    connect(editButton, &QAbstractButton::clicked, this,  [this]
+    {
+      done(EditPlace);
+    });
     dbb->addButton(editButton, QDialogButtonBox::AcceptRole);
   }
 
@@ -109,7 +141,7 @@ PlacePageDialog::PlacePageDialog(QWidget * parent, place_page::Info const & info
 
   info.ForEachMetadataReadable([&addEntry](PropID id, std::string const & value)
   {
-    bool isLink = false;
+    bool isLink;
     switch (id)
     {
     case PropID::FMD_EMAIL:
@@ -124,6 +156,7 @@ PlacePageDialog::PlacePageDialog(QWidget * parent, place_page::Info const & info
       isLink = true;
       break;
     default:
+      isLink = false;
       break;
     }
 
@@ -136,6 +169,3 @@ PlacePageDialog::PlacePageDialog(QWidget * parent, place_page::Info const & info
   auto const ppTitle = std::string("Place Page") + (info.IsBookmark() ? " (bookmarked)" : "");
   setWindowTitle(ppTitle.c_str());
 }
-
-void PlacePageDialog::OnClose() { reject(); }
-void PlacePageDialog::OnEdit() { accept(); }
