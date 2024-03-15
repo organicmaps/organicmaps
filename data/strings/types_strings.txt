@@ -1214,7 +1214,7 @@
     pt = Jogatina
     pt-BR = Casa de jogos de azar
     ro = Jocuri de noroc
-    ru = Играть в азартные игры
+    ru = Азартные игры
     sk = Hazardné hry
     sv = Spelande
     sw = Kamari
