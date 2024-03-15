@@ -124,6 +124,10 @@ node|z14-[aeroway=aerodrome]::int_name,
 
 /*check offset int_name*/
 
+/* 3.2 Road Icons */
+node|z19-[highway=traffic_signals],
+{icon-image: traffic_signals.svg}
+
 
 node|z12[railway=station][!transport],
 {icon-image: train-s.svg;text-offset: 1;font-size: 11;}
