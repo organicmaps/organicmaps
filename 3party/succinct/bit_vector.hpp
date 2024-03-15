@@ -38,14 +38,14 @@ namespace succinct {
 
         typedef std::vector<uint64_t> bits_type;
 
-        bit_vector_builder(uint64_t size = 0, bool init = 0)
+        bit_vector_builder(uint64_t size = 0, bool initBit = false)
             : m_size(size)
         {
-            m_bits.resize(detail::words_for(size), uint64_t(-init));
+            m_bits.resize(detail::words_for(size), initBit ? uint64_t(-1) : 0);
             if (size) {
                 m_cur_word = &m_bits.back();
                 // clear padding bits
-                if (init && size % 64) {
+                if (initBit && size % 64) {
                     *m_cur_word >>= 64 - (size % 64);
                 }
             }
