@@ -116,51 +116,51 @@
 	<string name="measurement_units_summary">Mil və ya kilometr seçin</string>
 
 	<!-- SECTION: Search categories -->
-	<!-- Search category for cafes, bars, restaurants; any changes should be duplicated in categories.txt @eat! -->
+	<!-- Search category for cafes, bars, restaurants; any changes should be duplicated in categories.txt @category_eat! -->
 	<string name="category_eat">Harada yemək</string>
-	<!-- Search category for grocery stores; any changes should be duplicated in categories.txt @food! -->
+	<!-- Search category for grocery stores; any changes should be duplicated in categories.txt @category_food! -->
 	<string name="category_food">Ərzaq mağazası</string>
-	<!-- Search category for public transport; any changes should be duplicated in categories.txt @transport! -->
+	<!-- Search category for public transport; any changes should be duplicated in categories.txt @category_transport! -->
 	<string name="category_transport">Nəqliyyat</string>
-	<!-- Search category for fuel stations; any changes should be duplicated in categories.txt @fuel! -->
+	<!-- Search category for fuel stations; any changes should be duplicated in categories.txt @category_fuel! -->
 	<string name="category_fuel">Yanacaq doldurma məntəqəsi</string>
-	<!-- Search category for parking lots; any changes should be duplicated in categories.txt @parking! -->
+	<!-- Search category for parking lots; any changes should be duplicated in categories.txt @category_parking! -->
 	<string name="category_parking">Avtomobil dayanacağı</string>
-	<!-- Search category for clothes/shoes/gifts/jewellery/sport shops; any changes should be duplicated in categories.txt @shopping! -->
+	<!-- Search category for malls/clothes/shoes/gifts/jewellery/sport shops; any changes should be duplicated in categories.txt @category_shopping! -->
 	<string name="category_shopping">Alış-veriş</string>
-	<!-- Search category for second_hand/charity/antique/auction shops; any changes should be duplicated in categories.txt @secondhand! -->
+	<!-- Search category for second_hand/charity/antique/auction shops; any changes should be duplicated in categories.txt @category_secondhand! -->
 	<string name="category_secondhand">İkinci əl</string>
-	<!-- Search category for places to stay; any changes should be duplicated in categories.txt @hotel! -->
+	<!-- Search category for places to stay; any changes should be duplicated in categories.txt @category_hotel! -->
 	<string name="category_hotel">Otel</string>
-	<!-- Search category sight seeings and touristic attractions; any changes should be duplicated in categories.txt @tourism! -->
+	<!-- Search category sight seeings and touristic attractions; any changes should be duplicated in categories.txt @category_tourism! -->
 	<string name="category_tourism">Görməli yerlər</string>
-	<!-- Search category for entertainment; any changes should be duplicated in categories.txt @entertainment! -->
+	<!-- Search category for entertainment; any changes should be duplicated in categories.txt @category_entertainment! -->
 	<string name="category_entertainment">Əyləncə</string>
-	<!-- Search category for ATMs; any changes should be duplicated in categories.txt @atm! -->
+	<!-- Search category for ATMs; any changes should be duplicated in categories.txt @category_atm! -->
 	<string name="category_atm">Bankomat</string>
-	<!-- Search category for nightclubs/bars; any changes should be duplicated in categories.txt @nightlife! -->
+	<!-- Search category for nightclubs/bars; any changes should be duplicated in categories.txt @category_nightlife! -->
 	<string name="category_nightlife">Gecə həyatı</string>
-	<!-- Search category for water park/disneyland/playground/toys store; any changes should be duplicated in categories.txt @children! -->
+	<!-- Search category for water park/disneyland/playground/toys store; any changes should be duplicated in categories.txt @category_children! -->
 	<string name="category_children">Ailə tətili</string>
-	<!-- Search category for banks; any changes should be duplicated in categories.txt @bank! -->
+	<!-- Search category for banks; any changes should be duplicated in categories.txt @category_bank! -->
 	<string name="category_bank">Bank</string>
-	<!-- Search category for pharmacies; any changes should be duplicated in categories.txt @pharmacy! -->
+	<!-- Search category for pharmacies; any changes should be duplicated in categories.txt @category_pharmacy! -->
 	<string name="category_pharmacy">Aptek</string>
-	<!-- Search category for hospitals; any changes should be duplicated in categories.txt @hospital! -->
+	<!-- Search category for hospitals; any changes should be duplicated in categories.txt @category_hospital! -->
 	<string name="category_hospital">Xəstəxana</string>
-	<!-- Search category for toilets; any changes should be duplicated in categories.txt @toilet! -->
+	<!-- Search category for toilets; any changes should be duplicated in categories.txt @category_toilet! -->
 	<string name="category_toilet">Ayaqyolu</string>
-	<!-- Search category for post offices; any changes should be duplicated in categories.txt @post! -->
+	<!-- Search category for post offices; any changes should be duplicated in categories.txt @category_post! -->
 	<string name="category_post">Poçt</string>
-	<!-- Search category for police; any changes should be duplicated in categories.txt @police! -->
+	<!-- Search category for police; any changes should be duplicated in categories.txt @category_police! -->
 	<string name="category_police">Polis</string>
-	<!-- Search category for WiFi access; any changes should be duplicated in categories.txt @wifi! -->
+	<!-- Search category for WiFi access; any changes should be duplicated in categories.txt @category_wifi! -->
 	<string name="category_wifi">WiFi</string>
-	<!-- Search category for recycling; any changes should be duplicated in categories.txt @recycling! -->
+	<!-- Search category for recycling; any changes should be duplicated in categories.txt @category_recycling! -->
 	<string name="category_recycling">Təkrar emal</string>
-	<!-- Search category for water; any changes should be duplicated in categories.txt @water! also used to sort bookmarks by type -->
+	<!-- Search category for water; any changes should be duplicated in categories.txt @category_water! also used to sort bookmarks by type -->
 	<string name="category_water">Su</string>
-	<!-- Search category for RV facilities; any changes should be duplicated in categories.txt @rv! -->
+	<!-- Search category for RV facilities; any changes should be duplicated in categories.txt @category_rv! -->
 	<string name="category_rv">Karvan qurğuları</string>
 
 	<!-- SECTION: Other translations -->

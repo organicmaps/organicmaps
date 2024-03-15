@@ -104,73 +104,73 @@
 
 /********** Search categories **********/
 
-/* Search category for cafes, bars, restaurants; any changes should be duplicated in categories.txt @eat! */
+/* Search category for cafes, bars, restaurants; any changes should be duplicated in categories.txt @category_eat! */
 "category_eat" = "Un endroit pour manger";
 
-/* Search category for grocery stores; any changes should be duplicated in categories.txt @food! */
+/* Search category for grocery stores; any changes should be duplicated in categories.txt @category_food! */
 "category_food" = "Epiceries";
 
-/* Search category for public transport; any changes should be duplicated in categories.txt @transport! */
+/* Search category for public transport; any changes should be duplicated in categories.txt @category_transport! */
 "category_transport" = "Transport";
 
-/* Search category for fuel stations; any changes should be duplicated in categories.txt @fuel! */
+/* Search category for fuel stations; any changes should be duplicated in categories.txt @category_fuel! */
 "category_fuel" = "Stations-service";
 
-/* Search category for parking lots; any changes should be duplicated in categories.txt @parking! */
+/* Search category for parking lots; any changes should be duplicated in categories.txt @category_parking! */
 "category_parking" = "Stationnement";
 
-/* Search category for clothes/shoes/gifts/jewellery/sport shops; any changes should be duplicated in categories.txt @shopping! */
+/* Search category for malls/clothes/shoes/gifts/jewellery/sport shops; any changes should be duplicated in categories.txt @category_shopping! */
 "category_shopping" = "Shopping";
 
-/* Search category for second_hand/charity/antique/auction shops; any changes should be duplicated in categories.txt @secondhand! */
+/* Search category for second_hand/charity/antique/auction shops; any changes should be duplicated in categories.txt @category_secondhand! */
 "category_secondhand" = "D'occasion";
 
-/* Search category for places to stay; any changes should be duplicated in categories.txt @hotel! */
+/* Search category for places to stay; any changes should be duplicated in categories.txt @category_hotel! */
 "category_hotel" = "Hôtel";
 
-/* Search category sight seeings and touristic attractions; any changes should be duplicated in categories.txt @tourism! */
+/* Search category sight seeings and touristic attractions; any changes should be duplicated in categories.txt @category_tourism! */
 "category_tourism" = "Sites touristiques";
 
-/* Search category for entertainment; any changes should be duplicated in categories.txt @entertainment! */
+/* Search category for entertainment; any changes should be duplicated in categories.txt @category_entertainment! */
 "category_entertainment" = "Divertissement";
 
-/* Search category for ATMs; any changes should be duplicated in categories.txt @atm! */
+/* Search category for ATMs; any changes should be duplicated in categories.txt @category_atm! */
 "category_atm" = "DAB";
 
-/* Search category for nightclubs/bars; any changes should be duplicated in categories.txt @nightlife! */
+/* Search category for nightclubs/bars; any changes should be duplicated in categories.txt @category_nightlife! */
 "category_nightlife" = "Vie nocturne";
 
-/* Search category for water park/disneyland/playground/toys store; any changes should be duplicated in categories.txt @children! */
+/* Search category for water park/disneyland/playground/toys store; any changes should be duplicated in categories.txt @category_children! */
 "category_children" = "Vacances en famille";
 
-/* Search category for banks; any changes should be duplicated in categories.txt @bank! */
+/* Search category for banks; any changes should be duplicated in categories.txt @category_bank! */
 "category_bank" = "Banque";
 
-/* Search category for pharmacies; any changes should be duplicated in categories.txt @pharmacy! */
+/* Search category for pharmacies; any changes should be duplicated in categories.txt @category_pharmacy! */
 "category_pharmacy" = "Pharmacie";
 
-/* Search category for hospitals; any changes should be duplicated in categories.txt @hospital! */
+/* Search category for hospitals; any changes should be duplicated in categories.txt @category_hospital! */
 "category_hospital" = "Hôpital";
 
-/* Search category for toilets; any changes should be duplicated in categories.txt @toilet! */
+/* Search category for toilets; any changes should be duplicated in categories.txt @category_toilet! */
 "category_toilet" = "Toilettes";
 
-/* Search category for post offices; any changes should be duplicated in categories.txt @post! */
+/* Search category for post offices; any changes should be duplicated in categories.txt @category_post! */
 "category_post" = "Poste";
 
-/* Search category for police; any changes should be duplicated in categories.txt @police! */
+/* Search category for police; any changes should be duplicated in categories.txt @category_police! */
 "category_police" = "Police";
 
-/* Search category for WiFi access; any changes should be duplicated in categories.txt @wifi! */
+/* Search category for WiFi access; any changes should be duplicated in categories.txt @category_wifi! */
 "category_wifi" = "WiFi";
 
-/* Search category for recycling; any changes should be duplicated in categories.txt @recycling! */
+/* Search category for recycling; any changes should be duplicated in categories.txt @category_recycling! */
 "category_recycling" = "Recyclage";
 
-/* Search category for water; any changes should be duplicated in categories.txt @water! also used to sort bookmarks by type */
+/* Search category for water; any changes should be duplicated in categories.txt @category_water! also used to sort bookmarks by type */
 "category_water" = "Eau";
 
-/* Search category for RV facilities; any changes should be duplicated in categories.txt @rv! */
+/* Search category for RV facilities; any changes should be duplicated in categories.txt @category_rv! */
 "category_rv" = "Aménagements pour camping-car";
 
 

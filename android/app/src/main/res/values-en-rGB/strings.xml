@@ -12,7 +12,7 @@
 	<string name="measurement_units_summary">Choose between miles and kilometres</string>
 
 	<!-- SECTION: Search categories -->
-	<!-- Search category for fuel stations; any changes should be duplicated in categories.txt @fuel! -->
+	<!-- Search category for fuel stations; any changes should be duplicated in categories.txt @category_fuel! -->
 	<string name="category_fuel">Petrol</string>
 
 	<!-- SECTION: Other translations -->
