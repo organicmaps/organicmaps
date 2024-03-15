@@ -1,17 +1,21 @@
-# Category @category_groups allow to apply same set of search terms to different categories.
-# The @category_groups should be defined before being referenced in categories.
-# In the example below a "groceries" will result in POIs of both shop-greengrocers and
+# Category @groups allow to apply same set of search terms to different categories.
+# The @groups should be defined before being referenced in categories.
+# In the example below a "groceries" query will result in POIs of both shop-greengrocers and
 # shop-supermarket categories, while a "fruit" search will result in shop-greengrocers only.
 # ---
 # @category_food
-# en:Food|groceries
+# en:Groceries|food
 #
 # shop-greengrocers|@category_food
-# en:Greengrocer|vegetables|fruit|
+# en:Greengrocer|vegetables|fruit
 #
 # shop-supermarket|@category_food
 # en:Supermarket
 # ---
+# All groups starting with a "@category_" prefix belong to a list of pre-defined search categories
+# displayed in the app's search screen (see search/displayed_categories.cpp).
+# They have a special requirement of a first keyword matching a corresponding definition in strings.txt
+# (e.g. it should be "en = Groceries" in "[category_food]" there).
 #
 # Categories match their sub-categories, e.g. a search term defined for historic-memorial
 # will also match historic-memorial-statue, historic-memorial-plaque, etc.
@@ -55,13 +59,13 @@
 # For Russian (Ukraine, Belarus) languages:
 # Удобно перечислять _короткие_ существительные в именительном и родительном падеже, например:
 # ---
-# shop-wine|@category_shop
+# shop-wine|@shop
 # ru:Вино|вина
 # ---
 # Тогда будет работать поиск "магазин вина"
 # Для _длинных существительных_ (пускай длиной >= 6) этого можно не делать,
 # потому что там будет работать обработка ошибок (1 или 2), например:
-# shop-furniture|@category_shop
+# shop-furniture|@shop
 # ru:Мебель
 # ---
 # Запрос "магазин мебели" так же заматчится (1 ошибка).
@@ -110,7 +114,7 @@ fa:غذا|کجا غذا بخوریم
 
 # First keyword should match [category_food] definition in strings.txt!
 @category_food
-en:4Grocery|Groceries|Food
+en:4Groceries|Grocery|Food
 ru:4Продукты|Еда
 ar:طعام|بقالية
 be:4Прадукты|Ежа
@@ -273,48 +277,6 @@ he:חניה
 sk:4Parkovisko
 fa:پارکینگ
 ca:Aparcament
-
-# Generic only! _shop_ category, will be present in all! _shop_ types.
-@category_shop
-en:Shop|Store|U+1F3EA|U+1F3EC
-ru:4Магазин
-ar:متجر
-be:4Магазін|Крама
-bg:4Магазин
-cs:Obchod
-da:Butik|forretning
-de:3Verbrauchermarkt|5Geschäft|5Laden
-el:Κατάστημα
-es:Tienda
-et:Pood
-eu:Denda
-fa:مرکزخرید
-fi:Kauppa
-fr:Magasin|Boutique
-he:חנות
-hi:3दुकान
-hu:Bolt
-id:Toko
-it:Negozio
-ja:お買い物|ショップ|商店|雑貨|買い物
-ko:가게|상점
-mr:दुकान|शॉप|स्टोर
-nb:Butikk
-nl:Winkel
-pl:Sklep|Towary
-pt:2Loja|Comprar
-pt-BR:2Loja|Compras
-ro:4Magazin
-sk:Obchod
-sv:Butik|Affär
-sw:Duka
-th:ร้านค้า
-tr:Mağaza
-uk:4Магазин|Крамниця
-vi:Cửa hàng
-zh-Hans:商店
-zh-Hant:1購物|店鋪|商店|雜貨店|便利商店
-ca:Botiga|Tenda
 
 # First keyword should match [category_shopping] definition in strings.txt!
 @category_shopping
@@ -1069,7 +1031,50 @@ sw:mafuta
 fa:جایگاه سوخت
 es:Estación de servicio|Gasolinera
 
-shop-bakery|shop-pastry|@category_eat|@category_food|@category_shop
+# Generic only! _shop_ category, will be present in all! _shop_ types.
+# Its used to improve matching of queries like "wine shop", "furniture store", etc.
+@shop
+en:Shop|Store|U+1F3EA|U+1F3EC
+ar:متجر
+be:4Магазін|Крама
+bg:4Магазин
+ca:Botiga|Tenda
+cs:Obchod
+da:Butik|forretning
+de:3Verbrauchermarkt|5Geschäft|5Laden
+el:Κατάστημα
+es:Tienda
+et:Pood
+eu:Denda
+fa:مرکزخرید
+fi:Kauppa
+fr:Magasin|Boutique
+he:חנות
+hi:3दुकान
+hu:Bolt
+id:Toko
+it:Negozio
+ja:お買い物|ショップ|商店|雑貨|買い物
+ko:가게|상점
+mr:दुकान|शॉप|स्टोर
+nb:Butikk
+nl:Winkel
+pl:Sklep|Towary
+pt:2Loja|Comprar
+pt-BR:2Loja|Compras
+ro:4Magazin
+ru:4Магазин
+sk:Obchod
+sv:Butik|Affär
+sw:Duka
+th:ร้านค้า
+tr:Mağaza
+uk:4Магазин|Крамниця
+vi:Cửa hàng
+zh-Hans:商店
+zh-Hant:1購物|店鋪|商店|雜貨店|便利商店
+
+shop-bakery|shop-pastry|@category_eat|@category_food|@shop
 en:3Bakery|U+1F35E
 ru:3Булочная|3пекарня
 be:3Булачная|3Пякарня
@@ -1108,14 +1113,14 @@ sk:3Pekáreň
 sw:Kituo cha kuwoka mikate
 fa:نانوایی
 
-shop|@category_shop
+shop|@shop
 
-shop-cannabis|@category_shop
+shop-cannabis|@shop
 en:Cannabis
 nl:Coffeeshop
 tr:4Kenevir|4Esrar
 
-shop-cosmetics|@category_shopping|@category_shop
+shop-cosmetics|@category_shopping|@shop
 en:4Cosmetics|4Beauty Care|makeup
 ru:4Косметика
 be:4Касметыка
@@ -1155,7 +1160,7 @@ sk:4Kozmetika
 sw:Vipodozi
 fa:لوازم ارایشی بهداشتی
 
-shop-convenience|@category_food|@category_shop
+shop-convenience|@category_food|@shop
 en:4Convenience|mini-mart|mini-market|superette
 ru:4Продуктовый|продуктовая лавка|4гастроном|мини-маркет
 ar:متجر صغير
@@ -1194,7 +1199,7 @@ sk:Príležitostné potreby
 sw:Duka
 fa:بقالی
 
-shop-deli|@category_food|@category_shop
+shop-deli|@category_food|@shop
 en:4Delicatessen
 ar:أطعمة مبردة
 be:Дэлікатэсы
@@ -1231,7 +1236,7 @@ vi:Món ăn ngon
 zh-Hans:熟食店
 zh-Hant:熟食店
 
-shop-farm|@category_food|@category_shop
+shop-farm|@category_food|@shop
 en:Farm food
 de:4Hofladen|4Bauernhofladen
 et:Talutoit
@@ -1241,7 +1246,7 @@ ru:Фермерская еда
 tr:Çiftlik gıdaları
 es:4Granja|Productos de granja
 
-shop-garden_centre|@category_shop
+shop-garden_centre|@shop
 en:4Garden Centre|U+1F3E1
 en-US:4Garden Center
 ru:3Садовые товары
@@ -1278,7 +1283,7 @@ el:Κατάστημα ειδών κήπου|κατάστημα
 sk:Škôlka|materská škôlka
 fa:فروشگاه تجهیزات باغبانی
 
-shop-grocery|@category_food|@category_shop
+shop-grocery|@category_food|@shop
 en:Grocery
 et:Toidukaubad
 fr:Épicerie
@@ -1287,7 +1292,7 @@ ru:Бакалея
 tr:Market
 es:Tienda de comestibles|Almacén|Provisión
 
-shop-health_food|@category_food|@category_shop
+shop-health_food|@category_food|@shop
 en:Health food
 de:4Reformhaus|5Naturkostladen|4Bioladen
 et:Tervisetoit
@@ -1297,7 +1302,7 @@ ru:Здоровая еда
 tr:Sağlıklı Gıda
 es:Alimentos saludables
 
-shop-mobile_phone|@category_shop
+shop-mobile_phone|@shop
 en:4Cell Phones|4Mobile Phones|6smartphones|electronics store|U+1F4F1|U+1F4F2
 ru:4Сотовые телефоны|4Мобильные телефоны|5телефоны|5смартфоны|электроника|салон связи
 bg:4Мобилни телефони|Мобифони|Телефони|електроника|смартфони
@@ -1334,7 +1339,7 @@ sk:Mobilné telefóny
 sw:Duka la simu
 fa:موبایل فروشی
 
-shop-florist|@category_shop
+shop-florist|@shop
 en:4Florist|U+1F337|U+1F338|U+1F339|U+1F33A|U+1F33B|U+1F33C|U+1F490|U+1F33E|4flowers|flower shop|floral shop|floral arrangements|same day flowers|bouquet
 ru:4Цветочный|4цветы|цветов|флорист|букет|цветочный салон
 ar:متجر زهور|متجر
@@ -1372,7 +1377,7 @@ el:Ανθοπωλείο|κατάστημα
 sk:4Kvety|kvetinárstvo
 fa:گل فروشی
 
-shop-butcher|@category_food|@category_shop
+shop-butcher|@category_food|@shop
 en:4Butcher|U+1F356|U+1F357
 ru:Мясо|Мясной|мяса|Мясная лавка
 ar:جزار|جزارة|متجر لحوم|متجر
@@ -1410,7 +1415,7 @@ el:Κρεοπωλείο|κατάστημα
 sk:Mäsiar
 fa:قصابی
 
-shop-furniture|@category_shop
+shop-furniture|@shop
 en:4Furniture
 ru:4Мебель
 ar:معرض أثاث|أثاث|متجر
@@ -1448,7 +1453,7 @@ el:Κατάστημα επίπλων|κατάστημα
 sk:Nábytok
 fa:فروشگاه لوازم خانگی
 
-shop-kitchen|@category_shop
+shop-kitchen|@shop
 en:Kitchen|Kitchen Studio
 ar:متجر مطابخ
 be:Кухні|кухань
@@ -1487,7 +1492,7 @@ vi:Cửa hàng nhà bếp
 zh-Hans:厨房用品店
 zh-Hant:廚房用品店
 
-shop-alcohol|@category_food|@category_shop
+shop-alcohol|@category_food|@shop
 en:4liquor|4alcohol|U+1F377
 en-GB:Off licence|liquor
 en-AU:Bottleshop|liquor
@@ -1526,7 +1531,7 @@ el:Κάβα|ποτά|κατάστημα
 sk:Liehoviny|4alkohol
 fa:مشروب فروشی
 
-shop-books|@category_shop
+shop-books|@shop
 en:Bookstore|bookshop|3books|U+1F4D6|U+1F4DA|U+1F4D9|U+1F4D8|U+1F4D7|U+1F4D5
 ru:Книжный|3книги
 bg:3Книжарница|книги
@@ -1564,7 +1569,7 @@ el:Βιβλιοπωλείο|κατάστημα
 sk:Kníhkupectvo
 fa:کتاب فروشی
 
-shop-shoes|@category_shopping|@category_shop
+shop-shoes|@category_shopping|@shop
 en:Shoe|U+1F461|U+1F460|U+1F462|U+1F45E|U+1F45F|3shoes|4footwear
 ru:3обувь|обуви|обувной
 ar:متجر أحذية|متجر
@@ -1604,7 +1609,7 @@ fa:کفش فروشی
 
 # Defines _consumer electronics_. Should differ from shop-electrical.
 
-shop-electronics|@category_shop
+shop-electronics|@shop
 en:4Electronics|U+1F4F1|U+1F4BB|U+23F0|U+1F4F7|U+1F4F9|U+1F3A5|U+1F4FA|U+1F4FB|U+1F4DF|U+1F4DE|U+260E|U+1F4E0|U+1F4BD|U+1F4BE|U+1F4BF|U+1F4C0|U+1F4FC|U+1F50B|U+1F4E1
 ru:Электротехника|4Электроника
 be:Электратэхніка|4Электроніка
@@ -1642,7 +1647,7 @@ el:Ηλεκτρονικά|κατάστημα
 sk:4Elektronika
 fa:فروشگاه تجهیزات الکترونیکی
 
-shop-hardware|shop-doityourself|@category_shop
+shop-hardware|shop-doityourself|@shop
 en:4Hardware|DIY|U+1F529|U+1F528
 ru:3Хозяйственный|Строительный|Стройтовары|Хозтовары
 ar:متجر عدد وأدوات|أدوات|عدة|متجر
@@ -1680,7 +1685,7 @@ el:Είδη κιγκαλερίας|DIY|Κάν'το μόνος σου|κατάσ�
 sk:Železiarstvo|Náradie
 fa:فروشگاه ابزار و یراق
 
-shop-houseware|@category_shop
+shop-houseware|@shop
 en:4Houseware
 be:4Пасуда|4Бытавыя тавары
 de:4Haushaltswaren
@@ -1721,7 +1726,7 @@ vi:Hàng gia dụng
 zh-Hans:家庭用品
 zh-Hant:家庭用品
 
-shop-jewelry|@category_shopping|@category_shop
+shop-jewelry|@category_shopping|@shop
 en:4Jewellery|U+1F48D
 en-US:4Jewelry
 ru:4Ювелирный|бижутерия
@@ -1759,7 +1764,7 @@ el:Κοσμηματοπωλείο|κατάστημα
 sk:Klenotníctvo
 fa:طلا فروشی|جواهرفروشی
 
-shop-optician|@category_shop
+shop-optician|@shop
 en:4Optician|U+1F453
 en-AU:Optometrist|4Optician
 ru:4Оптика|очки
@@ -1798,7 +1803,7 @@ el:Κατάστημα οπτικών
 sk:4Optika
 fa:عینک فروشی
 
-shop-gift|@category_shopping|@category_shop
+shop-gift|@category_shopping|@shop
 en:Gift|U+1F381|souvenir|4souvenirs|3gifts|presents
 ru:4cувениры|4подарки|сувенирный
 ar:متجر هدايا|متجر
@@ -1875,7 +1880,7 @@ sk:Kozmetický salón
 sw:Uzuri saluni
 fa:سالن زیبایی
 
-shop-greengrocer|@category_food|@category_shop
+shop-greengrocer|@category_food|@shop
 en:4Greengrocer|U+1F345|U+1F346|U+1F33D|U+1F360|U+1F348|U+1F347|U+1F349|U+1F34A|U+1F34C|U+1F34D|U+1F34E|U+1F34F|U+1F350|U+1F351|U+1F353
 ru:3Овощи|овощей|3Фрукты|фруктов
 ar:متجر خضروات وفواكه|خضار|فاكهة|متجر
@@ -1913,7 +1918,7 @@ el:Μανάβικο|οπωροπωλείο|παντοπωλείο|κατάστη
 sk:Zelovoc
 fa:میوه فروشی
 
-shop-sports|@category_shopping|@category_shop
+shop-sports|@category_shopping|@shop
 en:4Sports Goods|U+1F3BF|U+1F3A3|U+1F3C2|U+1F6B4|U+26BD|U+1F3C0|U+1F3C8|U+26BE|U+1F3BE|U+1F3C9|U+26F3
 ru:4Спорттовары|Спортивный|Товары для спорта
 ar:أدوات رياضية|رياضة|متجر
@@ -1951,7 +1956,7 @@ el:Αθλητικά είδη|κατάστημα
 sk:4Športové potreby
 fa:فروشگاه لوازم ورزشی
 
-shop-supermarket|@category_food|@category_shop
+shop-supermarket|@category_food|@shop
 en:3Supermarket
 ru:3Супермаркет|3универсам|3гипермаркет|4гастроном
 ar:سوبر ماركت|بقالة|متجر
@@ -1990,7 +1995,7 @@ sk:3Supermarket
 sw:Supamaketi
 fa:سوپر مارکت
 
-shop-mall|@category_shopping|@category_shop
+shop-mall|@category_shopping|@shop
 en:Mall|Gallery|shopping arcade|entertainment center|retail
 en-GB:entertainment centre|shopping arcade|retail
 ru:4Торговый центр|торговый комплекс|трц|трк|тц|развлекательный центр|молл
@@ -2031,7 +2036,7 @@ sk:Mall
 sw:Ununuzi maduka
 fa:مرکز خرید
 
-shop-department_store|@category_shopping|@category_shop
+shop-department_store|@category_shopping|@shop
 en:4Department
 ru:4Универмаг|молл|торговый комплекс|универсам
 ar:متجر شامل|مركز تجاري
@@ -2069,7 +2074,7 @@ el:Πολυκατάστημα|κατάστημα
 sk:Obchodný dom
 fa:مرکز خرید|پاساژ
 
-shop-beverages|@category_food|@category_shop
+shop-beverages|@category_food|@shop
 en:4Beverages|4drinks|U+1F379
 ru:4Напитки|3соки|соков
 be:4Напоі|3сокі|сакаў
@@ -2107,7 +2112,7 @@ el:Οινοπνευματώδη|ποτά|κατάστημα
 sk:4Nápoje
 fa:نوشیدنی فروشی
 
-shop-computer|@category_shop
+shop-computer|@shop
 en:4Computer|U+1F4BB
 ru:Компьютерный|4компьютеры
 bg:Компютърен магазин|4компютри|електроника
@@ -2144,7 +2149,7 @@ el:Κατάστημα πληροφορικής
 sk:Obchod s výpočtovou technikou
 fa:فروشگاه کامپیوتر
 
-shop-confectionery|craft-confectionery|@category_food|@category_shop
+shop-confectionery|craft-confectionery|@category_food|@shop
 en:4Sweets|4confectionery|candies|candy|U+1F36C|U+1F36D|cake|sweetshop|tuck|pastry
 en-AU:Lollies|Candy
 ru:4Кондитерская|кондитерские изделия|сладости|торты|десерты|пирожные
@@ -2219,7 +2224,7 @@ el:Άπλυτα|κατάστημα με πλυντήρια ρούχων
 sk:4Práčovňa
 fa:لباس شویی
 
-shop-toys|@category_children|@category_shop
+shop-toys|@category_children|@shop
 en:Toy|toyshop|kids|toys|kids toys
 ru:3игрушки|игрушек|игрушечный
 ar:متجر ألعاب|متجر
@@ -2332,7 +2337,7 @@ vi:Chuyển tiền
 zh-Hans:汇款
 zh-Hant:匯款
 
-shop-clothes|@category_shopping|@category_shop
+shop-clothes|@category_shopping|@shop
 en:3Clothes|U+1F45A|U+1F457|U+1F456|U+1F455|clothing|wear
 ru:3Одежда|одежды
 bg:3Дрехи|магазин за дрехи
@@ -2370,7 +2375,7 @@ sk:Oblečenie
 sw:Duka la nguo|nguo
 fa:لباس فروشی|بوتیک
 
-shop-caravan|@category_rv|@category_shop
+shop-caravan|@category_rv|@shop
 en:2RV dealership|4Caravan dealership|Motorhome dealership
 be:Аўтадом|Продаж аўтадамоў
 de:5Wohnmobilhändler|5Wohnwagenhändler
@@ -2382,7 +2387,7 @@ ru:Автодом|Продажа автодомов
 tr:Karavan galerisi
 uk:Продаж автобудинків
 
-shop-car|@category_shop
+shop-car|@shop
 en:3Car Dealership|Auto Dealer|U+1F697|U+1F698|U+1F699
 en-GB:3Car Dealership|Car showroom
 en-AU:3Car Dealership|Car showroom
@@ -2423,7 +2428,7 @@ sk:Predajňa áut
 sw:Yadi|duka la gari|gari
 fa:فروشگاه خودرو
 
-shop-bicycle|@category_shop
+shop-bicycle|@shop
 en:4Bicycle|Bike|cycles|bikes|U+1F6B2|U+1F6B4|U+1F6B5
 ru:4Веломагазин|велосипеды
 ar:متجر دراجات|متجر
@@ -4676,7 +4681,7 @@ sk:Nevestinec|verejný dom
 sw:Danguro
 fa:فاحشه خانه|جنده خانه
 
-@category_gambling
+@gambling
 en:Gambling
 ar:القمار
 be:Азартныя гульні
@@ -4715,7 +4720,7 @@ vi:Bài bạc
 zh-Hans:赌博
 zh-Hant:賭博
 
-amenity-gambling|@category_gambling
+amenity-gambling|@gambling
 en:Gambling
 ar:القمار
 be:Азартныя гульні
@@ -4754,7 +4759,7 @@ vi:Bài bạc
 zh-Hans:赌博
 zh-Hant:賭博
 
-amenity-casino|@category_entertainment|@category_nightlife|@category_gambling
+amenity-casino|@category_entertainment|@category_nightlife|@gambling
 en:Casino|U+1F3B0|U+1F3B2|U+1F3B4
 ru:Казино
 bg:Казино|хазарт|машинки
@@ -4789,7 +4794,7 @@ sk:Kasíno
 sw:Kasino|burudani
 fa:قمارخانه|کازینو
 
-leisure-adult_gaming_centre|@category_gambling
+leisure-adult_gaming_centre|@gambling
 en:Adult Gaming Centre
 ar:مركز ألعاب الكبار
 be:Гульнявы цэнтр для дарослых
@@ -9480,7 +9485,7 @@ mr:पाण्याचा नळ
 #
 # Bigger bodies of water like lakes, ponds, rivers etc. should not be included in "water" search
 # as they are quite big and obvious terrain features on the map anyway.
-@category_waterbody
+@waterbody
 en:Water body|water surface
 be:Вадаём
 ru:Водоём
@@ -9513,10 +9518,10 @@ zh-Hans:水體
 zh-Hant:水體
 mr:पाणवठा
 
-natural-water|@category_waterbody
+natural-water|@waterbody
 
 # Do not add the "water" search term
-natural-water-basin|landuse-basin|@category_waterbody
+natural-water-basin|landuse-basin|@waterbody
 en:Basin
 be:Рэзервуар
 ru:Резервуар
@@ -9558,7 +9563,7 @@ zh-Hant:水庫|盆地
 mr:कुंड|द्रोणी|खोरे|बेसिन
 
 # Do not add the "water" search term
-natural-water-pond|@category_waterbody
+natural-water-pond|@waterbody
 en:Pond
 ru:Пруд
 be:5Сажалка
@@ -9598,7 +9603,7 @@ fa:تالاب
 mr:तलाव
 
 # Do not add the "water" search term
-natural-water-lake|@category_waterbody
+natural-water-lake|@waterbody
 en:Lake
 ru:Озеро
 be:Возера
@@ -9638,7 +9643,7 @@ fa:دریاچه
 mr:सरोवर|लेक
 
 # Do not add the "water" search term
-natural-water-reservoir|landuse-reservoir|@category_waterbody
+natural-water-reservoir|landuse-reservoir|@waterbody
 en:5Reservoir
 ru:5Водохранилище
 be:5Вадасховішча
@@ -11301,7 +11306,7 @@ sk:4Kopírovacie služby|Tlačiarne
 fa:فروشگاه چاپ و تکثیر
 mr:कॉपी शॉप|झेरॉक्स
 
-shop-photo|@category_shop
+shop-photo|@shop
 en:4Photo|frames
 ru:4Фототовары|4фотоцентр
 ar:محل صور|إطارات|محل
@@ -11338,7 +11343,7 @@ el:Φωτογραφείο|πλαίσια|κατάστημα
 sk:4Fotografické služby|Rámovanie
 mr:फोटो शॉप|फोटो स्टुडिओ
 
-shop-camera|@category_shop
+shop-camera|@shop
 en:3Camera
 ar:متجر الكاميرا
 be:Фотаапараты
@@ -11415,7 +11420,7 @@ sk:Cestovná kancelária|Zájazdy
 fa:اژانس مسافرتی
 mr:ट्रॅव्हल एजन्सी
 
-shop-outdoor|@category_shop
+shop-outdoor|@shop
 en:4Outdoor Equipment|trekking|hiking|climbing|camping
 ru:Снаряжение|3Туристический
 ar:معدات خارجية|ترحال|تسلق|تخييم|محل
@@ -11490,7 +11495,7 @@ sk:Čistiareň|čistenie
 fa:خشک شویی
 mr:धुलाईघर|ड्रायक्लीन
 
-shop-tyres|@category_shop
+shop-tyres|@shop
 en:3Tyre|tyres
 en-US:3Tire|tires
 ru:3Шины|4Покрышки|шин
@@ -11603,7 +11608,7 @@ sk:4Veterinár
 fa:دامپزشکی
 mr:पशुवैद्यकीय डॉक्टर|प्राण्यांचा डॉक्टर
 
-@category_charging_station
+@charging_station
 en:4Charging Station|charging
 ru:4Зарядная станция|зарядка|электрозарядка|зарядить
 be:4Зарадная станцыя|зарадка|электразарадка|зарадзіць
@@ -11641,14 +11646,14 @@ sk:Dobíjacia stanica|dobíjanie
 fa:ایستگاه شارژ
 mr:चार्जिंग स्टेशन|प्रभाराक केंद्र
 
-amenity-charging_station|@category_charging_station
+amenity-charging_station|@charging_station
 
-amenity-charging_station-bicycle|@category_charging_station
+amenity-charging_station-bicycle|@charging_station
 en:4Bicycle Charging|4Bike Charging
 ru:4Велозарядка
 tr:4Bisiklet Şarj Etme
 
-amenity-charging_station-motorcar|@category_charging_station
+amenity-charging_station-motorcar|@charging_station
 en:4Motorcar Charging|3Car Charging|Charger
 ru:4Автозарядка
 tr:4Otomobil Şarj Cihazı|4Araba Şarj Cihazı|4Araç Şarj Cihazı|3Trugo|4TOGG Şarj
@@ -11920,7 +11925,7 @@ sk:4Pneuservis
 fa:اپاراتی|پنچرگیری
 mr:टायर दुरुस्ती
 
-shop-chemist|@category_shop
+shop-chemist|@shop
 en:4Chemist|Pharmacist
 ru:4Бытовая химия
 bg:4Битова химия
@@ -11958,7 +11963,7 @@ sw:Duka la Kemikali na Dawa za Nyumbani
 fa:فروشگاه مواد شیمیایی
 mr:औषधालय|केमिस्ट दुकान
 
-shop-pet|@category_shop
+shop-pet|@shop
 en:3Pet
 ru:Зоотовары|3зоомагазин
 bg:домашни любимци
@@ -12689,7 +12694,7 @@ sk:Veža
 fa:برج
 mr:मनोरा|टॉवर
 
-shop-bookmaker|@category_gambling
+shop-bookmaker|@gambling
 en:Bookmaker
 ru:Букмекерская контора|букмекер
 bg:Букмейкър|офис|кантора|пункт
@@ -12725,7 +12730,7 @@ el:Πράκτορας στοιχημάτων|Προποτζίδικο
 sk:Stávková kancelária
 fa:صحافی
 
-shop-seafood|@category_food|@category_shop
+shop-seafood|@category_food|@shop
 en:4Seafood|4fish market|fish|shellfish|marine
 en-GB:Fishmonger
 ru:Рыбный|рыба|5морепродукты|рыбная лавка
@@ -12764,7 +12769,7 @@ sk:Obchodník s rybami
 fa:فروشگاه غذای دریایی
 mr:सीफूड शॉप
 
-shop-second_hand|@category_shopping|@category_shop|@category_secondhand
+shop-second_hand|@category_shopping|@shop|@category_secondhand
 en:Thrift|Flea market
 ar:متجر بضائع مستعملة
 bg:Магазин втора употреба
@@ -12799,7 +12804,7 @@ vi:Cửa hàng bán đồ đã qua sử dụng
 zh-Hans:二手店
 zh-Hant:二手店
 
-shop-charity|@category_shop|@category_secondhand
+shop-charity|@shop|@category_secondhand
 en:4Charity
 ar:متجر خيري
 be:Дабрачынная
@@ -12876,7 +12881,7 @@ sk:Pokladnica
 fa:بلیط فروشی
 mr:तिकीट दुकान
 
-shop-wine|@category_food|@category_shop
+shop-wine|@category_food|@shop
 en:4Wine|Winery
 ru:4Винный|вино|вина
 ar:متجر مشروبات روحية
@@ -12914,7 +12919,7 @@ sk:4Vinotéka
 fa:مشروب فروشی
 mr:वाईन शॉप
 
-shop-car_parts|@category_shop
+shop-car_parts|@shop
 en:3Car Parts|4Auto Parts
 ru:Автомобильные запчасти|4Автозапчасти|4запчасти
 bg:Автомобил|части|4авточасти
@@ -14402,7 +14407,7 @@ zh-Hant:非政府組織辦公室
 fa:دفتر سازمان خیریه
 mr:अशासकीय संस्था|NGO
 
-shop-erotic|@category_shop
+shop-erotic|@shop
 en:4Erotic|4Adult|3Sex
 ru:4Секс-шоп|5Интимный
 bg:4Секс-шоп|Еротика|4Еротичен
@@ -14477,7 +14482,7 @@ zh-Hant:按摩館
 fa:سالن ماساژ
 mr:मालिशवाला|मसाज सलून
 
-shop-motorcycle|@category_shop
+shop-motorcycle|@shop
 en:4Motorcycle
 ru:4мотоциклы
 bg:4Мотоциклети|мотори
@@ -14630,7 +14635,7 @@ zh-Hans:典当行
 zh-Hant:當舖
 fa:عتیقه فروشی
 
-shop-stationery|@category_shop
+shop-stationery|@shop
 en:5Stationery
 ru:4Канцтовары|Канцелярский|Канцелярские товары
 bg:Магазин за канцеларски материали
@@ -14706,7 +14711,7 @@ zh-Hant:刺青店
 fa:سالن خالکوبی
 mr:टॅटू पार्लर
 
-shop-variety_store|@category_shopping|@category_shop
+shop-variety_store|@category_shopping|@shop
 en:Variety
 ru:Мелочи|полезные мелочи
 bg:Магазин за разнообразни стоки
@@ -14744,7 +14749,7 @@ zh-Hant:雜貨店
 fa:خرازی
 mr:विविध वास्तूचे दुकान|व्हरायटी स्टोअर
 
-shop-video|@category_shop
+shop-video|@shop
 en:4Video|3DVD
 ru:Видео|4Видеопрокат
 bg:4Видео
@@ -14783,7 +14788,7 @@ zh-Hant:視頻商城
 fa:فروشگاه رسانه‌های تصویری
 mr:व्हिडिओ दुकान
 
-shop-video_games|@category_shop
+shop-video_games|@shop
 en:Video games|4videogames|video games|videogames|U+1F47E|U+1F579|U+1F3AE
 ru:4видеоигры|4компьютерные игры
 bg:4Видеоигри|игри|магазин за видеоигри
@@ -15212,7 +15217,7 @@ vi:Địa điểm tổ chức sự kiện
 zh-Hans:活动场所
 zh-Hant:活動場所
 
-shop-chocolate|@category_food|@category_shop
+shop-chocolate|@category_food|@shop
 en:Chocolate
 be:Шакалад
 de:4Schokoladengeschäft
@@ -15229,7 +15234,7 @@ pt-BR:Loja de chocolates
 ru:Шоколад
 tr:Çikolata mağazası
 
-shop-coffee|@category_food|@category_shop
+shop-coffee|@category_food|@shop
 en:Cofee
 be:Кава
 de:6Kaffeegeschäft
@@ -15245,7 +15250,7 @@ pt-BR:Loja de café
 ru:Кофе
 tr:Kahve mağazası
 
-shop-fabric|@category_shop
+shop-fabric|@shop
 en:Fabric
 de:4Textilgeschäft|Stoffgeschäft|Stoffladen|Stoffe
 et:Kangapood
@@ -15270,7 +15275,7 @@ pt-BR:Prestamista
 ru:Ростовщик
 tr:Tefeci
 
-shop-music|@category_shop
+shop-music|@shop
 en:Record|vinyl|Music
 be:Музыка
 de:5Musikgeschäft|5Plattenladen
@@ -15288,7 +15293,7 @@ pt-BR:Loja de música
 ru:Музыка
 tr:Plak mağazası
 
-shop-musical_instrument|@category_shop
+shop-musical_instrument|@shop
 en:Musical instruments
 be:Музычныя інструменты
 de:5Musikinstrumenteladen|Musikhaus
@@ -15306,7 +15311,7 @@ ru:Музыкальные инструменты
 tr:Enstrüman Mağazası
 es:Instrumentos musicales
 
-shop-tea|@category_shop
+shop-tea|@shop
 en:Tea
 be:Гарбата
 es:Tienda de té|Casa de té
@@ -15325,7 +15330,7 @@ ru:Чай|чая
 tr:Çay mağazası
 zh-Hans:茶叶商店
 
-shop-antiques|@category_shopping|@category_shop|@category_secondhand
+shop-antiques|@category_shopping|@shop|@category_secondhand
 en:Antiques
 ar:التحف
 be:Антыкварыят
@@ -15364,7 +15369,7 @@ vi:Đồ cổ
 zh-Hans:古董
 zh-Hant:古董
 
-shop-art|@category_shopping|@category_shop
+shop-art|@category_shopping|@shop
 en:Arts
 ar:متجر الفنون
 be:Мастацтва|мастацтваў
@@ -15403,7 +15408,7 @@ vi:Cửa hàng nghệ thuật
 zh-Hans:艺术商店
 zh-Hant:藝術商店
 
-shop-baby_goods|@category_children|@category_shop
+shop-baby_goods|@category_children|@shop
 en:Baby Goods
 ar:متجر الأطفال
 be:Дзіцячая
@@ -15442,7 +15447,7 @@ vi:Cửa hàng trẻ em
 zh-Hans:儿童商店
 zh-Hant:兒童商店
 
-shop-bag|@category_shopping|@category_shop
+shop-bag|@category_shopping|@shop
 en:Bags
 ar:متجر الحقائب
 be:Крама сумак
@@ -15520,7 +15525,7 @@ vi:Cửa hàng pho mát
 zh-Hans:奶酪店
 zh-Hant:奶酪店c
 
-shop-dairy|@category_food|@category_shop
+shop-dairy|@category_food|@shop
 en:Dairy Products
 ar:متجر الألبان
 be:Малако|Малочныя прадукты
@@ -15561,7 +15566,7 @@ zh-Hant:乳製品
 
 # Defines _electrical supplies_. Should differ from shop-electronics.
 
-shop-electrical|@category_shop
+shop-electrical|@shop
 en:Electrical|U+1F50B|U+1F50C|U+1F4A1|U+1F526
 ar:متجر البضع الكهربائية
 be:4Электроніка
@@ -15600,7 +15605,7 @@ vi:Cửa hàng điện tử
 zh-Hans:电器商城
 zh-Hant:電器商城
 
-shop-fishing|@category_shop
+shop-fishing|@shop
 en:Fishing
 ar:متجر صيد
 be:Рыбалоўны
@@ -15639,7 +15644,7 @@ vi:Cửa hàng câu cá
 zh-Hans:钓鱼店
 zh-Hant:釣魚店
 
-shop-interior_decoration|@category_shop
+shop-interior_decoration|@shop
 en:Interior Decorations
 ar:محل ديكورات داخلية
 be:Ўпрыгажэнні інтэр'еру
@@ -15678,7 +15683,7 @@ vi:Đồ trang trí nội thất
 zh-Hans:室内装饰
 zh-Hant:室內裝飾
 
-shop-lottery|@category_gambling
+shop-lottery|@gambling
 en:Lottery Tickets
 ar:ﺐﻴﺼﻧﺎﻴﻟﺍ ﺮﻛﺍﺬﺗ
 be:Латарэя|Латарэйныя білеты
@@ -15717,7 +15722,7 @@ vi:Vé xổ số kiến thiết
 zh-Hans:彩票
 zh-Hant:彩票
 
-shop-medical_supply|@category_shop
+shop-medical_supply|@shop
 en:Medical Supplies
 ar:ﺔﻴﺒﻄﻟﺍ ﺕﺍﺩﺍﺪﻣﻹﺍ
 be:Медыцынскія прыналежнасці
@@ -15756,7 +15761,7 @@ vi:Vật tư y tế
 zh-Hans:医疗用品
 zh-Hant:醫療用品
 
-shop-nutrition_supplements|@category_shop
+shop-nutrition_supplements|@shop
 en:Nutrition Supplements
 ar:محل مكملات غذائية
 be:Харчовыя дабаўкі
@@ -15795,7 +15800,7 @@ vi:Bổ sung dinh dưỡng
 zh-Hans:营养补充剂
 zh-Hant:營養補充劑
 
-shop-paint|@category_shop
+shop-paint|@shop
 en:Paints
 ar:ﺕﺎﻧﺎﻫﺪﻟﺍ
 be:Фарбы
@@ -15834,7 +15839,7 @@ vi:Sơn
 zh-Hans:油漆
 zh-Hant:油漆
 
-shop-perfumery|@category_shopping|@category_shop
+shop-perfumery|@category_shopping|@shop
 en:Perfumery
 ar:العطور
 be:Парфум|Парфумерыя
@@ -15873,7 +15878,7 @@ vi:Nước hoa
 zh-Hans:香水
 zh-Hant:香水
 
-shop-sewing|@category_shop
+shop-sewing|@shop
 en:3Sewing Supplies|4Haberdashery
 ar:معدات الخياطة
 be:Швейныя прыналежнасці
@@ -15951,7 +15956,7 @@ vi:Cho thuê kho lưu trữ
 zh-Hans:存储租赁
 zh-Hant:存儲租賃
 
-shop-tobacco|@category_shop
+shop-tobacco|@shop
 en:Tobacco
 ar:تبغ
 be:Тытунь
@@ -15990,7 +15995,7 @@ vi:Thuốc lá
 zh-Hans:烟草
 zh-Hant:煙草
 
-shop-trade|@category_shop
+shop-trade|@shop
 en:Trades Supplies
 ar:ﺔﻳﺭﺎﺠﺘﻟﺍ ﺕﺍﺪﻳﺭﻮﺘﻟﺍ
 be:Гандлёвая прыналежнасць
@@ -16029,7 +16034,7 @@ vi:Nguồn cung cấp Giao dịch
 zh-Hans:贸易用品
 zh-Hant:貿易用品
 
-shop-watches|@category_shopping|@category_shop
+shop-watches|@category_shopping|@shop
 en:Watches
 ar:ساعات
 be:Гадзіннік
@@ -16068,7 +16073,7 @@ vi:Xem
 zh-Hans:手表
 zh-Hant:手錶
 
-shop-wholesale|@category_shop
+shop-wholesale|@shop
 en:Wholesale
 ar:متجر مواد بالجملة
 be:Аптовая

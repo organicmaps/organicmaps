@@ -2807,7 +2807,7 @@
 [[Search categories]]
 
   [category_eat]
-    comment = Search category for cafes, bars, restaurants; any changes should be duplicated in categories.txt @eat!
+    comment = Search category for cafes, bars, restaurants; any changes should be duplicated in categories.txt @category_eat!
     tags = android,ios
     en = Where to eat
     af = Waar om te eet
@@ -2853,7 +2853,7 @@
     zh-Hant = 在哪兒吃
 
   [category_food]
-    comment = Search category for grocery stores; any changes should be duplicated in categories.txt @food!
+    comment = Search category for grocery stores; any changes should be duplicated in categories.txt @category_food!
     tags = android,ios
     en = Groceries
     af = Kruideniersware
@@ -2899,7 +2899,7 @@
     zh-Hant = 食物
 
   [category_transport]
-    comment = Search category for public transport; any changes should be duplicated in categories.txt @transport!
+    comment = Search category for public transport; any changes should be duplicated in categories.txt @category_transport!
     tags = android,ios
     en = Transport
     af = Vervoer
@@ -2944,7 +2944,7 @@
     zh-Hant = 運輸
 
   [category_fuel]
-    comment = Search category for fuel stations; any changes should be duplicated in categories.txt @fuel!
+    comment = Search category for fuel stations; any changes should be duplicated in categories.txt @category_fuel!
     tags = android,ios
     en = Gas
     en-GB = Petrol
@@ -2990,7 +2990,7 @@
     zh-Hant = 加油站
 
   [category_parking]
-    comment = Search category for parking lots; any changes should be duplicated in categories.txt @parking!
+    comment = Search category for parking lots; any changes should be duplicated in categories.txt @category_parking!
     tags = android,ios
     en = Parking
     af = Parkering
@@ -3035,7 +3035,7 @@
     zh-Hant = 停車場
 
   [category_shopping]
-    comment = Search category for clothes/shoes/gifts/jewellery/sport shops; any changes should be duplicated in categories.txt @shopping!
+    comment = Search category for malls/clothes/shoes/gifts/jewellery/sport shops; any changes should be duplicated in categories.txt @category_shopping!
     tags = android,ios
     en = Shopping
     af = Inkopies
@@ -3081,7 +3081,7 @@
     zh-Hant = 購物
 
   [category_secondhand]
-    comment = Search category for second_hand/charity/antique/auction shops; any changes should be duplicated in categories.txt @secondhand!
+    comment = Search category for second_hand/charity/antique/auction shops; any changes should be duplicated in categories.txt @category_secondhand!
     tags = android,ios
     en = Second Hand
     ar = اليد الثانية
@@ -3125,7 +3125,7 @@
     zh-Hant = 二手
 
   [category_hotel]
-    comment = Search category for places to stay; any changes should be duplicated in categories.txt @hotel!
+    comment = Search category for places to stay; any changes should be duplicated in categories.txt @category_hotel!
     tags = android,ios
     en = Hotel
     af = Hotel
@@ -3170,7 +3170,7 @@
     zh-Hant = 旅館
 
   [category_tourism]
-    comment = Search category sight seeings and touristic attractions; any changes should be duplicated in categories.txt @tourism!
+    comment = Search category sight seeings and touristic attractions; any changes should be duplicated in categories.txt @category_tourism!
     tags = android,ios
     en = Sights
     af = Besienswaardighede
@@ -3215,7 +3215,7 @@
     zh-Hant = 旅遊景點
 
   [category_entertainment]
-    comment = Search category for entertainment; any changes should be duplicated in categories.txt @entertainment!
+    comment = Search category for entertainment; any changes should be duplicated in categories.txt @category_entertainment!
     tags = android,ios
     en = Entertainment
     af = Vermaak
@@ -3260,7 +3260,7 @@
     zh-Hant = 娛樂
 
   [category_atm]
-    comment = Search category for ATMs; any changes should be duplicated in categories.txt @atm!
+    comment = Search category for ATMs; any changes should be duplicated in categories.txt @category_atm!
     tags = android,ios
     en = ATM
     af = OTM
@@ -3305,7 +3305,7 @@
     zh-Hant = 自動櫃員機
 
   [category_nightlife]
-    comment = Search category for nightclubs/bars; any changes should be duplicated in categories.txt @nightlife!
+    comment = Search category for nightclubs/bars; any changes should be duplicated in categories.txt @category_nightlife!
     tags = android,ios
     en = Nightlife
     af = Naglewe
@@ -3351,7 +3351,7 @@
     zh-Hant = 夜生活
 
   [category_children]
-    comment = Search category for water park/disneyland/playground/toys store; any changes should be duplicated in categories.txt @children!
+    comment = Search category for water park/disneyland/playground/toys store; any changes should be duplicated in categories.txt @category_children!
     tags = android,ios
     en = Family holiday
     af = Gesinsvakansie
@@ -3397,7 +3397,7 @@
     zh-Hant = 親子休閒
 
   [category_bank]
-    comment = Search category for banks; any changes should be duplicated in categories.txt @bank!
+    comment = Search category for banks; any changes should be duplicated in categories.txt @category_bank!
     tags = android,ios
     en = Bank
     af = Bank
@@ -3442,7 +3442,7 @@
     zh-Hant = 銀行
 
   [category_pharmacy]
-    comment = Search category for pharmacies; any changes should be duplicated in categories.txt @pharmacy!
+    comment = Search category for pharmacies; any changes should be duplicated in categories.txt @category_pharmacy!
     tags = android,ios
     en = Pharmacy
     af = Apteek
@@ -3487,7 +3487,7 @@
     zh-Hant = 藥局
 
   [category_hospital]
-    comment = Search category for hospitals; any changes should be duplicated in categories.txt @hospital!
+    comment = Search category for hospitals; any changes should be duplicated in categories.txt @category_hospital!
     tags = android,ios
     en = Hospital
     af = Hospitaal
@@ -3533,7 +3533,7 @@
     zh-Hant = 醫院
 
   [category_toilet]
-    comment = Search category for toilets; any changes should be duplicated in categories.txt @toilet!
+    comment = Search category for toilets; any changes should be duplicated in categories.txt @category_toilet!
     tags = android,ios
     en = Toilet
     af = Toilet
@@ -3578,7 +3578,7 @@
     zh-Hant = 廁所
 
   [category_post]
-    comment = Search category for post offices; any changes should be duplicated in categories.txt @post!
+    comment = Search category for post offices; any changes should be duplicated in categories.txt @category_post!
     tags = android,ios
     en = Post
     af = Pos
@@ -3623,7 +3623,7 @@
     zh-Hant = 郵局
 
   [category_police]
-    comment = Search category for police; any changes should be duplicated in categories.txt @police!
+    comment = Search category for police; any changes should be duplicated in categories.txt @category_police!
     tags = android,ios
     en = Police
     af = Polisie
@@ -3668,7 +3668,7 @@
     zh-Hant = 警察局
 
   [category_wifi]
-    comment = Search category for WiFi access; any changes should be duplicated in categories.txt @wifi!
+    comment = Search category for WiFi access; any changes should be duplicated in categories.txt @category_wifi!
     tags = android,ios
     en = WiFi
     af = Wi-Fi
@@ -3711,7 +3711,7 @@
     zh-Hant = 無線網路
 
   [category_recycling]
-    comment = Search category for recycling; any changes should be duplicated in categories.txt @recycling!
+    comment = Search category for recycling; any changes should be duplicated in categories.txt @category_recycling!
     tags = android,ios
     en = Recycling
     af = Herwinning
@@ -3757,7 +3757,7 @@
     zh-Hant = 回收
 
   [category_water]
-    comment = Search category for water; any changes should be duplicated in categories.txt @water! also used to sort bookmarks by type
+    comment = Search category for water; any changes should be duplicated in categories.txt @category_water! also used to sort bookmarks by type
     tags = android,ios
     en = Water
     af = Water
@@ -3804,7 +3804,7 @@
     zh-Hant = 水
 
   [category_rv]
-    comment = Search category for RV facilities; any changes should be duplicated in categories.txt @rv!
+    comment = Search category for RV facilities; any changes should be duplicated in categories.txt @category_rv!
     tags = android,ios
     en = RV Facilities
     af = Karavaanfasiliteite
