@@ -105,73 +105,76 @@
 /********** Search categories **********/
 
 /* Search category for cafes, bars, restaurants; any changes should be duplicated in categories.txt @eat! */
-"eat" = "Gdzie zjeść";
+"category_eat" = "Gdzie zjeść";
 
 /* Search category for grocery stores; any changes should be duplicated in categories.txt @food! */
-"food" = "Produkty";
+"category_food" = "Produkty";
 
 /* Search category for public transport; any changes should be duplicated in categories.txt @transport! */
-"transport" = "Transport";
+"category_transport" = "Transport";
 
 /* Search category for fuel stations; any changes should be duplicated in categories.txt @fuel! */
-"fuel" = "Stacja paliw";
+"category_fuel" = "Stacja paliw";
 
 /* Search category for parking lots; any changes should be duplicated in categories.txt @parking! */
-"parking" = "Parking";
+"category_parking" = "Parking";
 
 /* Search category for clothes/shoes/gifts/jewellery/sport shops; any changes should be duplicated in categories.txt @shopping! */
-"shopping" = "Zakupy";
+"category_shopping" = "Zakupy";
 
 /* Search category for second_hand/charity/antique/auction shops; any changes should be duplicated in categories.txt @secondhand! */
-"secondhand" = "Z drugiej ręki";
+"category_secondhand" = "Z drugiej ręki";
 
 /* Search category for places to stay; any changes should be duplicated in categories.txt @hotel! */
-"hotel" = "Hotel";
+"category_hotel" = "Hotel";
 
 /* Search category sight seeings and touristic attractions; any changes should be duplicated in categories.txt @tourism! */
-"tourism" = "Atrakcje turystyczne";
+"category_tourism" = "Atrakcje turystyczne";
 
 /* Search category for entertainment; any changes should be duplicated in categories.txt @entertainment! */
-"entertainment" = "Rozrywka";
+"category_entertainment" = "Rozrywka";
 
 /* Search category for ATMs; any changes should be duplicated in categories.txt @atm! */
-"atm" = "Bankomat";
+"category_atm" = "Bankomat";
 
 /* Search category for nightclubs/bars; any changes should be duplicated in categories.txt @nightlife! */
-"nightlife" = "Życie nocne";
+"category_nightlife" = "Życie nocne";
 
 /* Search category for water park/disneyland/playground/toys store; any changes should be duplicated in categories.txt @children! */
-"children" = "Wypoczynek z dziećmi";
+"category_children" = "Wypoczynek z dziećmi";
 
 /* Search category for banks; any changes should be duplicated in categories.txt @bank! */
-"bank" = "Bank";
+"category_bank" = "Bank";
 
 /* Search category for pharmacies; any changes should be duplicated in categories.txt @pharmacy! */
-"pharmacy" = "Apteka";
+"category_pharmacy" = "Apteka";
 
 /* Search category for hospitals; any changes should be duplicated in categories.txt @hospital! */
-"hospital" = "Szpital";
+"category_hospital" = "Szpital";
 
 /* Search category for toilets; any changes should be duplicated in categories.txt @toilet! */
-"toilet" = "Toaleta";
+"category_toilet" = "Toaleta";
 
 /* Search category for post offices; any changes should be duplicated in categories.txt @post! */
-"post" = "Poczta";
+"category_post" = "Poczta";
 
 /* Search category for police; any changes should be duplicated in categories.txt @police! */
-"police" = "Policja";
+"category_police" = "Policja";
 
 /* Search category for WiFi access; any changes should be duplicated in categories.txt @wifi! */
-"wifi" = "WiFi";
+"category_wifi" = "WiFi";
 
 /* Search category for recycling; any changes should be duplicated in categories.txt @recycling! */
-"recycling" = "Recykling";
+"category_recycling" = "Recykling";
 
 /* Search category for water; any changes should be duplicated in categories.txt @water! also used to sort bookmarks by type */
-"water" = "Woda";
+"category_water" = "Woda";
 
 /* Search category for RV facilities; any changes should be duplicated in categories.txt @rv! */
-"rv" = "Kamper";
+"category_rv" = "Kamper";
+
+
+/********** Other translations **********/
 
 "share_bookmarks_email_body" = "Cześć!\n\nZałączam moje zakładki z aplikacji Organic Maps. Proszę otwórz je jeżeli masz zaintalowane Organic Maps. Lub, jeżeli nie masz, pobierz aplikację na swoje urządzenie iOS/Android za pomocą tego linka: https://omaps.app/get?kmz\n\nMiłego podróżowania z Organic Maps!";
 
@@ -779,8 +782,6 @@
 
 "downloader_no_downloaded_maps_message" = "Aby znajdować miejsca i nawigować bez połączenia z internetem, musisz pobrać mapy.";
 
-"stop" = "Stop";
-
 "current_location_unknown_error_title" = "Aktualna lokalizacja jest nieznana.";
 
 "current_location_unknown_error_message" = "Podczas szukania twojej lokalizacji wystąpił błąd. Sprawdź czy twoje urządzenie działa poprawnie i spróbuj ponownie później.";
@@ -1035,15 +1036,16 @@
 
 "speedcams_alert_title" = "Fotoradary";
 
-/* Generic «Always» string */
-"always" = "Zawsze";
-
-/* Generic «Never» string */
-"never" = "Nigdy";
-
 "place_description_title" = "Opis miejsca";
 
-"speedcams_notice_message" = "Automatycznie – Ostrzegaj o fotoradarach, jeśli istnieje ryzyko przekroczenia ograniczenia prędkości\nZawsze – Zawsze ostrzegaj o fotoradarach\nNigdy – Nigdy nie ostrzegaj o fotoradarach";
+/* Speed camera settings menu option - Warn (about speedcams) if risk of exceeding speed limit */
+"pref_tts_speedcams_auto" = "Ostrzegaj jeśli istnieje ryzyko przekroczenia ograniczenia prędkości";
+
+/* Speed camera settings menu option - Always warn (about speedcams) */
+"pref_tts_speedcams_always" = "Zawsze ostrzegaj";
+
+/* Speed camera settings menu option - Never warn (about speedcams) */
+"pref_tts_speedcams_never" = "Nigdy nie ostrzegaj";
 
 "power_managment_title" = "Tryb oszczędzania energii";
 

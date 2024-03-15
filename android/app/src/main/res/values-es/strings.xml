@@ -115,51 +115,53 @@
 
 	<!-- SECTION: Search categories -->
 	<!-- Search category for cafes, bars, restaurants; any changes should be duplicated in categories.txt @eat! -->
-	<string name="eat">Dónde comer</string>
+	<string name="category_eat">Dónde comer</string>
 	<!-- Search category for grocery stores; any changes should be duplicated in categories.txt @food! -->
-	<string name="food">Provisiones</string>
+	<string name="category_food">Provisiones</string>
 	<!-- Search category for public transport; any changes should be duplicated in categories.txt @transport! -->
-	<string name="transport">Transporte</string>
+	<string name="category_transport">Transporte</string>
 	<!-- Search category for fuel stations; any changes should be duplicated in categories.txt @fuel! -->
-	<string name="fuel">Gasolinera</string>
+	<string name="category_fuel">Gasolinera</string>
 	<!-- Search category for parking lots; any changes should be duplicated in categories.txt @parking! -->
-	<string name="parking">Aparcamiento</string>
+	<string name="category_parking">Aparcamiento</string>
 	<!-- Search category for clothes/shoes/gifts/jewellery/sport shops; any changes should be duplicated in categories.txt @shopping! -->
-	<string name="shopping">Compras</string>
+	<string name="category_shopping">Compras</string>
 	<!-- Search category for second_hand/charity/antique/auction shops; any changes should be duplicated in categories.txt @secondhand! -->
-	<string name="secondhand">Segunda mano</string>
+	<string name="category_secondhand">Segunda mano</string>
 	<!-- Search category for places to stay; any changes should be duplicated in categories.txt @hotel! -->
-	<string name="hotel">Hotel</string>
+	<string name="category_hotel">Hotel</string>
 	<!-- Search category sight seeings and touristic attractions; any changes should be duplicated in categories.txt @tourism! -->
-	<string name="tourism">Turismo</string>
+	<string name="category_tourism">Turismo</string>
 	<!-- Search category for entertainment; any changes should be duplicated in categories.txt @entertainment! -->
-	<string name="entertainment">Entretenimiento</string>
+	<string name="category_entertainment">Entretenimiento</string>
 	<!-- Search category for ATMs; any changes should be duplicated in categories.txt @atm! -->
-	<string name="atm">Cajero automático</string>
+	<string name="category_atm">Cajero automático</string>
 	<!-- Search category for nightclubs/bars; any changes should be duplicated in categories.txt @nightlife! -->
-	<string name="nightlife">Vida nocturna</string>
+	<string name="category_nightlife">Vida nocturna</string>
 	<!-- Search category for water park/disneyland/playground/toys store; any changes should be duplicated in categories.txt @children! -->
-	<string name="children">Ocio en familia</string>
+	<string name="category_children">Ocio en familia</string>
 	<!-- Search category for banks; any changes should be duplicated in categories.txt @bank! -->
-	<string name="bank">Banco</string>
+	<string name="category_bank">Banco</string>
 	<!-- Search category for pharmacies; any changes should be duplicated in categories.txt @pharmacy! -->
-	<string name="pharmacy">Farmacia</string>
+	<string name="category_pharmacy">Farmacia</string>
 	<!-- Search category for hospitals; any changes should be duplicated in categories.txt @hospital! -->
-	<string name="hospital">Hospital</string>
+	<string name="category_hospital">Hospital</string>
 	<!-- Search category for toilets; any changes should be duplicated in categories.txt @toilet! -->
-	<string name="toilet">Baño</string>
+	<string name="category_toilet">Baño</string>
 	<!-- Search category for post offices; any changes should be duplicated in categories.txt @post! -->
-	<string name="post">Oficina de correos</string>
+	<string name="category_post">Oficina de correos</string>
 	<!-- Search category for police; any changes should be duplicated in categories.txt @police! -->
-	<string name="police">Policía</string>
+	<string name="category_police">Policía</string>
 	<!-- Search category for WiFi access; any changes should be duplicated in categories.txt @wifi! -->
-	<string name="wifi">WiFi</string>
+	<string name="category_wifi">WiFi</string>
 	<!-- Search category for recycling; any changes should be duplicated in categories.txt @recycling! -->
-	<string name="recycling">Reciclaje</string>
+	<string name="category_recycling">Reciclaje</string>
 	<!-- Search category for water; any changes should be duplicated in categories.txt @water! also used to sort bookmarks by type -->
-	<string name="water">Agua</string>
+	<string name="category_water">Agua</string>
 	<!-- Search category for RV facilities; any changes should be duplicated in categories.txt @rv! -->
-	<string name="rv">Caravanas</string>
+	<string name="category_rv">Caravanas</string>
+
+	<!-- SECTION: Other translations -->
 	<!-- Notes field in Bookmarks view -->
 	<string name="description">Notas</string>
 	<!-- Email Subject when sharing bookmark list -->
@@ -508,7 +510,6 @@
 	<string name="editor_operator">Operador</string>
 	<string name="downloader_no_downloaded_maps_title">No ha descargado ningún mapa</string>
 	<string name="downloader_no_downloaded_maps_message">Descargue mapas para encontrar la ubicación y navegar sin conexión.</string>
-	<string name="stop">Detener</string>
 	<!-- abbreviation for meters -->
 	<string name="m">m</string>
 	<!-- abbreviation for kilometers -->
@@ -643,10 +644,6 @@
 	<string name="bookmark_list_description_hint">Agregue una descripción (texto o html)</string>
 	<string name="not_shared">Privado</string>
 	<string name="speedcams_alert_title">Cámaras de velocidad</string>
-	<!-- Generic «Always» string -->
-	<string name="always">Siempre</string>
-	<!-- Generic «Never» string -->
-	<string name="never">Nunca</string>
 	<string name="place_description_title">Descripción del lugar</string>
 	<!-- this text will be shown in application notification preferences opposite checkbox which enable/disable downloader notifications. Devices on Android 8+ are affected. -->
 	<string name="notification_channel_downloader">Descargar mapas</string>

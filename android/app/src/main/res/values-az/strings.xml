@@ -117,51 +117,53 @@
 
 	<!-- SECTION: Search categories -->
 	<!-- Search category for cafes, bars, restaurants; any changes should be duplicated in categories.txt @eat! -->
-	<string name="eat">Harada yemək</string>
+	<string name="category_eat">Harada yemək</string>
 	<!-- Search category for grocery stores; any changes should be duplicated in categories.txt @food! -->
-	<string name="food">Ərzaq mağazası</string>
+	<string name="category_food">Ərzaq mağazası</string>
 	<!-- Search category for public transport; any changes should be duplicated in categories.txt @transport! -->
-	<string name="transport">Nəqliyyat</string>
+	<string name="category_transport">Nəqliyyat</string>
 	<!-- Search category for fuel stations; any changes should be duplicated in categories.txt @fuel! -->
-	<string name="fuel">Yanacaq doldurma məntəqəsi</string>
+	<string name="category_fuel">Yanacaq doldurma məntəqəsi</string>
 	<!-- Search category for parking lots; any changes should be duplicated in categories.txt @parking! -->
-	<string name="parking">Avtomobil dayanacağı</string>
+	<string name="category_parking">Avtomobil dayanacağı</string>
 	<!-- Search category for clothes/shoes/gifts/jewellery/sport shops; any changes should be duplicated in categories.txt @shopping! -->
-	<string name="shopping">Alış-veriş</string>
+	<string name="category_shopping">Alış-veriş</string>
 	<!-- Search category for second_hand/charity/antique/auction shops; any changes should be duplicated in categories.txt @secondhand! -->
-	<string name="secondhand">İkinci əl</string>
+	<string name="category_secondhand">İkinci əl</string>
 	<!-- Search category for places to stay; any changes should be duplicated in categories.txt @hotel! -->
-	<string name="hotel">Otel</string>
+	<string name="category_hotel">Otel</string>
 	<!-- Search category sight seeings and touristic attractions; any changes should be duplicated in categories.txt @tourism! -->
-	<string name="tourism">Görməli yerlər</string>
+	<string name="category_tourism">Görməli yerlər</string>
 	<!-- Search category for entertainment; any changes should be duplicated in categories.txt @entertainment! -->
-	<string name="entertainment">Əyləncə</string>
+	<string name="category_entertainment">Əyləncə</string>
 	<!-- Search category for ATMs; any changes should be duplicated in categories.txt @atm! -->
-	<string name="atm">Bankomat</string>
+	<string name="category_atm">Bankomat</string>
 	<!-- Search category for nightclubs/bars; any changes should be duplicated in categories.txt @nightlife! -->
-	<string name="nightlife">Gecə həyatı</string>
+	<string name="category_nightlife">Gecə həyatı</string>
 	<!-- Search category for water park/disneyland/playground/toys store; any changes should be duplicated in categories.txt @children! -->
-	<string name="children">Ailə tətili</string>
+	<string name="category_children">Ailə tətili</string>
 	<!-- Search category for banks; any changes should be duplicated in categories.txt @bank! -->
-	<string name="bank">Bank</string>
+	<string name="category_bank">Bank</string>
 	<!-- Search category for pharmacies; any changes should be duplicated in categories.txt @pharmacy! -->
-	<string name="pharmacy">Aptek</string>
+	<string name="category_pharmacy">Aptek</string>
 	<!-- Search category for hospitals; any changes should be duplicated in categories.txt @hospital! -->
-	<string name="hospital">Xəstəxana</string>
+	<string name="category_hospital">Xəstəxana</string>
 	<!-- Search category for toilets; any changes should be duplicated in categories.txt @toilet! -->
-	<string name="toilet">Ayaqyolu</string>
+	<string name="category_toilet">Ayaqyolu</string>
 	<!-- Search category for post offices; any changes should be duplicated in categories.txt @post! -->
-	<string name="post">Poçt</string>
+	<string name="category_post">Poçt</string>
 	<!-- Search category for police; any changes should be duplicated in categories.txt @police! -->
-	<string name="police">Polis</string>
+	<string name="category_police">Polis</string>
 	<!-- Search category for WiFi access; any changes should be duplicated in categories.txt @wifi! -->
-	<string name="wifi">WiFi</string>
+	<string name="category_wifi">WiFi</string>
 	<!-- Search category for recycling; any changes should be duplicated in categories.txt @recycling! -->
-	<string name="recycling">Təkrar emal</string>
+	<string name="category_recycling">Təkrar emal</string>
 	<!-- Search category for water; any changes should be duplicated in categories.txt @water! also used to sort bookmarks by type -->
-	<string name="water">Su</string>
+	<string name="category_water">Su</string>
 	<!-- Search category for RV facilities; any changes should be duplicated in categories.txt @rv! -->
-	<string name="rv">Karvan qurğuları</string>
+	<string name="category_rv">Karvan qurğuları</string>
+
+	<!-- SECTION: Other translations -->
 	<!-- Notes field in Bookmarks view -->
 	<string name="description">Qeydlər</string>
 	<!-- Email Subject when sharing bookmark list -->
@@ -508,7 +510,6 @@
 	<string name="editor_operator">Sahibi</string>
 	<string name="downloader_no_downloaded_maps_title">Siz heç bir xəritə endirməmisiniz</string>
 	<string name="downloader_no_downloaded_maps_message">Ünvanları tapmaq və oflayn naviqasiya etmək üçün xəritələri endirin.</string>
-	<string name="stop">Dayan</string>
 	<!-- abbreviation for meters -->
 	<string name="m">m</string>
 	<!-- abbreviation for kilometers -->
@@ -639,10 +640,6 @@
 	<string name="bookmark_list_description_hint">Təsvir yazın (mətn və ya html)</string>
 	<string name="not_shared">Gizli</string>
 	<string name="speedcams_alert_title">Sürət kameraları</string>
-	<!-- Generic «Always» string -->
-	<string name="always">Həmişə</string>
-	<!-- Generic «Never» string -->
-	<string name="never">Heç vaxt</string>
 	<string name="place_description_title">Məkan Təsviri</string>
 	<!-- this text will be shown in application notification preferences opposite checkbox which enable/disable downloader notifications. Devices on Android 8+ are affected. -->
 	<string name="notification_channel_downloader">Xəritə yükləyicisi</string>

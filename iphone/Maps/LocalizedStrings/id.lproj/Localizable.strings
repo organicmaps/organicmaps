@@ -105,73 +105,76 @@
 /********** Search categories **********/
 
 /* Search category for cafes, bars, restaurants; any changes should be duplicated in categories.txt @eat! */
-"eat" = "Tempat makan";
+"category_eat" = "Tempat makan";
 
 /* Search category for grocery stores; any changes should be duplicated in categories.txt @food! */
-"food" = "Toserba";
+"category_food" = "Toserba";
 
 /* Search category for public transport; any changes should be duplicated in categories.txt @transport! */
-"transport" = "Transportasi";
+"category_transport" = "Transportasi";
 
 /* Search category for fuel stations; any changes should be duplicated in categories.txt @fuel! */
-"fuel" = "Bahan bakar";
+"category_fuel" = "Bahan bakar";
 
 /* Search category for parking lots; any changes should be duplicated in categories.txt @parking! */
-"parking" = "Parkir";
+"category_parking" = "Parkir";
 
 /* Search category for clothes/shoes/gifts/jewellery/sport shops; any changes should be duplicated in categories.txt @shopping! */
-"shopping" = "Berbelanja";
+"category_shopping" = "Berbelanja";
 
 /* Search category for second_hand/charity/antique/auction shops; any changes should be duplicated in categories.txt @secondhand! */
-"secondhand" = "Tangan kedua";
+"category_secondhand" = "Tangan kedua";
 
 /* Search category for places to stay; any changes should be duplicated in categories.txt @hotel! */
-"hotel" = "Hotel";
+"category_hotel" = "Hotel";
 
 /* Search category sight seeings and touristic attractions; any changes should be duplicated in categories.txt @tourism! */
-"tourism" = "Pemandangan";
+"category_tourism" = "Pemandangan";
 
 /* Search category for entertainment; any changes should be duplicated in categories.txt @entertainment! */
-"entertainment" = "Hiburan";
+"category_entertainment" = "Hiburan";
 
 /* Search category for ATMs; any changes should be duplicated in categories.txt @atm! */
-"atm" = "ATM";
+"category_atm" = "ATM";
 
 /* Search category for nightclubs/bars; any changes should be duplicated in categories.txt @nightlife! */
-"nightlife" = "Kehidupan Malam";
+"category_nightlife" = "Kehidupan Malam";
 
 /* Search category for water park/disneyland/playground/toys store; any changes should be duplicated in categories.txt @children! */
-"children" = "Liburan keluarga";
+"category_children" = "Liburan keluarga";
 
 /* Search category for banks; any changes should be duplicated in categories.txt @bank! */
-"bank" = "Bank";
+"category_bank" = "Bank";
 
 /* Search category for pharmacies; any changes should be duplicated in categories.txt @pharmacy! */
-"pharmacy" = "Apotek";
+"category_pharmacy" = "Apotek";
 
 /* Search category for hospitals; any changes should be duplicated in categories.txt @hospital! */
-"hospital" = "Rumah sakit";
+"category_hospital" = "Rumah sakit";
 
 /* Search category for toilets; any changes should be duplicated in categories.txt @toilet! */
-"toilet" = "Toilet";
+"category_toilet" = "Toilet";
 
 /* Search category for post offices; any changes should be duplicated in categories.txt @post! */
-"post" = "Pos";
+"category_post" = "Pos";
 
 /* Search category for police; any changes should be duplicated in categories.txt @police! */
-"police" = "Polisi";
+"category_police" = "Polisi";
 
 /* Search category for WiFi access; any changes should be duplicated in categories.txt @wifi! */
-"wifi" = "WiFi";
+"category_wifi" = "WiFi";
 
 /* Search category for recycling; any changes should be duplicated in categories.txt @recycling! */
-"recycling" = "Mendaur ulang";
+"category_recycling" = "Mendaur ulang";
 
 /* Search category for water; any changes should be duplicated in categories.txt @water! also used to sort bookmarks by type */
-"water" = "Air";
+"category_water" = "Air";
 
 /* Search category for RV facilities; any changes should be duplicated in categories.txt @rv! */
-"rv" = "Untuk RV";
+"category_rv" = "Untuk RV";
+
+
+/********** Other translations **********/
 
 "share_bookmarks_email_body" = "Hello!\n\nAttached are my bookmarks; please open them in Organic Maps. If you don't have it installed you can download it here: https://omaps.app/get?kmz\n\nEnjoy travelling with Organic Maps!";
 
@@ -779,8 +782,6 @@
 
 "downloader_no_downloaded_maps_message" = "Unduh peta untuk menemukan lokasi dan bernavigasi secara offline.";
 
-"stop" = "Berhenti";
-
 "current_location_unknown_error_title" = "Lokasi saat ini tidak diketahui.";
 
 "current_location_unknown_error_message" = "Terjadi kesalahan saat mencari lokasi Anda. Periksa apakah perangkat Anda bekerja dengan benar dan coba lagi nanti.";
@@ -1035,15 +1036,16 @@
 
 "speedcams_alert_title" = "Kamera cepat";
 
-/* Generic «Always» string */
-"always" = "Selalu";
-
-/* Generic «Never» string */
-"never" = "Tidak pernah";
-
 "place_description_title" = "Deskripsi Tempat";
 
-"speedcams_notice_message" = "Auto - Peringatkan tentang kamera kecepatan saat terdapat risiko melebihi batas kecepatan\nSelalu - Selalu peringatkan tentang kamera kecepatan\nTidak pernah - Jangan pernah peringatkan tentang kamera kecepatan";
+/* Speed camera settings menu option - Warn (about speedcams) if risk of exceeding speed limit */
+"pref_tts_speedcams_auto" = "Peringatkan saat terdapat risiko melebihi batas kecepatan";
+
+/* Speed camera settings menu option - Always warn (about speedcams) */
+"pref_tts_speedcams_always" = "Selalu peringatkan";
+
+/* Speed camera settings menu option - Never warn (about speedcams) */
+"pref_tts_speedcams_never" = "Jangan pernah peringatkan";
 
 "power_managment_title" = "Mode hemat daya";
 

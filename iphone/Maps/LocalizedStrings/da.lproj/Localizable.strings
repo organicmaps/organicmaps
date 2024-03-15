@@ -105,73 +105,76 @@
 /********** Search categories **********/
 
 /* Search category for cafes, bars, restaurants; any changes should be duplicated in categories.txt @eat! */
-"eat" = "Spisesteder";
+"category_eat" = "Spisesteder";
 
 /* Search category for grocery stores; any changes should be duplicated in categories.txt @food! */
-"food" = "Dagligvarer";
+"category_food" = "Dagligvarer";
 
 /* Search category for public transport; any changes should be duplicated in categories.txt @transport! */
-"transport" = "Transport";
+"category_transport" = "Transport";
 
 /* Search category for fuel stations; any changes should be duplicated in categories.txt @fuel! */
-"fuel" = "Benzin";
+"category_fuel" = "Benzin";
 
 /* Search category for parking lots; any changes should be duplicated in categories.txt @parking! */
-"parking" = "Parkering";
+"category_parking" = "Parkering";
 
 /* Search category for clothes/shoes/gifts/jewellery/sport shops; any changes should be duplicated in categories.txt @shopping! */
-"shopping" = "Indkøb";
+"category_shopping" = "Indkøb";
 
 /* Search category for second_hand/charity/antique/auction shops; any changes should be duplicated in categories.txt @secondhand! */
-"secondhand" = "Brugt";
+"category_secondhand" = "Brugt";
 
 /* Search category for places to stay; any changes should be duplicated in categories.txt @hotel! */
-"hotel" = "Hotel";
+"category_hotel" = "Hotel";
 
 /* Search category sight seeings and touristic attractions; any changes should be duplicated in categories.txt @tourism! */
-"tourism" = "Seværdigheder";
+"category_tourism" = "Seværdigheder";
 
 /* Search category for entertainment; any changes should be duplicated in categories.txt @entertainment! */
-"entertainment" = "Underholdning";
+"category_entertainment" = "Underholdning";
 
 /* Search category for ATMs; any changes should be duplicated in categories.txt @atm! */
-"atm" = "Hæveautomat";
+"category_atm" = "Hæveautomat";
 
 /* Search category for nightclubs/bars; any changes should be duplicated in categories.txt @nightlife! */
-"nightlife" = "Natteliv";
+"category_nightlife" = "Natteliv";
 
 /* Search category for water park/disneyland/playground/toys store; any changes should be duplicated in categories.txt @children! */
-"children" = "Familieferie";
+"category_children" = "Familieferie";
 
 /* Search category for banks; any changes should be duplicated in categories.txt @bank! */
-"bank" = "Bank";
+"category_bank" = "Bank";
 
 /* Search category for pharmacies; any changes should be duplicated in categories.txt @pharmacy! */
-"pharmacy" = "Apotek";
+"category_pharmacy" = "Apotek";
 
 /* Search category for hospitals; any changes should be duplicated in categories.txt @hospital! */
-"hospital" = "Hospital";
+"category_hospital" = "Hospital";
 
 /* Search category for toilets; any changes should be duplicated in categories.txt @toilet! */
-"toilet" = "Toilet";
+"category_toilet" = "Toilet";
 
 /* Search category for post offices; any changes should be duplicated in categories.txt @post! */
-"post" = "Post";
+"category_post" = "Post";
 
 /* Search category for police; any changes should be duplicated in categories.txt @police! */
-"police" = "Politi";
+"category_police" = "Politi";
 
 /* Search category for WiFi access; any changes should be duplicated in categories.txt @wifi! */
-"wifi" = "WiFi";
+"category_wifi" = "WiFi";
 
 /* Search category for recycling; any changes should be duplicated in categories.txt @recycling! */
-"recycling" = "Genbrug";
+"category_recycling" = "Genbrug";
 
 /* Search category for water; any changes should be duplicated in categories.txt @water! also used to sort bookmarks by type */
-"water" = "Vand";
+"category_water" = "Vand";
 
 /* Search category for RV facilities; any changes should be duplicated in categories.txt @rv! */
-"rv" = "Til RV";
+"category_rv" = "Til RV";
+
+
+/********** Other translations **********/
 
 "share_bookmarks_email_body" = "Hello!\n\nAttached are my bookmarks; please open them in Organic Maps. If you don't have it installed you can download it here: https://omaps.app/get?kmz\n\nEnjoy travelling with Organic Maps!";
 
@@ -779,8 +782,6 @@
 
 "downloader_no_downloaded_maps_message" = "Download kort for at finde position og navigere offline.";
 
-"stop" = "Stop";
-
 "current_location_unknown_error_title" = "Aktuel position er ukendt.";
 
 "current_location_unknown_error_message" = "Der opstod en fejl under søgning efter din position. Kontrollér at din enhed fungerer korrekt, og prøv igen senere.";
@@ -1035,15 +1036,16 @@
 
 "speedcams_alert_title" = "Fartkameraer";
 
-/* Generic «Always» string */
-"always" = "Altid";
-
-/* Generic «Never» string */
-"never" = "Aldrig";
-
 "place_description_title" = "Beskrivelse af sted";
 
-"speedcams_notice_message" = "Auto - Advar om fartkameraer, hvis der er en risiko for, at hastighedsgrænsen overskrides\nAltid - Advar altid om fartkameraer\nAldrig - Advar aldrig om fartkameraer";
+/* Speed camera settings menu option - Warn (about speedcams) if risk of exceeding speed limit */
+"pref_tts_speedcams_auto" = "Advar hvis der er en risiko for, at hastighedsgrænsen overskrides";
+
+/* Speed camera settings menu option - Always warn (about speedcams) */
+"pref_tts_speedcams_always" = "Advar altid";
+
+/* Speed camera settings menu option - Never warn (about speedcams) */
+"pref_tts_speedcams_never" = "Advar aldrig";
 
 "power_managment_title" = "Strømsparetilstand";
 

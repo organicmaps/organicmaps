@@ -105,73 +105,76 @@
 /********** Search categories **********/
 
 /* Search category for cafes, bars, restaurants; any changes should be duplicated in categories.txt @eat! */
-"eat" = "Hol lehet enni valamit";
+"category_eat" = "Hol lehet enni valamit";
 
 /* Search category for grocery stores; any changes should be duplicated in categories.txt @food! */
-"food" = "Élelmiszerek";
+"category_food" = "Élelmiszerek";
 
 /* Search category for public transport; any changes should be duplicated in categories.txt @transport! */
-"transport" = "Tömegközlekedés";
+"category_transport" = "Tömegközlekedés";
 
 /* Search category for fuel stations; any changes should be duplicated in categories.txt @fuel! */
-"fuel" = "Benzinkút";
+"category_fuel" = "Benzinkút";
 
 /* Search category for parking lots; any changes should be duplicated in categories.txt @parking! */
-"parking" = "Parkoló";
+"category_parking" = "Parkoló";
 
 /* Search category for clothes/shoes/gifts/jewellery/sport shops; any changes should be duplicated in categories.txt @shopping! */
-"shopping" = "Bevásárlás";
+"category_shopping" = "Bevásárlás";
 
 /* Search category for second_hand/charity/antique/auction shops; any changes should be duplicated in categories.txt @secondhand! */
-"secondhand" = "Second-hand";
+"category_secondhand" = "Second-hand";
 
 /* Search category for places to stay; any changes should be duplicated in categories.txt @hotel! */
-"hotel" = "Szálloda";
+"category_hotel" = "Szálloda";
 
 /* Search category sight seeings and touristic attractions; any changes should be duplicated in categories.txt @tourism! */
-"tourism" = "Látnivalók";
+"category_tourism" = "Látnivalók";
 
 /* Search category for entertainment; any changes should be duplicated in categories.txt @entertainment! */
-"entertainment" = "Szórakozás";
+"category_entertainment" = "Szórakozás";
 
 /* Search category for ATMs; any changes should be duplicated in categories.txt @atm! */
-"atm" = "Pénzautomata";
+"category_atm" = "Pénzautomata";
 
 /* Search category for nightclubs/bars; any changes should be duplicated in categories.txt @nightlife! */
-"nightlife" = "Éjjeli élet";
+"category_nightlife" = "Éjjeli élet";
 
 /* Search category for water park/disneyland/playground/toys store; any changes should be duplicated in categories.txt @children! */
-"children" = "Családi kiruccanás";
+"category_children" = "Családi kiruccanás";
 
 /* Search category for banks; any changes should be duplicated in categories.txt @bank! */
-"bank" = "Bank";
+"category_bank" = "Bank";
 
 /* Search category for pharmacies; any changes should be duplicated in categories.txt @pharmacy! */
-"pharmacy" = "Gyógyszertár";
+"category_pharmacy" = "Gyógyszertár";
 
 /* Search category for hospitals; any changes should be duplicated in categories.txt @hospital! */
-"hospital" = "Kórház";
+"category_hospital" = "Kórház";
 
 /* Search category for toilets; any changes should be duplicated in categories.txt @toilet! */
-"toilet" = "Mosdó";
+"category_toilet" = "Mosdó";
 
 /* Search category for post offices; any changes should be duplicated in categories.txt @post! */
-"post" = "Posta";
+"category_post" = "Posta";
 
 /* Search category for police; any changes should be duplicated in categories.txt @police! */
-"police" = "Rendőrség";
+"category_police" = "Rendőrség";
 
 /* Search category for WiFi access; any changes should be duplicated in categories.txt @wifi! */
-"wifi" = "WiFi";
+"category_wifi" = "WiFi";
 
 /* Search category for recycling; any changes should be duplicated in categories.txt @recycling! */
-"recycling" = "Újrahasznosítás";
+"category_recycling" = "Újrahasznosítás";
 
 /* Search category for water; any changes should be duplicated in categories.txt @water! also used to sort bookmarks by type */
-"water" = "Víz";
+"category_water" = "Víz";
 
 /* Search category for RV facilities; any changes should be duplicated in categories.txt @rv! */
-"rv" = "RV számára";
+"category_rv" = "RV számára";
+
+
+/********** Other translations **********/
 
 "share_bookmarks_email_body" = "Hello!\n\nAttached are my bookmarks; please open them in Organic Maps. If you don't have it installed you can download it here: https://omaps.app/get?kmz\n\nEnjoy travelling with Organic Maps!";
 
@@ -779,8 +782,6 @@
 
 "downloader_no_downloaded_maps_message" = "Töltse le a szükséges térképeket, hogy megtalálja a helyet és internet nélkül is navigálhasson.";
 
-"stop" = "Leállítás";
-
 "current_location_unknown_error_title" = "Current location is unknown.";
 
 "current_location_unknown_error_message" = "Hiba történt tartózkodási helye keresésekor. Ellenőrizze készüléke működését és próbálkozzon újra.";
@@ -1035,15 +1036,16 @@
 
 "speedcams_alert_title" = "Sebességmérő kamerák";
 
-/* Generic «Always» string */
-"always" = "Mindig";
-
-/* Generic «Never» string */
-"never" = "Soha";
-
 "place_description_title" = "A hely ismertetése";
 
-"speedcams_notice_message" = "Automatikus - Figyelmeztetés a sebesség kamerákról, ha van kockázat a sebesség korlátozás megsértéséről\nMindig - Mindig figyelmeztet a kamerákról\nSoha - Soha ne figyelmezet a kamerákról";
+/* Speed camera settings menu option - Warn (about speedcams) if risk of exceeding speed limit */
+"pref_tts_speedcams_auto" = "Figyelmeztetés ha van kockázat a sebesség korlátozás megsértéséről";
+
+/* Speed camera settings menu option - Always warn (about speedcams) */
+"pref_tts_speedcams_always" = "Mindig figyelmeztet";
+
+/* Speed camera settings menu option - Never warn (about speedcams) */
+"pref_tts_speedcams_never" = "Soha ne figyelmezet";
 
 "power_managment_title" = "Energiatakarékos mód";
 

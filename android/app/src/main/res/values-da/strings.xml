@@ -103,51 +103,53 @@
 
 	<!-- SECTION: Search categories -->
 	<!-- Search category for cafes, bars, restaurants; any changes should be duplicated in categories.txt @eat! -->
-	<string name="eat">Spisesteder</string>
+	<string name="category_eat">Spisesteder</string>
 	<!-- Search category for grocery stores; any changes should be duplicated in categories.txt @food! -->
-	<string name="food">Dagligvarer</string>
+	<string name="category_food">Dagligvarer</string>
 	<!-- Search category for public transport; any changes should be duplicated in categories.txt @transport! -->
-	<string name="transport">Transport</string>
+	<string name="category_transport">Transport</string>
 	<!-- Search category for fuel stations; any changes should be duplicated in categories.txt @fuel! -->
-	<string name="fuel">Benzin</string>
+	<string name="category_fuel">Benzin</string>
 	<!-- Search category for parking lots; any changes should be duplicated in categories.txt @parking! -->
-	<string name="parking">Parkering</string>
+	<string name="category_parking">Parkering</string>
 	<!-- Search category for clothes/shoes/gifts/jewellery/sport shops; any changes should be duplicated in categories.txt @shopping! -->
-	<string name="shopping">Indkøb</string>
+	<string name="category_shopping">Indkøb</string>
 	<!-- Search category for second_hand/charity/antique/auction shops; any changes should be duplicated in categories.txt @secondhand! -->
-	<string name="secondhand">Brugt</string>
+	<string name="category_secondhand">Brugt</string>
 	<!-- Search category for places to stay; any changes should be duplicated in categories.txt @hotel! -->
-	<string name="hotel">Hotel</string>
+	<string name="category_hotel">Hotel</string>
 	<!-- Search category sight seeings and touristic attractions; any changes should be duplicated in categories.txt @tourism! -->
-	<string name="tourism">Seværdigheder</string>
+	<string name="category_tourism">Seværdigheder</string>
 	<!-- Search category for entertainment; any changes should be duplicated in categories.txt @entertainment! -->
-	<string name="entertainment">Underholdning</string>
+	<string name="category_entertainment">Underholdning</string>
 	<!-- Search category for ATMs; any changes should be duplicated in categories.txt @atm! -->
-	<string name="atm">Hæveautomat</string>
+	<string name="category_atm">Hæveautomat</string>
 	<!-- Search category for nightclubs/bars; any changes should be duplicated in categories.txt @nightlife! -->
-	<string name="nightlife">Natteliv</string>
+	<string name="category_nightlife">Natteliv</string>
 	<!-- Search category for water park/disneyland/playground/toys store; any changes should be duplicated in categories.txt @children! -->
-	<string name="children">Familieferie</string>
+	<string name="category_children">Familieferie</string>
 	<!-- Search category for banks; any changes should be duplicated in categories.txt @bank! -->
-	<string name="bank">Bank</string>
+	<string name="category_bank">Bank</string>
 	<!-- Search category for pharmacies; any changes should be duplicated in categories.txt @pharmacy! -->
-	<string name="pharmacy">Apotek</string>
+	<string name="category_pharmacy">Apotek</string>
 	<!-- Search category for hospitals; any changes should be duplicated in categories.txt @hospital! -->
-	<string name="hospital">Hospital</string>
+	<string name="category_hospital">Hospital</string>
 	<!-- Search category for toilets; any changes should be duplicated in categories.txt @toilet! -->
-	<string name="toilet">Toilet</string>
+	<string name="category_toilet">Toilet</string>
 	<!-- Search category for post offices; any changes should be duplicated in categories.txt @post! -->
-	<string name="post">Post</string>
+	<string name="category_post">Post</string>
 	<!-- Search category for police; any changes should be duplicated in categories.txt @police! -->
-	<string name="police">Politi</string>
+	<string name="category_police">Politi</string>
 	<!-- Search category for WiFi access; any changes should be duplicated in categories.txt @wifi! -->
-	<string name="wifi">WiFi</string>
+	<string name="category_wifi">WiFi</string>
 	<!-- Search category for recycling; any changes should be duplicated in categories.txt @recycling! -->
-	<string name="recycling">Genbrug</string>
+	<string name="category_recycling">Genbrug</string>
 	<!-- Search category for water; any changes should be duplicated in categories.txt @water! also used to sort bookmarks by type -->
-	<string name="water">Vand</string>
+	<string name="category_water">Vand</string>
 	<!-- Search category for RV facilities; any changes should be duplicated in categories.txt @rv! -->
-	<string name="rv">Til RV</string>
+	<string name="category_rv">Til RV</string>
+
+	<!-- SECTION: Other translations -->
 	<!-- Notes field in Bookmarks view -->
 	<string name="description">Noter</string>
 	<!-- Email Subject when sharing bookmark list -->
@@ -484,7 +486,6 @@
 	<string name="editor_operator">Bruger</string>
 	<string name="downloader_no_downloaded_maps_title">Du har ikke hentet alle kort</string>
 	<string name="downloader_no_downloaded_maps_message">Download kort for at finde position og navigere offline.</string>
-	<string name="stop">Stop</string>
 	<!-- abbreviation for meters -->
 	<string name="m">m</string>
 	<!-- abbreviation for kilometers -->
@@ -609,10 +610,6 @@
 	<string name="bookmark_list_description_hint">Lav en beskrivelse (tekst eller html)</string>
 	<string name="not_shared">Privat</string>
 	<string name="speedcams_alert_title">Fartkameraer</string>
-	<!-- Generic «Always» string -->
-	<string name="always">Altid</string>
-	<!-- Generic «Never» string -->
-	<string name="never">Aldrig</string>
 	<string name="place_description_title">Beskrivelse af sted</string>
 	<!-- this text will be shown in application notification preferences opposite checkbox which enable/disable downloader notifications. Devices on Android 8+ are affected. -->
 	<string name="notification_channel_downloader">Korthenter</string>

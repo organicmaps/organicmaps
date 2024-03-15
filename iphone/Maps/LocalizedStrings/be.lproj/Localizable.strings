@@ -105,73 +105,76 @@
 /********** Search categories **********/
 
 /* Search category for cafes, bars, restaurants; any changes should be duplicated in categories.txt @eat! */
-"eat" = "Дзе паесці";
+"category_eat" = "Дзе паесці";
 
 /* Search category for grocery stores; any changes should be duplicated in categories.txt @food! */
-"food" = "Прадукты";
+"category_food" = "Прадукты";
 
 /* Search category for public transport; any changes should be duplicated in categories.txt @transport! */
-"transport" = "Транспарт";
+"category_transport" = "Транспарт";
 
 /* Search category for fuel stations; any changes should be duplicated in categories.txt @fuel! */
-"fuel" = "АЗС";
+"category_fuel" = "АЗС";
 
 /* Search category for parking lots; any changes should be duplicated in categories.txt @parking! */
-"parking" = "Паркоўка";
+"category_parking" = "Паркоўка";
 
 /* Search category for clothes/shoes/gifts/jewellery/sport shops; any changes should be duplicated in categories.txt @shopping! */
-"shopping" = "Шопінг";
+"category_shopping" = "Шопінг";
 
 /* Search category for second_hand/charity/antique/auction shops; any changes should be duplicated in categories.txt @secondhand! */
-"secondhand" = "Сэканд-хэнд";
+"category_secondhand" = "Сэканд-хэнд";
 
 /* Search category for places to stay; any changes should be duplicated in categories.txt @hotel! */
-"hotel" = "Гатэль";
+"category_hotel" = "Гатэль";
 
 /* Search category sight seeings and touristic attractions; any changes should be duplicated in categories.txt @tourism! */
-"tourism" = "Славутасці";
+"category_tourism" = "Славутасці";
 
 /* Search category for entertainment; any changes should be duplicated in categories.txt @entertainment! */
-"entertainment" = "Забавы";
+"category_entertainment" = "Забавы";
 
 /* Search category for ATMs; any changes should be duplicated in categories.txt @atm! */
-"atm" = "Банкамат";
+"category_atm" = "Банкамат";
 
 /* Search category for nightclubs/bars; any changes should be duplicated in categories.txt @nightlife! */
-"nightlife" = "Начное жыццё";
+"category_nightlife" = "Начное жыццё";
 
 /* Search category for water park/disneyland/playground/toys store; any changes should be duplicated in categories.txt @children! */
-"children" = "Сямейны адпачынак";
+"category_children" = "Сямейны адпачынак";
 
 /* Search category for banks; any changes should be duplicated in categories.txt @bank! */
-"bank" = "Банк";
+"category_bank" = "Банк";
 
 /* Search category for pharmacies; any changes should be duplicated in categories.txt @pharmacy! */
-"pharmacy" = "Аптэка";
+"category_pharmacy" = "Аптэка";
 
 /* Search category for hospitals; any changes should be duplicated in categories.txt @hospital! */
-"hospital" = "Бальніца";
+"category_hospital" = "Бальніца";
 
 /* Search category for toilets; any changes should be duplicated in categories.txt @toilet! */
-"toilet" = "Прыбіральня";
+"category_toilet" = "Прыбіральня";
 
 /* Search category for post offices; any changes should be duplicated in categories.txt @post! */
-"post" = "Пошта";
+"category_post" = "Пошта";
 
 /* Search category for police; any changes should be duplicated in categories.txt @police! */
-"police" = "Паліцыя";
+"category_police" = "Паліцыя";
 
 /* Search category for WiFi access; any changes should be duplicated in categories.txt @wifi! */
-"wifi" = "WiFi";
+"category_wifi" = "WiFi";
 
 /* Search category for recycling; any changes should be duplicated in categories.txt @recycling! */
-"recycling" = "Перапрацоўка адходаў";
+"category_recycling" = "Перапрацоўка адходаў";
 
 /* Search category for water; any changes should be duplicated in categories.txt @water! also used to sort bookmarks by type */
-"water" = "Вада";
+"category_water" = "Вада";
 
 /* Search category for RV facilities; any changes should be duplicated in categories.txt @rv! */
-"rv" = "Для аўтадамоў";
+"category_rv" = "Для аўтадамоў";
+
+
+/********** Other translations **********/
 
 "share_bookmarks_email_body" = "Вітаю!\n\nУ далучаным файле мае закладкі з праграмы Organic Maps. Калі ласка, адкрыйце іх, калі ў вас усталяваны Organic Maps. Калі не, спампуйце праграму для вашай прылады iOS альбо Andriod па спасылцы: https://omaps.app/get?kmz\n\nПрыемных падарожжаў з Organic Maps!";
 
@@ -779,8 +782,6 @@
 
 "downloader_no_downloaded_maps_message" = "Спампуйце мапы, каб шукаць месцы і карыстацца навігацыяй без інтэрнэту.";
 
-"stop" = "Спыніць";
-
 "current_location_unknown_error_title" = "Месцазнаходжанне невядома.";
 
 "current_location_unknown_error_message" = "Адбылася памылка пры пошуку месцазнаходжання. Праверце, што ваша прылада працуе як трэба, і паспрабуйце зноў.";
@@ -1035,15 +1036,16 @@
 
 "speedcams_alert_title" = "Камеры хуткасці";
 
-/* Generic «Always» string */
-"always" = "Заўсёды";
-
-/* Generic «Never» string */
-"never" = "Ніколі";
-
 "place_description_title" = "Апісанне месца";
 
-"speedcams_notice_message" = "Аўтаматычна - Папярэджваць пра камеры хуткасці, калі ёсць рызыка перавышэння дазволенай хуткасці.\nЗаўсёды - Заўсёды папярэджваць пра камеры\nНіколі - Ніколі не папярэджваць пра камеры";
+/* Speed camera settings menu option - Warn (about speedcams) if risk of exceeding speed limit */
+"pref_tts_speedcams_auto" = "Папярэджваць пры перавышэнні хуткасці";
+
+/* Speed camera settings menu option - Always warn (about speedcams) */
+"pref_tts_speedcams_always" = "Заўсёды папярэджваць";
+
+/* Speed camera settings menu option - Never warn (about speedcams) */
+"pref_tts_speedcams_never" = "Ніколі не папярэджваць";
 
 "power_managment_title" = "Рэжым захавання энергіі";
 

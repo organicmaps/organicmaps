@@ -103,51 +103,53 @@
 
 	<!-- SECTION: Search categories -->
 	<!-- Search category for cafes, bars, restaurants; any changes should be duplicated in categories.txt @eat! -->
-	<string name="eat">在哪儿吃</string>
+	<string name="category_eat">在哪儿吃</string>
 	<!-- Search category for grocery stores; any changes should be duplicated in categories.txt @food! -->
-	<string name="food">食品</string>
+	<string name="category_food">食品</string>
 	<!-- Search category for public transport; any changes should be duplicated in categories.txt @transport! -->
-	<string name="transport">交通</string>
+	<string name="category_transport">交通</string>
 	<!-- Search category for fuel stations; any changes should be duplicated in categories.txt @fuel! -->
-	<string name="fuel">汽油</string>
+	<string name="category_fuel">汽油</string>
 	<!-- Search category for parking lots; any changes should be duplicated in categories.txt @parking! -->
-	<string name="parking">停车场</string>
+	<string name="category_parking">停车场</string>
 	<!-- Search category for clothes/shoes/gifts/jewellery/sport shops; any changes should be duplicated in categories.txt @shopping! -->
-	<string name="shopping">购物</string>
+	<string name="category_shopping">购物</string>
 	<!-- Search category for second_hand/charity/antique/auction shops; any changes should be duplicated in categories.txt @secondhand! -->
-	<string name="secondhand">二手货</string>
+	<string name="category_secondhand">二手货</string>
 	<!-- Search category for places to stay; any changes should be duplicated in categories.txt @hotel! -->
-	<string name="hotel">旅店</string>
+	<string name="category_hotel">旅店</string>
 	<!-- Search category sight seeings and touristic attractions; any changes should be duplicated in categories.txt @tourism! -->
-	<string name="tourism">旅游景点</string>
+	<string name="category_tourism">旅游景点</string>
 	<!-- Search category for entertainment; any changes should be duplicated in categories.txt @entertainment! -->
-	<string name="entertainment">娱乐</string>
+	<string name="category_entertainment">娱乐</string>
 	<!-- Search category for ATMs; any changes should be duplicated in categories.txt @atm! -->
-	<string name="atm">自动取款机</string>
+	<string name="category_atm">自动取款机</string>
 	<!-- Search category for nightclubs/bars; any changes should be duplicated in categories.txt @nightlife! -->
-	<string name="nightlife">夜生活</string>
+	<string name="category_nightlife">夜生活</string>
 	<!-- Search category for water park/disneyland/playground/toys store; any changes should be duplicated in categories.txt @children! -->
-	<string name="children">亲子休闲</string>
+	<string name="category_children">亲子休闲</string>
 	<!-- Search category for banks; any changes should be duplicated in categories.txt @bank! -->
-	<string name="bank">银行</string>
+	<string name="category_bank">银行</string>
 	<!-- Search category for pharmacies; any changes should be duplicated in categories.txt @pharmacy! -->
-	<string name="pharmacy">药店</string>
+	<string name="category_pharmacy">药店</string>
 	<!-- Search category for hospitals; any changes should be duplicated in categories.txt @hospital! -->
-	<string name="hospital">医院</string>
+	<string name="category_hospital">医院</string>
 	<!-- Search category for toilets; any changes should be duplicated in categories.txt @toilet! -->
-	<string name="toilet">厕所</string>
+	<string name="category_toilet">厕所</string>
 	<!-- Search category for post offices; any changes should be duplicated in categories.txt @post! -->
-	<string name="post">邮政</string>
+	<string name="category_post">邮政</string>
 	<!-- Search category for police; any changes should be duplicated in categories.txt @police! -->
-	<string name="police">警察局</string>
+	<string name="category_police">警察局</string>
 	<!-- Search category for WiFi access; any changes should be duplicated in categories.txt @wifi! -->
-	<string name="wifi">无线网络</string>
+	<string name="category_wifi">无线网络</string>
 	<!-- Search category for recycling; any changes should be duplicated in categories.txt @recycling! -->
-	<string name="recycling">回收</string>
+	<string name="category_recycling">回收</string>
 	<!-- Search category for water; any changes should be duplicated in categories.txt @water! also used to sort bookmarks by type -->
-	<string name="water">水</string>
+	<string name="category_water">水</string>
 	<!-- Search category for RV facilities; any changes should be duplicated in categories.txt @rv! -->
-	<string name="rv">房车用</string>
+	<string name="category_rv">房车用</string>
+
+	<!-- SECTION: Other translations -->
 	<!-- Notes field in Bookmarks view -->
 	<string name="description">注释</string>
 	<!-- Email Subject when sharing bookmark list -->
@@ -493,7 +495,6 @@
 	<string name="editor_operator">运营者</string>
 	<string name="downloader_no_downloaded_maps_title">您尚未下载任何地图</string>
 	<string name="downloader_no_downloaded_maps_message">下载地图来查找位置和离线浏览</string>
-	<string name="stop">停止</string>
 	<!-- abbreviation for meters -->
 	<string name="m">米</string>
 	<!-- abbreviation for kilometers -->
@@ -617,10 +618,6 @@
 	<string name="bookmark_list_description_hint">请添加说明（文字或html）</string>
 	<string name="not_shared">私人</string>
 	<string name="speedcams_alert_title">高速摄像机</string>
-	<!-- Generic «Always» string -->
-	<string name="always">总是</string>
-	<!-- Generic «Never» string -->
-	<string name="never">从不</string>
 	<string name="place_description_title">地点说明</string>
 	<!-- this text will be shown in application notification preferences opposite checkbox which enable/disable downloader notifications. Devices on Android 8+ are affected. -->
 	<string name="notification_channel_downloader">加载地图</string>

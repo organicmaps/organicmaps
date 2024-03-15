@@ -103,51 +103,53 @@
 
 	<!-- SECTION: Search categories -->
 	<!-- Search category for cafes, bars, restaurants; any changes should be duplicated in categories.txt @eat! -->
-	<string name="eat">어디서먹을까</string>
+	<string name="category_eat">어디서먹을까</string>
 	<!-- Search category for grocery stores; any changes should be duplicated in categories.txt @food! -->
-	<string name="food">식료품들</string>
+	<string name="category_food">식료품들</string>
 	<!-- Search category for public transport; any changes should be duplicated in categories.txt @transport! -->
-	<string name="transport">수송</string>
+	<string name="category_transport">수송</string>
 	<!-- Search category for fuel stations; any changes should be duplicated in categories.txt @fuel! -->
-	<string name="fuel">연료</string>
+	<string name="category_fuel">연료</string>
 	<!-- Search category for parking lots; any changes should be duplicated in categories.txt @parking! -->
-	<string name="parking">주차</string>
+	<string name="category_parking">주차</string>
 	<!-- Search category for clothes/shoes/gifts/jewellery/sport shops; any changes should be duplicated in categories.txt @shopping! -->
-	<string name="shopping">쇼핑</string>
+	<string name="category_shopping">쇼핑</string>
 	<!-- Search category for second_hand/charity/antique/auction shops; any changes should be duplicated in categories.txt @secondhand! -->
-	<string name="secondhand">중고</string>
+	<string name="category_secondhand">중고</string>
 	<!-- Search category for places to stay; any changes should be duplicated in categories.txt @hotel! -->
-	<string name="hotel">호텔</string>
+	<string name="category_hotel">호텔</string>
 	<!-- Search category sight seeings and touristic attractions; any changes should be duplicated in categories.txt @tourism! -->
-	<string name="tourism">관광</string>
+	<string name="category_tourism">관광</string>
 	<!-- Search category for entertainment; any changes should be duplicated in categories.txt @entertainment! -->
-	<string name="entertainment">엔터테인먼트</string>
+	<string name="category_entertainment">엔터테인먼트</string>
 	<!-- Search category for ATMs; any changes should be duplicated in categories.txt @atm! -->
-	<string name="atm">ATM</string>
+	<string name="category_atm">ATM</string>
 	<!-- Search category for nightclubs/bars; any changes should be duplicated in categories.txt @nightlife! -->
-	<string name="nightlife">유흥</string>
+	<string name="category_nightlife">유흥</string>
 	<!-- Search category for water park/disneyland/playground/toys store; any changes should be duplicated in categories.txt @children! -->
-	<string name="children">가족 기념일</string>
+	<string name="category_children">가족 기념일</string>
 	<!-- Search category for banks; any changes should be duplicated in categories.txt @bank! -->
-	<string name="bank">은행</string>
+	<string name="category_bank">은행</string>
 	<!-- Search category for pharmacies; any changes should be duplicated in categories.txt @pharmacy! -->
-	<string name="pharmacy">약국</string>
+	<string name="category_pharmacy">약국</string>
 	<!-- Search category for hospitals; any changes should be duplicated in categories.txt @hospital! -->
-	<string name="hospital">병원</string>
+	<string name="category_hospital">병원</string>
 	<!-- Search category for toilets; any changes should be duplicated in categories.txt @toilet! -->
-	<string name="toilet">화장실</string>
+	<string name="category_toilet">화장실</string>
 	<!-- Search category for post offices; any changes should be duplicated in categories.txt @post! -->
-	<string name="post">우편</string>
+	<string name="category_post">우편</string>
 	<!-- Search category for police; any changes should be duplicated in categories.txt @police! -->
-	<string name="police">치안대</string>
+	<string name="category_police">치안대</string>
 	<!-- Search category for WiFi access; any changes should be duplicated in categories.txt @wifi! -->
-	<string name="wifi">WiFi 인터넷</string>
+	<string name="category_wifi">WiFi 인터넷</string>
 	<!-- Search category for recycling; any changes should be duplicated in categories.txt @recycling! -->
-	<string name="recycling">재활용</string>
+	<string name="category_recycling">재활용</string>
 	<!-- Search category for water; any changes should be duplicated in categories.txt @water! also used to sort bookmarks by type -->
-	<string name="water">물</string>
+	<string name="category_water">물</string>
 	<!-- Search category for RV facilities; any changes should be duplicated in categories.txt @rv! -->
-	<string name="rv">RV용</string>
+	<string name="category_rv">RV용</string>
+
+	<!-- SECTION: Other translations -->
 	<!-- Notes field in Bookmarks view -->
 	<string name="description">메모</string>
 	<!-- Email Subject when sharing bookmark list -->
@@ -482,7 +484,6 @@
 	<string name="editor_operator">소유자</string>
 	<string name="downloader_no_downloaded_maps_title">지도를 다운로드하지 않았습니다</string>
 	<string name="downloader_no_downloaded_maps_message">오프라인으로 위치를 검색하려면 지도를 다운로드하세요.</string>
-	<string name="stop">중지</string>
 	<!-- abbreviation for meters -->
 	<string name="m">m</string>
 	<!-- abbreviation for kilometers -->
@@ -606,10 +607,6 @@
 	<string name="bookmark_list_description_hint">묘사를 적으세요 (글자 혹은 html)</string>
 	<string name="not_shared">개인</string>
 	<string name="speedcams_alert_title">속도 감시 카메라</string>
-	<!-- Generic «Always» string -->
-	<string name="always">항상</string>
-	<!-- Generic «Never» string -->
-	<string name="never">안함</string>
 	<string name="place_description_title">장소 묘사</string>
 	<!-- this text will be shown in application notification preferences opposite checkbox which enable/disable downloader notifications. Devices on Android 8+ are affected. -->
 	<string name="notification_channel_downloader">맵 다운로더</string>

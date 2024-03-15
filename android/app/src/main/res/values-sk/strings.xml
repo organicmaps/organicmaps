@@ -115,51 +115,53 @@
 
 	<!-- SECTION: Search categories -->
 	<!-- Search category for cafes, bars, restaurants; any changes should be duplicated in categories.txt @eat! -->
-	<string name="eat">Kde sa najesť</string>
+	<string name="category_eat">Kde sa najesť</string>
 	<!-- Search category for grocery stores; any changes should be duplicated in categories.txt @food! -->
-	<string name="food">Potraviny</string>
+	<string name="category_food">Potraviny</string>
 	<!-- Search category for public transport; any changes should be duplicated in categories.txt @transport! -->
-	<string name="transport">Doprava</string>
+	<string name="category_transport">Doprava</string>
 	<!-- Search category for fuel stations; any changes should be duplicated in categories.txt @fuel! -->
-	<string name="fuel">Čerpacia stanica</string>
+	<string name="category_fuel">Čerpacia stanica</string>
 	<!-- Search category for parking lots; any changes should be duplicated in categories.txt @parking! -->
-	<string name="parking">Parkovisko</string>
+	<string name="category_parking">Parkovisko</string>
 	<!-- Search category for clothes/shoes/gifts/jewellery/sport shops; any changes should be duplicated in categories.txt @shopping! -->
-	<string name="shopping">Nakupovanie</string>
+	<string name="category_shopping">Nakupovanie</string>
 	<!-- Search category for second_hand/charity/antique/auction shops; any changes should be duplicated in categories.txt @secondhand! -->
-	<string name="secondhand">Second-hand</string>
+	<string name="category_secondhand">Second-hand</string>
 	<!-- Search category for places to stay; any changes should be duplicated in categories.txt @hotel! -->
-	<string name="hotel">Hotel</string>
+	<string name="category_hotel">Hotel</string>
 	<!-- Search category sight seeings and touristic attractions; any changes should be duplicated in categories.txt @tourism! -->
-	<string name="tourism">Pamätihodnosť</string>
+	<string name="category_tourism">Pamätihodnosť</string>
 	<!-- Search category for entertainment; any changes should be duplicated in categories.txt @entertainment! -->
-	<string name="entertainment">Zábava</string>
+	<string name="category_entertainment">Zábava</string>
 	<!-- Search category for ATMs; any changes should be duplicated in categories.txt @atm! -->
-	<string name="atm">Bankomat</string>
+	<string name="category_atm">Bankomat</string>
 	<!-- Search category for nightclubs/bars; any changes should be duplicated in categories.txt @nightlife! -->
-	<string name="nightlife">Nočný život</string>
+	<string name="category_nightlife">Nočný život</string>
 	<!-- Search category for water park/disneyland/playground/toys store; any changes should be duplicated in categories.txt @children! -->
-	<string name="children">Rodinná dovolenka</string>
+	<string name="category_children">Rodinná dovolenka</string>
 	<!-- Search category for banks; any changes should be duplicated in categories.txt @bank! -->
-	<string name="bank">Banka</string>
+	<string name="category_bank">Banka</string>
 	<!-- Search category for pharmacies; any changes should be duplicated in categories.txt @pharmacy! -->
-	<string name="pharmacy">Lekáreň</string>
+	<string name="category_pharmacy">Lekáreň</string>
 	<!-- Search category for hospitals; any changes should be duplicated in categories.txt @hospital! -->
-	<string name="hospital">Nemocnica</string>
+	<string name="category_hospital">Nemocnica</string>
 	<!-- Search category for toilets; any changes should be duplicated in categories.txt @toilet! -->
-	<string name="toilet">Záchody</string>
+	<string name="category_toilet">Záchody</string>
 	<!-- Search category for post offices; any changes should be duplicated in categories.txt @post! -->
-	<string name="post">Pošta</string>
+	<string name="category_post">Pošta</string>
 	<!-- Search category for police; any changes should be duplicated in categories.txt @police! -->
-	<string name="police">Polícia</string>
+	<string name="category_police">Polícia</string>
 	<!-- Search category for WiFi access; any changes should be duplicated in categories.txt @wifi! -->
-	<string name="wifi">WiFi</string>
+	<string name="category_wifi">WiFi</string>
 	<!-- Search category for recycling; any changes should be duplicated in categories.txt @recycling! -->
-	<string name="recycling">Recyklácia</string>
+	<string name="category_recycling">Recyklácia</string>
 	<!-- Search category for water; any changes should be duplicated in categories.txt @water! also used to sort bookmarks by type -->
-	<string name="water">Voda</string>
+	<string name="category_water">Voda</string>
 	<!-- Search category for RV facilities; any changes should be duplicated in categories.txt @rv! -->
-	<string name="rv">Pre RV</string>
+	<string name="category_rv">Pre RV</string>
+
+	<!-- SECTION: Other translations -->
 	<!-- Notes field in Bookmarks view -->
 	<string name="description">Poznámky</string>
 	<!-- Email Subject when sharing bookmark list -->
@@ -506,7 +508,6 @@
 	<string name="editor_operator">Prevádzkovateľ</string>
 	<string name="downloader_no_downloaded_maps_title">Neprevzali ste žiadne mapy</string>
 	<string name="downloader_no_downloaded_maps_message">Prevziať mapy na nájdenie pozície a navigovanie off-line.</string>
-	<string name="stop">Zastaviť</string>
 	<!-- abbreviation for meters -->
 	<string name="m">m</string>
 	<!-- abbreviation for kilometers -->
@@ -639,10 +640,6 @@
 	<string name="bookmark_list_description_hint">Zadajte popis (text alebo html)</string>
 	<string name="not_shared">Súkromné</string>
 	<string name="speedcams_alert_title">Rýchlostné kamery</string>
-	<!-- Generic «Always» string -->
-	<string name="always">Vždy</string>
-	<!-- Generic «Never» string -->
-	<string name="never">Nikdy</string>
 	<string name="place_description_title">Popis miesta</string>
 	<!-- this text will be shown in application notification preferences opposite checkbox which enable/disable downloader notifications. Devices on Android 8+ are affected. -->
 	<string name="notification_channel_downloader">Sťahovač máp</string>

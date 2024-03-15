@@ -105,73 +105,76 @@
 /********** Search categories **********/
 
 /* Search category for cafes, bars, restaurants; any changes should be duplicated in categories.txt @eat! */
-"eat" = "Waar iets gaan eten";
+"category_eat" = "Waar iets gaan eten";
 
 /* Search category for grocery stores; any changes should be duplicated in categories.txt @food! */
-"food" = "Boodschappen";
+"category_food" = "Boodschappen";
 
 /* Search category for public transport; any changes should be duplicated in categories.txt @transport! */
-"transport" = "Transport";
+"category_transport" = "Transport";
 
 /* Search category for fuel stations; any changes should be duplicated in categories.txt @fuel! */
-"fuel" = "Benzine";
+"category_fuel" = "Benzine";
 
 /* Search category for parking lots; any changes should be duplicated in categories.txt @parking! */
-"parking" = "Parkeerplaats";
+"category_parking" = "Parkeerplaats";
 
 /* Search category for clothes/shoes/gifts/jewellery/sport shops; any changes should be duplicated in categories.txt @shopping! */
-"shopping" = "Winkelen";
+"category_shopping" = "Winkelen";
 
 /* Search category for second_hand/charity/antique/auction shops; any changes should be duplicated in categories.txt @secondhand! */
-"secondhand" = "Tweedehands";
+"category_secondhand" = "Tweedehands";
 
 /* Search category for places to stay; any changes should be duplicated in categories.txt @hotel! */
-"hotel" = "Hotel";
+"category_hotel" = "Hotel";
 
 /* Search category sight seeings and touristic attractions; any changes should be duplicated in categories.txt @tourism! */
-"tourism" = "Bezienswaardigheden";
+"category_tourism" = "Bezienswaardigheden";
 
 /* Search category for entertainment; any changes should be duplicated in categories.txt @entertainment! */
-"entertainment" = "Amusement";
+"category_entertainment" = "Amusement";
 
 /* Search category for ATMs; any changes should be duplicated in categories.txt @atm! */
-"atm" = "Geldautomaat";
+"category_atm" = "Geldautomaat";
 
 /* Search category for nightclubs/bars; any changes should be duplicated in categories.txt @nightlife! */
-"nightlife" = "Nachtleven";
+"category_nightlife" = "Nachtleven";
 
 /* Search category for water park/disneyland/playground/toys store; any changes should be duplicated in categories.txt @children! */
-"children" = "Gezinsvakantie";
+"category_children" = "Gezinsvakantie";
 
 /* Search category for banks; any changes should be duplicated in categories.txt @bank! */
-"bank" = "Bank";
+"category_bank" = "Bank";
 
 /* Search category for pharmacies; any changes should be duplicated in categories.txt @pharmacy! */
-"pharmacy" = "Apotheek";
+"category_pharmacy" = "Apotheek";
 
 /* Search category for hospitals; any changes should be duplicated in categories.txt @hospital! */
-"hospital" = "Ziekenhuis";
+"category_hospital" = "Ziekenhuis";
 
 /* Search category for toilets; any changes should be duplicated in categories.txt @toilet! */
-"toilet" = "Toilet";
+"category_toilet" = "Toilet";
 
 /* Search category for post offices; any changes should be duplicated in categories.txt @post! */
-"post" = "Post";
+"category_post" = "Post";
 
 /* Search category for police; any changes should be duplicated in categories.txt @police! */
-"police" = "Politie";
+"category_police" = "Politie";
 
 /* Search category for WiFi access; any changes should be duplicated in categories.txt @wifi! */
-"wifi" = "WiFi";
+"category_wifi" = "WiFi";
 
 /* Search category for recycling; any changes should be duplicated in categories.txt @recycling! */
-"recycling" = "Recycling";
+"category_recycling" = "Recycling";
 
 /* Search category for water; any changes should be duplicated in categories.txt @water! also used to sort bookmarks by type */
-"water" = "Water";
+"category_water" = "Water";
 
 /* Search category for RV facilities; any changes should be duplicated in categories.txt @rv! */
-"rv" = "Caravanfaciliteiten";
+"category_rv" = "Caravanfaciliteiten";
+
+
+/********** Other translations **********/
 
 "share_bookmarks_email_body" = "Hallo!\n\nBijgesloten zijn mijn bladwijzers uit de Organic Maps app. Open ze als je Organic Maps geïnstalleerd hebt. Of, als je dat niet hebt, download de app voor je iOS- of Android-apparaat door deze link te volgen: https://omaps.app/get?kmz\n\nGeniet van het reizen met Organic Maps!";
 
@@ -779,8 +782,6 @@
 
 "downloader_no_downloaded_maps_message" = "Download kaarten om een locatie te zoeken en offline te navigeren.";
 
-"stop" = "Stoppen";
-
 "current_location_unknown_error_title" = "Huidige locatie is onbekend.";
 
 "current_location_unknown_error_message" = "Er is een fout opgetreden tijdens het zoeken naar uw locatie. Controleer of uw apparaat goed werkt en probeer het later opnieuw.";
@@ -1035,15 +1036,16 @@
 
 "speedcams_alert_title" = "Snelheidscamera's";
 
-/* Generic «Always» string */
-"always" = "Altijd";
-
-/* Generic «Never» string */
-"never" = "Nooit";
-
 "place_description_title" = "Plaatsbeschrijving";
 
-"speedcams_notice_message" = "Auto - Waarschuw voor speedcams als er een risico bestaat dat de snelheidslimiet wordt overschreden\nAltijd - Waarschuw altijd voor flitspalen\nNooit - Waarschuw nooit over flitspalen";
+/* Speed camera settings menu option - Warn (about speedcams) if risk of exceeding speed limit */
+"pref_tts_speedcams_auto" = "Waarschuw als er een risico bestaat dat de snelheidslimiet wordt overschreden";
+
+/* Speed camera settings menu option - Always warn (about speedcams) */
+"pref_tts_speedcams_always" = "Waarschuw altijd";
+
+/* Speed camera settings menu option - Never warn (about speedcams) */
+"pref_tts_speedcams_never" = "Waarschuw nooit";
 
 "power_managment_title" = "Energiebesparende modus";
 

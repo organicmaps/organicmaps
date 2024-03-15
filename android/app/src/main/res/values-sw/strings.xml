@@ -23,23 +23,25 @@
 
 	<!-- SECTION: Search categories -->
 	<!-- Search category for cafes, bars, restaurants; any changes should be duplicated in categories.txt @eat! -->
-	<string name="eat">Sehemu ya kula</string>
+	<string name="category_eat">Sehemu ya kula</string>
 	<!-- Search category for grocery stores; any changes should be duplicated in categories.txt @food! -->
-	<string name="food">Migahawani</string>
+	<string name="category_food">Migahawani</string>
 	<!-- Search category for clothes/shoes/gifts/jewellery/sport shops; any changes should be duplicated in categories.txt @shopping! -->
-	<string name="shopping">Manunuzi</string>
+	<string name="category_shopping">Manunuzi</string>
 	<!-- Search category for second_hand/charity/antique/auction shops; any changes should be duplicated in categories.txt @secondhand! -->
-	<string name="secondhand">Mtumba</string>
+	<string name="category_secondhand">Mtumba</string>
 	<!-- Search category for nightclubs/bars; any changes should be duplicated in categories.txt @nightlife! -->
-	<string name="nightlife">Shughuli za usiku</string>
+	<string name="category_nightlife">Shughuli za usiku</string>
 	<!-- Search category for water park/disneyland/playground/toys store; any changes should be duplicated in categories.txt @children! -->
-	<string name="children">Mapumziko ya familia</string>
+	<string name="category_children">Mapumziko ya familia</string>
 	<!-- Search category for hospitals; any changes should be duplicated in categories.txt @hospital! -->
-	<string name="hospital">Hospitali</string>
+	<string name="category_hospital">Hospitali</string>
 	<!-- Search category for water; any changes should be duplicated in categories.txt @water! also used to sort bookmarks by type -->
-	<string name="water">Maji</string>
+	<string name="category_water">Maji</string>
 	<!-- Search category for RV facilities; any changes should be duplicated in categories.txt @rv! -->
-	<string name="rv">Kwa RV</string>
+	<string name="category_rv">Kwa RV</string>
+
+	<!-- SECTION: Other translations -->
 	<!-- Failed to recognize the format of a bookmarks or tracks file. -->
 	<string name="unknown_file_type">Aina ya faili haitambuliwi na programu:\n%1$s</string>
 	<!-- Failed to open a bookmarks or tracks file in Organic Maps. -->
@@ -169,10 +171,6 @@
 	<string name="bookmark_list_description_hint">Andika maelezo (maneno au html)</string>
 	<string name="not_shared">Faragha</string>
 	<string name="speedcams_alert_title">Kamera za mwendo-kasi</string>
-	<!-- Generic «Always» string -->
-	<string name="always">Mara kwa Mara</string>
-	<!-- Generic «Never» string -->
-	<string name="never">Kamwe</string>
 	<string name="place_description_title">Maelezo ya Eneo</string>
 	<!-- this text will be shown in application notification preferences opposite checkbox which enable/disable downloader notifications. Devices on Android 8+ are affected. -->
 	<string name="notification_channel_downloader">Kipakua Ramani</string>

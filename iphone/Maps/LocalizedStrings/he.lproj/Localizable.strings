@@ -105,73 +105,76 @@
 /********** Search categories **********/
 
 /* Search category for cafes, bars, restaurants; any changes should be duplicated in categories.txt @eat! */
-"eat" = "איפה לאכול";
+"category_eat" = "איפה לאכול";
 
 /* Search category for grocery stores; any changes should be duplicated in categories.txt @food! */
-"food" = "מצרכים";
+"category_food" = "מצרכים";
 
 /* Search category for public transport; any changes should be duplicated in categories.txt @transport! */
-"transport" = "תחבורה";
+"category_transport" = "תחבורה";
 
 /* Search category for fuel stations; any changes should be duplicated in categories.txt @fuel! */
-"fuel" = "דלק";
+"category_fuel" = "דלק";
 
 /* Search category for parking lots; any changes should be duplicated in categories.txt @parking! */
-"parking" = "חניה";
+"category_parking" = "חניה";
 
 /* Search category for clothes/shoes/gifts/jewellery/sport shops; any changes should be duplicated in categories.txt @shopping! */
-"shopping" = "קניות";
+"category_shopping" = "קניות";
 
 /* Search category for second_hand/charity/antique/auction shops; any changes should be duplicated in categories.txt @secondhand! */
-"secondhand" = "יד שניה";
+"category_secondhand" = "יד שניה";
 
 /* Search category for places to stay; any changes should be duplicated in categories.txt @hotel! */
-"hotel" = "בית מלון";
+"category_hotel" = "בית מלון";
 
 /* Search category sight seeings and touristic attractions; any changes should be duplicated in categories.txt @tourism! */
-"tourism" = "נקודות עיניין";
+"category_tourism" = "נקודות עיניין";
 
 /* Search category for entertainment; any changes should be duplicated in categories.txt @entertainment! */
-"entertainment" = "בידור";
+"category_entertainment" = "בידור";
 
 /* Search category for ATMs; any changes should be duplicated in categories.txt @atm! */
-"atm" = "כספומט";
+"category_atm" = "כספומט";
 
 /* Search category for nightclubs/bars; any changes should be duplicated in categories.txt @nightlife! */
-"nightlife" = "חיי לילה";
+"category_nightlife" = "חיי לילה";
 
 /* Search category for water park/disneyland/playground/toys store; any changes should be duplicated in categories.txt @children! */
-"children" = "שעשועים";
+"category_children" = "שעשועים";
 
 /* Search category for banks; any changes should be duplicated in categories.txt @bank! */
-"bank" = "בנק";
+"category_bank" = "בנק";
 
 /* Search category for pharmacies; any changes should be duplicated in categories.txt @pharmacy! */
-"pharmacy" = "בית מרקחת";
+"category_pharmacy" = "בית מרקחת";
 
 /* Search category for hospitals; any changes should be duplicated in categories.txt @hospital! */
-"hospital" = "בית חולים";
+"category_hospital" = "בית חולים";
 
 /* Search category for toilets; any changes should be duplicated in categories.txt @toilet! */
-"toilet" = "שירותים";
+"category_toilet" = "שירותים";
 
 /* Search category for post offices; any changes should be duplicated in categories.txt @post! */
-"post" = "דואר";
+"category_post" = "דואר";
 
 /* Search category for police; any changes should be duplicated in categories.txt @police! */
-"police" = "משטרה";
+"category_police" = "משטרה";
 
 /* Search category for WiFi access; any changes should be duplicated in categories.txt @wifi! */
-"wifi" = "WiFi";
+"category_wifi" = "WiFi";
 
 /* Search category for recycling; any changes should be duplicated in categories.txt @recycling! */
-"recycling" = "מיחזור";
+"category_recycling" = "מיחזור";
 
 /* Search category for water; any changes should be duplicated in categories.txt @water! also used to sort bookmarks by type */
-"water" = "מים";
+"category_water" = "מים";
 
 /* Search category for RV facilities; any changes should be duplicated in categories.txt @rv! */
-"rv" = "עבור קרוואנים";
+"category_rv" = "עבור קרוואנים";
+
+
+/********** Other translations **********/
 
 "share_bookmarks_email_body" = "שלום!\n\nמצורפות הסימניות שלי, אפשר לפתוח אותן ב-Organic Maps. אם צריך, ניתן להוריד את האפליקצייה מכאן: https://omaps.app/get?kmz\n\nתהנו לנווט עם Organic Maps!";
 
@@ -779,8 +782,6 @@
 
 "downloader_no_downloaded_maps_message" = "הורד מפה כדי לחפש ולנווט ללא חיבור לאינטרנט.";
 
-"stop" = "הפסק";
-
 "current_location_unknown_error_title" = "המיקום הנוכחי לא ידוע.";
 
 "current_location_unknown_error_message" = "אירעה שגיאה בעת איתור המיקום שלך. יש לוודא שהמכשיר שלך פועל כראוי ולנסות שנית מאוחר יותר.";
@@ -1035,15 +1036,16 @@
 
 "speedcams_alert_title" = "מצלמות מהירות";
 
-/* Generic «Always» string */
-"always" = "תמיד";
-
-/* Generic «Never» string */
-"never" = "אף פעם";
-
 "place_description_title" = "תיאור מיקום";
 
-"speedcams_notice_message" = "אוטומטי - הזהר מפני מצלמות מהירות אם יש חשש להפרזה במהירות\nתמיד - הזהר מפני מצלמות מהירות תמיד\nאף פעם - אל תזהיר מפני מצלמות מהירות אף פעם";
+/* Speed camera settings menu option - Warn (about speedcams) if risk of exceeding speed limit */
+"pref_tts_speedcams_auto" = "הזהר אם יש חשש להפרזה במהירות";
+
+/* Speed camera settings menu option - Always warn (about speedcams) */
+"pref_tts_speedcams_always" = "הזהר  תמיד";
+
+/* Speed camera settings menu option - Never warn (about speedcams) */
+"pref_tts_speedcams_never" = "אל תזהיר אף פעם";
 
 "power_managment_title" = "מצב חיסכון בסוללה";
 

@@ -59,7 +59,7 @@
 "about_proposition_1" = "• Keine Werbung, kein Tracking, keine Datenerfassung";
 
 /* Text in About screen */
-"about_proposition_2" = "• Kein Batterieverbrauch, funktioniert offline";
+"about_proposition_2" = "• Kein Datenverbrauch, funktioniert offline";
 
 /* Text in About screen */
 "about_proposition_3" = "• Schnell, minimalistisch, von der Gemeinschaft entwickelt";
@@ -105,73 +105,76 @@
 /********** Search categories **********/
 
 /* Search category for cafes, bars, restaurants; any changes should be duplicated in categories.txt @eat! */
-"eat" = "Essmöglichkeiten";
+"category_eat" = "Essmöglichkeiten";
 
 /* Search category for grocery stores; any changes should be duplicated in categories.txt @food! */
-"food" = "Lebensmittel";
+"category_food" = "Lebensmittel";
 
 /* Search category for public transport; any changes should be duplicated in categories.txt @transport! */
-"transport" = "Verkehr";
+"category_transport" = "Verkehr";
 
 /* Search category for fuel stations; any changes should be duplicated in categories.txt @fuel! */
-"fuel" = "Tankstelle";
+"category_fuel" = "Tankstelle";
 
 /* Search category for parking lots; any changes should be duplicated in categories.txt @parking! */
-"parking" = "Parkplatz";
+"category_parking" = "Parkplatz";
 
 /* Search category for clothes/shoes/gifts/jewellery/sport shops; any changes should be duplicated in categories.txt @shopping! */
-"shopping" = "Shopping";
+"category_shopping" = "Shopping";
 
 /* Search category for second_hand/charity/antique/auction shops; any changes should be duplicated in categories.txt @secondhand! */
-"secondhand" = "Second-hand";
+"category_secondhand" = "Second-hand";
 
 /* Search category for places to stay; any changes should be duplicated in categories.txt @hotel! */
-"hotel" = "Hotel";
+"category_hotel" = "Hotel";
 
 /* Search category sight seeings and touristic attractions; any changes should be duplicated in categories.txt @tourism! */
-"tourism" = "Sehenswürdigkeit";
+"category_tourism" = "Sehenswürdigkeit";
 
 /* Search category for entertainment; any changes should be duplicated in categories.txt @entertainment! */
-"entertainment" = "Unterhaltung";
+"category_entertainment" = "Unterhaltung";
 
 /* Search category for ATMs; any changes should be duplicated in categories.txt @atm! */
-"atm" = "Geldautomat";
+"category_atm" = "Geldautomat";
 
 /* Search category for nightclubs/bars; any changes should be duplicated in categories.txt @nightlife! */
-"nightlife" = "Nachtleben";
+"category_nightlife" = "Nachtleben";
 
 /* Search category for water park/disneyland/playground/toys store; any changes should be duplicated in categories.txt @children! */
-"children" = "Freizeit mit Kindern";
+"category_children" = "Freizeit mit Kindern";
 
 /* Search category for banks; any changes should be duplicated in categories.txt @bank! */
-"bank" = "Bank";
+"category_bank" = "Bank";
 
 /* Search category for pharmacies; any changes should be duplicated in categories.txt @pharmacy! */
-"pharmacy" = "Apotheke";
+"category_pharmacy" = "Apotheke";
 
 /* Search category for hospitals; any changes should be duplicated in categories.txt @hospital! */
-"hospital" = "Krankenhaus";
+"category_hospital" = "Krankenhaus";
 
 /* Search category for toilets; any changes should be duplicated in categories.txt @toilet! */
-"toilet" = "Toilette";
+"category_toilet" = "Toilette";
 
 /* Search category for post offices; any changes should be duplicated in categories.txt @post! */
-"post" = "Post";
+"category_post" = "Post";
 
 /* Search category for police; any changes should be duplicated in categories.txt @police! */
-"police" = "Polizeistation";
+"category_police" = "Polizeistation";
 
 /* Search category for WiFi access; any changes should be duplicated in categories.txt @wifi! */
-"wifi" = "WLAN";
+"category_wifi" = "WLAN";
 
 /* Search category for recycling; any changes should be duplicated in categories.txt @recycling! */
-"recycling" = "Recycling";
+"category_recycling" = "Recycling";
 
 /* Search category for water; any changes should be duplicated in categories.txt @water! also used to sort bookmarks by type */
-"water" = "Wasser";
+"category_water" = "Wasser";
 
 /* Search category for RV facilities; any changes should be duplicated in categories.txt @rv! */
-"rv" = "Einrichtungen für Wohnmobile";
+"category_rv" = "Einrichtungen für Wohnmobile";
+
+
+/********** Other translations **********/
 
 "share_bookmarks_email_body" = "Hallo!\n\nIm Anhang sind meine Lesezeichen der Organic Maps App. Sie können sie mit Organic Maps öffnen. Wenn Sie die App nicht installiert haben, können Sie sie von https://omaps.app/get?kmz für iOS oder Android herunterladen.\n\nViel Spaß beim Reisen mit Organic Maps!";
 
@@ -779,8 +782,6 @@
 
 "downloader_no_downloaded_maps_message" = "Laden Sie die für die Suche nach Orten erforderlichen Karten und verwenden Sie die Navigation offline.";
 
-"stop" = "Anhalten";
-
 "current_location_unknown_error_title" = "Standort nicht gefunden.";
 
 "current_location_unknown_error_message" = "Bei der Standortsuche ist ein unbekannter Fehler aufgetreten. Prüfen Sie die Funktionstüchtigkeit Ihres Geräts und versuchen Sie es etwas später erneut.";
@@ -1035,15 +1036,16 @@
 
 "speedcams_alert_title" = "Blitzer";
 
-/* Generic «Always» string */
-"always" = "Immer";
-
-/* Generic «Never» string */
-"never" = "Niemals";
-
 "place_description_title" = "Ortsbeschreibung";
 
-"speedcams_notice_message" = "Auto - Vor Blitzern warnen, wenn die Gefahr einer Geschwindigkeitsüberschreitung besteht\nImmer - Immer vor Blitzern warnen\nNiemals - Niemals vor Blitzern warnen";
+/* Speed camera settings menu option - Warn (about speedcams) if risk of exceeding speed limit */
+"pref_tts_speedcams_auto" = "Warnen wenn die Gefahr einer Geschwindigkeitsüberschreitung besteht";
+
+/* Speed camera settings menu option - Always warn (about speedcams) */
+"pref_tts_speedcams_always" = "Immer warnen";
+
+/* Speed camera settings menu option - Never warn (about speedcams) */
+"pref_tts_speedcams_never" = "Niemals warnen";
 
 "power_managment_title" = "Stromsparmodus";
 

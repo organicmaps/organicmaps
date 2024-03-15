@@ -105,73 +105,76 @@
 /********** Search categories **********/
 
 /* Search category for cafes, bars, restaurants; any changes should be duplicated in categories.txt @eat! */
-"eat" = "Harada yemək";
+"category_eat" = "Harada yemək";
 
 /* Search category for grocery stores; any changes should be duplicated in categories.txt @food! */
-"food" = "Ərzaq mağazası";
+"category_food" = "Ərzaq mağazası";
 
 /* Search category for public transport; any changes should be duplicated in categories.txt @transport! */
-"transport" = "Nəqliyyat";
+"category_transport" = "Nəqliyyat";
 
 /* Search category for fuel stations; any changes should be duplicated in categories.txt @fuel! */
-"fuel" = "Yanacaq doldurma məntəqəsi";
+"category_fuel" = "Yanacaq doldurma məntəqəsi";
 
 /* Search category for parking lots; any changes should be duplicated in categories.txt @parking! */
-"parking" = "Avtomobil dayanacağı";
+"category_parking" = "Avtomobil dayanacağı";
 
 /* Search category for clothes/shoes/gifts/jewellery/sport shops; any changes should be duplicated in categories.txt @shopping! */
-"shopping" = "Alış-veriş";
+"category_shopping" = "Alış-veriş";
 
 /* Search category for second_hand/charity/antique/auction shops; any changes should be duplicated in categories.txt @secondhand! */
-"secondhand" = "İkinci əl";
+"category_secondhand" = "İkinci əl";
 
 /* Search category for places to stay; any changes should be duplicated in categories.txt @hotel! */
-"hotel" = "Otel";
+"category_hotel" = "Otel";
 
 /* Search category sight seeings and touristic attractions; any changes should be duplicated in categories.txt @tourism! */
-"tourism" = "Görməli yerlər";
+"category_tourism" = "Görməli yerlər";
 
 /* Search category for entertainment; any changes should be duplicated in categories.txt @entertainment! */
-"entertainment" = "Əyləncə";
+"category_entertainment" = "Əyləncə";
 
 /* Search category for ATMs; any changes should be duplicated in categories.txt @atm! */
-"atm" = "Bankomat";
+"category_atm" = "Bankomat";
 
 /* Search category for nightclubs/bars; any changes should be duplicated in categories.txt @nightlife! */
-"nightlife" = "Gecə həyatı";
+"category_nightlife" = "Gecə həyatı";
 
 /* Search category for water park/disneyland/playground/toys store; any changes should be duplicated in categories.txt @children! */
-"children" = "Ailə tətili";
+"category_children" = "Ailə tətili";
 
 /* Search category for banks; any changes should be duplicated in categories.txt @bank! */
-"bank" = "Bank";
+"category_bank" = "Bank";
 
 /* Search category for pharmacies; any changes should be duplicated in categories.txt @pharmacy! */
-"pharmacy" = "Aptek";
+"category_pharmacy" = "Aptek";
 
 /* Search category for hospitals; any changes should be duplicated in categories.txt @hospital! */
-"hospital" = "Xəstəxana";
+"category_hospital" = "Xəstəxana";
 
 /* Search category for toilets; any changes should be duplicated in categories.txt @toilet! */
-"toilet" = "Ayaqyolu";
+"category_toilet" = "Ayaqyolu";
 
 /* Search category for post offices; any changes should be duplicated in categories.txt @post! */
-"post" = "Poçt";
+"category_post" = "Poçt";
 
 /* Search category for police; any changes should be duplicated in categories.txt @police! */
-"police" = "Polis";
+"category_police" = "Polis";
 
 /* Search category for WiFi access; any changes should be duplicated in categories.txt @wifi! */
-"wifi" = "WiFi";
+"category_wifi" = "WiFi";
 
 /* Search category for recycling; any changes should be duplicated in categories.txt @recycling! */
-"recycling" = "Təkrar emal";
+"category_recycling" = "Təkrar emal";
 
 /* Search category for water; any changes should be duplicated in categories.txt @water! also used to sort bookmarks by type */
-"water" = "Su";
+"category_water" = "Su";
 
 /* Search category for RV facilities; any changes should be duplicated in categories.txt @rv! */
-"rv" = "Karvan qurğuları";
+"category_rv" = "Karvan qurğuları";
+
+
+/********** Other translations **********/
 
 "share_bookmarks_email_body" = "Salam!\n\nOrganic Maps əlfəcinlərim əlavə olunub. Zəhmət olmasa Organic Maps-da onları açın. Əgər onu quraşdırmamısınızsa, bu linkə daxil olub cihazınıza yükləyə bilərsiniz: https://omaps.app/get?kmz\n\nOrganic Maps ilə səyahətdən həzz alın!";
 
@@ -779,8 +782,6 @@
 
 "downloader_no_downloaded_maps_message" = "Ünvanları tapmaq və oflayn naviqasiya etmək üçün xəritələri endirin.";
 
-"stop" = "Dayan";
-
 "current_location_unknown_error_title" = "Cari yer məlum deyil.";
 
 "current_location_unknown_error_message" = "Məkanınızı axtararkən xəta baş verdi. Cihazınızın düzgün işlədiyini yoxlayın və sonra yenidən cəhd edin.";
@@ -1035,15 +1036,16 @@
 
 "speedcams_alert_title" = "Sürət kameraları";
 
-/* Generic «Always» string */
-"always" = "Həmişə";
-
-/* Generic «Never» string */
-"never" = "Heç vaxt";
-
 "place_description_title" = "Məkan Təsviri";
 
-"speedcams_notice_message" = "Avtomatik - Sürət həddini aşmaq riski varsa, sürət kameraları barədə xəbərdarlıq edin\nHəmişə sürət kameraları haqqında xəbərdar edin\nHeç sürət kameraları haqqında xəbərdar etməyin";
+/* Speed camera settings menu option - Warn (about speedcams) if risk of exceeding speed limit */
+"pref_tts_speedcams_auto" = "Sürət həddini aşmaq riski varsa, xəbərdarlıq edin";
+
+/* Speed camera settings menu option - Always warn (about speedcams) */
+"pref_tts_speedcams_always" = "Həmişə xəbərdar edin";
+
+/* Speed camera settings menu option - Never warn (about speedcams) */
+"pref_tts_speedcams_never" = "Heç xəbərdar etməyin";
 
 "power_managment_title" = "Enerji qənaət rejimi";
 

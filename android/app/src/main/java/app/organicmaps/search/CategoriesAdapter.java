@@ -111,7 +111,7 @@ class CategoriesAdapter extends RecyclerView.Adapter<CategoriesAdapter.ViewHolde
                                            @NonNull String key)
   {
     final boolean isNightTheme = ThemeUtils.isNightTheme(context);
-    String iconId = "ic_category_" + key;
+    String iconId = "ic_" + key;
     if (isNightTheme)
       iconId = iconId + "_night";
     return context.getResources().getIdentifier(iconId, "drawable", packageName);

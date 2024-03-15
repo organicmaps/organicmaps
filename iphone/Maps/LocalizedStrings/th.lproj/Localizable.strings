@@ -105,73 +105,76 @@
 /********** Search categories **********/
 
 /* Search category for cafes, bars, restaurants; any changes should be duplicated in categories.txt @eat! */
-"eat" = "กินร้านไหนดี";
+"category_eat" = "กินร้านไหนดี";
 
 /* Search category for grocery stores; any changes should be duplicated in categories.txt @food! */
-"food" = "ซื้อของกินของใช้";
+"category_food" = "ซื้อของกินของใช้";
 
 /* Search category for public transport; any changes should be duplicated in categories.txt @transport! */
-"transport" = "การขนส่ง";
+"category_transport" = "การขนส่ง";
 
 /* Search category for fuel stations; any changes should be duplicated in categories.txt @fuel! */
-"fuel" = "ก๊าซ";
+"category_fuel" = "ก๊าซ";
 
 /* Search category for parking lots; any changes should be duplicated in categories.txt @parking! */
-"parking" = "ที่จอดรถ";
+"category_parking" = "ที่จอดรถ";
 
 /* Search category for clothes/shoes/gifts/jewellery/sport shops; any changes should be duplicated in categories.txt @shopping! */
-"shopping" = "ช็อปปิง";
+"category_shopping" = "ช็อปปิง";
 
 /* Search category for second_hand/charity/antique/auction shops; any changes should be duplicated in categories.txt @secondhand! */
-"secondhand" = "มือสอง";
+"category_secondhand" = "มือสอง";
 
 /* Search category for places to stay; any changes should be duplicated in categories.txt @hotel! */
-"hotel" = "โรงแรม";
+"category_hotel" = "โรงแรม";
 
 /* Search category sight seeings and touristic attractions; any changes should be duplicated in categories.txt @tourism! */
-"tourism" = "สถานที่ท่องเที่ยว";
+"category_tourism" = "สถานที่ท่องเที่ยว";
 
 /* Search category for entertainment; any changes should be duplicated in categories.txt @entertainment! */
-"entertainment" = "แหล่งบันเทิง";
+"category_entertainment" = "แหล่งบันเทิง";
 
 /* Search category for ATMs; any changes should be duplicated in categories.txt @atm! */
-"atm" = "เอทีเอ็ม";
+"category_atm" = "เอทีเอ็ม";
 
 /* Search category for nightclubs/bars; any changes should be duplicated in categories.txt @nightlife! */
-"nightlife" = "ไนท์ไลฟ์";
+"category_nightlife" = "ไนท์ไลฟ์";
 
 /* Search category for water park/disneyland/playground/toys store; any changes should be duplicated in categories.txt @children! */
-"children" = "วันหยุดสำหรับครอบครัว";
+"category_children" = "วันหยุดสำหรับครอบครัว";
 
 /* Search category for banks; any changes should be duplicated in categories.txt @bank! */
-"bank" = "ธนาคาร";
+"category_bank" = "ธนาคาร";
 
 /* Search category for pharmacies; any changes should be duplicated in categories.txt @pharmacy! */
-"pharmacy" = "ร้านขายยา";
+"category_pharmacy" = "ร้านขายยา";
 
 /* Search category for hospitals; any changes should be duplicated in categories.txt @hospital! */
-"hospital" = "คลินิก";
+"category_hospital" = "คลินิก";
 
 /* Search category for toilets; any changes should be duplicated in categories.txt @toilet! */
-"toilet" = "ห้องน้ำ";
+"category_toilet" = "ห้องน้ำ";
 
 /* Search category for post offices; any changes should be duplicated in categories.txt @post! */
-"post" = "ไปรษณีย์";
+"category_post" = "ไปรษณีย์";
 
 /* Search category for police; any changes should be duplicated in categories.txt @police! */
-"police" = "ตำรวจ";
+"category_police" = "ตำรวจ";
 
 /* Search category for WiFi access; any changes should be duplicated in categories.txt @wifi! */
-"wifi" = "WiFi";
+"category_wifi" = "WiFi";
 
 /* Search category for recycling; any changes should be duplicated in categories.txt @recycling! */
-"recycling" = "การรีไซเคิล";
+"category_recycling" = "การรีไซเคิล";
 
 /* Search category for water; any changes should be duplicated in categories.txt @water! also used to sort bookmarks by type */
-"water" = "น้ำ";
+"category_water" = "น้ำ";
 
 /* Search category for RV facilities; any changes should be duplicated in categories.txt @rv! */
-"rv" = "สำหรับ RV";
+"category_rv" = "สำหรับ RV";
+
+
+/********** Other translations **********/
 
 "share_bookmarks_email_body" = "Hello!\n\nAttached are my bookmarks; please open them in Organic Maps. If you don't have it installed you can download it here: https://omaps.app/get?kmz\n\nEnjoy travelling with Organic Maps!";
 
@@ -779,8 +782,6 @@
 
 "downloader_no_downloaded_maps_message" = "ดาวน์โหลดแผนที่เพื่อค้นหาสถานที่ และนำทางแบบออฟไลน์";
 
-"stop" = "หยุด";
-
 "current_location_unknown_error_title" = "ไม่ทราบชื่อของที่ตั้งปัจจุบัน";
 
 "current_location_unknown_error_message" = "มีข้อผิดพลาดเกิดขึ้นในขณะที่กำลังหาที่ตั้งที่คุณอยู่ โปรดตรวจสอบอุปกรณ์ของคุณว่าทำงานถูกต้อง และลองใหม่อีกครั้ง";
@@ -1035,15 +1036,16 @@
 
 "speedcams_alert_title" = "กล้องตรวจจับความเร็ว";
 
-/* Generic «Always» string */
-"always" = "ทุกครั้ง";
-
-/* Generic «Never» string */
-"never" = "ไม่ต้องเตือน";
-
 "place_description_title" = "รายละเอียดของสถานที่";
 
-"speedcams_notice_message" = "อัตโนมัติ - เตือนเกี่ยวกับกล้องตรวจจับความเร็วหากมีความเป็นได้ว่าจะขับเร็วเกิดกำหนด\nทุกครั้ง - เตือนเกี่ยวกับกล้องตรวจจับความเร็วเสมอ\nไม่ต้องเตือน - ไม่เคยเตือนเกี่ยวกับกล้องตรวจจับความเร็ว";
+/* Speed camera settings menu option - Warn (about speedcams) if risk of exceeding speed limit */
+"pref_tts_speedcams_auto" = "เตือนเกี่ยวกับกล้องตรวจจับความเร็วหากมีความเป็นได้ว่าจะขับเร็วเกิดกำหนด";
+
+/* Speed camera settings menu option - Always warn (about speedcams) */
+"pref_tts_speedcams_always" = "เตือนเกี่ยวกับกล้องตรวจจับความเร็วเสมอ";
+
+/* Speed camera settings menu option - Never warn (about speedcams) */
+"pref_tts_speedcams_never" = "ไม่เคยเตือนเกี่ยวกับกล้องตรวจจับความเร็ว";
 
 "power_managment_title" = "โหมดประหยัดพลังงาน";
 

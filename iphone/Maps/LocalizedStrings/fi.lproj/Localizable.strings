@@ -105,73 +105,76 @@
 /********** Search categories **********/
 
 /* Search category for cafes, bars, restaurants; any changes should be duplicated in categories.txt @eat! */
-"eat" = "Missä syödä";
+"category_eat" = "Missä syödä";
 
 /* Search category for grocery stores; any changes should be duplicated in categories.txt @food! */
-"food" = "Elintarvikkeet";
+"category_food" = "Elintarvikkeet";
 
 /* Search category for public transport; any changes should be duplicated in categories.txt @transport! */
-"transport" = "Liikenne";
+"category_transport" = "Liikenne";
 
 /* Search category for fuel stations; any changes should be duplicated in categories.txt @fuel! */
-"fuel" = "Huoltoasema";
+"category_fuel" = "Huoltoasema";
 
 /* Search category for parking lots; any changes should be duplicated in categories.txt @parking! */
-"parking" = "Parkkipaikka";
+"category_parking" = "Parkkipaikka";
 
 /* Search category for clothes/shoes/gifts/jewellery/sport shops; any changes should be duplicated in categories.txt @shopping! */
-"shopping" = "Ostokset";
+"category_shopping" = "Ostokset";
 
 /* Search category for second_hand/charity/antique/auction shops; any changes should be duplicated in categories.txt @secondhand! */
-"secondhand" = "Käytetyt tavarat";
+"category_secondhand" = "Käytetyt tavarat";
 
 /* Search category for places to stay; any changes should be duplicated in categories.txt @hotel! */
-"hotel" = "Hotelli";
+"category_hotel" = "Hotelli";
 
 /* Search category sight seeings and touristic attractions; any changes should be duplicated in categories.txt @tourism! */
-"tourism" = "Nähtävyydet";
+"category_tourism" = "Nähtävyydet";
 
 /* Search category for entertainment; any changes should be duplicated in categories.txt @entertainment! */
-"entertainment" = "Viihde";
+"category_entertainment" = "Viihde";
 
 /* Search category for ATMs; any changes should be duplicated in categories.txt @atm! */
-"atm" = "Pankkiautomaatti";
+"category_atm" = "Pankkiautomaatti";
 
 /* Search category for nightclubs/bars; any changes should be duplicated in categories.txt @nightlife! */
-"nightlife" = "Yöelämä";
+"category_nightlife" = "Yöelämä";
 
 /* Search category for water park/disneyland/playground/toys store; any changes should be duplicated in categories.txt @children! */
-"children" = "Vapaa-aikaa lasten kanssa";
+"category_children" = "Vapaa-aikaa lasten kanssa";
 
 /* Search category for banks; any changes should be duplicated in categories.txt @bank! */
-"bank" = "Pankki";
+"category_bank" = "Pankki";
 
 /* Search category for pharmacies; any changes should be duplicated in categories.txt @pharmacy! */
-"pharmacy" = "Apteekki";
+"category_pharmacy" = "Apteekki";
 
 /* Search category for hospitals; any changes should be duplicated in categories.txt @hospital! */
-"hospital" = "Sairaala";
+"category_hospital" = "Sairaala";
 
 /* Search category for toilets; any changes should be duplicated in categories.txt @toilet! */
-"toilet" = "WC";
+"category_toilet" = "WC";
 
 /* Search category for post offices; any changes should be duplicated in categories.txt @post! */
-"post" = "Posti";
+"category_post" = "Posti";
 
 /* Search category for police; any changes should be duplicated in categories.txt @police! */
-"police" = "Poliisi";
+"category_police" = "Poliisi";
 
 /* Search category for WiFi access; any changes should be duplicated in categories.txt @wifi! */
-"wifi" = "WiFi";
+"category_wifi" = "WiFi";
 
 /* Search category for recycling; any changes should be duplicated in categories.txt @recycling! */
-"recycling" = "Jätteiden kierrätys";
+"category_recycling" = "Jätteiden kierrätys";
 
 /* Search category for water; any changes should be duplicated in categories.txt @water! also used to sort bookmarks by type */
-"water" = "Vesi";
+"category_water" = "Vesi";
 
 /* Search category for RV facilities; any changes should be duplicated in categories.txt @rv! */
-"rv" = "Karavaanaritilat";
+"category_rv" = "Karavaanaritilat";
+
+
+/********** Other translations **********/
 
 "share_bookmarks_email_body" = "Hello!\n\nAttached are my bookmarks; please open them in Organic Maps. If you don't have it installed you can download it here: https://omaps.app/get?kmz\n\nEnjoy travelling with Organic Maps!";
 
@@ -779,8 +782,6 @@
 
 "downloader_no_downloaded_maps_message" = "Lataa karttoja löytääksesi paikkoja ja navigoidaksesi offline-tilassa.";
 
-"stop" = "Pysäytä";
-
 "current_location_unknown_error_title" = "Nykyinen sijainti on tuntematon.";
 
 "current_location_unknown_error_message" = "Tapahtui virhe määritettäessä sijaintiasi. Tarkista laitteesi ja yritä myöhemmin uudelleen.";
@@ -1035,15 +1036,16 @@
 
 "speedcams_alert_title" = "Nopeuskamerat";
 
-/* Generic «Always» string */
-"always" = "Aina";
-
-/* Generic «Never» string */
-"never" = "Ei koskaan";
-
 "place_description_title" = "Paikan kuvaus";
 
-"speedcams_notice_message" = "Auto - Varoita nopeuskameroista, jos tuntuu siltä, että nopeusrajan ylitys on mahdollista\nAina - Varoita kameroista aina\nEi koskaan - älä koskaan varoita kameroista";
+/* Speed camera settings menu option - Warn (about speedcams) if risk of exceeding speed limit */
+"pref_tts_speedcams_auto" = "Varoita jos tuntuu siltä, että nopeusrajan ylitys on mahdollista";
+
+/* Speed camera settings menu option - Always warn (about speedcams) */
+"pref_tts_speedcams_always" = "Varoita aina";
+
+/* Speed camera settings menu option - Never warn (about speedcams) */
+"pref_tts_speedcams_never" = "Älä koskaan varoita";
 
 "power_managment_title" = "Virransäästötila";
 

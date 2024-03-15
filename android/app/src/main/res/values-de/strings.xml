@@ -41,7 +41,7 @@
 	<!-- Text in About screen -->
 	<string name="about_proposition_1">• Keine Werbung, kein Tracking, keine Datenerfassung</string>
 	<!-- Text in About screen -->
-	<string name="about_proposition_2">• Kein Batterieverbrauch, funktioniert offline</string>
+	<string name="about_proposition_2">• Kein Datenverbrauch, funktioniert offline</string>
 	<!-- Text in About screen -->
 	<string name="about_proposition_3">• Schnell, minimalistisch, von der Gemeinschaft entwickelt</string>
 	<!-- Text in About screen -->
@@ -115,51 +115,53 @@
 
 	<!-- SECTION: Search categories -->
 	<!-- Search category for cafes, bars, restaurants; any changes should be duplicated in categories.txt @eat! -->
-	<string name="eat">Essmöglichkeiten</string>
+	<string name="category_eat">Essmöglichkeiten</string>
 	<!-- Search category for grocery stores; any changes should be duplicated in categories.txt @food! -->
-	<string name="food">Lebensmittel</string>
+	<string name="category_food">Lebensmittel</string>
 	<!-- Search category for public transport; any changes should be duplicated in categories.txt @transport! -->
-	<string name="transport">Verkehr</string>
+	<string name="category_transport">Verkehr</string>
 	<!-- Search category for fuel stations; any changes should be duplicated in categories.txt @fuel! -->
-	<string name="fuel">Tankstelle</string>
+	<string name="category_fuel">Tankstelle</string>
 	<!-- Search category for parking lots; any changes should be duplicated in categories.txt @parking! -->
-	<string name="parking">Parkplatz</string>
+	<string name="category_parking">Parkplatz</string>
 	<!-- Search category for clothes/shoes/gifts/jewellery/sport shops; any changes should be duplicated in categories.txt @shopping! -->
-	<string name="shopping">Shopping</string>
+	<string name="category_shopping">Shopping</string>
 	<!-- Search category for second_hand/charity/antique/auction shops; any changes should be duplicated in categories.txt @secondhand! -->
-	<string name="secondhand">Second-hand</string>
+	<string name="category_secondhand">Second-hand</string>
 	<!-- Search category for places to stay; any changes should be duplicated in categories.txt @hotel! -->
-	<string name="hotel">Hotel</string>
+	<string name="category_hotel">Hotel</string>
 	<!-- Search category sight seeings and touristic attractions; any changes should be duplicated in categories.txt @tourism! -->
-	<string name="tourism">Sehenswürdigkeit</string>
+	<string name="category_tourism">Sehenswürdigkeit</string>
 	<!-- Search category for entertainment; any changes should be duplicated in categories.txt @entertainment! -->
-	<string name="entertainment">Unterhaltung</string>
+	<string name="category_entertainment">Unterhaltung</string>
 	<!-- Search category for ATMs; any changes should be duplicated in categories.txt @atm! -->
-	<string name="atm">Geldautomat</string>
+	<string name="category_atm">Geldautomat</string>
 	<!-- Search category for nightclubs/bars; any changes should be duplicated in categories.txt @nightlife! -->
-	<string name="nightlife">Nachtleben</string>
+	<string name="category_nightlife">Nachtleben</string>
 	<!-- Search category for water park/disneyland/playground/toys store; any changes should be duplicated in categories.txt @children! -->
-	<string name="children">Freizeit mit Kindern</string>
+	<string name="category_children">Freizeit mit Kindern</string>
 	<!-- Search category for banks; any changes should be duplicated in categories.txt @bank! -->
-	<string name="bank">Bank</string>
+	<string name="category_bank">Bank</string>
 	<!-- Search category for pharmacies; any changes should be duplicated in categories.txt @pharmacy! -->
-	<string name="pharmacy">Apotheke</string>
+	<string name="category_pharmacy">Apotheke</string>
 	<!-- Search category for hospitals; any changes should be duplicated in categories.txt @hospital! -->
-	<string name="hospital">Krankenhaus</string>
+	<string name="category_hospital">Krankenhaus</string>
 	<!-- Search category for toilets; any changes should be duplicated in categories.txt @toilet! -->
-	<string name="toilet">Toilette</string>
+	<string name="category_toilet">Toilette</string>
 	<!-- Search category for post offices; any changes should be duplicated in categories.txt @post! -->
-	<string name="post">Post</string>
+	<string name="category_post">Post</string>
 	<!-- Search category for police; any changes should be duplicated in categories.txt @police! -->
-	<string name="police">Polizeistation</string>
+	<string name="category_police">Polizeistation</string>
 	<!-- Search category for WiFi access; any changes should be duplicated in categories.txt @wifi! -->
-	<string name="wifi">WLAN</string>
+	<string name="category_wifi">WLAN</string>
 	<!-- Search category for recycling; any changes should be duplicated in categories.txt @recycling! -->
-	<string name="recycling">Recycling</string>
+	<string name="category_recycling">Recycling</string>
 	<!-- Search category for water; any changes should be duplicated in categories.txt @water! also used to sort bookmarks by type -->
-	<string name="water">Wasser</string>
+	<string name="category_water">Wasser</string>
 	<!-- Search category for RV facilities; any changes should be duplicated in categories.txt @rv! -->
-	<string name="rv">Einrichtungen für Wohnmobile</string>
+	<string name="category_rv">Einrichtungen für Wohnmobile</string>
+
+	<!-- SECTION: Other translations -->
 	<!-- Notes field in Bookmarks view -->
 	<string name="description">Notizen</string>
 	<!-- Email Subject when sharing bookmark list -->
@@ -504,7 +506,6 @@
 	<string name="editor_operator">Betreiber oder Eigentümer</string>
 	<string name="downloader_no_downloaded_maps_title">Keine Karten geladen</string>
 	<string name="downloader_no_downloaded_maps_message">Laden Sie die für die Suche nach Orten erforderlichen Karten und verwenden Sie die Navigation offline.</string>
-	<string name="stop">Anhalten</string>
 	<!-- abbreviation for meters -->
 	<string name="m">m</string>
 	<!-- abbreviation for kilometers -->
@@ -639,10 +640,6 @@
 	<string name="bookmark_list_description_hint">Fügen Sie die Beschreibung hinzu (Text oder html)</string>
 	<string name="not_shared">Persönlich</string>
 	<string name="speedcams_alert_title">Blitzer</string>
-	<!-- Generic «Always» string -->
-	<string name="always">Immer</string>
-	<!-- Generic «Never» string -->
-	<string name="never">Niemals</string>
 	<string name="place_description_title">Ortsbeschreibung</string>
 	<!-- this text will be shown in application notification preferences opposite checkbox which enable/disable downloader notifications. Devices on Android 8+ are affected. -->
 	<string name="notification_channel_downloader">Karten werden geladen</string>

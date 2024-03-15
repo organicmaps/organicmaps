@@ -105,51 +105,53 @@
 
 	<!-- SECTION: Search categories -->
 	<!-- Search category for cafes, bars, restaurants; any changes should be duplicated in categories.txt @eat! -->
-	<string name="eat">กินร้านไหนดี</string>
+	<string name="category_eat">กินร้านไหนดี</string>
 	<!-- Search category for grocery stores; any changes should be duplicated in categories.txt @food! -->
-	<string name="food">ซื้อของกินของใช้</string>
+	<string name="category_food">ซื้อของกินของใช้</string>
 	<!-- Search category for public transport; any changes should be duplicated in categories.txt @transport! -->
-	<string name="transport">การขนส่ง</string>
+	<string name="category_transport">การขนส่ง</string>
 	<!-- Search category for fuel stations; any changes should be duplicated in categories.txt @fuel! -->
-	<string name="fuel">ก๊าซ</string>
+	<string name="category_fuel">ก๊าซ</string>
 	<!-- Search category for parking lots; any changes should be duplicated in categories.txt @parking! -->
-	<string name="parking">ที่จอดรถ</string>
+	<string name="category_parking">ที่จอดรถ</string>
 	<!-- Search category for clothes/shoes/gifts/jewellery/sport shops; any changes should be duplicated in categories.txt @shopping! -->
-	<string name="shopping">ช็อปปิง</string>
+	<string name="category_shopping">ช็อปปิง</string>
 	<!-- Search category for second_hand/charity/antique/auction shops; any changes should be duplicated in categories.txt @secondhand! -->
-	<string name="secondhand">มือสอง</string>
+	<string name="category_secondhand">มือสอง</string>
 	<!-- Search category for places to stay; any changes should be duplicated in categories.txt @hotel! -->
-	<string name="hotel">โรงแรม</string>
+	<string name="category_hotel">โรงแรม</string>
 	<!-- Search category sight seeings and touristic attractions; any changes should be duplicated in categories.txt @tourism! -->
-	<string name="tourism">สถานที่ท่องเที่ยว</string>
+	<string name="category_tourism">สถานที่ท่องเที่ยว</string>
 	<!-- Search category for entertainment; any changes should be duplicated in categories.txt @entertainment! -->
-	<string name="entertainment">แหล่งบันเทิง</string>
+	<string name="category_entertainment">แหล่งบันเทิง</string>
 	<!-- Search category for ATMs; any changes should be duplicated in categories.txt @atm! -->
-	<string name="atm">เอทีเอ็ม</string>
+	<string name="category_atm">เอทีเอ็ม</string>
 	<!-- Search category for nightclubs/bars; any changes should be duplicated in categories.txt @nightlife! -->
-	<string name="nightlife">ไนท์ไลฟ์</string>
+	<string name="category_nightlife">ไนท์ไลฟ์</string>
 	<!-- Search category for water park/disneyland/playground/toys store; any changes should be duplicated in categories.txt @children! -->
-	<string name="children">วันหยุดสำหรับครอบครัว</string>
+	<string name="category_children">วันหยุดสำหรับครอบครัว</string>
 	<!-- Search category for banks; any changes should be duplicated in categories.txt @bank! -->
-	<string name="bank">ธนาคาร</string>
+	<string name="category_bank">ธนาคาร</string>
 	<!-- Search category for pharmacies; any changes should be duplicated in categories.txt @pharmacy! -->
-	<string name="pharmacy">ร้านขายยา</string>
+	<string name="category_pharmacy">ร้านขายยา</string>
 	<!-- Search category for hospitals; any changes should be duplicated in categories.txt @hospital! -->
-	<string name="hospital">คลินิก</string>
+	<string name="category_hospital">คลินิก</string>
 	<!-- Search category for toilets; any changes should be duplicated in categories.txt @toilet! -->
-	<string name="toilet">ห้องน้ำ</string>
+	<string name="category_toilet">ห้องน้ำ</string>
 	<!-- Search category for post offices; any changes should be duplicated in categories.txt @post! -->
-	<string name="post">ไปรษณีย์</string>
+	<string name="category_post">ไปรษณีย์</string>
 	<!-- Search category for police; any changes should be duplicated in categories.txt @police! -->
-	<string name="police">ตำรวจ</string>
+	<string name="category_police">ตำรวจ</string>
 	<!-- Search category for WiFi access; any changes should be duplicated in categories.txt @wifi! -->
-	<string name="wifi">WiFi</string>
+	<string name="category_wifi">WiFi</string>
 	<!-- Search category for recycling; any changes should be duplicated in categories.txt @recycling! -->
-	<string name="recycling">การรีไซเคิล</string>
+	<string name="category_recycling">การรีไซเคิล</string>
 	<!-- Search category for water; any changes should be duplicated in categories.txt @water! also used to sort bookmarks by type -->
-	<string name="water">น้ำ</string>
+	<string name="category_water">น้ำ</string>
 	<!-- Search category for RV facilities; any changes should be duplicated in categories.txt @rv! -->
-	<string name="rv">สำหรับ RV</string>
+	<string name="category_rv">สำหรับ RV</string>
+
+	<!-- SECTION: Other translations -->
 	<!-- Notes field in Bookmarks view -->
 	<string name="description">บันทึก</string>
 	<!-- Email Subject when sharing bookmark list -->
@@ -484,7 +486,6 @@
 	<string name="editor_operator">เจ้าของ</string>
 	<string name="downloader_no_downloaded_maps_title">คุณยังไม่ได้ดาวน์โหลดแผนที่</string>
 	<string name="downloader_no_downloaded_maps_message">ดาวน์โหลดแผนที่เพื่อค้นหาสถานที่ และนำทางแบบออฟไลน์</string>
-	<string name="stop">หยุด</string>
 	<!-- abbreviation for meters -->
 	<string name="m">ม.</string>
 	<!-- abbreviation for kilometers -->
@@ -608,10 +609,6 @@
 	<string name="bookmark_list_description_hint">พิมพ์รายละเอียด (ข้อความหรือ html)</string>
 	<string name="not_shared">ส่วนตัว</string>
 	<string name="speedcams_alert_title">กล้องตรวจจับความเร็ว</string>
-	<!-- Generic «Always» string -->
-	<string name="always">ทุกครั้ง</string>
-	<!-- Generic «Never» string -->
-	<string name="never">ไม่ต้องเตือน</string>
 	<string name="place_description_title">รายละเอียดของสถานที่</string>
 	<!-- this text will be shown in application notification preferences opposite checkbox which enable/disable downloader notifications. Devices on Android 8+ are affected. -->
 	<string name="notification_channel_downloader">ตัวดาวน์โหลดแผนที่</string>

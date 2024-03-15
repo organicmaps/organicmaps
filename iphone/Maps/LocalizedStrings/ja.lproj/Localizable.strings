@@ -105,73 +105,76 @@
 /********** Search categories **********/
 
 /* Search category for cafes, bars, restaurants; any changes should be duplicated in categories.txt @eat! */
-"eat" = "食事場所";
+"category_eat" = "食事場所";
 
 /* Search category for grocery stores; any changes should be duplicated in categories.txt @food! */
-"food" = "食料雑貨";
+"category_food" = "食料雑貨";
 
 /* Search category for public transport; any changes should be duplicated in categories.txt @transport! */
-"transport" = "交通機関";
+"category_transport" = "交通機関";
 
 /* Search category for fuel stations; any changes should be duplicated in categories.txt @fuel! */
-"fuel" = "ガソリンスタンド";
+"category_fuel" = "ガソリンスタンド";
 
 /* Search category for parking lots; any changes should be duplicated in categories.txt @parking! */
-"parking" = "駐車場";
+"category_parking" = "駐車場";
 
 /* Search category for clothes/shoes/gifts/jewellery/sport shops; any changes should be duplicated in categories.txt @shopping! */
-"shopping" = "ショッピング";
+"category_shopping" = "ショッピング";
 
 /* Search category for second_hand/charity/antique/auction shops; any changes should be duplicated in categories.txt @secondhand! */
-"secondhand" = "中古品";
+"category_secondhand" = "中古品";
 
 /* Search category for places to stay; any changes should be duplicated in categories.txt @hotel! */
-"hotel" = "ホテル";
+"category_hotel" = "ホテル";
 
 /* Search category sight seeings and touristic attractions; any changes should be duplicated in categories.txt @tourism! */
-"tourism" = "観光";
+"category_tourism" = "観光";
 
 /* Search category for entertainment; any changes should be duplicated in categories.txt @entertainment! */
-"entertainment" = "エンターテイメント";
+"category_entertainment" = "エンターテイメント";
 
 /* Search category for ATMs; any changes should be duplicated in categories.txt @atm! */
-"atm" = "ATM";
+"category_atm" = "ATM";
 
 /* Search category for nightclubs/bars; any changes should be duplicated in categories.txt @nightlife! */
-"nightlife" = "ナイトライフ";
+"category_nightlife" = "ナイトライフ";
 
 /* Search category for water park/disneyland/playground/toys store; any changes should be duplicated in categories.txt @children! */
-"children" = "家族の休日";
+"category_children" = "家族の休日";
 
 /* Search category for banks; any changes should be duplicated in categories.txt @bank! */
-"bank" = "銀行";
+"category_bank" = "銀行";
 
 /* Search category for pharmacies; any changes should be duplicated in categories.txt @pharmacy! */
-"pharmacy" = "薬局";
+"category_pharmacy" = "薬局";
 
 /* Search category for hospitals; any changes should be duplicated in categories.txt @hospital! */
-"hospital" = "病院";
+"category_hospital" = "病院";
 
 /* Search category for toilets; any changes should be duplicated in categories.txt @toilet! */
-"toilet" = "トイレ";
+"category_toilet" = "トイレ";
 
 /* Search category for post offices; any changes should be duplicated in categories.txt @post! */
-"post" = "郵便局";
+"category_post" = "郵便局";
 
 /* Search category for police; any changes should be duplicated in categories.txt @police! */
-"police" = "警察";
+"category_police" = "警察";
 
 /* Search category for WiFi access; any changes should be duplicated in categories.txt @wifi! */
-"wifi" = "無線LAN";
+"category_wifi" = "無線LAN";
 
 /* Search category for recycling; any changes should be duplicated in categories.txt @recycling! */
-"recycling" = "リサイクル";
+"category_recycling" = "リサイクル";
 
 /* Search category for water; any changes should be duplicated in categories.txt @water! also used to sort bookmarks by type */
-"water" = "水";
+"category_water" = "水";
 
 /* Search category for RV facilities; any changes should be duplicated in categories.txt @rv! */
-"rv" = "RV用";
+"category_rv" = "RV用";
+
+
+/********** Other translations **********/
 
 "share_bookmarks_email_body" = "こんにちは！\n\n添付ファイルOrganic Mapsのお気に入りリストです。もしインストールされていない場合はここからダウンロードができます： https://omaps.app/get?kmz\n\n旅行を楽しむときはOrganic Mapsを使用してください!";
 
@@ -779,8 +782,6 @@
 
 "downloader_no_downloaded_maps_message" = "ロケーションの検索とオフラインナビゲートのためにマップをダウンロードしてください。";
 
-"stop" = "止める";
-
 "current_location_unknown_error_title" = "現在地は不明です。";
 
 "current_location_unknown_error_message" = "現在地の検索中にエラーが発生しました。 デバイスが正常に動作していることを確認して、もう一度お試しください。";
@@ -1035,15 +1036,16 @@
 
 "speedcams_alert_title" = "自動速度違反取締装置";
 
-/* Generic «Always» string */
-"always" = "常時";
-
-/* Generic «Never» string */
-"never" = "無効";
-
 "place_description_title" = "場所の説明";
 
-"speedcams_notice_message" = "自動－速度制限超過の危険性がある場合には、自動速度違反取締装置について警告します\n常時－自動速度違反取締装置について常に警告します\n無効－自動速度違反取締装置を警告しません";
+/* Speed camera settings menu option - Warn (about speedcams) if risk of exceeding speed limit */
+"pref_tts_speedcams_auto" = "速度制限超過の危険性がある場合には、自動速度違反取締装置について警告します";
+
+/* Speed camera settings menu option - Always warn (about speedcams) */
+"pref_tts_speedcams_always" = "自動速度違反取締装置について常に警告します";
+
+/* Speed camera settings menu option - Never warn (about speedcams) */
+"pref_tts_speedcams_never" = "自動速度違反取締装置を警告しません";
 
 "power_managment_title" = "電力節約モード";
 

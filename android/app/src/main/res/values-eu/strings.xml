@@ -115,51 +115,53 @@
 
 	<!-- SECTION: Search categories -->
 	<!-- Search category for cafes, bars, restaurants; any changes should be duplicated in categories.txt @eat! -->
-	<string name="eat">Non jan</string>
+	<string name="category_eat">Non jan</string>
 	<!-- Search category for grocery stores; any changes should be duplicated in categories.txt @food! -->
-	<string name="food">Janari-denda</string>
+	<string name="category_food">Janari-denda</string>
 	<!-- Search category for public transport; any changes should be duplicated in categories.txt @transport! -->
-	<string name="transport">Garraioa</string>
+	<string name="category_transport">Garraioa</string>
 	<!-- Search category for fuel stations; any changes should be duplicated in categories.txt @fuel! -->
-	<string name="fuel">Gasolindegia</string>
+	<string name="category_fuel">Gasolindegia</string>
 	<!-- Search category for parking lots; any changes should be duplicated in categories.txt @parking! -->
-	<string name="parking">Aparkalekua</string>
+	<string name="category_parking">Aparkalekua</string>
 	<!-- Search category for clothes/shoes/gifts/jewellery/sport shops; any changes should be duplicated in categories.txt @shopping! -->
-	<string name="shopping">Erosketak</string>
+	<string name="category_shopping">Erosketak</string>
 	<!-- Search category for second_hand/charity/antique/auction shops; any changes should be duplicated in categories.txt @secondhand! -->
-	<string name="secondhand">Bigarren eskuko</string>
+	<string name="category_secondhand">Bigarren eskuko</string>
 	<!-- Search category for places to stay; any changes should be duplicated in categories.txt @hotel! -->
-	<string name="hotel">Hotela</string>
+	<string name="category_hotel">Hotela</string>
 	<!-- Search category sight seeings and touristic attractions; any changes should be duplicated in categories.txt @tourism! -->
-	<string name="tourism">Turismoa</string>
+	<string name="category_tourism">Turismoa</string>
 	<!-- Search category for entertainment; any changes should be duplicated in categories.txt @entertainment! -->
-	<string name="entertainment">Entretenimendua</string>
+	<string name="category_entertainment">Entretenimendua</string>
 	<!-- Search category for ATMs; any changes should be duplicated in categories.txt @atm! -->
-	<string name="atm">Kutxazain automatikoa</string>
+	<string name="category_atm">Kutxazain automatikoa</string>
 	<!-- Search category for nightclubs/bars; any changes should be duplicated in categories.txt @nightlife! -->
-	<string name="nightlife">Gaueko giroa</string>
+	<string name="category_nightlife">Gaueko giroa</string>
 	<!-- Search category for water park/disneyland/playground/toys store; any changes should be duplicated in categories.txt @children! -->
-	<string name="children">Familiako jarduerak</string>
+	<string name="category_children">Familiako jarduerak</string>
 	<!-- Search category for banks; any changes should be duplicated in categories.txt @bank! -->
-	<string name="bank">Bankua</string>
+	<string name="category_bank">Bankua</string>
 	<!-- Search category for pharmacies; any changes should be duplicated in categories.txt @pharmacy! -->
-	<string name="pharmacy">Farmazia</string>
+	<string name="category_pharmacy">Farmazia</string>
 	<!-- Search category for hospitals; any changes should be duplicated in categories.txt @hospital! -->
-	<string name="hospital">Ospitalea</string>
+	<string name="category_hospital">Ospitalea</string>
 	<!-- Search category for toilets; any changes should be duplicated in categories.txt @toilet! -->
-	<string name="toilet">Komuna</string>
+	<string name="category_toilet">Komuna</string>
 	<!-- Search category for post offices; any changes should be duplicated in categories.txt @post! -->
-	<string name="post">Posta bulegoa</string>
+	<string name="category_post">Posta bulegoa</string>
 	<!-- Search category for police; any changes should be duplicated in categories.txt @police! -->
-	<string name="police">Polizia</string>
+	<string name="category_police">Polizia</string>
 	<!-- Search category for WiFi access; any changes should be duplicated in categories.txt @wifi! -->
-	<string name="wifi">WiFi</string>
+	<string name="category_wifi">WiFi</string>
 	<!-- Search category for recycling; any changes should be duplicated in categories.txt @recycling! -->
-	<string name="recycling">Birziklapena</string>
+	<string name="category_recycling">Birziklapena</string>
 	<!-- Search category for water; any changes should be duplicated in categories.txt @water! also used to sort bookmarks by type -->
-	<string name="water">Ura</string>
+	<string name="category_water">Ura</string>
 	<!-- Search category for RV facilities; any changes should be duplicated in categories.txt @rv! -->
-	<string name="rv">Karabanak</string>
+	<string name="category_rv">Karabanak</string>
+
+	<!-- SECTION: Other translations -->
 	<!-- Notes field in Bookmarks view -->
 	<string name="description">Oharrak</string>
 	<!-- Email Subject when sharing bookmark list -->
@@ -506,7 +508,6 @@
 	<string name="editor_operator">Eragilea</string>
 	<string name="downloader_no_downloaded_maps_title">Ez duzu maparik deskargatu</string>
 	<string name="downloader_no_downloaded_maps_message">Deskargatu mapak kokapena aurkitzeko eta lineaz kanpo nabigatzeko.</string>
-	<string name="stop">Gelditu</string>
 	<!-- abbreviation for meters -->
 	<string name="m">m</string>
 	<!-- abbreviation for kilometers -->
@@ -641,10 +642,6 @@
 	<string name="bookmark_list_description_hint">Gehitu deskribapen bat (testua edo html)</string>
 	<string name="not_shared">Pribatua</string>
 	<string name="speedcams_alert_title">Abiadura kamerak</string>
-	<!-- Generic «Always» string -->
-	<string name="always">Beti</string>
-	<!-- Generic «Never» string -->
-	<string name="never">Inoiz ez</string>
 	<string name="place_description_title">Tokiaren deskribapena</string>
 	<!-- this text will be shown in application notification preferences opposite checkbox which enable/disable downloader notifications. Devices on Android 8+ are affected. -->
 	<string name="notification_channel_downloader">Deskargatu mapak</string>

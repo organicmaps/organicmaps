@@ -105,73 +105,76 @@
 /********** Search categories **********/
 
 /* Search category for cafes, bars, restaurants; any changes should be duplicated in categories.txt @eat! */
-"eat" = "Unde să mănânci";
+"category_eat" = "Unde să mănânci";
 
 /* Search category for grocery stores; any changes should be duplicated in categories.txt @food! */
-"food" = "Alimentare";
+"category_food" = "Alimentare";
 
 /* Search category for public transport; any changes should be duplicated in categories.txt @transport! */
-"transport" = "Transport";
+"category_transport" = "Transport";
 
 /* Search category for fuel stations; any changes should be duplicated in categories.txt @fuel! */
-"fuel" = "Benzinărie";
+"category_fuel" = "Benzinărie";
 
 /* Search category for parking lots; any changes should be duplicated in categories.txt @parking! */
-"parking" = "Parcare";
+"category_parking" = "Parcare";
 
 /* Search category for clothes/shoes/gifts/jewellery/sport shops; any changes should be duplicated in categories.txt @shopping! */
-"shopping" = "Shopping";
+"category_shopping" = "Shopping";
 
 /* Search category for second_hand/charity/antique/auction shops; any changes should be duplicated in categories.txt @secondhand! */
-"secondhand" = "La mâna a doua";
+"category_secondhand" = "La mâna a doua";
 
 /* Search category for places to stay; any changes should be duplicated in categories.txt @hotel! */
-"hotel" = "Hotel";
+"category_hotel" = "Hotel";
 
 /* Search category sight seeings and touristic attractions; any changes should be duplicated in categories.txt @tourism! */
-"tourism" = "Obiective turistice";
+"category_tourism" = "Obiective turistice";
 
 /* Search category for entertainment; any changes should be duplicated in categories.txt @entertainment! */
-"entertainment" = "Divertisment";
+"category_entertainment" = "Divertisment";
 
 /* Search category for ATMs; any changes should be duplicated in categories.txt @atm! */
-"atm" = "Bancomat";
+"category_atm" = "Bancomat";
 
 /* Search category for nightclubs/bars; any changes should be duplicated in categories.txt @nightlife! */
-"nightlife" = "Viață nocturnă";
+"category_nightlife" = "Viață nocturnă";
 
 /* Search category for water park/disneyland/playground/toys store; any changes should be duplicated in categories.txt @children! */
-"children" = "Divertisment cu copiii";
+"category_children" = "Divertisment cu copiii";
 
 /* Search category for banks; any changes should be duplicated in categories.txt @bank! */
-"bank" = "Bancă";
+"category_bank" = "Bancă";
 
 /* Search category for pharmacies; any changes should be duplicated in categories.txt @pharmacy! */
-"pharmacy" = "Farmacie";
+"category_pharmacy" = "Farmacie";
 
 /* Search category for hospitals; any changes should be duplicated in categories.txt @hospital! */
-"hospital" = "Spital";
+"category_hospital" = "Spital";
 
 /* Search category for toilets; any changes should be duplicated in categories.txt @toilet! */
-"toilet" = "Toaletă";
+"category_toilet" = "Toaletă";
 
 /* Search category for post offices; any changes should be duplicated in categories.txt @post! */
-"post" = "Poștă";
+"category_post" = "Poștă";
 
 /* Search category for police; any changes should be duplicated in categories.txt @police! */
-"police" = "Poliția";
+"category_police" = "Poliția";
 
 /* Search category for WiFi access; any changes should be duplicated in categories.txt @wifi! */
-"wifi" = "Wi-Fi";
+"category_wifi" = "Wi-Fi";
 
 /* Search category for recycling; any changes should be duplicated in categories.txt @recycling! */
-"recycling" = "Reciclare";
+"category_recycling" = "Reciclare";
 
 /* Search category for water; any changes should be duplicated in categories.txt @water! also used to sort bookmarks by type */
-"water" = "Apă";
+"category_water" = "Apă";
 
 /* Search category for RV facilities; any changes should be duplicated in categories.txt @rv! */
-"rv" = "Pentru rulote";
+"category_rv" = "Pentru rulote";
+
+
+/********** Other translations **********/
 
 "share_bookmarks_email_body" = "Bună!\n\nȚi-am atașat locurile mele preferate din aplicația Organic Maps. Deschide-le dacă ai instalată Organic Maps. Dacă nu, o poți descărca pentru iOS sau Android de aici: https://organicmaps.app/";
 
@@ -779,8 +782,6 @@
 
 "downloader_no_downloaded_maps_message" = "Descarcă hărți pentru a căuta un loc și a naviga fără conectare la internet.";
 
-"stop" = "Oprește";
-
 "current_location_unknown_error_title" = "Poziția actuală este necunoscută.";
 
 "current_location_unknown_error_message" = "S-a produs o eroare la căutarea poziției tale. Verifică dacă dispozitivul funcționează corect și încearcă din nou.";
@@ -1035,15 +1036,16 @@
 
 "speedcams_alert_title" = "Radare";
 
-/* Generic «Always» string */
-"always" = "Mereu";
-
-/* Generic «Never» string */
-"never" = "Niciodată";
-
 "place_description_title" = "Descrierea locului";
 
-"speedcams_notice_message" = "Auto - Avertizează cu privire la radare dacă există riscul depășirii limitei de viteză\nMereu - Avertizează mereu cu privire la radare\nNiciodată - Nu avertiza niciodată cu privire la radare";
+/* Speed camera settings menu option - Warn (about speedcams) if risk of exceeding speed limit */
+"pref_tts_speedcams_auto" = "Avertizează dacă există riscul depășirii limitei de viteză";
+
+/* Speed camera settings menu option - Always warn (about speedcams) */
+"pref_tts_speedcams_always" = "Avertizează mereu";
+
+/* Speed camera settings menu option - Never warn (about speedcams) */
+"pref_tts_speedcams_never" = "Nu avertiza niciodată";
 
 "power_managment_title" = "Economisire a energiei";
 

@@ -105,73 +105,76 @@
 /********** Search categories **********/
 
 /* Search category for cafes, bars, restaurants; any changes should be duplicated in categories.txt @eat! */
-"eat" = "Var att äta";
+"category_eat" = "Var att äta";
 
 /* Search category for grocery stores; any changes should be duplicated in categories.txt @food! */
-"food" = "Produkter";
+"category_food" = "Produkter";
 
 /* Search category for public transport; any changes should be duplicated in categories.txt @transport! */
-"transport" = "Transport";
+"category_transport" = "Transport";
 
 /* Search category for fuel stations; any changes should be duplicated in categories.txt @fuel! */
-"fuel" = "Bensin";
+"category_fuel" = "Bensin";
 
 /* Search category for parking lots; any changes should be duplicated in categories.txt @parking! */
-"parking" = "Parkering";
+"category_parking" = "Parkering";
 
 /* Search category for clothes/shoes/gifts/jewellery/sport shops; any changes should be duplicated in categories.txt @shopping! */
-"shopping" = "Shopping";
+"category_shopping" = "Shopping";
 
 /* Search category for second_hand/charity/antique/auction shops; any changes should be duplicated in categories.txt @secondhand! */
-"secondhand" = "Begagnad";
+"category_secondhand" = "Begagnad";
 
 /* Search category for places to stay; any changes should be duplicated in categories.txt @hotel! */
-"hotel" = "Hotell";
+"category_hotel" = "Hotell";
 
 /* Search category sight seeings and touristic attractions; any changes should be duplicated in categories.txt @tourism! */
-"tourism" = "Sevärdheter";
+"category_tourism" = "Sevärdheter";
 
 /* Search category for entertainment; any changes should be duplicated in categories.txt @entertainment! */
-"entertainment" = "Underhållning";
+"category_entertainment" = "Underhållning";
 
 /* Search category for ATMs; any changes should be duplicated in categories.txt @atm! */
-"atm" = "Bankomat";
+"category_atm" = "Bankomat";
 
 /* Search category for nightclubs/bars; any changes should be duplicated in categories.txt @nightlife! */
-"nightlife" = "Nattliv";
+"category_nightlife" = "Nattliv";
 
 /* Search category for water park/disneyland/playground/toys store; any changes should be duplicated in categories.txt @children! */
-"children" = "Semester med barn";
+"category_children" = "Semester med barn";
 
 /* Search category for banks; any changes should be duplicated in categories.txt @bank! */
-"bank" = "Bank";
+"category_bank" = "Bank";
 
 /* Search category for pharmacies; any changes should be duplicated in categories.txt @pharmacy! */
-"pharmacy" = "Apotek";
+"category_pharmacy" = "Apotek";
 
 /* Search category for hospitals; any changes should be duplicated in categories.txt @hospital! */
-"hospital" = "Sjukhus";
+"category_hospital" = "Sjukhus";
 
 /* Search category for toilets; any changes should be duplicated in categories.txt @toilet! */
-"toilet" = "Toalett";
+"category_toilet" = "Toalett";
 
 /* Search category for post offices; any changes should be duplicated in categories.txt @post! */
-"post" = "Post";
+"category_post" = "Post";
 
 /* Search category for police; any changes should be duplicated in categories.txt @police! */
-"police" = "Polis";
+"category_police" = "Polis";
 
 /* Search category for WiFi access; any changes should be duplicated in categories.txt @wifi! */
-"wifi" = "WiFi";
+"category_wifi" = "WiFi";
 
 /* Search category for recycling; any changes should be duplicated in categories.txt @recycling! */
-"recycling" = "Återvinning";
+"category_recycling" = "Återvinning";
 
 /* Search category for water; any changes should be duplicated in categories.txt @water! also used to sort bookmarks by type */
-"water" = "Vatten";
+"category_water" = "Vatten";
 
 /* Search category for RV facilities; any changes should be duplicated in categories.txt @rv! */
-"rv" = "För husbil";
+"category_rv" = "För husbil";
+
+
+/********** Other translations **********/
 
 "share_bookmarks_email_body" = "Hello!\n\nAttached are my bookmarks; please open them in Organic Maps. If you don't have it installed you can download it here: https://omaps.app/get?kmz\n\nEnjoy travelling with Organic Maps!";
 
@@ -779,8 +782,6 @@
 
 "downloader_no_downloaded_maps_message" = "Ladda ner kartor för att hitta platsen och navigera offline.";
 
-"stop" = "Stopp";
-
 "current_location_unknown_error_title" = "Den nuvarande platsen är okänd.";
 
 "current_location_unknown_error_message" = "Ett fel inträffade vid sökning efter din plats. Kontrollera att din enhet fungerar och försök igen senare.";
@@ -1035,15 +1036,16 @@
 
 "speedcams_alert_title" = "Hastighetskameror";
 
-/* Generic «Always» string */
-"always" = "Alltid";
-
-/* Generic «Never» string */
-"never" = "Aldrig";
-
 "place_description_title" = "Beskrivning av platsen";
 
-"speedcams_notice_message" = "Auto - Varna om fartkameror om det finns risk att överskrida hastighetsgränsen\nAlltid - Varna alltid om kameror\nAldrig - Varna aldrig om kameror";
+/* Speed camera settings menu option - Warn (about speedcams) if risk of exceeding speed limit */
+"pref_tts_speedcams_auto" = "Varna om det finns risk att överskrida hastighetsgränsen";
+
+/* Speed camera settings menu option - Always warn (about speedcams) */
+"pref_tts_speedcams_always" = "Varna alltid";
+
+/* Speed camera settings menu option - Never warn (about speedcams) */
+"pref_tts_speedcams_never" = "Varna aldrig";
 
 "power_managment_title" = "Energisparläge";
 

@@ -103,51 +103,53 @@
 
 	<!-- SECTION: Search categories -->
 	<!-- Search category for cafes, bars, restaurants; any changes should be duplicated in categories.txt @eat! -->
-	<string name="eat">Unde să mănânci</string>
+	<string name="category_eat">Unde să mănânci</string>
 	<!-- Search category for grocery stores; any changes should be duplicated in categories.txt @food! -->
-	<string name="food">Alimentare</string>
+	<string name="category_food">Alimentare</string>
 	<!-- Search category for public transport; any changes should be duplicated in categories.txt @transport! -->
-	<string name="transport">Transport</string>
+	<string name="category_transport">Transport</string>
 	<!-- Search category for fuel stations; any changes should be duplicated in categories.txt @fuel! -->
-	<string name="fuel">Benzinărie</string>
+	<string name="category_fuel">Benzinărie</string>
 	<!-- Search category for parking lots; any changes should be duplicated in categories.txt @parking! -->
-	<string name="parking">Parcare</string>
+	<string name="category_parking">Parcare</string>
 	<!-- Search category for clothes/shoes/gifts/jewellery/sport shops; any changes should be duplicated in categories.txt @shopping! -->
-	<string name="shopping">Shopping</string>
+	<string name="category_shopping">Shopping</string>
 	<!-- Search category for second_hand/charity/antique/auction shops; any changes should be duplicated in categories.txt @secondhand! -->
-	<string name="secondhand">La mâna a doua</string>
+	<string name="category_secondhand">La mâna a doua</string>
 	<!-- Search category for places to stay; any changes should be duplicated in categories.txt @hotel! -->
-	<string name="hotel">Hotel</string>
+	<string name="category_hotel">Hotel</string>
 	<!-- Search category sight seeings and touristic attractions; any changes should be duplicated in categories.txt @tourism! -->
-	<string name="tourism">Obiective turistice</string>
+	<string name="category_tourism">Obiective turistice</string>
 	<!-- Search category for entertainment; any changes should be duplicated in categories.txt @entertainment! -->
-	<string name="entertainment">Divertisment</string>
+	<string name="category_entertainment">Divertisment</string>
 	<!-- Search category for ATMs; any changes should be duplicated in categories.txt @atm! -->
-	<string name="atm">Bancomat</string>
+	<string name="category_atm">Bancomat</string>
 	<!-- Search category for nightclubs/bars; any changes should be duplicated in categories.txt @nightlife! -->
-	<string name="nightlife">Viață nocturnă</string>
+	<string name="category_nightlife">Viață nocturnă</string>
 	<!-- Search category for water park/disneyland/playground/toys store; any changes should be duplicated in categories.txt @children! -->
-	<string name="children">Divertisment cu copiii</string>
+	<string name="category_children">Divertisment cu copiii</string>
 	<!-- Search category for banks; any changes should be duplicated in categories.txt @bank! -->
-	<string name="bank">Bancă</string>
+	<string name="category_bank">Bancă</string>
 	<!-- Search category for pharmacies; any changes should be duplicated in categories.txt @pharmacy! -->
-	<string name="pharmacy">Farmacie</string>
+	<string name="category_pharmacy">Farmacie</string>
 	<!-- Search category for hospitals; any changes should be duplicated in categories.txt @hospital! -->
-	<string name="hospital">Spital</string>
+	<string name="category_hospital">Spital</string>
 	<!-- Search category for toilets; any changes should be duplicated in categories.txt @toilet! -->
-	<string name="toilet">Toaletă</string>
+	<string name="category_toilet">Toaletă</string>
 	<!-- Search category for post offices; any changes should be duplicated in categories.txt @post! -->
-	<string name="post">Poștă</string>
+	<string name="category_post">Poștă</string>
 	<!-- Search category for police; any changes should be duplicated in categories.txt @police! -->
-	<string name="police">Poliția</string>
+	<string name="category_police">Poliția</string>
 	<!-- Search category for WiFi access; any changes should be duplicated in categories.txt @wifi! -->
-	<string name="wifi">Wi-Fi</string>
+	<string name="category_wifi">Wi-Fi</string>
 	<!-- Search category for recycling; any changes should be duplicated in categories.txt @recycling! -->
-	<string name="recycling">Reciclare</string>
+	<string name="category_recycling">Reciclare</string>
 	<!-- Search category for water; any changes should be duplicated in categories.txt @water! also used to sort bookmarks by type -->
-	<string name="water">Apă</string>
+	<string name="category_water">Apă</string>
 	<!-- Search category for RV facilities; any changes should be duplicated in categories.txt @rv! -->
-	<string name="rv">Pentru rulote</string>
+	<string name="category_rv">Pentru rulote</string>
+
+	<!-- SECTION: Other translations -->
 	<!-- Notes field in Bookmarks view -->
 	<string name="description">Detalii</string>
 	<!-- Email Subject when sharing bookmark list -->
@@ -494,7 +496,6 @@
 	<string name="editor_operator">Proprietar</string>
 	<string name="downloader_no_downloaded_maps_title">Nu ai descărcat nicio hartă</string>
 	<string name="downloader_no_downloaded_maps_message">Descarcă hărți pentru a căuta un loc și a naviga fără conectare la internet.</string>
-	<string name="stop">Oprește</string>
 	<!-- abbreviation for meters -->
 	<string name="m">m</string>
 	<!-- abbreviation for kilometers -->
@@ -627,10 +628,6 @@
 	<string name="bookmark_list_description_hint">Adaugă o descriere (text sau html)</string>
 	<string name="not_shared">Personal</string>
 	<string name="speedcams_alert_title">Radare</string>
-	<!-- Generic «Always» string -->
-	<string name="always">Mereu</string>
-	<!-- Generic «Never» string -->
-	<string name="never">Niciodată</string>
 	<string name="place_description_title">Descrierea locului</string>
 	<!-- this text will be shown in application notification preferences opposite checkbox which enable/disable downloader notifications. Devices on Android 8+ are affected. -->
 	<string name="notification_channel_downloader">Descărcarea hărților</string>

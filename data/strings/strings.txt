@@ -1078,7 +1078,7 @@
     ca = • Sense consum de bateria, funciona fora de línia
     cs = • Žádné vybíjení baterie, funguje offline
     da = • Intet batteridræn, fungerer offline
-    de = • Kein Batterieverbrauch, funktioniert offline
+    de = • Kein Datenverbrauch, funktioniert offline
     el = • Δεν υπάρχει αποστράγγιση μπαταρίας, λειτουργεί εκτός σύνδεσης
     es = • No consume batería, funciona sin conexión
     es-MX = • Sin consumo de batería, funciona sin conexión
@@ -2806,7 +2806,7 @@
 
 [[Search categories]]
 
-  [eat]
+  [category_eat]
     comment = Search category for cafes, bars, restaurants; any changes should be duplicated in categories.txt @eat!
     tags = android,ios
     en = Where to eat
@@ -2852,7 +2852,7 @@
     zh-Hans = 在哪儿吃
     zh-Hant = 在哪兒吃
 
-  [food]
+  [category_food]
     comment = Search category for grocery stores; any changes should be duplicated in categories.txt @food!
     tags = android,ios
     en = Groceries
@@ -2898,7 +2898,7 @@
     zh-Hans = 食品
     zh-Hant = 食物
 
-  [transport]
+  [category_transport]
     comment = Search category for public transport; any changes should be duplicated in categories.txt @transport!
     tags = android,ios
     en = Transport
@@ -2943,7 +2943,7 @@
     zh-Hans = 交通
     zh-Hant = 運輸
 
-  [fuel]
+  [category_fuel]
     comment = Search category for fuel stations; any changes should be duplicated in categories.txt @fuel!
     tags = android,ios
     en = Gas
@@ -2989,7 +2989,7 @@
     zh-Hans = 汽油
     zh-Hant = 加油站
 
-  [parking]
+  [category_parking]
     comment = Search category for parking lots; any changes should be duplicated in categories.txt @parking!
     tags = android,ios
     en = Parking
@@ -3034,7 +3034,7 @@
     zh-Hans = 停车场
     zh-Hant = 停車場
 
-  [shopping]
+  [category_shopping]
     comment = Search category for clothes/shoes/gifts/jewellery/sport shops; any changes should be duplicated in categories.txt @shopping!
     tags = android,ios
     en = Shopping
@@ -3080,7 +3080,7 @@
     zh-Hans = 购物
     zh-Hant = 購物
 
-  [secondhand]
+  [category_secondhand]
     comment = Search category for second_hand/charity/antique/auction shops; any changes should be duplicated in categories.txt @secondhand!
     tags = android,ios
     en = Second Hand
@@ -3124,7 +3124,7 @@
     zh-Hans = 二手货
     zh-Hant = 二手
 
-  [hotel]
+  [category_hotel]
     comment = Search category for places to stay; any changes should be duplicated in categories.txt @hotel!
     tags = android,ios
     en = Hotel
@@ -3169,7 +3169,7 @@
     zh-Hans = 旅店
     zh-Hant = 旅館
 
-  [tourism]
+  [category_tourism]
     comment = Search category sight seeings and touristic attractions; any changes should be duplicated in categories.txt @tourism!
     tags = android,ios
     en = Sights
@@ -3214,7 +3214,7 @@
     zh-Hans = 旅游景点
     zh-Hant = 旅遊景點
 
-  [entertainment]
+  [category_entertainment]
     comment = Search category for entertainment; any changes should be duplicated in categories.txt @entertainment!
     tags = android,ios
     en = Entertainment
@@ -3259,7 +3259,7 @@
     zh-Hans = 娱乐
     zh-Hant = 娛樂
 
-  [atm]
+  [category_atm]
     comment = Search category for ATMs; any changes should be duplicated in categories.txt @atm!
     tags = android,ios
     en = ATM
@@ -3304,7 +3304,7 @@
     zh-Hans = 自动取款机
     zh-Hant = 自動櫃員機
 
-  [nightlife]
+  [category_nightlife]
     comment = Search category for nightclubs/bars; any changes should be duplicated in categories.txt @nightlife!
     tags = android,ios
     en = Nightlife
@@ -3350,7 +3350,7 @@
     zh-Hans = 夜生活
     zh-Hant = 夜生活
 
-  [children]
+  [category_children]
     comment = Search category for water park/disneyland/playground/toys store; any changes should be duplicated in categories.txt @children!
     tags = android,ios
     en = Family holiday
@@ -3396,7 +3396,7 @@
     zh-Hans = 亲子休闲
     zh-Hant = 親子休閒
 
-  [bank]
+  [category_bank]
     comment = Search category for banks; any changes should be duplicated in categories.txt @bank!
     tags = android,ios
     en = Bank
@@ -3441,7 +3441,7 @@
     zh-Hans = 银行
     zh-Hant = 銀行
 
-  [pharmacy]
+  [category_pharmacy]
     comment = Search category for pharmacies; any changes should be duplicated in categories.txt @pharmacy!
     tags = android,ios
     en = Pharmacy
@@ -3486,7 +3486,7 @@
     zh-Hans = 药店
     zh-Hant = 藥局
 
-  [hospital]
+  [category_hospital]
     comment = Search category for hospitals; any changes should be duplicated in categories.txt @hospital!
     tags = android,ios
     en = Hospital
@@ -3532,7 +3532,7 @@
     zh-Hans = 医院
     zh-Hant = 醫院
 
-  [toilet]
+  [category_toilet]
     comment = Search category for toilets; any changes should be duplicated in categories.txt @toilet!
     tags = android,ios
     en = Toilet
@@ -3577,7 +3577,7 @@
     zh-Hans = 厕所
     zh-Hant = 廁所
 
-  [post]
+  [category_post]
     comment = Search category for post offices; any changes should be duplicated in categories.txt @post!
     tags = android,ios
     en = Post
@@ -3622,7 +3622,7 @@
     zh-Hans = 邮政
     zh-Hant = 郵局
 
-  [police]
+  [category_police]
     comment = Search category for police; any changes should be duplicated in categories.txt @police!
     tags = android,ios
     en = Police
@@ -3667,7 +3667,7 @@
     zh-Hans = 警察局
     zh-Hant = 警察局
 
-  [wifi]
+  [category_wifi]
     comment = Search category for WiFi access; any changes should be duplicated in categories.txt @wifi!
     tags = android,ios
     en = WiFi
@@ -3710,7 +3710,7 @@
     zh-Hans = 无线网络
     zh-Hant = 無線網路
 
-  [recycling]
+  [category_recycling]
     comment = Search category for recycling; any changes should be duplicated in categories.txt @recycling!
     tags = android,ios
     en = Recycling
@@ -3756,7 +3756,7 @@
     zh-Hans = 回收
     zh-Hant = 回收
 
-  [water]
+  [category_water]
     comment = Search category for water; any changes should be duplicated in categories.txt @water! also used to sort bookmarks by type
     tags = android,ios
     en = Water
@@ -3803,7 +3803,7 @@
     zh-Hans = 水
     zh-Hant = 水
 
-  [rv]
+  [category_rv]
     comment = Search category for RV facilities; any changes should be duplicated in categories.txt @rv!
     tags = android,ios
     en = RV Facilities
@@ -3847,6 +3847,8 @@
     vi = Đối với RV
     zh-Hans = 房车用
     zh-Hant = 房車用
+
+[[Other translations]]
 
   [description]
     comment = Notes field in Bookmarks view
@@ -16482,49 +16484,6 @@
     zh-Hans = 下载地图来查找位置和离线浏览
     zh-Hant = 下載地圖來尋找位置和離線瀏覽。
 
-  [stop]
-    tags = android,ios
-    en = Stop
-    af = Stop
-    ar = إيقاف
-    az = Dayan
-    be = Спыніць
-    bg = Стоп
-    ca = Atura't
-    cs = Zastavit
-    da = Stop
-    de = Anhalten
-    el = Στοπ
-    es = Detener
-    et = Lõpeta
-    eu = Gelditu
-    fa = توقف
-    fi = Pysäytä
-    fr = Arrêter
-    he = הפסק
-    hu = Leállítás
-    id = Berhenti
-    it = Ferma
-    ja = 止める
-    ko = 중지
-    lt = Stabdyti
-    mr = थांबा
-    nb = Stopp
-    nl = Stoppen
-    pl = Stop
-    pt = Parar
-    pt-BR = Parar
-    ro = Oprește
-    ru = Стоп
-    sk = Zastaviť
-    sv = Stopp
-    th = หยุด
-    tr = Dur
-    uk = Зупинити
-    vi = Dừng
-    zh-Hans = 停止
-    zh-Hant = 停止
-
   [current_location_unknown_error_title]
     tags = ios
     en = Current location is unknown.
@@ -23156,100 +23115,6 @@
     zh-Hans = 高速摄像机
     zh-Hant = 超速照相機
 
-  [always]
-    comment = Generic «Always» string
-    tags = android,ios
-    en = Always
-    af = Altyd
-    ar = مفعل دائماً
-    az = Həmişə
-    be = Заўсёды
-    bg = Винаги
-    ca = Sempre
-    cs = Vždy
-    da = Altid
-    de = Immer
-    el = Πάντα
-    es = Siempre
-    es-MX = Siempre
-    et = Alati
-    eu = Beti
-    fa = همیشه
-    fi = Aina
-    fr = Toujours
-    he = תמיד
-    hi = हमेशा
-    hu = Mindig
-    id = Selalu
-    it = Sempre
-    ja = 常時
-    ko = 항상
-    lt = Visada
-    mr = नेहमी
-    nb = Alltid
-    nl = Altijd
-    pl = Zawsze
-    pt = Sempre
-    pt-BR = Sempre
-    ro = Mereu
-    ru = Всегда
-    sk = Vždy
-    sv = Alltid
-    sw = Mara kwa Mara
-    th = ทุกครั้ง
-    tr = Her zaman
-    uk = Завжди
-    vi = Luôn luôn
-    zh-Hans = 总是
-    zh-Hant = 總是
-
-  [never]
-    comment = Generic «Never» string
-    tags = android,ios
-    en = Never
-    af = Nooit
-    ar = معطل دائماً
-    az = Heç vaxt
-    be = Ніколі
-    bg = Никога
-    ca = Mai
-    cs = Nikdy
-    da = Aldrig
-    de = Niemals
-    el = Ποτέ
-    es = Nunca
-    es-MX = Nunca
-    et = Mitte kunagi
-    eu = Inoiz ez
-    fa = هرگز
-    fi = Ei koskaan
-    fr = Jamais
-    he = אף פעם
-    hi = कभी नहीं
-    hu = Soha
-    id = Tidak pernah
-    it = Mai
-    ja = 無効
-    ko = 안함
-    lt = Niekada
-    mr = कधीच नाही
-    nb = Aldri
-    nl = Nooit
-    pl = Nigdy
-    pt = Nunca
-    pt-BR = Nunca
-    ro = Niciodată
-    ru = Никогда
-    sk = Nikdy
-    sv = Aldrig
-    sw = Kamwe
-    th = ไม่ต้องเตือน
-    tr = Asla
-    uk = Ніколи
-    vi = Không bao giờ
-    zh-Hans = 从不
-    zh-Hant = 從不
-
   [place_description_title]
     tags = android,ios
     en = Place Description
@@ -23343,12 +23208,12 @@
 
   [pref_tts_speedcams_auto]
     comment = Speed camera settings menu option - Warn (about speedcams) if risk of exceeding speed limit
-    tags = android
+    tags = android,ios
     en = Warn if there is a risk of exceeding the speed limit
     af = Waarsku indien daar ’n risiko is dat die grens oorskry word
     ar = حذرني  إذا هناك احتمالية تجاوز الحد الأقصى للسرعة
     az = Sürət həddini aşmaq riski varsa, xəbərdarlıq edin
-    be = Папярэджваць калі ёсць рызыка перавышэння дазволенай хуткасці
+    be = Папярэджваць пры перавышэнні хуткасці
     bg = Предупреждава ако има риск от превишаване на ограничението на скоростта
     ca = Avisa si hi ha risc d'excedir el límit de velocitat
     cs = Upozorňovat pokud hrozí riziko překročení rychlosti
@@ -23376,20 +23241,20 @@
     pt = Avisar se houver risco de exceder o limite de velocidade
     pt-BR = Avisar se houver risco de ultrapassar o limite de velocidade
     ro = Avertizează dacă există riscul depășirii limitei de viteză
-    ru = Предупреждать если есть риск превышения скоростного лимита
+    ru = Предупреждать при превышении скорости
     sk = Upozornenie ak existuje riziko prekročenia rýchlostného limitu
     sv = Varna om det finns risk att överskrida hastighetsgränsen
     sw = Onyo iwapo kuna hatari yoyote ya kuzidi ukomo wa mwendo-kasi
     th = เตือนเกี่ยวกับกล้องตรวจจับความเร็วหากมีความเป็นได้ว่าจะขับเร็วเกิดกำหนด
     tr = Hız sınırını aşma riski varsa uyar
-    uk = Попереджати якщо є ризик перевищення швидкісного ліміту
+    uk = Попереджати при перевищенні швидкості
     vi = Cảnh báo nếu có nguy cơ vượt quá giới hạn tốc độ
     zh-Hans = 如果存在超出速度限制的风险，则对速度摄像头发出警告
     zh-Hant = 如果存在超出速度限制的風險，則對速度照相機發出警告
 
   [pref_tts_speedcams_always]
     comment = Speed camera settings menu option - Always warn (about speedcams)
-    tags = android
+    tags = android,ios
     en = Always warn
     af = Waarsku altyd
     ar = حذرني دائما من
@@ -23435,7 +23300,7 @@
 
   [pref_tts_speedcams_never]
     comment = Speed camera settings menu option - Never warn (about speedcams)
-    tags = android
+    tags = android,ios
     en = Never warn
     af = Waarsku nooit
     ar = لا تحذرني من أبداً
@@ -23478,51 +23343,6 @@
     vi = Không bao giờ cảnh báo
     zh-Hans = 永远不会对摄像头发出警告
     zh-Hant = 永遠不會對照相機發出警告
-
-  [speedcams_notice_message]
-    tags = ios
-    en = Auto - Warn about speedcams if there is a risk of exceeding the speed limit\nAlways - Always warn about speedcams\nNever - Never warn about speedcams
-    af = Outomaties – Waarsku oor spoedkameras indien daar ’n risiko is dat die grens oorskry word\nAltyd – Waarsku altyd oor spoedkameras\nNooit – Waarsku nooit oor spoedkameras
-    ar = تلقائياً - حذرني عن كاميرات السرعة إذا هناك احتمالية تجاوز الحد الأقصى للسرعة\nمفعل دائماً - حذرني دائما من كاميرات السرعة \n معطل دائماً - لا تحذرني من كاميرات السرعة أبداً
-    az = Avtomatik - Sürət həddini aşmaq riski varsa, sürət kameraları barədə xəbərdarlıq edin\nHəmişə sürət kameraları haqqında xəbərdar edin\nHeç sürət kameraları haqqında xəbərdar etməyin
-    be = Аўтаматычна - Папярэджваць пра камеры хуткасці, калі ёсць рызыка перавышэння дазволенай хуткасці.\nЗаўсёды - Заўсёды папярэджваць пра камеры\nНіколі - Ніколі не папярэджваць пра камеры
-    bg = Автоматично - Предупреждава се при камери за скорост, ако има риск от превишаване на ограничението на скоростта\nВинаги - Винаги се продупреждава при камери за скорост\nНикога - Никога не се предупреждава при камери за скорост
-    ca = Automàtic - Avisa dels radars si hi ha risc d'excedir el límit de velocitat\n Sempre - Sempre avisa dels radars\nMai - No avisa mai sobre els radars
-    cs = Automaticky - Upozorňovat na rychlostní radary, pokud hrozí riziko překročení rychlosti\nVždy - Vždy upozorňovat na rychlostní radary\nNikdy - Nikdy neupozorňovat na rychlostní radary
-    da = Auto - Advar om fartkameraer, hvis der er en risiko for, at hastighedsgrænsen overskrides\nAltid - Advar altid om fartkameraer\nAldrig - Advar aldrig om fartkameraer
-    de = Auto - Vor Blitzern warnen, wenn die Gefahr einer Geschwindigkeitsüberschreitung besteht\nImmer - Immer vor Blitzern warnen\nNiemals - Niemals vor Blitzern warnen
-    el = Αυτόματο- Να ειδοποιούμαι για κάμερες αν υπάρχει κίνδυνος να υπερβώ το όριο ταχύτητας\nΠάντα- Πάντα να ειδοποιούμαι για κάμερες\nΠοτέ- Ποτέ να μην ειδοποιούμαι για κάμερες
-    es = Auto - Advierte sobre las cámaras de velocidad si existe el riesgo de exceder el límite de velocidad\nSiempre - Siempre alerta sobre las cámaras\nNunca - Nunca advierte acerca de las cámaras
-    es-MX = Automático - Aviso de las cámaras de velocidad si existe el riesgo de exceder el límite de velocidad\nSiempre - Siempre dar aviso de las cámaras de velocidad\nNunca - Nunca dar aviso de las cámaras de velocidad
-    et = Automaatne - kiiruskaamerate hoiatused, kui on oht ületada piirkiirust\nAlati - hoiata alati kiiruskaamerate eest\nMitte kunagi - ära kunagi hoiata kiiruskaamerate eest
-    eu = Automatikoa - abiadura-kamerei buruz ohartarazten du abiadura muga gainditzeko arriskua badago\nBeti - beti abisatu kamerei buruz\nInoiz - inoiz ez abisatu kamerei buruz
-    fa = خودکار- در صورتی که خطر تجاوز از سرعت مجاز وجود داشت، نسبت به دوربین‌های کنترل سرعت هشدار دهد\nهمیشه-همیشه درباره دوربین‌های کنترل سرعت هشدار دهد\nهرگز-هرگز درباره دوربین‌های کنترل سرعت هشدار ندهد
-    fi = Auto - Varoita nopeuskameroista, jos tuntuu siltä, että nopeusrajan ylitys on mahdollista\nAina - Varoita kameroista aina\nEi koskaan - älä koskaan varoita kameroista
-    fr = Auto - Alerte sur les radars en cas de risque de dépassement de la limite de vitesse\nToujours - Toujours avertir des radars\nJamais - Jamais avertir à propos des radars
-    he = אוטומטי - הזהר מפני מצלמות מהירות אם יש חשש להפרזה במהירות\nתמיד - הזהר מפני מצלמות מהירות תמיד\nאף פעם - אל תזהיר מפני מצלמות מהירות אף פעם
-    hu = Automatikus - Figyelmeztetés a sebesség kamerákról, ha van kockázat a sebesség korlátozás megsértéséről\nMindig - Mindig figyelmeztet a kamerákról\nSoha - Soha ne figyelmezet a kamerákról
-    id = Auto - Peringatkan tentang kamera kecepatan saat terdapat risiko melebihi batas kecepatan\nSelalu - Selalu peringatkan tentang kamera kecepatan\nTidak pernah - Jangan pernah peringatkan tentang kamera kecepatan
-    it = Auto - Avvisare di autovelox in caso di rischio eccesso velocità\nSempre - Avvisare sempre di autovelox\nMai - Non avvisare mai di autovelox
-    ja = 自動－速度制限超過の危険性がある場合には、自動速度違反取締装置について警告します\n常時－自動速度違反取締装置について常に警告します\n無効－自動速度違反取締装置を警告しません
-    ko = 자동 - 속도 제한 초과 위험이 있을때 스피드캠에 대해 경고하기\n항상 - 스피드캠에 대해 항상 경고하기\n절대 아님 - 스피드캠에 대해 경고하지 않기
-    lt = Automatiškai - įspėti apie greičio matuoklius, jei yra greičio viršijimo rizika\nVisada - visada įspėti apie greičio matuoklius\nNiekada - neįspėti apie greičio matuoklius
-    mr = स्वयं - वेगमर्यादा ओलांडण्याचा धोका असल्यास वेगकॅमबद्दल चेतावणी द्या\nनेहमी - नेहमी वेगकॅमबद्दल चेतावणी द्या\nकधीही नाही - वेगकॅमबद्दल कधीही चेतावणी देऊ नका
-    nb = Auto - Advarsel om fartskamera hvis det er fare for å overskride fartsgrensen\nAlltid - Advar alltid om farskameraer\nAldri - Advar aldri om fartskameraer
-    nl = Auto - Waarschuw voor speedcams als er een risico bestaat dat de snelheidslimiet wordt overschreden\nAltijd - Waarschuw altijd voor flitspalen\nNooit - Waarschuw nooit over flitspalen
-    pl = Automatycznie – Ostrzegaj o fotoradarach, jeśli istnieje ryzyko przekroczenia ograniczenia prędkości\nZawsze – Zawsze ostrzegaj o fotoradarach\nNigdy – Nigdy nie ostrzegaj o fotoradarach
-    pt = Automático - avisa sobre os radares de velocidade se houver risco de exceder o limite de velocidade\nSempre - avisa sempre sobre os radares\nNunca - nunca avisar sobre os radares
-    pt-BR = Automático - Avisar sobre radar se houver risco de ultrapassar o limite de velocidade\nSempre - Sempre avisar sobre radares\nNunca - Nunca avisar sobre radares
-    ro = Auto - Avertizează cu privire la radare dacă există riscul depășirii limitei de viteză\nMereu - Avertizează mereu cu privire la radare\nNiciodată - Nu avertiza niciodată cu privire la radare
-    ru = Авто - Предупреждать о камерах скорости, если есть риск превышения скоростного лимита\nВсегда - Всегда предупреждать о камерах\nНикогда - Никогда не предупреждать о камерах
-    sk = Automaticky - Upozornenie na rýchlostné kamery, ak existuje riziko prekročenia rýchlostného limitu\nVždy - Vždy upozorniť na rýchlostné kamery\nNikdy - Nikdy neupozorňovať na rýchlostné kamery
-    sv = Auto - Varna om fartkameror om det finns risk att överskrida hastighetsgränsen\nAlltid - Varna alltid om kameror\nAldrig - Varna aldrig om kameror
-    sw = Auto - Onyo la kuhusu kamera ya mwendo-kasi iwapo kuna hatari yoyote ya kuzidi ukomo wa mwendo-kasi\nMara kwa Mara - Daima onya kuhusu kamera za mwendo-kasi\nKamwe - Kamwe usionye kuhusu kamera za mwendo-kasi
-    th = อัตโนมัติ - เตือนเกี่ยวกับกล้องตรวจจับความเร็วหากมีความเป็นได้ว่าจะขับเร็วเกิดกำหนด\nทุกครั้ง - เตือนเกี่ยวกับกล้องตรวจจับความเร็วเสมอ\nไม่ต้องเตือน - ไม่เคยเตือนเกี่ยวกับกล้องตรวจจับความเร็ว
-    tr = Otomatik - Hız sınırını aşma riski varsa hız kameraları hakkında uyar\nHer zaman - Hız kameraları hakkında her zaman uyar\nAsla - Hız kameraları hakkında hiç bir zaman uyarma
-    uk = Авто - Попереджати про камери швидкості, якщо є ризик перевищення швидкісного ліміту\nЗавжди - Завжди попереджати про камери\nНіколи - Ніколи не попереджати про камери
-    vi = Tự động - Cảnh báo về speedcam nếu có nguy cơ vượt quá giới hạn tốc độ\nLuôn luôn - Luôn cảnh báo về speedcams\nKhông bao giờ - Không bao giờ cảnh báo về speedcams
-    zh-Hans = 自动 - 如果存在超出速度限制的风险，则对速度摄像头发出警告\n总是 - 始终提醒摄像头\n从不 - 永远不会对摄像头发出警告
-    zh-Hant = 自動 - 如果存在超出速度限制的風險，則對速度照相機發出警告\n總是 - 始終提醒照相機\n從不 - 永遠不會對照相機發出警告
 
   [power_managment_title]
     tags = android,ios

@@ -105,73 +105,76 @@
 /********** Search categories **********/
 
 /* Search category for cafes, bars, restaurants; any changes should be duplicated in categories.txt @eat! */
-"eat" = "जेवायचे ठिकाण";
+"category_eat" = "जेवायचे ठिकाण";
 
 /* Search category for grocery stores; any changes should be duplicated in categories.txt @food! */
-"food" = "किराणा";
+"category_food" = "किराणा";
 
 /* Search category for public transport; any changes should be duplicated in categories.txt @transport! */
-"transport" = "वाहतूक";
+"category_transport" = "वाहतूक";
 
 /* Search category for fuel stations; any changes should be duplicated in categories.txt @fuel! */
-"fuel" = "पेट्रोल";
+"category_fuel" = "पेट्रोल";
 
 /* Search category for parking lots; any changes should be duplicated in categories.txt @parking! */
-"parking" = "वाहनतळ";
+"category_parking" = "वाहनतळ";
 
 /* Search category for clothes/shoes/gifts/jewellery/sport shops; any changes should be duplicated in categories.txt @shopping! */
-"shopping" = "खरेदी";
+"category_shopping" = "खरेदी";
 
 /* Search category for second_hand/charity/antique/auction shops; any changes should be duplicated in categories.txt @secondhand! */
-"secondhand" = "वापरलेले";
+"category_secondhand" = "वापरलेले";
 
 /* Search category for places to stay; any changes should be duplicated in categories.txt @hotel! */
-"hotel" = "मुक्कामगृह";
+"category_hotel" = "मुक्कामगृह";
 
 /* Search category sight seeings and touristic attractions; any changes should be duplicated in categories.txt @tourism! */
-"tourism" = "पर्यटन";
+"category_tourism" = "पर्यटन";
 
 /* Search category for entertainment; any changes should be duplicated in categories.txt @entertainment! */
-"entertainment" = "मनोरंजन";
+"category_entertainment" = "मनोरंजन";
 
 /* Search category for ATMs; any changes should be duplicated in categories.txt @atm! */
-"atm" = "ATM";
+"category_atm" = "ATM";
 
 /* Search category for nightclubs/bars; any changes should be duplicated in categories.txt @nightlife! */
-"nightlife" = "नाईटलाईफ";
+"category_nightlife" = "नाईटलाईफ";
 
 /* Search category for water park/disneyland/playground/toys store; any changes should be duplicated in categories.txt @children! */
-"children" = "कौटुंबिक सुट्टी";
+"category_children" = "कौटुंबिक सुट्टी";
 
 /* Search category for banks; any changes should be duplicated in categories.txt @bank! */
-"bank" = "बँक";
+"category_bank" = "बँक";
 
 /* Search category for pharmacies; any changes should be duplicated in categories.txt @pharmacy! */
-"pharmacy" = "औषधालय";
+"category_pharmacy" = "औषधालय";
 
 /* Search category for hospitals; any changes should be duplicated in categories.txt @hospital! */
-"hospital" = "रुग्णालय";
+"category_hospital" = "रुग्णालय";
 
 /* Search category for toilets; any changes should be duplicated in categories.txt @toilet! */
-"toilet" = "शौचालय";
+"category_toilet" = "शौचालय";
 
 /* Search category for post offices; any changes should be duplicated in categories.txt @post! */
-"post" = "टपाल";
+"category_post" = "टपाल";
 
 /* Search category for police; any changes should be duplicated in categories.txt @police! */
-"police" = "पोलीस";
+"category_police" = "पोलीस";
 
 /* Search category for WiFi access; any changes should be duplicated in categories.txt @wifi! */
-"wifi" = "WiFi";
+"category_wifi" = "WiFi";
 
 /* Search category for recycling; any changes should be duplicated in categories.txt @recycling! */
-"recycling" = "भंगारवाला";
+"category_recycling" = "भंगारवाला";
 
 /* Search category for water; any changes should be duplicated in categories.txt @water! also used to sort bookmarks by type */
-"water" = "पाणी";
+"category_water" = "पाणी";
 
 /* Search category for RV facilities; any changes should be duplicated in categories.txt @rv! */
-"rv" = "RV Facilities";
+"category_rv" = "RV Facilities";
+
+
+/********** Other translations **********/
 
 "share_bookmarks_email_body" = "नमस्कार!\n\nOrganic Maps ऍप मधील माझे खूणपत्रे संलग्न केले आहेत. तुम्ही Organic Maps इन्स्टॉल केले असल्यास हे खूणपत्रे उघडा. इन्स्टॉल केले नसल्यास, पुढील दुव्यावर जाऊन तुमच्या iOS किंवा अँड्रॉइड उपकरणावर हे डाउनलोड करा: https://omaps.app/get?kmz\n\nOrganic Maps सह प्रवासाचा आनंद घ्या!";
 
@@ -779,8 +782,6 @@
 
 "downloader_no_downloaded_maps_message" = "स्थान शोधण्यासाठी नकाशे डाउनलोड करा आणि ऑफलाइन मार्गनिर्देशन वापरा.";
 
-"stop" = "थांबा";
-
 "current_location_unknown_error_title" = "वर्तमान स्थान अज्ञात आहे.";
 
 "current_location_unknown_error_message" = "तुमचे स्थान शोधत असताना एक त्रुटी आढळली. तुमचे उपकरण योग्यरितीने काम करत असल्याचे तपासा आणि नंतर पुन्हा प्रयत्न करा.";
@@ -1035,15 +1036,16 @@
 
 "speedcams_alert_title" = "वेग कॅमेरे";
 
-/* Generic «Always» string */
-"always" = "नेहमी";
-
-/* Generic «Never» string */
-"never" = "कधीच नाही";
-
 "place_description_title" = "ठिकाणाचे वर्णन";
 
-"speedcams_notice_message" = "स्वयं - वेगमर्यादा ओलांडण्याचा धोका असल्यास वेगकॅमबद्दल चेतावणी द्या\nनेहमी - नेहमी वेगकॅमबद्दल चेतावणी द्या\nकधीही नाही - वेगकॅमबद्दल कधीही चेतावणी देऊ नका";
+/* Speed camera settings menu option - Warn (about speedcams) if risk of exceeding speed limit */
+"pref_tts_speedcams_auto" = "वेगमर्यादा ओलांडण्याचा धोका असल्यास चेतावणी द्या";
+
+/* Speed camera settings menu option - Always warn (about speedcams) */
+"pref_tts_speedcams_always" = "नेहमी चेतावणी द्या";
+
+/* Speed camera settings menu option - Never warn (about speedcams) */
+"pref_tts_speedcams_never" = "कधीही चेतावणी देऊ नका";
 
 "power_managment_title" = "ऊर्जा बचत मोड";
 

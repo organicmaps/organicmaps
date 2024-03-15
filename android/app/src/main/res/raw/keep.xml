@@ -1,0 +1,4 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--Search categories translations/keys are loaded from C++, explicitly keep them to avoid stripping by R8-->
+<resources xmlns:tools="http://schemas.android.com/tools"
+           tools:keep="@string/category_*"/>

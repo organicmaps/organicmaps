@@ -105,73 +105,76 @@
 /********** Search categories **********/
 
 /* Search category for cafes, bars, restaurants; any changes should be duplicated in categories.txt @eat! */
-"eat" = "On menjar";
+"category_eat" = "On menjar";
 
 /* Search category for grocery stores; any changes should be duplicated in categories.txt @food! */
-"food" = "Queviures";
+"category_food" = "Queviures";
 
 /* Search category for public transport; any changes should be duplicated in categories.txt @transport! */
-"transport" = "Transport";
+"category_transport" = "Transport";
 
 /* Search category for fuel stations; any changes should be duplicated in categories.txt @fuel! */
-"fuel" = "Benzinera";
+"category_fuel" = "Benzinera";
 
 /* Search category for parking lots; any changes should be duplicated in categories.txt @parking! */
-"parking" = "Aparcament";
+"category_parking" = "Aparcament";
 
 /* Search category for clothes/shoes/gifts/jewellery/sport shops; any changes should be duplicated in categories.txt @shopping! */
-"shopping" = "Compres";
+"category_shopping" = "Compres";
 
 /* Search category for second_hand/charity/antique/auction shops; any changes should be duplicated in categories.txt @secondhand! */
-"secondhand" = "Segona mà";
+"category_secondhand" = "Segona mà";
 
 /* Search category for places to stay; any changes should be duplicated in categories.txt @hotel! */
-"hotel" = "Hotel";
+"category_hotel" = "Hotel";
 
 /* Search category sight seeings and touristic attractions; any changes should be duplicated in categories.txt @tourism! */
-"tourism" = "Turisme";
+"category_tourism" = "Turisme";
 
 /* Search category for entertainment; any changes should be duplicated in categories.txt @entertainment! */
-"entertainment" = "Entreteniment";
+"category_entertainment" = "Entreteniment";
 
 /* Search category for ATMs; any changes should be duplicated in categories.txt @atm! */
-"atm" = "Caixer automàtic";
+"category_atm" = "Caixer automàtic";
 
 /* Search category for nightclubs/bars; any changes should be duplicated in categories.txt @nightlife! */
-"nightlife" = "Vida nocturna";
+"category_nightlife" = "Vida nocturna";
 
 /* Search category for water park/disneyland/playground/toys store; any changes should be duplicated in categories.txt @children! */
-"children" = "Oci familiar";
+"category_children" = "Oci familiar";
 
 /* Search category for banks; any changes should be duplicated in categories.txt @bank! */
-"bank" = "Banc";
+"category_bank" = "Banc";
 
 /* Search category for pharmacies; any changes should be duplicated in categories.txt @pharmacy! */
-"pharmacy" = "Farmàcia";
+"category_pharmacy" = "Farmàcia";
 
 /* Search category for hospitals; any changes should be duplicated in categories.txt @hospital! */
-"hospital" = "Hospital";
+"category_hospital" = "Hospital";
 
 /* Search category for toilets; any changes should be duplicated in categories.txt @toilet! */
-"toilet" = "Lavabos";
+"category_toilet" = "Lavabos";
 
 /* Search category for post offices; any changes should be duplicated in categories.txt @post! */
-"post" = "Oficina postal";
+"category_post" = "Oficina postal";
 
 /* Search category for police; any changes should be duplicated in categories.txt @police! */
-"police" = "Policia";
+"category_police" = "Policia";
 
 /* Search category for WiFi access; any changes should be duplicated in categories.txt @wifi! */
-"wifi" = "WiFi";
+"category_wifi" = "WiFi";
 
 /* Search category for recycling; any changes should be duplicated in categories.txt @recycling! */
-"recycling" = "Reciclatge";
+"category_recycling" = "Reciclatge";
 
 /* Search category for water; any changes should be duplicated in categories.txt @water! also used to sort bookmarks by type */
-"water" = "Aigua";
+"category_water" = "Aigua";
 
 /* Search category for RV facilities; any changes should be duplicated in categories.txt @rv! */
-"rv" = "Caravanes";
+"category_rv" = "Caravanes";
+
+
+/********** Other translations **********/
 
 "share_bookmarks_email_body" = "Hola!\n\nAdjunto els meus marcadors de l'aplicació Organic Maps. Obriu-los si teniu l'Organic Maps instal·lat. O, si no teniu l'aplicació, baixeu-la per al vostre aparell iOS o Android seguint aquest enllaç: https://omaps.app/get?kmz\n\nGaudiu viatjant amb l'Organic Maps!";
 
@@ -779,8 +782,6 @@
 
 "downloader_no_downloaded_maps_message" = "Baixeu mapes per a cercar una ubicacio i usar la navegació sense connexió.";
 
-"stop" = "Atura't";
-
 "current_location_unknown_error_title" = "Es desconeix la ubicació actual.";
 
 "current_location_unknown_error_message" = "S'ha produït un error en cercar la vostra ubicació. Comproveu que l'aparel funciona correctament i torneu-ho a intentar.";
@@ -1035,15 +1036,16 @@
 
 "speedcams_alert_title" = "Radars";
 
-/* Generic «Always» string */
-"always" = "Sempre";
-
-/* Generic «Never» string */
-"never" = "Mai";
-
 "place_description_title" = "Descripció del lloc";
 
-"speedcams_notice_message" = "Automàtic - Avisa dels radars si hi ha risc d'excedir el límit de velocitat\n Sempre - Sempre avisa dels radars\nMai - No avisa mai sobre els radars";
+/* Speed camera settings menu option - Warn (about speedcams) if risk of exceeding speed limit */
+"pref_tts_speedcams_auto" = "Avisa si hi ha risc d'excedir el límit de velocitat";
+
+/* Speed camera settings menu option - Always warn (about speedcams) */
+"pref_tts_speedcams_always" = "Sempre avisa";
+
+/* Speed camera settings menu option - Never warn (about speedcams) */
+"pref_tts_speedcams_never" = "No n'avisis mai";
 
 "power_managment_title" = "Mode d'estalvi d'energia";
 

@@ -105,73 +105,76 @@
 /********** Search categories **********/
 
 /* Search category for cafes, bars, restaurants; any changes should be duplicated in categories.txt @eat! */
-"eat" = "Места за хапване";
+"category_eat" = "Места за хапване";
 
 /* Search category for grocery stores; any changes should be duplicated in categories.txt @food! */
-"food" = "Продукти";
+"category_food" = "Продукти";
 
 /* Search category for public transport; any changes should be duplicated in categories.txt @transport! */
-"transport" = "Транспорт";
+"category_transport" = "Транспорт";
 
 /* Search category for fuel stations; any changes should be duplicated in categories.txt @fuel! */
-"fuel" = "Гориво";
+"category_fuel" = "Гориво";
 
 /* Search category for parking lots; any changes should be duplicated in categories.txt @parking! */
-"parking" = "Паркинг";
+"category_parking" = "Паркинг";
 
 /* Search category for clothes/shoes/gifts/jewellery/sport shops; any changes should be duplicated in categories.txt @shopping! */
-"shopping" = "Шопинг";
+"category_shopping" = "Шопинг";
 
 /* Search category for second_hand/charity/antique/auction shops; any changes should be duplicated in categories.txt @secondhand! */
-"secondhand" = "Втора употреба";
+"category_secondhand" = "Втора употреба";
 
 /* Search category for places to stay; any changes should be duplicated in categories.txt @hotel! */
-"hotel" = "Хотел";
+"category_hotel" = "Хотел";
 
 /* Search category sight seeings and touristic attractions; any changes should be duplicated in categories.txt @tourism! */
-"tourism" = "Забележителности";
+"category_tourism" = "Забележителности";
 
 /* Search category for entertainment; any changes should be duplicated in categories.txt @entertainment! */
-"entertainment" = "Развлечения";
+"category_entertainment" = "Развлечения";
 
 /* Search category for ATMs; any changes should be duplicated in categories.txt @atm! */
-"atm" = "Банкомат";
+"category_atm" = "Банкомат";
 
 /* Search category for nightclubs/bars; any changes should be duplicated in categories.txt @nightlife! */
-"nightlife" = "Нощен живот";
+"category_nightlife" = "Нощен живот";
 
 /* Search category for water park/disneyland/playground/toys store; any changes should be duplicated in categories.txt @children! */
-"children" = "Семейна почивка";
+"category_children" = "Семейна почивка";
 
 /* Search category for banks; any changes should be duplicated in categories.txt @bank! */
-"bank" = "Банка";
+"category_bank" = "Банка";
 
 /* Search category for pharmacies; any changes should be duplicated in categories.txt @pharmacy! */
-"pharmacy" = "Аптека";
+"category_pharmacy" = "Аптека";
 
 /* Search category for hospitals; any changes should be duplicated in categories.txt @hospital! */
-"hospital" = "Болница";
+"category_hospital" = "Болница";
 
 /* Search category for toilets; any changes should be duplicated in categories.txt @toilet! */
-"toilet" = "Тоалетна";
+"category_toilet" = "Тоалетна";
 
 /* Search category for post offices; any changes should be duplicated in categories.txt @post! */
-"post" = "Поща";
+"category_post" = "Поща";
 
 /* Search category for police; any changes should be duplicated in categories.txt @police! */
-"police" = "Полиция";
+"category_police" = "Полиция";
 
 /* Search category for WiFi access; any changes should be duplicated in categories.txt @wifi! */
-"wifi" = "WiFi";
+"category_wifi" = "WiFi";
 
 /* Search category for recycling; any changes should be duplicated in categories.txt @recycling! */
-"recycling" = "Рециклиране";
+"category_recycling" = "Рециклиране";
 
 /* Search category for water; any changes should be duplicated in categories.txt @water! also used to sort bookmarks by type */
-"water" = "Вода";
+"category_water" = "Вода";
 
 /* Search category for RV facilities; any changes should be duplicated in categories.txt @rv! */
-"rv" = "За RV";
+"category_rv" = "За RV";
+
+
+/********** Other translations **********/
 
 "share_bookmarks_email_body" = "Hello!\n\nAttached are my bookmarks; please open them in Organic Maps. If you don't have it installed you can download it here: https://omaps.app/get?kmz\n\nEnjoy travelling with Organic Maps!";
 
@@ -779,8 +782,6 @@
 
 "downloader_no_downloaded_maps_message" = "Изтеглете картите, от които се нуждаете, за да намирате места и да навигирате без интернет.";
 
-"stop" = "Стоп";
-
 "current_location_unknown_error_title" = "Настоящото местоположение е неизвестно.";
 
 "current_location_unknown_error_message" = "Възникна грешка при търсенето на вашето местоположение. Проверете дали устройството ви работи правилно и опитайте отново по-късно.";
@@ -1035,15 +1036,16 @@
 
 "speedcams_alert_title" = "Камери за скорост";
 
-/* Generic «Always» string */
-"always" = "Винаги";
-
-/* Generic «Never» string */
-"never" = "Никога";
-
 "place_description_title" = "Описание на мястото";
 
-"speedcams_notice_message" = "Автоматично - Предупреждава се при камери за скорост, ако има риск от превишаване на ограничението на скоростта\nВинаги - Винаги се продупреждава при камери за скорост\nНикога - Никога не се предупреждава при камери за скорост";
+/* Speed camera settings menu option - Warn (about speedcams) if risk of exceeding speed limit */
+"pref_tts_speedcams_auto" = "Предупреждава ако има риск от превишаване на ограничението на скоростта";
+
+/* Speed camera settings menu option - Always warn (about speedcams) */
+"pref_tts_speedcams_always" = "Винаги се продупреждава";
+
+/* Speed camera settings menu option - Never warn (about speedcams) */
+"pref_tts_speedcams_never" = "Никога не се предупреждава";
 
 "power_managment_title" = "Режим пестене на енергия";
 

@@ -115,51 +115,53 @@
 
 	<!-- SECTION: Search categories -->
 	<!-- Search category for cafes, bars, restaurants; any changes should be duplicated in categories.txt @eat! -->
-	<string name="eat">Waar iets gaan eten</string>
+	<string name="category_eat">Waar iets gaan eten</string>
 	<!-- Search category for grocery stores; any changes should be duplicated in categories.txt @food! -->
-	<string name="food">Boodschappen</string>
+	<string name="category_food">Boodschappen</string>
 	<!-- Search category for public transport; any changes should be duplicated in categories.txt @transport! -->
-	<string name="transport">Transport</string>
+	<string name="category_transport">Transport</string>
 	<!-- Search category for fuel stations; any changes should be duplicated in categories.txt @fuel! -->
-	<string name="fuel">Benzine</string>
+	<string name="category_fuel">Benzine</string>
 	<!-- Search category for parking lots; any changes should be duplicated in categories.txt @parking! -->
-	<string name="parking">Parkeerplaats</string>
+	<string name="category_parking">Parkeerplaats</string>
 	<!-- Search category for clothes/shoes/gifts/jewellery/sport shops; any changes should be duplicated in categories.txt @shopping! -->
-	<string name="shopping">Winkelen</string>
+	<string name="category_shopping">Winkelen</string>
 	<!-- Search category for second_hand/charity/antique/auction shops; any changes should be duplicated in categories.txt @secondhand! -->
-	<string name="secondhand">Tweedehands</string>
+	<string name="category_secondhand">Tweedehands</string>
 	<!-- Search category for places to stay; any changes should be duplicated in categories.txt @hotel! -->
-	<string name="hotel">Hotel</string>
+	<string name="category_hotel">Hotel</string>
 	<!-- Search category sight seeings and touristic attractions; any changes should be duplicated in categories.txt @tourism! -->
-	<string name="tourism">Bezienswaardigheden</string>
+	<string name="category_tourism">Bezienswaardigheden</string>
 	<!-- Search category for entertainment; any changes should be duplicated in categories.txt @entertainment! -->
-	<string name="entertainment">Amusement</string>
+	<string name="category_entertainment">Amusement</string>
 	<!-- Search category for ATMs; any changes should be duplicated in categories.txt @atm! -->
-	<string name="atm">Geldautomaat</string>
+	<string name="category_atm">Geldautomaat</string>
 	<!-- Search category for nightclubs/bars; any changes should be duplicated in categories.txt @nightlife! -->
-	<string name="nightlife">Nachtleven</string>
+	<string name="category_nightlife">Nachtleven</string>
 	<!-- Search category for water park/disneyland/playground/toys store; any changes should be duplicated in categories.txt @children! -->
-	<string name="children">Gezinsvakantie</string>
+	<string name="category_children">Gezinsvakantie</string>
 	<!-- Search category for banks; any changes should be duplicated in categories.txt @bank! -->
-	<string name="bank">Bank</string>
+	<string name="category_bank">Bank</string>
 	<!-- Search category for pharmacies; any changes should be duplicated in categories.txt @pharmacy! -->
-	<string name="pharmacy">Apotheek</string>
+	<string name="category_pharmacy">Apotheek</string>
 	<!-- Search category for hospitals; any changes should be duplicated in categories.txt @hospital! -->
-	<string name="hospital">Ziekenhuis</string>
+	<string name="category_hospital">Ziekenhuis</string>
 	<!-- Search category for toilets; any changes should be duplicated in categories.txt @toilet! -->
-	<string name="toilet">Toilet</string>
+	<string name="category_toilet">Toilet</string>
 	<!-- Search category for post offices; any changes should be duplicated in categories.txt @post! -->
-	<string name="post">Post</string>
+	<string name="category_post">Post</string>
 	<!-- Search category for police; any changes should be duplicated in categories.txt @police! -->
-	<string name="police">Politie</string>
+	<string name="category_police">Politie</string>
 	<!-- Search category for WiFi access; any changes should be duplicated in categories.txt @wifi! -->
-	<string name="wifi">WiFi</string>
+	<string name="category_wifi">WiFi</string>
 	<!-- Search category for recycling; any changes should be duplicated in categories.txt @recycling! -->
-	<string name="recycling">Recycling</string>
+	<string name="category_recycling">Recycling</string>
 	<!-- Search category for water; any changes should be duplicated in categories.txt @water! also used to sort bookmarks by type -->
-	<string name="water">Water</string>
+	<string name="category_water">Water</string>
 	<!-- Search category for RV facilities; any changes should be duplicated in categories.txt @rv! -->
-	<string name="rv">Caravanfaciliteiten</string>
+	<string name="category_rv">Caravanfaciliteiten</string>
+
+	<!-- SECTION: Other translations -->
 	<!-- Notes field in Bookmarks view -->
 	<string name="description">Notities</string>
 	<!-- Email Subject when sharing bookmark list -->
@@ -504,7 +506,6 @@
 	<string name="editor_operator">Uitvoerder</string>
 	<string name="downloader_no_downloaded_maps_title">U hebt geen kaarten gedownload</string>
 	<string name="downloader_no_downloaded_maps_message">Download kaarten om een locatie te zoeken en offline te navigeren.</string>
-	<string name="stop">Stoppen</string>
 	<!-- abbreviation for meters -->
 	<string name="m">m</string>
 	<!-- abbreviation for kilometers -->
@@ -636,10 +637,6 @@
 	<string name="bookmark_list_description_hint">Maak een beschrijving aan (tekst of html)</string>
 	<string name="not_shared">Privé</string>
 	<string name="speedcams_alert_title">Snelheidscamera\'s</string>
-	<!-- Generic «Always» string -->
-	<string name="always">Altijd</string>
-	<!-- Generic «Never» string -->
-	<string name="never">Nooit</string>
 	<string name="place_description_title">Plaatsbeschrijving</string>
 	<!-- this text will be shown in application notification preferences opposite checkbox which enable/disable downloader notifications. Devices on Android 8+ are affected. -->
 	<string name="notification_channel_downloader">Kaartdownloader</string>

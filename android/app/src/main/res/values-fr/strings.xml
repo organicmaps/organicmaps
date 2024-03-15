@@ -117,51 +117,53 @@
 
 	<!-- SECTION: Search categories -->
 	<!-- Search category for cafes, bars, restaurants; any changes should be duplicated in categories.txt @eat! -->
-	<string name="eat">Un endroit pour manger</string>
+	<string name="category_eat">Un endroit pour manger</string>
 	<!-- Search category for grocery stores; any changes should be duplicated in categories.txt @food! -->
-	<string name="food">Epiceries</string>
+	<string name="category_food">Epiceries</string>
 	<!-- Search category for public transport; any changes should be duplicated in categories.txt @transport! -->
-	<string name="transport">Transport</string>
+	<string name="category_transport">Transport</string>
 	<!-- Search category for fuel stations; any changes should be duplicated in categories.txt @fuel! -->
-	<string name="fuel">Stations-service</string>
+	<string name="category_fuel">Stations-service</string>
 	<!-- Search category for parking lots; any changes should be duplicated in categories.txt @parking! -->
-	<string name="parking">Stationnement</string>
+	<string name="category_parking">Stationnement</string>
 	<!-- Search category for clothes/shoes/gifts/jewellery/sport shops; any changes should be duplicated in categories.txt @shopping! -->
-	<string name="shopping">Shopping</string>
+	<string name="category_shopping">Shopping</string>
 	<!-- Search category for second_hand/charity/antique/auction shops; any changes should be duplicated in categories.txt @secondhand! -->
-	<string name="secondhand">D\'occasion</string>
+	<string name="category_secondhand">D\'occasion</string>
 	<!-- Search category for places to stay; any changes should be duplicated in categories.txt @hotel! -->
-	<string name="hotel">Hôtel</string>
+	<string name="category_hotel">Hôtel</string>
 	<!-- Search category sight seeings and touristic attractions; any changes should be duplicated in categories.txt @tourism! -->
-	<string name="tourism">Sites touristiques</string>
+	<string name="category_tourism">Sites touristiques</string>
 	<!-- Search category for entertainment; any changes should be duplicated in categories.txt @entertainment! -->
-	<string name="entertainment">Divertissement</string>
+	<string name="category_entertainment">Divertissement</string>
 	<!-- Search category for ATMs; any changes should be duplicated in categories.txt @atm! -->
-	<string name="atm">DAB</string>
+	<string name="category_atm">DAB</string>
 	<!-- Search category for nightclubs/bars; any changes should be duplicated in categories.txt @nightlife! -->
-	<string name="nightlife">Vie nocturne</string>
+	<string name="category_nightlife">Vie nocturne</string>
 	<!-- Search category for water park/disneyland/playground/toys store; any changes should be duplicated in categories.txt @children! -->
-	<string name="children">Vacances en famille</string>
+	<string name="category_children">Vacances en famille</string>
 	<!-- Search category for banks; any changes should be duplicated in categories.txt @bank! -->
-	<string name="bank">Banque</string>
+	<string name="category_bank">Banque</string>
 	<!-- Search category for pharmacies; any changes should be duplicated in categories.txt @pharmacy! -->
-	<string name="pharmacy">Pharmacie</string>
+	<string name="category_pharmacy">Pharmacie</string>
 	<!-- Search category for hospitals; any changes should be duplicated in categories.txt @hospital! -->
-	<string name="hospital">Hôpital</string>
+	<string name="category_hospital">Hôpital</string>
 	<!-- Search category for toilets; any changes should be duplicated in categories.txt @toilet! -->
-	<string name="toilet">Toilettes</string>
+	<string name="category_toilet">Toilettes</string>
 	<!-- Search category for post offices; any changes should be duplicated in categories.txt @post! -->
-	<string name="post">Poste</string>
+	<string name="category_post">Poste</string>
 	<!-- Search category for police; any changes should be duplicated in categories.txt @police! -->
-	<string name="police">Police</string>
+	<string name="category_police">Police</string>
 	<!-- Search category for WiFi access; any changes should be duplicated in categories.txt @wifi! -->
-	<string name="wifi">WiFi</string>
+	<string name="category_wifi">WiFi</string>
 	<!-- Search category for recycling; any changes should be duplicated in categories.txt @recycling! -->
-	<string name="recycling">Recyclage</string>
+	<string name="category_recycling">Recyclage</string>
 	<!-- Search category for water; any changes should be duplicated in categories.txt @water! also used to sort bookmarks by type -->
-	<string name="water">Eau</string>
+	<string name="category_water">Eau</string>
 	<!-- Search category for RV facilities; any changes should be duplicated in categories.txt @rv! -->
-	<string name="rv">Aménagements pour camping-car</string>
+	<string name="category_rv">Aménagements pour camping-car</string>
+
+	<!-- SECTION: Other translations -->
 	<!-- Notes field in Bookmarks view -->
 	<string name="description">Notes</string>
 	<!-- Email Subject when sharing bookmark list -->
@@ -510,7 +512,6 @@
 	<string name="editor_operator">Opérateur</string>
 	<string name="downloader_no_downloaded_maps_title">Vous n\'avez téléchargé aucune carte</string>
 	<string name="downloader_no_downloaded_maps_message">Téléchargez des cartes pour rechercher un lieu et utiliser la navigation hors ligne</string>
-	<string name="stop">Arrêter</string>
 	<!-- abbreviation for meters -->
 	<string name="m">m</string>
 	<!-- abbreviation for kilometers -->
@@ -644,10 +645,6 @@
 	<string name="bookmark_list_description_hint">Tapez une description (texte ou html)</string>
 	<string name="not_shared">Privé</string>
 	<string name="speedcams_alert_title">Radars de vitesse</string>
-	<!-- Generic «Always» string -->
-	<string name="always">Toujours</string>
-	<!-- Generic «Never» string -->
-	<string name="never">Jamais</string>
 	<string name="place_description_title">Description d\'endroit</string>
 	<!-- this text will be shown in application notification preferences opposite checkbox which enable/disable downloader notifications. Devices on Android 8+ are affected. -->
 	<string name="notification_channel_downloader">Téléchargeur carte</string>

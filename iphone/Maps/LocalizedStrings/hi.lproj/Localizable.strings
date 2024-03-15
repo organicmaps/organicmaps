@@ -105,73 +105,76 @@
 /********** Search categories **********/
 
 /* Search category for cafes, bars, restaurants; any changes should be duplicated in categories.txt @eat! */
-"eat" = "कहाँ खाना है";
+"category_eat" = "कहाँ खाना है";
 
 /* Search category for grocery stores; any changes should be duplicated in categories.txt @food! */
-"food" = "किराने का सामान";
+"category_food" = "किराने का सामान";
 
 /* Search category for public transport; any changes should be duplicated in categories.txt @transport! */
-"transport" = "सार्वजनिक परिवहन";
+"category_transport" = "सार्वजनिक परिवहन";
 
 /* Search category for fuel stations; any changes should be duplicated in categories.txt @fuel! */
-"fuel" = "गैस स्टेशन";
+"category_fuel" = "गैस स्टेशन";
 
 /* Search category for parking lots; any changes should be duplicated in categories.txt @parking! */
-"parking" = "पार्किंग";
+"category_parking" = "पार्किंग";
 
 /* Search category for clothes/shoes/gifts/jewellery/sport shops; any changes should be duplicated in categories.txt @shopping! */
-"shopping" = "खरीदारी";
+"category_shopping" = "खरीदारी";
 
 /* Search category for second_hand/charity/antique/auction shops; any changes should be duplicated in categories.txt @secondhand! */
-"secondhand" = "सेकंड हैंड";
+"category_secondhand" = "सेकंड हैंड";
 
 /* Search category for places to stay; any changes should be duplicated in categories.txt @hotel! */
-"hotel" = "होटल";
+"category_hotel" = "होटल";
 
 /* Search category sight seeings and touristic attractions; any changes should be duplicated in categories.txt @tourism! */
-"tourism" = "जगहें";
+"category_tourism" = "जगहें";
 
 /* Search category for entertainment; any changes should be duplicated in categories.txt @entertainment! */
-"entertainment" = "मनोरंजन";
+"category_entertainment" = "मनोरंजन";
 
 /* Search category for ATMs; any changes should be duplicated in categories.txt @atm! */
-"atm" = "एटीएम";
+"category_atm" = "एटीएम";
 
 /* Search category for nightclubs/bars; any changes should be duplicated in categories.txt @nightlife! */
-"nightlife" = "रात्रि जीवन";
+"category_nightlife" = "रात्रि जीवन";
 
 /* Search category for water park/disneyland/playground/toys store; any changes should be duplicated in categories.txt @children! */
-"children" = "पारिवारिक अवकाश";
+"category_children" = "पारिवारिक अवकाश";
 
 /* Search category for banks; any changes should be duplicated in categories.txt @bank! */
-"bank" = "बैंक";
+"category_bank" = "बैंक";
 
 /* Search category for pharmacies; any changes should be duplicated in categories.txt @pharmacy! */
-"pharmacy" = "दवाखाना";
+"category_pharmacy" = "दवाखाना";
 
 /* Search category for hospitals; any changes should be duplicated in categories.txt @hospital! */
-"hospital" = "चिकित्सालय";
+"category_hospital" = "चिकित्सालय";
 
 /* Search category for toilets; any changes should be duplicated in categories.txt @toilet! */
-"toilet" = "शौचालय";
+"category_toilet" = "शौचालय";
 
 /* Search category for post offices; any changes should be duplicated in categories.txt @post! */
-"post" = "डाकघर";
+"category_post" = "डाकघर";
 
 /* Search category for police; any changes should be duplicated in categories.txt @police! */
-"police" = "थाना";
+"category_police" = "थाना";
 
 /* Search category for WiFi access; any changes should be duplicated in categories.txt @wifi! */
-"wifi" = "वाईफ़ाई";
+"category_wifi" = "वाईफ़ाई";
 
 /* Search category for recycling; any changes should be duplicated in categories.txt @recycling! */
-"recycling" = "पुनर्चक्रण";
+"category_recycling" = "पुनर्चक्रण";
 
 /* Search category for water; any changes should be duplicated in categories.txt @water! also used to sort bookmarks by type */
-"water" = "जल";
+"category_water" = "जल";
 
 /* Search category for RV facilities; any changes should be duplicated in categories.txt @rv! */
-"rv" = "आरवी सुविधाएं";
+"category_rv" = "आरवी सुविधाएं";
+
+
+/********** Other translations **********/
 
 "share_bookmarks_email_body" = "नमस्ते!\n\nमेरे बुकमार्क संलग्न हैं; कृपया उन्हें ऑर्गेनिक मानचित्र में खोलें। यदि आपने इसे इंस्टॉल नहीं किया है तो आप इसे यहां से डाउनलोड कर सकते हैं: https://omaps.app/get?kmz\n\nऑर्गेनिक मैप्स के साथ यात्रा का आनंद लें!";
 
@@ -779,8 +782,6 @@
 
 "downloader_no_downloaded_maps_message" = "Download maps to search and navigate offline.";
 
-"stop" = "Stop";
-
 "current_location_unknown_error_title" = "Current location is unknown.";
 
 "current_location_unknown_error_message" = "An error occurred while determining your location. Check that your device is working properly and try again later.";
@@ -1035,15 +1036,16 @@
 
 "speedcams_alert_title" = "गति कैमरा";
 
-/* Generic «Always» string */
-"always" = "हमेशा";
-
-/* Generic «Never» string */
-"never" = "कभी नहीं";
-
 "place_description_title" = "Place Description";
 
-"speedcams_notice_message" = "Auto - Warn about speedcams if there is a risk of exceeding the speed limit\nAlways - Always warn about speedcams\nNever - Never warn about speedcams";
+/* Speed camera settings menu option - Warn (about speedcams) if risk of exceeding speed limit */
+"pref_tts_speedcams_auto" = "Warn if there is a risk of exceeding the speed limit";
+
+/* Speed camera settings menu option - Always warn (about speedcams) */
+"pref_tts_speedcams_always" = "Always warn";
+
+/* Speed camera settings menu option - Never warn (about speedcams) */
+"pref_tts_speedcams_never" = "Never warn";
 
 "power_managment_title" = "बिजली की बचत अवस्थाt";
 

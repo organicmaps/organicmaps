@@ -15,9 +15,11 @@
 
 	<!-- SECTION: Search categories -->
 	<!-- Search category for recycling; any changes should be duplicated in categories.txt @recycling! -->
-	<string name="recycling">Reciclaje</string>
+	<string name="category_recycling">Reciclaje</string>
 	<!-- Search category for water; any changes should be duplicated in categories.txt @water! also used to sort bookmarks by type -->
-	<string name="water">Agua</string>
+	<string name="category_water">Agua</string>
+
+	<!-- SECTION: Other translations -->
 	<!-- Failed to open a bookmarks or tracks file in Organic Maps. -->
 	<string name="failed_to_open_file">Fallo al abrir el archivo %1$s\n\n%2$s</string>
 	<!-- Generic «Auto» string -->
@@ -124,10 +126,6 @@
 	<string name="bookmark_list_description_hint">Introduzca una descripción (texto o html)</string>
 	<string name="not_shared">Privado</string>
 	<string name="speedcams_alert_title">Cámaras de velocidad</string>
-	<!-- Generic «Always» string -->
-	<string name="always">Siempre</string>
-	<!-- Generic «Never» string -->
-	<string name="never">Nunca</string>
 	<string name="place_description_title">Descripción de lugares</string>
 	<!-- this text will be shown in application notification preferences opposite checkbox which enable/disable downloader notifications. Devices on Android 8+ are affected. -->
 	<string name="notification_channel_downloader">Descargar mapas</string>

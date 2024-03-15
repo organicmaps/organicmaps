@@ -117,51 +117,53 @@
 
 	<!-- SECTION: Search categories -->
 	<!-- Search category for cafes, bars, restaurants; any changes should be duplicated in categories.txt @eat! -->
-	<string name="eat">Nerede yenir</string>
+	<string name="category_eat">Nerede yenir</string>
 	<!-- Search category for grocery stores; any changes should be duplicated in categories.txt @food! -->
-	<string name="food">Market</string>
+	<string name="category_food">Market</string>
 	<!-- Search category for public transport; any changes should be duplicated in categories.txt @transport! -->
-	<string name="transport">Ulaşım</string>
+	<string name="category_transport">Ulaşım</string>
 	<!-- Search category for fuel stations; any changes should be duplicated in categories.txt @fuel! -->
-	<string name="fuel">Benzinlik</string>
+	<string name="category_fuel">Benzinlik</string>
 	<!-- Search category for parking lots; any changes should be duplicated in categories.txt @parking! -->
-	<string name="parking">Otopark</string>
+	<string name="category_parking">Otopark</string>
 	<!-- Search category for clothes/shoes/gifts/jewellery/sport shops; any changes should be duplicated in categories.txt @shopping! -->
-	<string name="shopping">Alışveriş</string>
+	<string name="category_shopping">Alışveriş</string>
 	<!-- Search category for second_hand/charity/antique/auction shops; any changes should be duplicated in categories.txt @secondhand! -->
-	<string name="secondhand">İkinci el</string>
+	<string name="category_secondhand">İkinci el</string>
 	<!-- Search category for places to stay; any changes should be duplicated in categories.txt @hotel! -->
-	<string name="hotel">Otel</string>
+	<string name="category_hotel">Otel</string>
 	<!-- Search category sight seeings and touristic attractions; any changes should be duplicated in categories.txt @tourism! -->
-	<string name="tourism">Görülecek yerler</string>
+	<string name="category_tourism">Görülecek yerler</string>
 	<!-- Search category for entertainment; any changes should be duplicated in categories.txt @entertainment! -->
-	<string name="entertainment">Eğlence</string>
+	<string name="category_entertainment">Eğlence</string>
 	<!-- Search category for ATMs; any changes should be duplicated in categories.txt @atm! -->
-	<string name="atm">Bankamatik</string>
+	<string name="category_atm">Bankamatik</string>
 	<!-- Search category for nightclubs/bars; any changes should be duplicated in categories.txt @nightlife! -->
-	<string name="nightlife">Gece hayatı</string>
+	<string name="category_nightlife">Gece hayatı</string>
 	<!-- Search category for water park/disneyland/playground/toys store; any changes should be duplicated in categories.txt @children! -->
-	<string name="children">Aile tatili</string>
+	<string name="category_children">Aile tatili</string>
 	<!-- Search category for banks; any changes should be duplicated in categories.txt @bank! -->
-	<string name="bank">Banka</string>
+	<string name="category_bank">Banka</string>
 	<!-- Search category for pharmacies; any changes should be duplicated in categories.txt @pharmacy! -->
-	<string name="pharmacy">Eczane</string>
+	<string name="category_pharmacy">Eczane</string>
 	<!-- Search category for hospitals; any changes should be duplicated in categories.txt @hospital! -->
-	<string name="hospital">Hastane</string>
+	<string name="category_hospital">Hastane</string>
 	<!-- Search category for toilets; any changes should be duplicated in categories.txt @toilet! -->
-	<string name="toilet">WC</string>
+	<string name="category_toilet">WC</string>
 	<!-- Search category for post offices; any changes should be duplicated in categories.txt @post! -->
-	<string name="post">Posta</string>
+	<string name="category_post">Posta</string>
 	<!-- Search category for police; any changes should be duplicated in categories.txt @police! -->
-	<string name="police">Polis</string>
+	<string name="category_police">Polis</string>
 	<!-- Search category for WiFi access; any changes should be duplicated in categories.txt @wifi! -->
-	<string name="wifi">WiFi</string>
+	<string name="category_wifi">WiFi</string>
 	<!-- Search category for recycling; any changes should be duplicated in categories.txt @recycling! -->
-	<string name="recycling">Geri dönüşüm</string>
+	<string name="category_recycling">Geri dönüşüm</string>
 	<!-- Search category for water; any changes should be duplicated in categories.txt @water! also used to sort bookmarks by type -->
-	<string name="water">Su</string>
+	<string name="category_water">Su</string>
 	<!-- Search category for RV facilities; any changes should be duplicated in categories.txt @rv! -->
-	<string name="rv">Karavan tesisleri</string>
+	<string name="category_rv">Karavan tesisleri</string>
+
+	<!-- SECTION: Other translations -->
 	<!-- Notes field in Bookmarks view -->
 	<string name="description">Notlar</string>
 	<!-- Email Subject when sharing bookmark list -->
@@ -508,7 +510,6 @@
 	<string name="editor_operator">İşletmeci</string>
 	<string name="downloader_no_downloaded_maps_title">Hiç harita indirmediniz</string>
 	<string name="downloader_no_downloaded_maps_message">Çevrimdışı olarak adres bulmak ve gezinmek için haritaları indirin.</string>
-	<string name="stop">Dur</string>
 	<!-- abbreviation for meters -->
 	<string name="m">m</string>
 	<!-- abbreviation for kilometers -->
@@ -639,10 +640,6 @@
 	<string name="bookmark_list_description_hint">Bir açıklama yazın (metin veya html)</string>
 	<string name="not_shared">Gizli</string>
 	<string name="speedcams_alert_title">Hız kameraları</string>
-	<!-- Generic «Always» string -->
-	<string name="always">Her zaman</string>
-	<!-- Generic «Never» string -->
-	<string name="never">Asla</string>
 	<string name="place_description_title">Yer Açıklaması</string>
 	<!-- this text will be shown in application notification preferences opposite checkbox which enable/disable downloader notifications. Devices on Android 8+ are affected. -->
 	<string name="notification_channel_downloader">Harita indirici</string>

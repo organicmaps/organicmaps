@@ -103,51 +103,53 @@
 
 	<!-- SECTION: Search categories -->
 	<!-- Search category for cafes, bars, restaurants; any changes should be duplicated in categories.txt @eat! -->
-	<string name="eat">Ăn ở đâu</string>
+	<string name="category_eat">Ăn ở đâu</string>
 	<!-- Search category for grocery stores; any changes should be duplicated in categories.txt @food! -->
-	<string name="food">Cửa hàng tạp hóa</string>
+	<string name="category_food">Cửa hàng tạp hóa</string>
 	<!-- Search category for public transport; any changes should be duplicated in categories.txt @transport! -->
-	<string name="transport">Giao thông</string>
+	<string name="category_transport">Giao thông</string>
 	<!-- Search category for fuel stations; any changes should be duplicated in categories.txt @fuel! -->
-	<string name="fuel">Khí đốt</string>
+	<string name="category_fuel">Khí đốt</string>
 	<!-- Search category for parking lots; any changes should be duplicated in categories.txt @parking! -->
-	<string name="parking">đỗ xe</string>
+	<string name="category_parking">đỗ xe</string>
 	<!-- Search category for clothes/shoes/gifts/jewellery/sport shops; any changes should be duplicated in categories.txt @shopping! -->
-	<string name="shopping">Đi mua sắm</string>
+	<string name="category_shopping">Đi mua sắm</string>
 	<!-- Search category for second_hand/charity/antique/auction shops; any changes should be duplicated in categories.txt @secondhand! -->
-	<string name="secondhand">Đồ cũ</string>
+	<string name="category_secondhand">Đồ cũ</string>
 	<!-- Search category for places to stay; any changes should be duplicated in categories.txt @hotel! -->
-	<string name="hotel">Khách sạn</string>
+	<string name="category_hotel">Khách sạn</string>
 	<!-- Search category sight seeings and touristic attractions; any changes should be duplicated in categories.txt @tourism! -->
-	<string name="tourism">Diểm tham quan</string>
+	<string name="category_tourism">Diểm tham quan</string>
 	<!-- Search category for entertainment; any changes should be duplicated in categories.txt @entertainment! -->
-	<string name="entertainment">Giải trí</string>
+	<string name="category_entertainment">Giải trí</string>
 	<!-- Search category for ATMs; any changes should be duplicated in categories.txt @atm! -->
-	<string name="atm">ATM</string>
+	<string name="category_atm">ATM</string>
 	<!-- Search category for nightclubs/bars; any changes should be duplicated in categories.txt @nightlife! -->
-	<string name="nightlife">Cuộc sống về đêm</string>
+	<string name="category_nightlife">Cuộc sống về đêm</string>
 	<!-- Search category for water park/disneyland/playground/toys store; any changes should be duplicated in categories.txt @children! -->
-	<string name="children">Kỳ nghỉ gia đình</string>
+	<string name="category_children">Kỳ nghỉ gia đình</string>
 	<!-- Search category for banks; any changes should be duplicated in categories.txt @bank! -->
-	<string name="bank">Ngân hàng</string>
+	<string name="category_bank">Ngân hàng</string>
 	<!-- Search category for pharmacies; any changes should be duplicated in categories.txt @pharmacy! -->
-	<string name="pharmacy">Hiệu thuốc</string>
+	<string name="category_pharmacy">Hiệu thuốc</string>
 	<!-- Search category for hospitals; any changes should be duplicated in categories.txt @hospital! -->
-	<string name="hospital">Bệnh viện</string>
+	<string name="category_hospital">Bệnh viện</string>
 	<!-- Search category for toilets; any changes should be duplicated in categories.txt @toilet! -->
-	<string name="toilet">Nhà vệ sinh</string>
+	<string name="category_toilet">Nhà vệ sinh</string>
 	<!-- Search category for post offices; any changes should be duplicated in categories.txt @post! -->
-	<string name="post">Bưu điện</string>
+	<string name="category_post">Bưu điện</string>
 	<!-- Search category for police; any changes should be duplicated in categories.txt @police! -->
-	<string name="police">Cảnh sát</string>
+	<string name="category_police">Cảnh sát</string>
 	<!-- Search category for WiFi access; any changes should be duplicated in categories.txt @wifi! -->
-	<string name="wifi">WiFi</string>
+	<string name="category_wifi">WiFi</string>
 	<!-- Search category for recycling; any changes should be duplicated in categories.txt @recycling! -->
-	<string name="recycling">Tái chế rác thải</string>
+	<string name="category_recycling">Tái chế rác thải</string>
 	<!-- Search category for water; any changes should be duplicated in categories.txt @water! also used to sort bookmarks by type -->
-	<string name="water">Nước</string>
+	<string name="category_water">Nước</string>
 	<!-- Search category for RV facilities; any changes should be duplicated in categories.txt @rv! -->
-	<string name="rv">Đối với RV</string>
+	<string name="category_rv">Đối với RV</string>
+
+	<!-- SECTION: Other translations -->
 	<!-- Notes field in Bookmarks view -->
 	<string name="description">Ghi chú</string>
 	<!-- Email Subject when sharing bookmark list -->
@@ -482,7 +484,6 @@
 	<string name="editor_operator">Đơn vị điều hành</string>
 	<string name="downloader_no_downloaded_maps_title">Bạn chưa tải về bất kỳ bản đồ nào</string>
 	<string name="downloader_no_downloaded_maps_message">Tải về bản đồ để tìm địa điểm và định hướng ngoại tuyến.</string>
-	<string name="stop">Dừng</string>
 	<!-- abbreviation for meters -->
 	<string name="m">m</string>
 	<!-- abbreviation for kilometers -->
@@ -607,10 +608,6 @@
 	<string name="bookmark_list_description_hint">Đánh vào một mô tả (văn bản hoặc html)</string>
 	<string name="not_shared">Riêng tư</string>
 	<string name="speedcams_alert_title">Tăn tốc độ máy ảnh</string>
-	<!-- Generic «Always» string -->
-	<string name="always">Luôn luôn</string>
-	<!-- Generic «Never» string -->
-	<string name="never">Không bao giờ</string>
 	<string name="place_description_title">Mô tả Địa điểm</string>
 	<!-- this text will be shown in application notification preferences opposite checkbox which enable/disable downloader notifications. Devices on Android 8+ are affected. -->
 	<string name="notification_channel_downloader">Trình tải xuống bản đồ</string>

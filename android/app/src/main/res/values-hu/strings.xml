@@ -115,51 +115,53 @@
 
 	<!-- SECTION: Search categories -->
 	<!-- Search category for cafes, bars, restaurants; any changes should be duplicated in categories.txt @eat! -->
-	<string name="eat">Hol lehet enni valamit</string>
+	<string name="category_eat">Hol lehet enni valamit</string>
 	<!-- Search category for grocery stores; any changes should be duplicated in categories.txt @food! -->
-	<string name="food">Élelmiszerek</string>
+	<string name="category_food">Élelmiszerek</string>
 	<!-- Search category for public transport; any changes should be duplicated in categories.txt @transport! -->
-	<string name="transport">Tömegközlekedés</string>
+	<string name="category_transport">Tömegközlekedés</string>
 	<!-- Search category for fuel stations; any changes should be duplicated in categories.txt @fuel! -->
-	<string name="fuel">Benzinkút</string>
+	<string name="category_fuel">Benzinkút</string>
 	<!-- Search category for parking lots; any changes should be duplicated in categories.txt @parking! -->
-	<string name="parking">Parkoló</string>
+	<string name="category_parking">Parkoló</string>
 	<!-- Search category for clothes/shoes/gifts/jewellery/sport shops; any changes should be duplicated in categories.txt @shopping! -->
-	<string name="shopping">Bevásárlás</string>
+	<string name="category_shopping">Bevásárlás</string>
 	<!-- Search category for second_hand/charity/antique/auction shops; any changes should be duplicated in categories.txt @secondhand! -->
-	<string name="secondhand">Second-hand</string>
+	<string name="category_secondhand">Second-hand</string>
 	<!-- Search category for places to stay; any changes should be duplicated in categories.txt @hotel! -->
-	<string name="hotel">Szálloda</string>
+	<string name="category_hotel">Szálloda</string>
 	<!-- Search category sight seeings and touristic attractions; any changes should be duplicated in categories.txt @tourism! -->
-	<string name="tourism">Látnivalók</string>
+	<string name="category_tourism">Látnivalók</string>
 	<!-- Search category for entertainment; any changes should be duplicated in categories.txt @entertainment! -->
-	<string name="entertainment">Szórakozás</string>
+	<string name="category_entertainment">Szórakozás</string>
 	<!-- Search category for ATMs; any changes should be duplicated in categories.txt @atm! -->
-	<string name="atm">Pénzautomata</string>
+	<string name="category_atm">Pénzautomata</string>
 	<!-- Search category for nightclubs/bars; any changes should be duplicated in categories.txt @nightlife! -->
-	<string name="nightlife">Éjjeli élet</string>
+	<string name="category_nightlife">Éjjeli élet</string>
 	<!-- Search category for water park/disneyland/playground/toys store; any changes should be duplicated in categories.txt @children! -->
-	<string name="children">Családi kiruccanás</string>
+	<string name="category_children">Családi kiruccanás</string>
 	<!-- Search category for banks; any changes should be duplicated in categories.txt @bank! -->
-	<string name="bank">Bank</string>
+	<string name="category_bank">Bank</string>
 	<!-- Search category for pharmacies; any changes should be duplicated in categories.txt @pharmacy! -->
-	<string name="pharmacy">Gyógyszertár</string>
+	<string name="category_pharmacy">Gyógyszertár</string>
 	<!-- Search category for hospitals; any changes should be duplicated in categories.txt @hospital! -->
-	<string name="hospital">Kórház</string>
+	<string name="category_hospital">Kórház</string>
 	<!-- Search category for toilets; any changes should be duplicated in categories.txt @toilet! -->
-	<string name="toilet">Mosdó</string>
+	<string name="category_toilet">Mosdó</string>
 	<!-- Search category for post offices; any changes should be duplicated in categories.txt @post! -->
-	<string name="post">Posta</string>
+	<string name="category_post">Posta</string>
 	<!-- Search category for police; any changes should be duplicated in categories.txt @police! -->
-	<string name="police">Rendőrség</string>
+	<string name="category_police">Rendőrség</string>
 	<!-- Search category for WiFi access; any changes should be duplicated in categories.txt @wifi! -->
-	<string name="wifi">WiFi</string>
+	<string name="category_wifi">WiFi</string>
 	<!-- Search category for recycling; any changes should be duplicated in categories.txt @recycling! -->
-	<string name="recycling">Újrahasznosítás</string>
+	<string name="category_recycling">Újrahasznosítás</string>
 	<!-- Search category for water; any changes should be duplicated in categories.txt @water! also used to sort bookmarks by type -->
-	<string name="water">Víz</string>
+	<string name="category_water">Víz</string>
 	<!-- Search category for RV facilities; any changes should be duplicated in categories.txt @rv! -->
-	<string name="rv">RV számára</string>
+	<string name="category_rv">RV számára</string>
+
+	<!-- SECTION: Other translations -->
 	<!-- Notes field in Bookmarks view -->
 	<string name="description">Jegyzetek</string>
 	<!-- Email Subject when sharing bookmark list -->
@@ -496,7 +498,6 @@
 	<string name="editor_operator">Üzemeltető</string>
 	<string name="downloader_no_downloaded_maps_title">Még nem töltött le térképet</string>
 	<string name="downloader_no_downloaded_maps_message">Töltse le a szükséges térképeket, hogy megtalálja a helyet és internet nélkül is navigálhasson.</string>
-	<string name="stop">Leállítás</string>
 	<!-- abbreviation for meters -->
 	<string name="m">m</string>
 	<!-- abbreviation for kilometers -->
@@ -621,10 +622,6 @@
 	<string name="bookmark_list_description_hint">Leírás hozzáadása (szöveg vagy html)</string>
 	<string name="not_shared">Privát</string>
 	<string name="speedcams_alert_title">Sebességmérő kamerák</string>
-	<!-- Generic «Always» string -->
-	<string name="always">Mindig</string>
-	<!-- Generic «Never» string -->
-	<string name="never">Soha</string>
 	<string name="place_description_title">A hely ismertetése</string>
 	<!-- this text will be shown in application notification preferences opposite checkbox which enable/disable downloader notifications. Devices on Android 8+ are affected. -->
 	<string name="notification_channel_downloader">Kártyák letöltése</string>

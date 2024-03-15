@@ -105,73 +105,76 @@
 /********** Search categories **********/
 
 /* Search category for cafes, bars, restaurants; any changes should be duplicated in categories.txt @eat! */
-"eat" = "Non jan";
+"category_eat" = "Non jan";
 
 /* Search category for grocery stores; any changes should be duplicated in categories.txt @food! */
-"food" = "Janari-denda";
+"category_food" = "Janari-denda";
 
 /* Search category for public transport; any changes should be duplicated in categories.txt @transport! */
-"transport" = "Garraioa";
+"category_transport" = "Garraioa";
 
 /* Search category for fuel stations; any changes should be duplicated in categories.txt @fuel! */
-"fuel" = "Gasolindegia";
+"category_fuel" = "Gasolindegia";
 
 /* Search category for parking lots; any changes should be duplicated in categories.txt @parking! */
-"parking" = "Aparkalekua";
+"category_parking" = "Aparkalekua";
 
 /* Search category for clothes/shoes/gifts/jewellery/sport shops; any changes should be duplicated in categories.txt @shopping! */
-"shopping" = "Erosketak";
+"category_shopping" = "Erosketak";
 
 /* Search category for second_hand/charity/antique/auction shops; any changes should be duplicated in categories.txt @secondhand! */
-"secondhand" = "Bigarren eskuko";
+"category_secondhand" = "Bigarren eskuko";
 
 /* Search category for places to stay; any changes should be duplicated in categories.txt @hotel! */
-"hotel" = "Hotela";
+"category_hotel" = "Hotela";
 
 /* Search category sight seeings and touristic attractions; any changes should be duplicated in categories.txt @tourism! */
-"tourism" = "Turismoa";
+"category_tourism" = "Turismoa";
 
 /* Search category for entertainment; any changes should be duplicated in categories.txt @entertainment! */
-"entertainment" = "Entretenimendua";
+"category_entertainment" = "Entretenimendua";
 
 /* Search category for ATMs; any changes should be duplicated in categories.txt @atm! */
-"atm" = "Kutxazain automatikoa";
+"category_atm" = "Kutxazain automatikoa";
 
 /* Search category for nightclubs/bars; any changes should be duplicated in categories.txt @nightlife! */
-"nightlife" = "Gaueko giroa";
+"category_nightlife" = "Gaueko giroa";
 
 /* Search category for water park/disneyland/playground/toys store; any changes should be duplicated in categories.txt @children! */
-"children" = "Familiako jarduerak";
+"category_children" = "Familiako jarduerak";
 
 /* Search category for banks; any changes should be duplicated in categories.txt @bank! */
-"bank" = "Bankua";
+"category_bank" = "Bankua";
 
 /* Search category for pharmacies; any changes should be duplicated in categories.txt @pharmacy! */
-"pharmacy" = "Farmazia";
+"category_pharmacy" = "Farmazia";
 
 /* Search category for hospitals; any changes should be duplicated in categories.txt @hospital! */
-"hospital" = "Ospitalea";
+"category_hospital" = "Ospitalea";
 
 /* Search category for toilets; any changes should be duplicated in categories.txt @toilet! */
-"toilet" = "Komuna";
+"category_toilet" = "Komuna";
 
 /* Search category for post offices; any changes should be duplicated in categories.txt @post! */
-"post" = "Posta bulegoa";
+"category_post" = "Posta bulegoa";
 
 /* Search category for police; any changes should be duplicated in categories.txt @police! */
-"police" = "Polizia";
+"category_police" = "Polizia";
 
 /* Search category for WiFi access; any changes should be duplicated in categories.txt @wifi! */
-"wifi" = "WiFi";
+"category_wifi" = "WiFi";
 
 /* Search category for recycling; any changes should be duplicated in categories.txt @recycling! */
-"recycling" = "Birziklapena";
+"category_recycling" = "Birziklapena";
 
 /* Search category for water; any changes should be duplicated in categories.txt @water! also used to sort bookmarks by type */
-"water" = "Ura";
+"category_water" = "Ura";
 
 /* Search category for RV facilities; any changes should be duplicated in categories.txt @rv! */
-"rv" = "Karabanak";
+"category_rv" = "Karabanak";
+
+
+/********** Other translations **********/
 
 "share_bookmarks_email_body" = "Kaixo!\nNire markagailuak Organic Maps aplikazioan erantsi ditut. Mesedez, ireki itzazu Organic Maps instalatuta baduzu. Edo, ez baduzu, deskargatu aplikazioa zure iOS edo Android gailurako esteka hau jarraituz: https://omaps.app/get?kmz\n\nGozatu bidaiatzen Organic Maps-ekin!";
 
@@ -779,8 +782,6 @@
 
 "downloader_no_downloaded_maps_message" = "Deskargatu mapak kokapena aurkitzeko eta lineaz kanpo nabigatzeko.";
 
-"stop" = "Gelditu";
-
 "current_location_unknown_error_title" = "Uneko kokapena ezezaguna da.";
 
 "current_location_unknown_error_message" = "Errore bat gertatu da zure kokapena bilatzean. Egiaztatu gailua behar bezala dabilela eta saiatu berriro geroago.";
@@ -1035,15 +1036,16 @@
 
 "speedcams_alert_title" = "Abiadura kamerak";
 
-/* Generic «Always» string */
-"always" = "Beti";
-
-/* Generic «Never» string */
-"never" = "Inoiz ez";
-
 "place_description_title" = "Tokiaren deskribapena";
 
-"speedcams_notice_message" = "Automatikoa - abiadura-kamerei buruz ohartarazten du abiadura muga gainditzeko arriskua badago\nBeti - beti abisatu kamerei buruz\nInoiz - inoiz ez abisatu kamerei buruz";
+/* Speed camera settings menu option - Warn (about speedcams) if risk of exceeding speed limit */
+"pref_tts_speedcams_auto" = "Ohartarazten du abiadura muga gainditzeko arriskua badago";
+
+/* Speed camera settings menu option - Always warn (about speedcams) */
+"pref_tts_speedcams_always" = "Beti abisatu";
+
+/* Speed camera settings menu option - Never warn (about speedcams) */
+"pref_tts_speedcams_never" = "Inoiz ez abisatu";
 
 "power_managment_title" = "Energia aurrezteko modua";
 

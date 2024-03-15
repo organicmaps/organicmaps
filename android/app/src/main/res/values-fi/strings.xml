@@ -118,51 +118,53 @@
 
 	<!-- SECTION: Search categories -->
 	<!-- Search category for cafes, bars, restaurants; any changes should be duplicated in categories.txt @eat! -->
-	<string name="eat">Missä syödä</string>
+	<string name="category_eat">Missä syödä</string>
 	<!-- Search category for grocery stores; any changes should be duplicated in categories.txt @food! -->
-	<string name="food">Elintarvikkeet</string>
+	<string name="category_food">Elintarvikkeet</string>
 	<!-- Search category for public transport; any changes should be duplicated in categories.txt @transport! -->
-	<string name="transport">Liikenne</string>
+	<string name="category_transport">Liikenne</string>
 	<!-- Search category for fuel stations; any changes should be duplicated in categories.txt @fuel! -->
-	<string name="fuel">Huoltoasema</string>
+	<string name="category_fuel">Huoltoasema</string>
 	<!-- Search category for parking lots; any changes should be duplicated in categories.txt @parking! -->
-	<string name="parking">Parkkipaikka</string>
+	<string name="category_parking">Parkkipaikka</string>
 	<!-- Search category for clothes/shoes/gifts/jewellery/sport shops; any changes should be duplicated in categories.txt @shopping! -->
-	<string name="shopping">Ostokset</string>
+	<string name="category_shopping">Ostokset</string>
 	<!-- Search category for second_hand/charity/antique/auction shops; any changes should be duplicated in categories.txt @secondhand! -->
-	<string name="secondhand">Käytetyt tavarat</string>
+	<string name="category_secondhand">Käytetyt tavarat</string>
 	<!-- Search category for places to stay; any changes should be duplicated in categories.txt @hotel! -->
-	<string name="hotel">Hotelli</string>
+	<string name="category_hotel">Hotelli</string>
 	<!-- Search category sight seeings and touristic attractions; any changes should be duplicated in categories.txt @tourism! -->
-	<string name="tourism">Nähtävyydet</string>
+	<string name="category_tourism">Nähtävyydet</string>
 	<!-- Search category for entertainment; any changes should be duplicated in categories.txt @entertainment! -->
-	<string name="entertainment">Viihde</string>
+	<string name="category_entertainment">Viihde</string>
 	<!-- Search category for ATMs; any changes should be duplicated in categories.txt @atm! -->
-	<string name="atm">Pankkiautomaatti</string>
+	<string name="category_atm">Pankkiautomaatti</string>
 	<!-- Search category for nightclubs/bars; any changes should be duplicated in categories.txt @nightlife! -->
-	<string name="nightlife">Yöelämä</string>
+	<string name="category_nightlife">Yöelämä</string>
 	<!-- Search category for water park/disneyland/playground/toys store; any changes should be duplicated in categories.txt @children! -->
-	<string name="children">Vapaa-aikaa lasten kanssa</string>
+	<string name="category_children">Vapaa-aikaa lasten kanssa</string>
 	<!-- Search category for banks; any changes should be duplicated in categories.txt @bank! -->
-	<string name="bank">Pankki</string>
+	<string name="category_bank">Pankki</string>
 	<!-- Search category for pharmacies; any changes should be duplicated in categories.txt @pharmacy! -->
-	<string name="pharmacy">Apteekki</string>
+	<string name="category_pharmacy">Apteekki</string>
 	<!-- Search category for hospitals; any changes should be duplicated in categories.txt @hospital! -->
-	<string name="hospital">Sairaala</string>
+	<string name="category_hospital">Sairaala</string>
 	<!-- Search category for toilets; any changes should be duplicated in categories.txt @toilet! -->
-	<string name="toilet">WC</string>
+	<string name="category_toilet">WC</string>
 	<!-- Search category for post offices; any changes should be duplicated in categories.txt @post! -->
-	<string name="post">Posti</string>
+	<string name="category_post">Posti</string>
 	<!-- Search category for police; any changes should be duplicated in categories.txt @police! -->
-	<string name="police">Poliisi</string>
+	<string name="category_police">Poliisi</string>
 	<!-- Search category for WiFi access; any changes should be duplicated in categories.txt @wifi! -->
-	<string name="wifi">WiFi</string>
+	<string name="category_wifi">WiFi</string>
 	<!-- Search category for recycling; any changes should be duplicated in categories.txt @recycling! -->
-	<string name="recycling">Jätteiden kierrätys</string>
+	<string name="category_recycling">Jätteiden kierrätys</string>
 	<!-- Search category for water; any changes should be duplicated in categories.txt @water! also used to sort bookmarks by type -->
-	<string name="water">Vesi</string>
+	<string name="category_water">Vesi</string>
 	<!-- Search category for RV facilities; any changes should be duplicated in categories.txt @rv! -->
-	<string name="rv">Karavaanaritilat</string>
+	<string name="category_rv">Karavaanaritilat</string>
+
+	<!-- SECTION: Other translations -->
 	<!-- Notes field in Bookmarks view -->
 	<string name="description">Muistiinpanot</string>
 	<!-- Email Subject when sharing bookmark list -->
@@ -510,7 +512,6 @@
 	<string name="editor_operator">Operaattori</string>
 	<string name="downloader_no_downloaded_maps_title">Et ole ladannut yhtään karttaa</string>
 	<string name="downloader_no_downloaded_maps_message">Lataa karttoja löytääksesi paikkoja ja navigoidaksesi offline-tilassa.</string>
-	<string name="stop">Pysäytä</string>
 	<!-- abbreviation for meters -->
 	<string name="m">m</string>
 	<!-- abbreviation for kilometers -->
@@ -645,10 +646,6 @@
 	<string name="bookmark_list_description_hint">Lisää kuvaus (teksti tai html)</string>
 	<string name="not_shared">Yksityinen</string>
 	<string name="speedcams_alert_title">Nopeuskamerat</string>
-	<!-- Generic «Always» string -->
-	<string name="always">Aina</string>
-	<!-- Generic «Never» string -->
-	<string name="never">Ei koskaan</string>
 	<string name="place_description_title">Paikan kuvaus</string>
 	<!-- this text will be shown in application notification preferences opposite checkbox which enable/disable downloader notifications. Devices on Android 8+ are affected. -->
 	<string name="notification_channel_downloader">Karttojen lataaminen</string>

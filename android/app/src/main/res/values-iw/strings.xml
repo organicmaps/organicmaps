@@ -115,49 +115,51 @@
 
 	<!-- SECTION: Search categories -->
 	<!-- Search category for cafes, bars, restaurants; any changes should be duplicated in categories.txt @eat! -->
-	<string name="eat">איפה לאכול</string>
+	<string name="category_eat">איפה לאכול</string>
 	<!-- Search category for grocery stores; any changes should be duplicated in categories.txt @food! -->
-	<string name="food">מצרכים</string>
+	<string name="category_food">מצרכים</string>
 	<!-- Search category for public transport; any changes should be duplicated in categories.txt @transport! -->
-	<string name="transport">תחבורה</string>
+	<string name="category_transport">תחבורה</string>
 	<!-- Search category for fuel stations; any changes should be duplicated in categories.txt @fuel! -->
-	<string name="fuel">דלק</string>
+	<string name="category_fuel">דלק</string>
 	<!-- Search category for parking lots; any changes should be duplicated in categories.txt @parking! -->
-	<string name="parking">חניה</string>
+	<string name="category_parking">חניה</string>
 	<!-- Search category for clothes/shoes/gifts/jewellery/sport shops; any changes should be duplicated in categories.txt @shopping! -->
-	<string name="shopping">קניות</string>
+	<string name="category_shopping">קניות</string>
 	<!-- Search category for second_hand/charity/antique/auction shops; any changes should be duplicated in categories.txt @secondhand! -->
-	<string name="secondhand">יד שניה</string>
+	<string name="category_secondhand">יד שניה</string>
 	<!-- Search category for places to stay; any changes should be duplicated in categories.txt @hotel! -->
-	<string name="hotel">בית מלון</string>
+	<string name="category_hotel">בית מלון</string>
 	<!-- Search category sight seeings and touristic attractions; any changes should be duplicated in categories.txt @tourism! -->
-	<string name="tourism">נקודות עיניין</string>
+	<string name="category_tourism">נקודות עיניין</string>
 	<!-- Search category for entertainment; any changes should be duplicated in categories.txt @entertainment! -->
-	<string name="entertainment">בידור</string>
+	<string name="category_entertainment">בידור</string>
 	<!-- Search category for ATMs; any changes should be duplicated in categories.txt @atm! -->
-	<string name="atm">כספומט</string>
+	<string name="category_atm">כספומט</string>
 	<!-- Search category for nightclubs/bars; any changes should be duplicated in categories.txt @nightlife! -->
-	<string name="nightlife">חיי לילה</string>
+	<string name="category_nightlife">חיי לילה</string>
 	<!-- Search category for water park/disneyland/playground/toys store; any changes should be duplicated in categories.txt @children! -->
-	<string name="children">שעשועים</string>
+	<string name="category_children">שעשועים</string>
 	<!-- Search category for banks; any changes should be duplicated in categories.txt @bank! -->
-	<string name="bank">בנק</string>
+	<string name="category_bank">בנק</string>
 	<!-- Search category for pharmacies; any changes should be duplicated in categories.txt @pharmacy! -->
-	<string name="pharmacy">בית מרקחת</string>
+	<string name="category_pharmacy">בית מרקחת</string>
 	<!-- Search category for hospitals; any changes should be duplicated in categories.txt @hospital! -->
-	<string name="hospital">בית חולים</string>
+	<string name="category_hospital">בית חולים</string>
 	<!-- Search category for toilets; any changes should be duplicated in categories.txt @toilet! -->
-	<string name="toilet">שירותים</string>
+	<string name="category_toilet">שירותים</string>
 	<!-- Search category for post offices; any changes should be duplicated in categories.txt @post! -->
-	<string name="post">דואר</string>
+	<string name="category_post">דואר</string>
 	<!-- Search category for police; any changes should be duplicated in categories.txt @police! -->
-	<string name="police">משטרה</string>
+	<string name="category_police">משטרה</string>
 	<!-- Search category for recycling; any changes should be duplicated in categories.txt @recycling! -->
-	<string name="recycling">מיחזור</string>
+	<string name="category_recycling">מיחזור</string>
 	<!-- Search category for water; any changes should be duplicated in categories.txt @water! also used to sort bookmarks by type -->
-	<string name="water">מים</string>
+	<string name="category_water">מים</string>
 	<!-- Search category for RV facilities; any changes should be duplicated in categories.txt @rv! -->
-	<string name="rv">עבור קרוואנים</string>
+	<string name="category_rv">עבור קרוואנים</string>
+
+	<!-- SECTION: Other translations -->
 	<!-- Notes field in Bookmarks view -->
 	<string name="description">הערות</string>
 	<!-- Email Subject when sharing bookmark list -->
@@ -500,7 +502,6 @@
 	<string name="editor_operator">בעלים</string>
 	<string name="downloader_no_downloaded_maps_title">לא הורדת אף מפה</string>
 	<string name="downloader_no_downloaded_maps_message">הורד מפה כדי לחפש ולנווט ללא חיבור לאינטרנט.</string>
-	<string name="stop">הפסק</string>
 	<!-- abbreviation for meters -->
 	<string name="m">מ׳</string>
 	<!-- abbreviation for kilometers -->
@@ -634,10 +635,6 @@
 	<string name="bookmark_list_description_hint">הזן תיאור (טקסט או HTML)</string>
 	<string name="not_shared">פרטי</string>
 	<string name="speedcams_alert_title">מצלמות מהירות</string>
-	<!-- Generic «Always» string -->
-	<string name="always">תמיד</string>
-	<!-- Generic «Never» string -->
-	<string name="never">אף פעם</string>
 	<string name="place_description_title">תיאור מיקום</string>
 	<!-- this text will be shown in application notification preferences opposite checkbox which enable/disable downloader notifications. Devices on Android 8+ are affected. -->
 	<string name="notification_channel_downloader">מוריד המפות</string>

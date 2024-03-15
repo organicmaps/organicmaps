@@ -105,73 +105,76 @@
 /********** Search categories **********/
 
 /* Search category for cafes, bars, restaurants; any changes should be duplicated in categories.txt @eat! */
-"eat" = "在哪儿吃";
+"category_eat" = "在哪儿吃";
 
 /* Search category for grocery stores; any changes should be duplicated in categories.txt @food! */
-"food" = "食品";
+"category_food" = "食品";
 
 /* Search category for public transport; any changes should be duplicated in categories.txt @transport! */
-"transport" = "交通";
+"category_transport" = "交通";
 
 /* Search category for fuel stations; any changes should be duplicated in categories.txt @fuel! */
-"fuel" = "汽油";
+"category_fuel" = "汽油";
 
 /* Search category for parking lots; any changes should be duplicated in categories.txt @parking! */
-"parking" = "停车场";
+"category_parking" = "停车场";
 
 /* Search category for clothes/shoes/gifts/jewellery/sport shops; any changes should be duplicated in categories.txt @shopping! */
-"shopping" = "购物";
+"category_shopping" = "购物";
 
 /* Search category for second_hand/charity/antique/auction shops; any changes should be duplicated in categories.txt @secondhand! */
-"secondhand" = "二手货";
+"category_secondhand" = "二手货";
 
 /* Search category for places to stay; any changes should be duplicated in categories.txt @hotel! */
-"hotel" = "旅店";
+"category_hotel" = "旅店";
 
 /* Search category sight seeings and touristic attractions; any changes should be duplicated in categories.txt @tourism! */
-"tourism" = "旅游景点";
+"category_tourism" = "旅游景点";
 
 /* Search category for entertainment; any changes should be duplicated in categories.txt @entertainment! */
-"entertainment" = "娱乐";
+"category_entertainment" = "娱乐";
 
 /* Search category for ATMs; any changes should be duplicated in categories.txt @atm! */
-"atm" = "自动取款机";
+"category_atm" = "自动取款机";
 
 /* Search category for nightclubs/bars; any changes should be duplicated in categories.txt @nightlife! */
-"nightlife" = "夜生活";
+"category_nightlife" = "夜生活";
 
 /* Search category for water park/disneyland/playground/toys store; any changes should be duplicated in categories.txt @children! */
-"children" = "亲子休闲";
+"category_children" = "亲子休闲";
 
 /* Search category for banks; any changes should be duplicated in categories.txt @bank! */
-"bank" = "银行";
+"category_bank" = "银行";
 
 /* Search category for pharmacies; any changes should be duplicated in categories.txt @pharmacy! */
-"pharmacy" = "药店";
+"category_pharmacy" = "药店";
 
 /* Search category for hospitals; any changes should be duplicated in categories.txt @hospital! */
-"hospital" = "医院";
+"category_hospital" = "医院";
 
 /* Search category for toilets; any changes should be duplicated in categories.txt @toilet! */
-"toilet" = "厕所";
+"category_toilet" = "厕所";
 
 /* Search category for post offices; any changes should be duplicated in categories.txt @post! */
-"post" = "邮政";
+"category_post" = "邮政";
 
 /* Search category for police; any changes should be duplicated in categories.txt @police! */
-"police" = "警察局";
+"category_police" = "警察局";
 
 /* Search category for WiFi access; any changes should be duplicated in categories.txt @wifi! */
-"wifi" = "无线网络";
+"category_wifi" = "无线网络";
 
 /* Search category for recycling; any changes should be duplicated in categories.txt @recycling! */
-"recycling" = "回收";
+"category_recycling" = "回收";
 
 /* Search category for water; any changes should be duplicated in categories.txt @water! also used to sort bookmarks by type */
-"water" = "水";
+"category_water" = "水";
 
 /* Search category for RV facilities; any changes should be duplicated in categories.txt @rv! */
-"rv" = "房车用";
+"category_rv" = "房车用";
+
+
+/********** Other translations **********/
 
 "share_bookmarks_email_body" = "Hello!\n\nAttached are my bookmarks; please open them in Organic Maps. If you don't have it installed you can download it here: https://omaps.app/get?kmz\n\nEnjoy travelling with Organic Maps!";
 
@@ -779,8 +782,6 @@
 
 "downloader_no_downloaded_maps_message" = "下载地图来查找位置和离线浏览";
 
-"stop" = "停止";
-
 "current_location_unknown_error_title" = "当前位置未知";
 
 "current_location_unknown_error_message" = "定位到您的当前位置时出错。请检查您的设备是否正常运作，然后再试一次。";
@@ -1035,15 +1036,16 @@
 
 "speedcams_alert_title" = "高速摄像机";
 
-/* Generic «Always» string */
-"always" = "总是";
-
-/* Generic «Never» string */
-"never" = "从不";
-
 "place_description_title" = "地点说明";
 
-"speedcams_notice_message" = "自动 - 如果存在超出速度限制的风险，则对速度摄像头发出警告\n总是 - 始终提醒摄像头\n从不 - 永远不会对摄像头发出警告";
+/* Speed camera settings menu option - Warn (about speedcams) if risk of exceeding speed limit */
+"pref_tts_speedcams_auto" = "如果存在超出速度限制的风险，则对速度摄像头发出警告";
+
+/* Speed camera settings menu option - Always warn (about speedcams) */
+"pref_tts_speedcams_always" = "始终提醒摄像头";
+
+/* Speed camera settings menu option - Never warn (about speedcams) */
+"pref_tts_speedcams_never" = "永远不会对摄像头发出警告";
 
 "power_managment_title" = "省电模式";
 

@@ -105,73 +105,76 @@
 /********** Search categories **********/
 
 /* Search category for cafes, bars, restaurants; any changes should be duplicated in categories.txt @eat! */
-"eat" = "어디서먹을까";
+"category_eat" = "어디서먹을까";
 
 /* Search category for grocery stores; any changes should be duplicated in categories.txt @food! */
-"food" = "식료품들";
+"category_food" = "식료품들";
 
 /* Search category for public transport; any changes should be duplicated in categories.txt @transport! */
-"transport" = "수송";
+"category_transport" = "수송";
 
 /* Search category for fuel stations; any changes should be duplicated in categories.txt @fuel! */
-"fuel" = "연료";
+"category_fuel" = "연료";
 
 /* Search category for parking lots; any changes should be duplicated in categories.txt @parking! */
-"parking" = "주차";
+"category_parking" = "주차";
 
 /* Search category for clothes/shoes/gifts/jewellery/sport shops; any changes should be duplicated in categories.txt @shopping! */
-"shopping" = "쇼핑";
+"category_shopping" = "쇼핑";
 
 /* Search category for second_hand/charity/antique/auction shops; any changes should be duplicated in categories.txt @secondhand! */
-"secondhand" = "중고";
+"category_secondhand" = "중고";
 
 /* Search category for places to stay; any changes should be duplicated in categories.txt @hotel! */
-"hotel" = "호텔";
+"category_hotel" = "호텔";
 
 /* Search category sight seeings and touristic attractions; any changes should be duplicated in categories.txt @tourism! */
-"tourism" = "관광";
+"category_tourism" = "관광";
 
 /* Search category for entertainment; any changes should be duplicated in categories.txt @entertainment! */
-"entertainment" = "엔터테인먼트";
+"category_entertainment" = "엔터테인먼트";
 
 /* Search category for ATMs; any changes should be duplicated in categories.txt @atm! */
-"atm" = "ATM";
+"category_atm" = "ATM";
 
 /* Search category for nightclubs/bars; any changes should be duplicated in categories.txt @nightlife! */
-"nightlife" = "유흥";
+"category_nightlife" = "유흥";
 
 /* Search category for water park/disneyland/playground/toys store; any changes should be duplicated in categories.txt @children! */
-"children" = "가족 기념일";
+"category_children" = "가족 기념일";
 
 /* Search category for banks; any changes should be duplicated in categories.txt @bank! */
-"bank" = "은행";
+"category_bank" = "은행";
 
 /* Search category for pharmacies; any changes should be duplicated in categories.txt @pharmacy! */
-"pharmacy" = "약국";
+"category_pharmacy" = "약국";
 
 /* Search category for hospitals; any changes should be duplicated in categories.txt @hospital! */
-"hospital" = "병원";
+"category_hospital" = "병원";
 
 /* Search category for toilets; any changes should be duplicated in categories.txt @toilet! */
-"toilet" = "화장실";
+"category_toilet" = "화장실";
 
 /* Search category for post offices; any changes should be duplicated in categories.txt @post! */
-"post" = "우편";
+"category_post" = "우편";
 
 /* Search category for police; any changes should be duplicated in categories.txt @police! */
-"police" = "치안대";
+"category_police" = "치안대";
 
 /* Search category for WiFi access; any changes should be duplicated in categories.txt @wifi! */
-"wifi" = "WiFi 인터넷";
+"category_wifi" = "WiFi 인터넷";
 
 /* Search category for recycling; any changes should be duplicated in categories.txt @recycling! */
-"recycling" = "재활용";
+"category_recycling" = "재활용";
 
 /* Search category for water; any changes should be duplicated in categories.txt @water! also used to sort bookmarks by type */
-"water" = "물";
+"category_water" = "물";
 
 /* Search category for RV facilities; any changes should be duplicated in categories.txt @rv! */
-"rv" = "RV용";
+"category_rv" = "RV용";
+
+
+/********** Other translations **********/
 
 "share_bookmarks_email_body" = "Hello!\n\nAttached are my bookmarks; please open them in Organic Maps. If you don't have it installed you can download it here: https://omaps.app/get?kmz\n\nEnjoy travelling with Organic Maps!";
 
@@ -779,8 +782,6 @@
 
 "downloader_no_downloaded_maps_message" = "오프라인으로 위치를 검색하려면 지도를 다운로드하세요.";
 
-"stop" = "중지";
-
 "current_location_unknown_error_title" = "현재 위치를 알 수 없습니다.";
 
 "current_location_unknown_error_message" = "위치 검색 중 오류가 발생했습니다. 장치가 올바르게 작동되는지 확인하고 다시 시도하세요.";
@@ -1035,15 +1036,16 @@
 
 "speedcams_alert_title" = "속도 감시 카메라";
 
-/* Generic «Always» string */
-"always" = "항상";
-
-/* Generic «Never» string */
-"never" = "안함";
-
 "place_description_title" = "장소 묘사";
 
-"speedcams_notice_message" = "자동 - 속도 제한 초과 위험이 있을때 스피드캠에 대해 경고하기\n항상 - 스피드캠에 대해 항상 경고하기\n절대 아님 - 스피드캠에 대해 경고하지 않기";
+/* Speed camera settings menu option - Warn (about speedcams) if risk of exceeding speed limit */
+"pref_tts_speedcams_auto" = "속도 제한 초과 위험이 있을때 경고하기";
+
+/* Speed camera settings menu option - Always warn (about speedcams) */
+"pref_tts_speedcams_always" = "항상 경고하기";
+
+/* Speed camera settings menu option - Never warn (about speedcams) */
+"pref_tts_speedcams_never" = "경고하지 않기";
 
 "power_managment_title" = "전력 절약 모드";
 

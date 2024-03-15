@@ -95,49 +95,51 @@
 
 	<!-- SECTION: Search categories -->
 	<!-- Search category for cafes, bars, restaurants; any changes should be duplicated in categories.txt @eat! -->
-	<string name="eat">जेवायचे ठिकाण</string>
+	<string name="category_eat">जेवायचे ठिकाण</string>
 	<!-- Search category for grocery stores; any changes should be duplicated in categories.txt @food! -->
-	<string name="food">किराणा</string>
+	<string name="category_food">किराणा</string>
 	<!-- Search category for public transport; any changes should be duplicated in categories.txt @transport! -->
-	<string name="transport">वाहतूक</string>
+	<string name="category_transport">वाहतूक</string>
 	<!-- Search category for fuel stations; any changes should be duplicated in categories.txt @fuel! -->
-	<string name="fuel">पेट्रोल</string>
+	<string name="category_fuel">पेट्रोल</string>
 	<!-- Search category for parking lots; any changes should be duplicated in categories.txt @parking! -->
-	<string name="parking">वाहनतळ</string>
+	<string name="category_parking">वाहनतळ</string>
 	<!-- Search category for clothes/shoes/gifts/jewellery/sport shops; any changes should be duplicated in categories.txt @shopping! -->
-	<string name="shopping">खरेदी</string>
+	<string name="category_shopping">खरेदी</string>
 	<!-- Search category for second_hand/charity/antique/auction shops; any changes should be duplicated in categories.txt @secondhand! -->
-	<string name="secondhand">वापरलेले</string>
+	<string name="category_secondhand">वापरलेले</string>
 	<!-- Search category for places to stay; any changes should be duplicated in categories.txt @hotel! -->
-	<string name="hotel">मुक्कामगृह</string>
+	<string name="category_hotel">मुक्कामगृह</string>
 	<!-- Search category sight seeings and touristic attractions; any changes should be duplicated in categories.txt @tourism! -->
-	<string name="tourism">पर्यटन</string>
+	<string name="category_tourism">पर्यटन</string>
 	<!-- Search category for entertainment; any changes should be duplicated in categories.txt @entertainment! -->
-	<string name="entertainment">मनोरंजन</string>
+	<string name="category_entertainment">मनोरंजन</string>
 	<!-- Search category for ATMs; any changes should be duplicated in categories.txt @atm! -->
-	<string name="atm">ATM</string>
+	<string name="category_atm">ATM</string>
 	<!-- Search category for nightclubs/bars; any changes should be duplicated in categories.txt @nightlife! -->
-	<string name="nightlife">नाईटलाईफ</string>
+	<string name="category_nightlife">नाईटलाईफ</string>
 	<!-- Search category for water park/disneyland/playground/toys store; any changes should be duplicated in categories.txt @children! -->
-	<string name="children">कौटुंबिक सुट्टी</string>
+	<string name="category_children">कौटुंबिक सुट्टी</string>
 	<!-- Search category for banks; any changes should be duplicated in categories.txt @bank! -->
-	<string name="bank">बँक</string>
+	<string name="category_bank">बँक</string>
 	<!-- Search category for pharmacies; any changes should be duplicated in categories.txt @pharmacy! -->
-	<string name="pharmacy">औषधालय</string>
+	<string name="category_pharmacy">औषधालय</string>
 	<!-- Search category for hospitals; any changes should be duplicated in categories.txt @hospital! -->
-	<string name="hospital">रुग्णालय</string>
+	<string name="category_hospital">रुग्णालय</string>
 	<!-- Search category for toilets; any changes should be duplicated in categories.txt @toilet! -->
-	<string name="toilet">शौचालय</string>
+	<string name="category_toilet">शौचालय</string>
 	<!-- Search category for post offices; any changes should be duplicated in categories.txt @post! -->
-	<string name="post">टपाल</string>
+	<string name="category_post">टपाल</string>
 	<!-- Search category for police; any changes should be duplicated in categories.txt @police! -->
-	<string name="police">पोलीस</string>
+	<string name="category_police">पोलीस</string>
 	<!-- Search category for WiFi access; any changes should be duplicated in categories.txt @wifi! -->
-	<string name="wifi">WiFi</string>
+	<string name="category_wifi">WiFi</string>
 	<!-- Search category for recycling; any changes should be duplicated in categories.txt @recycling! -->
-	<string name="recycling">भंगारवाला</string>
+	<string name="category_recycling">भंगारवाला</string>
 	<!-- Search category for water; any changes should be duplicated in categories.txt @water! also used to sort bookmarks by type -->
-	<string name="water">पाणी</string>
+	<string name="category_water">पाणी</string>
+
+	<!-- SECTION: Other translations -->
 	<!-- Notes field in Bookmarks view -->
 	<string name="description">चिठ्ठया</string>
 	<!-- Email Subject when sharing bookmark list -->
@@ -479,7 +481,6 @@
 	<string name="editor_operator">मालक</string>
 	<string name="downloader_no_downloaded_maps_title">तुम्ही कोणतेही नकाशे डाउनलोड केलेले नाहीत</string>
 	<string name="downloader_no_downloaded_maps_message">स्थान शोधण्यासाठी नकाशे डाउनलोड करा आणि ऑफलाइन मार्गनिर्देशन वापरा.</string>
-	<string name="stop">थांबा</string>
 	<!-- abbreviation for meters -->
 	<string name="m">m</string>
 	<!-- abbreviation for kilometers -->
@@ -609,10 +610,6 @@
 	<string name="bookmark_list_description_hint">वर्णन लिहा (मजकूर किंवा html)</string>
 	<string name="not_shared">खाजगी</string>
 	<string name="speedcams_alert_title">वेग कॅमेरे</string>
-	<!-- Generic «Always» string -->
-	<string name="always">नेहमी</string>
-	<!-- Generic «Never» string -->
-	<string name="never">कधीच नाही</string>
 	<string name="place_description_title">ठिकाणाचे वर्णन</string>
 	<!-- this text will be shown in application notification preferences opposite checkbox which enable/disable downloader notifications. Devices on Android 8+ are affected. -->
 	<string name="notification_channel_downloader">नकाशा डाउनलोडक</string>

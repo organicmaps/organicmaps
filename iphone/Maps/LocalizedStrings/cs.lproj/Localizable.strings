@@ -105,73 +105,76 @@
 /********** Search categories **********/
 
 /* Search category for cafes, bars, restaurants; any changes should be duplicated in categories.txt @eat! */
-"eat" = "Kde se najíst";
+"category_eat" = "Kde se najíst";
 
 /* Search category for grocery stores; any changes should be duplicated in categories.txt @food! */
-"food" = "Potraviny";
+"category_food" = "Potraviny";
 
 /* Search category for public transport; any changes should be duplicated in categories.txt @transport! */
-"transport" = "Doprava";
+"category_transport" = "Doprava";
 
 /* Search category for fuel stations; any changes should be duplicated in categories.txt @fuel! */
-"fuel" = "Čerpací stanice";
+"category_fuel" = "Čerpací stanice";
 
 /* Search category for parking lots; any changes should be duplicated in categories.txt @parking! */
-"parking" = "Parkoviště";
+"category_parking" = "Parkoviště";
 
 /* Search category for clothes/shoes/gifts/jewellery/sport shops; any changes should be duplicated in categories.txt @shopping! */
-"shopping" = "Nákupy";
+"category_shopping" = "Nákupy";
 
 /* Search category for second_hand/charity/antique/auction shops; any changes should be duplicated in categories.txt @secondhand! */
-"secondhand" = "Second-hand";
+"category_secondhand" = "Second-hand";
 
 /* Search category for places to stay; any changes should be duplicated in categories.txt @hotel! */
-"hotel" = "Hotel";
+"category_hotel" = "Hotel";
 
 /* Search category sight seeings and touristic attractions; any changes should be duplicated in categories.txt @tourism! */
-"tourism" = "Pamětihodnost";
+"category_tourism" = "Pamětihodnost";
 
 /* Search category for entertainment; any changes should be duplicated in categories.txt @entertainment! */
-"entertainment" = "Zábava";
+"category_entertainment" = "Zábava";
 
 /* Search category for ATMs; any changes should be duplicated in categories.txt @atm! */
-"atm" = "Bankomat";
+"category_atm" = "Bankomat";
 
 /* Search category for nightclubs/bars; any changes should be duplicated in categories.txt @nightlife! */
-"nightlife" = "Noční život";
+"category_nightlife" = "Noční život";
 
 /* Search category for water park/disneyland/playground/toys store; any changes should be duplicated in categories.txt @children! */
-"children" = "Dovolená s dětmi";
+"category_children" = "Dovolená s dětmi";
 
 /* Search category for banks; any changes should be duplicated in categories.txt @bank! */
-"bank" = "Banka";
+"category_bank" = "Banka";
 
 /* Search category for pharmacies; any changes should be duplicated in categories.txt @pharmacy! */
-"pharmacy" = "Lékárna";
+"category_pharmacy" = "Lékárna";
 
 /* Search category for hospitals; any changes should be duplicated in categories.txt @hospital! */
-"hospital" = "Nemocnice";
+"category_hospital" = "Nemocnice";
 
 /* Search category for toilets; any changes should be duplicated in categories.txt @toilet! */
-"toilet" = "Záchody";
+"category_toilet" = "Záchody";
 
 /* Search category for post offices; any changes should be duplicated in categories.txt @post! */
-"post" = "Pošta";
+"category_post" = "Pošta";
 
 /* Search category for police; any changes should be duplicated in categories.txt @police! */
-"police" = "Policie";
+"category_police" = "Policie";
 
 /* Search category for WiFi access; any changes should be duplicated in categories.txt @wifi! */
-"wifi" = "WiFi";
+"category_wifi" = "WiFi";
 
 /* Search category for recycling; any changes should be duplicated in categories.txt @recycling! */
-"recycling" = "Recyklace";
+"category_recycling" = "Recyklace";
 
 /* Search category for water; any changes should be duplicated in categories.txt @water! also used to sort bookmarks by type */
-"water" = "Voda";
+"category_water" = "Voda";
 
 /* Search category for RV facilities; any changes should be duplicated in categories.txt @rv! */
-"rv" = "Pro RV";
+"category_rv" = "Pro RV";
+
+
+/********** Other translations **********/
 
 "share_bookmarks_email_body" = "Hello!\n\nAttached are my bookmarks; please open them in Organic Maps. If you don't have it installed you can download it here: https://omaps.app/get?kmz\n\nEnjoy travelling with Organic Maps!";
 
@@ -779,8 +782,6 @@
 
 "downloader_no_downloaded_maps_message" = "Stáhněte si mapy a hledejte cestu a její cíl, i když jste offline.";
 
-"stop" = "Zastavit";
-
 "current_location_unknown_error_title" = "Současná poloha nezjištěna.";
 
 "current_location_unknown_error_message" = "Při zjišťování současné polohy došlo k chybě. Zkontrolujte, že nedošlo k chybě zařízení a pokus prosím opakujte později.";
@@ -1035,15 +1036,16 @@
 
 "speedcams_alert_title" = "Detektory rychlosti";
 
-/* Generic «Always» string */
-"always" = "Vždy";
-
-/* Generic «Never» string */
-"never" = "Nikdy";
-
 "place_description_title" = "Popis místa";
 
-"speedcams_notice_message" = "Automaticky - Upozorňovat na rychlostní radary, pokud hrozí riziko překročení rychlosti\nVždy - Vždy upozorňovat na rychlostní radary\nNikdy - Nikdy neupozorňovat na rychlostní radary";
+/* Speed camera settings menu option - Warn (about speedcams) if risk of exceeding speed limit */
+"pref_tts_speedcams_auto" = "Upozorňovat pokud hrozí riziko překročení rychlosti";
+
+/* Speed camera settings menu option - Always warn (about speedcams) */
+"pref_tts_speedcams_always" = "Vždy upozorňovat";
+
+/* Speed camera settings menu option - Never warn (about speedcams) */
+"pref_tts_speedcams_never" = "Nikdy neupozorňovat";
 
 "power_managment_title" = "Režim spořič baterie";
 
