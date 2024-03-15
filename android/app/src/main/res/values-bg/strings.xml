@@ -915,10 +915,12 @@
 	<string name="type.highway.track.bridge">Мост</string>
 	<!-- These translations are used for all type.highway.*.tunnel. -->
 	<string name="type.highway.track.tunnel">Тунел</string>
+	<string name="type.highway.trunk">Автомагистрала</string>
 	<!-- These translations are used for all type.highway.*.bridge. -->
 	<string name="type.highway.trunk.bridge">Мост</string>
 	<!-- These translations are used for all type.highway.*.tunnel. -->
 	<string name="type.highway.trunk.tunnel">Тунел</string>
+	<string name="type.highway.trunk_link">Изход от магистрала</string>
 	<!-- These translations are used for all type.highway.*.bridge. -->
 	<string name="type.highway.trunk_link.bridge">Мост</string>
 	<!-- These translations are used for all type.highway.*.tunnel. -->
@@ -927,6 +929,7 @@
 	<string name="type.highway.unclassified.bridge">Мост</string>
 	<!-- These translations are used for all type.highway.*.tunnel. -->
 	<string name="type.highway.unclassified.tunnel">Тунел</string>
+	<string name="type.area_highway.trunk">Автомагистрала</string>
 
 	<!-- SECTION: Types: Historic -->
 	<string name="type.historic">Исторически обект</string>
