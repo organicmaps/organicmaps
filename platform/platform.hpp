@@ -237,6 +237,8 @@ public:
 
   /// @return 0 in case of failure.
   static time_t GetFileCreationTime(std::string const & path);
+  /// @return 0 in case of failure.
+  static time_t GetFileModificationTime(std::string const & path);
 
   /// Used to check available free storage space for downloading.
   enum TStorageStatus
