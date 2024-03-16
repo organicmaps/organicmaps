@@ -1063,7 +1063,6 @@ UNIT_CLASS_TEST(Runner, Bookmarks_SpecialXMLNames)
   kmlDataCollection3.emplace_back("" /* filePath */,
                                   LoadKmlData(MemReader(kmlString3, strlen(kmlString3)), KmlFileType::Text));
 
-  bmManager.UpdateLastModifiedTime(kmlDataCollection3);
   bmManager.CreateCategories(std::move(kmlDataCollection3));
 
   TEST_EQUAL(bmManager.GetBmGroupsIdList().size(), 2, ());
