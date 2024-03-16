@@ -14612,6 +14612,14 @@
     zh-Hans = 楼层
     zh-Hant = 樓層
 
+  [level_value_generic]
+    tags = android,ios
+    comment = Building level
+    en = Level: %s
+    de = Stock: %s
+    fr = Niveau : %s
+    ru = Этаж: %s
+
   [please_note]
     tags = ios
     en = Please note

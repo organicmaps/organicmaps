@@ -662,6 +662,13 @@ public class Utils
     return brand;
   }
 
+  public static String getLocalizedLevel(@NonNull Context context, @Nullable String level)
+  {
+    if (TextUtils.isEmpty(level))
+      return "";
+    return context.getString(R.string.level_value_generic, level);
+  }
+
   private static class SupportInfoWithLogsCallback implements LogsManager.OnZipCompletedListener
   {
     @NonNull
