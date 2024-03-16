@@ -241,3 +241,12 @@ time_t Platform::GetFileCreationTime(std::string const & path)
     return st.st_atim.tv_sec;
   return 0;
 }
+
+// static
+time_t Platform::GetFileModificationTime(std::string const & path)
+{
+  struct stat st;
+  if (0 == stat(path.c_str(), &st))
+    return st.st_mtim.tv_sec;
+  return 0;
+}

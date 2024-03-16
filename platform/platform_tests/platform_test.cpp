@@ -307,3 +307,27 @@ UNIT_TEST(Platform_ThreadRunner)
                  "But app must not be crashed. It is normal behaviour during destruction"));
   });
 }
+
+UNIT_TEST(GetFileCreationTime_GetFileModificationTime)
+{
+  auto const now = std::time(nullptr);
+
+  std::string_view constexpr kContent{"HOHOHO"};
+  std::string const fileName = GetPlatform().WritablePathForFile(TEST_FILE_NAME);
+  {
+    FileWriter testFile(fileName);
+    testFile.Write(kContent.data(), kContent.size());
+  }
+  SCOPE_GUARD(removeTestFile, bind(&base::DeleteFileX, fileName));
+
+  auto const creationTime = Platform::GetFileCreationTime(fileName);
+  TEST_GREATER_OR_EQUAL(creationTime, now, ());
+
+  {
+    FileWriter testFile(fileName);
+    testFile.Write(kContent.data(), kContent.size());
+  }
+
+  auto const modificationTime = Platform::GetFileModificationTime(fileName);
+  TEST_GREATER_OR_EQUAL(modificationTime, creationTime, ());
+}
