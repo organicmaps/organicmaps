@@ -405,7 +405,8 @@ public class PlacePageView extends Fragment implements View.OnClickListener,
     refreshMetadataOrHide(Framework.nativeGetActiveObjectFormattedCuisine(), mCuisine, mTvCuisine);
     refreshWiFi();
     refreshMetadataOrHide(mMapObject.getMetadata(Metadata.MetadataType.FMD_FLATS), mEntrance, mTvEntrance);
-    refreshMetadataOrHide(mMapObject.getMetadata(Metadata.MetadataType.FMD_LEVEL), mLevel, mTvLevel);
+    final String level = Utils.getLocalizedLevel(getContext(), mMapObject.getMetadata(Metadata.MetadataType.FMD_LEVEL));
+    refreshMetadataOrHide(level, mLevel, mTvLevel);
 
     final String cap = mMapObject.getMetadata(Metadata.MetadataType.FMD_CAPACITY);
     refreshMetadataOrHide(!TextUtils.isEmpty(cap) ? getString(R.string.capacity, cap) : "", mCapacity, mTvCapacity);
