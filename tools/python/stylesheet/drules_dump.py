@@ -1,4 +1,4 @@
-#!/usr/bin/python
+#!/usr/bin/env python3
 # Dumps hashes of protobuffed drules
 import sys, re
 import itertools
