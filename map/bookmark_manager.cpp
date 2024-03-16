@@ -202,6 +202,11 @@ bool GetSortingType(std::string const & typeStr, BookmarkManager::SortingType & 
     return false;
   return true;
 }
+
+kml::Timestamp FileModificationTimestamp(std::string const & fullFilePath)
+{
+  return kml::TimestampClock::from_time_t(Platform::GetFileModificationTime(fullFilePath));
+}
 }  // namespace
 
 BookmarkManager::BookmarkManager(Callbacks && callbacks)
@@ -606,7 +611,7 @@ std::vector<BookmarkManager::SortingType> BookmarkManager::GetAvailableSortingTy
     }
 
     if (!byTimeChecked)
-      byTimeChecked = !kml::IsEqual(bookmarkData.m_timestamp, kml::Timestamp());
+      byTimeChecked = !kml::IsEqual(bookmarkData.m_timestamp, kml::Timestamp{});
 
     if (byTypeChecked && byTimeChecked)
       break;
@@ -616,7 +621,7 @@ std::vector<BookmarkManager::SortingType> BookmarkManager::GetAvailableSortingTy
   {
     for (auto trackId : group->GetUserLines())
     {
-      if (!kml::IsEqual(GetTrack(trackId)->GetData().m_timestamp, kml::Timestamp()))
+      if (!kml::IsEqual(GetTrack(trackId)->GetData().m_timestamp, kml::Timestamp{}))
       {
         byTimeChecked = true;
         break;
@@ -1105,7 +1110,7 @@ void BookmarkManager::SortTracksByTime(std::vector<SortTrackData> & tracks)
   bool hasTimestamp = false;
   for (auto const & track : tracks)
   {
-    if (!kml::IsEqual(track.m_timestamp, kml::Timestamp()))
+    if (!kml::IsEqual(track.m_timestamp, kml::Timestamp{}))
     {
       hasTimestamp = true;
       break;
@@ -1217,7 +1222,7 @@ void BookmarkManager::SortByTime(std::vector<SortBookmarkData> const & bookmarks
   for (auto mark : sortedMarks)
   {
     auto currentBlockType = SortedByTimeBlockType::Others;
-    if (mark->m_timestamp != kml::Timestamp())
+    if (mark->m_timestamp != kml::Timestamp{})
       currentBlockType = GetSortedByTimeBlockType(currentTime - mark->m_timestamp);
 
     if (!lastBlockType)
@@ -1941,12 +1946,17 @@ void BookmarkManager::LoadBookmarkRoutine(std::string const & filePath, bool isT
         ASSERT(false, ("Unsupported bookmarks extension", ext));
       }
 
+      base::DeleteFileX(fileToLoad);
+
       if (m_needTeardown)
         return;
 
-      base::DeleteFileX(fileToLoad);
       if (kmlData && (!kmlData->m_tracksData.empty() || !kmlData->m_bookmarksData.empty()))
       {
+        // Set last modified date for imported tracks before saving them, if it wasn't set in KML/GPX file.
+        if (kmlData->m_categoryData.m_lastModified == kml::Timestamp{})
+          kmlData->m_categoryData.m_lastModified = FileModificationTimestamp(filePath);
+
         auto kmlFileToLoad = GenerateValidAndUniqueFilePathForKML(base::GetNameFromFullPathWithoutExt(fileToLoad));
 
         if (!SaveKmlFileSafe(*kmlData, kmlFileToLoad, KmlFileType::Text))
@@ -1960,8 +1970,6 @@ void BookmarkManager::LoadBookmarkRoutine(std::string const & filePath, bool isT
       return;
 
     NotifyAboutFile(!collection->empty() /* success */, filePath, isTemporaryFile);
-
-    UpdateLastModifiedTime(*collection);
     NotifyAboutFinishAsyncLoading(std::move(collection));
   });
 }
@@ -2416,22 +2424,20 @@ UserMarkLayer * BookmarkManager::GetGroup(kml::MarkGroupId groupId) const
   return catIt->second.get();
 }
 
-void BookmarkManager::UpdateLastModifiedTime(KMLDataCollection & collection)
-{
-  for (auto const & [_, c] : collection)
-    c->m_categoryData.m_lastModified = kml::TimestampClock::now();
-}
-
+// Despite the name, this method is called not only for newly created categories, but also for loaded/imported ones.
 void BookmarkManager::CreateCategories(KMLDataCollection && dataCollection, bool autoSave /* = false */)
 {
   CHECK_THREAD_CHECKER(m_threadChecker, ());
   kml::GroupIdSet loadedGroups;
 
-  for (auto const & data : dataCollection)
+  for (auto const & [fileName, fileDataPtr] : dataCollection)
   {
-    auto const & fileName = data.first;
-    auto & fileData = *data.second;
+    auto & fileData = *fileDataPtr;
     auto & categoryData = fileData.m_categoryData;
+
+    // Initialize timestamp for newly created or imported categories.
+    if (categoryData.m_lastModified == kml::Timestamp{})
+      categoryData.m_lastModified = fileName.empty() ? kml::TimestampClock::now() : FileModificationTimestamp(fileName);
 
     if (!UserMarkIdStorage::Instance().CheckIds(fileData) || HasDuplicatedIds(fileData))
     {
