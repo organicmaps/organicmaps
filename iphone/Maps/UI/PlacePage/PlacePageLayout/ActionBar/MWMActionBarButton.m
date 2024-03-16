@@ -201,7 +201,11 @@ NSString *titleForButton(MWMActionBarButtonType type, BOOL isSelected) {
 
 - (void)traitCollectionDidChange:(UITraitCollection *)previousTraitCollection {
   [super traitCollectionDidChange:previousTraitCollection];
-  [self.button setSelected:false];
+  if (@available(iOS 13.0, *)) {
+    if ([self.traitCollection hasDifferentColorAppearanceComparedToTraitCollection:previousTraitCollection])
+      // Update button for the current selection state.
+      [self.button setSelected:self.button.isSelected];
+  }
 }
 
 - (UIView *)hitTest:(CGPoint)point withEvent:(UIEvent *)event {
