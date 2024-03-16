@@ -14519,6 +14519,20 @@
     zh-Hans = 楼层
     zh-Hant = 樓層
 
+  [level_value_0]
+    tags = android,ios
+    comment = Building level: ground floor (translated separately so that a more idiomatic phrase can be used)
+    en = Ground floor
+    de = Erdgeschoss
+    fr = Rez-de-chaussée
+
+  [level_value_generic]
+    tags = android,ios
+    comment = Building level
+    en = Level: %d
+    de = Stock: %d
+    fr = Niveau: %d
+
   [please_note]
     tags = ios
     en = Please note
