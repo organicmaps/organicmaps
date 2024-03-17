@@ -89,7 +89,7 @@ inline std::string DebugPrint(WheelchairAvailability wheelchair)
 
 class Wheelchair : public TraitsBase<Wheelchair, WheelchairAvailability>
 {
-  friend class TraitsBase;
+  friend TraitsBase;
 
   using TypesInitializer = std::initializer_list<std::initializer_list<char const *>>;
 
@@ -109,7 +109,7 @@ enum class DrinkingWaterAvailability
 
 class DrinkingWater : public TraitsBase<DrinkingWater, DrinkingWaterAvailability>
 {
-  friend class TraitsBase;
+  friend TraitsBase;
 
   using TypesInitializer = std::initializer_list<std::initializer_list<char const *>>;
 
