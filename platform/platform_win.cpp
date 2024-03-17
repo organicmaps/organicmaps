@@ -89,6 +89,8 @@ Platform::Platform()
   GetTempPathA(MAX_PATH, pathBuf);
   m_tmpDir = pathBuf;
 
+  m_guiThread = std::make_unique<platform::GuiThread>();
+
   LOG(LINFO, ("Resources Directory:", m_resourcesDir));
   LOG(LINFO, ("Writable Directory:", m_writableDir));
   LOG(LINFO, ("Tmp Directory:", m_tmpDir));
