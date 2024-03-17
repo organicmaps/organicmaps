@@ -361,6 +361,8 @@ NSString *const kPP2BookmarkEditingSegue = @"PP2BookmarkEditing";
   // Otherwise PP container view is nil, or there is no animation/selection of the point.
   if (DeepLinkHandler.shared.isLaunchedByDeeplink)
     (void)[DeepLinkHandler.shared handleDeepLinkAndReset];
+  else
+    [self migrateOAuthCredentials];
 }
 
 - (void)viewDidLayoutSubviews {
@@ -415,6 +417,16 @@ NSString *const kPP2BookmarkEditingSegue = @"PP2BookmarkEditing";
 - (void)updateStatusBarStyle {
   [self setNeedsStatusBarAppearanceUpdate];
 }
+
+- (void)migrateOAuthCredentials {
+  if (osm_auth_ios::AuthorizationHaveOAuth1Credentials())
+  {
+    //osm_auth_ios::AuthorizationClearOAuth1Credentials();
+    // TODO
+    [self.alertController presentOsmReauthAlert];
+  }
+}
+
 - (id)initWithCoder:(NSCoder *)coder {
   NSLog(@"MapViewController initWithCoder Started");
   self = [super initWithCoder:coder];

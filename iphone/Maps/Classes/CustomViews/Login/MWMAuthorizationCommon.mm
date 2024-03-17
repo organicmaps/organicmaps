@@ -8,8 +8,8 @@
 namespace osm_auth_ios
 {
 
-NSString * const kOSMRequestToken = @"OSMRequestToken";
-NSString * const kOSMRequestSecret = @"OSMRequestSecret";
+NSString * const kOSMRequestToken = @"OSMRequestToken";   // Unused after migration from OAuth1 to OAuth2
+NSString * const kOSMRequestSecret = @"OSMRequestSecret"; // Unused after migration from OAuth1 to OAuth2
 NSString * const kAuthNeedCheck = @"AuthNeedCheck";
 NSString * const kOSMAuthToken = @"OSMAuthToken";
 NSString * const kOSMUserName = @"UDOsmUserName";
@@ -44,6 +44,31 @@ void AuthorizationStoreCredentials(std::string const & oauthToken)
     // To also see # of edits when offline.
     [ud setInteger:prefs.m_changesets forKey:kOSMChangesetsCount];
   }
+  [ud synchronize];
+}
+
+BOOL AuthorizationHaveOAuth1Credentials()
+{
+  NSUserDefaults * ud = NSUserDefaults.standardUserDefaults;
+  NSString * requestToken = [ud stringForKey:kOSMRequestToken];
+  NSString * requestSecret = [ud stringForKey:kOSMRequestSecret];
+  return requestToken.length && requestSecret.length;
+}
+
+void AuthorizationClearOAuth1Credentials()
+{
+  NSUserDefaults * ud = NSUserDefaults.standardUserDefaults;
+  [ud removeObjectForKey:kOSMRequestToken];
+  [ud removeObjectForKey:kOSMRequestSecret];
+  [ud synchronize];
+}
+
+void AuthorizationCreateOAuth1Credentials()
+{
+  NSUserDefaults * ud = NSUserDefaults.standardUserDefaults;
+  [ud setObject:@"kOSMRequestToken" forKey:kOSMRequestToken];
+  [ud setObject:@"kOSMRequestSecret" forKey:kOSMRequestSecret];
+
   [ud synchronize];
 }
 
