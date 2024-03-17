@@ -117,8 +117,8 @@ void Platform::DisableBackupForFile(string const & filePath) {}
 // static
 string Platform::GetCurrentWorkingDirectory() noexcept
 {
-  char path[PATH_MAX];
-  char const * const dir = getcwd(path, PATH_MAX);
+  char path[MAX_PATH];
+  char const * const dir = getcwd(path, MAX_PATH);
   if (dir == nullptr)
     return {};
   return dir;
