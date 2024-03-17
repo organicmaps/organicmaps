@@ -1239,12 +1239,13 @@
 	<string name="type.shop.cosmetics">Касметыка</string>
 	<string name="type.shop.curtain">Шторы</string>
 	<string name="type.shop.deli">Дэлікатэсная крама</string>
+	<string name="type.shop.doityourself">Будаўнічы магазін</string>
 	<string name="type.shop.farm">Сельскагаспадарчыя прадукты</string>
 	<string name="type.shop.fashion_accessories">Модныя аксэсуары</string>
 	<string name="type.shop.funeral_directors">Рытуальныя паслугі</string>
 	<string name="type.shop.gas">Газавая крама</string>
 	<string name="type.shop.grocery">Бакалея</string>
-	<string name="type.shop.hardware">Будаўнічы магазін</string>
+	<string name="type.shop.hardware">Гаспадарчая крама</string>
 	<string name="type.shop.health_food">Крама здаровай ежы</string>
 	<string name="type.shop.herbalist">Магазін траў</string>
 	<string name="type.shop.hifi">HiFi аўдыё</string>

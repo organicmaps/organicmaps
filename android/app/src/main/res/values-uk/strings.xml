@@ -1919,7 +1919,7 @@
 	<string name="type.shop.curtain">Штори</string>
 	<string name="type.shop.deli">Делікатесний магазин</string>
 	<string name="type.shop.department_store">Універмаг</string>
-	<string name="type.shop.doityourself">Господарськi товари</string>
+	<string name="type.shop.doityourself">Будівельний магазин</string>
 	<string name="type.shop.dry_cleaning">Хімчистка</string>
 	<string name="type.shop.electronics">Електротехнiка</string>
 	<string name="type.shop.erotic">Секс-шоп</string>
@@ -1935,7 +1935,7 @@
 	<string name="type.shop.greengrocer">Овочі та фрукти</string>
 	<string name="type.shop.grocery">Бакалія</string>
 	<string name="type.shop.hairdresser">Перукарня</string>
-	<string name="type.shop.hardware">Магазин побутової техніки</string>
+	<string name="type.shop.hardware">Господарськи товари</string>
 	<string name="type.shop.health_food">Магазин здорового харчування</string>
 	<string name="type.shop.herbalist">Магазин трав</string>
 	<string name="type.shop.hifi">HiFi Audio</string>
