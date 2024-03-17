@@ -439,7 +439,9 @@ public enum BookmarkManager
     if (filename == null)
     {
       filename = uri.getPath();
-      int cut = filename.lastIndexOf('/');
+      if (filename == null)
+        return null;
+      final int cut = filename.lastIndexOf('/');
       if (cut != -1)
         filename = filename.substring(cut + 1);
     }
