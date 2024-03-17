@@ -7203,6 +7203,7 @@
     fi = Sähköpostisovellusta ei ole asetettu. Ole hyvä ja määritä sähköpostiasetukset tai ota meihin yhteyttä toista kautta osoitteessa %@
     fr = Le client de courriel n'a pas été configuré. Veuillez le configurer ou nous contacter à %@
     he = יישום הדוא"ל לא הוגדר. אנא הגדירו אותו או השתמשו בכל דרך אחרת על מנת ליצור עמנו קשר בכתובת %@
+    hi = ईमेल क्लाइंट सेट अप नहीं किया गया है. कृपया इसे कॉन्फ़िगर करें या %@ पर हमसे संपर्क करें
     hu = Az email kliens nincs beállítva. Kérjük, konfiguráld vagy próbálj meg valamilyen más módon kapcsolatba lépni velünk a %@ email címen keresztül.
     id = Surel pelanggan belum diatur. Mohon konfigurasikan atau gunakan cara lain untuk menghubungi kami di %@
     it = L'app per e-mail non è stata configurata. Si prega di configurarla o di usare altro metodo per contattarci all'indirizzo %@
@@ -7247,6 +7248,7 @@
     fi = Virhe lähetettäessä viestiä
     fr = Erreur d'envoi de courriel
     he = שגיאה בשליחת דוא"ל
+    hi = ईमेल भेजने में त्रुटि
     hu = Hiba az email küldése során
     id = Gangguan pengiriman surel
     it = Errore invio e-mail
@@ -7775,6 +7777,7 @@
     fi = Ladataan:
     fr = Téléchargement en cours :
     he = מוריד:
+    hi = डाउनलोड हो रहा है:
     hu = Letöltés:
     id = Mengunduh:
     it = In scaricamento:
@@ -8306,6 +8309,7 @@
     fi = Lataa karttoja matkalla
     fr = Téléchargez toutes les cartes le long de votre itinéraire
     he = הורד את כל המפות במסלול שלך
+    hi = अपने मार्ग के सभी मानचित्र डाउनलोड करें
     hu = Tölts le térképeket az útvonal mellett
     id = Unduh peta bersama rute
     it = Scarica le mappe lungo il percorso
@@ -8350,6 +8354,7 @@
     fi = Reitin luominen vaatii karttojen lataamisen ja päivityksen oman sijaintisi ja kohteeen väliltä.
     fr = La création d'un itinéraire nécessite que toutes les cartes de votre localisation vers votre destination soient téléchargées et actualisées.
     he = כדי ליצור מסלול, יש להוריד ולעדכן את כל המפות מהמיקום שלך ועד ליעד.
+    hi = मार्ग बनाने के लिए, हमें आपके स्थान से आपके गंतव्य तक के सभी मानचित्रों को डाउनलोड और अपडेट करना होगा।
     hu = Útvonal tervezéséhez a kiindulási pont és a célútvonal összes térképét szükséges letölteni és frissíteni.
     id = Membuat rute memerlukan semua peta dari lokasi Anda ke tujuan yang diunduh dan diperbarui.
     it = Creare un percorso necessita la presenza di tutte le mappe scaricate e aggiornate dalla tua posizione alla destinazione.
@@ -9422,6 +9427,7 @@
     fi = — Tien kunto, liikennesäännöt ja tiekyltit ovat aina tärkeämpiä kuin navigointilaitteen ohjeet;
     fr = — Les conditions de circulation, le code de la route et les panneaux de signalisation ont la priorité sur l'appareil de navigation;
     he = — תנאי הכביש, חוקי התנועה והתמרורים תמיד מקבלים עדיפות על פני הנחיות הניווט;
+    hi = — सड़क की स्थिति, यातायात कानून और सड़क संकेत हमेशा नेविगेशन संकेतों पर प्राथमिकता देते हैं;
     hu = — Az útviszonyok, forgalmi törvények és jelzőtáblák mindig elsőbbséget élveznek a navigációs útmutatásokkal szemben;
     id = — Kondisi jalan, peraturan lalu lintas, dan marka jalan harus selalu didahulukan daripada saran navigasi;
     it = — Le condizioni stradali, il codice della strada e la segnaletica stradale hanno sempre precedenza sulle indicazioni del navigatore;
@@ -9465,6 +9471,7 @@
     fi = — Kartta saattaa olla epätarkka, joten ehdotettu reitti ei välttämättä ole paras mahdollinen tapa päästä määränpäähän;
     fr = — La carte peut être imprécise et l'itinéraire proposé n'est pas forcément le plus direct pour arriver à destination;
     he = — ייתכנו אי-דיוקים במפה, וייתכן כי המסלול המוצע אינו תמיד הדרך המיטבית להגעה אל היעד;
+    hi = — नक्शा गलत हो सकता है, और सुझाया गया मार्ग हमेशा गंतव्य तक पहुंचने का सबसे इष्टतम तरीका नहीं हो सकता है;
     hu = — A térkép pontatlan lehet és a javasolt útvonal lehetséges, hogy nem mindig a legoptimálisabb módja a célállomás elérésének;
     id = — Peta mungkin tidak akurat dan rute yang disarankan tidak mutlak merupakan cara paling optimal untuk mencapai tujuan;
     it = — La mappa potrebbe essere imprecisa e il percorso suggerito potrebbe non essere sempre quello ottimale per raggiungere la destinazione;
@@ -9508,6 +9515,7 @@
     fi = — Ehdotettuja reittejä tulee pitää vain suosituksina;
     fr = — L'itinéraire proposé doit être considéré comme une simple recommandation;
     he = — יש לראות במסלולים המוצעים המלצה בלבד;
+    hi = — सुझाए गए मार्गों को केवल अनुशंसाओं के रूप में समझा जाना चाहिए;
     hu = — A javasolt útvonalakat mindössze javaslatoknak kell tekinteni;
     id = — Rute yang disarankan hanya untuk digunakan sebagai rekomendasi;
     it = — I percorsi suggeriti devono essere considerati solo come consigli;
@@ -9552,6 +9560,7 @@
     fi = — Ole varovainen reittien suhteen raja-alueilla: sovelluksemme luomat reitit voivat toisinaan ylittää maiden rajoja luvattomissa paikoissa;
     fr = — Faites attention aux itinéraires traversant des zones frontalières : les itinéraires générés par l'application peuvent parfois franchir des frontières étatiques dans des zones interdites;
     he = — יש להיות זהירים בשימוש במסלולים סביב גבולות: המסלולים המוצעים באפליקציה עשויים לחצות גבולות מדינה במקומות אסורים.
+    hi = — सीमावर्ती क्षेत्रों में मार्गों के साथ सावधानी बरतें: हमारे ऐप द्वारा बनाए गए मार्ग कभी-कभी अनधिकृत स्थानों पर देश की सीमाओं को पार कर सकते हैं।
     hu = — A határmenti útvonalakon közlekedjen óvatosan: az alkalmazásunk által létrehozott útvonalak néha olyan helyeken szelhetik át az országhatárokat, amelyek nem engedélyezettek;
     id = — Berhati-hatilah dengan rute di zona perbatasan: rute yang dibuat oleh aplikasi kami terkadang mungkin saja melintasi batas negara di lokasi yang tidak sah;
     it = — Fai attenzione ai percorsi nelle zone di confine: i percorsi creati dalla nostra app possono, a volte, attraversare i confini di stato in zone non autorizzate;
@@ -9595,6 +9604,7 @@
     fi = Pysy tarkkana ja liiku turvallisesti!
     fr = Restez vigilant et soyez prudent sur la route !
     he = שמור על ערנות ועל הבטיחות בכביש!
+    hi = कृपया सड़कों पर सतर्क और सुरक्षित रहें!
     hu = Kérjük, mindig maradjon éber és vezessen biztonságosan az utakon!
     id = Jaga selalu kewaspadaan dan keselamatan di jalan!
     it = Fai sempre attenzione e guida con prudenza!
@@ -9681,6 +9691,7 @@
     fi = Reittiä ei voi luoda. Tämänhetkisiä GPS-koordinaatteja ei löydy.
     fr = Impossible de créer l'itinéraire. Les coordonnées GPS actuelles n'ont pas pu être identifiées.
     he = לא ניתן ליצור מסלול. לא ניתן לזהות את קואורדינטות ה-GPS הנוכחיות.
+    hi = मार्ग बनाने में असमर्थ. वर्तमान जीपीएस निर्देशांक की पहचान नहीं की जा सकी.
     hu = Nem sikerült létrehozni az útvonalat. A jelenlegi GPS koordináták nem azonosíthatók.
     id = Tidak dapat membuat rute. Koordinat GPS saat ini tidak dapat dikenali.
     it = Impossibile creare il percorso. Impossibile individuare le coordinate GPS attuali.
@@ -9810,6 +9821,7 @@
     fi = Tämänhetkisiä GPS-koordinaatteja ei löydy. Ota sijaintipalvelut käyttöön reitin laskemista varten.
     fr = Impossible d'identifier les coordonnées GPS actuelles. Activez les services de localisation pour calculer l'itinéraire.
     he = לא ניתן לאתר קואורדינטות GPS נוכחיות. הפעל שירותי מיקום כדי לחשב מסלול.
+    hi = वर्तमान जीपीएस निर्देशांक का पता लगाने में असमर्थ. मार्ग की गणना करने के लिए स्थान सेवाएँ सक्षम करें।
     hu = Nem sikerült lokalizálni a jelenlegi GPS koordinátákat. Az útvonaltervezéshez engedélyezze a helyszíni szolgáltatásokat.
     id = TIdak dapat menemukan koordinat GPS saat ini. Aktifkan layanan lokasi untuk mengalkulasi rute.
     it = Impossibile individuare le coordinate GPS attuali. Per calcolare il percorso, abilita i servizi di localizzazione.
@@ -9895,6 +9907,7 @@
     fi = Lataa ja päivitä kaikki suunnitellun reitin kartta- ja reititystiedot, jotta reitin voi laskea.
     fr = Téléchargez et mettez à jour les informations de carte et d'itinéraire de votre trajet pour calculer l'itinéraire.
     he = הורד ועדכן את כל המפות לאורך הדרך על מנת לחשב מסלול.
+    hi = मार्ग की गणना करने के लिए अनुमानित पथ के सभी मानचित्र डाउनलोड या अपडेट करें।
     hu = Útvonaltervezéshez töltse le és frissítse az összes térkép- és útvonal-információt a tervezett út mentén.
     id = Unduh dan perbarui semua informasi peta dan perutean di sepanjang proyeksi jalan untuk mengalkulasi rute.
     it = Per calcolare il percorso, scarica e aggiorna tutte le mappe e le informazioni di itinerario lungo la strada prevista.
@@ -9938,6 +9951,7 @@
     fi = Reitin paikannus ei onnistu
     fr = Impossible de localiser l'itinéraire
     he = לא ניתן לאתר מסלול
+    hi = मार्ग ढूंढने में असमर्थ
     hu = Nem sikerült meghatározni az útvonalat
     id = Tidak dapat menemukan rute
     it = Impossibile individuare il percorso
@@ -9981,6 +9995,7 @@
     fi = Reitin luonti ei onnistu.
     fr = Impossible de créer l'itinéraire.
     he = לא ניתן ליצור מסלול.
+    hi = मार्ग बनाने में असमर्थ.
     hu = Nem sikerült létrehozni az útvonalat.
     id = Tidak dapat membuat rute.
     it = Impossibile creare il percorso.
@@ -10110,6 +10125,7 @@
     fi = Reittiä ei luotu. Aloituskohdan paikannus ei onnistu.
     fr = Impossible de localiser le point de départ. L'itinéraire n'a pas pu être créé.
     he = לא נוצר מסלול. לא ניתן לאתר את נקודת ההתחלה.
+    hi = रूट नहीं बनाया गया. प्रारंभिक बिंदु का पता लगाने में असमर्थ.
     hu = Az útvonal nem lett létrehozva. Nem sikerült meghatározni az indulási helyet.
     id = Rute tidak dibuat. Tidak dapat menemukan titik mula.
     it = Percorso non creato. Impossibile individuare il punto di partenza.
@@ -10239,6 +10255,7 @@
     fi = Reittiä ei luotu. Määränpään paikannus ei onnistu.
     fr = Impossible de localiser la destination. L'itinéraire n'a pas pu être créé.
     he = לא נוצר מסלול. לא ניתן לאתר את היעד.
+    hi = रूट नहीं बनाया गया. गंतव्य का पता लगाने में असमर्थ.
     hu = Az útvonal nem lett létrehozva. Nem sikerült meghatározni a célállomást.
     id = Rute tidak dibuat. Tidak dapat menemukan tujuan.
     it = Percorso non creato. Impossibile individuare la destinazione.
@@ -10412,6 +10429,7 @@
     fi = Järjestelmävirhe
     fr = Erreur système
     he = שגיאת מערכת
+    hi = सिस्टम त्रुटि
     hu = Rendszerhiba
     id = Kesalahan sistem
     it = Errore di sistema
@@ -10455,6 +10473,7 @@
     fi = Reittiä ei voi luoda sovellusvirheen vuoksi.
     fr = Impossible de créer l'itinéraire à cause d'une erreur dans l'application.
     he = לא ניתן ליצור מסלול עקב שגיאת אפליקציה.
+    hi = एप्लिकेशन त्रुटि के कारण मार्ग बनाने में असमर्थ.
     hu = Egy alkalmazáshiba miatt nem sikerült az útvonal létrehozása.
     id = Tidak dapat membuat rute karena kesalahan aplikasi.
     it = Impossibile creare il percorso a causa di un errore dell'applicazione.
@@ -10672,6 +10691,7 @@
     fi = Lataa kartta jotta voit käyttää hakua ja luoda reittejä. Tämän jälkeen et tarvitse enää Internet-yhteyttä.
     fr = Pour commencer à rechercher et à créer des itinéraires, veuillez télécharger la carte. Après cela, vous n'aurez plus besoin d'une connexion Internet.
     he = על מנת להתחיל לחפש וליצור מסלולים, הורידו בבקשה את המפה. לאחר מכן לא תזדקקו יותר לחיבור לאינטרנט.
+    hi = मार्ग खोजना और बनाना शुरू करने के लिए, कृपया मानचित्र डाउनलोड करें। इसके बाद आपको इंटरनेट कनेक्शन की जरूरत नहीं पड़ेगी.
     hu = Útvonalak kereséséhez és létrehozásához, kérjük, töltsd le a térképet és többé nem lesz szükséged internetkapcsolatra.
     id = Untuk mulai mencari dan membuat rute, silakan unduh peta, dan Anda tidak akan membutuhkan koneksi internet lagi.
     it = Per iniziare a cercare e a creare i percorsi, scarica la mappa e non avrai più bisogno di una connessione a internet.
@@ -10848,6 +10868,7 @@
     fi = Reitin suunnittelu epäonnistui
     fr = La planification de l'itinéraire a échoué
     he = תכנון המסלול נכשל
+    hi = रूट योजना विफल
     hu = Sikertelen útvonaltervezés
     id = Sudah sampai di tujuan
     it = Pianificazione del percorso fallito
@@ -10892,6 +10913,7 @@
     fi = Saavut: %@
     fr = Arrivée: %@
     he = שעת הגעה: %@
+    hi = आगमन का समय: %@
     hu = Megérkezik: %@
     id = Kedatangan: %@
     it = Arrivo a %@
@@ -10933,6 +10955,7 @@
     fi = Lataa ja päivitä kaikki kartat reitin varrella luodaksesi reitin.
     fr = Pour créer un trajet, veuillez télécharger et mettre à jour toutes les cartes concernant ce trajet.
     he = הורד ועדכן את כל המפות בדרך כדי לחשב מסלול.
+    hi = मार्ग की गणना करने के लिए अनुमानित पथ के साथ सभी मानचित्र डाउनलोड करें और अपडेट करें।
     hu = Útvonal létrehozásához kérjük, töltse le és frissítse az összes térképet az útvonal mentén.
     id = Untuk membuat rute, silakan unduh dan perbarui semua peta sepanjang rute.
     it = Per creare un percorso, scaricare e aggiornare tutte le mappe interessate dal percorso.
@@ -12702,6 +12725,7 @@
     fi = Suljettu nyt
     fr = Fermé actuellement
     he = סגור כעת
+    hi = अब बंद
     hu = Most zárva
     id = Sekarang Tutup
     it = Ora chiuso
@@ -12956,6 +12980,7 @@
     fi = Aukeaa huomenna kello %@
     fr = Ouvre demain à %@
     he = נפתח מחר ב-%@
+    hi = कल सुबह %@ बजे खुलेगा
     it = Apre domani alle %@
     ja = 明日の %@ から営業
     lt = Atsidaro rytoj %@
@@ -13011,6 +13036,7 @@
     fi = Aukeaa kello %@
     fr = Ouvre à %@
     he = נפתח מחר ב-%@
+    hi = %@ बजे खुलता है
     it = Apre alle %@
     ja = %@ から営業
     lt = Atsidaro %@
@@ -13039,6 +13065,7 @@
     fi = Avautuu %@ kuluttua
     fr = Ouvert dans %@
     he = נפתח עוד %@
+    hi = %@ में खुल जाएगा
     it = Apre tra %@
     ja = あと %@ に営業
     lt = Atsidaro už %@
@@ -13217,6 +13244,7 @@
     fi = Muokkaa aukioloaikoja
     fr = Modifier les heures d'ouverture
     he = עריכת שעות פעילות
+    hi = व्यावसायिक घंटे संपादित करें
     hu = Nyitvatartás szerkesztése
     id = Sunting jam kerja
     it = Modifica orari di apertura
@@ -14670,6 +14698,7 @@
     fi = Sinun täytyy päivittää kaikki kartat ja suunnitella reitti uudelleen luodaksesi uuden reitin.
     fr = Pour créer un itinéraire, vous devez mettre à jour toutes les cartes puis reprogrammer l'itinéraire.
     he = ליצירת מסלול, יש לעדכן את כל המפות ולתכנן מסלול שנית.
+    hi = मार्ग बनाने के लिए, आपको सभी मानचित्र अपडेट करने होंगे और फिर मार्ग की दोबारा योजना बनानी होगी।
     hu = Útvonal létrehozásához frissítsd az összes térképet, majd tervezd meg újra az útvonalat.
     id = Untuk membuat rute, Anda perlu memperbarui semua peta dan kemudian merencanakan rute tersebut lagi.
     it = Per creare un percorso, devi aggiornare tutte le mappe e pianificare nuovamente il percorso.
@@ -15451,6 +15480,7 @@
     fi = Lisää organisaatio
     fr = Ajouter une entreprise
     he = הוסף בית עסק
+    hi = व्यवसाय जोड़ें
     hu = Szervezet hozzáadása
     id = Tambahkan organisasi
     it = Aggiungi attività
@@ -16546,6 +16576,7 @@
     fi = Tapahtui virhe määritettäessä sijaintiasi. Tarkista laitteesi ja yritä myöhemmin uudelleen.
     fr = Une erreur est survenue lors de la recherche de votre emplacement. Vérifiez que le périphérique fonctionne correctement et réessayez ultérieurement
     he = אירעה שגיאה בעת איתור המיקום שלך. יש לוודא שהמכשיר שלך פועל כראוי ולנסות שנית מאוחר יותר.
+    hi = आपका स्थान निर्धारित करते समय एक त्रुटि उत्पन्न हुई. जांचें कि आपका उपकरण ठीक से काम कर रहा है और बाद में पुनः प्रयास करें।
     hu = Hiba történt tartózkodási helye keresésekor. Ellenőrizze készüléke működését és próbálkozzon újra.
     id = Terjadi kesalahan saat mencari lokasi Anda. Periksa apakah perangkat Anda bekerja dengan benar dan coba lagi nanti.
     it = Si è verificato un errore durante la ricerca della tua posizione. Controlla che il tuo dispositivo funzioni correttamente e riprova più tardi.
@@ -18662,6 +18693,7 @@
     fi = Poistetaanko viimeisen matkareitin tallennus?
     fr = Souhaitez-vous désactiver l'enregistrement de vos itinéraires récents ?
     he = להשבית הקלטה של המסלול האחרון שלך?
+    hi = क्या आप हाल ही में यात्रा किए गए मार्ग की रिकॉर्डिंग अक्षम करना चाहते हैं?
     hu = Megszakítod a legutóbb megtett utad rögzítését?
     id = Nonaktifkan rekaman dari rute yang baru Anda lalui?
     it = Disattivare la registrazione del tuo percorso effettuato di recente?
@@ -18791,6 +18823,7 @@
     fi = Organic Maps käyttää sijaintipalveluita taustalla viimeisimmän reittisi tallentamiseksi.
     fr = Organic Maps utilise votre géolocalisation en arrière-plan pour enregistrer vos itinéraires récents.
     he = האפליקצייה Organic Maps משתמשת במיקום שלך ברקע כדי להקליט את המסלול האחרון שלך.
+    hi = Organic Maps आपके हाल ही में यात्रा किए गए मार्ग को रिकॉर्ड करने के लिए पृष्ठभूमि में आपके स्थान का उपयोग करता है।
     hu = A Organic Maps a geopozíciód használatával a háttérben rögzíti a legutóbb megtett utad.
     id = Organic Maps menggunakan geoposisi di latar belakang untuk merekam rute yang baru Anda lalui.
     it = Organic Maps usa la tua posizione geografica per registrare il tuo percorso effettuato più di recente.
@@ -18879,6 +18912,7 @@
     fi = Hyväksy
     fr = Accepter
     he = קבל
+    hi = मुझे स्वीकार है
     hu = Elfogad
     id = Terima
     it = Accetta
@@ -18923,6 +18957,7 @@
     fi = Hylkää
     fr = Refuser
     he = דחה
+    hi = मैंने गिराया
     hu = Elutasít
     id = Tolak
     it = Rifiuta
@@ -19054,6 +19089,7 @@
     fi = Käytä aina
     fr = Toujours utiliser
     he = השתמש תמיד
+    hi = हमेशा उपयोग करें
     hu = Mindig használja
     id = Selalu Gunakan
     it = Usa sempre
@@ -19272,6 +19308,7 @@
     fi = Älä käytä koskaan
     fr = Ne jamais utiliser
     he = אף פעם אל תשתמש
+    hi = कभी उपयोग न करो
     hu = Soha se használja
     id = Jangan Gunakan
     it = Non usare mai
@@ -19315,6 +19352,7 @@
     fi = Kysy aina
     fr = Toujours demander
     he = שאל תמיד
+    hi = हमेशा पूछिये
     hu = Mindig kérdezze meg
     id = Selalu Tanya
     it = Chiedi sempre
@@ -19933,6 +19971,7 @@
     fi = Lisää alkupiste reitin suunnittelua varten
     fr = Ajouter un point de départ pour planifier un itinéraire
     he = יש להוסיף נקודת התחלה כדי לתכנן מסלול
+    hi = मार्ग की योजना बनाने के लिए एक प्रारंभिक बिंदु जोड़ें
     hu = Adjon hozzá kiindulási pontot az útvonal megtervezéséhez
     id = Tambahkan titik awal untuk merencanakan rute
     it = Aggiungi un punto di partenza per pianificare un percorso
@@ -19977,6 +20016,7 @@
     fi = Lisää määränpää reitin suunnittelua varten
     fr = Ajouter un point d'arrivée pour planifier un itinéraire
     he = יש להוסיף יעד כדי לתכנן מסלול
+    hi = मार्ग की योजना बनाने के लिए एक गंतव्य जोड़ें
     hu = Adjon hozzá végpontot az útvonal tervezéséhez
     id = Tambahkan titik akhir untuk merencanakan rute
     it = Aggiungi un punto di arrivo per pianificare un percorso
@@ -20021,6 +20061,7 @@
     fi = Hallitse reittiä
     fr = Gérer l’itinéraire
     he = ניהול מסלול
+    hi = मार्ग प्रबंधित करें
     hu = Útvonal kezelése
     id = Kelola rute
     it = Gestisci percorso
@@ -20935,6 +20976,7 @@
     fi = Ladataan %@…
     fr = Téléchargement de %@…
     he = מוריד %@…
+    hi = डाउनलोड %@…
     hu = %@ letöltése…
     id = Mengunduh %@…
     it = Download di %@…
@@ -20980,6 +21022,7 @@
     fi = %@ otetaan käyttöön…
     fr = Application de %@…
     he = מחיל %@…
+    hi = लागू करना %@…
     hu = %@ alkalmazása…
     id = Menerapkan %@…
     it = Applicazione di %@…
@@ -21071,6 +21114,7 @@
     fi = Jakamisvirhe
     fr = Erreur de partage
     he = שגיאת שיתוף
+    hi = साझा करने में त्रुटि
     hu = Megosztási hiba
     id = Kesalahan dalam membagikan
     it = Errore di condivisione
@@ -21876,6 +21920,7 @@
     fi = Tuntematon virhe tapahtui
     fr = Une erreur inconnue est survenue
     he = אירעה שגיאה בלתי מוכרת
+    hi = एक अज्ञात त्रुटि हुई
     hu = Ismeretlen hiba történt
     id = Terjadi kesalahan yang tidak diketahui
     it = Si è verificato un errore sconosciuto
@@ -21978,6 +22023,8 @@
     fr:other = %d objets
     he:one = פריט %d
     he:other = %d פריטים
+    hi:one = %d वस्तु
+    hi:other = %d वस्तुएं
     hu = %d hely
     id = tempat %d
     it:one = %d oggetto
@@ -22609,6 +22656,7 @@
     fi = Tapahtui virhe
     fr = Une erreur est survenue
     he = אירעה שגיאה
+    hi = एक त्रुटि पाई गई
     hu = Hiba történt
     id = Terjadi kesalahan
     it = Si è verificato un errore
@@ -23001,6 +23049,7 @@
     fi = Tunnisteiden lataamisen aikana tapahtui virhe, yritä uudelleen
     fr = Une erreur s'est produite lors du chargement des tags, veuillez réessayer
     he = אירעה שגיאה בטעינת התגיות, נא לנסות שנית
+    hi = An error occurred while loading tags, please try again
     hu = A tag-ek feltöltésekor hiba történt, kérjük próbálja meg még egyszer
     id = Kesalahan terjadi saat memuat tag, silakan coba lagi
     it = Si è verificato un errore durante il caricamento delle etichette, per favore riprova
@@ -23457,6 +23506,7 @@
     fi = Ei koskaan
     fr = Jamais
     he = אף פעם
+    hi = कभी नहीं
     hu = Soha
     id = Jangan pernah
     it = Mai
@@ -23502,6 +23552,7 @@
     fi = Automaattinen
     fr = Automatique
     he = כשהסוללה חלשה
+    hi = जब बैटरी कम हो
     hu = Automatikus
     id = Otomatis
     it = Automatico
@@ -23547,6 +23598,7 @@
     fi = Täysi virransäästö
     fr = Économie d'énergie maximale
     he = תמיד
+    hi = हमेशा
     hu = Maximális energiatakarékosság
     id = Hemat daya maksimum
     it = Massimo risparmio energetico
@@ -23909,6 +23961,7 @@
     fi = Reittiä ei voi luoda
     fr = Impossible de calculer l'itinéraire
     he = לא ניתן לחשב מסלול
+    hi = मार्ग की गणना करने में असमर्थ
     hu = Nem lehet útvonalat számítani
     id = Tidak dapat menghitung rute
     it = Impossibile elaborare il percorso
@@ -23954,6 +24007,7 @@
     fi = Valitettavasti emme voineet luoda reittiä valituilla vaihtoehdoilla. Vaihda asetuksia ja yritä uudelleen
     fr = Malheureusement, nous n'avons pas pu créer l'itinéraire avec les options sélectionnées. Modifiez les paramètres et réessayez
     he = לא נמצא מסלול. ייתכן כי זה נגרם מאפשרויות המסלול שלך או ממידע לא שלם של OpenStreetMap. נא לשנות אפשרויות מסלול ולנסות שנית.
+    hi = कोई मार्ग नहीं मिल सका. यह आपके रूटिंग विकल्पों या अधूरे OpenStreetMap डेटा के कारण हो सकता है। कृपया अपने रूटिंग विकल्प बदलें और पुनः प्रयास करें।
     hu = Sajnos nem találunk útvonalat, valószínűleg az általad meghatározott lehetőségek miatt. Kérjük változtass a beállításokon és próbáld újra
     id = Sayangnya kami tidak dapat menemukan rute karena opsi pilihan Anda. Harap ubah pengaturan lalu coba lagi
     it = Purtroppo non siamo riusciti a trovare un percorso, probabilmente a causa delle opzioni che hai scelto. Si prega di cambiare le impostazioni e riprovare.
@@ -24442,6 +24496,7 @@
     fi = Haluatko luoda reitin uudelleen?
     fr = Voulez-vous reconstruire l'itinéraire ?
     he = האם ברצונך לבנות את המסלול מחדש?
+    hi = क्या आप मार्ग का पुनर्निर्माण करना चाहते हैं?
     hu = Szeretnél újratervezni egy útvonalat?
     id = Anda ingin membuat ulang rute?
     it = Vuoi ricalcolare il percorso?
@@ -27743,6 +27798,7 @@
     fi = Tallennusvirhe
     fr = Erreur disque
     he = שגיאת כונן
+    hi = डिस्क त्रुटि
     ja = ディスクエラー
     lt = Disko klaida
     mr = डिस्क त्रुटी

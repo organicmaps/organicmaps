@@ -1313,6 +1313,7 @@ nl:4Mobiele telefoonwinkel|elektronicawinkel
 fi:Elektroniikkakauppa
 fr:Magasin de téléphonie|magasin d'électronique
 de:4Handyladen|Eletronikgeschäft|Mobiltelefone
+hi:2सेल फोन की दुकान
 hu:Mobiltelefon üzlet|elektronikai szaküzlet
 id:Toko telepon
 it:Negozio di telefonia mobile|negozio di elettronica|Negozio di cellulari
@@ -2932,6 +2933,7 @@ nl:4Uitzicht|panorama
 fi:3Näköalatasanne
 fr:4Belvédère|4point de vue|4panorama
 de:3Panorama|Ausblick|4Aussichtspunkt
+hi:4दृष्टिकोण
 hu:4Kilátó|Panoráma
 id:Titik pandang
 it:3Panorama|Punto panoramico
@@ -2969,6 +2971,7 @@ nl:4Toeristische informatie|3VVV|4informatie
 fi:3Turisti-informaatio
 fr:4Informations touristiques|4informations
 de:4Tourist-Information|Information|7Touristeninformation
+hi:4पर्यटक सूचना
 hu:4Turistainformáció|4információ
 id:3Informasi turis
 it:4Informazione
@@ -3006,7 +3009,7 @@ nl:3Picknickplaats|picknickweide|picknicktafel
 fi:3Piknikpaikat
 fr:3Terrain de pique-nique|3aire de pique-nique
 de:3Picknickplatz|5Grillplatz
-hi:4बार्बीक्यू
+hi:4बार्बीक्यू|4पिकनिक स्थल|4पिकनिक मेज
 hu:3Piknikezőhely
 id:3Lokasi piknik
 it:3Picnic
@@ -4264,7 +4267,7 @@ cs:3Psí hřiště
 es:Parque para perros
 et:3Koerte ala|koerte park
 fr:Parc canin
-hi:4उद्यान
+hi:श्वान पार्क
 nl:4Hondenpark|Hondengebied
 ko:개 놀이 공원|도그 파크
 pl:Park dla psów|Wyprowadzanie psów
@@ -5300,6 +5303,7 @@ fa:طب جایگزین
 fi:Vaihtoehtoinen lääketiede
 fr:Médecine alternative
 he:רפואה אלטרנטיבית
+hi:वैकल्पिक चिकित्सा
 hu:Alternatív gyógyászat
 id:Pengobatan alternatif
 it:Medicina alternativa
@@ -5339,6 +5343,7 @@ fa:شنوایی شناس|شنوایی شناسی
 fi:Audiologia|Audiologi
 fr:Audiologie|Audiologiste
 he:אודיולוג|אודיולוגיה
+hi:ऑडियोलॉजिस्ट
 hu:Audiológia|Audiológus
 id:Audiologi|Audiologis
 it:Audiologia|Audiologo
@@ -5375,6 +5380,7 @@ fa:مرکز اهدای خون
 fi:Verenluovutuskeskus|Verenluovutus
 fr:Don de sang
 he:מרכז תרומת דם
+hi:रक्तदान केंद्र
 hu:Véradás
 id:Donor darah
 it:Donazione di sangue
@@ -5414,6 +5420,7 @@ fa:بینایی سنجی|اپتومتریست
 fi:Optometria|Optometristi
 fr:Optométrie|Optométriste
 he:אופטומטריה|אופטומטריסט
+hi:दृष्टिमापी
 hu:Optometria|Optometrista
 id:Optometri|Ahli kacamata
 it:Optometria|Optometrista
@@ -5453,6 +5460,7 @@ fa:پزشکی پا|متخصص پا
 fi:Jalkaterapia|Jalkaterapeutti
 fr:Podologie|Podologue
 he:פודיאטריה|פודיאטר
+hi:पोडियाट्रिस्ट
 hu:Podiatria|Podiatrist
 id:Podiatri|Ahli penyakit kaki
 it:Podologia|Podologo
@@ -5492,6 +5500,7 @@ fa:روان درمانی|روان درمانگر
 fi:Psykoterapia|Psykoterapeutti
 fr:Psychothérapie|Psychothérapeute
 he:פסיכותרפיה|פסיכותרפיסט
+hi:मनोचिकित्सक
 hu:Pszichoterápia|Pszichoterapeuta
 id:Psikoterapi|Psikoterapis
 it:Psicoterapia|Psicoterapeuta
@@ -5518,6 +5527,7 @@ zh-Hant:心理治療|心理治療師
 healthcare-sample_collection
 en:Sample collection
 be:Аналізы
+hi:नमूना संग्रह केंद्र
 ru:Анализы
 uk:Аналізи
 
@@ -5537,6 +5547,7 @@ fa:گفتار درمانی|متخصص گفتار درمانی
 fi:Logopedia|Puheterapeutti|Logopedit
 fr:Logopédie|Orthophoniste
 he:ריפוי בדיבור|קלינאי תקשורת
+hi:वाक उपचार
 hu:Logopédia|Logopédus
 id:Logopedik|Terapis bicara
 it:Logopedia|Logopedista
@@ -7621,6 +7632,7 @@ nl:Gasthuis|B&B|bed and breakfast|hostel
 fi:Majatalo
 fr:Maison d'hôtes|chambre d'hôtes
 de:Gästehaus|Wohnheim|Unterkunft|Herberge
+hi:3अतिथि गृह
 hu:Vendégház|panzió
 id:Wisma tamu
 it:Guest house|albergo|ostello|pensione|affittacamere
@@ -7658,6 +7670,7 @@ nl:3Motel|hostel
 fi:Motelli
 fr:3Motel|auberge de jeunesse
 de:3Motel|Gasthaus|Wohnheim
+hi:3मोटेल
 hu:3Motel|szállás
 id:Motel
 it:3Motel|albergo|ostello
@@ -7842,6 +7855,7 @@ nl:Speeltuin|speelplaats
 fi:Leikkikenttä
 fr:Terrain de jeu|aire de jeu
 de:Spielplatz
+hi:खेल का मैदान
 hu:Játszótér
 id:Taman bermain
 it:Campo giochi
@@ -9420,6 +9434,7 @@ es:Toma de agua
 eu:Ura hartzea
 fi:Vesihana
 fr:Robinet d'eau|point d'eau
+hi:3पानी का नल
 hu:Vízcsap
 id:Keran Air
 it:Rubinetto dell'acqua
@@ -9810,6 +9825,7 @@ nl:4Caravan site|camping|woonwagenkamp
 fi:Asuntovaunupaikka|Retkeily
 fr:4Parc caravanier|VR|caravane|camping-car
 de:4Wohnmobilstellplatz|Wohnmobilpark|Wohnwagenstellplatz|Wohnwagenplatz|Campingplatz
+hi:4कारवां स्थल
 hu:4Lakókocsihely|kemping
 id:Lokasi perkemahan
 it:Area per campeggiatori
@@ -9883,6 +9899,7 @@ nl:Bedrijfskantoor|bedrijfspand
 fi:Yhtiön toimisto
 fr:Bureaux d'entreprise
 de:Niederlassung
+hi:कंपनी कार्यालय
 hu:Vállalati iroda
 id:Kantor perusahaan
 it:Ufficio aziendale
@@ -9919,6 +9936,7 @@ nl:Overheidskantoor|overheidspand|regeringskantoor
 fi:Viranomaistoimisto
 fr:Administration publique
 de:3Regierungsstelle|Amt|3Behörde|4Verwaltung
+hi:4सरकारी कार्यालय
 hu:Kormányzati iroda
 id:Kantor pemerintah
 it:Ufficio governativo|ufficio amministrativo
@@ -9956,6 +9974,7 @@ nl:4Advocatenkantoor|advocaat
 fi:Lakitoimisto
 fr:Cabinet d'avocat
 de:5Anwaltskanzlei|Anwaltsbüro|Anwalt|Rechtsanwalt|Jurist|Gerichtsanwalt|Rechtsbeistand|Rechtsberater|Verteidiger
+hi:3वकील
 hu:Ügyvéd|Ügyvédi iroda
 id:Kantor pengacara
 it:Studio legale
@@ -9992,6 +10011,7 @@ nl:Mobiele provider|provider
 fi:Matkapuhelinoperaattori
 fr:Opérateur mobile
 de:5Mobilfunkbetreiber|Mobilfunkanbieter
+hi:4दूरसंचार कंपनी
 hu:Mobiltelefon-társaság
 id:Operator seluler
 it:Operatore di telefonia mobile
@@ -10033,6 +10053,7 @@ fa:زنبوردار
 fi:Mehiläishoitaja
 fr:Apiculteur
 he:כוורן
+hi:शहर की मक्खियां पालनेवाला
 hu:Méhész
 id:Peternak lebah
 it:Apicoltore
@@ -10110,6 +10131,7 @@ fa:کارخانه ابجوسازی
 fi:Panimo
 fr:Brasserie artisanale|Brasseur
 he:מבשלה
+hi:शराब की भठ्ठी
 hu:Sörfőzde|sör
 id:Toko minuman
 it:4Birrificio
@@ -10266,6 +10288,7 @@ fa:برق کار
 fi:5Sähkömies
 fr:4Électricien
 he:חשמלאי
+hi:4बिजली मिस्त्री
 hu:Villanyszerelő
 id:Tukang listrik
 it:4Elettricista
@@ -10304,6 +10327,7 @@ fa:تعمیرات الکترونیک
 fi:Elektroniikan korjaus
 fr:Réparation d'appareils électroniques
 he:תיקון אלקטרוניקה
+hi:4इलेक्ट्रॉनिक्स मरम्मत
 hu:Elektronikai javítás
 id:Perbaikan Elektronik
 it:Riparazioni elettroniche
@@ -10694,6 +10718,7 @@ fa:لوله کش
 fi:Putkimies
 fr:Plombier
 he:שרברב
+hi:4नलसाज
 hu:Vízvezeték-szerelő
 id:Tukang pipa
 it:Idraulico
@@ -10772,6 +10797,7 @@ fa:کفاش
 fi:Suutari
 fr:Cordonnier
 he:סנדלר
+hi:जूते की मरम्मत|जूते बनाने वाले
 hu:Cipész
 id:Tukang sepatu
 it:Calzolaio|Riparazione di calzature
@@ -11323,6 +11349,7 @@ fa:فروشگاه دوربین
 fi:Kamerakauppa
 fr:Boutique d'appareils photo
 he:חנות מצלמות
+hi:कैमरे की दुकान
 hu:Fényképezőgép bolt
 id:Toko Kamera
 it:Negozio di macchine fotografiche
@@ -11787,6 +11814,7 @@ nl:3Fitnesscentrum|sportschool|gym|fitness|workout
 fi:Kuntosali
 fr:Centre fitness|salle de gym
 de:3Fitnessstudio|Fitnesscenter|Fitness|Fitnessraum|Fitnessclub|Gesundheitsclub|Training|Trainingsraum|Turnhalle
+hi:4फिटनेस सेंटर
 hu:Edzőterem|Konditerem|Fitneszterem
 id:Pusat kebugaran|senam
 it:Centro benessere|palestra
@@ -11823,6 +11851,7 @@ nl:3Sauna
 fi:3Sauna
 fr:3Sauna
 de:3Sauna|Schwitzbad|Schwitzhütte|Dampfbad|Dampfsauna|Saunakabine
+hi:सॉना
 hu:3Szauna
 id:3Sauna
 it:3Sauna
@@ -12544,6 +12573,7 @@ et:Kiirtee puhkepeatus
 eu:Atseden gunea
 fi:Levähdyspaikka
 fr:Aire de repos
+hi:3बाकी क्षेत्र
 hu:Pihenőzóna
 id:Tempat istirahat
 it:Area di sosta
@@ -12932,6 +12962,7 @@ nl:4Chalet
 fi:Mökki
 fr:4Chalet|Meublé de tourisme
 de:Hütte
+hi:3षाले
 hu:Nyaralóház|Kulcsosház
 id:4Chalet
 it:4Chalet
@@ -13145,6 +13176,7 @@ nl:5Waterpark
 fi:5Vesipuisto
 fr:Centre aquatique
 de:Wasserpark|Freizeitbad|3Aquapark
+hi:3वाटर पार्क
 hu:Strand|Élményfürdő|3Aquapark
 id:Taman air
 it:Parco acquatico
@@ -13181,6 +13213,7 @@ nl:Watertoren
 fi:Vesitorni
 fr:Château d'eau
 de:Wasserturm
+hi:पानी का टावर
 hu:Víztorony
 id:Menara air
 it:Cisterna per acqua
@@ -13367,6 +13400,7 @@ nl:Makelaar
 fi:Kiinteistönvälittäjä
 fr:Agence immobilière|agent immobilier
 de:4Immobilienmakler
+hi:संपत्ति एजेंट
 hu:Ingatlaniroda
 id:Agen ril estat
 it:Agenzia immobiliare
@@ -13621,6 +13655,7 @@ nl:5Appartementen
 fi:Loma-asunnot
 fr:5Appart'hôtel|Meublé de tourisme
 de:5Appartements
+hi:4अवकाश अपार्टमेंट
 hu:5Apartmanok
 id:5Apartemen
 it:Residence
@@ -14271,6 +14306,7 @@ et:Välivõimla
 eu:Gimnasioa
 fi:Kuntokeskus
 fr:Station de fitness|Parcours de santé
+hi:4फिटनेस स्टेशन
 hu:3Fitneszpark
 id:Stasiun Kebugaran
 it:Centro fitness
@@ -14309,6 +14345,7 @@ et:Kindlustusasutus
 eu:Aseguru bulegoa
 fi:Vakuutuslaitos
 fr:Bureau d’assurance|assureur
+hi:बीमा कार्यालय
 hu:Biztosító
 id:Kantor Asuransi
 it:Ufficio assicurazioni
@@ -14835,6 +14872,7 @@ es:3Galería de arte|museo
 et:3Galerii|muuseum
 eu:3Arte galeria|museoa
 fr:3Galerie d'art|musée d'art
+hi:आर्ट गैलरी
 ko:갤러리|박물관
 nb:3Galleri|museum
 nl:3Galerij|museum
@@ -15093,6 +15131,7 @@ en:3Marina
 be:4Прычал|3Марына
 de:5Jachthafen
 et:Randumiskoht
+hi:मरीना
 ja:マリーナ
 pt:3Marina
 pt-BR:3Marina
