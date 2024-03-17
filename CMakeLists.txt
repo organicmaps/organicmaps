@@ -311,6 +311,13 @@ else()
   message(FATAL_ERROR "Could not find python3 to use in qt/, shaders/ and 3party/.")
 endif()
 
+if (PLATFORM_WIN)
+  add_definitions(
+    -DWIN32_LEAN_AND_MEAN
+    -DNOMINMAX
+  )
+endif()
+
 add_subdirectory(base)
 add_subdirectory(coding)
 add_subdirectory(descriptions)
