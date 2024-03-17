@@ -1,16 +1,11 @@
 #import "MWMShareActivityItem.h"
 
+#include "ge0/url_generator.hpp"
 
 #include <CoreApi/Framework.h>
 #import <CoreApi/PlacePageData.h>
 #import <CoreApi/PlacePagePreviewData.h>
 #import <CoreApi/PlacePageInfoData.h>
-
-NSString * httpGe0Url(NSString * shortUrl)
-{
-  // Replace 'om://' with 'https://omaps.app/'
-  return [shortUrl stringByReplacingCharactersInRange:NSMakeRange(0, 5) withString:@"https://omaps.app/"];
-}
 
 @interface MWMShareActivityItem ()
 
@@ -51,7 +46,7 @@ NSString * httpGe0Url(NSString * shortUrl)
   return self;
 }
 
-- (NSString *)url:(BOOL)isShort
+- (NSString *)url:(BOOL)isGeoUri
 {
   auto & f = GetFramework();
 
@@ -72,13 +67,13 @@ NSString * httpGe0Url(NSString * shortUrl)
   ms::LatLon const ll = self.data ? ms::LatLon(self.data.locationCoordinate.latitude,
                                                self.data.locationCoordinate.longitude)
                                     : ms::LatLon(self.location.latitude, self.location.longitude);
-  std::string const & s = f.CodeGe0url(ll.m_lat, ll.m_lon, f.GetDrawScale(), title(self.data).UTF8String);
+  std::string s;
+  if (isGeoUri)
+    s = ge0::GenerateGeoUri(ll.m_lat, ll.m_lon, f.GetDrawScale(), title(self.data).UTF8String);
+  else
+    s = ge0::GenerateShortShowMapUrl(ll.m_lat, ll.m_lon, f.GetDrawScale(), title(self.data).UTF8String);
 
-  NSString * url = @(s.c_str());
-  if (!isShort)
-    return url;
-  NSUInteger const kGe0UrlLength = 16;
-  return [url substringWithRange:NSMakeRange(0, kGe0UrlLength)];
+  return @(s.c_str());
 }
 
 #pragma mark - UIActivityItemSource
@@ -108,7 +103,7 @@ NSString * httpGe0Url(NSString * shortUrl)
 - (NSString *)itemForTwitter
 {
   NSString * shortUrl = [self url:YES];
-  return [NSString stringWithFormat:@"%@\n%@", httpGe0Url(shortUrl),
+  return [NSString stringWithFormat:@"%@\n%@", shortUrl,
                                     self.isMyPosition ? L(@"my_position_share_email_subject")
                                                       : self.data.previewData.title];
 }
@@ -116,14 +111,14 @@ NSString * httpGe0Url(NSString * shortUrl)
 - (NSString *)itemDefaultWithActivityType:(NSString *)activityType
 {
   NSString * ge0Url = [self url:NO];
-  NSString * url = httpGe0Url(ge0Url);
+  NSString * geoUri = [self url:YES];
   if (self.isMyPosition)
   {
     BOOL const hasSubject = [activityType isEqualToString:UIActivityTypeMail];
     if (hasSubject)
-      return [NSString stringWithFormat:@"%@ %@", url, ge0Url];
+      return [NSString stringWithFormat:@"%@ %@", ge0Url, geoUri];
     return [NSString
-        stringWithFormat:@"%@ %@\n%@", L(@"my_position_share_email_subject"), url, ge0Url];
+        stringWithFormat:@"%@ %@\n%@", L(@"my_position_share_email_subject"), ge0Url, geoUri];
   }
 
   NSMutableString * result = [L(@"sharing_call_action_look") mutableCopy];
@@ -131,8 +126,8 @@ NSString * httpGe0Url(NSString * shortUrl)
                                  self.data.previewData.subtitle,
                                  self.data.previewData.address,
                                  self.data.infoData.phone,
-                                 url,
-                                 ge0Url};
+                                 ge0Url,
+                                 geoUri};
 
   for (auto const & str : strings)
   {

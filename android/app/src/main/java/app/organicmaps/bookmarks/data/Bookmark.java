@@ -136,16 +136,4 @@ public class Bookmark extends MapObject
   {
     return BookmarkManager.INSTANCE.getBookmarkDescription(mBookmarkId);
   }
-
-  @NonNull
-  public String getGe0Url(boolean addName)
-  {
-    return BookmarkManager.INSTANCE.encode2Ge0Url(mBookmarkId, addName);
-  }
-
-  @NonNull
-  public String getHttpGe0Url(boolean addName)
-  {
-    return getGe0Url(addName).replaceFirst(Constants.Url.SHORT_SHARE_PREFIX, Constants.Url.HTTP_SHARE_PREFIX);
-  }
 }

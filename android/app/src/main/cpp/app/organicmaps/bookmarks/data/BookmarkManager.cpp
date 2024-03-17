@@ -807,13 +807,6 @@ Java_app_organicmaps_bookmarks_data_BookmarkManager_nativeGetBookmarkScale(
 }
 
 JNIEXPORT jstring JNICALL
-Java_app_organicmaps_bookmarks_data_BookmarkManager_nativeEncode2Ge0Url(
-  JNIEnv * env, jclass, jlong bmk, jboolean addName)
-{
-  return jni::ToJavaString(env, frm()->CodeGe0url(getBookmark(bmk), addName));
-}
-
-JNIEXPORT jstring JNICALL
 Java_app_organicmaps_bookmarks_data_BookmarkManager_nativeGetBookmarkAddress(
   JNIEnv * env, jclass, jlong bmkId)
 {

@@ -1,8 +1,11 @@
 #include "ge0/url_generator.hpp"
 
+#include "coding/url.hpp"
 #include "base/assert.hpp"
 
 #include <cmath>
+#include <iomanip>
+#include <sstream>
 
 namespace
 {
@@ -83,8 +86,8 @@ namespace ge0
 {
 std::string GenerateShortShowMapUrl(double lat, double lon, double zoom, std::string const & name)
 {
-  size_t constexpr schemaLength = 5;  // strlen("om://")
-  std::string urlSample = "om://ZCoordba64";
+  size_t constexpr schemaLength = 18;  // strlen("https://omaps.app/")
+  std::string urlSample = "https://omaps.app/ZCoordba64";
 
   int const zoomI = (zoom <= 4 ? 0 : (zoom >= 19.75 ? 63 : static_cast<int>((zoom - 4) * 4)));
   urlSample[schemaLength] = Base64Char(zoomI);
@@ -98,6 +101,17 @@ std::string GenerateShortShowMapUrl(double lat, double lon, double zoom, std::st
   }
 
   return urlSample;
+}
+
+std::string GenerateGeoUri(double lat, double lon, double zoom, std::string const & name)
+{
+  std::ostringstream oss;
+  oss << "geo:" << std::fixed << std::setprecision(7) << lat << ',' << lon << "?z=" << std::setprecision(1) << zoom;
+
+  if (!name.empty())
+    oss << '(' << url::UrlEncode(name) << ')';
+
+  return oss.str();
 }
 
 char Base64Char(int x)

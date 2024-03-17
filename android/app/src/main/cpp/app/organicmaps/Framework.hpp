@@ -46,7 +46,9 @@ namespace android
     OLCFull = 2,       // Open location code, full format
     OSMLink = 3,       // Link to the OSM. E.g. https://osm.org/go/xcXjyqQlq-?m=
     UTM = 4,           // Universal Transverse Mercator
-    MGRS = 5           // Military Grid Reference System
+    MGRS = 5,          // Military Grid Reference System
+    GeoUri = 6,        // geo: link, e.g. geo:37.786971,-122.399677
+    Ge0Url = 7,        // Organic Maps deep link, e.g. https://omaps.app/o4B4pYZsRs
   };
 
   // Keep in sync `public @interface ChoosePositionMode`in Framework.java.
