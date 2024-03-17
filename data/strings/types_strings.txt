@@ -24630,6 +24630,8 @@
     af = Hardewarewinkel
     ar = متجر عدد وأدوات
     az = Dəmirçi
+    be = Будаўнічы магазін
+    bg = Строителен маркет
     cs = Železářství
     da = Isenkræmmer
     de = Baumarkt
@@ -24653,12 +24655,12 @@
     pt = Loja de ferramentas e materiais de bricolage
     pt-BR = Loja de ferramentas e materiais de bricolagem
     ro = Magazin de bricolaj
-    ru = Хозяйственный
+    ru = Строительный магазин
     sk = Obchod pre domácich majstrov
     sv = Järnhandel
     th = ร้านขายฮาร์ดแวร์
     tr = Hırdavatçı
-    uk = Господарськi товари
+    uk = Будівельний магазин
     vi = Cửa hàng phần cứng
     zh-Hans = 家居用品店
     zh-Hant = 五金行
@@ -25256,8 +25258,8 @@
     af = Ysterware
     ar = محل معدات
     az = Hardware mağazası
-    be = Будаўнічы магазін
-    bg = Магазин за хардуер
+    be = Гаспадарчая крама
+    bg = Железария
     el = Κατάστημα υλικού
     es = Ferretería
     et = Isetegemise tööriistad
@@ -25280,7 +25282,7 @@
     sw = Duka la vifaa
     th = ร้านฮาร์ดแวร์
     tr = Donanım mağazası
-    uk = Магазин побутової техніки
+    uk = Господарськи товари
     zh-Hans = 五金店
     zh-Hant = 五金店
 
