@@ -4666,6 +4666,7 @@
     et = Hoidmispaagi prügila
     fi = Jäteveden tyhjennyspiste
     fr = Station de vidange
+    hi = सेनेटरी डंप स्टेशन
     it = Scarico acque nere
     nl = Caravantoilet cassette-leegpunt
     pl = Miejsce opróżniania toalety dla kamperów
@@ -5637,6 +5638,7 @@
     fa = شیر آب قابل شرب
     fi = Vesipiste
     fr = Point d’eau
+    hi = पानी की टंकी पुनः भरने का स्थान
     hu = Vízvételi pont
     id = Titik Air
     it = Punto acqua
@@ -6990,6 +6992,7 @@
     fi = Mehiläishoitaja
     fr = Apiculteur
     he = כוורן
+    hi = शहर की मक्खियां पालनेवाला
     hu = Méhész
     id = Peternak lebah
     it = Apicoltore
@@ -7071,6 +7074,7 @@
     fi = Panimo
     fr = Brasserie artisanale
     he = מבשלה
+    hi = शराब की भठ्ठी
     hu = Sörfőzde
     id = Toko minuman
     it = Birrificio
@@ -7233,6 +7237,7 @@
     fi = Sähkömies
     fr = Électricien
     he = חשמלאי
+    hi = बिजली मिस्त्री
     hu = Villanyszerelő
     id = Tukang listrik
     it = Elettricista
@@ -7273,6 +7278,7 @@
     fi = Elektroniikan korjaus
     fr = Réparation d'appareils électroniques
     he = תיקון אלקטרוניקה
+    hi = इलेक्ट्रॉनिक्स मरम्मत
     hu = Elektronikai javítás
     id = Perbaikan Elektronik
     it = Riparazioni elettroniche
@@ -7684,6 +7690,7 @@
     fi = Kamerakauppa
     fr = Boutique d'appareils photo
     he = חנות מצלמות
+    hi = कैमरे की दुकान
     hu = Fotósbolt
     id = Toko Kamera
     it = Negozio di macchine fotografiche
@@ -7725,6 +7732,7 @@
     fi = Putkimies
     fr = Plombier
     he = שרברב
+    hi = नलसाज
     hu = Vízvezeték-szerelő
     id = Tukang pipa
     it = Idraulico
@@ -7807,6 +7815,7 @@
     fi = Suutari
     fr = Cordonnier
     he = סנדלר
+    hi = जूते की मरम्मत
     hu = Cipész
     id = Tukang sepatu
     it = Calzolaio
@@ -11540,6 +11549,7 @@
     fi = Vaihtoehtoinen lääketiede
     fr = Médecine alternative
     he = רפואה אלטרנטיבית
+    hi = वैकल्पिक चिकित्सा
     hu = Alternatív gyógyászat
     id = Pengobatan alternatif
     it = Medicina alternativa
@@ -11581,6 +11591,7 @@
     fi = Audiologia
     fr = Audiologie
     he = אודיולוגיה
+    hi = ऑडियोलॉजिस्ट
     hu = Audiológia
     id = Audiologi
     it = Audiologia
@@ -11623,6 +11634,7 @@
     fi = Verenluovutuskeskus
     fr = Centre de don du sang
     he = מרכז תרומת דם
+    hi = रक्तदान केंद्र
     hu = Véradó központ
     id = Pusat Donor Darah
     it = Centro di donazione del sangue
@@ -11664,6 +11676,7 @@
     fi = Optometria
     fr = Optométrie
     he = אופטומטריה
+    hi = दृष्टिमापी
     hu = Optometria
     id = Optometri
     it = Optometria
@@ -11705,6 +11718,7 @@
     fi = Jalkaterapia
     fr = Podologie
     he = פודיאטריה
+    hi = पोडियाट्रिस्ट
     hu = Podiatria
     id = Podiatri
     it = Podologia
@@ -11746,6 +11760,7 @@
     fi = Psykoterapia
     fr = Psychothérapie
     he = פסיכותרפיה
+    hi = मनोचिकित्सक
     hu = Pszichoterápia
     id = Psikoterapi
     it = Psicoterapia
@@ -11787,6 +11802,7 @@
     fi = Näytteenotto
     fr = Prélèvements biologiques
     he = דְגִימָה
+    hi = नमूना संग्रह केंद्र
     hu = Mintavétel
     id = Pengambilan sampel
     it = Campionamento
@@ -11828,6 +11844,7 @@
     fi = Logopedia
     fr = Logopédie
     he = ריפוי בדיבור
+    hi = वाक उपचार
     hu = Logopédia
     id = Logopedik
     it = Logopedia
@@ -12943,6 +12960,7 @@
     eu = Atseden gunea
     fi = Levähdyspaikka
     fr = Aire de repos
+    hi = बाकी क्षेत्र
     hu = Pihenőzóna
     id = Tempat istirahat
     it = Area di sosta
@@ -16543,6 +16561,7 @@
     fa = محدوده مخصوص سگ
     fi = Koirien ulkoilupaikka
     fr = Parc canin
+    hi = श्वान पार्क
     hu = Kutyás terület
     id = Area untuk anjing
     it = Area sgambamento cani
@@ -16581,6 +16600,7 @@
     fa = باشگاه بدنسازی
     fi = Kuntosali
     fr = Centre fitness
+    hi = फिटनेस सेंटर
     hu = Fitnesz-terem
     id = Pusat kebugaran
     it = Centro benessere
@@ -16618,6 +16638,7 @@
     fa = پارک سلامت
     fi = Kuntokeskus
     fr = Station de fitness
+    hi = फिटनेस स्टेशन
     hu = Fitneszállomás
     id = Stasiun Kebugaran
     it = Centro fitness
@@ -16819,6 +16840,7 @@
     es = Marina
     et = Marina
     fi = Venesatama
+    hi = मरीना
     it = Porto turistico
     ja = マリーナ
     nl = Jachthaven
@@ -16977,6 +16999,7 @@
     fi = Piknik-pöytä
     fr = Table de pique-nique
     he = קינקיפ ןחלוש
+    hi = पिकनिक मेज
     hu = Piknikasztal
     id = Meja piknik
     it = Tavolo da picnic
@@ -17052,6 +17075,7 @@
     fa = زمین بازی
     fi = Leikkikenttä
     fr = Aire de jeu
+    hi = खेल का मैदान
     hu = Játszótér
     id = Taman bermain
     it = Campo giochi
@@ -17105,6 +17129,7 @@
     fa = سونا
     fi = Sauna
     fr = Sauna
+    hi = सॉना
     hu = Szauna
     id = Sauna
     it = Sauna
@@ -17384,6 +17409,7 @@
     fa = گردشگری
     fi = Vesipuisto
     fr = Centre aquatique
+    hi = वाटर पार्क
     hu = Aquapark
     id = Taman air
     it = Parco acquatico
@@ -17869,6 +17895,7 @@
     fa = شیراب
     fi = Vesihana
     fr = Robinet d'eau
+    hi = पानी का नल
     hu = Vízcsap
     id = Keran Air
     it = Rubinetto dell'acqua
@@ -17906,6 +17933,7 @@
     fa = منبع اب
     fi = Vesitorni
     fr = Château d'eau
+    hi = पानी का टावर
     hu = Víztorony
     id = Menara air
     it = Cisterna per acqua
@@ -19792,6 +19820,7 @@
     fa = دفتر شرکت
     fi = Yhtiön toimisto
     fr = Bureaux d'entreprise
+    hi = कंपनी कार्यालय
     hu = Vállalati iroda
     id = Kantor perusahaan
     it = Ufficio aziendale
@@ -19829,6 +19858,7 @@
     fa = بنگاه معاملات ملکی
     fi = Kiinteistönvälittäjä
     fr = Agence immobilière
+    hi = संपत्ति एजेंट
     hu = Ingatlanügynök
     id = Agen ril estat
     it = Agenzia immobiliare
@@ -19867,6 +19897,7 @@
     fa = اداره دولتی
     fi = Viranomaistoimito
     fr = Administration publique
+    hi = सरकारी कार्यालय
     hu = Állami iroda
     id = Kantor pemerintah
     it = Ufficio governativo
@@ -19904,6 +19935,7 @@
     fa = دفتر بیمه
     fi = Vakuutuslaitos
     fr = Bureau d’assurance
+    hi = बीमा कार्यालय
     hu = Biztosítóiroda
     id = Kantor Asuransi
     it = Ufficio assicurazioni
@@ -19941,6 +19973,7 @@
     fa = دفتر وکالت
     fi = Lakitoimisto
     fr = Cabinet d'avocat
+    hi = वकील
     hu = Ügyvédi iroda
     id = Kantor pengacara
     it = Studio legale
@@ -20018,6 +20051,7 @@
     fa = اپراتور تلفن همراه
     fi = Matkapuhelinoperaattori
     fr = Opérateur mobile
+    hi = दूरसंचार कंपनी
     hu = Távközlési cég
     id = Operator seluler
     it = Operatore di telefonia mobile
@@ -25268,6 +25302,7 @@
     fi = Rautakauppa
     fr = Quincaillerie
     he = ןיינב ירמוחל תונח
+    hi = लौह वस्तुओं की दुकान
     hu = Barkácsüzlet
     it = Ferramenta
     ja = ホームセンター
@@ -25698,6 +25733,7 @@
     fa = فروشگاه
     fi = Elektroniikkakauppa
     fr = Magasin de téléphonie mobile
+    hi = सेल फोन की दुकान
     hu = Mobiltelefon üzlet
     id = Toko telepon
     it = Negozio di telefonia mobile
@@ -26168,6 +26204,7 @@
     fa = فروشگاه
     fi = Eläinkauppa
     fr = Animalerie
+    hi = पालतू जानवर की दुकान
     hu = Házikedvenc-üzlet
     id = Toko hewan
     it = Negozio di animali
@@ -29491,6 +29528,7 @@
     fa = اپارتمان
     fi = Loma-asunnot
     fr = Appart'hôtel
+    hi = अवकाश अपार्टमेंट
     hu = Apartmanok
     id = Apartemen
     it = Appartamento
@@ -29803,6 +29841,7 @@
     eu = Karabana gunea
     fi = Asuntovaunupaikka
     fr = Aire de camping-car
+    hi = कारवां स्थल
     hu = Karaván pihenő
     id = Lokasi perkemahan
     it = Area per campeggiatori
@@ -29838,6 +29877,7 @@
     fa = هتل
     fi = Mökki
     fr = Meublé de tourisme
+    hi = षाले
     hu = Turistaház
     it = Chalet
     ja = シャレー
@@ -29872,6 +29912,7 @@
     fa = گالری
     fi = Nähtävyydet
     fr = Galerie d'art
+    hi = आर्ट गैलरी
     hu = Túrizmus
     id = Pemandangan
     it = Galleria
@@ -29909,6 +29950,7 @@
     fa = هتل
     fi = Majatalo
     fr = Maison d'hôtes
+    hi = अतिथि गृह
     hu = Vendégház
     id = Wisma tamu
     it = Affittacamere
@@ -30013,6 +30055,7 @@
     fi = Turisti-informaatio
     fr = Informations touristiques
     he = מידע לתייר
+    hi = पर्यटक सूचना
     hu = Túrista információ
     id = Informasi turis
     it = Informazione
@@ -30250,6 +30293,7 @@
     et = Motell
     fa = هتل
     fi = Motelli
+    hi = मोटेल
     it = Motel
     ja = モーテル
     ko = 모텔
@@ -30315,6 +30359,7 @@
     fa = مکان پیک نیک
     fi = Piknikpaikat
     fr = Terrain de pique-nique
+    hi = पिकनिक स्थल
     hu = Piknikező hely
     id = Lokasi piknik
     it = Area picnic
@@ -30424,6 +30469,7 @@
     fa = گردشگری
     fi = Näköalatasanne
     fr = Belvédère
+    hi = दृष्टिकोण
     hu = Kilátó
     id = Titik pandang
     it = Punto panoramico
