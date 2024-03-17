@@ -1098,11 +1098,12 @@
 	<string name="type.shop.carpet">Килими</string>
 	<string name="type.shop.curtain">Пердета</string>
 	<string name="type.shop.deli">Магазин за деликатеси</string>
+	<string name="type.shop.doityourself">Строителен маркет</string>
 	<string name="type.shop.farm">Магазин за селскостопански храни</string>
 	<string name="type.shop.fashion_accessories">Модни аксесоари</string>
 	<string name="type.shop.gas">Магазин за газ</string>
 	<string name="type.shop.grocery">Хранителни стоки</string>
-	<string name="type.shop.hardware">Магазин за хардуер</string>
+	<string name="type.shop.hardware">Железария</string>
 	<string name="type.shop.health_food">Магазин за здравословни храни</string>
 	<string name="type.shop.herbalist">Магазин за билки</string>
 	<string name="type.shop.hifi">HiFi аудио</string>

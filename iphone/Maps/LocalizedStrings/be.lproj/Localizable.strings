@@ -3509,7 +3509,7 @@
 
 "type.shop.department_store" = "Department Store";
 
-"type.shop.doityourself" = "Home Improvement Store";
+"type.shop.doityourself" = "Будаўнічы магазін";
 
 "type.shop.dry_cleaning" = "Dry Cleaner";
 
@@ -3541,7 +3541,7 @@
 
 "type.shop.hairdresser" = "Hairdresser";
 
-"type.shop.hardware" = "Будаўнічы магазін";
+"type.shop.hardware" = "Гаспадарчая крама";
 
 "type.shop.health_food" = "Крама здаровай ежы";
 
