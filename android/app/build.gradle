@@ -124,6 +124,11 @@ android {
       def njobs = ''
       if (project.hasProperty('njobs')) njobs = project.getProperty('njobs')
 
+      def enableVulkanDiagnostics = 'OFF'
+      if (project.hasProperty('enableVulkanDiagnostics')) {
+        enableVulkanDiagnostics = project.getProperty('enableVulkanDiagnostics')
+      }
+
       cmake {
         cppFlags '-fexceptions', '-frtti'
         // There is no sense to enable sections without gcc's --gc-sections flag.
@@ -131,7 +136,7 @@ android {
                '-Wno-extern-c-compat'
         arguments '-DANDROID_TOOLCHAIN=clang', '-DANDROID_STL=c++_static',
                   "-DOS=$osName", '-DSKIP_TESTS=ON', '-DSKIP_TOOLS=ON', "-DUSE_PCH=$pchFlag",
-                  "-DNJOBS=$njobs"
+                  "-DNJOBS=$njobs", "-DENABLE_VULKAN_DIAGNOSTICS=$enableVulkanDiagnostics"
         targets 'organicmaps'
       }
     }
@@ -338,18 +343,6 @@ android {
 
     sourceCompatibility JavaVersion.VERSION_17
     targetCompatibility JavaVersion.VERSION_17
-  }
-  packagingOptions.jniLibs {
-    excludes += [
-        'lib/**/libVkLayer_khronos_validation.so',
-        'lib/**/libVkLayer_core_validation.so',
-        'lib/**/libVkLayer_threading.so',
-        'lib/**/libVkLayer_image.so',
-        'lib/**/libVkLayer_parameter_validation.so',
-        'lib/**/libVkLayer_object_tracker.so',
-        'lib/**/libVkLayer_swapchain.so',
-        'lib/**/libVkLayer_unique_objects.so',
-    ]
   }
 }
 

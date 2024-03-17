@@ -577,6 +577,22 @@ If you are low on RAM, disk space or traffic there are ways to reduce system req
 - make sure the emulator uses [hardware acceleration](https://developer.android.com/studio/run/emulator-acceleration);
 - don't use emulator, debug on a hardware device instead.
 
+#### Enable Vulkan Validation
+
+1. Download Vulkan Validation Layers
+```bash
+./tools/android/download_vulkan_validation_layers.py
+```
+
+2. Set `enableVulkanDiagnostics=ON` in `gradle.properties`.
+
+If you build the app from command line, the parameter can be passed via command line.
+
+E.g.
+```
+./gradlew -Parm64 -PenableVulkanDiagnostics=ON runGoogleDebug
+```
+
 ## iOS app
 
 ### Preparing
