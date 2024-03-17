@@ -102,7 +102,7 @@ protected:
   std::string m_settingsDir;
 
   /// Used in Android only to get corret GUI elements layout.
-  bool m_isTablet;
+  bool m_isTablet = false;
 
   /// Returns last system call error as EError.
   static EError ErrnoToError();
