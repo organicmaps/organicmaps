@@ -103,7 +103,13 @@ if (NOT CMAKE_BUILD_TYPE)
 endif()
 
 # Global compile options for all configurations.
-add_compile_options(-ffast-math)
+if (MSVC)
+  add_compile_options(/utf-8)
+  add_link_options(/INCREMENTAL:NO)
+  add_link_options(/DEBUG:FULL)
+else()
+  add_compile_options(-ffast-math)
+endif()
 
 if (PLATFORM_WIN)
   add_definitions(
@@ -114,10 +120,15 @@ endif()
 
 # Built-in CMake configurations: Debug, Release, RelWithDebInfo, MinSizeRel
 if (${CMAKE_BUILD_TYPE} STREQUAL "Debug")
-  add_definitions(-DDEBUG -fno-omit-frame-pointer)
+  add_definitions(-DDEBUG)
+  if (NOT MSVC)
+    add_compile_options(-fno-omit-frame-pointer)
+  endif()
 elseif (${CMAKE_BUILD_TYPE} MATCHES "Rel")
   add_definitions(-DRELEASE)
-  add_compile_options(-Ofast)  # Also enables -ffast-math
+  if (NOT MSVC)
+    add_compile_options(-Ofast)  # Also enables -ffast-math
+  endif()
 else()
   message(FATAL_ERROR "Unknown build type: " ${CMAKE_BUILD_TYPE})
 endif()
