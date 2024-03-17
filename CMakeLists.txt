@@ -99,6 +99,13 @@ endif()
 # Global compile options for all configurations.
 add_compile_options(-ffast-math)
 
+if (PLATFORM_WIN)
+  add_definitions(
+    -DWIN32_LEAN_AND_MEAN
+    -DNOMINMAX
+  )
+endif()
+
 # Built-in CMake configurations: Debug, Release, RelWithDebInfo, MinSizeRel
 if (${CMAKE_BUILD_TYPE} STREQUAL "Debug")
   add_definitions(-DDEBUG -fno-omit-frame-pointer)
