@@ -95,6 +95,9 @@ struct Polygon
   Polygon(m2::RectD const & rect, std::vector<MarkedPoint> && points)
     : m_rect(rect), m_points(std::move(points)) {}
 
+  Polygon(Polygon &&) = default;
+  Polygon & operator=(Polygon &&) noexcept = default;
+
   // [a, b]
   // @{
   void MakeFrozen(size_t a, size_t b);
