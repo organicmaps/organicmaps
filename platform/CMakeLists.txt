@@ -135,6 +135,7 @@ else() # neither iPhone nor Android
       http_thread_qt.hpp
       http_uploader_background_dummy.cpp
       http_uploader_dummy.cpp
+      locale_std.cpp
       platform_win.cpp
       secure_storage_dummy.cpp
     )
@@ -163,7 +164,7 @@ else() # neither iPhone nor Android
       http_thread_qt.hpp
       http_uploader_dummy.cpp
       http_uploader_background_dummy.cpp
-      locale_linux.cpp
+      locale_std.cpp
       platform_linux.cpp
       platform_unix_impl.cpp
       platform_unix_impl.hpp
