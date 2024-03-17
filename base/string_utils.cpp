@@ -226,7 +226,7 @@ void Trim(std::string_view & sv)
   if (beg != sv.end())
   {
     auto const end = std::find_if(sv.crbegin(), sv.crend(), [](auto c) { return !std::isspace(c); }).base();
-    sv = std::string_view(beg, std::distance(beg, end));
+    sv = std::string_view(sv.data() + std::distance(sv.begin(), beg), std::distance(beg, end));
   }
   else
     sv = {};
