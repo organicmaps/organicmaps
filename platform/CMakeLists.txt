@@ -130,6 +130,7 @@ else() # neither iPhone nor Android
 
   if (${PLATFORM_WIN})
     append(SRC
+      gui_thread_qt.cpp
       http_client_curl.cpp
       http_thread_qt.cpp
       http_thread_qt.hpp
@@ -158,7 +159,7 @@ else() # neither iPhone nor Android
     )
   elseif(${PLATFORM_LINUX})
     append(SRC
-      gui_thread_linux.cpp
+      gui_thread_qt.cpp
       http_client_curl.cpp
       http_thread_qt.cpp
       http_thread_qt.hpp
