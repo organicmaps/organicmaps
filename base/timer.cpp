@@ -15,28 +15,13 @@
 #include <iomanip>  // std::get_time
 #include <sstream>
 
-#include <sys/time.h>
-
 namespace base
 {
 // static
 double Timer::LocalTime()
 {
-  /// @todo duration_cast<seconds>(system_clock::now().time_since_epoch()).count() ?
-
-#ifdef OMIM_OS_WINDOWS_NATIVE
-  FILETIME ft;
-  GetSystemTimeAsFileTime(&ft);
-  uint64_t val = ft.dwHighDateTime;
-  val <<= 32;
-  val += ft.dwLowDateTime;
-  return val / 10000000.0;
-
-#else
-  timeval tv;
-  ::gettimeofday(&tv, 0);
-  return tv.tv_sec + tv.tv_usec / 1000000.0;
-#endif
+  auto const now = std::chrono::system_clock::now();
+  return std::chrono::duration<double>(now.time_since_epoch()).count();
 }
 
 std::string FormatCurrentTime()
