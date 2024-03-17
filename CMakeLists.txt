@@ -130,6 +130,7 @@ option(SKIP_QT_GUI "Skip building of Qt GUI" OFF)
 option(BUILD_MAPSHOT "Build mapshot tool" OFF)
 option(USE_PCH "Use precompiled headers" OFF)
 option(NJOBS "Number of parallel processes" OFF)
+option(ENABLE_VULKAN_DIAGNOSTICS "Enable Vulkan diagnostics" OFF)
 
 if (NJOBS)
   message(STATUS "Number of parallel processes: ${NJOBS}")
@@ -179,6 +180,11 @@ endif()
 
 if (USE_HEAPPROF)
   message(STATUS "Heap Profiler is enabled")
+endif()
+
+if (ENABLE_VULKAN_DIAGNOSTICS)
+  message(WARNING "Vulkan diagnostics are enabled. Be aware of performance impact!")
+  add_definitions(-DENABLE_VULKAN_DIAGNOSTICS)
 endif()
 
 set(CMAKE_POSITION_INDEPENDENT_CODE ON)
