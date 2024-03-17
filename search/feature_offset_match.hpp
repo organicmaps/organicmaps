@@ -196,6 +196,11 @@ private:
 template <typename DFA>
 struct SearchTrieRequest
 {
+  SearchTrieRequest() = default;
+
+  SearchTrieRequest(SearchTrieRequest &&) = default;
+  SearchTrieRequest & operator=(SearchTrieRequest &&) = default;
+
   template <typename Langs>
   void SetLangs(Langs const & langs)
   {
