@@ -1,11 +1,14 @@
 #include "coding/mmap_reader.hpp"
 
+#include "base/scope_guard.hpp"
+
 #include "std/target_os.hpp"
 
 #include <cstring>
 
-// @TODO we don't support windows at the moment
-#ifndef OMIM_OS_WINDOWS
+#ifdef OMIM_OS_WINDOWS
+  #include <windows.h>
+#else
   #include <unistd.h>
   #include <sys/mman.h>
   #include <sys/stat.h>
@@ -21,8 +24,31 @@ class MmapReader::MmapData
 public:
   explicit MmapData(std::string const & fileName, Advice advice)
   {
-    // @TODO add windows support
-#ifndef OMIM_OS_WINDOWS
+#ifdef OMIM_OS_WINDOWS
+    m_hFile = CreateFileA(fileName.c_str(), GENERIC_READ, 0, nullptr, OPEN_EXISTING, FILE_ATTRIBUTE_NORMAL, nullptr);
+    if (m_hFile == INVALID_HANDLE_VALUE)
+      MYTHROW(Reader::OpenException, ("Can't open file:", fileName, "win last error:", GetLastError()));
+
+    SCOPE_GUARD(fileGuard, [this] { CloseHandle(m_hFile); });
+
+    m_hMapping = CreateFileMappingA(m_hFile, nullptr, PAGE_READONLY, 0, 0, nullptr);
+    if (!m_hMapping)
+      MYTHROW(Reader::OpenException, ("Can't create file's Windows mapping:", fileName, "win last error:", GetLastError()));
+
+    SCOPE_GUARD(mappingGuard, [this] { CloseHandle(m_hMapping); });
+
+    LARGE_INTEGER fileSize;
+    if (!GetFileSizeEx(m_hFile, &fileSize))
+      MYTHROW(Reader::OpenException, ("Can't get file size:", fileName, "win last error:", GetLastError()));
+
+    m_size = fileSize.QuadPart;
+    m_memory = static_cast<uint8_t *>(MapViewOfFile(m_hMapping, FILE_MAP_READ, 0, 0, 0));
+    if (!m_memory)
+      MYTHROW(Reader::OpenException, ("Can't create file's Windows mapping:", fileName, "win last error:", GetLastError()));
+
+    mappingGuard.release();
+    fileGuard.release();
+#else
     m_fd = open(fileName.c_str(), O_RDONLY | O_NONBLOCK);
     if (m_fd == -1)
       MYTHROW(OpenException, ("open failed for file", fileName));
@@ -55,8 +81,12 @@ public:
 
   ~MmapData()
   {
-    // @TODO add windows support
-#ifndef OMIM_OS_WINDOWS
+#ifdef OMIM_OS_WINDOWS
+    UnmapViewOfFile(m_memory);
+
+    CloseHandle(m_hMapping);
+    CloseHandle(m_hFile);
+#else
     munmap(m_memory, static_cast<size_t>(m_size));
     close(m_fd);
 #endif
@@ -66,7 +96,12 @@ public:
   uint64_t m_size = 0;
 
 private:
+#ifdef OMIM_OS_WINDOWS
+  HANDLE m_hFile;
+  HANDLE m_hMapping;
+#else
   int m_fd = 0;
+#endif
 };
 
 MmapReader::MmapReader(std::string const & fileName, Advice advice)
