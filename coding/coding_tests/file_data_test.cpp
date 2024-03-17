@@ -27,14 +27,14 @@ namespace file_data_test
   }
 
 #ifdef OMIM_OS_WINDOWS
-  void CheckFileOK(string const & name)
+  void CheckFileOK(std::string const & name)
   {
     base::FileData f(name, base::FileData::OP_READ);
 
     uint64_t const size = f.Size();
     TEST_EQUAL ( size, name.size(), () );
 
-    vector<char> buffer(size);
+    std::vector<char> buffer(size);
     f.Read(0, &buffer[0], size);
     TEST ( equal(name.begin(), name.end(), buffer.begin()), () );
   }
