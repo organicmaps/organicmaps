@@ -138,8 +138,12 @@ RoutesBuilder::Result RoutesBuilder::ProcessTask(Params const & params)
 
 std::future<RoutesBuilder::Result> RoutesBuilder::ProcessTaskAsync(Params const & params)
 {
-  Processor processor(m_numMwmIds, m_dataSourcesStorage, m_cpg, m_cig);
-  return m_threadPool.Submit(std::move(processor), params);
+  // Should be copyable to workaround MSVC bug (https://developercommunity.visualstudio.com/t/108672)
+  auto task = [processor = std::make_shared<Processor>(m_numMwmIds, m_dataSourcesStorage, m_cpg, m_cig)](Params const & params) -> Result
+  {
+      return (*processor)(params);
+  };
+  return m_threadPool.Submit(std::move(task), params);
 }
 
 // RoutesBuilder::Result ---------------------------------------------------------------------------

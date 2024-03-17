@@ -50,9 +50,21 @@ bool TranslatorsPool::Finish()
     std::future<TranslatorPtr> right;
     queue.WaitAndPop(left);
     queue.WaitAndPop(right);
-    queue.Push(pool.Submit([left{std::move(left)}, right{std::move(right)}]() mutable {
-      auto leftTranslator = left.get();
-      auto rigthTranslator = right.get();
+
+    struct State
+    {
+      std::future<TranslatorPtr> left;
+      std::future<TranslatorPtr> right;
+    };
+
+    // Should be copyable to workaround MSVC bug (https://developercommunity.visualstudio.com/t/108672)
+    auto state = std::make_shared<State>();
+    state->left = std::move(left);
+    state->right = std::move(right);
+
+    queue.Push(pool.Submit([state = std::move(state)]() mutable {
+      auto leftTranslator = state->left.get();
+      auto rigthTranslator = state->right.get();
       rigthTranslator->Finish();
       leftTranslator->Finish();
       leftTranslator->Merge(*rigthTranslator);
