@@ -101,7 +101,7 @@ elseif(${PLATFORM_ANDROID})
   )
 else() # neither iPhone nor Android
   # Find bash first, on Windows it can be either in Git or in WSL
-  find_program(BASH bash)
+  find_program(BASH bash REQUIRED)
   # Generate version header file.
   execute_process(COMMAND "${BASH}" tools/unix/version.sh qt_version
     WORKING_DIRECTORY ${CMAKE_SOURCE_DIR}
