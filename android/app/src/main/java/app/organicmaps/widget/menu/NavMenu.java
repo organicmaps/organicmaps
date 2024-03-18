@@ -198,7 +198,7 @@ public class NavMenu
   private void updateTimeEstimate(int seconds)
   {
     final String format = android.text.format.DateFormat.is24HourFormat(mTimeMinuteValue.getContext())
-            ? "HH:mm" : "h:mm aa";
+            ? "HH:mm" : "h:mm a";
     final LocalTime localTime = LocalTime.now().plusSeconds(seconds);
     mTimeEstimate.setText(localTime.format(DateTimeFormatter.ofPattern(format)));
   }
