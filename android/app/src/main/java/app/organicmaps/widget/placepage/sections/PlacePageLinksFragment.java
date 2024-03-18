@@ -252,13 +252,12 @@ public class PlacePageLinksFragment extends Fragment implements Observer<MapObje
   }
 
   private void refreshWikiUrl(){
-    final String metadata = mMapObject.getMetadata(Metadata.MetadataType.FMD_WIKIPEDIA);
-    final View metaLayout = mWiki;
-    if (!TextUtils.isEmpty(metadata))
+    final String wikiUrl = mMapObject.getMetadata(Metadata.MetadataType.FMD_WIKIPEDIA);
+    if (!TextUtils.isEmpty(wikiUrl))
     {
-      metaLayout.setVisibility(VISIBLE);
+      UiUtils.show(mWiki);
     }
     else
-      metaLayout.setVisibility(GONE);
+      UiUtils.hide(mWiki);
   }
 }
