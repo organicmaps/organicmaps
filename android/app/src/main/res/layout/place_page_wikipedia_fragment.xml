@@ -6,23 +6,6 @@
   android:layout_width="match_parent"
   android:layout_height="wrap_content"
   android:orientation="vertical">
-  <LinearLayout
-    android:id="@+id/ll__place_wiki"
-    style="@style/PlacePageItemFrame"
-    android:visibility="visible"
-    tools:background="#20FF0000">
-    <ImageView
-      android:id="@+id/iv__place_wiki"
-      style="@style/PlacePageMetadataIcon"
-      app:srcCompat="@drawable/ic_wiki"
-      app:tint="?colorAccent" />
-    <TextView
-      android:id="@+id/tv__place_wiki"
-      android:layout_width="match_parent"
-      android:layout_height="wrap_content"
-      android:text="@string/read_in_wikipedia"
-      android:textAppearance="@style/MwmTextAppearance.PlacePage.Accent" />
-  </LinearLayout>
   <include
     layout="@layout/place_page_description_layout"
     android:layout_width="match_parent"

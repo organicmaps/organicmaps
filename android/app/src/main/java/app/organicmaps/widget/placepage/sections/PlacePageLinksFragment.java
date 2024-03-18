@@ -34,6 +34,7 @@ public class PlacePageLinksFragment extends Fragment implements Observer<MapObje
   private static final String TAG = PlacePageLinksFragment.class.getSimpleName();
 
   private View mFrame;
+  private View mWiki;
   private View mFacebookPage;
   private TextView mTvFacebookPage;
   private View mInstagramPage;
@@ -103,6 +104,10 @@ public class PlacePageLinksFragment extends Fragment implements Observer<MapObje
   {
     super.onViewCreated(view, savedInstanceState);
     mFrame = view;
+
+    mWiki = mFrame.findViewById(R.id.ll__place_wiki);
+    mWiki.setOnClickListener((v) -> openUrl(Metadata.MetadataType.FMD_WIKIPEDIA));
+    mWiki.setOnLongClickListener((v) -> copyUrl(mWiki, Metadata.MetadataType.FMD_WIKIPEDIA));
 
     mKayak = mFrame.findViewById(R.id.ll__place_kayak);
     mKayak.setOnClickListener((v) -> {
@@ -201,6 +206,8 @@ public class PlacePageLinksFragment extends Fragment implements Observer<MapObje
     refreshMetadataOrHide(wikimedia_commons_text, mWikimedia, mTvWikimedia);
     refreshMetadataOrHide(mMapObject.getMetadata(Metadata.MetadataType.FMD_EMAIL), mEmail, mTvEmail);
 
+    refreshWikiUrl();
+
     final String facebook = mMapObject.getMetadata(Metadata.MetadataType.FMD_CONTACT_FACEBOOK);
     refreshMetadataOrHide(facebook, mFacebookPage, mTvFacebookPage);
 
@@ -242,5 +249,16 @@ public class PlacePageLinksFragment extends Fragment implements Observer<MapObje
       mMapObject = mapObject;
       refreshLinks();
     }
+  }
+
+  private void refreshWikiUrl(){
+    final String metadata = mMapObject.getMetadata(Metadata.MetadataType.FMD_WIKIPEDIA);
+    final View metaLayout = mWiki;
+    if (!TextUtils.isEmpty(metadata))
+    {
+      metaLayout.setVisibility(VISIBLE);
+    }
+    else
+      metaLayout.setVisibility(GONE);
   }
 }
