@@ -142,6 +142,7 @@ _Fedora:_
 sudo dnf install -y \
     clang \
     cmake \
+    boost \
     ninja-build \
     freetype-devel \
     libicu-devel \
