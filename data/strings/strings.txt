@@ -13486,7 +13486,7 @@
     zh-Hant = 登入
 
   [login_osm]
-    tags = android
+    tags = android,ios
     en = Login to OpenStreetMap
     af = Teken aan op OpenStreetMap
     ar = تسجيل الدخول الى OpenStreetMap
@@ -20351,13 +20351,13 @@
     zh-Hant = 噢，發生錯誤。請嘗試再次登入。
 
   [alert_reauth_title]
-    tags = android
+    tags = android,ios
     en = Login to OpenStreetMap
     ru = Войдите в OpenStreetMap
     uk = Увійдить в OpenStreetMap
 
   [alert_reauth_message]
-    tags = android
+    tags = android,ios
     en = Please login to OpenStreetMap to automatically upload all your map edits. Learn more <a href="https://github.com/organicmaps/organicmaps/issues/6144">here</a>.
     ru = Пожалуйста войдите в аккаунт OpenStreetMap.org, чтобы публиковать ваши изменения карты. Подробности по <a href="https://github.com/organicmaps/organicmaps/issues/6144">ссылке</a>.
     uk = Будь ласка увійдіть в акаунт OpenStreetMap.org, щоб автоматично публікувати зміни до мапи. Подробиці за <a href="https://github.com/organicmaps/organicmaps/issues/6144">посиланням</a>.
