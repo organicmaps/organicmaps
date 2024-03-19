@@ -961,7 +961,9 @@
 
 "alert_reauth_title" = "Login to OpenStreetMap";
 
-"alert_reauth_message" = "Please login to OpenStreetMap to automatically upload all your map edits. Learn more <a href=\"https://github.com/organicmaps/organicmaps/issues/6144\">here</a>.";
+"alert_reauth_message_ios" = "Please login to OpenStreetMap to automatically upload all your map edits. Learn more";
+
+"alert_reauth_link_text_ios" = "here";
 
 "core_entrance" = "प्रवेशद्वार";
 

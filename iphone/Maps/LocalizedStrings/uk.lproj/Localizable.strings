@@ -961,7 +961,9 @@
 
 "alert_reauth_title" = "Увійдить в OpenStreetMap";
 
-"alert_reauth_message" = "Будь ласка увійдіть в акаунт OpenStreetMap.org, щоб автоматично публікувати зміни до мапи. Подробиці за <a href=\"https://github.com/organicmaps/organicmaps/issues/6144\">посиланням</a>.";
+"alert_reauth_message_ios" = "Будь ласка увійдіть в акаунт OpenStreetMap.org, щоб автоматично публікувати зміни до мапи. Подробиці за";
+
+"alert_reauth_link_text_ios" = "посиланням";
 
 "core_entrance" = "Вхід";
 
