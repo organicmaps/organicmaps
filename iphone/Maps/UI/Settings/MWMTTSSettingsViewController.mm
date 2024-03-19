@@ -356,8 +356,7 @@ struct StreetNamesCellStrategy : BaseCellStategy
   if (cell == voiceInstructionsCell)
   {
     [MWMTextToSpeech setTTSEnabled:value];
-    auto indexSet = [NSIndexSet
-        indexSetWithIndexesInRange:{base::Underlying(Section::StreetNames), base::Underlying(Section::Count) - 1}];
+    auto indexSet = [NSIndexSet indexSetWithIndexesInRange:{base::Underlying(Section::StreetNames), base::Underlying(Section::Count) - 1}];
     auto const animation = UITableViewRowAnimationFade;
     if (value)
       [self.tableView insertSections:indexSet withRowAnimation:animation];
