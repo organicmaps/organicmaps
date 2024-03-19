@@ -15,7 +15,7 @@
             <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxX="YES" flexibleMinY="YES" flexibleMaxY="YES"/>
             <subviews>
                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="pGb-Pj-lsX" userLabel="ContainerView">
-                    <rect key="frame" x="56.666666666666657" y="261.66666666666669" width="280" height="329.00000000000006"/>
+                    <rect key="frame" x="56.666666666666657" y="272" width="280" height="308"/>
                     <subviews>
                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="bKJ-wq-v28" userLabel="Done" customClass="MWMButton">
                             <rect key="frame" x="240" y="0.0" width="40" height="40"/>
@@ -36,24 +36,24 @@
                                 <action selector="closeTap" destination="OOr-tJ-QfW" eventType="touchUpInside" id="vUN-3c-vWF"/>
                             </connections>
                         </button>
-                        <label opaque="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="QTE-iO-nbf" userLabel="Title">
-                            <rect key="frame" x="20" y="140" width="240" height="61"/>
+                        <textField opaque="NO" contentMode="center" horizontalHuggingPriority="251" verticalHuggingPriority="251" verticalCompressionResistancePriority="1000" contentHorizontalAlignment="center" contentVerticalAlignment="center" text="alert_reauth_message_ios + alert_reauth_link_text_ios" textAlignment="center" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="QTE-iO-nbf" userLabel="Message">
+                            <rect key="frame" x="20" y="140" width="240" height="40"/>
+                            <accessibility key="accessibilityConfiguration">
+                                <accessibilityTraits key="traits" staticText="YES"/>
+                            </accessibility>
                             <constraints>
                                 <constraint firstAttribute="width" constant="240" id="Qgg-5q-c39"/>
-                                <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="30" id="uEo-89-aMI"/>
+                                <constraint firstAttribute="height" relation="greaterThanOrEqual" priority="750" constant="40" id="uEo-89-aMI"/>
                             </constraints>
-                            <string key="text">Войдите, чтобы ваши изменения увидели 
-другие пользователи</string>
-                            <fontDescription key="fontDescription" type="system" weight="medium" pointSize="17"/>
                             <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                            <nil key="highlightedColor"/>
+                            <fontDescription key="fontDescription" type="system" weight="medium" pointSize="17"/>
+                            <textInputTraits key="textInputTraits"/>
                             <userDefinedRuntimeAttributes>
                                 <userDefinedRuntimeAttribute type="string" keyPath="styleName" value="medium17:blackPrimaryText"/>
-                                <userDefinedRuntimeAttribute type="string" keyPath="localizedText" value="alert_reauth_message"/>
                             </userDefinedRuntimeAttributes>
-                        </label>
+                        </textField>
                         <button opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="33p-SN-9fc" userLabel="login_osm" customClass="MWMButton" customModule="Organic_Maps" customModuleProvider="target">
-                            <rect key="frame" x="20" y="211" width="240" height="44"/>
+                            <rect key="frame" x="20" y="190" width="240" height="44"/>
                             <constraints>
                                 <constraint firstAttribute="width" constant="240" id="6Mj-n7-paj"/>
                                 <constraint firstAttribute="height" constant="44" id="vzZ-AA-l0W"/>
@@ -67,8 +67,8 @@
                                 <action selector="osmTap" destination="OOr-tJ-QfW" eventType="touchUpInside" id="eEw-ZQ-bth"/>
                             </connections>
                         </button>
-                        <button opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="OS7-Xd-HGC" userLabel="_cancen_" customClass="MWMButton" customModule="Organic_Maps" customModuleProvider="target">
-                            <rect key="frame" x="20" y="264.99999999999994" width="240" height="44"/>
+                        <button opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="OS7-Xd-HGC" userLabel="Cancel" customClass="MWMButton" customModule="Organic_Maps" customModuleProvider="target">
+                            <rect key="frame" x="20" y="244" width="240" height="44"/>
                             <constraints>
                                 <constraint firstAttribute="width" constant="240" id="Bzd-Uh-BSU"/>
                                 <constraint firstAttribute="height" constant="44" id="uTD-56-ZBz"/>
@@ -131,6 +131,9 @@
                 <constraint firstItem="pGb-Pj-lsX" firstAttribute="centerX" secondItem="OOr-tJ-QfW" secondAttribute="centerX" id="NJE-Ru-ipu"/>
                 <constraint firstItem="pGb-Pj-lsX" firstAttribute="centerY" secondItem="OOr-tJ-QfW" secondAttribute="centerY" id="pMZ-fj-kFC"/>
             </constraints>
+            <connections>
+                <outlet property="messageLabel" destination="QTE-iO-nbf" id="TGL-NA-VRe"/>
+            </connections>
             <point key="canvasLocation" x="305" y="172"/>
         </view>
     </objects>

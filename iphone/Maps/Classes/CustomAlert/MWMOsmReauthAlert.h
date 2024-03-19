@@ -4,4 +4,6 @@
 
 + (instancetype)alert;
 
+@property (nonatomic, retain) IBOutlet UITextView *messageLabel;
+
 @end
