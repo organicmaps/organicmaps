@@ -655,6 +655,8 @@
 
 "login" = "Logg inn";
 
+"login_osm" = "Logg på OpenStreetMap";
+
 "forgot_password" = "Glemt passordet?";
 
 "osm_account" = "OSM-konto";
@@ -956,6 +958,10 @@
 "start_from_my_position" = "Start fra";
 
 "profile_authorization_error" = "Oops, en feil oppstod. Prøv å logge inn på nytt.";
+
+"alert_reauth_title" = "Login to OpenStreetMap";
+
+"alert_reauth_message" = "Please login to OpenStreetMap to automatically upload all your map edits. Learn more <a href=\"https://github.com/organicmaps/organicmaps/issues/6144\">here</a>.";
 
 "core_entrance" = "Inngang";
 

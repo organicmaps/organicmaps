@@ -655,6 +655,8 @@
 
 "login" = "Увійти";
 
+"login_osm" = "Увійдіть до OpenStreetMap";
+
 "forgot_password" = "Забули пароль?";
 
 "osm_account" = "Обліковий запис OSM";
@@ -956,6 +958,10 @@
 "start_from_my_position" = "Почати з";
 
 "profile_authorization_error" = "Ой, трапилася помилка. Спробуйте увійти знову.";
+
+"alert_reauth_title" = "Увійдить в OpenStreetMap";
+
+"alert_reauth_message" = "Будь ласка увійдіть в акаунт OpenStreetMap.org, щоб автоматично публікувати зміни до мапи. Подробиці за <a href=\"https://github.com/organicmaps/organicmaps/issues/6144\">посиланням</a>.";
 
 "core_entrance" = "Вхід";
 

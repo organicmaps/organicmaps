@@ -655,6 +655,8 @@
 
 "login" = "Login";
 
+"login_osm" = "Login to OpenStreetMap";
+
 "forgot_password" = "Forgot your password?";
 
 "osm_account" = "OSM Account";
@@ -956,6 +958,10 @@
 "start_from_my_position" = "Start from";
 
 "profile_authorization_error" = "उफ़, एक त्रुटि हुई. पुनः साइन इन करने का प्रयास करें.";
+
+"alert_reauth_title" = "Login to OpenStreetMap";
+
+"alert_reauth_message" = "Please login to OpenStreetMap to automatically upload all your map edits. Learn more <a href=\"https://github.com/organicmaps/organicmaps/issues/6144\">here</a>.";
 
 "core_entrance" = "Entrance";
 

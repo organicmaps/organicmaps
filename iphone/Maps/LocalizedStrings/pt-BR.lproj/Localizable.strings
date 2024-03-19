@@ -655,6 +655,8 @@
 
 "login" = "Login";
 
+"login_osm" = "Entrar no OpenStreetMap";
+
 "forgot_password" = "Esqueceu sua senha?";
 
 "osm_account" = "Conta OSM";
@@ -956,6 +958,10 @@
 "start_from_my_position" = "Iniciar a partir de";
 
 "profile_authorization_error" = "Ups, ocorreu um erro. Tente iniciar sessão novamente.";
+
+"alert_reauth_title" = "Login to OpenStreetMap";
+
+"alert_reauth_message" = "Please login to OpenStreetMap to automatically upload all your map edits. Learn more <a href=\"https://github.com/organicmaps/organicmaps/issues/6144\">here</a>.";
 
 "core_entrance" = "Entrada";
 

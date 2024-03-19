@@ -655,6 +655,8 @@
 
 "login" = "Oturum aç";
 
+"login_osm" = "OpenStreetMap'e giriş yap";
+
 "forgot_password" = "Şifreni mi unuttun?";
 
 "osm_account" = "OSM Hesabı";
@@ -956,6 +958,10 @@
 "start_from_my_position" = "Buradan başla";
 
 "profile_authorization_error" = "Üzgünüz, bir hata oluştu. Tekrar oturum açmayı deneyin.";
+
+"alert_reauth_title" = "Login to OpenStreetMap";
+
+"alert_reauth_message" = "Please login to OpenStreetMap to automatically upload all your map edits. Learn more <a href=\"https://github.com/organicmaps/organicmaps/issues/6144\">here</a>.";
 
 "core_entrance" = "Giriş";
 

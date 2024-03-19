@@ -655,6 +655,8 @@
 
 "login" = "Вход";
 
+"login_osm" = "Влезте в OpenStreetMap";
+
 "forgot_password" = "Забравили сте паролата си?";
 
 "osm_account" = "OSM Акаунт";
@@ -956,6 +958,10 @@
 "start_from_my_position" = "Start from";
 
 "profile_authorization_error" = "За съжаление има грешка. Опитайте да влезете отново.";
+
+"alert_reauth_title" = "Login to OpenStreetMap";
+
+"alert_reauth_message" = "Please login to OpenStreetMap to automatically upload all your map edits. Learn more <a href=\"https://github.com/organicmaps/organicmaps/issues/6144\">here</a>.";
 
 "core_entrance" = "Вход";
 
