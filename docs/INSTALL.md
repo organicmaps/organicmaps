@@ -142,6 +142,7 @@ _Fedora:_
 sudo dnf install -y \
     clang \
     cmake \
+    boost \
     ninja-build \
     freetype-devel \
     libicu-devel \
@@ -201,8 +202,24 @@ Running X Server is also required to run `generate_symbols.sh` script when you c
 ### Building
 
 To build a desktop app:
+run : 
 ```bash
-tools/unix/build_omim.sh -r desktop
+./configure.sh
+```
+if you get any submodule error, run :
+```bash
+git submodule update --init --recursive
+```
+  then again run : 
+  ```bash
+  ./configure.sh
+  ```
+then to finally build the desktop app : 
+```bash
+cd tools/unix
+```
+```bash
+./build_omim.sh -r desktop
 ```
 
 The output binary will go into `../omim-build-release`.
