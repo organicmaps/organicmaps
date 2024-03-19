@@ -629,6 +629,8 @@
 
 "login" = "登录";
 
+"login_osm" = "登录 OpenStreetMap";
+
 "forgot_password" = "忘记密码";
 
 "osm_account" = "OSM账户";
@@ -930,6 +932,10 @@
 "start_from_my_position" = "起点";
 
 "profile_authorization_error" = "糟糕，出错了。请尝试重新登录。";
+
+"alert_reauth_title" = "Login to OpenStreetMap";
+
+"alert_reauth_message" = "Please login to OpenStreetMap to automatically upload all your map edits. Learn more <a href=\"https://github.com/organicmaps/organicmaps/issues/6144\">here</a>.";
 
 "core_entrance" = "入口";
 

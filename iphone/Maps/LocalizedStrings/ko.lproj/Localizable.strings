@@ -629,6 +629,8 @@
 
 "login" = "로그인";
 
+"login_osm" = "OpenStreetMap에 로그인";
+
 "forgot_password" = "암호를 잊으 셨나요?";
 
 "osm_account" = "OSM 계정";
@@ -930,6 +932,10 @@
 "start_from_my_position" = "시작 위치:";
 
 "profile_authorization_error" = "죄송합니다. 오류가 발생했습니다. 다시 로그인해 보세요.";
+
+"alert_reauth_title" = "Login to OpenStreetMap";
+
+"alert_reauth_message" = "Please login to OpenStreetMap to automatically upload all your map edits. Learn more <a href=\"https://github.com/organicmaps/organicmaps/issues/6144\">here</a>.";
 
 "core_entrance" = "입구";
 

@@ -629,6 +629,8 @@
 
 "login" = "Σύνδεση";
 
+"login_osm" = "Συνδεθείτε στο OpenStreetMap";
+
 "forgot_password" = "Ξαχάσατε τον κωδικό πρόσβασης;";
 
 "osm_account" = "Λογαριασμός OSM  ";
@@ -930,6 +932,10 @@
 "start_from_my_position" = "Έναρξη από";
 
 "profile_authorization_error" = "Ωχ, παρουσιάστηκε σφάλμα. Προσπαθήστε να συνδεθείτε ξανά.";
+
+"alert_reauth_title" = "Login to OpenStreetMap";
+
+"alert_reauth_message" = "Please login to OpenStreetMap to automatically upload all your map edits. Learn more <a href=\"https://github.com/organicmaps/organicmaps/issues/6144\">here</a>.";
 
 "core_entrance" = "Είσοδος";
 

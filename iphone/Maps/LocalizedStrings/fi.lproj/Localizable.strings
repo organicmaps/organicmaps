@@ -629,6 +629,8 @@
 
 "login" = "Kirjaudu sisään";
 
+"login_osm" = "Kirjaudu OpenStreetMapiin";
+
 "forgot_password" = "Unohtuiko salasana?";
 
 "osm_account" = "OSM-tili";
@@ -930,6 +932,10 @@
 "start_from_my_position" = "Aloita kohdasta";
 
 "profile_authorization_error" = "Tapahtui virhe. Yritä kirjautua sisään uudelleen.";
+
+"alert_reauth_title" = "Login to OpenStreetMap";
+
+"alert_reauth_message" = "Please login to OpenStreetMap to automatically upload all your map edits. Learn more <a href=\"https://github.com/organicmaps/organicmaps/issues/6144\">here</a>.";
 
 "core_entrance" = "Sisäänkäynti";
 

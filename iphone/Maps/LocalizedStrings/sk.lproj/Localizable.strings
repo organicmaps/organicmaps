@@ -629,6 +629,8 @@
 
 "login" = "Prihlásiť sa";
 
+"login_osm" = "Prihláste sa do OpenStreetMap";
+
 "forgot_password" = "Zabudli ste heslo?";
 
 "osm_account" = "OSM účet";
@@ -930,6 +932,10 @@
 "start_from_my_position" = "Začať od";
 
 "profile_authorization_error" = "Ups, vyskytla sa chyba. Skúste sa prihlásiť znova.";
+
+"alert_reauth_title" = "Login to OpenStreetMap";
+
+"alert_reauth_message" = "Please login to OpenStreetMap to automatically upload all your map edits. Learn more <a href=\"https://github.com/organicmaps/organicmaps/issues/6144\">here</a>.";
 
 "core_entrance" = "Vchod | vjazd";
 

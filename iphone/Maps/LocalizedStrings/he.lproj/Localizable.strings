@@ -629,6 +629,8 @@
 
 "login" = "כניסה";
 
+"login_osm" = "היכנס ל-OpenStreetMap";
+
 "forgot_password" = "שכחת סיסמה?";
 
 "osm_account" = "חשבון OSM";
@@ -930,6 +932,10 @@
 "start_from_my_position" = "Start from";
 
 "profile_authorization_error" = "אופס, הייתה שגיאה. נסה להתחבר שנית.";
+
+"alert_reauth_title" = "Login to OpenStreetMap";
+
+"alert_reauth_message" = "Please login to OpenStreetMap to automatically upload all your map edits. Learn more <a href=\"https://github.com/organicmaps/organicmaps/issues/6144\">here</a>.";
 
 "core_entrance" = "כניסה";
 
