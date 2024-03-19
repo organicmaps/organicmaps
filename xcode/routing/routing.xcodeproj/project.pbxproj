@@ -92,6 +92,8 @@
 		44E5574C2136EED000B01439 /* speed_camera_ser_des.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 44E5574B2136EED000B01439 /* speed_camera_ser_des.cpp */; };
 		44F4EDC723A78C2E005254C4 /* latlon_with_altitude.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 44F4EDC523A78C2D005254C4 /* latlon_with_altitude.cpp */; };
 		44F4EDC823A78C2E005254C4 /* latlon_with_altitude.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 44F4EDC623A78C2E005254C4 /* latlon_with_altitude.hpp */; };
+		4652D9162BAA3C5600C71046 /* turns_tts_text_i18n.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 4652D9142BAA3C5600C71046 /* turns_tts_text_i18n.cpp */; };
+		4652D9172BAA3C5600C71046 /* turns_tts_text_i18n.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 4652D9152BAA3C5600C71046 /* turns_tts_text_i18n.hpp */; };
 		56099E291CC7C97D00A7772A /* loaded_path_segment.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 56099E251CC7C97D00A7772A /* loaded_path_segment.hpp */; };
 		56099E2A1CC7C97D00A7772A /* routing_result_graph.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 56099E261CC7C97D00A7772A /* routing_result_graph.hpp */; };
 		56099E2B1CC7C97D00A7772A /* turn_candidate.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 56099E271CC7C97D00A7772A /* turn_candidate.hpp */; };
@@ -382,6 +384,8 @@
 		44F45B272136B069001B1618 /* speed_cameras_tests.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = speed_cameras_tests.cpp; sourceTree = "<group>"; };
 		44F4EDC523A78C2D005254C4 /* latlon_with_altitude.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = latlon_with_altitude.cpp; sourceTree = "<group>"; };
 		44F4EDC623A78C2E005254C4 /* latlon_with_altitude.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = latlon_with_altitude.hpp; sourceTree = "<group>"; };
+		4652D9142BAA3C5600C71046 /* turns_tts_text_i18n.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = turns_tts_text_i18n.cpp; sourceTree = "<group>"; };
+		4652D9152BAA3C5600C71046 /* turns_tts_text_i18n.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = turns_tts_text_i18n.hpp; sourceTree = "<group>"; };
 		56099E251CC7C97D00A7772A /* loaded_path_segment.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = loaded_path_segment.hpp; sourceTree = "<group>"; };
 		56099E261CC7C97D00A7772A /* routing_result_graph.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = routing_result_graph.hpp; sourceTree = "<group>"; };
 		56099E271CC7C97D00A7772A /* turn_candidate.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = turn_candidate.hpp; sourceTree = "<group>"; };
@@ -846,6 +850,8 @@
 				6741AA9B1BF35331002C974C /* turns_notification_manager.hpp */,
 				67C7D4251B4EB48F00FE41AA /* turns_sound_settings.cpp */,
 				67C7D4261B4EB48F00FE41AA /* turns_sound_settings.hpp */,
+				4652D9142BAA3C5600C71046 /* turns_tts_text_i18n.cpp */,
+				4652D9152BAA3C5600C71046 /* turns_tts_text_i18n.hpp */,
 				67AB92E11B7B3E6E00AB5194 /* turns_tts_text.cpp */,
 				67AB92E21B7B3E6E00AB5194 /* turns_tts_text.hpp */,
 				675344101A3F644F00A0A8C3 /* turns.cpp */,
@@ -891,6 +897,7 @@
 				0C5FEC631DDE192A0017688C /* joint_index.hpp in Headers */,
 				67C79BA21E2CEE1400C40034 /* restriction_loader.hpp in Headers */,
 				674F9BCB1B0A580E00704FFA /* async_router.hpp in Headers */,
+				4652D9172BAA3C5600C71046 /* turns_tts_text_i18n.hpp in Headers */,
 				0C08AA391DF8329B004195DD /* routing_exceptions.hpp in Headers */,
 				0C5BC9D21E28FD4E0071BFDD /* index_road_graph.hpp in Headers */,
 				0C470E701E0D4EB1005B824D /* segment.hpp in Headers */,
@@ -1254,6 +1261,7 @@
 				4432C5B624067E6700C9E445 /* road_access_serialization.cpp in Sources */,
 				671F58BD1B874EC80032311E /* followed_polyline.cpp in Sources */,
 				670EE55D1B6001E7001E8064 /* routing_session.cpp in Sources */,
+				4652D9162BAA3C5600C71046 /* turns_tts_text_i18n.cpp in Sources */,
 				40C645161F8D167F002E05A0 /* fake_ending.cpp in Sources */,
 				0C08AA341DF83223004195DD /* index_graph_serialization.cpp in Sources */,
 				674F9BD41B0A580E00704FFA /* road_graph.cpp in Sources */,
