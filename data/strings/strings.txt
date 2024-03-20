@@ -25563,6 +25563,51 @@
     zh-Hans = 按日期排序
     zh-Hant = 按日期排序
 
+  [sort_name]
+    tags = ios
+    en = Sort by name
+    af = Sorteer volgens naam
+    ar = الترتيب حسب الاسم
+    az = Ada görə çeşidləyin
+    be = Сартаваць па імені
+    bg = Сортиране по име
+    ca = Ordena per nom
+    cs = Řazení podle názvu
+    da = Sorter efter navn
+    de = Nach Name sortieren
+    el = Ταξινόμηση με βάση το όνομα
+    es = Ordenar por nombre
+    et = Sorteeri nime järgi
+    eu = Ordenatu izenaren arabera
+    fa = به ترتیب نام
+    fi = Lajittele nimen mukaan
+    fr = Trier par nom
+    he = מיין לפי שם
+    hi = नाम द्वारा क्रमबद्ध करें
+    hu = Rendezés név szerint
+    id = Urutkan berdasarkan nama
+    it = Ordina per nome
+    ja = 名前でソートする
+    ko = 이름별로 정렬
+    lt = Rūšiuoti pagal pavadinimą
+    mr = नावानुसार क्रमवारी लावा
+    nb = Sorter etter navn
+    nl = Sorteren op naam
+    pl = Sortuj według nazwy
+    pt = Ordenar por nome
+    pt-BR = Classificar por nome
+    ro = Sortează după nume
+    ru = Сортировать по имени
+    sk = Zoradiť podľa názvu
+    sv = Sortera efter namn
+    sw = Panga kwa jina
+    th = เรียงตามชื่อ
+    tr = İsme göre sırala
+    uk = Сортувати за ім'ям
+    vi = Sắp xếp theo tên
+    zh-Hans = 按名称排序
+    zh-Hant = 按名稱分類
+
   [by_default]
     comment = Android
     tags = android
@@ -25746,6 +25791,52 @@
     vi = Theo ngày
     zh-Hans = 按时间
     zh-Hant = 按時間
+
+  [by_name]
+    comment = Android
+    tags = android
+    en = By name
+    af = Op Naam
+    ar = بالاسم
+    az = Ada görə
+    be = Па імені
+    bg = По име
+    ca = Per nom
+    cs = Podle jména
+    da = efter navn
+    de = Nach Name
+    el = Με όνομα
+    es = Por nombre
+    es-MX = Por nombre
+    et = Nime järgi
+    eu = Izenaren arabera
+    fa = بر اساس اسم
+    fi = Nimen mukaan
+    fr = Par nom
+    he = לפי שם
+    hi = नाम द्वारा
+    hu = Név szerint
+    id = Berdasarkan Nama
+    it = Per nome
+    ja = 名前で
+    ko = 이름별
+    lt = Pagal pavadinimą
+    mr = नावाने
+    nb = Etter navn
+    nl = Op naam
+    pl = Według nazwy
+    pt = Por nome
+    ro = După nume
+    ru = По имени
+    sk = Podľa mena
+    sv = Efter namn
+    sw = Kwa Jina
+    th = ตามชื่อ
+    tr = İsme göre
+    uk = За назвою
+    vi = Theo Tên
+    zh-Hans = 按名称
+    zh-Hant = 按名字
 
   [week_ago_sorttype]
     tags = android,ios
