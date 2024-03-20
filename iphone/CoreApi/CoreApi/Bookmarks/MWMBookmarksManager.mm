@@ -66,6 +66,8 @@ static MWMBookmarksSortingType convertSortingType(BookmarkManager::SortingType c
       return MWMBookmarksSortingTypeByDistance;
     case BookmarkManager::SortingType::ByTime:
       return MWMBookmarksSortingTypeByTime;
+    case BookmarkManager::SortingType::ByName:
+      return MWMBookmarksSortingTypeByName;
   }
 }
 
@@ -77,6 +79,8 @@ static BookmarkManager::SortingType convertSortingTypeToCore(MWMBookmarksSorting
       return BookmarkManager::SortingType::ByDistance;
     case MWMBookmarksSortingTypeByTime:
       return BookmarkManager::SortingType::ByTime;
+    case MWMBookmarksSortingTypeByName:
+      return BookmarkManager::SortingType::ByName;
   }
 }
 

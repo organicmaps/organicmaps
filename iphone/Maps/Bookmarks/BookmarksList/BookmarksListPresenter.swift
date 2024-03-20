@@ -117,6 +117,10 @@ final class BookmarksListPresenter {
           return BookmarksListMenuItem(title: L("sort_type"), action: { [weak self] in
             self?.sort(.type)
           })
+        case .name:
+          return BookmarksListMenuItem(title: L("sort_name"), action: { [weak self] in
+            self?.sort(.name)
+          })
         }
     }
     sortItems.append(BookmarksListMenuItem(title: L("sort_default"), action: { [weak self] in
