@@ -21,7 +21,9 @@ public class HoursMinutes implements Parcelable
   public final long minutes;
   private final boolean m24HourFormat;
 
-  public HoursMinutes(@IntRange(from = 0, to = 23) long hours,
+  // 24 hours or even 25 and higher values are used in OSM data and passed here from JNI calls.
+  // Example: 18:00-24:00
+  public HoursMinutes(@IntRange(from = 0, to = 24) long hours,
                       @IntRange(from = 0, to = 59) long minutes, boolean is24HourFormat)
   {
     this.hours = hours;
@@ -43,7 +45,8 @@ public class HoursMinutes implements Parcelable
     if (m24HourFormat)
       return StringUtils.formatUsingUsLocale("%02d:%02d", hours, minutes);
 
-    final LocalTime localTime = LocalTime.of((int) hours, (int) minutes);
+    // Formatting a string here with hours outside of 0-23 range causes DateTimeException.
+    final LocalTime localTime = LocalTime.of((int) hours % 24, (int) minutes);
     return localTime.format(DateTimeFormatter.ofPattern("hh:mm a"));
   }
 
