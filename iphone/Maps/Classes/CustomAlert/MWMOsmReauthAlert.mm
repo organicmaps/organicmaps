@@ -13,8 +13,9 @@ static NSString * const kMap2OsmLoginSegue = @"Map2OsmLogin";
   MWMOsmReauthAlert * alert =
       [NSBundle.mainBundle loadNibNamed:[self className] owner:nil options:nil].firstObject;
 
-  //[alert.messageLabel setScrollEnabled:NO];
+  alert.messageLabel.userInteractionEnabled = YES;
   alert.messageLabel.attributedText = [self buildAlertMessage];
+  alert.messageLabel.textAlignment = NSTextAlignmentCenter;
   UITapGestureRecognizer *tapGesture =
         [[UITapGestureRecognizer alloc] initWithTarget:alert
                                                 action:@selector(showMoreInfo)];
@@ -25,11 +26,16 @@ static NSString * const kMap2OsmLoginSegue = @"Map2OsmLogin";
 
 + (NSMutableAttributedString*)buildAlertMessage
 {
-  auto linkAttrs = @{NSForegroundColorAttributeName : UIColor.linkBlue};
+  auto textAttrs = @{NSFontAttributeName : UIFont.regular17};
+  auto linkAttrs = @{NSForegroundColorAttributeName : UIColor.linkBlue,
+                     NSFontAttributeName : UIFont.regular17};
 
-  NSMutableAttributedString *alertMessage = [[NSMutableAttributedString alloc] initWithString:L(@"alert_reauth_message_ios")];
-  [alertMessage appendAttributedString:([[NSAttributedString alloc] initWithString:@" "])];
-  NSAttributedString *alertLinkText = [[NSAttributedString alloc] initWithString:L(@"alert_reauth_link_text_ios") attributes:linkAttrs];
+  NSMutableAttributedString *alertMessage =
+    [[NSMutableAttributedString alloc] initWithString: @"Please login to OpenStreetMap to automatically upload all your map edits. Learn more "
+                                           attributes: textAttrs];
+  NSAttributedString *alertLinkText =
+    [[NSAttributedString alloc] initWithString: @"here"
+                                    attributes: linkAttrs];
   [alertMessage appendAttributedString:alertLinkText];
   return alertMessage;
 }

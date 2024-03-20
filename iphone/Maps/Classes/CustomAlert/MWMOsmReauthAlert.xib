@@ -5,6 +5,7 @@
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="22684"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="System colors in document resources" minToolsVersion="11.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <objects>
@@ -15,7 +16,7 @@
             <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxX="YES" flexibleMinY="YES" flexibleMaxY="YES"/>
             <subviews>
                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="pGb-Pj-lsX" userLabel="ContainerView">
-                    <rect key="frame" x="56.666666666666657" y="272" width="280" height="308"/>
+                    <rect key="frame" x="56.666666666666657" y="238.33333333333334" width="280" height="375.33333333333326"/>
                     <subviews>
                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="bKJ-wq-v28" userLabel="Done" customClass="MWMButton">
                             <rect key="frame" x="240" y="0.0" width="40" height="40"/>
@@ -36,24 +37,25 @@
                                 <action selector="closeTap" destination="OOr-tJ-QfW" eventType="touchUpInside" id="vUN-3c-vWF"/>
                             </connections>
                         </button>
-                        <textField opaque="NO" contentMode="center" horizontalHuggingPriority="251" verticalHuggingPriority="251" verticalCompressionResistancePriority="1000" contentHorizontalAlignment="center" contentVerticalAlignment="center" text="alert_reauth_message_ios + alert_reauth_link_text_ios" textAlignment="center" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="QTE-iO-nbf" userLabel="Message">
-                            <rect key="frame" x="20" y="140" width="240" height="40"/>
-                            <accessibility key="accessibilityConfiguration">
-                                <accessibilityTraits key="traits" staticText="YES"/>
-                            </accessibility>
+                        <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="img_login" translatesAutoresizingMaskIntoConstraints="NO" id="BXR-WK-BfJ">
+                            <rect key="frame" x="80" y="19.999999999999972" width="120" height="120"/>
                             <constraints>
-                                <constraint firstAttribute="width" constant="240" id="Qgg-5q-c39"/>
-                                <constraint firstAttribute="height" relation="greaterThanOrEqual" priority="750" constant="40" id="uEo-89-aMI"/>
+                                <constraint firstAttribute="width" constant="120" id="n5Z-5L-UPW"/>
+                                <constraint firstAttribute="width" secondItem="BXR-WK-BfJ" secondAttribute="height" multiplier="1:1" id="oyf-fo-zbh"/>
                             </constraints>
-                            <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                            <fontDescription key="fontDescription" type="system" weight="medium" pointSize="17"/>
-                            <textInputTraits key="textInputTraits"/>
-                            <userDefinedRuntimeAttributes>
-                                <userDefinedRuntimeAttribute type="string" keyPath="styleName" value="medium17:blackPrimaryText"/>
-                            </userDefinedRuntimeAttributes>
-                        </textField>
+                        </imageView>
+                        <textView clipsSubviews="YES" contentMode="center" scrollEnabled="NO" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" editable="NO" text="Please login to OpenStreetMap to automatically upload all your map edits. Learn more here" textAlignment="center" selectable="NO" translatesAutoresizingMaskIntoConstraints="NO" id="shy-1g-PJO" userLabel="message">
+                            <rect key="frame" x="20" y="149.99999999999997" width="240" height="97.333333333333343"/>
+                            <constraints>
+                                <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="30" id="3EU-DW-uAs"/>
+                                <constraint firstAttribute="width" constant="240" id="gUg-UX-yGB"/>
+                            </constraints>
+                            <color key="textColor" systemColor="labelColor"/>
+                            <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                            <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
+                        </textView>
                         <button opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="33p-SN-9fc" userLabel="login_osm" customClass="MWMButton" customModule="Organic_Maps" customModuleProvider="target">
-                            <rect key="frame" x="20" y="190" width="240" height="44"/>
+                            <rect key="frame" x="20" y="257.33333333333337" width="240" height="44"/>
                             <constraints>
                                 <constraint firstAttribute="width" constant="240" id="6Mj-n7-paj"/>
                                 <constraint firstAttribute="height" constant="44" id="vzZ-AA-l0W"/>
@@ -67,8 +69,8 @@
                                 <action selector="osmTap" destination="OOr-tJ-QfW" eventType="touchUpInside" id="eEw-ZQ-bth"/>
                             </connections>
                         </button>
-                        <button opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="OS7-Xd-HGC" userLabel="Cancel" customClass="MWMButton" customModule="Organic_Maps" customModuleProvider="target">
-                            <rect key="frame" x="20" y="244" width="240" height="44"/>
+                        <button opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="OS7-Xd-HGC" userLabel="cancel" customClass="MWMButton" customModule="Organic_Maps" customModuleProvider="target">
+                            <rect key="frame" x="20" y="311.33333333333326" width="240" height="44"/>
                             <constraints>
                                 <constraint firstAttribute="width" constant="240" id="Bzd-Uh-BSU"/>
                                 <constraint firstAttribute="height" constant="44" id="uTD-56-ZBz"/>
@@ -82,45 +84,27 @@
                                 <action selector="closeTap" destination="OOr-tJ-QfW" eventType="touchUpInside" id="Jmk-bD-kAS"/>
                             </connections>
                         </button>
-                        <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="img_login" translatesAutoresizingMaskIntoConstraints="NO" id="BXR-WK-BfJ">
-                            <rect key="frame" x="80" y="20" width="120" height="120"/>
-                            <constraints>
-                                <constraint firstAttribute="width" constant="120" id="n5Z-5L-UPW"/>
-                                <constraint firstAttribute="width" secondItem="BXR-WK-BfJ" secondAttribute="height" multiplier="1:1" id="oyf-fo-zbh"/>
-                            </constraints>
-                        </imageView>
                     </subviews>
                     <constraints>
-                        <constraint firstItem="33p-SN-9fc" firstAttribute="top" secondItem="QTE-iO-nbf" secondAttribute="bottom" constant="10" id="3FQ-Qm-8WE"/>
                         <constraint firstItem="OS7-Xd-HGC" firstAttribute="centerX" secondItem="pGb-Pj-lsX" secondAttribute="centerX" id="6ms-nM-I0P"/>
-                        <constraint firstItem="QTE-iO-nbf" firstAttribute="top" secondItem="pGb-Pj-lsX" secondAttribute="top" constant="20" id="BZP-EH-Hf9">
-                            <variation key="heightClass=compact" constant="32"/>
-                        </constraint>
+                        <constraint firstItem="33p-SN-9fc" firstAttribute="top" secondItem="shy-1g-PJO" secondAttribute="bottom" constant="10" id="936-U9-5lw"/>
                         <constraint firstItem="OS7-Xd-HGC" firstAttribute="top" secondItem="33p-SN-9fc" secondAttribute="bottom" constant="10" id="Bui-bG-czy"/>
                         <constraint firstItem="BXR-WK-BfJ" firstAttribute="centerX" secondItem="pGb-Pj-lsX" secondAttribute="centerX" id="NV9-Kj-IPD"/>
                         <constraint firstAttribute="bottom" secondItem="OS7-Xd-HGC" secondAttribute="bottom" constant="20" id="Oum-gS-fQc"/>
                         <constraint firstItem="bKJ-wq-v28" firstAttribute="top" secondItem="pGb-Pj-lsX" secondAttribute="top" id="Rjm-H1-YUW"/>
                         <constraint firstItem="BXR-WK-BfJ" firstAttribute="top" secondItem="pGb-Pj-lsX" secondAttribute="top" constant="20" id="SMy-Y2-C3I"/>
-                        <constraint firstItem="QTE-iO-nbf" firstAttribute="top" secondItem="BXR-WK-BfJ" secondAttribute="bottom" id="Sde-0Q-z3J"/>
+                        <constraint firstItem="shy-1g-PJO" firstAttribute="centerX" secondItem="pGb-Pj-lsX" secondAttribute="centerX" id="bs3-xk-8fF"/>
                         <constraint firstAttribute="width" constant="280" id="coi-hW-q18"/>
+                        <constraint firstItem="shy-1g-PJO" firstAttribute="top" secondItem="BXR-WK-BfJ" secondAttribute="bottom" constant="10" id="f0G-uE-wLN"/>
                         <constraint firstAttribute="trailing" secondItem="bKJ-wq-v28" secondAttribute="trailing" id="gTa-Ov-TWc"/>
-                        <constraint firstItem="QTE-iO-nbf" firstAttribute="centerX" secondItem="pGb-Pj-lsX" secondAttribute="centerX" id="icl-oF-MDW"/>
                         <constraint firstItem="33p-SN-9fc" firstAttribute="centerX" secondItem="pGb-Pj-lsX" secondAttribute="centerX" id="khE-QQ-4bJ"/>
                     </constraints>
                     <userDefinedRuntimeAttributes>
                         <userDefinedRuntimeAttribute type="string" keyPath="styleName" value="AlertView"/>
                     </userDefinedRuntimeAttributes>
-                    <variation key="default">
-                        <mask key="constraints">
-                            <exclude reference="BZP-EH-Hf9"/>
-                        </mask>
-                    </variation>
                     <variation key="heightClass=compact">
                         <mask key="subviews">
                             <exclude reference="BXR-WK-BfJ"/>
-                        </mask>
-                        <mask key="constraints">
-                            <include reference="BZP-EH-Hf9"/>
                         </mask>
                     </variation>
                 </view>
@@ -132,7 +116,7 @@
                 <constraint firstItem="pGb-Pj-lsX" firstAttribute="centerY" secondItem="OOr-tJ-QfW" secondAttribute="centerY" id="pMZ-fj-kFC"/>
             </constraints>
             <connections>
-                <outlet property="messageLabel" destination="QTE-iO-nbf" id="TGL-NA-VRe"/>
+                <outlet property="messageLabel" destination="shy-1g-PJO" id="A3b-gL-OVy"/>
             </connections>
             <point key="canvasLocation" x="305" y="172"/>
         </view>
@@ -140,5 +124,8 @@
     <resources>
         <image name="ic_cancel" width="40" height="40"/>
         <image name="img_login" width="120" height="120"/>
+        <systemColor name="labelColor">
+            <color white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+        </systemColor>
     </resources>
 </document>
