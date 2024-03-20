@@ -3,15 +3,15 @@ import Foundation
 // TODO: define directly T as AnyObject after Swift version update
 final class ListenerContainer<T> {
   // MARK: - WeakWrapper for listeners
-  private class WeakWrapper<T> {
+  private class WeakWrapper<TT> {
     private weak var weakValue: AnyObject?
     
-    init(value: T) {
+    init(value: TT) {
       self.weakValue = value as AnyObject?
     }
     
-    var value: T? {
-      return weakValue as? T
+    var value: TT? {
+      return weakValue as? TT
     }
   }
   

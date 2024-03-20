@@ -414,7 +414,7 @@ std::optional<ms::LatLon> MGRStoLatLon(int easting, int northing, int zoneCode, 
   if (zoneLetter <= 'B' || zoneLetter >= 'Y' || zoneLetter == 'I' || zoneLetter == 'O')
     return {};
 
-  auto const set = zoneCode % kSetOriginColumnLetters.size();
+  int const set = zoneCode % kSetOriginColumnLetters.size();
 
   auto const char1 = squareCode[0];
   auto const char2 = squareCode[1];

@@ -512,7 +512,7 @@ FeatureType::GeomStat FeatureType::GetOuterGeometryStats()
 
       PointsBufferT points;
 
-      for (size_t ind = 0; ind < scalesCount; ++ind)
+      for (int ind = 0; ind < scalesCount; ++ind)
       {
         uint32_t const scaleOffset = m_offsets.m_pts[ind];
         if (IsRealGeomOffset(scaleOffset))
@@ -528,7 +528,7 @@ FeatureType::GeomStat FeatureType::GetOuterGeometryStats()
           serial::LoadOuterPath(src, cp, points);
 
           res.m_sizes[ind] = static_cast<uint32_t>(src.Pos() - scaleOffset);
-          res.m_elements[ind] = points.size();
+          res.m_elements[ind] = static_cast<uint32_t>(points.size());
         }
       }
       // Retain best geometry.
@@ -539,7 +539,7 @@ FeatureType::GeomStat FeatureType::GetOuterGeometryStats()
   m_parsed.m_points = true;
 
   // Points count can come from the inner geometry.
-  res.m_elements[scalesCount - 1] = m_points.size();
+  res.m_elements[scalesCount - 1] = static_cast<uint32_t>(m_points.size());
   return res;
 }
 
@@ -594,7 +594,7 @@ FeatureType::GeomStat FeatureType::GetOuterTrianglesStats()
           serial::LoadOuterTriangles(src, m_loadInfo->GetGeometryCodingParams(ind), m_triangles);
 
           res.m_sizes[ind] = static_cast<uint32_t>(src.Pos() - scaleOffset);
-          res.m_elements[ind] = m_triangles.size() / 3;
+          res.m_elements[ind] = static_cast<uint32_t>(m_triangles.size() / 3);
         }
       }
       // The best geometry is retained in m_triangles.
@@ -604,7 +604,7 @@ FeatureType::GeomStat FeatureType::GetOuterTrianglesStats()
   m_parsed.m_triangles = true;
 
   // Triangles count can come from the inner geometry.
-  res.m_elements[scalesCount - 1] = m_triangles.size() / 3;
+  res.m_elements[scalesCount - 1] = static_cast<uint32_t>(m_triangles.size() / 3);
   return res;
 }
 

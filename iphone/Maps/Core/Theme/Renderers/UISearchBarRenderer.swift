@@ -25,7 +25,7 @@ class UISearchBarRenderer: UIViewRenderer {
   class func render(_ control: UISearchBar, style: Style) {
     super.render(control, style: style)
     if #available(iOS 13, *) {
-      var searchTextField = control.searchTextField
+      let searchTextField = control.searchTextField
       // Default search bar implementation adds the grey transparent image for background. This code removes it and updates the corner radius. This is not working on iPad designed for mac.
       if #available(iOS 14.0, *), ProcessInfo.processInfo.isiOSAppOnMac {
       } else {
