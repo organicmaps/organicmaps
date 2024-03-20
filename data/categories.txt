@@ -16263,3 +16263,43 @@ pt-BR:Moledro ou mariola
 ru:Тур
 tr:Höyük
 uk:Тур
+
+wheelchair-yes
+en:5Wheelchair
+ar:كرسي متحرك
+be:Інвалідны вазок|5Інвалід
+bg:Инвалидна количка
+ca:Cadira de rodes
+cs:Invalidní vozík
+da:Kørestol
+de:Rollstuhl
+el:Αναπηρικό αμαξίδιο
+es:Silla de ruedas
+et:Ratastool
+eu:Gurpil-aulkia
+fa:ویلچر
+fi:Pyörätuoli
+fr:Fauteuil roulant
+he:כיסא גלגלים
+hi:व्हीलचेयर
+hu:Kerekesszék
+id:Kursi roda
+it:Sedia a rotelle
+ja:車椅子
+ko:휠체어
+mr:व्हीलचेअर
+nb:Rullestol
+nl:Rolstoel
+pl:Wózek inwalidzki
+pt:Cadeira de rodas
+ro:Scaun cu rotile
+ru:Инвалидная коляска|5Инвалид
+sk:Invalidný vozík
+sv:Rullstol
+sw:Kiti cha magurudumu
+th:วีลแชร์
+tr:Tekerlekli Sandalye
+uk:Інвалідний візок|5Інвалід
+vi:Xe lăn
+zh-Hans:轮椅
+zh-Hant:輪椅

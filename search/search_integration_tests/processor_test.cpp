@@ -3603,4 +3603,42 @@ UNIT_CLASS_TEST(ProcessorTest, ComplexPoi_Match)
   }
 }
 
+UNIT_CLASS_TEST(ProcessorTest, NonDrawable_Categories)
+{
+  base::StringIL const subway = {"railway", "station", "subway"};
+
+  TestPOI noWheelchair({-0.1, -0.1}, {}, {});
+  noWheelchair.SetTypes({subway, {"wheelchair", "no"}});
+
+  TestPOI elevator({0, 0}, {}, {});
+  elevator.SetTypes({subway, {"highway", "elevator"}});
+
+  TestPOI yesWheelchair({0.1, 0.1}, {}, {});
+  yesWheelchair.SetTypes({subway, {"wheelchair", "yes"}});
+
+  auto wonderlandId = BuildCountry("Wonderland", [&](TestMwmBuilder & builder)
+  {
+    builder.Add(noWheelchair);
+    builder.Add(elevator);
+    builder.Add(yesWheelchair);
+  });
+
+  SetViewport(m2::RectD(-0.5, -0.5, 0.5, 0.5));
+
+  {
+    Rules const rules = {ExactMatch(wonderlandId, noWheelchair),
+                         ExactMatch(wonderlandId, elevator),
+                         ExactMatch(wonderlandId, yesWheelchair)};
+    TEST(ResultsMatch("subway", rules), ());
+  }
+  {
+    Rules const rules = {ExactMatch(wonderlandId, yesWheelchair)};
+    TEST(ResultsMatch("subway wheelchair", rules), ());
+  }
+  {
+    Rules const rules = {ExactMatch(wonderlandId, elevator)};
+    TEST(ResultsMatch("subway lift", rules), ());
+  }
+}
+
 } // namespace processor_test
