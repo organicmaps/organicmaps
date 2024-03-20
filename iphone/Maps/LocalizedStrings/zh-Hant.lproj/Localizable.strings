@@ -1135,6 +1135,8 @@
 
 "sort_date" = "按日期排序";
 
+"sort_name" = "按名稱分類";
+
 "week_ago_sorttype" = "一週前";
 
 "month_ago_sorttype" = "一個月前";

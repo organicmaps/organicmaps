@@ -1135,6 +1135,8 @@
 
 "sort_date" = "Ordina per data";
 
+"sort_name" = "Ordina per nome";
+
 "week_ago_sorttype" = "Una settimana fa";
 
 "month_ago_sorttype" = "Un mese fa";

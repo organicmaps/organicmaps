@@ -720,6 +720,8 @@
 	<string name="by_distance">By distance</string>
 	<!-- Android -->
 	<string name="by_date">By date</string>
+	<!-- Android -->
+	<string name="by_name">By name</string>
 	<string name="week_ago_sorttype">A week ago</string>
 	<string name="month_ago_sorttype">A month ago</string>
 	<string name="moremonth_ago_sorttype">More than a month ago</string>

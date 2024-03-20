@@ -693,6 +693,8 @@
 	<string name="by_distance">Distantziaren arabera</string>
 	<!-- Android -->
 	<string name="by_date">Dataren arabera</string>
+	<!-- Android -->
+	<string name="by_name">Izenaren arabera</string>
 	<string name="week_ago_sorttype">Duela aste bat</string>
 	<string name="month_ago_sorttype">Duela hilabete bat</string>
 	<string name="moremonth_ago_sorttype">Duela hilabete baino gehiago</string>

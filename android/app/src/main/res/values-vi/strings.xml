@@ -659,6 +659,8 @@
 	<string name="by_distance">Theo khoảng cách</string>
 	<!-- Android -->
 	<string name="by_date">Theo ngày</string>
+	<!-- Android -->
+	<string name="by_name">Theo Tên</string>
 	<string name="week_ago_sorttype">Tuần trước</string>
 	<string name="month_ago_sorttype">Tháng trước</string>
 	<string name="moremonth_ago_sorttype">Hơn một tháng trước</string>

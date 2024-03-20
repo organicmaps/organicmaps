@@ -1135,6 +1135,8 @@
 
 "sort_date" = "Tarihe göre sırala";
 
+"sort_name" = "İsme göre sırala";
+
 "week_ago_sorttype" = "Bir hafta önce";
 
 "month_ago_sorttype" = "Bir ay önce";

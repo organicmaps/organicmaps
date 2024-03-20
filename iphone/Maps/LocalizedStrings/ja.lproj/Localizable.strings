@@ -1135,6 +1135,8 @@
 
 "sort_date" = "日付で並び替え";
 
+"sort_name" = "名前でソートする";
+
 "week_ago_sorttype" = "1週間前";
 
 "month_ago_sorttype" = "1ケ月前";

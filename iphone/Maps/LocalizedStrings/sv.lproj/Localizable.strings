@@ -1135,6 +1135,8 @@
 
 "sort_date" = "Sortera efter datum";
 
+"sort_name" = "Sortera efter namn";
+
 "week_ago_sorttype" = "För en vecka sedan";
 
 "month_ago_sorttype" = "För en månad sedan";

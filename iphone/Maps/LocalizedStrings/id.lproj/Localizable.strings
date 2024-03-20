@@ -1135,6 +1135,8 @@
 
 "sort_date" = "Urutkan per tanggal";
 
+"sort_name" = "Urutkan berdasarkan nama";
+
 "week_ago_sorttype" = "Seminggu yang lalu";
 
 "month_ago_sorttype" = "Sebulan yang lalu";

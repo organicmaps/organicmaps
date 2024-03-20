@@ -678,6 +678,8 @@
 	<string name="by_distance">Per distanza</string>
 	<!-- Android -->
 	<string name="by_date">Per data</string>
+	<!-- Android -->
+	<string name="by_name">Per nome</string>
 	<string name="week_ago_sorttype">Una settimana fa</string>
 	<string name="month_ago_sorttype">Un mese fa</string>
 	<string name="moremonth_ago_sorttype">Più di un mese fa</string>

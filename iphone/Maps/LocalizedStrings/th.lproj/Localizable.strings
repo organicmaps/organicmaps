@@ -1135,6 +1135,8 @@
 
 "sort_date" = "เรียงตามวันที่";
 
+"sort_name" = "เรียงตามชื่อ";
+
 "week_ago_sorttype" = "สัปดาห์ที่ผ่านมา";
 
 "month_ago_sorttype" = "เดือนที่ผ่านมา";

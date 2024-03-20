@@ -1135,6 +1135,8 @@
 
 "sort_date" = "Ordenatu dataren arabera";
 
+"sort_name" = "Ordenatu izenaren arabera";
+
 "week_ago_sorttype" = "Duela aste bat";
 
 "month_ago_sorttype" = "Duela hilabete bat";

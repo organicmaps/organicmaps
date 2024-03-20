@@ -1135,6 +1135,8 @@
 
 "sort_date" = "Sort by date";
 
+"sort_name" = "नाम द्वारा क्रमबद्ध करें";
+
 "week_ago_sorttype" = "A week ago";
 
 "month_ago_sorttype" = "A month ago";

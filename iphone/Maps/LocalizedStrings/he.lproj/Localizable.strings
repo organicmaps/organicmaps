@@ -1135,6 +1135,8 @@
 
 "sort_date" = "מיין לפי תאריך";
 
+"sort_name" = "מיין לפי שם";
+
 "week_ago_sorttype" = "לפני שבוע";
 
 "month_ago_sorttype" = "לפני חודש";

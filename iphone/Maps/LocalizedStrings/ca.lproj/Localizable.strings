@@ -1135,6 +1135,8 @@
 
 "sort_date" = "Ordena per data";
 
+"sort_name" = "Ordena per nom";
+
 "week_ago_sorttype" = "Fa una setmana";
 
 "month_ago_sorttype" = "Fa un mes";

@@ -1135,6 +1135,8 @@
 
 "sort_date" = "Sort by date";
 
+"sort_name" = "Сортиране по име";
+
 "week_ago_sorttype" = "A week ago";
 
 "month_ago_sorttype" = "A month ago";

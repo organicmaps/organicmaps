@@ -1135,6 +1135,8 @@
 
 "sort_date" = "Sorteeri kuupäeva järgi";
 
+"sort_name" = "Sorteeri nime järgi";
+
 "week_ago_sorttype" = "Nädal tagasi";
 
 "month_ago_sorttype" = "Kuu tagasi";

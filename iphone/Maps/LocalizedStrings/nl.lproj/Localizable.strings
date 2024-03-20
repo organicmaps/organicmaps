@@ -1135,6 +1135,8 @@
 
 "sort_date" = "Sorteer op datum";
 
+"sort_name" = "Sorteren op naam";
+
 "week_ago_sorttype" = "Een week geleden";
 
 "month_ago_sorttype" = "Een maand geleden";
