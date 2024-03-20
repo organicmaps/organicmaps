@@ -24,7 +24,7 @@ static NSString * const kMap2OsmLoginSegue = @"Map2OsmLogin";
   return alert;
 }
 
-// Build attributet string in format "{alert_reauth_message_ios} {alert_reauth_link_text_ios}"
+// Build attributed string in format "{alert_reauth_message_ios} {alert_reauth_link_text_ios}"
 // where {alert_reauth_link_text_ios} has blue color as a link
 + (NSMutableAttributedString*)buildAlertMessage
 {
@@ -56,6 +56,9 @@ static NSString * const kMap2OsmLoginSegue = @"Map2OsmLogin";
 - (IBAction)showMoreInfo
 {
   NSLog(@"Navigate to URL: https://github.com/organicmaps/organicmaps/issues/6144");
+  [[UIApplication sharedApplication] openURL:[NSURL URLWithString:@"https://github.com/organicmaps/organicmaps/issues/6144"]
+                                     options:@{}
+                           completionHandler:nil];
 }
 
 - (IBAction)closeTap

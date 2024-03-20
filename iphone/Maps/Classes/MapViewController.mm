@@ -336,6 +336,11 @@ NSString *const kPP2BookmarkEditingSegue = @"PP2BookmarkEditing";
 
   if ([MWMNavigationDashboardManager sharedManager].state == MWMNavigationDashboardStateHidden)
     self.controlsManager.menuState = self.controlsManager.menuRestoreState;
+  
+  // Added in https://github.com/organicmaps/organicmaps/pull/7333
+  // After all users migrate to OAuth2 we can remove next code
+  [self migrateOAuthCredentials];
+
 
   /// @todo: Uncomment update dialog when will be ready to handle big traffic bursts.
   /*
@@ -361,8 +366,6 @@ NSString *const kPP2BookmarkEditingSegue = @"PP2BookmarkEditing";
   // Otherwise PP container view is nil, or there is no animation/selection of the point.
   if (DeepLinkHandler.shared.isLaunchedByDeeplink)
     (void)[DeepLinkHandler.shared handleDeepLinkAndReset];
-  else
-    [self migrateOAuthCredentials];
 }
 
 - (void)viewDidLayoutSubviews {
@@ -421,8 +424,7 @@ NSString *const kPP2BookmarkEditingSegue = @"PP2BookmarkEditing";
 - (void)migrateOAuthCredentials {
   if (osm_auth_ios::AuthorizationHaveOAuth1Credentials())
   {
-    //osm_auth_ios::AuthorizationClearOAuth1Credentials();
-    // TODO
+    osm_auth_ios::AuthorizationClearOAuth1Credentials();
     [self.alertController presentOsmReauthAlert];
   }
 }
