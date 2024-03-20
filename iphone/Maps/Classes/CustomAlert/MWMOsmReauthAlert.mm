@@ -24,6 +24,8 @@ static NSString * const kMap2OsmLoginSegue = @"Map2OsmLogin";
   return alert;
 }
 
+// Build attributet string in format "{alert_reauth_message_ios} {alert_reauth_link_text_ios}"
+// where {alert_reauth_link_text_ios} has blue color as a link
 + (NSMutableAttributedString*)buildAlertMessage
 {
   auto textAttrs = @{NSFontAttributeName : UIFont.regular17};
@@ -31,10 +33,13 @@ static NSString * const kMap2OsmLoginSegue = @"Map2OsmLogin";
                      NSFontAttributeName : UIFont.regular17};
 
   NSMutableAttributedString *alertMessage =
-    [[NSMutableAttributedString alloc] initWithString: @"Please login to OpenStreetMap to automatically upload all your map edits. Learn more "
+    [[NSMutableAttributedString alloc] initWithString: L(@"alert_reauth_message_ios")
                                            attributes: textAttrs];
+  // Add space char
+  [alertMessage appendAttributedString:([[NSMutableAttributedString alloc] initWithString: @" "
+                                                                               attributes: textAttrs])];
   NSAttributedString *alertLinkText =
-    [[NSAttributedString alloc] initWithString: @"here"
+    [[NSAttributedString alloc] initWithString: L(@"alert_reauth_link_text_ios")
                                     attributes: linkAttrs];
   [alertMessage appendAttributedString:alertLinkText];
   return alertMessage;
@@ -50,7 +55,7 @@ static NSString * const kMap2OsmLoginSegue = @"Map2OsmLogin";
 
 - (IBAction)showMoreInfo
 {
-  NSLog(@"Navigate to URL: ");
+  NSLog(@"Navigate to URL: https://github.com/organicmaps/organicmaps/issues/6144");
 }
 
 - (IBAction)closeTap
