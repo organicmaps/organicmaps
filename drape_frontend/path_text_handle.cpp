@@ -194,7 +194,7 @@ void PathTextContext::Update(ScreenBase const & screen)
 m2::Spline::iterator PathTextContext::GetProjectedPoint(m2::PointD const & pt) const
 {
   double minDist = std::numeric_limits<double>::max();
-  double resStep;
+  double resStep = 0.;
   m2::SplineEx const * resSpline = nullptr;
 
   for (auto const & spline : m_pixel3dSplines)
