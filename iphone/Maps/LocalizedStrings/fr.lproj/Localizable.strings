@@ -1153,6 +1153,8 @@
 
 "sort_date" = "Classer par date";
 
+"sort_name" = "Trier par nom";
+
 "week_ago_sorttype" = "Il y a une semaine";
 
 "month_ago_sorttype" = "Il y a un mois";

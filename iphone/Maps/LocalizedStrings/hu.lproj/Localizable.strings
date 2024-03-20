@@ -1153,6 +1153,8 @@
 
 "sort_date" = "Dátum szerint";
 
+"sort_name" = "Rendezés név szerint";
+
 "week_ago_sorttype" = "Egy hete";
 
 "month_ago_sorttype" = "Egy hónapja";

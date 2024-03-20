@@ -1153,6 +1153,8 @@
 
 "sort_date" = "Sortuj wg daty";
 
+"sort_name" = "Sortuj według nazwy";
+
 "week_ago_sorttype" = "Tydzień temu";
 
 "month_ago_sorttype" = "Miesiąc temu";

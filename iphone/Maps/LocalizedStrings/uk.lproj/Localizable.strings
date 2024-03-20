@@ -1153,6 +1153,8 @@
 
 "sort_date" = "Сортувати за датою";
 
+"sort_name" = "Сортувати за ім'ям";
+
 "week_ago_sorttype" = "Тиждень тому";
 
 "month_ago_sorttype" = "Місяць тому";

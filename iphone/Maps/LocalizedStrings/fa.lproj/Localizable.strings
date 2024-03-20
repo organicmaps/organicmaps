@@ -1153,6 +1153,8 @@
 
 "sort_date" = "مرتب سازی بر اساس تاریخ";
 
+"sort_name" = "به ترتیب نام";
+
 "week_ago_sorttype" = "یک هفته قبل";
 
 "month_ago_sorttype" = "یک ماه قبل";

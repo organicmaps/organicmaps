@@ -677,6 +677,8 @@
 	<string name="by_distance">Távolság szerint</string>
 	<!-- Android -->
 	<string name="by_date">Dátum szerint</string>
+	<!-- Android -->
+	<string name="by_name">Név szerint</string>
 	<string name="week_ago_sorttype">Egy hete</string>
 	<string name="month_ago_sorttype">Egy hónapja</string>
 	<string name="moremonth_ago_sorttype">Több mint egy hónapja</string>

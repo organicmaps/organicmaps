@@ -1153,6 +1153,8 @@
 
 "sort_date" = "Sắp xếp theo ngày";
 
+"sort_name" = "Sắp xếp theo tên";
+
 "week_ago_sorttype" = "Tuần trước";
 
 "month_ago_sorttype" = "Tháng trước";

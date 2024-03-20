@@ -1153,6 +1153,8 @@
 
 "sort_date" = "날짜로 분류";
 
+"sort_name" = "이름별로 정렬";
+
 "week_ago_sorttype" = "일주일 전";
 
 "month_ago_sorttype" = "한달 전";

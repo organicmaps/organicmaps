@@ -1153,6 +1153,8 @@
 
 "sort_date" = "Järjestä päivämäärän mukaan";
 
+"sort_name" = "Lajittele nimen mukaan";
+
 "week_ago_sorttype" = "Viikko sitten";
 
 "month_ago_sorttype" = "Kuukausi sitten";

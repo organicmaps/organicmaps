@@ -1153,6 +1153,8 @@
 
 "sort_date" = "按日期排序";
 
+"sort_name" = "按名称排序";
+
 "week_ago_sorttype" = "一周前";
 
 "month_ago_sorttype" = "一月前";

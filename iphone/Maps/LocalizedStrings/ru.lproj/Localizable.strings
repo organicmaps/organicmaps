@@ -1153,6 +1153,8 @@
 
 "sort_date" = "Сортировать по дате";
 
+"sort_name" = "Сортировать по имени";
+
 "week_ago_sorttype" = "Неделю назад";
 
 "month_ago_sorttype" = "Месяц назад";

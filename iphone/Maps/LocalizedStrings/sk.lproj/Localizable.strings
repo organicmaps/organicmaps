@@ -1153,6 +1153,8 @@
 
 "sort_date" = "Zoradiť podľa dátumu";
 
+"sort_name" = "Zoradiť podľa názvu";
+
 "week_ago_sorttype" = "Pred týždňom";
 
 "month_ago_sorttype" = "Pred mesiacom";

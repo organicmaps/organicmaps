@@ -697,6 +697,8 @@
 	<string name="by_distance">Wg odległości</string>
 	<!-- Android -->
 	<string name="by_date">Wg daty</string>
+	<!-- Android -->
+	<string name="by_name">Według nazwy</string>
 	<string name="week_ago_sorttype">Tydzień temu</string>
 	<string name="month_ago_sorttype">Miesiąc temu</string>
 	<string name="moremonth_ago_sorttype">Ponad miesiąc temu</string>

@@ -1153,6 +1153,8 @@
 
 "sort_date" = "Sortere etter dato";
 
+"sort_name" = "Sorter etter navn";
+
 "week_ago_sorttype" = "For en uke siden";
 
 "month_ago_sorttype" = "For en måned siden";

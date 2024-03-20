@@ -665,6 +665,8 @@
 	<string name="by_distance">Per jarak</string>
 	<!-- Android -->
 	<string name="by_date">Per tanggal</string>
+	<!-- Android -->
+	<string name="by_name">Berdasarkan Nama</string>
 	<string name="week_ago_sorttype">Seminggu yang lalu</string>
 	<string name="month_ago_sorttype">Sebulan yang lalu</string>
 	<string name="moremonth_ago_sorttype">Lebih dari sebulan yang lalu</string>

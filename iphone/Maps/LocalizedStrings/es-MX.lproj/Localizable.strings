@@ -1153,6 +1153,8 @@
 
 "sort_date" = "Ordenar por fecha";
 
+"sort_name" = "Ordenar por nombre";
+
 "week_ago_sorttype" = "Hace una semana";
 
 "month_ago_sorttype" = "Hace un mes";

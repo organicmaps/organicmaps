@@ -1153,6 +1153,8 @@
 
 "sort_date" = "Sortează după dată";
 
+"sort_name" = "Sortează după nume";
+
 "week_ago_sorttype" = "Acum o săptămână";
 
 "month_ago_sorttype" = "Acum o lună";

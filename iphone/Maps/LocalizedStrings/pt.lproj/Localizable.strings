@@ -1153,6 +1153,8 @@
 
 "sort_date" = "Ordenar por data";
 
+"sort_name" = "Ordenar por nome";
+
 "week_ago_sorttype" = "Uma semana atrás";
 
 "month_ago_sorttype" = "Um mês atrás";
