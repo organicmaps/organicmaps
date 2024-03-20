@@ -80,6 +80,7 @@ enum BookmarksListSortingType {
   case distance
   case date
   case type
+  case name
 }
 
 protocol IBookmarksListInteractor {
