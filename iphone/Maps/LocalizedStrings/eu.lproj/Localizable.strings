@@ -959,8 +959,6 @@
 
 "profile_authorization_error" = "Errore bat gertatu da. Saiatu berriro saioa hasten.";
 
-"alert_reauth_title" = "Login to OpenStreetMap";
-
 "alert_reauth_message_ios" = "Please login to OpenStreetMap to automatically upload all your map edits. Learn more";
 
 "alert_reauth_link_text_ios" = "here";
