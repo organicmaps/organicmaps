@@ -45,6 +45,11 @@ static NSString * const kMap2OsmLoginSegue = @"Map2OsmLogin";
   return alertMessage;
 }
 
+- (IBAction)closeTap
+{
+  [self close:nil];
+}
+
 - (IBAction)osmTap
 {
   [self close:^{
@@ -59,11 +64,6 @@ static NSString * const kMap2OsmLoginSegue = @"Map2OsmLogin";
   [[UIApplication sharedApplication] openURL:[NSURL URLWithString:@"https://github.com/organicmaps/organicmaps/issues/6144"]
                                      options:@{}
                            completionHandler:nil];
-}
-
-- (IBAction)closeTap
-{
-  [self close:nil];
 }
 
 @end

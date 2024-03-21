@@ -36,9 +36,11 @@ SOFTWARE.
 
 @interface RedirectDelegate : NSObject<NSURLSessionDataDelegate>
 
-@property(nonatomic) BOOL handleRedirects;
+// If YES - redirect response triggeres new request automatically
+// If NO  - redirect response is returned to result handler
+@property(nonatomic) BOOL followRedirects;
 
-- (instancetype)init:(BOOL)handleRedirects;
+- (instancetype)init:(BOOL)followRedirects;
 
 - (void)        URLSession:(NSURLSession *)session
                       task:(NSURLSessionTask *)task
@@ -48,13 +50,11 @@ willPerformHTTPRedirection:(NSHTTPURLResponse *)response
 @end
 
 @implementation RedirectDelegate
-- (instancetype)init:(BOOL)handleRedirects
+- (instancetype)init:(BOOL)followRedirects
 {
   self = [super init];
   if (self)
-  {
-    _handleRedirects = handleRedirects;
-  }
+    _followRedirects = followRedirects;
   
   return self;
 }
@@ -65,19 +65,17 @@ willPerformHTTPRedirection:(NSHTTPURLResponse *)response
                 newRequest:(NSURLRequest *)newRequest
          completionHandler:(void (^)(NSURLRequest *))completionHandler
 {
-    if (_handleRedirects && response.statusCode >= 300 && response.statusCode < 400) {
+    if (!_followRedirects && response.statusCode >= 300 && response.statusCode < 400)
         completionHandler(nil);
-    }
-    else {
+    else
         completionHandler(newRequest);
-    }
 }
 @end
 
 
 @interface Connection : NSObject
 + (nullable NSData *)sendSynchronousRequest:(NSURLRequest *)request
-                            handleRedirects:(BOOL)handleRedirects
+                            followRedirects:(BOOL)followRedirects
                           returningResponse:(NSURLResponse **)response
                                       error:(NSError **)error;
 @end
@@ -85,16 +83,16 @@ willPerformHTTPRedirection:(NSHTTPURLResponse *)response
 @implementation Connection
 
 + (NSData *)sendSynchronousRequest:(NSURLRequest *)request
-                   handleRedirects:(BOOL)handleRedirects
+                   followRedirects:(BOOL)followRedirects
                  returningResponse:(NSURLResponse * __autoreleasing *)response
                              error:(NSError * __autoreleasing *)error
 {
   Connection * connection = [[Connection alloc] init];
-  return [connection sendSynchronousRequest:request handleRedirects: handleRedirects returningResponse:response error:error];
+  return [connection sendSynchronousRequest:request followRedirects: followRedirects returningResponse:response error:error];
 }
 
 - (NSData *)sendSynchronousRequest:(NSURLRequest *)request
-                   handleRedirects:(BOOL)handleRedirects
+                   followRedirects:(BOOL)followRedirects
                  returningResponse:(NSURLResponse * __autoreleasing *)response
                              error:(NSError * __autoreleasing *)error {
   __block NSData * resultData = nil;
@@ -104,7 +102,7 @@ willPerformHTTPRedirection:(NSHTTPURLResponse *)response
   dispatch_group_t group = dispatch_group_create();
   dispatch_group_enter(group);
 
-  RedirectDelegate * delegate = [[RedirectDelegate alloc] init: handleRedirects];
+  RedirectDelegate * delegate = [[RedirectDelegate alloc] init: followRedirects];
 
   [[[HttpSessionManager sharedManager]
       dataTaskWithRequest:request
@@ -168,7 +166,7 @@ bool HttpClient::RunHttpRequest()
 
   NSHTTPURLResponse * response = nil;
   NSError * err = nil;
-  NSData * url_data = [Connection sendSynchronousRequest:request handleRedirects:m_handleRedirects returningResponse:&response error:&err];
+  NSData * url_data = [Connection sendSynchronousRequest:request followRedirects:m_followRedirects returningResponse:&response error:&err];
 
   m_headers.clear();
 
