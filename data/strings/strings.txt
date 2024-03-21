@@ -20350,12 +20350,6 @@
     zh-Hans = 糟糕，出错了。请尝试重新登录。
     zh-Hant = 噢，發生錯誤。請嘗試再次登入。
 
-  [alert_reauth_title]
-    tags = android,ios
-    en = Login to OpenStreetMap
-    ru = Войдите в OpenStreetMap
-    uk = Увійдить в OpenStreetMap
-
   [alert_reauth_message]
     tags = android
     en = Please login to OpenStreetMap to automatically upload all your map edits. Learn more <a href="https://github.com/organicmaps/organicmaps/issues/6144">here</a>.
