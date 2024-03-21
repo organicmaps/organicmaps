@@ -933,8 +933,6 @@
 
 "profile_authorization_error" = "اوه، یک خطا وجود داشت سعی کنید دوباره وارد سیستم شوید";
 
-"alert_reauth_title" = "Login to OpenStreetMap";
-
 "alert_reauth_message_ios" = "Please login to OpenStreetMap to automatically upload all your map edits. Learn more";
 
 "alert_reauth_link_text_ios" = "here";
