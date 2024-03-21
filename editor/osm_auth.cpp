@@ -168,12 +168,12 @@ bool OsmOAuth::LoginUserPassword(string const & login, string const & password, 
   HttpClient request(m_baseUrl + "/login");
   request.SetBodyData(std::move(params), "application/x-www-form-urlencoded")
          .SetCookies(sid.m_cookies)
-         .SetHandleRedirects(false);
+         .SetFollowRedirects(true);
   if (!request.RunHttpRequest())
     MYTHROW(NetworkError, ("LoginUserPassword Network error while connecting to", request.UrlRequested()));
 
   // At the moment, automatic redirects handling is buggy on Androids < 4.4.
-  // set_handle_redirects(false) works only for Android code, iOS one (and curl) still automatically follow all redirects.
+  // set_follow_redirects(false) works only for Android and iOS, while curl still automatically follow all redirects.
   if (request.ErrorCode() != HTTP::OK && request.ErrorCode() != HTTP::Found)
     MYTHROW(LoginUserPasswordServerError, (DebugPrint(request)));
 
@@ -194,7 +194,7 @@ bool OsmOAuth::LoginSocial(string const & callbackPart, string const & socialTok
   string const url = m_baseUrl + callbackPart + socialToken;
   HttpClient request(url);
   request.SetCookies(sid.m_cookies)
-         .SetHandleRedirects(false);
+         .SetFollowRedirects(true);
   if (!request.RunHttpRequest())
     MYTHROW(NetworkError, ("LoginSocial Network error while connecting to", request.UrlRequested()));
   if (request.ErrorCode() != HTTP::OK && request.ErrorCode() != HTTP::Found)
@@ -226,7 +226,7 @@ string OsmOAuth::SendAuthRequest(string const & requestTokenKey, SessionID const
   request.SetBodyData(std::move(params), "application/x-www-form-urlencoded")
          .SetCookies(lastSid.m_cookies)
          //.SetRawHeader("Origin", m_baseUrl)
-         .SetHandleRedirects(true);
+         .SetFollowRedirects(false);
   if (!request.RunHttpRequest())
     MYTHROW(NetworkError, ("SendAuthRequest Network error while connecting to", request.UrlRequested()));
   if (!request.WasRedirected())
@@ -250,7 +250,7 @@ string OsmOAuth::FetchRequestToken(SessionID const & sid) const
   });
   HttpClient request(requestTokenUrl + "?" + requestTokenQuery);
   request.SetCookies(sid.m_cookies)
-         .SetHandleRedirects(true);
+         .SetFollowRedirects(false);
 
   if (!request.RunHttpRequest())
     MYTHROW(NetworkError, ("FetchRequestToken Network error while connecting to", request.UrlRequested()));
@@ -291,7 +291,7 @@ string OsmOAuth::FinishAuthorization(string const & oauth2code) const
 
   HttpClient request(m_baseUrl + "/oauth2/token");
   request.SetBodyData(std::move(params), "application/x-www-form-urlencoded")
-      .SetHandleRedirects(false);
+      .SetFollowRedirects(true);
   if (!request.RunHttpRequest())
     MYTHROW(NetworkError, ("FinishAuthorization Network error while connecting to", request.UrlRequested()));
   if (request.ErrorCode() != HTTP::OK)
