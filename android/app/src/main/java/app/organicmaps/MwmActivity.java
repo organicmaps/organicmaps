@@ -332,7 +332,7 @@ public class MwmActivity extends BaseMwmFragmentActivity
       text.setMovementMethod(LinkMovementMethod.getInstance());
 
       mAlertDialog = new MaterialAlertDialogBuilder(this, R.style.MwmTheme_AlertDialog)
-              .setTitle(R.string.alert_reauth_title)
+              .setTitle(R.string.login_osm)
               .setView(text)
               .setPositiveButton(R.string.login, navigateToLoginHandler)
               .setNegativeButton(R.string.cancel, null)
