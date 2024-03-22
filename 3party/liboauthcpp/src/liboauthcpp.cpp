@@ -216,12 +216,13 @@ Client::~Client()
 *
 * @input: none
 *
-* @output: none
+* @output: nonce - OAuth header nonce
+*          timeStamp - timestamp when nonce was generated
 *
 * @remarks: internal method
 *
 *--*/
-void Client::generateNonceTimeStamp()
+void Client::generateNonceTimeStamp(std::string& nonce, std::string& timeStamp) const
 {
     // Make sure the random seed has been initialized
     Client::initialize();
@@ -238,10 +239,10 @@ void Client::generateNonceTimeStamp()
     snprintf( szRand, sizeof(szRand), "%x", ((testingTimestamp != 0) ? testingNonce : rand()) );
     snprintf( szTime, sizeof(szTime), "%ld", ((testingTimestamp != 0) ? testingTimestamp : time( NULL )) );
 
-    m_nonce.assign( szTime );
-    m_nonce.append( szRand );
+    nonce.assign( szTime );
+    nonce.append( szRand );
 
-    m_timeStamp.assign( szTime );
+    timeStamp.assign( szTime );
 }
 
 /*++
@@ -255,7 +256,8 @@ void Client::generateNonceTimeStamp()
 *                                   used during exchanging request token with access token.
 *         rawData - url encoded data. this is used during signature generation.
 *         oauthSignature - base64 and url encoded OAuth signature.
-*         generateTimestamp - If true, then generate new timestamp for nonce.
+*         nonce - OAuth nonce to use
+*         timeStamp - timestamp when nonce was generated
 *
 * @input: urlEncodeValues - if true, URLEncode the values inserted into the
 *         output keyValueMap
@@ -269,23 +271,18 @@ bool Client::buildOAuthTokenKeyValuePairs( const bool includeOAuthVerifierPin,
                                           const std::string& oauthSignature,
                                           KeyValuePairs& keyValueMap,
                                           const bool urlEncodeValues,
-                                          const bool generateTimestamp )
+                                          const std::string& nonce,
+                                          const std::string& timeStamp) const
 {
     // Encodes value part of key-value pairs depending on type of output (query
     // string vs. HTTP headers.
     StringConvertFunction value_encoder = (urlEncodeValues ? HttpEncodeQueryValue : PassThrough);
 
-    /* Generate nonce and timestamp if required */
-    if( generateTimestamp )
-    {
-        generateNonceTimeStamp();
-    }
-
     /* Consumer key and its value */
     ReplaceOrInsertKeyValuePair(keyValueMap, Defaults::CONSUMERKEY_KEY, value_encoder(mConsumer->key()));
 
     /* Nonce key and its value */
-    ReplaceOrInsertKeyValuePair(keyValueMap, Defaults::NONCE_KEY, value_encoder(m_nonce));
+    ReplaceOrInsertKeyValuePair(keyValueMap, Defaults::NONCE_KEY, value_encoder(nonce));
 
     /* Signature if supplied */
     if( oauthSignature.length() )
@@ -301,7 +298,7 @@ bool Client::buildOAuthTokenKeyValuePairs( const bool includeOAuthVerifierPin,
     ReplaceOrInsertKeyValuePair(keyValueMap, Defaults::SIGNATUREMETHOD_KEY, std::string( "HMAC-SHA1" ));
 
     /* Timestamp */
-    ReplaceOrInsertKeyValuePair(keyValueMap, Defaults::TIMESTAMP_KEY, value_encoder(m_timeStamp));
+    ReplaceOrInsertKeyValuePair(keyValueMap, Defaults::TIMESTAMP_KEY, value_encoder(timeStamp));
 
     /* Token */
     if( mToken && mToken->key().length() )
@@ -321,16 +318,8 @@ bool Client::buildOAuthTokenKeyValuePairs( const bool includeOAuthVerifierPin,
     /* Data if it's present */
     if( rawData.length() )
     {
-        /* Data should already be urlencoded once */
-        std::string dummyStrKey;
-        std::string dummyStrValue;
-        size_t nPos = rawData.find_first_of( "=" );
-        if( std::string::npos != nPos )
-        {
-            dummyStrKey = rawData.substr( 0, nPos );
-            dummyStrValue = rawData.substr( nPos + 1 );
-            ReplaceOrInsertKeyValuePair(keyValueMap, dummyStrKey, dummyStrValue);
-        }
+        KeyValuePairs encodedPairs = ParseKeyValuePairs(rawData);
+        keyValueMap.insert(encodedPairs.begin(), encodedPairs.end());
     }
 
     return ( keyValueMap.size() ) ? true : false;
@@ -353,7 +342,7 @@ bool Client::buildOAuthTokenKeyValuePairs( const bool includeOAuthVerifierPin,
 bool Client::getSignature( const Http::RequestType eType,
                           const std::string& rawUrl,
                           const KeyValuePairs& rawKeyValuePairs,
-                          std::string& oAuthSignature )
+                          std::string& oAuthSignature ) const
 {
     std::string rawParams;
     std::string paramsSeperator;
@@ -446,7 +435,7 @@ bool Client::getSignature( const Http::RequestType eType,
 std::string Client::getHttpHeader(const Http::RequestType eType,
     const std::string& rawUrl,
     const std::string& rawData,
-    const bool includeOAuthVerifierPin)
+    const bool includeOAuthVerifierPin) const
 {
     return Defaults::AUTHHEADER_PREFIX + buildOAuthParameterString(AuthorizationHeaderString, eType, rawUrl, rawData, includeOAuthVerifierPin);
 }
@@ -454,7 +443,7 @@ std::string Client::getHttpHeader(const Http::RequestType eType,
 std::string Client::getFormattedHttpHeader(const Http::RequestType eType,
     const std::string& rawUrl,
     const std::string& rawData,
-    const bool includeOAuthVerifierPin)
+    const bool includeOAuthVerifierPin) const
 {
     return Defaults::AUTHHEADER_FIELD + Defaults::AUTHHEADER_PREFIX + buildOAuthParameterString(AuthorizationHeaderString, eType, rawUrl, rawData, includeOAuthVerifierPin);
 }
@@ -462,7 +451,7 @@ std::string Client::getFormattedHttpHeader(const Http::RequestType eType,
 std::string Client::getURLQueryString(const Http::RequestType eType,
     const std::string& rawUrl,
     const std::string& rawData,
-    const bool includeOAuthVerifierPin)
+    const bool includeOAuthVerifierPin) const
 {
     return buildOAuthParameterString(QueryStringString, eType, rawUrl, rawData, includeOAuthVerifierPin);
 }
@@ -472,7 +461,7 @@ std::string Client::buildOAuthParameterString(
     const Http::RequestType eType,
     const std::string& rawUrl,
     const std::string& rawData,
-    const bool includeOAuthVerifierPin)
+    const bool includeOAuthVerifierPin) const
 {
     KeyValuePairs rawKeyValuePairs;
     std::string rawParams;
@@ -515,15 +504,19 @@ std::string Client::buildOAuthParameterString(
     // rawdata are the only things that change, but the signature is only used
     // in the second pass and the rawdata is already encoded, regardless of
     // request type.
+    std::string nonce;
+    std::string timeStamp;
+    
+    generateNonceTimeStamp(nonce, timeStamp);
 
     /* Build key-value pairs needed for OAuth request token, without signature */
-    buildOAuthTokenKeyValuePairs( includeOAuthVerifierPin, rawData, std::string( "" ), rawKeyValuePairs, true, true );
+    buildOAuthTokenKeyValuePairs( includeOAuthVerifierPin, rawData, std::string( "" ), rawKeyValuePairs, true, nonce, timeStamp );
 
     /* Get url encoded base64 signature using request type, url and parameters */
     getSignature( eType, pureUrl, rawKeyValuePairs, oauthSignature );
 
     /* Now, again build key-value pairs with signature this time */
-    buildOAuthTokenKeyValuePairs( includeOAuthVerifierPin, std::string( "" ), oauthSignature, rawKeyValuePairs, do_urlencode, false );
+    buildOAuthTokenKeyValuePairs( includeOAuthVerifierPin, std::string( "" ), oauthSignature, rawKeyValuePairs, do_urlencode, nonce, timeStamp );
 
     /* Get OAuth header in string format. If we're getting the Authorization
      * header, we need to filter out other parameters.
@@ -571,7 +564,7 @@ std::string Client::buildOAuthParameterString(
 *--*/
 bool Client::getStringFromOAuthKeyValuePairs( const KeyValuePairs& rawParamMap,
                                              std::string& rawParams,
-                                             const std::string& paramsSeperator )
+                                             const std::string& paramsSeperator ) const
 {
     rawParams.assign( "" );
     if( rawParamMap.size() )
