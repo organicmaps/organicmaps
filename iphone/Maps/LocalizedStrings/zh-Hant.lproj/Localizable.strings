@@ -959,9 +959,11 @@
 
 "profile_authorization_error" = "噢，發生錯誤。請嘗試再次登入。";
 
-"alert_reauth_message_ios" = "Please login to OpenStreetMap to automatically upload all your map edits. Learn more";
+/* For iOS message 'alert_reauth_message' should be splitted in two parts: message + link. Here's first part */
+"alert_reauth_message_ios" = "請登入 OpenStreetMap 自動上傳您所有的地圖編輯內容。了解更多";
 
-"alert_reauth_link_text_ios" = "here";
+/* For iOS message 'alert_reauth_message' should be splitted in two parts: message + link. Here's link part */
+"alert_reauth_link_text_ios" = "此處";
 
 "core_entrance" = "入口";
 

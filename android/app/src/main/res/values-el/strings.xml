@@ -543,6 +543,8 @@
 	<string name="routing_add_finish_point">Προσθέστε τελικό προορισμό, για να σχεδιάσετε μια διαδρομή</string>
 	<string name="placepage_remove_stop">Κατάργηση</string>
 	<string name="placepage_add_stop">Προσθήκη στάσης</string>
+	<!-- Alert to ask user relogin to OpenStreetMap with OAuth2 flow after OAuth1 authentication is deprecated. -->
+	<string name="alert_reauth_message">Παρακαλούμε συνδεθείτε στο OpenStreetMap για να ανεβάσετε αυτόματα όλες τις επεξεργασίες του χάρτη σας. Μάθετε περισσότερα <a href="https://github.com/organicmaps/organicmaps/issues/6144">εδώ</a>.</string>
 	<string name="dialog_error_storage_title">Πρόβλημα πρόσβασης στον αποθηκευτικό χώρο</string>
 	<string name="dialog_error_storage_message">Ο εξωτερικός απθηκευτικός χώρος δεν είναι διαθέσιμος, πιθανότατα έχει αφαιρεθεί η κάρτα SD, είναι κατεστραμμένη ή το σύστημα αρχείων είναι μόνο για ανάγνωση. Ελέγξτε το και επικοινωνήστε μαζί μας στη διεύθυνση support\@organicmaps.app</string>
 	<string name="setting_emulate_bad_storage">Εξομείωση κακού αποθηκευτικού χώρου</string>

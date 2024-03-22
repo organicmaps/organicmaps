@@ -959,9 +959,11 @@
 
 "profile_authorization_error" = "Hoppá, volt egy hiba. Próbáljon meg újra bejelentkezni.";
 
-"alert_reauth_message_ios" = "Please login to OpenStreetMap to automatically upload all your map edits. Learn more";
+/* For iOS message 'alert_reauth_message' should be splitted in two parts: message + link. Here's first part */
+"alert_reauth_message_ios" = "Kérjük, jelentkezzen be az OpenStreetMap rendszerébe, hogy automatikusan feltölthesse az összes térképszerkesztését. További információ";
 
-"alert_reauth_link_text_ios" = "here";
+/* For iOS message 'alert_reauth_message' should be splitted in two parts: message + link. Here's link part */
+"alert_reauth_link_text_ios" = "itt";
 
 "core_entrance" = "Bejárat";
 

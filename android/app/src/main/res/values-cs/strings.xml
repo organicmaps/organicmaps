@@ -560,6 +560,8 @@
 	<string name="routing_add_finish_point">Zadejte cílový bod pro plánování trasy</string>
 	<string name="placepage_remove_stop">Odstranit</string>
 	<string name="placepage_add_stop">Přidat zastávku</string>
+	<!-- Alert to ask user relogin to OpenStreetMap with OAuth2 flow after OAuth1 authentication is deprecated. -->
+	<string name="alert_reauth_message">Přihlaste se do OpenStreetMap, abyste mohli automaticky nahrávat všechny své úpravy mapy. Více informací <a href="https://github.com/organicmaps/organicmaps/issues/6144">zde</a>.</string>
 	<string name="dialog_error_storage_title">Problém s přístupem k úložišti</string>
 	<string name="dialog_error_storage_message">Externí úložiště není k dispozici, pravděpodobně byla vyjmuta nebo poškozena SD karta, nebo je systém souborů pouze pro čtení. Zkontrolujte to prosím a kontaktujte nás na support\@organicmaps.app</string>
 	<string name="setting_emulate_bad_storage">Emulovat špatné úložiště</string>

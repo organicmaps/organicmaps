@@ -959,9 +959,11 @@
 
 "profile_authorization_error" = "उफ़, एक त्रुटि हुई. पुनः साइन इन करने का प्रयास करें.";
 
-"alert_reauth_message_ios" = "Please login to OpenStreetMap to automatically upload all your map edits. Learn more";
+/* For iOS message 'alert_reauth_message' should be splitted in two parts: message + link. Here's first part */
+"alert_reauth_message_ios" = "कृपया अपने सभी मानचित्र संपादनों को स्वचालित रूप से अपलोड करने के लिए OpenStreetMap पर लॉगिन करें। अधिक जानें";
 
-"alert_reauth_link_text_ios" = "here";
+/* For iOS message 'alert_reauth_message' should be splitted in two parts: message + link. Here's link part */
+"alert_reauth_link_text_ios" = "यहां";
 
 "core_entrance" = "Entrance";
 

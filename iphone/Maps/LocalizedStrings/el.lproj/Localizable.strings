@@ -959,9 +959,11 @@
 
 "profile_authorization_error" = "Ωχ, παρουσιάστηκε σφάλμα. Προσπαθήστε να συνδεθείτε ξανά.";
 
-"alert_reauth_message_ios" = "Please login to OpenStreetMap to automatically upload all your map edits. Learn more";
+/* For iOS message 'alert_reauth_message' should be splitted in two parts: message + link. Here's first part */
+"alert_reauth_message_ios" = "Παρακαλούμε συνδεθείτε στο OpenStreetMap για να ανεβάσετε αυτόματα όλες τις επεξεργασίες του χάρτη σας. Μάθετε περισσότερα";
 
-"alert_reauth_link_text_ios" = "here";
+/* For iOS message 'alert_reauth_message' should be splitted in two parts: message + link. Here's link part */
+"alert_reauth_link_text_ios" = "εδώ";
 
 "core_entrance" = "Είσοδος";
 

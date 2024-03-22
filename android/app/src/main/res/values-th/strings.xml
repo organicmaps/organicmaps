@@ -556,6 +556,8 @@
 	<string name="routing_add_finish_point">เพิ่มจุดสิ้นสุดเพื่อวางแผนเส้นทาง</string>
 	<string name="placepage_remove_stop">เอาออก</string>
 	<string name="placepage_add_stop">เพิ่มจุดแวะพัก</string>
+	<!-- Alert to ask user relogin to OpenStreetMap with OAuth2 flow after OAuth1 authentication is deprecated. -->
+	<string name="alert_reauth_message">กรุณาเข้าสู่ระบบ OpenStreetMap เพื่ออัปโหลดการแก้ไขแผนที่ทั้งหมดของคุณโดยอัตโนมัติ เรียนรู้เพิ่มเติม<a href="https://github.com/organicmaps/organicmaps/issues/6144">ที่นี่</a></string>
 	<string name="dialog_error_storage_title">ปัญหาการเข้าถึงที่เก็บข้อมูล</string>
 	<string name="dialog_error_storage_message">ที่เก็บข้อมูลภายนอกไม่พร้อมใช้งาน อาจเป็นเพราะการ์ด SD ถูกถอดออกไป ได้รับความเสียหาย หรือระบบไฟล์ให้เขียนได้อย่างเดียว กรุณาตรวจสอบและติดต่อเราได้ที่ support\@organicmaps.app</string>
 	<string name="setting_emulate_bad_storage">จำลองแบบที่เก็บข้อมูลที่ไม่ดี</string>

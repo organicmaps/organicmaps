@@ -571,6 +571,8 @@
 	<string name="routing_add_finish_point">Adaugă un punct de sosire pentru a planifica un traseu</string>
 	<string name="placepage_remove_stop">Elimină</string>
 	<string name="placepage_add_stop">Adaugă oprire</string>
+	<!-- Alert to ask user relogin to OpenStreetMap with OAuth2 flow after OAuth1 authentication is deprecated. -->
+	<string name="alert_reauth_message">Vă rugăm să vă conectați la OpenStreetMap pentru a încărca automat toate modificările aduse hărții. Aflați mai multe <a href="https://github.com/organicmaps/organicmaps/issues/6144">aici</a>.</string>
 	<string name="dialog_error_storage_title">Problemă de acces la spațiul de stocare</string>
 	<string name="dialog_error_storage_message">Spațiul de stocare extern nu este disponibil. Probabil cardul SD nu este introdus, este deteriorat sau sistemul de fișiere este doar pentru citire. Verifică sau contactează-ne la support\@organicmaps.app</string>
 	<string name="setting_emulate_bad_storage">Simulare arhivă deteriorată</string>

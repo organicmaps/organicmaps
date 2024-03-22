@@ -959,9 +959,11 @@
 
 "profile_authorization_error" = "Ups, ocorreu um erro. Tente iniciar sessão novamente.";
 
-"alert_reauth_message_ios" = "Please login to OpenStreetMap to automatically upload all your map edits. Learn more";
+/* For iOS message 'alert_reauth_message' should be splitted in two parts: message + link. Here's first part */
+"alert_reauth_message_ios" = "Faça login no OpenStreetMap para carregar automaticamente todas as edições de mapas que você fizer. Saiba mais";
 
-"alert_reauth_link_text_ios" = "here";
+/* For iOS message 'alert_reauth_message' should be splitted in two parts: message + link. Here's link part */
+"alert_reauth_link_text_ios" = "aqui";
 
 "core_entrance" = "Entrada";
 

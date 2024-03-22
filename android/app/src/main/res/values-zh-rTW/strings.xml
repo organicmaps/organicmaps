@@ -572,6 +572,8 @@
 	<string name="routing_add_finish_point">新增終點以計劃路線</string>
 	<string name="placepage_remove_stop">移除</string>
 	<string name="placepage_add_stop">新增停靠站</string>
+	<!-- Alert to ask user relogin to OpenStreetMap with OAuth2 flow after OAuth1 authentication is deprecated. -->
+	<string name="alert_reauth_message">請登入 OpenStreetMap 自動上傳您所有的地圖編輯內容。了解更多<a href="https://github.com/organicmaps/organicmaps/issues/6144">此處</a>。</string>
 	<string name="dialog_error_storage_title">儲存空間存取問題</string>
 	<string name="dialog_error_storage_message">外部儲存空間不可用，很可能是因為 SD 卡已移除、毀損，或檔案系統處於唯讀狀態。請進行檢查，然後以 support\@organicmaps.app 方式聯繫我們</string>
 	<string name="setting_emulate_bad_storage">模擬不良儲存空間</string>
