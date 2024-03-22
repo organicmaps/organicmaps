@@ -56,5 +56,13 @@ void HighlightResult(QueryTokens const & tokens, strings::UniString const & pref
   };
 
   SearchStringTokensIntersectionRanges(res.GetString(), beg, end, assignHighlightRange);
+
+  // Highlight description.
+  auto assignDescHighlightRange = [&](pair<uint16_t, uint16_t> const & range)
+  {
+    res.AddDescHighlightRange(range);
+  };
+
+  SearchStringTokensIntersectionRanges(res.GetAddress(), beg, end, assignDescHighlightRange);
 }
 }  // namespace search
