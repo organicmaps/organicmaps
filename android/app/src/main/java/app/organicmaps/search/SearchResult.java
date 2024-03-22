@@ -7,6 +7,7 @@ import android.text.SpannableStringBuilder;
 import android.text.Spanned;
 import android.text.TextUtils;
 import android.text.style.StyleSpan;
+import android.util.Log;
 
 import androidx.annotation.Keep;
 import androidx.annotation.NonNull;
@@ -140,5 +141,38 @@ public class SearchResult
     }
 
     return builder;
+  }
+
+  public String getAddress(@NonNull Context context)
+  {
+    return description.region;
+  }
+
+  public Spannable getFormattedAddress(@NonNull Context context)
+  {
+      final String address = getAddress(context);
+      final String addr = address.toLowerCase();
+      String title = getTitle(context);
+      final SpannableStringBuilder builder = new SpannableStringBuilder(address);
+
+      if (highlightRanges != null)
+      {
+        final int size = highlightRanges.length / 2;
+        int index = 0;
+
+        for (int i = 0; i < size; i++)
+        {
+          final int start = highlightRanges[index++];
+          final int len = highlightRanges[index++];
+
+          final String toFind = title.substring(start,start+len).toLowerCase();
+          int start2 = addr.indexOf(toFind);
+          if(start2<0 || start2+len>=address.length()) continue;
+
+          builder.setSpan(new StyleSpan(Typeface.BOLD), start2, start2 + len, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
+        }
+      }
+
+      return builder;
   }
 }
