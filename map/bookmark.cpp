@@ -399,8 +399,9 @@ kml::PredefinedColor BookmarkCategory::GetDefaultColor()
   return kml::PredefinedColor::Red;
 }
 
-void BookmarkCategory::SetDirty()
+void BookmarkCategory::SetDirty(bool updateModificationDate)
 {
-  Base::SetDirty();
-  m_data.m_lastModified = kml::TimestampClock::now();
+  Base::SetDirty(updateModificationDate);
+  if (updateModificationDate)
+    m_data.m_lastModified = kml::TimestampClock::now();
 }
