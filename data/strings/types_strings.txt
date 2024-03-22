@@ -12241,6 +12241,7 @@
 
   [type.highway.footway.alpine_hiking]
     ref = type.highway.path
+    en = Demanding Hiking Trail
     de = Alpinwanderweg
     es = Camino de senderismo alpino
     et = Alpi matkarada
@@ -12283,6 +12284,7 @@
 
   [type.highway.footway.demanding_alpine_hiking]
     ref = type.highway.path
+    en = Technical Mountain Trail
     de = Anspruchsvoller Alpinwanderweg
     et = Nõudlik alpi matkarada
     fi = Vaativa alppivaellus
@@ -12293,6 +12295,7 @@
 
   [type.highway.footway.demanding_mountain_hiking]
     ref = type.highway.path
+    en = Demanding Hiking Trail
     de = Anspruchsvoller Bergwanderweg
     fi = Vaativa vuoristovaellus
     nl = Uitdagend bergwandelpad
@@ -12302,6 +12305,7 @@
 
   [type.highway.footway.difficult_alpine_hiking]
     ref = type.highway.path
+    en = Technical Mountain Trail
     de = Schwieriger Alpinwanderweg
     et = Nõudlik mägimatkarada
     fi = Vaikea alppivaellus
@@ -12312,6 +12316,7 @@
 
   [type.highway.footway.hiking]
     ref = type.highway.path
+    en = Hiking Trail
     de = Wanderweg
     es = Sendero
     fi = Vaellus
@@ -12322,6 +12327,7 @@
 
   [type.highway.footway.mountain_hiking]
     ref = type.highway.path
+    en = Hiking Trail
     de = Bergwanderweg
     es = Sendero de montaña
     et = Mägirada
@@ -12602,6 +12608,7 @@
 
   [type.highway.path.alpine_hiking]
     ref = type.highway.path
+    en = Demanding Hiking Trail
     de = Alpinwanderweg
     es = Camino de senderismo alpino
     et = Alpi matkarada
@@ -12633,6 +12640,7 @@
 
   [type.highway.path.demanding_alpine_hiking]
     ref = type.highway.path
+    en = Technical Mountain Trail
     de = Anspruchsvoller Alpinwanderweg
     es = Camino de senderismo alpino exigente
     et = Nõudlik alpi matkarada
@@ -12641,6 +12649,7 @@
 
   [type.highway.path.demanding_mountain_hiking]
     ref = type.highway.path
+    en = Demanding Hiking Trail
     de = Anspruchsvoller Bergwanderweg
     es = Camino de senderismo de montaña exigente
     et = Nõudlik mägimatkarada
@@ -12649,6 +12658,7 @@
 
   [type.highway.path.difficult_alpine_hiking]
     ref = type.highway.path
+    en = Technical Mountain Trail
     de = Schwieriger Alpinwanderweg
     et = Raske alpi matkarada
     fi = Vaikea alppivaellus
@@ -12656,6 +12666,7 @@
 
   [type.highway.path.hiking]
     ref = type.highway.path
+    en = Hiking Trail
     de = Wanderweg
     es = Sendero
     fi = Vaellus
@@ -12679,6 +12690,7 @@
 
   [type.highway.path.mountain_hiking]
     ref = type.highway.path
+    en = Hiking Trail
     de = Bergwanderweg
     es = Sendero de montaña
     et = Mägitee
