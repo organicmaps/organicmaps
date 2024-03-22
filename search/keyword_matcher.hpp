@@ -4,7 +4,6 @@
 
 #include "base/string_utils.hpp"
 
-#include <cstdint>
 #include <string>
 #include <vector>
 
@@ -45,8 +44,7 @@ public:
   void Clear();
 
   /// Internal copy of keywords is made.
-  void SetKeywords(strings::UniString const * keywords, size_t count,
-                   strings::UniString const & prefix);
+  void SetKeywords(QueryString const & query);
 
   /// @return Score of the name (greater is better).
   //@{

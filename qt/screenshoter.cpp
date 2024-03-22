@@ -4,6 +4,7 @@
 #include "map/bookmark_manager.hpp"
 #include "map/framework.hpp"
 
+#include "storage/country_info_getter.hpp"
 #include "storage/storage.hpp"
 
 #include "platform/downloader_defines.hpp"

@@ -21,7 +21,6 @@
 
 #include "base/cancellable.hpp"
 #include "base/mem_trie.hpp"
-#include "base/string_utils.hpp"
 
 #include <memory>
 #include <optional>
@@ -65,7 +64,7 @@ public:
   void SetInputLocale(std::string const & locale);
   void SetQuery(std::string const & query, bool categorialRequest = false);
 
-  inline bool IsEmptyQuery() const { return m_prefix.empty() && m_tokens.empty(); }
+  inline bool IsEmptyQuery() const { return m_query.IsEmpty(); }
 
   void Search(SearchParams params);
 
@@ -147,9 +146,7 @@ protected:
 
   /// @todo Replace with QueryParams.
   /// @{
-  std::string m_query;
-  QueryTokens m_tokens;
-  strings::UniString m_prefix;
+  QueryString m_query;
   bool m_isCategorialRequest;
   /// @}
 
