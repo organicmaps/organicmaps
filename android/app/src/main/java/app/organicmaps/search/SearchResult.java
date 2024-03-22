@@ -32,7 +32,7 @@ public class SearchResult
   public static final int OPEN_NOW_NO = 2;
 
   public static final SearchResult EMPTY = new SearchResult("", "", 0, 0,
-                                                            new int[] {});
+                                                            new int[] {}, new int[] {});
 
   // Used by JNI.
   @Keep
@@ -77,11 +77,12 @@ public class SearchResult
 
   // Consecutive pairs of indexes (each pair contains : start index, length), specifying highlighted matches of original query in result
   public final int[] highlightRanges;
+  public final int[] descHighlightRanges;
 
   @NonNull
   private final Popularity mPopularity;
 
-  public SearchResult(String name, String suggestion, double lat, double lon, int[] highlightRanges)
+  public SearchResult(String name, String suggestion, double lat, double lon, int[] highlightRanges, int[] descHighlightRanges)
   {
     this.name = name;
     this.suggestion = suggestion;
@@ -94,11 +95,12 @@ public class SearchResult
     else
       this.type = TYPE_SUGGEST;
     this.highlightRanges = highlightRanges;
+    this.descHighlightRanges = descHighlightRanges;
     mPopularity = Popularity.defaultInstance();
   }
 
   public SearchResult(String name, Description description, double lat, double lon, int[] highlightRanges,
-                      @NonNull Popularity popularity)
+                      int[] descHighlightRanges, @NonNull Popularity popularity)
   {
     this.type = TYPE_RESULT;
     this.name = name;
@@ -108,6 +110,7 @@ public class SearchResult
     this.lon = lon;
     this.description = description;
     this.highlightRanges = highlightRanges;
+    this.descHighlightRanges = descHighlightRanges;
   }
 
   @NonNull
@@ -141,4 +144,27 @@ public class SearchResult
 
     return builder;
   }
+
+  public Spannable getFormattedAddress(@NonNull Context context)
+  {
+    final String address = description != null ? description.region : null;
+    final SpannableStringBuilder builder = new SpannableStringBuilder(address);
+
+    if (descHighlightRanges != null)
+    {
+      final int size = descHighlightRanges.length / 2;
+      int itr = 0;
+
+      for (int i = 0; i < size; i++)
+      {
+        final int start = descHighlightRanges[itr++];
+        final int len = descHighlightRanges[itr++];
+
+        builder.setSpan(new StyleSpan(Typeface.BOLD), start, start + len, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
+      }
+    }
+
+    return builder;
+  }
+
 }
