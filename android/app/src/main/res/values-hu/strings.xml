@@ -562,6 +562,8 @@
 	<string name="routing_add_finish_point">Adjon hozzá végpontot az útvonal tervezéséhez</string>
 	<string name="placepage_remove_stop">Eltávolítja</string>
 	<string name="placepage_add_stop">Hozzáad megállót</string>
+	<!-- Alert to ask user relogin to OpenStreetMap with OAuth2 flow after OAuth1 authentication is deprecated. -->
+	<string name="alert_reauth_message">Kérjük, jelentkezzen be az OpenStreetMap rendszerébe, hogy automatikusan feltölthesse az összes térképszerkesztését. További információ <a href="https://github.com/organicmaps/organicmaps/issues/6144">itt</a>.</string>
 	<string name="dialog_error_storage_title">Tároló hozzáférési hiba</string>
 	<string name="dialog_error_storage_message">Külső tároló nem áll rendelkezésre, valószínűleg az SD-kártyát eltávolították vagy sérült, vagy rendszerfájl csak olvasható. Ellenőrizze, és lépjen kapcsolatba velünk a support\@organicmaps.app címen</string>
 	<string name="setting_emulate_bad_storage">Sérült tároló emulálása</string>

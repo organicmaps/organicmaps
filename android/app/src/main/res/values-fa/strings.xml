@@ -545,6 +545,8 @@
 	<string name="routing_add_finish_point">یک مقصد برای برنامه ریزی یک مسیر اضافه کنید</string>
 	<string name="placepage_remove_stop">حذف</string>
 	<string name="placepage_add_stop">اضافه کردن توقف</string>
+	<!-- Alert to ask user relogin to OpenStreetMap with OAuth2 flow after OAuth1 authentication is deprecated. -->
+	<string name="alert_reauth_message">لطفاً به OpenStreetMap وارد شوید تا به طور خودکار تمام ویرایش های نقشه خود را آپلود کنید. <a href="https://github.com/organicmaps/organicmaps/issues/6144">اینجا</a> بیشتر بیاموزید.</string>
 	<string name="dialog_error_storage_title">مشکل دسترسی به ذخیره‌سازی</string>
 	<string name="dialog_error_storage_message">ذخیره سازی خارجی در دسترس نیست کارت SD ممکن است برداشته شده باشد، آسیب دیده باشد یا سیستم فایل فقط خواندنی باشد. لطفا کارت SD خود را بررسی کنید یا با ما در support\@organicmaps.app تماس بگیرید</string>
 	<string name="setting_emulate_bad_storage">شبیه سازی ذخیره سازی بد</string>

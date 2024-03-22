@@ -536,6 +536,8 @@
 	<string name="routing_add_finish_point">Добавяне на крайна точка за планиране на маршрут</string>
 	<string name="placepage_remove_stop">Премахване</string>
 	<string name="placepage_add_stop">Добавяне на спирка</string>
+	<!-- Alert to ask user relogin to OpenStreetMap with OAuth2 flow after OAuth1 authentication is deprecated. -->
+	<string name="alert_reauth_message">Моля, влезте в OpenStreetMap, за да качвате автоматично всичките си редакции на картата. Научете повече <a href="https://github.com/organicmaps/organicmaps/issues/6144">тук</a>.</string>
 	<string name="dialog_error_storage_title">Проблем с достъпа до хранилището</string>
 	<string name="dialog_error_storage_message">Външната памет на устройството не е налична, SD картата може да е била извадена, повредена или файловата система е само за четене. Проверете това и се свържете с нас support\@organicmaps.app</string>
 	<string name="setting_emulate_bad_storage">Емулация на грешки с външна памет</string>

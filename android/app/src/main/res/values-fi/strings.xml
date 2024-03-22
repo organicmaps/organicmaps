@@ -583,6 +583,8 @@
 	<string name="routing_add_finish_point">Lisää määränpää reitin suunnittelua varten</string>
 	<string name="placepage_remove_stop">Poista</string>
 	<string name="placepage_add_stop">Lisää pysähdys</string>
+	<!-- Alert to ask user relogin to OpenStreetMap with OAuth2 flow after OAuth1 authentication is deprecated. -->
+	<string name="alert_reauth_message">Kirjaudu sisään OpenStreetMapiin, jotta voit ladata kaikki karttamuutoksesi automaattisesti. Lisätietoja <a href="https://github.com/organicmaps/organicmaps/issues/6144">täältä</a>.</string>
 	<string name="dialog_error_storage_title">Ongelma tallennustilan käyttämisessä</string>
 	<string name="dialog_error_storage_message">Ulkoinen tallennustila ei ole käytettävissä, SD-kortti on luultavasti poistettu tai vahingoittunut tai tiedostojärjestelmä on vain luku -tilassa. Tarkista tai ota yhteyttä osoitteeseen support\@organicmaps.app</string>
 	<string name="setting_emulate_bad_storage">Jäljittele virheellistä tallennustilaa</string>

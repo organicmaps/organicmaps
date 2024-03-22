@@ -579,6 +579,8 @@
 	<string name="routing_add_finish_point">Gehitu helmuga bat ibilbide bat antolatzeko</string>
 	<string name="placepage_remove_stop">Kendu</string>
 	<string name="placepage_add_stop">Gehitu geldiunea</string>
+	<!-- Alert to ask user relogin to OpenStreetMap with OAuth2 flow after OAuth1 authentication is deprecated. -->
+	<string name="alert_reauth_message">Hasi saioa OpenStreetMap-en zure mapen aldaketa guztiak automatikoki kargatzeko. Lortu informazio gehiago <a href="https://github.com/organicmaps/organicmaps/issues/6144">hemen</a>.</string>
 	<string name="dialog_error_storage_title">Biltegiratze sarbidearen arazoa</string>
 	<string name="dialog_error_storage_message">Kanpoko biltegiratzea ez dago erabilgarri; Baliteke SD txartela kendu edo hondatuta egotea, edo fitxategi sistema irakurtzeko soilik izatea. Mesedez, begiratu edo idatzi iezaguzu support\@organicmaps.app helbidera</string>
 	<string name="setting_emulate_bad_storage">Emulatu kaltetutako biltegiratzea</string>

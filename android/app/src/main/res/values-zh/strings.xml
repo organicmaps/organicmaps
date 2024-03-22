@@ -559,6 +559,8 @@
 	<string name="routing_add_finish_point">添加终点以规划路线</string>
 	<string name="placepage_remove_stop">移除</string>
 	<string name="placepage_add_stop">添加经停点</string>
+	<!-- Alert to ask user relogin to OpenStreetMap with OAuth2 flow after OAuth1 authentication is deprecated. -->
+	<string name="alert_reauth_message">请登录OpenStreetMap，自动上传您编辑的所有地图。了解更多信息<a href="https://github.com/organicmaps/organicmaps/issues/6144">请点击这里</a>。</string>
 	<string name="dialog_error_storage_title">存储空间访问问题</string>
 	<string name="dialog_error_storage_message">外部存储空间不可用，可能是存储卡已移除、损坏，或者文件系统为只读。请检查，然后通过以下方式联系我们：support\@organicmaps.app</string>
 	<string name="setting_emulate_bad_storage">模拟不良存储空间</string>

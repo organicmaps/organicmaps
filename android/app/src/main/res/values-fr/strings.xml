@@ -583,6 +583,8 @@
 	<string name="routing_add_finish_point">Ajouter un point d\'arrivée pour planifier un itinéraire</string>
 	<string name="placepage_remove_stop">Supprimer</string>
 	<string name="placepage_add_stop">Ajouter un arrêt</string>
+	<!-- Alert to ask user relogin to OpenStreetMap with OAuth2 flow after OAuth1 authentication is deprecated. -->
+	<string name="alert_reauth_message">Connecte-toi à OpenStreetMap pour télécharger automatiquement toutes tes modifications de cartes. En savoir plus <a href="https://github.com/organicmaps/organicmaps/issues/6144">ici</a>.</string>
 	<string name="dialog_error_storage_title">Problème d\'accès au stockage</string>
 	<string name="dialog_error_storage_message">Le stockage externe n\'est pas disponible. La carte SD a probablement été enlevée, endommagée ou le système est en lecture seule. Veuillez vérifier votre carte SD ou nous contacter via support\@organicmaps.app</string>
 	<string name="setting_emulate_bad_storage">Émuler le mauvais stockage</string>

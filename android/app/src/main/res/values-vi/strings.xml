@@ -548,6 +548,8 @@
 	<string name="routing_add_finish_point">Bổ sung điểm kết thúc để lập kế hoạch lộ trình</string>
 	<string name="placepage_remove_stop">Xóa</string>
 	<string name="placepage_add_stop">Thêm điểm dừng</string>
+	<!-- Alert to ask user relogin to OpenStreetMap with OAuth2 flow after OAuth1 authentication is deprecated. -->
+	<string name="alert_reauth_message">Vui lòng đăng nhập vào OpenStreetMap để tự động tải lên tất cả các chỉnh sửa bản đồ của bạn. Tìm hiểu thêm <a href="https://github.com/organicmaps/organicmaps/issues/6144">tại đây</a>.</string>
 	<string name="dialog_error_storage_title">Vấn đề truy cập ổ lưu trữ</string>
 	<string name="dialog_error_storage_message">Ổ lưu trữ bên ngoài không khả dụng, có thể Thẻ SD đã bị tháo, bị hỏng hoặc hệ thống tập tin được thiết lập chỉ đọc. Hãy kiểm tra và liên hệ với chúng tôi qua support\@organicmaps.app</string>
 	<string name="setting_emulate_bad_storage">Giả lập ổ lưu trữ hỏng</string>

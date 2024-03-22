@@ -933,9 +933,11 @@
 
 "profile_authorization_error" = "Vabandust, tekkis viga. Proovi uuesti sisse logida.";
 
-"alert_reauth_message_ios" = "Please login to OpenStreetMap to automatically upload all your map edits. Learn more";
+/* For iOS message 'alert_reauth_message' should be splitted in two parts: message + link. Here's first part */
+"alert_reauth_message_ios" = "Palun logige sisse OpenStreetMap'i, et laadida automaatselt üles kõik oma kaarditööd. Lisateave";
 
-"alert_reauth_link_text_ios" = "here";
+/* For iOS message 'alert_reauth_message' should be splitted in two parts: message + link. Here's link part */
+"alert_reauth_link_text_ios" = "kuskil";
 
 "core_entrance" = "Sissepääs";
 

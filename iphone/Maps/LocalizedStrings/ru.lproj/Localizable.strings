@@ -933,8 +933,10 @@
 
 "profile_authorization_error" = "Упс, произошла ошибка. Попробуйте авторизоваться повторно.";
 
+/* For iOS message 'alert_reauth_message' should be splitted in two parts: message + link. Here's first part */
 "alert_reauth_message_ios" = "Пожалуйста войдите в аккаунт OpenStreetMap.org, чтобы публиковать ваши изменения карты. Подробности по";
 
+/* For iOS message 'alert_reauth_message' should be splitted in two parts: message + link. Here's link part */
 "alert_reauth_link_text_ios" = "ссылке";
 
 "core_entrance" = "Вход";

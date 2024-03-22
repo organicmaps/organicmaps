@@ -933,9 +933,11 @@
 
 "profile_authorization_error" = "عفوًا، كان هناك خطأ. حاول تسجيل الدخول مرة اخرى.";
 
-"alert_reauth_message_ios" = "Please login to OpenStreetMap to automatically upload all your map edits. Learn more";
+/* For iOS message 'alert_reauth_message' should be splitted in two parts: message + link. Here's first part */
+"alert_reauth_message_ios" = "برجاء تسجيل الدخول إلى OpenStreetMap لتحميل جميع تعديلات الخريطة تلقائيًا. تعرف على المزيد";
 
-"alert_reauth_link_text_ios" = "here";
+/* For iOS message 'alert_reauth_message' should be splitted in two parts: message + link. Here's link part */
+"alert_reauth_link_text_ios" = "هنا";
 
 "core_entrance" = "المدخل";
 

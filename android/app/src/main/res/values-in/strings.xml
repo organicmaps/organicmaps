@@ -550,6 +550,8 @@
 	<string name="routing_add_finish_point">Tambahkan titik akhir untuk merencanakan rute</string>
 	<string name="placepage_remove_stop">Hapus</string>
 	<string name="placepage_add_stop">Tambah perhentian</string>
+	<!-- Alert to ask user relogin to OpenStreetMap with OAuth2 flow after OAuth1 authentication is deprecated. -->
+	<string name="alert_reauth_message">Silahkan login ke OpenStreetMap untuk mengupload semua hasil edit peta Anda secara otomatis. Pelajari lebih lanjut <a href="https://github.com/organicmaps/organicmaps/issues/6144">di sini</a>.</string>
 	<string name="dialog_error_storage_title">Masalah akses penyimpanan</string>
 	<string name="dialog_error_storage_message">Penyimpanan eksternal tidak tersedia, mungkin Kartu SD sudah dilepaskan, rusak, atau sistem berkasnya hanya dapat dibaca. Silakan periksa dan beri tahu kami di alamat support\@ maps.me</string>
 	<string name="setting_emulate_bad_storage">Emulasi penyimpanan yang buruk</string>

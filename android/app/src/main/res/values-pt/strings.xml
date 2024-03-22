@@ -555,6 +555,8 @@
 	<string name="routing_add_finish_point">Adicionar final da viagem para planear uma rota</string>
 	<string name="placepage_remove_stop">Remover</string>
 	<string name="placepage_add_stop">Adicionar paragem</string>
+	<!-- Alert to ask user relogin to OpenStreetMap with OAuth2 flow after OAuth1 authentication is deprecated. -->
+	<string name="alert_reauth_message">Por favor, faz o login no OpenStreetMap para carregar automaticamente todas as tuas edições de mapas. Sabe mais <a href="https://github.com/organicmaps/organicmaps/issues/6144">aqui</a>.</string>
 	<string name="dialog_error_storage_title">Problema de acesso ao armazenamento</string>
 	<string name="dialog_error_storage_message">O armazenamento externo não está disponível. Provavelmente porque o cartão SD foi removido, danificado ou o sistema de ficheiros é apenas para leitura. Verifique e contacte-nos através do email support\@organicmaps.app</string>
 	<string name="setting_emulate_bad_storage">Emular o armazenamento defeituoso</string>

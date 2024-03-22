@@ -581,6 +581,8 @@
 	<string name="routing_add_finish_point">Angi sluttpunkt for å planlegge rute</string>
 	<string name="placepage_remove_stop">Fjern</string>
 	<string name="placepage_add_stop">Angi stopp</string>
+	<!-- Alert to ask user relogin to OpenStreetMap with OAuth2 flow after OAuth1 authentication is deprecated. -->
+	<string name="alert_reauth_message">Logg inn på OpenStreetMap for automatisk å laste opp alle kartredigeringene dine. Finn ut mer <a href="https://github.com/organicmaps/organicmaps/issues/6144">her</a>.</string>
 	<string name="dialog_error_storage_title">Problemer med tilgang til lagring</string>
 	<string name="dialog_error_storage_message">Ekstern lagring er ikke tilgjengelig. Sannsynligvis er SD-kortet fjernet eller skadet eller så er filsystemet skrivebeskyttet. Undersøk og kontakt oss på support\@organicmaps.app</string>
 	<string name="setting_emulate_bad_storage">Emulere skadet lagring</string>

@@ -583,6 +583,8 @@
 	<string name="routing_add_finish_point">ルートを計画するには目的地を追加してください</string>
 	<string name="placepage_remove_stop">削除</string>
 	<string name="placepage_add_stop">中間地点を追加</string>
+	<!-- Alert to ask user relogin to OpenStreetMap with OAuth2 flow after OAuth1 authentication is deprecated. -->
+	<string name="alert_reauth_message">すべてのマップ編集を自動的にアップロードするには、OpenStreetMapにログインしてください。詳しくは <a href="https://github.com/organicmaps/organicmaps/issues/6144">こちら</a>.</string>
 	<string name="dialog_error_storage_title">ストレージアクセスの問題</string>
 	<string name="dialog_error_storage_message">外部ストレージは使用できません。おそらく SD カードが取り外されたか、破損しているか、あるいはファイルシステムが読み取り専用になっています。確認後、support\@organicmaps.app までご連絡ください。</string>
 	<string name="setting_emulate_bad_storage">壊れたストレージをシミュレートする</string>

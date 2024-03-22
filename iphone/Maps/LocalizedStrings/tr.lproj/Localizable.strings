@@ -933,9 +933,11 @@
 
 "profile_authorization_error" = "Üzgünüz, bir hata oluştu. Tekrar oturum açmayı deneyin.";
 
-"alert_reauth_message_ios" = "Please login to OpenStreetMap to automatically upload all your map edits. Learn more";
+/* For iOS message 'alert_reauth_message' should be splitted in two parts: message + link. Here's first part */
+"alert_reauth_message_ios" = "Tüm harita düzenlemelerinizi otomatik olarak yüklemek için lütfen OpenStreetMap'e giriş yapın. Daha fazla bilgi";
 
-"alert_reauth_link_text_ios" = "here";
+/* For iOS message 'alert_reauth_message' should be splitted in two parts: message + link. Here's link part */
+"alert_reauth_link_text_ios" = "burada";
 
 "core_entrance" = "Giriş";
 

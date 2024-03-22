@@ -572,6 +572,8 @@
 	<string name="routing_add_finish_point">יש להוסיף יעד כדי לתכנן מסלול</string>
 	<string name="placepage_remove_stop">הסרה</string>
 	<string name="placepage_add_stop">הוסף תחנה</string>
+	<!-- Alert to ask user relogin to OpenStreetMap with OAuth2 flow after OAuth1 authentication is deprecated. -->
+	<string name="alert_reauth_message">התחבר ל-OpenStreetMap כדי להעלות אוטומטית את כל עריכות המפה שלך. למידע נוסף <a href="https://github.com/organicmaps/organicmaps/issues/6144">כאן</a>.</string>
 	<string name="dialog_error_storage_title">בעיית גישה לאחסון</string>
 	<string name="dialog_error_storage_message">לא ניתן לגשת לאחסון החיצוני. ייתכן כי כרטיס הזיכרון הוסר, נפגם, או שמערכת הקבצים היא לקריאה בלבד. נא לבדוק את כרטיס הזיכרון או ליצור איתנו קשר בכתובת support\@organicmaps.app</string>
 	<string name="setting_emulate_bad_storage">בצע אמולציה לאחסון רע</string>

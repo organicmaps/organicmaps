@@ -573,6 +573,8 @@
 	<string name="routing_add_finish_point">Marsruudi planeerimiseks lisa sihtkoht</string>
 	<string name="placepage_remove_stop">Eemalda</string>
 	<string name="placepage_add_stop">Lisa peatus</string>
+	<!-- Alert to ask user relogin to OpenStreetMap with OAuth2 flow after OAuth1 authentication is deprecated. -->
+	<string name="alert_reauth_message">Palun logige sisse OpenStreetMap\'i, et laadida automaatselt üles kõik oma kaarditööd. Lisateave <a href="https://github.com/organicmaps/organicmaps/issues/6144">kuskil</a>.</string>
 	<string name="dialog_error_storage_title">Salvestusruumi ligipääsu probleem</string>
 	<string name="dialog_error_storage_message">Välismälu pole juurdepääsetav. SD-kaart võib olla eemaldatud, kahjustatud või failisüsteem on kirjutuskaitstud. Palun kontrollige oma SD-kaarti või võtke meiega ühendust aadressil support\@organicmaps.app</string>
 	<string name="setting_emulate_bad_storage">Jäljenda vigast salvestusruumi</string>

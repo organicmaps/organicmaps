@@ -594,6 +594,8 @@
 	<string name="routing_add_finish_point">أضف النهاية لتخطيط المسار</string>
 	<string name="placepage_remove_stop">إزالة</string>
 	<string name="placepage_add_stop">إضافة نقطة توقف</string>
+	<!-- Alert to ask user relogin to OpenStreetMap with OAuth2 flow after OAuth1 authentication is deprecated. -->
+	<string name="alert_reauth_message">برجاء تسجيل الدخول إلى OpenStreetMap لتحميل جميع تعديلات الخريطة تلقائيًا. تعرف على المزيد <a href="https://github.com/organicmaps/organicmaps/issues/6144">هنا</a>.</string>
 	<string name="dialog_error_storage_title">مشكلة الوصول للتخزين</string>
 	<string name="dialog_error_storage_message">التخزين الخارجي غير متوفر، ربما تمت إزالة بطاقة SD، أو أنها تالفة أو نظام الملفات للقراءة فقط. افحصه أو راسلنا على support\@organicmaps.app</string>
 	<string name="setting_emulate_bad_storage">محاكاة التخزين السيء</string>

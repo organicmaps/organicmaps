@@ -574,6 +574,8 @@
 	<string name="routing_add_finish_point">Afegeiu la destinació per a planificar la ruta</string>
 	<string name="placepage_remove_stop">Elimina</string>
 	<string name="placepage_add_stop">Afegeix una parada</string>
+	<!-- Alert to ask user relogin to OpenStreetMap with OAuth2 flow after OAuth1 authentication is deprecated. -->
+	<string name="alert_reauth_message">Si us plau, inicieu sessió a OpenStreetMap per carregar automàticament totes les edicions de mapes. Més informació <a href="https://github.com/organicmaps/organicmaps/issues/6144">aquí</a>.</string>
 	<string name="dialog_error_storage_title">S\'ha produït un problema en l\'accés a l\'emmagatzematge</string>
 	<string name="dialog_error_storage_message">L\'emmagatzematg extern no és accessible. La targeta SD potser s\'ha retirat, malmès, o el sistema de fitxer és de només lectura. Comproveu la targeta SD o contacteu amb nosaltres a support\@organicmaps.app</string>
 	<string name="setting_emulate_bad_storage">Emula un emmagatzematge malmès</string>

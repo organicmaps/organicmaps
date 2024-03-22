@@ -581,6 +581,8 @@
 	<string name="routing_add_finish_point">Marşrutu planlaşdırmaq üçün təyinat əlavə edin</string>
 	<string name="placepage_remove_stop">Sil</string>
 	<string name="placepage_add_stop">Dayanacaq nöqtəsini əlavə edin</string>
+	<!-- Alert to ask user relogin to OpenStreetMap with OAuth2 flow after OAuth1 authentication is deprecated. -->
+	<string name="alert_reauth_message">Bütün xəritə redaktələrinizi avtomatik yükləmək üçün OpenStreetMap-a daxil olun. <a href="https://github.com/organicmaps/organicmaps/issues/6144">burada</a> ətraflı məlumat əldə edin.</string>
 	<string name="dialog_error_storage_title">Yaddaş giriş problemi</string>
 	<string name="dialog_error_storage_message">Xarici yaddaş mövcud deyil, ola bilsin ki, SD Kart çıxarılıb, zədələnib və ya fayl sistemi yalnız oxunur. Zəhmət olmasa yoxlayın və ya support\@organicmaps.app ünvanında bizimlə əlaqə saxlayın</string>
 	<string name="setting_emulate_bad_storage">Zədələnmiş yaddaşı təqlid edin</string>
