@@ -20351,22 +20351,145 @@
     zh-Hant = 噢，發生錯誤。請嘗試再次登入。
 
   [alert_reauth_message]
+    comment = Alert to ask user relogin to OpenStreetMap with OAuth2 flow after OAuth1 authentication is deprecated.
     tags = android
     en = Please login to OpenStreetMap to automatically upload all your map edits. Learn more <a href="https://github.com/organicmaps/organicmaps/issues/6144">here</a>.
+    af = Meld asseblief aan by OpenStreetMap om al jou kaartwysigings outomaties op te laai. Kom meer te wete <a href="https://github.com/organicmaps/organicmaps/issues/6144">hier</a>.
+    ar = برجاء تسجيل الدخول إلى OpenStreetMap لتحميل جميع تعديلات الخريطة تلقائيًا. تعرف على المزيد <a href="https://github.com/organicmaps/organicmaps/issues/6144">هنا</a>.
+    az = Bütün xəritə redaktələrinizi avtomatik yükləmək üçün OpenStreetMap-a daxil olun. <a href="https://github.com/organicmaps/organicmaps/issues/6144">burada</a> ətraflı məlumat əldə edin.
+    be = Калі ласка, увайдзіце ў OpenStreetMap, каб аўтаматычна загрузіць усе вашыя праўкі карты. Даведайцеся больш <a href="https://github.com/organicmaps/organicmaps/issues/6144">тут</a>.
+    bg = Моля, влезте в OpenStreetMap, за да качвате автоматично всичките си редакции на картата. Научете повече <a href="https://github.com/organicmaps/organicmaps/issues/6144">тук</a>.
+    ca = Si us plau, inicieu sessió a OpenStreetMap per carregar automàticament totes les edicions de mapes. Més informació <a href="https://github.com/organicmaps/organicmaps/issues/6144">aquí</a>.
+    cs = Přihlaste se do OpenStreetMap, abyste mohli automaticky nahrávat všechny své úpravy mapy. Více informací <a href="https://github.com/organicmaps/organicmaps/issues/6144">zde</a>.
+    da = Log ind på OpenStreetMap for automatisk at uploade alle dine kortredigeringer. Få mere at vide <a href="https://github.com/organicmaps/organicmaps/issues/6144">her</a>.
+    de = Bitte melde dich bei OpenStreetMap an, um alle deine Kartenbearbeitungen automatisch hochzuladen. Erfahre mehr <a href="https://github.com/organicmaps/organicmaps/issues/6144">hier</a>.
+    el = Παρακαλούμε συνδεθείτε στο OpenStreetMap για να ανεβάσετε αυτόματα όλες τις επεξεργασίες του χάρτη σας. Μάθετε περισσότερα <a href="https://github.com/organicmaps/organicmaps/issues/6144">εδώ</a>.
+    es = Inicia sesión en OpenStreetMap para cargar automáticamente todas tus ediciones de mapas. Más información <a href="https://github.com/organicmaps/organicmaps/issues/6144">aquí</a>.
+    es-MX = Inicie sesión en OpenStreetMap para cargar automáticamente todas las ediciones de su mapa. Obtenga más información <a href="https://github.com/organicmaps/organicmaps/issues/6144">aquí</a>.
+    et = Palun logige sisse OpenStreetMap'i, et laadida automaatselt üles kõik oma kaarditööd. Lisateave <a href="https://github.com/organicmaps/organicmaps/issues/6144">kuskil</a>.
+    eu = Hasi saioa OpenStreetMap-en zure mapen aldaketa guztiak automatikoki kargatzeko. Lortu informazio gehiago <a href="https://github.com/organicmaps/organicmaps/issues/6144">hemen</a>.
+    fa = لطفاً به OpenStreetMap وارد شوید تا به طور خودکار تمام ویرایش های نقشه خود را آپلود کنید. <a href="https://github.com/organicmaps/organicmaps/issues/6144">اینجا</a> بیشتر بیاموزید.
+    fi = Kirjaudu sisään OpenStreetMapiin, jotta voit ladata kaikki karttamuutoksesi automaattisesti. Lisätietoja <a href="https://github.com/organicmaps/organicmaps/issues/6144">täältä</a>.
+    fr = Connecte-toi à OpenStreetMap pour télécharger automatiquement toutes tes modifications de cartes. En savoir plus <a href="https://github.com/organicmaps/organicmaps/issues/6144">ici</a>.
+    he = התחבר ל-OpenStreetMap כדי להעלות אוטומטית את כל עריכות המפה שלך. למידע נוסף <a href="https://github.com/organicmaps/organicmaps/issues/6144">כאן</a>.
+    hi = कृपया अपने सभी मानचित्र संपादनों को स्वचालित रूप से अपलोड करने के लिए OpenStreetMap पर लॉगिन करें। अधिक जानें <a href="https://github.com/organicmaps/organicmaps/issues/6144">यहां</a>।
+    hu = Kérjük, jelentkezzen be az OpenStreetMap rendszerébe, hogy automatikusan feltölthesse az összes térképszerkesztését. További információ <a href="https://github.com/organicmaps/organicmaps/issues/6144">itt</a>.
+    id = Silahkan login ke OpenStreetMap untuk mengupload semua hasil edit peta Anda secara otomatis. Pelajari lebih lanjut <a href="https://github.com/organicmaps/organicmaps/issues/6144">di sini</a>.
+    it = Accedi a OpenStreetMap per caricare automaticamente tutte le tue modifiche alla mappa. Per saperne di più <a href="https://github.com/organicmaps/organicmaps/issues/6144">qui</a>.
+    ja = すべてのマップ編集を自動的にアップロードするには、OpenStreetMapにログインしてください。詳しくは <a href="https://github.com/organicmaps/organicmaps/issues/6144">こちら</a>.
+    ko = 모든 지도 편집 내용을 자동으로 업로드하려면 오픈스트리트맵에 로그인하세요. 자세히 알아보기 <a href="https://github.com/organicmaps/organicmaps/issues/6144">여기</a>.
+    lt = Prisijunkite prie "OpenStreetMap", kad automatiškai įkeltumėte visus savo žemėlapio pakeitimus. Sužinokite daugiau <a href="https://github.com/organicmaps/organicmaps/issues/6144">čia</a>.
+    mr = तुमची सर्व नकाशा संपादने स्वयंचलितपणे अपलोड करण्यासाठी कृपया OpenStreetMap वर लॉग इन करा. <a href="https://github.com/organicmaps/organicmaps/issues/6144">येथे</a> अधिक जाणून घ्या.
+    nb = Logg inn på OpenStreetMap for automatisk å laste opp alle kartredigeringene dine. Finn ut mer <a href="https://github.com/organicmaps/organicmaps/issues/6144">her</a>.
+    nl = Log in op OpenStreetMap om al je kaartbewerkingen automatisch te uploaden. Meer informatie <a href="https://github.com/organicmaps/organicmaps/issues/6144">hier</a>.
+    pl = Zaloguj się do OpenStreetMap, aby automatycznie przesyłać wszystkie zmiany na mapie. Dowiedz się więcej <a href="https://github.com/organicmaps/organicmaps/issues/6144">tutaj</a>.
+    pt = Por favor, faz o login no OpenStreetMap para carregar automaticamente todas as tuas edições de mapas. Sabe mais <a href="https://github.com/organicmaps/organicmaps/issues/6144">aqui</a>.
+    pt-BR = Faça login no OpenStreetMap para carregar automaticamente todas as edições de mapas que você fizer. Saiba mais <a href="https://github.com/organicmaps/organicmaps/issues/6144">aqui</a>.
+    ro = Vă rugăm să vă conectați la OpenStreetMap pentru a încărca automat toate modificările aduse hărții. Aflați mai multe <a href="https://github.com/organicmaps/organicmaps/issues/6144">aici</a>.
     ru = Пожалуйста войдите в аккаунт OpenStreetMap.org, чтобы публиковать ваши изменения карты. Подробности по <a href="https://github.com/organicmaps/organicmaps/issues/6144">ссылке</a>.
+    sk = Prihláste sa do OpenStreetMap, aby ste mohli automaticky nahrať všetky svoje úpravy mapy. Viac informácií sa dozviete <a href="https://github.com/organicmaps/organicmaps/issues/6144">tade</a>.
+    sv = Logga in på OpenStreetMap för att automatiskt ladda upp alla dina kartredigeringar. Läs mer <a href="https://github.com/organicmaps/organicmaps/issues/6144">här</a>.
+    sw = Tafadhali ingia kwenye OpenStreetMap ili kupakia kiotomatiki hariri zako zote za ramani. Pata maelezo zaidi <a href="https://github.com/organicmaps/organicmaps/issues/6144">hapa</a>.
+    th = กรุณาเข้าสู่ระบบ OpenStreetMap เพื่ออัปโหลดการแก้ไขแผนที่ทั้งหมดของคุณโดยอัตโนมัติ เรียนรู้เพิ่มเติม<a href="https://github.com/organicmaps/organicmaps/issues/6144">ที่นี่</a>
+    tr = Tüm harita düzenlemelerinizi otomatik olarak yüklemek için lütfen OpenStreetMap'e giriş yapın. Daha fazla bilgi <a href="https://github.com/organicmaps/organicmaps/issues/6144">burada</a>.
     uk = Будь ласка увійдіть в акаунт OpenStreetMap.org, щоб автоматично публікувати зміни до мапи. Подробиці за <a href="https://github.com/organicmaps/organicmaps/issues/6144">посиланням</a>.
+    vi = Vui lòng đăng nhập vào OpenStreetMap để tự động tải lên tất cả các chỉnh sửa bản đồ của bạn. Tìm hiểu thêm <a href="https://github.com/organicmaps/organicmaps/issues/6144">tại đây</a>.
+    zh-Hans = 请登录OpenStreetMap，自动上传您编辑的所有地图。了解更多信息<a href="https://github.com/organicmaps/organicmaps/issues/6144">请点击这里</a>。
+    zh-Hant = 請登入 OpenStreetMap 自動上傳您所有的地圖編輯內容。了解更多<a href="https://github.com/organicmaps/organicmaps/issues/6144">此處</a>。
 
   [alert_reauth_message_ios]
+    comment = For iOS message 'alert_reauth_message' should be splitted in two parts: message + link. Here's first part
     tags = ios
     en = Please login to OpenStreetMap to automatically upload all your map edits. Learn more
+    af = Meld asseblief aan by OpenStreetMap om al jou kaartwysigings outomaties op te laai. Kom meer te wete
+    ar = برجاء تسجيل الدخول إلى OpenStreetMap لتحميل جميع تعديلات الخريطة تلقائيًا. تعرف على المزيد
+    az = Bütün xəritə redaktələrinizi avtomatik yükləmək üçün OpenStreetMap-a daxil olun.
+    be = Калі ласка, увайдзіце ў OpenStreetMap, каб аўтаматычна загрузіць усе вашыя праўкі карты. Даведайцеся больш
+    bg = Моля, влезте в OpenStreetMap, за да качвате автоматично всичките си редакции на картата. Научете повече
+    ca = Si us plau, inicieu sessió a OpenStreetMap per carregar automàticament totes les edicions de mapes. Més informació
+    cs = Přihlaste se do OpenStreetMap, abyste mohli automaticky nahrávat všechny své úpravy mapy. Více informací
+    da = Log ind på OpenStreetMap for automatisk at uploade alle dine kortredigeringer. Få mere at vide
+    de = Bitte melde dich bei OpenStreetMap an, um alle deine Kartenbearbeitungen automatisch hochzuladen. Erfahre mehr
+    el = Παρακαλούμε συνδεθείτε στο OpenStreetMap για να ανεβάσετε αυτόματα όλες τις επεξεργασίες του χάρτη σας. Μάθετε περισσότερα
+    es = Inicia sesión en OpenStreetMap para cargar automáticamente todas tus ediciones de mapas. Más información
+    es-MX = Inicie sesión en OpenStreetMap para cargar automáticamente todas las ediciones de su mapa. Obtenga más información
+    et = Palun logige sisse OpenStreetMap'i, et laadida automaatselt üles kõik oma kaarditööd. Lisateave
+    eu = Hasi saioa OpenStreetMap-en zure mapen aldaketa guztiak automatikoki kargatzeko. Lortu informazio gehiago
+    fa = لطفاً به OpenStreetMap وارد شوید تا به طور خودکار تمام ویرایش های نقشه خود را آپلود کنید.
+    fi = Kirjaudu sisään OpenStreetMapiin, jotta voit ladata kaikki karttamuutoksesi automaattisesti. Lisätietoja
+    fr = Connecte-toi à OpenStreetMap pour télécharger automatiquement toutes tes modifications de cartes. En savoir plus
+    he = התחבר ל-OpenStreetMap כדי להעלות אוטומטית את כל עריכות המפה שלך. למידע נוסף
+    hi = कृपया अपने सभी मानचित्र संपादनों को स्वचालित रूप से अपलोड करने के लिए OpenStreetMap पर लॉगिन करें। अधिक जानें
+    hu = Kérjük, jelentkezzen be az OpenStreetMap rendszerébe, hogy automatikusan feltölthesse az összes térképszerkesztését. További információ
+    id = Silahkan login ke OpenStreetMap untuk mengupload semua hasil edit peta Anda secara otomatis. Pelajari lebih lanjut
+    it = Accedi a OpenStreetMap per caricare automaticamente tutte le tue modifiche alla mappa. Per saperne di più
+    ja = すべてのマップ編集を自動的にアップロードするには、OpenStreetMapにログインしてください。詳しくは
+    ko = 모든 지도 편집 내용을 자동으로 업로드하려면 오픈스트리트맵에 로그인하세요. 자세히 알아보기
+    lt = Prisijunkite prie "OpenStreetMap", kad automatiškai įkeltumėte visus savo žemėlapio pakeitimus. Sužinokite daugiau
+    mr = तुमची सर्व नकाशा संपादने स्वयंचलितपणे अपलोड करण्यासाठी कृपया OpenStreetMap वर लॉग इन करा.
+    nb = Logg inn på OpenStreetMap for automatisk å laste opp alle kartredigeringene dine. Finn ut mer
+    nl = Log in op OpenStreetMap om al je kaartbewerkingen automatisch te uploaden. Meer informatie
+    pl = Zaloguj się do OpenStreetMap, aby automatycznie przesyłać wszystkie zmiany na mapie. Dowiedz się więcej
+    pt = Por favor, faz o login no OpenStreetMap para carregar automaticamente todas as tuas edições de mapas. Sabe mais
+    pt-BR = Faça login no OpenStreetMap para carregar automaticamente todas as edições de mapas que você fizer. Saiba mais
+    ro = Vă rugăm să vă conectați la OpenStreetMap pentru a încărca automat toate modificările aduse hărții. Aflați mai multe
     ru = Пожалуйста войдите в аккаунт OpenStreetMap.org, чтобы публиковать ваши изменения карты. Подробности по
+    sk = Prihláste sa do OpenStreetMap, aby ste mohli automaticky nahrať všetky svoje úpravy mapy. Viac informácií sa dozviete
+    sv = Logga in på OpenStreetMap för att automatiskt ladda upp alla dina kartredigeringar. Läs mer
+    sw = Tafadhali ingia kwenye OpenStreetMap ili kupakia kiotomatiki hariri zako zote za ramani. Pata maelezo zaidi
+    th = กรุณาเข้าสู่ระบบ OpenStreetMap เพื่ออัปโหลดการแก้ไขแผนที่ทั้งหมดของคุณโดยอัตโนมัติ เรียนรู้เพิ่มเติม
+    tr = Tüm harita düzenlemelerinizi otomatik olarak yüklemek için lütfen OpenStreetMap'e giriş yapın. Daha fazla bilgi
     uk = Будь ласка увійдіть в акаунт OpenStreetMap.org, щоб автоматично публікувати зміни до мапи. Подробиці за
+    vi = Vui lòng đăng nhập vào OpenStreetMap để tự động tải lên tất cả các chỉnh sửa bản đồ của bạn. Tìm hiểu thêm
+    zh-Hans = 请登录OpenStreetMap，自动上传您编辑的所有地图。了解更多信息
+    zh-Hant = 請登入 OpenStreetMap 自動上傳您所有的地圖編輯內容。了解更多
 
   [alert_reauth_link_text_ios]
+    comment = For iOS message 'alert_reauth_message' should be splitted in two parts: message + link. Here's link part
     tags = ios
     en = here
+    af = hier
+    ar = هنا
+    az = burada
+    be = тут
+    bg = тук
+    ca = aquí
+    cs = zde
+    da = her
+    de = hier
+    el = εδώ
+    es = aquí
+    es-MX = aquí
+    et = kuskil
+    eu = hemen
+    fa = اینجا
+    fi = täältä
+    fr = ici
+    he = כאן
+    hi = यहां
+    hu = itt
+    id = di sini
+    it = qui
+    ja = こちら
+    ko = 여기
+    lt = čia
+    mr = येथे
+    nb = her
+    nl = hier
+    pl = tutaj
+    pt = aqui
+    pt-BR = aqui
+    ro = aici
     ru = ссылке
+    sk = tade
+    sv = här
+    sw = hapa
+    th = ที่นี่
+    tr = burada
     uk = посиланням
+    vi = tại đây
+    zh-Hans = 请点击这里
+    zh-Hant = 此處
 
   [dialog_error_storage_title]
     tags = android
