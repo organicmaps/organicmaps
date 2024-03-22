@@ -5,6 +5,7 @@
 #include <cstdlib>
 #include <vector>
 #include <cassert>
+#include <cstdint>
 
 namespace OAuth {
 
@@ -236,8 +237,8 @@ void Client::generateNonceTimeStamp(std::string& nonce, std::string& timeStamp) 
     // both values makes life easier because generating a signature is
     // idempotent -- otherwise using macros can cause double evaluation and
     // incorrect results because of repeated calls to rand().
-    snprintf( szRand, sizeof(szRand), "%x", ((testingTimestamp != 0) ? testingNonce : rand()) );
-    snprintf( szTime, sizeof(szTime), "%ld", ((testingTimestamp != 0) ? testingTimestamp : time( NULL )) );
+    snprintf( szRand, sizeof(szRand), "%x", (testingTimestamp ? testingNonce : rand()) );
+    snprintf( szTime, sizeof(szTime), "%jd", static_cast<intmax_t>(testingTimestamp ? testingTimestamp : time(nullptr)) );
 
     nonce.assign( szTime );
     nonce.append( szRand );
@@ -506,7 +507,7 @@ std::string Client::buildOAuthParameterString(
     // request type.
     std::string nonce;
     std::string timeStamp;
-    
+
     generateNonceTimeStamp(nonce, timeStamp);
 
     /* Build key-value pairs needed for OAuth request token, without signature */

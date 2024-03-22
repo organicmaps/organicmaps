@@ -87,7 +87,7 @@ void ZipFileReader::FilesList(std::string const & zipContainer, FileList & files
     if (unzip::Code::Ok != unzip::GetCurrentFileInfo(zip, fileInfo))
       MYTHROW(LocateZipException, ("Can't get file name inside zip", zipContainer));
 
-    filesList.push_back(make_pair(fileInfo.m_filename, fileInfo.m_info.uncompressed_size));
+    filesList.emplace_back(fileInfo.m_filename, fileInfo.m_info.uncompressed_size);
 
   } while (unzip::Code::Ok == unzip::GoToNextFile(zip));
 }
