@@ -652,6 +652,8 @@
 	<string name="by_distance">Κατά απόσταση</string>
 	<!-- Android -->
 	<string name="by_date">Κατά ημερομηνία</string>
+	<!-- Android -->
+	<string name="by_name">Με όνομα</string>
 	<string name="week_ago_sorttype">Μια βδομάδα πριν</string>
 	<string name="month_ago_sorttype">Ένας μήνας πριν</string>
 	<string name="moremonth_ago_sorttype">Περισσότερο από έναν μήνα πριν</string>

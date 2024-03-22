@@ -226,6 +226,8 @@
 	<string name="by_distance">Kwa umbali</string>
 	<!-- Android -->
 	<string name="by_date">Kwa tarehe</string>
+	<!-- Android -->
+	<string name="by_name">Kwa Jina</string>
 	<string name="week_ago_sorttype">Wiki moja iliyopita</string>
 	<string name="month_ago_sorttype">Mwezi mmoja uliopita</string>
 	<string name="moremonth_ago_sorttype">Zaidi ya mwezi mmoja uliopita</string>

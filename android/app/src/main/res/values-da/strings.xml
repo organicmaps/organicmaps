@@ -665,6 +665,8 @@
 	<string name="by_distance">Efter afstand</string>
 	<!-- Android -->
 	<string name="by_date">Efter dato</string>
+	<!-- Android -->
+	<string name="by_name">efter navn</string>
 	<string name="week_ago_sorttype">En uge siden</string>
 	<string name="month_ago_sorttype">En måned siden</string>
 	<string name="moremonth_ago_sorttype">Mere end en måned siden</string>

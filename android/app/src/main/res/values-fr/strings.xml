@@ -700,6 +700,8 @@
 	<string name="by_distance">Par distance</string>
 	<!-- Android -->
 	<string name="by_date">Par date</string>
+	<!-- Android -->
+	<string name="by_name">Par nom</string>
 	<string name="week_ago_sorttype">Il y a une semaine</string>
 	<string name="month_ago_sorttype">Il y a un mois</string>
 	<string name="moremonth_ago_sorttype">Il y a plus d\'un mois</string>

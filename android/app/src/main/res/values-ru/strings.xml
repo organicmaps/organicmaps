@@ -706,6 +706,8 @@
 	<string name="by_distance">По расстоянию</string>
 	<!-- Android -->
 	<string name="by_date">По дате</string>
+	<!-- Android -->
+	<string name="by_name">По имени</string>
 	<string name="week_ago_sorttype">Неделю назад</string>
 	<string name="month_ago_sorttype">Месяц назад</string>
 	<string name="moremonth_ago_sorttype">Больше месяца назад</string>

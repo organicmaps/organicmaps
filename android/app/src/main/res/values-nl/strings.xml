@@ -692,6 +692,8 @@
 	<string name="by_distance">Op afstand</string>
 	<!-- Android -->
 	<string name="by_date">Op datum</string>
+	<!-- Android -->
+	<string name="by_name">Op naam</string>
 	<string name="week_ago_sorttype">Een week geleden</string>
 	<string name="month_ago_sorttype">Een maand geleden</string>
 	<string name="moremonth_ago_sorttype">Meer dan een maand geleden</string>

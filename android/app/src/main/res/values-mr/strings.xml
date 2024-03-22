@@ -665,6 +665,8 @@
 	<string name="by_distance">अंतरानुसार</string>
 	<!-- Android -->
 	<string name="by_date">दिनांकानुसार</string>
+	<!-- Android -->
+	<string name="by_name">नावाने</string>
 	<string name="week_ago_sorttype">गेल्या आठवड्यात</string>
 	<string name="month_ago_sorttype">गेल्या महिन्यात</string>
 	<string name="moremonth_ago_sorttype">एक महिन्यापूर्वी</string>

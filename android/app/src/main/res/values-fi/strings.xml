@@ -701,6 +701,8 @@
 	<string name="by_distance">Etäisyys</string>
 	<!-- Android -->
 	<string name="by_date">Päivämäärä</string>
+	<!-- Android -->
+	<string name="by_name">Nimen mukaan</string>
 	<string name="week_ago_sorttype">Viikko sitten</string>
 	<string name="month_ago_sorttype">Kuukausi sitten</string>
 	<string name="moremonth_ago_sorttype">Yli kuukausi sitten</string>

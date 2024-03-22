@@ -36,6 +36,15 @@
 
     <RadioButton
       style="?fontSubtitle1"
+      android:id="@+id/sort_by_name"
+      android:layout_width="match_parent"
+      android:layout_height="wrap_content"
+      android:padding="@dimen/margin_half_double_plus"
+      android:checked="false"
+      android:text="@string/by_name"/>
+
+    <RadioButton
+      style="?fontSubtitle1"
       android:id="@+id/sort_by_type"
       android:layout_width="match_parent"
       android:layout_height="wrap_content"
