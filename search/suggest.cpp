@@ -1,26 +1,20 @@
 #include "search/suggest.hpp"
 
-#include "indexer/search_delimiters.hpp"
 #include "indexer/search_string_utils.hpp"
 
-#include "search/common.hpp"
-
-#include "base/stl_helpers.hpp"
-
+#include <algorithm>
 #include <vector>
 
 namespace search
 {
-using namespace std;
 
-string GetSuggestion(RankerResult const & res, string const & query,
-                     QueryTokens const & paramTokens, strings::UniString const & prefix)
+std::string GetSuggestion(std::string const & name, QueryString const & query)
 {
   // Splits result's name.
-  auto const tokens = NormalizeAndTokenizeString(res.GetName());
+  auto const tokens = NormalizeAndTokenizeString(name);
 
   // Finds tokens that are already present in the input query.
-  vector<bool> tokensMatched(tokens.size());
+  std::vector<bool> tokensMatched(tokens.size());
   bool prefixMatched = false;
   bool fullPrefixMatched = false;
 
@@ -28,14 +22,14 @@ string GetSuggestion(RankerResult const & res, string const & query,
   {
     auto const & token = tokens[i];
 
-    if (find(paramTokens.begin(), paramTokens.end(), token) != paramTokens.end())
+    if (std::find(query.m_tokens.begin(), query.m_tokens.end(), token) != query.m_tokens.end())
     {
       tokensMatched[i] = true;
     }
-    else if (StartsWith(token, prefix))
+    else if (StartsWith(token, query.m_prefix))
     {
       prefixMatched = true;
-      fullPrefixMatched = token.size() == prefix.size();
+      fullPrefixMatched = token.size() == query.m_prefix.size();
     }
   }
 
@@ -45,7 +39,7 @@ string GetSuggestion(RankerResult const & res, string const & query,
   if (!prefixMatched || fullPrefixMatched)
     return {};
 
-  string suggest = DropLastToken(query);
+  std::string suggest = DropLastToken(query.m_query);
 
   // Appends unmatched result's tokens to the suggestion.
   for (size_t i = 0; i < tokens.size(); ++i)

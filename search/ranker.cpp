@@ -744,7 +744,7 @@ Result Ranker::MakeResult(RankerResult const & rankerResult, bool needAddress, b
   }
 
   if (needHighlighting)
-    HighlightResult(m_params.m_tokens, m_params.m_prefix, res);
+    HighlightResult(m_params.m_query.m_tokens, m_params.m_query.m_prefix, res);
 
   res.SetRankingInfo(rankerResult.m_dbgInfo);
 
@@ -758,13 +758,13 @@ Result Ranker::MakeResult(RankerResult const & rankerResult, bool needAddress, b
 void Ranker::SuggestStrings()
 {
   // Prefix is only empty when tokens exceeds the max allowed. No point in giving suggestions then.
-  if (m_params.m_prefix.empty() || !m_params.m_suggestsEnabled)
+  if (m_params.m_query.m_prefix.empty() || !m_params.m_suggestsEnabled)
     return;
 
-  string prologue = DropLastToken(m_params.m_query);
+  string const prologue = DropLastToken(m_params.m_query.m_query);
 
   for (auto const locale : m_params.m_categoryLocales)
-    MatchForSuggestions(m_params.m_prefix, locale, prologue);
+    MatchForSuggestions(m_params.m_query.m_prefix, locale, prologue);
 }
 
 void Ranker::UpdateResults(bool lastUpdate)
@@ -964,7 +964,7 @@ void Ranker::MatchForSuggestions(strings::UniString const & token, int8_t locale
     {
       string const utf8Str = strings::ToUtf8(s);
       Result r(utf8Str, prologue + utf8Str + " ");
-      HighlightResult(m_params.m_tokens, m_params.m_prefix, r);
+      HighlightResult(m_params.m_query.m_tokens, m_params.m_query.m_prefix, r);
       m_emitter.AddResult(std::move(r));
     }
   }
@@ -972,7 +972,7 @@ void Ranker::MatchForSuggestions(strings::UniString const & token, int8_t locale
 
 void Ranker::ProcessSuggestions(vector<RankerResult> const & vec) const
 {
-  if (m_params.m_prefix.empty() || !m_params.m_suggestsEnabled)
+  if (m_params.m_query.m_prefix.empty() || !m_params.m_suggestsEnabled)
     return;
 
   size_t added = 0;
@@ -984,7 +984,7 @@ void Ranker::ProcessSuggestions(vector<RankerResult> const & vec) const
     ftypes::LocalityType const type = GetLocalityIndex(r.GetTypes());
     if (type == ftypes::LocalityType::Country || type == ftypes::LocalityType::City || r.IsStreet())
     {
-      string suggestion = GetSuggestion(r, m_params.m_query, m_params.m_tokens, m_params.m_prefix);
+      string suggestion = GetSuggestion(r.GetName(), m_params.m_query);
       if (!suggestion.empty())
       {
         // todo(@m) RankingInfo is lost here. Should it be?

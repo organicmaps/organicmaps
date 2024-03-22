@@ -10,10 +10,10 @@
 #include <algorithm>
 #include <sstream>
 
-using namespace std;
-
 namespace search
 {
+using namespace std;
+
 KeywordMatcher::KeywordMatcher()
 {
   Clear();
@@ -25,11 +25,10 @@ void KeywordMatcher::Clear()
   m_prefix.clear();
 }
 
-void KeywordMatcher::SetKeywords(strings::UniString const * keywords, size_t count,
-                                 strings::UniString const & prefix)
+void KeywordMatcher::SetKeywords(QueryString const & query)
 {
-  m_keywords.assign(keywords, keywords + count);
-  m_prefix = prefix;
+  m_keywords.assign(query.m_tokens.begin(), query.m_tokens.end());
+  m_prefix = query.m_prefix;
 }
 
 KeywordMatcher::Score KeywordMatcher::CalcScore(string_view name) const

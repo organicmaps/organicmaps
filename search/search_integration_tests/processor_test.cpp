@@ -11,11 +11,10 @@
 
 #include "search/cities_boundaries_table.hpp"
 #include "search/features_layer_path_finder.hpp"
+#include "search/mwm_context.hpp"
 #include "search/retrieval.hpp"
 #include "search/token_range.hpp"
 #include "search/token_slice.hpp"
-
-#include "editor/editable_data_source.hpp"
 
 #include "indexer/feature_impl.hpp"
 
