@@ -116,7 +116,7 @@ public:
   void SetTags(std::vector<std::string> const & tags);
   void SetCustomProperty(std::string const & key, std::string const & value);
 
-  void SetDirty() override;
+  void SetDirty(bool updateModificationDate) override;
 
   kml::Timestamp GetLastModifiedTime() const { return m_data.m_lastModified; }
 

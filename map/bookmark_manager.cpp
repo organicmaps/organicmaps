@@ -1577,7 +1577,7 @@ void BookmarkManager::SetIsVisible(kml::MarkGroupId groupId, bool visible)
     {
       auto const parentId = compilationIt->second->GetParentID();
       auto * parentGroup = GetBmCategory(parentId);
-      parentGroup->SetDirty();
+      parentGroup->SetDirty(false /* updateModificationTime */);
       if (visible)  // visible == false handled in InferVisibility
         parentGroup->SetIsVisible(true);
     }
@@ -2836,7 +2836,7 @@ void BookmarkManager::SetChildCategoriesVisibility(kml::MarkGroupId categoryId, 
     if (visible != compilation.IsVisible())
     {
       compilation.SetIsVisible(visible);
-      category.SetDirty();
+      category.SetDirty(false /* updateModificationTime */);
       if (visible)
         category.SetIsVisible(true);
     }

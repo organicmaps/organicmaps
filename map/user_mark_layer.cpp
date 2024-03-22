@@ -37,7 +37,7 @@ void UserMarkLayer::SetIsVisible(bool isVisible)
 {
   if (m_isVisible != isVisible)
   {
-    SetDirty();
+    SetDirty(false /* updateModificationDate */);
     m_isVisible = isVisible;
   }
 }
