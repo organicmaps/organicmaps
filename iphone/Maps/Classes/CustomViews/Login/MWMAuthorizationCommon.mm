@@ -63,15 +63,6 @@ void AuthorizationClearOAuth1Credentials()
   [ud synchronize];
 }
 
-void AuthorizationCreateOAuth1Credentials()
-{
-  NSUserDefaults * ud = NSUserDefaults.standardUserDefaults;
-  [ud setObject:@"kOSMRequestToken" forKey:kOSMRequestToken];
-  [ud setObject:@"kOSMRequestSecret" forKey:kOSMRequestSecret];
-
-  [ud synchronize];
-}
-
 BOOL AuthorizationHaveCredentials()
 {
   NSUserDefaults * ud = NSUserDefaults.standardUserDefaults;

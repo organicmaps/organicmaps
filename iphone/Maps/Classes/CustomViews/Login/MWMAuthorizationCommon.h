@@ -14,7 +14,6 @@ enum class AuthorizationButtonType
 void AuthorizationStoreCredentials(std::string const & oauthToken);
 BOOL AuthorizationHaveOAuth1Credentials();
 void AuthorizationClearOAuth1Credentials();
-void AuthorizationCreateOAuth1Credentials();
 BOOL AuthorizationHaveCredentials();
 void AuthorizationClearCredentials();
 // Returns empty key and secret if user has not beed authorized.
