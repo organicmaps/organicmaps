@@ -150,14 +150,13 @@ int main(int argc, char * argv[])
 
 
 #ifdef DEBUG
-  bool developerMode = true;
+  static bool constexpr developerMode = true;
 #else
-  bool developerMode = false;
+  static bool constexpr developerMode = false;
 #endif
-  if (!settings::Get(settings::kDeveloperMode, developerMode))
-  {
+  bool outvalue;
+  if (!settings::Get(settings::kDeveloperMode, outvalue))
     settings::Set(settings::kDeveloperMode, developerMode);
-  }
 
   // Display EULA if needed.
   char const * settingsEULA = "EulaAccepted";

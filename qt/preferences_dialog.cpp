@@ -88,7 +88,6 @@ namespace qt
 
     QCheckBox * developerModeCheckBox = new QCheckBox("Developer Mode");
     {
-
       bool developerMode;
       if (settings::Get(settings::kDeveloperMode, developerMode) && developerMode)
         developerModeCheckBox->setChecked(developerMode);

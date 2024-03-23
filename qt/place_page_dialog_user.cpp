@@ -11,28 +11,27 @@
 #include <QtWidgets/QHBoxLayout>
 #include <QtWidgets/QLabel>
 #include <QtWidgets/QPushButton>
+#include <QtWidgets/QBoxLayout>
+#include <QtWidgets/QDialog>
+#include <QtWidgets/QGridLayout>
 
-#include <qboxlayout.h>
-#include <qdialog.h>
-#include <qgridlayout.h>
-#include <qnamespace.h>
 #include <sstream>
 #include <string>
 
-const int place_page_description_max_length = 500;
-const int short_description_minimum_width = 390;
+namespace
+{
+static int constexpr kMaxLengthOfPlacePageDescription = 500;
+static int constexpr kMinWidthOfShortDescription = 390;
 
-namespace {
-  std::string stripSchemeFromURI(std::string const & input) {
-    std::string result = input;
-    if (size(input) > 8 && ("https://" == input.substr(0, 8))) {
-      result = result.substr(8, size(input));
-    } else if (size(input) > 7 && ("http://" == input.substr(0, 7))) {
-      result = result.substr(7, size(input));
-    }
-    return result;
+std::string_view stripSchemeFromURI(std::string_view uri) {
+  for (std::string_view prefix : {"https://", "http://"})
+  {
+    if (strings::StartsWith(uri, prefix))
+      return uri.substr(prefix.size());
   }
+  return uri;
 }
+}  // namespace
 
 class QHLine : public QFrame
 {
@@ -44,27 +43,10 @@ public:
   }
 };
 
-std::string getShortDescription(std::string description)
-{
-  size_t paragraphStart = description.find("<p>");
-  size_t paragraphEnd = description.find("</p>");
-  if (paragraphStart == 0 && paragraphEnd != std::string::npos)
-    description = description.substr(3, paragraphEnd);
-
-  if (description.length() > place_page_description_max_length)
-  {
-    description = description.substr(0, place_page_description_max_length-3) + "...";
-  }
-
-  return description;
-}
-
 PlacePageDialogUser::PlacePageDialogUser(QWidget * parent, place_page::Info const & info,
-                                 search::ReverseGeocoder::Address const & address)
+                                         search::ReverseGeocoder::Address const & address)
   : QDialog(parent)
 {
-  using PropID = osm::MapObject::MetadataID;
-
   auto const & title = info.GetTitle();
 
   QVBoxLayout * layout = new QVBoxLayout();
@@ -109,13 +91,12 @@ PlacePageDialogUser::PlacePageDialogUser(QWidget * parent, place_page::Info cons
     };
 
     if (info.IsBookmark())
-    {
       addEntry("Bookmark", "Yes");
-    }
 
 
     // Wikipedia fragment
-    if (auto const & wikipedia = info.GetMetadata(feature::Metadata::EType::FMD_WIKIPEDIA); !wikipedia.empty()){
+    if (auto const & wikipedia = info.GetMetadata(feature::Metadata::EType::FMD_WIKIPEDIA); !wikipedia.empty())
+    {
       QLabel * name = new QLabel("Wikipedia");
       name->setOpenExternalLinks(true);
       name->setTextInteractionFlags(Qt::TextBrowserInteraction);
@@ -149,7 +130,8 @@ PlacePageDialogUser::PlacePageDialogUser(QWidget * parent, place_page::Info cons
     // TODO
 
     // Phone fragment
-    if (auto phoneNumber = info.GetMetadata(feature::Metadata::EType::FMD_PHONE_NUMBER); !phoneNumber.empty()){
+    if (auto phoneNumber = info.GetMetadata(feature::Metadata::EType::FMD_PHONE_NUMBER); !phoneNumber.empty())
+    {
       data->addWidget(new QLabel("Phone"), row, 0);
 
       QLabel * value = new QLabel(QString::fromStdString("<a href='tel:" + std::string(phoneNumber) + "'>" + std::string(phoneNumber) + "</a>"));
@@ -163,15 +145,15 @@ PlacePageDialogUser::PlacePageDialogUser(QWidget * parent, place_page::Info cons
       addEntry("Operator", std::string(operatorName));
 
     // Wifi fragment
-    if (info.HasWifi()){
+    if (info.HasWifi())
       addEntry("Wi-Fi", "Yes");
-    }
 
     // Links fragment
     if (auto website = info.GetMetadata(feature::Metadata::EType::FMD_WEBSITE); !website.empty())
-      addEntry("Website", stripSchemeFromURI(std::string(website)), true);
+      addEntry("Website", std::string(stripSchemeFromURI(website)), true);
 
-    if (auto email = info.GetMetadata(feature::Metadata::EType::FMD_EMAIL); !email.empty()){
+    if (auto email = info.GetMetadata(feature::Metadata::EType::FMD_EMAIL); !email.empty())
+    {
       data->addWidget(new QLabel("Email"), row, 0);
 
       QLabel * value = new QLabel(QString::fromStdString("<a href='mailto:" + std::string(email) + "'>" + std::string(email) + "</a>"));
@@ -180,57 +162,32 @@ PlacePageDialogUser::PlacePageDialogUser(QWidget * parent, place_page::Info cons
       data->addWidget(value, row++, 1);
     }
 
-    if (auto facebook = info.GetMetadata(feature::Metadata::EType::FMD_CONTACT_FACEBOOK); !facebook.empty()){
-      data->addWidget(new QLabel("Facebook"), row, 0);
+    // Social networks
+    {
+      auto addSocialNetworkWidget = [data, &info, &row](const std::string label, const feature::Metadata::EType eType)
+      {
+        if (auto item = info.GetMetadata(eType); !item.empty())
+        {
+          data->addWidget(new QLabel(QString::fromStdString(label)), row, 0);
 
-      QLabel * value = new QLabel(QString::fromStdString("<a href='" + osm::socialContactToURL(feature::Metadata::EType::FMD_CONTACT_FACEBOOK, std::string(facebook)) + "'>" + std::string(facebook) + "</a>"));
-      value->setOpenExternalLinks(true);
-      value->setTextInteractionFlags(Qt::TextBrowserInteraction);
+          QLabel * value = new QLabel(QString::fromStdString("<a href='" + osm::socialContactToURL(eType, std::string(item)) + "'>" + std::string(item) + "</a>"));
+          value->setOpenExternalLinks(true);
+          value->setTextInteractionFlags(Qt::TextBrowserInteraction);
 
-      data->addWidget(value, row++, 1);
+          data->addWidget(value, row++, 1);
+        }
+      };
+
+      addSocialNetworkWidget("Facebook", feature::Metadata::EType::FMD_CONTACT_FACEBOOK);
+      addSocialNetworkWidget("Instagram", feature::Metadata::EType::FMD_CONTACT_INSTAGRAM);
+      addSocialNetworkWidget("Instagram", feature::Metadata::EType::FMD_CONTACT_INSTAGRAM);
+      addSocialNetworkWidget("Twitter", feature::Metadata::EType::FMD_CONTACT_TWITTER);
+      addSocialNetworkWidget("VK", feature::Metadata::EType::FMD_CONTACT_VK);
+      addSocialNetworkWidget("Line", feature::Metadata::EType::FMD_CONTACT_LINE);
     }
 
-    if (auto instagram = info.GetMetadata(feature::Metadata::EType::FMD_CONTACT_INSTAGRAM); !instagram.empty()){
-      data->addWidget(new QLabel("Instagram"), row, 0);
-
-      QLabel * value = new QLabel(QString::fromStdString("<a href='" + osm::socialContactToURL(feature::Metadata::EType::FMD_CONTACT_INSTAGRAM, std::string(instagram)) + "'>" + std::string(instagram) + "</a>"));
-      value->setOpenExternalLinks(true);
-      value->setTextInteractionFlags(Qt::TextBrowserInteraction);
-
-      data->addWidget(value, row++, 1);
-    }
-
-    if (auto twitter = info.GetMetadata(feature::Metadata::EType::FMD_CONTACT_TWITTER); !twitter.empty()){
-      data->addWidget(new QLabel("Twitter"), row, 0);
-
-      QLabel * value = new QLabel(QString::fromStdString("<a href='" + osm::socialContactToURL(feature::Metadata::EType::FMD_CONTACT_TWITTER, std::string(twitter)) + "'>" + std::string(twitter) + "</a>"));
-      value->setOpenExternalLinks(true);
-      value->setTextInteractionFlags(Qt::TextBrowserInteraction);
-
-      data->addWidget(value, row++, 1);
-    }
-
-    if (auto vk = info.GetMetadata(feature::Metadata::EType::FMD_CONTACT_VK); !vk.empty()){
-      data->addWidget(new QLabel("VK"), row, 0);
-
-      QLabel * value = new QLabel(QString::fromStdString("<a href='" + osm::socialContactToURL(feature::Metadata::EType::FMD_CONTACT_VK, std::string(vk)) + "'>" + std::string(vk) + "</a>"));
-      value->setOpenExternalLinks(true);
-      value->setTextInteractionFlags(Qt::TextBrowserInteraction);
-
-      data->addWidget(value, row++, 1);
-    }
-
-    if (auto line = info.GetMetadata(feature::Metadata::EType::FMD_CONTACT_LINE); !line.empty()){
-      data->addWidget(new QLabel("Line"), row, 0);
-
-      QLabel * value = new QLabel(QString::fromStdString("<a href='" + osm::socialContactToURL(feature::Metadata::EType::FMD_CONTACT_LINE, std::string(line)) + "'>" + std::string(line) + "</a>"));
-      value->setOpenExternalLinks(true);
-      value->setTextInteractionFlags(Qt::TextBrowserInteraction);
-
-      data->addWidget(value, row++, 1);
-    }
-
-    if (auto wikimedia_commons = info.GetMetadata(feature::Metadata::EType::FMD_WIKIMEDIA_COMMONS); !wikimedia_commons.empty()){
+    if (auto wikimedia_commons = info.GetMetadata(feature::Metadata::EType::FMD_WIKIMEDIA_COMMONS); !wikimedia_commons.empty())
+    {
       QLabel * value = new QLabel(QString::fromStdString("<a href='" + feature::Metadata::ToWikimediaCommonsURL(std::string(wikimedia_commons)) + "'>Wikimedia Commons</a>"));
       value->setOpenExternalLinks(true);
       value->setTextInteractionFlags(Qt::TextBrowserInteraction);
@@ -239,14 +196,12 @@ PlacePageDialogUser::PlacePageDialogUser(QWidget * parent, place_page::Info cons
     }
 
     // Level fragment
-    if (auto level = info.GetMetadata(feature::Metadata::EType::FMD_LEVEL); !level.empty()){
+    if (auto level = info.GetMetadata(feature::Metadata::EType::FMD_LEVEL); !level.empty())
       addEntry("Level", std::string(level));
-    }
 
     // ATM fragment
-    if (info.HasAtm()){
+    if (info.HasAtm())
       addEntry("ATM", "Yes");
-    }
 
     // Latlon fragment
 
