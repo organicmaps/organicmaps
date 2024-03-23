@@ -220,7 +220,7 @@ public class SurfaceRenderer implements DefaultLifecycleObserver, SurfaceCallbac
     mMap.onStart();
     mMap.setCallbackUnsupported(this::reportUnsupported);
     mMap.setMapRenderingListener(this);
-    mMap.updateMyPositionRoutingOffset(0);
+    UiThread.runLater(() -> mMap.updateMyPositionRoutingOffset(0));
 
     mIsRunning = true;
   }
