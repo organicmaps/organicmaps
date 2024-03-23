@@ -50,8 +50,6 @@
 /* Message to display at the center of the screen when the country download has failed */
 "country_status_download_failed" = "Échec lors du téléchargement";
 
-"about_menu_title" = "À propos de Organic Maps";
-
 /* Text in About screen */
 "about_headline" = "Gratuit pour tout le monde, fait avec amour";
 
@@ -73,9 +71,6 @@
 
 /* "Add new bookmark list" dialog title */
 "add_new_set" = "Créer une nouvelle liste";
-
-/* Bookmark Color dialog title */
-"bookmark_color" = "Couleur du signet";
 
 /* Add Bookmark list dialog - hint when the list name is empty */
 "bookmark_set_name" = "Nom du groupe de signets";
@@ -217,9 +212,6 @@
 /* Prints version number in About dialog */
 "version" = "Version d'Organic Maps : %@";
 
-/* Data version in «About» screen, %@ is replaced by a local, human readable date. */
-"data_version" = "Données OpenStreetMap : %@";
-
 /* Title for tracks category in bookmarks manager */
 "tracks_title" = "Parcours";
 
@@ -298,18 +290,6 @@
 "news" = "Nouvelles";
 
 /* Text in menu */
-"github" = "GitHub";
-
-/* Text in menu */
-"telegram" = "Telegram";
-
-/* Text in menu */
-"matrix" = "[Matrix]";
-
-/* Text in menu */
-"mastodon" = "Mastodon";
-
-/* Text in menu */
 "facebook" = "Facebook";
 
 /* Text in menu */
@@ -320,9 +300,6 @@
 
 /* Text in the editor */
 "vk" = "VK";
-
-/* Text in menu */
-"openstreetmap" = "OpenStreetMap";
 
 /* Text in menu */
 "rate_the_app" = "Évaluer l'appli";
@@ -338,9 +315,6 @@
 
 /* Tex label above the Donate button */
 "donate_description" = "Fais un don pour construire ensemble les meilleures cartes !";
-
-/* Button in the main Help dialog */
-"how_to_support_us" = "Soutenir le projet";
 
 /* Button in the main Help dialog */
 "copyright" = "Tous droits réservés";

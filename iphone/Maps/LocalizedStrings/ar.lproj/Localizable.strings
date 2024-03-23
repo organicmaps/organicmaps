@@ -50,8 +50,6 @@
 /* Message to display at the center of the screen when the country download has failed */
 "country_status_download_failed" = "فشلت عملية تنزيل";
 
-"about_menu_title" = "حول Organic Maps";
-
 /* Text in About screen */
 "about_headline" = "مجاني للجميع ، مصنوع من الحب";
 
@@ -73,9 +71,6 @@
 
 /* "Add new bookmark list" dialog title */
 "add_new_set" = "إضافة قائمة جديدة";
-
-/* Bookmark Color dialog title */
-"bookmark_color" = "لون الإشارة المرجعية";
 
 /* Add Bookmark list dialog - hint when the list name is empty */
 "bookmark_set_name" = "اسم قائمة الإشارات المرجعية";
@@ -217,9 +212,6 @@
 /* Prints version number in About dialog */
 "version" = "إصدار الخرائط العضوية: %@";
 
-/* Data version in «About» screen, %@ is replaced by a local, human readable date. */
-"data_version" = "بيانات خريطة الشارع المفتوحة: %@";
-
 /* Title for tracks category in bookmarks manager */
 "tracks_title" = "المسارات";
 
@@ -298,18 +290,6 @@
 "news" = "أخبار";
 
 /* Text in menu */
-"github" = "GitHub";
-
-/* Text in menu */
-"telegram" = "تيليجرام";
-
-/* Text in menu */
-"matrix" = "[Matrix]";
-
-/* Text in menu */
-"mastodon" = "Mastodon";
-
-/* Text in menu */
 "facebook" = "فيسبوك";
 
 /* Text in menu */
@@ -320,9 +300,6 @@
 
 /* Text in the editor */
 "vk" = "VK";
-
-/* Text in menu */
-"openstreetmap" = "خريطة الشارع المفتوحة";
 
 /* Text in menu */
 "rate_the_app" = "قيّم التطبيق";
@@ -338,9 +315,6 @@
 
 /* Tex label above the Donate button */
 "donate_description" = "تبرع لبناء أفضل الخرائط معًا!";
-
-/* Button in the main Help dialog */
-"how_to_support_us" = "دعم المشروع";
 
 /* Button in the main Help dialog */
 "copyright" = "حقوق النشر";
