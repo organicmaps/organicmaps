@@ -43,7 +43,7 @@ public:
   {
     ~GlyphImage()
     {
-      ASSERT(!m_data.unique(), ("Probably you forgot to call Destroy()"));
+      ASSERT(m_data.use_count() != 1, ("Probably you forgot to call Destroy()"));
     }
 
     void Destroy()
