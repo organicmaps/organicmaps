@@ -72,11 +72,11 @@ public class DrivingOptionsFragment extends BaseMwmToolbarFragment
   }
 
   @Override
-  public boolean onBackPressed()
+  public boolean getOnBackPressedDispatcher()
   {
     requireActivity().setResult(areSettingsNotChanged() ? Activity.RESULT_CANCELED
                                                         : Activity.RESULT_OK);
-    return super.onBackPressed();
+    return super.getOnBackPressedDispatcher();
   }
 
   private void initViews(@NonNull View root)

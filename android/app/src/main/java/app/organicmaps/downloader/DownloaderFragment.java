@@ -179,7 +179,7 @@ public class DownloaderFragment extends BaseMwmRecyclerFragment<DownloaderAdapte
   }
 
   @Override
-  public boolean onBackPressed()
+  public boolean getOnBackPressedDispatcher()
   {
     if (mToolbarController.hasQuery())
     {

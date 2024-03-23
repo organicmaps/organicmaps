@@ -65,7 +65,7 @@ public abstract class WebContainerDelegate implements OnBackPressListener
   }
 
   @Override
-  public boolean onBackPressed()
+  public boolean getOnBackPressedDispatcher()
   {
     if (!mWebView.canGoBack())
       return false;

@@ -141,7 +141,7 @@ public abstract class BaseMwmFragmentActivity extends AppCompatActivity
 
   protected void onHomeOptionItemSelected()
   {
-    onBackPressed();
+    getOnBackPressedDispatcher();
   }
 
   protected Toolbar getToolbar()
@@ -155,11 +155,11 @@ public abstract class BaseMwmFragmentActivity extends AppCompatActivity
   }
 
   @Override
-  public void onBackPressed()
+  public void getOnBackPressedDispatcher()
   {
     if (getFragmentClass() == null)
     {
-      super.onBackPressed();
+      super.getOnBackPressedDispatcher();
       return;
     }
     FragmentManager manager = getSupportFragmentManager();
@@ -168,14 +168,14 @@ public abstract class BaseMwmFragmentActivity extends AppCompatActivity
 
     if (fragment == null)
     {
-      super.onBackPressed();
+      super.getOnBackPressedDispatcher();
       return;
     }
 
     if (onBackPressedInternal(fragment))
       return;
 
-    super.onBackPressed();
+    super.getOnBackPressedDispatcher();
   }
 
   private boolean onBackPressedInternal(@NonNull Fragment currentFragment)
@@ -183,7 +183,7 @@ public abstract class BaseMwmFragmentActivity extends AppCompatActivity
     try
     {
       OnBackPressListener listener = (OnBackPressListener) currentFragment;
-      return listener.onBackPressed();
+      return listener.getOnBackPressedDispatcher();
     }
     catch (ClassCastException e)
     {

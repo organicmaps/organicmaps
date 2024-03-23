@@ -621,7 +621,7 @@ public class EditorFragment extends BaseMwmFragment implements View.OnClickListe
         .setPositiveButton(title, (dialog, which) -> {
           Editor.nativeRollbackMapObject();
           Framework.nativePokeSearchInViewport();
-          mParent.onBackPressed();
+          mParent.getOnBackPressedDispatcher();
         })
         .setNegativeButton(R.string.cancel, null)
         .show();
@@ -643,7 +643,7 @@ public class EditorFragment extends BaseMwmFragment implements View.OnClickListe
   private void commitPlaceDoesntExists(@NonNull String text)
   {
     Editor.nativePlaceDoesNotExist(text);
-    mParent.onBackPressed();
+    mParent.getOnBackPressedDispatcher();
   }
 
   @NonNull
