@@ -20,7 +20,7 @@ import androidx.recyclerview.widget.ConcatAdapter;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.recyclerview.widget.SimpleItemAnimator;
 
-import com.google.android.material.floatingactionbutton.FloatingActionButton;
+import com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton;
 import app.organicmaps.MwmActivity;
 import app.organicmaps.R;
 import app.organicmaps.base.BaseMwmRecyclerFragment;
@@ -79,7 +79,7 @@ public class BookmarksListFragment extends BaseMwmRecyclerFragment<ConcatAdapter
   private ViewGroup mSearchContainer;
   @SuppressWarnings("NotNullFieldNotInitialized")
   @NonNull
-  private FloatingActionButton mFabViewOnMap;
+  private ExtendedFloatingActionButton mFabViewOnMap;
   @SuppressWarnings("NotNullFieldNotInitialized")
   @NonNull
   private final RecyclerView.OnScrollListener mRecyclerListener = new RecyclerView.OnScrollListener()
