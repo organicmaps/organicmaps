@@ -10,23 +10,14 @@ namespace search
 
 std::string GetSuggestion(std::string const & name, QueryString const & query)
 {
-  // Splits result's name.
-  auto const tokens = NormalizeAndTokenizeString(name);
+  auto const nTokens = NormalizeAndTokenizeString(name);
 
-  // Finds tokens that are already present in the input query.
-  std::vector<bool> tokensMatched(tokens.size());
   bool prefixMatched = false;
   bool fullPrefixMatched = false;
 
-  for (size_t i = 0; i < tokens.size(); ++i)
+  for (auto const & token : nTokens)
   {
-    auto const & token = tokens[i];
-
-    if (std::find(query.m_tokens.begin(), query.m_tokens.end(), token) != query.m_tokens.end())
-    {
-      tokensMatched[i] = true;
-    }
-    else if (StartsWith(token, query.m_prefix))
+    if (StartsWith(token, query.m_prefix))
     {
       prefixMatched = true;
       fullPrefixMatched = token.size() == query.m_prefix.size();
@@ -39,17 +30,17 @@ std::string GetSuggestion(std::string const & name, QueryString const & query)
   if (!prefixMatched || fullPrefixMatched)
     return {};
 
-  std::string suggest = DropLastToken(query.m_query);
-
-  // Appends unmatched result's tokens to the suggestion.
-  for (size_t i = 0; i < tokens.size(); ++i)
+  std::string suggest;
+  for (auto const & token : query.m_tokens)
   {
-    if (tokensMatched[i])
-      continue;
-    suggest.append(strings::ToUtf8(tokens[i]));
-    suggest.push_back(' ');
+    /// @todo Process street shorts like: st, av, ne, w, ..
+    if (std::find(nTokens.begin(), nTokens.end(), token) == nTokens.end())
+    {
+      suggest += strings::ToUtf8(token);
+      suggest += ' ';
+    }
   }
 
-  return suggest;
+  return suggest + name + ' ';
 }
 }  // namespace search
