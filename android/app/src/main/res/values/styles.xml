@@ -345,4 +345,27 @@
     <item name="behavior_hideable">false</item>
   </style>
 
+  <style name="FAB" parent="Widget.MaterialComponents.ExtendedFloatingActionButton">
+    <item name="android:minHeight">30dp</item>
+    <item name="android:minWidth">30dp</item>
+    <item name="android:paddingTop">7dp</item>
+    <item name="android:paddingBottom">7dp</item>
+    <item name="android:paddingStart" >
+      12dp
+    </item>
+    <item name="android:paddingEnd" >
+      12dp
+    </item>
+    <item name="android:paddingLeft">12dp</item>
+    <item name="android:paddingRight">12dp</item>
+    <item name="iconPadding">4dp</item>
+    <item name="iconSize">20dp</item>
+    <item name="iconTint">?accentButtonTextColor</item>
+    <item name="android:textColor">?accentButtonTextColor</item>
+    <item name="backgroundTint">?colorAccent</item>
+    <item name="android:textSize">14sp</item>
+    <item name="textAllCaps">false</item>
+    <item name="android:textAllCaps">false</item>
+  </style>
+
 </resources>
