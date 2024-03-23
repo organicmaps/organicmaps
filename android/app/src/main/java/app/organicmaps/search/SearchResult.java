@@ -167,7 +167,8 @@ public class SearchResult
 
           final String toFind = title.substring(start,start+len).toLowerCase();
           int start2 = addr.indexOf(toFind);
-          if(start2<0 || start2+len>=address.length()) continue;
+          if (start2 < 0 || start2 + len >= address.length())
+            continue;
 
           builder.setSpan(new StyleSpan(Typeface.BOLD), start2, start2 + len, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
         }
