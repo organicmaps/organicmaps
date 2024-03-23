@@ -214,7 +214,7 @@ public class PlaceScreen extends BaseMapScreen implements OnBackPressedCallback.
 
     final Action.Builder startRouteBuilder = new Action.Builder();
     startRouteBuilder.setBackgroundColor(Colors.START_NAVIGATION);
-    startRouteBuilder.setFlags(Action.FLAG_PRIMARY);
+    startRouteBuilder.setFlags(Action.FLAG_DEFAULT);
     startRouteBuilder.setTitle(getCarContext().getString(R.string.p2p_start));
     startRouteBuilder.setIcon(new CarIcon.Builder(IconCompat.createWithResource(getCarContext(), R.drawable.ic_follow_and_rotate)).build());
     startRouteBuilder.setOnClickListener(() -> {
