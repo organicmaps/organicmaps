@@ -105,7 +105,7 @@
   <color name="button_accent_disabled">@color/black_12</color>
   <color name="button_accent_disabled_night">#FF505050</color>
   <color name="button_accent_text">#FFFFFFFF</color>
-  <color name="button_accent_text_night">#FF000000</color>
+  <color name="button_accent_text_night">@color/white_primary</color>
   <color name="button_accent_text_disabled">#42000000</color>
   <color name="button_accent_text_disabled_night">#4CFFFFFF</color>
 

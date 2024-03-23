@@ -21,7 +21,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import androidx.viewpager.widget.ViewPager;
 
 import com.google.android.material.appbar.AppBarLayout;
-import com.google.android.material.floatingactionbutton.FloatingActionButton;
+import com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton;
 import com.google.android.material.tabs.TabLayout;
 import app.organicmaps.Framework;
 import app.organicmaps.MwmActivity;
@@ -140,7 +140,7 @@ public class SearchFragment extends BaseMwmFragment
 
   private View mResultsFrame;
   private PlaceholderView mResultsPlaceholder;
-  private FloatingActionButton mShowOnMapFab;
+  private ExtendedFloatingActionButton mShowOnMapFab;
 
   @NonNull
   private SearchToolbarController mToolbarController;
