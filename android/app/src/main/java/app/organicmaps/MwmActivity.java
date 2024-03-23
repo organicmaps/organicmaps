@@ -1120,7 +1120,8 @@ public class MwmActivity extends BaseMwmFragmentActivity
     BookmarkManager.INSTANCE.removeLoadingListener(this);
     LocationHelper.from(this).removeListener(this);
     LocationState.nativeRemoveListener();
-    RoutingController.get().detach();
+    if (mDisplayManager.isDeviceDisplayUsed())
+      RoutingController.get().detach();
     IsolinesManager.from(getApplicationContext()).detach();
     mSearchController.detach();
     Utils.keepScreenOn(false, getWindow());
@@ -1320,8 +1321,11 @@ public class MwmActivity extends BaseMwmFragmentActivity
     if (navBottomSheetLineFrame != null)
       offsetY = Math.max(offsetY, navBottomSheetLineFrame.getHeight() + navBottomSheetNavBar.getHeight());
 
-    mMapFragment.updateBottomWidgetsOffset(offsetX, offsetY);
-    mMapFragment.updateMyPositionRoutingOffset(offsetY);
+    if (mDisplayManager.isDeviceDisplayUsed())
+    {
+      mMapFragment.updateBottomWidgetsOffset(offsetX, offsetY);
+      mMapFragment.updateMyPositionRoutingOffset(offsetY);
+    }
   }
 
   @Override
