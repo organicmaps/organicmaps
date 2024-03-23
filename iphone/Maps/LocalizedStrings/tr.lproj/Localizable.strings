@@ -50,8 +50,6 @@
 /* Message to display at the center of the screen when the country download has failed */
 "country_status_download_failed" = "İndirme başarısız oldu";
 
-"about_menu_title" = "Organic Maps Hakkında";
-
 /* Text in About screen */
 "about_headline" = "Sevgiyle yapılmış, herkes için ücretsiz harita";
 
@@ -73,9 +71,6 @@
 
 /* "Add new bookmark list" dialog title */
 "add_new_set" = "Yeni Liste Ekle";
-
-/* Bookmark Color dialog title */
-"bookmark_color" = "Yer İmi Rengi";
 
 /* Add Bookmark list dialog - hint when the list name is empty */
 "bookmark_set_name" = "Yer İmi Listesi Adı";
@@ -217,9 +212,6 @@
 /* Prints version number in About dialog */
 "version" = "Organic Maps sürüm: %@";
 
-/* Data version in «About» screen, %@ is replaced by a local, human readable date. */
-"data_version" = "OpenStreetMap verileri: %@";
-
 /* Title for tracks category in bookmarks manager */
 "tracks_title" = "Yol Kayıtları";
 
@@ -298,18 +290,6 @@
 "news" = "Haberler";
 
 /* Text in menu */
-"github" = "GitHub";
-
-/* Text in menu */
-"telegram" = "Telegram";
-
-/* Text in menu */
-"matrix" = "[Matrix]";
-
-/* Text in menu */
-"mastodon" = "Mastodon";
-
-/* Text in menu */
 "facebook" = "Facebook";
 
 /* Text in menu */
@@ -320,9 +300,6 @@
 
 /* Text in the editor */
 "vk" = "VK";
-
-/* Text in menu */
-"openstreetmap" = "OpenStreetMap";
 
 /* Text in menu */
 "rate_the_app" = "Uygulamayı değerlendir";
@@ -338,9 +315,6 @@
 
 /* Tex label above the Donate button */
 "donate_description" = "Birlikte en iyi haritaları oluşturmak için bağış yapın!";
-
-/* Button in the main Help dialog */
-"how_to_support_us" = "Bu projeyi destekle";
 
 /* Button in the main Help dialog */
 "copyright" = "Telif hakkı";

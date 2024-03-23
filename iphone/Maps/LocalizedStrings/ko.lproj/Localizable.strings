@@ -50,8 +50,6 @@
 /* Message to display at the center of the screen when the country download has failed */
 "country_status_download_failed" = "다운로드에 실패하였습니다";
 
-"about_menu_title" = "Organic Maps 정보";
-
 /* Text in About screen */
 "about_headline" = "사랑으로 만든 모든 사람에게 무료";
 
@@ -73,9 +71,6 @@
 
 /* "Add new bookmark list" dialog title */
 "add_new_set" = "새로운 목록 추가";
-
-/* Bookmark Color dialog title */
-"bookmark_color" = "색상 즐겨찾기에 추가";
 
 /* Add Bookmark list dialog - hint when the list name is empty */
 "bookmark_set_name" = "집합 이름을 즐겨찾기에 추가";
@@ -217,9 +212,6 @@
 /* Prints version number in About dialog */
 "version" = "Organic Maps 버전: %@";
 
-/* Data version in «About» screen, %@ is replaced by a local, human readable date. */
-"data_version" = "OpenStreetMap 데이터: %@";
-
 /* Title for tracks category in bookmarks manager */
 "tracks_title" = "트랙";
 
@@ -298,18 +290,6 @@
 "news" = "소식";
 
 /* Text in menu */
-"github" = "GitHub";
-
-/* Text in menu */
-"telegram" = "Telegram";
-
-/* Text in menu */
-"matrix" = "[Matrix]";
-
-/* Text in menu */
-"mastodon" = "Mastodon";
-
-/* Text in menu */
 "facebook" = "Facebook";
 
 /* Text in menu */
@@ -320,9 +300,6 @@
 
 /* Text in the editor */
 "vk" = "VK";
-
-/* Text in menu */
-"openstreetmap" = "OpenStreetMap";
 
 /* Text in menu */
 "rate_the_app" = "앱 평가";
@@ -338,9 +315,6 @@
 
 /* Tex label above the Donate button */
 "donate_description" = "기부하여 최고의 지도를 함께 만들어 보세요!";
-
-/* Button in the main Help dialog */
-"how_to_support_us" = "프로젝트 지원";
 
 /* Button in the main Help dialog */
 "copyright" = "저작권";

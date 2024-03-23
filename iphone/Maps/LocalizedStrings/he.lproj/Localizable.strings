@@ -50,8 +50,6 @@
 /* Message to display at the center of the screen when the country download has failed */
 "country_status_download_failed" = "ההורדה נכשלה";
 
-"about_menu_title" = "אודות Organic Maps";
-
 /* Text in About screen */
 "about_headline" = "חינם לכולם, מיוצרים באהבה";
 
@@ -73,9 +71,6 @@
 
 /* "Add new bookmark list" dialog title */
 "add_new_set" = "הוסף רשימה חדשה";
-
-/* Bookmark Color dialog title */
-"bookmark_color" = "צבע סימניה";
 
 /* Add Bookmark list dialog - hint when the list name is empty */
 "bookmark_set_name" = "שם רשימת הסימניות";
@@ -217,9 +212,6 @@
 /* Prints version number in About dialog */
 "version" = "גרסת מפות אורגניות: %@";
 
-/* Data version in «About» screen, %@ is replaced by a local, human readable date. */
-"data_version" = "נתוני OpenStreetMap: %@";
-
 /* Title for tracks category in bookmarks manager */
 "tracks_title" = "מסלולים";
 
@@ -298,18 +290,6 @@
 "news" = "חדשות";
 
 /* Text in menu */
-"github" = "GitHub";
-
-/* Text in menu */
-"telegram" = "Telegram";
-
-/* Text in menu */
-"matrix" = "[Matrix]";
-
-/* Text in menu */
-"mastodon" = "Mastodon";
-
-/* Text in menu */
 "facebook" = "Facebook";
 
 /* Text in menu */
@@ -320,9 +300,6 @@
 
 /* Text in the editor */
 "vk" = "VK";
-
-/* Text in menu */
-"openstreetmap" = "OpenStreetMap";
 
 /* Text in menu */
 "rate_the_app" = "דרגו את האפליקציה";
@@ -338,9 +315,6 @@
 
 /* Tex label above the Donate button */
 "donate_description" = "תרמו כדי לבנות יחד את המפות הטובות ביותר!";
-
-/* Button in the main Help dialog */
-"how_to_support_us" = "תמכו בפרויקט";
 
 /* Button in the main Help dialog */
 "copyright" = "זכויות יוצרים";

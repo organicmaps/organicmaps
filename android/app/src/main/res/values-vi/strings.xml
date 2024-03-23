@@ -202,10 +202,6 @@
 	<string name="pref_zoom_summary">Hiển thị trên màn hình</string>
 	<!-- Settings «Map» category: «Night style» title -->
 	<string name="pref_map_style_title">Chế độ ban đêm</string>
-	<!-- Settings "Appearance" category: "Light" title, should be consistent with the pref_appearance_title translation. -->
-	<string name="pref_appearance_light">Sáng</string>
-	<!-- Settings "Appearance" category: "Dark" title, should be consistent with the pref_appearance_title translation. -->
-	<string name="pref_appearance_dark">Tối</string>
 	<!-- Generic «Off» string -->
 	<string name="off">Tắt</string>
 	<!-- Generic «On» string -->

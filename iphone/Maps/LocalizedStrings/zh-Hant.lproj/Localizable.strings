@@ -50,8 +50,6 @@
 /* Message to display at the center of the screen when the country download has failed */
 "country_status_download_failed" = "下載失敗";
 
-"about_menu_title" = "關於 Organic Maps";
-
 /* Text in About screen */
 "about_headline" = "對每個人都免費，用愛製成";
 
@@ -73,9 +71,6 @@
 
 /* "Add new bookmark list" dialog title */
 "add_new_set" = "新增收藏夾";
-
-/* Bookmark Color dialog title */
-"bookmark_color" = "書籤顏色";
 
 /* Add Bookmark list dialog - hint when the list name is empty */
 "bookmark_set_name" = "收藏夾名稱";
@@ -217,9 +212,6 @@
 /* Prints version number in About dialog */
 "version" = "有機地圖版本：%@";
 
-/* Data version in «About» screen, %@ is replaced by a local, human readable date. */
-"data_version" = "OpenStreetMap 數據：%@";
-
 /* Title for tracks category in bookmarks manager */
 "tracks_title" = "軌跡";
 
@@ -298,18 +290,6 @@
 "news" = "新聞";
 
 /* Text in menu */
-"github" = "GitHub";
-
-/* Text in menu */
-"telegram" = "Telegram";
-
-/* Text in menu */
-"matrix" = "[Matrix]";
-
-/* Text in menu */
-"mastodon" = "Mastodon";
-
-/* Text in menu */
 "facebook" = "Facebook";
 
 /* Text in menu */
@@ -320,9 +300,6 @@
 
 /* Text in the editor */
 "vk" = "VK";
-
-/* Text in menu */
-"openstreetmap" = "開放街圖";
 
 /* Text in menu */
 "rate_the_app" = "為我們評分";
@@ -338,9 +315,6 @@
 
 /* Tex label above the Donate button */
 "donate_description" = "捐款共同打造最好的地圖！";
-
-/* Button in the main Help dialog */
-"how_to_support_us" = "支持項目";
 
 /* Button in the main Help dialog */
 "copyright" = "版權";

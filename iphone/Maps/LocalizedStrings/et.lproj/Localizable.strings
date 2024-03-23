@@ -50,8 +50,6 @@
 /* Message to display at the center of the screen when the country download has failed */
 "country_status_download_failed" = "Allalaadimine ebaõnnestus";
 
-"about_menu_title" = "Organic Maps kohta";
-
 /* Text in About screen */
 "about_headline" = "Free for everyone, made with love";
 
@@ -73,9 +71,6 @@
 
 /* "Add new bookmark list" dialog title */
 "add_new_set" = "Lisa uus loetelu";
-
-/* Bookmark Color dialog title */
-"bookmark_color" = "Järjehoidja värv";
 
 /* Add Bookmark list dialog - hint when the list name is empty */
 "bookmark_set_name" = "Järjehoidjate loetelu nimi";
@@ -217,9 +212,6 @@
 /* Prints version number in About dialog */
 "version" = "Organic Maps versioon: %@";
 
-/* Data version in «About» screen, %@ is replaced by a local, human readable date. */
-"data_version" = "OpenStreetMap andmed: %@";
-
 /* Title for tracks category in bookmarks manager */
 "tracks_title" = "Rajad";
 
@@ -298,18 +290,6 @@
 "news" = "Uudised";
 
 /* Text in menu */
-"github" = "GitHub";
-
-/* Text in menu */
-"telegram" = "Telegram";
-
-/* Text in menu */
-"matrix" = "[Matrix]";
-
-/* Text in menu */
-"mastodon" = "Mastodon";
-
-/* Text in menu */
 "facebook" = "Facebook";
 
 /* Text in menu */
@@ -320,9 +300,6 @@
 
 /* Text in the editor */
 "vk" = "VK";
-
-/* Text in menu */
-"openstreetmap" = "OpenStreetMap";
 
 /* Text in menu */
 "rate_the_app" = "Hinda rakendust";
@@ -338,9 +315,6 @@
 
 /* Tex label above the Donate button */
 "donate_description" = "Annetage, et ehitada koos parimaid kaarte!";
-
-/* Button in the main Help dialog */
-"how_to_support_us" = "Toetage projekti";
 
 /* Button in the main Help dialog */
 "copyright" = "Autoriõigused";

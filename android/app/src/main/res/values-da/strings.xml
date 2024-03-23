@@ -202,10 +202,6 @@
 	<string name="pref_zoom_summary">Vis på skærmen</string>
 	<!-- Settings «Map» category: «Night style» title -->
 	<string name="pref_map_style_title">Nattilstand</string>
-	<!-- Settings "Appearance" category: "Light" title, should be consistent with the pref_appearance_title translation. -->
-	<string name="pref_appearance_light">Lys</string>
-	<!-- Settings "Appearance" category: "Dark" title, should be consistent with the pref_appearance_title translation. -->
-	<string name="pref_appearance_dark">Mørk</string>
 	<!-- Generic «Off» string -->
 	<string name="off">Fra</string>
 	<!-- Generic «On» string -->

@@ -50,8 +50,6 @@
 /* Message to display at the center of the screen when the country download has failed */
 "country_status_download_failed" = "डाउनलोड विफल हो गया है";
 
-"about_menu_title" = "Organic Maps के बारे में";
-
 /* Text in About screen */
 "about_headline" = "सभी के लिए मुफ़्त, प्यार से बनाया गया";
 
@@ -73,9 +71,6 @@
 
 /* "Add new bookmark list" dialog title */
 "add_new_set" = "एक नई सूची जोड़ें";
-
-/* Bookmark Color dialog title */
-"bookmark_color" = "बुकमार्क रंग";
 
 /* Add Bookmark list dialog - hint when the list name is empty */
 "bookmark_set_name" = "बुकमार्क सूची का नाम";
@@ -217,9 +212,6 @@
 /* Prints version number in About dialog */
 "version" = "ऑर्गेनिकमैप्स संस्करण: %@";
 
-/* Data version in «About» screen, %@ is replaced by a local, human readable date. */
-"data_version" = "OpenStreetMap डेटा: %@";
-
 /* Title for tracks category in bookmarks manager */
 "tracks_title" = "पटरियों";
 
@@ -298,18 +290,6 @@
 "news" = "समाचार";
 
 /* Text in menu */
-"github" = "गिटहब";
-
-/* Text in menu */
-"telegram" = "टेलीग्राम";
-
-/* Text in menu */
-"matrix" = "[Matrix]";
-
-/* Text in menu */
-"mastodon" = "Mastodon";
-
-/* Text in menu */
 "facebook" = "फेसबुक";
 
 /* Text in menu */
@@ -320,9 +300,6 @@
 
 /* Text in the editor */
 "vk" = "VK";
-
-/* Text in menu */
-"openstreetmap" = "OpenStreetMap";
 
 /* Text in menu */
 "rate_the_app" = "एप्लिकेशन की श्रेणी बताओ";
@@ -340,9 +317,6 @@
 "donate_description" = "एक साथ सर्वोत्तम मानचित्र बनाने के लिए दान करें!";
 
 /* Button in the main Help dialog */
-"how_to_support_us" = "परियोजना का समर्थन करें";
-
-/* Button in the main Help dialog */
 "copyright" = "कॉपीराइट";
 
 /* Text in menu + Button in the main Help dialog */
@@ -358,10 +332,10 @@
 "follow_us" = "फ़ॉलो करें और हमसे संपर्क करें:";
 
 /* Alert text */
-"email_error_body" = "The email client has not been set up. Please configure it or contact us at %@";
+"email_error_body" = "ईमेल क्लाइंट सेट अप नहीं किया गया है. कृपया इसे कॉन्फ़िगर करें या %@ पर हमसे संपर्क करें";
 
 /* Alert title */
-"email_error_title" = "Error sending email";
+"email_error_title" = "ईमेल भेजने में त्रुटि";
 
 /* Settings item title */
 "pref_calibration_title" = "कम्पास अंशांकन";
@@ -385,7 +359,7 @@
 
 "downloader_download_all_button" = "सभी डाउनलोड";
 
-"downloader_downloading" = "Downloading:";
+"downloader_downloading" = "डाउनलोड हो रहा है:";
 
 "downloader_search_results" = "Found";
 
@@ -411,10 +385,10 @@
 "downloader_delete_map" = "Delete Map";
 
 /* Text for routing error dialog */
-"routing_download_maps_along" = "Download all of the maps along your route";
+"routing_download_maps_along" = "अपने मार्ग के सभी मानचित्र डाउनलोड करें";
 
 /* Text for routing error dialog */
-"routing_requires_all_map" = "In order to create a route, we need to download and update all the maps from your location to your destination.";
+"routing_requires_all_map" = "मार्ग बनाने के लिए, हमें आपके स्थान से आपके गंतव्य तक के सभी मानचित्रों को डाउनलोड और अपडेट करना होगा।";
 
 /* bookmark button text */
 "bookmark" = "bookmark";
@@ -476,43 +450,43 @@
 
 "dialog_routing_disclaimer_title" = "मार्ग का अनुसरण करते समय कृपया ध्यान रखें:";
 
-"dialog_routing_disclaimer_priority" = "— Road conditions, traffic laws, and road signs always take priority over the navigation hints;";
+"dialog_routing_disclaimer_priority" = "— सड़क की स्थिति, यातायात कानून और सड़क संकेत हमेशा नेविगेशन संकेतों पर प्राथमिकता देते हैं;";
 
-"dialog_routing_disclaimer_precision" = "— The map might be inaccurate, and the suggested route might not always be the most optimal way to reach the destination;";
+"dialog_routing_disclaimer_precision" = "— नक्शा गलत हो सकता है, और सुझाया गया मार्ग हमेशा गंतव्य तक पहुंचने का सबसे इष्टतम तरीका नहीं हो सकता है;";
 
-"dialog_routing_disclaimer_recommendations" = "— Suggested routes should only be understood as recommendations;";
+"dialog_routing_disclaimer_recommendations" = "— सुझाए गए मार्गों को केवल अनुशंसाओं के रूप में समझा जाना चाहिए;";
 
-"dialog_routing_disclaimer_borders" = "— Exercise caution with routes in border zones: the routes created by our app may sometimes cross country borders in unauthorized places.";
+"dialog_routing_disclaimer_borders" = "— सीमावर्ती क्षेत्रों में मार्गों के साथ सावधानी बरतें: हमारे ऐप द्वारा बनाए गए मार्ग कभी-कभी अनधिकृत स्थानों पर देश की सीमाओं को पार कर सकते हैं।";
 
-"dialog_routing_disclaimer_beware" = "Please stay alert and safe on the roads!";
+"dialog_routing_disclaimer_beware" = "कृपया सड़कों पर सतर्क और सुरक्षित रहें!";
 
 "dialog_routing_check_gps" = "Check GPS signal";
 
-"dialog_routing_error_location_not_found" = "Unable to create route. Current GPS coordinates could not be identified.";
+"dialog_routing_error_location_not_found" = "मार्ग बनाने में असमर्थ. वर्तमान जीपीएस निर्देशांक की पहचान नहीं की जा सकी.";
 
 "dialog_routing_location_turn_wifi" = "Please check your GPS signal. Enabling Wi-Fi will improve your location accuracy.";
 
 "dialog_routing_location_turn_on" = "Enable location services";
 
-"dialog_routing_location_unknown_turn_on" = "Unable to locate current GPS coordinates. Enable location services to calculate route.";
+"dialog_routing_location_unknown_turn_on" = "वर्तमान जीपीएस निर्देशांक का पता लगाने में असमर्थ. मार्ग की गणना करने के लिए स्थान सेवाएँ सक्षम करें।";
 
 "dialog_routing_download_files" = "Download required files";
 
-"dialog_routing_download_and_update_all" = "Download or update all maps along the projected path to calculate a route.";
+"dialog_routing_download_and_update_all" = "मार्ग की गणना करने के लिए अनुमानित पथ के सभी मानचित्र डाउनलोड या अपडेट करें।";
 
-"dialog_routing_unable_locate_route" = "Unable to locate route";
+"dialog_routing_unable_locate_route" = "मार्ग ढूंढने में असमर्थ";
 
 "dialog_routing_change_start_or_end" = "Please adjust your starting point or destination.";
 
 "dialog_routing_change_start" = "Adjust starting point";
 
-"dialog_routing_start_not_determined" = "Route was not created. Unable to locate starting point.";
+"dialog_routing_start_not_determined" = "रूट नहीं बनाया गया. प्रारंभिक बिंदु का पता लगाने में असमर्थ.";
 
 "dialog_routing_select_closer_start" = "Please select a starting point closer to a road.";
 
 "dialog_routing_change_end" = "Adjust destination";
 
-"dialog_routing_end_not_determined" = "Route was not created. Unable to locate the destination.";
+"dialog_routing_end_not_determined" = "रूट नहीं बनाया गया. गंतव्य का पता लगाने में असमर्थ.";
 
 "dialog_routing_select_closer_end" = "Please select a destination point located closer to a road.";
 
@@ -520,9 +494,9 @@
 
 "dialog_routing_intermediate_not_determined" = "Please adjust your intermediate point.";
 
-"dialog_routing_system_error" = "System error";
+"dialog_routing_system_error" = "सिस्टम त्रुटि";
 
-"dialog_routing_application_error" = "Unable to create route due to an application error.";
+"dialog_routing_application_error" = "एप्लिकेशन त्रुटि के कारण मार्ग बनाने में असमर्थ.";
 
 "dialog_routing_try_again" = "Please try again";
 
@@ -542,13 +516,13 @@
 "hide" = "छिपाना";
 
 /* Failed planning route message in navigation view */
-"routing_planning_error" = "Route Planning Failed";
+"routing_planning_error" = "रूट योजना विफल";
 
 /* Arrive routing message in navigation view */
-"routing_arrive" = "Arrival at %@";
+"routing_arrive" = "आगमन का समय: %@";
 
 /* Text for routing::RouterResultCode::FileTooOld dialog. */
-"dialog_routing_download_and_update_maps" = "Download and update all map along the projected path to calculate route.";
+"dialog_routing_download_and_update_maps" = "मार्ग की गणना करने के लिए अनुमानित पथ के साथ सभी मानचित्र डाउनलोड करें और अपडेट करें।";
 
 "categories" = "श्रेणियाँ";
 
@@ -616,7 +590,7 @@
 "autodownload" = "मानचित्र स्वतः डाउनलोड करें";
 
 /* Place Page opening hours text */
-"closed_now" = "Closed now";
+"closed_now" = "अब बंद";
 
 /* Place Page opening hours text */
 "daily" = "दैनिक";
@@ -629,13 +603,13 @@
 
 "today" = "Today";
 
-"opens_tomorrow_at" = "Opens tomorrow at %@";
+"opens_tomorrow_at" = "कल सुबह %@ बजे खुलेगा";
 
 "opens_dayoftheweek_at" = "Opens %1$@ at %2$@";
 
-"opens_at" = "Opens at %@";
+"opens_at" = "%@ बजे खुलता है";
 
-"opens_in" = "Opens in %@";
+"opens_in" = "%@ में खुल जाएगा";
 
 "closes_at" = "%@ बजे बंद हो जाता है";
 
@@ -784,7 +758,7 @@
 
 "current_location_unknown_error_title" = "Current location is unknown.";
 
-"current_location_unknown_error_message" = "An error occurred while determining your location. Check that your device is working properly and try again later.";
+"current_location_unknown_error_message" = "आपका स्थान निर्धारित करते समय एक त्रुटि उत्पन्न हुई. जांचें कि आपका उपकरण ठीक से काम कर रहा है और बाद में पुनः प्रयास करें।";
 
 "location_services_disabled_header" = "Location services are disabled";
 
@@ -887,29 +861,29 @@
 "navigation_stop_button" = "stop";
 
 /* iOS dialog for the case when recent track recording is on and the app comes back from background */
-"recent_track_background_dialog_title" = "Disable recording of your recently travelled route?";
+"recent_track_background_dialog_title" = "क्या आप हाल ही में यात्रा किए गए मार्ग की रिकॉर्डिंग अक्षम करना चाहते हैं?";
 
 "off_recent_track_background_button" = "Disable";
 
 /* For sharing via SMS and so on */
 "sharing_call_action_look" = "Check out";
 
-"recent_track_background_dialog_message" = "Organic Maps uses your location in the background to record your recently travelled route.";
+"recent_track_background_dialog_message" = "Organic Maps आपके हाल ही में यात्रा किए गए मार्ग को रिकॉर्ड करने के लिए पृष्ठभूमि में आपके स्थान का उपयोग करता है।";
 
 "general_settings" = "सामान्य सेटिंग्स";
 
 /* For the first routing */
-"accept" = "Accept";
+"accept" = "मुझे स्वीकार है";
 
 /* For the first routing */
-"decline" = "Decline";
+"decline" = "मैंने गिराया";
 
 /* A noun - a button name used to show search results in list form */
 "search_in_table" = "सूची";
 
 "mobile_data_dialog" = "Use mobile internet to show detailed information?";
 
-"mobile_data_option_always" = "Use Always";
+"mobile_data_option_always" = "हमेशा उपयोग करें";
 
 "mobile_data_option_today" = "Only Today";
 
@@ -920,9 +894,9 @@
 /* NOTE to translators: please synchronize your translation with the English one. */
 "mobile_data_description" = "मानचित्र अद्यतन अधिसूचनाओं और संपादन अपलोड करने के लिए मोबाइल इंटरनेट आवश्यक है।";
 
-"mobile_data_option_never" = "Never Use";
+"mobile_data_option_never" = "कभी उपयोग न करो";
 
-"mobile_data_option_ask" = "Always Ask";
+"mobile_data_option_ask" = "हमेशा पूछिये";
 
 "traffic_update_maps_text" = "To display traffic data, maps must be updated.";
 
@@ -939,11 +913,11 @@
 /* Subway exits for public transport marks on the map */
 "core_exit" = "Exit";
 
-"routing_add_start_point" = "Add a starting point to plan a route";
+"routing_add_start_point" = "मार्ग की योजना बनाने के लिए एक प्रारंभिक बिंदु जोड़ें";
 
-"routing_add_finish_point" = "Add a destination to plan a route";
+"routing_add_finish_point" = "मार्ग की योजना बनाने के लिए एक गंतव्य जोड़ें";
 
-"planning_route_manage_route" = "Manage Route";
+"planning_route_manage_route" = "मार्ग प्रबंधित करें";
 
 "button_plan" = "Plan";
 
@@ -974,13 +948,13 @@
 
 "downloader_percent" = "%@ (%@ of %@)";
 
-"downloader_process" = "Downloading %@…";
+"downloader_process" = "डाउनलोड %@…";
 
-"downloader_applying" = "Applying %@…";
+"downloader_applying" = "लागू करना %@…";
 
 "bookmarks_error_message_share_general" = "एप्लिकेशन त्रुटि के कारण साझा करने में असमर्थ";
 
-"bookmarks_error_title_share_empty" = "Sharing error";
+"bookmarks_error_title_share_empty" = "साझा करने में त्रुटि";
 
 "bookmarks_error_message_share_empty" = "Cannot share an empty list";
 
@@ -1002,7 +976,7 @@
 
 "bookmarks_restore_title" = "Restore this version?";
 
-"error_system_message" = "An unknown error occurred";
+"error_system_message" = "एक अज्ञात त्रुटि हुई";
 
 "restore" = "Restore";
 
@@ -1018,7 +992,7 @@
 
 "subway_data_unavailable" = "Subway map is unavailable";
 
-"title_error_downloading_bookmarks" = "An error occurred";
+"title_error_downloading_bookmarks" = "एक त्रुटि पाई गई";
 
 "popular_place" = "Popular";
 
@@ -1051,11 +1025,11 @@
 
 "power_managment_description" = "कुछ कार्यक्षमता की कीमत पर बिजली के उपयोग को कम करने का प्रयास करें।";
 
-"power_managment_setting_never" = "Never";
+"power_managment_setting_never" = "कभी नहीं";
 
-"power_managment_setting_auto" = "When battery is low";
+"power_managment_setting_auto" = "जब बैटरी कम हो";
 
-"power_managment_setting_manual_max" = "Always";
+"power_managment_setting_manual_max" = "हमेशा";
 
 "driving_options_title" = "रूटिंग विकल्प";
 
@@ -1070,9 +1044,9 @@
 
 "avoid_motorways" = "फ़्रीवेज़ से बचें";
 
-"unable_to_calc_alert_title" = "Unable to calculate route";
+"unable_to_calc_alert_title" = "मार्ग की गणना करने में असमर्थ";
 
-"unable_to_calc_alert_subtitle" = "A route could not be found. This may be caused by your routing options or incomplete OpenStreetMap data. Please change your routing options and retry.";
+"unable_to_calc_alert_subtitle" = "कोई मार्ग नहीं मिल सका. यह आपके रूटिंग विकल्पों या अधूरे OpenStreetMap डेटा के कारण हो सकता है। कृपया अपने रूटिंग विकल्प बदलें और पुनः प्रयास करें।";
 
 "define_to_avoid_btn" = "बचने के लिए सड़कों को परिभाषित करें";
 
@@ -1094,7 +1068,7 @@
 
 "then_turn" = "Then";
 
-"redirect_route_alert" = "Do you want to rebuild the route?";
+"redirect_route_alert" = "क्या आप मार्ग का पुनर्निर्माण करना चाहते हैं?";
 
 /* A generic "Yes" button in dialogs */
 "yes" = "हॉं";
@@ -1575,7 +1549,7 @@
 
 "type.amenity.restaurant" = "रेस्तरां";
 
-"type.amenity.sanitary_dump_station" = "Holding Tank Dump Station";
+"type.amenity.sanitary_dump_station" = "सेनेटरी डंप स्टेशन";
 
 "type.amenity.school" = "विद्यालय";
 
@@ -1637,7 +1611,7 @@
 
 "type.amenity.waste_transfer_station" = "कचरा स्थानांतरण स्टेशन";
 
-"type.amenity.water_point" = "Water Tank Refill Point";
+"type.amenity.water_point" = "पानी की टंकी पुनः भरने का स्थान";
 
 "type.barrier" = "Barrier";
 
@@ -1760,11 +1734,11 @@
 
 "type.craft" = "Craft";
 
-"type.craft.beekeeper" = "Beekeeper";
+"type.craft.beekeeper" = "शहर की मक्खियां पालनेवाला";
 
 "type.craft.blacksmith" = "लोहार";
 
-"type.craft.brewery" = "Craft Brewery";
+"type.craft.brewery" = "शराब की भठ्ठी";
 
 "type.craft.caterer" = "Caterer";
 
@@ -1772,9 +1746,9 @@
 
 "type.craft.confectionery" = "Confectioner";
 
-"type.craft.electrician" = "Electrician";
+"type.craft.electrician" = "बिजली मिस्त्री";
 
-"type.craft.electronics_repair" = "Electronics Repair";
+"type.craft.electronics_repair" = "इलेक्ट्रॉनिक्स मरम्मत";
 
 "type.craft.gardener" = "Gardener";
 
@@ -1795,13 +1769,13 @@
 
 "type.craft.photographer" = "फोटोग्राफर";
 
-"type.shop.camera" = "Camera Shop";
+"type.shop.camera" = "कैमरे की दुकान";
 
-"type.craft.plumber" = "Plumber";
+"type.craft.plumber" = "नलसाज";
 
 "type.craft.sawmill" = "आरा मिल";
 
-"type.craft.shoemaker" = "Shoe Repair";
+"type.craft.shoemaker" = "जूते की मरम्मत";
 
 "type.craft.winery" = "Winery";
 
@@ -2005,21 +1979,21 @@
 
 "type.healthcare.physiotherapist" = "भौतिक चिकित्सा";
 
-"type.healthcare.alternative" = "Alternative Medicine";
+"type.healthcare.alternative" = "वैकल्पिक चिकित्सा";
 
-"type.healthcare.audiologist" = "Audiologist";
+"type.healthcare.audiologist" = "ऑडियोलॉजिस्ट";
 
-"type.healthcare.blood_donation" = "Blood Donation Center";
+"type.healthcare.blood_donation" = "रक्तदान केंद्र";
 
-"type.healthcare.optometrist" = "Optometrist";
+"type.healthcare.optometrist" = "दृष्टिमापी";
 
-"type.healthcare.podiatrist" = "Podiatrist";
+"type.healthcare.podiatrist" = "पोडियाट्रिस्ट";
 
-"type.healthcare.psychotherapist" = "Psychotherapist";
+"type.healthcare.psychotherapist" = "मनोचिकित्सक";
 
-"type.healthcare.sample_collection" = "Sample Collection Centre";
+"type.healthcare.sample_collection" = "नमूना संग्रह केंद्र";
 
-"type.healthcare.speech_therapist" = "Logopedics";
+"type.healthcare.speech_therapist" = "वाक उपचार";
 
 
 /********** Types: Roads **********/
@@ -2178,7 +2152,7 @@
 /* These translations are used for all type.highway.*.tunnel. */
 "type.highway.residential.tunnel" = "Tunnel";
 
-"type.highway.rest_area" = "Rest Area";
+"type.highway.rest_area" = "बाकी क्षेत्र";
 
 "type.highway.road" = "सड़क";
 
@@ -2536,11 +2510,11 @@
 
 "type.leisure.common" = "Public Land";
 
-"type.leisure.dog_park" = "Dog Park";
+"type.leisure.dog_park" = "श्वान पार्क";
 
-"type.leisure.fitness_centre" = "Fitness Centre";
+"type.leisure.fitness_centre" = "फिटनेस सेंटर";
 
-"type.leisure.fitness_station" = "Fitness Station";
+"type.leisure.fitness_station" = "फिटनेस स्टेशन";
 
 "type.leisure.dance" = "Dance Hall";
 
@@ -2554,7 +2528,7 @@
 
 "type.leisure.ice_rink" = "Ice Rink";
 
-"type.leisure.marina" = "Marina";
+"type.leisure.marina" = "मरीना";
 
 "type.leisure.nature_reserve" = "संरक्षित प्रकृतिक्षेत्र";
 
@@ -2568,15 +2542,15 @@
 
 "type.leisure.park.private" = "उद्यान";
 
-"type.leisure.picnic_table" = "Picnic Table";
+"type.leisure.picnic_table" = "पिकनिक मेज";
 
 "type.leisure.pitch" = "Sport Pitch";
 
-"type.leisure.playground" = "Playground";
+"type.leisure.playground" = "खेल का मैदान";
 
 "type.leisure.recreation_ground" = "Recreation Ground";
 
-"type.leisure.sauna" = "Sauna";
+"type.leisure.sauna" = "सॉना";
 
 "type.leisure.slipway" = "Slipway";
 
@@ -2596,7 +2570,7 @@
 
 "type.leisure.track.area" = "Track";
 
-"type.leisure.water_park" = "Water Park";
+"type.leisure.water_park" = "वाटर पार्क";
 
 "type.leisure.beach_resort" = "Beach Resort";
 
@@ -2636,9 +2610,9 @@
 
 "type.man_made.wastewater_plant" = "अपशिष्ट जलोपचार";
 
-"type.man_made.water_tap" = "Water Tap";
+"type.man_made.water_tap" = "पानी का नल";
 
-"type.man_made.water_tower" = "Water Tower";
+"type.man_made.water_tower" = "पानी का टावर";
 
 "type.man_made.water_well" = "कुआँ";
 
@@ -2740,19 +2714,19 @@
 
 "type.office" = "कार्यालय";
 
-"type.office.company" = "Company Office";
+"type.office.company" = "कंपनी कार्यालय";
 
-"type.office.estate_agent" = "Estate Agent";
+"type.office.estate_agent" = "संपत्ति एजेंट";
 
-"type.office.government" = "Government Office";
+"type.office.government" = "सरकारी कार्यालय";
 
-"type.office.insurance" = "Insurance Office";
+"type.office.insurance" = "बीमा कार्यालय";
 
-"type.office.lawyer" = "Lawyer";
+"type.office.lawyer" = "वकील";
 
 "type.office.ngo" = "अशासकीय संस्था";
 
-"type.office.telecommunication" = "Telecom Company";
+"type.office.telecommunication" = "दूरसंचार कंपनी";
 
 "type.organic.only" = "Organic";
 
@@ -3541,7 +3515,7 @@
 
 "type.shop.hairdresser" = "नाई";
 
-"type.shop.hardware" = "Hardware Store";
+"type.shop.hardware" = "लौह वस्तुओं की दुकान";
 
 "type.shop.health_food" = "स्वस्थ भोजन की दुकान";
 
@@ -3563,7 +3537,7 @@
 
 "type.shop.massage" = "मालिश घर";
 
-"type.shop.mobile_phone" = "Cell Phone Store";
+"type.shop.mobile_phone" = "सेल फोन की दुकान";
 
 "type.shop.money_lender" = "हवलदार";
 
@@ -3587,7 +3561,7 @@
 
 "type.shop.pawnbroker" = "महाजन";
 
-"type.shop.pet" = "Pet Store";
+"type.shop.pet" = "पालतू जानवर की दुकान";
 
 "type.shop.pet_grooming" = "Pet Grooming";
 
@@ -3757,7 +3731,7 @@
 
 "type.tourism.alpine_hut" = "Alpine Lodging";
 
-"type.tourism.apartment" = "Holiday Apartment";
+"type.tourism.apartment" = "अवकाश अपार्टमेंट";
 
 "type.tourism.artwork" = "कलाकृति";
 
@@ -3777,19 +3751,19 @@
 
 "type.tourism.camp_site" = "Campground";
 
-"type.tourism.caravan_site" = "RV Park";
+"type.tourism.caravan_site" = "कारवां स्थल";
 
-"type.tourism.chalet" = "Chalet";
+"type.tourism.chalet" = "षाले";
 
-"type.tourism.gallery" = "Art Gallery";
+"type.tourism.gallery" = "आर्ट गैलरी";
 
-"type.tourism.guest_house" = "Guest House";
+"type.tourism.guest_house" = "अतिथि गृह";
 
 "type.tourism.hostel" = "शयनागार";
 
 "type.tourism.hotel" = "होटल";
 
-"type.tourism.information" = "Tourist Information";
+"type.tourism.information" = "पर्यटक सूचना";
 
 "type.tourism.information.board" = "Information Board";
 
@@ -3801,17 +3775,17 @@
 
 "type.tourism.information.visitor_centre" = "Visitor Centre";
 
-"type.tourism.motel" = "Motel";
+"type.tourism.motel" = "मोटेल";
 
 "type.tourism.museum" = "संग्रहालय";
 
-"type.tourism.picnic_site" = "Picnic Site";
+"type.tourism.picnic_site" = "पिकनिक स्थल";
 
 "type.tourism.resort" = "Resort";
 
 "type.tourism.theme_park" = "Theme Park";
 
-"type.tourism.viewpoint" = "Viewpoint";
+"type.tourism.viewpoint" = "दृष्टिकोण";
 
 "type.tourism.wilderness_hut" = "Wilderness Hut";
 

@@ -219,10 +219,6 @@
 	<string name="pref_zoom_summary">Erakutsi mapan</string>
 	<!-- Settings «Map» category: «Night style» title -->
 	<string name="pref_map_style_title">Gaueko modua</string>
-	<!-- Settings "Appearance" category: "Light" title, should be consistent with the pref_appearance_title translation. -->
-	<string name="pref_appearance_light">Argi</string>
-	<!-- Settings "Appearance" category: "Dark" title, should be consistent with the pref_appearance_title translation. -->
-	<string name="pref_appearance_dark">Iluna</string>
 	<!-- Generic «Off» string -->
 	<string name="off">Desgaituta</string>
 	<!-- Generic «On» string -->

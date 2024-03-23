@@ -221,10 +221,6 @@
 	<string name="pref_zoom_summary">Xəritədə göstər</string>
 	<!-- Settings «Map» category: «Night style» title -->
 	<string name="pref_map_style_title">Gecə rejimi</string>
-	<!-- Settings "Appearance" category: "Light" title, should be consistent with the pref_appearance_title translation. -->
-	<string name="pref_appearance_light">Parlaq</string>
-	<!-- Settings "Appearance" category: "Dark" title, should be consistent with the pref_appearance_title translation. -->
-	<string name="pref_appearance_dark">Tünd</string>
 	<!-- Generic «Off» string -->
 	<string name="off">Bağlı</string>
 	<!-- Generic «On» string -->
