@@ -937,7 +937,7 @@
     zh-Hant = 再試一次
 
   [about_menu_title]
-    tags = android,ios
+    tags = android
     en = About Organic Maps
     af = Oor Organic Maps
     ar = حول Organic Maps
@@ -1869,7 +1869,7 @@
 
   [bookmark_color]
     comment = Bookmark Color dialog title
-    tags = android,ios
+    tags = android
     en = Bookmark Color
     en-GB = Bookmark Colour
     af = Boekmerkkleur
@@ -4825,7 +4825,7 @@
 
   [data_version]
     comment = Data version in «About» screen, %@ is replaced by a local, human readable date.
-    tags = android,ios
+    tags = android
     en = OpenStreetMap data: %@
     af = OpenStreetMap-data: %@
     ar = بيانات خريطة الشارع المفتوحة: %@
@@ -5346,7 +5346,7 @@
 
   [pref_appearance_light]
     comment = Settings "Appearance" category: "Light" title, should be consistent with the pref_appearance_title translation.
-    tags = android,ios
+    tags = ios
     en = Light
     ar = فاتح
     az = Parlaq
@@ -5390,7 +5390,7 @@
 
   [pref_appearance_dark]
     comment = Settings "Appearance" category: "Dark" title, should be consistent with the pref_appearance_title translation.
-    tags = android,ios
+    tags = ios
     en = Dark
     ar = داكن
     az = Tünd
@@ -6570,25 +6570,25 @@
 
   [github]
     comment = Text in menu
-    tags = android,ios
+    tags = android
     en = GitHub
     hi = गिटहब
 
   [telegram]
     comment = Text in menu
-    tags = android,ios
+    tags = android
     en = Telegram
     ar = تيليجرام
     hi = टेलीग्राम
 
   [matrix]
     comment = Text in menu
-    tags = android,ios
+    tags = android
     en = [Matrix]
 
   [mastodon]
     comment = Text in menu
-    tags = android,ios
+    tags = android
     en = Mastodon
 
   [facebook]
@@ -6628,7 +6628,7 @@
 
   [openstreetmap]
     comment = Text in menu
-    tags = android,ios
+    tags = android
     en = OpenStreetMap
     ar = خريطة الشارع المفتوحة
     zh-Hant = 開放街圖
@@ -6908,7 +6908,7 @@
 
   [how_to_support_us]
     comment = Button in the main Help dialog
-    tags = android,ios
+    tags = android
     en = Support the project
     af = Ondersteun die projek
     ar = دعم المشروع
@@ -24634,6 +24634,7 @@
 
   [capacity]
     comment = To indicate the capacity of car parkings, bicycle parkings, electric vehicle charging stations...
+    tags = android,ios
     en = Capacity: %@
     af = Kapasiteit: %@
     ar = السعة: %@
