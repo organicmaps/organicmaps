@@ -9,11 +9,11 @@ namespace place_page
 class Info;
 }
 
-class PlacePageDialog : public QDialog
+class PlacePageDialogUser : public QDialog
 {
   Q_OBJECT
 public:
-  PlacePageDialog(QWidget * parent, place_page::Info const & info,
+  PlacePageDialogUser(QWidget * parent, place_page::Info const & info,
                   search::ReverseGeocoder::Address const & address);
 
 private slots:

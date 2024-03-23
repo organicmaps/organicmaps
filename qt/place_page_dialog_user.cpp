@@ -1,4 +1,4 @@
-#include "qt/place_page_dialog.hpp"
+#include "qt/place_page_dialog_user.hpp"
 
 #include "qt/qt_common/text_dialog.hpp"
 
@@ -59,7 +59,7 @@ std::string getShortDescription(std::string description)
   return description;
 }
 
-PlacePageDialog::PlacePageDialog(QWidget * parent, place_page::Info const & info,
+PlacePageDialogUser::PlacePageDialogUser(QWidget * parent, place_page::Info const & info,
                                  search::ReverseGeocoder::Address const & address)
   : QDialog(parent)
 {
@@ -258,91 +258,6 @@ PlacePageDialog::PlacePageDialog(QWidget * parent, place_page::Info const & info
     layout->addLayout(data);
   }
 
-  // Advanced
-  bool developerMode;
-  if (settings::Get(settings::kDeveloperMode, developerMode) && developerMode)
-  {
-    {
-      QHLine * line = new QHLine();
-      layout->addWidget(line);
-    }
-
-    layout->addWidget(new QLabel("<b>Advanced</b>"));
-
-    QGridLayout * grid = new QGridLayout();
-
-    int row = 0;
-
-    auto const addEntry = [grid, &row](std::string const & key, std::string const & value, bool isLink = false)
-    {
-      grid->addWidget(new QLabel(QString::fromStdString(key)), row, 0);
-      QLabel * label = new QLabel(QString::fromStdString(value));
-      label->setTextInteractionFlags(Qt::TextSelectableByMouse);
-      if (isLink)
-      {
-        label->setOpenExternalLinks(true);
-        label->setTextInteractionFlags(Qt::TextBrowserInteraction);
-        label->setText(QString::fromStdString("<a href=\"" + value + "\">" + stripSchemeFromURI(value) + "</a>"));
-      }
-      grid->addWidget(label, row++, 1);
-      return label;
-    };
-
-    if (info.IsMyPosition())
-    {
-      grid->addWidget(new QLabel("MyPosition"), row, 0);
-      grid->addWidget(new QLabel("Yes"), row++, 1);
-    }
-
-    if (info.HasApiUrl())
-    {
-      grid->addWidget(new QLabel("Api URL"), row, 0);
-      grid->addWidget(new QLabel(QString::fromStdString(info.GetApiUrl())), row++, 1);
-    }
-
-    addEntry("CountryId", info.GetCountryId());
-
-    if (info.IsFeature())
-    {
-      addEntry("Feature ID", DebugPrint(info.GetID()));
-      addEntry("Raw Types", DebugPrint(info.GetTypes()));
-    }
-
-    auto const layer = info.GetLayer();
-    if (layer != feature::LAYER_EMPTY)
-      addEntry("Layer", std::to_string(layer));
-
-    if(info.HasMetadataReadable()){
-      grid->addWidget(new QLabel("<b>Metadata</b>"), row++, 0, 1, 2);
-
-      info.ForEachMetadataReadable([&addEntry](PropID id, std::string const & value)
-      {
-        switch (id)
-        { // SKIP those that are already listed in the non-advanced (non-developer) mode
-        case PropID::FMD_EMAIL:
-        case PropID::FMD_CONTACT_FACEBOOK:
-        case PropID::FMD_CONTACT_INSTAGRAM:
-        case PropID::FMD_CONTACT_TWITTER:
-        case PropID::FMD_CONTACT_VK:
-        case PropID::FMD_CONTACT_LINE:
-        case PropID::FMD_LEVEL:
-        case PropID::FMD_OPERATOR:
-        case PropID::FMD_PHONE_NUMBER:
-        case PropID::FMD_WEBSITE:
-        case PropID::FMD_WIKIPEDIA:
-        case PropID::FMD_WIKIMEDIA_COMMONS:
-          break;
-        default:
-          addEntry(DebugPrint(id), value, false);
-          break;
-        }
-
-      });
-    }
-
-    layout->addLayout(grid);
-  }
-
   {
     QHLine * line = new QHLine();
     layout->addWidget(line);
@@ -353,13 +268,13 @@ PlacePageDialog::PlacePageDialog(QWidget * parent, place_page::Info const & info
 
     QPushButton * closeButton = new QPushButton("Close");
     closeButton->setDefault(true);
-    connect(closeButton, &QAbstractButton::clicked, this, &PlacePageDialog::OnClose);
+    connect(closeButton, &QAbstractButton::clicked, this, &PlacePageDialogUser::OnClose);
     dbb->addButton(closeButton, QDialogButtonBox::RejectRole);
 
     if (info.ShouldShowEditPlace())
     {
       QPushButton * editButton = new QPushButton("Edit Place");
-      connect(editButton, &QAbstractButton::clicked, this, &PlacePageDialog::OnEdit);
+      connect(editButton, &QAbstractButton::clicked, this, &PlacePageDialogUser::OnEdit);
       dbb->addButton(editButton, QDialogButtonBox::ActionRole);
     }
 
@@ -372,5 +287,5 @@ PlacePageDialog::PlacePageDialog(QWidget * parent, place_page::Info const & info
   setWindowTitle(ppTitle.c_str());
 }
 
-void PlacePageDialog::OnClose() { reject(); }
-void PlacePageDialog::OnEdit() { accept(); }
+void PlacePageDialogUser::OnClose() { reject(); }
+void PlacePageDialogUser::OnEdit() { accept(); }

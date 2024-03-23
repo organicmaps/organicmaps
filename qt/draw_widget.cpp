@@ -2,7 +2,8 @@
 
 #include "qt/create_feature_dialog.hpp"
 #include "qt/editor_dialog.hpp"
-#include "qt/place_page_dialog.hpp"
+#include "qt/place_page_dialog_developer.hpp"
+#include "qt/place_page_dialog_user.hpp"
 #include "qt/qt_common/helpers.hpp"
 #include "qt/routing_settings_dialog.hpp"
 #include "qt/screenshoter.hpp"
@@ -649,8 +650,14 @@ void DrawWidget::ShowPlacePage()
     address = m_framework.GetAddressAtPoint(info.GetMercator());
   }
 
-  PlacePageDialog dlg(this, info, address);
-  if (dlg.exec() == QDialog::Accepted)
+  std::unique_ptr<QDialog> placePageDialog = nullptr;
+  bool developerMode;
+  if (settings::Get(settings::kDeveloperMode, developerMode) && developerMode)
+    placePageDialog = std::make_unique<PlacePageDialogDeveloper>(this, info, address);
+  else
+    placePageDialog = std::make_unique<PlacePageDialogUser>(this, info, address);
+
+  if (placePageDialog->exec() == QDialog::Accepted)
   {
     osm::EditableMapObject emo;
     if (m_framework.GetEditableMapObject(info.GetID(), emo))
