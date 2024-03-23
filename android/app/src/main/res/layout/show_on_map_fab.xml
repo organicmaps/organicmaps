@@ -8,7 +8,7 @@
   android:contentDescription="@string/search_show_on_map"
   style="@style/FAB"
   app:icon="@drawable/ic_show_on_map"
-  android:text="@string/show_on_map"
+  android:text="@string/search_show_on_map"
   android:clickable="true"
   android:focusable="true"
   app:fabSize="mini"/>
