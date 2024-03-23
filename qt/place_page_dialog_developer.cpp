@@ -1,4 +1,4 @@
-#include "qt/place_page_dialog.hpp"
+#include "qt/place_page_dialog_developer.hpp"
 
 #include "qt/qt_common/text_dialog.hpp"
 
@@ -12,8 +12,8 @@
 
 #include <string>
 
-PlacePageDialog::PlacePageDialog(QWidget * parent, place_page::Info const & info,
-                                 search::ReverseGeocoder::Address const & address)
+PlacePageDialogDeveloper::PlacePageDialogDeveloper(QWidget * parent, place_page::Info const & info,
+                                                   search::ReverseGeocoder::Address const & address)
   : QDialog(parent)
 {
   QGridLayout * grid = new QGridLayout();
@@ -86,13 +86,13 @@ PlacePageDialog::PlacePageDialog(QWidget * parent, place_page::Info const & info
   QDialogButtonBox * dbb = new QDialogButtonBox();
   QPushButton * closeButton = new QPushButton("Close");
   closeButton->setDefault(true);
-  connect(closeButton, &QAbstractButton::clicked, this, &PlacePageDialog::OnClose);
+  connect(closeButton, &QAbstractButton::clicked, this, &PlacePageDialogDeveloper::OnClose);
   dbb->addButton(closeButton, QDialogButtonBox::RejectRole);
 
   if (info.ShouldShowEditPlace())
   {
     QPushButton * editButton = new QPushButton("Edit Place");
-    connect(editButton, &QAbstractButton::clicked, this, &PlacePageDialog::OnEdit);
+    connect(editButton, &QAbstractButton::clicked, this, &PlacePageDialogDeveloper::OnEdit);
     dbb->addButton(editButton, QDialogButtonBox::AcceptRole);
   }
 
@@ -137,5 +137,5 @@ PlacePageDialog::PlacePageDialog(QWidget * parent, place_page::Info const & info
   setWindowTitle(ppTitle.c_str());
 }
 
-void PlacePageDialog::OnClose() { reject(); }
-void PlacePageDialog::OnEdit() { accept(); }
+void PlacePageDialogDeveloper::OnClose() { reject(); }
+void PlacePageDialogDeveloper::OnEdit() { accept(); }
