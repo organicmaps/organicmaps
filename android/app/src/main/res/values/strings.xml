@@ -2196,5 +2196,4 @@
 	<string name="type.amenity.events_venue">Events Venue</string>
 	<string name="type.shop.auction">Auction</string>
 	<string name="type.shop.collector">Collectables</string>
-  <string name="show_on_map">View On Map</string>
 </resources>
