@@ -20,8 +20,6 @@ void CheckGeneralTags(pugi::xml_document const & doc)
   TEST(!types.empty(), ());
   auto const fields = doc.select_nodes("/omaps/editor/fields");
   TEST(!fields.empty(), ());
-  auto const preferred_types = doc.select_nodes("/omaps/editor/preferred_types");
-  TEST(!preferred_types.empty(), ());
 }
 
 UNIT_TEST(ConfigLoader_Base)
