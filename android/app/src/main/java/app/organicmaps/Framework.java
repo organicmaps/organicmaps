@@ -447,13 +447,12 @@ public class Framework
   /**
    * @param countryIsoCode Two-letter ISO country code to use country-specific Kayak.com domain.
    * @param uri `$HOTEL_NAME,-c$CITY_ID-h$HOTEL_ID` URI.
-   * @param startDay the first day of planned stay.
-   * @param lastDay the last day of planned stay.
+   * @param firstDaySec the epoch seconds of the first day of planned stay.
+   * @param lastDaySec the epoch seconds of the last day of planned stay.
    * @param isReferral enable referral code to help the project.
    * @return a URL to Kayak's hotel page.
    */
   @Nullable
   public static native String nativeGetKayakHotelLink(@NonNull String countryIsoCode, @NonNull String uri,
-                                                      @NonNull Instant firstDay, @NonNull Instant lastDay,
-                                                      boolean isReferral);
+                                                      long firstDaySec, long lastDaySec, boolean isReferral);
 }

@@ -289,9 +289,10 @@ public class MapObject implements PlacePageData
     if (TextUtils.isEmpty(uri))
       return "";
     final Instant firstDay = Instant.now();
-    final Instant lastDay = firstDay.plus(1, ChronoUnit.DAYS);
+    final long firstDaySec = firstDay.getEpochSecond();
+    final long lastDaySec = firstDay.plus(1, ChronoUnit.DAYS).getEpochSecond();
     final boolean isReferral = Config.isKayakReferralAllowed();
-    final String res = Framework.nativeGetKayakHotelLink(Utils.getCountryCode(), uri, firstDay, lastDay, isReferral);
+    final String res = Framework.nativeGetKayakHotelLink(Utils.getCountryCode(), uri, firstDaySec, lastDaySec, isReferral);
     return res == null ? "" : res;
   }
 
