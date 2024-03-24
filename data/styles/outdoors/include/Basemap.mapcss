@@ -1,5 +1,5 @@
 /* Keep here changes of the base map style file only. */
-@import("../../clear/include/Basemap.mapcss");
+@import("../../default/include/Basemap.mapcss");
 
 
 /* 6.WATER */

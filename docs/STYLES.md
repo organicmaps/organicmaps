@@ -1,7 +1,7 @@
 # Map styling and icons
 
 Here is the basic workflow to update styles:
-1. Edit the styles file you want, e.g. [`Roads.mapcss`](../data/styles/clear/include/Roads.mapcss)
+1. Edit the styles file you want, e.g. [`Roads.mapcss`](../data/styles/default/include/Roads.mapcss)
 2. Run the `tools/unix/generate_drules.sh` script
 3. Test how your changes look in the app
 4. Commit your edits and files changed by the script
@@ -37,27 +37,27 @@ If you use WSL on Windows 10 you might need to run [X Server](INSTALL.md#windows
 
 ## Files
 
-Map styles are defined in text files located in `data/styles/clear/include/`:
-* Forests, rivers, buildings, etc. [`Basemap.mapcss`](../data/styles/clear/include/Basemap.mapcss)
-* Their text labels [`Basemap_label.mapcss`](../data/styles/clear/include/Basemap_label.mapcss)
-* Roads, bridges, foot and bicycle paths, etc. [`Roads.mapcss`](../data/styles/clear/include/Roads.mapcss)
-* Their text labels [`Roads_label.mapcss`](../data/styles/clear/include/Roads_label.mapcss)
-* Icons for POIs and other features [`Icons.mapcss`](../data/styles/clear/include/Icons.mapcss)
-* City-specific subway networks [`Subways.mapcss`](../data/styles/clear/include/Subways.mapcss)
-* Light (default) theme colors: [`style-clear/colors.mapcss`](../data/styles/clear/style-clear/colors.mapcss)
-* Dark/night theme colors: [`style-night/colors.mapcss`](../data/styles/clear/style-night/colors.mapcss)
-* Priorities of overlays (icons, captions..) [`priorities_4_overlays.prio.txt`](../data/styles/clear/include/priorities_4_overlays.prio.txt)
-* Priorities of lines and areas [`priorities_3_FG.prio.txt`](../data/styles/clear/include/priorities_3_FG.prio.txt), [`priorities_2_BG-top.prio.txt`](../data/styles/clear/include/priorities_2_BG-top.prio.txt), [`priorities_1_BG-by-size.prio.txt`](../data/styles/clear/include/priorities_1_BG-by-size.prio.txt)
+Map styles are defined in text files located in `data/styles/default/include/`:
+* Forests, rivers, buildings, etc. [`Basemap.mapcss`](../data/styles/default/include/Basemap.mapcss)
+* Their text labels [`Basemap_label.mapcss`](../data/styles/default/include/Basemap_label.mapcss)
+* Roads, bridges, foot and bicycle paths, etc. [`Roads.mapcss`](../data/styles/default/include/Roads.mapcss)
+* Their text labels [`Roads_label.mapcss`](../data/styles/default/include/Roads_label.mapcss)
+* Icons for POIs and other features [`Icons.mapcss`](../data/styles/default/include/Icons.mapcss)
+* City-specific subway networks [`Subways.mapcss`](../data/styles/default/include/Subways.mapcss)
+* Light (default) theme colors: [`light/colors.mapcss`](../data/styles/default/light/colors.mapcss)
+* Dark/night theme colors: [`dark/colors.mapcss`](../data/styles/default/dark/colors.mapcss)
+* Priorities of overlays (icons, captions..) [`priorities_4_overlays.prio.txt`](../data/styles/default/include/priorities_4_overlays.prio.txt)
+* Priorities of lines and areas [`priorities_3_FG.prio.txt`](../data/styles/default/include/priorities_3_FG.prio.txt), [`priorities_2_BG-top.prio.txt`](../data/styles/default/include/priorities_2_BG-top.prio.txt), [`priorities_1_BG-by-size.prio.txt`](../data/styles/default/include/priorities_1_BG-by-size.prio.txt)
 
 There is a separate set of these style files for the navigation mode in `data/styles/vehicle/`.
 
-Icons are stored in [`data/styles/clear/style-clear/symbols/`](../data/styles/clear/style-clear/symbols/) and their dark/night counterparts are in [`data/styles/clear/style-night/symbols/`](../data/styles/clear/style-night/symbols/).
+Icons are stored in [`data/styles/default/light/symbols/`](../data/styles/default/light/symbols/) and their dark/night counterparts are in [`data/styles/default/dark/symbols/`](../data/styles/default/dark/symbols/).
 
 ## How to add a new icon
 
-1. Add an svg icon to `data/styles/clear/style-clear/symbols/` (and to `style-night` too)
+1. Add an svg icon to `data/styles/default/light/symbols/` (and to `dark` too)
 preferably look for icons in [collections OM uses already](../data/copyright.html#icons)
-2. Add icon rendering/visibility rules into `data/styles/clear/include/Icons.mapcss` and to "navigation style" `data/styles/vehicle/include/Icons.mapcss`
+2. Add icon rendering/visibility rules into `data/styles/default/include/Icons.mapcss` and to "navigation style" `data/styles/vehicle/include/Icons.mapcss`
 3. Run `tools/unix/generate_symbols.sh` to add new icons into skin files
 4. Run `tools/unix/generate_drules.sh` to generate drawing rules for the new icons
 5. [Test](#testing-your-changes) your changes
@@ -66,7 +66,7 @@ preferably look for icons in [collections OM uses already](../data/copyright.htm
 
 1. Add it into `data/mapcss-mapping.csv` (or better replace existing `deprecated` line) to make OM import it from OSM
 2. If necessary merge similar tags in via `data/replaced_tags.txt`
-3. Define a priority for the new feature type in e.g. [`priorities_4_overlays.prio.txt`](../data/styles/clear/include/priorities_4_overlays.prio.txt) and/or other priorities files
+3. Define a priority for the new feature type in e.g. [`priorities_4_overlays.prio.txt`](../data/styles/default/include/priorities_4_overlays.prio.txt) and/or other priorities files
 4. Add a new icon (see [above](#how-to-add-a-new-icon)) and/or other styling (area, line..)
 5. If a new POI should be OSM-addable/editable then add it to `data/editor.config`
 6. Add new type translation into `data/strings/types_strings.txt`
@@ -83,7 +83,7 @@ The most convenient way is using [the desktop app](INSTALL.md#desktop-app).
 by rebuilding styles and symbols quickly, but it's broken as of now, please help fix it!)
 
 To test on Android or iOS device either re-build the app or put
-the compiled style files (e.g. `drules_proto_clear.bin`) into
+the compiled style files (e.g. `drules_proto_default_light.bin`) into
 a `styles/` subfolder of maps directory on the device
 (e.g. `Android/data/app.organicmaps/files/styles/`).
 
