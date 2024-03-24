@@ -7,11 +7,11 @@ import android.text.SpannableStringBuilder;
 import android.text.Spanned;
 import android.text.TextUtils;
 import android.text.style.StyleSpan;
-import android.util.Log;
 
 import androidx.annotation.Keep;
 import androidx.annotation.NonNull;
 
+import androidx.annotation.Nullable;
 import app.organicmaps.bookmarks.data.FeatureId;
 import app.organicmaps.util.Distance;
 
@@ -82,6 +82,8 @@ public class SearchResult
   @NonNull
   private final Popularity mPopularity;
 
+  private String[] tokens;
+
   public SearchResult(String name, String suggestion, double lat, double lon, int[] highlightRanges)
   {
     this.name = name;
@@ -143,36 +145,31 @@ public class SearchResult
     return builder;
   }
 
-  public String getAddress(@NonNull Context context)
-  {
-    return description.region;
-  }
-
   public Spannable getFormattedAddress(@NonNull Context context)
   {
-      final String address = getAddress(context);
-      final String addr = address.toLowerCase();
-      String title = getTitle(context);
+      final String address = description != null ? description.region : null;
+      final String lcaseAddress = address != null ? address.toLowerCase() : null;
       final SpannableStringBuilder builder = new SpannableStringBuilder(address);
 
-      if (highlightRanges != null)
-      {
-        final int size = highlightRanges.length / 2;
-        int index = 0;
-
-        for (int i = 0; i < size; i++)
+      if(tokens != null && lcaseAddress != null){
+        for(String token: tokens)
         {
-          final int start = highlightRanges[index++];
-          final int len = highlightRanges[index++];
+          if(token.isBlank())
+            continue;
 
-          final String toFind = title.substring(start,start+len).toLowerCase();
-          int start2 = addr.indexOf(toFind);
-          if(start2<0 || start2+len>=address.length()) continue;
+          final int start = lcaseAddress.indexOf(token);
+          final int len = token.length();
 
-          builder.setSpan(new StyleSpan(Typeface.BOLD), start2, start2 + len, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
+          if(start != -1)
+            builder.setSpan(new StyleSpan(Typeface.BOLD), start, start + len, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
         }
       }
 
       return builder;
+  }
+
+  public void setTokenQuery(@Nullable String[] tokenizedQuery)
+  {
+    tokens = tokenizedQuery;
   }
 }

@@ -23,6 +23,8 @@ class SearchAdapter extends RecyclerView.Adapter<SearchAdapter.SearchDataViewHol
   @Nullable
   private SearchResult[] mResults;
 
+  private String[] queryTokens;
+
   static abstract class SearchDataViewHolder extends RecyclerView.ViewHolder
   {
     SearchDataViewHolder(@NonNull View itemView)
@@ -138,6 +140,7 @@ class SearchAdapter extends RecyclerView.Adapter<SearchAdapter.SearchDataViewHol
 
       formatOpeningHours(mResult);
       UiUtils.setTextAndHideIfEmpty(mDescription, mResult.description.description);
+      mResult.setTokenQuery(queryTokens);
       mRegion.setText(mResult.getFormattedAddress(mRegion.getContext()));
       UiUtils.setTextAndHideIfEmpty(mDistance, mResult.description.distance.toString(mFrame.getContext()));
     }
@@ -259,5 +262,10 @@ class SearchAdapter extends RecyclerView.Adapter<SearchAdapter.SearchDataViewHol
   {
     mResults = results;
     notifyDataSetChanged();
+  }
+
+  public void setTokenizedQuery(@Nullable String query)
+  {
+    queryTokens = query != null ? query.toLowerCase().split("\\s+") : null;
   }
 }
