@@ -16,10 +16,8 @@
 #include "geometry/mercator.hpp"
 
 #include "base/buffer_vector.hpp"
-#include "base/macros.hpp"
 #include "base/math.hpp"
 
-#include <algorithm>
 #include <vector>
 
 namespace df
@@ -228,15 +226,9 @@ drape_ptr<RenderNode> SelectionShapeGenerator::GenerateSelectionGeometry(ref_ptr
   {
     mapDataProvider.ReadFeatures([&points](FeatureType & ft)
     {
-      if (ft.GetGeomType() != feature::GeomType::Line || points.size() > 1)
-        return;
-      points.reserve(5);
-      ft.ForEachPoint([&points](m2::PointD const & pt)
-      {
-       if (points.empty() || !points.back().EqualDxDy(pt, mercator::kPointEqualityEps))
-         points.push_back(pt);
-      }, scales::GetUpperScale());
-    }, std::vector<FeatureID>{feature});
+      if (ft.GetGeomType() == feature::GeomType::Line)
+        assign_range(points, ft.GetPoints(scales::GetUpperScale()));
+    }, {feature});
   }
   else
   {
@@ -247,11 +239,10 @@ drape_ptr<RenderNode> SelectionShapeGenerator::GenerateSelectionGeometry(ref_ptr
   if (points.size() < 2)
     return nullptr;
 
-  m2::PointD pivot = m2::PointD(0.0, 0.0);
   m2::RectD rect;
   for (auto const & p : points)
     rect.Add(p);
-  pivot = rect.Center();
+  m2::PointD const pivot = rect.Center();
 
   dp::TextureManager::ColorRegion color;
   mng->GetColorRegion(df::GetColorConstant(df::kSelectionColor), color);
