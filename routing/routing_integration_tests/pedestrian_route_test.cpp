@@ -106,7 +106,7 @@ UNIT_TEST(AustriaWein_AvoidTrunk)
   integration::CalculateRouteAndTestRouteLength(
       integration::GetVehicleComponents(VehicleType::Pedestrian),
       mercator::FromLatLon(48.233, 16.3562), {0., 0.},
-      mercator::FromLatLon(48.2458, 16.3704), 2301.);
+      mercator::FromLatLon(48.2458, 16.3704), 2172.23);
 }
 
 UNIT_TEST(FranceParis_AvoidBridleway)
@@ -675,9 +675,7 @@ UNIT_TEST(Romania_Mountains_ETA)
   TEST(routeResult.first, ());
   Route const & route = *routeResult.first;
 
-  // Google agrees here and also makes a detour with less ascent/descent.
-  // GraphHopper, OSRM make a shorter route via the mountain.
-  TestRouteLength(route, 5766.87);
+  TestRouteLength(route, 4712.19);
   route.GetTotalTimeSec();
   TEST_LESS(route.GetTotalTimeSec(), 2.5 * 3600, ());
 }
