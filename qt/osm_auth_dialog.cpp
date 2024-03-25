@@ -123,7 +123,7 @@ void OsmAuthDialog::OnAction()
   }
   else
   {
-    settings::Set(kOauthTokenSetting, {});
+    settings::Set(kOauthTokenSetting, std::string());
 
     SwitchToLogin(this);
   }
