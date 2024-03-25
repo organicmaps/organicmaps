@@ -151,7 +151,7 @@
 
 	<!-- SECTION: Other translations -->
 	<!-- Notes field in Bookmarks view -->
-	<string name="description">Poznámky</string>
+	<string name="description">Popis</string>
 	<!-- Email Subject when sharing bookmark list -->
 	<string name="share_bookmarks_email_subject">Sdílené záložky Organic Maps</string>
 	<!-- message title of loading file -->
@@ -765,6 +765,7 @@
 	<string name="pref_tts_open_system_settings">Nastavení systému syntézy řeči</string>
 	<!-- toast displayed when pressing the "Speech synthesis system settings" button, and the system settings aren't found. -->
 	<string name="pref_tts_no_system_tts">Nastavení syntézy řeči nebylo nalezeno, jste si jisti, že jej vaše zařízení podporuje?</string>
+	<string name="placepage_less_button">Méně</string>
 
 	<!-- SECTION: Types -->
 	<string name="type.addr_interpolation">Adresa/blok</string>

@@ -163,7 +163,7 @@
 
 	<!-- SECTION: Other translations -->
 	<!-- Notes field in Bookmarks view -->
-	<string name="description">メモ</string>
+	<string name="description">説明</string>
 	<!-- Email Subject when sharing bookmark list -->
 	<string name="share_bookmarks_email_subject">Organic Mapsのお気に入りリストが共有されました</string>
 	<string name="share_bookmarks_email_body">こんにちは！\n\n添付ファイルOrganic Mapsのお気に入りリストです。もしインストールされていない場合はここからダウンロードができます： https://omaps.app/get?kmz\n\n旅行を楽しむときはOrganic Mapsを使用してください!</string>
@@ -800,6 +800,7 @@
 	<string name="pref_tts_open_system_settings">音声合成システムの設定</string>
 	<!-- toast displayed when pressing the "Speech synthesis system settings" button, and the system settings aren't found. -->
 	<string name="pref_tts_no_system_tts">音声合成の設定が見つからなかった。</string>
+	<string name="placepage_less_button">より少ない</string>
 
 	<!-- SECTION: Types -->
 	<string name="type.addr_interpolation">アドレス/ブロック</string>

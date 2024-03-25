@@ -151,7 +151,7 @@
 
 	<!-- SECTION: Other translations -->
 	<!-- Notes field in Bookmarks view -->
-	<string name="description">Detalii</string>
+	<string name="description">Descriere</string>
 	<!-- Email Subject when sharing bookmark list -->
 	<string name="share_bookmarks_email_subject">Îți trimit locurile mele preferate din Organic Maps</string>
 	<string name="share_bookmarks_email_body">Bună!\n\nȚi-am atașat locurile mele preferate din aplicația Organic Maps. Deschide-le dacă ai instalată Organic Maps. Dacă nu, o poți descărca pentru iOS sau Android de aici: https://organicmaps.app/</string>
@@ -780,6 +780,7 @@
 	<string name="pref_tts_open_system_settings">Setări ale sistemului de sinteză vocală</string>
 	<!-- toast displayed when pressing the "Speech synthesis system settings" button, and the system settings aren't found. -->
 	<string name="pref_tts_no_system_tts">Nu au fost găsite setările de sinteză vocală, sunteți sigur că dispozitivul dvs. le acceptă?</string>
+	<string name="placepage_less_button">Mai puțin</string>
 
 	<!-- SECTION: Types -->
 	<string name="type.addr_interpolation">Adresă/Bloc</string>

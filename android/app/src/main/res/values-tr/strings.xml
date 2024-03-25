@@ -165,7 +165,7 @@
 
 	<!-- SECTION: Other translations -->
 	<!-- Notes field in Bookmarks view -->
-	<string name="description">Notlar</string>
+	<string name="description">Açıklama</string>
 	<!-- Email Subject when sharing bookmark list -->
 	<string name="share_bookmarks_email_subject">Seninle paylaşılan Organic Maps yer imleri</string>
 	<string name="share_bookmarks_email_body">Merhaba!\n\nEktekiler benim Organic Maps yer imlerim. Eğer Organic Maps\'i yüklediyseniz lütfen ektekileri açın. Eğer yüklemediyseniz, bu bağlantıyı takip ederek iOS ve Android cihazınız için uygulamayı yükleyebilirsiniz: https://omaps.app/get?kmz\n\nOrganic Maps ile seyahat etmenin keyfini çıkarın!</string>
@@ -804,6 +804,7 @@
 	<string name="pref_tts_open_system_settings">Konuşma sentezleme sistemi ayarları</string>
 	<!-- toast displayed when pressing the "Speech synthesis system settings" button, and the system settings aren't found. -->
 	<string name="pref_tts_no_system_tts">Konuşma Sentezi ayarları bulunamadı, cihazınızın bunu desteklediğinden emin misiniz?</string>
+	<string name="placepage_less_button">Daha az</string>
 
 	<!-- SECTION: Types -->
 	<string name="type.addr_interpolation">Adres/Blok</string>

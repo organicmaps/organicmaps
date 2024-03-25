@@ -165,7 +165,7 @@
 
 	<!-- SECTION: Other translations -->
 	<!-- Notes field in Bookmarks view -->
-	<string name="description">Merknader</string>
+	<string name="description">Beskrivelse</string>
 	<!-- Email Subject when sharing bookmark list -->
 	<string name="share_bookmarks_email_subject">Delte Organic Maps-bokmerker</string>
 	<string name="share_bookmarks_email_body">Hei!\n\nVedlagt er mine bokmerker fra Organic Maps-appen. Åpne de dersom du har Organic Maps installert. Har du ikke har det, last ned appen til iOS eller Android ved å trykke på denne linken: https://omaps.app/get?kmz\n\nNyt reisen med Organic Maps!</string>
@@ -797,6 +797,7 @@
 	<string name="pref_tts_open_system_settings">Systeminnstillinger for talesyntese</string>
 	<!-- toast displayed when pressing the "Speech synthesis system settings" button, and the system settings aren't found. -->
 	<string name="pref_tts_no_system_tts">Innstillinger for talesyntese ble ikke funnet, er du sikker på at enheten din støtter dette?</string>
+	<string name="placepage_less_button">Mindre</string>
 
 	<!-- SECTION: Types -->
 	<string name="type.addr_interpolation">Adresse/blokk</string>

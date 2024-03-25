@@ -141,7 +141,7 @@
 
 	<!-- SECTION: Other translations -->
 	<!-- Notes field in Bookmarks view -->
-	<string name="description">चिठ्ठया</string>
+	<string name="description">वर्णन</string>
 	<!-- Email Subject when sharing bookmark list -->
 	<string name="share_bookmarks_email_subject">Organic Maps द्वारे तुम्हाला खूणपत्रे सामायिक केले</string>
 	<string name="share_bookmarks_email_body">नमस्कार!\n\nOrganic Maps ऍप मधील माझे खूणपत्रे संलग्न केले आहेत. तुम्ही Organic Maps इन्स्टॉल केले असल्यास हे खूणपत्रे उघडा. इन्स्टॉल केले नसल्यास, पुढील दुव्यावर जाऊन तुमच्या iOS किंवा अँड्रॉइड उपकरणावर हे डाउनलोड करा: https://omaps.app/get?kmz\n\nOrganic Maps सह प्रवासाचा आनंद घ्या!</string>
@@ -766,6 +766,7 @@
 	<string name="pref_tts_open_system_settings">सिस्टम स्पीच सिंथेसिस सेटिंग्ज</string>
 	<!-- toast displayed when pressing the "Speech synthesis system settings" button, and the system settings aren't found. -->
 	<string name="pref_tts_no_system_tts">स्पीच सिंथेसिस सेटिंग्ज आढळल्या नाहीत, तुमची खात्री आहे की तुमचे डिव्हाइस त्यास समर्थन देते?</string>
+	<string name="placepage_less_button">कमी</string>
 
 	<!-- SECTION: Types -->
 	<string name="type.addr_interpolation">पत्ता/ब्लॉक</string>

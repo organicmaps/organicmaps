@@ -163,7 +163,7 @@
 
 	<!-- SECTION: Other translations -->
 	<!-- Notes field in Bookmarks view -->
-	<string name="description">Poznámky</string>
+	<string name="description">Popis</string>
 	<!-- Email Subject when sharing bookmark list -->
 	<string name="share_bookmarks_email_subject">Zdielané záložky Organic Maps</string>
 	<string name="share_bookmarks_email_body">Ahoj!\n\nV prílohe sú moje záložky z aplikácie Organic Maps. Ak ju nemáš nainštalovanú, môžeš si ju stiahnuť tu: https://omaps.app/get?kmz\n\nPrajem šťastnú cestu s Organic Maps!</string>
@@ -794,6 +794,7 @@
 	<string name="pref_tts_open_system_settings">Nastavenia systému syntézy reči</string>
 	<!-- toast displayed when pressing the "Speech synthesis system settings" button, and the system settings aren't found. -->
 	<string name="pref_tts_no_system_tts">Nastavenia syntézy reči neboli nájdené, ste si istí, že ich vaše zariadenie podporuje?</string>
+	<string name="placepage_less_button">Menej</string>
 
 	<!-- SECTION: Types -->
 	<string name="type.addr_interpolation">Adresa/blok</string>

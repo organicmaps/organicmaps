@@ -163,7 +163,7 @@
 
 	<!-- SECTION: Other translations -->
 	<!-- Notes field in Bookmarks view -->
-	<string name="description">Notas</string>
+	<string name="description">Descripción</string>
 	<!-- Email Subject when sharing bookmark list -->
 	<string name="share_bookmarks_email_subject">Marcadores de Organic Maps compartidos con usted</string>
 	<string name="share_bookmarks_email_body">Hola!\n\Adjunto mis marcadores de la aplicación Organic Maps. Por favor, ábralos si tiene instalado Organic Maps. O, si no lo tiene, descargue la aplicación para su dispositivo iOS o Android siguiendo este enlace: https://omaps.app/get?kmz\n¡Disfrute viajando con Organic Maps!</string>
@@ -804,6 +804,7 @@
 	<string name="pref_tts_open_system_settings">Ajustes del sistema de síntesis de voz</string>
 	<!-- toast displayed when pressing the "Speech synthesis system settings" button, and the system settings aren't found. -->
 	<string name="pref_tts_no_system_tts">No se ha encontrado la configuración de Síntesis de Voz, ¿estás seguro de que tu dispositivo la admite?</string>
+	<string name="placepage_less_button">Menos</string>
 
 	<!-- SECTION: Types -->
 	<string name="type.addr_interpolation">Dirección/Bloque</string>
