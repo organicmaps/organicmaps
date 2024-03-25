@@ -44,7 +44,6 @@ void AuthorizationStoreCredentials(std::string const & oauthToken)
     // To also see # of edits when offline.
     [ud setInteger:prefs.m_changesets forKey:kOSMChangesetsCount];
   }
-  [ud synchronize];
 }
 
 BOOL AuthorizationHaveOAuth1Credentials()
@@ -60,7 +59,6 @@ void AuthorizationClearOAuth1Credentials()
   NSUserDefaults * ud = NSUserDefaults.standardUserDefaults;
   [ud removeObjectForKey:kOSMRequestToken];
   [ud removeObjectForKey:kOSMRequestSecret];
-  [ud synchronize];
 }
 
 BOOL AuthorizationHaveCredentials()
@@ -78,7 +76,6 @@ void AuthorizationClearCredentials()
   [ud removeObjectForKey:kOSMRequestSecret];
   [ud removeObjectForKey:kOSMUserName];
   [ud removeObjectForKey:kOSMChangesetsCount];
-  [ud synchronize];
 }
 
 std::string const AuthorizationGetCredentials()
@@ -94,7 +91,6 @@ void AuthorizationSetNeedCheck(BOOL needCheck)
 {
   NSUserDefaults * ud = NSUserDefaults.standardUserDefaults;
   [ud setBool:needCheck forKey:kAuthNeedCheck];
-  [ud synchronize];
 }
 
 BOOL AuthorizationIsNeedCheck()
@@ -120,7 +116,6 @@ NSInteger OSMUserChangesetsCount()
   if (count >= 0)
   {
     [ud setInteger:count forKey:kOSMChangesetsCount];
-    [ud synchronize];
     return count;
   }
   return [ud integerForKey:kOSMChangesetsCount];
