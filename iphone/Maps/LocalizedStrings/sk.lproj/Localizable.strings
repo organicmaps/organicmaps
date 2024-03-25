@@ -1257,6 +1257,9 @@
 /* Text for the editing the Track's color button. */
 "change_color" = "Zmena farby";
 
+/* Main screen title "Map" displayed in the navigation back button's menu. */
+"map" = "Mapa";
+
 
 /********** Types **********/
 
