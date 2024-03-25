@@ -6,6 +6,8 @@ class BottomMenuItemCell: UITableViewCell {
   @IBOutlet private var badgeCountLabel: UILabel!
   @IBOutlet private var separator: UIView!
   @IBOutlet private var icon: UIImageView!
+  @IBOutlet private var badgeSpacingConstraint: NSLayoutConstraint!
+  @IBOutlet private var badgeBackgroundWidthConstraint: NSLayoutConstraint!
   var anchorView: UIView {
     get {
       return icon
@@ -20,6 +22,13 @@ class BottomMenuItemCell: UITableViewCell {
     label.text = title
     badgeBackground.isHidden = badgeCount == 0
     badgeCountLabel.text = "\(badgeCount)"
+    if badgeCount == 0 {
+      badgeSpacingConstraint.constant = 0
+      badgeBackgroundWidthConstraint.constant = 0
+    } else {
+      badgeSpacingConstraint.constant = 8
+      badgeBackgroundWidthConstraint.constant = 32
+    }
     isEnabled = enabled
     icon.setStyleAndApply(isEnabled ? "MWMBlack" : "MWMGray")
     label.setStyleAndApply(isEnabled ? "blackPrimaryText" : "blackHintText")
@@ -31,6 +40,8 @@ class BottomMenuItemCell: UITableViewCell {
     icon.setStyleAndApply("MWMBlue")
     label.setStyleAndApply("linkBlueText")
     badgeBackground.isHidden = true
+    badgeSpacingConstraint.constant = 0
+    badgeBackgroundWidthConstraint.constant = 0
     isEnabled = true
     isPromo = true
   }
