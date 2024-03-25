@@ -397,7 +397,6 @@ NSString *const kPP2BookmarkEditingSegue = @"PP2BookmarkEditing";
   [self.alertController presentEditorViralAlert];
 
   [ud setObject:[NSDate date] forKey:kUDViralAlertWasShown];
-  [ud synchronize];
 }
 
 - (void)viewWillDisappear:(BOOL)animated {

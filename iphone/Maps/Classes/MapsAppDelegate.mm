@@ -375,7 +375,6 @@ using namespace osm_auth_ios;
   [standartDefaults setObject:currentVersion forKey:kUDFirstVersionKey];
   [standartDefaults setInteger:1 forKey:kUDSessionsCountKey];
   [standartDefaults setObject:NSDate.date forKey:kUDLastLaunchDateKey];
-  [standartDefaults synchronize];
 }
 
 - (void)incrementSessionCount {
@@ -390,7 +389,6 @@ using namespace osm_auth_ios;
     sessionCount++;
     [standartDefaults setInteger:sessionCount forKey:kUDSessionsCountKey];
     [standartDefaults setObject:NSDate.date forKey:kUDLastLaunchDateKey];
-    [standartDefaults synchronize];
   }
 }
 

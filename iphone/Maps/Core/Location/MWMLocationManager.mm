@@ -102,7 +102,6 @@ BOOL needShowLocationAlert() {
 void setShowLocationAlert(BOOL needShow) {
   NSUserDefaults * ud = NSUserDefaults.standardUserDefaults;
   [ud setBool:needShow forKey:kLocationAlertNeedShowKey];
-  [ud synchronize];
 }
 }  // namespace
 
