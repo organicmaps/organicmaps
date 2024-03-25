@@ -642,3 +642,24 @@ UNIT_TEST(Metadata_ValidateAndFormat_building_levels)
   TEST_EQUAL(tp.ValidateAndFormat_building_levels("2.51"), "2.5", ());
   TEST_EQUAL(tp.ValidateAndFormat_building_levels("250"), "", ("Too many levels."));
 }
+
+UNIT_TEST(Metadata_ValidateAndFormat_url)
+{
+  std::array<std::pair<char const*, char const*>, 9> constexpr kTests =
+  {{
+    {"a.by", "a.by"},
+    {"http://test.com", "http://test.com"},
+    {"https://test.com", "https://test.com"},
+    {"test.com", "test.com"},
+    {"http://test.com/", "http://test.com"},
+    {"https://test.com/", "https://test.com"},
+    {"test.com/", "test.com"},
+    {"test.com/path", "test.com/path"},
+    {"test.com/path/", "test.com/path/"},
+  }};
+
+  FeatureBuilderParams params;
+  MetadataTagProcessorImpl tp(params);
+  for (auto const& [input, output] : kTests)
+    TEST_EQUAL(tp.ValidateAndFormat_url(input), output, ());
+}
