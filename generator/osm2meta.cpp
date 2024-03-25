@@ -122,6 +122,23 @@ std::string MetadataTagProcessorImpl::ValidateAndFormat_operator(std::string con
 
 std::string MetadataTagProcessorImpl::ValidateAndFormat_url(std::string const & v)
 {
+  // Remove the last slash if it's after the hostname to beautify URLs in the UI and save a byte of space:
+  // https://www.test.com/ => https://www.test.com
+  // www.test.com/ => www.test.com
+  // www.test.com/path => www.test.com/path
+  // www.test.com/path/ => www.test.com/path/
+  constexpr std::string_view kHttps = "https://";
+  constexpr std::string_view kHttp = "http://";
+  size_t start = 0;
+  if (v.starts_with(kHttps))
+    start = kHttps.size();
+  else if (v.starts_with(kHttp))
+    start = kHttp.size();
+  auto const first = v.find('/', start);
+  if (first == std::string::npos)
+    return v;
+  if (first + 1 == v.size())
+    return std::string{v.begin(), --v.end()};
   return v;
 }
 
