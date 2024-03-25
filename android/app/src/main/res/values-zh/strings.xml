@@ -151,7 +151,7 @@
 
 	<!-- SECTION: Other translations -->
 	<!-- Notes field in Bookmarks view -->
-	<string name="description">注释</string>
+	<string name="description">说明</string>
 	<!-- Email Subject when sharing bookmark list -->
 	<string name="share_bookmarks_email_subject">Organic Maps 书签已与您共享</string>
 	<!-- message title of loading file -->
@@ -766,6 +766,7 @@
 	<string name="pref_tts_open_system_settings">语音合成系统设置</string>
 	<!-- toast displayed when pressing the "Speech synthesis system settings" button, and the system settings aren't found. -->
 	<string name="pref_tts_no_system_tts">未找到语音合成设置，您确定您的设备支持该设置吗？</string>
+	<string name="placepage_less_button">更少</string>
 
 	<!-- SECTION: Types -->
 	<string name="type.addr_interpolation">地址/区块</string>

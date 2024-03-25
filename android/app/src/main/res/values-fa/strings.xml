@@ -150,7 +150,7 @@
 
 	<!-- SECTION: Other translations -->
 	<!-- Notes field in Bookmarks view -->
-	<string name="description">یادداشت‌ها</string>
+	<string name="description">شرح</string>
 	<!-- message title of loading file -->
 	<string name="load_kmz_title">در حال بارگیری نشانه‌ها</string>
 	<!-- Kmz file successful loading -->
@@ -755,6 +755,7 @@
 	<string name="pref_tts_open_system_settings">تنظیمات سنتز گفتار سیستم</string>
 	<!-- toast displayed when pressing the "Speech synthesis system settings" button, and the system settings aren't found. -->
 	<string name="pref_tts_no_system_tts">تنظیمات Speech Synthesis پیدا نشد، آیا مطمئن هستید که دستگاه شما از آن پشتیبانی می کند؟</string>
+	<string name="placepage_less_button">کمتر</string>
 
 	<!-- SECTION: Types -->
 	<string name="type.addr_interpolation">آدرس/بلاک</string>

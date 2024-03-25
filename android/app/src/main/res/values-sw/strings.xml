@@ -42,6 +42,8 @@
 	<string name="category_rv">Kwa RV</string>
 
 	<!-- SECTION: Other translations -->
+	<!-- Notes field in Bookmarks view -->
+	<string name="description">Maelezo</string>
 	<!-- Failed to recognize the format of a bookmarks or tracks file. -->
 	<string name="unknown_file_type">Aina ya faili haitambuliwi na programu:\n%1$s</string>
 	<!-- Failed to open a bookmarks or tracks file in Organic Maps. -->
@@ -318,6 +320,7 @@
 	<string name="pref_tts_open_system_settings">Mipangilio ya usanisi wa hotuba ya mfumo</string>
 	<!-- toast displayed when pressing the "Speech synthesis system settings" button, and the system settings aren't found. -->
 	<string name="pref_tts_no_system_tts">Mipangilio ya Usanisi wa Matamshi haikupatikana, una uhakika kuwa kifaa chako kinaitumia?</string>
+	<string name="placepage_less_button">Chini</string>
 
 	<!-- SECTION: Types -->
 	<string name="type.addr_interpolation">Anwani/Zuia</string>

@@ -166,7 +166,7 @@
 
 	<!-- SECTION: Other translations -->
 	<!-- Notes field in Bookmarks view -->
-	<string name="description">टिप्पणियाँ</string>
+	<string name="description">विवरण</string>
 	<string name="share_bookmarks_email_body">नमस्ते!\n\nमेरे बुकमार्क संलग्न हैं; कृपया उन्हें ऑर्गेनिक मानचित्र में खोलें। यदि आपने इसे इंस्टॉल नहीं किया है तो आप इसे यहां से डाउनलोड कर सकते हैं: https://omaps.app/get?kmz\n\nऑर्गेनिक मैप्स के साथ यात्रा का आनंद लें!</string>
 	<!-- message title of loading file -->
 	<string name="load_kmz_title">बुकमार्क लोड हो रहे हैं</string>
@@ -537,6 +537,7 @@
 	<string name="pref_tts_open_system_settings">सिस्टम वाक् संश्लेषण सेटिंग्स</string>
 	<!-- toast displayed when pressing the "Speech synthesis system settings" button, and the system settings aren't found. -->
 	<string name="pref_tts_no_system_tts">स्पीच सिंथेसिस सेटिंग्स नहीं मिलीं, क्या आप सुनिश्चित हैं कि आपका डिवाइस इसका समर्थन करता है?</string>
+	<string name="placepage_less_button">कम</string>
 
 	<!-- SECTION: Types -->
 	<string name="type.aerialway.cable_car">आकाशीय रज्जुमार्ग</string>

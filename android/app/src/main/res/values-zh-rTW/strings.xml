@@ -151,7 +151,7 @@
 
 	<!-- SECTION: Other translations -->
 	<!-- Notes field in Bookmarks view -->
-	<string name="description">描述說明</string>
+	<string name="description">描述</string>
 	<!-- Email Subject when sharing bookmark list -->
 	<string name="share_bookmarks_email_subject">已分享 Organic Maps 書籤</string>
 	<string name="share_bookmarks_email_body">你好！\n\n附件為 Organic Maps app 的書籤，如果你有安裝 Organic Maps 則直接開啟，如果沒有的話，請先在 iOS 或是 Android 裝置，從下面連結下載：https://omaps.app/get?kmz\n\n旅行時用上 Organic Maps!</string>
@@ -775,6 +775,7 @@
 	<string name="pref_tts_open_system_settings">系統語音合成設定</string>
 	<!-- toast displayed when pressing the "Speech synthesis system settings" button, and the system settings aren't found. -->
 	<string name="pref_tts_no_system_tts">未找到語音合成設置，您確定您的設備支援它嗎？</string>
+	<string name="placepage_less_button">較少的</string>
 
 	<!-- SECTION: Types -->
 	<string name="type.addr_interpolation">地址/區塊</string>

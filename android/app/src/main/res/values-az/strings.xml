@@ -165,7 +165,7 @@
 
 	<!-- SECTION: Other translations -->
 	<!-- Notes field in Bookmarks view -->
-	<string name="description">Qeydlər</string>
+	<string name="description">Təsvir</string>
 	<!-- Email Subject when sharing bookmark list -->
 	<string name="share_bookmarks_email_subject">Organic Maps əlfəcinləri sizinlə paylaşıldı</string>
 	<string name="share_bookmarks_email_body">Salam!\n\nOrganic Maps əlfəcinlərim əlavə olunub. Zəhmət olmasa Organic Maps-da onları açın. Əgər onu quraşdırmamısınızsa, bu linkə daxil olub cihazınıza yükləyə bilərsiniz: https://omaps.app/get?kmz\n\nOrganic Maps ilə səyahətdən həzz alın!</string>
@@ -780,6 +780,7 @@
 	<string name="pref_tts_open_system_settings">Sistem nitq sintezi parametrləri</string>
 	<!-- toast displayed when pressing the "Speech synthesis system settings" button, and the system settings aren't found. -->
 	<string name="pref_tts_no_system_tts">Nitq sintezi parametrləri tapılmadı, cihazınızın bunu dəstəklədiyinə əminsiniz?</string>
+	<string name="placepage_less_button">Daha az</string>
 
 	<!-- SECTION: Types -->
 	<string name="type.addr_interpolation">Ünvan/Blok</string>

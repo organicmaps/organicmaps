@@ -149,7 +149,7 @@
 
 	<!-- SECTION: Other translations -->
 	<!-- Notes field in Bookmarks view -->
-	<string name="description">Anteckningar</string>
+	<string name="description">Beskrivning</string>
 	<!-- Email Subject when sharing bookmark list -->
 	<string name="share_bookmarks_email_subject">Organic Maps bokmärken har delats med dig</string>
 	<!-- message title of loading file -->
@@ -753,6 +753,7 @@
 	<string name="pref_tts_open_system_settings">Inställningar för talsyntes</string>
 	<!-- toast displayed when pressing the "Speech synthesis system settings" button, and the system settings aren't found. -->
 	<string name="pref_tts_no_system_tts">Inställningar för talsyntes hittades inte, är du säker på att din enhet stöder det?</string>
+	<string name="placepage_less_button">Mindre</string>
 
 	<!-- SECTION: Types -->
 	<string name="type.addr_interpolation">Adress/Block</string>

@@ -161,7 +161,7 @@
 
 	<!-- SECTION: Other translations -->
 	<!-- Notes field in Bookmarks view -->
-	<string name="description">הערות</string>
+	<string name="description">תיאור</string>
 	<!-- Email Subject when sharing bookmark list -->
 	<string name="share_bookmarks_email_subject">סימניות של Organic Maps שותפו איתך</string>
 	<string name="share_bookmarks_email_body">שלום!\n\nמצורפות הסימניות שלי, אפשר לפתוח אותן ב-Organic Maps. אם צריך, ניתן להוריד את האפליקצייה מכאן: https://omaps.app/get?kmz\n\nתהנו לנווט עם Organic Maps!</string>
@@ -791,6 +791,7 @@
 	<string name="pref_tts_open_system_settings">הגדרות סינתזת דיבור במערכת</string>
 	<!-- toast displayed when pressing the "Speech synthesis system settings" button, and the system settings aren't found. -->
 	<string name="pref_tts_no_system_tts">הגדרות סינתזת דיבור לא נמצאו, האם אתה בטוח שהמכשיר שלך תומך בזה?</string>
+	<string name="placepage_less_button">פחות</string>
 
 	<!-- SECTION: Types -->
 	<string name="type.addr_interpolation">כתובת/חסימה</string>
