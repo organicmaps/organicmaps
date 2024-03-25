@@ -52,8 +52,7 @@ willPerformHTTPRedirection:(NSHTTPURLResponse *)response
 @implementation RedirectDelegate
 - (instancetype)init:(BOOL)followRedirects
 {
-  self = [super init];
-  if (self)
+  if (self = [super init])
     _followRedirects = followRedirects;
   
   return self;
@@ -65,10 +64,10 @@ willPerformHTTPRedirection:(NSHTTPURLResponse *)response
                 newRequest:(NSURLRequest *)newRequest
          completionHandler:(void (^)(NSURLRequest *))completionHandler
 {
-    if (!_followRedirects && response.statusCode >= 300 && response.statusCode < 400)
-        completionHandler(nil);
-    else
-        completionHandler(newRequest);
+  if (!_followRedirects && response.statusCode >= 300 && response.statusCode < 400)
+    completionHandler(nil);
+  else
+    completionHandler(newRequest);
 }
 @end
 

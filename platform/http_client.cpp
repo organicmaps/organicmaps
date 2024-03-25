@@ -75,9 +75,9 @@ HttpClient & HttpClient::SetCookies(string const & cookies)
   return *this;
 }
 
-HttpClient & HttpClient::SetFollowRedirects(bool follow_redirects)
+HttpClient & HttpClient::SetFollowRedirects(bool followRedirects)
 {
-  m_followRedirects = follow_redirects;
+  m_followRedirects = followRedirects;
   return *this;
 }
 

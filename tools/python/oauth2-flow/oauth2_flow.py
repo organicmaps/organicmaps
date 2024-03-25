@@ -11,10 +11,10 @@ logging.basicConfig(level=logging.DEBUG, format='%(asctime)s [%(levelname)-5s] %
 """
 osmHost = "www.openstreetmap.org"
 OAuthClientId = "nw9bW3nZ-q99SXzgnH-dlED3ueDSmFPtxl33n3hDwFU"
-clientSecret = "nIxwFx1NXIx9lKoNmb7lAoHd9ariGMf46PtU_YG558c"
-redirectUri = "om://oauth2/osm/callback"
-response_type = "code"
-scope = "read_prefs"
+OAuthClientSecret = "nIxwFx1NXIx9lKoNmb7lAoHd9ariGMf46PtU_YG558c"
+OAuthRedirectUri = "om://oauth2/osm/callback"
+OAuthResponseType = "code"
+OAuthScope = "read_prefs"
 """
 
 # Dev enviroment
