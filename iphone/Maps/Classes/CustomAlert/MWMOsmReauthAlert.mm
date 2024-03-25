@@ -12,13 +12,9 @@ static NSString * const kMap2OsmLoginSegue = @"Map2OsmLogin";
 {
   MWMOsmReauthAlert * alert = [NSBundle.mainBundle loadNibNamed:[self className] owner:nil options:nil].firstObject;
 
-  alert.messageLabel.userInteractionEnabled = YES;
   alert.messageLabel.attributedText = [self buildAlertMessage];
   alert.messageLabel.textAlignment = NSTextAlignmentCenter;
-  UITapGestureRecognizer *tapGesture =
-        [[UITapGestureRecognizer alloc] initWithTarget:alert
-                                                action:@selector(showMoreInfo)];
-  [alert.messageLabel addGestureRecognizer:tapGesture];
+  alert.messageLabel.delegate = alert;
 
   return alert;
 }
@@ -29,7 +25,8 @@ static NSString * const kMap2OsmLoginSegue = @"Map2OsmLogin";
 {
   auto textAttrs = @{NSFontAttributeName : UIFont.regular17};
   auto linkAttrs = @{NSForegroundColorAttributeName : UIColor.linkBlue,
-                     NSFontAttributeName : UIFont.regular17};
+                     NSFontAttributeName : UIFont.regular17,
+                     NSLinkAttributeName : @"https://github.com/organicmaps/organicmaps/issues/6144"};
 
   NSMutableAttributedString *alertMessage =
     [[NSMutableAttributedString alloc] initWithString: L(@"alert_reauth_message_ios")
@@ -56,12 +53,11 @@ static NSString * const kMap2OsmLoginSegue = @"Map2OsmLogin";
   }];
 }
 
-- (IBAction)showMoreInfo
+- (BOOL)textView:(UITextView *)textView shouldInteractWithURL:(NSURL *)URL inRange:(NSRange)characterRange interaction:(UITextItemInteraction)interaction
 {
-  NSLog(@"Navigate to URL: https://github.com/organicmaps/organicmaps/issues/6144");
-  [[UIApplication sharedApplication] openURL:[NSURL URLWithString:@"https://github.com/organicmaps/organicmaps/issues/6144"]
-                                     options:@{}
-                           completionHandler:nil];
+  [[UIApplication sharedApplication] openURL:URL options:@{} completionHandler:nil];
+
+  return NO;
 }
 
 @end

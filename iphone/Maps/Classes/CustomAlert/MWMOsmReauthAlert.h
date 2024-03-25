@@ -1,6 +1,6 @@
 #import "MWMAlert.h"
 
-@interface MWMOsmReauthAlert : MWMAlert
+@interface MWMOsmReauthAlert : MWMAlert <UITextViewDelegate>
 
 + (instancetype)alert;
 

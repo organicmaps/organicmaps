@@ -44,7 +44,7 @@
                                 <constraint firstAttribute="width" secondItem="BXR-WK-BfJ" secondAttribute="height" multiplier="1:1" id="oyf-fo-zbh"/>
                             </constraints>
                         </imageView>
-                        <textView clipsSubviews="YES" contentMode="center" scrollEnabled="NO" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" editable="NO" text="Please login to OpenStreetMap to automatically upload all your map edits. Learn more here" textAlignment="center" selectable="NO" translatesAutoresizingMaskIntoConstraints="NO" id="shy-1g-PJO" userLabel="message">
+                        <textView clipsSubviews="YES" contentMode="center" scrollEnabled="NO" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" editable="NO" text="Please login to OpenStreetMap to automatically upload all your map edits. Learn more here" textAlignment="center" translatesAutoresizingMaskIntoConstraints="NO" id="shy-1g-PJO" userLabel="message">
                             <rect key="frame" x="20" y="149.99999999999997" width="240" height="97.333333333333343"/>
                             <constraints>
                                 <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="30" id="3EU-DW-uAs"/>
@@ -53,6 +53,7 @@
                             <color key="textColor" systemColor="labelColor"/>
                             <fontDescription key="fontDescription" type="system" pointSize="17"/>
                             <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
+                            <dataDetectorType key="dataDetectorTypes" link="YES"/>
                         </textView>
                         <button opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="33p-SN-9fc" userLabel="login_osm" customClass="MWMButton" customModule="Organic_Maps" customModuleProvider="target">
                             <rect key="frame" x="20" y="257.33333333333337" width="240" height="44"/>
