@@ -66,12 +66,6 @@ public class EditorHostFragment extends BaseMwmToolbarFragment implements View.O
 
   private static final String NOOB_ALERT_SHOWN = "Alert_for_noob_was_shown";
 
-  public static void clearNoobAlertFlag(@NonNull Context context) {
-    MwmApplication.prefs(context).edit()
-            .remove(NOOB_ALERT_SHOWN)
-            .apply();
-  }
-
   /**
    *   Used in MultilanguageAdapter to show, select and remove items.
    */

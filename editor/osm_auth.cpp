@@ -40,7 +40,7 @@ string FindOauthCode(string const & redirectUri)
   auto const url = url::Url::FromString(redirectUri);
   string const * oauth2code = url.GetParamValue("code");
 
-  if(oauth2code == nullptr || oauth2code->empty())
+  if (!oauth2code || oauth2code->empty())
     return {};
 
   return *oauth2code;
@@ -54,7 +54,7 @@ string FindAccessToken(string const & body)
   if (json_is_object(root.get()))
   {
     json_t * token_node = json_object_get(root.get(), "access_token");
-    if(json_is_string(token_node))
+    if (json_is_string(token_node))
       return json_string_value(token_node);
   }
 
@@ -141,7 +141,7 @@ OsmOAuth::SessionID OsmOAuth::FetchSessionId(string const & subUrl, string const
     MYTHROW(FetchSessionIdError, (DebugPrint(request)));
 
   SessionID sid = { request.CombinedCookies(), FindAuthenticityToken(request.ServerResponse()) };
-  if (sid.m_cookies.empty() || sid.m_authenticity_token.empty())
+  if (sid.m_cookies.empty() || sid.m_authenticityToken.empty())
     MYTHROW(FetchSessionIdError, ("Cookies and/or token are empty for request", DebugPrint(request)));
   return sid;
 }
@@ -163,7 +163,7 @@ bool OsmOAuth::LoginUserPassword(string const & login, string const & password, 
     {"password", password},
     {"referer", "/"},
     {"commit", "Login"},
-    {"authenticity_token", sid.m_authenticity_token}
+    {"authenticity_token", sid.m_authenticityToken}
   });
   HttpClient request(m_baseUrl + "/login");
   request.SetBodyData(std::move(params), "application/x-www-form-urlencoded")
@@ -255,7 +255,8 @@ string OsmOAuth::FetchRequestToken(SessionID const & sid) const
   if (!request.RunHttpRequest())
     MYTHROW(NetworkError, ("FetchRequestToken Network error while connecting to", request.UrlRequested()));
 
-  if (request.WasRedirected()) {
+  if (request.WasRedirected())
+  {
     if (request.UrlReceived().find(m_oauth2params.m_redirectUri) != 0)
       MYTHROW(OsmOAuth::NetworkError, ("FetchRequestToken Redirect url han unexpected prefix", request.UrlReceived()));
 
@@ -266,7 +267,8 @@ string OsmOAuth::FetchRequestToken(SessionID const & sid) const
       MYTHROW(OsmOAuth::NetworkError, ("FetchRequestToken Redirect url has no 'code' parameter", request.UrlReceived()));
     return oauthCode;
   }
-  else {
+  else
+  {
     if (request.ErrorCode() != HTTP::OK)
       MYTHROW(FetchRequestTokenServerError, (DebugPrint(request)));
 
@@ -332,7 +334,7 @@ bool OsmOAuth::ResetPassword(string const & email) const
   SessionID const sid = FetchSessionId(kForgotPasswordUrlPart);
   auto params = BuildPostRequest({
     {"email", email},
-    {"authenticity_token", sid.m_authenticity_token},
+    {"authenticity_token", sid.m_authenticityToken},
     {"commit", "Reset password"},
   });
   HttpClient request(m_baseUrl + kForgotPasswordUrlPart);

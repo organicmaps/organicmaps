@@ -315,7 +315,6 @@ public class MwmActivity extends BaseMwmFragmentActivity
     {
       // Remove old OAuth v1 secrets
       OsmOAuth.clearOAuth1Credentials(this);
-      EditorHostFragment.clearNoobAlertFlag(this);
 
       // Notify user to re-login
       dismissAlertDialog();

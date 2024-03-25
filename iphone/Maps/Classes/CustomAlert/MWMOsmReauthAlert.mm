@@ -10,8 +10,7 @@ static NSString * const kMap2OsmLoginSegue = @"Map2OsmLogin";
 
 + (instancetype)alert
 {
-  MWMOsmReauthAlert * alert =
-      [NSBundle.mainBundle loadNibNamed:[self className] owner:nil options:nil].firstObject;
+  MWMOsmReauthAlert * alert = [NSBundle.mainBundle loadNibNamed:[self className] owner:nil options:nil].firstObject;
 
   alert.messageLabel.userInteractionEnabled = YES;
   alert.messageLabel.attributedText = [self buildAlertMessage];
@@ -53,8 +52,7 @@ static NSString * const kMap2OsmLoginSegue = @"Map2OsmLogin";
 - (IBAction)osmTap
 {
   [self close:^{
-    [self.alertController.ownerViewController performSegueWithIdentifier:kMap2OsmLoginSegue
-                                                                  sender:nil];
+    [self.alertController.ownerViewController performSegueWithIdentifier:kMap2OsmLoginSegue sender:nil];
   }];
 }
 

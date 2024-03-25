@@ -108,7 +108,7 @@ private:
   struct SessionID
   {
     std::string m_cookies;
-    std::string m_authenticity_token;
+    std::string m_authenticityToken;
   };
 
   /// OAuth2 parameters (including secret) for application.
