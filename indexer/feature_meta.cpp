@@ -126,6 +126,8 @@ bool Metadata::TypeFromString(string_view k, Metadata::EType & outType)
     outType = Metadata::FMD_CAPACITY;
   else if (k == "local_ref")
     outType = Metadata::FMD_LOCAL_REF;
+  else if (k == "smoking")
+    outType = Metadata::FMD_SMOKING;
   else
     return false;
 

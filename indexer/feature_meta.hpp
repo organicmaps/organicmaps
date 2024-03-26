@@ -150,6 +150,7 @@ public:
     FMD_CAPACITY = 42,
     FMD_WHEELCHAIR = 43, // Value is runtime only, data is taken from the classificator types
     FMD_LOCAL_REF = 44,
+    FMD_SMOKING = 45,
     FMD_COUNT
   };
 

@@ -337,6 +337,14 @@ std::string MetadataTagProcessorImpl::ValidateAndFormat_local_ref(std::string co
   return v;
 }
 
+std::string MetadataTagProcessorImpl::ValidateAndFormat_smoking(std::string v)
+{
+  strings::AsciiToLower(v);
+  if (v == "outside" || v == "yes" || v == "no" || v == "separated" || v == "isolated" || v == "dedicated")
+    return v;
+  return {};
+}
+
 std::string MetadataTagProcessorImpl::ValidateAndFormat_duration(std::string const & v) const
 {
   if (!ftypes::IsWayWithDurationChecker::Instance()(m_params.m_types))
@@ -532,6 +540,7 @@ void MetadataTagProcessor::operator()(std::string const & k, std::string const &
   case Metadata::FMD_DURATION: valid = ValidateAndFormat_duration(v); break;
   case Metadata::FMD_CAPACITY: valid = ValidateAndFormat_capacity(v); break;
   case Metadata::FMD_LOCAL_REF: valid = ValidateAndFormat_local_ref(v); break;
+  case Metadata::FMD_SMOKING: valid = ValidateAndFormat_smoking(v); break;
   // Metadata types we do not get from OSM.
   case Metadata::FMD_CUISINE:
   case Metadata::FMD_DESCRIPTION:   // processed separately
