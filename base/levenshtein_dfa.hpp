@@ -47,8 +47,8 @@ public:
     bool operator<(Position const & rhs) const;
     bool operator==(Position const & rhs) const;
 
-    inline bool IsStandard() const { return !m_transposed; }
-    inline bool IsTransposed() const { return m_transposed; }
+    bool IsStandard() const { return !m_transposed; }
+    bool IsTransposed() const { return m_transposed; }
 
     size_t m_offset = 0;
     size_t m_errorsLeft = 0;
@@ -58,9 +58,9 @@ public:
   struct State
   {
     void Normalize();
-    inline void Clear() { m_positions.clear(); }
+    void Clear() { m_positions.clear(); }
 
-    inline bool operator<(State const & rhs) const { return m_positions < rhs.m_positions; }
+    bool operator<(State const & rhs) const { return m_positions < rhs.m_positions; }
 
     std::vector<Position> m_positions;
   };
@@ -106,7 +106,7 @@ public:
 
   bool IsEmpty() const { return m_alphabet.empty(); }
 
-  inline Iterator Begin() const { return Iterator(*this); }
+  Iterator Begin() const { return Iterator(*this); }
 
   size_t GetNumStates() const { return m_transitions.size(); }
   size_t GetAlphabetSize() const { return m_alphabet.size(); }
@@ -122,10 +122,10 @@ private:
 
   bool IsAccepting(Position const & p) const;
   bool IsAccepting(State const & s) const;
-  inline bool IsAccepting(size_t s) const { return m_accepting[s]; }
+  bool IsAccepting(size_t s) const { return m_accepting[s]; }
 
-  inline bool IsRejecting(State const & s) const { return s.m_positions.empty(); }
-  inline bool IsRejecting(size_t s) const { return s == kRejectingState; }
+  bool IsRejecting(State const & s) const { return s.m_positions.empty(); }
+  bool IsRejecting(size_t s) const { return s == kRejectingState; }
 
   // Returns minimum number of made errors among accepting positions in |s|.
   size_t ErrorsMade(State const & s) const;

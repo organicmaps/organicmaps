@@ -4,8 +4,6 @@
 
 #pragma once
 
-#include "base/base.hpp"
-
 namespace base
 {
 namespace impl

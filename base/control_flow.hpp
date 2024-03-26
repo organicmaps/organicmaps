@@ -1,7 +1,6 @@
 #pragma once
 
 #include <type_traits>
-#include <utility>
 
 namespace base
 {
@@ -25,15 +24,14 @@ public:
   }
 
   template <typename... Args>
-  std::enable_if_t<std::is_same<std::invoke_result_t<Fn, Args...>, base::ControlFlow>::value,
-                   base::ControlFlow>
+  std::enable_if_t<std::is_same_v<std::invoke_result_t<Fn, Args...>, ControlFlow>, ControlFlow>
   operator()(Args &&... args)
   {
     return m_fn(std::forward<Args>(args)...);
   }
 
   template <typename... Args>
-  std::enable_if_t<std::is_same<std::invoke_result_t<Fn, Args...>, void>::value, base::ControlFlow>
+  std::enable_if_t<std::is_same_v<std::invoke_result_t<Fn, Args...>, void>, ControlFlow>
   operator()(Args &&... args)
   {
     m_fn(std::forward<Args>(args)...);

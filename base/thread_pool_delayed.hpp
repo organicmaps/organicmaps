@@ -11,9 +11,7 @@
 #include <cstdint>
 #include <map>
 #include <memory>
-#include <mutex>
 #include <unordered_map>
-#include <utility>
 #include <vector>
 
 namespace base
@@ -124,7 +122,7 @@ private:
     bool operator()(T const & lhs, T const & rhs) const { return *lhs < *rhs; }
   };
 
-  using ImmediateQueue = base::LinkedMap<TaskId, Task>;
+  using ImmediateQueue = LinkedMap<TaskId, Task>;
 
   using DelayedValue = std::shared_ptr<DelayedTask>;
   class DelayedQueue : public BidirectionalMap<TaskId, DelayedValue,

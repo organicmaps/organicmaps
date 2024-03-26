@@ -13,7 +13,7 @@ namespace strings
 {
 namespace
 {
-inline size_t AbsDiff(size_t a, size_t b) { return a > b ? a - b : b - a; }
+size_t AbsDiff(size_t a, size_t b) { return a > b ? a - b : b - a; }
 
 class TransitionTable
 {
@@ -129,7 +129,7 @@ bool LevenshteinDFA::Position::SubsumedBy(Position const & rhs) const
   if (m_errorsLeft >= rhs.m_errorsLeft)
     return false;
 
-  auto const errorsAvail = static_cast<size_t>(rhs.m_errorsLeft - m_errorsLeft);
+  auto const errorsAvail = rhs.m_errorsLeft - m_errorsLeft;
 
   if (IsStandard() && rhs.IsStandard())
     return AbsDiff(m_offset, rhs.m_offset) <= errorsAvail;
@@ -197,7 +197,7 @@ LevenshteinDFA::LevenshteinDFA(UniString const & s, size_t prefixSize,
   m_alphabet.assign(s.begin(), s.end());
   CHECK_LESS_OR_EQUAL(prefixSize, s.size(), ());
 
-  auto const pSize = static_cast<typename std::iterator_traits<
+  auto const pSize = static_cast<std::iterator_traits<
           UniString::iterator>::difference_type>(prefixSize);
   for (auto it = s.begin(); std::distance(s.begin(), it) < pSize; ++it)
   {

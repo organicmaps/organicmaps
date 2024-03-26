@@ -6,7 +6,7 @@ namespace base
 {
 void Cancellable::Reset()
 {
-  std::lock_guard<std::mutex> lock(m_mutex);
+  std::lock_guard lock(m_mutex);
 
   m_status = Status::Active;
   m_deadline = {};
@@ -14,14 +14,14 @@ void Cancellable::Reset()
 
 void Cancellable::Cancel()
 {
-  std::lock_guard<std::mutex> lock(m_mutex);
+  std::lock_guard lock(m_mutex);
 
   m_status = Status::CancelCalled;
 }
 
 void Cancellable::SetDeadline(std::chrono::steady_clock::time_point const & deadline)
 {
-  std::lock_guard<std::mutex> lock(m_mutex);
+  std::lock_guard lock(m_mutex);
 
   m_deadline = deadline;
   CheckDeadline();
@@ -34,7 +34,7 @@ bool Cancellable::IsCancelled() const
 
 Cancellable::Status Cancellable::CancellationStatus() const
 {
-  std::lock_guard<std::mutex> lock(m_mutex);
+  std::lock_guard lock(m_mutex);
 
   CheckDeadline();
   return m_status;
