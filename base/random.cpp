@@ -1,6 +1,5 @@
 #include "base/random.hpp"
 
-#include <algorithm>
 #include <numeric>
 
 namespace base

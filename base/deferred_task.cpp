@@ -6,7 +6,7 @@ DeferredTask::DeferredTask(Duration const & duration) : m_duration(duration)
 {
   m_thread = threads::SimpleThread([this]
   {
-    std::unique_lock<std::mutex> l(m_mutex);
+    std::unique_lock l(m_mutex);
     while (!m_terminate)
     {
       if (!m_fn)
@@ -31,7 +31,7 @@ DeferredTask::DeferredTask(Duration const & duration) : m_duration(duration)
 DeferredTask::~DeferredTask()
 {
   {
-    std::unique_lock<std::mutex> l(m_mutex);
+    std::unique_lock l(m_mutex);
     m_terminate = true;
   }
   m_cv.notify_one();
@@ -41,7 +41,7 @@ DeferredTask::~DeferredTask()
 void DeferredTask::Drop()
 {
   {
-    std::unique_lock<std::mutex> l(m_mutex);
+    std::unique_lock l(m_mutex);
     m_fn = nullptr;
   }
   m_cv.notify_one();

@@ -5,8 +5,6 @@
 #include "base/logging.hpp"
 #include "base/src_point.hpp"
 
-#include "std/target_os.hpp"
-
 #include <iostream>
 
 namespace base

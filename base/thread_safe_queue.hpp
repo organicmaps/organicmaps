@@ -3,7 +3,6 @@
 #include <condition_variable>
 #include <mutex>
 #include <queue>
-#include <utility>
 
 namespace threads
 {
@@ -21,7 +20,7 @@ public:
   void Push(T const & value)
   {
     {
-      std::lock_guard<std::mutex> lk(m_mutex);
+      std::lock_guard lk(m_mutex);
       m_queue.push(value);
     }
     m_cond.notify_one();
@@ -30,7 +29,7 @@ public:
   void Push(T && value)
   {
     {
-      std::lock_guard<std::mutex> lk(m_mutex);
+      std::lock_guard lk(m_mutex);
       m_queue.push(std::move(value));
     }
     m_cond.notify_one();
@@ -38,7 +37,7 @@ public:
 
   void WaitAndPop(T & value)
   {
-    std::unique_lock<std::mutex> lk(m_mutex);
+    std::unique_lock lk(m_mutex);
     m_cond.wait(lk, [this]{ return !m_queue.empty(); });
     value = std::move(m_queue.front());
     m_queue.pop();
@@ -46,7 +45,7 @@ public:
 
   bool TryPop(T & value)
   {
-    std::lock_guard<std::mutex> lk(m_mutex);
+    std::lock_guard lk(m_mutex);
     if (m_queue.empty())
       return false;
 
@@ -58,13 +57,13 @@ public:
 
   bool Empty() const
   {
-    std::lock_guard<std::mutex> lk(m_mutex);
+    std::lock_guard lk(m_mutex);
     return m_queue.empty();
   }
 
   size_t Size() const
   {
-    std::lock_guard<std::mutex> lk(m_mutex);
+    std::lock_guard lk(m_mutex);
     return m_queue.size();
   }
 

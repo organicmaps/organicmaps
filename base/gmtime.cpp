@@ -4,7 +4,7 @@
 
 namespace base
 {
-std::tm GmTime(time_t const time)
+std::tm GmTime(time_t time)
 {
   std::tm result{};
 #ifndef OMIM_OS_WINDOWS
