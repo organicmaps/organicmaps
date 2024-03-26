@@ -14,7 +14,7 @@ class DeferredTask
 public:
   using Duration = std::chrono::duration<double>;
 
-  DeferredTask(Duration const & duration);
+  explicit DeferredTask(Duration const & duration);
   ~DeferredTask();
 
   void Drop();
@@ -23,14 +23,14 @@ public:
   void RestartWith(Fn const && fn)
   {
     {
-      std::unique_lock<std::mutex> l(m_mutex);
+      std::unique_lock l(m_mutex);
       m_fn = fn;
     }
     m_cv.notify_one();
   }
 
 private:
-  ::threads::SimpleThread m_thread;
+  threads::SimpleThread m_thread;
   std::mutex m_mutex;
   std::condition_variable m_cv;
   std::function<void()> m_fn;

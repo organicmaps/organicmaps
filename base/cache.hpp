@@ -79,12 +79,12 @@ namespace base
     }
 
   private:
-    inline size_t Index(KeyT const & key) const
+    size_t Index(KeyT const & key) const
     {
       return static_cast<size_t>(Hash(key) & m_hashMask);
     }
 
-    inline static uint32_t Hash(uint32_t x)
+    static uint32_t Hash(uint32_t x)
     {
       x = (x ^ 61) ^ (x >> 16);
       x = x + (x << 3);
@@ -93,7 +93,8 @@ namespace base
       x = x ^ (x >> 15);
       return x;
     }
-    inline static uint32_t Hash(uint64_t x)
+
+    static uint32_t Hash(uint64_t x)
     {
       return Hash(uint32_t(x) ^ uint32_t(x >> 32));
     }

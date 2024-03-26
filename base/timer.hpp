@@ -22,19 +22,19 @@ public:
 
   using DurationT = typename ClockT::duration;
   /// @return Elapsed time from start (@see Reset).
-  inline DurationT TimeElapsed() const { return ClockT::now() - m_startTime; }
+  DurationT TimeElapsed() const { return ClockT::now() - m_startTime; }
 
   template <typename Duration>
-  inline Duration TimeElapsedAs() const
+  Duration TimeElapsedAs() const
   {
     return std::chrono::duration_cast<Duration>(TimeElapsed());
   }
 
-  inline double ElapsedSeconds() const { return TimeElapsedAs<std::chrono::duration<double>>().count(); }
-  inline uint64_t ElapsedMilliseconds() const { return TimeElapsedAs<std::chrono::milliseconds>().count(); }
-  inline uint64_t ElapsedNanoseconds() const { return TimeElapsedAs<std::chrono::nanoseconds>().count(); }
+  double ElapsedSeconds() const { return TimeElapsedAs<std::chrono::duration<double>>().count(); }
+  uint64_t ElapsedMilliseconds() const { return TimeElapsedAs<std::chrono::milliseconds>().count(); }
+  uint64_t ElapsedNanoseconds() const { return TimeElapsedAs<std::chrono::nanoseconds>().count(); }
 
-  inline void Reset() { m_startTime = ClockT::now(); }
+  void Reset() { m_startTime = ClockT::now(); }
 };
 } // namespace impl
 

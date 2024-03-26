@@ -17,7 +17,7 @@ double constexpr kZenith = 90 + 50. / 60.; // 90 degrees 50'
 
 time_t constexpr kOneDaySeconds = 24 * 60 * 60;
 
-inline double NormalizeAngle(double a)
+double NormalizeAngle(double a)
 {
   double res = fmod(a, 360.);
   if (res < 0)
@@ -213,7 +213,7 @@ DayTimeType GetDayTime(time_t timeUtc, double latitude, double longitude)
   // Edge cases: polar day and polar night
   if (sunrise.first == DayEventType::PolarDay || sunset.first == DayEventType::PolarDay)
     return DayTimeType::PolarDay;
-  else if (sunrise.first == DayEventType::PolarNight || sunset.first == DayEventType::PolarNight)
+  if (sunrise.first == DayEventType::PolarNight || sunset.first == DayEventType::PolarNight)
     return DayTimeType::PolarNight;
 
   if (timeUtc < sunrise.second)
@@ -227,7 +227,7 @@ DayTimeType GetDayTime(time_t timeUtc, double latitude, double longitude)
       return DayTimeType::Night;
     return DayTimeType::Day;
   }
-  else if (timeUtc > sunset.second)
+  if (timeUtc > sunset.second)
   {
     auto const nextSunrise = CalculateDayEventTime(timeUtc + kOneDaySeconds, latitude, longitude, true /* sunrise */);
     auto const nextSunset = CalculateDayEventTime(timeUtc + kOneDaySeconds, latitude, longitude, false /* sunrise */);
@@ -251,5 +251,5 @@ std::string DebugPrint(DayTimeType type)
   case DayTimeType::PolarDay: return "PolarDay";
   case DayTimeType::PolarNight: return "PolarNight";
   }
-  return std::string();
+  return {};
 }

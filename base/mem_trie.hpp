@@ -5,7 +5,6 @@
 
 #include <algorithm>
 #include <map>
-#include <memory>
 #include <string>
 #include <vector>
 
@@ -204,7 +203,7 @@ public:
   public:
     using Char = MemTrie::Char;
 
-    Iterator(MemTrie::Node const & node) : m_node(node) {}
+    Iterator(Node const & node) : m_node(node) {}
 
     // Iterates over all possible moves from this Iterator's node
     // and calls |toDo| with two arguments:
@@ -226,7 +225,7 @@ public:
     ValuesHolder const & GetValues() const { return m_node.m_values; }
 
   private:
-    MemTrie::Node const & m_node;
+    Node const & m_node;
   };
 
   // Adds a key-value pair to the trie.

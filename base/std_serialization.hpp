@@ -1,12 +1,8 @@
 #pragma once
 
-#include "base/base.hpp"
-
 #include <array>
 #include <map>
-#include <set>
 #include <unordered_map>
-#include <utility>
 #include <vector>
 
 
@@ -27,7 +23,8 @@ TArchive & operator >> (TArchive & ar, std::pair<T1, T2> & t)
   return ar;
 }
 
-template <class TArchive, class TCont> void save_like_map(TArchive & ar, TCont const & rMap)
+template <class TArchive, class TCont>
+void save_like_map(TArchive & ar, TCont const & rMap)
 {
   uint32_t const count = static_cast<uint32_t>(rMap.size());
   ar << count;
@@ -36,7 +33,8 @@ template <class TArchive, class TCont> void save_like_map(TArchive & ar, TCont c
     ar << i->first << i->second;
 }
 
-template <class TArchive, class TCont> void load_like_map(TArchive & ar, TCont & rMap)
+template <class TArchive, class TCont>
+void load_like_map(TArchive & ar, TCont & rMap)
 {
   rMap.clear();
 
@@ -55,7 +53,8 @@ template <class TArchive, class TCont> void load_like_map(TArchive & ar, TCont &
   }
 }
 
-template <class TArchive, class TCont> void save_like_vector(TArchive & ar, TCont const & rCont)
+template <class TArchive, class TCont>
+void save_like_vector(TArchive & ar, TCont const & rCont)
 {
   uint32_t const count = static_cast<uint32_t>(rCont.size());
   ar << count;
@@ -64,7 +63,8 @@ template <class TArchive, class TCont> void save_like_vector(TArchive & ar, TCon
     ar << rCont[i];
 }
 
-template <class TArchive, class TCont> void load_like_vector(TArchive & ar, TCont & rCont)
+template <class TArchive, class TCont>
+void load_like_vector(TArchive & ar, TCont & rCont)
 {
   rCont.clear();
 
@@ -76,7 +76,8 @@ template <class TArchive, class TCont> void load_like_vector(TArchive & ar, TCon
     ar >> rCont[i];
 }
 
-template <class TArchive, class TCont> void save_like_set(TArchive & ar, TCont const & rSet)
+template <class TArchive, class TCont>
+void save_like_set(TArchive & ar, TCont const & rSet)
 {
   uint32_t const count = static_cast<uint32_t>(rSet.size());
   ar << count;
@@ -85,7 +86,8 @@ template <class TArchive, class TCont> void save_like_set(TArchive & ar, TCont c
     ar << *it;
 }
 
-template <class TArchive, class TCont> void load_like_set(TArchive & ar, TCont & rSet)
+template <class TArchive, class TCont>
+void load_like_set(TArchive & ar, TCont & rSet)
 {
   rSet.clear();
 
@@ -100,74 +102,86 @@ template <class TArchive, class TCont> void load_like_set(TArchive & ar, TCont &
   }
 }
 
-template <class TArchive, class T1, class T2> TArchive & operator << (TArchive & ar, std::map<T1, T2> const & rMap)
+template <class TArchive, class T1, class T2>
+TArchive & operator << (TArchive & ar, std::map<T1, T2> const & rMap)
 {
   save_like_map(ar, rMap);
   return ar;
 }
 
-template <class TArchive, class T1, class T2> TArchive & operator >> (TArchive & ar, std::map<T1, T2> & rMap)
+template <class TArchive, class T1, class T2>
+TArchive & operator >> (TArchive & ar, std::map<T1, T2> & rMap)
 {
   load_like_map(ar, rMap);
   return ar;
 }
 
-template <class TArchive, class T1, class T2> TArchive & operator << (TArchive & ar, std::multimap<T1, T2> const & rMap)
+template <class TArchive, class T1, class T2>
+TArchive & operator << (TArchive & ar, std::multimap<T1, T2> const & rMap)
 {
   save_like_map(ar, rMap);
   return ar;
 }
 
-template <class TArchive, class T1, class T2> TArchive & operator >> (TArchive & ar, std::multimap<T1, T2> & rMap)
+template <class TArchive, class T1, class T2>
+TArchive & operator >> (TArchive & ar, std::multimap<T1, T2> & rMap)
 {
   load_like_map(ar, rMap);
   return ar;
 }
 
-template <class TArchive, class T1, class T2> TArchive & operator << (TArchive & ar, std::unordered_map<T1, T2> const & rMap)
+template <class TArchive, class T1, class T2>
+TArchive & operator << (TArchive & ar, std::unordered_map<T1, T2> const & rMap)
 {
   save_like_map(ar, rMap);
   return ar;
 }
 
-template <class TArchive, class T1, class T2> TArchive & operator >> (TArchive & ar, std::unordered_map<T1, T2> & rMap)
+template <class TArchive, class T1, class T2>
+TArchive & operator >> (TArchive & ar, std::unordered_map<T1, T2> & rMap)
 {
   load_like_map(ar, rMap);
   return ar;
 }
 
-template <class TArchive, class T> TArchive & operator << (TArchive & ar, std::vector<T> const & rVector)
+template <class TArchive, class T>
+TArchive & operator << (TArchive & ar, std::vector<T> const & rVector)
 {
   save_like_vector(ar, rVector);
   return ar;
 }
 
-template <class TArchive, class T> TArchive & operator >> (TArchive & ar, std::vector<T> & rVector)
+template <class TArchive, class T>
+TArchive & operator >> (TArchive & ar, std::vector<T> & rVector)
 {
   load_like_vector(ar, rVector);
   return ar;
 }
 
-template <class TArchive, class T> TArchive & operator << (TArchive & ar, std::set<T> const & rSet)
+template <class TArchive, class T>
+TArchive & operator << (TArchive & ar, std::set<T> const & rSet)
 {
   save_like_set(ar, rSet);
   return ar;
 }
 
-template <class TArchive, class T> TArchive & operator >> (TArchive & ar, std::set<T> & rSet)
+template <class TArchive, class T>
+TArchive & operator >> (TArchive & ar, std::set<T> & rSet)
 {
   load_like_set(ar, rSet);
   return ar;
 }
 
-template <class TArchive, class T, size_t N> TArchive & operator << (TArchive & ar, std::array<T, N> const & rArray)
+template <class TArchive, class T, size_t N>
+TArchive & operator << (TArchive & ar, std::array<T, N> const & rArray)
 {
   for (size_t i = 0; i < N; ++i)
     ar << rArray[i];
   return ar;
 }
 
-template <class TArchive, class T, size_t N> TArchive & operator >> (TArchive & ar, std::array<T, N> & rArray)
+template <class TArchive, class T, size_t N>
+TArchive & operator >> (TArchive & ar, std::array<T, N> & rArray)
 {
   for (size_t i = 0; i < N; ++i)
     ar >> rArray[i];

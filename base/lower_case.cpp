@@ -46,7 +46,7 @@ UniChar LowerUniChar(UniChar c)
     {
       if (c >= 0xfb00 && c <= 0xfb06)
         return 0;
-      else if (c >= 0xfb13 && c <= 0xfb17)
+      if (c >= 0xfb13 && c <= 0xfb17)
         return 0;
       return c;
     }
