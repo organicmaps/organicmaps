@@ -57,7 +57,7 @@ private:
 
 template <class T> class StatsCollector
 {
-  std::vector<std::pair<std::string, base::AverageStats<T>>> m_vec;
+  std::vector<std::pair<std::string, AverageStats<T>>> m_vec;
 
 public:
   explicit StatsCollector(std::initializer_list<std::string> init)
@@ -71,7 +71,7 @@ public:
       LOG_SHORT(LINFO, (e.first, ":", e.second.ToString()));
   }
 
-  base::AverageStats<T> & Get(size_t i) { return m_vec[i].second; }
+  AverageStats<T> & Get(size_t i) { return m_vec[i].second; }
 };
 
 template <class Key> class TopStatsCounter

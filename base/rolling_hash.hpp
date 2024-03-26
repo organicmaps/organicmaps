@@ -1,7 +1,6 @@
 #pragma once
 
 #include "base/assert.hpp"
-#include "base/base.hpp"
 #include "base/math.hpp"
 
 #ifdef DEBUG
@@ -19,7 +18,8 @@ public:
   {
   }
 
-  template <typename Iter> hash_type Init(Iter it, uint64_t windowSize)
+  template <typename Iter>
+  hash_type Init(Iter it, uint64_t windowSize)
   {
     ASSERT_GREATER(m_windowSize, 0, ());
     m_windowSize = windowSize;
@@ -67,14 +67,14 @@ class RabinKarpRollingHasher32 : public RabinKarpRollingHasher<uint32_t, uint32_
 {
 public:
   RabinKarpRollingHasher32()
-    : RabinKarpRollingHasher<uint32_t, uint32_t>(1103515245U) {}
+    : RabinKarpRollingHasher(1103515245U) {}
 };
 
 class RabinKarpRollingHasher64 : public RabinKarpRollingHasher<uint64_t, uint64_t>
 {
 public:
   RabinKarpRollingHasher64()
-    : RabinKarpRollingHasher<uint64_t, uint64_t>(6364136223846793005ULL) {}
+    : RabinKarpRollingHasher(6364136223846793005ULL) {}
 };
 
 using RollingHasher32 = RabinKarpRollingHasher32;

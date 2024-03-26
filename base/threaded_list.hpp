@@ -35,7 +35,7 @@ public:
   template <typename Fn>
   void ProcessList(Fn const & fn)
   {
-    std::unique_lock<std::mutex> lock(m_condLock);
+    std::unique_lock lock(m_condLock);
 
     bool hadElements = !m_list.empty();
 
@@ -51,7 +51,7 @@ public:
 
   void PushBack(T const & t)
   {
-    std::unique_lock<std::mutex> lock(m_condLock);
+    std::unique_lock lock(m_condLock);
 
     bool doSignal = m_list.empty();
 
@@ -64,7 +64,7 @@ public:
 
   void PushFront(T const & t)
   {
-    std::unique_lock<std::mutex> lock(m_condLock);
+    std::unique_lock lock(m_condLock);
 
     bool doSignal = m_list.empty();
 
@@ -77,7 +77,7 @@ public:
 
   T const Front(bool doPop)
   {
-    std::unique_lock<std::mutex> lock(m_condLock);
+    std::unique_lock lock(m_condLock);
 
     if (WaitNonEmpty(lock))
       return T();
@@ -94,7 +94,7 @@ public:
 
   T const Back(bool doPop)
   {
-    std::unique_lock<std::mutex> lock(m_condLock);
+    std::unique_lock lock(m_condLock);
 
     if (WaitNonEmpty(lock))
       return T();
@@ -111,7 +111,7 @@ public:
 
   size_t Size() const
   {
-    std::unique_lock<std::mutex> lock(m_condLock);
+    std::unique_lock lock(m_condLock);
     return m_list.size();
   }
 
@@ -122,7 +122,7 @@ public:
 
   void Clear()
   {
-    std::unique_lock<std::mutex> lock(m_condLock);
+    std::unique_lock lock(m_condLock);
     m_list.clear();
     m_isEmpty = true;
   }

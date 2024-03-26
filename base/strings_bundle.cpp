@@ -1,6 +1,5 @@
 #include "base/strings_bundle.hpp"
 
-
 void StringsBundle::SetDefaultString(std::string const & name, std::string const & value)
 {
   m_defValues[name] = value;

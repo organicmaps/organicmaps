@@ -19,7 +19,7 @@ public:
 
   void Wait()
   {
-    std::unique_lock<std::mutex> lock(m_mutex);
+    std::unique_lock lock(m_mutex);
 
     if (m_notified)
       return;
@@ -30,7 +30,7 @@ public:
   template <typename Rep, typename Period>
   Result Wait(std::chrono::duration<Rep, Period> const & waitDuration)
   {
-    std::unique_lock<std::mutex> lock(m_mutex);
+    std::unique_lock lock(m_mutex);
 
     if (m_notified)
       return Result::PreviouslyNotified;
@@ -55,7 +55,7 @@ public:
 private:
   void SetNotified(bool notified)
   {
-    std::lock_guard<std::mutex> lock(m_mutex);
+    std::lock_guard lock(m_mutex);
     m_notified = notified;
   }
 

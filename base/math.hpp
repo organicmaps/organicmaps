@@ -25,7 +25,7 @@ T Abs(T x)
 
 template <typename Number,
           typename EnableIf = typename std::enable_if_t<
-              std::is_integral<Number>::value || std::is_floating_point<Number>::value, void>>
+              std::is_integral_v<Number> || std::is_floating_point_v<Number>, void>>
 int constexpr Sign(Number const number) noexcept
 {
   return number == 0 ? 0 : number > 0 ? 1 : -1;
@@ -150,7 +150,7 @@ inline uint32_t NextPowOf2(uint32_t v)
 
 // Greatest Common Divisor.
 template <typename Number,
-          typename EnableIf = typename std::enable_if_t<std::is_integral<Number>::value, void>>
+          typename EnableIf = typename std::enable_if_t<std::is_integral_v<Number>, void>>
 Number constexpr GCD(Number const a, Number const b)
 {
   return b == 0 ? a : GCD(b, a % b);
@@ -158,7 +158,7 @@ Number constexpr GCD(Number const a, Number const b)
 
 // Least Common Multiple.
 template <typename Number,
-          typename EnableIf = typename std::enable_if_t<std::is_integral<Number>::value, void>>
+          typename EnableIf = typename std::enable_if_t<std::is_integral_v<Number>, void>>
 Number constexpr LCM(Number const a, Number const b)
 {
   return a / GCD(a, b) * b;

@@ -19,7 +19,7 @@ namespace base
 {
 GeoObjectId::GeoObjectId(uint64_t encodedId) : m_encodedId(encodedId) {}
 
-GeoObjectId::GeoObjectId(GeoObjectId::Type type, uint64_t id)
+GeoObjectId::GeoObjectId(Type type, uint64_t id)
   : m_encodedId((static_cast<uint64_t>(type) << 56) | id) {}
 
 uint64_t GeoObjectId::GetSerialId() const
@@ -37,16 +37,16 @@ GeoObjectId::Type GeoObjectId::GetType() const
   uint64_t const typeBits = (m_encodedId & kTypeMask) >> 56;
   switch (typeBits)
   {
-  case 0x00: return GeoObjectId::Type::Invalid;
-  case 0x01: return GeoObjectId::Type::OsmNode;
-  case 0x02: return GeoObjectId::Type::OsmWay;
-  case 0x03: return GeoObjectId::Type::OsmRelation;
-  case 0x04: return GeoObjectId::Type::BookingComNode;
-  case 0x05: return GeoObjectId::Type::OsmSurrogate;
-  case 0x06: return GeoObjectId::Type::Fias;
-  case 0x40: return GeoObjectId::Type::ObsoleteOsmNode;
-  case 0x80: return GeoObjectId::Type::ObsoleteOsmWay;
-  case 0xC0: return GeoObjectId::Type::ObsoleteOsmRelation;
+  case 0x00: return Type::Invalid;
+  case 0x01: return Type::OsmNode;
+  case 0x02: return Type::OsmWay;
+  case 0x03: return Type::OsmRelation;
+  case 0x04: return Type::BookingComNode;
+  case 0x05: return Type::OsmSurrogate;
+  case 0x06: return Type::Fias;
+  case 0x40: return Type::ObsoleteOsmNode;
+  case 0x80: return Type::ObsoleteOsmWay;
+  case 0xC0: return Type::ObsoleteOsmRelation;
   }
   UNREACHABLE();
 }

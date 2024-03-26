@@ -5,7 +5,6 @@
 #include "base/macros.hpp"
 
 #include <functional>
-#include <memory>
 #include <thread>
 
 namespace threads

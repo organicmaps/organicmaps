@@ -33,7 +33,7 @@ namespace math
     }
 
     template <typename U>
-    Matrix<T, Rows, Cols> const & operator=(Matrix<U, Rows, Cols> const & src)
+    Matrix & operator=(Matrix<U, Rows, Cols> const & src)
     {
       if ((void*)this != (void*)&src)
       {
@@ -181,7 +181,7 @@ namespace math
   }
 
   template <typename T, unsigned M, unsigned N, unsigned K>
-  Matrix<T, M, K> const operator*(Matrix<T, M, N> const & l, Matrix<T, N, K> const & r)
+  Matrix<T, M, K> operator*(Matrix<T, M, N> const & l, Matrix<T, N, K> const & r)
   {
     Matrix<T, M, K> res;
     for (size_t m = 0; m < M; ++m)

@@ -1,6 +1,6 @@
 #pragma once
-#include "base/assert.hpp"
 
+#include "base/assert.hpp"
 
 namespace detail
 {
