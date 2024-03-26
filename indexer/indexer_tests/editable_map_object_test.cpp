@@ -275,18 +275,12 @@ UNIT_TEST(EditableMapObject_GetNamesDataSource)
   auto const namesDataSource = EditableMapObject::GetNamesDataSource(
       emo.GetNameMultilang(), nativeMwmLanguages, GetLangCode("ko"));
 
-  TEST_EQUAL(namesDataSource.names.size(), 9, ("All names except the default should be pushed into "
-                                           "data source plus empty mandatory names"));
-  TEST_EQUAL(namesDataSource.mandatoryNamesCount, 4,
-             ("Mandatory names count should be equal to Mwm languages + user`s language"));
-  TEST_EQUAL(namesDataSource.names[0].m_code, GetLangCode("de"),
-             ("German must be first because it is first in the list of languages for MWM"));
-  TEST_EQUAL(namesDataSource.names[1].m_code, GetLangCode("fr"),
-             ("French must be second because it is second in the list of languages for MWM"));
-  TEST_EQUAL(namesDataSource.names[2].m_code, GetLangCode("en"),
-             ("English name should be placed after Mwm languages"));
-  TEST_EQUAL(namesDataSource.names[3].m_code, GetLangCode("ko"),
-             ("Korean should be fourth because the user’s langue must be followed by English."));
+  TEST_EQUAL(namesDataSource.names.size(), 9, 
+             ("All names including the default should be pushed into data source"));
+  TEST_EQUAL(namesDataSource.mandatoryNamesCount, 1,
+             ("Mandatory names count should always be 1"));
+  TEST_EQUAL(namesDataSource.names[0].m_code, GetLangCode("default"),
+             ("Default is always first in the list"));
 
   {
     vector<int8_t> nativeMwmLanguages = {GetLangCode("de"), GetLangCode("fr")};
@@ -294,11 +288,9 @@ UNIT_TEST(EditableMapObject_GetNamesDataSource)
     auto const namesDataSource = EditableMapObject::GetNamesDataSource(
         emo.GetNameMultilang(), nativeMwmLanguages, GetLangCode("fr"));
     TEST_EQUAL(namesDataSource.names.size(), 9,
-               ("All names + empty mandatory names should be pushed into "
-                "the data source, except the default one."));
-    TEST_EQUAL(namesDataSource.mandatoryNamesCount, 3,
-               ("Mandatory names count should be equal to MWM languages + "
-                "The English language + user`s language. Excluding repetiton"));
+               ("All names including the default should be pushed into data source"));
+    TEST_EQUAL(namesDataSource.mandatoryNamesCount, 1,
+               ("Mandatory names count should always be 1"));
   }
   {
     vector<int8_t> nativeMwmLanguages = {GetLangCode("fr"), GetLangCode("en")};
@@ -306,23 +298,19 @@ UNIT_TEST(EditableMapObject_GetNamesDataSource)
     auto const namesDataSource = EditableMapObject::GetNamesDataSource(
         emo.GetNameMultilang(), nativeMwmLanguages, GetLangCode("fr"));
     TEST_EQUAL(namesDataSource.names.size(), 9,
-               ("All names + empty mandatory names should be pushed into "
-                "the data source, except the default one."));
-    TEST_EQUAL(namesDataSource.mandatoryNamesCount, 2,
-               ("Mandatory names count should be equal to MWM languages + "
-                "The English language + user`s language. Excluding repetiton"));
+               ("All names including the default should be pushed into data source"));
+    TEST_EQUAL(namesDataSource.mandatoryNamesCount, 1,
+               ("Mandatory names count should always be 1"));
   }
   {
     vector<int8_t> nativeMwmLanguages = {GetLangCode("en"), GetLangCode("en")};
 
     auto const namesDataSource = EditableMapObject::GetNamesDataSource(
         emo.GetNameMultilang(), nativeMwmLanguages, GetLangCode("en"));
-    TEST_EQUAL(namesDataSource.names.size(), 8,
-               ("All names + empty mandatory names should be pushed into "
-                "the data source, except the default one."));
+    TEST_EQUAL(namesDataSource.names.size(), 9,
+               ("All names including the default should be pushed into data source"));
     TEST_EQUAL(namesDataSource.mandatoryNamesCount, 1,
-               ("Mandatory names count should be equal to MWM languages + "
-                "The English language + user`s language. Excluding repetiton"));
+               ("Mandatory names count should always be 1"));
   }
 }
 

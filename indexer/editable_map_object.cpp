@@ -24,8 +24,7 @@ namespace
 bool ExtractName(StringUtf8Multilang const & names, int8_t const langCode,
                  vector<osm::LocalizedName> & result)
 {
-  if (StringUtf8Multilang::kUnsupportedLanguageCode == langCode ||
-      StringUtf8Multilang::kDefaultCode == langCode)
+  if (StringUtf8Multilang::kUnsupportedLanguageCode == langCode)
   {
     return false;
   }
@@ -46,7 +45,7 @@ bool ExtractName(StringUtf8Multilang const & names, int8_t const langCode,
   return true;
 }
 
-size_t PushMwmLanguages(StringUtf8Multilang const & names, vector<int8_t> const & mwmLanguages,
+/*size_t PushMwmLanguages(StringUtf8Multilang const & names, vector<int8_t> const & mwmLanguages,
                         vector<osm::LocalizedName> & result)
 {
   size_t count = 0;
@@ -59,7 +58,7 @@ size_t PushMwmLanguages(StringUtf8Multilang const & names, vector<int8_t> const 
   }
 
   return count;
-}
+}*/
 
 osm::FakeNames MakeFakeSource(StringUtf8Multilang const & source,
                               vector<int8_t> const & mwmLanguages, StringUtf8Multilang & fakeSource)
@@ -193,7 +192,7 @@ vector<MapObject::MetadataID> EditableMapObject::GetEditableProperties() const
   return props;
 }
 
-NamesDataSource EditableMapObject::GetNamesDataSource(bool needFakes /* = true */)
+NamesDataSource EditableMapObject::GetNamesDataSource(bool needFakes /* = false */)
 {
   auto const mwmInfo = GetID().m_mwmId.GetInfo();
 
@@ -205,7 +204,7 @@ NamesDataSource EditableMapObject::GetNamesDataSource(bool needFakes /* = true *
 
   auto const userLangCode = StringUtf8Multilang::GetLangIndex(languages::GetCurrentNorm());
 
-  if (needFakes)
+  if (false)
   {
     StringUtf8Multilang fakeSource;
     m_fakeNames = MakeFakeSource(m_name, mwmLanguages, fakeSource);
@@ -230,23 +229,15 @@ NamesDataSource EditableMapObject::GetNamesDataSource(StringUtf8Multilang const 
   auto & names = result.names;
   auto & mandatoryCount = result.mandatoryNamesCount;
   // Push Mwm languages.
-  mandatoryCount = PushMwmLanguages(source, mwmLanguages, names);
+  mandatoryCount = 0;
 
-  // Push english name.
-  if (ExtractName(source, StringUtf8Multilang::kEnglishCode, names))
-    ++mandatoryCount;
-
-  // Push user's language.
-  if (ExtractName(source, userLangCode, names))
+  // Push default/native for country language.
+  if (ExtractName(source, StringUtf8Multilang::kDefaultCode, names))
     ++mandatoryCount;
 
   // Push other languages.
   source.ForEach([&names, mandatoryCount](int8_t const code, string_view name)
   {
-    // Exclude default name.
-    if (StringUtf8Multilang::kDefaultCode == code)
-      return;
-
     auto const mandatoryNamesEnd = names.begin() + mandatoryCount;
     // Exclude languages which are already in container (languages with top priority).
     auto const it = find_if(
