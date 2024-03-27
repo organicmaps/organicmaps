@@ -112,7 +112,7 @@
   <dimen name="nav_button_height">@dimen/primary_button_min_height</dimen>
   <dimen name="nav_icon_size">48dp</dimen>
   <dimen name="nav_bottom_gap">12dp</dimen>
-  <dimen name="nav_menu_height">70sp</dimen>
+  <dimen name="nav_menu_height">80sp</dimen>
   <dimen name="nav_menu_content_height">64dp</dimen>
   <dimen name="nav_menu_landscape_width">360dp</dimen>
 
