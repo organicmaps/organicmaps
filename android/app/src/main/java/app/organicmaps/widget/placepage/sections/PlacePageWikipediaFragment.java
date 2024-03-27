@@ -26,7 +26,6 @@ import app.organicmaps.widget.placepage.PlacePageViewModel;
 public class PlacePageWikipediaFragment extends Fragment implements Observer<MapObject>
 {
   private View mFrame;
-  private View mWiki;
   private View mPlaceDescriptionViewContainer;
 
   private TextView mPlaceDescriptionView;
@@ -58,7 +57,6 @@ public class PlacePageWikipediaFragment extends Fragment implements Observer<Map
     mPlaceDescriptionViewContainer = view.findViewById(R.id.poi_description_container);
     placeDescriptionMoreBtn.setOnClickListener(v -> showDescriptionScreen());
     mPlaceDescriptionView.setOnClickListener(v -> showDescriptionScreen());
-    mWiki = view.findViewById(R.id.ll__place_wiki);
   }
 
   private void showDescriptionScreen()
@@ -101,19 +99,6 @@ public class PlacePageWikipediaFragment extends Fragment implements Observer<Map
       mPlaceDescriptionView.setOnLongClickListener((v) -> {
           PlacePageUtils.copyToClipboard(requireContext(), mFrame, descriptionString);
           return true;
-      });
-    }
-
-    final String wikipediaLink = mMapObject.getMetadata(Metadata.MetadataType.FMD_WIKIPEDIA);
-    if (TextUtils.isEmpty(wikipediaLink))
-      UiUtils.hide(mWiki);
-    else
-    {
-      UiUtils.show(mWiki);
-      mWiki.setOnClickListener((v) -> Utils.openUrl(requireContext(), wikipediaLink));
-      mWiki.setOnLongClickListener((v) -> {
-        PlacePageUtils.copyToClipboard(requireContext(), mFrame, wikipediaLink);
-        return true;
       });
     }
   }
