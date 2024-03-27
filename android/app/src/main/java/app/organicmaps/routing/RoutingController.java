@@ -918,7 +918,7 @@ public class RoutingController
 
   static String formatArrivalTime(int seconds)
   {
-    final LocalTime time = LocalTime.now().withSecond(seconds);
+    final LocalTime time = LocalTime.now().plusSeconds(seconds);
     return StringUtils.formatUsingUsLocale("%d:%02d", time.getHour(), time.getMinute());
   }
 }
