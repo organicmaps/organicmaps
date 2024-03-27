@@ -458,9 +458,7 @@
 	<string name="postal_code">Posta kodu</string>
 	<string name="cuisine">Mutfak</string>
 	<string name="select_cuisine">Mutfak Seç</string>
-	<!-- OSM Login text field hint, used only for Google Play -->
-	<string name="username">Kullanıcı Adı</string>
-	<!-- OSM login text field hint -->
+	<!-- login text field -->
 	<string name="email_or_username">E-posta veya kullanıcı adı</string>
 	<string name="editor_add_phone">Telefon Ekle</string>
 	<string name="level">Zemin</string>

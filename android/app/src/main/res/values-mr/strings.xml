@@ -429,9 +429,7 @@
 	<string name="postal_code">पिनकोड</string>
 	<string name="cuisine">पाककृती</string>
 	<string name="select_cuisine">पाककृती निवडा</string>
-	<!-- OSM Login text field hint, used only for Google Play -->
-	<string name="username">वापरकर्तानाव</string>
-	<!-- OSM login text field hint -->
+	<!-- login text field -->
 	<string name="email_or_username">ईमेल किंवा वापरकर्तानाव</string>
 	<string name="editor_add_phone">फोन जोडा</string>
 	<string name="level">मजला</string>

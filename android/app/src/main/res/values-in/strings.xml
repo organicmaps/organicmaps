@@ -435,9 +435,7 @@
 	<string name="postal_code">Kode Pos</string>
 	<string name="cuisine">Masakan</string>
 	<string name="select_cuisine">Pilih Masakan</string>
-	<!-- OSM Login text field hint, used only for Google Play -->
-	<string name="username">Nama pengguna</string>
-	<!-- OSM login text field hint -->
+	<!-- login text field -->
 	<string name="email_or_username">Surel atau nama pengguna</string>
 	<string name="level">Tingkat</string>
 	<string name="downloader_delete_map_dialog">Semua perubahan peta akan dihapus bersama dengan peta.</string>

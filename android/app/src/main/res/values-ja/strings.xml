@@ -460,9 +460,7 @@
 	<string name="postal_code">郵便番号</string>
 	<string name="cuisine">料理</string>
 	<string name="select_cuisine">料理を選択</string>
-	<!-- OSM Login text field hint, used only for Google Play -->
-	<string name="username">ユーザー名</string>
-	<!-- OSM login text field hint -->
+	<!-- login text field -->
 	<string name="email_or_username">メールアドレスまたはユーザー名</string>
 	<string name="editor_add_phone">電話番号を追加</string>
 	<string name="level">階</string>

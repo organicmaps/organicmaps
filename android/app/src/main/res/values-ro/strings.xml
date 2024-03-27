@@ -444,9 +444,7 @@
 	<string name="postal_code">Cod poștal</string>
 	<string name="cuisine">Bucătărie</string>
 	<string name="select_cuisine">Alege bucătăria</string>
-	<!-- OSM Login text field hint, used only for Google Play -->
-	<string name="username">Nume utilizator</string>
-	<!-- OSM login text field hint -->
+	<!-- login text field -->
 	<string name="email_or_username">E-mail sau nume de utilizator</string>
 	<string name="editor_add_phone">Adaugă un număr</string>
 	<string name="level">Etaj</string>

@@ -461,9 +461,7 @@
 	<string name="postal_code">Поштовий індекс</string>
 	<string name="cuisine">Кухня</string>
 	<string name="select_cuisine">Вибрати кухню</string>
-	<!-- OSM Login text field hint, used only for Google Play -->
-	<string name="username">Ім\'я користувача</string>
-	<!-- OSM login text field hint -->
+	<!-- login text field -->
 	<string name="email_or_username">Ел. пошта або ім\'я користувача</string>
 	<string name="level">Поверх</string>
 	<string name="downloader_delete_map_dialog">Разом з мапою будуть видалені й внесені Вами правки на цій мапі.</string>

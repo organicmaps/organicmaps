@@ -471,9 +471,7 @@
 	<string name="postal_code">الرمز البريدي</string>
 	<string name="cuisine">المطبخ</string>
 	<string name="select_cuisine">اختر المطبخ</string>
-	<!-- OSM Login text field hint, used only for Google Play -->
-	<string name="username">اسم المستخدم</string>
-	<!-- OSM login text field hint -->
+	<!-- login text field -->
 	<string name="email_or_username">البريد الإلكتروني أو اسم المستخدم</string>
 	<string name="editor_add_phone">إضافة رقم هاتف</string>
 	<string name="level">طابق</string>

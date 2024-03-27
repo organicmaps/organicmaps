@@ -687,7 +687,7 @@
 
 "select_cuisine" = "انتخاب غذاخوری";
 
-/* OSM login text field hint */
+/* login text field */
 "email_or_username" = "ایمیل یا نام کاربری";
 
 "phone" = "تلفن";

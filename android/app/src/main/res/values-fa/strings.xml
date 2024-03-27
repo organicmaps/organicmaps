@@ -430,9 +430,7 @@
 	<string name="postal_code">کد پستی</string>
 	<string name="cuisine">غذا‌خوری</string>
 	<string name="select_cuisine">انتخاب غذاخوری</string>
-	<!-- OSM Login text field hint, used only for Google Play -->
-	<string name="username">نام کاربری</string>
-	<!-- OSM login text field hint -->
+	<!-- login text field -->
 	<string name="email_or_username">ایمیل یا نام کاربری</string>
 	<string name="level">طبقه</string>
 	<string name="downloader_delete_map_dialog">تمام ویرایش‌های که بر روی نقشه انجام داده اید به همراه نقشه حذف شد.</string>

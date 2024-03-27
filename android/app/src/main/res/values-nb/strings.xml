@@ -458,9 +458,7 @@
 	<string name="postal_code">Postnummer</string>
 	<string name="cuisine">Matrett</string>
 	<string name="select_cuisine">Velg matrett</string>
-	<!-- OSM Login text field hint, used only for Google Play -->
-	<string name="username">Brukernavn</string>
-	<!-- OSM login text field hint -->
+	<!-- login text field -->
 	<string name="email_or_username">E-postadresse eller brukernavn</string>
 	<string name="editor_add_phone">Legg til telefon</string>
 	<string name="level">Gulv</string>

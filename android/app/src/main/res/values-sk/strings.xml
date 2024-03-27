@@ -431,9 +431,7 @@
 	<string name="postal_code">PSČ</string>
 	<string name="cuisine">Kuchyňa</string>
 	<string name="select_cuisine">Vyberte si kuchyňu</string>
-	<!-- OSM Login text field hint, used only for Google Play -->
-	<string name="username">Používateľské meno</string>
-	<!-- OSM login text field hint -->
+	<!-- login text field -->
 	<string name="email_or_username">Email alebo používateľské meno</string>
 	<string name="level">Podlaha</string>
 	<string name="downloader_delete_map_dialog">Všetky zmeny týkajúce sa mapy budú vymazané spolu s mapou.</string>

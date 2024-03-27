@@ -440,9 +440,7 @@
 	<string name="postal_code">Código postal</string>
 	<string name="cuisine">Culinária</string>
 	<string name="select_cuisine">Selecione a culinária</string>
-	<!-- OSM Login text field hint, used only for Google Play -->
-	<string name="username">Nome de utilizador</string>
-	<!-- OSM login text field hint -->
+	<!-- login text field -->
 	<string name="email_or_username">Email ou nome de utilizador</string>
 	<string name="level">Andar</string>
 	<string name="downloader_delete_map_dialog">Todas as alterações ao mapa serão eliminadas juntamente com o mapa.</string>

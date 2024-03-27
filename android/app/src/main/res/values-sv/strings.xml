@@ -431,9 +431,7 @@
 	<string name="postal_code">Postkod</string>
 	<string name="cuisine">Kök</string>
 	<string name="select_cuisine">Välj kök</string>
-	<!-- OSM Login text field hint, used only for Google Play -->
-	<string name="username">Användarnamn</string>
-	<!-- OSM login text field hint -->
+	<!-- login text field -->
 	<string name="email_or_username">E-postadress eller användarnamn</string>
 	<string name="level">Våningsplan</string>
 	<string name="downloader_delete_map_dialog">Alla kartändringar kommer att raderas tillsammans med kartan.</string>

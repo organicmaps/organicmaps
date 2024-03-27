@@ -687,7 +687,7 @@
 
 "select_cuisine" = "בחר סיגנון בישול";
 
-/* OSM login text field hint */
+/* login text field */
 "email_or_username" = "דוא\"ל או שם משתמש";
 
 "phone" = "טלפון";

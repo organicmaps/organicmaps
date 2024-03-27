@@ -332,8 +332,6 @@
 	<!-- Editable House Number text field (in address block). -->
 	<string name="house_number">भवन का नंबर</string>
 	<string name="details">विवरण</string>
-	<!-- OSM Login text field hint, used only for Google Play -->
-	<string name="username">उपयोगकर्ता नाम</string>
 	<string name="editor_add_phone">फोन नंबर डालें</string>
 	<string name="level">मंजिल</string>
 	<string name="downloader_search_field_hint">मानचित्र ढूंढें</string>

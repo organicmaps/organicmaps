@@ -434,9 +434,7 @@
 	<string name="postal_code">CEP</string>
 	<string name="cuisine">Culinária</string>
 	<string name="select_cuisine">Selecione a culinária</string>
-	<!-- OSM Login text field hint, used only for Google Play -->
-	<string name="username">Nome de usuário</string>
-	<!-- OSM login text field hint -->
+	<!-- login text field -->
 	<string name="email_or_username">Email ou nome de usuário</string>
 	<string name="downloader_delete_map_dialog">Todas as edições no mapa serão excluídas juntamente com o mapa.</string>
 	<string name="downloader_update_maps">Atualizar mapas</string>

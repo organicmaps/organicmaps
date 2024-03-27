@@ -450,9 +450,7 @@
 	<string name="postal_code">מיקוד</string>
 	<string name="cuisine">סגנון בישול</string>
 	<string name="select_cuisine">בחר סיגנון בישול</string>
-	<!-- OSM Login text field hint, used only for Google Play -->
-	<string name="username">שם משתמש</string>
-	<!-- OSM login text field hint -->
+	<!-- login text field -->
 	<string name="email_or_username">דוא\"ל או שם משתמש</string>
 	<string name="editor_add_phone">הוסף טלפון</string>
 	<string name="level">קומה</string>

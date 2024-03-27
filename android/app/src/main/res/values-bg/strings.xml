@@ -425,9 +425,7 @@
 	<string name="postal_code">Пощенски код</string>
 	<string name="cuisine">Кухня</string>
 	<string name="select_cuisine">Избор на кухня</string>
-	<!-- OSM Login text field hint, used only for Google Play -->
-	<string name="username">Потребителско име</string>
-	<!-- OSM login text field hint -->
+	<!-- login text field -->
 	<string name="email_or_username">Имейл или потребителско име</string>
 	<string name="level">Етаж</string>
 	<string name="downloader_delete_map_dialog">Всички ваши редакции на картата ще бъдат изтрити заедно с нея.</string>
