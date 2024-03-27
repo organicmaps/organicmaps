@@ -36,6 +36,7 @@ NSArray<UIImage *> *imagesWithName(NSString *name) {
 @property(nonatomic) NSLayoutConstraint *topOffset;
 @property(nonatomic) NSLayoutConstraint *leftOffset;
 @property(nonatomic) CGRect availableArea;
+@property(nonatomic) MWMToast *toast;
 
 @end
 
@@ -61,6 +62,11 @@ NSArray<UIImage *> *imagesWithName(NSString *name) {
 
 - (void)dealloc {
   [StyleManager.shared removeListener:self];
+}
+
+- (void)viewWillDisappear:(BOOL)animated {
+  [super viewWillDisappear:animated];
+  [self.toast hide];
 }
 
 - (void)configLayout {
@@ -110,7 +116,8 @@ NSArray<UIImage *> *imagesWithName(NSString *name) {
       break;
     case MWMMapOverlayTrafficStateNoData:
       btn.imageName = @"btn_traffic_on";
-      [[MWMToast toastWithText:L(@"traffic_data_unavailable")] show];
+      self.toast = [MWMToast toastWithText:L(@"traffic_data_unavailable")];
+      [self.toast show];
       break;
     case MWMMapOverlayTrafficStateNetworkError:
       [MWMMapOverlayManager setTrafficEnabled:NO];
@@ -118,11 +125,13 @@ NSArray<UIImage *> *imagesWithName(NSString *name) {
       break;
     case MWMMapOverlayTrafficStateExpiredData:
       btn.imageName = @"btn_traffic_outdated";
-      [[MWMToast toastWithText:L(@"traffic_update_maps_text")] show];
+      self.toast = [MWMToast toastWithText:L(@"traffic_update_maps_text")];
+      [self.toast show];
       break;
     case MWMMapOverlayTrafficStateExpiredApp:
       btn.imageName = @"btn_traffic_outdated";
-      [[MWMToast toastWithText:L(@"traffic_update_app_message")] show];
+      self.toast = [MWMToast toastWithText:L(@"traffic_update_app_message")];
+      [self.toast show];
       break;
   }
 }
@@ -133,7 +142,8 @@ NSArray<UIImage *> *imagesWithName(NSString *name) {
       break;
     case MWMMapOverlayIsolinesStateEnabled:
       if (![MWMMapOverlayManager isolinesVisible])
-        [[MWMToast toastWithText:L(@"isolines_toast_zooms_1_10")] show];
+        self.toast = [MWMToast toastWithText:L(@"isolines_toast_zooms_1_10")];
+        [self.toast show];
       break;
     case MWMMapOverlayIsolinesStateExpiredData:
       [MWMAlertViewController.activeAlertController presentInfoAlert:L(@"isolines_activation_error_dialog")];
@@ -157,7 +167,8 @@ NSArray<UIImage *> *imagesWithName(NSString *name) {
   } else if ([MWMMapOverlayManager transitEnabled]) {
     btn.imageName = @"btn_subway_on";
     if ([MWMMapOverlayManager transitState] == MWMMapOverlayTransitStateNoData)
-      [[MWMToast toastWithText:L(@"subway_data_unavailable")] show];
+      self.toast = [MWMToast toastWithText:L(@"subway_data_unavailable")];
+    [self.toast show];
   } else if ([MWMMapOverlayManager isoLinesEnabled]) {
     btn.imageName = @"btn_isoMap_on";
     [self handleIsolinesState:[MWMMapOverlayManager isolinesState]];
