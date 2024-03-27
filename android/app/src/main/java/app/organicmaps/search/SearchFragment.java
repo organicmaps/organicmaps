@@ -83,7 +83,6 @@ public class SearchFragment extends BaseMwmFragment
       if (TextUtils.isEmpty(query))
       {
         mSearchAdapter.clear();
-        mSearchAdapter.setTokenizedQuery(null);
         stopSearch();
         return;
       }
@@ -91,13 +90,11 @@ public class SearchFragment extends BaseMwmFragment
       if (tryRecognizeHiddenCommand(query))
       {
         mSearchAdapter.clear();
-        mSearchAdapter.setTokenizedQuery(null);
         stopSearch();
         closeSearch();
         return;
       }
 
-      mSearchAdapter.setTokenizedQuery(query);
       runSearch();
     }
 

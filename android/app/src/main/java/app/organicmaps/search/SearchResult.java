@@ -33,7 +33,7 @@ public class SearchResult
   public static final int OPEN_NOW_NO = 2;
 
   public static final SearchResult EMPTY = new SearchResult("", "", 0, 0,
-                                                            new int[] {});
+                                                            new int[] {}, new int[] {});
 
   // Used by JNI.
   @Keep
@@ -78,13 +78,12 @@ public class SearchResult
 
   // Consecutive pairs of indexes (each pair contains : start index, length), specifying highlighted matches of original query in result
   public final int[] highlightRanges;
+  public final int[] highlightRanges2;
 
   @NonNull
   private final Popularity mPopularity;
 
-  private String[] tokens;
-
-  public SearchResult(String name, String suggestion, double lat, double lon, int[] highlightRanges)
+  public SearchResult(String name, String suggestion, double lat, double lon, int[] highlightRanges,int[] highlightRanges2)
   {
     this.name = name;
     this.suggestion = suggestion;
@@ -97,11 +96,12 @@ public class SearchResult
     else
       this.type = TYPE_SUGGEST;
     this.highlightRanges = highlightRanges;
+    this.highlightRanges2 = highlightRanges2;
     mPopularity = Popularity.defaultInstance();
   }
 
   public SearchResult(String name, Description description, double lat, double lon, int[] highlightRanges,
-                      @NonNull Popularity popularity)
+                      int[] highlightRanges2, @NonNull Popularity popularity)
   {
     this.type = TYPE_RESULT;
     this.name = name;
@@ -111,6 +111,7 @@ public class SearchResult
     this.lon = lon;
     this.description = description;
     this.highlightRanges = highlightRanges;
+    this.highlightRanges2 = highlightRanges2;
   }
 
   @NonNull
@@ -147,29 +148,24 @@ public class SearchResult
 
   public Spannable getFormattedAddress(@NonNull Context context)
   {
-      final String address = description != null ? description.region : null;
-      final String lcaseAddress = address != null ? address.toLowerCase() : null;
-      final SpannableStringBuilder builder = new SpannableStringBuilder(address);
+    final String address = description != null ? description.region : null;
+    final SpannableStringBuilder builder = new SpannableStringBuilder(address);
 
-      if(tokens != null && lcaseAddress != null){
-        for(String token: tokens)
-        {
-          if(token.isBlank())
-            continue;
+    if (highlightRanges2 != null)
+    {
+      final int size = highlightRanges2.length / 2;
+      int itr = 0;
 
-          final int start = lcaseAddress.indexOf(token);
-          final int len = token.length();
+      for (int i = 0; i < size; i++)
+      {
+        final int start = highlightRanges2[itr++];
+        final int len = highlightRanges2[itr++];
 
-          if(start != -1)
-            builder.setSpan(new StyleSpan(Typeface.BOLD), start, start + len, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
-        }
+        builder.setSpan(new StyleSpan(Typeface.BOLD), start, start + len, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
       }
+    }
 
-      return builder;
+    return builder;
   }
 
-  public void setTokenQuery(@Nullable String[] tokenizedQuery)
-  {
-    tokens = tokenizedQuery;
-  }
 }
