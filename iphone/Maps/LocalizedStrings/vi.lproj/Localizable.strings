@@ -664,7 +664,7 @@
 
 "select_cuisine" = "Chọn Ẩm thực";
 
-/* OSM login text field hint */
+/* login text field */
 "email_or_username" = "Email hoặc tên người dùng";
 
 "phone" = "Điện thoại";

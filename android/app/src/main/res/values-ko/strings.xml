@@ -435,9 +435,7 @@
 	<string name="postal_code">우편 번호</string>
 	<string name="cuisine">요리</string>
 	<string name="select_cuisine">요리 선택</string>
-	<!-- OSM Login text field hint, used only for Google Play -->
-	<string name="username">사용자 이름</string>
-	<!-- OSM login text field hint -->
+	<!-- login text field -->
 	<string name="email_or_username">이메일 또는 사용자 이름</string>
 	<string name="level">층</string>
 	<string name="downloader_delete_map_dialog">모든 지도의 변경 사항은 지도와 함께 삭제됩니다.</string>

@@ -449,9 +449,7 @@
 	<string name="postal_code">Irányítószám</string>
 	<string name="cuisine">Konyha</string>
 	<string name="select_cuisine">Válassz Konyhát</string>
-	<!-- OSM Login text field hint, used only for Google Play -->
-	<string name="username">Felhasználónév</string>
-	<!-- OSM login text field hint -->
+	<!-- login text field -->
 	<string name="email_or_username">Email vagy felhasználónév</string>
 	<string name="level">Szint</string>
 	<string name="downloader_delete_map_dialog">A térképekkel együtt minden rajtuk végzett módosítás is törlésre kerül.</string>
