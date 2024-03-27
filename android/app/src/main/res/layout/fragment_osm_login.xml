@@ -65,7 +65,11 @@
         android:layout_marginTop="@dimen/margin_half"
         android:textColorHint="?android:textColorSecondary"
         app:endIconMode="custom">
-        <include layout="@layout/osm_login_text_input"/>
+        <com.google.android.material.textfield.TextInputEditText
+          android:id="@+id/osm_username"
+          style="@style/MwmWidget.Editor.FieldLayout.EditText"
+          android:autofillHints="emailAddress"
+          android:hint="@string/email_or_username" />
       </com.google.android.material.textfield.TextInputLayout>
       <com.google.android.material.textfield.TextInputLayout
         style="@style/MwmWidget.Editor.CustomTextInput"
