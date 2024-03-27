@@ -664,7 +664,7 @@
 
 "select_cuisine" = "Επιλέξτε κουζίνα";
 
-/* OSM login text field hint */
+/* login text field */
 "email_or_username" = "Email ή όνομα χρήστη";
 
 "phone" = "Τηλέφωνο";

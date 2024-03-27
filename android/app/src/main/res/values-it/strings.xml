@@ -446,9 +446,7 @@
 	<string name="postal_code">Codice postale</string>
 	<string name="cuisine">Cucina</string>
 	<string name="select_cuisine">Seleziona la cucina</string>
-	<!-- OSM Login text field hint, used only for Google Play -->
-	<string name="username">Nome utente</string>
-	<!-- OSM login text field hint -->
+	<!-- login text field -->
 	<string name="email_or_username">E-mail o nome utente</string>
 	<string name="editor_add_phone">Aggiungi numero</string>
 	<string name="level">Piano</string>

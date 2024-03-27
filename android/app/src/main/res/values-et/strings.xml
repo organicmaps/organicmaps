@@ -452,9 +452,7 @@
 	<string name="postal_code">Postiindeks</string>
 	<string name="cuisine">Köök</string>
 	<string name="select_cuisine">Vali köök</string>
-	<!-- OSM Login text field hint, used only for Google Play -->
-	<string name="username">Kasutajanimi</string>
-	<!-- OSM login text field hint -->
+	<!-- login text field -->
 	<string name="email_or_username">E-post või kasutajanimi</string>
 	<string name="editor_add_phone">Lisa telefon</string>
 	<string name="level">Korrus</string>

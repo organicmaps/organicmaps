@@ -463,9 +463,7 @@
 	<string name="postal_code">Почтовый индекс</string>
 	<string name="cuisine">Кухня</string>
 	<string name="select_cuisine">Выбрать кухню</string>
-	<!-- OSM Login text field hint, used only for Google Play -->
-	<string name="username">Имя пользователя</string>
-	<!-- OSM login text field hint -->
+	<!-- login text field -->
 	<string name="email_or_username">Эл. почта или имя пользователя</string>
 	<string name="editor_add_phone">Добавить телефон</string>
 	<string name="level">Этаж</string>

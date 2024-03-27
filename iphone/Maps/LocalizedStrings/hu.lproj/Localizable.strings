@@ -664,7 +664,7 @@
 
 "select_cuisine" = "Válassz Konyhát";
 
-/* OSM login text field hint */
+/* login text field */
 "email_or_username" = "Email vagy felhasználónév";
 
 "phone" = "Telefonszám";
