@@ -30473,7 +30473,7 @@
     zh-Hans = 野餐地点
     zh-Hant = 野餐
 
-  [type.tourism.resort]
+  [type.leisure.resort]
     en = Resort
     af = Oord
     ar = منتجع

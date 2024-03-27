@@ -1197,7 +1197,7 @@ leisure|sports_centre|swimming;[leisure=sports_centre][sport=swimming];x;name;in
 leisure|sports_centre|yoga;[leisure=sports_centre][sport=yoga];x;name;int_name;1108;leisure|sports_centre
 amenity|public_bookcase;1109;
 tourism|apartment;1110;
-tourism|resort;[tourism=resort],[leisure=resort],[leisure=summer_camp];;name;int_name;1111;
+leisure|resort;[leisure=resort],[tourism=resort],[leisure=summer_camp];;name;int_name;1111;
 shop|interior_decoration;1112;
 shop|houseware;1113;
 hwtag|nobicycle;1114;
