@@ -694,6 +694,12 @@
 
 "level" = "Étage";
 
+/* Building level: ground floor (translated separately so that a more idiomatic phrase can be used) */
+"level_value_0" = "Rez-de-chaussée";
+
+/* Building level */
+"level_value_generic" = "Niveau: %d";
+
 "please_note" = "À noter";
 
 "downloader_delete_map_dialog" = "Toutes vos modifications de la carte seront supprimées avec elle.";

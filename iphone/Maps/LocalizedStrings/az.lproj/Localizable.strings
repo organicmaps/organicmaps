@@ -694,6 +694,12 @@
 
 "level" = "Mərtəbə";
 
+/* Building level: ground floor (translated separately so that a more idiomatic phrase can be used) */
+"level_value_0" = "Ground floor";
+
+/* Building level */
+"level_value_generic" = "Level: %d";
+
 "please_note" = "Diqqət edin";
 
 "downloader_delete_map_dialog" = "Bütün xəritə dəyişiklikləri xəritə ilə birlikdə silinəcək.";

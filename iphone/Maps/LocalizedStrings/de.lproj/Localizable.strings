@@ -694,6 +694,12 @@
 
 "level" = "Stockwerk";
 
+/* Building level: ground floor (translated separately so that a more idiomatic phrase can be used) */
+"level_value_0" = "Erdgeschoss";
+
+/* Building level */
+"level_value_generic" = "Stock: %d";
+
 "please_note" = "Bitte beachten";
 
 "downloader_delete_map_dialog" = "Alle Kartenänderungen werden zusammen mit der Karte gelöscht.";
