@@ -1,8 +1,8 @@
-• OpenStreetMap data as of February 28
-• Export all bookmarks as a single KMZ file
-• Fixed several crashes
-• "Routing options enabled" is no longer displayed when using ruler
-• Included wheelchair accessibility information on place pages
-• Added recycling and elevation information to search result descriptions
+• OpenStreetMap'i kaardiandmed 28. veebruari seisuga
+• Kõikide järjehoidjate eksportimine ühe KMZ-failina
+• Parandatud on mitmed rakenduse kokkujooksmise juhtumid
+• Joonlaua kasutamisel me enam ei kuva „Teekonna juhatamise valikuid“
+• Täiendav teave ratastooliga ligipääsu kohta
+• Otsingutulemuste kirjelduses on lisaks tasakõrgusjoonte ja taaskasutuse teave
 
-…read more details at omaps.org/news
+…lisateavet leiad siit: omaps.org/news
