@@ -163,7 +163,7 @@ License
 liboauthcpp is MIT licensed. See the LICENSE file for more details.
 
 liboauthcpp is mostly taken from libtwitcurl
-(http://code.google.com/p/twitcurl/), which is similarly licensed. It
+(https://github.com/swatkat/twitcurl), which is similarly licensed. It
 mostly serves to isolate the OAuth code from libtwitcurl's Twitter and
 cURL specific code.
 

@@ -203,7 +203,7 @@ public:
     std::string getHttpHeader(const Http::RequestType eType,
                          const std::string& rawUrl,
                          const std::string& rawData = "",
-                         const bool includeOAuthVerifierPin = false);
+                         const bool includeOAuthVerifierPin = false) const;
     /** Build an OAuth HTTP header for the given request. This version gives a
      *  fully formatted header, i.e. including the header field name.
      *
@@ -216,7 +216,7 @@ public:
     std::string getFormattedHttpHeader(const Http::RequestType eType,
                          const std::string& rawUrl,
                          const std::string& rawData = "",
-                         const bool includeOAuthVerifierPin = false);
+                         const bool includeOAuthVerifierPin = false) const;
     /** Build an OAuth HTTP header for the given request.
      *
      *  \param eType the HTTP request type, e.g. GET or POST
@@ -229,7 +229,7 @@ public:
     std::string getURLQueryString(const Http::RequestType eType,
                          const std::string& rawUrl,
                          const std::string& rawData = "",
-                         const bool includeOAuthVerifierPin = false);
+                         const bool includeOAuthVerifierPin = false) const;
 private:
     /** Disable default constructur -- must provide consumer
      * information.
@@ -243,8 +243,6 @@ private:
     /* OAuth data */
     const Consumer* mConsumer;
     const Token* mToken;
-    std::string m_nonce;
-    std::string m_timeStamp;
 
     /* OAuth related utility methods */
     bool buildOAuthTokenKeyValuePairs( const bool includeOAuthVerifierPin, /* in */
@@ -252,11 +250,12 @@ private:
                                        const std::string& oauthSignature, /* in */
                                        KeyValuePairs& keyValueMap /* out */,
                                        const bool urlEncodeValues /* in */,
-                                       const bool generateTimestamp /* in */);
+                                       const std::string& nonce /* in */,
+                                       const std::string& timeStamp /* in */) const;
 
     bool getStringFromOAuthKeyValuePairs( const KeyValuePairs& rawParamMap, /* in */
                                           std::string& rawParams, /* out */
-                                          const std::string& paramsSeperator /* in */ );
+                                          const std::string& paramsSeperator /* in */ ) const;
 
     typedef enum _ParameterStringType {
         QueryStringString,
@@ -271,14 +270,14 @@ private:
         const Http::RequestType eType,
         const std::string& rawUrl,
         const std::string& rawData,
-        const bool includeOAuthVerifierPin);
+        const bool includeOAuthVerifierPin) const;
 
     bool getSignature( const Http::RequestType eType, /* in */
                        const std::string& rawUrl, /* in */
                        const KeyValuePairs& rawKeyValuePairs, /* in */
-                       std::string& oAuthSignature /* out */ );
+                       std::string& oAuthSignature /* out */ ) const;
 
-    void generateNonceTimeStamp();
+    void generateNonceTimeStamp(std::string& nonce, std::string& timeStamp) const;
 };
 
 } // namespace OAuth
