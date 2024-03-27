@@ -289,10 +289,10 @@ if (USE_PCH)
 endif()
 
 # Should be on the root level, not in 3party, so tests can get these dependencies.
-# Should go before 3party as harfbuzz is using them.
 if (PLATFORM_LINUX)
   find_package(ICU COMPONENTS uc i18n data REQUIRED)
   find_package(Freetype REQUIRED)
+  find_package(harfbuzz REQUIRED)
 endif()
 
 # Include 3party dependencies.

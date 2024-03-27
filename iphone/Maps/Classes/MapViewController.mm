@@ -311,6 +311,8 @@ NSString *const kPP2BookmarkEditingSegue = @"PP2BookmarkEditing";
 - (void)viewDidLoad {
   [super viewDidLoad];
 
+  self.title = L(@"map");
+
   // On iOS 10 (it was reproduced, it may be also on others), mapView can be uninitialized
   // when onGetFocus is called, it can lead to missing of onGetFocus call and a deadlock on the start.
   // As soon as mapView must exist before onGetFocus, so we have to defer onGetFocus call.

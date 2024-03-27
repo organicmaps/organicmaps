@@ -49,11 +49,7 @@ public:
     bool m_viewportSearch = false;
     bool m_categorialRequest = false;
 
-    std::string m_query;
-    QueryTokens m_tokens;
-    // Prefix of the last token in the query.
-    // We need it here to make suggestions.
-    strings::UniString m_prefix;
+    QueryString m_query;
 
     Locales m_categoryLocales;
 

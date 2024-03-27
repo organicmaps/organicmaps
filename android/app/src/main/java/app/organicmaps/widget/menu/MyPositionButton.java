@@ -3,10 +3,12 @@ package app.organicmaps.widget.menu;
 import android.content.Context;
 import android.content.res.ColorStateList;
 import android.content.res.Resources;
-import android.graphics.drawable.AnimationDrawable;
 import android.graphics.drawable.Drawable;
 import android.util.SparseArray;
 import android.view.View;
+import android.view.animation.Animation;
+import android.view.animation.LinearInterpolator;
+import android.view.animation.RotateAnimation;
 
 import androidx.annotation.AttrRes;
 import androidx.annotation.DimenRes;
@@ -61,7 +63,7 @@ public class MyPositionButton
     {
       @DrawableRes int drawableRes = switch (mode)
       {
-        case LocationState.PENDING_POSITION -> ThemeUtils.getResource(context, R.attr.myPositionButtonAnimation);
+        case LocationState.PENDING_POSITION -> R.drawable.ic_menu_location_pending;
         case LocationState.NOT_FOLLOW_NO_POSITION -> R.drawable.ic_location_off;
         case LocationState.NOT_FOLLOW -> R.drawable.ic_not_follow;
         case LocationState.FOLLOW -> R.drawable.ic_follow;
@@ -77,8 +79,19 @@ public class MyPositionButton
     ImageViewCompat.setImageTintList(mButton, ColorStateList.valueOf(ThemeUtils.getColor(context, colorAttr)));
     updatePadding(mode);
 
-    if (image instanceof AnimationDrawable)
-      ((AnimationDrawable) image).start();
+    if (mode == LocationState.PENDING_POSITION)
+    {
+      final RotateAnimation rotate = new RotateAnimation(0, 360,
+              Animation.RELATIVE_TO_SELF, 0.5f, Animation.RELATIVE_TO_SELF, 0.5f);
+
+      rotate.setDuration(1000);
+      rotate.setRepeatCount(Animation.INFINITE);
+      rotate.setInterpolator(new LinearInterpolator());
+
+      mButton.startAnimation(rotate);
+    }
+    else
+      mButton.clearAnimation();
   }
 
   private void updatePadding(int mode)

@@ -281,9 +281,6 @@ public class Holders
       mName = root.findViewById(R.id.name);
       mVisibilityMarker = root.findViewById(R.id.checkbox);
       mMoreButton = root.findViewById(R.id.more);
-      int left = root.getResources().getDimensionPixelOffset(R.dimen.margin_half_plus);
-      int right = root.getResources().getDimensionPixelOffset(R.dimen.margin_base_plus);
-      UiUtils.expandTouchAreaForView(mVisibilityMarker, 0, left, 0, right);
     }
 
     void setVisibilityState(boolean visible)

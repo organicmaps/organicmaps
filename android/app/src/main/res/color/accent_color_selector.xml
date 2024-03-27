@@ -3,5 +3,8 @@
   <item android:color="@color/base_accent"
         android:state_selected="true"/>
 
-  <item android:color="@color/text_dark_subtitle"/>
+  <item android:color="@color/base_accent"
+      android:state_checked="true"/>
+
+  <item android:color="@color/text_dark_hint"/>
 </selector>

@@ -2,6 +2,7 @@
 
 #include "search/search_quality/helpers.hpp"
 
+#include "search/categories_cache.hpp"
 #include "search/engine.hpp"
 #include "search/locality_finder.hpp"
 #include "search/reverse_geocoder.hpp"
@@ -14,7 +15,6 @@
 #include "indexer/classificator_loader.hpp"
 #include "indexer/data_source.hpp"
 #include "indexer/feature.hpp"
-#include "indexer/feature_processor.hpp"
 #include "indexer/ftypes_matcher.hpp"
 #include "indexer/map_object.hpp"
 #include "indexer/map_style_reader.hpp"

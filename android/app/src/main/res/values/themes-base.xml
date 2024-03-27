@@ -67,7 +67,7 @@
 
     <item name="menuBackground">@color/bg_menu</item>
 
-    <item name="myPositionButtonAnimation">@drawable/anim_myposition_pending</item>
+    <item name="myPositionButtonAnimation">@drawable/ic_menu_location_pending</item>
     <item name="wheelPendingAnimation">@drawable/anim_spinner_pending</item>
     <item name="trafficLoadingAnimation">@drawable/anim_traffic_loading</item>
 
@@ -201,7 +201,7 @@
 
     <item name="menuBackground">@color/bg_menu_night</item>
 
-    <item name="myPositionButtonAnimation">@drawable/anim_myposition_pending_night</item>
+    <item name="myPositionButtonAnimation">@drawable/ic_menu_location_pending_night</item>
     <item name="wheelPendingAnimation">@drawable/anim_spinner_pending</item>
     <item name="trafficLoadingAnimation">@drawable/anim_traffic_loading_night</item>
 

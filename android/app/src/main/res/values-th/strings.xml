@@ -204,10 +204,6 @@
 	<string name="pref_zoom_summary">แสดงบนหน้าจอ</string>
 	<!-- Settings «Map» category: «Night style» title -->
 	<string name="pref_map_style_title">โหมดกลางคืน</string>
-	<!-- Settings "Appearance" category: "Light" title, should be consistent with the pref_appearance_title translation. -->
-	<string name="pref_appearance_light">สว่าง</string>
-	<!-- Settings "Appearance" category: "Dark" title, should be consistent with the pref_appearance_title translation. -->
-	<string name="pref_appearance_dark">มืด</string>
 	<!-- Generic «Off» string -->
 	<string name="off">ปิด</string>
 	<!-- Generic «On» string -->

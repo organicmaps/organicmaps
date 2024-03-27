@@ -153,6 +153,8 @@ set(SRC
   street_vicinity_loader.hpp
   streets_matcher.cpp
   streets_matcher.hpp
+  string_utils.cpp
+  string_utils.hpp
   suggest.cpp
   suggest.hpp
   token_range.hpp

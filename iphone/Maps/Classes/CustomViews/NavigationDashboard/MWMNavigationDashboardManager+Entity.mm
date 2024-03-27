@@ -237,6 +237,9 @@ NSArray<MWMRouterTransitStepInfo *> *buildRouteTransitSteps(NSArray<MWMRoutePoin
 
 - (void)updateTransitInfo:(TransitRouteInfo const &)info {
   if (auto entity = self.entity) {
+    entity.timeToTarget = info.m_totalTimeInSec;
+    entity.targetDistance = @(info.m_totalPedestrianDistanceStr.c_str());
+    entity.targetUnits = @(info.m_totalPedestrianUnitsSuffix.c_str());
     entity.isValid = YES;
     entity.isWalk = YES;
     entity.showEta = YES;

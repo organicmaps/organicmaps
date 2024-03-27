@@ -203,10 +203,6 @@
 	<string name="pref_zoom_summary">Εμφάνιση στο χάρτη</string>
 	<!-- Settings «Map» category: «Night style» title -->
 	<string name="pref_map_style_title">Νυχτερινή λειτουργία</string>
-	<!-- Settings "Appearance" category: "Light" title, should be consistent with the pref_appearance_title translation. -->
-	<string name="pref_appearance_light">Ανοιχτόχρωμη</string>
-	<!-- Settings "Appearance" category: "Dark" title, should be consistent with the pref_appearance_title translation. -->
-	<string name="pref_appearance_dark">Σκουρόχρωμη</string>
 	<!-- Generic «Off» string -->
 	<string name="off">Απενεργ.</string>
 	<!-- Generic «On» string -->

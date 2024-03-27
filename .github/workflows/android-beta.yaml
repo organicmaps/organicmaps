@@ -76,7 +76,7 @@ jobs:
         run: |
           cmake --version
           ninja --version
-          ./gradlew -Pfirebase -x lint -x lintVitalGoogleBeta assembleGoogleBeta uploadCrashlyticsSymbolFileGoogleBeta uploadCrashlyticsMappingFileGoogleBeta
+          ./gradlew -Pfirebase assembleGoogleBeta uploadCrashlyticsSymbolFileGoogleBeta uploadCrashlyticsMappingFileGoogleBeta
 
       - name: Upload beta apk to App Distribution
         shell: bash

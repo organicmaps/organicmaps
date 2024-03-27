@@ -30,6 +30,7 @@
     ro = Păstrați la dreapta.
     ru = Держитесь правее.
     sk = Držte sa vpravo.
+    sr = Држите се десно.
     sv = Håll höger.
     sw = Kaa kuria.
     th = ชิดขวาไว้
@@ -69,6 +70,7 @@
     ro = Virați la dreapta.
     ru = Поверните направо.
     sk = Odbočte doprava.
+    sr = Скрените десно.
     sv = Sväng höger.
     sw = Zunguka upande wa kulia.
     th = เลี้ยวขวา
@@ -108,6 +110,7 @@
     ro = Virați strâns la dreapta.
     ru = Резко поверните направо.
     sk = Ostro doprava.
+    sr = Оштро десно.
     sv = Skarpt höger.
     sw = Fanya kulia mkali.
     th = หักมุมขวา
@@ -147,6 +150,7 @@
     ro = Intrați în sensul giratoriu.
     ru = Поверните на кольцо.
     sk = Vojdite na kruhový objazd.
+    sr = Уђите у кружни ток.
     sv = Kör in i rondellen.
     sw = Ingia kwenye mzunguko.
     th = เข้าสู่วงเวียน
@@ -186,6 +190,7 @@
     ro = Ieșiți din sensul giratoriu.
     ru = Сверните с кольца.
     sk = Opustite kruhový objazd.
+    sr = Изађите из кружног тока.
     sv = Lämna rondellen.
     sw = Toka kwenye mzunguko wa barabara.
     th = ออกจากวงเวียน
@@ -225,6 +230,7 @@
     ro = Păstrați la stânga.
     ru = Держитесь левее.
     sk = Držte sa vľavo.
+    sr = Држите се лево.
     sv = Håll vänster.
     sw = Kaa kushoto.
     th = ชิดซ้ายไว้
@@ -264,6 +270,7 @@
     ro = Virați la stânga.
     ru = Поверните налево.
     sk = Odbočte doľava.
+    sr = Скрените лево.
     sv = Sväng vänster.
     sw = Zunguka upande wa kushoto.
     th = เลี้ยวซ้าย
@@ -303,6 +310,7 @@
     ro = Virați strâns la stânga.
     ru = Резко поверните налево.
     sk = Ostro doľava.
+    sr = Оштро лево.
     sv = Skarpt vänster.
     sw = Fanya kushoto mkali.
     th = หักมุมซ้าย
@@ -342,6 +350,7 @@
     ro = Întoarceți-vă o sută optzeci de grade.
     ru = Развернитесь.
     sk = Otočte sa o stoosemdesiat stupňov.
+    sr = Урадите полукружно окретање, када буде могуће.
     sv = Gör en U-sväng.
     sw = Geuka urudi ulikotoka.
     th = กลับรถ
@@ -381,6 +390,7 @@
     ro = Mergeți înainte.
     ru = Двигайтесь прямо.
     sk = Choďte rovno.
+    sr = Наставите право.
     sv = Åk rakt framåt.
     sw = Pita kabisa.
     th = ตรงไป
@@ -420,6 +430,7 @@
     ro = Ieșire.
     ru = Съезд.
     sk = Použite výjazd.
+    sr = Излаз.
     sv = Utgång.
     sw = Kuondoka.
     th = ทางออก.
@@ -459,6 +470,7 @@
     ro = Veți sosi.
     ru = Вы прибудете в пункт назначения.
     sk = Dorazíte do cieľa.
+    sr = Стижете на одредиште.
     sv = Är du framme.
     sw = Utawasili.
     th = คุณจะถึง
@@ -498,6 +510,7 @@
     ro = Ați ajuns.
     ru = Вы прибыли в пункт назначения.
     sk = Dorazili ste do cieľa.
+    sr = Стигли сте.
     sv = Du har anlänt.
     sw = Umewasili mwisho wa safari.
     th = คุณมาถึงแล้ว
@@ -537,6 +550,7 @@
     ro = După cincizeci de metri
     ru = Через пятьдесят метров
     sk = Po päťdesiatich metroch
+    sr = За педесет метара
     sv = Om femtio meter
     sw = Kabla ya mita hamsini
     th = อีกห้าสิบเมตร
@@ -576,6 +590,7 @@
     ro = După o sută de metri
     ru = Через сто метров
     sk = Po sto metroch
+    sr = За сто метара
     sv = Om ett hundra meter
     sw = Kabla ya mita mia moja
     th = อีกหนึ่งร้อยเมตร
@@ -615,6 +630,7 @@
     ro = După două sute de metri
     ru = Через двести метров
     sk = Po dvesto metroch
+    sr = За двеста метара
     sv = Om två hundra meter
     sw = Kabla ya mita mia mbili
     th = อีกสองร้อยเมตร
@@ -654,6 +670,7 @@
     ro = După două sute cincizeci de metri
     ru = Через двести пятьдесят метров
     sk = Po dvestopäťdesiatich metroch
+    sr = За двеста педесет метара
     sv = Om två hundra femtio meter
     sw = Kabla ya mita mia mbili hamsini
     th = อีกสองร้อยห้าสิบเมตร
@@ -693,6 +710,7 @@
     ro = După trei sute de metri
     ru = Через триста метров
     sk = Po tristo metroch
+    sr = За триста метара
     sv = Om tre hundra meter
     sw = Kabla ya mita mia tatu
     th = อีกสามร้อยเมตร
@@ -732,6 +750,7 @@
     ro = După patru sute de metri
     ru = Через четыреста метров
     sk = Po štyristo metroch
+    sr = За четристо метара
     sv = Om fyra hundra meter
     sw = Kabla ya mita mia nne
     th = อีกสี่ร้อยเมตร
@@ -771,6 +790,7 @@
     ro = După cinci sute de metri
     ru = Через пятьсот метров
     sk = Po päťsto metroch
+    sr = За петсто метара
     sv = Om fem hundra meter
     sw = Kabla ya mita mia tano
     th = อีกห้าร้อยเมตร
@@ -810,6 +830,7 @@
     ro = După șase sute de metri
     ru = Через шестьсот метров
     sk = Po šesťsto metroch
+    sr = За шестсто метара
     sv = Om sex hundra meter
     sw = Kabla ya mita mia sita
     th = อีกหกร้อยเมตร
@@ -849,6 +870,7 @@
     ro = După șapte sute de metri
     ru = Через семьсот метров
     sk = Po sedemsto metroch
+    sr = За седамсто метара
     sv = Om sju hundra meter
     sw = Kabla ya mita mia saba
     th = อีกเจ็ดร้อยเมตร
@@ -888,6 +910,7 @@
     ro = După șapte sute cincizeci de metri
     ru = Через семьсот пятьдесят метров
     sk = Po sedemstopäťdesiatich metroch
+    sr = За седамсто педесет метара
     sv = Om sju hundra femtio meter
     sw = Kabla ya mita mia saba hamsini
     th = อีกเจ็ดร้อยห้าสิบเมตร
@@ -927,6 +950,7 @@
     ro = După opt sute de metri
     ru = Через восемьсот метров
     sk = Po osemsto metroch
+    sr = За осамсто метара
     sv = Om åtta hundra meter
     sw = Kabla ya mita mia nane
     th = อีกแปดร้อยเมตร
@@ -966,6 +990,7 @@
     ro = După nouă sute de metri
     ru = Через девятьсот метров
     sk = Po deväťsto metroch
+    sr = За деветсто метара
     sv = Om nio hundra meter
     sw = Kabla ya mita mia tisa
     th = อีกเก้าร้อยเมตร
@@ -1005,6 +1030,7 @@
     ro = După un kilometru
     ru = Через километр
     sk = Po jednom kilometri
+    sr = За један километар
     sv = Om en kilometer
     sw = Kabla ya kilomita moja
     th = อีกหนึ่งกิโลเมตร
@@ -1044,6 +1070,7 @@
     ro = După un kilometru și jumătate
     ru = Через полтора километра
     sk = Po jeden a pol kilometri
+    sr = За један и по километар
     sv = Om en och en halv kilometer
     sw = Kabla ya kilomita moja na nusu
     th = อีกหนึ่งกิโลเมตรครึ่ง
@@ -1083,6 +1110,7 @@
     ro = După doi kilometri
     ru = Через два километра
     sk = Po dvoch kilometroch
+    sr = За два километра
     sv = Om två kilometer
     sw = Kabla ya kilomita mbili
     th = อีกสองกิโลเมตร
@@ -1122,6 +1150,7 @@
     ro = După doi kilometri și jumătate
     ru = Через два с половиной километра
     sk = Po dva a pol kilometri
+    sr = За два а по километра
     sv = Om två och en halv kilometer
     sw = Kabla ya kilomita mbili na nusu
     th = อีกสองกิโลเมตรครึ่ง
@@ -1161,6 +1190,7 @@
     ro = După trei kilometri
     ru = Через три километра
     sk = Po troch kilometroch
+    sr = За три километра
     sv = Om tre kilometer
     sw = Kabla ya kilomita tatu
     th = อีกสามกิโลเมตร
@@ -1200,6 +1230,7 @@
     ro = Apoi
     ru = Затем
     sk = Potom
+    sr = Затим
     sv = Efter det
     sw = Kisha
     th = จากนั้น
@@ -1239,6 +1270,7 @@
     ro = Folosiți prima ieșire.
     ru = Сверните на первый съезд.
     sk = Opustite kruhový objazd prvým výjazdom.
+    sr = Изађите на први излаз.
     sv = Ta första avfarten.
     sw = Ingia barabara ya kwanza ya kutoka.
     th = ออกทางออกที่หนึ่ง
@@ -1278,6 +1310,7 @@
     ro = Folosiți a doua ieșire.
     ru = Сверните на второй съезд.
     sk = Opustite kruhový objazd druhým výjazdom.
+    sr = Изађите на други излаз.
     sv = Ta andra avfarten.
     sw = Ingia barabara ya pili ya kutoka.
     th = ออกทางออกที่สอง
@@ -1317,6 +1350,7 @@
     ro = Folosiți a treia ieșire.
     ru = Сверните на третий съезд.
     sk = Opustite kruhový objazd tretím výjazdom.
+    sr = Изађите на трећи излаз.
     sv = Ta tredje avfarten.
     sw = Ingia barabara ya tatu ya kutoka.
     th = ออกทางออกที่สาม
@@ -1356,6 +1390,7 @@
     ro = Folosiți a patra ieșire.
     ru = Сверните на четвертый съезд.
     sk = Opustite kruhový objazd štvrtým výjazdom.
+    sr = Изађите на четврти излаз.
     sv = Ta fjärde avfarten.
     sw = Ingia barabara ya nne ya kutoka.
     th = ออกทางออกที่สี่
@@ -1395,6 +1430,7 @@
     ro = Folosiți a cincea ieșire.
     ru = Сверните на пятый съезд.
     sk = Opustite kruhový objazd piatym výjazdom.
+    sr = Изађите на пети излаз.
     sv = Ta femte avfarten.
     sw = Ingia barabara ya tano ya kutoka.
     th = ออกทางออกที่ห้า
@@ -1434,6 +1470,7 @@
     ro = Folosiți a șasea ieșire.
     ru = Сверните на шестой съезд.
     sk = Opustite kruhový objazd šiestym výjazdom.
+    sr = Изађите на шести излаз.
     sv = Ta sjätte avfarten.
     sw = Ingia barabara ya sita ya kutoka.
     th = ออกทางออกที่หก
@@ -1473,6 +1510,7 @@
     ro = Folosiți a șaptea ieșire.
     ru = Сверните на седьмой съезд.
     sk = Opustite kruhový objazd siedmym výjazdom.
+    sr = Изађите на седми излаз.
     sv = Ta sjunde avfarten.
     sw = Ingia barabara ya saba ya kutoka.
     th = ออกทางออกที่เจ็ด
@@ -1512,6 +1550,7 @@
     ro = Folosiți a opta ieșire.
     ru = Сверните на восьмой съезд.
     sk = Opustite kruhový objazd ôsmym výjazdom.
+    sr = Изађите на осми излаз.
     sv = Ta åttonde avfarten.
     sw = Ingia barabara ya nane ya kutoka.
     th = ออกทางออกที่แปด
@@ -1551,6 +1590,7 @@
     ro = Folosiți a noua ieșire.
     ru = Сверните на девятый съезд.
     sk = Opustite kruhový objazd deviatym výjazdom.
+    sr = Изађите на девети излаз.
     sv = Ta nionde avfarten.
     sw = Ingia barabara ya tisa ya kutoka.
     th = ออกทางออกที่เก้า
@@ -1590,6 +1630,7 @@
     ro = Folosiți a zecea ieșire.
     ru = Сверните на десятый съезд.
     sk = Opustite kruhový objazd desiatym výjazdom.
+    sr = Изађите на десети излаз.
     sv = Ta tionde avfarten.
     sw = Ingia barabara ya kumi ya kutoka.
     th = ออกทางออกที่สิบ
@@ -1629,6 +1670,7 @@
     ro = Folosiți a unsprezecea ieșire.
     ru = Сверните на одиннадцатый съезд.
     sk = Opustite kruhový objazd jedenástym výjazdom.
+    sr = Изађите на једанаести излаз.
     sv = Ta elfte avfarten.
     sw = Ingia barabara ya kumi na moja ya kutoka.
     th = ออกทางออกที่สิบเอ็ด
@@ -1668,6 +1710,7 @@
     ro = După cincizeci de picioare
     ru = Через пятьдесят футов
     sk = Po päťdesiatich stopách
+    sr = За педесет стопа
     sv = Om femtio fot
     sw = Kabla ya futi hamsini
     th = อีกห้าสิบฟุต
@@ -1707,6 +1750,7 @@
     ro = După o sută de picioare
     ru = Через сто футов
     sk = Po sto stopách
+    sr = За сто стопа
     sv = Om ett hundra fot
     sw = Kabla ya futi mia moja
     th = อีกหนึ่งร้อยฟุต
@@ -1746,6 +1790,7 @@
     ro = După două sute de picioare
     ru = Через двести футов
     sk = Po dvesto stopách
+    sr = За двеста стопа
     sv = Om två hundra fot
     sw = Kabla ya futi mia mbili
     th = อีกสองร้อยฟุต
@@ -1785,6 +1830,7 @@
     ro = După trei sute de picioare
     ru = Через триста футов
     sk = Po tristo stopách
+    sr = За триста стопа
     sv = Om tre hundra fot
     sw = Kabla ya futi mia tatu
     th = อีกสามร้อยฟุต
@@ -1824,6 +1870,7 @@
     ro = După patru sute de picioare
     ru = Через четыреста футов
     sk = Po štyristo stopách
+    sr = За четристо стопа
     sv = Om fyra hundra fot
     sw = Kabla ya futi mia nne
     th = อีกสี่ร้อยฟุต
@@ -1863,6 +1910,7 @@
     ro = După cinci sute de picioare
     ru = Через пятьсот футов
     sk = Po päťsto stopách
+    sr = За петсто стопа
     sv = Om fem hundra fot
     sw = Kabla ya futi mia tano
     th = อีกห้าร้อยฟุต
@@ -1902,6 +1950,7 @@
     ro = După șase sute de picioare
     ru = Через шестьсот футов
     sk = Po šesťsto stopách
+    sr = За шестсто стопа
     sv = Om sex hundra fot
     sw = Kabla ya futi mia sita
     th = อีกหกร้อยฟุต
@@ -1941,6 +1990,7 @@
     ro = După șapte sute de picioare
     ru = Через семьсот футов
     sk = Po sedemsto stopách
+    sr = За седамсто стопа
     sv = Om sju hundra fot
     sw = Kabla ya futi mia saba
     th = อีกเจ็ดร้อยฟุต
@@ -1980,6 +2030,7 @@
     ro = După opt sute de picioare
     ru = Через восемьсот футов
     sk = Po osemsto stopách
+    sr = За осамсто стопа
     sv = Om åtta hundra fot
     sw = Kabla ya futi mia nane
     th = อีกแปดร้อยฟุต
@@ -2019,6 +2070,7 @@
     ro = După nouă sute de picioare
     ru = Через девятьсот футов
     sk = Po deväťsto stopách
+    sr = За деветсто стопа
     sv = Om nio hundra fot
     sw = Kabla ya futi mia tisa
     th = อีกเก้าร้อยฟุต
@@ -2058,6 +2110,7 @@
     ro = După o mie de picioare
     ru = Через тысячу футов
     sk = Po tisíc stopách
+    sr = За хиљаду стопа
     sv = Om ett tusen fot
     sw = Kabla ya futi elfu moja
     th = อีกหนึ่งพันฟุต
@@ -2097,6 +2150,7 @@
     ro = După o mie cinci sute de picioare
     ru = Через тысячу пятьсот футов
     sk = Po tisícpäťsto stopách
+    sr = За хиљаду петсто стопа
     sv = Om ett tusen fem hundra fot
     sw = Kabla ya futi elfu moja na mia tano
     th = อีกหนึ่งพันห้าร้อยฟุต
@@ -2136,6 +2190,7 @@
     ro = După două mii de picioare
     ru = Через две тысячи футов
     sk = Po dvetisíc stopách
+    sr = За две хиљаде стопа
     sv = Om två tusen fot
     sw = Kabla ya futi elfu mbili
     th = อีกสองพันฟุต
@@ -2175,6 +2230,7 @@
     ro = După două mii cinci sute de picioare
     ru = Через две тысячи пятьсот футов
     sk = Po dvetisícpäťsto stopách
+    sr = За две хиљаде петсто стопа
     sv = Om två tusen fem hundra fot
     sw = Kabla ya futi elfu mbili na mia tano
     th = อีกสองพันห้าร้อยฟุต
@@ -2214,6 +2270,7 @@
     ro = După trei mii de picioare
     ru = Через три тысячи футов
     sk = Po tritisíc stopách
+    sr = За три хиљаде стопа
     sv = Om tre tusen fot
     sw = Kabla ya futi elfu tatu
     th = อีกสามพันฟุต
@@ -2253,6 +2310,7 @@
     ro = După trei mii cinci sute de picioare
     ru = Через три тысячи пятьсот футов
     sk = Po tritisícpäťsto stopách
+    sr = За три хиљаде петсто стопа
     sv = Om tre tusen fem hundra fot
     sw = Kabla ya futi elfu tatu na mia tano
     th = อีกสามพันห้าร้อยฟุต
@@ -2292,6 +2350,7 @@
     ro = După patru mii de picioare
     ru = Через четыре тысячи футов
     sk = Po štyritisíc stopách
+    sr = За четири хиљаде стопа
     sv = Om fyra tusen fot
     sw = Kabla ya futi elfu nne
     th = อีกสี่พันฟุต
@@ -2331,6 +2390,7 @@
     ro = După patru mii cinci sute de picioare
     ru = Через четыре тысячи пятьсот футов
     sk = Po štyritisícpäťsto stopách
+    sr = За четири хиљаде петсто стопа
     sv = Om fyra tusen fem hundra fot
     sw = Kabla ya futi elfu nne na mia tano
     th = อีกสี่พันห้าร้อยฟุต
@@ -2370,6 +2430,7 @@
     ro = După cinci mii de picioare
     ru = Через пять тысяч футов
     sk = Po päťtisíc stopách
+    sr = За пет хиљада стопа
     sv = Om fem tusen fot
     sw = Kabla ya futi elfu tano
     th = อีกห้าพันฟุต
@@ -2409,6 +2470,7 @@
     ro = După o milă
     ru = Через одну милю
     sk = Po jednej míli
+    sr = За једну миљу
     sv = Om en mile
     sw = Kabla ya maili moja
     th = อีกหนึ่งไมล์
@@ -2448,6 +2510,7 @@
     ro = După o milă și jumătate
     ru = Через полторы мили
     sk = Po jeden a pol míli
+    sr = За једну и по миљу
     sv = Om en och en halv mile
     sw = Kabla ya maili moja na nusu
     th = อีกหนึ่งไมล์ครึ่ง
@@ -2487,6 +2550,7 @@
     ro = După două mile
     ru = Через две мили
     sk = Po dvoch míľach
+    sr = За две миље
     sv = Om två mile
     sw = Kabla ya maili mbili
     th = อีกสองไมล์
@@ -2526,6 +2590,7 @@
     ro = Cameră frontală
     ru = Впереди камера
     sk = Pozor, radar!
+    sr = Пажња, радар!
     sv = Kamera framför
     sw = Kamera Mbele
     th = มีกล้องอยู่ข้างหน้า

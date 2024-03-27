@@ -14,6 +14,8 @@
 
 #include "indexer/classificator.hpp"
 
+#include "geometry/mercator.hpp"
+
 #include "coding/file_writer.hpp"
 #include "coding/internal/file_data.hpp"
 #include "coding/serdes_json.hpp"

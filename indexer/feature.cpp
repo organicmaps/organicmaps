@@ -512,7 +512,7 @@ FeatureType::GeomStat FeatureType::GetOuterGeometryStats()
 
       PointsBufferT points;
 
-      for (int ind = 0; ind < scalesCount; ++ind)
+      for (size_t ind = 0; ind < scalesCount; ++ind)
       {
         uint32_t const scaleOffset = m_offsets.m_pts[ind];
         if (IsRealGeomOffset(scaleOffset))
@@ -523,7 +523,7 @@ FeatureType::GeomStat FeatureType::GetOuterGeometryStats()
           ReaderSource<FilesContainerR::TReader> src(m_loadInfo->GetGeometryReader(ind));
           src.Skip(scaleOffset);
 
-          serial::GeometryCodingParams cp = m_loadInfo->GetGeometryCodingParams(ind);
+          serial::GeometryCodingParams cp = m_loadInfo->GetGeometryCodingParams(static_cast<int>(ind));
           cp.SetBasePoint(points[0]);
           serial::LoadOuterPath(src, cp, points);
 

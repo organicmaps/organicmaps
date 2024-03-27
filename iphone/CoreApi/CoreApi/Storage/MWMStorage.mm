@@ -3,6 +3,8 @@
 #import "MWMMapUpdateInfo+Core.h"
 
 #include <CoreApi/Framework.h>
+
+#include "storage/country_info_getter.hpp"
 #include "storage/storage_helpers.hpp"
 
 NSErrorDomain const kStorageErrorDomain = @"com.mapswithme.storage";

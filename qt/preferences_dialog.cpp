@@ -86,6 +86,17 @@ namespace qt
       });
     }
 
+    QCheckBox * developerModeCheckBox = new QCheckBox("Developer Mode");
+    {
+      bool developerMode;
+      if (settings::Get(settings::kDeveloperMode, developerMode) && developerMode)
+        developerModeCheckBox->setChecked(developerMode);
+      connect(developerModeCheckBox, &QCheckBox::stateChanged, [](int i)
+      {
+        settings::Set(settings::kDeveloperMode, static_cast<bool>(i));
+      });
+    }
+
 #ifdef BUILD_DESIGNER
     QCheckBox * indexRegenCheckBox = new QCheckBox("Enable auto regeneration of geometry index");
     {
@@ -115,6 +126,7 @@ namespace qt
     QVBoxLayout * finalLayout = new QVBoxLayout();
     finalLayout->addWidget(unitsRadioBox);
     finalLayout->addWidget(largeFontCheckBox);
+    finalLayout->addWidget(developerModeCheckBox);
 #ifdef BUILD_DESIGNER
     finalLayout->addWidget(indexRegenCheckBox);
 #endif

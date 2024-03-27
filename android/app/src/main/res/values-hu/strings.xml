@@ -216,10 +216,6 @@
 	<string name="pref_zoom_summary">Mutassa a kijelzőn</string>
 	<!-- Settings «Map» category: «Night style» title -->
 	<string name="pref_map_style_title">Éjszakai üzemmód</string>
-	<!-- Settings "Appearance" category: "Light" title, should be consistent with the pref_appearance_title translation. -->
-	<string name="pref_appearance_light">Világos</string>
-	<!-- Settings "Appearance" category: "Dark" title, should be consistent with the pref_appearance_title translation. -->
-	<string name="pref_appearance_dark">Sötét</string>
 	<!-- Generic «Off» string -->
 	<string name="off">Ki</string>
 	<!-- Generic «On» string -->

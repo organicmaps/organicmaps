@@ -220,10 +220,6 @@
 	<string name="pref_zoom_summary">मानचित्र पर बटन प्रदर्शित करें</string>
 	<!-- Settings «Map» category: «Night style» title -->
 	<string name="pref_map_style_title">रात का मोड</string>
-	<!-- Settings "Appearance" category: "Light" title, should be consistent with the pref_appearance_title translation. -->
-	<string name="pref_appearance_light">हल्का</string>
-	<!-- Settings "Appearance" category: "Dark" title, should be consistent with the pref_appearance_title translation. -->
-	<string name="pref_appearance_dark">गहरा</string>
 	<!-- Generic «Off» string -->
 	<string name="off">बंद</string>
 	<!-- Generic «On» string -->
@@ -292,10 +288,15 @@
 	<!-- Downloaded maps list header -->
 	<string name="downloader_downloaded_subtitle">डाउनलोड</string>
 	<string name="downloader_download_all_button">सभी डाउनलोड</string>
+	<string name="downloader_downloading">डाउनलोड हो रहा है:</string>
 	<!-- Preference title -->
 	<string name="google_play_services">Google Play स्थान सेवाएँ</string>
 	<!-- Preference text -->
 	<string name="pref_use_google_play">ब्लूटूथ, वाईफाई या मोबाइल नेटवर्क का उपयोग करके तुरंत अपना अनुमानित स्थान निर्धारित करें</string>
+	<!-- Text for routing error dialog -->
+	<string name="routing_download_maps_along">अपने मार्ग के सभी मानचित्र डाउनलोड करें</string>
+	<!-- Text for routing error dialog -->
+	<string name="routing_requires_all_map">मार्ग बनाने के लिए, हमें आपके स्थान से आपके गंतव्य तक के सभी मानचित्रों को डाउनलोड और अपडेट करना होगा।</string>
 	<!-- location service disabled -->
 	<string name="enable_location_services">कृपया स्थान सेवाएँ सक्षम करें</string>
 	<string name="save">सहेजें</string>
@@ -303,8 +304,22 @@
 
 	<!-- SECTION: Routing dialogs strings -->
 	<string name="dialog_routing_disclaimer_title">मार्ग का अनुसरण करते समय कृपया ध्यान रखें:</string>
+	<string name="dialog_routing_disclaimer_priority">— सड़क की स्थिति, यातायात कानून और सड़क संकेत हमेशा नेविगेशन संकेतों पर प्राथमिकता देते हैं;</string>
+	<string name="dialog_routing_disclaimer_precision">— नक्शा गलत हो सकता है, और सुझाया गया मार्ग हमेशा गंतव्य तक पहुंचने का सबसे इष्टतम तरीका नहीं हो सकता है;</string>
+	<string name="dialog_routing_disclaimer_recommendations">— सुझाए गए मार्गों को केवल अनुशंसाओं के रूप में समझा जाना चाहिए;</string>
+	<string name="dialog_routing_disclaimer_borders">— सीमावर्ती क्षेत्रों में मार्गों के साथ सावधानी बरतें: हमारे ऐप द्वारा बनाए गए मार्ग कभी-कभी अनधिकृत स्थानों पर देश की सीमाओं को पार कर सकते हैं।</string>
+	<string name="dialog_routing_disclaimer_beware">कृपया सड़कों पर सतर्क और सुरक्षित रहें!</string>
+	<string name="dialog_routing_error_location_not_found">मार्ग बनाने में असमर्थ. वर्तमान जीपीएस निर्देशांक की पहचान नहीं की जा सकी.</string>
+	<string name="dialog_routing_location_unknown_turn_on">वर्तमान जीपीएस निर्देशांक का पता लगाने में असमर्थ. मार्ग की गणना करने के लिए स्थान सेवाएँ सक्षम करें।</string>
+	<string name="dialog_routing_unable_locate_route">मार्ग ढूंढने में असमर्थ</string>
+	<string name="dialog_routing_cant_build_route">मार्ग बनाने में असमर्थ.</string>
+	<string name="dialog_routing_start_not_determined">रूट नहीं बनाया गया. प्रारंभिक बिंदु का पता लगाने में असमर्थ.</string>
+	<string name="dialog_routing_end_not_determined">रूट नहीं बनाया गया. गंतव्य का पता लगाने में असमर्थ.</string>
+	<string name="dialog_routing_system_error">सिस्टम त्रुटि</string>
+	<string name="dialog_routing_application_error">एप्लिकेशन त्रुटि के कारण मार्ग बनाने में असमर्थ.</string>
 
 	<!-- SECTION: Strings for downloading map from search -->
+	<string name="search_without_internet_advertisement">मार्ग खोजना और बनाना शुरू करने के लिए, कृपया मानचित्र डाउनलोड करें। इसके बाद आपको इंटरनेट कनेक्शन की जरूरत नहीं पड़ेगी.</string>
 	<!-- «Hide» context menu -->
 	<string name="hide">छिपाना</string>
 	<string name="categories">श्रेणियाँ</string>
@@ -328,8 +343,10 @@
 	<string name="autodownload">मानचित्र स्वतः डाउनलोड करें</string>
 	<!-- Place Page opening hours text -->
 	<string name="daily">दैनिक</string>
+	<string name="opens_in">%s में खुल जाएगा</string>
 	<string name="closes_in">%s में बंद हो जाता है</string>
 	<string name="closed">बंद</string>
+	<string name="edit_opening_hours">व्यावसायिक घंटे संपादित करें</string>
 	<string name="no_osm_account">आपके पास अभी तक OpenStreetMap खाता नहीं है?</string>
 	<string name="register_at_openstreetmap">Openstreetmap पर पंजीकरण करें</string>
 	<string name="edit_place">स्थान संपादित करें</string>
@@ -342,12 +359,14 @@
 	<string name="username">उपयोगकर्ता नाम</string>
 	<string name="editor_add_phone">फोन नंबर डालें</string>
 	<string name="level">मंजिल</string>
+	<string name="downloader_mwm_migration_dialog">मार्ग बनाने के लिए, आपको सभी मानचित्र अपडेट करने होंगे और फिर मार्ग की दोबारा योजना बनानी होगी।</string>
 	<string name="downloader_search_field_hint">मानचित्र ढूंढें</string>
 	<string name="editor_login_error_dialog">लॉगिन त्रुटि</string>
 	<string name="editor_focus_map_on_location">ऑब्जेक्ट का सही स्थान चुनने के लिए मानचित्र को खींचें।</string>
 	<string name="editor_add_place_title">जोड़ना</string>
 	<string name="editor_edit_place_name_hint">स्थान का नाम</string>
 	<string name="editor_edit_place_category_title">वर्ग</string>
+	<string name="placepage_add_business_button">व्यवसाय जोड़ें</string>
 	<!-- Text in About and OSM Login screens. First %@ is replaced by a local, human readable date. -->
 	<string name="osm_presentation">समुदाय-निर्मित OpenStreetMap डेटा %s तक। OpenStreetMap.org पर मानचित्र को संपादित और अपडेट करने के तरीके के बारे में और जानें</string>
 	<string name="login_to_make_edits_visible">अपने परिवर्तनों को दुनिया के सामने प्रकाशित करने के लिए openingstreetmap.org पर लॉग इन करें।</string>
@@ -375,14 +394,23 @@
 	<string name="editor_remove_place_button">मिटाना</string>
 	<string name="editor_place_doesnt_exist">जगह मौजूद नहीं है</string>
 	<string name="placepage_add_place_button">OpenStreetMap में स्थान जोड़ें</string>
+	<!-- For the first routing -->
+	<string name="accept">मुझे स्वीकार है</string>
+	<!-- For the first routing -->
+	<string name="decline">मैंने गिराया</string>
+	<string name="mobile_data_option_always">हमेशा उपयोग करें</string>
 	<string name="mobile_data">मोबाइल इंटरनेट</string>
 	<!-- NOTE to translators: please synchronize your translation with the English one. -->
 	<string name="mobile_data_description">मानचित्र अद्यतन अधिसूचनाओं और संपादन अपलोड करने के लिए मोबाइल इंटरनेट आवश्यक है।</string>
+	<string name="mobile_data_option_never">कभी उपयोग न करो</string>
+	<string name="mobile_data_option_ask">हमेशा पूछिये</string>
 	<string name="big_font">मानचित्र लेबल के लिए आकार बढ़ाएँ</string>
 	<string name="enable_logging">लॉगिंग करने देना</string>
 	<string name="prefs_languages_information_off">कुछ भाषाओं के लिए, आपको ऐप स्टोर (Google Play, Galaxy Store, App Gallery, FDroid) से एक स्पीच सिंथेसाइज़र या एक अतिरिक्त भाषा पैक इंस्टॉल करना होगा।\nअपने डिवाइस की सेटिंग्स खोलें → भाषा और इनपुट → स्पीच → टेक्स्ट टू स्पीच आउटपुट.\nयहां आप वाक् संश्लेषण के लिए सेटिंग्स प्रबंधित कर सकते हैं (उदाहरण के लिए, ऑफ़लाइन उपयोग के लिए भाषा पैक डाउनलोड करें) और एक अन्य टेक्स्ट-टू-स्पीच इंजन का चयन कर सकते हैं।</string>
 	<string name="prefs_languages_information_off_link">अधिक जानकारी के लिए कृपया इस गाइड को देखें।</string>
 	<string name="transliteration_title">लैटिन में लिप्यंतरण</string>
+	<string name="routing_add_start_point">मार्ग की योजना बनाने के लिए एक प्रारंभिक बिंदु जोड़ें</string>
+	<string name="routing_add_finish_point">मार्ग की योजना बनाने के लिए एक गंतव्य जोड़ें</string>
 	<string name="placepage_add_stop">गंतव्य जोड़ें</string>
 	<string name="bookmark_lists">सूचियों</string>
 	<!-- Do not display all bookmark lists on the map -->
@@ -392,6 +420,7 @@
 	<!-- Bookmark categories screen, button that opens folder selection dialog to import KML/KMZ/GPX/KMB files -->
 	<string name="bookmarks_import">बुकमार्क और सेटिंग्स आयात करें</string>
 	<string name="bookmarks_error_message_share_general">एप्लिकेशन त्रुटि के कारण साझा करने में असमर्थ</string>
+	<string name="bookmarks_error_title_share_empty">साझा करने में त्रुटि</string>
 	<string name="bookmarks_error_title_empty_list_name">नाम खाली नहीं हो सकता</string>
 	<string name="bookmarks_error_message_empty_list_name">कृपया सूची का नाम दर्ज करें</string>
 	<string name="bookmarks_new_list_hint">नई सूची</string>
@@ -400,6 +429,10 @@
 	<string name="please_wait">कृपया प्रतीक्षा करें…</string>
 	<string name="phone_number">फ़ोन नंबर</string>
 	<string name="profile">OpenStreetMap प्रोफ़ाइल</string>
+	<plurals name="objects">
+	  <item quantity="one">%d वस्तु</item>
+	  <item quantity="other">%d वस्तुएं</item>
+	</plurals>
 	<plurals name="places">
 	  <item quantity="other">%d स्थान</item>
 	</plurals>
@@ -413,6 +446,9 @@
 	<string name="speedcams_alert_title">गति कैमरा</string>
 	<string name="power_managment_title">बिजली की बचत अवस्थाt</string>
 	<string name="power_managment_description">कुछ कार्यक्षमता की कीमत पर बिजली के उपयोग को कम करने का प्रयास करें।</string>
+	<string name="power_managment_setting_never">कभी नहीं</string>
+	<string name="power_managment_setting_auto">जब बैटरी कम हो</string>
+	<string name="power_managment_setting_manual_max">हमेशा</string>
 	<string name="enable_logging_warning_message">सहायता संवाद में \"बग की रिपोर्ट करें\" का उपयोग करके हमें अपनी समस्या के बारे में विस्तृत डायग्नोस्टिक लॉग रिकॉर्ड करने और मैन्युअल रूप से भेजने के लिए इस विकल्प को अस्थायी रूप से सक्षम करें। लॉग में स्थान की जानकारी शामिल हो सकती है.</string>
 	<string name="driving_options_title">रूटिंग विकल्प</string>
 	<!-- Recommended length for CarPlay and Android Auto is around 25-27 characters -->
@@ -422,6 +458,8 @@
 	<!-- Recommended length for CarPlay and Android Auto is around 25-27 characters -->
 	<string name="avoid_ferry">नौकाओं से बचें</string>
 	<string name="avoid_motorways">फ़्रीवेज़ से बचें</string>
+	<string name="unable_to_calc_alert_title">मार्ग की गणना करने में असमर्थ</string>
+	<string name="unable_to_calc_alert_subtitle">कोई मार्ग नहीं मिल सका. यह आपके रूटिंग विकल्पों या अधूरे OpenStreetMap डेटा के कारण हो सकता है। कृपया अपने रूटिंग विकल्प बदलें और पुनः प्रयास करें।</string>
 	<string name="define_to_avoid_btn">बचने के लिए सड़कों को परिभाषित करें</string>
 	<!-- A generic "Yes" button in dialogs -->
 	<string name="yes">हॉं</string>
@@ -441,6 +479,8 @@
 	<string name="dialog_pedestrian_route_is_long_message">कृपया सबवे स्टेशन के निकट प्रारंभ या समाप्ति बिंदु चुनें</string>
 	<string name="button_layer_isolines">रूप रेखा लाइंस</string>
 	<string name="download_map_title">विश्व मानचित्र डाउनलोड करें</string>
+	<!-- Used in DownloadResources startup screen -->
+	<string name="disk_error_title">डिस्क त्रुटि</string>
 	<string name="enable_keep_screen_on">स्क्रीन ऑन करो</string>
 	<!-- Description in preferences -->
 	<string name="enable_keep_screen_on_description">सक्षम होने पर,मानचित्ररप्रदर्शिततकरतेतेसमययस्क्रीननहमेशााचालूलूरहेगी।।</string>
@@ -598,6 +638,7 @@
 	<string name="type.amenity.recycling">रीसाइक्लिंग कंटेनर</string>
 	<string name="type.amenity.recycling.container">रीसाइक्लिंग कंटेनर</string>
 	<string name="type.amenity.restaurant">रेस्तरां</string>
+	<string name="type.amenity.sanitary_dump_station">सेनेटरी डंप स्टेशन</string>
 	<string name="type.amenity.school">विद्यालय</string>
 	<string name="type.amenity.shelter">आश्रय</string>
 	<string name="type.amenity.shower">फुहारा</string>
@@ -625,6 +666,7 @@
 	<string name="type.amenity.waste_basket">कूडेदान</string>
 	<string name="type.amenity.waste_disposal">कचरे के डिब्बे</string>
 	<string name="type.amenity.waste_transfer_station">कचरा स्थानांतरण स्टेशन</string>
+	<string name="type.amenity.water_point">पानी की टंकी पुनः भरने का स्थान</string>
 	<string name="type.barrier.city_wall">शहर की दीवार</string>
 	<string name="type.barrier.wall">दीवार</string>
 	<string name="type.boundary.aboriginal_lands">स्वदेशी भूमि</string>
@@ -636,13 +678,20 @@
 	<string name="type.building.train_station">रेलवे स्टेशन</string>
 	<string name="type.building.warehouse">मालगोदाम</string>
 	<string name="type.cemetery.grave">कब्र</string>
+	<string name="type.craft.beekeeper">शहर की मक्खियां पालनेवाला</string>
 	<string name="type.craft.blacksmith">लोहार</string>
+	<string name="type.craft.brewery">शराब की भठ्ठी</string>
 	<string name="type.craft.carpenter">बढ़ई</string>
+	<string name="type.craft.electrician">बिजली मिस्त्री</string>
+	<string name="type.craft.electronics_repair">इलेक्ट्रॉनिक्स मरम्मत</string>
 	<string name="type.craft.handicraft">हस्तशिल्प</string>
 	<!-- Heating, Ventilation, and Air Conditioning -->
 	<string name="type.craft.hvac">तापन, संवातन तथा वातानुकूलन</string>
 	<string name="type.craft.photographer">फोटोग्राफर</string>
+	<string name="type.shop.camera">कैमरे की दुकान</string>
+	<string name="type.craft.plumber">नलसाज</string>
 	<string name="type.craft.sawmill">आरा मिल</string>
+	<string name="type.craft.shoemaker">जूते की मरम्मत</string>
 	<string name="type.craft.tailor">दर्जी</string>
 	<string name="type.cuisine.african">अफ्रीकी व्यंजन</string>
 	<string name="type.cuisine.american">अमेरिकी व्यंजन</string>
@@ -733,6 +782,14 @@
 	<string name="type.entrance">प्रवेश द्वार</string>
 	<string name="type.healthcare.laboratory">प्रयोगशाला</string>
 	<string name="type.healthcare.physiotherapist">भौतिक चिकित्सा</string>
+	<string name="type.healthcare.alternative">वैकल्पिक चिकित्सा</string>
+	<string name="type.healthcare.audiologist">ऑडियोलॉजिस्ट</string>
+	<string name="type.healthcare.blood_donation">रक्तदान केंद्र</string>
+	<string name="type.healthcare.optometrist">दृष्टिमापी</string>
+	<string name="type.healthcare.podiatrist">पोडियाट्रिस्ट</string>
+	<string name="type.healthcare.psychotherapist">मनोचिकित्सक</string>
+	<string name="type.healthcare.sample_collection">नमूना संग्रह केंद्र</string>
+	<string name="type.healthcare.speech_therapist">वाक उपचार</string>
 
 	<!-- SECTION: Types: Roads -->
 	<string name="type.highway">राजमार्ग</string>
@@ -769,6 +826,7 @@
 	<string name="type.highway.primary">प्राथमिक सड़क</string>
 	<string name="type.highway.primary_link">प्राथमिक सड़क</string>
 	<string name="type.highway.raceway">दौड़ का मैदान</string>
+	<string name="type.highway.rest_area">बाकी क्षेत्र</string>
 	<string name="type.highway.road">सड़क</string>
 	<string name="type.highway.secondary">माध्यमिक सड़क</string>
 	<string name="type.highway.secondary_link">माध्यमिक सड़क</string>
@@ -839,22 +897,32 @@
 	<string name="type.landuse.forest.mixed">मिश्रित वन</string>
 	<string name="type.landuse.grass">घास</string>
 	<string name="type.leisure">अवकाश</string>
+	<string name="type.leisure.dog_park">श्वान पार्क</string>
+	<string name="type.leisure.fitness_centre">फिटनेस सेंटर</string>
+	<string name="type.leisure.fitness_station">फिटनेस स्टेशन</string>
 	<string name="type.leisure.garden">बाग</string>
 	<string name="type.leisure.garden.residential">बाग</string>
 	<string name="type.leisure.hackerspace">हैकर्सस्पेस</string>
+	<string name="type.leisure.marina">मरीना</string>
 	<string name="type.leisure.nature_reserve">संरक्षित प्रकृतिक्षेत्र</string>
 	<string name="type.leisure.park">उद्यान</string>
 	<string name="type.leisure.park.no.access">उद्यान</string>
 	<string name="type.leisure.park.permissive">उद्यान</string>
 	<string name="type.leisure.park.private">उद्यान</string>
+	<string name="type.leisure.picnic_table">पिकनिक मेज</string>
+	<string name="type.leisure.playground">खेल का मैदान</string>
+	<string name="type.leisure.sauna">सॉना</string>
 	<string name="type.sport.yoga">योग</string>
 	<string name="type.leisure.stadium">क्रीडांगन</string>
+	<string name="type.leisure.water_park">वाटर पार्क</string>
 	<string name="type.man_made.breakwater">तरंगरोध</string>
 	<string name="type.man_made.cairn">स्तूप</string>
 	<string name="type.man_made.chimney">धुआँकश</string>
 	<string name="type.man_made.lighthouse">प्रकाशस्तम्भ</string>
 	<string name="type.man_made.tower">बुर्ज</string>
 	<string name="type.man_made.wastewater_plant">अपशिष्ट जलोपचार</string>
+	<string name="type.man_made.water_tap">पानी का नल</string>
+	<string name="type.man_made.water_tower">पानी का टावर</string>
 	<string name="type.man_made.water_well">कुआँ</string>
 	<string name="type.man_made.windmill">पवनचक्की</string>
 	<string name="type.mountain_pass">दर्रा</string>
@@ -887,7 +955,13 @@
 	<string name="type.natural.wetland">आर्द्रभूमि</string>
 	<string name="type.natural.wetland.marsh">कच्छभूमि</string>
 	<string name="type.office">कार्यालय</string>
+	<string name="type.office.company">कंपनी कार्यालय</string>
+	<string name="type.office.estate_agent">संपत्ति एजेंट</string>
+	<string name="type.office.government">सरकारी कार्यालय</string>
+	<string name="type.office.insurance">बीमा कार्यालय</string>
+	<string name="type.office.lawyer">वकील</string>
 	<string name="type.office.ngo">अशासकीय संस्था</string>
+	<string name="type.office.telecommunication">दूरसंचार कंपनी</string>
 	<string name="type.place.city">शहर</string>
 	<string name="type.place.city.capital">राजधानी</string>
 	<string name="type.place.city.capital.10">शहर</string>
@@ -979,6 +1053,7 @@
 	<string name="type.shop.greengrocer">फल-सब्ज़ियों की दुकान</string>
 	<string name="type.shop.grocery">किराने की दुकान</string>
 	<string name="type.shop.hairdresser">नाई</string>
+	<string name="type.shop.hardware">लौह वस्तुओं की दुकान</string>
 	<string name="type.shop.health_food">स्वस्थ भोजन की दुकान</string>
 	<string name="type.shop.houseware">घरेलू सामान की दुकान</string>
 	<string name="type.shop.jewelry">ज्वैलरी</string>
@@ -987,6 +1062,7 @@
 	<string name="type.shop.laundry">धोबी की दुकान</string>
 	<string name="type.shop.mall">शॉपिंग मॉल</string>
 	<string name="type.shop.massage">मालिश घर</string>
+	<string name="type.shop.mobile_phone">सेल फोन की दुकान</string>
 	<string name="type.shop.money_lender">हवलदार</string>
 	<string name="type.shop.motorcycle">मोटरसाइकिल की दुकान</string>
 	<string name="type.shop.music">रिकॉर्ड की दुकान</string>
@@ -996,6 +1072,7 @@
 	<string name="type.shop.outdoor">बाहरी उपकरण</string>
 	<string name="type.shop.pastry">पेस्ट्री का दुकान</string>
 	<string name="type.shop.pawnbroker">महाजन</string>
+	<string name="type.shop.pet">पालतू जानवर की दुकान</string>
 	<string name="type.shop.photo">छायाचित्रण की दुकान</string>
 	<string name="type.shop.seafood">समुद्री भोजन की दुकान</string>
 	<string name="type.shop.second_hand">पुराने सामान की दुकान</string>
@@ -1061,14 +1138,23 @@
 	<string name="type.sport.field_hockey">मैदानी हॉकी</string>
 	<string name="type.sport.badminton">बैडमिंटन</string>
 	<string name="type.tourism">पर्यटन</string>
+	<string name="type.tourism.apartment">अवकाश अपार्टमेंट</string>
 	<string name="type.tourism.artwork">कलाकृति</string>
 	<string name="type.tourism.artwork.statue">प्रतिमा</string>
 	<string name="type.tourism.attraction">पर्यटन स्थल</string>
 	<string name="type.tourism.attraction.animal">पर्यटन स्थल</string>
 	<string name="type.tourism.attraction.specified">पर्यटन स्थल</string>
+	<string name="type.tourism.caravan_site">कारवां स्थल</string>
+	<string name="type.tourism.chalet">षाले</string>
+	<string name="type.tourism.gallery">आर्ट गैलरी</string>
+	<string name="type.tourism.guest_house">अतिथि गृह</string>
 	<string name="type.tourism.hostel">शयनागार</string>
 	<string name="type.tourism.hotel">होटल</string>
+	<string name="type.tourism.information">पर्यटक सूचना</string>
+	<string name="type.tourism.motel">मोटेल</string>
 	<string name="type.tourism.museum">संग्रहालय</string>
+	<string name="type.tourism.picnic_site">पिकनिक स्थल</string>
+	<string name="type.tourism.viewpoint">दृष्टिकोण</string>
 	<string name="type.tourism.zoo">चिड़ियाघर</string>
 	<string name="type.waterway.canal">नहर</string>
 	<string name="type.waterway.canal.tunnel">नहर</string>

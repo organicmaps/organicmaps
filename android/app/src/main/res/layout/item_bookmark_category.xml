@@ -4,20 +4,19 @@
   xmlns:app="http://schemas.android.com/apk/res-auto"
   xmlns:tools="http://schemas.android.com/tools"
   android:layout_width="match_parent"
-  android:layout_height="wrap_content"
-  android:background="?clickableBackground"
-  android:gravity="center_vertical">
+  android:layout_height="@dimen/height_item_edit_bookmark"
+  android:background="?clickableBackground">
   <CheckBox
-    android:id="@+id/checkbox"
-    android:layout_width="48dp"
-    android:layout_height="48dp"
-    android:layout_centerVertical="true"
-    android:layout_marginStart="@dimen/margin_half_plus"
-    android:layout_marginEnd="0dp"
-    android:minWidth="@dimen/bookmark_category_checkbox_width" />
+      android:id="@+id/checkbox"
+      android:layout_width="@dimen/margin_double_plus"
+      android:layout_height="match_parent"
+      android:layout_marginStart="@dimen/margin_quarter"
+      android:button="@drawable/button_visibility_centre_inset"
+      android:background="@null"
+      android:buttonTint="?accentColorSelector" />
   <TextView
     android:id="@+id/name"
-    android:layout_width="match_parent"
+    android:layout_width="wrap_content"
     android:layout_height="wrap_content"
     android:layout_marginTop="@dimen/margin_base"
     android:layout_toStartOf="@id/more"
@@ -48,12 +47,11 @@
   <ImageView
     android:id="@+id/more"
     android:layout_width="wrap_content"
-    android:layout_height="wrap_content"
+    android:layout_height="match_parent"
     android:layout_alignParentEnd="true"
     android:background="?selectableItemBackgroundBorderless"
-    android:minHeight="@dimen/height_item_edit_bookmark"
-    android:paddingStart="@dimen/margin_quarter"
-    android:paddingEnd="@dimen/margin_half"
+    android:paddingHorizontal="@dimen/margin_half"
     app:srcCompat="@drawable/ic_more"
-    app:tint="?secondary" />
+    app:tint="?secondary"
+    android:importantForAccessibility="no" />
 </RelativeLayout>

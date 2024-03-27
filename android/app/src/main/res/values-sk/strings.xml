@@ -219,10 +219,6 @@
 	<string name="pref_zoom_summary">Zobraziť na obrazovke</string>
 	<!-- Settings «Map» category: «Night style» title -->
 	<string name="pref_map_style_title">Nočný režim</string>
-	<!-- Settings "Appearance" category: "Light" title, should be consistent with the pref_appearance_title translation. -->
-	<string name="pref_appearance_light">Svetlý</string>
-	<!-- Settings "Appearance" category: "Dark" title, should be consistent with the pref_appearance_title translation. -->
-	<string name="pref_appearance_dark">Tmavý</string>
 	<!-- Generic «Off» string -->
 	<string name="off">Vypnúť</string>
 	<!-- Generic «On» string -->

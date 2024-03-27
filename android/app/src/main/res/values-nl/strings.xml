@@ -219,10 +219,6 @@
 	<string name="pref_zoom_summary">Weergave op het scherm</string>
 	<!-- Settings «Map» category: «Night style» title -->
 	<string name="pref_map_style_title">Nachtmodus</string>
-	<!-- Settings "Appearance" category: "Light" title, should be consistent with the pref_appearance_title translation. -->
-	<string name="pref_appearance_light">Licht</string>
-	<!-- Settings "Appearance" category: "Dark" title, should be consistent with the pref_appearance_title translation. -->
-	<string name="pref_appearance_dark">Donker</string>
 	<!-- Generic «Off» string -->
 	<string name="off">Uit</string>
 	<!-- Generic «On» string -->

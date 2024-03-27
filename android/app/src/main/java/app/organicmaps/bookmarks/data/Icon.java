@@ -7,6 +7,8 @@ import androidx.annotation.DrawableRes;
 import androidx.annotation.IntDef;
 import androidx.annotation.NonNull;
 
+import com.google.common.base.Objects;
+
 import app.organicmaps.R;
 
 import java.lang.annotation.Retention;
@@ -232,17 +234,17 @@ public class Icon implements Parcelable
   @Override
   public boolean equals(Object o)
   {
-    if (o == null || !(o instanceof Icon))
-      return false;
-    final Icon comparedIcon = (Icon) o;
-    return mColor == comparedIcon.getColor();
+    if (this == o)
+      return true;
+    if (o instanceof Icon comparedIcon)
+      return mColor == comparedIcon.mColor && mType == comparedIcon.mType;
+    return false;
   }
 
   @Override
-  @PredefinedColor
   public int hashCode()
   {
-    return mColor;
+    return Objects.hashCode(mColor, mType);
   }
 
   public static final Parcelable.Creator<Icon> CREATOR = new Parcelable.Creator<>()

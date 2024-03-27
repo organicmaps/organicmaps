@@ -16,6 +16,7 @@ import androidx.core.graphics.drawable.IconCompat;
 import app.organicmaps.R;
 import app.organicmaps.car.SurfaceRenderer;
 import app.organicmaps.car.screens.base.BaseMapScreen;
+import app.organicmaps.car.screens.bookmarks.BookmarkCategoriesScreen;
 import app.organicmaps.car.screens.search.SearchScreen;
 import app.organicmaps.car.util.SuggestionsHelpers;
 import app.organicmaps.car.util.UiHelpers;
@@ -127,6 +128,6 @@ public class MapScreen extends BaseMapScreen
     // Details in UiHelpers.createSettingsAction()
     if (getScreenManager().getTop() != this)
       return;
-    getScreenManager().push(new BookmarksScreen(getCarContext(), getSurfaceRenderer()));
+    getScreenManager().push(new BookmarkCategoriesScreen(getCarContext(), getSurfaceRenderer()));
   }
 }

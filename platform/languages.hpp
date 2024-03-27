@@ -11,7 +11,7 @@
 
 namespace routing::turns::sound
 {
-std::array<std::pair<std::string, std::string>, 38> const kLanguageList =
+std::array<std::pair<std::string, std::string>, 39> const kLanguageList =
 {{
   {"en", "English"},
   {"id", "Bahasa Indonesia"},
@@ -41,6 +41,7 @@ std::array<std::pair<std::string, std::string>, 38> const kLanguageList =
   {"el", "Ελληνικά"},
   {"be", "Беларуская"},
   {"ru", "Русский"},
+  {"sr", "Српски"},
   {"uk", "Українська"},
   {"ar", "العربية"},
   {"fa", "فارسی"},

@@ -309,7 +309,7 @@ void CountryFinalProcessor::AddFakeNodes()
 
 void CountryFinalProcessor::DropProhibitedSpeedCameras()
 {
-  static auto const speedCameraType = classif().GetTypeByPath({"highway", "speed_camera"});
+  auto const speedCameraType = classif().GetTypeByPath({"highway", "speed_camera"});
   ForEachMwmTmp(m_temporaryMwmPath, [&](auto const & country, auto const & path)
   {
     if (!IsCountry(country))

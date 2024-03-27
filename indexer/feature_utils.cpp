@@ -492,6 +492,7 @@ string FormatDrinkingWater(TypesHolder const & types)
     case ftraits::DrinkingWaterAvailability::Yes:
       return std::string{kDrinkingWaterYes};
   }
+  UNREACHABLE();
 }
 
 string FormatStars(uint8_t starsCount)

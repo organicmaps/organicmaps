@@ -11,6 +11,8 @@ namespace settings
 /// Metric or Imperial.
 extern char const * kMeasurementUnits;
 
+extern char const * kDeveloperMode;
+
 template <class T>
 bool FromString(std::string const & str, T & outValue);
 

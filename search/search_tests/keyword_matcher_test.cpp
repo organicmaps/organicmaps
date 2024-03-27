@@ -2,15 +2,11 @@
 
 #include "search/common.hpp"
 #include "search/keyword_matcher.hpp"
-
-#include "indexer/search_string_utils.hpp"
-
-#include "base/buffer_vector.hpp"
-#include "base/stl_helpers.hpp"
+#include "search/string_utils.hpp"
 
 #include <sstream>
 #include <string>
-#include <vector>
+
 
 namespace keyword_matcher_test
 {
@@ -42,15 +38,7 @@ struct KeywordMatcherTestCase
 
 void InitMatcher(char const * query, KeywordMatcher & matcher)
 {
-  vector<strings::UniString> keywords;
-  strings::UniString prefix;
-  if (search::TokenizeStringAndCheckIfLastTokenIsPrefix(query, keywords))
-  {
-    prefix = keywords.back();
-    keywords.pop_back();
-  }
-
-  matcher.SetKeywords(&keywords[0], keywords.size(), prefix);
+  matcher.SetKeywords(search::MakeQueryString(query));
 }
 
 class TestScore
