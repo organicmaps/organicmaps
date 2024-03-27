@@ -664,7 +664,7 @@
 
 "select_cuisine" = "Seleziona la cucina";
 
-/* OSM login text field hint */
+/* login text field */
 "email_or_username" = "E-mail o nome utente";
 
 "phone" = "Telefono";

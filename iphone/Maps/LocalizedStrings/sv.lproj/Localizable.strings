@@ -664,7 +664,7 @@
 
 "select_cuisine" = "Välj kök";
 
-/* OSM login text field hint */
+/* login text field */
 "email_or_username" = "E-postadress eller användarnamn";
 
 "phone" = "Telefon";

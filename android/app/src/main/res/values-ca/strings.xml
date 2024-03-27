@@ -453,9 +453,7 @@
 	<string name="postal_code">Codi postal</string>
 	<string name="cuisine">Cuina</string>
 	<string name="select_cuisine">Trieu una cuina</string>
-	<!-- OSM Login text field hint, used only for Google Play -->
-	<string name="username">Nom d\'usuari</string>
-	<!-- OSM login text field hint -->
+	<!-- login text field -->
 	<string name="email_or_username">Adreça electrònica o nom d\'usuari</string>
 	<string name="editor_add_phone">Afegeix un telèfon</string>
 	<string name="level">Planta</string>

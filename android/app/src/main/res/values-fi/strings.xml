@@ -462,9 +462,7 @@
 	<string name="postal_code">Postinumero</string>
 	<string name="cuisine">Ruokalaji</string>
 	<string name="select_cuisine">Valitse ruokalaji</string>
-	<!-- OSM Login text field hint, used only for Google Play -->
-	<string name="username">Käyttäjätunnus</string>
-	<!-- OSM login text field hint -->
+	<!-- login text field -->
 	<string name="email_or_username">Sähköposti tai käyttäjätunnus</string>
 	<string name="editor_add_phone">Lisää puhelinnumero</string>
 	<string name="level">Kerros</string>

@@ -664,7 +664,7 @@
 
 "select_cuisine" = "पाककृती निवडा";
 
-/* OSM login text field hint */
+/* login text field */
 "email_or_username" = "ईमेल किंवा वापरकर्तानाव";
 
 "phone" = "फोन";

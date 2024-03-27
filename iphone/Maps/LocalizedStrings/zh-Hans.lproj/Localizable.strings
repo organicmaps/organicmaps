@@ -664,7 +664,7 @@
 
 "select_cuisine" = "选择菜肴";
 
-/* OSM login text field hint */
+/* login text field */
 "email_or_username" = "邮箱或用户名";
 
 "phone" = "电话";
