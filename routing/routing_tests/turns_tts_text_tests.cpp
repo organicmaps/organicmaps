@@ -177,6 +177,7 @@ UNIT_TEST(EndsInAcronymOrNumTest)
 
 UNIT_TEST(GetTtsStreetTextTest)
 {
+  // we can use "NULL" to indicate that the regular "_turn" string should be used and not "_turn_street"
   string const engShortJson =
       R"({
       "in_300_meters":"In 300 meters.",
@@ -185,6 +186,8 @@ UNIT_TEST(GetTtsStreetTextTest)
       "onto":"onto",
       "make_a_right_turn":"Make a right turn.",
       "make_a_left_turn":"Make a left turn.",
+      "make_a_right_turn_street":"NULL",
+      "make_a_left_turn_street":"NULL",
       "take_exit_number":"Take exit",
       "dist_direction_onto_street":"%1$s %2$s %3$s %4$s",
       "you_have_reached_the_destination":"You have reached the destination."

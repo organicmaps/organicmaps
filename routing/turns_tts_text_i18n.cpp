@@ -11,11 +11,11 @@ namespace turns
 namespace sound
 {
 
-template <std::size_t N>
-long FindInStrArray(const std::array<strings::UniChar, N>& haystack, strings::UniChar needle)
+long FindInStrArray(std::u32string_view haystack, char32_t needle)
 {
   auto begin = haystack.begin();
-  for(auto i = begin; i != haystack.end(); ++i) {
+  for(auto i = begin; i != haystack.end(); ++i)
+  {
     const strings::UniChar item = *i;
     if (item == needle)
       return (long)i;
@@ -39,8 +39,8 @@ bool EndsInAcronymOrNum(strings::UniString const & myUniStr)
 {
   bool allUppercaseNum = true;
   strings::UniString lowerStr = strings::MakeLowerCase(myUniStr);
-  for (int i = myUniStr.size() - 1; i > 0; i--) {
-
+  for (int i = myUniStr.size() - 1; i > 0; i--)
+  {
     // if we've reached a space, we're done here
     if (myUniStr[i] == ' ')
       break;
@@ -102,7 +102,8 @@ uint8_t CategorizeHungarianAcronymsAndNumbers(std::string const & hungarianStrin
   //'100', // száz back
 
 
-  for (size_t i = hungarianString.length(); i > 0; i--) {
+  for (size_t i = hungarianString.length(); i > 0; i--)
+  {
     std::string hungarianSub = hungarianString.substr(0, i);
     for (auto myCase : specialCaseFront)
       if (strings::EndsWith(hungarianSub,myCase))
@@ -129,22 +130,23 @@ uint8_t CategorizeHungarianAcronymsAndNumbers(std::string const & hungarianStrin
 
 uint8_t CategorizeHungarianLastWordVowels(std::string const & hungarianString)
 {
-  constexpr std::array<strings::UniChar, 6> front = {U'e',U'é',U'ö',U'ő',U'ü',U'ű'};
-  constexpr std::array<strings::UniChar, 6> back = {U'a',U'á',U'o',U'ó',U'u',U'ú'};
-  constexpr std::array<strings::UniChar, 2> indeterminate = {U'i',U'í'};
+  std::u32string_view constexpr front {U"eéöőüű"};
+  std::u32string_view constexpr back {U"aáoóuú"};
+  std::u32string_view constexpr indeterminate {U"ií"};
 
-  strings::UniString myUniStr = strings::MakeUniString(strings::MakeLowerCase(hungarianString));
+  strings::UniString myUniStr = strings::MakeUniString(hungarianString);
 
   // scan for acronyms and numbers first (i.e. characters spoken differently than words)
   // if the last word is an acronym/number like M5, check those instead
-  if (EndsInAcronymOrNum(myUniStr)) {
+  if (EndsInAcronymOrNum(myUniStr))
     return CategorizeHungarianAcronymsAndNumbers(hungarianString);
-  }
 
   bool foundIndeterminate = false;
+  strings::MakeLowerCaseInplace(myUniStr); // this isn't an acronym, so match based on lowercase
 
   // find last vowel in last word
-  for (size_t i=myUniStr.size()-1; i>0; i--) {
+  for (size_t i=myUniStr.size()-1; i>0; i--)
+  {
     LOG(LWARNING, ("i", i, (char)myUniStr[i], "Y"));
     if (FindInStrArray(front, myUniStr[i]) != -1){
       LOG(LWARNING, ("returning 1"));

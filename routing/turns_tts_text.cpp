@@ -95,7 +95,8 @@ void FormatFullRoadName(RouteSegment::RoadNameInfo & road, std::string & name)
 
   if (outArr.size() > 0) {
     // append strings with delimiter and no trailing
-    for (size_t i = 0; i < outArr.size()-1; i++) {
+    for (size_t i = 0; i < outArr.size()-1; i++)
+    {
       name.append(outArr[i]+"; ");
     }
     name.append(outArr[outArr.size()-1]);
@@ -151,13 +152,16 @@ std::string GetTtsText::GetTurnNotification(Notification const & notification) c
     // Full stops are: . (Period) or 。 (East Asian) or । (Hindi)
     RemoveLastDot(distStr);
 
-    // If the turn direction with the key +_street exists for this locale, use it (like make_a_right_turn_street)
+    // If the turn direction with the key +_street exists for this locale, and isn't "NULL",
+    // use it (like make_a_right_turn_street)
     std::string dirStreetStr = GetTextByIdTrimmed(dirKey + "_street");
-    if (!dirStreetStr.empty())
+    if (!dirStreetStr.empty() && dirStreetStr != "NULL")
       dirStr = std::move(dirStreetStr);
 
-    // Normally use "onto" for "turn right onto Main St"
+    // Normally use "onto" for "turn right onto Main St" unless it's "NULL"
     std::string ontoStr = GetTextByIdTrimmed("onto");
+    if (ontoStr == "NULL")
+      ontoStr = "";
 
     // If the nextStreetInfo has an exit number, we'll announce it
     if (!notification.m_nextStreetInfo.m_junction_ref.empty()) {
@@ -173,9 +177,14 @@ std::string GetTtsText::GetTurnNotification(Notification const & notification) c
     RemoveLastDot(dirStr);
 
     std::string distDirOntoStreetStr = GetTextByIdTrimmed("dist_direction_onto_street");
-    // TODO: we may want to only load _street_verb if _street exists; may also need to handle
-    //   a lack of a $5 position in the formatter string
-    std::string dirVerb = GetTextByIdTrimmed(dirKey + "_street_verb");
+    // only load populate _street_verb if _street exists and isn't "NULL"
+    // may also need to handle a lack of a $5 position in the formatter string
+    std::string dirVerb = "";
+    if (!dirStreetStr.empty() && dirStreetStr != "NULL") {
+      dirVerb = GetTextByIdTrimmed(dirKey + "_street_verb");
+      if (dirVerb == "NULL")
+        dirVerb = "";
+    }
 
     if (localeKey == "hu")
     {

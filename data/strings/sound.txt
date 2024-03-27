@@ -39,11 +39,13 @@
     zh-Hant = 向右走。
 
   [make_a_slight_right_turn_street]
-    comment = Optionally used inside dist_direction_onto_street in position 3 when the normal make_a_slight_right_turn is insufficient.
+    comment = Optionally used inside dist_direction_onto_street in position 3 when the normal make_a_slight_right_turn is insufficient. For most languages that don't need this, the value should be the word NULL
+    en = NULL
     nl = de flauwe bocht naar rechts
 
   [make_a_slight_right_turn_street_verb]
-    comment = Optionally used inside dist_direction_onto_street in position 5 when make_a_slight_right_turn_street needs to be split into two parts.
+    comment = Optionally used inside dist_direction_onto_street in position 5 when make_a_slight_right_turn_street needs to be split into two parts. For most languages that don't need this, the value should be the word NULL
+    en = NULL
     nl = Neem
 
   [make_a_right_turn]
@@ -85,7 +87,8 @@
     zh-Hant = 右轉。
 
   [make_a_right_turn_street]
-    comment = Optionally used inside dist_direction_onto_street in position 3 when the normal make_a_right_turn is insufficient.
+    comment = Optionally used inside dist_direction_onto_street in position 3 when the normal make_a_right_turn is insufficient. For most languages that don't need this, the value should be the word NULL
+    en = NULL
     ja = 右折です
     nl = naar rechts afslaan
 
@@ -128,7 +131,8 @@
     zh-Hant = 向右急轉。
 
   [make_a_sharp_right_turn_street]
-    comment = Optionally used inside dist_direction_onto_street in position 3 when the normal make_a_sharp_right_turn is insufficient.
+    comment = Optionally used inside dist_direction_onto_street in position 3 when the normal make_a_sharp_right_turn is insufficient. For most languages that don't need this, the value should be the word NULL
+    en = NULL
     nl = scherp naar rechts afslaan
 
   [enter_the_roundabout]
@@ -171,12 +175,14 @@
     zh-Hant = 進入環島。
 
   [enter_the_roundabout_street]
-    comment = Optionally used inside dist_direction_onto_street in position 3 when the normal enter_the_roundabout is insufficient.
+    comment = Optionally used inside dist_direction_onto_street in position 3 when the normal enter_the_roundabout is insufficient. For most languages that don't need this, the value should be the word NULL
+    en = NULL
     ja = に入ります
     nl = de rotonde
 
   [enter_the_roundabout_street_verb]
-    comment = Optionally used inside dist_direction_onto_street in position 5 when enter_the_roundabout_street needs to be split into two parts.
+    comment = Optionally used inside dist_direction_onto_street in position 5 when enter_the_roundabout_street needs to be split into two parts. For most languages that don't need this, the value should be the word NULL
+    en = NULL
     ja = ラウンドアバウトに入り、
     nl = Rijd
 
@@ -220,12 +226,14 @@
     zh-Hant = 退出環島。
 
   [leave_the_roundabout_street]
-    comment = Optionally used inside dist_direction_onto_street in position 3 when the normal leave_the_roundabout is insufficient.
+    comment = Optionally used inside dist_direction_onto_street in position 3 when the normal leave_the_roundabout is insufficient. For most languages that don't need this, the value should be the word NULL
+    en = NULL
     ja = に出ます
     nl = de rotonde
 
   [leave_the_roundabout_street_verb]
-    comment = Optionally used inside dist_direction_onto_street in position 5 when leave_the_roundabout_street needs to be split into two parts.
+    comment = Optionally used inside dist_direction_onto_street in position 5 when leave_the_roundabout_street needs to be split into two parts. For most languages that don't need this, the value should be the word NULL
+    en = NULL
     ja = ラウンドアバウトを出て、
     nl = Verlaat
 
@@ -268,11 +276,13 @@
     zh-Hant = 向左走。
 
   [make_a_slight_left_turn_street]
-    comment = Optionally used inside dist_direction_onto_street in position 3 when the normal make_a_slight_left_turn is insufficient.
+    comment = Optionally used inside dist_direction_onto_street in position 3 when the normal make_a_slight_left_turn is insufficient. For most languages that don't need this, the value should be the word NULL
+    en = NULL
     nl = de flauwe bocht naar links
 
   [make_a_slight_left_turn_street_verb]
-    comment = Optionally used inside dist_direction_onto_street in position 5 when make_a_slight_left_turn_street needs to be split into two parts.
+    comment = Optionally used inside dist_direction_onto_street in position 5 when make_a_slight_left_turn_street needs to be split into two parts. For most languages that don't need this, the value should be the word NULL
+    en = NULL
     nl = Neem
 
   [make_a_left_turn]
@@ -314,7 +324,8 @@
     zh-Hant = 左轉。
 
   [make_a_left_turn_street]
-    comment = Optionally used inside dist_direction_onto_street in position 3 when the normal make_a_left_turn is insufficient.
+    comment = Optionally used inside dist_direction_onto_street in position 3 when the normal make_a_left_turn is insufficient. For most languages that don't need this, the value should be the word NULL
+    en = NULL
     ja = 左折し
     nl = naar links afslaan
 
@@ -357,7 +368,8 @@
     zh-Hant = 向左急轉。
 
   [make_a_sharp_left_turn_street]
-    comment = Optionally used inside dist_direction_onto_street in position 3 when the normal make_a_sharp_left_turn is insufficient.
+    comment = Optionally used inside dist_direction_onto_street in position 3 when the normal make_a_sharp_left_turn is insufficient. For most languages that don't need this, the value should be the word NULL
+    en = NULL
     nl = scherp naar links afslaan
 
   [make_a_u_turn]
@@ -400,11 +412,13 @@
     zh-Hant = 掉頭。
 
   [make_a_u_turn_street]
-    comment = Optionally used inside dist_direction_onto_street in position 3 when the normal make_a_u_turn is insufficient.
+    comment = Optionally used inside dist_direction_onto_street in position 3 when the normal make_a_u_turn is insufficient. For most languages that don't need this, the value should be the word NULL
+    en = NULL
     ja = に入ります
 
   [make_a_u_turn_street_verb]
-    comment = Optionally used inside dist_direction_onto_street in position 5 when make_a_u_turn_street needs to be split into two parts.
+    comment = Optionally used inside dist_direction_onto_street in position 5 when make_a_u_turn_street needs to be split into two parts. For most languages that don't need this, the value should be the word NULL
+    en = NULL
     ja = 後ろ方向して
 
   [go_straight]
@@ -485,7 +499,7 @@
     zh-Hant = 出口。
 
   [onto]
-    comment = Used in dist_direction_onto_street in position 3 unless take_exit_number is specified. For languages that don't have an "onto" word, (e.g. eu, ja, ko), the value should be empty.
+    comment = Used in dist_direction_onto_street in position 3 unless take_exit_number is specified. For languages that don't have an "onto" word, (e.g. eu, ja, ko), the value should be the word NULL
     en = onto
     ar = إلى
     be = на
@@ -495,7 +509,7 @@
     el = στην
     es = hacia
     es-MX = hacia
-    eu =
+    eu = NULL
     fa = ﺐﻫ
     fi = tielle
     fr = sur
@@ -504,8 +518,8 @@
     hu = a
     id = ke
     it = sulla
-    ja = 
-    ko =
+    ja = NULL
+    ko = NULL
     mr = वर
     nb = inn på
     nl = naar
@@ -565,8 +579,8 @@
     zh-Hant = 出口 上
 
   [take_exit_number_street_verb]
-    comment = Optionally used inside dist_direction_onto_street in position 5 when take_exit_number needs to be split into two parts. For languages that don't have a stand-alone "onto" word but still have a %5 formatter position, it must be specified as blank.
-    ja = 
+    comment = Optionally used inside dist_direction_onto_street in position 5 when take_exit_number needs to be split into two parts. For languages that don't have a stand-alone "onto" word but still have a %5 formatter position, it must be specified as the word NULL
+    en = NULL
     nl = Neem
 
   [destination]
@@ -1399,12 +1413,14 @@
     zh-Hant = 取道第一個出口。
 
   [take_the_1_exit_street]
-    comment = Optionally used inside dist_direction_onto_street in position 3 when the normal take_the_1_exit is insufficient.
+    comment = Optionally used inside dist_direction_onto_street in position 3 when the normal take_the_1_exit is insufficient. For most languages that don't need this, the value should be the word NULL
+    en = NULL
     ja = に出ます
     nl = de eerste afslag
 
   [take_the_1_exit_street_verb]
-    comment = Optionally used inside dist_direction_onto_street in position 5 when take_the_1_exit_street needs to be split into two parts.
+    comment = Optionally used inside dist_direction_onto_street in position 5 when take_the_1_exit_street needs to be split into two parts. For most languages that don't need this, the value should be the word NULL
+    en = NULL
     ja = 1番出口を出て
     nl = Neem
 
@@ -1448,12 +1464,14 @@
     zh-Hant = 取道第二個出口。
 
   [take_the_2_exit_street]
-    comment = Optionally used inside dist_direction_onto_street in position 3 when the normal take_the_2_exit is insufficient.
+    comment = Optionally used inside dist_direction_onto_street in position 3 when the normal take_the_2_exit is insufficient. For most languages that don't need this, the value should be the word NULL
+    en = NULL
     ja = に出ます
     nl = de tweede afslag
 
   [take_the_2_exit_street_verb]
-    comment = Optionally used inside dist_direction_onto_street in position 5 when take_the_2_exit_street needs to be split into two parts.
+    comment = Optionally used inside dist_direction_onto_street in position 5 when take_the_2_exit_street needs to be split into two parts. For most languages that don't need this, the value should be the word NULL
+    en = NULL
     ja = 2番出口を出て
     nl = Neem
 
@@ -1497,12 +1515,14 @@
     zh-Hant = 取道第三個出口。
 
   [take_the_3_exit_street]
-    comment = Optionally used inside dist_direction_onto_street in position 3 when the normal take_the_3_exit is insufficient.
+    comment = Optionally used inside dist_direction_onto_street in position 3 when the normal take_the_3_exit is insufficient. For most languages that don't need this, the value should be the word NULL
+    en = NULL
     ja = に出ます
     nl = de derde afslag
 
   [take_the_3_exit_street_verb]
-    comment = Optionally used inside dist_direction_onto_street in position 5 when take_the_3_exit_street needs to be split into two parts.
+    comment = Optionally used inside dist_direction_onto_street in position 5 when take_the_3_exit_street needs to be split into two parts. For most languages that don't need this, the value should be the word NULL
+    en = NULL
     ja = 3番出口を出て
     nl = Neem
 
@@ -1546,12 +1566,14 @@
     zh-Hant = 取道第四個出口。
 
   [take_the_4_exit_street]
-    comment = Optionally used inside dist_direction_onto_street in position 3 when the normal take_the_4_exit is insufficient.
+    comment = Optionally used inside dist_direction_onto_street in position 3 when the normal take_the_4_exit is insufficient. For most languages that don't need this, the value should be the word NULL
+    en = NULL
     ja = に出ます
     nl = de vierde afslag
 
   [take_the_4_exit_street_verb]
-    comment = Optionally used inside dist_direction_onto_street in position 5 when take_the_4_exit_street needs to be split into two parts.
+    comment = Optionally used inside dist_direction_onto_street in position 5 when take_the_4_exit_street needs to be split into two parts. For most languages that don't need this, the value should be the word NULL
+    en = NULL
     ja = 4番出口を出て
     nl = Neem
 
@@ -1595,12 +1617,14 @@
     zh-Hant = 取道第五個出口。
 
   [take_the_5_exit_street]
-    comment = Optionally used inside dist_direction_onto_street in position 3 when the normal take_the_5_exit is insufficient.
+    comment = Optionally used inside dist_direction_onto_street in position 3 when the normal take_the_5_exit is insufficient. For most languages that don't need this, the value should be the word NULL
+    en = NULL
     ja = に出ます
     nl = de vijfde afslag
 
   [take_the_5_exit_street_verb]
-    comment = Optionally used inside dist_direction_onto_street in position 5 when take_the_5_exit_street needs to be split into two parts.
+    comment = Optionally used inside dist_direction_onto_street in position 5 when take_the_5_exit_street needs to be split into two parts. For most languages that don't need this, the value should be the word NULL
+    en = NULL
     ja = 5番出口を出て
     nl = Neem
 
@@ -1644,12 +1668,14 @@
     zh-Hant = 取道第六個出口。
 
   [take_the_6_exit_street]
-    comment = Optionally used inside dist_direction_onto_street in position 3 when the normal take_the_6_exit is insufficient.
+    comment = Optionally used inside dist_direction_onto_street in position 3 when the normal take_the_6_exit is insufficient. For most languages that don't need this, the value should be the word NULL
+    en = NULL
     ja = に出ます
     nl = de zesde afslag
 
   [take_the_6_exit_street_verb]
-    comment = Optionally used inside dist_direction_onto_street in position 5 when take_the_6_exit_street needs to be split into two parts.
+    comment = Optionally used inside dist_direction_onto_street in position 5 when take_the_6_exit_street needs to be split into two parts. For most languages that don't need this, the value should be the word NULL
+    en = NULL
     ja = 6番出口を出て
     nl = Neem
 
@@ -1693,12 +1719,14 @@
     zh-Hant = 取道第七個出口。
 
   [take_the_7_exit_street]
-    comment = Optionally used inside dist_direction_onto_street in position 3 when the normal take_the_7_exit is insufficient.
+    comment = Optionally used inside dist_direction_onto_street in position 3 when the normal take_the_7_exit is insufficient. For most languages that don't need this, the value should be the word NULL
+    en = NULL
     ja = に出ます
     nl = de zevende afslag
 
   [take_the_7_exit_street_verb]
-    comment = Optionally used inside dist_direction_onto_street in position 5 when take_the_7_exit_street needs to be split into two parts.
+    comment = Optionally used inside dist_direction_onto_street in position 5 when take_the_7_exit_street needs to be split into two parts. For most languages that don't need this, the value should be the word NULL
+    en = NULL
     ja = 7番出口を出て
     nl = Neem
 
@@ -1742,12 +1770,14 @@
     zh-Hant = 取道第八個出口。
 
   [take_the_8_exit_street]
-    comment = Optionally used inside dist_direction_onto_street in position 3 when the normal take_the_8_exit is insufficient.
+    comment = Optionally used inside dist_direction_onto_street in position 3 when the normal take_the_8_exit is insufficient. For most languages that don't need this, the value should be the word NULL
+    en = NULL
     ja = に出ます
     nl = de achtste afslag
 
   [take_the_8_exit_street_verb]
-    comment = Optionally used inside dist_direction_onto_street in position 5 when take_the_8_exit_street needs to be split into two parts.
+    comment = Optionally used inside dist_direction_onto_street in position 5 when take_the_8_exit_street needs to be split into two parts. For most languages that don't need this, the value should be the word NULL
+    en = NULL
     ja = 8番出口を出て
     nl = Neem
 
@@ -1791,12 +1821,14 @@
     zh-Hant = 取道第九個出口。
 
   [take_the_9_exit_street]
-    comment = Optionally used inside dist_direction_onto_street in position 3 when the normal take_the_9_exit is insufficient.
+    comment = Optionally used inside dist_direction_onto_street in position 3 when the normal take_the_9_exit is insufficient. For most languages that don't need this, the value should be the word NULL
+    en = NULL
     ja = に出ます
     nl = de negende afslag
 
   [take_the_9_exit_street_verb]
-    comment = Optionally used inside dist_direction_onto_street in position 5 when take_the_9_exit_street needs to be split into two parts.
+    comment = Optionally used inside dist_direction_onto_street in position 5 when take_the_9_exit_street needs to be split into two parts. For most languages that don't need this, the value should be the word NULL
+    en = NULL
     ja = 9番出口を出て
     nl = Neem
 
@@ -1840,12 +1872,14 @@
     zh-Hant = 取道第十個出口。
 
   [take_the_10_exit_street]
-    comment = Optionally used inside dist_direction_onto_street in position 3 when the normal take_the_10_exit is insufficient.
+    comment = Optionally used inside dist_direction_onto_street in position 3 when the normal take_the_10_exit is insufficient. For most languages that don't need this, the value should be the word NULL
+    en = NULL
     ja = に出ます
     nl = de tiende afslag
 
   [take_the_10_exit_street_verb]
-    comment = Optionally used inside dist_direction_onto_street in position 5 when take_the_10_exit_street needs to be split into two parts.
+    comment = Optionally used inside dist_direction_onto_street in position 5 when take_the_10_exit_street needs to be split into two parts. For most languages that don't need this, the value should be the word NULL
+    en = NULL
     ja = 10番出口を出て
     nl = Neem
 
@@ -1889,12 +1923,14 @@
     zh-Hant = 取道第十一個出口。
 
   [take_the_11_exit_street]
-    comment = Optionally used inside dist_direction_onto_street in position 3 when the normal take_the_11_exit is insufficient.
+    comment = Optionally used inside dist_direction_onto_street in position 3 when the normal take_the_11_exit is insufficient. For most languages that don't need this, the value should be the word NULL
+    en = NULL
     ja = に出ます
     nl = de elfde afslag
 
   [take_the_11_exit_street_verb]
-    comment = Optionally used inside dist_direction_onto_street in position 5 when take_the_11_exit_street needs to be split into two parts.
+    comment = Optionally used inside dist_direction_onto_street in position 5 when take_the_11_exit_street needs to be split into two parts. For most languages that don't need this, the value should be the word NULL
+    en = NULL
     ja = 11番出口を出て
     nl = Neem
 
