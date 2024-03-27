@@ -629,6 +629,8 @@
 
 "login" = "Connexion";
 
+"login_osm" = "Se connecter à OpenStreetMap";
+
 "forgot_password" = "Mot de passe oublié ?";
 
 "osm_account" = "Compte OSM";
@@ -930,6 +932,12 @@
 "start_from_my_position" = "Commencer à partir de";
 
 "profile_authorization_error" = "Oups, une erreur s'est produite. Essayez de vous connecter à nouveau.";
+
+/* For iOS message 'alert_reauth_message' should be splitted in two parts: message + link. Here's first part */
+"alert_reauth_message_ios" = "Connecte-toi à OpenStreetMap pour télécharger automatiquement toutes tes modifications de cartes. En savoir plus";
+
+/* For iOS message 'alert_reauth_message' should be splitted in two parts: message + link. Here's link part */
+"alert_reauth_link_text_ios" = "ici";
 
 "core_entrance" = "Entrée";
 

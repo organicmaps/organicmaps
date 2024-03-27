@@ -49,7 +49,7 @@ public final class Editor
   public static void uploadChanges(@NonNull Context context)
   {
     if (nativeHasSomethingToUpload() && OsmOAuth.isAuthorized(context))
-      nativeUploadChanges(OsmOAuth.getAuthToken(context), OsmOAuth.getAuthSecret(context),
+      nativeUploadChanges(OsmOAuth.getAuthToken(context),
                           BuildConfig.VERSION_NAME, BuildConfig.APPLICATION_ID);
   }
 
@@ -120,7 +120,7 @@ public final class Editor
 
   public static native boolean nativeHasSomethingToUpload();
   @WorkerThread
-  private static native void nativeUploadChanges(String token, String secret, String appVersion, String appId);
+  private static native void nativeUploadChanges(String oauthToken, String appVersion, String appId);
 
   /**
    * @return array [total edits count, uploaded edits count, last upload timestamp in seconds]

@@ -629,6 +629,8 @@
 
 "login" = "Anmelden";
 
+"login_osm" = "Melden Sie sich bei OpenStreetMap an";
+
 "forgot_password" = "Passwort vergessen?";
 
 "osm_account" = "OSM Konto";
@@ -930,6 +932,12 @@
 "start_from_my_position" = "Starten von";
 
 "profile_authorization_error" = "Hoppla, es ist ein Fehler aufgetreten. Versuchen Sie erneut, sich anzumelden.";
+
+/* For iOS message 'alert_reauth_message' should be splitted in two parts: message + link. Here's first part */
+"alert_reauth_message_ios" = "Bitte melde dich bei OpenStreetMap an, um alle deine Kartenbearbeitungen automatisch hochzuladen. Erfahre mehr";
+
+/* For iOS message 'alert_reauth_message' should be splitted in two parts: message + link. Here's link part */
+"alert_reauth_link_text_ios" = "hier";
 
 "core_entrance" = "Eingang";
 

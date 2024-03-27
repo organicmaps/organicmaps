@@ -629,6 +629,8 @@
 
 "login" = "ورود";
 
+"login_osm" = "شوید OpenStreetMap وارد";
+
 "forgot_password" = "رمز عبور خود را فراموش کردید؟";
 
 "osm_account" = "حساب OSM";
@@ -930,6 +932,12 @@
 "start_from_my_position" = "شروع از";
 
 "profile_authorization_error" = "اوه، یک خطا وجود داشت سعی کنید دوباره وارد سیستم شوید";
+
+/* For iOS message 'alert_reauth_message' should be splitted in two parts: message + link. Here's first part */
+"alert_reauth_message_ios" = "لطفاً به OpenStreetMap وارد شوید تا به طور خودکار تمام ویرایش های نقشه خود را آپلود کنید.";
+
+/* For iOS message 'alert_reauth_message' should be splitted in two parts: message + link. Here's link part */
+"alert_reauth_link_text_ios" = "اینجا";
 
 "core_entrance" = "ورودی";
 

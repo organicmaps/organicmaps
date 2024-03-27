@@ -110,7 +110,7 @@ using namespace osm;
 
         if (auth.IsAuthorized())
         {
-          osm_auth_ios::AuthorizationStoreCredentials(auth.GetKeySecret());
+          osm_auth_ios::AuthorizationStoreCredentials(auth.GetAuthToken());
           UIViewController * svc = nil;
           for (UIViewController * vc in self.navigationController.viewControllers)
           {

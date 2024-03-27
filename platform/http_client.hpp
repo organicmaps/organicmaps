@@ -85,9 +85,8 @@ public:
   HttpClient & SetUserAndPassword(std::string const & user, std::string const & password);
   // Set HTTP Cookie header.
   HttpClient & SetCookies(std::string const & cookies);
-  // When set to true (default), clients never get 3XX codes from servers, redirects are handled automatically.
-  // TODO: "false" is now supported on Android only.
-  HttpClient & SetHandleRedirects(bool handle_redirects);
+  // When set to false (default), clients never get 3XX codes from servers, redirects are handled automatically.
+  HttpClient & SetFollowRedirects(bool follow_redirects);
   HttpClient & SetRawHeader(std::string const & key, std::string const & value);
   HttpClient & SetRawHeaders(Headers const & headers);
   void SetTimeout(double timeoutSec);
@@ -129,7 +128,7 @@ private:
   // Cookies set by the client before request is run.
   std::string m_cookies;
   Headers m_headers;
-  bool m_handleRedirects = true;
+  bool m_followRedirects = false; // If true then in case of HTTP response 3XX make another request to follow redirected URL
   bool m_loadHeaders = false;
   // Use 30 seconds timeout by default.
   double m_timeoutSec = 30.0;

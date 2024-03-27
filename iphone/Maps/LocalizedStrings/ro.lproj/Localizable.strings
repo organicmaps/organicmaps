@@ -629,6 +629,8 @@
 
 "login" = "Autentificare";
 
+"login_osm" = "Conectați-vă la OpenStreetMap";
+
 "forgot_password" = "Ai uitat parola?";
 
 "osm_account" = "Cont OSM";
@@ -930,6 +932,12 @@
 "start_from_my_position" = "Pornește de la";
 
 "profile_authorization_error" = "A apărut o eroare. Încearcă să te conectezi din nou.";
+
+/* For iOS message 'alert_reauth_message' should be splitted in two parts: message + link. Here's first part */
+"alert_reauth_message_ios" = "Vă rugăm să vă conectați la OpenStreetMap pentru a încărca automat toate modificările aduse hărții. Aflați mai multe";
+
+/* For iOS message 'alert_reauth_message' should be splitted in two parts: message + link. Here's link part */
+"alert_reauth_link_text_ios" = "aici";
 
 "core_entrance" = "Intrare";
 

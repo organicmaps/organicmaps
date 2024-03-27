@@ -31,7 +31,7 @@ public:
   DECLARE_EXCEPTION(LinearFeaturesAreNotSupportedException, ChangesetWrapperException);
   DECLARE_EXCEPTION(EmptyFeatureException, ChangesetWrapperException);
 
-  ChangesetWrapper(KeySecret const & keySecret, ServerApi06::KeyValueTags comments) noexcept;
+  ChangesetWrapper(std::string const & keySecret, ServerApi06::KeyValueTags comments) noexcept;
   ~ChangesetWrapper();
 
   /// Throws many exceptions from above list, plus including XMLNode's parsing ones.

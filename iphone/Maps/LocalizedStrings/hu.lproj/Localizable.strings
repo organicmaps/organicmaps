@@ -629,6 +629,8 @@
 
 "login" = "Bejelentkezés";
 
+"login_osm" = "Jelentkezzen be az OpenStreetMap-be";
+
 "forgot_password" = "Elfelejtett jelszó?";
 
 "osm_account" = "OSM-felhasználói fiók";
@@ -930,6 +932,12 @@
 "start_from_my_position" = "Kiindulás innen:";
 
 "profile_authorization_error" = "Hoppá, volt egy hiba. Próbáljon meg újra bejelentkezni.";
+
+/* For iOS message 'alert_reauth_message' should be splitted in two parts: message + link. Here's first part */
+"alert_reauth_message_ios" = "Kérjük, jelentkezzen be az OpenStreetMap rendszerébe, hogy automatikusan feltölthesse az összes térképszerkesztését. További információ";
+
+/* For iOS message 'alert_reauth_message' should be splitted in two parts: message + link. Here's link part */
+"alert_reauth_link_text_ios" = "itt";
 
 "core_entrance" = "Bejárat";
 

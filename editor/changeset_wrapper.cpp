@@ -98,7 +98,7 @@ std::string DebugPrint(xml_document const & doc)
 
 namespace osm
 {
-ChangesetWrapper::ChangesetWrapper(KeySecret const & keySecret,
+ChangesetWrapper::ChangesetWrapper(std::string const & keySecret,
                                    ServerApi06::KeyValueTags comments) noexcept
   : m_changesetComments(std::move(comments)), m_api(OsmOAuth::ServerAuth(keySecret))
 {

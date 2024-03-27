@@ -629,6 +629,8 @@
 
 "login" = "Log in";
 
+"login_osm" = "Inloggen op OpenStreetMap";
+
 "forgot_password" = "Wachtwoord vergeten?";
 
 "osm_account" = "OSM-account";
@@ -930,6 +932,12 @@
 "start_from_my_position" = "Start vanaf";
 
 "profile_authorization_error" = "Oeps, er is een fout opgetreden. Probeer opnieuw aan te melden.";
+
+/* For iOS message 'alert_reauth_message' should be splitted in two parts: message + link. Here's first part */
+"alert_reauth_message_ios" = "Log in op OpenStreetMap om al je kaartbewerkingen automatisch te uploaden. Meer informatie";
+
+/* For iOS message 'alert_reauth_message' should be splitted in two parts: message + link. Here's link part */
+"alert_reauth_link_text_ios" = "hier";
 
 "core_entrance" = "Ingang";
 

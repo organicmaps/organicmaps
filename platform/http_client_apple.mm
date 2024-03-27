@@ -33,8 +33,48 @@ SOFTWARE.
 
 #include "base/logging.hpp"
 
+
+@interface RedirectDelegate : NSObject<NSURLSessionDataDelegate>
+
+// If YES - redirect response triggeres new request automatically
+// If NO  - redirect response is returned to result handler
+@property(nonatomic) BOOL followRedirects;
+
+- (instancetype)init:(BOOL)followRedirects;
+
+- (void)        URLSession:(NSURLSession *)session
+                      task:(NSURLSessionTask *)task
+willPerformHTTPRedirection:(NSHTTPURLResponse *)response
+                newRequest:(NSURLRequest *)newRequest
+         completionHandler:(void (^)(NSURLRequest *))completionHandler;
+@end
+
+@implementation RedirectDelegate
+- (instancetype)init:(BOOL)followRedirects
+{
+  if (self = [super init])
+    _followRedirects = followRedirects;
+  
+  return self;
+}
+
+- (void)        URLSession:(NSURLSession *)session
+                      task:(NSURLSessionTask *)task
+willPerformHTTPRedirection:(NSHTTPURLResponse *)response
+                newRequest:(NSURLRequest *)newRequest
+         completionHandler:(void (^)(NSURLRequest *))completionHandler
+{
+  if (!_followRedirects && response.statusCode >= 300 && response.statusCode < 400)
+    completionHandler(nil);
+  else
+    completionHandler(newRequest);
+}
+@end
+
+
 @interface Connection : NSObject
 + (nullable NSData *)sendSynchronousRequest:(NSURLRequest *)request
+                            followRedirects:(BOOL)followRedirects
                           returningResponse:(NSURLResponse **)response
                                       error:(NSError **)error;
 @end
@@ -42,14 +82,16 @@ SOFTWARE.
 @implementation Connection
 
 + (NSData *)sendSynchronousRequest:(NSURLRequest *)request
+                   followRedirects:(BOOL)followRedirects
                  returningResponse:(NSURLResponse * __autoreleasing *)response
                              error:(NSError * __autoreleasing *)error
 {
   Connection * connection = [[Connection alloc] init];
-  return [connection sendSynchronousRequest:request returningResponse:response error:error];
+  return [connection sendSynchronousRequest:request followRedirects: followRedirects returningResponse:response error:error];
 }
 
 - (NSData *)sendSynchronousRequest:(NSURLRequest *)request
+                   followRedirects:(BOOL)followRedirects
                  returningResponse:(NSURLResponse * __autoreleasing *)response
                              error:(NSError * __autoreleasing *)error {
   __block NSData * resultData = nil;
@@ -59,9 +101,11 @@ SOFTWARE.
   dispatch_group_t group = dispatch_group_create();
   dispatch_group_enter(group);
 
+  RedirectDelegate * delegate = [[RedirectDelegate alloc] init: followRedirects];
+
   [[[HttpSessionManager sharedManager]
       dataTaskWithRequest:request
-                 delegate:nil
+                 delegate:delegate
         completionHandler:^(NSData * _Nullable data, NSURLResponse * _Nullable response,
                             NSError * _Nullable error) {
           resultData = data;
@@ -81,8 +125,8 @@ namespace platform
 {
 bool HttpClient::RunHttpRequest()
 {
-  NSMutableURLRequest * request = [NSMutableURLRequest requestWithURL:
-      static_cast<NSURL *>([NSURL URLWithString:@(m_urlRequested.c_str())])
+  NSURL * url = static_cast<NSURL *>([NSURL URLWithString:@(m_urlRequested.c_str())]);
+  NSMutableURLRequest * request = [NSMutableURLRequest requestWithURL: url
       cachePolicy:NSURLRequestReloadIgnoringLocalCacheData timeoutInterval:m_timeoutSec];
   // We handle cookies manually.
   request.HTTPShouldHandleCookies = NO;
@@ -121,14 +165,19 @@ bool HttpClient::RunHttpRequest()
 
   NSHTTPURLResponse * response = nil;
   NSError * err = nil;
-  NSData * url_data = [Connection sendSynchronousRequest:request returningResponse:&response error:&err];
+  NSData * url_data = [Connection sendSynchronousRequest:request followRedirects:m_followRedirects returningResponse:&response error:&err];
 
   m_headers.clear();
 
   if (response)
   {
     m_errorCode = static_cast<int>(response.statusCode);
-    m_urlReceived = response.URL.absoluteString.UTF8String;
+
+    NSString * redirectUri = [response.allHeaderFields objectForKey:@"Location"];
+    if (redirectUri)
+      m_urlReceived = redirectUri.UTF8String;
+    else
+      m_urlReceived = response.URL.absoluteString.UTF8String;
 
     if (m_loadHeaders)
     {

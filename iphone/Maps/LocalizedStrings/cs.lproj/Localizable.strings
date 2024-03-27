@@ -629,6 +629,8 @@
 
 "login" = "Přihlásit se";
 
+"login_osm" = "Přihlaste se do OpenStreetMap";
+
 "forgot_password" = "Zapomenuté heslo?";
 
 "osm_account" = "Účet OSM";
@@ -930,6 +932,12 @@
 "start_from_my_position" = "Začít z";
 
 "profile_authorization_error" = "Jejda, došlo k chybě. Zkuste se přihlásit znovu.";
+
+/* For iOS message 'alert_reauth_message' should be splitted in two parts: message + link. Here's first part */
+"alert_reauth_message_ios" = "Přihlaste se do OpenStreetMap, abyste mohli automaticky nahrávat všechny své úpravy mapy. Více informací";
+
+/* For iOS message 'alert_reauth_message' should be splitted in two parts: message + link. Here's link part */
+"alert_reauth_link_text_ios" = "zde";
 
 "core_entrance" = "Vstup";
 

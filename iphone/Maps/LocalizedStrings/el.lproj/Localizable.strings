@@ -629,6 +629,8 @@
 
 "login" = "Σύνδεση";
 
+"login_osm" = "Συνδεθείτε στο OpenStreetMap";
+
 "forgot_password" = "Ξαχάσατε τον κωδικό πρόσβασης;";
 
 "osm_account" = "Λογαριασμός OSM  ";
@@ -930,6 +932,12 @@
 "start_from_my_position" = "Έναρξη από";
 
 "profile_authorization_error" = "Ωχ, παρουσιάστηκε σφάλμα. Προσπαθήστε να συνδεθείτε ξανά.";
+
+/* For iOS message 'alert_reauth_message' should be splitted in two parts: message + link. Here's first part */
+"alert_reauth_message_ios" = "Παρακαλούμε συνδεθείτε στο OpenStreetMap για να ανεβάσετε αυτόματα όλες τις επεξεργασίες του χάρτη σας. Μάθετε περισσότερα";
+
+/* For iOS message 'alert_reauth_message' should be splitted in two parts: message + link. Here's link part */
+"alert_reauth_link_text_ios" = "εδώ";
 
 "core_entrance" = "Είσοδος";
 

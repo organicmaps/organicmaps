@@ -629,6 +629,8 @@
 
 "login" = "Вход";
 
+"login_osm" = "Влезте в OpenStreetMap";
+
 "forgot_password" = "Забравили сте паролата си?";
 
 "osm_account" = "OSM Акаунт";
@@ -930,6 +932,12 @@
 "start_from_my_position" = "Start from";
 
 "profile_authorization_error" = "За съжаление има грешка. Опитайте да влезете отново.";
+
+/* For iOS message 'alert_reauth_message' should be splitted in two parts: message + link. Here's first part */
+"alert_reauth_message_ios" = "Моля, влезте в OpenStreetMap, за да качвате автоматично всичките си редакции на картата. Научете повече";
+
+/* For iOS message 'alert_reauth_message' should be splitted in two parts: message + link. Here's link part */
+"alert_reauth_link_text_ios" = "тук";
 
 "core_entrance" = "Вход";
 

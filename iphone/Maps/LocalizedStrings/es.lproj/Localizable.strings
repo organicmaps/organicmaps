@@ -629,6 +629,8 @@
 
 "login" = "Iniciar sesión";
 
+"login_osm" = "Iniciar sesión en OpenStreetMap";
+
 "forgot_password" = "¿Ha olvidado su contraseña?";
 
 "osm_account" = "Cuenta OSM";
@@ -930,6 +932,12 @@
 "start_from_my_position" = "Empezar desde";
 
 "profile_authorization_error" = "Vaya, se ha producido un error. Intente iniciar sesión de nuevo.";
+
+/* For iOS message 'alert_reauth_message' should be splitted in two parts: message + link. Here's first part */
+"alert_reauth_message_ios" = "Inicia sesión en OpenStreetMap para cargar automáticamente todas tus ediciones de mapas. Más información";
+
+/* For iOS message 'alert_reauth_message' should be splitted in two parts: message + link. Here's link part */
+"alert_reauth_link_text_ios" = "aquí";
 
 "core_entrance" = "Entrada";
 

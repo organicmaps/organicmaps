@@ -90,8 +90,7 @@ template <class T> T * CreateBlackControl(QString const & name)
 }  // namespace
 
 // Defined in osm_auth_dialog.cpp.
-extern char const * kTokenKeySetting;
-extern char const * kTokenSecretSetting;
+extern char const * kOauthTokenSetting;
 
 MainWindow::MainWindow(Framework & framework,
                        std::unique_ptr<ScreenshotParams> && screenshotParams,
@@ -639,9 +638,8 @@ void MainWindow::OnLoginMenuItem()
 
 void MainWindow::OnUploadEditsMenuItem()
 {
-  std::string key, secret;
-  if (!settings::Get(kTokenKeySetting, key) || key.empty() ||
-      !settings::Get(kTokenSecretSetting, secret) || secret.empty())
+  std::string token;
+  if (!settings::Get(kOauthTokenSetting, token) || token.empty())
   {
     OnLoginMenuItem();
   }
@@ -649,7 +647,7 @@ void MainWindow::OnUploadEditsMenuItem()
   {
     auto & editor = osm::Editor::Instance();
     if (editor.HaveMapEditsOrNotesToUpload())
-      editor.UploadChanges(key, secret, {{"created_by", "Organic Maps " OMIM_OS_NAME}});
+      editor.UploadChanges(token, {{"created_by", "Organic Maps " OMIM_OS_NAME}});
   }
 }
 

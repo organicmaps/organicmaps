@@ -629,6 +629,8 @@
 
 "login" = "Log ind";
 
+"login_osm" = "Log ind på OpenStreetMap";
+
 "forgot_password" = "Glemt adgangskode?";
 
 "osm_account" = "OSM-konto";
@@ -930,6 +932,12 @@
 "start_from_my_position" = "Start fra";
 
 "profile_authorization_error" = "Ups, der skete en fejl. Prøv at logge på igen.";
+
+/* For iOS message 'alert_reauth_message' should be splitted in two parts: message + link. Here's first part */
+"alert_reauth_message_ios" = "Log ind på OpenStreetMap for automatisk at uploade alle dine kortredigeringer. Få mere at vide";
+
+/* For iOS message 'alert_reauth_message' should be splitted in two parts: message + link. Here's link part */
+"alert_reauth_link_text_ios" = "her";
 
 "core_entrance" = "Indgang";
 

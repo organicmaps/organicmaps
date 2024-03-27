@@ -629,6 +629,8 @@
 
 "login" = "Logi sisse";
 
+"login_osm" = "Logi sisse OpenStreetMap-i";
+
 "forgot_password" = "Unustasid oma salasõna?";
 
 "osm_account" = "OSM konto";
@@ -930,6 +932,12 @@
 "start_from_my_position" = "Alusta kohast";
 
 "profile_authorization_error" = "Vabandust, tekkis viga. Proovi uuesti sisse logida.";
+
+/* For iOS message 'alert_reauth_message' should be splitted in two parts: message + link. Here's first part */
+"alert_reauth_message_ios" = "Palun logige sisse OpenStreetMap'i, et laadida automaatselt üles kõik oma kaarditööd. Lisateave";
+
+/* For iOS message 'alert_reauth_message' should be splitted in two parts: message + link. Here's link part */
+"alert_reauth_link_text_ios" = "kuskil";
 
 "core_entrance" = "Sissepääs";
 

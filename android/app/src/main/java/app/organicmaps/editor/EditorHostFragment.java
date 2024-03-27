@@ -65,6 +65,7 @@ public class EditorHostFragment extends BaseMwmToolbarFragment implements View.O
   private int mMandatoryNamesCount = 0;
 
   private static final String NOOB_ALERT_SHOWN = "Alert_for_noob_was_shown";
+
   /**
    *   Used in MultilanguageAdapter to show, select and remove items.
    */

@@ -629,6 +629,8 @@
 
 "login" = "로그인";
 
+"login_osm" = "OpenStreetMap에 로그인";
+
 "forgot_password" = "암호를 잊으 셨나요?";
 
 "osm_account" = "OSM 계정";
@@ -930,6 +932,12 @@
 "start_from_my_position" = "시작 위치:";
 
 "profile_authorization_error" = "죄송합니다. 오류가 발생했습니다. 다시 로그인해 보세요.";
+
+/* For iOS message 'alert_reauth_message' should be splitted in two parts: message + link. Here's first part */
+"alert_reauth_message_ios" = "모든 지도 편집 내용을 자동으로 업로드하려면 오픈스트리트맵에 로그인하세요. 자세히 알아보기";
+
+/* For iOS message 'alert_reauth_message' should be splitted in two parts: message + link. Here's link part */
+"alert_reauth_link_text_ios" = "여기";
 
 "core_entrance" = "입구";
 

@@ -1,7 +1,6 @@
 #import "MWMAlertViewController.h"
 #import "MWMAuthorizationCommon.h"
 #import "MWMAuthorizationLoginViewController.h"
-#import "MWMAuthorizationWebViewLoginViewController.h"
 
 #include <CoreApi/Framework.h>
 

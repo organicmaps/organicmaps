@@ -627,7 +627,9 @@
 
 "invalid_username_or_password" = "שם משתמש או סיסמה לא תקינים.";
 
-"login" = "כניסה ל-OpenStreetMap";
+"login" = "כניסה";
+
+"login_osm" = "היכנס ל-OpenStreetMap";
 
 "forgot_password" = "שכחת סיסמה?";
 
@@ -930,6 +932,12 @@
 "start_from_my_position" = "Start from";
 
 "profile_authorization_error" = "אופס, הייתה שגיאה. נסה להתחבר שנית.";
+
+/* For iOS message 'alert_reauth_message' should be splitted in two parts: message + link. Here's first part */
+"alert_reauth_message_ios" = "התחבר ל-OpenStreetMap כדי להעלות אוטומטית את כל עריכות המפה שלך. למידע נוסף";
+
+/* For iOS message 'alert_reauth_message' should be splitted in two parts: message + link. Here's link part */
+"alert_reauth_link_text_ios" = "כאן";
 
 "core_entrance" = "כניסה";
 

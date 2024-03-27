@@ -179,6 +179,10 @@ static NSString *const kAlertControllerNibIdentifier = @"MWMAlertViewController"
   [self displayAlert:[MWMAlert osmAuthAlert]];
 }
 
+- (void)presentOsmReauthAlert {
+  [self displayAlert:[MWMAlert osmReauthAlert]];
+}
+
 - (void)presentCreateBookmarkCategoryAlertWithMaxCharacterNum:(NSUInteger)max
                                               minCharacterNum:(NSUInteger)min
                                                      callback:(nonnull MWMCheckStringBlock)callback {

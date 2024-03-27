@@ -1086,7 +1086,6 @@ void registerCellsForTableView(std::vector<MWMEditorCellID> const & cells, UITab
   [self.alertController presentPersonalInfoWarningAlertWithBlock:^
   {
     [ud setBool:YES forKey:kUDEditorPersonalInfoWarninWasShown];
-    [ud synchronize];
     [self onSave];
   }];
 

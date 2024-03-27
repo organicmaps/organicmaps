@@ -29,6 +29,7 @@
 + (MWMAlert *)deleteFeatureAlertWithBlock:(MWMVoidBlock)block;
 + (MWMAlert *)editorViralAlert;
 + (MWMAlert *)osmAuthAlert;
++ (MWMAlert *)osmReauthAlert;
 + (MWMAlert *)personalInfoWarningAlertWithBlock:(MWMVoidBlock)block;
 + (MWMAlert *)trackWarningAlertWithCancelBlock:(MWMVoidBlock)block;
 + (MWMAlert *)infoAlert:(NSString *)title text:(NSString *)text;

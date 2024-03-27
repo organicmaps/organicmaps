@@ -629,6 +629,8 @@
 
 "login" = "Daxil ol";
 
+"login_osm" = "OpenStreetMap-a daxil olun";
+
 "forgot_password" = "Parolu unutmusunuz?";
 
 "osm_account" = "OSM Hesabı";
@@ -930,6 +932,12 @@
 "start_from_my_position" = "Buradan başlayın";
 
 "profile_authorization_error" = "Bağışlayın, xəta baş verdi. Yenidən daxil olmağa çalışın.";
+
+/* For iOS message 'alert_reauth_message' should be splitted in two parts: message + link. Here's first part */
+"alert_reauth_message_ios" = "Bütün xəritə redaktələrinizi avtomatik yükləmək üçün OpenStreetMap-a daxil olun.";
+
+/* For iOS message 'alert_reauth_message' should be splitted in two parts: message + link. Here's link part */
+"alert_reauth_link_text_ios" = "burada";
 
 "core_entrance" = "Giriş";
 

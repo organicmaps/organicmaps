@@ -298,8 +298,6 @@
                         <segue destination="Lfa-Zp-orR" kind="custom" identifier="Map2EditorSegue" customClass="MWMSegue" id="OEF-kR-jKi"/>
                         <segue destination="QlF-CJ-cEG" kind="custom" identifier="MapToCategorySelectorSegue" customClass="MWMSegue" id="4Cc-99-mlN"/>
                         <segue destination="5Wc-fy-NOW" kind="custom" identifier="Map2OsmLogin" customClass="MWMSegue" id="7YC-t5-0WN"/>
-                        <segue destination="2Nx-b7-VGe" kind="custom" identifier="Map2FBLogin" customClass="MWMSegue" id="nCr-QR-kY7"/>
-                        <segue destination="2Nx-b7-VGe" kind="custom" identifier="Map2GoogleLogin" customClass="MWMSegue" id="sMq-pa-AId"/>
                         <segue destination="h4a-ne-bSJ" kind="custom" identifier="Map2MapDownloaderSegue" customClass="MWMSegue" id="Tkr-Ad-FQL"/>
                         <segue destination="lFr-lA-JTW" kind="show" identifier="PP2BookmarkEditing" id="0A8-4b-0A2"/>
                         <segue destination="Psz-BY-Fy4" kind="presentation" identifier="PP2BookmarkEditingIPAD" modalPresentationStyle="formSheet" id="k6v-a7-5DO"/>
@@ -1112,14 +1110,6 @@
             </objects>
             <point key="canvasLocation" x="2705" y="4393"/>
         </scene>
-        <!--UIViewController-anB-7S-ebY-->
-        <scene sceneID="Tlf-p1-TIV">
-            <objects>
-                <viewControllerPlaceholder storyboardName="Authorization" referencedIdentifier="UIViewController-anB-7S-ebY" id="2Nx-b7-VGe" sceneMemberID="viewController"/>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="zha-LO-7Vm" userLabel="First Responder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="2705" y="5187"/>
-        </scene>
         <!--MWMSettingsViewController-->
         <scene sceneID="ecD-Uc-PMs">
             <objects>
@@ -1147,7 +1137,6 @@
         </scene>
     </scenes>
     <inferredMetricsTieBreakers>
-        <segue reference="sMq-pa-AId"/>
         <segue reference="4Cc-99-mlN"/>
         <segue reference="OEF-kR-jKi"/>
         <segue reference="0A8-4b-0A2"/>

@@ -627,7 +627,9 @@
 
 "invalid_username_or_password" = "Invalid username or password.";
 
-"login" = "OpenStreetMap Login";
+"login" = "Login";
+
+"login_osm" = "Login to OpenStreetMap";
 
 "forgot_password" = "Forgot your password?";
 
@@ -930,6 +932,12 @@
 "start_from_my_position" = "Start from";
 
 "profile_authorization_error" = "उफ़, एक त्रुटि हुई. पुनः साइन इन करने का प्रयास करें.";
+
+/* For iOS message 'alert_reauth_message' should be splitted in two parts: message + link. Here's first part */
+"alert_reauth_message_ios" = "कृपया अपने सभी मानचित्र संपादनों को स्वचालित रूप से अपलोड करने के लिए OpenStreetMap पर लॉगिन करें। अधिक जानें";
+
+/* For iOS message 'alert_reauth_message' should be splitted in two parts: message + link. Here's link part */
+"alert_reauth_link_text_ios" = "यहां";
 
 "core_entrance" = "Entrance";
 

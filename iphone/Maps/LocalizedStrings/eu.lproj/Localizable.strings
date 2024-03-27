@@ -629,6 +629,8 @@
 
 "login" = "Saioa hasi";
 
+"login_osm" = "Hasi saioa OpenStreetMap-en";
+
 "forgot_password" = "Pasahitza ahaztu duzu?";
 
 "osm_account" = "OSM kontua";
@@ -930,6 +932,12 @@
 "start_from_my_position" = "Hasi hemendik";
 
 "profile_authorization_error" = "Errore bat gertatu da. Saiatu berriro saioa hasten.";
+
+/* For iOS message 'alert_reauth_message' should be splitted in two parts: message + link. Here's first part */
+"alert_reauth_message_ios" = "Hasi saioa OpenStreetMap-en zure mapen aldaketa guztiak automatikoki kargatzeko. Lortu informazio gehiago";
+
+/* For iOS message 'alert_reauth_message' should be splitted in two parts: message + link. Here's link part */
+"alert_reauth_link_text_ios" = "hemen";
 
 "core_entrance" = "Sarrera";
 
