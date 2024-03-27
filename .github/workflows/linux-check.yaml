@@ -79,8 +79,8 @@ jobs:
       - name: CMake
         shell: bash
         env:
-          CC: clang-14
-          CXX: clang++-14
+          CC: clang-15
+          CXX: clang++-15
           CMAKE_C_COMPILER_LAUNCHER: ccache
           CMAKE_CXX_COMPILER_LAUNCHER: ccache
         # -g1 should slightly reduce build time.
@@ -99,7 +99,7 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        compiler: [{ CXX: g++-12, CC: gcc-12 }, { CXX: clang++-14, CC: clang-14 }]
+        compiler: [{ CXX: g++-13, CC: gcc-13 }, { CXX: clang++-15, CC: clang-15 }]
         CMAKE_BUILD_TYPE: [Debug, RelWithDebInfo]
     # Cancels previous jobs if the same branch or PR was updated again.
     concurrency:
@@ -124,8 +124,8 @@ jobs:
         run: |
           sudo apt update -y
           sudo apt install -y \
-              g++-12 \
-              gcc-12 \
+              g++-13 \
+              gcc-13 \
               ninja-build \
               libgl1-mesa-dev \
               libglvnd-dev \
