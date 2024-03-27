@@ -714,8 +714,8 @@ area|z16-[tourism=guest_house],
 node|z13-[tourism=alpine_hut],
 node|z16-[tourism=wilderness_hut],
 node|z16-[tourism=chalet],
-node|z16-[tourism=resort],
-area|z16-[tourism=resort],
+node|z16-[leisure=resort],
+area|z16-[leisure=resort],
 node|z16-[tourism=motel],
 area|z16-[tourism=motel],
 node|z16-[tourism=apartment],
@@ -730,8 +730,8 @@ node|z16-[tourism=caravan_site],
 
 
 node|z16[tourism=hotel],
-node|z16[tourism=resort],
-area|z16[tourism=resort],
+node|z16[leisure=resort],
+area|z16[leisure=resort],
 node|z16[tourism=motel],
 area|z16[tourism=motel]
 {icon-image: hotel-m.svg;icon-min-distance: 24;}
@@ -752,8 +752,8 @@ node|z16[tourism=chalet],
 node|z17-[tourism=hotel],
 node|z17-[tourism=motel],
 area|z17-[tourism=motel],
-node|z17-[tourism=resort],
-area|z17-[tourism=resort]
+node|z17-[leisure=resort],
+area|z17-[leisure=resort]
 {icon-image: hotel-m.svg;icon-min-distance: 16;}
 node|z17-[tourism=hostel]
 {icon-image: hostel-m.svg;icon-min-distance: 16;}

@@ -747,7 +747,7 @@ piste:type-snow_park                                # caption z15- (also has are
 
 amenity-townhall                                    # icon z16- (also has caption(optional) z16-)
 tourism-hotel                                       # icon z16- (also has caption(optional) z16-)
-tourism-resort                                      # icon z16- (also has caption(optional) z16-)
+leisure-resort                                      # icon z16- (also has caption(optional) z16-)
 === 2750
 
 amenity-arts_centre                                 # icon z17- (also has caption(optional) z17-)

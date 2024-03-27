@@ -13769,8 +13769,7 @@ sk:5Apartmány
 fa:اپارتمان|سوئیت
 mr:सदनिका|फ्लॅट|अपार्टमेंट
 
-# [tourism=resort] is deprecated
-tourism-resort|@category_hotel
+leisure-resort|@category_hotel
 en:Resort
 ru:Дом отдыха
 bg:Курорт
