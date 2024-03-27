@@ -34,12 +34,12 @@ PathTextShape::PathTextShape(m2::SharedSpline const & spline,
 
 bool PathTextShape::CalculateLayout(ref_ptr<dp::TextureManager> textures)
 {
-  std::string text = m_params.m_mainText;
-  if (!m_params.m_auxText.empty())
-    text += "   " + m_params.m_auxText;
-
+  char constexpr kSpaces[] = "   ";
   auto layout = make_unique_dp<PathTextLayout>(m_params.m_tileCenter,
-                                               strings::MakeUniString(text),
+                                               strings::MakeUniString(
+                                                   m_params.m_auxText.empty()
+                                                   ? m_params.m_mainText
+                                                   : m_params.m_mainText + kSpaces + m_params.m_auxText),
                                                m_params.m_textFont.m_size,
                                                m_params.m_textFont.m_isSdf,
                                                textures);

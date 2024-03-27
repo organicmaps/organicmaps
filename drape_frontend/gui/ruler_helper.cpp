@@ -3,7 +3,6 @@
 #include "drape_frontend/visual_params.hpp"
 
 #include "platform/measurement_utils.hpp"
-#include "platform/settings.hpp"
 
 #include "geometry/mercator.hpp"
 #include "geometry/screenbase.hpp"
@@ -19,7 +18,7 @@ namespace gui
 {
 namespace
 {
-int constexpr kMinPixelWidth = 60;
+float constexpr kMinPixelWidth = 60.f;
 int constexpr kMinMetersWidth = 5;
 int constexpr kMaxMetersWidth = 1000000;
 
@@ -35,7 +34,8 @@ struct UnitValue
   int m_i;
 };
 
-UnitValue g_arrFeets[] = {
+// TODO: Localize these strings.
+UnitValue constexpr g_arrFeets[] = {
   { "10 ft", 10 },
   { "20 ft", 20 },
   { "50 ft", 50 },
@@ -55,7 +55,7 @@ UnitValue g_arrFeets[] = {
   { "500 mi", 500 * 5280 }
 };
 
-UnitValue g_arrYards[] = {
+UnitValue constexpr g_arrYards[] = {
   { "50 yd", 50 },
   { "100 yd", 100 },
   { "200 yd", 200 },
@@ -75,7 +75,7 @@ UnitValue g_arrYards[] = {
 // TODO: fix ruler text to the current zoom level, i.e. make it 100m for z16 always
 // (ruler length will vary still). It'll make debugging and user support easier as
 // we'll be able to tell zoom level of a screenshot by looking at the ruler.
-UnitValue g_arrMeters[] = {
+UnitValue constexpr g_arrMeters[] = {
   { "1 m", 1 },
   { "2 m", 2 },
   { "5 m", 5 },
@@ -146,7 +146,8 @@ void RulerHelper::Update(ScreenBase const & screen)
   m_currentDrawScale = drawScale;
 }
 
-bool RulerHelper::IsVisible(ScreenBase const & screen) const
+// static
+bool RulerHelper::IsVisible(ScreenBase const & screen)
 {
   DrapeGui & gui = DrapeGui::Instance();
   return !gui.IsCopyrightActive() && df::GetDrawTileScale(screen) >= kVisibleRulerBottomScale;
@@ -157,9 +158,10 @@ void RulerHelper::Invalidate()
   SetTextDirty();
 }
 
-float RulerHelper::GetRulerHalfHeight() const
+// static
+float RulerHelper::GetRulerHalfHeight()
 {
-  float const kRulerHalfHeight = 1.0f;
+  float constexpr kRulerHalfHeight = 1.0f;
   return kRulerHalfHeight * static_cast<float>(df::VisualParams::Instance().GetVisualScale());
 }
 
@@ -168,12 +170,14 @@ float RulerHelper::GetRulerPixelLength() const
   return m_pixelLength;
 }
 
-float RulerHelper::GetMaxRulerPixelLength() const
+// static
+float RulerHelper::GetMaxRulerPixelLength()
 {
-  return static_cast<float>(kMinPixelWidth) * 3.0f / 2.0f;
+  return kMinPixelWidth * 3.0f / 2.0f;
 }
 
-int RulerHelper::GetVerticalTextOffset() const
+// static
+int RulerHelper::GetVerticalTextOffset()
 {
   return static_cast<int>(-5 * df::VisualParams::Instance().GetVisualScale());
 }
@@ -195,7 +199,8 @@ void RulerHelper::ResetTextDirtyFlag()
     m_isTextDirty = false;
 }
 
-void RulerHelper::GetTextInitInfo(std::string & alphabet, uint32_t & size) const
+// static
+void RulerHelper::GetTextInitInfo(std::string & alphabet, uint32_t & size)
 {
   std::set<char> symbols;
   size_t result = 0;
@@ -222,7 +227,7 @@ void RulerHelper::GetTextInitInfo(std::string & alphabet, uint32_t & size) const
 
 double RulerHelper::CalcMetersDiff(double value)
 {
-  UnitValue * arrU = g_arrMeters;
+  UnitValue const * arrU = g_arrMeters;
   int count = ARRAY_SIZE(g_arrMeters);
 
   auto conversionFn = &Identity;

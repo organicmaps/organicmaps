@@ -96,7 +96,7 @@ uint32_t SdfImage::GetHeight() const
 
 void SdfImage::GetData(std::vector<uint8_t> & dst)
 {
-  ASSERT(m_data.size() <= dst.size(), ());
+  ASSERT_LESS_OR_EQUAL(m_data.size(), dst.size(), ());
   std::transform(m_data.begin(), m_data.end(), dst.begin(), [](float const & node)
   {
     return static_cast<uint8_t>(node * 255.0f);

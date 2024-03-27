@@ -37,7 +37,7 @@ class AttributeBufferMutator
 public:
   ~AttributeBufferMutator();
   void AddMutation(BindingInfo const & info, MutateNode const & node);
-  void * AllocateMutationBuffer(uint32_t byteCount);
+  void * AllocateMutationBuffer(size_t byteCount);
 
 private:
   friend class VertexArrayBuffer;
