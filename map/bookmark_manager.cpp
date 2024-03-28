@@ -2240,7 +2240,11 @@ std::vector<kml::MarkGroupId> BookmarkManager::GetSortedBmGroupIdList() const
 
   std::sort(vec.begin(), vec.end(), [](PairT const & lhs, PairT const & rhs)
   {
-    return lhs.second->GetLastModifiedTime() > rhs.second->GetLastModifiedTime();
+    bool const lVisible {lhs.second->IsVisible()};
+    bool const rVisible {rhs.second->IsVisible()};
+    if (lVisible == rVisible)
+      return lhs.second->GetLastModifiedTime() > rhs.second->GetLastModifiedTime();
+    return lVisible;
   });
 
   for (size_t i = 0; i < count; ++i)

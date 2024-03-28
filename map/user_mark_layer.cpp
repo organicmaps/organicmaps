@@ -37,7 +37,7 @@ void UserMarkLayer::SetIsVisible(bool isVisible)
 {
   if (m_isVisible != isVisible)
   {
-    SetDirty();
+    SetDirty(false /* updateModificationDate */);
     m_isVisible = isVisible;
   }
 }
@@ -50,13 +50,13 @@ void UserMarkLayer::ResetChanges()
 
 void UserMarkLayer::AttachUserMark(kml::MarkId markId)
 {
-  SetDirty();
+  SetDirty(false /* updateModificationTime */);
   m_userMarks.insert(markId);
 }
 
 void UserMarkLayer::DetachUserMark(kml::MarkId markId)
 {
-  SetDirty();
+  SetDirty(false /* updateModificationTime */);
   m_userMarks.erase(markId);
 }
 

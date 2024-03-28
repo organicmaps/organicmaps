@@ -313,7 +313,8 @@ BookmarkCategory::BookmarkCategory(kml::CategoryData && data, bool autoSave)
   , m_autoSave(autoSave)
   , m_data(std::move(data))
 {
-  Base::SetIsVisible(m_data.m_visible);
+  // Base::SetIsVisible(m_data.m_visible);
+  m_isVisible = m_data.m_visible;
 }
 
 void BookmarkCategory::SetIsVisible(bool isVisible)
@@ -398,8 +399,9 @@ kml::PredefinedColor BookmarkCategory::GetDefaultColor()
   return kml::PredefinedColor::Red;
 }
 
-void BookmarkCategory::SetDirty()
+void BookmarkCategory::SetDirty(bool updateModificationDate)
 {
-  Base::SetDirty();
-  m_data.m_lastModified = kml::TimestampClock::now();
+  Base::SetDirty(updateModificationDate);
+  if (updateModificationDate)
+    m_data.m_lastModified = kml::TimestampClock::now();
 }
