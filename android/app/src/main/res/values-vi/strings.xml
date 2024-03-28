@@ -216,6 +216,10 @@
 	<string name="pref_map_3d_buildings_disabled_summary">Tòa nhà 3D bị tắt ở chế độ tiết kiệm năng lượng</string>
 	<!-- Settings «Route» category: «Tts enabled» title -->
 	<string name="pref_tts_enable_title">Hướng dẫn bằng Giọng nói</string>
+	<!-- Settings «Route» category: «Tts announce street names» title -->
+	<string name="pref_tts_street_names_title">Thông báo tên đường</string>
+	<!-- Settings «Route» category: «Tts announce street names» description -->
+	<string name="pref_tts_street_names_description">Nếu bật, sẽ đọc to tên đường hoặc lối ra để rẽ vào.</string>
 	<!-- Settings «Route» category: «Tts language» title -->
 	<string name="pref_tts_language_title">Ngôn ngữ Giọng nói</string>
 	<!-- Settings «Route» category: «Test Voice Directions» title -->

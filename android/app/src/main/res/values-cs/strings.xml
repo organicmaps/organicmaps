@@ -220,6 +220,10 @@
 	<string name="pref_map_3d_buildings_disabled_summary">3D budovy jsou vypnuty v úsporném režimu</string>
 	<!-- Settings «Route» category: «Tts enabled» title -->
 	<string name="pref_tts_enable_title">Hlasové instrukce</string>
+	<!-- Settings «Route» category: «Tts announce street names» title -->
+	<string name="pref_tts_street_names_title">Oznamujte názvy ulic</string>
+	<!-- Settings «Route» category: «Tts announce street names» description -->
+	<string name="pref_tts_street_names_description">Je-li povoleno, bude nahlas vyslovován název ulice nebo výjezdu, na který se má odbočit.</string>
 	<!-- Settings «Route» category: «Tts language» title -->
 	<string name="pref_tts_language_title">Jazyk hlasu</string>
 	<!-- Settings «Route» category: «Test Voice Directions» title -->

@@ -234,6 +234,10 @@
 	<string name="pref_map_3d_buildings_disabled_summary">У рэжыме энергазберажэння 3D-будынкі адключаны</string>
 	<!-- Settings «Route» category: «Tts enabled» title -->
 	<string name="pref_tts_enable_title">Галасавыя інструкцыі</string>
+	<!-- Settings «Route» category: «Tts announce street names» title -->
+	<string name="pref_tts_street_names_title">Абвяшчаць назвы вуліц</string>
+	<!-- Settings «Route» category: «Tts announce street names» description -->
+	<string name="pref_tts_street_names_description">Калі ўключана, назва вуліцы або выезду, на які трэба павярнуць, будзе прамаўляцца ўслых.</string>
 	<!-- Settings «Route» category: «Tts language» title -->
 	<string name="pref_tts_language_title">Мова агучвання</string>
 	<!-- Settings «Route» category: «Test Voice Directions» title -->

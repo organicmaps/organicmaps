@@ -235,6 +235,10 @@
 	<string name="pref_map_3d_buildings_disabled_summary">3D binalar güç tasarrufu modunda kapatılır</string>
 	<!-- Settings «Route» category: «Tts enabled» title -->
 	<string name="pref_tts_enable_title">Sesli Yönlendirme</string>
+	<!-- Settings «Route» category: «Tts announce street names» title -->
+	<string name="pref_tts_street_names_title">Sokak İsimlerini Duyur</string>
+	<!-- Settings «Route» category: «Tts announce street names» description -->
+	<string name="pref_tts_street_names_description">Etkinleştirildiğinde, dönülecek sokağın veya çıkışın adı yüksek sesle söylenecektir.</string>
 	<!-- Settings «Route» category: «Tts language» title -->
 	<string name="pref_tts_language_title">Ses Dili</string>
 	<!-- Settings «Route» category: «Test Voice Directions» title -->

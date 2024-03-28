@@ -230,6 +230,10 @@
 	<string name="pref_map_3d_buildings_disabled_summary">A 3D épületek energiatakarékos módban ki vannak kapcsolva</string>
 	<!-- Settings «Route» category: «Tts enabled» title -->
 	<string name="pref_tts_enable_title">Hangutasítások</string>
+	<!-- Settings «Route» category: «Tts announce street names» title -->
+	<string name="pref_tts_street_names_title">Az utcanevek felolvasása</string>
+	<!-- Settings «Route» category: «Tts announce street names» description -->
+	<string name="pref_tts_street_names_description">Ha engedélyezve van, a rendszer hangosan kimondja annak az utcának vagy kijáratnak a nevét, amelyre be kell kanyarodni.</string>
 	<!-- Settings «Route» category: «Tts language» title -->
 	<string name="pref_tts_language_title">A hangutasítások nyelve</string>
 	<!-- Settings «Route» category: «Test Voice Directions» title -->

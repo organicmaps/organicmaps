@@ -254,6 +254,12 @@
 /* Settings «Route» category: «Tts enabled» title */
 "pref_tts_enable_title" = "Hangutasítások";
 
+/* Settings «Route» category: «Tts announce street names» title */
+"pref_tts_street_names_title" = "Az utcanevek felolvasása";
+
+/* Settings «Route» category: «Tts announce street names» description */
+"pref_tts_street_names_description" = "Ha engedélyezve van, a rendszer hangosan kimondja annak az utcának vagy kijáratnak a nevét, amelyre be kell kanyarodni.";
+
 /* Settings «Route» category: «Tts language» title */
 "pref_tts_language_title" = "A hangutasítások nyelve";
 

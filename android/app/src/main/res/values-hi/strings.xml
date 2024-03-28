@@ -234,6 +234,10 @@
 	<string name="pref_map_3d_buildings_disabled_summary">3डी इमारतें बिजली बचत मोड में अक्षम हैं</string>
 	<!-- Settings «Route» category: «Tts enabled» title -->
 	<string name="pref_tts_enable_title">ध्वनि निर्देश</string>
+	<!-- Settings «Route» category: «Tts announce street names» title -->
+	<string name="pref_tts_street_names_title">सड़कों के नाम की घोषणा करें</string>
+	<!-- Settings «Route» category: «Tts announce street names» description -->
+	<string name="pref_tts_street_names_description">सक्षम होने पर, सड़क का नाम या मुड़ने के लिए निकास का नाम ज़ोर से बोला जाएगा।</string>
 	<!-- Settings «Route» category: «Tts language» title -->
 	<string name="pref_tts_language_title">आवाज की भाषा</string>
 	<!-- Settings «Route» category: «Test Voice Directions» title -->

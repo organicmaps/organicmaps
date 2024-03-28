@@ -36,6 +36,7 @@ import app.organicmaps.sound.MediaPlayerWrapper;
 import app.organicmaps.location.LocationHelper;
 import app.organicmaps.location.LocationListener;
 import app.organicmaps.sound.TtsPlayer;
+import app.organicmaps.util.Config;
 import app.organicmaps.util.Graphics;
 import app.organicmaps.util.LocationUtils;
 import app.organicmaps.util.log.Logger;
@@ -250,7 +251,8 @@ public class NavigationService extends Service implements LocationListener
     if (!routingController.isNavigating())
       return;
 
-    final String[] turnNotifications = Framework.nativeGenerateNotifications();
+    // Voice the turn notification first.
+    final String[] turnNotifications = Framework.nativeGenerateNotifications(Config.TTS.getAnnounceStreets());
     if (turnNotifications != null)
       TtsPlayer.INSTANCE.playTurnNotifications(turnNotifications);
 

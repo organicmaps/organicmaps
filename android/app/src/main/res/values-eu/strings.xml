@@ -233,6 +233,10 @@
 	<string name="pref_map_3d_buildings_disabled_summary">3D eraikinak desgaituta daude energia aurrezteko moduan</string>
 	<!-- Settings «Route» category: «Tts enabled» title -->
 	<string name="pref_tts_enable_title">Ahots argibideak</string>
+	<!-- Settings «Route» category: «Tts announce street names» title -->
+	<string name="pref_tts_street_names_title">Kaleen izenak iragarri</string>
+	<!-- Settings «Route» category: «Tts announce street names» description -->
+	<string name="pref_tts_street_names_description">Gaituta dagoenean, biratzeko kalearen edo irteeraren izena ozen esango da.</string>
 	<!-- Settings «Route» category: «Tts language» title -->
 	<string name="pref_tts_language_title">Ahots hizkuntza</string>
 	<!-- Settings «Route» category: «Test Voice Directions» title -->

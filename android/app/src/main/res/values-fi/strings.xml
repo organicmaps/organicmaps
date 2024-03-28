@@ -235,6 +235,10 @@
 	<string name="pref_map_3d_buildings_disabled_summary">3D-rakennukset ovat poissa päältä virransäästötilassa</string>
 	<!-- Settings «Route» category: «Tts enabled» title -->
 	<string name="pref_tts_enable_title">Ääniohjeistukset</string>
+	<!-- Settings «Route» category: «Tts announce street names» title -->
+	<string name="pref_tts_street_names_title">Ilmoita kadunnimet</string>
+	<!-- Settings «Route» category: «Tts announce street names» description -->
+	<string name="pref_tts_street_names_description">Kun tämä on käytössä, sen kadun tai liittymän nimi, jolle käännytään, puhutaan ääneen.</string>
 	<!-- Settings «Route» category: «Tts language» title -->
 	<string name="pref_tts_language_title">Äänen kieli</string>
 	<!-- Settings «Route» category: «Test Voice Directions» title -->
