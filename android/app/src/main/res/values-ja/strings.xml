@@ -693,6 +693,8 @@
 	<string name="by_distance">距離で</string>
 	<!-- Android -->
 	<string name="by_date">日付で</string>
+	<!-- Android -->
+	<string name="by_name">名前で</string>
 	<string name="week_ago_sorttype">1週間前</string>
 	<string name="month_ago_sorttype">1ケ月前</string>
 	<string name="moremonth_ago_sorttype">1ケ月以上前</string>

@@ -474,6 +474,8 @@
 	<!-- To indicate the capacity of car parkings, bicycle parkings, electric vehicle charging stations... -->
 	<string name="capacity">क्षमता: %s</string>
 	<string name="ok">ठीक है</string>
+	<!-- Android -->
+	<string name="by_name">नाम द्वारा</string>
 
 	<!-- SECTION: Bookmark types used for sorting -->
 	<string name="shops">दुकान</string>

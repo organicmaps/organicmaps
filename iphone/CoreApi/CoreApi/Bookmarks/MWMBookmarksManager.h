@@ -16,7 +16,8 @@ NS_ASSUME_NONNULL_BEGIN
 typedef NS_ENUM(NSInteger, MWMBookmarksSortingType) {
   MWMBookmarksSortingTypeByType,
   MWMBookmarksSortingTypeByDistance,
-  MWMBookmarksSortingTypeByTime
+  MWMBookmarksSortingTypeByTime,
+  MWMBookmarksSortingTypeByName
 } NS_SWIFT_NAME(BookmarksSortingType);
 
 typedef void (^PingCompletionBlock)(BOOL success);

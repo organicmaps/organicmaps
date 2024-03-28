@@ -1127,6 +1127,8 @@
 
 "sort_date" = "رتّب حسب التاريخ";
 
+"sort_name" = "الترتيب حسب الاسم";
+
 "week_ago_sorttype" = "منذ أسبوع";
 
 "month_ago_sorttype" = "منذ شهر";

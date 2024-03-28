@@ -659,6 +659,8 @@
 	<string name="by_distance">بر اساس فاصله</string>
 	<!-- Android -->
 	<string name="by_date">بر اساس تاریخ</string>
+	<!-- Android -->
+	<string name="by_name">بر اساس اسم</string>
 	<string name="week_ago_sorttype">یک هفته قبل</string>
 	<string name="month_ago_sorttype">یک ماه قبل</string>
 	<string name="moremonth_ago_sorttype">بیش از یک ماه قبل</string>

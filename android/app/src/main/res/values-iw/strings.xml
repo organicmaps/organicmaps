@@ -686,6 +686,8 @@
 	<string name="by_distance">לפי מרחק</string>
 	<!-- Android -->
 	<string name="by_date">לפי תאריך</string>
+	<!-- Android -->
+	<string name="by_name">לפי שם</string>
 	<string name="week_ago_sorttype">לפני שבוע</string>
 	<string name="month_ago_sorttype">לפני חודש</string>
 	<string name="moremonth_ago_sorttype">לפני יותר מחודש</string>

@@ -688,6 +688,8 @@
 	<string name="by_distance">Па адлегласці</string>
 	<!-- Android -->
 	<string name="by_date">Па даце</string>
+	<!-- Android -->
+	<string name="by_name">Па імені</string>
 	<string name="week_ago_sorttype">Тыдзень таму</string>
 	<string name="month_ago_sorttype">Месяц таму</string>
 	<string name="moremonth_ago_sorttype">Больш за месяц таму</string>

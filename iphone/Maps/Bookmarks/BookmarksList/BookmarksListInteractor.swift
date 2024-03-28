@@ -7,6 +7,8 @@ extension BookmarksListSortingType {
       self = .distance
     case .byTime:
       self = .date
+    case .byName:
+      self = .name
     @unknown default:
       fatalError()
     }
@@ -80,6 +82,8 @@ extension BookmarksListInteractor: IBookmarksListInteractor {
         return BookmarksListSortingType.distance
       case .byTime:
         return BookmarksListSortingType.date
+      case .byName:
+        return BookmarksListSortingType.name
       @unknown default:
         fatalError()
       }
@@ -113,6 +117,8 @@ extension BookmarksListInteractor: IBookmarksListInteractor {
       coreSortingType = .byTime
     case .type:
       coreSortingType = .byType
+    case .name:
+      coreSortingType = .byName
     }
 
     bookmarksManager.sortBookmarks(markGroupId,

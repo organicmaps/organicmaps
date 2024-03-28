@@ -691,6 +691,8 @@
 	<string name="by_distance">Mesafeye göre</string>
 	<!-- Android -->
 	<string name="by_date">Tarihe göre</string>
+	<!-- Android -->
+	<string name="by_name">İsme göre</string>
 	<string name="week_ago_sorttype">Bir hafta önce</string>
 	<string name="month_ago_sorttype">Bir ay önce</string>
 	<string name="moremonth_ago_sorttype">Bir aydan daha önce</string>

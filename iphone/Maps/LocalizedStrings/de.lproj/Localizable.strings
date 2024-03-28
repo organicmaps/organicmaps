@@ -1127,6 +1127,8 @@
 
 "sort_date" = "Sortieren nach Datum";
 
+"sort_name" = "Nach Name sortieren";
+
 "week_ago_sorttype" = "Vor einer Woche";
 
 "month_ago_sorttype" = "Vor einem Monat";

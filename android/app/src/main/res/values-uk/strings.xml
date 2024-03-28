@@ -695,6 +695,8 @@
 	<string name="by_distance">За відстанню</string>
 	<!-- Android -->
 	<string name="by_date">За датою</string>
+	<!-- Android -->
+	<string name="by_name">За назвою</string>
 	<string name="week_ago_sorttype">Тиждень тому</string>
 	<string name="month_ago_sorttype">Місяць тому</string>
 	<string name="moremonth_ago_sorttype">Понад місяць тому</string>
