@@ -7957,6 +7957,48 @@ sw:Uwanja wa gofu|michezo
 fa:زمین گلف
 mr:गोल्फचे मैदान
 
+leisure-golf_course-miniature
+en:Mini-Golf Course|Mini Golf|Minigolf|Miniature Golf|Putt Putt
+ar:لعبة غولف مصغرة
+be:Міні-гольф
+bg:Миниатюрен голф
+ca:Golf en miniatura
+cs:Miniaturní golf
+da:Minigolf
+de:Minigolf
+el:Γκολφ μινιατούρα
+es:Golf en miniatura
+es-MX:Mini golf
+et:Minigolf
+eu:Miniaturazko Golfa
+fa:گلف مینیاتوری
+fi:Minigolf
+fr:Golf miniature
+he:מיני גולף
+hi:गोल्फ़ का लघु रूप
+hu:Minigolf
+id:Miniatur Golf
+it:Golf in miniatura
+ja:ミニチュアゴルフ
+ko:미니어처 골프
+mr:लघु गोल्फ
+nb:Minigolf
+nl:Midgetgolf
+pl:Minigolf
+pt:Golfe em miniatura
+ro:Golf în miniatură
+ru:Миниатюрный гольф
+sk:Miniatúrny golf
+sv:Miniatyrgolf
+sw:Miniature Golf
+th:มินิกอล์ฟ
+tr:Minyatür Golf
+uk:Міні-гольф
+vi:Sân gôn thu nhỏ
+zh-Hans:迷你高尔夫
+zh-Hant:迷你高爾夫球場
+
+
 leisure-hackerspace
 en:4Hackerspace
 ar:هاكرزبيس

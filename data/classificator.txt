@@ -673,7 +673,9 @@ world  +
         garden  +
             residential  -
             {}
-        golf_course  -
+        golf_course  +
+            miniature  -
+            {}
         hackerspace  -
         ice_rink  -
         marina  -
