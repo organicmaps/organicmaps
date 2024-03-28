@@ -1242,6 +1242,8 @@ area|z17-[leisure=swimming_pool][access=private]
 {icon-image: zero-icon.svg;}
 node|z15-[leisure=golf_course],
 area|z15-[leisure=golf_course],
+node|z17-[leisure=miniature_golf],
+area|z17-[leisure=miniature_golf],
 {icon-image: golf-m.svg;icon-min-distance: 10;}
 
 node|z17-[sport],

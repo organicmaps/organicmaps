@@ -8040,6 +8040,38 @@ sw:Uwanja wa gofu|michezo
 fa:زمین گلف
 mr:गोल्फचे मैदान
 
+leisure-miniature_golf
+en:4Minigolf|Miniature Golf|Putt Putt
+be:Мінігольф
+bg:Миниголф
+ca:Minigolf
+cs:Minigolf
+da:Minigolf
+de:Minigolf
+es:Minigolf
+et:Minigolf
+eu:Minigolf
+fi:Minigolf
+fr:Minigolf
+hu:Minigolf
+it:Minigolf
+ja:ミニゴルフ
+ko:미니골프
+mr:मिनीगोल्फ
+nb:Minigolf
+nl:Minigolf
+pl:Minigolf
+pt:Minigolfe
+ro:Minigolf
+ru:Минигольф
+sk:Minigolf
+sv:Minigolf
+sw:Minigofu
+th:มินิกอล์ฟ
+tr:Minigolf
+uk:Мінігольф
+zh-Hans:迷你高尔夫
+
 leisure-hackerspace
 en:4Hackerspace
 ar:هاكرزبيس

@@ -16789,6 +16789,40 @@
     zh-Hans = 高尔夫球场
     zh-Hant = 高爾夫球場
 
+  [type.leisure.miniature_golf]
+    en = Minigolf
+    af = Minigolf
+    az = Minigolf
+    be = Мінігольф
+    bg = Миниголф
+    ca = Minigolf
+    cs = Minigolf
+    da = Minigolf
+    de = Minigolf
+    es = Minigolf
+    et = Minigolf
+    eu = Minigolf
+    fi = Minigolf
+    fr = Minigolf
+    hu = Minigolf
+    it = Minigolf
+    ja = ミニゴルフ
+    ko = 미니골프
+    mr = मिनीगोल्फ
+    nb = Minigolf
+    nl = Minigolf
+    pl = Minigolf
+    pt = Minigolfe
+    ro = Minigolf
+    ru = Минигольф
+    sk = Minigolf
+    sv = Minigolf
+    sw = Minigofu
+    th = มินิกอล์ฟ
+    tr = Minigolf
+    uk = Мінігольф
+    zh-Hans = 迷你高尔夫
+
   [type.leisure.hackerspace]
     en = Hackerspace
     ar = هاكرزبيس

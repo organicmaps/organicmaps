@@ -47,6 +47,7 @@ leisure-swimming_pool-private                       # area z13-
 === 100
 
 leisure-golf_course                                 # area z14-
+leisure-miniature_golf                              # area z14-
 natural-wetland                                     # area z11- (also has caption z16-)
 natural-wetland-bog                                 # area z11- (also has caption z16-)
 natural-wetland-marsh                               # area z11- (also has caption z16-)
