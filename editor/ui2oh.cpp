@@ -324,8 +324,25 @@ bool MakeTimeTableSet(osmoh::OpeningHours const & oh, ui::TimeTableSet & tts)
   if (oh.IsTwentyFourHours())
     return true;
 
-  bool first = true;
+  // As "Closed" rules are not accepted if they are located at the beginning
+  // of the sequence, we shall move them to the end of the rule sequence.
+
+  // First, separate in a different vector the "Closed" rules.
+  std::vector<osmoh::RuleSequence> ruleSeq, closedRuleSeq;
+
   for (auto const & rulePart : oh.GetRule())
+  {
+    if (rulePart.GetModifier() == osmoh::RuleSequence::Modifier::Closed)
+      closedRuleSeq.push_back(rulePart);
+    else
+      ruleSeq.push_back(rulePart);
+  }
+
+  // And now, append the "Closed" rules to the end of the vector.
+  ruleSeq.insert(ruleSeq.end(), closedRuleSeq.begin(), closedRuleSeq.end());
+
+  bool first = true;
+  for (auto const & rulePart : ruleSeq)
   {
     if (rulePart.IsEmpty())
       continue;
