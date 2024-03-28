@@ -654,14 +654,8 @@ extension CarPlayService {
   }
 
   func createEstimates(routeInfo: RouteInfo) -> CPTravelEstimates? {
-    if let distance = Double(routeInfo.targetDistance) {
-      let measurement = Measurement(value: distance,
-                                    unit: routeInfo.targetUnits)
-      let estimates = CPTravelEstimates(distanceRemaining: measurement,
-                                        timeRemaining: routeInfo.timeToTarget)
-      return estimates
-    }
-    return nil
+    let measurement = Measurement(value: routeInfo.targetDistance, unit: routeInfo.targetUnits)
+    return CPTravelEstimates(distanceRemaining: measurement, timeRemaining: routeInfo.timeToTarget)
   }
 
   func applyUndefinedEstimates(template: CPMapTemplate, trip: CPTrip) {
