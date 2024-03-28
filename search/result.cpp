@@ -172,10 +172,20 @@ void Result::AddHighlightRange(pair<uint16_t, uint16_t> const & range)
   m_hightlightRanges.push_back(range);
 }
 
+void Result::AddHighlightRange2(pair<uint16_t, uint16_t> const & range)
+{
+  m_hightlightRanges2.push_back(range);
+}
+
 pair<uint16_t, uint16_t> const & Result::GetHighlightRange(size_t idx) const
 {
   ASSERT(idx < m_hightlightRanges.size(), ());
   return m_hightlightRanges[idx];
+}
+pair<uint16_t, uint16_t> const & Result::GetHighlightRange2(size_t idx) const
+{
+  ASSERT(idx < m_hightlightRanges2.size(), ());
+  return m_hightlightRanges2[idx];
 }
 
 void Result::PrependCity(string_view city)

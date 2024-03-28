@@ -57,4 +57,19 @@ void HighlightResult(QueryTokens const & tokens, strings::UniString const & pref
 
   SearchStringTokensIntersectionRanges(res.GetString(), beg, end, assignHighlightRange);
 }
+
+void HighlightResult2(QueryTokens const & tokens, strings::UniString const & prefix, Result & res)
+{
+  using Iter = QueryTokens::const_iterator;
+  using CombinedIter = CombinedIterator<Iter, strings::UniString>;
+
+  CombinedIter beg(tokens.begin(), tokens.end(), prefix.empty() ? nullptr : &prefix);
+  CombinedIter end(tokens.end() /* cur */, tokens.end() /* end */, nullptr);
+  auto assignHighlightRange = [&](pair<uint16_t, uint16_t> const & range)
+  {
+    res.AddHighlightRange2(range);
+  };
+
+  SearchStringTokensIntersectionRanges(res.GetAddress(), beg, end, assignHighlightRange);
+}
 }  // namespace search
