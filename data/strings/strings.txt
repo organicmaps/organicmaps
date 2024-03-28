@@ -5758,6 +5758,7 @@
     az = Küçə adlarını elan edin
     be = Абвяшчаць назвы вуліц
     bg = Обявете имена на улици
+    ca = Anuncia els noms dels carrers
     cs = Oznamujte názvy ulic
     da = Annoncer gadenavne
     de = Straßennamen ankündigen
@@ -5799,11 +5800,12 @@
     az = Aktiv edildikdə, dönmək üçün küçənin və ya çıxışın adı ucadan səsləndiriləcək.
     be = Калі ўключана, назва вуліцы або выезду, на які трэба павярнуць, будзе прамаўляцца ўслых.
     bg = Когато е активирано, името на улицата или изхода, по който да завиете, ще бъде произнесено на глас.
+    ca = Quan s'activa, el nom del carrer o la sortida per girar es pronunciarà en veu alta.
     cs = Je-li povoleno, bude nahlas vyslovován název ulice nebo výjezdu, na který se má odbočit.
     da = Når det er aktiveret, vil navnet på den gade eller afkørsel, der skal drejes ind, blive talt højt.
     de = Wenn aktiviert, wird der Name der Straße oder Ausfahrt, in die abgebogen werden soll, laut angekündigt
     el = Όταν είναι ενεργοποιημένο, το όνομα της οδού ή της εξόδου στην οποία θα μεταβείτε θα εκφωνείται δυνατά.
-    es = Cuando está habilitado, el nombre de la calle o la salida para girar se pronunciará en voz alta.
+    es = Cuando se activa, el nombre de la calle o la salida para girar se pronunciará en voz alta.
     et = Kui see on lubatud, öeldakse valjusti tänava või väljasõidu nimi, millele pöörata.
     eu = Gaituta dagoenean, biratzeko kalearen edo irteeraren izena ozen esango da.
     fa = وقتی فعال باشد، نام خیابان یا خروجی که باید به آن بپیچید با صدای بلند گفته می شود.
