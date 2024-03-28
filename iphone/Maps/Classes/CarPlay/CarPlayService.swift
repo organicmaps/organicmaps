@@ -654,7 +654,7 @@ extension CarPlayService {
   }
 
   func createEstimates(routeInfo: RouteInfo) -> CPTravelEstimates? {
-    if let distance = Double(routeInfo.targetDistance) {
+    if let distance = NumberFormatter().number(from: routeInfo.targetDistance)?.doubleValue {
       let measurement = Measurement(value: distance,
                                     unit: routeInfo.targetUnits)
       let estimates = CPTravelEstimates(distanceRemaining: measurement,
