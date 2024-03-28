@@ -136,19 +136,17 @@ area|z14-[landuse=village_green],
 area|z14-[landuse=field],
 {fill-color: @green1;}
 area|z11-12[landuse=forest],
-area|z12[leisure=garden],
-{fill-color: @green2;}
+area|z12-[leisure=garden],
+{fill-color: @green5;}
+area|z12-[leisure=garden][garden:type=residential],
+{fill-color: @residentialgarden;}
 area|z13[landuse=forest],
-area|z13[leisure=garden]
 {fill-color: @green3;}
 area|z14[landuse=forest],
-area|z14[leisure=garden],
 {fill-color: @green4;}
 area|z15[landuse=forest],
-area|z15[leisure=garden],
 {fill-color: @green5;}
 area|z16-[landuse=forest],
-area|z16-[leisure=garden],
 {fill-color: @forest;}
 
 area|z12-13[landuse=grass],
