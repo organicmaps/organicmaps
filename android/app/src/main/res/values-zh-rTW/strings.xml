@@ -624,8 +624,8 @@
 	<string name="place_description_title">地點說明</string>
 	<!-- this text will be shown in application notification preferences opposite checkbox which enable/disable downloader notifications. Devices on Android 8+ are affected. -->
 	<string name="notification_channel_downloader">載入地圖</string>
-	<!-- Speed camera settings menu option - Warn (about speedcams) if risk of exceeding speed limit -->
-	<string name="pref_tts_speedcams_auto">如果存在超出速度限制的風險，則對速度照相機發出警告</string>
+	<!-- "Speed cameras" settings menu option (should be short! no more than 47-50 chars) to warn a driver if there is a risk of exceeding the speed limit -->
+	<string name="pref_tts_speedcams_auto">警告超速</string>
 	<!-- Speed camera settings menu option - Always warn (about speedcams) -->
 	<string name="pref_tts_speedcams_always">始終提醒照相機</string>
 	<!-- Speed camera settings menu option - Never warn (about speedcams) -->

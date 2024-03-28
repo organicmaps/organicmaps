@@ -607,8 +607,8 @@
 	<string name="place_description_title">Beskrivning av platsen</string>
 	<!-- this text will be shown in application notification preferences opposite checkbox which enable/disable downloader notifications. Devices on Android 8+ are affected. -->
 	<string name="notification_channel_downloader">Kartladdning</string>
-	<!-- Speed camera settings menu option - Warn (about speedcams) if risk of exceeding speed limit -->
-	<string name="pref_tts_speedcams_auto">Varna om det finns risk att överskrida hastighetsgränsen</string>
+	<!-- "Speed cameras" settings menu option (should be short! no more than 47-50 chars) to warn a driver if there is a risk of exceeding the speed limit -->
+	<string name="pref_tts_speedcams_auto">För att varna dig för fortkörning</string>
 	<!-- Speed camera settings menu option - Always warn (about speedcams) -->
 	<string name="pref_tts_speedcams_always">Varna alltid</string>
 	<!-- Speed camera settings menu option - Never warn (about speedcams) -->

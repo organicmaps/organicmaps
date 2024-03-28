@@ -609,8 +609,8 @@
 	<string name="place_description_title">Beskrivelse af sted</string>
 	<!-- this text will be shown in application notification preferences opposite checkbox which enable/disable downloader notifications. Devices on Android 8+ are affected. -->
 	<string name="notification_channel_downloader">Korthenter</string>
-	<!-- Speed camera settings menu option - Warn (about speedcams) if risk of exceeding speed limit -->
-	<string name="pref_tts_speedcams_auto">Advar hvis der er en risiko for, at hastighedsgrænsen overskrides</string>
+	<!-- "Speed cameras" settings menu option (should be short! no more than 47-50 chars) to warn a driver if there is a risk of exceeding the speed limit -->
+	<string name="pref_tts_speedcams_auto">At advare dig om hastighedsoverskridelser</string>
 	<!-- Speed camera settings menu option - Always warn (about speedcams) -->
 	<string name="pref_tts_speedcams_always">Advar altid</string>
 	<!-- Speed camera settings menu option - Never warn (about speedcams) -->

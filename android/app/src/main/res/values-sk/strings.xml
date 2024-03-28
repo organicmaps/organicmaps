@@ -639,8 +639,8 @@
 	<string name="place_description_title">Popis miesta</string>
 	<!-- this text will be shown in application notification preferences opposite checkbox which enable/disable downloader notifications. Devices on Android 8+ are affected. -->
 	<string name="notification_channel_downloader">Sťahovač máp</string>
-	<!-- Speed camera settings menu option - Warn (about speedcams) if risk of exceeding speed limit -->
-	<string name="pref_tts_speedcams_auto">Upozornenie ak existuje riziko prekročenia rýchlostného limitu</string>
+	<!-- "Speed cameras" settings menu option (should be short! no more than 47-50 chars) to warn a driver if there is a risk of exceeding the speed limit -->
+	<string name="pref_tts_speedcams_auto">Varovanie pred prekročením rýchlosti</string>
 	<!-- Speed camera settings menu option - Always warn (about speedcams) -->
 	<string name="pref_tts_speedcams_always">Vždy upozorniť</string>
 	<!-- Speed camera settings menu option - Never warn (about speedcams) -->
