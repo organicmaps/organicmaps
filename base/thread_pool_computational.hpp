@@ -6,7 +6,6 @@
 #include <atomic>
 #include <functional>
 #include <future>
-#include <memory>
 #include <queue>
 #include <thread>
 
@@ -53,7 +52,7 @@ public:
   ~ThreadPool()
   {
     {
-      std::unique_lock<std::mutex> lock(m_mutex);
+      std::unique_lock lock(m_mutex);
       m_done = true;
     }
     m_condition.notify_all();
@@ -72,7 +71,7 @@ public:
                                                     std::forward<Args>(args)...));
     std::future<ResultType> result(task.get_future());
     {
-      std::unique_lock<std::mutex> lock(m_mutex);
+      std::unique_lock lock(m_mutex);
       if (m_done)
         return {};
 
@@ -91,7 +90,7 @@ public:
   {
     auto f = std::bind(std::forward<F>(func), std::forward<Args>(args)...);
     {
-      std::unique_lock<std::mutex> lock(m_mutex);
+      std::unique_lock lock(m_mutex);
       if (m_done)
         return;
 
@@ -107,7 +106,7 @@ public:
   void Stop()
   {
     {
-      std::unique_lock<std::mutex> lock(m_mutex);
+      std::unique_lock lock(m_mutex);
       auto empty = std::queue<FunctionType>();
       m_queue.swap(empty);
       m_done = true;
@@ -118,7 +117,7 @@ public:
   void WaitingStop()
   {
     {
-      std::unique_lock<std::mutex> lock(m_mutex);
+      std::unique_lock lock(m_mutex);
       m_done = true;
     }
     m_condition.notify_all();
@@ -132,7 +131,7 @@ private:
     {
       FunctionType task;
       {
-        std::unique_lock<std::mutex> lock(m_mutex);
+        std::unique_lock lock(m_mutex);
         m_condition.wait(lock, [&] {
           return m_done || !m_queue.empty();
         });

@@ -87,7 +87,7 @@ UniChar LastUniChar(std::string const & s)
 {
   if (s.empty())
     return 0;
-  utf8::unchecked::iterator<std::string::const_iterator> iter(s.end());
+  utf8::unchecked::iterator iter(s.end());
   --iter;
   return *iter;
 }
@@ -234,7 +234,7 @@ void Trim(std::string_view & sv)
 
 void Trim(std::string & s, std::string_view anyOf)
 {
-  boost::trim_if(s, boost::is_any_of(anyOf));
+  trim_if(s, boost::is_any_of(anyOf));
 }
 
 bool ReplaceFirst(std::string & str, std::string const & from, std::string const & to)
@@ -439,7 +439,7 @@ void ParseCSVRow(std::string const & s, char const delimiter, std::vector<std::s
   for (; it; ++it)
   {
     std::string column(*it);
-    strings::Trim(column);
+    Trim(column);
     target.push_back(std::move(column));
   }
 

@@ -3,7 +3,6 @@
 #include "base/assert.hpp"
 
 #include <algorithm>
-#include <iterator>
 #include <set>
 
 namespace base

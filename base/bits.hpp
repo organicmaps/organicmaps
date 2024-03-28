@@ -1,4 +1,5 @@
 #pragma once
+
 #include "base/assert.hpp"
 
 #include <cstdint>
@@ -111,14 +112,14 @@ namespace bits
   }
 
   template <typename T>
-  inline std::make_unsigned_t<T> ZigZagEncode(T x)
+  std::make_unsigned_t<T> ZigZagEncode(T x)
   {
     static_assert(std::is_signed<T>::value, "Type should be signed");
     return (x << 1) ^ (x >> (sizeof(x) * 8 - 1));
   }
 
   template <typename T>
-  inline std::make_signed_t<T> ZigZagDecode(T x)
+  std::make_signed_t<T> ZigZagDecode(T x)
   {
     static_assert(std::is_unsigned<T>::value, "Type should be unsigned.");
     return (x >> 1) ^ -static_cast<std::make_signed_t<T>>(x & 1);
@@ -157,10 +158,10 @@ namespace bits
 
   inline void BitwiseSplit(uint64_t v, uint32_t & x, uint32_t & y)
   {
-    uint32_t const hi = bits::PerfectUnshuffle(static_cast<uint32_t>(v >> 32));
-    uint32_t const lo = bits::PerfectUnshuffle(static_cast<uint32_t>(v & 0xFFFFFFFFULL));
+    uint32_t const hi = PerfectUnshuffle(static_cast<uint32_t>(v >> 32));
+    uint32_t const lo = PerfectUnshuffle(static_cast<uint32_t>(v & 0xFFFFFFFFULL));
     x = ((hi & 0xFFFF) << 16) | (lo & 0xFFFF);
-    y =     (hi & 0xFFFF0000) | (lo >> 16);
+    y = (hi & 0xFFFF0000) | (lo >> 16);
   }
 
   // Returns 1 if bit is set and 0 otherwise.

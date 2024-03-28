@@ -1,6 +1,5 @@
 #pragma once
 
-#include "base/base.hpp"
 #include "base/internal/message.hpp"
 #include "base/src_point.hpp"
 #include "base/thread.hpp"
@@ -38,7 +37,7 @@ private:
   int m_threadsCount;
   std::map<threads::ThreadID, int> m_threadID;
 
-  base::Timer m_timer;
+  Timer m_timer;
 
   std::array<char const *, NUM_LOG_LEVELS> m_names;
   std::array<size_t, NUM_LOG_LEVELS> m_lens;
@@ -95,12 +94,12 @@ struct ScopedLogAbortLevelChanger
 };
 }  // namespace base
 
-using ::base::LDEBUG;
-using ::base::LINFO;
-using ::base::LWARNING;
-using ::base::LERROR;
-using ::base::LCRITICAL;
-using ::base::NUM_LOG_LEVELS;
+using base::LDEBUG;
+using base::LINFO;
+using base::LWARNING;
+using base::LERROR;
+using base::LCRITICAL;
+using base::NUM_LOG_LEVELS;
 
 // Logging macro.
 // Example usage: LOG(LINFO, (Calc(), m_Var, "Some string constant"));

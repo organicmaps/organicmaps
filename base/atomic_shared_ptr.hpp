@@ -2,8 +2,6 @@
 
 #include "base/macros.hpp"
 
-#include <memory>
-
 namespace base
 {
 // Template which provides methods for concurrently using shared pointers.
