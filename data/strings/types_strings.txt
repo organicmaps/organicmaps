@@ -16791,6 +16791,50 @@
     zh-Hans = 高尔夫球场
     zh-Hant = 高爾夫球場
 
+  [type.leisure.golf_course.miniature]
+    en = Mini-Golf Course
+    af = Mini-gholfbaan
+    ar = ملعب جولف مصغر
+    az = Mini-Qolf Sahəsi
+    be = Поле для міні-гольфа
+    bg = Игрище за мини голф
+    ca = Camp de minigolf
+    cs = Minigolfové hřiště
+    da = Minigolfbane
+    de = Minigolf
+    el = Γήπεδο μίνι γκολφ
+    es = Campo de minigolf
+    et = Minigolfi väljak
+    eu = Minigolf Zelaia
+    fa = زمین مینی گلف
+    fi = Minigolf-kenttä
+    fr = Parcours de mini-golf
+    he = מסלול מיני גולף
+    hi = मिनी गोल्फ कोर्स
+    hu = Mini golfpálya
+    id = Lapangan Golf Mini
+    it = Campo da minigolf
+    ja = ミニゴルフコース
+    ko = 미니 골프 코스
+    lt = Mini golfo aikštelė
+    mr = मिनी-गोल्फ कोर्स
+    nb = Minigolfbane
+    nl = Minigolfbaan
+    pl = Pole do minigolfa
+    pt = Campo de Mini-Golfe
+    pt-BR = Campo de minigolfe
+    ro = Curs de mini-golf
+    ru = Поле для мини-гольфа
+    sk = Minigolfové ihrisko
+    sv = Minigolfbana
+    sw = Kozi ya Mini-Gofu
+    th = มินิกอล์ฟคอร์ส
+    tr = Mini-Golf Sahası
+    uk = Поле для міні-гольфу
+    vi = Sân Golf Mini
+    zh-Hans = 迷你高尔夫球场
+    zh-Hant = 迷你高爾夫球場
+
   [type.leisure.hackerspace]
     en = Hackerspace
     ar = هاكرزبيس
