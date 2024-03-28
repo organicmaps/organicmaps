@@ -444,6 +444,8 @@
 	<string name="layers_title">मानचित्र शैलियाँ और परतें</string>
 	<string name="export_file">फ़ाइल निर्यात करें</string>
 	<string name="speedcams_alert_title">गति कैमरा</string>
+	<!-- "Speed cameras" settings menu option (should be short! no more than 47-50 chars) to warn a driver if there is a risk of exceeding the speed limit -->
+	<string name="pref_tts_speedcams_auto">तेज़ गति से गाड़ी चलाने के बारे में चेतावनी दें</string>
 	<string name="power_managment_title">बिजली की बचत अवस्थाt</string>
 	<string name="power_managment_description">कुछ कार्यक्षमता की कीमत पर बिजली के उपयोग को कम करने का प्रयास करें।</string>
 	<string name="power_managment_setting_never">कभी नहीं</string>

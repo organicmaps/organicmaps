@@ -1012,8 +1012,8 @@
 
 "place_description_title" = "Paikan kuvaus";
 
-/* Speed camera settings menu option - Warn (about speedcams) if risk of exceeding speed limit */
-"pref_tts_speedcams_auto" = "Varoita jos tuntuu siltä, että nopeusrajan ylitys on mahdollista";
+/* "Speed cameras" settings menu option (should be short! no more than 47-50 chars) to warn a driver if there is a risk of exceeding the speed limit */
+"pref_tts_speedcams_auto" = "Varoittaa sinua ylinopeudesta";
 
 /* Speed camera settings menu option - Always warn (about speedcams) */
 "pref_tts_speedcams_always" = "Varoita aina";
