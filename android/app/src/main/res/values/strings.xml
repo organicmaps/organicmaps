@@ -485,9 +485,7 @@
 	<string name="postal_code">Postal Code</string>
 	<string name="cuisine">Cuisine</string>
 	<string name="select_cuisine">Select cuisine</string>
-	<!-- OSM Login text field hint, used only for Google Play -->
-	<string name="username">Username</string>
-	<!-- OSM login text field hint -->
+	<!-- login text field -->
 	<string name="email_or_username">Email or username</string>
 	<string name="editor_add_phone">Add Phone</string>
 	<string name="level">Floor</string>

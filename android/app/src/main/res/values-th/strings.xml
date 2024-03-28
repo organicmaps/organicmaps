@@ -437,9 +437,7 @@
 	<string name="postal_code">รหัสไปรษณีย์</string>
 	<string name="cuisine">ประเภทอาหาร</string>
 	<string name="select_cuisine">เลือกประเภทอาหาร</string>
-	<!-- OSM Login text field hint, used only for Google Play -->
-	<string name="username">ชื่อผู้ใช้</string>
-	<!-- OSM login text field hint -->
+	<!-- login text field -->
 	<string name="email_or_username">อีเมลหรือชื่อผู้ใช้</string>
 	<string name="level">ชั้น</string>
 	<string name="downloader_delete_map_dialog">การเปลี่ยนแปลงแผนที่ทั้งหมดจะถูกลบไปพร้อมกับแผนที่</string>

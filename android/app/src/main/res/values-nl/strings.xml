@@ -456,9 +456,7 @@
 	<string name="postal_code">Postcode</string>
 	<string name="cuisine">Keuken</string>
 	<string name="select_cuisine">Selecteer Keuken</string>
-	<!-- OSM Login text field hint, used only for Google Play -->
-	<string name="username">Gebruikersnaam</string>
-	<!-- OSM login text field hint -->
+	<!-- login text field -->
 	<string name="email_or_username">Emailadres of gebruikersnaam</string>
 	<string name="editor_add_phone">Telefoonnummer toevoegen</string>
 	<string name="level">Etage</string>

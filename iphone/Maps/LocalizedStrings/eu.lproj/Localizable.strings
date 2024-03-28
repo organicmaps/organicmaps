@@ -664,7 +664,7 @@
 
 "select_cuisine" = "Aukeratu sukaldea";
 
-/* OSM login text field hint */
+/* login text field */
 "email_or_username" = "Posta elektronikoa edo erabiltzailea";
 
 "phone" = "Telefonoa";

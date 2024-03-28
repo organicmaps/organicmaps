@@ -462,9 +462,7 @@
 	<string name="postal_code">Code postal</string>
 	<string name="cuisine">Cuisine</string>
 	<string name="select_cuisine">Sélectionner une cuisine</string>
-	<!-- OSM Login text field hint, used only for Google Play -->
-	<string name="username">Nom d\'utilisateur</string>
-	<!-- OSM login text field hint -->
+	<!-- login text field -->
 	<string name="email_or_username">Email ou nom d\'utilisateur</string>
 	<string name="editor_add_phone">Ajouter un numéro de téléphone</string>
 	<string name="level">Étage</string>

@@ -445,9 +445,7 @@
 	<string name="postal_code">邮政编码</string>
 	<string name="cuisine">菜肴</string>
 	<string name="select_cuisine">选择菜肴</string>
-	<!-- OSM Login text field hint, used only for Google Play -->
-	<string name="username">用户名</string>
-	<!-- OSM login text field hint -->
+	<!-- login text field -->
 	<string name="email_or_username">邮箱或用户名</string>
 	<string name="editor_add_phone">新增电话号码</string>
 	<string name="level">楼层</string>
