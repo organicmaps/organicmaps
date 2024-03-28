@@ -76,6 +76,7 @@
 	<!-- A confirmation button text in the explanation dialog that opens hotel details page on Kayak website. -->
 	<string name="dialog_kayak_button">Detalles sobre Kayak</string>
 	<string name="placepage_add_place_button">Agregar lugar a OpenStreetMap</string>
+	<string name="prefs_tts_system_setup">Si no puede habilitar las instrucciones de voz o su idioma no es compatible, asegúrese de que su sistema esté configurado para síntesis de voz con este acceso directo. Si no es así, primero instale un motor de texto a voz que admita su idioma desde su tienda de aplicaciones.</string>
 	<string name="transliteration_title">Transliteración al alfabeto latino</string>
 	<string name="dialog_error_storage_title">Problema de acceso al almacenamiento</string>
 	<string name="dialog_error_storage_message">El almacenamiento externo no está disponible. Es posible que se haya quitado o dañado la tarjeta SD, o que el sistema de archivos solo permita la lectura. Revíselo y escríbanos a support\@organicmaps.app</string>
