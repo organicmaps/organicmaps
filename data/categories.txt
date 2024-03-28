@@ -10666,10 +10666,10 @@ zh-Hans:锁匠
 zh-Hant:鎖匠
 
 craft-painter
-en:Painter
+en:House Painter|painter|decorator
 ar:رسام
 be:Мастак
-bg:Художник
+bg:Бояджия
 cs:Malíř
 da:Maler
 de:Maler

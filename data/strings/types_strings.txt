@@ -7472,12 +7472,12 @@
     zh-Hant = 鐵工
 
   [type.craft.painter]
-    en = Painter
+    en = House Painter
     af = Verwer
     ar = رسام
     az = Rəssam
     be = Мастак
-    bg = Художник
+    bg = Бояджия
     cs = Malíř
     da = Maler
     de = Maler
