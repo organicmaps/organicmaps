@@ -882,6 +882,7 @@ landuse-military-danger_area                        # icon z16- (also has captio
 
 amenity-sanitary_dump_station                       # icon z15- (also has caption(optional) z15-)
 leisure-golf_course                                 # icon z15- (also has caption(optional) z17-, area z12-)
+leisure-miniature_golf                              # icon z17- (also has caption(optional) z17-, area z14-)
 natural-wetland                                     # caption z16- (also has area z11-)
 natural-wetland-bog                                 # caption z16- (also has area z11-)
 natural-wetland-marsh                               # caption z16- (also has area z11-)
@@ -1799,6 +1800,7 @@ leisure-swimming_pool-private                       # icon z17- (also has captio
 
 # amenity-sanitary_dump_station                     # caption(optional) z15- (also has icon z15-)
 # leisure-golf_course                               # caption(optional) z17- (also has icon z15-, area z12-)
+# leisure-miniature_golf                            # caption(optional) z17- (also has icon z17-, area z14-)
 # tourism-picnic_site                               # caption(optional) z16- (also has icon z16-)
 # === -8200
 
