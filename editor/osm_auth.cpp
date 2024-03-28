@@ -106,8 +106,8 @@ OsmOAuth OsmOAuth::ServerAuth(string const & oauthToken)
 OsmOAuth OsmOAuth::DevServerAuth()
 {
   constexpr char const * kOsmDevServer = "https://master.apis.dev.openstreetmap.org";
-  constexpr char const * kOsmDevClientId = "QSh_IksPC78W7EgRxSRDw_F8oulQghpL2QcTLHrP4z8";
-  constexpr char const * kOsmDevClientSecret = "NMU8BNkUGg_R0KhGtrrSJRREBbMBM2133Gi-cZWmVmc";
+  constexpr char const * kOsmDevClientId = "uB0deHjh_W86CRUHfvWlisCC1ZIHkdLoKxz1qkuIrrM";
+  constexpr char const * kOsmDevClientSecret = "xQE7suO-jmzmels19k-m8FQ8gHnkdWuLLVqfW6FIj44";
   constexpr char const * kOsmDevScope = "read_prefs write_api write_notes";
   constexpr char const * kOsmDevRedirectUri = "om://oauth2/osm/callback";
 

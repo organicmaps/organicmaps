@@ -19,8 +19,8 @@ OAuthScope = "read_prefs"
 
 # Dev enviroment
 osmHost = "master.apis.dev.openstreetmap.org"
-OAuthClientId = "QSh_IksPC78W7EgRxSRDw_F8oulQghpL2QcTLHrP4z8"
-OAuthClientSecret = "NMU8BNkUGg_R0KhGtrrSJRREBbMBM2133Gi-cZWmVmc"
+OAuthClientId = "uB0deHjh_W86CRUHfvWlisCC1ZIHkdLoKxz1qkuIrrM"
+OAuthClientSecret = "xQE7suO-jmzmels19k-m8FQ8gHnkdWuLLVqfW6FIj44"
 OAuthRedirectUri = "om://oauth2/osm/callback"
 OAuthResponseType = "code"
 OAuthScope = "read_prefs write_api write_notes"
