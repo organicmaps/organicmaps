@@ -80,10 +80,11 @@ Where format is one of the following arguments (shows current values):
 EOF
 }
 
+init
+
 if [ -z ${1:-} ] || [[ ! $(type -t "$1") == function ]]; then
   usage
   exit 1
 else
-  init
   "$1"
 fi
