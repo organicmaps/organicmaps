@@ -82,8 +82,12 @@ UNIT_TEST(EditorConfig_GetTypesThatCanBeAdded)
   config.SetConfig(doc);
 
   auto const types = config.GetTypesThatCanBeAdded();
+  // A sample addable type.
   TEST(find(begin(types), end(types), "amenity-cafe") != end(types), ());
-  TEST(find(begin(types), end(types), "natural-peak") == end(types), ());
-  // Marked as "editable=no".
+  // A sample line type.
+  TEST(find(begin(types), end(types), "highway-primary") == end(types), ());
+  // A sample type marked as can_add="no".
+  TEST(find(begin(types), end(types), "landuse-cemetery") == end(types), ());
+  // A sample type marked as editable="no".
   TEST(find(begin(types), end(types), "aeroway-airport") == end(types), ());
 }
