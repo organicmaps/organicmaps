@@ -671,6 +671,12 @@
 
 "level" = "층";
 
+/* Building level: ground floor (translated separately so that a more idiomatic phrase can be used) */
+"level_value_0" = "Ground floor";
+
+/* Building level */
+"level_value_generic" = "Level: %d";
+
 "please_note" = "참고 사항";
 
 "downloader_delete_map_dialog" = "모든 지도의 변경 사항은 지도와 함께 삭제됩니다.";

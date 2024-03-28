@@ -671,6 +671,12 @@
 
 "level" = "Andar";
 
+/* Building level: ground floor (translated separately so that a more idiomatic phrase can be used) */
+"level_value_0" = "Ground floor";
+
+/* Building level */
+"level_value_generic" = "Level: %d";
+
 "please_note" = "Aviso";
 
 "downloader_delete_map_dialog" = "Todas as edições no mapa serão excluídas juntamente com o mapa.";

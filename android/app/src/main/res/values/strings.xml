@@ -491,6 +491,10 @@
 	<string name="email_or_username">Email or username</string>
 	<string name="editor_add_phone">Add Phone</string>
 	<string name="level">Floor</string>
+	<!-- Building level: ground floor (translated separately so that a more idiomatic phrase can be used) -->
+	<string name="level_value_0">Ground floor</string>
+	<!-- Building level -->
+	<string name="level_value_generic">Level: %d</string>
 	<string name="downloader_delete_map_dialog">All of your map edits will be deleted with the map.</string>
 	<string name="downloader_update_maps">Update Maps</string>
 	<string name="downloader_mwm_migration_dialog">To create a route, you need to update all maps and then plan the route again.</string>

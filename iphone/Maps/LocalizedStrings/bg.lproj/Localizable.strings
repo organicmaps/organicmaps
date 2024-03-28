@@ -671,6 +671,12 @@
 
 "level" = "Етаж";
 
+/* Building level: ground floor (translated separately so that a more idiomatic phrase can be used) */
+"level_value_0" = "Ground floor";
+
+/* Building level */
+"level_value_generic" = "Level: %d";
+
 "please_note" = "Моля, имайте предвид";
 
 "downloader_delete_map_dialog" = "Всички ваши редакции на картата ще бъдат изтрити заедно с нея.";
