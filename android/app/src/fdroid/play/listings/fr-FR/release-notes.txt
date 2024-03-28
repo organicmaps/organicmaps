@@ -1,8 +1,8 @@
-• OpenStreetMap data as of February 28
-• Export all bookmarks as a single KMZ file
-• Fixed several crashes
-• "Routing options enabled" is no longer displayed when using ruler
-• Included wheelchair accessibility information on place pages
-• Added recycling and elevation information to search result descriptions
+• Données OpenStreetMap du 28 février
+• Exportation de tous les signets dans un seul fichier KMZ
+• Correction de plusieurs plantages
+• Le message "Options de routage activées" ne s'affiche plus lors de l'utilisation de la règle.
+• Ajout d'informations sur l'accessibilité des fauteuils roulants sur les pages des lieux
+• Ajout d'informations sur le recyclage et l'altitude dans les descriptions des résultats de recherche
 
-…read more details at omaps.org/news
+...plus de détails sur omaps.org/news
