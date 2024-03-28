@@ -1,9 +1,9 @@
 @objc(MWMRouteInfo)
 class RouteInfo: NSObject {
   let timeToTarget: TimeInterval
-  let targetDistance: String
+  let targetDistance: Double
   let targetUnits: UnitLength
-  let distanceToTurn: String
+  let distanceToTurn: Double
   let turnUnits: UnitLength
   let streetName: String
   let turnImageName: String?
@@ -13,9 +13,9 @@ class RouteInfo: NSObject {
   let roundExitNumber: Int
 
   @objc init(timeToTarget: TimeInterval,
-             targetDistance: String,
+             targetDistance: Double,
              targetUnitsIndex: UInt8,
-             distanceToTurn: String,
+             distanceToTurn: Double,
              turnUnitsIndex: UInt8,
              streetName: String,
              turnImageName: String?,

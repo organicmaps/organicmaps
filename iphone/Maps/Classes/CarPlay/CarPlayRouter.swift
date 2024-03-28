@@ -242,11 +242,7 @@ extension CarPlayRouter {
   }
 
   private func createEstimates(_ routeInfo: RouteInfo) -> CPTravelEstimates? {
-    guard let distance = Double(routeInfo.distanceToTurn) else {
-      return nil
-    }
-
-    let measurement = Measurement(value: distance, unit: routeInfo.turnUnits)
+    let measurement = Measurement(value: routeInfo.distanceToTurn, unit: routeInfo.turnUnits)
     return CPTravelEstimates(distanceRemaining: measurement, timeRemaining: 0.0)
   }
 

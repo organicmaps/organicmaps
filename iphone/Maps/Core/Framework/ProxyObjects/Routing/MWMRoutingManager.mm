@@ -95,9 +95,9 @@
   }
 
   MWMRouteInfo *objCInfo = [[MWMRouteInfo alloc] initWithTimeToTarget:info.m_time
-                                                       targetDistance:@(info.m_distToTarget.GetDistanceString().c_str())
+                                                     targetDistance: info.m_distToTarget.GetDistance()
                                                      targetUnitsIndex:static_cast<UInt8>(info.m_distToTarget.GetUnits())
-                                                       distanceToTurn:@(info.m_distToTurn.GetDistanceString().c_str())
+                                                       distanceToTurn:info.m_distToTurn.GetDistance()
                                                        turnUnitsIndex:static_cast<UInt8>(info.m_distToTurn.GetUnits())
                                                            streetName:@(info.m_displayedStreetName.c_str())
                                                         turnImageName:[self turnImageName:info.m_turn isPrimary:YES]
