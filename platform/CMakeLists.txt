@@ -130,11 +130,13 @@ else() # neither iPhone nor Android
 
   if (${PLATFORM_WIN})
     append(SRC
+      gui_thread_qt.cpp
       http_client_curl.cpp
       http_thread_qt.cpp
       http_thread_qt.hpp
       http_uploader_background_dummy.cpp
       http_uploader_dummy.cpp
+      locale_std.cpp
       platform_win.cpp
       secure_storage_dummy.cpp
     )
@@ -157,13 +159,13 @@ else() # neither iPhone nor Android
     )
   elseif(${PLATFORM_LINUX})
     append(SRC
-      gui_thread_linux.cpp
+      gui_thread_qt.cpp
       http_client_curl.cpp
       http_thread_qt.cpp
       http_thread_qt.hpp
       http_uploader_dummy.cpp
       http_uploader_background_dummy.cpp
-      locale_linux.cpp
+      locale_std.cpp
       platform_linux.cpp
       platform_unix_impl.cpp
       platform_unix_impl.hpp

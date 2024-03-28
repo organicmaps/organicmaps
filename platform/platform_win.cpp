@@ -1,4 +1,5 @@
 #include "platform/platform.hpp"
+#include "platform/socket.hpp"
 
 #include "base/file_name_utils.hpp"
 #include "base/scope_guard.hpp"
@@ -45,6 +46,14 @@ static bool GetPathToBinary(string & outPath)
   return false;
 }
 
+namespace platform
+{
+std::unique_ptr<Socket> CreateSocket()
+{
+  return std::unique_ptr<Socket>();
+}
+} // namespace platform
+
 Platform::Platform()
 {
   string path;
@@ -89,6 +98,8 @@ Platform::Platform()
   GetTempPathA(MAX_PATH, pathBuf);
   m_tmpDir = pathBuf;
 
+  m_guiThread = std::make_unique<platform::GuiThread>();
+
   LOG(LINFO, ("Resources Directory:", m_resourcesDir));
   LOG(LINFO, ("Writable Directory:", m_writableDir));
   LOG(LINFO, ("Tmp Directory:", m_tmpDir));
@@ -106,8 +117,8 @@ void Platform::DisableBackupForFile(string const & filePath) {}
 // static
 string Platform::GetCurrentWorkingDirectory() noexcept
 {
-  char path[PATH_MAX];
-  char const * const dir = getcwd(path, PATH_MAX);
+  char path[MAX_PATH];
+  char const * const dir = getcwd(path, MAX_PATH);
   if (dir == nullptr)
     return {};
   return dir;
@@ -157,6 +168,12 @@ Platform::ChargingStatus Platform::GetChargingStatus()
   return Platform::ChargingStatus::Plugged;
 }
 
+uint8_t Platform::GetBatteryLevel()
+{
+  // This value is always 100 for desktop.
+  return 100;
+}
+
 Platform::TStorageStatus Platform::GetWritableStorageStatus(uint64_t neededSize) const
 {
   ULARGE_INTEGER freeSpace;
@@ -191,4 +208,55 @@ bool Platform::GetFileSizeByFullPath(string const & filePath, uint64_t & size)
     }
   }
   return false;
+}
+
+namespace
+{
+enum class FileTimeType { Creation, Modification };
+time_t GetFileTime(std::string const & path, FileTimeType fileTimeType)
+{
+  HANDLE hFile = CreateFileA(path.c_str(), GENERIC_READ, FILE_SHARE_READ, NULL, OPEN_EXISTING, 0, NULL);
+  if (hFile == INVALID_HANDLE_VALUE)
+    return 0;
+
+  SCOPE_GUARD(autoClose, bind(&CloseHandle, hFile));
+
+  FILETIME ft;
+  FILETIME * ftCreate = nullptr;
+  FILETIME * ftLastWrite = nullptr;
+
+  switch (fileTimeType)
+  {
+  case FileTimeType::Creation:
+    ftCreate = &ft;
+    break;
+  case FileTimeType::Modification:
+    ftLastWrite = &ft;
+    break;
+  }
+
+  if (!GetFileTime(hFile, ftCreate, nullptr, ftLastWrite))
+    return 0;
+
+  ULARGE_INTEGER ull;
+  ull.LowPart = ft.dwLowDateTime;
+  ull.HighPart = ft.dwHighDateTime;
+  return static_cast<time_t>(ull.QuadPart / 10000000ULL - 11644473600ULL);
+}
+}
+
+// static
+time_t Platform::GetFileCreationTime(std::string const & path)
+{
+  return GetFileTime(path, FileTimeType::Creation);
+}
+
+// static
+time_t Platform::GetFileModificationTime(std::string const & path)
+{
+  return GetFileTime(path, FileTimeType::Modification);
+}
+
+void Platform::GetSystemFontNames(FilesList & res) const
+{
 }

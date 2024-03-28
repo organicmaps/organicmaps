@@ -514,9 +514,10 @@ namespace impl
 {
 template <typename T> bool from_sv(std::string_view sv, T & t)
 {
-  auto const res = std::from_chars(sv.begin(), sv.end(), t);
+  auto const end = sv.data() + sv.size();
+  auto const res = std::from_chars(sv.data(), end, t);
   return (res.ec != std::errc::invalid_argument && res.ec != std::errc::result_out_of_range &&
-          res.ptr == sv.end());
+          res.ptr == end);
 }
 } // namespace impl
 

@@ -1,6 +1,7 @@
 #include "platform/preferred_languages.hpp"
 
 #include "base/buffer_vector.hpp"
+#include "base/macros.hpp"
 #include "base/string_utils.hpp"
 
 #include "std/target_os.hpp"
