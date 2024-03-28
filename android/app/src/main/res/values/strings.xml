@@ -1082,7 +1082,7 @@
 	<string name="type.craft.key_cutter">Key Cutting</string>
 	<string name="type.craft.locksmith">Locksmith</string>
 	<string name="type.craft.metal_construction">Metal Worker</string>
-	<string name="type.craft.painter">Painter</string>
+	<string name="type.craft.painter">House Painter</string>
 	<string name="type.craft.photographer">Photographer</string>
 	<string name="type.shop.camera">Camera Shop</string>
 	<string name="type.craft.plumber">Plumber</string>
