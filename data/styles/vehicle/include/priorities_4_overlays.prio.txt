@@ -483,8 +483,6 @@ historic-memorial-sculpture                         # icon z15- (also has captio
 historic-memorial-statue                            # icon z15- (also has caption(optional) z15-)
 historic-memorial-war_memorial                      # icon z15- (also has caption(optional) z15-)
 tourism-attraction                                  # icon z15- (also has caption(optional) z15-)
-tourism-attraction-animal                           # icon z15- (also has caption(optional) z15-)
-tourism-attraction-specified                        # icon z15- (also has caption(optional) z15-)
 === 1200
 
 amenity-community_centre                            # icon z16- (also has caption(optional) z16-)
@@ -981,8 +979,6 @@ entrance-main                                       # icon z18- (also has captio
 # historic-memorial-statue                          # caption(optional) z15- (also has icon z15-)
 # historic-memorial-war_memorial                    # caption(optional) z15- (also has icon z15-)
 # tourism-attraction                                # caption(optional) z15- (also has icon z15-)
-# tourism-attraction-animal                         # caption(optional) z15- (also has icon z15-)
-# tourism-attraction-specified                      # caption(optional) z15- (also has icon z15-)
 # === -8800
 
 # amenity-community_centre                          # caption(optional) z16- (also has icon z16-)
