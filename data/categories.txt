@@ -270,7 +270,7 @@ th:ที่จอดรถ
 tr:3Otopark
 uk:4Парковка
 vi:đỗ xe
-zh-Hans:停车
+zh-Hans:停车场
 zh-Hant:停車場
 el:Χώρος στάθμευσης
 he:חניה
@@ -394,7 +394,7 @@ th:สถานที่ท่องเที่ยว
 tr:4Görülecek yerler|3Turizm
 uk:3Пам’ятні місця|3туризм|4Визначні пам'ятки
 vi:Diểm tham quan
-zh-Hans:景点
+zh-Hans:旅游景点
 zh-Hant:旅遊景點
 el:4Αξιοθέατα
 he:נקודות עיניין
@@ -9068,8 +9068,8 @@ th:4ตำรวจ
 tr:3Polis
 uk:4Поліція|4Міліція
 vi:Cảnh sát
-zh-Hans:2警察
-zh-Hant:1警察局
+zh-Hans:警察局
+zh-Hant:警察局
 el:Αστυνομία
 he:משטרה
 sk:3Polícia
