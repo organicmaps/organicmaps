@@ -191,7 +191,13 @@ target_link_libraries(${PROJECT_NAME}
   $<$<BOOL:${PLATFORM_DESKTOP}>:Qt6::Core>
   $<$<BOOL:${PLATFORM_LINUX}>:Qt6::Network>
   $<$<BOOL:${QT_POSITIONING}>:Qt6::Positioning>
-  $<$<BOOL:${PLATFORM_MAC}>:-framework\ Foundation -framework\ SystemConfiguration -framework\ CoreLocation -framework\ CFNetwork>
+  $<$<BOOL:${PLATFORM_MAC}>:
+    -framework\ Foundation
+    -framework\ SystemConfiguration
+    -framework\ CoreLocation
+    -framework\ CFNetwork
+    -framework\ Security  # SecPKCS12Import
+    >
 )
 
 omim_add_test_subdirectory(platform_tests_support)
