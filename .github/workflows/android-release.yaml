@@ -31,7 +31,7 @@ jobs:
           # TODO: Find a way to refactor FDroid versioning without that additional commit.
           build=$(($(tools/unix/version.sh ios_build) + 1))
           code=$(($(tools/unix/version.sh android_code) + 1))
-          tag=$version-$build-android
+          tag=$version-$build-android-rc
           echo "::set-output name=version::$version"
           echo "::set-output name=build::$build"
           echo "::set-output name=tag::$tag"
@@ -165,6 +165,7 @@ jobs:
           name: ${{ needs.tag.outputs.tag }}
           tag_name: ${{ needs.tag.outputs.tag }}
           discussion_category_name: 'Announcements'
+          prerelease: true
           files: |
             ./android/app/build/outputs/apk/web/release/OrganicMaps-${{ needs.tag.outputs.code }}-web-release.apk
             ./android/app/build/outputs/apk/web/release/OrganicMaps-${{ needs.tag.outputs.code }}-web-release.apk.sha256sum
