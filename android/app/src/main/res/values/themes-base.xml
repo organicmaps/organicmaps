@@ -9,9 +9,9 @@
     <item name="android:textViewStyle">@style/MwmWidget.TextView</item>
     <item name="android:forceDarkAllowed" tools:targetApi="Q">false</item>
 
-    <item name="android:textColorPrimary">@color/text_color_primary</item>
+    <item name="android:textColorPrimary">@color/text_dark</item>
     <item name="android:textColorPrimaryInverse">@color/text_light</item>
-    <item name="android:textColorSecondary">@color/text_color_secondary</item>
+    <item name="android:textColorSecondary">@color/text_dark_subtitle</item>
     <item name="android:windowBackground">?windowBackgroundForced</item>
     <item name="android:colorPrimaryDark">@color/bg_primary_dark</item>
     <item name="android:windowSoftInputMode">stateUnspecified|adjustPan</item>
@@ -142,9 +142,9 @@
     <item name="android:textViewStyle">@style/MwmWidget.TextView</item>
     <item name="android:forceDarkAllowed" tools:targetApi="Q">false</item>
 
-    <item name="android:textColorPrimary">@color/text_color_primary_dark</item>
+    <item name="android:textColorPrimary">@color/text_light</item>
     <item name="android:textColorPrimaryInverse">@color/text_dark</item>
-    <item name="android:textColorSecondary">@color/text_color_secondary_dark</item>
+    <item name="android:textColorSecondary">@color/text_light_subtitle</item>
     <item name="android:windowBackground">?windowBackgroundForced</item>
     <item name="android:colorPrimaryDark">@color/bg_primary_dark_night</item>
     <item name="android:windowSoftInputMode">stateUnspecified|adjustPan</item>
