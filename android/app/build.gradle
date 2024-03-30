@@ -33,7 +33,7 @@ buildscript {
       println('Building without Google Firebase Services')
     }
 
-    classpath('com.github.triplet.gradle:play-publisher:3.8.6')
+    classpath('com.github.triplet.gradle:play-publisher:3.9.1')
     classpath('ru.cian:huawei-publish-gradle-plugin:1.4.2')
   }
 }
@@ -442,8 +442,7 @@ task prepareGoogleReleaseListing {
 
 play {
   enabled.set(false)
-  track.set('production')
-  userFraction.set(Double.valueOf(0.10)) // 10%
+  track.set('alpha')
   defaultToAppBundles.set(true)
   releaseStatus.set(ReleaseStatus.IN_PROGRESS)
   serviceAccountCredentials.set(file('google-play.json'))
