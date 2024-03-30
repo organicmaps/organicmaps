@@ -1,12 +1,22 @@
-• Dades de l’OpenStreetMap al 28 de febrer
-• Exportació de totes les adreces d’interès en un únic fitxer KMZ
-• Es permet canviar el color de la ruta
-• Pantalla «Quant a» redissenyada
-• Diverses fallades han estat corregides
-• S’ha actualitzat el color principal de l’aplicació
-• Els paràmetres «Mode nocturn» han canviat a «Aspecte»
-• Ja no es mostra «Opcions d’encaminament activades» quan s’usa el regle
-• Les pàgines dels llocs inclouen informació d’accessibilitat amb cadira de rodes
-• Les descripcions als resultats de la cerca tenen informació de reciclatge i elevació
+• Better isolines elevation data for European countries, thanks to Sonny
+• OpenStreetMap data as of March 26
+• Bookmark lists are sorted by modification time (recent at the top)
+• Eye icons for visible/hidden bookmark lists
+• Distance and time do not freeze anymore in CarPlay
+• Fixed wrong time and distance when switching planned route modes
+• Fixed the wrong 'saved bookmark' icon
+• Many new objects can be added to OpenStreetMap: various shops and crafts, BBQs, food courts, lang schools, cairns, money transfer points, etc.
+• Add "wheelchair" to the search input to limit results to wheelchair-accessible
+• Searchable orders pickup points (shop=outpost)
+• Added a long tap back button menu
 
-… entre altres correccions i millores. Visiteu https://omaps.org/news per a assabentar-vos-en!
+Map styling:
+• Added wind turbines and power plant icons
+• Reduced visibilities of many outdoors-specific POIs when in the main map style, e.g., waterfalls, mountain peaks, shelters, power towers, etc. (use the Outdoors style for those!)
+• More consistent font sizes and caption appearances
+
+Translations updates:
+• Slovak, Italian, Spanish, Hindi
+• Fixed police, parking, and sights category search for simplified Chinese
+
+ …and more fixes and improvements, check https://omaps.org/news for details!

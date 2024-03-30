@@ -1,8 +1,11 @@
-• OpenStreetMap data as of February 28
-• Export all bookmarks as a single KMZ file
-• Fixed several crashes
-• "Routing options enabled" is no longer displayed when using ruler
-• Included wheelchair accessibility information on place pages
-• Added recycling and elevation information to search result descriptions
+• Снова заработал логин в OpenStreetMap!
+• Улучшенные данные высот для европейских стран
+• Режим свободной езды и автостарт навигации в Android Auto
+• Списки меток сортируются по времени модификации (последние вверху)
+• Данные OpenStreetMap за 26 марта
+• Исправлен креш при импорте GPX, KML, KMZ из приложения Файлы
+• Значки глаз для скрытия списков закладок
+• Исправлено удаление списков меток
+• Большая кнопка "Просмотреть результаты поиска на карте"
 
-…read more details at omaps.org/news
+…подробнее читайте на omaps.org/ru/news

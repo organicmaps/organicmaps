@@ -1,8 +1,10 @@
-• Dades de l’OpenStreetMap al 28 de febrer
-• Exportació de totes les adreces d’interès en un únic fitxer KMZ
-• S’han afegit reciclatge i elevació a les descripcions dels resultats de la cerca
-• S’han corregit diverses fallades
-• Ja no es mostra «Opcions d’encaminament activades» quan s’usa el regle
-• S’assenyalen els llocs accessibles amb cadira de rodes
+• OpenStreetMap login works again!
+• Better isolines elevation data for European countries
+• OpenStreetMap data as of March 26
+• Bookmark lists are sorted by modification time (recent at the top)
+• Eye icons for visible/hidden bookmark lists
+• Fixed crash when importing GPX, KML, KMZ from the Files app
+• Bigger "View search results on the map" button
+• FreeDrive mode and faster bookmarks in Android Auto
 
-… llegiu-ne més a: omaps.org/news
+…read more details at omaps.org/news
