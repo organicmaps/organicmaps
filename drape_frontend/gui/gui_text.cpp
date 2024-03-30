@@ -168,7 +168,6 @@ void StaticLabel::CacheStaticText(std::string const & text, char const * delim,
   ranges.reserve(buffers.size());
 
   float fullHeight = 0.0;
-  float prevLineHeight;
 
   buffer_vector<Vertex, 128> & rb = result.m_buffer;
   for (int i = static_cast<int>(buffers.size()) - 1; i >= 0; --i)
@@ -179,7 +178,7 @@ void StaticLabel::CacheStaticText(std::string const & text, char const * delim,
 
     float depth = 0.0;
     glsl::vec2 pen(0.0, -fullHeight);
-    prevLineHeight = 0.0;
+    float prevLineHeight = 0.0;
     for (size_t j = 0; j < regions.size(); ++j)
     {
       std::array<glsl::vec2, 4> normals, maskTex;

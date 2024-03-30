@@ -263,21 +263,20 @@ void TextShape::Draw(ref_ptr<dp::GraphicsContext> context, ref_ptr<dp::Batcher> 
   }
   else
   {
-    StraightTextLayout secondaryLayout{
-        strings::MakeUniString(titleDecl.m_secondaryText), titleDecl.m_secondaryTextFont.m_size,
-        titleDecl.m_secondaryTextFont.m_isSdf, textures, titleDecl.m_anchor,
-        titleDecl.m_forceNoWrap};
+    StraightTextLayout secondaryLayout{strings::MakeUniString(titleDecl.m_secondaryText), titleDecl.m_secondaryTextFont.m_size,
+        titleDecl.m_secondaryTextFont.m_isSdf, textures, titleDecl.m_anchor, titleDecl.m_forceNoWrap};
 
     if (secondaryLayout.GetGlyphCount() > 0)
     {
-      CalculateTextOffsets(titleDecl, primaryLayout.GetPixelSize(),
-                         secondaryLayout.GetPixelSize(), primaryOffset, secondaryOffset);
+      CalculateTextOffsets(titleDecl, primaryLayout.GetPixelSize(), secondaryLayout.GetPixelSize(), primaryOffset, secondaryOffset);
       secondaryOffset += glsl::vec2(m_symbolOffset.x, m_symbolOffset.y);
       DrawSubString(context, secondaryLayout, titleDecl.m_secondaryTextFont, secondaryOffset, batcher,
                     textures, false /* isPrimary */, titleDecl.m_secondaryOptional);
     }
   }
 
+  // The order of drawing secondary and primary texts has been changed after a minor refactoring for better performance.
+  // If there are any issues caused by a swapped order, it should be changed back.
   if (primaryLayout.GetGlyphCount() > 0)
     DrawSubString(context, primaryLayout, titleDecl.m_primaryTextFont, primaryOffset, batcher,
                   textures, true /* isPrimary */, titleDecl.m_primaryOptional);
