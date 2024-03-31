@@ -436,8 +436,8 @@ mapswithme
 *sport|australian_football
 *leisure|bowling_alley
 *healthcare|speech_therapist
-mapswithme
-mapswithme
+*natural|scree
+*natural|shingle
 *aerialway|t-bar
 *amenity|parking|lane|fee
 *amenity|parking|street_side|fee

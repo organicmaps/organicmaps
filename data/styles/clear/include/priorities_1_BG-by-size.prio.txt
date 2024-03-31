@@ -67,7 +67,7 @@ leisure-golf_course                                 # area z12- (also has icon z
 === 140
 
 landuse-flowerbed                                   # area z16-
-natural-scrub                                       # area z12-
+natural-scrub                                       # area z10-
 === 130
 
 landuse-grass                                       # area z12-
@@ -116,8 +116,8 @@ landuse-village_green                               # area z12-
 landuse-vineyard                                    # area z12- (also has caption z15-)
 leisure-pitch                                       # area z15- (also has icon z17-, caption(optional) z17-)
 natural-bare_rock                                   # area z12- (also has caption z14-)
-natural-shingle
-natural-scree
+natural-scree                                       # area z11-
+natural-shingle                                     # area z12-
 === 80
 
 leisure-garden                                      # area z12- (also has icon z16-, caption(optional) z16-)

@@ -755,7 +755,9 @@ world  +
         peak  -
         rock  -
         saddle  -
+        scree  -
         scrub  -
+        shingle  -
         spring  -
         strait  -
         tree_row  -

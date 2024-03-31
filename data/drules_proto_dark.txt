@@ -56992,7 +56992,94 @@ cont {
   }
 }
 cont {
+  name: "natural-scree"
+  element {
+    scale: 11
+    area {
+      color: 2367520
+      priority: -1920
+    }
+  }
+  element {
+    scale: 12
+    area {
+      color: 2367520
+      priority: -1920
+    }
+  }
+  element {
+    scale: 13
+    area {
+      color: 2367520
+      priority: -1920
+    }
+  }
+  element {
+    scale: 14
+    area {
+      color: 2367520
+      priority: -1920
+    }
+  }
+  element {
+    scale: 15
+    area {
+      color: 2367520
+      priority: -1920
+    }
+  }
+  element {
+    scale: 16
+    area {
+      color: 2367520
+      priority: -1920
+    }
+  }
+  element {
+    scale: 17
+    area {
+      color: 2367520
+      priority: -1920
+    }
+  }
+  element {
+    scale: 18
+    area {
+      color: 2367520
+      priority: -1920
+    }
+  }
+  element {
+    scale: 19
+    area {
+      color: 2367520
+      priority: -1920
+    }
+  }
+  element {
+    scale: 20
+    area {
+      color: 2367520
+      priority: -1920
+    }
+  }
+}
+cont {
   name: "natural-scrub"
+  element {
+    scale: 10
+    area {
+      color: 988160
+      priority: -1870
+    }
+  }
+  element {
+    scale: 11
+    area {
+      color: 988160
+      priority: -1870
+    }
+  }
   element {
     scale: 12
     area {
@@ -57054,6 +57141,72 @@ cont {
     area {
       color: 1317888
       priority: -1870
+    }
+  }
+}
+cont {
+  name: "natural-shingle"
+  element {
+    scale: 12
+    area {
+      color: 2367520
+      priority: -1920
+    }
+  }
+  element {
+    scale: 13
+    area {
+      color: 2367520
+      priority: -1920
+    }
+  }
+  element {
+    scale: 14
+    area {
+      color: 2367520
+      priority: -1920
+    }
+  }
+  element {
+    scale: 15
+    area {
+      color: 2367520
+      priority: -1920
+    }
+  }
+  element {
+    scale: 16
+    area {
+      color: 2367520
+      priority: -1920
+    }
+  }
+  element {
+    scale: 17
+    area {
+      color: 2367520
+      priority: -1920
+    }
+  }
+  element {
+    scale: 18
+    area {
+      color: 2367520
+      priority: -1920
+    }
+  }
+  element {
+    scale: 19
+    area {
+      color: 2367520
+      priority: -1920
+    }
+  }
+  element {
+    scale: 20
+    area {
+      color: 2367520
+      priority: -1920
     }
   }
 }
