@@ -57220,21 +57220,21 @@ cont {
   element {
     scale: 12
     area {
-      color: 15590876
+      color: 14275263
       priority: -1920
     }
   }
   element {
     scale: 13
     area {
-      color: 15590876
+      color: 14275263
       priority: -1920
     }
   }
   element {
     scale: 14
     area {
-      color: 15590876
+      color: 14275263
       priority: -1920
     }
     caption {
@@ -57249,7 +57249,7 @@ cont {
   element {
     scale: 15
     area {
-      color: 15590876
+      color: 14275263
       priority: -1920
     }
     caption {
@@ -57264,7 +57264,7 @@ cont {
   element {
     scale: 16
     area {
-      color: 15590876
+      color: 14275263
       priority: -1920
     }
     caption {
@@ -57279,7 +57279,7 @@ cont {
   element {
     scale: 17
     area {
-      color: 15590876
+      color: 14275263
       priority: -1920
     }
     caption {
@@ -57294,7 +57294,7 @@ cont {
   element {
     scale: 18
     area {
-      color: 15590876
+      color: 14275263
       priority: -1920
     }
     caption {
@@ -57309,7 +57309,7 @@ cont {
   element {
     scale: 19
     area {
-      color: 15590876
+      color: 14275263
       priority: -1920
     }
     caption {
@@ -57324,7 +57324,7 @@ cont {
   element {
     scale: 20
     area {
-      color: 15590876
+      color: 14275263
       priority: -1920
     }
     caption {
@@ -59758,7 +59758,94 @@ cont {
   }
 }
 cont {
+  name: "natural-scree"
+  element {
+    scale: 11
+    area {
+      color: 13420474
+      priority: -1920
+    }
+  }
+  element {
+    scale: 12
+    area {
+      color: 13420474
+      priority: -1920
+    }
+  }
+  element {
+    scale: 13
+    area {
+      color: 13420474
+      priority: -1920
+    }
+  }
+  element {
+    scale: 14
+    area {
+      color: 13420474
+      priority: -1920
+    }
+  }
+  element {
+    scale: 15
+    area {
+      color: 13420474
+      priority: -1920
+    }
+  }
+  element {
+    scale: 16
+    area {
+      color: 13420474
+      priority: -1920
+    }
+  }
+  element {
+    scale: 17
+    area {
+      color: 13420474
+      priority: -1920
+    }
+  }
+  element {
+    scale: 18
+    area {
+      color: 13420474
+      priority: -1920
+    }
+  }
+  element {
+    scale: 19
+    area {
+      color: 13420474
+      priority: -1920
+    }
+  }
+  element {
+    scale: 20
+    area {
+      color: 13420474
+      priority: -1920
+    }
+  }
+}
+cont {
   name: "natural-scrub"
+  element {
+    scale: 10
+    area {
+      color: 13620648
+      priority: -1870
+    }
+  }
+  element {
+    scale: 11
+    area {
+      color: 13620648
+      priority: -1870
+    }
+  }
   element {
     scale: 12
     area {
@@ -59820,6 +59907,72 @@ cont {
     area {
       color: 11781233
       priority: -1870
+    }
+  }
+}
+cont {
+  name: "natural-shingle"
+  element {
+    scale: 12
+    area {
+      color: 13420474
+      priority: -1920
+    }
+  }
+  element {
+    scale: 13
+    area {
+      color: 13420474
+      priority: -1920
+    }
+  }
+  element {
+    scale: 14
+    area {
+      color: 13420474
+      priority: -1920
+    }
+  }
+  element {
+    scale: 15
+    area {
+      color: 13420474
+      priority: -1920
+    }
+  }
+  element {
+    scale: 16
+    area {
+      color: 13420474
+      priority: -1920
+    }
+  }
+  element {
+    scale: 17
+    area {
+      color: 13420474
+      priority: -1920
+    }
+  }
+  element {
+    scale: 18
+    area {
+      color: 13420474
+      priority: -1920
+    }
+  }
+  element {
+    scale: 19
+    area {
+      color: 13420474
+      priority: -1920
+    }
+  }
+  element {
+    scale: 20
+    area {
+      color: 13420474
+      priority: -1920
     }
   }
 }
