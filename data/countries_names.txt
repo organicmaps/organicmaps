@@ -2659,15 +2659,15 @@
 [Bosnia and Herzegovina_Republic of Srpska]
   en = Republika Srpska
   ar = جمهورية صرب البوسنة
-  az = Serbiya Respublikası
+  az = Serb Respublikası
   be = Рэспубліка Сербская
-  ca = República de Sèrbia
+  ca = República Srpska
   cs = Republika srbská
   da = Republika Srpska
   de = Republika Srpska
   el = Δημοκρατία της Σέρπσκα
   es = República Srpska
-  et = Serbia Vabariik
+  et = Serblaste Vabariik
   fi = Serbitasavalta
   fr = République serbe de Bosnie
   he = רפובליקה סרפסקה
