@@ -23,8 +23,6 @@ namespace search
 {
 namespace impl
 {
-namespace
-{
 template <typename ValueList>
 bool FindLangIndex(trie::Iterator<ValueList> const & trieRoot, uint8_t lang, uint32_t & langIx)
 {
@@ -43,7 +41,6 @@ bool FindLangIndex(trie::Iterator<ValueList> const & trieRoot, uint8_t lang, uin
   }
   return false;
 }
-}  // namespace
 
 template <typename ValueList, typename DFA, typename ToDo>
 bool MatchInTrie(trie::Iterator<ValueList> const & trieRoot, strings::UniChar const * rootPrefix,
