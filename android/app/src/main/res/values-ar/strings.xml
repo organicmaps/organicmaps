@@ -1486,7 +1486,12 @@
 	<string name="type.military">عسكري</string>
 	<string name="type.military.bunker">ملجأ</string>
 	<string name="type.natural">طبيعة</string>
+	<!-- A rocky land cover. -->
 	<string name="type.natural.bare_rock">صخور عارية</string>
+	<!-- A land cover consisting of rounded rock fragments (pebbles) on a beach or riverbed. -->
+	<string name="type.natural.shingle">الحصى</string>
+	<!-- A loose surface consisting of angular, sharp stones. Usually on a mountain slope and prone to landslides. -->
+	<string name="type.natural.scree">حصى</string>
 	<string name="type.natural.bay">خليج</string>
 	<string name="type.natural.beach">شاطئ</string>
 	<string name="type.natural.beach.sand">شاطئ رملي</string>

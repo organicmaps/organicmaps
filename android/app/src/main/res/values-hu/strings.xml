@@ -1345,7 +1345,12 @@
 	<string name="type.man_made.water_well">Ivókút</string>
 	<string name="type.man_made.windmill">Szélmalom</string>
 	<string name="type.natural">Természet</string>
+	<!-- A rocky land cover. -->
 	<string name="type.natural.bare_rock">Csupasz szikla</string>
+	<!-- A land cover consisting of rounded rock fragments (pebbles) on a beach or riverbed. -->
+	<string name="type.natural.shingle">Kavicsok</string>
+	<!-- A loose surface consisting of angular, sharp stones. Usually on a mountain slope and prone to landslides. -->
+	<string name="type.natural.scree">Köves törmelék</string>
 	<string name="type.natural.bay">Öböl</string>
 	<string name="type.natural.beach">Strand</string>
 	<string name="type.natural.beach.sand">Homokos part</string>

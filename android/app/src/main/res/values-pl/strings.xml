@@ -1485,7 +1485,12 @@
 	<string name="type.military">Wojskowe</string>
 	<string name="type.military.bunker">Bunkier</string>
 	<string name="type.natural">Natura</string>
+	<!-- A rocky land cover. -->
 	<string name="type.natural.bare_rock">Odkryte skały</string>
+	<!-- A land cover consisting of rounded rock fragments (pebbles) on a beach or riverbed. -->
+	<string name="type.natural.shingle">Kamyki</string>
+	<!-- A loose surface consisting of angular, sharp stones. Usually on a mountain slope and prone to landslides. -->
+	<string name="type.natural.scree">Kamienisty piarg</string>
 	<string name="type.natural.bay">Zatoka</string>
 	<string name="type.natural.beach">Plaża</string>
 	<string name="type.natural.beach.sand">Piaszczysta plaża</string>

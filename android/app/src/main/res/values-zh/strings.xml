@@ -1436,7 +1436,12 @@
 	<string name="type.military">军事</string>
 	<string name="type.military.bunker">地堡</string>
 	<string name="type.natural">自然</string>
+	<!-- A rocky land cover. -->
 	<string name="type.natural.bare_rock">岩石</string>
+	<!-- A land cover consisting of rounded rock fragments (pebbles) on a beach or riverbed. -->
+	<string name="type.natural.shingle">鹅卵石</string>
+	<!-- A loose surface consisting of angular, sharp stones. Usually on a mountain slope and prone to landslides. -->
+	<string name="type.natural.scree">石质碎石</string>
 	<string name="type.natural.bay">海湾</string>
 	<string name="type.natural.beach">海滩</string>
 	<string name="type.natural.beach.sand">沙滩</string>

@@ -1462,7 +1462,10 @@
 	<string name="type.military.bunker">Sığınacaq</string>
 	<string name="type.mountain_pass">Boğaz</string>
 	<string name="type.natural">Təbiət</string>
+	<!-- A rocky land cover. -->
 	<string name="type.natural.bare_rock">Çılpaq qaya</string>
+	<!-- A land cover consisting of rounded rock fragments (pebbles) on a beach or riverbed. -->
+	<string name="type.natural.shingle">Şingle</string>
 	<string name="type.natural.bay">Bay</string>
 	<string name="type.natural.beach">Çimərlik</string>
 	<string name="type.natural.beach.sand">Qum çimərliyi</string>

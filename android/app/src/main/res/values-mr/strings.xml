@@ -1360,7 +1360,12 @@
 	<string name="type.military.bunker">बंकर</string>
 	<string name="type.mountain_pass">डोंगरवाट</string>
 	<string name="type.natural">नैसर्गिक</string>
+	<!-- A rocky land cover. -->
 	<string name="type.natural.bare_rock">खडक</string>
+	<!-- A land cover consisting of rounded rock fragments (pebbles) on a beach or riverbed. -->
+	<string name="type.natural.shingle">खडे</string>
+	<!-- A loose surface consisting of angular, sharp stones. Usually on a mountain slope and prone to landslides. -->
+	<string name="type.natural.scree">स्क्री</string>
 	<string name="type.natural.bay">खाडी</string>
 	<string name="type.natural.beach">समुद्रकिनारा</string>
 	<string name="type.natural.beach.sand">वालुकामय समुद्रकिनारा</string>

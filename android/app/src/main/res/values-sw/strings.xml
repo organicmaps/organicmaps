@@ -591,6 +591,7 @@
 	<string name="type.leisure.sauna">Chumba cha mvuke</string>
 	<string name="type.man_made.tower.communication">Mnara wa Mawasiliano</string>
 	<string name="type.natural">Uasilia</string>
+	<!-- A rocky land cover. -->
 	<string name="type.natural.bare_rock">Mwamba tupu</string>
 	<string name="type.natural.bay">Hori</string>
 	<string name="type.natural.beach">Pwani</string>

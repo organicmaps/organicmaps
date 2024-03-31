@@ -927,6 +927,10 @@
 	<string name="type.man_made.windmill">पवनचक्की</string>
 	<string name="type.mountain_pass">दर्रा</string>
 	<string name="type.natural">प्रकृति</string>
+	<!-- A land cover consisting of rounded rock fragments (pebbles) on a beach or riverbed. -->
+	<string name="type.natural.shingle">कंकड़</string>
+	<!-- A loose surface consisting of angular, sharp stones. Usually on a mountain slope and prone to landslides. -->
+	<string name="type.natural.scree">रोड़ी</string>
 	<string name="type.natural.bay">खाड़ी</string>
 	<string name="type.natural.beach">बालू तट</string>
 	<string name="type.natural.beach.sand">बालू तट</string>

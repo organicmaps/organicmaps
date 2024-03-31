@@ -2635,7 +2635,14 @@
 
 "type.natural" = "Natura";
 
+/* A rocky land cover. */
 "type.natural.bare_rock" = "Harkaitz biluzi";
+
+/* A land cover consisting of rounded rock fragments (pebbles) on a beach or riverbed. */
+"type.natural.shingle" = "Harri koskor";
+
+/* A loose surface consisting of angular, sharp stones. Usually on a mountain slope and prone to landslides. */
+"type.natural.scree" = "Srika";
 
 "type.natural.bay" = "Badia";
 

@@ -1336,7 +1336,12 @@
 	<string name="type.man_made.windmill">Větrný mlýn</string>
 	<string name="type.military.bunker">Bunkr</string>
 	<string name="type.natural">Příroda</string>
+	<!-- A rocky land cover. -->
 	<string name="type.natural.bare_rock">Holá skála</string>
+	<!-- A land cover consisting of rounded rock fragments (pebbles) on a beach or riverbed. -->
+	<string name="type.natural.shingle">Oblázky</string>
+	<!-- A loose surface consisting of angular, sharp stones. Usually on a mountain slope and prone to landslides. -->
+	<string name="type.natural.scree">Kamenité sutě</string>
 	<string name="type.natural.bay">Záliv</string>
 	<string name="type.natural.beach">Pláž</string>
 	<string name="type.natural.beach.sand">Písečná pláž</string>

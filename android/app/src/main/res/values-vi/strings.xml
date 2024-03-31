@@ -1325,7 +1325,12 @@
 	<string name="type.man_made.windmill">Cối xay gió</string>
 	<string name="type.military.bunker">Boongke</string>
 	<string name="type.natural">Tự nhiên</string>
+	<!-- A rocky land cover. -->
 	<string name="type.natural.bare_rock">Đá trần</string>
+	<!-- A land cover consisting of rounded rock fragments (pebbles) on a beach or riverbed. -->
+	<string name="type.natural.shingle">Ván lợp</string>
+	<!-- A loose surface consisting of angular, sharp stones. Usually on a mountain slope and prone to landslides. -->
+	<string name="type.natural.scree">Sàng</string>
 	<string name="type.natural.bay">Vịnh</string>
 	<string name="type.natural.beach">Bãi biển</string>
 	<string name="type.natural.beach.sand">Bãi cát</string>

@@ -2635,7 +2635,14 @@
 
 "type.natural" = "Прырода";
 
-"type.natural.bare_rock" = "Голая скала";
+/* A rocky land cover. */
+"type.natural.bare_rock" = "Каменная парода";
+
+/* A land cover consisting of rounded rock fragments (pebbles) on a beach or riverbed. */
+"type.natural.shingle" = "Галька";
+
+/* A loose surface consisting of angular, sharp stones. Usually on a mountain slope and prone to landslides. */
+"type.natural.scree" = "Камяністая асып";
 
 "type.natural.bay" = "Заліў";
 
@@ -2691,7 +2698,7 @@
 
 "type.natural.saddle" = "Седлавіна";
 
-"type.natural.rock" = "Горная парода";
+"type.natural.rock" = "Камень";
 
 "type.natural.scrub" = "Зараснікі";
 

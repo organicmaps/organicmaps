@@ -2635,7 +2635,14 @@
 
 "type.natural" = "Luonto";
 
+/* A rocky land cover. */
 "type.natural.bare_rock" = "Paljas kallio";
+
+/* A land cover consisting of rounded rock fragments (pebbles) on a beach or riverbed. */
+"type.natural.shingle" = "Pebbles";
+
+/* A loose surface consisting of angular, sharp stones. Usually on a mountain slope and prone to landslides. */
+"type.natural.scree" = "Kivinen rapakivi";
 
 "type.natural.bay" = "Lahti";
 

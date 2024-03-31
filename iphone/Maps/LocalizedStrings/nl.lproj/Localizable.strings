@@ -2635,7 +2635,14 @@
 
 "type.natural" = "Natuur";
 
-"type.natural.bare_rock" = "Kale steen";
+/* A rocky land cover. */
+"type.natural.bare_rock" = "Kale rots";
+
+/* A land cover consisting of rounded rock fragments (pebbles) on a beach or riverbed. */
+"type.natural.shingle" = "Kiezels";
+
+/* A loose surface consisting of angular, sharp stones. Usually on a mountain slope and prone to landslides. */
+"type.natural.scree" = "Puinhelling";
 
 "type.natural.bay" = "Baai";
 
