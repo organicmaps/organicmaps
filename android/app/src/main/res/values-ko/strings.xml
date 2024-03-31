@@ -1332,7 +1332,12 @@
 	<string name="type.man_made.windmill">풍차</string>
 	<string name="type.military.bunker">벙커</string>
 	<string name="type.natural">자연</string>
+	<!-- A rocky land cover. -->
 	<string name="type.natural.bare_rock">베어 락</string>
+	<!-- A land cover consisting of rounded rock fragments (pebbles) on a beach or riverbed. -->
+	<string name="type.natural.shingle">페블</string>
+	<!-- A loose surface consisting of angular, sharp stones. Usually on a mountain slope and prone to landslides. -->
+	<string name="type.natural.scree">스토니 스크리</string>
 	<string name="type.natural.bay">만</string>
 	<string name="type.natural.beach">바닷가</string>
 	<string name="type.natural.beach.sand">모래 사장</string>

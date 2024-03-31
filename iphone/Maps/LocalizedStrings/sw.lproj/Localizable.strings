@@ -2645,7 +2645,14 @@
 
 "type.natural" = "Uasilia";
 
+/* A rocky land cover. */
 "type.natural.bare_rock" = "Mwamba tupu";
+
+/* A land cover consisting of rounded rock fragments (pebbles) on a beach or riverbed. */
+"type.natural.shingle" = "Shingle";
+
+/* A loose surface consisting of angular, sharp stones. Usually on a mountain slope and prone to landslides. */
+"type.natural.scree" = "Scree";
 
 "type.natural.bay" = "Hori";
 

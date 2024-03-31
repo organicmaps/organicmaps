@@ -982,7 +982,12 @@
 	<string name="type.leisure.swimming_pool.private">Басейн</string>
 	<string name="type.man_made.tower.communication">Комуникационна кула</string>
 	<string name="type.natural">Природа</string>
-	<string name="type.natural.bare_rock">Гола скала</string>
+	<!-- A rocky land cover. -->
+	<string name="type.natural.bare_rock">Рок</string>
+	<!-- A land cover consisting of rounded rock fragments (pebbles) on a beach or riverbed. -->
+	<string name="type.natural.shingle">Камъчета</string>
+	<!-- A loose surface consisting of angular, sharp stones. Usually on a mountain slope and prone to landslides. -->
+	<string name="type.natural.scree">Сипеи</string>
 	<string name="type.natural.bay">Залив</string>
 	<string name="type.natural.beach">Плаж</string>
 	<string name="type.natural.beach.sand">Пясъчен плаж</string>
@@ -1010,7 +1015,7 @@
 	<string name="type.natural.orchard">Овощна градина</string>
 	<string name="type.natural.peak">Връх</string>
 	<string name="type.natural.saddle">Седло</string>
-	<string name="type.natural.rock">Скала</string>
+	<string name="type.natural.rock">Камък</string>
 	<string name="type.natural.scrub">Гъсталаци</string>
 	<string name="type.natural.spring">Извор</string>
 	<string name="type.natural.strait">Проток</string>

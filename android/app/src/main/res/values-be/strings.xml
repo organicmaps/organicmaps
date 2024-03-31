@@ -1115,7 +1115,12 @@
 	<string name="type.man_made.tower.communication">Вежа сувязі</string>
 	<string name="type.mountain_pass">Перавал</string>
 	<string name="type.natural">Прырода</string>
-	<string name="type.natural.bare_rock">Голая скала</string>
+	<!-- A rocky land cover. -->
+	<string name="type.natural.bare_rock">Каменная парода</string>
+	<!-- A land cover consisting of rounded rock fragments (pebbles) on a beach or riverbed. -->
+	<string name="type.natural.shingle">Галька</string>
+	<!-- A loose surface consisting of angular, sharp stones. Usually on a mountain slope and prone to landslides. -->
+	<string name="type.natural.scree">Камяністая асып</string>
 	<string name="type.natural.bay">Заліў</string>
 	<string name="type.natural.beach">Пляж</string>
 	<string name="type.natural.beach.sand">Пяшчаны пляж</string>
@@ -1143,7 +1148,7 @@
 	<string name="type.natural.orchard">Сад</string>
 	<string name="type.natural.peak">Вяршыня</string>
 	<string name="type.natural.saddle">Седлавіна</string>
-	<string name="type.natural.rock">Горная парода</string>
+	<string name="type.natural.rock">Камень</string>
 	<string name="type.natural.scrub">Зараснікі</string>
 	<string name="type.natural.spring">Крыніца</string>
 	<string name="type.natural.strait">Праліў</string>

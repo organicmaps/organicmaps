@@ -1246,7 +1246,12 @@
 	<string name="type.man_made.windmill">توربین بادی</string>
 	<string name="type.military.bunker">پناهگاه</string>
 	<string name="type.natural">طبیعت</string>
+	<!-- A rocky land cover. -->
 	<string name="type.natural.bare_rock">سنگ برهنه</string>
+	<!-- A land cover consisting of rounded rock fragments (pebbles) on a beach or riverbed. -->
+	<string name="type.natural.shingle">سنگریزه ها</string>
+	<!-- A loose surface consisting of angular, sharp stones. Usually on a mountain slope and prone to landslides. -->
+	<string name="type.natural.scree">اسکری</string>
 	<string name="type.natural.bay">خلیج</string>
 	<string name="type.natural.beach">ساحل</string>
 	<string name="type.natural.beach.sand">ساحل شنی</string>

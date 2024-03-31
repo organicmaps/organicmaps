@@ -1130,7 +1130,12 @@
 	<string name="type.leisure.picnic_table">קינקיפ ןחלוש</string>
 	<string name="type.man_made.tower.communication">מגדל תקשורת</string>
 	<string name="type.natural">טבע</string>
+	<!-- A rocky land cover. -->
 	<string name="type.natural.bare_rock">סלע חשוף</string>
+	<!-- A land cover consisting of rounded rock fragments (pebbles) on a beach or riverbed. -->
+	<string name="type.natural.shingle">אבנים</string>
+	<!-- A loose surface consisting of angular, sharp stones. Usually on a mountain slope and prone to landslides. -->
+	<string name="type.natural.scree">דרדרת</string>
 	<string name="type.natural.bay">מפרץ</string>
 	<string name="type.natural.beach">חוף חולי</string>
 	<string name="type.natural.beach.sand">חוף חולי</string>

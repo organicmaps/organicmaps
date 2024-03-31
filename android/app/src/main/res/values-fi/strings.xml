@@ -1468,7 +1468,12 @@
 	<string name="type.man_made.windmill">Tuulimylly</string>
 	<string name="type.military.bunker">Bunkkeri</string>
 	<string name="type.natural">Luonto</string>
+	<!-- A rocky land cover. -->
 	<string name="type.natural.bare_rock">Paljas kallio</string>
+	<!-- A land cover consisting of rounded rock fragments (pebbles) on a beach or riverbed. -->
+	<string name="type.natural.shingle">Pebbles</string>
+	<!-- A loose surface consisting of angular, sharp stones. Usually on a mountain slope and prone to landslides. -->
+	<string name="type.natural.scree">Kivinen rapakivi</string>
 	<string name="type.natural.bay">Lahti</string>
 	<string name="type.natural.beach">Ranta</string>
 	<string name="type.natural.beach.sand">Hiekkainen ranta</string>

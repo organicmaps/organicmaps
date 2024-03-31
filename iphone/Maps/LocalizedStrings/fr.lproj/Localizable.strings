@@ -2645,7 +2645,14 @@
 
 "type.natural" = "Nature";
 
+/* A rocky land cover. */
 "type.natural.bare_rock" = "Zone rocheuse";
+
+/* A land cover consisting of rounded rock fragments (pebbles) on a beach or riverbed. */
+"type.natural.shingle" = "Galets";
+
+/* A loose surface consisting of angular, sharp stones. Usually on a mountain slope and prone to landslides. */
+"type.natural.scree" = "Éboulis pierreux";
 
 "type.natural.bay" = "Baie";
 

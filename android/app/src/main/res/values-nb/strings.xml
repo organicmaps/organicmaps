@@ -1382,7 +1382,12 @@
 	<string name="type.man_made.water_well">Brønn</string>
 	<string name="type.man_made.windmill">Vindmølle</string>
 	<string name="type.natural">Natur</string>
+	<!-- A rocky land cover. -->
 	<string name="type.natural.bare_rock">Bar stein</string>
+	<!-- A land cover consisting of rounded rock fragments (pebbles) on a beach or riverbed. -->
+	<string name="type.natural.shingle">Småstein</string>
+	<!-- A loose surface consisting of angular, sharp stones. Usually on a mountain slope and prone to landslides. -->
+	<string name="type.natural.scree">Steinete rasmark</string>
 	<string name="type.natural.bay">Bukt</string>
 	<string name="type.natural.beach">Strand</string>
 	<string name="type.natural.beach.sand">Sandstrand</string>

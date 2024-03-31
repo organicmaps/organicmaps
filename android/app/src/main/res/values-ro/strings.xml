@@ -1350,7 +1350,12 @@
 	<string name="type.man_made.windmill">Moară de vânt</string>
 	<string name="type.military.bunker">Buncăr</string>
 	<string name="type.natural">Natură</string>
+	<!-- A rocky land cover. -->
 	<string name="type.natural.bare_rock">Piatră goală</string>
+	<!-- A land cover consisting of rounded rock fragments (pebbles) on a beach or riverbed. -->
+	<string name="type.natural.shingle">Pietriș</string>
+	<!-- A loose surface consisting of angular, sharp stones. Usually on a mountain slope and prone to landslides. -->
+	<string name="type.natural.scree">Grohotiș</string>
 	<string name="type.natural.bay">Golf</string>
 	<string name="type.natural.beach">Plajă</string>
 	<string name="type.natural.beach.sand">Plaja nisipoasa</string>

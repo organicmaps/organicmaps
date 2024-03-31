@@ -1505,7 +1505,12 @@
 	<string name="type.military.bunker">Búnker</string>
 	<string name="type.mountain_pass">Puerto de montaña</string>
 	<string name="type.natural">Naturaleza</string>
+	<!-- A rocky land cover. -->
 	<string name="type.natural.bare_rock">Roca desnuda</string>
+	<!-- A land cover consisting of rounded rock fragments (pebbles) on a beach or riverbed. -->
+	<string name="type.natural.shingle">Guijarros</string>
+	<!-- A loose surface consisting of angular, sharp stones. Usually on a mountain slope and prone to landslides. -->
+	<string name="type.natural.scree">Pedregal</string>
 	<string name="type.natural.bay">Bahía</string>
 	<string name="type.natural.beach">Playa</string>
 	<string name="type.natural.beach.sand">Playa de arena</string>

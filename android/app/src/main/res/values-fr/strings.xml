@@ -1471,7 +1471,12 @@
 	<string name="type.man_made.windmill">Moulin à vent</string>
 	<string name="type.mountain_pass">Col de montagne</string>
 	<string name="type.natural">Nature</string>
+	<!-- A rocky land cover. -->
 	<string name="type.natural.bare_rock">Zone rocheuse</string>
+	<!-- A land cover consisting of rounded rock fragments (pebbles) on a beach or riverbed. -->
+	<string name="type.natural.shingle">Galets</string>
+	<!-- A loose surface consisting of angular, sharp stones. Usually on a mountain slope and prone to landslides. -->
+	<string name="type.natural.scree">Éboulis pierreux</string>
 	<string name="type.natural.bay">Baie</string>
 	<string name="type.natural.beach">Plage</string>
 	<string name="type.natural.beach.sand">Plage de sable</string>

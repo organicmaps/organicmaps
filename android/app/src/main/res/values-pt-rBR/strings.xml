@@ -1373,6 +1373,8 @@
 	<string name="type.man_made.works">Fábrica</string>
 	<string name="type.military">Militar</string>
 	<string name="type.military.bunker">Búnquer</string>
+	<!-- A loose surface consisting of angular, sharp stones. Usually on a mountain slope and prone to landslides. -->
+	<string name="type.natural.scree">Pedregulho pedregoso</string>
 	<string name="type.natural.geyser">Gêiser</string>
 	<string name="type.natural.glacier">Geleira</string>
 	<string name="type.noexit">Via sem saída</string>

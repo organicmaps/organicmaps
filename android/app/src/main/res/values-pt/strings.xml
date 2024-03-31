@@ -1441,7 +1441,12 @@
 	<string name="type.military">Militar</string>
 	<string name="type.military.bunker">Búnquer</string>
 	<string name="type.natural">Natureza</string>
+	<!-- A rocky land cover. -->
 	<string name="type.natural.bare_rock">Zona rochosa</string>
+	<!-- A land cover consisting of rounded rock fragments (pebbles) on a beach or riverbed. -->
+	<string name="type.natural.shingle">Seixos</string>
+	<!-- A loose surface consisting of angular, sharp stones. Usually on a mountain slope and prone to landslides. -->
+	<string name="type.natural.scree">Pedregulho</string>
 	<string name="type.natural.bay">Baía</string>
 	<string name="type.natural.beach">Praia</string>
 	<string name="type.natural.beach.sand">Praia de areia</string>
