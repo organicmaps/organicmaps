@@ -35,7 +35,11 @@ FileData::FileData(string const & fileName, Op op)
 
   m_File = fopen(fileName.c_str(), modes[op]);
   if (m_File)
+  {
+    if (op == OP_APPEND)
+      fseek64(m_File, 0, SEEK_END);
     return;
+  }
 
   if (op == OP_WRITE_EXISTING)
   {
