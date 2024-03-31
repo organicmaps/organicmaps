@@ -522,8 +522,8 @@ healthcare|sample_collection;435;
 sport|australian_football;436;
 leisure|bowling_alley;437;
 healthcare|speech_therapist;438;
-deprecated|deprecated;439;x
-deprecated|deprecated;440;x
+natural|scree;439;
+natural|shingle;440;
 aerialway|t-bar;441;
 amenity|parking|lane|fee;[amenity=parking][parking=lane][fee];;name;int_name;442;
 amenity|parking|street_side|fee;[amenity=parking][parking=street_side][fee];;name;int_name;443;
