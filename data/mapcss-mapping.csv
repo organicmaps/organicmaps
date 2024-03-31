@@ -1053,7 +1053,7 @@ historic|wayside_shrine;965;
 historic|boundary_stone;966;
 historic|citywalls;967;
 historic|tomb;968;
-natural|rock;969;
+natural|rock;[natural=rock],[natural=stone];;;;969;
 natural|bare_rock;970;
 natural|tree_row;971;
 natural|cape;972;
