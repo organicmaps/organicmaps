@@ -67,6 +67,7 @@ DEEPL_TARGET_LANGUAGES = [
     'zh',  # zh-Hans in OM
 ]
 
+DEEPL_AND_GOOGLE_TARGET_LANGUAGES = sorted(DEEPL_TARGET_LANGUAGES + GOOGLE_TARGET_LANGUAGES)
 
 def get_api_key():
   key = os.environ.get('DEEPL_FREE_API_KEY')
@@ -79,7 +80,8 @@ def get_api_key():
 
 def google_translate(text, source_language):
   fromTo = source_language.lower() + ':'
-  for lang in GOOGLE_TARGET_LANGUAGES:
+  # Translate all languages with Google to replace failed DeepL translations.
+  for lang in DEEPL_AND_GOOGLE_TARGET_LANGUAGES:
     fromTo += lang + '+'
   # Remove last +
   fromTo = fromTo[:-1]
@@ -93,7 +95,7 @@ def google_translate(text, source_language):
   translations = {}
   i = 0
   for line in res.stdout.splitlines():
-    lang = GOOGLE_TARGET_LANGUAGES[i]
+    lang = DEEPL_AND_GOOGLE_TARGET_LANGUAGES[i]
     if lang == 'zh-TW':
       lang = 'zh-Hant'
     translations[lang] = line
@@ -157,6 +159,9 @@ def usage():
       print('Install it using `brew install translate-shell`')
     else:
       print('See https://www.soimort.org/translate-shell/ for installation instructions')
+  print()
+  print('Supported languages:')
+  print(', '.join(DEEPL_AND_GOOGLE_TARGET_LANGUAGES))
 
 
 # Returns a list of all languages supported by the core (search) in data/categories.txt
@@ -199,7 +204,16 @@ if __name__ == '__main__':
 
   translations = deepl_translate(text_to_translate, source_language)
   google_translations = google_translate(text_to_translate, source_language)
-  translations.update(google_translations)
+  # Check if DeepL did not translate the string (it is the same as the original string),
+  # and fall back to Google in this case.
+  original_input = translations[source_language]
+  for lang, value in google_translations.items():
+    if lang in translations:
+      if translations[lang] == original_input:
+        translations[lang] = value
+    else:
+      translations[lang] = value
+
   # Remove duplicates for regional variations.
   for regional in ['en-GB', 'es-MX', 'pt-BR']:
     main = regional.split('-')[0]  # 'en', 'es', 'pt'...
