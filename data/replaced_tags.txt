@@ -46,6 +46,7 @@ shop=money_transfer : amenity=money_transfer
 shop=estate_agent : office=estate_agent
 shop=locksmith : craft=locksmith
 shop=auction_house : shop=auction
+shop=vacant : disused:shop=yes
 ford=boat : highway=ford
 ford=intermittent : highway=ford
 ford=seasonal : highway=ford
