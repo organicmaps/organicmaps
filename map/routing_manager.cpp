@@ -106,6 +106,7 @@ RouteMarkData GetLastPassedPoint(BookmarkManager * bmManager, vector<RouteMarkDa
   {
     data.m_position = bmManager->MyPositionMark().GetPivot();
     data.m_isMyPosition = false;
+    data.m_replaceWithMyPosition = true;
   }
 
   return data;
@@ -119,6 +120,7 @@ void SerializeRoutePoint(json_t * node, RouteMarkData const & data)
   ToJSONObject(*node, "subtitle", data.m_subTitle);
   ToJSONObject(*node, "x", data.m_position.x);
   ToJSONObject(*node, "y", data.m_position.y);
+  ToJSONObject(*node, "replaceWithMyPosition", data.m_replaceWithMyPosition);
 }
 
 RouteMarkData DeserializeRoutePoint(json_t * node)
@@ -135,6 +137,8 @@ RouteMarkData DeserializeRoutePoint(json_t * node)
 
   FromJSONObject(node, "x", data.m_position.x);
   FromJSONObject(node, "y", data.m_position.y);
+
+  FromJSONObject(node, "replaceWithMyPosition", data.m_replaceWithMyPosition);
 
   return data;
 }
@@ -1400,13 +1404,18 @@ void RoutingManager::LoadRoutePoints(LoadRouteHandler const & handler)
                           [this, handler, points = std::move(points)]() mutable
     {
       ASSERT(m_bmManager != nullptr, ());
-      // If we have found my position, we use my position as start point.
+      // If we have found my position and the saved route used the user's position, we use my position as start point.
+      bool routeUsedPosition = false;
       auto const & myPosMark = m_bmManager->MyPositionMark();
       auto editSession = m_bmManager->GetEditSession();
       editSession.ClearGroup(UserMark::Type::ROUTING);
       for (auto & p : points)
       {
-        if (p.m_pointType == RouteMarkType::Start && myPosMark.HasPosition())
+        // Check if the saved route used the user's position
+        if (p.m_replaceWithMyPosition && p.m_pointType == RouteMarkType::Start)
+          routeUsedPosition = true;
+
+        if (p.m_replaceWithMyPosition && p.m_pointType == RouteMarkType::Start && myPosMark.HasPosition())
         {
           RouteMarkData startPt;
           startPt.m_pointType = RouteMarkType::Start;
@@ -1420,9 +1429,9 @@ void RoutingManager::LoadRoutePoints(LoadRouteHandler const & handler)
         }
       }
 
-      // If we don't have my position, save loading timestamp. Probably
-      // we will get my position soon.
-      if (!myPosMark.HasPosition())
+      // If we don't have my position and the saved route used it, save loading timestamp.
+      // Probably we will get my position soon.
+      if (routeUsedPosition && !myPosMark.HasPosition())
         m_loadRoutePointsTimestamp = chrono::steady_clock::now();
 
       if (handler)
