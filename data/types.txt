@@ -1595,3 +1595,4 @@ amenity|recycling|container
 *railway|subway_entrance|singapore
 *railway|station|subway|boston
 *railway|subway_entrance|boston
+*railway|station|overground|london
