@@ -151,6 +151,10 @@ area|z16-[landuse=forest],
 area|z16-[leisure=garden],
 {fill-color: @forest;}
 
+/* must be after other garden rules */
+area|z12-[leisure=garden][garden:type=residential],
+{fill-color: @residentialgarden;}
+
 area|z12-13[landuse=grass],
 area|z12-13[natural=grassland],
 area|z12-13[leisure=golf_course],
