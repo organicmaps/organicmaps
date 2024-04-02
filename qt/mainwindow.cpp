@@ -303,7 +303,7 @@ void MainWindow::CreateNavigationBar()
 
     pToolBar->addSeparator();
 
-    pToolBar->addAction(QIcon(":/navig64/bookmark.png"), tr("Show bookmarks and tracks"),
+    pToolBar->addAction(QIcon(":/navig64/bookmark.png"), tr("Show bookmarks and tracks; use ALT + RMB to add a bookmark"),
                         this, SLOT(OnBookmarksAction()));
     pToolBar->addSeparator();
 
