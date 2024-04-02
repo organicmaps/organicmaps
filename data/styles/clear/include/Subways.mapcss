@@ -391,6 +391,10 @@ node|z15-[railway=station][transport=subway][city=london] {icon-image: subway-lo
 node|z16-[railway=subway_entrance][city=london] {icon-image: subway_entrance-london-s.svg;}
 node|z18-[railway=subway_entrance][city=london] {icon-image: subway_entrance-london-m.svg;}
 
+/* London Overground Station */
+node|z12-14[railway=station][operator=London Overground] {icon-image: london-overground-s.svg;icon-min-distance: 1;}
+node|z15-[railway=station][operator=London Overground] {icon-image: london-overground-m.svg;}
+
 /* Los Angeles Subway Station */
 node|z12-[railway=station][transport=subway][city=la] {icon-image: subway-losangeles-s.svg;}
 node|z15-[railway=station][transport=subway][city=la] {icon-image: subway-losangeles-m.svg;}
