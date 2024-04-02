@@ -176,7 +176,7 @@ final class RoutingBottomMenuController implements View.OnClickListener
     UiUtils.show(mTransitFrame);
     RecyclerView rv = mTransitFrame.findViewById(R.id.transit_recycler_view);
     TransitStepAdapter adapter = new TransitStepAdapter();
-    rv.setLayoutManager(new MultilineLayoutManager());
+    rv.setLayoutManager(new MultilineLayoutManager(mTransitFrame.getLayoutDirection()));
     rv.setNestedScrollingEnabled(false);
     rv.removeItemDecoration(mTransitViewDecorator);
     rv.addItemDecoration(mTransitViewDecorator);
@@ -206,7 +206,7 @@ final class RoutingBottomMenuController implements View.OnClickListener
     {
       UiUtils.show(rv);
       final TransitStepAdapter adapter = new TransitStepAdapter();
-      rv.setLayoutManager(new MultilineLayoutManager());
+      rv.setLayoutManager(new MultilineLayoutManager(mTransitFrame.getLayoutDirection()));
       rv.setNestedScrollingEnabled(false);
       rv.removeItemDecoration(mTransitViewDecorator);
       rv.addItemDecoration(mTransitViewDecorator);
