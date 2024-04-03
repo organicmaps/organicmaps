@@ -59,6 +59,3 @@
 [submodule "3party/harfbuzz/harfbuzz"]
 	path = 3party/harfbuzz/harfbuzz
 	url = https://github.com/harfbuzz/harfbuzz.git
-[submodule "3party/utfcpp"]
-	path = 3party/utfcpp
-	url = https://github.com/nemtrif/utfcpp.git

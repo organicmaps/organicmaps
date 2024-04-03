@@ -1683,3 +1683,4 @@ railway|station|subway|singapore;[railway=station][transport=subway][city=singap
 railway|subway_entrance|singapore;[railway=subway_entrance][city=singapore];;name;int_name;1595;
 railway|station|subway|boston;[railway=station][transport=subway][city=boston],[railway=station][station=subway][city=boston];;name;int_name;1596;
 railway|subway_entrance|boston;[railway=subway_entrance][city=boston];;name;int_name;1597;
+railway|station|overground|london;[railway=station][operator=London Overground];;name;int_name;1598;
