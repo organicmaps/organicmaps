@@ -2960,6 +2960,8 @@
 
 "type.railway.station.monorail" = "Tren geltokian";
 
+"type.railway.station.overground.london" = "Overground Station";
+
 "type.railway.station.subway" = "Metroa";
 
 "type.railway.station.subway.adana" = "Metroa";

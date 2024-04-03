@@ -2960,6 +2960,8 @@
 
 "type.railway.station.monorail" = "रेल्वे स्थानक";
 
+"type.railway.station.overground.london" = "Overground Station";
+
 "type.railway.station.subway" = "भुयारी मार्ग";
 
 "type.railway.station.subway.adana" = "भुयारी मार्ग";

@@ -2960,6 +2960,8 @@
 
 "type.railway.station.monorail" = "Train Station";
 
+"type.railway.station.overground.london" = "Overground Station";
+
 "type.railway.station.subway" = "Subway Station";
 
 "type.railway.station.subway.adana" = "Subway Station";

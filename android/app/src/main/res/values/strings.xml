@@ -1714,6 +1714,7 @@
 	<string name="type.railway.station.light_rail.london">DLR Station</string>
 	<string name="type.railway.station.light_rail.porto">Porto Metro</string>
 	<string name="type.railway.station.monorail">Monorail Station</string>
+	<string name="type.railway.station.overground.london">Overground Station</string>
 	<string name="type.railway.station.subway">Subway Station</string>
 	<string name="type.railway.station.subway.adana">Subway Station</string>
 	<string name="type.railway.station.subway.algiers">Subway Station</string>
