@@ -33,6 +33,7 @@ import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 import java.util.HashMap;
 import java.util.Map;
+import java.util.concurrent.atomic.AtomicInteger;
 
 public class MapButtonsController extends Fragment
 {
@@ -94,11 +95,40 @@ public class MapButtonsController extends Fragment
         helpButton.getDrawable().setTintList(null);
     }
 
+    final int MIN_ZOOM_LEVEL = 0;
+    final int MAX_ZOOM_LEVEL = 20;
     final View zoomFrame = mFrame.findViewById(R.id.zoom_buttons_container);
-    mFrame.findViewById(R.id.nav_zoom_in)
-          .setOnClickListener((v) -> mMapButtonClickListener.onMapButtonClick(MapButtons.zoomIn));
-    mFrame.findViewById(R.id.nav_zoom_out)
-          .setOnClickListener((v) -> mMapButtonClickListener.onMapButtonClick(MapButtons.zoomOut));
+    final View zoomInButton = mFrame.findViewById(R.id.nav_zoom_in);
+    final View zoomOutButton = mFrame.findViewById(R.id.nav_zoom_out);
+    AtomicInteger currentZoomLevel = new AtomicInteger(0);
+    zoomInButton.setOnClickListener((v) -> {
+      if (currentZoomLevel.get() < MAX_ZOOM_LEVEL) {
+        mMapButtonClickListener.onMapButtonClick(MapButtons.zoomIn);
+        currentZoomLevel.getAndIncrement();
+      }
+      if (!zoomOutButton.isEnabled()) {
+        zoomOutButton.setEnabled(true);
+        zoomOutButton.setAlpha(1f);
+      }
+      if (currentZoomLevel.get() >= MAX_ZOOM_LEVEL) {
+        zoomInButton.setEnabled(false);
+        zoomInButton.setAlpha(0.5f);
+      }
+    });
+    zoomOutButton.setOnClickListener((v) -> {
+      if (currentZoomLevel.get() > MIN_ZOOM_LEVEL) {
+        mMapButtonClickListener.onMapButtonClick(MapButtons.zoomOut);
+        currentZoomLevel.getAndDecrement();
+      }
+      if (!zoomInButton.isEnabled()) {
+        zoomInButton.setEnabled(true);
+        zoomInButton.setAlpha(1f);
+      }
+      if (currentZoomLevel.get() <= MIN_ZOOM_LEVEL) {
+        zoomOutButton.setEnabled(false);
+        zoomOutButton.setAlpha(0.5f);
+      }
+    });
     final View bookmarksButton = mFrame.findViewById(R.id.btn_bookmarks);
     bookmarksButton.setOnClickListener((v) -> mMapButtonClickListener.onMapButtonClick(MapButtons.bookmarks));
     final View myPosition = mFrame.findViewById(R.id.my_position);
