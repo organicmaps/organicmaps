@@ -9,10 +9,21 @@ final class Toast: NSObject {
   private var blurView = UIVisualEffectView(effect: UIBlurEffect(style: .dark))
   private var timer: Timer?
 
-  @objc static func toast(withText text: String) -> Toast {
-    return Toast(text)
-  }
+  private static var toasts: [Toast] = []
 
+  @objc static func toast(withText text: String) -> Toast {
+    let toast = Toast(text)
+    toasts.append(toast)
+    return toast
+  }
+  
+  @objc static func hideAll(){
+    var toastsCopy = toasts
+    toastsCopy.forEach {
+      $0.hide()
+    }
+  }
+  
   private init(_ text: String) {
     blurView.layer.setCorner(radius: 8)
     blurView.clipsToBounds = true
@@ -79,7 +90,7 @@ final class Toast: NSObject {
 
     timer = Timer.scheduledTimer(timeInterval: 3,
                                  target: self,
-                                 selector: #selector(onTimer),
+                                 selector: #selector(hide),
                                  userInfo: nil,
                                  repeats: false)
   }
@@ -90,9 +101,7 @@ final class Toast: NSObject {
       UIView.animate(withDuration: kDefaultAnimationDuration,
                      animations: { self.blurView.alpha = 0 }) { [self] _ in self.blurView.removeFromSuperview() }
     }
-  }
-
-  @objc private func onTimer() {
-    hide()
+    
+    Self.toasts.removeAll(where: { $0 === self })
   }
 }
