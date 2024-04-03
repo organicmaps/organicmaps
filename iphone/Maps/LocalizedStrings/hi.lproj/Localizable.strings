@@ -823,7 +823,7 @@
 
 "placepage_delete_bookmark_button" = "Delete Bookmark";
 
-"editor_edits_sent_message" = "Your suggested changes have been sent";
+"editor_edits_sent_message" = "आपका नोट OpenStreetMap पर भेजा जाएगा";
 
 "editor_comment_hint" = "Comment…";
 

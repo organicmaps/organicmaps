@@ -823,7 +823,7 @@
 
 "placepage_delete_bookmark_button" = "Yer İmini Sil";
 
-"editor_edits_sent_message" = "Önerdiğiniz değişiklikler gönderildi";
+"editor_edits_sent_message" = "Notunuz OpenStreetMap'e gönderilecektir";
 
 "editor_comment_hint" = "Yorum…";
 

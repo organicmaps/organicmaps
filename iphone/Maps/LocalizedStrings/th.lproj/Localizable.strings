@@ -823,7 +823,7 @@
 
 "placepage_delete_bookmark_button" = "ลบ Bookmark";
 
-"editor_edits_sent_message" = "คำแนะนำการเปลี่ยนแปลงของคุณถูกส่งไปแล้ว";
+"editor_edits_sent_message" = "บันทึกของคุณจะถูกส่งไปยัง OpenStreetMap";
 
 "editor_comment_hint" = "ข้อคิดเห็น";
 

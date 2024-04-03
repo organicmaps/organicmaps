@@ -823,7 +823,7 @@
 
 "placepage_delete_bookmark_button" = "حذف العلامة المرجعية";
 
-"editor_edits_sent_message" = "لقد تم إرسال التغييرات التي اقترحتها";
+"editor_edits_sent_message" = "سيتم إرسال ملاحظتك إلى OpenStreetMap";
 
 "editor_comment_hint" = "تعليق…";
 

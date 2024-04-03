@@ -35,7 +35,14 @@ FileData::FileData(string const & fileName, Op op)
 
   m_File = fopen(fileName.c_str(), modes[op]);
   if (m_File)
+  {
+#if defined(_MSC_VER)
+    // Move file pointer to the end of the file to make it consistent with other platforms
+    if (op == OP_APPEND)
+      fseek64(m_File, 0, SEEK_END);
+#endif
     return;
+  }
 
   if (op == OP_WRITE_EXISTING)
   {
