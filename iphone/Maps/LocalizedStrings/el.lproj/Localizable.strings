@@ -2970,6 +2970,8 @@
 
 "type.railway.station.monorail" = "Σιδηροδρομικός σταθμός";
 
+"type.railway.station.overground.london" = "Overground Station";
+
 "type.railway.station.subway" = "Μετρό";
 
 "type.railway.station.subway.adana" = "Μετρό";

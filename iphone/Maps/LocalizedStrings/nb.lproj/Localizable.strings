@@ -2970,6 +2970,8 @@
 
 "type.railway.station.monorail" = "Togstasjon";
 
+"type.railway.station.overground.london" = "Overground Station";
+
 "type.railway.station.subway" = "T-bane";
 
 "type.railway.station.subway.adana" = "T-bane";

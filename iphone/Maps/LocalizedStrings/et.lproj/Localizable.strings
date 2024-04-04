@@ -2970,6 +2970,8 @@
 
 "type.railway.station.monorail" = "Raudtee jaam";
 
+"type.railway.station.overground.london" = "Overground Station";
+
 "type.railway.station.subway" = "Metroo";
 
 "type.railway.station.subway.adana" = "Metroo";
