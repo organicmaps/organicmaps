@@ -2051,8 +2051,7 @@
 	<string name="type.tourism.artwork.sculpture">Heykel</string>
 	<string name="type.tourism.artwork.statue">Heykel</string>
 	<string name="type.tourism.attraction">Görülecek Yerler</string>
-	<string name="type.tourism.attraction.animal">Hayvanat bahçesi</string>
-	<string name="type.tourism.attraction.specified">Görülecek Yerler</string>
+	<string name="type.attraction.animal">Hayvan Muhafazası</string>
 	<string name="type.tourism.camp_site">Kamp Alanı</string>
 	<string name="type.tourism.caravan_site">Karavan Parkı</string>
 	<string name="type.tourism.chalet">Dağ Evi</string>

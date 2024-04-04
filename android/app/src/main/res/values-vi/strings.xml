@@ -1842,8 +1842,7 @@
 	<string name="type.tourism.artwork.sculpture">Du lịch</string>
 	<string name="type.tourism.artwork.statue">Du lịch</string>
 	<string name="type.tourism.attraction">Hấp dẫn</string>
-	<string name="type.tourism.attraction.animal">Hấp dẫn</string>
-	<string name="type.tourism.attraction.specified">Hấp dẫn</string>
+	<string name="type.attraction.animal">Bao vây động vật</string>
 	<string name="type.tourism.camp_site">Cắm trại</string>
 	<string name="type.tourism.caravan_site">Khu lễ hội hóa trang</string>
 	<string name="type.tourism.chalet">Khách sạn</string>

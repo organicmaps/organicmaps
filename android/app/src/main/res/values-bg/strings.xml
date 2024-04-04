@@ -1168,6 +1168,7 @@
 	<string name="type.sport.badminton">Бадминтон</string>
 	<string name="type.sport.pelota">Баска пелота</string>
 	<string name="type.tourism.aquarium">Аквариум</string>
+	<string name="type.attraction.animal">Заграждение за животни</string>
 	<string name="type.tourism.information">Туринформация</string>
 	<string name="type.tourism.information.board">Информационен щит</string>
 	<string name="type.tourism.information.guidepost">Пътеводител</string>

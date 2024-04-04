@@ -2050,8 +2050,7 @@
 	<string name="type.tourism.artwork.sculpture">Obras de arte</string>
 	<string name="type.tourism.artwork.statue">Obras de arte</string>
 	<string name="type.tourism.attraction">Atracción turística</string>
-	<string name="type.tourism.attraction.animal">Recinto de animales</string>
-	<string name="type.tourism.attraction.specified">Atracción turística</string>
+	<string name="type.attraction.animal">Recinto de animales</string>
 	<string name="type.tourism.camp_site">Camping</string>
 	<string name="type.tourism.caravan_site">Zona de caravanas</string>
 	<string name="type.tourism.chalet">Chalé</string>

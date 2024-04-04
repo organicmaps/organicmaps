@@ -1836,8 +1836,7 @@
 	<string name="type.tourism.artwork.sculpture">Konstverk</string>
 	<string name="type.tourism.artwork.statue">Konstverk</string>
 	<string name="type.tourism.attraction">Attraktion</string>
-	<string name="type.tourism.attraction.animal">Attraktion</string>
-	<string name="type.tourism.attraction.specified">Attraktion</string>
+	<string name="type.attraction.animal">Inhägnad för djur</string>
 	<string name="type.tourism.caravan_site">Husvagnsplats</string>
 	<string name="type.tourism.chalet">Stuga</string>
 	<string name="type.tourism.gallery">Attraktion</string>

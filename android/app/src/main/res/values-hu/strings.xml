@@ -1864,8 +1864,7 @@
 	<string name="type.tourism.artwork.sculpture">Szobor</string>
 	<string name="type.tourism.artwork.statue">Szobor</string>
 	<string name="type.tourism.attraction">Látnivaló</string>
-	<string name="type.tourism.attraction.animal">Látnivaló</string>
-	<string name="type.tourism.attraction.specified">Látnivaló</string>
+	<string name="type.attraction.animal">Állatok tartása</string>
 	<string name="type.tourism.camp_site">Kemping</string>
 	<string name="type.tourism.caravan_site">Karaván pihenő</string>
 	<string name="type.tourism.chalet">Turistaház</string>

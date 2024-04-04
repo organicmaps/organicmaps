@@ -1814,8 +1814,7 @@
 	<string name="type.tourism.artwork.sculpture">Escultura</string>
 	<string name="type.tourism.artwork.statue">Estátua</string>
 	<string name="type.tourism.attraction">Atração turística</string>
-	<string name="type.tourism.attraction.animal">Atração turística</string>
-	<string name="type.tourism.attraction.specified">Atração turística</string>
+	<string name="type.attraction.animal">Atração turística</string>
 	<string name="type.tourism.camp_site">Parque de campismo</string>
 	<string name="type.tourism.caravan_site">Área de trailers</string>
 	<string name="type.tourism.chalet">Chalé</string>

@@ -1896,8 +1896,7 @@
 	<string name="type.tourism.artwork.sculpture">藝術品</string>
 	<string name="type.tourism.artwork.statue">藝術品</string>
 	<string name="type.tourism.attraction">景點</string>
-	<string name="type.tourism.attraction.animal">景點</string>
-	<string name="type.tourism.attraction.specified">景點</string>
+	<string name="type.attraction.animal">動物圍欄</string>
 	<string name="type.tourism.camp_site">露營</string>
 	<string name="type.tourism.caravan_site">營區</string>
 	<string name="type.tourism.chalet">木屋</string>

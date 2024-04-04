@@ -1862,8 +1862,7 @@
 	<string name="type.tourism.artwork.sculpture">Turism</string>
 	<string name="type.tourism.artwork.statue">Turism</string>
 	<string name="type.tourism.attraction">Punct de atracție</string>
-	<string name="type.tourism.attraction.animal">Punct de atracție</string>
-	<string name="type.tourism.attraction.specified">Punct de atracție</string>
+	<string name="type.attraction.animal">Incintă pentru animale</string>
 	<string name="type.tourism.caravan_site">Teren pentru campare</string>
 	<string name="type.tourism.chalet">Cabană</string>
 	<string name="type.tourism.gallery">Galerie</string>

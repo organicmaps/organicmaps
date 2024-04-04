@@ -1986,8 +1986,7 @@
 	<string name="type.tourism.artwork.sculpture">雕塑</string>
 	<string name="type.tourism.artwork.statue">雕像</string>
 	<string name="type.tourism.attraction">景点</string>
-	<string name="type.tourism.attraction.animal">景点</string>
-	<string name="type.tourism.attraction.specified">景点</string>
+	<string name="type.attraction.animal">动物围栏</string>
 	<string name="type.tourism.camp_site">宿营场地</string>
 	<string name="type.tourism.caravan_site">房车宿营地</string>
 	<string name="type.tourism.chalet">度假屋</string>

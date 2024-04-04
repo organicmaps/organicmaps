@@ -3765,9 +3765,7 @@
 
 "type.tourism.attraction" = "Attraksjon";
 
-"type.tourism.attraction.animal" = "Attraksjon";
-
-"type.tourism.attraction.specified" = "Attraksjon";
+"type.attraction.animal" = "Innhegning for dyr";
 
 "type.tourism.camp_site" = "Campingplass";
 

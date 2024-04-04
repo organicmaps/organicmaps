@@ -1832,8 +1832,7 @@
 	<string name="type.tourism.artwork.sculpture">Kunstværk</string>
 	<string name="type.tourism.artwork.statue">Kunstværk</string>
 	<string name="type.tourism.attraction">Attraktioner</string>
-	<string name="type.tourism.attraction.animal">Attraktioner</string>
-	<string name="type.tourism.attraction.specified">Attraktioner</string>
+	<string name="type.attraction.animal">Indhegning til dyr</string>
 	<string name="type.tourism.caravan_site">Autocamperplads</string>
 	<string name="type.tourism.chalet">Hytte</string>
 	<string name="type.tourism.gallery">Turisme</string>
