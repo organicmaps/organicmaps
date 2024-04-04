@@ -17,6 +17,8 @@ import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentActivity;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
+
+import app.organicmaps.Framework;
 import app.organicmaps.MwmActivity;
 import app.organicmaps.R;
 import app.organicmaps.downloader.MapManager;
@@ -33,7 +35,6 @@ import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 import java.util.HashMap;
 import java.util.Map;
-import java.util.concurrent.atomic.AtomicInteger;
 
 public class MapButtonsController extends Fragment
 {
@@ -95,36 +96,29 @@ public class MapButtonsController extends Fragment
         helpButton.getDrawable().setTintList(null);
     }
 
-    final int MIN_ZOOM_LEVEL = 0;
+    final int MIN_ZOOM_LEVEL = 2;
     final int MAX_ZOOM_LEVEL = 20;
     final View zoomFrame = mFrame.findViewById(R.id.zoom_buttons_container);
     final View zoomInButton = mFrame.findViewById(R.id.nav_zoom_in);
     final View zoomOutButton = mFrame.findViewById(R.id.nav_zoom_out);
-    AtomicInteger currentZoomLevel = new AtomicInteger(0);
     zoomInButton.setOnClickListener((v) -> {
-      if (currentZoomLevel.get() < MAX_ZOOM_LEVEL) {
-        mMapButtonClickListener.onMapButtonClick(MapButtons.zoomIn);
-        currentZoomLevel.getAndIncrement();
-      }
+      if (Framework.nativeGetDrawScale() < MAX_ZOOM_LEVEL) mMapButtonClickListener.onMapButtonClick(MapButtons.zoomIn);
       if (!zoomOutButton.isEnabled()) {
         zoomOutButton.setEnabled(true);
         zoomOutButton.setAlpha(1f);
       }
-      if (currentZoomLevel.get() >= MAX_ZOOM_LEVEL) {
+      if (Framework.nativeGetDrawScale() >= MAX_ZOOM_LEVEL) {
         zoomInButton.setEnabled(false);
         zoomInButton.setAlpha(0.5f);
       }
     });
     zoomOutButton.setOnClickListener((v) -> {
-      if (currentZoomLevel.get() > MIN_ZOOM_LEVEL) {
-        mMapButtonClickListener.onMapButtonClick(MapButtons.zoomOut);
-        currentZoomLevel.getAndDecrement();
-      }
+      if (Framework.nativeGetDrawScale() > MIN_ZOOM_LEVEL) mMapButtonClickListener.onMapButtonClick(MapButtons.zoomOut);
       if (!zoomInButton.isEnabled()) {
         zoomInButton.setEnabled(true);
         zoomInButton.setAlpha(1f);
       }
-      if (currentZoomLevel.get() <= MIN_ZOOM_LEVEL) {
+      if (Framework.nativeGetDrawScale() <= MIN_ZOOM_LEVEL) {
         zoomOutButton.setEnabled(false);
         zoomOutButton.setAlpha(0.5f);
       }
