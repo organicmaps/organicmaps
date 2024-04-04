@@ -91,6 +91,20 @@ line|z11-[highway=path],
 line|z11-[highway=footway][sac_scale],
 {color: @path; opacity: 1;}
 
+/* Select color based on the sac_scale */
+line|z11-[highway=path][sac_scale=hiking],
+line|z11-[highway=path][route=hiking],
+{color: @path_hiking; opacity: 1}
+line|z11-[highway=path][sac_scale=mountain_hiking],
+{color: @path_mountain_hiking; opacity: 1}
+line|z11-[highway=path][sac_scale=demanding_mountain_hiking],
+{color: @path_demanding_mountain_hiking; opacity: 0.8}
+line|z11-[highway=path][sac_scale=alpine_hiking],
+line|z11-[highway=path][sac_scale=demanding_alpine_hiking],
+{color: @path_alpine_hiking; opacity: 0.8}
+line|z11-[highway=path][sac_scale=difficult_alpine_hiking],
+{color: @path_difficult_alpine_hiking; opacity: 0.9}
+
 line|z12-[piste:type=hike],
 {color: @piste; opacity: 0.7;}
 

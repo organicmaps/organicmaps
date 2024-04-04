@@ -39,3 +39,9 @@
 @railway: #818071;
 @railway_dark: #767566;
 @railway_dash: #F5F5F5;
+
+@path_hiking: #FFBF00;
+@path_mountain_hiking: #FF8000;
+@path_demanding_mountain_hiking: #FF0000;
+@path_alpine_hiking: #0404B4;
+@path_difficult_alpine_hiking: #7401DF;
