@@ -29859,21 +29859,49 @@
     zh-Hans = 景点
     zh-Hant = 景點
 
-  [type.tourism.attraction.animal]
+  [type.attraction.animal]
     ref = type.tourism.attraction
     en = Animal Enclosure
-    af = Skerm vir diere
-    az = Zoopark
+    af = Diere Omheining
+    ar = الضميمة الحيوانية
+    az = Heyvan mühafizəsi
+    be = Вальера для жывёл
+    bg = Заграждение за животни
+    ca = Recinte d'animals
+    cs = Ohrada pro zvířata
+    da = Indhegning til dyr
+    de = Tiergehege
+    el = Περίφραξη ζώων
     es = Recinto de animales
     et = Loomade aedik
-    it = Recinto
-    ja = 動物
+    eu = Animalien itxitura
+    fa = محوطه حیوانات
+    fi = Eläinsuoja
+    fr = Enclos pour animaux
+    he = מתחם בעלי חיים
+    hi = पशु बाड़ा
+    hu = Állatok tartása
+    id = Kandang Hewan
+    it = Recinto per animali
+    ja = アニマル・エンクロージャー
+    ko = 동물 인클로저
+    lt = Gyvūnų aptvaras
+    mr = प्राणी संलग्न
+    nb = Innhegning for dyr
     nl = Dierenverblijf
     pl = Atrakcje zwierzęce
-    tr = Hayvanat bahçesi
-
-  [type.tourism.attraction.specified]
-    ref = type.tourism.attraction
+    pt = Recinto para animais
+    ro = Incintă pentru animale
+    ru = Вольер для животных
+    sk = Výbeh pre zvieratá
+    sv = Inhägnad för djur
+    sw = Hifadhi ya Wanyama
+    th = สิ่งที่แนบมากับสัตว์
+    tr = Hayvan Muhafazası
+    uk = Вольєр для тварин
+    vi = Bao vây động vật
+    zh-Hans = 动物围栏
+    zh-Hant = 動物圍欄
 
   [type.tourism.camp_site]
     en = Campground
