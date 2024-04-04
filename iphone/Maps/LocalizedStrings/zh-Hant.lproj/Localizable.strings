@@ -3767,6 +3767,8 @@
 
 "type.attraction.animal" = "動物圍欄";
 
+"type.tourism.attraction.specified" = "景點";
+
 "type.tourism.camp_site" = "露營";
 
 "type.tourism.caravan_site" = "營區";

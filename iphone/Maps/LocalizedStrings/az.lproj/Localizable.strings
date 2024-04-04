@@ -3767,6 +3767,8 @@
 
 "type.attraction.animal" = "Heyvan mühafizəsi";
 
+"type.tourism.attraction.specified" = "Attraksionlar";
+
 "type.tourism.camp_site" = "Düşərgə sahəsi";
 
 "type.tourism.caravan_site" = "Treyler parkı";

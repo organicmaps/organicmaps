@@ -2020,6 +2020,7 @@
 	<string name="type.tourism.artwork.statue">Heykəl</string>
 	<string name="type.tourism.attraction">Attraksionlar</string>
 	<string name="type.attraction.animal">Heyvan mühafizəsi</string>
+	<string name="type.tourism.attraction.specified">Attraksionlar</string>
 	<string name="type.tourism.camp_site">Düşərgə sahəsi</string>
 	<string name="type.tourism.caravan_site">Treyler parkı</string>
 	<string name="type.tourism.chalet">Dağ evi</string>

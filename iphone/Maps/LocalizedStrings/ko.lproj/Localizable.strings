@@ -3767,6 +3767,8 @@
 
 "type.attraction.animal" = "동물 인클로저";
 
+"type.tourism.attraction.specified" = "관광 명소";
+
 "type.tourism.camp_site" = "캠핑";
 
 "type.tourism.caravan_site" = "카라반 사용가능 캠핑장";

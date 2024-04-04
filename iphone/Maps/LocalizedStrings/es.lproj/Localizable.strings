@@ -3767,6 +3767,8 @@
 
 "type.attraction.animal" = "Recinto de animales";
 
+"type.tourism.attraction.specified" = "Atracción turística";
+
 "type.tourism.camp_site" = "Camping";
 
 "type.tourism.caravan_site" = "Zona de caravanas";

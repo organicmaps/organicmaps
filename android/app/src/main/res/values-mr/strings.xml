@@ -1868,6 +1868,7 @@
 	<string name="type.tourism.artwork.statue">कलाकृती</string>
 	<string name="type.tourism.attraction">आकर्षण</string>
 	<string name="type.attraction.animal">प्राणी संलग्न</string>
+	<string name="type.tourism.attraction.specified">आकर्षण</string>
 	<string name="type.tourism.camp_site">शिबिरवास(कॅम्पिंग)</string>
 	<string name="type.tourism.gallery">वीथि</string>
 	<string name="type.tourism.guest_house">अतिथीगृह</string>

@@ -3767,6 +3767,8 @@
 
 "type.attraction.animal" = "Animalien itxitura";
 
+"type.tourism.attraction.specified" = "Erakarpen turistikoa";
+
 "type.tourism.camp_site" = "Kanpalekua";
 
 "type.tourism.caravan_site" = "Karabana gunea";

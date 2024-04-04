@@ -3767,6 +3767,8 @@
 
 "type.attraction.animal" = "Állatok tartása";
 
+"type.tourism.attraction.specified" = "Látnivaló";
+
 "type.tourism.camp_site" = "Kemping";
 
 "type.tourism.caravan_site" = "Karaván pihenő";

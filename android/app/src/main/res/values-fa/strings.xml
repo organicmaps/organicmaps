@@ -1761,6 +1761,7 @@
 	<string name="type.tourism.artwork.statue">گردشگری</string>
 	<string name="type.tourism.attraction">گردشگری</string>
 	<string name="type.attraction.animal">محوطه حیوانات</string>
+	<string name="type.tourism.attraction.specified">گردشگری</string>
 	<string name="type.tourism.camp_site">محل چادر زنی</string>
 	<string name="type.tourism.chalet">هتل</string>
 	<string name="type.tourism.gallery">گالری</string>

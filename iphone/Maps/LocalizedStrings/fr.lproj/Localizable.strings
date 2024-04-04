@@ -3767,6 +3767,8 @@
 
 "type.attraction.animal" = "Enclos pour animaux";
 
+"type.tourism.attraction.specified" = "Attraction";
+
 "type.tourism.camp_site" = "Camping";
 
 "type.tourism.caravan_site" = "Aire de camping-car";

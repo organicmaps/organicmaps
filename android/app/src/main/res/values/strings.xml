@@ -2119,6 +2119,7 @@
 	<string name="type.tourism.artwork.statue">Statue</string>
 	<string name="type.tourism.attraction">Attraction</string>
 	<string name="type.attraction.animal">Animal Enclosure</string>
+	<string name="type.tourism.attraction.specified">Attraction</string>
 	<string name="type.tourism.camp_site">Campground</string>
 	<string name="type.tourism.caravan_site">RV Park</string>
 	<string name="type.tourism.chalet">Chalet</string>

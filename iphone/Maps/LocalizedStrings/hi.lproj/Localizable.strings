@@ -3767,6 +3767,8 @@
 
 "type.attraction.animal" = "पशु बाड़ा";
 
+"type.tourism.attraction.specified" = "पर्यटन स्थल";
+
 "type.tourism.camp_site" = "Campground";
 
 "type.tourism.caravan_site" = "कारवां स्थल";

@@ -1151,6 +1151,7 @@
 	<string name="type.tourism.artwork.statue">प्रतिमा</string>
 	<string name="type.tourism.attraction">पर्यटन स्थल</string>
 	<string name="type.attraction.animal">पशु बाड़ा</string>
+	<string name="type.tourism.attraction.specified">पर्यटन स्थल</string>
 	<string name="type.tourism.caravan_site">कारवां स्थल</string>
 	<string name="type.tourism.chalet">षाले</string>
 	<string name="type.tourism.gallery">आर्ट गैलरी</string>

@@ -3767,6 +3767,8 @@
 
 "type.attraction.animal" = "Indhegning til dyr";
 
+"type.tourism.attraction.specified" = "Attraktioner";
+
 "type.tourism.camp_site" = "Campground";
 
 "type.tourism.caravan_site" = "Autocamperplads";

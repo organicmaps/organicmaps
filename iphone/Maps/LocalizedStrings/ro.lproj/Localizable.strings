@@ -3767,6 +3767,8 @@
 
 "type.attraction.animal" = "Incintă pentru animale";
 
+"type.tourism.attraction.specified" = "Punct de atracție";
+
 "type.tourism.camp_site" = "Campground";
 
 "type.tourism.caravan_site" = "Teren pentru campare";

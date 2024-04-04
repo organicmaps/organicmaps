@@ -3767,6 +3767,8 @@
 
 "type.attraction.animal" = "Hifadhi ya Wanyama";
 
+"type.tourism.attraction.specified" = "Attraction";
+
 "type.tourism.camp_site" = "Campground";
 
 "type.tourism.caravan_site" = "RV Park";

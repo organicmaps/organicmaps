@@ -3767,6 +3767,8 @@
 
 "type.attraction.animal" = "Вольер для животных";
 
+"type.tourism.attraction.specified" = "Достопримечательность";
+
 "type.tourism.camp_site" = "Кемпинг";
 
 "type.tourism.caravan_site" = "Кемпинг для автодомов";

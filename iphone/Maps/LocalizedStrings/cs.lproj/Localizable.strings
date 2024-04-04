@@ -3767,6 +3767,8 @@
 
 "type.attraction.animal" = "Ohrada pro zvířata";
 
+"type.tourism.attraction.specified" = "Atrakce";
+
 "type.tourism.camp_site" = "Kempování";
 
 "type.tourism.caravan_site" = "Kemp pro obytné přívěsy";

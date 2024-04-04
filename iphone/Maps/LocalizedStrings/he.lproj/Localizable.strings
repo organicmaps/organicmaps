@@ -3767,6 +3767,8 @@
 
 "type.attraction.animal" = "מתחם בעלי חיים";
 
+"type.tourism.attraction.specified" = "Attraction";
+
 "type.tourism.camp_site" = "Campground";
 
 "type.tourism.caravan_site" = "RV Park";

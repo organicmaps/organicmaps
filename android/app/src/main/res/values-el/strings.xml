@@ -1843,6 +1843,7 @@
 	<string name="type.tourism.artwork.statue">Έργα τέχνης</string>
 	<string name="type.tourism.attraction">Αξιοθέατα</string>
 	<string name="type.attraction.animal">Περίφραξη ζώων</string>
+	<string name="type.tourism.attraction.specified">Αξιοθέατα</string>
 	<string name="type.tourism.camp_site">Κάμπινγκ</string>
 	<string name="type.tourism.caravan_site">Χώρος για τροχόσπιτα</string>
 	<string name="type.tourism.chalet">Σαλέ</string>

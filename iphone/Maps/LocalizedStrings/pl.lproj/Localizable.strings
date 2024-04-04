@@ -3767,6 +3767,8 @@
 
 "type.attraction.animal" = "Atrakcje zwierzęce";
 
+"type.tourism.attraction.specified" = "Atrakcja turystyczna";
+
 "type.tourism.camp_site" = "Kamping";
 
 "type.tourism.caravan_site" = "Pole namiotowe";

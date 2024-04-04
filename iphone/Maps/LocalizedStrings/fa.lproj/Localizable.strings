@@ -3767,6 +3767,8 @@
 
 "type.attraction.animal" = "محوطه حیوانات";
 
+"type.tourism.attraction.specified" = "گردشگری";
+
 "type.tourism.camp_site" = "محل چادر زنی";
 
 "type.tourism.caravan_site" = "RV Park";

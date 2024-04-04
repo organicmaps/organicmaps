@@ -3767,6 +3767,8 @@
 
 "type.attraction.animal" = "Inhägnad för djur";
 
+"type.tourism.attraction.specified" = "Attraktion";
+
 "type.tourism.camp_site" = "Campground";
 
 "type.tourism.caravan_site" = "Husvagnsplats";

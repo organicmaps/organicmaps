@@ -3767,6 +3767,8 @@
 
 "type.attraction.animal" = "الضميمة الحيوانية";
 
+"type.tourism.attraction.specified" = "مكان جذاب";
+
 "type.tourism.camp_site" = "مخيّم";
 
 "type.tourism.caravan_site" = "موقع لمراكب ترفيه";

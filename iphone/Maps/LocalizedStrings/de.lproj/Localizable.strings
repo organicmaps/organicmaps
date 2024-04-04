@@ -3767,6 +3767,8 @@
 
 "type.attraction.animal" = "Tiergehege";
 
+"type.tourism.attraction.specified" = "Sehenswürdigkeit";
+
 "type.tourism.camp_site" = "Campingplatz";
 
 "type.tourism.caravan_site" = "Wohnmobilstellplatz";

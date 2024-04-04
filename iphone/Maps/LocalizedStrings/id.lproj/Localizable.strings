@@ -3767,6 +3767,8 @@
 
 "type.attraction.animal" = "Kandang Hewan";
 
+"type.tourism.attraction.specified" = "Atraksi";
+
 "type.tourism.camp_site" = "Perkemahan";
 
 "type.tourism.caravan_site" = "Lokasi perkemahan";

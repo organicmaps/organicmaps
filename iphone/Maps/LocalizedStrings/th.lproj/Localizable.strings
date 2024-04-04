@@ -3767,6 +3767,8 @@
 
 "type.attraction.animal" = "สิ่งที่แนบมากับสัตว์";
 
+"type.tourism.attraction.specified" = "การท่องเที่ยว";
+
 "type.tourism.camp_site" = "การตั้งแคมป์";
 
 "type.tourism.caravan_site" = "ขบวนนักเดินทาง";
