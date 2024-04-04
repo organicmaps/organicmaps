@@ -12041,7 +12041,6 @@ da:Indhegning til dyr
 de:Tiergehege
 el:Περίφραξη ζώων
 es:Recinto de animales
-es-MX:Recinto de animales
 et:Loomade aedik
 eu:Animalien itxitura
 fa:محوطه حیوانات
@@ -12059,7 +12058,6 @@ nb:Innhegning for dyr
 nl:Dierenverblijf
 pl:Atrakcje zwierzęce
 pt:Recinto para animais
-pt-rBR:Recinto para animais
 ro:Incintă pentru animale
 ru:Вольер для животных
 sk:Výbeh pre zvieratá
