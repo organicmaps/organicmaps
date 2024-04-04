@@ -11,6 +11,8 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import androidx.activity.result.ActivityResultLauncher;
+import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.annotation.CallSuper;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -115,10 +117,9 @@ public class SearchFragment extends BaseMwmFragment
     }
 
     @Override
-    @SuppressWarnings("deprecation") // https://github.com/organicmaps/organicmaps/issues/3630
-    protected void startVoiceRecognition(Intent intent, int code)
+    protected void startVoiceRecognition(Intent intent)
     {
-      startActivityForResult(intent, code);
+      startVoiceRecognitionForResult.launch(intent);
     }
 
     @Override
@@ -169,6 +170,11 @@ public class SearchFragment extends BaseMwmFragment
   @Nullable
   private String mInitialLocale;
   private boolean mInitialSearchOnMap = false;
+
+  private final ActivityResultLauncher<Intent> startVoiceRecognitionForResult = registerForActivityResult(new ActivityResultContracts.StartActivityForResult(), activityResult ->
+  {
+    mToolbarController.onVoiceRecognitionResult(activityResult);
+  });
 
   private final LocationListener mLocationListener = new LocationListener()
   {
@@ -527,14 +533,6 @@ public class SearchFragment extends BaseMwmFragment
     updateFrames();
     mSearchAdapter.refreshData(results);
     mToolbarController.showProgress(true);
-  }
-
-  @Override
-  @SuppressWarnings("deprecation") // https://github.com/organicmaps/organicmaps/issues/3630
-  public void onActivityResult(int requestCode, int resultCode, Intent data)
-  {
-    super.onActivityResult(requestCode, resultCode, data);
-    mToolbarController.onActivityResult(requestCode, resultCode, data);
   }
 
   @Override
