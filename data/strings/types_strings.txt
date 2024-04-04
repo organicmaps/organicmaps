@@ -23560,8 +23560,8 @@
     pt = Linha de elétrico
     pt-BR = Linha de bonde
     ru = Трамвай
-    tr = Tramvay Hattı
     sk = Električka
+    tr = Tramvay Hattı
     uk = Трамвай
     zh-Hans = 电车轨道
     zh-Hant = 電車軌道
@@ -23581,8 +23581,8 @@
     pt = Linha de elétrico
     pt-BR = Linha de bonde
     ru = Трамвай
-    tr = Tramvay Hattı
     sk = Tunel električky
+    tr = Tramvay Hattı
     uk = Трамвай
     zh-Hans = 电车轨道
     zh-Hant = 電車軌道
