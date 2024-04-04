@@ -12,6 +12,7 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import androidx.activity.result.ActivityResultLauncher;
+import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.annotation.CallSuper;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -66,6 +67,15 @@ public class BookmarksListFragment extends BaseMwmRecyclerFragment<ConcatAdapter
   private static final String OPTIONS_MENU_ID = "OPTIONS_MENU_BOTTOM_SHEET";
 
   private ActivityResultLauncher<SharingUtils.SharingIntent> shareLauncher;
+  private final ActivityResultLauncher<Intent> startBookmarkListForResult = registerForActivityResult(new ActivityResultContracts.StartActivityForResult(), activityResult -> {
+    System.out.println("resultCode: " + activityResult.getResultCode());
+    handleActivityResult();
+  });
+
+  private final ActivityResultLauncher<Intent> startBookmarkSettingsForResult = registerForActivityResult(new ActivityResultContracts.StartActivityForResult(), activityResult -> {
+    System.out.println("resultCode: " + activityResult.getResultCode());
+    handleActivityResult();
+  });
 
   @SuppressWarnings("NotNullFieldNotInitialized")
   @NonNull
@@ -132,7 +142,9 @@ public class BookmarksListFragment extends BaseMwmRecyclerFragment<ConcatAdapter
 
     BookmarkCollectionAdapter adapter = new BookmarkCollectionAdapter(getCategoryOrThrow(),
                                                                       mCategoryItems);
-    adapter.setOnClickListener((v, item) -> BookmarkListActivity.startForResult(this, item));
+    adapter.setOnClickListener((v, item) -> {
+      BookmarkListActivity.startForResult(this, startBookmarkListForResult, item);
+    });
 
     return adapter;
   }
@@ -697,7 +709,7 @@ public class BookmarksListFragment extends BaseMwmRecyclerFragment<ConcatAdapter
 
   private void onSettingsOptionSelected()
   {
-    BookmarkCategorySettingsActivity.startForResult(this, mCategoryDataSource.getData());
+    BookmarkCategorySettingsActivity.startForResult(this, startBookmarkSettingsForResult, mCategoryDataSource.getData());
   }
 
   private void onDeleteOptionSelected()
@@ -745,11 +757,8 @@ public class BookmarksListFragment extends BaseMwmRecyclerFragment<ConcatAdapter
     BookmarksSharingHelper.INSTANCE.onPreparedFileForSharing(requireActivity(), shareLauncher, result);
   }
 
-  @Override
-  @SuppressWarnings("deprecation") // https://github.com/organicmaps/organicmaps/issues/3630
-  public void onActivityResult(int requestCode, int resultCode, Intent data)
+  private void handleActivityResult()
   {
-    super.onActivityResult(requestCode, resultCode, data);
     getAdapter().notifyDataSetChanged();
     ActionBar actionBar = ((AppCompatActivity) requireActivity()).getSupportActionBar();
     actionBar.setTitle(mCategoryDataSource.getData().getName());
