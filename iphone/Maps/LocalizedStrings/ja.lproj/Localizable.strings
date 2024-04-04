@@ -629,6 +629,8 @@
 
 "login" = "ログイン";
 
+"login_osm" = "OpenStreetMapにログイン";
+
 "forgot_password" = "パスワードをお忘れですか？";
 
 "osm_account" = "OSMアカウント";
@@ -823,7 +825,7 @@
 
 "placepage_delete_bookmark_button" = "ブックマークを削除";
 
-"editor_edits_sent_message" = "変更の提案を送信しました";
+"editor_edits_sent_message" = "あなたのメモはOpenStreetMapに送られる";
 
 "editor_comment_hint" = "コメント…";
 
@@ -930,6 +932,12 @@
 "start_from_my_position" = "出発地";
 
 "profile_authorization_error" = "エラーが発生しました。もう一度サインインしてみてください。";
+
+/* For iOS message 'alert_reauth_message' should be splitted in two parts: message + link. Here's first part */
+"alert_reauth_message_ios" = "すべてのマップ編集を自動的にアップロードするには、OpenStreetMapにログインしてください。詳しくは";
+
+/* For iOS message 'alert_reauth_message' should be splitted in two parts: message + link. Here's link part */
+"alert_reauth_link_text_ios" = "こちら";
 
 "core_entrance" = "入口";
 
@@ -1126,6 +1134,8 @@
 "sort_distance" = "距離で並び替え";
 
 "sort_date" = "日付で並び替え";
+
+"sort_name" = "名前でソートする";
 
 "week_ago_sorttype" = "1週間前";
 
@@ -2635,7 +2645,14 @@
 
 "type.natural" = "自然";
 
+/* A rocky land cover. */
 "type.natural.bare_rock" = "岩肌";
+
+/* A land cover consisting of rounded rock fragments (pebbles) on a beach or riverbed. */
+"type.natural.shingle" = "小石";
+
+/* A loose surface consisting of angular, sharp stones. Usually on a mountain slope and prone to landslides. */
+"type.natural.scree" = "石がゴロゴロしている";
 
 "type.natural.bay" = "港湾";
 
@@ -3748,9 +3765,7 @@
 
 "type.tourism.attraction" = "アトラクション";
 
-"type.tourism.attraction.animal" = "動物";
-
-"type.tourism.attraction.specified" = "アトラクション";
+"type.attraction.animal" = "アニマル・エンクロージャー";
 
 "type.tourism.camp_site" = "キャンプ場";
 

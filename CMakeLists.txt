@@ -7,6 +7,10 @@ set(CMAKE_C_STANDARD 11)
 set(CMAKE_CXX_EXTENSIONS OFF)
 set(CMAKE_C_EXTENSIONS OFF)
 
+set(CMAKE_C_VISIBILITY_PRESET hidden)
+set(CMAKE_CXX_VISIBILITY_PRESET hidden)
+set(CMAKE_VISIBILITY_INLINES_HIDDEN ON)
+
 if (APPLE AND NOT ("${CMAKE_SYSTEM_NAME}" STREQUAL Android))
   # OBJC/OBJCXX are needed to skip m/mm files in Unity builds.
   # https://gitlab.kitware.com/cmake/cmake/-/issues/21963
@@ -14,10 +18,12 @@ if (APPLE AND NOT ("${CMAKE_SYSTEM_NAME}" STREQUAL Android))
   set(CMAKE_OBJC_EXTENSIONS OFF)
   set(CMAKE_OBJC_STANDARD 11)
   set(CMAKE_OBJC_FLAGS -fobjc-arc)
+  set(CMAKE_OBJC_VISIBILITY_PRESET hidden)
   enable_language(OBJCXX)
   set(CMAKE_OBJCXX_EXTENSIONS OFF)
   set(CMAKE_OBJCXX_STANDARD 17)
   set(CMAKE_OBJCXX_FLAGS -fobjc-arc)
+  set(CMAKE_OBJCXX_VISIBILITY_PRESET hidden)
 endif()
 
 message(STATUS "Using compiler ${CMAKE_CXX_COMPILER_ID} ${CMAKE_CXX_COMPILER_VERSION}")

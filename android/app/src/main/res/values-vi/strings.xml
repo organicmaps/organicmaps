@@ -548,6 +548,8 @@
 	<string name="routing_add_finish_point">Bổ sung điểm kết thúc để lập kế hoạch lộ trình</string>
 	<string name="placepage_remove_stop">Xóa</string>
 	<string name="placepage_add_stop">Thêm điểm dừng</string>
+	<!-- Alert to ask user relogin to OpenStreetMap with OAuth2 flow after OAuth1 authentication is deprecated. -->
+	<string name="alert_reauth_message">Vui lòng đăng nhập vào OpenStreetMap để tự động tải lên tất cả các chỉnh sửa bản đồ của bạn. Tìm hiểu thêm <a href="https://github.com/organicmaps/organicmaps/issues/6144">tại đây</a>.</string>
 	<string name="dialog_error_storage_title">Vấn đề truy cập ổ lưu trữ</string>
 	<string name="dialog_error_storage_message">Ổ lưu trữ bên ngoài không khả dụng, có thể Thẻ SD đã bị tháo, bị hỏng hoặc hệ thống tập tin được thiết lập chỉ đọc. Hãy kiểm tra và liên hệ với chúng tôi qua support\@organicmaps.app</string>
 	<string name="setting_emulate_bad_storage">Giả lập ổ lưu trữ hỏng</string>
@@ -657,6 +659,8 @@
 	<string name="by_distance">Theo khoảng cách</string>
 	<!-- Android -->
 	<string name="by_date">Theo ngày</string>
+	<!-- Android -->
+	<string name="by_name">Theo Tên</string>
 	<string name="week_ago_sorttype">Tuần trước</string>
 	<string name="month_ago_sorttype">Tháng trước</string>
 	<string name="moremonth_ago_sorttype">Hơn một tháng trước</string>
@@ -1325,7 +1329,12 @@
 	<string name="type.man_made.windmill">Cối xay gió</string>
 	<string name="type.military.bunker">Boongke</string>
 	<string name="type.natural">Tự nhiên</string>
+	<!-- A rocky land cover. -->
 	<string name="type.natural.bare_rock">Đá trần</string>
+	<!-- A land cover consisting of rounded rock fragments (pebbles) on a beach or riverbed. -->
+	<string name="type.natural.shingle">Ván lợp</string>
+	<!-- A loose surface consisting of angular, sharp stones. Usually on a mountain slope and prone to landslides. -->
+	<string name="type.natural.scree">Sàng</string>
 	<string name="type.natural.bay">Vịnh</string>
 	<string name="type.natural.beach">Bãi biển</string>
 	<string name="type.natural.beach.sand">Bãi cát</string>
@@ -1833,8 +1842,7 @@
 	<string name="type.tourism.artwork.sculpture">Du lịch</string>
 	<string name="type.tourism.artwork.statue">Du lịch</string>
 	<string name="type.tourism.attraction">Hấp dẫn</string>
-	<string name="type.tourism.attraction.animal">Hấp dẫn</string>
-	<string name="type.tourism.attraction.specified">Hấp dẫn</string>
+	<string name="type.attraction.animal">Bao vây động vật</string>
 	<string name="type.tourism.camp_site">Cắm trại</string>
 	<string name="type.tourism.caravan_site">Khu lễ hội hóa trang</string>
 	<string name="type.tourism.chalet">Khách sạn</string>

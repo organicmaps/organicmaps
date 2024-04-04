@@ -547,6 +547,8 @@
 	<string name="routing_add_finish_point">Adicionar ponto final da viagem para planejar uma rota</string>
 	<string name="placepage_remove_stop">Remover</string>
 	<string name="placepage_add_stop">Adicionar parada</string>
+	<!-- Alert to ask user relogin to OpenStreetMap with OAuth2 flow after OAuth1 authentication is deprecated. -->
+	<string name="alert_reauth_message">Faça login no OpenStreetMap para carregar automaticamente todas as edições de mapas que você fizer. Saiba mais <a href="https://github.com/organicmaps/organicmaps/issues/6144">aqui</a>.</string>
 	<string name="dialog_error_storage_title">Problema de acesso ao armazenamento</string>
 	<string name="dialog_error_storage_message">O armazenamento externo não está disponível, é provável que o cartão SD tenha sido removido, danificado ou o sistema de arquivo seja apenas para leitura. Verifique e entre em contato conosco em support\@organicmaps.app</string>
 	<string name="setting_emulate_bad_storage">Emular memória ruim</string>
@@ -1371,6 +1373,8 @@
 	<string name="type.man_made.works">Fábrica</string>
 	<string name="type.military">Militar</string>
 	<string name="type.military.bunker">Búnquer</string>
+	<!-- A loose surface consisting of angular, sharp stones. Usually on a mountain slope and prone to landslides. -->
+	<string name="type.natural.scree">Pedregulho pedregoso</string>
 	<string name="type.natural.geyser">Gêiser</string>
 	<string name="type.natural.glacier">Geleira</string>
 	<string name="type.noexit">Via sem saída</string>
@@ -1810,8 +1814,6 @@
 	<string name="type.tourism.artwork.sculpture">Escultura</string>
 	<string name="type.tourism.artwork.statue">Estátua</string>
 	<string name="type.tourism.attraction">Atração turística</string>
-	<string name="type.tourism.attraction.animal">Atração turística</string>
-	<string name="type.tourism.attraction.specified">Atração turística</string>
 	<string name="type.tourism.camp_site">Parque de campismo</string>
 	<string name="type.tourism.caravan_site">Área de trailers</string>
 	<string name="type.tourism.chalet">Chalé</string>

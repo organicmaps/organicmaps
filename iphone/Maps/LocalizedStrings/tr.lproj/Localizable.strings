@@ -629,6 +629,8 @@
 
 "login" = "Oturum aç";
 
+"login_osm" = "OpenStreetMap'e giriş yap";
+
 "forgot_password" = "Şifreni mi unuttun?";
 
 "osm_account" = "OSM Hesabı";
@@ -823,7 +825,7 @@
 
 "placepage_delete_bookmark_button" = "Yer İmini Sil";
 
-"editor_edits_sent_message" = "Önerdiğiniz değişiklikler gönderildi";
+"editor_edits_sent_message" = "Notunuz OpenStreetMap'e gönderilecektir";
 
 "editor_comment_hint" = "Yorum…";
 
@@ -930,6 +932,12 @@
 "start_from_my_position" = "Buradan başla";
 
 "profile_authorization_error" = "Üzgünüz, bir hata oluştu. Tekrar oturum açmayı deneyin.";
+
+/* For iOS message 'alert_reauth_message' should be splitted in two parts: message + link. Here's first part */
+"alert_reauth_message_ios" = "Tüm harita düzenlemelerinizi otomatik olarak yüklemek için lütfen OpenStreetMap'e giriş yapın. Daha fazla bilgi";
+
+/* For iOS message 'alert_reauth_message' should be splitted in two parts: message + link. Here's link part */
+"alert_reauth_link_text_ios" = "burada";
 
 "core_entrance" = "Giriş";
 
@@ -1126,6 +1134,8 @@
 "sort_distance" = "Mesafeye göre sırala";
 
 "sort_date" = "Tarihe göre sırala";
+
+"sort_name" = "İsme göre sırala";
 
 "week_ago_sorttype" = "Bir hafta önce";
 
@@ -2635,7 +2645,14 @@
 
 "type.natural" = "Doğa";
 
+/* A rocky land cover. */
 "type.natural.bare_rock" = "Çıplak Kaya";
+
+/* A land cover consisting of rounded rock fragments (pebbles) on a beach or riverbed. */
+"type.natural.shingle" = "Çakıl Taşları";
+
+/* A loose surface consisting of angular, sharp stones. Usually on a mountain slope and prone to landslides. */
+"type.natural.scree" = "Kayşat";
 
 "type.natural.bay" = "Koy";
 
@@ -3748,9 +3765,7 @@
 
 "type.tourism.attraction" = "Görülecek Yerler";
 
-"type.tourism.attraction.animal" = "Hayvanat bahçesi";
-
-"type.tourism.attraction.specified" = "Görülecek Yerler";
+"type.attraction.animal" = "Hayvan Muhafazası";
 
 "type.tourism.camp_site" = "Kamp Alanı";
 

@@ -577,6 +577,8 @@
 	<string name="routing_add_finish_point">Fügen Sie ein Ziel hinzu, um eine Route zu planen</string>
 	<string name="placepage_remove_stop">Entfernen</string>
 	<string name="placepage_add_stop">Stopp einfügen</string>
+	<!-- Alert to ask user relogin to OpenStreetMap with OAuth2 flow after OAuth1 authentication is deprecated. -->
+	<string name="alert_reauth_message">Bitte melde dich bei OpenStreetMap an, um alle deine Kartenbearbeitungen automatisch hochzuladen. Erfahre mehr <a href="https://github.com/organicmaps/organicmaps/issues/6144">hier</a>.</string>
 	<string name="dialog_error_storage_title">Problem mit dem Zugreifen auf den Speicher</string>
 	<string name="dialog_error_storage_message">Der externe Speicher ist nicht verfügbar, möglicherweise wurde die SD-Karte entfernt oder sie ist beschädigt oder das Dateisystem ist schreibgeschützt. Überprüfen Sie das bitte oder kontaktieren Sie uns unter support\@organicmaps.app</string>
 	<string name="setting_emulate_bad_storage">Fehlerhaften Speicher emulieren</string>
@@ -689,6 +691,8 @@
 	<string name="by_distance">Nach Entfernung</string>
 	<!-- Android -->
 	<string name="by_date">Nach Datum</string>
+	<!-- Android -->
+	<string name="by_name">Nach Name</string>
 	<string name="week_ago_sorttype">Vor einer Woche</string>
 	<string name="month_ago_sorttype">Vor einem Monat</string>
 	<string name="moremonth_ago_sorttype">Vor über einem Monat</string>
@@ -1470,7 +1474,12 @@
 	<string name="type.military.bunker">Bunker</string>
 	<string name="type.mountain_pass">Gebirgspass</string>
 	<string name="type.natural">Natur</string>
+	<!-- A rocky land cover. -->
 	<string name="type.natural.bare_rock">Felsgestein</string>
+	<!-- A land cover consisting of rounded rock fragments (pebbles) on a beach or riverbed. -->
+	<string name="type.natural.shingle">Kieselsteine</string>
+	<!-- A loose surface consisting of angular, sharp stones. Usually on a mountain slope and prone to landslides. -->
+	<string name="type.natural.scree">Steiniges Geröll</string>
 	<string name="type.natural.bay">Bucht</string>
 	<string name="type.natural.beach">Strand</string>
 	<string name="type.natural.beach.sand">Sandstrand</string>
@@ -2019,8 +2028,7 @@
 	<string name="type.tourism.artwork.sculpture">Skulptur</string>
 	<string name="type.tourism.artwork.statue">Statue</string>
 	<string name="type.tourism.attraction">Sehenswürdigkeit</string>
-	<string name="type.tourism.attraction.animal">Sehenswürdigkeit</string>
-	<string name="type.tourism.attraction.specified">Sehenswürdigkeit</string>
+	<string name="type.attraction.animal">Tiergehege</string>
 	<string name="type.tourism.camp_site">Campingplatz</string>
 	<string name="type.tourism.caravan_site">Wohnmobilstellplatz</string>
 	<string name="type.tourism.chalet">Ferienhaus</string>

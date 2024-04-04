@@ -48,7 +48,6 @@
 		340E1EFB1E2F614400CE49BF /* Storyboard.swift in Sources */ = {isa = PBXBuildFile; fileRef = 340E1EE91E2F614400CE49BF /* Storyboard.swift */; };
 		340E1EFE1E2F614400CE49BF /* Welcome.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 340E1EEA1E2F614400CE49BF /* Welcome.storyboard */; };
 		342CC5F21C2D7730005F3FE5 /* MWMAuthorizationLoginViewController.mm in Sources */ = {isa = PBXBuildFile; fileRef = 342CC5F01C2D7730005F3FE5 /* MWMAuthorizationLoginViewController.mm */; };
-		342EE4121C43DAA7009F6A49 /* MWMAuthorizationWebViewLoginViewController.mm in Sources */ = {isa = PBXBuildFile; fileRef = 342EE4101C43DAA7009F6A49 /* MWMAuthorizationWebViewLoginViewController.mm */; };
 		343064411E9FDC7300DC7665 /* SearchIndex.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3430643F1E9FDC7300DC7665 /* SearchIndex.swift */; };
 		343E75981E5B1EE20041226A /* MWMCollectionViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 343E75961E5B1EE20041226A /* MWMCollectionViewController.m */; };
 		3444DFCD1F1760B900E73099 /* WidgetsArea.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3444DFCB1F1760B900E73099 /* WidgetsArea.swift */; };
@@ -185,6 +184,8 @@
 		408645FC21495EB1000A4A1D /* categories_cuisines.txt in Resources */ = {isa = PBXBuildFile; fileRef = 408645FB21495EB1000A4A1D /* categories_cuisines.txt */; };
 		44360A0D2A7D34990016F412 /* TransportRuler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 44360A0C2A7D34990016F412 /* TransportRuler.swift */; };
 		44360A112A7D35440016F412 /* TransportRuler.xib in Resources */ = {isa = PBXBuildFile; fileRef = 44360A102A7D35440016F412 /* TransportRuler.xib */; };
+		447DB4BC2BA78282000DF4C2 /* MWMOsmReauthAlert.mm in Sources */ = {isa = PBXBuildFile; fileRef = 447DB4BB2BA78282000DF4C2 /* MWMOsmReauthAlert.mm */; };
+		447DB4C42BA78665000DF4C2 /* MWMOsmReauthAlert.xib in Resources */ = {isa = PBXBuildFile; fileRef = 447DB4C12BA78665000DF4C2 /* MWMOsmReauthAlert.xib */; };
 		4501B1942077C35A001B9173 /* resources-xxxhdpi_clear in Resources */ = {isa = PBXBuildFile; fileRef = 4501B1922077C35A001B9173 /* resources-xxxhdpi_clear */; };
 		4501B1952077C35A001B9173 /* resources-xxxhdpi_dark in Resources */ = {isa = PBXBuildFile; fileRef = 4501B1932077C35A001B9173 /* resources-xxxhdpi_dark */; };
 		4554B6EC1E55F0EF0084017F /* drules_proto_vehicle_clear.bin in Resources */ = {isa = PBXBuildFile; fileRef = 4554B6E81E55F02B0084017F /* drules_proto_vehicle_clear.bin */; };
@@ -775,8 +776,6 @@
 		3427AF0B1E49E3A500D466DB /* MWMConsts.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MWMConsts.h; sourceTree = "<group>"; };
 		342CC5EF1C2D7730005F3FE5 /* MWMAuthorizationLoginViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MWMAuthorizationLoginViewController.h; sourceTree = "<group>"; };
 		342CC5F01C2D7730005F3FE5 /* MWMAuthorizationLoginViewController.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = MWMAuthorizationLoginViewController.mm; sourceTree = "<group>"; };
-		342EE40F1C43DAA7009F6A49 /* MWMAuthorizationWebViewLoginViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MWMAuthorizationWebViewLoginViewController.h; sourceTree = "<group>"; };
-		342EE4101C43DAA7009F6A49 /* MWMAuthorizationWebViewLoginViewController.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = MWMAuthorizationWebViewLoginViewController.mm; sourceTree = "<group>"; };
 		3430643F1E9FDC7300DC7665 /* SearchIndex.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SearchIndex.swift; sourceTree = "<group>"; };
 		343E75951E5B1EE20041226A /* MWMCollectionViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MWMCollectionViewController.h; sourceTree = "<group>"; };
 		343E75961E5B1EE20041226A /* MWMCollectionViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MWMCollectionViewController.m; sourceTree = "<group>"; };
@@ -1045,6 +1044,9 @@
 		408645FB21495EB1000A4A1D /* categories_cuisines.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = categories_cuisines.txt; path = ../../data/categories_cuisines.txt; sourceTree = "<group>"; };
 		44360A0C2A7D34990016F412 /* TransportRuler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TransportRuler.swift; sourceTree = "<group>"; };
 		44360A102A7D35440016F412 /* TransportRuler.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = TransportRuler.xib; sourceTree = "<group>"; };
+		447DB4BA2BA78282000DF4C2 /* MWMOsmReauthAlert.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MWMOsmReauthAlert.h; path = Classes/CustomAlert/MWMOsmReauthAlert.h; sourceTree = SOURCE_ROOT; };
+		447DB4BB2BA78282000DF4C2 /* MWMOsmReauthAlert.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; name = MWMOsmReauthAlert.mm; path = Classes/CustomAlert/MWMOsmReauthAlert.mm; sourceTree = SOURCE_ROOT; };
+		447DB4C12BA78665000DF4C2 /* MWMOsmReauthAlert.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = MWMOsmReauthAlert.xib; path = Classes/CustomAlert/MWMOsmReauthAlert.xib; sourceTree = SOURCE_ROOT; };
 		4501B1922077C35A001B9173 /* resources-xxxhdpi_clear */ = {isa = PBXFileReference; lastKnownFileType = folder; name = "resources-xxxhdpi_clear"; path = "../../data/resources-xxxhdpi_clear"; sourceTree = "<group>"; };
 		4501B1932077C35A001B9173 /* resources-xxxhdpi_dark */ = {isa = PBXFileReference; lastKnownFileType = folder; name = "resources-xxxhdpi_dark"; path = "../../data/resources-xxxhdpi_dark"; sourceTree = "<group>"; };
 		451950391B7A3E070085DA05 /* patterns.txt */ = {isa = PBXFileReference; lastKnownFileType = text; name = patterns.txt; path = ../../data/patterns.txt; sourceTree = "<group>"; };
@@ -2381,8 +2383,6 @@
 				34ABA6151C2D185B00FE1BEC /* MWMAuthorizationOSMLoginViewController.mm */,
 				34BF0CC81C31306300D097EB /* MWMAuthorizationCommon.h */,
 				34BF0CC51C31304A00D097EB /* MWMAuthorizationCommon.mm */,
-				342EE40F1C43DAA7009F6A49 /* MWMAuthorizationWebViewLoginViewController.h */,
-				342EE4101C43DAA7009F6A49 /* MWMAuthorizationWebViewLoginViewController.mm */,
 			);
 			name = Login;
 			path = CustomViews/Login;
@@ -2472,6 +2472,16 @@
 				3444DFD01F17620C00E73099 /* MWMMapWidgetsHelper.mm */,
 			);
 			path = Widgets;
+			sourceTree = "<group>";
+		};
+		447DB4B72BA7826D000DF4C2 /* ReauthAlert */ = {
+			isa = PBXGroup;
+			children = (
+				447DB4C12BA78665000DF4C2 /* MWMOsmReauthAlert.xib */,
+				447DB4BA2BA78282000DF4C2 /* MWMOsmReauthAlert.h */,
+				447DB4BB2BA78282000DF4C2 /* MWMOsmReauthAlert.mm */,
+			);
+			path = ReauthAlert;
 			sourceTree = "<group>";
 		};
 		470F0B7B238842AD006AEC94 /* Views */ = {
@@ -3021,6 +3031,7 @@
 		F64F195F1AB8125C006EAF7E /* CustomAlert */ = {
 			isa = PBXGroup;
 			children = (
+				447DB4B72BA7826D000DF4C2 /* ReauthAlert */,
 				F62607FB207B78E300176C5A /* SpinnerAlert */,
 				F6D67CDA2062B9810032FD38 /* CreateBookmarkCategory */,
 				349B92691DF0516C007779DD /* Toast */,
@@ -3131,9 +3142,9 @@
 		F6BD1D1D1CA412700047B8E8 /* AuthAlert */ = {
 			isa = PBXGroup;
 			children = (
+				F6BD1D221CA412E30047B8E8 /* MWMOsmAuthAlert.xib */,
 				F6BD1D1E1CA412920047B8E8 /* MWMOsmAuthAlert.h */,
 				F6BD1D1F1CA412920047B8E8 /* MWMOsmAuthAlert.mm */,
-				F6BD1D221CA412E30047B8E8 /* MWMOsmAuthAlert.xib */,
 			);
 			name = AuthAlert;
 			sourceTree = "<group>";
@@ -3904,6 +3915,7 @@
 				F6E2FE2E1E097BA00083EBEC /* MWMStreetEditorEditTableViewCell.xib in Resources */,
 				3463BA691DE81DB90082417F /* MWMTrafficButtonViewController.xib in Resources */,
 				F623DA6C1C9C2731006A3436 /* opening_hours_how_to_edit.html in Resources */,
+				447DB4C42BA78665000DF4C2 /* MWMOsmReauthAlert.xib in Resources */,
 				6741A9761BF340DE002C974C /* packed_polygons.bin in Resources */,
 				676507601C10559800830BB3 /* patterns.txt in Resources */,
 				6B15907226623AE500944BBA /* 00_NotoSansThai-Regular.ttf in Resources */,
@@ -4047,7 +4059,6 @@
 				F6E2FEE51E097BA00083EBEC /* MWMSearchNoResults.m in Sources */,
 				3DBD7BE42425015C00ED9FE8 /* ParntersStyleSheet.swift in Sources */,
 				F6E2FF631E097BA00083EBEC /* MWMTTSLanguageViewController.mm in Sources */,
-				342EE4121C43DAA7009F6A49 /* MWMAuthorizationWebViewLoginViewController.mm in Sources */,
 				4715273524907F8200E91BBA /* BookmarkColorViewController.swift in Sources */,
 				47E3C7292111E614008B3B27 /* FadeInAnimatedTransitioning.swift in Sources */,
 				34AB667D1FC5AA330078E451 /* MWMRoutePreview.mm in Sources */,
@@ -4307,6 +4318,7 @@
 				993DF10523F6BDB100AC231A /* UINavigationItem+styleName.swift in Sources */,
 				9977E69C247BFB510073780C /* SearchTextField.swift in Sources */,
 				4726254921C27D4B00C7BAAD /* PlacePageDescriptionViewController.swift in Sources */,
+				447DB4BC2BA78282000DF4C2 /* MWMOsmReauthAlert.mm in Sources */,
 				340475711E081A4600C92850 /* MWMSettings.mm in Sources */,
 				33046832219C57180041F3A8 /* CategorySettingsViewController.swift in Sources */,
 				3404756E1E081A4600C92850 /* MWMSearch.mm in Sources */,

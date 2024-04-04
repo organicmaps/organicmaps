@@ -629,6 +629,8 @@
 
 "login" = "Autentificare";
 
+"login_osm" = "Conectați-vă la OpenStreetMap";
+
 "forgot_password" = "Ai uitat parola?";
 
 "osm_account" = "Cont OSM";
@@ -823,7 +825,7 @@
 
 "placepage_delete_bookmark_button" = "Șterge locul preferat";
 
-"editor_edits_sent_message" = "Modificările sugerate au fost trimise";
+"editor_edits_sent_message" = "Nota dvs. va fi trimisă către OpenStreetMap";
 
 "editor_comment_hint" = "Comentariu…";
 
@@ -930,6 +932,12 @@
 "start_from_my_position" = "Pornește de la";
 
 "profile_authorization_error" = "A apărut o eroare. Încearcă să te conectezi din nou.";
+
+/* For iOS message 'alert_reauth_message' should be splitted in two parts: message + link. Here's first part */
+"alert_reauth_message_ios" = "Vă rugăm să vă conectați la OpenStreetMap pentru a încărca automat toate modificările aduse hărții. Aflați mai multe";
+
+/* For iOS message 'alert_reauth_message' should be splitted in two parts: message + link. Here's link part */
+"alert_reauth_link_text_ios" = "aici";
 
 "core_entrance" = "Intrare";
 
@@ -1126,6 +1134,8 @@
 "sort_distance" = "Sortează după distanță";
 
 "sort_date" = "Sortează după dată";
+
+"sort_name" = "Sortează după nume";
 
 "week_ago_sorttype" = "Acum o săptămână";
 
@@ -2635,7 +2645,14 @@
 
 "type.natural" = "Natură";
 
+/* A rocky land cover. */
 "type.natural.bare_rock" = "Piatră goală";
+
+/* A land cover consisting of rounded rock fragments (pebbles) on a beach or riverbed. */
+"type.natural.shingle" = "Pietriș";
+
+/* A loose surface consisting of angular, sharp stones. Usually on a mountain slope and prone to landslides. */
+"type.natural.scree" = "Grohotiș";
 
 "type.natural.bay" = "Golf";
 
@@ -3748,9 +3765,7 @@
 
 "type.tourism.attraction" = "Punct de atracție";
 
-"type.tourism.attraction.animal" = "Punct de atracție";
-
-"type.tourism.attraction.specified" = "Punct de atracție";
+"type.attraction.animal" = "Incintă pentru animale";
 
 "type.tourism.camp_site" = "Campground";
 

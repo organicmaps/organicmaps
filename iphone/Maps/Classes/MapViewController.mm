@@ -2,7 +2,6 @@
 #import <CoreApi/MWMBookmarksManager.h>
 #import "EAGLView.h"
 #import "MWMAuthorizationCommon.h"
-#import "MWMAuthorizationWebViewLoginViewController.h"
 #import "MWMAutoupdateController.h"
 #import "MWMEditorViewController.h"
 #import "MWMFrameworkListener.h"
@@ -339,6 +338,11 @@ NSString *const kPP2BookmarkEditingSegue = @"PP2BookmarkEditing";
 
   if ([MWMNavigationDashboardManager sharedManager].state == MWMNavigationDashboardStateHidden)
     self.controlsManager.menuState = self.controlsManager.menuRestoreState;
+  
+  // Added in https://github.com/organicmaps/organicmaps/pull/7333
+  // After all users migrate to OAuth2 we can remove next code
+  [self migrateOAuthCredentials];
+
 
   /// @todo: Uncomment update dialog when will be ready to handle big traffic bursts.
   /*
@@ -393,7 +397,6 @@ NSString *const kPP2BookmarkEditingSegue = @"PP2BookmarkEditing";
   [self.alertController presentEditorViralAlert];
 
   [ud setObject:[NSDate date] forKey:kUDViralAlertWasShown];
-  [ud synchronize];
 }
 
 - (void)viewWillDisappear:(BOOL)animated {
@@ -418,6 +421,15 @@ NSString *const kPP2BookmarkEditingSegue = @"PP2BookmarkEditing";
 - (void)updateStatusBarStyle {
   [self setNeedsStatusBarAppearanceUpdate];
 }
+
+- (void)migrateOAuthCredentials {
+  if (osm_auth_ios::AuthorizationHaveOAuth1Credentials())
+  {
+    osm_auth_ios::AuthorizationClearOAuth1Credentials();
+    [self.alertController presentOsmReauthAlert];
+  }
+}
+
 - (id)initWithCoder:(NSCoder *)coder {
   NSLog(@"MapViewController initWithCoder Started");
   self = [super initWithCoder:coder];
@@ -587,12 +599,6 @@ NSString *const kPP2BookmarkEditingSegue = @"PP2BookmarkEditing";
     MWMDownloadMapsViewController *dvc = segue.destinationViewController;
     NSNumber *mode = sender;
     dvc.mode = (MWMMapDownloaderMode)mode.integerValue;
-  } else if ([segue.identifier isEqualToString:kMap2FBLoginSegue]) {
-    MWMAuthorizationWebViewLoginViewController *dvc = segue.destinationViewController;
-    dvc.authType = MWMWebViewAuthorizationTypeFacebook;
-  } else if ([segue.identifier isEqualToString:kMap2GoogleLoginSegue]) {
-    MWMAuthorizationWebViewLoginViewController *dvc = segue.destinationViewController;
-    dvc.authType = MWMWebViewAuthorizationTypeGoogle;
   }
 }
 

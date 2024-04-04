@@ -32154,63 +32154,63 @@ cont {
   element {
     scale: 12
     area {
-      color: 15590876
+      color: 14275263
       priority: -1930
     }
   }
   element {
     scale: 13
     area {
-      color: 15590876
+      color: 14275263
       priority: -1930
     }
   }
   element {
     scale: 14
     area {
-      color: 15590876
+      color: 14275263
       priority: -1930
     }
   }
   element {
     scale: 15
     area {
-      color: 15590876
+      color: 14275263
       priority: -1930
     }
   }
   element {
     scale: 16
     area {
-      color: 15590876
+      color: 14275263
       priority: -1930
     }
   }
   element {
     scale: 17
     area {
-      color: 15590876
+      color: 14275263
       priority: -1930
     }
   }
   element {
     scale: 18
     area {
-      color: 15590876
+      color: 14275263
       priority: -1930
     }
   }
   element {
     scale: 19
     area {
-      color: 15590876
+      color: 14275263
       priority: -1930
     }
   }
   element {
     scale: 20
     area {
-      color: 15590876
+      color: 14275263
       priority: -1930
     }
   }
@@ -80934,216 +80934,6 @@ cont {
 }
 cont {
   name: "tourism-attraction"
-  element {
-    scale: 15
-    symbol {
-      name: "tourism-m"
-      priority: 1200
-      min_distance: 36
-    }
-    caption {
-      primary {
-        height: 10
-        color: 4473924
-        offset_y: 1
-        is_optional: true
-      }
-      priority: -8800
-    }
-  }
-  element {
-    scale: 16
-    symbol {
-      name: "tourism-m"
-      priority: 1200
-      min_distance: 36
-    }
-    caption {
-      primary {
-        height: 10
-        color: 4473924
-        offset_y: 1
-        is_optional: true
-      }
-      priority: -8800
-    }
-  }
-  element {
-    scale: 17
-    symbol {
-      name: "tourism-m"
-      priority: 1200
-      min_distance: 36
-    }
-    caption {
-      primary {
-        height: 10
-        color: 4473924
-        offset_y: 1
-        is_optional: true
-      }
-      priority: -8800
-    }
-  }
-  element {
-    scale: 18
-    symbol {
-      name: "tourism-m"
-      priority: 1200
-      min_distance: 36
-    }
-    caption {
-      primary {
-        height: 10
-        color: 4473924
-        offset_y: 1
-        is_optional: true
-      }
-      priority: -8800
-    }
-  }
-  element {
-    scale: 19
-    symbol {
-      name: "tourism-m"
-      priority: 1200
-      min_distance: 36
-    }
-    caption {
-      primary {
-        height: 10
-        color: 4473924
-        offset_y: 1
-        is_optional: true
-      }
-      priority: -8800
-    }
-  }
-  element {
-    scale: 20
-    symbol {
-      name: "tourism-m"
-      priority: 1200
-      min_distance: 36
-    }
-    caption {
-      primary {
-        height: 10
-        color: 4473924
-        offset_y: 1
-        is_optional: true
-      }
-      priority: -8800
-    }
-  }
-}
-cont {
-  name: "tourism-attraction-animal"
-  element {
-    scale: 15
-    symbol {
-      name: "tourism-m"
-      priority: 1200
-      min_distance: 36
-    }
-    caption {
-      primary {
-        height: 10
-        color: 4473924
-        offset_y: 1
-        is_optional: true
-      }
-      priority: -8800
-    }
-  }
-  element {
-    scale: 16
-    symbol {
-      name: "tourism-m"
-      priority: 1200
-      min_distance: 36
-    }
-    caption {
-      primary {
-        height: 10
-        color: 4473924
-        offset_y: 1
-        is_optional: true
-      }
-      priority: -8800
-    }
-  }
-  element {
-    scale: 17
-    symbol {
-      name: "tourism-m"
-      priority: 1200
-      min_distance: 36
-    }
-    caption {
-      primary {
-        height: 10
-        color: 4473924
-        offset_y: 1
-        is_optional: true
-      }
-      priority: -8800
-    }
-  }
-  element {
-    scale: 18
-    symbol {
-      name: "tourism-m"
-      priority: 1200
-      min_distance: 36
-    }
-    caption {
-      primary {
-        height: 10
-        color: 4473924
-        offset_y: 1
-        is_optional: true
-      }
-      priority: -8800
-    }
-  }
-  element {
-    scale: 19
-    symbol {
-      name: "tourism-m"
-      priority: 1200
-      min_distance: 36
-    }
-    caption {
-      primary {
-        height: 10
-        color: 4473924
-        offset_y: 1
-        is_optional: true
-      }
-      priority: -8800
-    }
-  }
-  element {
-    scale: 20
-    symbol {
-      name: "tourism-m"
-      priority: 1200
-      min_distance: 36
-    }
-    caption {
-      primary {
-        height: 10
-        color: 4473924
-        offset_y: 1
-        is_optional: true
-      }
-      priority: -8800
-    }
-  }
-}
-cont {
-  name: "tourism-attraction-specified"
   element {
     scale: 15
     symbol {

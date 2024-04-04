@@ -550,6 +550,8 @@
 	<string name="routing_add_finish_point">Tilføj slutpunkt for at planlægge en rute</string>
 	<string name="placepage_remove_stop">Fjern</string>
 	<string name="placepage_add_stop">Tilføj stop</string>
+	<!-- Alert to ask user relogin to OpenStreetMap with OAuth2 flow after OAuth1 authentication is deprecated. -->
+	<string name="alert_reauth_message">Log ind på OpenStreetMap for automatisk at uploade alle dine kortredigeringer. Få mere at vide <a href="https://github.com/organicmaps/organicmaps/issues/6144">her</a>.</string>
 	<string name="dialog_error_storage_title">Problem med lageradgang</string>
 	<string name="dialog_error_storage_message">Eksternt lager er ikke tilgængeligt, formentlig er SD-kortet blevet fjernet eller beskadiget, eller filsystemet er skrivebeskyttet. Kontroller det og kontakt os på support\@organicmaps.app</string>
 	<string name="setting_emulate_bad_storage">Emulere beskadiget lager</string>
@@ -659,6 +661,8 @@
 	<string name="by_distance">Efter afstand</string>
 	<!-- Android -->
 	<string name="by_date">Efter dato</string>
+	<!-- Android -->
+	<string name="by_name">efter navn</string>
 	<string name="week_ago_sorttype">En uge siden</string>
 	<string name="month_ago_sorttype">En måned siden</string>
 	<string name="moremonth_ago_sorttype">Mere end en måned siden</string>
@@ -1317,7 +1321,12 @@
 	<string name="type.man_made.water_well">Brønd</string>
 	<string name="type.man_made.windmill">Vindmølle</string>
 	<string name="type.natural">Natur</string>
+	<!-- A rocky land cover. -->
 	<string name="type.natural.bare_rock">Blottet klippe</string>
+	<!-- A land cover consisting of rounded rock fragments (pebbles) on a beach or riverbed. -->
+	<string name="type.natural.shingle">Småsten</string>
+	<!-- A loose surface consisting of angular, sharp stones. Usually on a mountain slope and prone to landslides. -->
+	<string name="type.natural.scree">Stenet skrænt</string>
 	<string name="type.natural.bay">Bugt</string>
 	<string name="type.natural.beach">Strand</string>
 	<string name="type.natural.beach.sand">Sandet strand</string>
@@ -1823,8 +1832,7 @@
 	<string name="type.tourism.artwork.sculpture">Kunstværk</string>
 	<string name="type.tourism.artwork.statue">Kunstværk</string>
 	<string name="type.tourism.attraction">Attraktioner</string>
-	<string name="type.tourism.attraction.animal">Attraktioner</string>
-	<string name="type.tourism.attraction.specified">Attraktioner</string>
+	<string name="type.attraction.animal">Indhegning til dyr</string>
 	<string name="type.tourism.caravan_site">Autocamperplads</string>
 	<string name="type.tourism.chalet">Hytte</string>
 	<string name="type.tourism.gallery">Turisme</string>

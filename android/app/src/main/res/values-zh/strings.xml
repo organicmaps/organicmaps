@@ -559,6 +559,8 @@
 	<string name="routing_add_finish_point">添加终点以规划路线</string>
 	<string name="placepage_remove_stop">移除</string>
 	<string name="placepage_add_stop">添加经停点</string>
+	<!-- Alert to ask user relogin to OpenStreetMap with OAuth2 flow after OAuth1 authentication is deprecated. -->
+	<string name="alert_reauth_message">请登录OpenStreetMap，自动上传您编辑的所有地图。了解更多信息<a href="https://github.com/organicmaps/organicmaps/issues/6144">请点击这里</a>。</string>
 	<string name="dialog_error_storage_title">存储空间访问问题</string>
 	<string name="dialog_error_storage_message">外部存储空间不可用，可能是存储卡已移除、损坏，或者文件系统为只读。请检查，然后通过以下方式联系我们：support\@organicmaps.app</string>
 	<string name="setting_emulate_bad_storage">模拟不良存储空间</string>
@@ -667,6 +669,8 @@
 	<string name="by_distance">按距离</string>
 	<!-- Android -->
 	<string name="by_date">按时间</string>
+	<!-- Android -->
+	<string name="by_name">按名称</string>
 	<string name="week_ago_sorttype">一周前</string>
 	<string name="month_ago_sorttype">一月前</string>
 	<string name="moremonth_ago_sorttype">一个多月前</string>
@@ -1436,7 +1440,12 @@
 	<string name="type.military">军事</string>
 	<string name="type.military.bunker">地堡</string>
 	<string name="type.natural">自然</string>
+	<!-- A rocky land cover. -->
 	<string name="type.natural.bare_rock">岩石</string>
+	<!-- A land cover consisting of rounded rock fragments (pebbles) on a beach or riverbed. -->
+	<string name="type.natural.shingle">鹅卵石</string>
+	<!-- A loose surface consisting of angular, sharp stones. Usually on a mountain slope and prone to landslides. -->
+	<string name="type.natural.scree">石质碎石</string>
 	<string name="type.natural.bay">海湾</string>
 	<string name="type.natural.beach">海滩</string>
 	<string name="type.natural.beach.sand">沙滩</string>
@@ -1977,8 +1986,7 @@
 	<string name="type.tourism.artwork.sculpture">雕塑</string>
 	<string name="type.tourism.artwork.statue">雕像</string>
 	<string name="type.tourism.attraction">景点</string>
-	<string name="type.tourism.attraction.animal">景点</string>
-	<string name="type.tourism.attraction.specified">景点</string>
+	<string name="type.attraction.animal">动物围栏</string>
 	<string name="type.tourism.camp_site">宿营场地</string>
 	<string name="type.tourism.caravan_site">房车宿营地</string>
 	<string name="type.tourism.chalet">度假屋</string>

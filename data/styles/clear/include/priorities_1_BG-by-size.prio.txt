@@ -116,6 +116,8 @@ landuse-village_green                               # area z12-
 landuse-vineyard                                    # area z12- (also has caption z15-)
 leisure-pitch                                       # area z15- (also has icon z17-, caption(optional) z17-)
 natural-bare_rock                                   # area z12- (also has caption z14-)
+natural-scree                                       # area z11-
+natural-shingle                                     # area z12-
 === 80
 
 leisure-garden                                      # area z12- (also has icon z16-, caption(optional) z16-)

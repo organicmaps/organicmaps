@@ -550,6 +550,8 @@
 	<string name="routing_add_finish_point">Tambahkan titik akhir untuk merencanakan rute</string>
 	<string name="placepage_remove_stop">Hapus</string>
 	<string name="placepage_add_stop">Tambah perhentian</string>
+	<!-- Alert to ask user relogin to OpenStreetMap with OAuth2 flow after OAuth1 authentication is deprecated. -->
+	<string name="alert_reauth_message">Silahkan login ke OpenStreetMap untuk mengupload semua hasil edit peta Anda secara otomatis. Pelajari lebih lanjut <a href="https://github.com/organicmaps/organicmaps/issues/6144">di sini</a>.</string>
 	<string name="dialog_error_storage_title">Masalah akses penyimpanan</string>
 	<string name="dialog_error_storage_message">Penyimpanan eksternal tidak tersedia, mungkin Kartu SD sudah dilepaskan, rusak, atau sistem berkasnya hanya dapat dibaca. Silakan periksa dan beri tahu kami di alamat support\@ maps.me</string>
 	<string name="setting_emulate_bad_storage">Emulasi penyimpanan yang buruk</string>
@@ -659,6 +661,8 @@
 	<string name="by_distance">Per jarak</string>
 	<!-- Android -->
 	<string name="by_date">Per tanggal</string>
+	<!-- Android -->
+	<string name="by_name">Berdasarkan Nama</string>
 	<string name="week_ago_sorttype">Seminggu yang lalu</string>
 	<string name="month_ago_sorttype">Sebulan yang lalu</string>
 	<string name="moremonth_ago_sorttype">Lebih dari sebulan yang lalu</string>
@@ -1321,7 +1325,12 @@
 	<string name="type.man_made.water_well">Sumur air</string>
 	<string name="type.man_made.windmill">Kincir angin</string>
 	<string name="type.natural">Alam</string>
+	<!-- A rocky land cover. -->
 	<string name="type.natural.bare_rock">Batuan telanjang</string>
+	<!-- A land cover consisting of rounded rock fragments (pebbles) on a beach or riverbed. -->
+	<string name="type.natural.shingle">Kerikil</string>
+	<!-- A loose surface consisting of angular, sharp stones. Usually on a mountain slope and prone to landslides. -->
+	<string name="type.natural.scree">Scree berbatu</string>
 	<string name="type.natural.bay">Teluk</string>
 	<string name="type.natural.beach">Pantai</string>
 	<string name="type.natural.beach.sand">Pantai berpasir</string>
@@ -1829,8 +1838,7 @@
 	<string name="type.tourism.artwork.sculpture">Pariwisata</string>
 	<string name="type.tourism.artwork.statue">Pariwisata</string>
 	<string name="type.tourism.attraction">Atraksi</string>
-	<string name="type.tourism.attraction.animal">Atraksi</string>
-	<string name="type.tourism.attraction.specified">Atraksi</string>
+	<string name="type.attraction.animal">Kandang Hewan</string>
 	<string name="type.tourism.camp_site">Perkemahan</string>
 	<string name="type.tourism.caravan_site">Lokasi perkemahan</string>
 	<string name="type.tourism.gallery">Pemandangan</string>

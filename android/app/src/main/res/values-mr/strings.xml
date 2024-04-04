@@ -549,6 +549,8 @@
 	<string name="routing_add_finish_point">मार्ग नियोजित करण्यासाठी इष्टस्थान जोडा</string>
 	<string name="placepage_remove_stop">काढा</string>
 	<string name="placepage_add_stop">स्टॉप जोडा</string>
+	<!-- Alert to ask user relogin to OpenStreetMap with OAuth2 flow after OAuth1 authentication is deprecated. -->
+	<string name="alert_reauth_message">तुमची सर्व नकाशा संपादने स्वयंचलितपणे अपलोड करण्यासाठी कृपया OpenStreetMap वर लॉग इन करा. <a href="https://github.com/organicmaps/organicmaps/issues/6144">येथे</a> अधिक जाणून घ्या.</string>
 	<string name="dialog_error_storage_title">स्टोरेज प्रवेश समस्या</string>
 	<string name="dialog_error_storage_message">बाह्य साठ्याचा प्रवेश अपयशी. SD कार्ड कदाचित काढले गेले असेल, खराब झाले असेल किंवा फाइल सिस्टम ही केवळ-वाचनीय असावी. कृपया, तुमचे SD कार्ड तपासा किंवा support\@organicmaps.app वर आमच्याशी संपर्क साधा</string>
 	<string name="setting_emulate_bad_storage">खराब साठ्याचे अनुकरण करा</string>
@@ -659,6 +661,8 @@
 	<string name="by_distance">अंतरानुसार</string>
 	<!-- Android -->
 	<string name="by_date">दिनांकानुसार</string>
+	<!-- Android -->
+	<string name="by_name">नावाने</string>
 	<string name="week_ago_sorttype">गेल्या आठवड्यात</string>
 	<string name="month_ago_sorttype">गेल्या महिन्यात</string>
 	<string name="moremonth_ago_sorttype">एक महिन्यापूर्वी</string>
@@ -1360,7 +1364,12 @@
 	<string name="type.military.bunker">बंकर</string>
 	<string name="type.mountain_pass">डोंगरवाट</string>
 	<string name="type.natural">नैसर्गिक</string>
+	<!-- A rocky land cover. -->
 	<string name="type.natural.bare_rock">खडक</string>
+	<!-- A land cover consisting of rounded rock fragments (pebbles) on a beach or riverbed. -->
+	<string name="type.natural.shingle">खडे</string>
+	<!-- A loose surface consisting of angular, sharp stones. Usually on a mountain slope and prone to landslides. -->
+	<string name="type.natural.scree">स्क्री</string>
 	<string name="type.natural.bay">खाडी</string>
 	<string name="type.natural.beach">समुद्रकिनारा</string>
 	<string name="type.natural.beach.sand">वालुकामय समुद्रकिनारा</string>
@@ -1858,8 +1867,7 @@
 	<string name="type.tourism.artwork.sculpture">कलाकृती</string>
 	<string name="type.tourism.artwork.statue">कलाकृती</string>
 	<string name="type.tourism.attraction">आकर्षण</string>
-	<string name="type.tourism.attraction.animal">आकर्षण</string>
-	<string name="type.tourism.attraction.specified">आकर्षण</string>
+	<string name="type.attraction.animal">प्राणी संलग्न</string>
 	<string name="type.tourism.camp_site">शिबिरवास(कॅम्पिंग)</string>
 	<string name="type.tourism.gallery">वीथि</string>
 	<string name="type.tourism.guest_house">अतिथीगृह</string>

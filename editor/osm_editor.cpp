@@ -578,11 +578,11 @@ bool Editor::HaveMapEditsToUpload(MwmId const & mwmId) const
   return false;
 }
 
-void Editor::UploadChanges(string const & key, string const & secret, ChangesetTags tags,
+void Editor::UploadChanges(string const & oauthToken, ChangesetTags tags,
                            FinishUploadCallback callback)
 {
   if (m_notes->NotUploadedNotesCount())
-    m_notes->Upload(OsmOAuth::ServerAuth({key, secret}));
+    m_notes->Upload(OsmOAuth::ServerAuth(oauthToken));
 
   auto const features = m_features.Get();
 
@@ -592,10 +592,10 @@ void Editor::UploadChanges(string const & key, string const & secret, ChangesetT
     return;
   }
 
-  auto upload = [this](string key, string secret, ChangesetTags tags, FinishUploadCallback callback)
+  auto upload = [this](string secret, ChangesetTags tags, FinishUploadCallback callback)
   {
     int uploadedFeaturesCount = 0, errorsCount = 0;
-    ChangesetWrapper changeset({key, secret}, std::move(tags));
+    ChangesetWrapper changeset(secret, std::move(tags));
     auto const features = m_features.Get();
 
     for (auto const & id : *features)
@@ -773,10 +773,10 @@ void Editor::UploadChanges(string const & key, string const & secret, ChangesetT
   if (!m_isUploadingNow)
   {
     m_isUploadingNow = true;
-    GetPlatform().RunTask(Platform::Thread::Network, [upload = std::move(upload), key, secret,
+    GetPlatform().RunTask(Platform::Thread::Network, [upload = std::move(upload), oauthToken,
                                                       tags = std::move(tags), callback = std::move(callback)]()
     {
-      upload(std::move(key), std::move(secret), std::move(tags), std::move(callback));
+      upload(std::move(oauthToken), std::move(tags), std::move(callback));
     });
   }
 }

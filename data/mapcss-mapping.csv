@@ -522,8 +522,8 @@ healthcare|sample_collection;435;
 sport|australian_football;436;
 leisure|bowling_alley;437;
 healthcare|speech_therapist;438;
-deprecated|deprecated;439;x
-deprecated|deprecated;440;x
+natural|scree;439;
+natural|shingle;440;
 aerialway|t-bar;441;
 amenity|parking|lane|fee;[amenity=parking][parking=lane][fee];;name;int_name;442;
 amenity|parking|street_side|fee;[amenity=parking][parking=street_side][fee];;name;int_name;443;
@@ -1321,8 +1321,8 @@ historic|memorial|statue;[historic=memorial][memorial=statue],[historic=memorial
 historic|memorial|plaque;[historic=memorial][memorial=plaque],[historic=memorial][memorial:type=plaque];;name;int_name;1233;
 historic|castle|defensive;[historic=castle][castle_type=defensive];;name;int_name;1234;
 historic|castle|stately;[historic=castle][castle_type=stately];;name;int_name;1235;
-tourism|attraction|animal;[tourism=attraction][attraction=animal];;name;int_name;1236;
-tourism|attraction|specified;[tourism=attraction][attraction=specified];;name;int_name;1237;
+attraction|animal;[attraction=animal];;name;int_name;1236;
+deprecated:tourism|attraction|specified:03.2024;[tourism=attraction][attraction=specified];x;name;int_name;1237;tourism|attraction
 cuisine|regional;1238;
 cuisine|pizza;1239;
 cuisine|burger;1240;

@@ -579,6 +579,8 @@
 	<string name="routing_add_finish_point">Pridaním cieľového bodu naplánujete trasu</string>
 	<string name="placepage_remove_stop">Odstrániť</string>
 	<string name="placepage_add_stop">Pridať zastávku</string>
+	<!-- Alert to ask user relogin to OpenStreetMap with OAuth2 flow after OAuth1 authentication is deprecated. -->
+	<string name="alert_reauth_message">Prihláste sa do OpenStreetMap, aby ste mohli automaticky nahrať všetky svoje úpravy mapy. Viac informácií sa dozviete <a href="https://github.com/organicmaps/organicmaps/issues/6144">tade</a>.</string>
 	<string name="dialog_error_storage_title">Problém s prístupom k úložisku</string>
 	<string name="dialog_error_storage_message">Externý úložný priestor nie je dostupný, pravdepodobne je vytiahnutá alebo poškodená SD karta alebo je systém súborov určený iba na čítanie. Skontrolujte to, prosím, a kontaktujte nás na support\@organicmaps.app</string>
 	<string name="setting_emulate_bad_storage">Imitovať poškodené úložisko</string>
@@ -689,6 +691,8 @@
 	<string name="by_distance">Podľa vzdialenosti</string>
 	<!-- Android -->
 	<string name="by_date">Podľa dátumu</string>
+	<!-- Android -->
+	<string name="by_name">Podľa mena</string>
 	<string name="week_ago_sorttype">Pred týždňom</string>
 	<string name="month_ago_sorttype">Pred mesiacom</string>
 	<string name="moremonth_ago_sorttype">Pred viac ako mesiacom</string>
@@ -1382,7 +1386,12 @@
 	<string name="type.man_made.windmill">Veterný mlyn</string>
 	<string name="type.man_made.works">Továreň</string>
 	<string name="type.natural">Príroda</string>
+	<!-- A rocky land cover. -->
 	<string name="type.natural.bare_rock">Holá skala</string>
+	<!-- A land cover consisting of rounded rock fragments (pebbles) on a beach or riverbed. -->
+	<string name="type.natural.shingle">Kamienky</string>
+	<!-- A loose surface consisting of angular, sharp stones. Usually on a mountain slope and prone to landslides. -->
+	<string name="type.natural.scree">Kamenisté sutiny</string>
 	<string name="type.natural.bay">Záliv</string>
 	<string name="type.natural.beach">Pláž</string>
 	<string name="type.natural.beach.sand">Piesočná pláž</string>
@@ -1890,8 +1899,7 @@
 	<string name="type.tourism.artwork.sculpture">Umelecké diela</string>
 	<string name="type.tourism.artwork.statue">Umelecké diela</string>
 	<string name="type.tourism.attraction">Atrakcia</string>
-	<string name="type.tourism.attraction.animal">Atrakcia</string>
-	<string name="type.tourism.attraction.specified">Atrakcia</string>
+	<string name="type.attraction.animal">Výbeh pre zvieratá</string>
 	<string name="type.tourism.caravan_site">Kemp pre karavany</string>
 	<string name="type.tourism.chalet">Chata</string>
 	<string name="type.tourism.gallery">Pamätihodnosť</string>

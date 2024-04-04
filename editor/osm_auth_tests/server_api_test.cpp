@@ -1,5 +1,7 @@
 #include "testing/testing.hpp"
 
+#include "run_on_network_thread.hpp"
+
 #include "editor/server_api.hpp"
 
 #include "geometry/mercator.hpp"
@@ -13,6 +15,8 @@
 
 #include <pugixml.hpp>
 
+namespace osm_auth
+{
 using osm::ServerApi06;
 using osm::OsmOAuth;
 using namespace pugi;
@@ -73,69 +77,76 @@ void DeleteOSMNodeIfExists(ServerApi06 const & api, uint64_t changeSetId, ms::La
 
 UNIT_TEST(OSM_ServerAPI_ChangesetAndNode)
 {
-  ms::LatLon const kOriginalLocation = RandomCoordinate();
-  ms::LatLon const kModifiedLocation = RandomCoordinate();
-
-  using editor::XMLFeature;
-  XMLFeature node(XMLFeature::Type::Node);
-
-  ServerApi06 const api = CreateAPI();
-  uint64_t changeSetId = api.CreateChangeSet({{"created_by", "OMaps Unit Test"},
-                                              {"comment", "For test purposes only."}});
-  auto const changesetCloser = [&]() { api.CloseChangeSet(changeSetId); };
-
+  testing::RunOnNetworkThread([]
   {
+    ms::LatLon const kOriginalLocation = RandomCoordinate();
+    ms::LatLon const kModifiedLocation = RandomCoordinate();
+
+    using editor::XMLFeature;
+    XMLFeature node(XMLFeature::Type::Node);
+
+    ServerApi06 const api = CreateAPI();
+    uint64_t changeSetId = api.CreateChangeSet({{"created_by", "OMaps Unit Test"},
+                                                {"comment", "For test purposes only."}});
+    auto const changesetCloser = [&]() { api.CloseChangeSet(changeSetId); };
+
+    {
+      SCOPE_GUARD(guard, changesetCloser);
+
+      // Sometimes network can unexpectedly fail (or test exception can be raised), so do some cleanup before unit tests.
+      DeleteOSMNodeIfExists(api, changeSetId, kOriginalLocation);
+      DeleteOSMNodeIfExists(api, changeSetId, kModifiedLocation);
+
+      node.SetCenter(kOriginalLocation);
+      node.SetAttribute("changeset", strings::to_string(changeSetId));
+      node.SetAttribute("version", "1");
+      node.SetTagValue("testkey", "firstnode");
+
+      // Pushes node to OSM server and automatically sets node id.
+      api.CreateElementAndSetAttributes(node);
+      TEST(!node.GetAttribute("id").empty(), ());
+
+      // Change node's coordinates and tags.
+      node.SetCenter(kModifiedLocation);
+      node.SetTagValue("testkey", "secondnode");
+      api.ModifyElementAndSetVersion(node);
+      // After modification, node version increases in ModifyElement.
+      TEST_EQUAL(node.GetAttribute("version"), "2", ());
+
+      // All tags must be specified, because there is no merging of old and new tags.
+      api.UpdateChangeSet(changeSetId, {{"created_by", "OMaps Unit Test"},
+                                        {"comment", "For test purposes only (updated)."}});
+
+      // To retrieve created node, changeset should be closed first.
+      // It is done here via Scope Guard.
+    }
+
+    auto const response = api.GetXmlFeaturesAtLatLon(kModifiedLocation, 1.0);
+    TEST_EQUAL(response.first, OsmOAuth::HTTP::OK, ());
+    auto const features = XMLFeature::FromOSM(response.second);
+    TEST_EQUAL(1, features.size(), ());
+    TEST_EQUAL(node.GetAttribute("id"), features[0].GetAttribute("id"), ());
+
+    // Cleanup - delete unit test node from the server.
+    changeSetId = api.CreateChangeSet({{"created_by", "OMaps Unit Test"},
+                                      {"comment", "For test purposes only."}});
     SCOPE_GUARD(guard, changesetCloser);
-
-    // Sometimes network can unexpectedly fail (or test exception can be raised), so do some cleanup before unit tests.
-    DeleteOSMNodeIfExists(api, changeSetId, kOriginalLocation);
-    DeleteOSMNodeIfExists(api, changeSetId, kModifiedLocation);
-
-    node.SetCenter(kOriginalLocation);
+    // New changeset has new id.
     node.SetAttribute("changeset", strings::to_string(changeSetId));
-    node.SetAttribute("version", "1");
-    node.SetTagValue("testkey", "firstnode");
-
-    // Pushes node to OSM server and automatically sets node id.
-    api.CreateElementAndSetAttributes(node);
-    TEST(!node.GetAttribute("id").empty(), ());
-
-    // Change node's coordinates and tags.
-    node.SetCenter(kModifiedLocation);
-    node.SetTagValue("testkey", "secondnode");
-    api.ModifyElementAndSetVersion(node);
-    // After modification, node version increases in ModifyElement.
-    TEST_EQUAL(node.GetAttribute("version"), "2", ());
-
-    // All tags must be specified, because there is no merging of old and new tags.
-    api.UpdateChangeSet(changeSetId, {{"created_by", "OMaps Unit Test"},
-                                      {"comment", "For test purposes only (updated)."}});
-
-    // To retrieve created node, changeset should be closed first.
-    // It is done here via Scope Guard.
-  }
-
-  auto const response = api.GetXmlFeaturesAtLatLon(kModifiedLocation, 1.0);
-  TEST_EQUAL(response.first, OsmOAuth::HTTP::OK, ());
-  auto const features = XMLFeature::FromOSM(response.second);
-  TEST_EQUAL(1, features.size(), ());
-  TEST_EQUAL(node.GetAttribute("id"), features[0].GetAttribute("id"), ());
-
-  // Cleanup - delete unit test node from the server.
-  changeSetId = api.CreateChangeSet({{"created_by", "OMaps Unit Test"},
-                                     {"comment", "For test purposes only."}});
-  SCOPE_GUARD(guard, changesetCloser);
-  // New changeset has new id.
-  node.SetAttribute("changeset", strings::to_string(changeSetId));
-  TEST_NO_THROW(api.DeleteElement(node), ());
+    TEST_NO_THROW(api.DeleteElement(node), ());
+  });
 }
 
 UNIT_TEST(OSM_ServerAPI_Notes)
 {
-  ms::LatLon const pos = RandomCoordinate();
-  ServerApi06 const api = CreateAPI();
-  uint64_t id;
-  TEST_NO_THROW(id = api.CreateNote(pos, "A test note"), ("Creating a note"));
-  TEST_GREATER(id, 0, ("Note id should be a positive integer"));
-  TEST_NO_THROW(api.CloseNote(id), ("Closing a note"));
+  testing::RunOnNetworkThread([]
+  {
+    ms::LatLon const pos = RandomCoordinate();
+    ServerApi06 const api = CreateAPI();
+    uint64_t id;
+    TEST_NO_THROW(id = api.CreateNote(pos, "A test note"), ("Creating a note"));
+    TEST_GREATER(id, 0, ("Note id should be a positive integer"));
+    TEST_NO_THROW(api.CloseNote(id), ("Closing a note"));
+  });
 }
+}  // namespace osm_auth

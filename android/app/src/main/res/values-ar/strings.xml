@@ -594,6 +594,8 @@
 	<string name="routing_add_finish_point">أضف النهاية لتخطيط المسار</string>
 	<string name="placepage_remove_stop">إزالة</string>
 	<string name="placepage_add_stop">إضافة نقطة توقف</string>
+	<!-- Alert to ask user relogin to OpenStreetMap with OAuth2 flow after OAuth1 authentication is deprecated. -->
+	<string name="alert_reauth_message">برجاء تسجيل الدخول إلى OpenStreetMap لتحميل جميع تعديلات الخريطة تلقائيًا. تعرف على المزيد <a href="https://github.com/organicmaps/organicmaps/issues/6144">هنا</a>.</string>
 	<string name="dialog_error_storage_title">مشكلة الوصول للتخزين</string>
 	<string name="dialog_error_storage_message">التخزين الخارجي غير متوفر، ربما تمت إزالة بطاقة SD، أو أنها تالفة أو نظام الملفات للقراءة فقط. افحصه أو راسلنا على support\@organicmaps.app</string>
 	<string name="setting_emulate_bad_storage">محاكاة التخزين السيء</string>
@@ -702,6 +704,8 @@
 	<string name="by_distance">حسب المسافة</string>
 	<!-- Android -->
 	<string name="by_date">حسب التاريخ</string>
+	<!-- Android -->
+	<string name="by_name">بالاسم</string>
 	<string name="week_ago_sorttype">منذ أسبوع</string>
 	<string name="month_ago_sorttype">منذ شهر</string>
 	<string name="moremonth_ago_sorttype">منذ أكثر من شهر</string>
@@ -1486,7 +1490,12 @@
 	<string name="type.military">عسكري</string>
 	<string name="type.military.bunker">ملجأ</string>
 	<string name="type.natural">طبيعة</string>
+	<!-- A rocky land cover. -->
 	<string name="type.natural.bare_rock">صخور عارية</string>
+	<!-- A land cover consisting of rounded rock fragments (pebbles) on a beach or riverbed. -->
+	<string name="type.natural.shingle">الحصى</string>
+	<!-- A loose surface consisting of angular, sharp stones. Usually on a mountain slope and prone to landslides. -->
+	<string name="type.natural.scree">حصى</string>
 	<string name="type.natural.bay">خليج</string>
 	<string name="type.natural.beach">شاطئ</string>
 	<string name="type.natural.beach.sand">شاطئ رملي</string>
@@ -1998,8 +2007,7 @@
 	<string name="type.tourism.artwork.sculpture">منحوتة</string>
 	<string name="type.tourism.artwork.statue">تمثال</string>
 	<string name="type.tourism.attraction">مكان جذاب</string>
-	<string name="type.tourism.attraction.animal">مكان جذاب</string>
-	<string name="type.tourism.attraction.specified">مكان جذاب</string>
+	<string name="type.attraction.animal">الضميمة الحيوانية</string>
 	<string name="type.tourism.camp_site">مخيّم</string>
 	<string name="type.tourism.caravan_site">موقع لمراكب ترفيه</string>
 	<string name="type.tourism.chalet">شاليه</string>

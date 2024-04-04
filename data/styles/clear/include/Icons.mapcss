@@ -456,6 +456,7 @@ node|z16-[historic=tomb],
 area|z16-[historic=tomb],
 node|z16-[tourism=aquarium],
 area|z16-[tourism=aquarium],
+node|z17-[attraction=animal],
 node|z17-[historic=ruins],
 area|z17-[historic=ruins],
 node|z17-[historic=wayside_shrine],
@@ -691,9 +692,8 @@ node|z16-[tourism=theme_park],
 area|z16-[tourism=theme_park]
 {icon-image: theme_park-m.svg;icon-min-distance: 24;}
 
-node|z17-[tourism=attraction][attraction=animal],
-area|z17-[tourism=attraction][attraction=animal]
-{icon-image: zoo-m.svg;icon-min-distance: 24;}
+node|z17-[attraction=animal],
+{icon-image: animal-m.svg;icon-min-distance: 24;}
 
 node|z15-[amenity=community_centre],
 area|z15-[amenity=community_centre],

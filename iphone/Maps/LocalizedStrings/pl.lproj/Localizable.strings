@@ -629,6 +629,8 @@
 
 "login" = "Zaloguj się";
 
+"login_osm" = "Zaloguj się do OpenStreetMap";
+
 "forgot_password" = "Nie pamiętasz hasła?";
 
 "osm_account" = "Konto OSM";
@@ -823,7 +825,7 @@
 
 "placepage_delete_bookmark_button" = "Usuń zakładkę";
 
-"editor_edits_sent_message" = "Twoje sugestie zostały wysłane";
+"editor_edits_sent_message" = "Twoja notatka zostanie wysłana do OpenStreetMap";
 
 "editor_comment_hint" = "Komentarz…";
 
@@ -930,6 +932,12 @@
 "start_from_my_position" = "Zacznij od";
 
 "profile_authorization_error" = "Ups, nastąpił błąd. Spróbuj zalogować się ponownie.";
+
+/* For iOS message 'alert_reauth_message' should be splitted in two parts: message + link. Here's first part */
+"alert_reauth_message_ios" = "Zaloguj się do OpenStreetMap, aby automatycznie przesyłać wszystkie zmiany na mapie. Dowiedz się więcej";
+
+/* For iOS message 'alert_reauth_message' should be splitted in two parts: message + link. Here's link part */
+"alert_reauth_link_text_ios" = "tutaj";
 
 "core_entrance" = "Wejście";
 
@@ -1126,6 +1134,8 @@
 "sort_distance" = "Sortuj wg odległości";
 
 "sort_date" = "Sortuj wg daty";
+
+"sort_name" = "Sortuj według nazwy";
 
 "week_ago_sorttype" = "Tydzień temu";
 
@@ -2635,7 +2645,14 @@
 
 "type.natural" = "Natura";
 
+/* A rocky land cover. */
 "type.natural.bare_rock" = "Odkryte skały";
+
+/* A land cover consisting of rounded rock fragments (pebbles) on a beach or riverbed. */
+"type.natural.shingle" = "Kamyki";
+
+/* A loose surface consisting of angular, sharp stones. Usually on a mountain slope and prone to landslides. */
+"type.natural.scree" = "Kamienisty piarg";
 
 "type.natural.bay" = "Zatoka";
 
@@ -3748,9 +3765,7 @@
 
 "type.tourism.attraction" = "Atrakcja turystyczna";
 
-"type.tourism.attraction.animal" = "Atrakcje zwierzęce";
-
-"type.tourism.attraction.specified" = "Atrakcja turystyczna";
+"type.attraction.animal" = "Atrakcje zwierzęce";
 
 "type.tourism.camp_site" = "Kamping";
 

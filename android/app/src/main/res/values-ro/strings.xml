@@ -565,6 +565,8 @@
 	<string name="routing_add_finish_point">Adaugă un punct de sosire pentru a planifica un traseu</string>
 	<string name="placepage_remove_stop">Elimină</string>
 	<string name="placepage_add_stop">Adaugă oprire</string>
+	<!-- Alert to ask user relogin to OpenStreetMap with OAuth2 flow after OAuth1 authentication is deprecated. -->
+	<string name="alert_reauth_message">Vă rugăm să vă conectați la OpenStreetMap pentru a încărca automat toate modificările aduse hărții. Aflați mai multe <a href="https://github.com/organicmaps/organicmaps/issues/6144">aici</a>.</string>
 	<string name="dialog_error_storage_title">Problemă de acces la spațiul de stocare</string>
 	<string name="dialog_error_storage_message">Spațiul de stocare extern nu este disponibil. Probabil cardul SD nu este introdus, este deteriorat sau sistemul de fișiere este doar pentru citire. Verifică sau contactează-ne la support\@organicmaps.app</string>
 	<string name="setting_emulate_bad_storage">Simulare arhivă deteriorată</string>
@@ -677,6 +679,8 @@
 	<string name="by_distance">După distanță</string>
 	<!-- Android -->
 	<string name="by_date">După dată</string>
+	<!-- Android -->
+	<string name="by_name">După nume</string>
 	<string name="week_ago_sorttype">Acum o săptămână</string>
 	<string name="month_ago_sorttype">Acum o lună</string>
 	<string name="moremonth_ago_sorttype">Acum mai mult de o lună</string>
@@ -1346,7 +1350,12 @@
 	<string name="type.man_made.windmill">Moară de vânt</string>
 	<string name="type.military.bunker">Buncăr</string>
 	<string name="type.natural">Natură</string>
+	<!-- A rocky land cover. -->
 	<string name="type.natural.bare_rock">Piatră goală</string>
+	<!-- A land cover consisting of rounded rock fragments (pebbles) on a beach or riverbed. -->
+	<string name="type.natural.shingle">Pietriș</string>
+	<!-- A loose surface consisting of angular, sharp stones. Usually on a mountain slope and prone to landslides. -->
+	<string name="type.natural.scree">Grohotiș</string>
 	<string name="type.natural.bay">Golf</string>
 	<string name="type.natural.beach">Plajă</string>
 	<string name="type.natural.beach.sand">Plaja nisipoasa</string>
@@ -1853,8 +1862,7 @@
 	<string name="type.tourism.artwork.sculpture">Turism</string>
 	<string name="type.tourism.artwork.statue">Turism</string>
 	<string name="type.tourism.attraction">Punct de atracție</string>
-	<string name="type.tourism.attraction.animal">Punct de atracție</string>
-	<string name="type.tourism.attraction.specified">Punct de atracție</string>
+	<string name="type.attraction.animal">Incintă pentru animale</string>
 	<string name="type.tourism.caravan_site">Teren pentru campare</string>
 	<string name="type.tourism.chalet">Cabană</string>
 	<string name="type.tourism.gallery">Galerie</string>

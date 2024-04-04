@@ -222,7 +222,8 @@ public:
   {
     ByType,
     ByDistance,
-    ByTime
+    ByTime,
+    ByName
   };
 
   struct SortedBlock
@@ -370,6 +371,7 @@ public:
   void CreateCategories(KMLDataCollection && dataCollection, bool autoSave = false);
 
   static std::string GetTracksSortedBlockName();
+  static std::string GetBookmarksSortedBlockName();
   static std::string GetOthersSortedBlockName();
   static std::string GetNearMeSortedBlockName();
   enum class SortedByTimeBlockType : uint32_t
@@ -636,6 +638,7 @@ private:
   {
     SortBookmarkData(kml::BookmarkData const & bmData, search::ReverseGeocoder::RegionAddress const & address)
       : m_id(bmData.m_id)
+      , m_name(GetPreferredBookmarkName(bmData))
       , m_point(bmData.m_point)
       , m_type(GetBookmarkBaseType(bmData.m_featureTypes))
       , m_timestamp(bmData.m_timestamp)
@@ -643,6 +646,7 @@ private:
     {}
 
     kml::MarkId m_id;
+    std::string m_name;
     m2::PointD m_point;
     BookmarkBaseType m_type;
     kml::Timestamp m_timestamp;
@@ -653,10 +657,12 @@ private:
   {
     explicit SortTrackData(kml::TrackData const & trackData)
       : m_id(trackData.m_id)
+      , m_name(GetPreferredBookmarkStr(trackData.m_name))
       , m_timestamp(trackData.m_timestamp)
     {}
 
     kml::TrackId m_id;
+    std::string m_name;
     kml::Timestamp m_timestamp;
   };
 
@@ -674,6 +680,9 @@ private:
   static void SortByType(std::vector<SortBookmarkData> const & bookmarksForSort,
                          std::vector<SortTrackData> const & tracksForSort,
                          SortedBlocksCollection & sortedBlocks);
+  static void SortByName(std::vector<SortBookmarkData> const & bookmarksForSort,
+                         std::vector<SortTrackData> const & tracksForSort,
+                         SortedBlocksCollection & sortedBlocks);
 
   using AddressesCollection = std::vector<std::pair<kml::MarkId, search::ReverseGeocoder::RegionAddress>>;
   void PrepareBookmarksAddresses(std::vector<SortBookmarkData> & bookmarksForSort, AddressesCollection & newAddresses);
@@ -681,6 +690,7 @@ private:
   void SetBookmarksAddresses(AddressesCollection const & addresses);
   static void AddTracksSortedBlock(std::vector<SortTrackData> const & sortedTracks, SortedBlocksCollection & sortedBlocks);
   static void SortTracksByTime(std::vector<SortTrackData> & tracks);
+  static void SortTracksByName(std::vector<SortTrackData> & tracks);
 
   kml::MarkId GetTrackSelectionMarkId(kml::TrackId trackId) const;
   int GetTrackSelectionMarkMinZoom(kml::TrackId trackId) const;

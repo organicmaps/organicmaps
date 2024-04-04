@@ -629,6 +629,8 @@
 
 "login" = "Prihlásiť sa";
 
+"login_osm" = "Prihláste sa do OpenStreetMap";
+
 "forgot_password" = "Zabudli ste heslo?";
 
 "osm_account" = "OSM účet";
@@ -823,7 +825,7 @@
 
 "placepage_delete_bookmark_button" = "Zmazať záložku";
 
-"editor_edits_sent_message" = "Vykonali sa vami odporúčané zmeny";
+"editor_edits_sent_message" = "Vaša poznámka bude odoslaná do OpenStreetMap";
 
 "editor_comment_hint" = "Poznámka…";
 
@@ -930,6 +932,12 @@
 "start_from_my_position" = "Začať od";
 
 "profile_authorization_error" = "Ups, vyskytla sa chyba. Skúste sa prihlásiť znova.";
+
+/* For iOS message 'alert_reauth_message' should be splitted in two parts: message + link. Here's first part */
+"alert_reauth_message_ios" = "Prihláste sa do OpenStreetMap, aby ste mohli automaticky nahrať všetky svoje úpravy mapy. Viac informácií sa dozviete";
+
+/* For iOS message 'alert_reauth_message' should be splitted in two parts: message + link. Here's link part */
+"alert_reauth_link_text_ios" = "tade";
 
 "core_entrance" = "Vchod | vjazd";
 
@@ -1126,6 +1134,8 @@
 "sort_distance" = "Zoradiť podľa vzdialenosti";
 
 "sort_date" = "Zoradiť podľa dátumu";
+
+"sort_name" = "Zoradiť podľa názvu";
 
 "week_ago_sorttype" = "Pred týždňom";
 
@@ -2635,7 +2645,14 @@
 
 "type.natural" = "Príroda";
 
+/* A rocky land cover. */
 "type.natural.bare_rock" = "Holá skala";
+
+/* A land cover consisting of rounded rock fragments (pebbles) on a beach or riverbed. */
+"type.natural.shingle" = "Kamienky";
+
+/* A loose surface consisting of angular, sharp stones. Usually on a mountain slope and prone to landslides. */
+"type.natural.scree" = "Kamenisté sutiny";
 
 "type.natural.bay" = "Záliv";
 
@@ -3748,9 +3765,7 @@
 
 "type.tourism.attraction" = "Atrakcia";
 
-"type.tourism.attraction.animal" = "Atrakcia";
-
-"type.tourism.attraction.specified" = "Atrakcia";
+"type.attraction.animal" = "Výbeh pre zvieratá";
 
 "type.tourism.camp_site" = "Campground";
 

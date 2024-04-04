@@ -1,12 +1,22 @@
-• Дані OpenStreetMap станом на 28 лютого
-• Експорт всіх міток в одному KMZ файлі
-• Дозволено змінювали колір маршрутів
-• Новий "Про Organic Maps" екран
-• Виправлено декілька помилок
-• Оновлено основний колір програми
-• Нічний режим замінено налаштуванням Вигляд
-• "Увімкнено налаштування об’їзду" більше не показується при використанні лінійки
-• Включено інформацію про доступність інвалідних візків на сторінках місць
-• Додано інформацію про переробку та висоту до описів результатів пошуку
+• Better isolines elevation data for European countries, thanks to Sonny
+• OpenStreetMap data as of March 26
+• Bookmark lists are sorted by modification time (recent at the top)
+• Eye icons for visible/hidden bookmark lists
+• Distance and time do not freeze anymore in CarPlay
+• Fixed wrong time and distance when switching planned route modes
+• Fixed the wrong 'saved bookmark' icon
+• Many new objects can be added to OpenStreetMap: various shops and crafts, BBQs, food courts, lang schools, cairns, money transfer points, etc.
+• Add "wheelchair" to the search input to limit results to wheelchair-accessible
+• Searchable orders pickup points (shop=outpost)
+• Added a long tap back button menu
 
-…та різні виправлення та покращення, шукайте подробиці за посиланням omaps.org/uk/news
+Map styling:
+• Added wind turbines and power plant icons
+• Reduced visibilities of many outdoors-specific POIs when in the main map style, e.g., waterfalls, mountain peaks, shelters, power towers, etc. (use the Outdoors style for those!)
+• More consistent font sizes and caption appearances
+
+Translations updates:
+• Slovak, Italian, Spanish, Hindi
+• Fixed police, parking, and sights category search for simplified Chinese
+
+ …and more fixes and improvements, check https://omaps.org/news for details!

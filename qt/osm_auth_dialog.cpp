@@ -20,12 +20,12 @@ namespace qt
 char const * kTokenKeySetting = "OsmTokenKey";
 char const * kTokenSecretSetting = "OsmTokenSecret";
 char const * kLoginDialogTitle = "OpenStreetMap Login";
+char const * kOauthTokenSetting = "OsmOauthToken";
 
 OsmAuthDialog::OsmAuthDialog(QWidget * parent)
 {
-  std::string key, secret;
-  bool const isLoginDialog = !settings::Get(kTokenKeySetting, key) || key.empty() ||
-                             !settings::Get(kTokenSecretSetting, secret) || secret.empty();
+  std::string token;
+  bool const isLoginDialog = !settings::Get(kOauthTokenSetting, token) || token.empty();
 
   QVBoxLayout * vLayout = new QVBoxLayout(parent);
 
@@ -104,9 +104,8 @@ void OsmAuthDialog::OnAction()
     {
       if (auth.AuthorizePassword(login, password))
       {
-        auto const token = auth.GetKeySecret();
-        settings::Set(kTokenKeySetting, token.first);
-        settings::Set(kTokenSecretSetting, token.second);
+        auto const token = auth.GetAuthToken();
+        settings::Set(kOauthTokenSetting, token);
 
         SwitchToLogout(this);
       }
@@ -124,8 +123,7 @@ void OsmAuthDialog::OnAction()
   }
   else
   {
-    settings::Set(kTokenKeySetting, std::string());
-    settings::Set(kTokenSecretSetting, std::string());
+    settings::Set(kOauthTokenSetting, std::string());
 
     SwitchToLogin(this);
   }

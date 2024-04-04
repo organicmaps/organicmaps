@@ -121,7 +121,6 @@ using Observers = NSHashTable<Observer>;
 - (void)setNotificationsLocale:(NSString *)locale {
   NSUserDefaults * ud = NSUserDefaults.standardUserDefaults;
   [ud setObject:locale forKey:kUserDefaultsTTSLanguageBcp47];
-  [ud synchronize];
   [self createVoice:locale];
 }
 
@@ -135,7 +134,6 @@ using Observers = NSHashTable<Observer>;
     [tts setActive:NO];
   NSUserDefaults * ud = NSUserDefaults.standardUserDefaults;
   [ud setBool:enabled forKey:kIsTTSEnabled];
-  [ud synchronize];
 
   [tts onTTSStatusUpdated];
   if (enabled)

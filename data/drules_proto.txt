@@ -14328,6 +14328,77 @@ cont {
   }
 }
 cont {
+  name: "attraction-animal"
+  element {
+    scale: 17
+    symbol {
+      name: "animal-m"
+      priority: 2450
+      min_distance: 24
+    }
+    caption {
+      primary {
+        height: 10
+        color: 4473924
+        offset_y: 1
+        is_optional: true
+      }
+      priority: -7550
+    }
+  }
+  element {
+    scale: 18
+    symbol {
+      name: "animal-m"
+      priority: 2450
+      min_distance: 24
+    }
+    caption {
+      primary {
+        height: 10
+        color: 4473924
+        offset_y: 1
+        is_optional: true
+      }
+      priority: -7550
+    }
+  }
+  element {
+    scale: 19
+    symbol {
+      name: "animal-m"
+      priority: 2450
+      min_distance: 24
+    }
+    caption {
+      primary {
+        height: 10
+        color: 4473924
+        offset_y: 1
+        is_optional: true
+      }
+      priority: -7550
+    }
+  }
+  element {
+    scale: 20
+    symbol {
+      name: "animal-m"
+      priority: 2450
+      min_distance: 24
+    }
+    caption {
+      primary {
+        height: 10
+        color: 4473924
+        offset_y: 1
+        is_optional: true
+      }
+      priority: -7550
+    }
+  }
+}
+cont {
   name: "barrier-block"
   element {
     scale: 16
@@ -57220,21 +57291,21 @@ cont {
   element {
     scale: 12
     area {
-      color: 15590876
+      color: 14275263
       priority: -1920
     }
   }
   element {
     scale: 13
     area {
-      color: 15590876
+      color: 14275263
       priority: -1920
     }
   }
   element {
     scale: 14
     area {
-      color: 15590876
+      color: 14275263
       priority: -1920
     }
     caption {
@@ -57249,7 +57320,7 @@ cont {
   element {
     scale: 15
     area {
-      color: 15590876
+      color: 14275263
       priority: -1920
     }
     caption {
@@ -57264,7 +57335,7 @@ cont {
   element {
     scale: 16
     area {
-      color: 15590876
+      color: 14275263
       priority: -1920
     }
     caption {
@@ -57279,7 +57350,7 @@ cont {
   element {
     scale: 17
     area {
-      color: 15590876
+      color: 14275263
       priority: -1920
     }
     caption {
@@ -57294,7 +57365,7 @@ cont {
   element {
     scale: 18
     area {
-      color: 15590876
+      color: 14275263
       priority: -1920
     }
     caption {
@@ -57309,7 +57380,7 @@ cont {
   element {
     scale: 19
     area {
-      color: 15590876
+      color: 14275263
       priority: -1920
     }
     caption {
@@ -57324,7 +57395,7 @@ cont {
   element {
     scale: 20
     area {
-      color: 15590876
+      color: 14275263
       priority: -1920
     }
     caption {
@@ -59758,6 +59829,79 @@ cont {
   }
 }
 cont {
+  name: "natural-scree"
+  element {
+    scale: 11
+    area {
+      color: 13420474
+      priority: -1920
+    }
+  }
+  element {
+    scale: 12
+    area {
+      color: 13420474
+      priority: -1920
+    }
+  }
+  element {
+    scale: 13
+    area {
+      color: 13420474
+      priority: -1920
+    }
+  }
+  element {
+    scale: 14
+    area {
+      color: 13420474
+      priority: -1920
+    }
+  }
+  element {
+    scale: 15
+    area {
+      color: 13420474
+      priority: -1920
+    }
+  }
+  element {
+    scale: 16
+    area {
+      color: 13420474
+      priority: -1920
+    }
+  }
+  element {
+    scale: 17
+    area {
+      color: 13420474
+      priority: -1920
+    }
+  }
+  element {
+    scale: 18
+    area {
+      color: 13420474
+      priority: -1920
+    }
+  }
+  element {
+    scale: 19
+    area {
+      color: 13420474
+      priority: -1920
+    }
+  }
+  element {
+    scale: 20
+    area {
+      color: 13420474
+      priority: -1920
+    }
+  }
+}
+cont {
   name: "natural-scrub"
   element {
     scale: 12
@@ -59820,6 +59964,72 @@ cont {
     area {
       color: 11781233
       priority: -1870
+    }
+  }
+}
+cont {
+  name: "natural-shingle"
+  element {
+    scale: 12
+    area {
+      color: 13420474
+      priority: -1920
+    }
+  }
+  element {
+    scale: 13
+    area {
+      color: 13420474
+      priority: -1920
+    }
+  }
+  element {
+    scale: 14
+    area {
+      color: 13420474
+      priority: -1920
+    }
+  }
+  element {
+    scale: 15
+    area {
+      color: 13420474
+      priority: -1920
+    }
+  }
+  element {
+    scale: 16
+    area {
+      color: 13420474
+      priority: -1920
+    }
+  }
+  element {
+    scale: 17
+    area {
+      color: 13420474
+      priority: -1920
+    }
+  }
+  element {
+    scale: 18
+    area {
+      color: 13420474
+      priority: -1920
+    }
+  }
+  element {
+    scale: 19
+    area {
+      color: 13420474
+      priority: -1920
+    }
+  }
+  element {
+    scale: 20
+    area {
+      color: 13420474
+      priority: -1920
     }
   }
 }
@@ -126638,250 +126848,6 @@ cont {
         is_optional: true
       }
       priority: -5700
-    }
-  }
-}
-cont {
-  name: "tourism-attraction-animal"
-  element {
-    scale: 14
-    symbol {
-      name: "tourism-s"
-      priority: 2450
-      min_distance: 12
-    }
-    caption {
-      primary {
-        height: 10
-        color: 4473924
-        offset_y: 1
-        is_optional: true
-      }
-      priority: -7550
-    }
-  }
-  element {
-    scale: 15
-    symbol {
-      name: "tourism-m"
-      priority: 2450
-      min_distance: 36
-    }
-    caption {
-      primary {
-        height: 10
-        color: 4473924
-        offset_y: 1
-        is_optional: true
-      }
-      priority: -7550
-    }
-  }
-  element {
-    scale: 16
-    symbol {
-      name: "tourism-m"
-      priority: 2450
-      min_distance: 24
-    }
-    caption {
-      primary {
-        height: 10
-        color: 4473924
-        offset_y: 1
-        is_optional: true
-      }
-      priority: -7550
-    }
-  }
-  element {
-    scale: 17
-    symbol {
-      name: "zoo-m"
-      priority: 2450
-      min_distance: 24
-    }
-    caption {
-      primary {
-        height: 10
-        color: 4473924
-        offset_y: 1
-        is_optional: true
-      }
-      priority: -7550
-    }
-  }
-  element {
-    scale: 18
-    symbol {
-      name: "zoo-m"
-      priority: 2450
-      min_distance: 24
-    }
-    caption {
-      primary {
-        height: 11
-        color: 4473924
-        offset_y: 1
-        is_optional: true
-      }
-      priority: -7550
-    }
-  }
-  element {
-    scale: 19
-    symbol {
-      name: "zoo-m"
-      priority: 2450
-      min_distance: 24
-    }
-    caption {
-      primary {
-        height: 11
-        color: 4473924
-        offset_y: 1
-        is_optional: true
-      }
-      priority: -7550
-    }
-  }
-  element {
-    scale: 20
-    symbol {
-      name: "zoo-m"
-      priority: 2450
-      min_distance: 24
-    }
-    caption {
-      primary {
-        height: 11
-        color: 4473924
-        offset_y: 1
-        is_optional: true
-      }
-      priority: -7550
-    }
-  }
-}
-cont {
-  name: "tourism-attraction-specified"
-  element {
-    scale: 14
-    symbol {
-      name: "tourism-s"
-      priority: 2450
-      min_distance: 12
-    }
-    caption {
-      primary {
-        height: 10
-        color: 4473924
-        offset_y: 1
-        is_optional: true
-      }
-      priority: -7550
-    }
-  }
-  element {
-    scale: 15
-    symbol {
-      name: "tourism-m"
-      priority: 2450
-      min_distance: 36
-    }
-    caption {
-      primary {
-        height: 10
-        color: 4473924
-        offset_y: 1
-        is_optional: true
-      }
-      priority: -7550
-    }
-  }
-  element {
-    scale: 16
-    symbol {
-      name: "tourism-m"
-      priority: 2450
-      min_distance: 24
-    }
-    caption {
-      primary {
-        height: 10
-        color: 4473924
-        offset_y: 1
-        is_optional: true
-      }
-      priority: -7550
-    }
-  }
-  element {
-    scale: 17
-    symbol {
-      name: "tourism-m"
-      priority: 2450
-      min_distance: 24
-    }
-    caption {
-      primary {
-        height: 10
-        color: 4473924
-        offset_y: 1
-        is_optional: true
-      }
-      priority: -7550
-    }
-  }
-  element {
-    scale: 18
-    symbol {
-      name: "tourism-m"
-      priority: 2450
-      min_distance: 24
-    }
-    caption {
-      primary {
-        height: 11
-        color: 4473924
-        offset_y: 1
-        is_optional: true
-      }
-      priority: -7550
-    }
-  }
-  element {
-    scale: 19
-    symbol {
-      name: "tourism-m"
-      priority: 2450
-      min_distance: 24
-    }
-    caption {
-      primary {
-        height: 11
-        color: 4473924
-        offset_y: 1
-        is_optional: true
-      }
-      priority: -7550
-    }
-  }
-  element {
-    scale: 20
-    symbol {
-      name: "tourism-m"
-      priority: 2450
-      min_distance: 24
-    }
-    caption {
-      primary {
-        height: 11
-        color: 4473924
-        offset_y: 1
-        is_optional: true
-      }
-      priority: -7550
     }
   }
 }

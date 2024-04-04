@@ -555,6 +555,8 @@
 	<string name="routing_add_finish_point">Adicionar final da viagem para planear uma rota</string>
 	<string name="placepage_remove_stop">Remover</string>
 	<string name="placepage_add_stop">Adicionar paragem</string>
+	<!-- Alert to ask user relogin to OpenStreetMap with OAuth2 flow after OAuth1 authentication is deprecated. -->
+	<string name="alert_reauth_message">Por favor, faz o login no OpenStreetMap para carregar automaticamente todas as tuas edições de mapas. Sabe mais <a href="https://github.com/organicmaps/organicmaps/issues/6144">aqui</a>.</string>
 	<string name="dialog_error_storage_title">Problema de acesso ao armazenamento</string>
 	<string name="dialog_error_storage_message">O armazenamento externo não está disponível. Provavelmente porque o cartão SD foi removido, danificado ou o sistema de ficheiros é apenas para leitura. Verifique e contacte-nos através do email support\@organicmaps.app</string>
 	<string name="setting_emulate_bad_storage">Emular o armazenamento defeituoso</string>
@@ -667,6 +669,8 @@
 	<string name="by_distance">Por distância</string>
 	<!-- Android -->
 	<string name="by_date">Por data</string>
+	<!-- Android -->
+	<string name="by_name">Por nome</string>
 	<string name="week_ago_sorttype">Uma semana atrás</string>
 	<string name="month_ago_sorttype">Um mês atrás</string>
 	<string name="moremonth_ago_sorttype">Mais de um mês atrás</string>
@@ -1437,7 +1441,12 @@
 	<string name="type.military">Militar</string>
 	<string name="type.military.bunker">Búnquer</string>
 	<string name="type.natural">Natureza</string>
+	<!-- A rocky land cover. -->
 	<string name="type.natural.bare_rock">Zona rochosa</string>
+	<!-- A land cover consisting of rounded rock fragments (pebbles) on a beach or riverbed. -->
+	<string name="type.natural.shingle">Seixos</string>
+	<!-- A loose surface consisting of angular, sharp stones. Usually on a mountain slope and prone to landslides. -->
+	<string name="type.natural.scree">Pedregulho</string>
 	<string name="type.natural.bay">Baía</string>
 	<string name="type.natural.beach">Praia</string>
 	<string name="type.natural.beach.sand">Praia de areia</string>
@@ -1989,8 +1998,7 @@
 	<string name="type.tourism.artwork.sculpture">Escultura</string>
 	<string name="type.tourism.artwork.statue">Estátua</string>
 	<string name="type.tourism.attraction">Atração turística</string>
-	<string name="type.tourism.attraction.animal">Atração turística</string>
-	<string name="type.tourism.attraction.specified">Atração turística</string>
+	<string name="type.attraction.animal">Recinto para animais</string>
 	<string name="type.tourism.camp_site">Parque de campismo</string>
 	<string name="type.tourism.caravan_site">Parque de caravanas</string>
 	<string name="type.tourism.chalet">Chalé</string>

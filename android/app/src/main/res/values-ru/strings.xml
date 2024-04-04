@@ -584,6 +584,8 @@
 	<string name="routing_add_finish_point">Добавьте конечную точку, чтобы построить маршрут</string>
 	<string name="placepage_remove_stop">Удалить</string>
 	<string name="placepage_add_stop">Заехать</string>
+	<!-- Alert to ask user relogin to OpenStreetMap with OAuth2 flow after OAuth1 authentication is deprecated. -->
+	<string name="alert_reauth_message">Пожалуйста войдите в аккаунт OpenStreetMap.org, чтобы публиковать ваши изменения карты. Подробности по <a href="https://github.com/organicmaps/organicmaps/issues/6144">ссылке</a>.</string>
 	<string name="dialog_error_storage_title">Проблема с доступом к хранилищу</string>
 	<string name="dialog_error_storage_message">Внешняя память устройства недоступна, возможно SD карта была удалена, повреждена или файловая система доступна только для чтения. Проверьте это и свяжитесь, пожалуйста, с нами support\@organicmaps.app</string>
 	<string name="setting_emulate_bad_storage">Эмуляция ошибки с внешней памятью</string>
@@ -700,6 +702,8 @@
 	<string name="by_distance">По расстоянию</string>
 	<!-- Android -->
 	<string name="by_date">По дате</string>
+	<!-- Android -->
+	<string name="by_name">По имени</string>
 	<string name="week_ago_sorttype">Неделю назад</string>
 	<string name="month_ago_sorttype">Месяц назад</string>
 	<string name="moremonth_ago_sorttype">Больше месяца назад</string>
@@ -1510,7 +1514,12 @@
 	<string name="type.military.bunker">Бункер</string>
 	<string name="type.mountain_pass">Перевал</string>
 	<string name="type.natural">Природа</string>
-	<string name="type.natural.bare_rock">Скалы</string>
+	<!-- A rocky land cover. -->
+	<string name="type.natural.bare_rock">Каменная порода</string>
+	<!-- A land cover consisting of rounded rock fragments (pebbles) on a beach or riverbed. -->
+	<string name="type.natural.shingle">Галька</string>
+	<!-- A loose surface consisting of angular, sharp stones. Usually on a mountain slope and prone to landslides. -->
+	<string name="type.natural.scree">Каменистая осыпь</string>
 	<string name="type.natural.bay">Залив</string>
 	<string name="type.natural.beach">Пляж</string>
 	<string name="type.natural.beach.sand">Песчаный пляж</string>
@@ -2068,8 +2077,7 @@
 	<string name="type.tourism.artwork.sculpture">Произведение искусства</string>
 	<string name="type.tourism.artwork.statue">Произведение искусства</string>
 	<string name="type.tourism.attraction">Достопримечательность</string>
-	<string name="type.tourism.attraction.animal">Достопримечательность</string>
-	<string name="type.tourism.attraction.specified">Достопримечательность</string>
+	<string name="type.attraction.animal">Вольер для животных</string>
 	<string name="type.tourism.camp_site">Кемпинг</string>
 	<string name="type.tourism.caravan_site">Кемпинг для автодомов</string>
 	<string name="type.tourism.chalet">Шале</string>

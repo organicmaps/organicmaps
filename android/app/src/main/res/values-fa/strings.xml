@@ -545,6 +545,8 @@
 	<string name="routing_add_finish_point">یک مقصد برای برنامه ریزی یک مسیر اضافه کنید</string>
 	<string name="placepage_remove_stop">حذف</string>
 	<string name="placepage_add_stop">اضافه کردن توقف</string>
+	<!-- Alert to ask user relogin to OpenStreetMap with OAuth2 flow after OAuth1 authentication is deprecated. -->
+	<string name="alert_reauth_message">لطفاً به OpenStreetMap وارد شوید تا به طور خودکار تمام ویرایش های نقشه خود را آپلود کنید. <a href="https://github.com/organicmaps/organicmaps/issues/6144">اینجا</a> بیشتر بیاموزید.</string>
 	<string name="dialog_error_storage_title">مشکل دسترسی به ذخیره‌سازی</string>
 	<string name="dialog_error_storage_message">ذخیره سازی خارجی در دسترس نیست کارت SD ممکن است برداشته شده باشد، آسیب دیده باشد یا سیستم فایل فقط خواندنی باشد. لطفا کارت SD خود را بررسی کنید یا با ما در support\@organicmaps.app تماس بگیرید</string>
 	<string name="setting_emulate_bad_storage">شبیه سازی ذخیره سازی بد</string>
@@ -657,6 +659,8 @@
 	<string name="by_distance">بر اساس فاصله</string>
 	<!-- Android -->
 	<string name="by_date">بر اساس تاریخ</string>
+	<!-- Android -->
+	<string name="by_name">بر اساس اسم</string>
 	<string name="week_ago_sorttype">یک هفته قبل</string>
 	<string name="month_ago_sorttype">یک ماه قبل</string>
 	<string name="moremonth_ago_sorttype">بیش از یک ماه قبل</string>
@@ -1242,7 +1246,12 @@
 	<string name="type.man_made.windmill">توربین بادی</string>
 	<string name="type.military.bunker">پناهگاه</string>
 	<string name="type.natural">طبیعت</string>
+	<!-- A rocky land cover. -->
 	<string name="type.natural.bare_rock">سنگ برهنه</string>
+	<!-- A land cover consisting of rounded rock fragments (pebbles) on a beach or riverbed. -->
+	<string name="type.natural.shingle">سنگریزه ها</string>
+	<!-- A loose surface consisting of angular, sharp stones. Usually on a mountain slope and prone to landslides. -->
+	<string name="type.natural.scree">اسکری</string>
 	<string name="type.natural.bay">خلیج</string>
 	<string name="type.natural.beach">ساحل</string>
 	<string name="type.natural.beach.sand">ساحل شنی</string>
@@ -1751,8 +1760,7 @@
 	<string name="type.tourism.artwork.sculpture">گردشگری</string>
 	<string name="type.tourism.artwork.statue">گردشگری</string>
 	<string name="type.tourism.attraction">گردشگری</string>
-	<string name="type.tourism.attraction.animal">گردشگری</string>
-	<string name="type.tourism.attraction.specified">گردشگری</string>
+	<string name="type.attraction.animal">محوطه حیوانات</string>
 	<string name="type.tourism.camp_site">محل چادر زنی</string>
 	<string name="type.tourism.chalet">هتل</string>
 	<string name="type.tourism.gallery">گالری</string>

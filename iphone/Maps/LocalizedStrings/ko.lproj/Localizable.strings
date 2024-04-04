@@ -629,6 +629,8 @@
 
 "login" = "로그인";
 
+"login_osm" = "OpenStreetMap에 로그인";
+
 "forgot_password" = "암호를 잊으 셨나요?";
 
 "osm_account" = "OSM 계정";
@@ -823,7 +825,7 @@
 
 "placepage_delete_bookmark_button" = "즐겨찾기 삭제";
 
-"editor_edits_sent_message" = "귀하의 제안 변경사항이 전송되었습니다";
+"editor_edits_sent_message" = "메모가 오픈스트리트맵으로 전송됩니다";
 
 "editor_comment_hint" = "설명…";
 
@@ -930,6 +932,12 @@
 "start_from_my_position" = "시작 위치:";
 
 "profile_authorization_error" = "죄송합니다. 오류가 발생했습니다. 다시 로그인해 보세요.";
+
+/* For iOS message 'alert_reauth_message' should be splitted in two parts: message + link. Here's first part */
+"alert_reauth_message_ios" = "모든 지도 편집 내용을 자동으로 업로드하려면 오픈스트리트맵에 로그인하세요. 자세히 알아보기";
+
+/* For iOS message 'alert_reauth_message' should be splitted in two parts: message + link. Here's link part */
+"alert_reauth_link_text_ios" = "여기";
 
 "core_entrance" = "입구";
 
@@ -1126,6 +1134,8 @@
 "sort_distance" = "거리로 분류";
 
 "sort_date" = "날짜로 분류";
+
+"sort_name" = "이름별로 정렬";
 
 "week_ago_sorttype" = "일주일 전";
 
@@ -2635,7 +2645,14 @@
 
 "type.natural" = "자연";
 
+/* A rocky land cover. */
 "type.natural.bare_rock" = "베어 락";
+
+/* A land cover consisting of rounded rock fragments (pebbles) on a beach or riverbed. */
+"type.natural.shingle" = "페블";
+
+/* A loose surface consisting of angular, sharp stones. Usually on a mountain slope and prone to landslides. */
+"type.natural.scree" = "스토니 스크리";
 
 "type.natural.bay" = "만";
 
@@ -3748,9 +3765,7 @@
 
 "type.tourism.attraction" = "관광 명소";
 
-"type.tourism.attraction.animal" = "관광 명소";
-
-"type.tourism.attraction.specified" = "관광 명소";
+"type.attraction.animal" = "동물 인클로저";
 
 "type.tourism.camp_site" = "캠핑";
 

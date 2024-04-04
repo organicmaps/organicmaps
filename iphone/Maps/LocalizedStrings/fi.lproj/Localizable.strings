@@ -629,6 +629,8 @@
 
 "login" = "Kirjaudu sisään";
 
+"login_osm" = "Kirjaudu OpenStreetMapiin";
+
 "forgot_password" = "Unohtuiko salasana?";
 
 "osm_account" = "OSM-tili";
@@ -823,7 +825,7 @@
 
 "placepage_delete_bookmark_button" = "Poista kirjanmerkki";
 
-"editor_edits_sent_message" = "Ehdottamasi muutokset on lähetetty";
+"editor_edits_sent_message" = "Huomautus lähetetään OpenStreetMapille";
 
 "editor_comment_hint" = "Kommentti…";
 
@@ -930,6 +932,12 @@
 "start_from_my_position" = "Aloita kohdasta";
 
 "profile_authorization_error" = "Tapahtui virhe. Yritä kirjautua sisään uudelleen.";
+
+/* For iOS message 'alert_reauth_message' should be splitted in two parts: message + link. Here's first part */
+"alert_reauth_message_ios" = "Kirjaudu sisään OpenStreetMapiin, jotta voit ladata kaikki karttamuutoksesi automaattisesti. Lisätietoja";
+
+/* For iOS message 'alert_reauth_message' should be splitted in two parts: message + link. Here's link part */
+"alert_reauth_link_text_ios" = "täältä";
 
 "core_entrance" = "Sisäänkäynti";
 
@@ -1126,6 +1134,8 @@
 "sort_distance" = "Järjestä etäisyyden mukaan";
 
 "sort_date" = "Järjestä päivämäärän mukaan";
+
+"sort_name" = "Lajittele nimen mukaan";
 
 "week_ago_sorttype" = "Viikko sitten";
 
@@ -2635,7 +2645,14 @@
 
 "type.natural" = "Luonto";
 
+/* A rocky land cover. */
 "type.natural.bare_rock" = "Paljas kallio";
+
+/* A land cover consisting of rounded rock fragments (pebbles) on a beach or riverbed. */
+"type.natural.shingle" = "Pebbles";
+
+/* A loose surface consisting of angular, sharp stones. Usually on a mountain slope and prone to landslides. */
+"type.natural.scree" = "Kivinen rapakivi";
 
 "type.natural.bay" = "Lahti";
 
@@ -3748,9 +3765,7 @@
 
 "type.tourism.attraction" = "Nähtävyys";
 
-"type.tourism.attraction.animal" = "Nähtävyys";
-
-"type.tourism.attraction.specified" = "Nähtävyys";
+"type.attraction.animal" = "Eläinsuoja";
 
 "type.tourism.camp_site" = "Retkeily";
 

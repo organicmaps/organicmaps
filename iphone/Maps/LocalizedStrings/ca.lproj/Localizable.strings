@@ -629,6 +629,8 @@
 
 "login" = "Inicia sessió";
 
+"login_osm" = "Login to OpenStreetMap";
+
 "forgot_password" = "Heu oblidat la contrasenya?";
 
 "osm_account" = "Compte OSM";
@@ -823,7 +825,7 @@
 
 "placepage_delete_bookmark_button" = "Esborra el marcador";
 
-"editor_edits_sent_message" = "S'han enviat els canvis que heu suggerit";
+"editor_edits_sent_message" = "La vostra nota s'enviarà a OpenStreetMap";
 
 "editor_comment_hint" = "Comentari…";
 
@@ -930,6 +932,12 @@
 "start_from_my_position" = "Comença des de";
 
 "profile_authorization_error" = "Ups, s'ha produït un error. Proveu d'iniciar sessió una altra vegada.";
+
+/* For iOS message 'alert_reauth_message' should be splitted in two parts: message + link. Here's first part */
+"alert_reauth_message_ios" = "Si us plau, inicieu sessió a OpenStreetMap per carregar automàticament totes les edicions de mapes. Més informació";
+
+/* For iOS message 'alert_reauth_message' should be splitted in two parts: message + link. Here's link part */
+"alert_reauth_link_text_ios" = "aquí";
 
 "core_entrance" = "Entrada";
 
@@ -1126,6 +1134,8 @@
 "sort_distance" = "Ordena per distància";
 
 "sort_date" = "Ordena per data";
+
+"sort_name" = "Ordena per nom";
 
 "week_ago_sorttype" = "Fa una setmana";
 
@@ -2635,7 +2645,14 @@
 
 "type.natural" = "Nature";
 
+/* A rocky land cover. */
 "type.natural.bare_rock" = "Bare Rock";
+
+/* A land cover consisting of rounded rock fragments (pebbles) on a beach or riverbed. */
+"type.natural.shingle" = "Còdol";
+
+/* A loose surface consisting of angular, sharp stones. Usually on a mountain slope and prone to landslides. */
+"type.natural.scree" = "Scree";
 
 "type.natural.bay" = "Bay";
 
@@ -3748,9 +3765,7 @@
 
 "type.tourism.attraction" = "Attraction";
 
-"type.tourism.attraction.animal" = "Attraction";
-
-"type.tourism.attraction.specified" = "Attraction";
+"type.attraction.animal" = "Recinte d'animals";
 
 "type.tourism.camp_site" = "Campground";
 

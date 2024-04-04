@@ -548,6 +548,8 @@
 	<string name="routing_add_finish_point">경로 계획을 세우기 위한 끝 지점을 추가하세요</string>
 	<string name="placepage_remove_stop">제거</string>
 	<string name="placepage_add_stop">스톱 추가</string>
+	<!-- Alert to ask user relogin to OpenStreetMap with OAuth2 flow after OAuth1 authentication is deprecated. -->
+	<string name="alert_reauth_message">모든 지도 편집 내용을 자동으로 업로드하려면 오픈스트리트맵에 로그인하세요. 자세히 알아보기 <a href="https://github.com/organicmaps/organicmaps/issues/6144">여기</a>.</string>
 	<string name="dialog_error_storage_title">저장소 액세스 문제</string>
 	<string name="dialog_error_storage_message">외부 저장소를 사용할 수 없습니다. SD 카드가 제거되었거나 손상되었거나 파일 시스템이 읽기 전용일 수 있습니다. 확인 후 support\@organicmaps.app로 문의하세요.</string>
 	<string name="setting_emulate_bad_storage">불량 저장소 에뮬레이션</string>
@@ -656,6 +658,8 @@
 	<string name="by_distance">거리 별</string>
 	<!-- Android -->
 	<string name="by_date">날짜 별</string>
+	<!-- Android -->
+	<string name="by_name">이름별</string>
 	<string name="week_ago_sorttype">일주일 전</string>
 	<string name="month_ago_sorttype">한달 전</string>
 	<string name="moremonth_ago_sorttype">한달 그 이상 전</string>
@@ -1328,7 +1332,12 @@
 	<string name="type.man_made.windmill">풍차</string>
 	<string name="type.military.bunker">벙커</string>
 	<string name="type.natural">자연</string>
+	<!-- A rocky land cover. -->
 	<string name="type.natural.bare_rock">베어 락</string>
+	<!-- A land cover consisting of rounded rock fragments (pebbles) on a beach or riverbed. -->
+	<string name="type.natural.shingle">페블</string>
+	<!-- A loose surface consisting of angular, sharp stones. Usually on a mountain slope and prone to landslides. -->
+	<string name="type.natural.scree">스토니 스크리</string>
 	<string name="type.natural.bay">만</string>
 	<string name="type.natural.beach">바닷가</string>
 	<string name="type.natural.beach.sand">모래 사장</string>
@@ -1838,8 +1847,7 @@
 	<string name="type.tourism.artwork.sculpture">작품</string>
 	<string name="type.tourism.artwork.statue">작품</string>
 	<string name="type.tourism.attraction">관광 명소</string>
-	<string name="type.tourism.attraction.animal">관광 명소</string>
-	<string name="type.tourism.attraction.specified">관광 명소</string>
+	<string name="type.attraction.animal">동물 인클로저</string>
 	<string name="type.tourism.camp_site">캠핑</string>
 	<string name="type.tourism.caravan_site">카라반 사용가능 캠핑장</string>
 	<string name="type.tourism.chalet">별장</string>

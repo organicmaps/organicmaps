@@ -116,7 +116,6 @@ NSString * const kUDTrackWarningAlertWasShown = @"TrackWarningAlertWasShown";
 {
   NSUserDefaults * ud = NSUserDefaults.standardUserDefaults;
   [ud setObject:spotlightLocaleLanguageId forKey:kSpotlightLocaleLanguageId];
-  [ud synchronize];
 }
 
 + (BOOL)largeFontSize { return GetFramework().LoadLargeFontsSize(); }
@@ -143,7 +142,6 @@ NSString * const kUDTrackWarningAlertWasShown = @"TrackWarningAlertWasShown";
 {
   NSUserDefaults * ud = NSUserDefaults.standardUserDefaults;
   [ud setBool:shown forKey:kUDTrackWarningAlertWasShown];
-  [ud synchronize];
 }
 
 + (NSString *)donateUrl

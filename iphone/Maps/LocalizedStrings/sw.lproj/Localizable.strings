@@ -627,7 +627,9 @@
 
 "invalid_username_or_password" = "Invalid username or password.";
 
-"login" = "OpenStreetMap Login";
+"login" = "Login";
+
+"login_osm" = "Ingia kwa OpenStreetMap";
 
 "forgot_password" = "Forgot your password?";
 
@@ -823,7 +825,7 @@
 
 "placepage_delete_bookmark_button" = "Delete Bookmark";
 
-"editor_edits_sent_message" = "Your suggested changes have been sent";
+"editor_edits_sent_message" = "Dokezo lako litatumwa kwa OpenStreetMap";
 
 "editor_comment_hint" = "Comment…";
 
@@ -930,6 +932,12 @@
 "start_from_my_position" = "Anzia";
 
 "profile_authorization_error" = "Lo, kumekuwa na hitilafu. Jaribu tena kuingia ndani.";
+
+/* For iOS message 'alert_reauth_message' should be splitted in two parts: message + link. Here's first part */
+"alert_reauth_message_ios" = "Tafadhali ingia kwenye OpenStreetMap ili kupakia kiotomatiki hariri zako zote za ramani. Pata maelezo zaidi";
+
+/* For iOS message 'alert_reauth_message' should be splitted in two parts: message + link. Here's link part */
+"alert_reauth_link_text_ios" = "hapa";
 
 "core_entrance" = "Kiingilio";
 
@@ -1126,6 +1134,8 @@
 "sort_distance" = "Ainisha kwa umbali";
 
 "sort_date" = "Ainisha kwa tarehe";
+
+"sort_name" = "Panga kwa jina";
 
 "week_ago_sorttype" = "Wiki moja iliyopita";
 
@@ -2635,7 +2645,14 @@
 
 "type.natural" = "Uasilia";
 
+/* A rocky land cover. */
 "type.natural.bare_rock" = "Mwamba tupu";
+
+/* A land cover consisting of rounded rock fragments (pebbles) on a beach or riverbed. */
+"type.natural.shingle" = "Shingle";
+
+/* A loose surface consisting of angular, sharp stones. Usually on a mountain slope and prone to landslides. */
+"type.natural.scree" = "Scree";
 
 "type.natural.bay" = "Hori";
 
@@ -3748,9 +3765,7 @@
 
 "type.tourism.attraction" = "Attraction";
 
-"type.tourism.attraction.animal" = "Attraction";
-
-"type.tourism.attraction.specified" = "Attraction";
+"type.attraction.animal" = "Hifadhi ya Wanyama";
 
 "type.tourism.camp_site" = "Campground";
 

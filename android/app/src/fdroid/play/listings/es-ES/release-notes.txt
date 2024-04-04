@@ -1,8 +1,10 @@
-• Datos de OpenStreetMap al 28 de febrero
-• Exportación de todos los marcadores en un único archivo KMZ
-• Agregados reciclaje y elevación a las descripciones de los resultados de búsqueda
-• Corregidos varios cierres inesperados
-• Ya no se muestra «Opciones de enrutamiento activadas» al usar la regla
-• Se indican los lugares accesibles con silla de ruedas
+• OpenStreetMap login works again!
+• Better isolines elevation data for European countries
+• OpenStreetMap data as of March 26
+• Bookmark lists are sorted by modification time (recent at the top)
+• Eye icons for visible/hidden bookmark lists
+• Fixed crash when importing GPX, KML, KMZ from the Files app
+• Bigger "View search results on the map" button
+• FreeDrive mode and faster bookmarks in Android Auto
 
-… más información en: omaps.org/news
+…read more details at omaps.org/news

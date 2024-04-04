@@ -195,6 +195,9 @@ world  +
         trunk  -
         unclassified  -
         {}
+    attraction  +
+        animal  -
+        {}
     barrier  +
         block  -
         bollard  -
@@ -755,7 +758,9 @@ world  +
         peak  -
         rock  -
         saddle  -
+        scree  -
         scrub  -
+        shingle  -
         spring  -
         strait  -
         tree_row  -
@@ -1387,10 +1392,7 @@ world  +
             sculpture  -
             statue  -
             {}
-        attraction  +
-            animal  -
-            specified  -
-            {}
+        attraction  -
         camp_site  -
         caravan_site  -
         chalet  -

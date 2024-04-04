@@ -537,6 +537,8 @@
 	<string name="routing_add_finish_point">Προσθέστε τελικό προορισμό, για να σχεδιάσετε μια διαδρομή</string>
 	<string name="placepage_remove_stop">Κατάργηση</string>
 	<string name="placepage_add_stop">Προσθήκη στάσης</string>
+	<!-- Alert to ask user relogin to OpenStreetMap with OAuth2 flow after OAuth1 authentication is deprecated. -->
+	<string name="alert_reauth_message">Παρακαλούμε συνδεθείτε στο OpenStreetMap για να ανεβάσετε αυτόματα όλες τις επεξεργασίες του χάρτη σας. Μάθετε περισσότερα <a href="https://github.com/organicmaps/organicmaps/issues/6144">εδώ</a>.</string>
 	<string name="dialog_error_storage_title">Πρόβλημα πρόσβασης στον αποθηκευτικό χώρο</string>
 	<string name="dialog_error_storage_message">Ο εξωτερικός απθηκευτικός χώρος δεν είναι διαθέσιμος, πιθανότατα έχει αφαιρεθεί η κάρτα SD, είναι κατεστραμμένη ή το σύστημα αρχείων είναι μόνο για ανάγνωση. Ελέγξτε το και επικοινωνήστε μαζί μας στη διεύθυνση support\@organicmaps.app</string>
 	<string name="setting_emulate_bad_storage">Εξομείωση κακού αποθηκευτικού χώρου</string>
@@ -646,6 +648,8 @@
 	<string name="by_distance">Κατά απόσταση</string>
 	<!-- Android -->
 	<string name="by_date">Κατά ημερομηνία</string>
+	<!-- Android -->
+	<string name="by_name">Με όνομα</string>
 	<string name="week_ago_sorttype">Μια βδομάδα πριν</string>
 	<string name="month_ago_sorttype">Ένας μήνας πριν</string>
 	<string name="moremonth_ago_sorttype">Περισσότερο από έναν μήνα πριν</string>
@@ -1324,7 +1328,12 @@
 	<string name="type.man_made.windmill">Ανεμόμυλος</string>
 	<string name="type.military.bunker">Στρατιωτική αποθήκη</string>
 	<string name="type.natural">Φύση</string>
+	<!-- A rocky land cover. -->
 	<string name="type.natural.bare_rock">Γυμνός βράχος</string>
+	<!-- A land cover consisting of rounded rock fragments (pebbles) on a beach or riverbed. -->
+	<string name="type.natural.shingle">Βότσαλα</string>
+	<!-- A loose surface consisting of angular, sharp stones. Usually on a mountain slope and prone to landslides. -->
+	<string name="type.natural.scree">Σάρα</string>
 	<string name="type.natural.bay">Κόλπος</string>
 	<string name="type.natural.beach">Παραλία</string>
 	<string name="type.natural.beach.sand">Αμμουδιά</string>
@@ -1833,8 +1842,7 @@
 	<string name="type.tourism.artwork.sculpture">Έργα τέχνης</string>
 	<string name="type.tourism.artwork.statue">Έργα τέχνης</string>
 	<string name="type.tourism.attraction">Αξιοθέατα</string>
-	<string name="type.tourism.attraction.animal">Αξιοθέατα</string>
-	<string name="type.tourism.attraction.specified">Αξιοθέατα</string>
+	<string name="type.attraction.animal">Περίφραξη ζώων</string>
 	<string name="type.tourism.camp_site">Κάμπινγκ</string>
 	<string name="type.tourism.caravan_site">Χώρος για τροχόσπιτα</string>
 	<string name="type.tourism.chalet">Σαλέ</string>

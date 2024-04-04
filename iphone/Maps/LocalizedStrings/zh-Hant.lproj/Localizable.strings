@@ -629,6 +629,8 @@
 
 "login" = "登入";
 
+"login_osm" = "登錄 OpenStreetMap";
+
 "forgot_password" = "忘記密碼";
 
 "osm_account" = "OSM 帳號";
@@ -823,7 +825,7 @@
 
 "placepage_delete_bookmark_button" = "刪除書籤";
 
-"editor_edits_sent_message" = "您的建議已傳送";
+"editor_edits_sent_message" = "您的註釋將發送至 OpenStreetMap";
 
 "editor_comment_hint" = "註解…";
 
@@ -930,6 +932,12 @@
 "start_from_my_position" = "起點";
 
 "profile_authorization_error" = "噢，發生錯誤。請嘗試再次登入。";
+
+/* For iOS message 'alert_reauth_message' should be splitted in two parts: message + link. Here's first part */
+"alert_reauth_message_ios" = "請登入 OpenStreetMap 自動上傳您所有的地圖編輯內容。了解更多";
+
+/* For iOS message 'alert_reauth_message' should be splitted in two parts: message + link. Here's link part */
+"alert_reauth_link_text_ios" = "此處";
 
 "core_entrance" = "入口";
 
@@ -1126,6 +1134,8 @@
 "sort_distance" = "按距離排序";
 
 "sort_date" = "按日期排序";
+
+"sort_name" = "按名稱分類";
 
 "week_ago_sorttype" = "一週前";
 
@@ -2635,7 +2645,14 @@
 
 "type.natural" = "自然";
 
+/* A rocky land cover. */
 "type.natural.bare_rock" = "岩石";
+
+/* A land cover consisting of rounded rock fragments (pebbles) on a beach or riverbed. */
+"type.natural.shingle" = "卵石";
+
+/* A loose surface consisting of angular, sharp stones. Usually on a mountain slope and prone to landslides. */
+"type.natural.scree" = "碎石";
 
 "type.natural.bay" = "海灣";
 
@@ -3748,9 +3765,7 @@
 
 "type.tourism.attraction" = "景點";
 
-"type.tourism.attraction.animal" = "景點";
-
-"type.tourism.attraction.specified" = "景點";
+"type.attraction.animal" = "動物圍欄";
 
 "type.tourism.camp_site" = "露營";
 

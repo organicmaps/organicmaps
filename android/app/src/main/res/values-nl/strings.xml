@@ -577,6 +577,8 @@
 	<string name="routing_add_finish_point">Voeg eindpunt toe om een route te plannen</string>
 	<string name="placepage_remove_stop">Verwijderen</string>
 	<string name="placepage_add_stop">Tussenstop toevoegen</string>
+	<!-- Alert to ask user relogin to OpenStreetMap with OAuth2 flow after OAuth1 authentication is deprecated. -->
+	<string name="alert_reauth_message">Log in op OpenStreetMap om al je kaartbewerkingen automatisch te uploaden. Meer informatie <a href="https://github.com/organicmaps/organicmaps/issues/6144">hier</a>.</string>
 	<string name="dialog_error_storage_title">Probleem met opslagtoegang</string>
 	<string name="dialog_error_storage_message">Externe opslag is niet beschikbaar, wellicht is de SD-kaart verwijderd, beschadigd of is het bestandssysteem alleen-lezen. Gelieve dit te controleren en ons te contacteren via support\@organicmaps.app</string>
 	<string name="setting_emulate_bad_storage">Slechte opslag emuleren</string>
@@ -686,6 +688,8 @@
 	<string name="by_distance">Op afstand</string>
 	<!-- Android -->
 	<string name="by_date">Op datum</string>
+	<!-- Android -->
+	<string name="by_name">Op naam</string>
 	<string name="week_ago_sorttype">Een week geleden</string>
 	<string name="month_ago_sorttype">Een maand geleden</string>
 	<string name="moremonth_ago_sorttype">Meer dan een maand geleden</string>
@@ -1487,7 +1491,12 @@
 	<string name="type.military.bunker">Bunker</string>
 	<string name="type.mountain_pass">Bergpas</string>
 	<string name="type.natural">Natuur</string>
-	<string name="type.natural.bare_rock">Kale steen</string>
+	<!-- A rocky land cover. -->
+	<string name="type.natural.bare_rock">Kale rots</string>
+	<!-- A land cover consisting of rounded rock fragments (pebbles) on a beach or riverbed. -->
+	<string name="type.natural.shingle">Kiezels</string>
+	<!-- A loose surface consisting of angular, sharp stones. Usually on a mountain slope and prone to landslides. -->
+	<string name="type.natural.scree">Puinhelling</string>
 	<string name="type.natural.bay">Baai</string>
 	<string name="type.natural.beach">Strand</string>
 	<string name="type.natural.beach.sand">Zandstrand</string>
@@ -2044,8 +2053,7 @@
 	<string name="type.tourism.artwork.sculpture">Kunstwerk</string>
 	<string name="type.tourism.artwork.statue">Standbeeld</string>
 	<string name="type.tourism.attraction">Attractie</string>
-	<string name="type.tourism.attraction.animal">Dierenverblijf</string>
-	<string name="type.tourism.attraction.specified">Attractie</string>
+	<string name="type.attraction.animal">Dierenverblijf</string>
 	<string name="type.tourism.camp_site">Kampeerterrein</string>
 	<string name="type.tourism.caravan_site">Caravan site</string>
 	<string name="type.tourism.chalet">Vakantiehuis</string>

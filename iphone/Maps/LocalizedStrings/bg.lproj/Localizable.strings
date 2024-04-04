@@ -629,6 +629,8 @@
 
 "login" = "Вход";
 
+"login_osm" = "Влезте в OpenStreetMap";
+
 "forgot_password" = "Забравили сте паролата си?";
 
 "osm_account" = "OSM Акаунт";
@@ -823,7 +825,7 @@
 
 "placepage_delete_bookmark_button" = "Delete Bookmark";
 
-"editor_edits_sent_message" = "Предложените от вас промени са изпратени";
+"editor_edits_sent_message" = "Вашата бележка ще бъде изпратена до OpenStreetMap";
 
 "editor_comment_hint" = "Коментиране…";
 
@@ -930,6 +932,12 @@
 "start_from_my_position" = "Start from";
 
 "profile_authorization_error" = "За съжаление има грешка. Опитайте да влезете отново.";
+
+/* For iOS message 'alert_reauth_message' should be splitted in two parts: message + link. Here's first part */
+"alert_reauth_message_ios" = "Моля, влезте в OpenStreetMap, за да качвате автоматично всичките си редакции на картата. Научете повече";
+
+/* For iOS message 'alert_reauth_message' should be splitted in two parts: message + link. Here's link part */
+"alert_reauth_link_text_ios" = "тук";
 
 "core_entrance" = "Вход";
 
@@ -1126,6 +1134,8 @@
 "sort_distance" = "Sort by distance";
 
 "sort_date" = "Sort by date";
+
+"sort_name" = "Сортиране по име";
 
 "week_ago_sorttype" = "A week ago";
 
@@ -2635,7 +2645,14 @@
 
 "type.natural" = "Природа";
 
-"type.natural.bare_rock" = "Гола скала";
+/* A rocky land cover. */
+"type.natural.bare_rock" = "Рок";
+
+/* A land cover consisting of rounded rock fragments (pebbles) on a beach or riverbed. */
+"type.natural.shingle" = "Камъчета";
+
+/* A loose surface consisting of angular, sharp stones. Usually on a mountain slope and prone to landslides. */
+"type.natural.scree" = "Сипеи";
 
 "type.natural.bay" = "Залив";
 
@@ -2691,7 +2708,7 @@
 
 "type.natural.saddle" = "Седло";
 
-"type.natural.rock" = "Скала";
+"type.natural.rock" = "Камък";
 
 "type.natural.scrub" = "Гъсталаци";
 
@@ -3748,9 +3765,7 @@
 
 "type.tourism.attraction" = "Attraction";
 
-"type.tourism.attraction.animal" = "Attraction";
-
-"type.tourism.attraction.specified" = "Attraction";
+"type.attraction.animal" = "Заграждение за животни";
 
 "type.tourism.camp_site" = "Campground";
 

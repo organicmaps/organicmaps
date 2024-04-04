@@ -432,7 +432,7 @@
 	<string name="edit_opening_hours">עריכת שעות פעילות</string>
 	<string name="no_osm_account">אין לך חשבון OpenStreetMap?</string>
 	<string name="register_at_openstreetmap">הירשם ב-OpenStreetMap</string>
-	<string name="login">כניסה ל-OpenStreetMap</string>
+	<string name="login">כניסה</string>
 	<string name="login_osm">היכנס ל-OpenStreetMap</string>
 	<string name="password">סיסמה</string>
 	<string name="forgot_password">שכחת סיסמה?</string>
@@ -572,6 +572,8 @@
 	<string name="routing_add_finish_point">יש להוסיף יעד כדי לתכנן מסלול</string>
 	<string name="placepage_remove_stop">הסרה</string>
 	<string name="placepage_add_stop">הוסף תחנה</string>
+	<!-- Alert to ask user relogin to OpenStreetMap with OAuth2 flow after OAuth1 authentication is deprecated. -->
+	<string name="alert_reauth_message">התחבר ל-OpenStreetMap כדי להעלות אוטומטית את כל עריכות המפה שלך. למידע נוסף <a href="https://github.com/organicmaps/organicmaps/issues/6144">כאן</a>.</string>
 	<string name="dialog_error_storage_title">בעיית גישה לאחסון</string>
 	<string name="dialog_error_storage_message">לא ניתן לגשת לאחסון החיצוני. ייתכן כי כרטיס הזיכרון הוסר, נפגם, או שמערכת הקבצים היא לקריאה בלבד. נא לבדוק את כרטיס הזיכרון או ליצור איתנו קשר בכתובת support\@organicmaps.app</string>
 	<string name="setting_emulate_bad_storage">בצע אמולציה לאחסון רע</string>
@@ -684,6 +686,8 @@
 	<string name="by_distance">לפי מרחק</string>
 	<!-- Android -->
 	<string name="by_date">לפי תאריך</string>
+	<!-- Android -->
+	<string name="by_name">לפי שם</string>
 	<string name="week_ago_sorttype">לפני שבוע</string>
 	<string name="month_ago_sorttype">לפני חודש</string>
 	<string name="moremonth_ago_sorttype">לפני יותר מחודש</string>
@@ -1126,7 +1130,12 @@
 	<string name="type.leisure.picnic_table">קינקיפ ןחלוש</string>
 	<string name="type.man_made.tower.communication">מגדל תקשורת</string>
 	<string name="type.natural">טבע</string>
+	<!-- A rocky land cover. -->
 	<string name="type.natural.bare_rock">סלע חשוף</string>
+	<!-- A land cover consisting of rounded rock fragments (pebbles) on a beach or riverbed. -->
+	<string name="type.natural.shingle">אבנים</string>
+	<!-- A loose surface consisting of angular, sharp stones. Usually on a mountain slope and prone to landslides. -->
+	<string name="type.natural.scree">דרדרת</string>
 	<string name="type.natural.bay">מפרץ</string>
 	<string name="type.natural.beach">חוף חולי</string>
 	<string name="type.natural.beach.sand">חוף חולי</string>
@@ -1315,6 +1324,7 @@
 	<string name="type.sport.badminton">תיצונ</string>
 	<string name="type.sport.pelota">תיקסאב הטלפ</string>
 	<string name="type.tourism.aquarium">אַקוַרִיוּם</string>
+	<string name="type.attraction.animal">מתחם בעלי חיים</string>
 	<string name="type.tourism.information">מידע לתייר</string>
 	<string name="type.tourism.information.board">לוח מידע</string>
 	<string name="type.tourism.information.guidepost">מנחה</string>

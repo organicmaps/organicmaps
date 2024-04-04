@@ -574,6 +574,8 @@
 	<string name="routing_add_finish_point">Afegeiu la destinació per a planificar la ruta</string>
 	<string name="placepage_remove_stop">Elimina</string>
 	<string name="placepage_add_stop">Afegeix una parada</string>
+	<!-- Alert to ask user relogin to OpenStreetMap with OAuth2 flow after OAuth1 authentication is deprecated. -->
+	<string name="alert_reauth_message">Si us plau, inicieu sessió a OpenStreetMap per carregar automàticament totes les edicions de mapes. Més informació <a href="https://github.com/organicmaps/organicmaps/issues/6144">aquí</a>.</string>
 	<string name="dialog_error_storage_title">S\'ha produït un problema en l\'accés a l\'emmagatzematge</string>
 	<string name="dialog_error_storage_message">L\'emmagatzematg extern no és accessible. La targeta SD potser s\'ha retirat, malmès, o el sistema de fitxer és de només lectura. Comproveu la targeta SD o contacteu amb nosaltres a support\@organicmaps.app</string>
 	<string name="setting_emulate_bad_storage">Emula un emmagatzematge malmès</string>
@@ -686,6 +688,8 @@
 	<string name="by_distance">Per distància</string>
 	<!-- Android -->
 	<string name="by_date">Per data</string>
+	<!-- Android -->
+	<string name="by_name">Per nom</string>
 	<string name="week_ago_sorttype">Fa una setmana</string>
 	<string name="month_ago_sorttype">Fa un mes</string>
 	<string name="moremonth_ago_sorttype">Fa més d\'un mes</string>
@@ -867,6 +871,8 @@
 	<string name="type.landuse.flowerbed">Llit de flors</string>
 	<string name="type.leisure.outdoor_seating">Seients a l\'aire lliure</string>
 	<string name="type.man_made.tower.communication">Torre de comunicacions</string>
+	<!-- A land cover consisting of rounded rock fragments (pebbles) on a beach or riverbed. -->
+	<string name="type.natural.shingle">Còdol</string>
 	<string name="type.natural.hot_spring">Font termal</string>
 	<string name="type.power.generator.solar">Generador solar</string>
 	<string name="type.power.generator.wind">Generador eòlic</string>
@@ -923,6 +929,7 @@
 	<string name="type.shop.appliance">Botiga d\'electrodomèstics</string>
 	<string name="type.shop.bed">Botiga de llits</string>
 	<string name="type.tourism.aquarium">Aquari</string>
+	<string name="type.attraction.animal">Recinte d\'animals</string>
 	<string name="type.tourism.zoo.petting">Zoo d\'animals de companyia</string>
 	<string name="type.waterway.fish_pass">Pas de peix</string>
 	<string name="type.natural.water.ditch">Sèquia de drenatge</string>

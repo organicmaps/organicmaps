@@ -159,7 +159,7 @@ UNIT_TEST(Transit_Washington_FoggyToShaw)
   TEST_EQUAL(routeResult.second, RouterResultCode::NoError, ());
 
   // I don't see any bad routing sections here. Make actual value.
-  integration::TestRouteLength(*routeResult.first, 5889.15);
+  integration::TestRouteLength(*routeResult.first, 5685.82);
 
   CHECK(routeResult.first, ());
   integration::CheckSubwayExistence(*routeResult.first);

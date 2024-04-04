@@ -465,7 +465,7 @@
 	<string name="edit_opening_hours">Edit business hours</string>
 	<string name="no_osm_account">Don\'t have an OpenStreetMap account?</string>
 	<string name="register_at_openstreetmap">Register at OpenStreetMap</string>
-	<string name="login">OpenStreetMap Login</string>
+	<string name="login">Login</string>
 	<string name="login_osm">Login to OpenStreetMap</string>
 	<string name="password">Password</string>
 	<string name="forgot_password">Forgot your password?</string>
@@ -606,6 +606,8 @@
 	<string name="routing_add_finish_point">Add a destination to plan a route</string>
 	<string name="placepage_remove_stop">Remove</string>
 	<string name="placepage_add_stop">Add Stop</string>
+	<!-- Alert to ask user relogin to OpenStreetMap with OAuth2 flow after OAuth1 authentication is deprecated. -->
+	<string name="alert_reauth_message">Please login to OpenStreetMap to automatically upload all your map edits. Learn more <a href="https://github.com/organicmaps/organicmaps/issues/6144">here</a>.</string>
 	<string name="dialog_error_storage_title">Storage access problem</string>
 	<string name="dialog_error_storage_message">External storage is not accessible. The SD Card may have been removed, damaged, or the file system is read-only. Please, check your SD Card or contact us at support\@organicmaps.app</string>
 	<string name="setting_emulate_bad_storage">Emulate bad storage</string>
@@ -718,6 +720,8 @@
 	<string name="by_distance">By distance</string>
 	<!-- Android -->
 	<string name="by_date">By date</string>
+	<!-- Android -->
+	<string name="by_name">By name</string>
 	<string name="week_ago_sorttype">A week ago</string>
 	<string name="month_ago_sorttype">A month ago</string>
 	<string name="moremonth_ago_sorttype">More than a month ago</string>
@@ -1550,7 +1554,12 @@
 	<string name="type.military.bunker">Bunker</string>
 	<string name="type.mountain_pass">Mountain Pass</string>
 	<string name="type.natural">Nature</string>
+	<!-- A rocky land cover. -->
 	<string name="type.natural.bare_rock">Bare Rock</string>
+	<!-- A land cover consisting of rounded rock fragments (pebbles) on a beach or riverbed. -->
+	<string name="type.natural.shingle">Shingle</string>
+	<!-- A loose surface consisting of angular, sharp stones. Usually on a mountain slope and prone to landslides. -->
+	<string name="type.natural.scree">Scree</string>
 	<string name="type.natural.bay">Bay</string>
 	<string name="type.natural.beach">Beach</string>
 	<string name="type.natural.beach.sand">Sandy Beach</string>
@@ -2109,8 +2118,7 @@
 	<string name="type.tourism.artwork.sculpture">Sculpture</string>
 	<string name="type.tourism.artwork.statue">Statue</string>
 	<string name="type.tourism.attraction">Attraction</string>
-	<string name="type.tourism.attraction.animal">Animal Enclosure</string>
-	<string name="type.tourism.attraction.specified">Attraction</string>
+	<string name="type.attraction.animal">Animal Enclosure</string>
 	<string name="type.tourism.camp_site">Campground</string>
 	<string name="type.tourism.caravan_site">RV Park</string>
 	<string name="type.tourism.chalet">Chalet</string>

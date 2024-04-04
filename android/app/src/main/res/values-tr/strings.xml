@@ -581,6 +581,8 @@
 	<string name="routing_add_finish_point">Rotayı planlamak için bir varış noktası ekleyin</string>
 	<string name="placepage_remove_stop">Kaldır</string>
 	<string name="placepage_add_stop">Ara nokta ekle</string>
+	<!-- Alert to ask user relogin to OpenStreetMap with OAuth2 flow after OAuth1 authentication is deprecated. -->
+	<string name="alert_reauth_message">Tüm harita düzenlemelerinizi otomatik olarak yüklemek için lütfen OpenStreetMap\'e giriş yapın. Daha fazla bilgi <a href="https://github.com/organicmaps/organicmaps/issues/6144">burada</a>.</string>
 	<string name="dialog_error_storage_title">Depolama alanı erişim sorunu</string>
 	<string name="dialog_error_storage_message">Harici bellek kullanılamıyor, muhtemelen SD Kart çıkarılmış, hasarlı veya dosya sistemi salt okunur. Lütfen kontrol edin veya support\@organicmaps.app adresinden bizimle iletişime geçin</string>
 	<string name="setting_emulate_bad_storage">Bozuk depolama alanını taklit et</string>
@@ -689,6 +691,8 @@
 	<string name="by_distance">Mesafeye göre</string>
 	<!-- Android -->
 	<string name="by_date">Tarihe göre</string>
+	<!-- Android -->
+	<string name="by_name">İsme göre</string>
 	<string name="week_ago_sorttype">Bir hafta önce</string>
 	<string name="month_ago_sorttype">Bir ay önce</string>
 	<string name="moremonth_ago_sorttype">Bir aydan daha önce</string>
@@ -1492,7 +1496,12 @@
 	<string name="type.military.bunker">Sığınak</string>
 	<string name="type.mountain_pass">Boğaz</string>
 	<string name="type.natural">Doğa</string>
+	<!-- A rocky land cover. -->
 	<string name="type.natural.bare_rock">Çıplak Kaya</string>
+	<!-- A land cover consisting of rounded rock fragments (pebbles) on a beach or riverbed. -->
+	<string name="type.natural.shingle">Çakıl Taşları</string>
+	<!-- A loose surface consisting of angular, sharp stones. Usually on a mountain slope and prone to landslides. -->
+	<string name="type.natural.scree">Kayşat</string>
 	<string name="type.natural.bay">Koy</string>
 	<string name="type.natural.beach">Plaj</string>
 	<string name="type.natural.beach.sand">Kum Plajı</string>
@@ -2042,8 +2051,7 @@
 	<string name="type.tourism.artwork.sculpture">Heykel</string>
 	<string name="type.tourism.artwork.statue">Heykel</string>
 	<string name="type.tourism.attraction">Görülecek Yerler</string>
-	<string name="type.tourism.attraction.animal">Hayvanat bahçesi</string>
-	<string name="type.tourism.attraction.specified">Görülecek Yerler</string>
+	<string name="type.attraction.animal">Hayvan Muhafazası</string>
 	<string name="type.tourism.camp_site">Kamp Alanı</string>
 	<string name="type.tourism.caravan_site">Karavan Parkı</string>
 	<string name="type.tourism.chalet">Dağ Evi</string>

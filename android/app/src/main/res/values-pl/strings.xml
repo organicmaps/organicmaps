@@ -581,6 +581,8 @@
 	<string name="routing_add_finish_point">Aby zaplanować trasę, dodaj punkt końcowy</string>
 	<string name="placepage_remove_stop">Usuń</string>
 	<string name="placepage_add_stop">Dodaj postój</string>
+	<!-- Alert to ask user relogin to OpenStreetMap with OAuth2 flow after OAuth1 authentication is deprecated. -->
+	<string name="alert_reauth_message">Zaloguj się do OpenStreetMap, aby automatycznie przesyłać wszystkie zmiany na mapie. Dowiedz się więcej <a href="https://github.com/organicmaps/organicmaps/issues/6144">tutaj</a>.</string>
 	<string name="dialog_error_storage_title">Problem z dostępem do pamięci masowej</string>
 	<string name="dialog_error_storage_message">Zewnętrzny nośnik pamięci masowej jest niedostępny. Prawdopodobnie usunięto lub uszkodzono kartę SD bądź jej system plików służy tylko do odczytu. Zweryfikuj to i skontaktuj się z nami pod adresem support\@organicmaps.app</string>
 	<string name="setting_emulate_bad_storage">Emuluj wadliwą pamięć masową</string>
@@ -691,6 +693,8 @@
 	<string name="by_distance">Wg odległości</string>
 	<!-- Android -->
 	<string name="by_date">Wg daty</string>
+	<!-- Android -->
+	<string name="by_name">Według nazwy</string>
 	<string name="week_ago_sorttype">Tydzień temu</string>
 	<string name="month_ago_sorttype">Miesiąc temu</string>
 	<string name="moremonth_ago_sorttype">Ponad miesiąc temu</string>
@@ -1485,7 +1489,12 @@
 	<string name="type.military">Wojskowe</string>
 	<string name="type.military.bunker">Bunkier</string>
 	<string name="type.natural">Natura</string>
+	<!-- A rocky land cover. -->
 	<string name="type.natural.bare_rock">Odkryte skały</string>
+	<!-- A land cover consisting of rounded rock fragments (pebbles) on a beach or riverbed. -->
+	<string name="type.natural.shingle">Kamyki</string>
+	<!-- A loose surface consisting of angular, sharp stones. Usually on a mountain slope and prone to landslides. -->
+	<string name="type.natural.scree">Kamienisty piarg</string>
 	<string name="type.natural.bay">Zatoka</string>
 	<string name="type.natural.beach">Plaża</string>
 	<string name="type.natural.beach.sand">Piaszczysta plaża</string>
@@ -2017,8 +2026,7 @@
 	<string name="type.tourism.artwork.sculpture">Rzeźba</string>
 	<string name="type.tourism.artwork.statue">Posąg</string>
 	<string name="type.tourism.attraction">Atrakcja turystyczna</string>
-	<string name="type.tourism.attraction.animal">Atrakcje zwierzęce</string>
-	<string name="type.tourism.attraction.specified">Atrakcja turystyczna</string>
+	<string name="type.attraction.animal">Atrakcje zwierzęce</string>
 	<string name="type.tourism.camp_site">Kamping</string>
 	<string name="type.tourism.caravan_site">Pole namiotowe</string>
 	<string name="type.tourism.chalet">Domek letniskowy</string>

@@ -581,6 +581,8 @@
 	<string name="routing_add_finish_point">Angi sluttpunkt for å planlegge rute</string>
 	<string name="placepage_remove_stop">Fjern</string>
 	<string name="placepage_add_stop">Angi stopp</string>
+	<!-- Alert to ask user relogin to OpenStreetMap with OAuth2 flow after OAuth1 authentication is deprecated. -->
+	<string name="alert_reauth_message">Logg inn på OpenStreetMap for automatisk å laste opp alle kartredigeringene dine. Finn ut mer <a href="https://github.com/organicmaps/organicmaps/issues/6144">her</a>.</string>
 	<string name="dialog_error_storage_title">Problemer med tilgang til lagring</string>
 	<string name="dialog_error_storage_message">Ekstern lagring er ikke tilgjengelig. Sannsynligvis er SD-kortet fjernet eller skadet eller så er filsystemet skrivebeskyttet. Undersøk og kontakt oss på support\@organicmaps.app</string>
 	<string name="setting_emulate_bad_storage">Emulere skadet lagring</string>
@@ -690,6 +692,8 @@
 	<string name="by_distance">Etter avstand</string>
 	<!-- Android -->
 	<string name="by_date">Etter dato</string>
+	<!-- Android -->
+	<string name="by_name">Etter navn</string>
 	<string name="week_ago_sorttype">For en uke siden</string>
 	<string name="month_ago_sorttype">For en måned siden</string>
 	<string name="moremonth_ago_sorttype">Mer enn en måned siden</string>
@@ -1378,7 +1382,12 @@
 	<string name="type.man_made.water_well">Brønn</string>
 	<string name="type.man_made.windmill">Vindmølle</string>
 	<string name="type.natural">Natur</string>
+	<!-- A rocky land cover. -->
 	<string name="type.natural.bare_rock">Bar stein</string>
+	<!-- A land cover consisting of rounded rock fragments (pebbles) on a beach or riverbed. -->
+	<string name="type.natural.shingle">Småstein</string>
+	<!-- A loose surface consisting of angular, sharp stones. Usually on a mountain slope and prone to landslides. -->
+	<string name="type.natural.scree">Steinete rasmark</string>
 	<string name="type.natural.bay">Bukt</string>
 	<string name="type.natural.beach">Strand</string>
 	<string name="type.natural.beach.sand">Sandstrand</string>
@@ -1893,8 +1902,7 @@
 	<string name="type.tourism.artwork.sculpture">Kunstverk</string>
 	<string name="type.tourism.artwork.statue">Kunstverk</string>
 	<string name="type.tourism.attraction">Attraksjon</string>
-	<string name="type.tourism.attraction.animal">Attraksjon</string>
-	<string name="type.tourism.attraction.specified">Attraksjon</string>
+	<string name="type.attraction.animal">Innhegning for dyr</string>
 	<string name="type.tourism.camp_site">Campingplass</string>
 	<string name="type.tourism.caravan_site">Camping</string>
 	<string name="type.tourism.gallery">Galleri</string>

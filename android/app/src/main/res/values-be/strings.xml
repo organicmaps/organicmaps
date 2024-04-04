@@ -575,6 +575,8 @@
 	<string name="routing_add_finish_point">Дадайце пункт прызначэння, каб пракласці маршрут</string>
 	<string name="placepage_remove_stop">Выдаліць</string>
 	<string name="placepage_add_stop">Дадаць прыпынак</string>
+	<!-- Alert to ask user relogin to OpenStreetMap with OAuth2 flow after OAuth1 authentication is deprecated. -->
+	<string name="alert_reauth_message">Калі ласка, увайдзіце ў OpenStreetMap, каб аўтаматычна загрузіць усе вашыя праўкі карты. Даведайцеся больш <a href="https://github.com/organicmaps/organicmaps/issues/6144">тут</a>.</string>
 	<string name="dialog_error_storage_title">Праблема з доступам да сховішча</string>
 	<string name="dialog_error_storage_message">Знешняе сховішча недасягальнае. SD-карта можа быць вынутая, пашкоджаная, альбо файлавая сістэма даступная толькі для чытання. Праверце вашу SD-карту альбо зважыцеся за намі па адрасе support\@organicmaps.app</string>
 	<string name="setting_emulate_bad_storage">Эмуляваць дрэннае сховішча</string>
@@ -686,6 +688,8 @@
 	<string name="by_distance">Па адлегласці</string>
 	<!-- Android -->
 	<string name="by_date">Па даце</string>
+	<!-- Android -->
+	<string name="by_name">Па імені</string>
 	<string name="week_ago_sorttype">Тыдзень таму</string>
 	<string name="month_ago_sorttype">Месяц таму</string>
 	<string name="moremonth_ago_sorttype">Больш за месяц таму</string>
@@ -1111,7 +1115,12 @@
 	<string name="type.man_made.tower.communication">Вежа сувязі</string>
 	<string name="type.mountain_pass">Перавал</string>
 	<string name="type.natural">Прырода</string>
-	<string name="type.natural.bare_rock">Голая скала</string>
+	<!-- A rocky land cover. -->
+	<string name="type.natural.bare_rock">Каменная парода</string>
+	<!-- A land cover consisting of rounded rock fragments (pebbles) on a beach or riverbed. -->
+	<string name="type.natural.shingle">Галька</string>
+	<!-- A loose surface consisting of angular, sharp stones. Usually on a mountain slope and prone to landslides. -->
+	<string name="type.natural.scree">Камяністая асып</string>
 	<string name="type.natural.bay">Заліў</string>
 	<string name="type.natural.beach">Пляж</string>
 	<string name="type.natural.beach.sand">Пяшчаны пляж</string>
@@ -1139,7 +1148,7 @@
 	<string name="type.natural.orchard">Сад</string>
 	<string name="type.natural.peak">Вяршыня</string>
 	<string name="type.natural.saddle">Седлавіна</string>
-	<string name="type.natural.rock">Горная парода</string>
+	<string name="type.natural.rock">Камень</string>
 	<string name="type.natural.scrub">Зараснікі</string>
 	<string name="type.natural.spring">Крыніца</string>
 	<string name="type.natural.strait">Праліў</string>
@@ -1317,6 +1326,7 @@
 	<string name="type.sport.badminton">Бадмінтон</string>
 	<string name="type.sport.pelota">Баскская пелота</string>
 	<string name="type.tourism.aquarium">Акварыум</string>
+	<string name="type.attraction.animal">Вальера для жывёл</string>
 	<string name="type.tourism.caravan_site">Кемпінг для аўтадамоў</string>
 	<string name="type.tourism.information">Турыстычная інфармацыя</string>
 	<string name="type.tourism.information.board">Інфармацыйны шчыт</string>

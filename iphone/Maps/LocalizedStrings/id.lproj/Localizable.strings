@@ -629,6 +629,8 @@
 
 "login" = "Masuk";
 
+"login_osm" = "Masuk ke OpenStreetMap";
+
 "forgot_password" = "Lupa kata sandi?";
 
 "osm_account" = "Akun OSM";
@@ -823,7 +825,7 @@
 
 "placepage_delete_bookmark_button" = "Hapus Bookmark";
 
-"editor_edits_sent_message" = "Saran perubahan Anda telah dikirim";
+"editor_edits_sent_message" = "Catatan Anda akan dikirim ke OpenStreetMap";
 
 "editor_comment_hint" = "Komentar…";
 
@@ -930,6 +932,12 @@
 "start_from_my_position" = "Mulai dari";
 
 "profile_authorization_error" = "Ah, tadi ada kesalahan. Coba masuk kembali.";
+
+/* For iOS message 'alert_reauth_message' should be splitted in two parts: message + link. Here's first part */
+"alert_reauth_message_ios" = "Silahkan login ke OpenStreetMap untuk mengupload semua hasil edit peta Anda secara otomatis. Pelajari lebih lanjut";
+
+/* For iOS message 'alert_reauth_message' should be splitted in two parts: message + link. Here's link part */
+"alert_reauth_link_text_ios" = "di sini";
 
 "core_entrance" = "Tempat masuk";
 
@@ -1126,6 +1134,8 @@
 "sort_distance" = "Urutkan per jarak";
 
 "sort_date" = "Urutkan per tanggal";
+
+"sort_name" = "Urutkan berdasarkan nama";
 
 "week_ago_sorttype" = "Seminggu yang lalu";
 
@@ -2635,7 +2645,14 @@
 
 "type.natural" = "Alam";
 
+/* A rocky land cover. */
 "type.natural.bare_rock" = "Batuan telanjang";
+
+/* A land cover consisting of rounded rock fragments (pebbles) on a beach or riverbed. */
+"type.natural.shingle" = "Kerikil";
+
+/* A loose surface consisting of angular, sharp stones. Usually on a mountain slope and prone to landslides. */
+"type.natural.scree" = "Scree berbatu";
 
 "type.natural.bay" = "Teluk";
 
@@ -3748,9 +3765,7 @@
 
 "type.tourism.attraction" = "Atraksi";
 
-"type.tourism.attraction.animal" = "Atraksi";
-
-"type.tourism.attraction.specified" = "Atraksi";
+"type.attraction.animal" = "Kandang Hewan";
 
 "type.tourism.camp_site" = "Perkemahan";
 

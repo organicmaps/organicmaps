@@ -583,6 +583,8 @@
 	<string name="routing_add_finish_point">Ajouter un point d\'arrivée pour planifier un itinéraire</string>
 	<string name="placepage_remove_stop">Supprimer</string>
 	<string name="placepage_add_stop">Ajouter un arrêt</string>
+	<!-- Alert to ask user relogin to OpenStreetMap with OAuth2 flow after OAuth1 authentication is deprecated. -->
+	<string name="alert_reauth_message">Connecte-toi à OpenStreetMap pour télécharger automatiquement toutes tes modifications de cartes. En savoir plus <a href="https://github.com/organicmaps/organicmaps/issues/6144">ici</a>.</string>
 	<string name="dialog_error_storage_title">Problème d\'accès au stockage</string>
 	<string name="dialog_error_storage_message">Le stockage externe n\'est pas disponible. La carte SD a probablement été enlevée, endommagée ou le système est en lecture seule. Veuillez vérifier votre carte SD ou nous contacter via support\@organicmaps.app</string>
 	<string name="setting_emulate_bad_storage">Émuler le mauvais stockage</string>
@@ -694,6 +696,8 @@
 	<string name="by_distance">Par distance</string>
 	<!-- Android -->
 	<string name="by_date">Par date</string>
+	<!-- Android -->
+	<string name="by_name">Par nom</string>
 	<string name="week_ago_sorttype">Il y a une semaine</string>
 	<string name="month_ago_sorttype">Il y a un mois</string>
 	<string name="moremonth_ago_sorttype">Il y a plus d\'un mois</string>
@@ -1467,7 +1471,12 @@
 	<string name="type.man_made.windmill">Moulin à vent</string>
 	<string name="type.mountain_pass">Col de montagne</string>
 	<string name="type.natural">Nature</string>
+	<!-- A rocky land cover. -->
 	<string name="type.natural.bare_rock">Zone rocheuse</string>
+	<!-- A land cover consisting of rounded rock fragments (pebbles) on a beach or riverbed. -->
+	<string name="type.natural.shingle">Galets</string>
+	<!-- A loose surface consisting of angular, sharp stones. Usually on a mountain slope and prone to landslides. -->
+	<string name="type.natural.scree">Éboulis pierreux</string>
 	<string name="type.natural.bay">Baie</string>
 	<string name="type.natural.beach">Plage</string>
 	<string name="type.natural.beach.sand">Plage de sable</string>
@@ -2006,6 +2015,7 @@
 	<string name="type.tourism.artwork.painting">Œuvre</string>
 	<string name="type.tourism.artwork.sculpture">Œuvre</string>
 	<string name="type.tourism.artwork.statue">Œuvre</string>
+	<string name="type.attraction.animal">Enclos pour animaux</string>
 	<string name="type.tourism.camp_site">Camping</string>
 	<string name="type.tourism.caravan_site">Aire de camping-car</string>
 	<string name="type.tourism.chalet">Meublé de tourisme</string>

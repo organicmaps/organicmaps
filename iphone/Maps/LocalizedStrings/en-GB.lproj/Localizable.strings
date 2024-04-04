@@ -627,7 +627,9 @@
 
 "invalid_username_or_password" = "Invalid username or password.";
 
-"login" = "OpenStreetMap Login";
+"login" = "Login";
+
+"login_osm" = "Login to OpenStreetMap";
 
 "forgot_password" = "Forgot your password?";
 
@@ -823,7 +825,7 @@
 
 "placepage_delete_bookmark_button" = "Delete Bookmark";
 
-"editor_edits_sent_message" = "Your suggested changes have been sent";
+"editor_edits_sent_message" = "Your note will be sent to OpenStreetMap";
 
 "editor_comment_hint" = "Comment…";
 
@@ -930,6 +932,12 @@
 "start_from_my_position" = "Start from";
 
 "profile_authorization_error" = "Oops, there was an error. Try signing in again.";
+
+/* For iOS message 'alert_reauth_message' should be splitted in two parts: message + link. Here's first part */
+"alert_reauth_message_ios" = "Please login to OpenStreetMap to automatically upload all your map edits. Learn more";
+
+/* For iOS message 'alert_reauth_message' should be splitted in two parts: message + link. Here's link part */
+"alert_reauth_link_text_ios" = "here";
 
 "core_entrance" = "Entrance";
 
@@ -1126,6 +1134,8 @@
 "sort_distance" = "Sort by distance";
 
 "sort_date" = "Sort by date";
+
+"sort_name" = "Sort by name";
 
 "week_ago_sorttype" = "A week ago";
 
@@ -2635,7 +2645,14 @@
 
 "type.natural" = "Nature";
 
+/* A rocky land cover. */
 "type.natural.bare_rock" = "Bare Rock";
+
+/* A land cover consisting of rounded rock fragments (pebbles) on a beach or riverbed. */
+"type.natural.shingle" = "Shingle";
+
+/* A loose surface consisting of angular, sharp stones. Usually on a mountain slope and prone to landslides. */
+"type.natural.scree" = "Scree";
 
 "type.natural.bay" = "Bay";
 
@@ -3748,9 +3765,7 @@
 
 "type.tourism.attraction" = "Attraction";
 
-"type.tourism.attraction.animal" = "Attraction";
-
-"type.tourism.attraction.specified" = "Attraction";
+"type.attraction.animal" = "Animal Enclosure";
 
 "type.tourism.camp_site" = "Campsite";
 

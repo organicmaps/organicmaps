@@ -536,6 +536,8 @@
 	<string name="routing_add_finish_point">Добавяне на крайна точка за планиране на маршрут</string>
 	<string name="placepage_remove_stop">Премахване</string>
 	<string name="placepage_add_stop">Добавяне на спирка</string>
+	<!-- Alert to ask user relogin to OpenStreetMap with OAuth2 flow after OAuth1 authentication is deprecated. -->
+	<string name="alert_reauth_message">Моля, влезте в OpenStreetMap, за да качвате автоматично всичките си редакции на картата. Научете повече <a href="https://github.com/organicmaps/organicmaps/issues/6144">тук</a>.</string>
 	<string name="dialog_error_storage_title">Проблем с достъпа до хранилището</string>
 	<string name="dialog_error_storage_message">Външната памет на устройството не е налична, SD картата може да е била извадена, повредена или файловата система е само за четене. Проверете това и се свържете с нас support\@organicmaps.app</string>
 	<string name="setting_emulate_bad_storage">Емулация на грешки с външна памет</string>
@@ -643,6 +645,8 @@
 	<string name="by_distance">По разстояние</string>
 	<!-- Android -->
 	<string name="by_date">По дата</string>
+	<!-- Android -->
+	<string name="by_name">По име</string>
 
 	<!-- SECTION: Bookmark types used for sorting -->
 	<string name="search_in_the_list">Търсене в списъка</string>
@@ -978,7 +982,12 @@
 	<string name="type.leisure.swimming_pool.private">Басейн</string>
 	<string name="type.man_made.tower.communication">Комуникационна кула</string>
 	<string name="type.natural">Природа</string>
-	<string name="type.natural.bare_rock">Гола скала</string>
+	<!-- A rocky land cover. -->
+	<string name="type.natural.bare_rock">Рок</string>
+	<!-- A land cover consisting of rounded rock fragments (pebbles) on a beach or riverbed. -->
+	<string name="type.natural.shingle">Камъчета</string>
+	<!-- A loose surface consisting of angular, sharp stones. Usually on a mountain slope and prone to landslides. -->
+	<string name="type.natural.scree">Сипеи</string>
 	<string name="type.natural.bay">Залив</string>
 	<string name="type.natural.beach">Плаж</string>
 	<string name="type.natural.beach.sand">Пясъчен плаж</string>
@@ -1006,7 +1015,7 @@
 	<string name="type.natural.orchard">Овощна градина</string>
 	<string name="type.natural.peak">Връх</string>
 	<string name="type.natural.saddle">Седло</string>
-	<string name="type.natural.rock">Скала</string>
+	<string name="type.natural.rock">Камък</string>
 	<string name="type.natural.scrub">Гъсталаци</string>
 	<string name="type.natural.spring">Извор</string>
 	<string name="type.natural.strait">Проток</string>
@@ -1159,6 +1168,7 @@
 	<string name="type.sport.badminton">Бадминтон</string>
 	<string name="type.sport.pelota">Баска пелота</string>
 	<string name="type.tourism.aquarium">Аквариум</string>
+	<string name="type.attraction.animal">Заграждение за животни</string>
 	<string name="type.tourism.information">Туринформация</string>
 	<string name="type.tourism.information.board">Информационен щит</string>
 	<string name="type.tourism.information.guidepost">Пътеводител</string>

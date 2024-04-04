@@ -629,6 +629,8 @@
 
 "login" = "Logg inn";
 
+"login_osm" = "Logg på OpenStreetMap";
+
 "forgot_password" = "Glemt passordet?";
 
 "osm_account" = "OSM-konto";
@@ -823,7 +825,7 @@
 
 "placepage_delete_bookmark_button" = "Slett bokmerke";
 
-"editor_edits_sent_message" = "De foreslåtte endringene er sendt";
+"editor_edits_sent_message" = "Notatet ditt vil bli sendt til OpenStreetMap";
 
 "editor_comment_hint" = "Kommentar…";
 
@@ -930,6 +932,12 @@
 "start_from_my_position" = "Start fra";
 
 "profile_authorization_error" = "Oops, en feil oppstod. Prøv å logge inn på nytt.";
+
+/* For iOS message 'alert_reauth_message' should be splitted in two parts: message + link. Here's first part */
+"alert_reauth_message_ios" = "Logg inn på OpenStreetMap for automatisk å laste opp alle kartredigeringene dine. Finn ut mer";
+
+/* For iOS message 'alert_reauth_message' should be splitted in two parts: message + link. Here's link part */
+"alert_reauth_link_text_ios" = "her";
 
 "core_entrance" = "Inngang";
 
@@ -1126,6 +1134,8 @@
 "sort_distance" = "Sortere etter avstand";
 
 "sort_date" = "Sortere etter dato";
+
+"sort_name" = "Sorter etter navn";
 
 "week_ago_sorttype" = "For en uke siden";
 
@@ -2635,7 +2645,14 @@
 
 "type.natural" = "Natur";
 
+/* A rocky land cover. */
 "type.natural.bare_rock" = "Bar stein";
+
+/* A land cover consisting of rounded rock fragments (pebbles) on a beach or riverbed. */
+"type.natural.shingle" = "Småstein";
+
+/* A loose surface consisting of angular, sharp stones. Usually on a mountain slope and prone to landslides. */
+"type.natural.scree" = "Steinete rasmark";
 
 "type.natural.bay" = "Bukt";
 
@@ -3748,9 +3765,7 @@
 
 "type.tourism.attraction" = "Attraksjon";
 
-"type.tourism.attraction.animal" = "Attraksjon";
-
-"type.tourism.attraction.specified" = "Attraksjon";
+"type.attraction.animal" = "Innhegning for dyr";
 
 "type.tourism.camp_site" = "Campingplass";
 

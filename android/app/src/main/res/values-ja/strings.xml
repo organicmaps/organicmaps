@@ -583,6 +583,8 @@
 	<string name="routing_add_finish_point">ルートを計画するには目的地を追加してください</string>
 	<string name="placepage_remove_stop">削除</string>
 	<string name="placepage_add_stop">中間地点を追加</string>
+	<!-- Alert to ask user relogin to OpenStreetMap with OAuth2 flow after OAuth1 authentication is deprecated. -->
+	<string name="alert_reauth_message">すべてのマップ編集を自動的にアップロードするには、OpenStreetMapにログインしてください。詳しくは <a href="https://github.com/organicmaps/organicmaps/issues/6144">こちら</a>.</string>
 	<string name="dialog_error_storage_title">ストレージアクセスの問題</string>
 	<string name="dialog_error_storage_message">外部ストレージは使用できません。おそらく SD カードが取り外されたか、破損しているか、あるいはファイルシステムが読み取り専用になっています。確認後、support\@organicmaps.app までご連絡ください。</string>
 	<string name="setting_emulate_bad_storage">壊れたストレージをシミュレートする</string>
@@ -691,6 +693,8 @@
 	<string name="by_distance">距離で</string>
 	<!-- Android -->
 	<string name="by_date">日付で</string>
+	<!-- Android -->
+	<string name="by_name">名前で</string>
 	<string name="week_ago_sorttype">1週間前</string>
 	<string name="month_ago_sorttype">1ケ月前</string>
 	<string name="moremonth_ago_sorttype">1ケ月以上前</string>
@@ -1458,7 +1462,12 @@
 	<string name="type.military">軍事</string>
 	<string name="type.military.bunker">掩蔽壕</string>
 	<string name="type.natural">自然</string>
+	<!-- A rocky land cover. -->
 	<string name="type.natural.bare_rock">岩肌</string>
+	<!-- A land cover consisting of rounded rock fragments (pebbles) on a beach or riverbed. -->
+	<string name="type.natural.shingle">小石</string>
+	<!-- A loose surface consisting of angular, sharp stones. Usually on a mountain slope and prone to landslides. -->
+	<string name="type.natural.scree">石がゴロゴロしている</string>
 	<string name="type.natural.bay">港湾</string>
 	<string name="type.natural.beach">ビーチ</string>
 	<string name="type.natural.beach.sand">砂浜</string>
@@ -2005,8 +2014,7 @@
 	<string name="type.tourism.artwork.sculpture">彫刻</string>
 	<string name="type.tourism.artwork.statue">像</string>
 	<string name="type.tourism.attraction">アトラクション</string>
-	<string name="type.tourism.attraction.animal">動物</string>
-	<string name="type.tourism.attraction.specified">アトラクション</string>
+	<string name="type.attraction.animal">アニマル・エンクロージャー</string>
 	<string name="type.tourism.camp_site">キャンプ場</string>
 	<string name="type.tourism.caravan_site">オートキャンプ場</string>
 	<string name="type.tourism.chalet">シャレー</string>

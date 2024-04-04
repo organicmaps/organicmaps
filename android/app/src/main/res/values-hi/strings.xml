@@ -410,6 +410,8 @@
 	<string name="routing_add_start_point">मार्ग की योजना बनाने के लिए एक प्रारंभिक बिंदु जोड़ें</string>
 	<string name="routing_add_finish_point">मार्ग की योजना बनाने के लिए एक गंतव्य जोड़ें</string>
 	<string name="placepage_add_stop">गंतव्य जोड़ें</string>
+	<!-- Alert to ask user relogin to OpenStreetMap with OAuth2 flow after OAuth1 authentication is deprecated. -->
+	<string name="alert_reauth_message">कृपया अपने सभी मानचित्र संपादनों को स्वचालित रूप से अपलोड करने के लिए OpenStreetMap पर लॉगिन करें। अधिक जानें <a href="https://github.com/organicmaps/organicmaps/issues/6144">यहां</a>।</string>
 	<string name="bookmark_lists">सूचियों</string>
 	<!-- Do not display all bookmark lists on the map -->
 	<string name="bookmark_lists_hide_all">सभी को छिपाएं</string>
@@ -472,6 +474,8 @@
 	<!-- To indicate the capacity of car parkings, bicycle parkings, electric vehicle charging stations... -->
 	<string name="capacity">क्षमता: %s</string>
 	<string name="ok">ठीक है</string>
+	<!-- Android -->
+	<string name="by_name">नाम द्वारा</string>
 
 	<!-- SECTION: Bookmark types used for sorting -->
 	<string name="shops">दुकान</string>
@@ -927,6 +931,10 @@
 	<string name="type.man_made.windmill">पवनचक्की</string>
 	<string name="type.mountain_pass">दर्रा</string>
 	<string name="type.natural">प्रकृति</string>
+	<!-- A land cover consisting of rounded rock fragments (pebbles) on a beach or riverbed. -->
+	<string name="type.natural.shingle">कंकड़</string>
+	<!-- A loose surface consisting of angular, sharp stones. Usually on a mountain slope and prone to landslides. -->
+	<string name="type.natural.scree">रोड़ी</string>
 	<string name="type.natural.bay">खाड़ी</string>
 	<string name="type.natural.beach">बालू तट</string>
 	<string name="type.natural.beach.sand">बालू तट</string>
@@ -1142,8 +1150,7 @@
 	<string name="type.tourism.artwork">कलाकृति</string>
 	<string name="type.tourism.artwork.statue">प्रतिमा</string>
 	<string name="type.tourism.attraction">पर्यटन स्थल</string>
-	<string name="type.tourism.attraction.animal">पर्यटन स्थल</string>
-	<string name="type.tourism.attraction.specified">पर्यटन स्थल</string>
+	<string name="type.attraction.animal">पशु बाड़ा</string>
 	<string name="type.tourism.caravan_site">कारवां स्थल</string>
 	<string name="type.tourism.chalet">षाले</string>
 	<string name="type.tourism.gallery">आर्ट गैलरी</string>

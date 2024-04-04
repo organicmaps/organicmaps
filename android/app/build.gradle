@@ -33,8 +33,8 @@ buildscript {
       println('Building without Google Firebase Services')
     }
 
-    classpath('com.github.triplet.gradle:play-publisher:3.8.6')
-    classpath('ru.cian:huawei-publish-gradle-plugin:1.4.0')
+    classpath('com.github.triplet.gradle:play-publisher:3.9.1')
+    classpath('ru.cian:huawei-publish-gradle-plugin:1.4.2')
   }
 }
 
@@ -442,8 +442,7 @@ task prepareGoogleReleaseListing {
 
 play {
   enabled.set(false)
-  track.set('production')
-  userFraction.set(Double.valueOf(0.10)) // 10%
+  track.set('alpha')
   defaultToAppBundles.set(true)
   releaseStatus.set(ReleaseStatus.IN_PROGRESS)
   serviceAccountCredentials.set(file('google-play.json'))
@@ -455,7 +454,7 @@ huaweiPublish {
       credentialsPath = "$projectDir/huawei-appgallery.json"
       buildFormat = 'aab'
       deployType = 'draft' // confirm manually
-      releaseNotes = []
+      def releaseDescriptions = []
       def localeOverride = [
           'am' : 'am-ET',
           'gu': 'gu_IN',
@@ -473,8 +472,9 @@ huaweiPublish {
         def path = file.getPath()
         def locale = file.parentFile.getName()
         locale = localeOverride.get(locale, locale)
-        releaseNotes.add(new ru.cian.huawei.publish.ReleaseNote(locale, path))
+        releaseDescriptions.add(new ru.cian.huawei.publish.ReleaseNote(locale, path))
       }
+      releaseNotes = new ru.cian.huawei.publish.ReleaseNotesExtension(releaseDescriptions, true)
     }
   }
 }

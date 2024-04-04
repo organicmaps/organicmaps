@@ -12030,6 +12030,46 @@ sw:Zoo
 fa:باغ وحش
 mr:प्राणीसंग्रहालय
 
+attraction-animal
+en:Animal Enclosure
+ar:الضميمة الحيوانية
+be:Вальера для жывёл
+bg:Заграждение за животни
+ca:Recinte d'animals
+cs:Ohrada pro zvířata
+da:Indhegning til dyr
+de:Tiergehege
+el:Περίφραξη ζώων
+es:Recinto de animales
+et:Loomade aedik
+eu:Animalien itxitura
+fa:محوطه حیوانات
+fi:Eläinsuoja
+fr:Enclos pour animaux
+he:מתחם בעלי חיים
+hi:पशु बाड़ा
+hu:Állatok tartása
+id:Kandang Hewan
+it:Recinto per animali
+ja:アニマル・エンクロージャー
+ko:동물 인클로저
+mr:प्राणी संलग्न
+nb:Innhegning for dyr
+nl:Dierenverblijf
+pl:Atrakcje zwierzęce
+pt:Recinto para animais
+ro:Incintă pentru animale
+ru:Вольер для животных
+sk:Výbeh pre zvieratá
+sv:Inhägnad för djur
+sw:Hifadhi ya Wanyama
+th:สิ่งที่แนบมากับสัตว์
+tr:Hayvan Muhafazası
+uk:Вольєр для тварин
+vi:Bao vây động vật
+zh-Hans:动物围栏
+zh-Hant:動物圍欄
+
 tourism-information-office|@category_tourism
 en:4Tourist Office
 ru:3Туристический офис|туристическая информация

@@ -629,6 +629,8 @@
 
 "login" = "Đăng nhập";
 
+"login_osm" = "Đăng nhập vào OpenStreetMap";
+
 "forgot_password" = "Quên mật khẩu?";
 
 "osm_account" = "Tài khoản OSM";
@@ -823,7 +825,7 @@
 
 "placepage_delete_bookmark_button" = "Xóa Dấu Trang";
 
-"editor_edits_sent_message" = "Những thay đổi đề nghị của bạn đã được gửi";
+"editor_edits_sent_message" = "Ghi chú của bạn sẽ được gửi tới OpenStreetMap";
 
 "editor_comment_hint" = "Nhận xét…";
 
@@ -930,6 +932,12 @@
 "start_from_my_position" = "Bắt đầu từ";
 
 "profile_authorization_error" = "Rất tiếc, đã có lỗi xảy ra. Hãy thử đăng nhập lại.";
+
+/* For iOS message 'alert_reauth_message' should be splitted in two parts: message + link. Here's first part */
+"alert_reauth_message_ios" = "Vui lòng đăng nhập vào OpenStreetMap để tự động tải lên tất cả các chỉnh sửa bản đồ của bạn. Tìm hiểu thêm";
+
+/* For iOS message 'alert_reauth_message' should be splitted in two parts: message + link. Here's link part */
+"alert_reauth_link_text_ios" = "tại đây";
 
 "core_entrance" = "Lối vào";
 
@@ -1126,6 +1134,8 @@
 "sort_distance" = "Sắp xếp theo khoảng cách";
 
 "sort_date" = "Sắp xếp theo ngày";
+
+"sort_name" = "Sắp xếp theo tên";
 
 "week_ago_sorttype" = "Tuần trước";
 
@@ -2635,7 +2645,14 @@
 
 "type.natural" = "Tự nhiên";
 
+/* A rocky land cover. */
 "type.natural.bare_rock" = "Đá trần";
+
+/* A land cover consisting of rounded rock fragments (pebbles) on a beach or riverbed. */
+"type.natural.shingle" = "Ván lợp";
+
+/* A loose surface consisting of angular, sharp stones. Usually on a mountain slope and prone to landslides. */
+"type.natural.scree" = "Sàng";
 
 "type.natural.bay" = "Vịnh";
 
@@ -3748,9 +3765,7 @@
 
 "type.tourism.attraction" = "Hấp dẫn";
 
-"type.tourism.attraction.animal" = "Hấp dẫn";
-
-"type.tourism.attraction.specified" = "Hấp dẫn";
+"type.attraction.animal" = "Bao vây động vật";
 
 "type.tourism.camp_site" = "Cắm trại";
 

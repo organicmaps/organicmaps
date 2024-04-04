@@ -581,6 +581,8 @@
 	<string name="routing_add_finish_point">Buscar un destino para el plan de ruta</string>
 	<string name="placepage_remove_stop">Eliminar</string>
 	<string name="placepage_add_stop">Añadir parada</string>
+	<!-- Alert to ask user relogin to OpenStreetMap with OAuth2 flow after OAuth1 authentication is deprecated. -->
+	<string name="alert_reauth_message">Inicia sesión en OpenStreetMap para cargar automáticamente todas tus ediciones de mapas. Más información <a href="https://github.com/organicmaps/organicmaps/issues/6144">aquí</a>.</string>
 	<string name="dialog_error_storage_title">Problema de acceso al almacenamiento</string>
 	<string name="dialog_error_storage_message">El almacenamiento externo no está disponible; puede que se haya quitado o dañado la tarjeta SD, o el sistema de archivos solo permite lectura. Por favor, compruébelo ó escríbanos a support\@organicmaps.app</string>
 	<string name="setting_emulate_bad_storage">Emular almacenamiento dañado</string>
@@ -693,6 +695,8 @@
 	<string name="by_distance">Por distancia</string>
 	<!-- Android -->
 	<string name="by_date">Por fecha</string>
+	<!-- Android -->
+	<string name="by_name">Por nombre</string>
 	<string name="week_ago_sorttype">Hace una semana</string>
 	<string name="month_ago_sorttype">Hace un mes</string>
 	<string name="moremonth_ago_sorttype">Hace más de un mes</string>
@@ -1124,7 +1128,7 @@
 	<string name="type.cuisine.malagasy">Cocina malgache</string>
 	<string name="type.cuisine.malaysian">Cocina malaya</string>
 	<string name="type.cuisine.mediterranean">Cocina mediterránea</string>
-	<string name="type.cuisine.mexican">Cocina mejicana</string>
+	<string name="type.cuisine.mexican">Cocina mexicana</string>
 	<string name="type.cuisine.moroccan">Cocina marroquí</string>
 	<string name="type.cuisine.noodles">Tallarines</string>
 	<string name="type.cuisine.oriental">Cocina oriental</string>
@@ -1501,7 +1505,12 @@
 	<string name="type.military.bunker">Búnker</string>
 	<string name="type.mountain_pass">Puerto de montaña</string>
 	<string name="type.natural">Naturaleza</string>
+	<!-- A rocky land cover. -->
 	<string name="type.natural.bare_rock">Roca desnuda</string>
+	<!-- A land cover consisting of rounded rock fragments (pebbles) on a beach or riverbed. -->
+	<string name="type.natural.shingle">Guijarros</string>
+	<!-- A loose surface consisting of angular, sharp stones. Usually on a mountain slope and prone to landslides. -->
+	<string name="type.natural.scree">Pedregal</string>
 	<string name="type.natural.bay">Bahía</string>
 	<string name="type.natural.beach">Playa</string>
 	<string name="type.natural.beach.sand">Playa de arena</string>
@@ -2041,8 +2050,7 @@
 	<string name="type.tourism.artwork.sculpture">Obras de arte</string>
 	<string name="type.tourism.artwork.statue">Obras de arte</string>
 	<string name="type.tourism.attraction">Atracción turística</string>
-	<string name="type.tourism.attraction.animal">Recinto de animales</string>
-	<string name="type.tourism.attraction.specified">Atracción turística</string>
+	<string name="type.attraction.animal">Recinto de animales</string>
 	<string name="type.tourism.camp_site">Camping</string>
 	<string name="type.tourism.caravan_site">Zona de caravanas</string>
 	<string name="type.tourism.chalet">Chalé</string>

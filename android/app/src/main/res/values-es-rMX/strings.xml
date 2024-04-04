@@ -77,6 +77,8 @@
 	<string name="dialog_kayak_button">Detalles sobre Kayak</string>
 	<string name="placepage_add_place_button">Agregar lugar a OpenStreetMap</string>
 	<string name="transliteration_title">Transliteración al alfabeto latino</string>
+	<!-- Alert to ask user relogin to OpenStreetMap with OAuth2 flow after OAuth1 authentication is deprecated. -->
+	<string name="alert_reauth_message">Inicie sesión en OpenStreetMap para cargar automáticamente todas las ediciones de su mapa. Obtenga más información <a href="https://github.com/organicmaps/organicmaps/issues/6144">aquí</a>.</string>
 	<string name="dialog_error_storage_title">Problema de acceso al almacenamiento</string>
 	<string name="dialog_error_storage_message">El almacenamiento externo no está disponible. Es posible que se haya quitado o dañado la tarjeta SD, o que el sistema de archivos solo permita la lectura. Revíselo y escríbanos a support\@organicmaps.app</string>
 	<string name="setting_emulate_bad_storage">Emular el almacenamiento dañado</string>
@@ -172,6 +174,8 @@
 	<string name="by_distance">Por distancia</string>
 	<!-- Android -->
 	<string name="by_date">Por fecha</string>
+	<!-- Android -->
+	<string name="by_name">Por nombre</string>
 	<string name="week_ago_sorttype">Hace una semana</string>
 	<string name="month_ago_sorttype">Hace un mes</string>
 	<string name="moremonth_ago_sorttype">Hace más de un mes</string>
@@ -280,7 +284,6 @@
 	<string name="type.boundary.national_park">Parque nacional</string>
 	<!-- Duplicates [address] in strings.txt -->
 	<string name="type.building.address">Dirección</string>
-	<string name="type.cuisine.mexican">Cocina mexicana</string>
 	<string name="type.entrance.exit">Salida</string>
 
 	<!-- SECTION: Types: Roads -->

@@ -629,6 +629,8 @@
 
 "login" = "ล็อกอิน";
 
+"login_osm" = "เข้าสู่ระบบ OpenStreetMap";
+
 "forgot_password" = "ลืมรหัสผ่าน?";
 
 "osm_account" = "บัญชี OSM";
@@ -823,7 +825,7 @@
 
 "placepage_delete_bookmark_button" = "ลบ Bookmark";
 
-"editor_edits_sent_message" = "คำแนะนำการเปลี่ยนแปลงของคุณถูกส่งไปแล้ว";
+"editor_edits_sent_message" = "บันทึกของคุณจะถูกส่งไปยัง OpenStreetMap";
 
 "editor_comment_hint" = "ข้อคิดเห็น";
 
@@ -930,6 +932,12 @@
 "start_from_my_position" = "เริ่มจาก";
 
 "profile_authorization_error" = "โอ๊ะ มีข้อผิดพลาดเกิดขึ้น ลองลงชื่อเข้าใช้อีกครั้ง";
+
+/* For iOS message 'alert_reauth_message' should be splitted in two parts: message + link. Here's first part */
+"alert_reauth_message_ios" = "กรุณาเข้าสู่ระบบ OpenStreetMap เพื่ออัปโหลดการแก้ไขแผนที่ทั้งหมดของคุณโดยอัตโนมัติ เรียนรู้เพิ่มเติม";
+
+/* For iOS message 'alert_reauth_message' should be splitted in two parts: message + link. Here's link part */
+"alert_reauth_link_text_ios" = "ที่นี่";
 
 "core_entrance" = "ทางเข้า";
 
@@ -1126,6 +1134,8 @@
 "sort_distance" = "เรียงตามระยะทาง";
 
 "sort_date" = "เรียงตามวันที่";
+
+"sort_name" = "เรียงตามชื่อ";
 
 "week_ago_sorttype" = "สัปดาห์ที่ผ่านมา";
 
@@ -2635,7 +2645,14 @@
 
 "type.natural" = "ธรรมชาติ";
 
+/* A rocky land cover. */
 "type.natural.bare_rock" = "เปลือยร็อค";
+
+/* A land cover consisting of rounded rock fragments (pebbles) on a beach or riverbed. */
+"type.natural.shingle" = "ก้อนกรวด";
+
+/* A loose surface consisting of angular, sharp stones. Usually on a mountain slope and prone to landslides. */
+"type.natural.scree" = "หินกรวด";
 
 "type.natural.bay" = "อ่าว";
 
@@ -3748,9 +3765,7 @@
 
 "type.tourism.attraction" = "การท่องเที่ยว";
 
-"type.tourism.attraction.animal" = "การท่องเที่ยว";
-
-"type.tourism.attraction.specified" = "การท่องเที่ยว";
+"type.attraction.animal" = "สิ่งที่แนบมากับสัตว์";
 
 "type.tourism.camp_site" = "การตั้งแคมป์";
 

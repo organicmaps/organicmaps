@@ -550,6 +550,8 @@
 	<string name="routing_add_finish_point">เพิ่มจุดสิ้นสุดเพื่อวางแผนเส้นทาง</string>
 	<string name="placepage_remove_stop">เอาออก</string>
 	<string name="placepage_add_stop">เพิ่มจุดแวะพัก</string>
+	<!-- Alert to ask user relogin to OpenStreetMap with OAuth2 flow after OAuth1 authentication is deprecated. -->
+	<string name="alert_reauth_message">กรุณาเข้าสู่ระบบ OpenStreetMap เพื่ออัปโหลดการแก้ไขแผนที่ทั้งหมดของคุณโดยอัตโนมัติ เรียนรู้เพิ่มเติม<a href="https://github.com/organicmaps/organicmaps/issues/6144">ที่นี่</a></string>
 	<string name="dialog_error_storage_title">ปัญหาการเข้าถึงที่เก็บข้อมูล</string>
 	<string name="dialog_error_storage_message">ที่เก็บข้อมูลภายนอกไม่พร้อมใช้งาน อาจเป็นเพราะการ์ด SD ถูกถอดออกไป ได้รับความเสียหาย หรือระบบไฟล์ให้เขียนได้อย่างเดียว กรุณาตรวจสอบและติดต่อเราได้ที่ support\@organicmaps.app</string>
 	<string name="setting_emulate_bad_storage">จำลองแบบที่เก็บข้อมูลที่ไม่ดี</string>
@@ -658,6 +660,8 @@
 	<string name="by_distance">ตามระยะทาง</string>
 	<!-- Android -->
 	<string name="by_date">ตามวันที่</string>
+	<!-- Android -->
+	<string name="by_name">ตามชื่อ</string>
 	<string name="week_ago_sorttype">สัปดาห์ที่ผ่านมา</string>
 	<string name="month_ago_sorttype">เดือนที่ผ่านมา</string>
 	<string name="moremonth_ago_sorttype">มากกว่าหนึ่งเดือนที่ผ่านมา</string>
@@ -1329,7 +1333,12 @@
 	<string name="type.man_made.windmill">กังหันลม</string>
 	<string name="type.military.bunker">บังเกอร์</string>
 	<string name="type.natural">ธรรมชาติ</string>
+	<!-- A rocky land cover. -->
 	<string name="type.natural.bare_rock">เปลือยร็อค</string>
+	<!-- A land cover consisting of rounded rock fragments (pebbles) on a beach or riverbed. -->
+	<string name="type.natural.shingle">ก้อนกรวด</string>
+	<!-- A loose surface consisting of angular, sharp stones. Usually on a mountain slope and prone to landslides. -->
+	<string name="type.natural.scree">หินกรวด</string>
 	<string name="type.natural.bay">อ่าว</string>
 	<string name="type.natural.beach">ชายหาด</string>
 	<string name="type.natural.beach.sand">หาดทราย</string>
@@ -1836,8 +1845,7 @@
 	<string name="type.tourism.artwork.sculpture">งานศิลปะ</string>
 	<string name="type.tourism.artwork.statue">งานศิลปะ</string>
 	<string name="type.tourism.attraction">การท่องเที่ยว</string>
-	<string name="type.tourism.attraction.animal">การท่องเที่ยว</string>
-	<string name="type.tourism.attraction.specified">การท่องเที่ยว</string>
+	<string name="type.attraction.animal">สิ่งที่แนบมากับสัตว์</string>
 	<string name="type.tourism.camp_site">การตั้งแคมป์</string>
 	<string name="type.tourism.caravan_site">ขบวนนักเดินทาง</string>
 	<string name="type.tourism.chalet">ชาเลต์</string>

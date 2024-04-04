@@ -98,6 +98,8 @@ area|z12-[leisure=golf_course],
 area|z12-[natural=heath],
 area|z12-[landuse=allotments],
 area|z12-[natural=bare_rock],
+area|z12-[natural=shingle],
+area|z11-[natural=scree],
 area|z12-[landuse=orchard],
 area|z12-[landuse=vineyard],
 area|z12-[landuse=meadow],
@@ -183,6 +185,10 @@ area|z12-[landuse=military]
 area|z12-[amenity=prison]
 {fill-opacity: 0.5; fill-color: @prison;}
 /* End of hardcoded */
+
+area|z11-[natural=scree],
+area|z12-[natural=shingle],
+{fill-color: @scree;}
 
 area|z12-[natural=bare_rock],
 {fill-color: @barerock;}

@@ -629,6 +629,8 @@
 
 "login" = "Logi sisse";
 
+"login_osm" = "Logi sisse OpenStreetMap-i";
+
 "forgot_password" = "Unustasid oma salasõna?";
 
 "osm_account" = "OSM konto";
@@ -823,7 +825,7 @@
 
 "placepage_delete_bookmark_button" = "Kustuta järjehoidja";
 
-"editor_edits_sent_message" = "Sinu soovitatud muudatused on saadetud";
+"editor_edits_sent_message" = "Teie märkus saadetakse OpenStreetMapile";
 
 "editor_comment_hint" = "Kommenteeri…";
 
@@ -930,6 +932,12 @@
 "start_from_my_position" = "Alusta kohast";
 
 "profile_authorization_error" = "Vabandust, tekkis viga. Proovi uuesti sisse logida.";
+
+/* For iOS message 'alert_reauth_message' should be splitted in two parts: message + link. Here's first part */
+"alert_reauth_message_ios" = "Palun logige sisse OpenStreetMap'i, et laadida automaatselt üles kõik oma kaarditööd. Lisateave";
+
+/* For iOS message 'alert_reauth_message' should be splitted in two parts: message + link. Here's link part */
+"alert_reauth_link_text_ios" = "kuskil";
 
 "core_entrance" = "Sissepääs";
 
@@ -1126,6 +1134,8 @@
 "sort_distance" = "Sorteeri kauguse järgi";
 
 "sort_date" = "Sorteeri kuupäeva järgi";
+
+"sort_name" = "Sorteeri nime järgi";
 
 "week_ago_sorttype" = "Nädal tagasi";
 
@@ -2635,7 +2645,14 @@
 
 "type.natural" = "Loodus";
 
+/* A rocky land cover. */
 "type.natural.bare_rock" = "Paljas kivi";
+
+/* A land cover consisting of rounded rock fragments (pebbles) on a beach or riverbed. */
+"type.natural.shingle" = "Pebbles";
+
+/* A loose surface consisting of angular, sharp stones. Usually on a mountain slope and prone to landslides. */
+"type.natural.scree" = "Kiviklibu";
 
 "type.natural.bay" = "Laht";
 
@@ -3748,9 +3765,7 @@
 
 "type.tourism.attraction" = "Turismiatraktsioon";
 
-"type.tourism.attraction.animal" = "Loomade aedik";
-
-"type.tourism.attraction.specified" = "Turismiatraktsioon";
+"type.attraction.animal" = "Loomade aedik";
 
 "type.tourism.camp_site" = "Telkimine";
 
