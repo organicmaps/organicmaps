@@ -1845,8 +1845,7 @@
 	<string name="type.tourism.artwork.sculpture">งานศิลปะ</string>
 	<string name="type.tourism.artwork.statue">งานศิลปะ</string>
 	<string name="type.tourism.attraction">การท่องเที่ยว</string>
-	<string name="type.tourism.attraction.animal">การท่องเที่ยว</string>
-	<string name="type.tourism.attraction.specified">การท่องเที่ยว</string>
+	<string name="type.attraction.animal">สิ่งที่แนบมากับสัตว์</string>
 	<string name="type.tourism.camp_site">การตั้งแคมป์</string>
 	<string name="type.tourism.caravan_site">ขบวนนักเดินทาง</string>
 	<string name="type.tourism.chalet">ชาเลต์</string>

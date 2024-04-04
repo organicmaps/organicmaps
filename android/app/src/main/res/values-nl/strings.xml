@@ -2053,8 +2053,7 @@
 	<string name="type.tourism.artwork.sculpture">Kunstwerk</string>
 	<string name="type.tourism.artwork.statue">Standbeeld</string>
 	<string name="type.tourism.attraction">Attractie</string>
-	<string name="type.tourism.attraction.animal">Dierenverblijf</string>
-	<string name="type.tourism.attraction.specified">Attractie</string>
+	<string name="type.attraction.animal">Dierenverblijf</string>
 	<string name="type.tourism.camp_site">Kampeerterrein</string>
 	<string name="type.tourism.caravan_site">Caravan site</string>
 	<string name="type.tourism.chalet">Vakantiehuis</string>

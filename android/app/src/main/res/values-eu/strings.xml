@@ -1958,8 +1958,7 @@
 	<string name="type.tourism.artwork.sculpture">Artelanak</string>
 	<string name="type.tourism.artwork.statue">Artelanak</string>
 	<string name="type.tourism.attraction">Erakarpen turistikoa</string>
-	<string name="type.tourism.attraction.animal">Erakarpen turistikoa</string>
-	<string name="type.tourism.attraction.specified">Erakarpen turistikoa</string>
+	<string name="type.attraction.animal">Animalien itxitura</string>
 	<string name="type.tourism.camp_site">Kanpalekua</string>
 	<string name="type.tourism.caravan_site">Karabana gunea</string>
 	<string name="type.tourism.chalet">Txaleta</string>

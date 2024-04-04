@@ -2077,8 +2077,7 @@
 	<string name="type.tourism.artwork.sculpture">Произведение искусства</string>
 	<string name="type.tourism.artwork.statue">Произведение искусства</string>
 	<string name="type.tourism.attraction">Достопримечательность</string>
-	<string name="type.tourism.attraction.animal">Достопримечательность</string>
-	<string name="type.tourism.attraction.specified">Достопримечательность</string>
+	<string name="type.attraction.animal">Вольер для животных</string>
 	<string name="type.tourism.camp_site">Кемпинг</string>
 	<string name="type.tourism.caravan_site">Кемпинг для автодомов</string>
 	<string name="type.tourism.chalet">Шале</string>

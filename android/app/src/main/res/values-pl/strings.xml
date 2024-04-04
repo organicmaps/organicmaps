@@ -2026,8 +2026,7 @@
 	<string name="type.tourism.artwork.sculpture">Rzeźba</string>
 	<string name="type.tourism.artwork.statue">Posąg</string>
 	<string name="type.tourism.attraction">Atrakcja turystyczna</string>
-	<string name="type.tourism.attraction.animal">Atrakcje zwierzęce</string>
-	<string name="type.tourism.attraction.specified">Atrakcja turystyczna</string>
+	<string name="type.attraction.animal">Atrakcje zwierzęce</string>
 	<string name="type.tourism.camp_site">Kamping</string>
 	<string name="type.tourism.caravan_site">Pole namiotowe</string>
 	<string name="type.tourism.chalet">Domek letniskowy</string>

@@ -1899,8 +1899,7 @@
 	<string name="type.tourism.artwork.sculpture">Umelecké diela</string>
 	<string name="type.tourism.artwork.statue">Umelecké diela</string>
 	<string name="type.tourism.attraction">Atrakcia</string>
-	<string name="type.tourism.attraction.animal">Atrakcia</string>
-	<string name="type.tourism.attraction.specified">Atrakcia</string>
+	<string name="type.attraction.animal">Výbeh pre zvieratá</string>
 	<string name="type.tourism.caravan_site">Kemp pre karavany</string>
 	<string name="type.tourism.chalet">Chata</string>
 	<string name="type.tourism.gallery">Pamätihodnosť</string>

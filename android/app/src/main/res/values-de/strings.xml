@@ -2028,8 +2028,7 @@
 	<string name="type.tourism.artwork.sculpture">Skulptur</string>
 	<string name="type.tourism.artwork.statue">Statue</string>
 	<string name="type.tourism.attraction">Sehenswürdigkeit</string>
-	<string name="type.tourism.attraction.animal">Sehenswürdigkeit</string>
-	<string name="type.tourism.attraction.specified">Sehenswürdigkeit</string>
+	<string name="type.attraction.animal">Tiergehege</string>
 	<string name="type.tourism.camp_site">Campingplatz</string>
 	<string name="type.tourism.caravan_site">Wohnmobilstellplatz</string>
 	<string name="type.tourism.chalet">Ferienhaus</string>

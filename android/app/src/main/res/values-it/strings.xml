@@ -2001,8 +2001,7 @@
 	<string name="type.tourism.artwork.sculpture">Scultura</string>
 	<string name="type.tourism.artwork.statue">Statua</string>
 	<string name="type.tourism.attraction">Attrattiva</string>
-	<string name="type.tourism.attraction.animal">Recinto</string>
-	<string name="type.tourism.attraction.specified">Attrattiva</string>
+	<string name="type.attraction.animal">Recinto per animali</string>
 	<string name="type.tourism.camp_site">Campeggio</string>
 	<string name="type.tourism.caravan_site">Area per campeggiatori</string>
 	<string name="type.tourism.chalet">Chalet</string>

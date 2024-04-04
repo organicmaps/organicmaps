@@ -3765,9 +3765,7 @@
 
 "type.tourism.attraction" = "Attraction";
 
-"type.tourism.attraction.animal" = "Attraction";
-
-"type.tourism.attraction.specified" = "Attraction";
+"type.attraction.animal" = "Recinte d'animals";
 
 "type.tourism.camp_site" = "Campground";
 

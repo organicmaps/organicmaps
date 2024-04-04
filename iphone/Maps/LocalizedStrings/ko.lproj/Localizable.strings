@@ -3765,9 +3765,7 @@
 
 "type.tourism.attraction" = "관광 명소";
 
-"type.tourism.attraction.animal" = "관광 명소";
-
-"type.tourism.attraction.specified" = "관광 명소";
+"type.attraction.animal" = "동물 인클로저";
 
 "type.tourism.camp_site" = "캠핑";
 
