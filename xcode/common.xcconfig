@@ -1,7 +1,7 @@
 // Paths
 OMIM_ROOT = $(PROJECT_DIR)/../..
-QT_PATH[arch=x86_64] = /usr/local/opt/qt@5
-QT_PATH[arch=arm64] = /opt/homebrew/opt/qt@5
+QT_PATH[arch=x86_64] = /usr/local/opt/qt@6
+QT_PATH[arch=arm64] = /opt/homebrew/opt/qt@6
 BOOST_ROOT = $(OMIM_ROOT)/3party/boost
 
 // jansson is included in many libs, and is also used in headers (leaks to other libs)
