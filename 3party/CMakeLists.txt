@@ -6,10 +6,14 @@ if (WITH_SYSTEM_PROVIDED_3PARTY)
   set(GFLAGS_USE_TARGET_NAMESPACE ON)
   find_package(gflags REQUIRED GLOBAL)
 else()
-  # Configure expat library.
   # Suppress "Policy CMP0077 is not set: option() honors normal variables"
-  # for the expat options below.
+  # for the freetype, expat and jansson options.
   set(CMAKE_POLICY_DEFAULT_CMP0077 NEW)
+  # Suppress "Policy CMP0063 is not set: Honor visibility properties for all target types."
+  # for jansson
+  set(CMAKE_POLICY_DEFAULT_CMP0063 NEW)
+
+  # Configure expat library.
   set(EXPAT_BUILD_TOOLS OFF)
   set(EXPAT_BUILD_EXAMPLES OFF)
   set(EXPAT_BUILD_TESTS OFF)
@@ -17,6 +21,9 @@ else()
   set(EXPAT_BUILD_PKGCONFIG OFF)
   set(EXPAT_ENABLE_INSTALL OFF)
   set(EXPAT_SHARED_LIBS OFF)
+  set(EXPAT_GE OFF)
+  set(EXPAT_DTD OFF)
+  set(EXPAT_NS ON)
   add_subdirectory(expat/expat)
 
   # Configure Jansson library.
