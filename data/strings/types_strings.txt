@@ -29860,7 +29860,6 @@
     zh-Hant = 景點
 
   [type.attraction.animal]
-    ref = type.tourism.attraction
     en = Animal Enclosure
     af = Diere Omheining
     ar = الضميمة الحيوانية
