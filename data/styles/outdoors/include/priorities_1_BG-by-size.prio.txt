@@ -67,7 +67,7 @@ leisure-golf_course                                 # area z12- (also has icon z
 === 140
 
 landuse-flowerbed                                   # area z16-
-natural-scrub                                       # area z10-
+natural-scrub                                       # area z12-
 === 130
 
 landuse-grass                                       # area z12-

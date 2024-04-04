@@ -1233,8 +1233,8 @@ leisure|sports_centre
 *historic|memorial|plaque
 *historic|castle|defensive
 *historic|castle|stately
-*tourism|attraction|animal
-*tourism|attraction|specified
+*attraction|animal
+tourism|attraction
 *cuisine|regional
 *cuisine|pizza
 *cuisine|burger
