@@ -14182,6 +14182,77 @@ cont {
   }
 }
 cont {
+  name: "attraction-animal"
+  element {
+    scale: 17
+    symbol {
+      name: "animal-m"
+      priority: 2450
+      min_distance: 24
+    }
+    caption {
+      primary {
+        height: 10
+        color: 4473924
+        offset_y: 1
+        is_optional: true
+      }
+      priority: -7550
+    }
+  }
+  element {
+    scale: 18
+    symbol {
+      name: "animal-m"
+      priority: 2450
+      min_distance: 24
+    }
+    caption {
+      primary {
+        height: 10
+        color: 4473924
+        offset_y: 1
+        is_optional: true
+      }
+      priority: -7550
+    }
+  }
+  element {
+    scale: 19
+    symbol {
+      name: "animal-m"
+      priority: 2450
+      min_distance: 24
+    }
+    caption {
+      primary {
+        height: 10
+        color: 4473924
+        offset_y: 1
+        is_optional: true
+      }
+      priority: -7550
+    }
+  }
+  element {
+    scale: 20
+    symbol {
+      name: "animal-m"
+      priority: 2450
+      min_distance: 24
+    }
+    caption {
+      primary {
+        height: 10
+        color: 4473924
+        offset_y: 1
+        is_optional: true
+      }
+      priority: -7550
+    }
+  }
+}
+cont {
   name: "barrier-block"
   element {
     scale: 16
@@ -60603,20 +60674,6 @@ cont {
 }
 cont {
   name: "natural-scrub"
-  element {
-    scale: 10
-    area {
-      color: 13620648
-      priority: -1870
-    }
-  }
-  element {
-    scale: 11
-    area {
-      color: 13620648
-      priority: -1870
-    }
-  }
   element {
     scale: 12
     area {
@@ -127855,250 +127912,6 @@ cont {
         is_optional: true
       }
       priority: -5700
-    }
-  }
-}
-cont {
-  name: "tourism-attraction-animal"
-  element {
-    scale: 14
-    symbol {
-      name: "tourism-s"
-      priority: 2450
-      min_distance: 12
-    }
-    caption {
-      primary {
-        height: 10
-        color: 4473924
-        offset_y: 1
-        is_optional: true
-      }
-      priority: -7550
-    }
-  }
-  element {
-    scale: 15
-    symbol {
-      name: "tourism-m"
-      priority: 2450
-      min_distance: 36
-    }
-    caption {
-      primary {
-        height: 10
-        color: 4473924
-        offset_y: 1
-        is_optional: true
-      }
-      priority: -7550
-    }
-  }
-  element {
-    scale: 16
-    symbol {
-      name: "tourism-m"
-      priority: 2450
-      min_distance: 24
-    }
-    caption {
-      primary {
-        height: 10
-        color: 4473924
-        offset_y: 1
-        is_optional: true
-      }
-      priority: -7550
-    }
-  }
-  element {
-    scale: 17
-    symbol {
-      name: "zoo-m"
-      priority: 2450
-      min_distance: 24
-    }
-    caption {
-      primary {
-        height: 10
-        color: 4473924
-        offset_y: 1
-        is_optional: true
-      }
-      priority: -7550
-    }
-  }
-  element {
-    scale: 18
-    symbol {
-      name: "zoo-m"
-      priority: 2450
-      min_distance: 24
-    }
-    caption {
-      primary {
-        height: 11
-        color: 4473924
-        offset_y: 1
-        is_optional: true
-      }
-      priority: -7550
-    }
-  }
-  element {
-    scale: 19
-    symbol {
-      name: "zoo-m"
-      priority: 2450
-      min_distance: 24
-    }
-    caption {
-      primary {
-        height: 11
-        color: 4473924
-        offset_y: 1
-        is_optional: true
-      }
-      priority: -7550
-    }
-  }
-  element {
-    scale: 20
-    symbol {
-      name: "zoo-m"
-      priority: 2450
-      min_distance: 24
-    }
-    caption {
-      primary {
-        height: 11
-        color: 4473924
-        offset_y: 1
-        is_optional: true
-      }
-      priority: -7550
-    }
-  }
-}
-cont {
-  name: "tourism-attraction-specified"
-  element {
-    scale: 14
-    symbol {
-      name: "tourism-s"
-      priority: 2450
-      min_distance: 12
-    }
-    caption {
-      primary {
-        height: 10
-        color: 4473924
-        offset_y: 1
-        is_optional: true
-      }
-      priority: -7550
-    }
-  }
-  element {
-    scale: 15
-    symbol {
-      name: "tourism-m"
-      priority: 2450
-      min_distance: 36
-    }
-    caption {
-      primary {
-        height: 10
-        color: 4473924
-        offset_y: 1
-        is_optional: true
-      }
-      priority: -7550
-    }
-  }
-  element {
-    scale: 16
-    symbol {
-      name: "tourism-m"
-      priority: 2450
-      min_distance: 24
-    }
-    caption {
-      primary {
-        height: 10
-        color: 4473924
-        offset_y: 1
-        is_optional: true
-      }
-      priority: -7550
-    }
-  }
-  element {
-    scale: 17
-    symbol {
-      name: "tourism-m"
-      priority: 2450
-      min_distance: 24
-    }
-    caption {
-      primary {
-        height: 10
-        color: 4473924
-        offset_y: 1
-        is_optional: true
-      }
-      priority: -7550
-    }
-  }
-  element {
-    scale: 18
-    symbol {
-      name: "tourism-m"
-      priority: 2450
-      min_distance: 24
-    }
-    caption {
-      primary {
-        height: 11
-        color: 4473924
-        offset_y: 1
-        is_optional: true
-      }
-      priority: -7550
-    }
-  }
-  element {
-    scale: 19
-    symbol {
-      name: "tourism-m"
-      priority: 2450
-      min_distance: 24
-    }
-    caption {
-      primary {
-        height: 11
-        color: 4473924
-        offset_y: 1
-        is_optional: true
-      }
-      priority: -7550
-    }
-  }
-  element {
-    scale: 20
-    symbol {
-      name: "tourism-m"
-      priority: 2450
-      min_distance: 24
-    }
-    caption {
-      primary {
-        height: 11
-        color: 4473924
-        offset_y: 1
-        is_optional: true
-      }
-      priority: -7550
     }
   }
 }
