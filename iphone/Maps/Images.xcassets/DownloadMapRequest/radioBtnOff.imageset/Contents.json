@@ -1,8 +1,19 @@
 {
   "images" : [
     {
-      "filename" : "radioBtnOff.svg",
-      "idiom" : "universal"
+      "filename" : "radioBtnOff.png",
+      "idiom" : "universal",
+      "scale" : "1x"
+    },
+    {
+      "filename" : "radioBtnOff@2x.png",
+      "idiom" : "universal",
+      "scale" : "2x"
+    },
+    {
+      "filename" : "radioBtnOff@3x.png",
+      "idiom" : "universal",
+      "scale" : "3x"
     }
   ],
   "info" : {
