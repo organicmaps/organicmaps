@@ -948,24 +948,12 @@
 	<string name="type.barrier.wall">भिंत</string>
 	<string name="type.boundary">सीमा</string>
 	<string name="type.boundary.administrative">प्रशासकीय सीमा</string>
-	<string name="type.boundary.administrative.10">प्रशासकीय सीमा</string>
-	<string name="type.boundary.administrative.11">प्रशासकीय सीमा</string>
+	<!-- Borders between countries. -->
 	<string name="type.boundary.administrative.2">राष्ट्रीय सीमा</string>
-	<string name="type.boundary.administrative.3">प्रशासकीय सीमा</string>
-	<string name="type.boundary.administrative.4">प्रशासकीय सीमा</string>
-	<string name="type.boundary.administrative.5">प्रशासकीय सीमा</string>
-	<string name="type.boundary.administrative.6">प्रशासकीय सीमा</string>
-	<string name="type.boundary.administrative.7">प्रशासकीय सीमा</string>
-	<string name="type.boundary.administrative.8">प्रशासकीय सीमा</string>
-	<string name="type.boundary.administrative.9">प्रशासकीय सीमा</string>
-	<string name="type.boundary.administrative.city">शहराची सीमा</string>
-	<string name="type.boundary.administrative.country">राष्ट्रीय सीमा</string>
-	<string name="type.boundary.administrative.county">परगणा सीमा</string>
-	<string name="type.boundary.administrative.municipality">नगरपालिकेची सीमा</string>
-	<string name="type.boundary.administrative.nation">राष्ट्रीय सीमा</string>
-	<string name="type.boundary.administrative.region">प्रादेशिक सीमा</string>
-	<string name="type.boundary.administrative.state">राज्य सीमा</string>
-	<string name="type.boundary.administrative.suburb">उपनगर सीमा</string>
+	<!-- Country's primary subdivision borders, e.g. between regions, provinces, states.. -->
+	<string name="type.boundary.administrative.3">प्रादेशिक सीमा</string>
+	<!-- Country's primary subdivision borders, e.g. between regions, provinces, states.. -->
+	<string name="type.boundary.administrative.4">प्रादेशिक सीमा</string>
 	<string name="type.boundary.national_park">राष्ट्रीय उद्यान</string>
 	<string name="type.boundary.aboriginal_lands">स्वदेशी जमिनी</string>
 	<string name="type.boundary.protected_area">संरक्षित क्षेत्र</string>

@@ -1674,41 +1674,14 @@
 
 "type.boundary.administrative" = "Frontière administrative";
 
-"type.boundary.administrative.10" = "Frontière administrative";
-
-"type.boundary.administrative.11" = "Frontière administrative";
-
+/* Borders between countries. */
 "type.boundary.administrative.2" = "Frontière nationale";
 
-"type.boundary.administrative.3" = "Frontière administrative";
+/* Country's primary subdivision borders, e.g. between regions, provinces, states.. */
+"type.boundary.administrative.3" = "Frontière régionale";
 
-"type.boundary.administrative.4" = "Frontière administrative";
-
-"type.boundary.administrative.5" = "Frontière administrative";
-
-"type.boundary.administrative.6" = "Frontière administrative";
-
-"type.boundary.administrative.7" = "Frontière administrative";
-
-"type.boundary.administrative.8" = "Frontière administrative";
-
-"type.boundary.administrative.9" = "Frontière administrative";
-
-"type.boundary.administrative.city" = "Frontière de la ville";
-
-"type.boundary.administrative.country" = "Frontière nationale";
-
-"type.boundary.administrative.county" = "Frontière du comté";
-
-"type.boundary.administrative.municipality" = "Frontière de la municipalité";
-
-"type.boundary.administrative.nation" = "Frontière nationale";
-
-"type.boundary.administrative.region" = "Frontière régionale";
-
-"type.boundary.administrative.state" = "State Boundary";
-
-"type.boundary.administrative.suburb" = "Frontière de quartier";
+/* Country's primary subdivision borders, e.g. between regions, provinces, states.. */
+"type.boundary.administrative.4" = "Frontière régionale";
 
 "type.boundary.national_park" = "Parc national";
 

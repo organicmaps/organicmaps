@@ -1674,41 +1674,14 @@
 
 "type.boundary.administrative" = "Muga administratiboa";
 
-"type.boundary.administrative.10" = "Muga administratiboa";
-
-"type.boundary.administrative.11" = "Muga administratiboa";
-
+/* Borders between countries. */
 "type.boundary.administrative.2" = "Herrialdeko muga";
 
-"type.boundary.administrative.3" = "Muga administratiboa";
+/* Country's primary subdivision borders, e.g. between regions, provinces, states.. */
+"type.boundary.administrative.3" = "Eskualdeko muga";
 
-"type.boundary.administrative.4" = "Muga administratiboa";
-
-"type.boundary.administrative.5" = "Muga administratiboa";
-
-"type.boundary.administrative.6" = "Muga administratiboa";
-
-"type.boundary.administrative.7" = "Muga administratiboa";
-
-"type.boundary.administrative.8" = "Muga administratiboa";
-
-"type.boundary.administrative.9" = "Muga administratiboa";
-
-"type.boundary.administrative.city" = "Hiriko muga";
-
-"type.boundary.administrative.country" = "Herrialdeko muga";
-
-"type.boundary.administrative.county" = "Eskualdeko muga";
-
-"type.boundary.administrative.municipality" = "Udalerriko muga";
-
-"type.boundary.administrative.nation" = "Nazio muga";
-
-"type.boundary.administrative.region" = "Eskualdeko muga";
-
-"type.boundary.administrative.state" = "Estatuko muga";
-
-"type.boundary.administrative.suburb" = "Auzoko muga";
+/* Country's primary subdivision borders, e.g. between regions, provinces, states.. */
+"type.boundary.administrative.4" = "Eskualdeko muga";
 
 "type.boundary.national_park" = "Parke Nazionala";
 

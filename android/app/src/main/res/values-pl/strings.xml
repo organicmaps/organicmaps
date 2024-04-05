@@ -1007,24 +1007,12 @@
 	<string name="type.barrier.wall">Mur</string>
 	<string name="type.boundary">Granica</string>
 	<string name="type.boundary.administrative">Granica administracyjna</string>
-	<string name="type.boundary.administrative.10">Granica administracyjna</string>
-	<string name="type.boundary.administrative.11">Granica administracyjna</string>
+	<!-- Borders between countries. -->
 	<string name="type.boundary.administrative.2">Granica państwa</string>
-	<string name="type.boundary.administrative.3">Granica administracyjna</string>
-	<string name="type.boundary.administrative.4">Granica administracyjna</string>
-	<string name="type.boundary.administrative.5">Granica administracyjna</string>
-	<string name="type.boundary.administrative.6">Granica administracyjna</string>
-	<string name="type.boundary.administrative.7">Granica administracyjna</string>
-	<string name="type.boundary.administrative.8">Granica administracyjna</string>
-	<string name="type.boundary.administrative.9">Granica administracyjna</string>
-	<string name="type.boundary.administrative.city">Granica miasta</string>
-	<string name="type.boundary.administrative.country">Granica państwa</string>
-	<string name="type.boundary.administrative.county">Granica hrabstwa</string>
-	<string name="type.boundary.administrative.municipality">Granica gminy</string>
-	<string name="type.boundary.administrative.nation">Granica państwa</string>
-	<string name="type.boundary.administrative.region">Granica regionu</string>
-	<string name="type.boundary.administrative.state">Granica województwa</string>
-	<string name="type.boundary.administrative.suburb">Granica przedmieść</string>
+	<!-- Country's primary subdivision borders, e.g. between regions, provinces, states.. -->
+	<string name="type.boundary.administrative.3">Granica regionu</string>
+	<!-- Country's primary subdivision borders, e.g. between regions, provinces, states.. -->
+	<string name="type.boundary.administrative.4">Granica regionu</string>
 	<string name="type.boundary.national_park">Park narodowy</string>
 	<string name="type.boundary.aboriginal_lands">Rdzenne ziemie</string>
 	<string name="type.boundary.protected_area">Strefa chroniona</string>

@@ -1003,23 +1003,8 @@
 	<string name="type.barrier.wall">Muuri</string>
 	<string name="type.boundary">Raja</string>
 	<string name="type.boundary.administrative">Hallinnollinen raja</string>
-	<string name="type.boundary.administrative.10">Hallinnollinen raja</string>
-	<string name="type.boundary.administrative.11">Hallinnollinen raja</string>
+	<!-- Borders between countries. -->
 	<string name="type.boundary.administrative.2">Valtakunnanraja</string>
-	<string name="type.boundary.administrative.3">Hallinnollinen raja</string>
-	<string name="type.boundary.administrative.4">Hallinnollinen raja</string>
-	<string name="type.boundary.administrative.5">Hallinnollinen raja</string>
-	<string name="type.boundary.administrative.6">Hallinnollinen raja</string>
-	<string name="type.boundary.administrative.7">Hallinnollinen raja</string>
-	<string name="type.boundary.administrative.8">Hallinnollinen raja</string>
-	<string name="type.boundary.administrative.9">Hallinnollinen raja</string>
-	<string name="type.boundary.administrative.city">Kaupunginraja</string>
-	<string name="type.boundary.administrative.country">Valtakunnanraja</string>
-	<string name="type.boundary.administrative.county">Maakunnanraja</string>
-	<string name="type.boundary.administrative.municipality">Kunnanraja</string>
-	<string name="type.boundary.administrative.nation">Valtakunnanraja</string>
-	<string name="type.boundary.administrative.state">Osavaltion raja</string>
-	<string name="type.boundary.administrative.suburb">Esikaupunki</string>
 	<string name="type.boundary.national_park">Kansallispuisto</string>
 	<string name="type.boundary.aboriginal_lands">Alkuperäiskansojen maat</string>
 	<string name="type.boundary.protected_area">Suojeltu alue</string>

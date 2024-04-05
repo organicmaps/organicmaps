@@ -1674,41 +1674,14 @@
 
 "type.boundary.administrative" = "Administratívna hranica";
 
-"type.boundary.administrative.10" = "Administratívna hranica";
-
-"type.boundary.administrative.11" = "Administratívna hranica";
-
+/* Borders between countries. */
 "type.boundary.administrative.2" = "Národná hranica";
 
-"type.boundary.administrative.3" = "Administratívna hranica";
+/* Country's primary subdivision borders, e.g. between regions, provinces, states.. */
+"type.boundary.administrative.3" = "Hranica regiónu";
 
-"type.boundary.administrative.4" = "Administratívna hranica";
-
-"type.boundary.administrative.5" = "Administratívna hranica";
-
-"type.boundary.administrative.6" = "Administratívna hranica";
-
-"type.boundary.administrative.7" = "Administratívna hranica";
-
-"type.boundary.administrative.8" = "Administratívna hranica";
-
-"type.boundary.administrative.9" = "Administratívna hranica";
-
-"type.boundary.administrative.city" = "Hranica mesta";
-
-"type.boundary.administrative.country" = "Národná hranica";
-
-"type.boundary.administrative.county" = "County Boundary";
-
-"type.boundary.administrative.municipality" = "Municipality Boundary";
-
-"type.boundary.administrative.nation" = "Národná hranica";
-
-"type.boundary.administrative.region" = "Hranica regiónu";
-
-"type.boundary.administrative.state" = "Štátna hranica";
-
-"type.boundary.administrative.suburb" = "Suburb Boundary";
+/* Country's primary subdivision borders, e.g. between regions, provinces, states.. */
+"type.boundary.administrative.4" = "Hranica regiónu";
 
 "type.boundary.national_park" = "Národný park";
 

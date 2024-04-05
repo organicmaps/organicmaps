@@ -1674,41 +1674,14 @@
 
 "type.boundary.administrative" = "Confine amministrativo";
 
-"type.boundary.administrative.10" = "Confine amministrativo";
-
-"type.boundary.administrative.11" = "Confine amministrativo";
-
+/* Borders between countries. */
 "type.boundary.administrative.2" = "Confine nazionale";
 
-"type.boundary.administrative.3" = "Confine amministrativo";
+/* Country's primary subdivision borders, e.g. between regions, provinces, states.. */
+"type.boundary.administrative.3" = "Confine regionale";
 
-"type.boundary.administrative.4" = "Confine amministrativo";
-
-"type.boundary.administrative.5" = "Confine amministrativo";
-
-"type.boundary.administrative.6" = "Confine amministrativo";
-
-"type.boundary.administrative.7" = "Confine amministrativo";
-
-"type.boundary.administrative.8" = "Confine amministrativo";
-
-"type.boundary.administrative.9" = "Confine amministrativo";
-
-"type.boundary.administrative.city" = "Confine cittadino";
-
-"type.boundary.administrative.country" = "Confine nazionale";
-
-"type.boundary.administrative.county" = "County Boundary";
-
-"type.boundary.administrative.municipality" = "Confini municipale";
-
-"type.boundary.administrative.nation" = "Confine nazionale";
-
-"type.boundary.administrative.region" = "Confine regionale";
-
-"type.boundary.administrative.state" = "Confine statale";
-
-"type.boundary.administrative.suburb" = "Suburb Boundary";
+/* Country's primary subdivision borders, e.g. between regions, provinces, states.. */
+"type.boundary.administrative.4" = "Confine regionale";
 
 "type.boundary.national_park" = "Parco nazionale";
 

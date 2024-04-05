@@ -1674,41 +1674,14 @@
 
 "type.boundary.administrative" = "Адміністративний поділ";
 
-"type.boundary.administrative.10" = "Адміністративний поділ";
-
-"type.boundary.administrative.11" = "Адміністративний поділ";
-
+/* Borders between countries. */
 "type.boundary.administrative.2" = "Кордон країни";
 
-"type.boundary.administrative.3" = "Адміністративний поділ";
+/* Country's primary subdivision borders, e.g. between regions, provinces, states.. */
+"type.boundary.administrative.3" = "Областний поділ";
 
-"type.boundary.administrative.4" = "Адміністративний поділ";
-
-"type.boundary.administrative.5" = "Адміністративний поділ";
-
-"type.boundary.administrative.6" = "Адміністративний поділ";
-
-"type.boundary.administrative.7" = "Адміністративний поділ";
-
-"type.boundary.administrative.8" = "Адміністративний поділ";
-
-"type.boundary.administrative.9" = "Адміністративний поділ";
-
-"type.boundary.administrative.city" = "Межа міста";
-
-"type.boundary.administrative.country" = "Кордон країни";
-
-"type.boundary.administrative.county" = "Поділ округа";
-
-"type.boundary.administrative.municipality" = "Municipality Boundary";
-
-"type.boundary.administrative.nation" = "Кордон країни";
-
-"type.boundary.administrative.region" = "Областний поділ";
-
-"type.boundary.administrative.state" = "State Boundary";
-
-"type.boundary.administrative.suburb" = "Приміська межа";
+/* Country's primary subdivision borders, e.g. between regions, provinces, states.. */
+"type.boundary.administrative.4" = "Областний поділ";
 
 "type.boundary.national_park" = "Національний парк";
 

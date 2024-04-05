@@ -1002,24 +1002,12 @@
 	<string name="type.barrier.wall">Muur</string>
 	<string name="type.boundary">Grens</string>
 	<string name="type.boundary.administrative">Administratieve grens</string>
-	<string name="type.boundary.administrative.10">Administratieve grens</string>
-	<string name="type.boundary.administrative.11">Administratieve grens</string>
-	<string name="type.boundary.administrative.2">Landsgrens</string>
-	<string name="type.boundary.administrative.3">Administratieve grens</string>
-	<string name="type.boundary.administrative.4">Administratieve grens</string>
-	<string name="type.boundary.administrative.5">Administratieve grens</string>
-	<string name="type.boundary.administrative.6">Administratieve grens</string>
-	<string name="type.boundary.administrative.7">Administratieve grens</string>
-	<string name="type.boundary.administrative.8">Administratieve grens</string>
-	<string name="type.boundary.administrative.9">Administratieve grens</string>
-	<string name="type.boundary.administrative.city">Stadsgrens</string>
-	<string name="type.boundary.administrative.country">Landsgrens</string>
-	<string name="type.boundary.administrative.county">Provinciegrens</string>
-	<string name="type.boundary.administrative.municipality">Gemeentegrens</string>
-	<string name="type.boundary.administrative.nation">Natiegrens</string>
-	<string name="type.boundary.administrative.region">Regiogrens</string>
-	<string name="type.boundary.administrative.state">Staatsgrens</string>
-	<string name="type.boundary.administrative.suburb">Buitenwijkgrens</string>
+	<!-- Borders between countries. -->
+	<string name="type.boundary.administrative.2">Natiegrens</string>
+	<!-- Country's primary subdivision borders, e.g. between regions, provinces, states.. -->
+	<string name="type.boundary.administrative.3">Regiogrens</string>
+	<!-- Country's primary subdivision borders, e.g. between regions, provinces, states.. -->
+	<string name="type.boundary.administrative.4">Regiogrens</string>
 	<string name="type.boundary.national_park">Nationaal park</string>
 	<string name="type.boundary.aboriginal_lands">Inheemse landen</string>
 	<string name="type.boundary.protected_area">Beschermd gebied</string>

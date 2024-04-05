@@ -1674,41 +1674,14 @@
 
 "type.boundary.administrative" = "Frontera administrativa";
 
-"type.boundary.administrative.10" = "Frontera administrativa";
-
-"type.boundary.administrative.11" = "Frontera administrativa";
-
+/* Borders between countries. */
 "type.boundary.administrative.2" = "Frontera de país";
 
-"type.boundary.administrative.3" = "Frontera administrativa";
+/* Country's primary subdivision borders, e.g. between regions, provinces, states.. */
+"type.boundary.administrative.3" = "Frontera de región";
 
-"type.boundary.administrative.4" = "Frontera administrativa";
-
-"type.boundary.administrative.5" = "Frontera administrativa";
-
-"type.boundary.administrative.6" = "Frontera administrativa";
-
-"type.boundary.administrative.7" = "Frontera administrativa";
-
-"type.boundary.administrative.8" = "Frontera administrativa";
-
-"type.boundary.administrative.9" = "Frontera administrativa";
-
-"type.boundary.administrative.city" = "Frontera de ciudad";
-
-"type.boundary.administrative.country" = "Frontera de país";
-
-"type.boundary.administrative.county" = "Frontera de condado";
-
-"type.boundary.administrative.municipality" = "Frontera de municipio";
-
-"type.boundary.administrative.nation" = "Frontera de país";
-
-"type.boundary.administrative.region" = "Frontera de región";
-
-"type.boundary.administrative.state" = "Frontera de estado";
-
-"type.boundary.administrative.suburb" = "Frontera de suburbio";
+/* Country's primary subdivision borders, e.g. between regions, provinces, states.. */
+"type.boundary.administrative.4" = "Frontera de región";
 
 "type.boundary.national_park" = "Parque nacional";
 

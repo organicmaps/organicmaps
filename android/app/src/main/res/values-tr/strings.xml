@@ -1005,24 +1005,12 @@
 	<string name="type.barrier.wall">Duvar</string>
 	<string name="type.boundary">Sınır</string>
 	<string name="type.boundary.administrative">İdari Sınır</string>
-	<string name="type.boundary.administrative.10">İdari Sınır</string>
-	<string name="type.boundary.administrative.11">İdari Sınır</string>
+	<!-- Borders between countries. -->
 	<string name="type.boundary.administrative.2">Ulusal Sınır</string>
-	<string name="type.boundary.administrative.3">İdari Sınır</string>
-	<string name="type.boundary.administrative.4">İdari Sınır</string>
-	<string name="type.boundary.administrative.5">İdari Sınır</string>
-	<string name="type.boundary.administrative.6">İdari Sınır</string>
-	<string name="type.boundary.administrative.7">İdari Sınır</string>
-	<string name="type.boundary.administrative.8">İdari Sınır</string>
-	<string name="type.boundary.administrative.9">İdari Sınır</string>
-	<string name="type.boundary.administrative.city">Şehir Sınırı</string>
-	<string name="type.boundary.administrative.country">Ulusal Sınır</string>
-	<string name="type.boundary.administrative.county">İlçe Sınırı</string>
-	<string name="type.boundary.administrative.municipality">Belediye Sınırı</string>
-	<string name="type.boundary.administrative.nation">Ulusal Sınır</string>
-	<string name="type.boundary.administrative.region">Bölgesel Sınır</string>
-	<string name="type.boundary.administrative.state">Devlet Sınırı</string>
-	<string name="type.boundary.administrative.suburb">Mahalle Sınırı</string>
+	<!-- Country's primary subdivision borders, e.g. between regions, provinces, states.. -->
+	<string name="type.boundary.administrative.3">Bölgesel Sınır</string>
+	<!-- Country's primary subdivision borders, e.g. between regions, provinces, states.. -->
+	<string name="type.boundary.administrative.4">Bölgesel Sınır</string>
 	<string name="type.boundary.national_park">Ulusal Park</string>
 	<string name="type.boundary.aboriginal_lands">Yerli topraklar</string>
 	<string name="type.boundary.protected_area">Korunmuş bölge</string>

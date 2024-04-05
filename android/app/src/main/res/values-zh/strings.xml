@@ -958,24 +958,12 @@
 	<string name="type.barrier.wall">墙</string>
 	<string name="type.boundary">边界</string>
 	<string name="type.boundary.administrative">行政区域界线</string>
-	<string name="type.boundary.administrative.10">10级行政区域界线</string>
-	<string name="type.boundary.administrative.11">11级行政区域界线</string>
+	<!-- Borders between countries. -->
 	<string name="type.boundary.administrative.2">国家行政区域界线</string>
-	<string name="type.boundary.administrative.3">3级行政区域界线</string>
-	<string name="type.boundary.administrative.4">4级行政区域界线</string>
-	<string name="type.boundary.administrative.5">5级行政区域界线</string>
-	<string name="type.boundary.administrative.6">6级行政区域界线</string>
-	<string name="type.boundary.administrative.7">7级行政区域界线</string>
-	<string name="type.boundary.administrative.8">8级行政区域界线</string>
-	<string name="type.boundary.administrative.9">9级行政区域界线</string>
-	<string name="type.boundary.administrative.city">城市行政区域界线</string>
-	<string name="type.boundary.administrative.country">国家行政区域界线</string>
-	<string name="type.boundary.administrative.county">县行政区域界线</string>
-	<string name="type.boundary.administrative.municipality">自治市行政区域界线</string>
-	<string name="type.boundary.administrative.nation">国家行政区域界线</string>
-	<string name="type.boundary.administrative.region">1区域行政区域界线</string>
-	<string name="type.boundary.administrative.state">州省行政区域界线</string>
-	<string name="type.boundary.administrative.suburb">市郊行政区域界线</string>
+	<!-- Country's primary subdivision borders, e.g. between regions, provinces, states.. -->
+	<string name="type.boundary.administrative.3">1区域行政区域界线</string>
+	<!-- Country's primary subdivision borders, e.g. between regions, provinces, states.. -->
+	<string name="type.boundary.administrative.4">1区域行政区域界线</string>
 	<string name="type.boundary.national_park">国家公园</string>
 	<string name="type.boundary.aboriginal_lands">原住民土地</string>
 	<string name="type.boundary.protected_area">保护区</string>

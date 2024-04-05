@@ -1674,41 +1674,14 @@
 
 "type.boundary.administrative" = "Administrative Boundary";
 
-"type.boundary.administrative.10" = "Administrative Boundary";
-
-"type.boundary.administrative.11" = "Administrative Boundary";
-
+/* Borders between countries. */
 "type.boundary.administrative.2" = "National Border";
 
-"type.boundary.administrative.3" = "Administrative Boundary";
+/* Country's primary subdivision borders, e.g. between regions, provinces, states.. */
+"type.boundary.administrative.3" = "Regional Boundary";
 
-"type.boundary.administrative.4" = "Administrative Boundary";
-
-"type.boundary.administrative.5" = "Administrative Boundary";
-
-"type.boundary.administrative.6" = "Administrative Boundary";
-
-"type.boundary.administrative.7" = "Administrative Boundary";
-
-"type.boundary.administrative.8" = "Administrative Boundary";
-
-"type.boundary.administrative.9" = "Administrative Boundary";
-
-"type.boundary.administrative.city" = "City Boundary";
-
-"type.boundary.administrative.country" = "National Border";
-
-"type.boundary.administrative.county" = "County Boundary";
-
-"type.boundary.administrative.municipality" = "Municipality Boundary";
-
-"type.boundary.administrative.nation" = "National Border";
-
-"type.boundary.administrative.region" = "Regional Boundary";
-
-"type.boundary.administrative.state" = "State Boundary";
-
-"type.boundary.administrative.suburb" = "Suburb Boundary";
+/* Country's primary subdivision borders, e.g. between regions, provinces, states.. */
+"type.boundary.administrative.4" = "Regional Boundary";
 
 "type.boundary.national_park" = "Nasjonalpark";
 

@@ -1674,41 +1674,14 @@
 
 "type.boundary.administrative" = "Административная граница";
 
-"type.boundary.administrative.10" = "Административная граница";
-
-"type.boundary.administrative.11" = "Административная граница";
-
+/* Borders between countries. */
 "type.boundary.administrative.2" = "Граница страны";
 
-"type.boundary.administrative.3" = "Административная граница";
+/* Country's primary subdivision borders, e.g. between regions, provinces, states.. */
+"type.boundary.administrative.3" = "Граница региона";
 
-"type.boundary.administrative.4" = "Административная граница";
-
-"type.boundary.administrative.5" = "Административная граница";
-
-"type.boundary.administrative.6" = "Административная граница";
-
-"type.boundary.administrative.7" = "Административная граница";
-
-"type.boundary.administrative.8" = "Административная граница";
-
-"type.boundary.administrative.9" = "Административная граница";
-
-"type.boundary.administrative.city" = "Граница города";
-
-"type.boundary.administrative.country" = "Граница страны";
-
-"type.boundary.administrative.county" = "Граница округа";
-
-"type.boundary.administrative.municipality" = "Граница муниципалитета";
-
-"type.boundary.administrative.nation" = "Граница страны";
-
-"type.boundary.administrative.region" = "Граница региона";
-
-"type.boundary.administrative.state" = "Граница штата";
-
-"type.boundary.administrative.suburb" = "Граница пригорода";
+/* Country's primary subdivision borders, e.g. between regions, provinces, states.. */
+"type.boundary.administrative.4" = "Граница региона";
 
 "type.boundary.national_park" = "Национальный парк";
 

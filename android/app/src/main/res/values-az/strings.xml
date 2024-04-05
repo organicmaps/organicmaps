@@ -977,24 +977,12 @@
 	<string name="type.barrier.wall">Divar</string>
 	<string name="type.boundary">Sərhəd</string>
 	<string name="type.boundary.administrative">İnzibati sərhəd</string>
-	<string name="type.boundary.administrative.10">İnzibati sərhəd</string>
-	<string name="type.boundary.administrative.11">İnzibati sərhəd</string>
+	<!-- Borders between countries. -->
 	<string name="type.boundary.administrative.2">Milli sərhəd</string>
-	<string name="type.boundary.administrative.3">İnzibati sərhəd</string>
-	<string name="type.boundary.administrative.4">İnzibati sərhəd</string>
-	<string name="type.boundary.administrative.5">İnzibati sərhəd</string>
-	<string name="type.boundary.administrative.6">İnzibati sərhəd</string>
-	<string name="type.boundary.administrative.7">İnzibati sərhəd</string>
-	<string name="type.boundary.administrative.8">İnzibati sərhəd</string>
-	<string name="type.boundary.administrative.9">İnzibati sərhəd</string>
-	<string name="type.boundary.administrative.city">Şəhər limiti</string>
-	<string name="type.boundary.administrative.country">Milli sərhəd</string>
-	<string name="type.boundary.administrative.county">Rayon sərhədi</string>
-	<string name="type.boundary.administrative.municipality">Bələdiyyə sərhədi</string>
-	<string name="type.boundary.administrative.nation">Milli sərhəd</string>
-	<string name="type.boundary.administrative.region">Regional sərhəd</string>
-	<string name="type.boundary.administrative.state">Dövlət sərhədi</string>
-	<string name="type.boundary.administrative.suburb">Qonşuluq sərhədi</string>
+	<!-- Country's primary subdivision borders, e.g. between regions, provinces, states.. -->
+	<string name="type.boundary.administrative.3">Regional sərhəd</string>
+	<!-- Country's primary subdivision borders, e.g. between regions, provinces, states.. -->
+	<string name="type.boundary.administrative.4">Regional sərhəd</string>
 	<string name="type.boundary.national_park">Milli park</string>
 	<string name="type.boundary.aboriginal_lands">Yerli torpaqlar</string>
 	<string name="type.boundary.protected_area">Qorunan ərazi</string>

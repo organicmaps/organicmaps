@@ -1674,41 +1674,14 @@
 
 "type.boundary.administrative" = "Administratieve grens";
 
-"type.boundary.administrative.10" = "Administratieve grens";
+/* Borders between countries. */
+"type.boundary.administrative.2" = "Natiegrens";
 
-"type.boundary.administrative.11" = "Administratieve grens";
+/* Country's primary subdivision borders, e.g. between regions, provinces, states.. */
+"type.boundary.administrative.3" = "Regiogrens";
 
-"type.boundary.administrative.2" = "Landsgrens";
-
-"type.boundary.administrative.3" = "Administratieve grens";
-
-"type.boundary.administrative.4" = "Administratieve grens";
-
-"type.boundary.administrative.5" = "Administratieve grens";
-
-"type.boundary.administrative.6" = "Administratieve grens";
-
-"type.boundary.administrative.7" = "Administratieve grens";
-
-"type.boundary.administrative.8" = "Administratieve grens";
-
-"type.boundary.administrative.9" = "Administratieve grens";
-
-"type.boundary.administrative.city" = "Stadsgrens";
-
-"type.boundary.administrative.country" = "Landsgrens";
-
-"type.boundary.administrative.county" = "Provinciegrens";
-
-"type.boundary.administrative.municipality" = "Gemeentegrens";
-
-"type.boundary.administrative.nation" = "Natiegrens";
-
-"type.boundary.administrative.region" = "Regiogrens";
-
-"type.boundary.administrative.state" = "Staatsgrens";
-
-"type.boundary.administrative.suburb" = "Buitenwijkgrens";
+/* Country's primary subdivision borders, e.g. between regions, provinces, states.. */
+"type.boundary.administrative.4" = "Regiogrens";
 
 "type.boundary.national_park" = "Nationaal park";
 

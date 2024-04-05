@@ -1674,41 +1674,14 @@
 
 "type.boundary.administrative" = "行政区域界线";
 
-"type.boundary.administrative.10" = "10级行政区域界线";
-
-"type.boundary.administrative.11" = "11级行政区域界线";
-
+/* Borders between countries. */
 "type.boundary.administrative.2" = "国家行政区域界线";
 
-"type.boundary.administrative.3" = "3级行政区域界线";
+/* Country's primary subdivision borders, e.g. between regions, provinces, states.. */
+"type.boundary.administrative.3" = "1区域行政区域界线";
 
-"type.boundary.administrative.4" = "4级行政区域界线";
-
-"type.boundary.administrative.5" = "5级行政区域界线";
-
-"type.boundary.administrative.6" = "6级行政区域界线";
-
-"type.boundary.administrative.7" = "7级行政区域界线";
-
-"type.boundary.administrative.8" = "8级行政区域界线";
-
-"type.boundary.administrative.9" = "9级行政区域界线";
-
-"type.boundary.administrative.city" = "城市行政区域界线";
-
-"type.boundary.administrative.country" = "国家行政区域界线";
-
-"type.boundary.administrative.county" = "县行政区域界线";
-
-"type.boundary.administrative.municipality" = "自治市行政区域界线";
-
-"type.boundary.administrative.nation" = "国家行政区域界线";
-
-"type.boundary.administrative.region" = "1区域行政区域界线";
-
-"type.boundary.administrative.state" = "州省行政区域界线";
-
-"type.boundary.administrative.suburb" = "市郊行政区域界线";
+/* Country's primary subdivision borders, e.g. between regions, provinces, states.. */
+"type.boundary.administrative.4" = "1区域行政区域界线";
 
 "type.boundary.national_park" = "国家公园";
 

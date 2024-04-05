@@ -1019,24 +1019,12 @@
 	<string name="type.barrier.wall">Стена</string>
 	<string name="type.boundary">Граница</string>
 	<string name="type.boundary.administrative">Административная граница</string>
-	<string name="type.boundary.administrative.10">Административная граница</string>
-	<string name="type.boundary.administrative.11">Административная граница</string>
+	<!-- Borders between countries. -->
 	<string name="type.boundary.administrative.2">Граница страны</string>
-	<string name="type.boundary.administrative.3">Административная граница</string>
-	<string name="type.boundary.administrative.4">Административная граница</string>
-	<string name="type.boundary.administrative.5">Административная граница</string>
-	<string name="type.boundary.administrative.6">Административная граница</string>
-	<string name="type.boundary.administrative.7">Административная граница</string>
-	<string name="type.boundary.administrative.8">Административная граница</string>
-	<string name="type.boundary.administrative.9">Административная граница</string>
-	<string name="type.boundary.administrative.city">Граница города</string>
-	<string name="type.boundary.administrative.country">Граница страны</string>
-	<string name="type.boundary.administrative.county">Граница округа</string>
-	<string name="type.boundary.administrative.municipality">Граница муниципалитета</string>
-	<string name="type.boundary.administrative.nation">Граница страны</string>
-	<string name="type.boundary.administrative.region">Граница региона</string>
-	<string name="type.boundary.administrative.state">Граница штата</string>
-	<string name="type.boundary.administrative.suburb">Граница пригорода</string>
+	<!-- Country's primary subdivision borders, e.g. between regions, provinces, states.. -->
+	<string name="type.boundary.administrative.3">Граница региона</string>
+	<!-- Country's primary subdivision borders, e.g. between regions, provinces, states.. -->
+	<string name="type.boundary.administrative.4">Граница региона</string>
 	<string name="type.boundary.national_park">Национальный парк</string>
 	<string name="type.boundary.aboriginal_lands">Земли коренных народов</string>
 	<string name="type.boundary.protected_area">Заповедная зона</string>
