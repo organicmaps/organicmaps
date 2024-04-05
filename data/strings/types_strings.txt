@@ -6399,68 +6399,8 @@
     uk = Адміністративний поділ
     zh-Hans = 行政区域界线
 
-  [type.boundary.administrative.10]
-    ref = type.boundary.administrative
-    zh-Hans = 10级行政区域界线
-
-  [type.boundary.administrative.11]
-    ref = type.boundary.administrative
-    zh-Hans = 11级行政区域界线
-
   [type.boundary.administrative.2]
-    ref = type.boundary.administrative.country
-
-  [type.boundary.administrative.3]
-    ref = type.boundary.administrative
-    zh-Hans = 3级行政区域界线
-
-  [type.boundary.administrative.4]
-    ref = type.boundary.administrative
-    zh-Hans = 4级行政区域界线
-
-  [type.boundary.administrative.5]
-    ref = type.boundary.administrative
-    zh-Hans = 5级行政区域界线
-
-  [type.boundary.administrative.6]
-    ref = type.boundary.administrative
-    zh-Hans = 6级行政区域界线
-
-  [type.boundary.administrative.7]
-    ref = type.boundary.administrative
-    zh-Hans = 7级行政区域界线
-
-  [type.boundary.administrative.8]
-    ref = type.boundary.administrative
-    zh-Hans = 8级行政区域界线
-
-  [type.boundary.administrative.9]
-    ref = type.boundary.administrative
-    zh-Hans = 9级行政区域界线
-
-  [type.boundary.administrative.city]
-    en = City Boundary
-    af = Stadsgrens
-    ar = حدود مدينة
-    az = Şəhər limiti
-    es = Frontera de ciudad
-    et = Linna piir
-    eu = Hiriko muga
-    fi = Kaupunginraja
-    fr = Frontière de la ville
-    it = Confine cittadino
-    mr = शहराची सीमा
-    nl = Stadsgrens
-    pl = Granica miasta
-    pt = Fronteira de cidade
-    pt-BR = Fronteira de cidade
-    ru = Граница города
-    sk = Hranica mesta
-    tr = Şehir Sınırı
-    uk = Межа міста
-    zh-Hans = 城市行政区域界线
-
-  [type.boundary.administrative.country]
+    comment = Borders between countries.
     en = National Border
     af = Nasionale grens
     ar = حدود دولية
@@ -6473,7 +6413,7 @@
     fr = Frontière nationale
     it = Confine nazionale
     mr = राष्ट्रीय सीमा
-    nl = Landsgrens
+    nl = Natiegrens
     pl = Granica państwa
     pt = Fronteira de país
     pt-BR = Fronteira de país
@@ -6483,55 +6423,8 @@
     uk = Кордон країни
     zh-Hans = 国家行政区域界线
 
-  [type.boundary.administrative.county]
-    en = County Boundary
-    af = Graafskapgrens
-    ar = حدود مقاطعة
-    az = Rayon sərhədi
-    es = Frontera de condado
-    et = Maakonna piir
-    eu = Eskualdeko muga
-    fi = Maakunnanraja
-    fr = Frontière du comté
-    mr = परगणा सीमा
-    nl = Provinciegrens
-    pl = Granica hrabstwa
-    pt = Fronteira de condado
-    pt-BR = Fronteira de condado
-    ru = Граница округа
-    tr = İlçe Sınırı
-    uk = Поділ округа
-    zh-Hans = 县行政区域界线
-
-  [type.boundary.administrative.municipality]
-    en = Municipality Boundary
-    af = Munisipale grens
-    ar = حدود بلدية
-    az = Bələdiyyə sərhədi
-    es = Frontera de municipio
-    et = Valla piir
-    eu = Udalerriko muga
-    fi = Kunnanraja
-    fr = Frontière de la municipalité
-    it = Confini municipale
-    mr = नगरपालिकेची सीमा
-    nl = Gemeentegrens
-    pl = Granica gminy
-    pt = Fronteira de município
-    pt-BR = Fronteira de município
-    ru = Граница муниципалитета
-    tr = Belediye Sınırı
-    zh-Hans = 自治市行政区域界线
-
-  [type.boundary.administrative.nation]
-    ref = type.boundary.administrative.country
-    es = Frontera de nación
-    eu = Nazio muga
-    nl = Natiegrens
-    pt = Fronteira de nação
-    pt-BR = Fronteira de nação
-
-  [type.boundary.administrative.region]
+  [type.boundary.administrative.3]
+    comment = Country's primary subdivision borders, e.g. between regions, provinces, states..
     en = Regional Boundary
     af = Streeksgrens
     ar = حدود منطقة
@@ -6552,45 +6445,8 @@
     uk = Областний поділ
     zh-Hans = 1区域行政区域界线
 
-  [type.boundary.administrative.state]
-    en = State Boundary
-    af = Staatsgrens
-    ar = حدود محافظة
-    az = Dövlət sərhədi
-    es = Frontera de estado
-    et = Osariigi piir
-    eu = Estatuko muga
-    fi = Osavaltion raja
-    it = Confine statale
-    mr = राज्य सीमा
-    nl = Staatsgrens
-    pl = Granica województwa
-    pt = Fronteira de estado
-    pt-BR = Fronteira de estado
-    ru = Граница штата
-    sk = Štátna hranica
-    tr = Devlet Sınırı
-    zh-Hans = 州省行政区域界线
-
-  [type.boundary.administrative.suburb]
-    en = Suburb Boundary
-    af = Voorstadgrens
-    ar = حدود ضاحية
-    az = Qonşuluq sərhədi
-    es = Frontera de suburbio
-    et = Eeslinna piir
-    eu = Auzoko muga
-    fi = Esikaupunki
-    fr = Frontière de quartier
-    mr = उपनगर सीमा
-    nl = Buitenwijkgrens
-    pl = Granica przedmieść
-    pt = Fronteira de subúrbio
-    pt-BR = Fronteira de subúrbio
-    ru = Граница пригорода
-    tr = Mahalle Sınırı
-    uk = Приміська межа
-    zh-Hans = 市郊行政区域界线
+  [type.boundary.administrative.4]
+    ref = type.boundary.administrative.3
 
   [type.boundary.national_park]
     en = National Park
