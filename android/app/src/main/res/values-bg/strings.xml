@@ -766,6 +766,8 @@
 
 	<!-- SECTION: Types: Recycling -->
 	<string name="type.recycling.batteries">Батерии</string>
+	<!-- Weather shelter (including sun shelters and natural rock shelters). -->
+	<string name="type.amenity.shelter">Подслон</string>
 	<string name="type.amenity.public_bath">Обществена баня</string>
 	<string name="type.amenity.stripclub">Стриптийз клуб</string>
 	<string name="type.amenity.vehicle_inspection">Проверка на автомобила</string>
@@ -1168,13 +1170,19 @@
 	<string name="type.sport.badminton">Бадминтон</string>
 	<string name="type.sport.pelota">Баска пелота</string>
 	<string name="type.tourism.aquarium">Аквариум</string>
+	<!-- Typically serviced, staff is present and food is available (compared to wilderness_hut). -->
+	<string name="type.tourism.alpine_hut">Планинска хижа</string>
 	<string name="type.attraction.animal">Заграждение за животни</string>
+	<!-- A rentable countryside vacation house. -->
+	<string name="type.tourism.chalet">Ваканционна вила</string>
 	<string name="type.tourism.information">Туринформация</string>
 	<string name="type.tourism.information.board">Информационен щит</string>
 	<string name="type.tourism.information.guidepost">Пътеводител</string>
 	<string name="type.tourism.information.map">Карта</string>
 	<string name="type.tourism.information.office">Туристически офис</string>
 	<string name="type.tourism.information.visitor_centre">Център за посетители</string>
+	<!-- Typically more basic, not staffed and free (compared to alpine_hut). -->
+	<string name="type.tourism.wilderness_hut">Хижа-заслон</string>
 	<string name="type.tourism.zoo.petting">Зоопарк за домашни любимци</string>
 	<string name="type.waterway.fish_pass">Стълба за риба</string>
 	<string name="type.natural.water.ditch">Отводнителна канавка</string>

@@ -546,6 +546,8 @@
 	<string name="type.sport.skiing">Esquí</string>
 	<string name="type.sport.soccer">Fútbol</string>
 	<string name="type.sport.tennis">Cancha de tenis</string>
+	<!-- A rentable countryside vacation house. -->
+	<string name="type.tourism.chalet">Cabaña de vacaciones</string>
 	<string name="type.waterway.fish_pass">Escalera de pescado</string>
 	<string name="type.piste_type.hike">Ruta de senderismo en la nieve</string>
 	<string name="type.piste_type.connection">Conexión de pista</string>

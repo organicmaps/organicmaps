@@ -882,6 +882,7 @@
 	<string name="type.recycling.small_appliances">Elektriskt avfall</string>
 	<string name="type.amenity.restaurant">Restaurang</string>
 	<string name="type.amenity.school">Skola</string>
+	<!-- Weather shelter (including sun shelters and natural rock shelters). -->
 	<string name="type.amenity.shelter">Vindskydd</string>
 	<string name="type.amenity.public_bath">Offentligt bad</string>
 	<string name="type.amenity.shower">Dusch</string>
@@ -1828,7 +1829,8 @@
 	<string name="type.sport.badminton">Badminton</string>
 	<string name="type.sport.pelota">Baskisk pelota</string>
 	<string name="type.tourism.aquarium">Akvarium</string>
-	<string name="type.tourism.alpine_hut">Bergsboende</string>
+	<!-- Typically serviced, staff is present and food is available (compared to wilderness_hut). -->
+	<string name="type.tourism.alpine_hut">Fjällstuga</string>
 	<string name="type.tourism.apartment">Lägenheter</string>
 	<string name="type.tourism.artwork">Konstverk</string>
 	<string name="type.tourism.artwork.architecture">Konstverk</string>
@@ -1839,7 +1841,8 @@
 	<string name="type.attraction.animal">Inhägnad för djur</string>
 	<string name="type.tourism.attraction.specified">Attraktion</string>
 	<string name="type.tourism.caravan_site">Husvagnsplats</string>
-	<string name="type.tourism.chalet">Stuga</string>
+	<!-- A rentable countryside vacation house. -->
+	<string name="type.tourism.chalet">Semesterstuga</string>
 	<string name="type.tourism.gallery">Attraktion</string>
 	<string name="type.tourism.guest_house">Gästhus</string>
 	<string name="type.tourism.hostel">Vandrarhem</string>
@@ -1855,6 +1858,7 @@
 	<string name="type.tourism.resort">Semesterort</string>
 	<string name="type.tourism.theme_park">Attraktion</string>
 	<string name="type.tourism.viewpoint">Utsiktsplats</string>
+	<!-- Typically more basic, not staffed and free (compared to alpine_hut). -->
 	<string name="type.tourism.wilderness_hut">Vildmarksstuga</string>
 	<string name="type.tourism.zoo.petting">Petting Zoo</string>
 	<string name="type.waterway.canal">Kanal</string>

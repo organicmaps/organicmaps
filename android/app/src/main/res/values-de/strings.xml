@@ -945,6 +945,7 @@
 	<string name="type.recycling.cartons">Getränkekarton</string>
 	<string name="type.amenity.sanitary_dump_station">VE-Station</string>
 	<string name="type.amenity.school">Schule</string>
+	<!-- Weather shelter (including sun shelters and natural rock shelters). -->
 	<string name="type.amenity.shelter">Unterstand</string>
 	<string name="type.amenity.public_bath">Öffentliches Bad</string>
 	<string name="type.amenity.shower">Dusche</string>
@@ -2020,6 +2021,7 @@
 	<string name="type.sport.pelota">Pelota Vasca</string>
 	<string name="type.tourism">Tourismus</string>
 	<string name="type.tourism.aquarium">Aquarium</string>
+	<!-- Typically serviced, staff is present and food is available (compared to wilderness_hut). -->
 	<string name="type.tourism.alpine_hut">Berghütte</string>
 	<string name="type.tourism.apartment">Ferienwohnung</string>
 	<string name="type.tourism.artwork">Kunstwerk</string>
@@ -2032,6 +2034,7 @@
 	<string name="type.tourism.attraction.specified">Sehenswürdigkeit</string>
 	<string name="type.tourism.camp_site">Campingplatz</string>
 	<string name="type.tourism.caravan_site">Wohnmobilstellplatz</string>
+	<!-- A rentable countryside vacation house. -->
 	<string name="type.tourism.chalet">Ferienhaus</string>
 	<string name="type.tourism.gallery">Kunstgalerie</string>
 	<string name="type.tourism.guest_house">Gästehaus</string>
@@ -2049,7 +2052,8 @@
 	<string name="type.tourism.resort">Resort</string>
 	<string name="type.tourism.theme_park">Freizeitpark</string>
 	<string name="type.tourism.viewpoint">Aussichtspunkt</string>
-	<string name="type.tourism.wilderness_hut">Waldhütte</string>
+	<!-- Typically more basic, not staffed and free (compared to alpine_hut). -->
+	<string name="type.tourism.wilderness_hut">Selbstversorgerhütte</string>
 	<string name="type.tourism.zoo">Zoo</string>
 	<string name="type.tourism.zoo.petting">Streichelzoo</string>
 	<string name="type.traffic_calming">Verkehrsberuhigung</string>

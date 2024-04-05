@@ -1566,6 +1566,7 @@
 
 "type.amenity.school" = "مدرسه";
 
+/* Weather shelter (including sun shelters and natural rock shelters). */
 "type.amenity.shelter" = "پناهگاه";
 
 "type.amenity.public_bath" = "حمام عمومی";
@@ -3749,7 +3750,8 @@
 
 "type.tourism.aquarium" = "آکواریوم";
 
-"type.tourism.alpine_hut" = "Alpine Lodging";
+/* Typically serviced, staff is present and food is available (compared to wilderness_hut). */
+"type.tourism.alpine_hut" = "اقامتگاه کوهستانی";
 
 "type.tourism.apartment" = "اپارتمان";
 
@@ -3773,7 +3775,8 @@
 
 "type.tourism.caravan_site" = "RV Park";
 
-"type.tourism.chalet" = "هتل";
+/* A rentable countryside vacation house. */
+"type.tourism.chalet" = "کلبه تعطیلات";
 
 "type.tourism.gallery" = "گالری";
 
@@ -3807,6 +3810,7 @@
 
 "type.tourism.viewpoint" = "گردشگری";
 
+/* Typically more basic, not staffed and free (compared to alpine_hut). */
 "type.tourism.wilderness_hut" = "کلبه‌ی صحرایی";
 
 "type.tourism.zoo" = "گردشگری";

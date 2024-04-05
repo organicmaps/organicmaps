@@ -1566,6 +1566,7 @@
 
 "type.amenity.school" = "Σχολείο";
 
+/* Weather shelter (including sun shelters and natural rock shelters). */
 "type.amenity.shelter" = "Καταφύγιο";
 
 "type.amenity.public_bath" = "Δημόσιο Λουτρό";
@@ -3749,6 +3750,7 @@
 
 "type.tourism.aquarium" = "Ενυδρείο";
 
+/* Typically serviced, staff is present and food is available (compared to wilderness_hut). */
 "type.tourism.alpine_hut" = "Ορεινό καταφύγιο";
 
 "type.tourism.apartment" = "Διαμερίσματα";
@@ -3773,7 +3775,8 @@
 
 "type.tourism.caravan_site" = "Χώρος για τροχόσπιτα";
 
-"type.tourism.chalet" = "Σαλέ";
+/* A rentable countryside vacation house. */
+"type.tourism.chalet" = "Εξοχικό σπίτι διακοπών";
 
 "type.tourism.gallery" = "Αξιοθέατο";
 
@@ -3807,6 +3810,7 @@
 
 "type.tourism.viewpoint" = "Θέα";
 
+/* Typically more basic, not staffed and free (compared to alpine_hut). */
 "type.tourism.wilderness_hut" = "Καλύβα";
 
 "type.tourism.zoo" = "Ζωολογικός κήπος";

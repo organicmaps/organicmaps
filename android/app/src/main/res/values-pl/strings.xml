@@ -954,6 +954,7 @@
 	<string name="type.amenity.restaurant">Restauracja</string>
 	<string name="type.amenity.sanitary_dump_station">Miejsce opróżniania toalety dla kamperów</string>
 	<string name="type.amenity.school">Szkoła</string>
+	<!-- Weather shelter (including sun shelters and natural rock shelters). -->
 	<string name="type.amenity.shelter">Wiata</string>
 	<string name="type.amenity.public_bath">Łaźnia publiczna</string>
 	<string name="type.amenity.shower">Prysznic</string>
@@ -2018,7 +2019,8 @@
 	<string name="type.sport.pelota">Pelota baskijska</string>
 	<string name="type.tourism">Turystyka</string>
 	<string name="type.tourism.aquarium">Akwarium</string>
-	<string name="type.tourism.alpine_hut">Schronisko górskie</string>
+	<!-- Typically serviced, staff is present and food is available (compared to wilderness_hut). -->
+	<string name="type.tourism.alpine_hut">Domek górski</string>
 	<string name="type.tourism.apartment">Apartamenty</string>
 	<string name="type.tourism.artwork">Dzieło sztuki</string>
 	<string name="type.tourism.artwork.architecture">Architektura</string>
@@ -2030,6 +2032,7 @@
 	<string name="type.tourism.attraction.specified">Atrakcja turystyczna</string>
 	<string name="type.tourism.camp_site">Kamping</string>
 	<string name="type.tourism.caravan_site">Pole namiotowe</string>
+	<!-- A rentable countryside vacation house. -->
 	<string name="type.tourism.chalet">Domek letniskowy</string>
 	<string name="type.tourism.gallery">Galeria</string>
 	<string name="type.tourism.guest_house">Pensjonat</string>
@@ -2047,6 +2050,7 @@
 	<string name="type.tourism.resort">Dom wczasowy</string>
 	<string name="type.tourism.theme_park">Park tematyczny</string>
 	<string name="type.tourism.viewpoint">Punkt widokowy</string>
+	<!-- Typically more basic, not staffed and free (compared to alpine_hut). -->
 	<string name="type.tourism.wilderness_hut">Gajówka</string>
 	<string name="type.tourism.zoo">Ogród zoologiczny</string>
 	<string name="type.tourism.zoo.petting">Małe Zoo</string>

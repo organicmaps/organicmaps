@@ -1566,6 +1566,7 @@
 
 "type.amenity.school" = "학교";
 
+/* Weather shelter (including sun shelters and natural rock shelters). */
 "type.amenity.shelter" = "대피소";
 
 "type.amenity.public_bath" = "대중목욕탕";
@@ -3749,7 +3750,8 @@
 
 "type.tourism.aquarium" = "수족관";
 
-"type.tourism.alpine_hut" = "고산 오두막";
+/* Typically serviced, staff is present and food is available (compared to wilderness_hut). */
+"type.tourism.alpine_hut" = "마운틴 롯지";
 
 "type.tourism.apartment" = "아파트";
 
@@ -3773,7 +3775,8 @@
 
 "type.tourism.caravan_site" = "카라반 사용가능 캠핑장";
 
-"type.tourism.chalet" = "별장";
+/* A rentable countryside vacation house. */
+"type.tourism.chalet" = "홀리데이 코티지";
 
 "type.tourism.gallery" = "갤러리";
 
@@ -3807,6 +3810,7 @@
 
 "type.tourism.viewpoint" = "관점";
 
+/* Typically more basic, not staffed and free (compared to alpine_hut). */
 "type.tourism.wilderness_hut" = "황야 오두막";
 
 "type.tourism.zoo" = "동물원";

@@ -904,6 +904,7 @@
 	<string name="type.recycling.small_appliances">Elektromos hulladék</string>
 	<string name="type.amenity.restaurant">Étterem</string>
 	<string name="type.amenity.school">Iskola</string>
+	<!-- Weather shelter (including sun shelters and natural rock shelters). -->
 	<string name="type.amenity.shelter">Menedék</string>
 	<string name="type.amenity.public_bath">Közfürdő</string>
 	<string name="type.amenity.shower">Tusoló</string>
@@ -1856,7 +1857,8 @@
 	<string name="type.sport.badminton">Tollaslabda</string>
 	<string name="type.sport.pelota">Baszk pelota</string>
 	<string name="type.tourism.aquarium">Akvárium</string>
-	<string name="type.tourism.alpine_hut">Hegyi menedék</string>
+	<!-- Typically serviced, staff is present and food is available (compared to wilderness_hut). -->
+	<string name="type.tourism.alpine_hut">Hegyi kunyhó</string>
 	<string name="type.tourism.apartment">Apartmanok</string>
 	<string name="type.tourism.artwork">Szobor</string>
 	<string name="type.tourism.artwork.architecture">Műalkotás</string>
@@ -1868,7 +1870,8 @@
 	<string name="type.tourism.attraction.specified">Látnivaló</string>
 	<string name="type.tourism.camp_site">Kemping</string>
 	<string name="type.tourism.caravan_site">Karaván pihenő</string>
-	<string name="type.tourism.chalet">Turistaház</string>
+	<!-- A rentable countryside vacation house. -->
+	<string name="type.tourism.chalet">Nyaraló házikó</string>
 	<string name="type.tourism.gallery">Túrizmus</string>
 	<string name="type.tourism.guest_house">Vendégház</string>
 	<string name="type.tourism.hotel">Szálloda</string>
@@ -1883,6 +1886,7 @@
 	<string name="type.tourism.resort">Resort hotel</string>
 	<string name="type.tourism.theme_park">Túrizmus</string>
 	<string name="type.tourism.viewpoint">Kilátó</string>
+	<!-- Typically more basic, not staffed and free (compared to alpine_hut). -->
 	<string name="type.tourism.wilderness_hut">Kunyhó a vadonban</string>
 	<string name="type.tourism.zoo">Állatkert</string>
 	<string name="type.tourism.zoo.petting">Állatsimogató</string>

@@ -956,6 +956,7 @@
 	<string name="type.amenity.restaurant">Restoran</string>
 	<string name="type.amenity.sanitary_dump_station">Tank Boşaltma İstasyonu</string>
 	<string name="type.amenity.school">Okul</string>
+	<!-- Weather shelter (including sun shelters and natural rock shelters). -->
 	<string name="type.amenity.shelter">Barınak</string>
 	<string name="type.amenity.public_bath">Hamam</string>
 	<string name="type.amenity.shower">Duş</string>
@@ -2043,7 +2044,8 @@
 	<string name="type.sport.pelota">Bask pelotası</string>
 	<string name="type.tourism">Turizm</string>
 	<string name="type.tourism.aquarium">Akvaryum</string>
-	<string name="type.tourism.alpine_hut">Dağda Konaklama</string>
+	<!-- Typically serviced, staff is present and food is available (compared to wilderness_hut). -->
+	<string name="type.tourism.alpine_hut">Dağ Köşkü</string>
 	<string name="type.tourism.apartment">Apart Otel</string>
 	<string name="type.tourism.artwork">Sanat</string>
 	<string name="type.tourism.artwork.architecture">Sanatsal Mimari</string>
@@ -2055,7 +2057,8 @@
 	<string name="type.tourism.attraction.specified">Görülecek Yerler</string>
 	<string name="type.tourism.camp_site">Kamp Alanı</string>
 	<string name="type.tourism.caravan_site">Karavan Parkı</string>
-	<string name="type.tourism.chalet">Dağ Evi</string>
+	<!-- A rentable countryside vacation house. -->
+	<string name="type.tourism.chalet">Tatil Kulübesi</string>
 	<string name="type.tourism.gallery">Galeri</string>
 	<string name="type.tourism.guest_house">Misafirhane</string>
 	<string name="type.tourism.hostel">Pansiyon</string>
@@ -2072,6 +2075,7 @@
 	<string name="type.tourism.resort">Tatil Köyü</string>
 	<string name="type.tourism.theme_park">Tema Parkı</string>
 	<string name="type.tourism.viewpoint">Manzara</string>
+	<!-- Typically more basic, not staffed and free (compared to alpine_hut). -->
 	<string name="type.tourism.wilderness_hut">Vahşi Doğa Kulübesi</string>
 	<string name="type.tourism.zoo">Hayvanat Bahçesi</string>
 	<string name="type.tourism.zoo.petting">Sevişme Hayvanat Bahçesi</string>

@@ -987,6 +987,7 @@
 	<string name="type.amenity.restaurant">Restaurant</string>
 	<string name="type.amenity.sanitary_dump_station">Holding Tank Dump Station</string>
 	<string name="type.amenity.school">School</string>
+	<!-- Weather shelter (including sun shelters and natural rock shelters). -->
 	<string name="type.amenity.shelter">Shelter</string>
 	<string name="type.amenity.public_bath">Public Bath</string>
 	<string name="type.amenity.shower">Shower</string>
@@ -2110,7 +2111,8 @@
 	<string name="type.sport.pelota">Basque Pelota</string>
 	<string name="type.tourism">Tourism</string>
 	<string name="type.tourism.aquarium">Aquarium</string>
-	<string name="type.tourism.alpine_hut">Alpine Lodging</string>
+	<!-- Typically serviced, staff is present and food is available (compared to wilderness_hut). -->
+	<string name="type.tourism.alpine_hut">Mountain Lodge</string>
 	<string name="type.tourism.apartment">Holiday Apartment</string>
 	<string name="type.tourism.artwork">Artwork</string>
 	<string name="type.tourism.artwork.architecture">Architectural Artwork</string>
@@ -2122,7 +2124,8 @@
 	<string name="type.tourism.attraction.specified">Attraction</string>
 	<string name="type.tourism.camp_site">Campground</string>
 	<string name="type.tourism.caravan_site">RV Park</string>
-	<string name="type.tourism.chalet">Chalet</string>
+	<!-- A rentable countryside vacation house. -->
+	<string name="type.tourism.chalet">Holiday Cottage</string>
 	<string name="type.tourism.gallery">Art Gallery</string>
 	<string name="type.tourism.guest_house">Guest House</string>
 	<string name="type.tourism.hostel">Hostel</string>
@@ -2139,6 +2142,7 @@
 	<string name="type.tourism.resort">Resort</string>
 	<string name="type.tourism.theme_park">Theme Park</string>
 	<string name="type.tourism.viewpoint">Viewpoint</string>
+	<!-- Typically more basic, not staffed and free (compared to alpine_hut). -->
 	<string name="type.tourism.wilderness_hut">Wilderness Hut</string>
 	<string name="type.tourism.zoo">Zoo</string>
 	<string name="type.tourism.zoo.petting">Petting Zoo</string>

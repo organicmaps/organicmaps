@@ -948,6 +948,7 @@
 	<string name="type.recycling.cartons">Briques alimentaires</string>
 	<string name="type.amenity.sanitary_dump_station">Station de vidange</string>
 	<string name="type.amenity.school">École</string>
+	<!-- Weather shelter (including sun shelters and natural rock shelters). -->
 	<string name="type.amenity.shelter">Abri</string>
 	<string name="type.amenity.public_bath">Bain public</string>
 	<string name="type.amenity.shower">Douche</string>
@@ -2008,7 +2009,8 @@
 	<string name="type.sport.pelota">Pelote basque</string>
 	<string name="type.tourism">Tourisme</string>
 	<string name="type.tourism.aquarium">Aquarium</string>
-	<string name="type.tourism.alpine_hut">Refuge de montagne</string>
+	<!-- Typically serviced, staff is present and food is available (compared to wilderness_hut). -->
+	<string name="type.tourism.alpine_hut">Auberge de montagne</string>
 	<string name="type.tourism.apartment">Appart\'hôtel</string>
 	<string name="type.tourism.artwork">Œuvre</string>
 	<string name="type.tourism.artwork.architecture">Œuvre</string>
@@ -2018,7 +2020,8 @@
 	<string name="type.attraction.animal">Enclos pour animaux</string>
 	<string name="type.tourism.camp_site">Camping</string>
 	<string name="type.tourism.caravan_site">Aire de camping-car</string>
-	<string name="type.tourism.chalet">Meublé de tourisme</string>
+	<!-- A rentable countryside vacation house. -->
+	<string name="type.tourism.chalet">Chalet de vacances</string>
 	<string name="type.tourism.gallery">Galerie d\'art</string>
 	<string name="type.tourism.guest_house">Maison d\'hôtes</string>
 	<string name="type.tourism.hostel">Auberge de jeunesse</string>
@@ -2034,6 +2037,7 @@
 	<string name="type.tourism.resort">Complexe touristique</string>
 	<string name="type.tourism.theme_park">Parc d\'attractions</string>
 	<string name="type.tourism.viewpoint">Belvédère</string>
+	<!-- Typically more basic, not staffed and free (compared to alpine_hut). -->
 	<string name="type.tourism.wilderness_hut">Refuge non gardé</string>
 	<string name="type.tourism.zoo.petting">Zoo pour enfants</string>
 	<string name="type.traffic_calming.bump">Ralentisseur</string>

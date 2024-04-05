@@ -886,6 +886,7 @@
 	<string name="type.amenity.restaurant">Restaurante</string>
 	<string name="type.amenity.sanitary_dump_station">Estação de despejo de esgotos</string>
 	<string name="type.amenity.school">Escola</string>
+	<!-- Weather shelter (including sun shelters and natural rock shelters). -->
 	<string name="type.amenity.shelter">Abrigo</string>
 	<string name="type.amenity.shower">Chuveiro</string>
 	<string name="type.amenity.taxi">Táxi</string>
@@ -1806,7 +1807,8 @@
 	<string name="type.sport.table_tennis">Tênis de mesa</string>
 	<string name="type.sport.tennis">Quadra de tênis</string>
 	<string name="type.tourism">Turismo</string>
-	<string name="type.tourism.alpine_hut">Abrigo de montanha</string>
+	<!-- Typically serviced, staff is present and food is available (compared to wilderness_hut). -->
+	<string name="type.tourism.alpine_hut">Alojamento na montanha</string>
 	<string name="type.tourism.apartment">Apartamentos</string>
 	<string name="type.tourism.artwork">Obra de arte</string>
 	<string name="type.tourism.artwork.architecture">Obra de arte de arquitetura</string>
@@ -1817,7 +1819,6 @@
 	<string name="type.tourism.attraction.specified">Atração turística</string>
 	<string name="type.tourism.camp_site">Parque de campismo</string>
 	<string name="type.tourism.caravan_site">Área de trailers</string>
-	<string name="type.tourism.chalet">Chalé</string>
 	<string name="type.tourism.gallery">Galeria</string>
 	<string name="type.tourism.guest_house">Pousada</string>
 	<string name="type.tourism.hostel">Hostel</string>
@@ -1832,6 +1833,7 @@
 	<string name="type.tourism.resort">Resort</string>
 	<string name="type.tourism.theme_park">Parque de diversão</string>
 	<string name="type.tourism.viewpoint">Mirante</string>
+	<!-- Typically more basic, not staffed and free (compared to alpine_hut). -->
 	<string name="type.tourism.wilderness_hut">Cabana</string>
 	<string name="type.tourism.zoo">Zoológico</string>
 	<string name="type.tourism.zoo.petting">Jardim Zoológico</string>

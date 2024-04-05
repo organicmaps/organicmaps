@@ -939,6 +939,7 @@
 	<string name="type.recycling.cartons">Tetrapaky</string>
 	<string name="type.amenity.restaurant">Reštaurácia</string>
 	<string name="type.amenity.school">Škola</string>
+	<!-- Weather shelter (including sun shelters and natural rock shelters). -->
 	<string name="type.amenity.shelter">Prístrešok</string>
 	<string name="type.amenity.public_bath">Verejné kúpele</string>
 	<string name="type.amenity.shower">Sprcha</string>
@@ -2003,6 +2004,7 @@
 	<string name="type.sport.pelota">Baskická pelota</string>
 	<string name="type.tourism">Turistika</string>
 	<string name="type.tourism.aquarium">Akvárium</string>
+	<!-- Typically serviced, staff is present and food is available (compared to wilderness_hut). -->
 	<string name="type.tourism.alpine_hut">Horská chata</string>
 	<string name="type.tourism.apartment">Apartmány</string>
 	<string name="type.tourism.artwork">Umelecké dielo</string>
@@ -2015,7 +2017,8 @@
 	<string name="type.tourism.attraction.specified">Atrakcia</string>
 	<string name="type.tourism.camp_site">Kemp</string>
 	<string name="type.tourism.caravan_site">Kemp pre karavany</string>
-	<string name="type.tourism.chalet">Chata</string>
+	<!-- A rentable countryside vacation house. -->
+	<string name="type.tourism.chalet">Rekreačná chata</string>
 	<string name="type.tourism.gallery">Umelecká galéria</string>
 	<string name="type.tourism.guest_house">Penzión</string>
 	<string name="type.tourism.information">Infocentrum</string>
@@ -2029,6 +2032,7 @@
 	<string name="type.tourism.resort">Rezort</string>
 	<string name="type.tourism.theme_park">Zábavný park</string>
 	<string name="type.tourism.viewpoint">Vyhliadka</string>
+	<!-- Typically more basic, not staffed and free (compared to alpine_hut). -->
 	<string name="type.tourism.wilderness_hut">Chata</string>
 	<string name="type.tourism.zoo">Zoologická záhrada</string>
 	<string name="type.tourism.zoo.petting">Kontaktná zoo</string>

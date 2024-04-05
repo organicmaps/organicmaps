@@ -948,6 +948,7 @@
 	<string name="type.amenity.restaurant">Restaurant</string>
 	<string name="type.amenity.sanitary_dump_station">Caravantoilet cassette-leegpunt</string>
 	<string name="type.amenity.school">School</string>
+	<!-- Weather shelter (including sun shelters and natural rock shelters). -->
 	<string name="type.amenity.shelter">Beschutting</string>
 	<string name="type.amenity.public_bath">Publiek bad</string>
 	<string name="type.amenity.shower">Douche</string>
@@ -2045,6 +2046,7 @@
 	<string name="type.sport.pelota">Baskische peloton</string>
 	<string name="type.tourism">Tourisme</string>
 	<string name="type.tourism.aquarium">Aquarium</string>
+	<!-- Typically serviced, staff is present and food is available (compared to wilderness_hut). -->
 	<string name="type.tourism.alpine_hut">Berghut</string>
 	<string name="type.tourism.apartment">Appartementen</string>
 	<string name="type.tourism.artwork">Kunstwerk</string>
@@ -2057,6 +2059,7 @@
 	<string name="type.tourism.attraction.specified">Attractie</string>
 	<string name="type.tourism.camp_site">Kampeerterrein</string>
 	<string name="type.tourism.caravan_site">Caravan site</string>
+	<!-- A rentable countryside vacation house. -->
 	<string name="type.tourism.chalet">Vakantiehuis</string>
 	<string name="type.tourism.gallery">Galerij</string>
 	<string name="type.tourism.guest_house">Gasthuis</string>
@@ -2073,6 +2076,7 @@
 	<string name="type.tourism.resort">Complex</string>
 	<string name="type.tourism.theme_park">Attractiepark</string>
 	<string name="type.tourism.viewpoint">Uitkijkpunt</string>
+	<!-- Typically more basic, not staffed and free (compared to alpine_hut). -->
 	<string name="type.tourism.wilderness_hut">Wildernishut</string>
 	<string name="type.tourism.zoo">Dierentuin</string>
 	<string name="type.tourism.zoo.petting">Kinderboerderij</string>

@@ -903,6 +903,7 @@
 	<string name="type.recycling.scrap_metal">Resturi de metal</string>
 	<string name="type.recycling.small_appliances">Deșeuri electrice</string>
 	<string name="type.amenity.school">Școală</string>
+	<!-- Weather shelter (including sun shelters and natural rock shelters). -->
 	<string name="type.amenity.shelter">Adăpost</string>
 	<string name="type.amenity.public_bath">Baie publică</string>
 	<string name="type.amenity.shower">Duș</string>
@@ -1854,7 +1855,8 @@
 	<string name="type.sport.badminton">Badminton</string>
 	<string name="type.sport.pelota">Pilota bascilor</string>
 	<string name="type.tourism.aquarium">Acvariu</string>
-	<string name="type.tourism.alpine_hut">Cabană de munte</string>
+	<!-- Typically serviced, staff is present and food is available (compared to wilderness_hut). -->
+	<string name="type.tourism.alpine_hut">Cabana de munte</string>
 	<string name="type.tourism.apartment">Apartamente</string>
 	<string name="type.tourism.artwork">Turism</string>
 	<string name="type.tourism.artwork.architecture">Turism</string>
@@ -1865,7 +1867,8 @@
 	<string name="type.attraction.animal">Incintă pentru animale</string>
 	<string name="type.tourism.attraction.specified">Punct de atracție</string>
 	<string name="type.tourism.caravan_site">Teren pentru campare</string>
-	<string name="type.tourism.chalet">Cabană</string>
+	<!-- A rentable countryside vacation house. -->
+	<string name="type.tourism.chalet">Cabană de vacanță</string>
 	<string name="type.tourism.gallery">Galerie</string>
 	<string name="type.tourism.guest_house">Pensiune</string>
 	<string name="type.tourism.information">Informații turistice</string>
@@ -1879,6 +1882,7 @@
 	<string name="type.tourism.resort">Stațiuni</string>
 	<string name="type.tourism.theme_park">Parc de distracții</string>
 	<string name="type.tourism.viewpoint">Punct de vedere</string>
+	<!-- Typically more basic, not staffed and free (compared to alpine_hut). -->
 	<string name="type.tourism.wilderness_hut">Cabană în pădure</string>
 	<string name="type.tourism.zoo">Grădină zoologică</string>
 	<string name="type.tourism.zoo.petting">Grădina Zoologică</string>

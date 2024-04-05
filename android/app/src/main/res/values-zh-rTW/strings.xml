@@ -920,6 +920,7 @@
 	<string name="type.amenity.restaurant">餐廳</string>
 	<string name="type.amenity.sanitary_dump_station">儲液池排泄站</string>
 	<string name="type.amenity.school">學校</string>
+	<!-- Weather shelter (including sun shelters and natural rock shelters). -->
 	<string name="type.amenity.shelter">隱藏處</string>
 	<string name="type.amenity.public_bath">公共浴場</string>
 	<string name="type.amenity.shower">淋浴間</string>
@@ -1888,7 +1889,8 @@
 	<string name="type.sport.badminton">羽毛球</string>
 	<string name="type.sport.pelota">巴斯克回力球</string>
 	<string name="type.tourism.aquarium">水族館</string>
-	<string name="type.tourism.alpine_hut">山上住宿</string>
+	<!-- Typically serviced, staff is present and food is available (compared to wilderness_hut). -->
+	<string name="type.tourism.alpine_hut">山間小屋</string>
 	<string name="type.tourism.apartment">公寓</string>
 	<string name="type.tourism.artwork">藝術品</string>
 	<string name="type.tourism.artwork.architecture">藝術品</string>
@@ -1900,7 +1902,8 @@
 	<string name="type.tourism.attraction.specified">景點</string>
 	<string name="type.tourism.camp_site">露營</string>
 	<string name="type.tourism.caravan_site">營區</string>
-	<string name="type.tourism.chalet">木屋</string>
+	<!-- A rentable countryside vacation house. -->
+	<string name="type.tourism.chalet">度假小屋</string>
 	<string name="type.tourism.gallery">旅遊景點</string>
 	<string name="type.tourism.guest_house">賓館</string>
 	<string name="type.tourism.hostel">旅舍</string>
@@ -1917,6 +1920,7 @@
 	<string name="type.tourism.resort">度假酒店</string>
 	<string name="type.tourism.theme_park">旅遊景點</string>
 	<string name="type.tourism.viewpoint">視野</string>
+	<!-- Typically more basic, not staffed and free (compared to alpine_hut). -->
 	<string name="type.tourism.wilderness_hut">山屋</string>
 	<string name="type.tourism.zoo">動物園</string>
 	<string name="type.tourism.zoo.petting">寵物動物園</string>

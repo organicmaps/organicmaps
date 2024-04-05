@@ -1566,6 +1566,7 @@
 
 "type.amenity.school" = "Okul";
 
+/* Weather shelter (including sun shelters and natural rock shelters). */
 "type.amenity.shelter" = "Barınak";
 
 "type.amenity.public_bath" = "Hamam";
@@ -3749,7 +3750,8 @@
 
 "type.tourism.aquarium" = "Akvaryum";
 
-"type.tourism.alpine_hut" = "Dağda Konaklama";
+/* Typically serviced, staff is present and food is available (compared to wilderness_hut). */
+"type.tourism.alpine_hut" = "Dağ Köşkü";
 
 "type.tourism.apartment" = "Apart Otel";
 
@@ -3773,7 +3775,8 @@
 
 "type.tourism.caravan_site" = "Karavan Parkı";
 
-"type.tourism.chalet" = "Dağ Evi";
+/* A rentable countryside vacation house. */
+"type.tourism.chalet" = "Tatil Kulübesi";
 
 "type.tourism.gallery" = "Galeri";
 
@@ -3807,6 +3810,7 @@
 
 "type.tourism.viewpoint" = "Manzara";
 
+/* Typically more basic, not staffed and free (compared to alpine_hut). */
 "type.tourism.wilderness_hut" = "Vahşi Doğa Kulübesi";
 
 "type.tourism.zoo" = "Hayvanat Bahçesi";

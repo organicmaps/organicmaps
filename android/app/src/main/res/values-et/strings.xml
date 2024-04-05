@@ -943,6 +943,7 @@
 	<string name="type.amenity.restaurant">Restoran</string>
 	<string name="type.amenity.sanitary_dump_station">Hoidmispaagi prügila</string>
 	<string name="type.amenity.school">Kool</string>
+	<!-- Weather shelter (including sun shelters and natural rock shelters). -->
 	<string name="type.amenity.shelter">Varjupaik</string>
 	<string name="type.amenity.public_bath">Avalik vann</string>
 	<string name="type.amenity.shower">Dušš</string>
@@ -2042,7 +2043,8 @@
 	<string name="type.sport.pelota">Baski pelota</string>
 	<string name="type.tourism">Turism</string>
 	<string name="type.tourism.aquarium">Akvaarium</string>
-	<string name="type.tourism.alpine_hut">Mägimajutus</string>
+	<!-- Typically serviced, staff is present and food is available (compared to wilderness_hut). -->
+	<string name="type.tourism.alpine_hut">Mägimajake</string>
 	<string name="type.tourism.apartment">Korterid</string>
 	<string name="type.tourism.artwork">Kunstiteos</string>
 	<string name="type.tourism.artwork.architecture">Kunstiteos - arhitektuur</string>
@@ -2054,7 +2056,8 @@
 	<string name="type.tourism.attraction.specified">Turismiatraktsioon</string>
 	<string name="type.tourism.camp_site">Telkimine</string>
 	<string name="type.tourism.caravan_site">Haagiselamute park</string>
-	<string name="type.tourism.chalet">Suvila</string>
+	<!-- A rentable countryside vacation house. -->
+	<string name="type.tourism.chalet">Puhkemaja</string>
 	<string name="type.tourism.gallery">Galerii</string>
 	<string name="type.tourism.guest_house">Külalistemaja</string>
 	<string name="type.tourism.hostel">Hostel</string>
@@ -2071,6 +2074,7 @@
 	<string name="type.tourism.resort">Kuurort</string>
 	<string name="type.tourism.theme_park">Teemapark</string>
 	<string name="type.tourism.viewpoint">Vaatluskoht</string>
+	<!-- Typically more basic, not staffed and free (compared to alpine_hut). -->
 	<string name="type.tourism.wilderness_hut">Loodusonn</string>
 	<string name="type.tourism.zoo">Loomaaed</string>
 	<string name="type.tourism.zoo.petting">Lemmikloomaaed</string>

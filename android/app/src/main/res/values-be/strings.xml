@@ -863,6 +863,8 @@
 	<string name="type.recycling.green_waste">Арганіка / Харчовыя адходы</string>
 	<string name="type.recycling.cartons">Тэтрапак і аналагі</string>
 	<string name="type.amenity.sanitary_dump_station">Зліў для прыбіральняў транспартных сродкаў</string>
+	<!-- Weather shelter (including sun shelters and natural rock shelters). -->
+	<string name="type.amenity.shelter">Навес</string>
 	<string name="type.amenity.public_bath">Грамадская лазня</string>
 	<string name="type.amenity.stripclub">Стрыптыз-клуб</string>
 	<string name="type.amenity.townhall">Адміністрацыя</string>
@@ -1326,14 +1328,20 @@
 	<string name="type.sport.badminton">Бадмінтон</string>
 	<string name="type.sport.pelota">Баскская пелота</string>
 	<string name="type.tourism.aquarium">Акварыум</string>
+	<!-- Typically serviced, staff is present and food is available (compared to wilderness_hut). -->
+	<string name="type.tourism.alpine_hut">Горны прытулак з абслугоўваннем</string>
 	<string name="type.attraction.animal">Вальера для жывёл</string>
 	<string name="type.tourism.caravan_site">Кемпінг для аўтадамоў</string>
+	<!-- A rentable countryside vacation house. -->
+	<string name="type.tourism.chalet">Катэдж для адпачынку</string>
 	<string name="type.tourism.information">Турыстычная інфармацыя</string>
 	<string name="type.tourism.information.board">Інфармацыйны шчыт</string>
 	<string name="type.tourism.information.guidepost">Даведнік</string>
 	<string name="type.tourism.information.map">Карта</string>
 	<string name="type.tourism.information.office">Турыстычны офіс</string>
 	<string name="type.tourism.information.visitor_centre">Цэнтр для наведвальнікаў</string>
+	<!-- Typically more basic, not staffed and free (compared to alpine_hut). -->
+	<string name="type.tourism.wilderness_hut">Турыстычная хатка</string>
 	<string name="type.tourism.zoo.petting">Хатні заапарк</string>
 	<string name="type.waterway.fish_pass">Рыбаход</string>
 	<string name="type.natural.water.ditch">Дрэнажная канава</string>

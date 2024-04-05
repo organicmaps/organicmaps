@@ -884,6 +884,7 @@
 	<string name="type.recycling.small_appliances">پسماند الکترونیکی</string>
 	<string name="type.amenity.restaurant">غذا</string>
 	<string name="type.amenity.school">مدرسه</string>
+	<!-- Weather shelter (including sun shelters and natural rock shelters). -->
 	<string name="type.amenity.shelter">پناهگاه</string>
 	<string name="type.amenity.public_bath">حمام عمومی</string>
 	<string name="type.amenity.shower">حمام</string>
@@ -1753,6 +1754,8 @@
 	<string name="type.sport.badminton">ﻥﻮﺘﻨﯿﻣﺪﺑ</string>
 	<string name="type.sport.pelota">ﯽﮑﺳﺎﺑ ﯼﺎﺗﻮﻠﭘ</string>
 	<string name="type.tourism.aquarium">آکواریوم</string>
+	<!-- Typically serviced, staff is present and food is available (compared to wilderness_hut). -->
+	<string name="type.tourism.alpine_hut">اقامتگاه کوهستانی</string>
 	<string name="type.tourism.apartment">اپارتمان</string>
 	<string name="type.tourism.artwork">گردشگری</string>
 	<string name="type.tourism.artwork.architecture">گردشگری</string>
@@ -1763,7 +1766,8 @@
 	<string name="type.attraction.animal">محوطه حیوانات</string>
 	<string name="type.tourism.attraction.specified">گردشگری</string>
 	<string name="type.tourism.camp_site">محل چادر زنی</string>
-	<string name="type.tourism.chalet">هتل</string>
+	<!-- A rentable countryside vacation house. -->
+	<string name="type.tourism.chalet">کلبه تعطیلات</string>
 	<string name="type.tourism.gallery">گالری</string>
 	<string name="type.tourism.guest_house">هتل</string>
 	<string name="type.tourism.hostel">هتل</string>
@@ -1780,6 +1784,7 @@
 	<string name="type.tourism.resort">هتل</string>
 	<string name="type.tourism.theme_park">گردشگری</string>
 	<string name="type.tourism.viewpoint">گردشگری</string>
+	<!-- Typically more basic, not staffed and free (compared to alpine_hut). -->
 	<string name="type.tourism.wilderness_hut">کلبه‌ی صحرایی</string>
 	<string name="type.tourism.zoo">گردشگری</string>
 	<string name="type.tourism.zoo.petting">باغ وحش پتینگ</string>

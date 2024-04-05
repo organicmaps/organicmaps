@@ -836,6 +836,8 @@
 
 	<!-- SECTION: Types: Recycling -->
 	<string name="type.recycling.batteries">תוללוס</string>
+	<!-- Weather shelter (including sun shelters and natural rock shelters). -->
+	<string name="type.amenity.shelter">מחסה</string>
 	<string name="type.amenity.public_bath">אמבטיה ציבורית</string>
 	<string name="type.amenity.stripclub">מועדון חשפנות</string>
 	<string name="type.amenity.vehicle_inspection">לבדיקה טכנית</string>
@@ -1324,13 +1326,19 @@
 	<string name="type.sport.badminton">תיצונ</string>
 	<string name="type.sport.pelota">תיקסאב הטלפ</string>
 	<string name="type.tourism.aquarium">אַקוַרִיוּם</string>
+	<!-- Typically serviced, staff is present and food is available (compared to wilderness_hut). -->
+	<string name="type.tourism.alpine_hut">בקתת הרים</string>
 	<string name="type.attraction.animal">מתחם בעלי חיים</string>
+	<!-- A rentable countryside vacation house. -->
+	<string name="type.tourism.chalet">בית נופש</string>
 	<string name="type.tourism.information">מידע לתייר</string>
 	<string name="type.tourism.information.board">לוח מידע</string>
 	<string name="type.tourism.information.guidepost">מנחה</string>
 	<string name="type.tourism.information.map">מפת תיירות</string>
 	<string name="type.tourism.information.office">משרד תיירות</string>
 	<string name="type.tourism.information.visitor_centre">מרכז מבקרים</string>
+	<!-- Typically more basic, not staffed and free (compared to alpine_hut). -->
+	<string name="type.tourism.wilderness_hut">בקתה לא מאוישת</string>
 	<string name="type.tourism.zoo.petting">פינת חי</string>
 	<string name="type.waterway.fish_pass">סולם דגים</string>
 	<string name="type.natural.water.ditch">תעלת ניקוז</string>

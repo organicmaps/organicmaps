@@ -1566,6 +1566,7 @@
 
 "type.amenity.school" = "學校";
 
+/* Weather shelter (including sun shelters and natural rock shelters). */
 "type.amenity.shelter" = "隱藏處";
 
 "type.amenity.public_bath" = "公共浴場";
@@ -3749,7 +3750,8 @@
 
 "type.tourism.aquarium" = "水族館";
 
-"type.tourism.alpine_hut" = "山上住宿";
+/* Typically serviced, staff is present and food is available (compared to wilderness_hut). */
+"type.tourism.alpine_hut" = "山間小屋";
 
 "type.tourism.apartment" = "公寓";
 
@@ -3773,7 +3775,8 @@
 
 "type.tourism.caravan_site" = "營區";
 
-"type.tourism.chalet" = "木屋";
+/* A rentable countryside vacation house. */
+"type.tourism.chalet" = "度假小屋";
 
 "type.tourism.gallery" = "旅遊景點";
 
@@ -3807,6 +3810,7 @@
 
 "type.tourism.viewpoint" = "視野";
 
+/* Typically more basic, not staffed and free (compared to alpine_hut). */
 "type.tourism.wilderness_hut" = "山屋";
 
 "type.tourism.zoo" = "動物園";

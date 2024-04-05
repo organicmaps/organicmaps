@@ -949,6 +949,7 @@
 	<string name="type.recycling.cartons">Edateko kartoiak</string>
 	<string name="type.amenity.restaurant">Jatetxea</string>
 	<string name="type.amenity.school">Eskola</string>
+	<!-- Weather shelter (including sun shelters and natural rock shelters). -->
 	<string name="type.amenity.shelter">Aterpea</string>
 	<string name="type.amenity.public_bath">Bainu Publikoa</string>
 	<string name="type.amenity.shower">Dutxa</string>
@@ -1947,10 +1948,11 @@
 	<string name="type.sport.ice_hockey">Izotz hockey</string>
 	<string name="type.sport.field_hockey">Belar hockey</string>
 	<string name="type.sport.badminton">Badminton</string>
-	<string name="type.sport.pelota">Eusko pilota</string>
+	<string name="type.sport.pelota">Euskal pilota</string>
 	<string name="type.tourism">Turismoa</string>
 	<string name="type.tourism.aquarium">Aquariuma</string>
-	<string name="type.tourism.alpine_hut">Kabina</string>
+	<!-- Typically serviced, staff is present and food is available (compared to wilderness_hut). -->
+	<string name="type.tourism.alpine_hut">Mendiko ostatua</string>
 	<string name="type.tourism.apartment">Apartamentuak</string>
 	<string name="type.tourism.artwork">Artelanak</string>
 	<string name="type.tourism.artwork.architecture">Artelanak</string>
@@ -1962,7 +1964,8 @@
 	<string name="type.tourism.attraction.specified">Erakarpen turistikoa</string>
 	<string name="type.tourism.camp_site">Kanpalekua</string>
 	<string name="type.tourism.caravan_site">Karabana gunea</string>
-	<string name="type.tourism.chalet">Txaleta</string>
+	<!-- A rentable countryside vacation house. -->
+	<string name="type.tourism.chalet">Oporretako Etxea</string>
 	<string name="type.tourism.gallery">Turismoa</string>
 	<string name="type.tourism.guest_house">Ostatua</string>
 	<string name="type.tourism.hostel">Gazteen aterpetxea</string>
@@ -1976,6 +1979,7 @@
 	<string name="type.tourism.picnic_site">Piknika</string>
 	<string name="type.tourism.theme_park">Parke tematiko</string>
 	<string name="type.tourism.viewpoint">Bista panoramikoa</string>
+	<!-- Typically more basic, not staffed and free (compared to alpine_hut). -->
 	<string name="type.tourism.wilderness_hut">Kabina</string>
 	<string name="type.tourism.zoo.petting">Petting Zoo</string>
 	<string name="type.waterway.fish_pass">Arrainen eskailera</string>

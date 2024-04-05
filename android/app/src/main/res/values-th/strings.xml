@@ -884,6 +884,7 @@
 	<string name="type.recycling.small_appliances">ขยะอิเล็กทรอนิกส์</string>
 	<string name="type.amenity.restaurant">ร้านอาหาร</string>
 	<string name="type.amenity.school">โรงเรียน</string>
+	<!-- Weather shelter (including sun shelters and natural rock shelters). -->
 	<string name="type.amenity.shelter">ที่อยู่อาศัย</string>
 	<string name="type.amenity.public_bath">ห้องอาบน้ำสาธารณะ</string>
 	<string name="type.amenity.shower">ฝักบัวอาบน้ำ</string>
@@ -1837,7 +1838,8 @@
 	<string name="type.sport.badminton">แบดมินตัน</string>
 	<string name="type.sport.pelota">Basque pelota</string>
 	<string name="type.tourism.aquarium">พิพิธภัณฑ์สัตว์น้ำ</string>
-	<string name="type.tourism.alpine_hut">ที่พักบนภูเขาโรงแรม</string>
+	<!-- Typically serviced, staff is present and food is available (compared to wilderness_hut). -->
+	<string name="type.tourism.alpine_hut">บ้านพักบนภูเขา</string>
 	<string name="type.tourism.apartment">อพาร์ตเมนต์</string>
 	<string name="type.tourism.artwork">งานศิลปะ</string>
 	<string name="type.tourism.artwork.architecture">งานศิลปะ</string>
@@ -1849,7 +1851,8 @@
 	<string name="type.tourism.attraction.specified">การท่องเที่ยว</string>
 	<string name="type.tourism.camp_site">การตั้งแคมป์</string>
 	<string name="type.tourism.caravan_site">ขบวนนักเดินทาง</string>
-	<string name="type.tourism.chalet">ชาเลต์</string>
+	<!-- A rentable countryside vacation house. -->
+	<string name="type.tourism.chalet">กระท่อมวันหยุด</string>
 	<string name="type.tourism.gallery">สถานที่ท่องเที่ยว</string>
 	<string name="type.tourism.guest_house">เกสท์เฮ้าส์</string>
 	<string name="type.tourism.hostel">หอพัก</string>
@@ -1866,6 +1869,7 @@
 	<string name="type.tourism.resort">รีสอร์ต</string>
 	<string name="type.tourism.theme_park">สถานที่ท่องเที่ยว</string>
 	<string name="type.tourism.viewpoint">จุดชมวิว</string>
+	<!-- Typically more basic, not staffed and free (compared to alpine_hut). -->
 	<string name="type.tourism.wilderness_hut">กระท่อมกลางป่า</string>
 	<string name="type.tourism.zoo">สวนสัตว์</string>
 	<string name="type.tourism.zoo.petting">สวนสัตว์ลูบคลำ</string>
