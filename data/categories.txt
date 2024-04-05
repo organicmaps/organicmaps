@@ -6447,9 +6447,10 @@ fa:مدرسه
 mr:शाळा
 
 amenity-shelter
-en:4Shelter
-ru:4Укрытие|навес
-bg:Подслон|Убежище|заслон
+en:4Shelter|refuge
+ru:4Укрытие|навес|4убежище
+be:4Прытулак
+bg:4Подслон|Убежище|4заслон
 ar:ملجأ
 cs:Přístřešek|úkryt
 da:Shelter|læskur|hytte
@@ -7696,9 +7697,10 @@ sk:3Motel|penzión|hostel|ubytovňa
 fa:مُتل
 
 tourism-alpine_hut|@category_hotel
-en:Mountains Lodging|hotel|hostel|alpine hut|U+1F3E8|camp
-ru:Горный отель|отель|горный отдых|турбаза|база отдыха
-bg:хотел|база|отдих|туризъм
+en:5Mountain Lodge|5backcountry hut|hut|lodge|alpine hut
+ru:4Горный приют|туристический домик|3хижина|4турприют|4приют|горный отель|горный хостел
+be:4Горны прытулак|4турыстычная хатка|турыстычны прытулак|4прытулак
+bg:4Планинска хижа|4туристическа хижа|3хижа|кабина|къща
 ar:مساكن جبلية|فندق|الفندق
 cs:4Ubytování v horách|Horská chata|horský hotel|hotel
 da:Bjerg logi|hotel
@@ -7722,7 +7724,7 @@ eu:4Kabina|alpetar kabina|mendiko hotela|hotela
 sv:Bergsboende|hotell|vandrarhem|fjällstuga
 th:2ที่พักบนภูเขาโรงแรม
 tr:3Dağda konaklama|otel
-uk:Гірський готель|гірська хатинка|готель
+uk:4Гірський притулок|4будиночок|3хибара|турпритулок|4притулок|гірський готель|гірська хатинка
 vi:Nhà ở trên núi|khách sạn
 zh-Hans:山上住宿|旅馆|旅店
 zh-Hant:1山上住宿|飯店|旅館|住宿|旅舍|2高山住宿
@@ -12992,39 +12994,45 @@ fa:لوازم یدکی
 mr:कारचे भाग|गाडीचे स्पेर पार्ट
 
 tourism-chalet|@category_hotel
-en:4Chalet|5holiday cottage|vacation home
-ru:3Шале|коттедж|дом отдыха
-bg:Хижа|3Шале|туризъм
-ar:شاليه
-cs:4Chalet|Horská chata
-da:Hytte
-nl:4Chalet
-fi:Mökki
-fr:4Chalet|Meublé de tourisme
-de:Hütte
-hi:3षाले
-hu:Nyaralóház|Kulcsosház
-id:4Chalet
-it:4Chalet
-ja:シャレー|山小屋
-ko:샬레|방갈로|산장
-nb:4Chalet
+en:5Holiday Cottage|5vacation home
+ar:عطلة المنزلية
+be:Катэдж для адпачынку
+bg:Ваканционна вила
+ca:Casa rural de vacances
+cs:Rekreační chata
+da:Feriehus
+de:Ferienhäuschen
+el:Εξοχικό σπίτι διακοπών
+es:Casa de vacaciones
+es-MX:Cabaña de vacaciones
+et:Puhkemaja
+eu:Oporretako Etxea
+fa:کلبه تعطیلات
+fi:Lomamökki
+fr:Chalet de vacances
+he:קוטג' נופש
+hi:हॉलिडे कॉटेज
+hu:Nyaraló házikó
+id:Pondok Liburan
+it:Cottage per le vacanze
+ja:ホリデー・コテージ
+ko:홀리데이 코티지
+mr:हॉलिडे कॉटेज
+nb:Feriehus
+nl:Vakantiehuis
 pl:Domek letniskowy
-pt:4Chalé
-pt-BR:4Chalé
-ro:4Cabană
-es:4Chalé
-et:Suvila
-eu:4Txaleta
-sv:Stuga
-th:ชาเลต์
-tr:Dağ evi
-uk:3Шале
-zh-Hans:木屋
-zh-Hant:木屋
-el:Σαλέ
-sk:4Chata
-fa:کلبه
+pt:Casa de férias
+ro:Cabană de vacanță
+ru:Коттедж для отдыха
+sk:Rekreačná chata
+sv:Semesterstuga
+sw:Nyumba ndogo ya Likizo
+th:กระท่อมวันหยุด
+tr:Tatil Kulübesi
+uk:Котедж для відпочинку
+vi:Nha nghi
+zh-Hans:度假别墅
+zh-Hant:度假小屋
 
 tourism-information-board
 en:Information Board
@@ -14868,9 +14876,10 @@ fa:فروشگاه بازی‌های رایانه‌ای
 mr:व्हिडिओ गेमचे दुकान
 
 tourism-wilderness_hut|@category_hotel
-en:4Wilderness Hut|5backcountry hut|hut
-ru:Хижина в лесу|3хижина
-bg:Хижа в дивата природа|3Хижа|Хижа в гората|Кабина|къща
+en:4Wilderness Hut|5backcountry hut|hut|mountain hut|bothy|bivvy
+ru:4Домик для туристов|3туристический приют|3хижина|турприют|4приют
+be:Турыстычная хатка|турыстычны прытулак|прытулак
+bg:3Хижа-заслон|заслон|кабина|къща|хижа
 ar:كوخ برية
 cs:Chata v divočině
 da:Vildmarkshytte
@@ -14897,7 +14906,7 @@ sv:Vildmarksstuga
 sw:Kibanda cha Mwituni
 th:กระท่อมกลางป่า
 tr:Vahşi Doğa Kulübesi
-uk:3Хибара
+uk:4Хатка для туристів|5будиночок|3хибара|3турпритулок|притулок|гірська хатинка
 vi:Nhà tạm trú
 zh-Hans:荒野小屋
 zh-Hant:山屋
