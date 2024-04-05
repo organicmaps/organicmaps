@@ -1016,24 +1016,12 @@
 	<string name="type.barrier.wall">جدار</string>
 	<string name="type.boundary">حدود</string>
 	<string name="type.boundary.administrative">حدود إدارية</string>
-	<string name="type.boundary.administrative.10">حدود إدارية</string>
-	<string name="type.boundary.administrative.11">حدود إدارية</string>
+	<!-- Borders between countries. -->
 	<string name="type.boundary.administrative.2">حدود دولية</string>
-	<string name="type.boundary.administrative.3">حدود إدارية</string>
-	<string name="type.boundary.administrative.4">حدود إدارية</string>
-	<string name="type.boundary.administrative.5">حدود إدارية</string>
-	<string name="type.boundary.administrative.6">حدود إدارية</string>
-	<string name="type.boundary.administrative.7">حدود إدارية</string>
-	<string name="type.boundary.administrative.8">حدود إدارية</string>
-	<string name="type.boundary.administrative.9">حدود إدارية</string>
-	<string name="type.boundary.administrative.city">حدود مدينة</string>
-	<string name="type.boundary.administrative.country">حدود دولية</string>
-	<string name="type.boundary.administrative.county">حدود مقاطعة</string>
-	<string name="type.boundary.administrative.municipality">حدود بلدية</string>
-	<string name="type.boundary.administrative.nation">حدود دولية</string>
-	<string name="type.boundary.administrative.region">حدود منطقة</string>
-	<string name="type.boundary.administrative.state">حدود محافظة</string>
-	<string name="type.boundary.administrative.suburb">حدود ضاحية</string>
+	<!-- Country's primary subdivision borders, e.g. between regions, provinces, states.. -->
+	<string name="type.boundary.administrative.3">حدود منطقة</string>
+	<!-- Country's primary subdivision borders, e.g. between regions, provinces, states.. -->
+	<string name="type.boundary.administrative.4">حدود منطقة</string>
 	<string name="type.boundary.national_park">منتزه وطني</string>
 	<string name="type.boundary.aboriginal_lands">أراضي السكان الأصليين</string>
 	<string name="type.boundary.protected_area">منطقة محمية</string>

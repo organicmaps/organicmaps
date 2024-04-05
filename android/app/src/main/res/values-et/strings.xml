@@ -997,24 +997,12 @@
 	<string name="type.barrier.wall">Müür</string>
 	<string name="type.boundary">Piir</string>
 	<string name="type.boundary.administrative">Halduspiir</string>
-	<string name="type.boundary.administrative.10">Halduspiir</string>
-	<string name="type.boundary.administrative.11">Halduspiir</string>
+	<!-- Borders between countries. -->
 	<string name="type.boundary.administrative.2">Riigipiir</string>
-	<string name="type.boundary.administrative.3">Halduspiir</string>
-	<string name="type.boundary.administrative.4">Halduspiir</string>
-	<string name="type.boundary.administrative.5">Halduspiir</string>
-	<string name="type.boundary.administrative.6">Halduspiir</string>
-	<string name="type.boundary.administrative.7">Halduspiir</string>
-	<string name="type.boundary.administrative.8">Halduspiir</string>
-	<string name="type.boundary.administrative.9">Halduspiir</string>
-	<string name="type.boundary.administrative.city">Linna piir</string>
-	<string name="type.boundary.administrative.country">Riigipiir</string>
-	<string name="type.boundary.administrative.county">Maakonna piir</string>
-	<string name="type.boundary.administrative.municipality">Valla piir</string>
-	<string name="type.boundary.administrative.nation">Riigipiir</string>
-	<string name="type.boundary.administrative.region">Piirkondlik piir</string>
-	<string name="type.boundary.administrative.state">Osariigi piir</string>
-	<string name="type.boundary.administrative.suburb">Eeslinna piir</string>
+	<!-- Country's primary subdivision borders, e.g. between regions, provinces, states.. -->
+	<string name="type.boundary.administrative.3">Piirkondlik piir</string>
+	<!-- Country's primary subdivision borders, e.g. between regions, provinces, states.. -->
+	<string name="type.boundary.administrative.4">Piirkondlik piir</string>
 	<string name="type.boundary.national_park">Rahvuspark</string>
 	<string name="type.boundary.aboriginal_lands">Põlisrahvaste maad</string>
 	<string name="type.boundary.protected_area">Kaitseala</string>

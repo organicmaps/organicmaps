@@ -278,9 +278,8 @@
 	<string name="type.recycling.scrap_metal">Desechos de metal</string>
 	<string name="type.recycling.small_appliances">Desechos electrónicos</string>
 	<string name="type.amenity.vending_machine.public_transport_tickets">Máquina expendedora de billetes de transporte público</string>
+	<!-- Borders between countries. -->
 	<string name="type.boundary.administrative.2">Frontera de país</string>
-	<string name="type.boundary.administrative.country">Frontera de país</string>
-	<string name="type.boundary.administrative.nation">Frontera de país</string>
 	<string name="type.boundary.national_park">Parque nacional</string>
 	<!-- Duplicates [address] in strings.txt -->
 	<string name="type.building.address">Dirección</string>

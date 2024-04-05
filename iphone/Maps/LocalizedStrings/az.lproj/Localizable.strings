@@ -1674,41 +1674,14 @@
 
 "type.boundary.administrative" = "İnzibati sərhəd";
 
-"type.boundary.administrative.10" = "İnzibati sərhəd";
-
-"type.boundary.administrative.11" = "İnzibati sərhəd";
-
+/* Borders between countries. */
 "type.boundary.administrative.2" = "Milli sərhəd";
 
-"type.boundary.administrative.3" = "İnzibati sərhəd";
+/* Country's primary subdivision borders, e.g. between regions, provinces, states.. */
+"type.boundary.administrative.3" = "Regional sərhəd";
 
-"type.boundary.administrative.4" = "İnzibati sərhəd";
-
-"type.boundary.administrative.5" = "İnzibati sərhəd";
-
-"type.boundary.administrative.6" = "İnzibati sərhəd";
-
-"type.boundary.administrative.7" = "İnzibati sərhəd";
-
-"type.boundary.administrative.8" = "İnzibati sərhəd";
-
-"type.boundary.administrative.9" = "İnzibati sərhəd";
-
-"type.boundary.administrative.city" = "Şəhər limiti";
-
-"type.boundary.administrative.country" = "Milli sərhəd";
-
-"type.boundary.administrative.county" = "Rayon sərhədi";
-
-"type.boundary.administrative.municipality" = "Bələdiyyə sərhədi";
-
-"type.boundary.administrative.nation" = "Milli sərhəd";
-
-"type.boundary.administrative.region" = "Regional sərhəd";
-
-"type.boundary.administrative.state" = "Dövlət sərhədi";
-
-"type.boundary.administrative.suburb" = "Qonşuluq sərhədi";
+/* Country's primary subdivision borders, e.g. between regions, provinces, states.. */
+"type.boundary.administrative.4" = "Regional sərhəd";
 
 "type.boundary.national_park" = "Milli park";
 

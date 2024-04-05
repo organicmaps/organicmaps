@@ -989,15 +989,6 @@
 	<string name="type.barrier.wall">壁</string>
 	<string name="type.boundary">境界線</string>
 	<string name="type.boundary.administrative">行政境界</string>
-	<string name="type.boundary.administrative.10">行政境界</string>
-	<string name="type.boundary.administrative.11">行政境界</string>
-	<string name="type.boundary.administrative.3">行政境界</string>
-	<string name="type.boundary.administrative.4">行政境界</string>
-	<string name="type.boundary.administrative.5">行政境界</string>
-	<string name="type.boundary.administrative.6">行政境界</string>
-	<string name="type.boundary.administrative.7">行政境界</string>
-	<string name="type.boundary.administrative.8">行政境界</string>
-	<string name="type.boundary.administrative.9">行政境界</string>
 	<string name="type.boundary.national_park">国立公園</string>
 	<string name="type.boundary.aboriginal_lands">先住民の土地</string>
 	<string name="type.boundary.protected_area">保護区域</string>

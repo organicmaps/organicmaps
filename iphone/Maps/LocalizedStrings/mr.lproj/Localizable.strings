@@ -1674,41 +1674,14 @@
 
 "type.boundary.administrative" = "प्रशासकीय सीमा";
 
-"type.boundary.administrative.10" = "प्रशासकीय सीमा";
-
-"type.boundary.administrative.11" = "प्रशासकीय सीमा";
-
+/* Borders between countries. */
 "type.boundary.administrative.2" = "राष्ट्रीय सीमा";
 
-"type.boundary.administrative.3" = "प्रशासकीय सीमा";
+/* Country's primary subdivision borders, e.g. between regions, provinces, states.. */
+"type.boundary.administrative.3" = "प्रादेशिक सीमा";
 
-"type.boundary.administrative.4" = "प्रशासकीय सीमा";
-
-"type.boundary.administrative.5" = "प्रशासकीय सीमा";
-
-"type.boundary.administrative.6" = "प्रशासकीय सीमा";
-
-"type.boundary.administrative.7" = "प्रशासकीय सीमा";
-
-"type.boundary.administrative.8" = "प्रशासकीय सीमा";
-
-"type.boundary.administrative.9" = "प्रशासकीय सीमा";
-
-"type.boundary.administrative.city" = "शहराची सीमा";
-
-"type.boundary.administrative.country" = "राष्ट्रीय सीमा";
-
-"type.boundary.administrative.county" = "परगणा सीमा";
-
-"type.boundary.administrative.municipality" = "नगरपालिकेची सीमा";
-
-"type.boundary.administrative.nation" = "राष्ट्रीय सीमा";
-
-"type.boundary.administrative.region" = "प्रादेशिक सीमा";
-
-"type.boundary.administrative.state" = "राज्य सीमा";
-
-"type.boundary.administrative.suburb" = "उपनगर सीमा";
+/* Country's primary subdivision borders, e.g. between regions, provinces, states.. */
+"type.boundary.administrative.4" = "प्रादेशिक सीमा";
 
 "type.boundary.national_park" = "राष्ट्रीय उद्यान";
 

@@ -1001,24 +1001,12 @@
 	<string name="type.barrier.wall">Horma</string>
 	<string name="type.boundary">Muga</string>
 	<string name="type.boundary.administrative">Muga administratiboa</string>
-	<string name="type.boundary.administrative.10">Muga administratiboa</string>
-	<string name="type.boundary.administrative.11">Muga administratiboa</string>
+	<!-- Borders between countries. -->
 	<string name="type.boundary.administrative.2">Herrialdeko muga</string>
-	<string name="type.boundary.administrative.3">Muga administratiboa</string>
-	<string name="type.boundary.administrative.4">Muga administratiboa</string>
-	<string name="type.boundary.administrative.5">Muga administratiboa</string>
-	<string name="type.boundary.administrative.6">Muga administratiboa</string>
-	<string name="type.boundary.administrative.7">Muga administratiboa</string>
-	<string name="type.boundary.administrative.8">Muga administratiboa</string>
-	<string name="type.boundary.administrative.9">Muga administratiboa</string>
-	<string name="type.boundary.administrative.city">Hiriko muga</string>
-	<string name="type.boundary.administrative.country">Herrialdeko muga</string>
-	<string name="type.boundary.administrative.county">Eskualdeko muga</string>
-	<string name="type.boundary.administrative.municipality">Udalerriko muga</string>
-	<string name="type.boundary.administrative.nation">Nazio muga</string>
-	<string name="type.boundary.administrative.region">Eskualdeko muga</string>
-	<string name="type.boundary.administrative.state">Estatuko muga</string>
-	<string name="type.boundary.administrative.suburb">Auzoko muga</string>
+	<!-- Country's primary subdivision borders, e.g. between regions, provinces, states.. -->
+	<string name="type.boundary.administrative.3">Eskualdeko muga</string>
+	<!-- Country's primary subdivision borders, e.g. between regions, provinces, states.. -->
+	<string name="type.boundary.administrative.4">Eskualdeko muga</string>
 	<string name="type.boundary.national_park">Parke Nazionala</string>
 	<string name="type.boundary.aboriginal_lands">Lurralde autoktonoak</string>
 	<string name="type.boundary.protected_area">Babestutako Eremua</string>

@@ -1674,41 +1674,14 @@
 
 "type.boundary.administrative" = "Halduspiir";
 
-"type.boundary.administrative.10" = "Halduspiir";
-
-"type.boundary.administrative.11" = "Halduspiir";
-
+/* Borders between countries. */
 "type.boundary.administrative.2" = "Riigipiir";
 
-"type.boundary.administrative.3" = "Halduspiir";
+/* Country's primary subdivision borders, e.g. between regions, provinces, states.. */
+"type.boundary.administrative.3" = "Piirkondlik piir";
 
-"type.boundary.administrative.4" = "Halduspiir";
-
-"type.boundary.administrative.5" = "Halduspiir";
-
-"type.boundary.administrative.6" = "Halduspiir";
-
-"type.boundary.administrative.7" = "Halduspiir";
-
-"type.boundary.administrative.8" = "Halduspiir";
-
-"type.boundary.administrative.9" = "Halduspiir";
-
-"type.boundary.administrative.city" = "Linna piir";
-
-"type.boundary.administrative.country" = "Riigipiir";
-
-"type.boundary.administrative.county" = "Maakonna piir";
-
-"type.boundary.administrative.municipality" = "Valla piir";
-
-"type.boundary.administrative.nation" = "Riigipiir";
-
-"type.boundary.administrative.region" = "Piirkondlik piir";
-
-"type.boundary.administrative.state" = "Osariigi piir";
-
-"type.boundary.administrative.suburb" = "Eeslinna piir";
+/* Country's primary subdivision borders, e.g. between regions, provinces, states.. */
+"type.boundary.administrative.4" = "Piirkondlik piir";
 
 "type.boundary.national_park" = "Rahvuspark";
 

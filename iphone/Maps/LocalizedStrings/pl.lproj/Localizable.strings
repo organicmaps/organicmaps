@@ -1674,41 +1674,14 @@
 
 "type.boundary.administrative" = "Granica administracyjna";
 
-"type.boundary.administrative.10" = "Granica administracyjna";
-
-"type.boundary.administrative.11" = "Granica administracyjna";
-
+/* Borders between countries. */
 "type.boundary.administrative.2" = "Granica państwa";
 
-"type.boundary.administrative.3" = "Granica administracyjna";
+/* Country's primary subdivision borders, e.g. between regions, provinces, states.. */
+"type.boundary.administrative.3" = "Granica regionu";
 
-"type.boundary.administrative.4" = "Granica administracyjna";
-
-"type.boundary.administrative.5" = "Granica administracyjna";
-
-"type.boundary.administrative.6" = "Granica administracyjna";
-
-"type.boundary.administrative.7" = "Granica administracyjna";
-
-"type.boundary.administrative.8" = "Granica administracyjna";
-
-"type.boundary.administrative.9" = "Granica administracyjna";
-
-"type.boundary.administrative.city" = "Granica miasta";
-
-"type.boundary.administrative.country" = "Granica państwa";
-
-"type.boundary.administrative.county" = "Granica hrabstwa";
-
-"type.boundary.administrative.municipality" = "Granica gminy";
-
-"type.boundary.administrative.nation" = "Granica państwa";
-
-"type.boundary.administrative.region" = "Granica regionu";
-
-"type.boundary.administrative.state" = "Granica województwa";
-
-"type.boundary.administrative.suburb" = "Granica przedmieść";
+/* Country's primary subdivision borders, e.g. between regions, provinces, states.. */
+"type.boundary.administrative.4" = "Granica regionu";
 
 "type.boundary.national_park" = "Park narodowy";
 

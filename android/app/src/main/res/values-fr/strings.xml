@@ -1001,23 +1001,12 @@
 	<string name="type.barrier.wall">Mur</string>
 	<string name="type.boundary">Frontière</string>
 	<string name="type.boundary.administrative">Frontière administrative</string>
-	<string name="type.boundary.administrative.10">Frontière administrative</string>
-	<string name="type.boundary.administrative.11">Frontière administrative</string>
+	<!-- Borders between countries. -->
 	<string name="type.boundary.administrative.2">Frontière nationale</string>
-	<string name="type.boundary.administrative.3">Frontière administrative</string>
-	<string name="type.boundary.administrative.4">Frontière administrative</string>
-	<string name="type.boundary.administrative.5">Frontière administrative</string>
-	<string name="type.boundary.administrative.6">Frontière administrative</string>
-	<string name="type.boundary.administrative.7">Frontière administrative</string>
-	<string name="type.boundary.administrative.8">Frontière administrative</string>
-	<string name="type.boundary.administrative.9">Frontière administrative</string>
-	<string name="type.boundary.administrative.city">Frontière de la ville</string>
-	<string name="type.boundary.administrative.country">Frontière nationale</string>
-	<string name="type.boundary.administrative.county">Frontière du comté</string>
-	<string name="type.boundary.administrative.municipality">Frontière de la municipalité</string>
-	<string name="type.boundary.administrative.nation">Frontière nationale</string>
-	<string name="type.boundary.administrative.region">Frontière régionale</string>
-	<string name="type.boundary.administrative.suburb">Frontière de quartier</string>
+	<!-- Country's primary subdivision borders, e.g. between regions, provinces, states.. -->
+	<string name="type.boundary.administrative.3">Frontière régionale</string>
+	<!-- Country's primary subdivision borders, e.g. between regions, provinces, states.. -->
+	<string name="type.boundary.administrative.4">Frontière régionale</string>
 	<string name="type.boundary.national_park">Parc national</string>
 	<string name="type.boundary.aboriginal_lands">Terres indigènes</string>
 	<string name="type.boundary.protected_area">Zone protégée</string>

@@ -1674,41 +1674,14 @@
 
 "type.boundary.administrative" = "行政境界";
 
-"type.boundary.administrative.10" = "行政境界";
-
-"type.boundary.administrative.11" = "行政境界";
-
+/* Borders between countries. */
 "type.boundary.administrative.2" = "National Border";
 
-"type.boundary.administrative.3" = "行政境界";
+/* Country's primary subdivision borders, e.g. between regions, provinces, states.. */
+"type.boundary.administrative.3" = "Regional Boundary";
 
-"type.boundary.administrative.4" = "行政境界";
-
-"type.boundary.administrative.5" = "行政境界";
-
-"type.boundary.administrative.6" = "行政境界";
-
-"type.boundary.administrative.7" = "行政境界";
-
-"type.boundary.administrative.8" = "行政境界";
-
-"type.boundary.administrative.9" = "行政境界";
-
-"type.boundary.administrative.city" = "City Boundary";
-
-"type.boundary.administrative.country" = "National Border";
-
-"type.boundary.administrative.county" = "County Boundary";
-
-"type.boundary.administrative.municipality" = "Municipality Boundary";
-
-"type.boundary.administrative.nation" = "National Border";
-
-"type.boundary.administrative.region" = "Regional Boundary";
-
-"type.boundary.administrative.state" = "State Boundary";
-
-"type.boundary.administrative.suburb" = "Suburb Boundary";
+/* Country's primary subdivision borders, e.g. between regions, provinces, states.. */
+"type.boundary.administrative.4" = "Regional Boundary";
 
 "type.boundary.national_park" = "国立公園";
 

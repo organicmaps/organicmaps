@@ -999,15 +999,6 @@
 	<string name="type.barrier.wall">Mauer</string>
 	<string name="type.boundary">Grenze</string>
 	<string name="type.boundary.administrative">Verwaltungsgrenze</string>
-	<string name="type.boundary.administrative.10">Verwaltungsgrenze</string>
-	<string name="type.boundary.administrative.11">Verwaltungsgrenze</string>
-	<string name="type.boundary.administrative.3">Verwaltungsgrenze</string>
-	<string name="type.boundary.administrative.4">Verwaltungsgrenze</string>
-	<string name="type.boundary.administrative.5">Verwaltungsgrenze</string>
-	<string name="type.boundary.administrative.6">Verwaltungsgrenze</string>
-	<string name="type.boundary.administrative.7">Verwaltungsgrenze</string>
-	<string name="type.boundary.administrative.8">Verwaltungsgrenze</string>
-	<string name="type.boundary.administrative.9">Verwaltungsgrenze</string>
 	<string name="type.boundary.national_park">Nationalpark</string>
 	<string name="type.boundary.aboriginal_lands">Indigene länder</string>
 	<string name="type.boundary.protected_area">Geschützter Bereich</string>

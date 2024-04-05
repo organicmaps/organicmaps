@@ -989,22 +989,12 @@
 	<string name="type.barrier.wall">Muro</string>
 	<string name="type.boundary">Confine</string>
 	<string name="type.boundary.administrative">Confine amministrativo</string>
-	<string name="type.boundary.administrative.10">Confine amministrativo</string>
-	<string name="type.boundary.administrative.11">Confine amministrativo</string>
+	<!-- Borders between countries. -->
 	<string name="type.boundary.administrative.2">Confine nazionale</string>
-	<string name="type.boundary.administrative.3">Confine amministrativo</string>
-	<string name="type.boundary.administrative.4">Confine amministrativo</string>
-	<string name="type.boundary.administrative.5">Confine amministrativo</string>
-	<string name="type.boundary.administrative.6">Confine amministrativo</string>
-	<string name="type.boundary.administrative.7">Confine amministrativo</string>
-	<string name="type.boundary.administrative.8">Confine amministrativo</string>
-	<string name="type.boundary.administrative.9">Confine amministrativo</string>
-	<string name="type.boundary.administrative.city">Confine cittadino</string>
-	<string name="type.boundary.administrative.country">Confine nazionale</string>
-	<string name="type.boundary.administrative.municipality">Confini municipale</string>
-	<string name="type.boundary.administrative.nation">Confine nazionale</string>
-	<string name="type.boundary.administrative.region">Confine regionale</string>
-	<string name="type.boundary.administrative.state">Confine statale</string>
+	<!-- Country's primary subdivision borders, e.g. between regions, provinces, states.. -->
+	<string name="type.boundary.administrative.3">Confine regionale</string>
+	<!-- Country's primary subdivision borders, e.g. between regions, provinces, states.. -->
+	<string name="type.boundary.administrative.4">Confine regionale</string>
 	<string name="type.boundary.national_park">Parco nazionale</string>
 	<string name="type.boundary.aboriginal_lands">Terre indigene</string>
 	<string name="type.boundary.protected_area">Area protetta</string>

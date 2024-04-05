@@ -1674,41 +1674,14 @@
 
 "type.boundary.administrative" = "Hallinnollinen raja";
 
-"type.boundary.administrative.10" = "Hallinnollinen raja";
-
-"type.boundary.administrative.11" = "Hallinnollinen raja";
-
+/* Borders between countries. */
 "type.boundary.administrative.2" = "Valtakunnanraja";
 
-"type.boundary.administrative.3" = "Hallinnollinen raja";
+/* Country's primary subdivision borders, e.g. between regions, provinces, states.. */
+"type.boundary.administrative.3" = "Regional Boundary";
 
-"type.boundary.administrative.4" = "Hallinnollinen raja";
-
-"type.boundary.administrative.5" = "Hallinnollinen raja";
-
-"type.boundary.administrative.6" = "Hallinnollinen raja";
-
-"type.boundary.administrative.7" = "Hallinnollinen raja";
-
-"type.boundary.administrative.8" = "Hallinnollinen raja";
-
-"type.boundary.administrative.9" = "Hallinnollinen raja";
-
-"type.boundary.administrative.city" = "Kaupunginraja";
-
-"type.boundary.administrative.country" = "Valtakunnanraja";
-
-"type.boundary.administrative.county" = "Maakunnanraja";
-
-"type.boundary.administrative.municipality" = "Kunnanraja";
-
-"type.boundary.administrative.nation" = "Valtakunnanraja";
-
-"type.boundary.administrative.region" = "Regional Boundary";
-
-"type.boundary.administrative.state" = "Osavaltion raja";
-
-"type.boundary.administrative.suburb" = "Esikaupunki";
+/* Country's primary subdivision borders, e.g. between regions, provinces, states.. */
+"type.boundary.administrative.4" = "Regional Boundary";
 
 "type.boundary.national_park" = "Kansallispuisto";
 

@@ -1008,22 +1008,12 @@
 	<string name="type.barrier.wall">Стіна</string>
 	<string name="type.boundary">Кордон</string>
 	<string name="type.boundary.administrative">Адміністративний поділ</string>
-	<string name="type.boundary.administrative.10">Адміністративний поділ</string>
-	<string name="type.boundary.administrative.11">Адміністративний поділ</string>
+	<!-- Borders between countries. -->
 	<string name="type.boundary.administrative.2">Кордон країни</string>
-	<string name="type.boundary.administrative.3">Адміністративний поділ</string>
-	<string name="type.boundary.administrative.4">Адміністративний поділ</string>
-	<string name="type.boundary.administrative.5">Адміністративний поділ</string>
-	<string name="type.boundary.administrative.6">Адміністративний поділ</string>
-	<string name="type.boundary.administrative.7">Адміністративний поділ</string>
-	<string name="type.boundary.administrative.8">Адміністративний поділ</string>
-	<string name="type.boundary.administrative.9">Адміністративний поділ</string>
-	<string name="type.boundary.administrative.city">Межа міста</string>
-	<string name="type.boundary.administrative.country">Кордон країни</string>
-	<string name="type.boundary.administrative.county">Поділ округа</string>
-	<string name="type.boundary.administrative.nation">Кордон країни</string>
-	<string name="type.boundary.administrative.region">Областний поділ</string>
-	<string name="type.boundary.administrative.suburb">Приміська межа</string>
+	<!-- Country's primary subdivision borders, e.g. between regions, provinces, states.. -->
+	<string name="type.boundary.administrative.3">Областний поділ</string>
+	<!-- Country's primary subdivision borders, e.g. between regions, provinces, states.. -->
+	<string name="type.boundary.administrative.4">Областний поділ</string>
 	<string name="type.boundary.national_park">Національний парк</string>
 	<string name="type.boundary.aboriginal_lands">Землі корінних народів</string>
 	<string name="type.boundary.protected_area">Заповідна зона</string>

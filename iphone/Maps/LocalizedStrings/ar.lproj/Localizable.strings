@@ -1674,41 +1674,14 @@
 
 "type.boundary.administrative" = "حدود إدارية";
 
-"type.boundary.administrative.10" = "حدود إدارية";
-
-"type.boundary.administrative.11" = "حدود إدارية";
-
+/* Borders between countries. */
 "type.boundary.administrative.2" = "حدود دولية";
 
-"type.boundary.administrative.3" = "حدود إدارية";
+/* Country's primary subdivision borders, e.g. between regions, provinces, states.. */
+"type.boundary.administrative.3" = "حدود منطقة";
 
-"type.boundary.administrative.4" = "حدود إدارية";
-
-"type.boundary.administrative.5" = "حدود إدارية";
-
-"type.boundary.administrative.6" = "حدود إدارية";
-
-"type.boundary.administrative.7" = "حدود إدارية";
-
-"type.boundary.administrative.8" = "حدود إدارية";
-
-"type.boundary.administrative.9" = "حدود إدارية";
-
-"type.boundary.administrative.city" = "حدود مدينة";
-
-"type.boundary.administrative.country" = "حدود دولية";
-
-"type.boundary.administrative.county" = "حدود مقاطعة";
-
-"type.boundary.administrative.municipality" = "حدود بلدية";
-
-"type.boundary.administrative.nation" = "حدود دولية";
-
-"type.boundary.administrative.region" = "حدود منطقة";
-
-"type.boundary.administrative.state" = "حدود محافظة";
-
-"type.boundary.administrative.suburb" = "حدود ضاحية";
+/* Country's primary subdivision borders, e.g. between regions, provinces, states.. */
+"type.boundary.administrative.4" = "حدود منطقة";
 
 "type.boundary.national_park" = "منتزه وطني";
 

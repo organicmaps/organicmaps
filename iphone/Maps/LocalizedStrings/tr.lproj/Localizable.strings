@@ -1674,41 +1674,14 @@
 
 "type.boundary.administrative" = "İdari Sınır";
 
-"type.boundary.administrative.10" = "İdari Sınır";
-
-"type.boundary.administrative.11" = "İdari Sınır";
-
+/* Borders between countries. */
 "type.boundary.administrative.2" = "Ulusal Sınır";
 
-"type.boundary.administrative.3" = "İdari Sınır";
+/* Country's primary subdivision borders, e.g. between regions, provinces, states.. */
+"type.boundary.administrative.3" = "Bölgesel Sınır";
 
-"type.boundary.administrative.4" = "İdari Sınır";
-
-"type.boundary.administrative.5" = "İdari Sınır";
-
-"type.boundary.administrative.6" = "İdari Sınır";
-
-"type.boundary.administrative.7" = "İdari Sınır";
-
-"type.boundary.administrative.8" = "İdari Sınır";
-
-"type.boundary.administrative.9" = "İdari Sınır";
-
-"type.boundary.administrative.city" = "Şehir Sınırı";
-
-"type.boundary.administrative.country" = "Ulusal Sınır";
-
-"type.boundary.administrative.county" = "İlçe Sınırı";
-
-"type.boundary.administrative.municipality" = "Belediye Sınırı";
-
-"type.boundary.administrative.nation" = "Ulusal Sınır";
-
-"type.boundary.administrative.region" = "Bölgesel Sınır";
-
-"type.boundary.administrative.state" = "Devlet Sınırı";
-
-"type.boundary.administrative.suburb" = "Mahalle Sınırı";
+/* Country's primary subdivision borders, e.g. between regions, provinces, states.. */
+"type.boundary.administrative.4" = "Bölgesel Sınır";
 
 "type.boundary.national_park" = "Ulusal Park";
 

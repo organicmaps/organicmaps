@@ -1041,24 +1041,12 @@
 	<string name="type.barrier.wall">Wall</string>
 	<string name="type.boundary">Boundary</string>
 	<string name="type.boundary.administrative">Administrative Boundary</string>
-	<string name="type.boundary.administrative.10">Administrative Boundary</string>
-	<string name="type.boundary.administrative.11">Administrative Boundary</string>
+	<!-- Borders between countries. -->
 	<string name="type.boundary.administrative.2">National Border</string>
-	<string name="type.boundary.administrative.3">Administrative Boundary</string>
-	<string name="type.boundary.administrative.4">Administrative Boundary</string>
-	<string name="type.boundary.administrative.5">Administrative Boundary</string>
-	<string name="type.boundary.administrative.6">Administrative Boundary</string>
-	<string name="type.boundary.administrative.7">Administrative Boundary</string>
-	<string name="type.boundary.administrative.8">Administrative Boundary</string>
-	<string name="type.boundary.administrative.9">Administrative Boundary</string>
-	<string name="type.boundary.administrative.city">City Boundary</string>
-	<string name="type.boundary.administrative.country">National Border</string>
-	<string name="type.boundary.administrative.county">County Boundary</string>
-	<string name="type.boundary.administrative.municipality">Municipality Boundary</string>
-	<string name="type.boundary.administrative.nation">National Border</string>
-	<string name="type.boundary.administrative.region">Regional Boundary</string>
-	<string name="type.boundary.administrative.state">State Boundary</string>
-	<string name="type.boundary.administrative.suburb">Suburb Boundary</string>
+	<!-- Country's primary subdivision borders, e.g. between regions, provinces, states.. -->
+	<string name="type.boundary.administrative.3">Regional Boundary</string>
+	<!-- Country's primary subdivision borders, e.g. between regions, provinces, states.. -->
+	<string name="type.boundary.administrative.4">Regional Boundary</string>
 	<string name="type.boundary.national_park">National Park</string>
 	<string name="type.boundary.aboriginal_lands">Indigenous Lands</string>
 	<string name="type.boundary.protected_area">Protected Area</string>

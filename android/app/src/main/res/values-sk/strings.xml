@@ -992,21 +992,12 @@
 	<string name="type.barrier.wall">Múr</string>
 	<string name="type.boundary">Hranica</string>
 	<string name="type.boundary.administrative">Administratívna hranica</string>
-	<string name="type.boundary.administrative.10">Administratívna hranica</string>
-	<string name="type.boundary.administrative.11">Administratívna hranica</string>
+	<!-- Borders between countries. -->
 	<string name="type.boundary.administrative.2">Národná hranica</string>
-	<string name="type.boundary.administrative.3">Administratívna hranica</string>
-	<string name="type.boundary.administrative.4">Administratívna hranica</string>
-	<string name="type.boundary.administrative.5">Administratívna hranica</string>
-	<string name="type.boundary.administrative.6">Administratívna hranica</string>
-	<string name="type.boundary.administrative.7">Administratívna hranica</string>
-	<string name="type.boundary.administrative.8">Administratívna hranica</string>
-	<string name="type.boundary.administrative.9">Administratívna hranica</string>
-	<string name="type.boundary.administrative.city">Hranica mesta</string>
-	<string name="type.boundary.administrative.country">Národná hranica</string>
-	<string name="type.boundary.administrative.nation">Národná hranica</string>
-	<string name="type.boundary.administrative.region">Hranica regiónu</string>
-	<string name="type.boundary.administrative.state">Štátna hranica</string>
+	<!-- Country's primary subdivision borders, e.g. between regions, provinces, states.. -->
+	<string name="type.boundary.administrative.3">Hranica regiónu</string>
+	<!-- Country's primary subdivision borders, e.g. between regions, provinces, states.. -->
+	<string name="type.boundary.administrative.4">Hranica regiónu</string>
 	<string name="type.boundary.national_park">Národný park</string>
 	<string name="type.boundary.aboriginal_lands">Domorodé krajiny</string>
 	<string name="type.boundary.protected_area">Chránené územie</string>
