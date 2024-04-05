@@ -17,11 +17,8 @@ final class Toast: NSObject {
     return toast
   }
   
-  @objc static func hideAll(){
-    var toastsCopy = toasts
-    toastsCopy.forEach {
-      $0.hide()
-    }
+  @objc static func hideAll() {
+    toasts.forEach { $0.hide() }
   }
   
   private init(_ text: String) {
@@ -99,9 +96,9 @@ final class Toast: NSObject {
     timer?.invalidate()
     if self.blurView.superview != nil {
       UIView.animate(withDuration: kDefaultAnimationDuration,
-                     animations: { self.blurView.alpha = 0 }) { [self] _ in self.blurView.removeFromSuperview() }
+                     animations: { self.blurView.alpha = 0 }) { [self] _ in
+        self.blurView.removeFromSuperview()
+        Self.toasts.removeAll(where: { $0 === self }) }
     }
-    
-    Self.toasts.removeAll(where: { $0 === self })
   }
 }
