@@ -24,6 +24,7 @@ typedef void (^PingCompletionBlock)(BOOL success);
 typedef void (^ElevationPointChangedBlock)(double distance);
 typedef void (^SearchBookmarksCompletionBlock)(NSArray<MWMBookmark *> *bookmarks);
 typedef void (^SortBookmarksCompletionBlock)(NSArray<MWMBookmarksSection *> * _Nullable sortedSections);
+typedef void (^SharingResultCompletionHandler)(MWMBookmarksShareStatus status, NSURL * _Nullable urlToALocalFile);
 
 NS_SWIFT_NAME(BookmarksManager)
 @interface MWMBookmarksManager : NSObject
@@ -84,9 +85,8 @@ NS_SWIFT_NAME(BookmarksManager)
 
 - (MWMTrackIDCollection)trackIdsForCategory:(MWMMarkGroupID)categoryId;
 
-- (void)shareCategory:(MWMMarkGroupID)groupId;
-- (void)shareAllCategories;
-- (NSURL *)shareCategoryURL;
+- (void)shareCategory:(MWMMarkGroupID)groupId completion:(SharingResultCompletionHandler)completion;
+- (void)shareAllCategoriesWithCompletion:(SharingResultCompletionHandler)completion;
 - (void)finishShareCategory;
 
 - (void)setNotificationsEnabled:(BOOL)enabled;
