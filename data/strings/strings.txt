@@ -18378,8 +18378,8 @@
     be = Увядзіце сапраўдны LINE ID або вэб-адрас
     ca = Introduïu una adreça web de LINE o un ID LINE vàlids
     de = Geben Sie eine gültige LINE-Webadresse oder LINE ID ein
-    es = Introduzca una dirección web o ID de LINE válidos
     el = Εισάγεται μια έκγυρη διεύθυνση LIME
+    es = Introduzca una dirección web o ID de LINE válidos
     et = Sisesta kehtiv LINE veebiaadress või LINE ID
     eu = Sartu baliozko web helbidea edo LINEko IDa
     fi = Syötä kelvollinen LINE ID tai verkko-osoite
@@ -19331,7 +19331,7 @@
     cs = Vždy se zeptat
     da = Spørg altid
     de = Immer fragen
-    el = Να γίνεται πάντα ερώτηση 
+    el = Να γίνεται πάντα ερώτηση
     es = Preguntar siempre
     et = Küsi alati
     eu = Galdetu beti
@@ -27761,7 +27761,7 @@
     az = Qovluq yaratmaq və faylları daxili cihazın yaddaşında və ya SD kartda köçürmək mümkün deyil
     ca = No s'ha pogut crear la carpeta ni moure els fitxers a la memòria interna de l'aparell o targeta SD
     de = Ordner kann nicht erstellt und Dateien können nicht auf den Gerätespeicher oder die SD-Karte verschoben werden
-    el = Δεν μπόρεσε να δημιουργηθεί φάκελος και να μεταφερθούν τα αρχεία στην εσωτερική ή εξωτερική μνήμη 
+    el = Δεν μπόρεσε να δημιουργηθεί φάκελος και να μεταφερθούν τα αρχεία στην εσωτερική ή εξωτερική μνήμη
     es = No se ha podido crear la carpeta y mover los ficheros en la memoria interna del dispositivo o en la tarjeta SD
     et = Seadme sisemällu või mälukaardile ei saa kausta luua ja faile teisaldada
     eu = Ezin da karpeta sortu eta fitxategiak mugitu barneko gailuaren memorian edo sd txartelan
