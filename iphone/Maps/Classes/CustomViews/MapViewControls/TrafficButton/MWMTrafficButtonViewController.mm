@@ -63,6 +63,11 @@ NSArray<UIImage *> *imagesWithName(NSString *name) {
   [StyleManager.shared removeListener:self];
 }
 
+- (void)viewWillDisappear:(BOOL)animated {
+  [super viewWillDisappear:animated];
+  [MWMToast hideAll];
+}
+
 - (void)configLayout {
   UIView *sv = self.view;
   UIView *ov = sv.superview;

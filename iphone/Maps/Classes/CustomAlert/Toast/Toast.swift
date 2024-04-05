@@ -7,11 +7,20 @@ final class Toast: NSObject {
   }
 
   private var blurView = UIVisualEffectView(effect: UIBlurEffect(style: .dark))
+  private var timer: Timer?
+
+  private static var toasts: [Toast] = []
 
   @objc static func toast(withText text: String) -> Toast {
-    return Toast(text)
+    let toast = Toast(text)
+    toasts.append(toast)
+    return toast
   }
-
+  
+  @objc static func hideAll() {
+    toasts.forEach { $0.hide() }
+  }
+  
   private init(_ text: String) {
     blurView.layer.setCorner(radius: 8)
     blurView.clipsToBounds = true
@@ -33,6 +42,10 @@ final class Toast: NSObject {
         label.topAnchor.constraint(equalTo: blurView.contentView.topAnchor, constant: 8),
         label.bottomAnchor.constraint(equalTo: blurView.contentView.bottomAnchor, constant: -8)
     ])
+  }
+  
+  deinit {
+    timer?.invalidate()
   }
 
   @objc func show() {
@@ -72,15 +85,20 @@ final class Toast: NSObject {
       self.blurView.alpha = 1
     }
 
-    Timer.scheduledTimer(timeInterval: 3,
-                         target: self,
-                         selector: #selector(onTimer),
-                         userInfo: nil,
-                         repeats: false)
+    timer = Timer.scheduledTimer(timeInterval: 3,
+                                 target: self,
+                                 selector: #selector(hide),
+                                 userInfo: nil,
+                                 repeats: false)
   }
-
-  @objc private func onTimer() {
-    UIView.animate(withDuration: kDefaultAnimationDuration,
-                   animations: { self.blurView.alpha = 0 }) { [self] _ in self.blurView.removeFromSuperview() }
+  
+  @objc func hide() {
+    timer?.invalidate()
+    if self.blurView.superview != nil {
+      UIView.animate(withDuration: kDefaultAnimationDuration,
+                     animations: { self.blurView.alpha = 0 }) { [self] _ in
+        self.blurView.removeFromSuperview()
+        Self.toasts.removeAll(where: { $0 === self }) }
+    }
   }
 }
