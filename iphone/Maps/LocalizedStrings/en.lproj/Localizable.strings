@@ -277,7 +277,7 @@
 
 "duration_1_day" = "1 day";
 
-"recent_track_help_text" = "This option allows you to record traveled path for a certain period and see it on the map. Please note: activation of this function causes increased battery usage. The track will be removed automatically from the map after the time interval will expire.";
+"recent_track_help_text" = "This option allows you to record your traveled path for a certain period of time and see it on the map. Please note: activation of this function noticably increases battery usage. The track will be removed automatically from the map after the time interval expires.";
 
 "placepage_distance" = "Distance";
 
