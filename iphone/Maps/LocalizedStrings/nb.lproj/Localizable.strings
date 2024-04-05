@@ -1566,6 +1566,7 @@
 
 "type.amenity.school" = "Skole";
 
+/* Weather shelter (including sun shelters and natural rock shelters). */
 "type.amenity.shelter" = "Ly";
 
 "type.amenity.public_bath" = "Offentlig bad";
@@ -3722,6 +3723,7 @@
 
 "type.tourism.aquarium" = "Akvarium";
 
+/* Typically serviced, staff is present and food is available (compared to wilderness_hut). */
 "type.tourism.alpine_hut" = "Fjellstue";
 
 "type.tourism.apartment" = "Leiligheter";
@@ -3746,7 +3748,8 @@
 
 "type.tourism.caravan_site" = "Camping";
 
-"type.tourism.chalet" = "Chalet";
+/* A rentable countryside vacation house. */
+"type.tourism.chalet" = "Feriehus";
 
 "type.tourism.gallery" = "Galleri";
 
@@ -3780,6 +3783,7 @@
 
 "type.tourism.viewpoint" = "Utsiktspunkt";
 
+/* Typically more basic, not staffed and free (compared to alpine_hut). */
 "type.tourism.wilderness_hut" = "Villmarkshytte";
 
 "type.tourism.zoo" = "Dyrehage";

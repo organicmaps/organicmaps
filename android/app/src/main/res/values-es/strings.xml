@@ -956,6 +956,7 @@
 	<string name="type.amenity.restaurant">Restaurante</string>
 	<string name="type.amenity.sanitary_dump_station">Estación de vaciado para caravanas</string>
 	<string name="type.amenity.school">Escuela</string>
+	<!-- Weather shelter (including sun shelters and natural rock shelters). -->
 	<string name="type.amenity.shelter">Refugio</string>
 	<string name="type.amenity.public_bath">Baños públicos</string>
 	<string name="type.amenity.shower">Ducha</string>
@@ -2030,7 +2031,8 @@
 	<string name="type.sport.pelota">Pelota vasca</string>
 	<string name="type.tourism">Turismo</string>
 	<string name="type.tourism.aquarium">Acuario</string>
-	<string name="type.tourism.alpine_hut">Refugio de montaña</string>
+	<!-- Typically serviced, staff is present and food is available (compared to wilderness_hut). -->
+	<string name="type.tourism.alpine_hut">Albergue de montaña</string>
 	<string name="type.tourism.apartment">Apartamentos</string>
 	<string name="type.tourism.artwork">Obras de arte</string>
 	<string name="type.tourism.artwork.architecture">Obras de arte</string>
@@ -2042,7 +2044,8 @@
 	<string name="type.tourism.attraction.specified">Atracción turística</string>
 	<string name="type.tourism.camp_site">Camping</string>
 	<string name="type.tourism.caravan_site">Zona de caravanas</string>
-	<string name="type.tourism.chalet">Chalé</string>
+	<!-- A rentable countryside vacation house. -->
+	<string name="type.tourism.chalet">Casa de vacaciones</string>
 	<string name="type.tourism.gallery">Galería</string>
 	<string name="type.tourism.guest_house">Casa de huéspedes</string>
 	<string name="type.tourism.hostel">Albergue juvenil</string>
@@ -2059,6 +2062,7 @@
 	<string name="type.tourism.resort">Resort</string>
 	<string name="type.tourism.theme_park">Parque de atracciones</string>
 	<string name="type.tourism.viewpoint">Vista panorámica</string>
+	<!-- Typically more basic, not staffed and free (compared to alpine_hut). -->
 	<string name="type.tourism.wilderness_hut">Cabaña</string>
 	<string name="type.tourism.zoo">Zoo</string>
 	<string name="type.tourism.zoo.petting">Zoológico de animales acariciables</string>

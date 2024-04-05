@@ -929,7 +929,11 @@
 	<string name="type.shop.appliance">Botiga d\'electrodomèstics</string>
 	<string name="type.shop.bed">Botiga de llits</string>
 	<string name="type.tourism.aquarium">Aquari</string>
+	<!-- Typically serviced, staff is present and food is available (compared to wilderness_hut). -->
+	<string name="type.tourism.alpine_hut">Lodge de muntanya</string>
 	<string name="type.attraction.animal">Recinte d\'animals</string>
+	<!-- A rentable countryside vacation house. -->
+	<string name="type.tourism.chalet">Casa rural de vacances</string>
 	<string name="type.tourism.zoo.petting">Zoo d\'animals de companyia</string>
 	<string name="type.waterway.fish_pass">Pas de peix</string>
 	<string name="type.natural.water.ditch">Sèquia de drenatge</string>

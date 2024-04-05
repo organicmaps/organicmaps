@@ -882,6 +882,7 @@
 	<string name="type.recycling.small_appliances">Chất thải đồ điện</string>
 	<string name="type.amenity.restaurant">Quán ăn</string>
 	<string name="type.amenity.school">Trường học</string>
+	<!-- Weather shelter (including sun shelters and natural rock shelters). -->
 	<string name="type.amenity.shelter">Chổ nương thân</string>
 	<string name="type.amenity.public_bath">Nhà tắm công cộng</string>
 	<string name="type.amenity.shower">Nhà tắm</string>
@@ -1834,7 +1835,8 @@
 	<string name="type.sport.badminton">Cầu lông</string>
 	<string name="type.sport.pelota">Pơ mu Basque</string>
 	<string name="type.tourism.aquarium">Bể nuôi cá</string>
-	<string name="type.tourism.alpine_hut">Nhà ở trên núi</string>
+	<!-- Typically serviced, staff is present and food is available (compared to wilderness_hut). -->
+	<string name="type.tourism.alpine_hut">Nhà nghỉ trên núi</string>
 	<string name="type.tourism.apartment">Căn hộ</string>
 	<string name="type.tourism.artwork">Du lịch</string>
 	<string name="type.tourism.artwork.architecture">Du lịch</string>
@@ -1846,7 +1848,8 @@
 	<string name="type.tourism.attraction.specified">Hấp dẫn</string>
 	<string name="type.tourism.camp_site">Cắm trại</string>
 	<string name="type.tourism.caravan_site">Khu lễ hội hóa trang</string>
-	<string name="type.tourism.chalet">Khách sạn</string>
+	<!-- A rentable countryside vacation house. -->
+	<string name="type.tourism.chalet">Nha nghi</string>
 	<string name="type.tourism.gallery">Diểm tham quan</string>
 	<string name="type.tourism.guest_house">Nhà khách</string>
 	<string name="type.tourism.hostel">Nhà trọ</string>
@@ -1863,6 +1866,7 @@
 	<string name="type.tourism.resort">Khu nghỉ dưỡng</string>
 	<string name="type.tourism.theme_park">Diểm tham quan</string>
 	<string name="type.tourism.viewpoint">Điểm nhìn</string>
+	<!-- Typically more basic, not staffed and free (compared to alpine_hut). -->
 	<string name="type.tourism.wilderness_hut">Nhà tạm trú</string>
 	<string name="type.tourism.zoo">Vườn bách thú</string>
 	<string name="type.tourism.zoo.petting">Vườn thú cưng</string>

@@ -883,6 +883,7 @@
 	<string name="type.recycling.small_appliances">전자제품 쓰레기</string>
 	<string name="type.amenity.restaurant">레스토랑</string>
 	<string name="type.amenity.school">학교</string>
+	<!-- Weather shelter (including sun shelters and natural rock shelters). -->
 	<string name="type.amenity.shelter">대피소</string>
 	<string name="type.amenity.public_bath">대중목욕탕</string>
 	<string name="type.amenity.shower">샤워시설</string>
@@ -1839,7 +1840,8 @@
 	<string name="type.sport.badminton">배드민턴</string>
 	<string name="type.sport.pelota">바스크 펠로타</string>
 	<string name="type.tourism.aquarium">수족관</string>
-	<string name="type.tourism.alpine_hut">고산 오두막</string>
+	<!-- Typically serviced, staff is present and food is available (compared to wilderness_hut). -->
+	<string name="type.tourism.alpine_hut">마운틴 롯지</string>
 	<string name="type.tourism.apartment">아파트</string>
 	<string name="type.tourism.artwork">작품</string>
 	<string name="type.tourism.artwork.architecture">작품</string>
@@ -1851,7 +1853,8 @@
 	<string name="type.tourism.attraction.specified">관광 명소</string>
 	<string name="type.tourism.camp_site">캠핑</string>
 	<string name="type.tourism.caravan_site">카라반 사용가능 캠핑장</string>
-	<string name="type.tourism.chalet">별장</string>
+	<!-- A rentable countryside vacation house. -->
+	<string name="type.tourism.chalet">홀리데이 코티지</string>
 	<string name="type.tourism.gallery">갤러리</string>
 	<string name="type.tourism.guest_house">게스트하우스</string>
 	<string name="type.tourism.hostel">호스텔</string>
@@ -1868,6 +1871,7 @@
 	<string name="type.tourism.resort">리조트</string>
 	<string name="type.tourism.theme_park">테마 파크</string>
 	<string name="type.tourism.viewpoint">관점</string>
+	<!-- Typically more basic, not staffed and free (compared to alpine_hut). -->
 	<string name="type.tourism.wilderness_hut">황야 오두막</string>
 	<string name="type.tourism.zoo">동물원</string>
 	<string name="type.tourism.zoo.petting">페팅 동물원</string>

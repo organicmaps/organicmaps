@@ -931,6 +931,7 @@
 	<string name="type.recycling.cartons">İçki Kartonları</string>
 	<string name="type.amenity.restaurant">Restoran</string>
 	<string name="type.amenity.school">Məktəb</string>
+	<!-- Weather shelter (including sun shelters and natural rock shelters). -->
 	<string name="type.amenity.shelter">Sığınacaq</string>
 	<string name="type.amenity.public_bath">Hamam</string>
 	<string name="type.amenity.shower">Duş</string>
@@ -1999,7 +2000,8 @@
 	<string name="type.sport.pelota">Bask pelota</string>
 	<string name="type.tourism">Turizm</string>
 	<string name="type.tourism.aquarium">Akvarium</string>
-	<string name="type.tourism.alpine_hut">Dağda yerləşmə</string>
+	<!-- Typically serviced, staff is present and food is available (compared to wilderness_hut). -->
+	<string name="type.tourism.alpine_hut">Dağ evi</string>
 	<string name="type.tourism.apartment">Apart otel</string>
 	<string name="type.tourism.artwork">İncəsənət</string>
 	<string name="type.tourism.artwork.architecture">Bədii Memarlıq</string>
@@ -2011,7 +2013,8 @@
 	<string name="type.tourism.attraction.specified">Attraksionlar</string>
 	<string name="type.tourism.camp_site">Düşərgə sahəsi</string>
 	<string name="type.tourism.caravan_site">Treyler parkı</string>
-	<string name="type.tourism.chalet">Dağ evi</string>
+	<!-- A rentable countryside vacation house. -->
+	<string name="type.tourism.chalet">İstirahət kotteci</string>
 	<string name="type.tourism.gallery">Qalereya</string>
 	<string name="type.tourism.guest_house">Qonaq evi</string>
 	<string name="type.tourism.hostel">Yataqxana</string>
@@ -2028,6 +2031,7 @@
 	<string name="type.tourism.resort">İstirahət kəndi</string>
 	<string name="type.tourism.theme_park">Mövzu park</string>
 	<string name="type.tourism.viewpoint">Baxın</string>
+	<!-- Typically more basic, not staffed and free (compared to alpine_hut). -->
 	<string name="type.tourism.wilderness_hut">Çöl kabinəsi</string>
 	<string name="type.tourism.zoo">Zoopark</string>
 	<string name="type.tourism.zoo.petting">Zoopark</string>

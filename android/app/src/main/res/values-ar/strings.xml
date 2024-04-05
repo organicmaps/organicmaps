@@ -962,6 +962,7 @@
 	<string name="type.amenity.restaurant">مطعم</string>
 	<string name="type.amenity.sanitary_dump_station">محطة تفريغ المخلفات الصحية</string>
 	<string name="type.amenity.school">مدرسة</string>
+	<!-- Weather shelter (including sun shelters and natural rock shelters). -->
 	<string name="type.amenity.shelter">ملجأ</string>
 	<string name="type.amenity.public_bath">حمام عام</string>
 	<string name="type.amenity.shower">حمام</string>
@@ -1987,7 +1988,8 @@
 	<string name="type.sport.badminton">ريشة الطائرة</string>
 	<string name="type.sport.pelota">باسك بيلوتا</string>
 	<string name="type.tourism.aquarium">حوض سمك</string>
-	<string name="type.tourism.alpine_hut">مساكن جبلية</string>
+	<!-- Typically serviced, staff is present and food is available (compared to wilderness_hut). -->
+	<string name="type.tourism.alpine_hut">لودج الجبل</string>
 	<string name="type.tourism.apartment">شُقَق عطلة</string>
 	<string name="type.tourism.artwork">عمل فني</string>
 	<string name="type.tourism.artwork.architecture">عمل معماري فني</string>
@@ -1999,7 +2001,8 @@
 	<string name="type.tourism.attraction.specified">مكان جذاب</string>
 	<string name="type.tourism.camp_site">مخيّم</string>
 	<string name="type.tourism.caravan_site">موقع لمراكب ترفيه</string>
-	<string name="type.tourism.chalet">شاليه</string>
+	<!-- A rentable countryside vacation house. -->
+	<string name="type.tourism.chalet">عطلة المنزلية</string>
 	<string name="type.tourism.gallery">معرض الفني</string>
 	<string name="type.tourism.guest_house">دار الضيافة</string>
 	<string name="type.tourism.hostel">نزُل مشتركة</string>
@@ -2016,6 +2019,7 @@
 	<string name="type.tourism.resort">منتجع</string>
 	<string name="type.tourism.theme_park">مدينة العاب</string>
 	<string name="type.tourism.viewpoint">نقطة منظر</string>
+	<!-- Typically more basic, not staffed and free (compared to alpine_hut). -->
 	<string name="type.tourism.wilderness_hut">كوخ برية</string>
 	<string name="type.tourism.zoo">حديقة حيوان</string>
 	<string name="type.tourism.zoo.petting">حديقة الحيوان الملاعبة</string>

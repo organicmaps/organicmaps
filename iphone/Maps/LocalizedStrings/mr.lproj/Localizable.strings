@@ -1566,6 +1566,7 @@
 
 "type.amenity.school" = "शाळा";
 
+/* Weather shelter (including sun shelters and natural rock shelters). */
 "type.amenity.shelter" = "निवारा";
 
 "type.amenity.public_bath" = "सार्वजनिक स्नान";
@@ -3722,7 +3723,8 @@
 
 "type.tourism.aquarium" = "मत्स्यालय";
 
-"type.tourism.alpine_hut" = "Alpine Lodging";
+/* Typically serviced, staff is present and food is available (compared to wilderness_hut). */
+"type.tourism.alpine_hut" = "माउंटन लॉज";
 
 "type.tourism.apartment" = "सदनिका";
 
@@ -3746,7 +3748,8 @@
 
 "type.tourism.caravan_site" = "RV Park";
 
-"type.tourism.chalet" = "Chalet";
+/* A rentable countryside vacation house. */
+"type.tourism.chalet" = "हॉलिडे कॉटेज";
 
 "type.tourism.gallery" = "वीथि";
 
@@ -3780,6 +3783,7 @@
 
 "type.tourism.viewpoint" = "दृष्टिस्थान";
 
+/* Typically more basic, not staffed and free (compared to alpine_hut). */
 "type.tourism.wilderness_hut" = "Wilderness Hut";
 
 "type.tourism.zoo" = "प्राणीसंग्रहालय";

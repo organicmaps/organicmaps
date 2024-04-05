@@ -934,6 +934,7 @@
 	<string name="type.recycling.small_appliances">Ηλεκτρονικά απορρίμματα</string>
 	<string name="type.amenity.restaurant">Εστιατόριο</string>
 	<string name="type.amenity.school">Σχολείο</string>
+	<!-- Weather shelter (including sun shelters and natural rock shelters). -->
 	<string name="type.amenity.shelter">Καταφύγιο</string>
 	<string name="type.amenity.public_bath">Δημόσιο Λουτρό</string>
 	<string name="type.amenity.shower">Ντους</string>
@@ -1890,6 +1891,7 @@
 	<string name="type.sport.badminton">Αντιπτέριση</string>
 	<string name="type.sport.pelota">Βασκική πελότα</string>
 	<string name="type.tourism.aquarium">Ενυδρείο</string>
+	<!-- Typically serviced, staff is present and food is available (compared to wilderness_hut). -->
 	<string name="type.tourism.alpine_hut">Ορεινό καταφύγιο</string>
 	<string name="type.tourism.apartment">Διαμερίσματα</string>
 	<string name="type.tourism.artwork">Έργα τέχνης</string>
@@ -1902,7 +1904,8 @@
 	<string name="type.tourism.attraction.specified">Αξιοθέατα</string>
 	<string name="type.tourism.camp_site">Κάμπινγκ</string>
 	<string name="type.tourism.caravan_site">Χώρος για τροχόσπιτα</string>
-	<string name="type.tourism.chalet">Σαλέ</string>
+	<!-- A rentable countryside vacation house. -->
+	<string name="type.tourism.chalet">Εξοχικό σπίτι διακοπών</string>
 	<string name="type.tourism.gallery">Αξιοθέατο</string>
 	<string name="type.tourism.guest_house">Ξενώνας</string>
 	<string name="type.tourism.hostel">Πανδοχείο</string>
@@ -1919,6 +1922,7 @@
 	<string name="type.tourism.resort">Θέρετρο</string>
 	<string name="type.tourism.theme_park">Αξιοθέατο</string>
 	<string name="type.tourism.viewpoint">Θέα</string>
+	<!-- Typically more basic, not staffed and free (compared to alpine_hut). -->
 	<string name="type.tourism.wilderness_hut">Καλύβα</string>
 	<string name="type.tourism.zoo">Ζωολογικός κήπος</string>
 	<string name="type.tourism.zoo.petting">Ζωολογικό κήπο</string>

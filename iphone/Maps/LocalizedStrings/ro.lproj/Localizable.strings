@@ -1566,6 +1566,7 @@
 
 "type.amenity.school" = "Școală";
 
+/* Weather shelter (including sun shelters and natural rock shelters). */
 "type.amenity.shelter" = "Adăpost";
 
 "type.amenity.public_bath" = "Baie publică";
@@ -3722,7 +3723,8 @@
 
 "type.tourism.aquarium" = "Acvariu";
 
-"type.tourism.alpine_hut" = "Cabană de munte";
+/* Typically serviced, staff is present and food is available (compared to wilderness_hut). */
+"type.tourism.alpine_hut" = "Cabana de munte";
 
 "type.tourism.apartment" = "Apartamente";
 
@@ -3746,7 +3748,8 @@
 
 "type.tourism.caravan_site" = "Teren pentru campare";
 
-"type.tourism.chalet" = "Cabană";
+/* A rentable countryside vacation house. */
+"type.tourism.chalet" = "Cabană de vacanță";
 
 "type.tourism.gallery" = "Galerie";
 
@@ -3780,6 +3783,7 @@
 
 "type.tourism.viewpoint" = "Punct de vedere";
 
+/* Typically more basic, not staffed and free (compared to alpine_hut). */
 "type.tourism.wilderness_hut" = "Cabană în pădure";
 
 "type.tourism.zoo" = "Grădină zoologică";

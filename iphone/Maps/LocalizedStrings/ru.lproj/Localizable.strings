@@ -1566,7 +1566,8 @@
 
 "type.amenity.school" = "Школа";
 
-"type.amenity.shelter" = "Укрытие";
+/* Weather shelter (including sun shelters and natural rock shelters). */
+"type.amenity.shelter" = "Навес";
 
 "type.amenity.public_bath" = "Общественная баня";
 
@@ -3722,7 +3723,8 @@
 
 "type.tourism.aquarium" = "Аквариум";
 
-"type.tourism.alpine_hut" = "Горный отель";
+/* Typically serviced, staff is present and food is available (compared to wilderness_hut). */
+"type.tourism.alpine_hut" = "Горный приют с обслуживанием";
 
 "type.tourism.apartment" = "Апартаменты";
 
@@ -3746,7 +3748,8 @@
 
 "type.tourism.caravan_site" = "Кемпинг для автодомов";
 
-"type.tourism.chalet" = "Шале";
+/* A rentable countryside vacation house. */
+"type.tourism.chalet" = "Коттедж для отдыха";
 
 "type.tourism.gallery" = "Галерея";
 
@@ -3780,7 +3783,8 @@
 
 "type.tourism.viewpoint" = "Обзорная площадка";
 
-"type.tourism.wilderness_hut" = "Хижина в лесу";
+/* Typically more basic, not staffed and free (compared to alpine_hut). */
+"type.tourism.wilderness_hut" = "Домик для туристов";
 
 "type.tourism.zoo" = "Зоопарк";
 

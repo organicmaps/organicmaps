@@ -935,6 +935,7 @@
 	<string name="type.amenity.restaurant">Ristorante</string>
 	<string name="type.amenity.sanitary_dump_station">Scarico acque nere</string>
 	<string name="type.amenity.school">Scuola</string>
+	<!-- Weather shelter (including sun shelters and natural rock shelters). -->
 	<string name="type.amenity.shelter">Riparo</string>
 	<string name="type.amenity.public_bath">Bagno pubblico</string>
 	<string name="type.amenity.shower">Doccia</string>
@@ -1983,7 +1984,8 @@
 	<string name="type.sport.pelota">Palla basca</string>
 	<string name="type.tourism">Turismo</string>
 	<string name="type.tourism.aquarium">Acquario</string>
-	<string name="type.tourism.alpine_hut">Rifugio</string>
+	<!-- Typically serviced, staff is present and food is available (compared to wilderness_hut). -->
+	<string name="type.tourism.alpine_hut">Rifugio di montagna</string>
 	<string name="type.tourism.apartment">Appartamento</string>
 	<string name="type.tourism.artwork">Opera d\'arte</string>
 	<string name="type.tourism.artwork.architecture">Opera d\'arte</string>
@@ -1995,7 +1997,8 @@
 	<string name="type.tourism.attraction.specified">Attrattiva</string>
 	<string name="type.tourism.camp_site">Campeggio</string>
 	<string name="type.tourism.caravan_site">Area per campeggiatori</string>
-	<string name="type.tourism.chalet">Chalet</string>
+	<!-- A rentable countryside vacation house. -->
+	<string name="type.tourism.chalet">Cottage per le vacanze</string>
 	<string name="type.tourism.gallery">Galleria</string>
 	<string name="type.tourism.guest_house">Affittacamere</string>
 	<string name="type.tourism.hostel">Ostello</string>
@@ -2012,6 +2015,7 @@
 	<string name="type.tourism.resort">Resort</string>
 	<string name="type.tourism.theme_park">Parco divertimenti</string>
 	<string name="type.tourism.viewpoint">Punto panoramico</string>
+	<!-- Typically more basic, not staffed and free (compared to alpine_hut). -->
 	<string name="type.tourism.wilderness_hut">Rifugio</string>
 	<string name="type.tourism.zoo">Giardino zoologico</string>
 	<string name="type.tourism.zoo.petting">Zoo di coccole</string>

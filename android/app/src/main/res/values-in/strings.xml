@@ -881,6 +881,7 @@
 	<string name="type.recycling.small_appliances">Limbah elektronik</string>
 	<string name="type.amenity.restaurant">Restoran</string>
 	<string name="type.amenity.school">Sekolah</string>
+	<!-- Weather shelter (including sun shelters and natural rock shelters). -->
 	<string name="type.amenity.shelter">Tempat penampungan</string>
 	<string name="type.amenity.public_bath">Pemandian umum</string>
 	<string name="type.amenity.shower">Pancuran</string>
@@ -1830,7 +1831,8 @@
 	<string name="type.sport.badminton">Bulu tangkis</string>
 	<string name="type.sport.pelota">Basque pelota</string>
 	<string name="type.tourism.aquarium">Akuarium</string>
-	<string name="type.tourism.alpine_hut">Penginapan di pegunungan</string>
+	<!-- Typically serviced, staff is present and food is available (compared to wilderness_hut). -->
+	<string name="type.tourism.alpine_hut">Penginapan gunung</string>
 	<string name="type.tourism.apartment">Apartemen</string>
 	<string name="type.tourism.artwork">Pariwisata</string>
 	<string name="type.tourism.artwork.architecture">Pariwisata</string>
@@ -1842,6 +1844,8 @@
 	<string name="type.tourism.attraction.specified">Atraksi</string>
 	<string name="type.tourism.camp_site">Perkemahan</string>
 	<string name="type.tourism.caravan_site">Lokasi perkemahan</string>
+	<!-- A rentable countryside vacation house. -->
+	<string name="type.tourism.chalet">Pondok Liburan</string>
 	<string name="type.tourism.gallery">Pemandangan</string>
 	<string name="type.tourism.guest_house">Wisma tamu</string>
 	<string name="type.tourism.information">Informasi turis</string>
@@ -1854,6 +1858,7 @@
 	<string name="type.tourism.resort">Sanggraloka</string>
 	<string name="type.tourism.theme_park">Pemandangan</string>
 	<string name="type.tourism.viewpoint">Titik pandang</string>
+	<!-- Typically more basic, not staffed and free (compared to alpine_hut). -->
 	<string name="type.tourism.wilderness_hut">Pondok Alam Liar</string>
 	<string name="type.tourism.zoo">Kebun binatang</string>
 	<string name="type.tourism.zoo.petting">Kebun Binatang</string>

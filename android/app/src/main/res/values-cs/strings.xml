@@ -894,6 +894,7 @@
 	<string name="type.recycling.small_appliances">Elektronický odpad</string>
 	<string name="type.amenity.restaurant">Restaurace</string>
 	<string name="type.amenity.school">Škola</string>
+	<!-- Weather shelter (including sun shelters and natural rock shelters). -->
 	<string name="type.amenity.shelter">Přístřešek</string>
 	<string name="type.amenity.public_bath">Veřejné lázně</string>
 	<string name="type.amenity.shower">Sprcha</string>
@@ -1844,7 +1845,8 @@
 	<string name="type.sport.badminton">Badminton</string>
 	<string name="type.sport.pelota">Baskická pelota</string>
 	<string name="type.tourism.aquarium">Akvárium</string>
-	<string name="type.tourism.alpine_hut">Ubytování v horách</string>
+	<!-- Typically serviced, staff is present and food is available (compared to wilderness_hut). -->
+	<string name="type.tourism.alpine_hut">Horská chata</string>
 	<string name="type.tourism.apartment">Byty</string>
 	<string name="type.tourism.artwork">Umělecké dílo</string>
 	<string name="type.tourism.artwork.architecture">Umělecké dílo</string>
@@ -1856,6 +1858,8 @@
 	<string name="type.tourism.attraction.specified">Atrakce</string>
 	<string name="type.tourism.camp_site">Kempování</string>
 	<string name="type.tourism.caravan_site">Kemp pro obytné přívěsy</string>
+	<!-- A rentable countryside vacation house. -->
+	<string name="type.tourism.chalet">Rekreační chata</string>
 	<string name="type.tourism.gallery">Pamětihodnost</string>
 	<string name="type.tourism.guest_house">Penzion</string>
 	<string name="type.tourism.information">Infocentrum</string>
@@ -1869,6 +1873,7 @@
 	<string name="type.tourism.resort">Letovisko</string>
 	<string name="type.tourism.theme_park">Pamětihodnost</string>
 	<string name="type.tourism.viewpoint">Vyhlídka</string>
+	<!-- Typically more basic, not staffed and free (compared to alpine_hut). -->
 	<string name="type.tourism.wilderness_hut">Chata v divočině</string>
 	<string name="type.tourism.zoo">zoologická zahrada</string>
 	<string name="type.tourism.zoo.petting">ZOO pro domácí mazlíčky</string>

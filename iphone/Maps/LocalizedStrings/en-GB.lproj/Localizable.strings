@@ -1566,6 +1566,7 @@
 
 "type.amenity.school" = "School";
 
+/* Weather shelter (including sun shelters and natural rock shelters). */
 "type.amenity.shelter" = "Shelter";
 
 "type.amenity.public_bath" = "Public Bath";
@@ -3722,7 +3723,8 @@
 
 "type.tourism.aquarium" = "Aquarium";
 
-"type.tourism.alpine_hut" = "Alpine Lodging";
+/* Typically serviced, staff is present and food is available (compared to wilderness_hut). */
+"type.tourism.alpine_hut" = "Mountain Lodge";
 
 "type.tourism.apartment" = "Holiday Apartment";
 
@@ -3746,7 +3748,8 @@
 
 "type.tourism.caravan_site" = "Caravan Park";
 
-"type.tourism.chalet" = "Chalet";
+/* A rentable countryside vacation house. */
+"type.tourism.chalet" = "Holiday Cottage";
 
 "type.tourism.gallery" = "Art Gallery";
 
@@ -3780,6 +3783,7 @@
 
 "type.tourism.viewpoint" = "Viewpoint";
 
+/* Typically more basic, not staffed and free (compared to alpine_hut). */
 "type.tourism.wilderness_hut" = "Wilderness Hut";
 
 "type.tourism.zoo" = "Zoo";

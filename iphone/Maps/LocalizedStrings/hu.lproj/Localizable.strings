@@ -1566,6 +1566,7 @@
 
 "type.amenity.school" = "Iskola";
 
+/* Weather shelter (including sun shelters and natural rock shelters). */
 "type.amenity.shelter" = "Menedék";
 
 "type.amenity.public_bath" = "Közfürdő";
@@ -3722,7 +3723,8 @@
 
 "type.tourism.aquarium" = "Akvárium";
 
-"type.tourism.alpine_hut" = "Hegyi menedék";
+/* Typically serviced, staff is present and food is available (compared to wilderness_hut). */
+"type.tourism.alpine_hut" = "Hegyi kunyhó";
 
 "type.tourism.apartment" = "Apartmanok";
 
@@ -3746,7 +3748,8 @@
 
 "type.tourism.caravan_site" = "Karaván pihenő";
 
-"type.tourism.chalet" = "Turistaház";
+/* A rentable countryside vacation house. */
+"type.tourism.chalet" = "Nyaraló házikó";
 
 "type.tourism.gallery" = "Túrizmus";
 
@@ -3780,6 +3783,7 @@
 
 "type.tourism.viewpoint" = "Kilátó";
 
+/* Typically more basic, not staffed and free (compared to alpine_hut). */
 "type.tourism.wilderness_hut" = "Kunyhó a vadonban";
 
 "type.tourism.zoo" = "Állatkert";

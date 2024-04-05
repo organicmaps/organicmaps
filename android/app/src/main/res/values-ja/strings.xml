@@ -945,6 +945,7 @@
 	<string name="type.recycling.small_appliances">電子廃棄物</string>
 	<string name="type.amenity.restaurant">レストラン</string>
 	<string name="type.amenity.school">学校</string>
+	<!-- Weather shelter (including sun shelters and natural rock shelters). -->
 	<string name="type.amenity.shelter">避難所</string>
 	<string name="type.amenity.public_bath">公衆浴場</string>
 	<string name="type.amenity.shower">シャワー</string>
@@ -1997,6 +1998,7 @@
 	<string name="type.sport.pelota">バスクペロタ</string>
 	<string name="type.tourism">観光</string>
 	<string name="type.tourism.aquarium">水族館</string>
+	<!-- Typically serviced, staff is present and food is available (compared to wilderness_hut). -->
 	<string name="type.tourism.alpine_hut">山小屋</string>
 	<string name="type.tourism.apartment">アパート</string>
 	<string name="type.tourism.artwork">芸術</string>
@@ -2009,7 +2011,8 @@
 	<string name="type.tourism.attraction.specified">アトラクション</string>
 	<string name="type.tourism.camp_site">キャンプ場</string>
 	<string name="type.tourism.caravan_site">オートキャンプ場</string>
-	<string name="type.tourism.chalet">シャレー</string>
+	<!-- A rentable countryside vacation house. -->
+	<string name="type.tourism.chalet">ホリデー・コテージ</string>
 	<string name="type.tourism.gallery">美術館</string>
 	<string name="type.tourism.guest_house">ゲストハウス</string>
 	<string name="type.tourism.hostel">ホステル</string>
@@ -2026,6 +2029,7 @@
 	<string name="type.tourism.resort">リゾート</string>
 	<string name="type.tourism.theme_park">テーマパーク</string>
 	<string name="type.tourism.viewpoint">観光スポット</string>
+	<!-- Typically more basic, not staffed and free (compared to alpine_hut). -->
 	<string name="type.tourism.wilderness_hut">無人小屋</string>
 	<string name="type.tourism.zoo">動物園</string>
 	<string name="type.tourism.zoo.petting">ふれあい動物園</string>

@@ -950,6 +950,7 @@
 	<string name="type.amenity.restaurant">Ravintola</string>
 	<string name="type.amenity.sanitary_dump_station">Jäteveden tyhjennyspiste</string>
 	<string name="type.amenity.school">Koulu</string>
+	<!-- Weather shelter (including sun shelters and natural rock shelters). -->
 	<string name="type.amenity.shelter">Katos</string>
 	<string name="type.amenity.public_bath">Julkinen kylpylä</string>
 	<string name="type.amenity.shower">Suihku</string>
@@ -1963,7 +1964,8 @@
 	<string name="type.sport.pelota">Baskimaan pelota</string>
 	<string name="type.tourism">Turismi</string>
 	<string name="type.tourism.aquarium">Akvaario</string>
-	<string name="type.tourism.alpine_hut">Vuorimajoitus</string>
+	<!-- Typically serviced, staff is present and food is available (compared to wilderness_hut). -->
+	<string name="type.tourism.alpine_hut">Vuoristomajoitus</string>
 	<string name="type.tourism.apartment">Loma-asunnot</string>
 	<string name="type.tourism.artwork">Taideteos</string>
 	<string name="type.tourism.artwork.architecture">Taideteos</string>
@@ -1975,7 +1977,8 @@
 	<string name="type.tourism.attraction.specified">Nähtävyys</string>
 	<string name="type.tourism.camp_site">Retkeily</string>
 	<string name="type.tourism.caravan_site">Asuntovaunupaikka</string>
-	<string name="type.tourism.chalet">Mökki</string>
+	<!-- A rentable countryside vacation house. -->
+	<string name="type.tourism.chalet">Lomamökki</string>
 	<string name="type.tourism.gallery">Nähtävyydet</string>
 	<string name="type.tourism.guest_house">Majatalo</string>
 	<string name="type.tourism.hostel">Hostelli</string>
@@ -1992,6 +1995,7 @@
 	<string name="type.tourism.resort">Lomakohteet</string>
 	<string name="type.tourism.theme_park">Huvipuisto</string>
 	<string name="type.tourism.viewpoint">Näköalatasanne</string>
+	<!-- Typically more basic, not staffed and free (compared to alpine_hut). -->
 	<string name="type.tourism.wilderness_hut">Autiotupa</string>
 	<string name="type.tourism.zoo">Eläintarha</string>
 	<string name="type.tourism.zoo.petting">Lemmikkieläintarha</string>

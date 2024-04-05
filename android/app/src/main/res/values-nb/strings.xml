@@ -930,6 +930,7 @@
 	<string name="type.recycling.scrap_metal">Metallavfall</string>
 	<string name="type.recycling.small_appliances">Elektronisk avfall</string>
 	<string name="type.amenity.school">Skole</string>
+	<!-- Weather shelter (including sun shelters and natural rock shelters). -->
 	<string name="type.amenity.shelter">Ly</string>
 	<string name="type.amenity.public_bath">Offentlig bad</string>
 	<string name="type.amenity.shower">Dusj</string>
@@ -1894,6 +1895,7 @@
 	<string name="type.sport.pelota">Baskisk pelota</string>
 	<string name="type.tourism">Turisme</string>
 	<string name="type.tourism.aquarium">Akvarium</string>
+	<!-- Typically serviced, staff is present and food is available (compared to wilderness_hut). -->
 	<string name="type.tourism.alpine_hut">Fjellstue</string>
 	<string name="type.tourism.apartment">Leiligheter</string>
 	<string name="type.tourism.artwork">Kunstverk</string>
@@ -1906,6 +1908,8 @@
 	<string name="type.tourism.attraction.specified">Attraksjon</string>
 	<string name="type.tourism.camp_site">Campingplass</string>
 	<string name="type.tourism.caravan_site">Camping</string>
+	<!-- A rentable countryside vacation house. -->
+	<string name="type.tourism.chalet">Feriehus</string>
 	<string name="type.tourism.gallery">Galleri</string>
 	<string name="type.tourism.guest_house">Gjestehus</string>
 	<string name="type.tourism.hostel">Vandrerhjem</string>
@@ -1921,6 +1925,7 @@
 	<string name="type.tourism.resort">Ferieresort</string>
 	<string name="type.tourism.theme_park">Temapark</string>
 	<string name="type.tourism.viewpoint">Utsiktspunkt</string>
+	<!-- Typically more basic, not staffed and free (compared to alpine_hut). -->
 	<string name="type.tourism.wilderness_hut">Villmarkshytte</string>
 	<string name="type.tourism.zoo">Dyrehage</string>
 	<string name="type.tourism.zoo.petting">Dyrehage</string>

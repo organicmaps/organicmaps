@@ -912,6 +912,7 @@
 	<string name="type.recycling.small_appliances">Pequenos eletrodomésticos</string>
 	<string name="type.amenity.restaurant">Restaurante</string>
 	<string name="type.amenity.school">Escola</string>
+	<!-- Weather shelter (including sun shelters and natural rock shelters). -->
 	<string name="type.amenity.shelter">Abrigo</string>
 	<string name="type.amenity.public_bath">Banho público</string>
 	<string name="type.amenity.shower">Chuveiro</string>
@@ -1978,7 +1979,8 @@
 	<string name="type.sport.pelota">Pelota basca</string>
 	<string name="type.tourism">Turismo</string>
 	<string name="type.tourism.aquarium">Aquário</string>
-	<string name="type.tourism.alpine_hut">Abrigo de montanha</string>
+	<!-- Typically serviced, staff is present and food is available (compared to wilderness_hut). -->
+	<string name="type.tourism.alpine_hut">Alojamento de montanha</string>
 	<string name="type.tourism.apartment">Apartamentos</string>
 	<string name="type.tourism.artwork">Obra de arte</string>
 	<string name="type.tourism.artwork.architecture">Obra de arte de arquitetura</string>
@@ -1990,7 +1992,8 @@
 	<string name="type.tourism.attraction.specified">Atração turística</string>
 	<string name="type.tourism.camp_site">Parque de campismo</string>
 	<string name="type.tourism.caravan_site">Parque de caravanas</string>
-	<string name="type.tourism.chalet">Chalé</string>
+	<!-- A rentable countryside vacation house. -->
+	<string name="type.tourism.chalet">Casa de férias</string>
 	<string name="type.tourism.gallery">Galeria</string>
 	<string name="type.tourism.guest_house">Pousada ou pensão</string>
 	<string name="type.tourism.hostel">Hostel</string>
@@ -2007,6 +2010,7 @@
 	<string name="type.tourism.resort">Resort</string>
 	<string name="type.tourism.theme_park">Parque de diversão</string>
 	<string name="type.tourism.viewpoint">Miradouro</string>
+	<!-- Typically more basic, not staffed and free (compared to alpine_hut). -->
 	<string name="type.tourism.wilderness_hut">Cabana</string>
 	<string name="type.tourism.zoo">Jardim zoológico</string>
 	<string name="type.tourism.zoo.petting">Jardim Zoológico</string>

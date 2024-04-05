@@ -956,7 +956,8 @@
 	<string name="type.amenity.restaurant">Ресторан</string>
 	<string name="type.amenity.sanitary_dump_station">Злив для туалетів транспортних засобів</string>
 	<string name="type.amenity.school">Школа</string>
-	<string name="type.amenity.shelter">Укриття</string>
+	<!-- Weather shelter (including sun shelters and natural rock shelters). -->
+	<string name="type.amenity.shelter">Навіс</string>
 	<string name="type.amenity.public_bath">Громадська лазня</string>
 	<string name="type.amenity.shower">Душ</string>
 	<string name="type.amenity.stripclub">Стриптиз-клуб</string>
@@ -2036,7 +2037,8 @@
 	<string name="type.sport.pelota">Баскська пелота</string>
 	<string name="type.tourism">Туризм</string>
 	<string name="type.tourism.aquarium">Акваріум</string>
-	<string name="type.tourism.alpine_hut">Гірський готель</string>
+	<!-- Typically serviced, staff is present and food is available (compared to wilderness_hut). -->
+	<string name="type.tourism.alpine_hut">Гірський притулок з обслуговуванням</string>
 	<string name="type.tourism.apartment">Апартаменти</string>
 	<string name="type.tourism.artwork">Витвір мистецтва</string>
 	<string name="type.tourism.artwork.architecture">Витвір мистецтва</string>
@@ -2048,7 +2050,8 @@
 	<string name="type.tourism.attraction.specified">Пам’ятне місце</string>
 	<string name="type.tourism.camp_site">Кемпінг</string>
 	<string name="type.tourism.caravan_site">Кемпінг для автобудинків</string>
-	<string name="type.tourism.chalet">Шале</string>
+	<!-- A rentable countryside vacation house. -->
+	<string name="type.tourism.chalet">Котедж для відпочинку</string>
 	<string name="type.tourism.gallery">Пам’ятні місця</string>
 	<string name="type.tourism.guest_house">Гостинний дім</string>
 	<string name="type.tourism.hostel">Хостел</string>
@@ -2065,7 +2068,8 @@
 	<string name="type.tourism.resort">Будинок відпочинку</string>
 	<string name="type.tourism.theme_park">Парк розваг</string>
 	<string name="type.tourism.viewpoint">Оглядний майданчик</string>
-	<string name="type.tourism.wilderness_hut">Хибара</string>
+	<!-- Typically more basic, not staffed and free (compared to alpine_hut). -->
+	<string name="type.tourism.wilderness_hut">Хатка для туристів</string>
 	<string name="type.tourism.zoo">Зоопарк</string>
 	<string name="type.tourism.zoo.petting">Контактний зоопарк</string>
 	<string name="type.traffic_calming">Лежачий полiцейський</string>
