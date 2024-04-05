@@ -133,6 +133,8 @@ bool SupportManager::IsVulkanForbidden(std::string const & deviceName,
       /// @todo Dashed lines stopped drawing after updating LineShape::Construct<DashedLineBuilder>.
       /// Huawei P20
       Configuration{"Mali-G72", {1, 1, 97}, {18, 0, 0}},
+      /// Samsung SM-A505FN (a50), hangs when showing the subway layer.
+      Configuration{"Mali-G72", {1, 1, 131}, {26, 0, 0}},
   };
 
   for (auto const & d : kBannedDevices)
