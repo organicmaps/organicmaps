@@ -2749,21 +2749,6 @@ UNIT_CLASS_TEST(TestWithClassificator, OsmType_ComplexTypesSmoke)
   using Type = std::vector<std::string>;
   std::vector<std::pair<Type, Tags>> const complexTypes = {
     // Filtered out by MatchTypes filter because have no styles.
-    // {{"boundary", "administrative", "10"}, {{"boundary", "administrative"}, {"admin_level", "10"}}},
-    // {{"boundary", "administrative", "11"}, {{"boundary", "administrative"}, {"admin_level", "11"}}},
-    // {{"boundary", "administrative", "5"}, {{"boundary", "administrative"}, {"admin_level", "5"}}},
-    // {{"boundary", "administrative", "6"}, {{"boundary", "administrative"}, {"admin_level", "6"}}},
-    // {{"boundary", "administrative", "7"}, {{"boundary", "administrative"}, {"admin_level", "7"}}},
-    // {{"boundary", "administrative", "8"}, {{"boundary", "administrative"}, {"admin_level", "8"}}},
-    // {{"boundary", "administrative", "9"}, {{"boundary", "administrative"}, {"admin_level", "9"}}},
-    // {{"boundary", "administrative", "city"}, {{"boundary", "administrative"}, {"border_type", "city"}}},
-    // {{"boundary", "administrative", "country"}, {{"boundary", "administrative"}, {"border_type", "country"}}},
-    // {{"boundary", "administrative", "county"}, {{"boundary", "administrative"}, {"border_type", "county"}}},
-    // {{"boundary", "administrative", "municipality"}, {{"boundary", "administrative"}, {"border_type", "municipality"}}},
-    // {{"boundary", "administrative", "nation"}, {{"boundary", "administrative"}, {"border_type", "nation"}}},
-    // {{"boundary", "administrative", "region"}, {{"boundary", "administrative"}, {"border_type", "region"}}},
-    // {{"boundary", "administrative", "state"}, {{"boundary", "administrative"}, {"border_type", "state"}}},
-    // {{"boundary", "administrative", "suburb"}, {{"boundary", "administrative"}, {"border_type", "suburb"}}},
     // {{"communication", "line", "underground"}, {{"communication", "line"}, {"location", "underground"}}},
     // {{"man_made", "pipeline", "overground"}, {{"man_made", "pipeline"}, {"location", "overground"}}},
     // {{"railway", "siding", "bridge"}, {{"railway", "siding"}, {"bridge", "any_value"}}},

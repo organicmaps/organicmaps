@@ -94,7 +94,7 @@ highway|road;31;
 highway|track|grade2;[highway=track][tracktype=grade2];;name;int_name;32;
 natural|wetland;33;
 highway|track|grade3;[highway=track][tracktype=grade3];;name;int_name;34;
-boundary|administrative|8;[boundary=administrative][admin_level=8];;name;int_name;35;
+deprecated:boundary|administrative|8:04.2024;[boundary=administrative][admin_level=8];x;name;int_name;35;
 amenity|school;36;
 highway|cycleway;37;
 landuse|farm;38;
@@ -156,8 +156,8 @@ highway|residential|bridge;[highway=residential][bridge?];;name;int_name;81;
 # railway|rail|spur|bridge;...,[railway=rail][!service][usage?][usage!=main|branch|tourism|utility][bridge?];...
 # railway|rail|service|bridge;[railway=rail][service?][service!=spur][bridge?];...
 railway|rail|bridge;[railway=rail][bridge?][dont=match];;name;int_name;82;
-boundary|administrative|10;[boundary=administrative][admin_level=10];;name;int_name;83;
-boundary|administrative|6;[boundary=administrative][admin_level=6];;name;int_name;84;
+deprecated:boundary|administrative|10:04.2024;[boundary=administrative][admin_level=10];x;name;int_name;83;
+deprecated:boundary|administrative|6:04.2024;[boundary=administrative][admin_level=6];x;name;int_name;84;
 highway|secondary|bridge;[highway=secondary][bridge?];;name;int_name;85;
 highway|tertiary|bridge;[highway=tertiary][bridge?];;name;int_name;86;
 barrier|bollard;87;
@@ -180,6 +180,7 @@ natural|land;103;
 tourism|hotel;[tourism=hotel],[hotel=yes];;name;int_name;104;
 landuse|cemetery;105;
 sport|soccer;106;
+# less than 100k usages
 boundary|administrative|4;[boundary=administrative][admin_level=4];;name;int_name;107;
 amenity|cafe;108;
 amenity|recycling|container;[amenity=recycling][recycling_type=container];;name;int_name;109;
@@ -222,7 +223,7 @@ highway|motorway_link|bridge;[highway=motorway_link][bridge?];;name;int_name;143
 # but seems like its being used standalone still in which case usefull for e.g. hiking.
 railway|abandoned;144;
 amenity|parking|private;[amenity=parking][access=private];;name;int_name;145;
-boundary|administrative|7;[boundary=administrative][admin_level=7];;name;int_name;146;
+deprecated:boundary|administrative|7:04.2024;[boundary=administrative][admin_level=7];x;name;int_name;146;
 tourism|attraction;147;
 natural|water|reservoir;[natural=water][water=reservoir];;name;int_name;148;
 natural|water|river;[natural=water][water=river];;name;int_name;149;
@@ -262,7 +263,7 @@ natural|beach;182;
 highway|footway|tunnel;[highway=footway][tunnel?],[highway=footway][location=underground];;name;int_name;183;
 shop|hairdresser;184;
 amenity|hunting_stand;185;
-boundary|administrative|9;[boundary=administrative][admin_level=9];;name;int_name;186;
+deprecated:boundary|administrative|9:04.2024;[boundary=administrative][admin_level=9];x;name;int_name;186;
 amenity|fountain;187;
 natural|beach|sand;[natural=beach][surface=sand];;name;int_name;188;
 amenity|bar;189;
@@ -311,7 +312,7 @@ waterway|drain|tunnel;[waterway=drain][tunnel?];;name;int_name;230;
 landuse|cemetery|christian;[landuse=cemetery][religion=christian];;name;int_name;231;
 highway|cycleway|tunnel;[highway=cycleway][tunnel?];;name;int_name;232;
 amenity|parking|permissive;[amenity=parking][access=permissive];;name;int_name;233;
-boundary|administrative|5;[boundary=administrative][admin_level=5];;name;int_name;234;
+deprecated:boundary|administrative|5:04.2024;[boundary=administrative][admin_level=5];x;name;int_name;234;
 highway|unclassified|tunnel;[highway=unclassified][tunnel?];;name;int_name;235;
 amenity|recycling|centre;[amenity=recycling][recycling_type=centre];;name;int_name;236;
 amenity|recycling;237;
@@ -356,7 +357,7 @@ tourism|alpine_hut;275;
 highway|footway|area;[highway=footway][area?];;name;int_name;276;
 tourism|hostel;277;
 waterway|river|tunnel;[waterway=river][tunnel?];;name;int_name;278;
-boundary|administrative|county;[boundary=administrative][border_type=county];;name;int_name;279;
+deprecated:boundary|administrative|county:04.2024;[boundary=administrative][border_type=county];x;name;int_name;279;
 highway|road|bridge;[highway=road][bridge?];;name;int_name;280;
 boundary|administrative|3;[boundary=administrative][admin_level=3];;name;int_name;281;
 power|generator|solar;[power=generator][generator:source=solar];;name;int_name;282;
@@ -372,7 +373,7 @@ power|generator|hydro;[power=generator][generator:source=hydro];;name;int_name;2
 railway|subway|tunnel;[railway=subway][tunnel?];;name;int_name;292;
 barrier|city_wall;293;
 place|farm;294;
-boundary|administrative|11;[boundary=administrative][admin_level=11];;name;int_name;295;
+deprecated:boundary|administrative|11:04.2024;[boundary=administrative][admin_level=11];x;name;int_name;295;
 waterway|weir;296;
 highway|secondary|tunnel;[highway=secondary][tunnel?];;name;int_name;297;
 # TODO: its a mismapping likely, if there is a bridge structure still, then it should be railway=disused.
@@ -545,7 +546,7 @@ deprecated|deprecated;458;x
 deprecated|deprecated;459;x
 deprecated|deprecated;460;x
 sport|handball;461;
-boundary|administrative|city;[boundary=administrative][border_type=city];;name;int_name;462;
+deprecated:boundary|administrative|city:04.2024;[boundary=administrative][border_type=city];x;name;int_name;462;
 piste:type|downhill|freeride;[piste:type=downhill][piste:difficulty=freeride],[piste:type=downhill][piste:grooming=backcountry][!piste:difficulty];;name;int_name;463;
 deprecated|deprecated;464;x
 deprecated|deprecated;465;x
@@ -605,7 +606,7 @@ deprecated|deprecated;518;x
 deprecated|deprecated;519;x
 sport|diving;520;
 deprecated|deprecated;521;x
-boundary|administrative|suburb;[boundary=administrative][border_type=suburb];;name;int_name;522;
+deprecated:boundary|administrative|suburb:04.2024;[boundary=administrative][border_type=suburb];x;name;int_name;522;
 deprecated|deprecated;523;x
 railway|monorail|tunnel;[railway=monorail][tunnel?];;name;int_name;524;
 railway|funicular|bridge;[railway=funicular][bridge?];;name;int_name;525;
@@ -619,7 +620,7 @@ deprecated|deprecated;532;x
 deprecated:leisure|landscape_reserve:01.2024;533;leisure|nature_reserve
 deprecated|deprecated;534;x
 deprecated|deprecated;535;x
-boundary|administrative|state;[boundary=administrative][border_type=state];;name;int_name;536;
+deprecated:boundary|administrative|state:04.2024;[boundary=administrative][border_type=state];x;name;int_name;536;
 deprecated|deprecated;537;x
 deprecated|deprecated;538;x
 railway|funicular|tunnel;[railway=funicular][tunnel?];;name;int_name;539;
@@ -680,14 +681,14 @@ deprecated|deprecated;593;x
 deprecated|deprecated;594;x
 deprecated|deprecated;595;x
 deprecated|deprecated;596;x
-boundary|administrative|region;[boundary=administrative][border_type=region];;name;int_name;597;
+deprecated:boundary|administrative|region:04.2024;[boundary=administrative][border_type=region];x;name;int_name;597;
 deprecated|deprecated;598;x
 deprecated|deprecated;599;x
 deprecated|deprecated;600;x
 place|continent;601;
 deprecated|deprecated;602;x
 deprecated|deprecated;603;x
-boundary|administrative|nation;[boundary=administrative][border_type=nation];;name;int_name;604;
+deprecated:boundary|administrative|nation:04.2024;[boundary=administrative][border_type=nation];x;name;int_name;604;
 piste:type|hike;605;
 piste:type|connection;606;
 piste:type|skitour;607;
@@ -740,7 +741,7 @@ deprecated|deprecated;653;x
 deprecated|deprecated;654;x
 deprecated|deprecated;655;x
 deprecated|deprecated;656;x
-boundary|administrative|municipality;[boundary=administrative][border_type=municipality];;name;int_name;657;
+deprecated:boundary|administrative|municipality:04.2024;[boundary=administrative][border_type=municipality];x;name;int_name;657;
 deprecated|deprecated;658;x
 deprecated|deprecated;659;x
 deprecated|deprecated;660;x
@@ -774,7 +775,7 @@ deprecated|deprecated;687;x
 deprecated|deprecated;688;x
 deprecated|deprecated;689;x
 deprecated|deprecated;690;x
-boundary|administrative|country;[boundary=administrative][border_type=country];;name;int_name;691;
+deprecated:boundary|administrative|country:04.2024;[boundary=administrative][border_type=country];x;name;int_name;691;
 deprecated|deprecated;692;x
 natural|orchard;693;landuse|orchard
 deprecated|deprecated;694;x
@@ -819,7 +820,7 @@ sport|skiing;732;
 tourism|museum;733;
 tourism|guest_house;734;
 tourism|motel;735;
-boundary|administrative|4|state;[boundary=administrative][admin_level=4][border_type=state];x;name;int_name;736;boundary|administrative|4
+deprecated:boundary|administrative|4|state:01.2022;[boundary=administrative][admin_level=4][border_type=state];x;name;int_name;736;boundary|administrative|4
 place|state|USA;[place=state][addr:country=US],[place=state][is_in=USA],[place=state][is_in:country=USA],[place=state][is_in:country_code=us];;name;int_name;737;
 building|address;[addr:housenumber][addr:street];;addr:housenumber;name;738;
 amenity|parking|no-access;[amenity=parking][access=no];;name;int_name;739;
