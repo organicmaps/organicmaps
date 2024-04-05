@@ -2,7 +2,6 @@ project(osm_auth_tests)
 
 set(SRC
   osm_auth_tests.cpp
-  run_on_network_thread.hpp
   server_api_test.cpp
 )
 
