@@ -19,6 +19,8 @@
       <string>NSStringPluralRuleType</string>
       <key>NSStringFormatValueTypeKey</key>
       <string>d</string>
+      <key>one</key>
+      <string>%d αγαπημένο</string>
       <key>other</key>
       <string>%d αγαπημένα</string>
     </dict>
@@ -51,8 +53,10 @@
       <string>NSStringPluralRuleType</string>
       <key>NSStringFormatValueTypeKey</key>
       <string>d</string>
+      <key>one</key>
+      <string>%d αντικείμενο</string>
       <key>other</key>
-      <string>%d μέρος</string>
+      <string>%d αντικείμενα</string>
     </dict>
   </dict>
 
@@ -66,6 +70,8 @@
       <string>NSStringPluralRuleType</string>
       <key>NSStringFormatValueTypeKey</key>
       <string>d</string>
+      <key>one</key>
+      <string>%d διαδρομή</string>
       <key>other</key>
       <string>%d διαδρομές</string>
     </dict>
