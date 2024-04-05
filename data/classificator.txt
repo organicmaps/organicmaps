@@ -223,24 +223,9 @@ world  +
     boundary  +
         aboriginal_lands  -
         administrative  +
-            10  -
-            11  -
             2  -
             3  -
             4  -
-            5  -
-            6  -
-            7  -
-            8  -
-            9  -
-            city  -
-            country  -
-            county  -
-            municipality  -
-            nation  -
-            region  -
-            state  -
-            suburb  -
             {}
         national_park  -
         protected_area  +

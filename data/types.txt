@@ -32,7 +32,7 @@
 *highway|track|grade2
 *natural|wetland
 *highway|track|grade3
-*boundary|administrative|8
+mapswithme
 *amenity|school
 *highway|cycleway
 *landuse|farm
@@ -80,8 +80,8 @@
 *landuse|farmyard
 *highway|residential|bridge
 *railway|rail|bridge
-*boundary|administrative|10
-*boundary|administrative|6
+mapswithme
+mapswithme
 *highway|secondary|bridge
 *highway|tertiary|bridge
 *barrier|bollard
@@ -143,7 +143,7 @@ leisure|pitch
 *highway|motorway_link|bridge
 *railway|abandoned
 *amenity|parking|private
-*boundary|administrative|7
+mapswithme
 *tourism|attraction
 *natural|water|reservoir
 *natural|water|river
@@ -183,7 +183,7 @@ landuse|forest|coniferous
 *highway|footway|tunnel
 *shop|hairdresser
 *amenity|hunting_stand
-*boundary|administrative|9
+mapswithme
 *amenity|fountain
 *natural|beach|sand
 *amenity|bar
@@ -231,7 +231,7 @@ highway|track
 *landuse|cemetery|christian
 *highway|cycleway|tunnel
 *amenity|parking|permissive
-*boundary|administrative|5
+mapswithme
 *highway|unclassified|tunnel
 *amenity|recycling|centre
 *amenity|recycling
@@ -276,7 +276,7 @@ mapswithme
 *highway|footway|area
 *tourism|hostel
 *waterway|river|tunnel
-*boundary|administrative|county
+mapswithme
 *highway|road|bridge
 *boundary|administrative|3
 *power|generator|solar
@@ -292,7 +292,7 @@ mapswithme
 *railway|subway|tunnel
 *barrier|city_wall
 *place|farm
-*boundary|administrative|11
+mapswithme
 *waterway|weir
 *highway|secondary|tunnel
 *railway|abandoned|bridge
@@ -459,7 +459,7 @@ mapswithme
 mapswithme
 mapswithme
 *sport|handball
-*boundary|administrative|city
+mapswithme
 *piste:type|downhill|freeride
 mapswithme
 mapswithme
@@ -519,7 +519,7 @@ mapswithme
 mapswithme
 *sport|diving
 mapswithme
-*boundary|administrative|suburb
+mapswithme
 mapswithme
 *railway|monorail|tunnel
 *railway|funicular|bridge
@@ -533,7 +533,7 @@ mapswithme
 leisure|nature_reserve
 mapswithme
 mapswithme
-*boundary|administrative|state
+mapswithme
 mapswithme
 mapswithme
 *railway|funicular|tunnel
@@ -594,14 +594,14 @@ mapswithme
 mapswithme
 mapswithme
 mapswithme
-*boundary|administrative|region
+mapswithme
 mapswithme
 mapswithme
 mapswithme
 *place|continent
 mapswithme
 mapswithme
-*boundary|administrative|nation
+mapswithme
 *piste:type|hike
 *piste:type|connection
 *piste:type|skitour
@@ -654,7 +654,7 @@ mapswithme
 mapswithme
 mapswithme
 mapswithme
-*boundary|administrative|municipality
+mapswithme
 mapswithme
 mapswithme
 mapswithme
@@ -688,7 +688,7 @@ mapswithme
 mapswithme
 mapswithme
 mapswithme
-*boundary|administrative|country
+mapswithme
 mapswithme
 landuse|orchard
 mapswithme
