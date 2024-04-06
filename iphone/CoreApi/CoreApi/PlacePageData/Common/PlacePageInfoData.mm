@@ -79,6 +79,11 @@ using namespace osm;
         case MetadataID::FMD_LEVEL: _level = ToNSString(value); break;
         case MetadataID::FMD_CAPACITY: _capacity = [NSString stringWithFormat:NSLocalizedString(@"capacity", nil), ToNSString(value)]; break;
         case MetadataID::FMD_WHEELCHAIR: _wheelchair = ToNSString(platform::GetLocalizedTypeName(value)); break;
+        case MetadataID::FMD_DRIVE_THROUGH:
+          if (value == "yes")
+            _driveThrough = NSLocalizedString(@"drive_through", nil);
+          break;
+
         default:
           break;
       }
