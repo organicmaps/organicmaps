@@ -102,7 +102,7 @@ target_link_libraries(${PROJECT_NAME}
   ICU::i18n # For transliteration.
   oauthcpp  # For base64_encode and base64_decode
   minizip
-  ${LIBZ}
+  ZLIB::ZLIB
 )
 
 omim_add_test_subdirectory(coding_tests)

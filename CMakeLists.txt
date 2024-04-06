@@ -273,11 +273,6 @@ if (NOT PLATFORM_IPHONE AND NOT PLATFORM_ANDROID)
   find_package(Qt6 COMPONENTS REQUIRED ${qt_components} PATHS $ENV{QT_PATH} /opt/homebrew/opt/qt@6 /usr/local/opt/qt@6 /usr/lib/x86_64-linux-gnu/qt6)
 endif()
 
-find_library(LIBZ NAMES z)
-if (LIBZ STREQUAL "LIBZ-NOTFOUND")
-  message(FATAL_ERROR "Failed to find libz library.")
-endif()
-
 # To allow #include "base/file_name.hpp" in all sources.
 include_directories(${CMAKE_HOME_DIRECTORY})
 
@@ -327,6 +322,8 @@ if (WITH_SYSTEM_PROVIDED_3PARTY)
   find_package(jansson CONFIG REQUIRED)
   find_package(utf8cpp REQUIRED)
 endif()
+
+find_package(ZLIB REQUIRED)
 
 # Include 3party dependencies.
 add_subdirectory(3party)

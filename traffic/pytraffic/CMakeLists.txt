@@ -44,7 +44,7 @@ omim_link_libraries(
   succinct
   ICU::i18n
   ${Boost_LIBRARIES}
-  ${LIBZ}
+  ZLIB::ZLIB
 )
 
 set_target_properties(${PROJECT_NAME} PROPERTIES PREFIX "")
