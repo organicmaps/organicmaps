@@ -54816,6 +54816,94 @@ cont {
   }
 }
 cont {
+  name: "leisure-resort"
+  element {
+    scale: 16
+    symbol {
+      name: "hotel-m"
+      priority: 2750
+      min_distance: 24
+    }
+    caption {
+      primary {
+        height: 10
+        color: 4473924
+        offset_y: 1
+        is_optional: true
+      }
+      priority: -7250
+    }
+  }
+  element {
+    scale: 17
+    symbol {
+      name: "hotel-m"
+      priority: 2750
+      min_distance: 16
+    }
+    caption {
+      primary {
+        height: 10
+        color: 4473924
+        offset_y: 1
+        is_optional: true
+      }
+      priority: -7250
+    }
+  }
+  element {
+    scale: 18
+    symbol {
+      name: "hotel-m"
+      priority: 2750
+      min_distance: 16
+    }
+    caption {
+      primary {
+        height: 10
+        color: 4473924
+        offset_y: 1
+        is_optional: true
+      }
+      priority: -7250
+    }
+  }
+  element {
+    scale: 19
+    symbol {
+      name: "hotel-m"
+      priority: 2750
+      min_distance: 16
+    }
+    caption {
+      primary {
+        height: 10
+        color: 4473924
+        offset_y: 1
+        is_optional: true
+      }
+      priority: -7250
+    }
+  }
+  element {
+    scale: 20
+    symbol {
+      name: "hotel-m"
+      priority: 2750
+      min_distance: 16
+    }
+    caption {
+      primary {
+        height: 10
+        color: 4473924
+        offset_y: 1
+        is_optional: true
+      }
+      priority: -7250
+    }
+  }
+}
+cont {
   name: "leisure-sauna"
   element {
     scale: 17
@@ -128633,94 +128721,6 @@ cont {
         is_optional: true
       }
       priority: -8200
-    }
-  }
-}
-cont {
-  name: "tourism-resort"
-  element {
-    scale: 16
-    symbol {
-      name: "hotel-m"
-      priority: 2750
-      min_distance: 24
-    }
-    caption {
-      primary {
-        height: 10
-        color: 4473924
-        offset_y: 1
-        is_optional: true
-      }
-      priority: -7250
-    }
-  }
-  element {
-    scale: 17
-    symbol {
-      name: "hotel-m"
-      priority: 2750
-      min_distance: 16
-    }
-    caption {
-      primary {
-        height: 10
-        color: 4473924
-        offset_y: 1
-        is_optional: true
-      }
-      priority: -7250
-    }
-  }
-  element {
-    scale: 18
-    symbol {
-      name: "hotel-m"
-      priority: 2750
-      min_distance: 16
-    }
-    caption {
-      primary {
-        height: 11
-        color: 4473924
-        offset_y: 1
-        is_optional: true
-      }
-      priority: -7250
-    }
-  }
-  element {
-    scale: 19
-    symbol {
-      name: "hotel-m"
-      priority: 2750
-      min_distance: 16
-    }
-    caption {
-      primary {
-        height: 11
-        color: 4473924
-        offset_y: 1
-        is_optional: true
-      }
-      priority: -7250
-    }
-  }
-  element {
-    scale: 20
-    symbol {
-      name: "hotel-m"
-      priority: 2750
-      min_distance: 16
-    }
-    caption {
-      primary {
-        height: 11
-        color: 4473924
-        offset_y: 1
-        is_optional: true
-      }
-      priority: -7250
     }
   }
 }
