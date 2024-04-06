@@ -2,10 +2,7 @@
 # Compatibility with CMake < 3.5 will be removed from a future version of CMake.
 set(CMAKE_WARN_DEPRECATED OFF CACHE BOOL "" FORCE)
 
-if (WITH_SYSTEM_PROVIDED_3PARTY)
-  set(GFLAGS_USE_TARGET_NAMESPACE ON)
-  find_package(gflags REQUIRED GLOBAL)
-else()
+if (NOT WITH_SYSTEM_PROVIDED_3PARTY)
   # Suppress "Policy CMP0077 is not set: option() honors normal variables"
   # for the freetype, expat and jansson options.
   set(CMAKE_POLICY_DEFAULT_CMP0077 NEW)

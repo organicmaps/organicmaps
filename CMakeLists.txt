@@ -319,6 +319,11 @@ if (PLATFORM_LINUX)
   find_package(harfbuzz REQUIRED)
 endif()
 
+if (WITH_SYSTEM_PROVIDED_3PARTY)
+  set(GFLAGS_USE_TARGET_NAMESPACE ON)
+  find_package(gflags REQUIRED)
+endif()
+
 # Include 3party dependencies.
 add_subdirectory(3party)
 
