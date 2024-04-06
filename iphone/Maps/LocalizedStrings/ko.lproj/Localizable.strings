@@ -1270,6 +1270,8 @@
 /* Main screen title "Map" displayed in the navigation back button's menu. */
 "map" = "지도";
 
+"drive_through" = "드라이브 스루";
+
 
 /********** Types **********/
 

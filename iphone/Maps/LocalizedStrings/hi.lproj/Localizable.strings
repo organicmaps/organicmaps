@@ -1270,6 +1270,8 @@
 /* Main screen title "Map" displayed in the navigation back button's menu. */
 "map" = "नक्शा";
 
+"drive_through" = "ड्राइव करते हुए किसी जगह से गुजरना";
+
 
 /********** Types **********/
 

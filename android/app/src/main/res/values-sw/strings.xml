@@ -320,6 +320,7 @@
 	<string name="pref_tts_open_system_settings">Mipangilio ya usanisi wa hotuba ya mfumo</string>
 	<!-- toast displayed when pressing the "Speech synthesis system settings" button, and the system settings aren't found. -->
 	<string name="pref_tts_no_system_tts">Mipangilio ya Usanisi wa Matamshi haikupatikana, una uhakika kuwa kifaa chako kinaitumia?</string>
+	<string name="drive_through">Kuendesha-kupitia</string>
 
 	<!-- SECTION: Types -->
 	<string name="type.addr_interpolation">Anwani/Zuia</string>

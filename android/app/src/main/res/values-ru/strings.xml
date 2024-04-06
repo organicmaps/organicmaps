@@ -815,6 +815,7 @@
 	<string name="pref_tts_open_system_settings">Системные настройки синтеза речи</string>
 	<!-- toast displayed when pressing the "Speech synthesis system settings" button, and the system settings aren't found. -->
 	<string name="pref_tts_no_system_tts">Настройки синтеза речи не найдены, вы уверены, что ваше устройство поддерживает их?</string>
+	<string name="drive_through">С окошком для водителей</string>
 
 	<!-- SECTION: Types -->
 	<string name="type.addr_interpolation">Адрес/Блок</string>

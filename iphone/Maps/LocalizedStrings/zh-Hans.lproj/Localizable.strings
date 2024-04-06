@@ -1270,6 +1270,8 @@
 /* Main screen title "Map" displayed in the navigation back button's menu. */
 "map" = "地图";
 
+"drive_through" = "驾车通过";
+
 
 /********** Types **********/
 

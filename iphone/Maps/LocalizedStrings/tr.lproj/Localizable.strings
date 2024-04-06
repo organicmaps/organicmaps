@@ -1270,6 +1270,8 @@
 /* Main screen title "Map" displayed in the navigation back button's menu. */
 "map" = "Harita";
 
+"drive_through" = "Arabaya servis";
+
 
 /********** Types **********/
 
