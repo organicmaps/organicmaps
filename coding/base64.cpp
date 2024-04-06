@@ -1,8 +1,9 @@
 #include "coding/base64.hpp"
 
+#if defined(__GNUC__)
 #pragma GCC diagnostic push
 #pragma GCC diagnostic ignored "-Wreorder"
-#if defined(__clang__)
+#elif defined(__clang__)
 #pragma clang diagnostic push
 #pragma clang diagnostic ignored "-Wunused-local-typedef"
 #endif
@@ -12,10 +13,11 @@
 #include <boost/archive/iterators/binary_from_base64.hpp>
 #include <boost/archive/iterators/transform_width.hpp>
 
-#if defined(__clang__)
+#if defined(__GNUC__)
+#pragma GCC diagnostic pop
+#elif defined(__clang__)
 #pragma clang diagnostic pop
 #endif
-#pragma GCC diagnostic pop
 
 namespace base64
 {
