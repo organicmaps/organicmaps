@@ -308,7 +308,7 @@ if (USE_PCH)
 endif()
 
 # Should be on the root level, not in 3party, so tests can get these dependencies.
-if (PLATFORM_LINUX)
+if (PLATFORM_LINUX OR PLATFORM_WIN)
   find_package(ICU COMPONENTS uc i18n data REQUIRED)
   find_package(Freetype REQUIRED)
   find_package(harfbuzz REQUIRED)

@@ -44,6 +44,12 @@ if (NOT WITH_SYSTEM_PROVIDED_3PARTY)
   # Add protobuf library.
   add_subdirectory(protobuf)
 
+  if (NOT PLATFORM_LINUX)
+    add_subdirectory(freetype)
+    add_subdirectory(icu)
+    add_subdirectory(harfbuzz)
+  endif()
+
   add_library(utf8cpp INTERFACE)
   add_library(utf8cpp::utf8cpp ALIAS utf8cpp)
   target_include_directories(utf8cpp INTERFACE "${OMIM_ROOT}/3party/utfcpp/source")
@@ -51,13 +57,6 @@ endif()
 
 add_subdirectory(agg)
 add_subdirectory(bsdiff-courgette)
-
-if (NOT PLATFORM_LINUX)
-  add_subdirectory(freetype)
-  add_subdirectory(icu)
-  add_subdirectory(harfbuzz)
-endif()
-
 add_subdirectory(liboauthcpp)
 add_subdirectory(minizip)
 add_subdirectory(open-location-code)
