@@ -30,6 +30,7 @@ NS_ASSUME_NONNULL_BEGIN
 @property(nonatomic, readonly, nullable) NSString *atm;
 @property(nonatomic, readonly, nullable) NSString *capacity;
 @property(nonatomic, readonly, nullable) NSString *wheelchair;
+@property(nonatomic, readonly, nullable) NSString *driveThrough;
 
 @end
 
