@@ -322,6 +322,7 @@ endif()
 if (WITH_SYSTEM_PROVIDED_3PARTY)
   set(GFLAGS_USE_TARGET_NAMESPACE ON)
   find_package(gflags REQUIRED)
+  find_package(utf8cpp REQUIRED)
 endif()
 
 # Include 3party dependencies.
