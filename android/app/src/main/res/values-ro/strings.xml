@@ -782,6 +782,7 @@
 	<string name="pref_tts_open_system_settings">Setări ale sistemului de sinteză vocală</string>
 	<!-- toast displayed when pressing the "Speech synthesis system settings" button, and the system settings aren't found. -->
 	<string name="pref_tts_no_system_tts">Nu au fost găsite setările de sinteză vocală, sunteți sigur că dispozitivul dvs. le acceptă?</string>
+	<string name="drive_through">Servire în mașină</string>
 
 	<!-- SECTION: Types -->
 	<string name="type.addr_interpolation">Adresă/Bloc</string>

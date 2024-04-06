@@ -793,6 +793,7 @@
 	<string name="pref_tts_open_system_settings">Kõnesünteesi süsteemi seaded</string>
 	<!-- toast displayed when pressing the "Speech synthesis system settings" button, and the system settings aren't found. -->
 	<string name="pref_tts_no_system_tts">Kõnesünteesi seadeid ei leitud, kas olete kindel, et teie seade toetab seda?</string>
+	<string name="drive_through">Läbi sõit</string>
 
 	<!-- SECTION: Types -->
 	<string name="type.addr_interpolation">Aadress/plokk</string>

@@ -802,6 +802,7 @@
 	<string name="pref_tts_open_system_settings">Sistemaren ahots-sintesiaren ezarpenak</string>
 	<!-- toast displayed when pressing the "Speech synthesis system settings" button, and the system settings aren't found. -->
 	<string name="pref_tts_no_system_tts">Ahots-sintesiaren ezarpenak ez dira aurkitu. Ziur zure gailuak onartzen duela?</string>
+	<string name="drive_through">Drive-through</string>
 
 	<!-- SECTION: Types -->
 	<string name="type.addr_interpolation">Helbidea/Blokea</string>

@@ -804,6 +804,7 @@
 	<string name="pref_tts_open_system_settings">Puhesynteesijärjestelmän asetukset</string>
 	<!-- toast displayed when pressing the "Speech synthesis system settings" button, and the system settings aren't found. -->
 	<string name="pref_tts_no_system_tts">Puhesynteesin asetuksia ei löytynyt, oletko varma, että laitteesi tukee sitä?</string>
+	<string name="drive_through">Ajaa läpi</string>
 
 	<!-- SECTION: Types -->
 	<string name="type.addr_interpolation">Osoite/lohko</string>

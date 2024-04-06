@@ -793,6 +793,7 @@
 	<string name="pref_tts_open_system_settings">הגדרות סינתזת דיבור במערכת</string>
 	<!-- toast displayed when pressing the "Speech synthesis system settings" button, and the system settings aren't found. -->
 	<string name="pref_tts_no_system_tts">הגדרות סינתזת דיבור לא נמצאו, האם אתה בטוח שהמכשיר שלך תומך בזה?</string>
+	<string name="drive_through">דרייב ת\'רו</string>
 
 	<!-- SECTION: Types -->
 	<string name="type.addr_interpolation">כתובת/חסימה</string>
