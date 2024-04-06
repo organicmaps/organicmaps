@@ -32,7 +32,7 @@ omim_link_libraries(
   pugixml
   succinct
   ${Boost_LIBRARIES}
-  ${LIBZ}
+  ZLIB::ZLIB
 )
 
 link_qt5_core(${PROJECT_NAME})

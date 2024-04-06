@@ -12,7 +12,9 @@
 #include <sstream>
 #include <string>
 
+#ifndef XML_STATIC
 #define XML_STATIC
+#endif
 #include <expat.h>
 
 #if defined(__clang__)

@@ -101,7 +101,7 @@ elseif(${PLATFORM_ANDROID})
   )
 else() # neither iPhone nor Android
   # Find bash first, on Windows it can be either in Git or in WSL
-  find_program(BASH bash)
+  find_program(BASH bash REQUIRED)
   # Generate version header file.
   execute_process(COMMAND "${BASH}" tools/unix/version.sh qt_version
     WORKING_DIRECTORY ${CMAKE_SOURCE_DIR}
@@ -183,7 +183,7 @@ if (APPLE)
   target_compile_options(${PROJECT_NAME} PRIVATE "-fobjc-arc")
 endif()
 
-if (PLATFORM_LINUX)
+if (PLATFORM_LINUX OR PLATFORM_WIN)
   set_target_properties(${PROJECT_NAME} PROPERTIES AUTOMOC ON)
 endif()
 
@@ -192,6 +192,7 @@ target_link_libraries(${PROJECT_NAME}
   coding
   $<$<BOOL:${PLATFORM_DESKTOP}>:Qt6::Core>
   $<$<BOOL:${PLATFORM_LINUX}>:Qt6::Network>
+  $<$<BOOL:${PLATFORM_WIN}>:Qt6::Network>
   $<$<BOOL:${QT_POSITIONING}>:Qt6::Positioning>
   $<$<BOOL:${PLATFORM_MAC}>:
     -framework\ Foundation

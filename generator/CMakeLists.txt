@@ -248,7 +248,7 @@ target_link_libraries(${PROJECT_NAME}
   descriptions
   indexer
   cppjansson
-  expat
+  expat::expat
   tess2
   $<$<BOOL:CMAKE_DL_LIBS>:${CMAKE_DL_LIBS}>  # dladdr from boost::stacktrace
 )

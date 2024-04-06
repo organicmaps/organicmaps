@@ -103,7 +103,12 @@ if (NOT CMAKE_BUILD_TYPE)
 endif()
 
 # Global compile options for all configurations.
-add_compile_options(-ffast-math)
+if (MSVC)
+  add_compile_options(/utf-8)
+  add_link_options(/INCREMENTAL:NO)
+else()
+  add_compile_options(-ffast-math)
+endif()
 
 if (PLATFORM_WIN)
   add_definitions(
@@ -114,10 +119,15 @@ endif()
 
 # Built-in CMake configurations: Debug, Release, RelWithDebInfo, MinSizeRel
 if (${CMAKE_BUILD_TYPE} STREQUAL "Debug")
-  add_definitions(-DDEBUG -fno-omit-frame-pointer)
+  add_definitions(-DDEBUG)
+  if (NOT MSVC)
+    add_compile_options(-fno-omit-frame-pointer)
+  endif()
 elseif (${CMAKE_BUILD_TYPE} MATCHES "Rel")
   add_definitions(-DRELEASE)
-  add_compile_options(-Ofast)  # Also enables -ffast-math
+  if (NOT MSVC)
+    add_compile_options(-Ofast)  # Also enables -ffast-math
+  endif()
 else()
   message(FATAL_ERROR "Unknown build type: " ${CMAKE_BUILD_TYPE})
 endif()
@@ -262,11 +272,6 @@ if (NOT PLATFORM_IPHONE AND NOT PLATFORM_ANDROID)
   find_package(Qt6 COMPONENTS REQUIRED ${qt_components} PATHS $ENV{QT_PATH} /opt/homebrew/opt/qt@6 /usr/local/opt/qt@6 /usr/lib/x86_64-linux-gnu/qt6)
 endif()
 
-find_library(LIBZ NAMES z)
-if (LIBZ STREQUAL "LIBZ-NOTFOUND")
-  message(FATAL_ERROR "Failed to find libz library.")
-endif()
-
 # To allow #include "base/file_name.hpp" in all sources.
 include_directories(${CMAKE_HOME_DIRECTORY})
 
@@ -302,11 +307,23 @@ if (USE_PCH)
 endif()
 
 # Should be on the root level, not in 3party, so tests can get these dependencies.
-if (PLATFORM_LINUX)
+if (PLATFORM_LINUX OR PLATFORM_WIN)
   find_package(ICU COMPONENTS uc i18n data REQUIRED)
   find_package(Freetype REQUIRED)
   find_package(harfbuzz REQUIRED)
 endif()
+
+if (WITH_SYSTEM_PROVIDED_3PARTY)
+  set(GFLAGS_USE_TARGET_NAMESPACE ON)
+  find_package(gflags REQUIRED)
+
+  find_package(expat CONFIG REQUIRED)
+  find_package(jansson CONFIG REQUIRED)
+  find_package(pugixml REQUIRED)
+  find_package(utf8cpp REQUIRED)
+endif()
+
+find_package(ZLIB REQUIRED)
 
 # Include 3party dependencies.
 add_subdirectory(3party)

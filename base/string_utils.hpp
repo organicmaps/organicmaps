@@ -18,7 +18,7 @@
 #include <string_view>
 #include <type_traits>
 
-#include <utf8cpp/utf8/unchecked.h>
+#include <utf8/unchecked.h>
 
 /// All methods work with strings in utf-8 format
 namespace strings

@@ -12,7 +12,7 @@
 #include <queue>
 #include <vector>
 
-#include <utf8cpp/utf8/unchecked.h>
+#include <utf8/unchecked.h>
 
 namespace search
 {

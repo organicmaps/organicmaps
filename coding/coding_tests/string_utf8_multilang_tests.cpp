@@ -4,7 +4,7 @@
 
 #include "base/control_flow.hpp"
 
-#include <utf8cpp/utf8.h>
+#include <utf8.h>
 
 #include <cstddef>
 #include <string>
