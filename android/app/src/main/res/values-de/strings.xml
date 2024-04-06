@@ -2037,7 +2037,7 @@
 	<string name="type.tourism.motel">Motel</string>
 	<string name="type.tourism.museum">Museum</string>
 	<string name="type.tourism.picnic_site">Picknickplatz</string>
-	<string name="type.tourism.resort">Resort</string>
+	<string name="type.leisure.resort">Resort</string>
 	<string name="type.tourism.theme_park">Freizeitpark</string>
 	<string name="type.tourism.viewpoint">Aussichtspunkt</string>
 	<string name="type.tourism.wilderness_hut">Waldhütte</string>

@@ -2023,7 +2023,7 @@
 	<string name="type.tourism.motel">モーテル</string>
 	<string name="type.tourism.museum">博物館</string>
 	<string name="type.tourism.picnic_site">ピクニック場</string>
-	<string name="type.tourism.resort">リゾート</string>
+	<string name="type.leisure.resort">リゾート</string>
 	<string name="type.tourism.theme_park">テーマパーク</string>
 	<string name="type.tourism.viewpoint">観光スポット</string>
 	<string name="type.tourism.wilderness_hut">無人小屋</string>

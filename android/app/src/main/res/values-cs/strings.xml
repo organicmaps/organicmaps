@@ -1866,7 +1866,7 @@
 	<string name="type.tourism.information.visitor_centre">Návštěvnické centrum</string>
 	<string name="type.tourism.museum">Muzeum</string>
 	<string name="type.tourism.picnic_site">Piknik</string>
-	<string name="type.tourism.resort">Letovisko</string>
+	<string name="type.leisure.resort">Letovisko</string>
 	<string name="type.tourism.theme_park">Pamětihodnost</string>
 	<string name="type.tourism.viewpoint">Vyhlídka</string>
 	<string name="type.tourism.wilderness_hut">Chata v divočině</string>

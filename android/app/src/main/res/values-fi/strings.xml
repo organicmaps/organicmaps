@@ -1989,7 +1989,7 @@
 	<string name="type.tourism.motel">Motelli</string>
 	<string name="type.tourism.museum">Museo</string>
 	<string name="type.tourism.picnic_site">Piknikpaikat</string>
-	<string name="type.tourism.resort">Lomakohteet</string>
+	<string name="type.leisure.resort">Lomakohteet</string>
 	<string name="type.tourism.theme_park">Huvipuisto</string>
 	<string name="type.tourism.viewpoint">Näköalatasanne</string>
 	<string name="type.tourism.wilderness_hut">Autiotupa</string>

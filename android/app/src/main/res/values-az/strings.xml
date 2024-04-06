@@ -2025,7 +2025,7 @@
 	<string name="type.tourism.motel">Motel</string>
 	<string name="type.tourism.museum">Muzey</string>
 	<string name="type.tourism.picnic_site">Piknik sahəsi</string>
-	<string name="type.tourism.resort">İstirahət kəndi</string>
+	<string name="type.leisure.resort">İstirahət kəndi</string>
 	<string name="type.tourism.theme_park">Mövzu park</string>
 	<string name="type.tourism.viewpoint">Baxın</string>
 	<string name="type.tourism.wilderness_hut">Çöl kabinəsi</string>

@@ -3774,7 +3774,7 @@
 
 "type.tourism.picnic_site" = "Piknik Alanı";
 
-"type.tourism.resort" = "Tatil Köyü";
+"type.leisure.resort" = "Tatil Köyü";
 
 "type.tourism.theme_park" = "Tema Parkı";
 

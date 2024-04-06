@@ -1914,7 +1914,7 @@
 	<string name="type.tourism.motel">汽車旅館</string>
 	<string name="type.tourism.museum">博物館</string>
 	<string name="type.tourism.picnic_site">野餐</string>
-	<string name="type.tourism.resort">度假酒店</string>
+	<string name="type.leisure.resort">度假酒店</string>
 	<string name="type.tourism.theme_park">旅遊景點</string>
 	<string name="type.tourism.viewpoint">視野</string>
 	<string name="type.tourism.wilderness_hut">山屋</string>

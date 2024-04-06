@@ -1865,7 +1865,7 @@
 	<string name="type.tourism.motel">모텔</string>
 	<string name="type.tourism.museum">박물관</string>
 	<string name="type.tourism.picnic_site">피크닉 장소</string>
-	<string name="type.tourism.resort">리조트</string>
+	<string name="type.leisure.resort">리조트</string>
 	<string name="type.tourism.theme_park">테마 파크</string>
 	<string name="type.tourism.viewpoint">관점</string>
 	<string name="type.tourism.wilderness_hut">황야 오두막</string>

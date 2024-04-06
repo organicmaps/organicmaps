@@ -1817,7 +1817,7 @@
 	<string name="type.tourism.motel">Motel</string>
 	<string name="type.tourism.museum">Museu</string>
 	<string name="type.tourism.picnic_site">Local de piqueniques</string>
-	<string name="type.tourism.resort">Resort</string>
+	<string name="type.leisure.resort">Resort</string>
 	<string name="type.tourism.theme_park">Parque de diversão</string>
 	<string name="type.tourism.viewpoint">Mirante</string>
 	<string name="type.tourism.wilderness_hut">Cabana</string>

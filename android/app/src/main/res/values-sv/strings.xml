@@ -1852,7 +1852,7 @@
 	<string name="type.tourism.information.visitor_centre">Besökscentrum</string>
 	<string name="type.tourism.motel">Motell</string>
 	<string name="type.tourism.picnic_site">Picknickplatser</string>
-	<string name="type.tourism.resort">Semesterort</string>
+	<string name="type.leisure.resort">Semesterort</string>
 	<string name="type.tourism.theme_park">Attraktion</string>
 	<string name="type.tourism.viewpoint">Utsiktsplats</string>
 	<string name="type.tourism.wilderness_hut">Vildmarksstuga</string>

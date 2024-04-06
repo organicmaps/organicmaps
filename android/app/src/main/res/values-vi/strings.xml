@@ -1860,7 +1860,7 @@
 	<string name="type.tourism.motel">Nhà nghỉ</string>
 	<string name="type.tourism.museum">Bảo tàng</string>
 	<string name="type.tourism.picnic_site">Điểm cắm trại</string>
-	<string name="type.tourism.resort">Khu nghỉ dưỡng</string>
+	<string name="type.leisure.resort">Khu nghỉ dưỡng</string>
 	<string name="type.tourism.theme_park">Diểm tham quan</string>
 	<string name="type.tourism.viewpoint">Điểm nhìn</string>
 	<string name="type.tourism.wilderness_hut">Nhà tạm trú</string>

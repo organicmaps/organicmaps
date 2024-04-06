@@ -3774,7 +3774,7 @@
 
 "type.tourism.picnic_site" = "Piknikpaikat";
 
-"type.tourism.resort" = "Lomakohteet";
+"type.leisure.resort" = "Lomakohteet";
 
 "type.tourism.theme_park" = "Huvipuisto";
 

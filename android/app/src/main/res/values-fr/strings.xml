@@ -2020,7 +2020,7 @@
 	<string name="type.tourism.information.visitor_centre">centre de visite</string>
 	<string name="type.tourism.museum">Musée</string>
 	<string name="type.tourism.picnic_site">Terrain de pique-nique</string>
-	<string name="type.tourism.resort">Complexe touristique</string>
+	<string name="type.leisure.resort">Complexe touristique</string>
 	<string name="type.tourism.theme_park">Parc d\'attractions</string>
 	<string name="type.tourism.viewpoint">Belvédère</string>
 	<string name="type.tourism.wilderness_hut">Refuge non gardé</string>

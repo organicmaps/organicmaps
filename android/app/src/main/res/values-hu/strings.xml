@@ -1880,7 +1880,7 @@
 	<string name="type.tourism.information.visitor_centre">Látogatóközpont</string>
 	<string name="type.tourism.museum">Múzeum</string>
 	<string name="type.tourism.picnic_site">Piknikező hely</string>
-	<string name="type.tourism.resort">Resort hotel</string>
+	<string name="type.leisure.resort">Resort hotel</string>
 	<string name="type.tourism.theme_park">Túrizmus</string>
 	<string name="type.tourism.viewpoint">Kilátó</string>
 	<string name="type.tourism.wilderness_hut">Kunyhó a vadonban</string>

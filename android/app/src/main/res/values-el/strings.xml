@@ -1916,7 +1916,7 @@
 	<string name="type.tourism.motel">Μοτέλ</string>
 	<string name="type.tourism.museum">Μουσείο</string>
 	<string name="type.tourism.picnic_site">Χώρος εκδρομής</string>
-	<string name="type.tourism.resort">Θέρετρο</string>
+	<string name="type.leisure.resort">Θέρετρο</string>
 	<string name="type.tourism.theme_park">Αξιοθέατο</string>
 	<string name="type.tourism.viewpoint">Θέα</string>
 	<string name="type.tourism.wilderness_hut">Καλύβα</string>

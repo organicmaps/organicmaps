@@ -1851,7 +1851,7 @@
 	<string name="type.tourism.information.office">Kantor wisata</string>
 	<string name="type.tourism.information.visitor_centre">Pusat Pengunjung</string>
 	<string name="type.tourism.picnic_site">Lokasi piknik</string>
-	<string name="type.tourism.resort">Sanggraloka</string>
+	<string name="type.leisure.resort">Sanggraloka</string>
 	<string name="type.tourism.theme_park">Pemandangan</string>
 	<string name="type.tourism.viewpoint">Titik pandang</string>
 	<string name="type.tourism.wilderness_hut">Pondok Alam Liar</string>

@@ -3774,7 +3774,7 @@
 
 "type.tourism.picnic_site" = "Terrain de pique-nique";
 
-"type.tourism.resort" = "Complexe touristique";
+"type.leisure.resort" = "Complexe touristique";
 
 "type.tourism.theme_park" = "Parc d'attractions";
 

@@ -1777,7 +1777,7 @@
 	<string name="type.tourism.motel">هتل</string>
 	<string name="type.tourism.museum">گردشگری</string>
 	<string name="type.tourism.picnic_site">مکان پیک نیک</string>
-	<string name="type.tourism.resort">هتل</string>
+	<string name="type.leisure.resort">هتل</string>
 	<string name="type.tourism.theme_park">گردشگری</string>
 	<string name="type.tourism.viewpoint">گردشگری</string>
 	<string name="type.tourism.wilderness_hut">کلبه‌ی صحرایی</string>

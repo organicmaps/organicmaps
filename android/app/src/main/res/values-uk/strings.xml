@@ -2062,7 +2062,7 @@
 	<string name="type.tourism.motel">Мотель</string>
 	<string name="type.tourism.museum">Музей</string>
 	<string name="type.tourism.picnic_site">Пікнік</string>
-	<string name="type.tourism.resort">Будинок відпочинку</string>
+	<string name="type.leisure.resort">Будинок відпочинку</string>
 	<string name="type.tourism.theme_park">Парк розваг</string>
 	<string name="type.tourism.viewpoint">Оглядний майданчик</string>
 	<string name="type.tourism.wilderness_hut">Хибара</string>
