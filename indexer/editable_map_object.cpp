@@ -286,6 +286,7 @@ void EditableMapObject::ForEachMetadataItem(function<void(string_view tag, strin
     case MetadataID::FMD_PRICE_RATES:
     case MetadataID::FMD_RATINGS:
     case MetadataID::FMD_EXTERNAL_URI:
+    case MetadataID::FMD_WHEELCHAIR:    // Value is runtime only, data is taken from the classificator types, should not be used to update the OSM database
       break;
     default: fn(ToString(type), value); break;
     }
