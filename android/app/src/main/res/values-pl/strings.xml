@@ -2035,7 +2035,7 @@
 	<string name="type.tourism.motel">Motel</string>
 	<string name="type.tourism.museum">Muzeum</string>
 	<string name="type.tourism.picnic_site">Pole piknikowe</string>
-	<string name="type.tourism.resort">Dom wczasowy</string>
+	<string name="type.leisure.resort">Dom wczasowy</string>
 	<string name="type.tourism.theme_park">Park tematyczny</string>
 	<string name="type.tourism.viewpoint">Punkt widokowy</string>
 	<!-- Typically more basic, not staffed and free (compared to alpine_hut). -->

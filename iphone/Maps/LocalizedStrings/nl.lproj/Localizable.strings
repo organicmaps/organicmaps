@@ -3777,7 +3777,7 @@
 
 "type.tourism.picnic_site" = "Picnicplaats";
 
-"type.tourism.resort" = "Complex";
+"type.leisure.resort" = "Complex";
 
 "type.tourism.theme_park" = "Attractiepark";
 

@@ -1995,7 +1995,7 @@
 	<string name="type.tourism.motel">汽车旅馆</string>
 	<string name="type.tourism.museum">博物馆</string>
 	<string name="type.tourism.picnic_site">野餐地点</string>
-	<string name="type.tourism.resort">度假村</string>
+	<string name="type.leisure.resort">度假村</string>
 	<string name="type.tourism.theme_park">主题公园</string>
 	<string name="type.tourism.viewpoint">观点</string>
 	<!-- Typically more basic, not staffed and free (compared to alpine_hut). -->

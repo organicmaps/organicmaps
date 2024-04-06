@@ -2059,7 +2059,7 @@
 	<string name="type.tourism.motel">Motell</string>
 	<string name="type.tourism.museum">Muuseum</string>
 	<string name="type.tourism.picnic_site">Piknikukoht</string>
-	<string name="type.tourism.resort">Kuurort</string>
+	<string name="type.leisure.resort">Kuurort</string>
 	<string name="type.tourism.theme_park">Teemapark</string>
 	<string name="type.tourism.viewpoint">Vaatluskoht</string>
 	<!-- Typically more basic, not staffed and free (compared to alpine_hut). -->

@@ -3777,7 +3777,7 @@
 
 "type.tourism.picnic_site" = "Rasteplasser";
 
-"type.tourism.resort" = "Ferieresort";
+"type.leisure.resort" = "Ferieresort";
 
 "type.tourism.theme_park" = "Temapark";
 

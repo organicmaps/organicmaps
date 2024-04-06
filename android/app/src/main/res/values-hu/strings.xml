@@ -1883,7 +1883,7 @@
 	<string name="type.tourism.information.visitor_centre">Látogatóközpont</string>
 	<string name="type.tourism.museum">Múzeum</string>
 	<string name="type.tourism.picnic_site">Piknikező hely</string>
-	<string name="type.tourism.resort">Resort hotel</string>
+	<string name="type.leisure.resort">Resort hotel</string>
 	<string name="type.tourism.theme_park">Túrizmus</string>
 	<string name="type.tourism.viewpoint">Kilátó</string>
 	<!-- Typically more basic, not staffed and free (compared to alpine_hut). -->

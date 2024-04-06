@@ -1866,7 +1866,7 @@
 	<string name="type.tourism.motel">โมเทล</string>
 	<string name="type.tourism.museum">พิพิธภัณฑ์</string>
 	<string name="type.tourism.picnic_site">เว็บไซต์ปิกนิก</string>
-	<string name="type.tourism.resort">รีสอร์ต</string>
+	<string name="type.leisure.resort">รีสอร์ต</string>
 	<string name="type.tourism.theme_park">สถานที่ท่องเที่ยว</string>
 	<string name="type.tourism.viewpoint">จุดชมวิว</string>
 	<!-- Typically more basic, not staffed and free (compared to alpine_hut). -->

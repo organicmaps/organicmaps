@@ -2059,7 +2059,7 @@
 	<string name="type.tourism.motel">Motel</string>
 	<string name="type.tourism.museum">Museo</string>
 	<string name="type.tourism.picnic_site">Zona de picnic</string>
-	<string name="type.tourism.resort">Resort</string>
+	<string name="type.leisure.resort">Resort</string>
 	<string name="type.tourism.theme_park">Parque de atracciones</string>
 	<string name="type.tourism.viewpoint">Vista panorámica</string>
 	<!-- Typically more basic, not staffed and free (compared to alpine_hut). -->

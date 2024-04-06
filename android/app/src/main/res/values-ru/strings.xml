@@ -2086,7 +2086,7 @@
 	<string name="type.tourism.motel">Мотель</string>
 	<string name="type.tourism.museum">Музей</string>
 	<string name="type.tourism.picnic_site">Место для пикника</string>
-	<string name="type.tourism.resort">Дом отдыха</string>
+	<string name="type.leisure.resort">Дом отдыха</string>
 	<string name="type.tourism.theme_park">Парк развлечений</string>
 	<string name="type.tourism.viewpoint">Обзорная площадка</string>
 	<!-- Typically more basic, not staffed and free (compared to alpine_hut). -->

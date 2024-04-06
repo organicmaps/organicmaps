@@ -2016,7 +2016,7 @@
 	<string name="type.tourism.motel">موتيل</string>
 	<string name="type.tourism.museum">متحف</string>
 	<string name="type.tourism.picnic_site">موقع نزهة</string>
-	<string name="type.tourism.resort">منتجع</string>
+	<string name="type.leisure.resort">منتجع</string>
 	<string name="type.tourism.theme_park">مدينة العاب</string>
 	<string name="type.tourism.viewpoint">نقطة منظر</string>
 	<!-- Typically more basic, not staffed and free (compared to alpine_hut). -->

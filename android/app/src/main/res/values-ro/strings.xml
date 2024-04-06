@@ -1879,7 +1879,7 @@
 	<string name="type.tourism.information.visitor_centre">Centrul pentru vizitatori</string>
 	<string name="type.tourism.museum">Muzeu</string>
 	<string name="type.tourism.picnic_site">Locații picnic</string>
-	<string name="type.tourism.resort">Stațiuni</string>
+	<string name="type.leisure.resort">Stațiuni</string>
 	<string name="type.tourism.theme_park">Parc de distracții</string>
 	<string name="type.tourism.viewpoint">Punct de vedere</string>
 	<!-- Typically more basic, not staffed and free (compared to alpine_hut). -->

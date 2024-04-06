@@ -2127,7 +2127,7 @@
 	<string name="type.tourism.motel">Motel</string>
 	<string name="type.tourism.museum">Museum</string>
 	<string name="type.tourism.picnic_site">Picnic Site</string>
-	<string name="type.tourism.resort">Resort</string>
+	<string name="type.leisure.resort">Resort</string>
 	<string name="type.tourism.theme_park">Theme Park</string>
 	<string name="type.tourism.viewpoint">Viewpoint</string>
 	<!-- Typically more basic, not staffed and free (compared to alpine_hut). -->

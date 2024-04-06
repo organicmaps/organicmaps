@@ -1922,7 +1922,7 @@
 	<string name="type.tourism.information.visitor_centre">Besøkssenter</string>
 	<string name="type.tourism.motel">Motell</string>
 	<string name="type.tourism.picnic_site">Rasteplasser</string>
-	<string name="type.tourism.resort">Ferieresort</string>
+	<string name="type.leisure.resort">Ferieresort</string>
 	<string name="type.tourism.theme_park">Temapark</string>
 	<string name="type.tourism.viewpoint">Utsiktspunkt</string>
 	<!-- Typically more basic, not staffed and free (compared to alpine_hut). -->

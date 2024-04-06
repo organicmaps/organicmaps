@@ -2012,7 +2012,7 @@
 	<string name="type.tourism.motel">Motel</string>
 	<string name="type.tourism.museum">Museo</string>
 	<string name="type.tourism.picnic_site">Area picnic</string>
-	<string name="type.tourism.resort">Resort</string>
+	<string name="type.leisure.resort">Resort</string>
 	<string name="type.tourism.theme_park">Parco divertimenti</string>
 	<string name="type.tourism.viewpoint">Punto panoramico</string>
 	<!-- Typically more basic, not staffed and free (compared to alpine_hut). -->

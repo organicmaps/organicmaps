@@ -2061,7 +2061,7 @@
 	<string name="type.tourism.information.visitor_centre">Bezoekerscentrum</string>
 	<string name="type.tourism.museum">Museum</string>
 	<string name="type.tourism.picnic_site">Picnicplaats</string>
-	<string name="type.tourism.resort">Complex</string>
+	<string name="type.leisure.resort">Complex</string>
 	<string name="type.tourism.theme_park">Attractiepark</string>
 	<string name="type.tourism.viewpoint">Uitkijkpunt</string>
 	<!-- Typically more basic, not staffed and free (compared to alpine_hut). -->
