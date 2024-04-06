@@ -175,7 +175,7 @@ target_link_libraries(${PROJECT_NAME}
   sdf_image
   harfbuzz
   ICU::i18n
-  expat
+  expat::expat
   $<$<BOOL:${PLATFORM_MAC}>:-framework\ OpenGL>
   $<$<BOOL:${PLATFORM_LINUX}>:OpenGL::GL>
 )

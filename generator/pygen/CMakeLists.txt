@@ -28,7 +28,7 @@ omim_link_libraries(
   base
   opening_hours
   freetype
-  expat
+  expat::expat
   ICU::i18n
   cppjansson
   protobuf

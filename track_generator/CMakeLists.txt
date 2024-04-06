@@ -13,6 +13,6 @@ target_link_libraries(${PROJECT_NAME}
   routing
   kml
   coding
-  expat
+  expat::expat
   gflags::gflags
 )

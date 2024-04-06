@@ -24,7 +24,7 @@ omim_link_libraries(
   oauthcpp
   protobuf
   pugixml
-  expat
+  expat::expat
   succinct
 )
 
