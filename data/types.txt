@@ -1108,7 +1108,7 @@ leisure|sports_centre
 leisure|sports_centre
 *amenity|public_bookcase
 *tourism|apartment
-*tourism|resort
+*leisure|resort
 *shop|interior_decoration
 *shop|houseware
 *hwtag|nobicycle
