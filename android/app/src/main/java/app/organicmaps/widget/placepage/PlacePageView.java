@@ -104,6 +104,8 @@ public class PlacePageView extends Fragment implements View.OnClickListener,
   private TextView mTvCapacity;
   private View mWheelchair;
   private TextView mTvWheelchair;
+  private View mDriveThrough;
+  private TextView mTvDriveThrough;
   private View mCuisine;
   private TextView mTvCuisine;
   private View mEntrance;
@@ -244,6 +246,8 @@ public class PlacePageView extends Fragment implements View.OnClickListener,
     mTvCapacity = mFrame.findViewById(R.id.tv__place_capacity);
     mWheelchair = mFrame.findViewById(R.id.ll__place_wheelchair);
     mTvWheelchair = mFrame.findViewById(R.id.tv__place_wheelchair);
+    mDriveThrough = mFrame.findViewById(R.id.ll__place_drive_through);
+    mTvDriveThrough = mFrame.findViewById(R.id.tv__place_drive_through);
     mCuisine = mFrame.findViewById(R.id.ll__place_cuisine);
     mTvCuisine = mFrame.findViewById(R.id.tv__place_cuisine);
     mEntrance = mFrame.findViewById(R.id.ll__place_entrance);
@@ -262,6 +266,7 @@ public class PlacePageView extends Fragment implements View.OnClickListener,
     mAtm.setOnLongClickListener(this);
     mCapacity.setOnLongClickListener(this);
     mWheelchair.setOnLongClickListener(this);
+    mDriveThrough.setOnLongClickListener(this);
 
     mDownloaderIcon = new DownloaderStatusIcon(mPreview.findViewById(R.id.downloader_status_frame));
 
@@ -409,6 +414,12 @@ public class PlacePageView extends Fragment implements View.OnClickListener,
 
     final String wheelchair = Utils.getLocalizedFeatureType(getContext(), mMapObject.getMetadata(Metadata.MetadataType.FMD_WHEELCHAIR));
     refreshMetadataOrHide(wheelchair, mWheelchair, mTvWheelchair);
+
+    final String driveThrough = mMapObject.getMetadata(Metadata.MetadataType.FMD_DRIVE_THROUGH);
+    if (driveThrough.equals("yes"))
+    {
+      refreshMetadataOrHide(getString(R.string.drive_through), mDriveThrough, mTvDriveThrough);
+    }
 
 //    showTaxiOffer(mapObject);
 
@@ -577,6 +588,8 @@ public class PlacePageView extends Fragment implements View.OnClickListener,
       items.add(mTvCapacity.getText().toString());
     else if (id == R.id.ll__place_wheelchair)
       items.add(mTvWheelchair.getText().toString());
+    else if (id == R.id.ll__place_drive_through)
+      items.add(mTvDriveThrough.getText().toString());
 
     final Context context = requireContext();
     if (items.size() == 1)
