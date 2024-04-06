@@ -1941,7 +1941,7 @@ void Framework::DeactivateHotelSearchMark()
     return;
 
   m_searchMarks.SetSelected({});
-  if (m_currentPlacePageInfo->GetHotelType().has_value())
+  if (m_currentPlacePageInfo->IsHotel())
   {
     auto const & featureId = m_currentPlacePageInfo->GetID();
     if (m_searchMarks.IsThereSearchMarkForFeature(featureId))

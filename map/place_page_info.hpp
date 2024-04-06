@@ -11,12 +11,10 @@
 
 #include "indexer/feature_data.hpp"
 #include "indexer/feature_source.hpp"
-#include "indexer/ftypes_matcher.hpp"
 #include "indexer/map_object.hpp"
 
 #include "geometry/point2d.hpp"
 
-#include <optional>
 #include <string>
 #include <vector>
 
@@ -207,7 +205,7 @@ public:
   void SetMercator(m2::PointD const & mercator);
   std::vector<std::string> GetRawTypes() const { return m_types.ToObjectNames(); }
 
-  std::optional<ftypes::IsHotelChecker::Type> GetHotelType() const { return m_hotelType; }
+  bool IsHotel() const { return m_isHotel; }
 
   // void SetPopularity(uint8_t popularity) { m_popularity = popularity; }
   // uint8_t GetPopularity() const { return m_popularity; }
@@ -278,7 +276,7 @@ private:
   /// Feature status
   FeatureStatus m_featureStatus = FeatureStatus::Untouched;
 
-  std::optional<ftypes::IsHotelChecker::Type> m_hotelType;
+  bool m_isHotel = false;
 
   //uint8_t m_popularity = 0;
 
