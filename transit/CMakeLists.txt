@@ -23,7 +23,7 @@ omim_add_library(${PROJECT_NAME} ${SRC})
 target_link_libraries(${PROJECT_NAME}
   PUBLIC
     base
-    condig
+    coding
     cppjansson
     geometry
     indexer
