@@ -4,7 +4,6 @@
 #include "indexer/feature.hpp"
 
 #include "base/assert.hpp"
-#include "base/buffer_vector.hpp"
 #include "base/stl_helpers.hpp"
 
 #include <algorithm>
@@ -594,50 +593,23 @@ bool IsBridgeOrTunnelChecker::IsMatched(uint32_t type) const
 
 IsHotelChecker::IsHotelChecker()
 {
+  base::StringIL const types[] = {
+    {"tourism", "alpine_hut"},
+    {"tourism", "apartment"},
+    {"tourism", "camp_site"},
+    {"tourism", "caravan_site"},  /// @todo Sure here?
+    {"tourism", "chalet"},
+    {"tourism", "guest_house"},
+    {"tourism", "hostel"},
+    {"tourism", "hotel"},
+    {"tourism", "motel"},
+    {"tourism", "wilderness_hut"},
+    {"leisure", "resort"},
+  };
+
   Classificator const & c = classif();
-  for (size_t i = 0; i < static_cast<size_t>(Type::Count); ++i)
-  {
-    auto const hotelType = static_cast<Type>(i);
-    auto const * const tag = GetHotelTypeTag(hotelType);
-    auto const type = c.GetTypeByPath({"tourism", tag});
-
-    m_types.push_back(type);
-
-    m_sortedTypes[i].first = type;
-    m_sortedTypes[i].second = hotelType;
-  }
-
-  sort(m_sortedTypes.begin(), m_sortedTypes.end());
-}
-
-unsigned IsHotelChecker::GetHotelTypesMask(FeatureType & ft) const
-{
-  feature::TypesHolder types(ft);
-  buffer_vector<uint32_t, feature::kMaxTypesCount> sortedTypes(types.begin(), types.end());
-  sort(sortedTypes.begin(), sortedTypes.end());
-
-  unsigned mask = 0;
-  size_t i = 0;
-  size_t j = 0;
-  while (i < sortedTypes.size() && j < m_sortedTypes.size())
-  {
-    if (sortedTypes[i] < m_sortedTypes[j].first)
-    {
-      ++i;
-    }
-    else if (sortedTypes[i] > m_sortedTypes[j].first)
-    {
-      ++j;
-    }
-    else
-    {
-      mask |= 1U << static_cast<unsigned>(m_sortedTypes[j].second);
-      ++i;
-      ++j;
-    }
-  }
-
-  return mask;
+  for (auto const & e : types)
+    m_types.push_back(c.GetTypeByPath(e));
 }
 
 IsIslandChecker::IsIslandChecker()
@@ -669,44 +641,6 @@ uint32_t IsCoastlineChecker::GetCoastlineType() const
 {
   CHECK_EQUAL(m_types.size(), 1, ());
   return m_types[0];
-}
-
-optional<IsHotelChecker::Type> IsHotelChecker::GetHotelType(FeatureType & ft) const
-{
-  feature::TypesHolder types(ft);
-  buffer_vector<uint32_t, feature::kMaxTypesCount> sortedTypes(types.begin(), types.end());
-  sort(sortedTypes.begin(), sortedTypes.end());
-
-  size_t i = 0;
-  size_t j = 0;
-  while (i < sortedTypes.size() && j < m_sortedTypes.size())
-  {
-    if (sortedTypes[i] < m_sortedTypes[j].first)
-      ++i;
-    else if (sortedTypes[i] > m_sortedTypes[j].first)
-      ++j;
-    else
-      return m_sortedTypes[j].second;
-  }
-  return {};
-}
-
-// static
-char const * IsHotelChecker::GetHotelTypeTag(Type type)
-{
-  switch (type)
-  {
-  case Type::Hotel: return "hotel";
-  case Type::Apartment: return "apartment";
-  case Type::CampSite: return "camp_site";
-  case Type::Chalet: return "chalet";
-  case Type::GuestHouse: return "guest_house";
-  case Type::Hostel: return "hostel";
-  case Type::Motel: return "motel";
-  case Type::Resort: return "resort";
-  case Type::Count: CHECK(false, ("Can't get hotel type tag")); return "";
-  }
-  UNREACHABLE();
 }
 
 IsWifiChecker::IsWifiChecker()

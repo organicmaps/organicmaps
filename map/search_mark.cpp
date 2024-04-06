@@ -1,10 +1,10 @@
 #include "map/search_mark.hpp"
 
 #include "map/bookmark_manager.hpp"
-#include "map/place_page_info.hpp"
 
 #include "drape_frontend/drape_engine.hpp"
 
+#include "indexer/ftypes_matcher.hpp"
 #include "indexer/scales.hpp"
 
 #include "platform/platform.hpp"
@@ -13,7 +13,6 @@
 
 #include <algorithm>
 #include <array>
-#include <limits>
 
 
 enum SearchMarkPoint::SearchMarkType : uint8_t
@@ -133,7 +132,7 @@ private:
   SearchMarkTypeChecker()
   {
     auto const & c = classif();
-    std::vector<std::pair<std::vector<std::string>, SearchMarkType>> const table = {
+    std::pair<std::vector<std::string_view>, SearchMarkType> const table[] = {
       {{"amenity", "cafe"},          SearchMarkType::Cafe},
       {{"shop", "bakery"},           SearchMarkType::Bakery},
       {{"amenity", "bar"},           SearchMarkType::Bar},
@@ -142,6 +141,8 @@ private:
       {{"amenity", "restaurant"},    SearchMarkType::Restaurant},
       {{"amenity", "fast_food"},     SearchMarkType::FastFood},
       {{"amenity", "casino"},        SearchMarkType::Casino},
+      {{"shop", "bookmaker"},        SearchMarkType::Casino},
+      {{"shop", "lottery"},          SearchMarkType::Casino},
       {{"amenity", "cinema"},        SearchMarkType::Cinema},
       {{"amenity", "marketplace"},   SearchMarkType::Marketplace},
       {{"amenity", "nightclub"},     SearchMarkType::Nightclub},
@@ -150,9 +151,11 @@ private:
       {{"shop", "beverages"},        SearchMarkType::ShopAlcohol},
       {{"shop", "wine"},             SearchMarkType::ShopAlcohol},
       {{"shop", "butcher"},          SearchMarkType::ShopButcher},
+      {{"shop", "boutique"},         SearchMarkType::ShopClothes},
       {{"shop", "clothes"},          SearchMarkType::ShopClothes},
       {{"shop", "confectionery"},    SearchMarkType::ShopConfectionery},
       {{"shop", "convenience"},      SearchMarkType::ShopConvenience},
+      {{"shop", "grocery"},          SearchMarkType::ShopConvenience},
       {{"shop", "variety_store"},    SearchMarkType::ShopConvenience},
       {{"shop", "cosmetics"},        SearchMarkType::ShopCosmetics},
       {{"shop", "department_store"}, SearchMarkType::ShopDepartmentStore},
@@ -168,19 +171,16 @@ private:
       {{"tourism", "theme_park"},    SearchMarkType::ThemePark},
       {{"leisure", "water_park"},    SearchMarkType::WaterPark},
       {{"tourism", "zoo"},           SearchMarkType::Zoo},
-      {{"tourism", "hotel"},         SearchMarkType::Hotel},
-      {{"tourism", "apartment"},     SearchMarkType::Hotel},
-      {{"tourism", "camp_site"},     SearchMarkType::Hotel},
-      {{"tourism", "chalet"},        SearchMarkType::Hotel},
-      {{"tourism", "guest_house"},   SearchMarkType::Hotel},
-      {{"tourism", "hostel"},        SearchMarkType::Hotel},
-      {{"tourism", "motel"},         SearchMarkType::Hotel},
-      {{"tourism", "resort"},        SearchMarkType::Hotel}
     };
 
-    m_searchMarkTypes.reserve(table.size());
+    m_searchMarkTypes.reserve(std::size(table) + 16 /* possible hotel types */);
     for (auto const & p : table)
       m_searchMarkTypes.push_back({c.GetTypeByPath(p.first), p.second});
+
+    ftypes::IsHotelChecker::Instance().ForEachType([this](uint32_t t)
+    {
+      m_searchMarkTypes.push_back({t, SearchMarkType::Hotel});
+    });
 
     std::sort(m_searchMarkTypes.begin(), m_searchMarkTypes.end());
   }
