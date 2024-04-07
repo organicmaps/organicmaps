@@ -461,6 +461,7 @@
 		CDCA27842245090900167D87 /* ListenerContainer.swift in Sources */ = {isa = PBXBuildFile; fileRef = CDCA27832245090900167D87 /* ListenerContainer.swift */; };
 		CDCA278622451F5000167D87 /* RouteInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = CDCA278522451F5000167D87 /* RouteInfo.swift */; };
 		CDCA278E2248F34C00167D87 /* MWMRoutingManager.mm in Sources */ = {isa = PBXBuildFile; fileRef = CDCA278B2248F34C00167D87 /* MWMRoutingManager.mm */; };
+		ED0B1C312BC2951F00FB8EDD /* PrivacyInfo.xcprivacy in Resources */ = {isa = PBXBuildFile; fileRef = ED0B1C302BC2951F00FB8EDD /* PrivacyInfo.xcprivacy */; };
 		ED1080A72B791CFE0023F27E /* SocialMediaCollectionViewHeader.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED1080A62B791CFE0023F27E /* SocialMediaCollectionViewHeader.swift */; };
 		ED1263AB2B6F99F900AD99F3 /* UIView+AddSeparator.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED1263AA2B6F99F900AD99F3 /* UIView+AddSeparator.swift */; };
 		ED3EAC202B03C88100220A4A /* BottomTabBarButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED3EAC1F2B03C88100220A4A /* BottomTabBarButton.swift */; };
@@ -1336,6 +1337,7 @@
 		CDCA278C2248F34C00167D87 /* MWMRouterResultCode.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MWMRouterResultCode.h; sourceTree = "<group>"; };
 		CDCA278F2248F3B800167D87 /* MWMLocationModeListener.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MWMLocationModeListener.h; sourceTree = "<group>"; };
 		CDE0F3AD225B8D45008BA5C3 /* MWMSpeedCameraManagerMode.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MWMSpeedCameraManagerMode.h; sourceTree = "<group>"; };
+		ED0B1C302BC2951F00FB8EDD /* PrivacyInfo.xcprivacy */ = {isa = PBXFileReference; lastKnownFileType = text.xml; path = PrivacyInfo.xcprivacy; sourceTree = "<group>"; };
 		ED1080A62B791CFE0023F27E /* SocialMediaCollectionViewHeader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SocialMediaCollectionViewHeader.swift; sourceTree = "<group>"; };
 		ED1263AA2B6F99F900AD99F3 /* UIView+AddSeparator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIView+AddSeparator.swift"; sourceTree = "<group>"; };
 		ED3EAC1F2B03C88100220A4A /* BottomTabBarButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BottomTabBarButton.swift; sourceTree = "<group>"; };
@@ -1770,6 +1772,7 @@
 				34F73FA11E08300E00AC1FD6 /* Images.xcassets */,
 				34F73F5E1E082FF700AC1FD6 /* LocalizedStrings */,
 				8D1107310486CEB800E47090 /* OMaps.plist */,
+				ED0B1C302BC2951F00FB8EDD /* PrivacyInfo.xcprivacy */,
 				29B97315FDCFA39411CA2CEA /* Other Sources */,
 				19C28FACFE9D520D11CA2CBB /* Products */,
 				29B97317FDCFA39411CA2CEA /* Resources */,
@@ -3855,6 +3858,7 @@
 				34AB663B1FC5AA330078E451 /* RouteManagerViewController.xib in Resources */,
 				34D3B03F1E389D05004100F9 /* MWMEditorSwitchTableViewCell.xib in Resources */,
 				34D3B0451E389D05004100F9 /* MWMEditorTextTableViewCell.xib in Resources */,
+				ED0B1C312BC2951F00FB8EDD /* PrivacyInfo.xcprivacy in Resources */,
 				F64D9CA31C899C760063FA30 /* MWMEditorViralAlert.xib in Resources */,
 				6741A96D1BF340DE002C974C /* MWMLocationAlert.xib in Resources */,
 				3406FA191C6E0D8F00E9FAD2 /* MWMMapDownloadDialog.xib in Resources */,
